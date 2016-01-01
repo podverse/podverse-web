@@ -7,4 +7,4 @@ npm install
 
 node app.js
 
-open localhost:9000 in your browser
+open localhost:9000/index.html in your browser
