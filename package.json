@@ -1,0 +1,24 @@
+{
+  "name": "podverse-web",
+  "version": "1.0.0",
+  "description": "Web app for the Podverse podcast clip sharing system",
+  "main": "index.js",
+  "dependencies": {
+    "express": "^4.13.3",
+    "nunjucks": "^2.2.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/podverse/podverse-web.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/podverse/podverse-web/issues"
+  },
+  "homepage": "https://github.com/podverse/podverse-web#readme"
+}
