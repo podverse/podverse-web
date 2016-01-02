@@ -42,21 +42,19 @@ var createAndAppendAudio = function() {
     }
   }
 
-  audio.addEventListener('timeupdate', function() {
-      if (Math.floor(audio.currentTime) == endTime && endTimeHasBeenReached == false) {
-          endTimeHasBeenReached = true;
-          audio.pause();
-      }
-  },false);
-
-  audio.onseeking = function() {
-    console.log('is seeking');
-    audio.pause();
-    audio.play();
-  }
-
   audio.ontimeupdate = function() {
     lastPlaybackPosition = audio.currentTime;
+
+    // Stop the clip once when the end time has been reached
+    if (Math.floor(audio.currentTime) == endTime && endTimeHasBeenReached == false) {
+        endTimeHasBeenReached = true;
+        audio.pause();
+    }
+
+    // Skip to start time once when the user first hits play on mobile devices
+    if (lastPlaybackPosition == -1) {
+        audio.currentTime = startTime
+    }
   }
 
   audio.onerror = function(e) {
