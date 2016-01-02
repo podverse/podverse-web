@@ -23,8 +23,7 @@
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
-          <li><a href="#">About</a></li>
-          <li><a href="#">API</a></li>
+
 
           <!-- <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
@@ -49,11 +48,9 @@
         </form> -->
 
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-          <li><a href="https://twitter.com/podverse"><i class="fa fa-twitter"></i></a></li>
-          <li><a href="https://github.com/podverse"><i class="fa fa-github"></i></a></li>
-          <li><a href="https://reddit.com/r/podverse"><i class="fa fa-reddit-alien"></i></a></li>
-
+          <li><a href="#">Make Clips</a></li>
+          <li><a href="#">API</a></li>
+          <li><a href="#">About</a></li>
           <!-- <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
             <ul class="dropdown-menu">
@@ -72,17 +69,18 @@
   </nav>
 
   <div class="container">
-    <div class="row">
-      <div class="col-xs-12">
-        <h1>Layout title here</h1>
-        {% block body %}{% endblock %}
-      </div>
-    </div>
+    {% block body %}{% endblock %}
   </div>
 
   <footer class="footer">
     <p><i>Visit <a href="https://reddit.com/r/podverse">r/podverse</a> on reddit to browse today's top clips</i></p>
     <p>Ad-free and open source - Podverse&#8482;</p>
+    <p>
+      <a class="footer-social-icon" href="https://reddit.com/r/podverse"><i class="fa fa-reddit-alien"></i></a>
+      <a class="footer-social-icon" href="#"><i class="fa fa-facebook"></i></a>
+      <a class="footer-social-icon" href="https://twitter.com/podverse"><i class="fa fa-twitter"></i></a>
+      <a class="footer-social-icon" href="https://github.com/podverse"><i class="fa fa-github"></i></a>
+    </p>
   </footer>
 
   <script src="/bower_components/jquery/dist/jquery.min.js"></script>
