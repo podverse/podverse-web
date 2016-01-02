@@ -17,6 +17,7 @@ app.set('view engine', 'html');
 
 // app.use(express.static(__dirname + '/public'));
 app.use('/bower_components', express.static(__dirname + '/bower_components'));
+app.use('/libs', express.static(__dirname + '/libs'));
 
 app.get('/', function(req, res) {
   res.render('index.html');
