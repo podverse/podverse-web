@@ -27,7 +27,13 @@ html, body {
     float: right;
 }
 
-#player {}
+#player {
+    max-width: 400px;
+    margin: 0 0 10px 0;
+}
+.mejs-container, .mejs-layers .mejs-layer {
+  width: 100% !important;
+}
 
 .podcast-info {
     padding-bottom: 152px;
@@ -64,5 +70,21 @@ html, body {
 @media (min-width: 768px) {
     .podcast-info-text {
         padding-top: 13px;
+    }
+}
+
+@media (max-width: 767px) {
+    h3 {
+        font-size: 21px !important;
+    }
+    h4 {
+        font-size: 18px !important;
+    }
+    
+    .navbar-brand {
+        margin-left: -15px !important;
+    }
+    .navbar-toggle {
+        margin-right: 0 !important;
     }
 }

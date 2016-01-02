@@ -12,21 +12,24 @@ var dtfhEpisode = 'http://traffic.libsyn.com/lavenderhour/DTFH_178_zach_leary.mp
 
 var restartAttempts = 0;
 var lastPlaybackPosition = -1;
+var endTimeHasBeenReached = false;
 
 var startTime = "500";
 var endTime = "510";
 
 var createAndAppendAudio = function() {
   var audio = document.createElement('audio');
-  audio.setAttribute('src', dtfhEpisode);
+  audio.setAttribute('src', dchhEpisode);
   audio.setAttribute('type', 'audio/mpeg');
   audio.setAttribute('codecs', 'mp3');
-  audio.preload = "metadata";
+  audio.preload = "auto";
   // var source = document.createElement('source');
   // source.setAttribute('src', dtfhEpisode);
   // audio.appendChild(source);
   $('#player').append(audio);
-  $('audio').mediaelementplayer();
+  $('audio').mediaelementplayer({
+    alwaysShowHours: true
+  });
 
   audio.onloadedmetadata = function() {
     // If the lastPlaybackPosition is greater than -1, then the audio player must
@@ -38,6 +41,13 @@ var createAndAppendAudio = function() {
       audio.currentTime = startTime;
     }
   }
+
+  audio.addEventListener('timeupdate', function() {
+      if (Math.floor(audio.currentTime) == endTime && endTimeHasBeenReached == false) {
+          endTimeHasBeenReached = true;
+          audio.pause();
+      }
+  },false);
 
   audio.onseeking = function() {
     console.log('is seeking');
@@ -78,6 +88,14 @@ var createAndAppendAudio = function() {
         break;
     }
   }
+
+  $('#restart-clip').on('click', function() {
+    audio.pause();
+    endTimeHasBeenReached = false;
+    audio.currentTime = startTime;
+    audio.play();
+  });
+
 }
 
 $(document).ready(function() {
