@@ -43,8 +43,6 @@ var createAndAppendAudio = function() {
   }
 
   audio.ontimeupdate = function() {
-    lastPlaybackPosition = audio.currentTime;
-
     // Stop the clip once when the end time has been reached
     if (Math.floor(audio.currentTime) == endTime && endTimeHasBeenReached == false) {
         endTimeHasBeenReached = true;
@@ -55,6 +53,8 @@ var createAndAppendAudio = function() {
     if (lastPlaybackPosition == -1) {
         audio.currentTime = startTime
     }
+
+    lastPlaybackPosition = audio.currentTime;
   }
 
   audio.onerror = function(e) {
