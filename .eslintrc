@@ -1,0 +1,23 @@
+{
+    "extends": "eslint:recommended",
+    "env": {
+        "node": true
+    },
+    "ecmaFeatures": {
+        "templateStrings": true,
+        "arrowFunctions": true,
+        "blockBindings": true,
+        "classes": true,
+        "destructuring": true,
+        "modules": true,
+        "spread": true,
+        "objectLiteralShorthandMethods": true,
+        "experimentalObjectRestSpread": true
+    },
+    "rules": {
+        "no-unreachable": 1,
+        "no-unexpected-multiline": 1,
+        "no-console": 0,
+        "semi": [2, "always"]
+    }
+}

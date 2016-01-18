@@ -1,3 +1,5 @@
+"use strict";
+
 var express   = require('express'),
     bodyParser = require('body-parser'),
     app       = express(),
@@ -17,7 +19,6 @@ nunjucks.configure(_templates, {
 app.engine('html', nunjucks.render);
 app.set('view engine', 'html');
 
-// app.use(express.static(__dirname + '/public'));
 app.use('/bower_components', express.static(__dirname + '/bower_components'));
 app.use('/libs', express.static(__dirname + '/libs'));
 app.use(bodyParser.json());
@@ -26,6 +27,7 @@ app.get('/', function(req, res) {
   res.render('index.html');
 })
 
+// View a clip
 app.get('/c/:id', (req, res) => {
 
   clipRepository.getClip(req.params.id)
@@ -33,23 +35,29 @@ app.get('/c/:id', (req, res) => {
       res.render('index.html', clip);
     })
     .catch(e => {
+      console.error(e);
       res.sendStatus(404);
     });
-
 });
 
+// Create a clip
 app.post('/c', (req, res) => {
-  clipRepository.createClip(req.body)
+
+  let clip = req.body;
+
+  clipRepository.createClip(clip)
     .then(clipId => {
-      res.status(201).send({clipUri: `/c/${clipId}`});
+
+      // Send the URI of the clip back somehow
+      let result = {
+        clipUri: `/c/${clipId}`
+      }
+
+      res.status(201).send(result);
     })
     .catch(e => {
       res.status(500).send(e);
     })
-});
-
-app.get('/:page', function(req, res) {
-  res.render(req.params.page);
 });
 
 app.listen(port);
