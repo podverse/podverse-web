@@ -9,7 +9,7 @@ class ClipRepository {
   createClip (clip) {
     return new Promise ((res, rej) => {
       this._datastore.insert(clip, (e, clip) => {
-        if(e) rej(e)
+        if(e) {rej(e);}
         else res(clip._id);
       });
     });
@@ -19,7 +19,7 @@ class ClipRepository {
 
     return new Promise((res, rej) => {
       this._datastore.findOne({_id: id}, function(e, clip) {
-        if(e) rej(e)
+        if(e) {rej(e);}
         else res(clip);
       });
     });

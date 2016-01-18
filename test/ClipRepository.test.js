@@ -27,7 +27,7 @@ describe('ClipRepository', function () {
       )
 
       .then(clip => {
-        expect(clip.name).to.equal(testClip.name)
+        expect(clip.name).to.equal(testClip.name);
         done();
       })
 

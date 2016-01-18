@@ -1,0 +1,10 @@
+{
+    "extends": "../.eslintrc",
+    "env": {
+        "node": false,
+        "browser": true
+    },
+    "globals": {
+      "$": 1
+    }
+}

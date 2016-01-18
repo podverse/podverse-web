@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Web app for the Podverse podcast clip sharing system",
   "main": "index.js",
+
   "dependencies": {
     "body-parser": "^1.14.2",
     "express": "^4.13.3",
@@ -17,7 +18,8 @@
     "sinon": "^1.17.2"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node app.js",
+    "test": "eslint .;mocha"
   },
   "repository": {
     "type": "git",

@@ -25,7 +25,7 @@ app.use(bodyParser.json());
 
 app.get('/', function(req, res) {
   res.render('index.html');
-})
+});
 
 // View a clip
 app.get('/c/:id', (req, res) => {
@@ -51,13 +51,13 @@ app.post('/c', (req, res) => {
       // Send the URI of the clip back somehow
       let result = {
         clipUri: `/c/${clipId}`
-      }
+      };
 
       res.status(201).send(result);
     })
     .catch(e => {
       res.status(500).send(e);
-    })
+    });
 });
 
 app.listen(port);
