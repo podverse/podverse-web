@@ -4,10 +4,16 @@
 <div class="row">
   <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-xs-12">
     <div class="clip-info">
-      <h3>Often relegated to the role of slavish cannon fodder for Sparta’s spears, the Achaemenid Persian empire had a glorious heritage. Under a single king they created the greatest empire the world had ever seen.</h3>
+      <h3>{{ podcast.episode.clip.title }}</h3>
       <p>
-        <span class="clip-info-time"><b>Clip:</b> 0m 10s – 8:20 to 8:30</span>
-        <span class="clip-info-stats">Listens: 1234</span>
+        <!-- TODO: convert duration into a human readable #h ##m ##s format,
+        like: 3m 25s. Currently total seconds is displayed as the duration. -->
+        <span class="clip-info-time">
+          <b>Clip:</b> {{ podcast.episode.clip.duration }}s
+          – {{ podcast.episode.clip.startTime }}
+          to {{ podcast.episode.clip.endTime }}
+        </span>
+        <span class="clip-info-stats">Listens: 12345</span>
       </p>
       <div style="clear:both"></div>
     </div>
@@ -19,11 +25,13 @@
   </div>
   <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-xs-12">
     <div class="podcast-info">
-      <img src="http://www.dancarlin.com/graphics/DC_HH_iTunes.jpg"></img>
+      <!-- TODO: some podcasts do not have an imageURL. In those cases we'll
+      need to add logic to serve an itunesImageURL instead. -->
+      <img src="{{ podcast.imageURL }}"></img>
       <div class="podcast-info-text">
-        <h4>{{ podcast.name }}</h4>
-        <h5>King of Kings</h5>
-        <p>Wed, 28 Oct 2015</p>
+        <h4>{{ podcast.title }}</h4>
+        <h5>{{ podcast.episode.title }}</h5>
+        <p>{{ podcast.episode.pubDate }}</p>
       </div>
       <div style="clear:both"></div>
     </div>
