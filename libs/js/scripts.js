@@ -14,8 +14,8 @@ var restartAttempts = 0;
 var lastPlaybackPosition = -1;
 var endTimeHasBeenReached = false;
 
-var startTime = "500";
-var endTime = "510";
+var startTime = window.startTime;
+var endTime = window.endTime;
 
 var createAndAppendAudio = function() {
   var audio = document.createElement('audio');
