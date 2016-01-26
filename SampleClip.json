@@ -1,18 +1,19 @@
 {
     "podcast": {
         "title": "Joe Rogan Experience",
-        "name": "Joe Rogan Experience",
-        "imageURL": "http://static.libsyn.com/p/assets/0/8/6/8/08688b90de11f9ab/JREiTunesImage.jpg",
-        "episode": {
-            "title": "#646 - Dr. Dan Engle &amp; Aubrey Marcus",
-            "pubDate": "Tue, 12 May 2015",
-            "mediaURL": "http://traffic.libsyn.com/joeroganexp/p646.mp3",
-            "clip": {
-                "title": "Study shows that believing your work is 'good exercise' makes you healthier",
-                "startTime": "9381",
-                "endTime": "9507",
-                "duration": "126"
-            }
-        }
+        "imageURL": "http://static.libsyn.com/p/assets/0/8/6/8/08688b90de11f9ab/JREiTunesImage.jpg"
+    },
+
+    "episode": {
+        "title": "#646 - Dr. Dan Engle &amp; Aubrey Marcus",
+        "pubDate": "Tue, 12 May 2015",
+        "mediaURL": "http://traffic.libsyn.com/joeroganexp/p646.mp3"
+    },
+
+    "clip": {
+        "title": "Study shows that believing your work is 'good exercise' makes you healthier",
+        "startTime": "9381",
+        "endTime": "9507",
+        "duration": "126"
     }
 }

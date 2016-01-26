@@ -4,14 +4,14 @@
 <div class="row">
   <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-xs-12">
     <div class="clip-info">
-      <h3>{{ podcast.episode.clip.title }}</h3>
+      <h3>{{ clip.title }}</h3>
       <p>
         <!-- TODO: convert duration into a human readable #h ##m ##s format,
         like: 3m 25s. Currently total seconds is displayed as the duration. -->
         <span class="clip-info-time">
-          <b>Clip:</b> {{ podcast.episode.clip.duration }}s
-          – {{ podcast.episode.clip.startTime }}
-          to {{ podcast.episode.clip.endTime }}
+          <b>Clip:</b> {{ clip.duration }}s
+          – {{ clip.startTime }}
+          to {{ clip.endTime }}
         </span>
         <span class="clip-info-stats">Listens: 12345</span>
       </p>
@@ -30,8 +30,8 @@
       <img src="{{ podcast.imageURL }}"></img>
       <div class="podcast-info-text">
         <h4>{{ podcast.title }}</h4>
-        <h5>{{ podcast.episode.title }}</h5>
-        <p>{{ podcast.episode.pubDate }}</p>
+        <h5>{{ episode.title }}</h5>
+        <p>{{ episode.pubDate }}</p>
       </div>
       <div style="clear:both"></div>
     </div>
@@ -40,9 +40,9 @@
 
 <script>
 
-    window.mediaURL = "{{ podcast.episode.mediaURL }}";
-    window.startTime = "{{ podcast.episode.clip.startTime }}";
-    window.endTime = "{{ podcast.episode.clip.endTime }}";
+    window.mediaURL = "{{ episode.mediaURL }}";
+    window.startTime = "{{ clip.startTime }}";
+    window.endTime = "{{ clip.endTime }}";
 
 </script>
 
