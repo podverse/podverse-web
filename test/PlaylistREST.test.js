@@ -39,7 +39,7 @@ describe('Playlist Endpoint', function () {
         .post('/pl')
         .send(playlist)
         .then(res=>{
-          responseBody = res.body
+          responseBody = res.body;
           done();
         })
         .catch(err=>done(err));
@@ -50,7 +50,7 @@ describe('Playlist Endpoint', function () {
     });
 
     it('should contain the url', function () {
-      expect(responseBody.url).to.contain('/pl/test')
+      expect(responseBody.url).to.contain('/pl/test');
     });
 
     it('should have the playlist available via slug', function (done) {
@@ -86,7 +86,7 @@ describe('Playlist Endpoint', function () {
         .put('/pl')
         .send(playlist)
         .then(res=> {
-          responseCode = res.statusCode
+          responseCode = res.statusCode;
           done();
         })
         .catch(err=>{
@@ -124,7 +124,7 @@ describe('Playlist Endpoint', function () {
         .put('/pl/hooHa-playlist')
         .send(playlist)
         .then(res=> {
-          responseBody = res.body
+          responseBody = res.body;
           done();
         })
         .catch(err=>done(err));
@@ -136,7 +136,7 @@ describe('Playlist Endpoint', function () {
     });
 
     it('should contain the url', function () {
-      expect(responseBody.url).to.contain('/pl/hooHa-playlist')
+      expect(responseBody.url).to.contain('/pl/hooHa-playlist');
     });
 
     it('should not consider the given id', function () {
@@ -159,7 +159,7 @@ describe('Playlist Endpoint', function () {
         .send(playlist)
         .then(res=> {
 
-          responseBody = res.body
+          responseBody = res.body;
           done();
         })
         .catch(err=>done(err));
@@ -171,7 +171,7 @@ describe('Playlist Endpoint', function () {
     });
 
     it('should contain the url', function () {
-      expect(responseBody.url).to.contain('/pl/hooHa-playlist')
+      expect(responseBody.url).to.contain('/pl/hooHa-playlist');
     });
 
     it('should not consider the given id', function () {
