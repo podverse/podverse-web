@@ -74,6 +74,9 @@ class PlaylistService extends NeDBService {
 
       let opts = {returnUpdatedDocs:true, upsert:true};
 
+
+      data = this._transformBeforeSave(data);
+      
       this.Model.update({$or: [{_id:id},{_slug:id}]}, data, opts, (err, num, playlist) => {
 
         if(err) {
@@ -85,7 +88,7 @@ class PlaylistService extends NeDBService {
             playlist = _.first(playlist);
           }
 
-          playlist = this._transformBeforeSave(playlist);
+          playlist = this._transformAfterRetrieval(playlist);
 
           resolve(playlist);
         } else {

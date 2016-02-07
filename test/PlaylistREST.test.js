@@ -135,6 +135,10 @@ describe('Playlist Endpoint', function () {
       expect(responseBody.length).not.to.be.ok;
     });
 
+    it('should contain the url', function () {
+      expect(responseBody.url).to.contain('/pl/hooHa-playlist')
+    });
+
     it('should not consider the given id', function () {
       expect(responseBody._id).not.to.equal('sentId');
     });
@@ -164,6 +168,10 @@ describe('Playlist Endpoint', function () {
 
     it('should have modified the slug accordingly', function () {
       expect(responseBody._slug).to.equal('hooHa-playlist');
+    });
+
+    it('should contain the url', function () {
+      expect(responseBody.url).to.contain('/pl/hooHa-playlist')
     });
 
     it('should not consider the given id', function () {
