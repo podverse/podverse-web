@@ -15,6 +15,7 @@
   },
   "devDependencies": {
     "chai": "^3.4.1",
+    "chai-http": "^2.0.1",
     "chance": "^0.8.0",
     "eslint": "^1.10.3",
     "mocha": "^2.3.4",

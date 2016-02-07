@@ -1,6 +1,6 @@
 "use strict";
 
-let NeDB = require('nedb'),
+let
   NeDBService = require('feathers-nedb').Service,
   errors = require('feathers-errors').default,
   _ = require('lodash'),
@@ -9,13 +9,19 @@ let NeDB = require('nedb'),
 
 class PlaylistService extends NeDBService {
 
-  _assertModel (data) {
-
+  _transformAfterRetrieval (data) {
     // Add in URL
     let id = data._slug || data._id;
     data.url = `${config.baseURL}/pl/${id}`;
 
-    // assert items
+    return data;
+  }
+
+  _transformBeforeSave (data) {
+
+    delete data.url;
+
+    data._slug = data._slug || uuid.v4();
     data.items = data.items || [];
 
     return data;
@@ -31,7 +37,7 @@ class PlaylistService extends NeDBService {
           reject(new errors.NotFound(`Could not find a playlist by "${id}"`));
         } else {
 
-          playlist = this._assertModel(playlist);
+          playlist = this._transformAfterRetrieval(playlist);
           resolve(playlist);
         }
       });
@@ -42,30 +48,48 @@ class PlaylistService extends NeDBService {
   }
 
   create (data) {
-    data._slug = data._slug || uuid.v4();
+
+    data = this._transformBeforeSave(data);
+
+    // Don't use whatever id is being sent.
+    delete data._id;
+
     return super.create.apply(this, arguments)
-      .then((pl => this._assertModel(pl)));
+      .then((pl => this._transformAfterRetrieval(pl)));
   }
 
   update (id, data) {
 
+    // Don't use whatever id is being sent in the payload.
     delete data._id;
+
+    // Make sure the data _slug reflects the playlist we're posting.
+    data._slug = id;
 
     return new Promise((resolve, reject) => {
 
-      this.Model.update({$or: [{_id:id},{_slug:id}]}, data, {returnUpdatedDocs:true}, (err, num, playlist) => {
+      if(!id) {
+          throw new errors.NotAcceptable(`Try using POST instead of PUT.`);
+      }
+
+      let opts = {returnUpdatedDocs:true, upsert:true};
+
+      this.Model.update({$or: [{_id:id},{_slug:id}]}, data, opts, (err, num, playlist) => {
 
         if(err) {
           reject(err);
-        } else if(playlist.length === 1) {
+        } else if(playlist) {
 
-          playlist = _.first(playlist);
+          // Shift a single playlist out of an array.
+          if(Array.isArray(playlist) && playlist.length === 1) {
+            playlist = _.first(playlist);
+          }
 
-          playlist = this._assertModel(playlist);
+          playlist = this._transformBeforeSave(playlist);
 
           resolve(playlist);
         } else {
-          reject('Nothing changed');
+          reject(new errors.NotFound(`Could not find a playlist by "${id}"`));
         }
       });
     });
@@ -73,11 +97,6 @@ class PlaylistService extends NeDBService {
 
 }
 
-const db = new NeDB({
-  filename: './playlists.db',
-  autoload: true
-});
 
-db.ensureIndex({fieldName: '_slug', unique: true});
 
-module.exports = new PlaylistService({Model:db});
+module.exports = PlaylistService;
