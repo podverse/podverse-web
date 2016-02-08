@@ -10,7 +10,26 @@ let feathers   = require('feathers'),
     app = feathers(),
     NeDB = require('nedb');
 
-app.configure(feathers.rest());
+
+
+app.configure(feathers.rest(function restFormatter (req, res) {
+
+  res.format({
+    'default': () => {
+      res.json(res.data);
+    },
+    'application/json': () => {
+      res.json(res.data);
+    },
+    'application/rss+xml': () => {
+      let playlistRssConverter = require('./PlaylistRSSConverter.js');
+      res.end(playlistRssConverter(res.data));
+    }
+  });
+}));
+
+
+
 app.use(bodyParser.json());
 nunjucks.configure(__dirname + '/templates', {
   autoescape: true,
@@ -33,8 +52,8 @@ const db = new NeDB({
 });
 
 db.ensureIndex({fieldName: '_slug', unique: true});
+app.use('/pl', new PlaylistService({Model: db}));
 
-app.use('pl', new PlaylistService({Model: db}));
 ///////////
 ///
 ///
