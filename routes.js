@@ -7,7 +7,7 @@ let
 module.exports = app => {
 
   app.get('/', function(req, res) {
-    res.render('index.html');
+    res.render('player.html');
   });
 
   // View a clip
@@ -15,7 +15,7 @@ module.exports = app => {
 
     clipRepository.getClip(req.params.id)
       .then(clip => {
-        res.render('index.html', clip);
+        res.render('player.html', clip);
       })
       .catch(e => {
         console.error(e);
