@@ -13,6 +13,10 @@ html, body {
     position: relative;
 }
 
+.padding-for-footer {
+    padding-bottom: 110px;
+}
+
 .navbar {
     margin-bottom: 0;
 }
