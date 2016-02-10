@@ -2,7 +2,10 @@
 
 let
   clipRepository = new (require('./ClipRepository.js'))(),
+  playlistServiceFactory = require('./playlistServiceFactory.js'),
   config = require('./config.js');
+
+
 
 module.exports = app => {
 
@@ -40,6 +43,16 @@ module.exports = app => {
       })
       .catch(e => {
         res.status(500).send(e);
+      });
+  });
+
+
+  app.get('/playlist/:id', (req, res) => {
+    let svc = playlistServiceFactory();
+    svc.get(req.params.id)
+      .then(playlist => res.render('player.html', playlist))
+      .catch(e=> {
+        res.sendStatus(404);
       });
   });
 
