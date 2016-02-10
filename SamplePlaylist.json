@@ -1,0 +1,52 @@
+{
+    "playlist": [
+        {
+            "title": "#265 - The episode where some stuff happened",
+            "duration": "50:25",
+            "pubDate": "2016-02-07 22:30:55 +0000",
+            "mediaURL": "http://traffic.libsyn.com/lavenderhour/DTFH_183_Aaron_Frank.mp3",
+            "podcast": {
+                "title": "The Best Podcast Ever Show",
+                "imageURL": "https://pbs.twimg.com/profile_images/483390499030450177/tMc95Jty_400x400.jpeg"
+            }
+        },
+        {
+            "title": "Best part from the whole podcast when the stuff finally happened",
+            "duration": "4:19",
+            "startTime": "10:01",
+            "endTime": "14:20",
+            "episode": {
+                "title": "#265 - The episode where some stuff happened",
+                "mediaURL": "http://traffic.libsyn.com/lavenderhour/DTFH_183_Aaron_Frank.mp3"
+            },
+            "podcast": {
+                "title": "The Best Podcast Ever Show",
+                "imageURL": "https://pbs.twimg.com/profile_images/483390499030450177/tMc95Jty_400x400.jpeg"
+            }
+        },
+        {
+            "title": "#129 - The episode where not really much happened",
+            "duration": "1:08:42",
+            "pubDate": "2014-11-23 12:42:30 +0000",
+            "mediaURL": "http://traffic.libsyn.com/lavenderhour/DTFH_181_emil_amos.mp3",
+            "podcast": {
+                "title": "The Best Podcast Ever Show",
+                "imageURL": "https://pbs.twimg.com/profile_images/483390499030450177/tMc95Jty_400x400.jpeg"
+            }
+        },
+        {
+            "title": "Worst part of the podcast when the least happened",
+            "duration": "1:32",
+            "startTime": "47:28",
+            "endTime": "49:00",
+            "episode": {
+                "title": "#129 - The episode where not really much happened",
+                "mediaURL": "http://traffic.libsyn.com/lavenderhour/DTFH_181_emil_amos.mp3"
+            },
+            "podcast": {
+                "title": "The Best Podcast Ever Show",
+                "imageURL": "https://pbs.twimg.com/profile_images/483390499030450177/tMc95Jty_400x400.jpeg"
+            }
+        }
+    ]
+}

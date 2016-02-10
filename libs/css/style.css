@@ -87,7 +87,10 @@ html, body {
     margin: 0 0 10px 0;
 }
 
-.playlist-item {}
+.playlist-item {
+    clear: both;
+    margin: 0 0 20px 0;
+}
 
 .playlist-item-image {
     float: left;
