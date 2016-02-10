@@ -14,4 +14,4 @@ module.exports = function playlistServiceFactory () {
   db.ensureIndex({fieldName: '_slug', unique: true});
 
   return new PlaylistService({Model: db});
-}
+};

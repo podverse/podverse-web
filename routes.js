@@ -51,9 +51,9 @@ module.exports = app => {
     let svc = playlistServiceFactory();
     svc.get(req.params.id)
       .then(playlist => res.render('player.html', playlist))
-      .catch(e=> {
+      .catch(()=> {
         res.sendStatus(404);
       });
   });
 
-}
+};
