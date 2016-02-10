@@ -6,9 +6,8 @@ let feathers   = require('feathers'),
 
     config = require('./config.js'),
     attachRoutes = require('./routes.js'),
-    PlaylistService=  require('./PlaylistService.js'),
     app = feathers(),
-    NeDB = require('nedb');
+    playlistServiceFactory = require('./playlistServiceFactory.js');
 
 
 
@@ -46,13 +45,7 @@ attachRoutes(app);
 
 //
 //// Playlists
-const db = new NeDB({
-  filename: './playlists.db',
-  autoload: true
-});
-
-db.ensureIndex({fieldName: '_slug', unique: true});
-app.use('/pl', new PlaylistService({Model: db}));
+app.use('/pl', playlistServiceFactory());
 
 ///////////
 ///
