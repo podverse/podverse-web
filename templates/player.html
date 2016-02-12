@@ -41,9 +41,9 @@
 
     <div id="playlist">
       <div id="playlist-header">
-        Playlist
+        {{ playlistTitle }}
       </div>
-      {% for item in playlist %}
+      {% for item in playlistItems %}
         <!-- if item has a startTime, then consider it a clip -->
         {% if item.startTime %}
           <div class="playlist-item">

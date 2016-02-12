@@ -1,5 +1,6 @@
 {
-    "playlist": [
+    "playlistTitle": "Creative Playlist Title",
+    "playlistItems": [
         {
             "title": "#265 - The episode where some stuff happened",
             "duration": "50:25",
