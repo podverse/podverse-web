@@ -10,7 +10,7 @@ if (isClip === true) {
   $('#player-podcast-title').html(podcastTitle);
   $('#player-sub-title').html(episodeTitle);
   $('#player-title').html(clipTitle);
-  $('#player-stats-duration').html('Clip:' + clipDuration + ' - ' + clipStartTime + ' to ' + clipEndTime);
+  $('#player-stats-duration').html('Clip:' + duration + ' - ' + clipStartTime + ' to ' + clipEndTime);
   $('#player-stats-listens').html('Listens: 1234');
   $('#player-restart-clip').html('Restart Clip');
 } else {
