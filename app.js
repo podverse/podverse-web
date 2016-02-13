@@ -9,8 +9,6 @@ let feathers   = require('feathers'),
     app = feathers(),
     playlistServiceFactory = require('./playlistServiceFactory.js');
 
-
-
 app.configure(feathers.rest(function restFormatter (req, res) {
 
   res.format({
@@ -30,10 +28,17 @@ app.configure(feathers.rest(function restFormatter (req, res) {
 
 
 app.use(bodyParser.json());
-nunjucks.configure(__dirname + '/templates', {
+
+var env = nunjucks.configure(__dirname + '/templates', {
   autoescape: true,
   cache: false,
   express: app
+});
+
+env.addFilter('stringify', function(str) {
+  var s = JSON.stringify(str);
+  s = s.replace(/&quot;/g,'"');
+  return s
 });
 
 app.use('/bower_components', feathers.static(__dirname + '/bower_components'));

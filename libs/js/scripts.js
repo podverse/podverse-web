@@ -10,7 +10,7 @@ if (isClip === true) {
   $('#player-podcast-title').html(podcastTitle);
   $('#player-sub-title').html(episodeTitle);
   $('#player-title').html(clipTitle);
-  $('#player-stats-duration').html('Clip:' + duration + ' - ' + clipStartTime + ' to ' + clipEndTime);
+  $('#player-stats-duration').html('Clip:' + duration + ' - ' + startTime + ' to ' + endTime);
   $('#player-stats-listens').html('Listens: 1234');
   $('#player-restart-clip').html('Restart Clip');
 } else {
@@ -46,20 +46,20 @@ var createAndAppendAudio = function() {
     if (lastPlaybackPosition > -1) {
       audio.currentTime = lastPlaybackPosition;
     } else {
-      audio.currentTime = clipStartTime;
+      audio.currentTime = startTime;
     }
   };
 
   audio.ontimeupdate = function() {
     // Stop the clip once when the end time has been reached
-    if (Math.floor(audio.currentTime) == clipEndTime && endTimeHasBeenReached == false) {
+    if (Math.floor(audio.currentTime) == endTime && endTimeHasBeenReached == false) {
         endTimeHasBeenReached = true;
         audio.pause();
     }
 
     // Skip to start time once when the user first hits play on mobile devices
     if (lastPlaybackPosition == -1) {
-        audio.currentTime = clipStartTime;
+        audio.currentTime = startTime;
     }
 
     // TODO: Can this be made more efficient than rewriting the lastPlaybackPosition
@@ -101,7 +101,7 @@ var createAndAppendAudio = function() {
   $('#restart-clip').on('click', function() {
     audio.pause();
     endTimeHasBeenReached = false;
-    audio.currentTime = clipStartTime;
+    audio.currentTime = startTime;
     audio.play();
   });
 
