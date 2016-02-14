@@ -31,6 +31,8 @@ var loadPlaylistItem = function(index) {
     startTime = "0";
     endTime = item.duration;
   }
+  
+  window.location.hash = index + 1;
 
   setPlayerInfo();
   createAndAppendAudio();

@@ -100,8 +100,13 @@
     // use the playlistItems object in the scripts.js file
     {% if playlistItems %}
       window.playlistItems = {{ playlistItems|stringify|safe }};
-
-      var item = playlistItems[0];
+      
+      var item;
+      if (urlHashIndexValue > 0) {
+        item = playlistItems[urlHashIndexValue];
+      } else {
+        item = playlistItems[0];
+      }
 
       // Only clips have a startTime and endTime
       window.startTime = item.startTime;
