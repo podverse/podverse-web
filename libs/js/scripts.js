@@ -143,15 +143,25 @@ var createAndAppendAudio = function() {
         break;
     }
   };
-
-  $('#player-restart-clip').on('click', function() {
-    audio.pause();
-    endTimeHasBeenReached = false;
-    audio.currentTime = startTime;
-    audio.play();
-  });
-
 };
+
+$('#player-autoplay').on('click', function() {
+  toggleAutoplay();
+});
+
+var toggleAutoplay = function() {
+  autoPlay = !autoPlay;
+  if (autoPlay) {
+    $('#player-autoplay').html('Autoplay On');
+  } else {
+    $('#player-autoplay').html('Autoplay Off');
+  }
+
+}
+
+// Toggle the autoplay to True by default on page load
+window.autoPlay = false;
+toggleAutoplay();
 
 $(document).ready(function() {
   createAndAppendAudio();

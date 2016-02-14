@@ -75,9 +75,13 @@ html, body {
     float: right;
 }
 
-#player-restart-clip {
+#player-restart-clip {}
+
+#player-autoplay {
+    float: right;
     clear: both;
 }
+
 
 #playlist {}
 
