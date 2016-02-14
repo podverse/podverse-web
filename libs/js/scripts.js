@@ -31,7 +31,7 @@ var loadPlaylistItem = function(index) {
     startTime = "0";
     endTime = item.duration;
   }
-  
+
   window.location.hash = index + 1;
 
   setPlayerInfo();
@@ -49,6 +49,7 @@ var setPlayerInfo = function() {
     $('#player-stats-duration').html('Clip:' + duration + ' - ' + startTime + ' to ' + endTime);
     $('#player-stats-listens').html('Listens: 1234');
     $('#player-restart-clip').html('Restart Clip');
+    $('#player-restart-clip').css('display', 'block');
   } else {
     $('#player-image img').attr('src', podcastImageURL);
     $('#player-podcast-title').html(podcastTitle);
@@ -143,7 +144,7 @@ var createAndAppendAudio = function() {
     }
   };
 
-  $('#restart-clip').on('click', function() {
+  $('#player-restart-clip').on('click', function() {
     audio.pause();
     endTimeHasBeenReached = false;
     audio.currentTime = startTime;
