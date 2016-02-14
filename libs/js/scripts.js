@@ -3,31 +3,73 @@
 // Podcast / Episode / Clip variables added to the window
 // object in player.html
 
-// Insert content into template differently depending on
-// whether the item is a clip or an episode
-if (isClip === true) {
-  $('#player-image img').attr('src', podcastImageURL);
-  $('#player-podcast-title').html(podcastTitle);
-  $('#player-sub-title').html(episodeTitle);
-  $('#player-title').html(clipTitle);
-  $('#player-stats-duration').html('Clip:' + duration + ' - ' + startTime + ' to ' + endTime);
-  $('#player-stats-listens').html('Listens: 1234');
-  $('#player-restart-clip').html('Restart Clip');
-} else {
-  $('#player-image img').attr('src', podcastImageURL);
-  $('#player-podcast-title').html(podcastTitle);
-  $('#player-sub-title').html(episodePubDate);
-  $('#player-title').html(episodeTitle);
-  $('#player-stats-duration').html('Full Episode');
-  $('#player-stats-listens').html('Listens: 1234');
-  $('#player-restart-clip').css('display', 'none');
+var loadPlaylistItem = function(index) {
+  var item = playlistItems[index];
+
+  // Only clips have a startTime and endTime
+  startTime = item.startTime;
+  endTime = item.endTime;
+  isClip = typeof startTime !== "undefined" ? true : false;
+
+  if (isClip === true) {
+    clipTitle = item.title;
+    duration = item.duration;
+    podcastTitle = item.podcast.title;
+    podcastImageURL = item.podcast.imageURL;
+    episodeTitle = item.episode.title;
+    episodeMediaURL = item.episode.mediaURL;
+    episodePubDate = item.episode.pubDate;
+  } else { // handle item as episode
+    clipTitle = "";
+    duration = item.duration;
+    podcastTitle = item.podcast.title;
+    podcastImageURL = item.podcast.imageURL;
+    episodeTitle = item.title;
+    episodeMediaURL = item.mediaURL;
+    episodePubDate = item.pubDate;
+
+    startTime = "0";
+    endTime = item.duration;
+  }
+
+  setPlayerInfo();
+  createAndAppendAudio();
 }
 
-var restartAttempts = 0;
-var lastPlaybackPosition = -1;
-var endTimeHasBeenReached = false;
+var setPlayerInfo = function() {
+  // Insert content into template differently depending on
+  // whether the item is a clip or an episode
+  if (isClip === true) {
+    $('#player-image img').attr('src', podcastImageURL);
+    $('#player-podcast-title').html(podcastTitle);
+    $('#player-sub-title').html(episodeTitle);
+    $('#player-title').html(clipTitle);
+    $('#player-stats-duration').html('Clip:' + duration + ' - ' + startTime + ' to ' + endTime);
+    $('#player-stats-listens').html('Listens: 1234');
+    $('#player-restart-clip').html('Restart Clip');
+  } else {
+    $('#player-image img').attr('src', podcastImageURL);
+    $('#player-podcast-title').html(podcastTitle);
+    $('#player-sub-title').html(episodePubDate);
+    $('#player-title').html(episodeTitle);
+    $('#player-stats-duration').html('Full Episode');
+    $('#player-stats-listens').html('Listens: 1234');
+    $('#player-restart-clip').css('display', 'none');
+  }
+
+  window.restartAttempts = 0;
+  window.lastPlaybackPosition = -1;
+  window.endTimeHasBeenReached = false;
+}
+
+setPlayerInfo();
 
 var createAndAppendAudio = function() {
+
+  // If audio player elements are already on the page, remove them first.
+  $('.mejs-offscreen').remove();
+  $('.mejs-container').remove();
+
   var audio = document.createElement('audio');
   audio.setAttribute('src', episodeMediaURL);
   audio.setAttribute('type', 'audio/mpeg');
@@ -46,7 +88,8 @@ var createAndAppendAudio = function() {
     if (lastPlaybackPosition > -1) {
       audio.currentTime = lastPlaybackPosition;
     } else {
-      audio.currentTime = startTime;
+      console.log(startTime);
+      audio.currentTime = startTime || 0;
     }
   };
 
