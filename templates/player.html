@@ -61,7 +61,7 @@
                 {{ item.podcast.title }}
               </div>
               <div class="playlist-item-duration">
-                {{ item.duration }}
+                {{ item.duration|convertSecToHHMMSS }}
               </div>
               <div class="playlist-item-sub-title">
                 {{ item.episode.title }}
@@ -81,7 +81,7 @@
                 {{ item.podcast.title }}
               </div>
               <div class="playlist-item-duration">
-                {{ item.duration }}
+                {{ item.duration|convertSecToHHMMSS }}
               </div>
               <div class="playlist-item-sub-title">
                 Full Episode - {{ item.pubDate }}
