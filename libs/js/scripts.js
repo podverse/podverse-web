@@ -73,7 +73,7 @@ var createAndAppendAudio = function() {
   $('.mejs-offscreen').remove();
   $('.mejs-container').remove();
 
-  var audio = document.createElement('audio');
+  window.audio = document.createElement('audio');
   audio.setAttribute('src', episodeMediaURL);
   audio.setAttribute('type', 'audio/mpeg');
   audio.setAttribute('codecs', 'mp3');
@@ -145,6 +145,13 @@ var createAndAppendAudio = function() {
   };
 };
 
+$('#player-restart-clip').on('click', function() {
+  audio.pause();
+  endTimeHasBeenReached = false;
+  audio.currentTime = startTime;
+  audio.play();
+});
+
 $('#player-autoplay').on('click', function() {
   toggleAutoplay();
 });
@@ -156,10 +163,10 @@ var toggleAutoplay = function() {
   } else {
     $('#player-autoplay').html('Autoplay Off');
   }
-
 }
 
 // Toggle the autoplay to True by default on page load
+// TODO: remove autoplay on mobile devices since they do not support autoplay
 window.autoPlay = false;
 toggleAutoplay();
 
