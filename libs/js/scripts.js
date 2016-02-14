@@ -34,6 +34,10 @@ var convertSecToHHMMSS = function(sec) {
   return result
 }
 
+var readableDate = function(date) {
+  return date.substring(0, 10);
+}
+
 // Podcast / Episode / Clip variables added to the window
 // object in player.html
 
@@ -87,9 +91,9 @@ var setPlayerInfo = function() {
   } else {
     $('#player-image img').attr('src', podcastImageURL);
     $('#player-podcast-title').html(podcastTitle);
-    $('#player-sub-title').html(episodePubDate);
+    $('#player-sub-title').html('');
     $('#player-title').html(episodeTitle);
-    $('#player-stats-duration').html('Full Episode');
+    $('#player-stats-duration').html('Full Episode: ' + readableDate(episodePubDate));
     $('#player-stats-listens').html('Listens: 1234');
     $('#player-restart-clip').css('display', 'none');
   }

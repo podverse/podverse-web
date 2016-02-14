@@ -40,6 +40,10 @@ env.addFilter('stringify', function(str) {
   return s
 });
 
+env.addFilter('readableDate', function(date) {
+  return date.substring(0, 10);
+});
+
 // TODO: This identify function is also in the scripts.js. Probably this should
 // be refactored somehow.
 env.addFilter('convertSecToHHMMSS', function(sec) {
