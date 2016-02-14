@@ -10,7 +10,15 @@ let
 module.exports = app => {
 
   app.get('/', function(req, res) {
-    res.render('player.html');
+    res.render('home.html');
+  });
+
+  app.get('/mobile-app', function(req, res) {
+    res.render('mobile-app.html');
+  });
+
+  app.get('/about', function(req, res) {
+    res.render('about.html');
   });
 
   // View a clip
