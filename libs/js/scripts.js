@@ -24,7 +24,7 @@ var convertSecToHHMMSS = function(sec) {
   if (seconds > 9) {
     result += seconds;
   } else if (seconds > 0 && minutes > 0) {
-    result += '0' + minutes + ':';
+    result += '0' + seconds + ':';
   } else if (seconds > 0) {
     result += seconds;
   } else {
