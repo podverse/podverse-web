@@ -129,7 +129,6 @@ var createAndAppendAudio = function() {
     if (lastPlaybackPosition > -1) {
       audio.currentTime = lastPlaybackPosition;
     } else {
-      console.log(startTime);
       audio.currentTime = startTime || 0;
     }
   };

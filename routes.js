@@ -10,14 +10,17 @@ let
 module.exports = app => {
 
   app.get('/', function(req, res) {
+    res.locals.currentPage = 'Home';
     res.render('home.html');
   });
 
   app.get('/mobile-app', function(req, res) {
+    res.locals.currentPage = 'Mobile App';
     res.render('mobile-app.html');
   });
 
   app.get('/about', function(req, res) {
+    res.locals.currentPage = 'About';
     res.render('about.html');
   });
 
@@ -26,6 +29,7 @@ module.exports = app => {
 
     clipRepository.getClip(req.params.id)
       .then(clip => {
+        res.locals.currentPage = 'Clip';
         res.render('player.html', clip);
       })
       .catch(e => {
@@ -57,6 +61,7 @@ module.exports = app => {
 
   app.get('/playlist/:id', (req, res) => {
     let svc = playlistServiceFactory();
+    res.locals.currentPage = 'Playlist'
     svc.get(req.params.id)
       .then(playlist => res.render('player.html', playlist))
       .catch(()=> {
