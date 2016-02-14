@@ -3,7 +3,7 @@
     "playlistItems": [
         {
             "title": "#265 - The episode where some stuff happened",
-            "duration": "50:25",
+            "duration": "3025",
             "pubDate": "2016-02-07 22:30:55 +0000",
             "mediaURL": "http://traffic.libsyn.com/lavenderhour/DTFH_183_Aaron_Frank.mp3",
             "podcast": {
@@ -13,9 +13,9 @@
         },
         {
             "title": "Best part from the whole podcast when the stuff finally happened",
-            "duration": "4:19",
-            "startTime": "10:01",
-            "endTime": "14:20",
+            "duration": "259",
+            "startTime": "601",
+            "endTime": "860",
             "episode": {
                 "title": "#265 - The episode where some stuff happened",
                 "mediaURL": "http://traffic.libsyn.com/lavenderhour/DTFH_183_Aaron_Frank.mp3"
@@ -27,7 +27,7 @@
         },
         {
             "title": "#129 - The episode where not really much happened",
-            "duration": "1:08:42",
+            "duration": "4122",
             "pubDate": "2014-11-23 12:42:30 +0000",
             "mediaURL": "http://traffic.libsyn.com/lavenderhour/DTFH_181_emil_amos.mp3",
             "podcast": {
@@ -37,9 +37,9 @@
         },
         {
             "title": "Worst part of the podcast when the least happened",
-            "duration": "1:32",
-            "startTime": "47:28",
-            "endTime": "49:00",
+            "duration": "92",
+            "startTime": "2848",
+            "endTime": "2940",
             "episode": {
                 "title": "#129 - The episode where not really much happened",
                 "mediaURL": "http://traffic.libsyn.com/lavenderhour/DTFH_181_emil_amos.mp3"
