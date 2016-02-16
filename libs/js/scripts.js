@@ -228,3 +228,8 @@ createAutoplayBtn();
 $(document).ready(function() {
   createAndAppendAudio();
 });
+
+$('.playlist-item').on('click', function() {
+  var index = $(".playlist-item").index(this);
+  loadPlaylistItem(index);
+});

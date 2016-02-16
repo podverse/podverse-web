@@ -52,9 +52,4 @@
     // If a clip.startTime is provided, handle item as a clip
     window.isClip = window.startTime !== "" ? true : false;
   {% endif %}
-
-  $('.playlist-item').on('click', function() {
-    var index = $(".playlist-item").index(this);
-    loadPlaylistItem(index);
-  });
 </script>
