@@ -24,7 +24,7 @@
     "sinon": "^1.17.2"
   },
   "scripts": {
-    "start": "node app.js",
+    "start": "node index.js",
     "test": "eslint .;mocha"
   },
   "repository": {

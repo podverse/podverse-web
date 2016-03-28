@@ -3,7 +3,8 @@
 let
   clipRepository = new (require('./ClipRepository.js'))(),
   playlistServiceFactory = require('./playlistServiceFactory.js'),
-  config = require('./config.js');
+  config = require('./config.js'),
+  requireAPISecret = require('./requireAPISecretMiddleware.js');
 
 
 
@@ -39,13 +40,12 @@ module.exports = app => {
   });
 
   // Create a clip
-  app.post('/c', (req, res) => {
+  app.post('/c', requireAPISecret, (req, res) => {
 
     let clip = req.body;
 
     clipRepository.createClip(clip)
       .then(clipId => {
-
         // Send the URI of the clip back somehow
         let result = {
           clipUri: `${config.baseURL}/c/${clipId}`
@@ -61,12 +61,19 @@ module.exports = app => {
 
   app.get('/playlist/:id', (req, res) => {
     let svc = playlistServiceFactory();
-    res.locals.currentPage = 'Playlist'
+    res.locals.currentPage = 'Playlist';
     svc.get(req.params.id)
       .then(playlist => res.render('player.html', playlist))
       .catch(()=> {
         res.sendStatus(404);
       });
   });
+
+  //
+  //// Playlists
+  ///
+  app.use('/pl', require('./requireAPISecretMiddleware.js'));
+  app.use('/pl', playlistServiceFactory());
+
 
 };

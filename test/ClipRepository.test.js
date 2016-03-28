@@ -17,7 +17,7 @@ describe('ClipRepository', function () {
     clipRepo = new ClipRepository(clipsDb);
   });
 
-  it('should do something', function (done) {
+  it('should be able to create a clip', function (done) {
     var testClip = {name: chance.name()};
 
     clipRepo.createClip(testClip)

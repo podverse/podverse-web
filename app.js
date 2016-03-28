@@ -4,10 +4,8 @@ let feathers   = require('feathers'),
     bodyParser = require('body-parser'),
     nunjucks  = require('nunjucks'),
 
-    config = require('./config.js'),
     attachRoutes = require('./routes.js'),
-    app = feathers(),
-    playlistServiceFactory = require('./playlistServiceFactory.js');
+    app = feathers();
 
 app.configure(feathers.rest(function restFormatter (req, res) {
 
@@ -37,7 +35,7 @@ var env = nunjucks.configure(__dirname + '/templates', {
 
 env.addFilter('stringify', function(str) {
   var s = JSON.stringify(str);
-  return s
+  return s;
 });
 
 env.addFilter('readableDate', function(date) {
@@ -77,8 +75,8 @@ env.addFilter('convertSecToHHMMSS', function(sec) {
       result += '00';
     }
 
-    return result
-})
+    return result;
+});
 
 
 
@@ -89,13 +87,8 @@ app.use('/libs', feathers.static(__dirname + '/libs'));
 
 attachRoutes(app);
 
-//
-//// Playlists
-app.use('/pl', playlistServiceFactory());
 
 ///////////
 ///
 ///
-app.listen(config.port, () => {
-  console.log('Listening on port %s...', config.port);
-});
+module.exports = app;
