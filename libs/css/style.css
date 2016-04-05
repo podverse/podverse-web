@@ -6,10 +6,11 @@ html, body {
     margin: 0;
     padding: 0;
     height: 100%;
+    font-weight: 300;
 }
 
 body {
-    padding-top: 64px;
+    padding-top: 4.75rem;
 }
 
 #keep-footer-on-bottom {
@@ -18,21 +19,21 @@ body {
 }
 
 .padding-for-footer {
-    padding-bottom: 110px;
+    padding-bottom: 7rem;
 }
 
 #player-container {
-    margin: 10px 0 20px 0;
+    margin: 0 0 1.5rem 0;
 }
 
 #player-image {
     float: left;
-    margin: 0 15px 0 0;
+    margin: 0 1rem 0 0;
 }
 
 #player-image img {
-    width: 80px;
-    height: 80px;
+    width: 6rem;
+    height: 6rem;
 }
 
 #player-text-container {
@@ -40,22 +41,25 @@ body {
 }
 
 #player-podcast-title {
-    font-size: 20px;
-    font-weight: 500;
-    padding: 5px 0 0 0;
+    font-size: 1.25rem;
+    line-height: 1.25rem;
+    margin-bottom: 0.5rem;
 }
 
-#player-sub-title {}
+#player-sub-title {
+    font-size: 1rem;
+    line-height: 1rem;
+}
 
 #player-title {
     clear: both;
-    padding: 10px 0 15px 0;
-    font-size: 24px;
-    font-weight: 500;
+    padding: 1.5rem 0;
+    font-size: 1.5rem;
+    line-height: 1.5rem;
 }
 
 #player {
-    margin: 0 0 15px 0;
+    margin: 0 0 1rem 0;
 }
 
 #player .mejs-container, .mejs-layers .mejs-layer {
@@ -63,54 +67,58 @@ body {
 }
 
 #player-stats {
-    margin: 0 0 10px 0;
+    margin: 0 0 0.5rem 0;
 }
 
 #player-stats-duration {
     float: left;
+    padding-left: 0.25rem;
 }
 
 #player-stats-listens {
     float: right;
 }
 
-#player-restart-clip {}
+#player-restart-clip {
+    cursor: pointer;
+}
 
 #player-autoplay {
     float: right;
     clear: both;
+    cursor: pointer;
 }
 
 
 #playlist {}
 
 #playlist-header {
-    font-size: 20px;
-    font-weight: 500;
-    margin: 0 0 10px 0;
+    font-size: 1.5rem;
+    margin: 0 0 0.5rem 0;
 }
 
 .playlist-item {
     clear: both;
-    margin: 0 -10px;
-    padding: 10px;
+    margin: 0 -1rem;
+    padding: 1rem;
     cursor: pointer;
 }
 
 .playlist-item:hover {
-    background-color: #f7f7f7;
+    background-color: #fafafa;
     outline: 1px solid #ccc;
-    color: #000;
 }
 
 .playlist-item-image {
     float: left;
-    margin: 0 15px 0 0;
+    margin: 0 0.75rem 0 0;
+    width: 4.25rem;
+    height: 4.25rem;
 }
 
 .playlist-item-image img {
-    width: 60px;
-    height: 60px;
+    width: 4.25rem;
+    height: 4.25rem;
 }
 
 .playlist-item-text {
@@ -118,46 +126,55 @@ body {
 }
 
 .playlist-item-title {
-    font-weight: 500;
-    margin: -1px 0 0 0;
+    font-size: 1rem;
+    line-height: 1rem;
+    margin-top: 2px;
+    margin-bottom: 0.5rem;
 }
 
 .playlist-item-podcast-title {
-
+    font-size: 1rem;
+    line-height: 1rem;
+    margin-bottom: 0.5rem;
 }
 
 .playlist-item-duration {
     float: right;
+    font-size: 1rem;
+    line-height: 1rem;
 }
 
 .playlist-item-sub-title {
-
+    font-size: 1rem;
+    line-height: 1rem;
 }
 
 .footer {
     position: absolute;
     bottom: 0;
     width: 100%;
-    height: 75px;
-    background-color: #f8f8f8;
-    color: #777;
-    font-size: 14px;
-    padding: 10px 0 0px 0;
+    background-color: #2968B1;
+    color: #fcfcfc;
+    padding: .75rem 1rem;
     text-align: center;
-    border-top: 1px solid #e7e7e7;
 }
-.footer-social-icon {
-    color: #777;
-    margin: 0 10px;
-    font-size: 16px;
+a.footer-social-icon {
+    margin: 0 0 0 1rem;
+    color: #fcfcfc;
 }
-.footer-social-icon:hover {
-    color: #5e5e5e;
+
+.footer .pull-right {
 }
 
 /* Bootstrap Overrides */
 .navbar {
     margin-bottom: 0;
+    background-color: #2968B1;
+    padding: .5rem 1rem 0.5rem 1rem;
+}
+
+.navbar a {
+    color: #fcfcfc;
 }
 
 .navbar-nav .nav-item,
@@ -167,7 +184,7 @@ body {
 }
 
 .navbar-toggler {
-
+    color: #fcfcfc;
 }
 
 .collapse {
@@ -177,6 +194,7 @@ body {
 .collapse hr, .collapsing hr {
     margin-top: 1rem;
     margin-bottom: 0.5rem;
+    border-color: #ccc;
 }
 
 footer p {
@@ -202,6 +220,7 @@ footer p {
     .collapse {
         width: 100%;
         clear: both;
+        padding-bottom: 0.25rem;
     }
     nav .clearfix {
         clear: both;

@@ -17,32 +17,34 @@
   </head>
   <body>
     <div id="keep-footer-on-bottom">
-      <nav class="navbar navbar-fixed-top navbar-light bg-faded">
-        <button class="navbar-toggler hidden-sm-up pull-xs-right" type="button" data-toggle="collapse" data-target="#collapsingNavbar">
-          &#9776;
-        </button>
-        <a class="navbar-brand" href="#">Podverse</a>
-        <div class="clearfix"></div>
-        <div class="collapse navbar-toggleable-xs" id="collapsingNavbar">
-          <ul class="nav navbar-nav">
-            <hr>
-            <!-- TODO: add active class to currently selected nav-items -->
-            <!-- TODO: add screenreader-only (sr-only) element to currently
-            selected nav-items <span class="sr-only">(current)</span> -->
-            <li class="nav-item pull-xs-right">
-              <a class="nav-link" href="/mobile-app">Mobile App</a>
-            </li>
-            <li class="nav-item pull-xs-right">
-              <a class="nav-link" href="/mobile-app">Playlist</a>
-            </li>
-            <li class="nav-item pull-xs-right">
-              <a class="nav-link" href="/mobile-app">Clip</a>
-            </li>
-            <li class="nav-item pull-xs-right">
-              <a class="nav-link" href="/about">About</a>
-            </li>
+      <nav class="navbar navbar-fixed-top">
+        <div style="max-width: 610px; margin: auto;">
+          <button class="navbar-toggler hidden-sm-up pull-xs-right" type="button" data-toggle="collapse" data-target="#collapsingNavbar">
+            &#9776;
+          </button>
+          <a class="navbar-brand" href="#">Podverse</a>
+          <div class="clearfix"></div>
+          <div class="collapse navbar-toggleable-xs" id="collapsingNavbar">
+            <ul class="nav navbar-nav">
+              <hr>
+              <!-- TODO: add active class to currently selected nav-items -->
+              <!-- TODO: add screenreader-only (sr-only) element to currently
+              selected nav-items <span class="sr-only">(current)</span> -->
+              <li class="nav-item pull-xs-right">
+                <a class="nav-link" href="/mobile-app">Mobile App</a>
+              </li>
+              <li class="nav-item pull-xs-right">
+                <a class="nav-link" href="/mobile-app">Playlist</a>
+              </li>
+              <li class="nav-item pull-xs-right">
+                <a class="nav-link" href="/mobile-app">Clip</a>
+              </li>
+              <li class="nav-item pull-xs-right">
+                <a class="nav-link" href="/about">About</a>
+              </li>
 
-          </ul>
+            </ul>
+          </div>
         </div>
       </nav>
 
@@ -54,13 +56,15 @@
       </div>
 
       <footer class="footer">
-        <p>
-          <a class="footer-social-icon" href="https://reddit.com/r/podverse"><i class="fa fa-reddit-alien"></i></a>
-          <a class="footer-social-icon" href="#"><i class="fa fa-facebook"></i></a>
-          <a class="footer-social-icon" href="https://twitter.com/podverse"><i class="fa fa-twitter"></i></a>
-          <a class="footer-social-icon" href="https://github.com/podverse"><i class="fa fa-github"></i></a>
-        </p>
-        <p style="margin-bottom: 0;"><small>Open Source - Podverse&#8482;</small></p>
+        <div style="max-width: 610px; margin: auto;">
+          <span class="pull-right">
+            <a class="footer-social-icon" href="https://reddit.com/r/podverse"><i class="fa fa-reddit-alien"></i></a>
+            <a class="footer-social-icon" href="#"><i class="fa fa-facebook"></i></a>
+            <a class="footer-social-icon" href="https://twitter.com/podverse"><i class="fa fa-twitter"></i></a>
+            <a class="footer-social-icon" href="https://github.com/podverse"><i class="fa fa-github"></i></a>
+          </span>
+          <span class="pull-left">Podverse&#8482; &ndash; Open Source</span>
+        </div>
       </footer>
     </div>
 
