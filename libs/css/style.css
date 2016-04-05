@@ -8,6 +8,10 @@ html, body {
     height: 100%;
 }
 
+body {
+    padding-top: 64px;
+}
+
 #keep-footer-on-bottom {
     min-height: 100%;
     position: relative;
@@ -17,13 +21,8 @@ html, body {
     padding-bottom: 110px;
 }
 
-.navbar {
-    margin-bottom: 0;
-}
-
-
 #player-container {
-    margin: 20px 0;
+    margin: 10px 0 20px 0;
 }
 
 #player-image {
@@ -156,11 +155,55 @@ html, body {
     color: #5e5e5e;
 }
 
-@media (max-width: 767px) {
-    .navbar-brand {
-        margin-left: -15px !important;
+/* Bootstrap Overrides */
+.navbar {
+    margin-bottom: 0;
+}
+
+.navbar-nav .nav-item,
+.navbar-nav .nav-item+.nav-item {
+
+    margin-left: 1.5rem;
+}
+
+.navbar-toggler {
+
+}
+
+.collapse {
+    float: right;
+}
+
+.collapse hr, .collapsing hr {
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+footer p {
+    margin-bottom: 0.5rem;
+}
+
+@media (min-width: 544px) {
+    .container {
+        max-width: 640px;
     }
-    .navbar-toggle {
-        margin-right: 0 !important;
+    .collapse hr, .collapsing hr {
+        display: none;
+    }
+    nav .clearfix {
+        display: none;
+    }
+}
+
+@media (max-width: 543px) {
+    .navbar-nav .nav-item {
+        clear: both;
+    }
+    .collapse {
+        width: 100%;
+        clear: both;
+    }
+    nav .clearfix {
+        clear: both;
     }
 }
