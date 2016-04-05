@@ -33,6 +33,8 @@ var env = nunjucks.configure(__dirname + '/templates', {
   express: app
 });
 
+
+// TODO: should these filters get moved to a different file than app.js?
 env.addFilter('stringify', function(str) {
   var s = JSON.stringify(str);
   return s;
@@ -43,7 +45,7 @@ env.addFilter('readableDate', function(date) {
 });
 
 // TODO: This identify function is also in the scripts.js. Probably this should
-// be refactored somehow.
+// be refactored.
 env.addFilter('convertSecToHHMMSS', function(sec) {
     // thanks to dkreuter http://stackoverflow.com/questions/1322732/convert-seconds-to-hh-mm-ss-with-javascript
     var totalSec = sec;

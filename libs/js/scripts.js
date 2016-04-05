@@ -42,7 +42,7 @@ var readableDate = function(date) {
 // Podcast / Episode / Clip variables added to the window
 // object in player.html
 
-var loadPlaylistItem = function(index) {
+var loadPlaylistItem = function(index, shouldPlay) {
   var item = playlistItems[index];
 
   // Only clips have a startTime and endTime
@@ -75,6 +75,9 @@ var loadPlaylistItem = function(index) {
 
   setPlayerInfo();
   createAndAppendAudio();
+  if (shouldPlay) {
+    audio.play();
+  }
 }
 
 var setPlayerInfo = function() {
@@ -214,11 +217,11 @@ var toggleAutoplay = function() {
 
 var createAutoplayBtn = function() {
   var autoplay = $.cookie('autoplay');
-  if (autoplay === 'Off') {
-    $('#player-autoplay').html('Autoplay Off');
-  } else {
-    $.cookie('autoplay', 'On');
+  if (autoplay === 'On') {
     $('#player-autoplay').html('Autoplay On');
+  } else {
+    $.cookie('autoplay', 'Off');
+    $('#player-autoplay').html('Autoplay Off');
   }
 }
 
@@ -232,5 +235,5 @@ $(document).ready(function() {
 
 $('.playlist-item').on('click', function() {
   var index = $(".playlist-item").index(this);
-  loadPlaylistItem(index);
+  loadPlaylistItem(index, true);
 });
