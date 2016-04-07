@@ -85,21 +85,23 @@ var setPlayerInfo = function() {
   // whether the item is a clip or an episode
   if (isClip === true) {
     $('#player-image img').attr('src', podcastImageURL);
+    $('#player-restart-clip').css('display', 'block');
+    $('#player-title').css('padding', '1.25rem 0');
     $('#player-podcast-title').html(podcastTitle);
     $('#player-sub-title').html(episodeTitle);
     $('#player-title').html(clipTitle);
     $('#player-stats-duration').html('Clip: ' + convertSecToHHMMSS(duration) + ' - ' + convertSecToHHMMSS(startTime) + ' to ' + convertSecToHHMMSS(endTime));
     $('#player-stats-listens').html('Listens: 1234');
     $('#player-restart-clip').html('Restart Clip');
-    $('#player-restart-clip').css('display', 'block');
   } else {
+    $('#player-restart-clip').css('display', 'none');
+    $('#player-title').css('padding', '0.75rem 0');
     $('#player-image img').attr('src', podcastImageURL);
     $('#player-podcast-title').html(podcastTitle);
-    $('#player-sub-title').html('');
-    $('#player-title').html(episodeTitle);
+    $('#player-sub-title').html(episodeTitle);
+    $('#player-title').html('');
     $('#player-stats-duration').html('Full Episode: ' + readableDate(episodePubDate));
     $('#player-stats-listens').html('Listens: 1234');
-    $('#player-restart-clip').css('display', 'none');
   }
 
   window.restartAttempts = 0;
