@@ -26,6 +26,18 @@ class ClipRepository {
 
   }
 
+  getHomeScreenClips () {
+    return new Promise((res, rej) => {
+      this._datastore
+        .find({})
+        .limit(20)
+        .exec((e, clips) => {
+          if(e || clips === null) {rej(e);}
+          else res(clips);
+        });
+    });
+  }
+
   updateClip () {
 
   }

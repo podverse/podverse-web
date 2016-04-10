@@ -11,8 +11,16 @@ let
 module.exports = app => {
 
   app.get('/', function(req, res) {
-    res.locals.currentPage = 'Home';
-    res.render('home.html');
+
+    clipRepository.getHomeScreenClips()
+      .then(clips => {
+        res.locals.currentPage = 'Home';
+        res.render('home.html', {clips});
+      })
+      .catch(e => {
+        console.error(e);
+        res.sendStatus(500);
+      });
   });
 
   app.get('/mobile-app', function(req, res) {

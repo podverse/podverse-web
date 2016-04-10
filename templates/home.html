@@ -10,4 +10,10 @@
   </div><!-- /.col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-xs-12 -->
 </div><!-- /.row -->
 
+{% for clip in clips %}
+<ul>
+  <li><a href="/c/{{clip._id}}">{{clip._id}}</a></li>
+</ul>
+{%endfor%}
+
 {% endblock %}
