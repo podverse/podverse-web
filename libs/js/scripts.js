@@ -83,6 +83,8 @@ var loadPlaylistItem = function(index, shouldPlay) {
 var setPlayerInfo = function() {
   // Insert content into template differently depending on
   // whether the item is a clip or an episode
+  isClip = typeof startTime !== "undefined" ? true : false;
+
   if (isClip === true) {
     $('#player-image img').attr('src', podcastImageURL);
     $('#player-restart-clip').css('display', 'block');
