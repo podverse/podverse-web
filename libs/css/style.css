@@ -70,13 +70,24 @@ h1 {
   width: 100% !important;
 }
 
+#player .mejs-controls .mejs-button button {
+  margin: 7px 5px 0 0;
+}
+
+#player .mejs-container .mejs-controls {
+    padding: 0 0 0 5px;
+}
+
+#player .mejs-container .mejs-controls .mejs-time {
+    padding: 10px 8px 0 3px;
+}
+
 #player-stats {
     margin: 0 0 0.5rem 0;
 }
 
 #player-stats-duration {
     float: left;
-    padding-left: 0.25rem;
 }
 
 #player-stats-listens {
