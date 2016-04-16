@@ -13,6 +13,10 @@ body {
     padding-top: 4.75rem;
 }
 
+h1 {
+    margin-bottom: 1.25rem
+}
+
 #keep-footer-on-bottom {
     min-height: 100%;
     position: relative;
