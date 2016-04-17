@@ -10,7 +10,7 @@ html, body {
 }
 
 body {
-    padding-top: 4rem;
+    padding-top: 3.25rem;
 }
 
 h1 {
@@ -27,7 +27,7 @@ h1 {
 }
 
 #player-container {
-    margin: 0 0 1.5rem 0;
+    margin: 0.75rem 0 1.5rem 0;
 }
 
 #player-image {
@@ -125,8 +125,9 @@ h1 {
     top: 50px;
     left: 0;
     background-color: #fff;
-    padding: 0.5rem 1rem 0.25rem 1rem;
+    padding: 0.5rem 1rem 0 1rem;
     border-bottom: 1px solid #ccc;
+    margin: 0 0 1.5rem 0;
 }
 
 .player-condensed #player-inner {
