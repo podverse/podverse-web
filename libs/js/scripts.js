@@ -248,14 +248,21 @@ $('.playlist-item').on('click', function() {
   loadPlaylistItem(index, true);
 });
 
-var topOfPlayerTitle = $("#player-title").offset().top; //gets offset of header
-var heightOfPlayerTitle = $("#player-title").outerHeight() / 2; //gets height of header
+var topOfPlayer = $("#player").offset().top;
+var heightOfPlayer = $("#player").outerHeight();
+var bottomOfPlayer = topOfPlayer + heightOfPlayer;
+
+var topOfPlayerContainer = $('#player-container').offset().top;
+var heightOfPlayerContainer = $('#player-container').outerHeight() - 27; // Subtract to prevent page content from jumping
+var bottomOfPlayerContainer = topOfPlayerContainer + heightOfPlayerContainer;
 
 $(window).scroll(function(){
-    if($(window).scrollTop() > (topOfPlayerTitle + heightOfPlayerTitle)){
+    if($(window).scrollTop() > (bottomOfPlayer)){
        $("#player-container").addClass('player-condensed');
+       $('html').attr('style', 'padding-top: ' + bottomOfPlayerContainer + 'px;' );
     }
     else{
        $("#player-container").removeClass('player-condensed');
+       $('html').attr('style', '');
     }
 });
