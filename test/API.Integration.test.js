@@ -163,4 +163,25 @@ describe('API Integration Tests', function () {
 
   });
 
+  describe('GET clips by userid', function () {
+
+    beforeEach(function (done) {
+
+
+
+      chai.request(this.app)
+        .get('/c?userId=f')
+        .then(res=>{
+          this.res = res;
+          done();
+        })
+        .catch(err=>done(err));
+    });
+
+    it('should work', function () {
+      expect(this.res.statusCode).to.equal(200);
+      expect(this.res.body).to.deep.equal([]);
+    });
+  });
+
 });

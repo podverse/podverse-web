@@ -17,6 +17,37 @@ describe('ClipRepository', function () {
     clipRepo = new ClipRepository(clipsDb);
   });
 
+  it('should be able to list clips by id', function (done) {
+
+    let name = chance.name();
+
+    function insertStubIntoDb () {
+      return new Promise (res => {
+        clipsDb.insert({userId: name}, (err, c) => {res(c);});
+      });
+    }
+
+    let insertStubsIntoDb = insertStubIntoDb();
+
+    for(let i = 0; i < 5-1; i++) {
+      insertStubsIntoDb = insertStubsIntoDb.then(insertStubIntoDb);
+    }
+
+    insertStubsIntoDb.then(() => {
+
+      clipRepo.getClipsByUserId(name)
+        .then(clips => {
+          expect(clips.length).to.equal(5);
+          done();
+        })
+        .catch(done);
+
+    });
+
+
+
+  });
+
   it('should be able to create a clip', function (done) {
     var testClip = {name: chance.name()};
 

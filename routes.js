@@ -47,6 +47,21 @@ module.exports = app => {
       });
   });
 
+  app.get('/c', (req, res) => {
+    let userId = req.query.userId;
+
+    if(!userId) {
+      res.sendStatus(400);
+      return;
+    }
+
+    clipRepository.getClipsByUserId(userId)
+      .then(clips => {
+        res.send(clips);
+      });
+
+  });
+
   // Create a clip
   app.post('/c', requireAPISecret, (req, res) => {
 
