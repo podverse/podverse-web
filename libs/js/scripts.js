@@ -83,22 +83,30 @@ var loadPlaylistItem = function(index, shouldPlay) {
 var setPlayerInfo = function() {
   // Insert content into template differently depending on
   // whether the item is a clip or an episode
+  isClip = false;
+
+  if (typeof startTime !== "undefined" && startTime > 0) {
+    isClip = true;
+  }
+
   if (isClip === true) {
     $('#player-image img').attr('src', podcastImageURL);
     $('#player-restart-clip').css('display', 'block');
-    $('#player-title').css('padding', '1.25rem 0');
+    $('#player-title').css('padding', '0.75rem 0 1rem 0');
     $('#player-podcast-title').html(podcastTitle);
     $('#player-sub-title').html(episodeTitle);
+    $('#player-condensed-title').html(clipTitle);
     $('#player-title').html(clipTitle);
     $('#player-stats-duration').html('Clip: ' + convertSecToHHMMSS(duration) + ' - ' + convertSecToHHMMSS(startTime) + ' to ' + convertSecToHHMMSS(endTime));
     $('#player-stats-listens').html('Listens: 1234');
     $('#player-restart-clip').html('Restart Clip');
   } else {
     $('#player-restart-clip').css('display', 'none');
-    $('#player-title').css('padding', '0.75rem 0');
+    $('#player-title').css('padding', '0.5rem 0 0.75rem 0');
     $('#player-image img').attr('src', podcastImageURL);
     $('#player-podcast-title').html(podcastTitle);
     $('#player-sub-title').html(episodeTitle);
+    $('#player-condensed-title').html(episodeTitle);
     $('#player-title').html('');
     $('#player-stats-duration').html('Full Episode: ' + readableDate(episodePubDate));
     $('#player-stats-listens').html('Listens: 1234');
@@ -238,4 +246,23 @@ $(document).ready(function() {
 $('.playlist-item').on('click', function() {
   var index = $(".playlist-item").index(this);
   loadPlaylistItem(index, true);
+});
+
+var topOfPlayer = $("#player").offset().top;
+var heightOfPlayer = $("#player").outerHeight();
+var bottomOfPlayer = topOfPlayer + heightOfPlayer;
+
+var topOfPlayerContainer = $('#player-container').offset().top;
+var heightOfPlayerContainer = $('#player-container').outerHeight() - 27; // Subtract to prevent page content from jumping
+var bottomOfPlayerContainer = topOfPlayerContainer + heightOfPlayerContainer;
+
+$(window).scroll(function(){
+    if($(window).scrollTop() > (bottomOfPlayer)){
+       $("#player-container").addClass('player-condensed');
+       $('html').attr('style', 'padding-top: ' + bottomOfPlayerContainer + 'px;' );
+    }
+    else{
+       $("#player-container").removeClass('player-condensed');
+       $('html').attr('style', '');
+    }
 });

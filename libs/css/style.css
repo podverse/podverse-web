@@ -6,11 +6,15 @@ html, body {
     margin: 0;
     padding: 0;
     height: 100%;
-    font-weight: 300;
+    font-size: 110%;
 }
 
 body {
-    padding-top: 4.75rem;
+    padding-top: 3.25rem;
+}
+
+h1 {
+    margin-bottom: 1.25rem
 }
 
 #keep-footer-on-bottom {
@@ -19,21 +23,21 @@ body {
 }
 
 .padding-for-footer {
-    padding-bottom: 7rem;
+    padding-bottom: 4.5rem;
 }
 
 #player-container {
-    margin: 0 0 1.5rem 0;
+    padding: 0.75rem 0;
 }
 
 #player-image {
     float: left;
-    margin: 0 1rem 0 0;
+    margin: 0 0.75rem 0 0;
 }
 
 #player-image img {
-    width: 6rem;
-    height: 6rem;
+    width: 4.75rem;
+    height: 4.75rem;
 }
 
 #player-text-container {
@@ -41,21 +45,26 @@ body {
 }
 
 #player-podcast-title {
-    font-size: 1.25rem;
-    line-height: 1.25rem;
-    margin-bottom: 0.5rem;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    font-weight: 500;
 }
 
 #player-sub-title {
     font-size: 1rem;
-    line-height: 1rem;
+    line-height: 1.5rem;
+    font-weight: 300;
+}
+
+#player-condensed-title {
+    display: none;
 }
 
 #player-title {
     clear: both;
-    padding: 1.25rem 0;
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     line-height: 1.5rem;
+    font-weight: 500;
 }
 
 #player {
@@ -66,17 +75,37 @@ body {
   width: 100% !important;
 }
 
+#player .mejs-controls .mejs-button button {
+  margin: 7px 5px 0 0;
+}
+
+#player .mejs-container .mejs-controls {
+    padding: 0 0 0 5px;
+}
+
+#player .mejs-container .mejs-controls .mejs-time {
+    padding: 10px 8px 0 3px;
+}
+
 #player-stats {
+    font-size: 0.75rem;
+    line-height: 1rem;
+    font-weight: 300;
     margin: 0 0 0.5rem 0;
 }
 
 #player-stats-duration {
     float: left;
-    padding-left: 0.25rem;
 }
 
 #player-stats-listens {
     float: right;
+}
+
+#player-functions {
+    font-size: 0.75rem;
+    line-height: 1rem;
+    font-weight: 300;
 }
 
 #player-restart-clip {
@@ -84,16 +113,85 @@ body {
 }
 
 #player-autoplay {
-    float: right;
     clear: both;
+    float: left;
     cursor: pointer;
+    margin-right: 1rem;
+}
+
+.player-condensed#player-container {
+    position: fixed;
+    width: 100%;
+    top: 50px;
+    left: 0;
+    background-color: #fff;
+    padding: 0.5rem 1rem 0 1rem;
+    border-bottom: 1px solid #ccc;
+    margin: 0 0 1.5rem 0;
+}
+
+.player-condensed #player-inner {
+    max-width: 607px;
+    margin: 0 auto;
+}
+
+.player-condensed #player-image {
+    width: 2.75rem;
+    height: 2.75rem;
+    margin-right: 0.5rem;
+}
+
+.player-condensed #player-image img {
+    width: 2.75rem;
+    height: 2.75rem;
+}
+
+.player-condensed #player-podcast-title {
+    font-size: 0.75rem;
+    line-height: 1rem;
+    font-weight: 300;
+}
+
+.player-condensed #player-condensed-title {
+    display: block;
+    font-size: 0.75rem;
+    line-height: 1rem;
+    font-weight: 700;
+}
+
+.player-condensed #player-sub-title {
+    display: none;
+}
+
+.player-condensed #player-title {
+    display: none;
+}
+
+.player-condensed #player {
+    margin: 0.5rem 0;
+}
+
+.player-condensed #player-stats {
+    display: none;
+}
+
+.player-condensed #player-functions {
+    display: none;
 }
 
 
 #playlist {}
 
+#playlist hr, #home-list hr {
+    clear: both;
+    border-top: 1px dotted #eee;
+    margin: 0;
+}
+
 #playlist-header {
-    font-size: 1.5rem;
+    font-size: 1.25rem;
+    font-weight: 500;
+    line-height: 1.5rem;
     margin: 0 0 0.5rem 0;
 }
 
@@ -105,48 +203,52 @@ body {
 }
 
 .playlist-item:hover {
-    background-color: #fafafa;
+    background-color: #fcfcfc;
     outline: 1px solid #ccc;
 }
 
 .playlist-item-image {
     float: left;
     margin: 0 0.75rem 0 0;
-    width: 4.25rem;
-    height: 4.25rem;
+    width: 3.75rem;
+    height: 3.75rem;
 }
 
 .playlist-item-image img {
-    width: 4.25rem;
-    height: 4.25rem;
+    width: 3.75rem;
+    height: 3.75rem;
 }
 
 .playlist-item-text {
     overflow: hidden;
+    margin-top: 2px;
 }
 
 .playlist-item-title {
-    font-size: 1rem;
+    font-size: 0.75rem;
     line-height: 1rem;
-    margin-top: 2px;
-    margin-bottom: 0.5rem;
+    font-weight: 500;
+    margin-bottom: 0.25rem;
 }
 
 .playlist-item-podcast-title {
-    font-size: 1rem;
+    font-size: 0.75rem;
     line-height: 1rem;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.25rem;
+    font-weight: 300;
 }
 
 .playlist-item-duration {
     float: right;
-    font-size: 1rem;
+    font-size: 0.75rem;
     line-height: 1rem;
+    font-weight: 300;
 }
 
 .playlist-item-sub-title {
-    font-size: 1rem;
+    font-size: 0.75rem;
     line-height: 1rem;
+    font-weight: 300;
 }
 
 .footer {
@@ -163,28 +265,51 @@ a.footer-social-icon {
     color: #fcfcfc;
 }
 
-.footer .pull-right {
+.footer-brand {
+    font-size: 0.75rem;
+    line-height: 1.75rem;
+}
+
+.footer-brand a {
+    text-decoration: none;
+    color: #fcfcfc;
 }
 
 /* Bootstrap Overrides */
 .navbar {
     margin-bottom: 0;
     background-color: #2968B1;
-    padding: .5rem 1rem 0.5rem 1rem;
+    padding: 0.5rem 0;
+    height: 50px;
 }
 
 .navbar a {
     color: #fcfcfc;
 }
 
+.navbar {
+    font-size: 0.75rem;
+    line-height: 1rem;
+}
+
+.navbar-brand {
+    font-size: 1rem;
+    line-height: 1.25rem;
+}
+
 .navbar-nav .nav-item,
 .navbar-nav .nav-item+.nav-item {
-
     margin-left: 1.5rem;
 }
 
 .navbar-toggler {
     color: #fcfcfc;
+    padding: 0.2rem 0.75rem;
+    margin-right: .9375rem;
+}
+
+.navbar-toggleable-xs {
+    background-color: #2968B1;
 }
 
 .collapse {
@@ -192,7 +317,7 @@ a.footer-social-icon {
 }
 
 .collapse hr, .collapsing hr {
-    margin-top: 1rem;
+    margin-top: 6px;
     margin-bottom: 0.5rem;
     border-color: #ccc;
 }
@@ -204,6 +329,14 @@ footer p {
 @media (min-width: 544px) {
     .container {
         max-width: 640px;
+    }
+    .navbar {
+        padding-right: 0.9375rem;
+        padding-left: 0.9375rem;
+    }
+    .navbar-inner {
+        max-width: 610px;
+        margin: auto;
     }
     .collapse hr, .collapsing hr {
         display: none;
@@ -217,6 +350,9 @@ footer p {
     .navbar-nav .nav-item {
         clear: both;
     }
+    .navbar-brand {
+        margin-left: .9375rem;
+    }
     .collapse {
         width: 100%;
         clear: both;
@@ -224,5 +360,9 @@ footer p {
     }
     nav .clearfix {
         clear: both;
+    }
+    .navbar-toggleable-xs {
+        margin-top: 7px;
+        padding: 0 .9375rem .5rem .9375rem;
     }
 }

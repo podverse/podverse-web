@@ -3,17 +3,33 @@
 {% block body %}
 <div class="row">
   <div class="col-xs-12">
-    <h1>Home</h1>
-    <p>We could load the last 20 created/updated clips or playlists here, with pagination next/prev buttons.</p>
-    <p>This makes me think though...there are clips or playlists that I make for sharing with one or a few people in mind, that I wouldn't want showing up in an aggregated page like this.</p>
-    <p>Maybe we ask the user if they want their clip or playlist to be "Public" or "Only with a Link" at the time they create it. Could be a dropdown icon of a globe when "Public", and a chain when "Only with a Link".
-  </div><!-- /.col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-xs-12 -->
+    <!-- NOTE: the home-list reuses the HTML / CSS of the #playlist in the player.html. The designs may diverge someday, but for now CSS changes to these elements will also change the #playlist's items. -->
+    <div id="home-list">
+
+      {% for clip in clips %}
+        <div class="playlist-item" onclick="window.location.href = '/c/{{clip._id}}'">
+          <div class="playlist-item-image">
+            <img src="{{ clip.podcast.imageURL }}">
+          </div>
+          <div class="playlist-item-text">
+            <div class="playlist-item-title">
+              {{ clip.clip.title }}
+            </div>
+            <div class="playlist-item-podcast-title">
+              {{ clip.podcast.title }}
+            </div>
+            <div class="playlist-item-duration">
+              {{ clip.clip.duration|convertSecToHHMMSS }}
+            </div>
+            <div class="playlist-item-sub-title">
+              {{ clip.episode.title }}
+            </div>
+          </div><!-- /.playlist-item-text -->
+          <div style="clear:both"></div>
+        </div><!-- /.playlist-item -->
+        <hr>
+      {% endfor %}
+    </div><!-- /#home-list -->
+  </div><!-- /.col-xs-12 -->
 </div><!-- /.row -->
-
-{% for clip in clips %}
-<ul>
-  <li><a href="/c/{{clip._id}}">{{clip._id}}</a></li>
-</ul>
-{%endfor%}
-
 {% endblock %}
