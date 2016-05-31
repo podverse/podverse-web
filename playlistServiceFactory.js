@@ -2,16 +2,11 @@
 
 let
     PlaylistService=  require('./PlaylistService.js'),
-    NeDB = require('nedb');
+    playlistDataStore = require('./DataStores/playlistDataStore.js');
 
 module.exports = function playlistServiceFactory () {
 
-  const db = new NeDB({
-    filename: './playlists.db',
-    autoload: true
-  });
+  playlistDataStore.ensureIndex({fieldName: '_slug', unique: true});
 
-  db.ensureIndex({fieldName: '_slug', unique: true});
-
-  return new PlaylistService({Model: db});
+  return new PlaylistService({Model: playlistDataStore});
 };

@@ -27,6 +27,29 @@ class PlaylistService extends NeDBService {
     return data;
   }
 
+  find (params) {
+    return new Promise((resolve, reject) => {
+
+      let userId = params.query.userId;
+
+      if (!userId) {
+        return resolve([]);
+      }
+
+      this.Model.find({userId}, (err, playlists) => {
+        if(err) {
+          reject(err);
+        } else {
+          playlists.forEach(() => {
+            this._transformAfterRetrieval(playlists);
+          });
+          resolve(playlists);
+        }
+      });
+
+    });
+  }
+
   get (id) {
     return new Promise((resolve, reject) => {
 
@@ -76,7 +99,7 @@ class PlaylistService extends NeDBService {
 
 
       data = this._transformBeforeSave(data);
-      
+
       this.Model.update({$or: [{_id:id},{_slug:id}]}, data, opts, (err, num, playlist) => {
 
         if(err) {

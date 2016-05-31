@@ -41,8 +41,7 @@ class ClipRepository {
 
   getClipsByUserId (id) {
     return new Promise((res) => {
-      this._datastore.find({userId: id}, (err, c) => {
-        console.log(err, c,id);
+      this._datastore.find({clip:{userId: id}}, (err, c) => {
         res(c);
       });
     });

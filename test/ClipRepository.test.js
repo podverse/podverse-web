@@ -17,13 +17,13 @@ describe('ClipRepository', function () {
     clipRepo = new ClipRepository(clipsDb);
   });
 
-  it('should be able to list clips by id', function (done) {
+  it('should be able to list clips by userId', function (done) {
 
     let name = chance.name();
 
     function insertStubIntoDb () {
       return new Promise (res => {
-        clipsDb.insert({userId: name}, (err, c) => {res(c);});
+        clipsDb.insert({clip:{userId: name}}, (err, c) => {res(c);});
       });
     }
 

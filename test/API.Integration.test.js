@@ -4,6 +4,8 @@ var chai = require('chai'),
   chaiHttp = require('chai-http');
   chai.use(chaiHttp);
 
+  var chance = require('chance').Chance();
+
 var expect = chai.expect;
 
 var
@@ -167,8 +169,6 @@ describe('API Integration Tests', function () {
 
     beforeEach(function (done) {
 
-
-
       chai.request(this.app)
         .get('/c?userId=f')
         .then(res=>{
@@ -182,6 +182,48 @@ describe('API Integration Tests', function () {
       expect(this.res.statusCode).to.equal(200);
       expect(this.res.body).to.deep.equal([]);
     });
+  });
+
+  describe('GET Playlists by userid', function () {
+
+    const userId = chance.string();
+
+    beforeEach(function (done) {
+
+      // post playlist
+      let playlist = {
+        name: 'foo',
+        userId
+      };
+
+      chai.request(this.app)
+        .post('/pl')
+        .set('Authorization', config.apiSecret)
+        .send(playlist)
+        .then(res=>{
+          this.res = res;
+          done();
+        })
+        .catch(err=>done(err));
+    });
+
+    beforeEach(function (done) {
+
+      chai.request(this.app)
+        .get(`/pl?userId=${userId}`)
+        .set('Authorization', config.apiSecret)
+        .then(res=>{
+          this.res = res;
+          done();
+        })
+        .catch(err=>done(err));
+    });
+
+    it('should work', function () {
+      expect(this.res.statusCode).to.equal(200);
+      expect(this.res.body.length).to.equal(1);
+    });
+
   });
 
 });
