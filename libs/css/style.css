@@ -26,6 +26,15 @@ h1 {
     padding-bottom: 4.5rem;
 }
 
+.form-signin {
+    max-width: 330px;
+    margin: 70px auto 40px auto;
+}
+
+#loginInputEmail, #loginInputPassword {
+    margin-bottom: 10px;
+}
+
 #player-container {
     padding: 0.75rem 0;
 }

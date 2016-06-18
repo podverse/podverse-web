@@ -4,11 +4,62 @@ let
   clipRepository = new (require('./ClipRepository.js'))(),
   playlistServiceFactory = require('./playlistServiceFactory.js'),
   config = require('./config.js'),
-  requireAPISecret = require('./requireAPISecretMiddleware.js');
+  requireAPISecret = require('./requireAPISecretMiddleware.js'),
+  jwt = require('jsonwebtoken'),
+  expressJwt = require('express-jwt'),
+  cookies = require('cookies');
 
-
+let secret = 'shhhhhh';
 
 module.exports = app => {
+
+  app.use('/protected', expressJwt({secret: secret}));
+
+  app.post('/auth', function(req, res) {
+    console.log(req.body);
+    if (!(req.body.username === 'mitch@podverse.fm' && req.body.password === 'topsecret')) {
+      res.send(401, "Wrong user or password");
+      return
+    }
+
+    var profile = {
+      first_name: 'Meech',
+      last_name: 'Dizowney',
+      email: 'mitch@podverse.fm',
+      id: 123
+    };
+
+    var token = jwt.sign(profile, secret, {expiresIn: 18000});
+
+    new cookies(req, res).set('access_token', token, {
+      httpOnly: true
+      // secure: true
+    });
+
+    res.send({redirect: '/'});
+  });
+
+  app.get('protected/limitedToUser',
+    function(req, res) {
+      let token = new cookies(req, res).get('access_token');
+      let verifiedJwt = jwt.verify(token, secret, function(err, token) {
+        if (err) {
+          console.log(err);
+        } else {
+          alert('verified');
+        }
+      });
+    });
+
+  app.get('/protected/home',
+    function(req, res) {
+      res.json(req.user);
+    });
+
+  app.get('/login', function(req, res) {
+    res.locals.currentPage = 'Login';
+    res.render('login.html');
+  });
 
   app.get('/', function(req, res) {
 
