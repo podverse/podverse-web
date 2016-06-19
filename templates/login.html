@@ -40,6 +40,11 @@
         if (typeof msg.redirect == 'string') {
           window.location = msg.redirect;
         }
+      },
+      error: function(xhr, textStatus, error) {
+        console.log(xhr.statusText);
+        console.log(textStatus);
+        alert(error);
       }
     });
   }

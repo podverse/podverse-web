@@ -5,55 +5,82 @@ let
   playlistServiceFactory = require('./playlistServiceFactory.js'),
   config = require('./config.js'),
   requireAPISecret = require('./requireAPISecretMiddleware.js'),
-  jwt = require('jsonwebtoken'),
-  expressJwt = require('express-jwt'),
-  cookies = require('cookies');
+  nJwt = require('njwt'),
+  Cookies = require('cookies');
 
-let secret = 'shhhhhh';
+let secretKey = 'wiiide-open';
+
+function checkAuthToken(req, res) {
+  let token = new Cookies(req, res).get('access_token');
+  if (typeof token !== 'undefined') {
+    let verifiedJwt = nJwt.verify(token, secretKey);
+    return verifiedJwt
+  } else {
+    return false
+  }
+}
 
 module.exports = app => {
 
-  app.use('/protected', expressJwt({secret: secret}));
-
   app.post('/auth', function(req, res) {
     console.log(req.body);
-    if (!(req.body.username === 'mitch@podverse.fm' && req.body.password === 'topsecret')) {
+
+    if (!(req.body.username === 'meech@podverse.fm' && req.body.password === 'asdf')) {
       res.send(401, "Wrong user or password");
       return
     }
 
-    var profile = {
-      first_name: 'Meech',
-      last_name: 'Dizowney',
-      email: 'mitch@podverse.fm',
-      id: 123
-    };
+    let claims = {
+      iss: 'http://localhost:9000', // for development
+      // iss: 'https://podverse.fm', // for production
+      sub: 'meech123', // unique user ID, do NOT use personally identifiable info like email
+      scope: 'self, admins'
+    }
 
-    var token = jwt.sign(profile, secret, {expiresIn: 18000});
+    let jwt = nJwt.create(claims, secretKey);
+    jwt.setExpiration(new Date().getTime() + (60*60*1000)); // One hour from now
+    let token = jwt.compact();
 
-    new cookies(req, res).set('access_token', token, {
+    new Cookies(req, res).set('access_token', token, {
       httpOnly: true
-      // secure: true
+      // secure: true // for production
     });
 
     res.send({redirect: '/'});
+
   });
 
-  app.get('protected/limitedToUser',
-    function(req, res) {
-      let token = new cookies(req, res).get('access_token');
-      let verifiedJwt = jwt.verify(token, secret, function(err, token) {
-        if (err) {
-          console.log(err);
-        } else {
-          alert('verified');
-        }
-      });
+  app.get('/secretAboutPage',
+    function (req, res) {
+      let token = checkAuthToken(req, res);
+      if (token !== 'error: not authorized' && token !== false) {
+        res.locals.currentPage = 'Secret About Page';
+        res.render('about.html');
+      } else {
+        res.locals.currentPage = 'Not Secret Page';
+        res.render('home.html');
+        console.log('error: totally not authorized, redirect to home page');
+      }
     });
 
-  app.get('/protected/home',
-    function(req, res) {
-      res.json(req.user);
+  app.get('/mySecretUserPage',
+    function (req, res) {
+      let token = checkAuthToken(req, res);
+      if (token !== 'error: not authorized' && token !== false) {
+        let userId = token.body.sub;
+        if (userId !== 'meech123') {
+          res.render('home.html');
+          console.log('error: totally not authorized, redirect to home page');
+        } else {
+          res.locals.currentPage = 'Secret About Page';
+          res.render('about.html');
+          console.log('hi meech!');
+        }
+      } else {
+        res.locals.currentPage = 'Not Secret Page';
+        res.render('home.html');
+        console.log('error: totally not authorized, redirect to home page');
+      }
     });
 
   app.get('/login', function(req, res) {
