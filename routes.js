@@ -10,7 +10,9 @@ let
   Cookies = require('Cookies'),
   session = require('express-session'),
   cookieParser = require('cookie-parser'),
-  csrf = require('csurf');
+  csrf = require('csurf'),
+  pvFeedParser = new (require('./PVFeedParser.js'))(),
+  fs = require('fs');
 
 let secretKey = 'wiiide-open';
 
@@ -75,7 +77,6 @@ module.exports = app => {
 
   // View a clip
   app.get('/c/:id', (req, res) => {
-
     clipRepository.getClip(req.params.id)
       .then(clip => {
         res.locals.currentPage = 'Clip';
@@ -185,4 +186,21 @@ module.exports = app => {
     }
   });
 
+  // Parse an RSS Feed
+  app.get('/parse', (req, res) => {
+    pvFeedParser.parseFeed('http://joeroganexp.joerogan.libsynpro.com/rss')
+    .then(parsedFeedObj => {
+      res.send(401, parsedFeedObj.podcast.title);
+      // res.send(401, parsedFeedObj.episodes[0].title);
+    });
+  });
+
+  app.get('/localFeed', (req, res) => {
+    fs.readFile(__dirname + '/assets/joe_rogan_rss.xml', 'utf8', function(err, data) {
+      if (err) {
+        return console.log(err);
+      }
+      res.send(200, data);
+    })
+  })
 };
