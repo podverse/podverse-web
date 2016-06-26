@@ -25,7 +25,7 @@ lastBuildDate: Date? - date the RSS Feed was last updated
 
 lastPubDate: Date? - pubDate of the most recent episode in the RSS Feed, calculated by Podverse
 
-episodes: Array<Episode Object>?
+episodes: Array[Episode Object]?
 
 ####Episode####
 mediaURL: String! - (unique ID) URL of the episode media file
@@ -46,7 +46,7 @@ mediaType: String? - media file type (ex. audio/mpeg)
 
 pubDate: Date? - the date/time the episode was released
 
-clips: Array<Clip Object>?
+clips: Array[Clip Object]?
 
 podcast: Podcast Object!
 
@@ -80,9 +80,9 @@ sharePermission: String? - whether the playlist is shared publicly, can only be 
 
 lastUpdated: Date?
 
-episodes: Array<Episode Object>?
+episodes: Array[Episode Object]?
 
-clips: Array<Clip Object>?
+clips: Array[Clip Object]?
 
 ---
 
