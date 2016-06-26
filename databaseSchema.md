@@ -1,6 +1,6 @@
 #Podverse Database Schema#
 
-_The Podverse mobile app and web app **must** have the following properties. Properties ending with ! are required, properties with ? are optional._
+_The Podverse mobile app and web app **must** be able to use the following properties. Properties ending with ! require values, and properties ending with ? do not require values._
 
 ####Podcast####
 feedURL: String! - (unique ID) URL of the podcast's RSS Feed
@@ -25,7 +25,7 @@ lastBuildDate: Date? - date the RSS Feed was last updated
 
 lastPubDate: Date? - pubDate of the most recent episode in the RSS Feed, calculated by Podverse
 
-episodes: Array<Object>
+episodes: Array<Episode Object>?
 
 ####Episode####
 mediaURL: String! - (unique ID) URL of the episode media file
@@ -46,9 +46,9 @@ mediaType: String? - media file type (ex. audio/mpeg)
 
 pubDate: Date? - the date/time the episode was released
 
-clips: Array<Object>
+clips: Array<Clip Object>?
 
-podcast: Object!
+podcast: Podcast Object!
 
 ####Clip####
 clipURL: String? - (unique ID) the URL of the clip on podverse.fm
@@ -65,7 +65,7 @@ dateCreated: Date? - the date the clip was created
 
 userID: String? - the ID of the user who created the clip
 
-episode: Object!
+episode: Episode Object!
 
 ####Playlist####
 playlistId: String? - (unique ID) the ID of the playlist on podverse.fm
@@ -79,6 +79,10 @@ title: String!
 sharePermission: String? - whether the playlist is shared publicly, can only be shared with link, or privately only to authorized viewers. Possible values are "isPublic", "isSharableWithLink", and "isPrivate".
 
 lastUpdated: Date?
+
+episodes: Array<Episode Object>?
+
+clips: Array<Clip Object>?
 
 ---
 
