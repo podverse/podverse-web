@@ -1,6 +1,6 @@
 #Podverse Database Schema#
 
-_The Podverse mobile app and web app **must** have the following properties. Properties ending with ! are required, properties with ? are optional._
+_The Podverse mobile app and web app **must** be able to use the following properties. Properties ending with ! require values, and properties ending with ? do not require values._
 
 ####Podcast####
 feedURL: String! - (unique ID) URL of the podcast's RSS Feed
