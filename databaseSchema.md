@@ -4,47 +4,80 @@ _The Podverse mobile app and web app **must** have the following properties. Pro
 
 ####Podcast####
 feedURL: String! - (unique ID) URL of the podcast's RSS Feed
+
 title: String?
+
 summary: String? - the podcast description
+
 imageURL: String? -  URL of the full-size podcast logo
+
 image: Data? - full-size podcast logo
+
 itunesImageURL: String? - URL of the iTunes full-size podcast logo
+
 itunesImage: Data? - square full-size iTunes podcast logo
+
 imageThumb: Data? - thumbnail size (define?) podcast logo, calculated by Podverse based on the image or itunesImage file
+
 iTunesAuthor: String? - podcast author name according to iTunes property
+
 lastBuildDate: Date? - date the RSS Feed was last updated
+
 lastPubDate: Date? - pubDate of the most recent episode in the RSS Feed, calculated by Podverse
+
 episodes: Array<Object>
 
 ####Episode####
 mediaURL: String! - (unique ID) URL of the episode media file
+
 title: String?
+
 summary: String? - the episode description
+
 duration: Integer?
+
 guid: String? - (alternate unique ID)
+
 link: String? - the URL provided in the RSS feed's "link" field
+
 mediaBytes: Integer? - the total file size of the episode media file in bytes
+
 mediaType: String? - media file type (ex. audio/mpeg)
+
 pubDate: Date? - the date/time the episode was released
+
 clips: Array<Object>
+
 podcast: Object!
 
 ####Clip####
 clipURL: String? - (unique ID) the URL of the clip on podverse.fm
+
 startTime: Integer! - in seconds
+
 endTime: Integer! - in seconds
+
 duration: Integer! - in seconds
+
 title: String?
+
 dateCreated: Date? - the date the clip was created
+
 userID: String? - the ID of the user who created the clip
+
 episode: Object!
 
 ####Playlist####
 playlistId: String? - (unique ID) the ID of the playlist on podverse.fm
+
 slug: String? - the slug of the playlist on podverse.fm
+
 url: String? - the URL of the playlist on podverse.fm, derived from slug or playlistId
+
 title: String!
+
 sharePermission: String? - whether the playlist is shared publicly, can only be shared with link, or privately only to authorized viewers. Possible values are "isPublic", "isSharableWithLink", and "isPrivate".
+
 lastUpdated: Date?
 
 ---
@@ -67,6 +100,8 @@ playlists array is in the mobile app Clip model. In the web app this would be a 
 isMyEpisodes boolean is in the mobile app Playlist model. In the web app this would be a property of the User model. It states if a playlist is that user's default "My Episodes" playlist.
 
 isMyClips boolean is in the mobile app Playlist model. In the web app this would be a property of the User model. It states if a playlist is that user's default "My Clips" playlist.
+
+---
 
 ####Other Notes####
 The image and itunesImage are usually identical podcast logo images. Some podcasters will share the image via the iTunes properties instead of a standard image property.
