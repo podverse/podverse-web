@@ -7,6 +7,10 @@ let
   config = require('./config.js'),
   uuid = require('uuid');
 
+// TODO: this needs refactoring. JWT should be in its own class, routes shouldn't be here
+let routes = require('./routes.js'),
+    nJwt = require('njwt');
+
 class PlaylistService extends NeDBService {
 
   _transformAfterRetrieval (data) {
@@ -81,7 +85,7 @@ class PlaylistService extends NeDBService {
       .then((pl => this._transformAfterRetrieval(pl)));
   }
 
-  update (id, data) {
+  update (id, data, params) {
 
     // Don't use whatever id is being sent in the payload.
     delete data._id;
@@ -89,36 +93,45 @@ class PlaylistService extends NeDBService {
     // Make sure the data _slug reflects the playlist we're posting.
     data._slug = id;
 
-    return new Promise((resolve, reject) => {
+    // TODO: jwt stuff should be in its own class
+    // TODO: secretKey should definitely not be here
+    let token = params.token;
+    let secretKey = 'wiiide-open';
+    let verifiedJwt = nJwt.verify(token, secretKey);
+    if (verifiedJwt.body.sub === 'mitch@example.com' || verifiedJwt.body.sub === 'creon@example.com' || verifiedJwt.body.sub === 'vince@example.com') {
 
-      if(!id) {
-          throw new errors.NotAcceptable(`Try using POST instead of PUT.`);
-      }
+      return new Promise((resolve, reject) => {
 
-      let opts = {returnUpdatedDocs:true, upsert:true};
-
-
-      data = this._transformBeforeSave(data);
-
-      this.Model.update({$or: [{_id:id},{_slug:id}]}, data, opts, (err, num, playlist) => {
-
-        if(err) {
-          reject(err);
-        } else if(playlist) {
-
-          // Shift a single playlist out of an array.
-          if(Array.isArray(playlist) && playlist.length === 1) {
-            playlist = _.first(playlist);
-          }
-
-          playlist = this._transformAfterRetrieval(playlist);
-
-          resolve(playlist);
-        } else {
-          reject(new errors.NotFound(`Could not find a playlist by "${id}"`));
+        if(!id) {
+            throw new errors.NotAcceptable(`Try using POST instead of PUT.`);
         }
+
+        let opts = {returnUpdatedDocs:true, upsert:true};
+
+
+        data = this._transformBeforeSave(data);
+
+        this.Model.update({$or: [{_id:id},{_slug:id}]}, data, opts, (err, num, playlist) => {
+
+          if(err) {
+            reject(err);
+          } else if(playlist) {
+
+            // Shift a single playlist out of an array.
+            if(Array.isArray(playlist) && playlist.length === 1) {
+              playlist = _.first(playlist);
+            }
+
+            playlist = this._transformAfterRetrieval(playlist);
+
+            resolve(playlist);
+          } else {
+            reject(new errors.NotFound(`Could not find a playlist by "${id}"`));
+          }
+        });
+
       });
-    });
+    }
   }
 
 }

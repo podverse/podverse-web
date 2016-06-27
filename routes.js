@@ -17,13 +17,28 @@ let
 let secretKey = 'wiiide-open';
 
 function checkAuthToken(req, res, next) {
-  let token = new Cookies(req, res).get('access_token');
+
+  // Auth tokens only need to be checked when we're updating an existing item
+  if (req.method !== 'PUT') {
+    next();
+    return
+  }
+
+  let token;
+
+  if (req.headers['user-agent'] == 'Mobile App') {
+    token = req.headers['x-auth-token'];
+  } else {
+    token = new Cookies(req, res).get('access_token');
+  }
+
   if (typeof token !== 'undefined') {
     let verifiedJwt = nJwt.verify(token, secretKey);
     if (verifiedJwt === 'error: not authorized') {
       res.send(401, "Error: Not authorized");
     } else {
-      req.token = verifiedJwt;
+      req.feathers.token = token;
+      // req.token = verifiedJwt;
       next();
     }
   } else {
@@ -31,10 +46,19 @@ function checkAuthToken(req, res, next) {
   }
 }
 
+function verifyCredentials (username, password) {
+  let combos = {
+     "vince@example.com": 'free access',
+     "creon@example.com": 'free access',
+     "mitch@example.com": 'free access'
+  }
+  return (combos[username] === password);
+}
+
 module.exports = app => {
 
   app.use(bodyParser());
-  var parseForm = bodyParser.urlencoded({ extended: false });
+  var parseForm = bodyParser.urlencoded({ extended: true });
 
   var sess = {
     secret: 'wide-open', // TODO: make super secret
@@ -50,8 +74,8 @@ module.exports = app => {
 
   app.use(cookieParser());
 
-  app.use(csrf());
-  var csrfProtection = csrf({ cookie: false });
+  // app.use(csrf());
+  // var csrfProtection = csrf({ cookie: false });
 
   app.get('/', function(req, res) {
     clipRepository.getHomeScreenClips()
@@ -137,16 +161,18 @@ module.exports = app => {
   //// Playlists
   ///
   app.use('/pl', require('./requireAPISecretMiddleware.js'));
+  app.use('/pl', checkAuthToken);
   app.use('/pl', playlistServiceFactory());
 
   app.get('/login', function(req, res) {
     res.locals.currentPage = 'Login';
-    res.locals.csrf = req.csrfToken();
+    // res.locals.csrf = req.csrfToken();
     res.render('login.html');
   });
 
-  app.post('/auth', parseForm, csrfProtection, function(req, res) {
-    if (!(req.body.username === 'meech@podverse.fm' && req.body.password === 'asdf')) {
+  // TODO: add CSRF protection?
+  app.post('/auth', function(req, res) {
+    if (!verifyCredentials(req.body.username, req.body.password)) {
       res.send(401, "Wrong user or password");
       return
     }
@@ -154,7 +180,7 @@ module.exports = app => {
     let claims = {
       iss: 'http://localhost:9000', // for development
       // iss: 'https://podverse.fm', // for production
-      sub: 'meech123', // unique user ID, do NOT use personally identifiable info like email
+      sub: req.body.username, // unique user ID, do NOT use personally identifiable info like email
       scope: 'self, admins'
     }
 
@@ -162,29 +188,33 @@ module.exports = app => {
     jwt.setExpiration(new Date().getTime() + (60*60*1000)); // One hour from now
     let token = jwt.compact();
 
-    let cookieSettings = { httpOnly: true };
-    if (app.get('env') === 'production') { // TODO: setup production value in NODE_ENV
-      cookieSettings.secure = true;
-    }
-    new Cookies(req, res).set('access_token', token, cookieSettings);
-
-    res.redirect('secretAboutPage');
-  });
-
-  app.get('/secretAboutPage', checkAuthToken, function (req, res) {
-    res.locals.currentPage = 'Secret About Page';
-    res.render('about.html');
-  });
-
-  app.get('/mySecretUserPage', checkAuthToken, function (req, res) {
-    let userId = req.token.body.sub;
-    if (userId !== 'meech123') {
-      res.send(401, "Error: Not authorized. You're not meech@podverse.fm!");
+    if (req.headers['user-agent'] == 'Mobile App') {
+      res.json({ token: token });
     } else {
-      res.locals.currentPage = 'Secret About Page';
-      res.render('about.html');
+      let cookieSettings = { httpOnly: true };
+      if (app.get('env') === 'production') { // TODO: setup production value in NODE_ENV
+        cookieSettings.secure = true;
+      }
+      new Cookies(req, res).set('access_token', token, cookieSettings);
+
+      res.redirect('secretAboutPage');
     }
   });
+
+  // app.get('/secretAboutPage', checkAuthToken, function (req, res) {
+  //   res.locals.currentPage = 'Secret About Page';
+  //   res.render('about.html');
+  // });
+  //
+  // app.get('/mySecretUserPage', checkAuthToken, function (req, res) {
+  //   let userId = req.token.body.sub;
+  //   if (userId !== 'meech123') {
+  //     res.send(401, "Error: Not authorized. You're not meech@podverse.fm!");
+  //   } else {
+  //     res.locals.currentPage = 'Secret About Page';
+  //     res.render('about.html');
+  //   }
+  // });
 
   // Parse an RSS Feed
   app.get('/parse', (req, res) => {
