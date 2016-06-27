@@ -98,7 +98,7 @@ class PlaylistService extends NeDBService {
     let token = params.token;
     let secretKey = 'wiiide-open';
     let verifiedJwt = nJwt.verify(token, secretKey);
-    if (verifiedJwt.body.sub === 'mitch@example.com' || verifiedJwt.body.sub === 'creon@example.com' || verifiedJwt.body.sub === 'vince@example.com') {
+    if (data.userId === verifiedJwt.body.sub) {
 
       return new Promise((resolve, reject) => {
 
