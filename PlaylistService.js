@@ -93,11 +93,8 @@ class PlaylistService extends NeDBService {
     // Make sure the data _slug reflects the playlist we're posting.
     data._slug = id;
 
-    // TODO: jwt stuff should be in its own class
-    // TODO: secretKey should definitely not be here
     let token = params.token;
-    let secretKey = 'wiiide-open';
-    let verifiedJwt = nJwt.verify(token, secretKey);
+    let verifiedJwt = nJwt.verify(token, config.apiSecret);
     if (data.userId === verifiedJwt.body.sub) {
 
       return new Promise((resolve, reject) => {
@@ -132,6 +129,8 @@ class PlaylistService extends NeDBService {
 
       });
     }
+
+    // TODO: else what should we do if a user tries to update someone else's playlist?
   }
 
 }
