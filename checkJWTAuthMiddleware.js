@@ -9,7 +9,7 @@ module.exports = function checkJWTAuth (req, res, next) {
   // Auth tokens only need to be checked when we're updating an existing item
   if (req.method !== 'PUT') {
     next();
-    return
+    return;
   }
 
   let token;
@@ -23,14 +23,14 @@ module.exports = function checkJWTAuth (req, res, next) {
   if (typeof token !== 'undefined') {
     let verifiedJwt = nJwt.verify(token, config.apiSecret);
     if (verifiedJwt === 'error: not authorized') {
-      res.send(401, "Error: Not authorized");
+      res.sendStatus(401);
     } else {
       req.feathers.token = token;
-      // req.token = verifiedJwt;
+      req.feathers.user = verifiedJwt.body.sub;
       next();
     }
   } else {
-    res.send(401, "Error: Not authorized");
+    res.sendStatus(401);
   }
 
 };

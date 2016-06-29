@@ -7,10 +7,6 @@ let
   config = require('./config.js'),
   uuid = require('uuid');
 
-// TODO: this needs refactoring. JWT should be in its own class, routes shouldn't be here
-let routes = require('./routes.js'),
-    nJwt = require('njwt');
-
 class PlaylistService extends NeDBService {
 
   _transformAfterRetrieval (data) {
@@ -93,9 +89,7 @@ class PlaylistService extends NeDBService {
     // Make sure the data _slug reflects the playlist we're posting.
     data._slug = id;
 
-    let token = params.token;
-    let verifiedJwt = nJwt.verify(token, config.apiSecret);
-    if (data.userId === verifiedJwt.body.sub) {
+    if (data.userId === params.user) {
 
       return new Promise((resolve, reject) => {
 

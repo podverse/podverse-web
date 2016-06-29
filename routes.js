@@ -152,8 +152,8 @@ module.exports = app => {
         return console.log(err);
       }
       res.send(200, data);
-    })
-  })
+    });
+  });
 
 };
 

@@ -10,14 +10,14 @@ class PVFeedParser {
     return new Promise ((res, rej) => {
 
       // Uncomment below for local testing
-      rssURL = 'http://localhost:9000/localFeed'
+      rssURL = 'http://localhost:9000/localFeed';
 
       let req = request(rssURL),
           feedparser = new FeedParser([]);
 
-      req.on('error', function (error) {
-        // TODO: handle errors
-      });
+      // req.on('error', function (error) {
+      //   // TODO: handle errors
+      // });
 
       req.on('response', function (res) {
         let stream = this;
@@ -27,8 +27,7 @@ class PVFeedParser {
         stream.pipe(feedparser);
       });
 
-      let jsonString = '',
-          episodeObjs = [],
+      let episodeObjs = [],
           podcastObj = {},
           parsedFeedObj = {};
 
@@ -40,6 +39,7 @@ class PVFeedParser {
         let stream = this,
             item;
 
+        // TODO: this while assignment throws an eslint error. How can we fix it?
         while (item = stream.read()) {
           episodeObjs.push(item);
         }
@@ -54,7 +54,8 @@ class PVFeedParser {
         else {
           parsedFeedObj.podcast = podcastObj;
           parsedFeedObj.episodes = episodeObjs;
-          res(parsedFeedObj) }
+          res(parsedFeedObj);
+        }
       }
 
     });
