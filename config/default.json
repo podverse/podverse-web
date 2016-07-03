@@ -1,0 +1,14 @@
+{
+  "host": "localhost",
+  "port": 3030,
+  "sqlite": "../data/podverseWeb.sqlite",
+  "public": "../public/",
+  "auth": {
+    "idField": "id",
+    "token": {
+      "secret": "iMntq8P4te3iwetOKcyb1YC3Du+b8/3bMPD3t3OldZAiStM5MRHPKZ5HMOZNJi0AUgukFvD0T7Og31cqCSVdwg=="
+    },
+    "local": {},
+    "successRedirect": "/index.html"
+  }
+}
