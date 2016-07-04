@@ -16,6 +16,14 @@ module.exports = function(sequelize) {
     things: {
       type: Sequelize.STRING,
       allowNull: true
+    },
+    _slug: {
+      type: Sequelize.STRING,
+      allowNull: true
+    },
+    url: {
+      type: Sequelize.STRING,
+      allowNull: true
     }
   }, {
     freezeTableName: true

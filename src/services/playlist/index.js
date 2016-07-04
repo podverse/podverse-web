@@ -3,9 +3,6 @@
 const service = require('feathers-sequelize');
 const playlist = require('./playlist-model');
 const hooks = require('./hooks');
-const errors = require('feathers-errors').default;
-const _ = require('lodash');
-const uuid = require('uuid');
 
 const PlaylistService = require('./PlaylistService');
 

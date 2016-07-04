@@ -10,52 +10,30 @@ class PlaylistService extends service {
     const app = this.app;
   }
 
-  _transformAfterRetrieval (data) {
-    // Add in URL
-    console.log('soooo');
-    let id = data._slug || data._id;
-    console.log('ok');
-    data.url = `${app.get('baseURL')}/pl/${id}`;
-
-    return data;
-  }
-
-  _transformBeforeSave (data) {
-
-    delete data.url;
-
-    data._slug = data._slug || uuid.v4();
-    data.items = data.items || [];
-
-    return data;
-  }
-
+  // TODO: how can we retrieve by both _slug $or id?
+  // I want this to be a findOne, but as far as I could see that is apparently
+  // not an option with feathers-sequelize. To work around this, I implemented
+  // the global before hook grabFirstItemFromArray :(
   get(id, params) {
-    // return new Promise((resolve, reject) => {
-      super.get(id, params).then(playlist => {
-        playlist = this._transformAfterRetrieval(playlist);
-        resolve(playlist);
-      })
-      .catch(err);
-    // });
+    return super.find({query:{$or:{id:id, _slug:id}, $limit:1}});
   }
 
   // find(params [, callback]) {}
-  // get(id, params [, callback]) {}
-  create(data, params) {
-    return asdf
-    console.log('hello');
-    data = this._transformBeforeSave(data);
 
-    // Don't use whatever id is being sent.
-    delete data._id;
-    data.text = 'something else...';
-    data.things = 'many things!';
+  // TODO: make sure user cannot override someone else's primary id with a slug that
+  // matches that id. Make sure playlists with the same _slugs cannot exist.
+  update(id, data, params) {
 
-    return super.create.apply(this, arguments)
-      .then((pl => this._transformAfterRetrieval(pl)));
+    // TODO: is this delete data._id line still needed?
+    // Don't use whatever id is being sent in the payload.
+    // delete data._id;
+
+    // Make sure the data _slug reflects the playlist we're posting.
+    // data._slug = id;
+
+    return super.update(id, data, params);
+
   }
-  // update(id, data, params [, callback]) {}
   // patch(id, data, params [, callback]) {}
   // remove(id, params [, callback]) {}
   // setup(app, path) {}
