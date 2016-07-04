@@ -1,5 +1,6 @@
 'use strict';
 
+
 const globalHooks = require('../../../hooks');
 const hooks = require('feathers-hooks');
 

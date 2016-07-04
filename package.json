@@ -33,10 +33,12 @@
     "feathers-rest": "^1.4.2",
     "feathers-sequelize": "^1.2.0",
     "fs-extra": "^0.30.0",
+    "lodash": "^4.13.1",
     "passport": "^0.3.2",
     "sequelize": "^3.23.4",
     "serve-favicon": "^2.3.0",
     "sqlite3": "^3.1.4",
+    "uuid": "^2.0.2",
     "winston": "^2.2.0"
   },
   "devDependencies": {
