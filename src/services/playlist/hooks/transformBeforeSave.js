@@ -13,15 +13,15 @@ module.exports = function(options) {
   options = Object.assign({}, defaults, options);
 
   return function(hook) {
+    hook.transformBeforeSave = true;
+
     let data = hook.data;
 
-    console.log(data);
-
     delete data.url;
-    console.log(data._slug);
+
     data._slug = data._slug || uuid.v4();
     data.items = data.items || [];
 
-    return hook
+    return hook;
   };
 };

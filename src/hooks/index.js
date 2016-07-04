@@ -17,7 +17,7 @@ exports.grabFirstItemFromArray = function(options) {
     // TODO: is there a good way to do this?
     hook.result = data.data[0];
 
-    return hook
+    return hook;
   };
 
 };

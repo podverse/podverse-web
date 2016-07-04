@@ -11,6 +11,7 @@ module.exports = function(options) {
   options = Object.assign({}, defaults, options);
 
   return function(hook) {
+    hook.transformAfterRetrieval = true;
     let data = hook.result;
     // Add in URL
     let id = data._slug || data.id;

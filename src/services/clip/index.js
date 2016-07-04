@@ -4,6 +4,8 @@ const service = require('feathers-sequelize');
 const clip = require('./clip-model');
 const hooks = require('./hooks');
 
+const ClipService = require('./ClipService');
+
 module.exports = function(){
   const app = this;
 
@@ -16,7 +18,7 @@ module.exports = function(){
   };
 
   // Initialize our service with any options it requires
-  app.use('/clips', service(options));
+  app.use('/clips', new ClipService(options));
 
   // Get our initialize service to that we can bind hooks
   const clipService = app.service('/clips');
