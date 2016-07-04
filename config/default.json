@@ -10,5 +10,6 @@
     },
     "local": {},
     "successRedirect": "/index.html"
-  }
+  },
+  "baseURL": "http://localhost:3030"
 }

@@ -1,33 +1,44 @@
 'use strict';
 
-const service = require('feathers-sequelize');
+const service = require('feathers-sequelize').Service;
+const errors = require('feathers-errors').default;
+const configuration = require('feathers-configuration');
 
 class PlaylistService extends service {
-  get(id, params) {
-    return Promise.resolve({
-      id,
-      read: false,
-      text: `Feathers is great!`,
-      createdAt: new Date.getTime()
-    });
+  constructor(options) {
+    super(options);
+    const app = this.app;
   }
-  // _transformAfterRetrieval (data) {
-  //   // Add in URL
-  //   let id = data._slug || data._id;
-  //   data.url = `${config.baseURL}/pl/${id}`;
-  //
-  //   return data;
-  // }
-  //
-  // _transformBeforeSave (data) {
-  //
-  //   delete data.url;
-  //
-  //   data._slug = data._slug || uuid.v4();
-  //   data.items = data.items || [];
-  //
-  //   return data;
-  // }
+
+  _transformAfterRetrieval (data) {
+    // Add in URL
+    console.log('soooo');
+    let id = data._slug || data._id;
+    console.log('ok');
+    data.url = `${app.get('baseURL')}/pl/${id}`;
+
+    return data;
+  }
+
+  _transformBeforeSave (data) {
+
+    delete data.url;
+
+    data._slug = data._slug || uuid.v4();
+    data.items = data.items || [];
+
+    return data;
+  }
+
+  get(id, params) {
+    // return new Promise((resolve, reject) => {
+      super.get(id, params).then(playlist => {
+        playlist = this._transformAfterRetrieval(playlist);
+        resolve(playlist);
+      })
+      .catch(err);
+    // });
+  }
 
   // find(params [, callback]) {}
   // get(id, params [, callback]) {}

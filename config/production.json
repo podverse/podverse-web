@@ -9,5 +9,6 @@
       "secret": "FEATHERS_AUTH_SECRET"
     },
     "local": {}
-  }
+  },
+  "baseURL": "https://podverse.fm"
 }
