@@ -20,7 +20,7 @@ exports.before = {
 exports.after = {
   all: [],
   find: [transformAfterRetrieval()],
-  get: [globalHooks.grabFirstItemFromArray(), transformAfterRetrieval()],
+  get: [transformAfterRetrieval()],
   create: [transformAfterRetrieval()],
   update: [transformAfterRetrieval()],
   patch: [],

@@ -1,7 +1,7 @@
 'use strict';
 
 const service = require('feathers-sequelize').Service;
-const errors = require('feathers-errors').default;
+const errors = require('feathers-errors');
 const configuration = require('feathers-configuration');
 
 class PlaylistService extends service {
@@ -10,33 +10,47 @@ class PlaylistService extends service {
     const app = this.app;
   }
 
-  // TODO: how can we retrieve by both _slug $or id?
-  // I want this to be a findOne, but as far as I could see that is apparently
-  // not an option with feathers-sequelize. To work around this, I implemented
-  // the global before hook grabFirstItemFromArray :(
   get(id, params) {
-    return super.find({query:{$or:{id:id, _slug:id}, $limit:1}});
+    return this.Model.findOne({
+        where: {
+          $or: {
+            id:id,
+            _slug:id
+          }
+        }
+      }).then(playlist => {
+      // Gotta read sequelize docs and discover the best API methods for getting
+      // all playlsit items and then also get all of the clips/episodes for those playlist initializeProductCustomAttributes
+
+      // let playlistItems = playlist.getAllPlaylistItems();
+
+      // get a list of media references
+      // let mediaReferences = playlistItems.map(item => item.getMediaRef())
+
+      // playlist.items = mediaReferences;
+
+      return playlist;
+    }).catch(err => {
+      return new errors.GeneralError(err);
+    });
   }
 
   // find(params [, callback]) {}
 
   // TODO: make sure user cannot override someone else's primary id with a slug that
-  // matches that id. Make sure playlists with the same _slugs cannot exist.
+  // matches that id.
   update(id, data, params) {
-
-    // TODO: is this delete data._id line still needed?
-    // Don't use whatever id is being sent in the payload.
-    // delete data._id;
-
-    // Make sure the data _slug reflects the playlist we're posting.
-    // data._slug = id;
-
-    return super.update(id, data, params);
-
+    return this.Model.update(data, {
+      where: {
+        $or: {
+          id: id,
+          _slug: id
+        }
+      }
+    }).catch(err => {
+      return new errors.GeneralError(err);
+    });
   }
-  // patch(id, data, params [, callback]) {}
-  // remove(id, params [, callback]) {}
-  // setup(app, path) {}
 }
 
 module.exports = PlaylistService;

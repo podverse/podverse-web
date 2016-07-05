@@ -15,7 +15,7 @@ module.exports = function(options) {
     let data = hook.result;
     // Add in URL
     let id = data._slug || data.id;
-    hook.result.url = `${hook.app.get('baseURL')}/pl/${id}`;
+    hook.result.url = `${hook.app.get('baseURL')}/playlists/${id}`;
 
     return hook;
   };

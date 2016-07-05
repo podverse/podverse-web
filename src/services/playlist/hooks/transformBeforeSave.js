@@ -20,7 +20,7 @@ module.exports = function(options) {
     delete data.url;
 
     data._slug = data._slug || uuid.v4();
-    data.items = data.items || [];
+    // data.items = data.items || [];
 
     return hook;
   };

@@ -9,21 +9,17 @@ const Sequelize = require('sequelize');
 
 module.exports = function(sequelize) {
   const playlist = sequelize.define('playlists', {
-    text: {
-      type: Sequelize.STRING,
-      allowNull: false
-    },
-    things: {
-      type: Sequelize.STRING,
-      allowNull: true
+    title: {
+      type: Sequelize.STRING
     },
     _slug: {
       type: Sequelize.STRING,
-      allowNull: true
+      unique: true
+      // TODO: the _slug and primary keys must be mutally unique.
+      // A _slug should never be the same as an existing primary key, and vice versa.
     },
     url: {
       type: Sequelize.STRING,
-      allowNull: true
     }
   }, {
     freezeTableName: true
