@@ -1,6 +1,7 @@
 'use strict';
 
-const app = require('./app');
+const appFactory = require('./appFactory.js');
+const app = appFactory();
 const port = app.get('port');
 const server = app.listen(port);
 

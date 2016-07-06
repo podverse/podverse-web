@@ -3,8 +3,11 @@
 const assert = require('assert');
 const transformAfterRetrieval = require('../../../../src/services/playlist/hooks/transformAfterRetrieval.js');
 
+const appFactory = require('src/appFactory.js');
+const app = appFactory();
+
 describe('playlist transformAfterRetrieval hook', function() {
-  const app = require('../../../../src/app');
+
   let mockHook;
 
   beforeEach(function() {

@@ -1,16 +1,17 @@
 'use strict';
 
-const service = require('feathers-sequelize');
-const playlist = require('./playlist-model');
 const hooks = require('./hooks');
 
 const PlaylistService = require('./PlaylistService');
 
 module.exports = function(){
+
   const app = this;
 
+  const {Playlist} = app.get('sequelizeModels');
+
   const options = {
-    Model: playlist(app.get('sequelize')),
+    Model: Playlist,
     paginate: {
       default: 5,
       max: 25

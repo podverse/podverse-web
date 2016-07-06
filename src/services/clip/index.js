@@ -1,7 +1,5 @@
 'use strict';
 
-const service = require('feathers-sequelize');
-const clip = require('./clip-model');
 const hooks = require('./hooks');
 
 const ClipService = require('./ClipService');
@@ -9,8 +7,10 @@ const ClipService = require('./ClipService');
 module.exports = function(){
   const app = this;
 
+  const {MediaRef} = app.get('sequelizeModels');
+
   const options = {
-    Model: clip(app.get('sequelize')),
+    Model: MediaRef,
     paginate: {
       default: 5,
       max: 25

@@ -1,7 +1,8 @@
 'use strict';
 
 const assert = require('assert');
-const app = require('../../../src/app');
+const appFactory = require('src/appFactory.js');
+const app = appFactory();
 
 describe('clip service', function() {
   it('registered the clips service', () => {

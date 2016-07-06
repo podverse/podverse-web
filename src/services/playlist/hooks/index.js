@@ -1,11 +1,7 @@
 'use strict';
 
-
 const transformBeforeSave = require('./transformBeforeSave');
 const transformAfterRetrieval = require('./transformAfterRetrieval');
-const globalHooks = require('../../../hooks');
-const hooks = require('feathers-hooks');
-
 
 exports.before = {
   all: [],
