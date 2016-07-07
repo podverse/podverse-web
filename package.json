@@ -1,6 +1,6 @@
 {
   "name": "podverse-web",
-  "description": "Web app for the Podverse podcast clip sharing system",
+  "description": "Web app for the Podverse podcast episode and clip sharing system",
   "version": "0.0.0",
   "homepage": "",
   "main": "src/",

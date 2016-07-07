@@ -11,7 +11,7 @@ describe('When loading all models to sequelize', function () {
   });
 
   it('should have the the expected models available', function () {
-    ['Podcast', 'MediaRef', 'Playlist', 'Podcast']
+    ['Podcast', 'MediaRef', 'Playlist', 'Episode']
       .forEach(name =>
         expect(this.models[name]).to.be.ok);
   });
