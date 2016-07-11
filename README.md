@@ -1,6 +1,6 @@
 #podverse-web#
 
-Web app for the Podverse podcast clip sharing system
+Web app for the Podverse podcast episode and clip sharing system
 
 ---
 
