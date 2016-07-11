@@ -51,6 +51,26 @@ class PlaylistService extends service {
       return new errors.GeneralError(err);
     });
   }
+
+  // TODO: make sure only the playlist's creator can remove it
+  // TODO: handle the return after destroying properly
+  remove(id, params) {
+    return this.Model.findOne({
+      where: {
+        $or: {
+          id: id,
+          _slug: id
+        }
+      }
+    }).then(playlist => {
+      playlist.destroy();
+      return "Playlist Deleted"
+    })
+    .catch(err => {
+      return new errors.GeneralError(err);
+    });
+  }
+
 }
 
 module.exports = PlaylistService;

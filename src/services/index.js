@@ -1,8 +1,9 @@
 'use strict';
-const playlist = require('./playlist');
-const clip = require('./clip');
+
 const authentication = require('./authentication');
 const user = require('./user');
+const clip = require('./clip');
+const playlist = require('./playlist');
 
 module.exports = function () {
   const app = this;
