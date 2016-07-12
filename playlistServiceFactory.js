@@ -2,11 +2,18 @@
 
 let
     PlaylistService=  require('./PlaylistService.js'),
-    playlistDataStore = require('./DataStores/playlistDataStore.js');
+    feathersAdapter = require('repositories/sequelize/feathersAdapter.js')();
 
 module.exports = function playlistServiceFactory () {
 
-  playlistDataStore.ensureIndex({fieldName: '_slug', unique: true});
+  const {Playlist} = feathersAdapter.models;
+  const options = {
+    Model: Playlist,
+    paginate: {
+      default: 5,
+      max: 25
+    }
+  }
 
-  return new PlaylistService({Model: playlistDataStore});
+  return new PlaylistService(options);
 };

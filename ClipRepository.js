@@ -2,8 +2,6 @@
 
 class ClipRepository {
 
-  // TODO: hmm Mitch needs to understand what's up with this constructor,
-  // how they work, where would this datastore parameter get passed in from
   constructor (datastore) {
     this._datastore = datastore || require('./ClipDatastore.js');
   }
