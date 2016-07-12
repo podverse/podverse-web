@@ -29,12 +29,13 @@
     "chai-http": "^2.0.1",
     "chance": "^0.8.0",
     "eslint": "^1.10.3",
+    "is-ci": "^1.0.9",
     "mocha": "^2.3.4",
     "sinon": "^1.17.2"
   },
   "scripts": {
     "start": "node index.js",
-    "test": "eslint .;mocha"
+    "test": "node scripts/test.js"
   },
   "repository": {
     "type": "git",
