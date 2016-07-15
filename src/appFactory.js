@@ -14,14 +14,7 @@ function appFactory ({podcastService}) {
     .configure(rest())
     .use(bodyParser.json())
     .use(bodyParser.urlencoded({ extended: true }))
-
-    .use('/podcasts', podcastService)
-
-    // TODO: handle this outside of the appFactory
-    .use('/test-auth', checkIfAuthenticatedUser)
-    .use('/test-auth', (req, res) => {
-      res.sendStatus(200, 'Authentication Passed');
-    });
+    .use('/podcasts', podcastService);
 
   return app;
 }

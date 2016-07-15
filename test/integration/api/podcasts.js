@@ -1,7 +1,4 @@
-const appFactory = require('appFactory.js');
-
-const PodcastService = require('services/podcast/PodcastService.js');
-const {configureDatabaseModels} = require('test/helpers.js');
+const {configureDatabaseModels, createTestApp} = require('test/helpers.js');
 
 
 describe('API Test: Podcasts', function () {
@@ -11,9 +8,7 @@ describe('API Test: Podcasts', function () {
   });
 
   beforeEach(function (done) {
-    this.app = appFactory({
-      podcastService: new PodcastService({Models:this.Models})
-    });
+    this.app = createTestApp(this.Models);
 
     // Throw a test in the database
     this.Models.Podcast.create({

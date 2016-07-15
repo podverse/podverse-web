@@ -31,9 +31,9 @@ class AuthService {
 
   verifyCredentials(username, password) {
     const combos = {
-      'vince@example.com': 'free access',
-      'creon@example.com': 'free access',
-      'mitch@example.com': 'free access'
+      'moe@podverse.fm': 'free access',
+      'larry@podverse.fm': 'free access',
+      'curly@podverse.fm': 'free access'
     };
     return (combos[username] === password);
   }
