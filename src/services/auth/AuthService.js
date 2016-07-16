@@ -1,3 +1,5 @@
+'use strict';
+
 const
     nJwt = require('njwt'),
     config = require('config.js'),
@@ -5,9 +7,12 @@ const
 
 class AuthService {
 
-  returnJWTIfValidUsernameAndPassword (req, res) {
+  returnJWTInResponseIfValidUsernameAndPassword (req, res) {
 
-    this.checkIfValidUsernameAndPassword(req, res);
+    if (!this.verifyCredentials(req.body.username, req.body.password)) {
+      res.send(401, 'Wrong user or password');
+      return;
+    }
 
     const token = this.createToken(req);
 
@@ -17,19 +22,14 @@ class AuthService {
       // TODO: add secure cookie handling for production
       const cookieSettings = { httpOnly: true };
       new Cookies(req, res).set('access_token', token, cookieSettings);
-      res.send(199, 'You should be redirected');
+      res.sendStatus(200);
     }
 
-  }
-
-  checkIfValidUsernameAndPassword(req, res) {
-    if (!this.verifyCredentials(req.body.username, req.body.password)) {
-      res.send(401, 'Wrong user or password');
-      return;
-    }
   }
 
   verifyCredentials(username, password) {
+    if (!username || !password) { return false }
+
     const combos = {
       'moe@podverse.fm': 'free access',
       'larry@podverse.fm': 'free access',

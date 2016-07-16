@@ -5,6 +5,7 @@ const rest = require('feathers-rest');
 const bodyParser = require('body-parser');
 
 const {checkIfAuthenticatedUser} = require('middleware/auth/AuthMiddleware.js');
+const AuthService = new (require('services/auth/AuthService.js'))();
 
 function appFactory ({podcastService}) {
 
@@ -14,7 +15,13 @@ function appFactory ({podcastService}) {
     .configure(rest())
     .use(bodyParser.json())
     .use(bodyParser.urlencoded({ extended: true }))
-    .use('/podcasts', podcastService);
+
+    .use('/podcasts', podcastService)
+
+    .post('/auth', function(req, res) {
+      AuthService.returnJWTInResponseIfValidUsernameAndPassword(req, res);
+    });
+    
 
   return app;
 }
