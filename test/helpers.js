@@ -4,6 +4,8 @@ const registerModels = require('repositories/sequelize/models');
 const appFactory = require('appFactory.js');
 const PodcastService = require('services/podcast/PodcastService.js');
 
+const {createToken} = new (require('services/auth/AuthService.js'))();
+
 function configureDatabaseModels (resolve) {
 
   beforeEach(function (done) {
@@ -30,7 +32,24 @@ function createTestApp (Models) {
   });
 }
 
+function createValidTestJWT () {
+  beforeEach(function () {
+    const fakeReq = {
+      body: {
+        username: 'curly@podverse.fm'
+      }
+    }
+
+    this.token = createToken(fakeReq);
+  });
+
+  afterEach(function () {
+    this.token = null;
+  });
+}
+
 module.exports = {
   configureDatabaseModels,
-  createTestApp
+  createTestApp,
+  createValidTestJWT
 };

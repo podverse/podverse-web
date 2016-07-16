@@ -1,5 +1,5 @@
 const
-    njwt = require('njwt'),
+    nJwt = require('njwt'),
     Cookies = require('Cookies'),
     config = require('config.js');
 
@@ -11,24 +11,29 @@ function checkIfAuthenticatedUser (req, res, next) {
     return;
   }
 
-  const token = returnMobileOrWebToken(req);
+  const token = retrieveMobileOrWebTokenFromRequest(req, res);
 
-  if (typeof token === 'undefined') {
-    res.sendStatus(401, 'Unauthorized');
+  if (token === undefined) {
+    res.sendStatus(401);
+    return;
   }
 
-  const verifiedJwt = nJwt.verify(token, config.apiSecret);
-  if (verifiedJwt === 'error: not authorized') {
+  try {
+    const verifiedJwt = nJwt.verify(token, config.apiSecret);
+    if (verifiedJwt === 'error: not authorized') {
+      res.sendStatus(401);
+    } else {
+      req.feathers.token = token;
+      req.feathers.user = verifiedJwt.body.sub;
+      next();
+    }
+  } catch(e) {
     res.sendStatus(401);
-  } else {
-    req.feathers.token = token;
-    req.feathers.user = verifiedJwt.body.sub;
-    next();
   }
 
 }
 
-function returnMobileOrWebToken(req) {
+function retrieveMobileOrWebTokenFromRequest(req, res) {
   let token;
 
   if (req.headers['user-agent'] == 'Mobile App') {
