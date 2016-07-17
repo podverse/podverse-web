@@ -10,7 +10,7 @@ class AuthService {
   returnJWTInResponseIfValidUsernameAndPassword (req, res) {
 
     if (!this.verifyCredentials(req.body.username, req.body.password)) {
-      res.send(401, 'Wrong user or password');
+      res.status(401).send('Wrong user or password');
       return;
     }
 

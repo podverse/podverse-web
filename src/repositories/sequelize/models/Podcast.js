@@ -5,6 +5,7 @@ module.exports = function(sequelize, DataTypes) {
   // Podcast primary key is it's RSS URL?
 
   const podcast = sequelize.define('podcast', {
+
     id: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV1,
@@ -17,8 +18,8 @@ module.exports = function(sequelize, DataTypes) {
       validate: {
         isUrl: true,
         notEmpty:true
-      }
-      //unique: true
+      },
+      unique: true
     },
 
     imageURL: {
@@ -33,6 +34,7 @@ module.exports = function(sequelize, DataTypes) {
     summary: DataTypes.TEXT,
 
     title: DataTypes.TEXT
+    
   });
 
   return podcast;

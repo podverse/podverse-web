@@ -8,17 +8,17 @@ class PodcastService extends SequelizeService {
     this.Models = Models;
   }
 
-  get(id, params) {
-    return this.Model.findOne({
-      where: {
-          id:id
-      }
-    }).then(podcast => {
-      return podcast
-    }).catch(err => {
-      return new errors.GeneralError(err);
-    });
-  }
+  // get(id, params) {
+  //   return this.Model.findOne({
+  //     where: {
+  //         id:'id'
+  //     }
+  //   }).then(podcast => {
+  //     return podcast
+  //   }).catch(err => {
+  //     return new errors.GeneralError(err);
+  //   });
+  // }
 
 }
 
