@@ -21,6 +21,24 @@ function configureDatabaseModels (resolve) {
   });
 }
 
+function createTestPodcastAndEpisode (Models) {
+
+  const {Podcast, Episode} = Models;
+
+  return Podcast.create({'feedURL': 'http://example.com/test333'})
+    .then(podcast => {
+
+      return Promise.all([
+        Promise.resolve(podcast),
+        Episode.create({
+          podcastId: podcast.id,
+          mediaURL: 'http://example.com/test333'
+        })
+      ]);
+    });
+}
+
 module.exports = {
-  configureDatabaseModels
+  configureDatabaseModels,
+  createTestPodcastAndEpisode
 };

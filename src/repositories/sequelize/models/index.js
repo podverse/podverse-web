@@ -17,7 +17,9 @@ module.exports = function (sequelizeEngine) {
     foreignKey: { allowNull: false }
   });
 
-  MediaRef.belongsTo(Episode);
+  MediaRef.belongsTo(Episode, {
+    foreignKey: { allowNull: false }
+  })
 
   Playlist.belongsToMany(MediaRef, {through: playlistItemsName}, {
     foreignKey: { allowNull: false }
@@ -26,6 +28,8 @@ module.exports = function (sequelizeEngine) {
   MediaRef.belongsToMany(Playlist, {through: playlistItemsName}, {
     foreignKey: { allowNull: false }
   });
+
+;
 
   return models;
 };
