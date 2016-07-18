@@ -2,6 +2,8 @@ const errors = require('feathers-errors');
 const ClipService = require('services/clips/ClipService.js');
 const {configureDatabaseModels, createTestPodcastAndEpisode} = require('test/helpers.js');
 
+const {applyOwnerId, ensureAuthenticated} = require('hooks/common.js');
+
 describe('ClipService', function () {
 
   configureDatabaseModels(function (Models) {
@@ -9,6 +11,7 @@ describe('ClipService', function () {
   });
 
   beforeEach(function (done) {
+
     this.clipSvc = new ClipService({Models: this.Models});
 
     const {MediaRef} = this.Models;
@@ -20,7 +23,7 @@ describe('ClipService', function () {
         this.testEpisode = episode;
 
         return MediaRef.create({
-          userId: 'testOwner',
+          ownerId: 'testOwner',
           episodeId: episode.id,
           title: 'TestTitle1'
         });
@@ -31,6 +34,32 @@ describe('ClipService', function () {
       })
       .catch(done);
   });
+
+
+
+
+  it('should have the expected before-create hooks', function () {
+    verifyBeforeCreateHooks(this.clipSvc, [
+      ensureAuthenticated,
+      applyOwnerId
+    ]);
+  });
+
+  it('should have the expected before-update hooks', function () {
+    verifyBeforeUpdateHooks(this.clipSvc, [
+      ensureAuthenticated,
+      applyOwnerId
+    ]);
+  });
+
+  xit('should have delete disabled', function () {
+
+  });
+
+  xit('should have patch disabled', function () {
+
+  });
+
 
   describe('when getting clip by id', function () {
 
@@ -67,7 +96,7 @@ describe('ClipService', function () {
         episodeId: this.testEpisode.id
       };
 
-      this.clipSvc.create(this.testData, {userId: 'notnull'})
+      this.clipSvc.create(this.testData, {ownerId: 'notnull'})
         .then(result => {
           this.resolvedVal = result
           done();
@@ -90,6 +119,7 @@ describe('ClipService', function () {
   });
 
   describe('when creating a clip with no user id', function () {
+    // TODO move this to a hook
 
     it('should throw NotAuthenticated', function () {
       expect(() => {
@@ -107,7 +137,7 @@ describe('ClipService', function () {
         title: 'fooo'
       };
 
-      this.clipSvc.create(data, {userId: 'notnull'})
+      this.clipSvc.create(data, {ownerId: 'notnull'})
         .then(done)
         .catch(err => {
           expect(err).to.not.equal(null);
@@ -121,7 +151,7 @@ describe('ClipService', function () {
 
     it('should throw NotAuthenticated', function () {
       expect(() => {
-        this.clipSvc.update(this.testMediaRef.id, {}, {userId: 'baad'})
+        this.clipSvc.update(this.testMediaRef.id, {}, {ownerId: 'baad'});
       }).to.throw(errors.NotAuthenticated);
     });
 

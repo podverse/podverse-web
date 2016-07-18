@@ -36,8 +36,9 @@ module.exports = function(sequelize, DataTypes) {
     },
     ownerId: {
       type: DataTypes.TEXT,
+      allowNull: false,
       validation: {
-        notEmpty: true
+        notEmpty: true,
       }
     },
     dateCreated: {

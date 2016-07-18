@@ -6,6 +6,10 @@ class PodcastService extends SequelizeService {
   constructor ({Models}={}) {
     super({Model: Models.Podcast});
     this.Models = Models;
+
+    this.before = {
+      get: []
+    };
   }
 
 }

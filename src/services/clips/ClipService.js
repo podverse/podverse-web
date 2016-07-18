@@ -1,6 +1,9 @@
 const errors = require('feathers-errors');
 const SequelizeService = require('feathers-sequelize').Service;
 
+const {applyOwnerId, ensureAuthenticated} = require('hooks/common.js');
+
+
 class PlaylistService extends SequelizeService {
 
   constructor ({Models}={}) {
@@ -8,6 +11,15 @@ class PlaylistService extends SequelizeService {
       Model: Models.MediaRef
     });
     this.Models = Models;
+
+    // Hooks
+    // -----
+    this.before = {
+      create: [ensureAuthenticated, applyOwnerId],
+      update: [ensureAuthenticated, applyOwnerId]
+    };
+
+    this.after = { };
   }
 
   get (id, params={}) {
@@ -24,9 +36,11 @@ class PlaylistService extends SequelizeService {
 
   create (data, params={}) {
 
-    if(params.userId == null) {
+    if (params.ownerId == null) {
       throw new errors.NotAuthenticated();
     }
+
+    data = this._callData(data, params);
 
     return super.create(data, params);
   }
@@ -34,6 +48,10 @@ class PlaylistService extends SequelizeService {
   update (id, data, params={}) {
 
     return super.update(id, data, params);
+  }
+
+  _callData (data, params) {
+    return Object.assign({}, data, {ownerId: params.ownerId});
   }
 
 }
