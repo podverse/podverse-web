@@ -83,13 +83,18 @@ describe('PlaylistService', function () {
     };
 
     it('should error if no id provided', function (done) {
-      expect(() => this.playlistSvc.update(null, updatedPlaylist)).to.throw('Try using POST instead of PUT.');
+      expect(() => {
+        this.playlistSvc.update(null, updatedPlaylist)
+      }).to.throw(`Try using POST instead of PUT.`);
       done();
     });
 
     it('should error if wrong id provided', function (done) {
-      expect(() => this.playlistSvc.update('wrongId', updatedPlaylist)).to.throw(`Could not find a playlist by "wrongId"`);
-      done();
+      this.playlistSvc.update('wrongId', updatedPlaylist)
+        .catch(e => {
+          expect(e.name).to.equal('NotFound');
+          done()
+        });
     });
 
     it('should be able to update a playlist', function (done) {
@@ -99,9 +104,9 @@ describe('PlaylistService', function () {
         .then(playlist => {
           expect(playlist.slug).to.equal('new-test-slug');
           expect(playlist.title).to.equal('New Test Playlist');
+          done();
         });
 
-      done();
     });
   });
 
