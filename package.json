@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Web app for the Podverse podcast clip sharing system",
   "main": "index.js",
+  "engines":{"node": "6.2.2"},
   "dependencies": {
     "body-parser": "^1.15.2",
     "cookie-parser": "^1.4.3",
