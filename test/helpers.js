@@ -3,6 +3,7 @@ const registerModels = require('repositories/sequelize/models');
 
 const appFactory = require('appFactory.js');
 const PodcastService = require('services/podcast/PodcastService.js');
+const PlaylistService = require('services/playlist/PlaylistService.js');
 
 const {createToken} = new (require('services/auth/AuthService.js'))();
 
@@ -28,7 +29,8 @@ function configureDatabaseModels (resolve) {
 
 function createTestApp (Models) {
   return appFactory({
-    podcastService: new PodcastService({Models: Models})
+    podcastService: new PodcastService({Models: Models}),
+    playlistService: new PlaylistService({Models: Models})
   });
 }
 

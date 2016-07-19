@@ -1,6 +1,6 @@
 const errors = require('feathers-errors');
 
-const PlaylistService = require('services/playlists/PlaylistService.js');
+const PlaylistService = require('services/playlist/PlaylistService.js');
 const {configureDatabaseModels} = require('test/helpers.js');
 
 const config = require('config');
