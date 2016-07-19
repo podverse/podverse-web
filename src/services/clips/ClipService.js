@@ -1,7 +1,5 @@
 const errors = require('feathers-errors');
-
 const SequelizeService = require('feathers-sequelize').Service;
-
 const {applyOwnerId, ensureAuthenticated} = require('hooks/common.js');
 
 
@@ -17,11 +15,10 @@ class ClipService extends SequelizeService {
     // -----
     this.before = {
       create: [ensureAuthenticated, applyOwnerId],
-      update: [ensureAuthenticated, applyOwnerId],
+      update: [ensureAuthenticated, applyOwnerId]
     };
 
     this.after = { };
-
 
   }
 
@@ -38,21 +35,21 @@ class ClipService extends SequelizeService {
   }
 
   create (data, params={}) {
-    if (params.ownerId == null) {
-      throw new errors.NotAuthenticated();
-    }
-
-    data = this._callData(data, params);
-
     return super.create(data, params);
   }
 
   update (id, data, params={}) {
-    return super.update(id, data, params);
-  }
 
-  _callData (data, params) {
-    return Object.assign({}, data, {ownerId: params.ownerId});
+    return this.Models.MediaRef.findById(id)
+      .then(mediaRef => {
+
+        if (mediaRef.ownerId !== params.userId) {
+          throw new errors.Forbidden();
+        } else {
+          return super.update(id, data, params);
+        }
+
+      });
   }
 
 }

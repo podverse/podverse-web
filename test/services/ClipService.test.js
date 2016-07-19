@@ -1,4 +1,3 @@
-const errors = require('feathers-errors');
 const ClipService = require('services/clips/ClipService.js');
 const {configureDatabaseModels, createTestPodcastAndEpisode} = require('test/helpers.js');
 
@@ -12,9 +11,9 @@ describe('ClipService', function () {
 
   beforeEach(function (done) {
 
-    this.clipSvc = new ClipService({Models: this.Models});
-
     const {MediaRef} = this.Models;
+
+    this.clipSvc = new ClipService({Models: this.Models});
 
     createTestPodcastAndEpisode(this.Models)
       .then(([podcast,episode]) => {
@@ -34,9 +33,6 @@ describe('ClipService', function () {
       })
       .catch(done);
   });
-
-
-
 
   it('should have the expected before-create hooks', function () {
     verifyBeforeCreateHooks(this.clipSvc, [
@@ -59,7 +55,6 @@ describe('ClipService', function () {
   it('should have patch disabled', function () {
     expect(this.clipSvc.patch).to.be.not.ok;
   });
-
 
   describe('when getting clip by id', function () {
 
@@ -90,15 +85,16 @@ describe('ClipService', function () {
     beforeEach(function (done) {
 
       this.testData = {
+        ownerId: 'foo',
         title: 'hamblam',
         startTime: 40,
         endTime: 50,
         episodeId: this.testEpisode.id
       };
 
-      this.clipSvc.create(this.testData, {ownerId: 'notnull'})
+      this.clipSvc.create(this.testData)
         .then(result => {
-          this.resolvedVal = result
+          this.resolvedVal = result;
           done();
         })
         .catch(done);
@@ -116,17 +112,6 @@ describe('ClipService', function () {
           done();
         });
     });
-  });
-
-  describe('when creating a clip with no user id', function () {
-    // TODO move this to a hook
-
-    it('should throw NotAuthenticated', function () {
-      expect(() => {
-        this.clipSvc.create(this.testData, {});
-      }).to.throw(errors.NotAuthenticated);
-    });
-
   });
 
   describe('when creating a clip with no episode', function () {
@@ -147,12 +132,15 @@ describe('ClipService', function () {
 
   });
 
-  xdescribe('when updating a clip with incorrect user id', function () {
+  describe('when updating a clip as another user id', function () {
 
-    it('should throw NotAuthenticated', function () {
-      expect(() => {
-        this.clipSvc.update(this.testMediaRef.id, {}, {ownerId: 'baad'});
-      }).to.throw(errors.NotAuthenticated);
+    it('should throw NotAuthenticated', function (done) {
+      this.clipSvc.update(this.testMediaRef.id, {}, {ownerId: 'baad'})
+        .then(done)
+        .catch(err => {
+          expect(err.name).to.equal('Forbidden');
+          done();
+        });
     });
 
   });

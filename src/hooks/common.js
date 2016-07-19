@@ -1,10 +1,13 @@
+const errors = require('feathers-errors');
 
 function applyOwnerId (hooks) {
-  console.log(hooks);
+  hooks.data.ownerId = hooks.params.userId;
 }
 
 function ensureAuthenticated (hooks) {
-  console.log(hooks);
+  if (!hooks.params.userId) {
+    throw new errors.NotAuthenticated()
+  }
 }
 
 module.exports = {
