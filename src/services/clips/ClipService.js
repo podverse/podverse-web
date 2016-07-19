@@ -1,10 +1,11 @@
 const errors = require('feathers-errors');
+
 const SequelizeService = require('feathers-sequelize').Service;
 
 const {applyOwnerId, ensureAuthenticated} = require('hooks/common.js');
 
 
-class PlaylistService extends SequelizeService {
+class ClipService extends SequelizeService {
 
   constructor ({Models}={}) {
     super({
@@ -16,10 +17,12 @@ class PlaylistService extends SequelizeService {
     // -----
     this.before = {
       create: [ensureAuthenticated, applyOwnerId],
-      update: [ensureAuthenticated, applyOwnerId]
+      update: [ensureAuthenticated, applyOwnerId],
     };
 
     this.after = { };
+
+
   }
 
   get (id, params={}) {
@@ -35,7 +38,6 @@ class PlaylistService extends SequelizeService {
   }
 
   create (data, params={}) {
-
     if (params.ownerId == null) {
       throw new errors.NotAuthenticated();
     }
@@ -46,7 +48,6 @@ class PlaylistService extends SequelizeService {
   }
 
   update (id, data, params={}) {
-
     return super.update(id, data, params);
   }
 
@@ -56,4 +57,7 @@ class PlaylistService extends SequelizeService {
 
 }
 
-module.exports = PlaylistService;
+ClipService.prototype.remove = undefined;
+ClipService.prototype.patch = undefined;
+
+module.exports = ClipService;

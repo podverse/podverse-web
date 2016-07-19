@@ -52,12 +52,12 @@ describe('ClipService', function () {
     ]);
   });
 
-  xit('should have delete disabled', function () {
-
+  it('should have remove disabled', function () {
+    expect(this.clipSvc.remove).to.be.not.ok;
   });
 
-  xit('should have patch disabled', function () {
-
+  it('should have patch disabled', function () {
+    expect(this.clipSvc.patch).to.be.not.ok;
   });
 
 

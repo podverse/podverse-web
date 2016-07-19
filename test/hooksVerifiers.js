@@ -40,9 +40,9 @@ function verifyHooks (service, lifecycleType, method, hooks) {
     `\tActual: [${actualHookNames}] \n`);
 }
 
+// Create all service method hook verifiers
 
-
-['Get', 'Create', 'Update', 'Delete', 'Patch'].forEach(function (svcMethod) {
+['Find', 'Get', 'Create', 'Update', 'Patch', 'Remove'].forEach(function (svcMethod) {
 
   ['Before', 'After'].forEach(lifecycle => {
 
