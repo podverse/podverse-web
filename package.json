@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Web app for the Podverse podcast clip sharing system",
   "main": "index.js",
+  "engines": {
+    "node": "6.2.2"
+  },
   "dependencies": {
     "body-parser": "^1.15.2",
     "cookies": "^0.6.1",
@@ -32,6 +35,7 @@
     "eslint": "^1.10.3",
     "is-ci": "^1.0.9",
     "mocha": "^2.3.4",
+    "rewire": "^2.5.2",
     "sinon": "^1.17.2"
   },
   "scripts": {

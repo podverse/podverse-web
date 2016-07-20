@@ -40,7 +40,6 @@ function appFactory ({podcastService, playlistService}) {
       }
     });
 
-
   return app;
 }
 
