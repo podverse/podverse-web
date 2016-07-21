@@ -29,17 +29,6 @@ function appFactory ({podcastService, playlistService}) {
       AuthService.returnJWTInResponseIfValidUsernameAndPassword(req, res);
     });
 
-    // TODO: seeing double D: is there a better name we should use?
-    // TODO: probably we should move these routes and hooks somewhere else
-    const PlaylistService = app.service('/playlists');
-
-    PlaylistService.before({
-      create(hook, next) {
-        requireAPISecret();
-        next();
-      }
-    });
-
   return app;
 }
 

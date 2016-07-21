@@ -67,9 +67,22 @@ function createTestPodcastAndEpisode (Models) {
     });
 }
 
+function createTestPlaylist (Models) {
+
+  const {Playlist} = Models;
+
+  return Playlist.create({
+    'title': 'Abobo smash',
+    'slug': 'abobo-slug',
+    'ownerId': 'abobo'
+  });
+
+}
+
 module.exports = {
   configureDatabaseModels,
   createTestApp,
   createValidTestJWT,
-  createTestPodcastAndEpisode
+  createTestPodcastAndEpisode,
+  createTestPlaylist
 };

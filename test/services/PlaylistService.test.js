@@ -1,7 +1,9 @@
 const errors = require('feathers-errors');
 
 const PlaylistService = require('services/playlist/PlaylistService.js');
-const {configureDatabaseModels} = require('test/helpers.js');
+const {configureDatabaseModels, createTestPlaylist} = require('test/helpers.js');
+
+const {applyOwnerId} = require('hooks/common.js');
 
 const config = require('config');
 
@@ -11,110 +13,165 @@ describe('PlaylistService', function () {
     this.Models = Models;
   });
 
-  let testPlaylist, responseBody;
-
   beforeEach(function (done) {
-    this.playlistSvc = new PlaylistService({Models: this.Models});
-    let playlist = {
-      slug: 'test-slug',
-      title: 'Test Playlist',
-      items: []
-    }
 
-    this.playlistSvc
-      .create(playlist)
+    const {Playlist} = this.Models;
+
+    this.playlistSvc = new PlaylistService({Models: this.Models});
+
+    createTestPlaylist(this.Models)
       .then(playlist => {
         this.playlist = playlist;
         done();
       })
+      .catch(done);
+
   });
 
   it('should go', function () {
     expect(this.playlistSvc).to.be.ok;
   });
 
-  describe('create playlist', function () {
-
-    it('should create a playlist', function () {
-      expect(this.playlist).to.exist;
-    });
-
-    xit('should not have a url saved to database', function() {
-      // TODO: how can we test for this?
-    });
-
+  it('should have the expected before-create hooks', function() {
+    verifyBeforeCreateHooks(this.playlistSvc, [
+      applyOwnerId
+    ]);
   });
 
-  describe('get playlist', function() {
+  it('should have the expected before-update hooks', function () {
+    verifyBeforeUpdateHooks(this.playlistSvc, [
+      applyOwnerId
+    ]);
+  });
 
-    it('should be able to get a playlist by id', function (done) {
-      this.playlistSvc.get(this.playlist.id, {})
-      .then(playlist => {
-        expect(playlist.title).to.equal('Test Playlist');
-        done();
-      });
-    });
+  it('should have remove disabled', function () {
+    expect(this.playlistSvc.remove).to.be.not.ok;
+  });
 
-    it('should be able to get a playlist by slug', function (done) {
-      this.playlistSvc.get(this.playlist.slug, {})
-      .then(playlist => {
-        expect(playlist.slug).to.equal('test-slug');
-        done();
-      });
-    });
+  it('should have patch disabled', function () {
+    expect(this.playlistSvc.patch).to.be.not.ok;
+  });
 
-    it('should have a url property', function (done) {
-      this.playlistSvc.get(this.playlist.slug, {})
+  describe('when getting a playlist by id', function() {
+
+    beforeEach(function (done) {
+      this.playlistSvc.get(this.playlist.id)
         .then(playlist => {
-        // TODO: can we make this more precise? expect the exact url?
-        expect(playlist.url).to.exist;
-        done();
-      });
-    });
-
-  });
-
-  describe('update playlist', function() {
-
-    let updatedPlaylist = {
-      slug: 'new-test-slug',
-      title: 'New Test Playlist',
-      items: []
-    };
-
-    it('should error if no id provided', function (done) {
-      expect(() => {
-        this.playlistSvc.update(null, updatedPlaylist)
-      }).to.throw(`Try using POST instead of PUT.`);
-      done();
-    });
-
-    it('should error if wrong id provided', function (done) {
-      this.playlistSvc.update('wrongId', updatedPlaylist)
-        .catch(e => {
-          expect(e.name).to.equal('NotFound');
-          done()
+          this.resultPlaylist = playlist;
+          done();
         });
     });
 
-    it('should be able to update a playlist', function (done) {
-      this.playlistSvc.update(this.playlist.id, updatedPlaylist);
+    it('should have the expected title', function () {
+      expect(this.resultPlaylist.title).to.equal('Abobo smash');
+    });
+
+    it('should have a url', function () {
+      expect(this.resultPlaylist.url).to.exist;
+    });
+
+  });
+
+  describe('when getting a playlist by slug', function () {
+
+    beforeEach(function (done) {
+      this.playlistSvc.get(this.playlist.slug)
+        .then(playlist => {
+          this.resultPlaylist = playlist;
+          done();
+        });
+    });
+
+    it('should have the expected title', function () {
+      expect(this.resultPlaylist.title).to.equal('Abobo smash');
+    });
+
+    it('should have a url', function () {
+      expect(this.resultPlaylist.url).to.exist;
+    });
+
+    xit('should have its playlist items');
+
+  });
+
+  describe('when creating a playlist', function () {
+
+    beforeEach(function (done) {
+
+      this.testData = {
+        ownerId: 'jabberwocky',
+        title: 'Jubjub',
+        slug: 'tumtum'
+      };
+
+      this.playlistSvc.create(this.testData)
+        .then(result => {
+          this.resolvedVal = result;
+          done();
+        })
+        .catch(done);
+
+    });
+
+    it('should resolve the inserted playlist', function () {
+      expect(this.resolvedVal).to.contain(this.testData);
+    });
+
+    it('should have inserted a playlist in the database', function (done) {
+      this.Models.Playlist.findAll({where: {title: this.testData.title}})
+        .then(playlist => {
+          expect(playlist[0]).to.contain(this.testData);
+          done();
+        });
+    });
+
+    xit('should have its playlist items');
+
+    xit('should not have a url saved to database');
+
+    xit('should ensure slug has only valid characters');
+
+  });
+
+  describe('when updating a playlist as another user id', function() {
+
+    it('should throw NotAuthenticated', function (done) {
+      this.playlistSvc.update(this.playlist.id, {}, {ownerId: 'aboboy'})
+        .then(done)
+        .catch(err => {
+          expect(err.name).to.equal('Forbidden');
+          done();
+        });
+    });
+
+  });
+
+  describe('when updating a playlist as the correct user id', function () {
+
+    beforeEach(function(done) {
+      this.newPlaylist = {
+        ownerId: 'abobo',
+        title: 'Abobo smash again',
+        slug: 'abobo-new-slug'
+      };
+
+      this.playlistSvc.update(this.playlist.id, this.newPlaylist);
 
       this.playlistSvc.get(this.playlist.id)
         .then(playlist => {
-          expect(playlist.slug).to.equal('new-test-slug');
-          expect(playlist.title).to.equal('New Test Playlist');
+          this.updatedPlaylist = playlist;
           done();
         });
-
     });
+
+    it('should have a new title', function () {
+      expect(this.newPlaylist.title).to.equal('Abobo smash again');
+    });
+
+    it('should have a new slug', function () {
+      expect(this.newPlaylist.slug).to.equal('abobo-new-slug');
+    })
+
   });
 
-  xit('should be able to remove a playlist', function () {
-
-  });
-
-  xit('should be able to paginate', function () {
-
-  });
 });

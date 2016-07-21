@@ -3,11 +3,22 @@ const SequelizeService = require('feathers-sequelize').Service;
 const errors = require('feathers-errors');
 const config = require('config.js');
 
+const {applyOwnerId} = require('hooks/common.js');
+
 class PlaylistService extends SequelizeService {
 
   constructor ({Models}={}) {
     super({Model: Models.Playlist});
     this.Models = Models;
+
+    // Hooks
+    // -----
+    this.before = {
+      create: [applyOwnerId],
+      update: [applyOwnerId]
+    };
+
+    this.after = { };
   }
 
   _transformAfterRetrieval (data) {
@@ -80,5 +91,8 @@ class PlaylistService extends SequelizeService {
   }
 
 }
+
+PlaylistService.prototype.remove = undefined;
+PlaylistService.prototype.patch = undefined;
 
 module.exports = PlaylistService;
