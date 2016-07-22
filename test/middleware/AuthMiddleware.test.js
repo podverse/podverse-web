@@ -47,26 +47,26 @@ describe('AuthMiddleware', function () {
         });
     });
 
-    describe('if invalid JWT provided in x-auth-token header', function () {
-      it('should respond with 401 Unauthorized', function (done) {
-        chai.request(this.app)
+    describe('check the x-auth-token header', function () {
+      createValidTestJWT();
+
+      beforeEach(function() {
+        this.request = chai.request(this.app)
           .put('/test-auth/put')
-          .set('user-agent', 'Mobile App')
+          .set('user-agent', 'Mobile App');
+      });
+
+      it('should respond with 401 Unauthorized', function (done) {
+        this.request
           .set('x-auth-token', 'wrongtoken')
           .end(function (err, res) {
             expect(res).to.have.status(401)
             done();
           });
       });
-    });
-
-    describe('if valid JWT provided in x-auth-token header', function () {
-      createValidTestJWT();
 
       it('should call the next() function', function (done) {
-        chai.request(this.app)
-          .put('/test-auth/put')
-          .set('user-agent', 'Mobile App')
+        this.request
           .set('x-auth-token', this.token)
           .end(function (err, res) {
             expect(res).to.have.status(602);
@@ -75,9 +75,7 @@ describe('AuthMiddleware', function () {
       });
 
       it('should set a token on the req.feathers object', function (done) {
-        chai.request(this.app)
-          .put('/test-auth/put')
-          .set('user-agent', 'Mobile App')
+        this.request
           .set('x-auth-token', this.token)
           .end(function (err, res) {
             expect(res).to.have.status(602);
@@ -87,9 +85,7 @@ describe('AuthMiddleware', function () {
       });
 
       it('should set a user on the req.feathers object', function (done) {
-        chai.request(this.app)
-          .put('/test-auth/put')
-          .set('user-agent', 'Mobile App')
+        this.request
           .set('x-auth-token', this.token)
           .end(function (err, res) {
             expect(res).to.have.status(602);
@@ -100,53 +96,58 @@ describe('AuthMiddleware', function () {
 
     });
 
-    describe('if invalid JWT provided in session cookie', function () {
+    describe('check the access_token session cookie', function () {
 
-      it('should respond with 401 Unauthorized', function (done) {
-        chai.request(this.app)
-          .put('/test-auth/put')
-          .set('Cookie', 'access_token=wrongtoken')
-          .end(function (err, res) {
-            expect(res).to.have.status(401);
-            done();
-          });
+      beforeEach(function () {
+        this.request = chai.request(this.app)
+          .put('/test-auth/put');
       });
 
-    });
-
-    describe('if valid JWT provided in header', function () {
-      createValidTestJWT();
-
-      it('should call the next() function', function (done) {
-        chai.request(this.app)
-          .put('/test-auth/put')
-          .set('Cookie', 'access_token=' + this.token)
-          .end(function (err, res) {
-            expect(res).to.have.status(602);
-            done();
-          });
+      describe('if wrong token is provided', function () {
+        it('it should respond with 401 Unauthorized', function (done) {
+          this.request
+            .set('Cookie', 'access_token=wrongtoken')
+            .end(function (err, res) {
+              expect(res).to.have.status(401);
+              done();
+            });
+        });
       });
 
-      it('should set a token on the req.feathers object', function (done) {
-        chai.request(this.app)
-          .put('/test-auth/put')
-          .set('Cookie', 'access_token=' + this.token)
-          .end(function (err, res) {
-            expect(res).to.have.status(602);
-            expect(res.body.token).to.exist;
-            done();
-          });
-      });
+      describe('if valid token is provided', function () {
+        createValidTestJWT();
 
-      it('should set a user on the req.feathers object', function (done) {
-        chai.request(this.app)
-          .put('/test-auth/put')
-          .set('Cookie', 'access_token=' + this.token)
-          .end(function (err, res) {
-            expect(res).to.have.status(602);
-            expect(res.body.user).to.equal('curly@podverse.fm');
-            done();
-          });
+        beforeEach(function () {
+          this.authenticatedRequest = this.request
+            .set('Cookie', 'access_token=' + this.token);
+        });
+
+        it('should call the next() function', function (done) {
+          this.authenticatedRequest
+            .end(function (err, res) {
+              expect(res).to.have.status(602);
+              done();
+            });
+        });
+
+        it('should set a token on the req.feathers object', function (done) {
+          this.authenticatedRequest
+            .end(function (err, res) {
+              expect(res).to.have.status(602);
+              expect(res.body.token).to.exist;
+              done();
+            });
+        });
+
+        it('should set a user on the req.feathers object', function (done) {
+          this.authenticatedRequest
+            .end(function (err, res) {
+              expect(res).to.have.status(602);
+              expect(res.body.user).to.equal('curly@podverse.fm');
+              done();
+            });
+        });
+
       });
 
     });

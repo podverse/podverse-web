@@ -6,7 +6,6 @@ const hooks = require('feathers-hooks');
 
 const bodyParser = require('body-parser');
 
-const requireAPISecret = require('middleware/apiSecret/APISecretMiddleware.js');
 const {checkIfAuthenticatedUser} = require('middleware/auth/AuthMiddleware.js');
 const AuthService = new (require('services/auth/AuthService.js'))();
 
