@@ -13,7 +13,7 @@ describe('ClipService', function () {
 
     const {MediaRef} = this.Models;
 
-    this.clipSvc = new ClipService({Models: this.Models});
+    this.clipSvc = new ClipService();
 
     createTestPodcastAndEpisode(this.Models)
       .then(([podcast,episode]) => {

@@ -1,13 +1,16 @@
 const spawn = require('child_process').spawn;
 const isCi = require('is-ci');
 
-const mochaCmd = ['--recursive', '--require', 'test/setup.js'];
+const mochaArgs = ['--recursive'];
 
 if (!isCi) {
-  mochaCmd.push('-w', '--colors');
+  mochaArgs.push('-w', '--colors');
 }
 
-const mocha = spawn('mocha', mochaCmd);
+mochaArgs.push('test/setup.js')
+mochaArgs.push('test/');
+
+const mocha = spawn('mocha', mochaArgs);
 
 mocha.stdout.pipe(process.stdout);
 mocha.stderr.pipe(process.stderr);

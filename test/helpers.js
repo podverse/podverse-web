@@ -1,6 +1,8 @@
 const SqlEngine = require('repositories/sequelize/engineFactory.js');
 const registerModels = require('repositories/sequelize/models');
 
+const {locator} = require('locator.js');
+
 function configureDatabaseModels (resolve) {
 
   beforeEach(function (done) {
@@ -10,12 +12,14 @@ function configureDatabaseModels (resolve) {
 
     this._sqlEngine.sync()
       .then(() => {
+        locator.set('Models', Models);
         resolve.apply(this, [Models]);
         done();
       });
   });
 
   afterEach(function (done) {
+    locator.set('Models', undefined);
     this._sqlEngine.dropAllSchemas()
       .then(() => done());
   });

@@ -14,8 +14,6 @@ global.chance = chance.Chance();
 
 chai.use(chaiHttp);
 
-
-/*
 // Spy sandboxing
 beforeEach(function () {
   this.sinon = sinon.sandbox.create();
@@ -24,4 +22,3 @@ beforeEach(function () {
 afterEach(function () {
   this.sinon.restore();
 });
-*/

@@ -5,7 +5,9 @@ const hooks = require('feathers-hooks');
 const rest = require('feathers-rest');
 const bodyParser = require('body-parser');
 
-function appFactory ({podcastService}) {
+const {locator} = require('locator.js');
+
+function appFactory () {
 
   const app = feathers();
 
@@ -14,7 +16,18 @@ function appFactory ({podcastService}) {
     .use(bodyParser.urlencoded({ extended: true }))
     .configure(rest())
     .configure(hooks())
-    .use('podcasts', podcastService);
+    //.use('podcasts', locator.get('PodcastService'))
+    //.use('episodes', locator.get('EpisodeService'))
+
+    // Temporary auth
+    .use((req, res, next) => {
+      req.feathers.userId = 'temporary';
+      next();
+    })
+
+
+    .use('clips', locator.get('ClipService'))
+    .use('playlists', locator.get('PlaylistService'));
 
   return app;
 }

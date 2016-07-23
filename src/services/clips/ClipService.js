@@ -2,10 +2,14 @@ const errors = require('feathers-errors');
 const SequelizeService = require('feathers-sequelize').Service;
 const {applyOwnerId, ensureAuthenticated} = require('hooks/common.js');
 
+const {locator} = require('locator.js');
 
 class ClipService extends SequelizeService {
 
-  constructor ({Models}={}) {
+  constructor () {
+
+    const Models = locator.get('Models');
+
     super({
       Model: Models.MediaRef
     });
@@ -35,7 +39,50 @@ class ClipService extends SequelizeService {
   }
 
   create (data, params={}) {
+
+    const {Episode, Podcast} = this.Models;
+
+    let podcast = this._resolvePodcastData(data),
+      episode = data.episode,
+      isEpisodeReferenced = !!episode,
+      isPodcastReferenced = !!podcast;
+
+    if (isPodcastReferenced) {
+
+      // Lets create/find the podcast
+      return Podcast.findOrCreate({
+        where: {
+          feedURL: podcast.feedURL
+        },
+        defaults: episode
+      })
+
+      // Then create/find the episode
+      .then(([podcast]) => {
+        return Episode.findOrCreate({
+          where: {
+            mediaURL: episode.mediaURL
+          },
+          defaults: Object.assign({}, podcast, {podcastId: podcast.id })
+        });
+      })
+
+      // Then create the MediaRef
+      .then(([episode]) => {
+        const clip = Object.assign({}, data, {episodeId: episode.id});
+
+        return super.create(clip, params);
+      });
+    }
+
+    // Default
     return super.create(data, params);
+  }
+
+  _resolvePodcastData(data) {
+    if (data.episode && data.episode.podcast) {
+      return data.episode.podcast;
+    }
   }
 
   update (id, data, params={}) {
