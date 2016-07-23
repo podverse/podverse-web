@@ -1,11 +1,9 @@
-const appFactory = require('appFactory.js');
-
-const {configureDatabaseModels, createTestPodcastAndEpisode} = require('test/helpers.js');
-
 const {locator} = require('locator.js');
-const
-  PlaylistService = require('services/playlists/PlaylistService.js'),
-  ClipService = require('services/clips/ClipService.js');
+
+const appFactory = require('appFactory.js');
+const {configureDatabaseModels, createTestPodcastAndEpisode, createValidTestJWT} = require('test/helpers.js');
+
+const ClipService = require('services/clips/ClipService.js');
 
 describe('API Test: Clips', function () {
 
@@ -36,6 +34,7 @@ describe('API Test: Clips', function () {
 
     chai.request(this.app)
       .post(`/clips`)
+      .set(`Authorization`, `JWT ${this.token}`)
       .send({
         'title': 'jerry',
         'startTime':3,

@@ -1,33 +1,34 @@
 'use strict';
 
 const feathers = require('feathers');
-const hooks = require('feathers-hooks');
 const rest = require('feathers-rest');
+const hooks = require('feathers-hooks');
+
 const bodyParser = require('body-parser');
 
 const {locator} = require('locator.js');
+const {checkJWT} = require('middleware/auth/checkJWT.js');
+const AuthService = new (require('services/auth/AuthService.js'))();
 
 function appFactory () {
 
   const app = feathers();
 
   app
-    .use(bodyParser.json())
-    .use(bodyParser.urlencoded({ extended: true }))
     .configure(rest())
     .configure(hooks())
-    //.use('podcasts', locator.get('PodcastService'))
-    //.use('episodes', locator.get('EpisodeService'))
 
-    // Temporary auth
-    .use((req, res, next) => {
-      req.feathers.userId = 'temporary';
-      next();
-    })
+    .use(bodyParser.json())
+    .use(bodyParser.urlencoded({ extended: true }))
 
+    .use(checkJWT)
 
     .use('clips', locator.get('ClipService'))
-    .use('playlists', locator.get('PlaylistService'));
+    .use('playlists', locator.get('PlaylistService'))
+
+    .post('/auth', function(req, res) {
+      AuthService.returnJWTInResponseIfValidUsernameAndPassword(req, res);
+    });
 
   return app;
 }

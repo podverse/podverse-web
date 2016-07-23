@@ -6,31 +6,46 @@ module.exports = function(sequelize, DataTypes) {
   // There will be a way to retrieve related MediaRefs for
   // a given playlist.
   const playlist = sequelize.define('playlist', {
-    _slug: {
+
+    id: {
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV1,
+      primaryKey: true
+    },
+
+    slug: {
       type: DataTypes.TEXT,
       unique: true,
       validation: {
         notEmpty: true
       }
-      // TODO: the _slug and primary keys must be mutally unique if URLs can use primary keys.
-      // In that case a _slug should never be the same as an existing primary key, and vice versa.
+      // TODO: the slug and primary keys must be mutally unique if URLs can use primary keys.
+      // In that case a slug should never be the same as an existing primary key, and vice versa.
     },
-    url: {
-      type: DataTypes.TEXT,
-      validation: {
-        isUrl: true,
-        notEmpty: true
-      }
-    },
+
     title: {
       type: DataTypes.TEXT,
       validation: {
         notEmpty: true
       }
     },
+
+    ownerId: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+      validation: {
+        notEmpty: true,
+      }
+    },
+
+    dateCreated: {
+      type: DataTypes.DATE
+    },
+
     lastUpdated: {
       type: DataTypes.DATE
     }
+
   });
 
   return playlist;

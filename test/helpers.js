@@ -2,6 +2,11 @@ const SqlEngine = require('repositories/sequelize/engineFactory.js');
 const registerModels = require('repositories/sequelize/models');
 
 const {locator} = require('locator.js');
+const appFactory = require('appFactory.js');
+const PodcastService = require('services/podcast/PodcastService.js');
+const PlaylistService = require('services/playlist/PlaylistService.js');
+
+const {createToken} = new (require('services/auth/AuthService.js'))();
 
 function configureDatabaseModels (resolve) {
 
@@ -25,6 +30,24 @@ function configureDatabaseModels (resolve) {
   });
 }
 
+function createTestApp (Models) {
+  return appFactory({
+    podcastService: new PodcastService({Models: Models}),
+    playlistService: new PlaylistService({Models: Models})
+  });
+}
+
+function createValidTestJWT () {
+
+  const fakeReq = {
+    body: {
+      username: 'curly@podverse.fm'
+    }
+  }
+
+  return createToken(fakeReq);
+}
+
 function createTestPodcastAndEpisode (Models) {
 
   const {Podcast, Episode} = Models;
@@ -42,7 +65,22 @@ function createTestPodcastAndEpisode (Models) {
     });
 }
 
+function createTestPlaylist (Models) {
+
+  const {Playlist} = Models;
+
+  return Playlist.create({
+    'title': 'Abobo smash',
+    'slug': 'abobo-slug',
+    'ownerId': 'abobo'
+  });
+
+}
+
 module.exports = {
   configureDatabaseModels,
-  createTestPodcastAndEpisode
+  createTestApp,
+  createValidTestJWT,
+  createTestPodcastAndEpisode,
+  createTestPlaylist
 };
