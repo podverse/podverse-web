@@ -46,23 +46,12 @@ describe('AuthService', function () {
 
   describe('valid credentials provided', function () {
 
-    it('should return token in JSON response for a request from the mobile app', function (done) {
+    it('should return token in JSON response', function (done) {
       chai.request(this.app)
         .post('/auth')
-        .set('user-agent', 'Mobile App')
         .send({username: 'larry@podverse.fm', password: 'free access'})
         .end(function (err, res) {
           expect(res.body.token).to.exist;
-          done();
-        });
-    });
-
-    it('should set JWT as value of access_token cookie in response', function (done) {
-      chai.request(this.app)
-        .post('/auth')
-        .send({username: 'curly@podverse.fm', password: 'free access'})
-        .end(function (err, res) {
-          expect(res).to.have.cookie('access_token');
           done();
         });
     });

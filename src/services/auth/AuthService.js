@@ -1,4 +1,4 @@
-'use strict';
+ 'use strict';
 
 const
     nJwt = require('njwt'),
@@ -15,16 +15,8 @@ class AuthService {
     }
 
     const token = this.createToken(req);
-
-    if (req.headers['user-agent'] === 'Mobile App') {
-      res.json({ token: token });
-    } else {
-      // TODO: add secure cookie handling for production
-      const cookieSettings = { httpOnly: true };
-      new Cookies(req, res).set('access_token', token, cookieSettings);
-      res.sendStatus(200);
-    }
-
+    res.json({ token: token });
+    
   }
 
   verifyCredentials(username, password) {

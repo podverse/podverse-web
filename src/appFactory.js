@@ -7,7 +7,7 @@ const hooks = require('feathers-hooks');
 const bodyParser = require('body-parser');
 
 const {locator} = require('locator.js');
-const {checkJWT} = require('middleware/auth/checkJWT.js');
+const {processJWTIfExists} = require('middleware/auth/processJWTIfExists.js');
 const AuthService = new (require('services/auth/AuthService.js'))();
 const {nunjucks} = require('nunjucks.js');
 const {routes} = require('routes.js');
@@ -24,7 +24,7 @@ function appFactory () {
     .use(bodyParser.json())
     .use(bodyParser.urlencoded({ extended: true }))
 
-    .use(checkJWT)
+    .use(processJWTIfExists)
 
     .use('clips', locator.get('ClipService'))
     .use('playlists', locator.get('PlaylistService'))

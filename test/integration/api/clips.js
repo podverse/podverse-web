@@ -1,7 +1,7 @@
 const {locator} = require('locator.js');
 
 const appFactory = require('appFactory.js');
-const {configureDatabaseModels, createTestPodcastAndEpisode} = require('test/helpers.js');
+const {configureDatabaseModels, createTestPodcastAndEpisode, createValidTestJWT} = require('test/helpers.js');
 
 const ClipService = require('services/clips/ClipService.js');
 
@@ -20,6 +20,8 @@ describe('API Test: Clips', function () {
         done();
       });
 
+      this.token = createValidTestJWT();
+
   });
 
   beforeEach(function () {
@@ -36,7 +38,12 @@ describe('API Test: Clips', function () {
 
       chai.request(this.app)
         .post(`/clips`)
-        .set(`Authorization`, `JWT ${this.token}`)
+        // TODO: I modified this because I didn't think we wanted 'JWT' at the beginning
+        // of the Authorization header. Should we keep it for some reason?
+        // .set(`Authorization`, `JWT ${this.token}`)
+        // TODO: What's a good way to handle this Auth header here? Can/Should we guarantee
+        // all posts have a JWT? Even if a user isn't logged in when they post a new clip?
+        .set('Authorization', this.token)
         .send({
           'title': 'jerry',
           'startTime': 3,
