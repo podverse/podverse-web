@@ -1,5 +1,3 @@
- 'use strict';
-
 const
     nJwt = require('njwt'),
     config = require('config.js'),
@@ -16,7 +14,7 @@ class AuthService {
 
     const token = this.createToken(req);
     res.json({ token: token });
-    
+
   }
 
   verifyCredentials(username, password) {

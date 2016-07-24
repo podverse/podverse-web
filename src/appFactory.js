@@ -9,6 +9,7 @@ const bodyParser = require('body-parser');
 const {locator} = require('locator.js');
 const {processJWTIfExists} = require('middleware/auth/processJWTIfExists.js');
 const AuthService = new (require('services/auth/AuthService.js'))();
+const {parseFeed} = require('tasks/feedParser.js')
 const {nunjucks} = require('nunjucks.js');
 const {routes} = require('routes.js');
 
@@ -28,11 +29,19 @@ function appFactory () {
 
     .use('clips', locator.get('ClipService'))
     .use('playlists', locator.get('PlaylistService'))
-    .configure(routes)
 
-    .post('/auth', function(req, res) {
+    .get('/parse', (req, res) => {
+      parseFeed('http://joeroganexp.joerogan.libsynpro.com/rss')
+        .then(parsedFeedObj => {
+          res.send(401, parsedFeedObj.podcast.title);
+        });
+    })
+
+    .post('/auth', (req, res) => {
       AuthService.returnJWTInResponseIfValidUsernameAndPassword(req, res);
-    });
+    })
+
+    .configure(routes);
 
   return app;
 }
