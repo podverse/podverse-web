@@ -1,7 +1,7 @@
 const {locator} = require('locator.js');
 
 const appFactory = require('appFactory.js');
-const {configureDatabaseModels, createTestPodcastAndEpisode, createValidTestJWT} = require('test/helpers.js');
+const {configureDatabaseModels, createTestPodcastAndEpisode} = require('test/helpers.js');
 
 const ClipService = require('services/clips/ClipService.js');
 
@@ -30,29 +30,72 @@ describe('API Test: Clips', function () {
     this.app = appFactory();
   });
 
-  it('should be able to create a clip by mediaURL/podcast', function (done) {
+  describe('when creating a clip by mediaURL/feedURL', function () {
 
-    chai.request(this.app)
-      .post(`/clips`)
-      .set(`Authorization`, `JWT ${this.token}`)
-      .send({
-        'title': 'jerry',
-        'startTime':3,
-        'endTime': 10,
+    beforeEach(function (done) {
 
-        'episode': {
+      chai.request(this.app)
+        .post(`/clips`)
+        .set(`Authorization`, `JWT ${this.token}`)
+        .send({
+          'title': 'jerry',
+          'startTime': 3,
+          'endTime': 10,
 
-          mediaURL: 'http://something.com/1.mp3',
-
-          'podcast': {
-            feedURL: 'http://something.com/rss'
+          'episode': {
+            title: 'testEpisodeTitle22',
+            mediaURL: 'http://something.com/1.mp3',
+            'podcast': {
+              title: 'testPodcastTitle234',
+              feedURL: 'http://something.com/rss'
+            }
           }
+        })
+        .end((err, res) => {
+          this.response = res;
+          done();
+        });
+    });
+
+    it('should return 201', function () {
+      expect(this.response.statusCode).to.equal(201);
+    });
+
+    it('should have saved the podcast object with the title', function (done) {
+
+      // Expect there to be an episode created with the title.
+      this.Models.Podcast.findOne({
+        where: {
+          title: 'testPodcastTitle234'
         }
       })
-      .end(function (err, res) {
-        expect(res.statusCode).to.equal(201);
+      .then(podcast => {
+        expect(podcast).to.not.equal(null);
+        expect(podcast.feedURL).to.equal('http://something.com/rss');
         done();
-      });
+      })
+      .catch(done);
+
+    });
+
+    it('should have saved the episode object', function (done) {
+            // Expect there to be an episode created with the title.
+            this.Models.Episode.findOne({
+              where: {
+                title: 'testEpisodeTitle22'
+              }
+            })
+            .then(episode => {
+              expect(episode).to.not.equal(null);
+              expect(episode.mediaURL).to.equal('http://something.com/1.mp3');
+              done();
+            })
+            .catch(done);
+    });
+
+  });
+
+  xit('should be able to get a clip', function () {
 
   });
 });

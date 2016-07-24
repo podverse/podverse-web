@@ -44,7 +44,6 @@ class ClipService extends SequelizeService {
 
     let podcast = this._resolvePodcastData(data),
       episode = data.episode,
-      isEpisodeReferenced = !!episode,
       isPodcastReferenced = !!podcast;
 
     if (isPodcastReferenced) {
@@ -54,7 +53,7 @@ class ClipService extends SequelizeService {
         where: {
           feedURL: podcast.feedURL
         },
-        defaults: episode
+        defaults: podcast
       })
 
       // Then create/find the episode
@@ -63,7 +62,7 @@ class ClipService extends SequelizeService {
           where: {
             mediaURL: episode.mediaURL
           },
-          defaults: Object.assign({}, podcast, {podcastId: podcast.id })
+          defaults: Object.assign({}, episode, {podcastId: podcast.id })
         });
       })
 
