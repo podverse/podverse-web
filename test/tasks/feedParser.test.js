@@ -1,14 +1,17 @@
 const feedParser = require('tasks/feedParser.js'),
       fs = require('fs'),
-      appFactory = require('appFactory.js'),
+      express = require('express'),
       {configureDatabaseModels} = require('test/helpers.js');
 
 describe('feedParser', function () {
 
-  before(function () {
-    this.app = appFactory();
+  before(function (done) {
 
-    this.server = this.app.listen(1234);
+    this.timeout = 5*1000; // allow 5 seconds before timeout
+
+    this.app = express();
+
+    this.server = this.app.listen(1234, done)
 
     this.app
       .get('/localFeed', (req, res) => {
@@ -21,8 +24,8 @@ describe('feedParser', function () {
       });
   });
 
-  after(function () {
-    this.server.close();
+  after(function (done) {
+    this.server.close(done);
   });
 
   describe('parseFeed function', function () {
