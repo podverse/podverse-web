@@ -1,4 +1,4 @@
-const FeedParser = require('feedParser'),
+const FeedParser = require('feedparser'),
       request = require('request'),
       {locator} = require('locator.js');
 
