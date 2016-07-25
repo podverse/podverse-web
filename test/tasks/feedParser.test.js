@@ -1,30 +1,31 @@
 const feedParser = require('tasks/feedParser.js'),
       fs = require('fs'),
-      appFactory = require('appFactory.js');
+      appFactory = require('appFactory.js'),
+      {configureDatabaseModels} = require('test/helpers.js');
 
 describe('feedParser', function () {
 
+  before(function () {
+    this.app = appFactory();
+
+    this.server = this.app.listen(1234);
+
+    this.app
+      .get('/localFeed', (req, res) => {
+        fs.readFile(__dirname + '/../assets/rogan-example-rss.xml', 'utf8', function(err, data) {
+          if (err) {
+            return console.log(err);
+          }
+          res.status(200).send(data);
+        })
+      });
+  });
+
+  after(function () {
+    this.server.close();
+  });
+
   describe('parseFeed function', function () {
-
-    before(function () {
-      this.app = appFactory();
-
-      this.server = this.app.listen(1234);
-
-      this.app
-        .get('/localFeed', (req, res) => {
-          fs.readFile(__dirname + '/../assets/rogan-example-rss.xml', 'utf8', function(err, data) {
-            if (err) {
-              return console.log(err);
-            }
-            res.send(200, data);
-          })
-        });
-    });
-
-    after(function () {
-      this.server.close();
-    });
 
     describe('when an invalid RSS URL is provided', function () {
 
@@ -60,6 +61,25 @@ describe('feedParser', function () {
       it('parsed feed object should have a podcast title', function () {
         expect(this.parsedFeedObj.podcast.title).to.equal('The Joe Rogan Experience');
       });
+
+      describe('after a feed is successfully parsed and saveParsedFeedToDatabase is called', function () {
+
+        configureDatabaseModels(function (Models) {
+          this.Models = Models;
+        })
+
+        beforeEach(function (done) {
+          feedParser.saveParsedFeedToDatabase(this.parsedFeedObj)
+            .then(done);
+        });
+
+        xit('does something', function (done) {
+          // it should expect something
+          done();
+        });
+
+      });
+
 
     });
 

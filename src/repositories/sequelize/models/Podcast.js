@@ -33,8 +33,14 @@ module.exports = function(sequelize, DataTypes) {
 
     summary: DataTypes.TEXT,
 
-    title: DataTypes.TEXT
-    
+    title: DataTypes.TEXT,
+
+    author: DataTypes.TEXT,
+
+    lastBuildDate: DataTypes.DATE,
+
+    lastPubDate: DataTypes.DATE
+
   });
 
   return podcast;
