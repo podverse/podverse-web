@@ -12,6 +12,7 @@ const AuthService = new (require('services/auth/AuthService.js'))();
 const {parseFeed} = require('tasks/feedParser.js')
 const {nunjucks} = require('nunjucks.js');
 const {routes} = require('routes.js');
+const {errorHandler} = require('middleware/errors.js')
 
 function appFactory () {
 
@@ -21,7 +22,8 @@ function appFactory () {
     .configure(rest())
     .configure(hooks())
     .configure(nunjucks)
-
+    .configure(errorHandler)
+    
     .use(bodyParser.json())
     .use(bodyParser.urlencoded({ extended: true }))
 

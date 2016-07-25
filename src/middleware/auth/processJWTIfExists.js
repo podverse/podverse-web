@@ -1,6 +1,7 @@
 const
     nJwt = require('njwt'),
-    config = require('config.js');
+    config = require('config.js'),
+    errors = require('feathers-errors');
 
 function processJWTIfExists (req, res, next) {
 
@@ -8,22 +9,19 @@ function processJWTIfExists (req, res, next) {
 
   let token = req.headers['authorization'];
 
-  if (token !== undefined) {
-    try {
-      const verifiedJwt = nJwt.verify(token, config.apiSecret);
-      if (verifiedJwt === 'error: not authorized') {
-        res.sendStatus(401);
-      } else {
-        req.feathers.userId = verifiedJwt.body.sub;
-        next();
-      }
-    } catch (e) {
-      res.sendStatus(401);
-    }
-  } else {
+  if (token == null) {
     next();
+    return;
   }
 
+  try {
+    const verifiedJwt = nJwt.verify(token, config.apiSecret);
+    req.feathers.userId = verifiedJwt.body.sub;
+  } catch (e) {
+    throw new errors.NotAuthenticated()
+  }
+
+  next();
 }
 
 module.exports = {
