@@ -1,4 +1,4 @@
-const FeedParser = require('feedParser'),
+const FeedParser = require('feedparser'),
       request = require('request');
 
 function parseFeed (rssURL) {
