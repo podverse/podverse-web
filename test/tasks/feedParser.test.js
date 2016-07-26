@@ -71,14 +71,39 @@ describe('feedParser', function () {
           this.Models = Models;
         })
 
+
+        // TODO: this seems pyramid of doom-y...can it be cleaned up?
         beforeEach(function (done) {
           feedParser.saveParsedFeedToDatabase(this.parsedFeedObj)
-            .then(done);
+            .then(() => {
+              return this.Models.Podcast.findOne({where: {title: 'The Joe Rogan Experience'}})
+                .then(podcast => {
+                  this.podcast = podcast;
+                  this.podcastId = podcast.id;
+                });
+            })
+            .then(() => {
+              return this.Models.Episode.findAll({where: {podcastId: this.podcastId}})
+                .then(episodes => {
+                  this.episodes = episodes;
+                  done();
+                });
+            });
         });
 
         xit('does something', function (done) {
           // it should expect something
           done();
+        });
+
+
+        it('the podcast is saved', function () {
+          expect(this.podcast).to.exist;
+        });
+
+        // TODO: activate this test
+        xit(`the podcast's episodes are saved`, function () {
+          expect(this.episodes.length).to.equal(25);
         });
 
       });
