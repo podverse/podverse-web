@@ -102,7 +102,7 @@ function saveParsedFeedToDatabase (parsedFeedObj) {
           })
       })
       .catch(e => {
-        return new errors.GeneralError(e);
+        throw new errors.GeneralError(e);
       }));
     }, Promise.resolve());
 
