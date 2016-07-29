@@ -83,36 +83,30 @@ function saveParsedFeedToDatabase (parsedFeedObj) {
   .then(([podcast]) => {
     this.podcast = podcast;
 
-    let arrayOfPromises = episodes.map(ep => Episode.findOrCreate({
-        where: {
-          mediaURL: ep.enclosures[0].url
-        },
-        // TODO: Do we want the podcast.id to be === to podcast feedURL?
-        defaults: Object.assign({}, ep, {
-          podcastId: podcast.id,
-          title: ep.title,
-          summary: ep.description,
-          // duration: TODO: does node-feedparser give us access to itunes:duration?
-          guid: ep.guid,
-          link: ep.link,
-          mediaBytes: ep.enclosures[0].length,
-          mediaType: ep.enclosures[0].type,
-          pubDate: ep.pubdate
-        })
-    }));
-
-    // TODO: I am getting an error "cannot start a transaction within a transaction".
-    // I read up on transactions, and I have an idea of how the Podcast.findOrCreate and
-    // Episode.findOrCreate functions can be a part of a transaction, and why a transaction would
-    // be a good thing here. However, I think this transaction error is actually with the
-    // Promise.all(arrayOfPromises) call, and I am not sure how to fix it...
-
-    Promise.all(arrayOfPromises)
-      .catch(e => {
-        console.log(e);
-        return new errors.GeneralError(e);
+    return promiseChain = episodes.reduce((promise, ep) => {
+      return promise.then(() => Episode.findOrCreate({
+          where: {
+            mediaURL: ep.enclosures[0].url
+          },
+          // TODO: Do we want the podcast.id to be === to podcast feedURL?
+          defaults: Object.assign({}, ep, {
+            podcastId: podcast.id,
+            title: ep.title,
+            summary: ep.description,
+            // duration: TODO: does node-feedparser give us access to itunes:duration?
+            guid: ep.guid,
+            link: ep.link,
+            mediaBytes: ep.enclosures[0].length,
+            mediaType: ep.enclosures[0].type,
+            pubDate: ep.pubdate
+          })
       })
-  })
+      .catch(e => {
+        return new errors.GeneralError(e);
+      }));
+    }, Promise.resolve());
+
+  });
 
 }
 

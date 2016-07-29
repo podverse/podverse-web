@@ -91,18 +91,11 @@ describe('feedParser', function () {
             });
         });
 
-        xit('does something', function (done) {
-          // it should expect something
-          done();
-        });
-
-
         it('the podcast is saved', function () {
           expect(this.podcast).to.exist;
         });
 
-        // TODO: activate this test
-        xit(`the podcast's episodes are saved`, function () {
+        it(`the podcast's episodes are saved`, function () {
           expect(this.episodes.length).to.equal(25);
         });
 
