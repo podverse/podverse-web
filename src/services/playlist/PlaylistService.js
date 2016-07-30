@@ -60,7 +60,9 @@ class PlaylistService extends SequelizeService {
 
     return this.Model.create(data)
       .then(pl => {
-        return this._transformAfterRetrieval(pl);
+        return pl.setMediaRefs(data.items).then(() => {
+          return this._transformAfterRetrieval(pl);
+        })
       });
   }
 

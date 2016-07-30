@@ -1,7 +1,7 @@
 const errors = require('feathers-errors');
 
 const PlaylistService = require('services/playlist/PlaylistService.js');
-const {configureDatabaseModels, createTestPlaylist} = require('test/helpers.js');
+const {configureDatabaseModels, createTestPlaylist, createTestMediaRef} = require('test/helpers.js');
 
 const {applyOwnerId} = require('hooks/common.js');
 
@@ -98,37 +98,36 @@ describe('PlaylistService', function () {
 
     beforeEach(function (done) {
 
-      this.testData = {
-        ownerId: 'jabberwocky',
-        title: 'Jubjub',
-        slug: 'tumtum'
-      };
+      createTestMediaRef(this.Models)
+        .then(mediaRef => {
+          this.testData = {
+            ownerId: 'jabberwocky@podverse.fm',
+            title: 'Jubjub',
+            slug: 'tumtum',
+            items: [mediaRef]
+          };
 
-      this.playlistSvc.create(this.testData)
-        .then(result => {
-          this.resolvedVal = result;
-          done();
-        })
-        .catch(done);
-
-    });
-
-    xit('should resolve the inserted playlist', function () {
-      expect(this.resolvedVal).to.contain(this.testData);
-    });
-
-    xit('should have inserted a playlist in the database', function (done) {
-      // todo: hanging
-      this.Models.Playlist.findAll({where: {title: this.testData.title}})
-        .then(playlist => {
-          expect(playlist[0]).to.contain(this.testData);
-          done();
+          this.playlistSvc.create(this.testData)
+            .then(playlist => {
+              this.resolvedVal = playlist;
+              this.playlistId = playlist.id;
+              done();
+            })
+            .catch(done);
         });
+
     });
 
-    xit('should have its playlist items');
+    it('should have the expected ownerId', function () {
+      expect(this.resolvedVal.ownerId).to.equal('jabberwocky@podverse.fm');
+    });
 
-    xit('should not have a url saved to database');
+    it('should have the expected MediaRef associated with it', function (done) {
+      this.resolvedVal.getMediaRefs().then(function (mediaRefs) {
+        expect(mediaRefs[0].title).to.equal('TestTitle1');
+        done();
+      });
+    });
 
     xit('should ensure slug has only valid characters');
 
@@ -150,28 +149,40 @@ describe('PlaylistService', function () {
   describe('when updating a playlist as the correct user id', function () {
 
     beforeEach(function(done) {
-      this.newPlaylist = {
-        ownerId: 'abobo',
-        title: 'Abobo smash again',
-        slug: 'abobo-new-slug'
-      };
+      createTestMediaRef(this.Models)
+        .then(mediaRef2 => {
+          this.newPlaylist = {
+            ownerId: 'abobo',
+            title: 'Abobo smash again',
+            slug: 'abobo-new-slug',
+            items: [mediaRef2]
+          };
 
-      this.playlistSvc.update(this.playlist.id, this.newPlaylist);
+          // TODO: do we want to override the playlist update service so that it
+          // calls .setMediaRefs if a MediaRef is provided as an item when updating the playlist?
+          // If yes, how? The this.Model.update function does NOT return the item you have
+          // updated, so we can't use the exact same approach I'm using with the create Playlist service...
+          this.playlistSvc.update(this.playlist.id, this.newPlaylist);
 
-      this.playlistSvc.get(this.playlist.id)
-        .then(playlist => {
-          this.updatedPlaylist = playlist;
-          done();
+          this.playlistSvc.get(this.playlist.id)
+            .then(playlist => {
+              this.updatedPlaylist = playlist;
+              done();
+            });
         });
     });
 
     it('should have a new title', function () {
-      expect(this.newPlaylist.title).to.equal('Abobo smash again');
+      expect(this.updatedPlaylist.title).to.equal('Abobo smash again');
     });
 
     it('should have a new slug', function () {
-      expect(this.newPlaylist.slug).to.equal('abobo-new-slug');
-    })
+      expect(this.updatedPlaylist.slug).to.equal('abobo-new-slug');
+    });
+
+    xit('should contain all the expected playlist items')
+
+    xit('should ensure slug has only valid characters');
 
   });
 

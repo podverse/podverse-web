@@ -65,6 +65,21 @@ function createTestPodcastAndEpisode (Models) {
     });
 }
 
+function createTestMediaRef (Models) {
+
+  const {MediaRef} = Models;
+
+  return createTestPodcastAndEpisode(Models)
+    .then(([podcast, episode]) => {
+      return MediaRef.create({
+        ownerId: 'testOwner',
+        episodeId: episode.id,
+        title: 'TestTitle1'
+      });
+    });
+
+}
+
 function createTestPlaylist (Models) {
 
   const {Playlist} = Models;
@@ -82,5 +97,6 @@ module.exports = {
   createTestApp,
   createValidTestJWT,
   createTestPodcastAndEpisode,
-  createTestPlaylist
+  createTestPlaylist,
+  createTestMediaRef
 };
