@@ -1,5 +1,6 @@
-const {locator} = require('locator.js');
-const errors = require('feathers-errors');
+const
+    errors = require('feathers-errors'),
+    {locator} = require('locator.js');
 
 function routes () {
   const app = this;
@@ -16,9 +17,13 @@ function routes () {
       MediaRef.findById(req.body.mediaRefId)
     ])
     .then(([playlist, mediaRef]) => {
-      playlist.setMediaRefs(mediaRef).then(() => {
-        res.status(200).send('playlist item has been added to playlist');
-      });
+      // if (playlist.ownerId !== req.params.userId) {
+      //     throw new errors.Forbidden();
+      // } else {
+        playlist.setMediaRefs(mediaRef).then(() => {
+          res.status(200).send('playlist item has been added to playlist');
+        });
+      // }
     })
     .catch(e => {
       throw new errors.GeneralError(e);
@@ -33,9 +38,13 @@ function routes () {
       MediaRef.findById(req.body.mediaRefId)
     ])
     .then(([playlist, mediaRef]) => {
-      playlist.removeMediaRefs(mediaRef).then(() => {
-        res.status(200).send('playlist item has been removed from playlist');
-      });
+      // if (playlist.ownerId !== req.params.userId) {
+      //     throw new errors.Forbidden();
+      // } else {
+        playlist.removeMediaRefs(mediaRef).then(() => {
+          res.status(200).send('playlist item has been removed from playlist');
+        });
+      // }
     })
     .catch(e => {
       throw new errors.GeneralError(e);

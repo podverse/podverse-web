@@ -1,28 +1,16 @@
-
-const SequelizeService = require('feathers-sequelize').Service;
+const
+    SequelizeService = require('feathers-sequelize').Service,
+    {locator} = require('locator.js');
 
 class PodcastService extends SequelizeService {
 
-  constructor ({Models}={}) {
-    super({Model: Models.Podcast});
-    this.Models = Models;
+  constructor () {
+    const Models = locator.get('Models');
 
-    this.before = {
-      get: []
-    };
+    super({
+      Model: Models.Podcast
+    });
   }
-
-  // get(id, params) {
-  //   return this.Model.findOne({
-  //     where: {
-  //         id:'id'
-  //     }
-  //   }).then(podcast => {
-  //     return podcast
-  //   }).catch(err => {
-  //     return new errors.GeneralError(err);
-  //   });
-  // }
 
 }
 

@@ -1,6 +1,7 @@
-const FeedParser = require('feedparser'),
-      request = require('request'),
-      {locator} = require('locator.js');
+const
+    FeedParser = require('feedparser'),
+    request = require('request'),
+    {locator} = require('locator.js');
 
 function parseFeed (rssURL) {
 
@@ -9,8 +10,8 @@ function parseFeed (rssURL) {
     const feedParser = new FeedParser([]),
           req = request(rssURL);
 
-    req.on('error', function (err) {
-      rej(err);
+    req.on('error', function (e) {
+      rej(e);
     });
 
     req.on('response', function (res) {
@@ -44,9 +45,9 @@ function parseFeed (rssURL) {
     feedParser.on('error', done);
     feedParser.on('end', done);
 
-    function done (err) {
-      if (err) {
-        rej(err);
+    function done (e) {
+      if (e) {
+        rej(e);
       }
 
       parsedFeedObj.podcast = podcastObj;

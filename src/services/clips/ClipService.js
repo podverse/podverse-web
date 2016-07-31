@@ -1,8 +1,8 @@
-const errors = require('feathers-errors');
-const SequelizeService = require('feathers-sequelize').Service;
-const {applyOwnerId, ensureAuthenticated} = require('hooks/common.js');
-
-const {locator} = require('locator.js');
+const
+    errors = require('feathers-errors'),
+    SequelizeService = require('feathers-sequelize').Service,
+    {applyOwnerId, ensureAuthenticated} = require('hooks/common.js'),
+    {locator} = require('locator.js');
 
 class ClipService extends SequelizeService {
 
@@ -71,6 +71,10 @@ class ClipService extends SequelizeService {
         const clip = Object.assign({}, data, {episodeId: episode.id});
 
         return super.create(clip, params);
+      })
+
+      .catch(e => {
+        return new errors.GeneralError(e);
       });
     }
 

@@ -1,7 +1,6 @@
 const
     nJwt = require('njwt'),
-    config = require('config.js'),
-    Cookies = require('cookies');
+    config = require('config.js');
 
 class AuthService {
 

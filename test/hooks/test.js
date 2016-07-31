@@ -1,6 +1,7 @@
 
-const errors = require('feathers-errors');
-const {applyOwnerId, ensureAuthenticated} = require('hooks/common.js');
+const
+    errors = require('feathers-errors'),
+    {applyOwnerId, ensureAuthenticated} = require('hooks/common.js');
 
 describe('Hook: applyOwnerId', function () {
 
@@ -31,7 +32,6 @@ describe('Hook: ensureAuthenticated', function () {
       this.testHookObj = {
         params: {}
       };
-
 
     });
 

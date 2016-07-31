@@ -1,14 +1,18 @@
-
-const SequelizeService = require('feathers-sequelize').Service;
-const errors = require('feathers-errors');
-const config = require('config.js');
-
-const {applyOwnerId} = require('hooks/common.js');
+const
+    errors = require('feathers-errors'),
+    SequelizeService = require('feathers-sequelize').Service,
+    config = require('config.js'),
+    {locator} = require('locator.js'),
+    {applyOwnerId} = require('hooks/common.js');
 
 class PlaylistService extends SequelizeService {
 
-  constructor ({Models}={}) {
-    super({Model: Models.Playlist});
+  constructor () {
+    const Models = locator.get('Models');
+
+    super({
+      Model: Models.Playlist
+    });
     this.Models = Models;
 
     // Hooks
@@ -50,8 +54,8 @@ class PlaylistService extends SequelizeService {
     }).then(playlist => {
       playlist = this._transformAfterRetrieval(playlist);
       return playlist
-    }).catch(err => {
-      return new errors.GeneralError(err);
+    }).catch(e => {
+      return new errors.GeneralError(e);
     });
   }
 
@@ -89,6 +93,7 @@ class PlaylistService extends SequelizeService {
         throw new errors.NotFound(`Could not find a playlist by "${id}"`)
       }
     });
+    //TODO: should we return something here?
 
   }
 

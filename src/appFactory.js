@@ -1,18 +1,15 @@
-'use strict';
-
-const feathers = require('feathers');
-const rest = require('feathers-rest');
-const hooks = require('feathers-hooks');
-
-const bodyParser = require('body-parser');
-
-const {locator} = require('locator.js');
-const {processJWTIfExists} = require('middleware/auth/processJWTIfExists.js');
-const AuthService = new (require('services/auth/AuthService.js'))();
-const {parseFeed} = require('tasks/feedParser.js')
-const {nunjucks} = require('nunjucks.js');
-const {routes} = require('routes.js');
-const {errorHandler} = require('middleware/errors.js')
+const
+    feathers = require('feathers'),
+    rest = require('feathers-rest'),
+    hooks = require('feathers-hooks'),
+    bodyParser = require('body-parser'),
+    {locator} = require('locator.js'),
+    {processJWTIfExists} = require('middleware/auth/processJWTIfExists.js'),
+    AuthService = new (require('services/auth/AuthService.js'))(),
+    {parseFeed, saveParsedFeedToDatabase} = require('tasks/feedParser.js'),
+    {nunjucks} = require('nunjucks.js'),
+    {routes} = require('routes.js'),
+    {errorHandler} = require('middleware/errors.js');
 
 function appFactory () {
 
@@ -23,7 +20,7 @@ function appFactory () {
     .configure(hooks())
     .configure(nunjucks)
     .configure(errorHandler)
-    
+
     .use(bodyParser.json())
     .use(bodyParser.urlencoded({ extended: true }))
 
@@ -33,10 +30,14 @@ function appFactory () {
     .use('playlists', locator.get('PlaylistService'))
 
     .get('/parse', (req, res) => {
-      parseFeed('http://joeroganexp.joerogan.libsynpro.com/rss')
-        .then(parsedFeedObj => {
-          res.send(401, parsedFeedObj.podcast.title);
-        });
+      if (req.body.rssURL) {
+        parseFeed(req.body.rssURL)
+          .then(parsedFeedObj => {
+            saveParsedFeedToDatabase(parsedFeedObj);
+          });
+      } else {
+        throw new errors.GeneralError('An RSS feed URL must be provided.');
+      }
     })
 
     .post('/auth', (req, res) => {
