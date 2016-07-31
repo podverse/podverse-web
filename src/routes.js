@@ -1,4 +1,5 @@
 const {locator} = require('locator.js');
+const errors = require('feathers-errors');
 
 function routes () {
   const app = this;
@@ -20,8 +21,7 @@ function routes () {
       });
     })
     .catch(e => {
-      // TODO: handle errors properly...
-      console.log(e);
+      throw new errors.GeneralError(e);
     });
   });
 
@@ -38,8 +38,7 @@ function routes () {
       });
     })
     .catch(e => {
-      // TODO: handle errors properly...
-      console.log(e);
+      throw new errors.GeneralError(e);
     })
   });
 
