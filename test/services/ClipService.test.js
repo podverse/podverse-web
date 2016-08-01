@@ -16,14 +16,14 @@ describe('ClipService', function () {
     this.clipSvc = new ClipService();
 
     createTestPodcastAndEpisode(this.Models)
-      .then(([podcast,episode]) => {
+      .then(([podcasts,episodes]) => {
 
-        this.testPodcast = podcast;
-        this.testEpisode = episode;
+        this.testPodcast = podcasts[0];
+        this.testEpisode = episodes[0];
 
         return MediaRef.create({
           ownerId: 'testOwner',
-          episodeId: episode.id,
+          episodeId: this.testEpisode.id,
           title: 'TestTitle1'
         });
       })

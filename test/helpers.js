@@ -52,14 +52,26 @@ function createTestPodcastAndEpisode (Models) {
 
   const {Podcast, Episode} = Models;
 
-  return Podcast.create({'feedURL': 'http://example.com/test333'})
-    .then(podcast => {
+  return Podcast.findOrCreate({
+    where: {
+      'feedURL': 'http://example.com/test333'
+    },
+    defaults: {
+      'feedURL': 'http://example.com/test333'
+    }
+  })
+    .then(podcasts => {
 
       return Promise.all([
-        Promise.resolve(podcast),
-        Episode.create({
-          podcastId: podcast.id,
-          mediaURL: 'http://example.com/test333'
+        Promise.resolve(podcasts),
+        Episode.findOrCreate({
+          where: {
+            mediaURL: 'http://example.com/test999'
+          },
+          defaults: Object.assign({}, {}, {
+            feedURL: 'http://example.com/test999',
+            podcastId: podcasts[0].id
+          })
         })
       ]);
     });
@@ -70,13 +82,13 @@ function createTestMediaRefs (Models) {
   const {MediaRef} = Models;
 
   return createTestPodcastAndEpisode(Models)
-    .then(([podcast, episode]) => {
+    .then(([podcasts, episodes]) => {
 
       let mediaRefs = [];
       for (let i = 0; i < 4; i++) {
         let mediaRef = {
           ownerId: 'testOwner',
-          episodeId: episode.id,
+          episodeId: episodes[0].id,
           title: `TestTitle${i}`
         }
         mediaRefs.push(mediaRef);
@@ -97,12 +109,17 @@ function createTestPlaylist (Models) {
 
   const {Playlist} = Models;
 
-  return Playlist.create({
-    'title': 'Playlist Title',
-    'slug': 'playlist-slug',
-    'ownerId': 'someone@podverse.fm'
-  });
+  const playlistSvc = new PlaylistService({Models: Models});
 
+  return createTestMediaRefs(Models)
+    .then(mediaRefs => {
+      return playlistSvc.create({
+        'title': 'Playlist Title',
+        'slug': 'playlist-slug',
+        'ownerId': 'someone@podverse.fm',
+        'items': [mediaRefs[0], mediaRefs[1]]
+      });
+    });
 }
 
 module.exports = {

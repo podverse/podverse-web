@@ -95,17 +95,10 @@ class PlaylistService extends SequelizeService {
 
       return this.Models.Playlist.findById(id)
         .then(pl => {
-          console.log(data.items);
-
-          //
-          // Commenting out line below makes the "no such table: items" error stop
-          //
-          return pl.addMediaRefs(data.items);
-
-        })
-
+          pl.addMediaRefs(data.items);
+          //TODO: should we return something here?
+        });
     });
-    //TODO: should we return something here?
 
   }
 

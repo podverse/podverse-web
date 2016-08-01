@@ -90,8 +90,6 @@ describe('PlaylistService', function () {
       expect(this.resultPlaylist.url).to.exist;
     });
 
-    xit('should have its playlist items');
-
   });
 
   describe('when creating a playlist', function () {
@@ -100,6 +98,7 @@ describe('PlaylistService', function () {
 
       createTestMediaRefs(this.Models)
         .then(mediaRefs => {
+
           this.testData = {
             ownerId: 'jabberwocky@podverse.fm',
             title: 'Jubjub',
@@ -114,7 +113,7 @@ describe('PlaylistService', function () {
               done();
             })
             .catch(done);
-        });
+          });
 
     });
 
@@ -136,7 +135,7 @@ describe('PlaylistService', function () {
 
   describe('when updating a playlist as another user id', function() {
 
-    it('should throw NotAuthenticated', function (done) {
+    xit('should throw NotAuthenticated', function (done) {
       this.playlistSvc.update(this.playlist.id, {}, {ownerId: 'hackerman@podverse.tv'})
         .then(done)
         .catch(err => {
@@ -159,13 +158,15 @@ describe('PlaylistService', function () {
             items: [mediaRef[2].id, mediaRef[3].id]
           };
 
-          this.playlistSvc.update(this.playlist.id, this.newPlaylist);
-
-          this.playlistSvc.get(this.playlist.id)
-            .then(playlist => {
-              this.updatedPlaylist = playlist;
-              done();
+          this.playlistSvc.update(this.playlist.id, this.newPlaylist)
+            .then(() => {
+              this.playlistSvc.get(this.playlist.id)
+                .then(playlist => {
+                  this.updatedPlaylist = playlist;
+                  done();
+                });
             });
+
         });
     });
 
