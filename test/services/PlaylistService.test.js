@@ -1,7 +1,7 @@
 const errors = require('feathers-errors');
 
 const PlaylistService = require('services/playlist/PlaylistService.js');
-const {configureDatabaseModels, createTestPlaylist, createTestMediaRef} = require('test/helpers.js');
+const {configureDatabaseModels, createTestPlaylist, createTestMediaRefs} = require('test/helpers.js');
 
 const {applyOwnerId} = require('hooks/common.js');
 
@@ -63,7 +63,7 @@ describe('PlaylistService', function () {
     });
 
     it('should have the expected title', function () {
-      expect(this.resultPlaylist.title).to.equal('Abobo smash');
+      expect(this.resultPlaylist.title).to.equal('Playlist Title');
     });
 
     it('should have a url', function () {
@@ -83,7 +83,7 @@ describe('PlaylistService', function () {
     });
 
     it('should have the expected title', function () {
-      expect(this.resultPlaylist.title).to.equal('Abobo smash');
+      expect(this.resultPlaylist.title).to.equal('Playlist Title');
     });
 
     it('should have a url', function () {
@@ -98,13 +98,13 @@ describe('PlaylistService', function () {
 
     beforeEach(function (done) {
 
-      createTestMediaRef(this.Models)
-        .then(mediaRef => {
+      createTestMediaRefs(this.Models)
+        .then(mediaRefs => {
           this.testData = {
             ownerId: 'jabberwocky@podverse.fm',
             title: 'Jubjub',
             slug: 'tumtum',
-            items: [mediaRef]
+            items: [mediaRefs[0], mediaRefs[1]]
           };
 
           this.playlistSvc.create(this.testData)
@@ -122,9 +122,10 @@ describe('PlaylistService', function () {
       expect(this.resolvedVal.ownerId).to.equal('jabberwocky@podverse.fm');
     });
 
-    it('should have the expected MediaRef associated with it', function (done) {
+    it('should contain all the expected playlist items', function (done) {
       this.resolvedVal.getMediaRefs().then(function (mediaRefs) {
-        expect(mediaRefs[0].title).to.equal('TestTitle1');
+        expect(mediaRefs[0].title).to.equal('TestTitle0');
+        expect(mediaRefs[1].title).to.equal('TestTitle1');
         done();
       });
     });
@@ -136,7 +137,7 @@ describe('PlaylistService', function () {
   describe('when updating a playlist as another user id', function() {
 
     it('should throw NotAuthenticated', function (done) {
-      this.playlistSvc.update(this.playlist.id, {}, {ownerId: 'aboboy'})
+      this.playlistSvc.update(this.playlist.id, {}, {ownerId: 'hackerman@podverse.tv'})
         .then(done)
         .catch(err => {
           expect(err.name).to.equal('Forbidden');
@@ -149,19 +150,15 @@ describe('PlaylistService', function () {
   describe('when updating a playlist as the correct user id', function () {
 
     beforeEach(function(done) {
-      createTestMediaRef(this.Models)
-        .then(mediaRef2 => {
+      createTestMediaRefs(this.Models)
+        .then(mediaRef => {
           this.newPlaylist = {
-            ownerId: 'abobo',
-            title: 'Abobo smash again',
-            slug: 'abobo-new-slug',
-            items: [mediaRef2]
+            ownerId: 'someone@podverse.fm',
+            title: 'Updated Playlist Title',
+            slug: 'updated-playlist-slug',
+            items: [mediaRef[2].id, mediaRef[3].id]
           };
 
-          // TODO: do we want to override the playlist update service so that it
-          // calls .setMediaRefs if a MediaRef is provided as an item when updating the playlist?
-          // If yes, how? The this.Model.update function does NOT return the item you have
-          // updated, so we can't use the exact same approach I'm using with the create Playlist service...
           this.playlistSvc.update(this.playlist.id, this.newPlaylist);
 
           this.playlistSvc.get(this.playlist.id)
@@ -173,14 +170,22 @@ describe('PlaylistService', function () {
     });
 
     it('should have a new title', function () {
-      expect(this.updatedPlaylist.title).to.equal('Abobo smash again');
+      expect(this.updatedPlaylist.title).to.equal('Updated Playlist Title');
     });
 
     it('should have a new slug', function () {
-      expect(this.updatedPlaylist.slug).to.equal('abobo-new-slug');
+      expect(this.updatedPlaylist.slug).to.equal('updated-playlist-slug');
     });
 
-    xit('should contain all the expected playlist items')
+    it('should contain all the expected playlist items', function (done) {
+      this.updatedPlaylist.getMediaRefs().then(function (mediaRefs) {
+        expect(mediaRefs[0].title).to.equal('TestTitle0');
+        expect(mediaRefs[1].title).to.equal('TestTitle1');
+        expect(mediaRefs[2].title).to.equal('TestTitle2');
+        expect(mediaRefs[3].title).to.equal('TestTitle3');
+        done();
+      });
+    });
 
     xit('should ensure slug has only valid characters');
 

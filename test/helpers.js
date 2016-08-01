@@ -65,17 +65,30 @@ function createTestPodcastAndEpisode (Models) {
     });
 }
 
-function createTestMediaRef (Models) {
+function createTestMediaRefs (Models) {
 
   const {MediaRef} = Models;
 
   return createTestPodcastAndEpisode(Models)
     .then(([podcast, episode]) => {
-      return MediaRef.create({
-        ownerId: 'testOwner',
-        episodeId: episode.id,
-        title: 'TestTitle1'
-      });
+
+      let mediaRefs = [];
+      for (let i = 0; i < 4; i++) {
+        let mediaRef = {
+          ownerId: 'testOwner',
+          episodeId: episode.id,
+          title: `TestTitle${i}`
+        }
+        mediaRefs.push(mediaRef);
+      }
+
+      return Promise.all([
+        MediaRef.create(mediaRefs[0]),
+        MediaRef.create(mediaRefs[1]),
+        MediaRef.create(mediaRefs[2]),
+        MediaRef.create(mediaRefs[3])
+      ]);
+
     });
 
 }
@@ -85,9 +98,9 @@ function createTestPlaylist (Models) {
   const {Playlist} = Models;
 
   return Playlist.create({
-    'title': 'Abobo smash',
-    'slug': 'abobo-slug',
-    'ownerId': 'abobo'
+    'title': 'Playlist Title',
+    'slug': 'playlist-slug',
+    'ownerId': 'someone@podverse.fm'
   });
 
 }
@@ -98,5 +111,5 @@ module.exports = {
   createValidTestJWT,
   createTestPodcastAndEpisode,
   createTestPlaylist,
-  createTestMediaRef
+  createTestMediaRefs
 };

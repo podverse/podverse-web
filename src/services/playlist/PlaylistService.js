@@ -92,6 +92,18 @@ class PlaylistService extends SequelizeService {
       if (rows[0] === 0) {
         throw new errors.NotFound(`Could not find a playlist by "${id}"`)
       }
+
+      return this.Models.Playlist.findById(id)
+        .then(pl => {
+          console.log(data.items);
+
+          //
+          // Commenting out line below makes the "no such table: items" error stop
+          //
+          return pl.addMediaRefs(data.items);
+
+        })
+
     });
     //TODO: should we return something here?
 
