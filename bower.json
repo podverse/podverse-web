@@ -1,0 +1,32 @@
+{
+  "name": "podverse-web",
+  "description": "Web app for the Podverse podcast clip sharing system",
+  "main": "src/server.js",
+  "authors": [
+    "Mitch",
+    "Vince",
+    "Creon"
+  ],
+  "license": "GNU AGPLv3",
+  "keywords": [
+    "podcast",
+    "episodes",
+    "clips",
+    "media",
+    "podverse"
+  ],
+  "homepage": "https://github.com/podverse/podverse-web",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "4.0.0-alpha.3",
+    "font-awesome": "~4.6.3",
+    "mediaelement": "~2.22.0"
+  }
+}

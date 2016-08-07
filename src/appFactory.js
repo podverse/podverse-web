@@ -24,6 +24,9 @@ function appFactory () {
     .use(bodyParser.json())
     .use(bodyParser.urlencoded({ extended: true }))
 
+    .use('/public/bower_components', feathers.static(__dirname + '/../bower_components'))
+    .use('/public', feathers.static(__dirname + '/static/libs'))
+
     .use(processJWTIfExists)
 
     .use('clips', locator.get('ClipService'))
