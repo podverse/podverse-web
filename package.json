@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "body-parser": "^1.15.2",
+    "bootstrap": "^4.0.0-alpha.3",
     "cookies": "^0.6.1",
     "csurf": "^1.9.0",
     "express": "^4.13.3",
@@ -18,7 +19,9 @@
     "feathers-rest": "^1.4.2",
     "feathers-sequelize": "^1.3.0",
     "feedparser": "^1.1.4",
+    "font-awesome": "^4.6.3",
     "lodash": "^4.2.1",
+    "mediaelement": "^2.22.0",
     "njwt": "^0.3.1",
     "nunjucks": "^2.2.0",
     "request": "^2.72.0",

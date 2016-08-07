@@ -24,8 +24,8 @@ function appFactory () {
     .use(bodyParser.json())
     .use(bodyParser.urlencoded({ extended: true }))
 
-    .use('/public/bower_components', feathers.static(__dirname + '/../bower_components'))
-    .use('/public', feathers.static(__dirname + '/static/libs'))
+    .use('/static/node_modules', feathers.static(__dirname + '/../node_modules'))
+    .use('/static', feathers.static(__dirname + '/static/libs'))
 
     .use(processJWTIfExists)
 

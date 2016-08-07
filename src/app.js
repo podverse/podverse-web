@@ -9,10 +9,10 @@ locator.set('Models', modelFactory(sqlEngine));
 
 sqlEngine.sync();
 
-const ClipService = require('services/clips/ClipService.js');
-//const PlaylistService = require('services/playlists/PlaylistService.js');
+const ClipService = require('services/clip/ClipService.js');
+const PlaylistService = require('services/playlist/PlaylistService.js');
 
 locator.set('ClipService', new ClipService());
-locator.set('PlaylistService', new ClipService()); // TODO: this shouldn't be ClipService...
+locator.set('PlaylistService', new PlaylistService());
 
 module.exports = appFactory();
