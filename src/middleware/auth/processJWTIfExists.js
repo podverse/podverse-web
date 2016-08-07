@@ -1,9 +1,7 @@
 const
     nJwt = require('njwt'),
     config = require('config.js'),
-    errors = require('feathers-errors'),
-
-    apiSecret = new Buffer(config.apiSecret, 'base64');
+    errors = require('feathers-errors');
 
 
 
@@ -19,7 +17,7 @@ function processJWTIfExists (req, res, next) {
   }
 
   try {
-    const verifiedJwt = nJwt.verify(token, apiSecret);
+    const verifiedJwt = nJwt.verify(token, config.jwtSigningKey);
     req.feathers.userId = verifiedJwt.body.sub;
   } catch (e) {
     throw new errors.NotAuthenticated()

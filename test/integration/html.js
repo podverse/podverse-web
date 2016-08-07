@@ -3,7 +3,7 @@ const {locator} = require('locator.js');
 const appFactory = require('appFactory.js');
 const {configureDatabaseModels} = require('test/helpers.js');
 
-const ClipService = require('services/clips/ClipService.js');
+const ClipService = require('services/clip/ClipService.js');
 
 describe('html test: index', function () {
 

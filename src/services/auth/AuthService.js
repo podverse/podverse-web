@@ -35,7 +35,7 @@ class AuthService {
       scope: 'self, admins'
     };
 
-    const jwt = nJwt.create(claims, config.apiSecret);
+    const jwt = nJwt.create(claims, config.jwtSigningKey);
     jwt.setExpiration(new Date().setFullYear(new Date().getFullYear() + 1)); // Expires one year from now
     const token = jwt.compact();
     return token;

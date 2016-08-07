@@ -1,4 +1,4 @@
-const ClipService = require('services/clips/ClipService.js');
+const ClipService = require('services/clip/ClipService.js');
 const {configureDatabaseModels, createTestPodcastAndEpisode} = require('test/helpers.js');
 
 const {applyOwnerId, ensureAuthenticated} = require('hooks/common.js');
