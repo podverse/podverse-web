@@ -1,4 +1,5 @@
 const
+    path = require('path'),
     feathers = require('feathers'),
     rest = require('feathers-rest'),
     hooks = require('feathers-hooks'),
@@ -24,7 +25,7 @@ function appFactory () {
     .use(bodyParser.json())
     .use(bodyParser.urlencoded({ extended: true }))
 
-    .use('/static/node_modules', feathers.static(__dirname + '/../node_modules'))
+    .use('/static/node_modules', feathers.static(path.resolve(__dirname, '../node_modules')))
     .use('/static', feathers.static(__dirname + '/static/libs'))
 
     .use(processJWTIfExists)

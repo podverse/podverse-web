@@ -44,7 +44,8 @@
     "sinon": "^1.17.2"
   },
   "scripts": {
-    "start": "nodemon src/server.js -e js,json,html",
+    "start": "node src/server.js",
+    "watch": "nodemon src/server.js -e js,json,html",
     "test": "node scripts/test.js"
   },
   "repository": {
