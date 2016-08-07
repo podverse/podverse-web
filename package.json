@@ -36,11 +36,12 @@
     "feathers-memory": "^0.7.4",
     "is-ci": "^1.0.9",
     "mocha": "^2.3.4",
+    "nodemon": "^1.10.0",
     "rewire": "^2.5.2",
     "sinon": "^1.17.2"
   },
   "scripts": {
-    "start": "node src/server.js",
+    "start": "nodemon src/server.js -e js,json,html",
     "test": "node scripts/test.js"
   },
   "repository": {
