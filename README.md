@@ -6,6 +6,8 @@ Web app for the Podverse podcast clip sharing system
 
 ###Setup instructions###
 
+source init_env.sh
+
 npm install
 
 bower install

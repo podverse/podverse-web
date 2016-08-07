@@ -23,5 +23,10 @@
     "bower_components",
     "test",
     "tests"
-  ]
+  ],
+  "dependencies": {
+    "bootstrap": "4.0.0-alpha.3",
+    "font-awesome": "~4.6.3",
+    "mediaelement": "~2.22.0"
+  }
 }
