@@ -14,5 +14,4 @@ const PlaylistService = require('services/playlist/PlaylistService.js');
 
 locator.set('ClipService', new ClipService());
 locator.set('PlaylistService', new PlaylistService());
-
 module.exports = appFactory();
