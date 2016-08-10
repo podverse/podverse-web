@@ -38,18 +38,21 @@
       window.startTime = "0";
       window.endTime = item.duration;
     }
-  {% elif podcast.title %}
-    window.podcastTitle = "{{ podcast.title }}";
-    window.podcastImageURL = "{{ podcast.imageURL }}";
+
+  // Maybe this line should instead be {% elif clipUrl %}?
+  {% elif episode %} // Is a clip (if obj has an episode propety, then it's a clip)
+    window.podcastTitle = "{{ episode.podcast.title }}";
+    window.podcastImageURL = "{{ episode.podcast.imageURL }}";
     window.episodeTitle = "{{ episode.title }}";
     window.episodeMediaURL = "{{ episode.mediaURL }}";
     window.episodePubDate = "{{ episode.pubDate }}";
 
-    window.clipTitle = "{{ clip.title }}";
-    window.startTime = "{{ clip.startTime }}";
-    window.endTime = "{{ clip.endTime }}";
-    window.duration = "{{ clip.duration }}"
+    window.clipTitle = "{{ title }}";
+    window.startTime = "{{ startTime }}";
+    window.endTime = "{{ endTime }}";
+    window.duration = "{{ duration }}"
     // If a clip.startTime is provided, handle item as a clip
     window.isClip = window.startTime !== "" ? true : false;
   {% endif %}
+
 </script>

@@ -16,6 +16,8 @@ function appFactory () {
 
   const app = feathers();
 
+  const Models = locator.get('Models');
+
   app
     .configure(rest())
     .configure(hooks())
@@ -29,6 +31,17 @@ function appFactory () {
     .use('/static', feathers.static(__dirname + '/static/libs'))
 
     .use(processJWTIfExists)
+
+    // Clip Detail Page
+    .get('/clips/:id', (req, res) => {
+      const ClipService = locator.get('ClipService');
+      return ClipService.get(req.params.id)
+        .then(mediaRef => {
+          res.render('player.html', mediaRef.dataValues);
+        }).catch(e => {
+          res.sendStatus(404);
+        });
+    })
 
     .use('clips', locator.get('ClipService'))
     .use('playlists', locator.get('PlaylistService'))
