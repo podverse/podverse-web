@@ -43,14 +43,19 @@ class PlaylistService extends SequelizeService {
     return data;
   }
 
-  get (id, params) {
+  get (id, params={}) {
+    const {MediaRef} = this.Models;
+
     return this.Model.findOne({
       where: {
         $or: [
           {id:id},
           {slug:id}
         ]
-      }
+      },
+      include: [
+        { model: MediaRef, through: 'items' }
+      ]
     }).then(playlist => {
       playlist = this._transformAfterRetrieval(playlist);
       return playlist
@@ -73,7 +78,6 @@ class PlaylistService extends SequelizeService {
   update (id, data, params) {
 
     // Make sure the data slug reflects the playlist we're posting
-    data.slug = id;
 
     if (!id) {
       throw new errors.NotAcceptable(`Try using POST instead of PUT.`);

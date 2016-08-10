@@ -121,7 +121,7 @@ describe('PlaylistService', function () {
       expect(this.resolvedVal.ownerId).to.equal('jabberwocky@podverse.fm');
     });
 
-    it('should contain all the expected playlist items', function (done) {
+    it('should have the expected MediaRefs associated with it', function (done) {
       this.resolvedVal.getMediaRefs().then(function (mediaRefs) {
         expect(mediaRefs[0].title).to.equal('TestTitle0');
         expect(mediaRefs[1].title).to.equal('TestTitle1');
@@ -178,14 +178,12 @@ describe('PlaylistService', function () {
       expect(this.updatedPlaylist.slug).to.equal('updated-playlist-slug');
     });
 
-    it('should contain all the expected playlist items', function (done) {
-      this.updatedPlaylist.getMediaRefs().then(function (mediaRefs) {
-        expect(mediaRefs[0].title).to.equal('TestTitle0');
-        expect(mediaRefs[1].title).to.equal('TestTitle1');
-        expect(mediaRefs[2].title).to.equal('TestTitle2');
-        expect(mediaRefs[3].title).to.equal('TestTitle3');
-        done();
-      });
+    it('should return all the expected playlist items', function () {
+      let mediaRefs = this.updatedPlaylist.items;
+      expect(mediaRefs[0].title).to.equal('TestTitle0');
+      expect(mediaRefs[1].title).to.equal('TestTitle1');
+      expect(mediaRefs[2].title).to.equal('TestTitle2');
+      expect(mediaRefs[3].title).to.equal('TestTitle3');
     });
 
     xit('should ensure slug has only valid characters');
