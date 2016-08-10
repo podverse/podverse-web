@@ -41,7 +41,7 @@ function createValidTestJWT () {
 
   const fakeReq = {
     body: {
-      username: 'curly@podverse.fm'
+      username: 'kungfury@podverse.fm'
     }
   }
 
@@ -116,7 +116,7 @@ function createTestPlaylist (Models) {
       return playlistSvc.create({
         'title': 'Playlist Title',
         'slug': 'playlist-slug',
-        'ownerId': 'someone@podverse.fm',
+        'ownerId': 'kungfury@podverse.fm',
         'items': [mediaRefs[0], mediaRefs[1]]
       });
     });

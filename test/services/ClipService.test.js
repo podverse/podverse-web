@@ -135,7 +135,7 @@ describe('ClipService', function () {
   describe('when updating a clip as another user id', function () {
 
     it('should throw NotAuthenticated', function (done) {
-      this.clipSvc.update(this.testMediaRef.id, {}, {ownerId: 'baad'})
+      this.clipSvc.update(this.testMediaRef.id, {}, {userId: 'baad'})
         .then(done)
         .catch(err => {
           expect(err.name).to.equal('Forbidden');

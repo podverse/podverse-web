@@ -53,7 +53,7 @@ describe('processJWTIfExists Middlewareee', function () {
       });
 
       it('should set the user identifier on req.feathers.userId', function () {
-        expect(this.stub.req.feathers.userId).to.equal('curly@podverse.fm');
+        expect(this.stub.req.feathers.userId).to.equal('kungfury@podverse.fm');
       });
 
     });

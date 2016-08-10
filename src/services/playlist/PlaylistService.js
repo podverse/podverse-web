@@ -3,7 +3,7 @@ const
     SequelizeService = require('feathers-sequelize').Service,
     config = require('config.js'),
     {locator} = require('locator.js'),
-    {applyOwnerId} = require('hooks/common.js');
+    {ensureAuthenticated, applyOwnerId} = require('hooks/common.js');
 
 class PlaylistService extends SequelizeService {
 
@@ -18,8 +18,8 @@ class PlaylistService extends SequelizeService {
     // Hooks
     // -----
     this.before = {
-      create: [applyOwnerId],
-      update: [applyOwnerId]
+      create: [ensureAuthenticated, applyOwnerId],
+      update: [ensureAuthenticated, applyOwnerId]
     };
 
     this.after = { };
@@ -75,31 +75,35 @@ class PlaylistService extends SequelizeService {
       });
   }
 
-  update (id, data, params) {
+  update (id, data, params={}) {
 
     if (!id) {
       throw new errors.NotAcceptable(`Try using POST instead of PUT.`);
     }
 
-    data = this._transformBeforeSave(data);
-    return this.Model.update(data, {
+    return this.Model.findOne({
       where: {
         $or: [
           {id: id},
           {slug: id}
         ]
       }
-    }).then(rows => {
-      if (rows[0] === 0) {
+    }).then(pl => {
+      if (pl === null) {
         throw new errors.NotFound(`Could not find a playlist by "${id}"`)
       }
 
-      return this.Models.Playlist.findById(id)
-        .then(pl => {
-          return pl.addMediaRefs(data.items).then(() => {
-            return super.update(id, data, params);
-          });
-        });
+      if (pl.ownerId !== params.userId) {
+        throw new errors.Forbidden();
+      }
+
+      data = this._transformBeforeSave(data);
+
+      return pl.addMediaRefs(data.items).then(() => {
+        return super.update(id, data, params);
+      });
+    }).catch(e => {
+      throw new errors.GeneralError(e);
     });
 
   }
