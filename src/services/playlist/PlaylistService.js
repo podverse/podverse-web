@@ -77,8 +77,6 @@ class PlaylistService extends SequelizeService {
 
   update (id, data, params) {
 
-    // Make sure the data slug reflects the playlist we're posting
-
     if (!id) {
       throw new errors.NotAcceptable(`Try using POST instead of PUT.`);
     }
@@ -98,8 +96,9 @@ class PlaylistService extends SequelizeService {
 
       return this.Models.Playlist.findById(id)
         .then(pl => {
-          pl.addMediaRefs(data.items);
-          return super.update(id, data, params);
+          return pl.addMediaRefs(data.items).then(() => {
+            return super.update(id, data, params);
+          });
         });
     });
 
