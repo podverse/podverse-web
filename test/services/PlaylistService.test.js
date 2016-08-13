@@ -68,10 +68,6 @@ describe('PlaylistService', function () {
       expect(this.resultPlaylist.title).to.equal('Playlist Title');
     });
 
-    it('should have a url', function () {
-      expect(this.resultPlaylist.url).to.exist;
-    });
-
   });
 
   describe('when getting a playlist by slug', function () {
@@ -86,10 +82,6 @@ describe('PlaylistService', function () {
 
     it('should have the expected title', function () {
       expect(this.resultPlaylist.title).to.equal('Playlist Title');
-    });
-
-    it('should have a url', function () {
-      expect(this.resultPlaylist.url).to.exist;
     });
 
   });

@@ -3,7 +3,8 @@ const
     SequelizeService = require('feathers-sequelize').Service,
     config = require('config.js'),
     {locator} = require('locator.js'),
-    {ensureAuthenticated, applyOwnerId} = require('hooks/common.js');
+    {ensureAuthenticated, applyOwnerId} = require('hooks/common.js'),
+    {addURL} = require('hooks/playlist/playlist.js');
 
 class PlaylistService extends SequelizeService {
 
@@ -22,15 +23,11 @@ class PlaylistService extends SequelizeService {
       update: [ensureAuthenticated, applyOwnerId]
     };
 
-    this.after = { };
-  }
-
-  _transformAfterRetrieval (data) {
-    // Add in URL
-    let id = data.slug || data.id;
-    data.url = `${config.baseURL}/pl/${id}`;
-
-    return data;
+    this.after = {
+      get: [addURL],
+      create: [addURL],
+      update: [addURL]
+    };
   }
 
   _transformBeforeSave (data) {
@@ -57,7 +54,6 @@ class PlaylistService extends SequelizeService {
         { model: MediaRef, through: 'items' }
       ]
     }).then(playlist => {
-      playlist = this._transformAfterRetrieval(playlist);
       return playlist
     }).catch(e => {
       return new errors.GeneralError(e);
@@ -70,7 +66,7 @@ class PlaylistService extends SequelizeService {
     return this.Model.create(data)
       .then(pl => {
         return pl.setMediaRefs(data.items).then(() => {
-          return this._transformAfterRetrieval(pl);
+          return pl;
         })
       });
   }

@@ -3,7 +3,8 @@ const
     SequelizeService = require('feathers-sequelize').Service,
     {applyOwnerId, ensureAuthenticated} = require('hooks/common.js'),
     config = require('config.js'),
-    {locator} = require('locator.js');
+    {locator} = require('locator.js'),
+    {addURL} = require('hooks/clip/clip.js');
 
 class ClipService extends SequelizeService {
 
@@ -23,14 +24,12 @@ class ClipService extends SequelizeService {
       update: [ensureAuthenticated, applyOwnerId]
     };
 
-    this.after = { };
+    this.after = {
+      get: [addURL],
+      create: [addURL],
+      update: [addURL]
+    };
 
-  }
-
-  _transformAfterRetrieval (data) {
-    let id = data.id;
-    data.url = `${config.baseURL}/clips/${id}`;
-    return data;
   }
 
   get (id, params={}) {
@@ -76,10 +75,7 @@ class ClipService extends SequelizeService {
       // Then create the MediaRef
       .then(([episode]) => {
         const clip = Object.assign({}, data, {episodeId: episode.id});
-
-        return super.create(clip, params).then(clip => {
-          return this._transformAfterRetrieval(clip);
-        });
+        return super.create(clip, params);
       })
 
       .catch(e => {
@@ -87,8 +83,6 @@ class ClipService extends SequelizeService {
       });
     }
 
-    // Default
-    return super.create(data, params);
   }
 
   _resolvePodcastData(data) {
