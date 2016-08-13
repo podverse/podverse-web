@@ -2,6 +2,7 @@ const
     errors = require('feathers-errors'),
     SequelizeService = require('feathers-sequelize').Service,
     {applyOwnerId, ensureAuthenticated} = require('hooks/common.js'),
+    config = require('config.js'),
     {locator} = require('locator.js');
 
 class ClipService extends SequelizeService {
@@ -24,6 +25,12 @@ class ClipService extends SequelizeService {
 
     this.after = { };
 
+  }
+
+  _transformAfterRetrieval (data) {
+    let id = data.id;
+    data.url = `${config.baseURL}/clips/${id}`;
+    return data;
   }
 
   get (id, params={}) {
@@ -70,7 +77,9 @@ class ClipService extends SequelizeService {
       .then(([episode]) => {
         const clip = Object.assign({}, data, {episodeId: episode.id});
 
-        return super.create(clip, params);
+        return super.create(clip, params).then(clip => {
+          return this._transformAfterRetrieval(clip);
+        });
       })
 
       .catch(e => {

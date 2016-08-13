@@ -29,7 +29,7 @@ class AuthService {
 
   createToken(req) {
     const claims = {
-      iss: 'http://localhost:9000',
+      iss: 'http://localhost:8080',
       // iss: 'https://podverse.fm', // for production
       sub: req.body.username, // unique user ID, do NOT use personally identifiable info like email
       scope: 'self, admins'

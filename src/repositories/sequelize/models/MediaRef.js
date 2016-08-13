@@ -44,6 +44,17 @@ module.exports = function(sequelize, DataTypes) {
     dateCreated: {
       type: DataTypes.DATE
     }
+  }, {
+      getterMethods: {
+          url: function () {
+              return this.getDataValue('url');
+          }
+      },
+      setterMethods: {
+          url: function (value) {
+              this.setDataValue('url', value);
+          }
+      }
   });
 
   return mediaRef;

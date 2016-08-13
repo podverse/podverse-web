@@ -105,6 +105,10 @@ describe('ClipService', function () {
       expect(this.resolvedVal).to.contain(this.testData);
     });
 
+    it('should have a url', function () {
+      expect(this.resolvedVal.url).to.exist;
+    });
+
     it('should have inserted a MediaRef in the database', function (done) {
       this.Models.MediaRef.findAll({where: {title: this.testData.title}})
         .then(clip => {
