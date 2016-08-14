@@ -172,8 +172,7 @@ describe('PlaylistService', function () {
     });
 
     it('should return all the expected playlist items', function () {
-      // console.log(this.updatedPlaylist);
-      let mediaRefs = this.updatedPlaylist.playlistItems;
+      let mediaRefs = this.updatedPlaylist.mediaRefs;
       expect(mediaRefs[0].title).to.equal('TestTitle0');
       expect(mediaRefs[1].title).to.equal('TestTitle1');
       expect(mediaRefs[2].title).to.equal('TestTitle2');

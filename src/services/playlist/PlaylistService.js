@@ -95,9 +95,18 @@ class PlaylistService extends SequelizeService {
 
       data = this._transformBeforeSave(data);
 
-      return pl.addMediaRefs(data.playlistItems).then(() => {
-        return super.update(id, data, params);
-      });
+      return pl.addMediaRefs(data.playlistItems)
+        .then(() => {
+          return this.Model.update(data, {
+            where: {
+              id: id
+            }
+          })
+            .then(() => {
+              return this.get(id, params);
+            });
+        });
+
     }).catch(e => {
       throw new errors.GeneralError(e);
     });
