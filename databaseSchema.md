@@ -68,11 +68,11 @@ userID: String? - the ID of the user who created the clip
 episode: Episode Object!
 
 ####Playlist####
-playlistId: String? - (unique ID) the ID of the playlist on podverse.fm
+id: UUID - unique ID of the playlist on podverse.fm
 
-slug: String? - the slug of the playlist on podverse.fm
+slug: String? - the unique slug of the playlist on podverse.fm, the slug should never equal another playlist's id
 
-url: String? - the URL of the playlist on podverse.fm, derived from slug or playlistId
+url: String? - the URL of the playlist on podverse.fm, derived from slug or id
 
 title: String!
 
