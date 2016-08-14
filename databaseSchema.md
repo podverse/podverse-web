@@ -69,8 +69,6 @@ startTime: Integer! - in seconds
 
 endTime: Integer? - in seconds
 
-duration: Integer! - in seconds
-
 dateCreated: Date?
 
 lastUpdated: Date?
