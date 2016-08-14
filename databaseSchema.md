@@ -2,7 +2,10 @@
 
 _The Podverse mobile app and web app **must** be able to use the following properties. Properties ending with ! require values, and properties ending with ? do not require values._
 
+NOTE: The schema for clips in the mobile app and web app is implemented differently. The web app uses _MediaRef_ instead of the _Clip_ model. Maybe someday we should sync the mobile and web app schema?
+
 ####Podcast####
+
 feedURL: String! - (unique ID) URL of the podcast's RSS Feed
 
 title: String?
@@ -28,6 +31,7 @@ lastPubDate: Date? - pubDate of the most recent episode in the RSS Feed, calcula
 episodes: Array[Episode Object]?
 
 ####Episode####
+
 mediaURL: String! - (unique ID) URL of the episode media file
 
 title: String?
@@ -50,41 +54,61 @@ clips: Array[Clip Object]?
 
 podcast: Podcast Object!
 
+playlist: Array[Playlist Object]?
+
 ####Clip####
-clipURL: String? - (unique ID) the URL of the clip on podverse.fm
+id: UUID! - primary key ID of the clip on podverse.fm
+
+podverseURL: String? - the URL of the clip hosted on podverse.fm, derived from id
+
+ownerId: String! - the userId of whoever created the clip
+
+title: String? – (if null, then a default title should be set in the templates using clip.title)
 
 startTime: Integer! - in seconds
 
-endTime: Integer! - in seconds
+endTime: Integer? - in seconds
 
 duration: Integer! - in seconds
 
-title: String?
+dateCreated: Date?
 
-dateCreated: Date? - the date the clip was created
+lastUpdated: Date?
 
-userID: String? - the ID of the user who created the clip
+sharePermission: ENUM? - possible values are "isPublic", "isSharableWithLink", and "isPrivate"
 
 episode: Episode Object!
 
+playlist: Array[Playlist Object]?
+
 ####Playlist####
-id: UUID! - unique ID of the playlist on podverse.fm
+id: UUID! - primary key ID of the playlist on podverse.fm
 
 slug: String? - unique slug of the playlist on podverse.fm, the slug should never equal another playlist's id
 
-url: String? - the URL of the playlist hosted on podverse.fm, derived from slug or id
+podverseURL: String? - the URL of the playlist hosted on podverse.fm, derived from slug or id
+
+ownerId: String! - the userId of whoever created the playlist
 
 title: String!
 
-sharePermission: String? - whether the playlist is shared publicly, can only be shared with link, or privately only to authorized viewers. Possible values are "isPublic", "isSharableWithLink", and "isPrivate".
+dateCreated: Date?
 
 lastUpdated: Date?
+
+sharePermission: ENUM? - possible values are "isPublic", "isSharableWithLink", and "isPrivate"
+
+isMyEpisodes: Bool – flag marking if the playlist is the owner's "My Episodes" playlist
+
+isMyClips: Bool – flag marking if the playlist is the owner's "My Clips" playlist
 
 episodes: Array[Episode Object]?
 
 clips: Array[Clip Object]?
 
 ---
+
+#####this stuff below needs to be updated#####
 
 ####Differences between mobile and web app####
 isSubscribed boolean is in the mobile app Podcast model. In the web app this would be a property of the User model.
