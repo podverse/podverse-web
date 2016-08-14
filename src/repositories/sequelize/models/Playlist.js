@@ -59,8 +59,12 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.BOOLEAN
     }
 
-
-
+  }, {
+      setterMethods: {
+          podverseURL: function (value) {
+              this.setDataValue('podverseURL', value);
+          }
+      }
   });
 
   return playlist;

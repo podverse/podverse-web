@@ -4,7 +4,7 @@ const
 
 function addURL (hooks) {
   let slug = hooks.result.slug || hooks.result.id;
-  hooks.result.url = `${config.baseURL}/clips/${slug}`;
+  hooks.result.podverseURL = `${config.baseURL}/clips/${slug}`;
 }
 
 module.exports = {

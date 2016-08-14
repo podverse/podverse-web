@@ -55,14 +55,9 @@ module.exports = function(sequelize, DataTypes) {
     }
 
   }, {
-      getterMethods: {
-          url: function () {
-              return this.getDataValue('url');
-          }
-      },
       setterMethods: {
-          url: function (value) {
-              this.setDataValue('url', value);
+          podverseURL: function (value) {
+              this.setDataValue('podverseURL', value);
           }
       }
   });

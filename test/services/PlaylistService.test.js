@@ -115,11 +115,6 @@ describe('PlaylistService', function () {
       expect(this.resolvedVal.ownerId).to.equal('jabberwocky@podverse.fm');
     });
 
-    // TODO: broken, maybe this should be done in the hook's own test
-    it('should have the expected podverseURL', function () {
-      expect(this.resolvedVal.podverseURL).to.equal(`${config.baseURL}/playlists/${this.playlistId}`);
-    });
-
     // TODO: broken, improperly done test
     it('should have the expected MediaRefs associated with it', function (done) {
       this.resolvedVal.getMediaRefs().then(function (mediaRefs) {

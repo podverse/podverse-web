@@ -65,11 +65,11 @@ describe('API Test: Clips', function () {
       expect(this.response.statusCode).to.equal(201);
     });
 
-    it('should return the url', function () {
-      let url = this.response.body.url,
+    it('should return the podverseURL', function () {
+      let podverseURL = this.response.body.podverseURL,
           id = this.response.body.id;
-          
-      expect(url).to.equal(`${config.baseURL}/clips/${id}`);
+
+      expect(podverseURL).to.equal(`${config.baseURL}/clips/${id}`);
     });
 
     it('should have saved the podcast object with the title', function (done) {

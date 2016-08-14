@@ -111,11 +111,6 @@ describe('ClipService', function () {
       expect(this.resolvedVal.title).to.equal('hamblam');
     });
 
-    // TODO: broken, maybe this should be done in the hook's own test
-    it('should have the expected podverseURL', function () {
-      expect(this.resolvedVal.podverseURL).to.equal(`${config.baseURL}/clips/${this.resolvedVal.id}`);
-    });
-
     it('should have inserted a MediaRef in the database', function (done) {
       this.Models.MediaRef.findAll({where: {title: this.testData.title}})
         .then(clip => {
