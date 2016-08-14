@@ -84,12 +84,15 @@ describe('ClipService', function () {
 
     beforeEach(function (done) {
 
+      let testEpisode = Object.assign({}, this.testEpisode.dataValues, {podcast: this.testPodcast.dataValues});
+
       this.testData = {
         ownerId: 'foo',
         title: 'hamblam',
         startTime: 40,
         endTime: 50,
-        episodeId: this.testEpisode.id
+        episodeId: testEpisode.id,
+        episode: testEpisode
       };
 
       this.clipSvc.create(this.testData)
@@ -102,13 +105,15 @@ describe('ClipService', function () {
     });
 
     it('should resolve the inserted clip', function () {
-      expect(this.resolvedVal).to.contain(this.testData);
+      expect(this.resolvedVal.ownerId).to.equal('foo');
+      expect(this.resolvedVal.title).to.equal('hamblam');
     });
 
     it('should have inserted a MediaRef in the database', function (done) {
       this.Models.MediaRef.findAll({where: {title: this.testData.title}})
         .then(clip => {
-          expect(clip[0]).to.contain(this.testData);
+          expect(clip[0].ownerId).to.equal('foo');
+          expect(clip[0].title).to.equal('hamblam');
           done();
         });
     });
@@ -123,7 +128,9 @@ describe('ClipService', function () {
       };
 
       this.clipSvc.create(data, {ownerId: 'notnull'})
-        .then(done)
+        .then(result => {
+          done();
+        })
         .catch(err => {
           expect(err).to.not.equal(null);
           done();

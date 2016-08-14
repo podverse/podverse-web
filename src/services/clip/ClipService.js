@@ -46,43 +46,46 @@ class ClipService extends SequelizeService {
 
   create (data, params={}) {
 
-    const {Episode, Podcast} = this.Models;
+    return new Promise((resolve, reject) => {
 
-    let podcast = this._resolvePodcastData(data),
-      episode = data.episode,
-      isPodcastReferenced = !!podcast;
+      const {Episode, Podcast} = this.Models;
 
-    if (isPodcastReferenced) {
+      let podcast = this._resolvePodcastData(data),
+        episode = data.episode,
+        isPodcastReferenced = !!podcast;
 
-      // Lets create/find the podcast
-      return Podcast.findOrCreate({
-        where: {
-          feedURL: podcast.feedURL
-        },
-        defaults: podcast
-      })
-
-      // Then create/find the episode
-      .then(([podcast]) => {
-        return Episode.findOrCreate({
+      if (isPodcastReferenced) {
+        // Lets create/find the podcast
+        return Podcast.findOrCreate({
           where: {
-            mediaURL: episode.mediaURL
+            feedURL: podcast.feedURL
           },
-          defaults: Object.assign({}, episode, {podcastId: podcast.id })
+          defaults: podcast
+        })
+
+        // Then create/find the episode
+        .then(([podcast]) => {
+          return Episode.findOrCreate({
+            where: {
+              mediaURL: episode.mediaURL
+            },
+            defaults: Object.assign({}, episode, {podcastId: podcast.id })
+          });
+        })
+
+        // Then create the MediaRef
+        .then(([episode]) => {
+          const clip = Object.assign({}, data, {episodeId: episode.id});
+          resolve(super.create(clip, params));
+        })
+
+        .catch(e => {
+          reject(new errors.GeneralError(e));
         });
-      })
-
-      // Then create the MediaRef
-      .then(([episode]) => {
-        const clip = Object.assign({}, data, {episodeId: episode.id});
-        return super.create(clip, params);
-      })
-
-      .catch(e => {
-        return new errors.GeneralError(e);
-      });
-    }
-
+      } else {
+        reject(new errors.GeneralError('No podcast referenced'));
+      }
+    });
   }
 
   _resolvePodcastData(data) {
