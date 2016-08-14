@@ -35,7 +35,7 @@ class PlaylistService extends SequelizeService {
     delete data.url;
 
     data.slug = data.slug || data.id;
-    data.items = data.items || [];
+    data.playlistItems = data.playlistItems || [];
 
     return data;
   }
@@ -51,7 +51,7 @@ class PlaylistService extends SequelizeService {
         ]
       },
       include: [
-        { model: MediaRef, through: 'items' }
+        { model: MediaRef, through: 'playlistItems' }
       ]
     }).then(playlist => {
       return playlist
@@ -65,7 +65,7 @@ class PlaylistService extends SequelizeService {
 
     return this.Model.create(data)
       .then(pl => {
-        return pl.setMediaRefs(data.items).then(() => {
+        return pl.setMediaRefs(data.playlistItems).then(() => {
           return pl;
         })
       });
@@ -95,7 +95,7 @@ class PlaylistService extends SequelizeService {
 
       data = this._transformBeforeSave(data);
 
-      return pl.addMediaRefs(data.items).then(() => {
+      return pl.addMediaRefs(data.playlistItems).then(() => {
         return super.update(id, data, params);
       });
     }).catch(e => {

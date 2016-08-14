@@ -3,6 +3,8 @@ const {configureDatabaseModels, createTestPodcastAndEpisode} = require('test/hel
 
 const {applyOwnerId, ensureAuthenticated} = require('hooks/common.js');
 
+const config = require('config.js');
+
 describe('ClipService', function () {
 
   configureDatabaseModels(function (Models) {
@@ -107,6 +109,11 @@ describe('ClipService', function () {
     it('should resolve the inserted clip', function () {
       expect(this.resolvedVal.ownerId).to.equal('foo');
       expect(this.resolvedVal.title).to.equal('hamblam');
+    });
+
+    // TODO: broken, maybe this should be done in the hook's own test
+    it('should have the expected podverseURL', function () {
+      expect(this.resolvedVal.podverseURL).to.equal(`${config.baseURL}/clips/${this.resolvedVal.id}`);
     });
 
     it('should have inserted a MediaRef in the database', function (done) {

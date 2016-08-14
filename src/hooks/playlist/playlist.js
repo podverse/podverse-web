@@ -4,8 +4,7 @@ const
 
 function addURL (hooks) {
   let slug = hooks.result.slug || hooks.result.id;
-  hooks.result.url = `${config.baseURL}/playlists/${slug}`;
-  console.log(hooks.result.url);
+  hooks.result.podverseURL = `${config.baseURL}/playlists/${slug}`;
 }
 
 module.exports = {

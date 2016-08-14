@@ -22,6 +22,8 @@ module.exports = function(sequelize, DataTypes) {
       // do we need a "composite index"?
     },
 
+    // url: appended to response body by PlaylistService hook
+
     title: {
       type: DataTypes.TEXT,
       validation: {
@@ -43,7 +45,21 @@ module.exports = function(sequelize, DataTypes) {
 
     lastUpdated: {
       type: DataTypes.DATE
+    },
+
+    sharePermission: {
+      type: DataTypes.ENUM('isPublic', 'isSharableWithLink', 'isPrivate')
+    },
+
+    isMyEpisodes: {
+      type: DataTypes.BOOLEAN
+    },
+
+    isMyClips: {
+      type: DataTypes.BOOLEAN
     }
+
+
 
   });
 

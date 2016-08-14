@@ -117,7 +117,7 @@ function createTestPlaylist (Models) {
         'title': 'Playlist Title',
         'slug': 'playlist-slug',
         'ownerId': 'kungfury@podverse.fm',
-        'items': [mediaRefs[0], mediaRefs[1]]
+        'playlistItems': [mediaRefs[0], mediaRefs[1]]
       });
     });
 }

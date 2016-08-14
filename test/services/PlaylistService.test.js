@@ -97,7 +97,7 @@ describe('PlaylistService', function () {
             ownerId: 'jabberwocky@podverse.fm',
             title: 'Jubjub',
             slug: 'tumtum',
-            items: [mediaRefs[0], mediaRefs[1]]
+            playlistItems: [mediaRefs[0], mediaRefs[1]]
           };
 
           this.playlistSvc.create(this.testData)
@@ -115,6 +115,12 @@ describe('PlaylistService', function () {
       expect(this.resolvedVal.ownerId).to.equal('jabberwocky@podverse.fm');
     });
 
+    // TODO: broken, maybe this should be done in the hook's own test
+    it('should have the expected podverseURL', function () {
+      expect(this.resolvedVal.podverseURL).to.equal(`${config.baseURL}/playlists/${this.playlistId}`);
+    });
+
+    // TODO: broken, improperly done test
     it('should have the expected MediaRefs associated with it', function (done) {
       this.resolvedVal.getMediaRefs().then(function (mediaRefs) {
         expect(mediaRefs[0].title).to.equal('TestTitle0');
@@ -130,7 +136,7 @@ describe('PlaylistService', function () {
   describe('when updating a playlist as another user id', function() {
 
     xit('should throw NotAuthenticated', function (done) {
-      this.playlistSvc.update(this.playlist.id, {}, {userId: 'hackerman@podverse.tv'})
+      this.playlistSvc.update(this.playlistId, {}, {userId: 'hackerman@podverse.tv'})
         .then(done)
         .catch(err => {
           expect(err.name).to.equal('Forbidden');
@@ -149,16 +155,14 @@ describe('PlaylistService', function () {
             ownerId: 'kungfury@podverse.fm',
             title: 'Updated Playlist Title',
             slug: 'updated-playlist-slug',
-            items: [mediaRef[2].id, mediaRef[3].id]
+            playlistItems: [mediaRef[2].id, mediaRef[3].id]
           };
 
           this.playlistSvc.update(this.playlist.id, this.newPlaylist, {userId: 'kungfury@podverse.fm'})
-            .then(() => {
-              this.playlistSvc.get(this.playlist.id)
-                .then(playlist => {
-                  this.updatedPlaylist = playlist;
-                  done();
-                });
+            .then(playlist => {
+
+              this.updatedPlaylist = playlist;
+              done();
             });
 
         });
@@ -173,7 +177,8 @@ describe('PlaylistService', function () {
     });
 
     it('should return all the expected playlist items', function () {
-      let mediaRefs = this.updatedPlaylist.mediaRefs;
+      // console.log(this.updatedPlaylist);
+      let mediaRefs = this.updatedPlaylist.playlistItems;
       expect(mediaRefs[0].title).to.equal('TestTitle0');
       expect(mediaRefs[1].title).to.equal('TestTitle1');
       expect(mediaRefs[2].title).to.equal('TestTitle2');
