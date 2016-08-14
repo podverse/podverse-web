@@ -15,12 +15,11 @@ module.exports = function(sequelize, DataTypes) {
 
     slug: {
       type: DataTypes.TEXT,
-      unique: true,
-      validation: {
-        notEmpty: true
-      }
+      unique: true
       // TODO: the slug and primary keys must be mutally unique if URLs can use primary keys.
-      // In that case a slug should never be the same as an existing primary key, and vice versa.
+      // In that case a slug should never be able to be changed to an existing primary key
+      // (unless it is the primary key for this clip);
+      // do we need a "composite index"?
     },
 
     title: {
