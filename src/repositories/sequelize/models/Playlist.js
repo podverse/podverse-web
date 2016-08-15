@@ -60,6 +60,8 @@ module.exports = function(sequelize, DataTypes) {
     }
 
   }, {
+      updatedAt: 'dateCreated',
+      createdAt: 'lastUpdated',
       setterMethods: {
           podverseURL: function (value) {
               this.setDataValue('podverseURL', value);

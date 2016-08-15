@@ -60,6 +60,16 @@ class PlaylistService extends SequelizeService {
     });
   }
 
+  find (params={}) {
+    params.sequelize = {
+      include: [
+        { model: this.Models.MediaRef, through: 'playlistItems' }
+      ]
+    };
+    
+    return super.find(params);
+  }
+
   create (data) {
     data = this._transformBeforeSave(data);
 

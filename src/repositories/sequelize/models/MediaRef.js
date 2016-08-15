@@ -55,11 +55,13 @@ module.exports = function(sequelize, DataTypes) {
     }
 
   }, {
-      setterMethods: {
-          podverseURL: function (value) {
-              this.setDataValue('podverseURL', value);
-          }
-      }
+    updatedAt: 'dateCreated',
+    createdAt: 'lastUpdated',
+    setterMethods: {
+        podverseURL: function (value) {
+            this.setDataValue('podverseURL', value);
+        }
+    }
   });
 
   return mediaRef;

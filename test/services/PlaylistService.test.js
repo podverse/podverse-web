@@ -183,4 +183,20 @@ describe('PlaylistService', function () {
 
   });
 
+  describe('when finding all playlists', function () {
+
+    beforeEach(function (done) {
+      this.playlistSvc.find()
+        .then(playlists => {
+          this.foundPlaylists = playlists;
+          done();
+        });
+    });
+
+    it('a playlist should have a mediaRefs property', function () {
+      expect(this.foundPlaylists[0].mediaRefs).to.exist;
+    });
+
+  });
+
 });
