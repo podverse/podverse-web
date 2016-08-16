@@ -57,6 +57,8 @@ podcast: Podcast Object!
 playlist: Array[Playlist Object]?
 
 ####Clip####
+_We need to clarify the distinction between Clips and MediaRefs. The mobile app uses Clips, but that approach is legacy at this point, as the web app uses MediaRefs instead of Clips._
+
 id: UUID! - primary key ID of the clip on podverse.fm
 
 podverseURL: String? - the URL of the clip hosted on podverse.fm, derived from id
@@ -88,7 +90,7 @@ podverseURL: String? - the URL of the playlist hosted on podverse.fm, derived fr
 
 ownerId: String! - the userId of whoever created the playlist
 
-title: String!
+title: String?
 
 dateCreated: Date?
 
@@ -100,9 +102,9 @@ isMyEpisodes: Bool – flag marking if the playlist is the owner's "My Episodes"
 
 isMyClips: Bool – flag marking if the playlist is the owner's "My Clips" playlist
 
-episodes: Array[Episode Object]?
+episodes: Array[Episode Object]? (mediaRef)
 
-clips: Array[Clip Object]?
+clips: Array[Clip Object]? (mediaRef)
 
 ---
 

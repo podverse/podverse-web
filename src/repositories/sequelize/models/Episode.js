@@ -61,6 +61,9 @@ module.exports = function(sequelize, DataTypes) {
     pubDate: {
       type: DataTypes.DATE
     }
+  }, {
+      updatedAt: 'dateCreated',
+      createdAt: 'lastUpdated'
   });
 
   return episode;

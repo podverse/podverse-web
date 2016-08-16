@@ -41,6 +41,9 @@ module.exports = function(sequelize, DataTypes) {
 
     lastPubDate: DataTypes.DATE
 
+  }, {
+      updatedAt: 'dateCreated',
+      createdAt: 'lastUpdated'
   });
 
   return podcast;

@@ -30,9 +30,10 @@ module.exports = function(sequelize, DataTypes) {
     },
 
     // TODO: calculate duration based on endTime - startTime
-    duration: {
-      type: DataTypes.INTEGER
-    },
+    // maybe don't save to db
+    // duration: {
+    //   type: DataTypes.INTEGER
+    // },
 
     title: {
       type: DataTypes.TEXT

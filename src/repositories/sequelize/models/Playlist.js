@@ -51,10 +51,13 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.ENUM('isPublic', 'isSharableWithLink', 'isPrivate')
     },
 
+
+    // TODO: An ownerId can only have ONE playlist with isMyEpisodes === true
     isMyEpisodes: {
       type: DataTypes.BOOLEAN
     },
 
+    // TODO: An ownerId can only have ONE playlist with isMyClips === true
     isMyClips: {
       type: DataTypes.BOOLEAN
     }
