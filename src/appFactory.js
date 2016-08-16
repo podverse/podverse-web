@@ -30,6 +30,10 @@ function appFactory () {
     .use('/static/node_modules', feathers.static(path.resolve(__dirname, '../node_modules')))
     .use('/static', feathers.static(__dirname + '/static/libs'))
 
+    .post('/auth/anonLogin', (req, res) => {
+      AuthService.createAnonIdTokenAndUserId(req, res);
+    })
+
     .use(processJWTIfExists)
 
     // Clip Detail Page
@@ -55,10 +59,6 @@ function appFactory () {
       } else {
         throw new errors.GeneralError('An RSS feed URL must be provided.');
       }
-    })
-
-    .post('/auth', (req, res) => {
-      AuthService.returnJWTInResponseIfValidUsernameAndPassword(req, res);
     })
 
     .configure(routes);
