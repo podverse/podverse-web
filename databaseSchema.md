@@ -88,7 +88,9 @@ slug: String? - unique slug of the playlist on podverse.fm, the slug should neve
 
 podverseURL: String? - the URL of the playlist hosted on podverse.fm, derived from slug or id
 
-ownerId: String! - the userId of whoever created the playlist
+ownerId: String! - unique userId of whoever created the playlist
+
+ownerName: String? - name of whoever created the playlist
 
 title: String?
 

@@ -20,7 +20,7 @@ class PlaylistService extends SequelizeService {
     // -----
     this.before = {
       create: [ensureAuthenticated, applyOwnerId],
-      update: [ensureAuthenticated, applyOwnerId]
+      update: [ensureAuthenticated]
     };
 
     this.after = {

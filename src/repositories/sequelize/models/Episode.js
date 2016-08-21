@@ -41,8 +41,7 @@ module.exports = function(sequelize, DataTypes) {
     link: { // provided by the <link> field in podcast RSS feeds for episodes
       type: DataTypes.TEXT,
       validation: {
-        isUrl: true,
-        notEmpty: true
+        isUrl: true
       }
     },
     mediaBytes: {
