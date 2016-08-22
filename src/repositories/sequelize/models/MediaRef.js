@@ -47,6 +47,10 @@ module.exports = function(sequelize, DataTypes) {
       }
     },
 
+    ownerName: {
+      type: DataTypes.TEXT
+    },
+
     dateCreated: {
       type: DataTypes.DATE
     },
