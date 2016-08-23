@@ -10,13 +10,27 @@ function nunjucksConfig () {
     express: app
   });
 
+  env.addFilter('isPlaylist', function(obj) {
+    return typeof obj == 'object';
+  });
+
+  env.addFilter('isEpisode', function (obj) {
+    if (obj.startTime === 0 && obj.endTime === null) {
+      return true;
+    } else {
+      return false;
+    }
+  });
+
   env.addFilter('stringify', function(str) {
     var s = JSON.stringify(str);
     return s;
   });
 
   env.addFilter('readableDate', function(date) {
-    return date.substring(0, 10);
+    if (typeof date === 'string') {
+      return date.substring(0, 10);
+    }
   });
 
   // TODO: This identify function is also in the scripts.js. Maybe this should

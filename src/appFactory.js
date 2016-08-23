@@ -48,6 +48,18 @@ function appFactory () {
     })
 
     .use('clips', locator.get('ClipService'))
+
+    // Playlist Detail Page
+    .get('/playlists/:id', (req, res) => {
+      const PlaylistService = locator.get('PlaylistService');
+      return PlaylistService.get(req.params.id)
+        .then(playlist => {          
+          res.render('player.html', playlist.dataValues);
+        }).catch(e => {
+          res.sendStatus(404);
+        });
+    })
+
     .use('playlists', locator.get('PlaylistService'))
 
     .get('/parse', (req, res) => {

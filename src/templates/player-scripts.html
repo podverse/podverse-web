@@ -3,40 +3,36 @@
 
   // TODO: I think playing playlist items in the template would work if we can
   // use the playlistItems object in the scripts.js file
-  {% if playlistItems %}
-    window.playlistItems = {{ playlistItems|stringify|safe }};
+
+  {% if mediaRefs|isPlaylist %} // if a mediaRefs object exists, then parse as a playlist page
+    window.mediaRefs = {{ mediaRefs|stringify|safe }};
 
     var item;
     if (urlHashIndexValue > 0) {
-      item = playlistItems[urlHashIndexValue];
+      item = mediaRefs[urlHashIndexValue];
     } else {
-      item = playlistItems[0];
+      item = mediaRefs[0];
     }
 
     // Only clips have a startTime and endTime
     window.startTime = item.startTime;
     window.endTime = item.endTime;
-    window.isClip = typeof window.startTime !== "undefined" ? true : false;
+    window.ownerName = item.ownerName;
+    window.duration = item.duration;
+    window.podcastTitle = item.episode.podcast.title;
+    window.podcastImageURL = item.episode.podcast.imageURL;
+    window.episodeTitle = item.episode.title;
+    window.episodeMediaURL = item.episode.mediaURL;
+    window.episodePubDate = item.episode.pubDate;
 
-    if (window.isClip === true) {
-      window.clipTitle = item.title;
-      window.duration = item.duration;
-      window.podcastTitle = item.podcast.title;
-      window.podcastImageURL = item.podcast.imageURL;
-      window.episodeTitle = item.episode.title;
-      window.episodeMediaURL = item.episode.mediaURL;
-      window.episodePubDate = item.episode.pubDate;
-    } else { // handle item as episode
+    if (window.startTime === 0 && window.endTime !== null) {
+      window.isClip = false;
       window.clipTitle = "";
-      window.duration = item.duration;
-      window.podcastTitle = item.podcast.title;
-      window.podcastImageURL = item.podcast.imageURL;
-      window.episodeTitle = item.title;
-      window.episodeMediaURL = item.mediaURL;
-      window.episodePubDate = item.pubDate;
-
       window.startTime = "0";
       window.endTime = item.duration;
+    } else {
+      window.isClip = true;
+      window.clipTitle = item.title;
     }
 
   // Maybe this line should instead be {% elif clipUrl %}?
@@ -46,13 +42,11 @@
     window.episodeTitle = "{{ episode.title }}";
     window.episodeMediaURL = "{{ episode.mediaURL }}";
     window.episodePubDate = "{{ episode.pubDate }}";
-
     window.clipTitle = "{{ title }}";
     window.startTime = "{{ startTime }}";
     window.endTime = "{{ endTime }}";
     window.duration = "{{ duration }}"
-    // If a clip.startTime is provided, handle item as a clip
-    window.isClip = window.startTime !== "" ? true : false;
+    window.isClip = true;
   {% endif %}
 
 </script>
