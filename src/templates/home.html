@@ -5,21 +5,20 @@
   <div class="col-xs-12">
     <!-- NOTE: the home-list reuses the HTML / CSS of the #playlist in the player.html. The designs may diverge someday, but for now CSS changes to these elements will also change the #playlist's items. -->
     <div id="home-list">
-
       {% for clip in clips %}
-        <div class="playlist-item" onclick="window.location.href = '/c/{{clip._id}}'">
+        <div class="playlist-item" onclick="window.location.href = '/clips/{{clip.id}}'">
           <div class="playlist-item-image">
-            <img src="{{ clip.podcast.imageURL }}">
+            <img src="{{ clip.episode.podcast.imageURL }}">
           </div>
           <div class="playlist-item-text">
             <div class="playlist-item-title">
-              {{ clip.clip.title }}
+              {{ clip.title }}
             </div>
             <div class="playlist-item-podcast-title">
-              {{ clip.podcast.title }}
+              {{ clip.episode.podcast.title }}
             </div>
             <div class="playlist-item-duration">
-              {{ clip.clip.duration|convertSecToHHMMSS }}
+              {{ clip.duration|convertSecToHHMMSS }}
             </div>
             <div class="playlist-item-sub-title">
               {{ clip.episode.title }}

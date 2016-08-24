@@ -6,49 +6,35 @@ function routes () {
   const app = this;
 
   app.get('/', function (req, res) {
-    res.render('home.html')
-  });
+    const ClipService = locator.get('ClipService');
+    const Models = locator.get('Models');
+    const {Episode, Podcast} = Models;
 
-  app.post('/playlists/addItem', (req, res) => {
-    const {Playlist, MediaRef} = locator.get('Models');
+    let params = {};
+    params.sequelize = {
+        limit: 20,
+        include: [
+          { model: Episode, include: [Podcast] }
+        ],
+        where: {
+          $and: {
+            $not: {
+              startTime: 0
+            },
+            $not: {
+              endTime: ''
+            }
+          }
+        }
+    };
 
-    return Promise.all([
-      Playlist.findById(req.body.playlistId),
-      MediaRef.findById(req.body.mediaRefId)
-    ])
-    .then(([playlist, mediaRef]) => {
-      // if (playlist.ownerId !== req.params.userId) {
-      //     throw new errors.Forbidden();
-      // } else {
-        playlist.setMediaRefs(mediaRef).then(() => {
-          res.status(200).send('playlist item has been added to playlist');
-        });
-      // }
-    })
-    .catch(e => {
-      throw new errors.GeneralError(e);
-    });
-  });
-
-  app.post('/playlists/removeItem', (req, res) => {
-    const {Playlist, MediaRef} = locator.get('Models');
-
-    return Promise.all([
-      Playlist.findById(req.body.playlistId),
-      MediaRef.findById(req.body.mediaRefId)
-    ])
-    .then(([playlist, mediaRef]) => {
-      // if (playlist.ownerId !== req.params.userId) {
-      //     throw new errors.Forbidden();
-      // } else {
-        playlist.removeMediaRefs(mediaRef).then(() => {
-          res.status(200).send('playlist item has been removed from playlist');
-        });
-      // }
-    })
-    .catch(e => {
-      throw new errors.GeneralError(e);
-    })
+    return ClipService.find(params)
+      .then(clips => {
+        res.render('home.html', {clips: clips});
+      })
+      .catch(e => {
+        console.log(e);
+      });
   });
 
 }
