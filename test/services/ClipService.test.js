@@ -45,8 +45,7 @@ describe('ClipService', function () {
 
   it('should have the expected before-update hooks', function () {
     verifyBeforeUpdateHooks(this.clipSvc, [
-      ensureAuthenticated,
-      applyOwnerId
+      ensureAuthenticated
     ]);
   });
 

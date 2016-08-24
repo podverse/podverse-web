@@ -13,47 +13,13 @@ describe('AuthService', function () {
 
   describe('invalid credentials provided', function () {
 
-    it('should return 401 if no credentials provided', function(done) {
+    it('should return an anonymous JWT token', function (done) {
       chai.request(this.app)
-        .post('/auth')
+        .post('/auth/anonLogin')
         .end(function (err, res) {
-          expect(res).to.have.status(401);
+          expect(res.body).to.exist;
           done();
-        });
-    });
-
-    it('should return 401 if invalid username provided', function(done) {
-      chai.request(this.app)
-        .post('/auth')
-        .send({username: 'shemp@podverse.fm', password: 'free access'})
-        .end(function (err, res) {
-          expect(res).to.have.status(401);
-          done();
-        });
-    });
-
-    it('should return 401 if invalid password provided', function(done) {
-      chai.request(this.app)
-        .post('/auth')
-        .send({username: 'moe@podverse.fm', password: 'wrong password'})
-        .end(function (err, res) {
-          expect(res).to.have.status(401);
-          done();
-        });
-    });
-
-  });
-
-  describe('valid credentials provided', function () {
-
-    it('should return token in JSON response', function (done) {
-      chai.request(this.app)
-        .post('/auth')
-        .send({username: 'larry@podverse.fm', password: 'free access'})
-        .end(function (err, res) {
-          expect(res.body.token).to.exist;
-          done();
-        });
+        })
     });
 
   });

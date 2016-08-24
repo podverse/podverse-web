@@ -1,17 +1,16 @@
-const SqlEngine = require('repositories/sequelize/engineFactory.js');
-const registerModels = require('repositories/sequelize/models');
-
-const {locator} = require('locator.js');
-const appFactory = require('appFactory.js');
-const PodcastService = require('services/podcast/PodcastService.js');
-const PlaylistService = require('services/playlist/PlaylistService.js');
-
-const {createToken} = new (require('services/auth/AuthService.js'))();
+const
+    SqlEngine = require('repositories/sequelize/engineFactory.js'),
+    registerModels = require('repositories/sequelize/models'),
+    {locator} = require('locator.js'),
+    appFactory = require('appFactory.js'),
+    PodcastService = require('services/podcast/PodcastService.js'),
+    PlaylistService = require('services/playlist/PlaylistService.js'),
+    nJwt = require('njwt'),
+    config = require('config.js');
 
 function configureDatabaseModels (resolve) {
 
   beforeEach(function (done) {
-
     this._sqlEngine = new SqlEngine({storagePath: ':memory:'});
     const Models = registerModels(this._sqlEngine);
 
@@ -38,14 +37,19 @@ function createTestApp (Models) {
 }
 
 function createValidTestJWT () {
+  const userId = 'kungfury@podverse.fm'
 
-  const fakeReq = {
-    body: {
-      username: 'kungfury@podverse.fm'
-    }
-  }
+  const claims = {
+    iss: 'http://localhost:8080',
+    // iss: 'https://podverse.fm', // for production
+    sub: userId
+  };
 
-  return createToken(fakeReq);
+  const jwt = nJwt.create(claims, config.jwtSigningKey);
+  jwt.setExpiration(); // Never expire why not
+  const token = jwt.compact();
+
+  return token
 }
 
 function createTestPodcastAndEpisode (Models) {
