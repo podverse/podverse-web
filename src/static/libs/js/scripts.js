@@ -42,8 +42,8 @@ var readableDate = function(date) {
 // Podcast / Episode / Clip variables added to the window
 // object in player.html
 
-var loadPlaylistItem = function(index, shouldPlay) {
-  var item = playlistItems[index];
+var loadmediaRef = function(index, shouldPlay) {
+  var item = mediaRefs[index];
 
   // Only clips have a startTime and endTime
   startTime = item.startTime;
@@ -53,8 +53,8 @@ var loadPlaylistItem = function(index, shouldPlay) {
   if (isClip === true) {
     clipTitle = item.title;
     duration = item.duration;
-    podcastTitle = item.podcast.title;
-    podcastImageURL = item.podcast.imageURL;
+    podcastTitle = item.episode.podcast.title;
+    podcastImageURL = item.episode.podcast.imageURL;
     episodeTitle = item.episode.title;
     episodeMediaURL = item.episode.mediaURL;
     episodePubDate = item.episode.pubDate;
@@ -245,7 +245,7 @@ $(document).ready(function() {
 
 $('.playlist-item').on('click', function() {
   var index = $(".playlist-item").index(this);
-  loadPlaylistItem(index, true);
+  loadmediaRef(index, true);
 });
 
 var topOfPlayer = $("#player").offset().top;

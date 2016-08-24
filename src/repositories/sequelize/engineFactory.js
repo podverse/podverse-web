@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 
-module.exports = function ({ databaseName='podverse', storagePath=':memory:' } = {}) {
+module.exports = function ({ databaseName='podverse', storagePath='podverse.sql' } = {}) {
 
   const sequelize = new Sequelize(databaseName, null, null, {
     dialect: 'sqlite',

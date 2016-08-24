@@ -4,3 +4,4 @@
 *.db
 /data
 npm-debug.log
+podverse.sql
