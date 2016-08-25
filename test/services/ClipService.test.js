@@ -26,11 +26,22 @@ describe('ClipService', function () {
         return MediaRef.create({
           ownerId: 'testOwner',
           episodeId: this.testEpisode.id,
-          title: 'TestTitle1'
+          title: 'TestTitle1',
+          startTime: 5
         });
       })
-      .then(clip => {
-        this.testMediaRef = clip;
+      .then(mediaRefClip => {
+        this.testMediaRef = mediaRefClip;
+
+        return MediaRef.create({
+          ownerId: 'testOwner',
+          episodeId: this.testEpisode.id,
+          title: 'TestTitle2',
+          startTime: 0
+        });
+      })
+      .then(mediaRefEpisode => {
+        this.testMediaRefEpisode = mediaRefEpisode;
         done();
       })
       .catch(done);
@@ -77,6 +88,22 @@ describe('ClipService', function () {
 
     it('should have the podcast included', function () {
       expect(this.resultClip.episode.podcast.id).to.equal(this.testPodcast.id);
+    });
+
+  });
+
+  describe('when finding clips', function () {
+
+    beforeEach(function (done) {
+      this.clipSvc.find()
+        .then(clips => {
+          this.resultClips = clips;
+          done();
+        });
+    });
+
+    it('should not return mediaRefs that are episodes', function () {
+      expect(this.resultClips.length).to.equal(1);
     });
 
   });

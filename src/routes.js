@@ -17,12 +17,12 @@ function routes () {
           { model: Episode, include: [Podcast] }
         ],
         where: {
-          $and: {
-            $not: {
-              startTime: 0
-            },
-            $not: {
-              endTime: ''
+          $not: {
+            startTime: 0,
+            $and: {
+              $not: {
+                endTime: ''
+              }
             }
           }
         }

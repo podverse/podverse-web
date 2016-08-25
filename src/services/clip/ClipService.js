@@ -50,8 +50,13 @@ class ClipService extends SequelizeService {
     params.sequelize = {
       include: [{ model: Episode, include: [Podcast] }],
       where: {
-        $and: {
-          $not: { startTime: 0 }, $not: { endTime: '' } // Do not include mediaRef episodes
+        $not: {
+          startTime: 0,
+          $and: {
+            $not: {
+              endTime: ''
+            }
+          }
         }
       }
     };
