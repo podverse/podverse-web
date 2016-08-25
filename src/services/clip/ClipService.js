@@ -44,6 +44,21 @@ class ClipService extends SequelizeService {
     return super.get(id, params);
   }
 
+  find (params={}) {
+    const {MediaRef, Episode, Podcast} = this.Models;
+
+    params.sequelize = {
+      include: [{ model: Episode, include: [Podcast] }],
+      where: {
+        $and: {
+          $not: { startTime: 0 }, $not: { endTime: '' } // Do not include mediaRef episodes
+        }
+      }
+    };
+
+    return super.find(params);
+  }
+
   create (data, params={}) {
 
     return new Promise((resolve, reject) => {

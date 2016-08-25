@@ -73,7 +73,8 @@ class PlaylistService extends SequelizeService {
           through: 'playlistItems',
           include: [{
             model: Episode, include: [Podcast]
-          }]}
+          }]
+        }
       ]
     };
 
