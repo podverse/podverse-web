@@ -168,15 +168,15 @@ var createAndAppendAudio = function() {
     }
 
     audio.ontimeupdate = function() {
+      // Skip to start time once when the user first hits play on mobile devices
+      if (lastPlaybackPosition == -1) {
+          audio.currentTime = startTime;
+      }
+      
       // Stop the clip once when the end time has been reached
       if (Math.floor(audio.currentTime) == endTime && endTimeHasBeenReached == false) {
           endTimeHasBeenReached = true;
           audio.pause();
-      }
-
-      // Skip to start time once when the user first hits play on mobile devices
-      if (lastPlaybackPosition == -1) {
-          audio.currentTime = startTime;
       }
 
       // TODO: Can this be made more efficient than rewriting the lastPlaybackPosition
