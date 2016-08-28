@@ -160,10 +160,23 @@ var createAndAppendAudio = function() {
       }
     };
 
-    audio.oncanplay = function() {
+    audio.oncanplaythrough = function() {
       var autoplay = $.cookie('autoplay');
       if (autoplay === 'On') {
         audio.play();
+      }
+    }
+
+    // When playing a clip, prevent issue where the media file starts playing
+    // from the beginning for a split second before adjusting the startTime.
+    var pauseBeforeFirstPlay = false;
+    audio.onplaying = function() {
+      if (!pauseBeforeFirstPlay) {
+        audio.pause();
+        setTimeout(function() {
+          audio.play();
+          pauseBeforeFirstPlay = true;
+        }, 1);
       }
     }
 
@@ -172,7 +185,7 @@ var createAndAppendAudio = function() {
       if (lastPlaybackPosition == -1) {
           audio.currentTime = startTime;
       }
-      
+
       // Stop the clip once when the end time has been reached
       if (Math.floor(audio.currentTime) == endTime && endTimeHasBeenReached == false) {
           endTimeHasBeenReached = true;
