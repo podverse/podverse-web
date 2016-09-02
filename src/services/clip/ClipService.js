@@ -4,7 +4,8 @@ const
     {applyOwnerId, ensureAuthenticated} = require('hooks/common.js'),
     config = require('config.js'),
     {locator} = require('locator.js'),
-    {addURL} = require('hooks/clip/clip.js');
+    {addURL} = require('hooks/clip/clip.js'),
+    {isClipMediaRef} = require('constants.js');
 
 class ClipService extends SequelizeService {
 
@@ -49,16 +50,7 @@ class ClipService extends SequelizeService {
 
     params.sequelize = {
       include: [{ model: Episode, include: [Podcast] }],
-      where: {
-        $not: {
-          startTime: 0,
-          $and: {
-            $not: {
-              endTime: ''
-            }
-          }
-        }
-      }
+      where: isClipMediaRef
     };
 
     return super.find(params);

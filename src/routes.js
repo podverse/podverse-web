@@ -1,6 +1,7 @@
 const
     errors = require('feathers-errors'),
-    {locator} = require('locator.js');
+    {locator} = require('locator.js'),
+    {isClipMediaRef} = require('constants.js');
 
 function routes () {
   const app = this;
@@ -16,16 +17,7 @@ function routes () {
         include: [
           { model: Episode, include: [Podcast] }
         ],
-        where: {
-          $not: {
-            startTime: 0,
-            $and: {
-              $not: {
-                endTime: ''
-              }
-            }
-          }
-        }
+        where: isClipMediaRef
     };
 
     return ClipService.find(params)
