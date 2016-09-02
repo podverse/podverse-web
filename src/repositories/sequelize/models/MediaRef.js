@@ -13,31 +13,16 @@ module.exports = function(sequelize, DataTypes) {
       defaultValue: DataTypes.UUIDV1,
       primaryKey: true
     },
-
-    // url: see getterMethods / setterMethods
-
-    // TODO: do we need to ensure these are positive integers?
-    // TODO: Enable multiple start / end times in one mediaRef
+ 
     startTime: {
       type: DataTypes.INTEGER,
-      validation: {
-        notEmpty: true
-      }
+      allowNull: false,
+      defaultValue: 0
     },
 
-    endTime: {
-      type: DataTypes.INTEGER
-    },
+    endTime: DataTypes.INTEGER,
 
-    // TODO: calculate duration based on endTime - startTime
-    // maybe don't save to db
-    // duration: {
-    //   type: DataTypes.INTEGER
-    // },
-
-    title: {
-      type: DataTypes.TEXT
-    },
+    title: DataTypes.TEXT,
 
     ownerId: {
       type: DataTypes.TEXT,
@@ -47,17 +32,11 @@ module.exports = function(sequelize, DataTypes) {
       }
     },
 
-    ownerName: {
-      type: DataTypes.TEXT
-    },
+    ownerName: DataTypes.TEXT,
 
-    dateCreated: {
-      type: DataTypes.DATE
-    },
+    dateCreated: DataTypes.DATE,
 
-    lastUpdated: {
-      type: DataTypes.DATE
-    }
+    lastUpdated: DataTypes.DATE
 
   }, {
     updatedAt: 'dateCreated',

@@ -15,7 +15,10 @@ module.exports = function(sequelize, DataTypes) {
 
     slug: {
       type: DataTypes.TEXT,
-      unique: true
+      unique: true,
+      validation: {
+        notEmpty: true
+      }
       // TODO: the slug and primary keys must be mutally unique if URLs can use primary keys.
       // In that case a slug should never be able to be changed to an existing primary key
       // (unless it is the primary key for this clip);
@@ -24,12 +27,7 @@ module.exports = function(sequelize, DataTypes) {
 
     // url: appended to response body by PlaylistService hook
 
-    title: {
-      type: DataTypes.TEXT,
-      validation: {
-        notEmpty: true
-      }
-    },
+    title: DataTypes.TEXT,
 
     ownerId: {
       type: DataTypes.TEXT,
@@ -39,17 +37,11 @@ module.exports = function(sequelize, DataTypes) {
       }
     },
 
-    ownerName: {
-      type: DataTypes.TEXT
-    },
+    ownerName: DataTypes.TEXT,
 
-    dateCreated: {
-      type: DataTypes.DATE
-    },
+    dateCreated: DataTypes.DATE,
 
-    lastUpdated: {
-      type: DataTypes.DATE
-    },
+    lastUpdated: DataTypes.DATE,
 
     sharePermission: {
       type: DataTypes.ENUM('isPublic', 'isSharableWithLink', 'isPrivate')
@@ -57,14 +49,10 @@ module.exports = function(sequelize, DataTypes) {
 
 
     // TODO: An ownerId can only have ONE playlist with isMyEpisodes === true
-    isMyEpisodes: {
-      type: DataTypes.BOOLEAN
-    },
+    isMyEpisodes: DataTypes.BOOLEAN,
 
     // TODO: An ownerId can only have ONE playlist with isMyClips === true
-    isMyClips: {
-      type: DataTypes.BOOLEAN
-    }
+    isMyClips: DataTypes.BOOLEAN
 
   }, {
       updatedAt: 'dateCreated',

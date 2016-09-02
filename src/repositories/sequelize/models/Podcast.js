@@ -15,19 +15,16 @@ module.exports = function(sequelize, DataTypes) {
     feedURL: {
       type: DataTypes.TEXT,
       allowNull: false,
+      unique: true,
       validate: {
-        isUrl: true,
-        notEmpty:true
-      },
-      unique: true
+        isUrl: true
+      }
     },
 
     imageURL: {
       type: DataTypes.TEXT,
-      allowNull: true,
       validate: {
-        isUrl: true,
-        notEmpty: true
+        isUrl: true
       }
     },
 

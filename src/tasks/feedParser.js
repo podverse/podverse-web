@@ -72,9 +72,9 @@ function saveParsedFeedToDatabase (parsedFeedObj) {
       feedURL: podcast.xmlurl
     },
     defaults: Object.assign({}, podcast, {
-      title: podcast.title,
-      summary: podcast.description,
       imageURL: podcast.image.url, // node-feedparser supports image, itunes:image media:image, etc.,
+      summary: podcast.description,
+      title: podcast.title,
       author: podcast.author,
       lastBuildDate: podcast.date,
       lastPubDate: podcast.pubdate
@@ -92,6 +92,7 @@ function saveParsedFeedToDatabase (parsedFeedObj) {
           // TODO: Do we want the podcast.id to be === to podcast feedURL?
           defaults: Object.assign({}, ep, {
             podcastId: podcast.id,
+            imageURL: ep.image.url,
             title: ep.title,
             summary: ep.description,
             // duration: TODO: does node-feedparser give us access to itunes:duration?
