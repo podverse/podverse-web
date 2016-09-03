@@ -12,17 +12,23 @@ class PodcastService extends SequelizeService {
     });
     this.Models = Models;
 
+    // Hooks
+    // -----
+    this.before = {};
+
+    this.after = {};
+
   }
 
   find (params={}) {
     const {Episode} = this.Models;
-    console.log(Episode);
-    params.sequelize = {
-      include: [{
-        model: Episode,
-        as: 'episodes'
-      }]
-    };
+    // console.log(Episode);
+    // params.sequelize = {
+    //   include: [{
+    //     model: Episode,
+    //     as: 'episodes'
+    //   }]
+    // };
 
     return super.find(params);
   }

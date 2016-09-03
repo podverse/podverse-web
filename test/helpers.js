@@ -5,6 +5,7 @@ const
     appFactory = require('appFactory.js'),
     PodcastService = require('services/podcast/PodcastService.js'),
     PlaylistService = require('services/playlist/PlaylistService.js'),
+    ClipService = require('services/clip/ClipService.js'),
     nJwt = require('njwt'),
     config = require('config.js');
 
@@ -30,10 +31,10 @@ function configureDatabaseModels (resolve) {
 }
 
 function createTestApp (Models) {
-  return appFactory({
-    podcastService: new PodcastService({Models: Models}),
-    playlistService: new PlaylistService({Models: Models})
-  });
+  locator.set('PlaylistService', new PlaylistService());
+  locator.set('ClipService', new ClipService());
+  locator.set('PodcastService', new PodcastService());
+  return appFactory();
 }
 
 function createValidTestJWT () {

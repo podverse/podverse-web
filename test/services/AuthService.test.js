@@ -8,7 +8,7 @@ describe('AuthService', function () {
   })
 
   beforeEach(function () {
-    this.app = createTestApp(this.Models);
+    this.app = createTestApp();
   });
 
   describe('invalid credentials provided', function () {

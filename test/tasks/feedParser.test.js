@@ -71,7 +71,6 @@ describe('feedParser', function () {
           this.Models = Models;
         })
 
-
         // TODO: this seems pyramid of doom-y...can it be cleaned up?
         beforeEach(function (done) {
           feedParser.saveParsedFeedToDatabase(this.parsedFeedObj)
