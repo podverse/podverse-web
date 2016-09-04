@@ -1,9 +1,11 @@
 const {locator} = require('locator.js');
 
 const appFactory = require('appFactory.js');
-const {configureDatabaseModels, createTestPodcastAndEpisode, createValidTestJWT} = require('test/helpers.js');
+const {configureDatabaseModels, createTestPodcastAndEpisode, createValidTestJWT, createTestApp} = require('test/helpers.js');
 
 const ClipService = require('services/clip/ClipService.js');
+const PlaylistService = require('services/playlist/PlaylistService.js');
+const PodcastService = require('services/podcast/PodcastService.js');
 
 const config = require('config.js');
 
@@ -25,11 +27,7 @@ describe('API Test: Clips', function () {
   });
 
   beforeEach(function () {
-
-    locator.set('PlaylistService', new ClipService());
-    locator.set('ClipService', new ClipService());
-
-    this.app = appFactory();
+    this.app = createTestApp();
   });
 
   describe('when creating a clip by mediaURL/feedURL', function () {

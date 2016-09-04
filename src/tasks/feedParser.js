@@ -1,7 +1,8 @@
 const
     FeedParser = require('feedparser'),
     request = require('request'),
-    {locator} = require('locator.js');
+    {locator} = require('locator.js'),
+    errors = require('feathers-errors');
 
 function parseFeed (rssURL) {
 

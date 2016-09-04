@@ -1,6 +1,8 @@
-const {configureDatabaseModels} = require('test/helpers.js');
+const
+    {configureDatabaseModels} = require('test/helpers.js'),
+    PodcastService = require('services/podcast/PodcastService.js');
 
-xdescribe('PodcastService', function () {
+describe('PodcastService', function () {
 
   configureDatabaseModels(function (Models) {
     this.Models = Models;
@@ -22,18 +24,27 @@ xdescribe('PodcastService', function () {
 
         this.podcastSvc.get(podcast.id, {})
           .then(podcast => {
-            //expect(podcast.get({plain:true})).to.equal(3);
+            expect(podcast).to.exist;
             done();
           });
       });
 
   });
 
-  it('should be able to create a podcast by feedURL hash', function () {
+  it('should be able to fuzzy match find a podcast by title', function (done) {
 
-  });
-
-  it('should be able to update podcast by feed URL hash', function () {
+    this.Models.Podcast
+      .create({
+        feedURL: 'http://example.com/rss',
+        title: 'Some kind of title'
+      })
+      .then(podcast => {
+        this.podcastSvc.find({query: {title: 'kind of'}})
+          .then(podcasts => {
+            expect(podcasts[0].title).to.equal('Some kind of title');
+            done();
+          });
+      });
 
   });
 

@@ -53,7 +53,7 @@ function appFactory () {
     .get('/playlists/:id', (req, res) => {
       const PlaylistService = locator.get('PlaylistService');
       return PlaylistService.get(req.params.id)
-        .then(playlist => {          
+        .then(playlist => {
           res.render('player.html', playlist.dataValues);
         }).catch(e => {
           res.sendStatus(404);
@@ -62,13 +62,18 @@ function appFactory () {
 
     .use('playlists', locator.get('PlaylistService'))
 
-    .get('/parse', (req, res) => {
+    .use('podcasts', locator.get('PodcastService'))
+
+    .use('episodes', locator.get('EpisodeService'))
+
+    .post('/parse', (req, res) => {
       if (req.body.rssURL) {
         parseFeed(req.body.rssURL)
           .then(parsedFeedObj => {
             saveParsedFeedToDatabase(parsedFeedObj);
           });
       } else {
+        // TODO: how should we throw an error here? Do we need to use the errorHandler somehow?
         throw new errors.GeneralError('An RSS feed URL must be provided.');
       }
     })

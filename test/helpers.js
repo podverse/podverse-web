@@ -4,7 +4,9 @@ const
     {locator} = require('locator.js'),
     appFactory = require('appFactory.js'),
     PodcastService = require('services/podcast/PodcastService.js'),
+    EpisodeService = require('services/episode/EpisodeService.js'),
     PlaylistService = require('services/playlist/PlaylistService.js'),
+    ClipService = require('services/clip/ClipService.js'),
     nJwt = require('njwt'),
     config = require('config.js');
 
@@ -30,10 +32,11 @@ function configureDatabaseModels (resolve) {
 }
 
 function createTestApp (Models) {
-  return appFactory({
-    podcastService: new PodcastService({Models: Models}),
-    playlistService: new PlaylistService({Models: Models})
-  });
+  locator.set('PlaylistService', new PlaylistService());
+  locator.set('ClipService', new ClipService());
+  locator.set('PodcastService', new PodcastService());
+  locator.set('EpisodeService', new EpisodeService());
+  return appFactory();
 }
 
 function createValidTestJWT () {
@@ -61,7 +64,8 @@ function createTestPodcastAndEpisode (Models) {
       'feedURL': 'http://example.com/test333'
     },
     defaults: {
-      'feedURL': 'http://example.com/test333'
+      'feedURL': 'http://example.com/test333',
+      'title': 'Most interesting podcast in the world'
     }
   })
     .then(podcasts => {
@@ -74,6 +78,7 @@ function createTestPodcastAndEpisode (Models) {
           },
           defaults: Object.assign({}, {}, {
             feedURL: 'http://example.com/test999',
+            title: 'Best episode in the history of time',
             podcastId: podcasts[0].id
           })
         })
