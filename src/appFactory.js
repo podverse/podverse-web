@@ -64,6 +64,8 @@ function appFactory () {
 
     .use('podcasts', locator.get('PodcastService'))
 
+    .use('episodes', locator.get('EpisodeService'))
+
     .post('/parse', (req, res) => {
       if (req.body.rssURL) {
         parseFeed(req.body.rssURL)
