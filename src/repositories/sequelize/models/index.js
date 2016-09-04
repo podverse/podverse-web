@@ -13,6 +13,7 @@ module.exports = function (sequelizeEngine) {
   const {Podcast, Episode, MediaRef, Playlist} = models,
     playlistItemsName = 'playlistItems';
 
+  Podcast.hasMany(Episode);
   Episode.belongsTo(Podcast, {
     foreignKey: { allowNull: false }
   });

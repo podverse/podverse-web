@@ -62,7 +62,8 @@ function createTestPodcastAndEpisode (Models) {
       'feedURL': 'http://example.com/test333'
     },
     defaults: {
-      'feedURL': 'http://example.com/test333'
+      'feedURL': 'http://example.com/test333',
+      'title': 'Most interesting podcast in the world'
     }
   })
     .then(podcasts => {
@@ -75,6 +76,7 @@ function createTestPodcastAndEpisode (Models) {
           },
           defaults: Object.assign({}, {}, {
             feedURL: 'http://example.com/test999',
+            title: 'Best episode in the history of time',
             podcastId: podcasts[0].id
           })
         })
