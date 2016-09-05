@@ -48,9 +48,14 @@ class PodcastService extends SequelizeService {
     return super.find(params);
   }
 
+  // TODO:
+  /*
+  create podcast
+  parse feed after created
+  */
+
 }
 
-PodcastService.prototype.create = undefined;
 PodcastService.prototype.update = undefined;
 PodcastService.prototype.remove = undefined;
 PodcastService.prototype.patch = undefined;

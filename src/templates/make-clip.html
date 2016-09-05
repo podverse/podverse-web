@@ -1,0 +1,125 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<div class="row">
+  <div class="col-xs-12 bd-content">
+    <form id="make-a-clip-form">
+      <div class="form-group">
+        <label for="podcast">Podcast</label>
+        <input class="form-control typeahead" id="podcast-typeahead" type="text" placeholder="podcast title">
+        <small id="podcastHelp" class="form-text text-muted">If your podcast is not found, you can <a href="#">add it here</a>.</small>
+      </div>
+
+      <div class="form-group">
+        <label for="episode">Episode</label>
+        <input class="form-control typeahead" id="episode-typeahead" type="text" placeholder="episode title" disabled>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label for="startTime">Start Time</label>
+            <input type="text" class="form-control" id="start-time-input" placeholder="0:00:00" maxlength="8" disabled>
+          </div>
+        </div>
+        <div class="col-sm-3 offset-sm-1">
+          <div class="form-group">
+            <label for="endTime">End Time</label>
+            <input type="text" class="form-control" id="end-time-input" placeholder="0:00:00" maxlength="8" disabled>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="clipTitle">Description</label>
+        <textarea class="form-control" id="exampleTextarea" rows="2" placeholder="What is the clip about?"></textarea>
+      </div>
+
+      <button type="submit" class="btn btn-primary pull-right" onclick="makeClip();">Submit</button>
+    </form>
+  </div><!-- /.col-xs-12 -->
+</div><!-- /.row -->
+
+<script src="/static/node_modules/typeahead.js/dist/typeahead.bundle.min.js"></script>
+
+<script>
+
+  window.clip = {};
+
+  var podcastResults = new Bloodhound({
+    datumTokenizer: Bloodhound.tokenizers.obj.whitespace('title'),
+    queryTokenizer: Bloodhound.tokenizers.whitespace,
+    remote: {
+      url: 'http://localhost:8080/podcasts?title=%QUERY',
+      wildcard: '%QUERY'
+    }
+  });
+
+  $('#podcast-typeahead').typeahead({
+    hint: true,
+    highlight: true,
+    minLength: 1
+  }, {
+    name: 'podcasts',
+    display: 'title',
+    source: podcastResults
+  }).on('typeahead:selected', function (event, selection) {
+
+    var episodeResults = new Bloodhound({
+      datumTokenizer: Bloodhound.tokenizers.obj.whitespace('title'),
+      queryTokenizer: Bloodhound.tokenizers.whitespace,
+      prefetch: {
+        url: 'http://localhost:8080/podcasts/' + selection.id,
+        cache: false,
+        transform: function (response) {
+          if (response.episodes) {
+            $('#episode-typeahead').attr('disabled', false);
+          }
+
+          return $.map(response.episodes, function (episode) {
+            return {
+              title: episode.title,
+              id: episode.id
+            }
+          });
+        },
+      }
+    });
+
+    $('#episode-typeahead').typeahead({
+      hint: false,
+      highlight: true,
+      minLength: 1
+    }, {
+      name: 'episodes',
+      display: 'title',
+      source: episodeResults
+    }).on('typeahead:selected', function (e, selection) {
+
+      $('#start-time-input').attr('disabled', false);
+      $('#end-time-input').attr('disabled', false);
+      clip.episodeId = selection.id
+
+    });
+
+  });
+
+  var makeClip = function (e) {
+    event.preventDefault();
+
+    // TODO: validate episodeId
+
+    // TODO: validate startTime
+    clip.startTime = $('#start-time-input').val();
+
+    // TODO: validate endTime
+    clip.endTime = $('#end-time-input').val();
+
+    // TODO: add description
+    // clip.description = $('#')
+
+    console.log(clip);
+  }
+
+</script>
+{% endblock %}
