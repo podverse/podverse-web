@@ -10,8 +10,9 @@
     {% include "meta-tags.html" %}
 
     <link rel="stylesheet" href="/static/node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/node_modules/typeahead.js-bootstrap4-css/typeaheadjs.css">
     <link rel="stylesheet" href="/static/node_modules/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/static/node_modules/mediaelement/build/mediaelementplayer.css" />
+    <link rel="stylesheet" href="/static/node_modules/mediaelement/build/mediaelementplayer.css">
     <link rel="stylesheet" href="/static/css/style.css">
 
   </head>
@@ -30,12 +31,11 @@
               <!-- TODO: add active class to currently selected nav-items -->
               <!-- TODO: add screenreader-only (sr-only) element to currently
               selected nav-items <span class="sr-only">(current)</span> -->
-              <!-- TODO: add a clip or playlist through the web app
-              <li class="nav-item pull-xs-right">
-                <a class="nav-link" href="/mobile-app">Add</a>
-              </li>-->
               <li class="nav-item pull-xs-right">
                 <a class="nav-link" href="/login">Login</a>
+              </li>
+              <li class="nav-item pull-xs-right">
+                <a class="nav-link" href="/make-clip">Make Clip</a>
               </li>
               <li class="nav-item pull-xs-right">
                 <a class="nav-link" href="/mobile-app">Mobile App</a>

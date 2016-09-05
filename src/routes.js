@@ -29,6 +29,10 @@ function routes () {
       });
   });
 
+  app.get('/make-clip', function (req, res) {
+    res.render('make-clip.html');
+  })
+
 }
 
 module.exports = {routes};
