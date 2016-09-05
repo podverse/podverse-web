@@ -96,8 +96,8 @@ h1 {
 }
 
 #player-stats {
-    font-size: 0.75rem;
-    line-height: 1rem;
+    font-size: 0.8rem;
+    line-height: 1.05rem;
     font-weight: 300;
     margin: 0 0 0.5rem 0;
 }
@@ -111,8 +111,8 @@ h1 {
 }
 
 #player-functions {
-    font-size: 0.75rem;
-    line-height: 1rem;
+    font-size: 0.8rem;
+    line-height: 1.05rem;
     font-weight: 300;
 }
 
@@ -155,15 +155,15 @@ h1 {
 }
 
 .player-condensed #player-podcast-title {
-    font-size: 0.75rem;
-    line-height: 1rem;
+    font-size: 0.8rem;
+    line-height: 1.05rem;
     font-weight: 300;
 }
 
 .player-condensed #player-condensed-title {
     display: block;
-    font-size: 0.75rem;
-    line-height: 1rem;
+    font-size: 0.8rem;
+    line-height: 1.05rem;
     font-weight: 700;
 }
 
@@ -233,34 +233,30 @@ h1 {
 }
 
 .playlist-item-title {
-    font-size: 0.75rem;
-    line-height: 1rem;
+    font-size: 0.8rem;
+    line-height: 1.05rem;
     font-weight: 500;
     margin-bottom: 0.25rem;
 }
 
 .playlist-item-podcast-title {
-    font-size: 0.75rem;
-    line-height: 1rem;
+    font-size: 0.8rem;
+    line-height: 1.05rem;
     margin-bottom: 0.25rem;
     font-weight: 300;
 }
 
 .playlist-item-duration {
     float: right;
-    font-size: 0.75rem;
-    line-height: 1rem;
+    font-size: 0.8rem;
+    line-height: 1.05rem;
     font-weight: 300;
 }
 
 .playlist-item-sub-title {
-    font-size: 0.75rem;
-    line-height: 1rem;
+    font-size: 0.8rem;
+    line-height: 1.05rem;
     font-weight: 300;
-}
-
-#make-a-clip-form {
-    padding: 2rem 0 4rem 0;
 }
 
 .footer {
@@ -278,8 +274,8 @@ a.footer-social-icon {
 }
 
 .footer-brand {
-    font-size: 0.75rem;
-    line-height: 1.75rem;
+    font-size: 0.8rem;
+    line-height: 1.8rem;
 }
 
 .footer-brand a {
@@ -300,13 +296,18 @@ a.footer-social-icon {
 }
 
 .navbar {
-    font-size: 0.75rem;
     line-height: 1rem;
 }
 
 .navbar-brand {
     font-size: 1rem;
-    line-height: 1.25rem;
+    line-height: 1.5rem;
+}
+
+.navbar-nav .nav-link {
+    font-size: 0.8rem;
+    padding-top: .55rem;
+    padding-bottom: .55rem;
 }
 
 .navbar-nav .nav-item,
