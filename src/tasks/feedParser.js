@@ -4,12 +4,12 @@ const
     {locator} = require('locator.js'),
     errors = require('feathers-errors');
 
-function parseFeed (rssURL) {
+function parseFeed (feedURL) {
 
   return new Promise ((res, rej) => {
 
     const feedParser = new FeedParser([]),
-          req = request(rssURL);
+          req = request(feedURL);
 
     req.on('error', function (e) {
       rej(e);
@@ -49,6 +49,10 @@ function parseFeed (rssURL) {
     function done (e) {
       if (e) {
         rej(e);
+      }
+
+      if (!podcastObj.xmlurl) {
+        podcastObj.xmlurl = feedURL;
       }
 
       parsedFeedObj.podcast = podcastObj;

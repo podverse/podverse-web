@@ -10,7 +10,8 @@ const
     {parseFeed, saveParsedFeedToDatabase} = require('tasks/feedParser.js'),
     {nunjucks} = require('nunjucks.js'),
     {routes} = require('routes.js'),
-    {errorHandler} = require('middleware/errors.js');
+    {errorHandler} = require('middleware/errors.js'),
+    errors = require('feathers-errors');
 
 function appFactory () {
 

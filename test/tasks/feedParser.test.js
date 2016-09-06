@@ -65,6 +65,10 @@ describe('feedParser', function () {
         expect(this.parsedFeedObj.podcast.title).to.equal('The Joe Rogan Experience');
       });
 
+      it('parsed feed object should have an xmlurl', function () {
+        expect(this.parsedFeedObj.podcast.xmlurl).to.exist;
+      });
+
       describe('after a feed is successfully parsed and saveParsedFeedToDatabase is called', function () {
 
         configureDatabaseModels(function (Models) {
