@@ -71,11 +71,23 @@ function appFactory () {
       if (req.body.feedURL) {
         parseFeed(req.body.feedURL)
           .then(parsedFeedObj => {
-            saveParsedFeedToDatabase(parsedFeedObj);
+            return saveParsedFeedToDatabase(parsedFeedObj);
+          })
+          .then(podcastId => {
+            const PodcastService = locator.get('PodcastService');
+            return PodcastService.get(podcastId)
+          })
+          .then(podcast => {
+            res.send(podcast);
+          })
+          .catch(e => {
+            // TODO: I reallly need to learn how to handle errors. I have no idea.
+            res.sendStatus(500);
+            throw new errors.GeneralError(e);
           });
       } else {
         // TODO: how should we throw an error here? Do we need to use the errorHandler somehow?
-        throw new errors.GeneralError('An RSS feed URL must be provided.');
+        throw new errors.GeneralError('A valid RSS feed URL must be provided.');
       }
     })
 

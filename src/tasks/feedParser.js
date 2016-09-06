@@ -113,6 +113,12 @@ function saveParsedFeedToDatabase (parsedFeedObj) {
       }));
     }, Promise.resolve());
 
+  })
+  .then(() => {
+    return this.podcast.id;
+  })
+  .catch((e) => {
+    throw new errors.GeneralError(e);
   });
 
 }
