@@ -68,8 +68,8 @@ function appFactory () {
     .use('episodes', locator.get('EpisodeService'))
 
     .post('/parse', (req, res) => {
-      if (req.body.rssURL) {
-        parseFeed(req.body.rssURL)
+      if (req.body.feedURL) {
+        parseFeed(req.body.feedURL)
           .then(parsedFeedObj => {
             saveParsedFeedToDatabase(parsedFeedObj);
           });
