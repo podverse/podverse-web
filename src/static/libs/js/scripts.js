@@ -44,6 +44,55 @@ var readableDate = function(date) {
   return date.substring(0, 10);
 }
 
+var convertHHMMSSToSeconds = function (hhmmssString) {
+
+  var hhmmssArray = hhmmssString.split(':'),
+    hours = 0,
+    minutes = 0,
+    seconds = 0;
+
+  if (hhmmssArray.length === 3) {
+    hours = parseInt(hhmmssArray[0]);
+    minutes = parseInt(hhmmssArray[1]);
+    seconds = parseInt(hhmmssArray[2]);
+
+
+    if (hours < 0 || minutes > 59 || minutes < 0 || seconds > 59 || seconds < 0) {
+      console.log('errrror');
+      return -1;
+    }
+
+    hours = hours * 3600;
+    minutes = minutes * 60;
+
+  } else if (hhmmssArray.length === 2) {
+    minutes = parseInt(hhmmssArray[0]);
+    seconds = parseInt(hhmmssArray[1]);
+
+    if (minutes > 59 || minutes < 0 || seconds > 59 || seconds < 0) {
+      console.log('errrror');
+      return -1;
+    }
+
+    minutes = minutes * 60;
+
+  } else if (hhmmssArray.length === 1) {
+    seconds = parseInt(hhmmssArray[0]);
+
+    if (seconds > 59 || seconds < 0) {
+      console.log('errrror');
+      return -1;
+    }
+
+  } else {
+    console.log('errrror');
+    return -1;
+  }
+
+  return hours + minutes + seconds;
+
+}
+
 // Podcast / Episode / Clip variables added to the window
 // object in player.html
 

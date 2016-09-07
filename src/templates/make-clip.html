@@ -165,6 +165,7 @@ label {
         transform: function (response) {
           if (response.episodes) {
             $('#make-clip-podcast').removeClass('has-danger');
+            $('#make-clip-podcast input').attr('data-id', selection.id);
             $('#make-clip-podcast input').attr('disabled', true);
             $('#make-clip-podcast-add').hide();
             $('#make-clip-podcast .twitter-typeahead').append('<div class="input-button-right" onclick="clearPodcastInput();"><i class="fa fa-times"></i></div>');
@@ -254,11 +255,11 @@ label {
         })
         .fail(function (error) {
           // TODO: add more helpful error messaging
-          alert('errororrr');
+          alert('errrror');
           $('#addPodcastModalAddButton').html('Add');
         });
     } else {
-      alert('erororororororo');
+      alert('errrror');
       $('#addPodcastModalAddButton').html('Add');
     }
   }
@@ -266,8 +267,15 @@ label {
   function makeClip () {
     event.preventDefault();
 
+    var podcastId = $('#make-clip-podcast input').data('id');
+    if (!isUUID(podcastId)) {
+      alert('errrror');
+      return;
+    }
+
     var episodeId = $('#make-clip-episode input').data('id');
     if (!isInt(episodeId)) {
+      alert('errrror');
       return;
     }
 
@@ -301,11 +309,53 @@ label {
       return;
     }
 
-    // TODO: if endTime happens before startTime, then throw error
+    startTime = convertHHMMSSToSeconds(startTime);
+    endTime = convertHHMMSSToSeconds(endTime);
+
+    if (endTime <= startTime) {
+      $('#make-clip-start-time-error').html('End time cannot be earlier than start time.');
+      $('#make-clip-start-time').addClass('has-danger');
+      $('#make-clip-end-time').addClass('has-danger');
+      $('#make-clip-start-time-error').show();
+      return;
+    }
+
+    // TODO: how can we prevent malicious scripts in the description?
+    var description = $('#make-clip-description input').val();
+
+    // TODO: set owner name based on ownerId
+    var ownerName = 'random owner name';
+
+    // TODO: handle auth to post clip
+    $.ajax({
+      type: 'POST',
+      url: 'clips',
+      headers: {
+        Authorization: $.cookie('idToken')
+      },
+      data: {
+        episode: {
+          id: episodeId,
+          podcast: {
+            id: podcastId
+          }
+        },
+        startTime: startTime,
+        endTime: endTime,
+        title: description,
+        ownerName: ownerName
+      },
+      success: function (response) {
+        location.href = 'clips\/' + response.id;
+      },
+      error: function (xhr, status, error) {
+        // TODO: add more helpful error messaging
+        alert('errrror');
+      }
+
+    });
 
     // TODO: add media player and preview buttons
-
-    // TODO: actually make the clip...
 
     // TODO: add make clip feature to player pages
 
@@ -313,7 +363,7 @@ label {
 
     // TODO: edit my clips
 
-    console.log(clip);
+    // TODO: add CSRF security
   }
 
   function isHHMMSS (val) {
@@ -325,6 +375,11 @@ label {
     return !isNaN(val) &&
             parseInt(Number(val)) == val &&
             !isNaN(parseInt(val, 10));
+  }
+
+  function isUUID (val) {
+    var pattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+    return pattern.test(val);
   }
 
 </script>

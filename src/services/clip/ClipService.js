@@ -70,7 +70,10 @@ class ClipService extends SequelizeService {
         // Lets create/find the podcast
         return Podcast.findOrCreate({
           where: {
-            feedURL: podcast.feedURL
+            $or: [
+              { feedURL: podcast.feedURL },
+              { id: podcast.id }
+            ]
           },
           defaults: podcast
         })
@@ -79,7 +82,10 @@ class ClipService extends SequelizeService {
         .then(([podcast]) => {
           return Episode.findOrCreate({
             where: {
-              mediaURL: episode.mediaURL
+              $or: [
+                { mediaURL: episode.mediaURL },
+                { id: episode.id }
+              ]
             },
             defaults: Object.assign({}, episode, {podcastId: podcast.id })
           });
