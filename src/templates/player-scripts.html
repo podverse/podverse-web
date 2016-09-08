@@ -1,9 +1,8 @@
 <script>
-window.isPlayerPage = false;
+  window.isPlayerPage = true;
 
   // If a mediaRefs object exists, then set window variables for the playlist page
   {% if mediaRefs|isPlaylist %}
-    window.isPlayerPage = true;
     window.mediaRefs = {{ mediaRefs|stringify|safe }};
 
     var item;
@@ -40,7 +39,6 @@ window.isPlayerPage = false;
 
   // If there's an episode property, then set the window vars for the clip page.
   {% elif episode %}
-    window.isPlayerPage = true;
     window.podcastTitle = "{{ episode.podcast.title }}";
     window.podcastImageURL = "{{ episode.podcast.imageURL }}";
     window.episodeTitle = "{{ episode.title }}";

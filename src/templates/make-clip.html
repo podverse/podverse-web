@@ -1,67 +1,10 @@
 {% extends "layout.html" %}
 
 {% block body %}
-<style>
-#make-clip-form {
-    padding: 1rem 0 4rem 0;
-}
-.form-group.required .control-label:after {
-    color: #d9534f;
-    content: "*";
-    margin-left: 3px;
-}
-#make-clip-required {
-    font-size: 14px;
-    float: left;
-    margin-top: 6px;
-}
-#make-clip-required span {
-  color: #d9534f;
-  font-size: 16px;
-}
-.input-button-right {
-  position: absolute;
-  top: 0;
-  right: 0;
-  height: 38px;
-  width: 44px;
-  line-height: 36px;
-  text-align: center;
-  cursor: pointer;
-  display: none;
-}
-#make-clip-form h5 {
-  margin-bottom: 1rem;
-}
-#make-clip-episode, #make-clip-time, #make-clip-description,
-#make-clip-podcast-error, #make-clip-episode-error, #make-clip-start-time-error,
-#make-clip-end-time-error, #make-clip-btn {
-  display: none;
-}
-#make-clip-podcast-add a {
-  text-decoration: none;
-}
-.has-danger #make-clip-start-time-error, .has-danger #make-clip-end-time-error {
-  display: block;
-  white-space: nowrap;
-}
-#addPodcastModal .btn {
-  width: 100px;
-}
-#addPodcastModal button.close {
-  position: absolute;
-  top: 11px;
-  right: 15px;
-}
-label {
-  margin-bottom: .25rem;
-}
-
-</style>
 
 <div class="row">
   <div class="col-xs-12 bd-content">
-    <form id="make-clip-form">
+    <form id="make-clip-form" autocomplete="off">
       <h5>Make Clip</h5>
       <div class="form-group" id="make-clip-podcast">
         <label for="podcast" class="control-label">Podcast</label>
@@ -74,17 +17,19 @@ label {
         <input class="form-control typeahead" type="text" placeholder="Type episode title" disabled>
       </div>
 
+      {% include "player.html" %}
+
       <div class="row" id="make-clip-time">
         <div class="col-xs-6 col-sm-3">
           <div class="form-group" id="make-clip-start-time">
-            <label for="startTime">Start Time</label>
+            <label for="startTime">Start Time &nbsp; <a href="#"><i class="fa fa-play"></i></a></label>
             <input type="text" class="form-control" placeholder="0:00:00" maxlength="8" disabled>
             <small id="make-clip-start-time-error" class="form-control-feedback"></small>
           </div>
         </div>
         <div class="col-xs-6 col-sm-3 offset-sm-1">
           <div class="form-group" id="make-clip-end-time">
-            <label for="endTime">End Time</label>
+            <label for="endTime">End Time &nbsp; <a href="#"><i class="fa fa-play"></i></a></label>
             <input type="text" class="form-control" placeholder="0:00:00" maxlength="8" disabled>
             <small id="make-clip-end-time-error" class="form-control-feedback"></small>
           </div>
@@ -126,261 +71,22 @@ label {
 <script src="/static/node_modules/typeahead.js/dist/typeahead.bundle.min.js"></script>
 
 <script>
+$(window).ready(function () {
+  initMakeClipPodcastSearch();
 
-  window.clip = {};
-
-  var podcastResults = new Bloodhound({
-    datumTokenizer: Bloodhound.tokenizers.obj.whitespace('title'),
-    queryTokenizer: Bloodhound.tokenizers.whitespace,
-    remote: {
-      url: 'http://localhost:8080/podcasts?title=%QUERY',
-      wildcard: '%QUERY'
-    }
-  });
-
-  $('#make-clip-podcast input').typeahead({
-    hint: false,
-    highlight: true,
-    minLength: 1
-  }, {
-    name: 'podcasts',
-    display: 'title',
-    source: podcastResults
-  }).on('typeahead:selected typeahead:autocomplete', function (event, selection) {
-    selectPodcast(selection);
-  });
-
-  function selectPodcast(selection) {
-    $('#make-clip-podcast input').val(selection.title);
-
-    // Destroy existing episode typeahead instance so that the source will be refreshed
-    $('#make-clip-episode input').typeahead('destroy');
-
-    var episodeResults = new Bloodhound({
-      datumTokenizer: Bloodhound.tokenizers.obj.whitespace('title'),
-      queryTokenizer: Bloodhound.tokenizers.whitespace,
-      prefetch: {
-        url: 'http://localhost:8080/podcasts/' + selection.id,
-        cache: false,
-        transform: function (response) {
-          if (response.episodes) {
-            $('#make-clip-podcast').removeClass('has-danger');
-            $('#make-clip-podcast input').attr('data-id', selection.id);
-            $('#make-clip-podcast input').attr('disabled', true);
-            $('#make-clip-podcast-add').hide();
-            $('#make-clip-podcast .twitter-typeahead').append('<div class="input-button-right" onclick="clearPodcastInput();"><i class="fa fa-times"></i></div>');
-            $('#make-clip-podcast .input-button-right').show();
-            $('#make-clip-episode').show();
-            $('#make-clip-episode input').attr('disabled', false);
-            $('#make-clip-episode input').focus();
-          }
-
-          return $.map(response.episodes, function (episode) {
-            return {
-              title: episode.title,
-              id: episode.id
-            }
-          });
-        },
-      }
-    });
-
-    $('#make-clip-episode input').typeahead({
-      hint: false,
-      highlight: true,
-      minLength: 1
-    }, {
-      name: 'episodes',
-      display: 'title',
-      source: episodeResults
-    }).on('typeahead:selected typeahead:autocomplete', function (e, selection) {
-      $('#make-clip-episode').removeClass('has-danger');
-
-      $('#make-clip-episode input').attr('data-id', selection.id);
-      $('#make-clip-episode input').attr('disabled', true);
-      $('#make-clip-episode .twitter-typeahead').append('<div class="input-button-right" onclick="clearEpisodeInput();"><i class="fa fa-times"></i></div>');
-      $('#make-clip-episode .input-button-right').show();
-
-      $('#make-clip-start-time input').attr('disabled', false);
-      $('#make-clip-end-time input').attr('disabled', false);
-      $('#make-clip-time').show();
-
-      $('#make-clip-description textarea').attr('disabled', false);
-      $('#make-clip-description').show();
-
-      $('#make-clip-btn').show();
-
-      $('#make-clip-start-time input').focus();
-    });
-  }
-
-
-  function clearPodcastInput() {
-    $('#make-clip-podcast .input-button-right').hide();
-    $('#make-clip-podcast input').attr('disabled', false);
-    $('#make-clip-podcast input').val('');
-    $('#make-clip-podcast-add').show();
-
-    clearEpisodeInput();
-    $('#make-clip-episode').hide();
-  }
-
-  function clearEpisodeInput() {
-    $('#make-clip-episode .input-button-right').hide();
-    $('#make-clip-episode input').attr('disabled', false);
-    $('#make-clip-episode input').val('');
-
-    $('#make-clip-time').hide();
-    $('#make-clip-start-time input').val('');
-    $('#make-clip-end-time input').val('');
-
-    $('#make-clip-description').hide();
-    $('#make-clip-description textarea').val('');
-
-    $('#make-clip-btn').hide();
-  }
-
-  function addPodcast () {
-    var feedURL = $('#addPodcastModalFeedURL').val();
-
-    if (feedURL != null && feedURL != '') {
-      var spinnerEl = $('<i class="fa fa-spinner fa-spin"><i>');
-      $('#addPodcastModalAddButton').html(spinnerEl);
-
-      $.post('parse', { feedURL: feedURL })
-        .done(function (data) {
-          $('#addPodcastModal').modal('hide');
-          $('#addPodcastModalAddButton').html('Add');
-          selectPodcast(data);
-        })
-        .fail(function (error) {
-          // TODO: add more helpful error messaging
-          alert('errrror');
-          $('#addPodcastModalAddButton').html('Add');
-        });
-    } else {
-      alert('errrror');
-      $('#addPodcastModalAddButton').html('Add');
-    }
-  }
-
-  function makeClip () {
-    event.preventDefault();
-
-    var podcastId = $('#make-clip-podcast input').data('id');
-    if (!isUUID(podcastId)) {
-      alert('errrror');
-      return;
-    }
-
-    var episodeId = $('#make-clip-episode input').data('id');
-    if (!isInt(episodeId)) {
-      alert('errrror');
-      return;
-    }
-
-    $('#make-clip-start-time-error').hide();
-    $('#make-clip-end-time-error').hide();
-    $('#make-clip-start-time').removeClass('has-danger');
-    $('#make-clip-end-time').removeClass('has-danger');
-    $('#make-clip-time').removeClass('has-danger');
-
-    var startTime = $('#make-clip-start-time input').val(),
-        endTime = $('#make-clip-end-time input').val();
-
-    if (startTime === '' && endTime === '') {
-      $('#make-clip-start-time-error').html('Type a start time and/or end time to create a clip.');
-      $('#make-clip-time').addClass('has-danger');
-      $('#make-clip-start-time-error').show();
-      return;
-    }
-
-    if (!isHHMMSS(startTime) && startTime !== '') {
-      $('#make-clip-start-time-error').html('Type time in hh:mm:ss format.');
-      $('#make-clip-start-time').addClass('has-danger');
-      $('#make-clip-start-time-error').show();
-      return;
-    }
-
-    if (!isHHMMSS(endTime) && endTime !== '') {
-      $('#make-clip-end-time-error').html('Type time in hh:mm:ss format.');
-      $('#make-clip-end-time').addClass('has-danger');
-      $('#make-clip-end-time-error').show();
-      return;
-    }
-
+  $('#make-clip-start-time a').on('click', function () {
+    var startTime = $('#make-clip-start-time input').val() || "0";
+    var endTime = $('#make-clip-end-time input').val();
     startTime = convertHHMMSSToSeconds(startTime);
     endTime = convertHHMMSSToSeconds(endTime);
+    previewStartTime(startTime, endTime);
+  })
 
-    if (endTime <= startTime) {
-      $('#make-clip-start-time-error').html('End time cannot be earlier than start time.');
-      $('#make-clip-start-time').addClass('has-danger');
-      $('#make-clip-end-time').addClass('has-danger');
-      $('#make-clip-start-time-error').show();
-      return;
-    }
-
-    // TODO: how can we prevent malicious scripts in the description?
-    var description = $('#make-clip-description input').val();
-
-    // TODO: set owner name based on ownerId
-    var ownerName = 'random owner name';
-
-    // TODO: handle auth to post clip
-    $.ajax({
-      type: 'POST',
-      url: 'clips',
-      headers: {
-        Authorization: $.cookie('idToken')
-      },
-      data: {
-        episode: {
-          id: episodeId,
-          podcast: {
-            id: podcastId
-          }
-        },
-        startTime: startTime,
-        endTime: endTime,
-        title: description,
-        ownerName: ownerName
-      },
-      success: function (response) {
-        location.href = 'clips\/' + response.id;
-      },
-      error: function (xhr, status, error) {
-        // TODO: add more helpful error messaging
-        alert('errrror');
-      }
-
-    });
-
-    // TODO: add media player and preview buttons
-
-    // TODO: add make clip feature to player pages
-
-    // TODO: view my clips
-
-    // TODO: edit my clips
-
-    // TODO: add CSRF security
-  }
-
-  function isHHMMSS (val) {
-    var pattern = /^(?:(?:([01]?\d|2[0-3]):)?([0-5]?\d):)?([0-5]?\d)$/;
-    return pattern.test(val);
-  }
-
-  function isInt (val) {
-    return !isNaN(val) &&
-            parseInt(Number(val)) == val &&
-            !isNaN(parseInt(val, 10));
-  }
-
-  function isUUID (val) {
-    var pattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
-    return pattern.test(val);
-  }
-
+  $('#make-clip-end-time a').on('click', function () {
+    var endTime = $('#make-clip-end-time input').val() || "3";
+    endTime = convertHHMMSSToSeconds(endTime);
+    previewEndTime(endTime);
+  })
+});
 </script>
 {% endblock %}

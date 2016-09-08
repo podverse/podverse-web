@@ -6,7 +6,6 @@
     <script src="/static/node_modules/jquery/dist/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 
-    {% include "player-scripts.html" %}
     {% include "meta-tags.html" %}
 
     <link rel="stylesheet" href="/static/node_modules/bootstrap/dist/css/bootstrap.min.css">
@@ -80,5 +79,18 @@
     <script src="/static/node_modules/mediaelement/build/mediaelement-and-player.min.js"></script>
     <script src="/static/js/scripts.js"></script>
     <script src="/static/js/auth.js"></script>
+
+    <script>
+      // TODO: this is weird, should be a better way...
+      if (isPlayerPage === true) {
+        setPlayerInfo();
+        // Toggle the autoplay to True by default on page load
+        // TODO: remove autoplay on mobile devices since they do not support autoplay
+        createAutoplayBtn();
+        createAndAppendAudio();
+        onScrollCondensePlayerView();
+      }
+    </script>
+
   </body>
 </html>

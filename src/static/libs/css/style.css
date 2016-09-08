@@ -1,6 +1,4 @@
-audio {
-    display: block;
-}
+/*** global overrides ***/
 
 html, body {
     margin: 0;
@@ -16,6 +14,18 @@ h1 {
     margin-bottom: 1.25rem
 }
 
+label {
+  margin-bottom: .25rem;
+}
+
+audio {
+    display: block;
+}
+
+
+
+/*** layout.html styles ***/
+
 #keep-footer-on-bottom {
     min-height: 100%;
     position: relative;
@@ -25,17 +35,102 @@ h1 {
     padding-bottom: 4.5rem;
 }
 
-.form-signin {
-    max-width: 330px;
-    margin: 70px auto 40px auto;
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: #2968B1;
+    color: #fcfcfc;
+    padding: .75rem 1rem;
+    text-align: center;
 }
 
-#loginInputEmail, #loginInputPassword {
-    margin-bottom: 10px;
+a.footer-social-icon {
+    margin: 0 0 0 1rem;
+    color: #fcfcfc;
 }
 
-#player-container {
-    padding: 0.75rem 0;
+.footer-brand {
+    font-size: 0.8rem;
+    line-height: 1.8rem;
+}
+
+.footer-brand a {
+    text-decoration: none;
+    color: #fcfcfc;
+}
+
+footer p {
+    margin-bottom: 0.5rem;
+}
+
+
+
+/*** make-clip.html styles ***/
+
+#make-clip-form {
+  padding: 1rem 0 4rem 0;
+}
+
+#make-clip-form #player-container {
+  display: none;
+}
+
+#make-clip-required {
+  font-size: 14px;
+  float: left;
+  margin-top: 6px;
+}
+
+#make-clip-required span {
+  color: #d9534f;
+  font-size: 16px;
+}
+
+#make-clip-form h5 {
+  margin-bottom: 1rem;
+}
+
+#make-clip-episode, #make-clip-time, #make-clip-description,
+#make-clip-podcast-error, #make-clip-episode-error, #make-clip-start-time-error,
+#make-clip-end-time-error, #make-clip-btn {
+  display: none;
+}
+
+#make-clip-podcast-add a {
+  text-decoration: none;
+}
+
+#make-clip-episode {
+    margin-bottom: 1.75rem;
+}
+
+#make-clip-time {
+    margin-top: 0.25rem;
+}
+
+.has-danger #make-clip-start-time-error, .has-danger #make-clip-end-time-error {
+  display: block;
+  white-space: nowrap;
+}
+
+#addPodcastModal .btn {
+  width: 100px;
+}
+
+#addPodcastModal button.close {
+  position: absolute;
+  top: 11px;
+  right: 15px;
+}
+
+
+
+/*** player.html full-size mode styles ***/
+
+#player-header {
+    display: none;
+    padding: 1.25rem 0 1rem 0;
 }
 
 #player-image {
@@ -95,37 +190,9 @@ h1 {
     padding: 10px 8px 0 3px;
 }
 
-#player-stats {
-    font-size: 0.8rem;
-    line-height: 1.05rem;
-    font-weight: 300;
-    margin: 0 0 0.5rem 0;
-}
 
-#player-stats-duration {
-    float: left;
-}
 
-#player-stats-listens {
-    float: right;
-}
-
-#player-functions {
-    font-size: 0.8rem;
-    line-height: 1.05rem;
-    font-weight: 300;
-}
-
-#player-restart-clip {
-    cursor: pointer;
-}
-
-#player-autoplay {
-    clear: both;
-    float: left;
-    cursor: pointer;
-    margin-right: 1rem;
-}
+/*** player.html condensed-size mode styles ***/
 
 .player-condensed#player-container {
     position: fixed;
@@ -188,7 +255,47 @@ h1 {
 }
 
 
-#playlist {}
+/*** player-stats.html styles ***/
+
+#player-stats {
+    font-size: 0.8rem;
+    line-height: 1.05rem;
+    font-weight: 300;
+    margin: 0 0 0.5rem 0;
+}
+
+#player-stats-duration {
+    float: left;
+}
+
+#player-stats-listens {
+    float: right;
+}
+
+
+
+/*** player-functions.html styles ***/
+
+#player-functions {
+    font-size: 0.8rem;
+    line-height: 1.05rem;
+    font-weight: 300;
+}
+
+#player-restart-clip {
+    cursor: pointer;
+}
+
+#player-autoplay {
+    clear: both;
+    float: left;
+    cursor: pointer;
+    margin-right: 1rem;
+}
+
+
+
+/*** playlist-list.html styles ***/
 
 #playlist hr, #home-list hr {
     clear: both;
@@ -259,31 +366,45 @@ h1 {
     font-weight: 300;
 }
 
-.footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
+
+
+/*** login.html styles ***/
+
+.form-signin {
+    max-width: 330px;
+    margin: 70px auto 40px auto;
+}
+
+#loginInputEmail, #loginInputPassword {
+    margin-bottom: 10px;
+}
+
+
+/*** Bootstrap Overrides ***/
+
+.form-group.required .control-label:after {
+  color: #d9534f;
+  content: "*";
+  margin-left: 3px;
+}
+
+.input-button-right {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 38px;
+  width: 44px;
+  line-height: 36px;
+  text-align: center;
+  cursor: pointer;
+  display: none;
+}
+
+.btn-primary {
     background-color: #2968B1;
-    color: #fcfcfc;
-    padding: .75rem 1rem;
-    text-align: center;
-}
-a.footer-social-icon {
-    margin: 0 0 0 1rem;
-    color: #fcfcfc;
+    border-color: #2968B1;
 }
 
-.footer-brand {
-    font-size: 0.8rem;
-    line-height: 1.8rem;
-}
-
-.footer-brand a {
-    text-decoration: none;
-    color: #fcfcfc;
-}
-
-/* Bootstrap Overrides */
 .navbar {
     margin-bottom: 0;
     background-color: #2968B1;
@@ -335,9 +456,17 @@ a.footer-social-icon {
     border-color: #ccc;
 }
 
-footer p {
-    margin-bottom: 0.5rem;
+
+
+/*** MediaElement.js overrides ***/
+
+mejs-horizontal-volume-slider {
+    right: 6px;
 }
+
+
+
+/*** Responsive styles ***/
 
 @media (min-width: 544px) {
     .container {

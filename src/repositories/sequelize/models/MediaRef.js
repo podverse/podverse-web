@@ -13,14 +13,22 @@ module.exports = function(sequelize, DataTypes) {
       defaultValue: DataTypes.UUIDV1,
       primaryKey: true
     },
- 
+
     startTime: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      defaultValue: 0
+      defaultValue: 0,
+      validation: {
+        isNumeric: true
+      }
     },
 
-    endTime: DataTypes.INTEGER,
+    endTime: {
+      type: DataTypes.INTEGER,
+      validation: {
+        isNumeric: true
+      }
+    },
 
     title: DataTypes.TEXT,
 
