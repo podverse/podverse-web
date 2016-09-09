@@ -221,6 +221,8 @@ function createAndAppendAudio () {
   $('#player').append(audio);
 
   $('audio').mediaelementplayer({
+    // the order of controls you want on the control bar (and other plugins below)
+    features: ['playpause','current','progress','duration','fasterslower','volume','fullscreen'],
     alwaysShowHours: true
   });
 
@@ -271,6 +273,7 @@ function createAndAppendAudio () {
     // TODO: Can this be made more efficient than rewriting the lastPlaybackPosition
     // whenever time updates?
     lastPlaybackPosition = audio.currentTime;
+
   };
 
   audio.onerror = function(e) {
@@ -619,6 +622,8 @@ function makeClip () {
     }
 
   });
+
+  // TODO: add SET buttons to Start and End on Make Clip page
 
   // TODO: treat enter as tab instead of submit keypress in make clip form
 
