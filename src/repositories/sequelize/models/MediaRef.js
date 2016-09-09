@@ -32,6 +32,8 @@ module.exports = function(sequelize, DataTypes) {
 
     title: DataTypes.TEXT,
 
+    description: DataTypes.TEXT,
+
     ownerId: {
       type: DataTypes.TEXT,
       allowNull: false,

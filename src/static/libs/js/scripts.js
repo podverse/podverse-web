@@ -30,7 +30,7 @@ function convertSecToHHMMSS (sec) {
   if (seconds > 9) {
     result += seconds;
   } else if (seconds > 0 && minutes > 0) {
-    result += '0' + seconds + ':';
+    result += '0' + seconds;
   } else if (seconds > 0) {
     result += seconds;
   } else {
@@ -126,15 +126,14 @@ function loadMediaRef (index, shouldPlay) {
   }
 
   if (isEpisode === false) {
-    clipTitle = item.title;
     duration = item.duration;
     podcastTitle = item.episode.podcast.title;
     podcastImageURL = item.episode.podcast.imageURL;
     episodeTitle = item.episode.title;
     episodeMediaURL = item.episode.mediaURL;
     episodePubDate = item.episode.pubDate;
+    description = item.description;
   } else { // handle item as episode
-    clipTitle = "";
     duration = item.duration;
     podcastTitle = item.episode.podcast.title;
     podcastImageURL = item.episode.podcast.imageURL;
@@ -142,6 +141,7 @@ function loadMediaRef (index, shouldPlay) {
     episodeMediaURL = item.episode.mediaURL;
     episodePubDate = item.episode.pubDate;
     startTime = 0;
+    description = item.episode.summary;
   }
 
   window.location.hash = index + 1;
@@ -179,27 +179,25 @@ function setPlayerInfo () {
   $('#player-header').show();
 
   if (isEpisode === false) {
-    $('#player-image img').attr('src', podcastImageURL);
-    $('#player-restart-clip').css('display', 'block');
-    $('#player-title').css('padding', '0.75rem 0 1rem 0');
-    $('#player-podcast-title').html(podcastTitle);
-    $('#player-sub-title').html(episodeTitle);
-    $('#player-condensed-title').html(clipTitle);
-    $('#player-title').html(clipTitle);
+    $('#player-restart-clip').html('Restart');
+    $('#player-restart-clip').css('display', 'inline');
     $('#player-stats-duration').html('Clip: ' + convertSecToHHMMSS(duration) + ' - ' + convertSecToHHMMSS(startTime) + ' to ' + convertSecToHHMMSS(endTime));
-    $('#player-stats-listens').html('Listens: 1234');
-    $('#player-restart-clip').html('Restart Clip');
+    $('#player-condensed-title').html(description);
   } else {
     $('#player-restart-clip').css('display', 'none');
-    $('#player-title').css('padding', '0.5rem 0 0.75rem 0');
-    $('#player-image img').attr('src', podcastImageURL);
-    $('#player-podcast-title').html(podcastTitle);
-    $('#player-sub-title').html(episodeTitle);
-    $('#player-condensed-title').html(episodeTitle);
-    $('#player-title').html('');
     $('#player-stats-duration').html('Full Episode: ' + readableDate(episodePubDate));
-    $('#player-stats-listens').html('Listens: 1234');
+    $('#player-condensed-title').html(episodeTitle);
   }
+
+  $('#player-podcast-title').html(podcastTitle);
+  $('#player-sub-title').html(episodeTitle);
+  $('#player-image img').attr('src', podcastImageURL);
+  $('#player-stats-listens').html('Listens: 1234');
+  $('#player-make-clip').html('Make Clip');
+  $('#player-time-jump-forward').html('15s <i class="fa fa-angle-right"></i>');
+  $('#player-time-jump-back').html('<i class="fa fa-angle-left"></i> 15s');
+  $(document.createElement('hr')).insertBefore('#player-description');
+  $('#player-description').html(description);
 
   window.restartAttempts = 0;
   window.lastPlaybackPosition = -1;
@@ -222,8 +220,9 @@ function createAndAppendAudio () {
 
   $('audio').mediaelementplayer({
     // the order of controls you want on the control bar (and other plugins below)
-    features: ['playpause','current','progress','duration','fasterslower','volume','fullscreen'],
-    alwaysShowHours: true
+    features: ['playpause', 'current', 'progress', 'duration', 'volume', 'fasterslower'],
+    alwaysShowHours: true,
+    alwaysShowControls: true
   });
 
   audio.onloadedmetadata = function() {
@@ -314,6 +313,14 @@ $('#player-restart-clip').on('click', function() {
   endTimeHasBeenReached = false;
   audio.currentTime = startTime;
   audio.play();
+});
+
+$('#player-time-jump-forward').on('click', function() {
+  audio.currentTime = audio.currentTime + 15;
+});
+
+$('#player-time-jump-back').on('click', function() {
+  audio.currentTime = audio.currentTime - 15;
 });
 
 $('#player-autoplay').on('click', function() {
@@ -589,7 +596,7 @@ function makeClip () {
   }
 
   // TODO: how can we prevent malicious scripts in the description?
-  var description = $('#make-clip-description input').val();
+  var description = $('#make-clip-description textarea').val();
 
   // TODO: set owner name based on ownerId
   var ownerName = 'random owner name';
@@ -610,7 +617,7 @@ function makeClip () {
       },
       startTime: startTime,
       endTime: endTime,
-      title: description,
+      description: description,
       ownerName: ownerName
     },
     success: function (response) {
@@ -622,8 +629,6 @@ function makeClip () {
     }
 
   });
-
-  // TODO: add SET buttons to Start and End on Make Clip page
 
   // TODO: treat enter as tab instead of submit keypress in make clip form
 

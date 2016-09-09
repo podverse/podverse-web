@@ -20,18 +20,33 @@
       {% include "player.html" %}
 
       <div class="row" id="make-clip-time">
-        <div class="col-xs-6 col-sm-4">
+        <div class="col-xs-4">
           <div class="form-group" id="make-clip-start-time">
-            <label for="startTime">Start &nbsp; <a href="#"><i class="fa fa-play"></i></a></label>
+            <label for="startTime">Start &nbsp;</label>
+            <i class="fa fa-play text-primary"></i>
             <input type="text" class="form-control" placeholder="0:00:00" maxlength="8" disabled>
             <small id="make-clip-start-time-error" class="form-control-feedback"></small>
           </div>
         </div>
-        <div class="col-xs-6 col-sm-4 offset-sm-1 ">
+        <div class="col-xs-4">
           <div class="form-group" id="make-clip-end-time">
-            <label for="endTime">End &nbsp; <a href="#"><i class="fa fa-play"></i></a></label>
+            <label for="endTime">End &nbsp;</label>
+            <i class="fa fa-play text-primary"></i>
             <input type="text" class="form-control" placeholder="0:00:00" maxlength="8" disabled>
             <small id="make-clip-end-time-error" class="form-control-feedback"></small>
+          </div>
+        </div>
+        <div class="col-xs-4">
+          <div style="position: relative; white-space: nowrap">
+            <span id="make-clip-time-set" class="text-primary">
+              Set
+            </span> &nbsp;
+            <span id="make-clip-time-back" class="text-primary">
+              <i class="fa fa-angle-left"></i> 15
+            </span> &nbsp;
+            <span id="make-clip-time-forwards" class="text-primary">
+              15 <i class="fa fa-angle-right"></i>
+            </span>
           </div>
         </div>
       </div>
@@ -74,19 +89,80 @@
 $(window).ready(function () {
   initMakeClipPodcastSearch();
 
-  $('#make-clip-start-time a').on('click', function () {
+  $('#make-clip-start-time i').on('click', function () {
     var startTime = $('#make-clip-start-time input').val() || "0";
     var endTime = $('#make-clip-end-time input').val();
     startTime = convertHHMMSSToSeconds(startTime);
     endTime = convertHHMMSSToSeconds(endTime);
     previewStartTime(startTime, endTime);
-  })
+  });
 
-  $('#make-clip-end-time a').on('click', function () {
+  $('#make-clip-end-time i').on('click', function () {
     var endTime = $('#make-clip-end-time input').val() || "3";
     endTime = convertHHMMSSToSeconds(endTime);
     previewEndTime(endTime);
-  })
+  });
+
+  window.lastFocused = 0;
+
+  $('#make-clip-start-time input').on('focusin', function () {
+    lastFocused = 0;
+    $('#make-clip-time-set').attr('class', 'text-primary');
+  });
+
+  $('#make-clip-start-time input').on('focusout', function () {
+    lastFocused = 0;
+    $('#make-clip-time-set').attr('class', 'text-muted');
+  });
+
+  $('#make-clip-end-time input').on('focusin', function () {
+    lastFocused = 1;
+    $('#make-clip-time-set').attr('class', 'text-primary');
+  });
+
+  $('#make-clip-end-time input').on('focusout', function () {
+    lastFocused = 1;
+    $('#make-clip-time-set').attr('class', 'text-muted');
+  });
+
+  $('#make-clip-time-set').on('click', function () {
+    var currentTimeHHMMSS = convertSecToHHMMSS(Math.floor(audio.currentTime));
+    if ($('#make-clip-time-set').attr('class') !== 'text-muted') {
+      if (lastFocused === 0) {
+        $('#make-clip-start-time input').val(currentTimeHHMMSS);
+        $('#make-clip-end-time input').focus();
+      } else if (lastFocused === 1) {
+        $('#make-clip-end-time input').val(currentTimeHHMMSS);
+        $('#make-clip-time-set').attr('class', 'text-muted');
+        $('#make-clip-description textarea').focus();
+      }
+    }
+  });
+
+  $('#player').on('mousedown', function (e) {
+    e.preventDefault();
+  });
+
+  $('#make-clip-time-set').on('mousedown', function (e) {
+    e.preventDefault();
+  });
+
+  $('#make-clip-time-back').on('mousedown', function (e) {
+    e.preventDefault();
+  });
+
+  $('#make-clip-time-forwards').on('mousedown', function (e) {
+    e.preventDefault();
+  });
+
+  $('#make-clip-time-back').on('click', function () {
+    audio.currentTime = audio.currentTime - 15;
+  });
+
+  $('#make-clip-time-forwards').on('click', function () {
+    audio.currentTime = audio.currentTime + 15;
+  });
+
 });
 </script>
 {% endblock %}
