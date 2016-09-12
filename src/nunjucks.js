@@ -33,6 +33,10 @@ function nunjucksConfig () {
     }
   });
 
+  env.addFilter('nl2br', function(str) {
+      return str.replace(/\r|\n|\r\n/g, '<br />')
+  })
+
   // TODO: This identify function is also in the scripts.js. Maybe this should
   // be refactored.
   env.addFilter('convertSecToHHMMSS', function(sec) {

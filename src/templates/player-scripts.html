@@ -39,16 +39,22 @@
 
   // If there's an episode property, then set the window vars for the clip page.
   {% elif episode %}
+    window.podcastId = "{{ episode.podcast.id }}";
     window.podcastTitle = "{{ episode.podcast.title }}";
     window.podcastImageURL = "{{ episode.podcast.imageURL }}";
+    window.episodeId = "{{ episode.id }}";
     window.episodeTitle = "{{ episode.title }}";
     window.episodeMediaURL = "{{ episode.mediaURL }}";
     window.episodePubDate = "{{ episode.pubDate }}";
-    window.description = "{{ description }}";
     window.startTime = "{{ startTime }}";
     window.endTime = "{{ endTime }}";
     window.duration = "{{ duration }}"
     window.isEpisode = false;
+
+    // Decode the description to handle <br> tags
+    // TODO: is this a security vulnerability?
+    window.description = "{{ description|nl2br }}";
+    window.description = $('<textarea />').html(description).text();
   {% endif %}
 
 </script>

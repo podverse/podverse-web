@@ -91,8 +91,8 @@ footer p {
   margin-bottom: 1rem;
 }
 
-#make-clip-episode, #make-clip-time, #make-clip-description,
-#make-clip-podcast-error, #make-clip-episode-error, #make-clip-start-time-error,
+#make-clip-episode, #make-clip-time, #make-clip-description, #make-clip-podcast-error,
+#make-clip-episode-error, #make-clip-start-time-error,
 #make-clip-end-time-error, #make-clip-btn {
   display: none;
 }
@@ -117,6 +117,14 @@ footer p {
     margin-top: 0.25rem;
 }
 
+#make-clip-time-label {
+    width: 100%;
+}
+
+#make-clip-time-wrap {
+    text-align: center;
+}
+
 #make-clip-start-time i, #make-clip-end-time i, #make-clip-time-set,
 #make-clip-time-forwards, #make-clip-time-back {
     cursor: pointer;
@@ -126,10 +134,20 @@ footer p {
     cursor: default;
 }
 
+#make-clip-time-set {
+    text-align: center;
+    line-height: 38px;
+    height: 38px;
+}
+
 .has-danger #make-clip-start-time-error, .has-danger #make-clip-end-time-error {
   display: block;
   white-space: nowrap;
 }
+
+
+
+/*** add-podcast-modal.html styles ***/
 
 #addPodcastModal .btn {
   width: 100px;
@@ -226,6 +244,27 @@ footer p {
     height: 30px;
 }
 
+
+#player-make-clip {
+    display: none;
+}
+
+#player-make-clip-header {
+    font-weight: 500;
+    text-decoration: underline;
+    margin-bottom: 0.75rem;
+    float: left;
+}
+
+#player-make-clip-close {
+    float: right;
+    cursor: pointer;
+}
+
+#player-make-clip #make-clip-description, #player-make-clip #make-clip-btn {
+    display: block;
+}
+
 /*** player.html condensed-size mode styles ***/
 
 .player-condensed#player-container {
@@ -289,6 +328,7 @@ footer p {
 }
 
 
+
 /*** player-stats.html styles ***/
 
 #player-stats {
@@ -322,27 +362,25 @@ footer p {
 }
 
 #player-autoplay {
-    clear: both;
-    float: left;
-    cursor: pointer;
-    margin-right: 1rem;
-}
-
-#player-restart-clip {
-    cursor: pointer;
-}
-
-#player-make-clip, #player-time-jump-forward, #player-time-jump-back {
     float: right;
+    cursor: pointer;
+    -webkit-user-select: none; /* Chrome/Safari */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+ */
 }
 
-#player-make-clip, #player-time-jump-forward {
-    margin-left: 1rem;
+#player-time-jump-back, #player-time-jump-forward, #player-make-clip-btn, #player-add-to-playlist {
+    display: inline-block;
+    margin-right: 1rem;
+    cursor: pointer;
+    -webkit-user-select: none; /* Chrome/Safari */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+ */
 }
 
 
 
-/*** playlist-description.html styles ***/
+/*** player-description.html styles ***/
 
 #player-description {
     font-size: 0.8rem;
@@ -352,7 +390,7 @@ footer p {
 
 
 
-/*** playlist-list.html styles ***/
+/*** player-list.html styles ***/
 
 #playlist hr, #home-list hr {
     clear: both;
@@ -421,6 +459,13 @@ footer p {
     font-size: 0.8rem;
     line-height: 1.05rem;
     font-weight: 300;
+}
+
+
+
+/*** clip-created-modal.html styles ***/
+#clip-created-modal-nav-btn, #clip-created-modal-copy-btn {
+    width: 150px;
 }
 
 
