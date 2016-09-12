@@ -10,5 +10,5 @@ function clipCreatedCopyURL () {
 }
 
 function clipCreatedNavToClip () {
-  location.href = $('#clip-created-modal-link').html();
+  location.href = $('#clip-created-modal-link').val();
 }

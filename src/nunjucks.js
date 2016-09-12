@@ -34,7 +34,9 @@ function nunjucksConfig () {
   });
 
   env.addFilter('nl2br', function(str) {
+    if (str) {
       return str.replace(/\r|\n|\r\n/g, '<br />')
+    }
   })
 
   // TODO: This identify function is also in the scripts.js. Maybe this should
