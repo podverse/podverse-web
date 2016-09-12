@@ -6,6 +6,14 @@ window.restartAttempts = 0;
 window.lastPlaybackPosition = -1;
 window.endTimeHasBeenReached = false;
 
+function calcDuration (startTime, endTime) {
+  if (endTime > startTime) {
+    return endTime - startTime;
+  } else {
+    return;
+  }
+}
+
 function convertSecToHHMMSS (sec) {
   // thanks to dkreuter http://stackoverflow.com/questions/1322732/convert-seconds-to-hh-mm-ss-with-javascript
   var totalSec = sec;
@@ -179,7 +187,9 @@ function setPlayerInfo () {
   $('#player-header').show();
 
   if (isEpisode === false) {
-    $('#player-stats-duration').html('Clip: ' + convertSecToHHMMSS(duration) + ' - ' + convertSecToHHMMSS(startTime) + ' to ' + convertSecToHHMMSS(endTime));
+    var duration = calcDuration(startTime, endTime);
+
+    $('#player-stats-duration').html(convertSecToHHMMSS(startTime) + ' to ' + convertSecToHHMMSS(endTime));
     $('#player-condensed-title').html(description);
   } else {
     $('#player-stats-duration').html('Full Episode: ' + readableDate(episodePubDate));
@@ -189,12 +199,13 @@ function setPlayerInfo () {
   $('#player-podcast-title').html(podcastTitle);
   $('#player-sub-title').html(episodeTitle);
   $('#player-image img').attr('src', podcastImageURL);
-  $('#player-stats-listens').html('Listens: 1234');
+  // $('#player-stats-listens').html('Listens: 1234');
 
   $('#player-time-jump-back').html('<i class="fa fa-angle-left"></i> 15s');
   $('#player-time-jump-forward').html('15s <i class="fa fa-angle-right"></i>');
-  $('#player-make-clip-btn').html('<i class="fa fa-scissors"></i>');
-  $(document.createElement('hr')).insertBefore('#player-description');
+  $('#toggle-make-clip-btn').html('<i class="fa fa-scissors"></i>');
+  $('#toggle-playlist-btn').html('<i class="fa fa-list-ul"></i>');
+  $('#toggle-share-btn').html('<i class="fa fa-share"></i>');
   $('#player-description').html(description);
 
   window.restartAttempts = 0;
@@ -320,17 +331,6 @@ $('#player-time-jump-back').on('click', function() {
   audio.currentTime = audio.currentTime - 15;
 });
 
-$('#player-make-clip-btn').on('click', function () {
-  $('#player-make-clip').toggle();
-  $('#make-clip-start-time input').val(convertSecToHHMMSS(Math.floor(audio.currentTime)));
-  $('#make-clip-end-time input').focus();
-  $('#make-clip-time-set').html('Set End');
-});
-
-$('#player-make-clip-close').on('click', function () {
-  $('#player-make-clip').hide();
-});
-
 $('#player-autoplay').on('click', function() {
   toggleAutoplay();
 });
@@ -355,6 +355,17 @@ function createAutoplayBtn () {
     $('#player-autoplay').html('Autoplay Off');
   }
 }
+
+function restartClip () {
+  audio.pause();
+  endTimeHasBeenReached = false;
+  audio.currentTime = startTime;
+  audio.play();
+}
+
+$('#player-stats-duration').on('click', function () {
+  restartClip();
+});
 
 $('.playlist-item').on('click', function() {
   var index = $(".playlist-item").index(this);

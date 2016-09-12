@@ -4,6 +4,7 @@ html, body {
     margin: 0;
     padding: 0;
     height: 100%;
+    font-weight: 300;
 }
 
 body {
@@ -140,6 +141,10 @@ footer p {
     height: 38px;
 }
 
+#make-clip-cancel {
+    margin-right: 1rem;
+}
+
 .has-danger #make-clip-start-time-error, .has-danger #make-clip-end-time-error {
   display: block;
   white-space: nowrap;
@@ -245,23 +250,23 @@ footer p {
 }
 
 
-#player-make-clip {
+#make-clip {
     display: none;
 }
 
-#player-make-clip-header {
+#make-clip-header {
     font-weight: 500;
     text-decoration: underline;
     margin-bottom: 0.75rem;
     float: left;
 }
 
-#player-make-clip-close {
+#make-clip-close {
     float: right;
     cursor: pointer;
 }
 
-#player-make-clip #make-clip-description, #player-make-clip #make-clip-btn {
+#make-clip #make-clip-description, #make-clip #make-clip-btn {
     display: block;
 }
 
@@ -294,16 +299,8 @@ footer p {
     height: 2.75rem;
 }
 
-.player-condensed #player-podcast-title {
-    font-size: 0.8rem;
-    line-height: 1.05rem;
-    font-weight: 300;
-}
-
 .player-condensed #player-condensed-title {
     display: block;
-    font-size: 0.8rem;
-    line-height: 1.05rem;
     font-weight: 700;
 }
 
@@ -332,14 +329,20 @@ footer p {
 /*** player-stats.html styles ***/
 
 #player-stats {
-    font-size: 0.8rem;
-    line-height: 1.05rem;
-    font-weight: 300;
     margin: 0 0 0.5rem 0;
+    font-size: 14px;
 }
 
 #player-stats-duration {
     float: left;
+    color: #777;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+#player-stats-duration:hover {
+    text-decoration: underline;
+    color: #999;
 }
 
 #player-stats-listens {
@@ -351,10 +354,8 @@ footer p {
 /*** player-functions.html styles ***/
 
 #player-functions {
-    font-size: 0.8rem;
-    line-height: 1.05rem;
-    font-weight: 300;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.75rem;
+    font-size: 14px;
 }
 
 #player-functions div {
@@ -369,23 +370,29 @@ footer p {
     -ms-user-select: none; /* IE10+ */
 }
 
-#player-time-jump-back, #player-time-jump-forward, #player-make-clip-btn, #player-add-to-playlist {
+#player-time-jump-back, #player-time-jump-forward, #toggle-make-clip-btn,
+#toggle-playlist-btn, #toggle-share-btn {
     display: inline-block;
-    margin-right: 1rem;
+    margin-right: 16px;
     cursor: pointer;
     -webkit-user-select: none; /* Chrome/Safari */
     -moz-user-select: none; /* Firefox */
     -ms-user-select: none; /* IE10+ */
 }
 
+#player-functions .active {
+    font-size: 20px;
+    line-height: 14px;
+    margin-top: -1px;
+    margin-left: -4px;
+    margin-right: 14px;
+}
+
 
 
 /*** player-description.html styles ***/
-
 #player-description {
-    font-size: 0.8rem;
-    line-height: 1.05rem;
-    font-weight: 300;
+    font-size: 14px;
 }
 
 
@@ -435,30 +442,16 @@ footer p {
 }
 
 .playlist-item-title {
-    font-size: 0.8rem;
-    line-height: 1.05rem;
     font-weight: 500;
     margin-bottom: 0.25rem;
 }
 
 .playlist-item-podcast-title {
-    font-size: 0.8rem;
-    line-height: 1.05rem;
     margin-bottom: 0.25rem;
-    font-weight: 300;
 }
 
 .playlist-item-duration {
     float: right;
-    font-size: 0.8rem;
-    line-height: 1.05rem;
-    font-weight: 300;
-}
-
-.playlist-item-sub-title {
-    font-size: 0.8rem;
-    line-height: 1.05rem;
-    font-weight: 300;
 }
 
 

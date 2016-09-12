@@ -14,14 +14,6 @@ function initClipper () {
     previewEndTime(endTime);
   });
 
-  $('#make-clip-start-time input').on('focusin', function () {
-    $('#make-clip-time-set').html('Set Start');
-  });
-
-  $('#make-clip-end-time input').on('focusin', function () {
-    $('#make-clip-time-set').html('Set End');
-  });
-
   $('#make-clip-time-set').on('click', function () {
     var currentTimeHHMMSS = convertSecToHHMMSS(Math.floor(audio.currentTime));
     var currentSetMode = $('#make-clip-time-set').html();
@@ -61,6 +53,34 @@ function initClipper () {
   });
 
 }
+
+function setStartTime () {
+  $('#make-clip-start-time input').val(convertSecToHHMMSS(Math.floor(audio.currentTime)));
+  $('#make-clip-end-time input').focus();
+}
+
+function setEndTime () {
+  $('#make-clip-end-time input').val(convertSecToHHMMSS(Math.floor(audio.currentTime)));
+  $('#make-clip-description textarea').focus();
+}
+
+$('#toggle-make-clip-btn').on('click', function () {
+  toggleMakeClipWidget();
+  if ($('#make-clip-start-time input').val() === '') {
+    setStartTime();
+  }
+});
+
+function toggleMakeClipWidget () {
+  $('#toggle-make-clip-btn').toggleClass('active');
+  $('#player-stats').toggle();
+  $('#player-description').toggle();
+  $('#make-clip').toggle();
+}
+
+$('#make-clip-close').on('click', function () {
+  toggleMakeClipWidget();
+});
 
 function makeClip () {
   event.preventDefault();
@@ -155,7 +175,10 @@ function makeClip () {
     },
     success: function (response) {
       if (window.isPlayerPage) {
-        $('#player-make-clip').hide();
+        toggleMakeClipWidget();
+        $('#make-clip-start-time').val('');
+        $('#make-clip-end-time').val('');
+        $('#make-clip-description').val('');
         $('#clip-created-modal-link').val(location.protocol + '\/\/' + location.hostname + (location.port ? ':'+location.port: '')  + '\/clips\/' + response.id);
         $('#clip-created-modal').modal('show');
       } else {
@@ -177,6 +200,12 @@ function makeClip () {
 }
 
 
+
+
+
+// TODO: remove the Make Clip page
+// TODO: put Add Podcast modal link in the footer
+// TODO: use this podcast and episode search stuff in a search feature (not make-clip.html)
 function initMakeClipPodcastSearch () {
     window.clip = {};
 

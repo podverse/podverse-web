@@ -1,30 +1,34 @@
 
-<div id="player-make-clip">
-  <hr>
-  <div id="player-make-clip-header">Make Clip</div>
-  <div id="player-make-clip-close"><i class="fa fa-times"></i></div>
+<div id="make-clip">
+  <div id="make-clip-header">Make Clip</div>
+  <div id="make-clip-close"><i class="fa fa-times"></i></div>
   <div class="clearfix"></div>
   <div class="row">
-    <div class="col-xs-4">
+    <div class="col-xs-6 col-sm-4">
       <div class="form-group" id="make-clip-start-time">
         <label for="startTime">Start &nbsp;</label>
           <i class="fa fa-play text-primary"></i>
-          <input type="text" class="form-control" placeholder="0:00:00" maxlength="8">
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="0:00:00" maxlength="8">
+            <span class="input-group-btn">
+              <button class="btn btn-secondary" type="button" onclick="setStartTime();">Set</button>
+            </span>
+          </div>
           <small id="make-clip-start-time-error" class="form-control-feedback"></small>
       </div>
     </div>
-    <div class="col-xs-4">
+    <div class="col-xs-6 col-sm-4">
       <div class="form-group" id="make-clip-end-time">
         <label for="endTime">End &nbsp;</label>
         <i class="fa fa-play text-primary"></i>
-        <input type="text" class="form-control" placeholder="optional" maxlength="8">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="0:00:00" maxlength="8">
+          <span class="input-group-btn">
+            <button class="btn btn-secondary" type="button" onclick="setEndTime();">Set</button>
+          </span>
+        </div>
         <small id="make-clip-end-time-error" class="form-control-feedback"></small>
       </div>
-    </div>
-
-    <div class="col-xs-4">
-      <label for="setTime">&nbsp;</label>
-      <div id="make-clip-time-set" class="text-primary"></div>
     </div>
 
     <div class="col-xs-12">
@@ -32,8 +36,8 @@
         <label for="clipTitle">Description</label>
         <textarea class="form-control" rows="2" placeholder="What is the clip about? (optional)"></textarea>
       </div>
-
       <button type="submit" class="btn btn-primary pull-right" id="make-clip-btn" onclick="makeClip();">Submit</button>
+      <button type="cancel" class="btn btn-secondary pull-right" id="make-clip-cancel" onclick="toggleMakeClipWidget();">Cancel</button>
     </div>
 
   </div>
