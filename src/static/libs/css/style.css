@@ -98,7 +98,11 @@ footer p {
   display: none;
 }
 
-#make-clip-podcst input {
+#make-clip-btn, #make-clip-cancel {
+    width: 90px;
+}
+
+#make-clip-podcast input {
     padding-right: 2.5rem;
 }
 

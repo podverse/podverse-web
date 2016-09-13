@@ -78,10 +78,6 @@ function toggleMakeClipWidget () {
   $('#make-clip').toggle();
 }
 
-$('#make-clip-close').on('click', function () {
-  toggleMakeClipWidget();
-});
-
 function makeClip () {
   event.preventDefault();
 
