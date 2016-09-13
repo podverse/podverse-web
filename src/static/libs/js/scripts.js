@@ -33,6 +33,8 @@ function convertSecToHHMMSS (sec) {
     result += '0' + minutes + ':';
   } else if (minutes > 0){
     result += minutes + ':';
+  } else if (minutes === 0 && hours > 0) {
+    result +=  '00:';
   }
 
   if (seconds > 9) {
