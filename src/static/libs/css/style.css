@@ -420,42 +420,47 @@ footer p {
     clear: both;
     margin: 0 -1rem;
     padding: 1rem;
-    cursor: pointer;
+    font-size: 14px;
 }
 
-.playlist-item:hover {
-    background-color: #fcfcfc;
-    outline: 1px solid #ccc;
+.playlist-item-podcast-title:hover, .playlist-item-sub-title:hover,
+.playlist-item-time:hover {
+    text-decoration: underline;
 }
 
 .playlist-item-image {
     float: left;
     margin: 0 0.75rem 0 0;
-    width: 3.75rem;
-    height: 3.75rem;
+    width: 3.25rem;
+    height: 3.25rem;
+    cursor: pointer;
 }
 
 .playlist-item-image img {
-    width: 3.75rem;
-    height: 3.75rem;
-}
-
-.playlist-item-text {
-    overflow: hidden;
-    margin-top: 2px;
-}
-
-.playlist-item-title {
-    font-weight: 500;
-    margin-bottom: 0.25rem;
+    width: 3.25rem;
+    height: 3.25rem;
 }
 
 .playlist-item-podcast-title {
-    margin-bottom: 0.25rem;
+    overflow: hidden;
+    font-weight: 500;
+    cursor: pointer;
 }
 
-.playlist-item-duration {
-    float: right;
+.playlist-item-sub-title {
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.playlist-item-details {
+    font-size: 13px;
+    margin-top: 0.75rem;
+    cursor: pointer;
+}
+
+.playlist-item-time {
+    float: left;
+    font-weight: 400;
 }
 
 

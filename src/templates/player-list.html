@@ -12,7 +12,7 @@
           <div class="playlist-item-image">
             <img src="{{ item.episode.podcast.imageURL }}">
           </div>
-          <div class="playlist-item-text">
+          <div class="playlist-item-text-wrapper">
             <div class="playlist-item-title">
               {{ item.episode.title }}
             </div>
@@ -26,7 +26,7 @@
             <div class="playlist-item-sub-title">
               Full Episode - {{ item.episode.pubDate|readableDate }}
             </div>
-          </div><!-- /.playlist-item-text -->
+          </div><!-- /.playlist-item-text-wrapper -->
           <div style="clear:both"></div>
         </div><!-- /.playlist-item -->
       {% else %}
@@ -34,7 +34,7 @@
           <div class="playlist-item-image">
             <img src="{{ item.episode.podcast.imageURL }}">
           </div>
-          <div class="playlist-item-text">
+          <div class="playlist-item-text-wrapper">
             <div class="playlist-item-title">
               {{ item.title }}
             </div>
@@ -48,7 +48,7 @@
             <div class="playlist-item-sub-title">
               {{ item.episode.title }}
             </div>
-          </div><!-- /.playlist-item-text -->
+          </div><!-- /.playlist-item-text-wrapper -->
           <div style="clear:both"></div>
         </div><!-- /.playlist-item -->
       {% endif %}

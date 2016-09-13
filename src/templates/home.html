@@ -10,25 +10,40 @@
           <div class="playlist-item-image">
             <img src="{{ clip.episode.podcast.imageURL }}">
           </div>
-          <div class="playlist-item-text">
-            <div class="playlist-item-title">
-              {{ clip.title }}
-            </div>
-            <div class="playlist-item-podcast-title">
+          <div class="playlist-item-text-wrapper">
+            <span class="playlist-item-podcast-title">
               {{ clip.episode.podcast.title }}
-            </div>
-            <div class="playlist-item-duration">
-              {{ clip.duration|convertSecToHHMMSS }}
-            </div>
-            <div class="playlist-item-sub-title">
+            </span>
+            <br>
+            <span class="playlist-item-sub-title">
               {{ clip.episode.title }}
-            </div>
-          </div><!-- /.playlist-item-text -->
+            </span>
+          </div>
           <div style="clear:both"></div>
+          <div class="playlist-item-details">
+            <span class="playlist-item-time">
+              18:56 to 21:48
+            </span>
+            <span class="playlist-item-description">
+              &nbsp;– like cowabunga dude like cowabunga dude like cowabunga dude like cowabunga dude like cowabunga dude like cowabunga dude like cowabunga dude like cowabunga dude like cowabunga dude like cowabunga dude like cowabunga dude like cowabunga dude like cowabunga dude like cowabunga dude like cowabunga dude like cowabunga dude
+            </span>
+          </div>
         </div><!-- /.playlist-item -->
-        <hr>
       {% endfor %}
     </div><!-- /#home-list -->
   </div><!-- /.col-xs-12 -->
 </div><!-- /.row -->
+<script>
+$('.playlist-item-image').hover(function () {
+  $(this).parent().find('.playlist-item-podcast-title').css('text-decoration', 'underline');
+}, function () {
+  $(this).parent().find('.playlist-item-podcast-title').css('text-decoration', 'none');
+});
+
+$('.playlist-item-details').hover(function () {
+  $(this).find('.playlist-item-time').css('text-decoration', 'underline');
+}, function () {
+  $(this).find('.playlist-item-time').css('text-decoration', 'none');
+});
+</script>
 {% endblock %}
