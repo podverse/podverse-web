@@ -20,12 +20,10 @@
                 $('<div class="display-playback-speed hidden">1X</div> ')
                     .appendTo(controls)
                     .click(function(e) {
-                        media.pause();
                         t.speedOptionsIndex ++;
                         media.playbackRate = t.speedOptions[t.speedOptionsIndex];
                         displaySpeed.html(t.speedOptionsText[t.speedOptionsIndex]);
                         if (t.speedOptionsIndex === 5) { t.speedOptionsIndex = -1 }
-                        media.play();
                         return false;
                     });
         }
