@@ -1,5 +1,4 @@
 {% extends "layout.html" %}
-
 {% block body %}
 <div class="row">
   <div class="col-xs-12">
@@ -7,43 +6,33 @@
     <div id="home-list">
       {% for clip in clips %}
         <div class="playlist-item" onclick="window.location.href = '/clips/{{clip.id}}'">
-          <div class="playlist-item-image">
-            <img src="{{ clip.episode.podcast.imageURL }}">
-          </div>
-          <div class="playlist-item-text-wrapper">
-            <span class="playlist-item-podcast-title">
-              {{ clip.episode.podcast.title }}
-            </span>
-            <br>
-            <span class="playlist-item-sub-title">
-              {{ clip.episode.title }}
-            </span>
-          </div>
-          <div style="clear:both"></div>
-          <div class="playlist-item-details">
-            <span class="playlist-item-time">
-              18:56 to 21:48
-            </span>
-            <span class="playlist-item-description">
-              &nbsp;– like cowabunga dude like cowabunga dude like cowabunga dude like cowabunga dude like cowabunga dude like cowabunga dude like cowabunga dude like cowabunga dude like cowabunga dude like cowabunga dude like cowabunga dude like cowabunga dude like cowabunga dude like cowabunga dude like cowabunga dude like cowabunga dude
-            </span>
-          </div>
+          <div class="playlist-item-inner">
+            <div class="playlist-item-image">
+              <img src="{{ clip.episode.podcast.imageURL }}">
+            </div>
+            <div class="playlist-item-text-wrapper">
+              <div class="playlist-item-podcast-title">
+                {{ clip.episode.podcast.title }}
+              </div>
+              <div class="playlist-item-sub-title">
+                {{ clip.episode.title }}
+              </div>
+              <div class="playlist-item-time">
+                {{ clip.startTime | convertSecToHHMMSS }}
+                {% if clip.endTime %}
+                  to {{ clip.endTime | convertSecToHHMMSS }}
+                {% endif %}
+              </div>
+            </div>
+            {% if clip.description %}
+              <div class="playlist-item-details">
+                {{ clip.description }}
+              </div>
+            {% endif %}
+          </div><!-- /.playlist-item-inner -->
         </div><!-- /.playlist-item -->
       {% endfor %}
     </div><!-- /#home-list -->
   </div><!-- /.col-xs-12 -->
 </div><!-- /.row -->
-<script>
-$('.playlist-item-image').hover(function () {
-  $(this).parent().find('.playlist-item-podcast-title').css('text-decoration', 'underline');
-}, function () {
-  $(this).parent().find('.playlist-item-podcast-title').css('text-decoration', 'none');
-});
-
-$('.playlist-item-details').hover(function () {
-  $(this).find('.playlist-item-time').css('text-decoration', 'underline');
-}, function () {
-  $(this).find('.playlist-item-time').css('text-decoration', 'none');
-});
-</script>
 {% endblock %}

@@ -33,7 +33,7 @@ audio {
 }
 
 .padding-for-footer {
-    padding-bottom: 4.5rem;
+    padding-bottom: 7rem;
 }
 
 .footer {
@@ -46,19 +46,41 @@ audio {
     text-align: center;
 }
 
+.footer a:hover {
+    color: #ddddf7 !important;
+}
+
 a.footer-social-icon {
     margin: 0 0 0 1rem;
     color: #fcfcfc;
 }
 
-.footer-brand {
+#footer-brand {
+    float: left;
     font-size: 0.8rem;
     line-height: 1.8rem;
 }
 
-.footer-brand a {
+#footer-brand a, #footer-license a, #footer-links a {
     text-decoration: none;
     color: #fcfcfc;
+}
+
+#footer-links {
+    clear: both;
+    float: left;
+    font-size: 0.7rem;
+    line-height: 1.6rem;
+}
+
+#footer-links a {
+    margin-right: 1rem;
+}
+
+#footer-license {
+    float: right;
+    font-size: 0.7rem;
+    line-height: 1.6rem;
 }
 
 footer p {
@@ -405,7 +427,7 @@ footer p {
 
 #playlist hr, #home-list hr {
     clear: both;
-    border-top: 1px dotted #eee;
+    border-top: 1px dotted #ddd;
     margin: 0;
 }
 
@@ -418,27 +440,35 @@ footer p {
 
 .playlist-item {
     clear: both;
-    margin: 0 -1rem;
-    padding: 1rem;
     font-size: 14px;
+    cursor: pointer;
 }
 
-.playlist-item-podcast-title:hover, .playlist-item-sub-title:hover,
-.playlist-item-time:hover {
-    text-decoration: underline;
+.playlist-item-inner {
+    padding: 1rem;
+    border-bottom: 1px dotted #ddd;
+}
+
+.playlist-item-inner:hover {
+    border: 1px solid #ddd;
+    margin: -1px -1px 0 -1px;
 }
 
 .playlist-item-image {
     float: left;
     margin: 0 0.75rem 0 0;
-    width: 3.25rem;
-    height: 3.25rem;
+    width: 4rem;
+    height: 4rem;
     cursor: pointer;
 }
 
 .playlist-item-image img {
-    width: 3.25rem;
-    height: 3.25rem;
+    width: 4rem;
+    height: 4rem;
+}
+
+.playlist-item-text-wrapper {
+    overflow: hidden;
 }
 
 .playlist-item-podcast-title {
@@ -450,17 +480,17 @@ footer p {
 .playlist-item-sub-title {
     overflow: hidden;
     cursor: pointer;
+    font-weight: 400;
+}
+
+.playlist-item-time {
+    font-weight: 400;
 }
 
 .playlist-item-details {
     font-size: 13px;
     margin-top: 0.75rem;
     cursor: pointer;
-}
-
-.playlist-item-time {
-    float: left;
-    font-weight: 400;
 }
 
 
@@ -518,6 +548,10 @@ footer p {
 
 .navbar a {
     color: #fcfcfc;
+}
+
+.navbar a:hover {
+    color: #ddddf7;
 }
 
 .navbar {

@@ -37,6 +37,10 @@
       window.clipTitle = item.title;
     }
 
+    // TODO: is this a security vulnerability?
+    window.description = "{{ description|nl2br }}";
+    window.description = $('<textarea />').html(description).text();
+
   // If there's an episode property, then set the window vars for the clip page.
   {% elif episode %}
     window.podcastId = "{{ episode.podcast.id }}";
@@ -50,7 +54,6 @@
     window.endTime = "{{ endTime }}";
     window.isEpisode = false;
 
-    // Decode the description to handle <br> tags
     // TODO: is this a security vulnerability?
     window.description = "{{ description|nl2br }}";
     window.description = $('<textarea />').html(description).text();

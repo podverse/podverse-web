@@ -208,6 +208,7 @@ function setPlayerInfo () {
   $('#toggle-make-clip-btn').html('<i class="fa fa-scissors"></i>');
   $('#toggle-playlist-btn').html('<i class="fa fa-list-ul"></i>');
   $('#toggle-share-btn').html('<i class="fa fa-share"></i>');
+  $('hr').insertAfter('#player-functions');
   $('#player-description').html(description);
 
   window.restartAttempts = 0;
@@ -370,8 +371,10 @@ $('#player-stats-duration').on('click', function () {
 });
 
 $('.playlist-item').on('click', function() {
-  var index = $(".playlist-item").index(this);
-  loadMediaRef(index, true);
+  if (isPlayerPage) {
+    var index = $(".playlist-item").index(this);
+    loadMediaRef(index, true);
+  }
 });
 
 function onScrollCondensePlayerView () {
