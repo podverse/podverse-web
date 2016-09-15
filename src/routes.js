@@ -2,7 +2,7 @@ const
     errors = require('feathers-errors'),
     {locator} = require('locator.js'),
     {parseFeed, saveParsedFeedToDatabase} = require('tasks/feedParser.js'),
-    {isClipMediaRef} = require('constants.js');
+    {isClipMediaRefWithDescription} = require('constants.js');
 
 function routes () {
   const app = this;
@@ -13,17 +13,33 @@ function routes () {
     const {Episode, Podcast} = Models;
 
     let params = {};
+    let pageIndex = req.query.page || 1;
+    let offset = (pageIndex * 10) - 10;
+
     params.sequelize = {
-        limit: 20,
-        include: [
-          { model: Episode, include: [Podcast] }
-        ],
-        where: isClipMediaRef
+      include: [{ model: Episode, include: [Podcast] }],
+      where: isClipMediaRefWithDescription,
+      offset: offset
+    };
+
+    params.paginate = {
+      default: 10,
+      max: 200
     };
 
     return ClipService.find(params)
-      .then(clips => {
-        res.render('home.html', {clips: clips});
+      .then(page => {
+
+        // TODO: handle 404 if beyond range of page object
+
+        let total = page.total;
+        let showNextButton = offset + 10 < total ? true : false;
+        let clips = page.data;
+        res.render('home.html', {
+          clips: clips,
+          pageIndex: pageIndex,
+          showNextButton: showNextButton
+        });
       })
       .catch(e => {
         console.log(e);

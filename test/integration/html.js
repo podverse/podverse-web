@@ -27,6 +27,10 @@ describe('html test: index', function () {
         expect(res.statusCode).to.equal(200);
         done();
       });
-
   });
+
+  // TODO
+  xit('should return 10 clips');
+  // TODO
+  xit('should return the next 10 clips with page=2 passed in as the URL parameter');
 });

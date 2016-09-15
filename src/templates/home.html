@@ -32,7 +32,34 @@
           </div><!-- /.playlist-item-inner -->
         </div><!-- /.playlist-item -->
       {% endfor %}
+      <div class="pv-pagination">
+        {% if pageIndex > 1 %}
+          <div class="pv-pagination-prev">
+            <i class="fa fa-angle-left"></i> Prev
+          </div>
+        {% endif %}
+        {% if showNextButton %}
+          <div class="pv-pagination-next">
+            Next <i class="fa fa-angle-right"></i>
+          </div>
+        {% endif %}
+      </div>
     </div><!-- /#home-list -->
   </div><!-- /.col-xs-12 -->
 </div><!-- /.row -->
+
+<script>
+let pageIndex = parseInt({{ pageIndex }});
+{% if showNextButton %}
+  $('.pv-pagination-next').on('click', function () {
+    window.location = '/?page=' + (pageIndex + 1);
+  });
+{% endif %}
+{% if pageIndex > 1 %}
+  $('.pv-pagination-prev').on('click', function () {
+    window.location = '/?page=' + (pageIndex - 1);
+  });
+{% endif %}
+</script>
+
 {% endblock %}

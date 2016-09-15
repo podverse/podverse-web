@@ -23,7 +23,21 @@ audio {
     display: block;
 }
 
+.pv-pagination {
+    text-align: right;
+    margin: 1.5rem 0 0 0;
+}
 
+.pv-pagination-prev {
+    display: inline-block;
+    cursor: pointer;
+}
+
+.pv-pagination-next {
+    display: inline-block;
+    cursor: pointer;
+    margin-left: 1rem;
+}
 
 /*** layout.html styles ***/
 

@@ -11,6 +11,24 @@ const isClipMediaRef = {
   }
 }
 
+const isClipMediaRefWithDescription = {
+  $not: {
+    startTime: 0,
+    $and: {
+      $not: {
+        endTime: ''
+      }
+    }
+  },
+  $not: {
+    description: null
+  },
+  $not: {
+    description: ''
+  }
+}
+
 module.exports = {
-  isClipMediaRef: isClipMediaRef
+  isClipMediaRef: isClipMediaRef,
+  isClipMediaRefWithDescription: isClipMediaRefWithDescription
 }
