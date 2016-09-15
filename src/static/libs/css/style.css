@@ -57,8 +57,9 @@ a.footer-social-icon {
 
 #footer-brand {
     float: left;
-    font-size: 0.8rem;
-    line-height: 1.8rem;
+    clear: left;
+    font-size: 0.7rem;
+    line-height: 1.5rem;
 }
 
 #footer-brand a, #footer-license a, #footer-links a {
@@ -69,8 +70,8 @@ a.footer-social-icon {
 #footer-links {
     clear: both;
     float: left;
-    font-size: 0.7rem;
-    line-height: 1.6rem;
+    font-size: 0.8rem;
+    line-height: 1.5rem;
 }
 
 #footer-links a {
@@ -79,8 +80,9 @@ a.footer-social-icon {
 
 #footer-license {
     float: right;
+    clear: right;
     font-size: 0.7rem;
-    line-height: 1.6rem;
+    line-height: 1.5rem;
 }
 
 footer p {
