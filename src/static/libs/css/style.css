@@ -518,16 +518,27 @@ footer p {
 
 
 
-/*** login.html styles ***/
-
-.form-signin {
-    max-width: 330px;
-    margin: 70px auto 40px auto;
+/*** Auth0 Lock Overrides ***/
+.auth0-lock-badge-bottom {
+    display: none !important;
 }
 
-#loginInputEmail, #loginInputPassword {
-    margin-bottom: 10px;
+.auth0-lock-name {
+    display: none !important;
 }
+
+.auth0-lock-header {
+    height: 50px !important;
+}
+
+.auth0-lock-header-logo {
+    display: none !important;
+}
+
+.auth0-lock-submit {
+    height: 58px !important;
+}
+
 
 
 /*** Bootstrap Overrides ***/

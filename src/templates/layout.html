@@ -3,6 +3,14 @@
   <head>
     <title>Podverse</title>
 
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+
+    <link rel="stylesheet" href="/static/node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/node_modules/typeahead.js-bootstrap4-css/typeaheadjs.css">
+    <link rel="stylesheet" href="/static/node_modules/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/static/node_modules/mediaelement/build/mediaelementplayer.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+
     <script src="/static/node_modules/jquery/dist/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 
@@ -12,12 +20,6 @@
     </script>
 
     {% include "meta-tags.html" %}
-
-    <link rel="stylesheet" href="/static/node_modules/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/static/node_modules/typeahead.js-bootstrap4-css/typeaheadjs.css">
-    <link rel="stylesheet" href="/static/node_modules/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/static/node_modules/mediaelement/build/mediaelementplayer.css">
-    <link rel="stylesheet" href="/static/css/style.css">
 
   </head>
   <body>
@@ -36,7 +38,7 @@
               <!-- TODO: add screenreader-only (sr-only) element to currently
               selected nav-items <span class="sr-only">(current)</span> -->
               <li class="nav-item pull-xs-right">
-                <a class="nav-link" href="/login">Login</a>
+                <a class="nav-link" onclick="showLoginWidget();">Login</a>
               </li>
               <!-- TODO: add a browsable playlists page
               <li class="nav-item pull-xs-right">
@@ -92,6 +94,12 @@
         initClipper();
       }
     </script>
+
+    <!-- Latest minor release -->
+    <script src="https://cdn.auth0.com/js/lock/10.2/lock.min.js"></script>
+    <!-- Latest patch release (recommended for production) -->
+    <!-- <script src="http://cdn.auth0.com/js/lock/10.x.y/lock.min.js"></script> -->
+    <script src="/static/js/auth0Lock.js"></script>
 
   </body>
 </html>

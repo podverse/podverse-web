@@ -7,6 +7,7 @@
     "node": "6.2.2"
   },
   "dependencies": {
+    "auth0-lock": "^10.2.2",
     "body-parser": "^1.15.2",
     "bootstrap": "^4.0.0-alpha.3",
     "cookies": "^0.6.1",
