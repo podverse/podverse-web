@@ -320,7 +320,7 @@ footer p {
     top: 50px;
     left: 0;
     background-color: #fff;
-    padding: 0.5rem 1rem 0 1rem;
+    padding: 0.5rem 1rem 0.25rem 1rem;
     border-bottom: 1px solid #ccc;
     margin: 0 0 1.5rem 0;
 }
@@ -330,10 +330,14 @@ footer p {
     margin: 0 auto;
 }
 
+.player-condensed #player-header {
+    padding: 0.25rem 0 0.5rem 0;
+}
+
 .player-condensed #player-image {
     width: 2.75rem;
     height: 2.75rem;
-    margin-right: 0.5rem;
+    margin-right: 0.75rem;
 }
 
 .player-condensed #player-image img {
@@ -343,14 +347,15 @@ footer p {
 
 .player-condensed #player-condensed-title {
     display: block;
-    font-weight: 700;
+    font-weight: 500;
+    font-size: 14px;
 }
 
-.player-condensed #player-sub-title {
+.player-condensed #player-podcast-title {
     display: none;
 }
 
-.player-condensed #player-title {
+.player-condensed #player-sub-title {
     display: none;
 }
 
@@ -387,8 +392,9 @@ footer p {
     color: #999;
 }
 
-#player-stats-listens {
+#player-stats-pub-date {
     float: right;
+    color: #777;
 }
 
 
@@ -430,6 +436,10 @@ footer p {
     margin-right: 14px;
 }
 
+#player-hr {
+    display: none;
+}
+
 
 
 /*** player-description.html styles ***/
@@ -461,13 +471,14 @@ footer p {
 }
 
 .playlist-item-inner {
-    padding: 1rem;
-    border-bottom: 1px dotted #ddd;
+    padding: 1rem 0;
+    border-bottom: 1px dotted #eee;
 }
 
 .playlist-item-inner:hover {
-    border: 1px solid #ddd;
-    margin: -1px -1px 0 -1px;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    margin: -1px 0 0 0;
 }
 
 .playlist-item-image {
@@ -508,6 +519,8 @@ footer p {
     margin-top: 0.75rem;
     cursor: pointer;
 }
+
+
 
 
 

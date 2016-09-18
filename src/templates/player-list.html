@@ -1,58 +1,64 @@
 {% if mediaRefs|isPlaylist %}
-  <hr>
-
+  <hr />
   <div id="playlist">
     <div id="playlist-header">
       {{ title }}
     </div>
     {% for item in mediaRefs %}
-      <!-- if item has a startTime, then consider it a clip -->
       {% if item|isEpisode %}
         <div class="playlist-item">
-          <div class="playlist-item-image">
-            <img src="{{ item.episode.podcast.imageURL }}">
-          </div>
-          <div class="playlist-item-text-wrapper">
-            <div class="playlist-item-title">
-              {{ item.episode.title }}
+          <div class="playlist-item-inner">
+            <div class="playlist-item-image">
+              <img src="{{ item.episode.podcast.imageURL }}">
             </div>
-            <div class="playlist-item-podcast-title">
-              {{ item.episode.podcast.title }}
-            </div>
-            <div class="playlist-item-duration">
-              <!-- TODO: how can we handle adding duration here?
-              old approach: { item.episode.duration|convertSecToHHMMSS } -->
-            </div>
-            <div class="playlist-item-sub-title">
-              Full Episode - {{ item.episode.pubDate|readableDate }}
-            </div>
-          </div><!-- /.playlist-item-text-wrapper -->
-          <div style="clear:both"></div>
+            <div class="playlist-item-text-wrapper">
+              <div class="playlist-item-podcast-title">
+                {{ item.episode.podcast.title }}
+              </div>
+              <div class="playlist-item-sub-title">
+                {{ item.episode.title }}
+              </div>
+              <div class="playlist-item-time">
+                  Full Episode – {{ item.episode.duration | convertSecToHHMMSS }}
+              </div>
+            </div><!-- /.playlist-item-text-wrapper -->
+            {% if item.episode.summary %}
+              <div class="playlist-item-details">
+                {{ item.episode.summary }}
+              </div>
+            {% endif %}
+            <div style="clear:both"></div>
+          </div><!-- /.playlist-item-inner -->
         </div><!-- /.playlist-item -->
-      {% else %}
+      {% else %} <!-- else treat it as an episode -->
         <div class="playlist-item">
-          <div class="playlist-item-image">
-            <img src="{{ item.episode.podcast.imageURL }}">
-          </div>
-          <div class="playlist-item-text-wrapper">
-            <div class="playlist-item-title">
-              {{ item.title }}
+          <div class="playlist-item-inner">
+            <div class="playlist-item-image">
+              <img src="{{ item.episode.podcast.imageURL }}">
             </div>
-            <div class="playlist-item-podcast-title">
-              {{ item.episode.podcast.title }}
-            </div>
-            <div class="playlist-item-duration">
-              <!-- TODO: how can we handle adding duration here?
-              old approach: { item.episode.duration|convertSecToHHMMSS } -->
-            </div>
-            <div class="playlist-item-sub-title">
-              {{ item.episode.title }}
-            </div>
-          </div><!-- /.playlist-item-text-wrapper -->
-          <div style="clear:both"></div>
+            <div class="playlist-item-text-wrapper">
+              <div class="playlist-item-podcast-title">
+                {{ item.episode.podcast.title }}
+              </div>
+              <div class="playlist-item-sub-title">
+                {{ item.episode.title }}
+              </div>
+              <div class="playlist-item-time">
+                {{ item.startTime | convertSecToHHMMSS }}
+                {% if item.endTime %}
+                  to {{ item.endTime | convertSecToHHMMSS }}
+                {% endif %}
+              </div>
+            </div><!-- /.playlist-item-text-wrapper -->
+            {% if item.description %}
+              <div class="playlist-item-details">
+                {{ item.description }}
+              </div>
+            {% endif %}
+            <div style="clear:both"></div>
+          </div><!-- /.playlist-item-inner -->
         </div><!-- /.playlist-item -->
       {% endif %}
-      <hr>
     {% endfor %}
   </div><!-- /#playlist -->
 {% endif %}

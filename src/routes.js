@@ -68,7 +68,7 @@ function routes () {
     const PlaylistService = locator.get('PlaylistService');
     return PlaylistService.get(req.params.id)
       .then(playlist => {
-        res.render('player.html', playlist.dataValues);
+        res.render('player-page.html', playlist.dataValues);
       }).catch(e => {
         res.sendStatus(404);
       });

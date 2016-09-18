@@ -51,7 +51,12 @@ function convertSecToHHMMSS (sec) {
 }
 
 function readableDate (date) {
-  return date.substring(0, 10);
+  // Thanks:) http://stackoverflow.com/questions/2086744/javascript-function-to-convert-date-yyyy-mm-dd-to-dd-mm-yy
+  var datePart = date.match(/\d+/g),
+  year = datePart[0], // get only two digits
+  month = datePart[1], day = datePart[2];
+  console.log(datePart);
+  return day+'/'+month+'/'+year;
 }
 
 function convertHHMMSSToSeconds (hhmmssString) {
@@ -136,7 +141,6 @@ function loadMediaRef (index, shouldPlay) {
   }
 
   if (isEpisode === false) {
-    duration = item.duration;
     podcastTitle = item.episode.podcast.title;
     podcastImageURL = item.episode.podcast.imageURL;
     episodeTitle = item.episode.title;
@@ -194,21 +198,21 @@ function setPlayerInfo () {
     $('#player-stats-duration').html(convertSecToHHMMSS(startTime) + ' to ' + convertSecToHHMMSS(endTime));
     $('#player-condensed-title').html(description);
   } else {
-    $('#player-stats-duration').html('Full Episode: ' + readableDate(episodePubDate));
+    $('#player-stats-duration').html('Full Episode – ' + convertSecToHHMMSS(episodeDuration));
     $('#player-condensed-title').html(episodeTitle);
   }
 
   $('#player-podcast-title').html(podcastTitle);
   $('#player-sub-title').html(episodeTitle);
   $('#player-image img').attr('src', podcastImageURL);
-  // $('#player-stats-listens').html('Listens: 1234');
+  $('#player-stats-pub-date').html(readableDate(episodePubDate));
 
   $('#player-time-jump-back').html('<i class="fa fa-angle-left"></i> 15s');
   $('#player-time-jump-forward').html('15s <i class="fa fa-angle-right"></i>');
   $('#toggle-make-clip-btn').html('<i class="fa fa-scissors"></i>');
   $('#toggle-playlist-btn').html('<i class="fa fa-list-ul"></i>');
   $('#toggle-share-btn').html('<i class="fa fa-share"></i>');
-  $('hr').insertAfter('#player-functions');
+  $('#player-hr').css('display', 'block');
   $('#player-description').html(description);
 
   window.restartAttempts = 0;

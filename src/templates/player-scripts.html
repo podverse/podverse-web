@@ -19,7 +19,7 @@
     window.startTime = item.startTime;
     window.endTime = item.endTime;
     window.ownerName = item.ownerName;
-    window.duration = item.duration;
+    window.episodeDuration = item.episode.duration;
     window.podcastTitle = item.episode.podcast.title;
     window.podcastImageURL = item.episode.podcast.imageURL;
     window.episodeTitle = item.episode.title;
@@ -27,18 +27,14 @@
     window.episodePubDate = item.episode.pubDate;
 
     // if item is an Episode
-    if (window.startTime === 0 && window.endTime !== null) {
+    if (window.startTime === 0 && window.endTime === null) {
       window.isEpisode = true;
-      window.clipTitle = "";
-      window.startTime = "0";
-      window.endTime = item.duration;
+      window.description = item.episode.summary;
     } else {
       window.isEpisode = false;
-      window.clipTitle = item.title;
+      window.description = item.description;
     }
-
     // TODO: is this a security vulnerability?
-    window.description = "{{ description|nl2br }}";
     window.description = $('<textarea />').html(description).text();
 
   // If there's an episode property, then set the window vars for the clip page.
