@@ -39,8 +39,8 @@ var options = {
 };
 
 // TODO: setup environment variables...
-var clientId = 'tTGQrl5CenMDdpzcKNpmLIginyRgBJNN',
-    domain = 'mitchd.auth0.com';
+var clientId = '',
+    domain = '';
 
 var lock = new Auth0Lock(clientId, domain, options);
 

@@ -29,7 +29,13 @@ function nunjucksConfig () {
 
   env.addFilter('readableDate', function(date) {
     if (typeof date === 'string') {
-      return date.substring(0, 10);
+      // Thanks:) http://stackoverflow.com/questions/19485353/function-to-convert-timestamp-to-human-date-in-javascript
+      var dateObj = new Date(date),
+      year = dateObj.getFullYear(),
+      month = dateObj.getMonth() + 1,
+      day = dateObj.getDate();
+
+      return month+'/'+day+'/'+year;
     }
   });
 

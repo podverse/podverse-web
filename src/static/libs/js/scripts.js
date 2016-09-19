@@ -31,7 +31,7 @@ function appendLoggedInUserNavButtons () {
       navMobileMenuString +=  '<a class="nav-link hidden-sm-up" href="#">Playlists</a>';
       navMobileMenuString +=  '<a class="nav-link hidden-sm-up" href="#">Recommended</a>';
       navMobileMenuString +=  '<a class="nav-link hidden-sm-up" href="#">Settings</a>';
-      navMobileMenuString +=  '<hr class="hidden-sm-up" />';
+      navMobileMenuString +=  '<hr class="hidden-sm-up">';
       navMobileMenuString +=  '<a class="nav-link hidden-sm-up" href="#">Logout</a>';
 
   $(navMobileMenuString).insertAfter('#login-btn');
@@ -86,12 +86,13 @@ function convertSecToHHMMSS (sec) {
 }
 
 function readableDate (date) {
-  // Thanks:) http://stackoverflow.com/questions/2086744/javascript-function-to-convert-date-yyyy-mm-dd-to-dd-mm-yy
-  var datePart = date.match(/\d+/g),
-  year = datePart[0], // get only two digits
-  month = datePart[1], day = datePart[2];
-  console.log(datePart);
-  return day+'/'+month+'/'+year;
+  // Thanks:) http://stackoverflow.com/questions/19485353/function-to-convert-timestamp-to-human-date-in-javascript
+  var dateObj = new Date(date),
+  year = dateObj.getFullYear(),
+  month = dateObj.getMonth() + 1,
+  day = dateObj.getDate();
+
+  return month+'/'+day+'/'+year;
 }
 
 function convertHHMMSSToSeconds (hhmmssString) {
@@ -176,6 +177,7 @@ function loadMediaRef (index, shouldPlay) {
   }
 
   if (isEpisode === false) {
+    duration = item.duration;
     podcastTitle = item.episode.podcast.title;
     podcastImageURL = item.episode.podcast.imageURL;
     episodeTitle = item.episode.title;
@@ -233,7 +235,7 @@ function setPlayerInfo () {
     $('#player-stats-duration').html(convertSecToHHMMSS(startTime) + ' to ' + convertSecToHHMMSS(endTime));
     $('#player-condensed-title').html(description);
   } else {
-    $('#player-stats-duration').html('Full Episode – ' + convertSecToHHMMSS(episodeDuration));
+    $('#player-stats-duration').html('Full Episode: ' + convertSecToHHMMSS(episodeDuration));
     $('#player-condensed-title').html(episodeTitle);
   }
 
@@ -247,7 +249,7 @@ function setPlayerInfo () {
   $('#toggle-make-clip-btn').html('<i class="fa fa-scissors"></i>');
   $('#toggle-playlist-btn').html('<i class="fa fa-list-ul"></i>');
   $('#toggle-share-btn').html('<i class="fa fa-share"></i>');
-  $('#player-hr').css('display', 'block');
+  $('<hr>').insertAfter('#player-functions');
   $('#player-description').html(description);
 
   window.restartAttempts = 0;
