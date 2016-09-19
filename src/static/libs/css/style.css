@@ -594,6 +594,10 @@ footer p {
     font-size: 0.8rem;
     padding-top: .55rem;
     padding-bottom: .55rem;
+    font-weight: 400;
+    color: #fcfcfc !important;
+    cursor: pointer;
+    text-align: right;
 }
 
 .navbar-nav .nav-item,
@@ -619,6 +623,21 @@ footer p {
     margin-top: 6px;
     margin-bottom: 0.5rem;
     border-color: #ccc;
+}
+
+#login-btn .dropdown-menu {
+    left: -66px;
+    margin: -2px 0 0 0;
+}
+
+#login-btn .dropdown-item {
+    color: #373a3c;
+    text-align: right;
+    font-size: 0.8rem;
+}
+
+#login-btn .dropdown-toggle {
+    -webkit-appearance: none !important;
 }
 
 
