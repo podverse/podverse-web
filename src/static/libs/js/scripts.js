@@ -6,6 +6,41 @@ window.restartAttempts = 0;
 window.lastPlaybackPosition = -1;
 window.endTimeHasBeenReached = false;
 
+// If user is a logged-in non-anonymous user, display different navbar buttons
+if (localStorage.getItem('nickname')) {
+  appendLoggedInUserNavButtons();
+} else {
+  appendNonLoggedInUserNavButtons();
+}
+
+function appendLoggedInUserNavButtons () {
+  $('#login-btn').addClass('btn-group');
+  var navButtonString =   '<a class="dropdown-toggle nav-link hidden-xs-down" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +  localStorage.getItem('nickname') +'</a>';
+      navButtonString +=  '<div class="dropdown-menu hidden-xs-down" aria-labelledby="dropdownMenu1">';
+      navButtonString +=    '<a class="dropdown-item" href="/my-clips">Clips</a>';
+      navButtonString +=    '<a class="dropdown-item" href="/my-playlists">Playlists</a>';
+      navButtonString +=    '<a class="dropdown-item" href="/recommended">Recommended</a>';
+      navButtonString +=    '<a class="dropdown-item" href="/settings">Settings</a>';
+      navButtonString +=    '<hr style="display: block;" />';
+      navButtonString +=    '<a class="dropdown-item" href="/logout">Logout</a>';
+      navButtonString +=  '</div>';
+
+  $('#login-btn').html(navButtonString);
+
+  var navMobileMenuString =   '<a class="nav-link hidden-sm-up" href="#">Clips</a>';
+      navMobileMenuString +=  '<a class="nav-link hidden-sm-up" href="#">Playlists</a>';
+      navMobileMenuString +=  '<a class="nav-link hidden-sm-up" href="#">Recommended</a>';
+      navMobileMenuString +=  '<a class="nav-link hidden-sm-up" href="#">Settings</a>';
+      navMobileMenuString +=  '<hr class="hidden-sm-up" />';
+      navMobileMenuString +=  '<a class="nav-link hidden-sm-up" href="#">Logout</a>';
+
+  $(navMobileMenuString).insertAfter('#login-btn');
+}
+
+function appendNonLoggedInUserNavButtons () {
+  $('#login-btn').html('<a class="nav-link" onclick="lock.show();">Login</a>');
+}
+
 function calcDuration (startTime, endTime) {
   if (endTime > startTime) {
     return endTime - startTime;

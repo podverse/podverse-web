@@ -104,6 +104,15 @@ function routes () {
     }
   })
 
+  .get('/login-redirect', function (req, res) {
+    // TODO: is this login + redirection a security vulnerability?
+    if (req.query.redirectTo) {
+      res.redirect(decodeURIComponent(req.query.redirectTo));
+    } else {
+      res.redirect('/');
+    }
+  })
+
 }
 
 module.exports = {routes};

@@ -531,16 +531,27 @@ footer p {
 
 
 
-/*** login.html styles ***/
-
-.form-signin {
-    max-width: 330px;
-    margin: 70px auto 40px auto;
+/*** Auth0 Lock Overrides ***/
+.auth0-lock-badge-bottom {
+    display: none !important;
 }
 
-#loginInputEmail, #loginInputPassword {
-    margin-bottom: 10px;
+.auth0-lock-name {
+    display: none !important;
 }
+
+.auth0-lock-header {
+    height: 50px !important;
+}
+
+.auth0-lock-header-logo {
+    display: none !important;
+}
+
+.auth0-lock-submit {
+    height: 58px !important;
+}
+
 
 
 /*** Bootstrap Overrides ***/
@@ -596,6 +607,10 @@ footer p {
     font-size: 0.8rem;
     padding-top: .55rem;
     padding-bottom: .55rem;
+    font-weight: 400;
+    color: #fcfcfc !important;
+    cursor: pointer;
+    text-align: right;
 }
 
 .navbar-nav .nav-item,
@@ -621,6 +636,21 @@ footer p {
     margin-top: 6px;
     margin-bottom: 0.5rem;
     border-color: #ccc;
+}
+
+#login-btn .dropdown-menu {
+    left: -66px;
+    margin: -2px 0 0 0;
+}
+
+#login-btn .dropdown-item {
+    color: #373a3c;
+    text-align: right;
+    font-size: 0.8rem;
+}
+
+#login-btn .dropdown-toggle {
+    -webkit-appearance: none !important;
 }
 
 

@@ -3,6 +3,14 @@
   <head>
     <title>Podverse</title>
 
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+
+    <link rel="stylesheet" href="/static/node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/node_modules/typeahead.js-bootstrap4-css/typeaheadjs.css">
+    <link rel="stylesheet" href="/static/node_modules/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/static/node_modules/mediaelement/build/mediaelementplayer.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+
     <script src="/static/node_modules/jquery/dist/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 
@@ -12,12 +20,6 @@
     </script>
 
     {% include "meta-tags.html" %}
-
-    <link rel="stylesheet" href="/static/node_modules/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/static/node_modules/typeahead.js-bootstrap4-css/typeaheadjs.css">
-    <link rel="stylesheet" href="/static/node_modules/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/static/node_modules/mediaelement/build/mediaelementplayer.css">
-    <link rel="stylesheet" href="/static/css/style.css">
 
   </head>
   <body>
@@ -31,12 +33,11 @@
           <div class="clearfix"></div>
           <div class="collapse navbar-toggleable-xs" id="collapsingNavbar">
             <ul class="nav navbar-nav">
-              <hr>
               <!-- TODO: add active class to currently selected nav-items -->
               <!-- TODO: add screenreader-only (sr-only) element to currently
               selected nav-items <span class="sr-only">(current)</span> -->
-              <li class="nav-item pull-xs-right">
-                <a class="nav-link" href="/login">Login</a>
+              <li id="login-btn" class="nav-item pull-xs-right">
+                <!-- content added in scripts.js -->
               </li>
               <!-- TODO: add a browsable playlists page
               <li class="nav-item pull-xs-right">
@@ -73,8 +74,14 @@
     <script src="/static/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="/static/node_modules/mediaelement/build/mediaelement-and-player.min.js"></script>
     <script src="/static/js/mejs_playbackrate_plugin.js"></script>
-    <script src="/static/js/scripts.js"></script>
+
+    <!-- Latest minor release -->
+    <script src="https://cdn.auth0.com/js/lock/10.2/lock.min.js"></script>
+    <!-- Latest patch release (recommended for production) -->
+    <!-- <script src="http://cdn.auth0.com/js/lock/10.x.y/lock.min.js"></script> -->
     <script src="/static/js/auth.js"></script>
+
+    <script src="/static/js/scripts.js"></script>
     <script src="/static/js/clipper.js"></script>
     <script src="/static/js/addPodcastModal.js"></script>
     <script src="/static/js/clipCreatedModal.js"></script>
