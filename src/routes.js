@@ -76,7 +76,29 @@ function routes () {
 
   .use('playlists', locator.get('PlaylistService'))
 
+  // Podcast Detail Page
+  .get('/podcasts/:id', (req, res) => {
+    const PodcastService = locator.get('PodcastService');
+    return PodcastService.get(req.params.id)
+      .then(podcast => {
+        res.render('podcast-page.html', podcast.dataValues);
+      }).catch(e => {
+        res.sendStatus(404);
+      });
+  })
+
   .use('podcasts', locator.get('PodcastService'))
+
+  // Episode Detail Page
+  .get('/episodes/:id', (req, res) => {
+    const EpisodeService = locator.get('EpisodeService');
+    return EpisodeService.get(req.params.id)
+      .then(episode => {
+        res.render('episode-page.html', episode.dataValues);
+      }).catch(e => {
+        res.sendStatus(404);
+      });
+  })
 
   .use('episodes', locator.get('EpisodeService'))
 

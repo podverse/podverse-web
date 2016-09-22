@@ -8,7 +8,7 @@ html, body {
 }
 
 body {
-    padding-top: 3.25rem;
+    padding-top: 50px;
 }
 
 h1 {
@@ -37,6 +37,10 @@ audio {
     display: inline-block;
     cursor: pointer;
     margin-left: 1rem;
+}
+
+.clickable-row {
+    cursor: pointer;
 }
 
 /*** layout.html styles ***/
@@ -84,7 +88,7 @@ a.footer-social-icon {
 #footer-links {
     clear: both;
     float: left;
-    font-size: 0.8rem;
+    font-size: 0.7rem;
     line-height: 1.5rem;
 }
 
@@ -243,13 +247,6 @@ footer p {
 
 #player-condensed-title {
     display: none;
-}
-
-#player-title {
-    clear: both;
-    font-size: 1.25rem;
-    line-height: 1.5rem;
-    font-weight: 500;
 }
 
 #player {
@@ -522,11 +519,105 @@ footer p {
 
 
 
-
-
 /*** clip-created-modal.html styles ***/
 #clip-created-modal-nav-btn, #clip-created-modal-copy-btn {
     width: 150px;
+}
+
+
+
+/*** podcast-header.html styles ***/
+#podcast-header {
+    padding: 1.25rem 0 1rem 0;
+    position: fixed;
+    background-color: white;
+    z-index: 1;
+    width: 100%;
+}
+
+#podcast-image {
+    float: left;
+    margin: 0 0.75rem 0 0;
+}
+
+#podcast-image img {
+    width: 4.75rem;
+    height: 4.75rem;
+}
+
+#podcast-text-container {
+    overflow: hidden;
+}
+
+#podcast-title {
+    font-size: 1rem;
+    line-height: 1.5rem;
+    font-weight: 500;
+}
+
+#podcast-sub-title {
+    font-size: 1rem;
+    line-height: 1.5rem;
+    font-weight: 300;
+}
+
+#podcast-condensed-title {
+    display: none;
+}
+
+#podcast-summary {
+    padding-top: 122px;
+    margin-bottom: 1rem;
+}
+
+
+
+/*** episode-header.html styles ***/
+#episode-header {
+    padding: 1.25rem 0 1rem 0;
+    position: fixed;
+    background-color: white;
+    z-index: 1;
+    width: 100%;
+}
+
+#episode-podcast-image {
+    float: left;
+    margin: 0 0.75rem 0 0;
+}
+
+#episode-podcast-image img {
+    width: 4.75rem;
+    height: 4.75rem;
+}
+
+#episode-text-container {
+    overflow: hidden;
+}
+
+#episode-title {
+    font-size: 1rem;
+    line-height: 1.5rem;
+    font-weight: 500;
+}
+
+#episode-title a {
+    color: #373a3c;
+}
+
+#episode-sub-title {
+    font-size: 1rem;
+    line-height: 1.5rem;
+    font-weight: 300;
+}
+
+#episode-condensed-title {
+    display: none;
+}
+
+#episode-image {
+    padding-top: 122px;
+    margin-bottom: 1rem;
 }
 
 

@@ -100,7 +100,7 @@ function readableDate (date) {
   // Thanks:) http://stackoverflow.com/questions/19485353/function-to-convert-timestamp-to-human-date-in-javascript
   var dateObj = new Date(date),
   year = dateObj.getFullYear(),
-  month = dateObj.getMonth(),
+  month = dateObj.getMonth() + 1,
   day = dateObj.getDate();
 
   return month+'/'+day+'/'+year;
