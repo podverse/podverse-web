@@ -14,22 +14,33 @@ if (localStorage.getItem('nickname')) {
 }
 
 function appendLoggedInUserNavButtons () {
+
   $('#login-btn').addClass('btn-group');
-  var navButtonString =   '<a class="dropdown-toggle nav-link hidden-xs-down" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +  localStorage.getItem('nickname') +'</a>';
-      navButtonString +=  '<div class="dropdown-menu hidden-xs-down" aria-labelledby="dropdownMenu1">';
-      navButtonString +=    '<a class="dropdown-item" href="/my-clips">Clips</a>';
-      navButtonString +=    '<a class="dropdown-item" href="/my-playlists">Playlists</a>';
-      navButtonString +=    '<a class="dropdown-item" href="/recommended">Recommended</a>';
-      navButtonString +=    '<a class="dropdown-item" href="/settings">Settings</a>';
-      navButtonString +=    '<hr style="display: block;" />';
-      navButtonString +=    '<a class="dropdown-item" href="/logout">Logout</a>';
-      navButtonString +=  '</div>';
 
-  $('#login-btn').html(navButtonString);
+  var navDropdownButtonString =   '<a class="dropdown-toggle nav-link hidden-xs-down" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +  localStorage.getItem('nickname') +'</a>';
+      navDropdownButtonString +=  '<div class="dropdown-menu hidden-xs-down" aria-labelledby="dropdownMenu1">';
+      navDropdownButtonString +=    '<a class="dropdown-item" href="/settings">Settings</a>';
+      navDropdownButtonString +=    '<hr style="display: block;" />';
+      navDropdownButtonString +=    '<a class="dropdown-item" href="/logout">Logout</a>';
+      navDropdownButtonString +=  '</div>';
 
-  var navMobileMenuString =   '<a class="nav-link hidden-sm-up" href="#">Clips</a>';
+  $('#login-btn').html(navDropdownButtonString);
+
+  var navButtonString =   '<li class="nav-item">';
+      navButtonString +=    '<a class="nav-link hidden-xs-down" href="#">Podcasts</a>';
+      navButtonString +=  '</li>';
+      navButtonString +=  '<li class="nav-item">';
+      navButtonString +=    '<a class="nav-link hidden-xs-down" href="#">Clips</a>';
+      navButtonString +=  '</li>';
+      navButtonString +=  '<li class="nav-item">';
+      navButtonString +=    '<a class="nav-link hidden-xs-down" href="#">Playlists</a>';
+      navButtonString +=  '</li>';
+
+  $(navButtonString).insertAfter('#login-btn');
+
+  var navMobileMenuString =   '<a class="nav-link hidden-sm-up" href="#">Podcasts</a>';
+      navMobileMenuString +=  '<a class="nav-link hidden-sm-up" href="#">Clips</a>';
       navMobileMenuString +=  '<a class="nav-link hidden-sm-up" href="#">Playlists</a>';
-      navMobileMenuString +=  '<a class="nav-link hidden-sm-up" href="#">Recommended</a>';
       navMobileMenuString +=  '<a class="nav-link hidden-sm-up" href="#">Settings</a>';
       navMobileMenuString +=  '<hr class="hidden-sm-up">';
       navMobileMenuString +=  '<a class="nav-link hidden-sm-up" href="#">Logout</a>';
@@ -89,7 +100,7 @@ function readableDate (date) {
   // Thanks:) http://stackoverflow.com/questions/19485353/function-to-convert-timestamp-to-human-date-in-javascript
   var dateObj = new Date(date),
   year = dateObj.getFullYear(),
-  month = dateObj.getMonth() + 1,
+  month = dateObj.getMonth(),
   day = dateObj.getDate();
 
   return month+'/'+day+'/'+year;
