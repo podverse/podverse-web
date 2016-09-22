@@ -242,16 +242,20 @@ function setPlayerInfo () {
 
   if (isEpisode === false) {
     var duration = calcDuration(startTime, endTime);
-
     $('#player-stats-duration').html(convertSecToHHMMSS(startTime) + ' to ' + convertSecToHHMMSS(endTime));
-    $('#player-condensed-title').html(description);
+    $('#player-condensed-sub-title').html(description);
   } else {
-    $('#player-stats-duration').html('Full Episode: ' + convertSecToHHMMSS(episodeDuration));
-    $('#player-condensed-title').html(episodeTitle);
+    $('#player-stats-duration').html('Full Episode');
+    $('#player-condensed-sub-title').html(episodeTitle);
   }
 
-  $('#player-podcast-title').html(podcastTitle);
+  $('#player-condensed-title a').html(podcastTitle);
+  $('#player-condensed-title a').attr('href', '/podcasts/' + podcastId);
+
+  $('#player-podcast-title a').attr('href', '/podcasts/' + podcastId);
+  $('#player-podcast-title a').html(podcastTitle);
   $('#player-sub-title').html(episodeTitle);
+  $('#player-image a').attr('href', '/podcasts/' + podcastId);
   $('#player-image img').attr('src', podcastImageURL);
   $('#player-stats-pub-date').html(readableDate(episodePubDate));
 
@@ -262,6 +266,7 @@ function setPlayerInfo () {
   $('#toggle-share-btn').html('<i class="fa fa-share"></i>');
   $('<hr>').insertAfter('#player-functions');
   $('#player-description').html(description);
+  $('#player-episode-image').html('<img src="' + episodeImageURL + '" class="img-fluid">');
 
   window.restartAttempts = 0;
   window.lastPlaybackPosition = -1;

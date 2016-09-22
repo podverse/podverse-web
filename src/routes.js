@@ -94,7 +94,7 @@ function routes () {
     const EpisodeService = locator.get('EpisodeService');
     return EpisodeService.get(req.params.id)
       .then(episode => {
-        res.render('episode-page.html', episode.dataValues);
+        res.render('player-page.html', episode.dataValues);
       }).catch(e => {
         res.sendStatus(404);
       });

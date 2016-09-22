@@ -75,6 +75,7 @@ function toggleMakeClipWidget () {
   $('#toggle-make-clip-btn').toggleClass('active');
   $('#player-stats').toggle();
   $('#player-description').toggle();
+  $('#player-episode-image').toggle();
   $('#make-clip').toggle();
 }
 

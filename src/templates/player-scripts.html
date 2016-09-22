@@ -46,12 +46,31 @@
     window.episodeTitle = "{{ episode.title }}";
     window.episodeMediaURL = "{{ episode.mediaURL }}";
     window.episodePubDate = "{{ episode.pubDate }}";
+    window.episodeImageURL = "{{ episode.imageURL }}";
     window.startTime = "{{ startTime }}";
     window.endTime = "{{ endTime }}";
     window.isEpisode = false;
 
     // TODO: is this a security vulnerability?
     window.description = "{{ description|nl2br }}";
+    window.description = $('<textarea />').html(description).text();
+
+  // If there's a podcast property, then set the window vars for the episode page.
+  {% elif podcast %}
+    window.podcastId = "{{ podcast.id }}";
+    window.podcastTitle = "{{ podcast.title }}";
+    window.podcastImageURL = "{{ podcast.imageURL }}";
+    window.episodeId = "{{ id }}";
+    window.episodeTitle = "{{ title }}";
+    window.episodeMediaURL = "{{ mediaURL }}";
+    window.episodePubDate = "{{ pubDate }}";
+    window.episodeImageURL = "{{ imageURL }}";
+    window.startTime = 0;
+    window.endTime = null;
+    window.isEpisode = true;
+
+    // TODO: is this a security vulnerability?
+    window.description = "{{ summary|nl2br }}";
     window.description = $('<textarea />').html(description).text();
   {% endif %}
 
