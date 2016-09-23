@@ -3,8 +3,8 @@
     {% for episode in episodes %}
       <!-- Thanks:) http://stackoverflow.com/questions/17147821/how-to-make-a-whole-row-in-a-table-clickable-as-a-link  -->
       <tr class="clickable-row" data-href="/episodes/{{episode.id}}">
-        <td class="col-xs-10" scope="row">{{episode.title}}</td>
-        <td class="col-xs-2">{{episode.pubDate | readableDate}}</td>
+        <td class="col-xs-9" scope="row">{{episode.title}}</td>
+        <td class="col-xs-3">{{episode.pubDate | readableDate}}</td>
       </tr>
     {% endfor %}
   </tbody>

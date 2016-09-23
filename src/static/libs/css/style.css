@@ -43,6 +43,10 @@ audio {
     cursor: pointer;
 }
 
+.clickable-row .col-xs-3 {
+    text-align: right;
+}
+
 /* fixes for height differences when clamp truncation is applied to elements */
 .playlist-item-podcast-title, .playlist-item-sub-title,
 #player-condensed-title, #player-condensed-sub-title {
@@ -55,6 +59,21 @@ audio {
 
 
 /*** layout.html styles ***/
+
+#navbar-search-icon {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    margin-right: -0.75rem;
+}
+
+#navbar-search-icon-xs {
+    float: right;
+    padding: 0.25rem 1rem;
+    margin-right: 0.25rem;
+    line-height: 19px;
+    font-size: 18px;
+    cursor: pointer;
+}
 
 #keep-footer-on-bottom {
     min-height: 100%;
@@ -616,6 +635,13 @@ footer p {
 
 
 
+/*** Typeahead Overrides ***/
+.tt-suggestion {
+    cursor: pointer;
+}
+
+
+
 /*** Bootstrap Overrides ***/
 
 .form-group.required .control-label:after {
@@ -714,8 +740,6 @@ footer p {
 #login-btn .dropdown-toggle {
     -webkit-appearance: none !important;
 }
-
-
 
 /*** MediaElement.js overrides ***/
 

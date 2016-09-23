@@ -30,6 +30,9 @@
           <button class="navbar-toggler hidden-sm-up pull-xs-right" type="button" data-toggle="collapse" data-target="#collapsingNavbar">
             &#9776;
           </button>
+          <a id="navbar-search-icon-xs" href="#" data-toggle="modal" data-target="#navbarSearchModal">
+            <i class="fa fa-search"></i>
+          </a>
           <a class="navbar-brand" href="/">Podverse</a>
           <div class="clearfix"></div>
           <div class="collapse navbar-toggleable-xs" id="collapsingNavbar">
@@ -69,12 +72,16 @@
           </div>
         </div>
       </footer>
+
+      {% include "navbar-search-modal.html" %}
     </div>
 
     <script src="/static/node_modules/tether/dist/js/tether.min.js"></script>
     <script src="/static/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="/static/node_modules/mediaelement/build/mediaelement-and-player.min.js"></script>
     <script src="/static/js/mejs_playbackrate_plugin.js"></script>
+
+    <script src="/static/node_modules/typeahead.js/dist/typeahead.bundle.min.js"></script>
 
     <!-- Latest minor release -->
     <script src="https://cdn.auth0.com/js/lock/10.2/lock.min.js"></script>
@@ -101,6 +108,8 @@
       }
 
       addPlaylistItemTextTruncation();
+
+      loadPodcastSearchTypeahead();
     </script>
 
   </body>

@@ -27,6 +27,9 @@ function appendLoggedInUserNavButtons () {
   $('#login-btn').html(navDropdownButtonString);
 
   var navButtonString =   '<li class="nav-item">';
+      navButtonString +=    '<a id="navbar-search-icon" class="nav-link hidden-xs-down" href="#" data-toggle="modal" data-target="#navbarSearchModal"><i class="fa fa-search"></i></a>';
+      navButtonString +=  '</li>';
+      navButtonString +=   '<li class="nav-item">';
       navButtonString +=    '<a class="nav-link hidden-xs-down" href="#">Podcasts</a>';
       navButtonString +=  '</li>';
       navButtonString +=  '<li class="nav-item">';
@@ -182,6 +185,29 @@ function addPlaylistItemTextTruncation() {
     $clamp(playlistItemSubTitle[0], {clamp: 1});
     $clamp(playlistItemDetails[0], {clamp: '57px'});
   }
+}
+
+function loadPodcastSearchTypeahead() {
+  var podcastResults = new Bloodhound({
+    datumTokenizer: Bloodhound.tokenizers.obj.whitespace('title'),
+    queryTokenizer: Bloodhound.tokenizers.whitespace,
+    remote: {
+      url: 'http://localhost:8080/podcasts?title=%QUERY',
+      wildcard: '%QUERY'
+    }
+  });
+
+  $('#navbarSearchModalInput').typeahead({
+    hint: false,
+    highlight: true,
+    minLength: 1
+  }, {
+    name: 'podcasts',
+    display: 'title',
+    source: podcastResults
+  }).on('typeahead:selected typeahead:autocomplete', function (event, selection) {
+    window.location.href = '/podcasts/' + selection.id;
+  });
 }
 
 // Podcast / Episode / Clip variables added to the window
