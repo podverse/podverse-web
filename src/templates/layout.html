@@ -13,6 +13,7 @@
 
     <script src="/static/node_modules/jquery/dist/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+    <script src="/static/node_modules/clamp-js/clamp.js"></script>
 
     <!-- TODO: This is weird, gotta be a better way. -->
     <script>
@@ -98,6 +99,8 @@
         onScrollCondensePlayerView();
         initClipper();
       }
+
+      addPlaylistItemTextTruncation();
     </script>
 
   </body>

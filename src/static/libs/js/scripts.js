@@ -171,6 +171,19 @@ function isUUID (val) {
   return pattern.test(val);
 }
 
+function addPlaylistItemTextTruncation() {
+  var playlistItems = document.getElementsByClassName('playlist-item');
+
+  for (var i = 0; i < playlistItems.length; i++) {
+    var playlistItemPodcastTitle = playlistItems[i].getElementsByClassName('playlist-item-podcast-title');
+    var playlistItemSubTitle = playlistItems[i].getElementsByClassName('playlist-item-sub-title');
+    var playlistItemDetails = playlistItems[i].getElementsByClassName('playlist-item-details');
+    $clamp(playlistItemPodcastTitle[0], {clamp: 1});
+    $clamp(playlistItemSubTitle[0], {clamp: 1});
+    $clamp(playlistItemDetails[0], {clamp: '57px'});
+  }
+}
+
 // Podcast / Episode / Clip variables added to the window
 // object in player.html
 
@@ -237,6 +250,11 @@ function setPlayerInfo () {
     isEpisode = false;
     endTime = parseInt(window.endTime)
   }
+
+  $clamp(document.getElementById('player-condensed-title'), {clamp: 1});
+  $clamp(document.getElementById('player-condensed-sub-title'), {clamp: 1});
+  $clamp(document.getElementById('player-podcast-title'), {clamp: 1});
+  $clamp(document.getElementById('player-sub-title'), {clamp: 1});
 
   $('#player-header').show();
 

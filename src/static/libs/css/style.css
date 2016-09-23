@@ -43,6 +43,17 @@ audio {
     cursor: pointer;
 }
 
+/* fixes for height differences when clamp truncation is applied to elements */
+.playlist-item-podcast-title, .playlist-item-sub-title,
+#player-condensed-title, #player-condensed-sub-title {
+    min-height: 21px;
+}
+
+#player-podcast-title, #player-sub-title {
+    min-height: 24px;
+}
+
+
 /*** layout.html styles ***/
 
 #keep-footer-on-bottom {
@@ -250,7 +261,7 @@ footer p {
 }
 
 #player-condensed-title, #player-condensed-sub-title {
-    display: none;
+    display: none !important;
 }
 
 #player {
@@ -347,7 +358,7 @@ footer p {
 }
 
 .player-condensed #player-condensed-title {
-    display: block;
+    display: -webkit-box !important;
     font-weight: 500;
     font-size: 14px;
 }
@@ -357,16 +368,16 @@ footer p {
 }
 
 .player-condensed #player-condensed-sub-title {
-    display: block;
+    display: -webkit-box !important;
     font-size: 14px;
 }
 
 .player-condensed #player-podcast-title {
-    display: none;
+    display: none !important;
 }
 
 .player-condensed #player-sub-title {
-    display: none;
+    display: none !important;
 }
 
 .player-condensed #player {
