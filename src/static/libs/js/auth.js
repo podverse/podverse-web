@@ -45,6 +45,12 @@ var clientId = '',
 var lock = new Auth0Lock(clientId, domain, options);
 
 lock.on('authenticated', function (authResult) {
+  // Remove # from end of url
+  window.location.replace("#");
+  if (typeof window.history.replaceState == 'function') {
+    history.replaceState({}, '', window.location.href.slice(0, -1));
+  }
+
   lock.getProfile(authResult.idToken, function (error, profile) {
 
     if (error) {
@@ -53,12 +59,17 @@ lock.on('authenticated', function (authResult) {
       return;
     }
 
-    // TODO: must make this a secure cookie...don't we need to run the app
-    // on https://localhost to do that?
+    // Remove the anonymous user idToken first
+    $.removeCookie('idToken');
+
+    // TODO: must make this a secure cookie...would we need to run the app
+    // on https://localhost to develop?
     // $.cookie('idToken', data.idToken, { secure:true });
     $.cookie('idToken', authResult.idToken, { secure:false });
 
     saveUserProfileToLocalStorage(profile);
+
+    appendLoggedInUserNavButtons();
   })
 });
 
@@ -72,4 +83,10 @@ function removeUserProfileFromLocalStorage () {
   localStorage.removeItem('email');
   localStorage.removeItem('nickname');
   localStorage.removeItem('picture');
+}
+
+function logoutUser () {
+  $.removeCookie('idToken');
+  removeUserProfileFromLocalStorage();
+  location.reload();
 }

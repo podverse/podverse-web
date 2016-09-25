@@ -6,11 +6,15 @@ window.restartAttempts = 0;
 window.lastPlaybackPosition = -1;
 window.endTimeHasBeenReached = false;
 
-// If user is a logged-in non-anonymous user, display different navbar buttons
-if (localStorage.getItem('nickname')) {
-  appendLoggedInUserNavButtons();
-} else {
-  appendNonLoggedInUserNavButtons();
+// If an access_token is provided in the URL, then append nav buttons in the on
+// authenticated event instead of on page load.
+if (location.href.indexOf('#access_token') === -1) {
+  // If user is a logged-in user, display different navbar buttons
+  if (localStorage.getItem('nickname')) {
+    appendLoggedInUserNavButtons();
+  } else {
+    appendNonLoggedInUserNavButtons();
+  }
 }
 
 function appendLoggedInUserNavButtons () {
@@ -21,19 +25,16 @@ function appendLoggedInUserNavButtons () {
       navDropdownButtonString +=  '<div class="dropdown-menu hidden-xs-down" aria-labelledby="dropdownMenu1">';
       navDropdownButtonString +=    '<a class="dropdown-item" href="/settings">Settings</a>';
       navDropdownButtonString +=    '<hr style="display: block;" />';
-      navDropdownButtonString +=    '<a class="dropdown-item" href="/logout">Logout</a>';
+      navDropdownButtonString +=    '<a class="dropdown-item" onclick="logoutUser();">Logout</a>';
       navDropdownButtonString +=  '</div>';
 
   $('#login-btn').html(navDropdownButtonString);
 
   var navButtonString =   '<li class="nav-item">';
-      navButtonString +=    '<a id="navbar-search-icon" class="nav-link hidden-xs-down" href="#" data-toggle="modal" data-target="#navbarSearchModal"><i class="fa fa-search"></i></a>';
+      navButtonString +=    '<a id="navbar-search-icon" class="nav-link hidden-xs-down" data-toggle="modal" data-target="#navbarSearchModal"><i class="fa fa-search"></i></a>';
       navButtonString +=  '</li>';
       navButtonString +=   '<li class="nav-item">';
       navButtonString +=    '<a class="nav-link hidden-xs-down" href="#">Podcasts</a>';
-      navButtonString +=  '</li>';
-      navButtonString +=  '<li class="nav-item">';
-      navButtonString +=    '<a class="nav-link hidden-xs-down" href="#">Clips</a>';
       navButtonString +=  '</li>';
       navButtonString +=  '<li class="nav-item">';
       navButtonString +=    '<a class="nav-link hidden-xs-down" href="#">Playlists</a>';
@@ -42,17 +43,22 @@ function appendLoggedInUserNavButtons () {
   $(navButtonString).insertAfter('#login-btn');
 
   var navMobileMenuString =   '<a class="nav-link hidden-sm-up" href="#">Podcasts</a>';
-      navMobileMenuString +=  '<a class="nav-link hidden-sm-up" href="#">Clips</a>';
       navMobileMenuString +=  '<a class="nav-link hidden-sm-up" href="#">Playlists</a>';
       navMobileMenuString +=  '<a class="nav-link hidden-sm-up" href="#">Settings</a>';
       navMobileMenuString +=  '<hr class="hidden-sm-up">';
-      navMobileMenuString +=  '<a class="nav-link hidden-sm-up" href="#">Logout</a>';
+      navMobileMenuString +=  '<a class="nav-link hidden-sm-up" onclick="logoutUser();">Logout</a>';
 
   $(navMobileMenuString).insertAfter('#login-btn');
 }
 
 function appendNonLoggedInUserNavButtons () {
-  $('#login-btn').html('<a class="nav-link" onclick="lock.show();">Login</a>');
+  var searchButtonString =   '<li class="nav-item">';
+      searchButtonString +=    '<a id="navbar-search-icon" class="nav-link hidden-xs-down" data-toggle="modal" data-target="#navbarSearchModal"><i class="fa fa-search"></i></a>';
+      searchButtonString +=  '</li>';
+  $(searchButtonString).insertBefore('#login-btn');
+
+  var loginButtonString = '<a class="nav-link" onclick="lock.show();">Login</a>';
+  $('#login-btn').html(loginButtonString);
 }
 
 function calcDuration (startTime, endTime) {
