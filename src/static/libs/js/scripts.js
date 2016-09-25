@@ -187,17 +187,10 @@ function addPlaylistItemTextTruncation() {
     var playlistItemPodcastTitle = playlistItems[i].getElementsByClassName('playlist-item-podcast-title');
     var playlistItemSubTitle = playlistItems[i].getElementsByClassName('playlist-item-sub-title');
     var playlistItemDetails = playlistItems[i].getElementsByClassName('playlist-item-details');
-    $clamp(playlistItemPodcastTitle[0], {clamp: 1});
-    $clamp(playlistItemSubTitle[0], {clamp: 1});
-    $clamp(playlistItemDetails[0], {clamp: '57px'});
-
-    // Show the playlist item only after truncation is applied
-    playlistItems[i].style.display = 'block';
+    $(playlistItemPodcastTitle[0]).truncate({ lines: 1 });
+    $(playlistItemSubTitle[0]).truncate({ lines: 1 });
+    $(playlistItemDetails[0]).truncate({ lines: 3 });
   }
-
-  // Show pagination only after truncation is applied
-  var pag = document.getElementsByClassName('pv-pagination');
-  if (pag.length > 0) { pag[0].style.display = 'block' }
 }
 
 function loadPodcastSearchTypeahead() {
@@ -281,6 +274,15 @@ function previewEndTime (endTime) {
   audio.play();
 }
 
+// Note: Truncation will fail if you attempt to use it on an element with display:none
+function truncateCondensedPlayerText () {
+  $('#player-condensed-title').truncate({ lines: 1 });
+  $('#player-condensed-sub-title').truncate({ lines: 1 });
+  $('#player-condensed-clip-title').truncate({ lines: 1 });
+  $('#player-condensed-podcast-title').truncate({ lines: 1 });
+  $('#player-condensed-sub-title').truncate({ lines: 1 });
+}
+
 function setPlayerInfo () {
 
   if (window.startTime === 0 && window.endTime === null) {
@@ -289,12 +291,6 @@ function setPlayerInfo () {
     isEpisode = false;
     endTime = parseInt(window.endTime)
   }
-
-  $clamp(document.getElementById('player-condensed-title'), {clamp: 1});
-  $clamp(document.getElementById('player-condensed-sub-title'), {clamp: 1});
-  $clamp(document.getElementById('player-condensed-clip-title'), {clamp: 1});
-  $clamp(document.getElementById('player-podcast-title'), {clamp: 1});
-  $clamp(document.getElementById('player-sub-title'), {clamp: 1});
 
   $('#player-header').show();
 
@@ -507,6 +503,7 @@ function onScrollCondensePlayerView () {
     if($(window).scrollTop() > (bottomOfPlayer)){
      $("#player-container").addClass('player-condensed');
      $('html').attr('style', 'padding-top: ' + bottomOfPlayerContainer + 'px;' );
+     truncateCondensedPlayerText();
     }
     else{
      $("#player-container").removeClass('player-condensed');

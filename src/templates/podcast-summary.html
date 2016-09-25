@@ -1,3 +1,12 @@
-<div id="podcast-summary">
-  {{ summary }}
+<div id="podcast-summary" style="height: 50px;">
+  <div class="clamp" style="max-height: 50px;">
+    {{ summary }}
+  </div>
 </div>
+
+<script>
+$clamp(document.querySelector('#podcast-summary .clamp'), {
+  clamp: 'auto',
+  useNativeClamp: false
+});
+</script>

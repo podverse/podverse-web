@@ -24,7 +24,6 @@ audio {
 }
 
 .pv-pagination {
-    display: none;
     text-align: right;
     margin: 1.5rem 0 0 0;
 }
@@ -390,7 +389,7 @@ footer p {
 }
 
 .player-condensed #player-condensed-title {
-    display: -webkit-box !important;
+    display: block !important;
     font-weight: 500;
     font-size: 14px;
 }
@@ -400,20 +399,20 @@ footer p {
 }
 
 .player-condensed #player-condensed-sub-title {
-    display: -webkit-box !important;
+    display: block !important;
     font-size: 14px;
 }
 
 .player-condensed #player-condensed-clip-time {
-    display: -webkit-box !important;
+    display: block !important;
     font-size: 14px;
     clear: both;
-    margin: 10px 1rem -5px 0;
-    float: left;
+    margin: 10px 0rem -5px 0.5rem;
+    float: right;
 }
 
 .player-condensed #player-condensed-clip-title {
-    display: -webkit-box !important;
+    display: block !important;
     font-size: 14px;
     margin: 12px 0 -5px 0;
 }
@@ -536,7 +535,6 @@ footer p {
     clear: both;
     font-size: 14px;
     cursor: pointer;
-    display: none; /* show item only after truncation js is applied */
 }
 
 .playlist-item-inner {
