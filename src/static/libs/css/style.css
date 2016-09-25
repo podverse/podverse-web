@@ -50,13 +50,15 @@ audio {
 
 /* fixes for height differences when clamp truncation is applied to elements */
 .playlist-item-podcast-title, .playlist-item-sub-title,
-#player-condensed-title, #player-condensed-sub-title {
+#player-condensed-title, #player-condensed-sub-title,
+#player-condensed-clip-title {
     min-height: 21px;
 }
 
 #player-podcast-title, #player-sub-title {
     min-height: 24px;
 }
+
 
 
 /*** layout.html styles ***/
@@ -74,6 +76,7 @@ audio {
     line-height: 19px;
     font-size: 18px;
     cursor: pointer;
+    color: #fcfcfc;
 }
 
 #keep-footer-on-bottom {
@@ -124,7 +127,7 @@ a.footer-social-icon {
 }
 
 #footer-links a {
-    margin-right: 1rem;
+    margin-right: 1.25rem;
 }
 
 #footer-license {
@@ -288,7 +291,8 @@ footer p {
     font-weight: 300;
 }
 
-#player-condensed-title, #player-condensed-sub-title {
+#player-condensed-title, #player-condensed-sub-title,
+#player-condensed-clip-title, #player-condensed-clip-time {
     display: none !important;
 }
 
@@ -398,6 +402,20 @@ footer p {
 .player-condensed #player-condensed-sub-title {
     display: -webkit-box !important;
     font-size: 14px;
+}
+
+.player-condensed #player-condensed-clip-time {
+    display: -webkit-box !important;
+    font-size: 14px;
+    clear: both;
+    margin: 10px 1rem -5px 0;
+    float: left;
+}
+
+.player-condensed #player-condensed-clip-title {
+    display: -webkit-box !important;
+    font-size: 14px;
+    margin: 12px 0 -5px 0;
 }
 
 .player-condensed #player-podcast-title {

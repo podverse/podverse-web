@@ -292,6 +292,7 @@ function setPlayerInfo () {
 
   $clamp(document.getElementById('player-condensed-title'), {clamp: 1});
   $clamp(document.getElementById('player-condensed-sub-title'), {clamp: 1});
+  $clamp(document.getElementById('player-condensed-clip-title'), {clamp: 1});
   $clamp(document.getElementById('player-podcast-title'), {clamp: 1});
   $clamp(document.getElementById('player-sub-title'), {clamp: 1});
 
@@ -300,14 +301,15 @@ function setPlayerInfo () {
   if (isEpisode === false) {
     var duration = calcDuration(startTime, endTime);
     $('#player-stats-duration').html(convertSecToHHMMSS(startTime) + ' to ' + convertSecToHHMMSS(endTime));
-    $('#player-condensed-sub-title').html(description);
+    $('#player-condensed-clip-time').html('1:23:45 to 1:27:20');
+    $('#player-condensed-clip-title').html(description);
   } else {
     $('#player-stats-duration').html('Full Episode');
-    $('#player-condensed-sub-title').html(episodeTitle);
   }
 
   $('#player-condensed-title a').html(podcastTitle);
   $('#player-condensed-title a').attr('href', '/podcasts/' + podcastId);
+  $('#player-condensed-sub-title').html(episodeTitle);
 
   $('#player-podcast-title a').attr('href', '/podcasts/' + podcastId);
   $('#player-podcast-title a').html(podcastTitle);
@@ -456,7 +458,7 @@ function toggleAutoplay () {
   var autoplay = $.cookie('autoplay');
   if (autoplay !== 'On') {
     $.cookie('autoplay', 'On');
-    $('#player-autoplay').html('Autoplay On');
+    $('#player-autoplay').html('<span style="font-weight: 500">Autoplay On</span>');
   } else {
     $.cookie('autoplay', 'Off');
     $('#player-autoplay').html('Autoplay Off');
@@ -466,7 +468,7 @@ function toggleAutoplay () {
 function createAutoplayBtn () {
   var autoplay = $.cookie('autoplay');
   if (autoplay === 'On') {
-    $('#player-autoplay').html('Autoplay On');
+    $('#player-autoplay').html('<span style="font-weight: 500">Autoplay On</span>');
   } else {
     $.cookie('autoplay', 'Off');
     $('#player-autoplay').html('Autoplay Off');
