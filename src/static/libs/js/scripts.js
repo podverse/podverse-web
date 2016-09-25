@@ -184,7 +184,14 @@ function addPlaylistItemTextTruncation() {
     $clamp(playlistItemPodcastTitle[0], {clamp: 1});
     $clamp(playlistItemSubTitle[0], {clamp: 1});
     $clamp(playlistItemDetails[0], {clamp: '57px'});
+
+    // Show the playlist item only after truncation is applied
+    playlistItems[i].style.display = 'block';
   }
+
+  // Show pagination only after truncation is applied
+  var pag = document.getElementsByClassName('pv-pagination');
+  if (pag.length > 0) { pag[0].style.display = 'block' }
 }
 
 function loadPodcastSearchTypeahead() {

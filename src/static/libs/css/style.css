@@ -24,6 +24,7 @@ audio {
 }
 
 .pv-pagination {
+    display: none;
     text-align: right;
     margin: 1.5rem 0 0 0;
 }
@@ -135,6 +136,14 @@ a.footer-social-icon {
 
 footer p {
     margin-bottom: 0.5rem;
+}
+
+
+
+/*** #navbarSearchModal styles ***/
+#navbarSearchModalAddPodcast {
+    float: right;
+    font-size: 14px;
 }
 
 
@@ -509,6 +518,7 @@ footer p {
     clear: both;
     font-size: 14px;
     cursor: pointer;
+    display: none; /* show item only after truncation js is applied */
 }
 
 .playlist-item-inner {
@@ -640,6 +650,10 @@ footer p {
     cursor: pointer;
 }
 
+.tt-menu {
+    width: 100%;
+}
+
 
 
 /*** Bootstrap Overrides ***/
@@ -724,6 +738,10 @@ footer p {
     margin-top: 6px;
     margin-bottom: 0.5rem;
     border-color: #ccc;
+}
+
+.modal {
+    top: 41px;
 }
 
 #login-btn .dropdown-menu {

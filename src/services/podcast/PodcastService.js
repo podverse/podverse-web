@@ -41,6 +41,14 @@ class PodcastService extends SequelizeService {
           }
         }
       }
+    // Search for podcast by feedURL
+    } else if (typeof params.query !== 'undefined' && typeof params.query.feedURL !== 'undefined' && params.query.feedURL.length > 0) {
+      params.sequelize = {
+        attributes: ['id', 'title'],
+        where: {
+          feedURL: params.query.feedURL
+        }
+      }
     } else {
       throw new errors.GeneralError(`You must provide a search query.`)
     }
