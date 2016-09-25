@@ -191,6 +191,8 @@ function addPlaylistItemTextTruncation() {
     $(playlistItemSubTitle[0]).truncate({ lines: 1 });
     $(playlistItemDetails[0]).truncate({ lines: 3 });
   }
+
+  $('#hide-until-truncation-finishes').hide();
 }
 
 function loadPodcastSearchTypeahead() {

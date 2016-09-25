@@ -45,6 +45,12 @@
         </div><!-- /.navbar-inner -->
       </nav>
 
+      <!-- Puts a white overlay over body elements. This is here because elements
+      cannot be truncated while they have display:none, yet we don't want to
+      show these elements before they have finished being truncated. -->
+      <div id="hide-until-truncation-finishes">
+      </div>
+
       <div class="container padding-for-footer">
         {% block body %}{% endblock %}
       </div>
