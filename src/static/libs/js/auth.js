@@ -70,8 +70,20 @@ lock.on('authenticated', function (authResult) {
     saveUserProfileToLocalStorage(profile);
 
     appendLoggedInUserNavButtons();
+
+    findOrCreateUserOnServer();
   })
 });
+
+function findOrCreateUserOnServer () {
+  $.ajax({
+    beforeSend: function (request) {
+      request.setRequestHeader('Authorization', $.cookie('idToken'));
+    },
+    type: 'POST',
+    url: '/users'
+  });
+}
 
 function saveUserProfileToLocalStorage (profile) {
   localStorage.setItem('email', profile.email);

@@ -20,7 +20,7 @@ function processJWTIfExists (req, res, next) {
     const verifiedJwt = nJwt.verify(token, config.jwtSigningKey);
     req.feathers.userId = verifiedJwt.body.sub;
   } catch (e) {
-    throw new errors.NotAuthenticated()
+    throw new errors.NotAuthenticated();
   }
 
   next();

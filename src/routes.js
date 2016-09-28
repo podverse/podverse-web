@@ -126,6 +126,8 @@ function routes () {
     }
   })
 
+  .use('users', locator.get('UserService'))
+
   .get('/login-redirect', function (req, res) {
     // TODO: is this login + redirection a security vulnerability?
     if (req.query.redirectTo) {
