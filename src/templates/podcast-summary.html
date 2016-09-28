@@ -1,12 +1,7 @@
-<div id="podcast-summary" style="height: 50px;">
-  <div class="clamp" style="max-height: 50px;">
-    {{ summary }}
-  </div>
+<div id="podcast-summary">
+  {{ summary }}
 </div>
 
 <script>
-$clamp(document.querySelector('#podcast-summary .clamp'), {
-  clamp: 'auto',
-  useNativeClamp: false
-});
+  $('#podcast-summary').truncate({ lines: 4 });
 </script>

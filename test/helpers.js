@@ -7,6 +7,7 @@ const
     EpisodeService = require('services/episode/EpisodeService.js'),
     PlaylistService = require('services/playlist/PlaylistService.js'),
     ClipService = require('services/clip/ClipService.js'),
+    UserService = require('services/user/UserService.js'),
     nJwt = require('njwt'),
     config = require('config.js');
 
@@ -36,6 +37,7 @@ function createTestApp (Models) {
   locator.set('ClipService', new ClipService());
   locator.set('PodcastService', new PodcastService());
   locator.set('EpisodeService', new EpisodeService());
+  locator.set('UserService', new UserService());
   return appFactory();
 }
 

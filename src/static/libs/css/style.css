@@ -79,8 +79,12 @@ audio {
 }
 
 #keep-footer-on-bottom {
-    min-height: 100%;
     position: relative;
+
+    /* Hack: make the scroll bar of the browser load on every page, even before
+    content renders, to prevent the UI from resizing when the content finishes
+    loading and the browser's scroll bar appears. */
+    min-height: 101%;
 }
 
 #hide-until-truncation-finishes {
@@ -414,9 +418,9 @@ footer p {
 
 .player-condensed #player-condensed-clip-time {
     display: block !important;
-    font-size: 14px;
+    font-size: 12px;
     clear: both;
-    margin: 10px 0rem -5px 0.5rem;
+    margin: 13px 0rem -5px 0.5rem;
     float: right;
 }
 
@@ -770,6 +774,11 @@ footer p {
     margin-top: 6px;
     margin-bottom: 0.5rem;
     border-color: #ccc;
+}
+
+body.modal-open {
+    overflow: inherit;
+    padding-right: inherit !important;
 }
 
 .modal {
