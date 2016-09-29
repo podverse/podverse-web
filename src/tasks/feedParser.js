@@ -127,7 +127,7 @@ function pruneEpisode(ep) {
   if (ep.image && ep.image.url) { prunedEpisode.imageURL = ep.image.url }
   if (ep.title) { prunedEpisode.title = ep.title }
   if (ep.description) { prunedEpisode.summary = ep.description }
-  if (ep.duration) { prunedEpisode.duration } TODO: does node-feedparser give us access to itunes:duration?
+  if (ep.duration) { prunedEpisode.duration } // TODO: does node-feedparser give us access to itunes:duration?
   if (ep.guid) { prunedEpisode.guid = ep.guid }
   if (ep.link) { prunedEpisode.link = ep.link }
   if (ep.enclosures && ep.enclosures[0]) {
