@@ -90,25 +90,22 @@ function saveParsedFeedToDatabase (parsedFeedObj) {
     this.podcast = podcast;
 
     return promiseChain = episodes.reduce((promise, ep) => {
+
+      if (!ep.enclosures || !ep.enclosures[0] || !ep.enclosures[0].url) {
+        return promise
+      }
+
       return promise.then(() => Episode.findOrCreate({
           where: {
             mediaURL: ep.enclosures[0].url
           },
           // TODO: Do we want the podcast.id to be === to podcast feedURL?
           defaults: Object.assign({}, ep, {
-            podcastId: podcast.id,
-            imageURL: ep.image.url,
-            title: ep.title,
-            summary: ep.description,
-            // duration: TODO: does node-feedparser give us access to itunes:duration?
-            guid: ep.guid,
-            link: ep.link,
-            mediaBytes: ep.enclosures[0].length,
-            mediaType: ep.enclosures[0].type,
-            pubDate: ep.pubdate
+            podcastId: podcast.id
           })
       })
       .catch(e => {
+        console.log(e);
         throw new errors.GeneralError(e);
       }));
     }, Promise.resolve());
@@ -118,9 +115,28 @@ function saveParsedFeedToDatabase (parsedFeedObj) {
     return this.podcast.id;
   })
   .catch((e) => {
+    console.log(e);
     throw new errors.GeneralError(e);
   });
 
+}
+
+function pruneEpisode(ep) {
+  let prunedEpisode = {};
+
+  if (ep.image && ep.image.url) { prunedEpisode.imageURL = ep.image.url }
+  if (ep.title) { prunedEpisode.title = ep.title }
+  if (ep.description) { prunedEpisode.summary = ep.description }
+  if (ep.duration) { prunedEpisode.duration } TODO: does node-feedparser give us access to itunes:duration?
+  if (ep.guid) { prunedEpisode.guid = ep.guid }
+  if (ep.link) { prunedEpisode.link = ep.link }
+  if (ep.enclosures && ep.enclosures[0]) {
+    if (ep.enclosures[0].length) { prunedEpisode.mediaBytes = ep.enclosures[0].length }
+    if (ep.enclosures[0].type) { prunedEpisode.mediaType = ep.enclosures[0].type }
+  }
+  if (ep.pubDate) { prunedEpisode.pubDate = ep.pubdate }
+
+  return prunedEpisode
 }
 
 module.exports = {
