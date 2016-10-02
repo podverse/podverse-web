@@ -49,7 +49,7 @@
 </div><!-- /.row -->
 
 <script>
-let pageIndex = parseInt({{ pageIndex }});
+var pageIndex = parseInt({{ pageIndex }});
 {% if showNextButton %}
   $('.pv-pagination-next').on('click', function () {
     window.location = '/?page=' + (pageIndex + 1);
