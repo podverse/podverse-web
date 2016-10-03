@@ -10,7 +10,7 @@ module.exports = function (sequelizeEngine) {
   // Now relate them
   // ---------------
 
-  const {Podcast, Episode, MediaRef, Playlist} = models,
+  const {Podcast, Episode, MediaRef, Playlist, User} = models,
     playlistItemsName = 'playlistItems';
 
   Podcast.hasMany(Episode);
@@ -27,6 +27,12 @@ module.exports = function (sequelizeEngine) {
   });
 
   MediaRef.belongsToMany(Playlist, {through: playlistItemsName}, {
+    foreignKey: { allowNull: false }
+  });
+
+  User.belongsToMany(Podcast, {
+    through: 'subscribedPodcasts'
+  }, {
     foreignKey: { allowNull: false }
   });
 

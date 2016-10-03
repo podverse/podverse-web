@@ -287,6 +287,11 @@ footer p {
     overflow: hidden;
 }
 
+#player-podcast-subscribe {
+    float: right;
+    cursor: pointer;
+}
+
 #player-podcast-title {
     font-size: 1rem;
     line-height: 1.5rem;
@@ -637,6 +642,11 @@ footer p {
 
 #podcast-text-container {
     overflow: hidden;
+}
+
+#podcast-subscribe {
+    float: right;
+    cursor: pointer;
 }
 
 #podcast-title {

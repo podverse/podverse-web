@@ -2,7 +2,9 @@ const
     errors = require('feathers-errors'),
     {locator} = require('locator.js'),
     {parseFeed, saveParsedFeedToDatabase} = require('tasks/feedParser.js'),
-    {isClipMediaRefWithDescription} = require('constants.js');
+    {isClipMediaRefWithDescription} = require('constants.js'),
+    {verifyNonAnonUser} = require('middleware/auth/verifyNonAnonUser.js'),
+    {isNonAnonUser} = require('util.js');
 
 function routes () {
   const app = this;
@@ -55,7 +57,14 @@ function routes () {
     const ClipService = locator.get('ClipService');
     return ClipService.get(req.params.id)
       .then(mediaRef => {
-        res.render('player-page.html', mediaRef.dataValues);
+        req.params.podcastId = mediaRef.episode.podcastId;
+        return new Promise((resolve, reject) => {
+          isUserSubscribedToThisPodcast(resolve, reject, req);
+        })
+        .then((isSubscribed) => {
+          mediaRef.dataValues['isSubscribed'] = isSubscribed;
+          res.render('player-page.html', mediaRef.dataValues);
+        })
       }).catch(e => {
         res.sendStatus(404);
       });
@@ -79,12 +88,20 @@ function routes () {
   // Podcast Detail Page
   .get('/podcasts/:id', (req, res) => {
     const PodcastService = locator.get('PodcastService');
-    return PodcastService.get(req.params.id)
-      .then(podcast => {
-        res.render('podcast-page.html', podcast.dataValues);
-      }).catch(e => {
-        res.sendStatus(404);
-      });
+
+      return PodcastService.get(req.params.id)
+        .then(podcast => {
+          req.params.podcastId = req.params.id;
+          return new Promise((resolve, reject) => {
+            isUserSubscribedToThisPodcast(resolve, reject, req);
+          })
+          .then((isSubscribed) => {
+            podcast.dataValues['isSubscribed'] = isSubscribed;
+            res.render('podcast-page.html', podcast.dataValues);
+          });
+        }).catch(e => {
+          res.sendStatus(404);
+        });
   })
 
   .use('podcasts', locator.get('PodcastService'))
@@ -94,7 +111,14 @@ function routes () {
     const EpisodeService = locator.get('EpisodeService');
     return EpisodeService.get(req.params.id)
       .then(episode => {
-        res.render('player-page.html', episode.dataValues);
+        req.params.podcastId = episode.podcastId;
+        return new Promise((resolve, reject) => {
+          isUserSubscribedToThisPodcast(resolve, reject, req);
+        })
+        .then((isSubscribed) => {
+          episode.dataValues['isSubscribed'] = isSubscribed;
+          res.render('player-page.html', episode.dataValues);
+        })
       }).catch(e => {
         res.sendStatus(404);
       });
@@ -126,6 +150,34 @@ function routes () {
     }
   })
 
+  .post('/podcasts/subscribe/:id', verifyNonAnonUser, function (req, res) {
+    const UserService = locator.get('UserService');
+    UserService.update(req.feathers.userId, {}, {
+      subscribeToPodcast: req.params.id
+    })
+    .then(user => {
+      res.sendStatus(200);
+    })
+    .catch(e => {
+      res.sendStatus(500);
+      throw new errors.GeneralError(e);
+    });
+  })
+
+  .post('/podcasts/unsubscribe/:id', verifyNonAnonUser, function (req, res) {
+    const UserService = locator.get('UserService');
+    UserService.update(req.feathers.userId, {}, {
+      unsubscribeFromPodcast: req.params.id
+    })
+    .then(user => {
+      res.sendStatus(200);
+    })
+    .catch(e => {
+      res.sendStatus(500);
+      throw new errors.GeneralError(e);
+    });
+  })
+
   .use('users', locator.get('UserService'))
 
   .get('/login-redirect', function (req, res) {
@@ -137,6 +189,28 @@ function routes () {
     }
   })
 
+}
+
+// TODO: where should this function go?
+// I wanted to include this stuff as a hook, but I couldn't figure out how
+// to use hooks when I use a custom route before the service,
+// like the podcast detail page.
+function isUserSubscribedToThisPodcast (resolve, reject, req) {
+  if (isNonAnonUser(req.feathers.userId)) {
+    const UserService = locator.get('UserService');
+    return UserService.get(req.feathers.userId, { userId: req.feathers.userId })
+      .then(user => {
+        let isUserSubscribed = user.podcasts.some(p => {
+          return p.id === req.params.podcastId;
+        });
+        resolve(isUserSubscribed);
+      })
+      .catch(e => {
+        reject(e);
+      });
+  } else {
+    resolve(false)
+  }
 }
 
 module.exports = {routes};

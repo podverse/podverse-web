@@ -4,6 +4,13 @@
       <img src="{{ imageURL }}">
     </div>
     <div id="podcast-text-container">
+      <div id="podcast-subscribe">
+        {% if isSubscribed %}
+          <i class="fa fa-star"></i>
+        {% else %}
+          <i class="fa fa-star-o"></i>
+        {% endif %}
+      </div>
       <div id="podcast-title">
         {{ title }}
       </div>
@@ -11,3 +18,17 @@
     <div style="clear:both"></div>
   </div>
 </div>
+
+<script>
+window.podcastId = '{{ id }}';
+
+$('#podcast-subscribe').on('click', function () {
+  if ($(this).children().hasClass('fa-star-o')) {
+    $('#podcast-subscribe').html('<i class="fa fa-star"></i>');
+    subscribeToPodcast(podcastId);
+  } else {
+    $('#podcast-subscribe').html('<i class="fa fa-star-o"></i>');
+    unsubscribeFromPodcast(podcastId);
+  }
+});
+</script>

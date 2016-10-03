@@ -4,6 +4,7 @@ const
     rest = require('feathers-rest'),
     hooks = require('feathers-hooks'),
     bodyParser = require('body-parser'),
+    cookieParser = require('cookie-parser'),
     {locator} = require('locator.js'),
     {processJWTIfExists} = require('middleware/auth/processJWTIfExists.js'),
     AuthService = new (require('services/auth/AuthService.js'))(),
@@ -24,6 +25,7 @@ function appFactory () {
     .configure(nunjucks)
     .configure(errorHandler)
 
+    .use(cookieParser())
     .use(bodyParser.json())
     .use(bodyParser.urlencoded({ extended: true }))
 

@@ -7,18 +7,6 @@ module.exports = function(sequelize, DataTypes) {
     id: {
       type: DataTypes.STRING,
       primaryKey: true
-    },
-
-    subscribedPodcasts: {
-      type: DataTypes.ARRAY(DataTypes.INTEGER)
-    },
-
-    autodownloadedPodcasts: {
-      type: DataTypes.ARRAY(DataTypes.INTEGER)
-    },
-
-    subscribedPlaylists: {
-      type: DataTypes.ARRAY(DataTypes.INTEGER)
     }
 
   });

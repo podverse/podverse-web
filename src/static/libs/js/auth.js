@@ -13,7 +13,7 @@ function createAnonAuthCookie() {
       // on https://localhost to do that?
       // $.cookie('idToken', data.idToken, { secure:true });
 
-      $.cookie('idToken', data.idToken, { secure:false });
+      $.cookie('idToken', data.idToken, { secure:false, path: '/' });
 
       removeUserProfileFromLocalStorage();
     })
@@ -65,7 +65,7 @@ lock.on('authenticated', function (authResult) {
     // TODO: must make this a secure cookie...would we need to run the app
     // on https://localhost to develop?
     // $.cookie('idToken', data.idToken, { secure:true });
-    $.cookie('idToken', authResult.idToken, { secure:false });
+    $.cookie('idToken', authResult.idToken, { secure:false, path: '/' });
 
     saveUserProfileToLocalStorage(profile);
 

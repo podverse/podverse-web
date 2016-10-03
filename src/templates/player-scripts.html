@@ -55,6 +55,8 @@
     window.description = "{{ description|nl2br }}";
     window.description = $('<textarea />').html(description).text();
 
+    window.isSubscribed = '{{ isSubscribed }}';
+
   // If there's a podcast property, then set the window vars for the episode page.
   {% elif podcast %}
     window.podcastId = "{{ podcast.id }}";
@@ -72,6 +74,8 @@
     // TODO: is this a security vulnerability?
     window.description = "{{ summary|nl2br }}";
     window.description = $('<textarea />').html(description).text();
+
+    window.isSubscribed = '{{ isSubscribed }}';
   {% endif %}
 
 </script>

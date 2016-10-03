@@ -218,6 +218,39 @@ function loadPodcastSearchTypeahead() {
   });
 }
 
+function subscribeToPodcast(id) {
+  $.ajax({
+    type: 'POST',
+    url: '/podcasts/subscribe/' + id,
+    headers: {
+      Authorization: $.cookie('idToken')
+    },
+    // success: TODO: handle loading spinner
+    success: function (res) {
+      console.log(res);
+    },
+    error: function (xhr, status, error) {
+      // TODO: add more helpful error messaging
+      alert('errrror');
+    }
+  });
+}
+
+function unsubscribeFromPodcast (id) {
+  $.ajax({
+    type: 'POST',
+    url: '/podcasts/unsubscribe/' + id,
+    headers: {
+      Authorization: $.cookie('idToken')
+    },
+    // success: TODO: handle loading spinner
+    error: function (xhr, status, error) {
+      // TODO: add more helpful error messaging
+      alert('errrror');
+    }
+  });
+}
+
 // Podcast / Episode / Clip variables added to the window
 // object in player.html
 
@@ -324,6 +357,22 @@ function setPlayerInfo () {
   $('<hr>').insertAfter('#player-functions');
   $('#player-description').html(description);
   $('#player-episode-image').html('<img src="' + episodeImageURL + '" class="img-fluid">');
+
+  if (isSubscribed && isSubscribed != 'false') {
+    $('#player-podcast-subscribe').html('<i class="fa fa-star"></i>');
+  } else {
+    $('#player-podcast-subscribe').html('<i class="fa fa-star-o"></i>');
+  }
+
+  $('#player-podcast-subscribe').on('click', function () {
+    if ($(this).children().hasClass('fa-star-o')) {
+      $('#player-podcast-subscribe').html('<i class="fa fa-star"></i>');
+      subscribeToPodcast(podcastId);
+    } else {
+      $('#player-podcast-subscribe').html('<i class="fa fa-star-o"></i>');
+      unsubscribeFromPodcast(podcastId);
+    }
+  });
 
   window.restartAttempts = 0;
   window.lastPlaybackPosition = -1;
@@ -455,10 +504,10 @@ $('#player-autoplay').on('click', function() {
 function toggleAutoplay () {
   var autoplay = $.cookie('autoplay');
   if (autoplay !== 'On') {
-    $.cookie('autoplay', 'On');
+    $.cookie('autoplay', 'On', { path: '/' });
     $('#player-autoplay').html('<span style="font-weight: 500">Autoplay On</span>');
   } else {
-    $.cookie('autoplay', 'Off');
+    $.cookie('autoplay', 'Off', { path: '/' });
     $('#player-autoplay').html('Autoplay Off');
   }
 }
@@ -468,7 +517,7 @@ function createAutoplayBtn () {
   if (autoplay === 'On') {
     $('#player-autoplay').html('<span style="font-weight: 500">Autoplay On</span>');
   } else {
-    $.cookie('autoplay', 'Off');
+    $.cookie('autoplay', 'Off', { path: '/' });
     $('#player-autoplay').html('Autoplay Off');
   }
 }

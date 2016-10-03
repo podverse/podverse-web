@@ -12,6 +12,11 @@ function processJWTIfExists (req, res, next) {
   let token = req.headers['authorization'];
 
   if (token == null) {
+    let cookies = req.cookies;
+    token = cookies.idToken;
+  }
+
+  if (token == null) {
     next();
     return;
   }
