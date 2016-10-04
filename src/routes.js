@@ -155,13 +155,13 @@ function routes () {
     UserService.update(req.feathers.userId, {}, {
       subscribeToPodcast: req.params.id
     })
-    .then(user => {
-      res.sendStatus(200);
-    })
-    .catch(e => {
-      res.sendStatus(500);
-      throw new errors.GeneralError(e);
-    });
+      .then(user => {
+        res.sendStatus(200);
+      })
+      .catch(e => {
+        res.sendStatus(500);
+        throw new errors.GeneralError(e);
+      });
   })
 
   .post('/podcasts/unsubscribe/:id', verifyNonAnonUser, function (req, res) {
@@ -169,16 +169,27 @@ function routes () {
     UserService.update(req.feathers.userId, {}, {
       unsubscribeFromPodcast: req.params.id
     })
-    .then(user => {
-      res.sendStatus(200);
-    })
-    .catch(e => {
-      res.sendStatus(500);
-      throw new errors.GeneralError(e);
+      .then(user => {
+        res.sendStatus(200);
+      })
+      .catch(e => {
+        res.sendStatus(500);
+        throw new errors.GeneralError(e);
     });
   })
 
   .use('users', locator.get('UserService'))
+
+  .get('/my-podcasts', (req, res) => {
+    const UserService = locator.get('UserService');
+    UserService.get(req.feathers.userId, { userId: req.feathers.userId })
+      .then(user => {
+        res.render('my-podcasts-page.html', user);
+      })
+      .catch(e => {
+        res.sendStatus(401);
+      });
+  })
 
   .get('/login-redirect', function (req, res) {
     // TODO: is this login + redirection a security vulnerability?

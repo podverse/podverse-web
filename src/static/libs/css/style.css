@@ -15,6 +15,10 @@ h1 {
     margin-bottom: 1.25rem
 }
 
+h4 {
+  margin: 1.25rem 0 1.5rem;
+}
+
 label {
   margin-bottom: .25rem;
 }
@@ -665,6 +669,58 @@ footer p {
     padding-top: 122px;
     margin-bottom: 1rem;
 }
+
+
+
+/*** my-podcasts-page.html styles ***/
+.podcast-item {
+  clear: both;
+  margin: 0 0 1.5rem 0;
+  display: block;
+}
+
+.podcast-item a {
+  display: block;
+  text-decoration: none !important;
+  color: #373a3c !important;
+}
+
+.podcast-item-img {
+  float: left;
+  margin: 0 0.75rem 0 0;
+  width: 4rem;
+  height: 4rem;
+  cursor: pointer;
+}
+
+.podcast-item-img img {
+  width: 4rem;
+  height: 4rem;
+}
+
+.podcast-item-subscribe {
+  float: right;
+  cursor: pointer;
+}
+
+.podcast-item-title {
+  overflow: hidden;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.podcast-item-total-episodes {
+  float: left;
+  margin-top: 1rem;
+  cursor: pointer;
+}
+
+.podcast-item-last-pubdate {
+  float: right;
+  margin-top: 1rem;
+  cursor: pointer;
+}
+
 
 
 

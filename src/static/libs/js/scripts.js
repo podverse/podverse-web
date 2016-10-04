@@ -34,7 +34,7 @@ function appendLoggedInUserNavButtons () {
       navButtonString +=    '<a id="navbar-search-icon" class="nav-link hidden-xs-down" data-toggle="modal" data-target="#navbarSearchModal"><i class="fa fa-search"></i></a>';
       navButtonString +=  '</li>';
       navButtonString +=   '<li class="nav-item">';
-      navButtonString +=    '<a class="nav-link hidden-xs-down" href="#">Podcasts</a>';
+      navButtonString +=    '<a class="nav-link hidden-xs-down" href="/my-podcasts">Podcasts</a>';
       navButtonString +=  '</li>';
       navButtonString +=  '<li class="nav-item">';
       navButtonString +=    '<a class="nav-link hidden-xs-down" href="#">Playlists</a>';
@@ -42,7 +42,7 @@ function appendLoggedInUserNavButtons () {
 
   $(navButtonString).insertAfter('#login-btn');
 
-  var navMobileMenuString =   '<a class="nav-link hidden-sm-up" href="#">Podcasts</a>';
+  var navMobileMenuString =   '<a class="nav-link hidden-sm-up" href="/my-podcasts">Podcasts</a>';
       navMobileMenuString +=  '<a class="nav-link hidden-sm-up" href="#">Playlists</a>';
       navMobileMenuString +=  '<a class="nav-link hidden-sm-up" href="#">Settings</a>';
       navMobileMenuString +=  '<hr class="hidden-sm-up">';
@@ -226,9 +226,9 @@ function subscribeToPodcast(id) {
       Authorization: $.cookie('idToken')
     },
     // success: TODO: handle loading spinner
-    success: function (res) {
-      console.log(res);
-    },
+    // success: function (res) {
+    //   console.log(res);
+    // },
     error: function (xhr, status, error) {
       // TODO: add more helpful error messaging
       alert('errrror');

@@ -77,7 +77,6 @@ class UserService extends SequelizeService {
 
         // Handle subscribing to a podcast
         if (params.subscribeToPodcast) {
-          console.log('subscribe to podcast');
           return user.addPodcasts([params.subscribeToPodcast])
             .then(() => {
               return params.subscribeToPodcast
@@ -86,7 +85,6 @@ class UserService extends SequelizeService {
 
         // Handle unsubscribing from a podcast
         if (params.unsubscribeFromPodcast) {
-          console.log('unsubscribe from podcast');
           return user.removePodcast([params.unsubscribeFromPodcast])
             .then(() => {
               return params.unsubscribeToPodcast

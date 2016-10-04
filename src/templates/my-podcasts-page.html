@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+{% block body %}
+
+<div class="row">
+  <div class="col-xs-12">
+    <h4>My Subscribed Podcasts</h4>
+    <div class="podcast-list">
+      {% for podcast in podcasts %}
+        <div class="podcast-item" data-id="{{podcast.id}}">
+          <a class="podcast-item-img" href="/podcasts/{{podcast.id}}">
+            <img src="{{podcast.imageURL}}">
+          </a>
+          <div class="podcast-item-subscribe">
+            <i class="fa fa-star"></i>
+          </div>
+          <a class="podcast-item-title" href="/podcasts/{{podcast.id}}">
+            {{podcast.title}}
+          </a>
+          <a class="podcast-item-total-episodes" href="/podcasts/{{podcast.id}}">
+            total episodes
+          </a>
+          <a class="podcast-item-last-pubdate" href="/podcasts/{{podcast.id}}">
+            {{podcast.lastPubDate | readableDate}}
+          </a>
+          <div class="clearfix"></div>
+        </div>
+      {% endfor %}
+    </div><!-- /#my-podcast-list -->
+  </div><!-- /.col-xs-12 -->
+</div><!-- /.row -->
+
+<script>
+$('.podcast-item-subscribe').on('click', function () {
+  if ($(this).children().hasClass('fa-star-o')) {
+    $(this).html('<i class="fa fa-star"></i>');
+    var podcastId = $(this).parent().data('id');
+    subscribeToPodcast(podcastId);
+  } else {
+    $(this).html('<i class="fa fa-star-o"></i>');
+    var podcastId = $(this).parent().data('id');
+    unsubscribeFromPodcast(podcastId);
+  }
+});
+</script>
+
+{% endblock %}
