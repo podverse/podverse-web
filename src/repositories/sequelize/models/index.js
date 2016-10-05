@@ -36,6 +36,12 @@ module.exports = function (sequelizeEngine) {
     foreignKey: { allowNull: false }
   });
 
+  User.belongsToMany(Playlist, {
+    through: 'subscribedPlaylists'
+  }, {
+    foreignKey: { allowNull: false }
+  });
+
 ;
 
   return models;

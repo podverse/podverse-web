@@ -77,7 +77,26 @@ function routes () {
     const PlaylistService = locator.get('PlaylistService');
     return PlaylistService.get(req.params.id)
       .then(playlist => {
-        res.render('player-page.html', playlist.dataValues);
+
+        // TODO: this is wildly bad and needs to be cleaned up.
+        // Maybe the isSubscribed stuff should be handled in a hook somehow.
+        let mediaRefs = playlist.dataValues.mediaRefs;
+        let queue = Promise.resolve();
+        mediaRefs.forEach((mediaRef) => {
+          queue = queue.then(() => {
+            return new Promise((resolve, reject) => {
+              req.params.podcastId = mediaRef.episode.podcast.id;
+              isUserSubscribedToThisPodcast(resolve, reject, req);
+            })
+              .then((isSubscribed) => {
+                mediaRef.dataValues['isSubscribed'] = isSubscribed;
+              })
+          });
+        });
+        queue.then(() => {
+          res.render('player-page.html', playlist.dataValues);
+        })
+
       }).catch(e => {
         res.sendStatus(404);
       });
@@ -178,6 +197,34 @@ function routes () {
     });
   })
 
+  .post('/playlists/subscribe/:id', verifyNonAnonUser, function (req, res) {
+    const UserService = locator.get('UserService');
+    UserService.update(req.feathers.userId, {}, {
+      subscribeToPlaylist: req.params.id
+    })
+      .then(user => {
+        res.sendStatus(200);
+      })
+      .catch(e => {
+        res.sendStatus(500);
+        throw new errors.GeneralError(e);
+      });
+  })
+
+  .post('/playlists/unsubscribe/:id', verifyNonAnonUser, function (req, res) {
+    const UserService = locator.get('UserService');
+    UserService.update(req.feathers.userId, {}, {
+      unsubscribeFromPlaylist: req.params.id
+    })
+      .then(user => {
+        res.sendStatus(200);
+      })
+      .catch(e => {
+        res.sendStatus(500);
+        throw new errors.GeneralError(e);
+    });
+  })
+
   .use('users', locator.get('UserService'))
 
   .get('/my-podcasts', (req, res) => {
@@ -185,6 +232,17 @@ function routes () {
     UserService.get(req.feathers.userId, { userId: req.feathers.userId })
       .then(user => {
         res.render('my-podcasts-page.html', user);
+      })
+      .catch(e => {
+        res.sendStatus(401);
+      });
+  })
+
+  .get('/my-playlists', (req, res) => {
+    const UserService = locator.get('UserService');
+    UserService.get(req.feathers.userId, { userId: req.feathers.userId })
+      .then(user => {
+        res.render('my-playlists-page.html', user);
       })
       .catch(e => {
         res.sendStatus(401);

@@ -524,7 +524,7 @@ footer p {
     margin-right: 14px;
 }
 
-#player-hr {
+#player-list-hr {
     display: none;
 }
 
@@ -716,6 +716,57 @@ footer p {
 }
 
 .podcast-item-last-pubdate {
+  float: right;
+  margin-top: 1rem;
+  cursor: pointer;
+}
+
+
+
+/*** my-playlists-page.html styles ***/
+.playlist-list-item {
+  clear: both;
+  margin: 0 0 1.5rem 0;
+  display: block;
+}
+
+.playlist-list-item a {
+  display: block;
+  text-decoration: none !important;
+  color: #373a3c !important;
+}
+
+.playlist-list-item-img {
+  float: left;
+  margin: 0 0.75rem 0 0;
+  width: 4rem;
+  height: 4rem;
+  cursor: pointer;
+}
+
+.playlist-list-item-img img {
+  width: 4rem;
+  height: 4rem;
+}
+
+.playlist-list-item-subscribe {
+  float: right;
+  cursor: pointer;
+}
+
+.playlist-list-item-title {
+  overflow: hidden;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.playlist-list-item-total-episodes {
+  float: left;
+  margin-top: 1rem;
+  cursor: pointer;
+}
+
+.playlist-list-item-last-pubdate {
   float: right;
   margin-top: 1rem;
   cursor: pointer;

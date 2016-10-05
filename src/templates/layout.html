@@ -94,7 +94,7 @@
 
     <script>
       // TODO: this is weird, should be a better way...
-      if (isPlayerPage === true) {
+      if (isPlayerPage === true && isEmptyPlaylist !== true) {
         setPlayerInfo();
         // Toggle the autoplay to True by default on page load
         // TODO: remove autoplay on mobile devices since they do not support autoplay
@@ -102,6 +102,9 @@
         createAndAppendAudio();
         onScrollCondensePlayerView();
         initClipper();
+      } else if (isPlayerPage === true && isEmptyPlaylist === true) {
+        var isEmptyPlaylistEl = '<div id="empty-playlist-message">This playlist has no episodes or clips added to it. <br><br> Click the <i class="fa fa-list"></i> icon while an episode or clip is playing to add it to a playlist.</div>';
+        $(isEmptyPlaylistEl).insertAfter('#player');
       }
 
       addPlaylistItemTextTruncation();

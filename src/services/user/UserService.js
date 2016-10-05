@@ -25,7 +25,7 @@ class UserService extends SequelizeService {
   }
 
   get (id, params={}) {
-    const {Podcast} = this.Models;
+    const {Podcast, Playlist} = this.Models;
 
     if (id !== params.userId) {
       throw new errors.Forbidden();
@@ -38,6 +38,9 @@ class UserService extends SequelizeService {
       include: [
         { model: Podcast,
           through: 'subscribedPodcasts'
+        },
+        { model: Playlist,
+          through: 'subscribedPlaylists'
         }
       ]
     }).then(user => {
@@ -47,8 +50,10 @@ class UserService extends SequelizeService {
     });
   }
 
+  // TODO: ensure that only the app can create users, so that people can't
+  // just create users willy-nilly
   create (data, params={}) {
-    const {Podcast} = this.Models;
+    const {Podcast, Playlist} = this.Models;
 
     return this.Model.findOrCreate({
       where: {
@@ -57,6 +62,9 @@ class UserService extends SequelizeService {
       include: [{
         model: Podcast,
         through: 'subscribedPodcasts'
+      },
+      { model: Playlist,
+        through: 'subscribedPlaylists'
       }]
     })
     .then(user => {
@@ -88,6 +96,22 @@ class UserService extends SequelizeService {
           return user.removePodcast([params.unsubscribeFromPodcast])
             .then(() => {
               return params.unsubscribeToPodcast
+            });
+        }
+
+        // Handle subscribing to a playlist
+        if (params.subscribeToPlaylist) {
+          return user.addPlaylists([params.subscribeToPlaylist])
+            .then(() => {
+              return params.subscribeToPlaylist
+            });
+        }
+
+        // Handle unsubscribing from a playlist
+        if (params.unsubscribeFromPlaylist) {
+          return user.removePlaylist([params.unsubscribeFromPlaylist])
+            .then(() => {
+              return params.unsubscribeToPlaylist
             });
         }
 

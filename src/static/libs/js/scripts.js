@@ -37,13 +37,13 @@ function appendLoggedInUserNavButtons () {
       navButtonString +=    '<a class="nav-link hidden-xs-down" href="/my-podcasts">Podcasts</a>';
       navButtonString +=  '</li>';
       navButtonString +=  '<li class="nav-item">';
-      navButtonString +=    '<a class="nav-link hidden-xs-down" href="#">Playlists</a>';
+      navButtonString +=    '<a class="nav-link hidden-xs-down" href="/my-playlists">Playlists</a>';
       navButtonString +=  '</li>';
 
   $(navButtonString).insertAfter('#login-btn');
 
   var navMobileMenuString =   '<a class="nav-link hidden-sm-up" href="/my-podcasts">Podcasts</a>';
-      navMobileMenuString +=  '<a class="nav-link hidden-sm-up" href="#">Playlists</a>';
+      navMobileMenuString +=  '<a class="nav-link hidden-sm-up" href="/my-playlists">Playlists</a>';
       navMobileMenuString +=  '<a class="nav-link hidden-sm-up" href="#">Settings</a>';
       navMobileMenuString +=  '<hr class="hidden-sm-up">';
       navMobileMenuString +=  '<a class="nav-link hidden-sm-up" onclick="logoutUser();">Logout</a>';
@@ -268,7 +268,6 @@ function loadMediaRef (index, shouldPlay) {
   }
 
   if (isEpisode === false) {
-    duration = item.duration;
     podcastTitle = item.episode.podcast.title;
     podcastImageURL = item.episode.podcast.imageURL;
     episodeTitle = item.episode.title;
@@ -276,7 +275,6 @@ function loadMediaRef (index, shouldPlay) {
     episodePubDate = item.episode.pubDate;
     description = item.description;
   } else { // handle item as episode
-    duration = item.duration;
     podcastTitle = item.episode.podcast.title;
     podcastImageURL = item.episode.podcast.imageURL;
     episodeTitle = item.episode.title;
@@ -354,9 +352,16 @@ function setPlayerInfo () {
   $('#toggle-make-clip-btn').html('<i class="fa fa-scissors"></i>');
   $('#toggle-playlist-btn').html('<i class="fa fa-list-ul"></i>');
   $('#toggle-share-btn').html('<i class="fa fa-share"></i>');
-  $('<hr>').insertAfter('#player-functions');
+
+  if ($('#player-hr').length < 1) {
+    $('<hr id="player-hr">').insertAfter('#player-functions');
+  }
+
   $('#player-description').html(description);
-  $('#player-episode-image').html('<img src="' + episodeImageURL + '" class="img-fluid">');
+
+  if (episodeImageURL) {
+    $('#player-episode-image').html('<img src="' + episodeImageURL + '" class="img-fluid">');
+  }
 
   if (isSubscribed && isSubscribed != 'false') {
     $('#player-podcast-subscribe').html('<i class="fa fa-star"></i>');

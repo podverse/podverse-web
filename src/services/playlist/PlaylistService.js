@@ -97,7 +97,7 @@ class PlaylistService extends SequelizeService {
     if (!id) {
       throw new errors.NotAcceptable(`Try using POST instead of PUT.`);
     }
-
+    
     return this.Model.findOne({
       where: {
         $or: [

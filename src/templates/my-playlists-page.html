@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+{% block body %}
+
+<div class="row">
+  <div class="col-xs-12">
+    <h4>My Playlists</h4>
+
+    <div class="playlist-list">
+      {% for playlist in playlists %}
+        <div class="playlist-list-item" data-id="{{playlist.id}}">
+          <a class="playlist-list-item-img" href="/playlists/{{playlist.id}}">
+            <img src="{{playlist.previewImageURL}}">
+          </a>
+          <a class="playlist-list-item-title" href="/playlists/{{playlist.id}}">
+            {{playlist.title}}
+          </a>
+          <a class="playlist-list-item-total-episodes" href="/playlists/{{playlist.id}}">
+            total episodes / total clips
+          </a>
+          <a class="playlist-list-item-last-pubdate" href="/playlists/{{playlist.id}}">
+            {{playlist.lastUpdated | readableDate}}
+          </a>
+          <div class="clearfix"></div>
+        </div>
+      {% endfor %}
+    </div><!-- /#my-playlist-list -->
+  </div><!-- /.col-xs-12 -->
+</div><!-- /.row -->
+
+<script>
+$('.playlist-item-subscribe').on('click', function () {
+  if ($(this).children().hasClass('fa-star-o')) {
+    $(this).html('<i class="fa fa-star"></i>');
+    var podcastId = $(this).parent().data('id');
+    subscribeToPodcast(podcastId);
+  } else {
+    $(this).html('<i class="fa fa-star-o"></i>');
+    var podcastId = $(this).parent().data('id');
+    unsubscribeFromPodcast(podcastId);
+  }
+});
+</script>
+
+{% endblock %}

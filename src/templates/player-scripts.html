@@ -1,41 +1,54 @@
 <script>
   window.isPlayerPage = true;
+  window.isEmptyPlaylist = false;
 
   // If a mediaRefs object exists, then set window variables for the playlist page
   {% if mediaRefs|isPlaylist %}
-    window.mediaRefs = {{ mediaRefs|stringify|safe }};
 
-    var item;
+    {% if mediaRefs|length %}
 
-    // The hash value determines which playlist item to load
-    window.urlHashIndexValue = window.location.hash.substr(1) - 1;
-    if (urlHashIndexValue > 0) {
-      item = mediaRefs[urlHashIndexValue];
-    } else {
-      item = mediaRefs[0];
-    }
+      window.mediaRefs = {{ mediaRefs|stringify|safe }};
 
-    // Parse the selected playlist item and set its window variables
-    window.startTime = item.startTime;
-    window.endTime = item.endTime;
-    window.ownerName = item.ownerName;
-    window.episodeDuration = item.episode.duration;
-    window.podcastTitle = item.episode.podcast.title;
-    window.podcastImageURL = item.episode.podcast.imageURL;
-    window.episodeTitle = item.episode.title;
-    window.episodeMediaURL = item.episode.mediaURL;
-    window.episodePubDate = item.episode.pubDate;
+      var item;
 
-    // if item is an Episode
-    if (window.startTime === 0 && window.endTime === null) {
-      window.isEpisode = true;
-      window.description = item.episode.summary;
-    } else {
+      // The hash value determines which playlist item to load
+      window.urlHashIndexValue = window.location.hash.substr(1) - 1;
+      if (urlHashIndexValue > 0) {
+        item = mediaRefs[urlHashIndexValue];
+      } else {
+        item = mediaRefs[0];
+      }
+
+      // Parse the selected playlist item and set its window variables
+      window.startTime = item.startTime;
+      window.endTime = item.endTime;
+      window.ownerName = item.ownerName;
+      window.episodeDuration = item.episode.duration;
+      window.podcastId = item.episode.podcast.id;
+      window.podcastTitle = item.episode.podcast.title;
+      window.podcastImageURL = item.episode.podcast.imageURL;
+      window.episodeTitle = item.episode.title;
+      window.episodeMediaURL = item.episode.mediaURL;
+      window.episodeImageURL = item.episode.imageURL;
+      window.episodePubDate = item.episode.pubDate;
+
+      // if item is an Episode
+      if (window.startTime === 0 && window.endTime === null) {
+        window.isEpisode = true;
+        window.description = item.episode.summary;
+      } else {
+        window.isEpisode = false;
+        window.description = item.description;
+      }
+
+      window.isSubscribed = item.isSubscribed;
+
+      // TODO: is this a security vulnerability?
+      window.description = $('<textarea />').html(description).text();
+    {% else %}
+      window.isEmptyPlaylist = true;
       window.isEpisode = false;
-      window.description = item.description;
-    }
-    // TODO: is this a security vulnerability?
-    window.description = $('<textarea />').html(description).text();
+    {% endif %}
 
   // If there's an episode property, then set the window vars for the clip page.
   {% elif episode %}
