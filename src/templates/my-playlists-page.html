@@ -4,6 +4,7 @@
 <div class="row">
   <div class="col-xs-12">
     <h4>My Playlists</h4>
+    <div class="header-button" data-toggle="modal" data-target="#subscribeToPlaylistModal">Add</div>
 
     <div class="playlist-list">
       {% for playlist in playlists %}
@@ -27,18 +28,6 @@
   </div><!-- /.col-xs-12 -->
 </div><!-- /.row -->
 
-<script>
-$('.playlist-item-subscribe').on('click', function () {
-  if ($(this).children().hasClass('fa-star-o')) {
-    $(this).html('<i class="fa fa-star"></i>');
-    var podcastId = $(this).parent().data('id');
-    subscribeToPodcast(podcastId);
-  } else {
-    $(this).html('<i class="fa fa-star-o"></i>');
-    var podcastId = $(this).parent().data('id');
-    unsubscribeFromPodcast(podcastId);
-  }
-});
-</script>
+{% include "subscribe-to-playlist-modal.html" %}
 
 {% endblock %}

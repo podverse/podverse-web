@@ -17,6 +17,7 @@ h1 {
 
 h4 {
   margin: 1.25rem 0 1.5rem;
+  float: left;
 }
 
 label {
@@ -49,6 +50,12 @@ audio {
 
 .clickable-row .col-xs-3 {
     text-align: right;
+}
+
+.header-button {
+    float: right;
+    margin: 1.25rem 0 1.5rem;
+    cursor: pointer;
 }
 
 /* fixes for height differences when clamp truncation is applied to elements */
@@ -263,6 +270,20 @@ footer p {
 }
 
 #addPodcastModal button.close {
+  position: absolute;
+  top: 11px;
+  right: 15px;
+}
+
+
+
+/*** subscribe-to-playlist-modal.html styles ***/
+
+#subscribeToPlaylistModal .btn {
+  width: 100px;
+}
+
+#subscribeToPlaylistModal button.close {
   position: absolute;
   top: 11px;
   right: 15px;

@@ -251,6 +251,42 @@ function unsubscribeFromPodcast (id) {
   });
 }
 
+function subscribeToPlaylist(url, successCallback) {
+  var id = url.substr(url.lastIndexOf('/') + 1);
+  $.ajax({
+    type: 'POST',
+    url: '/playlists/subscribe/' + id,
+    headers: {
+      Authorization: $.cookie('idToken')
+    },
+    success: function (res) {
+      if (successCallback) { successCallback(); }
+    },
+    error: function (xhr, status, error) {
+      // TODO: add more helpful error messaging
+      alert('errrror');
+    }
+  });
+}
+
+function unsubscribeFromPlaylist (url, successCallback) {
+  var id = url.substr(url.lastIndexOf('/') + 1);
+  $.ajax({
+    type: 'POST',
+    url: '/playlists/unsubscribe/' + id,
+    headers: {
+      Authorization: $.cookie('idToken')
+    },
+    success: function (res) {
+      if (successCallback) { successCallback(); }
+    },
+    error: function (xhr, status, error) {
+      // TODO: add more helpful error messaging
+      alert('errrror');
+    }
+  });
+}
+
 // Podcast / Episode / Clip variables added to the window
 // object in player.html
 

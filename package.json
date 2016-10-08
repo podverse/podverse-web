@@ -7,7 +7,7 @@
     "node": "6.2.2"
   },
   "dependencies": {
-    "auth0-lock": "^10.2.2",
+    "auth0-lock": "^10.4.0",
     "body-parser": "^1.15.2",
     "bootstrap": "^4.0.0-alpha.3",
     "cookie-parser": "^1.4.3",
@@ -23,6 +23,7 @@
     "feedparser": "^1.1.4",
     "font-awesome": "^4.6.3",
     "jquery": "^3.1.1",
+    "jquery.cookie": "^1.4.1",
     "lodash": "^4.14.1",
     "mediaelement": "^2.22.0",
     "njwt": "^0.3.1",
