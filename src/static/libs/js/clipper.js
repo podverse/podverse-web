@@ -72,10 +72,19 @@ $('#toggle-make-clip-btn').on('click', function () {
 });
 
 function toggleMakeClipWidget () {
+  if ($('#add-to-playlist').css('display') !== 'block' && $('#recommend').css('display') !== 'block') {
+    $('#player-stats').toggle();
+    $('#player-description').toggle();
+    $('#player-episode-image').toggle();
+  }
+
+  $('#add-to-playlist').hide();
+  $('#toggle-playlist-btn').removeClass('active');
+
+  $('#recommend').hide();
+  $('#toggle-recommend-btn').removeClass('active');
+
   $('#toggle-make-clip-btn').toggleClass('active');
-  $('#player-stats').toggle();
-  $('#player-description').toggle();
-  $('#player-episode-image').toggle();
   $('#make-clip').toggle();
 }
 

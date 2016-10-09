@@ -199,9 +199,9 @@ footer p {
   margin-bottom: 1rem;
 }
 
-#make-clip-episode, #make-clip-time, #make-clip-description, #make-clip-podcast-error,
+#make-clip-episode, #make-clip-time,  #make-clip-podcast-error,
 #make-clip-episode-error, #make-clip-start-time-error,
-#make-clip-end-time-error, #make-clip-btn {
+#make-clip-end-time-error {
   display: none;
 }
 
@@ -378,25 +378,23 @@ footer p {
 }
 
 
-#make-clip {
+#make-clip, #add-to-playlist, #recommend {
     display: none;
 }
 
-#make-clip-header {
+.player-function-header {
     font-weight: 500;
     text-decoration: underline;
     margin-bottom: 0.75rem;
     float: left;
 }
 
-#make-clip-close {
+.player-function-header-btn {
     float: right;
-    cursor: pointer;
+    margin-left: 1rem;
+    font-size: 14px;
 }
 
-#make-clip #make-clip-description, #make-clip #make-clip-btn {
-    display: block;
-}
 
 /*** player.html condensed-size mode styles ***/
 
