@@ -1,7 +1,14 @@
 {% if mediaRefs|isPlaylist %}
   <hr />
   <div id="playlist">
-    <div id="playlist-header">
+    <div id="playlist-subscribe">
+      {% if isSubscribed %}
+        <i class="fa fa-star"></i>
+      {% else %}
+        <i class="fa fa-star-o"></i>
+      {% endif %}
+    </div>
+    <div id="playlist-title">
       {{ title }}
     </div>
     {% for item in mediaRefs %}
@@ -62,3 +69,17 @@
     {% endfor %}
   </div><!-- /#playlist -->
 {% endif %}
+
+<script>
+window.playlistId = '{{ id }}';
+
+$('#playlist-subscribe').on('click', function () {
+  if ($(this).children().hasClass('fa-star-o')) {
+    $('#playlist-subscribe').html('<i class="fa fa-star"></i>');
+    subscribeToPlaylist(playlistId);
+  } else {
+    $('#playlist-subscribe').html('<i class="fa fa-star-o"></i>');
+    unsubscribeFromPlaylist(playlistId);
+  }
+});
+</script>

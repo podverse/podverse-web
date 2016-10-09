@@ -77,7 +77,7 @@ function routes () {
     const PlaylistService = locator.get('PlaylistService');
     return PlaylistService.get(req.params.id)
       .then(playlist => {
-
+        req.params.playlistId = playlist.id;
         // TODO: this is wildly bad and needs to be cleaned up.
         // Maybe the isSubscribed stuff should be handled in a hook somehow.
         let mediaRefs = playlist.dataValues.mediaRefs;
@@ -94,7 +94,13 @@ function routes () {
           });
         });
         queue.then(() => {
-          res.render('player-page.html', playlist.dataValues);
+          return new Promise((resolve, reject) => {
+            isUserSubscribedToThisPlaylist(resolve, reject, req);
+          })
+            .then((isSubscribed) => {
+              playlist.dataValues['isSubscribed'] = isSubscribed;
+              res.render('player-page.html', playlist.dataValues);
+            })
         })
 
       }).catch(e => {
@@ -281,5 +287,24 @@ function isUserSubscribedToThisPodcast (resolve, reject, req) {
     resolve(false)
   }
 }
+
+function isUserSubscribedToThisPlaylist (resolve, reject, req) {
+  if (isNonAnonUser(req.feathers.userId)) {
+    const UserService = locator.get('UserService');
+    return UserService.get(req.feathers.userId, { userId: req.feathers.userId })
+      .then(user => {
+        let isUserSubscribed = user.playlists.some(p => {
+          return p.id === req.params.playlistId;
+        });
+        resolve(isUserSubscribed);
+      })
+      .catch(e => {
+        reject(e);
+      });
+  } else {
+    resolve(false)
+  }
+}
+
 
 module.exports = {routes};

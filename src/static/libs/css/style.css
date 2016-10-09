@@ -54,7 +54,7 @@ audio {
 
 .header-button {
     float: right;
-    margin: 1.25rem 0 1.5rem;
+    margin: 1.25rem 0 1.5rem 1rem;
     cursor: pointer;
 }
 
@@ -567,28 +567,30 @@ footer p {
     margin: 0;
 }
 
-#playlist-header {
+#playlist-title {
     font-size: 1.25rem;
     font-weight: 500;
     line-height: 1.5rem;
     margin: 0 0 0.5rem 0;
 }
 
+#playlist-subscribe {
+    float: right;
+    cursor: pointer;
+}
+
 .playlist-item {
     clear: both;
     font-size: 14px;
     cursor: pointer;
-}
-
-.playlist-item-inner {
     padding: 1rem 0;
+    border-top: 1px solid transparent;
     border-bottom: 1px dotted #eee;
 }
 
-.playlist-item-inner:hover {
+.playlist-item:hover {
     border-top: 1px solid #ccc;
     border-bottom: 1px solid #ccc;
-    margin: -1px 0 0 0;
 }
 
 .playlist-item-image {
