@@ -387,7 +387,7 @@ function setPlayerInfo () {
   $('#player-time-jump-forward').html('15s <i class="fa fa-angle-right"></i>');
   $('#toggle-make-clip-btn').html('<i class="fa fa-scissors"></i>');
   $('#toggle-playlist-btn').html('<i class="fa fa-list-ul"></i>');
-  $('#toggle-share-btn').html('<i class="fa fa-share"></i>');
+  $('#toggle-recommend-btn').html('<i class="fa fa-user-plus"></i>');
 
   if ($('#player-hr').length < 1) {
     $('<hr id="player-hr">').insertAfter('#player-functions');
@@ -401,16 +401,20 @@ function setPlayerInfo () {
 
   if (isSubscribed && isSubscribed != 'false') {
     $('#player-podcast-subscribe').html('<i class="fa fa-star"></i>');
+    $('#player-podcast-subscribe').attr('title', 'Unsubscribe from podcast');
   } else {
     $('#player-podcast-subscribe').html('<i class="fa fa-star-o"></i>');
+    $('#player-podcast-subscribe').attr('title', 'Subscribe to podcast');
   }
 
   $('#player-podcast-subscribe').on('click', function () {
     if ($(this).children().hasClass('fa-star-o')) {
       $('#player-podcast-subscribe').html('<i class="fa fa-star"></i>');
+      $('#player-podcast-subscribe').attr('title', 'Unsubscribe from podcast');
       subscribeToPodcast(podcastId);
     } else {
       $('#player-podcast-subscribe').html('<i class="fa fa-star-o"></i>');
+      $('#player-podcast-subscribe').attr('title', 'Subscribe to podcast');
       unsubscribeFromPodcast(podcastId);
     }
   });

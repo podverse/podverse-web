@@ -528,7 +528,7 @@ footer p {
 }
 
 #player-time-jump-back, #player-time-jump-forward, #toggle-make-clip-btn,
-#toggle-playlist-btn, #toggle-share-btn {
+#toggle-playlist-btn, #toggle-recommend-btn {
     display: inline-block;
     margin-right: 16px;
     cursor: pointer;

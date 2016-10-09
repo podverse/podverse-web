@@ -1,13 +1,15 @@
 {% if mediaRefs|isPlaylist %}
   <hr />
   <div id="playlist">
-    <div id="playlist-subscribe">
-      {% if isSubscribed %}
+    {% if isSubscribed %}
+      <div id="playlist-subscribe" title="Unsubscribe from playlist">
         <i class="fa fa-star"></i>
-      {% else %}
+      </div>
+    {% else %}
+      <div id="playlist-subscribe" title="Subscribe to playlist">
         <i class="fa fa-star-o"></i>
-      {% endif %}
-    </div>
+      </div>
+    {% endif %}
     <div id="playlist-title">
       {{ title }}
     </div>
@@ -76,9 +78,11 @@ window.playlistId = '{{ id }}';
 $('#playlist-subscribe').on('click', function () {
   if ($(this).children().hasClass('fa-star-o')) {
     $('#playlist-subscribe').html('<i class="fa fa-star"></i>');
+    $('#playlist-subscribe').attr('title', 'Unsubscribe from playlist');
     subscribeToPlaylist(playlistId);
   } else {
     $('#playlist-subscribe').html('<i class="fa fa-star-o"></i>');
+    $('#playlist-subscribe').attr('title', 'Subscribe to playlist');
     unsubscribeFromPlaylist(playlistId);
   }
 });
