@@ -63,7 +63,19 @@ function routes () {
         })
         .then((isSubscribed) => {
           mediaRef.dataValues['isSubscribed'] = isSubscribed;
-          res.render('player-page.html', mediaRef.dataValues);
+
+          if (isNonAnonUser(req.feathers.userId)) {
+            const PlaylistService = locator.get('PlaylistService');
+            return PlaylistService.find({ ownerId: req.feathers.userId })
+              .then(usersOwnedPlaylists => {
+                mediaRef.dataValues['usersOwnedPlaylists'] = usersOwnedPlaylists;
+                res.render('player-page.html', mediaRef.dataValues);
+              })
+          } else {
+            mediaRef.dataValues['usersOwnedPlaylists'] = false;
+            res.render('player-page.html', mediaRef.dataValues);
+          }
+
         })
       }).catch(e => {
         res.sendStatus(404);
@@ -99,7 +111,18 @@ function routes () {
           })
             .then((isSubscribed) => {
               playlist.dataValues['isSubscribed'] = isSubscribed;
-              res.render('player-page.html', playlist.dataValues);
+
+              if (isNonAnonUser(req.feathers.userId)) {
+                return PlaylistService.find({ ownerId: req.feathers.userId })
+                  .then(usersOwnedPlaylists => {
+                    playlist.dataValues['usersOwnedPlaylists'] = usersOwnedPlaylists;
+                    res.render('player-page.html', playlist.dataValues);
+                  })
+              } else {
+                playlist.dataValues['usersOwnedPlaylists'] = false;
+                res.render('player-page.html', playlist.dataValues);
+              }
+
             })
         })
 
@@ -142,7 +165,19 @@ function routes () {
         })
         .then((isSubscribed) => {
           episode.dataValues['isSubscribed'] = isSubscribed;
-          res.render('player-page.html', episode.dataValues);
+
+          if (isNonAnonUser(req.feathers.userId)) {
+            const PlaylistService = locator.get('PlaylistService');
+            return PlaylistService.find({ ownerId: req.feathers.userId })
+              .then(usersOwnedPlaylists => {
+                episode.dataValues['usersOwnedPlaylists'] = usersOwnedPlaylists;
+                res.render('player-page.html', episode.dataValues);
+              })
+          } else {
+            episode.dataValues['usersOwnedPlaylists'] = false;
+            res.render('player-page.html', episode.dataValues);
+          }
+
         })
       }).catch(e => {
         res.sendStatus(404);
@@ -305,6 +340,5 @@ function isUserSubscribedToThisPlaylist (resolve, reject, req) {
     resolve(false)
   }
 }
-
 
 module.exports = {routes};

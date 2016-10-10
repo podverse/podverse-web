@@ -393,6 +393,7 @@ footer p {
     float: right;
     margin-left: 1rem;
     font-size: 14px;
+    cursor: pointer;
 }
 
 
@@ -635,6 +636,22 @@ footer p {
 /*** clip-created-modal.html styles ***/
 #clip-created-modal-nav-btn, #clip-created-modal-copy-btn {
     width: 150px;
+}
+
+
+
+/*** player-add-to-playlist.html styles ***/
+.add-to-playlist-item {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    cursor: pointer;
+    border-top: 1px solid transparent;
+    border-bottom: 1px solid transparent;
+}
+
+.add-to-playlist-item:hover {
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
 }
 
 
