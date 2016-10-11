@@ -310,6 +310,7 @@ function loadMediaRef (index, shouldPlay) {
     episodeMediaURL = item.episode.mediaURL;
     episodePubDate = item.episode.pubDate;
     description = item.description;
+    mediaRefId = item.id;
   } else { // handle item as episode
     podcastTitle = item.episode.podcast.title;
     podcastImageURL = item.episode.podcast.imageURL;
@@ -318,6 +319,7 @@ function loadMediaRef (index, shouldPlay) {
     episodePubDate = item.episode.pubDate;
     startTime = 0;
     description = item.episode.summary;
+    mediaRefId = 'episode_' + item.episode.id;
   }
 
   window.location.hash = index + 1;
@@ -360,6 +362,8 @@ function setPlayerInfo () {
     isEpisode = false;
     endTime = parseInt(window.endTime)
   }
+
+  $('#player').attr('data-id', window.mediaRefId);
 
   $('#player-header').show();
 

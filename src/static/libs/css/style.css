@@ -408,6 +408,7 @@ footer p {
     padding: 0.5rem 1rem 0.25rem 1rem;
     border-bottom: 1px solid #ccc;
     margin: 0 0 1.5rem 0;
+    z-index: 1;
 }
 
 .player-condensed #player-inner {
@@ -461,6 +462,10 @@ footer p {
 
 .player-condensed #player-podcast-title {
     display: none !important;
+}
+
+.player-condensed #player-podcast-subscribe {
+    display: none;
 }
 
 .player-condensed #player-sub-title {
@@ -652,6 +657,12 @@ footer p {
 .add-to-playlist-item:hover {
     border-top: 1px solid #ccc;
     border-bottom: 1px solid #ccc;
+}
+
+.add-to-playlist-item-count {
+    font-size: 14px;
+    float: right;
+    line-height: 24px;
 }
 
 

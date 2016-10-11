@@ -266,6 +266,72 @@ function routes () {
     });
   })
 
+  .post('/playlists/:playlistId/addItem/:mediaRefId', verifyNonAnonUser, function (req, res) {
+    const PlaylistService = locator.get('PlaylistService');
+    PlaylistService.get(req.params.playlistId)
+      .then(playlist => {
+
+        // NOTE: this if/else beast is here to convert episode's into mediaRefs so that the episode can be
+        // added to a playlist as a mediaRef, AND to make sure that one episode only has one mediaRef
+        // instance of itself. This approach stinks to high heaven, but it works for now.
+
+        if (req.params.mediaRefId.indexOf('episode_') > -1) {
+          let episodeId = req.params.mediaRefId.replace('episode_', '');
+
+          const EpisodeService = locator.get('EpisodeService');
+          EpisodeService.get(episodeId)
+            .then(episode => {
+
+              // Convert the episode into a mediaRef object
+              let epMediaRef = {};
+              epMediaRef.title = episode.title;
+              epMediaRef.startTime = 0;
+              epMediaRef.episodeId = episodeId;
+              epMediaRef.ownerId = req.feathers.userId;
+
+              const Models = locator.get('Models');
+              const {Episode, MediaRef} = Models;
+              // Find all mediaRefs with at least one episode where episode.feedURL === feedURL
+
+              MediaRef.findOrCreate({
+                where: {
+                  startTime: 0,
+                  $and: {
+                    endTime: null
+                  }
+                },
+                include: {
+                  model: Episode,
+                  where: {
+                    mediaURL: episode.mediaURL
+                  }
+                },
+                defaults: epMediaRef
+              })
+                .then(mediaRefArray => {
+                  let mediaRef = mediaRefArray[0];
+                  playlist.dataValues['playlistItems'] = [mediaRef.dataValues.id];
+                  PlaylistService.update(req.params.playlistId, playlist.dataValues, { userId: req.feathers.userId })
+                    .then(updatedPlaylist => {
+                      res.send(200, updatedPlaylist);
+                    })
+                })
+            })
+        } else {
+          playlist.dataValues['playlistItems'] = [req.params.mediaRefId];
+          PlaylistService.update(req.params.playlistId, playlist.dataValues, { userId: req.feathers.userId })
+            .then(updatedPlaylist => {
+              res.send(200, updatedPlaylist);
+            })
+        }
+
+      })
+      .catch(e => {
+        res.sendStatus(500);
+        throw new errors.GeneralError(e);
+      });
+  })
+
   .use('users', locator.get('UserService'))
 
   .get('/my-podcasts', (req, res) => {

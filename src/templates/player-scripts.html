@@ -36,9 +36,11 @@
       if (window.startTime === 0 && window.endTime === null) {
         window.isEpisode = true;
         window.description = item.episode.summary;
+        window.mediaRefId = 'episode_' + item.episode.id;
       } else {
         window.isEpisode = false;
         window.description = item.description;
+        window.mediaRefId = item.id;
       }
 
       window.isSubscribed = item.isSubscribed;
@@ -52,6 +54,7 @@
 
   // If there's an episode property, then set the window vars for the clip page.
   {% elif episode %}
+    window.mediaRefId = "{{ id }}";
     window.podcastId = "{{ episode.podcast.id }}";
     window.podcastTitle = "{{ episode.podcast.title }}";
     window.podcastImageURL = "{{ episode.podcast.imageURL }}";
@@ -72,6 +75,7 @@
 
   // If there's a podcast property, then set the window vars for the episode page.
   {% elif podcast %}
+    window.mediaRefId = 'episode_{{ id }}';
     window.podcastId = "{{ podcast.id }}";
     window.podcastTitle = "{{ podcast.title }}";
     window.podcastImageURL = "{{ podcast.imageURL }}";

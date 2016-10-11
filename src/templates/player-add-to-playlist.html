@@ -10,10 +10,23 @@
   <div class="row">
     <div class="col-xs-12">
       {% for playlist in usersOwnedPlaylists %}
-        <div class="add-to-playlist-item">
-          {{ playlist.title }}
+        <div class="add-to-playlist-item" data-id="{{ playlist.id }}">
+          <div class="add-to-playlist-item-count">
+            items: {{ playlist.mediaRefs|length }}
+          </div>
+          <div class="add-to-playlist-item-title">
+            {{ playlist.title }}
+          </div>
         </div>
       {% endfor %}
     </div>
   </div>
 </div>
+
+<script>
+$('.add-to-playlist-item').on('click', function () {
+  var playlistId = $(this).data('id');
+  var mediaRefId = $('#player').data('id');
+  addToPlaylist(playlistId, mediaRefId);
+});
+</script>

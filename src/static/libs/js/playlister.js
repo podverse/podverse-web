@@ -19,8 +19,21 @@ function togglePlaylistWidget () {
   $('#add-to-playlist').toggle();
 }
 
-function addToPlaylist () {
-  alert('add to playlist');
+function addToPlaylist (playlistId, mediaRefId) {
+  $.ajax({
+    type: 'POST',
+    url: '/playlists/' + playlistId + '/addItem/' + mediaRefId,
+    headers: {
+      Authorization: $.cookie('idToken')
+    },
+    success: function (response) {
+      alert('done!');
+    },
+    error: function (xhr, status, error) {
+      // TODO: add more helpful error messaging
+      alert('errrror');
+    }
+  });
 }
 
 // function makeClip () {
