@@ -27,13 +27,19 @@ module.exports = function(sequelize, DataTypes) {
 
     // url: appended to response body by PlaylistService hook
 
-    title: DataTypes.TEXT,
+    title: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+      validation: {
+        notEmpty: true
+      }
+    },
 
     ownerId: {
       type: DataTypes.TEXT,
       allowNull: false,
       validation: {
-        notEmpty: true,
+        notEmpty: true
       }
     },
 

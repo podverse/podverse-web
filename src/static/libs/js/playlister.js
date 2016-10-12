@@ -19,6 +19,27 @@ function togglePlaylistWidget () {
   $('#add-to-playlist').toggle();
 }
 
+function createPlaylist (params) {
+  $.ajax({
+    type: 'POST',
+    url: '/playlists/',
+    headers: {
+      Authorization: $.cookie('idToken')
+    },
+    data: {
+      title: params.title,
+      ownerName: params.ownerName
+    },
+    success: function (response) {
+      alert('done!');
+    },
+    error: function (xhr, status, error) {
+      // TODO: add more helpful error messaging
+      alert('errrror');
+    }
+  });
+}
+
 function addToPlaylist (playlistId, mediaRefId) {
   $.ajax({
     type: 'POST',

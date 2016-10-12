@@ -3,9 +3,10 @@
   <div id="add-to-playlist-header" class="player-function-header">
     Add to Playlist
   </div>
-  <div id="add-to-playlist-new-playlist" class="player-function-header-btn text-primary">
+  <a id="add-to-playlist-new-playlist" class="player-function-header-btn text-primary"
+     data-toggle="modal" data-target="#createPlaylistModal">
     New Playlist
-  </div>
+  </a>
   <div class="clearfix"></div>
   <div class="row">
     <div class="col-xs-12">
@@ -22,6 +23,8 @@
     </div>
   </div>
 </div>
+
+{% include "create-playlist-modal.html" %}
 
 <script>
 $('.add-to-playlist-item').on('click', function () {

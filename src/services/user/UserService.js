@@ -25,7 +25,7 @@ class UserService extends SequelizeService {
   }
 
   get (id, params={}) {
-    const {Podcast, Playlist} = this.Models;
+    const {Podcast, Episode, MediaRef, Playlist} = this.Models;
 
     if (id !== params.userId) {
       throw new errors.Forbidden();
@@ -36,11 +36,17 @@ class UserService extends SequelizeService {
         id:id
       },
       include: [
-        { model: Podcast,
+        {
+          model: Podcast,
           through: 'subscribedPodcasts'
         },
-        { model: Playlist,
-          through: 'subscribedPlaylists'
+        {
+          model: Playlist,
+          through: 'subscribedPlaylists',
+          include: [{
+            model: MediaRef,
+            through: 'playlistItems'
+          }]
         }
       ]
     }).then(user => {
@@ -79,6 +85,10 @@ class UserService extends SequelizeService {
   }
 
   update (id, data, params={}) {
+
+    if (id !== params.userId) {
+      throw new errors.Forbidden();
+    }
 
     return this.Model.findById(id)
       .then(user => {

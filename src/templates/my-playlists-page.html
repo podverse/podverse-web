@@ -16,7 +16,7 @@
             {{playlist.title}}
           </a>
           <a class="playlist-list-item-total-episodes" href="/playlists/{{playlist.id}}">
-            total episodes / total clips
+            {{ playlist.mediaRefs | length}}
           </a>
           <a class="playlist-list-item-last-pubdate" href="/playlists/{{playlist.id}}">
             {{playlist.lastUpdated | readableDate}}

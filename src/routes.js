@@ -213,7 +213,8 @@ function routes () {
   .post('/podcasts/subscribe/:id', verifyNonAnonUser, function (req, res) {
     const UserService = locator.get('UserService');
     UserService.update(req.feathers.userId, {}, {
-      subscribeToPodcast: req.params.id
+      subscribeToPodcast: req.params.id,
+      userId: req.feathers.userId
     })
       .then(user => {
         res.sendStatus(200);
@@ -227,7 +228,8 @@ function routes () {
   .post('/podcasts/unsubscribe/:id', verifyNonAnonUser, function (req, res) {
     const UserService = locator.get('UserService');
     UserService.update(req.feathers.userId, {}, {
-      unsubscribeFromPodcast: req.params.id
+      unsubscribeFromPodcast: req.params.id,
+      userId: req.feathers.userId
     })
       .then(user => {
         res.sendStatus(200);
@@ -241,7 +243,8 @@ function routes () {
   .post('/playlists/subscribe/:id', verifyNonAnonUser, function (req, res) {
     const UserService = locator.get('UserService');
     UserService.update(req.feathers.userId, {}, {
-      subscribeToPlaylist: req.params.id
+      subscribeToPlaylist: req.params.id,
+      userId: req.feathers.userId
     })
       .then(user => {
         res.sendStatus(200);
@@ -255,7 +258,8 @@ function routes () {
   .post('/playlists/unsubscribe/:id', verifyNonAnonUser, function (req, res) {
     const UserService = locator.get('UserService');
     UserService.update(req.feathers.userId, {}, {
-      unsubscribeFromPlaylist: req.params.id
+      unsubscribeFromPlaylist: req.params.id,
+      userId: req.feathers.userId
     })
       .then(user => {
         res.sendStatus(200);

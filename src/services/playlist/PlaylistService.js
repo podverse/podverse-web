@@ -86,10 +86,23 @@ class PlaylistService extends SequelizeService {
 
     return this.Model.create(data)
       .then(pl => {
-        return pl.setMediaRefs(data.playlistItems).then(() => {
-          return pl;
-        })
+        return pl.setMediaRefs(data.playlistItems)
+          .then(() => {
+
+            const {User} = this.Models;
+            return User.findById(data.ownerId)
+              .then(user => {
+                return user.addPlaylists([pl.id])
+                  .then(() => {
+                    return pl;
+                  });
+              });
+            });
+      })
+      .catch(e => {
+        throw new errors.GeneralError(e);
       });
+      
   }
 
   update (id, data, params={}) {
