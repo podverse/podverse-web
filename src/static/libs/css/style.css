@@ -291,6 +291,33 @@ footer p {
 
 
 
+/*** create-playlist-modal.html styles ***/
+#createPlaylistModal .btn {
+  width: 100px;
+}
+
+#createPlaylistModal button.close {
+  position: absolute;
+  top: 11px;
+  right: 15px;
+}
+
+
+
+/*** create-person-modal.html styles ***/
+
+#createPersonModal .btn {
+  width: 100px;
+}
+
+#createPersonModal button.close {
+  position: absolute;
+  top: 11px;
+  right: 15px;
+}
+
+
+
 /*** player.html full-size mode styles ***/
 
 #player-header {
@@ -384,7 +411,6 @@ footer p {
 
 .player-function-header {
     font-weight: 500;
-    text-decoration: underline;
     margin-bottom: 0.75rem;
     float: left;
 }

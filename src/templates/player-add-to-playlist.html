@@ -11,25 +11,19 @@
   <div class="row">
     <div class="col-xs-12">
       {% for playlist in usersOwnedPlaylists %}
-        <div class="add-to-playlist-item" data-id="{{ playlist.id }}">
-          <div class="add-to-playlist-item-count">
-            items: {{ playlist.mediaRefs|length }}
+        {% if not playlist.isRecommendation %}
+          <div class="add-to-playlist-item" data-id="{{ playlist.id }}">
+            <div class="add-to-playlist-item-count">
+              items: {{ playlist.mediaRefs|length }}
+            </div>
+            <div class="add-to-playlist-item-title">
+              {{ playlist.title }}
+            </div>
           </div>
-          <div class="add-to-playlist-item-title">
-            {{ playlist.title }}
-          </div>
-        </div>
+        {% endif %}
       {% endfor %}
     </div>
   </div>
 </div>
 
 {% include "create-playlist-modal.html" %}
-
-<script>
-$('.add-to-playlist-item').on('click', function () {
-  var playlistId = $(this).data('id');
-  var mediaRefId = $('#player').data('id');
-  addToPlaylist(playlistId, mediaRefId);
-});
-</script>

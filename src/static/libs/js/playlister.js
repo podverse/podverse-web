@@ -28,7 +28,8 @@ function createPlaylist (params) {
     },
     data: {
       title: params.title,
-      ownerName: params.ownerName
+      ownerName: params.ownerName,
+      isRecommendation: params.isRecommendation
     },
     success: function (response) {
       alert('done!');

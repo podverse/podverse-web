@@ -346,7 +346,9 @@ function previewEndTime (endTime) {
 }
 
 // Note: Truncation will fail if you attempt to use it on an element with display:none
-function truncateCondensedPlayerText () {
+function truncatePlayerText () {
+  $('#player-description').truncate({ lines: 4 });
+
   $('#player-condensed-title').truncate({ lines: 1 });
   $('#player-condensed-sub-title').truncate({ lines: 1 });
   $('#player-condensed-clip-title').truncate({ lines: 1 });
@@ -603,7 +605,7 @@ function onScrollCondensePlayerView () {
     if($(window).scrollTop() > (bottomOfPlayer)){
      $("#player-container").addClass('player-condensed');
      $('html').attr('style', 'padding-top: ' + bottomOfPlayerContainer + 'px;' );
-     truncateCondensedPlayerText();
+     truncatePlayerText();
     }
     else{
      $("#player-container").removeClass('player-condensed');

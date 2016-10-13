@@ -22,4 +22,12 @@
 
 {% include "clip-created-modal.html" %}
 
+<script>
+$('.add-to-playlist-item').on('click', function () {
+  var playlistId = $(this).data('id');
+  var mediaRefId = $('#player').data('id');
+  addToPlaylist(playlistId, mediaRefId);
+});
+</script>
+
 {% endblock %}

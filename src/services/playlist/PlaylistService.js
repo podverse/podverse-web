@@ -73,7 +73,7 @@ class PlaylistService extends SequelizeService {
           through: 'playlistItems',
           include: [{
             model: Episode, include: [Podcast]
-          }]
+          }],
         }
       ]
     };
@@ -102,7 +102,7 @@ class PlaylistService extends SequelizeService {
       .catch(e => {
         throw new errors.GeneralError(e);
       });
-      
+
   }
 
   update (id, data, params={}) {

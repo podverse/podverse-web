@@ -1,4 +1,4 @@
-<div class="modal fade" id="createPlaylistModal" tabindex="-1" role="dialog" aria-labelledby="createPlaylistLabel" aria-hidden="true">
+<div class="modal fade" id="createPersonModal" tabindex="-1" role="dialog" aria-labelledby="createPersonLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-body">
@@ -7,23 +7,24 @@
         </button>
         <form>
           <div class="form-group">
-            <label for="createPlaylistModalTitle" class="form-control-label">New Playlist</label>
-            <input type="text" class="form-control" id="createPlaylistModalTitle" placeholder="title">
+            <label for="createPersonModalName" class="form-control-label">Add Person</label>
+            <input type="text" class="form-control" id="createPersonModalName" placeholder="name">
           </div>
         </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-primary" id="createPlaylistModalAddButton">Add</button>
+        <button type="button" class="btn btn-primary" id="createPersonModalAddButton">Add</button>
       </div>
     </div>
   </div>
 </div>
 
 <script>
-$('#createPlaylistModalAddButton').on('click', function () {
+$('#createPersonModalAddButton').on('click', function () {
   var newPlaylist = {};
-  newPlaylist.title = $('#createPlaylistModalTitle').val();
+  newPlaylist.title = $('#createPersonModalName').val();
+  newPlaylist.isRecommendation = true;
   createPlaylist(newPlaylist);
 });
 </script>
