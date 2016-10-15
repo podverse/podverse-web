@@ -381,6 +381,7 @@ function setPlayerInfo () {
   $('#player-condensed-title a').html(podcastTitle);
   $('#player-condensed-title a').attr('href', '/podcasts/' + podcastId);
   $('#player-condensed-sub-title').html(episodeTitle);
+  $('#player-condensed-image img').attr('src', podcastImageURL);
 
   $('#player-podcast-title a').attr('href', '/podcasts/' + podcastId);
   $('#player-podcast-title a').html(podcastTitle);
@@ -428,6 +429,11 @@ function setPlayerInfo () {
   window.restartAttempts = 0;
   window.lastPlaybackPosition = -1;
   window.endTimeHasBeenReached = false;
+
+  var playerWidth = $('#player-inner').width();
+  $('#player-condensed-inner').css('width', playerWidth);
+
+  truncatePlayerText();
 
 }
 
@@ -603,13 +609,21 @@ function onScrollCondensePlayerView () {
 
   $(window).scroll(function(){
     if($(window).scrollTop() > (bottomOfPlayer)){
-     $("#player-container").addClass('player-condensed');
      $('html').attr('style', 'padding-top: ' + bottomOfPlayerContainer + 'px;' );
+
      truncatePlayerText();
+
+    //  $('#player-condensed-text').css('position', 'initial');
+    $('#player').insertBefore('#player-condensed-text');
+
+    $('#player-condensed-header').css('top', 55);
     }
     else{
-     $("#player-container").removeClass('player-condensed');
      $('html').attr('style', '');
+     $('#player-condensed-header').css('top', -50000);
+     $('#player').insertAfter('#player-condensed-header');
+
+    //  $('#player-condensed-text').css('position', 'absolute');
     }
   });
 
@@ -626,3 +640,10 @@ function destroyPlayerAndAudio () {
   audio = null;
   $('#player').html('');
 }
+
+// Resize #player-condensed-inner with JS to work with truncation
+$(window).resize(function () {
+  var playerWidth = $('#player-inner').width();
+  $('#player-condensed-inner').css('width', playerWidth);
+  truncatePlayerText();
+});

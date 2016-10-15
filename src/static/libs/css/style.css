@@ -360,11 +360,6 @@ footer p {
     font-weight: 300;
 }
 
-#player-condensed-title, #player-condensed-sub-title,
-#player-condensed-clip-title, #player-condensed-clip-time {
-    display: none !important;
-}
-
 #player {
     margin: 0 0 1rem 0;
 }
@@ -425,10 +420,10 @@ footer p {
 
 /*** player.html condensed-size mode styles ***/
 
-.player-condensed#player-container {
+#player-condensed-header {
     position: fixed;
     width: 100%;
-    top: 50px;
+    top: -50000px;
     left: 0;
     background-color: #fff;
     padding: 0.5rem 1rem 0.25rem 1rem;
@@ -437,77 +432,54 @@ footer p {
     z-index: 10;
 }
 
-.player-condensed #player-inner {
+/* Width for player-condensed-inner is set via JavaScript to work with truncation. */
+#player-condensed-inner {
     max-width: 607px;
     margin: 0 auto;
 }
 
-.player-condensed #player-header {
+#player-condensed-header {
     padding: 0.25rem 0 0.5rem 0;
 }
 
-.player-condensed #player-image {
+#player-condensed-image {
     width: 2.75rem;
     height: 2.75rem;
     margin-right: 0.75rem;
+    float: left;
 }
 
-.player-condensed #player-image img {
+#player-condensed-image img {
     width: 2.75rem;
     height: 2.75rem;
 }
 
-.player-condensed #player-condensed-title {
-    display: block !important;
+#player-condensed-title {
     font-weight: 500;
     font-size: 14px;
 }
 
-.player-condensed #player-condensed-title a {
+#player-condensed-title a {
     color: #373a3c;
 }
 
-.player-condensed #player-condensed-sub-title {
-    display: block !important;
+#player-condensed-sub-title {
     font-size: 14px;
 }
 
-.player-condensed #player-condensed-clip-time {
-    display: block !important;
+#player-condensed-clip-time {
     font-size: 12px;
     clear: both;
-    margin: 13px 0rem -5px 0.5rem;
+    margin: 2px 0rem -5px 0.5rem;
     float: right;
 }
 
-.player-condensed #player-condensed-clip-title {
-    display: block !important;
+#player-condensed-clip-title {
     font-size: 14px;
-    margin: 12px 0 -5px 0;
 }
 
-.player-condensed #player-podcast-title {
-    display: none !important;
-}
-
-.player-condensed #player-podcast-subscribe {
-    display: none;
-}
-
-.player-condensed #player-sub-title {
-    display: none !important;
-}
-
-.player-condensed #player {
-    margin: 0.5rem 0;
-}
-
-.player-condensed #player-stats {
-    display: none;
-}
-
-.player-condensed #player-functions {
-    display: none;
+#player-condensed-header #player {
+    margin: 0.75rem 0 0.5rem 0;
 }
 
 
