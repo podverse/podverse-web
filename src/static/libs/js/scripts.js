@@ -616,7 +616,7 @@ function onScrollCondensePlayerView () {
     //  $('#player-condensed-text').css('position', 'initial');
     $('#player').insertBefore('#player-condensed-text');
 
-    $('#player-condensed-header').css('top', 55);
+    $('#player-condensed-header').css('top', 50);
     }
     else{
      $('html').attr('style', '');

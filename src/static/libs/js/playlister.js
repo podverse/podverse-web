@@ -91,12 +91,4 @@ function addNewPlaylistElement(playlist) {
   } else {
     $(el).insertBefore($('#add-to-playlist .add-to-playlist-item').first());
   }
-
-  $(".add-to-playlist-item[data-id=" + playlistId + "]").on('click', function () {
-    var playlistId = $(this).data('id');
-    var mediaRefId = $('#player').data('id');
-    addToPlaylist(playlistId, mediaRefId, function (response) {
-      updatePlaylistItemCount(playlistId, response.mediaRefs.length);
-    });
-  });
 }

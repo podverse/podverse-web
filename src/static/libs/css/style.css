@@ -439,7 +439,7 @@ footer p {
 }
 
 #player-condensed-header {
-    padding: 0.25rem 0 0.5rem 0;
+    padding: 0.5rem 0;
 }
 
 #player-condensed-image {
@@ -644,15 +644,31 @@ footer p {
 
 
 /*** player-add-to-playlist.html styles ***/
-.add-to-playlist-item {
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
+.add-to-playlist-item-link {
+    float: right;
+    padding: 0.5rem 0;
+    border-top: 1px solid transparent;
+    border-bottom: 1px solid transparent;
+    width: 40px;
+    text-align: center;
+    cursor: pointer;
+    margin-left: 0.5rem;
+}
+
+.add-to-playlist-item-link:hover {
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+}
+
+.add-to-playlist-item-text {
+    padding: 0.5rem 0;
     cursor: pointer;
     border-top: 1px solid transparent;
     border-bottom: 1px solid transparent;
+    width: calc(100% - 50px);
 }
 
-.add-to-playlist-item:hover {
+.add-to-playlist-item-text:hover {
     border-top: 1px solid #ccc;
     border-bottom: 1px solid #ccc;
 }

@@ -23,12 +23,17 @@
 {% include "clip-created-modal.html" %}
 
 <script>
-$('.add-to-playlist-item').on('click', function () {
-  var playlistId = $(this).data('id');
+$('.add-to-playlist-item .add-to-playlist-item-text').on('click', function () {
+  var playlistId = $(this).parent().data('id');
   var mediaRefId = $('#player').data('id');
   addToPlaylist(playlistId, mediaRefId, function (response) {
     updatePlaylistItemCount(playlistId, response.mediaRefs.length);
   });
+});
+
+$('.add-to-playlist-item .add-to-playlist-item-link').on('click', function () {
+  var playlistId = $(this).parent().data('id');
+  window.location.href = '/playlists/' + playlistId;
 });
 </script>
 

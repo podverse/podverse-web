@@ -13,11 +13,16 @@
       {% for playlist in usersOwnedPlaylists %}
         {% if playlist.isRecommendation %}
           <div class="add-to-playlist-item" data-id="{{ playlist.id }}">
-            <div class="add-to-playlist-item-count">
-              items: {{ playlist.mediaRefs|length }}
+            <div class="add-to-playlist-item-link">
+              <i class="fa fa-link"></i>
             </div>
-            <div class="add-to-playlist-item-title">
-              {{ playlist.title }}
+            <div class="add-to-playlist-item-text">
+              <div class="add-to-playlist-item-count">
+                items: {{ playlist.mediaRefs|length }}
+              </div>
+              <div class="add-to-playlist-item-title">
+                {{ playlist.title }}
+              </div>
             </div>
           </div>
         {% endif %}
