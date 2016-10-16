@@ -12,6 +12,7 @@ function parseFeed (feedURL) {
           req = request(feedURL);
 
     req.on('error', function (e) {
+      console.log(e);
       rej(e);
     });
 
@@ -48,6 +49,7 @@ function parseFeed (feedURL) {
 
     function done (e) {
       if (e) {
+        console.log(e);
         rej(e);
       }
 

@@ -3,31 +3,103 @@
 
 <div class="row">
   <div class="col-xs-12">
-    <h4>My Playlists</h4>
+    <div class="dropdown" id="myPlaylistsDropdown">
+      <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        My Playlists
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <a class="dropdown-item" href="#">My Playlists</a>
+        <a class="dropdown-item" href="#">Recommended for Me</a>
+        <a class="dropdown-item" href="#">Recommended by Me</a>
+      </div>
+    </div>
     <div class="header-button" data-toggle="modal" data-target="#subscribeToPlaylistModal">Add</div>
 
-    <div class="playlist-list">
-      {% for playlist in playlists %}
-        <div class="playlist-list-item" data-id="{{playlist.id}}">
-          <a class="playlist-list-item-img" href="/playlists/{{playlist.id}}">
-            <img src="{{ playlist.mediaRefs[0].episode.podcast.imageURL }}">
+    <div class="playlist-list" id="playlist-list-my-playlists">
+      {% for playlist in mySubscribedPlaylists %}
+        {% if not playlist.isRecommendation %}
+          <a class="playlist-list-item" data-id="{{playlist.id}}" href="/playlists/{{playlist.id}}">
+            <div class="playlist-list-item-img">
+              <img src="{{ playlist.mediaRefs[0].episode.podcast.imageURL }}">
+            </div>
+            <div class="playlist-list-item-title">
+              {{playlist.title}}
+            </div>
+            <div class="playlist-list-item-total-episodes">
+              {{ playlist.mediaRefs | length}}
+            </div>
+            <div class="playlist-list-item-last-pubdate">
+              {{playlist.lastUpdated | readableDate}}
+            </div>
+            <div class="clearfix"></div>
           </a>
-          <a class="playlist-list-item-title" href="/playlists/{{playlist.id}}">
-            {{playlist.title}}
-          </a>
-          <a class="playlist-list-item-total-episodes" href="/playlists/{{playlist.id}}">
-            {{ playlist.mediaRefs | length}}
-          </a>
-          <a class="playlist-list-item-last-pubdate" href="/playlists/{{playlist.id}}">
-            {{playlist.lastUpdated | readableDate}}
-          </a>
-          <div class="clearfix"></div>
-        </div>
+        {% endif %}
       {% endfor %}
-    </div><!-- /#my-playlist-list -->
+    </div><!-- /#playlist-list-my-playlists -->
+
+    <div class="playlist-list" id="playlist-list-recommended-for-me">
+      {% for playlist in recommendedForMe %}
+        <a class="playlist-list-item" data-id="{{playlist.id}}" href="/playlists/{{playlist.id}}">
+          <div class="playlist-list-item-img">
+            <img src="{{ playlist.mediaRefs[0].episode.podcast.imageURL }}">
+          </div>
+          <div class="playlist-list-item-title">
+            {{playlist.title}}
+          </div>
+          <div class="playlist-list-item-total-episodes">
+            {{ playlist.mediaRefs | length}}
+          </div>
+          <div class="playlist-list-item-last-pubdate">
+            {{playlist.lastUpdated | readableDate}}
+          </div>
+          <div class="clearfix"></div>
+        </a>
+      {% endfor %}
+    </div><!-- /#playlist-list-recommended-for-me -->
+
+    <div class="playlist-list" id="playlist-list-recommended-by-me">
+      {% for playlist in recommendedByMe %}
+        <a class="playlist-list-item" data-id="{{playlist.id}}" href="/playlists/{{playlist.id}}">
+          <div class="playlist-list-item-img">
+            <img src="{{ playlist.mediaRefs[0].episode.podcast.imageURL }}">
+          </div>
+          <div class="playlist-list-item-title">
+            {{playlist.title}}
+          </div>
+          <div class="playlist-list-item-total-episodes">
+            {{ playlist.mediaRefs | length}}
+          </div>
+          <div class="playlist-list-item-last-pubdate">
+            {{playlist.lastUpdated | readableDate}}
+          </div>
+          <div class="clearfix"></div>
+        </a>
+      {% endfor %}
+    </div><!-- /#playlist-list-recommended-by-me -->
+
   </div><!-- /.col-xs-12 -->
 </div><!-- /.row -->
 
 {% include "subscribe-to-playlist-modal.html" %}
+
+<script>
+$('#myPlaylistsDropdown a').on('click', function () {
+  var selectedVal = $(this).html();
+
+  $('#playlist-list-my-playlists').hide();
+  $('#playlist-list-recommended-for-me').hide();
+  $('#playlist-list-recommended-by-me').hide();
+
+  if (selectedVal === 'My Playlists') {
+    $('#playlist-list-my-playlists').show();
+  } else if (selectedVal === 'Recommended for Me') {
+    $('#playlist-list-recommended-for-me').show();
+  } else if (selectedVal === 'Recommended by Me') {
+    $('#playlist-list-recommended-by-me').show();
+  }
+
+  $('#myPlaylistsDropdown button').html(selectedVal);
+});
+</script>
 
 {% endblock %}

@@ -78,17 +78,35 @@ function addNewPlaylistElement(playlist) {
       isRecommendation = playlist.isRecommendation;
 
   var el = '<div class="add-to-playlist-item" data-id="' + playlistId +'">';
-      el +=   '<div class="add-to-playlist-item-count">';
-      el +=     'items: 0';
+      el +=   '<div class="add-to-playlist-item-link">';
+      el +=     '<i class="fa fa-link"></i>';
       el +=   '</div>';
-      el +=   '<div class="add-to-playlist-item-title">';
-      el +=     playlistTitle
-      el +=   '</div>';
-      el += '</div> ';
+      el +=   '<div class="add-to-playlist-item-text">';
+      el +=     '<div class="add-to-playlist-item-count">';
+      el +=       'items: 0';
+      el +=     '</div>';
+      el +=     '<div class="add-to-playlist-item-title">';
+      el +=       playlistTitle
+      el +=     '</div>';
+      el +=   '</div>'
+      el += '</div>';
 
   if (isRecommendation) {
-    $(el).insertBefore($('#recommend .add-to-playlist-item').first());
+    $('#recommend .col-xs-12').prepend(el);
   } else {
-    $(el).insertBefore($('#add-to-playlist .add-to-playlist-item').first());
+    $('#add-to-playlist .col-xs-12').prepend(el);
   }
+
+  $(".add-to-playlist-item[data-id=" + playlistId + "] .add-to-playlist-item-text").on('click', function () {
+    var playlistId = $(this).parent().data('id');
+    var mediaRefId = $('#player').data('id');
+    addToPlaylist(playlistId, mediaRefId, function (response) {
+      updatePlaylistItemCount(playlistId, response.mediaRefs.length);
+    });
+  })
+
+  $(".add-to-playlist-item[data-id=" + playlistId + "] .add-to-playlist-item-link").on('click', function () {
+    var playlistId = $(this).parent().data('id');
+    window.location.href = '/playlists/' + playlistId;
+  });
 }

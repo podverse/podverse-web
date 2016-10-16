@@ -353,9 +353,23 @@ function routes () {
     const UserService = locator.get('UserService');
     UserService.get(req.feathers.userId, { userId: req.feathers.userId })
       .then(user => {
-        res.render('my-playlists-page.html', user);
+        user.dataValues['mySubscribedPlaylists'] = user.playlists;
+
+        let recommendedToMe = user.playlists.filter(function (p) {
+          return (p.ownerId !== req.feathers.userId && p.isRecommendation === true);
+        });
+
+        user.dataValues['recommendedForMe'] = recommendedToMe;
+
+        const PlaylistService = locator.get('PlaylistService');
+        return PlaylistService.find({ query: { ownerId: req.feathers.userId, isRecommendation: true }})
+          .then(myRecommendations => {
+            user.dataValues['recommendedByMe'] = myRecommendations;
+            res.render('my-playlists-page.html', user.dataValues);
+          })
       })
       .catch(e => {
+        console.log(e);
         res.sendStatus(401);
       });
   })

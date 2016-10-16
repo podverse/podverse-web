@@ -54,7 +54,7 @@ audio {
 
 .header-button {
     float: right;
-    margin: 1.25rem 0 1.5rem 1rem;
+    margin: 1.75rem 0 1.5rem 1rem;
     cursor: pointer;
 }
 
@@ -787,16 +787,18 @@ footer p {
 
 
 /*** my-playlists-page.html styles ***/
+#myPlaylistsDropdown {
+  float: left;
+  margin: 1.25rem 0 1.5rem 0;
+}
+
 .playlist-list-item {
   clear: both;
   margin: 0 0 1.5rem 0;
   display: block;
-}
-
-.playlist-list-item a {
-  display: block;
-  text-decoration: none !important;
   color: #373a3c !important;
+  text-decoration: none !important;
+  cursor: pointer;
 }
 
 .playlist-list-item-img {
@@ -804,7 +806,6 @@ footer p {
   margin: 0 0.75rem 0 0;
   width: 4rem;
   height: 4rem;
-  cursor: pointer;
 }
 
 .playlist-list-item-img img {
@@ -814,25 +815,21 @@ footer p {
 
 .playlist-list-item-subscribe {
   float: right;
-  cursor: pointer;
 }
 
 .playlist-list-item-title {
   overflow: hidden;
   font-weight: 500;
-  cursor: pointer;
 }
 
 .playlist-list-item-total-episodes {
   float: left;
   margin-top: 1rem;
-  cursor: pointer;
 }
 
 .playlist-list-item-last-pubdate {
   float: right;
   margin-top: 1rem;
-  cursor: pointer;
 }
 
 

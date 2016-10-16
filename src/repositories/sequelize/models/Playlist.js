@@ -53,7 +53,10 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.ENUM('isPublic', 'isSharableWithLink', 'isPrivate')
     },
 
-    isRecommendation: DataTypes.BOOLEAN,
+    isRecommendation: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    },
 
     // TODO: probably remove these...
     // TODO: An ownerId can only have ONE playlist with isMyEpisodes === true
