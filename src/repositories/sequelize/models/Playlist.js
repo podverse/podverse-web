@@ -62,8 +62,8 @@ module.exports = function(sequelize, DataTypes) {
     isMyClips: DataTypes.BOOLEAN
 
   }, {
-      updatedAt: 'dateCreated',
-      createdAt: 'lastUpdated',
+      updatedAt: 'lastUpdated',
+      createdAt: 'dateCreated',
       setterMethods: {
           podverseURL: function (value) {
               this.setDataValue('podverseURL', value);

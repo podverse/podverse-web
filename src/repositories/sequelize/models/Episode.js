@@ -48,10 +48,10 @@ module.exports = function(sequelize, DataTypes) {
     mediaType: DataTypes.TEXT,
 
     pubDate: DataTypes.DATE
-    
+
   }, {
-      updatedAt: 'dateCreated',
-      createdAt: 'lastUpdated'
+      updatedAt: 'lastUpdated',
+      createdAt: 'dateCreated'
   });
 
   return episode;

@@ -10,7 +10,7 @@
       {% for playlist in playlists %}
         <div class="playlist-list-item" data-id="{{playlist.id}}">
           <a class="playlist-list-item-img" href="/playlists/{{playlist.id}}">
-            <img src="{{playlist.previewImageURL}}">
+            <img src="{{ playlist.mediaRefs[0].episode.podcast.imageURL }}">
           </a>
           <a class="playlist-list-item-title" href="/playlists/{{playlist.id}}">
             {{playlist.title}}

@@ -43,10 +43,14 @@ class UserService extends SequelizeService {
         {
           model: Playlist,
           through: 'subscribedPlaylists',
-          include: [{
-            model: MediaRef,
-            through: 'playlistItems'
-          }]
+          include: [
+            { model: MediaRef,
+              through: 'playlistItems',
+              include: [{
+                model: Episode, include: [Podcast]
+              }],
+            }
+          ]
         }
       ]
     }).then(user => {
