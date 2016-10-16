@@ -740,10 +740,6 @@ footer p {
   clear: both;
   margin: 0 0 1.5rem 0;
   display: block;
-}
-
-.podcast-item a {
-  display: block;
   text-decoration: none !important;
   color: #373a3c !important;
 }

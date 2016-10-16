@@ -6,24 +6,21 @@
     <h4>My Subscribed Podcasts</h4>
     <div class="podcast-list">
       {% for podcast in podcasts %}
-        <div class="podcast-item" data-id="{{podcast.id}}">
-          <a class="podcast-item-img" href="/podcasts/{{podcast.id}}">
+        <a class="podcast-item" data-id="{{podcast.id}}" href="/podcasts/{{podcast.id}}">
+          <div class="podcast-item-img">
             <img src="{{podcast.imageURL}}">
-          </a>
-          <div class="podcast-item-subscribe">
-            <i class="fa fa-star"></i>
           </div>
-          <a class="podcast-item-title" href="/podcasts/{{podcast.id}}">
+          <div class="podcast-item-title">
             {{podcast.title}}
-          </a>
-          <a class="podcast-item-total-episodes" href="/podcasts/{{podcast.id}}">
-            total episodes
-          </a>
-          <a class="podcast-item-last-pubdate" href="/podcasts/{{podcast.id}}">
-            {{podcast.lastPubDate | readableDate}}
-          </a>
+          </div>
+          <div class="podcast-item-total-episodes">
+            {{ podcast.episodes | length }} episodes
+          </div>
+          <div class="podcast-item-last-pubdate">
+            {{podcast.episodes[0].pubDate | readableDate}}
+          </div>
           <div class="clearfix"></div>
-        </div>
+        </a>
       {% endfor %}
     </div><!-- /#my-podcast-list -->
   </div><!-- /.col-xs-12 -->

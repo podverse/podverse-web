@@ -38,7 +38,10 @@ class UserService extends SequelizeService {
       include: [
         {
           model: Podcast,
-          through: 'subscribedPodcasts'
+          through: 'subscribedPodcasts',
+          include: [{
+            model: Episode  
+          }]
         },
         {
           model: Playlist,
