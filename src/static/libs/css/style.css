@@ -413,7 +413,7 @@ footer p {
 .player-function-header-btn {
     float: right;
     margin-left: 1rem;
-    font-size: 14px;
+    font-size: 13px;
     cursor: pointer;
 }
 
@@ -555,7 +555,7 @@ footer p {
 
 /*** player-description.html styles ***/
 #player-description {
-    font-size: 14px;
+    font-size: 13px;
     margin-bottom: 1rem;
 }
 
@@ -576,9 +576,15 @@ footer p {
     margin: 0 0 0.5rem 0;
 }
 
+#playlist-subtitle {
+    margin: 0 0 1rem 0;
+}
+
 #playlist-subscribe {
     float: right;
     cursor: pointer;
+    font-size: 13px;
+    color: #777;
 }
 
 .playlist-item {
@@ -786,6 +792,10 @@ footer p {
 #myPlaylistsDropdown {
   float: left;
   margin: 1.25rem 0 1.5rem 0;
+}
+
+#playlist-list-recommended-by-me, #playlist-list-recommended-for-me {
+    display: none;
 }
 
 .playlist-list-item {

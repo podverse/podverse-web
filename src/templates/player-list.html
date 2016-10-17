@@ -2,16 +2,19 @@
   <hr />
   <div id="playlist">
     {% if isSubscribed %}
-      <div id="playlist-subscribe" title="Unsubscribe from playlist">
-        <i class="fa fa-star"></i>
-      </div>
+      <div id="playlist-subscribe" class="text-primary" title="Unsave playlist"><i class="fa fa-star"></i> saved</div>
     {% else %}
-      <div id="playlist-subscribe" title="Subscribe to playlist">
-        <i class="fa fa-star-o"></i>
-      </div>
+      <div id="playlist-subscribe" title="Save playlist">save</div>
     {% endif %}
     <div id="playlist-title">
-      {{ title }}
+      {% if isRecommendation %}
+        Recommended for {{ title }}
+      {% else %}
+        <i class="fa fa-list-ul"></i> {{ title }}
+      {% endif %}
+    </div>
+    <div id="playlist-subtitle">
+      From: {{ ownerName }}
     </div>
     {% for item in mediaRefs %}
       {% if item|isEpisode %}
@@ -76,13 +79,15 @@
 window.playlistId = '{{ id }}';
 
 $('#playlist-subscribe').on('click', function () {
-  if ($(this).children().hasClass('fa-star-o')) {
-    $('#playlist-subscribe').html('<i class="fa fa-star"></i>');
-    $('#playlist-subscribe').attr('title', 'Unsubscribe from playlist');
+  if ($(this).html() === 'save') {
+    $('#playlist-subscribe').html('<i class="fa fa-star"></i> saved');
+    $('#playlist-subscribe').attr('title', 'Unsave playlist');
+    $('#playlist-subscribe').addClass('text-primary');
     subscribeToPlaylist(playlistId);
   } else {
-    $('#playlist-subscribe').html('<i class="fa fa-star-o"></i>');
-    $('#playlist-subscribe').attr('title', 'Subscribe to playlist');
+    $('#playlist-subscribe').html('save');
+    $('#playlist-subscribe').attr('title', 'Save playlist');
+    $('#playlist-subscribe').removeClass('text-primary');
     unsubscribeFromPlaylist(playlistId);
   }
 });

@@ -13,23 +13,29 @@
         <a class="dropdown-item" href="#">Recommended by Me</a>
       </div>
     </div>
-    <div class="header-button" data-toggle="modal" data-target="#subscribeToPlaylistModal">Add</div>
+    <div class="header-button" data-toggle="modal" data-target="#subscribeToPlaylistModal">Add Playlist</div>
 
     <div class="playlist-list" id="playlist-list-my-playlists">
       {% for playlist in mySubscribedPlaylists %}
         {% if not playlist.isRecommendation %}
           <a class="playlist-list-item" data-id="{{playlist.id}}" href="/playlists/{{playlist.id}}">
             <div class="playlist-list-item-img">
-              <img src="{{ playlist.mediaRefs[0].episode.podcast.imageURL }}">
+              {% if playlist.mediaRefs[0].episode.podcast.imageURL %}
+                <img src="{{ playlist.mediaRefs[0].episode.podcast.imageURL }}">
+              {% else %}
+                <img src="/static/images/podverse-logo-180.png">
+              {% endif %}
             </div>
             <div class="playlist-list-item-title">
-              {{playlist.title}}
+              {{ playlist.title }}
             </div>
             <div class="playlist-list-item-total-episodes">
               {{ playlist.mediaRefs | length}}
             </div>
             <div class="playlist-list-item-last-pubdate">
-              {{playlist.lastUpdated | readableDate}}
+              {% if playlist.mediaRefs[0] %}
+                {{ playlist.lastUpdated | readableDate }}
+              {% endif %}
             </div>
             <div class="clearfix"></div>
           </a>
