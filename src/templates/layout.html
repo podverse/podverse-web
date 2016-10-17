@@ -98,8 +98,8 @@
       // TODO: this is weird, should be a better way...
       if (isPlayerPage === true && isEmptyPlaylist !== true) {
         setPlayerInfo();
-        // Toggle the autoplay to True by default on page load
         // TODO: remove autoplay on mobile devices since they do not support autoplay
+        // TODO: or find some kind of way to let autoplay be enabled in mobile browsers
         createAutoplayBtn();
         createAndAppendAudio();
         onScrollCondensePlayerView();

@@ -560,21 +560,21 @@ $('#player-autoplay').on('click', function() {
 
 function toggleAutoplay () {
   var autoplay = $.cookie('autoplay');
-  if (autoplay !== 'On') {
-    $.cookie('autoplay', 'On', { path: '/' });
+  if (autoplay !== 'true') {
+    $.cookie('autoplay', 'true', { path: '/' });
     $('#player-autoplay').html('<span style="font-weight: 500">Autoplay On</span>');
   } else {
-    $.cookie('autoplay', 'Off', { path: '/' });
+    $.cookie('autoplay', 'false', { path: '/' });
     $('#player-autoplay').html('Autoplay Off');
   }
 }
 
 function createAutoplayBtn () {
   var autoplay = $.cookie('autoplay');
-  if (autoplay === 'On') {
+  if (autoplay === 'true') {
     $('#player-autoplay').html('<span style="font-weight: 500">Autoplay On</span>');
   } else {
-    $.cookie('autoplay', 'Off', { path: '/' });
+    $.cookie('autoplay', 'false', { path: '/' });
     $('#player-autoplay').html('Autoplay Off');
   }
 }
