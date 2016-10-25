@@ -1,9 +1,9 @@
 {% if mediaRefs|isPlaylist %}
   <hr />
   <div id="playlist">
-    {% if isSubscribed %}
-      <div id="playlist-subscribe" class="text-primary" title="Unsave playlist"><i class="fa fa-star"></i> saved</div>
-    {% else %}
+    {% if isSubscribed and not isOwner %}
+      <div id="playlist-subscribe" title="Unsave playlist"><i class="fa fa-star"></i> saved</div>
+    {% elif not isSubscribed and not isOwner %}
       <div id="playlist-subscribe" title="Save playlist">save</div>
     {% endif %}
     <div id="playlist-title">
@@ -82,12 +82,10 @@ $('#playlist-subscribe').on('click', function () {
   if ($(this).html() === 'save') {
     $('#playlist-subscribe').html('<i class="fa fa-star"></i> saved');
     $('#playlist-subscribe').attr('title', 'Unsave playlist');
-    $('#playlist-subscribe').addClass('text-primary');
     subscribeToPlaylist(playlistId);
   } else {
     $('#playlist-subscribe').html('save');
     $('#playlist-subscribe').attr('title', 'Save playlist');
-    $('#playlist-subscribe').removeClass('text-primary');
     unsubscribeFromPlaylist(playlistId);
   }
 });

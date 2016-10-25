@@ -112,6 +112,10 @@ function routes () {
             .then((isSubscribed) => {
               playlist.dataValues['isSubscribed'] = isSubscribed;
 
+              if (playlist.dataValues['ownerId'] === req.feathers.userId) {
+                playlist.dataValues['isOwner'] = true;
+              }
+
               if (isNonAnonUser(req.feathers.userId)) {
                 return PlaylistService.find({ ownerId: req.feathers.userId })
                   .then(usersOwnedPlaylists => {
