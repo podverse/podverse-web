@@ -25,6 +25,11 @@
 window.podcastId = '{{ id }}';
 
 $('#podcast-subscribe').on('click', function () {
+  if (!isNonAnonLoggedInUser()) {
+    alert('Login to subscribe to this podcast :D');
+    return;
+  }
+
   if ($(this).children().hasClass('fa-star-o')) {
     $('#podcast-subscribe').html('<i class="fa fa-star"></i>');
     $('#podcast-subscribe').attr('title', 'Unsubscribe from podcast');

@@ -3,6 +3,11 @@ $('#toggle-playlist-btn').on('click', function () {
 });
 
 function togglePlaylistWidget () {
+  if (!isNonAnonLoggedInUser()) {
+    alert('Login to create a playlist :D');
+    return;
+  }
+
   if ($('#make-clip').css('display') !== 'block' && $('#recommend').css('display') !== 'block') {
     $('#player-stats').toggle();
     $('#player-description').toggle();
@@ -78,9 +83,9 @@ function addNewPlaylistElement(playlist) {
       isRecommendation = playlist.isRecommendation;
 
   var el = '<div class="add-to-playlist-item" data-id="' + playlistId +'">';
-      el +=   '<div class="add-to-playlist-item-link">';
+      el +=   '<a class="add-to-playlist-item-link">';
       el +=     '<i class="fa fa-link"></i>';
-      el +=   '</div>';
+      el +=   '</a>';
       el +=   '<div class="add-to-playlist-item-text">';
       el +=     '<div class="add-to-playlist-item-count">';
       el +=       'items: 0';

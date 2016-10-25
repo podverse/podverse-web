@@ -1,7 +1,7 @@
 
 <div id="recommend">
   <div id="recommend-header" class="player-function-header">
-    Recommend To
+    Recommend
   </div>
   <div id="recommend-new-playlist" class="player-function-header-btn text-primary"
        data-toggle="modal" data-target="#createPersonModal">
@@ -13,9 +13,9 @@
       {% for playlist in usersOwnedPlaylists %}
         {% if playlist.isRecommendation %}
           <div class="add-to-playlist-item" data-id="{{ playlist.id }}">
-            <div class="add-to-playlist-item-link">
+            <a class="add-to-playlist-item-link" href="/playlists/{{ playlist.id }}">
               <i class="fa fa-link"></i>
-            </div>
+            </a>
             <div class="add-to-playlist-item-text">
               <div class="add-to-playlist-item-count">
                 items: {{ playlist.mediaRefs|length }}

@@ -19,6 +19,10 @@ if (location.href.indexOf('#access_token') === -1) {
 
 function appendLoggedInUserNavButtons () {
 
+  if (location.href.indexOf('/login-redirect') > -1) {
+    return
+  }
+
   $('#login-btn').addClass('btn-group');
 
   var navDropdownButtonString =   '<a class="dropdown-toggle nav-link hidden-xs-down" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +  localStorage.getItem('nickname') +'</a>';
@@ -420,6 +424,11 @@ function setPlayerInfo () {
   }
 
   $('#player-podcast-subscribe').on('click', function () {
+    if (!isNonAnonLoggedInUser()) {
+      alert('Login to subscribe to this podcast :D');
+      return;
+    }
+
     if ($(this).children().hasClass('fa-star-o')) {
       $('#player-podcast-subscribe').html('<i class="fa fa-star"></i>');
       $('#player-podcast-subscribe').attr('title', 'Unsubscribe from podcast');

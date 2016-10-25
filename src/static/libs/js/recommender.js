@@ -3,6 +3,11 @@ $('#toggle-recommend-btn').on('click', function () {
 });
 
 function toggleRecommendWidget () {
+  if (!isNonAnonLoggedInUser()) {
+    alert('Login to make playlists for friends :D');
+    return;
+  }
+
   if ($('#make-clip').css('display') !== 'block' && $('#add-to-playlist').css('display') !== 'block') {
     $('#player-stats').toggle();
     $('#player-description').toggle();

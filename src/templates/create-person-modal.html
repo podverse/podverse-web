@@ -21,6 +21,14 @@
 </div>
 
 <script>
+function showNewPersonModal() {
+  if (isNonAnonLoggedInUser()) {
+    $('#createPersonModal').modal('show');
+  } else {
+    alert('Login to create a playlist for a friend :D');
+  }
+}
+
 $('#createPersonModalAddButton').on('click', function () {
   var newPlaylist = {};
   newPlaylist.title = $('#createPersonModalName').val();

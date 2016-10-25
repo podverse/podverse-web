@@ -658,11 +658,13 @@ footer p {
     text-align: center;
     cursor: pointer;
     margin-left: 0.5rem;
+    color: #373a3c;
 }
 
 .add-to-playlist-item-link:hover {
     border-top: 1px solid #ccc;
     border-bottom: 1px solid #ccc;
+    color: #373a3c;
 }
 
 .add-to-playlist-item-text {

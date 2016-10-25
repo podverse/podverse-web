@@ -81,7 +81,11 @@ function findOrCreateUserOnServer () {
       request.setRequestHeader('Authorization', $.cookie('idToken'));
     },
     type: 'POST',
-    url: '/users'
+    url: '/users',
+    success: function () {
+      // TODO: this redirect shouldn't be in here
+      location.href = loginRedirectURL;
+    }
   });
 }
 
@@ -98,7 +102,7 @@ function removeUserProfileFromLocalStorage () {
 }
 
 function logoutUser () {
-  $.removeCookie('idToken');
+  $.removeCookie('idToken', { path: '/' });
   removeUserProfileFromLocalStorage();
   location.reload();
 }
