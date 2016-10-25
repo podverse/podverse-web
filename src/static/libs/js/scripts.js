@@ -180,6 +180,11 @@ function isUUID (val) {
   return pattern.test(val);
 }
 
+// Used to enable/disable auth protected features in the frontend
+function isNonAnonLoggedInUser () {
+  return localStorage.getItem('email') ? true : false;
+}
+
 function addPlaylistItemTextTruncation() {
   var playlistItems = document.getElementsByClassName('playlist-item');
 
