@@ -151,8 +151,17 @@ class UserService extends SequelizeService {
       throw new errors.GeneralError('There must be a valid property to update.')
     }
 
-    return super.patch(id, fieldsToUpdate, params);
+    return this.Model.update(fieldsToUpdate, {
+      where: {
+        id: id
+      }
+    })
+      .then(user => {
+        const {Playlist} = this.Models,
+              PlaylistService = locator.get('PlaylistService');
 
+        return Playlist.update({ ownerName: data.name }, { where: { ownerId: params.userId } });
+      })
   }
 
 }

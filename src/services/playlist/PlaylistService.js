@@ -84,14 +84,14 @@ class PlaylistService extends SequelizeService {
   create (data) {
     data = this._transformBeforeSave(data);
 
-    return this.Model.create(data)
-      .then(pl => {
-        return pl.setMediaRefs(data.playlistItems)
-          .then(() => {
-
-            const {User} = this.Models;
-            return User.findById(data.ownerId)
-              .then(user => {
+    const {User} = this.Models;
+    return User.findById(data.ownerId)
+      .then(user => {
+          data.ownerName = user.name || '';
+        return this.Model.create(data)
+          .then(pl => {
+            return pl.setMediaRefs(data.playlistItems)
+              .then(() => {
                 return user.addPlaylists([pl.id])
                   .then(() => {
                     return pl;
