@@ -66,7 +66,7 @@ function routes () {
 
           if (isNonAnonUser(req.feathers.userId)) {
             const PlaylistService = locator.get('PlaylistService');
-            return PlaylistService.find({ ownerId: req.feathers.userId })
+            return PlaylistService.find(({query :{ ownerId: req.feathers.userId } }))
               .then(usersOwnedPlaylists => {
                 mediaRef.dataValues['usersOwnedPlaylists'] = usersOwnedPlaylists;
                 res.render('player-page.html', mediaRef.dataValues);
@@ -117,7 +117,7 @@ function routes () {
               }
 
               if (isNonAnonUser(req.feathers.userId)) {
-                return PlaylistService.find({ ownerId: req.feathers.userId })
+                return PlaylistService.find(({query :{ ownerId: req.feathers.userId } }))
                   .then(usersOwnedPlaylists => {
                     playlist.dataValues['usersOwnedPlaylists'] = usersOwnedPlaylists;
                     res.render('player-page.html', playlist.dataValues);
@@ -172,7 +172,7 @@ function routes () {
 
           if (isNonAnonUser(req.feathers.userId)) {
             const PlaylistService = locator.get('PlaylistService');
-            return PlaylistService.find({ ownerId: req.feathers.userId })
+            return PlaylistService.find(({query :{ ownerId: req.feathers.userId } }))
               .then(usersOwnedPlaylists => {
                 episode.dataValues['usersOwnedPlaylists'] = usersOwnedPlaylists;
                 res.render('player-page.html', episode.dataValues);
