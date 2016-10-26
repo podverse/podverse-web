@@ -841,6 +841,13 @@ footer p {
 
 
 
+/*** settings.html styles  ***/
+#settings button {
+    margin-left: 20px;
+    width: 100px;
+}
+
+
 
 /*** Auth0 Lock Overrides ***/
 .auth0-lock-badge-bottom {

@@ -18,7 +18,8 @@ class UserService extends SequelizeService {
     // -----
     this.before = {
       create: [ensureAuthenticated],
-      update: [ensureAuthenticated]
+      update: [ensureAuthenticated],
+      patch: [ensureAuthenticated]
     };
 
     this.after = {};
@@ -40,7 +41,7 @@ class UserService extends SequelizeService {
           model: Podcast,
           through: 'subscribedPodcasts',
           include: [{
-            model: Episode  
+            model: Episode
           }]
         },
         {
@@ -133,12 +134,30 @@ class UserService extends SequelizeService {
         }
 
       });
+
+  }
+
+  patch (id, data, params={}) {
+
+    if (id !== params.userId) {
+      throw new errors.Forbidden();
+    }
+
+    var fieldsToUpdate = {
+      'name': data.name
+    };
+
+    if (fieldsToUpdate.length < 1) {
+      throw new errors.GeneralError('There must be a valid property to update.')
+    }
+
+    return super.patch(id, fieldsToUpdate, params);
+
   }
 
 }
 
 UserService.prototype.find = undefined;
 UserService.prototype.remove = undefined;
-UserService.prototype.patch = undefined;
 
 module.exports = UserService;

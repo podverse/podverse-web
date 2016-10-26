@@ -382,6 +382,19 @@ function routes () {
     res.render('login-redirect.html', req.query);
   })
 
+  .get('/settings', function (req, res) {
+    const UserService = locator.get('UserService');
+    UserService.get(req.feathers.userId, { userId: req.feathers.userId })
+      .then(user => {
+        res.render('settings.html', user.dataValues);
+      })
+      .catch(e => {
+        console.log(e);
+        res.sendStatus(401);
+      });
+
+  })
+
 }
 
 // TODO: where should this function go?
