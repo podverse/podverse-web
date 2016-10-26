@@ -73,6 +73,9 @@ class UserService extends SequelizeService {
       where: {
         id: params.userId
       },
+      defaults: {
+        name: data.name || ''
+      },
       include: [{
         model: Podcast,
         through: 'subscribedPodcasts'
