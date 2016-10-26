@@ -35,7 +35,11 @@ var options = {
     params: {
       scope: 'openid name email'
     }
-  }
+  },
+  additionalSignUpFields: [{
+    name: 'name',
+    placeholder: 'type your name (for sharing playlists)'
+  }]
 };
 
 // TODO: setup environment variables...
@@ -71,17 +75,23 @@ lock.on('authenticated', function (authResult) {
 
     appendLoggedInUserNavButtons();
 
-    findOrCreateUserOnServer();
+    findOrCreateUserOnServer(profile);
   })
 });
 
-function findOrCreateUserOnServer () {
+function findOrCreateUserOnServer (profile) {
+  var name = profile.user_metadata && profile.user_metadata.name;
+
   $.ajax({
     beforeSend: function (request) {
       request.setRequestHeader('Authorization', $.cookie('idToken'));
     },
     type: 'POST',
     url: '/users',
+    data: {
+      name: name
+    },
+    dataType: 'json',
     success: function () {
       // TODO: this redirect shouldn't be in here
       location.href = loginRedirectURL;
