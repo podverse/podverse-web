@@ -18,6 +18,13 @@
 <script>
 $('#settings-name').val('{{ name }}');
 
+$('#settings-name').keydown(function(e){
+  if(e.keyCode == 13) {
+    e.preventDefault();
+    updateUserProfile();
+  }
+});
+
 function updateUserProfile () {
   $.ajax({
     type: 'PATCH',
