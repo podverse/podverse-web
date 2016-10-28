@@ -1,8 +1,8 @@
 $('#toggle-playlist-btn').on('click', function () {
-  togglePlaylistWidget();
+  togglePlaylistWidget(this);
 });
 
-function togglePlaylistWidget () {
+function togglePlaylistWidget (_this) {
   if (!isNonAnonLoggedInUser()) {
     alert('Login to create a playlist :D');
     return;
@@ -10,9 +10,12 @@ function togglePlaylistWidget () {
 
   if ($('#make-clip').css('display') !== 'block' && $('#recommend').css('display') !== 'block') {
     $('#player-stats').toggle();
-    $('#player-description-truncated').toggle();
-    $('#player-description-full').toggle();
+    $('#player-description').hide();
     $('#player-episode-image').toggle();
+  }
+
+  if ($(_this).hasClass('active')) {
+    $('#player-description').show();
   }
 
   $('#make-clip').hide();

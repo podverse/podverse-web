@@ -65,18 +65,21 @@ function setEndTime () {
 }
 
 $('#toggle-make-clip-btn').on('click', function () {
-  toggleMakeClipWidget();
+  toggleMakeClipWidget(this);
   if ($('#make-clip-start-time input').val() === '') {
     setStartTime();
   }
 });
 
-function toggleMakeClipWidget () {
+function toggleMakeClipWidget (_this) {
   if ($('#add-to-playlist').css('display') !== 'block' && $('#recommend').css('display') !== 'block') {
     $('#player-stats').toggle();
-    $('#player-description-truncated').toggle();
-    $('#player-description-full').toggle();
+    $('#player-description').hide();
     $('#player-episode-image').toggle();
+  }
+
+  if ($(_this).hasClass('active')) {
+    $('#player-description').show();
   }
 
   $('#add-to-playlist').hide();
