@@ -10,7 +10,8 @@ function togglePlaylistWidget () {
 
   if ($('#make-clip').css('display') !== 'block' && $('#recommend').css('display') !== 'block') {
     $('#player-stats').toggle();
-    $('#player-description').toggle();
+    $('#player-description-truncated').toggle();
+    $('#player-description-full').toggle();
     $('#player-episode-image').toggle();
   }
 

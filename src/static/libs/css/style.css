@@ -554,9 +554,13 @@ footer p {
 
 
 /*** player-description.html styles ***/
-#player-description {
+#player-description-truncated, #player-description-full {
     font-size: 13px;
     margin-bottom: 1rem;
+}
+
+#player-description-full {
+    display: none;
 }
 
 
@@ -735,11 +739,15 @@ footer p {
     font-weight: 300;
 }
 
-#podcast-summary {
+#podcast-summary-truncated, #podcast-summary-full {
     padding-top: 122px;
     margin-bottom: 1rem;
+    font-size: 14px;
 }
 
+#podcast-summary-full {
+    display: none;
+}
 
 
 /*** my-podcasts-page.html styles ***/

@@ -1,7 +1,13 @@
-<div id="podcast-summary">
+<div id="podcast-summary-truncated">
+  {{ summary }}
+</div>
+<div id="podcast-summary-full">
   {{ summary }}
 </div>
 
 <script>
-  $('#podcast-summary').truncate({ lines: 4 });
+  $('#podcast-summary-truncated').truncate({ lines: 4 });
+  $('#podcast-summary-truncated, #podcast-summary-full').on('click', function () {
+    $('#podcast-summary-truncated, #podcast-summary-full').toggle();
+  })
 </script>

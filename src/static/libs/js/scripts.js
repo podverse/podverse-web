@@ -356,7 +356,7 @@ function previewEndTime (endTime) {
 
 // Note: Truncation will fail if you attempt to use it on an element with display:none
 function truncatePlayerText () {
-  $('#player-description').truncate({ lines: 4 });
+  $('#player-description-truncated').truncate({ lines: 4 });
 
   $('#player-condensed-title').truncate({ lines: 1 });
   $('#player-condensed-sub-title').truncate({ lines: 1 });
@@ -409,7 +409,8 @@ function setPlayerInfo () {
     $('<hr id="player-hr">').insertAfter('#player-functions');
   }
 
-  $('#player-description').html(description);
+  $('#player-description-truncated').html(description);
+  $('#player-description-full').html(description);
 
   if (episodeImageURL) {
     $('#player-episode-image').html('<img src="' + episodeImageURL + '" class="img-fluid">');
@@ -438,6 +439,10 @@ function setPlayerInfo () {
       $('#player-podcast-subscribe').attr('title', 'Subscribe to podcast');
       unsubscribeFromPodcast(podcastId);
     }
+  });
+
+  $('#player-description-truncated, #player-description-full').on('click', function () {
+    $('#player-description-truncated, #player-description-full').toggle();
   });
 
   window.restartAttempts = 0;

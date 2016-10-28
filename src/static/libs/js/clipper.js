@@ -74,7 +74,8 @@ $('#toggle-make-clip-btn').on('click', function () {
 function toggleMakeClipWidget () {
   if ($('#add-to-playlist').css('display') !== 'block' && $('#recommend').css('display') !== 'block') {
     $('#player-stats').toggle();
-    $('#player-description').toggle();
+    $('#player-description-truncated').toggle();
+    $('#player-description-full').toggle();
     $('#player-episode-image').toggle();
   }
 
