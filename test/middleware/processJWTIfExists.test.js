@@ -17,13 +17,16 @@ describe('processJWTIfExists Middlewareee', function () {
       req: {
         headers: {
           authorization: 'invalid'
+        },
+        cookies: {
+          idToken: null
         }
       }
     };
 
   });
 
-  describe('when there is no authorization header', function () {
+  describe('when there is no authorization header or cookies.idToken', function () {
 
     beforeEach(function () {
 

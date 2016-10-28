@@ -87,7 +87,7 @@ class PlaylistService extends SequelizeService {
     const {User} = this.Models;
     return User.findById(data.ownerId)
       .then(user => {
-          data.ownerName = user.name || '';
+        data.ownerName = user.name || '';
         return this.Model.create(data)
           .then(pl => {
             return pl.setMediaRefs(data.playlistItems)

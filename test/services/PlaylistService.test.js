@@ -93,7 +93,7 @@ describe('PlaylistService', function () {
         .then(mediaRefs => {
 
           this.testData = {
-            ownerId: 'jabberwocky@podverse.fm',
+            ownerId: 'kungfury@podverse.fm',
             title: 'Jubjub',
             slug: 'tumtum',
             playlistItems: [mediaRefs[0], mediaRefs[1]]
@@ -111,7 +111,7 @@ describe('PlaylistService', function () {
     });
 
     it('should have the expected ownerId', function () {
-      expect(this.resolvedVal.ownerId).to.equal('jabberwocky@podverse.fm');
+      expect(this.resolvedVal.ownerId).to.equal('kungfury@podverse.fm');
     });
 
     // TODO: broken, improperly done test

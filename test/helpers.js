@@ -88,6 +88,13 @@ function createTestPodcastAndEpisode (Models) {
     });
 }
 
+function createTestUser (Models) {
+
+  const {User} = Models;
+
+  return Promise.resolve(User.create({id: 'kungfury@podverse.fm'}));
+}
+
 function createTestMediaRefs (Models) {
 
   const {MediaRef} = Models;
@@ -124,12 +131,15 @@ function createTestPlaylist (Models) {
 
   return createTestMediaRefs(Models)
     .then(mediaRefs => {
-      return playlistSvc.create({
-        'title': 'Playlist Title',
-        'slug': 'playlist-slug',
-        'ownerId': 'kungfury@podverse.fm',
-        'playlistItems': [mediaRefs[0], mediaRefs[1]]
-      });
+      return createTestUser(Models)
+        .then(user => {
+          return playlistSvc.create({
+            'title': 'Playlist Title',
+            'slug': 'playlist-slug',
+            'ownerId': 'kungfury@podverse.fm',
+            'playlistItems': [mediaRefs[0], mediaRefs[1]]
+          });
+        })
     });
 }
 
