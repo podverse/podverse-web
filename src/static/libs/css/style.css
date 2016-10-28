@@ -832,19 +832,29 @@ footer p {
   float: right;
 }
 
+.playlist-list-item-last-pubdate {
+    float: right;
+    font-size: 14px;
+    margin-left: 10px;
+    padding-top: 3px;
+}
+
 .playlist-list-item-title {
   overflow: hidden;
   font-weight: 500;
+  padding-top: 3px;
 }
 
 .playlist-list-item-total-episodes {
-  float: left;
-  margin-top: 1rem;
+  float: right;
+  font-size: 14px;
+  margin-left: 10px;
+  margin-top: 8px;
 }
 
-.playlist-list-item-last-pubdate {
-  float: right;
-  margin-top: 1rem;
+.playlist-list-item-subtitle {
+    font-size: 14px;
+    margin-top: 8px;
 }
 
 

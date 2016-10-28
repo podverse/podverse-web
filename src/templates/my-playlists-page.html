@@ -26,16 +26,19 @@
                 <img src="/static/images/podverse-logo-180.png">
               {% endif %}
             </div>
-            <div class="playlist-list-item-title">
-              {{ playlist.title }}
-            </div>
-            <div class="playlist-list-item-total-episodes">
-              {{ playlist.mediaRefs | length}}
-            </div>
             <div class="playlist-list-item-last-pubdate">
               {% if playlist.mediaRefs[0] %}
                 {{ playlist.lastUpdated | readableDate }}
               {% endif %}
+            </div>
+            <div class="playlist-list-item-title">
+              {{ playlist.title }}
+            </div>
+            <div class="playlist-list-item-total-episodes">
+              items: {{ playlist.mediaRefs | length}}
+            </div>
+            <div class="playlist-list-item-subtitle">
+              by: {{ playlist.ownerName }}
             </div>
             <div class="clearfix"></div>
           </a>
@@ -53,16 +56,19 @@
               <img src="/static/images/podverse-logo-180.png">
             {% endif %}
           </div>
-          <div class="playlist-list-item-title">
-            {{playlist.title}}
-          </div>
-          <div class="playlist-list-item-total-episodes">
-            {{ playlist.mediaRefs | length}}
-          </div>
           <div class="playlist-list-item-last-pubdate">
             {% if playlist.mediaRefs[0] %}
               {{ playlist.lastUpdated | readableDate }}
             {% endif %}
+          </div>
+          <div class="playlist-list-item-title">
+            {{playlist.title}}
+          </div>
+          <div class="playlist-list-item-total-episodes">
+            items: {{ playlist.mediaRefs | length}}
+          </div>
+          <div class="playlist-list-item-subtitle">
+            by: {{ playlist.ownerName }}
           </div>
           <div class="clearfix"></div>
         </a>
@@ -79,16 +85,19 @@
               <img src="/static/images/podverse-logo-180.png">
             {% endif %}
           </div>
-          <div class="playlist-list-item-title">
-            {{playlist.title}}
-          </div>
-          <div class="playlist-list-item-total-episodes">
-            {{ playlist.mediaRefs | length}}
-          </div>
           <div class="playlist-list-item-last-pubdate">
             {% if playlist.mediaRefs[0] %}
               {{ playlist.lastUpdated | readableDate }}
             {% endif %}
+          </div>
+          <div class="playlist-list-item-title">
+            {{ playlist.title }}
+          </div>
+          <div class="playlist-list-item-total-episodes">
+            items: {{ playlist.mediaRefs | length}}
+          </div>
+          <div class="playlist-list-item-subtitle">
+            by: {{ playlist.ownerName }}
           </div>
           <div class="clearfix"></div>
         </a>
@@ -117,6 +126,9 @@ $('#myPlaylistsDropdown a').on('click', function () {
   }
 
   $('#myPlaylistsDropdown button').html(selectedVal);
+
+  $('.playlist-list-item-title').truncate({ lines: 1 });
+  $('.playlist-list-item-subtitle').truncate({ lines: 1 });
 });
 </script>
 
