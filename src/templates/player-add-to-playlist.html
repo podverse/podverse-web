@@ -10,7 +10,7 @@
   <div class="clearfix"></div>
   <div class="row">
     <div class="col-xs-12">
-      {% for playlist in usersOwnedPlaylists %}
+      {% for playlist in usersOwnedPlaylists|sort(false, true, 'title') %}
         {% if not playlist.isRecommendation %}
           <div class="add-to-playlist-item" data-id="{{ playlist.id }}">
             <a class="add-to-playlist-item-link" href="/playlists/{{ playlist.id }}">

@@ -16,7 +16,7 @@
     <!-- <div class="header-button" data-toggle="modal" data-target="#subscribeToPlaylistModal">Add Playlist</div> -->
 
     <div class="playlist-list" id="playlist-list-my-playlists">
-      {% for playlist in mySubscribedPlaylists %}
+      {% for playlist in mySubscribedPlaylists|sort(false, true, 'title') %}
         {% if not playlist.isRecommendation %}
           <a class="playlist-list-item" data-id="{{playlist.id}}" href="/playlists/{{playlist.id}}">
             <div class="playlist-list-item-img">
@@ -47,7 +47,7 @@
     </div><!-- /#playlist-list-my-playlists -->
 
     <div class="playlist-list" id="playlist-list-recommended-for-me">
-      {% for playlist in recommendedForMe %}
+      {% for playlist in recommendedForMe|sort(false, true, 'title')  %}
         <a class="playlist-list-item" data-id="{{playlist.id}}" href="/playlists/{{playlist.id}}">
           <div class="playlist-list-item-img">
             {% if playlist.mediaRefs[0].episode.podcast.imageURL %}
@@ -76,7 +76,7 @@
     </div><!-- /#playlist-list-recommended-for-me -->
 
     <div class="playlist-list" id="playlist-list-recommended-by-me">
-      {% for playlist in recommendedByMe %}
+      {% for playlist in recommendedByMe|sort(false, true, 'title')  %}
         <a class="playlist-list-item" data-id="{{playlist.id}}" href="/playlists/{{playlist.id}}">
           <div class="playlist-list-item-img">
             {% if playlist.mediaRefs[0].episode.podcast.imageURL %}
