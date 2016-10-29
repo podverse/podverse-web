@@ -54,24 +54,20 @@ function routes () {
   // Clip Detail Page
   .get('/clips/:id', (req, res) => {
     return ClipService.get(req.params.id)
-      .then(mediaRef => {
+      .then((mediaRef) => {
         req.params.podcastId = mediaRef.episode.podcastId;
         return new Promise((resolve, reject) => {
           isUserSubscribedToThisPodcast(resolve, reject, req);
         })
-        .then((isSubscribed) => {
-          mediaRef.dataValues['isSubscribed'] = isSubscribed;
-          if (isNonAnonUser(req.feathers.userId)) {
-            return PlaylistService.find(({query :{ ownerId: req.feathers.userId } }))
-              .then(usersOwnedPlaylists => {
+          .then((isSubscribed) => {
+            mediaRef.dataValues['isSubscribed'] = isSubscribed;
+            return new Promise((resolve, reject) => {
+              gatherUsersOwnedPlaylists(resolve, reject, req);
+            })
+              .then((usersOwnedPlaylists) => {
                 mediaRef.dataValues['usersOwnedPlaylists'] = usersOwnedPlaylists;
                 res.render('player-page.html', mediaRef.dataValues);
               })
-          } else {
-            mediaRef.dataValues['usersOwnedPlaylists'] = false;
-            res.render('player-page.html', mediaRef.dataValues);
-          }
-
         })
       }).catch(e => {
         res.sendStatus(404);
@@ -111,17 +107,13 @@ function routes () {
                 playlist.dataValues['isOwner'] = true;
               }
 
-              if (isNonAnonUser(req.feathers.userId)) {
-                return PlaylistService.find(({query :{ ownerId: req.feathers.userId } }))
-                  .then(usersOwnedPlaylists => {
-                    playlist.dataValues['usersOwnedPlaylists'] = usersOwnedPlaylists;
-                    res.render('player-page.html', playlist.dataValues);
-                  })
-              } else {
-                playlist.dataValues['usersOwnedPlaylists'] = false;
-                res.render('player-page.html', playlist.dataValues);
-              }
-
+              return new Promise((resolve, reject) => {
+                gatherUsersOwnedPlaylists(resolve, reject, req);
+              })
+                .then((usersOwnedPlaylists) => {
+                  playlist.dataValues['usersOwnedPlaylists'] = usersOwnedPlaylists;
+                  res.render('player-page.html', playlist.dataValues);
+                });
             })
         })
 
@@ -162,17 +154,13 @@ function routes () {
         .then((isSubscribed) => {
           episode.dataValues['isSubscribed'] = isSubscribed;
 
-          if (isNonAnonUser(req.feathers.userId)) {
-            return PlaylistService.find(({query :{ ownerId: req.feathers.userId } }))
-              .then(usersOwnedPlaylists => {
-                episode.dataValues['usersOwnedPlaylists'] = usersOwnedPlaylists;
-                res.render('player-page.html', episode.dataValues);
-              })
-          } else {
-            episode.dataValues['usersOwnedPlaylists'] = false;
-            res.render('player-page.html', episode.dataValues);
-          }
-
+          return new Promise((resolve, reject) => {
+            gatherUsersOwnedPlaylists(resolve, reject, req);
+          })
+            .then((usersOwnedPlaylists) => {
+              episode.dataValues['usersOwnedPlaylists'] = usersOwnedPlaylists;
+              res.render('player-page.html', episode.dataValues);
+            })
         })
       }).catch(e => {
         res.sendStatus(404);
@@ -412,6 +400,21 @@ function isUserSubscribedToThisPlaylist (resolve, reject, req) {
       });
   } else {
     resolve(false)
+  }
+}
+
+function gatherUsersOwnedPlaylists(resolve, reject, req) {
+  if (isNonAnonUser(req.feathers.userId)) {
+    const PlaylistService = locator.get('PlaylistService');
+    return PlaylistService.find(({query :{ ownerId: req.feathers.userId } }))
+      .then(usersOwnedPlaylists => {
+        resolve(usersOwnedPlaylists);
+      })
+      .catch(e => {
+        reject(e);
+      })
+  } else {
+    resolve(false);
   }
 }
 
