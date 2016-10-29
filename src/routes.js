@@ -7,13 +7,16 @@ const
     {isNonAnonUser} = require('util.js');
 
 function routes () {
-  const app = this;
+  const app = this,
+        Models = locator.get('Models'),
+        {Podcast, Episode, MediaRef} = Models,
+        PodcastService = locator.get('PodcastService'),
+        EpisodeService = locator.get('EpisodeService'),
+        ClipService = locator.get('ClipService'),
+        PlaylistService = locator.get('PlaylistService'),
+        UserService = locator.get('UserService');
 
   app.get('/', function (req, res) {
-    const ClipService = locator.get('ClipService');
-    const Models = locator.get('Models');
-    const {Episode, Podcast} = Models;
-
     let params = {};
     let pageIndex = req.query.page || 1;
     let offset = (pageIndex * 10) - 10;
@@ -48,13 +51,8 @@ function routes () {
       });
   })
 
-  .get('/make-clip', function (req, res) {
-    res.render('make-clip.html');
-  })
-
   // Clip Detail Page
   .get('/clips/:id', (req, res) => {
-    const ClipService = locator.get('ClipService');
     return ClipService.get(req.params.id)
       .then(mediaRef => {
         req.params.podcastId = mediaRef.episode.podcastId;
@@ -63,9 +61,7 @@ function routes () {
         })
         .then((isSubscribed) => {
           mediaRef.dataValues['isSubscribed'] = isSubscribed;
-
           if (isNonAnonUser(req.feathers.userId)) {
-            const PlaylistService = locator.get('PlaylistService');
             return PlaylistService.find(({query :{ ownerId: req.feathers.userId } }))
               .then(usersOwnedPlaylists => {
                 mediaRef.dataValues['usersOwnedPlaylists'] = usersOwnedPlaylists;
@@ -86,7 +82,6 @@ function routes () {
 
   // Playlist Detail Page
   .get('/playlists/:id', (req, res) => {
-    const PlaylistService = locator.get('PlaylistService');
     return PlaylistService.get(req.params.id)
       .then(playlist => {
         req.params.playlistId = playlist.id;
@@ -139,8 +134,6 @@ function routes () {
 
   // Podcast Detail Page
   .get('/podcasts/:id', (req, res) => {
-    const PodcastService = locator.get('PodcastService');
-
       return PodcastService.get(req.params.id)
         .then(podcast => {
           req.params.podcastId = req.params.id;
@@ -160,7 +153,6 @@ function routes () {
 
   // Episode Detail Page
   .get('/episodes/:id', (req, res) => {
-    const EpisodeService = locator.get('EpisodeService');
     return EpisodeService.get(req.params.id)
       .then(episode => {
         req.params.podcastId = episode.podcastId;
@@ -171,7 +163,6 @@ function routes () {
           episode.dataValues['isSubscribed'] = isSubscribed;
 
           if (isNonAnonUser(req.feathers.userId)) {
-            const PlaylistService = locator.get('PlaylistService');
             return PlaylistService.find(({query :{ ownerId: req.feathers.userId } }))
               .then(usersOwnedPlaylists => {
                 episode.dataValues['usersOwnedPlaylists'] = usersOwnedPlaylists;
@@ -197,7 +188,6 @@ function routes () {
           return saveParsedFeedToDatabase(parsedFeedObj);
         })
         .then(podcastId => {
-          const PodcastService = locator.get('PodcastService');
           return PodcastService.get(podcastId)
         })
         .then(podcast => {
@@ -215,7 +205,6 @@ function routes () {
   })
 
   .post('/podcasts/subscribe/:id', verifyNonAnonUser, function (req, res) {
-    const UserService = locator.get('UserService');
     UserService.update(req.feathers.userId, {}, {
       subscribeToPodcast: req.params.id,
       userId: req.feathers.userId
@@ -230,7 +219,6 @@ function routes () {
   })
 
   .post('/podcasts/unsubscribe/:id', verifyNonAnonUser, function (req, res) {
-    const UserService = locator.get('UserService');
     UserService.update(req.feathers.userId, {}, {
       unsubscribeFromPodcast: req.params.id,
       userId: req.feathers.userId
@@ -245,7 +233,6 @@ function routes () {
   })
 
   .post('/playlists/subscribe/:id', verifyNonAnonUser, function (req, res) {
-    const UserService = locator.get('UserService');
     UserService.update(req.feathers.userId, {}, {
       subscribeToPlaylist: req.params.id,
       userId: req.feathers.userId
@@ -260,7 +247,6 @@ function routes () {
   })
 
   .post('/playlists/unsubscribe/:id', verifyNonAnonUser, function (req, res) {
-    const UserService = locator.get('UserService');
     UserService.update(req.feathers.userId, {}, {
       unsubscribeFromPlaylist: req.params.id,
       userId: req.feathers.userId
@@ -275,7 +261,6 @@ function routes () {
   })
 
   .post('/playlists/:playlistId/addItem/:mediaRefId', verifyNonAnonUser, function (req, res) {
-    const PlaylistService = locator.get('PlaylistService');
     PlaylistService.get(req.params.playlistId)
       .then(playlist => {
 
@@ -286,7 +271,6 @@ function routes () {
         if (req.params.mediaRefId.indexOf('episode_') > -1) {
           let episodeId = req.params.mediaRefId.replace('episode_', '');
 
-          const EpisodeService = locator.get('EpisodeService');
           EpisodeService.get(episodeId)
             .then(episode => {
 
@@ -297,8 +281,6 @@ function routes () {
               epMediaRef.episodeId = episodeId;
               epMediaRef.ownerId = req.feathers.userId;
 
-              const Models = locator.get('Models');
-              const {Episode, MediaRef} = Models;
               // Find all mediaRefs with at least one episode where episode.feedURL === feedURL
 
               MediaRef.findOrCreate({
@@ -343,7 +325,6 @@ function routes () {
   .use('users', locator.get('UserService'))
 
   .get('/my-podcasts', (req, res) => {
-    const UserService = locator.get('UserService');
     UserService.get(req.feathers.userId, { userId: req.feathers.userId })
       .then(user => {
         res.render('my-podcasts-page.html', user);
@@ -354,7 +335,6 @@ function routes () {
   })
 
   .get('/my-playlists', (req, res) => {
-    const UserService = locator.get('UserService');
     UserService.get(req.feathers.userId, { userId: req.feathers.userId })
       .then(user => {
         user.dataValues['mySubscribedPlaylists'] = user.playlists;
@@ -365,7 +345,6 @@ function routes () {
 
         user.dataValues['recommendedForMe'] = recommendedToMe;
 
-        const PlaylistService = locator.get('PlaylistService');
         return PlaylistService.find({ query: { ownerId: req.feathers.userId, isRecommendation: true }})
           .then(myRecommendations => {
             user.dataValues['recommendedByMe'] = myRecommendations;
@@ -383,7 +362,6 @@ function routes () {
   })
 
   .get('/settings', function (req, res) {
-    const UserService = locator.get('UserService');
     UserService.get(req.feathers.userId, { userId: req.feathers.userId })
       .then(user => {
         res.render('settings.html', user.dataValues);
