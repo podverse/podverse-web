@@ -354,15 +354,30 @@ function previewEndTime (endTime) {
   audio.play();
 }
 
-// Note: Truncation will fail if you attempt to use it on an element with display:none
+// NOTE: Truncation will fail if you attempt to use it on an element with display:none
+// NOTE: Truncation can only be applied once per element. To reapply truncation to an
+// element, you need to recreate it and reinsert it into the DOM.
 function truncatePlayerText () {
-  $('#player-description-truncated').truncate({ lines: 4 });
+  recreateAndReinsertElement('player-description-truncated');
+  recreateAndReinsertElement('player-condensed-title');
+  recreateAndReinsertElement('player-condensed-sub-title');
+  recreateAndReinsertElement('player-condensed-clip-title');
+  recreateAndReinsertElement('player-condensed-podcast-title');
+  recreateAndReinsertElement('player-condensed-sub-title');
 
+  $('#player-description-truncated').truncate({ lines: 4 });
   $('#player-condensed-title').truncate({ lines: 1 });
   $('#player-condensed-sub-title').truncate({ lines: 1 });
   $('#player-condensed-clip-title').truncate({ lines: 1 });
   $('#player-condensed-podcast-title').truncate({ lines: 1 });
   $('#player-condensed-sub-title').truncate({ lines: 1 });
+}
+
+function recreateAndReinsertElement (id) {
+  $('<div id="' + id + '"></div>')
+    .html($('#' + id + '')
+    .html()).insertAfter('#' + id + '');
+  $('#' + id).remove();
 }
 
 function setPlayerInfo () {
