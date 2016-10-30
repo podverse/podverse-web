@@ -327,11 +327,11 @@ function routes () {
       .then(user => {
         user.dataValues['mySubscribedPlaylists'] = user.playlists;
 
-        let recommendedToMe = user.playlists.filter(function (p) {
+        let recommendedForMe = user.playlists.filter(function (p) {
           return (p.ownerId !== req.feathers.userId && p.isRecommendation === true);
         });
 
-        user.dataValues['recommendedForMe'] = recommendedToMe;
+        user.dataValues['recommendedForMe'] = recommendedForMe;
 
         return PlaylistService.find({ query: { ownerId: req.feathers.userId, isRecommendation: true }})
           .then(myRecommendations => {

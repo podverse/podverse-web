@@ -359,6 +359,10 @@ function previewEndTime (endTime) {
 // element, you need to recreate it and reinsert it into the DOM.
 function truncatePlayerText () {
   recreateAndReinsertElement('player-description-truncated');
+  $('#player-description-truncated').on('click', function () {
+    $('#player-description-truncated, #player-description-full').toggle();
+  });
+
   recreateAndReinsertElement('player-condensed-title');
   recreateAndReinsertElement('player-condensed-sub-title');
   recreateAndReinsertElement('player-condensed-clip-title');
@@ -371,6 +375,7 @@ function truncatePlayerText () {
   $('#player-condensed-clip-title').truncate({ lines: 1 });
   $('#player-condensed-podcast-title').truncate({ lines: 1 });
   $('#player-condensed-sub-title').truncate({ lines: 1 });
+
 }
 
 function recreateAndReinsertElement (id) {
