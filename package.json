@@ -36,7 +36,8 @@
     "tether": "^1.3.7",
     "typeahead.js": "^0.11.1",
     "typeahead.js-bootstrap4-css": "^1.0.0",
-    "uuid": "^2.0.2"
+    "uuid": "^2.0.2",
+    "webpack": "^1.13.3"
   },
   "devDependencies": {
     "chai": "^3.5.0",
@@ -51,7 +52,7 @@
     "sinon": "^1.17.5"
   },
   "scripts": {
-    "start": "node src/server.js",
+    "start": "webpack && node src/server.js",
     "watch": "nodemon src/server.js -e js,json,html",
     "test": "node scripts/test.js"
   },

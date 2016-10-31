@@ -5,3 +5,4 @@
 /data
 npm-debug.log
 podverse.sql
+/src/static/libs/build
