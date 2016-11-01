@@ -22,7 +22,9 @@ var config = {
     },
 
     entry: {
-        app: ["./src/static/libs/js/index.js"],
+        'scripts': __dirname + '/src/static/libs/js/scripts.js',
+        'auth': __dirname + '/src/static/libs/js/auth.js',
+        // app: ["./src/static/libs/js/index.js"],
         vendors: ["bootstrap",
                   "jquery",
                   "jqueryCookie",
@@ -33,36 +35,24 @@ var config = {
                   "typeahead"]
     },
 
+    // Thanks:D Peter Tseng http://stackoverflow.com/a/39842495/2608858
     output: {
-        path: path.join(__dirname, "src/static/libs/build"),
-        filename: "bundle.js"
+        path: __dirname + '/src/static/libs/build',
+        filename: '[name].js'
     },
 
     plugins: [
         new webpack.ProvidePlugin({
             $: "jquery",
             jQuery: "jquery",
+            "window.$": "jquery",
             "window.jQuery": "jquery",
-            "window.Tether": "tether"
+            "window.Tether": "tether",
+            "Bloodhound": "typeahead"
         }),
         new webpack.optimize.CommonsChunkPlugin("vendors", "vendors.js", Infinity)
     ]
-
-    // module: {
-    //     noParse: [
-    //         new RegExp(lib_dir + '/react.js'),
-    //         new RegExp(lib_dir +'/jquery-1.11.2.min.js')
-    //     ],
-    //     loaders: [
-    //         {
-    //             test: /\.js$/,
-    //             loader: 'babel',
-    //             query: {
-    //                 presets: ['react', 'es2015']
-    //             }
-    //         },
-    //     ]
-    // }
+    
 };
 
 module.exports = config;
