@@ -1,3 +1,5 @@
+initClipper();
+
 function initClipper () {
 
   $('#make-clip-start-time i').on('click', function () {

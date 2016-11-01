@@ -680,9 +680,33 @@ function destroyPlayerAndAudio () {
   $('#player').html('');
 }
 
-// Resize #player-condensed-inner with JS to work with truncation
-$(window).resize(function () {
-  var playerWidth = $('#player-inner').width();
-  $('#player-condensed-inner').css('width', playerWidth);
-  truncatePlayerText();
+
+
+
+
+// TODO: where should this go? it is loaded on all pages on the site
+$('#navbarSearchModal').on('shown.bs.modal', function () {
+  $('#navbarSearchModalInput').focus()
 });
+
+loadPodcastSearchTypeahead();
+
+
+
+
+
+// TODO: where should this go? it is loaded on all pages on the site
+// TODO: this is weird, should be a better way...
+if (isPlayerPage === true && isEmptyPlaylist !== true) {
+  setPlayerInfo();
+  // TODO: remove autoplay on mobile devices since they do not support autoplay
+  // TODO: or find some kind of way to let autoplay be enabled in mobile browsers
+  createAutoplayBtn();
+  createAndAppendAudio();
+  onScrollCondensePlayerView();
+} else if (isPlayerPage === true && isEmptyPlaylist === true) {
+  var isEmptyPlaylistEl = '<div id="empty-playlist-message">This playlist has no episodes or clips added to it. <br><br> Click the <i class="fa fa-list-ul"></i> icon while an episode or clip is playing to add it to a playlist.</div>';
+  $(isEmptyPlaylistEl).insertAfter('#player');
+}
+
+addPlaylistItemTextTruncation();

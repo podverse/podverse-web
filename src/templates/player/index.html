@@ -2,39 +2,34 @@
 
 {% block body %}
 
-{% include "player/setWindowVars.html" %}
+  {% include "player/player.html" %}
 
-{% include "player/player.html" %}
+  {% include "player/functions.html" %}
 
-{% include "player/functions.html" %}
+  {% include "player/make-clip.html" %}
 
-{% include "player/make-clip.html" %}
+  {% include "player/add-to-playlist.html" %}
 
-{% include "player/add-to-playlist.html" %}
+  {% include "player/recommend.html" %}
 
-{% include "player/recommend.html" %}
+  {% include "player/stats.html" %}
 
-{% include "player/stats.html" %}
+  {% include "player/description.html" %}
 
-{% include "player/description.html" %}
+  {% include "player/list.html" %}
 
-{% include "player/list.html" %}
+  {% include "player/clip-created-modal.html" %}
 
-{% include "player/clip-created-modal.html" %}
+{% endblock %}
 
-<script>
-$('.add-to-playlist-item .add-to-playlist-item-text').on('click', function () {
-  var playlistId = $(this).parent().data('id');
-  var mediaRefId = $('#player').data('id');
-  addToPlaylist(playlistId, mediaRefId, function (response) {
-    updatePlaylistItemCount(playlistId, response.mediaRefs.length);
-  });
-});
+{% block pre_scripts %}
 
-$('.add-to-playlist-item .add-to-playlist-item-link').on('click', function () {
-  var playlistId = $(this).parent().data('id');
-  window.location.href = '/playlists/' + playlistId;
-});
-</script>
+  {% include "player/setWindowVars.html" %}
+
+{% endblock %}
+
+{% block post_scripts %}
+
+  <script src="/static/build/player/index.js"></script>
 
 {% endblock %}

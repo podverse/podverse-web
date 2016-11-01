@@ -14,7 +14,7 @@ var config = {
             jquery: node_dir + "/jquery/dist/jquery.min.js",
             jqueryCookie: node_dir + "/jquery.cookie/jquery.cookie.js",
             mediaElement: node_dir + "/mediaelement/build/mediaelement-and-player.min.js",
-            mejsPlaybackRate: lib_dir + "/js/mejs_playbackrate_plugin.js",
+            mejsPlaybackRate: lib_dir + "/vendors/mejs_playbackrate_plugin.js",
             tether: node_dir + "/tether/dist/js/tether.min.js",
             truncate: lib_dir + "/vendors/truncate.min.js",
             typeahead: node_dir + "/typeahead.js/dist/typeahead.bundle.min.js"
@@ -22,9 +22,9 @@ var config = {
     },
 
     entry: {
-        'scripts': __dirname + '/src/static/libs/js/scripts.js',
-        'auth': __dirname + '/src/static/libs/js/auth.js',
-        // app: ["./src/static/libs/js/index.js"],
+        common: __dirname + '/src/static/libs/js/common.js',
+        auth: __dirname + '/src/static/libs/js/auth.js',
+        'player/index': __dirname + '/src/static/libs/js/player/index.js',
         vendors: ["bootstrap",
                   "jquery",
                   "jqueryCookie",
@@ -50,9 +50,12 @@ var config = {
             "window.Tether": "tether",
             "Bloodhound": "typeahead"
         }),
-        new webpack.optimize.CommonsChunkPlugin("vendors", "vendors.js", Infinity)
+        new webpack.optimize.CommonsChunkPlugin({
+          names: ["vendors"],
+          minChunks: Infinity
+        })
     ]
-    
+
 };
 
 module.exports = config;

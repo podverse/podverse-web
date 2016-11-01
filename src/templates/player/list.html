@@ -76,22 +76,6 @@
 {% endif %}
 
 <script>
+// TODO: this is weird to have here
 window.playlistId = '{{ id }}';
-
-$('#playlist-subscribe').on('click', function () {
-  if (!isNonAnonLoggedInUser()) {
-    alert('Login to save a playlist :D');
-    return;
-  }
-
-  if ($(this).html() === 'save') {
-    $('#playlist-subscribe').html('<i class="fa fa-star"></i> saved');
-    $('#playlist-subscribe').attr('title', 'Unsave playlist');
-    subscribeToPlaylist(playlistId);
-  } else {
-    $('#playlist-subscribe').html('save');
-    $('#playlist-subscribe').attr('title', 'Save playlist');
-    unsubscribeFromPlaylist(playlistId);
-  }
-});
 </script>

@@ -1,4 +1,27 @@
 <script>
+  // TODO: what should we do with decodeEntities? this only place it's used
+  // It is a JS alternative to this in jQuery:
+  // window.description = $('<textarea />').html(description).text();
+  var decodeEntities = (function() {
+    // this prevents any overhead from creating the object each time
+    var element = document.createElement('div');
+
+    function decodeHTMLEntities (str) {
+      if(str && typeof str === 'string') {
+        // strip script/html tags
+        str = str.replace(/<script[^>]*>([\S\s]*?)<\/script>/gmi, '');
+        str = str.replace(/<\/?\w(?:[^"'>]|"[^"]*"|'[^']*')*>/gmi, '');
+        element.innerHTML = str;
+        str = element.textContent;
+        element.textContent = '';
+      }
+
+      return str;
+    }
+
+    return decodeHTMLEntities;
+  })();
+
   window.isPlayerPage = true;
   window.isEmptyPlaylist = false;
 
@@ -47,7 +70,7 @@
       window.isSubscribed = item.isSubscribed;
 
       // TODO: is this a security vulnerability?
-      window.description = $('<textarea />').html(description).text();
+      window.description = decodeEntities(description);
     {% else %}
       window.isEmptyPlaylist = true;
       window.isEpisode = false;
@@ -70,7 +93,7 @@
 
     // TODO: is this a security vulnerability?
     window.description = "{{ description|nl2br }}";
-    window.description = $('<textarea />').html(description).text();
+    window.description = decodeEntities(description);
 
     window.isSubscribed = '{{ isSubscribed }}';
 
@@ -91,7 +114,7 @@
 
     // TODO: is this a security vulnerability?
     window.description = "{{ summary|nl2br }}";
-    window.description = $('<textarea />').html(description).text();
+    window.description = decodeEntities(description);
 
     window.isSubscribed = '{{ isSubscribed }}';
   {% endif %}
