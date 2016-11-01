@@ -2,25 +2,25 @@
 
 {% block body %}
 
-{% include "player-scripts.html" %}
+{% include "player/setWindowVars.html" %}
 
-{% include "player.html" %}
+{% include "player/player.html" %}
 
-{% include "player-functions.html" %}
+{% include "player/functions.html" %}
 
-{% include "player-make-clip.html" %}
+{% include "player/make-clip.html" %}
 
-{% include "player-add-to-playlist.html" %}
+{% include "player/add-to-playlist.html" %}
 
-{% include "player-recommend.html" %}
+{% include "player/recommend.html" %}
 
-{% include "player-stats.html" %}
+{% include "player/stats.html" %}
 
-{% include "player-description.html" %}
+{% include "player/description.html" %}
 
-{% include "player-list.html" %}
+{% include "player/list.html" %}
 
-{% include "clip-created-modal.html" %}
+{% include "player/clip-created-modal.html" %}
 
 <script>
 $('.add-to-playlist-item .add-to-playlist-item-text').on('click', function () {
