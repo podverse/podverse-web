@@ -21,25 +21,8 @@
   </head>
   <body>
     <div id="keep-footer-on-bottom">
-      <nav class="navbar navbar-fixed-top">
-        <div class="navbar-inner">
-          <button class="navbar-toggler hidden-sm-up pull-xs-right" type="button" data-toggle="collapse" data-target="#collapsingNavbar">
-            &#9776;
-          </button>
-          <a id="navbar-search-icon-xs" class="hidden-sm-up" data-toggle="modal" data-target="#navbarSearchModal">
-            <i class="fa fa-search"></i>
-          </a>
-          <a class="navbar-brand" href="/">Podverse</a>
-          <div class="clearfix"></div>
-          <div class="collapse navbar-toggleable-xs" id="collapsingNavbar">
-            <ul class="nav navbar-nav">
-              <li id="login-btn" class="nav-item pull-xs-right">
-                <!-- content added in scripts.js -->
-              </li>
-            </ul><!-- /.nav .navbar-nav -->
-          </div><!-- /.collapse .navbar-toggleable-xs -->
-        </div><!-- /.navbar-inner -->
-      </nav>
+
+      {% include "navbar/index.html" %}
 
       <!-- Puts a white overlay over body elements. This is here because elements
       cannot be truncated while they have display:none, yet we don't want to
@@ -64,9 +47,6 @@
         </div>
       </footer>
 
-      {% include "navbar-search-modal.html" %}
-
-      {% include "add-podcast-modal.html" %}
     </div>
 
     <!-- Latest minor release -->

@@ -277,20 +277,6 @@ footer p {
 
 
 
-/*** subscribe-to-playlist-modal.html styles ***/
-
-#subscribeToPlaylistModal .btn {
-  width: 100px;
-}
-
-#subscribeToPlaylistModal button.close {
-  position: absolute;
-  top: 11px;
-  right: 15px;
-}
-
-
-
 /*** create-playlist-modal.html styles ***/
 #createPlaylistModal .btn {
   width: 100px;

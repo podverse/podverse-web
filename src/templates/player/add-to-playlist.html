@@ -1,17 +1,17 @@
 
-<div id="recommend">
-  <div id="recommend-header" class="player-function-header">
-    Recommend To
+<div id="add-to-playlist">
+  <div id="add-to-playlist-header" class="player-function-header">
+    Add to Playlist
   </div>
-  <div id="recommend-new-playlist" class="player-function-header-btn text-primary"
-       data-toggle="modal" data-target="#createPersonModal">
-    Add Person
-  </div>
+  <a id="add-to-playlist-new-playlist" class="player-function-header-btn text-primary"
+     data-toggle="modal" data-target="#createPlaylistModal">
+    New Playlist
+  </a>
   <div class="clearfix"></div>
   <div class="row">
     <div class="col-xs-12">
       {% for playlist in usersOwnedPlaylists|sort(false, true, 'title') %}
-        {% if playlist.isRecommendation %}
+        {% if not playlist.isRecommendation %}
           <div class="add-to-playlist-item" data-id="{{ playlist.id }}">
             <a class="add-to-playlist-item-link" href="/playlists/{{ playlist.id }}">
               <i class="fa fa-link"></i>
@@ -31,4 +31,4 @@
   </div>
 </div>
 
-{% include "create-person-modal.html" %}
+{% include "player/create-playlist-modal.html" %}
