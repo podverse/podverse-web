@@ -40,7 +40,7 @@ function routes () {
         let total = page.total;
         let showNextButton = offset + 10 < total ? true : false;
         let clips = page.data;
-        res.render('home.html', {
+        res.render('home/index.html', {
           clips: clips,
           pageIndex: pageIndex,
           showNextButton: showNextButton
@@ -66,7 +66,7 @@ function routes () {
             })
               .then((usersOwnedPlaylists) => {
                 mediaRef.dataValues['usersOwnedPlaylists'] = usersOwnedPlaylists;
-                res.render('player-page.html', mediaRef.dataValues);
+                res.render('player/index.html', mediaRef.dataValues);
               })
         })
       }).catch(e => {
@@ -112,7 +112,7 @@ function routes () {
               })
                 .then((usersOwnedPlaylists) => {
                   playlist.dataValues['usersOwnedPlaylists'] = usersOwnedPlaylists;
-                  res.render('player-page.html', playlist.dataValues);
+                  res.render('player/index.html', playlist.dataValues);
                 });
             })
         })
@@ -134,7 +134,7 @@ function routes () {
           })
           .then((isSubscribed) => {
             podcast.dataValues['isSubscribed'] = isSubscribed;
-            res.render('podcast-page.html', podcast.dataValues);
+            res.render('podcast/index.html', podcast.dataValues);
           });
         }).catch(e => {
           res.sendStatus(404);
@@ -159,7 +159,7 @@ function routes () {
           })
             .then((usersOwnedPlaylists) => {
               episode.dataValues['usersOwnedPlaylists'] = usersOwnedPlaylists;
-              res.render('player-page.html', episode.dataValues);
+              res.render('player/index.html', episode.dataValues);
             })
         })
       }).catch(e => {
@@ -315,7 +315,7 @@ function routes () {
   .get('/my-podcasts', (req, res) => {
     UserService.get(req.feathers.userId, { userId: req.feathers.userId })
       .then(user => {
-        res.render('my-podcasts-page.html', user);
+        res.render('my-podcasts/index.html', user);
       })
       .catch(e => {
         res.sendStatus(401);
@@ -336,7 +336,7 @@ function routes () {
         return PlaylistService.find({ query: { ownerId: req.feathers.userId, isRecommendation: true }})
           .then(myRecommendations => {
             user.dataValues['recommendedByMe'] = myRecommendations;
-            res.render('my-playlists-page.html', user.dataValues);
+            res.render('my-playlists/index.html', user.dataValues);
           })
       })
       .catch(e => {
@@ -346,19 +346,31 @@ function routes () {
   })
 
   .get('/login-redirect', function (req, res) {
-    res.render('login-redirect.html', req.query);
+    res.render('login/redirect.html', req.query);
   })
 
   .get('/settings', function (req, res) {
     UserService.get(req.feathers.userId, { userId: req.feathers.userId })
       .then(user => {
-        res.render('settings.html', user.dataValues);
+        res.render('settings/index.html', user.dataValues);
       })
       .catch(e => {
         console.log(e);
         res.sendStatus(401);
       });
 
+  })
+
+  .get('/about', function (req, res) {
+    res.render('about/index.html', req.query);
+  })
+
+  .get('/mobile-app', function (req, res) {
+    res.render('mobile-app/index.html', req.query);
+  })
+
+  .get('/login-redirect', function (req, res) {
+    res.render('login/redirect.html', req.query);
   })
 
 }
