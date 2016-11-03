@@ -16,7 +16,7 @@ var config = {
             mediaElement: node_dir + "/mediaelement/build/mediaelement-and-player.min.js",
             mejsPlaybackRate: lib_dir + "/vendors/mejs_playbackrate_plugin.js",
             tether: node_dir + "/tether/dist/js/tether.min.js",
-            truncate: lib_dir + "/vendors/truncate.min.js",
+            truncate: node_dir + "/truncate.js/dist/truncate.min.js",
             typeahead: node_dir + "/typeahead.js/dist/typeahead.bundle.min.js"
         }
     },

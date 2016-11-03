@@ -1,3 +1,6 @@
+// Thanks :D Robert K
+// http://stackoverflow.com/a/9609450/2608858
+
 var decodeEntities = (function() {
   // this prevents any overhead from creating the object each time
   var element = document.createElement('div');
