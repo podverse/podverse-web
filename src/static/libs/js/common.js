@@ -357,7 +357,7 @@ function previewEndTime (endTime) {
 // NOTE: Truncation will fail if you attempt to use it on an element with display:none
 // NOTE: Truncation can only be applied once per element. To reapply truncation to an
 // element, you need to recreate it and reinsert it into the DOM.
-function truncatePlayerText () {
+export function truncatePlayerText () {
   recreateAndReinsertElement('player-description-truncated');
   $('#player-description-truncated').on('click', function () {
     $('#player-description-truncated, #player-description-full').toggle();

@@ -1,3 +1,5 @@
+require('../common.js');
+require('../auth.js');
 
 require('../addPodcastModal.js');
 
@@ -43,7 +45,7 @@ $('.add-to-playlist-item .add-to-playlist-item-link').on('click', function () {
   window.location.href = '/playlists/' + playlistId;
 });
 
-
+import {truncatePlayerText} from '../common.js';
 
 // Resize #player-condensed-inner with JS to work with truncation
 $(window).resize(function () {

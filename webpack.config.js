@@ -22,10 +22,9 @@ var config = {
     },
 
     entry: {
-        common: __dirname + '/src/static/libs/js/common.js',
-        auth: __dirname + '/src/static/libs/js/auth.js',
-        'player/index': __dirname + '/src/static/libs/js/player/index.js',
-        vendors: ["bootstrap",
+        'player/index': [__dirname + '/src/static/libs/js/player/index.js'],
+        vendors: ["babel-polyfill",
+                  "bootstrap",
                   "jquery",
                   "jqueryCookie",
                   "mediaElement",
@@ -50,11 +49,27 @@ var config = {
             "window.Tether": "tether",
             "Bloodhound": "typeahead"
         }),
-        new webpack.optimize.CommonsChunkPlugin({
-          names: ["vendors"],
-          minChunks: Infinity
-        })
-    ]
+        new webpack.optimize.CommonsChunkPlugin("vendors", "vendors.js", Infinity)
+    ],
+
+    module: {
+      loaders: [
+        {
+          loader: "babel-loader",
+
+          include: [
+            path.resolve(__dirname, "src")
+          ],
+
+          test: /\.js$/,
+
+          query: {
+            plugins: ['transform-runtime'],
+            presets: ['es2015']
+          }
+        }
+      ]
+    }
 
 };
 

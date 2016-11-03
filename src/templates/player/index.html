@@ -22,14 +22,10 @@
 
 {% endblock %}
 
-{% block pre_scripts %}
-
+{% block scripts %}
   {% include "player/setWindowVars.html" %}
-
-{% endblock %}
-
-{% block post_scripts %}
-
+  
+  <script src="/static/build/vendors.js"></script>
   <script src="/static/build/player/index.js"></script>
 
 {% endblock %}
