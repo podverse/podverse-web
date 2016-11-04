@@ -1,299 +1,30 @@
-/*eslint-disable*/
-'use strict';
+import { calcDuration } from './utility.js';
+import { convertSecToHHMMSS } from './utility.js';
+import { isNonAnonLoggedInUser } from './utility.js';
+import { readableDate } from './utility.js';
+import { recreateAndReinsertElement } from './utility.js';
+
+import { addPlaylistItemTextTruncation } from './playlistHelper.js';
+import { subscribeToPodcast } from './podcastHelper.js';
+import { unsubscribeFromPodcast } from './podcastHelper.js';
 
 // Set default values for vars that handle player crashes and autoplay functionality
 window.restartAttempts = 0;
 window.lastPlaybackPosition = -1;
 window.endTimeHasBeenReached = false;
 
-// If an access_token is provided in the URL, then append nav buttons in the on
-// authenticated event instead of on page load.
-if (location.href.indexOf('#access_token') === -1) {
-  // If user is a logged-in user, display different navbar buttons
-  if (localStorage.getItem('nickname')) {
-    appendLoggedInUserNavButtons();
-  } else {
-    appendNonLoggedInUserNavButtons();
-  }
-}
-
-function appendLoggedInUserNavButtons () {
-
-  if (location.href.indexOf('/login-redirect') > -1) {
-    return
-  }
-
-  $('#login-btn').addClass('btn-group');
-
-  var navDropdownButtonString =   '<a class="dropdown-toggle nav-link hidden-xs-down" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +  localStorage.getItem('nickname') +'</a>';
-      navDropdownButtonString +=  '<div class="dropdown-menu hidden-xs-down" aria-labelledby="dropdownMenu1">';
-      navDropdownButtonString +=    '<a class="dropdown-item" href="/settings">Settings</a>';
-      navDropdownButtonString +=    '<hr style="display: block;" />';
-      navDropdownButtonString +=    '<a class="dropdown-item" onclick="logoutUser();">Logout</a>';
-      navDropdownButtonString +=  '</div>';
-
-  $('#login-btn').html(navDropdownButtonString);
-
-  var navButtonString =   '<li class="nav-item">';
-      navButtonString +=    '<a id="navbar-search-icon" class="nav-link hidden-xs-down" data-toggle="modal" data-target="#navbarSearchModal"><i class="fa fa-search"></i></a>';
-      navButtonString +=  '</li>';
-      navButtonString +=   '<li class="nav-item">';
-      navButtonString +=    '<a class="nav-link hidden-xs-down" href="/my-podcasts">Podcasts</a>';
-      navButtonString +=  '</li>';
-      navButtonString +=  '<li class="nav-item">';
-      navButtonString +=    '<a class="nav-link hidden-xs-down" href="/my-playlists">Playlists</a>';
-      navButtonString +=  '</li>';
-
-  $(navButtonString).insertAfter('#login-btn');
-
-  var navMobileMenuString =   '<a class="nav-link hidden-sm-up" href="/my-podcasts">Podcasts</a>';
-      navMobileMenuString +=  '<a class="nav-link hidden-sm-up" href="/my-playlists">Playlists</a>';
-      navMobileMenuString +=  '<a class="nav-link hidden-sm-up" href="#">Settings</a>';
-      navMobileMenuString +=  '<hr class="hidden-sm-up">';
-      navMobileMenuString +=  '<a class="nav-link hidden-sm-up" onclick="logoutUser();">Logout</a>';
-
-  $(navMobileMenuString).insertAfter('#login-btn');
-}
-
-function appendNonLoggedInUserNavButtons () {
-  var searchButtonString =   '<li class="nav-item">';
-      searchButtonString +=    '<a id="navbar-search-icon" class="nav-link hidden-xs-down" data-toggle="modal" data-target="#navbarSearchModal"><i class="fa fa-search"></i></a>';
-      searchButtonString +=  '</li>';
-  $(searchButtonString).insertBefore('#login-btn');
-
-  var loginButtonString = '<a class="nav-link" onclick="lock.show();">Login</a>';
-  $('#login-btn').html(loginButtonString);
-}
-
-function calcDuration (startTime, endTime) {
-  if (endTime > startTime) {
-    return endTime - startTime;
-  } else {
-    return;
-  }
-}
-
-function convertSecToHHMMSS (sec) {
-  // thanks to dkreuter http://stackoverflow.com/questions/1322732/convert-seconds-to-hh-mm-ss-with-javascript
-  var totalSec = sec;
-
-  var hours = parseInt(totalSec / 3600) % 24;
-  var minutes = parseInt(totalSec / 60) % 60;
-  var seconds = totalSec % 60;
-  var result = '';
-
-  if (hours > 0) {
-    result += hours + ':';
-  }
-
-  if (minutes > 9) {
-    result += minutes + ':';
-  } else if (minutes > 0 && hours > 0) {
-    result += '0' + minutes + ':';
-  } else if (minutes > 0){
-    result += minutes + ':';
-  } else if (minutes === 0 && hours > 0) {
-    result +=  '00:';
-  }
-
-  if (seconds > 9) {
-    result += seconds;
-  } else if (seconds > 0 && minutes > 0) {
-    result += '0' + seconds;
-  } else if (seconds > 0) {
-    result += seconds;
-  } else {
-    result += '00';
-  }
-
-  return result
-}
-
-function readableDate (date) {
-  // Thanks:) http://stackoverflow.com/questions/19485353/function-to-convert-timestamp-to-human-date-in-javascript
-  var dateObj = new Date(date),
-  year = dateObj.getFullYear(),
-  month = dateObj.getMonth() + 1,
-  day = dateObj.getDate();
-
-  return month+'/'+day+'/'+year;
-}
-
-function convertHHMMSSToSeconds (hhmmssString) {
-
-  var hhmmssArray = hhmmssString.split(':') || 0,
-    hours = 0,
-    minutes = 0,
-    seconds = 0;
-
-  if (hhmmssArray.length === 3) {
-    hours = parseInt(hhmmssArray[0]);
-    minutes = parseInt(hhmmssArray[1]);
-    seconds = parseInt(hhmmssArray[2]);
-
-
-    if (hours < 0 || minutes > 59 || minutes < 0 || seconds > 59 || seconds < 0) {
-      console.log('errrror');
-      return -1;
-    }
-
-    hours = hours * 3600;
-    minutes = minutes * 60;
-
-  } else if (hhmmssArray.length === 2) {
-    minutes = parseInt(hhmmssArray[0]);
-    seconds = parseInt(hhmmssArray[1]);
-
-    if (minutes > 59 || minutes < 0 || seconds > 59 || seconds < 0) {
-      console.log('errrror');
-      return -1;
-    }
-
-    minutes = minutes * 60;
-
-  } else if (hhmmssArray.length === 1) {
-    seconds = parseInt(hhmmssArray[0]) || 0;
-
-    if (seconds > 59 || seconds < 0) {
-      console.log('errrror');
-      return -1;
-    }
-
-  } else {
-    console.log('errrror');
-    return -1;
-  }
-
-  return hours + minutes + seconds;
-
-}
-
-function isHHMMSS (val) {
-  var pattern = /^(?:(?:([01]?\d|2[0-3]):)?([0-5]?\d):)?([0-5]?\d)$/;
-  return pattern.test(val);
-}
-
-function isInt (val) {
-  return !isNaN(val) &&
-          parseInt(Number(val)) == val &&
-          !isNaN(parseInt(val, 10));
-}
-
-function isUUID (val) {
-  var pattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
-  return pattern.test(val);
-}
-
-// Used to enable/disable auth protected features in the frontend
-function isNonAnonLoggedInUser () {
-  return localStorage.getItem('email') ? true : false;
-}
-
-function addPlaylistItemTextTruncation() {
-  var playlistItems = document.getElementsByClassName('playlist-item');
-
-  for (var i = 0; i < playlistItems.length; i++) {
-    var playlistItemPodcastTitle = playlistItems[i].getElementsByClassName('playlist-item-podcast-title');
-    var playlistItemSubTitle = playlistItems[i].getElementsByClassName('playlist-item-sub-title');
-    var playlistItemDetails = playlistItems[i].getElementsByClassName('playlist-item-details');
-    $(playlistItemPodcastTitle[0]).truncate({ lines: 1 });
-    $(playlistItemSubTitle[0]).truncate({ lines: 1 });
-    $(playlistItemDetails[0]).truncate({ lines: 3 });
-  }
-
-  $('#hide-until-truncation-finishes').hide();
-}
-
-function loadPodcastSearchTypeahead() {
-  var podcastResults = new Bloodhound({
-    datumTokenizer: Bloodhound.tokenizers.obj.whitespace('title'),
-    queryTokenizer: Bloodhound.tokenizers.whitespace,
-    remote: {
-      url: 'http://localhost:8080/podcasts?title=%QUERY',
-      wildcard: '%QUERY'
-    }
-  });
-
-  $('#navbarSearchModalInput').typeahead({
-    hint: false,
-    highlight: true,
-    minLength: 1
-  }, {
-    name: 'podcasts',
-    display: 'title',
-    source: podcastResults
-  }).on('typeahead:selected typeahead:autocomplete', function (event, selection) {
-    window.location.href = '/podcasts/' + selection.id;
-  });
-}
-
-function subscribeToPodcast(id) {
-  $.ajax({
-    type: 'POST',
-    url: '/podcasts/subscribe/' + id,
-    headers: {
-      Authorization: $.cookie('idToken')
-    },
-    // success: TODO: handle loading spinner
-    // success: function (res) {
-    //   console.log(res);
-    // },
-    error: function (xhr, status, error) {
-      // TODO: add more helpful error messaging
-      alert('errrror');
-    }
-  });
-}
-
-function unsubscribeFromPodcast (id) {
-  $.ajax({
-    type: 'POST',
-    url: '/podcasts/unsubscribe/' + id,
-    headers: {
-      Authorization: $.cookie('idToken')
-    },
-    // success: TODO: handle loading spinner
-    error: function (xhr, status, error) {
-      // TODO: add more helpful error messaging
-      alert('errrror');
-    }
-  });
-}
-
-function subscribeToPlaylist(url, successCallback) {
-  var id = url.substr(url.lastIndexOf('/') + 1);
-  $.ajax({
-    type: 'POST',
-    url: '/playlists/subscribe/' + id,
-    headers: {
-      Authorization: $.cookie('idToken')
-    },
-    success: function (res) {
-      if (successCallback) { successCallback(); }
-    },
-    error: function (xhr, status, error) {
-      // TODO: add more helpful error messaging
-      alert('errrror');
-    }
-  });
-}
-
-function unsubscribeFromPlaylist (url, successCallback) {
-  var id = url.substr(url.lastIndexOf('/') + 1);
-  $.ajax({
-    type: 'POST',
-    url: '/playlists/unsubscribe/' + id,
-    headers: {
-      Authorization: $.cookie('idToken')
-    },
-    success: function (res) {
-      if (successCallback) { successCallback(); }
-    },
-    error: function (xhr, status, error) {
-      // TODO: add more helpful error messaging
-      alert('errrror');
-    }
-  });
+// Load the player
+if (isEmptyPlaylist !== true) {
+  setPlayerInfo();
+  // TODO: remove autoplay on mobile devices since they do not support autoplay
+  // TODO: or find some kind of way to let autoplay be enabled in mobile browsers
+  createAutoplayBtn();
+  createAndAppendAudio();
+  onScrollCondensePlayerView();
+  addPlaylistItemTextTruncation();
+} else {
+  var isEmptyPlaylistEl = '<div id="empty-playlist-message">This playlist has no episodes or clips added to it. <br><br> Click the <i class="fa fa-list-ul"></i> icon while an episode or clip is playing to add it to a playlist.</div>';
+  $(isEmptyPlaylistEl).insertAfter('#player');
 }
 
 // Podcast / Episode / Clip variables added to the window
@@ -340,14 +71,14 @@ function loadMediaRef (index, shouldPlay) {
   }
 }
 
-function previewStartTime (startTime, endTime) {
+export function previewStartTime (startTime, endTime) {
   window.endTimeHasBeenReached = false;
   window.endTime = endTime;
   audio.currentTime = window.startTime = startTime;
   audio.play();
 }
 
-function previewEndTime (endTime) {
+export function previewEndTime (endTime) {
   window.endTimeHasBeenReached = false;
   window.endTime = endTime;
   audio.currentTime = endTime - 3;
@@ -376,13 +107,6 @@ export function truncatePlayerText () {
   $('#player-condensed-podcast-title').truncate({ lines: 1 });
   $('#player-condensed-sub-title').truncate({ lines: 1 });
 
-}
-
-function recreateAndReinsertElement (id) {
-  $('<div id="' + id + '"></div>')
-    .html($('#' + id + '')
-    .html()).insertAfter('#' + id + '');
-  $('#' + id).remove();
 }
 
 function setPlayerInfo () {
@@ -446,7 +170,7 @@ function setPlayerInfo () {
 
   $('#player-podcast-subscribe').on('click', function () {
     if (!isNonAnonLoggedInUser()) {
-      alert('Login to subscribe to this podcast :D');
+      alert('Please login to subscribe to this podcast.');
       return;
     }
 
@@ -656,8 +380,7 @@ function onScrollCondensePlayerView () {
     $('#player').insertBefore('#player-condensed-text');
 
     $('#player-condensed-header').css('top', 50);
-    }
-    else{
+    } else {
      $('html').attr('style', '');
      $('#player-condensed-header').css('top', -50000);
      $('#player').insertAfter('#player-condensed-header');
@@ -679,34 +402,3 @@ function destroyPlayerAndAudio () {
   audio = null;
   $('#player').html('');
 }
-
-
-
-
-
-// TODO: where should this go? it is loaded on all pages on the site
-$('#navbarSearchModal').on('shown.bs.modal', function () {
-  $('#navbarSearchModalInput').focus()
-});
-
-loadPodcastSearchTypeahead();
-
-
-
-
-
-// TODO: where should this go? it is loaded on all pages on the site
-// TODO: this is weird, should be a better way...
-if (isPlayerPage === true && isEmptyPlaylist !== true) {
-  setPlayerInfo();
-  // TODO: remove autoplay on mobile devices since they do not support autoplay
-  // TODO: or find some kind of way to let autoplay be enabled in mobile browsers
-  createAutoplayBtn();
-  createAndAppendAudio();
-  onScrollCondensePlayerView();
-} else if (isPlayerPage === true && isEmptyPlaylist === true) {
-  var isEmptyPlaylistEl = '<div id="empty-playlist-message">This playlist has no episodes or clips added to it. <br><br> Click the <i class="fa fa-list-ul"></i> icon while an episode or clip is playing to add it to a playlist.</div>';
-  $(isEmptyPlaylistEl).insertAfter('#player');
-}
-
-addPlaylistItemTextTruncation();

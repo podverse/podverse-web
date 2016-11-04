@@ -66,7 +66,7 @@ function routes () {
             })
               .then((usersOwnedPlaylists) => {
                 mediaRef.dataValues['usersOwnedPlaylists'] = usersOwnedPlaylists;
-                res.render('player/index.html', mediaRef.dataValues);
+                res.render('player-page/index.html', mediaRef.dataValues);
               })
         })
       }).catch(e => {
@@ -112,7 +112,7 @@ function routes () {
               })
                 .then((usersOwnedPlaylists) => {
                   playlist.dataValues['usersOwnedPlaylists'] = usersOwnedPlaylists;
-                  res.render('player/index.html', playlist.dataValues);
+                  res.render('player-page/index.html', playlist.dataValues);
                 });
             })
         })
@@ -159,7 +159,7 @@ function routes () {
           })
             .then((usersOwnedPlaylists) => {
               episode.dataValues['usersOwnedPlaylists'] = usersOwnedPlaylists;
-              res.render('player/index.html', episode.dataValues);
+              res.render('player-page/index.html', episode.dataValues);
             })
         })
       }).catch(e => {

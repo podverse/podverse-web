@@ -1,3 +1,6 @@
+import { addNewPlaylistElement } from './playlistHelper.js';
+import { createPlaylist } from './playlistHelper.js';
+
 $('#createPlaylistModalAddButton').on('click', function () {
   var newPlaylist = {};
   newPlaylist.title = $('#createPlaylistModalTitle').val();

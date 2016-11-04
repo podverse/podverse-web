@@ -1,6 +1,6 @@
 // Thanks:) http://stackoverflow.com/questions/22581345/click-button-copy-to-clipboard-using-jquery
 
-function copyToClipboard(elem) {
+export function copyToClipboard(elem) {
 	  // create hidden text element, if it doesn't already exist
     var targetId = "_hiddenCopyText_";
     var isInput = elem.tagName === "INPUT" || elem.tagName === "TEXTAREA";

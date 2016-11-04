@@ -1,6 +1,6 @@
 $('#podcast-subscribe').on('click', function () {
   if (!isNonAnonLoggedInUser()) {
-    alert('Login to subscribe to this podcast :D');
+    alert('Please login to subscribe to this podcast.');
     return;
   }
 

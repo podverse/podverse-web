@@ -1,6 +1,14 @@
-initClipper();
+import { convertHHMMSSToSeconds } from './utility.js';
+import { convertSecToHHMMSS } from './utility.js';
+import { isHHMMSS } from './utility.js';
+import { isInt } from './utility.js';
+import { isUUID } from './utility.js';
+import { previewEndTime } from './mediaPlayer.js';
+import { previewStartTime } from './mediaPlayer.js';
 
-function initClipper () {
+
+
+export function initClipper () {
 
   $('#make-clip-start-time i').on('click', function () {
     var startTime = $('#make-clip-start-time input').val() || "0";
@@ -56,24 +64,17 @@ function initClipper () {
 
 }
 
-function setStartTime () {
+export function setStartTime () {
   $('#make-clip-start-time input').val(convertSecToHHMMSS(Math.floor(audio.currentTime)));
   $('#make-clip-end-time input').focus();
 }
 
-function setEndTime () {
+export function setEndTime () {
   $('#make-clip-end-time input').val(convertSecToHHMMSS(Math.floor(audio.currentTime)));
   $('#make-clip-description textarea').focus();
 }
 
-$('#toggle-make-clip-btn').on('click', function () {
-  toggleMakeClipWidget(this);
-  if ($('#make-clip-start-time input').val() === '') {
-    setStartTime();
-  }
-});
-
-function toggleMakeClipWidget (_this) {
+export function toggleMakeClipWidget (_this) {
   if ($('#add-to-playlist').css('display') !== 'block' && $('#recommend').css('display') !== 'block') {
     $('#player-stats').toggle();
     $('#player-description').hide();
@@ -94,7 +95,7 @@ function toggleMakeClipWidget (_this) {
   $('#make-clip').toggle();
 }
 
-function makeClip () {
+export function makeClip () {
   event.preventDefault();
 
   if (!isUUID(window.podcastId)) {

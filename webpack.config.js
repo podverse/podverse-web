@@ -22,7 +22,8 @@ var config = {
     },
 
     entry: {
-        'player/index': [__dirname + '/src/static/libs/js/player/index.js'],
+        'login/redirect': [__dirname + '/src/static/libs/js/views/login/redirect.js'],
+        'player-page/index': [__dirname + '/src/static/libs/js/views/player-page/index.js'],
         vendors: ["babel-polyfill",
                   "bootstrap",
                   "jquery",
@@ -52,17 +53,15 @@ var config = {
         new webpack.optimize.CommonsChunkPlugin("vendors", "vendors.js", Infinity)
     ],
 
+    // Thanks:D James K Nelson http://jamesknelson.com/using-es6-in-the-browser-with-babel-6-and-webpack/
     module: {
       loaders: [
         {
           loader: "babel-loader",
-
           include: [
             path.resolve(__dirname, "src")
           ],
-
           test: /\.js$/,
-
           query: {
             plugins: ['transform-runtime'],
             presets: ['es2015']

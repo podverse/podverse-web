@@ -2,7 +2,7 @@ function showNewPersonModal() {
   if (isNonAnonLoggedInUser()) {
     $('#createPersonModal').modal('show');
   } else {
-    alert('Login to create a playlist for a friend :D');
+    alert('Please login to create playlists for friends.');
   }
 }
 

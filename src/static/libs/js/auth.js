@@ -3,29 +3,9 @@ if (!$.cookie('idToken')) {
   createAnonAuthCookie();
 }
 
-function createAnonAuthCookie() {
-
-  // If the browser does not have a valid idToken, then provide one.
-  $.post('/auth/anonLogin')
-    .done(function (data) {
-
-      // TODO: must make this a secure cookie...don't we need to run the app
-      // on https://localhost to do that?
-      // $.cookie('idToken', data.idToken, { secure:true });
-
-      $.cookie('idToken', data.idToken, { secure:false, path: '/' });
-
-      removeUserProfileFromLocalStorage();
-    })
-    .fail(function (error) {
-      // TODO: add more helpful error messaging
-      console.log(error);
-      alert('errrror');
-    });
-
-}
-
-
+// TODO: setup environment variables...
+var clientId = '',
+    domain = '';
 
 // Auth0Lock stuff
 var options = {
@@ -42,11 +22,7 @@ var options = {
   }]
 };
 
-// TODO: setup environment variables...
-var clientId = '',
-    domain = '';
-
-var lock = new Auth0Lock(clientId, domain, options);
+window.lock = new Auth0Lock(clientId, domain, options);
 
 lock.on('authenticated', function (authResult) {
   // Remove # from end of url
@@ -73,11 +49,31 @@ lock.on('authenticated', function (authResult) {
 
     saveUserProfileToLocalStorage(profile);
 
-    appendLoggedInUserNavButtons();
-
     findOrCreateUserOnServer(profile);
   })
 });
+
+function createAnonAuthCookie() {
+
+  // If the browser does not have a valid idToken, then provide one.
+  $.post('/auth/anonLogin')
+    .done(function (data) {
+
+      // TODO: must make this a secure cookie...don't we need to run the app
+      // on https://localhost to do that?
+      // $.cookie('idToken', data.idToken, { secure:true });
+
+      $.cookie('idToken', data.idToken, { secure:false, path: '/' });
+
+      removeUserProfileFromLocalStorage();
+    })
+    .fail(function (error) {
+      // TODO: add more helpful error messaging
+      console.log(error);
+      alert('errrror');
+    });
+
+}
 
 function findOrCreateUserOnServer (profile) {
   var name = profile.user_metadata && profile.user_metadata.name;
@@ -111,7 +107,7 @@ function removeUserProfileFromLocalStorage () {
   localStorage.removeItem('picture');
 }
 
-function logoutUser () {
+export function logoutUser () {
   $.removeCookie('idToken', { path: '/' });
   removeUserProfileFromLocalStorage();
   location.reload();

@@ -1,10 +1,8 @@
-$('#toggle-playlist-btn').on('click', function () {
-  togglePlaylistWidget(this);
-});
+import { isNonAnonLoggedInUser } from './utility.js';
 
-function togglePlaylistWidget (_this) {
+export function togglePlaylistWidget (_this) {
   if (!isNonAnonLoggedInUser()) {
-    alert('Login to create a playlist :D');
+    alert('Please login to create a playlist.');
     return;
   }
 
@@ -28,7 +26,7 @@ function togglePlaylistWidget (_this) {
   $('#add-to-playlist').toggle();
 }
 
-function createPlaylist (params, callback) {
+export function createPlaylist (params, callback) {
   if (params.title === '') {
     alert('please provide a playlist title');
     return false;
@@ -57,7 +55,7 @@ function createPlaylist (params, callback) {
   });
 }
 
-function addToPlaylist (playlistId, mediaRefId, callback) {
+export function addToPlaylist (playlistId, mediaRefId, callback) {
   $.ajax({
     type: 'POST',
     url: '/playlists/' + playlistId + '/addItem/' + mediaRefId,
@@ -76,12 +74,12 @@ function addToPlaylist (playlistId, mediaRefId, callback) {
   });
 }
 
-function updatePlaylistItemCount(playlistId, total) {
+export function updatePlaylistItemCount(playlistId, total) {
   $(".add-to-playlist-item[data-id=" + playlistId + "] .add-to-playlist-item-count")
     .html("items: " + total);
 }
 
-function addNewPlaylistElement(playlist) {
+export function addNewPlaylistElement(playlist) {
   var playlistId = playlist.id,
       playlistTitle = playlist.title,
       isRecommendation = playlist.isRecommendation;
@@ -117,5 +115,56 @@ function addNewPlaylistElement(playlist) {
   $(".add-to-playlist-item[data-id=" + playlistId + "] .add-to-playlist-item-link").on('click', function () {
     var playlistId = $(this).parent().data('id');
     window.location.href = '/playlists/' + playlistId;
+  });
+}
+
+export function addPlaylistItemTextTruncation() {
+  var playlistItems = document.getElementsByClassName('playlist-item');
+
+  for (var i = 0; i < playlistItems.length; i++) {
+    var playlistItemPodcastTitle = playlistItems[i].getElementsByClassName('playlist-item-podcast-title');
+    var playlistItemSubTitle = playlistItems[i].getElementsByClassName('playlist-item-sub-title');
+    var playlistItemDetails = playlistItems[i].getElementsByClassName('playlist-item-details');
+    $(playlistItemPodcastTitle[0]).truncate({ lines: 1 });
+    $(playlistItemSubTitle[0]).truncate({ lines: 1 });
+    $(playlistItemDetails[0]).truncate({ lines: 3 });
+  }
+
+  $('#hide-until-truncation-finishes').hide();
+}
+
+function subscribeToPlaylist(url, successCallback) {
+  var id = url.substr(url.lastIndexOf('/') + 1);
+  $.ajax({
+    type: 'POST',
+    url: '/playlists/subscribe/' + id,
+    headers: {
+      Authorization: $.cookie('idToken')
+    },
+    success: function (res) {
+      if (successCallback) { successCallback(); }
+    },
+    error: function (xhr, status, error) {
+      // TODO: add more helpful error messaging
+      alert('errrror');
+    }
+  });
+}
+
+function unsubscribeFromPlaylist (url, successCallback) {
+  var id = url.substr(url.lastIndexOf('/') + 1);
+  $.ajax({
+    type: 'POST',
+    url: '/playlists/unsubscribe/' + id,
+    headers: {
+      Authorization: $.cookie('idToken')
+    },
+    success: function (res) {
+      if (successCallback) { successCallback(); }
+    },
+    error: function (xhr, status, error) {
+      // TODO: add more helpful error messaging
+      alert('errrror');
+    }
   });
 }

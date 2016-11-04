@@ -1,10 +1,6 @@
-$('#toggle-recommend-btn').on('click', function () {
-  toggleRecommendWidget(this);
-});
-
 function toggleRecommendWidget (_this) {
   if (!isNonAnonLoggedInUser()) {
-    alert('Login to make playlists for friends :D');
+    alert('Please login to make playlists for friends.');
     return;
   }
 
