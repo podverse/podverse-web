@@ -406,66 +406,73 @@ footer p {
 
 /*** player.html condensed-size mode styles ***/
 
-#player-condensed-header {
+#player-condensed-image, #player-condensed-title, #player-condensed-sub-title,
+#player-condensed-text {
+    display: none;
+}
+
+.condensed #player-condensed-header {
     position: fixed;
     width: 100%;
-    top: -50000px;
+    top: 50px;
     left: 0;
-    background-color: #fff;
-    padding: 0.5rem 1rem 0.25rem 1rem;
     border-bottom: 1px solid #ccc;
     margin: 0 0 1.5rem 0;
+    background-color: #fff;
     z-index: 10;
+    padding: 0.25rem 0;
 }
 
 /* Width for player-condensed-inner is set via JavaScript to work with truncation. */
-#player-condensed-inner {
-    max-width: 607px;
+.condensed #player-condensed-inner {
     margin: 0 auto;
 }
 
-#player-condensed-header {
-    padding: 0.5rem 0;
-}
-
-#player-condensed-image {
+.condensed #player-condensed-image {
     width: 2.75rem;
     height: 2.75rem;
     margin-right: 0.75rem;
     float: left;
+    display: block;
 }
 
-#player-condensed-image img {
+.condensed #player-condensed-image img {
     width: 2.75rem;
     height: 2.75rem;
 }
 
-#player-condensed-title {
+.condensed #player-condensed-title {
     font-weight: 500;
     font-size: 14px;
+    display: block;
 }
 
-#player-condensed-title a {
+.condensed #player-condensed-title a {
     color: #373a3c;
 }
 
-#player-condensed-sub-title {
+.condensed #player-condensed-sub-title {
     font-size: 14px;
+    display: block;
 }
 
-#player-condensed-clip-time {
+.condensed #player {
+    margin: 0.5rem 0 0.25rem 0;
+}
+
+.condensed #player-condensed-text {
+    display: block;
+}
+
+.condensed #player-condensed-clip-time {
     font-size: 12px;
     clear: both;
     margin: 2px 0rem -5px 0.5rem;
     float: right;
 }
 
-#player-condensed-clip-title {
+.condensed #player-condensed-clip-title {
     font-size: 14px;
-}
-
-#player-condensed-header #player {
-    margin: 0.75rem 0 0.5rem 0;
 }
 
 

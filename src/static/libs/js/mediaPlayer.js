@@ -377,13 +377,11 @@ function onScrollCondensePlayerView () {
      truncatePlayerText();
 
     //  $('#player-condensed-text').css('position', 'initial');
-    $('#player').insertBefore('#player-condensed-text');
+    $('#player-container').addClass('condensed');
 
-    $('#player-condensed-header').css('top', 50);
     } else {
      $('html').attr('style', '');
-     $('#player-condensed-header').css('top', -50000);
-     $('#player').insertAfter('#player-condensed-header');
+     $('#player-container').removeClass('condensed');
 
     //  $('#player-condensed-text').css('position', 'absolute');
     }
