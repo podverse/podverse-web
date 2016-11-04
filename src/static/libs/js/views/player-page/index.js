@@ -16,6 +16,8 @@ import { addToPlaylist } from '../../playlistHelper.js';
 import { togglePlaylistWidget } from '../../playlistHelper.js';
 import { updatePlaylistItemCount } from '../../playlistHelper.js';
 
+import { toggleRecommendWidget } from '../../recommendHelper.js';
+
 import { debounce } from '../../utility.js';
 
 
@@ -102,8 +104,7 @@ $('#playlist-subscribe').on('click', function () {
 
 // Resize #player-condensed-inner with JS to work with truncation
 var truncateOnWindowResize = debounce(function () {
-  var playerWidth = $('#player-inner').width();
-  $('#player-condensed-inner').css('width', playerWidth);
+  $('#player-condensed-inner').css('width', $('#player-inner').width());
 
   if ($('#player-description-truncated').css('display') !== 'none') {
     truncatePlayerText();

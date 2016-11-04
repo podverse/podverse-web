@@ -1,4 +1,4 @@
-function addPodcastModal () {
+export function addPodcastModalSave () {
   var feedURL = $('#addPodcastModalFeedURL').val();
 
   if (feedURL != null && feedURL != '') {

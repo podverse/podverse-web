@@ -1,4 +1,6 @@
-function toggleRecommendWidget (_this) {
+import { isNonAnonLoggedInUser } from './utility.js';
+
+export function toggleRecommendWidget (_this) {
   if (!isNonAnonLoggedInUser()) {
     alert('Please login to make playlists for friends.');
     return;

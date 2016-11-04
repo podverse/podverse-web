@@ -1,3 +1,4 @@
+import { addPodcastModalSave } from './addPodcastModal.js';
 import { logoutUser } from './auth.js';
 import { loadPodcastSearchTypeahead } from './podcastHelper.js';
 
@@ -17,6 +18,9 @@ $('#navbarSearchModal').on('shown.bs.modal', function () {
 });
 loadPodcastSearchTypeahead();
 
+$('#addPodcastModalAddButton').on('click', function () {
+  addPodcastModalSave();
+});
 
 
 function appendLoggedInUserNavButtons () {
