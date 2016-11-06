@@ -1,3 +1,6 @@
+require('../../navbar.js');
+require('../../auth.js');
+
 $('#myPlaylistsDropdown a').on('click', function () {
   var selectedVal = $(this).html();
 
@@ -18,3 +21,5 @@ $('#myPlaylistsDropdown a').on('click', function () {
   $('.playlist-list-item-title').truncate({ lines: 1 });
   $('.playlist-list-item-subtitle').truncate({ lines: 1 });
 });
+
+$('#hide-until-truncation-finishes').hide();
