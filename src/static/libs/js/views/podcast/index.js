@@ -1,3 +1,11 @@
+require('../../navbar.js');
+require('../../auth.js');
+
+import { subscribeToPodcast } from '../../podcastHelper.js';
+import { unsubscribeFromPodcast } from '../../podcastHelper.js';
+
+import { isNonAnonLoggedInUser } from '../../utility.js';
+
 $('#podcast-subscribe').on('click', function () {
   if (!isNonAnonLoggedInUser()) {
     alert('Please login to subscribe to this podcast.');
@@ -25,3 +33,5 @@ $(document).ready(function ($) {
     window.location = $(this).data('href');
   });
 });
+
+$('#hide-until-truncation-finishes').hide();
