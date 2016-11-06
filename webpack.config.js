@@ -24,6 +24,7 @@ var config = {
     entry: {
         'home/index': [__dirname + '/src/static/libs/js/views/home/index.js'],
         'login/redirect': [__dirname + '/src/static/libs/js/views/login/redirect.js'],
+        'my-podcasts/index': [__dirname + '/src/static/libs/js/views/my-podcasts/index.js'],
         'player-page/index': [__dirname + '/src/static/libs/js/views/player-page/index.js'],
         'podcast/index': [__dirname + '/src/static/libs/js/views/podcast/index.js'],
         vendors: ["babel-polyfill",

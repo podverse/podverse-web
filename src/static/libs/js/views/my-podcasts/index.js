@@ -1,3 +1,11 @@
+require('../../navbar.js');
+require('../../auth.js');
+
+import { subscribeToPodcast } from '../../podcastHelper.js';
+import { unsubscribeFromPodcast } from '../../podcastHelper.js';
+
+
+
 $('.podcast-item-subscribe').on('click', function () {
   if ($(this).children().hasClass('fa-star-o')) {
     $(this).html('<i class="fa fa-star"></i>');
@@ -9,3 +17,5 @@ $('.podcast-item-subscribe').on('click', function () {
     unsubscribeFromPodcast(podcastId);
   }
 });
+
+$('#hide-until-truncation-finishes').hide();

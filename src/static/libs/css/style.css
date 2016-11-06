@@ -750,6 +750,7 @@ footer p {
   display: block;
   text-decoration: none !important;
   color: #373a3c !important;
+  cursor: pointer;
 }
 
 .podcast-item-img {
@@ -757,7 +758,6 @@ footer p {
   margin: 0 0.75rem 0 0;
   width: 4rem;
   height: 4rem;
-  cursor: pointer;
 }
 
 .podcast-item-img img {
@@ -767,25 +767,21 @@ footer p {
 
 .podcast-item-subscribe {
   float: right;
-  cursor: pointer;
 }
 
 .podcast-item-title {
   overflow: hidden;
   font-weight: 500;
-  cursor: pointer;
 }
 
 .podcast-item-total-episodes {
   float: left;
   margin-top: 1rem;
-  cursor: pointer;
 }
 
 .podcast-item-last-pubdate {
   float: right;
   margin-top: 1rem;
-  cursor: pointer;
 }
 
 
