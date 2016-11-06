@@ -3,9 +3,8 @@ if (!$.cookie('idToken')) {
   createAnonAuthCookie();
 }
 
-// TODO: setup environment variables...
-var clientId = '',
-    domain = '';
+var clientId = __AUTH0_CLIENTID__,
+    domain = __AUTH0_DOMAIN__;
 
 // Auth0Lock stuff
 var options = {

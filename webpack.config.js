@@ -1,8 +1,9 @@
 /* Thanks to Ashwin Hariharan
 https://medium.freecodecamp.com/webpack-for-the-fast-and-the-furious-bf8d3746adbd#.4ijclp4kt */
 
-var webpack = require("webpack");
-var path = require("path");
+var webpack = require("webpack"),
+    path = require("path"),
+    config = require("src/config.js");
 
 var lib_dir = __dirname + "/src/static/libs",
     node_dir = __dirname + "/node_modules";
@@ -46,6 +47,11 @@ var config = {
     },
 
     plugins: [
+        new webpack.DefinePlugin({
+            // TODO: change these to podverse.fm AUTH0 account before deployment
+            __AUTH0_CLIENTID__: JSON.stringify(config.auth0ClientId),
+            __AUTH0_DOMAIN__: JSON.stringify(config.auth0Domain)
+        }),
         new webpack.ProvidePlugin({
             $: "jquery",
             jQuery: "jquery",

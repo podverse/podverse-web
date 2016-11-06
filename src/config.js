@@ -7,5 +7,9 @@ module.exports = {
   baseURL: process.env.baseURL || 'http://localhost:8080',
   jwtSigningKey: new Buffer(jwtSigningKeyB64, 'base64'),
   sqlite: process.env.sqlite || './data/podverseWeb.sqlite',
-  databaseName: 'podverse'
+  databaseName: 'podverse',
+
+  // TODO: change the auth0 values to podverse.fm's clientId and domain before deployment
+  auth0ClientId: 'tTGQrl5CenMDdpzcKNpmLIginyRgBJNN',
+  auth0Domain: 'mitchd.auth0.com'
 };
