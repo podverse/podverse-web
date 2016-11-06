@@ -12,6 +12,7 @@ import { toggleMakeClipWidget } from '../../clipHelper.js';
 
 import { truncatePlayerText } from '../../mediaPlayer.js';
 
+import { addPlaylistItemTextTruncation } from '../../playlistHelper.js';
 import { addToPlaylist } from '../../playlistHelper.js';
 import { togglePlaylistWidget } from '../../playlistHelper.js';
 import { updatePlaylistItemCount } from '../../playlistHelper.js';
@@ -112,3 +113,7 @@ var truncateOnWindowResize = debounce(function () {
 }, 250);
 
 window.addEventListener('resize', truncateOnWindowResize);
+
+
+
+addPlaylistItemTextTruncation();

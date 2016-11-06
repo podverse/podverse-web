@@ -22,6 +22,7 @@ var config = {
     },
 
     entry: {
+        'home/index': [__dirname + '/src/static/libs/js/views/home/index.js'],
         'login/redirect': [__dirname + '/src/static/libs/js/views/login/redirect.js'],
         'player-page/index': [__dirname + '/src/static/libs/js/views/player-page/index.js'],
         vendors: ["babel-polyfill",

@@ -48,18 +48,17 @@
   </div><!-- /.col-xs-12 -->
 </div><!-- /.row -->
 
+{% endblock %}
+
+{% block scripts %}
 <script>
-var pageIndex = parseInt({{ pageIndex }});
-{% if showNextButton %}
-  $('.pv-pagination-next').on('click', function () {
-    window.location = '/?page=' + (pageIndex + 1);
-  });
-{% endif %}
-{% if pageIndex > 1 %}
-  $('.pv-pagination-prev').on('click', function () {
-    window.location = '/?page=' + (pageIndex - 1);
-  });
-{% endif %}
+  window.pageIndex = parseInt({{ pageIndex }});
+  window.showNextButton = false;
+  {% if showNextButton %}
+    showNextButton = true;
+  {% endif %}
 </script>
 
+<script src="/static/build/vendors.js"></script>
+<script src="/static/build/home/index.js"></script>
 {% endblock %}
