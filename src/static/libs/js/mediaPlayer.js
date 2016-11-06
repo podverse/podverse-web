@@ -238,7 +238,7 @@ function createAndAppendAudio () {
   var autoplayOnceAtBeginning = false;
   audio.oncanplaythrough = function() {
     var autoplay = $.cookie('autoplay');
-    if (autoplay === 'On' && autoplayOnceAtBeginning === false) {
+    if (autoplay === 'true' && autoplayOnceAtBeginning === false) {
       autoplayOnceAtBeginning = true;
       audio.play();
     }
