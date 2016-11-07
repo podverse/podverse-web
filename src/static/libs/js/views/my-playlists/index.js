@@ -22,4 +22,5 @@ $('#myPlaylistsDropdown a').on('click', function () {
   $('.playlist-list-item-subtitle').truncate({ lines: 1 });
 });
 
+// TODO: this isn't being used properly here. Nothing is truncated on page load.
 $('#hide-until-truncation-finishes').hide();

@@ -365,9 +365,9 @@ function routes () {
     res.render('about/index.html', req.query);
   })
 
-  .get('/mobile-app', function (req, res) {
-    res.render('mobile-app/index.html', req.query);
-  })
+  // .get('/mobile-app', function (req, res) {
+  //   res.render('mobile-app/index.html', req.query);
+  // })
 
   .get('/login-redirect', function (req, res) {
     res.render('login/redirect.html', req.query);

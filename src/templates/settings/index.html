@@ -8,46 +8,23 @@
     <div class="form-group">
       <label for="your-name">Name</label>
       <input type="text" class="form-control" id="settings-name" placeholder="your name">
-      <small class="form-text text-muted">Visible to anyone who receives your playlist.</small>
+      <small class="form-text text-muted">This name is visible to anyone who sees your playlist.</small>
     </div>
-    <button type="button" class="btn btn-primary pull-right" onclick="updateUserProfile();">Submit</button>
+    <button type="button" class="btn btn-primary pull-right" id="settings-submit-btn">Submit</button>
     <button type="button" class="btn pull-right" onclick="window.history.back();">Cancel</button>
   </form>
 </div>
+{% endblock %}
 
+{% block scripts %}
 <script>
-$('#settings-name').val('{{ name }}');
-
-$('#settings-name').keydown(function(e){
-  if(e.keyCode == 13) {
-    e.preventDefault();
-    updateUserProfile();
-  }
-});
-
-function updateUserProfile () {
-  $.ajax({
-    type: 'PATCH',
-    url: '/users/{{ id }}',
-    headers: {
-      Authorization: $.cookie('idToken')
-    },
-    data: {
-      name: $('#settings-name').val()
-    },
-    dataType: 'json',
-    success: function () {
-      location.href = '/';
-    },
-    error: function (xhr, status, error) {
-      // TODO: add more helpful error messaging
-      console.log(xhr);
-      console.log(status);
-      console.log(error);
-      alert('errrror');
-    }
-  });
-}
+  // TODO: these should not be set on the window
+  // This should get cleaned up whenever setWindowVars.html gets cleaned up.
+  // At the moment I don't know how to load the nunjucks variables directly in JS.
+  window.userName = '{{ name }}';
+  window.userId = '{{ id }}';
 </script>
 
+<script src="/static/build/vendors.js"></script>
+<script src="/static/build/settings/index.js"></script>
 {% endblock %}
