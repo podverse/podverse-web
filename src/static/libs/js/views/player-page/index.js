@@ -4,21 +4,12 @@ require('../../mediaPlayer.js');
 require('../../clipCreatedModal.js');
 require('../../createPlaylistModal.js');
 
-import { initClipper } from '../../clipHelper.js';
-import { makeClip } from '../../clipHelper.js';
-import { setEndTime } from '../../clipHelper.js';
-import { setStartTime } from '../../clipHelper.js';
-import { toggleMakeClipWidget } from '../../clipHelper.js';
-
+import { initClipper, makeClip, setEndTime, setStartTime,
+         toggleMakeClipWidget } from '../../clipHelper.js';
 import { truncatePlayerText } from '../../mediaPlayer.js';
-
-import { addPlaylistItemTextTruncation } from '../../playlistHelper.js';
-import { addToPlaylist } from '../../playlistHelper.js';
-import { togglePlaylistWidget } from '../../playlistHelper.js';
-import { updatePlaylistItemCount } from '../../playlistHelper.js';
-
+import { addPlaylistItemTextTruncation, addToPlaylist,
+         togglePlaylistWidget, updatePlaylistItemCount } from '../../playlistHelper.js';
 import { toggleRecommendWidget } from '../../recommendHelper.js';
-
 import { debounce } from '../../utility.js';
 
 

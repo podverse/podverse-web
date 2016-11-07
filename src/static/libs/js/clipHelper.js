@@ -1,10 +1,6 @@
-import { previewEndTime } from './mediaPlayer.js';
-import { previewStartTime } from './mediaPlayer.js';
-import { convertHHMMSSToSeconds } from './utility.js';
-import { convertSecToHHMMSS } from './utility.js';
-import { isHHMMSS } from './utility.js';
-import { isInt } from './utility.js';
-import { isUUID } from './utility.js';
+import { previewEndTime, previewStartTime } from './mediaPlayer.js';
+import { convertHHMMSSToSeconds, convertSecToHHMMSS, isHHMMSS,
+         isInt, isUUID } from './utility.js';
 
 export function initClipper () {
 

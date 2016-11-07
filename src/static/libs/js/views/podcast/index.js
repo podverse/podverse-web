@@ -1,9 +1,7 @@
 require('../../navbar.js');
 require('../../auth.js');
 
-import { subscribeToPodcast } from '../../podcastHelper.js';
-import { unsubscribeFromPodcast } from '../../podcastHelper.js';
-
+import { subscribeToPodcast, unsubscribeFromPodcast } from '../../podcastHelper.js';
 import { isNonAnonLoggedInUser } from '../../utility.js';
 
 $('#podcast-subscribe').on('click', function () {
