@@ -10,6 +10,6 @@ module.exports = {
   databaseName: 'podverse',
 
   // TODO: change the auth0 values to podverse.fm's clientId and domain before deployment
-  auth0ClientId: 'tTGQrl5CenMDdpzcKNpmLIginyRgBJNN',
-  auth0Domain: 'mitchd.auth0.com'
+  auth0ClientId: process.env.auth0ClientId || 'tTGQrl5CenMDdpzcKNpmLIginyRgBJNN',
+  auth0Domain: process.env.auth0Domain || 'mitchd.auth0.com'
 };
