@@ -1,10 +1,52 @@
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-<!-- Conditionally handle metatags below -->
-<!-- TODO: conditionally handle metatags for each page... -->
-<!-- let metaImageURL = '' -->
-<script>
-let insecureDomain = 'http://' + location.hostname;
+<!-- BEGIN: These tags are the same on every page -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Create podcast highlights and playlists to share online." />
+
+  <!--  Facebook Open Graph meta tags -->
+    <meta property="og:site_name" content="Podverse" />
+    <meta property="fb:app_id" content="300336890140007" />
+
+<!-- END: These tags are the same on every page -->
+
+
+
+<!-- BEGIN: These tags change dynamically on different pages -->
+
+{% if currentPage == 'Home Page' %}
+<h1>HOME PAGE</h1>
+{% elif currentPage == 'About' %}
+<h1>ABOUT PAGE</h1>
+{% elif currentPage == 'Clip' %}
+<h1>CLIP PAGE</h1>
+{% elif currentPage == 'Playlist' %}
+<h1>PLAYLIST PAGE</h1>
+{% endif %} -->
+
+
+
+<!-- END: These tags change dynamically on different pages -->
+
+<!--  Facebook Open Graph meta tags -->
+
+  <!--  These tags can change dynamically -->
+  <meta property="og:title" content="Podverse - create and share podcast highlights" />
+
+  <!-- TODO: conditionally change og:type to article on episode/clip pages -->
+  <meta property="og:type" content="website" />
+
+  <!--  TODO: dynamically set og:url -->
+  <meta property="og:url" content="http://podverse.fm/" />
+
+  <meta property="og:image" content="http://podverse.fm/static/images/podverse-logo-1200x630.png" />
+  <meta property="og:image:secure_url" content="https://podverse.fm/static/images/podverse-logo-1200x630.png" />
+
+  <meta property="og:description" content="Create podcast highlights and playlists to share online." />
+
+
+
+
+<!-- let insecureDomain = 'http://' + location.hostname;
 let secureDomain = 'https://' + location.hostname;
 
 let facebookImageURL = '/static/images/podverse-logo-1200x630.png';
@@ -15,10 +57,9 @@ let twitterImageURL = '/static/images/podverse-logo-560x300.png';
 {% elif currentPage == 'Mobile App' %}
 {% elif currentPage == 'Clip' %}
 {% elif currentPage == 'Playlist' %}
-{% endif %}
-</script>
+{% endif %} -->
 
-<!-- <meta name="description" content="Create podcast highlights and playlists to share online." /> -->
+
 
 <!-- Schema.org markup for Google+ -->
 <!-- <meta itemprop="name" content="Podverse">
@@ -33,24 +74,3 @@ let twitterImageURL = '/static/images/podverse-logo-560x300.png';
 <meta name="twitter:creator" content="@podverse"> -->
 <!-- Twitter summary card with large image must be at least 280x150px -->
 <!-- <meta name="twitter:image:src" content="http://www.example.com/image.html"> -->
-
-<!-- Open Graph data -->
-<meta property="og:title" content="Podverse" />
-
-<!-- TODO: conditionally change og:type to article on episode/clip pages -->
-<meta property="og:type" content="website" />
-
-<!--  TODO: dynamically set og:url -->
-<meta property="og:url" content="http://podverse.fm/" />
-
-<meta property="og:image" content="http://podverse.fm/static/images/podverse-logo-1200x630.png" />
-<meta property="og:image:secure_url" content="https://podverse.fm/static/images/podverse-logo-1200x630.png" />
-
-<!--  TODO: don't use these for podcast image previews, since we can't predict their type -->
-<!-- <meta property="og:image:type" content="image/jpeg" />
-<meta property="og:image:width" content="1200" />
-<meta property="og:image:height" content="630" /> -->
-
-<meta property="og:description" content="Create podcast highlights and playlists to share online." />
-<meta property="og:site_name" content="Podverse" />
-<meta property="fb:app_id" content="300336890140007" />
