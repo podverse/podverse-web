@@ -993,18 +993,18 @@ body.modal-open {
     padding: .75rem 15px;
 }
 
-#login-btn .dropdown-menu {
+#navbar-btn .dropdown-menu {
     left: -66px;
     margin: -2px 0 0 0;
 }
 
-#login-btn .dropdown-item {
+#navbar-btn .dropdown-item {
     color: #373a3c;
     text-align: right;
     font-size: 0.8rem;
 }
 
-#login-btn .dropdown-toggle {
+#navbar-btn .dropdown-toggle {
     -webkit-appearance: none !important;
 }
 
