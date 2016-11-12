@@ -5,30 +5,32 @@ var webpack = require("webpack"),
     path = require("path"),
     config = require("src/config.js");
 
-var lib_dir = __dirname + "/src/static/libs",
-    node_dir = __dirname + "/node_modules";
+var lib_dir = __dirname + "/src/static/libs";
 
 var config = {
     resolve: {
         alias: {
-            bootstrap: node_dir + "/bootstrap/dist/js/bootstrap.min.js",
-            jquery: node_dir + "/jquery/dist/jquery.min.js",
-            jqueryCookie: node_dir + "/jquery.cookie/jquery.cookie.js",
-            mediaElement: node_dir + "/mediaelement/build/mediaelement-and-player.min.js",
+            bootstrap: "bootstrap/dist/js/bootstrap.min.js",
+            jquery: "jquery/dist/jquery.min.js",
+            jqueryCookie: "jquery.cookie/jquery.cookie.js",
+            mediaElement: "mediaelement/build/mediaelement-and-player.min.js",
             mejsPlaybackRate: lib_dir + "/vendors/mejs_playbackrate_plugin.js",
-            tether: node_dir + "/tether/dist/js/tether.min.js",
-            truncate: node_dir + "/truncate.js/dist/truncate.min.js",
-            typeahead: node_dir + "/typeahead.js/dist/typeahead.bundle.min.js"
+            tether: "tether/dist/js/tether.min.js",
+            truncate: "truncate.js/dist/truncate.min.js",
+            typeahead: "typeahead.js/dist/typeahead.bundle.min.js"
         }
     },
 
     entry: {
+        'about/index': [__dirname + '/src/static/libs/js/views/about/index.js'],
         'home/index': [__dirname + '/src/static/libs/js/views/home/index.js'],
         'login/redirect': [__dirname + '/src/static/libs/js/views/login/redirect.js'],
+        // 'mobile-app/index': [__dirname + '/src/static/libs/js/views/mobile-app/index.js'],
         'my-playlists/index': [__dirname + '/src/static/libs/js/views/my-playlists/index.js'],
         'my-podcasts/index': [__dirname + '/src/static/libs/js/views/my-podcasts/index.js'],
         'player-page/index': [__dirname + '/src/static/libs/js/views/player-page/index.js'],
         'podcast/index': [__dirname + '/src/static/libs/js/views/podcast/index.js'],
+        'settings/index': [__dirname + '/src/static/libs/js/views/settings/index.js'],
         vendors: ["babel-polyfill",
                   "bootstrap",
                   "jquery",

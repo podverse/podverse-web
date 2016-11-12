@@ -1,5 +1,4 @@
-import { addNewPlaylistElement } from './playlistHelper.js';
-import { createPlaylist } from './playlistHelper.js';
+import { addNewPlaylistElement, createPlaylist } from './playlistHelper.js';
 
 $('#createPlaylistModalAddButton').on('click', function () {
   var newPlaylist = {};

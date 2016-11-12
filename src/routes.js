@@ -374,10 +374,10 @@ function routes () {
     res.render('about/index.html', req.query);
   })
 
-  .get('/mobile-app', function (req, res) {
-    req.query['currrentPage'] = 'Mobile App Page';
-    res.render('mobile-app/index.html', req.query);
-  })
+  // .get('/mobile-app', function (req, res) {
+  //   req.query['currrentPage'] = 'Mobile App Page';
+  //   res.render('mobile-app/index.html', req.query);
+  // })
 
 }
 

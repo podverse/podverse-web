@@ -29,7 +29,7 @@ function appendLoggedInUserNavButtons () {
     return
   }
 
-  $('#login-btn').addClass('btn-group');
+  $('#navbar-btn').addClass('btn-group');
 
   var navDropdownButtonString =   '<a class="dropdown-toggle nav-link hidden-xs-down" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +  localStorage.getItem('nickname') +'</a>';
       navDropdownButtonString +=  '<div class="dropdown-menu hidden-xs-down" aria-labelledby="dropdownMenu1">';
@@ -38,7 +38,7 @@ function appendLoggedInUserNavButtons () {
       navDropdownButtonString +=    '<a class="dropdown-item" id="logout-user-dropdown-item">Logout</a>';
       navDropdownButtonString +=  '</div>';
 
-  $('#login-btn').html(navDropdownButtonString);
+  $('#navbar-btn').html(navDropdownButtonString);
 
   var navButtonString =   '<li class="nav-item">';
       navButtonString +=    '<a id="navbar-search-icon" class="nav-link hidden-xs-down" data-toggle="modal" data-target="#navbarSearchModal"><i class="fa fa-search"></i></a>';
@@ -50,7 +50,7 @@ function appendLoggedInUserNavButtons () {
       navButtonString +=    '<a class="nav-link hidden-xs-down" href="/my-playlists">Playlists</a>';
       navButtonString +=  '</li>';
 
-  $(navButtonString).insertAfter('#login-btn');
+  $(navButtonString).insertAfter('#navbar-btn');
 
   var navMobileMenuString =   '<a class="nav-link hidden-sm-up" href="/my-podcasts">Podcasts</a>';
       navMobileMenuString +=  '<a class="nav-link hidden-sm-up" href="/my-playlists">Playlists</a>';
@@ -58,7 +58,7 @@ function appendLoggedInUserNavButtons () {
       navMobileMenuString +=  '<hr class="hidden-sm-up">';
       navMobileMenuString +=  '<a class="nav-link hidden-sm-up" id="logout-user-nav-link">Logout</a>';
 
-  $(navMobileMenuString).insertAfter('#login-btn');
+  $(navMobileMenuString).insertAfter('#navbar-btn');
 
   $('#logout-user-dropdown-item, #logout-user-nav-link').on('click', function () {
     logoutUser();
@@ -69,8 +69,8 @@ function appendNonLoggedInUserNavButtons () {
   var searchButtonString =   '<li class="nav-item">';
       searchButtonString +=    '<a id="navbar-search-icon" class="nav-link hidden-xs-down" data-toggle="modal" data-target="#navbarSearchModal"><i class="fa fa-search"></i></a>';
       searchButtonString +=  '</li>';
-  $(searchButtonString).insertBefore('#login-btn');
+  $(searchButtonString).insertBefore('#navbar-btn');
 
-  var loginButtonString = '<a class="nav-link" onclick="lock.show();">Login</a>';
-  $('#login-btn').html(loginButtonString);
+  var loginButtonString = '<a class="nav-link" id="login-btn">Login</a>';
+  $('#navbar-btn').html(loginButtonString);
 }

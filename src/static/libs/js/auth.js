@@ -21,7 +21,11 @@ var options = {
   }]
 };
 
-window.lock = new Auth0Lock(clientId, domain, options);
+let lock = new Auth0Lock(clientId, domain, options);
+
+$(window).ready(() => {
+  $('#login-btn').on('click', () => lock.show());
+});
 
 lock.on('authenticated', function (authResult) {
   // Remove # from end of url

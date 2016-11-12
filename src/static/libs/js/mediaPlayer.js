@@ -1,12 +1,7 @@
-import { calcDuration } from './utility.js';
-import { convertSecToHHMMSS } from './utility.js';
-import { isNonAnonLoggedInUser } from './utility.js';
-import { readableDate } from './utility.js';
-import { recreateAndReinsertElement } from './utility.js';
-
+import { calcDuration, convertSecToHHMMSS, isNonAnonLoggedInUser,
+         readableDate, recreateAndReinsertElement } from './utility.js';
 import { addPlaylistItemTextTruncation } from './playlistHelper.js';
-import { subscribeToPodcast } from './podcastHelper.js';
-import { unsubscribeFromPodcast } from './podcastHelper.js';
+import { subscribeToPodcast, unsubscribeFromPodcast } from './podcastHelper.js';
 
 // Set default values for vars that handle player crashes and autoplay functionality
 window.restartAttempts = 0;
