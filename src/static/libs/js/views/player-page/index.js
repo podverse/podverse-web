@@ -3,12 +3,18 @@ require('../../auth.js');
 require('../../mediaPlayer.js');
 require('../../clipCreatedModal.js');
 require('../../createPlaylistModal.js');
+require('../../createPersonModal.js');
 
-import { initClipper, makeClip, setEndTime, setStartTime,
+import { initClipper,
+         makeClip,
+         setEndTime,
+         setStartTime,
          toggleMakeClipWidget } from '../../clipHelper.js';
 import { truncatePlayerText } from '../../mediaPlayer.js';
-import { addPlaylistItemTextTruncation, addToPlaylist,
-         togglePlaylistWidget, updatePlaylistItemCount } from '../../playlistHelper.js';
+import { addPlaylistItemTextTruncation,
+         addToPlaylist,
+         togglePlaylistWidget,
+         updatePlaylistItemCount } from '../../playlistHelper.js';
 import { toggleRecommendWidget } from '../../recommendHelper.js';
 import { debounce } from '../../utility.js';
 

@@ -1,3 +1,5 @@
+import { addNewPlaylistElement, createPlaylist } from './playlistHelper.js';
+
 function showNewPersonModal() {
   if (isNonAnonLoggedInUser()) {
     $('#createPersonModal').modal('show');
