@@ -1,20 +1,62 @@
+<!-- NOTE: og:url should only be set to podverse.fm in PRODUCTION. (I think)
+           If you set it to podverse.fm in testing, then the Facebook Debugger tool
+           will not scrape your local server, and will instead scrape podverse.fm. -->
 
 <!-- BEGIN: These tags are the same on every page -->
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Create podcast highlights and playlists to share online." />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="Create and share podcast highlights" />
 
-  <!--  Facebook Open Graph meta tags -->
-    <meta property="og:site_name" content="Podverse" />
-    <meta property="fb:app_id" content="300336890140007" />
+<!-- Facebook Open Graph meta tags -->
+<meta property="og:site_name" content="Podverse" />
+<meta property="fb:app_id" content="300336890140007" />
+
+<!-- Twitter meta tags -->
+
+<!-- twitter:site:id was found for screenname @podverse on https://tweeterid.com/.
+     I have no idea if it is accurate. -->
+
+<meta name="twitter:site" content="@podverse">
+<meta name="twitter:site:id" content="2555941009">
+<meta name="twitter:creator" content="@podverse">
+<meta name="twitter:creator:id" content="2555941009">
+<!-- <meta name="twitter:app:name:iphone" content="Name of your iPhone app"> -->
+<!-- <meta name="twitter:app:id:iphone" content="Your app ID in the iTunes App Store (Note: NOT your bundle ID)"> -->
+<!-- <meta name="twitter:app:url:iphone" content="Your app’s custom URL scheme (you must include ”://” after your scheme name)"> -->
+<!-- <meta name="twitter:app:name:ipad" content="Name of your iPad optimized app"> -->
+<!-- <meta name="twitter:app:id:ipad" content="Your app ID in the iTunes App Store"> -->
+<!-- <meta name="twitter:app:url:ipad" content="Your app’s custom URL scheme"> -->
+<!-- <meta name="twitter:app:name:googleplay" content="Name of your Android app"> -->
+<!-- <meta name="twitter:app:id:googleplay" content="Your app ID in the Google Play Store"> -->
+<!-- <meta name="twitter:app:url:googleplay" content="Your app’s custom URL scheme"> -->
 
 <!-- END: These tags are the same on every page -->
 
 
 
-<!-- BEGIN: These tags change dynamically on different pages -->
-
+<!-- BEGIN: These tags can change dynamically on every page -->
 {% if currentPage == 'Home Page' %}
-<h1>HOME PAGE</h1>
+
+<!--  Facebook Open Graph meta tags -->
+<meta property="og:title" content="Podverse" />
+<meta property="og:type" content="website" />
+<meta property="og:image" content="http://podverse.fm/static/images/podverse-logo-1200x630.png" />
+<meta property="og:image:secure_url" content="https://podverse.fm/static/images/podverse-logo-1200x630.png" />
+<meta property="og:description" content="Create and share podcast highlights" />
+
+<!-- PRODUCTION ONLY  -->
+<!-- <meta property="og:url" content="https://podverse.fm/" /> -->
+
+<!-- Twitter meta tags -->
+<meta name="twitter:card" content="summary_large_image"> -->
+<meta name="twitter:description" content="Create podcast highlights and playlists to share online.">
+<meta name="twitter:title" content="Podverse">
+<meta name="twitter:image" content="https://podverse.fm/static/images/podverse-logo-1200x630.png">
+<meta name="twitter:image:alt" content="Podverse logo is pretty cool">
+<!-- <meta name="twitter:player" content="HTTPS URL of player iframe"> -->
+<!-- <meta name="twitter:player:width" content="Width of iframe in pixels"> -->
+<!-- <meta name="twitter:player:height" content="Height of iframe in pixels"> -->
+<!-- <meta name="twitter:player:stream" content="URL to raw video or audio stream"> -->
+
 {% elif currentPage == 'About' %}
 <h1>ABOUT PAGE</h1>
 {% elif currentPage == 'Clip' %}
@@ -26,22 +68,6 @@
 
 
 <!-- END: These tags change dynamically on different pages -->
-
-<!--  Facebook Open Graph meta tags -->
-
-  <!--  These tags can change dynamically -->
-  <meta property="og:title" content="Podverse - create and share podcast highlights" />
-
-  <!-- TODO: conditionally change og:type to article on episode/clip pages -->
-  <meta property="og:type" content="website" />
-
-  <!--  TODO: dynamically set og:url -->
-  <meta property="og:url" content="http://podverse.fm/" />
-
-  <meta property="og:image" content="http://podverse.fm/static/images/podverse-logo-1200x630.png" />
-  <meta property="og:image:secure_url" content="https://podverse.fm/static/images/podverse-logo-1200x630.png" />
-
-  <meta property="og:description" content="Create podcast highlights and playlists to share online." />
 
 
 
@@ -65,12 +91,3 @@ let twitterImageURL = '/static/images/podverse-logo-560x300.png';
 <!-- <meta itemprop="name" content="Podverse">
 <meta itemprop="description" content="Create podcast highlights and playlists to share online."> -->
 <!-- <meta itemprop="image" content="http://www.example.com/image.jpg"> -->
-
-<!-- Twitter Card data -->
-<!-- <meta name="twitter:card" content="summary_large_image"> -->
-<!-- <meta name="twitter:site" content="@podverse">
-<meta name="twitter:title" content="Podverse">
-<meta name="twitter:description" content="Create podcast highlights and playlists to share online.">
-<meta name="twitter:creator" content="@podverse"> -->
-<!-- Twitter summary card with large image must be at least 280x150px -->
-<!-- <meta name="twitter:image:src" content="http://www.example.com/image.html"> -->
