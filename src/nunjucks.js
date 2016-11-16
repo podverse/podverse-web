@@ -1,4 +1,5 @@
-const nunjucks = require('nunjucks');
+const nunjucks = require('nunjucks'),
+      stripTags = require('striptags');
 
 function nunjucksConfig () {
 
@@ -43,7 +44,13 @@ function nunjucksConfig () {
     if (str) {
       return str.replace(/\r|\n|\r\n/g, '<br />')
     }
-  })
+  });
+
+  env.addFilter('stripTags', function(str) {
+    if (str) {
+      return stripTags(str);
+    }
+  });
 
   // TODO: This identify function is also in the scripts.js. Maybe this should
   // be refactored.
