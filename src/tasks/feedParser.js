@@ -102,7 +102,7 @@ function saveParsedFeedToDatabase (parsedFeedObj) {
             mediaURL: ep.enclosures[0].url
           },
           // TODO: Do we want the podcast.id to be === to podcast feedURL?
-          defaults: Object.assign({}, ep, {
+          defaults: Object.assign({}, pruneEpisode(ep), {
             podcastId: podcast.id
           })
       })
