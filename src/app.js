@@ -1,13 +1,12 @@
 const
+    {sqlite} = require('src/config.js'),
     appFactory = require('./appFactory'),
     sqlEngineFactory = require('repositories/sequelize/engineFactory.js'),
     modelFactory = require('repositories/sequelize/models'),
     {locator} = require('locator.js');
 
-const sqlEngine = new sqlEngineFactory({storage: 'podverse.sql'});
+const sqlEngine = new sqlEngineFactory({storagePath: sqlite});
 locator.set('Models', modelFactory(sqlEngine));
-
-sqlEngine.sync();
 
 const
     ClipService = require('services/clip/ClipService.js'),

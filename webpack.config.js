@@ -7,7 +7,7 @@ var webpack = require("webpack"),
 
 var lib_dir = __dirname + "/src/static/libs";
 
-var config = {
+module.exports ={
     resolve: {
         alias: {
             bootstrap: "bootstrap/dist/js/bootstrap.min.js",
@@ -50,7 +50,7 @@ var config = {
 
     plugins: [
         new webpack.DefinePlugin({
-            // TODO: change these to podverse.fm AUTH0 account before deployment
+            // TODO: use environment plugin instead
             __AUTH0_CLIENTID__: JSON.stringify(config.auth0ClientId),
             __AUTH0_DOMAIN__: JSON.stringify(config.auth0Domain)
         }),
@@ -83,5 +83,3 @@ var config = {
     }
 
 };
-
-module.exports = config;
