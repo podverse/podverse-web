@@ -1,39 +1,185 @@
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<!-- NOTE: og:url should only be set to podverse.fm in PRODUCTION. (I think)
+           If you set it to podverse.fm in testing, then the Facebook Debugger tool
+           will not scrape your local server, and will instead scrape podverse.fm. -->
 
-<!-- Conditionally handle metatags below -->
-<!-- TODO: conditionally handle metatags for each page... -->
-{% if currentPage == 'Home' %}
-{% elif currentPage == 'About' %}
-{% elif currentPage == 'Mobile App' %}
-{% elif currentPage == 'Clip' %}
-{% elif currentPage == 'Playlist' %}
+<!-- BEGIN: These tags are the same on every page -->
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="Create and share podcast highlights" />
+
+<!-- Facebook Open Graph meta tags -->
+<meta property="og:site_name" content="Podverse" />
+<meta property="fb:app_id" content="300336890140007" />
+
+<!-- Twitter meta tags -->
+
+<!-- twitter:site:id was found for screenname @podverse on https://tweeterid.com/.
+     I have no idea if it is accurate. -->
+
+<meta name="twitter:site" content="@podverse">
+<meta name="twitter:site:id" content="2555941009">
+<meta name="twitter:creator" content="@podverse">
+<meta name="twitter:creator:id" content="2555941009">
+<!-- <meta name="twitter:app:name:iphone" content="Name of your iPhone app"> -->
+<!-- <meta name="twitter:app:id:iphone" content="Your app ID in the iTunes App Store (Note: NOT your bundle ID)"> -->
+<!-- <meta name="twitter:app:url:iphone" content="Your app’s custom URL scheme (you must include ”://” after your scheme name)"> -->
+<!-- <meta name="twitter:app:name:ipad" content="Name of your iPad optimized app"> -->
+<!-- <meta name="twitter:app:id:ipad" content="Your app ID in the iTunes App Store"> -->
+<!-- <meta name="twitter:app:url:ipad" content="Your app’s custom URL scheme"> -->
+<!-- <meta name="twitter:app:name:googleplay" content="Name of your Android app"> -->
+<!-- <meta name="twitter:app:id:googleplay" content="Your app ID in the Google Play Store"> -->
+<!-- <meta name="twitter:app:url:googleplay" content="Your app’s custom URL scheme"> -->
+
+<!-- END: These tags are the same on every page -->
+
+
+
+<!-- BEGIN: These tags can change dynamically on every page -->
+{% if currentPage == 'Home Page' %}
+
+<!--  Facebook Open Graph meta tags -->
+<meta property="og:title" content="Podverse" />
+<meta property="og:type" content="website" />
+<meta property="og:image" content="http://podverse.fm/static/images/podverse-logo-1200x630.png" />
+<meta property="og:image:secure_url" content="https://podverse.fm/static/images/podverse-logo-1200x630.png" />
+<meta property="og:description" content="Create and share podcast highlights" />
+
+<!-- PRODUCTION ONLY  -->
+<!-- <meta property="og:url" content="https://podverse.fm/" /> -->
+
+<!-- Twitter meta tags -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:description" content="Create and share podcast highlights">
+<meta name="twitter:title" content="Podverse">
+<meta name="twitter:image" content="https://podverse.fm/static/images/podverse-logo-1200x630.png">
+<meta name="twitter:image:alt" content="Podverse logo is pretty cool">
+
+{% elif currentPage == 'About Page' %}
+
+<!--  Facebook Open Graph meta tags -->
+<meta property="og:title" content="Podverse - About" />
+<meta property="og:type" content="website" />
+<meta property="og:image" content="http://podverse.fm/static/images/podverse-logo-1200x630.png" />
+<meta property="og:image:secure_url" content="https://podverse.fm/static/images/podverse-logo-1200x630.png" />
+<meta property="og:description" content="Create and share podcast highlights" />
+
+<!-- PRODUCTION ONLY  -->
+<!-- <meta property="og:url" content="https://podverse.fm/about" /> -->
+
+<!-- Twitter meta tags -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:description" content="Create and share podcast highlights">
+<meta name="twitter:title" content="Podverse">
+<meta name="twitter:image" content="https://podverse.fm/static/images/podverse-logo-1200x630.png">
+<meta name="twitter:image:alt" content="Podverse logo is pretty cool">
+<!-- <meta name="twitter:player" content="HTTPS URL of player iframe"> -->
+<!-- <meta name="twitter:player:width" content="Width of iframe in pixels"> -->
+<!-- <meta name="twitter:player:height" content="Height of iframe in pixels"> -->
+<!-- <meta name="twitter:player:stream" content="URL to raw video or audio stream"> -->
+
+{% elif currentPage == 'Clip Detail Page' %}
+
+<!--  Facebook Open Graph meta tags -->
+<!-- TODO: #5000 if part of an episode title matches exactly to its podcast title,
+then remove the matching part from the episode title with a nunjucks thing.
+Also: detect if that leaves extraneous syntax, like a -, and remove it?
+Check Your Mom's House podcast clip in Facebook Debugger for an example. -->
+<meta property="og:title" content="{{ description }}" />
+<meta property="og:type" content="article" />
+<!-- TODO: check if an insecure_url is available. if yes, use it. -->
+<meta property="og:image" content="{% if episode.imageURL %}{{ episode.imageURL }}{% else %}{{ episode.podcast.imageURL }}{% endif %}" />
+<!-- TODO: check if a secure_url is available. if yes, use it. -->
+<!-- <meta property="og:image:secure_url" content="" /> -->
+<meta property="og:description" content="Clip from {{ episode.podcast.title }}{% if episode.title %} – {{ episode.title }}{% endif %}" />
+
+<!-- PRODUCTION ONLY  -->
+<!-- <meta property="og:url" content="https://podverse.fm/clips/{{ id }}" /> -->
+
+<!-- Twitter meta tags -->
+<meta name="twitter:card" content="summary_large_image">
+
+<!-- see TODO #5000 -->
+<meta name="twitter:description" content="Clip from {{ episode.podcast.title }}{% if episode.title %} – {{ episode.title }}{% endif %}">
+<meta name="twitter:title" content="{{ description }}">
+<meta name="twitter:image" content="{% if episode.imageURL %}{{ episode.imageURL }}{% else %}{{ episode.podcast.imageURL }}{% endif %}">
+<meta name="twitter:image:alt" content="Podcast image">
+<!-- <meta name="twitter:player" content="HTTPS URL of player iframe"> -->
+<!-- <meta name="twitter:player:width" content="Width of iframe in pixels"> -->
+<!-- <meta name="twitter:player:height" content="Height of iframe in pixels"> -->
+<!-- <meta name="twitter:player:stream" content="URL to raw video or audio stream"> -->
+
+{% elif currentPage == 'Episode Detail Page' %}
+
+<!--  Facebook Open Graph meta tags -->
+<meta property="og:title" content="{% if title %}{{ title }}{% else %}{{ podcast.title }}{% if pubDate %} – {{ pubDate | readableDate }}{% endif %}{% endif %}" />
+<meta property="og:type" content="article" />
+<!-- TODO: check if an insecure_url is available. if yes, use it. -->
+<meta property="og:image" content="{% if imageURL %}{{ imageURL }}{% else %}{{ podcast.imageURL }}{% endif %}" />
+<!-- TODO: check if a secure_url is available. if yes, use it. -->
+<!-- <meta property="og:image:secure_url" content="" /> -->
+<meta property="og:description" content="{{ podcast.title }}{% if summary %} – {{ summary | stripTags}}{% endif %}" />
+
+<!-- PRODUCTION ONLY  -->
+<!-- <meta property="og:url" content="https://podverse.fm/episodes/{{ id }}" /> -->
+
+<!-- Twitter meta tags -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:description" content="{{ podcast.title }}{% if summary %} – {{ summary | stripTags }}{% endif %}">
+<meta name="twitter:title" content="{% if title %}{{ title }}{% else %}{{ podcast.title }}{% if pubDate %} – {{ pubDate | readableDate }}{% endif %}{% endif %}">
+<meta name="twitter:image" content="{% if imageURL %}{{ imageURL }}{% else %}{{ podcast.imageURL }}{% endif %}">
+<meta name="twitter:image:alt" content="Podcast image">
+<!-- <meta name="twitter:player" content="HTTPS URL of player iframe"> -->
+<!-- <meta name="twitter:player:width" content="Width of iframe in pixels"> -->
+<!-- <meta name="twitter:player:height" content="Height of iframe in pixels"> -->
+<!-- <meta name="twitter:player:stream" content="URL to raw video or audio stream"> -->
+
+{% elif currentPage == 'Playlist Detail Page' %}
+
+<!--  Facebook Open Graph meta tags -->
+<meta property="og:title" content="{{ title }}" />
+<meta property="og:type" content="article" />
+<!-- TODO: check if an insecure_url is available. if yes, use it. -->
+<!-- Don't specify an image, instead let the user pick one from the page -->
+<!-- <meta property="og:image" content="{{ imageURL }}" /> -->
+<!-- TODO: check if a secure_url is available. if yes, use it. -->
+<!-- <meta property="og:image:secure_url" content="" /> -->
+<meta property="og:description" content="Playlist shared on podverse.fm{% if ownerName %} – by {{ ownerName }}{% endif %}" />
+
+<!-- PRODUCTION ONLY  -->
+<!-- <meta property="og:url" content="https://podverse.fm/playlists/{{ id }}" /> -->
+
+<!-- Twitter meta tags -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:description" content="Playlist shared on podverse.fm{% if ownerName %} – by {{ ownerName }}{% endif %}">
+<meta name="twitter:title" content="{{ title }}">
+<!-- Don't specify an image, instead let the user pick one from the page -->
+<!-- <meta name="twitter:image" content="{{ imageURL }}"> -->
+<!-- <meta name="twitter:image:alt" content="Podcast image"> -->
+
+{% elif currentPage == 'Podcast Detail Page' %}
+
+<!--  Facebook Open Graph meta tags -->
+<meta property="og:title" content="{{ title }}" />
+<meta property="og:type" content="article" />
+<!-- TODO: check if an insecure_url is available. if yes, use it. -->
+<meta property="og:image" content="{{ imageURL }}" />
+<!-- TODO: check if a secure_url is available. if yes, use it. -->
+<!-- <meta property="og:image:secure_url" content="" /> -->
+<meta property="og:description" content="{{ summary | stripTags }}" />
+
+<!-- PRODUCTION ONLY  -->
+<!-- <meta property="og:url" content="https://podverse.fm/podcasts/{{ id }}" /> -->
+
+<!-- Twitter meta tags -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:description" content="{{ summary | stripTags }}">
+<meta name="twitter:title" content="{{ title }}">
+<meta name="twitter:image" content="{{ imageURL }}">
+<meta name="twitter:image:alt" content="Podcast image">
+<!-- <meta name="twitter:player" content="HTTPS URL of player iframe"> -->
+<!-- <meta name="twitter:player:width" content="Width of iframe in pixels"> -->
+<!-- <meta name="twitter:player:height" content="Height of iframe in pixels"> -->
+<!-- <meta name="twitter:player:stream" content="URL to raw video or audio stream"> -->
+
 {% endif %}
 
-<meta name="description" content="Podverse lets you create highlights and playlists of your favorite podcasts and share them anywhere online." />
-
-<!-- Schema.org markup for Google+ -->
-<meta itemprop="name" content="Podverse">
-<meta itemprop="description" content="Podverse lets you create highlights and playlists of your favorite podcasts and share them anywhere online.">
-<!-- <meta itemprop="image" content="http://www.example.com/image.jpg"> -->
-
-<!-- Twitter Card data -->
-<!-- <meta name="twitter:card" content="summary_large_image"> -->
-<meta name="twitter:site" content="@podverse">
-<meta name="twitter:title" content="Podverse">
-<meta name="twitter:description" content="Podverse lets you create highlights and playlists of your favorite podcasts and share them anywhere online.">
-<meta name="twitter:creator" content="@podverse">
-<!-- Twitter summary card with large image must be at least 280x150px -->
-<!-- <meta name="twitter:image:src" content="http://www.example.com/image.html"> -->
-
-<!-- Open Graph data -->
-<meta property="og:title" content="Podverse" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="http://podverse.fm/" />
-<!-- <meta property="og:image" content="http://example.com/image.jpg" /> -->
-<meta property="og:description" content="Podverse lets you create highlights and playlists of your favorite podcasts and share them anywhere online." />
-<meta property="og:site_name" content="Podverse" />
-<!-- <meta property="article:published_time" content="2013-09-17T05:59:00+01:00" />
-<meta property="article:modified_time" content="2013-09-16T19:08:47+01:00" />
-<meta property="article:section" content="Article Section" />
-<meta property="article:tag" content="Article Tag" />
-<meta property="fb:admins" content="Facebook numberic ID" /> -->
+<!-- END: These tags change dynamically on different pages -->
