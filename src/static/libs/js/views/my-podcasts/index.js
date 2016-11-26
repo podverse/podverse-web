@@ -1,7 +1,7 @@
 require('../../navbar.js');
 require('../../auth.js');
-require('../../googleAnalytics.js');
 
+import { sendGoogleAnalyticsPageView } from '../../googleAnalytics.js';
 import { subscribeToPodcast, unsubscribeFromPodcast } from '../../podcastHelper.js';
 
 
@@ -20,4 +20,4 @@ $('.podcast-item-subscribe').on('click', function () {
 
 $('#hide-until-truncation-finishes').hide();
 
-ga('send', 'pageview');
+sendGoogleAnalyticsPageView();

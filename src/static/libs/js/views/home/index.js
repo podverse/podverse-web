@@ -1,7 +1,7 @@
 require('../../navbar.js');
 require('../../auth.js');
-require('../../googleAnalytics.js');
 
+import { sendGoogleAnalyticsPageView } from '../../googleAnalytics.js';
 import { addPlaylistItemTextTruncation } from '../../playlistHelper.js';
 
 if (showNextButton) {
@@ -18,4 +18,4 @@ if (pageIndex > 1) {
 
 addPlaylistItemTextTruncation();
 
-ga('send', 'pageview');
+sendGoogleAnalyticsPageView();

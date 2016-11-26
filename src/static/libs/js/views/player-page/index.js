@@ -4,15 +4,14 @@ require('../../mediaPlayer.js');
 require('../../clipCreatedModal.js');
 require('../../createPlaylistModal.js');
 require('../../createPersonModal.js');
-require('../../googleAnalytics.js');
 
 import { initClipper,
          makeClip,
          setEndTime,
          setStartTime,
          toggleMakeClipWidget } from '../../clipHelper.js';
-import { truncatePlayerText,
-         sendGoogleAnalyticsPlayerPageView } from '../../mediaPlayer.js';
+import { sendGoogleAnalyticsPlayerPageView } from '../../googleAnalytics.js';
+import { truncatePlayerText } from '../../mediaPlayer.js';
 import { addPlaylistItemTextTruncation,
          addToPlaylist,
          togglePlaylistWidget,

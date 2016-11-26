@@ -9,6 +9,10 @@ m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 
 ga('create', __GOOGLE_ANALYTICS_UA__, 'auto');
 
+export function sendGoogleAnalyticsPageView() {
+  ga('send', 'pageview');
+}
+
 export function sendGoogleAnalyticsPlayerPageView() {
   if (isEpisode) {
     ga('send', 'pageview', {
@@ -22,4 +26,19 @@ export function sendGoogleAnalyticsPlayerPageView() {
       'dimension3': description
     });
   }
+}
+
+export function sendGoogleAnalyticsPodcastPageView() {
+  ga('send', 'pageview', {
+    'dimension1': podcastTitle
+  });
+}
+
+export function sendGoogleAnalyticsEvent(category, action) {
+  ga('send', {
+    hitType: 'event',
+    eventCategory: category,
+    eventAction: action
+    // eventLabel: 'Campaign Name'
+  });
 }

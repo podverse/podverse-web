@@ -1,4 +1,5 @@
 require('../../auth.js');
-require('../../googleAnalytics.js');
 
-ga('send', 'pageview');
+import { sendGoogleAnalyticsPageView } from '../../googleAnalytics.js';
+
+sendGoogleAnalyticsPageView();
