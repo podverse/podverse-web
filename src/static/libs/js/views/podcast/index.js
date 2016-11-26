@@ -1,5 +1,6 @@
 require('../../navbar.js');
 require('../../auth.js');
+require('../../googleAnalyticsGlobal.js');
 
 import { subscribeToPodcast, unsubscribeFromPodcast } from '../../podcastHelper.js';
 import { isNonAnonLoggedInUser } from '../../utility.js';
@@ -33,3 +34,7 @@ $(document).ready(function ($) {
 });
 
 $('#hide-until-truncation-finishes').hide();
+
+ga('send', 'pageview', {
+  'dimension1': podcastTitle
+});

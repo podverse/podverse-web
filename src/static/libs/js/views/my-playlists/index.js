@@ -1,5 +1,6 @@
 require('../../navbar.js');
 require('../../auth.js');
+require('../../googleAnalyticsGlobal.js');
 
 $('#myPlaylistsDropdown a').on('click', function () {
   var selectedVal = $(this).html();
@@ -24,3 +25,5 @@ $('#myPlaylistsDropdown a').on('click', function () {
 
 // TODO: this isn't being used properly here. Nothing is truncated on page load.
 $('#hide-until-truncation-finishes').hide();
+
+ga('send', 'pageview');

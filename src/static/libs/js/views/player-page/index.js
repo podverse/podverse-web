@@ -4,6 +4,7 @@ require('../../mediaPlayer.js');
 require('../../clipCreatedModal.js');
 require('../../createPlaylistModal.js');
 require('../../createPersonModal.js');
+require('../../googleAnalyticsGlobal.js');
 
 import { initClipper,
          makeClip,
@@ -114,3 +115,5 @@ window.addEventListener('resize', truncateOnWindowResize);
 
 
 addPlaylistItemTextTruncation();
+
+/* TODO: ADD PLAYER GOOGLE ANALYTICS STUFF */

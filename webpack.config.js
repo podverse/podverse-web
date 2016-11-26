@@ -52,7 +52,8 @@ module.exports ={
         new webpack.DefinePlugin({
             // TODO: use environment plugin instead
             __AUTH0_CLIENTID__: JSON.stringify(config.auth0ClientId),
-            __AUTH0_DOMAIN__: JSON.stringify(config.auth0Domain)
+            __AUTH0_DOMAIN__: JSON.stringify(config.auth0Domain),
+            __GOOGLE_ANALYTICS_UA__: JSON.stringify(config.googleAnalyticsUA)
         }),
         new webpack.ProvidePlugin({
             $: "jquery",

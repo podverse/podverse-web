@@ -1,5 +1,6 @@
 require('../../navbar.js');
 require('../../auth.js');
+require('../../googleAnalyticsGlobal.js');
 
 $('#settings-name').val(userName);
 
@@ -39,3 +40,7 @@ $('#settings-submit-btn').on('click', () => {
 
 // TODO: this shouldn't be needed on this page
 $('#hide-until-truncation-finishes').hide();
+
+ga('send', 'pageview', {
+  'dimension1': podcastTitle
+});

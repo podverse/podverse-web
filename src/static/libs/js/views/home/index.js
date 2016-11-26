@@ -1,5 +1,6 @@
 require('../../navbar.js');
 require('../../auth.js');
+require('../../googleAnalyticsGlobal.js');
 
 import { addPlaylistItemTextTruncation } from '../../playlistHelper.js';
 
@@ -16,3 +17,5 @@ if (pageIndex > 1) {
 }
 
 addPlaylistItemTextTruncation();
+
+ga('send', 'pageview');
