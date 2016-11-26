@@ -1,5 +1,5 @@
 
-const 
+const
     app = require('app.js'),
     {port} = require('config.js');
 

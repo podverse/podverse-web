@@ -1,3 +1,5 @@
+import { sendGoogleAnalyticsEvent } from './googleAnalytics.js';
+
 export function addPodcastModalSave () {
   var feedURL = $('#addPodcastModalFeedURL').val();
 
@@ -29,4 +31,6 @@ export function addPodcastModalSave () {
     alert('errrror');
     $('#addPodcastModalAddButton').html('Add');
   }
+
+  sendGoogleAnalyticsEvent('Add Podcast Modal', 'Save');
 }

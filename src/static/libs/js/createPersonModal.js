@@ -1,13 +1,5 @@
 import { addNewPlaylistElement, createPlaylist } from './playlistHelper.js';
 
-function showNewPersonModal() {
-  if (isNonAnonLoggedInUser()) {
-    $('#createPersonModal').modal('show');
-  } else {
-    alert('Please login to create playlists for friends.');
-  }
-}
-
 $('#createPersonModalAddButton').on('click', function () {
   var newPlaylist = {};
   newPlaylist.title = $('#createPersonModalName').val();

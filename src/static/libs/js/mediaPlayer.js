@@ -2,7 +2,8 @@ import { calcDuration, convertSecToHHMMSS, isNonAnonLoggedInUser,
          readableDate, recreateAndReinsertElement } from './utility.js';
 import { addPlaylistItemTextTruncation } from './playlistHelper.js';
 import { subscribeToPodcast, unsubscribeFromPodcast } from './podcastHelper.js';
-import { sendGoogleAnalyticsPlayerPageView } from './googleAnalytics.js';
+import { sendGoogleAnalyticsPlayerPageView,
+         sendGoogleAnalyticsEvent } from './googleAnalytics.js';
 
 // Set default values for vars that handle player crashes and autoplay functionality
 window.restartAttempts = 0;
@@ -67,6 +68,7 @@ function loadMediaRef (index, shouldPlay) {
   }
 
   sendGoogleAnalyticsPlayerPageView();
+
 }
 
 export function previewStartTime (startTime, endTime) {
@@ -74,6 +76,8 @@ export function previewStartTime (startTime, endTime) {
   window.endTime = endTime;
   audio.currentTime = window.startTime = startTime;
   audio.play();
+
+  sendGoogleAnalyticsEvent('Media Player', 'Preview Start Time');
 }
 
 export function previewEndTime (endTime) {
@@ -81,8 +85,13 @@ export function previewEndTime (endTime) {
   window.endTime = endTime;
   audio.currentTime = endTime - 3;
   audio.play();
+
+  sendGoogleAnalyticsEvent('Media Player', 'Preview End Time');
 }
 
+// NOTE: There has GOT to be a better way to handle truncation than this. Truncation is a
+// serious flaw in the UI currently, and it would be worthwhile to rip it all out and replace
+// it with something better.
 // NOTE: Truncation will fail if you attempt to use it on an element with display:none
 // NOTE: Truncation can only be applied once per element. To reapply truncation to an
 // element, you need to recreate it and reinsert it into the DOM.
@@ -324,9 +333,11 @@ function toggleAutoplay () {
   if (autoplay !== 'true') {
     $.cookie('autoplay', 'true', { path: '/' });
     $('#player-autoplay').html('<span style="font-weight: 500">Autoplay On</span>');
+    sendGoogleAnalyticsEvent('Media Player', 'Toggle Autoplay On');
   } else {
     $.cookie('autoplay', 'false', { path: '/' });
     $('#player-autoplay').html('Autoplay Off');
+    sendGoogleAnalyticsEvent('Media Player', 'Toggle Autoplay Off');
   }
 }
 
@@ -340,21 +351,23 @@ function createAutoplayBtn () {
   }
 }
 
-function restartClip () {
+function restart () {
   audio.pause();
   endTimeHasBeenReached = false;
   audio.currentTime = startTime;
   audio.play();
+  sendGoogleAnalyticsEvent('Media Player', 'Restart');
 }
 
 $('#player-stats-duration').on('click', function () {
-  restartClip();
+  restart();
 });
 
 $('.playlist-item').on('click', function() {
   if (isPlayerPage) {
     var index = $(".playlist-item").index(this);
     loadMediaRef(index, true);
+    sendGoogleAnalyticsEvent('Media Player', 'Playlist Item Clicked');
   }
 });
 

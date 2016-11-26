@@ -1,3 +1,4 @@
+import { sendGoogleAnalyticsEvent } from './googleAnalytics.js';
 import { previewEndTime, previewStartTime } from './mediaPlayer.js';
 import { convertHHMMSSToSeconds, convertSecToHHMMSS, isHHMMSS,
          isInt, isUUID } from './utility.js';
@@ -25,10 +26,12 @@ export function initClipper () {
       $('#make-clip-start-time input').val(currentTimeHHMMSS);
       $('#make-clip-end-time input').focus();
       $('#make-clip-time-set').html('Set End');
+      sendGoogleAnalyticsEvent('Make Clip', 'Set End button clicked')
     } else if (currentSetMode === 'Set End') {
       $('#make-clip-end-time input').val(currentTimeHHMMSS);
       $('#make-clip-time-set').html('Set Start');
       $('#make-clip-title textarea').focus();
+      sendGoogleAnalyticsEvent('Make Clip', 'Set Start button clicked')
     }
   });
 
@@ -87,10 +90,14 @@ export function toggleMakeClipWidget (_this) {
 
   $('#toggle-make-clip-btn').toggleClass('active');
   $('#make-clip').toggle();
+
+  sendGoogleAnalyticsEvent('Make Clip', 'Toggle Make Clip Widget');
 }
 
 export function makeClip () {
   event.preventDefault();
+
+  sendGoogleAnalyticsEvent('Make Clip', 'Make Clip')
 
   if (!isUUID(window.podcastId)) {
     alert('errrror');
@@ -199,9 +206,4 @@ export function makeClip () {
 
   });
 
-  // TODO: view my clips
-
-  // TODO: edit my clips
-
-  // TODO: add CSRF security
 }

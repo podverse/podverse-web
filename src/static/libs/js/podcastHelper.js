@@ -1,8 +1,11 @@
+import { sendGoogleAnalyticsEvent } from './googleAnalytics.js';
+
 export function loadPodcastSearchTypeahead() {
   var podcastResults = new Bloodhound({
     datumTokenizer: Bloodhound.tokenizers.obj.whitespace('title'),
     queryTokenizer: Bloodhound.tokenizers.whitespace,
     remote: {
+      // TODO: this needs to conditionally handle production and development
       url: 'http://localhost:8080/podcasts?title=%QUERY',
       wildcard: '%QUERY'
     }
@@ -37,6 +40,8 @@ export function subscribeToPodcast(id) {
       alert('errrror');
     }
   });
+
+  sendGoogleAnalyticsEvent('Podcast', 'Subscribe to Podcast');
 }
 
 export function unsubscribeFromPodcast (id) {
@@ -52,4 +57,6 @@ export function unsubscribeFromPodcast (id) {
       alert('errrror');
     }
   });
+
+  sendGoogleAnalyticsEvent('Podcast', 'Unsubscribe from Podcast');
 }

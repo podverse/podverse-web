@@ -1,6 +1,9 @@
+import { sendGoogleAnalyticsEvent } from './googleAnalytics.js';
 import { isNonAnonLoggedInUser } from './utility.js';
 
 export function togglePlaylistWidget (_this) {
+  sendGoogleAnalyticsEvent('Playlist', 'Toggle Playlist Widget');
+
   if (!isNonAnonLoggedInUser()) {
     alert('Please login to create a playlist.');
     return;
@@ -53,6 +56,8 @@ export function createPlaylist (params, callback) {
       alert('errrror');
     }
   });
+
+  sendGoogleAnalyticsEvent('Playlist', 'Create Playlist');
 }
 
 export function addToPlaylist (playlistId, mediaRefId, callback) {
@@ -72,6 +77,8 @@ export function addToPlaylist (playlistId, mediaRefId, callback) {
       alert('errrror');
     }
   });
+
+  sendGoogleAnalyticsEvent('Playlist', 'Add to Playlist');
 }
 
 export function updatePlaylistItemCount(playlistId, total) {
@@ -149,6 +156,8 @@ function subscribeToPlaylist(url, successCallback) {
       alert('errrror');
     }
   });
+
+  sendGoogleAnalyticsEvent('Playlist', 'Subscribe to Playlist');
 }
 
 function unsubscribeFromPlaylist (url, successCallback) {
@@ -167,4 +176,6 @@ function unsubscribeFromPlaylist (url, successCallback) {
       alert('errrror');
     }
   });
+
+  sendGoogleAnalyticsEvent('Playlist', 'Unsubscribe to Playlist');
 }

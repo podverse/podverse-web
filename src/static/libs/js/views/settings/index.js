@@ -1,7 +1,8 @@
 require('../../navbar.js');
 require('../../auth.js');
 
-import { sendGoogleAnalyticsPageView } from '../../googleAnalytics.js';
+import { sendGoogleAnalyticsPageView,
+         sendGoogleAnalyticsEvent } from '../../googleAnalytics.js';
 
 $('#settings-name').val(userName);
 
@@ -33,6 +34,8 @@ function updateUserProfile () {
       console.log(error);
     }
   });
+
+  sendGoogleAnalyticsEvent('Settings', 'Update User Profile');
 }
 
 $('#settings-submit-btn').on('click', () => {

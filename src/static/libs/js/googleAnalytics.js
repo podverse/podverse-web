@@ -5,8 +5,9 @@
 (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
 m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','http://www.google-analytics.com/analytics.js','ga');
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
+// Change 'auto' to 'none' for testing locally
 ga('create', __GOOGLE_ANALYTICS_UA__, 'auto');
 
 export function sendGoogleAnalyticsPageView() {
@@ -37,8 +38,8 @@ export function sendGoogleAnalyticsPodcastPageView() {
 export function sendGoogleAnalyticsEvent(category, action) {
   ga('send', {
     hitType: 'event',
-    eventCategory: category,
-    eventAction: action
+    eventCategory: category, // e.g. 'Videos'
+    eventAction: action // e.g. 'play'
     // eventLabel: 'Campaign Name'
   });
 }

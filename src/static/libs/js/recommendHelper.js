@@ -1,6 +1,9 @@
+import { sendGoogleAnalyticsEvent } from './googleAnalytics.js';
 import { isNonAnonLoggedInUser } from './utility.js';
 
 export function toggleRecommendWidget (_this) {
+  sendGoogleAnalyticsEvent('Recommend', 'Toggle Reccomend Widget');
+
   if (!isNonAnonLoggedInUser()) {
     alert('Please login to make playlists for friends.');
     return;

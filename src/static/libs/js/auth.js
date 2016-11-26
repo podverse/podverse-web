@@ -1,3 +1,5 @@
+import { sendGoogleAnalyticsEvent } from './googleAnalytics.js';
+
 // Default Anon Authenticated user stuff
 if (!$.cookie('idToken')) {
   createAnonAuthCookie();
@@ -9,6 +11,7 @@ var clientId = __AUTH0_CLIENTID__,
 // Auth0Lock stuff
 var options = {
   auth: {
+    // TODO: this needs to conditionally handle production and development
     redirectUrl: 'http://localhost:8080/login-redirect?redirectTo=' + location.href,
     responseType: 'token',
     params: {
@@ -24,7 +27,10 @@ var options = {
 let lock = new Auth0Lock(clientId, domain, options);
 
 $(window).ready(() => {
-  $('#login-btn').on('click', () => lock.show());
+  $('#login-btn').on('click', () => {
+    lock.show();
+    sendGoogleAnalyticsEvent('Auth', 'Show Lock Modal');
+  });
 });
 
 lock.on('authenticated', function (authResult) {
@@ -96,6 +102,7 @@ function findOrCreateUserOnServer (profile) {
       location.href = loginRedirectURL;
     }
   });
+
 }
 
 function saveUserProfileToLocalStorage (profile) {
@@ -113,5 +120,6 @@ function removeUserProfileFromLocalStorage () {
 export function logoutUser () {
   $.removeCookie('idToken', { path: '/' });
   removeUserProfileFromLocalStorage();
+  sendGoogleAnalyticsEvent('Auth', 'Logout User');
   location.reload();
 }
