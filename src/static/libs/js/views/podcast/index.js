@@ -1,6 +1,6 @@
 require('../../navbar.js');
 require('../../auth.js');
-require('../../googleAnalyticsGlobal.js');
+require('../../googleAnalytics.js');
 
 import { subscribeToPodcast, unsubscribeFromPodcast } from '../../podcastHelper.js';
 import { isNonAnonLoggedInUser } from '../../utility.js';

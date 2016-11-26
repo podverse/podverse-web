@@ -4,14 +4,15 @@ require('../../mediaPlayer.js');
 require('../../clipCreatedModal.js');
 require('../../createPlaylistModal.js');
 require('../../createPersonModal.js');
-require('../../googleAnalyticsGlobal.js');
+require('../../googleAnalytics.js');
 
 import { initClipper,
          makeClip,
          setEndTime,
          setStartTime,
          toggleMakeClipWidget } from '../../clipHelper.js';
-import { truncatePlayerText } from '../../mediaPlayer.js';
+import { truncatePlayerText,
+         sendGoogleAnalyticsPlayerPageView } from '../../mediaPlayer.js';
 import { addPlaylistItemTextTruncation,
          addToPlaylist,
          togglePlaylistWidget,
@@ -116,4 +117,6 @@ window.addEventListener('resize', truncateOnWindowResize);
 
 addPlaylistItemTextTruncation();
 
-/* TODO: ADD PLAYER GOOGLE ANALYTICS STUFF */
+
+
+sendGoogleAnalyticsPlayerPageView();

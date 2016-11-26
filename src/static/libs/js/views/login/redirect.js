@@ -1,4 +1,4 @@
 require('../../auth.js');
-require('../../googleAnalyticsGlobal.js');
+require('../../googleAnalytics.js');
 
 ga('send', 'pageview');

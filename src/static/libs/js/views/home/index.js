@@ -1,6 +1,6 @@
 require('../../navbar.js');
 require('../../auth.js');
-require('../../googleAnalyticsGlobal.js');
+require('../../googleAnalytics.js');
 
 import { addPlaylistItemTextTruncation } from '../../playlistHelper.js';
 

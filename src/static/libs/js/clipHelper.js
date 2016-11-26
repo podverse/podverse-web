@@ -28,7 +28,7 @@ export function initClipper () {
     } else if (currentSetMode === 'Set End') {
       $('#make-clip-end-time input').val(currentTimeHHMMSS);
       $('#make-clip-time-set').html('Set Start');
-      $('#make-clip-description textarea').focus();
+      $('#make-clip-title textarea').focus();
     }
   });
 
@@ -65,7 +65,7 @@ export function setStartTime () {
 
 export function setEndTime () {
   $('#make-clip-end-time input').val(convertSecToHHMMSS(Math.floor(audio.currentTime)));
-  $('#make-clip-description textarea').focus();
+  $('#make-clip-title textarea').focus();
 }
 
 export function toggleMakeClipWidget (_this) {
@@ -155,8 +155,8 @@ export function makeClip () {
     return;
   }
 
-  // TODO: how can we prevent malicious scripts in the description?
-  var description = $('#make-clip-description textarea').val();
+  // TODO: how can we prevent malicious scripts in the title?
+  var clipTitle = $('#make-clip-title textarea').val();
 
   // TODO: set owner name based on ownerId
   var ownerName = 'random owner name';
@@ -177,7 +177,7 @@ export function makeClip () {
       },
       startTime: startTime,
       endTime: endTime,
-      description: description,
+      title: clipTitle,
       ownerName: ownerName
     },
     success: function (response) {
@@ -185,7 +185,7 @@ export function makeClip () {
         toggleMakeClipWidget();
         $('#make-clip-start-time').val('');
         $('#make-clip-end-time').val('');
-        $('#make-clip-description').val('');
+        $('#make-clip-title').val('');
         $('#clip-created-modal-link').val(location.protocol + '\/\/' + location.hostname + (location.port ? ':'+location.port: '')  + '\/clips\/' + response.id);
         $('#clip-created-modal').modal('show');
       } else {

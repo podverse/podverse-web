@@ -2,7 +2,7 @@ const
     errors = require('feathers-errors'),
     {locator} = require('locator.js'),
     {parseFeed, saveParsedFeedToDatabase} = require('tasks/feedParser.js'),
-    {isClipMediaRefWithDescription} = require('constants.js'),
+    {isClipMediaRefWithTitle} = require('constants.js'),
     {verifyNonAnonUser} = require('middleware/auth/verifyNonAnonUser.js'),
     {isNonAnonUser} = require('util.js');
 
@@ -23,7 +23,7 @@ function routes () {
 
     params.sequelize = {
       include: [{ model: Episode, include: [Podcast] }],
-      where: isClipMediaRefWithDescription,
+      where: isClipMediaRefWithTitle,
       offset: offset
     };
 

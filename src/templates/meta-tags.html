@@ -83,7 +83,7 @@
 then remove the matching part from the episode title with a nunjucks thing.
 Also: detect if that leaves extraneous syntax, like a -, and remove it?
 Check Your Mom's House podcast clip in Facebook Debugger for an example. -->
-<meta property="og:title" content="{{ description }}" />
+<meta property="og:title" content="{{ title }}" />
 <meta property="og:type" content="article" />
 <!-- TODO: check if an insecure_url is available. if yes, use it. -->
 <meta property="og:image" content="{% if episode.imageURL %}{{ episode.imageURL }}{% else %}{{ episode.podcast.imageURL }}{% endif %}" />
@@ -99,7 +99,7 @@ Check Your Mom's House podcast clip in Facebook Debugger for an example. -->
 
 <!-- see TODO #5000 -->
 <meta name="twitter:description" content="Clip from {{ episode.podcast.title }}{% if episode.title %} – {{ episode.title }}{% endif %}">
-<meta name="twitter:title" content="{{ description }}">
+<meta name="twitter:title" content="{{ title }}">
 <meta name="twitter:image" content="{% if episode.imageURL %}{{ episode.imageURL }}{% else %}{{ episode.podcast.imageURL }}{% endif %}">
 <meta name="twitter:image:alt" content="Podcast image">
 <!-- <meta name="twitter:player" content="HTTPS URL of player iframe"> -->

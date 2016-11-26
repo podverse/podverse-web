@@ -2,6 +2,7 @@ import { calcDuration, convertSecToHHMMSS, isNonAnonLoggedInUser,
          readableDate, recreateAndReinsertElement } from './utility.js';
 import { addPlaylistItemTextTruncation } from './playlistHelper.js';
 import { subscribeToPodcast, unsubscribeFromPodcast } from './podcastHelper.js';
+import { sendGoogleAnalyticsPlayerPageView } from './googleAnalytics.js';
 
 // Set default values for vars that handle player crashes and autoplay functionality
 window.restartAttempts = 0;
@@ -44,7 +45,7 @@ function loadMediaRef (index, shouldPlay) {
     episodeTitle = item.episode.title;
     episodeMediaURL = item.episode.mediaURL;
     episodePubDate = item.episode.pubDate;
-    description = item.description;
+    description = item.title;
     mediaRefId = item.id;
   } else { // handle item as episode
     podcastTitle = item.episode.podcast.title;
@@ -64,6 +65,8 @@ function loadMediaRef (index, shouldPlay) {
   if (shouldPlay) {
     audio.play();
   }
+
+  sendGoogleAnalyticsPlayerPageView();
 }
 
 export function previewStartTime (startTime, endTime) {
