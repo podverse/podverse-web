@@ -1,6 +1,6 @@
 const
     nJwt = require('njwt'),
-    config = require('config.js'),
+    {baseURL, jwtSigningKey} = require('config.js'),
     uuid = require('uuid');
 
 class AuthService {
@@ -10,13 +10,11 @@ class AuthService {
     const userId = uuid.v1();
 
     const claims = {
-      // TODO: this needs to conditionally handle production and development
-      iss: 'http://localhost:8080',
-      // iss: 'https://podverse.fm', // for production
+      iss: baseURL,
       sub: userId
     };
 
-    const jwt = nJwt.create(claims, config.jwtSigningKey);
+    const jwt = nJwt.create(claims, jwtSigningKey);
     jwt.setExpiration(); // Never expire why not
     const token = jwt.compact();
 

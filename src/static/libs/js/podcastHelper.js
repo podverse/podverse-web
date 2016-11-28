@@ -5,8 +5,7 @@ export function loadPodcastSearchTypeahead() {
     datumTokenizer: Bloodhound.tokenizers.obj.whitespace('title'),
     queryTokenizer: Bloodhound.tokenizers.whitespace,
     remote: {
-      // TODO: this needs to conditionally handle production and development
-      url: 'http://localhost:8080/podcasts?title=%QUERY',
+      url: __BASE_URL__ + '/podcasts?title=%QUERY',
       wildcard: '%QUERY'
     }
   });

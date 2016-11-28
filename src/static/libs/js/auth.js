@@ -11,8 +11,7 @@ var clientId = __AUTH0_CLIENTID__,
 // Auth0Lock stuff
 var options = {
   auth: {
-    // TODO: this needs to conditionally handle production and development
-    redirectUrl: 'http://localhost:8080/login-redirect?redirectTo=' + location.href,
+    redirectUrl: __BASE_URL__ + '/login-redirect?redirectTo=' + location.href,
     responseType: 'token',
     params: {
       scope: 'openid name email'
@@ -51,10 +50,7 @@ lock.on('authenticated', function (authResult) {
     // Remove the anonymous user idToken first
     $.removeCookie('idToken');
 
-    // TODO: must make this a secure cookie...would we need to run the app
-    // on https://localhost to develop?
-    // $.cookie('idToken', data.idToken, { secure:true });
-    $.cookie('idToken', authResult.idToken, { secure:false, path: '/' });
+    $.cookie('idToken', authResult.idToken, { secure: __IS_PROD__, path: '/' });
 
     saveUserProfileToLocalStorage(profile);
 
@@ -68,11 +64,7 @@ function createAnonAuthCookie() {
   $.post('/auth/anonLogin')
     .done(function (data) {
 
-      // TODO: must make this a secure cookie...don't we need to run the app
-      // on https://localhost to do that?
-      // $.cookie('idToken', data.idToken, { secure:true });
-
-      $.cookie('idToken', data.idToken, { secure:false, path: '/' });
+      $.cookie('idToken', data.idToken, { secure: __IS_PROD__, path: '/' });
 
       removeUserProfileFromLocalStorage();
     })
@@ -98,7 +90,6 @@ function findOrCreateUserOnServer (profile) {
     },
     dataType: 'json',
     success: function () {
-      // TODO: this redirect shouldn't be in here
       location.href = loginRedirectURL;
     }
   });
