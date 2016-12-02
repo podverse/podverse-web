@@ -45,9 +45,7 @@ function createValidTestJWT () {
   const userId = 'kungfury@podverse.fm'
 
   const claims = {
-    // TODO: this needs to conditionally handle production and development
     iss: 'http://localhost:8080',
-    // iss: 'https://podverse.fm', // for production
     sub: userId
   };
 

@@ -63,7 +63,7 @@
         window.mediaRefId = 'episode_' + item.episode.id;
       } else {
         window.isEpisode = false;
-        window.description = item.description;
+        window.description = item.title;
         window.mediaRefId = item.id;
       }
 
@@ -92,7 +92,7 @@
     window.isEpisode = false;
 
     // TODO: is this a security vulnerability?
-    window.description = "{{ description|nl2br }}";
+    window.description = "{{ title|nl2br }}";
     window.description = decodeEntities(description);
 
     window.isSubscribed = '{{ isSubscribed }}';

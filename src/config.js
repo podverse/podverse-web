@@ -2,7 +2,7 @@
 
 const jwtSigningKeyB64 = process.env.jwtSigningKeyB64 || 'RhvV5pbdUOHL0Rns4mX9YgCZ23kvoLqlB6eFau-QIXkxjK4Tx4qFISuzCOg4lmR_';
 
-let isProd = process.env.NODE_ENV === 'production' ? true : false;
+let isProd = process.env.NODE_ENV === 'production';
 
 module.exports = {
   port: process.env.PORT || 8080,

@@ -132,7 +132,7 @@ function setPlayerInfo () {
   if (isEpisode === false) {
     var duration = calcDuration(startTime, endTime);
     $('#player-stats-duration').html(convertSecToHHMMSS(startTime) + ' to ' + convertSecToHHMMSS(endTime));
-    $('#player-condensed-clip-time').html('1:23:45 to 1:27:20');
+    $('#player-condensed-clip-time').html(convertSecToHHMMSS(startTime) + ' to ' + convertSecToHHMMSS(endTime));
     $('#player-condensed-clip-title').html(description);
   } else {
     $('#player-stats-duration').html('Full Episode');
