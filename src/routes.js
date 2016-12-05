@@ -4,6 +4,7 @@ const
     {parseFeed, saveParsedFeedToDatabase} = require('tasks/feedParser.js'),
     {isClipMediaRefWithTitle} = require('constants.js'),
     {verifyNonAnonUser} = require('middleware/auth/verifyNonAnonUser.js'),
+    {queryGoogleApiData} = require('services/googleapi/googleapi.js'),
     {isNonAnonUser} = require('util.js');
 
 function routes () {
@@ -372,6 +373,27 @@ function routes () {
   .get('/about', function (req, res) {
     req.query['currrentPage'] = 'About Page';
     res.render('about/index.html', req.query);
+  })
+
+  .get('/google-api-auth', function (req, res) {
+
+    let queryObj = {
+      metrics: 'ga:uniquePageviews',
+      dimensions: 'ga:pagePath',
+      startDate: '7daysAgo',
+      endDate: 'today',
+      sort: '-ga:uniquePageviews',
+      maxResults: 10,
+      filters: 'ga:pagePath=~/clips'
+    }
+
+    return new Promise((resolve, reject) => {
+      queryGoogleApiData(resolve, reject, queryObj)
+    })
+    .then(data => {
+      res.send(data);
+    });
+
   })
 
   // .get('/mobile-app', function (req, res) {
