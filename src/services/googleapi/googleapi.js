@@ -29,6 +29,7 @@ function queryGoogleApiData(resolve, reject, queryObj) {
       'end-date': queryObj.endDate,
       'sort': queryObj.sort,
       'max-results': queryObj.maxResults,
+      'start-index': queryObj.startIndex,
       'filters': queryObj.filters
     }, function (err, response) {
       if (err) {
