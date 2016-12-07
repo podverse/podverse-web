@@ -4,6 +4,7 @@ const
     {parseFeed, saveParsedFeedToDatabase} = require('tasks/feedParser.js'),
     {isClipMediaRefWithTitle} = require('constants.js'),
     {verifyNonAnonUser} = require('middleware/auth/verifyNonAnonUser.js'),
+    {queryGoogleApiData} = require('services/googleapi/googleapi.js'),
     {isNonAnonUser} = require('util.js');
 
 function routes () {
@@ -17,39 +18,64 @@ function routes () {
         UserService = locator.get('UserService');
 
   app.get('/', function (req, res) {
-    let params = {};
+
     let pageIndex = req.query.page || 1;
     let offset = (pageIndex * 10) - 10;
 
-    params.sequelize = {
-      include: [{ model: Episode, include: [Podcast] }],
-      where: isClipMediaRefWithTitle,
-      offset: offset
-    };
+    let queryObj = {
+      metrics: 'ga:uniquePageviews',
+      dimensions: 'ga:pagePath',
+      startDate: '7daysAgo',
+      endDate: 'today',
+      sort: '-ga:uniquePageviews',
+      // maxResults: only 10 will load on a page, but we don't want
+      // clips without titles to appear in the list
+      maxResults: 30,
+      startIndex: offset || 1,
+      filters: 'ga:pagePath=~/clips'
+    }
 
-    params.paginate = {
-      default: 10,
-      max: 200
-    };
-
-    return ClipService.find(params)
-      .then(page => {
-
-        // TODO: handle 404 if beyond range of page object
-
-        let total = page.total;
-        let showNextButton = offset + 10 < total ? true : false;
-        let clips = page.data;
-        res.render('home/index.html', {
-          clips: clips,
-          pageIndex: pageIndex,
-          showNextButton: showNextButton,
-          currentPage: 'Home Page'
-        });
-      })
-      .catch(e => {
-        console.log(e);
+    return new Promise((resolve, reject) => {
+      queryGoogleApiData(resolve, reject, queryObj)
+    })
+    .then(data => {
+      // Extract clip ids from data to pass into db query
+      let clipIdArray = [];
+      data.forEach((clipItem) => {
+        let urlPath = clipItem[0];
+        let clipId = urlPath.replace('/clips/', '');
+        clipIdArray.push(clipId);
       });
+
+      let params = {};
+
+      params.sequelize = {
+        include: [{ model: Episode, include: [Podcast] }],
+        where: {
+          id: clipIdArray,
+          $and: isClipMediaRefWithTitle
+        },
+        limit: 10
+      };
+
+      return ClipService.find(params)
+        .then(clips => {
+          // TODO: handle 404 if beyond range of page object
+          res.render('home/index.html', {
+            clips: clips,
+            pageIndex: pageIndex,
+            showNextButton: true,
+            currentPage: 'Home Page'
+          });
+        })
+        .catch(e => {
+          console.log(e);
+        });
+    })
+    .catch(err => {
+      res.redirect('/');
+    });
+
   })
 
   // Clip Detail Page

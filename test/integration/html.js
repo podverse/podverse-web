@@ -5,7 +5,10 @@ const {configureDatabaseModels} = require('test/helpers.js');
 
 const ClipService = require('services/clip/ClipService.js');
 
-describe('html test: index', function () {
+
+// TODO: disabling this test because it should be rewritten when we use access logs
+// instead of Google Analytics for retrieving most popular clips
+xdescribe('html test: index', function () {
 
   configureDatabaseModels(function (Models) {
     this.Models = Models;
@@ -19,7 +22,7 @@ describe('html test: index', function () {
     this.app = appFactory();
   });
 
-  it('should be be 200 OK', function (done) {
+  xit('should be be 200 OK', function (done) {
 
     chai.request(this.app)
       .get(`/`)
