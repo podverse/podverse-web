@@ -16,5 +16,10 @@ module.exports = {
   auth0Domain: process.env.auth0Domain || 'mitchd.auth0.com',
 
   googleAnalyticsUA: isProd ? 'UA-87988078-1' : '',
-  googleAnalyticsViewId: 'ga:134581781'
+
+  ga: {
+    client_email: process.env.GA_CLIENT_EMAIL,
+    private_key: process.env.GA_PRIVATE_KEY,
+    view_id: 'ga:134581781'
+  }
 };
