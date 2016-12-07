@@ -14,9 +14,8 @@ case $1 in
     # Quit if already running
     if pgrep -f "${process_cmd}" > /dev/null; then exit 0; fi
     
-    source ${BASE_DIR}/init_env.sh
-
     cd ${BASE_DIR}
+    source ${BASE_DIR}/init_env.sh
     yarn run prestart
 
     nohup ${process_cmd} &>> ${LOG_PATH} &
