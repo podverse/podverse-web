@@ -63,8 +63,8 @@
     "sinon": "^1.17.5"
   },
   "scripts": {
-    "start": "sequelize db:migrate && webpack && forever start src/server.js --minUptime 5000",
-    "stop": "forever stop src/server.js",
+    "prestart": "sequelize db:migrate && webpack",
+    "start": "node src/server.js",
     "watch": "nodemon src/server.js -e js,json,html",
     "test": "node scripts/test.js"
   },
