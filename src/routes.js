@@ -73,7 +73,17 @@ function routes () {
         });
     })
     .catch(err => {
-      res.redirect('/');
+      if (pageIndex > 1) {
+        res.redirect('/');
+        return
+      } else {
+        res.render('home/index.html', {
+          clips: {},
+          pageIndex: pageIndex,
+          showNextButton: false,
+          currentPage: 'Home Page'
+        });
+      }
     });
 
   })
