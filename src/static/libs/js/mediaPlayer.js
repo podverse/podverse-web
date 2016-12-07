@@ -145,7 +145,10 @@ function setPlayerInfo () {
 
   $('#player-podcast-title a').attr('href', '/podcasts/' + podcastId);
   $('#player-podcast-title a').html(podcastTitle);
-  $('#player-sub-title').html(episodeTitle);
+
+  $('#player-sub-title a').attr('href', '/episodes/' + episodeId);
+  $('#player-sub-title a').html(episodeTitle);
+
   $('#player-image a').attr('href', '/podcasts/' + podcastId);
   $('#player-image img').attr('src', podcastImageURL);
   $('#player-stats-pub-date').html(readableDate(episodePubDate));

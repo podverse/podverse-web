@@ -346,6 +346,10 @@ footer p {
     font-weight: 300;
 }
 
+#player-sub-title a {
+    color: #373a3c;
+}
+
 #player {
     margin: 0 0 1rem 0;
 }

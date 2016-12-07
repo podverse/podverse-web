@@ -5,7 +5,7 @@ export function toggleRecommendWidget (_this) {
   sendGoogleAnalyticsEvent('Recommend', 'Toggle Reccomend Widget');
 
   if (!isNonAnonLoggedInUser()) {
-    alert('Please login to make playlists for friends.');
+    alert('Please login to make playlists for specific people.');
     return;
   }
 
