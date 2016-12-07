@@ -1,11 +1,11 @@
+let config = require('config.js');
+
 function queryGoogleApiData(resolve, reject, queryObj) {
   let google = require('googleapis');
   let analytics = google.analytics('v3');
 
   let key = require('My Project-8172a1e558d9.json');
-
-  // TODO: inject this via config
-  let VIEW_ID = '';
+  let VIEW_ID = config.googleAnalyticsViewId;
 
   let jwtClient = new google.auth.JWT(
     key.client_email,
