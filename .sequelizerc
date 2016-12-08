@@ -1,16 +1,19 @@
 const 
   path = require('path'),
   {sqlite, databaseName} = require('./src/config.js'),
-  PATH = 'src/repositories/sequelize';
+  PATH = 'src/repositories/sequelize',
+
+  dbConfig = {
+    "dialect": "sqlite",
+    "storage": sqlite,
+    "database": databaseName
+  };
 
 module.exports = {
   "migrations-path": path.resolve(PATH, 'migrations'),
   "seeders-path": path.resolve(PATH, 'seeders'),
   "models-path": path.resolve(PATH, 'models'),
   "config": __filename,
-  "development": {
-    "dialect": "sqlite",
-    "storage": sqlite,
-    "database": databaseName
-  }
+  "development": dbConfig,
+  "production": dbConfig
 }
