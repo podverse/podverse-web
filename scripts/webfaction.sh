@@ -16,7 +16,7 @@ case $1 in
     
     cd ${BASE_DIR}
     source ${BASE_DIR}/init_env.sh
-    yarn run prestart
+    yarn run prestart || exit 1
 
     nohup ${process_cmd} &>> ${LOG_PATH} &
 
