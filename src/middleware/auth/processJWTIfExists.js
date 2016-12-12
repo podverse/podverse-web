@@ -21,8 +21,13 @@ function processJWTIfExists (req, res, next) {
     return;
   }
 
-  const verifiedJwt = nJwt.verify(token, config.jwtSigningKey);
-  req.feathers.userId = verifiedJwt.body.sub;
+  try {
+    const verifiedJwt = nJwt.verify(token, config.jwtSigningKey);
+    req.feathers.userId = verifiedJwt.body.sub;
+  } catch(e) {
+    next();
+    return;
+  }
 
   next();
 }
