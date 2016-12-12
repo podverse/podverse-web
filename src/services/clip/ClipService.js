@@ -1,7 +1,7 @@
 const
     errors = require('feathers-errors'),
     SequelizeService = require('feathers-sequelize').Service,
-    {applyOwnerId, ensureAuthenticated} = require('hooks/common.js'),
+    {applyOwnerId} = require('hooks/common.js'),
     config = require('config.js'),
     {locator} = require('locator.js'),
     {addURL} = require('hooks/clip/clip.js'),
@@ -21,8 +21,7 @@ class ClipService extends SequelizeService {
     // Hooks
     // -----
     this.before = {
-      create: [ensureAuthenticated, applyOwnerId],
-      update: [ensureAuthenticated]
+      create: [applyOwnerId]
     };
 
     this.after = {
@@ -67,7 +66,6 @@ class ClipService extends SequelizeService {
       let podcast = this._resolvePodcastData(data),
         episode = data.episode,
         isPodcastReferenced = !!podcast;
-
       if (isPodcastReferenced) {
         // Lets create/find the podcast
         return Podcast.findOrCreate({
@@ -119,7 +117,7 @@ class ClipService extends SequelizeService {
     return this.Models.MediaRef.findById(id)
       .then(mediaRef => {
 
-        if (mediaRef.ownerId !== params.userId) {
+        if (!mediaRef.ownerId || mediaRef.ownerId !== params.userId) {
           throw new errors.Forbidden();
         } else {
           return super.update(id, data, params);

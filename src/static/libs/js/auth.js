@@ -1,10 +1,5 @@
 import { sendGoogleAnalyticsEvent } from './googleAnalytics.js';
 
-// Default Anon Authenticated user stuff
-if (!$.cookie('idToken')) {
-  createAnonAuthCookie();
-}
-
 var clientId = __AUTH0_CLIENTID__,
     domain = __AUTH0_DOMAIN__;
 
@@ -47,9 +42,6 @@ lock.on('authenticated', function (authResult) {
       return;
     }
 
-    // Remove the anonymous user idToken first
-    $.removeCookie('idToken');
-
     $.cookie('idToken', authResult.idToken, { secure: __IS_PROD__, path: '/' });
 
     saveUserProfileToLocalStorage(profile);
@@ -57,24 +49,6 @@ lock.on('authenticated', function (authResult) {
     findOrCreateUserOnServer(profile);
   })
 });
-
-function createAnonAuthCookie() {
-
-  // If the browser does not have a valid idToken, then provide one.
-  $.post('/auth/anonLogin')
-    .done(function (data) {
-
-      $.cookie('idToken', data.idToken, { secure: __IS_PROD__, path: '/' });
-
-      removeUserProfileFromLocalStorage();
-    })
-    .fail(function (error) {
-      // TODO: add more helpful error messaging
-      console.log(error);
-      alert('errrror');
-    });
-
-}
 
 function findOrCreateUserOnServer (profile) {
   var name = profile.user_metadata && profile.user_metadata.name;

@@ -1,7 +1,7 @@
 
 const
     errors = require('feathers-errors'),
-    {applyOwnerId, ensureAuthenticated} = require('hooks/common.js');
+    {applyOwnerId} = require('hooks/common.js');
 
 describe('Hook: applyOwnerId', function () {
 
@@ -19,32 +19,5 @@ describe('Hook: applyOwnerId', function () {
     expect(this.testHookObj.data.ownerId)
       .to.equal('authenticatedUser')
   });
-
-});
-
-
-describe('Hook: ensureAuthenticated', function () {
-
-  describe('when there is no userId param', function () {
-
-    beforeEach(function () {
-
-      this.testHookObj = {
-        params: {}
-      };
-
-    });
-
-    it('should throw the not authenticated error', function () {
-      expect(()=>ensureAuthenticated(this.testHookObj))
-        .to.throw(errors.NotAuthenticated)
-    });
-  });
-
-  describe('when there is a userId param', function () {
-
-  });
-
-
 
 });

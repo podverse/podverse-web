@@ -1,7 +1,6 @@
 const
     {configureDatabaseModels} = require('test/helpers.js'),
-    UserService = require('services/user/UserService.js'),
-    {ensureAuthenticated} = require('hooks/common.js');
+    UserService = require('services/user/UserService.js');
 
 describe('UserService', function () {
 
@@ -18,12 +17,6 @@ describe('UserService', function () {
 
   it('should go', function () {
     expect(this.userSvc).to.be.ok;
-  });
-
-  it('should have the expected before-create hooks', function () {
-    verifyBeforeCreateHooks(this.userSvc, [
-      ensureAuthenticated
-    ]);
   });
 
   describe('when creating a user', function () {

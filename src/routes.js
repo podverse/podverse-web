@@ -21,6 +21,7 @@ function routes () {
 
     let pageIndex = req.query.page || 1;
     let offset = (pageIndex * 10) - 10;
+    let params = {};
 
     let queryObj = {
       metrics: 'ga:uniquePageviews',
@@ -35,6 +36,8 @@ function routes () {
       filters: 'ga:pagePath=~/clips'
     }
 
+    // NOTE: If no clips were returned by Google API, then in the catch statement
+    // populate the home page with all the most recent clips created that have a title
     return new Promise((resolve, reject) => {
       queryGoogleApiData(resolve, reject, queryObj)
     })
@@ -46,8 +49,6 @@ function routes () {
         let clipId = urlPath.replace('/clips/', '');
         clipIdArray.push(clipId);
       });
-
-      let params = {};
 
       params.sequelize = {
         include: [{ model: Episode, include: [Podcast] }],
@@ -73,19 +74,38 @@ function routes () {
         });
     })
     .catch(err => {
-      if (pageIndex > 1) {
-        res.redirect('/');
-        return
-      } else {
-        res.render('home/index.html', {
-          clips: {},
-          pageIndex: pageIndex,
-          showNextButton: false,
-          currentPage: 'Home Page'
-        });
-      }
-    });
+      params.sequelize = {
+        include: [{ model: Episode, include: [Podcast] }],
+        where: isClipMediaRefWithTitle,
+        offset: offset
+      };
 
+      params.paginate = {
+        default: 10,
+        max: 200
+      };
+
+      return ClipService.find(params)
+        .then(page => {
+
+          // TODO: handle 404 if beyond range of page object
+
+          let total = page.total;
+          let showNextButton = offset + 10 < total ? true : false;
+          let clips = page.data;
+
+          // TODO: handle 404 if beyond range of page object
+          res.render('home/index.html', {
+            clips: clips,
+            pageIndex: pageIndex,
+            showNextButton: showNextButton,
+            currentPage: 'Home Page'
+          });
+        })
+        .catch(e => {
+          console.log(e);
+        });
+    });
   })
 
   // Clip Detail Page

@@ -1,7 +1,7 @@
 const ClipService = require('services/clip/ClipService.js');
 const {configureDatabaseModels, createTestPodcastAndEpisode} = require('test/helpers.js');
 
-const {applyOwnerId, ensureAuthenticated} = require('hooks/common.js');
+const {applyOwnerId} = require('hooks/common.js');
 
 const config = require('config.js');
 
@@ -49,14 +49,7 @@ describe('ClipService', function () {
 
   it('should have the expected before-create hooks', function () {
     verifyBeforeCreateHooks(this.clipSvc, [
-      ensureAuthenticated,
       applyOwnerId
-    ]);
-  });
-
-  it('should have the expected before-update hooks', function () {
-    verifyBeforeUpdateHooks(this.clipSvc, [
-      ensureAuthenticated
     ]);
   });
 

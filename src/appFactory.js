@@ -7,7 +7,6 @@ const
     cookieParser = require('cookie-parser'),
     {locator} = require('locator.js'),
     {processJWTIfExists} = require('middleware/auth/processJWTIfExists.js'),
-    AuthService = new (require('services/auth/AuthService.js'))(),
     {nunjucks} = require('nunjucks.js'),
     {routes} = require('routes.js'),
     {errorHandler} = require('middleware/errors.js'),
@@ -31,10 +30,6 @@ function appFactory () {
 
     .use('/static/node_modules', feathers.static(path.resolve(__dirname, '../node_modules')))
     .use('/static', feathers.static(__dirname + '/static/libs'))
-
-    .post('/auth/anonLogin', (req, res) => {
-      AuthService.createAnonIdTokenAndUserId(req, res);
-    })
 
     .use(processJWTIfExists)
 

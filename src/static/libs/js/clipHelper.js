@@ -201,6 +201,7 @@ export function makeClip () {
     },
     error: function (xhr, status, error) {
       // TODO: add more helpful error messaging
+      console.log(error);
       alert('errrror');
     }
 

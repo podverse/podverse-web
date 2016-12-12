@@ -21,12 +21,8 @@ function processJWTIfExists (req, res, next) {
     return;
   }
 
-  try {
-    const verifiedJwt = nJwt.verify(token, config.jwtSigningKey);
-    req.feathers.userId = verifiedJwt.body.sub;
-  } catch (e) {
-    throw new errors.NotAuthenticated();
-  }
+  const verifiedJwt = nJwt.verify(token, config.jwtSigningKey);
+  req.feathers.userId = verifiedJwt.body.sub;
 
   next();
 }

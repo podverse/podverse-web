@@ -34,13 +34,7 @@ module.exports = function(sequelize, DataTypes) {
 
     description: DataTypes.TEXT,
 
-    ownerId: {
-      type: DataTypes.TEXT,
-      allowNull: false,
-      validation: {
-        notEmpty: true,
-      }
-    },
+    ownerId: DataTypes.TEXT,
 
     ownerName: DataTypes.TEXT,
 

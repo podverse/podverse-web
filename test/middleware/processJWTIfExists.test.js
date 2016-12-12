@@ -61,20 +61,6 @@ describe('processJWTIfExists Middlewareee', function () {
 
     });
 
-    describe('when the JWT is invalid', function () {
-
-      beforeEach(function () {
-        this.stub.req.headers.authorization = createInvalid();
-      });
-
-      it('should throw an unauthorized error', function () {
-
-        expect(() => processJWTIfExists(this.stub.req, this.stub.res, this.nextSpy))
-          .to.throw(errors.NotAuthenticated);
-
-      });
-    });
-
   });
 
   xdescribe('when there is a JWT in a cookie', function () {

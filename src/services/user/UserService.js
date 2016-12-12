@@ -1,8 +1,7 @@
 const
     SequelizeService = require('feathers-sequelize').Service,
     {locator} = require('locator.js'),
-    errors = require('feathers-errors'),
-    {ensureAuthenticated} = require('hooks/common.js');
+    errors = require('feathers-errors');
 
 class UserService extends SequelizeService {
 
@@ -16,11 +15,7 @@ class UserService extends SequelizeService {
 
     // Hooks
     // -----
-    this.before = {
-      create: [ensureAuthenticated],
-      update: [ensureAuthenticated],
-      patch: [ensureAuthenticated]
-    };
+    this.before = {};
 
     this.after = {};
   }
@@ -64,8 +59,6 @@ class UserService extends SequelizeService {
     });
   }
 
-  // TODO: ensure that only the app can create users, so that people can't
-  // just create users willy-nilly
   create (data, params={}) {
     const {Podcast, Playlist} = this.Models;
 
@@ -85,7 +78,7 @@ class UserService extends SequelizeService {
       }]
     })
     .then(user => {
-      // TODO: I must be doing something wrong here. Basically I would like to do
+      // TODO: I might be doing something wrong here. Basically I would like to do
       // getOrCreate so the returned object isn't in an array, but seems like that doesn't exist.
       return user[0];
     })

@@ -3,7 +3,7 @@ const
     SequelizeService = require('feathers-sequelize').Service,
     config = require('config.js'),
     {locator} = require('locator.js'),
-    {ensureAuthenticated, applyOwnerId} = require('hooks/common.js'),
+    {applyOwnerId} = require('hooks/common.js'),
     {addURL} = require('hooks/playlist/playlist.js');
 
 class PlaylistService extends SequelizeService {
@@ -19,8 +19,7 @@ class PlaylistService extends SequelizeService {
     // Hooks
     // -----
     this.before = {
-      create: [ensureAuthenticated, applyOwnerId],
-      update: [ensureAuthenticated]
+      create: [applyOwnerId]
     };
 
     this.after = {
@@ -124,7 +123,7 @@ class PlaylistService extends SequelizeService {
         throw new errors.NotFound(`Could not find a playlist by "${id}"`)
       }
 
-      if (pl.ownerId !== params.userId) {
+      if (!pl.ownerId || pl.ownerId !== params.userId) {
         throw new errors.Forbidden();
       }
 

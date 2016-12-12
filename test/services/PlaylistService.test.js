@@ -3,7 +3,7 @@ const errors = require('feathers-errors');
 const PlaylistService = require('services/playlist/PlaylistService.js');
 const {configureDatabaseModels, createTestPlaylist, createTestMediaRefs} = require('test/helpers.js');
 
-const {ensureAuthenticated, applyOwnerId} = require('hooks/common.js');
+const {applyOwnerId} = require('hooks/common.js');
 
 const config = require('config');
 
@@ -34,14 +34,7 @@ describe('PlaylistService', function () {
 
   it('should have the expected before-create hooks', function() {
     verifyBeforeCreateHooks(this.playlistSvc, [
-      ensureAuthenticated,
       applyOwnerId
-    ]);
-  });
-
-  it('should have the expected before-update hooks', function () {
-    verifyBeforeUpdateHooks(this.playlistSvc, [
-      ensureAuthenticated
     ]);
   });
 
