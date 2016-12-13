@@ -5,7 +5,7 @@
     <!-- NOTE: the home-list reuses the HTML / CSS of the #playlist in the player.html. The designs may diverge someday, but for now CSS changes to these elements will also change the #playlist's items. -->
     <div id="home-list">
       {% for clip in clips %}
-        <div class="playlist-item" onclick="window.location.href = '/clips/{{clip.id}}'">
+        <a class="playlist-item" href="/clips/{{clip.id}}">
           <div class="playlist-item-inner">
             <div class="playlist-item-image">
               <img src="{{ clip.episode.podcast.imageURL }}">
@@ -30,7 +30,7 @@
               </div>
             {% endif %}
           </div><!-- /.playlist-item-inner -->
-        </div><!-- /.playlist-item -->
+        </a><!-- /.playlist-item -->
       {% endfor %}
       <div class="pv-pagination">
         {% if pageIndex > 1 %}

@@ -589,16 +589,20 @@ footer p {
 
 .playlist-item {
     clear: both;
+    display: block;
     font-size: 14px;
     cursor: pointer;
     padding: 1rem 0;
     border-top: 1px solid transparent;
     border-bottom: 1px dotted #eee;
+    color: #373a3c;
+    text-decoration: none !important;
 }
 
 .playlist-item:hover {
     border-top: 1px solid #ccc;
     border-bottom: 1px solid #ccc;
+    color: #373a3c;
 }
 
 .playlist-item-image {

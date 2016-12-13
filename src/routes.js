@@ -380,7 +380,8 @@ function routes () {
         res.render('my-podcasts/index.html', user);
       })
       .catch(e => {
-        res.sendStatus(401);
+        // redirect to home page is unauthorized
+        res.redirect('/');
       });
   })
 
@@ -403,8 +404,8 @@ function routes () {
           })
       })
       .catch(e => {
-        console.log(e);
-        res.sendStatus(401);
+        // redirect to home page is unauthorized
+        res.redirect('/');
       });
   })
 
@@ -420,8 +421,8 @@ function routes () {
         res.render('settings/index.html', user.dataValues);
       })
       .catch(e => {
-        console.log(e);
-        res.sendStatus(401);
+        // redirect to home page is unauthorized
+        res.redirect('/');
       });
   })
 
