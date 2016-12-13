@@ -997,6 +997,10 @@ body.modal-open {
     padding: .75rem 15px;
 }
 
+#navbar-btn {
+    float: right !important;
+}
+
 #navbar-btn .dropdown-menu {
     left: -66px;
     margin: -2px 0 0 0;
