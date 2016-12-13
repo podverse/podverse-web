@@ -14,7 +14,7 @@ var options = {
   },
   additionalSignUpFields: [{
     name: 'name',
-    placeholder: 'type your name (for sharing playlists)'
+    placeholder: 'your name (for sharing playlists)'
   }]
 };
 

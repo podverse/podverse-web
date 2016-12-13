@@ -885,6 +885,14 @@ footer p {
     height: 58px !important;
 }
 
+.auth0-lock-input::-webkit-input-placeholder,
+.auth0-lock-input::-moz-placeholder,
+.auth0-lock-input:-ms-input-placeholder
+.auth0-lock-input:-moz-placeholder {
+    color: rgba(0,0,0,0.75);    
+}
+
+
 
 
 /*** Typeahead Overrides ***/
