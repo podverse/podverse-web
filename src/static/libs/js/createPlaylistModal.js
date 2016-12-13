@@ -15,7 +15,7 @@ $('#createPlaylistModal').on('shown.bs.modal', function () {
 
 $('#createPlaylistModalTitle').bind('keypress', function (event) {
   if (event.keyCode == 13) {
-    event.preventDefault();
+    event.preventDefault(event);
     var newPlaylist = {};
     newPlaylist.title = $('#createPlaylistModalTitle').val();
 

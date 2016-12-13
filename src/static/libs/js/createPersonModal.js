@@ -16,7 +16,7 @@ $('#createPersonModal').on('shown.bs.modal', function () {
 
 $('#createPersonModalName').bind('keypress', function (event) {
   if (event.keyCode == 13) {
-    event.preventDefault();
+    event.preventDefault(event);
     var newPlaylist = {};
     newPlaylist.title = $('#createPersonModalName').val();
     newPlaylist.isRecommendation = true;

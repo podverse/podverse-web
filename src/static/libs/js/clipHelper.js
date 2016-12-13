@@ -36,19 +36,19 @@ export function initClipper () {
   });
 
   $('#player').on('mousedown', function (e) {
-    e.preventDefault();
+    e.preventDefault(e);
   });
 
   $('#make-clip-time-set').on('mousedown', function (e) {
-    e.preventDefault();
+    e.preventDefault(e);
   });
 
   $('#make-clip-time-back').on('mousedown', function (e) {
-    e.preventDefault();
+    e.preventDefault(e);
   });
 
   $('#make-clip-time-forwards').on('mousedown', function (e) {
-    e.preventDefault();
+    e.preventDefault(e);
   });
 
   $('#make-clip-time-back').on('click', function () {
@@ -94,7 +94,7 @@ export function toggleMakeClipWidget (_this) {
   sendGoogleAnalyticsEvent('Make Clip', 'Toggle Make Clip Widget');
 }
 
-export function makeClip () {
+export function makeClip (event) {
   event.preventDefault();
 
   sendGoogleAnalyticsEvent('Make Clip', 'Make Clip')

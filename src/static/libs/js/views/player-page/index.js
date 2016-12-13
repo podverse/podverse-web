@@ -41,8 +41,8 @@ $('#make-clip-end-time button').on('click', function () {
   setEndTime();
 });
 
-$('#make-clip-btn').on('click', function () {
-  makeClip();
+$('#make-clip-btn').on('click', function (event) {
+  makeClip(event);
 });
 
 $('#make-clip-cancel').on('click', function () {
