@@ -1,11 +1,10 @@
-<table class="table table-hover">
-  <tbody>
-    {% for episode in episodes %}
-      <!-- Thanks:) http://stackoverflow.com/questions/17147821/how-to-make-a-whole-row-in-a-table-clickable-as-a-link  -->
-      <tr class="clickable-row" data-href="/episodes/{{episode.id}}">
-        <td class="col-xs-9" scope="row">{{episode.title}}</td>
-        <td class="col-xs-3">{{episode.pubDate | readableDate}}</td>
-      </tr>
-    {% endfor %}
-  </tbody>
-</table>
+<div id="podcast-episodes-list">
+  {% for episode in episodes %}
+    <!-- Thanks:) http://stackoverflow.com/questions/17147821/how-to-make-a-whole-row-in-a-table-clickable-as-a-link  -->
+    <a class="podcast-episodes-list-item row" href="/episodes/{{episode.id}}">
+      <div class="col-xs-9" scope="row">{{episode.title}}</div>
+      <div class="col-xs-3 podcast-episodes-list-item-pubdate">{{episode.pubDate | readableDate}}</div>
+      <div class="clearfix"></div>
+    </a>
+  {% endfor %}
+</div>

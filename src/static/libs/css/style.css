@@ -750,6 +750,26 @@ footer p {
     display: none;
 }
 
+.podcast-episodes-list-item {
+    display: block;
+    padding: 10px 0;
+    text-decoration: none;
+    color: #373a3c;
+}
+
+
+.podcast-episodes-list-item:hover, .podcast-episodes-list-item:visited {
+    background-color: #eee;
+    color: #373a3c !important;
+}
+
+.podcast-episodes-list-item div:hover {
+    color: #373a3c !important;
+}
+
+.podcast-episodes-list-item-pubdate {
+    text-align: right;
+}
 
 /*** my-podcasts-page.html styles ***/
 .podcast-item {
@@ -889,7 +909,7 @@ footer p {
 .auth0-lock-input::-moz-placeholder,
 .auth0-lock-input:-ms-input-placeholder
 .auth0-lock-input:-moz-placeholder {
-    color: rgba(0,0,0,0.75);    
+    color: rgba(0,0,0,0.75);
 }
 
 
