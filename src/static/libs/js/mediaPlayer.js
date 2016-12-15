@@ -1,4 +1,4 @@
-import { calcDuration, convertSecToHHMMSS, isNonAnonLoggedInUser,
+import { calcDuration, convertSecToHHMMSS, debounce, isNonAnonLoggedInUser,
          readableDate, recreateAndReinsertElement } from './utility.js';
 import { addPlaylistItemTextTruncation } from './playlistHelper.js';
 import { subscribeToPodcast, unsubscribeFromPodcast } from './podcastHelper.js';
@@ -17,8 +17,8 @@ if (isEmptyPlaylist !== true) {
   // TODO: or find some kind of way to let autoplay be enabled in mobile browsers
   createAutoplayBtn();
   createAndAppendAudio();
-  onScrollCondensePlayerView();
   addPlaylistItemTextTruncation();
+  onScrollCondensePlayerView();
 } else {
   var isEmptyPlaylistEl = '<div id="empty-playlist-message">This playlist has no episodes or clips added to it. <br><br> Click the <i class="fa fa-list-ul"></i> icon while an episode or clip is playing to add it to a playlist.</div>';
   $(isEmptyPlaylistEl).insertAfter('#player');
@@ -382,17 +382,19 @@ function onScrollCondensePlayerView () {
   var bottomOfPlayer = topOfPlayer + heightOfPlayer;
 
   var topOfPlayerContainer = $('#player-container').offset().top;
-  var heightOfPlayerContainer = $('#player-container').outerHeight() - 27; // Subtract to prevent page content from jumping
+  // -145 to prevent screen from jumping when switching to a condensed view
+  // HACK: we shouldn't need something like this, remove after refactoring player /  condensed player
+  var heightOfPlayerContainer = $('#player-container').outerHeight() - 145;
   var bottomOfPlayerContainer = topOfPlayerContainer + heightOfPlayerContainer;
 
-  $(window).scroll(function(){
+  let condenseOnScroll = debounce(function () {
     if($(window).scrollTop() > (bottomOfPlayer)){
      $('html').attr('style', 'padding-top: ' + bottomOfPlayerContainer + 'px;' );
 
      truncatePlayerText();
 
-    //  $('#player-condensed-text').css('position', 'initial');
-    $('#player-container').addClass('condensed');
+     //  $('#player-condensed-text').css('position', 'initial');
+     $('#player-container').addClass('condensed');
 
     } else {
      $('html').attr('style', '');
@@ -400,7 +402,9 @@ function onScrollCondensePlayerView () {
 
     //  $('#player-condensed-text').css('position', 'absolute');
     }
-  });
+  }, 250)
+
+  window.addEventListener('scroll', condenseOnScroll);
 
 }
 
