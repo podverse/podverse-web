@@ -1016,6 +1016,8 @@ footer p {
     padding: 5px 0.75rem;
     margin-right: .9375rem;
     float: right;
+    margin-top: -4px;
+    cursor: pointer;
 }
 
 .navbar-toggleable-xs {
