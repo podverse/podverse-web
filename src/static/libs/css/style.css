@@ -81,7 +81,7 @@ audio {
 
 #navbar-search-icon-xs {
     float: right;
-    padding: 0.25rem 1rem;
+    padding: 6px 1rem;
     margin-right: 0.25rem;
     line-height: 19px;
     font-size: 18px;
@@ -989,8 +989,9 @@ footer p {
 
 .navbar-toggler {
     color: #fcfcfc;
-    padding: 0.2rem 0.75rem;
+    padding: 5px 0.75rem;
     margin-right: .9375rem;
+    float: right;
 }
 
 .navbar-toggleable-xs {
