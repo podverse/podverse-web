@@ -1,9 +1,9 @@
 <div id="podcast-episodes-list">
   {% for episode in episodes %}
     <!-- Thanks:) http://stackoverflow.com/questions/17147821/how-to-make-a-whole-row-in-a-table-clickable-as-a-link  -->
-    <a class="podcast-episodes-list-item row" href="/episodes/{{episode.id}}">
-      <div class="col-xs-9" scope="row">{{episode.title}}</div>
-      <div class="col-xs-3 podcast-episodes-list-item-pubdate">{{episode.pubDate | readableDate}}</div>
+    <a class="podcast-episodes-list-item" href="/episodes/{{episode.id}}">
+      <div class="podcast-episodes-list-item-pubdate">{{episode.pubDate | readableDate}}</div>
+      <div class="podcast-episodes-list-item-title">{{episode.title}}</div>
       <div class="clearfix"></div>
     </a>
   {% endfor %}

@@ -742,21 +742,32 @@ footer p {
 
 .podcast-episodes-list-item {
     display: block;
-    padding: 15px 0;
+    padding: 15px;
+    margin: 0 -15px;
     text-decoration: none;
     color: #373a3c;
     border-bottom: 1px solid #eee;
 }
 
 
-.podcast-episodes-list-item:hover {
+.podcast-episodes-list-item:hover,
+.podcast-episodes-list-item:focus {
     color: #111 !important;
     background-color: #eee !important;
+    text-decoration: none !important;
 }
 
 .podcast-episodes-list-item-pubdate {
     text-align: right;
+    float: right;
 }
+
+.podcast-episodes-list-item-title {
+    overflow: hidden;
+    padding-right: 15px;
+}
+
+
 
 /*** my-podcasts-page.html styles ***/
 .podcast-item {
