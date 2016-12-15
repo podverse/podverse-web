@@ -18,7 +18,11 @@ var options = {
   }],
   theme: {
     primaryColor: '#2968B1'
-  }
+  },
+  languageDictionary: {
+    emailInputPlaceholder: "email address",
+    passwordInputPlaceholder: "password"
+  },
 };
 
 let lock = new Auth0Lock(clientId, domain, options);

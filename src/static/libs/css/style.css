@@ -925,15 +925,6 @@ footer p {
     color: rgba(0,0,0,0.75);
 }
 
-@media screen and (max-width: 480px) {
-    .auth0-lock.auth0-lock.auth0-lock-opened .auth0-lock-widget {
-        width: calc(100% - 40px) !important;
-        height: calc(100% - 40px) !important;
-        padding: 20px !important;
-    }
-}
-
-
 
 
 /*** Typeahead Overrides ***/
