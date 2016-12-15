@@ -132,8 +132,7 @@ function setPlayerInfo () {
   if (isEpisode === false) {
     var duration = calcDuration(startTime, endTime);
     $('#player-stats-duration').html(convertSecToHHMMSS(startTime) + ' to ' + convertSecToHHMMSS(endTime));
-    $('#player-condensed-clip-time').html(convertSecToHHMMSS(startTime) + ' to ' + convertSecToHHMMSS(endTime));
-    $('#player-condensed-clip-title').html(description);
+    $('#player-condensed-text').html(convertSecToHHMMSS(startTime) + ' to ' + convertSecToHHMMSS(endTime) + ' – ' + description);
     $('#player-condensed-text').addClass('should-show');
   } else {
     $('#player-stats-duration').html('Full Episode');
@@ -393,16 +392,15 @@ function onScrollCondensePlayerView () {
 
      truncatePlayerText();
 
-     //  $('#player-condensed-text').css('position', 'initial');
      $('#player-container').addClass('condensed');
 
     } else {
      $('html').attr('style', '');
      $('#player-container').removeClass('condensed');
-
-    //  $('#player-condensed-text').css('position', 'absolute');
     }
-  }, 250)
+  }, 20)
+
+  condenseOnScroll(); // HACK: run once to apply truncation once
 
   window.addEventListener('scroll', condenseOnScroll);
 

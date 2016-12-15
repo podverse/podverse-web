@@ -422,7 +422,7 @@ footer p {
     margin: 0 0 1.5rem 0;
     background-color: #fff;
     z-index: 10;
-    padding: 0.25rem 0;
+    padding: 6px 0 3px 0;
 }
 
 /* Width for player-condensed-inner is set via JavaScript to work with truncation. */
@@ -464,17 +464,10 @@ footer p {
 
 .condensed #player-condensed-text.should-show {
     display: block;
-}
-
-.condensed #player-condensed-clip-time {
-    font-size: 12px;
-    clear: both;
-    margin: 2px 0rem -5px 0.5rem;
-    float: right;
-}
-
-.condensed #player-condensed-clip-title {
     font-size: 14px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 
