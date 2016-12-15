@@ -462,7 +462,7 @@ footer p {
     margin: 0.5rem 0 0.25rem 0;
 }
 
-.condensed #player-condensed-text {
+.condensed #player-condensed-text.should-show {
     display: block;
 }
 

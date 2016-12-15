@@ -134,6 +134,7 @@ function setPlayerInfo () {
     $('#player-stats-duration').html(convertSecToHHMMSS(startTime) + ' to ' + convertSecToHHMMSS(endTime));
     $('#player-condensed-clip-time').html(convertSecToHHMMSS(startTime) + ' to ' + convertSecToHHMMSS(endTime));
     $('#player-condensed-clip-title').html(description);
+    $('#player-condensed-text').addClass('should-show');
   } else {
     $('#player-stats-duration').html('Full Episode');
   }
