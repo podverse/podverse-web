@@ -752,19 +752,16 @@ footer p {
 
 .podcast-episodes-list-item {
     display: block;
-    padding: 10px 0;
+    padding: 15px 0;
     text-decoration: none;
     color: #373a3c;
+    border-bottom: 1px solid #eee;
 }
 
 
-.podcast-episodes-list-item:hover, .podcast-episodes-list-item:visited {
-    background-color: #eee;
-    color: #373a3c !important;
-}
-
-.podcast-episodes-list-item div:hover {
-    color: #373a3c !important;
+.podcast-episodes-list-item:hover {
+    color: #111 !important;
+    background-color: #eee !important;
 }
 
 .podcast-episodes-list-item-pubdate {
