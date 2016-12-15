@@ -51,8 +51,7 @@ function appendLoggedInUserNavButtons () {
 
   $(navButtonString).insertAfter('#navbar-btn');
 
-  var navMobileMenuString =  '<hr class="hidden-sm-up">';
-      navMobileMenuString += '<a class="nav-link hidden-sm-up" href="/my-podcasts">Podcasts</a>';
+  var navMobileMenuString += '<a class="nav-link hidden-sm-up" href="/my-podcasts">Podcasts</a>';
       navMobileMenuString += '<a class="nav-link hidden-sm-up" href="/my-playlists">Playlists</a>';
       navMobileMenuString += '<a class="nav-link hidden-sm-up" href="#">Settings</a>';
       navMobileMenuString += '<hr class="hidden-sm-up">';
