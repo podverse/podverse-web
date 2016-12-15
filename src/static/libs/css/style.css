@@ -872,6 +872,20 @@ footer p {
 
 
 /*** Auth0 Lock Overrides ***/
+
+.auth0-lock.auth0-lock {
+    font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif !important;
+}
+
+.auth0-lock.auth0-lock .auth0-lock-tabs,
+.auth0-lock.auth0-lock .auth0-lock-input-wrap .auth0-lock-input,
+.auth0-lock.auth0-lock .auth0-lock-form .auth0-lock-alternative .auth0-lock-alternative-link,
+.auth0-lock.auth0-lock .auth0-lock-submit,
+.auth0-lock .auth0-lock-last-login-pane .auth0-lock-social-button[data-provider="auth0"] .auth0-lock-social-button-text,
+.auth0-lock.auth0-lock .auth0-lock-form p {
+    font-size: 16px !important;
+}
+
 .auth0-lock-badge-bottom {
     display: none !important;
 }
@@ -881,7 +895,15 @@ footer p {
 }
 
 .auth0-lock-header {
-    height: 50px !important;
+    height: 58px !important;
+}
+
+.auth0-lock.auth0-lock .auth0-lock-header-bg {
+    background: #2968B1 !important;
+}
+
+.auth0-lock.auth0-lock .auth0-lock-close-button, .auth0-lock.auth0-lock .auth0-lock-back-button {
+    top: 19px !important;
 }
 
 .auth0-lock-header-logo {
@@ -892,11 +914,23 @@ footer p {
     height: 58px !important;
 }
 
+.auth0-lock.auth0-lock .auth0-loading-container .auth0-loading {
+    top: -5px !important;
+}
+
 .auth0-lock-input::-webkit-input-placeholder,
 .auth0-lock-input::-moz-placeholder,
 .auth0-lock-input:-ms-input-placeholder
 .auth0-lock-input:-moz-placeholder {
     color: rgba(0,0,0,0.75);
+}
+
+@media screen and (max-width: 480px) {
+    .auth0-lock.auth0-lock.auth0-lock-opened .auth0-lock-widget {
+        width: calc(100% - 40px) !important;
+        height: calc(100% - 40px) !important;
+        padding: 20px !important;
+    }
 }
 
 

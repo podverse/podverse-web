@@ -15,7 +15,10 @@ var options = {
   additionalSignUpFields: [{
     name: 'name',
     placeholder: 'your name (for sharing playlists)'
-  }]
+  }],
+  theme: {
+    primaryColor: '#2968B1'
+  }
 };
 
 let lock = new Auth0Lock(clientId, domain, options);
