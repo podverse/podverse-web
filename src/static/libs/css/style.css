@@ -328,11 +328,13 @@ footer p {
 #player-podcast-subscribe {
     float: right;
     cursor: pointer;
+    margin-left: 15px;
 }
 
 #player-podcast-title {
     line-height: 1.5rem;
     font-weight: 600;
+    overflow: hidden;
 }
 
 #player-podcast-title a {
@@ -717,12 +719,14 @@ footer p {
 #podcast-subscribe {
     float: right;
     cursor: pointer;
+    margin-left: 15px;
 }
 
 #podcast-title {
     line-height: 1.5rem;
     font-weight: 600;
     font-size: 18px;
+    overflow: hidden;
 }
 
 #podcast-sub-title {
