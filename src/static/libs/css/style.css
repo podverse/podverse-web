@@ -335,6 +335,8 @@ footer p {
     line-height: 1.5rem;
     font-weight: 600;
     overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 #player-podcast-title a {
