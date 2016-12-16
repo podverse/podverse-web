@@ -42,7 +42,5 @@ $('#settings-submit-btn').on('click', () => {
   updateUserProfile();
 });
 
-// TODO: this shouldn't be needed on this page
-$('#hide-until-truncation-finishes').hide();
 
 sendGoogleAnalyticsPageView();

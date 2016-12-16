@@ -1,6 +1,5 @@
 import { calcDuration, convertSecToHHMMSS, debounce, isNonAnonLoggedInUser,
-         readableDate, recreateAndReinsertElement } from './utility.js';
-import { addPlaylistItemTextTruncation } from './playlistHelper.js';
+         readableDate } from './utility.js';
 import { subscribeToPodcast, unsubscribeFromPodcast } from './podcastHelper.js';
 import { sendGoogleAnalyticsPlayerPageView,
          sendGoogleAnalyticsEvent } from './googleAnalytics.js';
@@ -17,7 +16,6 @@ if (isEmptyPlaylist !== true) {
   // TODO: or find some kind of way to let autoplay be enabled in mobile browsers
   createAutoplayBtn();
   createAndAppendAudio();
-  addPlaylistItemTextTruncation();
   onScrollCondensePlayerView();
 } else {
   var isEmptyPlaylistEl = '<div id="empty-playlist-message">This playlist has no episodes or clips added to it. <br><br> Click the <i class="fa fa-list-ul"></i> icon while an episode or clip is playing to add it to a playlist.</div>';
@@ -89,33 +87,6 @@ export function previewEndTime (endTime) {
   sendGoogleAnalyticsEvent('Media Player', 'Preview End Time');
 }
 
-// NOTE: There has GOT to be a better way to handle truncation than this. Truncation is a
-// serious flaw in the UI currently, and it would be worthwhile to rip it all out and replace
-// it with something better.
-// NOTE: Truncation will fail if you attempt to use it on an element with display:none
-// NOTE: Truncation can only be applied once per element. To reapply truncation to an
-// element, you need to recreate it and reinsert it into the DOM.
-export function truncatePlayerText () {
-  recreateAndReinsertElement('player-description-truncated');
-  $('#player-description-truncated').on('click', function () {
-    $('#player-description-truncated, #player-description-full').toggle();
-  });
-
-  recreateAndReinsertElement('player-condensed-title');
-  recreateAndReinsertElement('player-condensed-sub-title');
-  recreateAndReinsertElement('player-condensed-clip-title');
-  recreateAndReinsertElement('player-condensed-podcast-title');
-  recreateAndReinsertElement('player-condensed-sub-title');
-
-  $('#player-description-truncated').truncate({ lines: 4 });
-  $('#player-condensed-title').truncate({ lines: 1 });
-  $('#player-condensed-sub-title').truncate({ lines: 1 });
-  $('#player-condensed-clip-title').truncate({ lines: 1 });
-  $('#player-condensed-podcast-title').truncate({ lines: 1 });
-  $('#player-condensed-sub-title').truncate({ lines: 1 });
-
-}
-
 function setPlayerInfo () {
 
   if (window.startTime === 0 && window.endTime === null) {
@@ -163,8 +134,7 @@ function setPlayerInfo () {
     $('<hr id="player-hr">').insertAfter('#player-functions');
   }
 
-  $('#player-description-truncated').html(description);
-  $('#player-description-full').html(description);
+  $('#player-description').html(description);
 
   if (episodeImageURL) {
     $('#player-episode-image').html('<img src="' + episodeImageURL + '" class="img-fluid">');
@@ -195,18 +165,12 @@ function setPlayerInfo () {
     }
   });
 
-  $('#player-description-truncated, #player-description-full').on('click', function () {
-    $('#player-description-truncated, #player-description-full').toggle();
-  });
-
   window.restartAttempts = 0;
   window.lastPlaybackPosition = -1;
   window.endTimeHasBeenReached = false;
 
   var playerWidth = $('#player-inner').width();
   $('#player-condensed-inner').css('width', playerWidth);
-
-  truncatePlayerText();
 
 }
 
@@ -390,8 +354,6 @@ function onScrollCondensePlayerView () {
     if($(window).scrollTop() > (bottomOfPlayer)){
      $('html').attr('style', 'padding-top: ' + bottomOfPlayerContainer + 'px;' );
 
-     truncatePlayerText();
-
      $('#player-container').addClass('condensed');
 
     } else {
@@ -399,8 +361,6 @@ function onScrollCondensePlayerView () {
      $('#player-container').removeClass('condensed');
     }
   }, 20)
-
-  condenseOnScroll(); // HACK: run once to apply truncation once
 
   window.addEventListener('scroll', condenseOnScroll);
 

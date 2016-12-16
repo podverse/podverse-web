@@ -11,9 +11,7 @@ import { initClipper,
          setStartTime,
          toggleMakeClipWidget } from '../../clipHelper.js';
 import { sendGoogleAnalyticsPlayerPageView } from '../../googleAnalytics.js';
-import { truncatePlayerText } from '../../mediaPlayer.js';
-import { addPlaylistItemTextTruncation,
-         addToPlaylist,
+import { addToPlaylist,
          togglePlaylistWidget,
          updatePlaylistItemCount } from '../../playlistHelper.js';
 import { toggleRecommendWidget } from '../../recommendHelper.js';
@@ -98,23 +96,6 @@ $('#playlist-subscribe').on('click', function () {
     unsubscribeFromPlaylist(playlistId);
   }
 });
-
-
-
-// Resize #player-condensed-inner with JS to work with truncation
-var truncateOnWindowResize = debounce(function () {
-  $('#player-condensed-inner').css('width', $('#player-inner').width());
-
-  if ($('#player-description-truncated').css('display') !== 'none') {
-    truncatePlayerText();
-  }
-}, 250);
-
-window.addEventListener('resize', truncateOnWindowResize);
-
-
-
-addPlaylistItemTextTruncation();
 
 
 

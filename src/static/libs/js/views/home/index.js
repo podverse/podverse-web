@@ -3,7 +3,7 @@ require('../../auth.js');
 
 import { sendGoogleAnalyticsPageView,
          sendGoogleAnalyticsEvent } from '../../googleAnalytics.js';
-import { addPlaylistItemTextTruncation } from '../../playlistHelper.js';
+
 
 if (showNextButton) {
   $('.pv-pagination-next').on('click', function () {
@@ -18,7 +18,5 @@ if (pageIndex > 1) {
     window.location = '/?page=' + (pageIndex - 1);
   });
 }
-
-addPlaylistItemTextTruncation();
 
 sendGoogleAnalyticsPageView();

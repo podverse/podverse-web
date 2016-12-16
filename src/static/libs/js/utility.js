@@ -122,15 +122,6 @@ export function isNonAnonLoggedInUser () {
   return localStorage.getItem('email') ? true : false;
 }
 
-// This is used as a workaround for truncate.js, since truncation will fail if you
-// try to use it on an element more than once.
-export function recreateAndReinsertElement (id) {
-  $('<div id="' + id + '"></div>')
-    .html($('#' + id + '')
-    .html()).insertAfter('#' + id + '');
-  $('#' + id).remove();
-}
-
 // Thanks:D David Walsh https://davidwalsh.name/javascript-debounce-function
 export function debounce(func, wait, immediate) {
 	var timeout;

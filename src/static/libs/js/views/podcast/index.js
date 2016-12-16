@@ -34,9 +34,4 @@ $(document).ready(function ($) {
 });
 
 
-
-$('#hide-until-truncation-finishes').hide();
-
-
-
 sendGoogleAnalyticsPodcastPageView();

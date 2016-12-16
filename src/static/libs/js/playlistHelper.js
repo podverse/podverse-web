@@ -125,21 +125,6 @@ export function addNewPlaylistElement(playlist) {
   });
 }
 
-export function addPlaylistItemTextTruncation() {
-  var playlistItems = document.getElementsByClassName('playlist-item');
-
-  for (var i = 0; i < playlistItems.length; i++) {
-    var playlistItemPodcastTitle = playlistItems[i].getElementsByClassName('playlist-item-podcast-title');
-    var playlistItemSubTitle = playlistItems[i].getElementsByClassName('playlist-item-sub-title');
-    var playlistItemDetails = playlistItems[i].getElementsByClassName('playlist-item-details');
-    $(playlistItemPodcastTitle[0]).truncate({ lines: 1 });
-    $(playlistItemSubTitle[0]).truncate({ lines: 1 });
-    $(playlistItemDetails[0]).truncate({ lines: 3 });
-  }
-
-  $('#hide-until-truncation-finishes').hide();
-}
-
 function subscribeToPlaylist(url, successCallback) {
   var id = url.substr(url.lastIndexOf('/') + 1);
   $.ajax({
