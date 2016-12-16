@@ -346,6 +346,9 @@ footer p {
 #player-sub-title {
     line-height: 1.5rem;
     font-weight: 300;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 #player-sub-title a {
