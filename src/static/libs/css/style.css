@@ -727,6 +727,8 @@ footer p {
     font-weight: 600;
     font-size: 18px;
     overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 #podcast-sub-title {
@@ -800,8 +802,8 @@ footer p {
 }
 
 .podcast-item-title {
-  overflow: hidden;
   font-weight: 600;
+  overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
