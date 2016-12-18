@@ -53,7 +53,7 @@ function appendLoggedInUserNavButtons () {
 
   var navMobileMenuString = '<a class="nav-link hidden-sm-up" href="/my-podcasts">Podcasts</a>';
       navMobileMenuString += '<a class="nav-link hidden-sm-up" href="/my-playlists">Playlists</a>';
-      navMobileMenuString += '<a class="nav-link hidden-sm-up" href="#">Settings</a>';
+      navMobileMenuString += '<a class="nav-link hidden-sm-up" href="/settings">Settings</a>';
       navMobileMenuString += '<hr class="hidden-sm-up">';
       navMobileMenuString += '<a class="nav-link hidden-sm-up" id="logout-user-nav-link">Logout</a>';
 

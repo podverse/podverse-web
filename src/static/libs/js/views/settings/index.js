@@ -14,6 +14,8 @@ $('#settings-name').keydown(function(e){
 });
 
 function updateUserProfile () {
+  let nickname = $('#settings-name').val() || '';
+
   $.ajax({
     type: 'PATCH',
     url: '/users/' + userId,
@@ -21,10 +23,11 @@ function updateUserProfile () {
       Authorization: $.cookie('idToken')
     },
     data: {
-      name: $('#settings-name').val()
+      name: nickname
     },
     dataType: 'json',
     success: function () {
+      localStorage.setItem('nickname', nickname);
       location.href = '/';
     },
     error: function (xhr, status, error) {

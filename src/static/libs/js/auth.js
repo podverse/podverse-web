@@ -1,4 +1,5 @@
 import { sendGoogleAnalyticsEvent } from './googleAnalytics.js';
+import { isLocalStorageSupported } from './browserSupportDetection.js';
 
 var clientId = __AUTH0_CLIENTID__,
     domain = __AUTH0_DOMAIN__;
@@ -29,8 +30,12 @@ let lock = new Auth0Lock(clientId, domain, options);
 
 $(window).ready(() => {
   $('#login-btn').on('click', () => {
-    lock.show();
-    sendGoogleAnalyticsEvent('Auth', 'Show Lock Modal');
+    if (isLocalStorageSupported()) {
+      lock.show();
+      sendGoogleAnalyticsEvent('Auth', 'Show Lock Modal');
+    } else {
+      alert('If you are using iOS Safari in Private Browsing mode, please switch to Regular Browsing mode to log into Podverse.')
+    }
   });
 });
 
