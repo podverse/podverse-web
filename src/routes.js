@@ -26,7 +26,7 @@ function routes () {
     let queryObj = {
       metrics: 'ga:uniquePageviews',
       dimensions: 'ga:pagePath',
-      startDate: '7daysAgo',
+      startDate: '14daysAgo',
       endDate: 'today',
       sort: '-ga:uniquePageviews',
       // maxResults: only 10 will load on a page, but we don't want
