@@ -3,6 +3,7 @@ import { calcDuration, convertSecToHHMMSS, debounce, isNonAnonLoggedInUser,
 import { subscribeToPodcast, unsubscribeFromPodcast } from './podcastHelper.js';
 import { sendGoogleAnalyticsPlayerPageView,
          sendGoogleAnalyticsEvent } from './googleAnalytics.js';
+import { isMobileOrTablet } from './browserSupportDetection.js';
 
 // Set default values for vars that handle player crashes and autoplay functionality
 window.restartAttempts = 0;
@@ -309,12 +310,14 @@ function toggleAutoplay () {
 }
 
 function createAutoplayBtn () {
-  var autoplay = $.cookie('autoplay');
-  if (autoplay === 'true') {
-    $('#player-autoplay').html('<span style="font-weight: 500">Autoplay On</span>');
-  } else {
-    $.cookie('autoplay', 'false', { path: '/' });
-    $('#player-autoplay').html('Autoplay Off');
+  if (!isMobileOrTablet()) {
+    var autoplay = $.cookie('autoplay');
+    if (autoplay === 'true') {
+      $('#player-autoplay').html('<span style="font-weight: 500">Autoplay On</span>');
+    } else {
+      $.cookie('autoplay', 'false', { path: '/' });
+      $('#player-autoplay').html('Autoplay Off');
+    }
   }
 }
 
