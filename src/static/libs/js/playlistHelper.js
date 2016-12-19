@@ -31,7 +31,7 @@ export function togglePlaylistWidget (_this) {
 
 export function createPlaylist (params, callback) {
   if (params.title === '') {
-    alert('please provide a playlist title');
+    alert('Please provide a playlist title.');
     return false;
   }
 
@@ -52,8 +52,7 @@ export function createPlaylist (params, callback) {
       }
     },
     error: function (xhr, status, error) {
-      // TODO: add more helpful error messaging
-      alert('errrror');
+      alert('Failed to create playlist. Please check your internet connection and try again.');
     }
   });
 
@@ -73,8 +72,7 @@ export function addToPlaylist (playlistId, mediaRefId, callback) {
       }
     },
     error: function (xhr, status, error) {
-      // TODO: add more helpful error messaging
-      alert('errrror');
+      alert('Failed to add to playlist. Please check your internet connection and try again.');
     }
   });
 
@@ -137,8 +135,7 @@ function subscribeToPlaylist(url, successCallback) {
       if (successCallback) { successCallback(); }
     },
     error: function (xhr, status, error) {
-      // TODO: add more helpful error messaging
-      alert('errrror');
+      alert('Failed to subscribe to playlist. Please check your internet connection and try again.');
     }
   });
 
@@ -157,8 +154,7 @@ function unsubscribeFromPlaylist (url, successCallback) {
       if (successCallback) { successCallback(); }
     },
     error: function (xhr, status, error) {
-      // TODO: add more helpful error messaging
-      alert('errrror');
+      alert('Failed to unsubscribe from playlist. Please check your internet connection and try again.');
     }
   });
 

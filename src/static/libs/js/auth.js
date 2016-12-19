@@ -49,8 +49,7 @@ lock.on('authenticated', function (authResult) {
   lock.getProfile(authResult.idToken, function (error, profile) {
 
     if (error) {
-      // TODO: handle error
-      alert('errrror');
+      alert('Authentication error. Please check your internet connection and try again.');
       return;
     }
 

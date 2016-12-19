@@ -21,14 +21,13 @@ export function addPodcastModalSave () {
               window.location = '/podcasts/' + data.id;
             })
             .fail(function (error) {
-              // TODO: add more helpful error messaging
-              alert('errrror');
+              alert(`Podcast feed parsing failed. Please check your internet connection and try again.`);
               $('#addPodcastModalAddButton').html('Add');
             });
         }
       })
   } else {
-    alert('errrror');
+    alert(`Please provide a valid podcast RSS feed URL.`)
     $('#addPodcastModalAddButton').html('Add');
   }
 

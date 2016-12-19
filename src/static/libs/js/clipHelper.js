@@ -100,12 +100,12 @@ export function makeClip (event) {
   sendGoogleAnalyticsEvent('Make Clip', 'Make Clip')
 
   if (!isUUID(window.podcastId)) {
-    alert('errrror');
+    alert('Invalid podcast ID provided.')
     return;
   }
 
   if (!isInt(window.episodeId)) {
-    alert('errrror');
+    alert('Invalid episode ID provided.');
     return;
   }
 
@@ -200,9 +200,8 @@ export function makeClip (event) {
       }
     },
     error: function (xhr, status, error) {
-      // TODO: add more helpful error messaging
       console.log(error);
-      alert('errrror');
+      alert('Failed to create clip. Please check your internet connection and try again.');
     }
 
   });

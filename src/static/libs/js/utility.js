@@ -66,7 +66,7 @@ export function convertHHMMSSToSeconds (hhmmssString) {
 
 
     if (hours < 0 || minutes > 59 || minutes < 0 || seconds > 59 || seconds < 0) {
-      console.log('errrror');
+      console.log('Invalid time provided.');
       return -1;
     }
 
@@ -78,7 +78,7 @@ export function convertHHMMSSToSeconds (hhmmssString) {
     seconds = parseInt(hhmmssArray[1]);
 
     if (minutes > 59 || minutes < 0 || seconds > 59 || seconds < 0) {
-      console.log('errrror');
+      console.log('Invalid time provided.');
       return -1;
     }
 
@@ -88,12 +88,12 @@ export function convertHHMMSSToSeconds (hhmmssString) {
     seconds = parseInt(hhmmssArray[0]) || 0;
 
     if (seconds > 59 || seconds < 0) {
-      console.log('errrror');
+      console.log('Invalid time provided.');
       return -1;
     }
 
   } else {
-    console.log('errrror');
+    console.log('Invalid time provided.');
     return -1;
   }
 

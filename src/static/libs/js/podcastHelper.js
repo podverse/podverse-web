@@ -30,13 +30,8 @@ export function subscribeToPodcast(id) {
     headers: {
       Authorization: $.cookie('idToken')
     },
-    // success: TODO: handle loading spinner
-    // success: function (res) {
-    //   console.log(res);
-    // },
     error: function (xhr, status, error) {
-      // TODO: add more helpful error messaging
-      alert('errrror');
+      alert('Failed to subscribe to podcast. Please check your internet connection and try again.');
     }
   });
 
@@ -52,8 +47,7 @@ export function unsubscribeFromPodcast (id) {
     },
     // success: TODO: handle loading spinner
     error: function (xhr, status, error) {
-      // TODO: add more helpful error messaging
-      alert('errrror');
+      alert('Failed to unsubscribe from podcast. Please check your internet connection and try again.');
     }
   });
 
