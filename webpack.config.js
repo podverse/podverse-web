@@ -23,6 +23,7 @@ module.exports ={
 
     entry: {
         'about/index': [__dirname + '/src/static/libs/js/views/about/index.js'],
+        // 'faq/index': [__dirname + '/src/static/libs/js/views/faq/index.js'],
         'home/index': [__dirname + '/src/static/libs/js/views/home/index.js'],
         'login/redirect': [__dirname + '/src/static/libs/js/views/login/redirect.js'],
         // 'mobile-app/index': [__dirname + '/src/static/libs/js/views/mobile-app/index.js'],

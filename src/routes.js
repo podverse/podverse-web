@@ -431,6 +431,11 @@ function routes () {
     res.render('about/index.html', req.query);
   })
 
+  .get('/faq', function (req, res) {
+    req.query['currrentPage'] = 'FAQ Page';
+    res.render('faq/index.html', req.query);
+  })
+
   // .get('/mobile-app', function (req, res) {
   //   req.query['currrentPage'] = 'Mobile App Page';
   //   res.render('mobile-app/index.html', req.query);

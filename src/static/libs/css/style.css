@@ -140,7 +140,8 @@ a.footer-social-icon {
 }
 
 #footer-links a {
-    margin-right: 1.25rem;
+    margin: 0 15px 0 -10px;
+    padding: 10px;
 }
 
 #footer-license {
@@ -148,6 +149,11 @@ a.footer-social-icon {
     clear: right;
     font-size: 13px;
     line-height: 1.5rem;
+}
+
+#footer-license a {
+    margin: 0 -10px 0 0;
+    padding: 10px;
 }
 
 footer p {
@@ -160,6 +166,14 @@ footer p {
 #navbarSearchModalAddPodcast {
     float: right;
     font-size: 14px;
+}
+
+
+
+/*** #feedbackModal styles ***/
+#feedbackModal .btn {
+    width: 100px;
+    margin-left: 1rem;
 }
 
 
@@ -876,6 +890,20 @@ footer p {
 .playlist-list-item-subtitle {
     font-size: 14px;
     margin-top: 8px;
+}
+
+
+
+/* about.html styles */
+#about-social-icons {
+    margin-left: -10px;
+}
+
+#about-social-icons a {
+    color: #373a3c;
+    text-decoration: none;
+    font-size: 20px;
+    padding: 10px;
 }
 
 
