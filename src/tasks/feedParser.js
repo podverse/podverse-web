@@ -74,6 +74,26 @@ function saveParsedFeedToDatabase (parsedFeedObj) {
   let podcast = parsedFeedObj.podcast;
   let episodes = parsedFeedObj.episodes;
 
+  // Check if the feed looks like a Podcast RSS feed.
+  // If no audio items are found in the expected enclosures url field,
+  // then the feed might be a blog, and we should cancel parsing.
+  let hasValidEpisode = false;
+
+  for (var episode of episodes) {
+    if (episode.enclosures && episode.enclosures[0] && episode.enclosures[0].url) {
+      let url = episode.enclosures[0].url;
+
+      if (url.indexOf('.mp3') > -1 || url.indexOf('.ogg') > -1 || url.indexOf('.m4a') > -1) {
+        hasValidEpisode = true;
+        break;
+      }
+    }
+  }
+
+  if (hasValidEpisode === false) {
+    throw new errors.GeneralError('No episodes were found in this RSS feed.');
+  }
+
   return Podcast.findOrCreate({
     where: {
       feedURL: podcast.xmlurl
