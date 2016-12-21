@@ -11,7 +11,12 @@ $('#myPlaylistsDropdown a').on('click', function () {
   $('#playlist-list-recommended-for-me').hide();
   $('#playlist-list-recommended-by-me').hide();
 
-  if (selectedVal === 'My Playlists') {
+  if (selectedVal === 'All Playlists') {
+    $('#playlist-list-my-playlists').show();
+    $('#playlist-list-recommended-for-me').show();
+    $('#playlist-list-recommended-by-me').show();
+    sendGoogleAnalyticsEvent('Playlists', 'show All Playlists');
+  } else if (selectedVal === 'My Playlists') {
     $('#playlist-list-my-playlists').show();
     sendGoogleAnalyticsEvent('Playlists', 'show My Playlists');
   } else if (selectedVal === 'Recommended for Me') {

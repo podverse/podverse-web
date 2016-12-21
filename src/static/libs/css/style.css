@@ -830,10 +830,6 @@ footer p {
   margin: 1.25rem 0 1.5rem 0;
 }
 
-#playlist-list-recommended-by-me, #playlist-list-recommended-for-me {
-    display: none;
-}
-
 .playlist-list-item {
   clear: both;
   margin: 0 0 1.5rem 0;
