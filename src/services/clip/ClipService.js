@@ -61,7 +61,8 @@ class ClipService extends SequelizeService {
 
     return new Promise((resolve, reject) => {
 
-      const {Episode, Podcast} = this.Models;
+      const {MediaRef, Episode, Podcast, Playlist, User} = this.Models;
+      const PlaylistService = locator.get('PlaylistService');
 
       let podcast = this._resolvePodcastData(data),
         episode = data.episode,
@@ -94,7 +95,45 @@ class ClipService extends SequelizeService {
         // Then create the MediaRef
         .then(([episode]) => {
           const clip = Object.assign({}, data, {episodeId: episode.id});
-          resolve(super.create(clip, params));
+
+          return MediaRef.create(clip)
+            .then((c) => {
+
+              // If user is logged in, then add the clip to their My Clips playlist
+              if (params.userId) {
+
+                return User.findById(params.userId)
+                  .then(user => {
+                    let ownerName = user.name || '';
+                    let myClipsPlaylist = {};
+                    myClipsPlaylist.title = 'My Clips';
+                    myClipsPlaylist.isMyClips = true;
+                    myClipsPlaylist.ownerName = ownerName;
+
+                    return Playlist.findOrCreate({
+                      where: {
+                        ownerId: params.userId,
+                        $and: {
+                          isMyClips: true
+                        }
+                      },
+                      defaults: myClipsPlaylist
+                    }).then(playlists => {
+
+                      let playlist = playlists[0];
+                      playlist.dataValues.playlistItems = [c.id];
+                      return PlaylistService.update(playlist.dataValues.id, playlist.dataValues, { userId: params.userId })
+                        .then(updatedPlaylist => {
+                          resolve(c);
+                        })
+                    })
+                })
+              } else {
+                resolve(c);
+              }
+
+            })
+
         })
 
         .catch(e => {
