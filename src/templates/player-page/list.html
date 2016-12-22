@@ -33,6 +33,9 @@
               <div class="playlist-item-time">
                   Full Episode – {{ item.episode.duration | convertSecToHHMMSS }}
               </div>
+              <div class="playlist-item-date">
+                {{ item.episode.pubDate | readableDate }}
+              </div>
             </div><!-- /.playlist-item-text-wrapper -->
             {% if item.episode.summary %}
               <div class="playlist-item-details">
@@ -60,6 +63,9 @@
                 {% if item.endTime %}
                   to {{ item.endTime | convertSecToHHMMSS }}
                 {% endif %}
+              </div>
+              <div class="playlist-item-date">
+                {{ item.episode.pubDate | readableDate }}
               </div>
             </div><!-- /.playlist-item-text-wrapper -->
             {% if item.description %}

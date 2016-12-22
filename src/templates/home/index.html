@@ -18,15 +18,19 @@
                 {{ clip.episode.title }}
               </div>
               <div class="playlist-item-time">
+                Clip:
                 {{ clip.startTime | convertSecToHHMMSS }}
                 {% if clip.endTime %}
                   to {{ clip.endTime | convertSecToHHMMSS }}
                 {% endif %}
               </div>
+              <div class="playlist-item-date">
+                {{ clip.episode.pubDate | readableDate }}
+              </div>
             </div>
             {% if clip.title %}
               <div class="playlist-item-details">
-                {{ clip.title }}
+                {{ clip.title | truncate(250) }}
               </div>
             {% endif %}
           </div><!-- /.playlist-item-inner -->

@@ -591,14 +591,15 @@ footer p {
     cursor: pointer;
     padding: 1rem 0;
     border-top: 1px solid transparent;
-    border-bottom: 1px dotted #eee;
+    border-bottom: 1px solid #f7f7f7;
     color: #373a3c;
     text-decoration: none !important;
+    margin-top: -1px;
 }
 
 .playlist-item:hover {
-    border-top: 1px solid #ccc;
-    border-bottom: 1px solid #ccc;
+    border-top: 1px solid #d7d7d7;
+    border-bottom: 1px solid #d7d7d7;
     color: #373a3c;
 }
 
@@ -623,16 +624,26 @@ footer p {
     overflow: hidden;
     font-weight: 600;
     cursor: pointer;
+    margin-top: 1px;
 }
 
 .playlist-item-sub-title {
     overflow: hidden;
     cursor: pointer;
-    font-weight: 400;
 }
 
 .playlist-item-time {
-    font-weight: 400;
+    font-size: 12px;
+    color: #777;
+    margin-top: 2px;
+    float: left;
+}
+
+.playlist-item-date {
+    float: right;
+    font-size: 12px;
+    color: #777;
+    margin-top: 2px;
 }
 
 .playlist-item-details {
