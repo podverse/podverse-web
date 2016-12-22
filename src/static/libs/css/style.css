@@ -883,8 +883,9 @@ footer p {
 
 
 /* about.html styles */
+
 #about-social-icons {
-    margin-left: -10px;
+    margin-left: -9px;
 }
 
 #about-social-icons a {
