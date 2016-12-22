@@ -26,7 +26,7 @@ var options = {
   },
 };
 
-let lock = new Auth0Lock(clientId, domain, options);
+let lock = new Auth0Lock.default(clientId, domain, options);
 
 $(window).ready(() => {
   $('#login-btn').on('click', () => {

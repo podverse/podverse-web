@@ -63,7 +63,8 @@ module.exports ={
             "window.$": "jquery",
             "window.jQuery": "jquery",
             "window.Tether": "tether",
-            "Bloodhound": "typeahead"
+            "Bloodhound": "typeahead",
+            "Auth0Lock": "auth0-lock"
         }),
         new webpack.optimize.CommonsChunkPlugin("vendors", "vendors.js", Infinity)
     ],
