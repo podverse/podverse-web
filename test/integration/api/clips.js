@@ -1,7 +1,11 @@
 const {locator} = require('locator.js');
 
 const appFactory = require('appFactory.js');
-const {configureDatabaseModels, createTestPodcastAndEpisode, createValidTestJWT, createTestApp} = require('test/helpers.js');
+const {configureDatabaseModels,
+       createTestApp,
+       createTestUser,
+       createTestPodcastAndEpisode,
+       createValidTestJWT} = require('test/helpers.js');
 
 const ClipService = require('services/clip/ClipService.js');
 const PlaylistService = require('services/playlist/PlaylistService.js');
@@ -14,14 +18,19 @@ describe('API Test: Clips', function () {
   configureDatabaseModels(function (Models) {
     this.Models = Models;
   });
-
+  
   beforeEach(function (done) {
 
     createTestPodcastAndEpisode(this.Models)
       .then(([podcast, episode]) => {
         this.testPodcast = podcast;
         this.testEpisode = episode;
-        done();
+
+        createTestUser(this.Models)
+          .then(user => {
+            this.user = user;
+            done();
+          })
       });
 
   });

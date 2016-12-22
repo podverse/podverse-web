@@ -148,5 +148,6 @@ module.exports = {
   createValidTestJWT,
   createTestPodcastAndEpisode,
   createTestPlaylist,
-  createTestMediaRefs
+  createTestMediaRefs,
+  createTestUser
 };
