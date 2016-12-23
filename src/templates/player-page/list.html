@@ -14,7 +14,11 @@
       {% endif %}
     </div>
     <div id="playlist-subtitle">
-      From: {{ ownerName }}
+      {% if isRecommendation %}
+        From: {{ ownerName }}
+      {% else %}
+        By: {{ ownerName }}
+      {% endif %}
     </div>
     {% for item in mediaRefs %}
       {% if item|isEpisode %}
