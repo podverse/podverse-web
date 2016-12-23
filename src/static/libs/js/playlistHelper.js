@@ -10,7 +10,6 @@ export function togglePlaylistWidget (_this) {
   }
 
   if ($('#make-clip').css('display') !== 'block' && $('#recommend').css('display') !== 'block') {
-    $('#player-stats').toggle();
     $('#player-description-truncated').hide();
     $('#player-description-full').hide();
   }

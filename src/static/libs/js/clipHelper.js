@@ -73,7 +73,6 @@ export function setEndTime () {
 
 export function toggleMakeClipWidget (_this) {
   if ($('#add-to-playlist').css('display') !== 'block' && $('#recommend').css('display') !== 'block') {
-    $('#player-stats').toggle();
     $('#player-description-truncated').hide();
     $('#player-description-full').hide();
   }

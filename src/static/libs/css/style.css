@@ -341,14 +341,35 @@ footer p {
 
 #player-sub-title {
     line-height: 1.5rem;
-    font-weight: 300;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    margin-top: 2px;
 }
 
 #player-sub-title a {
     color: #373a3c;
+}
+
+#player-stats {
+    line-height: 1.5rem;
+    margin: 2px 0 0 0;
+    font-size: 14px;
+}
+
+#player-stats-duration {
+    float: left;
+    color: #777;
+    cursor: pointer;
+}
+
+#player-stats-duration:hover {
+    text-decoration: underline;
+}
+
+#player-stats-pub-date {
+    float: right;
+    color: #777;
 }
 
 #player {
@@ -471,32 +492,6 @@ footer p {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-}
-
-
-
-/*** player-stats.html styles ***/
-
-#player-stats {
-    margin: 0 0 0.5rem 0;
-    font-size: 14px;
-}
-
-#player-stats-duration {
-    float: left;
-    color: #777;
-    font-weight: 600;
-    cursor: pointer;
-}
-
-#player-stats-duration:hover {
-    text-decoration: underline;
-    color: #999;
-}
-
-#player-stats-pub-date {
-    float: right;
-    color: #777;
 }
 
 

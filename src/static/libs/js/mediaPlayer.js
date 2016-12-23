@@ -103,8 +103,8 @@ function setPlayerInfo () {
 
   if (isEpisode === false) {
     var duration = calcDuration(startTime, endTime);
-    $('#player-stats-duration').html(convertSecToHHMMSS(startTime) + ' to ' + convertSecToHHMMSS(endTime));
-    $('#player-condensed-text').html(convertSecToHHMMSS(startTime) + ' to ' + convertSecToHHMMSS(endTime) + ' – ' + description);
+    $('#player-stats-duration').html('Clip: ' + convertSecToHHMMSS(startTime) + ' to ' + convertSecToHHMMSS(endTime));
+    $('#player-condensed-text').html('Clip: ' + convertSecToHHMMSS(startTime) + ' to ' + convertSecToHHMMSS(endTime) + ' – ' + description);
     $('#player-condensed-text').addClass('should-show');
   } else {
     $('#player-stats-duration').html('Full Episode');
@@ -189,6 +189,14 @@ function setPlayerInfo () {
 
   var playerWidth = $('#player-inner').width();
   $('#player-condensed-inner').css('width', playerWidth);
+
+  let updateCondensedPlayerWidth = debounce(function () {
+    console.log('hello')
+    var playerWidth = $('#player-inner').width();
+    $('#player-condensed-inner').css('width', playerWidth);
+  }, 150);
+
+  window.addEventListener('resize', updateCondensedPlayerWidth);
 
 }
 

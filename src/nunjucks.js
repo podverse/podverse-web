@@ -87,6 +87,14 @@ function nunjucksConfig () {
       result += '00';
     }
 
+    if (result.length == 2) {
+      result = '0:' + result;
+    }
+
+    if (result.length == 1) {
+      result = '0:0' + result;
+    }
+
     return result
   });
 

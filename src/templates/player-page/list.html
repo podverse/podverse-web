@@ -2,15 +2,15 @@
   <hr />
   <div id="playlist">
     {% if isSubscribed and not isOwner %}
-      <div id="playlist-subscribe" title="Unsave playlist"><i class="fa fa-star"></i> saved</div>
+      <div id="playlist-subscribe" title="Unsave playlist"><i class="fa fa-star"></i> Saved</div>
     {% elif not isSubscribed and not isOwner %}
-      <div id="playlist-subscribe" title="Save playlist">save</div>
+      <div id="playlist-subscribe" title="Save playlist">Save Playlist</div>
     {% endif %}
     <div id="playlist-title">
       {% if isRecommendation %}
-        Recommended for {{ title }}
+        <i class="fa fa-list-ul"></i>&nbsp;Recommended for {{ title }}
       {% else %}
-        <i class="fa fa-list-ul"></i> {{ title }}
+        <i class="fa fa-list-ul"></i>&nbsp;{{ title }}
       {% endif %}
     </div>
     <div id="playlist-subtitle">
