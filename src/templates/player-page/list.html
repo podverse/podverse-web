@@ -49,7 +49,7 @@
             <div style="clear:both"></div>
           </div><!-- /.playlist-item-inner -->
         </div><!-- /.playlist-item -->
-      {% else %} <!-- else treat it as an episode -->
+      {% else %} <!-- else treat it as a clip -->
         <div class="playlist-item">
           <div class="playlist-item-inner">
             <div class="playlist-item-image">
@@ -72,9 +72,9 @@
                 {{ item.episode.pubDate | readableDate }}
               </div>
             </div><!-- /.playlist-item-text-wrapper -->
-            {% if item.description %}
+            {% if item.title %}
               <div class="playlist-item-details">
-                {{ item.description }}
+                {{ item.title | truncate(295) }}
               </div>
             {% endif %}
             <div style="clear:both"></div>
