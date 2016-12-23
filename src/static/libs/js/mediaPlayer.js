@@ -135,11 +135,28 @@ function setPlayerInfo () {
     $('<hr id="player-hr">').insertAfter('#player-functions');
   }
 
-  $('#player-description').html(description);
+  let truncDescription = description.substring(0, 286);
 
-  if (episodeImageURL) {
-    $('#player-episode-image').html('<img src="' + episodeImageURL + '" class="img-fluid">');
+  // Add "show more" if description was truncated
+  if (truncDescription.length > 285) {
+    // If last character is a space, remove it
+    if(/\s+$/.test(truncDescription)) {
+      truncDescription = truncDescription.slice(0,-1)
+    }
+
+    truncDescription += "... <span class='text-primary'><small>show more</small></span>";
   }
+
+  $('#player-description-truncated').html(truncDescription);
+  $('#player-description-full').html(description);
+
+  $('#player-description-truncated').show();
+  $('#player-description-full').hide();
+
+  $('#player-description-truncated').on('click', () => {
+    $('#player-description-truncated').hide();
+    $('#player-description-full').show();
+  })
 
   if (isSubscribed && isSubscribed != 'false') {
     $('#player-podcast-subscribe').html('<i class="fa fa-star"></i>');

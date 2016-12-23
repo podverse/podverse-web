@@ -74,12 +74,12 @@ export function setEndTime () {
 export function toggleMakeClipWidget (_this) {
   if ($('#add-to-playlist').css('display') !== 'block' && $('#recommend').css('display') !== 'block') {
     $('#player-stats').toggle();
-    $('#player-description').toggle();
-    $('#player-episode-image').toggle();
+    $('#player-description-truncated').hide();
+    $('#player-description-full').hide();
   }
 
   if ($(_this).hasClass('active')) {
-    $('#player-description').show();
+    $('#player-description-truncated').show();
   }
 
   $('#add-to-playlist').hide();
