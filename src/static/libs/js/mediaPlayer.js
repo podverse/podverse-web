@@ -191,7 +191,6 @@ function setPlayerInfo () {
   $('#player-condensed-inner').css('width', playerWidth);
 
   let updateCondensedPlayerWidth = debounce(function () {
-    console.log('hello')
     var playerWidth = $('#player-inner').width();
     $('#player-condensed-inner').css('width', playerWidth);
   }, 150);
