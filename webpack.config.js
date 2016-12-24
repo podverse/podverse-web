@@ -16,7 +16,6 @@ module.exports ={
             mediaElement: "mediaelement/build/mediaelement-and-player.min.js",
             mejsPlaybackRate: lib_dir + "/vendors/mejs_playbackrate_plugin.js",
             tether: "tether/dist/js/tether.min.js",
-            truncate: "truncate.js/dist/truncate.min.js",
             typeahead: "typeahead.js/dist/typeahead.bundle.min.js"
         }
     },
@@ -39,7 +38,6 @@ module.exports ={
                   "mediaElement",
                   "mejsPlaybackRate",
                   "tether",
-                  "truncate",
                   "typeahead"]
     },
 

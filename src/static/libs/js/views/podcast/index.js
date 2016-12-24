@@ -22,8 +22,7 @@ $('#podcast-subscribe').on('click', function () {
   }
 });
 
-$('#podcast-summary-truncated').truncate({ lines: 4 });
-$('#podcast-summary-truncated, #podcast-summary-full').on('click', function () {
+$('#podcast-summary-truncated').on('click', function () {
   $('#podcast-summary-truncated, #podcast-summary-full').toggle();
 })
 
