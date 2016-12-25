@@ -24,9 +24,11 @@
 
   window.isPlayerPage = true;
   window.isEmptyPlaylist = false;
+  window.isPlaylist = false;
 
   // If a mediaRefs object exists, then set window variables for the playlist page
   {% if mediaRefs|isPlaylist %}
+    window.isPlaylist = true;
 
     {% if mediaRefs|length %}
 

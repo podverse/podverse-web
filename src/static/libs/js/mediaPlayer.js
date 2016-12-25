@@ -112,6 +112,12 @@ function setPlayerInfo () {
     $('#player-stats-duration').html('Full Episode');
   }
 
+  if (isPlaylist && !isEpisode) {
+    $('#player-stats-duration-link').html('&nbsp;&nbsp;&nbsp;<a href="/clips/' + mediaRefId + '"><i class="fa fa-link"></i></a>')
+  } else if (isPlaylist && isEpisode) {
+    $('#player-stats-duration-link').html('&nbsp;&nbsp;&nbsp;<a href="/episodes/' + episodeId + '"><i class="fa fa-link"></i></a>')
+  }
+
   $('#player-condensed-title a').html(podcastTitle);
   $('#player-condensed-title a').attr('href', '/podcasts/' + podcastId);
   $('#player-condensed-sub-title').html(episodeTitle);

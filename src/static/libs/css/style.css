@@ -371,6 +371,19 @@ footer p {
     text-decoration: underline;
 }
 
+#player-stats-duration-link {
+    margin-left: 20px;
+}
+
+#player-stats-duration-link a {
+    color: #777;
+    cursor: pointer;
+}
+
+#player-stats-duration-link a:hover {
+    text-decoration: underline;
+}
+
 #player-stats-pub-date {
     float: right;
     color: #777;
