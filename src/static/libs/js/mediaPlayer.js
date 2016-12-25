@@ -47,6 +47,7 @@ function loadMediaRef (index, shouldPlay) {
     episodePubDate = item.episode.pubDate;
     description = item.title;
     mediaRefId = item.id;
+    isSubscribed = item.isSubscribed;
   } else { // handle item as episode
     podcastTitle = item.episode.podcast.title;
     podcastImageURL = item.episode.podcast.imageURL;
@@ -56,6 +57,7 @@ function loadMediaRef (index, shouldPlay) {
     startTime = 0;
     description = item.episode.summary;
     mediaRefId = 'episode_' + item.episode.id;
+    isSubscribed = item.isSubscribed;
   }
 
   window.location.hash = index + 1;
@@ -135,28 +137,33 @@ function setPlayerInfo () {
     $('<hr id="player-hr">').insertAfter('#player-functions');
   }
 
-  let truncDescription = description.substring(0, 286);
+  if (description) {
+    let truncDescription = description.substring(0, 286);
 
-  // Add "show more" if description was truncated
-  if (truncDescription.length > 285) {
-    // If last character is a space, remove it
-    if(/\s+$/.test(truncDescription)) {
-      truncDescription = truncDescription.slice(0,-1)
+    // Add "show more" if description was truncated
+    if (truncDescription.length > 285) {
+      // If last character is a space, remove it
+      if(/\s+$/.test(truncDescription)) {
+        truncDescription = truncDescription.slice(0,-1)
+      }
+
+      truncDescription += "... <span class='text-primary'><small>show more</small></span>";
     }
 
-    truncDescription += "... <span class='text-primary'><small>show more</small></span>";
+    description += '<hr>';
+    truncDescription += '<hr>';
+
+    $('#player-description-truncated').html(truncDescription);
+    $('#player-description-full').html(description);
+
+    $('#player-description-truncated').show();
+    $('#player-description-full').hide();
+
+    $('#player-description-truncated').on('click', () => {
+      $('#player-description-truncated').hide();
+      $('#player-description-full').show();
+    })
   }
-
-  $('#player-description-truncated').html(truncDescription);
-  $('#player-description-full').html(description);
-
-  $('#player-description-truncated').show();
-  $('#player-description-full').hide();
-
-  $('#player-description-truncated').on('click', () => {
-    $('#player-description-truncated').hide();
-    $('#player-description-full').show();
-  })
 
   if (isSubscribed && isSubscribed != 'false') {
     $('#player-podcast-subscribe').html('<i class="fa fa-star"></i>');

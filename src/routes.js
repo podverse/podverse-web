@@ -139,43 +139,37 @@ function routes () {
     return PlaylistService.get(req.params.id)
       .then(playlist => {
         req.params.playlistId = playlist.id;
-        // TODO: this is wildly bad and needs to be cleaned up.
-        // Maybe the isSubscribed stuff should be handled in a hook somehow.
         let mediaRefs = playlist.dataValues.mediaRefs;
-        let queue = Promise.resolve();
-        mediaRefs.forEach((mediaRef) => {
-          queue = queue.then(() => {
+        return new Promise((resolve, reject) => {
+          getUsersSubscribedPodcastIds(resolve, reject, req);
+        })
+          .then((subscribedPodcastIds) => {
+            mediaRefs.forEach(mediaRef => {
+              if (subscribedPodcastIds.includes(mediaRef.episode.podcast.id)) {
+                mediaRef.dataValues['isSubscribed'] = true;
+              }
+            });
             return new Promise((resolve, reject) => {
-              req.params.podcastId = mediaRef.episode.podcast.id;
-              isUserSubscribedToThisPodcast(resolve, reject, req);
+              isUserSubscribedToThisPlaylist(resolve, reject, req);
             })
               .then((isSubscribed) => {
-                mediaRef.dataValues['isSubscribed'] = isSubscribed;
-              })
-          });
-        });
-        queue.then(() => {
-          return new Promise((resolve, reject) => {
-            isUserSubscribedToThisPlaylist(resolve, reject, req);
+                playlist.dataValues['isSubscribed'] = isSubscribed;
+
+                if (playlist.dataValues['ownerId'] === req.feathers.userId) {
+                  playlist.dataValues['isOwner'] = true;
+                }
+
+                return new Promise((resolve, reject) => {
+                  gatherUsersOwnedPlaylists(resolve, reject, req);
+                })
+                  .then((usersOwnedPlaylists) => {
+                    playlist.dataValues['usersOwnedPlaylists'] = usersOwnedPlaylists;
+                    playlist.dataValues['currentPage'] = 'Playlist Detail Page';
+                    res.render('player-page/index.html', playlist.dataValues);
+                  });
+              });
           })
-            .then((isSubscribed) => {
-              playlist.dataValues['isSubscribed'] = isSubscribed;
-
-              if (playlist.dataValues['ownerId'] === req.feathers.userId) {
-                playlist.dataValues['isOwner'] = true;
-              }
-
-              return new Promise((resolve, reject) => {
-                gatherUsersOwnedPlaylists(resolve, reject, req);
-              })
-                .then((usersOwnedPlaylists) => {
-                  playlist.dataValues['usersOwnedPlaylists'] = usersOwnedPlaylists;
-                  playlist.dataValues['currentPage'] = 'Playlist Detail Page';
-                  res.render('player-page/index.html', playlist.dataValues);
-                });
-            })
-        })
-
+          
       }).catch(e => {
         res.sendStatus(404);
       });
@@ -441,6 +435,25 @@ function routes () {
   //   res.render('mobile-app/index.html', req.query);
   // })
 
+}
+
+function getUsersSubscribedPodcastIds (resolve, reject, req) {
+  if (isNonAnonUser(req.feathers.userId)) {
+    console.log('is non anon');
+    const UserService = locator.get('UserService');
+    return UserService.get(req.feathers.userId, { userId: req.feathers.userId })
+      .then(user => {
+        let subscribedPodcastIds = user.podcasts.map(podcast => {
+          return podcast.id;
+        });
+        resolve(subscribedPodcastIds);
+      })
+      .catch(e => {
+        reject(e);
+      })
+  } else {
+    resolve(false);
+  }
 }
 
 // TODO: where should this function go?
