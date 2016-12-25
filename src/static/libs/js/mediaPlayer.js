@@ -113,9 +113,9 @@ function setPlayerInfo () {
   }
 
   if (isPlaylist && !isEpisode) {
-    $('#player-stats-duration-link').html('&nbsp;&nbsp;&nbsp;<a href="/clips/' + mediaRefId + '"><i class="fa fa-link"></i></a>')
+    $('#player-stats-duration-link').html('<a href="/clips/' + mediaRefId + '"><i class="fa fa-link"></i></a>')
   } else if (isPlaylist && isEpisode) {
-    $('#player-stats-duration-link').html('&nbsp;&nbsp;&nbsp;<a href="/episodes/' + episodeId + '"><i class="fa fa-link"></i></a>')
+    $('#player-stats-duration-link').html('<a href="/episodes/' + episodeId + '"><i class="fa fa-link"></i></a>')
   }
 
   $('#player-condensed-title a').html(podcastTitle);

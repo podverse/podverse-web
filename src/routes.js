@@ -169,7 +169,7 @@ function routes () {
                   });
               });
           })
-          
+
       }).catch(e => {
         res.sendStatus(404);
       });
@@ -439,7 +439,6 @@ function routes () {
 
 function getUsersSubscribedPodcastIds (resolve, reject, req) {
   if (isNonAnonUser(req.feathers.userId)) {
-    console.log('is non anon');
     const UserService = locator.get('UserService');
     return UserService.get(req.feathers.userId, { userId: req.feathers.userId })
       .then(user => {
