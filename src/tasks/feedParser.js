@@ -112,6 +112,10 @@ function saveParsedFeedToDatabase (parsedFeedObj) {
   let podcast = parsedFeedObj.podcast;
   let episodes = parsedFeedObj.episodes;
 
+  // Reduce the episodes array to 5000 items, in case someone maliciously tries
+  // to overload the database
+  episodes = episodes.slice(0, 5000);
+
   // Check if the feed looks like a Podcast RSS feed.
   // If no audio items are found in the expected enclosures url field,
   // then the feed might be a blog, and we should cancel parsing.
