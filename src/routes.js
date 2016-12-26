@@ -144,6 +144,7 @@ function routes () {
           getUsersSubscribedPodcastIds(resolve, reject, req);
         })
           .then((subscribedPodcastIds) => {
+            subscribedPodcastIds = subscribedPodcastIds || [];
             mediaRefs.forEach(mediaRef => {
               if (subscribedPodcastIds.includes(mediaRef.episode.podcast.id)) {
                 mediaRef.dataValues['isSubscribed'] = true;
@@ -171,6 +172,7 @@ function routes () {
           })
 
       }).catch(e => {
+        console.log(e);
         res.sendStatus(404);
       });
   })
