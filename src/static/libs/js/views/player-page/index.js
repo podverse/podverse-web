@@ -26,9 +26,7 @@ initClipper();
 // Make Clip widget onclick functions
 $('#toggle-make-clip-btn').on('click', function () {
   toggleMakeClipWidget(this);
-  if ($('#make-clip-start-time input').val() === '') {
-    setStartTime();
-  }
+  setStartTime();
 });
 
 $('#make-clip-start-time button').on('click', function () {
