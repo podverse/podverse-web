@@ -153,6 +153,8 @@ a.footer-social-icon {
     clear: right;
     font-size: 13px;
     line-height: 1.5rem;
+    width: 100px;
+    text-align: right;
 }
 
 #footer-license a {
