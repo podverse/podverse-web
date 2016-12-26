@@ -248,6 +248,7 @@ function routes () {
         })
         .catch(e => {
           // TODO: I reallly need to learn how to handle errors. I have no idea.
+          console.log(e);
           res.sendStatus(500);
           throw new errors.GeneralError(e);
         });

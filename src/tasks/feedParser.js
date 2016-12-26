@@ -125,7 +125,7 @@ function saveParsedFeedToDatabase (parsedFeedObj) {
     if (episode.enclosures && episode.enclosures[0] && episode.enclosures[0].url) {
       let url = episode.enclosures[0].url;
 
-      if (url.indexOf('.mp3') > -1 || url.indexOf('.ogg') > -1 || url.indexOf('.m4a') > -1) {
+      if (url.indexOf('.mp3') > -1 || url.indexOf('.ogg') > -1 || url.indexOf('.m4a') > -1 || url.indexOf('.mp4') > -1) {
         hasValidEpisode = true;
         break;
       }
