@@ -214,23 +214,28 @@ function setPlayerInfo () {
 
 function createAndAppendAudio () {
 
-  // If audio player elements are already on the page, remove them first.
-  $('.mejs-offscreen').remove();
-  $('.mejs-container').remove();
+  // If a new media file is loaded, reappend audio element
+  if (episodeMediaURL !== previousEpisodeMediaURL) {
+    window.previousEpisodeMediaURL = episodeMediaURL;
+    // If audio player elements are already on the page, remove them first.
+    $('.mejs-offscreen').remove();
+    $('.mejs-container').remove();
 
-  window.audio = document.createElement('audio');
-  audio.setAttribute('src', episodeMediaURL);
-  audio.setAttribute('type', 'audio/mpeg');
-  audio.setAttribute('codecs', 'mp3');
-  audio.preload = "auto";
-  $('#player').append(audio);
+    window.audio = document.createElement('audio');
+    audio.setAttribute('src', episodeMediaURL);
+    audio.setAttribute('type', 'audio/mpeg');
+    audio.setAttribute('codecs', 'mp3');
+    audio.preload = "auto";
+    $('#player').append(audio);
 
-  $('audio').mediaelementplayer({
-    // the order of controls you want on the control bar (and other plugins below)
-    features: ['playpause', 'current', 'progress', 'duration', 'volume', 'fasterslower'],
-    alwaysShowHours: true,
-    alwaysShowControls: true
-  });
+    $('audio').mediaelementplayer({
+      // the order of controls you want on the control bar (and other plugins below)
+      features: ['playpause', 'current', 'progress', 'duration', 'volume', 'fasterslower'],
+      alwaysShowHours: true,
+      alwaysShowControls: true
+    });
+
+  }
 
   audio.onloadedmetadata = function() {
     // NOTE: If the lastPlaybackPosition is greater than -1, then the audio player must
@@ -280,6 +285,17 @@ function createAndAppendAudio () {
     if (Math.floor(audio.currentTime) === endTime && endTimeHasBeenReached === false) {
       endTimeHasBeenReached = true;
       audio.pause();
+
+      var autoplay = $.cookie('autoplay');
+      if (isPlaylist && autoplay === 'true') {
+        if (urlHashIndexValue < mediaRefs.length - 1) {
+          urlHashIndexValue++;
+          window.location.hash = urlHashIndexValue;
+          lastPlaybackPosition = -1;
+          loadMediaRef(urlHashIndexValue, true)
+          return;
+        }
+      }
     }
 
     // TODO: Can this be made more efficient than rewriting the lastPlaybackPosition
@@ -373,6 +389,7 @@ $('#player-stats-duration').on('click', function () {
 $('.playlist-item').on('click', function() {
   if (isPlayerPage) {
     var index = $(".playlist-item").index(this);
+    urlHashIndexValue = index;
     loadMediaRef(index, true);
     sendGoogleAnalyticsEvent('Media Player', 'Playlist Item Clicked');
   }

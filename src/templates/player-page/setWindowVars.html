@@ -25,6 +25,7 @@
   window.isPlayerPage = true;
   window.isEmptyPlaylist = false;
   window.isPlaylist = false;
+  window.previousEpisodeMediaURL = null;
 
   // If a mediaRefs object exists, then set window variables for the playlist page
   {% if mediaRefs|isPlaylist %}
@@ -41,6 +42,7 @@
       if (urlHashIndexValue > 0) {
         item = mediaRefs[urlHashIndexValue];
       } else {
+        window.urlHashIndexValue = 0;
         item = mediaRefs[0];
       }
 
