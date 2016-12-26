@@ -440,6 +440,10 @@ footer p {
     height: 30px;
 }
 
+#player .mejs-controls .mejs-time-rail .mejs-time-float {
+    width: 48px;
+}
+
 
 #make-clip, #add-to-playlist, #recommend {
     display: none;
