@@ -1,7 +1,7 @@
 const
     errors = require('feathers-errors'),
     {locator} = require('locator.js'),
-    {parseFeed, saveParsedFeedToDatabase} = require('tasks/feedParser.js'),
+    {parseFullFeedIfFeedHasBeenUpdated, saveParsedFeedToDatabase} = require('tasks/feedParser.js'),
     {isClipMediaRefWithTitle} = require('constants.js'),
     {verifyNonAnonUser} = require('middleware/auth/verifyNonAnonUser.js'),
     {queryGoogleApiData} = require('services/googleapi/googleapi.js'),
@@ -226,7 +226,10 @@ function routes () {
 
   .post('/parse', (req, res) => {
     if (req.body.feedURL) {
-      parseFeed(req.body.feedURL)
+
+      return new Promise((resolve, reject) => {
+        parseFullFeedIfFeedHasBeenUpdated(resolve, reject, req.body.feedURL)
+      })
         .then(parsedFeedObj => {
           return saveParsedFeedToDatabase(parsedFeedObj);
         })

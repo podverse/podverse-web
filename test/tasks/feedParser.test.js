@@ -33,7 +33,7 @@ describe('feedParser', function () {
     describe('when an invalid RSS URL is provided', function () {
 
       beforeEach(function (done) {
-        feedParser.parseFeed('http://www.podverse.fm/fakepage')
+        feedParser.parseFeed('http://www.podverse.fm/fakepage', true)
           .then(done)
           .catch(err => {
             this.err = err;
@@ -50,7 +50,7 @@ describe('feedParser', function () {
     describe('when a valid RSS URL is provided', function () {
 
       beforeEach(function (done) {
-        feedParser.parseFeed('http://localhost:1234/localFeed')
+        feedParser.parseFeed('http://localhost:1234/localFeed', true)
           .then(parsedFeedObj => {
             this.parsedFeedObj = parsedFeedObj;
             done();

@@ -4,7 +4,38 @@ const
     {locator} = require('locator.js'),
     errors = require('feathers-errors');
 
-function parseFeed (feedURL) {
+// If the podcast's lastBuildDate stored in the db is older than the lastBuildDate
+// in the feed, then parse the full feed.
+function parseFullFeedIfFeedHasBeenUpdated (resolve, reject, feedURL) {
+  let Models = locator.get('Models');
+  let {Podcast} = Models;
+
+  return Podcast.findOne({
+    where: {
+      feedURL: feedURL
+    },
+    attributes: ['lastBuildDate']
+  })
+  .then(podcast => {
+
+    parseFeed(feedURL, false)
+      .then(parsedFeedObj => {
+
+        if (!podcast || !podcast.lastBuildDate || parsedFeedObj.date > podcast.lastBuildDate) {
+          parseFeed(feedURL, true)
+            .then(fullParsedFeedObj => {
+              resolve(fullParsedFeedObj);
+            })
+        } else {
+          resolve(parsedFeedObj);
+        }
+
+      })
+
+  })
+}
+
+function parseFeed (feedURL, shouldParseEpisodes) {
 
   return new Promise ((res, rej) => {
 
@@ -33,16 +64,23 @@ function parseFeed (feedURL) {
 
     feedParser.on('meta', function (meta) {
       podcastObj = meta;
-    });
 
-    feedParser.on('readable', function () {
-      let stream = this,
-          item;
-
-      while (item = stream.read()) {
-        episodeObjs.push(item);
+      if (!shouldParseEpisodes) {
+        done();
       }
+
     });
+
+    if (shouldParseEpisodes) {
+      feedParser.on('readable', function () {
+        let stream = this,
+            item;
+
+        while (item = stream.read()) {
+          episodeObjs.push(item);
+        }
+      });
+    }
 
     feedParser.on('error', done);
     feedParser.on('end', done);
@@ -163,5 +201,6 @@ function pruneEpisode(ep) {
 
 module.exports = {
   parseFeed,
+  parseFullFeedIfFeedHasBeenUpdated,
   saveParsedFeedToDatabase
 }
