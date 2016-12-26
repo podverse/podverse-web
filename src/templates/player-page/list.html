@@ -7,9 +7,9 @@
     {% endif %}
     <div id="playlist-title">
       {% if isRecommendation %}
-        <i class="fa fa-list-ul"></i>&nbsp;Recommended for {{ title }}
+        <i class="fa fa-list-ul"></i>&nbsp;Recommended for {{ title }} ({{ mediaRefs | length }})
       {% else %}
-        <i class="fa fa-list-ul"></i>&nbsp;{{ title }}
+        <i class="fa fa-list-ul"></i>&nbsp;{{ title }} ({{ mediaRefs | length }})
       {% endif %}
     </div>
     <div id="playlist-subtitle">
