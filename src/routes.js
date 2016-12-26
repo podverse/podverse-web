@@ -225,6 +225,11 @@ function routes () {
   .use('episodes', locator.get('EpisodeService'))
 
   .post('/parse', (req, res) => {
+
+    if (!req.feathers.isAdmin) {
+      throw new errors.GeneralError('Unauthorized: you must be an admin to parse feeds.');
+    }
+
     if (req.body.feedURL) {
 
       return new Promise((resolve, reject) => {

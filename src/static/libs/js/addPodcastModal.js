@@ -21,7 +21,7 @@ export function addPodcastModalSave () {
               window.location = '/podcasts/' + data.id;
             })
             .fail(function (error) {
-                alert(`Podcast feed parsing failed. You might not have provided a valid RSS feed URL. Contact us if you want help :)`);
+                alert(`Podcast feed parsing failed. You might not have admin permission, or you provided an invalid RSS feed URL. Contact us if you want help :)`);
               $('#addPodcastModalAddButton').html('Add');
             });
         }

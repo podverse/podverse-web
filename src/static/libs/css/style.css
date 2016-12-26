@@ -167,10 +167,19 @@ footer p {
 
 
 /*** #navbarSearchModal styles ***/
-#navbarSearchModalAddPodcast {
+#navbarSearchModalRequestPodcast, #navbarSearchModalAddPodcast {
     float: right;
     font-size: 14px;
+    display: none;
 }
+
+.request-podcast-contact-label {
+    width: 40px;
+    float: left;
+    font-size: 24px;
+    margin-top: -6px;
+}
+
 
 
 

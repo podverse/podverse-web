@@ -24,6 +24,11 @@ function processJWTIfExists (req, res, next) {
   try {
     const verifiedJwt = nJwt.verify(token, config.jwtSigningKey);
     req.feathers.userId = verifiedJwt.body.sub;
+
+    if (verifiedJwt.body.user_metadata) {
+      req.feathers.isAdmin = verifiedJwt.body.user_metadata.admin;
+    }
+
   } catch(e) {
     next();
     return;

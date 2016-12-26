@@ -10,7 +10,7 @@ var options = {
     redirectUrl: __BASE_URL__ + '/login-redirect?redirectTo=' + location.href,
     responseType: 'token',
     params: {
-      scope: 'openid name email'
+      scope: 'openid name email user_metadata'
     }
   },
   additionalSignUpFields: [{
@@ -85,12 +85,18 @@ function saveUserProfileToLocalStorage (profile) {
   localStorage.setItem('email', profile.email);
   localStorage.setItem('nickname', profile.nickname);
   localStorage.setItem('picture', profile.picture);
+
+  if (profile.user_metadata && profile.user_metadata.admin) {
+    localStorage.setItem('isAdmin', profile.user_metadata.admin);
+  }
+
 }
 
 function removeUserProfileFromLocalStorage () {
   localStorage.removeItem('email');
   localStorage.removeItem('nickname');
   localStorage.removeItem('picture');
+  localStorage.removeItem('isAdmin');
 }
 
 export function logoutUser () {

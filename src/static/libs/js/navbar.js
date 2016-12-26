@@ -11,6 +11,12 @@ if (location.href.indexOf('#access_token') === -1) {
   } else {
     appendNonLoggedInUserNavButtons();
   }
+
+  if(localStorage.getItem('isAdmin')) {
+    $('#navbarSearchModalAddPodcast').show();
+  } else {
+    $('#navbarSearchModalRequestPodcast').show();
+  }
 }
 
 $('#navbarSearchModal').on('shown.bs.modal', function () {
@@ -21,6 +27,10 @@ loadPodcastSearchTypeahead();
 $('#addPodcastModalAddButton').on('click', function () {
   addPodcastModalSave();
 });
+
+$('#navbarSearchModalRequestPodcast').on('click', function () {
+  $('#navbarSearchModal').modal('hide');
+})
 
 $('#navbarSearchModalInput').bind('keypress', function (event) {
   if (event.keyCode == 13) {
