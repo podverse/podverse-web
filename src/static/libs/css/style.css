@@ -800,6 +800,7 @@ footer p {
 .podcast-episodes-list-item-pubdate {
     text-align: right;
     float: right;
+    width: 100px;
 }
 
 .podcast-episodes-list-item-title {
