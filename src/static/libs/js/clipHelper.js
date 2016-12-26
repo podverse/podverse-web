@@ -192,6 +192,7 @@ export function makeClip (event) {
         $('#make-clip-start-time').val('');
         $('#make-clip-end-time').val('');
         $('#make-clip-title').val('');
+        $('#player-description-truncated').show();
         $('#clip-created-modal-link').val(location.protocol + '\/\/' + location.hostname + (location.port ? ':'+location.port: '')  + '\/clips\/' + response.id);
         $('#clip-created-modal').modal('show');
       } else {
