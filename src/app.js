@@ -1,11 +1,13 @@
 const
-    {sqlite} = require('src/config.js'),
+    {postgres} = require('src/config.js'),
     appFactory = require('./appFactory'),
     sqlEngineFactory = require('repositories/sequelize/engineFactory.js'),
     modelFactory = require('repositories/sequelize/models'),
     {locator} = require('locator.js');
 
-const sqlEngine = new sqlEngineFactory({storagePath: sqlite});
+// TODO: I DON'T THINK THIS SHOULD BE HARDCODED HERE, MAYBE WE SHOULD BE CONDITIONALLY
+// PASSING IN VALUES FOR LOCAL & DEV & PROD?
+const sqlEngine = new sqlEngineFactory({uri: 'postgres://username:password@127.0.0.1:5432/podverse'});
 locator.set('Models', modelFactory(sqlEngine));
 
 const

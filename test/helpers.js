@@ -14,7 +14,7 @@ const
 function configureDatabaseModels (resolve) {
 
   beforeEach(function (done) {
-    this._sqlEngine = new SqlEngine({uri: 'postgres://postgres:password@127.0.0.1:5432/postgres'});
+    this._sqlEngine = new SqlEngine({uri: 'postgres://username:password@127.0.0.1:5432/postgres'});
     const Models = registerModels(this._sqlEngine);
 
     this._sqlEngine.sync()

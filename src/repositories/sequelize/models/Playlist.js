@@ -58,9 +58,6 @@ module.exports = function(sequelize, DataTypes) {
       defaultValue: false
     },
 
-    // TODO: probably remove these...
-    // TODO: An ownerId can only have ONE playlist with isMyEpisodes === true
-    isMyEpisodes: DataTypes.BOOLEAN,
     // TODO: An ownerId can only have ONE playlist with isMyClips === true
     isMyClips: DataTypes.BOOLEAN
 
