@@ -192,7 +192,7 @@ function pruneEpisode(ep) {
   if (ep.title) { prunedEpisode.title = ep.title }
   if (ep.description) { prunedEpisode.summary = ep.description }
   if (ep.duration) { prunedEpisode.duration } // TODO: does node-feedparser give us access to itunes:duration?
-  if (ep.guid) { prunedEpisode.guid = ep.guid }
+  // if (ep.guid) { prunedEpisode.guid = ep.guid } NOTE: not collecting ep.guid's since many episodes have non-unique non-uuid values in them
   if (ep.link) { prunedEpisode.link = ep.link }
   if (ep.enclosures && ep.enclosures[0]) {
     if (ep.enclosures[0].length) { prunedEpisode.mediaBytes = ep.enclosures[0].length }
