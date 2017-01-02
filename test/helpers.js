@@ -1,5 +1,5 @@
 const
-    SqlEngine = require('repositories/sequelize/engineFactory.js'),
+    SqlEngine = require('repositories/sequelize/engineFactory'),
     registerModels = require('repositories/sequelize/models'),
     {locator} = require('locator.js'),
     appFactory = require('appFactory.js'),
@@ -14,7 +14,7 @@ const
 function configureDatabaseModels (resolve) {
 
   beforeEach(function (done) {
-    this._sqlEngine = new SqlEngine({storagePath: ':memory:'});
+    this._sqlEngine = new SqlEngine({uri: 'postgres://postgres:password@127.0.0.1:5432/postgres'});
     const Models = registerModels(this._sqlEngine);
 
     this._sqlEngine.sync()
@@ -27,7 +27,7 @@ function configureDatabaseModels (resolve) {
 
   afterEach(function (done) {
     locator.set('Models', undefined);
-    this._sqlEngine.dropAllSchemas()
+    this._sqlEngine.drop()
       .then(() => done());
   });
 }

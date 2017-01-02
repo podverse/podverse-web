@@ -32,6 +32,8 @@
     "mediaelement": "^2.22.0",
     "njwt": "^0.3.1",
     "nunjucks": "^2.4.2",
+    "pg": "^6.1.2",
+    "pg-hstore": "^2.3.2",
     "request": "^2.74.0",
     "rss": "^1.2.1",
     "sequelize": "^3.23.6",

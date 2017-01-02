@@ -45,7 +45,7 @@ class ClipService extends SequelizeService {
   }
 
   find (params={}) {
-    const {MediaRef, Episode, Podcast} = this.Models;
+    const {Episode, Podcast} = this.Models;
 
     if (!params.sequelize) {
       params.sequelize = {
