@@ -116,7 +116,7 @@ function setPlayerInfo () {
     $('#player-stats-duration-link').html('<a href="/clips/' + mediaRefId + '"><i class="fa fa-link"></i></a>')
   } else if (isPlaylist && isEpisode) {
     // TODO: this is broken
-    $('#player-stats-duration-link').html('<a href="/episodes?mediaURL=' + episodeMediaURL + '"><i class="fa fa-link"></i></a>')
+    $('#player-stats-duration-link').html('<a href="/episodes/alias?mediaURL=' + episodeMediaURL + '"><i class="fa fa-link"></i></a>')
   }
 
   $('#player-condensed-title a').html(podcastTitle);
@@ -125,11 +125,11 @@ function setPlayerInfo () {
   $('#player-condensed-sub-title').html(episodeTitle);
   $('#player-condensed-image img').attr('src', podcastImageURL);
 
-  $('#player-podcast-title a').attr('href', '/podcasts?feedURL=' + podcastFeedURL);
+  $('#player-podcast-title a').attr('href', '/podcasts/alias?feedURL=' + podcastFeedURL);
   $('#player-podcast-title a').html(podcastTitle);
 
   // TODO: this is broken
-  $('#player-sub-title a').attr('href', '/episodes?mediaURL=' + episodeMediaURL);
+  $('#player-sub-title a').attr('href', '/episodes/alias?mediaURL=' + episodeMediaURL);
   $('#player-sub-title a').html(episodeTitle);
 
   $('#player-image a').attr('href', '/podcasts?feedURL=' + podcastFeedURL);

@@ -177,31 +177,54 @@ function routes () {
 
   .use('playlists', locator.get('PlaylistService'))
 
+  // Alias URL for the Podcast Detail Page based on podcastFeedURL
+  .get('/podcasts/alias', (req, res) => {
+    return PodcastService.get('alias', {feedURL: req.query.feedURL})
+      .then(podcast => {
+        res.redirect('/podcasts/' + podcast.dataValues.id);
+      }).catch(e => {
+        console.log(e);
+        res.sendStatus(404);
+      });
+  })
+
   // Podcast Detail Page
   .get('/podcasts/:id', (req, res) => {
-      return PodcastService.get(req.params.id)
-        .then(podcast => {
-          req.params.podcastId = req.params.id;
-          return new Promise((resolve, reject) => {
-            isUserSubscribedToThisPodcast(resolve, reject, req);
-          })
-          .then((isSubscribed) => {
-            podcast.dataValues['isSubscribed'] = isSubscribed;
-            podcast.dataValues['currentPage'] = 'Podcast Detail Page';
-            res.render('podcast/index.html', podcast.dataValues);
-          });
-        }).catch(e => {
-          res.sendStatus(404);
+    return PodcastService.get(req.params.id)
+      .then(podcast => {
+        req.params.podcastFeedURL = podcast.feedURL;
+        return new Promise((resolve, reject) => {
+          isUserSubscribedToThisPodcast(resolve, reject, req);
+        })
+        .then((isSubscribed) => {
+          podcast.dataValues['isSubscribed'] = isSubscribed;
+          podcast.dataValues['currentPage'] = 'Podcast Detail Page';
+          res.render('podcast/index.html', podcast.dataValues);
         });
+      }).catch(e => {
+        console.log(e);
+        res.sendStatus(404);
+      });
   })
 
   .use('podcasts', locator.get('PodcastService'))
+
+  // Alias URL for the Episode Detail Page based on mediaURL
+  .get('/episodes/alias', (req, res) => {
+    return EpisodeService.get('alias', {mediaURL: req.query.mediaURL})
+      .then(episode => {
+        res.redirect('/episodes/' + episode.dataValues.id);
+      }).catch(e => {
+        console.log(e);
+        res.sendStatus(404);
+      });
+  })
 
   // Episode Detail Page
   .get('/episodes/:id', (req, res) => {
     return EpisodeService.get(req.params.id)
       .then(episode => {
-        req.params.podcastId = episode.podcastId;
+        req.params.podcastFeedURL = episode.podcast.feedURL;
         return new Promise((resolve, reject) => {
           isUserSubscribedToThisPodcast(resolve, reject, req);
         })
