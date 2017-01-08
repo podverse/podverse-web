@@ -25,7 +25,12 @@
                 {% endif %}
               </div>
               <div class="playlist-item-date">
-                {{ clip.episodePubDate | readableDate }}
+                <!-- TODO: clips seem to be randomly saving pubDates. Does PostgreSQL
+                           need some kind of special time zone handling or something?
+                           It seems like the pubDates of clips are getting incrementally
+                           bigger by 6 hours... -->
+                {{ clip.episodePubDate }}
+                <!-- {{ clip.episodePubDate | readableDate }} -->
               </div>
             </div>
             {% if clip.title %}

@@ -27,23 +27,57 @@ class UserService extends SequelizeService {
       throw new errors.Forbidden();
     }
 
-    return this.Model.findOne({
-      where: {
-        id:id
-      },
-      include: [{
-        model: Playlist,
-        through: 'subscribedPlaylists',
+    // On the my-podcasts page, we don't need playlist data, just podcast data.
+    if (params.includeAllUserPodcastItems) {
+      return this.Model.findOne({
+        where: {
+          id:id
+        },
+        attributes: ['subscribedPodcastFeedURLs']
+      }).then(user => {
+        let PodcastService = locator.get('PodcastService')
+
+        let podcastParams = {};
+        podcastParams.sequelize = {
+          where: {
+            feedURL: user.subscribedPodcastFeedURLs
+          },
+          attributes: ['id', 'title', 'imageURL', 'lastPubDate', 'lastBuildDate']
+        }
+
+        return PodcastService.find(podcastParams)
+        .then(podcasts => {
+          user.dataValues.subscribedPodcasts = podcasts;
+          return user
+        })
+
+      }).catch(e => {
+        console.log(e);
+        return new errors.GeneralError(e);
+      });
+    }
+    // Everywhere else, only return subscribed playlist data.
+    else {
+      return this.Model.findOne({
+        where: {
+          id:id
+        },
         include: [{
-          model: MediaRef,
-          through: 'playlistItems'
+          model: Playlist,
+          through: 'subscribedPlaylists',
+          include: [{
+            model: MediaRef,
+            through: 'playlistItems'
+          }]
         }]
-      }]
-    }).then(user => {
-      return user
-    }).catch(e => {
-      return new errors.GeneralError(e);
-    });
+      }).then(user => {
+        return user
+      }).catch(e => {
+        return new errors.GeneralError(e);
+      });
+    }
+
+
   }
 
   create (data, params={}) {

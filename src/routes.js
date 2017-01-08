@@ -368,10 +368,15 @@ function routes () {
   .use('users', locator.get('UserService'))
 
   .get('/my-podcasts', (req, res) => {
-    UserService.get(req.feathers.userId, { userId: req.feathers.userId })
+    req.feathers.includeAllUserPodcastItems
+    UserService.get(req.feathers.userId, {
+      userId: req.feathers.userId,
+      includeAllUserPodcastItems: true
+    })
       .then(user => {
+        console.log(user.dataValues.subscribedPodcasts)
         user['currentPage'] = 'My Podcasts Page';
-        res.render('my-podcasts/index.html', user);
+        res.render('my-podcasts/index.html', user.dataValues);
       })
       .catch(e => {
         // redirect to home page is unauthorized
