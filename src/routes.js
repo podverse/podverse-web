@@ -139,12 +139,12 @@ function routes () {
         req.params.playlistId = playlist.id;
         let mediaRefs = playlist.dataValues.mediaRefs;
         return new Promise((resolve, reject) => {
-          getUsersSubscribedPodcastIds(resolve, reject, req);
+          getUsersSubscribedPodcastFeedURLs(resolve, reject, req);
         })
-          .then((subscribedPodcastIds) => {
-            subscribedPodcastIds = subscribedPodcastIds || [];
+          .then((subscribedPodcastFeedURLs) => {
+            subscribedPodcastFeedURLs = subscribedPodcastFeedURLs;
             mediaRefs.forEach(mediaRef => {
-              if (subscribedPodcastIds.includes(mediaRef.episode.podcast.id)) {
+              if (subscribedPodcastFeedURLs.includes(mediaRef.podcastFeedURL)) {
                 mediaRef.dataValues['isSubscribed'] = true;
               }
             });
@@ -414,15 +414,13 @@ function routes () {
 
 }
 
-function getUsersSubscribedPodcastIds (resolve, reject, req) {
+function getUsersSubscribedPodcastFeedURLs (resolve, reject, req) {
   if (isNonAnonUser(req.feathers.userId)) {
     const UserService = locator.get('UserService');
     return UserService.get(req.feathers.userId, { userId: req.feathers.userId })
       .then(user => {
-        let subscribedPodcastIds = user.podcasts.map(podcast => {
-          return podcast.id;
-        });
-        resolve(subscribedPodcastIds);
+        let subscribedPodcastFeedURLs = user.subscribedPodcastFeedURLs;
+        resolve(subscribedPodcastFeedURLs);
       })
       .catch(e => {
         reject(e);

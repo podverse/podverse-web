@@ -8,14 +8,14 @@
         <a class="playlist-item" href="/clips/{{clip.id}}">
           <div class="playlist-item-inner">
             <div class="playlist-item-image">
-              <img src="{{ clip.episode.podcast.imageURL }}">
+              <img src="{{ clip.podcastImageURL }}">
             </div>
             <div class="playlist-item-text-wrapper">
               <div class="playlist-item-podcast-title">
-                {{ clip.episode.podcast.title }}
+                {{ clip.podcastTitle }}
               </div>
               <div class="playlist-item-sub-title">
-                {{ clip.episode.title }}
+                {{ clip.episodeTitle }}
               </div>
               <div class="playlist-item-time">
                 Clip:
@@ -25,7 +25,7 @@
                 {% endif %}
               </div>
               <div class="playlist-item-date">
-                {{ clip.episode.pubDate | readableDate }}
+                {{ clip.episodePubDate | readableDate }}
               </div>
             </div>
             {% if clip.title %}
