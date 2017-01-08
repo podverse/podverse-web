@@ -50,21 +50,19 @@
       window.startTime = item.startTime;
       window.endTime = item.endTime;
       window.ownerName = item.ownerName;
-      window.episodeDuration = item.episode.duration;
-      window.podcastId = item.episode.podcast.id;
-      window.podcastTitle = item.episode.podcast.title;
-      window.podcastImageURL = item.episode.podcast.imageURL;
-      window.episodeId = item.episode.id;
-      window.episodeTitle = item.episode.title;
-      window.episodeMediaURL = item.episode.mediaURL;
-      window.episodeImageURL = item.episode.imageURL;
-      window.episodePubDate = item.episode.pubDate;
+      window.podcastFeedURL = item.podcastFeedURL;
+      window.podcastTitle = item.podcastTitle;
+      window.podcastImageURL = item.podcastImageURL;
+      window.episodeMediaURL = item.episodeMediaURL;
+      window.episodeTitle = item.episodeTitle;
+      window.episodeImageURL = item.episodeImageURL;
+      window.episodePubDate = item.episodePubDate;
 
       // if item is an Episode
       if (window.startTime === 0 && window.endTime === null) {
         window.isEpisode = true;
-        window.description = item.episode.summary;
-        window.mediaRefId = 'episode_' + item.episode.id;
+        window.description = item.episodeSummary;
+        window.mediaRefId = 'episode_' + item.episodeMediaURL;
       } else {
         window.isEpisode = false;
         window.description = item.title;
@@ -80,34 +78,12 @@
       window.isEpisode = false;
     {% endif %}
 
-  // If there's an episode property, then set the window vars for the clip page.
-  {% elif episode %}
-    window.mediaRefId = "{{ id }}";
-    window.podcastId = "{{ episode.podcast.id }}";
-    window.podcastTitle = "{{ episode.podcast.title }}";
-    window.podcastImageURL = "{{ episode.podcast.imageURL }}";
-    window.episodeId = "{{ episode.id }}";
-    window.episodeTitle = "{{ episode.title }}";
-    window.episodeMediaURL = "{{ episode.mediaURL }}";
-    window.episodePubDate = "{{ episode.pubDate }}";
-    window.episodeImageURL = "{{ episode.imageURL }}";
-    window.startTime = "{{ startTime }}";
-    window.endTime = "{{ endTime }}";
-    window.isEpisode = false;
-
-    // TODO: is this a security vulnerability?
-    window.description = "{{ title|nl2br }}";
-    window.description = decodeEntities(description);
-
-    window.isSubscribed = '{{ isSubscribed }}';
-
   // If there's a podcast property, then set the window vars for the episode page.
   {% elif podcast %}
-    window.mediaRefId = 'episode_{{ id }}';
-    window.podcastId = "{{ podcast.id }}";
+    window.mediaRefId = 'episode_{{ mediaURL }}';
+    window.podcastFeedURL = "{{ podcast.feedURL }}"
     window.podcastTitle = "{{ podcast.title }}";
     window.podcastImageURL = "{{ podcast.imageURL }}";
-    window.episodeId = "{{ id }}";
     window.episodeTitle = "{{ title }}";
     window.episodeMediaURL = "{{ mediaURL }}";
     window.episodePubDate = "{{ pubDate }}";
@@ -121,6 +97,28 @@
     window.description = decodeEntities(description);
 
     window.isSubscribed = '{{ isSubscribed }}';
+
+    // Else set the window vars for a clip page.
+    {% else %}
+      window.mediaRefId = "{{ id }}";
+      window.podcastFeedURL = "{{ podcastFeedURL }}";
+      window.podcastTitle = "{{ podcastTitle }}";
+      window.podcastImageURL = "{{ podcastImageURL }}";
+      window.episodeTitle = "{{ episodeTitle }}";
+      window.episodeMediaURL = "{{ episodeMediaURL }}";
+      window.episodePubDate = "{{ episodePubDate }}";
+      window.episodeImageURL = "{{ episodeImageURL }}";
+      window.startTime = "{{ startTime }}";
+      window.endTime = "{{ endTime }}";
+      window.isEpisode = false;
+
+      // TODO: is this a security vulnerability?
+      window.description = "{{ title|nl2br }}";
+      window.description = decodeEntities(description);
+
+      window.isSubscribed = '{{ isSubscribed }}';
+
+
   {% endif %}
 
 </script>

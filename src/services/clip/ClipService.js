@@ -33,23 +33,12 @@ class ClipService extends SequelizeService {
   }
 
   get (id, params={}) {
-    const {Episode, Podcast} = this.Models;
-
-    params.sequelize = {
-        include: [
-          { model: Episode, include: [Podcast] }
-        ]
-    };
-
     return super.get(id, params);
   }
 
   find (params={}) {
-    const {Episode, Podcast} = this.Models;
-
     if (!params.sequelize) {
       params.sequelize = {
-        include: [{ model: Episode, include: [Podcast] }],
         where: isClipMediaRef
       };
     }
@@ -61,96 +50,54 @@ class ClipService extends SequelizeService {
 
     return new Promise((resolve, reject) => {
 
-      const {MediaRef, Episode, Podcast, Playlist, User} = this.Models;
+      const {MediaRef, Playlist, User} = this.Models;
       const PlaylistService = locator.get('PlaylistService');
 
-      let podcast = this._resolvePodcastData(data),
-        episode = data.episode,
-        isPodcastReferenced = !!podcast;
-      if (isPodcastReferenced) {
-        // Lets create/find the podcast
-        return Podcast.findOrCreate({
-          where: {
-            $or: [
-              { feedURL: podcast.feedURL },
-              { id: podcast.id }
-            ]
-          },
-          defaults: podcast
-        })
+      return MediaRef.create(data)
+        .then((c) => {
 
-        // Then create/find the episode
-        .then(([podcast]) => {
-          return Episode.findOrCreate({
-            where: {
-              $or: [
-                { mediaURL: episode.mediaURL },
-                { id: episode.id }
-              ]
-            },
-            defaults: Object.assign({}, episode, {podcastId: podcast.id })
-          });
-        })
+          // If user is logged in, then add the clip to their My Clips playlist
+          if (params.userId) {
 
-        // Then create the MediaRef
-        .then(([episode]) => {
-          const clip = Object.assign({}, data, {episodeId: episode.id});
+            return User.findById(params.userId)
+              .then(user => {
+                let ownerName = user.name || '';
+                let myClipsPlaylist = {};
+                myClipsPlaylist.title = 'My Clips';
+                myClipsPlaylist.isMyClips = true;
+                myClipsPlaylist.ownerName = ownerName;
 
-          return MediaRef.create(clip)
-            .then((c) => {
-
-              // If user is logged in, then add the clip to their My Clips playlist
-              if (params.userId) {
-
-                return User.findById(params.userId)
-                  .then(user => {
-                    let ownerName = user.name || '';
-                    let myClipsPlaylist = {};
-                    myClipsPlaylist.title = 'My Clips';
-                    myClipsPlaylist.isMyClips = true;
-                    myClipsPlaylist.ownerName = ownerName;
-
-                    return Playlist.findOrCreate({
-                      where: {
-                        ownerId: params.userId,
-                        $and: {
-                          isMyClips: true
-                        }
-                      },
-                      defaults: myClipsPlaylist
-                    }).then(playlists => {
-                        let playlist = playlists[0];
-                        return user.addPlaylists([playlist.id])
-                          .then(() => {
-                            playlist.dataValues.playlistItems = [c.id];
-                            return PlaylistService.update(playlist.dataValues.id, playlist.dataValues, { userId: params.userId })
-                              .then(updatedPlaylist => {
-                                resolve(c);
-                              })
+                return Playlist.findOrCreate({
+                  where: {
+                    ownerId: params.userId,
+                    $and: {
+                      isMyClips: true
+                    }
+                  },
+                  defaults: myClipsPlaylist
+                }).then(playlists => {
+                    let playlist = playlists[0];
+                    return user.addPlaylists([playlist.id])
+                      .then(() => {
+                        playlist.dataValues.playlistItems = [c.id];
+                        return PlaylistService.update(playlist.dataValues.id, playlist.dataValues, { userId: params.userId })
+                          .then(updatedPlaylist => {
+                            resolve(c);
                           })
-                    })
+                      })
                 })
-              } else {
-                resolve(c);
-              }
-
             })
+          } else {
+            resolve(c);
+          }
 
         })
-
         .catch(e => {
+          console.log(e);
           reject(new errors.GeneralError(e));
         });
-      } else {
-        reject(new errors.GeneralError('No podcast referenced'));
-      }
-    });
-  }
 
-  _resolvePodcastData(data) {
-    if (data.episode && data.episode.podcast) {
-      return data.episode.podcast;
-    }
+    });
   }
 
   update (id, data, params={}) {

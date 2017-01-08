@@ -96,17 +96,7 @@ export function toggleMakeClipWidget (_this) {
 export function makeClip (event) {
   event.preventDefault();
 
-  sendGoogleAnalyticsEvent('Make Clip', 'Make Clip')
-
-  if (!isUUID(window.podcastId)) {
-    alert('Invalid podcast ID provided.')
-    return;
-  }
-
-  if (!isInt(window.episodeId)) {
-    alert('Invalid episode ID provided.');
-    return;
-  }
+  sendGoogleAnalyticsEvent('Make Clip', 'Make Clip');
 
   $('#make-clip-start-time-error').hide();
   $('#make-clip-end-time-error').hide();
@@ -167,7 +157,8 @@ export function makeClip (event) {
   // TODO: set owner name based on ownerId
   var ownerName = 'random owner name';
 
-  // TODO: handle auth to post clip
+  // TODO: HACK: DANGER WILL ROBINSON: passing window variables into a POST
+  // can't be a good idea. Should seriously consider fixing this...
   $.ajax({
     type: 'POST',
     url: '/clips',
@@ -175,16 +166,18 @@ export function makeClip (event) {
       Authorization: $.cookie('idToken')
     },
     data: {
-      episode: {
-        id: episodeId,
-        podcast: {
-          id: podcastId
-        }
-      },
       startTime: startTime,
       endTime: endTime,
       title: clipTitle,
-      ownerName: ownerName
+      ownerName: ownerName,
+      podcastFeedURL: window.podcastFeedURL,
+      podcastTitle: window.podcastTitle,
+      podcastImageURL: window.podcastImageURL,
+      episodeMediaURL: window.episodeMediaURL,
+      episodeTitle: window.episodeTitle,
+      episodePubDate: window.episodePubDate,
+      episodeSummary: window.episodeSummary,
+      episodeImageURL: window.episodeImageURL
     },
     success: function (response) {
       if (window.isPlayerPage) {

@@ -847,10 +847,6 @@ footer p {
   height: 4rem;
 }
 
-.podcast-item-subscribe {
-  float: right;
-}
-
 .podcast-item-title {
   font-weight: 600;
   overflow: hidden;

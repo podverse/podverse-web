@@ -115,21 +115,24 @@ function setPlayerInfo () {
   if (isPlaylist && !isEpisode) {
     $('#player-stats-duration-link').html('<a href="/clips/' + mediaRefId + '"><i class="fa fa-link"></i></a>')
   } else if (isPlaylist && isEpisode) {
-    $('#player-stats-duration-link').html('<a href="/episodes/' + episodeId + '"><i class="fa fa-link"></i></a>')
+    // TODO: this is broken
+    $('#player-stats-duration-link').html('<a href="/episodes?mediaURL=' + episodeMediaURL + '"><i class="fa fa-link"></i></a>')
   }
 
   $('#player-condensed-title a').html(podcastTitle);
-  $('#player-condensed-title a').attr('href', '/podcasts/' + podcastId);
+  // TODO: this is broken
+  $('#player-condensed-title a').attr('href', '/podcasts?feedURL=' + podcastFeedURL);
   $('#player-condensed-sub-title').html(episodeTitle);
   $('#player-condensed-image img').attr('src', podcastImageURL);
 
-  $('#player-podcast-title a').attr('href', '/podcasts/' + podcastId);
+  $('#player-podcast-title a').attr('href', '/podcasts?feedURL=' + podcastFeedURL);
   $('#player-podcast-title a').html(podcastTitle);
 
-  $('#player-sub-title a').attr('href', '/episodes/' + episodeId);
+  // TODO: this is broken
+  $('#player-sub-title a').attr('href', '/episodes?mediaURL=' + episodeMediaURL);
   $('#player-sub-title a').html(episodeTitle);
 
-  $('#player-image a').attr('href', '/podcasts/' + podcastId);
+  $('#player-image a').attr('href', '/podcasts?feedURL=' + podcastFeedURL);
   $('#player-image img').attr('src', podcastImageURL);
   $('#player-stats-pub-date').html(readableDate(episodePubDate));
 
@@ -188,11 +191,11 @@ function setPlayerInfo () {
     if ($(this).children().hasClass('fa-star-o')) {
       $('#player-podcast-subscribe').html('<i class="fa fa-star"></i>');
       $('#player-podcast-subscribe').attr('title', 'Unsubscribe from podcast');
-      subscribeToPodcast(podcastId);
+      subscribeToPodcast(podcastFeedURL);
     } else {
       $('#player-podcast-subscribe').html('<i class="fa fa-star-o"></i>');
       $('#player-podcast-subscribe').attr('title', 'Subscribe to podcast');
-      unsubscribeFromPodcast(podcastId);
+      unsubscribeFromPodcast(podcastFeedURL);
     }
   });
 

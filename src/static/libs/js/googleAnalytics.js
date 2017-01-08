@@ -17,13 +17,13 @@ export function sendGoogleAnalyticsPageView() {
 export function sendGoogleAnalyticsPlayerPageView() {
   if (isEpisode) {
     ga('send', 'pageview', {
-      'dimension1': podcastId,
+      'dimension1': podcastFeedURL,
       'dimension2': podcastTitle,
       'dimension3': episodeTitle
     });
   } else { // it's a clip
     ga('send', 'pageview', {
-      'dimension1': podcastId,
+      'dimension1': podcastFeedURL,
       'dimension2': podcastTitle,
       'dimension3': episodeTitle,
       'dimension4': description
@@ -33,7 +33,7 @@ export function sendGoogleAnalyticsPlayerPageView() {
 
 export function sendGoogleAnalyticsPodcastPageView() {
   ga('send', 'pageview', {
-    'dimension1': podcastId,
+    'dimension1': podcastFeedURL,
     'dimension2': podcastTitle
   });
 }

@@ -60,7 +60,7 @@ class UserService extends SequelizeService {
   }
 
   create (data, params={}) {
-    const {Podcast, Playlist} = this.Models;
+    const {Playlist} = this.Models;
 
     return this.Model.findOrCreate({
       where: {
@@ -69,13 +69,10 @@ class UserService extends SequelizeService {
       defaults: {
         name: data.name || ''
       },
-      include: [{
-        model: Podcast,
-        through: 'subscribedPodcasts'
-      },
-      { model: Playlist,
+      include: {
+        model: Playlist,
         through: 'subscribedPlaylists'
-      }]
+      }
     })
     .then(user => {
       // TODO: I might be doing something wrong here. Basically I would like to do

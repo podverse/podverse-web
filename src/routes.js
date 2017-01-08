@@ -1,7 +1,6 @@
 const
     errors = require('feathers-errors'),
     {locator} = require('locator.js'),
-    {parseFullFeedIfFeedHasBeenUpdated, saveParsedFeedToDatabase} = require('tasks/feedParser.js'),
     {isClipMediaRefWithTitle} = require('constants.js'),
     {verifyNonAnonUser} = require('middleware/auth/verifyNonAnonUser.js'),
     {queryGoogleApiData} = require('services/googleapi/googleapi.js'),
@@ -51,7 +50,6 @@ function routes () {
       });
 
       params.sequelize = {
-        include: [{ model: Episode, include: [Podcast] }],
         where: {
           id: clipIdArray,
           $and: isClipMediaRefWithTitle
@@ -75,7 +73,6 @@ function routes () {
     })
     .catch(err => {
       params.sequelize = {
-        include: [{ model: Episode, include: [Podcast] }],
         where: isClipMediaRefWithTitle,
         offset: offset
       };
@@ -112,7 +109,7 @@ function routes () {
   .get('/clips/:id', (req, res) => {
     return ClipService.get(req.params.id)
       .then((mediaRef) => {
-        req.params.podcastId = mediaRef.episode.podcastId;
+        req.params.podcastFeedURL = mediaRef.podcastFeedURL;
         return new Promise((resolve, reject) => {
           isUserSubscribedToThisPodcast(resolve, reject, req);
         })
@@ -128,6 +125,7 @@ function routes () {
               })
         })
       }).catch(e => {
+        console.log(e);
         res.sendStatus(404);
       });
   })
@@ -226,41 +224,9 @@ function routes () {
 
   .use('episodes', locator.get('EpisodeService'))
 
-  .post('/parse', (req, res) => {
-
-    if (!req.feathers.isAdmin) {
-      throw new errors.GeneralError('Unauthorized: you must be an admin to parse feeds.');
-    }
-
-    if (req.body.feedURL) {
-
-      return new Promise((resolve, reject) => {
-        parseFullFeedIfFeedHasBeenUpdated(resolve, reject, req.body.feedURL)
-      })
-        .then(parsedFeedObj => {
-          return saveParsedFeedToDatabase(parsedFeedObj);
-        })
-        .then(podcastId => {
-          return PodcastService.get(podcastId)
-        })
-        .then(podcast => {
-          res.send(podcast);
-        })
-        .catch(e => {
-          // TODO: I reallly need to learn how to handle errors. I have no idea.
-          console.log(e);
-          res.sendStatus(500);
-          throw new errors.GeneralError(e);
-        });
-    } else {
-      // TODO: how should we throw an error here? Do we need to use the errorHandler somehow?
-      throw new errors.GeneralError('A valid RSS feed URL must be provided.');
-    }
-  })
-
-  .post('/podcasts/subscribe/:id', verifyNonAnonUser, function (req, res) {
+  .post('/podcasts/subscribe', verifyNonAnonUser, function (req, res) {
     UserService.update(req.feathers.userId, {}, {
-      subscribeToPodcast: req.params.id,
+      subscribeToPodcast: req.body.podcastFeedURL,
       userId: req.feathers.userId
     })
       .then(user => {
@@ -272,9 +238,9 @@ function routes () {
       });
   })
 
-  .post('/podcasts/unsubscribe/:id', verifyNonAnonUser, function (req, res) {
+  .post('/podcasts/unsubscribe', verifyNonAnonUser, function (req, res) {
     UserService.update(req.feathers.userId, {}, {
-      unsubscribeFromPodcast: req.params.id,
+      unsubscribeFromPodcast: req.body.podcastFeedURL,
       userId: req.feathers.userId
     })
       .then(user => {
@@ -318,21 +284,21 @@ function routes () {
     PlaylistService.get(req.params.playlistId)
       .then(playlist => {
 
-        // NOTE: this if/else beast is here to convert episode's into mediaRefs so that the episode can be
+        // NOTE: this if/else beast here converts episode's into mediaRefs so that the episode can be
         // added to a playlist as a mediaRef, AND to make sure that one episode only has one mediaRef
-        // instance of itself. This approach stinks to high heaven, but it works for now.
+        // instance of itself.
 
         if (req.params.mediaRefId.indexOf('episode_') > -1) {
           let episodeId = req.params.mediaRefId.replace('episode_', '');
 
-          EpisodeService.get(episodeId)
+          EpisodeService.get(episodeMediaURL)
             .then(episode => {
 
               // Convert the episode into a mediaRef object
               let epMediaRef = {};
               epMediaRef.title = episode.title;
               epMediaRef.startTime = 0;
-              epMediaRef.episodeId = episodeId;
+              epMediaRef.episodeMediaURL = episode.mediaURL;
               epMediaRef.ownerId = req.feathers.userId;
 
               // Find all mediaRefs with at least one episode where episode.feedURL === feedURL
@@ -466,17 +432,13 @@ function getUsersSubscribedPodcastIds (resolve, reject, req) {
   }
 }
 
-// TODO: where should this function go?
-// I wanted to include this stuff as a hook, but I couldn't figure out how
-// to use hooks when I use a custom route before the service,
-// like the podcast detail page.
 function isUserSubscribedToThisPodcast (resolve, reject, req) {
   if (isNonAnonUser(req.feathers.userId)) {
     const UserService = locator.get('UserService');
     return UserService.get(req.feathers.userId, { userId: req.feathers.userId })
       .then(user => {
         let isUserSubscribed = user.podcasts.some(p => {
-          return p.id === req.params.podcastId;
+          return p.feedURL === req.params.podcastFeedURL;
         });
         resolve(isUserSubscribed);
       })
