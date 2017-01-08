@@ -54,7 +54,7 @@ class ClipService extends SequelizeService {
       const PlaylistService = locator.get('PlaylistService');
 
       if (data.endTime === '') {
-        data.endTime = null;  
+        data.endTime = null;
       }
 
       return MediaRef.create(data)

@@ -40,11 +40,11 @@ function loadMediaRef (index, shouldPlay) {
   }
 
   if (isEpisode === false) {
-    podcastTitle = item.episode.podcast.title;
-    podcastImageURL = item.episode.podcast.imageURL;
-    episodeTitle = item.episode.title;
-    episodeMediaURL = item.episode.mediaURL;
-    episodePubDate = item.episode.pubDate;
+    podcastTitle = item.podcastTitle;
+    podcastImageURL = item.podcastImageURL;
+    episodeTitle = item.episodeTitle;
+    episodeMediaURL = item.episodeMediaURL;
+    episodePubDate = item.episodePubDate;
     description = item.title;
     mediaRefId = item.id;
     isSubscribed = item.isSubscribed;
