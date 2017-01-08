@@ -23,12 +23,16 @@ export function loadPodcastSearchTypeahead() {
   });
 }
 
-export function subscribeToPodcast(id) {
+export function subscribeToPodcast(podcastFeedURL) {
   $.ajax({
     type: 'POST',
-    url: '/podcasts/subscribe/' + id,
+    url: '/podcasts/subscribe/',
     headers: {
       Authorization: $.cookie('idToken')
+    },
+    data: {
+      // TODO: HACK: DANGER: We shouldn't be POSTing window fields to the db
+      podcastFeedURL: window.podcastFeedURL
     },
     error: function (xhr, status, error) {
       alert('Failed to subscribe to podcast. Please check your internet connection and try again.');
@@ -38,14 +42,17 @@ export function subscribeToPodcast(id) {
   sendGoogleAnalyticsEvent('Podcast', 'Subscribe to Podcast');
 }
 
-export function unsubscribeFromPodcast (id) {
+export function unsubscribeFromPodcast (podcastFeedURL) {
   $.ajax({
     type: 'POST',
-    url: '/podcasts/unsubscribe/' + id,
+    url: '/podcasts/unsubscribe/',
     headers: {
       Authorization: $.cookie('idToken')
     },
-    // success: TODO: handle loading spinner
+    data: {
+      // TODO: HACK: DANGER: We shouldn't be POSTing window fields to the db
+      podcastFeedURL: window.podcastFeedURL
+    },
     error: function (xhr, status, error) {
       alert('Failed to unsubscribe from podcast. Please check your internet connection and try again.');
     }

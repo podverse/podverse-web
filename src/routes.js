@@ -226,21 +226,21 @@ function routes () {
 
   .post('/podcasts/subscribe', verifyNonAnonUser, function (req, res) {
     UserService.update(req.feathers.userId, {}, {
-      subscribeToPodcast: req.body.podcastFeedURL,
+      subscribeToPodcastFeedURL: req.body.podcastFeedURL,
       userId: req.feathers.userId
     })
       .then(user => {
         res.sendStatus(200);
       })
       .catch(e => {
-        res.sendStatus(500);
+        console.log(e);
         throw new errors.GeneralError(e);
       });
   })
 
   .post('/podcasts/unsubscribe', verifyNonAnonUser, function (req, res) {
     UserService.update(req.feathers.userId, {}, {
-      unsubscribeFromPodcast: req.body.podcastFeedURL,
+      unsubscribeFromPodcastFeedURL: req.body.podcastFeedURL,
       userId: req.feathers.userId
     })
       .then(user => {
@@ -437,12 +437,13 @@ function isUserSubscribedToThisPodcast (resolve, reject, req) {
     const UserService = locator.get('UserService');
     return UserService.get(req.feathers.userId, { userId: req.feathers.userId })
       .then(user => {
-        let isUserSubscribed = user.podcasts.some(p => {
-          return p.feedURL === req.params.podcastFeedURL;
+        let isUserSubscribed = user.dataValues.subscribedPodcastFeedURLs.some(podcastFeedURL => {
+          return podcastFeedURL === req.params.podcastFeedURL;
         });
         resolve(isUserSubscribed);
       })
       .catch(e => {
+        console.log(e);
         reject(e);
       });
   } else {
@@ -476,6 +477,7 @@ function gatherUsersOwnedPlaylists(resolve, reject, req) {
         resolve(usersOwnedPlaylists);
       })
       .catch(e => {
+        console.log(e);
         reject(e);
       })
   } else {

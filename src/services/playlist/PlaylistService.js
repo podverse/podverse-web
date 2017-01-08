@@ -41,18 +41,14 @@ class PlaylistService extends SequelizeService {
   }
 
   get (id /*, params={} */) {
-    const {MediaRef, Episode, Podcast} = this.Models;
+    const {MediaRef} = this.Models;
 
     return this.Model.findOne({
       where: isUUID(id) ? {id} : {slug:id},
-      include: [{
+      include: {
         model: MediaRef,
-        through: 'playlistItems',
-        include: [{
-            model: Episode,
-            include: [Podcast]
-        }]
-      }]
+        through: 'playlistItems'
+      }
     }).then(playlist => {
       return playlist
     }).catch(e => {
@@ -61,17 +57,13 @@ class PlaylistService extends SequelizeService {
   }
 
   find (params={}) {
-    const {MediaRef, Episode, Podcast} = this.Models;
+    const {MediaRef} = this.Models;
 
     params.sequelize = {
-      include: [
-        { model: MediaRef,
-          through: 'playlistItems',
-          include: [{
-            model: Episode, include: [Podcast]
-          }],
-        }
-      ]
+      include: {
+        model: MediaRef,
+        through: 'playlistItems'
+      }
     };
 
     return super.find(params);
