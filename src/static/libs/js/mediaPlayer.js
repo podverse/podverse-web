@@ -46,12 +46,7 @@ function loadMediaRef (index, shouldPlay) {
   episodePubDate = item.episodePubDate;
   description = item.title;
   isSubscribed = item.isSubscribed;
-
-  if (isEpisode === false) {
-    mediaRefId = item.id;
-  } else {
-    mediaRefId = 'episode_' + item.episodeMediaURL;
-  }
+  mediaRefId = item.id;
 
   window.location.hash = index + 1;
 
