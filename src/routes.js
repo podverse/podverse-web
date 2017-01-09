@@ -303,19 +303,31 @@ function routes () {
     });
   })
 
-  .post('/playlists/:playlistId/addItem/:mediaRefId', verifyNonAnonUser, function (req, res) {
+  .post('/playlists/:playlistId/addItem/', verifyNonAnonUser, function (req, res) {
+    
     PlaylistService.get(req.params.playlistId)
       .then(playlist => {
+
+        if (!req.query.mediaRefId) {
+          throw new errors.GeneralError('A mediaRefId must be provided as a query parameter.');
+        }
 
         // NOTE: this if/else beast here converts episode's into mediaRefs so that the episode can be
         // added to a playlist as a mediaRef, AND to make sure that one episode only has one mediaRef
         // instance of itself.
+        if (req.query.mediaRefId.indexOf('episode_') > -1) {
+          let episodeMediaURL = req.query.mediaRefId.replace('episode_', '');
+          EpisodeService.find({
+            where: {
+              mediaURL: episodeMediaURL
+            }
+          })
+            .then(episodes => {
+              if (!episodes || episodes.length < 1) {
+                throw new errors.GeneralError('No episode found matching that mediaURL.')
+              }
 
-        if (req.params.mediaRefId.indexOf('episode_') > -1) {
-          let episodeId = req.params.mediaRefId.replace('episode_', '');
-
-          EpisodeService.get(episodeMediaURL)
-            .then(episode => {
+              let episode = episodes[0];
 
               // Convert the episode into a mediaRef object
               let epMediaRef = {};
@@ -333,12 +345,6 @@ function routes () {
                     endTime: null
                   }
                 },
-                include: {
-                  model: Episode,
-                  where: {
-                    mediaURL: episode.mediaURL
-                  }
-                },
                 defaults: epMediaRef
               })
                 .then(mediaRefArray => {
@@ -351,7 +357,7 @@ function routes () {
                 })
             })
         } else {
-          playlist.dataValues['playlistItems'] = [req.params.mediaRefId];
+          playlist.dataValues['playlistItems'] = [req.query.mediaRefId];
           PlaylistService.update(req.params.playlistId, playlist.dataValues, { userId: req.feathers.userId })
             .then(updatedPlaylist => {
               res.send(200, updatedPlaylist);
