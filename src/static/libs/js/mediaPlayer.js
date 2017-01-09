@@ -91,10 +91,21 @@ function setPlayerInfo () {
 
   $('#player-header').show();
 
+  let startTimeReadable = '',
+      endTimeReadable = '';
+
+  if (endTime <= 0 && endTime !== null) {
+    startTimeReadable = 'Clip: ' + convertSecToHHMMSS(startTime);
+    endTimeReadable = ' to ' + convertSecToHHMMSS(endTime);
+  } else {
+    startTimeReadable = 'Clip: ' + convertSecToHHMMSS(startTime);
+    endTimeReadable = ' start time';
+  }
+
   if (isEpisode === false) {
     var duration = calcDuration(startTime, endTime);
-    $('#player-stats-duration').html('Clip: ' + convertSecToHHMMSS(startTime) + ' to ' + convertSecToHHMMSS(endTime));
-    $('#player-condensed-text').html('Clip: ' + convertSecToHHMMSS(startTime) + ' to ' + convertSecToHHMMSS(endTime) + ' – ' + description);
+    $('#player-stats-duration').html(startTimeReadable + endTimeReadable);
+    $('#player-condensed-text').html(startTimeReadable + endTimeReadable + ' – ' + description);
     $('#player-condensed-text').addClass('should-show');
   } else {
     $('#player-stats-duration').html('Full Episode');

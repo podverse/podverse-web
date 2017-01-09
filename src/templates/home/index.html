@@ -22,6 +22,8 @@
                 {{ clip.startTime | convertSecToHHMMSS }}
                 {% if clip.endTime %}
                   to {{ clip.endTime | convertSecToHHMMSS }}
+                {% else %}
+                  start time
                 {% endif %}
               </div>
               <div class="playlist-item-date">
