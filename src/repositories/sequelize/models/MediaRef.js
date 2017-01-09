@@ -80,7 +80,9 @@ module.exports = function(sequelize, DataTypes) {
 
     episodePubDate: DataTypes.DATE,
 
-    episodeSummary: DataTypes.TEXT
+    episodeSummary: DataTypes.TEXT,
+
+    episodeDuration: DataTypes.INTEGER
 
   }, {
     updatedAt: 'lastUpdated',

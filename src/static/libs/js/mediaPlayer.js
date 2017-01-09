@@ -39,25 +39,18 @@ function loadMediaRef (index, shouldPlay) {
     isEpisode = false;
   }
 
+  podcastTitle = item.podcastTitle;
+  podcastImageURL = item.podcastImageURL;
+  episodeTitle = item.episodeTitle;
+  episodeMediaURL = item.episodeMediaURL;
+  episodePubDate = item.episodePubDate;
+  description = item.title;
+  isSubscribed = item.isSubscribed;
+
   if (isEpisode === false) {
-    podcastTitle = item.podcastTitle;
-    podcastImageURL = item.podcastImageURL;
-    episodeTitle = item.episodeTitle;
-    episodeMediaURL = item.episodeMediaURL;
-    episodePubDate = item.episodePubDate;
-    description = item.title;
     mediaRefId = item.id;
-    isSubscribed = item.isSubscribed;
-  } else { // handle item as episode
-    podcastTitle = item.episode.podcast.title;
-    podcastImageURL = item.episode.podcast.imageURL;
-    episodeTitle = item.episode.title;
-    episodeMediaURL = item.episode.mediaURL;
-    episodePubDate = item.episode.pubDate;
-    startTime = 0;
-    description = item.episode.summary;
-    mediaRefId = 'episode_' + item.episode.id;
-    isSubscribed = item.isSubscribed;
+  } else {
+    mediaRefId = 'episode_' + item.episodeMediaURL;
   }
 
   window.location.hash = index + 1;

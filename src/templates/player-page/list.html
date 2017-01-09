@@ -24,25 +24,28 @@
         <div class="playlist-item">
           <div class="playlist-item-inner">
             <div class="playlist-item-image">
-              <img src="{{ item.episode.podcast.imageURL }}">
+              <img src="{{ item.podcastImageURL }}">
             </div>
             <div class="playlist-item-text-wrapper">
               <div class="playlist-item-podcast-title">
-                {{ item.episode.podcast.title }}
+                {{ item.podcastTitle }}
               </div>
               <div class="playlist-item-sub-title">
-                {{ item.episode.title }}
+                {{ item.episodeTitle }}
               </div>
               <div class="playlist-item-time">
-                  Full Episode – {{ item.episode.duration | convertSecToHHMMSS }}
+                  Full Episode
+                  {% if item.episodeDuration %}
+                    – {{ item.episodeDuration | convertSecToHHMMSS }}
+                  {% endif %}
               </div>
               <div class="playlist-item-date">
-                {{ item.episode.pubDate | readableDate }}
+                {{ item.episodePubDate | readableDate }}
               </div>
             </div><!-- /.playlist-item-text-wrapper -->
-            {% if item.episode.summary %}
+            {% if item.episodeSummary %}
               <div class="playlist-item-details">
-                {{ item.episode.summary }}
+                {{ item.episodeSummary }}
               </div>
             {% endif %}
             <div style="clear:both"></div>
@@ -52,14 +55,14 @@
         <div class="playlist-item">
           <div class="playlist-item-inner">
             <div class="playlist-item-image">
-              <img src="{{ item.episode.podcast.imageURL }}">
+              <img src="{{ item.podcastImageURL }}">
             </div>
             <div class="playlist-item-text-wrapper">
               <div class="playlist-item-podcast-title">
-                {{ item.episode.podcast.title }}
+                {{ item.podcastTitle }}
               </div>
               <div class="playlist-item-sub-title">
-                {{ item.episode.title }}
+                {{ item.episodeTitle }}
               </div>
               <div class="playlist-item-time">
                 {{ item.startTime | convertSecToHHMMSS }}
@@ -68,7 +71,7 @@
                 {% endif %}
               </div>
               <div class="playlist-item-date">
-                {{ item.episode.pubDate | readableDate }}
+                {{ item.episodePubDate | readableDate }}
               </div>
             </div><!-- /.playlist-item-text-wrapper -->
             {% if item.title %}

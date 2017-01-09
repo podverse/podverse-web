@@ -157,6 +157,10 @@ export function makeClip (event) {
   // TODO: set owner name based on ownerId
   var ownerName = 'random owner name';
 
+  if (endTime === "") {
+    endTime = null;
+  }
+
   // TODO: HACK: DANGER WILL ROBINSON: passing window variables into a POST
   // can't be a good idea. Should seriously consider fixing this...
   $.ajax({
@@ -177,7 +181,8 @@ export function makeClip (event) {
       episodeTitle: window.episodeTitle,
       episodePubDate: window.episodePubDate,
       episodeSummary: window.episodeSummary,
-      episodeImageURL: window.episodeImageURL
+      episodeImageURL: window.episodeImageURL,
+      episodeDuration: window.episodeDuration
     },
     success: function (response) {
       if (window.isPlayerPage) {

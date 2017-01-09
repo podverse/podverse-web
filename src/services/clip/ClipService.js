@@ -57,6 +57,10 @@ class ClipService extends SequelizeService {
         data.endTime = null;
       }
 
+      if (data.episodeDuration === '') {
+        data.episodeDuration = null;
+      }
+
       return MediaRef.create(data)
         .then((c) => {
 

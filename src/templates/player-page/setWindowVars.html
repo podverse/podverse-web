@@ -55,8 +55,9 @@
       window.podcastImageURL = item.podcastImageURL;
       window.episodeMediaURL = item.episodeMediaURL;
       window.episodeTitle = item.episodeTitle;
-      window.episodeImageURL = item.episodeImageURL;
       window.episodePubDate = item.episodePubDate;
+      window.episodeImageURL = item.episodeImageURL;
+      window.episodeDuration = item.episodeDuration;
 
       // if item is an Episode
       if (window.startTime === 0 && window.endTime === null) {
@@ -88,6 +89,7 @@
     window.episodeMediaURL = "{{ mediaURL }}";
     window.episodePubDate = "{{ pubDate }}";
     window.episodeImageURL = "{{ imageURL }}";
+    window.episodeDuration = "{{ duration }}"
     window.startTime = 0;
     window.endTime = null;
     window.isEpisode = true;
@@ -108,6 +110,7 @@
       window.episodeMediaURL = "{{ episodeMediaURL }}";
       window.episodePubDate = "{{ episodePubDate }}";
       window.episodeImageURL = "{{ episodeImageURL }}";
+      window.episodeDuration = "{{ episodeDuration }}";
       window.startTime = "{{ startTime }}";
       window.endTime = "{{ endTime }}";
       window.isEpisode = false;
@@ -120,5 +123,10 @@
 
 
   {% endif %}
+
+  // Avoid sending empty strings to Postgres for integer fields  
+  if (window.episodeDuration === "") {
+    window.episodeDuration = null;
+  }
 
 </script>

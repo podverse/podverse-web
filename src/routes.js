@@ -374,7 +374,6 @@ function routes () {
       includeAllUserPodcastItems: true
     })
       .then(user => {
-        console.log(user.dataValues.subscribedPodcasts)
         user['currentPage'] = 'My Podcasts Page';
         res.render('my-podcasts/index.html', user.dataValues);
       })
