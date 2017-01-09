@@ -56,37 +56,6 @@ function createValidTestJWT () {
   return token
 }
 
-function createTestPodcastAndEpisode (Models) {
-
-  const {Podcast, Episode} = Models;
-
-  return Podcast.findOrCreate({
-    where: {
-      'feedURL': 'http://example.com/test333'
-    },
-    defaults: {
-      'feedURL': 'http://example.com/test333',
-      'title': 'Most interesting podcast in the world'
-    }
-  })
-    .then(podcasts => {
-
-      return Promise.all([
-        Promise.resolve(podcasts),
-        Episode.findOrCreate({
-          where: {
-            mediaURL: 'http://example.com/test999'
-          },
-          defaults: Object.assign({}, {}, {
-            feedURL: 'http://example.com/test999',
-            title: 'Best episode in the history of time',
-            podcastId: podcasts[0].id
-          })
-        })
-      ]);
-    });
-}
-
 function createTestUser (Models) {
 
   const {User} = Models;
@@ -146,7 +115,6 @@ module.exports = {
   configureDatabaseModels,
   createTestApp,
   createValidTestJWT,
-  createTestPodcastAndEpisode,
   createTestPlaylist,
   createTestMediaRefs,
   createTestUser
