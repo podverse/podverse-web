@@ -6,7 +6,7 @@ module.exports = {
   port: process.env.PORT || 8080,
   baseURL: process.env.baseURL || 'http://localhost:8080',
   jwtSigningKey: new Buffer(jwtSigningKeyB64, 'base64'),
-  databaseName: 'podverse',
+  databaseName: 'postgres',
 
   // TODO: change the auth0 values to podverse.fm's clientId and domain before deployment
   auth0ClientId: process.env.auth0ClientId || 'tTGQrl5CenMDdpzcKNpmLIginyRgBJNN',
