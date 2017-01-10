@@ -47,7 +47,6 @@ module.exports = function(sequelize, DataTypes) {
     podcastFeedURL: {
       type: DataTypes.TEXT,
       allowNull: false,
-      unique: true,
       validation: {
         isUrl: true
       }
@@ -65,7 +64,6 @@ module.exports = function(sequelize, DataTypes) {
     episodeMediaURL: {
       type: DataTypes.TEXT,
       allowNull: false,
-      unique: true,
       validation: {
         isUrl: true
       }

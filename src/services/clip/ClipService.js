@@ -69,6 +69,7 @@ class ClipService extends SequelizeService {
 
             return User.findById(params.userId)
               .then(user => {
+
                 let ownerName = user.name || '';
                 let myClipsPlaylist = {};
                 myClipsPlaylist.title = 'My Clips';

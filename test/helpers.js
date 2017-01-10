@@ -3,8 +3,8 @@ const
     registerModels = require('repositories/sequelize/models'),
     {locator} = require('locator.js'),
     appFactory = require('appFactory.js'),
-    PodcastService = require('services/podcast/PodcastService.js'),
-    EpisodeService = require('services/episode/EpisodeService.js'),
+    PodcastService = require('podcast-db/src/services/podcast/PodcastService.js'),
+    EpisodeService = require('podcast-db/src/services/episode/EpisodeService.js'),
     PlaylistService = require('services/playlist/PlaylistService.js'),
     ClipService = require('services/clip/ClipService.js'),
     UserService = require('services/user/UserService.js'),
@@ -76,27 +76,24 @@ function createTestMediaRefs (Models) {
 
   const {MediaRef} = Models;
 
-  return createTestPodcastAndEpisode(Models)
-    .then(([podcasts, episodes]) => {
+  let mediaRefs = [];
+  for (let i = 0; i < 4; i++) {
+    let mediaRef = {
+      ownerId: 'testOwner',
+      episodeId: 'someId',
+      title: `TestTitle${i}`,
+      podcastFeedURL: 'http://some.rss.feed.com',
+      episodeMediaURL: 'http://some.mediaURL.com'
+    }
+    mediaRefs.push(mediaRef);
+  }
 
-      let mediaRefs = [];
-      for (let i = 0; i < 4; i++) {
-        let mediaRef = {
-          ownerId: 'testOwner',
-          episodeId: episodes[0].id,
-          title: `TestTitle${i}`
-        }
-        mediaRefs.push(mediaRef);
-      }
-
-      return Promise.all([
-        MediaRef.create(mediaRefs[0]),
-        MediaRef.create(mediaRefs[1]),
-        MediaRef.create(mediaRefs[2]),
-        MediaRef.create(mediaRefs[3])
-      ]);
-
-    });
+  return Promise.all([
+    MediaRef.create(mediaRefs[0]),
+    MediaRef.create(mediaRefs[1]),
+    MediaRef.create(mediaRefs[2]),
+    MediaRef.create(mediaRefs[3])
+  ]);
 
 }
 
