@@ -9,12 +9,21 @@ const
     ClipService = require('services/clip/ClipService.js'),
     UserService = require('services/user/UserService.js'),
     nJwt = require('njwt'),
-    config = require('config.js');
+    config = require('config.js'),
+    isCi = require('is-ci');
+
+let postgresUri;
+
+if (!isCi) {
+  postgresUri = 'postgres://postgres:password@127.0.0.1:4443/postgres';
+} else {
+  postgresUri = 'postgres://postgres:password@127.0.0.1:5432/postgres';
+}
 
 function configureDatabaseModels (resolve) {
 
   beforeEach(function (done) {
-    this._sqlEngine = new SqlEngine({uri: 'postgres://postgres:password@127.0.0.1:5432/postgres'});
+    this._sqlEngine = new SqlEngine({uri: postgresUri});
     const Models = registerModels(this._sqlEngine);
 
     this._sqlEngine.sync()

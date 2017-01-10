@@ -6,7 +6,7 @@ const
 
 // TODO: I DON'T THINK THIS SHOULD BE HARDCODED HERE, MAYBE WE SHOULD BE CONDITIONALLY
 // PASSING IN VALUES FOR LOCAL & DEV & PROD?
-const sqlEngine = new sqlEngineFactory({uri: 'postgres://postgres:password@127.0.0.1:5432/podverse'});
+const sqlEngine = new sqlEngineFactory({uri: 'postgres://postgres:password@127.0.0.1:5432/postgres'});
 locator.set('Models', modelFactory(sqlEngine));
 
 const
