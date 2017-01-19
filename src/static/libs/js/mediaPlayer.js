@@ -19,7 +19,7 @@ if (isEmptyPlaylist !== true) {
   createAndAppendAudio();
   onScrollCondensePlayerView();
 } else {
-  var isEmptyPlaylistEl = '<div id="empty-playlist-message">This playlist has no episodes or clips added to it. <br><br> Click the <i class="fa fa-list-ul"></i> icon while an episode or clip is playing to add it to a playlist.</div>';
+  var isEmptyPlaylistEl = '<div id="empty-playlist-message">This playlist has no episodes or clips added to it.';
   $(isEmptyPlaylistEl).insertAfter('#player');
 }
 

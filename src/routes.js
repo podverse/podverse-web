@@ -9,7 +9,7 @@ const
 function routes () {
   const app = this,
         Models = locator.get('Models'),
-        {Podcast, Episode, MediaRef} = Models,
+        {MediaRef} = Models,
         PodcastService = locator.get('PodcastService'),
         EpisodeService = locator.get('EpisodeService'),
         ClipService = locator.get('ClipService'),
@@ -304,24 +304,22 @@ function routes () {
   })
 
   .post('/playlists/:playlistId/addItem/', verifyNonAnonUser, function (req, res) {
-    
+
     PlaylistService.get(req.params.playlistId)
       .then(playlist => {
 
-        if (!req.query.mediaRefId) {
+        if (!req.body.mediaRefId) {
           throw new errors.GeneralError('A mediaRefId must be provided as a query parameter.');
         }
 
         // NOTE: this if/else beast here converts episode's into mediaRefs so that the episode can be
         // added to a playlist as a mediaRef, AND to make sure that one episode only has one mediaRef
         // instance of itself.
-        if (req.query.mediaRefId.indexOf('episode_') > -1) {
-          let episodeMediaURL = req.query.mediaRefId.replace('episode_', '');
-          EpisodeService.find({
-            where: {
-              mediaURL: episodeMediaURL
-            }
-          })
+        if (req.body.mediaRefId.indexOf('episode_') > -1) {
+
+          let episodeMediaURL = req.body.mediaRefId.replace('episode_', '');
+
+          EpisodeService.find({mediaURL: episodeMediaURL})
             .then(episodes => {
               if (!episodes || episodes.length < 1) {
                 throw new errors.GeneralError('No episode found matching that mediaURL.')
@@ -333,8 +331,13 @@ function routes () {
               let epMediaRef = {};
               epMediaRef.title = episode.title;
               epMediaRef.startTime = 0;
-              epMediaRef.episodeMediaURL = episode.mediaURL;
               epMediaRef.ownerId = req.feathers.userId;
+              epMediaRef.podcastTitle = episode.podcast.title;
+              epMediaRef.podcastFeedURL = episode.podcast.feedURL;
+              epMediaRef.podcastImageURL = episode.podcast.imageURL;
+              epMediaRef.episodeTitle = episode.title;
+              epMediaRef.episodeMediaURL = episode.mediaURL;
+              epMediaRef.episodeImageURL = episode.imageURL;
 
               // Find all mediaRefs with at least one episode where episode.feedURL === feedURL
 
@@ -357,7 +360,7 @@ function routes () {
                 })
             })
         } else {
-          playlist.dataValues['playlistItems'] = [req.query.mediaRefId];
+          playlist.dataValues['playlistItems'] = [req.body.mediaRefId];
           PlaylistService.update(req.params.playlistId, playlist.dataValues, { userId: req.feathers.userId })
             .then(updatedPlaylist => {
               res.send(200, updatedPlaylist);

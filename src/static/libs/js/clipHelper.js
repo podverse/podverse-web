@@ -163,27 +163,36 @@ export function makeClip (event) {
 
   // TODO: HACK: DANGER WILL ROBINSON: passing window variables into a POST
   // can't be a good idea. Should seriously consider fixing this...
+
+  let dataObj = {
+    startTime: startTime,
+    endTime: endTime,
+    title: clipTitle,
+    ownerName: ownerName,
+    podcastFeedURL: window.podcastFeedURL,
+    podcastTitle: window.podcastTitle,
+    episodeMediaURL: window.episodeMediaURL,
+    episodeTitle: window.episodeTitle,
+    episodePubDate: window.episodePubDate,
+    episodeSummary: window.episodeSummary,
+    episodeDuration: window.episodeDuration
+  }
+
+  if (window.podcastImageURL.indexOf('http') === 0) {
+    dataObj.podcastImageURL = window.podcastImageURL;
+  }
+
+  if (window.episodeImageURL.indexOf('http') === 0) {
+    dataObj.episodeImageURL = window.episodeImageURL;
+  }
+
   $.ajax({
     type: 'POST',
     url: '/clips',
     headers: {
       Authorization: $.cookie('idToken')
     },
-    data: {
-      startTime: startTime,
-      endTime: endTime,
-      title: clipTitle,
-      ownerName: ownerName,
-      podcastFeedURL: window.podcastFeedURL,
-      podcastTitle: window.podcastTitle,
-      podcastImageURL: window.podcastImageURL,
-      episodeMediaURL: window.episodeMediaURL,
-      episodeTitle: window.episodeTitle,
-      episodePubDate: window.episodePubDate,
-      episodeSummary: window.episodeSummary,
-      episodeImageURL: window.episodeImageURL,
-      episodeDuration: window.episodeDuration
-    },
+    data: dataObj,
     success: function (response) {
       if (window.isPlayerPage) {
         toggleMakeClipWidget();
