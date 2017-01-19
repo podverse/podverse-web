@@ -23,6 +23,38 @@ function nunjucksConfig () {
     }
   });
 
+  env.addFilter('sortTextIgnoreArticles', function (arr) {
+
+    // Thanks to Spencer Wieczorek
+    // http://stackoverflow.com/a/34347138/2608858
+    var compare = function(a, b) {
+      if (a.title && b.title) {
+        var aTitle = a.title.toLowerCase(),
+            bTitle = b.title.toLowerCase();
+
+        aTitle = removeArticles(aTitle);
+        bTitle = removeArticles(bTitle);
+
+        if (aTitle > bTitle) return 1;
+        if (aTitle < bTitle) return -1;
+      }
+      return 0;
+    };
+
+    function removeArticles(str) {
+      words = str.split(" ");
+      if(words.length <= 1) return str;
+      if( words[0] == 'a' || words[0] == 'the' || words[0] == 'an' )
+        return words.splice(1).join(" ");
+      return str;
+    }
+
+    var sorted = arr.sort(compare)
+
+    return sorted;
+
+  });
+
   env.addFilter('stringify', function(str) {
     var s = JSON.stringify(str);
     return s;
