@@ -377,16 +377,16 @@ function routes () {
   .use('users', locator.get('UserService'))
 
   .get('/my-podcasts', (req, res) => {
-    req.feathers.includeAllUserPodcastItems
-    UserService.get(req.feathers.userId, {
-      userId: req.feathers.userId,
-      includeAllUserPodcastItems: true
+
+    UserService.retrieveUserAndAllSubscribedPodcasts(req.feathers.userId, {
+      userId: req.feathers.userId
     })
       .then(user => {
         user['currentPage'] = 'My Podcasts Page';
         res.render('my-podcasts/index.html', user.dataValues);
       })
       .catch(e => {
+        console.log(e);
         // redirect to home page is unauthorized
         res.redirect('/');
       });
