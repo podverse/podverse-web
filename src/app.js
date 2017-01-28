@@ -2,11 +2,10 @@ const
     appFactory = require('./appFactory'),
     sqlEngineFactory = require('repositories/sequelize/engineFactory.js'),
     modelFactory = require('repositories/sequelize/models'),
-    {locator} = require('locator.js');
+    {locator} = require('locator.js'),
+    {postgresUri} = require('config');
 
-// TODO: I DON'T THINK THIS SHOULD BE HARDCODED HERE, MAYBE WE SHOULD BE CONDITIONALLY
-// PASSING IN VALUES FOR LOCAL & DEV & PROD?
-const sqlEngine = new sqlEngineFactory({uri: 'postgres://postgres:password@127.0.0.1:5432/postgres'});
+const sqlEngine = new sqlEngineFactory({uri: postgresUri});
 locator.set('sqlEngine', sqlEngine);
 locator.set('Models', modelFactory(sqlEngine));
 

@@ -81,4 +81,39 @@ describe('UserService', function () {
 
   });
 
+  describe('#retrieveUserAndAllSubscribedPodcasts', function () {
+    beforeEach(function (done) {
+      this.userSvc.create({}, {
+        userId: 'nite_owl'
+      })
+      .then(user => {
+        this.user = user;
+        return this.Model.findAll();
+      })
+      .then(users => {
+        this.users = users;
+        done();
+      })
+    });
+
+    xdescribe('when the custom SQL query is called', function () {
+      xit('should return the expected subscribed podcasts data', {});
+
+      xit('should return the expected episodes count', {});
+
+      xit('should return the expected lastEpisodePubDate', {});
+    });
+
+    xdescribe('when the custom SQL query is called', function () {
+      xit('should return the expected subscribed podcasts data', {});
+
+      xit('should return the expected episodes count', {});
+
+      xit('should return the expected lastEpisodePubDate', {});
+    });
+
+
+
+  })
+
 });

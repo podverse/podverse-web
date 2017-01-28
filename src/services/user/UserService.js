@@ -46,7 +46,7 @@ class UserService extends SequelizeService {
         }
       }).then(user => {
         user.dataValues.subscribedPodcasts = subscribedPodcasts;
-        return user
+        return user;
       }).catch(e => {
         return new errors.GeneralError(e);
       });

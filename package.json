@@ -67,7 +67,7 @@
     "prestart": "sequelize db:migrate && webpack",
     "start": "node src/server.js",
     "watch": "nodemon src/server.js -e js,json,html",
-    "test": "node scripts/test.js"
+    "test": "NODE_ENV=test_db node scripts/test.js"
   },
   "repository": {
     "type": "git",

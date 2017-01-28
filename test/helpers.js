@@ -9,16 +9,8 @@ const
     ClipService = require('services/clip/ClipService.js'),
     UserService = require('services/user/UserService.js'),
     nJwt = require('njwt'),
-    config = require('config.js'),
+    {postgresUri, jwtSigningKey} = require('config.js'),
     isCi = require('is-ci');
-
-let postgresUri;
-
-if (!isCi) {
-  postgresUri = 'postgres://postgres:password@127.0.0.1:4443/postgres';
-} else {
-  postgresUri = 'postgres://postgres:password@127.0.0.1:5432/postgres';
-}
 
 function configureDatabaseModels (resolve) {
 
@@ -58,7 +50,7 @@ function createValidTestJWT () {
     sub: userId
   };
 
-  const jwt = nJwt.create(claims, config.jwtSigningKey);
+  const jwt = nJwt.create(claims, jwtSigningKey);
   jwt.setExpiration(); // Never expire why not
   const token = jwt.compact();
 
