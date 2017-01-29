@@ -1,6 +1,7 @@
 const
     SqlEngine = require('repositories/sequelize/engineFactory'),
     registerModels = require('repositories/sequelize/models'),
+    registerPodcastDbModels = require('../node_modules/podcast-db/src/repositories/sequelize/models'),
     {locator} = require('locator.js'),
     appFactory = require('appFactory.js'),
     PodcastService = require('podcast-db/src/services/podcast/PodcastService.js'),
@@ -17,10 +18,12 @@ function configureDatabaseModels (resolve) {
   beforeEach(function (done) {
     this._sqlEngine = new SqlEngine({uri: postgresUri});
     const Models = registerModels(this._sqlEngine);
+    const podcastDbModels = registerPodcastDbModels(this._sqlEngine);
 
     this._sqlEngine.sync()
       .then(() => {
         locator.set('Models', Models);
+        locator.set('sqlEngine', this._sqlEngine);
         resolve.apply(this, [Models]);
         done();
       });
@@ -117,6 +120,7 @@ function createTestPodcastAndEpisode () {
       title: 'Most interesting podcast in the world'
     }, {})
     .then(podcast => {
+      this.podcast = podcast;
       return new EpisodeService().create({
         mediaURL: 'http://example.com/test999',
         feedURL: 'http://example.com/test333',
@@ -125,7 +129,7 @@ function createTestPodcastAndEpisode () {
       }, {});
     })
     .then(episode => {
-      resolve([podcast, episode]);
+      resolve([this.podcast, episode]);
     }).catch(e => {
       reject(e);
     });

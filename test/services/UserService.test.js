@@ -96,7 +96,7 @@ describe('UserService', function () {
         })
         .then(user => {
           this.user = user;
-          return retrieveUserAndAllSubscribedPodcasts(user.id, {userId: 'nite_owl'})
+          return this.userSvc.retrieveUserAndAllSubscribedPodcasts(user.id, {userId: 'nite_owl'})
         })
         .then(userWithSubscribedPodcasts => {
           this.user = userWithSubscribedPodcasts;
