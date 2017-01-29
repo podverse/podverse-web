@@ -109,11 +109,36 @@ function createTestPlaylist (Models) {
     });
 }
 
+function createTestPodcastAndEpisode () {
+
+  return new Promise((resolve, reject) => {
+    return new PodcastService().create({
+      feedURL: 'http://example.com/test333',
+      title: 'Most interesting podcast in the world'
+    }, {})
+    .then(podcast => {
+      return new EpisodeService().create({
+        mediaURL: 'http://example.com/test999',
+        feedURL: 'http://example.com/test333',
+        title: 'Best episode in the history of time',
+        podcastId: podcast.id
+      }, {});
+    })
+    .then(episode => {
+      resolve([podcast, episode]);
+    }).catch(e => {
+      reject(e);
+    });
+  })
+
+}
+
 module.exports = {
   configureDatabaseModels,
   createTestApp,
   createValidTestJWT,
   createTestPlaylist,
   createTestMediaRefs,
-  createTestUser
+  createTestUser,
+  createTestPodcastAndEpisode
 };

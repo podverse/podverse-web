@@ -1,5 +1,5 @@
 const
-    {configureDatabaseModels} = require('test/helpers.js'),
+    {configureDatabaseModels, createTestPodcastAndEpisode} = require('test/helpers.js'),
     UserService = require('services/user/UserService.js');
 
 describe('UserService', function () {
@@ -83,36 +83,40 @@ describe('UserService', function () {
 
   describe('#retrieveUserAndAllSubscribedPodcasts', function () {
     beforeEach(function (done) {
-      this.userSvc.create({}, {
-        userId: 'nite_owl'
-      })
-      .then(user => {
-        this.user = user;
-        return this.Model.findAll();
-      })
-      .then(users => {
-        this.users = users;
-        done();
-      })
+
+      return createTestPodcastAndEpisode()
+        .then(arr => {
+          let podcast = arr[0],
+              episode = arr[1];
+
+          return this.userSvc.create({}, {
+            userId: 'nite_owl',
+            subscribedPodcastFeedURLs: [podcast.feedURL]
+          })
+        })
+        .then(user => {
+          this.user = user;
+          return retrieveUserAndAllSubscribedPodcasts(user.id, {userId: 'nite_owl'})
+        })
+        .then(userWithSubscribedPodcasts => {
+          this.user = userWithSubscribedPodcasts;
+          done();
+        })
+        .catch(e => {
+          console.log(e);
+        })
     });
 
-    xdescribe('when the custom SQL query is called', function () {
-      xit('should return the expected subscribed podcasts data', {});
+    describe('when the custom SQL query is called', function () {
+
+      it('should return the expected subscribed podcasts data', function () {
+        console.log(user);
+      });
 
       xit('should return the expected episodes count', {});
 
       xit('should return the expected lastEpisodePubDate', {});
     });
-
-    xdescribe('when the custom SQL query is called', function () {
-      xit('should return the expected subscribed podcasts data', {});
-
-      xit('should return the expected episodes count', {});
-
-      xit('should return the expected lastEpisodePubDate', {});
-    });
-
-
 
   })
 
