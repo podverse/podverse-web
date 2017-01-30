@@ -14,7 +14,7 @@ module.exports = function(sequelize, DataTypes) {
     },
 
     subscribedPodcastFeedURLs: {
-      type: DataTypes.ARRAY(DataTypes.STRING),
+      type: DataTypes.ARRAY(DataTypes.TEXT),
       defaultValue: []
     }
 

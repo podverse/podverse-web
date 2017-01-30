@@ -64,7 +64,9 @@ function createTestUser (Models) {
 
   const {User} = Models;
 
-  return Promise.resolve(User.create({id: 'kungfury@podverse.fm'}));
+  return Promise.resolve(User.create({
+    id: 'kungfury@podverse.fm'
+  }));
 }
 
 function createTestMediaRefs (Models) {
@@ -117,7 +119,8 @@ function createTestPodcastAndEpisode () {
   return new Promise((resolve, reject) => {
     return new PodcastService().create({
       feedURL: 'http://example.com/test333',
-      title: 'Most interesting podcast in the world'
+      title: 'Most interesting podcast in the world',
+      imageURL: 'http://example.com/image.jpg'
     }, {})
     .then(podcast => {
       this.podcast = podcast;
@@ -125,12 +128,24 @@ function createTestPodcastAndEpisode () {
         mediaURL: 'http://example.com/test999',
         feedURL: 'http://example.com/test333',
         title: 'Best episode in the history of time',
-        podcastId: podcast.id
+        podcastId: this.podcast.id,
+        pubDate: '2017-01-30T03:58:46+00:00'
       }, {});
     })
-    .then(episode => {
-      resolve([this.podcast, episode]);
-    }).catch(e => {
+    .then(episode1 => {
+      this.episode1 = episode1;
+      return new EpisodeService().create({
+        mediaURL: 'http://example.com/test2222',
+        feedURL: 'http://example.com/test333',
+        title: 'Oldest episode in the history of time',
+        podcastId: this.podcast.id,
+        pubDate: '1999-12-31T23:59:59+00:00'
+      }, {});
+    })
+    .then(episode2 => {
+      resolve([this.podcast, this.episode1, episode2]);
+    })
+    .catch(e => {
       reject(e);
     });
   })

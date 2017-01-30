@@ -84,14 +84,15 @@ describe('UserService', function () {
   describe('#retrieveUserAndAllSubscribedPodcasts', function () {
     beforeEach(function (done) {
 
-      return createTestPodcastAndEpisode()
+      createTestPodcastAndEpisode()
         .then(arr => {
           let podcast = arr[0],
               episode = arr[1];
 
-          return this.userSvc.create({}, {
-            userId: 'nite_owl',
+          return this.userSvc.create({
             subscribedPodcastFeedURLs: [podcast.feedURL]
+          }, {
+            userId: 'nite_owl',
           })
         })
         .then(user => {
@@ -100,6 +101,7 @@ describe('UserService', function () {
         })
         .then(userWithSubscribedPodcasts => {
           this.user = userWithSubscribedPodcasts;
+          this.subscribedPodcasts = this.user.dataValues.subscribedPodcasts;
           done();
         })
         .catch(e => {
@@ -109,13 +111,27 @@ describe('UserService', function () {
 
     describe('when the custom SQL query is called', function () {
 
-      it('should return the expected subscribed podcasts data', function () {
-        console.log(user);
-      });
+      describe('for the subscribed podcasts that are returned', function() {
 
-      xit('should return the expected episodes count', {});
+        it('should include the episodeCount', function () {
+          expect(this.subscribedPodcasts[0].episodeCount).to.equal('2');
+        });
 
-      xit('should return the expected lastEpisodePubDate', {});
+        it('should include the lastEpisodePubDate', function () {
+          let pubDateTime1 = new Date(this.subscribedPodcasts[0].lastEpisodePubDate);
+          let pubDateTime2 = new Date('2017-01-30T03:58:46.000Z');
+          expect(pubDateTime1).to.equalDate(pubDateTime2);
+        });
+
+        it('should include the title', function () {
+          expect(this.subscribedPodcasts[0].title).to.equal('Most interesting podcast in the world');
+        });
+
+        it('should include the imageURL', function () {
+          expect(this.subscribedPodcasts[0].imageURL).to.equal('http://example.com/image.jpg');
+        });
+      })
+
     });
 
   })
