@@ -1,5 +1,6 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
+const chaiDateTime = require('chai-datetime');
 const chance = require('chance');
 const sinon = require('sinon');
 
@@ -13,6 +14,7 @@ global.expect = chai.expect;
 global.chance = chance.Chance();
 
 chai.use(chaiHttp);
+chai.use(chaiDateTime);
 
 // Spy sandboxing
 beforeEach(function () {
