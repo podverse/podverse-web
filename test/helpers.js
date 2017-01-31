@@ -117,14 +117,17 @@ function createTestPlaylist (Models) {
 function createTestPodcastAndEpisode () {
 
   return new Promise((resolve, reject) => {
-    return new PodcastService().create({
+    let podcastService = new PodcastService(),
+        episodeService = new EpisodeService();
+
+    return podcastService.create({
       feedURL: 'http://example.com/test333',
       title: 'Most interesting podcast in the world',
       imageURL: 'http://example.com/image.jpg'
     }, {})
     .then(podcast => {
       this.podcast = podcast;
-      return new EpisodeService().create({
+      return episodeService.create({
         mediaURL: 'http://example.com/test999',
         feedURL: 'http://example.com/test333',
         title: 'Best episode in the history of time',
@@ -134,7 +137,7 @@ function createTestPodcastAndEpisode () {
     })
     .then(episode1 => {
       this.episode1 = episode1;
-      return new EpisodeService().create({
+      return episodeService.create({
         mediaURL: 'http://example.com/test2222',
         feedURL: 'http://example.com/test333',
         title: 'Oldest episode in the history of time',
