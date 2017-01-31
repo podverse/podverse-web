@@ -142,7 +142,7 @@ function routes () {
           getUsersSubscribedPodcastFeedURLs(resolve, reject, req);
         })
           .then((subscribedPodcastFeedURLs) => {
-            subscribedPodcastFeedURLs = subscribedPodcastFeedURLs;
+            subscribedPodcastFeedURLs = subscribedPodcastFeedURLs || [];
             mediaRefs.forEach(mediaRef => {
               if (subscribedPodcastFeedURLs.includes(mediaRef.podcastFeedURL)) {
                 mediaRef.dataValues['isSubscribed'] = true;

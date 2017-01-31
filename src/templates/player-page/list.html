@@ -1,9 +1,9 @@
 {% if mediaRefs|isPlaylist %}
   <div id="playlist">
     {% if isSubscribed and not isOwner %}
-      <div id="playlist-subscribe" title="Unsave playlist"><i class="fa fa-star"></i> Saved</div>
+      <div id="playlist-subscribe" title="Unsave playlist"><i class="fa fa-star"></i></div>
     {% elif not isSubscribed and not isOwner %}
-      <div id="playlist-subscribe" title="Save playlist">Save Playlist</div>
+      <div id="playlist-subscribe" title="Save playlist"><small>save playlist</small> <i class="fa fa-star-o"></i></div>
     {% endif %}
     <div id="playlist-title">
       {% if isRecommendation %}
