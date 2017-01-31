@@ -61,9 +61,12 @@ export function createPlaylist (params, callback) {
 export function addToPlaylist (playlistId, mediaRefId, callback) {
   $.ajax({
     type: 'POST',
-    url: '/playlists/' + playlistId + '/addItem/' + mediaRefId,
+    url: '/playlists/' + playlistId + '/addItem',
     headers: {
       Authorization: $.cookie('idToken')
+    },
+    data: {
+      mediaRefId: mediaRefId
     },
     success: function (response) {
       if (callback) {
@@ -122,8 +125,9 @@ export function addNewPlaylistElement(playlist) {
   });
 }
 
-function subscribeToPlaylist(url, successCallback) {
+export function subscribeToPlaylist(url, successCallback) {
   var id = url.substr(url.lastIndexOf('/') + 1);
+
   $.ajax({
     type: 'POST',
     url: '/playlists/subscribe/' + id,
@@ -141,8 +145,9 @@ function subscribeToPlaylist(url, successCallback) {
   sendGoogleAnalyticsEvent('Playlist', 'Subscribe to Playlist');
 }
 
-function unsubscribeFromPlaylist (url, successCallback) {
+export function unsubscribeFromPlaylist (url, successCallback) {
   var id = url.substr(url.lastIndexOf('/') + 1);
+
   $.ajax({
     type: 'POST',
     url: '/playlists/unsubscribe/' + id,

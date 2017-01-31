@@ -12,10 +12,12 @@ import { initClipper,
          toggleMakeClipWidget } from '../../clipHelper.js';
 import { sendGoogleAnalyticsPlayerPageView } from '../../googleAnalytics.js';
 import { addToPlaylist,
+         subscribeToPlaylist,
          togglePlaylistWidget,
+         unsubscribeFromPlaylist,
          updatePlaylistItemCount } from '../../playlistHelper.js';
 import { toggleRecommendWidget } from '../../recommendHelper.js';
-import { debounce } from '../../utility.js';
+import { debounce, isNonAnonLoggedInUser } from '../../utility.js';
 
 
 
@@ -84,12 +86,12 @@ $('#playlist-subscribe').on('click', function () {
     return;
   }
 
-  if ($(this).html() === 'save') {
-    $('#playlist-subscribe').html('<i class="fa fa-star"></i> saved');
+  if ($(this).html() === '<small>save playlist</small> <i class="fa fa-star-o"></i>') {
+    $('#playlist-subscribe').html('<i class="fa fa-star"></i>');
     $('#playlist-subscribe').attr('title', 'Unsave playlist');
     subscribeToPlaylist(playlistId);
   } else {
-    $('#playlist-subscribe').html('save');
+    $('#playlist-subscribe').html('<small>save playlist</small> <i class="fa fa-star-o"></i>');
     $('#playlist-subscribe').attr('title', 'Save playlist');
     unsubscribeFromPlaylist(playlistId);
   }

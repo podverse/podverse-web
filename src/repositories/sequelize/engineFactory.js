@@ -1,12 +1,8 @@
 const Sequelize = require('sequelize');
 
-module.exports = function ({ databaseName='podverse', storagePath='podverse.sql' } = {}) {
+module.exports = function ({ uri } = {}) {
 
-  const sequelize = new Sequelize(databaseName, null, null, {
-    dialect: 'sqlite',
-    storage: storagePath,
-    logging: false
-  });
+  const sequelize = new Sequelize(uri, {logging: false});
 
   return sequelize;
 };

@@ -847,10 +847,6 @@ footer p {
   height: 4rem;
 }
 
-.podcast-item-subscribe {
-  float: right;
-}
-
 .podcast-item-title {
   font-weight: 600;
   overflow: hidden;
@@ -874,6 +870,10 @@ footer p {
 #myPlaylistsDropdown {
   float: left;
   margin: 1.25rem 0 1.5rem 0;
+}
+
+#myPlaylistsDropdown a {
+  cursor: pointer;
 }
 
 .playlist-list-item {

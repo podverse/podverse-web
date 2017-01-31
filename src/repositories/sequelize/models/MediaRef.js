@@ -40,7 +40,47 @@ module.exports = function(sequelize, DataTypes) {
 
     dateCreated: DataTypes.DATE,
 
-    lastUpdated: DataTypes.DATE
+    lastUpdated: DataTypes.DATE,
+
+    podcastTitle: DataTypes.TEXT,
+
+    podcastFeedURL: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+      validation: {
+        isUrl: true
+      }
+    },
+
+    podcastImageURL: {
+      type: DataTypes.TEXT,
+      validate: {
+        isUrl: true
+      }
+    },
+
+    episodeTitle: DataTypes.TEXT,
+
+    episodeMediaURL: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+      validation: {
+        isUrl: true
+      }
+    },
+
+    episodeImageURL: {
+      type: DataTypes.TEXT,
+      validate: {
+        isUrl: true
+      }
+    },
+
+    episodePubDate: DataTypes.DATE,
+
+    episodeSummary: DataTypes.TEXT,
+
+    episodeDuration: DataTypes.INTEGER
 
   }, {
     updatedAt: 'lastUpdated',

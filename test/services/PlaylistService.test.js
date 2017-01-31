@@ -110,8 +110,9 @@ describe('PlaylistService', function () {
     // TODO: broken, improperly done test
     it('should have the expected MediaRefs associated with it', function (done) {
       this.resolvedVal.getMediaRefs().then(function (mediaRefs) {
-        expect(mediaRefs[0].title).to.equal('TestTitle0');
-        expect(mediaRefs[1].title).to.equal('TestTitle1');
+        let mediaRefTitles = mediaRefs.map(mediaRef => mediaRef.title).sort();
+        expect(mediaRefTitles[0]).to.equal('TestTitle0');
+        expect(mediaRefTitles[1]).to.equal('TestTitle1');
         done();
       });
     });
@@ -165,10 +166,11 @@ describe('PlaylistService', function () {
 
     it('should return all the expected playlist items', function () {
       let mediaRefs = this.updatedPlaylist.mediaRefs;
-      expect(mediaRefs[0].title).to.equal('TestTitle0');
-      expect(mediaRefs[1].title).to.equal('TestTitle1');
-      expect(mediaRefs[2].title).to.equal('TestTitle2');
-      expect(mediaRefs[3].title).to.equal('TestTitle3');
+      let mediaRefTitles = mediaRefs.map(mediaRef => mediaRef.title).sort();
+      expect(mediaRefTitles[0]).to.equal('TestTitle0');
+      expect(mediaRefTitles[1]).to.equal('TestTitle1');
+      expect(mediaRefTitles[2]).to.equal('TestTitle2');
+      expect(mediaRefTitles[3]).to.equal('TestTitle3');
     });
 
     xit('should ensure slug has only valid characters');

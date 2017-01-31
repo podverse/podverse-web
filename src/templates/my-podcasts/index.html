@@ -3,9 +3,9 @@
 
 <div class="row">
   <div class="col-xs-12">
-    <h4>My Subscribed Podcasts</h4>
+    <h4>My Podcasts</h4>
     <div class="podcast-list">
-      {% for podcast in podcasts|sort(false, true, 'title') %}
+      {% for podcast in subscribedPodcasts|sortTextIgnoreArticles(false, true, 'title') %}
         <a class="podcast-item" data-id="{{podcast.id}}" href="/podcasts/{{podcast.id}}">
           <div class="podcast-item-img">
             <img src="{{podcast.imageURL}}">
@@ -14,10 +14,19 @@
             {{podcast.title}}
           </div>
           <div class="podcast-item-total-episodes">
-            {{ podcast.episodes | length }} episodes
+            <!-- TODO: show the pubDate of the podcast's most recent episode -->
+            <!-- How can we derive episode count efficiently?
+                 I'm considering sidestepping querying and assigning the episodeCount
+                 during feed parsing. -->
+            {{ podcast.episodeCount }} episodes
           </div>
           <div class="podcast-item-last-pubdate">
-            {{podcast.episodes[0].pubDate | readableDate}}
+            <!-- TODO: show the pubDate of the podcast's most recent episode -->
+            <!-- How can we query last episode pubDate efficiently? I've tried a
+                 lot of things but none of them seem do to the trick efficiently.
+                 I'm still considering sidestepping querying and assigning the
+                 lastEpisodePubDate during feed parsing. -->
+            {{ podcast.lastEpisodePubDate | readableDate }}
           </div>
           <div class="clearfix"></div>
         </a>

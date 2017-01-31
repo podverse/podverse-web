@@ -1,19 +1,22 @@
 const
-    {sqlite} = require('src/config.js'),
     appFactory = require('./appFactory'),
     sqlEngineFactory = require('repositories/sequelize/engineFactory.js'),
     modelFactory = require('repositories/sequelize/models'),
-    {locator} = require('locator.js');
+    {locator} = require('locator.js'),
+    {postgresUri} = require('config');
 
-const sqlEngine = new sqlEngineFactory({storagePath: sqlite});
+const sqlEngine = new sqlEngineFactory({uri: postgresUri});
+locator.set('sqlEngine', sqlEngine);
 locator.set('Models', modelFactory(sqlEngine));
 
 const
     ClipService = require('services/clip/ClipService.js'),
     PlaylistService = require('services/playlist/PlaylistService.js'),
-    PodcastService = require('services/podcast/PodcastService.js'),
-    EpisodeService = require('services/episode/EpisodeService.js'),
     UserService = require('services/user/UserService.js');
+
+const
+    PodcastService = require('podcast-db/src/services/podcast/PodcastService.js'),
+    EpisodeService = require('podcast-db/src/services/episode/EpisodeService.js');
 
 locator.set('ClipService', new ClipService());
 locator.set('PlaylistService', new PlaylistService());

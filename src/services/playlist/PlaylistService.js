@@ -4,7 +4,8 @@ const
     config = require('config.js'),
     {locator} = require('locator.js'),
     {applyOwnerId} = require('hooks/common.js'),
-    {addURL} = require('hooks/playlist/playlist.js');
+    {addURL} = require('hooks/playlist/playlist.js'),
+    {isUUID} = require('validator');
 
 class PlaylistService extends SequelizeService {
 
@@ -39,23 +40,15 @@ class PlaylistService extends SequelizeService {
     return data;
   }
 
-  get (id, params={}) {
-    const {MediaRef, Episode, Podcast} = this.Models;
+  get (id /*, params={} */) {
+    const {MediaRef} = this.Models;
 
     return this.Model.findOne({
-      where: {
-        $or: [
-          {id:id},
-          {slug:id}
-        ]
-      },
-      include: [
-        { model: MediaRef,
-          through: 'playlistItems',
-          include: [{
-            model: Episode, include: [Podcast]
-          }]}
-      ]
+      where: isUUID(id) ? {id} : {slug:id},
+      include: {
+        model: MediaRef,
+        through: 'playlistItems'
+      }
     }).then(playlist => {
       return playlist
     }).catch(e => {
@@ -64,17 +57,13 @@ class PlaylistService extends SequelizeService {
   }
 
   find (params={}) {
-    const {MediaRef, Episode, Podcast} = this.Models;
+    const {MediaRef} = this.Models;
 
     params.sequelize = {
-      include: [
-        { model: MediaRef,
-          through: 'playlistItems',
-          include: [{
-            model: Episode, include: [Podcast]
-          }],
-        }
-      ]
+      include: {
+        model: MediaRef,
+        through: 'playlistItems'
+      }
     };
 
     return super.find(params);

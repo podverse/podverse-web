@@ -1,5 +1,5 @@
 const ClipService = require('services/clip/ClipService.js');
-const {configureDatabaseModels, createTestPodcastAndEpisode} = require('test/helpers.js');
+const {configureDatabaseModels, createTestUser} = require('test/helpers.js');
 
 const {applyOwnerId} = require('hooks/common.js');
 
@@ -17,34 +17,53 @@ describe('ClipService', function () {
 
     this.clipSvc = new ClipService();
 
-    createTestPodcastAndEpisode(this.Models)
-      .then(([podcasts,episodes]) => {
+    createTestUser(this.Models)
+      .then(user => {
+        this.user = user;
 
-        this.testPodcast = podcasts[0];
-        this.testEpisode = episodes[0];
-
-        return MediaRef.create({
-          ownerId: 'testOwner',
-          episodeId: this.testEpisode.id,
+        return this.clipSvc.create({
           title: 'TestTitle1',
-          startTime: 5
-        });
-      })
-      .then(mediaRefClip => {
-        this.testMediaRef = mediaRefClip;
+          startTime: 3,
+          endTime: 10,
+          podcastTitle: 'testPodcastTitle234',
+          podcastFeedURL: 'http://something.com/rss',
+          episodeMediaURL: 'http://something.com/1.mp3',
+          episodeTitle: 'testEpisodeTitle22'
+        })
+        .then(mediaRefClip => {
+          this.testMediaRef = mediaRefClip;
 
-        return MediaRef.create({
-          ownerId: 'testOwner',
-          episodeId: this.testEpisode.id,
-          title: 'TestTitle2',
-          startTime: 0
-        });
+          return this.clipSvc.create({
+            title: 'TestTitle2',
+            startTime: 0,
+            podcastTitle: 'testPodcastTitle234',
+            podcastFeedURL: 'http://something.com/rss',
+            episodeMediaURL: 'http://something.com/1.mp3',
+            episodeTitle: 'testEpisodeTitle22'
+          })
+        })
+        .then(mediaRefEpisode => {
+          this.testMediaRefEpisode = mediaRefEpisode;
+          done();
+        })
+        .catch(done);
       })
-      .then(mediaRefEpisode => {
-        this.testMediaRefEpisode = mediaRefEpisode;
-        done();
-      })
-      .catch(done);
+
+
+  });
+
+  // TODO
+  xdescribe('when the user is logged in', () => {
+    xit('adds the clip to the My Clips playlist', {
+
+    });
+  });
+
+  // TODO
+  xdescribe('when the user is not logged in', () => {
+    xit('adds the clip to the My Clips playlist', {
+
+    });
   });
 
   it('should have the expected before-create hooks', function () {
@@ -75,14 +94,6 @@ describe('ClipService', function () {
       expect(this.resultClip.title).to.equal('TestTitle1');
     });
 
-    it('should have the episode included', function () {
-      expect(this.resultClip.episode.id).to.equal(this.testEpisode.id);
-    });
-
-    it('should have the podcast included', function () {
-      expect(this.resultClip.episode.podcast.id).to.equal(this.testPodcast.id);
-    });
-
   });
 
   describe('when finding clips', function () {
@@ -105,15 +116,15 @@ describe('ClipService', function () {
 
     beforeEach(function (done) {
 
-      let testEpisode = Object.assign({}, this.testEpisode.dataValues, {podcast: this.testPodcast.dataValues});
-
       this.testData = {
         ownerId: 'foo',
         title: 'hamblam',
         startTime: 40,
         endTime: 50,
-        episodeId: testEpisode.id,
-        episode: testEpisode
+        podcastTitle: 'testPodcastTitle234',
+        podcastFeedURL: 'http://something.com/rss',
+        episodeMediaURL: 'http://something.com/1.mp3',
+        episodeTitle: 'testEpisodeTitle22'
       };
 
       this.clipSvc.create(this.testData)
@@ -145,7 +156,10 @@ describe('ClipService', function () {
     it('should reject with an error', function (done) {
 
       const data = {
-        title: 'fooo'
+        ownerId: 'testOwner',
+        episodeId: 'someId',
+        podcastFeedURL: 'http://some.rss.feed.com',
+        episodeMediaURL: 'http://some.mediaURL.com'
       };
 
       this.clipSvc.create(data, {ownerId: 'notnull'})

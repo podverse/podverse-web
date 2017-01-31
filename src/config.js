@@ -1,13 +1,24 @@
 "use strict";
 
+const isCi = require('is-ci');
+
 const jwtSigningKeyB64 = process.env.jwtSigningKeyB64 || 'RhvV5pbdUOHL0Rns4mX9YgCZ23kvoLqlB6eFau-QIXkxjK4Tx4qFISuzCOg4lmR_';
+let postgresUri;
+
+if (process.env.NODE_ENV === 'test_db' && !isCi) {
+  postgresUri = 'postgres://postgres:password@127.0.0.1:4443/postgres';
+} else if (isCi) {
+  postgresUri = 'postgres://postgres:password@127.0.0.1:5432/postgres';
+} else {
+  postgresUri = process.env.postgresUri || 'postgres://postgres:password@127.0.0.1:5432/postgres';
+}
 
 module.exports = {
   port: process.env.PORT || 8080,
   baseURL: process.env.baseURL || 'http://localhost:8080',
   jwtSigningKey: new Buffer(jwtSigningKeyB64, 'base64'),
-  sqlite: process.env.sqlite || './data/podverseWeb.sqlite',
-  databaseName: 'podverse',
+  databaseName: 'postgres',
+  postgresUri: postgresUri,
 
   // TODO: change the auth0 values to podverse.fm's clientId and domain before deployment
   auth0ClientId: process.env.auth0ClientId || 'tTGQrl5CenMDdpzcKNpmLIginyRgBJNN',
@@ -20,4 +31,5 @@ module.exports = {
     private_key: process.env.GA_PRIVATE_KEY,
     view_id: 'ga:134581781'
   }
+
 };

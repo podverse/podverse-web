@@ -8,24 +8,31 @@
         <a class="playlist-item" href="/clips/{{clip.id}}">
           <div class="playlist-item-inner">
             <div class="playlist-item-image">
-              <img src="{{ clip.episode.podcast.imageURL }}">
+              <img src="{{ clip.podcastImageURL }}">
             </div>
             <div class="playlist-item-text-wrapper">
               <div class="playlist-item-podcast-title">
-                {{ clip.episode.podcast.title }}
+                {{ clip.podcastTitle }}
               </div>
               <div class="playlist-item-sub-title">
-                {{ clip.episode.title }}
+                {{ clip.episodeTitle }}
               </div>
               <div class="playlist-item-time">
                 Clip:
                 {{ clip.startTime | convertSecToHHMMSS }}
                 {% if clip.endTime %}
                   to {{ clip.endTime | convertSecToHHMMSS }}
+                {% else %}
+                  start time
                 {% endif %}
               </div>
               <div class="playlist-item-date">
-                {{ clip.episode.pubDate | readableDate }}
+                <!-- TODO: clips seem to be randomly saving pubDates. Does PostgreSQL
+                           need some kind of special time zone handling or something?
+                           It seems like the pubDates of clips are getting incrementally
+                           bigger by 6 hours... -->
+                {{ clip.episodePubDate }}
+                <!-- {{ clip.episodePubDate | readableDate }} -->
               </div>
             </div>
             {% if clip.title %}

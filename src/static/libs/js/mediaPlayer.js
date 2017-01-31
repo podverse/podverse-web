@@ -19,7 +19,7 @@ if (isEmptyPlaylist !== true) {
   createAndAppendAudio();
   onScrollCondensePlayerView();
 } else {
-  var isEmptyPlaylistEl = '<div id="empty-playlist-message">This playlist has no episodes or clips added to it. <br><br> Click the <i class="fa fa-list-ul"></i> icon while an episode or clip is playing to add it to a playlist.</div>';
+  var isEmptyPlaylistEl = '<div id="empty-playlist-message">This playlist has no episodes or clips added to it.';
   $(isEmptyPlaylistEl).insertAfter('#player');
 }
 
@@ -39,26 +39,14 @@ function loadMediaRef (index, shouldPlay) {
     isEpisode = false;
   }
 
-  if (isEpisode === false) {
-    podcastTitle = item.episode.podcast.title;
-    podcastImageURL = item.episode.podcast.imageURL;
-    episodeTitle = item.episode.title;
-    episodeMediaURL = item.episode.mediaURL;
-    episodePubDate = item.episode.pubDate;
-    description = item.title;
-    mediaRefId = item.id;
-    isSubscribed = item.isSubscribed;
-  } else { // handle item as episode
-    podcastTitle = item.episode.podcast.title;
-    podcastImageURL = item.episode.podcast.imageURL;
-    episodeTitle = item.episode.title;
-    episodeMediaURL = item.episode.mediaURL;
-    episodePubDate = item.episode.pubDate;
-    startTime = 0;
-    description = item.episode.summary;
-    mediaRefId = 'episode_' + item.episode.id;
-    isSubscribed = item.isSubscribed;
-  }
+  podcastTitle = item.podcastTitle;
+  podcastImageURL = item.podcastImageURL;
+  episodeTitle = item.episodeTitle;
+  episodeMediaURL = item.episodeMediaURL;
+  episodePubDate = item.episodePubDate;
+  description = item.title;
+  isSubscribed = item.isSubscribed;
+  mediaRefId = item.id;
 
   window.location.hash = index + 1;
 
@@ -103,10 +91,21 @@ function setPlayerInfo () {
 
   $('#player-header').show();
 
+  let startTimeReadable = '',
+      endTimeReadable = '';
+
+  if (endTime <= 0 && endTime !== null) {
+    startTimeReadable = 'Clip: ' + convertSecToHHMMSS(startTime);
+    endTimeReadable = ' to ' + convertSecToHHMMSS(endTime);
+  } else {
+    startTimeReadable = 'Clip: ' + convertSecToHHMMSS(startTime);
+    endTimeReadable = ' start time';
+  }
+
   if (isEpisode === false) {
     var duration = calcDuration(startTime, endTime);
-    $('#player-stats-duration').html('Clip: ' + convertSecToHHMMSS(startTime) + ' to ' + convertSecToHHMMSS(endTime));
-    $('#player-condensed-text').html('Clip: ' + convertSecToHHMMSS(startTime) + ' to ' + convertSecToHHMMSS(endTime) + ' – ' + description);
+    $('#player-stats-duration').html(startTimeReadable + endTimeReadable);
+    $('#player-condensed-text').html(startTimeReadable + endTimeReadable + ' – ' + description);
     $('#player-condensed-text').addClass('should-show');
   } else {
     $('#player-stats-duration').html('Full Episode');
@@ -115,21 +114,24 @@ function setPlayerInfo () {
   if (isPlaylist && !isEpisode) {
     $('#player-stats-duration-link').html('<a href="/clips/' + mediaRefId + '"><i class="fa fa-link"></i></a>')
   } else if (isPlaylist && isEpisode) {
-    $('#player-stats-duration-link').html('<a href="/episodes/' + episodeId + '"><i class="fa fa-link"></i></a>')
+    // TODO: this is broken
+    $('#player-stats-duration-link').html('<a href="/episodes/alias?mediaURL=' + episodeMediaURL + '"><i class="fa fa-link"></i></a>')
   }
 
   $('#player-condensed-title a').html(podcastTitle);
-  $('#player-condensed-title a').attr('href', '/podcasts/' + podcastId);
+  // TODO: this is broken
+  $('#player-condensed-title a').attr('href', '/podcasts?feedURL=' + podcastFeedURL);
   $('#player-condensed-sub-title').html(episodeTitle);
   $('#player-condensed-image img').attr('src', podcastImageURL);
 
-  $('#player-podcast-title a').attr('href', '/podcasts/' + podcastId);
+  $('#player-podcast-title a').attr('href', '/podcasts/alias?feedURL=' + podcastFeedURL);
   $('#player-podcast-title a').html(podcastTitle);
 
-  $('#player-sub-title a').attr('href', '/episodes/' + episodeId);
+  // TODO: this is broken
+  $('#player-sub-title a').attr('href', '/episodes/alias?mediaURL=' + episodeMediaURL);
   $('#player-sub-title a').html(episodeTitle);
 
-  $('#player-image a').attr('href', '/podcasts/' + podcastId);
+  $('#player-image a').attr('href', '/podcasts?feedURL=' + podcastFeedURL);
   $('#player-image img').attr('src', podcastImageURL);
   $('#player-stats-pub-date').html(readableDate(episodePubDate));
 
@@ -188,11 +190,11 @@ function setPlayerInfo () {
     if ($(this).children().hasClass('fa-star-o')) {
       $('#player-podcast-subscribe').html('<i class="fa fa-star"></i>');
       $('#player-podcast-subscribe').attr('title', 'Unsubscribe from podcast');
-      subscribeToPodcast(podcastId);
+      subscribeToPodcast(podcastFeedURL);
     } else {
       $('#player-podcast-subscribe').html('<i class="fa fa-star-o"></i>');
       $('#player-podcast-subscribe').attr('title', 'Subscribe to podcast');
-      unsubscribeFromPodcast(podcastId);
+      unsubscribeFromPodcast(podcastFeedURL);
     }
   });
 

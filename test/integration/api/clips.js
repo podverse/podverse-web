@@ -4,12 +4,10 @@ const appFactory = require('appFactory.js');
 const {configureDatabaseModels,
        createTestApp,
        createTestUser,
-       createTestPodcastAndEpisode,
        createValidTestJWT} = require('test/helpers.js');
 
 const ClipService = require('services/clip/ClipService.js');
 const PlaylistService = require('services/playlist/PlaylistService.js');
-const PodcastService = require('services/podcast/PodcastService.js');
 
 const config = require('config.js');
 
@@ -18,21 +16,13 @@ describe('API Test: Clips', function () {
   configureDatabaseModels(function (Models) {
     this.Models = Models;
   });
-  
+
   beforeEach(function (done) {
-
-    createTestPodcastAndEpisode(this.Models)
-      .then(([podcast, episode]) => {
-        this.testPodcast = podcast;
-        this.testEpisode = episode;
-
-        createTestUser(this.Models)
-          .then(user => {
-            this.user = user;
-            done();
-          })
-      });
-
+    createTestUser(this.Models)
+      .then(user => {
+        this.user = user;
+        done();
+      })
   });
 
   beforeEach(function () {
@@ -52,15 +42,10 @@ describe('API Test: Clips', function () {
           'title': 'jerry',
           'startTime': 3,
           'endTime': 10,
-
-          'episode': {
-            title: 'testEpisodeTitle22',
-            mediaURL: 'http://something.com/1.mp3',
-            'podcast': {
-              title: 'testPodcastTitle234',
-              feedURL: 'http://something.com/rss'
-            }
-          }
+          'podcastTitle': 'testPodcastTitle234',
+          'podcastFeedURL': 'http://something.com/rss',
+          'episodeMediaURL': 'http://something.com/1.mp3',
+          'episodeTitle': 'testEpisodeTitle22'
         })
         .end((err, res) => {
           this.response = res;
@@ -77,38 +62,6 @@ describe('API Test: Clips', function () {
           id = this.response.body.id;
 
       expect(podverseURL).to.equal(`${config.baseURL}/clips/${id}`);
-    });
-
-    it('should have saved the podcast object with the title', function (done) {
-
-      // Expect there to be an episode created with the title.
-      this.Models.Podcast.findOne({
-        where: {
-          title: 'testPodcastTitle234'
-        }
-      })
-      .then(podcast => {
-        expect(podcast).to.not.equal(null);
-        expect(podcast.feedURL).to.equal('http://something.com/rss');
-        done();
-      })
-      .catch(done);
-
-    });
-
-    it('should have saved the episode object', function (done) {
-            // Expect there to be an episode created with the title.
-            this.Models.Episode.findOne({
-              where: {
-                title: 'testEpisodeTitle22'
-              }
-            })
-            .then(episode => {
-              expect(episode).to.not.equal(null);
-              expect(episode.mediaURL).to.equal('http://something.com/1.mp3');
-              done();
-            })
-            .catch(done);
     });
 
   });

@@ -3,22 +3,14 @@
 const isClipMediaRef = {
   $not: {
     startTime: 0,
-    $and: {
-      $not: {
-        endTime: ''
-      }
-    }
+    endTime: null
   }
 }
 
 const isClipMediaRefWithTitle = {
   $not: {
     startTime: 0,
-    $and: {
-      $not: {
-        endTime: ''
-      }
-    }
+    endTime: null
   },
   $not: {
     title: null

@@ -1,5 +1,5 @@
 const
-    {configureDatabaseModels} = require('test/helpers.js'),
+    {configureDatabaseModels, createTestPodcastAndEpisode} = require('test/helpers.js'),
     UserService = require('services/user/UserService.js');
 
 describe('UserService', function () {
@@ -80,5 +80,60 @@ describe('UserService', function () {
     });
 
   });
+
+  describe('#retrieveUserAndAllSubscribedPodcasts', function () {
+    beforeEach(function (done) {
+
+      createTestPodcastAndEpisode()
+        .then(arr => {
+          let podcast = arr[0],
+              episode = arr[1];
+
+          return this.userSvc.create({
+            subscribedPodcastFeedURLs: [podcast.feedURL]
+          }, {
+            userId: 'nite_owl',
+          })
+        })
+        .then(user => {
+          this.user = user;
+          return this.userSvc.retrieveUserAndAllSubscribedPodcasts(user.id, {userId: 'nite_owl'})
+        })
+        .then(userWithSubscribedPodcasts => {
+          this.user = userWithSubscribedPodcasts;
+          this.subscribedPodcasts = this.user.dataValues.subscribedPodcasts;
+          done();
+        })
+        .catch(e => {
+          console.log(e);
+        })
+    });
+
+    describe('when the custom SQL query is called', function () {
+
+      describe('for the subscribed podcasts that are returned', function() {
+
+        it('should include the episodeCount', function () {
+          expect(this.subscribedPodcasts[0].episodeCount).to.equal('2');
+        });
+
+        it('should include the lastEpisodePubDate', function () {
+          let pubDateTime1 = new Date(this.subscribedPodcasts[0].lastEpisodePubDate);
+          let pubDateTime2 = new Date('2017-01-30T03:58:46.000Z');
+          expect(pubDateTime1).to.equalDate(pubDateTime2);
+        });
+
+        it('should include the title', function () {
+          expect(this.subscribedPodcasts[0].title).to.equal('Most interesting podcast in the world');
+        });
+
+        it('should include the imageURL', function () {
+          expect(this.subscribedPodcasts[0].imageURL).to.equal('http://example.com/image.jpg');
+        });
+      })
+
+    });
+
+  })
 
 });
