@@ -94,7 +94,7 @@ function setPlayerInfo () {
   let startTimeReadable = '',
       endTimeReadable = '';
 
-  if (endTime <= 0 && endTime !== null) {
+  if (endTime >= 0 && endTime !== null) {
     startTimeReadable = 'Clip: ' + convertSecToHHMMSS(startTime);
     endTimeReadable = ' to ' + convertSecToHHMMSS(endTime);
   } else {
