@@ -31,7 +31,7 @@
                            need some kind of special time zone handling or something?
                            It seems like the pubDates of clips are getting incrementally
                            bigger by 6 hours... -->
-                {{ clip.episodePubDate }}
+                {{ clip.episodePubDate | readableDate }}
                 <!-- {{ clip.episodePubDate | readableDate }} -->
               </div>
             </div>
