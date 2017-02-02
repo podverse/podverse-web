@@ -774,7 +774,6 @@ footer p {
 #podcast-title {
     line-height: 1.5rem;
     font-weight: 600;
-    font-size: 18px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;

@@ -16,7 +16,7 @@ $('#podcast-subscribe').on('click', function () {
     $('#podcast-subscribe').attr('title', 'Unsubscribe from podcast');
     subscribeToPodcast(window.podcastFeedURL);
   } else {
-    $('#podcast-subscribe').html('<i class="fa fa-star-o"></i>');
+    $('#podcast-subscribe').html('<small>subscribe</small> <i class="fa fa-star-o"></i>');
     $('#podcast-subscribe').attr('title', 'Subscribe to podcast');
     unsubscribeFromPodcast(window.podcastFeedURL);
   }
