@@ -12,12 +12,18 @@ Run `scripts/postgres-ci.sh start` to start postgres on `localhost:5432`.
 
 Then run `npm test`
 
-###Setup instructions###
+### Setup instructions
 
+```shell
 source init_env.sh
 
 npm install
 
-node app.js
+npm start
+```
 
 open localhost:8080 in your browser
+
+### Migrate DB
+
+`npm run migrate`

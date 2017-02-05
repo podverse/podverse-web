@@ -1,20 +1,18 @@
 const
   path = require('path'),
-  {databaseName} = require('./src/config.js'),
+  {postgresUri} = require('./src/config.js'),
   PATH = 'src/repositories/sequelize',
 
   dbConfig = {
-    "database": databaseName,
     "dialect": "postgres",
-    "protocol": "postgres",
-    "host": "127.0.0.1",
-    "port": "5432"
+    "url": postgresUri
   };
 
 module.exports = {
   "migrations-path": path.resolve(PATH, 'migrations'),
   "seeders-path": path.resolve(PATH, 'seeders'),
   "models-path": path.resolve(PATH, 'models'),
+  "migrationStorageTableName": "sequelize_meta_podverseweb",
   "config": __filename,
   "development": dbConfig,
   "production": dbConfig

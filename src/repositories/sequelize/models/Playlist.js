@@ -49,16 +49,12 @@ module.exports = function(sequelize, DataTypes) {
 
     lastUpdated: DataTypes.DATE,
 
-    sharePermission: {
-      type: DataTypes.ENUM('isPublic', 'isSharableWithLink', 'isPrivate')
-    },
-
     isRecommendation: {
       type: DataTypes.BOOLEAN,
       defaultValue: false
     },
 
-    // TODO: An ownerId can only have ONE playlist with isMyClips === true
+    // TODO: An ownerId should only be able to have ONE playlist with isMyClips === true
     isMyClips: DataTypes.BOOLEAN
 
   }, {

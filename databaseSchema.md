@@ -75,8 +75,6 @@ dateCreated: Date?
 
 lastUpdated: Date?
 
-sharePermission: ENUM? - possible values are "isPublic", "isSharableWithLink", and "isPrivate"
-
 episode: Episode Object!
 
 playlist: Array[Playlist Object]?
@@ -97,8 +95,6 @@ title: String?
 dateCreated: Date?
 
 lastUpdated: Date?
-
-sharePermission: ENUM? - possible values are "isPublic", "isSharableWithLink", and "isPrivate"
 
 isMyEpisodes: Bool – flag marking if the playlist is the owner's "My Episodes" playlist
 
