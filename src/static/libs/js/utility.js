@@ -137,7 +137,7 @@ export function isUUID (val) {
 
 // Used to enable/disable auth protected features in the frontend
 export function isNonAnonLoggedInUser () {
-  return localStorage.getItem('email') ? true : false;
+  return window.isLoggedIn;
 }
 
 // Thanks:D David Walsh https://davidwalsh.name/javascript-debounce-function

@@ -12,6 +12,7 @@
     <!-- TODO: This is weird, gotta be a better way. -->
     <script>
       window.isPlayerPage = false;
+      window.isLoggedIn = {{ locals.isLoggedIn }};
     </script>
 
     {% include "meta-tags.html" %}

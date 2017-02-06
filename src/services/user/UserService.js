@@ -95,6 +95,7 @@ class UserService extends SequelizeService {
       },
       defaults: {
         name: data.name || '',
+        nickname: data.nickname || '',
         subscribedPodcastFeedURLs: data.subscribedPodcastFeedURLs || []
       },
       include: {

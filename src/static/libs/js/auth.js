@@ -1,5 +1,4 @@
 import { sendGoogleAnalyticsEvent } from './googleAnalytics.js';
-import { isLocalStorageSupported } from './browserSupportDetection.js';
 
 var clientId = __AUTH0_CLIENTID__,
     domain = __AUTH0_DOMAIN__;
@@ -30,12 +29,8 @@ let lock = new Auth0Lock.default(clientId, domain, options);
 
 $(window).ready(() => {
   $('#login-btn').on('click', () => {
-    if (isLocalStorageSupported()) {
       lock.show();
       sendGoogleAnalyticsEvent('Auth', 'Show Lock Modal');
-    } else {
-      alert('If you are using iOS Safari in Private Browsing mode, please switch to Regular Browsing mode to log into Podverse.')
-    }
   });
 });
 
@@ -55,8 +50,6 @@ lock.on('authenticated', function (authResult) {
 
     $.cookie('idToken', authResult.idToken, { secure: __IS_PROD__, path: '/' });
 
-    saveUserProfileToLocalStorage(profile);
-
     findOrCreateUserOnServer(profile);
   })
 });
@@ -71,7 +64,8 @@ function findOrCreateUserOnServer (profile) {
     type: 'POST',
     url: '/users',
     data: {
-      name: name
+      name: name,
+      nickname: profile.nickname
     },
     dataType: 'json',
     success: function () {
@@ -81,27 +75,8 @@ function findOrCreateUserOnServer (profile) {
 
 }
 
-function saveUserProfileToLocalStorage (profile) {
-  localStorage.setItem('email', profile.email);
-  localStorage.setItem('nickname', profile.nickname);
-  localStorage.setItem('picture', profile.picture);
-
-  if (profile.user_metadata && profile.user_metadata.admin) {
-    localStorage.setItem('isAdmin', profile.user_metadata.admin);
-  }
-
-}
-
-function removeUserProfileFromLocalStorage () {
-  localStorage.removeItem('email');
-  localStorage.removeItem('nickname');
-  localStorage.removeItem('picture');
-  localStorage.removeItem('isAdmin');
-}
-
 export function logoutUser () {
   $.removeCookie('idToken', { path: '/' });
-  removeUserProfileFromLocalStorage();
   sendGoogleAnalyticsEvent('Auth', 'Logout User');
   location.reload();
 }

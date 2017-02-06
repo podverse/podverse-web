@@ -10,9 +10,50 @@
     <div class="clearfix"></div>
     <div class="collapse navbar-toggleable-xs" id="collapsingNavbar">
       <ul class="nav navbar-nav">
-        <li id="navbar-btn" class="nav-item pull-xs-right">
-          <!-- content added in scripts.js -->
-        </li>
+
+        {% if currentPage == 'Login Redirect Page' %}
+          <!-- Don't load user navbar buttons on login redirect page. -->
+        {% elif locals.isLoggedIn %}
+          <li id="navbar-btn" class="nav-item btn-group pull-xs-right">
+            <a class="dropdown-toggle nav-link hidden-xs-down" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              {% if locals.loggedInName %}
+                {{ locals.loggedInName }}
+              {% else %}
+                {{ locals.loggedInNickname }}
+              {% endif %}
+            </a>
+            <div class="dropdown-menu hidden-xs-down" aria-labelledby="dropdownMenu1">
+              <a class="dropdown-item" href="/settings">Settings</a>
+              <a class="dropdown-item" id="logout-user-dropdown-item">Logout</a>
+            </div>
+          </li>
+
+          <li class="nav-item">
+            <a id="navbar-search-icon" class="nav-link hidden-xs-down" data-toggle="modal" data-target="#navbarSearchModal"><i class="fa fa-search"></i></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link hidden-xs-down" href="/my-podcasts">Podcasts</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link hidden-xs-down" href="/my-playlists">Playlists</a>
+          </li>
+
+          <a class="nav-link hidden-sm-up" href="/my-podcasts">Podcasts</a>
+          <a class="nav-link hidden-sm-up" href="/my-playlists">Playlists</a>
+          <a class="nav-link hidden-sm-up" href="/settings">Settings</a>
+          <hr class="hidden-sm-up">
+          <a class="nav-link hidden-sm-up" id="logout-user-nav-link">Logout</a>
+
+        {% else %}
+          <li id="navbar-btn" class="nav-item pull-xs-right">
+            <a class="nav-link" id="login-btn">Login</a>
+          </li>
+
+          <li class="nav-item">
+            <a id="navbar-search-icon" class="nav-link hidden-xs-down" data-toggle="modal" data-target="#navbarSearchModal"><i class="fa fa-search"></i></a>
+          </li>
+        {% endif %}
+
       </ul><!-- /.nav .navbar-nav -->
     </div><!-- /.collapse .navbar-toggleable-xs -->
   </div><!-- /.navbar-inner -->

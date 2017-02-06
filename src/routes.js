@@ -2,7 +2,7 @@ const
     errors = require('feathers-errors'),
     {locator} = require('locator.js'),
     {isClipMediaRefWithTitle} = require('constants.js'),
-    {verifyNonAnonUser} = require('middleware/auth/verifyNonAnonUser.js'),
+    {getLoggedInUserInfo} = require('middleware/auth/getLoggedInUserInfo.js'),
     {queryGoogleApiData} = require('services/googleapi/googleapi.js'),
     {isNonAnonUser} = require('util.js');
 
@@ -16,7 +16,7 @@ function routes () {
         PlaylistService = locator.get('PlaylistService'),
         UserService = locator.get('UserService');
 
-  app.get('/', function (req, res) {
+  app.get('/', getLoggedInUserInfo, function (req, res) {
 
     let pageIndex = req.query.page || 1;
     let offset = (pageIndex * 10) - 10;
@@ -96,7 +96,8 @@ function routes () {
             clips: clips,
             pageIndex: pageIndex,
             showNextButton: showNextButton,
-            currentPage: 'Home Page'
+            currentPage: 'Home Page',
+            locals: res.locals
           });
         })
         .catch(e => {
@@ -106,7 +107,7 @@ function routes () {
   })
 
   // Clip Detail Page
-  .get('/clips/:id', (req, res) => {
+  .get('/clips/:id', getLoggedInUserInfo, (req, res) => {
     return ClipService.get(req.params.id)
       .then((mediaRef) => {
         req.params.podcastFeedURL = mediaRef.podcastFeedURL;
@@ -121,6 +122,7 @@ function routes () {
               .then((usersOwnedPlaylists) => {
                 mediaRef.dataValues['usersOwnedPlaylists'] = usersOwnedPlaylists;
                 mediaRef.dataValues['currentPage'] = 'Clip Detail Page';
+                mediaRef.dataValues['locals'] = res.locals;
                 res.render('player-page/index.html', mediaRef.dataValues);
               })
         })
@@ -133,7 +135,7 @@ function routes () {
   .use('clips', locator.get('ClipService'))
 
   // Playlist Detail Page
-  .get('/playlists/:id', (req, res) => {
+  .get('/playlists/:id', getLoggedInUserInfo, (req, res) => {
     return PlaylistService.get(req.params.id)
       .then(playlist => {
         req.params.playlistId = playlist.id;
@@ -164,6 +166,7 @@ function routes () {
                   .then((usersOwnedPlaylists) => {
                     playlist.dataValues['usersOwnedPlaylists'] = usersOwnedPlaylists;
                     playlist.dataValues['currentPage'] = 'Playlist Detail Page';
+                    playlist.dataValues['locals'] = res.locals;
                     res.render('player-page/index.html', playlist.dataValues);
                   });
               });
@@ -189,7 +192,7 @@ function routes () {
   })
 
   // Podcast Detail Page
-  .get('/podcasts/:id', (req, res) => {
+  .get('/podcasts/:id', getLoggedInUserInfo, (req, res) => {
     return PodcastService.get(req.params.id)
       .then(podcast => {
         req.params.podcastFeedURL = podcast.feedURL;
@@ -199,6 +202,7 @@ function routes () {
         .then((isSubscribed) => {
           podcast.dataValues['isSubscribed'] = isSubscribed;
           podcast.dataValues['currentPage'] = 'Podcast Detail Page';
+          podcast.dataValues['locals'] = res.locals;
           res.render('podcast/index.html', podcast.dataValues);
         });
       }).catch(e => {
@@ -221,7 +225,7 @@ function routes () {
   })
 
   // Episode Detail Page
-  .get('/episodes/:id', (req, res) => {
+  .get('/episodes/:id', getLoggedInUserInfo, (req, res) => {
     return EpisodeService.get(req.params.id)
       .then(episode => {
         req.params.podcastFeedURL = episode.podcast.feedURL;
@@ -237,6 +241,7 @@ function routes () {
             .then((usersOwnedPlaylists) => {
               episode.dataValues['usersOwnedPlaylists'] = usersOwnedPlaylists;
               episode.dataValues['currentPage'] = 'Episode Detail Page';
+              episode.dataValues['locals'] = res.locals;
               res.render('player-page/index.html', episode.dataValues);
             })
         })
@@ -247,7 +252,7 @@ function routes () {
 
   .use('episodes', locator.get('EpisodeService'))
 
-  .post('/podcasts/subscribe', verifyNonAnonUser, function (req, res) {
+  .post('/podcasts/subscribe', function (req, res) {
     UserService.update(req.feathers.userId, {}, {
       subscribeToPodcastFeedURL: req.body.podcastFeedURL,
       userId: req.feathers.userId
@@ -261,7 +266,7 @@ function routes () {
       });
   })
 
-  .post('/podcasts/unsubscribe', verifyNonAnonUser, function (req, res) {
+  .post('/podcasts/unsubscribe', function (req, res) {
     UserService.update(req.feathers.userId, {}, {
       unsubscribeFromPodcastFeedURL: req.body.podcastFeedURL,
       userId: req.feathers.userId
@@ -275,7 +280,7 @@ function routes () {
     });
   })
 
-  .post('/playlists/subscribe/:id', verifyNonAnonUser, function (req, res) {
+  .post('/playlists/subscribe/:id', function (req, res) {
     UserService.update(req.feathers.userId, {}, {
       subscribeToPlaylist: req.params.id,
       userId: req.feathers.userId
@@ -289,7 +294,7 @@ function routes () {
       });
   })
 
-  .post('/playlists/unsubscribe/:id', verifyNonAnonUser, function (req, res) {
+  .post('/playlists/unsubscribe/:id', function (req, res) {
     UserService.update(req.feathers.userId, {}, {
       unsubscribeFromPlaylist: req.params.id,
       userId: req.feathers.userId
@@ -303,7 +308,7 @@ function routes () {
     });
   })
 
-  .post('/playlists/:playlistId/addItem/', verifyNonAnonUser, function (req, res) {
+  .post('/playlists/:playlistId/addItem/', function (req, res) {
 
     PlaylistService.get(req.params.playlistId)
       .then(playlist => {
@@ -315,6 +320,7 @@ function routes () {
         // NOTE: this if/else beast here converts episode's into mediaRefs so that the episode can be
         // added to a playlist as a mediaRef, AND to make sure that one episode only has one mediaRef
         // instance of itself.
+
         if (req.body.mediaRefId.indexOf('episode_') > -1) {
 
           let episodeMediaURL = req.body.mediaRefId.replace('episode_', '');
@@ -343,6 +349,7 @@ function routes () {
 
               MediaRef.findOrCreate({
                 where: {
+                  episodeMediaURL: episodeMediaURL,
                   startTime: 0,
                   $and: {
                     endTime: null
@@ -358,6 +365,9 @@ function routes () {
                       res.send(200, updatedPlaylist);
                     })
                 })
+            })
+            .catch(e => {
+              console.log(e);
             })
         } else {
           playlist.dataValues['playlistItems'] = [req.body.mediaRefId];
@@ -376,13 +386,14 @@ function routes () {
 
   .use('users', locator.get('UserService'))
 
-  .get('/my-podcasts', (req, res) => {
+  .get('/my-podcasts', getLoggedInUserInfo, (req, res) => {
 
     UserService.retrieveUserAndAllSubscribedPodcasts(req.feathers.userId, {
       userId: req.feathers.userId
     })
       .then(user => {
-        user['currentPage'] = 'My Podcasts Page';
+        user.dataValues['currentPage'] = 'My Podcasts Page';
+        user.dataValues['locals'] = res.locals;
         res.render('my-podcasts/index.html', user.dataValues);
       })
       .catch(e => {
@@ -392,7 +403,7 @@ function routes () {
       });
   })
 
-  .get('/my-playlists', (req, res) => {
+  .get('/my-playlists', getLoggedInUserInfo, (req, res) => {
     UserService.get(req.feathers.userId, { userId: req.feathers.userId })
       .then(user => {
         user.dataValues['mySubscribedPlaylists'] = user.playlists;
@@ -407,6 +418,7 @@ function routes () {
           .then(myRecommendations => {
             user.dataValues['recommendedByMe'] = myRecommendations;
             user.dataValues['currentPage'] = 'My Playlists Page';
+            user.dataValues['locals'] = res.locals;
             res.render('my-playlists/index.html', user.dataValues);
           })
       })
@@ -417,14 +429,15 @@ function routes () {
   })
 
   .get('/login-redirect', function (req, res) {
-    req.query['currrentPage'] = 'Login Redirect Page';
+    req.query['currentPage'] = 'Login Redirect Page';
     res.render('login/redirect.html', req.query);
   })
 
-  .get('/settings', function (req, res) {
+  .get('/settings', getLoggedInUserInfo, function (req, res) {
     UserService.get(req.feathers.userId, { userId: req.feathers.userId })
       .then(user => {
         user.dataValues['currentPage'] = 'Settings Page';
+        user.dataValues['locals'] = res.locals;
         res.render('settings/index.html', user.dataValues);
       })
       .catch(e => {
@@ -433,20 +446,11 @@ function routes () {
       });
   })
 
-  .get('/about', function (req, res) {
-    req.query['currrentPage'] = 'About Page';
+  .get('/about', getLoggedInUserInfo, function (req, res) {
+    req.query['currentPage'] = 'About Page';
+    req.query['locals'] = res.locals;
     res.render('about/index.html', req.query);
-  })
-
-  // .get('/faq', function (req, res) {
-  //   req.query['currrentPage'] = 'FAQ Page';
-  //   res.render('faq/index.html', req.query);
-  // })
-
-  // .get('/mobile-app', function (req, res) {
-  //   req.query['currrentPage'] = 'Mobile App Page';
-  //   res.render('mobile-app/index.html', req.query);
-  // })
+  });
 
 }
 
