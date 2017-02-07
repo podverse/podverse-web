@@ -116,6 +116,12 @@ class PlaylistService extends SequelizeService {
         throw new errors.Forbidden();
       }
 
+      if (pl.isMyClips && params.isFullEpisode) {
+        // TODO: send this error to the front end in an alert box for the user
+        // TODO: add test for this after alert box is handled
+        throw new errors.GeneralError(`Sorry folks! You can't add full episodes to the My Clips playlist.`);
+      }
+
       data = this._transformBeforeSave(data);
 
       return pl.addMediaRefs(data.playlistItems)
@@ -131,7 +137,7 @@ class PlaylistService extends SequelizeService {
         });
 
     }).catch(e => {
-      throw new errors.GeneralError(e);
+      console.log(e);
     });
 
   }

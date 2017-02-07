@@ -361,7 +361,10 @@ function routes () {
                 .then(mediaRefArray => {
                   let mediaRef = mediaRefArray[0];
                   playlist.dataValues['playlistItems'] = [mediaRef.dataValues.id];
-                  PlaylistService.update(req.params.playlistId, playlist.dataValues, { userId: req.feathers.userId })
+                  PlaylistService.update(req.params.playlistId, playlist.dataValues, {
+                    userId: req.feathers.userId,
+                    isFullEpisode: true
+                  })
                     .then(updatedPlaylist => {
                       res.send(200, updatedPlaylist);
                     })
