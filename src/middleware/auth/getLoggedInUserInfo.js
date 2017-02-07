@@ -7,9 +7,17 @@ function getLoggedInUserInfo (req, res, next) {
 
   if (req.feathers.userId && req.feathers.userId.indexOf('auth0') === 0) {
     const UserService = locator.get('UserService');
-    
+
     UserService.get(req.feathers.userId, { userId: req.feathers.userId })
       .then(user => {
+
+        if (!user) {
+          // TODO: maybe we should delete the cookie in the browser when this happens
+          res.locals.isLoggedIn = false;
+          next();
+          return;
+        }
+
         res.locals.loggedInName = user.name;
         res.locals.loggedInNickname = user.nickname;
         res.locals.isLoggedIn = true;
