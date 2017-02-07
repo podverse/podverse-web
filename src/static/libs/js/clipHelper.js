@@ -196,9 +196,9 @@ export function makeClip (event) {
     success: function (response) {
       if (window.isPlayerPage) {
         toggleMakeClipWidget();
-        $('#make-clip-start-time').val('');
-        $('#make-clip-end-time').val('');
-        $('#make-clip-title').val('');
+        $('#make-clip-start-time input').val('');
+        $('#make-clip-end-time input').val('');
+        $('#make-clip-title textarea').val('');
         $('#player-description-truncated').show();
         $('#clip-created-modal-link').val(location.protocol + '\/\/' + location.hostname + (location.port ? ':'+location.port: '')  + '\/clips\/' + response.id);
         $('#clip-created-modal').modal('show');
