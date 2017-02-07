@@ -344,6 +344,7 @@ function routes () {
               epMediaRef.episodeTitle = episode.title;
               epMediaRef.episodeMediaURL = episode.mediaURL;
               epMediaRef.episodeImageURL = episode.imageURL;
+              epMediaRef.episodePubDate = episode.pubDate;
 
               // Find all mediaRefs with at least one episode where episode.feedURL === feedURL
 
