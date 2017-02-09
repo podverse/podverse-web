@@ -462,6 +462,12 @@ footer p {
     cursor: pointer;
 }
 
+#player-error-message {
+    margin-bottom: 15px;
+    display: none;
+    font-style: italic;
+}
+
 
 /*** player.html condensed-size mode styles ***/
 

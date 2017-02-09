@@ -16,7 +16,7 @@ if (isEmptyPlaylist !== true) {
   // TODO: remove autoplay on mobile devices since they do not support autoplay
   // TODO: or find some kind of way to let autoplay be enabled in mobile browsers
   createAutoplayBtn();
-  createAndAppendAudio();
+  checkIfEpisodeMediaFileIsFoundThenAppendAudio();
   onScrollCondensePlayerView();
 } else {
   var isEmptyPlaylistEl = '<div id="empty-playlist-message">This playlist has no episodes or clips added to it.';
@@ -114,12 +114,10 @@ function setPlayerInfo () {
   if (isPlaylist && !isEpisode) {
     $('#player-stats-duration-link').html('<a href="/clips/' + mediaRefId + '"><i class="fa fa-link"></i></a>')
   } else if (isPlaylist && isEpisode) {
-    // TODO: this is broken
     $('#player-stats-duration-link').html('<a href="/episodes/alias?mediaURL=' + episodeMediaURL + '"><i class="fa fa-link"></i></a>')
   }
 
   $('#player-condensed-title a').html(podcastTitle);
-  // TODO: this is broken
   $('#player-condensed-title a').attr('href', '/podcasts?feedURL=' + podcastFeedURL);
   $('#player-condensed-sub-title').html(episodeTitle);
   $('#player-condensed-image img').attr('src', podcastImageURL);
@@ -127,7 +125,6 @@ function setPlayerInfo () {
   $('#player-podcast-title a').attr('href', '/podcasts/alias?feedURL=' + podcastFeedURL);
   $('#player-podcast-title a').html(podcastTitle);
 
-  // TODO: this is broken
   $('#player-sub-title a').attr('href', '/episodes/alias?mediaURL=' + episodeMediaURL);
   $('#player-sub-title a').html(episodeTitle);
 
@@ -214,8 +211,29 @@ function setPlayerInfo () {
 
 }
 
-function createAndAppendAudio () {
+function checkIfEpisodeMediaFileIsFoundThenAppendAudio () {
+  $.ajax({
+    url: episodeMediaURL,
+    type: 'HEAD',
+    success: function () {
+      createAndAppendAudio();
+    },
+    error: function (e) {
+      $('#player-functions').hide();
+      $('#player-error-message').html(`
+        <p>
+          Episode Not Found: this episode may no longer be available for free,
+          or there was a network connectivity issue.
+        </p>
+      `);
+      $('#player-error-message').show();
+      console.log(e);
+      return false;
+    }
+  });
+}
 
+function createAndAppendAudio () {
   // If a new media file is loaded, reappend audio element
   if (episodeMediaURL !== previousEpisodeMediaURL) {
     window.previousEpisodeMediaURL = episodeMediaURL;
