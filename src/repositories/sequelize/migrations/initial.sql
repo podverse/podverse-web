@@ -13,10 +13,10 @@ SET check_function_bodies = false;
 SET client_min_messages = warning;
 
 --
--- Name: podverse_web_dev; Type: COMMENT; Schema: -; Owner: postgres
+-- Name: postgres; Type: COMMENT; Schema: -; Owner: postgres
 --
 
-COMMENT ON DATABASE podverse_web_dev IS 'default administrative connection database';
+COMMENT ON DATABASE postgres IS 'default administrative connection database';
 
 
 --
