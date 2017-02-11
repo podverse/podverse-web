@@ -5,40 +5,6 @@
 -- Dumped from database version 9.6.1
 -- Dumped by pg_dump version 9.6.1
 
-SET statement_timeout = 0;
-SET lock_timeout = 0;
-SET client_encoding = 'UTF8';
-SET standard_conforming_strings = on;
-SET check_function_bodies = false;
-SET client_min_messages = warning;
-
---
--- Name: postgres; Type: COMMENT; Schema: -; Owner: postgres
---
-
-COMMENT ON DATABASE postgres IS 'default administrative connection database';
-
-
---
--- Name: plpgsql; Type: EXTENSION; Schema: -; Owner:
---
-
-CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
-
-
---
--- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner:
---
-
-COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
-
-
-SET search_path = public, pg_catalog;
-
-SET default_tablespace = '';
-
-SET default_with_oids = false;
-
 --
 -- Name: mediaRefs; Type: TABLE; Schema: public; Owner: postgres
 --
@@ -64,9 +30,6 @@ CREATE TABLE "mediaRefs" (
     "episodeDuration" integer
 );
 
-
-ALTER TABLE "mediaRefs" OWNER TO postgres;
-
 --
 -- Name: playlistItems; Type: TABLE; Schema: public; Owner: postgres
 --
@@ -77,9 +40,6 @@ CREATE TABLE "playlistItems" (
     "playlistId" uuid NOT NULL,
     "mediaRefId" uuid NOT NULL
 );
-
-
-ALTER TABLE "playlistItems" OWNER TO postgres;
 
 --
 -- Name: playlists; Type: TABLE; Schema: public; Owner: postgres
@@ -97,9 +57,6 @@ CREATE TABLE playlists (
     "isMyClips" boolean
 );
 
-
-ALTER TABLE playlists OWNER TO postgres;
-
 --
 -- Name: subscribedPlaylists; Type: TABLE; Schema: public; Owner: postgres
 --
@@ -110,9 +67,6 @@ CREATE TABLE "subscribedPlaylists" (
     "userId" character varying(255) NOT NULL,
     "playlistId" uuid NOT NULL
 );
-
-
-ALTER TABLE "subscribedPlaylists" OWNER TO postgres;
 
 --
 -- Name: users; Type: TABLE; Schema: public; Owner: postgres
@@ -125,9 +79,6 @@ CREATE TABLE users (
     "createdAt" timestamp with time zone NOT NULL,
     "updatedAt" timestamp with time zone NOT NULL
 );
-
-
-ALTER TABLE users OWNER TO postgres;
 
 --
 -- Name: mediaRefs mediaRefs_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
