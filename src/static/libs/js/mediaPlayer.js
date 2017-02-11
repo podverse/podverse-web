@@ -16,7 +16,7 @@ if (isEmptyPlaylist !== true) {
   // TODO: remove autoplay on mobile devices since they do not support autoplay
   // TODO: or find some kind of way to let autoplay be enabled in mobile browsers
   createAutoplayBtn();
-  checkIfEpisodeMediaFileIsFoundThenAppendAudio();
+  checkIfEpisodeMediaFileIsFound(createAndAppendAudio, showEpisodeNotFoundMessage);
   onScrollCondensePlayerView();
 } else {
   var isEmptyPlaylistEl = '<div id="empty-playlist-message">This playlist has no episodes or clips added to it.';
@@ -211,26 +211,29 @@ function setPlayerInfo () {
 
 }
 
-function checkIfEpisodeMediaFileIsFoundThenAppendAudio () {
+function checkIfEpisodeMediaFileIsFound(success, error) {
   $.ajax({
     url: episodeMediaURL,
     type: 'HEAD',
     success: function () {
-      createAndAppendAudio();
+      success();
     },
     error: function (e) {
-      $('#player-functions').hide();
-      $('#player-error-message').html(`
-        <p>
-          Episode Not Found: this episode may no longer be available for free,
-          or there was a network connectivity issue.
-        </p>
-      `);
-      $('#player-error-message').show();
       console.log(e);
-      return false;
+      error();
     }
   });
+}
+
+function showEpisodeNotFoundMessage () {
+  $('#player-functions').hide();
+  $('#player-error-message').html(`
+    <p>
+      Episode Not Found: this episode may no longer be publicly available,
+      or there was a network connectivity issue.
+    </p>
+  `);
+  $('#player-error-message').show();
 }
 
 function createAndAppendAudio () {
