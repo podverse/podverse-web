@@ -211,10 +211,26 @@ function setPlayerInfo () {
   let updateCondensedPlayerWidth = debounce(function () {
     var playerWidth = $('#player-inner').width();
     $('#player-condensed-inner').css('width', playerWidth);
-  }, 150);
+    setTimeout(function () {
+      resizeProgressBar();
+    }, 200);
+  }, 200);
 
   window.addEventListener('resize', updateCondensedPlayerWidth);
 
+}
+
+// Super-hack to fix the JS dynamically styled progress bar when it breaks after
+// screen resize.
+function resizeProgressBar () {
+  // Progress bar width should be equal to width of #player minus the total space
+  // taken up by all other elements in the #player element, *except* on mobile
+  // when the volume bar elements do not load in the player.
+  var hasVolumeBar = ($('.mejs-horizontal-volume-slider').width() > 0);
+  var otherElementsWidth = 176 + (hasVolumeBar ? 82 : 0);
+  var newWidth = $('#player').width() - otherElementsWidth;
+  $('.mejs-time-rail').width(newWidth);
+  $('.mejs-time-slider').width(newWidth - 10);
 }
 
 function checkIfEpisodeMediaFileIsFound(success, error) {
