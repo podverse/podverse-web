@@ -212,17 +212,19 @@ function setPlayerInfo () {
 }
 
 function checkIfEpisodeMediaFileIsFound(success, error) {
-  $.ajax({
-    url: episodeMediaURL,
-    type: 'HEAD',
-    success: function () {
-      success();
-    },
-    error: function (e) {
-      console.log(e);
-      error();
-    }
-  });
+  window.audio = document.createElement('audio');
+  audio.setAttribute('src', episodeMediaURL);
+  audio.setAttribute('type', 'audio/mpeg');
+  audio.setAttribute('codecs', 'mp3');
+  audio.preload = "metadata";
+
+  audio.onloadstart = function() {
+    success();
+  };
+
+  audio.onerror = function () {
+    error();
+  }
 }
 
 function showEpisodeNotFoundMessage () {
