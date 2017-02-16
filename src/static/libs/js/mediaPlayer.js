@@ -5,23 +5,6 @@ import { sendGoogleAnalyticsPlayerPageView,
          sendGoogleAnalyticsEvent } from './googleAnalytics.js';
 import { isMobileOrTablet } from './browserSupportDetection.js';
 
-// Disable zoom for iOS 10+ since user-scalable metatag doesn't work anymore.
-// Thanks Joseph! http://stackoverflow.com/a/38573198/2608858
-document.documentElement.addEventListener('touchstart', function (event) {
-  if (event.touches.length > 1) {
-    event.preventDefault();
-  }
-}, false);
-var lastTouchEnd = 0;
-document.documentElement.addEventListener('touchend', function (event) {
-  var now = (new Date()).getTime();
-  if (now - lastTouchEnd <= 300) {
-    event.preventDefault();
-  }
-  lastTouchEnd = now;
-}, false);
-
-
 // Set default values for vars that handle player crashes and autoplay functionality
 window.restartAttempts = 0;
 window.lastPlaybackPosition = -1;
