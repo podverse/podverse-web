@@ -32,12 +32,12 @@ module.exports ={
         'podcast/index': [__dirname + '/src/static/libs/js/views/podcast/index.js'],
         'settings/index': [__dirname + '/src/static/libs/js/views/settings/index.js'],
         vendors: ["babel-polyfill",
-                  "tether",
                   "bootstrap",
                   "jquery",
                   "jqueryCookie",
                   "mediaElement",
                   "mejsPlaybackRate",
+                  "tether",
                   "typeahead"]
     },
 
