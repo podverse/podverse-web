@@ -60,7 +60,9 @@ module.exports ={
             jQuery: "jquery",
             "window.$": "jquery",
             "window.jQuery": "jquery",
-            "window.Tether": "tether",
+            'window.Tether': 'tether',
+            "tether": 'tether',
+            "Tether": 'tether',
             "Bloodhound": "typeahead",
             "Auth0Lock": "auth0-lock"
         }),
