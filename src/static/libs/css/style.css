@@ -403,6 +403,8 @@ footer p {
 
 #player {
     margin: 0 0 1rem 0;
+    height: 30px;
+    text-align: center;
 }
 
 #player .mejs-container, .mejs-layers .mejs-layer {

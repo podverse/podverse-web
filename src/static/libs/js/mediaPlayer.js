@@ -12,6 +12,7 @@ window.endTimeHasBeenReached = false;
 
 // Load the player
 if (isEmptyPlaylist !== true) {
+  $('#player').append('<i class="fa fa-spinner fa-spin"></i>');
   setPlayerInfo();
   // TODO: remove autoplay on mobile devices since they do not support autoplay
   // TODO: or find some kind of way to let autoplay be enabled in mobile browsers
@@ -267,15 +268,6 @@ function createAndAppendAudio () {
     audio.setAttribute('type', 'audio/mpeg');
     audio.setAttribute('codecs', 'mp3');
     audio.preload = "auto";
-    $('#player').append(audio);
-
-    $('audio').mediaelementplayer({
-      // the order of controls you want on the control bar (and other plugins below)
-      features: ['playpause', 'current', 'progress', 'duration', 'volume', 'fasterslower'],
-      alwaysShowHours: true,
-      alwaysShowControls: true
-    });
-
   }
 
   audio.onloadedmetadata = function() {
@@ -287,6 +279,17 @@ function createAndAppendAudio () {
     } else {
       audio.currentTime = window.startTime || 0;
     }
+
+    $('#player .fa-spinner').hide();
+
+    $('#player').append(audio);
+
+    $('audio').mediaelementplayer({
+      // the order of controls you want on the control bar (and other plugins below)
+      features: ['playpause', 'current', 'progress', 'duration', 'volume', 'fasterslower'],
+      alwaysShowHours: true,
+      alwaysShowControls: true
+    });
   };
 
 
