@@ -27,18 +27,19 @@ if (isEmptyPlaylist !== true) {
 // Podcast / Episode / Clip variables added to the window
 // object in player.html
 
-function loadPlaylistItem (index, shouldPlay) {
+function loadPlaylistItem (index) {
   var item = mediaRefs[index];
 
   window.setPlaylistItemPropsOnWindow(item);
 
   window.location.hash = index + 1;
 
+  if (episodeMediaURL !== previousEpisodeMediaURL) {
+    stopAndClearAudio();
+  }
+
   setPlayerInfo();
   createAndAppendAudio();
-  if (shouldPlay) {
-    audio.play();
-  }
 
   sendGoogleAnalyticsPlayerPageView();
 
@@ -256,6 +257,15 @@ function createAndAppendAudio () {
     audio.setAttribute('type', 'audio/mpeg');
     audio.setAttribute('codecs', 'mp3');
     audio.preload = "metadata";
+  } else {
+    setStartAndEndTimesToBePlayed();
+
+    var autoplay = $.cookie('autoplay');
+    if (autoplay === 'true') {
+      audio.play();
+    }
+
+    return;
   }
 
   audio.onloadedmetadata = function() {
@@ -307,33 +317,7 @@ function createAndAppendAudio () {
   }
 
   audio.ontimeupdate = function() {
-
-    // Skip to start time once when the user first hits play on mobile devices
-    if (lastPlaybackPosition === -1) {
-      audio.currentTime = startTime;
-    }
-
-    // Stop the clip once when the end time has been reached
-    if (Math.floor(audio.currentTime) === endTime && endTimeHasBeenReached === false) {
-      endTimeHasBeenReached = true;
-      audio.pause();
-
-      var autoplay = $.cookie('autoplay');
-      if (isPlaylist && autoplay === 'true') {
-        if (urlHashIndexValue < mediaRefs.length - 1) {
-          urlHashIndexValue++;
-          window.location.hash = urlHashIndexValue;
-          lastPlaybackPosition = -1;
-          loadPlaylistItem(urlHashIndexValue, true)
-          return;
-        }
-      }
-    }
-
-    // TODO: Can this be made more efficient than rewriting the lastPlaybackPosition
-    // whenever time updates?
-    lastPlaybackPosition = audio.currentTime;
-
+    setStartAndEndTimesToBePlayed();
   };
 
   audio.onerror = function(e) {
@@ -381,6 +365,34 @@ $('#player-autoplay').on('click', function() {
   toggleAutoplay();
 });
 
+function setStartAndEndTimesToBePlayed() {
+  // Skip to start time once when the user first hits play on mobile devices
+  if (lastPlaybackPosition === -1) {
+    audio.currentTime = startTime;
+  }
+
+  // Stop the clip once when the end time has been reached
+  if (Math.floor(audio.currentTime) === endTime && endTimeHasBeenReached === false) {
+    endTimeHasBeenReached = true;
+    audio.pause();
+
+    var autoplay = $.cookie('autoplay');
+    if (isPlaylist && autoplay === 'true') {
+      if (urlHashIndexValue < mediaRefs.length - 1) {
+        urlHashIndexValue++;
+        window.location.hash = urlHashIndexValue;
+        lastPlaybackPosition = -1;
+        loadPlaylistItem(urlHashIndexValue)
+        return;
+      }
+    }
+  }
+
+  // TODO: Can this be made more efficient than rewriting the lastPlaybackPosition
+  // whenever time updates?
+  lastPlaybackPosition = audio.currentTime;
+}
+
 function toggleAutoplay () {
   var autoplay = $.cookie('autoplay');
   if (autoplay !== 'true') {
@@ -422,7 +434,7 @@ $('.playlist-item').on('click', function() {
   if (isPlayerPage) {
     var index = $(".playlist-item").index(this);
     urlHashIndexValue = index;
-    loadPlaylistItem(index, true);
+    loadPlaylistItem(index);
     sendGoogleAnalyticsEvent('Media Player', 'Playlist Item Clicked');
   }
 });
@@ -453,6 +465,12 @@ function onScrollCondensePlayerView () {
 
   window.addEventListener('scroll', condenseOnScroll);
 
+}
+
+function stopAndClearAudio () {
+  audio.pause();
+  audio = document.createElement('audio');
+  audio.setAttribute('src', '');
 }
 
 function destroyPlayerAndAudio () {
