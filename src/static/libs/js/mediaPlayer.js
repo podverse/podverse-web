@@ -263,6 +263,8 @@ function createAndAppendAudio () {
     $('.mejs-offscreen').remove();
     $('.mejs-container').remove();
 
+    $('#player .fa-spinner').show();
+
     window.audio = document.createElement('audio');
     audio.setAttribute('src', episodeMediaURL);
     audio.setAttribute('type', 'audio/mpeg');
