@@ -9,7 +9,7 @@ export function addPodcastModalSave () {
 
     // If a podcast with the feedURL is already in the db, then nav to its page.
     // Else parse the feed and add it to the db, then nav to its page.
-    $.get('/podcasts?feedURL=' + feedURL)
+    $.get('/podcasts/alias?feedURL=' + feedURL)
       .done(function (data) {
         if (data.length > 0) {
           location.href = '/podcasts/' + data[0].id;

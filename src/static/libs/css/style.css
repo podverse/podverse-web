@@ -521,6 +521,13 @@ footer p {
 .condensed #player-condensed-sub-title {
     font-size: 14px;
     display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.condensed #player-condensed-sub-title a {
+    color: #373a3c;
 }
 
 .condensed #player {
