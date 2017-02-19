@@ -269,7 +269,7 @@ function createAndAppendAudio () {
     audio.setAttribute('src', episodeMediaURL);
     audio.setAttribute('type', 'audio/mpeg');
     audio.setAttribute('codecs', 'mp3');
-    audio.preload = "auto";
+    audio.preload = "metadata";
   }
 
   audio.onloadedmetadata = function() {
