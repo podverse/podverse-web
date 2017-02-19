@@ -1038,6 +1038,11 @@ footer p {
 
 /*** Bootstrap Overrides ***/
 
+.container {
+    max-width: 640px;
+    width: auto !important;
+}
+
 .form-group.required .control-label:after {
   color: #d9534f;
   content: "*";
@@ -1187,11 +1192,7 @@ mejs-horizontal-volume-slider {
 
 
 /*** Responsive styles ***/
-
 @media (min-width: 544px) {
-    .container {
-        max-width: 640px;
-    }
     .navbar {
         padding-right: 0.9375rem;
         padding-left: 0.9375rem;
