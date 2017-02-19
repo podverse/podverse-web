@@ -610,6 +610,10 @@ footer p {
 
 /*** player-list.html styles ***/
 
+#playlist {
+    display: none;
+}
+
 #playlist hr, #home-list hr {
     clear: both;
     border-top: 1px dotted #ddd;

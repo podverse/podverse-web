@@ -180,6 +180,8 @@ function setPlayerInfo () {
     }
   });
 
+  $('#playlist').show();
+
   window.restartAttempts = 0;
   window.lastPlaybackPosition = -1;
   window.endTimeHasBeenReached = false;
