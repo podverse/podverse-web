@@ -8,9 +8,30 @@
 
 {% include "podcast/episode-list.html" %}
 
+<div class="pv-pagination">
+  {% if pageIndex > 1 %}
+    <div class="pv-pagination-prev">
+      <i class="fa fa-angle-left"></i> Prev
+    </div>
+  {% endif %}
+  {% if showNextButton %}
+    <div class="pv-pagination-next">
+      Next <i class="fa fa-angle-right"></i>
+    </div>
+  {% endif %}
+</div>
+
 {% endblock %}
 
 {% block scripts %}
+  <script>
+    window.pageIndex = parseInt({{ pageIndex }});
+    window.showNextButton = false;
+    {% if showNextButton %}
+      showNextButton = true;
+    {% endif %}
+  </script>
+
   <script src="/static/build/vendors.js"></script>
   <script src="/static/build/podcast/index.js"></script>
 {% endblock %}

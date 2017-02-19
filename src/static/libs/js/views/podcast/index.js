@@ -1,7 +1,7 @@
 require('../../navbar.js');
 require('../../auth.js');
 
-import { sendGoogleAnalyticsPodcastPageView } from '../../googleAnalytics.js';
+import { sendGoogleAnalyticsPodcastPageView, sendGoogleAnalyticsEvent } from '../../googleAnalytics.js';
 import { subscribeToPodcast, unsubscribeFromPodcast } from '../../podcastHelper.js';
 import { isNonAnonLoggedInUser } from '../../utility.js';
 
@@ -32,5 +32,18 @@ $(document).ready(function ($) {
   });
 });
 
+if (showNextButton) {
+  $('.pv-pagination-next').on('click', function () {
+    sendGoogleAnalyticsEvent('Pagination', 'Next');
+    window.location = window.location.pathname + '?page=' + (pageIndex + 1);
+  });
+}
+
+if (pageIndex > 1) {
+  $('.pv-pagination-prev').on('click', function () {
+    sendGoogleAnalyticsEvent('Pagination', 'Prev');
+    window.location = window.location.pathname + '?page=' + (pageIndex - 1);
+  });
+}
 
 sendGoogleAnalyticsPodcastPageView();
