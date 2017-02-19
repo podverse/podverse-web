@@ -22,6 +22,37 @@
     return decodeHTMLEntities;
   })();
 
+  window.setPlaylistItemPropsOnWindow = (item) => {
+    // Parse the selected playlist item and set its window variables
+    window.startTime = item.startTime;
+    window.endTime = item.endTime;
+    window.ownerName = item.ownerName;
+    window.podcastFeedURL = item.podcastFeedURL;
+    window.podcastTitle = item.podcastTitle;
+    window.podcastImageURL = item.podcastImageURL;
+    window.episodeMediaURL = item.episodeMediaURL;
+    window.episodeTitle = item.episodeTitle;
+    window.episodePubDate = item.episodePubDate;
+    window.episodeImageURL = item.episodeImageURL;
+    window.episodeDuration = item.episodeDuration;
+
+    // if item is an Episode
+    if (window.startTime === 0 && window.endTime === null) {
+      window.isEpisode = true;
+      window.description = item.episodeSummary;
+      window.mediaRefId = 'episode_' + item.episodeMediaURL;
+    } else {
+      window.isEpisode = false;
+      window.description = item.title;
+      window.mediaRefId = item.id;
+    }
+
+    window.isSubscribed = item.isSubscribed;
+
+    // TODO: is this a security vulnerability?
+    window.description = decodeEntities(description);
+  }
+
   window.isPlayerPage = true;
   window.isEmptyPlaylist = false;
   window.isPlaylist = false;
@@ -46,34 +77,7 @@
         item = mediaRefs[0];
       }
 
-      // Parse the selected playlist item and set its window variables
-      window.startTime = item.startTime;
-      window.endTime = item.endTime;
-      window.ownerName = item.ownerName;
-      window.podcastFeedURL = item.podcastFeedURL;
-      window.podcastTitle = item.podcastTitle;
-      window.podcastImageURL = item.podcastImageURL;
-      window.episodeMediaURL = item.episodeMediaURL;
-      window.episodeTitle = item.episodeTitle;
-      window.episodePubDate = item.episodePubDate;
-      window.episodeImageURL = item.episodeImageURL;
-      window.episodeDuration = item.episodeDuration;
-
-      // if item is an Episode
-      if (window.startTime === 0 && window.endTime === null) {
-        window.isEpisode = true;
-        window.description = item.episodeSummary;
-        window.mediaRefId = 'episode_' + item.episodeMediaURL;
-      } else {
-        window.isEpisode = false;
-        window.description = item.title;
-        window.mediaRefId = item.id;
-      }
-
-      window.isSubscribed = item.isSubscribed;
-
-      // TODO: is this a security vulnerability?
-      window.description = decodeEntities(description);
+      setPlaylistItemPropsOnWindow(item);
     {% else %}
       window.isEmptyPlaylist = true;
       window.isEpisode = false;
@@ -124,7 +128,7 @@
 
   {% endif %}
 
-  // Avoid sending empty strings to Postgres for integer fields  
+  // Avoid sending empty strings to Postgres for integer fields
   if (window.episodeDuration === "") {
     window.episodeDuration = null;
   }

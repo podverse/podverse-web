@@ -27,27 +27,10 @@ if (isEmptyPlaylist !== true) {
 // Podcast / Episode / Clip variables added to the window
 // object in player.html
 
-function loadMediaRef (index, shouldPlay) {
+function loadPlaylistItem (index, shouldPlay) {
   var item = mediaRefs[index];
 
-  // Only clips have a startTime and endTime
-  startTime = item.startTime;
-  endTime = item.endTime;
-
-  if (window.startTime === 0 && window.endTime === null) {
-    isEpisode = true;
-  } else {
-    isEpisode = false;
-  }
-
-  podcastTitle = item.podcastTitle;
-  podcastImageURL = item.podcastImageURL;
-  episodeTitle = item.episodeTitle;
-  episodeMediaURL = item.episodeMediaURL;
-  episodePubDate = item.episodePubDate;
-  description = item.title;
-  isSubscribed = item.isSubscribed;
-  mediaRefId = item.id;
+  window.setPlaylistItemPropsOnWindow(item);
 
   window.location.hash = index + 1;
 
@@ -338,7 +321,7 @@ function createAndAppendAudio () {
           urlHashIndexValue++;
           window.location.hash = urlHashIndexValue;
           lastPlaybackPosition = -1;
-          loadMediaRef(urlHashIndexValue, true)
+          loadPlaylistItem(urlHashIndexValue, true)
           return;
         }
       }
@@ -436,7 +419,7 @@ $('.playlist-item').on('click', function() {
   if (isPlayerPage) {
     var index = $(".playlist-item").index(this);
     urlHashIndexValue = index;
-    loadMediaRef(index, true);
+    loadPlaylistItem(index, true);
     sendGoogleAnalyticsEvent('Media Player', 'Playlist Item Clicked');
   }
 });
