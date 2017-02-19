@@ -207,7 +207,7 @@ function routes () {
         // query to work properly in PodcastService.get in the episode include
         // properties.
         let total = podcast.episodes.length;
-        let showNextButton = total % 50 === 0 ? true : false;
+        let showNextButton = (total > 0 && total % 50 === 0) ? true : false;
 
         req.params.podcastFeedURL = podcast.feedURL;
         return new Promise((resolve, reject) => {
