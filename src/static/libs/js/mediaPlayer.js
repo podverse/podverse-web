@@ -31,8 +31,6 @@ function loadPlaylistItem (index) {
 
   window.setPlaylistItemPropsOnWindow(item);
 
-  window.location.hash = index + 1;
-
   if (episodeMediaURL !== previousEpisodeMediaURL) {
     stopAndClearAudio();
   }
@@ -410,11 +408,10 @@ function setStartAndEndTimesToBePlayed() {
 
     var autoplay = $.cookie('autoplay');
     if (isPlaylist && autoplay === 'true') {
-      if (urlHashIndexValue < mediaRefs.length - 1) {
-        urlHashIndexValue++;
-        window.location.hash = urlHashIndexValue;
+      if (nowPlayingPlaylistItemIndex < mediaRefs.length - 1) {
+        nowPlayingPlaylistItemIndex++;
         lastPlaybackPosition = -1;
-        loadPlaylistItem(urlHashIndexValue)
+        loadPlaylistItem(nowPlayingPlaylistItemIndex)
         return;
       }
     }
@@ -465,7 +462,7 @@ $('#player-stats-duration').on('click', function () {
 $('.playlist-item').on('click', function() {
   if (isPlayerPage) {
     var index = $(".playlist-item").index(this);
-    urlHashIndexValue = index;
+    nowPlayingPlaylistItemIndex = index;
     loadPlaylistItem(index);
     sendGoogleAnalyticsEvent('Media Player', 'Playlist Item Clicked');
   }

@@ -66,18 +66,8 @@
 
       window.mediaRefs = {{ mediaRefs|stringify|safe }};
 
-      var item;
-
-      // The hash value determines which playlist item to load
-      window.urlHashIndexValue = window.location.hash.substr(1) - 1;
-      if (urlHashIndexValue > 0) {
-        item = mediaRefs[urlHashIndexValue];
-      } else {
-        window.urlHashIndexValue = 0;
-        item = mediaRefs[0];
-      }
-
-      window.nowPlayingPlaylistItemIndex = urlHashIndexValue;
+      var item = mediaRefs[0];
+      window.nowPlayingPlaylistItemIndex = 0;
 
       setPlaylistItemPropsOnWindow(item);
     {% else %}
