@@ -252,7 +252,7 @@ function routes () {
   .get('/episodes/alias', (req, res) => {
     return EpisodeService.get('alias', {mediaURL: req.query.mediaURL})
       .then(episode => {
-        res.redirect('/episodes/' + episode.dataValues.id);
+        res.redirect('/episodes/' + episode.id);
       }).catch(e => {
         console.log(e);
         res.sendStatus(404);
@@ -360,13 +360,8 @@ function routes () {
 
           let episodeMediaURL = req.body.mediaRefId.replace('episode_', '');
 
-          EpisodeService.find({mediaURL: episodeMediaURL})
-            .then(episodes => {
-              if (!episodes || episodes.length < 1) {
-                throw new errors.GeneralError('No episode found matching that mediaURL.')
-              }
-
-              let episode = episodes[0];
+          EpisodeService.get('alias', {mediaURL: episodeMediaURL})
+            .then(episode => {
 
               // Convert the episode into a mediaRef object
               let epMediaRef = {};
