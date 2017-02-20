@@ -31,13 +31,15 @@ window.loadPlaylistItem = (index) => {
 
   window.setPlaylistItemPropsOnWindow(item);
 
-  if (episodeMediaURL !== previousEpisodeMediaURL) {
-    stopAndClearAudio();
-  }
-
   setPlayerInfo();
   setSubscribedStatus();
-  checkIfEpisodeMediaFileIsFound(createAndAppendAudio, showEpisodeNotFoundMessage);
+
+  if (episodeMediaURL !== previousEpisodeMediaURL) {
+    destroyPlayerAndAudio();
+    checkIfEpisodeMediaFileIsFound(createAndAppendAudio, showEpisodeNotFoundMessage);
+  } else {
+    audio.currentTime = startTime;
+  }
 
   sendGoogleAnalyticsPlayerPageView();
 
@@ -274,6 +276,7 @@ function showEpisodeNotFoundMessage () {
 }
 
 function createAndAppendAudio () {
+
   // If a new media file is loaded, reappend audio element
   if (episodeMediaURL !== previousEpisodeMediaURL) {
     window.previousEpisodeMediaURL = episodeMediaURL;
@@ -289,7 +292,7 @@ function createAndAppendAudio () {
     audio.setAttribute('codecs', 'mp3');
     audio.preload = "metadata";
   } else {
-    setStartAndEndTimesToBePlayed();
+    setStartAndEndTimesToBePlayed(true);
 
     var autoplay = $.cookie('autoplay');
     if (autoplay === 'true') {
@@ -395,9 +398,9 @@ $('#player-autoplay').on('click', function() {
   toggleAutoplay();
 });
 
-function setStartAndEndTimesToBePlayed() {
+function setStartAndEndTimesToBePlayed(forceStartTime) {
   // Skip to start time once when the user first hits play on mobile devices
-  if (lastPlaybackPosition === -1) {
+  if (lastPlaybackPosition === -1 || forceStartTime) {
     audio.currentTime = startTime;
   }
 
@@ -496,12 +499,6 @@ function onScrollCondensePlayerView () {
 
 }
 
-function stopAndClearAudio () {
-  audio.pause();
-  audio = document.createElement('audio');
-  audio.setAttribute('src', '');
-}
-
 function destroyPlayerAndAudio () {
   var audioElArray = $('#player audio');
   if (audioElArray.length > 0) {
@@ -512,4 +509,5 @@ function destroyPlayerAndAudio () {
   }
   audio = null;
   $('#player').html('');
+  $('#player').append('<i class="fa fa-spinner fa-spin"></i>');
 }
