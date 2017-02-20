@@ -784,6 +784,10 @@ footer p {
     margin-left: 15px;
 }
 
+#podcast-subscribe .fa {
+    width: 16px;
+}
+
 #podcast-title {
     line-height: 1.5rem;
     font-weight: 600;
