@@ -37,7 +37,7 @@ window.loadPlaylistItem = (index) => {
 
   setPlayerInfo();
   setSubscribedStatus();
-  createAndAppendAudio();
+  checkIfEpisodeMediaFileIsFound(createAndAppendAudio, showEpisodeNotFoundMessage);
 
   sendGoogleAnalyticsPlayerPageView();
 
