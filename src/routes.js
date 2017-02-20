@@ -191,6 +191,21 @@ function routes () {
       });
   })
 
+  .get('/podcasts/isSubscribed', getLoggedInUserInfo, (req, res) => {
+    req.params.podcastFeedURL = req.query.podcastFeedURL;
+
+    return new Promise((resolve, reject) => {
+      isUserSubscribedToThisPodcast(resolve, reject, req);
+    })
+    .then(isSubscribed => {
+      res.send(isSubscribed);
+    })
+    .catch(e => {
+      console.log(e);
+      res.send(false);
+    })
+  })
+
   // Podcast Detail Page
   .get('/podcasts/:id', getLoggedInUserInfo, (req, res) => {
     let pageIndex = req.query.page || 1;

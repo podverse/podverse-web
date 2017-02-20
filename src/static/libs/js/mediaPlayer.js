@@ -14,8 +14,7 @@ window.endTimeHasBeenReached = false;
 if (isEmptyPlaylist !== true) {
   $('#player').append('<i class="fa fa-spinner fa-spin"></i>');
   setPlayerInfo();
-  // TODO: remove autoplay on mobile devices since they do not support autoplay
-  // TODO: or find some kind of way to let autoplay be enabled in mobile browsers
+  setSubscribedStatus();
   createAutoplayBtn();
   checkIfEpisodeMediaFileIsFound(createAndAppendAudio, showEpisodeNotFoundMessage);
   onScrollCondensePlayerView();
@@ -39,6 +38,7 @@ function loadPlaylistItem (index) {
   }
 
   setPlayerInfo();
+  setSubscribedStatus();
   createAndAppendAudio();
 
   sendGoogleAnalyticsPlayerPageView();
@@ -64,6 +64,15 @@ export function previewEndTime (endTime) {
 }
 
 function setPlayerInfo () {
+
+  $('#add-to-playlist').hide();
+  $('#toggle-playlist-btn').removeClass('active');
+  $('#recommend').hide();
+  $('#toggle-recommend-btn').removeClass('active');
+  $('#make-clip').hide();
+  $('#toggle-make-clip-btn').removeClass('active');
+  $('#make-clip-end-time input').val('');
+  $('#make-clip-title textarea').val('');
 
   if (window.startTime === 0 && window.endTime === null) {
     isEpisode = true;
@@ -141,9 +150,6 @@ function setPlayerInfo () {
       truncDescription += "... <span class='text-primary'><small>show more</small></span>";
     }
 
-    description += '<hr>';
-    truncDescription += '<hr>';
-
     $('#player-description-truncated').html(truncDescription);
     $('#player-description-full').html(description);
 
@@ -155,31 +161,6 @@ function setPlayerInfo () {
       $('#player-description-full').show();
     })
   }
-
-  if (isSubscribed && isSubscribed != 'false') {
-    $('#player-podcast-subscribe').html('<i class="fa fa-star"></i>');
-    $('#player-podcast-subscribe').attr('title', 'Unsubscribe from podcast');
-  } else {
-    $('#player-podcast-subscribe').html('<small>subscribe</small> <i class="fa fa-star-o"></i>');
-    $('#player-podcast-subscribe').attr('title', 'Subscribe to podcast');
-  }
-
-  $('#player-podcast-subscribe').on('click', function () {
-    if (!isNonAnonLoggedInUser()) {
-      alert('Please login to subscribe to this podcast.');
-      return;
-    }
-
-    if ($(this).children().hasClass('fa-star-o')) {
-      $('#player-podcast-subscribe').html('<i class="fa fa-star"></i>');
-      $('#player-podcast-subscribe').attr('title', 'Unsubscribe from podcast');
-      subscribeToPodcast(podcastFeedURL);
-    } else {
-      $('#player-podcast-subscribe').html('<small>subscribe</small> <i class="fa fa-star-o"></i>');
-      $('#player-podcast-subscribe').attr('title', 'Subscribe to podcast');
-      unsubscribeFromPodcast(podcastFeedURL);
-    }
-  });
 
   $('#playlist').show();
 
@@ -202,6 +183,58 @@ function setPlayerInfo () {
 
 }
 
+function setSubscribedStatus() {
+
+  $.ajax({
+    type: 'GET',
+    url: '/podcasts/isSubscribed',
+    headers: {
+      Authorization: $.cookie('idToken')
+    },
+    data: {
+      podcastFeedURL: podcastFeedURL
+    },
+    success: function (isSubscribed) {
+      if (isSubscribed && isSubscribed != 'false') {
+        $('#player-podcast-subscribe').html('<i class="fa fa-star"></i>');
+        $('#player-podcast-subscribe').attr('title', 'Unsubscribe from podcast');
+      } else {
+        $('#player-podcast-subscribe').html('<small>subscribe</small> <i class="fa fa-star-o"></i>');
+        $('#player-podcast-subscribe').attr('title', 'Subscribe to podcast');
+      }
+    },
+    error: function (xhr, status, error) {
+      $('#player-podcast-subscribe').html('<small>subscribe</small> <i class="fa fa-star-o"></i>');
+      $('#player-podcast-subscribe').attr('title', 'Subscribe to podcast');
+    }
+  });
+}
+
+function toggleSubscribe() {
+  if (!isNonAnonLoggedInUser()) {
+    alert('Please login to subscribe to this podcast.');
+    return;
+  }
+
+  var index = $(".playlist-item").index(this);
+
+  if ($('#player-podcast-subscribe i').hasClass('fa-star-o')) {
+    $('#player-podcast-subscribe').html('<i class="fa fa-star"></i>');
+    $('#player-podcast-subscribe').attr('title', 'Unsubscribe from podcast');
+    subscribeToPodcast(podcastFeedURL);
+    window.mediaRefs[index]["isSubscribed"] = true;
+  } else {
+    $('#player-podcast-subscribe').html('<small>subscribe</small> <i class="fa fa-star-o"></i>');
+    $('#player-podcast-subscribe').attr('title', 'Subscribe to podcast');
+    unsubscribeFromPodcast(podcastFeedURL);
+    window.mediaRefs[index]["isSubscribed"] = false;
+  }
+}
+
+$('#player-podcast-subscribe').on('click', function () {
+  toggleSubscribe(this);
+});
+
 // Super-hack to fix the JS dynamically styled progress bar when it breaks after
 // screen resize.
 function resizeProgressBar () {
@@ -209,7 +242,7 @@ function resizeProgressBar () {
   // taken up by all other elements in the #player element, *except* on mobile
   // when the volume bar elements do not load in the player.
   var hasVolumeBar = ($('.mejs-horizontal-volume-slider').width() > 0);
-  var otherElementsWidth = 176 + (hasVolumeBar ? 82 : 0);
+  var otherElementsWidth = 228 + (hasVolumeBar ? 82 : 0);
   var newWidth = $('#player').width() - otherElementsWidth;
   $('.mejs-time-rail').width(newWidth);
   $('.mejs-time-slider').width(newWidth - 10);
@@ -284,7 +317,7 @@ function createAndAppendAudio () {
 
     $('audio').mediaelementplayer({
       // the order of controls you want on the control bar (and other plugins below)
-      features: ['playpause', 'current', 'progress', 'duration', 'volume', 'fasterslower'],
+      features: ['playpause', 'current', 'progress', 'duration', 'volume', 'fasterslower', 'prevtrack', 'nexttrack'],
       alwaysShowHours: true,
       alwaysShowControls: true
     });

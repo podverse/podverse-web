@@ -77,6 +77,8 @@
         item = mediaRefs[0];
       }
 
+      window.nowPlayingPlaylistItemIndex = urlHashIndexValue;
+
       setPlaylistItemPropsOnWindow(item);
     {% else %}
       window.isEmptyPlaylist = true;

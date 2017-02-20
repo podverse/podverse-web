@@ -614,12 +614,6 @@ footer p {
     display: none;
 }
 
-#playlist hr, #home-list hr {
-    clear: both;
-    border-top: 1px dotted #ddd;
-    margin: 0;
-}
-
 #playlist-title {
     font-size: 1.25rem;
     font-weight: 600;

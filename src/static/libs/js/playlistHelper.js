@@ -12,10 +12,12 @@ export function togglePlaylistWidget (_this) {
   if ($('#make-clip').css('display') !== 'block' && $('#recommend').css('display') !== 'block') {
     $('#player-description-truncated').hide();
     $('#player-description-full').hide();
+    $('#playlist').hide();
   }
 
   if ($(_this).hasClass('active')) {
     $('#player-description-truncated').show();
+    $('#playlist').show();
   }
 
   $('#make-clip').hide();

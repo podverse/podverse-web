@@ -1,5 +1,6 @@
 {% if mediaRefs|isPlaylist %}
   <div id="playlist">
+    <hr>
     {% if isSubscribed and not isOwner %}
       <div id="playlist-subscribe" title="Unsave playlist"><i class="fa fa-star"></i></div>
     {% elif not isSubscribed and not isOwner %}

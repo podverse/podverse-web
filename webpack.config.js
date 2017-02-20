@@ -15,6 +15,7 @@ module.exports ={
             jqueryCookie: "jquery.cookie/jquery.cookie.js",
             mediaElement: "mediaelement/build/mediaelement-and-player.min.js",
             mejsPlaybackRate: lib_dir + "/vendors/mejs_playbackrate_plugin.js",
+            mepFeaturePlaylist: lib_dir + "/vendors/mep-feature-playlist.js",
             tether: "tether/dist/js/tether.min.js",
             typeahead: "typeahead.js/dist/typeahead.bundle.min.js"
         }
@@ -37,6 +38,7 @@ module.exports ={
                   "jqueryCookie",
                   "mediaElement",
                   "mejsPlaybackRate",
+                  "mepFeaturePlaylist",
                   "tether",
                   "typeahead"]
     },
