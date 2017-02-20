@@ -26,7 +26,7 @@ if (isEmptyPlaylist !== true) {
 // Podcast / Episode / Clip variables added to the window
 // object in player.html
 
-function loadPlaylistItem (index) {
+window.loadPlaylistItem = (index) => {
   var item = mediaRefs[index];
 
   window.setPlaylistItemPropsOnWindow(item);
