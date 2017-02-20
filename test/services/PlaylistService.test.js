@@ -62,7 +62,7 @@ describe('PlaylistService', function () {
 
   });
 
-  describe('when getting a playlist by slug', function () {
+  xdescribe('when getting a playlist by slug', function () {
 
     beforeEach(function (done) {
       this.playlistSvc.get(this.playlist.slug)

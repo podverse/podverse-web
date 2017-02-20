@@ -323,7 +323,6 @@ function createAndAppendAudio () {
     });
   };
 
-
   // The oncanplaythrough event gets called whenever the currentTime changes.
   // We only want oncanplaythrough to trigger autoplay ONCE when the file first
   // loads, and not when the 15 sec time jump buttons are pressed.

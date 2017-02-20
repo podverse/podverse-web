@@ -10,7 +10,7 @@
 --
 
 CREATE TABLE "mediaRefs" (
-    id uuid NOT NULL,
+    id text NOT NULL,
     "startTime" integer DEFAULT 0 NOT NULL,
     "endTime" integer,
     title text,
@@ -30,6 +30,7 @@ CREATE TABLE "mediaRefs" (
     "episodeDuration" integer
 );
 
+
 --
 -- Name: playlistItems; Type: TABLE; Schema: public; Owner: postgres
 --
@@ -37,8 +38,8 @@ CREATE TABLE "mediaRefs" (
 CREATE TABLE "playlistItems" (
     "dateCreated" timestamp with time zone NOT NULL,
     "lastUpdated" timestamp with time zone NOT NULL,
-    "playlistId" uuid NOT NULL,
-    "mediaRefId" uuid NOT NULL
+    "playlistId" text NOT NULL,
+    "mediaRefId" text NOT NULL
 );
 
 --
@@ -46,7 +47,7 @@ CREATE TABLE "playlistItems" (
 --
 
 CREATE TABLE playlists (
-    id uuid NOT NULL,
+    id text NOT NULL,
     slug text,
     title text NOT NULL,
     "ownerId" text NOT NULL,
@@ -65,7 +66,7 @@ CREATE TABLE "subscribedPlaylists" (
     "createdAt" timestamp with time zone NOT NULL,
     "updatedAt" timestamp with time zone NOT NULL,
     "userId" character varying(255) NOT NULL,
-    "playlistId" uuid NOT NULL
+    "playlistId" text NOT NULL
 );
 
 --
@@ -75,6 +76,7 @@ CREATE TABLE "subscribedPlaylists" (
 CREATE TABLE users (
     id character varying(255) NOT NULL,
     name text,
+    nickname text,
     "subscribedPodcastFeedURLs" text[] DEFAULT ARRAY[]::text[],
     "createdAt" timestamp with time zone NOT NULL,
     "updatedAt" timestamp with time zone NOT NULL
@@ -103,14 +105,12 @@ ALTER TABLE ONLY "playlistItems"
 ALTER TABLE ONLY playlists
     ADD CONSTRAINT playlists_pkey PRIMARY KEY (id);
 
-
 --
 -- Name: playlists playlists_slug_key; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY playlists
     ADD CONSTRAINT playlists_slug_key UNIQUE (slug);
-
 
 --
 -- Name: subscribedPlaylists subscribedPlaylists_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
@@ -126,7 +126,6 @@ ALTER TABLE ONLY "subscribedPlaylists"
 
 ALTER TABLE ONLY users
     ADD CONSTRAINT users_pkey PRIMARY KEY (id);
-
 
 --
 -- Name: playlistItems playlistItems_mediaRefId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres

@@ -44,7 +44,7 @@ class PlaylistService extends SequelizeService {
     const {MediaRef} = this.Models;
 
     return this.Model.findOne({
-      where: isUUID(id) ? {id} : {slug:id},
+      where: {id},
       include: {
         model: MediaRef,
         through: 'playlistItems'

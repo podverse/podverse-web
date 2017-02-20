@@ -1,3 +1,5 @@
+const shortid = require('shortid');
+
 'use strict';
 
 module.exports = function(sequelize, DataTypes) {
@@ -9,9 +11,11 @@ module.exports = function(sequelize, DataTypes) {
   const mediaRef = sequelize.define('mediaRef', {
 
     id: {
-      type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV1,
-      primaryKey: true
+      type: DataTypes.TEXT,
+      primaryKey: true,
+      defaultValue: function () {
+        return shortid.generate();
+      }
     },
 
     startTime: {
