@@ -205,14 +205,14 @@
     },
     playNextTrack: function() {
       // NOTE: modified to work with Podverse UI
-      if (mediaRefs.length > nowPlayingPlaylistItemIndex + 1) {
+      if (window.mediaRefs && mediaRefs.length > nowPlayingPlaylistItemIndex + 1) {
         window.loadPlaylistItem(nowPlayingPlaylistItemIndex + 1);
         nowPlayingPlaylistItemIndex++;
       }
     },
     playPrevTrack: function() {
       // NOTE: modified to work with Podverse UI
-      if (nowPlayingPlaylistItemIndex - 1 >= 0) {
+      if (window.mediaRefs && nowPlayingPlaylistItemIndex - 1 >= 0) {
         window.loadPlaylistItem(nowPlayingPlaylistItemIndex - 1);
         nowPlayingPlaylistItemIndex--;
       }
