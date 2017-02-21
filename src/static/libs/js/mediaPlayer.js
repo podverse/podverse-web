@@ -227,12 +227,16 @@ function toggleSubscribe() {
     $('#player-podcast-subscribe').html('<i class="fa fa-star"></i>');
     $('#player-podcast-subscribe').attr('title', 'Unsubscribe from podcast');
     subscribeToPodcast(podcastFeedURL);
-    window.mediaRefs[index]["isSubscribed"] = true;
+    if (window.mediaRefs) {
+      window.mediaRefs[index]["isSubscribed"] = true;
+    }
   } else {
     $('#player-podcast-subscribe').html('<small>subscribe</small> <i class="fa fa-star-o"></i>');
     $('#player-podcast-subscribe').attr('title', 'Subscribe to podcast');
     unsubscribeFromPodcast(podcastFeedURL);
-    window.mediaRefs[index]["isSubscribed"] = false;
+    if (window.mediaRefs) {
+      window.mediaRefs[index]["isSubscribed"] = false;  
+    }
   }
 }
 
