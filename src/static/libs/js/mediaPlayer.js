@@ -143,10 +143,10 @@ function setPlayerInfo () {
   }
 
   if (description) {
-    let truncDescription = description.substring(0, 166);
+    let truncDescription = description.substring(0, 156);
 
     // Add "show more" if description was truncated
-    if (truncDescription.length > 165) {
+    if (truncDescription.length > 155) {
       // If last character is a space, remove it
       if(/\s+$/.test(truncDescription)) {
         truncDescription = truncDescription.slice(0,-1)
@@ -235,7 +235,7 @@ function toggleSubscribe() {
     $('#player-podcast-subscribe').attr('title', 'Subscribe to podcast');
     unsubscribeFromPodcast(podcastFeedURL);
     if (window.mediaRefs) {
-      window.mediaRefs[index]["isSubscribed"] = false;  
+      window.mediaRefs[index]["isSubscribed"] = false;
     }
   }
 }
