@@ -33,12 +33,17 @@ window.loadPlaylistItem = (index) => {
 
   setPlayerInfo();
   setSubscribedStatus();
-
+  
   if (episodeMediaURL !== previousEpisodeMediaURL) {
     destroyPlayerAndAudio();
     checkIfEpisodeMediaFileIsFound(createAndAppendAudio, showEpisodeNotFoundMessage);
   } else {
     audio.currentTime = startTime;
+
+    var autoplay = $.cookie('autoplay');
+    if (autoplay === 'true') {
+      audio.play();
+    }
   }
 
   sendGoogleAnalyticsPlayerPageView();
@@ -291,26 +296,13 @@ function createAndAppendAudio () {
     audio.setAttribute('type', 'audio/mpeg');
     audio.setAttribute('codecs', 'mp3');
     audio.preload = "metadata";
-  } else {
-    setStartAndEndTimesToBePlayed(true);
-
-    var autoplay = $.cookie('autoplay');
-    if (autoplay === 'true') {
-      audio.play();
-    }
-
-    return;
   }
 
   audio.onloadedmetadata = function() {
     // NOTE: If the lastPlaybackPosition is greater than -1, then the audio player must
     // have crashed and then restarted, and we should resume from the last saved
     // playback position. Else begin from the clip start time.
-    if (lastPlaybackPosition > -1) {
-      audio.currentTime = window.lastPlaybackPosition;
-    } else {
-      audio.currentTime = window.startTime || 0;
-    }
+    audio.currentTime = window.startTime || 0;
 
     $('#player .fa-spinner').hide();
 
@@ -398,12 +390,7 @@ $('#player-autoplay').on('click', function() {
   toggleAutoplay();
 });
 
-function setStartAndEndTimesToBePlayed(forceStartTime) {
-  // Skip to start time once when the user first hits play on mobile devices
-  if (lastPlaybackPosition === -1 || forceStartTime) {
-    audio.currentTime = startTime;
-  }
-
+function setStartAndEndTimesToBePlayed() {
   // Stop the clip once when the end time has been reached
   if (Math.floor(audio.currentTime) === endTime && endTimeHasBeenReached === false) {
     endTimeHasBeenReached = true;
