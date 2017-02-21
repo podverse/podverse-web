@@ -33,7 +33,7 @@ window.loadPlaylistItem = (index) => {
 
   setPlayerInfo();
   setSubscribedStatus();
-  
+
   if (episodeMediaURL !== previousEpisodeMediaURL) {
     destroyPlayerAndAudio();
     checkIfEpisodeMediaFileIsFound(createAndAppendAudio, showEpisodeNotFoundMessage);
@@ -295,6 +295,7 @@ function createAndAppendAudio () {
     audio.setAttribute('src', episodeMediaURL);
     audio.setAttribute('type', 'audio/mpeg');
     audio.setAttribute('codecs', 'mp3');
+    audio.setAttribute('title', episodeTitle + ' – ' + podcastTitle);
     audio.preload = "metadata";
   }
 
