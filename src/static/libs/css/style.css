@@ -573,6 +573,10 @@ footer p {
     -ms-user-select: none; /* IE10+ */
 }
 
+#player-time-jump-forward:active, #player-time-jump-back:active {
+    color: #549ee3 !important;
+}
+
 @media (max-width: 767px) {
     #player-time-jump-back, #player-time-jump-forward, #toggle-make-clip-btn,
     #toggle-playlist-btn, #toggle-recommend-btn {
