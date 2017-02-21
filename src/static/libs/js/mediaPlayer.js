@@ -143,10 +143,10 @@ function setPlayerInfo () {
   }
 
   if (description) {
-    let truncDescription = description.substring(0, 176);
+    let truncDescription = description.substring(0, 166);
 
     // Add "show more" if description was truncated
-    if (truncDescription.length > 175) {
+    if (truncDescription.length > 165) {
       // If last character is a space, remove it
       if(/\s+$/.test(truncDescription)) {
         truncDescription = truncDescription.slice(0,-1)

@@ -193,7 +193,7 @@ export function unsubscribeFromPlaylist (url, successCallback) {
 export function togglePlaylistEditView() {
   if ($('#playlist-edit small').html() === 'edit playlist') {
     $('.playlist-item').addClass('edit-view');
-    $('#playlist-edit').html('<small>done editing</small> <i class="fa fa-check"></i>');
+    $('#playlist-edit').html('<small>finished</small> <i class="fa fa-check"></i>');
   } else {
     $('.playlist-item').removeClass('edit-view');
     $('#playlist-edit').html('<small>edit playlist</small> <i class="fa fa-gear"></i>');
