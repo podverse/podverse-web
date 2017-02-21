@@ -30,6 +30,13 @@ $(document).ready(function ($) {
   $('.clickable-row').click(function() {
     window.location = $(this).data('href');
   });
+
+  if (isSubscribed) {
+    $('#podcast-subscribe').html('<i class="fa fa-star"></i>')
+  } else {
+    $('#podcast-subscribe').html('<small>subscribe</small> <i class="fa fa-star-o"></i>')
+  }
+
 });
 
 if (showNextButton) {

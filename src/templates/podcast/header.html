@@ -4,15 +4,9 @@
       <img src="{{ podcast.imageURL }}">
     </div>
     <div id="podcast-text-container">
-      {% if isSubscribed %}
-        <div id="podcast-subscribe" title="Unsubscribe from podcast">
-          <i class="fa fa-star"></i>
-        </div>
-      {% else %}
-        <div id="podcast-subscribe" title="Subscribe to podcast">
-          <small>subscribe</small> <i class="fa fa-star-o"></i>
-        </div>
-      {% endif %}
+      <div id="podcast-subscribe">
+        <!-- insert content in podcast/index.js file -->
+      </div>
       <div id="podcast-title">
         {{ podcast.title }}
       </div>
@@ -25,4 +19,5 @@
 // TODO: this probably shouldn't be here, but it's here for Google Analytics tracking
 window.podcastFeedURL = '{{ podcast.feedURL }}';
 window.podcastTitle = '{{ podcast.title }}';
+window.isSubscribed = {{ isSubscribed }};
 </script>
