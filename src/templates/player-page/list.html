@@ -6,11 +6,14 @@
     {% elif not isSubscribed and not isOwner %}
       <div id="playlist-subscribe" title="Save playlist"><small>save playlist</small> <i class="fa fa-star-o"></i></div>
     {% endif %}
+    {% if isOwner %}
+      <div id="playlist-edit" title="Edit playlist"><small>edit playlist</small> <i class="fa fa-gear"></i></div>
+    {% endif %}
     <div id="playlist-title">
       {% if isRecommendation %}
-        <i class="fa fa-list-ul"></i>&nbsp;Recommended for {{ title }} ({{ mediaRefs | length }})
+        <i class="fa fa-list-ul"></i>&nbsp;Recommended for {{ title }} <span id="playlist-total-items">({{ mediaRefs | length }})</span>
       {% else %}
-        <i class="fa fa-list-ul"></i>&nbsp;{{ title }} ({{ mediaRefs | length }})
+        <i class="fa fa-list-ul"></i>&nbsp;{{ title }} <span id="playlist-total-items">({{ mediaRefs | length }})</span>
       {% endif %}
     </div>
     <div id="playlist-subtitle">
@@ -21,13 +24,16 @@
       {% endif %}
     </div>
     {% for item in mediaRefs %}
-      {% if item|isEpisode %}
-        <div class="playlist-item">
+      <div class="playlist-item" data-media-ref-id="{{item.id}}">
+        {% if item|isEpisode %}
           <div class="playlist-item-inner">
             <div class="playlist-item-image">
               <img src="{{ item.podcastImageURL }}">
             </div>
             <div class="playlist-item-text-wrapper">
+              <div class="playlist-item-remove-btn">
+                remove <i class="fa fa-times"></i>
+              </div>
               <div class="playlist-item-podcast-title">
                 {{ item.podcastTitle }}
               </div>
@@ -51,14 +57,15 @@
             {% endif %}
             <div style="clear:both"></div>
           </div><!-- /.playlist-item-inner -->
-        </div><!-- /.playlist-item -->
-      {% else %} <!-- else treat it as a clip -->
-        <div class="playlist-item">
+        {% else %} <!-- else treat it as a clip -->
           <div class="playlist-item-inner">
             <div class="playlist-item-image">
               <img src="{{ item.podcastImageURL }}">
             </div>
             <div class="playlist-item-text-wrapper">
+              <div class="playlist-item-remove-btn">
+                remove <i class="fa fa-times"></i>
+              </div>
               <div class="playlist-item-podcast-title">
                 {{ item.podcastTitle }}
               </div>
@@ -82,8 +89,8 @@
             {% endif %}
             <div style="clear:both"></div>
           </div><!-- /.playlist-item-inner -->
-        </div><!-- /.playlist-item -->
-      {% endif %}
+        {% endif %}
+      </div><!-- /.playlist-item -->
     {% endfor %}
   </div><!-- /#playlist -->
 {% endif %}

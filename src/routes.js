@@ -393,10 +393,11 @@ function routes () {
                   playlist.dataValues['playlistItems'] = [mediaRef.dataValues.id];
                   PlaylistService.update(req.params.playlistId, playlist.dataValues, {
                     userId: req.feathers.userId,
-                    isFullEpisode: true
+                    isFullEpisode: true,
+                    addPlaylistItemsToPlaylist: true
                   })
-                    .then(updatedPlaylist => {
-                      res.send(200, updatedPlaylist);
+                    .then(updatedPlaylistItemCount => {
+                      res.send(200, updatedPlaylistItemCount);
                     })
                 })
             })
@@ -405,9 +406,13 @@ function routes () {
             })
         } else {
           playlist.dataValues['playlistItems'] = [req.body.mediaRefId];
-          PlaylistService.update(req.params.playlistId, playlist.dataValues, { userId: req.feathers.userId })
-            .then(updatedPlaylist => {
-              res.send(200, updatedPlaylist);
+          PlaylistService.update(req.params.playlistId, playlist.dataValues,
+            {
+              userId: req.feathers.userId,
+              addPlaylistItemsToPlaylist: true
+            })
+            .then(updatedPlaylistItemCount => {
+              res.send(200, updatedPlaylistItemCount);
             })
         }
 
@@ -416,6 +421,32 @@ function routes () {
         res.sendStatus(500);
         throw new errors.GeneralError(e);
       });
+  })
+
+  .post('/playlists/:playlistId/removeItem/', function (req, res) {
+
+    PlaylistService.get(req.params.playlistId)
+    .then(playlist => {
+
+      if (!req.body.mediaRefId) {
+        throw new errors.GeneralError('A mediaRefId must be provided as a query parameter.');
+      }
+
+      playlist.dataValues['playlistItems'] = [req.body.mediaRefId];
+
+      return PlaylistService.update(req.params.playlistId, playlist.dataValues, {
+        userId: req.feathers.userId,
+        removePlaylistItemsFromPlaylist: true
+      })
+      .then(updatedPlaylistItemCount => {
+        res.send(200, updatedPlaylistItemCount);
+      })
+
+    })
+    .catch(e => {
+      res.sendStatus(500);
+      throw new errors.GeneralError(e);
+    });
   })
 
   .use('users', locator.get('UserService'))

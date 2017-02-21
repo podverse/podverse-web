@@ -94,6 +94,7 @@ class PlaylistService extends SequelizeService {
   }
 
   update (id, data, params={}) {
+    const {MediaRef} = this.Models;
 
     if (!id) {
       throw new errors.NotAcceptable(`Try using POST instead of PUT.`);
@@ -105,7 +106,8 @@ class PlaylistService extends SequelizeService {
           {id: id},
           {slug: id}
         ]
-      }
+      },
+      include: [MediaRef]
     }).then(pl => {
 
       if (pl === null) {
@@ -122,19 +124,37 @@ class PlaylistService extends SequelizeService {
         throw new errors.GeneralError(`Sorry folks! You can't add full episodes to the My Clips playlist.`);
       }
 
+      let playlistItemCount = (pl.mediaRefs && pl.mediaRefs.length) || 0;
+
       data = this._transformBeforeSave(data);
 
-      return pl.addMediaRefs(data.playlistItems)
-        .then(() => {
-          return this.Model.update(data, {
-            where: {
-              id: id
-            }
-          })
-            .then(() => {
-              return this.get(id, params);
-            });
-        });
+      return this.Model.update(data, {
+        where: {
+          id: id
+        }
+      }).then(() => {
+
+        if (params.addPlaylistItemsToPlaylist) {
+
+          return pl.addMediaRefs(data.playlistItems)
+          .then(() => {
+            // NOTE: this assumes you are only adding one association at a time
+            return playlistItemCount + 1;
+          });
+
+        } else if (params.removePlaylistItemsFromPlaylist) {
+
+          return pl.removeMediaRefs(data.playlistItems)
+          .then(() => {
+            // NOTE: this assumes you are only deleting one association at a time
+            return playlistItemCount - 1;
+          });
+
+        } else {
+          return this.get(id, params);
+        }
+
+      });
 
     }).catch(e => {
       console.log(e);

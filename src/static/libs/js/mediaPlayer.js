@@ -452,10 +452,12 @@ $('#player-stats-duration').on('click', function () {
 
 $('.playlist-item').on('click', function() {
   if (isPlayerPage) {
-    var index = $(".playlist-item").index(this);
-    nowPlayingPlaylistItemIndex = index;
-    loadPlaylistItem(index);
-    sendGoogleAnalyticsEvent('Media Player', 'Playlist Item Clicked');
+    if (!$(this).hasClass("edit-view")) {
+      var index = $(".playlist-item").index(this);
+      nowPlayingPlaylistItemIndex = index;
+      loadPlaylistItem(index);
+      sendGoogleAnalyticsEvent('Media Player', 'Playlist Item Clicked');
+    }
   }
 });
 

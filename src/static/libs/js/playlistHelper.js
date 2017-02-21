@@ -83,6 +83,29 @@ export function addToPlaylist (playlistId, mediaRefId, callback) {
   sendGoogleAnalyticsEvent('Playlist', 'Add to Playlist');
 }
 
+export function removeFromPlaylist (playlistId, mediaRefId, callback) {
+  $.ajax({
+    type: 'POST',
+    url: '/playlists/' + playlistId + '/removeItem',
+    headers: {
+      Authorization: $.cookie('idToken')
+    },
+    data: {
+      mediaRefId: mediaRefId
+    },
+    success: function (response) {
+      if (callback) {
+        callback(response);
+      }
+    },
+    error: function (xhr, status, error) {
+      alert('Failed to remove from playlist. Please check your internet connection and try again.');
+    }
+  });
+
+  sendGoogleAnalyticsEvent('Playlist', 'Remove from Playlist');
+}
+
 export function updatePlaylistItemCount(playlistId, total) {
   $(".add-to-playlist-item[data-id=" + playlistId + "] .add-to-playlist-item-count")
     .html("items: " + total);
@@ -116,8 +139,8 @@ export function addNewPlaylistElement(playlist) {
   $(".add-to-playlist-item[data-id=" + playlistId + "] .add-to-playlist-item-text").on('click', function () {
     var playlistId = $(this).parent().data('id');
     var mediaRefId = $('#player').data('id');
-    addToPlaylist(playlistId, mediaRefId, function (response) {
-      updatePlaylistItemCount(playlistId, response.mediaRefs.length);
+    addToPlaylist(playlistId, mediaRefId, function (updatedPlaylistItemCount) {
+      updatePlaylistItemCount(playlistId, updatedPlaylistItemCount);
     });
   })
 
@@ -165,4 +188,14 @@ export function unsubscribeFromPlaylist (url, successCallback) {
   });
 
   sendGoogleAnalyticsEvent('Playlist', 'Unsubscribe to Playlist');
+}
+
+export function togglePlaylistEditView() {
+  if ($('#playlist-edit small').html() === 'edit playlist') {
+    $('.playlist-item').addClass('edit-view');
+    $('#playlist-edit').html('<small>done editing</small> <i class="fa fa-check"></i>');
+  } else {
+    $('.playlist-item').removeClass('edit-view');
+    $('#playlist-edit').html('<small>edit playlist</small> <i class="fa fa-gear"></i>');
+  }
 }

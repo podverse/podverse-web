@@ -605,6 +605,12 @@ footer p {
     height: 42px;
 }
 
+@media (max-width: 560px) {
+    #player-description-truncated {
+        height: 63px;
+    }
+}
+
 #player-description-full {
     display: none;
     font-size: 14px;
@@ -633,14 +639,17 @@ footer p {
 #playlist-subscribe {
     float: right;
     cursor: pointer;
-    font-size: 13px;
+}
+
+#playlist-edit {
+    float: right;
+    cursor: pointer;
 }
 
 .playlist-item {
     clear: both;
     display: block;
     font-size: 14px;
-    cursor: pointer;
     padding: 1rem 0;
     border-top: 1px solid transparent;
     border-bottom: 1px solid #f7f7f7;
@@ -649,10 +658,11 @@ footer p {
     margin-top: -1px;
 }
 
-.playlist-item:hover {
+.playlist-item:not(.edit-view):hover {
     border-top: 1px solid #d7d7d7;
     border-bottom: 1px solid #d7d7d7;
     color: #373a3c;
+    cursor: pointer;
 }
 
 .playlist-item-image {
@@ -660,7 +670,6 @@ footer p {
     margin: 0 0.75rem 0 0;
     width: 4rem;
     height: 4rem;
-    cursor: pointer;
 }
 
 .playlist-item-image img {
@@ -672,16 +681,24 @@ footer p {
     overflow: hidden;
 }
 
+.playlist-item-remove-btn {
+    float: right;
+    display: none;
+    cursor: pointer;
+}
+
+.playlist-item.edit-view .playlist-item-remove-btn {
+    display: block;
+}
+
 .playlist-item-podcast-title {
     overflow: hidden;
     font-weight: 600;
-    cursor: pointer;
     margin-top: 1px;
 }
 
 .playlist-item-sub-title {
     overflow: hidden;
-    cursor: pointer;
 }
 
 .playlist-item-time {
@@ -701,7 +718,6 @@ footer p {
 .playlist-item-details {
     font-size: 14px;
     margin-top: 0.75rem;
-    cursor: pointer;
 }
 
 

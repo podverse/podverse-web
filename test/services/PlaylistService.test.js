@@ -136,42 +136,96 @@ describe('PlaylistService', function () {
 
   describe('when updating a playlist as the correct user id', function () {
 
-    beforeEach(function(done) {
-      createTestMediaRefs(this.Models)
-        .then(mediaRef => {
-          this.newPlaylist = {
-            ownerId: 'kungfury@podverse.fm',
-            title: 'Updated Playlist Title',
-            slug: 'updated-playlist-slug',
-            playlistItems: [mediaRef[2].id, mediaRef[3].id]
-          };
+    describe('when updating a playlist and adding playlist items', function () {
+      beforeEach(function(done) {
+        createTestMediaRefs(this.Models)
+          .then(mediaRef => {
+            this.newPlaylist = {
+              ownerId: 'kungfury@podverse.fm',
+              title: 'Updated Playlist Title',
+              slug: 'updated-playlist-slug',
+              playlistItems: [mediaRef[2].id]
+            };
 
-          this.playlistSvc.update(this.playlist.id, this.newPlaylist, {userId: 'kungfury@podverse.fm'})
-            .then(playlist => {
+            this.playlistSvc.update(this.playlist.id, this.newPlaylist, {
+              userId: 'kungfury@podverse.fm',
+              addPlaylistItemsToPlaylist: true
+            })
+              .then(playlistItemCount => {
+                this.playlistItemCount = playlistItemCount;
+                done();
+              });
 
-              this.updatedPlaylist = playlist;
-              done();
-            });
+          });
+      });
 
-        });
+      it('should return the expected playlist item count', function () {
+        expect(this.playlistItemCount).to.equal(3);
+      });
     });
 
-    it('should have a new title', function () {
-      expect(this.updatedPlaylist.title).to.equal('Updated Playlist Title');
+    describe('when updating a playlist and removing playlist items', function () {
+      beforeEach(function(done) {
+        createTestMediaRefs(this.Models)
+          .then(mediaRef => {
+            this.newPlaylist = {
+              ownerId: 'kungfury@podverse.fm',
+              title: 'Updated Playlist Title',
+              slug: 'updated-playlist-slug',
+              playlistItems: [mediaRef[1].id]
+            };
+
+            this.playlistSvc.update(this.playlist.id, this.newPlaylist, {
+              userId: 'kungfury@podverse.fm',
+              removePlaylistItemsFromPlaylist: true
+            })
+              .then(playlistItemCount => {
+                this.playlistItemCount = playlistItemCount;
+                done();
+              });
+
+          });
+      });
+
+      it('should return the expected playlist item count', function () {
+        expect(this.playlistItemCount).to.equal(1);
+      });
     });
 
-    it('should have a new slug', function () {
-      expect(this.updatedPlaylist.slug).to.equal('updated-playlist-slug');
-    });
+    describe('when updating a playlist without passing add / remove item flags', function () {
+      beforeEach(function(done) {
+        createTestMediaRefs(this.Models)
+          .then(mediaRef => {
+            this.newPlaylist = {
+              ownerId: 'kungfury@podverse.fm',
+              title: 'Updated Playlist Title',
+              slug: 'updated-playlist-slug',
+              playlistItems: [mediaRef[2].id, mediaRef[3].id]
+            };
 
-    it('should return all the expected playlist items', function () {
-      let mediaRefs = this.updatedPlaylist.mediaRefs;
-      let mediaRefTitles = mediaRefs.map(mediaRef => mediaRef.title).sort();
-      expect(mediaRefTitles[0]).to.equal('TestTitle0');
-      expect(mediaRefTitles[1]).to.equal('TestTitle1');
-      expect(mediaRefTitles[2]).to.equal('TestTitle2');
-      expect(mediaRefTitles[3]).to.equal('TestTitle3');
-    });
+            this.playlistSvc.update(this.playlist.id, this.newPlaylist, {
+              userId: 'kungfury@podverse.fm'
+            })
+              .then(playlist => {
+                this.updatedPlaylist = playlist;
+                done();
+              });
+
+          });
+      });
+
+      it('should have a new title', function () {
+        expect(this.updatedPlaylist.title).to.equal('Updated Playlist Title');
+      });
+
+      it('should have a new slug', function () {
+        expect(this.updatedPlaylist.slug).to.equal('updated-playlist-slug');
+      });
+
+      it('should not add playlist items', function () {
+        expect(this.updatedPlaylist.mediaRefs.length).to.equal(2);
+      });
+    })
 
     xit('should ensure slug has only valid characters');
 
