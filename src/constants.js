@@ -14,6 +14,9 @@ const isClipMediaRefWithTitle = {
   },
   $not: {
     title: null
+  },
+  $not: {
+    title: ''
   }
 }
 
