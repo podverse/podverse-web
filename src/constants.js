@@ -12,11 +12,15 @@ const isClipMediaRefWithTitle = {
     startTime: 0,
     endTime: null
   },
-  $not: {
-    title: null
+  $and: {
+    $not: {
+      title: null
+    }
   },
-  $not: {
-    title: ''
+  $and: {
+    $not: {
+      title: ''
+    }
   }
 }
 
