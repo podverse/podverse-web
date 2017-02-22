@@ -17,24 +17,24 @@ export function sendGoogleAnalyticsPageView() {
 export function sendGoogleAnalyticsPlayerPageView() {
   if (isEpisode) {
     ga('send', 'pageview', {
-      'dimension1': podcastFeedURL,
-      'dimension2': podcastTitle,
-      'dimension3': episodeTitle
+      'dimension1': window.podcastFeedURL,
+      'dimension2': window.podcastTitle,
+      'dimension3': window.episodeTitle
     });
   } else { // it's a clip
     ga('send', 'pageview', {
-      'dimension1': podcastFeedURL,
-      'dimension2': podcastTitle,
-      'dimension3': episodeTitle,
-      'dimension4': description
+      'dimension1': window.podcastFeedURL,
+      'dimension2': window.podcastTitle,
+      'dimension3': window.episodeTitle,
+      'dimension4': window.description
     });
   }
 }
 
 export function sendGoogleAnalyticsPodcastPageView() {
   ga('send', 'pageview', {
-    'dimension1': podcastFeedURL,
-    'dimension2': podcastTitle
+    'dimension1': window.podcastFeedURL,
+    'dimension2': window.podcastTitle
   });
 }
 
