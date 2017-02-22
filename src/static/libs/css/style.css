@@ -1053,6 +1053,10 @@ footer p {
     width: 100%;
 }
 
+span.twitter-typeahead .tt-suggestion {
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
 
 
 /*** Bootstrap Overrides ***/
