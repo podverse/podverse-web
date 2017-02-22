@@ -5,7 +5,7 @@ export function togglePlaylistWidget (_this) {
   sendGoogleAnalyticsEvent('Playlist', 'Toggle Playlist Widget');
 
   if (!isNonAnonLoggedInUser()) {
-    alert('Please login to create a playlist.');
+    alert('Login to create a playlist.');
     return;
   }
 

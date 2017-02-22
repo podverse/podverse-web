@@ -217,7 +217,7 @@ function setSubscribedStatus() {
 
 function toggleSubscribe() {
   if (!isNonAnonLoggedInUser()) {
-    alert('Please login to subscribe to this podcast.');
+    alert('Login to subscribe to this podcast.');
     return;
   }
 

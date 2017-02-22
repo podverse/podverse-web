@@ -82,7 +82,7 @@ $('.add-to-playlist-item .add-to-playlist-item-link').on('click', function () {
 // Playlist Subscribe onclick event
 $('#playlist-subscribe').on('click', function () {
   if (!isNonAnonLoggedInUser()) {
-    alert('Please login to save a playlist.');
+    alert('Login to save a playlist.');
     return;
   }
 

@@ -7,7 +7,7 @@ import { isNonAnonLoggedInUser } from '../../utility.js';
 
 $('#podcast-subscribe').on('click', function () {
   if (!isNonAnonLoggedInUser()) {
-    alert('Please login to subscribe to this podcast.');
+    alert('Login to subscribe to this podcast.');
     return;
   }
 
