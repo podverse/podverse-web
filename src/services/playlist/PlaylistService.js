@@ -137,15 +137,19 @@ class PlaylistService extends SequelizeService {
         if (params.addPlaylistItemsToPlaylist) {
 
           return pl.addMediaRefs(data.playlistItems)
-          .then(() => {
+          .then((result) => {
             // NOTE: this assumes you are only adding one association at a time
-            return playlistItemCount + 1;
+            let changed = 0;
+            if (result[0] && result[0].length) {
+              changed++;
+            }
+            return playlistItemCount + changed;
           });
 
         } else if (params.removePlaylistItemsFromPlaylist) {
 
           return pl.removeMediaRefs(data.playlistItems)
-          .then(() => {
+          .then((result) => {
             // NOTE: this assumes you are only deleting one association at a time
             return playlistItemCount - 1;
           });

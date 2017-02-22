@@ -86,10 +86,14 @@ class ClipService extends SequelizeService {
                   defaults: myClipsPlaylist
                 }).then(playlists => {
                     let playlist = playlists[0];
+
                     return user.addPlaylists([playlist.id])
                       .then(() => {
                         playlist.dataValues.playlistItems = [c.id];
-                        return PlaylistService.update(playlist.dataValues.id, playlist.dataValues, { userId: params.userId })
+                        return PlaylistService.update(playlist.dataValues.id, playlist.dataValues, {
+                          userId: params.userId,
+                          addPlaylistItemsToPlaylist: true
+                        })
                           .then(updatedPlaylist => {
                             resolve(c);
                           })

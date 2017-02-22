@@ -76,6 +76,8 @@
                 {{ item.startTime | convertSecToHHMMSS }}
                 {% if item.endTime %}
                   to {{ item.endTime | convertSecToHHMMSS }}
+                {% else %}
+                  start time
                 {% endif %}
               </div>
               <div class="playlist-item-date">

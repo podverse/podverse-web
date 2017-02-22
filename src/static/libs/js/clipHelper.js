@@ -180,11 +180,11 @@ export function makeClip (event) {
     episodeDuration: window.episodeDuration
   }
 
-  if (window.podcastImageURL.indexOf('http') === 0) {
+  if (window.podcastImageURL && window.podcastImageURL.indexOf('http') === 0) {
     dataObj.podcastImageURL = window.podcastImageURL;
   }
 
-  if (window.episodeImageURL.indexOf('http') === 0) {
+  if (window.episodeImageURL && window.episodeImageURL.indexOf('http') === 0) {
     dataObj.episodeImageURL = window.episodeImageURL;
   }
 
@@ -198,6 +198,7 @@ export function makeClip (event) {
     success: function (response) {
       if (window.isPlayerPage) {
         toggleMakeClipWidget();
+        $('#playlist').show();
         $('#make-clip-start-time input').val('');
         $('#make-clip-end-time input').val('');
         $('#make-clip-title textarea').val('');
