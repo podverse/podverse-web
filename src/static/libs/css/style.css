@@ -720,6 +720,10 @@ footer p {
     margin-top: 0.75rem;
 }
 
+#empty-playlist-message {
+    text-align: center;
+    font-size: 18px;
+}
 
 
 /*** clip-created-modal.html styles ***/

@@ -19,7 +19,7 @@ if (isEmptyPlaylist !== true) {
   checkIfEpisodeMediaFileIsFound(createAndAppendAudio, showEpisodeNotFoundMessage);
   onScrollCondensePlayerView();
 } else {
-  var isEmptyPlaylistEl = '<div id="empty-playlist-message">This playlist has no episodes or clips added to it.';
+  var isEmptyPlaylistEl = '<div id="empty-playlist-message">This playlist has no episodes or clips added to it.</div>';
   $(isEmptyPlaylistEl).insertAfter('#player');
 }
 
