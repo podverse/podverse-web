@@ -98,6 +98,12 @@ export function toggleMakeClipWidget (_this) {
 export function makeClip (event) {
   event.preventDefault();
 
+  if (window.preventResubmit) { return }
+
+  window.preventResubmit = true;
+  $('#make-clip-btn').attr('disabled', true);
+  $('#make-clip-btn').html('<i class="fa fa-spinner fa-spin"></i>')
+
   sendGoogleAnalyticsEvent('Make Clip', 'Make Clip');
 
   $('#make-clip-start-time-error').hide();
@@ -188,32 +194,37 @@ export function makeClip (event) {
     dataObj.episodeImageURL = window.episodeImageURL;
   }
 
-  $.ajax({
-    type: 'POST',
-    url: '/clips',
-    headers: {
-      Authorization: $.cookie('idToken')
-    },
-    data: dataObj,
-    success: function (response) {
-      if (window.isPlayerPage) {
-        toggleMakeClipWidget();
-        $('#playlist').show();
-        $('#make-clip-start-time input').val('');
-        $('#make-clip-end-time input').val('');
-        $('#make-clip-title textarea').val('');
-        $('#player-description-truncated').show();
-        $('#clip-created-modal-link').val(location.protocol + '\/\/' + location.hostname + (location.port ? ':'+location.port: '')  + '\/clips\/' + response.id);
-        $('#clip-created-modal').modal('show');
-      } else {
-        location.href = '\/clips\/' + response.id;
+  setTimeout(function () {
+    $.ajax({
+      type: 'POST',
+      url: '/clips',
+      headers: {
+        Authorization: $.cookie('idToken')
+      },
+      data: dataObj,
+      success: function (response) {
+        if (window.isPlayerPage) {
+          toggleMakeClipWidget();
+          $('#playlist').show();
+          $('#make-clip-start-time input').val('');
+          $('#make-clip-end-time input').val('');
+          $('#make-clip-title textarea').val('');
+          $('#player-description-truncated').show();
+          $('#clip-created-modal-link').val(location.protocol + '\/\/' + location.hostname + (location.port ? ':'+location.port: '')  + '\/clips\/' + response.id);
+          $('#clip-created-modal').modal('show');
+        } else {
+          location.href = '\/clips\/' + response.id;
+        }
+      },
+      error: function (xhr, status, error) {
+        console.log(error);
+        alert('Failed to create clip. Please check your internet connection and try again.');
+      },
+      done: function () {
+        window.preventResubmit = false;
+        $('#make-clip-btn').removeAttr('disabled');
       }
-    },
-    error: function (xhr, status, error) {
-      console.log(error);
-      alert('Failed to create clip. Please check your internet connection and try again.');
-    }
-
-  });
+    });
+  }, 3000);
 
 }
