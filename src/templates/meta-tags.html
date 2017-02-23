@@ -98,7 +98,7 @@ Check Your Mom's House podcast clip in Facebook Debugger for an example. -->
 <meta name="twitter:card" content="summary_large_image">
 
 <!-- see TODO #5000 -->
-<meta name="twitter:description" content="Clip from {{ podcastTitle }}{% if episodeTitle %} – {{ episodeTitle }}{% endif %}">
+<meta name="twitter:description" content="Clip from {{ podcastTitle }}{% if episodeTitle %} – {{ episodeTitle }}{% endif %} – {{ startTime }}{% if endTime %} to {{ endTime }}{% else %} start time{% endif %}">
 <meta name="twitter:title" content="{{ title }}">
 <meta name="twitter:image" content="{% if episodeImageURL %}{{ episodeImageURL }}{% else %}{{ podcastImageURL }}{% endif %}">
 <meta name="twitter:image:alt" content="Podcast image">
