@@ -729,7 +729,8 @@ footer p {
 
 /*** clip-created-modal.html styles ***/
 #clip-created-modal-nav-btn, #clip-created-modal-copy-btn {
-    width: 150px;
+    width: 135px;
+    margin-left: 5px;
 }
 
 

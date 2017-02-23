@@ -98,12 +98,6 @@ export function toggleMakeClipWidget (_this) {
 export function makeClip (event) {
   event.preventDefault();
 
-  if (window.preventResubmit) { return }
-
-  window.preventResubmit = true;
-  $('#make-clip-btn').attr('disabled', true);
-  $('#make-clip-btn').html('<i class="fa fa-spinner fa-spin"></i>')
-
   sendGoogleAnalyticsEvent('Make Clip', 'Make Clip');
 
   $('#make-clip-start-time-error').hide();
@@ -139,6 +133,14 @@ export function makeClip (event) {
   startTime = convertHHMMSSToSeconds(startTime);
   endTime = convertHHMMSSToSeconds(endTime);
 
+  if (startTime === 0 && (endTime === 0 || endTime === null)) {
+    $('#make-clip-start-time-error').html('Type a start or end time.');
+    $('#make-clip-start-time').addClass('has-danger');
+    $('#make-clip-end-time').addClass('has-danger');
+    $('#make-clip-start-time-error').show();
+    return;
+  }
+
   if (endTime === 0) {
     endTime = null;
   }
@@ -158,6 +160,12 @@ export function makeClip (event) {
     $('#make-clip-start-time-error').show();
     return;
   }
+
+  // After the form is validated, display loading state and prevent resubmit
+  if (window.preventResubmit) { return }
+  window.preventResubmit = true;
+  $('#make-clip-btn').attr('disabled', true);
+  $('#make-clip-btn').html('<i class="fa fa-spinner fa-spin"></i>')
 
   // TODO: how can we prevent malicious scripts in the title?
   var clipTitle = $('#make-clip-title textarea').val();
