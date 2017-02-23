@@ -849,9 +849,15 @@ footer p {
 
 .podcast-episodes-list-item:hover,
 .podcast-episodes-list-item:focus {
-    color: #111 !important;
-    background-color: #eee !important;
     text-decoration: none !important;
+}
+
+@media (min-width: 576px) {
+    .podcast-episodes-list-item:hover,
+    .podcast-episodes-list-item:focus {
+        color: #111 !important;
+        background-color: #eee !important;
+    }
 }
 
 .podcast-episodes-list-item-pubdate {
