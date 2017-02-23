@@ -1155,6 +1155,11 @@ span.twitter-typeahead .tt-suggestion {
     background-color: #2968B1;
 }
 
+.navbar-toggleable-xs.in {
+    border-top: 1px solid #fff;
+    margin-top: 6px;
+}
+
 .collapse {
     float: right;
 }
