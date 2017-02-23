@@ -220,9 +220,10 @@ export function makeClip (event) {
         console.log(error);
         alert('Failed to create clip. Please check your internet connection and try again.');
       },
-      done: function () {
+      complete: function () {
         window.preventResubmit = false;
         $('#make-clip-btn').removeAttr('disabled');
+        $('#make-clip-btn').html('Save');
       }
     });
   }, 3000);
