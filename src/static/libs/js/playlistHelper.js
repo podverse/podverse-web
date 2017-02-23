@@ -191,11 +191,11 @@ export function unsubscribeFromPlaylist (url, successCallback) {
 }
 
 export function togglePlaylistEditView() {
-  if ($('#playlist-edit small').html() === 'edit playlist') {
+  if ($('#playlist-edit small').html() === 'edit') {
     $('.playlist-item').addClass('edit-view');
-    $('#playlist-edit').html('<small>finished</small> <i class="fa fa-check"></i>');
+    $('#playlist-edit').html('<small>done</small> <i class="fa fa-check"></i>');
   } else {
     $('.playlist-item').removeClass('edit-view');
-    $('#playlist-edit').html('<small>edit playlist</small> <i class="fa fa-gear"></i>');
+    $('#playlist-edit').html('<small>edit</small> <i class="fa fa-gear"></i>');
   }
 }

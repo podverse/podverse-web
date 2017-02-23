@@ -249,9 +249,10 @@ $('#player-podcast-subscribe').on('click', function () {
 function resizeProgressBar () {
   // Progress bar width should be equal to width of #player minus the total space
   // taken up by all other elements in the #player element, *except* on mobile
-  // when the volume bar elements do not load in the player.
+  // when the volume bar elements do not load in the player, also the prev / next
+  // buttons only load on playlist pages.
   var hasVolumeBar = ($('.mejs-horizontal-volume-slider').width() > 0);
-  var otherElementsWidth = 228 + (hasVolumeBar ? 82 : 0);
+  var otherElementsWidth = 228 + (hasVolumeBar ? 82 : 0) - (isPlaylist ? 0 : 52);
   var newWidth = $('#player').width() - otherElementsWidth;
   $('.mejs-time-rail').width(newWidth);
   $('.mejs-time-slider').width(newWidth - 10);
@@ -313,9 +314,18 @@ function createAndAppendAudio () {
 
     $('#player').append(audio);
 
+    let playerFeatures;
+
+    if (window.isPlaylist) {
+      playerFeatures = ['playpause', 'current', 'progress', 'duration', 'volume', 'fasterslower',
+      'prevtrack', 'nexttrack'];
+    } else {
+      playerFeatures = ['playpause', 'current', 'progress', 'duration', 'volume', 'fasterslower'];
+    }
+
     $('audio').mediaelementplayer({
       // the order of controls you want on the control bar (and other plugins below)
-      features: ['playpause', 'current', 'progress', 'duration', 'volume', 'fasterslower', 'prevtrack', 'nexttrack'],
+      features: playerFeatures,
       alwaysShowHours: true,
       alwaysShowControls: true
     });

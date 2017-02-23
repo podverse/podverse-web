@@ -7,7 +7,7 @@
       <div id="playlist-subscribe" title="Save playlist"><small>save playlist</small> <i class="fa fa-star-o"></i></div>
     {% endif %}
     {% if isOwner %}
-      <div id="playlist-edit" title="Edit playlist"><small>edit playlist</small> <i class="fa fa-gear"></i></div>
+      <div id="playlist-edit" title="Edit playlist"><small>edit</small> <i class="fa fa-gear"></i></div>
     {% endif %}
     <div id="playlist-title">
       {% if isRecommendation %}
@@ -32,7 +32,7 @@
             </div>
             <div class="playlist-item-text-wrapper">
               <div class="playlist-item-remove-btn">
-                remove <i class="fa fa-times"></i>
+                <small>remove</small> <i class="fa fa-times"></i>
               </div>
               <div class="playlist-item-podcast-title">
                 {{ item.podcastTitle }}
@@ -52,7 +52,7 @@
             </div><!-- /.playlist-item-text-wrapper -->
             {% if item.episodeSummary %}
               <div class="playlist-item-details">
-                {{ item.episodeSummary }}
+                {{ item.episodeSummary | striptags(false) | truncate(255) }}
               </div>
             {% endif %}
             <div style="clear:both"></div>
@@ -64,7 +64,7 @@
             </div>
             <div class="playlist-item-text-wrapper">
               <div class="playlist-item-remove-btn">
-                remove <i class="fa fa-times"></i>
+                <small>remove</small> <i class="fa fa-times"></i>
               </div>
               <div class="playlist-item-podcast-title">
                 {{ item.podcastTitle }}
@@ -86,7 +86,7 @@
             </div><!-- /.playlist-item-text-wrapper -->
             {% if item.title %}
               <div class="playlist-item-details">
-                {{ item.title | truncate(275) }}
+                {{ item.title | truncate(255) }}
               </div>
             {% endif %}
             <div style="clear:both"></div>

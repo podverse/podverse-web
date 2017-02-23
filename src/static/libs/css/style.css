@@ -685,6 +685,7 @@ footer p {
     float: right;
     display: none;
     cursor: pointer;
+    font-size: 16px;
 }
 
 .playlist-item.edit-view .playlist-item-remove-btn {
