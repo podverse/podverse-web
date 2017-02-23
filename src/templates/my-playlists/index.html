@@ -21,8 +21,8 @@
         {% if not playlist.isRecommendation %}
           <a class="playlist-list-item" data-id="{{playlist.id}}" href="/playlists/{{playlist.id}}">
             <div class="playlist-list-item-img">
-              {% if playlist.mediaRefs[0].episode.podcast.imageURL %}
-                <img src="{{ playlist.mediaRefs[0].episode.podcast.imageURL }}">
+              {% if playlist.mediaRefs[0].podcastImageURL %}
+                <img src="{{ playlist.mediaRefs[0].podcastImageURL }}">
               {% else %}
                 <img src="/static/images/podverse-logo-180.png">
               {% endif %}
@@ -51,8 +51,8 @@
       {% for playlist in recommendedForMe|sort(false, true, 'title')  %}
         <a class="playlist-list-item" data-id="{{playlist.id}}" href="/playlists/{{playlist.id}}">
           <div class="playlist-list-item-img">
-            {% if playlist.mediaRefs[0].episode.podcast.imageURL %}
-              <img src="{{ playlist.mediaRefs[0].episode.podcast.imageURL }}">
+            {% if playlist.mediaRefs[0].podcastImageURL %}
+              <img src="{{ playlist.mediaRefs[0].podcastImageURL }}">
             {% else %}
               <img src="/static/images/podverse-logo-180.png">
             {% endif %}
@@ -80,8 +80,8 @@
       {% for playlist in recommendedByMe|sort(false, true, 'title')  %}
         <a class="playlist-list-item" data-id="{{playlist.id}}" href="/playlists/{{playlist.id}}">
           <div class="playlist-list-item-img">
-            {% if playlist.mediaRefs[0].episode.podcast.imageURL %}
-              <img src="{{ playlist.mediaRefs[0].episode.podcast.imageURL }}">
+            {% if playlist.mediaRefs[0].podcastImageURL %}
+              <img src="{{ playlist.mediaRefs[0].podcastImageURL }}">
             {% else %}
               <img src="/static/images/podverse-logo-180.png">
             {% endif %}
