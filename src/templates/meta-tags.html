@@ -37,19 +37,19 @@
 {% if currentPage == 'Home Page' %}
 
 <!--  Facebook Open Graph meta tags -->
-<meta property="og:title" content="Podverse" />
+<meta property="og:title" content="Podverse.fm" />
 <meta property="og:type" content="website" />
 <meta property="og:image" content="http://podverse.fm/static/images/podverse-logo-1200x630.png" />
 <meta property="og:image:secure_url" content="https://podverse.fm/static/images/podverse-logo-1200x630.png" />
-<meta property="og:description" content="Create and share podcast highlights" />
+<meta property="og:description" content="Create and share podcast highlights. Subscribe to podcasts. Free and open software. Will never sell user data." />
 
 <!-- PRODUCTION ONLY - can break localhost testing with FB debugger tool -->
 <meta property="og:url" content="https://podverse.fm/" />
 
 <!-- Twitter meta tags -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:description" content="Create and share podcast highlights">
-<meta name="twitter:title" content="Podverse">
+<meta name="twitter:description" content="Create and share podcast highlights. Subscribe to podcasts. Free and open software. Will never sell user data.">
+<meta name="twitter:title" content="Podverse.fm">
 <meta name="twitter:image" content="https://podverse.fm/static/images/podverse-logo-1200x630.png">
 <meta name="twitter:image:alt" content="Podverse logo">
 
@@ -60,14 +60,14 @@
 <meta property="og:type" content="website" />
 <meta property="og:image" content="http://podverse.fm/static/images/podverse-logo-1200x630.png" />
 <meta property="og:image:secure_url" content="https://podverse.fm/static/images/podverse-logo-1200x630.png" />
-<meta property="og:description" content="Create and share podcast highlights" />
+<meta property="og:description" content="Create and share podcast highlights. Subscribe to podcasts. Free and open software. Will never sell user data." />
 
 <!-- PRODUCTION ONLY - can break localhost testing with FB debugger tool -->
 <meta property="og:url" content="https://podverse.fm/about" />
 
 <!-- Twitter meta tags -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:description" content="Create and share podcast highlights">
+<meta name="twitter:description" content="Create and share podcast highlights. Subscribe to podcasts. Free and open software. Will never sell user data.">
 <meta name="twitter:title" content="Podverse">
 <meta name="twitter:image" content="https://podverse.fm/static/images/podverse-logo-1200x630.png">
 <meta name="twitter:image:alt" content="Podverse logo">
@@ -139,14 +139,14 @@ Check Your Mom's House podcast clip in Facebook Debugger for an example. -->
 <meta property="og:type" content="website" />
 <meta property="og:image" content="http://podverse.fm/static/images/podverse-logo-1200x630.png" />
 <meta property="og:image:secure_url" content="https://podverse.fm/static/images/podverse-logo-1200x630.png" />
-<meta property="og:description" content="Create and share podcast highlights" />
+<meta property="og:description" content="Create and share podcast highlights. Subscribe to podcasts. Free and open software. Will never sell user data." />
 
 <!-- PRODUCTION ONLY - can break localhost testing with FB debugger tool -->
 <meta property="og:url" content="https://podverse.fm/faq" />
 
 <!-- Twitter meta tags -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:description" content="Create and share podcast highlights">
+<meta name="twitter:description" content="Create and share podcast highlights. Subscribe to podcasts. Free and open software. Will never sell user data.">
 <meta name="twitter:title" content="Podverse">
 <meta name="twitter:image" content="https://podverse.fm/static/images/podverse-logo-1200x630.png">
 <meta name="twitter:image:alt" content="Podverse logo">
@@ -162,14 +162,14 @@ Check Your Mom's House podcast clip in Facebook Debugger for an example. -->
 <meta property="og:type" content="website" />
 <meta property="og:image" content="http://podverse.fm/static/images/podverse-logo-1200x630.png" />
 <meta property="og:image:secure_url" content="https://podverse.fm/static/images/podverse-logo-1200x630.png" />
-<meta property="og:description" content="Create and share podcast highlights" />
+<meta property="og:description" content="Create and share podcast highlights. Subscribe to podcasts. Free and open software. Will never sell user data." />
 
 <!-- PRODUCTION ONLY - can break localhost testing with FB debugger tool -->
 <meta property="og:url" content="https://podverse.fm/about" />
 
 <!-- Twitter meta tags -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:description" content="Create and share podcast highlights">
+<meta name="twitter:description" content="Create and share podcast highlights. Subscribe to podcasts. Free and open software. Will never sell user data.">
 <meta name="twitter:title" content="Podverse">
 <meta name="twitter:image" content="https://podverse.fm/static/images/podverse-logo-1200x630.png">
 <meta name="twitter:image:alt" content="Podverse logo">
@@ -204,22 +204,22 @@ Check Your Mom's House podcast clip in Facebook Debugger for an example. -->
 {% elif currentPage == 'Podcast Detail Page' %}
 
 <!--  Facebook Open Graph meta tags -->
-<meta property="og:title" content="{{ title }}" />
+<meta property="og:title" content="{{ podcast.title }}" />
 <meta property="og:type" content="article" />
 <!-- TODO: check if an insecure_url is available. if yes, use it. -->
-<meta property="og:image" content="{{ imageURL }}" />
+<meta property="og:image" content="{{ podcast.imageURL }}" />
 <!-- TODO: check if a secure_url is available. if yes, use it. -->
 <!-- <meta property="og:image:secure_url" content="" /> -->
-<meta property="og:description" content="{{ summary | stripTags }}" />
+<meta property="og:description" content="{{ podcast.summary | stripTags }}" />
 
 <!-- PRODUCTION ONLY - can break localhost testing with FB debugger tool -->
-<meta property="og:url" content="https://podverse.fm/podcasts/{{ id }}" />
+<meta property="og:url" content="https://podverse.fm/podcasts/{{ podcast.id }}" />
 
 <!-- Twitter meta tags -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:description" content="{{ summary | stripTags }}">
-<meta name="twitter:title" content="{{ title }}">
-<meta name="twitter:image" content="{{ imageURL }}">
+<meta name="twitter:description" content="{{ podcast.summary | stripTags }}">
+<meta name="twitter:title" content="{{ podcast.title }}">
+<meta name="twitter:image" content="{{ podcast.imageURL }}">
 <meta name="twitter:image:alt" content="Podcast image">
 <!-- <meta name="twitter:player" content="HTTPS URL of player iframe"> -->
 <!-- <meta name="twitter:player:width" content="Width of iframe in pixels"> -->
