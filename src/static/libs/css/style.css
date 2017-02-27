@@ -12,7 +12,8 @@ body {
 }
 
 h1 {
-    margin-bottom: 1.25rem
+    margin: 1.25rem 0 1rem 0;
+    font-size: 2rem;
 }
 
 h4 {
@@ -71,6 +72,13 @@ audio {
     white-space: nowrap;
 }
 
+
+.sub-header-dropdown {
+    margin-top: -0.75rem;
+    margin-bottom: 0.75rem;
+    font-size: 14px;
+    color: #777;
+}
 
 
 /*** layout.html styles ***/

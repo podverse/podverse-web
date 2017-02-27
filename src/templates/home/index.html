@@ -3,6 +3,12 @@
 {% block body %}
 <div class="row">
   <div class="col-xs-12">
+    <h1>Highlights</h1>
+    <!-- <div>Most Popular Today</div> -->
+    <div class="sub-header-dropdown">Most Popular This Week <i class="fa fa-caret-down"></i></div>
+    <!-- <div>Most Popular This Month</div>
+    <div>Most Popular This Year</div>
+    <div>Most Popular All Time</div> -->
     <!-- NOTE: the home-list reuses the HTML / CSS of the #playlist in the player.html. The designs may diverge someday, but for now CSS changes to these elements will also change the #playlist's items. -->
     <div id="home-list">
       {% for clip in clips %}
