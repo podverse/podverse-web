@@ -623,6 +623,11 @@ footer p {
     margin-bottom: 1rem;
 }
 
+#player-description-full img {
+    display: block;
+    margin-bottom: 20px;
+}
+
 
 
 /*** player-list.html styles ***/
