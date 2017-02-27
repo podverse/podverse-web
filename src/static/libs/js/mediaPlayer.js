@@ -143,32 +143,51 @@ function setPlayerInfo () {
     $('<hr id="player-hr">').insertAfter('#player-functions');
   }
 
-  if (description) {
-    let truncDescription = description;
-    truncDescription = stripTags(truncDescription);
-    truncDescription = truncDescription.substring(0, 156);
+  let truncDescription = description;
+  truncDescription = stripTags(truncDescription);
+  truncDescription = truncDescription.substring(0, 156);
 
-    // Add "show more" if description was truncated
-    if (truncDescription.length > 155) {
-      // If last character is a space, remove it
-      if(/\s+$/.test(truncDescription)) {
-        truncDescription = truncDescription.slice(0,-1)
-      }
-
-      truncDescription += "... <span class='text-primary'><small>show more</small></span>";
+  // Add "show more" if description was truncated
+  if (truncDescription.length > 155) {
+    // If last character is a space, remove it
+    if(/\s+$/.test(truncDescription)) {
+      truncDescription = truncDescription.slice(0,-1);
     }
 
-    $('#player-description-truncated').html(truncDescription);
-    $('#player-description-full').html(description);
-
-    $('#player-description-truncated').show();
-    $('#player-description-full').hide();
-
-    $('#player-description-truncated').on('click', () => {
-      $('#player-description-truncated').hide();
-      $('#player-description-full').show();
-    })
+    truncDescription += "... <span class='text-primary'><small>show more</small></span>";
   }
+
+  if (!description || description.length === 0) {
+    if (isEpisode) {
+      truncDescription = description = '<i>No episode summary provided</i>';
+    } else {
+      truncDescription = description = '<i>No clip title provided</i>';
+    }
+  }
+
+  $('#player-description-truncated').html('<div id="player-description-truncated-begin"></div>' + truncDescription + '<div id="player-description-truncated-end"></div>');
+  $('#player-description-full').html(description);
+
+
+  // The truncated element is surrounded with spans used to detect how many lines
+  // of description text have loaded on the page, and if it is more than 2 lines,
+  // then truncate characters from the string until the text only fills 2 lines.
+  if (truncDescription.length > 155) {
+    setTimeout(function () {
+      let beginTruncTopPos = $('#player-description-truncated-begin').position().top;
+      let endTruncTopPos = $('#player-description-truncated-end').position().top;
+      console.log(beginTruncTopPos)
+      console.log(endTruncTopPos)
+      if (endTruncTopPos - beginTruncTopPos > 44) {
+        truncDescription = truncDescription.slice(0, -88);
+        truncDescription += "... <span class='text-primary'><small>show more</small></span>";
+        $('#player-description-truncated').html(truncDescription)
+      }
+    }, 0);
+  }
+
+  $('#player-description-truncated').show();
+  $('#player-description-full').hide();
 
   $('#playlist').show();
 
@@ -190,6 +209,11 @@ function setPlayerInfo () {
   window.addEventListener('resize', updateCondensedPlayerWidth);
 
 }
+
+$('#player-description-truncated').on('click', () => {
+  $('#player-description-truncated').hide();
+  $('#player-description-full').show();
+});
 
 function setSubscribedStatus() {
 
