@@ -1149,6 +1149,11 @@ span.twitter-typeahead .tt-suggestion {
     font-size: 16px;
 }
 
+.navbar-brand img {
+    height: 22px;
+    margin-top: -1px;
+}
+
 .navbar-nav .nav-link {
     font-size: 14px;
     padding-top: .55rem;
@@ -1192,6 +1197,7 @@ span.twitter-typeahead .tt-suggestion {
 
 .collapse {
     float: right;
+    margin-top: -1px;
 }
 
 .collapse hr, .collapsing hr {
