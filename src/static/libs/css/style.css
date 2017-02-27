@@ -606,10 +606,6 @@ footer p {
     margin-right: 14px;
 }
 
-#player-list-hr {
-    display: none;
-}
-
 
 
 /*** player-page description.html styles ***/
@@ -625,10 +621,15 @@ footer p {
     }
 }
 
+#player-description-truncated-begin, #player-description-truncated-end {
+    clear: both;
+}
+
 #player-description-full {
     display: none;
     font-size: 14px;
     margin-bottom: 1rem;
+    min-height: 42px;
 }
 
 #player-description-full img {
@@ -652,7 +653,7 @@ footer p {
 }
 
 #playlist-subtitle {
-    margin: 0 0 1rem 0;
+    margin: 0 0 0.25rem 0;
 }
 
 #playlist-subscribe {
