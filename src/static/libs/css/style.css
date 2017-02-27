@@ -679,6 +679,12 @@ footer p {
     transition: .2s;
 }
 
+.playlist-item:not(.edit-view):focus {
+    cursor: pointer;
+    color: #2969b1;
+    outline: none;
+}
+
 .playlist-item:not(.edit-view):hover {
     cursor: pointer;
     color: #2969b1;
