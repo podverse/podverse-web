@@ -181,7 +181,7 @@ Check Your Mom's House podcast clip in Facebook Debugger for an example. -->
 {% elif currentPage == 'Playlist Detail Page' %}
 
 <!--  Facebook Open Graph meta tags -->
-<meta property="og:title" content="{{ title }}" />
+<meta property="og:title" content="{% if isRecommendation %}Recommended for {{ title }}{% else %}{{ title }}{% endif %}" />
 <meta property="og:type" content="article" />
 <!-- TODO: check if an insecure_url is available. if yes, use it. -->
 <!-- Don't specify an image, instead let the user pick one from the page -->
