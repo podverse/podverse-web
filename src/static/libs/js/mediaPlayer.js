@@ -4,6 +4,7 @@ import { subscribeToPodcast, unsubscribeFromPodcast } from './podcastHelper.js';
 import { sendGoogleAnalyticsPlayerPageView,
          sendGoogleAnalyticsEvent } from './googleAnalytics.js';
 import { isMobileOrTablet } from './browserSupportDetection.js';
+const stripTags = require('striptags');
 
 // Set default values for vars that handle player crashes and autoplay functionality
 window.restartAttempts = 0;
@@ -143,7 +144,9 @@ function setPlayerInfo () {
   }
 
   if (description) {
-    let truncDescription = description.substring(0, 156);
+    let truncDescription = description;
+    truncDescription = stripTags(truncDescription);
+    truncDescription = truncDescription.substring(0, 156);
 
     // Add "show more" if description was truncated
     if (truncDescription.length > 155) {
