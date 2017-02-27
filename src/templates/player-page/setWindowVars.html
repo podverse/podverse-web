@@ -69,7 +69,7 @@
 
       window.mediaRefs = {{ mediaRefs|stringify|safe }};
 
-      var item = mediaRefs[0];
+      var item = mediaRefs[mediaRefs.length - 1];
       window.nowPlayingPlaylistItemIndex = 0;
 
       setPlaylistItemPropsOnWindow(item);

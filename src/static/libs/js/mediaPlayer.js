@@ -472,6 +472,7 @@ $('.playlist-item').on('keypress click', function(e) {
     if (isPlayerPage) {
       if (!$(this).hasClass("edit-view")) {
         var index = $(".playlist-item").index(this);
+        index = mediaRefs.length - index - 1;
         nowPlayingPlaylistItemIndex = index;
         loadPlaylistItem(index);
         sendGoogleAnalyticsEvent('Media Player', 'Playlist Item Clicked');

@@ -108,7 +108,6 @@ $('.playlist-item-remove-btn').on('click', function () {
   let mediaRefId = $(playlistItem).data('media-ref-id');
   removeFromPlaylist(playlistId, mediaRefId, function (updatedPlaylistItemCount) {
     $(playlistItem).remove();
-    console.log(updatedPlaylistItemCount)
     $('#playlist-total-items').html(`(${updatedPlaylistItemCount})`)
   });
 });
