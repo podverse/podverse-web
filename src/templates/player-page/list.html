@@ -23,7 +23,7 @@
         By: {{ ownerName }}
       {% endif %}
     </div>
-    {% for item in mediaRefs %}
+    {% for item in mediaRefs | reverse %}
       <div class="playlist-item" data-media-ref-id="{{item.id}}" tabindex="0">
         {% if item|isEpisode %}
           <div class="playlist-item-inner">
