@@ -674,13 +674,13 @@ footer p {
     color: #373a3c;
     text-decoration: none !important;
     margin-top: -1px;
+    transition: .2s;
 }
 
 .playlist-item:not(.edit-view):hover {
-    border-top: 1px solid #d7d7d7;
-    border-bottom: 1px solid #d7d7d7;
     color: #373a3c;
     cursor: pointer;
+    opacity: .75;
 }
 
 .playlist-item-image {
