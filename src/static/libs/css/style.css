@@ -13,11 +13,12 @@ body {
 
 h1 {
     margin: 1.25rem 0 1rem 0;
-    font-size: 2rem;
+    font-size: 1.75rem;
 }
 
 h4 {
   margin: 1.25rem 0 1.5rem;
+  font-size: 1.75rem;
 }
 
 label {
