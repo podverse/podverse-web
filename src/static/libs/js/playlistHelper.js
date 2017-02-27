@@ -138,7 +138,7 @@ export function addNewPlaylistElement(playlist) {
 
   $(".add-to-playlist-item[data-id=" + playlistId + "] .add-to-playlist-item-text").on('click', function () {
     var playlistId = $(this).parent().data('id');
-    var mediaRefId = $('#player').data('id');
+    var mediaRefId = $('#player').attr('data-id'); // $('#player').data('id') failed to grab updated values
     addToPlaylist(playlistId, mediaRefId, function (updatedPlaylistItemCount) {
       updatePlaylistItemCount(playlistId, updatedPlaylistItemCount);
     });

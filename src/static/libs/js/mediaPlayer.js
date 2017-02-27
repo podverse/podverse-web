@@ -87,7 +87,7 @@ function setPlayerInfo () {
     endTime = parseInt(window.endTime)
   }
 
-  $('#player').attr('data-id', window.mediaRefId);
+  document.getElementById('player').setAttribute('data-id', window.mediaRefId);
 
   $('#player-header').show();
 

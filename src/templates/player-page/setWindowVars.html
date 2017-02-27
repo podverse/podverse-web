@@ -23,6 +23,7 @@
   })();
 
   window.setPlaylistItemPropsOnWindow = (item) => {
+
     // Parse the selected playlist item and set its window variables
     window.startTime = item.startTime;
     window.endTime = item.endTime;
@@ -46,6 +47,8 @@
       window.description = item.title;
       window.mediaRefId = item.id;
     }
+
+    document.getElementById('player').setAttribute('data-id', window.mediaRefId);
 
     window.isSubscribed = item.isSubscribed;
 
