@@ -467,13 +467,15 @@ $('#player-stats-duration').on('click', function () {
   restart();
 });
 
-$('.playlist-item').on('click', function() {
-  if (isPlayerPage) {
-    if (!$(this).hasClass("edit-view")) {
-      var index = $(".playlist-item").index(this);
-      nowPlayingPlaylistItemIndex = index;
-      loadPlaylistItem(index);
-      sendGoogleAnalyticsEvent('Media Player', 'Playlist Item Clicked');
+$('.playlist-item').on('keypress click', function(e) {
+  if (e.which === 13 || e.type === 'click') {
+    if (isPlayerPage) {
+      if (!$(this).hasClass("edit-view")) {
+        var index = $(".playlist-item").index(this);
+        nowPlayingPlaylistItemIndex = index;
+        loadPlaylistItem(index);
+        sendGoogleAnalyticsEvent('Media Player', 'Playlist Item Clicked');
+      }
     }
   }
 });

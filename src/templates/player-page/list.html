@@ -2,12 +2,12 @@
   <div id="playlist">
     <hr>
     {% if isSubscribed and not isOwner %}
-      <div id="playlist-subscribe" title="Unsave playlist"><i class="fa fa-star"></i></div>
+      <div id="playlist-subscribe" title="Unsave playlist" tabindex="0"><i class="fa fa-star"></i></div>
     {% elif not isSubscribed and not isOwner %}
-      <div id="playlist-subscribe" title="Save playlist"><small>save playlist</small> <i class="fa fa-star-o"></i></div>
+      <div id="playlist-subscribe" title="Save playlist" tabindex="0"><small>save playlist</small> <i class="fa fa-star-o"></i></div>
     {% endif %}
     {% if isOwner %}
-      <div id="playlist-edit" title="Edit playlist"><small>edit</small> <i class="fa fa-gear"></i></div>
+      <div id="playlist-edit" title="Edit playlist" tabindex="0"><small>edit</small> <i class="fa fa-gear"></i></div>
     {% endif %}
     <div id="playlist-title">
       {% if isRecommendation %}
@@ -24,7 +24,7 @@
       {% endif %}
     </div>
     {% for item in mediaRefs %}
-      <div class="playlist-item" data-media-ref-id="{{item.id}}">
+      <div class="playlist-item" data-media-ref-id="{{item.id}}" tabindex="0">
         {% if item|isEpisode %}
           <div class="playlist-item-inner">
             <div class="playlist-item-image">
@@ -73,6 +73,7 @@
                 {{ item.episodeTitle }}
               </div>
               <div class="playlist-item-time">
+                Clip:
                 {{ item.startTime | convertSecToHHMMSS }}
                 {% if item.endTime %}
                   to {{ item.endTime | convertSecToHHMMSS }}
