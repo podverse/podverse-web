@@ -5,7 +5,7 @@
   <div class="col-xs-12">
     <h4>Podcasts</h4>
     <a class="podcast-list-request" href="https://docs.google.com/forms/d/e/1FAIpQLSdewKP-YrE8zGjDPrkmoJEwCxPl_gizEkmzAlTYsiWAuAk1Ng/viewform"><i class="fa fa-plus-circle"></i> Request podcast</a>
-    {% for podcast in podcasts|sort(false, true, 'title') %}
+    {% for podcast in podcasts|sortTextIgnoreArticles(false, true, 'title') %}
       <a class="podcast-list-item" href="/podcast/{{podcast.id}}">
         <img src="{{podcast.imageURL}}">
         {{ podcast.title }}
