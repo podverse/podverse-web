@@ -682,14 +682,18 @@ footer p {
 }
 
 .playlist-item:not(.edit-view):focus {
-    cursor: pointer;
-    color: #2969b1;
     outline: none;
 }
 
+
 .playlist-item:not(.edit-view):hover {
     cursor: pointer;
-    color: #2969b1;
+}
+
+@media (min-width: 576px) {
+    .playlist-item:not(.edit-view):hover {
+        color: #2969b1;
+    }    
 }
 
 .playlist-item-image {
