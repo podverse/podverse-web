@@ -4,7 +4,7 @@
     {% if isSubscribed and not isOwner %}
       <div id="playlist-subscribe" title="Unsave playlist" tabindex="0"><i class="fa fa-star"></i></div>
     {% elif not isSubscribed and not isOwner %}
-      <div id="playlist-subscribe" title="Save playlist" tabindex="0"><small>save playlist</small> <i class="fa fa-star-o"></i></div>
+      <div id="playlist-subscribe" title="Save playlist" tabindex="0"><small class="hidden-xs-down">save playlist</small> <i class="fa fa-star-o"></i></div>
     {% endif %}
     {% if isOwner %}
       <div id="playlist-edit" title="Edit playlist" tabindex="0"><small>edit</small> <i class="fa fa-gear"></i></div>

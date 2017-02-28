@@ -86,12 +86,12 @@ $('#playlist-subscribe').on('click', function () {
     return;
   }
 
-  if ($(this).html() === '<small>save playlist</small> <i class="fa fa-star-o"></i>') {
+  if ($(this).html() === '<small class="hidden-xs-down">save playlist</small> <i class="fa fa-star-o"></i>') {
     $('#playlist-subscribe').html('<i class="fa fa-star"></i>');
     $('#playlist-subscribe').attr('title', 'Unsave playlist');
     subscribeToPlaylist(playlistId);
   } else {
-    $('#playlist-subscribe').html('<small>save playlist</small> <i class="fa fa-star-o"></i>');
+    $('#playlist-subscribe').html('<small class="hidden-xs-down">save playlist</small> <i class="fa fa-star-o"></i>');
     $('#playlist-subscribe').attr('title', 'Save playlist');
     unsubscribeFromPlaylist(playlistId);
   }
