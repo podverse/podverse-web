@@ -4,7 +4,6 @@
 
 <!-- BEGIN: These tags are the same on every page -->
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<meta name="description" content="Create and share podcast highlights" />
 
 <!-- Facebook Open Graph meta tags -->
 <meta property="og:site_name" content="Podverse" />
@@ -110,23 +109,23 @@ Check Your Mom's House podcast clip in Facebook Debugger for an example. -->
 {% elif currentPage == 'Episode Detail Page' %}
 
 <!--  Facebook Open Graph meta tags -->
-<meta property="og:title" content="{% if title %}{{ title }}{% else %}{{ podcastTitle }}{% if episodePubDate %} – {{ episodePubDate | readableDate }}{% endif %}{% endif %}" />
+<meta property="og:title" content="{% if title %}{{ title }}{% else %}{{ podcast.title }}{% if pubDate %} – {{ pubDate | readableDate }}{% endif %}{% endif %}" />
 <meta property="og:type" content="article" />
 <!-- TODO: check if an insecure_url is available. if yes, use it. -->
-<meta property="og:image" content="{% if episodeImageURL %}{{ episodeImageURL }}{% else %}{{ podcastImageURL }}{% endif %}" />
+<meta property="og:image" content="{% if imageURL %}{{ imageURL }}{% else %}{{ podcast.imageURL }}{% endif %}" />
 <!-- TODO: check if a secure_url is available. if yes, use it. -->
 <!-- <meta property="og:image:secure_url" content="" /> -->
-<meta property="og:description" content="{{ podcastTitle }}{% if episodeSummary %} – {{ episodeSummary | stripTags}}{% endif %}" />
+<meta property="og:description" content="{{ podcast.title }}{% if summary %} – {{ summary | stripTags}}{% endif %}" />
 
 <!-- PRODUCTION ONLY - can break localhost testing with FB debugger tool -->
 <meta property="og:url" content="https://podverse.fm/episodes/{{ id }}" />
 
 <!-- Twitter meta tags -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:description" content="{{ podcastTitle }}{% if episodeSummary %} – {{ episodeSummary | stripTags }}{% endif %}">
-<meta name="twitter:title" content="{% if episodeTitle %}{{ episodeTitle }}{% else %}{{ podcastTitle }}{% if episodePubDate %} – {{ episodePubDate | readableDate }}{% endif %}{% endif %}">
-<meta name="twitter:image" content="{% if episodeImageURL %}{{ episodeImageURL }}{% else %}{{ podcastImageURL }}{% endif %}">
-<meta name="twitter:image:alt" content="{{ podcastTitle }} image">
+<meta name="twitter:description" content="{{ podcast.title }}{% if summary %} – {{ summary | stripTags }}{% endif %}">
+<meta name="twitter:title" content="{% if title %}{{ title }}{% else %}{{ podcast.title }}{% if pubDate %} – {{ pubDate | readableDate }}{% endif %}{% endif %}">
+<meta name="twitter:image" content="{% if imageURL %}{{ imageURL }}{% else %}{{ podcast.imageURL }}{% endif %}">
+<meta name="twitter:image:alt" content="{{ podcast.title }} image">
 <!-- <meta name="twitter:player" content="HTTPS URL of player iframe"> -->
 <!-- <meta name="twitter:player:width" content="Width of iframe in pixels"> -->
 <!-- <meta name="twitter:player:height" content="Height of iframe in pixels"> -->
