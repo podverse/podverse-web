@@ -105,7 +105,12 @@ audio {
     /* Hack: make the scroll bar of the browser load on every page, even before
     content renders, to prevent the UI from resizing when the content finishes
     loading and the browser's scroll bar appears. */
-    min-height: 101%;
+    min-height: 100%;
+}
+
+#always-show-vertical-scrollbar {
+    height: 1px;
+    background-color: #2968B1;
 }
 
 .padding-for-footer {
