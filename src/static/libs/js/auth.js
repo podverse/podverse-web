@@ -48,7 +48,11 @@ lock.on('authenticated', function (authResult) {
       return;
     }
 
-    $.cookie('idToken', authResult.idToken, { secure: __IS_PROD__, path: '/' });
+    $.cookie('idToken', authResult.idToken, {
+      secure: __IS_PROD__,
+      path: '/',
+      expires: 365
+    });
 
     findOrCreateUserOnServer(profile);
   })

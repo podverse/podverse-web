@@ -176,8 +176,6 @@ function setPlayerInfo () {
     setTimeout(function () {
       let beginTruncTopPos = $('#player-description-truncated-begin').position().top;
       let endTruncTopPos = $('#player-description-truncated-end').position().top;
-      console.log(beginTruncTopPos)
-      console.log(endTruncTopPos)
       if (endTruncTopPos - beginTruncTopPos > 44) {
         truncDescription = truncDescription.slice(0, -88);
         truncDescription += "... <span class='text-primary'><small>show more</small></span>";
@@ -457,11 +455,17 @@ function setStartAndEndTimesToBePlayed() {
 function toggleAutoplay () {
   var autoplay = $.cookie('autoplay');
   if (autoplay !== 'true') {
-    $.cookie('autoplay', 'true', { path: '/' });
+    $.cookie('autoplay', 'true', {
+      path: '/',
+      expires: 365
+    });
     $('#player-autoplay').html('<span style="font-weight: 500">Autoplay On</span>');
     sendGoogleAnalyticsEvent('Media Player', 'Toggle Autoplay On');
   } else {
-    $.cookie('autoplay', 'false', { path: '/' });
+    $.cookie('autoplay', 'false', {
+      path: '/',
+      expires: 365
+    });
     $('#player-autoplay').html('Autoplay Off');
     sendGoogleAnalyticsEvent('Media Player', 'Toggle Autoplay Off');
   }
@@ -473,7 +477,10 @@ function createAutoplayBtn () {
     if (autoplay === 'true') {
       $('#player-autoplay').html('<span style="font-weight: 500">Autoplay On</span>');
     } else {
-      $.cookie('autoplay', 'false', { path: '/' });
+      $.cookie('autoplay', 'false', {
+        path: '/',
+        expires: 365
+      });
       $('#player-autoplay').html('Autoplay Off');
     }
   }
