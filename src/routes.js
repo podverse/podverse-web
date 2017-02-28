@@ -4,7 +4,8 @@ const
     {isClipMediaRefWithTitle} = require('constants.js'),
     {getLoggedInUserInfo} = require('middleware/auth/getLoggedInUserInfo.js'),
     {queryGoogleApiData} = require('services/googleapi/googleapi.js'),
-    {isNonAnonUser} = require('util.js');
+    {isNonAnonUser} = require('util.js'),
+    {map} = require('lodash');
 
 function routes () {
   const app = this,
