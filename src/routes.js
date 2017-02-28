@@ -4,8 +4,7 @@ const
     {isClipMediaRefWithTitle} = require('constants.js'),
     {getLoggedInUserInfo} = require('middleware/auth/getLoggedInUserInfo.js'),
     {queryGoogleApiData} = require('services/googleapi/googleapi.js'),
-    {isNonAnonUser} = require('util.js'),
-    {map} = require('lodash');
+    {isNonAnonUser} = require('util.js');
 
 function routes () {
   const app = this,
@@ -210,9 +209,8 @@ function routes () {
   .get('/podcasts/list', getLoggedInUserInfo, (req, res) => {
     return PodcastService.retrieveAllPodcasts()
       .then(podcasts => {
-        let pluckedPodcasts = map(podcasts, 'dataValues');
         res.render('podcasts/index.html', {
-          podcasts: pluckedPodcasts,
+          podcasts: podcasts,
           currentPage: 'Podcast List Page',
           locals: res.locals
         });
@@ -239,8 +237,6 @@ function routes () {
             isSubscribed: isSubscribed,
             locals: res.locals
           });
-
-
         });
       }).catch(e => {
         console.log(e);
