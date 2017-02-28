@@ -206,6 +206,20 @@ function routes () {
     })
   })
 
+  .get('/podcasts/list', getLoggedInUserInfo, (req, res) => {
+    return PodcastService.retrieveAllPodcasts()
+      .then(podcasts => {
+        res.render('podcasts/index.html', {
+          podcasts: podcasts,
+          currentPage: 'Podcast List Page',
+          locals: res.locals
+        });
+      }).catch(e => {
+        console.log(e);
+        res.sendStatus(404);
+      });
+  })
+
   // Podcast Detail Page
   .get('/podcasts/:id', getLoggedInUserInfo, (req, res) => {
     let params = {};

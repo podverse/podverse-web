@@ -188,6 +188,11 @@ footer p {
     display: none;
 }
 
+#navbarSearchModalBrowse {
+    float: right;
+    text-decoration: none;
+}
+
 .request-podcast-contact-label {
     width: 40px;
     float: left;
@@ -949,6 +954,48 @@ footer p {
 }
 
 
+/*** podcasts.html styles ***/
+
+.podcast-list-item {
+    clear: both;
+    float: left;
+    color: #373a3c;
+    padding: 1rem 0;
+    cursor: pointer;
+    text-decoration: none !important;
+    transition: .2s;
+}
+
+.podcast-list-item:focus {
+    outline: none;
+}
+
+
+.podcast-list-item:hover {
+    cursor: pointer;
+}
+
+@media (min-width: 576px) {
+    .podcast-list-item:hover {
+        color: #2969b1;
+    }
+}
+
+.podcast-list-item img {
+    float: left;
+    height: 48px;
+    width: 48px;
+    margin: 0 15px 0 0;
+}
+
+.podcast-list-request {
+    margin-bottom: 15px;
+    display: block;
+    text-decoration: none !important;
+    float: left;
+}
+
+
 
 /*** my-playlists-page.html styles ***/
 #myPlaylistsDropdown {
@@ -1162,7 +1209,6 @@ span.twitter-typeahead .tt-suggestion {
 }
 
 .navbar-brand img {
-    height: 22px;
     height: 20px;
     margin-top: -1px;
 }
