@@ -693,7 +693,7 @@ footer p {
 @media (min-width: 576px) {
     .playlist-item:not(.edit-view):hover {
         color: #2969b1;
-    }    
+    }
 }
 
 .playlist-item-image {
@@ -777,10 +777,16 @@ footer p {
     color: #373a3c;
 }
 
-.add-to-playlist-item-link:hover {
-    border-top: 1px solid #ccc;
-    border-bottom: 1px solid #ccc;
-    color: #373a3c;
+@media (min-width: 576px) {
+    .add-to-playlist-item-text:hover {
+        border-top: 1px solid #ccc;
+        border-bottom: 1px solid #ccc;
+    }
+    .add-to-playlist-item-link:hover {
+        border-top: 1px solid #ccc;
+        border-bottom: 1px solid #ccc;
+        color: #373a3c;
+    }
 }
 
 .add-to-playlist-item-text {
@@ -789,11 +795,6 @@ footer p {
     border-top: 1px solid transparent;
     border-bottom: 1px solid transparent;
     width: calc(100% - 50px);
-}
-
-.add-to-playlist-item-text:hover {
-    border-top: 1px solid #ccc;
-    border-bottom: 1px solid #ccc;
 }
 
 .add-to-playlist-item-count {
