@@ -209,8 +209,9 @@ function routes () {
   .get('/podcasts/list', getLoggedInUserInfo, (req, res) => {
     return PodcastService.retrieveAllPodcasts()
       .then(podcasts => {
+        let pluckedPodcasts = map(podcasts, 'dataValues');
         res.render('podcasts/index.html', {
-          podcasts: podcasts,
+          podcasts: pluckedPodcasts,
           currentPage: 'Podcast List Page',
           locals: res.locals
         });
