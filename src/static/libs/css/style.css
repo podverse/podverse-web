@@ -615,12 +615,6 @@ footer p {
     height: 42px;
 }
 
-@media (max-width: 560px) {
-    #player-description-truncated {
-        height: 63px;
-    }
-}
-
 #player-description-truncated-begin, #player-description-truncated-end {
     clear: both;
 }
@@ -637,6 +631,14 @@ footer p {
     margin-bottom: 20px;
 }
 
+@media (max-width: 560px) {
+    #player-description-truncated {
+        height: 63px;
+    }
+    #player-description-full {
+        min-height: 63px;
+    }
+}
 
 
 /*** player-list.html styles ***/
