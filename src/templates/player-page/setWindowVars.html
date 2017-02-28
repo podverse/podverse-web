@@ -22,7 +22,7 @@
     return decodeHTMLEntities;
   })();
 
-  window.setPlaylistItemPropsOnWindow = (item) => {
+  window.setPlaylistItemPropsOnWindow = function (item) {
 
     // Parse the selected playlist item and set its window variables
     window.startTime = item.startTime;
