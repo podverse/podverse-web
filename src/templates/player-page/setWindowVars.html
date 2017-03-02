@@ -1,6 +1,5 @@
 <script>
-  // TODO: what should we do with decodeEntities? this only place it's used
-  // It is a JS alternative to this in jQuery:
+  // decodeEntities is a JS alternative to this in jQuery:
   // window.description = $('<textarea />').html(description).text();
   var decodeEntities = (function() {
     // this prevents any overhead from creating the object each time
@@ -40,13 +39,15 @@
     // if item is an Episode
     if (window.startTime === 0 && window.endTime === null) {
       window.isEpisode = true;
-      window.description = item.episodeSummary;
+      window.description = decodeEntities(item.episodeSummary);
       window.mediaRefId = 'episode_' + item.episodeMediaURL;
     } else {
       window.isEpisode = false;
-      window.description = item.title;
+      window.description = decodeEntities(item.title);
       window.mediaRefId = item.id;
     }
+
+    window.episodeTitle = decodeEntities(episodeTitle);
 
     document.getElementById('player').setAttribute('data-id', window.mediaRefId);
 
@@ -97,6 +98,8 @@
     window.description = "{{ summary|nl2br }}";
     window.description = decodeEntities(description);
 
+    window.episode = decodeEntities(episode);
+
     window.isSubscribed = '{{ isSubscribed }}';
 
     // Else set the window vars for a clip page.
@@ -117,6 +120,8 @@
       // TODO: is this a security vulnerability?
       window.description = "{{ title|nl2br }}";
       window.description = decodeEntities(description);
+
+      window.episodeTitle = decodeEntities(episodeTitle);
 
       window.isSubscribed = '{{ isSubscribed }}';
 
