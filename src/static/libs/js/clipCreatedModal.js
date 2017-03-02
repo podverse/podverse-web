@@ -1,13 +1,18 @@
 import { copyToClipboard } from './copyToClipboard.js';
 import { sendGoogleAnalyticsEvent } from './googleAnalytics.js';
 
-$('#clip-created-modal-nav-btn').on('click', function () {
-  clipCreatedNavToClip();
-});
-
 $('#clip-created-modal-copy-btn').on('click', function () {
   clipCreatedCopyURL();
 });
+
+$('#clip-created-modal-add-to-playlist-btn').on('click', function () {
+  toggleAddToPlaylistMenu();
+});
+
+$('#clip-created-modal-recommend-btn').on('click', function () {
+  toggleRecommendMenu();
+});
+
 
 function clipCreatedCopyURL () {
   copyToClipboard(document.getElementById('clip-created-modal-link'));
@@ -22,7 +27,12 @@ function clipCreatedCopyURL () {
   sendGoogleAnalyticsEvent('Clip Created Modal', 'Copy URL');
 }
 
-function clipCreatedNavToClip () {
-  sendGoogleAnalyticsEvent('Clip Created Modal', 'Nav to Clip');
-  location.href = $('#clip-created-modal-link').val();
+function toggleAddToPlaylistMenu () {
+  $('#clip-created-modal-recommend-btn').removeClass('selected');
+  $('#clip-created-modal-add-to-playlist-btn').toggleClass('selected');
+}
+
+function toggleRecommendMenu () {
+  $('#clip-created-modal-add-to-playlist-btn').removeClass('selected');
+  $('#clip-created-modal-recommend-btn').toggleClass('selected');
 }

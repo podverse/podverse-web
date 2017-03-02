@@ -772,13 +772,39 @@ footer p {
 
 
 /*** clip-created-modal.html styles ***/
-#clip-created-modal-copy-btn {}
 
-#clip-created-modal-recommend-btn {}
+#clip-created-modal .close {
+    margin-bottom: 10px;
+    margin-top: -2px;
+}
+
+#clip-created-modal-copy-btn {}
 
 #clip-created-modal-add-to-playlist-btn {
     margin-right: 2px;
 }
+
+#clip-created-modal-recommend-btn:active,
+#clip-created-modal-recommend-btn:focus,
+#clip-created-modal-recommend-btn:hover,
+#clip-created-modal-add-to-playlist-btn:active,
+#clip-created-modal-add-to-playlist-btn:focus,
+#clip-created-modal-add-to-playlist-btn:hover {
+    color: #373a3c;
+    background-color: #fff;
+    border-color: #ccc;
+    outline: 0;
+}
+
+#clip-created-modal-recommend-btn.selected,
+#clip-created-modal-add-to-playlist-btn.selected {
+    color: #fff;
+    background-color: #373a3c;
+    border-color: #555;
+    outline: 5px auto -webkit-focus-ring-color;
+}
+
+
 
 
 
