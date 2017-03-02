@@ -18,13 +18,11 @@ function clipCreatedCopyURL () {
   copyToClipboard(document.getElementById('clip-created-modal-link'));
   $('#clip-created-modal-copy-btn').html('Copied Link!');
   setTimeout(function () {
-    $('#clip-created-modal').modal('hide');
-    setTimeout(function () {
-      $('#clip-created-modal-copy-btn').html('Copy Clip Link');
-    }, 500);
-  }, 800);
+    $('#clip-created-modal-copy-btn').html('<i class="fa fa-copy"></i>&nbsp; Copy');
+    $('#clip-created-modal-copy-btn').blur();
+  }, 2000);
 
-  sendGoogleAnalyticsEvent('Clip Created Modal', 'Copy URL');
+  sendGoogleAnalyticsEvent('Clip Created Modal', 'Copy Link');
 }
 
 function toggleAddToPlaylistMenu () {
