@@ -107,8 +107,17 @@ export function removeFromPlaylist (playlistId, mediaRefId, callback) {
 }
 
 export function updatePlaylistItemCount(playlistId, total) {
-  $(".add-to-playlist-item[data-id=" + playlistId + "] .add-to-playlist-item-count")
-    .html("items: " + total);
+  if (total) {
+    $(".add-to-playlist-item[data-id=" + playlistId + "] .add-to-playlist-item-count")
+      .html("items: " + total);
+  }
+}
+
+export function updateClipCreatedPlaylistItemCount(playlistId, total) {
+  if (total) {
+    $(".clip-created-modal-playlist[data-id=" + playlistId + "] .clip-created-modal-playlist-count")
+      .html("items: " + total);
+  }
 }
 
 export function addNewPlaylistElement(playlist) {
@@ -116,6 +125,7 @@ export function addNewPlaylistElement(playlist) {
       playlistTitle = playlist.title,
       isRecommendation = playlist.isRecommendation;
 
+  // Create and prepend the new playlist in the main add to playlist / recommend menus
   var el = '<div class="add-to-playlist-item" data-id="' + playlistId +'">';
       el +=   '<a class="add-to-playlist-item-link">';
       el +=     '<i class="fa fa-link"></i>';
@@ -133,7 +143,7 @@ export function addNewPlaylistElement(playlist) {
   if (isRecommendation) {
     $('#recommend .col-xs-12').prepend(el);
   } else {
-    $('#add-to-playlist .col-xs-12').prepend(el);
+    $($("#add-to-playlist .add-to-playlist-item").get(0)).after(el);
   }
 
   $(".add-to-playlist-item[data-id=" + playlistId + "] .add-to-playlist-item-text").on('click', function () {
@@ -144,10 +154,41 @@ export function addNewPlaylistElement(playlist) {
     });
   })
 
-  $(".add-to-playlist-item[data-id=" + playlistId + "] .add-to-playlist-item-link").on('click', function () {
+
+
+  // Also create and prepend playlist in the clip created modal
+  $(".clip-created-modal-playlist[data-id=" + playlistId + "] .clip-created-modal-playlist-link").on('click', function () {
     var playlistId = $(this).parent().data('id');
     window.location.href = '/playlists/' + playlistId;
   });
+
+  var playlistId = playlist.id,
+      playlistTitle = playlist.title,
+      isRecommendation = playlist.isRecommendation;
+
+  var el = '<div class="clip-created-modal-playlist" data-id="' + playlistId +'">';
+      el +=   '<div class="clip-created-modal-playlist-count">';
+      el +=     'items: 0';
+      el +=   '</div>';
+      el +=   '<div class="clip-created-modal-playlist-title">';
+      el +=     playlistTitle
+      el +=   '</div>';
+      el += '</div>';
+
+  if (isRecommendation) {
+    $('#clip-created-modal-recommend-menu').prepend(el);
+  } else {
+    $('#clip-created-modal-add-to-playlist-menu').prepend(el);
+  }
+
+  $(".clip-created-modal-playlist[data-id=" + playlistId + "]").on('click', function () {
+    var playlistId = $(this).data('id');
+    var mediaRefId = $('#clip-created-modal').attr('data-id');
+    addToPlaylist(playlistId, mediaRefId, function (updatedPlaylistItemCount) {
+      updatePlaylistItemCount(playlistId, updatedPlaylistItemCount);
+    });
+  })
+
 }
 
 export function subscribeToPlaylist(url, successCallback) {
@@ -198,4 +239,22 @@ export function togglePlaylistEditView() {
     $('.playlist-item').removeClass('edit-view');
     $('#playlist-edit').html('<small>edit</small> <i class="fa fa-gear"></i>');
   }
+}
+
+export function scrapeElementsAndAddToPlaylist (_this) {
+  var playlistId,
+      mediaRefId;
+
+  if ($(_this).hasClass('clip-created-modal-playlist')) {
+    playlistId = $(_this).data('id');
+    mediaRefId = $('#clip-created-modal').attr('data-id');
+  } else {
+    playlistId = $(_this).parent().data('id');
+    mediaRefId = $('#player').attr('data-id'); // $('#player').data('id') failed to grab updated values
+  }
+
+  addToPlaylist(playlistId, mediaRefId, function (updatedPlaylistItemCount) {
+    updatePlaylistItemCount(playlistId, updatedPlaylistItemCount);
+    updateClipCreatedPlaylistItemCount(playlistId, updatedPlaylistItemCount);
+  });
 }

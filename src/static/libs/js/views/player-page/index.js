@@ -13,6 +13,7 @@ import { initClipper,
 import { sendGoogleAnalyticsPlayerPageView } from '../../googleAnalytics.js';
 import { addToPlaylist,
          removeFromPlaylist,
+         scrapeElementsAndAddToPlaylist,
          subscribeToPlaylist,
          togglePlaylistWidget,
          togglePlaylistEditView,
@@ -67,11 +68,7 @@ $('#toggle-recommend-btn').on('click', function () {
 
 // Playlist Item onclick events
 $('.add-to-playlist-item .add-to-playlist-item-text').on('click', function () {
-  var playlistId = $(this).parent().data('id');
-  var mediaRefId = $('#player').attr('data-id'); // $('#player').data('id') failed to grab updated values
-  addToPlaylist(playlistId, mediaRefId, function (updatedPlaylistItemCount) {
-    updatePlaylistItemCount(playlistId, updatedPlaylistItemCount);
-  });
+  scrapeElementsAndAddToPlaylist(this);
 });
 
 $('.add-to-playlist-item .add-to-playlist-item-link').on('click', function () {

@@ -804,6 +804,39 @@ footer p {
     outline: 5px auto -webkit-focus-ring-color;
 }
 
+#clip-created-modal-add-to-playlist-menu,
+#clip-created-modal-recommend-menu {
+    border: 1px solid #e5e5e5;
+    height: 200px;
+    overflow-y: auto;
+    display: none;
+}
+
+.clip-created-modal-playlist {
+    padding: 10px 15px;
+    cursor: pointer;
+}
+
+@media (max-width: 575px) {
+    .clip-created-modal-playlist {
+        padding: 15px;
+    }
+}
+@media (min-width: 576px) {
+    .clip-created-modal-playlist:hover {
+        color: #2969b1;
+    }
+}
+
+.clip-created-modal-playlist-count {
+    float: right;
+}
+
+.clip-created-modal-playlist-title {
+
+}
+
+
 
 
 

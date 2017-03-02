@@ -219,7 +219,18 @@ export function makeClip (event) {
           $('#make-clip-title textarea').val('');
           $('#player-description-truncated').show();
           $('#clip-created-modal-link').val(location.protocol + '\/\/' + location.hostname + (location.port ? ':'+location.port: '')  + '\/clips\/' + response.id);
+          $('#clip-created-modal').attr('data-id', response.id);
           $('#clip-created-modal').modal('show');
+
+          // Hack to update the My Clips playlist count in the Add to Playlists
+          // menu. My Clips playlist should always be first on the page.
+
+          let myClipsPlaylistElement = $('.add-to-playlist-item-count').get(0);
+          let itemCount = $(myClipsPlaylistElement).html();
+          itemCount = itemCount.replace('items:', '');
+          itemCount = parseInt(itemCount);
+          itemCount++;
+          $(myClipsPlaylistElement).html(`items: ${itemCount}`);
         } else {
           location.href = '\/clips\/' + response.id;
         }
