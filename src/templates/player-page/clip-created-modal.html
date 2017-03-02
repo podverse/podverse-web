@@ -6,13 +6,18 @@
           <span aria-hidden="true">&times;</span>
         </button>
         <label>
-          Clip created at:
+          Link to clip:
         </label>
-        <input type="text" class="form-control" id="clip-created-modal-link" readonly>
+        <div class="input-group">
+          <input type="text" class="form-control" id="clip-created-modal-link" readonly>
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-secondary" id="clip-created-modal-copy-btn"><i class="fa fa-copy"></i>&nbsp; Copy</button>
+          </span>
+        </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" id="clip-created-modal-nav-btn"><i class="fa fa-link"></i> Goto Clip</button>
-        <button type="button" class="btn btn-secondary" id="clip-created-modal-copy-btn"><i class="fa fa-copy"></i> Copy Link</button>
+        <button type="button" class="btn btn-secondary" id="clip-created-modal-add-to-playlist-btn"><i class="fa fa-list-ul"></i>&nbsp; Add To Playlist</button>
+        <button type="button" class="btn btn-secondary" id="clip-created-modal-recommend-btn"><i class="fa fa-user-plus"></i>&nbsp; Recommend</button>
       </div>
     </div>
   </div>

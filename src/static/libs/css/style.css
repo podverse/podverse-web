@@ -296,6 +296,11 @@ footer p {
   white-space: nowrap;
 }
 
+#make-clip-share-settings {
+    font-size: 13px;
+    margin-bottom: 10px;
+}
+
 
 
 /*** add-podcast-modal.html styles ***/
@@ -767,9 +772,12 @@ footer p {
 
 
 /*** clip-created-modal.html styles ***/
-#clip-created-modal-nav-btn, #clip-created-modal-copy-btn {
-    width: 135px;
-    margin-left: 5px;
+#clip-created-modal-copy-btn {}
+
+#clip-created-modal-recommend-btn {}
+
+#clip-created-modal-add-to-playlist-btn {
+    margin-right: 2px;
 }
 
 
