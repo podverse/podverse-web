@@ -298,9 +298,8 @@ footer p {
 
 #make-clip-share-settings {
     font-size: 13px;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
     margin-top: 20px;
-    color: #777;
 }
 
 
@@ -780,7 +779,19 @@ footer p {
     margin-top: -2px;
 }
 
+#clip-created-modal .modal-body {
+    padding: 15px 15px 25px 15px;
+}
+
+#clip-created-modal.is-logged-in .modal-body {
+    padding: 15px;
+}
+
 #clip-created-modal-copy-btn {}
+
+#clip-created-modal .modal-footer {
+    padding-bottom: 0;
+}
 
 #clip-created-modal-add-to-playlist-btn {
     margin-right: 2px;
@@ -806,9 +817,14 @@ footer p {
     outline: 5px auto -webkit-focus-ring-color;
 }
 
+.clip-created-modal-spacer {
+    height: 15px;
+}
+
 #clip-created-modal-add-to-playlist-menu,
 #clip-created-modal-recommend-menu {
-    border: 1px solid #e5e5e5;
+    margin-top: 15px;
+    border-top: 1px solid #e5e5e5;
     height: 200px;
     overflow-y: auto;
     display: none;

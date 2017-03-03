@@ -1,4 +1,4 @@
-<div class="modal fade" id="clip-created-modal" tabindex="-1" role="dialog" aria-labelledby="clipCreatedLabel" aria-hidden="true">
+<div class="modal fade {% if locals.isLoggedIn %}is-logged-in{% endif %}" id="clip-created-modal" tabindex="-1" role="dialog" aria-labelledby="clipCreatedLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-body">
@@ -15,12 +15,11 @@
           </span>
         </div>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" id="clip-created-modal-add-to-playlist-btn"><i class="fa fa-list-ul"></i>&nbsp; Add To Playlist</button>
-        <button type="button" class="btn btn-secondary" id="clip-created-modal-recommend-btn"><i class="fa fa-user-plus"></i>&nbsp; Recommend</button>
-      </div>
-
       {% if locals.isLoggedIn %}
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" id="clip-created-modal-add-to-playlist-btn"><i class="fa fa-list-ul"></i>&nbsp; Add To Playlist</button>
+          <button type="button" class="btn btn-secondary" id="clip-created-modal-recommend-btn"><i class="fa fa-user-plus"></i>&nbsp; Recommend</button>
+        </div>
         <div id="clip-created-modal-add-to-playlist-menu">
           {% for playlist in usersOwnedPlaylists|sort(false, true, 'title') %}
             {% if not playlist.isRecommendation and playlist.title != 'My Clips' %}
@@ -52,6 +51,9 @@
             {% endif %}
           {% endfor %}
         </div>
+
+        <div class="clip-created-modal-spacer"></div>
       {% endif %}
+    </div>
   </div>
 </div>

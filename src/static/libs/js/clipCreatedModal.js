@@ -8,7 +8,10 @@ function clipCreatedCopyURL () {
   setTimeout(function () {
     $('#clip-created-modal-copy-btn').html('<i class="fa fa-copy"></i>&nbsp; Copy');
     $('#clip-created-modal-copy-btn').blur();
-  }, 2000);
+    if (!$('#clip-created-modal').hasClass('is-logged-in')) {
+      $('#clip-created-modal').modal('hide');
+    }
+  }, 1250);
 
   sendGoogleAnalyticsEvent('Clip Created Modal', 'Copy Link');
 }
