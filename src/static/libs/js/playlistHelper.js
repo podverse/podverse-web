@@ -143,7 +143,7 @@ export function addNewPlaylistElement(playlist) {
   if (isRecommendation) {
     $('#recommend .col-xs-12').prepend(el);
   } else {
-    $($("#add-to-playlist .add-to-playlist-item").get(0)).after(el);
+    $("#add-to-playlist .col-xs-12").prepend(el);
   }
 
   $(".add-to-playlist-item[data-id=" + playlistId + "] .add-to-playlist-item-text").on('click', function () {

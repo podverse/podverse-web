@@ -7,6 +7,7 @@ $('#createPersonModalAddButton').on('click', function () {
   createPlaylist(newPlaylist, function (response) {
     addNewPlaylistElement(response);
     $('#createPersonModal').modal('hide');
+    $('#createPersonModalName').val('');
   });
 });
 
@@ -24,6 +25,7 @@ $('#createPersonModalName').bind('keypress', function (event) {
     createPlaylist(newPlaylist, function (response) {
       addNewPlaylistElement(response);
       $('#createPersonModal').modal('hide');
+      $('#createPersonModalName').val('');
     });
   }
 });
