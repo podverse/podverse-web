@@ -302,6 +302,9 @@ footer p {
     margin-top: 20px;
 }
 
+#make-clip-share-settings span {
+    font-weight: 500;
+}
 
 
 /*** add-podcast-modal.html styles ***/
@@ -333,6 +336,10 @@ footer p {
     font-size: 13px;
 }
 
+#create-playlist-share-settings span {
+    font-weight: 500;
+}
+
 
 
 /*** create-person-modal.html styles ***/
@@ -349,6 +356,10 @@ footer p {
 
 #create-person-share-settings {
     font-size: 13px;
+}
+
+#create-person-share-settings span {
+    font-weight: 500;
 }
 
 
