@@ -8,7 +8,7 @@
         <!-- insert content in podcast/index.js file -->
       </div>
       <div id="podcast-title">
-        {{ podcast.title }}
+        {{ podcast.title | stripTags }}
       </div>
     </div>
     <div style="clear:both"></div>
@@ -18,6 +18,6 @@
 <script>
 // TODO: this probably shouldn't be here, but it's here for Google Analytics tracking
 window.podcastFeedURL = '{{ podcast.feedURL }}';
-window.podcastTitle = '{{ podcast.title }}';
+window.podcastTitle = '{{ podcast.title | stripTags }}';
 window.isSubscribed = {{ isSubscribed }};
 </script>

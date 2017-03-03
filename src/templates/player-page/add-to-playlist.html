@@ -21,7 +21,7 @@
                 items: {{ playlist.mediaRefs|length }}
               </div>
               <div class="add-to-playlist-item-title">
-                {{ playlist.title }}
+                {{ playlist.title | stripTags }}
               </div>
             </div>
           </div>

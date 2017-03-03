@@ -3,7 +3,7 @@
     <!-- Thanks:) http://stackoverflow.com/questions/17147821/how-to-make-a-whole-row-in-a-table-clickable-as-a-link  -->
     <a class="podcast-episodes-list-item" href="/episodes/{{episode.id}}">
       <div class="podcast-episodes-list-item-pubdate">{{episode.pubDate | readableDate}}</div>
-      <div class="podcast-episodes-list-item-title">{{episode.title}}</div>
+      <div class="podcast-episodes-list-item-title">{{episode.title | stripTags}}</div>
       <div class="clearfix"></div>
     </a>
   {% endfor %}

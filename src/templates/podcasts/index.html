@@ -8,7 +8,7 @@
     {% for podcast in podcasts|sortTextIgnoreArticles(false, true, 'title') %}
       <a class="podcast-list-item" href="/podcasts/{{podcast.id}}">
         <img src="{{podcast.imageURL}}">
-        {{ podcast.title }}
+        {{ podcast.title | stripTags }}
       </a>
     {% endfor %}
   </div>

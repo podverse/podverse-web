@@ -29,7 +29,7 @@
                 items: {{ playlist.mediaRefs|length }}
               </div>
               <div class="clip-created-modal-playlist-title">
-                {{playlist.title}}
+                {{playlist.title | stripTags}}
               </div>
             </div>
           {% endif %}
@@ -45,7 +45,7 @@
                 items: {{ playlist.mediaRefs|length }}
               </div>
               <div class="clip-created-modal-playlist-title">
-                {{ playlist.title }}
+                {{ playlist.title | stripTags }}
               </div>
             </div>
           {% endif %}

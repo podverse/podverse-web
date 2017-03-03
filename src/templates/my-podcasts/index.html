@@ -11,7 +11,7 @@
             <img src="{{podcast.imageURL}}">
           </div>
           <div class="podcast-item-title">
-            {{podcast.title}}
+            {{ podcast.title | stripTags }}
           </div>
           <div class="podcast-item-total-episodes">
             <!-- TODO: show the pubDate of the podcast's most recent episode -->

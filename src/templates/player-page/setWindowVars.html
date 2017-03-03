@@ -83,7 +83,7 @@
   {% elif podcast %}
     window.mediaRefId = 'episode_{{ mediaURL }}';
     window.podcastFeedURL = "{{ podcast.feedURL }}"
-    window.podcastTitle = "{{ podcast.title }}";
+    window.podcastTitle = "{{ podcast.title | stripTags }}";
     window.podcastImageURL = "{{ podcast.imageURL }}";
     window.episodeTitle = "{{ title }}";
     window.episodeMediaURL = "{{ mediaURL }}";
