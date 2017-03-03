@@ -20,37 +20,38 @@
         <button type="button" class="btn btn-secondary" id="clip-created-modal-recommend-btn"><i class="fa fa-user-plus"></i>&nbsp; Recommend</button>
       </div>
 
-      <div id="clip-created-modal-add-to-playlist-menu">
-        {% for playlist in usersOwnedPlaylists|sort(false, true, 'title') %}
-          {% if not playlist.isRecommendation and playlist.title != 'My Clips' %}
-            <div class="clip-created-modal-playlist" data-id="{{ playlist.id }}">
-              <div class="clip-created-modal-playlist-count">
-                <!-- TODO: make displaying the playlist item count more efficient  -->
-                items: {{ playlist.mediaRefs|length }}
+      {% if locals.isLoggedIn %}
+        <div id="clip-created-modal-add-to-playlist-menu">
+          {% for playlist in usersOwnedPlaylists|sort(false, true, 'title') %}
+            {% if not playlist.isRecommendation and playlist.title != 'My Clips' %}
+              <div class="clip-created-modal-playlist" data-id="{{ playlist.id }}">
+                <div class="clip-created-modal-playlist-count">
+                  <!-- TODO: make displaying the playlist item count more efficient  -->
+                  items: {{ playlist.mediaRefs|length }}
+                </div>
+                <div class="clip-created-modal-playlist-title">
+                  {{playlist.title | stripTags}}
+                </div>
               </div>
-              <div class="clip-created-modal-playlist-title">
-                {{playlist.title | stripTags}}
-              </div>
-            </div>
-          {% endif %}
-        {% endfor %}
-      </div>
+            {% endif %}
+          {% endfor %}
+        </div>
 
-      <div id="clip-created-modal-recommend-menu">
-        {% for playlist in usersOwnedPlaylists|sort(false, true, 'title') %}
-          {% if playlist.isRecommendation %}
-            <div class="clip-created-modal-playlist" data-id="{{ playlist.id }}">
-              <div class="clip-created-modal-playlist-count">
-                <!-- TODO: make displaying the playlist item count more efficient  -->
-                items: {{ playlist.mediaRefs|length }}
+        <div id="clip-created-modal-recommend-menu">
+          {% for playlist in usersOwnedPlaylists|sort(false, true, 'title') %}
+            {% if playlist.isRecommendation %}
+              <div class="clip-created-modal-playlist" data-id="{{ playlist.id }}">
+                <div class="clip-created-modal-playlist-count">
+                  <!-- TODO: make displaying the playlist item count more efficient  -->
+                  items: {{ playlist.mediaRefs|length }}
+                </div>
+                <div class="clip-created-modal-playlist-title">
+                  {{ playlist.title | stripTags }}
+                </div>
               </div>
-              <div class="clip-created-modal-playlist-title">
-                {{ playlist.title | stripTags }}
-              </div>
-            </div>
-          {% endif %}
-        {% endfor %}
-      </div>
-    </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      {% endif %}
   </div>
 </div>
