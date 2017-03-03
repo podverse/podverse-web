@@ -329,6 +329,10 @@ footer p {
   right: 15px;
 }
 
+#create-playlist-share-settings {
+    font-size: 13px;
+}
+
 
 
 /*** create-person-modal.html styles ***/
@@ -341,6 +345,10 @@ footer p {
   position: absolute;
   top: 11px;
   right: 15px;
+}
+
+#create-person-share-settings {
+    font-size: 13px;
 }
 
 
