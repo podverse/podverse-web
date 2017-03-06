@@ -4,6 +4,8 @@ require('../../auth.js');
 import { sendGoogleAnalyticsPageView,
          sendGoogleAnalyticsEvent } from '../../googleAnalytics.js';
 
+$('img.lazy').lazyload();
+
 $('#myPlaylistsDropdown a').on('click', function () {
   var selectedVal = $(this).html();
 

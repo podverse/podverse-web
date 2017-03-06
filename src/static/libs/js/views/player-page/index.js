@@ -24,6 +24,10 @@ import { debounce, isNonAnonLoggedInUser } from '../../utility.js';
 
 
 
+$('img.lazy').lazyload();
+
+
+
 initClipper();
 
 

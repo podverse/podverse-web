@@ -27,6 +27,7 @@
     "forever": "^0.15.3",
     "googleapis": "^14.2.0",
     "jquery": "^3.1.1",
+    "jquery-lazyload": "^1.9.7",
     "jquery.cookie": "^1.4.1",
     "lodash": "^4.14.1",
     "mediaelement": "^2.22.0",

@@ -22,9 +22,9 @@
           <a class="playlist-list-item" data-id="{{playlist.id}}" href="/playlists/{{playlist.id}}">
             <div class="playlist-list-item-img">
               {% if playlist.mediaRefs[0].podcastImageURL %}
-                <img src="{{ playlist.mediaRefs[0].podcastImageURL }}">
+                <img class="lazy" data-original="{{ playlist.mediaRefs[0].podcastImageURL }}">
               {% else %}
-                <img src="/static/images/podverse-logo-180.png">
+                <img class="lazy" data-original="/static/images/podverse-logo-180.png">
               {% endif %}
             </div>
             <div class="playlist-list-item-last-pubdate">
@@ -52,9 +52,9 @@
         <a class="playlist-list-item" data-id="{{playlist.id}}" href="/playlists/{{playlist.id}}">
           <div class="playlist-list-item-img">
             {% if playlist.mediaRefs[0].podcastImageURL %}
-              <img src="{{ playlist.mediaRefs[0].podcastImageURL }}">
+              <img class="lazy" data-original="{{ playlist.mediaRefs[0].podcastImageURL }}">
             {% else %}
-              <img src="/static/images/podverse-logo-180.png">
+              <img class="lazy" data-original="/static/images/podverse-logo-180.png">
             {% endif %}
           </div>
           <div class="playlist-list-item-last-pubdate">
@@ -81,9 +81,9 @@
         <a class="playlist-list-item" data-id="{{playlist.id}}" href="/playlists/{{playlist.id}}">
           <div class="playlist-list-item-img">
             {% if playlist.mediaRefs[0].podcastImageURL %}
-              <img src="{{ playlist.mediaRefs[0].podcastImageURL }}">
+              <img class="lazy" data-original="{{ playlist.mediaRefs[0].podcastImageURL }}">
             {% else %}
-              <img src="/static/images/podverse-logo-180.png">
+              <img class="lazy" data-original="/static/images/podverse-logo-180.png">
             {% endif %}
           </div>
           <div class="playlist-list-item-last-pubdate">

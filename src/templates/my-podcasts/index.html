@@ -8,7 +8,7 @@
       {% for podcast in subscribedPodcasts|sortTextIgnoreArticles(false, true, 'title') %}
         <a class="podcast-item" data-id="{{podcast.id}}" href="/podcasts/{{podcast.id}}">
           <div class="podcast-item-img">
-            <img src="{{podcast.imageURL}}">
+            <img class="lazy" data-original="{{podcast.imageURL}}">
           </div>
           <div class="podcast-item-title">
             {{ podcast.title | stripTags }}

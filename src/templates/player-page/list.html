@@ -28,7 +28,7 @@
         {% if item|isEpisode %}
           <div class="playlist-item-inner">
             <div class="playlist-item-image">
-              <img src="{{ item.podcastImageURL }}">
+              <img class="lazy" data-original="{{ item.podcastImageURL }}">
             </div>
             <div class="playlist-item-text-wrapper">
               <div class="playlist-item-remove-btn">
@@ -60,7 +60,7 @@
         {% else %} <!-- else treat it as a clip -->
           <div class="playlist-item-inner">
             <div class="playlist-item-image">
-              <img src="{{ item.podcastImageURL }}">
+              <img class="lazy" data-original="{{ item.podcastImageURL }}">
             </div>
             <div class="playlist-item-text-wrapper">
               <div class="playlist-item-remove-btn">
