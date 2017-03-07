@@ -27,7 +27,7 @@ function routes () {
       dimensions: 'ga:pagePath',
       startDate: '14daysAgo',
       endDate: 'today',
-      sort: '-ga:uniquePageviews',
+      // sort: '-ga:uniquePageviews'
       // maxResults: only 10 will load on a page, but we don't want
       // clips without titles to appear in the list
       maxResults: 30,
