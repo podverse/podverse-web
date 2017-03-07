@@ -179,6 +179,9 @@ footer p {
     margin-bottom: 0.5rem;
 }
 
+.item-not-available {
+    color: #ffac2a
+}
 
 
 /*** #navbarSearchModal styles ***/
@@ -1008,7 +1011,7 @@ footer p {
 .podcast-episodes-list-item-pubdate {
     text-align: right;
     float: right;
-    width: 100px;
+    width: 105px;
 }
 
 .podcast-episodes-list-item-title {

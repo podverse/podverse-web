@@ -2,7 +2,15 @@
   {% for episode in podcast.episodes|sort(true, false, 'pubDate') %}
     <!-- Thanks:) http://stackoverflow.com/questions/17147821/how-to-make-a-whole-row-in-a-table-clickable-as-a-link  -->
     <a class="podcast-episodes-list-item" href="/episodes/{{episode.id}}">
-      <div class="podcast-episodes-list-item-pubdate">{{episode.pubDate | readableDate}}</div>
+      <div class="podcast-episodes-list-item-pubdate">
+        {% if not episode.isPublic %}
+          <span class="item-not-available" title="Episode may no longer be publicly available">
+            <i class="fa fa-exclamation-circle"></i>
+          </span>
+        {% endif %}
+
+        {{episode.pubDate | readableDate}}
+      </div>
       <div class="podcast-episodes-list-item-title">{{episode.title | stripTags}}</div>
       <div class="clearfix"></div>
     </a>
