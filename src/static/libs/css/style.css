@@ -667,6 +667,7 @@ footer p {
 #player-description-full img {
     display: block;
     margin-bottom: 20px;
+    max-width: 100%;
 }
 
 @media (max-width: 560px) {
