@@ -4,7 +4,8 @@ const
     {isClipMediaRefWithTitle} = require('constants.js'),
     {getLoggedInUserInfo} = require('middleware/auth/getLoggedInUserInfo.js'),
     {queryGoogleApiData} = require('services/googleapi/googleapi.js'),
-    {isNonAnonUser} = require('util.js');
+    {isNonAnonUser} = require('util.js'),
+    _ = require('lodash');
 
 function routes () {
   const app = this,
@@ -59,9 +60,11 @@ function routes () {
 
       return ClipService.find(params)
         .then(clips => {
+          let shuffledClips = _.shuffle(clips);
+
           // TODO: handle 404 if beyond range of page object
           res.render('home/index.html', {
-            clips: clips,
+            clips: shuffledClips,
             pageIndex: pageIndex,
             showNextButton: true,
             currentPage: 'Home Page'
