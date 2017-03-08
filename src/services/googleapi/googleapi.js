@@ -30,6 +30,7 @@ function queryGoogleApiData(resolve, reject, queryObj) {
       'filters': queryObj.filters
     }, function (err, response) {
       if (err) {
+        console.log('google analytics api error', err);
         reject(err);
       }
 
