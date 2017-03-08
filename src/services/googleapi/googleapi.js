@@ -4,8 +4,6 @@ function queryGoogleApiData(resolve, reject, queryObj) {
   let google = require('googleapis');
   let analytics = google.analytics('v3');
 
-  console.log(config.ga);
-
   let jwtClient = new google.auth.JWT(
     config.ga.client_email,
     null,
