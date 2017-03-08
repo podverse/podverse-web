@@ -31,7 +31,7 @@ function routes () {
       sort: '-ga:uniquePageviews',
       // maxResults: only 10 will load on a page, but we don't want
       // clips without titles to appear in the list
-      maxResults: 30,
+      maxResults: 20,
       startIndex: offset || 1,
       filters: 'ga:pagePath=~/clips'
     }
@@ -64,7 +64,7 @@ function routes () {
           res.render('home/index.html', {
             clips: clips,
             pageIndex: pageIndex,
-            showNextButton: true,
+            showNextButton: clips.length < 1 ? false : true,
             currentPage: 'Home Page'
           });
         })
