@@ -73,6 +73,7 @@ function routes () {
         });
     })
     .catch(err => {
+      console.log(err);
       params.sequelize = {
         where: isClipMediaRefWithTitle,
         offset: offset
