@@ -20,7 +20,7 @@ function routes () {
   app.get('/', getLoggedInUserInfo, function (req, res) {
 
     let pageIndex = req.query.page || 1;
-    let offset = (pageIndex * 20) - 20;
+    let offset = (pageIndex * 10) - 10;
     let params = {};
 
     let queryObj = {
@@ -55,16 +55,14 @@ function routes () {
           id: clipIdArray,
           $and: isClipMediaRefWithTitle
         },
-        limit: 20
+        limit: 10
       };
 
       return ClipService.find(params)
         .then(clips => {
-          let shuffledClips = _.shuffle(clips);
-
           // TODO: handle 404 if beyond range of page object
           res.render('home/index.html', {
-            clips: shuffledClips,
+            clips: clips,
             pageIndex: pageIndex,
             showNextButton: true,
             currentPage: 'Home Page'
@@ -81,7 +79,7 @@ function routes () {
       };
 
       params.paginate = {
-        default: 20,
+        default: 10,
         max: 200
       };
 
@@ -91,7 +89,7 @@ function routes () {
           // TODO: handle 404 if beyond range of page object
 
           let total = page.total;
-          let showNextButton = offset + 20 < total ? true : false;
+          let showNextButton = offset + 10 < total ? true : false;
           let clips = page.data;
 
           // TODO: handle 404 if beyond range of page object
