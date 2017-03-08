@@ -60,9 +60,15 @@ function routes () {
 
       return ClipService.find(params)
         .then(clips => {
+
+          // Sort the clips in order of most visited according to Google API
+          var sortedClips = _.sortBy(clips, function (clip) {
+            return clipIdArray.indexOf(clip.id);
+          });
+
           // TODO: handle 404 if beyond range of page object
           res.render('home/index.html', {
-            clips: clips,
+            clips: sortedClips,
             pageIndex: pageIndex,
             showNextButton: clips.length < 1 ? false : true,
             currentPage: 'Home Page'
