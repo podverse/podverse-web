@@ -4,6 +4,8 @@ function queryGoogleApiData(resolve, reject, queryObj) {
   let google = require('googleapis');
   let analytics = google.analytics('v3');
 
+  console.log(config.ga);
+
   let jwtClient = new google.auth.JWT(
     config.ga.client_email,
     null,
@@ -14,6 +16,7 @@ function queryGoogleApiData(resolve, reject, queryObj) {
 
   jwtClient.authorize((err, tokens) => {
     if (err) {
+      console.log('google analytics error 1', err);
       reject(err);
     }
 
@@ -30,7 +33,7 @@ function queryGoogleApiData(resolve, reject, queryObj) {
       'filters': queryObj.filters
     }, function (err, response) {
       if (err) {
-        console.log('google analytics api error', err);
+        console.log('google analytics error 2', err);
         reject(err);
       }
 
