@@ -73,7 +73,7 @@ function routes () {
         });
     })
     .catch(err => {
-      console.log(err);
+      console.log('google analytics error 3'err);
       params.sequelize = {
         where: isClipMediaRefWithTitle,
         offset: offset
