@@ -71,7 +71,8 @@ function routes () {
             clips: sortedClips,
             pageIndex: pageIndex,
             showNextButton: clips.length < 1 ? false : true,
-            currentPage: 'Home Page'
+            currentPage: 'Home Page',
+            locals: res.locals
           });
         })
         .catch(e => {
