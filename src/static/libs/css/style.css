@@ -781,7 +781,7 @@ footer p {
 .playlist-item-date {
     float: right;
     font-size: 12px;
-    margin-top: 2px;
+    margin: 2px 0 0 10px;
 }
 
 .playlist-item-details {
@@ -1024,77 +1024,70 @@ footer p {
 
 /*** my-podcasts-page.html styles ***/
 .podcast-item {
-  clear: both;
-  margin: 0 0 1.5rem 0;
-  display: block;
-  text-decoration: none !important;
-  color: #373a3c !important;
-  cursor: pointer;
-}
-
-.podcast-item-img {
-  float: left;
-  margin: 0 0.75rem 0 0;
-  width: 4rem;
-  height: 4rem;
-}
-
-.podcast-item-img img {
-  width: 4rem;
-  height: 4rem;
-}
-
-.podcast-item-title {
-  font-weight: 600;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.podcast-item-total-episodes {
-  float: left;
-  margin-top: 1rem;
-}
-
-.podcast-item-last-pubdate {
-  float: right;
-  margin-top: 1rem;
-}
-
-
-/*** podcasts.html styles ***/
-
-.podcast-list-item {
     clear: both;
-    float: left;
-    color: #373a3c;
+    display: block;
     padding: 1rem 0;
-    cursor: pointer;
+    border-top: 1px solid transparent;
+    border-bottom: 1px solid #eee;
+    color: #373a3c;
     text-decoration: none !important;
+    margin-top: -1px;
     transition: .2s;
 }
 
-.podcast-list-item:focus {
+.podcast-item-image {
+    float: left;
+    margin-right: 12px;
+    width: 48px;
+    height: 48px;
+}
+
+.podcast-item-image img {
+    width: 48px;
+    height: 48px;
+}
+
+.podcast-item-title {
+    font-weight: 600;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.podcast-item-last-episode-pubdate {
+    font-size: 14px;
+    margin: 2px 0 0 15px;
+    float: right;
+}
+
+.podcast-item-last-episode-title {
+    font-size: 14px;
+    margin-top: 2px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.podcast-item:focus {
     outline: none;
 }
 
 
-.podcast-list-item:hover {
+.podcast-item:hover {
     cursor: pointer;
 }
 
 @media (min-width: 576px) {
-    .podcast-list-item:hover {
+    .podcast-item:hover {
         color: #2969b1;
     }
 }
 
-.podcast-list-item img {
-    float: left;
-    height: 48px;
-    width: 48px;
-    margin: 0 15px 0 0;
-}
+
+
+/*** podcasts.html styles ***/
+
+/* Reuses styles from my-podcasts.html as much as possible */
 
 .podcast-list-request {
     margin-bottom: 15px;

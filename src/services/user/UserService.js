@@ -34,7 +34,11 @@ class UserService extends SequelizeService {
         SELECT count(id) FROM episodes WHERE "podcastId"=p.id
       ) AS "episodeCount", (
         SELECT MAX("pubDate") FROM episodes WHERE "podcastId"=p.id
-      ) AS "lastEpisodePubDate"
+      ) AS "lastEpisodePubDate", (
+        SELECT title FROM episodes WHERE "podcastId"=p.id ORDER BY "pubDate" DESC LIMIT 1
+      ) AS "lastEpisodeTitle", (
+        SELECT summary FROM episodes WHERE "podcastId"=p.id ORDER BY "pubDate" DESC LIMIT 1
+      ) AS "lastEpisodeSummary"
       FROM podcasts p, users u
       WHERE u.id='${id}'
       AND u."subscribedPodcastFeedURLs" @> ARRAY[p."feedURL"]::text[];
