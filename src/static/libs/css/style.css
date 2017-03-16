@@ -620,9 +620,14 @@ footer p {
     display: inline-block;
     margin-right: 16px;
     cursor: pointer;
+    font-size: 16px;
     -webkit-user-select: none; /* Chrome/Safari */
     -moz-user-select: none; /* Firefox */
     -ms-user-select: none; /* IE10+ */
+}
+
+#toggle-make-clip-btn {
+    font-size: 17px;
 }
 
 #player-time-jump-forward:active, #player-time-jump-back:active {
@@ -641,7 +646,11 @@ footer p {
     line-height: 14px;
     margin-top: -1px;
     margin-left: -4px;
-    margin-right: 14px;
+    margin-right: 16px;
+}
+
+#toggle-make-clip-btn.active {
+    font-size: 21px;
 }
 
 
