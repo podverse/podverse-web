@@ -1048,6 +1048,7 @@ footer p {
 }
 
 .podcast-item-title {
+    margin-top: -1px;
     font-weight: 600;
     overflow: hidden;
     text-overflow: ellipsis;
