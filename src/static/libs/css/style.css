@@ -634,13 +634,6 @@ footer p {
     color: #549ee3 !important;
 }
 
-@media (max-width: 767px) {
-    #player-time-jump-back, #player-time-jump-forward, #toggle-make-clip-btn,
-    #toggle-playlist-btn, #toggle-recommend-btn {
-        margin-right: 20px;
-    }
-}
-
 #player-functions .active {
     font-size: 20px;
     line-height: 14px;
@@ -651,6 +644,17 @@ footer p {
 
 #toggle-make-clip-btn.active {
     font-size: 21px;
+}
+
+@media (max-width: 767px) {
+    #player-time-jump-back, #player-time-jump-forward, #toggle-make-clip-btn,
+    #toggle-playlist-btn, #toggle-recommend-btn {
+        margin-right: 20px;
+    }
+
+    #player-functions .active {
+        margin-right: 20px;
+    }
 }
 
 
