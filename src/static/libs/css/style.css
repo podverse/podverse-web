@@ -1026,7 +1026,7 @@ footer p {
 .podcast-item {
     clear: both;
     display: block;
-    padding: 1rem 0;
+    padding: 18px 0;
     border-top: 1px solid transparent;
     border-bottom: 1px solid #eee;
     color: #373a3c;
