@@ -1037,18 +1037,18 @@ footer p {
 
 .podcast-item-image {
     float: left;
-    margin-right: 12px;
-    width: 48px;
-    height: 48px;
+    margin-right: 15px;
+    width: 60px;
+    height: 60px;
 }
 
 .podcast-item-image img {
-    width: 48px;
-    height: 48px;
+    width: 60px;
+    height: 60px;
 }
 
 .podcast-item-title {
-    margin-top: -1px;
+    margin-top: 4px;
     font-weight: 600;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -1057,13 +1057,13 @@ footer p {
 
 .podcast-item-last-episode-pubdate {
     font-size: 14px;
-    margin: 2px 0 0 15px;
+    margin: 4px 0 0 15px;
     float: right;
 }
 
 .podcast-item-last-episode-title {
     font-size: 14px;
-    margin-top: 2px;
+    margin-top: 4px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
