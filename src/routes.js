@@ -218,6 +218,14 @@ function routes () {
   .get('/podcasts/list', getLoggedInUserInfo, (req, res) => {
     return PodcastService.retrieveAllPodcasts()
       .then(podcasts => {
+
+        podcasts = _.reduce(podcasts, (acc, podcast) => {
+          if (podcast.title && podcast.title.length > 0) {
+            acc.push(podcast);
+          }
+          return acc;
+        }, []);
+
         res.render('podcasts/index.html', {
           podcasts: podcasts,
           currentPage: 'Podcast List Page',
