@@ -30,15 +30,9 @@ class UserService extends SequelizeService {
     }
 
     return this.sqlEngine.query(`
-      SELECT p.title, p."imageURL", p.id, (
-        SELECT count(id) FROM episodes WHERE "podcastId"=p.id
-      ) AS "episodeCount", (
+      SELECT p.title, p."imageURL", p.id, p."lastEpisodeTitle", (
         SELECT MAX("pubDate") FROM episodes WHERE "podcastId"=p.id
-      ) AS "lastEpisodePubDate", (
-        SELECT title FROM episodes WHERE "podcastId"=p.id ORDER BY "pubDate" DESC LIMIT 1
-      ) AS "lastEpisodeTitle", (
-        SELECT summary FROM episodes WHERE "podcastId"=p.id ORDER BY "pubDate" DESC LIMIT 1
-      ) AS "lastEpisodeSummary"
+      ) AS "lastEpisodePubDate"
       FROM podcasts p, users u
       WHERE u.id='${id}'
       AND u."subscribedPodcastFeedURLs" @> ARRAY[p."feedURL"]::text[];
