@@ -113,10 +113,6 @@ describe('UserService', function () {
 
       describe('for the subscribed podcasts that are returned', function() {
 
-        it('should include the episodeCount', function () {
-          expect(this.subscribedPodcasts[0].episodeCount).to.equal('2');
-        });
-
         it('should include the lastEpisodePubDate', function () {
           let pubDateTime1 = new Date(this.subscribedPodcasts[0].lastEpisodePubDate);
           let pubDateTime2 = new Date('2017-01-30T03:58:46.000Z');
