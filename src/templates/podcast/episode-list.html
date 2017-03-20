@@ -6,7 +6,7 @@
         {{episode.pubDate | readableDate}}
       </div>
       <div class="podcast-episodes-list-item-title">{{episode.title | stripTags}}</div>
-      <div class="clearfix"></div>
+      <div class="podcast-episodes-list-item-summary">{{episode.summary | stripTags | replace("&nbsp;", " ")}}</div>
     </a>
   {% endfor %}
 </div>

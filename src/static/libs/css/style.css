@@ -1030,9 +1030,27 @@ footer p {
 
 .podcast-episodes-list-item-title {
     overflow: hidden;
+    font-weight: 500;
     padding-right: 15px;
+    margin-bottom: 5px;
 }
 
+.podcast-episodes-list-item-summary {
+    clear: both;
+    font-size: 13px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+@supports (-webkit-line-clamp: 2) {
+    .podcast-episodes-list-item-summary {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        white-space: normal;
+    }
+}
 
 
 /*** my-podcasts-page.html styles ***/
