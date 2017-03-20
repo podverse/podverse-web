@@ -26,6 +26,7 @@
     "font-awesome": "^4.6.3",
     "forever": "^0.15.3",
     "googleapis": "^14.2.0",
+    "he": "^1.1.1",
     "jquery": "^3.1.1",
     "jquery-lazyload": "^1.9.7",
     "jquery.cookie": "^1.4.1",

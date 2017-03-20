@@ -1,5 +1,6 @@
 const nunjucks = require('nunjucks'),
-      stripTags = require('striptags');
+      stripTags = require('striptags'),
+      he = require('he');
 
 function nunjucksConfig () {
 
@@ -102,6 +103,11 @@ function nunjucksConfig () {
     if (str) {
       return stripTags(str);
     }
+  });
+
+  env.addFilter('decodeHTML', function(str) {
+    str = he.decode(str);
+    return str;
   });
 
   // TODO: This identify function is also in the scripts.js. Maybe this should
