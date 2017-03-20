@@ -605,7 +605,7 @@ footer p {
 /*** player-functions.html styles ***/
 
 #player-functions {
-    margin: 0.5rem 0 0.75rem 0;
+    margin: 0.5rem 0;
     font-size: 14px;
 }
 
@@ -677,6 +677,9 @@ footer p {
     }
 }
 
+#player-hr {
+    margin-top: 0.5rem;
+}
 
 
 /*** player-page description.html styles ***/
