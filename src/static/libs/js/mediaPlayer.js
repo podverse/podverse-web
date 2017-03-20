@@ -352,7 +352,8 @@ function createAndAppendAudio () {
       // the order of controls you want on the control bar (and other plugins below)
       features: playerFeatures,
       alwaysShowHours: true,
-      alwaysShowControls: true
+      alwaysShowControls: true,
+      startVolume: 1.0
     });
   };
 
