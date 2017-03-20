@@ -11,6 +11,13 @@ body {
     padding-top: 50px;
 }
 
+/* limit consecutive <br> tags to only one line break,
+   used to prevent episode summaries with multiple <br> tags from having
+   excessive space issues in elements like .player-description-full */
+br + br {
+    display: none;
+}
+
 h1 {
     margin: 1.25rem 0 1rem 0;
     font-size: 1.75rem;
