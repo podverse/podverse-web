@@ -461,7 +461,6 @@ footer p {
 }
 
 #player {
-    margin: 0 0 1rem 0;
     height: 30px;
     text-align: center;
 }
@@ -606,17 +605,14 @@ footer p {
 /*** player-functions.html styles ***/
 
 #player-functions {
-    margin-bottom: 0.75rem;
+    margin: 0.5rem 0 0.75rem 0;
     font-size: 14px;
-}
-
-#player-functions div {
-    cursor: pointer;
 }
 
 #player-autoplay {
     float: right;
     cursor: pointer;
+    padding: 0.5rem 0;
     -webkit-user-select: none; /* Chrome/Safari */
     -moz-user-select: none; /* Firefox */
     -ms-user-select: none; /* IE10+ */
@@ -625,6 +621,7 @@ footer p {
 #player-time-jump-back, #player-time-jump-forward, #toggle-make-clip-btn,
 #toggle-playlist-btn, #toggle-recommend-btn {
     display: inline-block;
+    padding: 0.5rem 0.5rem 0.5rem 0;
     margin-right: 16px;
     cursor: pointer;
     font-size: 16px;
@@ -637,6 +634,19 @@ footer p {
     font-size: 17px;
 }
 
+#toggle-make-clip-btn, #toggle-playlist-btn, #toggle-recommend-btn {
+    padding: 0.5rem !important;
+    margin: 0;
+}
+
+#player-time-jump-back {
+    margin-right: 8px;
+}
+
+#player-time-jump-forward {
+    margin-right: 0;
+}
+
 #player-time-jump-forward:active, #player-time-jump-back:active {
     color: #549ee3 !important;
 }
@@ -646,7 +656,7 @@ footer p {
     line-height: 14px;
     margin-top: -1px;
     margin-left: -4px;
-    margin-right: 16px;
+    margin-right: 0;
 }
 
 #toggle-make-clip-btn.active {
@@ -654,13 +664,16 @@ footer p {
 }
 
 @media (max-width: 767px) {
-    #player-time-jump-back, #player-time-jump-forward, #toggle-make-clip-btn,
-    #toggle-playlist-btn, #toggle-recommend-btn {
-        margin-right: 20px;
+    #player-time-jump-forward {
+        margin-right: 4px;
+    }
+
+    #toggle-make-clip-btn, #toggle-playlist-btn, #toggle-recommend-btn {
+        margin-right: 8px;
     }
 
     #player-functions .active {
-        margin-right: 20px;
+        margin-right: 8px;
     }
 }
 
