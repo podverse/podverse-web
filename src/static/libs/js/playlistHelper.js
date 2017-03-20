@@ -127,7 +127,7 @@ export function addNewPlaylistElement(playlist) {
 
   // Create and prepend the new playlist in the main add to playlist / recommend menus
   var el = '<div class="add-to-playlist-item" data-id="' + playlistId +'">';
-      el +=   '<a class="add-to-playlist-item-link">';
+      el +=   ('<a class="add-to-playlist-item-link" href="/playlists/' + playlistId + '">');
       el +=     '<i class="fa fa-link"></i>';
       el +=   '</a>';
       el +=   '<div class="add-to-playlist-item-text">';
