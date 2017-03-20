@@ -1172,6 +1172,10 @@ footer p {
   cursor: pointer;
 }
 
+.playlist-list-item:hover {
+    color: #2969b1 !important;
+}
+
 .playlist-list-item-img {
   float: left;
   margin: 0 0.75rem 0 0;
