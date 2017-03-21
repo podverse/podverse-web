@@ -5,6 +5,7 @@ const
     {getLoggedInUserInfo} = require('middleware/auth/getLoggedInUserInfo.js'),
     {queryGoogleApiData} = require('services/googleapi/googleapi.js'),
     {isNonAnonUser} = require('util.js'),
+    {generatePlaylistRSSFeed} = require('services/playlist/PlaylistRSSService.js'),
     _ = require('lodash');
 
 function routes () {
@@ -147,40 +148,48 @@ function routes () {
   .get('/playlists/:id', getLoggedInUserInfo, (req, res) => {
     return PlaylistService.get(req.params.id)
       .then(playlist => {
-        req.params.playlistId = playlist.id;
-        let mediaRefs = playlist.dataValues.mediaRefs;
-        return new Promise((resolve, reject) => {
-          getUsersSubscribedPodcastFeedURLs(resolve, reject, req);
-        })
-          .then((subscribedPodcastFeedURLs) => {
-            subscribedPodcastFeedURLs = subscribedPodcastFeedURLs || [];
-            mediaRefs.forEach(mediaRef => {
-              if (subscribedPodcastFeedURLs.includes(mediaRef.podcastFeedURL)) {
-                mediaRef.dataValues['isSubscribed'] = true;
-              }
-            });
-            return new Promise((resolve, reject) => {
-              isUserSubscribedToThisPlaylist(resolve, reject, req);
-            })
-              .then((isSubscribed) => {
-                playlist.dataValues['isSubscribed'] = isSubscribed;
 
-                if (playlist.dataValues['ownerId'] === req.feathers.userId) {
-                  playlist.dataValues['isOwner'] = true;
-                }
-
-                return new Promise((resolve, reject) => {
-                  gatherUsersOwnedPlaylists(resolve, reject, req);
-                })
-                  .then((usersOwnedPlaylists) => {
-                    playlist.dataValues['usersOwnedPlaylists'] = usersOwnedPlaylists;
-                    playlist.dataValues['currentPage'] = 'Playlist Detail Page';
-                    playlist.dataValues['locals'] = res.locals;
-                    res.render('player-page/index.html', playlist.dataValues);
-                  });
-              });
+        // If rssFeed query parameter is present then return the RSS version of
+        // the playlist. Else render the web page version of the playlist.
+        if (req.query.rssFeed || req.query.rssFeed === '') {
+          const rss = generatePlaylistRSSFeed(playlist);
+          res.set('Content-Type', 'application/rss+xml');
+          res.send(rss);
+        } else {
+          req.params.playlistId = playlist.id;
+          let mediaRefs = playlist.dataValues.mediaRefs;
+          return new Promise((resolve, reject) => {
+            getUsersSubscribedPodcastFeedURLs(resolve, reject, req);
           })
+            .then((subscribedPodcastFeedURLs) => {
+              subscribedPodcastFeedURLs = subscribedPodcastFeedURLs || [];
+              mediaRefs.forEach(mediaRef => {
+                if (subscribedPodcastFeedURLs.includes(mediaRef.podcastFeedURL)) {
+                  mediaRef.dataValues['isSubscribed'] = true;
+                }
+              });
+              return new Promise((resolve, reject) => {
+                isUserSubscribedToThisPlaylist(resolve, reject, req);
+              })
+                .then((isSubscribed) => {
+                  playlist.dataValues['isSubscribed'] = isSubscribed;
 
+                  if (playlist.dataValues['ownerId'] === req.feathers.userId) {
+                    playlist.dataValues['isOwner'] = true;
+                  }
+
+                  return new Promise((resolve, reject) => {
+                    gatherUsersOwnedPlaylists(resolve, reject, req);
+                  })
+                    .then((usersOwnedPlaylists) => {
+                      playlist.dataValues['usersOwnedPlaylists'] = usersOwnedPlaylists;
+                      playlist.dataValues['currentPage'] = 'Playlist Detail Page';
+                      playlist.dataValues['locals'] = res.locals;
+                      res.render('player-page/index.html', playlist.dataValues);
+                    });
+                });
+            })
+        }
       }).catch(e => {
         console.log(e);
         res.sendStatus(404);

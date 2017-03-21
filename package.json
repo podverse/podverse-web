@@ -36,6 +36,7 @@
     "nunjucks": "^2.4.2",
     "pg": "^6.1.2",
     "pg-hstore": "^2.3.2",
+    "podcast": "^0.2.2",
     "podcast-db": "git+https://github.com/podverse/podcast-db.git",
     "request": "^2.74.0",
     "rss": "^1.2.1",

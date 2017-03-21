@@ -47,6 +47,8 @@
       window.mediaRefId = item.id;
     }
 
+    window.episodeSummary = decodeEntities(item.episodeSummary);
+
     window.episodeTitle = decodeEntities(episodeTitle);
 
     document.getElementById('player').setAttribute('data-id', window.mediaRefId);
@@ -98,32 +100,38 @@
     window.description = "{{ summary|nl2br }}";
     window.description = decodeEntities(description);
 
+    window.episodeSummary = "{{ summary|nl2br }}";
+    window.episodeSummary = decodeEntities(episodeSummary);
+
     window.episodeTitle = decodeEntities(episodeTitle);
 
     window.isSubscribed = '{{ isSubscribed }}';
 
-    // Else set the window vars for a clip page.
-    {% else %}
-      window.mediaRefId = "{{ id }}";
-      window.podcastFeedURL = "{{ podcastFeedURL }}";
-      window.podcastTitle = "{{ podcastTitle }}";
-      window.podcastImageURL = "{{ podcastImageURL }}";
-      window.episodeTitle = "{{ episodeTitle }}";
-      window.episodeMediaURL = "{{ episodeMediaURL }}";
-      window.episodePubDate = "{{ episodePubDate }}";
-      window.episodeImageURL = "{{ episodeImageURL }}";
-      window.episodeDuration = "{{ episodeDuration }}";
-      window.startTime = "{{ startTime }}";
-      window.endTime = "{{ endTime }}";
-      window.isEpisode = false;
+  // Else set the window vars for a clip page.
+  {% else %}
+    window.mediaRefId = "{{ id }}";
+    window.podcastFeedURL = "{{ podcastFeedURL }}";
+    window.podcastTitle = "{{ podcastTitle }}";
+    window.podcastImageURL = "{{ podcastImageURL }}";
+    window.episodeTitle = "{{ episodeTitle }}";
+    window.episodeMediaURL = "{{ episodeMediaURL }}";
+    window.episodePubDate = "{{ episodePubDate }}";
+    window.episodeImageURL = "{{ episodeImageURL }}";
+    window.episodeDuration = "{{ episodeDuration }}";
+    window.startTime = "{{ startTime }}";
+    window.endTime = "{{ endTime }}";
+    window.isEpisode = false;
 
-      // TODO: is this a security vulnerability?
-      window.description = "{{ title|nl2br }}";
-      window.description = decodeEntities(description);
+    window.episodeSummary = "{{ episodeSummary|nl2br }}";
+    window.episodeSummary = decodeEntities(episodeSummary);
 
-      window.episodeTitle = decodeEntities(episodeTitle);
+    // TODO: is this a security vulnerability?
+    window.description = "{{ title|nl2br }}";
+    window.description = decodeEntities(description);
 
-      window.isSubscribed = '{{ isSubscribed }}';
+    window.episodeTitle = decodeEntities(episodeTitle);
+
+    window.isSubscribed = '{{ isSubscribed }}';
 
 
   {% endif %}
