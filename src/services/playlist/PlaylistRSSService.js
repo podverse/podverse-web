@@ -22,7 +22,7 @@ let generatePlaylistRSSFeed = (playlist) => {
     webMaster: playlist.ownerName,
     copyright: 'AGPLv3',
     language: 'English',
-    categories: 'playlists',
+    categories: ['playlists'],
     pubDate: playlist.lastUpdated,
     // TODO: do we want to set ttl?
     // ttl: '', // number of minutes feed can be cached before refreshing from source
@@ -71,7 +71,9 @@ let generatePlaylistRSSFeed = (playlist) => {
     feed.item(itemOptions)
   }
 
-  return feed;
+  let xml = feed.xml(' '); // ' ' sets format to 2-space tabs
+
+  return xml;
 }
 
 module.exports = {generatePlaylistRSSFeed};
