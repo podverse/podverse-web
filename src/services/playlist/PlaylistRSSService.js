@@ -3,11 +3,14 @@ const
     uuid = require('uuid');
 
 let generatePlaylistRSSFeed = (playlist) => {
-  let podcastImageURL = `${
-    playlist.mediaRefs.length > 0 ?
-    playlist.mediaRefs[0].podcastImageURL :
-    'https://podverse.fm/static/images/podverse-logo-180.png'
-  }`;
+
+  // Some podcast players do not use the image set in the item.itunesImage,
+  // so instead we are using a Podverse default logo.
+  // let podcastImageURL = `${
+  //   playlist.mediaRefs.length > 0 ?
+  //   playlist.mediaRefs[0].podcastImageURL :
+  //   'https://podverse.fm/static/images/podverse-logo-180.png'
+  // }`;
 
   const feedOptions = {
     title: 'Playlist: ' + playlist.title,
@@ -15,7 +18,7 @@ let generatePlaylistRSSFeed = (playlist) => {
     generator: 'podverse.fm',
     feed_url: `https://podverse.fm/playlists/${playlist.id}?rssFeed`,
     site_url: `https://podverse.fm/playlists/${playlist.id}`,
-    image_url: podcastImageURL,
+    image_url: 'https://podverse.fm/static/images/podverse-logo-180.png',
     docs: 'https://podverse.fm/about',
     author: playlist.ownerName,
     managingEditor: playlist.ownerName,
@@ -30,7 +33,7 @@ let generatePlaylistRSSFeed = (playlist) => {
     // we need to set itunesSummary to an empty string, or podcastRSS
     // will automatically fill it out
     itunesSummary: '', //,
-    itunesImage: podcastImageURL
+    itunesImage: 'https://podverse.fm/static/images/podverse-logo-180.png'
     // other options
     // itunesAuthor: '', // playlist.ownerName,
     // itunesSubtitle: '', // 'Created with podverse.fm',
