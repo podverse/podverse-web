@@ -107,7 +107,7 @@ function nunjucksConfig () {
 
   env.addFilter('decodeHTML', function(str) {
     if (str) {
-      str = he.decode(str //);
+      str = he.decode(str);
     }
     return str;
   });
