@@ -158,7 +158,7 @@ export function addNewPlaylistElement(playlist) {
         toggleAddToPlaylistItemPending(playlistId);
         updatePlaylistItemCount(playlistId, updatedPlaylistItemCount);
         updateClipCreatedPlaylistItemCount(playlistId, updatedPlaylistItemCount);
-      }, 300);
+      }, 200);
     });
   })
 
@@ -201,7 +201,7 @@ export function addNewPlaylistElement(playlist) {
         toggleClipCreatedAddToPlaylistItemPending(playlistId);
         updatePlaylistItemCount(playlistId, updatedPlaylistItemCount);
         updateClipCreatedPlaylistItemCount(playlistId, updatedPlaylistItemCount);
-      }, 300);
+      }, 200);
     });
   })
 
@@ -283,16 +283,16 @@ export function scrapeElementsAndAddToPlaylist (_this) {
     if ($(_this).hasClass('clip-created-modal-playlist')) {
       setTimeout(function() {
         toggleClipCreatedAddToPlaylistItemPending(playlistId);
-      }, 300);
+      }, 200);
     } else {
       setTimeout(function() {
         toggleAddToPlaylistItemPending(playlistId);
-      }, 300);
+      }, 200);
     }
 
     setTimeout(function() {
       updatePlaylistItemCount(playlistId, updatedPlaylistItemCount);
       updateClipCreatedPlaylistItemCount(playlistId, updatedPlaylistItemCount);
-    }, 300);
+    }, 200);
   });
 }
