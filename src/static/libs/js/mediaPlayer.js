@@ -145,6 +145,7 @@ function setPlayerInfo () {
 
   let truncDescription = description;
   truncDescription = stripTags(truncDescription);
+  truncDescription = truncDescription.trim();
   truncDescription = truncDescription.substring(0, 156);
 
   // Add "show more" if description was truncated
