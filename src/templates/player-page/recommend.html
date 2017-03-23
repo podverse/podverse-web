@@ -18,7 +18,10 @@
             </a>
             <div class="add-to-playlist-item-text">
               <div class="add-to-playlist-item-count">
-                items: {{ playlist.mediaRefs|length }}
+                <span class="add-to-playlist-item-count-text">items: {{ playlist.mediaRefs|length }}</span>
+                <span class="add-to-playlist-item-pending">
+                  <i class="fa fa-spinner fa-spin"></i>
+                </span>
               </div>
               <div class="add-to-playlist-item-title">
                 {{ playlist.title | stripTags }}

@@ -108,15 +108,15 @@ export function removeFromPlaylist (playlistId, mediaRefId, callback) {
 
 export function updatePlaylistItemCount(playlistId, total) {
   if (total) {
-    $(".add-to-playlist-item[data-id=" + playlistId + "] .add-to-playlist-item-count")
-      .html("items: " + total);
+    $(".add-to-playlist-item[data-id=" + playlistId + "] .add-to-playlist-item-count-text")
+      .html('items: ' + total);
   }
 }
 
 export function updateClipCreatedPlaylistItemCount(playlistId, total) {
   if (total) {
-    $(".clip-created-modal-playlist[data-id=" + playlistId + "] .clip-created-modal-playlist-count")
-      .html("items: " + total);
+    $(".clip-created-modal-playlist[data-id=" + playlistId + "] .clip-created-modal-playlist-count-text")
+      .html('items: ' + total);
   }
 }
 
@@ -132,10 +132,13 @@ export function addNewPlaylistElement(playlist) {
       el +=   '</a>';
       el +=   '<div class="add-to-playlist-item-text">';
       el +=     '<div class="add-to-playlist-item-count">';
-      el +=       'items: 0';
+      el +=       '<span class="add-to-playlist-item-count-text">items: 0</span>';
+      el +=       '<span class="add-to-playlist-item-pending">';
+      el +=         '<i class="fa fa-spinner fa-spin"></i>';
+      el +=       '</span>';
       el +=     '</div>';
       el +=     '<div class="add-to-playlist-item-title">';
-      el +=       playlistTitle
+      el +=       playlistTitle;
       el +=     '</div>';
       el +=   '</div>'
       el += '</div>';
@@ -149,8 +152,13 @@ export function addNewPlaylistElement(playlist) {
   $(".add-to-playlist-item[data-id=" + playlistId + "] .add-to-playlist-item-text").on('click', function () {
     var playlistId = $(this).parent().data('id');
     var mediaRefId = $('#player').attr('data-id'); // $('#player').data('id') failed to grab updated values
+    toggleAddToPlaylistItemPending(playlistId);
     addToPlaylist(playlistId, mediaRefId, function (updatedPlaylistItemCount) {
-      updatePlaylistItemCount(playlistId, updatedPlaylistItemCount);
+      setTimeout(function() {
+        toggleAddToPlaylistItemPending(playlistId);
+        updatePlaylistItemCount(playlistId, updatedPlaylistItemCount);
+        updateClipCreatedPlaylistItemCount(playlistId, updatedPlaylistItemCount);
+      }, 300);
     });
   })
 
@@ -168,7 +176,10 @@ export function addNewPlaylistElement(playlist) {
 
   var el = '<div class="clip-created-modal-playlist" data-id="' + playlistId +'">';
       el +=   '<div class="clip-created-modal-playlist-count">';
-      el +=     'items: 0';
+      el +=     '<span class="clip-created-modal-playlist-count-text">items: 0</span>';
+      el +=     '<span class="clip-created-modal-playlist-pending">';
+      el +=       '<i class="fa fa-spinner fa-spin"></i>'
+      el +=     '</span>';
       el +=   '</div>';
       el +=   '<div class="clip-created-modal-playlist-title">';
       el +=     playlistTitle
@@ -184,11 +195,24 @@ export function addNewPlaylistElement(playlist) {
   $(".clip-created-modal-playlist[data-id=" + playlistId + "]").on('click', function () {
     var playlistId = $(this).data('id');
     var mediaRefId = $('#clip-created-modal').attr('data-id');
+    toggleClipCreatedAddToPlaylistItemPending(playlistId);
     addToPlaylist(playlistId, mediaRefId, function (updatedPlaylistItemCount) {
-      updatePlaylistItemCount(playlistId, updatedPlaylistItemCount);
+      setTimeout(function() {
+        toggleClipCreatedAddToPlaylistItemPending(playlistId);
+        updatePlaylistItemCount(playlistId, updatedPlaylistItemCount);
+        updateClipCreatedPlaylistItemCount(playlistId, updatedPlaylistItemCount);
+      }, 300);
     });
   })
 
+}
+
+function toggleAddToPlaylistItemPending (playlistId) {
+  $(".add-to-playlist-item[data-id=" + playlistId + "]").toggleClass('pending');
+}
+
+function toggleClipCreatedAddToPlaylistItemPending (playlistId) {
+  $(".clip-created-modal-playlist[data-id=" + playlistId + "]").toggleClass('pending');
 }
 
 export function subscribeToPlaylist(url, successCallback) {
@@ -248,13 +272,27 @@ export function scrapeElementsAndAddToPlaylist (_this) {
   if ($(_this).hasClass('clip-created-modal-playlist')) {
     playlistId = $(_this).data('id');
     mediaRefId = $('#clip-created-modal').attr('data-id');
+    toggleClipCreatedAddToPlaylistItemPending(playlistId);
   } else {
     playlistId = $(_this).parent().data('id');
     mediaRefId = $('#player').attr('data-id'); // $('#player').data('id') failed to grab updated values
+    toggleAddToPlaylistItemPending(playlistId);
   }
 
   addToPlaylist(playlistId, mediaRefId, function (updatedPlaylistItemCount) {
-    updatePlaylistItemCount(playlistId, updatedPlaylistItemCount);
-    updateClipCreatedPlaylistItemCount(playlistId, updatedPlaylistItemCount);
+    if ($(_this).hasClass('clip-created-modal-playlist')) {
+      setTimeout(function() {
+        toggleClipCreatedAddToPlaylistItemPending(playlistId);
+      }, 300);
+    } else {
+      setTimeout(function() {
+        toggleAddToPlaylistItemPending(playlistId);
+      }, 300);
+    }
+
+    setTimeout(function() {
+      updatePlaylistItemCount(playlistId, updatedPlaylistItemCount);
+      updateClipCreatedPlaylistItemCount(playlistId, updatedPlaylistItemCount);
+    }, 300);
   });
 }

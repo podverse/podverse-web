@@ -913,6 +913,18 @@ footer p {
 
 }
 
+.clip-created-modal-playlist-pending {
+    display: none;
+}
+
+.clip-created-modal-playlist.pending .clip-created-modal-playlist-count-text {
+    display: none;
+}
+
+.clip-created-modal-playlist.pending .clip-created-modal-playlist-pending {
+    display: inline;
+}
+
 
 
 
@@ -949,6 +961,18 @@ footer p {
     border-top: 1px solid transparent;
     border-bottom: 1px solid transparent;
     width: calc(100% - 50px);
+}
+
+.add-to-playlist-item.pending .add-to-playlist-item-count-text {
+    display: none;
+}
+
+.add-to-playlist-item-pending {
+    display: none;
+}
+
+.add-to-playlist-item.pending .add-to-playlist-item-pending {
+    display: inline;
 }
 
 .add-to-playlist-item-count {

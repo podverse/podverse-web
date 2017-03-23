@@ -26,7 +26,10 @@
               <div class="clip-created-modal-playlist" data-id="{{ playlist.id }}">
                 <div class="clip-created-modal-playlist-count">
                   <!-- TODO: make displaying the playlist item count more efficient  -->
-                  items: {{ playlist.mediaRefs|length }}
+                  <span class="clip-created-modal-playlist-count-text">items: {{ playlist.mediaRefs|length }}</span>
+                  <span class="clip-created-modal-playlist-pending">
+                    <i class="fa fa-spinner fa-spin"></i>
+                  </span>
                 </div>
                 <div class="clip-created-modal-playlist-title">
                   {{playlist.title | stripTags}}
@@ -42,7 +45,10 @@
               <div class="clip-created-modal-playlist" data-id="{{ playlist.id }}">
                 <div class="clip-created-modal-playlist-count">
                   <!-- TODO: make displaying the playlist item count more efficient  -->
-                  items: {{ playlist.mediaRefs|length }}
+                  <span class="clip-created-modal-playlist-count-text">items: {{ playlist.mediaRefs|length }}</span>
+                  <span class="clip-created-modal-playlist-pending">
+                    <i class="fa fa-spinner fa-spin"></i>
+                  </span>
                 </div>
                 <div class="clip-created-modal-playlist-title">
                   {{ playlist.title | stripTags }}
