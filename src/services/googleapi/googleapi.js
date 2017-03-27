@@ -35,7 +35,7 @@ function queryGoogleApiData(resolve, reject, queryObj) {
         reject(err);
       }
 
-      resolve(response.rows);
+      resolve(response);
     });
   });
 }

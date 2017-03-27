@@ -43,6 +43,7 @@ function routes () {
       queryGoogleApiData(resolve, reject, queryObj)
     })
     .then(data => {
+      data = data.rows;
       // Extract clip ids from data to pass into db query
       let clipIdArray = [];
       data.forEach((clipItem) => {
