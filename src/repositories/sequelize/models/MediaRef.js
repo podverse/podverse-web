@@ -84,7 +84,37 @@ module.exports = function(sequelize, DataTypes) {
 
     episodeSummary: DataTypes.TEXT,
 
-    episodeDuration: DataTypes.INTEGER
+    episodeDuration: DataTypes.INTEGER,
+
+    pastHourTotalUniquePageviews: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0
+    },
+
+    pastWeekTotalUniquePageviews: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0
+    },
+
+    pastDayTotalUniquePageviews: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0
+    },
+
+    pastWeekTotalUniquePageviews: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0
+    },
+
+    pastYearTotalUniquePageviews: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0
+    },
+
+    allTimeTotalUniquePageviews: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0
+    }
 
   }, {
     updatedAt: 'lastUpdated',
