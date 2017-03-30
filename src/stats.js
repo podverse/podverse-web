@@ -11,7 +11,7 @@ const sqlEngine = new sqlEngineFactory({uri: postgresUri});
 
 // Retrieves the unique pageview counts for the specified page path.
 // Possible pagePaths: '~/podcasts' or '~/episodes' or '~/clips'
-function queryUniquePageviews(timeRange, pagePath, startIndexOffset=0) {
+function queryUniquePageviews(pagePath, timeRange, startIndexOffset=0) {
 
   // This seems dangerous because it could get into an infinite loop. But the
   // increasing startIndexOffset should eventually result in data.rows.count
