@@ -18,6 +18,11 @@ function queryUniquePageviews(pagePath, timeRange, startIndexOffset=0) {
   // returning 0. TODO: is there a better way to do this?
   let startDateOffset; // in minutes
 
+  if (pagePath != '~/podcasts' && pagePath != '~/episodes' && pagePath != '~/clips') {
+    console.log('A valid timeRange must be provided in the second parameter.');
+    console.log('Valid options are: ~/podcasts, ~/episodes, ~/clips');
+  }
+
   if (timeRange === 'pastHourTotalUniquePageviews') {
     startDateOffset = -60;
   } else if (timeRange === 'pastDayTotalUniquePageviews') {
@@ -31,7 +36,7 @@ function queryUniquePageviews(pagePath, timeRange, startIndexOffset=0) {
   } else if (timeRange === 'allTimeTotalUniquePageviews') {
     // logic handled when the startDate variable is created
   } else {
-    console.log('A valid timeRange must be provided in the first parameter.');
+    console.log('A valid timeRange must be provided in the second parameter.');
     console.log('Valid options are: pastHourTotalUniquePageviews, pastDayTotalUniquePageviews, pastWeekTotalUniquePageviews, pastMonthTotalUniquePageviews, pastYearTotalUniquePageviews, allTimeTotalUniquePageviews');
     return;
   }
