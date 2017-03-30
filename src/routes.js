@@ -16,7 +16,8 @@ function routes () {
         EpisodeService = locator.get('EpisodeService'),
         ClipService = locator.get('ClipService'),
         PlaylistService = locator.get('PlaylistService'),
-        UserService = locator.get('UserService');
+        UserService = locator.get('UserService'),
+        sqlEngine = locator.get('sqlEngine');
 
   app.get('/', getLoggedInUserInfo, function (req, res) {
 
@@ -27,7 +28,10 @@ function routes () {
     params.sequelize = {
       where: isClipMediaRefWithTitle,
       offset: offset,
-      order: [['pastWeekTotalUniquePageviews', 'DESC']]
+      order: [
+        [sqlEngine.fn('max', sqlEngine.col('pastWeekTotalUniquePageviews')), 'DESC']
+      ],
+      group: ['id']
     };
 
     params.paginate = {
@@ -37,6 +41,7 @@ function routes () {
 
     return ClipService.find(params)
     .then(page => {
+
       let total = page.total;
       let showNextButton = offset + 10 < total ? true : false;
       let clips = page.data;
