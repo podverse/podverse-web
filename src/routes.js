@@ -24,96 +24,34 @@ function routes () {
     let offset = (pageIndex * 10) - 10;
     let params = {};
 
-    let queryObj = {
-      metrics: 'ga:uniquePageviews',
-      dimensions: 'ga:pagePath',
-      startDate: '3daysAgo',
-      endDate: 'today',
-      sort: '-ga:uniquePageviews',
-      // maxResults: only 10 will load on a page, but we don't want
-      // clips without titles to appear in the list
-      maxResults: 20,
-      startIndex: offset || 1,
-      filters: 'ga:pagePath=~/clips'
-    }
+    params.sequelize = {
+      where: isClipMediaRefWithTitle,
+      offset: offset,
+      order: [['pastWeekTotalUniquePageviews', 'DESC']]
+    };
 
-    // NOTE: If no clips were returned by Google API, then in the catch statement
-    // populate the home page with all the most recent clips created that have a title
-    return new Promise((resolve, reject) => {
-      queryGoogleApiData(resolve, reject, queryObj)
-    })
-    .then(data => {
-      data = data.rows;
-      // Extract clip ids from data to pass into db query
-      let clipIdArray = [];
-      data.forEach((clipItem) => {
-        let urlPath = clipItem[0];
-        let clipId = urlPath.replace('/clips/', '');
-        clipIdArray.push(clipId);
+    params.paginate = {
+      default: 10,
+      max: 1000
+    };
+
+    return ClipService.find(params)
+    .then(page => {
+      let total = page.total;
+      let showNextButton = offset + 10 < total ? true : false;
+      let clips = page.data;
+
+      // TODO: handle 404 if beyond range of page object
+      res.render('home/index.html', {
+        clips: clips,
+        pageIndex: pageIndex,
+        showNextButton: showNextButton,
+        currentPage: 'Home Page',
+        locals: res.locals
       });
-
-      params.sequelize = {
-        where: {
-          id: clipIdArray,
-          $and: isClipMediaRefWithTitle
-        },
-        limit: 10
-      };
-
-      return ClipService.find(params)
-        .then(clips => {
-
-          // Sort the clips in order of most visited according to Google API
-          var sortedClips = _.sortBy(clips, function (clip) {
-            return clipIdArray.indexOf(clip.id);
-          });
-
-          // TODO: handle 404 if beyond range of page object
-          res.render('home/index.html', {
-            clips: sortedClips,
-            pageIndex: pageIndex,
-            showNextButton: clips.length < 1 ? false : true,
-            currentPage: 'Home Page',
-            locals: res.locals
-          });
-        })
-        .catch(e => {
-          console.log(e);
-        });
     })
-    .catch(err => {
-      console.log('google analytics error 3', err);
-      params.sequelize = {
-        where: isClipMediaRefWithTitle,
-        offset: offset
-      };
-
-      params.paginate = {
-        default: 10,
-        max: 200
-      };
-
-      return ClipService.find(params)
-        .then(page => {
-
-          // TODO: handle 404 if beyond range of page object
-
-          let total = page.total;
-          let showNextButton = offset + 10 < total ? true : false;
-          let clips = page.data;
-
-          // TODO: handle 404 if beyond range of page object
-          res.render('home/index.html', {
-            clips: clips,
-            pageIndex: pageIndex,
-            showNextButton: showNextButton,
-            currentPage: 'Home Page',
-            locals: res.locals
-          });
-        })
-        .catch(e => {
-          console.log(e);
-        });
+    .catch(e => {
+      console.log(e);
     });
   })
 
