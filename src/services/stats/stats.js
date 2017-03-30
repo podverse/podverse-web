@@ -1,12 +1,16 @@
-let config = require('config.js'),
-      {offsetDate, lastHour} = require('util.js'),
-    {queryGoogleApiData} = require('services/googleapi/googleapi.js');
-//     ClipService = require('services/clip/ClipService.js');
-//
-// ClipService = new ClipService();
+// TODO: this has no tests.
+
+const
+    config = require('config.js'),
+    {offsetDate, lastHour} = require('util.js'),
+    {queryGoogleApiData} = require('services/googleapi/googleapi.js'),
+    sqlEngineFactory = require('repositories/sequelize/engineFactory.js'),
+    {postgresUri} = require('config');
+
+const sqlEngine = new sqlEngineFactory({uri: postgresUri});
 
 // Retrieves the unique pageview counts for the specified page path.
-// Sample pagePaths: '~/episodes' or '~/clips'
+// Possible pagePaths: '~/podcasts' or '~/episodes' or '~/clips'
 function queryUniquePageviews(timeRange, pagePath, startIndexOffset=0) {
 
   // This seems dangerous because it could get into an infinite loop. But the
@@ -52,41 +56,71 @@ function queryUniquePageviews(timeRange, pagePath, startIndexOffset=0) {
   })
   .then(data => {
 
-    // // TODO: is there a way to bulkUpdate all these records? This seems very
-    // // inefficient to loop over this array of promises...
-    // let promises = [];
-    // for (row of data.rows) {
-    //   // chop up the string and extract the id
-    //   let pathName = // /episodes or /clips?
-    //   let pathNameId = // the id of the episode or clip
-    //
-    //   let params = {};
-    //   params.pastHourTotalUniquePageviews = ;
-    //   if (pathName === '/episodes') {
-    //     EpisodeService.update(); // push into array
-    //   } else if (pathName === '/clips') {
-    //     ClipService.update(); // push into array
-    //   }
-    // }
+    let idArray = [];
+    let rows = data.rows;
 
-    console.log(data);
+    for (row of rows) {
+      if (row[0].indexOf('login-redirect') > -1)
+        continue;
 
-    // Promise.all(promises)
-    // .then(() => {
-    //   // Requery if the maximum number of rows were returned
-    //   if (data.rows && data.rows.length === 10000) {
-    //     queryUniquePageviewsFromPastHour(pagePath, (parseInt(startIndexOffset) + 10000))
-    //   }
-    // })
-    // .catch(err => {
-    //   console.logs(err);
-    // })
+      // use this to chop off all of the path before the id
+      // sample fields in row[0]: '/episodes/1234abc' '/clips/2345def' '/podcasts/3456ghi'
+      let idStartIndex = row[0].indexOf('s/') + 2;
+      row[0] = row[0].substr(idStartIndex);
+      idArray.push(row);
+    }
+
+    if (pagePath === '~/podcasts') {
+
+      updateBatchUniquePageviewCount('podcasts', timeRange, idArray)
+      .then(() => {
+        queryForMoreIfMaxResultsReturned(data, timeRange, pagePath, startIndexOffset);
+      })
+      .catch(err => console.log(err));
+
+    } else if (pagePath === '~/episodes') {
+
+      updateBatchUniquePageviewCount('episodes', timeRange, idArray)
+      .then(() => {
+        queryForMoreIfMaxResultsReturned(data, timeRange, pagePath, startIndexOffset);
+      })
+      .catch(err => console.log(err));
+
+    } else if (pagePath === '~/clips') {
+
+      updateBatchUniquePageviewCount('mediaRefs', timeRange, idArray)
+      .then(() => {
+        queryForMoreIfMaxResultsReturned(data, timeRange, pagePath, startIndexOffset);
+      })
+      .catch(err => console.log(err));
+
+    } else {
+      console.log(`Invalid pagePath '${pagePath}' provided.`);
+      console.log('Valid pagePaths include: ~/podcasts, ~/episodes, ~/clips');
+    }
 
   })
-  .catch(err => {
-    console.log(err);
-  });
+  .catch(err => console.log(err));
 
+}
+
+function queryForMoreIfMaxResultsReturned(data, timeRange, pagePath, startIndexOffset) {
+  if (data.rows && data.rows.length === 10000) {
+    queryUniquePageviews(timeRange, pagePath, (parseInt(startIndexOffset) + 10000))
+  }
+}
+
+function updateBatchUniquePageviewCount (type, timeRange, rows) {
+
+  let rawQuery = '';
+
+  for (row of rows) {
+    rawQuery += `UPDATE "${type}" SET "${timeRange}"=${row[1]} WHERE id='${row[0]}';`;
+  }
+
+  return sqlEngine.query(rawQuery, {
+    type: sqlEngine.QueryTypes.SELECT
+  });
 }
 
 module.exports = {
