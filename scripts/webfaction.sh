@@ -6,7 +6,7 @@ LOG_PATH=${2-server.log}
 BASE_DIR=$(dirname "$(readlink -f "$0")")/..
 
 process_cmd="node ${BASE_DIR}/src/server.js"
-query_unique_pageviews="node ${BASE_DIR}/src/queryUniquePageviews($3, $4, 0).js"
+query_unique_pageviews="node ${BASE_DIR}/scripts/queryUniquePageviews.js '$3' $4"
 
 case $1 in
 
