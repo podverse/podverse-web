@@ -29,7 +29,7 @@ function routes () {
       where: isClipMediaRefWithTitle,
       offset: offset,
       order: [
-        [sqlEngine.fn('max', sqlEngine.col('pastWeekTotalUniquePageviews')), 'DESC']
+        [sqlEngine.fn('max', sqlEngine.col('pastMonthTotalUniquePageviews')), 'DESC']
       ],
       group: ['id']
     };

@@ -21,6 +21,11 @@ const isClipMediaRefWithTitle = {
     $not: {
       title: ''
     }
+  },
+  $and: {
+    $not: {
+      pastMonthTotalUniquePageviews: null
+    }
   }
 }
 
