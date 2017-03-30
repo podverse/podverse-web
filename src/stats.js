@@ -19,7 +19,7 @@ function queryUniquePageviews(pagePath, timeRange, startIndexOffset=0) {
   let startDateOffset; // in minutes
 
   if (pagePath != '~/podcasts' && pagePath != '~/episodes' && pagePath != '~/clips') {
-    console.log('A valid timeRange must be provided in the second parameter.');
+    console.log('A valid pagePath must be provided in the first parameter.');
     console.log('Valid options are: ~/podcasts, ~/episodes, ~/clips');
   }
 
