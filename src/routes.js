@@ -42,7 +42,7 @@ function routes () {
     return ClipService.find(params)
     .then(page => {
 
-      let total = page.total;
+      let total = page.total.length;
       let showNextButton = offset + 10 < total ? true : false;
       let clips = page.data;
 
