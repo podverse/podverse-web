@@ -11,15 +11,6 @@ const isClipMediaRefWithTitle = {
   $not: {
     startTime: 0,
     endTime: null,
-  },
-  $and: {
-    $not: {
-      $or: [
-        {title: null},
-        {title: ''},
-        {pastMonthTotalUniquePageviews: null}
-      ]
-    }
   }
 }
 

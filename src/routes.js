@@ -21,6 +21,10 @@ function routes () {
 
   app.get('/', getLoggedInUserInfo, function (req, res) {
 
+    // This will not return clips in your local dev environment. To load clips
+    // in your dev environment, uncomment the sqlEngine.col('title')) line below,
+    // and comment out the $and $not $or part in isClipMediaRefWithTitle.
+
     let pageIndex = req.query.page || 1;
     let offset = (pageIndex * 10) - 10;
     let params = {};
@@ -30,6 +34,7 @@ function routes () {
       offset: offset,
       order: [
         [sqlEngine.fn('max', sqlEngine.col('pastMonthTotalUniquePageviews')), 'DESC']
+        // [sqlEngine.fn('max', sqlEngine.col('title')), 'DESC']
       ],
       group: ['id']
     };
