@@ -195,7 +195,7 @@ function routes () {
       });
   })
 
-  // Podcast Detail Page
+  // Podcast Detail Page (Episodes)
   .get('/podcasts/:id', getLoggedInUserInfo, (req, res) => {
     let params = {};
 
@@ -219,6 +219,42 @@ function routes () {
             isSubscribed: isSubscribed,
             locals: res.locals
           });
+        });
+      }).catch(e => {
+        console.log(e);
+        res.sendStatus(404);
+      });
+  })
+
+  // Podcast Detail Page (Clips)
+  .get('/podcasts/clips/:id', getLoggedInUserInfo, (req, res) => {
+    let params = {};
+
+    return PodcastService.get(req.params.id, params)
+      .then(podcast => {
+        req.params.podcastFeedURL = podcast.feedURL;
+        return new Promise((resolve, reject) => {
+          isUserSubscribedToThisPodcast(resolve, reject, req);
+        })
+        .then((isSubscribed) => {
+
+          return ClipService.retrievePodcastsMostPopularClips(podcast.feedURL)
+          .then(clips => {
+            res.render('podcast/index.html', {
+              podcast: podcast,
+              currentPage: 'Podcast Detail Page',
+              isSubscribed: isSubscribed,
+              isClipsView: true,
+              locals: res.locals
+            });
+          })
+          .catch(err => {
+            console.log(req.params.id);
+            console.log(err);
+          });
+
+          // TODO: don't show clip if its episode
+
         });
       }).catch(e => {
         console.log(e);

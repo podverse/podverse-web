@@ -5,7 +5,7 @@ const
     config = require('config.js'),
     {locator} = require('locator.js'),
     {addURL} = require('hooks/clip/clip.js'),
-    {isClipMediaRef} = require('constants.js');
+    {isClipMediaRef, isClipMediaRefForPodcast} = require('constants.js');
 
 class ClipService extends SequelizeService {
 
@@ -124,6 +124,18 @@ class ClipService extends SequelizeService {
         }
 
       });
+  }
+
+  retrievePodcastsMostPopularClips (id, params={}) {
+    if (!params.sequelize) {
+      let clipQuery = isClipMediaRefForPodcast(id);
+
+      params.sequelize = {
+        where: clipQuery
+      };
+    }
+
+    return super.find(params);
   }
 
 }

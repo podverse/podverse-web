@@ -10,11 +10,16 @@
       <div id="podcast-title">
         {{ podcast.title | stripTags }}
       </div>
+      <div id="podcast-author">
+        {{ podcast.author | stripTags }}
+      </div>
       <div id="podcast-view-selector">
-        Episodes <i class="fa fa-angle-down"></i>
+        <a href="/podcasts/{{ podcast.id }}" >Episodes</a>
+        &nbsp;&nbsp;
+        <a href="/podcasts/clips/{{ podcast.id }}" class="active">Clips</a>
       </div>
       <div id="podcast-sort-by-selector">
-        most recent
+        most recent <i class="fa fa-angle-down"></i>
       </div>
     </div>
     <div style="clear:both"></div>

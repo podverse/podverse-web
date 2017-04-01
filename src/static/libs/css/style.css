@@ -1031,25 +1031,49 @@ footer p {
     white-space: nowrap;
 }
 
-#podcast-sub-title {
+#podcast-author {
     line-height: 1.5rem;
-    font-weight: 300;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-top: 2px;
+    font-size: 14px;
+    font-style: italic;
 }
+
+#podcast-ranks {
+    float: right;
+    line-height: 1.5rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-top: 2px;
+    font-size: 14px;
+    font-style: italic;
+}
+
 
 #podcast-view-selector {
     float: left;
-    line-height: 32px;
-    margin-top: 20px;
+    line-height: 1.5rem;
+    margin: 2px 0 0 0;
+    font-size: 14px;
     cursor: pointer;
-    height: 32px;
+}
+
+#podcast-view-selector a {
+    color: #373a3c;
+    text-decoration:none;
+}
+
+#podcast-view-selector a.active {
+    text-decoration:underline;
 }
 
 #podcast-sort-by-selector {
     float: right;
-    line-height: 32px;
-    margin-top: 20px;
+    line-height: 1.5rem;
     cursor: pointer;
-    height: 32px;
     color: #777;
     font-size: 14px;
 }
