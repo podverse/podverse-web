@@ -1586,3 +1586,8 @@ mejs-horizontal-volume-slider {
         padding: 0 .9375rem .5rem .9375rem;
     }
 }
+@media (max-width: 575px) {
+    .navbar-brand {
+        margin-left: .9375rem;
+    }
+}
