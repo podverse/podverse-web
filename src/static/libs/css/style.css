@@ -1036,6 +1036,25 @@ footer p {
     font-weight: 300;
 }
 
+#podcast-view-selector {
+    float: left;
+    line-height: 32px;
+    margin-top: 20px;
+    cursor: pointer;
+    height: 32px;
+}
+
+#podcast-sort-by-selector {
+    float: right;
+    line-height: 32px;
+    margin-top: 20px;
+    cursor: pointer;
+    height: 32px;
+    color: #777;
+    font-size: 14px;
+}
+
+
 #podcast-summary-truncated, #podcast-summary-full {
     padding-top: 122px;
     margin-bottom: 1rem;
