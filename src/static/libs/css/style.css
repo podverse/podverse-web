@@ -1506,7 +1506,7 @@ mejs-horizontal-volume-slider {
 
 
 /*** Responsive styles ***/
-@media (min-width: 544px) {
+@media (min-width: 576px) {
     .navbar {
         padding-right: 0.9375rem;
         padding-left: 0.9375rem;
