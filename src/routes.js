@@ -240,6 +240,7 @@ function routes () {
 
           return ClipService.retrievePodcastsMostPopularClips(podcast.feedURL)
           .then(clips => {
+            podcast.clips = clips;
             res.render('podcast/index.html', {
               podcast: podcast,
               currentPage: 'Podcast Detail Page',

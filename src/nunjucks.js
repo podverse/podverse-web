@@ -112,6 +112,22 @@ function nunjucksConfig () {
     return str;
   });
 
+  env.addFilter('truncString', function(str, limit) {
+    let isOverLimit = false;
+    if (str.length > limit) {
+      isOverLimit = true;
+    }
+
+    str = str.substring(0, parseInt(limit));
+    str = str.trim();
+
+    if (isOverLimit) {
+      str += '...';
+    }
+
+    return str;
+  });
+
   // TODO: This identify function is also in the scripts.js. Maybe this should
   // be refactored.
   env.addFilter('convertSecToHHMMSS', function(sec) {
@@ -156,6 +172,27 @@ function nunjucksConfig () {
     }
 
     return result
+  });
+
+  // Thanks Wilson Lee http://stackoverflow.com/a/37096512/2608858
+  env.addFilter('secondsToReadableDuration', function (sec) {
+    sec = Number(sec);
+    var h = Math.floor(sec / 3600);
+    var m = Math.floor(sec % 3600 / 60);
+    var s = Math.floor(sec % 3600 % 60);
+
+    var hDisplay = h > 0 ? h + "h " : "";
+    var mDisplay = m > 0 ? m + "m " : "";
+    var sDisplay = s > 0 ? s + "s" : "";
+
+    var fullDisplay = hDisplay + mDisplay + sDisplay;
+
+    // Thanks Jon http://stackoverflow.com/a/6253616/2608858
+    if (fullDisplay.substr(fullDisplay.length-1) === ' ') {
+      fullDisplay = fullDisplay.substr(0, fullDisplay.length-1);
+    }
+
+    return fullDisplay;
   });
 
 }

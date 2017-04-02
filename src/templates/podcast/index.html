@@ -6,7 +6,11 @@
 
 {% include "podcast/summary.html" %}
 
-{% include "podcast/episode-list.html" %}
+{% if isClipsView %}
+  {% include "podcast/clip-list.html" %}
+{% else %}
+  {% include "podcast/episode-list.html" %}
+{% endif %}
 
 {% endblock %}
 

@@ -14,12 +14,17 @@
         {{ podcast.author | stripTags }}
       </div>
       <div id="podcast-view-selector">
-        <a href="/podcasts/{{ podcast.id }}" >Episodes</a>
+        <a href="/podcasts/{{ podcast.id }}" {% if not isClipsView %}class="active"{% endif %}>Episodes</a>
         &nbsp;&nbsp;
-        <a href="/podcasts/clips/{{ podcast.id }}" class="active">Clips</a>
+        <a href="/podcasts/clips/{{ podcast.id }}" {% if isClipsView %}class="active"{% endif %}>Clips</a>
       </div>
       <div id="podcast-sort-by-selector">
-        most recent <i class="fa fa-angle-down"></i>
+        {% if isClipsView %}
+          popular - past month
+        {% else %}
+          most recent
+        {% endif %}
+        <!-- <i class="fa fa-angle-down"></i> -->
       </div>
     </div>
     <div style="clear:both"></div>

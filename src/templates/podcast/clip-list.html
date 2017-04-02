@@ -1,0 +1,29 @@
+<div id="podcast-clips-list">
+
+    {% for clip in podcast.clips|sort(true, false, 'episodePubDate') %}
+      <a class="podcast-clips-list-item" href="/clips/{{clip.id}}">
+        <div class="podcast-clips-list-item-title">{{clip.title | stripTags | decodeHTML | truncString(300) }}</div>
+
+        <div class="podcast-clips-list-item-episode-pubdate">
+          {{clip.episodePubDate | readableDate}}
+        </div>
+        <div class="podcast-clips-list-item-episode-title">
+          {{clip.episodeTitle | stripTags | decodeHTML}}
+        </div>
+
+        {% if clip.endTime > 0 %}
+          <div class="podcast-clips-list-item-duration">
+            {{ (clip.endTime - clip.startTime) | secondsToReadableDuration }}
+          </div>
+          <div class="podcast-clips-list-item-time">
+            Clip: {{ clip.startTime | convertSecToHHMMSS }} to {{ clip.endTime | convertSecToHHMMSS }}
+          </div>
+        {% else %}
+          <div class="podcast-clips-list-item-time">
+            Clip: {{ clip.startTime | convertSecToHHMMSS }} start time {{ clip.endTime }}
+          </div>
+        {% endif %}
+      </a>
+    {% endfor %}
+
+</div>

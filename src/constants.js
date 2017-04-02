@@ -14,7 +14,13 @@ const isClipMediaRefForPodcast = (feedURL) => {
       endTime: null
     },
     $and: {
-      podcastFeedURL: feedURL
+      podcastFeedURL: feedURL,
+      $not: {
+        $or: [
+          {title: null},
+          {title: ''}
+        ]
+      }
     }
   }
 }

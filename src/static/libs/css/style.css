@@ -1073,7 +1073,7 @@ footer p {
 #podcast-sort-by-selector {
     float: right;
     line-height: 1.5rem;
-    cursor: pointer;
+    /*cursor: pointer;*/
     color: #777;
     font-size: 14px;
 }
@@ -1089,7 +1089,7 @@ footer p {
     display: none;
 }
 
-.podcast-episodes-list-item {
+.podcast-episodes-list-item, .podcast-clips-list-item {
     display: block;
     padding: 15px;
     margin: 0 -15px;
@@ -1100,13 +1100,17 @@ footer p {
 
 
 .podcast-episodes-list-item:hover,
-.podcast-episodes-list-item:focus {
+.podcast-episodes-list-item:focus,
+.podcast-clips-list-item:hover,
+.podcast-clips-list-item:focus {
     text-decoration: none !important;
 }
 
 @media (min-width: 576px) {
     .podcast-episodes-list-item:hover,
-    .podcast-episodes-list-item:focus {
+    .podcast-episodes-list-item:focus,
+    .podcast-clips-list-item:hover,
+    .podcast-clips-list-item:focus {
         color: #111 !important;
         background-color: #eee !important;
     }
@@ -1126,7 +1130,6 @@ footer p {
 }
 
 .podcast-episodes-list-item-summary {
-    clear: both;
     font-size: 13px;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -1140,6 +1143,36 @@ footer p {
         -webkit-box-orient: vertical;
         white-space: normal;
     }
+}
+
+.podcast-clips-list-item-title {
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
+.podcast-clips-list-item-episode-pubdate {
+    clear: both;
+    float: right;
+    font-size: 13px;
+    margin-left: 15px;
+    margin-bottom: 5px;
+}
+
+.podcast-clips-list-item-episode-title {
+    font-size: 13px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-bottom: 5px;
+}
+
+.podcast-clips-list-item-duration {
+    float: right;
+    font-size: 13px;
+}
+
+.podcast-clips-list-item-time {
+    font-size: 13px;
 }
 
 
@@ -1569,9 +1602,6 @@ mejs-horizontal-volume-slider {
 @media (max-width: 543px) {
     .navbar-nav .nav-item {
         clear: both;
-    }
-    .navbar-brand {
-        margin-left: .9375rem;
     }
     .collapse {
         width: 100%;
