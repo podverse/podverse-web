@@ -7,7 +7,7 @@
         <div class="podcast-episodes-list-item-summary-pubdate">
           {{clip.episodePubDate | readableDate}}
         </div>
-        <div class="podcast-episodes-list-item-summary" style="-webkit-line-clamp: 1;">{{clip.episodeTitle | stripTags | decodeHTML}}</div>
+        <div class="podcast-episodes-list-item-summary">{{clip.episodeTitle | stripTags | decodeHTML}}</div>
       </a>
     {% endfor %}
 
