@@ -1124,7 +1124,6 @@ footer p {
 
 .podcast-episodes-list-item-title {
     overflow: hidden;
-    font-weight: 500;
     padding-right: 15px;
     margin-bottom: 5px;
 }
@@ -1146,7 +1145,6 @@ footer p {
 }
 
 .podcast-clips-list-item-title {
-    font-weight: 500;
     margin-bottom: 5px;
 }
 
