@@ -1,6 +1,7 @@
 const nunjucks = require('nunjucks'),
       stripTags = require('striptags'),
-      he = require('he');
+      he = require('he'),
+      _ = require('lodash');
 
 function nunjucksConfig () {
 
@@ -193,6 +194,30 @@ function nunjucksConfig () {
     }
 
     return fullDisplay;
+  });
+
+  env.addFilter('formatCategoriesString', function (categories) {
+
+    // Weird to use a reduce here, since the resulting array may have more items
+    // than the one we started with.
+    categories = _.reduce(categories, (acc, category) => {
+      if (category.indexOf('/') > -1) {
+        let stringArray = category.split('/');
+        for (str of stringArray) {
+          acc.push(str);
+        }
+      } else {
+        acc.push(category);
+      }
+      return acc;
+    }, []);
+
+    categories = _.uniq(categories);
+
+    let categoriesString = categories.join();
+    categoriesString = categoriesString.replace(/,/g, ', ');
+
+    return categoriesString;
   });
 
 }

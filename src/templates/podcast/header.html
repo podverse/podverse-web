@@ -11,7 +11,7 @@
         {{ podcast.title | stripTags }}
       </div>
       <div id="podcast-author">
-        {{ podcast.author | stripTags }}
+        {{ podcast.categories | formatCategoriesString | stripTags }}&nbsp;
       </div>
       <div id="podcast-view-selector">
         <a href="/podcasts/{{ podcast.id }}" {% if not isClipsView %}class="active"{% endif %}>Episodes</a>
