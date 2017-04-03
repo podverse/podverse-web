@@ -204,6 +204,20 @@ function nunjucksConfig () {
       if (category.indexOf('/') > -1) {
         let stringArray = category.split('/');
         for (str of stringArray) {
+          str = str.trim();
+          acc.push(str);
+        }
+      } else {
+        acc.push(category);
+      }
+      return acc;
+    }, []);
+
+    categories = _.reduce(categories, (acc, category) => {
+      if (category.indexOf('&') > -1) {
+        let stringArray = category.split('&');
+        for (str of stringArray) {
+          str = str.trim();
           acc.push(str);
         }
       } else {
