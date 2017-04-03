@@ -1,6 +1,6 @@
-{% if mediaRefs|isPlaylist %}
-  <div id="playlist">
-    <hr>
+<div id="playlist">
+  <hr>
+  {% if mediaRefs|isPlaylist %}
     {% if isSubscribed and not isOwner %}
       <div id="playlist-subscribe" title="Unsave playlist" tabindex="0"><i class="fa fa-star"></i></div>
     {% elif not isSubscribed and not isOwner %}
@@ -26,77 +26,77 @@
     {% for item in mediaRefs | reverse %}
       <div class="playlist-item" data-media-ref-id="{{item.id}}" tabindex="0">
         {% if item|isEpisode %}
-          <div class="playlist-item-inner">
-            <div class="playlist-item-image">
-              <img class="lazy" data-original="{{ item.podcastImageURL }}">
+          <div class="playlist-item-image">
+            <img class="lazy" data-original="{{ item.podcastImageURL }}">
+          </div>
+          <div class="playlist-item-text-wrapper">
+            <div class="playlist-item-remove-btn">
+              <small>remove</small> <i class="fa fa-times"></i>
             </div>
-            <div class="playlist-item-text-wrapper">
-              <div class="playlist-item-remove-btn">
-                <small>remove</small> <i class="fa fa-times"></i>
-              </div>
-              <div class="playlist-item-podcast-title">
-                {{ item.podcastTitle }}
-              </div>
-              <div class="playlist-item-sub-title">
-                {{ item.episodeTitle }}
-              </div>
-              <div class="playlist-item-time">
-                  Full Episode
-                  {% if item.episodeDuration %}
-                    – {{ item.episodeDuration | convertSecToHHMMSS }}
-                  {% endif %}
-              </div>
-              <div class="playlist-item-date">
-                {{ item.episodePubDate | readableDate }}
-              </div>
-            </div><!-- /.playlist-item-text-wrapper -->
-            {% if item.episodeSummary %}
-              <div class="playlist-item-details">
-                {{ item.episodeSummary | stripTags | truncate(255) }}
-              </div>
-            {% endif %}
-            <div style="clear:both"></div>
-          </div><!-- /.playlist-item-inner -->
+            <div class="playlist-item-podcast-title">
+              {{ item.podcastTitle }}
+            </div>
+            <div class="playlist-item-sub-title">
+              {{ item.episodeTitle }}
+            </div>
+            <div class="playlist-item-time">
+                Full Episode
+            </div>
+            <div class="playlist-item-date">
+              {{ item.episodePubDate | readableDate }}
+            </div>
+          </div><!-- /.playlist-item-text-wrapper -->
+          {% if item.episodeSummary %}
+            <div class="playlist-item-details">
+              {{ item.episodeSummary | stripTags | truncate(255) }}
+            </div>
+          {% endif %}
+          <div style="clear:both"></div>
         {% else %} <!-- else treat it as a clip -->
-          <div class="playlist-item-inner">
-            <div class="playlist-item-image">
-              <img class="lazy" data-original="{{ item.podcastImageURL }}">
+          <div class="playlist-item-image">
+            <img class="lazy" data-original="{{ item.podcastImageURL }}">
+          </div>
+          <div class="playlist-item-text-wrapper">
+            <div class="playlist-item-remove-btn">
+              <small>remove</small> <i class="fa fa-times"></i>
             </div>
-            <div class="playlist-item-text-wrapper">
-              <div class="playlist-item-remove-btn">
-                <small>remove</small> <i class="fa fa-times"></i>
-              </div>
-              <div class="playlist-item-podcast-title">
-                {{ item.podcastTitle }}
-              </div>
-              <div class="playlist-item-sub-title">
-                {{ item.episodeTitle }}
-              </div>
-              <div class="playlist-item-time">
-                Clip:
-                {{ item.startTime | convertSecToHHMMSS }}
-                {% if item.endTime %}
-                  to {{ item.endTime | convertSecToHHMMSS }}
-                {% else %}
-                  start time
-                {% endif %}
-              </div>
-              <div class="playlist-item-date">
-                {{ item.episodePubDate | readableDate }}
-              </div>
-            </div><!-- /.playlist-item-text-wrapper -->
-            {% if item.title %}
-              <div class="playlist-item-details">
-                {{ item.title | stripTags | truncate(255) }}
-              </div>
-            {% endif %}
-            <div style="clear:both"></div>
-          </div><!-- /.playlist-item-inner -->
+            <div class="playlist-item-podcast-title">
+              {{ item.podcastTitle }}
+            </div>
+            <div class="playlist-item-sub-title">
+              {{ item.episodeTitle }}
+            </div>
+            <div class="playlist-item-time">
+              Clip:
+              {{ item.startTime | convertSecToHHMMSS }}
+              {% if item.endTime %}
+                to {{ item.endTime | convertSecToHHMMSS }}
+              {% else %}
+                start time
+              {% endif %}
+            </div>
+            <div class="playlist-item-date">
+              {{ item.episodePubDate | readableDate }}
+            </div>
+          </div><!-- /.playlist-item-text-wrapper -->
+          {% if item.title %}
+            <div class="playlist-item-details">
+              {{ item.title | stripTags | truncate(255) }}
+            </div>
+          {% endif %}
+          <div style="clear:both"></div>
         {% endif %}
       </div><!-- /.playlist-item -->
     {% endfor %}
-  </div><!-- /#playlist -->
-{% endif %}
+  {% else %}
+    <div id="playlist-title">
+      Clips from this <span id="playlist-type-selector">podcast <i class="fa fa-angle-down"></i></span>
+    </div>
+    <div id="playlist-sort-selector">
+      top - past month <i class="fa fa-angle-down"></i>
+    </div>
+  {% endif %}
+</div><!-- /#playlist -->
 
 <script>
 // TODO: this is weird to have here

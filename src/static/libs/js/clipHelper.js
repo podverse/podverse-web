@@ -238,3 +238,30 @@ export function makeClip (event) {
   }, 3000);
 
 }
+
+export function requestClipsFromAPI(resolve, reject, params) {
+  let data = { podcastFeedURL: params.podcastFeedURL };
+
+  if (params.episodeMediaURL) {
+    data.episodeMediaURL = params.episodeMediaURL;
+  }
+
+  if (params.timeRange) {
+    data[timeRange] = null;
+  }
+
+  $.ajax({
+    type: 'POST',
+    url: '/api/clips',
+    headers: {
+      Authorization: $.cookie('idToken')
+    },
+    data: data,
+    success: function (result) {
+      resolve(result);
+    },
+    error: function (xhr, status, error) {
+      reject(error);
+    }
+  });
+}

@@ -1,7 +1,7 @@
 const
     errors = require('feathers-errors'),
     {locator} = require('locator.js'),
-    {isClipMediaRefWithTitle} = require('constants.js'),
+    {isClipMediaRefWithTitle, isValidPageViewTimeRange} = require('constants.js'),
     {getLoggedInUserInfo} = require('middleware/auth/getLoggedInUserInfo.js'),
     {queryGoogleApiData} = require('services/googleapi/googleapi.js'),
     {isNonAnonUser} = require('util.js'),
@@ -232,13 +232,12 @@ function routes () {
 
     return PodcastService.get(req.params.id, params)
       .then(podcast => {
-        req.params.podcastFeedURL = podcast.feedURL;
+        params.podcastFeedURL = podcast.feedURL;
         return new Promise((resolve, reject) => {
           isUserSubscribedToThisPodcast(resolve, reject, req);
         })
         .then((isSubscribed) => {
-
-          return ClipService.retrievePodcastsMostPopularClips(podcast.feedURL)
+          return ClipService.retrievePodcastsMostPopularClips(params)
           .then(clips => {
             podcast.clips = clips;
             res.render('podcast/index.html', {
@@ -261,6 +260,33 @@ function routes () {
         console.log(e);
         res.sendStatus(404);
       });
+  })
+
+  // Retrieve the most popular clips
+  .post('/api/clips', getLoggedInUserInfo, (req, res) => {
+    let params = {};
+
+    if (req.body.timeRange && !isValidPageViewTimeRange(req.body.timeRange)) {
+      let message = `
+        Invalid timeRange provided. ${req.body.timeRange} is not a valid timeRange.
+        Valid options are: pastHourTotalUniquePageviews, pastDayTotalUniquePageviews, pastWeekTotalUniquePageviews, pastMonthTotalUniquePageviews, pastYearTotalUniquePageviews, allTimeTotalUniquePageviews, or no value.
+      `;
+      res.send(message, 400);
+      return;
+    }
+
+    params.podcastFeedURL = req.body.podcastFeedURL;
+    params.episodeMediaURL = req.body.episodeMediaURL;
+    params.timeRange = req.body.timeRange;
+
+    return ClipService.retrievePodcastsMostPopularClips(params)
+    .then(clips => {
+      res.send(clips);
+    })
+    .catch(e => {
+      console.log(e);
+      res.sendStatus(404);
+    });
   })
 
   .use('podcasts', locator.get('PodcastService'))

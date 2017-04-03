@@ -718,10 +718,6 @@ footer p {
 
 /*** player-list.html styles ***/
 
-#playlist {
-    display: none;
-}
-
 #playlist-title {
     font-size: 1.25rem;
     font-weight: 600;
@@ -1076,6 +1072,7 @@ footer p {
     /*cursor: pointer;*/
     color: #777;
     font-size: 14px;
+    margin: 2px 0 0 0;
 }
 
 

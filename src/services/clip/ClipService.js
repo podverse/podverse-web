@@ -126,14 +126,12 @@ class ClipService extends SequelizeService {
       });
   }
 
-  retrievePodcastsMostPopularClips (id, params={}) {
-    if (!params.sequelize) {
-      let clipQuery = isClipMediaRefForPodcast(id);
+  retrievePodcastsMostPopularClips (params={}) {
+    let clipQuery = isClipMediaRefForPodcast(params);
 
-      params.sequelize = {
-        where: clipQuery
-      };
-    }
+    params.sequelize = {
+      where: clipQuery
+    };
 
     return super.find(params);
   }

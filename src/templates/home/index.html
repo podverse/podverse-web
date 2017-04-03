@@ -13,41 +13,39 @@
     <div id="home-list">
       {% for clip in clips %}
         <a class="playlist-item" href="/clips/{{clip.id}}">
-          <div class="playlist-item-inner">
-            <div class="playlist-item-image">
-              <img src="{{ clip.podcastImageURL }}">
+          <div class="playlist-item-image">
+            <img src="{{ clip.podcastImageURL }}">
+          </div>
+          <div class="playlist-item-text-wrapper">
+            <div class="playlist-item-podcast-title">
+              {{ clip.podcastTitle }}
             </div>
-            <div class="playlist-item-text-wrapper">
-              <div class="playlist-item-podcast-title">
-                {{ clip.podcastTitle }}
-              </div>
-              <div class="playlist-item-sub-title">
-                {{ clip.episodeTitle }}
-              </div>
-              <div class="playlist-item-time">
-                Clip:
-                {{ clip.startTime | convertSecToHHMMSS }}
-                {% if clip.endTime %}
-                  to {{ clip.endTime | convertSecToHHMMSS }}
-                {% else %}
-                  start time
-                {% endif %}
-              </div>
-              <div class="playlist-item-date">
-                <!-- TODO: clips seem to be randomly saving pubDates. Does PostgreSQL
-                           need some kind of special time zone handling or something?
-                           It seems like the pubDates of clips are getting incrementally
-                           bigger by 6 hours... -->
-                {{ clip.episodePubDate | readableDate }}
-                <!-- {{ clip.episodePubDate | readableDate }} -->
-              </div>
+            <div class="playlist-item-sub-title">
+              {{ clip.episodeTitle }}
             </div>
-            {% if clip.title %}
-              <div class="playlist-item-details">
-                {{ clip.title | truncate(275) }}
-              </div>
-            {% endif %}
-          </div><!-- /.playlist-item-inner -->
+            <div class="playlist-item-time">
+              Clip:
+              {{ clip.startTime | convertSecToHHMMSS }}
+              {% if clip.endTime %}
+                to {{ clip.endTime | convertSecToHHMMSS }}
+              {% else %}
+                start time
+              {% endif %}
+            </div>
+            <div class="playlist-item-date">
+              <!-- TODO: clips seem to be randomly saving pubDates. Does PostgreSQL
+                         need some kind of special time zone handling or something?
+                         It seems like the pubDates of clips are getting incrementally
+                         bigger by 6 hours... -->
+              {{ clip.episodePubDate | readableDate }}
+              <!-- {{ clip.episodePubDate | readableDate }} -->
+            </div>
+          </div>
+          {% if clip.title %}
+            <div class="playlist-item-details">
+              {{ clip.title | truncate(275) }}
+            </div>
+          {% endif %}
         </a><!-- /.playlist-item -->
       {% endfor %}
       <div class="pv-pagination">

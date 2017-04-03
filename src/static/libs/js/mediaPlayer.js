@@ -1,6 +1,7 @@
 import { calcDuration, convertSecToHHMMSS, debounce, isNonAnonLoggedInUser,
          readableDate } from './utility.js';
 import { subscribeToPodcast, unsubscribeFromPodcast } from './podcastHelper.js';
+import { requestClipsFromAPI } from './clipHelper.js';
 import { sendGoogleAnalyticsPlayerPageView,
          sendGoogleAnalyticsEvent } from './googleAnalytics.js';
 import { isMobileOrTablet } from './browserSupportDetection.js';
@@ -23,6 +24,48 @@ if (isEmptyPlaylist !== true) {
   var isEmptyPlaylistEl = '<div id="empty-playlist-message">This playlist has no episodes or clips added to it.</div>';
   $(isEmptyPlaylistEl).insertAfter('#player');
 }
+
+if (!isPlaylist) {
+  let params = {};
+  params.podcastFeedURL = window.podcastFeedURL;
+  // params.timeRange = 'pastMonthTotalUniquePageviews';
+  new Promise((resolve, reject) => {
+    requestClipsFromAPI(resolve, reject, params);
+  })
+  .then(clips => {
+    loadClipsAsPlaylistItems(clips);
+  })
+  .catch(err => console.log(err));
+}
+
+function loadClipsAsPlaylistItems (clips) {
+  let html  = '';
+
+  for (let clip of clips) {
+    html += '<div class="playlist-item-podcast-title">';
+    html +=   clip.title;
+    html += '</div>';
+    html += '<div class="playlist-item-sub-title">'
+    html +=   clip.episodeTitle;
+    html += '</div>';
+    html += '<div class="playlist-item-time">';
+    html +=   'Clip:';
+    html +=   convertSecToHHMMSS(clip.startTime);
+    if (clip.endTime) {
+      html += ' to ' + convertSecToHHMMSS(clip.startTime);
+    } else {
+      html += ' start time'
+    }
+    html += '</div>';
+    html += '<div class="playlist-item-duration">';
+    html +=   '5m 39s:';
+    html += '</div>';
+  }
+
+  $('#playlist').append(html);
+}
+
+
 
 // Podcast / Episode / Clip variables added to the window
 // object in player.html
@@ -187,8 +230,6 @@ function setPlayerInfo () {
 
   $('#player-description-truncated').show();
   $('#player-description-full').hide();
-
-  $('#playlist').show();
 
   window.restartAttempts = 0;
   window.lastPlaybackPosition = -1;
