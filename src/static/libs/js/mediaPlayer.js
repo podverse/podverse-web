@@ -66,7 +66,7 @@ function loadClipsAsPlaylistItems (clips) {
       html +=     secondsToReadableDuration(clip.endTime - clip.startTime);
       html +=   '</div>';
     }
-    
+
     html +=   '<div class="clearfix"></div>';
     html += '</div>';
   }
@@ -568,7 +568,7 @@ setTimeout(function () {
       }
     }
   });
-}, 0);
+}, 100);
 
 function onScrollCondensePlayerView () {
 
