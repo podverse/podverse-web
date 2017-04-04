@@ -562,9 +562,8 @@ function onScrollCondensePlayerView () {
   var bottomOfPlayer = topOfPlayer + heightOfPlayer;
 
   var topOfPlayerContainer = $('#player-container').offset().top;
-  // -145 to prevent screen from jumping when switching to a condensed view
   // HACK: we shouldn't need something like this, remove after refactoring player /  condensed player
-  var heightOfPlayerContainer = $('#player-container').outerHeight() - 145;
+  var heightOfPlayerContainer = $('#player-container').outerHeight() - 162;
   var bottomOfPlayerContainer = topOfPlayerContainer + heightOfPlayerContainer;
 
   let condenseOnScroll = debounce(function () {
