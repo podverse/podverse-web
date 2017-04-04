@@ -1126,12 +1126,12 @@ footer p {
 .podcast-episodes-list-item-pubdate {
     text-align: right;
     float: right;
-    width: 115px;
+    margin-left: 20px;
+    font-size: 14px;
+    line-height: 22px;
 }
 
 .podcast-episodes-list-item-title {
-    overflow: hidden;
-    padding-right: 15px;
     margin-bottom: 5px;
 }
 
