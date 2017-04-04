@@ -568,7 +568,7 @@ setTimeout(function () {
       }
     }
   });
-}, 100);
+}, 1000);
 
 function onScrollCondensePlayerView () {
 
