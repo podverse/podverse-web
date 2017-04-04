@@ -63,6 +63,7 @@
   window.isEmptyPlaylist = false;
   window.isPlaylist = false;
   window.previousEpisodeMediaURL = null;
+  window.nowPlayingPlaylistItemIndex = 0;
 
   // If a mediaRefs object exists, then set window variables for the playlist page
   {% if mediaRefs|isPlaylist %}
@@ -73,7 +74,6 @@
       window.mediaRefs = {{ mediaRefs|stringify|safe }};
 
       var item = mediaRefs[mediaRefs.length - 1];
-      window.nowPlayingPlaylistItemIndex = 0;
 
       setPlaylistItemPropsOnWindow(item);
     {% else %}

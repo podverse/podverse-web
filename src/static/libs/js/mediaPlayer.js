@@ -1,5 +1,5 @@
 import { calcDuration, convertSecToHHMMSS, debounce, isNonAnonLoggedInUser,
-         readableDate } from './utility.js';
+         readableDate, secondsToReadableDuration } from './utility.js';
 import { subscribeToPodcast, unsubscribeFromPodcast } from './podcastHelper.js';
 import { requestClipsFromAPI } from './clipHelper.js';
 import { sendGoogleAnalyticsPlayerPageView,
@@ -42,25 +42,37 @@ function loadClipsAsPlaylistItems (clips) {
   let html  = '';
 
   for (let clip of clips) {
-    html += '<div class="playlist-item-podcast-title">';
-    html +=   clip.title;
-    html += '</div>';
-    html += '<div class="playlist-item-sub-title">'
-    html +=   clip.episodeTitle;
-    html += '</div>';
-    html += '<div class="playlist-item-time">';
-    html +=   'Clip:';
-    html +=   convertSecToHHMMSS(clip.startTime);
+    let clipDuration = calcDuration(clip.startTime, clip.endTime);
+
+    html += `<div class="playlist-item" data-media-ref-id="${clip.id}" tabindex="0">`;
+    html +=   '<div class="playlist-item-podcast-title">';
+    html +=     clip.title;
+    html +=   '</div>';
+    html +=   '<div class="playlist-item-sub-title">'
+    html +=     clip.episodeTitle;
+    html +=   '</div>';
+    html +=   '<div class="playlist-item-time">';
+    html +=     'Clip:';
+    html +=     convertSecToHHMMSS(clip.startTime);
     if (clip.endTime) {
-      html += ' to ' + convertSecToHHMMSS(clip.startTime);
+      html +=   ' to ' + convertSecToHHMMSS(clip.startTime);
     } else {
-      html += ' start time'
+      html +=   ' start time'
     }
-    html += '</div>';
-    html += '<div class="playlist-item-duration">';
-    html +=   '5m 39s:';
+    html +=   '</div>';
+
+    if (clip.startTime && clip.endTime) {
+      html +=   '<div class="playlist-item-duration">';
+      html +=     secondsToReadableDuration(clip.endTime - clip.startTime);
+      html +=   '</div>';
+    }
+    
+    html +=   '<div class="clearfix"></div>';
     html += '</div>';
   }
+
+  // the window.mediaRefs object is needed in the .playlist-item click event
+  window.mediaRefs = clips.reverse();
 
   $('#playlist').append(html);
 }
@@ -230,6 +242,7 @@ function setPlayerInfo () {
 
   $('#player-description-truncated').show();
   $('#player-description-full').hide();
+  $('#playlist').show();
 
   window.restartAttempts = 0;
   window.lastPlaybackPosition = -1;
@@ -541,19 +554,21 @@ $('#player-stats-duration').on('click', function () {
   restart();
 });
 
-$('.playlist-item').on('keypress click', function(e) {
-  if (e.which === 13 || e.type === 'click') {
-    if (isPlayerPage) {
-      if (!$(this).hasClass("edit-view")) {
-        var index = $(".playlist-item").index(this);
-        index = mediaRefs.length - index - 1;
-        nowPlayingPlaylistItemIndex = index;
-        loadPlaylistItem(index);
-        sendGoogleAnalyticsEvent('Media Player', 'Playlist Item Clicked');
+setTimeout(function () {
+  $('.playlist-item').on('keypress click', function(e) {
+    if (e.which === 13 || e.type === 'click') {
+      if (isPlayerPage) {
+        if (!$(this).hasClass("edit-view")) {
+          var index = $(".playlist-item").index(this);
+          index = mediaRefs.length - index - 1;
+          nowPlayingPlaylistItemIndex = index;
+          loadPlaylistItem(index);
+          sendGoogleAnalyticsEvent('Media Player', 'Playlist Item Clicked');
+        }
       }
     }
-  }
-});
+  });
+}, 0);
 
 function onScrollCondensePlayerView () {
 
@@ -562,13 +577,14 @@ function onScrollCondensePlayerView () {
   var bottomOfPlayer = topOfPlayer + heightOfPlayer;
 
   var topOfPlayerContainer = $('#player-container').offset().top;
+  // -145, -17 to prevent screen from jumping when switching to a condensed view
   // HACK: we shouldn't need something like this, remove after refactoring player /  condensed player
-  var heightOfPlayerContainer = $('#player-container').outerHeight() - 162;
+  var heightOfPlayerContainer = $('#player-container').outerHeight() - 145;
   var bottomOfPlayerContainer = topOfPlayerContainer + heightOfPlayerContainer;
 
   let condenseOnScroll = debounce(function () {
     if($(window).scrollTop() > (bottomOfPlayer)){
-     $('html').attr('style', 'padding-top: ' + bottomOfPlayerContainer + 'px;' );
+     $('html').attr('style', 'padding-top: ' + (bottomOfPlayerContainer - 17) + 'px;' );
 
      $('#player-container').addClass('condensed');
 

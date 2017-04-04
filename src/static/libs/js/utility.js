@@ -1,3 +1,7 @@
+// TODO: This code is often duplicated in nunjucks.js. I tried loading this
+// in the src/nunjucks.js file, but it says "unexpected token export". I'm doing
+// something wrong with the babel es2015 or something...
+
 export function calcDuration (startTime, endTime) {
   if (endTime > startTime) {
     return endTime - startTime;
@@ -129,6 +133,26 @@ export function convertHHMMSSToSeconds (hhmmssString) {
 
   return hours + minutes + seconds;
 
+}
+
+export function secondsToReadableDuration (sec) {
+  sec = Number(sec);
+  var h = Math.floor(sec / 3600);
+  var m = Math.floor(sec % 3600 / 60);
+  var s = Math.floor(sec % 3600 % 60);
+
+  var hDisplay = h > 0 ? h + "h " : "";
+  var mDisplay = m > 0 ? m + "m " : "";
+  var sDisplay = s > 0 ? s + "s" : "";
+
+  var fullDisplay = hDisplay + mDisplay + sDisplay;
+
+  // Thanks Jon http://stackoverflow.com/a/6253616/2608858
+  if (fullDisplay.substr(fullDisplay.length-1) === ' ') {
+    fullDisplay = fullDisplay.substr(0, fullDisplay.length-1);
+  }
+
+  return fullDisplay;
 }
 
 export function isHHMMSS (val) {

@@ -718,6 +718,10 @@ footer p {
 
 /*** player-list.html styles ***/
 
+#playlist {
+    display: none;
+}
+
 #playlist-title {
     font-size: 1.25rem;
     font-weight: 600;
@@ -804,16 +808,22 @@ footer p {
     overflow: hidden;
 }
 
+.playlist-item-date {
+    float: right;
+    font-size: 12px;
+    margin: 2px 0 0 10px;
+}
+
 .playlist-item-time {
     font-size: 12px;
     margin-top: 2px;
     float: left;
 }
 
-.playlist-item-date {
-    float: right;
+.playlist-item-duration {
     font-size: 12px;
-    margin: 2px 0 0 10px;
+    margin-top: 2px;
+    float: right;
 }
 
 .playlist-item-details {
