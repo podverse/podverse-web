@@ -83,6 +83,8 @@ function loadClipsAsPlaylistItems (clips) {
 // object in player.html
 
 window.loadPlaylistItem = (index) => {
+  $('#player-error-message').hide();
+
   var item = mediaRefs[index];
 
   window.setPlaylistItemPropsOnWindow(item);
