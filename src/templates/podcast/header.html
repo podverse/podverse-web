@@ -19,13 +19,31 @@
         <a href="/podcasts/clips/{{ podcast.id }}" {% if isClipsView %}class="active"{% endif %}>Clips</a>
       </div>
       <div id="podcast-sort-by-selector">
-        {% if isClipsView %}
-          popular - past month
-        {% else %}
-          most recent
-        {% endif %}
+
         <!-- <i class="fa fa-angle-down"></i> -->
       </div>
+
+      <div class="sort-by-dropdown dropdown">
+
+        {% if isClipsView %}
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            most pageviews - past month <i class="fa fa-angle-down"></i>
+          </button>
+        {% else %}
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            most recent <i class="fa fa-angle-down"></i>
+          </button>
+        {% endif %}
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item" href="#">most pageviews - past day</a>
+          <a class="dropdown-item" href="#">most pageviews - past week</a>
+          <a class="dropdown-item" href="#">most pageviews - past month</a>
+          <a class="dropdown-item" href="#">most pageviews - past year</a>
+          <a class="dropdown-item" href="#">most pageviews - all time</a>
+          <a class="dropdown-item" href="#">most recent</a>
+        </div>
+      </div>
+
     </div>
     <div style="clear:both"></div>
   </div>

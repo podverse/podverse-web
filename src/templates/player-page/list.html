@@ -92,8 +92,19 @@
     <div id="playlist-title">
       Clips from this <span id="playlist-type-selector">podcast <i class="fa fa-angle-down"></i></span>
     </div>
-    <div id="playlist-sort-selector">
-      top - past month <i class="fa fa-angle-down"></i>
+
+    <div class="sort-by-dropdown dropdown">
+      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        most pageviews - past month <i class="fa fa-angle-down"></i>
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <a class="dropdown-item" href="#">most pageviews - past day</a>
+        <a class="dropdown-item" href="#">most pageviews - past week</a>
+        <a class="dropdown-item" href="#">most pageviews - past month</a>
+        <a class="dropdown-item" href="#">most pageviews - past year</a>
+        <a class="dropdown-item" href="#">most pageviews - all time</a>
+        <a class="dropdown-item" href="#">most recent</a>
+      </div>
     </div>
   {% endif %}
 </div><!-- /#playlist -->

@@ -19,7 +19,7 @@ br + br {
 }
 
 h1 {
-    margin: 1.25rem 0 1rem 0;
+    margin: 1.25rem 0 0 0;
     font-size: 1.75rem;
 }
 
@@ -79,13 +79,6 @@ audio {
     white-space: nowrap;
 }
 
-
-.sub-header-dropdown {
-    margin-top: -0.75rem;
-    margin-bottom: 0.75rem;
-    font-size: 14px;
-    color: #777;
-}
 
 
 /*** layout.html styles ***/
@@ -1005,6 +998,15 @@ footer p {
     padding: 0 15px;
 }
 
+#podcast-header .sort-by-dropdown {
+    float: right;
+}
+
+#podcast-header .dropdown-menu {
+    left: auto;
+    right: 0;
+}
+
 #podcast-image {
     float: left;
     margin: 0 0.75rem 0 0;
@@ -1013,10 +1015,6 @@ footer p {
 #podcast-image img {
     width: 4.75rem;
     height: 4.75rem;
-}
-
-#podcast-text-container {
-    overflow: hidden;
 }
 
 #podcast-subscribe {
@@ -1266,6 +1264,10 @@ footer p {
 
 #myPlaylistsDropdown a {
   cursor: pointer;
+}
+
+#myPlaylistsDropdown .dropdown-toggle::after {
+    display: inline-block;
 }
 
 .playlist-list-item {
@@ -1577,6 +1579,25 @@ body.modal-open {
 #navbar-btn .dropdown-toggle {
     -webkit-appearance: none !important;
 }
+
+.sort-by-dropdown button {
+    font-size: 14px;
+    color: #777 !important;
+    background: transparent;
+    border: none;
+    padding: 0;
+    width: auto;
+}
+
+.dropdown-toggle::after {
+    display: none;
+}
+
+.dropdown-item {
+    font-size: 14px;
+}
+
+
 
 /*** MediaElement.js overrides ***/
 

@@ -4,11 +4,19 @@
 <div class="row">
   <div class="col-xs-12">
     <h1>Podcast Clips</h1>
-    <!-- <div>Most Popular Today</div> -->
-    <div class="sub-header-dropdown">most listened - past month<!--<i class="fa fa-caret-down"></i>--></div>
-    <!-- <div>Most Popular This Month</div>
-    <div>Most Popular This Year</div>
-    <div>Most Popular All Time</div> -->
+    <div class="sort-by-dropdown dropdown">
+      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        most pageviews - past month <i class="fa fa-angle-down"></i>
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <a class="dropdown-item" href="#">most pageviews - past day</a>
+        <a class="dropdown-item" href="#">most pageviews - past week</a>
+        <a class="dropdown-item" href="#">most pageviews - past month</a>
+        <a class="dropdown-item" href="#">most pageviews - past year</a>
+        <a class="dropdown-item" href="#">most pageviews - all time</a>
+      </div>
+    </div>
+
     <!-- NOTE: the home-list reuses the HTML / CSS of the #playlist in the player.html. The designs may diverge someday, but for now CSS changes to these elements will also change the #playlist's items. -->
     <div id="home-list">
       {% for clip in clips %}
