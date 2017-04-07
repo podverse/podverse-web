@@ -1,7 +1,8 @@
 const
     errors = require('feathers-errors'),
     {locator} = require('locator.js'),
-    {isClipMediaRefWithTitle, isValidPageViewTimeRange} = require('constants.js'),
+    {isClipMediaRefWithTitle, isValidPageViewTimeRange,
+     allowedFilters, checkIfFilterIsAllowed } = require('constants.js'),
     {getLoggedInUserInfo} = require('middleware/auth/getLoggedInUserInfo.js'),
     {queryGoogleApiData} = require('services/googleapi/googleapi.js'),
     {isNonAnonUser} = require('util.js'),
@@ -29,12 +30,20 @@ function routes () {
     let offset = (pageIndex * 10) - 10;
     let params = {};
 
+    let filterType = req.query.sort || 'pastMonth';
+    if (process.env.NODE_ENV != 'production') { filterType = 'recent'; }
+    let isAllowed = checkIfFilterIsAllowed(filterType);
+
+    if (!isAllowed) {
+      res.send(`Unrecognized filter "${filterType}" provided. Allowed filter types are: pastHour, pastDay, pastMonth, pastYear, allTime, or recent.`, 404);
+      return;
+    }
+
     params.sequelize = {
       where: isClipMediaRefWithTitle,
       offset: offset,
       order: [
-        [sqlEngine.fn('max', sqlEngine.col('pastMonthTotalUniquePageviews')), 'DESC']
-        // [sqlEngine.fn('max', sqlEngine.col('title')), 'DESC']
+        [sqlEngine.fn('max', sqlEngine.col(allowedFilters[filterType].query)), 'DESC']
       ],
       group: ['id']
     };
@@ -54,6 +63,7 @@ function routes () {
       // TODO: handle 404 if beyond range of page object
       res.render('home/index.html', {
         clips: clips,
+        dropdownText: allowedFilters[filterType].dropdownText,
         pageIndex: pageIndex,
         showNextButton: showNextButton,
         currentPage: 'Home Page',
