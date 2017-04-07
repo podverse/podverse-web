@@ -24,18 +24,24 @@
       </div>
 
       <div class="sort-by-dropdown dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          {{ dropdownText }} <i class="fa fa-angle-down"></i>
-        </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <a class="dropdown-item" href="#">top - past hour</a>
-          <a class="dropdown-item" href="#">top - past day</a>
-          <a class="dropdown-item" href="#">top - past week</a>
-          <a class="dropdown-item" href="#">top - past month</a>
-          <a class="dropdown-item" href="#">top - past year</a>
-          <a class="dropdown-item" href="#">top - all time</a>
-          <a class="dropdown-item" href="#">most recent</a>
-        </div>
+        {% if not isClipsView %}
+          <div class="btn episodes-sort-by">
+            most recent
+          </div>
+        {% else %}
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {{ dropdownText }} <i class="fa fa-angle-down"></i>
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="#">top - past hour</a>
+            <a class="dropdown-item" href="#">top - past day</a>
+            <a class="dropdown-item" href="#">top - past week</a>
+            <a class="dropdown-item" href="#">top - past month</a>
+            <a class="dropdown-item" href="#">top - past year</a>
+            <a class="dropdown-item" href="#">top - all time</a>
+            <a class="dropdown-item" href="#">most recent</a>
+          </div>
+        {% endif %}
       </div>
 
     </div>

@@ -1581,13 +1581,17 @@ body.modal-open {
     -webkit-appearance: none !important;
 }
 
-.sort-by-dropdown button {
+.sort-by-dropdown .btn {
     font-size: 14px;
     color: #777 !important;
     background: transparent;
     border: none;
     padding: 0;
     width: auto;
+}
+
+.sort-by-dropdown .episodes-sort-by {
+    cursor: default;
 }
 
 .dropdown-toggle::after {
