@@ -33,13 +33,13 @@
             {{ dropdownText }} <i class="fa fa-angle-down"></i>
           </button>
           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <a class="dropdown-item" href="#">top - past hour</a>
-            <a class="dropdown-item" href="#">top - past day</a>
-            <a class="dropdown-item" href="#">top - past week</a>
-            <a class="dropdown-item" href="#">top - past month</a>
-            <a class="dropdown-item" href="#">top - past year</a>
-            <a class="dropdown-item" href="#">top - all time</a>
-            <a class="dropdown-item" href="#">most recent</a>
+            <a class="dropdown-item" href="/podcasts/clips/{{podcast.id}}?sort=pastHour">top - past hour</a>
+            <a class="dropdown-item" href="/podcasts/clips/{{podcast.id}}?sort=pastDay">top - past day</a>
+            <a class="dropdown-item" href="/podcasts/clips/{{podcast.id}}?sort=pastWeek">top - past week</a>
+            <a class="dropdown-item" href="/podcasts/clips/{{podcast.id}}?sort=pastMonth">top - past month</a>
+            <a class="dropdown-item" href="/podcasts/clips/{{podcast.id}}?sort=pastYear">top - past year</a>
+            <a class="dropdown-item" href="/podcasts/clips/{{podcast.id}}?sort=allTime">top - all time</a>
+            <a class="dropdown-item" href="/podcasts/clips/{{podcast.id}}?sort=recent">most recent</a>
           </div>
         {% endif %}
       </div>

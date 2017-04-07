@@ -5,7 +5,8 @@ const
     config = require('config.js'),
     {locator} = require('locator.js'),
     {addURL} = require('hooks/clip/clip.js'),
-    {isClipMediaRef, isClipMediaRefForPodcast} = require('constants.js');
+    {isClipMediaRef, isClipMediaRefForPodcast} = require('constants.js'),
+    sqlEngine = locator.get('sqlEngine');
 
 class ClipService extends SequelizeService {
 
@@ -130,7 +131,11 @@ class ClipService extends SequelizeService {
     let clipQuery = isClipMediaRefForPodcast(params);
 
     params.sequelize = {
-      where: clipQuery
+      where: clipQuery,
+      order: [
+        [sqlEngine.fn('max', sqlEngine.col(params.filterTypeQuery)), 'DESC']
+      ],
+      group: ['id']
     };
 
     return super.find(params);

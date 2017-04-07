@@ -1,6 +1,6 @@
 <div id="podcast-clips-list">
 
-    {% for clip in podcast.clips|sort(true, false, 'episodePubDate') %}
+    {% for clip in podcast.clips %}
       <a class="podcast-clips-list-item" href="/clips/{{clip.id}}">
         <div class="podcast-clips-list-item-title">{{clip.title | stripTags | decodeHTML | truncString(300) }}</div>
 

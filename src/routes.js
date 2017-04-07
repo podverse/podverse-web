@@ -35,7 +35,7 @@ function routes () {
     let isAllowed = checkIfFilterIsAllowed(filterType);
 
     if (!isAllowed) {
-      res.send(`Unrecognized filter "${filterType}" provided. Allowed filter types are: pastHour, pastDay, pastMonth, pastYear, allTime, or recent.`, 404);
+      res.send(filterTypeNotAllowedMessage(filterType), 404);
       return;
     }
 
@@ -240,18 +240,30 @@ function routes () {
   .get('/podcasts/clips/:id', getLoggedInUserInfo, (req, res) => {
     let params = {};
 
+    let filterType = req.query.sort || 'recent';
+    if (process.env.NODE_ENV != 'production') { filterType = 'recent'; }
+    let isAllowed = checkIfFilterIsAllowed(filterType);
+
+    if (!isAllowed) {
+      res.send(filterTypeNotAllowedMessage(filterType), 404);
+      return;
+    }
+
     return PodcastService.get(req.params.id, params)
       .then(podcast => {
+        let params = {};
         params.podcastFeedURL = podcast.feedURL;
         return new Promise((resolve, reject) => {
           isUserSubscribedToThisPodcast(resolve, reject, req);
         })
         .then((isSubscribed) => {
+          params.filterTypeQuery = allowedFilters[filterType].query;
           return ClipService.retrievePodcastsMostPopularClips(params)
           .then(clips => {
             podcast.clips = clips;
             res.render('podcast/index.html', {
               podcast: podcast,
+              dropdownText: allowedFilters[filterType].dropdownText,
               currentPage: 'Podcast Detail Page',
               isSubscribed: isSubscribed,
               isClipsView: true,
@@ -262,8 +274,6 @@ function routes () {
             console.log(req.params.id);
             console.log(err);
           });
-
-          // TODO: don't show clip if its episode
 
         });
       }).catch(e => {
@@ -640,6 +650,10 @@ function gatherUsersOwnedPlaylists(resolve, reject, req) {
   } else {
     resolve(false);
   }
+}
+
+function filterTypeNotAllowedMessage (filterType) {
+  return `Unrecognized filter "${filterType}" provided. Allowed filter types are: pastHour, pastDay, pastMonth, pastYear, allTime, or recent.`;
 }
 
 module.exports = {routes};
