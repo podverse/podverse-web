@@ -16,7 +16,7 @@ module.exports = {
   auth0ClientId: process.env.auth0ClientId || 'tTGQrl5CenMDdpzcKNpmLIginyRgBJNN',
   auth0Domain: process.env.auth0Domain || 'mitchd.auth0.com',
 
-  googleAnalyticsUA: 'UA-87988078-1',
+  googleAnalyticsUA: (process.env.NODE_ENV === 'production') ? 'UA-87988078-1' : '',
 
   ga: {
     client_email: process.env.GA_CLIENT_EMAIL,
