@@ -19,13 +19,14 @@ br + br {
 }
 
 h1 {
-    margin: 1.25rem 0 0 0;
-    font-size: 1.75rem;
+    margin: 1.25rem 0 5px 0;
+    font-size: 20px;
+    float: left;
 }
 
 h4 {
-  margin: 1.25rem 0 1.5rem;
-  font-size: 1.75rem;
+  margin: 1.25rem 0;
+  font-size: 20px;
 }
 
 label {
@@ -206,8 +207,16 @@ footer p {
 
 
 /*** home page styles ***/
-#home-list {
-    margin-top: 1px;
+#home-list {}
+
+#home-list .sort-by-dropdown {
+    margin: 17px 0 0 0;
+    float: right;
+}
+
+#home-list .sort-by-dropdown .dropdown-menu {
+    left: auto;
+    right: 0;
 }
 
 
@@ -716,9 +725,19 @@ footer p {
 }
 
 #playlist-title {
-    font-size: 1.25rem;
     font-weight: 600;
     line-height: 1.5rem;
+    float: left;
+}
+
+#playlist .sort-by-dropdown {
+    float: right;
+    line-height: 20px;
+}
+
+#playlist .sort-by-dropdown .dropdown-menu {
+    left: auto;
+    right: 0;
 }
 
 #playlist-subtitle {
@@ -1108,6 +1127,7 @@ footer p {
 .podcast-clips-list-item:hover,
 .podcast-clips-list-item:focus {
     text-decoration: none !important;
+    background-color: transparent !important;
 }
 
 @media (min-width: 576px) {
@@ -1115,8 +1135,7 @@ footer p {
     .podcast-episodes-list-item:focus,
     .podcast-clips-list-item:hover,
     .podcast-clips-list-item:focus {
-        color: #111 !important;
-        background-color: #eee !important;
+        color: #2969b1 !important;
     }
 }
 

@@ -3,24 +3,26 @@
 {% block body %}
 <div class="row">
   <div class="col-xs-12">
-    <h1>Podcast Clips</h1>
-    <div class="sort-by-dropdown dropdown">
-      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        {{ dropdownText }} <i class="fa fa-angle-down"></i>
-      </button>
-      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <a class="dropdown-item" href="/?sort=pastHour">top - past hour</a>
-        <a class="dropdown-item" href="/?sort=pastDay">top - past day</a>
-        <a class="dropdown-item" href="/?sort=pastWeek">top - past week</a>
-        <a class="dropdown-item" href="/?sort=pastMonth">top - past month</a>
-        <a class="dropdown-item" href="/?sort=pastYear">top - past year</a>
-        <a class="dropdown-item" href="/?sort=allTime">top - all time</a>
-        <a class="dropdown-item" href="/?sort=recent">most recent</a>
+    <div id="home-list">
+      <h1>Podcast Clips</h1>
+      <div class="sort-by-dropdown dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          {{ dropdownText }} <i class="fa fa-angle-down"></i>
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item" href="/?sort=pastHour">top - past hour</a>
+          <a class="dropdown-item" href="/?sort=pastDay">top - past day</a>
+          <a class="dropdown-item" href="/?sort=pastWeek">top - past week</a>
+          <a class="dropdown-item" href="/?sort=pastMonth">top - past month</a>
+          <a class="dropdown-item" href="/?sort=pastYear">top - past year</a>
+          <a class="dropdown-item" href="/?sort=allTime">top - all time</a>
+          <a class="dropdown-item" href="/?sort=recent">most recent</a>
+        </div>
       </div>
-    </div>
+      <div class="clearfix"></div>
 
     <!-- NOTE: the home-list reuses the HTML / CSS of the #playlist in the player.html. The designs may diverge someday, but for now CSS changes to these elements will also change the #playlist's items. -->
-    <div id="home-list">
+
       {% for clip in clips %}
         <a class="playlist-item" href="/clips/{{clip.id}}">
           <div class="playlist-item-image">
