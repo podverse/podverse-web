@@ -5,7 +5,9 @@ import { requestClipsFromAPI } from './clipHelper.js';
 import { sendGoogleAnalyticsPlayerPageView,
          sendGoogleAnalyticsEvent } from './googleAnalytics.js';
 import { isMobileOrTablet } from './browserSupportDetection.js';
+import { allowedFilters, checkIfFilterIsAllowed } from '../../../constants.js';
 const stripTags = require('striptags');
+
 
 // Set default values for vars that handle player crashes and autoplay functionality
 window.restartAttempts = 0;
@@ -28,10 +30,9 @@ if (isEmptyPlaylist !== true) {
 if (!isPlaylist) {
   let params = {};
   params.podcastFeedURL = window.podcastFeedURL;
-  // params.timeRange = 'pastMonthTotalUniquePageviews';
-  new Promise((resolve, reject) => {
-    requestClipsFromAPI(resolve, reject, params);
-  })
+  params.filterType = 'pastMonth';
+
+  requestClipsFromAPI(params)
   .then(clips => {
     loadClipsAsPlaylistItems(clips);
   })
@@ -39,6 +40,8 @@ if (!isPlaylist) {
 }
 
 function loadClipsAsPlaylistItems (clips) {
+  $('#playlist .playlist-item').remove();
+
   let html  = '';
 
   for (let clip of clips) {
@@ -253,7 +256,6 @@ function setPlayerInfo () {
   var playerWidth = $('#player-inner').width();
   $('#player-condensed-inner').css('width', playerWidth);
 
-  let updateCondensedPlayerWidth = debounce(function () {
   let updateCondensedPlayerWidth = throttle(function () {
     var playerWidth = $('#player-inner').width();
     $('#player-condensed-inner').css('width', playerWidth);
@@ -571,6 +573,21 @@ setTimeout(function () {
       }
     }
   });
+
+  $('.sort-by-dropdown .dropdown-item').on('click', function (_this) {
+    if (_this && _this.target) {
+      let params = {};
+      params.podcastFeedURL = podcastFeedURL;
+      params.episodeMediaURL = episodeMediaURL;
+      params.filterType = _this.target.id;
+      $('.sort-by-dropdown button').html(_this.target.innerText + ' <i class="fa fa-angle-down"></i>');
+      requestClipsFromAPI(params)
+      .then(clips => {
+        loadClipsAsPlaylistItems(clips);
+      })
+      .catch(err => console.log(err));
+    }
+  });
 }, 1000);
 
 function onScrollCondensePlayerView () {
@@ -586,7 +603,6 @@ function onScrollCondensePlayerView () {
   var bottomOfPlayerContainer = topOfPlayerContainer + heightOfPlayerContainer;
 
   let condenseOnScroll = throttle(function () {
-    console.log('help')
     if($(window).scrollTop() > (bottomOfPlayer)){
      $('html').attr('style', 'padding-top: ' + (bottomOfPlayerContainer - 17) + 'px;' );
 
