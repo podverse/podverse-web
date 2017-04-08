@@ -578,7 +578,7 @@ setTimeout(function () {
     if (_this && _this.target) {
       let params = {};
       params.podcastFeedURL = podcastFeedURL;
-      params.episodeMediaURL = episodeMediaURL;
+      // params.episodeMediaURL = episodeMediaURL;
       params.filterType = _this.target.id;
       $('.sort-by-dropdown button').html(_this.target.innerText + ' <i class="fa fa-angle-down"></i>');
       requestClipsFromAPI(params)
