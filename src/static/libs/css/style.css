@@ -1130,6 +1130,8 @@ footer p {
 
 .podcast-episodes-list-item-title {
     margin-bottom: 5px;
+    font-size: 14px;
+    font-weight: 600;
 }
 
 .podcast-episodes-list-item-summary {
@@ -1150,6 +1152,8 @@ footer p {
 
 .podcast-clips-list-item-title {
     margin-bottom: 5px;
+    font-size: 14px;
+    font-weight: 600;
 }
 
 .podcast-clips-list-item-episode-pubdate {
