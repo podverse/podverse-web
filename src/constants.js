@@ -16,8 +16,7 @@ const isClipMediaRefWithTitle = {
     $not: {
       $or: [
         {title: null},
-        {title: ''},
-        {pastMonthTotalUniquePageviews: null}
+        {title: ''}
       ]
     }
   }
@@ -43,10 +42,6 @@ const isClipMediaRefForPodcast = (params = {}) => {
 
   if (params.episodeMediaURL) {
     customQuery.$and.episodeMediaURL = params.episodeMediaURL;
-  }
-
-  if (params.timeRange) {
-    customQuery.$and.$not.$or[params.timeRange] = null;
   }
 
   return customQuery;
