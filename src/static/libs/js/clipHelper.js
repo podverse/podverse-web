@@ -6,7 +6,7 @@ import { convertHHMMSSToSeconds, convertSecToHHMMSS, isHHMMSS,
 
 export function initClipper () {
 
-  $('#make-clip-start-time i').on('click', function () {
+  $('#make-clip-start-time i, #make-clip-start-time div').on('click', function () {
     var startTime = $('#make-clip-start-time input').val() || "0";
     var endTime = $('#make-clip-end-time input').val();
     startTime = convertHHMMSSToSeconds(startTime);
@@ -14,7 +14,7 @@ export function initClipper () {
     previewStartTime(startTime, endTime);
   });
 
-  $('#make-clip-end-time i').on('click', function () {
+  $('#make-clip-end-time i, #make-clip-end-time div').on('click', function () {
     var endTime = $('#make-clip-end-time input').val() || "3";
     endTime = convertHHMMSSToSeconds(endTime);
     previewEndTime(endTime);

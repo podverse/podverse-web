@@ -289,6 +289,16 @@ footer p {
     cursor: pointer;
 }
 
+#make-clip-start-time div, #make-clip-end-time div {
+    cursor: pointer;
+    font-size: 13px;
+    line-height: 18px;
+    display: inline-block;
+    margin: -6px 0 0 2px;
+    padding-left: 5px;
+    vertical-align: middle;
+}
+
 #make-clip-time-set.text-muted {
     cursor: default;
 }
