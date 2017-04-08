@@ -1,13 +1,14 @@
 const
     errors = require('feathers-errors'),
     {locator} = require('locator.js'),
-    {isClipMediaRefWithTitle, isValidPageViewTimeRange,
+    {isClipMediaRefWithTitle,
      allowedFilters, checkIfFilterIsAllowed } = require('constants.js'),
     {getLoggedInUserInfo} = require('middleware/auth/getLoggedInUserInfo.js'),
     {queryGoogleApiData} = require('services/googleapi/googleapi.js'),
     {isNonAnonUser} = require('util.js'),
     {generatePlaylistRSSFeed} = require('services/playlist/PlaylistRSSService.js'),
-    _ = require('lodash');
+    _ = require('lodash'),
+    validURL = require('valid-url');
 
 function routes () {
   const app = this,
@@ -286,18 +287,28 @@ function routes () {
   .post('/api/clips', getLoggedInUserInfo, (req, res) => {
     let params = {};
 
-    if (req.body.timeRange && !isValidPageViewTimeRange(req.body.timeRange)) {
-      let message = `
-        Invalid timeRange provided. ${req.body.timeRange} is not a valid timeRange.
-        Valid options are: pastHourTotalUniquePageviews, pastDayTotalUniquePageviews, pastWeekTotalUniquePageviews, pastMonthTotalUniquePageviews, pastYearTotalUniquePageviews, allTimeTotalUniquePageviews, or no value.
-      `;
-      res.send(message, 400);
+    let filterType = req.body.filterType || 'pastMonth';
+    if (process.env.NODE_ENV != 'production') { filterType = 'recent'; }
+    let isAllowed = checkIfFilterIsAllowed(filterType);
+
+    if (!isAllowed) {
+      res.send(filterTypeNotAllowedMessage(filterType), 404);
+      return;
+    }
+
+    if (!validURL.isUri(req.body.podcastFeedURL)) {
+      res.send(`Invalid URL ${req.body.podcastFeedURL} provided for podcastFeedURL`, 404);
+      return;
+    }
+
+    if (req.body.episodeMediaURL && !validURL.isUri(req.body.episodeMediaURL)) {
+      res.send(`Invalid URL ${req.body.episodeMediaURL} provided for episodeMediaURL`, 404);
       return;
     }
 
     params.podcastFeedURL = req.body.podcastFeedURL;
     params.episodeMediaURL = req.body.episodeMediaURL;
-    params.timeRange = req.body.timeRange;
+    params.filterTypeQuery = allowedFilters[filterType].query;
 
     return ClipService.retrievePodcastsMostPopularClips(params)
     .then(clips => {

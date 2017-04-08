@@ -52,19 +52,6 @@ const isClipMediaRefForPodcast = (params = {}) => {
   return customQuery;
 }
 
-const isValidPageViewTimeRange = (str) => {
-  const validValues = [
-    'pastHourTotalUniquePageviews',
-    'pastDayTotalUniquePageviews',
-    'pastWeekTotalUniquePageviews',
-    'pastMonthTotalUniquePageviews',
-    'pastYearTotalUniquePageviews',
-    'allTimeTotalUniquePageviews'
-  ];
-
-  return (validValues.indexOf(str) > -1);
-}
-
 const allowedFilters = {
   'pastHour': {
     query: 'pastHourTotalUniquePageviews',
@@ -108,7 +95,6 @@ module.exports = {
   isClipMediaRef: isClipMediaRef,
   isClipMediaRefForPodcast: isClipMediaRefForPodcast,
   isClipMediaRefWithTitle: isClipMediaRefWithTitle,
-  isValidPageViewTimeRange: isValidPageViewTimeRange,
   allowedFilters: allowedFilters,
   checkIfFilterIsAllowed: checkIfFilterIsAllowed
 }

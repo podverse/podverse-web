@@ -3,6 +3,7 @@ import { previewEndTime, previewStartTime } from './mediaPlayer.js';
 import { convertHHMMSSToSeconds, convertSecToHHMMSS, isHHMMSS,
          isInt, isUUID } from './utility.js';
 
+
 export function initClipper () {
 
   $('#make-clip-start-time i').on('click', function () {
@@ -239,29 +240,24 @@ export function makeClip (event) {
 
 }
 
-export function requestClipsFromAPI(resolve, reject, params) {
-  let data = { podcastFeedURL: params.podcastFeedURL };
+export function requestClipsFromAPI(params) {
+  return new Promise ((resolve, reject) => {
+    let data = { podcastFeedURL: params.podcastFeedURL };
 
-  if (params.episodeMediaURL) {
-    data.episodeMediaURL = params.episodeMediaURL;
-  }
-
-  if (params.timeRange) {
-    data[timeRange] = null;
-  }
-
-  $.ajax({
-    type: 'POST',
-    url: '/api/clips',
-    headers: {
-      Authorization: $.cookie('idToken')
-    },
-    data: data,
-    success: function (result) {
-      resolve(result);
-    },
-    error: function (xhr, status, error) {
-      reject(error);
+    if (params.episodeMediaURL) {
+      data.episodeMediaURL = params.episodeMediaURL;
     }
+
+    $.ajax({
+      type: 'POST',
+      url: '/api/clips',
+      data: data,
+      success: function (result) {
+        resolve(result);
+      },
+      error: function (xhr, status, error) {
+        reject(error);
+      }
+    });
   });
 }

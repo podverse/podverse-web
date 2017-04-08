@@ -1594,6 +1594,10 @@ body.modal-open {
     cursor: default;
 }
 
+.sort-by-dropdown .dropdown-item {
+    cursor: pointer;
+}
+
 .dropdown-toggle::after {
     display: none;
 }
