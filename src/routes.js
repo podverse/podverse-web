@@ -240,7 +240,7 @@ function routes () {
   .get('/podcasts/clips/:id', getLoggedInUserInfo, (req, res) => {
     let params = {};
 
-    let filterType = req.query.sort || 'recent';
+    let filterType = req.query.sort || 'pastMonth';
     if (process.env.NODE_ENV != 'production') { filterType = 'recent'; }
     let isAllowed = checkIfFilterIsAllowed(filterType);
 
