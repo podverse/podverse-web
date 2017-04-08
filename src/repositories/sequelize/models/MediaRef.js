@@ -91,17 +91,17 @@ module.exports = function(sequelize, DataTypes) {
       defaultValue: 0
     },
 
-    pastWeekTotalUniquePageviews: {
-      type: DataTypes.INTEGER,
-      defaultValue: 0
-    },
-
     pastDayTotalUniquePageviews: {
       type: DataTypes.INTEGER,
       defaultValue: 0
     },
 
     pastWeekTotalUniquePageviews: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0
+    },
+
+    pastMonthTotalUniquePageviews: {
       type: DataTypes.INTEGER,
       defaultValue: 0
     },
