@@ -1,4 +1,4 @@
-import { calcDuration, convertSecToHHMMSS, debounce, isNonAnonLoggedInUser,
+import { calcDuration, convertSecToHHMMSS, throttle, isNonAnonLoggedInUser,
          readableDate, secondsToReadableDuration } from './utility.js';
 import { subscribeToPodcast, unsubscribeFromPodcast } from './podcastHelper.js';
 import { requestClipsFromAPI } from './clipHelper.js';
@@ -254,6 +254,7 @@ function setPlayerInfo () {
   $('#player-condensed-inner').css('width', playerWidth);
 
   let updateCondensedPlayerWidth = debounce(function () {
+  let updateCondensedPlayerWidth = throttle(function () {
     var playerWidth = $('#player-inner').width();
     $('#player-condensed-inner').css('width', playerWidth);
     setTimeout(function () {
@@ -584,7 +585,8 @@ function onScrollCondensePlayerView () {
   var heightOfPlayerContainer = $('#player-container').outerHeight() - 145;
   var bottomOfPlayerContainer = topOfPlayerContainer + heightOfPlayerContainer;
 
-  let condenseOnScroll = debounce(function () {
+  let condenseOnScroll = throttle(function () {
+    console.log('help')
     if($(window).scrollTop() > (bottomOfPlayer)){
      $('html').attr('style', 'padding-top: ' + (bottomOfPlayerContainer - 17) + 'px;' );
 
@@ -594,7 +596,7 @@ function onScrollCondensePlayerView () {
      $('html').attr('style', '');
      $('#player-container').removeClass('condensed');
     }
-  }, 20)
+  }, 20);
 
   window.addEventListener('scroll', condenseOnScroll);
 
