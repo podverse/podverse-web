@@ -248,6 +248,10 @@ export function requestClipsFromAPI(params) {
       data.episodeMediaURL = params.episodeMediaURL;
     }
 
+    if (params.filterType) {
+      data.filterType = params.filterType;
+    }
+
     $.ajax({
       type: 'POST',
       url: '/api/clips',
