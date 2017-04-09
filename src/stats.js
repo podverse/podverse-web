@@ -5,7 +5,8 @@ const
     {offsetDate, lastHour} = require('util.js'),
     {queryGoogleApiData} = require('services/googleapi/googleapi.js'),
     sqlEngineFactory = require('repositories/sequelize/engineFactory.js'),
-    {postgresUri} = require('config');
+    {postgresUri} = require('config'),
+    {isValidPageViewTimeRange} = require('./constants.js');
 
 const sqlEngine = new sqlEngineFactory({uri: postgresUri});
 
@@ -117,6 +118,16 @@ function queryForMoreIfMaxResultsReturned(data, timeRange, pagePath, startIndexO
 
 function updateBatchUniquePageviewCount (type, timeRange, rows) {
 
+  if (type !== 'podcasts' && type !== 'episodes' && type !== 'mediaRefs') {
+    console.log('invalid table type provided');
+    return;
+  }
+
+  if (!isValidPageViewTimeRange(timeRange)) {
+    console.log('invalid timeRange provided');
+    return;
+  }
+
   let rawQuery = '';
 
   for (row of rows) {
@@ -127,6 +138,8 @@ function updateBatchUniquePageviewCount (type, timeRange, rows) {
     type: sqlEngine.QueryTypes.SELECT
   });
 }
+
+
 
 module.exports = {
   queryUniquePageviews

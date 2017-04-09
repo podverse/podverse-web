@@ -86,10 +86,25 @@ const checkIfFilterIsAllowed = (filterType) => {
   }
 }
 
+const isValidPageViewTimeRange = (str) => {
+  const validValues = [
+    'pastHourTotalUniquePageviews',
+    'pastDayTotalUniquePageviews',
+    'pastWeekTotalUniquePageviews',
+    'pastMonthTotalUniquePageviews',
+    'pastYearTotalUniquePageviews',
+    'allTimeTotalUniquePageviews'
+  ];
+
+  return (validValues.indexOf(str) > -1);
+
+}
+
 module.exports = {
   isClipMediaRef: isClipMediaRef,
   isClipMediaRefForPodcast: isClipMediaRefForPodcast,
   isClipMediaRefWithTitle: isClipMediaRefWithTitle,
   allowedFilters: allowedFilters,
-  checkIfFilterIsAllowed: checkIfFilterIsAllowed
+  checkIfFilterIsAllowed: checkIfFilterIsAllowed,
+  isValidPageViewTimeRange: isValidPageViewTimeRange
 }
