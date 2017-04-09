@@ -107,6 +107,17 @@ window.loadPlaylistItem = (index) => {
     }
   }
 
+  // If not on playlist page (instead on a clip or episode page),
+  // then rewrite URL in search bar so the user is able to share the
+  // correct link.
+  if (!isPlaylist) {
+    if (isEpisode) {
+      window.history.pushState({}, '', `/episodes/${item.id}`);
+    } else {
+      window.history.pushState({}, '', `/clips/${item.id}`);
+    }
+  }
+
   sendGoogleAnalyticsPlayerPageView();
 
 }
