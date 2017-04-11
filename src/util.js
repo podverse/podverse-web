@@ -21,8 +21,53 @@ function lastHour () {
   return lastHour;
 }
 
+function convertSecToHHMMSS (sec) {
+  // thanks to dkreuter http://stackoverflow.com/questions/1322732/convert-seconds-to-hh-mm-ss-with-javascript
+  var totalSec = sec;
+
+  var hours = parseInt(totalSec / 3600) % 24;
+  var minutes = parseInt(totalSec / 60) % 60;
+  var seconds = totalSec % 60;
+  var result = '';
+
+  if (hours > 0) {
+    result += hours + ':';
+  }
+
+  if (minutes > 9) {
+    result += minutes + ':';
+  } else if (minutes > 0 && hours > 0) {
+    result += '0' + minutes + ':';
+  } else if (minutes > 0){
+    result += minutes + ':';
+  } else if (minutes === 0 && hours > 0) {
+    result +=  '00:';
+  }
+
+  if (seconds > 9) {
+    result += seconds;
+  } else if (seconds > 0 && minutes > 0) {
+    result += '0' + seconds;
+  } else if (seconds > 0) {
+    result += seconds;
+  } else {
+    result += '00';
+  }
+
+  if (result.length == 2) {
+    result = '0:' + result;
+  }
+
+  if (result.length == 1) {
+    result = '0:0' + result;
+  }
+
+  return result
+}
+
 module.exports = {
   isNonAnonUser,
   offsetDate,
-  lastHour
+  lastHour,
+  convertSecToHHMMSS
 }
