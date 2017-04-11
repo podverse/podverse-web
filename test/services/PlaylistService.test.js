@@ -233,16 +233,28 @@ describe('PlaylistService', function () {
 
   describe('when finding all playlists', function () {
 
-    beforeEach(function (done) {
-      this.playlistSvc.find()
-        .then(playlists => {
-          this.foundPlaylists = playlists;
-          done();
-        });
+    describe('when no parameters are provided', function () {
+
+      it('should reject with an error', function () {
+        expect(this.playlistSvc.find).to.throw(errors.GeneralError);
+      });
+
     });
 
-    it('a playlist should have a mediaRefs property', function () {
-      expect(this.foundPlaylists[0].mediaRefs).to.exist;
+    describe('when parameters are provided', function () {
+
+      beforeEach(function (done) {
+        this.playlistSvc.find({query : {ownerId: 'kungfury@podverse.fm'}})
+          .then(playlists => {
+            this.foundPlaylists = playlists;
+            done();
+          });
+      });
+
+      it('a playlist should have a mediaRefs property', function () {
+        expect(this.foundPlaylists[0].mediaRefs).to.exist;
+      });
+
     });
 
   });

@@ -57,6 +57,10 @@ class PlaylistService extends SequelizeService {
   }
 
   find (params={}) {
+    if (!params.query || Object.keys(params.query).length < 1) {
+      throw new errors.GeneralError('A parameter must be provided to the Playlist find service.');
+    }
+
     const {MediaRef} = this.Models;
 
     params.sequelize = {

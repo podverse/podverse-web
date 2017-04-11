@@ -39,9 +39,7 @@ class ClipService extends SequelizeService {
 
   find (params={}) {
     if (!params.sequelize) {
-      params.sequelize = {
-        where: isClipMediaRef
-      };
+      throw new errors.GeneralError('Parameters must be provided to the Clip find service.');
     }
 
     return super.find(params);

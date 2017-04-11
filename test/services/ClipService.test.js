@@ -1,3 +1,5 @@
+const errors = require('feathers-errors');
+
 const ClipService = require('services/clip/ClipService.js');
 const {configureDatabaseModels, createTestUser} = require('test/helpers.js');
 
@@ -96,18 +98,30 @@ describe('ClipService', function () {
 
   });
 
-  describe('when finding clips', function () {
+  describe('when finding all playlists', function () {
 
-    beforeEach(function (done) {
-      this.clipSvc.find()
-        .then(clips => {
-          this.resultClips = clips;
-          done();
-        });
+    describe('when no parameters are provided', function () {
+
+      it('should reject with an error', function () {
+        expect(this.clipSvc.find).to.throw(errors.GeneralError);
+      });
+
     });
 
-    it('should not return mediaRefs that are episodes', function () {
-      expect(this.resultClips.length).to.equal(1);
+    describe('when parameters are provided', function () {
+
+      beforeEach(function (done) {
+        this.clipSvc.find({sequelize : {}})
+          .then(clips => {
+            this.foundClips = clips;
+            done();
+          });
+      });
+
+      it('should return clips', function () {
+        expect(this.foundClips.length).to.equal(2);
+      });
+
     });
 
   });
