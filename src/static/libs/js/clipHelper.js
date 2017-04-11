@@ -203,7 +203,8 @@ export function makeClip (event) {
     dataObj.episodeImageURL = window.episodeImageURL;
   }
 
-  setTimeout(function () {
+  // TODO: was this surrounded in a setTimeout for a good reason? wth :(
+  // setTimeout(function () {
     $.ajax({
       type: 'POST',
       url: '/clips',
@@ -236,7 +237,7 @@ export function makeClip (event) {
         $('#make-clip-btn').html('Save');
       }
     });
-  }, 3000);
+  // }, 3000);
 
 }
 
