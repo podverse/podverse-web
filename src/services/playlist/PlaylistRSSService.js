@@ -66,7 +66,7 @@ let generatePlaylistRSSFeed = (playlist) => {
     let mediaRefs = groupedMediaRefs[key];
 
     let fMediaRef = formattedMediaRef = {};
-    fMediaRef.episodeTitle = mediaRefs[0].title;
+    fMediaRef.episodeTitle = mediaRefs[0].episodeTitle;
     fMediaRef.episodeMediaURL = mediaRefs[0].episodeMediaURL;
     fMediaRef.podcastTitle = mediaRefs[0].podcastTitle;
     fMediaRef.episodePubDate = mediaRefs[0].episodePubDate;
@@ -79,13 +79,13 @@ let generatePlaylistRSSFeed = (playlist) => {
 
     mediaRefs = _.sortBy(mediaRefs, 'startTime');
 
-    let desc = `<b>${mediaRefs[0].podcastTitle}</b><hr>`;
+    let desc = `<b>${mediaRefs[0].podcastTitle}</b><hr> `;
     let hasClip = _.some(mediaRefs, (m) => {
       if (m.startTime > 0 || m.endTime > 0) {
         return true;
       }
     });
-    
+
     if (hasClip) {
       desc += `<b>${mediaRefs.length > 1 ? 'Clips' : 'Clip'} shared with you:</b> <br><br>`;
       for (let [index, mediaRef] of mediaRefs.entries()) {
