@@ -590,6 +590,18 @@ function routes () {
     req.query['currentPage'] = 'About Page';
     req.query['locals'] = res.locals;
     res.render('about/index.html', req.query);
+  })
+
+  .get('/terms', getLoggedInUserInfo, function (req, res) {
+    req.query['currentPage'] = 'Terms Page';
+    req.query['locals'] = res.locals;
+    res.render('terms/index.html', req.query);
+  })
+
+  .get('/faq', getLoggedInUserInfo, function (req, res) {
+    req.query['currentPage'] = 'FAQ Page';
+    req.query['locals'] = res.locals;
+    res.render('faq/index.html', req.query);
   });
 
 }
