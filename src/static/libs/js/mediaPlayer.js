@@ -58,7 +58,7 @@ function loadClipsAsPlaylistItems (clips) {
     html +=     'Clip:';
     html +=     convertSecToHHMMSS(clip.startTime);
     if (clip.endTime) {
-      html +=   ' to ' + convertSecToHHMMSS(clip.startTime);
+      html +=   ' to ' + convertSecToHHMMSS(clip.endTime);
     } else {
       html +=   ' start time'
     }
