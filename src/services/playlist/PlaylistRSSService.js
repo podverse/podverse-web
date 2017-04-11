@@ -79,7 +79,7 @@ let generatePlaylistRSSFeed = (playlist) => {
 
     mediaRefs = _.sortBy(mediaRefs, 'startTime');
 
-    let desc = `<b>${mediaRefs[0].podcastTitle}</b><hr> `;
+    let desc = `<b>${mediaRefs[0].podcastTitle}</b><br><hr> `;
     let hasClip = _.some(mediaRefs, (m) => {
       if (m.startTime > 0 || m.endTime > 0) {
         return true;
@@ -87,7 +87,7 @@ let generatePlaylistRSSFeed = (playlist) => {
     });
 
     if (hasClip) {
-      desc += `<b>${mediaRefs.length > 1 ? 'Clips' : 'Clip'} shared with you:</b> <br><br>`;
+      desc += `<br><b>${mediaRefs.length > 1 ? 'Clips' : 'Clip'} shared with you:</b> <br><br>`;
       for (let [index, mediaRef] of mediaRefs.entries()) {
         let startTime = convertSecToHHMMSS(mediaRef.startTime);
         let endTime = convertSecToHHMMSS(mediaRef.endTime);
@@ -102,10 +102,12 @@ let generatePlaylistRSSFeed = (playlist) => {
 
         if (index < mediaRefs.length - 1) {
           desc += `<br><br>`;
+        } else {
+          desc += `<br>`;
         }
       }
 
-      desc += '<hr>';
+      desc += '<hr><br>';
     }
 
     desc += mediaRefs[0].episodeSummary;
