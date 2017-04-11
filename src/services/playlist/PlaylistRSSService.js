@@ -79,7 +79,7 @@ let generatePlaylistRSSFeed = (playlist) => {
 
     mediaRefs = _.sortBy(mediaRefs, 'startTime');
 
-    let desc = `<b>${mediaRefs[0].podcastTitle}</b><br><hr> `;
+    let desc = `<b>${mediaRefs[0].podcastTitle}</b><br><br><hr> `;
     let hasClip = _.some(mediaRefs, (m) => {
       if (m.startTime > 0 || m.endTime > 0) {
         return true;
@@ -98,13 +98,7 @@ let generatePlaylistRSSFeed = (playlist) => {
           timeString = `${startTime} start time`;
         }
         let title = mediaRef.title ? mediaRef.title : 'untitled clip';
-        desc += `${timeString}: ${title}`;
-
-        if (index < mediaRefs.length - 1) {
-          desc += `<br><br>`;
-        } else {
-          desc += `<br>`;
-        }
+        desc += `${timeString}: ${title}<br><br>`;
       }
 
       desc += '<hr><br>';
