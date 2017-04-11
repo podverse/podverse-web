@@ -101,7 +101,7 @@ let generatePlaylistRSSFeed = (playlist) => {
     formattedMediaRefs.push(formattedMediaRef)
   });
 
-  for (let mediaRef of playlist.mediaRefs) {
+  for (let mediaRef of formattedMediaRefs) {
     let itemOptions = {
       title: mediaRef.episodeTitle,
       description: mediaRef.description,
