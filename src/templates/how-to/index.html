@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<div class="row">
+  <div class="col-xs-12">
+    <h4>How to load a Podverse playlist in any podcast app</h4>
+    <p>1) Click the "RSS Feed" button on a playlist page.</p>
+    <p>2) Copy the RSS Feed URL for that playlist. NOTE: this URL must have ?rssFeed at the end.</p>
+    <p>3) Open a podcast app. Most podcast apps have an "Add Podcast Manually" option. Select that, then paste the RSS Feed URL, and click save.</p>
+    <p>4) The playlist should now be added in your podcast apps. This playlist will update over time as new episodes or clips are added to it.</p>
+  </div><!-- col-xs-12 -->
+</div><!-- /.row -->
+{% endblock %}
+
+
+{% block scripts %}
+<script src="/static/build/vendors.js"></script>
+<script src="/static/build/about/index.js"></script>
+{% endblock %}

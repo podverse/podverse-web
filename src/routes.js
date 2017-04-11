@@ -602,6 +602,12 @@ function routes () {
     req.query['currentPage'] = 'FAQ Page';
     req.query['locals'] = res.locals;
     res.render('faq/index.html', req.query);
+  })
+
+  .get('/how-to', getLoggedInUserInfo, function (req, res) {
+    req.query['currentPage'] = 'How-to Page';
+    req.query['locals'] = res.locals;
+    res.render('how-to/index.html', req.query);
   });
 
 }

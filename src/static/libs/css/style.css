@@ -750,8 +750,21 @@ footer p {
     right: 0;
 }
 
+#playlist-rss-feed-link {
+    clear: both;
+    float: right;
+    font-size: 13px;
+    font-weight: 600;
+    margin-top: 4px;
+}
+
+#playlist-rss-feed-link a {
+    color: #373a3c;
+}
+
 #playlist-subtitle {
     margin: 0 0 0.25rem 0;
+    clear: left;
 }
 
 #playlist-subscribe {
