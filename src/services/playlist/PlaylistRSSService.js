@@ -79,21 +79,35 @@ let generatePlaylistRSSFeed = (playlist) => {
 
     mediaRefs = _.sortBy(mediaRefs, 'startTime');
 
-    let desc = `<b>${mediaRefs.length > 1 ? 'Clips' : 'Clip'} shared with you:</b> <br><br>`;
-    for (let mediaRef of mediaRefs) {
-      let startTime = convertSecToHHMMSS(mediaRef.startTime);
-      let endTime = convertSecToHHMMSS(mediaRef.endTime);
-      let timeString = '';
-      if (mediaRef.startTime < mediaRef.endTime) {
-        timeString = `${startTime} – ${endTime}`;
-      } else {
-        timeString = `${startTime} start time`;
+    let desc = `<b>${mediaRefs[0].podcastTitle}</b><hr>`;
+    let hasClip = _.some(mediaRefs, (m) => {
+      if (m.startTime > 0 || m.endTime > 0) {
+        return true;
       }
-      let title = mediaRef.title ? mediaRef.title : 'untitled clip';
-      desc += `${timeString}: ${title}<br>`;
+    });
+    
+    if (hasClip) {
+      desc += `<b>${mediaRefs.length > 1 ? 'Clips' : 'Clip'} shared with you:</b> <br><br>`;
+      for (let [index, mediaRef] of mediaRefs.entries()) {
+        let startTime = convertSecToHHMMSS(mediaRef.startTime);
+        let endTime = convertSecToHHMMSS(mediaRef.endTime);
+        let timeString = '';
+        if (mediaRef.startTime < mediaRef.endTime) {
+          timeString = `${startTime} – ${endTime}`;
+        } else {
+          timeString = `${startTime} start time`;
+        }
+        let title = mediaRef.title ? mediaRef.title : 'untitled clip';
+        desc += `${timeString}: ${title}`;
+
+        if (index < mediaRefs.length - 1) {
+          desc += `<br><br>`;
+        }
+      }
+
+      desc += '<hr>';
     }
 
-    desc += '<hr>';
     desc += mediaRefs[0].episodeSummary;
 
     fMediaRef.description = desc;
