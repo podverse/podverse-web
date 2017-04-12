@@ -11,7 +11,7 @@ let generatePlaylistRSSFeed = (playlist) => {
   // let podcastImageURL = `${
   //   playlist.mediaRefs.length > 0 ?
   //   playlist.mediaRefs[0].podcastImageURL :
-  //   'https://podverse.fm/static/images/podverse-logo-180.png'
+  //   'https://podverse.fm/static/images/podverse-logo-1024.png'
   // }`;
 
   let title, description;
@@ -40,7 +40,7 @@ let generatePlaylistRSSFeed = (playlist) => {
     generator: 'podverse.fm',
     feed_url: `https://podverse.fm/playlists/${playlist.id}?rssFeed`,
     site_url: `https://podverse.fm/playlists/${playlist.id}`,
-    image_url: 'https://podverse.fm/static/images/podverse-logo-180.png',
+    image_url: 'https://podverse.fm/static/images/podverse-logo-1024.png',
     docs: 'https://podverse.fm/about',
     author: playlist.ownerName,
     managingEditor: playlist.ownerName,
@@ -55,7 +55,7 @@ let generatePlaylistRSSFeed = (playlist) => {
     // we need to set itunesSummary to an empty string, or podcastRSS
     // will automatically fill it out
     itunesSummary: '', //,
-    itunesImage: 'https://podverse.fm/static/images/podverse-logo-180.png'
+    itunesImage: 'https://podverse.fm/static/images/podverse-logo-1024.png'
     // other options
     // itunesAuthor: '', // playlist.ownerName,
     // itunesSubtitle: '', // 'Created with podverse.fm',
@@ -145,7 +145,7 @@ let generatePlaylistRSSFeed = (playlist) => {
       // will automatically fill it out
       itunesSummary: ' ',
       itunesDuration: mediaRef.episodeDuration,
-      itunesImage: mediaRef.episodeImageURL || mediaRef.podcastImageURL
+      itunesImage: mediaRef.podcastImageURL
       // other options
       // itunesAuthor: '',
       // itunesSubtitle: '',
