@@ -2,7 +2,7 @@ const
     PodcastRSS = require('podcast'),
     uuid = require('uuid'),
     _ = require('lodash'),
-    { convertSecToHHMMSS } = require('../../util.js');
+    { convertSecToHHMMSS, readableDate } = require('../../util.js');
 
 let generatePlaylistRSSFeed = (playlist) => {
 
@@ -89,7 +89,10 @@ let generatePlaylistRSSFeed = (playlist) => {
 
     mediaRefs = _.sortBy(mediaRefs, 'startTime');
 
-    let desc = `<b>${mediaRefs[0].podcastTitle}</b><br><br><hr> `;
+    let desc = `<b>${mediaRefs[0].podcastTitle}</b><br><br> `;
+    let readableEpisodePubDate = readableDate(mediaRefs[0].episodePubDate);
+    desc += `(Episode from ${readableEpisodePubDate})<br><br><hr> `
+
     let hasClip = _.some(mediaRefs, (m) => {
       if (m.startTime > 0 || m.endTime > 0) {
         return true;
@@ -131,7 +134,7 @@ let generatePlaylistRSSFeed = (playlist) => {
       guid: uuid(),
       // categories: ,
       author: mediaRef.podcastTitle, // TODO: should be real author listed in feed
-      date: mediaRef.episodePubDate,
+      date: mediaRef.lastUpdated,
       enclosure: {
         url: mediaRef.episodeMediaURL,
         // file: ,
