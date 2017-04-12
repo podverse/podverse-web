@@ -40,7 +40,7 @@ let generatePlaylistRSSFeed = (playlist) => {
     generator: 'podverse.fm',
     feed_url: `https://podverse.fm/playlists/${playlist.id}?rssFeed`,
     site_url: `https://podverse.fm/playlists/${playlist.id}`,
-    image_url: lastMR.podcastImageURL || 'https://podverse.fm/static/images/podverse-logo-180.png',
+    image_url: 'https://podverse.fm/static/images/podverse-logo-180.png',
     docs: 'https://podverse.fm/about',
     author: playlist.ownerName,
     managingEditor: playlist.ownerName,
@@ -55,7 +55,7 @@ let generatePlaylistRSSFeed = (playlist) => {
     // we need to set itunesSummary to an empty string, or podcastRSS
     // will automatically fill it out
     itunesSummary: '', //,
-    itunesImage: lastMR.podcastImageURL || 'https://podverse.fm/static/images/podverse-logo-180.png'
+    itunesImage: 'https://podverse.fm/static/images/podverse-logo-180.png'
     // other options
     // itunesAuthor: '', // playlist.ownerName,
     // itunesSubtitle: '', // 'Created with podverse.fm',
