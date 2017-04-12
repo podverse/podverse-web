@@ -30,8 +30,8 @@ let generatePlaylistRSSFeed = (playlist) => {
   // Use the most recent mediaRef.lastUpdated value as the lastBuildDate for
   // the RSS feed.
 
-  let lastMediaRefUpdatedOverall = _.maxBy(playlist.mediaRefs, (mR) => { return mR.lastUpdated });
-  let lastBuildDate = lastMediaRefUpdatedOverall.lastUpdated;
+  let lastMR = lastMediaRefUpdatedOverall = _.maxBy(playlist.mediaRefs, (mR) => { return mR.lastUpdated });
+  let lastBuildDate = lastMR.lastUpdated;
 
   const feedOptions = {
     lastBuildDate: new Date(lastBuildDate).toUTCString(),
@@ -40,7 +40,7 @@ let generatePlaylistRSSFeed = (playlist) => {
     generator: 'podverse.fm',
     feed_url: `https://podverse.fm/playlists/${playlist.id}?rssFeed`,
     site_url: `https://podverse.fm/playlists/${playlist.id}`,
-    image_url: 'https://podverse.fm/static/images/podverse-logo-180.png',
+    image_url: lastMR.episodeImageURL || lastMR.podcastImageURL || 'https://podverse.fm/static/images/podverse-logo-180.png',
     docs: 'https://podverse.fm/about',
     author: playlist.ownerName,
     managingEditor: playlist.ownerName,
@@ -55,7 +55,7 @@ let generatePlaylistRSSFeed = (playlist) => {
     // we need to set itunesSummary to an empty string, or podcastRSS
     // will automatically fill it out
     itunesSummary: '', //,
-    itunesImage: 'https://podverse.fm/static/images/podverse-logo-180.png'
+    itunesImage: lastMR.episodeImageURL || lastMR.podcastImageURL || 'https://podverse.fm/static/images/podverse-logo-180.png'
     // other options
     // itunesAuthor: '', // playlist.ownerName,
     // itunesSubtitle: '', // 'Created with podverse.fm',
