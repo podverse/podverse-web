@@ -131,7 +131,7 @@ let generatePlaylistRSSFeed = (playlist) => {
       title: mediaRef.episodeTitle,
       description: mediaRef.description,
       url: `https://podverse.fm/episodes/alias?mediaURL=${mediaRef.episodeMediaURL}`,
-      guid: uuid(),
+      // guid: uuid(),
       // categories: ,
       author: mediaRef.podcastTitle, // TODO: should be real author listed in feed
       date: mediaRef.lastUpdated,
