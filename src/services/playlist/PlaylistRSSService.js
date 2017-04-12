@@ -28,6 +28,7 @@ let generatePlaylistRSSFeed = (playlist) => {
   }
 
   const feedOptions = {
+    lastBuildDate: new Date(playlist.lastUpdated).toUTCString(),
     title: title,
     description: description,
     generator: 'podverse.fm',
