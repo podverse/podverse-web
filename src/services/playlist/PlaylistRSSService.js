@@ -76,6 +76,9 @@ let generatePlaylistRSSFeed = (playlist) => {
     fMediaRef.episodeImageURL = mediaRefs[0].episodeImageURL;
     fMediaRef.podcastImageURL = mediaRefs[0].podcastImageURL;
 
+    let lastMediaRefUpdated = _.maxBy(mediaRefs, (mR) => { return mR.lastUpdated });
+    fMediaRef.lastUpdated = lastMediaRefUpdated.lastUpdated;
+
     fMediaRef.description = '';
 
     mediaRefs = _.sortBy(mediaRefs, 'startTime');
@@ -111,6 +114,8 @@ let generatePlaylistRSSFeed = (playlist) => {
 
     formattedMediaRefs.push(formattedMediaRef)
   });
+
+  formattedMediaRefs = _.sortBy(formattedMediaRefs, 'lastUpdated').reverse();
 
   for (let mediaRef of formattedMediaRefs) {
     let itemOptions = {
