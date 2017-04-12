@@ -127,6 +127,12 @@ let generatePlaylistRSSFeed = (playlist) => {
   formattedMediaRefs = _.sortBy(formattedMediaRefs, 'lastUpdated').reverse();
 
   for (let mediaRef of formattedMediaRefs) {
+    let securePodcastImageURL;
+    if (mediaRef.podcastImageURL) {
+      securePodcastImageURL = mediaRef.podcastImageURL.substr(mediaRef.podcastImageURL.indexOf('://') + 3);
+      securePodcastImageURL = 'https://' + securePodcastImageURL;
+    }
+
     let itemOptions = {
       title: mediaRef.episodeTitle,
       description: mediaRef.description,
@@ -145,7 +151,7 @@ let generatePlaylistRSSFeed = (playlist) => {
       // will automatically fill it out
       itunesSummary: ' ',
       itunesDuration: mediaRef.episodeDuration,
-      itunesImage: mediaRef.podcastImageURL
+      itunesImage: securePodcastImageURL
       // other options
       // itunesAuthor: '',
       // itunesSubtitle: '',
