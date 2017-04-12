@@ -27,8 +27,14 @@ let generatePlaylistRSSFeed = (playlist) => {
                   `Created with podverse.fm`;
   }
 
+  // Use the most recent mediaRef.lastUpdated value as the lastBuildDate for
+  // the RSS feed.
+
+  let lastMediaRefUpdatedOverall = _.maxBy(playlist.mediaRefs, (mR) => { return mR.lastUpdated });
+  let lastBuildDate = lastMediaRefUpdatedOverall.lastUpdated;
+
   const feedOptions = {
-    lastBuildDate: new Date(playlist.lastUpdated).toUTCString(),
+    lastBuildDate: new Date(lastBuildDate).toUTCString(),
     title: title,
     description: description,
     generator: 'podverse.fm',
