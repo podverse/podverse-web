@@ -115,7 +115,9 @@ let generatePlaylistRSSFeed = (playlist) => {
       desc += '<hr><br>';
     }
 
-    desc += mediaRefs[0].episodeSummary;
+    if (mediaRefs[0] && mediaRefs[0].episodeSummary) {
+      desc += mediaRefs[0].episodeSummary;
+    }
 
     fMediaRef.description = desc;
 
