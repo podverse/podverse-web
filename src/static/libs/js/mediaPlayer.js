@@ -6,6 +6,7 @@ import { sendGoogleAnalyticsPlayerPageView,
          sendGoogleAnalyticsEvent } from './googleAnalytics.js';
 import { isMobileOrTablet } from './browserSupportDetection.js';
 import { allowedFilters, checkIfFilterIsAllowed } from '../../../constants.js';
+const Autolinker = require('autolinker');
 const stripTags = require('striptags');
 
 
@@ -238,6 +239,8 @@ function setPlayerInfo () {
   }
 
   $('#player-description-truncated').html('<div id="player-description-truncated-begin"></div>' + truncDescription + '<div id="player-description-truncated-end"></div>');
+  let autolinker = new Autolinker({});
+  description = autolinker.link(description);
   $('#player-description-full').html(description);
 
 

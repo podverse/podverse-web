@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "auth0-lock": "^10.7.3",
+    "autolinker": "^1.4.3",
     "babel-polyfill": "^6.16.0",
     "babel-runtime": "^6.18.0",
     "body-parser": "^1.15.2",

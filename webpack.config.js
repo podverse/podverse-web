@@ -89,6 +89,11 @@ module.exports ={
           }
         }
       ]
+    },
+
+    // Added to prevent "Cannot resolve module 'fs'" error from linkify library
+    node: {
+      fs: 'empty'
     }
 
 };
