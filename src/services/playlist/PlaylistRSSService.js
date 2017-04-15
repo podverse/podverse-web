@@ -52,9 +52,7 @@ let generatePlaylistRSSFeed = (playlist) => {
     // TODO: do we want to set ttl?
     // ttl: '', // number of minutes feed can be cached before refreshing from source
 
-    // we need to set itunesSummary to an empty string, or podcastRSS
-    // will automatically fill it out
-    itunesSummary: '', //,
+    itunesSummary: description, //,
     itunesImage: 'https://podverse.fm/static/images/podverse-logo-1024.png'
     // other options
     // itunesAuthor: '', // playlist.ownerName,
@@ -149,7 +147,7 @@ let generatePlaylistRSSFeed = (playlist) => {
       },
       // we need to set itunesSummary to an empty string, or podcastRSS
       // will automatically fill it out
-      itunesSummary: ' ',
+      itunesSummary: mediaRef.description,
       itunesDuration: mediaRef.episodeDuration,
       itunesImage: securePodcastImageURL
       // other options
