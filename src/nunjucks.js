@@ -64,7 +64,7 @@ function nunjucksConfig () {
   });
 
   env.addFilter('readableDate', function(date) {
-
+    return readableDate(date);
   });
 
   env.addFilter('nl2br', function(str) {
