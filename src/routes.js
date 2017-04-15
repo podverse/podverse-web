@@ -31,7 +31,7 @@ function routes () {
     let offset = (pageIndex * 10) - 10;
     let params = {};
 
-    let filterType = req.query.sort || 'pastMonth';
+    let filterType = req.query.sort || 'pastWeek';
     if (process.env.NODE_ENV != 'production') { filterType = 'recent'; }
     let isAllowed = checkIfFilterIsAllowed(filterType);
 
@@ -241,7 +241,7 @@ function routes () {
   .get('/podcasts/clips/:id', getLoggedInUserInfo, (req, res) => {
     let params = {};
 
-    let filterType = req.query.sort || 'pastMonth';
+    let filterType = req.query.sort || 'pastWeek';
     if (process.env.NODE_ENV != 'production') { filterType = 'recent'; }
     let isAllowed = checkIfFilterIsAllowed(filterType);
 
@@ -287,7 +287,7 @@ function routes () {
   .post('/api/clips', getLoggedInUserInfo, (req, res) => {
     let params = {};
 
-    let filterType = req.body.filterType || 'pastMonth';
+    let filterType = req.body.filterType || 'pastWeek';
     if (process.env.NODE_ENV != 'production') { filterType = 'recent'; }
     let isAllowed = checkIfFilterIsAllowed(filterType);
 
