@@ -108,7 +108,7 @@ let generatePlaylistRSSFeed = (playlist) => {
         } else {
           timeString = `${startTime} start time`;
         }
-        let title = mediaRef.title ? mediaRef.title : 'untitled clip';
+        let title = mediaRef.title ? mediaRef.title : 'Untitled Clip';
         desc += `${timeString}: ${title}<br><br>`;
       }
 
