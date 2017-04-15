@@ -254,6 +254,7 @@ function routes () {
       .then(podcast => {
         let params = {};
         params.podcastFeedURL = podcast.feedURL;
+        req.params.podcastFeedURL = podcast.feedURL; // set on the request for isUserSubscribedToThisPodcast
         return new Promise((resolve, reject) => {
           isUserSubscribedToThisPodcast(resolve, reject, req);
         })
