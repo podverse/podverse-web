@@ -727,6 +727,11 @@ footer p {
     }
 }
 
+#player-description-episode-summary {
+    font-weight: 500;
+    margin-top: 20px;
+}
+
 
 /*** player-list.html styles ***/
 

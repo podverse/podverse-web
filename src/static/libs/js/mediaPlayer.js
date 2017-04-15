@@ -239,10 +239,14 @@ function setPlayerInfo () {
   }
 
   $('#player-description-truncated').html('<div id="player-description-truncated-begin"></div>' + truncDescription + '<div id="player-description-truncated-end"></div>');
+
+  // If is a clip, then include the episode summary after the title.
+  if (!isEpisode) {
+    description = `${description}<br><br><br><div id="player-description-episode-summary">Episode Summary:</div><br><br>${episodeSummary}`;
+  }
   let autolinker = new Autolinker({});
   description = autolinker.link(description);
   $('#player-description-full').html(description);
-
 
   // The truncated element is surrounded with spans used to detect how many lines
   // of description text have loaded on the page, and if it is more than 2 lines,
@@ -256,6 +260,13 @@ function setPlayerInfo () {
         truncDescription += "... <span class='text-primary'><small>show more</small></span>";
         $('#player-description-truncated').html(truncDescription)
       }
+    }, 0);
+  }
+
+  if (truncDescription.length < 156 && !isEpisode && truncDescription.indexOf('<small>show more</small>') < 0 && episodeSummary && episodeSummary.length > 0) {
+    setTimeout(function () {
+      truncDescription += " <span class='text-primary'><small>show summary</small></span>";
+      $('#player-description-truncated').html(truncDescription)
     }, 0);
   }
 
