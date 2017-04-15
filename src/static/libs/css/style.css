@@ -18,6 +18,10 @@ br + br {
     display: none;
 }
 
+b {
+    font-weight: 500;
+}
+
 h1 {
     margin: 1.25rem 0 5px 0;
     font-size: 20px;
