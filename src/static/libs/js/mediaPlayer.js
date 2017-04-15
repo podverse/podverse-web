@@ -282,6 +282,13 @@ function setPlayerInfo () {
 
 }
 
+// Sometimes when returning from the lock screen to a player page in iOS Safari
+// the media player progress bar loads with too much width. These event listeners
+// are attempts to handle this issue.
+window.addEventListener('focus', resizeProgressBar);
+window.addEventListener('pageshow', resizeProgressBar);
+window.addEventListener('visibilityChange', resizeProgressBar);
+
 $('#player-description-truncated').on('click', () => {
   $('#player-description-truncated').hide();
   $('#player-description-full').show();
