@@ -56,7 +56,7 @@ function loadClipsAsPlaylistItems (clips) {
     html +=     clip.episodeTitle;
     html +=   '</div>';
     html +=   '<div class="playlist-item-time">';
-    html +=     'Clip:';
+    html +=     'Clip: ';
     html +=     convertSecToHHMMSS(clip.startTime);
     if (clip.endTime) {
       html +=   ' to ' + convertSecToHHMMSS(clip.endTime);
