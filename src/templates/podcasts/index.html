@@ -7,9 +7,9 @@
     <a class="podcast-list-request" href="https://docs.google.com/forms/d/e/1FAIpQLSdewKP-YrE8zGjDPrkmoJEwCxPl_gizEkmzAlTYsiWAuAk1Ng/viewform"><i class="fa fa-plus-circle"></i> Request a podcast</a>
     {% for podcast in podcasts|sortTextIgnoreArticles(false, true, 'title') %}
       <a class="podcast-item" href="/podcasts/{{podcast.id}}">
-        <div class="podcast-item-image">
+        <!-- <div class="podcast-item-image">
           <img class="lazy" data-original="{{podcast.imageURL}}">
-        </div>
+        </div> -->
         <div class="podcast-item-title">
           {{ podcast.title | stripTags }}
         </div>
