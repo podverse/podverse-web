@@ -13,9 +13,13 @@ function offsetDate (minutesOffset=0) {
   return todayDate;
 }
 
+// NOTE: I am manually offsetting by 5 hours since the server is in UTC but the
+// Google Analytics data is in CST.
+// This WILL cause a problem when DST happens. I don't know how to automatically
+// handle this.
 function lastHour () {
   let todayDate = new Date();
-  todayDate.setMinutes((todayDate.getMinutes() - todayDate.getTimezoneOffset()) - 60);
+  todayDate.setMinutes((todayDate.getMinutes() - todayDate.getTimezoneOffset()) - 300 - 60);
   let lastHour = todayDate.toISOString().slice(11,13);
   lastHour = parseInt(lastHour);
   return lastHour;
