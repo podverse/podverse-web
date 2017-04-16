@@ -246,7 +246,16 @@ function setPlayerInfo () {
   }
   let autolinker = new Autolinker({});
   description = autolinker.link(description);
+
   $('#player-description-full').html(description);
+
+  // Strip any img tags served over http://, since they won't load on https://podverse.fm
+  $('#player-description-full img').each(function() {
+    let src = $(this).attr('src');
+    if (src && src.indexOf('http://') > -1) {
+      $(this).remove();
+    }
+  })
 
   // The truncated element is surrounded with spans used to detect how many lines
   // of description text have loaded on the page, and if it is more than 2 lines,
