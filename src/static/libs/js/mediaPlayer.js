@@ -152,7 +152,7 @@ function setPlayerInfo () {
   $('#make-clip-end-time input').val('');
   $('#make-clip-title textarea').val('');
 
-  if (window.startTime === 0 && window.endTime === null) {
+  if (window.startTime === 0 && window.endTime === null && !(window.startTimeOverride)) {
     isEpisode = true;
   } else {
     isEpisode = false;

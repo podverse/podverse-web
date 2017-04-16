@@ -336,6 +336,10 @@ function routes () {
 
   // Episode Detail Page
   .get('/episodes/:id', getLoggedInUserInfo, (req, res) => {
+
+    let startTimeOverride = req.query.s ? parseInt(req.query.s) : null;
+    let endTimeOverride = req.query.e ? parseInt(req.query.e) : null;
+
     return EpisodeService.get(req.params.id)
       .then(episode => {
         req.params.podcastFeedURL = episode.podcast.feedURL;
@@ -344,7 +348,6 @@ function routes () {
         })
         .then((isSubscribed) => {
           episode.dataValues['isSubscribed'] = isSubscribed;
-
           return new Promise((resolve, reject) => {
             gatherUsersOwnedPlaylists(resolve, reject, req);
           })
@@ -352,6 +355,8 @@ function routes () {
               episode.dataValues['usersOwnedPlaylists'] = usersOwnedPlaylists;
               episode.dataValues['currentPage'] = 'Episode Detail Page';
               episode.dataValues['locals'] = res.locals;
+              episode.dataValues['startTimeOverride'] = startTimeOverride;
+              episode.dataValues['endTimeOverride'] = endTimeOverride;
               res.render('player-page/index.html', episode.dataValues);
             })
         })

@@ -57,6 +57,9 @@
 
     // TODO: is this a security vulnerability?
     window.description = decodeEntities(description);
+
+    window.startTimeOverride = null;
+    window.endTimeOverride = null;
   }
 
   window.isPlayerPage = true;
@@ -106,6 +109,19 @@
     window.episodeTitle = decodeEntities(episodeTitle);
 
     window.isSubscribed = '{{ isSubscribed }}';
+
+    window.startTimeOverride = '{{ startTimeOverride }}';
+    window.endTimeOverride = '{{ endTimeOverride }}';
+    startTimeOverride = parseInt(startTimeOverride);
+    endTimeOverride = parseInt(endTimeOverride);
+
+    if (startTimeOverride > 0) {
+      startTime = startTimeOverride;
+    }
+
+    if (endTimeOverride > 0 && endTimeOverride > startTimeOverride) {
+      endTime = endTimeOverride;
+    }
 
   // Else set the window vars for a clip page.
   {% else %}
