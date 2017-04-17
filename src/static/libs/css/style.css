@@ -705,6 +705,10 @@ footer p {
     height: 42px;
 }
 
+#player-description-truncated small {
+    cursor: pointer;
+}
+
 #player-description-truncated-begin, #player-description-truncated-end {
     clear: both;
 }
