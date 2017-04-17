@@ -73,7 +73,7 @@ const allowedFilters = {
     dropdownText: 'top - all time'
   },
   'recent': {
-    query: 'episodePubDate',
+    query: 'dateCreated',
     dropdownText: 'most recent'
   }
 };
