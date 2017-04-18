@@ -31,7 +31,7 @@ function routes () {
     let offset = (pageIndex * 10) - 10;
     let params = {};
 
-    let filterType = req.query.sort || 'pastWeek';
+    let filterType = req.query.sort || 'pastDay';
     if (process.env.NODE_ENV != 'production') { filterType = 'recent'; }
     let isAllowed = checkIfFilterIsAllowed(filterType);
 
