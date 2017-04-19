@@ -846,7 +846,9 @@ footer p {
 }
 
 .playlist-item-podcast-title {
-    overflow: hidden;
+    overflow: auto;
+    text-overflow: initial;
+    white-space: normal;
     font-weight: 600;
     margin-top: 1px;
 }
