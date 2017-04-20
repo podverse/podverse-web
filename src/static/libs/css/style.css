@@ -214,7 +214,7 @@ footer p {
 #home-list {}
 
 #home-list .sort-by-dropdown {
-    margin: 17px 0 0 0;
+    margin: 20px 0 0 0;
     float: right;
 }
 
@@ -1640,6 +1640,23 @@ body.modal-open {
 
 #navbar-btn .dropdown-toggle {
     -webkit-appearance: none !important;
+}
+
+.header-dropdown {
+    margin: 1.25rem 0 5px 0;
+    float: left;
+}
+
+.header-dropdown .btn {
+    font-size: 20px;
+    background: transparent;
+    border: none;
+    padding: 0;
+    width: auto;
+}
+
+.header-dropdown i {
+    font-size: 16px;
 }
 
 .sort-by-dropdown .btn {

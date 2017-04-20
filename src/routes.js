@@ -1,7 +1,7 @@
 const
     errors = require('feathers-errors'),
     {locator} = require('locator.js'),
-    {isClipMediaRefWithTitle,
+    {isClipMediaRefWithTitle, isEpisodeMediaRef,
      allowedFilters, checkIfFilterIsAllowed } = require('constants.js'),
     {getLoggedInUserInfo} = require('middleware/auth/getLoggedInUserInfo.js'),
     {queryGoogleApiData} = require('services/googleapi/googleapi.js'),
@@ -29,7 +29,9 @@ function routes () {
 
     let pageIndex = req.query.page || 1;
     let offset = (pageIndex * 10) - 10;
+    let showClips = (req.query.type === 'clips' ) || false;
     let params = {};
+    let query = showClips ? isClipMediaRefWithTitle : {};
 
     let filterType = req.query.sort || 'pastDay';
     if (process.env.NODE_ENV != 'production') { filterType = 'recent'; }
@@ -40,40 +42,80 @@ function routes () {
       return;
     }
 
-    params.sequelize = {
-      where: isClipMediaRefWithTitle,
-      offset: offset,
-      order: [
-        [sqlEngine.fn('max', sqlEngine.col(allowedFilters[filterType].query)), 'DESC']
-      ],
-      group: ['id']
-    };
-
     params.paginate = {
       default: 10,
       max: 1000
     };
 
-    return ClipService.find(params)
-    .then(page => {
+    if (showClips) {
 
-      let total = page.total.length;
-      let showNextButton = offset + 10 < total ? true : false;
-      let clips = page.data;
+      params.sequelize = {
+        offset: offset,
+        order: [
+          [sqlEngine.fn('max', sqlEngine.col(allowedFilters[filterType].query)), 'DESC']
+        ],
+        group: ['id']
+      };
 
-      // TODO: handle 404 if beyond range of page object
-      res.render('home/index.html', {
-        clips: clips,
-        dropdownText: allowedFilters[filterType].dropdownText,
-        pageIndex: pageIndex,
-        showNextButton: showNextButton,
-        currentPage: 'Home Page',
-        locals: res.locals
+      return ClipService.find(params)
+      .then(page => {
+
+        let total = page.total.length;
+        let showNextButton = offset + 10 < total ? true : false;
+        let clips = page.data;
+
+        // TODO: handle 404 if beyond range of page object
+        res.render('home/index.html', {
+          clips: clips,
+          dropdownText: allowedFilters[filterType].dropdownText,
+          pageIndex: pageIndex,
+          showNextButton: showNextButton,
+          currentPage: 'Home Page',
+          locals: res.locals,
+          clipsQueryParam: 'type=clips&',
+          headerText: 'Clips'
+        });
+      })
+      .catch(e => {
+        console.log(e);
       });
-    })
-    .catch(e => {
-      console.log(e);
-    });
+    } else {
+      params.includePodcastTitle = true; // HACK: this shouldn't need to be here
+      params.sequelize = {
+        offset: offset,
+        order: [
+          [sqlEngine.fn('max', sqlEngine.col(allowedFilters[filterType].query)), 'DESC']
+        ],
+        group: ['episode.id', 'podcast.id']
+      };
+
+      if (filterType === 'recent') {     // HACK: extreme hack.
+        params.sequelize.order = [
+          [sqlEngine.fn('max', sqlEngine.col('pubDate')), 'DESC']
+        ]
+      }
+
+      return EpisodeService.find(params)
+      .then(page => {
+        let total = page.total.length;
+        let showNextButton = offset + 10 < total ? true : false;
+        let episodes = page.data;
+
+        // TODO: handle 404 if beyond range of page object
+        res.render('home/index.html', {
+          episodes: episodes,
+          dropdownText: allowedFilters[filterType].dropdownText,
+          pageIndex: pageIndex,
+          showNextButton: showNextButton,
+          currentPage: 'Home Page',
+          locals: res.locals,
+          headerText: 'Episodes'
+        });
+      })
+      .catch(e => {
+        console.log(e);
+      });
+    }
   })
 
   // Clip Detail Page
