@@ -4,99 +4,62 @@
 <div class="row">
   <div class="col-xs-12">
     <div id="home-list">
-      <div class="header-dropdown dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          {{ headerText }} <i class="fa fa-angle-down"></i>
-        </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          {% if clips %}
-            <a class="dropdown-item" href="/">Episodes</a>
-          {% else %}
-            <a class="dropdown-item" href="/?type=clips">Clips</a>
-          {% endif %}
-        </div>
-      </div>
+      <h1>Podcast Clips</h1>
       <div class="sort-by-dropdown dropdown">
         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           {{ dropdownText }} <i class="fa fa-angle-down"></i>
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <a class="dropdown-item" href="/?{{clipsQueryParam}}sort=pastHour">top - past hour</a>
-          <a class="dropdown-item" href="/?{{clipsQueryParam}}sort=pastDay">top - past day</a>
-          <a class="dropdown-item" href="/?{{clipsQueryParam}}sort=pastWeek">top - past week</a>
-          <a class="dropdown-item" href="/?{{clipsQueryParam}}sort=pastMonth">top - past month</a>
-          <a class="dropdown-item" href="/?{{clipsQueryParam}}sort=pastYear">top - past year</a>
-          <a class="dropdown-item" href="/?{{clipsQueryParam}}sort=allTime">top - all time</a>
-          <a class="dropdown-item" href="/?{{clipsQueryParam}}sort=recent">most recent</a>
+          <a class="dropdown-item" href="/?sort=pastHour">top - past hour</a>
+          <a class="dropdown-item" href="/?sort=pastDay">top - past day</a>
+          <a class="dropdown-item" href="/?sort=pastWeek">top - past week</a>
+          <a class="dropdown-item" href="/?sort=pastMonth">top - past month</a>
+          <a class="dropdown-item" href="/?sort=pastYear">top - past year</a>
+          <a class="dropdown-item" href="/?sort=allTime">top - all time</a>
+          <a class="dropdown-item" href="/?sort=recent">most recent</a>
         </div>
       </div>
       <div class="clearfix"></div>
 
     <!-- NOTE: the home-list reuses the HTML / CSS of the #playlist in the player.html. The designs may diverge someday, but for now CSS changes to these elements will also change the #playlist's items. -->
 
-      {% if clips %}
-        {% for clip in clips %}
-          <a class="playlist-item" href="/clips/{{clip.id}}">
-            <div class="playlist-item-image">
-              <img src="{{ clip.podcastImageURL }}">
+      {% for clip in clips %}
+        <a class="playlist-item" href="/clips/{{clip.id}}">
+          <div class="playlist-item-image">
+            <img src="{{ clip.podcastImageURL }}">
+          </div>
+          <div class="playlist-item-text-wrapper">
+            <div class="playlist-item-podcast-title">
+              {{ clip.podcastTitle }}
             </div>
-            <div class="playlist-item-text-wrapper">
-              <div class="playlist-item-podcast-title">
-                {{ clip.podcastTitle }}
-              </div>
-              <div class="playlist-item-sub-title">
-                {{ clip.episodeTitle }}
-              </div>
-              <div class="playlist-item-time">
-                Clip:
-                {{ clip.startTime | convertSecToHHMMSS }}
-                {% if clip.endTime %}
-                  to {{ clip.endTime | convertSecToHHMMSS }}
-                {% else %}
-                  start time
-                {% endif %}
-              </div>
-              <div class="playlist-item-date">
-                {{ clip.episodePubDate | readableDate }}
-              </div>
+            <div class="playlist-item-sub-title">
+              {{ clip.episodeTitle }}
             </div>
-            {% if clip.title %}
-              <div class="playlist-item-details">
-                {{ clip.title | stripTags | truncate(260) }}
-              </div>
-            {% endif %}
-          </a><!-- /.playlist-item -->
-        {% endfor %}
-      {% else %}
-        {% for episode in episodes %}
-          <a class="playlist-item" href="/episodes/alias?mediaURL={{episode.mediaURL}}">
-            <div class="playlist-item-image">
-              <img src="{{ episode.podcast.imageURL }}">
+            <div class="playlist-item-time">
+              Clip:
+              {{ clip.startTime | convertSecToHHMMSS }}
+              {% if clip.endTime %}
+                to {{ clip.endTime | convertSecToHHMMSS }}
+              {% else %}
+                start time
+              {% endif %}
             </div>
-            <div class="playlist-item-text-wrapper">
-              <div class="playlist-item-podcast-title">
-                {{ episode.podcast.title }}
-              </div>
-              <div class="playlist-item-sub-title">
-                {{ episode.title }}
-              </div>
-              <div class="playlist-item-time">
-                Full Episode
-              </div>
-              <div class="playlist-item-date">
-                {{ episode.pubDate | readableDate }}
-              </div>
+            <div class="playlist-item-date">
+              <!-- TODO: clips seem to be randomly saving pubDates. Does PostgreSQL
+                         need some kind of special time zone handling or something?
+                         It seems like the pubDates of clips are getting incrementally
+                         bigger by 6 hours... -->
+              {{ clip.episodePubDate | readableDate }}
+              <!-- {{ clip.episodePubDate | readableDate }} -->
             </div>
-            {% if episode.summary %}
-              <div class="playlist-item-details">
-                {{ episode.summary | stripTags | decodeHTML | truncate(245) }}
-              </div>
-            {% endif %}
-          </a><!-- /.playlist-item -->
-        {% endfor %}
-      {% endif %}
-
-
+          </div>
+          {% if clip.title %}
+            <div class="playlist-item-details">
+              {{ clip.title | truncate(275) }}
+            </div>
+          {% endif %}
+        </a><!-- /.playlist-item -->
+      {% endfor %}
       <div class="pv-pagination">
         {% if pageIndex > 1 %}
           <div class="pv-pagination-prev">
