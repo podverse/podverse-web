@@ -71,7 +71,7 @@
         {% for episode in episodes %}
           <a class="playlist-item" href="/episodes/alias?mediaURL={{episode.mediaURL}}">
             <div class="playlist-item-image">
-              <img src="{{ episode.imageURL }}">
+              <img src="{{ episode.podcast.imageURL }}">
             </div>
             <div class="playlist-item-text-wrapper">
               <div class="playlist-item-podcast-title">
