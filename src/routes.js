@@ -31,7 +31,6 @@ function routes () {
     let offset = (pageIndex * 10) - 10;
     let showClips = (req.query.type === 'clips' ) || false;
     let params = {};
-    let query = showClips ? isClipMediaRefWithTitle : {};
 
     let filterType = req.query.sort || 'pastDay';
     if (process.env.NODE_ENV != 'production') { filterType = 'recent'; }
@@ -50,6 +49,7 @@ function routes () {
     if (showClips) {
 
       params.sequelize = {
+        where: isClipMediaRefWithTitle,
         offset: offset,
         order: [
           [sqlEngine.fn('max', sqlEngine.col(allowedFilters[filterType].query)), 'DESC']
