@@ -84,7 +84,7 @@ function routes () {
       params.sequelize = {
         offset: offset,
         order: [
-          [sqlEngine.fn('max', sqlEngine.col(allowedFilters[filterType].query)), 'DESC']
+          [sqlEngine.fn('max', sqlEngine.col(`episode.${allowedFilters[filterType].query}`)), 'DESC']
         ],
         group: ['episode.id', 'podcast.id']
       };
