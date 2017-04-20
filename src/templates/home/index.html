@@ -62,7 +62,7 @@
             </div>
             {% if clip.title %}
               <div class="playlist-item-details">
-                {{ clip.title | stripTags | truncate(275) }}
+                {{ clip.title | stripTags | truncate(260) }}
               </div>
             {% endif %}
           </a><!-- /.playlist-item -->
@@ -89,7 +89,7 @@
             </div>
             {% if episode.summary %}
               <div class="playlist-item-details">
-                {{ episode.summary | stripTags | truncate(275) }}
+                {{ episode.summary | stripTags | truncate(260) }}
               </div>
             {% endif %}
           </a><!-- /.playlist-item -->
