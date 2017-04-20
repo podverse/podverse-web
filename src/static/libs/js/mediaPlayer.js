@@ -38,6 +38,8 @@ if (!isPlaylist) {
     loadClipsAsPlaylistItems(clips);
   })
   .catch(err => console.log(err));
+} else {
+  setPlaylistItemClickEvents();
 }
 
 function loadClipsAsPlaylistItems (clips) {
@@ -79,6 +81,10 @@ function loadClipsAsPlaylistItems (clips) {
   window.mediaRefs = clips.reverse();
 
   $('#playlist').append(html);
+
+  setTimeout(function() {
+    setPlaylistItemClickEvents();
+  }, 1000);
 }
 
 
@@ -600,7 +606,8 @@ $('#player-stats-duration').on('click', function () {
   restart();
 });
 
-setTimeout(function () {
+
+function setPlaylistItemClickEvents() {
   $('.playlist-item').on('keypress click', function(e) {
     if (e.which === 13 || e.type === 'click') {
       if (isPlayerPage) {
@@ -629,7 +636,7 @@ setTimeout(function () {
       .catch(err => console.log(err));
     }
   });
-}, 1000);
+}
 
 function onScrollCondensePlayerView () {
 
