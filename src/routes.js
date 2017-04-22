@@ -4,6 +4,7 @@ const
     {isClipMediaRefWithTitle,
      allowedFilters, checkIfFilterIsAllowed } = require('constants.js'),
     {getLoggedInUserInfo} = require('middleware/auth/getLoggedInUserInfo.js'),
+    {cache} = require('middleware/cache'),
     {queryGoogleApiData} = require('services/googleapi/googleapi.js'),
     {isNonAnonUser, removeArticles} = require('util.js'),
     {generatePlaylistRSSFeed} = require('services/playlist/PlaylistRSSService.js'),
@@ -184,7 +185,10 @@ function routes () {
     })
   })
 
-  .get('/podcasts/list', getLoggedInUserInfo, (req, res) => {
+  // Show All Podcasts page can take a long time to load, so we're caching
+  // it every 30 minutes. Also Pingdom is setup to hit this page every 15 minutes
+  // to keep the page in memory.
+  .get('/podcasts/list', getLoggedInUserInfo, cache(1800), (req, res) => {
     return PodcastService.retrieveAllPodcasts()
       .then(podcasts => {
 
