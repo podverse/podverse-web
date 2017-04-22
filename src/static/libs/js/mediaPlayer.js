@@ -544,6 +544,16 @@ $('#player-autoplay').on('click', function() {
   toggleAutoplay();
 });
 
+$(document).keydown(function(e){
+    if (e.keyCode == 37) { // left arrow
+       audio.currentTime = audio.currentTime - 5;
+    }
+    if (e.keyCode == 39) { // right arrow
+       audio.currentTime = audio.currentTime + 5;
+    }
+    return false;
+});
+
 function setStartAndEndTimesToBePlayed() {
   // Stop the clip once when the end time has been reached
   if (Math.floor(audio.currentTime) === endTime && endTimeHasBeenReached === false) {
