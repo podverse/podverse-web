@@ -553,7 +553,6 @@ $(document).keydown(function(e){
       audio.currentTime = audio.currentTime + 5;
       return false;
     }
-
 });
 
 function setStartAndEndTimesToBePlayed() {

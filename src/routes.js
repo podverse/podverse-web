@@ -119,6 +119,7 @@ function routes () {
         } else {
           req.params.playlistId = playlist.id;
           let mediaRefs = playlist.dataValues.mediaRefs;
+
           return new Promise((resolve, reject) => {
             getUsersSubscribedPodcastFeedURLs(resolve, reject, req);
           })
