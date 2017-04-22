@@ -4,14 +4,16 @@
 <div class="row">
   <div class="col-xs-12">
     <div id="home-list">
+      {% if pageIndex === 1 %}
       <h1>How it works</h1>
       <div id="home-header">
         <div class="clearfix"></div>
         <p>Create clips of your favorite podcasts and share them anywhere online.</p>
-        <p>Click the <i class="fa fa-scissors"></i> icon while an episode is playing to create a clip. No login required.</p>
+        <p>Click the <i class="fa fa-scissors"></i> icon while an episode is playing to create a clip. No login required :)</p>
         <p>To get started <a href="#" data-toggle="modal" data-target="#navbarSearchModal">search</a> or <a href="/podcasts/list">browse</a> for a podcast, then play an episode.</p>
       </div>
-      <h1>Podcast Clips</h1>
+      {% endif %}
+      <h1>Clips</h1>
       <div class="sort-by-dropdown dropdown">
         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           {{ dropdownText }} <i class="fa fa-angle-down"></i>
