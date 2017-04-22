@@ -707,7 +707,7 @@ footer p {
 /*** player-page description.html styles ***/
 #player-description-truncated {
     font-size: 14px;
-    margin-bottom: 1rem;
+    margin-bottom: 20px;
     height: 42px;
 }
 
@@ -722,7 +722,7 @@ footer p {
 #player-description-full {
     display: none;
     font-size: 14px;
-    margin-bottom: 1rem;
+    margin-bottom: 20px;
     min-height: 42px;
 }
 
@@ -741,9 +741,8 @@ footer p {
     }
 }
 
-#player-description-episode-summary {
+#player-description-episode-title {
     font-weight: 500;
-    margin-top: 20px;
 }
 
 

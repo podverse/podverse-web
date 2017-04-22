@@ -246,9 +246,15 @@ function setPlayerInfo () {
 
   $('#player-description-truncated').html('<div id="player-description-truncated-begin"></div>' + truncDescription + '<div id="player-description-truncated-end"></div>');
 
+
+
   // If is a clip, then include the episode summary after the title.
   if (!isEpisode) {
-    description = `${description}<br><br><br><div id="player-description-episode-summary">Episode Summary:</div><br><br>${episodeSummary}`;
+    description = `${description}<div class="clearfix"></div><br><br><p><span id="player-description-episode-title">Episode Title:</span> ${episodeTitle}</p>`;
+    description = `${description}<p>${episodeSummary}</p>`;
+
+  } else {
+    description = `${description}<div class="clearfix"></div><br><br><p><span id="player-description-episode-title">Episode Title:</span> ${episodeTitle}</p>`;
   }
   let autolinker = new Autolinker({});
   description = autolinker.link(description);
