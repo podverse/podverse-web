@@ -5,7 +5,7 @@ const
      allowedFilters, checkIfFilterIsAllowed } = require('constants.js'),
     {getLoggedInUserInfo} = require('middleware/auth/getLoggedInUserInfo.js'),
     {queryGoogleApiData} = require('services/googleapi/googleapi.js'),
-    {isNonAnonUser} = require('util.js'),
+    {isNonAnonUser, removeArticles} = require('util.js'),
     {generatePlaylistRSSFeed} = require('services/playlist/PlaylistRSSService.js'),
     _ = require('lodash'),
     validURL = require('valid-url');
@@ -194,6 +194,13 @@ function routes () {
           }
           return acc;
         }, []);
+
+        podcasts = _.sortBy(podcasts, (podcast) => {
+          let title = podcast.title;
+          title = title.toLowerCase();
+          title = removeArticles(title);
+          return title;
+        });
 
         res.render('podcasts/index.html', {
           podcasts: podcasts,
@@ -538,6 +545,25 @@ function routes () {
       userId: req.feathers.userId
     })
       .then(user => {
+
+        let podcasts = user.dataValues.subscribedPodcasts;
+
+        podcasts = _.reduce(podcasts, (acc, podcast) => {
+          if (podcast.title && podcast.title.length > 0) {
+            acc.push(podcast);
+          }
+          return acc;
+        }, []);
+
+        podcasts = _.sortBy(podcasts, (podcast) => {
+          let title = podcast.title;
+          title = title.toLowerCase();
+          title = removeArticles(title);
+          return title;
+        });
+
+        user.dataValues.subscribedPodcasts = podcasts;
+
         user.dataValues['currentPage'] = 'My Podcasts Page';
         user.dataValues['locals'] = res.locals;
         res.render('my-podcasts/index.html', user.dataValues);

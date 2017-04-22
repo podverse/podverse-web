@@ -101,10 +101,19 @@ function readableDate (date) {
   }
 }
 
+function removeArticles(str) {
+  let words = str.split(" ");
+  if(words.length <= 1) return str;
+  if( words[0] == 'a' || words[0] == 'the' || words[0] == 'an' )
+    return words.splice(1).join(" ");
+  return str;
+}
+
 module.exports = {
   isNonAnonUser,
   offsetDate,
   lastHour,
   convertSecToHHMMSS,
-  readableDate
+  readableDate,
+  removeArticles
 }

@@ -2,7 +2,7 @@ const nunjucks = require('nunjucks'),
       stripTags = require('striptags'),
       he = require('he'),
       _ = require('lodash'),
-      {convertSecToHHMMSS, readableDate} = require('./util.js');
+      {convertSecToHHMMSS, readableDate, removeArticles} = require('./util.js');
 
 function nunjucksConfig () {
 
@@ -43,14 +43,6 @@ function nunjucksConfig () {
       }
       return 0;
     };
-
-    function removeArticles(str) {
-      words = str.split(" ");
-      if(words.length <= 1) return str;
-      if( words[0] == 'a' || words[0] == 'the' || words[0] == 'an' )
-        return words.splice(1).join(" ");
-      return str;
-    }
 
     var sorted = arr.sort(compare)
 
