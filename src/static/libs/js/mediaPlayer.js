@@ -546,12 +546,14 @@ $('#player-autoplay').on('click', function() {
 
 $(document).keydown(function(e){
     if (e.keyCode == 37) { // left arrow
-       audio.currentTime = audio.currentTime - 5;
+      audio.currentTime = audio.currentTime - 5;
+      return false;
     }
     if (e.keyCode == 39) { // right arrow
-       audio.currentTime = audio.currentTime + 5;
+      audio.currentTime = audio.currentTime + 5;
+      return false;
     }
-    return false;
+
 });
 
 function setStartAndEndTimesToBePlayed() {
