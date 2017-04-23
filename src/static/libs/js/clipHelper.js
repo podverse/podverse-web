@@ -178,8 +178,12 @@ export function makeClip (event) {
     endTime = null;
   }
 
+  // NOTE: this seems like a crappy way to determine isPublic value
+  let isPublic = document.getElementById('makeClipPrivacyButton').innerHTML;
+  isPublic = isPublic.indexOf('Public') > -1;
+
   // TODO: HACK: DANGER WILL ROBINSON: passing window variables into a POST
-  // can't be a good idea. Should seriously consider fixing this...
+  // isn't a good idea, right? Should consider fixing this...
 
   let dataObj = {
     startTime: startTime,
@@ -192,7 +196,8 @@ export function makeClip (event) {
     episodeTitle: window.episodeTitle,
     episodePubDate: window.episodePubDate,
     episodeSummary: window.episodeSummary,
-    episodeDuration: window.episodeDuration
+    episodeDuration: window.episodeDuration,
+    isPublic: isPublic
   }
 
   if (window.podcastImageURL && window.podcastImageURL.indexOf('http') === 0) {

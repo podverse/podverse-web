@@ -114,6 +114,11 @@ module.exports = function(sequelize, DataTypes) {
     allTimeTotalUniquePageviews: {
       type: DataTypes.INTEGER,
       defaultValue: 0
+    },
+
+    isPublic: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
     }
 
   }, {

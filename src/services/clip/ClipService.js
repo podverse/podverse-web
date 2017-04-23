@@ -5,7 +5,7 @@ const
     config = require('config.js'),
     {locator} = require('locator.js'),
     {addURL} = require('hooks/clip/clip.js'),
-    {isClipMediaRef, isClipMediaRefForPodcast} = require('constants.js'),
+    {isClipMediaRefForPodcast} = require('constants.js'),
     sqlEngine = locator.get('sqlEngine');
 
 class ClipService extends SequelizeService {

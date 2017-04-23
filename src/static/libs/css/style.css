@@ -220,7 +220,7 @@ footer p {
 }
 
 #home-list .sort-by-dropdown {
-    margin: 17px 0 0 0;
+    margin: 16px 0 0 0 !important;
     float: right;
 }
 
@@ -235,6 +235,16 @@ footer p {
 
 #make-clip-form {
   padding: 1rem 0 4rem 0;
+}
+
+#make-clip .sort-by-dropdown {
+    float: right;
+    margin-top: -1px;
+}
+
+#make-clip .dropdown-menu {
+    left: auto;
+    right: 0;
 }
 
 #make-clip-form #player-container {

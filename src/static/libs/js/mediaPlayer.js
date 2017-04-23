@@ -544,6 +544,20 @@ $('#player-autoplay').on('click', function() {
   toggleAutoplay();
 });
 
+$('#make-clip .dropdown-item').on('click', function () {
+  let _this = this;
+  // surrounding in setTimeout to override the default behavior of the bootstrap dropdown select behavior
+  setTimeout(function () {
+    if ($(_this).attr('id') === 'isPublic') {
+      $('#makeClipPrivacyButton').html('<i class="fa fa-globe"></i> Public <i class="fa fa-angle-down"></i>');
+      $('#make-clip-share-settings').html('<i class="fa fa-globe"></i> <span>Public:</span> <i>clip may appear anywhere on the site</i>')
+    } else {
+      $('#makeClipPrivacyButton').html('<i class="fa fa-link"></i> Only with link <i class="fa fa-angle-down"></i>');
+      $('#make-clip-share-settings').html('<i class="fa fa-link"></i> <span>Only with link:</span> <i>clip is visible to anyone with the link</i>')
+    }
+  }, 10);
+});
+
 $(document).keydown(function(e){
     if (e.keyCode == 37) { // left arrow
       audio.currentTime = audio.currentTime - 5;
@@ -639,13 +653,13 @@ function setPlaylistItemClickEvents() {
     }
   });
 
-  $('.sort-by-dropdown .dropdown-item').on('click', function (_this) {
+  $('#playlist .sort-by-dropdown .dropdown-item').on('click', function (_this) {
     if (_this && _this.target) {
       let params = {};
       params.podcastFeedURL = podcastFeedURL;
       // params.episodeMediaURL = episodeMediaURL;
       params.filterType = _this.target.id;
-      $('.sort-by-dropdown button').html(_this.target.innerText + ' <i class="fa fa-angle-down"></i>');
+      $('#playlist .sort-by-dropdown button').html(_this.target.innerText + ' <i class="fa fa-angle-down"></i>');
       requestClipsFromAPI(params)
       .then(clips => {
         loadClipsAsPlaylistItems(clips);

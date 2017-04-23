@@ -16,7 +16,8 @@ const isClipMediaRefWithTitle = {
     $not: {
       $or: [
         {title: null},
-        {title: ''}
+        {title: ''},
+        {isPublic: false}
       ]
     }
   }
@@ -34,7 +35,8 @@ const isClipMediaRefForPodcast = (params = {}) => {
       $not: {
         $or: [
           {title: null},
-          {title: ''}
+          {title: ''},
+          {isPublic: false}
         ]
       }
     }

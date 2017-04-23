@@ -1,6 +1,14 @@
-
 <div id="make-clip">
   <div id="make-clip-header" class="player-function-header">Create a Clip</div>
+  <div class="sort-by-dropdown dropdown">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="makeClipPrivacyButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <i class="fa fa-globe"></i> Public <i class="fa fa-angle-down"></i>
+    </button>
+    <div class="dropdown-menu" aria-labelledby="makeClipPrivacyButton">
+      <a class="dropdown-item" id="isPublic"><i class="fa fa-globe"></i> Public</a>
+      <a class="dropdown-item" id="onlyWithLink"><i class="fa fa-link"></i> Only with link</a>
+    </div>
+  </div>
   <div class="clearfix"></div>
   <div class="row">
     <div class="col-xs-6 col-sm-4">
@@ -26,7 +34,7 @@
         <textarea class="form-control" rows="2" placeholder="What is the clip about? (optional)"></textarea>
       </div>
       <div id="make-clip-share-settings">
-        <i class="fa fa-globe"></i>&nbsp; <span>Public:</span> <i>clips may be visible to other users</i>
+        <i class="fa fa-globe"></i> <span>Public:</span> <i>clips may appear anywhere on the site</i>
       </div>
       <button type="submit" class="btn btn-primary pull-right" id="make-clip-btn">Save</button>
       <button type="cancel" class="btn btn-secondary pull-right" id="make-clip-cancel">Close</button>
