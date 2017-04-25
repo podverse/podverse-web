@@ -2,8 +2,14 @@
 <html itemscope itemtype="http://schema.org/Article">
   <head>
     <title>Podverse</title>
-    
-    <link rel="stylesheet" href="/static/node_modules/font-awesome/css/font-awesome.min.css">
+
+    <!-- There is an issue where Font Awesome icons noticeably load after text
+    has loaded. This script attempts to work around this issue by appending the
+    Font Awesome style rules to the DOM with JS and blocking loading the rest
+    of the page until it finishes.
+    http://stackoverflow.com/a/35880730/2608858 -->
+    <script type="text/javascript"> (function() { var css = document.createElement('link'); css.href = '/static/node_modules/font-awesome/css/font-awesome.min.css'; css.rel = 'stylesheet'; css.type = 'text/css'; document.getElementsByTagName('head')[0].appendChild(css); })(); </script>
+
     <link rel="stylesheet" href="/static/node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/static/node_modules/typeahead.js-bootstrap4-css/typeaheadjs.css">
     <link rel="stylesheet" href="/static/node_modules/mediaelement/build/mediaelementplayer.css">
