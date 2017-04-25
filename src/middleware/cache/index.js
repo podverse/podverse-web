@@ -7,7 +7,9 @@ let cache = (duration) => {
   return (req, res, next) => {
     let key = `__express__${req.originalUrl || req.url}`;
     let cachedBody = mcache.get(key);
-    if (cachedBody) {
+    // TODO: how can we handle caching, but still load logged in user data on
+    // the page?
+    if (cachedBody && res.locals && !res.locals.isLoggedIn) {
       res.send(cachedBody)
       return
     } else {
