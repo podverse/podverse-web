@@ -559,6 +559,10 @@ $('#make-clip .dropdown-item').on('click', function () {
 });
 
 $(document).keydown(function(e){
+    if ($(e.target).is('input, textarea')) {
+      return;
+    }
+
     if (e.keyCode == 37) { // left arrow
       audio.currentTime = audio.currentTime - 5;
       return false;
