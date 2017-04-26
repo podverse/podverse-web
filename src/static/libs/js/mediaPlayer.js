@@ -50,8 +50,9 @@ function loadClipsAsPlaylistItems (clips) {
   for (let clip of clips) {
 
     let truncTitle;
-    if (clip.title && clip.title.length > 350) {
-      truncTitle = clip.title.substr(0, 350);
+    if (clip.title && clip.title.length > 340) {
+      truncTitle = clip.title.substr(0, 340);
+      truncTitle += '...';
     }
 
     let clipDuration = calcDuration(clip.startTime, clip.endTime);
