@@ -48,11 +48,17 @@ function loadClipsAsPlaylistItems (clips) {
   let html  = '';
 
   for (let clip of clips) {
+
+    let truncTitle;
+    if (clip.title && clip.title.length > 350) {
+      truncTitle = clip.title.substr(0, 350);
+    }
+
     let clipDuration = calcDuration(clip.startTime, clip.endTime);
 
     html += `<div class="playlist-item" data-media-ref-id="${clip.id}" tabindex="0">`;
     html +=   '<div class="playlist-item-podcast-title">';
-    html +=     clip.title;
+    html +=     truncTitle || clip.title;
     html +=   '</div>';
     html +=   '<div class="playlist-item-sub-title">'
     html +=     clip.episodeTitle;
