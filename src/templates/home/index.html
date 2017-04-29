@@ -39,10 +39,10 @@
           </div>
           <div class="playlist-item-text-wrapper">
             <div class="playlist-item-podcast-title">
-              {{ clip.podcastTitle }}
+              {{ clip.podcastTitle | decodeHTML }}
             </div>
             <div class="playlist-item-sub-title">
-              {{ clip.episodeTitle }}
+              {{ clip.episodeTitle | decodeHTML }}
             </div>
             <div class="playlist-item-time">
               Clip:

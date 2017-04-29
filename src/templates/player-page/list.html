@@ -37,10 +37,10 @@
               <small>remove</small> <i class="fa fa-times"></i>
             </div>
             <div class="playlist-item-podcast-title">
-              {{ item.podcastTitle }}
+              {{ item.podcastTitle | decodeHTML }}
             </div>
             <div class="playlist-item-sub-title">
-              {{ item.episodeTitle }}
+              {{ item.episodeTitle | decodeHTML }}
             </div>
             <div class="playlist-item-time">
                 Full Episode
@@ -64,10 +64,10 @@
               <small>remove</small> <i class="fa fa-times"></i>
             </div>
             <div class="playlist-item-podcast-title">
-              {{ item.podcastTitle }}
+              {{ item.podcastTitle | decodeHTML}}
             </div>
             <div class="playlist-item-sub-title">
-              {{ item.episodeTitle }}
+              {{ item.episodeTitle | decodeHTML }}
             </div>
             <div class="playlist-item-time">
               Clip:
