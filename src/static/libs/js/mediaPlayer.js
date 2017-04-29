@@ -6,6 +6,7 @@ import { sendGoogleAnalyticsPlayerPageView,
          sendGoogleAnalyticsEvent } from './googleAnalytics.js';
 import { isMobileOrTablet } from './browserSupportDetection.js';
 import { allowedFilters, checkIfFilterIsAllowed } from '../../../constants.js';
+const he = require('he');
 const Autolinker = require('autolinker');
 const stripTags = require('striptags');
 
