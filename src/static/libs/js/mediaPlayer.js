@@ -209,6 +209,7 @@ function setPlayerInfo () {
   $('#player-condensed-image img').attr('src', podcastImageURL);
 
   $('#player-podcast-title a').attr('href', '/podcasts/alias?feedURL=' + podcastFeedURL);
+  podcastTitle = he.decode(podcastTitle);
   $('#player-podcast-title a').html(podcastTitle);
 
   $('#player-sub-title a').attr('href', '/episodes/alias?mediaURL=' + episodeMediaURL);
