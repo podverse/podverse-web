@@ -75,7 +75,7 @@ audio {
     cursor: pointer;
 }
 
-.playlist-item-podcast-title, .playlist-item-sub-title,
+#home-list .playlist-item-podcast-title, .playlist-item-sub-title,
 #player-condensed-title, #player-condensed-sub-title,
 #player-condensed-clip-title, #player-condensed-podcast-title,
 #player-condensed-sub-title {
