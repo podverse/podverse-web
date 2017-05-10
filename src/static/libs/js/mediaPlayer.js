@@ -19,6 +19,11 @@ window.endTimeHasBeenReached = false;
 // Load the player
 if (isEmptyPlaylist !== true) {
   $('#player').append('<i class="fa fa-spinner fa-spin"></i>');
+
+  if (isNonAnonLoggedInUser()) {
+    $('#toggle-playlist-btn, #toggle-recommend-btn').css('display', 'inline-block');
+  }
+
   setPlayerInfo();
   setSubscribedStatus();
   createAutoplayBtn();
