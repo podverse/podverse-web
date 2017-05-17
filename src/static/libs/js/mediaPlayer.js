@@ -40,7 +40,7 @@ if (!isPlaylist) {
   params.filterType = 'pastMonth';
 
   var spinnerEl = $('<div class="load-clips-spinner"><i class="fa fa-spinner fa-spin"><i></div>');
-  $(spinnerEl).insertAfter('.sort-by-dropdown.dropdown');
+  $(spinnerEl).insertAfter('#playlist .sort-by-dropdown.dropdown');
 
   requestClipsFromAPI(params)
   .then(clips => {
