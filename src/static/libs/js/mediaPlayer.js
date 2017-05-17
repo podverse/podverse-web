@@ -40,16 +40,16 @@ if (!isPlaylist) {
   params.filterType = 'pastMonth';
 
   var spinnerEl = $('<div class="load-clips-spinner"><i class="fa fa-spinner fa-spin"><i></div>');
-  $(spinnerEl).insertAfter('.sort-by-dropdown.dropdown')
+  $(spinnerEl).insertAfter('.sort-by-dropdown.dropdown');
 
   requestClipsFromAPI(params)
   .then(clips => {
+    $(spinnerEl).remove();
     loadClipsAsPlaylistItems(clips);
-    $(spinnerEl).hide();
   })
   .catch(err => {
     console.log(err);
-    $(spinnerEl).hide();
+    $(spinnerEl).remove();
   });
 } else {
   setPlaylistItemClickEvents();
