@@ -560,6 +560,11 @@ footer p {
     font-style: italic;
 }
 
+.load-clips-spinner {
+    clear: both;
+    text-align: center;
+}
+
 
 /*** player.html condensed-size mode styles ***/
 
