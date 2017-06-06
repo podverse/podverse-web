@@ -5,11 +5,11 @@ const
     hooks = require('feathers-hooks'),
     bodyParser = require('body-parser'),
     cookieParser = require('cookie-parser'),
-    {locator} = require('locator.js'),
-    {processJWTIfExists} = require('middleware/auth/processJWTIfExists.js'),
-    {nunjucks} = require('nunjucks.js'),
-    {routes} = require('routes.js'),
-    {errorHandler} = require('middleware/errors.js'),
+    {locator} = require('./locator'),
+    {processJWTIfExists} = require('./middleware/auth/processJWTIfExists'),
+    {nunjucks} = require('./nunjucks'),
+    {routes} = require('./routes'),
+    {errorHandler} = require('./middleware/errors'),
     errors = require('feathers-errors');
 
 function appFactory () {

@@ -297,7 +297,7 @@ function routes () {
   })
 
   // Retrieve the most popular clips
-  .post('/api/clips', getLoggedInUserInfo, (req, res) => {
+  .post('/api/clips', (req, res) => {
     let params = {};
 
     let filterType = req.body.filterType || 'pastWeek';
@@ -309,15 +309,12 @@ function routes () {
       return;
     }
 
-    if (!validURL.isUri(req.body.podcastFeedURL)) {
-      res.send(`Invalid URL ${req.body.podcastFeedURL} provided for podcastFeedURL`, 404);
+    if (!validURL.isUri(req.body.podcastFeedURL) && !validURL.isUri(req.body.episodeMediaURL)) {
+      res.send(`A valid URL must be provided for podcastFeedURL or episodeMediaURL.`, 404);
       return;
     }
 
-    if (req.body.episodeMediaURL && !validURL.isUri(req.body.episodeMediaURL)) {
-      res.send(`Invalid URL ${req.body.episodeMediaURL} provided for episodeMediaURL`, 404);
-      return;
-    }
+    res.setHeader('Content-Type', 'application/json');
 
     params.podcastFeedURL = req.body.podcastFeedURL;
     params.episodeMediaURL = req.body.episodeMediaURL;
@@ -325,7 +322,7 @@ function routes () {
 
     return ClipService.retrievePodcastsMostPopularClips(params)
     .then(clips => {
-      res.send(clips);
+      res.send(JSON.stringify(clips));
     })
     .catch(e => {
       console.log(e);

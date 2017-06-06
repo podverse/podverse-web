@@ -3,7 +3,7 @@ https://medium.freecodecamp.com/webpack-for-the-fast-and-the-furious-bf8d3746adb
 
 var webpack = require("webpack"),
     path = require("path"),
-    config = require("src/config.js");
+    config = require("./src/config");
 
 var lib_dir = __dirname + "/src/static/libs";
 

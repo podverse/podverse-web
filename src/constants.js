@@ -24,6 +24,10 @@ const isClipMediaRefWithTitle = {
 }
 
 const isClipMediaRefForPodcast = (params = {}) => {
+  let podcastFeedUrl = params.podcastFeedURL || '';
+  podcastFeedUrl = podcastFeedUrl.replace(/(^\w+:|^)\/\//, '');
+  let episodeMediaUrl = params.episodeMediaURL || '';
+  episodeMediaUrl = episodeMediaUrl.replace(/(^\w+:|^)\/\//, '');
 
   let customQuery = {
     $not: {
@@ -31,7 +35,11 @@ const isClipMediaRefForPodcast = (params = {}) => {
       endTime: null
     },
     $and: {
-      podcastFeedURL: params.podcastFeedURL,
+      $or: [
+        {$and: {
+          $or: []
+        }}
+      ],
       $not: {
         $or: [
           {title: null},
@@ -42,8 +50,14 @@ const isClipMediaRefForPodcast = (params = {}) => {
     }
   }
 
-  if (params.episodeMediaURL) {
-    customQuery.$and.episodeMediaURL = params.episodeMediaURL;
+  if (podcastFeedUrl.length > 0) {
+    customQuery.$and.$or.push({podcastFeedURL: 'http://' + podcastFeedUrl});
+    customQuery.$and.$or.push({podcastFeedURL: 'https://' + podcastFeedUrl});
+  }
+
+  if (episodeMediaUrl.length > 0) {
+    customQuery.$and.$or[0].$and.$or.push({episodeMediaURL: 'http://' + episodeMediaUrl});
+    customQuery.$and.$or[0].$and.$or.push({episodeMediaURL: 'https://' + episodeMediaUrl});
   }
 
   return customQuery;
