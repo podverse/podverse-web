@@ -1,29 +1,6 @@
 const _ = require('lodash');
 
-const isClipMediaRef = {
-  $not: {
-    startTime: 0,
-    endTime: null
-  }
-}
-
-const isClipMediaRefWithTitle = {
-  $not: {
-    startTime: 0,
-    endTime: null,
-  },
-  $and: {
-    $not: {
-      $or: [
-        {title: null},
-        {title: ''},
-        {isPublic: false}
-      ]
-    }
-  }
-}
-
-const isClipMediaRefForPodcast = (params = {}) => {
+const isClipMediaRef = (params = {}) => {
   let podcastFeedUrl = params.podcastFeedURL || '';
   podcastFeedUrl = podcastFeedUrl.replace(/(^\w+:|^)\/\//, '');
   let episodeMediaUrl = params.episodeMediaURL || '';
@@ -94,7 +71,7 @@ const allowedFilters = {
   }
 };
 
-const checkIfFilterIsAllowed = (filterType) => {
+const isFilterAllowed = (filterType) => {
   if (filterType && _.includes(Object.keys(allowedFilters), filterType)) {
     return true;
   } else {
@@ -118,9 +95,7 @@ const isValidPageViewTimeRange = (str) => {
 
 module.exports = {
   isClipMediaRef: isClipMediaRef,
-  isClipMediaRefForPodcast: isClipMediaRefForPodcast,
-  isClipMediaRefWithTitle: isClipMediaRefWithTitle,
   allowedFilters: allowedFilters,
-  checkIfFilterIsAllowed: checkIfFilterIsAllowed,
+  isFilterAllowed: isFilterAllowed,
   isValidPageViewTimeRange: isValidPageViewTimeRange
 }
