@@ -1,7 +1,7 @@
 import { calcDuration, convertSecToHHMMSS, throttle, isNonAnonLoggedInUser,
          readableDate, secondsToReadableDuration } from './utility.js';
 import { subscribeToPodcast, unsubscribeFromPodcast } from './podcastHelper.js';
-import { requestClipsFromAPI } from './clipHelper.js';
+import { requestPaginatedClipsFromAPI } from './clipHelper.js';
 import { sendGoogleAnalyticsPlayerPageView,
          sendGoogleAnalyticsEvent } from './googleAnalytics.js';
 import { isMobileOrTablet } from './browserSupportDetection.js';
@@ -42,8 +42,9 @@ if (!isPlaylist) {
   var spinnerEl = $('<div class="load-clips-spinner"><i class="fa fa-spinner fa-spin"><i></div>');
   $(spinnerEl).insertAfter('#playlist .sort-by-dropdown.dropdown');
 
-  requestClipsFromAPI(params)
-  .then(clips => {
+  requestPaginatedClipsFromAPI(params)
+  .then(page => {
+    let clips = page.data;
     $(spinnerEl).remove();
     loadClipsAsPlaylistItems(clips);
   })
@@ -685,8 +686,9 @@ function setPlaylistItemClickEvents() {
       // params.episodeMediaURL = episodeMediaURL;
       params.filterType = _this.target.id;
       $('#playlist .sort-by-dropdown button').html(_this.target.innerText + ' <i class="fa fa-angle-down"></i>');
-      requestClipsFromAPI(params)
-      .then(clips => {
+      requestPaginatedClipsFromAPI(params)
+      .then(page => {
+        let clips = page.data;
         loadClipsAsPlaylistItems(clips);
       })
       .catch(err => console.log(err));

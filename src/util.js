@@ -109,11 +109,18 @@ function removeArticles(str) {
   return str;
 }
 
+function shouldShowNextButton (pageIndex, total) {
+  let offset = (pageIndex * 10) - 10;
+  let showNextButton = offset + 10 < total ? true : false;
+  return showNextButton;
+}
+
 module.exports = {
   isNonAnonUser,
   offsetDate,
   lastHour,
   convertSecToHHMMSS,
   readableDate,
-  removeArticles
+  removeArticles,
+  shouldShowNextButton
 }

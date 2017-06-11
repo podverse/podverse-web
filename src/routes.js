@@ -1,15 +1,13 @@
 const
     errors = require('feathers-errors'),
     {locator} = require('locator.js'),
-    {isClipMediaRefWithTitle,
-     allowedFilters, isFilterAllowed } = require('constants.js'),
+    {allowedFilters} = require('constants.js'),
     {getLoggedInUserInfo} = require('middleware/auth/getLoggedInUserInfo.js'),
     {cache} = require('middleware/cache'),
     {queryGoogleApiData} = require('services/googleapi/googleapi.js'),
-    {isNonAnonUser, removeArticles} = require('util.js'),
+    {isNonAnonUser, removeArticles, shouldShowNextButton} = require('util.js'),
     {generatePlaylistRSSFeed} = require('services/playlist/PlaylistRSSService.js'),
-    _ = require('lodash'),
-    validURL = require('valid-url');
+    _ = require('lodash');
 
 function routes () {
   const app = this,
@@ -24,56 +22,25 @@ function routes () {
 
   app.get('/', getLoggedInUserInfo, function (req, res) {
 
-    // This will not return clips in your local dev environment. To load clips
-    // in your dev environment, uncomment the sqlEngine.col('title')) line below,
-    // and comment out the $and $not $or part in isClipMediaRefWithTitle.
-
-    let pageIndex = req.query.page || 1;
-    let offset = (pageIndex * 10) - 10;
-    let params = {};
-
     let filterType = req.query.sort || 'pastDay';
-    if (process.env.NODE_ENV != 'production') { filterType = 'recent'; }
-    let isAllowed = isFilterAllowed(filterType);
+    let pageIndex = req.query.page || 1;
 
-    if (!isAllowed) {
-      res.send(filterTypeNotAllowedMessage(filterType), 404);
-      return;
-    }
-
-    params.sequelize = {
-      where: isClipMediaRefWithTitle,
-      offset: offset,
-      order: [
-        [sqlEngine.fn('max', sqlEngine.col(allowedFilters[filterType].query)), 'DESC']
-      ],
-      group: ['id']
-    };
-
-    params.paginate = {
-      default: 10,
-      max: 1000
-    };
-
-    return ClipService.find(params)
+    return ClipService.retrievePaginatedClips(filterType, null, null, null, pageIndex)
     .then(page => {
-
-      let total = page.total.length;
-      let showNextButton = offset + 10 < total ? true : false;
       let clips = page.data;
 
-      // TODO: handle 404 if beyond range of page object
       res.render('home/index.html', {
         clips: clips,
         dropdownText: allowedFilters[filterType].dropdownText,
         pageIndex: pageIndex,
-        showNextButton: showNextButton,
+        showNextButton: shouldShowNextButton(pageIndex, page.total.length),
         currentPage: 'Home Page',
         locals: res.locals
       });
     })
-    .catch(e => {
-      console.log(e);
+    .catch(err => {
+      console.log(err);
+      res.sendStatus(404);
     });
   })
 
@@ -251,30 +218,21 @@ function routes () {
 
   // Podcast Detail Page (Clips)
   .get('/podcasts/clips/:id', getLoggedInUserInfo, (req, res) => {
-    let params = {};
-
-    let filterType = req.query.sort || 'pastWeek';
-    if (process.env.NODE_ENV != 'production') { filterType = 'recent'; }
-    let isAllowed = isFilterAllowed(filterType);
-
-    if (!isAllowed) {
-      res.send(filterTypeNotAllowedMessage(filterType), 404);
-      return;
-    }
-
-    return PodcastService.get(req.params.id, params)
+    return PodcastService.get(req.params.id)
       .then(podcast => {
-        let params = {};
-        params.podcastFeedURL = podcast.feedURL;
+
         req.params.podcastFeedURL = podcast.feedURL; // set on the request for isUserSubscribedToThisPodcast
         return new Promise((resolve, reject) => {
           isUserSubscribedToThisPodcast(resolve, reject, req);
         })
         .then((isSubscribed) => {
-          params.filterTypeQuery = allowedFilters[filterType].query;
-          return ClipService.retrieveMostPopularClips(params)
-          .then(clips => {
-            podcast.clips = clips;
+
+          let filterType = req.query.sort || 'pastDay';
+          let pageIndex = req.query.page || 1;
+
+          return ClipService.retrievePaginatedClips(filterType, podcast.feedURL, null, null, pageIndex)
+          .then(page => {
+            podcast.clips = page.data;
             res.render('podcast/index.html', {
               podcast: podcast,
               dropdownText: allowedFilters[filterType].dropdownText,
@@ -287,8 +245,8 @@ function routes () {
           .catch(err => {
             console.log(req.params.id);
             console.log(err);
+            res.sendStatus(404);
           });
-
         });
       }).catch(e => {
         console.log(e);
@@ -298,36 +256,17 @@ function routes () {
 
   // Retrieve the most popular clips
   .post('/api/clips', (req, res) => {
-    let params = {};
-
-    let filterType = req.body.filterType || 'pastWeek';
-    if (process.env.NODE_ENV != 'production') { filterType = 'recent'; }
-    let isAllowed = isFilterAllowed(filterType);
-
-    if (!isAllowed) {
-      res.send(filterTypeNotAllowedMessage(filterType), 404);
-      return;
-    }
-
-    if (!validURL.isUri(req.body.podcastFeedURL) && !validURL.isUri(req.body.episodeMediaURL)) {
-      res.send(`A valid url Invalid URL ${req.body.podcastFeedURL} provided for podcastFeedURL`, 404);
-      return;
-    }
-
-    if (req.body.episodeMediaURL && !validURL.isUri(req.body.episodeMediaURL)) {
-      res.send(`Invalid URL ${req.body.episodeMediaURL} provided for episodeMediaURL`, 404);
-      return;
-    }
-
     res.setHeader('Content-Type', 'application/json');
 
-    params.podcastFeedURL = req.body.podcastFeedURL;
-    params.episodeMediaURL = req.body.episodeMediaURL;
-    params.filterTypeQuery = allowedFilters[filterType].query;
+    let filterType = req.body.filterType || 'pastWeek';
+    let pageIndex = req.body.page || 1;
+    let podcastFeedUrl = req.body.podcastFeedURL;
+    let episodeMediaUrl = req.body.episodeMediaURL;
+    let onlySubscribed = req.body.onlySubscribed || false;
 
-    return ClipService.retrieveMostPopularClips(params)
-    .then(clips => {
-      res.send(JSON.stringify(clips));
+    return ClipService.retrievePaginatedClips(filterType, podcastFeedUrl, episodeMediaUrl, onlySubscribed, pageIndex)
+    .then(page => {
+      res.send(JSON.stringify(page));
     })
     .catch(e => {
       console.log(e);
@@ -718,10 +657,6 @@ function gatherUsersOwnedPlaylists(resolve, reject, req) {
   } else {
     resolve(false);
   }
-}
-
-function filterTypeNotAllowedMessage (filterType) {
-  return `Unrecognized filter "${filterType}" provided. Allowed filter types are: pastHour, pastDay, pastMonth, pastYear, allTime, or recent.`;
 }
 
 module.exports = {routes};

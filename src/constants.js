@@ -1,10 +1,15 @@
 const _ = require('lodash');
 
-const isClipMediaRef = (params = {}) => {
-  let podcastFeedUrl = params.podcastFeedURL || '';
-  podcastFeedUrl = podcastFeedUrl.replace(/(^\w+:|^)\/\//, '');
-  let episodeMediaUrl = params.episodeMediaURL || '';
-  episodeMediaUrl = episodeMediaUrl.replace(/(^\w+:|^)\/\//, '');
+const isClipMediaRef = (podcastFeedUrl, episodeMediaUrl, onlySubscribed) => {
+
+  if (onlySubscribed) {
+    // TODO
+  } else if (podcastFeedUrl || episodeMediaUrl) {
+    podcastFeedUrl = podcastFeedUrl || '';
+    podcastFeedUrl = podcastFeedUrl.replace(/(^\w+:|^)\/\//, '');
+    episodeMediaUrl = episodeMediaUrl || '';
+    episodeMediaUrl = episodeMediaUrl.replace(/(^\w+:|^)\/\//, '');
+  }
 
   let customQuery = {
     $not: {
@@ -12,11 +17,6 @@ const isClipMediaRef = (params = {}) => {
       endTime: null
     },
     $and: {
-      $or: [
-        {$and: {
-          $or: []
-        }}
-      ],
       $not: {
         $or: [
           {title: null},
@@ -27,14 +27,24 @@ const isClipMediaRef = (params = {}) => {
     }
   }
 
-  if (podcastFeedUrl.length > 0) {
-    customQuery.$and.$or.push({podcastFeedURL: 'http://' + podcastFeedUrl});
-    customQuery.$and.$or.push({podcastFeedURL: 'https://' + podcastFeedUrl});
-  }
+  if (onlySubscribed) {
+    // TODO
+  } else if (podcastFeedUrl || episodeMediaUrl){
 
-  if (episodeMediaUrl.length > 0) {
-    customQuery.$and.$or[0].$and.$or.push({episodeMediaURL: 'http://' + episodeMediaUrl});
-    customQuery.$and.$or[0].$and.$or.push({episodeMediaURL: 'https://' + episodeMediaUrl});
+    customQuery.$and.$or = [{
+      $and: {
+        $or: []
+      }
+    }]
+
+    if (podcastFeedUrl.length > 0) {
+      customQuery.$and.$or.push({podcastFeedURL: 'http://' + podcastFeedUrl});
+      customQuery.$and.$or.push({podcastFeedURL: 'https://' + podcastFeedUrl});
+    }
+    if (episodeMediaUrl.length > 0) {
+      customQuery.$and.$or[0].$and.$or.push({episodeMediaURL: 'http://' + episodeMediaUrl});
+      customQuery.$and.$or[0].$and.$or.push({episodeMediaURL: 'https://' + episodeMediaUrl});
+    }
   }
 
   return customQuery;

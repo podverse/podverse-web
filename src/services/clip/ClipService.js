@@ -5,8 +5,10 @@ const
     config = require('config.js'),
     {locator} = require('locator.js'),
     {addURL} = require('hooks/clip/clip.js'),
-    {isClipMediaRef} = require('constants.js'),
-    sqlEngine = locator.get('sqlEngine');
+    {isClipMediaRef, allowedFilters, isFilterAllowed} = require('constants.js'),
+    sqlEngine = locator.get('sqlEngine'),
+    {filterTypeNotAllowedMessage} = require('errors.js'),
+    validURL = require('valid-url');
 
 class ClipService extends SequelizeService {
 
@@ -125,18 +127,55 @@ class ClipService extends SequelizeService {
       });
   }
 
-  retrieveMostPopularClips (params={}) {
-    let clipQuery = isClipMediaRef(params);
+  retrievePaginatedClips(filterType, podcastFeedUrl, episodeMediaUrl, onlySubscribed, pageIndex) {
 
-    params.sequelize = {
-      where: clipQuery,
-      order: [
-        [sqlEngine.fn('max', sqlEngine.col(params.filterTypeQuery)), 'DESC']
-      ],
-      group: ['id']
-    };
+    return new Promise((resolve, reject) => {
 
-    return super.find(params);
+      if (podcastFeedUrl && !validURL.isUri(podcastFeedUrl)) {
+        throw new errors.GeneralError(`Invalid URL ${podcastFeedUrl} provided for podcastFeedUrl`, 404);
+      }
+
+      if (episodeMediaUrl && !validURL.isUri(episodeMediaUrl)) {
+        throw new errors.GeneralError(`Invalid URL ${episodeMediaUrl} provided for episodeMediaUrl`, 404);
+      }
+
+      if (process.env.NODE_ENV != 'production') {
+        filterType = 'recent';
+      }
+
+      if (!isFilterAllowed(filterType)) {
+        throw new errors.GeneralError(filterTypeNotAllowedMessage(filterType), 404);
+      }
+
+      let params = {},
+          offset = (pageIndex * 10) - 10,
+          clipQuery = isClipMediaRef(podcastFeedUrl, episodeMediaUrl, onlySubscribed);
+
+      params.sequelize = {
+        where: clipQuery,
+        offset: offset,
+        order: [
+          [sqlEngine.fn('max', sqlEngine.col(allowedFilters[filterType].query)), 'DESC']
+        ],
+        group: ['id']
+      };
+
+      params.paginate = {
+        default: 10,
+        max: 1000
+      };
+
+      return super.find(params)
+      .then(page => {
+        resolve(page);
+      })
+      .catch(err => {
+        console.log(err);
+        reject(err);
+      });
+
+    });
+
   }
 
 }
