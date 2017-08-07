@@ -208,41 +208,38 @@ export function makeClip (event) {
     dataObj.episodeImageURL = window.episodeImageURL;
   }
 
-  // TODO: was this surrounded in a setTimeout for a good reason? wth :(
-  // setTimeout(function () {
-    $.ajax({
-      type: 'POST',
-      url: '/clips',
-      headers: {
-        Authorization: $.cookie('idToken')
-      },
-      data: dataObj,
-      success: function (response) {
-        if (window.isPlayerPage) {
-          toggleMakeClipWidget();
-          $('#playlist').show();
-          $('#make-clip-start-time input').val('');
-          $('#make-clip-end-time input').val('');
-          $('#make-clip-title textarea').val('');
-          $('#player-description-truncated').show();
-          $('#clip-created-modal-link').val(location.protocol + '\/\/' + location.hostname + (location.port ? ':'+location.port: '')  + '\/clips\/' + response.id);
-          $('#clip-created-modal').attr('data-id', response.id);
-          $('#clip-created-modal').modal('show');
-        } else {
-          location.href = '\/clips\/' + response.id;
-        }
-      },
-      error: function (xhr, status, error) {
-        console.log(error);
-        alert('Failed to create clip. Please check your internet connection and try again.');
-      },
-      complete: function () {
-        window.preventResubmit = false;
-        $('#make-clip-btn').removeAttr('disabled');
-        $('#make-clip-btn').html('Save');
+  $.ajax({
+    type: 'POST',
+    url: '/clips',
+    headers: {
+      Authorization: $.cookie('idToken')
+    },
+    data: dataObj,
+    success: function (response) {
+      if (window.isPlayerPage) {
+        toggleMakeClipWidget();
+        $('#playlist').show();
+        $('#make-clip-start-time input').val('');
+        $('#make-clip-end-time input').val('');
+        $('#make-clip-title textarea').val('');
+        $('#player-description-truncated').show();
+        $('#clip-created-modal-link').val(location.protocol + '\/\/' + location.hostname + (location.port ? ':'+location.port: '')  + '\/clips\/' + response.id);
+        $('#clip-created-modal').attr('data-id', response.id);
+        $('#clip-created-modal').modal('show');
+      } else {
+        location.href = '\/clips\/' + response.id;
       }
-    });
-  // }, 3000);
+    },
+    error: function (xhr, status, error) {
+      console.log(error);
+      alert('Failed to create clip. Please check your internet connection and try again.');
+    },
+    complete: function () {
+      window.preventResubmit = false;
+      $('#make-clip-btn').removeAttr('disabled');
+      $('#make-clip-btn').html('Save');
+    }
+  });
 
 }
 
