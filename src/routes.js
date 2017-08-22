@@ -274,6 +274,24 @@ function routes () {
     });
   })
 
+  // Retrieve the logged-in user's playlists
+  .post('/api/user/playlists', getLoggedInUserInfo, (req, res) => {
+
+    res.setHeader('Content-Type', 'application/json');
+    let pageIndex = req.body.page || 1;
+    let ownerId = req.feathers.userId;
+
+    return PlaylistService.retrievePaginatedPlaylists(ownerId, pageIndex)
+    .then(page => {
+      res.send(JSON.stringify(page));
+    })
+    .catch(e => {
+      console.log(e);
+      res.sendStatus(404);
+    });
+
+  })
+
   .use('podcasts', locator.get('PodcastService'))
 
   // Alias URL for the Episode Detail Page based on mediaURL

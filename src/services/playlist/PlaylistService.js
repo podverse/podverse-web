@@ -170,6 +170,38 @@ class PlaylistService extends SequelizeService {
 
   }
 
+  retrievePaginatedPlaylists(ownerId, pageIndex) {
+
+    return new Promise((resolve, reject) => {
+
+      let params = {},
+          offset = (pageIndex * 10) - 10;
+
+      params.sequelize = {
+        where: {
+          ownerId: ownerId
+        },
+        offset: offset
+      };
+
+      params.paginate = {
+        default: 10,
+        max: 1000
+      };
+
+      return super.find(params)
+      .then(page => {
+        resolve(page);
+      })
+      .catch(err => {
+        console.log(err);
+        reject(err);
+      });
+
+    });
+
+  }
+
 }
 
 PlaylistService.prototype.remove = undefined;
