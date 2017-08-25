@@ -43,6 +43,10 @@ class PlaylistService extends SequelizeService {
   get (id /*, params={} */) {
     const {MediaRef} = this.Models;
 
+    if (!id) {
+      throw new errors.GeneralError();
+    }
+
     return this.Model.findOne({
       where: {id},
       include: {

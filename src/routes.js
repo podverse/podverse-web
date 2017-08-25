@@ -254,7 +254,7 @@ function routes () {
       });
   })
 
-  // Retrieve the most popular clips
+  // Retrieve the most popular clips as JSON
   .post('/api/clips', (req, res) => {
     res.setHeader('Content-Type', 'application/json');
 
@@ -274,7 +274,7 @@ function routes () {
     });
   })
 
-  // Retrieve the logged-in user's playlists
+  // Retrieve the logged-in user's playlists as JSON
   .post('/api/user/playlists', getLoggedInUserInfo, (req, res) => {
 
     res.setHeader('Content-Type', 'application/json');
@@ -289,6 +289,21 @@ function routes () {
         res.sendStatus(404);
       });
 
+  })
+
+  // Retrieve a playlist's data as JSON
+  .post('/api/playlist', (req, res) => {
+    res.setHeader('Content-Type', 'application/json');
+    let id = req.body.id;
+
+    return PlaylistService.get(id)
+      .then(playlist => {
+        res.send(JSON.stringify(playlist));
+      })
+      .catch(e => {
+        console.log(e);
+        res.sendStatus(404);
+      });
   })
 
   .use('podcasts', locator.get('PodcastService'))
