@@ -313,6 +313,12 @@ function setPlayerInfo () {
     }, 0);
   }
 
+  if (window.episodeLinkURL && (window.episodeLinkURL.indexOf('http:') === 0 || window.episodeLinkURL.indexOf('https:') === 0)) {
+    $('#player-official-episode-link').html('Official Episode Link');
+    $('#player-official-episode-link').attr('href', window.episodeLinkURL);
+    $('#player-official-episode-link').show();
+  }
+
   $('#player-description-truncated').show();
   $('#player-description-full').hide();
   $('#playlist').show();

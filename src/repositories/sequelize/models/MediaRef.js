@@ -80,6 +80,13 @@ module.exports = function(sequelize, DataTypes) {
       }
     },
 
+    episodeLinkURL: {
+      type: DataTypes.TEXT,
+      validate: {
+        isUrl: true
+      }
+    },
+
     episodePubDate: DataTypes.DATE,
 
     episodeSummary: DataTypes.TEXT,

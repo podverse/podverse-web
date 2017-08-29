@@ -751,6 +751,12 @@ footer p {
     max-width: 100%;
 }
 
+#player-official-episode-link {
+    display: none;
+    font-size: 14px;
+    cursor: pointer;
+}
+
 @media (max-width: 560px) {
     #player-description-truncated {
         height: 63px;

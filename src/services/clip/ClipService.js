@@ -191,6 +191,7 @@ class ClipService extends SequelizeService {
     epMediaRef.episodeTitle = episode.title;
     epMediaRef.episodeMediaURL = episode.mediaURL;
     epMediaRef.episodeImageURL = episode.imageURL;
+    epMediaRef.episodeLinkURL = episode.link;
     epMediaRef.episodePubDate = episode.pubDate;
     epMediaRef.episodeSummary = episode.summary;
 
@@ -210,6 +211,7 @@ class ClipService extends SequelizeService {
     epMediaRef.episodeTitle = item.episodeTitle;
     epMediaRef.episodeMediaURL = item.episodeMediaURL;
     epMediaRef.episodeImageURL = item.episodeImageURL;
+    epMediaRef.episodeLinkURL = item.episodeLinkURL;
     epMediaRef.episodePubDate = item.episodePubDate;
     epMediaRef.episodeSummary = item.episodeSummary;
 
