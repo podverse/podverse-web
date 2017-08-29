@@ -10,11 +10,14 @@ const
 class PlaylistService extends SequelizeService {
 
   constructor () {
+    const sqlEngine = locator.get('sqlEngine');
     const Models = locator.get('Models');
 
     super({
       Model: Models.Playlist
     });
+
+    this.sqlEngine = sqlEngine;
     this.Models = Models;
 
     // Hooks
@@ -172,6 +175,15 @@ class PlaylistService extends SequelizeService {
       console.log(e);
     });
 
+  }
+
+  retrieveUsersPlaylists(ownerId) {
+    return this.sqlEngine.query(`
+      SELECT p.id, p.slug, p.title, p."ownerId", p."dateCreated",
+      p."lastUpdated", p."isMyClips", COUNT(?) totalItems
+      FROM playlists
+      WHERE "ownerId"='${ownerId}';
+    `, { type: this.sqlEngine.QueryTypes.SELECT });
   }
 
 }

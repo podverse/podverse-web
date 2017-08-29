@@ -178,6 +178,44 @@ class ClipService extends SequelizeService {
 
   }
 
+  convertEpisodeToMediaRef(episode, userId) {
+
+    // Convert the episode into a mediaRef object
+    let epMediaRef = {};
+    epMediaRef.title = episode.title;
+    epMediaRef.startTime = 0;
+    epMediaRef.ownerId = userId;
+    epMediaRef.podcastTitle = episode.podcast.title;
+    epMediaRef.podcastFeedURL = episode.podcast.feedURL;
+    epMediaRef.podcastImageURL = episode.podcast.imageURL;
+    epMediaRef.episodeTitle = episode.title;
+    epMediaRef.episodeMediaURL = episode.mediaURL;
+    epMediaRef.episodeImageURL = episode.imageURL;
+    epMediaRef.episodePubDate = episode.pubDate;
+    epMediaRef.episodeSummary = episode.summary;
+
+    return epMediaRef;
+  }
+
+  pruneEpisodeMediaRef(item) {
+    // Convert the episode into a mediaRef object
+    let epMediaRef = {};
+    epMediaRef.mediaRefId = null
+    epMediaRef.title = item.episodeTitle;
+    epMediaRef.startTime = 0;
+    epMediaRef.ownerId = item.ownerId;
+    epMediaRef.podcastTitle = item.podcastTitle;
+    epMediaRef.podcastFeedURL = item.podcastFeedURL;
+    epMediaRef.podcastImageURL = item.podcastImageURL;
+    epMediaRef.episodeTitle = item.episodeTitle;
+    epMediaRef.episodeMediaURL = item.episodeMediaURL;
+    epMediaRef.episodeImageURL = item.episodeImageURL;
+    epMediaRef.episodePubDate = item.episodePubDate;
+    epMediaRef.episodeSummary = item.episodeSummary;
+
+    return epMediaRef;
+  }
+
 }
 
 ClipService.prototype.remove = undefined;

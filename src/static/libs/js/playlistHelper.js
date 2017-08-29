@@ -162,8 +162,6 @@ export function addNewPlaylistElement(playlist) {
     });
   })
 
-
-
   // Also create and prepend playlist in the clip created modal
   $(".clip-created-modal-playlist[data-id=" + playlistId + "] .clip-created-modal-playlist-link").on('click', function () {
     var playlistId = $(this).parent().data('id');

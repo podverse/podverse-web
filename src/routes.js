@@ -428,19 +428,13 @@ function routes () {
           EpisodeService.get('alias', {mediaURL: episodeMediaURL})
             .then(episode => {
 
-              // Convert the episode into a mediaRef object
-              let epMediaRef = {};
-              epMediaRef.title = episode.title;
-              epMediaRef.startTime = 0;
-              epMediaRef.ownerId = req.feathers.userId;
-              epMediaRef.podcastTitle = episode.podcast.title;
-              epMediaRef.podcastFeedURL = episode.podcast.feedURL;
-              epMediaRef.podcastImageURL = episode.podcast.imageURL;
-              epMediaRef.episodeTitle = episode.title;
-              epMediaRef.episodeMediaURL = episode.mediaURL;
-              epMediaRef.episodeImageURL = episode.imageURL;
-              epMediaRef.episodePubDate = episode.pubDate;
-              epMediaRef.episodeSummary = episode.summary;
+              let epMediaRef;
+
+              if (!!episode) {
+                epMediaRef = ClipService.convertEpisodeToMediaRef(episode, req.feathers.userId);
+              } else {
+                epMediaRef = ClipService.pruneEpisodeMediaRef(req.body);
+              }
 
               // Find all mediaRefs with at least one episode where episode.feedURL === feedURL
 
