@@ -180,8 +180,12 @@ class PlaylistService extends SequelizeService {
   retrieveUsersPlaylists(ownerId) {
     return this.sqlEngine.query(`
       SELECT p.id, p.slug, p.title, p."ownerId", p."dateCreated",
-      p."lastUpdated", p."isMyClips", COUNT(?) totalItems
-      FROM playlists
+      p."lastUpdated", p."isMyClips", (
+        SELECT COUNT(*)
+        FROM "playlistItems"
+        WHERE "playlistId"=p.id
+      ) AS "itemCount"
+      FROM playlists p
       WHERE "ownerId"='${ownerId}';
     `, { type: this.sqlEngine.QueryTypes.SELECT });
   }

@@ -280,7 +280,7 @@ function routes () {
     res.setHeader('Content-Type', 'application/json');
     let ownerId = req.feathers.userId;
 
-    return PlaylistService.find({ query: { ownerId: ownerId }})
+    return PlaylistService.retrieveUsersPlaylists(ownerId)
       .then(myPlaylists => {
         res.send(JSON.stringify(myPlaylists));
       })
