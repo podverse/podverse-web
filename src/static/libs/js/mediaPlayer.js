@@ -36,7 +36,7 @@ if (isEmptyPlaylist !== true) {
 
 if (!isPlaylist) {
   let params = {};
-  params.podcastFeedURL = window.podcastFeedURL;
+  params.podcastFeedURLs = [window.podcastFeedURL];
   params.filterType = 'pastMonth';
 
   var spinnerEl = $('<div class="load-clips-spinner"><i class="fa fa-spinner fa-spin"><i></div>');
@@ -688,7 +688,7 @@ function setPlaylistItemClickEvents() {
   $('#playlist .sort-by-dropdown .dropdown-item').on('click', function (_this) {
     if (_this && _this.target) {
       let params = {};
-      params.podcastFeedURL = podcastFeedURL;
+      params.podcastFeedURLs = [window.podcastFeedURL];
       // params.episodeMediaURL = episodeMediaURL;
       params.filterType = _this.target.id;
       $('#playlist .sort-by-dropdown button').html(_this.target.innerText + ' <i class="fa fa-angle-down"></i>');

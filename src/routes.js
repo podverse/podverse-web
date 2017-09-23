@@ -25,7 +25,7 @@ function routes () {
     let filterType = req.query.sort || 'pastDay';
     let pageIndex = req.query.page || 1;
 
-    return ClipService.retrievePaginatedClips(filterType, null, null, null, pageIndex)
+    return ClipService.retrievePaginatedClips(filterType, [], null, pageIndex)
     .then(page => {
       let clips = page.data;
 
@@ -230,7 +230,7 @@ function routes () {
           let filterType = req.query.sort || 'pastDay';
           let pageIndex = req.query.page || 1;
 
-          return ClipService.retrievePaginatedClips(filterType, podcast.feedURL, null, null, pageIndex)
+          return ClipService.retrievePaginatedClips(filterType, [podcast.feedURL], null, pageIndex)
           .then(page => {
             podcast.clips = page.data;
             res.render('podcast/index.html', {
@@ -260,11 +260,10 @@ function routes () {
 
     let filterType = req.body.filterType || 'pastWeek';
     let pageIndex = req.body.page || 1;
-    let podcastFeedUrl = req.body.podcastFeedURL;
+    let podcastFeedUrls = req.body.podcastFeedURLs || [];
     let episodeMediaUrl = req.body.episodeMediaURL;
-    let onlySubscribed = req.body.onlySubscribed || false;
 
-    return ClipService.retrievePaginatedClips(filterType, podcastFeedUrl, episodeMediaUrl, onlySubscribed, pageIndex)
+    return ClipService.retrievePaginatedClips(filterType, podcastFeedUrls, episodeMediaUrl, pageIndex)
     .then(page => {
       res.send(JSON.stringify(page));
     })

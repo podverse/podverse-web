@@ -245,7 +245,10 @@ export function makeClip (event) {
 
 export function requestPaginatedClipsFromAPI(params) {
   return new Promise ((resolve, reject) => {
-    let data = { podcastFeedURL: params.podcastFeedURL };
+    
+    let data = {
+      podcastFeedURLs: params.podcastFeedURLs
+    };
 
     if (params.episodeMediaURL) {
       data.episodeMediaURL = params.episodeMediaURL;

@@ -127,13 +127,15 @@ class ClipService extends SequelizeService {
       });
   }
 
-  retrievePaginatedClips(filterType, podcastFeedUrl, episodeMediaUrl, onlySubscribed, pageIndex) {
+  retrievePaginatedClips(filterType, podcastFeedUrls, episodeMediaUrl, pageIndex) {
 
     return new Promise((resolve, reject) => {
 
-      if (podcastFeedUrl && !validURL.isUri(podcastFeedUrl)) {
-        throw new errors.GeneralError(`Invalid URL ${podcastFeedUrl} provided for podcastFeedUrl`, 404);
-      }
+      podcastFeedUrls.forEach(podcastFeedUrl => {
+        if (podcastFeedUrl && !validURL.isUri(podcastFeedUrl)) {
+          throw new errors.GeneralError(`Invalid URL ${podcastFeedUrl} provided for podcastFeedUrl`, 404);
+        }
+      });
 
       if (episodeMediaUrl && !validURL.isUri(episodeMediaUrl)) {
         throw new errors.GeneralError(`Invalid URL ${episodeMediaUrl} provided for episodeMediaUrl`, 404);
@@ -149,7 +151,7 @@ class ClipService extends SequelizeService {
 
       let params = {},
           offset = (pageIndex * 10) - 10,
-          clipQuery = isClipMediaRef(podcastFeedUrl, episodeMediaUrl, onlySubscribed);
+          clipQuery = isClipMediaRef(podcastFeedUrls, episodeMediaUrl);
 
       params.sequelize = {
         where: clipQuery,

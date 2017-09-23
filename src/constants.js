@@ -1,15 +1,6 @@
 const _ = require('lodash');
 
-const isClipMediaRef = (podcastFeedUrl, episodeMediaUrl, onlySubscribed) => {
-
-  if (onlySubscribed) {
-    // TODO
-  } else if (podcastFeedUrl || episodeMediaUrl) {
-    podcastFeedUrl = podcastFeedUrl || '';
-    podcastFeedUrl = podcastFeedUrl.replace(/(^\w+:|^)\/\//, '');
-    episodeMediaUrl = episodeMediaUrl || '';
-    episodeMediaUrl = episodeMediaUrl.replace(/(^\w+:|^)\/\//, '');
-  }
+const isClipMediaRef = (podcastFeedUrls, episodeMediaUrl) => {
 
   let customQuery = {
     $not: {
@@ -27,24 +18,30 @@ const isClipMediaRef = (podcastFeedUrl, episodeMediaUrl, onlySubscribed) => {
     }
   }
 
-  if (onlySubscribed) {
-    // TODO
-  } else if (podcastFeedUrl || episodeMediaUrl){
-
+  if (episodeMediaUrl || (podcastFeedUrls && podcastFeedUrls.length > 0)) {
     customQuery.$and.$or = [{
       $and: {
         $or: []
       }
     }]
+  }
 
-    if (podcastFeedUrl.length > 0) {
+  if (episodeMediaUrl && episodeMediaUrl.length > 0) {
+
+    episodeMediaUrl = episodeMediaUrl || '';
+    episodeMediaUrl = episodeMediaUrl.replace(/(^\w+:|^)\/\//, '');
+    customQuery.$and.$or[0].$and.$or.push({episodeMediaURL: 'http://' + episodeMediaUrl});
+    customQuery.$and.$or[0].$and.$or.push({episodeMediaURL: 'https://' + episodeMediaUrl});
+
+  } else if (podcastFeedUrls && podcastFeedUrls.length > 0) {
+
+    podcastFeedUrls.forEach(podcastFeedUrl => {
+      podcastFeedUrl = podcastFeedUrl || '';
+      podcastFeedUrl = podcastFeedUrl.replace(/(^\w+:|^)\/\//, '');
       customQuery.$and.$or.push({podcastFeedURL: 'http://' + podcastFeedUrl});
       customQuery.$and.$or.push({podcastFeedURL: 'https://' + podcastFeedUrl});
-    }
-    if (episodeMediaUrl.length > 0) {
-      customQuery.$and.$or[0].$and.$or.push({episodeMediaURL: 'http://' + episodeMediaUrl});
-      customQuery.$and.$or[0].$and.$or.push({episodeMediaURL: 'https://' + episodeMediaUrl});
-    }
+    });
+
   }
 
   return customQuery;
