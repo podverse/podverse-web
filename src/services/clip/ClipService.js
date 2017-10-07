@@ -7,7 +7,7 @@ const
     {addURL} = require('hooks/clip/clip.js'),
     {isClipMediaRef, allowedFilters, isFilterAllowed} = require('constants.js'),
     sqlEngine = locator.get('sqlEngine'),
-    {filtertypeNotAllowedMessage} = require('errors.js'),
+    {filterTypeNotAllowedMessage} = require('errors.js'),
     validURL = require('valid-url');
 
 class ClipService extends SequelizeService {
@@ -127,7 +127,7 @@ class ClipService extends SequelizeService {
       });
   }
 
-  retrievePaginatedClips(filtertype, podcastFeedUrls, episodeMediaUrl, pageIndex) {
+  retrievePaginatedClips(filterType, podcastFeedUrls, episodeMediaUrl, pageIndex) {
 
     return new Promise((resolve, reject) => {
 
@@ -142,11 +142,11 @@ class ClipService extends SequelizeService {
       }
 
       if (process.env.NODE_ENV != 'production') {
-        filtertype = 'recent';
+        filterType = 'recent';
       }
 
-      if (!isFilterAllowed(filtertype)) {
-        throw new errors.GeneralError(filtertypeNotAllowedMessage(filtertype), 404);
+      if (!isFilterAllowed(filterType)) {
+        throw new errors.GeneralError(filterTypeNotAllowedMessage(filterType), 404);
       }
 
       let params = {},
@@ -157,7 +157,7 @@ class ClipService extends SequelizeService {
         where: clipQuery,
         offset: offset,
         order: [
-          [sqlEngine.fn('max', sqlEngine.col(allowedFilters[filtertype].query)), 'DESC']
+          [sqlEngine.fn('max', sqlEngine.col(allowedFilters[filterType].query)), 'DESC']
         ],
         group: ['id']
       };

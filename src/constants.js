@@ -78,8 +78,8 @@ const allowedFilters = {
   }
 };
 
-const isFilterAllowed = (filtertype) => {
-  if (filtertype && _.includes(Object.keys(allowedFilters), filtertype)) {
+const isFilterAllowed = (filterType) => {
+  if (filterType && _.includes(Object.keys(allowedFilters), filterType)) {
     return true;
   } else {
     return false;

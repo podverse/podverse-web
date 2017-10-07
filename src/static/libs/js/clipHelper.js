@@ -245,7 +245,7 @@ export function makeClip (event) {
 
 export function requestPaginatedClipsFromAPI(params) {
   return new Promise ((resolve, reject) => {
-    
+
     let data = {
       podcastFeedURLs: params.podcastFeedURLs
     };
@@ -254,8 +254,8 @@ export function requestPaginatedClipsFromAPI(params) {
       data.episodeMediaURL = params.episodeMediaURL;
     }
 
-    if (params.filtertype) {
-      data.filtertype = params.filtertype;
+    if (params.filterType) {
+      data.filterType = params.filterType;
     }
 
     $.ajax({
