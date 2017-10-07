@@ -22,16 +22,16 @@ function routes () {
 
   app.get('/', getLoggedInUserInfo, function (req, res) {
 
-    let filterType = req.query.sort || 'pastDay';
+    let sortingType = req.query.sort || 'pastDay';
     let pageIndex = req.query.page || 1;
 
-    return ClipService.retrievePaginatedClips(filterType, [], null, pageIndex)
+    return ClipService.retrievePaginatedClips(sortingType, [], null, pageIndex)
     .then(page => {
       let clips = page.data;
 
       res.render('home/index.html', {
         clips: clips,
-        dropdownText: allowedFilters[filterType].dropdownText,
+        dropdownText: allowedFilters[sortingType].dropdownText,
         pageIndex: pageIndex,
         showNextButton: shouldShowNextButton(pageIndex, page.total.length),
         currentPage: 'Home Page',
@@ -227,15 +227,15 @@ function routes () {
         })
         .then((isSubscribed) => {
 
-          let filterType = req.query.sort || 'pastDay';
+          let sortingType = req.query.sort || 'pastDay';
           let pageIndex = req.query.page || 1;
 
-          return ClipService.retrievePaginatedClips(filterType, [podcast.feedURL], null, pageIndex)
+          return ClipService.retrievePaginatedClips(sortingType, [podcast.feedURL], null, pageIndex)
           .then(page => {
             podcast.clips = page.data;
             res.render('podcast/index.html', {
               podcast: podcast,
-              dropdownText: allowedFilters[filterType].dropdownText,
+              dropdownText: allowedFilters[sortingType].dropdownText,
               currentPage: 'Podcast Detail Page',
               isSubscribed: isSubscribed,
               isClipsView: true,
@@ -258,12 +258,12 @@ function routes () {
   .post('/api/clips', (req, res) => {
     res.setHeader('Content-Type', 'application/json');
 
-    let filterType = req.body.filterType || 'pastWeek';
+    let sortingType = req.body.sortingType || 'pastWeek';
     let pageIndex = req.body.page || 1;
     let podcastFeedUrls = req.body.podcastFeedURLs || [];
     let episodeMediaUrl = req.body.episodeMediaURL;
 
-    return ClipService.retrievePaginatedClips(filterType, podcastFeedUrls, episodeMediaUrl, pageIndex)
+    return ClipService.retrievePaginatedClips(sortingType, podcastFeedUrls, episodeMediaUrl, pageIndex)
     .then(page => {
       res.send(JSON.stringify(page));
     })
