@@ -470,15 +470,17 @@ function createAndAppendAudio () {
     audio.preload = "metadata";
   }
 
-  audio.onloadeddata = function () {
-    // NOTE: If the lastPlaybackPosition is greater than -1, then the audio player must
-    // have crashed and then restarted, and we should resume from the last saved
-    // playback position. Else begin from the clip start time.
-    // (does that note even make sense? clip start time isn't necessarily 0)
+  audio.oncanplay = function () {
+    // NOTE: setting the currentTime in oncanplay AND onloadedmetadata
+    // is required to work around an iOS Safari 11.0.2 bug.
     audio.currentTime = window.startTime || 0;
   }
 
   audio.onloadedmetadata = function() {
+    // NOTE: setting the currentTime in oncanplay AND onloadedmetadata
+    // is required to work around an iOS Safari 11.0.2 bug.
+    audio.currentTime = window.startTime || 0;
+
     $('#player .fa-spinner').hide();
 
     $('#player').append(audio);
