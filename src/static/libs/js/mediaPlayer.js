@@ -473,14 +473,12 @@ function createAndAppendAudio () {
   audio.oncanplay = function () {
     // NOTE: setting the currentTime in oncanplay AND onloadedmetadata
     // is required to work around an iOS Safari 11.0.2 bug.
-    audio.pause()
     audio.currentTime = window.startTime || 0;
   }
 
   audio.onloadedmetadata = function() {
     // NOTE: setting the currentTime in oncanplay AND onloadedmetadata
     // is required to work around an iOS Safari 11.0.2 bug.
-    audio.pause()
     audio.currentTime = window.startTime || 0;
 
     $('#player .fa-spinner').hide();
