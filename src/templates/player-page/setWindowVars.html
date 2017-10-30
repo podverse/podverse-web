@@ -89,9 +89,9 @@
   {% elif podcast %}
     window.mediaRefId = 'episode_{{ mediaURL }}';
     window.podcastFeedURL = "{{ podcast.feedURL }}"
-    window.podcastTitle = "{{ podcast.title | stripTags }}";
+    window.podcastTitle = "{{ podcast.title | stripTags | trimText }}";
     window.podcastImageURL = "{{ podcast.imageURL }}";
-    window.episodeTitle = "{{ title | stripTags }}";
+    window.episodeTitle = "{{ title | stripTags | trimText }}";
     window.episodeMediaURL = "{{ mediaURL }}";
     window.episodePubDate = "{{ pubDate }}";
     window.episodeImageURL = "{{ imageURL }}";
@@ -129,9 +129,9 @@
   {% else %}
     window.mediaRefId = "{{ id }}";
     window.podcastFeedURL = "{{ podcastFeedURL }}";
-    window.podcastTitle = "{{ podcastTitle | stripTags }}";
+    window.podcastTitle = "{{ podcastTitle | stripTags | trimText }}";
     window.podcastImageURL = "{{ podcastImageURL }}";
-    window.episodeTitle = "{{ episodeTitle | stripTags }}";
+    window.episodeTitle = "{{ episodeTitle | stripTags | trimText }}";
     window.episodeMediaURL = "{{ episodeMediaURL }}";
     window.episodePubDate = "{{ episodePubDate }}";
     window.episodeImageURL = "{{ episodeImageURL }}";

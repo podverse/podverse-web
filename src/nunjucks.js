@@ -71,6 +71,13 @@ function nunjucksConfig () {
     }
   });
 
+  // Removes blank spaces from beginning and end of string, and all line breaks
+  env.addFilter('trimText', function (str) {
+    var trimmedText = str.replace(/(\r\n|\n|\r)/gm,"");
+    trimmedText = trimmedText.trim();
+    return trimmedText;
+  });
+
   env.addFilter('decodeHTML', function(str) {
     if (str) {
       str = he.decode(str);
