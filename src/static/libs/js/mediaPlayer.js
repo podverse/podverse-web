@@ -1,5 +1,5 @@
 import { calcDuration, convertSecToHHMMSS, throttle, isNonAnonLoggedInUser,
-         readableDate, secondsToReadableDuration } from './utility.js';
+         readableDate, secondsToReadableDuration, checkIfiOSBrowser } from './utility.js';
 import { subscribeToPodcast, unsubscribeFromPodcast } from './podcastHelper.js';
 import { requestPaginatedClipsFromAPI } from './clipHelper.js';
 import { sendGoogleAnalyticsPlayerPageView,
@@ -470,11 +470,15 @@ function createAndAppendAudio () {
     audio.preload = "metadata";
   }
 
-  audio.oncanplay = function () {
-    // NOTE: setting the currentTime in oncanplay AND onloadedmetadata
-    // is required to work around an iOS Safari 11.0.2 bug.
-    // NOTE: this was causing total playback failure on Mac OSX Sierra Chrome / Firefox
-    // audio.currentTime = window.startTime || 0;
+
+
+  // NOTE: this audio.oncanplay is needed to work around an iOS Safari 11.0.2 playback failure bug,
+  // but this hacky workaround also causes all Mac Sierra browsers to crash, so
+  // we're only setting the oncanplay method if we detect the device is iOS.
+  if (checkIfiOSBrowser()) {
+    audio.oncanplay = function () {
+      audio.currentTime = window.startTime || 0;
+    }
   }
 
   audio.onloadedmetadata = function() {
