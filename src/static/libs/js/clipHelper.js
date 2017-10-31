@@ -79,7 +79,7 @@ export function toggleMakeClipWidget (_this) {
     $('#playlist').hide();
   }
 
-  if ($(_this).hasClass('active')) {
+  if ($(_this).hasClass('active') || $(_this).is("#make-clip-cancel")) {
     $('#player-description-truncated').show();
     $('#playlist').show();
   }

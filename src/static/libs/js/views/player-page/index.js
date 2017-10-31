@@ -51,7 +51,7 @@ $('#make-clip-btn').on('click', function (event) {
 });
 
 $('#make-clip-cancel').on('click', function () {
-  toggleMakeClipWidget();
+  toggleMakeClipWidget(this);
 });
 
 
