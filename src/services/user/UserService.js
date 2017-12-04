@@ -21,7 +21,7 @@ class UserService extends SequelizeService {
 
     this.after = {};
   }
-
+  
   retrieveUserAndAllSubscribedPodcasts (id, params={}) {
     const {MediaRef, Playlist} = this.Models;
 
@@ -30,7 +30,7 @@ class UserService extends SequelizeService {
     }
 
     return this.sqlEngine.query(`
-      SELECT p.title, p."imageURL", p.id, p."lastEpisodeTitle", (
+      SELECT p.title, p."imageURL", p.id, p."lastEpisodeTitle", p."feedURL", (
         SELECT MAX("pubDate") FROM episodes WHERE "podcastId"=p.id
       ) AS "lastEpisodePubDate"
       FROM podcasts p, users u

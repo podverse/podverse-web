@@ -273,6 +273,43 @@ function routes () {
     });
   })
 
+  // Retrieve the logged-in user's subscribed podcasts data as JSON objects in an array
+  .post('/api/user/podcasts', getLoggedInUserInfo, (req, res) => {
+
+    res.setHeader('Content-Type', 'application/json');
+    let userId = req.feathers.userId;
+
+    UserService.retrieveUserAndAllSubscribedPodcasts(userId, {
+      userId: userId
+    })
+    .then(user => {
+
+      let podcasts = user.dataValues.subscribedPodcasts;
+
+      podcasts = _.reduce(podcasts, (acc, podcast) => {
+        if (podcast.title && podcast.title.length > 0) {
+          acc.push(podcast);
+        }
+        return acc;
+      }, []);
+
+      podcasts = _.sortBy(podcasts, (podcast) => {
+        let title = podcast.title;
+        title = title.toLowerCase();
+        title = removeArticles(title);
+        return title;
+      });
+
+      res.send(JSON.stringify(podcasts));
+
+    })
+    .catch(e => {
+      console.log(e);
+      res.sendStatus(401);
+    });
+
+  })
+
   // Retrieve the logged-in user's playlists as JSON
   .post('/api/user/playlists', getLoggedInUserInfo, (req, res) => {
 
@@ -285,7 +322,7 @@ function routes () {
       })
       .catch(e => {
         console.log(e);
-        res.sendStatus(404);
+        res.sendStatus(401);
       });
 
   })
