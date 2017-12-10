@@ -30,7 +30,7 @@
       <div class="playlist-item" data-media-ref-id="{{item.id}}" tabindex="0">
         {% if item|isEpisode %}
           <div class="playlist-item-image">
-            <img class="lazy" data-original="{{ item.podcastImageURL }}">
+            <img class="lazy" data-original="{{ item.podcastImageUrl }}">
           </div>
           <div class="playlist-item-text-wrapper">
             <div class="playlist-item-remove-btn">
@@ -57,7 +57,7 @@
           <div style="clear:both"></div>
         {% else %} <!-- else treat it as a clip -->
           <div class="playlist-item-image">
-            <img class="lazy" data-original="{{ item.podcastImageURL }}">
+            <img class="lazy" data-original="{{ item.podcastImageUrl }}">
           </div>
           <div class="playlist-item-text-wrapper">
             <div class="playlist-item-remove-btn">

@@ -8,7 +8,7 @@
     {% for podcast in podcasts %}
       <a class="podcast-item" href="/podcasts/{{podcast.id}}">
         <div class="podcast-item-image">
-          <img class="lazy" data-original="{{podcast.imageURL}}">
+          <img class="lazy" data-original="{{podcast.imageUrl}}">
         </div>
         <div class="podcast-item-title">
           {{ podcast.title | stripTags }}

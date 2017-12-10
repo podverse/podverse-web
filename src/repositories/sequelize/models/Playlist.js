@@ -23,7 +23,7 @@ module.exports = function(sequelize, DataTypes) {
       validation: {
         notEmpty: true
       }
-      // TODO: the slug and primary keys must be mutally unique if URLs can use primary keys.
+      // TODO: the slug and primary keys must be mutally unique if Urls can use primary keys.
       // In that case a slug should never be able to be changed to an existing primary key
       // (unless it is the primary key for this clip);
       // do we need a "composite index"?
@@ -65,8 +65,8 @@ module.exports = function(sequelize, DataTypes) {
       updatedAt: 'lastUpdated',
       createdAt: 'dateCreated',
       setterMethods: {
-          podverseURL: function (value) {
-              this.setDataValue('podverseURL', value);
+          podverseUrl: function (value) {
+              this.setDataValue('podverseUrl', value);
           }
       }
   });

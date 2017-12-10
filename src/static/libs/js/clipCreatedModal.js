@@ -2,7 +2,7 @@ import { copyToClipboard } from './copyToClipboard.js';
 import { sendGoogleAnalyticsEvent } from './googleAnalytics.js';
 import { scrapeElementsAndAddToPlaylist } from './playlistHelper.js';
 
-function clipCreatedCopyURL () {
+function clipCreatedCopyUrl () {
   copyToClipboard(document.getElementById('clip-created-modal-link'));
   $('#clip-created-modal-copy-btn').html('Copied Link!');
   setTimeout(function () {
@@ -33,7 +33,7 @@ function toggleRecommendMenu () {
 }
 
 $('#clip-created-modal-copy-btn').on('click', function () {
-  clipCreatedCopyURL();
+  clipCreatedCopyUrl();
 });
 
 $('#clip-created-modal-add-to-playlist-btn').on('click', function () {

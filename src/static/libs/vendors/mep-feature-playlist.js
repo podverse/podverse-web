@@ -225,7 +225,7 @@
       t.play();
       track.addClass('current').siblings().removeClass('current');
     },
-    playTrackURL: function(url) {
+    playTrackUrl: function(url) {
       var t = this;
       var tracks = t.layers.find('.mejs-playlist > ul > li');
       var track = tracks.filter('[data-url="'+url+'"]');

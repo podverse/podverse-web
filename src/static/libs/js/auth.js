@@ -73,7 +73,7 @@ function findOrCreateUserOnServer (profile) {
     },
     dataType: 'json',
     success: function () {
-      location.href = loginRedirectURL;
+      location.href = loginRedirectUrl;
     }
   });
 

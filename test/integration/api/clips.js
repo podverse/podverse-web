@@ -29,7 +29,7 @@ describe('API Test: Clips', function () {
     this.app = createTestApp();
   });
 
-  describe('when creating a clip by mediaURL/feedURL', function () {
+  describe('when creating a clip by mediaUrl/feedUrl', function () {
 
     beforeEach(function (done) {
 
@@ -43,8 +43,8 @@ describe('API Test: Clips', function () {
           'startTime': 3,
           'endTime': 10,
           'podcastTitle': 'testPodcastTitle234',
-          'podcastFeedURL': 'http://something.com/rss',
-          'episodeMediaURL': 'http://something.com/1.mp3',
+          'podcastFeedUrl': 'http://something.com/rss',
+          'episodeMediaUrl': 'http://something.com/1.mp3',
           'episodeTitle': 'testEpisodeTitle22'
         })
         .end((err, res) => {
@@ -57,11 +57,11 @@ describe('API Test: Clips', function () {
       expect(this.response.statusCode).to.equal(201);
     });
 
-    it('should return the podverseURL', function () {
-      let podverseURL = this.response.body.podverseURL,
+    it('should return the podverseUrl', function () {
+      let podverseUrl = this.response.body.podverseUrl,
           id = this.response.body.id;
 
-      expect(podverseURL).to.equal(`${config.baseURL}/clips/${id}`);
+      expect(podverseUrl).to.equal(`${config.baseUrl}/clips/${id}`);
     });
 
   });

@@ -1,9 +1,9 @@
 
 const
     errors = require('feathers-errors'),
-    {addURL} = require('hooks/clip/clip.js');
+    {addUrl} = require('hooks/clip/clip.js');
 
-describe('Hook: addURL', function () {
+describe('Hook: addUrl', function () {
 
   beforeEach(function () {
 
@@ -14,12 +14,12 @@ describe('Hook: addURL', function () {
       }
     };
 
-    addURL(this.testHookObj);
+    addUrl(this.testHookObj);
   });
 
-  it('should apply the podverseURL to the response', function () {
+  it('should apply the podverseUrl to the response', function () {
     // TODO: this needs to conditionally handle production and development
-    expect(this.testHookObj.result.podverseURL)
+    expect(this.testHookObj.result.podverseUrl)
       .to.equal('http://localhost:8080/clips/sluggy-slug')
   });
 

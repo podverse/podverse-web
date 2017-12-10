@@ -48,7 +48,7 @@ module.exports = function(sequelize, DataTypes) {
 
     podcastTitle: DataTypes.TEXT,
 
-    podcastFeedURL: {
+    podcastFeedUrl: {
       type: DataTypes.TEXT,
       allowNull: false,
       validation: {
@@ -56,7 +56,7 @@ module.exports = function(sequelize, DataTypes) {
       }
     },
 
-    podcastImageURL: {
+    podcastImageUrl: {
       type: DataTypes.TEXT,
       validate: {
         isUrl: true
@@ -65,7 +65,7 @@ module.exports = function(sequelize, DataTypes) {
 
     episodeTitle: DataTypes.TEXT,
 
-    episodeMediaURL: {
+    episodeMediaUrl: {
       type: DataTypes.TEXT,
       allowNull: false,
       validation: {
@@ -73,14 +73,14 @@ module.exports = function(sequelize, DataTypes) {
       }
     },
 
-    episodeImageURL: {
+    episodeImageUrl: {
       type: DataTypes.TEXT,
       validate: {
         isUrl: true
       }
     },
 
-    episodeLinkURL: {
+    episodeLinkUrl: {
       type: DataTypes.TEXT,
       validate: {
         isUrl: true
@@ -132,8 +132,8 @@ module.exports = function(sequelize, DataTypes) {
     updatedAt: 'lastUpdated',
     createdAt: 'dateCreated',
     setterMethods: {
-        podverseURL: function (value) {
-            this.setDataValue('podverseURL', value);
+        podverseUrl: function (value) {
+            this.setDataValue('podverseUrl', value);
         }
     }
   });

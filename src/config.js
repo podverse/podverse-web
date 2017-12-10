@@ -7,7 +7,7 @@ let postgresUri;
 
 module.exports = {
   port: process.env.PORT || 8080,
-  baseURL: process.env.baseURL || 'http://localhost:8080',
+  baseUrl: process.env.baseUrl || 'http://localhost:8080',
   jwtSigningKey: new Buffer(jwtSigningKeyB64, 'base64'),
   databaseName: 'postgres',
   postgresUri: process.env.postgresUri || 'postgres://postgres:password@127.0.0.1:5432/postgres',

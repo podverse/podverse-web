@@ -30,16 +30,16 @@ const isClipMediaRef = (podcastFeedUrls, episodeMediaUrl) => {
 
     episodeMediaUrl = episodeMediaUrl || '';
     episodeMediaUrl = episodeMediaUrl.replace(/(^\w+:|^)\/\//, '');
-    customQuery.$and.$or[0].$and.$or.push({episodeMediaURL: 'http://' + episodeMediaUrl});
-    customQuery.$and.$or[0].$and.$or.push({episodeMediaURL: 'https://' + episodeMediaUrl});
+    customQuery.$and.$or[0].$and.$or.push({episodeMediaUrl: 'http://' + episodeMediaUrl});
+    customQuery.$and.$or[0].$and.$or.push({episodeMediaUrl: 'https://' + episodeMediaUrl});
 
   } else if (podcastFeedUrls && podcastFeedUrls.length > 0) {
 
     podcastFeedUrls.forEach(podcastFeedUrl => {
       podcastFeedUrl = podcastFeedUrl || '';
       podcastFeedUrl = podcastFeedUrl.replace(/(^\w+:|^)\/\//, '');
-      customQuery.$and.$or.push({podcastFeedURL: 'http://' + podcastFeedUrl});
-      customQuery.$and.$or.push({podcastFeedURL: 'https://' + podcastFeedUrl});
+      customQuery.$and.$or.push({podcastFeedUrl: 'http://' + podcastFeedUrl});
+      customQuery.$and.$or.push({podcastFeedUrl: 'https://' + podcastFeedUrl});
     });
 
   }

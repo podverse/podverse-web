@@ -36,7 +36,7 @@ if (isEmptyPlaylist !== true) {
 
 if (!isPlaylist) {
   let params = {};
-  params.podcastFeedURLs = [window.podcastFeedURL];
+  params.podcastFeedUrls = [window.podcastFeedUrl];
   params.filterType = 'pastMonth';
 
   var spinnerEl = $('<div class="load-clips-spinner"><i class="fa fa-spinner fa-spin"><i></div>');
@@ -123,7 +123,7 @@ window.loadPlaylistItem = (index) => {
   setPlayerInfo();
   setSubscribedStatus();
 
-  if (episodeMediaURL !== previousEpisodeMediaURL) {
+  if (episodeMediaUrl !== previousEpisodeMediaUrl) {
     destroyPlayerAndAudio();
     checkIfEpisodeMediaFileIsFound(createAndAppendAudio, showEpisodeNotFoundMessage);
   } else {
@@ -213,24 +213,24 @@ function setPlayerInfo () {
   if (isPlaylist && !isEpisode) {
     $('#player-stats-duration-link').html('<a href="/clips/' + mediaRefId + '"><i class="fa fa-link"></i></a>')
   } else if (isPlaylist && isEpisode) {
-    $('#player-stats-duration-link').html('<a href="/episodes/alias?mediaURL=' + episodeMediaURL + '"><i class="fa fa-link"></i></a>')
+    $('#player-stats-duration-link').html('<a href="/episodes/alias?mediaUrl=' + episodeMediaUrl + '"><i class="fa fa-link"></i></a>')
   }
 
   $('#player-condensed-title a').html(podcastTitle);
-  $('#player-condensed-title a').attr('href', '/podcasts/alias?feedURL=' + podcastFeedURL);
-  $('#player-condensed-sub-title a').attr('href', '/episodes/alias?mediaURL=' + episodeMediaURL);
+  $('#player-condensed-title a').attr('href', '/podcasts/alias?feedUrl=' + podcastFeedUrl);
+  $('#player-condensed-sub-title a').attr('href', '/episodes/alias?mediaUrl=' + episodeMediaUrl);
   $('#player-condensed-sub-title a').html(episodeTitle);
-  $('#player-condensed-image img').attr('src', podcastImageURL);
+  $('#player-condensed-image img').attr('src', podcastImageUrl);
 
-  $('#player-podcast-title a').attr('href', '/podcasts/alias?feedURL=' + podcastFeedURL);
+  $('#player-podcast-title a').attr('href', '/podcasts/alias?feedUrl=' + podcastFeedUrl);
   podcastTitle = he.decode(podcastTitle);
   $('#player-podcast-title a').html(podcastTitle);
 
-  $('#player-sub-title a').attr('href', '/episodes/alias?mediaURL=' + episodeMediaURL);
+  $('#player-sub-title a').attr('href', '/episodes/alias?mediaUrl=' + episodeMediaUrl);
   $('#player-sub-title a').html(episodeTitle);
 
-  $('#player-image a').attr('href', '/podcasts/alias?feedURL=' + podcastFeedURL);
-  $('#player-image img').attr('src', podcastImageURL);
+  $('#player-image a').attr('href', '/podcasts/alias?feedUrl=' + podcastFeedUrl);
+  $('#player-image img').attr('src', podcastImageUrl);
   $('#player-stats-pub-date').html(readableDate(episodePubDate));
 
   $('#player-time-jump-back').html('<i class="fa fa-angle-left"></i> 15s');
@@ -313,9 +313,9 @@ function setPlayerInfo () {
     }, 0);
   }
 
-  if (window.episodeLinkURL && (window.episodeLinkURL.indexOf('http:') === 0 || window.episodeLinkURL.indexOf('https:') === 0)) {
+  if (window.episodeLinkUrl && (window.episodeLinkUrl.indexOf('http:') === 0 || window.episodeLinkUrl.indexOf('https:') === 0)) {
     $('#player-official-episode-link').html('Official Episode Link');
-    $('#player-official-episode-link').attr('href', window.episodeLinkURL);
+    $('#player-official-episode-link').attr('href', window.episodeLinkUrl);
     $('#player-official-episode-link').show();
   }
 
@@ -363,7 +363,7 @@ function setSubscribedStatus() {
       Authorization: $.cookie('idToken')
     },
     data: {
-      podcastFeedURL: podcastFeedURL
+      podcastFeedUrl: podcastFeedUrl
     },
     success: function (isSubscribed) {
       if (isSubscribed && isSubscribed != 'false') {
@@ -392,14 +392,14 @@ function toggleSubscribe() {
   if ($('#player-podcast-subscribe i').hasClass('fa-star-o')) {
     $('#player-podcast-subscribe').html('<i class="fa fa-star"></i>');
     $('#player-podcast-subscribe').attr('title', 'Unsubscribe from podcast');
-    subscribeToPodcast(podcastFeedURL);
+    subscribeToPodcast(podcastFeedUrl);
     if (window.mediaRefs) {
       window.mediaRefs[index]["isSubscribed"] = true;
     }
   } else {
     $('#player-podcast-subscribe').html('<small class="hidden-xs-down">subscribe</small> <i class="fa fa-star-o"></i>');
     $('#player-podcast-subscribe').attr('title', 'Subscribe to podcast');
-    unsubscribeFromPodcast(podcastFeedURL);
+    unsubscribeFromPodcast(podcastFeedUrl);
     if (window.mediaRefs) {
       window.mediaRefs[index]["isSubscribed"] = false;
     }
@@ -426,7 +426,7 @@ function resizeProgressBar () {
 
 function checkIfEpisodeMediaFileIsFound(success, error) {
   window.audio = document.createElement('audio');
-  audio.setAttribute('src', episodeMediaURL);
+  audio.setAttribute('src', episodeMediaUrl);
   audio.setAttribute('type', 'audio/mpeg');
   audio.setAttribute('codecs', 'mp3');
   audio.preload = "metadata";
@@ -454,8 +454,8 @@ function showEpisodeNotFoundMessage () {
 function createAndAppendAudio () {
 
   // If a new media file is loaded, reappend audio element
-  if (episodeMediaURL !== previousEpisodeMediaURL) {
-    window.previousEpisodeMediaURL = episodeMediaURL;
+  if (episodeMediaUrl !== previousEpisodeMediaUrl) {
+    window.previousEpisodeMediaUrl = episodeMediaUrl;
     // If audio player elements are already on the page, remove them first.
     $('.mejs-offscreen').remove();
     $('.mejs-container').remove();
@@ -463,7 +463,7 @@ function createAndAppendAudio () {
     $('#player .fa-spinner').show();
 
     window.audio = document.createElement('audio');
-    audio.setAttribute('src', episodeMediaURL);
+    audio.setAttribute('src', episodeMediaUrl);
     audio.setAttribute('type', 'audio/mpeg');
     audio.setAttribute('codecs', 'mp3');
     audio.setAttribute('title', episodeTitle + ' – ' + podcastTitle);
@@ -698,8 +698,8 @@ function setPlaylistItemClickEvents() {
   $('#playlist .sort-by-dropdown .dropdown-item').on('click', function (_this) {
     if (_this && _this.target) {
       let params = {};
-      params.podcastFeedURLs = [window.podcastFeedURL];
-      // params.episodeMediaURL = episodeMediaURL;
+      params.podcastFeedUrls = [window.podcastFeedUrl];
+      // params.episodeMediaUrl = episodeMediaUrl;
       params.filterType = _this.target.id;
       $('#playlist .sort-by-dropdown button').html(_this.target.innerText + ' <i class="fa fa-angle-down"></i>');
       requestPaginatedClipsFromAPI(params)

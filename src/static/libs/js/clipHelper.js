@@ -190,9 +190,9 @@ export function makeClip (event) {
     endTime: endTime,
     title: clipTitle,
     ownerName: ownerName,
-    podcastFeedURL: window.podcastFeedURL,
+    podcastFeedUrl: window.podcastFeedUrl,
     podcastTitle: window.podcastTitle,
-    episodeMediaURL: window.episodeMediaURL,
+    episodeMediaUrl: window.episodeMediaUrl,
     episodeTitle: window.episodeTitle,
     episodePubDate: window.episodePubDate,
     episodeSummary: window.episodeSummary,
@@ -200,12 +200,12 @@ export function makeClip (event) {
     isPublic: isPublic
   }
 
-  if (window.podcastImageURL && window.podcastImageURL.indexOf('http') === 0) {
-    dataObj.podcastImageURL = window.podcastImageURL;
+  if (window.podcastImageUrl && window.podcastImageUrl.indexOf('http') === 0) {
+    dataObj.podcastImageUrl = window.podcastImageUrl;
   }
 
-  if (window.episodeImageURL && window.episodeImageURL.indexOf('http') === 0) {
-    dataObj.episodeImageURL = window.episodeImageURL;
+  if (window.episodeImageUrl && window.episodeImageUrl.indexOf('http') === 0) {
+    dataObj.episodeImageUrl = window.episodeImageUrl;
   }
 
   $.ajax({
@@ -247,11 +247,11 @@ export function requestPaginatedClipsFromAPI(params) {
   return new Promise ((resolve, reject) => {
 
     let data = {
-      podcastFeedURLs: params.podcastFeedURLs
+      podcastFeedUrls: params.podcastFeedUrls
     };
 
-    if (params.episodeMediaURL) {
-      data.episodeMediaURL = params.episodeMediaURL;
+    if (params.episodeMediaUrl) {
+      data.episodeMediaUrl = params.episodeMediaUrl;
     }
 
     if (params.filterType) {

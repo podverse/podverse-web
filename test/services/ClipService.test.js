@@ -28,8 +28,8 @@ describe('ClipService', function () {
           startTime: 3,
           endTime: 10,
           podcastTitle: 'testPodcastTitle234',
-          podcastFeedURL: 'http://something.com/rss',
-          episodeMediaURL: 'http://something.com/1.mp3',
+          podcastFeedUrl: 'http://something.com/rss',
+          episodeMediaUrl: 'http://something.com/1.mp3',
           episodeTitle: 'testEpisodeTitle22'
         })
         .then(mediaRefClip => {
@@ -39,8 +39,8 @@ describe('ClipService', function () {
             title: 'TestTitle2',
             startTime: 0,
             podcastTitle: 'testPodcastTitle234',
-            podcastFeedURL: 'http://something.com/rss',
-            episodeMediaURL: 'http://something.com/1.mp3',
+            podcastFeedUrl: 'http://something.com/rss',
+            episodeMediaUrl: 'http://something.com/1.mp3',
             episodeTitle: 'testEpisodeTitle22'
           })
         })
@@ -136,8 +136,8 @@ describe('ClipService', function () {
         startTime: 40,
         endTime: 50,
         podcastTitle: 'testPodcastTitle234',
-        podcastFeedURL: 'http://something.com/rss',
-        episodeMediaURL: 'http://something.com/1.mp3',
+        podcastFeedUrl: 'http://something.com/rss',
+        episodeMediaUrl: 'http://something.com/1.mp3',
         episodeTitle: 'testEpisodeTitle22'
       };
 
@@ -172,8 +172,8 @@ describe('ClipService', function () {
       const data = {
         ownerId: 'testOwner',
         episodeId: 'someId',
-        podcastFeedURL: 'http://some.rss.feed.com',
-        episodeMediaURL: 'http://some.mediaURL.com'
+        podcastFeedUrl: 'http://some.rss.feed.com',
+        episodeMediaUrl: 'http://some.mediaURL.com'
       };
 
       this.clipSvc.create(data, {ownerId: 'notnull'})

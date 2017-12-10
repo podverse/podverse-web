@@ -2,11 +2,11 @@ const
     errors = require('feathers-errors'),
     config = require('config.js');
 
-function addURL (hooks) {
+function addUrl (hooks) {
   let slug = hooks.result.slug || hooks.result.id;
-  hooks.result.podverseURL = `${config.baseURL}/clips/${slug}`;
+  hooks.result.podverseUrl = `${config.baseUrl}/clips/${slug}`;
 }
 
 module.exports = {
-  addURL
+  addUrl
 };

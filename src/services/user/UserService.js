@@ -21,7 +21,7 @@ class UserService extends SequelizeService {
 
     this.after = {};
   }
-  
+
   retrieveUserAndAllSubscribedPodcasts (id, params={}) {
     const {MediaRef, Playlist} = this.Models;
 
@@ -30,12 +30,12 @@ class UserService extends SequelizeService {
     }
 
     return this.sqlEngine.query(`
-      SELECT p.title, p."imageURL", p.id, p."lastEpisodeTitle", p."feedURL", (
+      SELECT p.title, p."imageUrl", p.id, p."lastEpisodeTitle", p."feedUrl", (
         SELECT MAX("pubDate") FROM episodes WHERE "podcastId"=p.id
       ) AS "lastEpisodePubDate"
       FROM podcasts p, users u
       WHERE u.id='${id}'
-      AND u."subscribedPodcastFeedURLs" @> ARRAY[p."feedURL"]::text[];
+      AND u."subscribedPodcastFeedUrls" @> ARRAY[p."feedUrl"]::text[];
     `, { type: this.sqlEngine.QueryTypes.SELECT })
     .then(subscribedPodcasts => {
       return this.Model.findOne({
@@ -94,7 +94,7 @@ class UserService extends SequelizeService {
       defaults: {
         name: data.name || '',
         nickname: data.nickname || '',
-        subscribedPodcastFeedURLs: data.subscribedPodcastFeedURLs || []
+        subscribedPodcastFeedUrls: data.subscribedPodcastFeedUrls || []
       },
       include: {
         model: Playlist,
@@ -122,34 +122,34 @@ class UserService extends SequelizeService {
       .then(user => {
 
         // Handle subscribing to a podcast
-        if (params.subscribeToPodcastFeedURL || params.unsubscribeFromPodcastFeedURL) {
-          let subscribedPodcastFeedURLs = user.dataValues.subscribedPodcastFeedURLs || [];
+        if (params.subscribeToPodcastFeedUrl || params.unsubscribeFromPodcastFeedUrl) {
+          let subscribedPodcastFeedUrls = user.dataValues.subscribedPodcastFeedUrls || [];
 
-          let podcastFeedURL = params.subscribeToPodcastFeedURL || params.unsubscribeFromPodcastFeedURL || null;
+          let podcastFeedUrl = params.subscribeToPodcastFeedUrl || params.unsubscribeFromPodcastFeedUrl || null;
 
           var regexp = /^(https?):\/\/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(\#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/i;
-          if (!regexp.test(podcastFeedURL)) {
+          if (!regexp.test(podcastFeedUrl)) {
             throw errors.GeneralError('A valid http or https URL must be provided.');
           }
 
           // Handle subscribing from a podcast
-          if (params.subscribeToPodcastFeedURL) {
-            if (subscribedPodcastFeedURLs.indexOf(podcastFeedURL) === -1) {
-              subscribedPodcastFeedURLs.push(podcastFeedURL);
+          if (params.subscribeToPodcastFeedUrl) {
+            if (subscribedPodcastFeedUrls.indexOf(podcastFeedUrl) === -1) {
+              subscribedPodcastFeedUrls.push(podcastFeedUrl);
             }
           }
 
           // Handle unsubscribing from a podcast
-          if (params.unsubscribeFromPodcastFeedURL) {
-            if (subscribedPodcastFeedURLs.indexOf(podcastFeedURL) > -1) {
-              let index = subscribedPodcastFeedURLs.indexOf(podcastFeedURL);
-              subscribedPodcastFeedURLs.splice(index, 1);
+          if (params.unsubscribeFromPodcastFeedUrl) {
+            if (subscribedPodcastFeedUrls.indexOf(podcastFeedUrl) > -1) {
+              let index = subscribedPodcastFeedUrls.indexOf(podcastFeedUrl);
+              subscribedPodcastFeedUrls.splice(index, 1);
             }
           }
 
-          return user.update({ subscribedPodcastFeedURLs: subscribedPodcastFeedURLs })
+          return user.update({ subscribedPodcastFeedUrls: subscribedPodcastFeedUrls })
             .then(() => {
-              return podcastFeedURL;
+              return podcastFeedUrl;
             });
         }
 

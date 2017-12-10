@@ -48,7 +48,7 @@ function routes () {
   .get('/clips/:id', getLoggedInUserInfo, (req, res) => {
     return ClipService.get(req.params.id)
       .then((mediaRef) => {
-        req.params.podcastFeedURL = mediaRef.podcastFeedURL;
+        req.params.podcastFeedUrl = mediaRef.podcastFeedUrl;
         return new Promise((resolve, reject) => {
           isUserSubscribedToThisPodcast(resolve, reject, req);
         })
@@ -88,12 +88,12 @@ function routes () {
           let mediaRefs = playlist.dataValues.mediaRefs;
 
           return new Promise((resolve, reject) => {
-            getUsersSubscribedPodcastFeedURLs(resolve, reject, req);
+            getUsersSubscribedPodcastFeedUrls(resolve, reject, req);
           })
-            .then((subscribedPodcastFeedURLs) => {
-              subscribedPodcastFeedURLs = subscribedPodcastFeedURLs || [];
+            .then((subscribedPodcastFeedUrls) => {
+              subscribedPodcastFeedUrls = subscribedPodcastFeedUrls || [];
               mediaRefs.forEach(mediaRef => {
-                if (subscribedPodcastFeedURLs.includes(mediaRef.podcastFeedURL)) {
+                if (subscribedPodcastFeedUrls.includes(mediaRef.podcastFeedUrl)) {
                   mediaRef.dataValues['isSubscribed'] = true;
                 }
               });
@@ -127,9 +127,9 @@ function routes () {
 
   .use('playlists', locator.get('PlaylistService'))
 
-  // Alias URL for the Podcast Detail Page based on podcastFeedURL
+  // Alias Url for the Podcast Detail Page based on podcastFeedUrl
   .get('/podcasts/alias', (req, res) => {
-    return PodcastService.get('alias', {feedURL: req.query.feedURL})
+    return PodcastService.get('alias', {feedUrl: req.query.feedUrl})
       .then(podcast => {
         res.redirect('/podcasts/' + podcast.dataValues.id);
       }).catch(e => {
@@ -139,7 +139,7 @@ function routes () {
   })
 
   .get('/podcasts/isSubscribed', getLoggedInUserInfo, (req, res) => {
-    req.params.podcastFeedURL = req.query.podcastFeedURL;
+    req.params.podcastFeedUrl = req.query.podcastFeedUrl;
 
     return new Promise((resolve, reject) => {
       isUserSubscribedToThisPodcast(resolve, reject, req);
@@ -191,7 +191,7 @@ function routes () {
 
     return PodcastService.get(req.params.id, params)
       .then(podcast => {
-        req.params.podcastFeedURL = podcast.feedURL;
+        req.params.podcastFeedUrl = podcast.feedUrl;
         return new Promise((resolve, reject) => {
           isUserSubscribedToThisPodcast(resolve, reject, req);
         })
@@ -221,7 +221,7 @@ function routes () {
     return PodcastService.get(req.params.id)
       .then(podcast => {
 
-        req.params.podcastFeedURL = podcast.feedURL; // set on the request for isUserSubscribedToThisPodcast
+        req.params.podcastFeedUrl = podcast.feedUrl; // set on the request for isUserSubscribedToThisPodcast
         return new Promise((resolve, reject) => {
           isUserSubscribedToThisPodcast(resolve, reject, req);
         })
@@ -230,7 +230,7 @@ function routes () {
           let filterType = req.query.sort || 'pastDay';
           let pageIndex = req.query.page || 1;
 
-          return ClipService.retrievePaginatedClips(filterType, [podcast.feedURL], null, pageIndex)
+          return ClipService.retrievePaginatedClips(filterType, [podcast.feedUrl], null, pageIndex)
           .then(page => {
             podcast.clips = page.data;
             res.render('podcast/index.html', {
@@ -260,8 +260,8 @@ function routes () {
 
     let filterType = req.body.filterType || 'pastWeek';
     let pageIndex = req.body.page || 1;
-    let podcastFeedUrls = req.body.podcastFeedURLs || [];
-    let episodeMediaUrl = req.body.episodeMediaURL;
+    let podcastFeedUrls = req.body.podcastFeedUrls || [];
+    let episodeMediaUrl = req.body.episodeMediaUrl;
 
     return ClipService.retrievePaginatedClips(filterType, podcastFeedUrls, episodeMediaUrl, pageIndex)
     .then(page => {
@@ -344,9 +344,9 @@ function routes () {
 
   .use('podcasts', locator.get('PodcastService'))
 
-  // Alias URL for the Episode Detail Page based on mediaURL
+  // Alias Url for the Episode Detail Page based on mediaUrl
   .get('/episodes/alias', (req, res) => {
-    return EpisodeService.get('alias', {mediaURL: req.query.mediaURL})
+    return EpisodeService.get('alias', {mediaUrl: req.query.mediaUrl})
       .then(episode => {
         res.redirect('/episodes/' + episode.id);
       }).catch(e => {
@@ -363,7 +363,7 @@ function routes () {
 
     return EpisodeService.get(req.params.id)
       .then(episode => {
-        req.params.podcastFeedURL = episode.podcast.feedURL;
+        req.params.podcastFeedUrl = episode.podcast.feedUrl;
         return new Promise((resolve, reject) => {
           isUserSubscribedToThisPodcast(resolve, reject, req);
         })
@@ -390,7 +390,7 @@ function routes () {
 
   .post('/podcasts/subscribe', function (req, res) {
     UserService.update(req.feathers.userId, {}, {
-      subscribeToPodcastFeedURL: req.body.podcastFeedURL,
+      subscribeToPodcastFeedUrl: req.body.podcastFeedUrl,
       userId: req.feathers.userId
     })
       .then(user => {
@@ -404,7 +404,7 @@ function routes () {
 
   .post('/podcasts/unsubscribe', function (req, res) {
     UserService.update(req.feathers.userId, {}, {
-      unsubscribeFromPodcastFeedURL: req.body.podcastFeedURL,
+      unsubscribeFromPodcastFeedUrl: req.body.podcastFeedUrl,
       userId: req.feathers.userId
     })
       .then(user => {
@@ -459,9 +459,9 @@ function routes () {
 
         if (req.body.mediaRefId.indexOf('episode_') > -1) {
 
-          let episodeMediaURL = req.body.mediaRefId.replace('episode_', '');
+          let episodeMediaUrl = req.body.mediaRefId.replace('episode_', '');
 
-          EpisodeService.get('alias', {mediaURL: episodeMediaURL})
+          EpisodeService.get('alias', {mediaUrl: episodeMediaUrl})
             .then(episode => {
 
               let epMediaRef;
@@ -472,11 +472,11 @@ function routes () {
                 epMediaRef = ClipService.pruneEpisodeMediaRef(req.body);
               }
 
-              // Find all mediaRefs with at least one episode where episode.feedURL === feedURL
+              // Find all mediaRefs with at least one episode where episode.feedUrl === feedUrl
 
               MediaRef.findOrCreate({
                 where: {
-                  episodeMediaURL: episodeMediaURL,
+                  episodeMediaUrl: episodeMediaUrl,
                   startTime: 0,
                   $and: {
                     endTime: null
@@ -652,13 +652,13 @@ function routes () {
 
 }
 
-function getUsersSubscribedPodcastFeedURLs (resolve, reject, req) {
+function getUsersSubscribedPodcastFeedUrls (resolve, reject, req) {
   if (isNonAnonUser(req.feathers.userId)) {
     const UserService = locator.get('UserService');
     return UserService.get(req.feathers.userId, { userId: req.feathers.userId })
       .then(user => {
-        let subscribedPodcastFeedURLs = user.subscribedPodcastFeedURLs;
-        resolve(subscribedPodcastFeedURLs);
+        let subscribedPodcastFeedUrls = user.subscribedPodcastFeedUrls;
+        resolve(subscribedPodcastFeedUrls);
       })
       .catch(e => {
         reject(e);
@@ -673,8 +673,8 @@ function isUserSubscribedToThisPodcast (resolve, reject, req) {
     const UserService = locator.get('UserService');
     return UserService.get(req.feathers.userId, { userId: req.feathers.userId })
       .then(user => {
-        let isUserSubscribed = user.dataValues.subscribedPodcastFeedURLs.some(podcastFeedURL => {
-          return podcastFeedURL === req.params.podcastFeedURL;
+        let isUserSubscribed = user.dataValues.subscribedPodcastFeedUrls.some(podcastFeedUrl => {
+          return podcastFeedUrl === req.params.podcastFeedUrl;
         });
         resolve(isUserSubscribed);
       })

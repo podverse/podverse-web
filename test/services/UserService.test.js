@@ -90,7 +90,7 @@ describe('UserService', function () {
               episode = arr[1];
 
           return this.userSvc.create({
-            subscribedPodcastFeedURLs: [podcast.feedURL]
+            subscribedPodcastFeedUrls: [podcast.feedUrl]
           }, {
             userId: 'nite_owl',
           })
@@ -123,8 +123,8 @@ describe('UserService', function () {
           expect(this.subscribedPodcasts[0].title).to.equal('Most interesting podcast in the world');
         });
 
-        it('should include the imageURL', function () {
-          expect(this.subscribedPodcasts[0].imageURL).to.equal('http://example.com/image.jpg');
+        it('should include the imageUrl', function () {
+          expect(this.subscribedPodcasts[0].imageUrl).to.equal('http://example.com/image.jpg');
         });
       })
 

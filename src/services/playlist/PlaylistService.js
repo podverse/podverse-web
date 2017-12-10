@@ -4,7 +4,7 @@ const
     config = require('config.js'),
     {locator} = require('locator.js'),
     {applyOwnerId} = require('hooks/common.js'),
-    {addURL} = require('hooks/playlist/playlist.js'),
+    {addUrl} = require('hooks/playlist/playlist.js'),
     {isUUID} = require('validator');
 
 class PlaylistService extends SequelizeService {
@@ -27,9 +27,9 @@ class PlaylistService extends SequelizeService {
     };
 
     this.after = {
-      get: [addURL],
-      create: [addURL],
-      update: [addURL]
+      get: [addUrl],
+      create: [addUrl],
+      update: [addUrl]
     };
   }
 

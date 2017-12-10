@@ -56,7 +56,7 @@ module.exports ={
         new webpack.DefinePlugin({
             __AUTH0_CLIENTID__: JSON.stringify(config.auth0ClientId),
             __AUTH0_DOMAIN__: JSON.stringify(config.auth0Domain),
-            __BASE_URL__: JSON.stringify(config.baseURL),
+            __BASE_URL__: JSON.stringify(config.baseUrl),
             __GOOGLE_ANALYTICS_UA__: JSON.stringify(config.googleAnalyticsUA),
             __IS_PROD__: process.env.NODE_ENV === 'production'
         }),

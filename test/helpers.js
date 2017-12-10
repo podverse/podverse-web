@@ -79,8 +79,8 @@ function createTestMediaRefs (Models) {
       ownerId: 'testOwner',
       episodeId: 'someId',
       title: `TestTitle${i}`,
-      podcastFeedURL: 'http://some.rss.feed.com',
-      episodeMediaURL: 'http://some.mediaURL.com'
+      podcastFeedUrl: 'http://some.rss.feed.com',
+      episodeMediaUrl: 'http://some.mediaURL.com'
     }
     mediaRefs.push(mediaRef);
   }
@@ -121,15 +121,15 @@ function createTestPodcastAndEpisode () {
         episodeService = new EpisodeService();
 
     return podcastService.create({
-      feedURL: 'http://example.com/test333',
+      feedUrl: 'http://example.com/test333',
       title: 'Most interesting podcast in the world',
-      imageURL: 'http://example.com/image.jpg'
+      imageUrl: 'http://example.com/image.jpg'
     }, {})
     .then(podcast => {
       this.podcast = podcast;
       return episodeService.create({
-        mediaURL: 'http://example.com/test999',
-        feedURL: 'http://example.com/test333',
+        mediaUrl: 'http://example.com/test999',
+        feedUrl: 'http://example.com/test333',
         title: 'Best episode in the history of time',
         podcastId: this.podcast.id,
         pubDate: '2017-01-30T03:58:46+00:00'
@@ -138,8 +138,8 @@ function createTestPodcastAndEpisode () {
     .then(episode1 => {
       this.episode1 = episode1;
       return episodeService.create({
-        mediaURL: 'http://example.com/test2222',
-        feedURL: 'http://example.com/test333',
+        mediaUrl: 'http://example.com/test2222',
+        feedUrl: 'http://example.com/test333',
         title: 'Oldest episode in the history of time',
         podcastId: this.podcast.id,
         pubDate: '1999-12-31T23:59:59+00:00'

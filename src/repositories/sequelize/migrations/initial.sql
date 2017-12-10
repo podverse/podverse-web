@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.6.1
+-- Dumped from database version 9.6.6
 -- Dumped by pg_dump version 9.6.1
 
 --
@@ -20,16 +20,23 @@ CREATE TABLE "mediaRefs" (
     "dateCreated" timestamp with time zone,
     "lastUpdated" timestamp with time zone,
     "podcastTitle" text,
-    "podcastFeedURL" text NOT NULL,
-    "podcastImageURL" text,
+    "podcastFeedUrl" text NOT NULL,
+    "podcastImageUrl" text,
     "episodeTitle" text,
-    "episodeMediaURL" text NOT NULL,
-    "episodeImageURL" text,
+    "episodeMediaUrl" text NOT NULL,
+    "episodeImageUrl" text,
+    "episodeLinkUrl" text,
     "episodePubDate" timestamp with time zone,
     "episodeSummary" text,
-    "episodeDuration" integer
+    "episodeDuration" integer,
+    "pastHourTotalUniquePageviews" integer DEFAULT 0,
+    "pastDayTotalUniquePageviews" integer DEFAULT 0,
+    "pastWeekTotalUniquePageviews" integer DEFAULT 0,
+    "pastMonthTotalUniquePageviews" integer DEFAULT 0,
+    "pastYearTotalUniquePageviews" integer DEFAULT 0,
+    "allTimeTotalUniquePageviews" integer DEFAULT 0,
+    "isPublic" boolean DEFAULT false
 );
-
 
 --
 -- Name: playlistItems; Type: TABLE; Schema: public; Owner: postgres
@@ -77,7 +84,7 @@ CREATE TABLE users (
     id character varying(255) NOT NULL,
     name text,
     nickname text,
-    "subscribedPodcastFeedURLs" text[] DEFAULT ARRAY[]::text[],
+    "subscribedPodcastFeedUrls" text[] DEFAULT ARRAY[]::text[],
     "createdAt" timestamp with time zone NOT NULL,
     "updatedAt" timestamp with time zone NOT NULL
 );
@@ -104,6 +111,7 @@ ALTER TABLE ONLY "playlistItems"
 
 ALTER TABLE ONLY playlists
     ADD CONSTRAINT playlists_pkey PRIMARY KEY (id);
+
 
 --
 -- Name: playlists playlists_slug_key; Type: CONSTRAINT; Schema: public; Owner: postgres

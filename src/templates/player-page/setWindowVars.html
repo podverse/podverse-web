@@ -27,21 +27,21 @@
     window.startTime = item.startTime;
     window.endTime = item.endTime;
     window.ownerName = item.ownerName;
-    window.podcastFeedURL = item.podcastFeedURL;
+    window.podcastFeedUrl = item.podcastFeedUrl;
     window.podcastTitle = item.podcastTitle;
-    window.podcastImageURL = item.podcastImageURL;
-    window.episodeMediaURL = item.episodeMediaURL;
+    window.podcastImageUrl = item.podcastImageUrl;
+    window.episodeMediaUrl = item.episodeMediaUrl;
     window.episodeTitle = item.episodeTitle;
     window.episodePubDate = item.episodePubDate;
-    window.episodeImageURL = item.episodeImageURL;
-    window.episodeLinkURL = item.episodeLinkURL;
+    window.episodeImageUrl = item.episodeImageUrl;
+    window.episodeLinkUrl = item.episodeLinkUrl;
     window.episodeDuration = item.episodeDuration;
 
     // if item is an Episode
     if (window.startTime === 0 && window.endTime === null) {
       window.isEpisode = true;
       window.description = decodeEntities(item.episodeSummary);
-      window.mediaRefId = 'episode_' + item.episodeMediaURL;
+      window.mediaRefId = 'episode_' + item.episodeMediaUrl;
     } else {
       window.isEpisode = false;
       window.description = decodeEntities(item.title);
@@ -66,7 +66,7 @@
   window.isPlayerPage = true;
   window.isEmptyPlaylist = false;
   window.isPlaylist = false;
-  window.previousEpisodeMediaURL = null;
+  window.previousEpisodeMediaUrl = null;
   window.nowPlayingPlaylistItemIndex = 0;
 
   // If a mediaRefs object exists, then set window variables for the playlist page
@@ -87,15 +87,15 @@
 
   // If there's a podcast property, then set the window vars for the episode page.
   {% elif podcast %}
-    window.mediaRefId = 'episode_{{ mediaURL }}';
-    window.podcastFeedURL = "{{ podcast.feedURL }}"
+    window.mediaRefId = 'episode_{{ mediaUrl }}';
+    window.podcastFeedUrl = "{{ podcast.feedUrl }}"
     window.podcastTitle = "{{ podcast.title | stripTags | trimText }}";
-    window.podcastImageURL = "{{ podcast.imageURL }}";
+    window.podcastImageUrl = "{{ podcast.imageUrl }}";
     window.episodeTitle = "{{ title | stripTags | trimText }}";
-    window.episodeMediaURL = "{{ mediaURL }}";
+    window.episodeMediaUrl = "{{ mediaUrl }}";
     window.episodePubDate = "{{ pubDate }}";
-    window.episodeImageURL = "{{ imageURL }}";
-    window.episodeLinkURL = "{{ link }}";
+    window.episodeImageUrl = "{{ imageUrl }}";
+    window.episodeLinkUrl = "{{ link }}";
     window.episodeDuration = "{{ duration }}"
     window.startTime = 0;
     window.endTime = null;
@@ -128,14 +128,14 @@
   // Else set the window vars for a clip page.
   {% else %}
     window.mediaRefId = "{{ id }}";
-    window.podcastFeedURL = "{{ podcastFeedURL }}";
+    window.podcastFeedUrl = "{{ podcastFeedUrl }}";
     window.podcastTitle = "{{ podcastTitle | stripTags | trimText }}";
-    window.podcastImageURL = "{{ podcastImageURL }}";
+    window.podcastImageUrl = "{{ podcastImageUrl }}";
     window.episodeTitle = "{{ episodeTitle | stripTags | trimText }}";
-    window.episodeMediaURL = "{{ episodeMediaURL }}";
+    window.episodeMediaUrl = "{{ episodeMediaUrl }}";
     window.episodePubDate = "{{ episodePubDate }}";
-    window.episodeImageURL = "{{ episodeImageURL }}";
-    window.episodeLinkURL = "{{ episodeLinkURL }}";
+    window.episodeImageUrl = "{{ episodeImageUrl }}";
+    window.episodeLinkUrl = "{{ episodeLinkUrl }}";
     window.episodeDuration = "{{ episodeDuration }}";
     window.startTime = "{{ startTime }}";
     window.endTime = "{{ endTime }}";

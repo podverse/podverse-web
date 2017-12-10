@@ -8,9 +8,9 @@ let generatePlaylistRSSFeed = (playlist) => {
 
   // Some podcast players do not use the image set in the item.itunesImage,
   // so instead we are using a Podverse default logo.
-  // let podcastImageURL = `${
+  // let podcastImageUrl = `${
   //   playlist.mediaRefs.length > 0 ?
-  //   playlist.mediaRefs[0].podcastImageURL :
+  //   playlist.mediaRefs[0].podcastImageUrl :
   //   'https://podverse.fm/static/images/podverse-logo-1024.png'
   // }`;
 
@@ -64,7 +64,7 @@ let generatePlaylistRSSFeed = (playlist) => {
 
   const feed = new PodcastRSS(feedOptions);
 
-  let groupedMediaRefs = _.groupBy(playlist.mediaRefs, 'episodeMediaURL');
+  let groupedMediaRefs = _.groupBy(playlist.mediaRefs, 'episodeMediaUrl');
   let formattedMediaRefs = [];
 
   Object.keys(groupedMediaRefs).forEach(key => {
@@ -72,13 +72,13 @@ let generatePlaylistRSSFeed = (playlist) => {
 
     let fMediaRef = formattedMediaRef = {};
     fMediaRef.episodeTitle = mediaRefs[0].episodeTitle;
-    fMediaRef.episodeMediaURL = mediaRefs[0].episodeMediaURL;
+    fMediaRef.episodeMediaUrl = mediaRefs[0].episodeMediaUrl;
     fMediaRef.podcastTitle = mediaRefs[0].podcastTitle;
     fMediaRef.episodePubDate = mediaRefs[0].episodePubDate;
-    fMediaRef.episodeMediaURL = mediaRefs[0].episodeMediaURL;
+    fMediaRef.episodeMediaUrl = mediaRefs[0].episodeMediaUrl;
     fMediaRef.episodeDuration = mediaRefs[0].episodeDuration;
-    fMediaRef.episodeImageURL = mediaRefs[0].episodeImageURL;
-    fMediaRef.podcastImageURL = mediaRefs[0].podcastImageURL;
+    fMediaRef.episodeImageUrl = mediaRefs[0].episodeImageUrl;
+    fMediaRef.podcastImageUrl = mediaRefs[0].podcastImageUrl;
 
     let lastMediaRefUpdated = _.maxBy(mediaRefs, (mR) => { return mR.lastUpdated });
     fMediaRef.lastUpdated = lastMediaRefUpdated.lastUpdated;
@@ -127,22 +127,22 @@ let generatePlaylistRSSFeed = (playlist) => {
   formattedMediaRefs = _.sortBy(formattedMediaRefs, 'lastUpdated').reverse();
 
   for (let mediaRef of formattedMediaRefs) {
-    let securePodcastImageURL;
-    if (mediaRef.podcastImageURL) {
-      securePodcastImageURL = mediaRef.podcastImageURL.substr(mediaRef.podcastImageURL.indexOf('://') + 3);
-      securePodcastImageURL = 'https://' + securePodcastImageURL;
+    let securePodcastImageUrl;
+    if (mediaRef.podcastImageUrl) {
+      securePodcastImageUrl = mediaRef.podcastImageUrl.substr(mediaRef.podcastImageUrl.indexOf('://') + 3);
+      securePodcastImageUrl = 'https://' + securePodcastImageUrl;
     }
 
     let itemOptions = {
       title: mediaRef.episodeTitle,
       description: mediaRef.description,
-      url: `https://podverse.fm/episodes/alias?mediaURL=${mediaRef.episodeMediaURL}`,
+      url: `https://podverse.fm/episodes/alias?mediaUrl=${mediaRef.episodeMediaUrl}`,
       // guid: uuid(),
       // categories: ,
       author: mediaRef.podcastTitle, // TODO: should be real author listed in feed
       date: mediaRef.lastUpdated,
       enclosure: {
-        url: mediaRef.episodeMediaURL,
+        url: mediaRef.episodeMediaUrl,
         // file: ,
         // size: ,
         // mime
@@ -151,7 +151,7 @@ let generatePlaylistRSSFeed = (playlist) => {
       // will automatically fill it out
       itunesSummary: mediaRef.description,
       itunesDuration: mediaRef.episodeDuration,
-      itunesImage: securePodcastImageURL
+      itunesImage: securePodcastImageUrl
       // other options
       // itunesAuthor: '',
       // itunesSubtitle: '',

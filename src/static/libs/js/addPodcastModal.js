@@ -1,20 +1,20 @@
 import { sendGoogleAnalyticsEvent } from './googleAnalytics.js';
 
 export function addPodcastModalSave () {
-  var feedURL = $('#addPodcastModalFeedURL').val();
+  var feedUrl = $('#addPodcastModalFeedUrl').val();
 
-  if (feedURL != null && feedURL != '') {
+  if (feedUrl != null && feedUrl != '') {
     var spinnerEl = $('<i class="fa fa-spinner fa-spin"><i>');
     $('#addPodcastModalAddButton').html(spinnerEl);
 
-    // If a podcast with the feedURL is already in the db, then nav to its page.
+    // If a podcast with the feedUrl is already in the db, then nav to its page.
     // Else parse the feed and add it to the db, then nav to its page.
-    $.get('/podcasts/alias?feedURL=' + feedURL)
+    $.get('/podcasts/alias?feedUrl=' + feedUrl)
       .done(function (data) {
         if (data.length > 0) {
           location.href = '/podcasts/' + data[0].id;
         } else {
-          $.post('/parse', { feedURL: feedURL })
+          $.post('/parse', { feedUrl: feedUrl })
             .done(function (data) {
               $('#addPodcastModal').modal('hide');
               $('#addPodcastModalAddButton').html('Add');

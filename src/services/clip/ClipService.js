@@ -4,11 +4,11 @@ const
     {applyOwnerId} = require('hooks/common.js'),
     config = require('config.js'),
     {locator} = require('locator.js'),
-    {addURL} = require('hooks/clip/clip.js'),
+    {addUrl} = require('hooks/clip/clip.js'),
     {isClipMediaRef, allowedFilters, isFilterAllowed} = require('constants.js'),
     sqlEngine = locator.get('sqlEngine'),
     {filterTypeNotAllowedMessage} = require('errors.js'),
-    validURL = require('valid-url');
+    validUrl = require('valid-url');
 
 class ClipService extends SequelizeService {
 
@@ -28,9 +28,9 @@ class ClipService extends SequelizeService {
     };
 
     this.after = {
-      get: [addURL],
-      create: [addURL],
-      update: [addURL]
+      get: [addUrl],
+      create: [addUrl],
+      update: [addUrl]
     };
 
   }
@@ -132,12 +132,12 @@ class ClipService extends SequelizeService {
     return new Promise((resolve, reject) => {
 
       podcastFeedUrls.forEach(podcastFeedUrl => {
-        if (podcastFeedUrl && !validURL.isUri(podcastFeedUrl)) {
+        if (podcastFeedUrl && !validUrl.isUri(podcastFeedUrl)) {
           throw new errors.GeneralError(`Invalid URL ${podcastFeedUrl} provided for podcastFeedUrl`, 404);
         }
       });
 
-      if (episodeMediaUrl && !validURL.isUri(episodeMediaUrl)) {
+      if (episodeMediaUrl && !validUrl.isUri(episodeMediaUrl)) {
         throw new errors.GeneralError(`Invalid URL ${episodeMediaUrl} provided for episodeMediaUrl`, 404);
       }
 
@@ -188,12 +188,12 @@ class ClipService extends SequelizeService {
     epMediaRef.startTime = 0;
     epMediaRef.ownerId = userId;
     epMediaRef.podcastTitle = episode.podcast.title;
-    epMediaRef.podcastFeedURL = episode.podcast.feedURL;
-    epMediaRef.podcastImageURL = episode.podcast.imageURL;
+    epMediaRef.podcastFeedUrl = episode.podcast.feedUrl;
+    epMediaRef.podcastImageUrl = episode.podcast.imageUrl;
     epMediaRef.episodeTitle = episode.title;
-    epMediaRef.episodeMediaURL = episode.mediaURL;
-    epMediaRef.episodeImageURL = episode.imageURL;
-    epMediaRef.episodeLinkURL = episode.link;
+    epMediaRef.episodeMediaUrl = episode.mediaUrl;
+    epMediaRef.episodeImageUrl = episode.imageUrl;
+    epMediaRef.episodeLinkUrl = episode.link;
     epMediaRef.episodePubDate = episode.pubDate;
     epMediaRef.episodeSummary = episode.summary;
 
@@ -208,12 +208,12 @@ class ClipService extends SequelizeService {
     epMediaRef.startTime = 0;
     epMediaRef.ownerId = item.ownerId;
     epMediaRef.podcastTitle = item.podcastTitle;
-    epMediaRef.podcastFeedURL = item.podcastFeedURL;
-    epMediaRef.podcastImageURL = item.podcastImageURL;
+    epMediaRef.podcastFeedUrl = item.podcastFeedUrl;
+    epMediaRef.podcastImageUrl = item.podcastImageUrl;
     epMediaRef.episodeTitle = item.episodeTitle;
-    epMediaRef.episodeMediaURL = item.episodeMediaURL;
-    epMediaRef.episodeImageURL = item.episodeImageURL;
-    epMediaRef.episodeLinkURL = item.episodeLinkURL;
+    epMediaRef.episodeMediaUrl = item.episodeMediaUrl;
+    epMediaRef.episodeImageUrl = item.episodeImageUrl;
+    epMediaRef.episodeLinkUrl = item.episodeLinkUrl;
     epMediaRef.episodePubDate = item.episodePubDate;
     epMediaRef.episodeSummary = item.episodeSummary;
 
