@@ -362,6 +362,7 @@ function routes () {
 
   // Alias Url for the Episode Detail Page based on mediaUrl
   .get('/episodes/alias', (req, res) => {
+    
     return EpisodeService.get('alias', {mediaUrl: req.query.mediaUrl})
       .then(episode => {
         res.redirect('/episodes/' + episode.id);

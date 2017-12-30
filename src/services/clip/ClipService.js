@@ -53,6 +53,7 @@ class ClipService extends SequelizeService {
 
       const {MediaRef, Playlist, User} = this.Models;
       const PlaylistService = locator.get('PlaylistService');
+      const EpisodeService = locator.get('EpisodeService');
 
       if (data.endTime === '') {
         data.endTime = null;
@@ -62,53 +63,69 @@ class ClipService extends SequelizeService {
         data.episodeDuration = null;
       }
 
-      return MediaRef.create(data)
-        .then((c) => {
-          // If user is logged in, then add the clip to their My Clips playlist
-          if (params.userId) {
+      // Ensure the mediaRef's episodeMediaUrl belongs to one of the official
+      // episodes of the podcast.
+      return EpisodeService.validateMediaUrl(data.episodeMediaUrl, data.podcastFeedUrl)
+        .then(isValid => {
 
-            return User.findById(params.userId)
-              .then(user => {
-
-                let ownerName = user.name || '';
-                let myClipsPlaylist = {};
-                myClipsPlaylist.title = 'My Clips';
-                myClipsPlaylist.isMyClips = true;
-                myClipsPlaylist.ownerName = ownerName;
-
-                return Playlist.findOrCreate({
-                  where: {
-                    ownerId: params.userId,
-                    $and: {
-                      isMyClips: true
-                    }
-                  },
-                  defaults: myClipsPlaylist
-                }).then(playlists => {
-                    let playlist = playlists[0];
-
-                    return user.addPlaylists([playlist.id])
-                      .then(() => {
-                        playlist.dataValues.playlistItems = [c.id];
-                        return PlaylistService.update(playlist.dataValues.id, playlist.dataValues, {
-                          userId: params.userId,
-                          addPlaylistItemsToPlaylist: true
-                        })
-                          .then(updatedPlaylist => {
-                            resolve(c);
-                          })
-                      })
-                })
-            })
+          if (!isValid) {
+            throw new errors.GeneralError('Invalid media URL.')
           } else {
-            resolve(c);
+
+            return MediaRef.create(data)
+              .then((c) => {
+                // If user is logged in, then add the clip to their My Clips playlist
+                if (params.userId) {
+
+                  return User.findById(params.userId)
+                    .then(user => {
+
+                      let ownerName = user.name || '';
+                      let myClipsPlaylist = {};
+                      myClipsPlaylist.title = 'My Clips';
+                      myClipsPlaylist.isMyClips = true;
+                      myClipsPlaylist.ownerName = ownerName;
+
+                      return Playlist.findOrCreate({
+                        where: {
+                          ownerId: params.userId,
+                          $and: {
+                            isMyClips: true
+                          }
+                        },
+                        defaults: myClipsPlaylist
+                      }).then(playlists => {
+                          let playlist = playlists[0];
+
+                          return user.addPlaylists([playlist.id])
+                            .then(() => {
+                              playlist.dataValues.playlistItems = [c.id];
+                              return PlaylistService.update(playlist.dataValues.id, playlist.dataValues, {
+                                userId: params.userId,
+                                addPlaylistItemsToPlaylist: true
+                              })
+                                .then(updatedPlaylist => {
+                                  resolve(c);
+                                })
+                            })
+                      })
+                  })
+                } else {
+                  resolve(c);
+                }
+
+              })
+              .catch(e => {
+                console.log(e);
+                reject(new errors.GeneralError(e));
+              });
+
           }
 
         })
         .catch(e => {
-          console.log(e);
-          reject(new errors.GeneralError(e));
-        });
+          reject(new errors.GeneralError('Invalid episode metadata'));
+        })
 
     });
   }
@@ -128,6 +145,9 @@ class ClipService extends SequelizeService {
   }
 
   retrievePaginatedClips(filterType, podcastFeedUrls, episodeMediaUrl, pageIndex) {
+
+    const {locator} = require('locator.js');
+    const FeedUrlService = locator.get('FeedUrlService');
 
     return new Promise((resolve, reject) => {
 
@@ -150,31 +170,72 @@ class ClipService extends SequelizeService {
       }
 
       let params = {},
-          offset = (pageIndex * 10) - 10,
-          clipQuery = isClipMediaRef(podcastFeedUrls, episodeMediaUrl);
+      offset = (pageIndex * 10) - 10;
 
-      params.sequelize = {
-        where: clipQuery,
-        offset: offset,
-        order: [
-          [sqlEngine.fn('max', sqlEngine.col(allowedFilters[filterType].query)), 'DESC']
-        ],
-        group: ['id']
-      };
+      if (episodeMediaUrl) {
 
-      params.paginate = {
-        default: 10,
-        max: 1000
-      };
+        let clipQuery = isClipMediaRef([], episodeMediaUrl);
 
-      return super.find(params)
-      .then(page => {
-        resolve(page);
-      })
-      .catch(err => {
-        console.log(err);
-        reject(err);
-      });
+        params.sequelize = {
+          where: clipQuery,
+          offset: offset,
+          order: [
+            [sqlEngine.fn('max', sqlEngine.col(allowedFilters[filterType].query)), 'DESC']
+          ],
+          group: ['id']
+        };
+
+        params.paginate = {
+          default: 10,
+          max: 1000
+        };
+
+        return super.find(params)
+        .then(page => {
+          resolve(page);
+        })
+        .catch(err => {
+          console.log(err);
+          reject(err);
+        });
+
+      } else {
+
+        // Find all related feed urls so clips made for non-authority podcast
+        // feed urls (aka mediaRefs with out-of-date metadata) are included.
+        // Also ensure that clips only have media urls that point to official content.
+
+        return FeedUrlService.findAllRelatedFeedUrls(podcastFeedUrls)
+          .then(relatedFeedUrls => {
+
+            let clipQuery = isClipMediaRef(relatedFeedUrls, null);
+
+            params.sequelize = {
+              where: clipQuery,
+              offset: offset,
+              order: [
+                [sqlEngine.fn('max', sqlEngine.col(allowedFilters[filterType].query)), 'DESC']
+              ],
+              group: ['id']
+            };
+
+            params.paginate = {
+              default: 10,
+              max: 1000
+            };
+
+            return super.find(params)
+            .then(page => {
+              resolve(page);
+            })
+            .catch(err => {
+              console.log(err);
+              reject(err);
+            });
+
+          });
+
+      }
 
     });
 
