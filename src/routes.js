@@ -197,7 +197,7 @@ function routes () {
           .then(feedUrl => {
 
             req.params.podcastFeedUrl = feedUrl; // needed to determine if user is subscribed
-            podcast.feedUrl = feedUrl; // needed for the front-end
+            podcast.feedUrl = feedUrl; // needed by the front-end
 
             return new Promise((resolve, reject) => {
               isUserSubscribedToThisPodcast(resolve, reject, req);
@@ -229,34 +229,40 @@ function routes () {
     return PodcastService.get(req.params.id)
       .then(podcast => {
 
-        FeedUrl.findPodcastByFeedUrl
+        return FeedUrlService.findPodcastAuthorityFeedUrl(req.params.id)
+          .then(feedUrl => {
 
-        req.params.podcastFeedUrl = podcast.feedUrl; // set on the request for isUserSubscribedToThisPodcast
-        return new Promise((resolve, reject) => {
-          isUserSubscribedToThisPodcast(resolve, reject, req);
-        })
-        .then((isSubscribed) => {
+            req.params.podcastFeedUrl = feedUrl; // needed to determine if user is subscribed
+            podcast.feedUrl = feedUrl; // needed by the front-end
 
-          let filterType = req.query.sort || 'pastDay';
-          let pageIndex = req.query.page || 1;
+            return new Promise((resolve, reject) => {
+              isUserSubscribedToThisPodcast(resolve, reject, req);
+            })
+            .then((isSubscribed) => {
 
-          return ClipService.retrievePaginatedClips(filterType, [podcast.feedUrl], null, pageIndex)
-          .then(page => {
-            podcast.clips = page.data;
-            res.render('podcast/index.html', {
-              podcast: podcast,
-              dropdownText: allowedFilters[filterType].dropdownText,
-              currentPage: 'Podcast Detail Page',
-              isSubscribed: isSubscribed,
-              isClipsView: true,
-              locals: res.locals
-            });
+              let filterType = req.query.sort || 'pastDay';
+              let pageIndex = req.query.page || 1;
+
+              return ClipService.retrievePaginatedClips(filterType, [feedUrl], null, pageIndex)
+              .then(page => {
+                podcast.clips = page.data;
+                res.render('podcast/index.html', {
+                  podcast: podcast,
+                  dropdownText: allowedFilters[filterType].dropdownText,
+                  currentPage: 'Podcast Detail Page',
+                  isSubscribed: isSubscribed,
+                  isClipsView: true,
+                  locals: res.locals
+                });
+              })
+              .catch(err => {
+                console.log(req.params.id);
+                console.log(err);
+                res.sendStatus(404);
+              });
+
           })
-          .catch(err => {
-            console.log(req.params.id);
-            console.log(err);
-            res.sendStatus(404);
-          });
+
         });
       }).catch(e => {
         console.log(e);

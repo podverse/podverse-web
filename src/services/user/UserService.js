@@ -36,7 +36,8 @@ class UserService extends SequelizeService {
       FROM "feedUrls" f, users u, podcasts p
       WHERE u.id='${id}'
       AND u."subscribedPodcastFeedUrls" @> ARRAY[f.url]::text[]
-      AND p.id=f."podcastId";
+      AND p.id=f."podcastId"
+      AND f."isAuthority"=true;
     `, { type: this.sqlEngine.QueryTypes.SELECT })
     .then(subscribedPodcasts => {
 
