@@ -30,14 +30,16 @@ class UserService extends SequelizeService {
     }
 
     return this.sqlEngine.query(`
-      SELECT p.title, p."imageUrl", p.id, p."lastEpisodeTitle", p."feedUrl", (
+      SELECT p.title, p."imageUrl", p.id, p."lastEpisodeTitle", (
         SELECT MAX("pubDate") FROM episodes WHERE "podcastId"=p.id
       ) AS "lastEpisodePubDate"
-      FROM podcasts p, users u
+      FROM "feedUrls" f, users u, podcasts p
       WHERE u.id='${id}'
-      AND u."subscribedPodcastFeedUrls" @> ARRAY[p."feedUrl"]::text[];
+      AND u."subscribedPodcastFeedUrls" @> ARRAY[f.url]::text[]
+      AND p.id=f."podcastId";
     `, { type: this.sqlEngine.QueryTypes.SELECT })
     .then(subscribedPodcasts => {
+
       return this.Model.findOne({
         where: {
           id:id

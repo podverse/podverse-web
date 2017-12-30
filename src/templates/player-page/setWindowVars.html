@@ -87,8 +87,9 @@
 
   // If there's a podcast property, then set the window vars for the episode page.
   {% elif podcast %}
+    console.log('episode page')
     window.mediaRefId = 'episode_{{ mediaUrl }}';
-    window.podcastFeedUrl = "{{ podcast.feedUrl }}"
+    window.podcastFeedUrl = "{{ podcastFeedUrl }}"
     window.podcastTitle = "{{ podcast.title | stripTags | trimText }}";
     window.podcastImageUrl = "{{ podcast.imageUrl }}";
     window.episodeTitle = "{{ title | stripTags | trimText }}";

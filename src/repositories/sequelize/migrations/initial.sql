@@ -5,6 +5,7 @@
 -- Dumped from database version 9.6.6
 -- Dumped by pg_dump version 9.6.1
 
+
 --
 -- Name: mediaRefs; Type: TABLE; Schema: public; Owner: postgres
 --
@@ -38,6 +39,7 @@ CREATE TABLE "mediaRefs" (
     "isPublic" boolean DEFAULT false
 );
 
+
 --
 -- Name: playlistItems; Type: TABLE; Schema: public; Owner: postgres
 --
@@ -48,6 +50,7 @@ CREATE TABLE "playlistItems" (
     "playlistId" text NOT NULL,
     "mediaRefId" text NOT NULL
 );
+
 
 --
 -- Name: playlists; Type: TABLE; Schema: public; Owner: postgres
@@ -65,6 +68,7 @@ CREATE TABLE playlists (
     "isMyClips" boolean
 );
 
+
 --
 -- Name: subscribedPlaylists; Type: TABLE; Schema: public; Owner: postgres
 --
@@ -75,6 +79,7 @@ CREATE TABLE "subscribedPlaylists" (
     "userId" character varying(255) NOT NULL,
     "playlistId" text NOT NULL
 );
+
 
 --
 -- Name: users; Type: TABLE; Schema: public; Owner: postgres
@@ -88,6 +93,7 @@ CREATE TABLE users (
     "createdAt" timestamp with time zone NOT NULL,
     "updatedAt" timestamp with time zone NOT NULL
 );
+
 
 --
 -- Name: mediaRefs mediaRefs_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
@@ -120,6 +126,7 @@ ALTER TABLE ONLY playlists
 ALTER TABLE ONLY playlists
     ADD CONSTRAINT playlists_slug_key UNIQUE (slug);
 
+
 --
 -- Name: subscribedPlaylists subscribedPlaylists_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
@@ -134,6 +141,7 @@ ALTER TABLE ONLY "subscribedPlaylists"
 
 ALTER TABLE ONLY users
     ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
 
 --
 -- Name: playlistItems playlistItems_mediaRefId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
@@ -165,7 +173,6 @@ ALTER TABLE ONLY "subscribedPlaylists"
 
 ALTER TABLE ONLY "subscribedPlaylists"
     ADD CONSTRAINT "subscribedPlaylists_userId_fkey" FOREIGN KEY ("userId") REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
 
 --
 -- PostgreSQL database dump complete

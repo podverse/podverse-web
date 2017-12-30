@@ -15,6 +15,7 @@ function routes () {
         {MediaRef} = Models,
         PodcastService = locator.get('PodcastService'),
         EpisodeService = locator.get('EpisodeService'),
+        FeedUrlService = locator.get('FeedUrlService'),
         ClipService = locator.get('ClipService'),
         PlaylistService = locator.get('PlaylistService'),
         UserService = locator.get('UserService'),
@@ -129,7 +130,7 @@ function routes () {
 
   // Alias Url for the Podcast Detail Page based on podcastFeedUrl
   .get('/podcasts/alias', (req, res) => {
-    return PodcastService.get('alias', {feedUrl: req.query.feedUrl})
+    return PodcastService.findPodcastByFeedUrl(req.query.feedUrl)
       .then(podcast => {
         res.redirect('/podcasts/' + podcast.dataValues.id);
       }).catch(e => {
@@ -191,24 +192,31 @@ function routes () {
 
     return PodcastService.get(req.params.id, params)
       .then(podcast => {
-        req.params.podcastFeedUrl = podcast.feedUrl;
-        return new Promise((resolve, reject) => {
-          isUserSubscribedToThisPodcast(resolve, reject, req);
-        })
-        .then((isSubscribed) => {
 
-          podcast.episodes = _.reduce(podcast.episodes, (acc, episode) => {
-            if (episode.isPublic === true)
-              acc.push(episode)
-            return acc;
-          }, []);
+        return FeedUrlService.findPodcastAuthorityFeedUrl(req.params.id)
+          .then(feedUrl => {
 
-          res.render('podcast/index.html', {
-            podcast: podcast,
-            currentPage: 'Podcast Detail Page',
-            isSubscribed: isSubscribed,
-            locals: res.locals
-          });
+            req.params.podcastFeedUrl = feedUrl; // needed to determine if user is subscribed
+            podcast.feedUrl = feedUrl; // needed for the front-end
+
+            return new Promise((resolve, reject) => {
+              isUserSubscribedToThisPodcast(resolve, reject, req);
+            })
+            .then((isSubscribed) => {
+              podcast.episodes = _.reduce(podcast.episodes, (acc, episode) => {
+                if (episode.isPublic === true)
+                  acc.push(episode)
+                return acc;
+              }, []);
+
+              res.render('podcast/index.html', {
+                podcast: podcast,
+                currentPage: 'Podcast Detail Page',
+                isSubscribed: isSubscribed,
+                locals: res.locals
+              });
+          })
+
         });
       }).catch(e => {
         console.log(e);
@@ -220,6 +228,8 @@ function routes () {
   .get('/podcasts/clips/:id', getLoggedInUserInfo, (req, res) => {
     return PodcastService.get(req.params.id)
       .then(podcast => {
+
+        FeedUrl.findPodcastByFeedUrl
 
         req.params.podcastFeedUrl = podcast.feedUrl; // set on the request for isUserSubscribedToThisPodcast
         return new Promise((resolve, reject) => {
@@ -363,15 +373,19 @@ function routes () {
 
     return EpisodeService.get(req.params.id)
       .then(episode => {
-        req.params.podcastFeedUrl = episode.podcast.feedUrl;
-        return new Promise((resolve, reject) => {
-          isUserSubscribedToThisPodcast(resolve, reject, req);
-        })
-        .then((isSubscribed) => {
-          episode.dataValues['isSubscribed'] = isSubscribed;
+
+        return FeedUrlService.findPodcastAuthorityFeedUrl(episode.podcastId)
+        .then(feedUrl => {
+
+          episode.dataValues['podcastFeedUrl'] = feedUrl;
           return new Promise((resolve, reject) => {
-            gatherUsersOwnedPlaylists(resolve, reject, req);
+            isUserSubscribedToThisPodcast(resolve, reject, req);
           })
+          .then((isSubscribed) => {
+            episode.dataValues['isSubscribed'] = isSubscribed;
+            return new Promise((resolve, reject) => {
+              gatherUsersOwnedPlaylists(resolve, reject, req);
+            })
             .then((usersOwnedPlaylists) => {
               episode.dataValues['usersOwnedPlaylists'] = usersOwnedPlaylists;
               episode.dataValues['currentPage'] = 'Episode Detail Page';
@@ -380,8 +394,12 @@ function routes () {
               episode.dataValues['endTimeOverride'] = endTimeOverride;
               res.render('player-page/index.html', episode.dataValues);
             })
+          })
+
         })
+
       }).catch(e => {
+        console.log(e);
         res.sendStatus(404);
       });
   })
@@ -389,6 +407,7 @@ function routes () {
   .use('episodes', locator.get('EpisodeService'))
 
   .post('/podcasts/subscribe', function (req, res) {
+
     UserService.update(req.feathers.userId, {}, {
       subscribeToPodcastFeedUrl: req.body.podcastFeedUrl,
       userId: req.feathers.userId
@@ -554,27 +573,32 @@ function routes () {
     })
       .then(user => {
 
-        let podcasts = user.dataValues.subscribedPodcasts;
+        if (user && user.dataValues) {
+          let podcasts = user.dataValues.subscribedPodcasts;
 
-        podcasts = _.reduce(podcasts, (acc, podcast) => {
-          if (podcast.title && podcast.title.length > 0) {
-            acc.push(podcast);
-          }
-          return acc;
-        }, []);
+          podcasts = _.reduce(podcasts, (acc, podcast) => {
+            if (podcast.title && podcast.title.length > 0) {
+              acc.push(podcast);
+            }
+            return acc;
+          }, []);
 
-        podcasts = _.sortBy(podcasts, (podcast) => {
-          let title = podcast.title;
-          title = title.toLowerCase();
-          title = removeArticles(title);
-          return title;
-        });
+          podcasts = _.sortBy(podcasts, (podcast) => {
+            let title = podcast.title;
+            title = title.toLowerCase();
+            title = removeArticles(title);
+            return title;
+          });
 
-        user.dataValues.subscribedPodcasts = podcasts;
+          user.dataValues.subscribedPodcasts = podcasts;
 
-        user.dataValues['currentPage'] = 'My Podcasts Page';
-        user.dataValues['locals'] = res.locals;
-        res.render('my-podcasts/index.html', user.dataValues);
+          user.dataValues['currentPage'] = 'My Podcasts Page';
+          user.dataValues['locals'] = res.locals;
+          res.render('my-podcasts/index.html', user.dataValues);
+        } else {
+          throw new errors.GeneralError('User id not found');
+        }
+
       })
       .catch(e => {
         console.log(e);
@@ -673,10 +697,14 @@ function isUserSubscribedToThisPodcast (resolve, reject, req) {
     const UserService = locator.get('UserService');
     return UserService.get(req.feathers.userId, { userId: req.feathers.userId })
       .then(user => {
-        let isUserSubscribed = user.dataValues.subscribedPodcastFeedUrls.some(podcastFeedUrl => {
-          return podcastFeedUrl === req.params.podcastFeedUrl;
-        });
-        resolve(isUserSubscribed);
+        if (user) {
+          let isUserSubscribed = user.dataValues.subscribedPodcastFeedUrls.some(podcastFeedUrl => {
+            return podcastFeedUrl === req.params.podcastFeedUrl;
+          });
+          resolve(isUserSubscribed);
+        } else {
+          resolve(false);
+        }
       })
       .catch(e => {
         console.log(e);

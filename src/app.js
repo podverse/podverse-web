@@ -16,12 +16,14 @@ const
 
 const
     PodcastService = require('podcast-db/src/services/podcast/PodcastService.js'),
-    EpisodeService = require('podcast-db/src/services/episode/EpisodeService.js');
+    EpisodeService = require('podcast-db/src/services/episode/EpisodeService.js'),
+    FeedUrlService = require('podcast-db/src/services/feedUrl/FeedUrlService.js');
 
 locator.set('ClipService', new ClipService());
 locator.set('PlaylistService', new PlaylistService());
 locator.set('PodcastService', new PodcastService());
 locator.set('EpisodeService', new EpisodeService());
+locator.set('FeedUrlService', new FeedUrlService());
 locator.set('UserService', new UserService());
 
 module.exports = appFactory();

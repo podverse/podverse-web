@@ -387,22 +387,22 @@ function toggleSubscribe() {
     return;
   }
 
-  var index = $(".playlist-item").index(this);
+  // var index = $(".playlist-item").index(this);
 
   if ($('#player-podcast-subscribe i').hasClass('fa-star-o')) {
     $('#player-podcast-subscribe').html('<i class="fa fa-star"></i>');
     $('#player-podcast-subscribe').attr('title', 'Unsubscribe from podcast');
     subscribeToPodcast(podcastFeedUrl);
-    if (window.mediaRefs) {
-      window.mediaRefs[index]["isSubscribed"] = true;
-    }
+    // if (window.mediaRefs) {
+    //   window.mediaRefs[index]["isSubscribed"] = true;
+    // }
   } else {
     $('#player-podcast-subscribe').html('<small class="hidden-xs-down">subscribe</small> <i class="fa fa-star-o"></i>');
     $('#player-podcast-subscribe').attr('title', 'Subscribe to podcast');
     unsubscribeFromPodcast(podcastFeedUrl);
-    if (window.mediaRefs) {
-      window.mediaRefs[index]["isSubscribed"] = false;
-    }
+    // if (window.mediaRefs) {
+    //   window.mediaRefs[index]["isSubscribed"] = false;
+    // }
   }
 }
 
