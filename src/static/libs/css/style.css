@@ -1170,7 +1170,7 @@ footer p {
     line-height: 1.5rem;
     /*cursor: pointer;*/
     color: #777;
-    font-size: 14px;
+    font-size: 13px;
     margin: 2px 0 0 0;
 }
 
@@ -1678,7 +1678,7 @@ body.modal-open {
 }
 
 .sort-by-dropdown .btn {
-    font-size: 14px;
+    font-size: 13px;
     color: #777 !important;
     background: transparent;
     border: none;
