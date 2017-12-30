@@ -3,20 +3,12 @@
 
 <div class="row">
   <div class="col-xs-12">
-    <div class="dropdown" id="myPlaylistsDropdown">
-      <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        All Playlists
-      </button>
-      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <a class="dropdown-item">All Playlists</a>
-        <a class="dropdown-item">My Playlists</a>
-        <a class="dropdown-item">Shared with Me</a>
-        <a class="dropdown-item">Shared by Me</a>
-      </div>
-    </div>
     <!-- <div class="header-button" data-toggle="modal" data-target="#subscribeToPlaylistModal">Add Playlist</div> -->
 
+    <h4>My Playlists</h4>
+
     <div class="playlist-list" id="playlist-list-my-playlists">
+
       {% for playlist in mySubscribedPlaylists|sort(false, true, 'title') %}
         {% if not playlist.isRecommendation %}
           <a class="playlist-list-item" data-id="{{playlist.id}}" href="/playlists/{{playlist.id}}">
@@ -46,64 +38,6 @@
         {% endif %}
       {% endfor %}
     </div><!-- /#playlist-list-my-playlists -->
-
-    <div class="playlist-list" id="playlist-list-recommended-for-me">
-      {% for playlist in recommendedForMe|sort(false, true, 'title')  %}
-        <a class="playlist-list-item" data-id="{{playlist.id}}" href="/playlists/{{playlist.id}}">
-          <div class="playlist-list-item-img">
-            {% if playlist.mediaRefs[0].podcastImageUrl %}
-              <img class="lazy" data-original="{{ playlist.mediaRefs[0].podcastImageUrl }}">
-            {% else %}
-              <img class="lazy" data-original="/static/images/podverse-logo-180.png">
-            {% endif %}
-          </div>
-          <div class="playlist-list-item-last-pubdate">
-            {% if playlist.mediaRefs[0] %}
-              {{ playlist.lastUpdated | readableDate }}
-            {% endif %}
-          </div>
-          <div class="playlist-list-item-title">
-            {{playlist.title}}
-          </div>
-          <div class="playlist-list-item-total-episodes">
-            items: {{ playlist.mediaRefs | length}}
-          </div>
-          <div class="playlist-list-item-subtitle">
-            by: {{ playlist.ownerName }}
-          </div>
-          <div class="clearfix"></div>
-        </a>
-      {% endfor %}
-    </div><!-- /#playlist-list-recommended-for-me -->
-
-    <div class="playlist-list" id="playlist-list-recommended-by-me">
-      {% for playlist in recommendedByMe|sort(false, true, 'title')  %}
-        <a class="playlist-list-item" data-id="{{playlist.id}}" href="/playlists/{{playlist.id}}">
-          <div class="playlist-list-item-img">
-            {% if playlist.mediaRefs[0].podcastImageUrl %}
-              <img class="lazy" data-original="{{ playlist.mediaRefs[0].podcastImageUrl }}">
-            {% else %}
-              <img class="lazy" data-original="/static/images/podverse-logo-180.png">
-            {% endif %}
-          </div>
-          <div class="playlist-list-item-last-pubdate">
-            {% if playlist.mediaRefs[0] %}
-              {{ playlist.lastUpdated | readableDate }}
-            {% endif %}
-          </div>
-          <div class="playlist-list-item-title">
-            {{ playlist.title }}
-          </div>
-          <div class="playlist-list-item-total-episodes">
-            items: {{ playlist.mediaRefs | length}}
-          </div>
-          <div class="playlist-list-item-subtitle">
-            by: {{ playlist.ownerName }}
-          </div>
-          <div class="clearfix"></div>
-        </a>
-      {% endfor %}
-    </div><!-- /#playlist-list-recommended-by-me -->
 
   </div><!-- /.col-xs-12 -->
 </div><!-- /.row -->
