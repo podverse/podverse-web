@@ -823,7 +823,7 @@ footer p {
 .playlist-item {
     clear: both;
     display: block;
-    font-size: 14px;
+    font-size: 16px;
     padding: 1rem 0;
     border-top: 1px solid transparent;
     border-bottom: 1px solid #eee;
@@ -850,14 +850,14 @@ footer p {
 
 .playlist-item-image {
     float: left;
-    margin: 0 0.75rem 0 0;
-    width: 4rem;
-    height: 4rem;
+    margin: 0 1rem 0 0;
+    width: 4.25rem;
+    height: 4.25rem;
 }
 
 .playlist-item-image img {
-    width: 4rem;
-    height: 4rem;
+    width: 4.25rem;
+    height: 4.25rem;
 }
 
 .playlist-item-text-wrapper {
@@ -880,33 +880,33 @@ footer p {
     text-overflow: initial;
     white-space: normal;
     font-weight: 600;
-    margin-top: 1px;
 }
 
 .playlist-item-sub-title {
     overflow: hidden;
+    font-size: 13px;
 }
 
 .playlist-item-date {
     float: right;
-    font-size: 12px;
+    font-size: 13px;
     margin: 2px 0 0 10px;
 }
 
 .playlist-item-time {
-    font-size: 12px;
+    font-size: 13px;
     margin-top: 2px;
     float: left;
 }
 
 .playlist-item-duration {
-    font-size: 12px;
+    font-size: 13px;
     margin-top: 2px;
     float: right;
 }
 
 .playlist-item-details {
-    font-size: 14px;
+    font-size: 13px;
     margin-top: 0.75rem;
 }
 
@@ -1380,14 +1380,14 @@ footer p {
 
 .playlist-list-item-img {
   float: left;
-  margin: 0 0.75rem 0 0;
-  width: 4rem;
-  height: 4rem;
+  margin: 0 1rem 0 0;
+  width: 4.25rem;
+  height: 4.25rem;
 }
 
 .playlist-list-item-img img {
-  width: 4rem;
-  height: 4rem;
+  width: 4.25rem;
+  height: 4.25rem;
 }
 
 .playlist-list-item-subscribe {
