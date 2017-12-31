@@ -306,7 +306,7 @@ function setPlayerInfo () {
 
   if (truncDescription.length < 156 && !isEpisode && truncDescription.indexOf('<small>show more</small>') < 0 && episodeSummary && episodeSummary.length > 0) {
     setTimeout(function () {
-      truncDescription += " <span class='text-primary'><small>show summary</small></span>";
+      truncDescription += " &nbsp;<span class='text-primary'><small>show summary</small></span>";
       $('#player-description-truncated').html(truncDescription)
     }, 0);
   }
