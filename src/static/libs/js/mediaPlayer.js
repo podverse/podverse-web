@@ -188,23 +188,6 @@ function setPlayerInfo () {
 
   $('#player-header').show();
 
-  let startTimeReadable = '',
-      endTimeReadable = '';
-
-  if (endTime >= 0 && endTime !== null) {
-    startTimeReadable = convertSecToHHMMSS(startTime);
-    endTimeReadable = ' - ' + convertSecToHHMMSS(endTime);
-  } else {
-    startTimeReadable = convertSecToHHMMSS(startTime);
-  }
-
-  if (isEpisode === false) {
-    $('#player-condensed-text').html(description);
-    $('#player-condensed-text').addClass('should-show');
-    $('#player-condensed-time').html(startTimeReadable + endTimeReadable);
-    $('#player-condensed-time').addClass('should-show');
-  }
-
   $('#player-condensed-title a').html(podcastTitle);
   $('#player-condensed-title a').attr('href', '/podcasts/alias?feedUrl=' + podcastFeedUrl);
   $('#player-condensed-sub-title a').attr('href', '/episodes/alias?mediaUrl=' + episodeMediaUrl);
@@ -246,6 +229,16 @@ function setPlayerInfo () {
 
   $('#player-description-truncated').html(truncDescription);
 
+  let startTimeReadable = '',
+      endTimeReadable = '';
+
+  if (endTime >= 0 && endTime !== null) {
+    startTimeReadable = convertSecToHHMMSS(startTime);
+    endTimeReadable = ' - ' + convertSecToHHMMSS(endTime);
+  } else {
+    startTimeReadable = convertSecToHHMMSS(startTime);
+  }
+
   $('#player-clip-time').html(startTimeReadable + endTimeReadable);
 
   if (endTime) {
@@ -273,8 +266,22 @@ function setPlayerInfo () {
 
   $('#player-description-show-more').html(`<span class="text-primary">Show Summary</span>`);
 
-  $('#player-description-truncated').show();
-  $('#player-description-full').hide();
+  if (isEpisode === false) {
+    $('#player-clip-time').show();
+    $('#player-description-truncated').show();
+    $('#player-description-full').hide();
+    $('#player-description-show-more').show();
+    $('#player-condensed-text').html(truncDescription);
+    $('#player-condensed-text').addClass('should-show');
+    $('#player-condensed-time').html(startTimeReadable + endTimeReadable);
+    $('#player-condensed-time').addClass('should-show');
+  } else {
+    $('#player-description-truncated').hide();
+    $('#player-description-full').show();
+    $('#player-condensed-text').removeClass('should-show');
+    $('#player-condensed-time').removeClass('should-show');
+  }
+
   $('#playlist').show();
 
   window.restartAttempts = 0;
@@ -320,7 +327,6 @@ $('#player-description-truncated').on('click', () => {
 });
 
 $('#player-description-show-more').on('click', () => {
-  console.log($('#player-description-show-more').html());
   if ($('#player-description-show-more').html() === '<span class="text-primary">Hide Summary</span>') {
     $('#player-description-show-more').html(`<span class="text-primary">Show Summary</span>`);
     $('#player-description-full').hide();
@@ -328,6 +334,10 @@ $('#player-description-show-more').on('click', () => {
     $('#player-description-show-more').html(`<span class="text-primary">Hide Summary</span>`);
     $('#player-description-full').show();
   }
+});
+
+$('#player-clip-time').on('click', () => {
+  restart();
 });
 
 function setSubscribedStatus() {
