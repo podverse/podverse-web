@@ -39,6 +39,7 @@ label {
 
 a:hover, a:focus {
     color: #373a3c;
+    text-decoration: none;
 }
 
 audio {
