@@ -38,7 +38,8 @@ label {
 }
 
 a:hover, a:focus {
-    color: #373a3c;
+    color: #025197;
+    text-decoration: none;
 }
 
 audio {
@@ -457,38 +458,10 @@ footer p {
     color: #373a3c;
 }
 
-#player-stats {
+#player-pub-date {
     line-height: 1.5rem;
     margin: 2px 0 0 0;
-    font-size: 14px;
-}
-
-#player-stats-duration {
-    float: left;
-    color: #777;
-    cursor: pointer;
-}
-
-#player-stats-duration:hover {
-    text-decoration: underline;
-}
-
-#player-stats-duration-link {
-    margin-left: 15px;
-    float: left;
-}
-
-#player-stats-duration-link a {
-    color: #777;
-    cursor: pointer;
-}
-
-#player-stats-duration-link a:hover {
-    text-decoration: underline;
-}
-
-#player-stats-pub-date {
-    float: right;
+    font-size: 12px;
     color: #777;
 }
 
@@ -676,7 +649,7 @@ footer p {
 
 #player-time-jump-back:hover, #player-time-jump-forward:hover, #toggle-make-clip-btn:hover,
 #toggle-playlist-btn:hover, #toggle-recommend-btn:hover, #player-autoplay:hover,
-#player-description-truncated small:hover {
+#player-description-show-more span:hover {
     color: #025197 !important;
 }
 
@@ -738,13 +711,26 @@ footer p {
 
 /*** player-page description.html styles ***/
 #player-description-truncated {
-    font-size: 14px;
-    margin-bottom: 1rem;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    font-size: 15px;
+    margin-bottom: 0.25rem;
     cursor: pointer;
+    overflow: hidden;
 }
+
+#player-clip-duration {
+    float: right;
+    font-size: 12px;
+    color: #777;
+    margin-bottom: 1rem;
+    display: none;
+}
+
+#player-clip-time {
+    font-size: 12px;
+    color: #777;
+    margin-bottom: 1rem;
+}
+
 
 #player-description-full {
     display: none;
@@ -878,7 +864,7 @@ footer p {
 .playlist-item-title {
     font-size: 16px;
     font-weight: 600;
-    margin: 0.25rem 0;
+    margin: 0.25rem 0 0.45rem 0;
     line-height: 22px;
 }
 
@@ -896,24 +882,27 @@ footer p {
     font-size: 12px;
     text-overflow: ellipsis;
     white-space: nowrap;
+    color: #777;
 }
 
 .playlist-item-sub-title {
     overflow: hidden;
     font-size: 12px;
+    color: #777;
 }
 
 .playlist-item-date {
     float: right;
     font-size: 12px;
-    margin: 0 0 0 0.25rem;
-    width: 65px;
+    margin: 0 0 0 1rem;
     text-align: right;
+    color: #777;
 }
 
 .playlist-item-time {
     font-size: 12px;
     width: 100px;
+    color: #777;
 }
 
 .playlist-item-duration {
@@ -921,6 +910,8 @@ footer p {
     font-size: 12px;
     width: 100px;
     text-align: right;
+    color: #777;
+    display: none;
 }
 
 .playlist-item-details {
@@ -1286,6 +1277,7 @@ footer p {
 .podcast-clips-list-item-duration {
     float: right;
     font-size: 13px;
+    display: none;
 }
 
 .podcast-clips-list-item-time {

@@ -199,21 +199,10 @@ function setPlayerInfo () {
   }
 
   if (isEpisode === false) {
-    var duration = calcDuration(startTime, endTime);
-    $('#player-stats-duration').html(startTimeReadable + endTimeReadable);
-
     $('#player-condensed-text').html(description);
     $('#player-condensed-text').addClass('should-show');
     $('#player-condensed-time').html(startTimeReadable + endTimeReadable);
     $('#player-condensed-time').addClass('should-show');
-  } else {
-    $('#player-stats-duration').html('Full Episode');
-  }
-
-  if (isPlaylist && !isEpisode) {
-    $('#player-stats-duration-link').html('<a href="/clips/' + mediaRefId + '"><i class="fa fa-link"></i></a>')
-  } else if (isPlaylist && isEpisode) {
-    $('#player-stats-duration-link').html('<a href="/episodes/alias?mediaUrl=' + episodeMediaUrl + '"><i class="fa fa-link"></i></a>')
   }
 
   $('#player-condensed-title a').html(podcastTitle);
@@ -231,7 +220,7 @@ function setPlayerInfo () {
 
   $('#player-image a').attr('href', '/podcasts/alias?feedUrl=' + podcastFeedUrl);
   $('#player-image img').attr('src', podcastImageUrl);
-  $('#player-stats-pub-date').html(readableDate(episodePubDate));
+  $('#player-pub-date').html(readableDate(episodePubDate));
 
   $('#player-time-jump-back').html('<i class="fa fa-angle-left"></i> 15s');
   $('#player-time-jump-forward').html('15s <i class="fa fa-angle-right"></i>');
@@ -257,6 +246,13 @@ function setPlayerInfo () {
 
   $('#player-description-truncated').html(truncDescription);
 
+  $('#player-clip-time').html(startTimeReadable + endTimeReadable);
+
+  if (endTime) {
+    let dur = calcDuration(startTime, endTime);
+    $('#player-clip-duration').html(secondsToReadableDuration(dur));
+  }
+
   description = `<p>${episodeTitle}</p>`;
   description += `<p>${episodeSummary}</p>`;
 
@@ -271,9 +267,9 @@ function setPlayerInfo () {
     if (src && src.indexOf('http://') > -1) {
       $(this).remove();
     }
-  })
+  });
 
-  $('#player-description-truncated').html(truncDescription)
+  $('#player-description-truncated').html(truncDescription);
 
   $('#player-description-show-more').html(`<span class='text-primary'>Show Summary</span>`);
 
@@ -308,7 +304,7 @@ window.addEventListener('focus', resizeProgressBar);
 window.addEventListener('pageshow', resizeProgressBar);
 window.addEventListener('visibilityChange', resizeProgressBar);
 
-let isTruncated = true;
+let isTruncated = false;
 $('#player-description-truncated').on('click', () => {
   if (isTruncated) {
     $('#player-description-truncated').css({
@@ -656,11 +652,6 @@ function restart () {
   audio.play();
   sendGoogleAnalyticsEvent('Media Player', 'Restart');
 }
-
-$('#player-stats-duration').on('click', function () {
-  restart();
-});
-
 
 function setPlaylistItemClickEvents() {
   $('.playlist-item').on('keypress click', function(e) {
