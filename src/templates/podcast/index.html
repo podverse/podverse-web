@@ -4,11 +4,10 @@
 
 {% include "podcast/header.html" %}
 
-{% include "podcast/summary.html" %}
-
 {% if isClipsView %}
   {% include "podcast/clip-list.html" %}
 {% else %}
+  {% include "podcast/summary.html" %}
   {% include "podcast/episode-list.html" %}
 {% endif %}
 

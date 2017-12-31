@@ -1,30 +1,35 @@
 <div id="podcast-clips-list">
 
+  {% if podcast.clips|length > 5 %}
     {% for clip in podcast.clips %}
-      <a class="podcast-clips-list-item" href="/clips/{{clip.id}}">
-        <div class="podcast-clips-list-item-title">{{clip.title | stripTags | decodeHTML | truncString(300) }}</div>
+      <a class="playlist-item" href="/clips/{{clip.id}}">
 
-        <div class="podcast-clips-list-item-episode-pubdate">
+        <div class="playlist-item-date">
           {{clip.episodePubDate | readableDate}}
         </div>
-        <div class="podcast-clips-list-item-episode-title">
+        <div class="playlist-item-episode-title">
           {{clip.episodeTitle | stripTags | decodeHTML}}
         </div>
 
+        <div class="playlist-item-title">{{clip.title | stripTags | decodeHTML | truncString(300) }}</div>
+
         {% if clip.endTime > 0 %}
-          <div class="podcast-clips-list-item-duration">
+          <div class="playlist-item-duration">
             {{ (clip.endTime - clip.startTime) | secondsToReadableDuration }}
           </div>
-          <div class="podcast-clips-list-item-time">
-            Clip: {{ clip.startTime | convertSecToHHMMSS }} to {{ clip.endTime | convertSecToHHMMSS }}
+          <div class="playlist-item-time">
+            {{ clip.startTime | convertSecToHHMMSS }} - {{ clip.endTime | convertSecToHHMMSS }}
           </div>
         {% else %}
-          <div class="podcast-clips-list-item-time">
-            Clip: {{ clip.startTime | convertSecToHHMMSS }} start time {{ clip.endTime }}
+          <div class="playlist-item-time">
+            {{ clip.startTime | convertSecToHHMMSS }} start time {{ clip.endTime }}
           </div>
         {% endif %}
       </a>
     {% endfor %}
+  {% else %}
+    <i>No clips created for this podcast.</i>
+  {% endif %}
 
 </div>
 
