@@ -569,7 +569,7 @@ footer p {
 /*** player.html condensed-size mode styles ***/
 
 #player-condensed-image, #player-condensed-title, #player-condensed-sub-title,
-#player-condensed-text {
+#player-condensed-text, #player-condensed-time {
     display: none;
 }
 
@@ -582,7 +582,7 @@ footer p {
     margin: 0 0 1.5rem 0;
     background-color: #fff;
     z-index: 10;
-    padding: 6px 0 3px 0;
+    padding: 0.5rem 0 0.25rem 0;
 }
 
 /* Width for player-condensed-inner is set via JavaScript to work with truncation. */
@@ -591,16 +591,16 @@ footer p {
 }
 
 .condensed #player-condensed-image {
-    width: 3.25rem;
-    height: 3.25rem;
+    width: 2.75rem;
+    height: 2.75rem;
     margin-right: 0.75rem;
     float: left;
     display: block;
 }
 
 .condensed #player-condensed-image img {
-    width: 3.25rem;
-    height: 3.25rem;
+    width: 2.75rem;
+    height: 2.75rem;
 }
 
 .condensed #player-condensed-title {
@@ -635,6 +635,13 @@ footer p {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+
+.condensed #player-condensed-time.should-show {
+    display: block;
+    float: right;
+    font-size: 14px;
+    margin-left: 0.25rem;
 }
 
 

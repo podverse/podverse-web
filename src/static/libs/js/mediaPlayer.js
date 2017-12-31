@@ -192,18 +192,20 @@ function setPlayerInfo () {
       endTimeReadable = '';
 
   if (endTime >= 0 && endTime !== null) {
-    startTimeReadable = 'Clip: ' + convertSecToHHMMSS(startTime);
-    endTimeReadable = ' to ' + convertSecToHHMMSS(endTime);
+    startTimeReadable = convertSecToHHMMSS(startTime);
+    endTimeReadable = ' - ' + convertSecToHHMMSS(endTime);
   } else {
-    startTimeReadable = 'Clip: ' + convertSecToHHMMSS(startTime);
-    endTimeReadable = ' start time';
+    startTimeReadable = convertSecToHHMMSS(startTime);
   }
 
   if (isEpisode === false) {
     var duration = calcDuration(startTime, endTime);
     $('#player-stats-duration').html(startTimeReadable + endTimeReadable);
-    $('#player-condensed-text').html(startTimeReadable + endTimeReadable + ' – ' + description);
+
+    $('#player-condensed-text').html(description);
     $('#player-condensed-text').addClass('should-show');
+    $('#player-condensed-time').html(startTimeReadable + endTimeReadable);
+    $('#player-condensed-time').addClass('should-show');
   } else {
     $('#player-stats-duration').html('Full Episode');
   }
@@ -255,13 +257,9 @@ function setPlayerInfo () {
 
   $('#player-description-truncated').html(truncDescription);
 
-  // If is a clip, then include the episode summary after the title.
-  if (!isEpisode) {
-    // description = `${description}<div class="clearfix"></div><br><br><p><span id="player-description-episode-title">Episode Title:</span> ${episodeTitle}</p>`;
-    description = `<p>${episodeSummary}</p>`;
-  } else {
-    description = `<div class="clearfix"></div><br><br><p><span id="player-description-episode-title">Episode Title:</span> ${episodeTitle}</p>`;
-  }
+  description = `<p>${episodeTitle}</p>`;
+  description += `<p>${episodeSummary}</p>`;
+
   let autolinker = new Autolinker({});
   description = autolinker.link(description);
 
@@ -281,6 +279,7 @@ function setPlayerInfo () {
 
   $('#player-description-truncated').show();
   $('#player-description-full').hide();
+  isShowingMore = false;
   $('#playlist').show();
 
   window.restartAttempts = 0;
