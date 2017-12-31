@@ -38,8 +38,7 @@ label {
 }
 
 a:hover, a:focus {
-    color: #025197;
-    text-decoration: none;
+    color: #373a3c;
 }
 
 audio {
@@ -736,6 +735,11 @@ footer p {
     display: none;
     font-size: 14px;
     margin: 1rem 0;
+}
+
+#player-description-full a:hover, #player-description-full a:focus {
+    color: #025197;
+    text-decoration: none;
 }
 
 #player-description-full img {
