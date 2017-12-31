@@ -76,11 +76,16 @@ export function toggleMakeClipWidget (_this) {
   if ($('#add-to-playlist').css('display') !== 'block' && $('#recommend').css('display') !== 'block') {
     $('#player-description-truncated').hide();
     $('#player-description-full').hide();
+    $('#player-description-show-more').hide();
+    $('#player-clip-time').hide();
+    $('#player-description-show-more').html(`<span class="text-primary">Show Summary</span>`);
     $('#playlist').hide();
   }
 
   if ($(_this).hasClass('active') || $(_this).is("#make-clip-cancel")) {
     $('#player-description-truncated').show();
+    $('#player-description-show-more').show();
+    $('#player-clip-time').show();
     $('#playlist').show();
   }
 

@@ -271,11 +271,10 @@ function setPlayerInfo () {
 
   $('#player-description-truncated').html(truncDescription);
 
-  $('#player-description-show-more').html(`<span class='text-primary'>Show Summary</span>`);
+  $('#player-description-show-more').html(`<span class="text-primary">Show Summary</span>`);
 
   $('#player-description-truncated').show();
   $('#player-description-full').hide();
-  isShowingMore = false;
   $('#playlist').show();
 
   window.restartAttempts = 0;
@@ -320,16 +319,15 @@ $('#player-description-truncated').on('click', () => {
   isTruncated = !isTruncated;
 });
 
-let isShowingMore = false;
 $('#player-description-show-more').on('click', () => {
-  if (isShowingMore) {
-    $('#player-description-show-more').html(`<span class='text-primary'>Show Summary</span>`);
+  console.log($('#player-description-show-more').html());
+  if ($('#player-description-show-more').html() === '<span class="text-primary">Hide Summary</span>') {
+    $('#player-description-show-more').html(`<span class="text-primary">Show Summary</span>`);
     $('#player-description-full').hide();
   } else {
-    $('#player-description-show-more').html(`<span class='text-primary'>Hide Summary</span>`);
+    $('#player-description-show-more').html(`<span class="text-primary">Hide Summary</span>`);
     $('#player-description-full').show();
   }
-  isShowingMore = !isShowingMore;
 });
 
 function setSubscribedStatus() {
