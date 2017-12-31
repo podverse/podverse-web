@@ -39,14 +39,11 @@
             <div class="playlist-item-podcast-title">
               {{ item.podcastTitle | decodeHTML }}
             </div>
-            <div class="playlist-item-sub-title">
-              {{ item.episodeTitle | decodeHTML }}
-            </div>
-            <div class="playlist-item-time">
-                Full Episode
-            </div>
             <div class="playlist-item-date">
               {{ item.episodePubDate | readableDate }}
+            </div>
+            <div class="playlist-item-sub-title">
+              {{ item.episodeTitle | decodeHTML }}
             </div>
           </div><!-- /.playlist-item-text-wrapper -->
           {% if item.episodeSummary %}
@@ -66,27 +63,32 @@
             <div class="playlist-item-podcast-title">
               {{ item.podcastTitle | decodeHTML}}
             </div>
-            <div class="playlist-item-sub-title">
-              {{ item.episodeTitle | decodeHTML }}
-            </div>
-            <div class="playlist-item-time">
-              Clip:
-              {{ item.startTime | convertSecToHHMMSS }}
-              {% if item.endTime %}
-                to {{ item.endTime | convertSecToHHMMSS }}
-              {% else %}
-                start time
-              {% endif %}
-            </div>
             <div class="playlist-item-date">
               {{ item.episodePubDate | readableDate }}
             </div>
-          </div><!-- /.playlist-item-text-wrapper -->
-          {% if item.title %}
-            <div class="playlist-item-details">
-              {{ item.title | stripTags | truncate(255) }}
+            <div class="playlist-item-sub-title">
+              {{ item.episodeTitle | decodeHTML }}
             </div>
-          {% endif %}
+          </div><!-- /.playlist-item-text-wrapper -->
+          <div class="clearfix"></div>
+          <div class="playlist-item-title">
+            {% if item.title %}
+              {{ item.title | truncate(275) }}
+            {% endif %}
+          </div>
+          <div class="playlist-item-duration">
+            {% if item.endTime %}
+              {{ item.duration | secondsToReadableDuration }}
+            {% endif %}
+          </div>
+          <div class="playlist-item-time">
+            {{ item.startTime | convertSecToHHMMSS }}
+            {% if item.endTime %}
+              - {{ item.endTime | convertSecToHHMMSS }}
+            {% else %}
+              start time
+            {% endif %}
+          </div>
           <div style="clear:both"></div>
         {% endif %}
       </div><!-- /.playlist-item -->

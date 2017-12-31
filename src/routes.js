@@ -362,7 +362,7 @@ function routes () {
 
   // Alias Url for the Episode Detail Page based on mediaUrl
   .get('/episodes/alias', (req, res) => {
-    
+
     return EpisodeService.get('alias', {mediaUrl: req.query.mediaUrl})
       .then(episode => {
         res.redirect('/episodes/' + episode.id);
@@ -490,38 +490,41 @@ function routes () {
           EpisodeService.get('alias', {mediaUrl: episodeMediaUrl})
             .then(episode => {
 
-              let epMediaRef;
+              let epMediaRef = ClipService.pruneEpisodeMediaRef(req.body);
 
-              if (!!episode) {
-                epMediaRef = ClipService.convertEpisodeToMediaRef(episode, req.feathers.userId);
-              } else {
-                epMediaRef = ClipService.pruneEpisodeMediaRef(req.body);
-              }
-
-              // Find all mediaRefs with at least one episode where episode.feedUrl === feedUrl
-
-              MediaRef.findOrCreate({
-                where: {
-                  episodeMediaUrl: episodeMediaUrl,
-                  startTime: 0,
-                  $and: {
-                    endTime: null
+              ClipService.convertEpisodeToMediaRef(episode, req.feathers.userId)
+                .then(mediaRef => {
+                  if (mediaRef) {
+                    epMediaRef = mediaRef;
                   }
-                },
-                defaults: epMediaRef
-              })
-                .then(mediaRefArray => {
-                  let mediaRef = mediaRefArray[0];
-                  playlist.dataValues['playlistItems'] = [mediaRef.dataValues.id];
-                  PlaylistService.update(req.params.playlistId, playlist.dataValues, {
-                    userId: req.feathers.userId,
-                    isFullEpisode: true,
-                    addPlaylistItemsToPlaylist: true
+
+                  // Find all mediaRefs with at least one episode where episode.feedUrl === feedUrl
+                  MediaRef.findOrCreate({
+                    where: {
+                      episodeMediaUrl: episodeMediaUrl,
+                      startTime: 0,
+                      $and: {
+                        endTime: null
+                      }
+                    },
+                    defaults: epMediaRef
                   })
-                    .then(updatedPlaylistItemCount => {
-                      res.send(200, updatedPlaylistItemCount);
+                    .then(mediaRefArray => {
+
+                      let mediaRef = mediaRefArray[0];
+                      playlist.dataValues['playlistItems'] = [mediaRef.dataValues.id];
+                      PlaylistService.update(req.params.playlistId, playlist.dataValues, {
+                        userId: req.feathers.userId,
+                        isFullEpisode: true,
+                        addPlaylistItemsToPlaylist: true
+                      })
+                        .then(updatedPlaylistItemCount => {
+                          res.send(200, updatedPlaylistItemCount);
+                        })
                     })
+
                 })
+
             })
             .catch(e => {
               console.log(e);

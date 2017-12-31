@@ -135,6 +135,15 @@ module.exports = function(sequelize, DataTypes) {
         podverseUrl: function (value) {
             this.setDataValue('podverseUrl', value);
         }
+    },
+    getterMethods: {
+      duration: function () {
+        if (this.endTime > 0) {
+          return this.endTime - this.startTime;
+        }
+
+        return;
+      }
     }
   });
 

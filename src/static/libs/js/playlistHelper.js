@@ -61,6 +61,7 @@ export function createPlaylist (params, callback) {
 }
 
 export function addToPlaylist (playlistId, mediaRefId, callback) {
+
   $.ajax({
     type: 'POST',
     url: '/playlists/' + playlistId + '/addItem',

@@ -69,31 +69,29 @@ function loadClipsAsPlaylistItems (clips) {
       truncTitle += '...';
     }
 
-    let clipDuration = calcDuration(clip.startTime, clip.endTime);
-
     html += `<div class="playlist-item" data-media-ref-id="${clip.id}" tabindex="0">`;
-    html +=   '<div class="playlist-item-podcast-title">';
-    html +=     truncTitle || clip.title;
+    html +=   '<div class="playlist-item-date">';
+    html +=     readableDate(clip.episodePubDate);
     html +=   '</div>';
-    html +=   '<div class="playlist-item-sub-title">'
+    html +=   '<div class="playlist-item-episode-title">'
     html +=     clip.episodeTitle;
     html +=   '</div>';
-    html +=   '<div class="playlist-item-time">';
-    html +=     'Clip: ';
-    html +=     convertSecToHHMMSS(clip.startTime);
+    html +=   '<div class="playlist-item-title">';
+    html +=     truncTitle || clip.title;
+    html +=   '</div>';
+    html +=   '<div class="playlist-item-duration">';
     if (clip.endTime) {
-      html +=   ' to ' + convertSecToHHMMSS(clip.endTime);
+      html += secondsToReadableDuration(clip.endTime - clip.startTime);
+    }
+    html +=   '</div>'
+    html +=   '<div class="playlist-item-time">'
+    html +=   convertSecToHHMMSS(clip.startTime);
+    if (clip.endTime) {
+      html +=   ' - ' + convertSecToHHMMSS(clip.endTime);
     } else {
-      html +=   ' start time'
+      html +=   ' start'
     }
     html +=   '</div>';
-
-    if (clip.startTime && clip.endTime) {
-      html +=   '<div class="playlist-item-duration">';
-      html +=     secondsToReadableDuration(clip.endTime - clip.startTime);
-      html +=   '</div>';
-    }
-
     html +=   '<div class="clearfix"></div>';
     html += '</div>';
   }
@@ -311,12 +309,6 @@ function setPlayerInfo () {
       truncDescription += " <span class='text-primary'><small>show summary</small></span>";
       $('#player-description-truncated').html(truncDescription)
     }, 0);
-  }
-
-  if (window.episodeLinkUrl && (window.episodeLinkUrl.indexOf('http:') === 0 || window.episodeLinkUrl.indexOf('https:') === 0)) {
-    $('#player-official-episode-link').html('Official Episode Link');
-    $('#player-official-episode-link').attr('href', window.episodeLinkUrl);
-    $('#player-official-episode-link').show();
   }
 
   $('#player-description-truncated').show();

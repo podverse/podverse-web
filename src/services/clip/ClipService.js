@@ -10,6 +10,7 @@ const
     {filterTypeNotAllowedMessage} = require('errors.js'),
     validUrl = require('valid-url');
 
+
 class ClipService extends SequelizeService {
 
   constructor () {
@@ -146,9 +147,6 @@ class ClipService extends SequelizeService {
 
   retrievePaginatedClips(filterType, podcastFeedUrls, episodeMediaUrl, pageIndex) {
 
-    const {locator} = require('locator.js');
-    const FeedUrlService = locator.get('FeedUrlService');
-
     return new Promise((resolve, reject) => {
 
       podcastFeedUrls.forEach(podcastFeedUrl => {
@@ -204,6 +202,7 @@ class ClipService extends SequelizeService {
         // Find all related feed urls so clips made for non-authority podcast
         // feed urls (aka mediaRefs with out-of-date metadata) are included.
         // Also ensure that clips only have media urls that point to official content.
+        const FeedUrlService = locator.get('FeedUrlService');
 
         return FeedUrlService.findAllRelatedFeedUrls(podcastFeedUrls)
           .then(relatedFeedUrls => {
@@ -243,22 +242,31 @@ class ClipService extends SequelizeService {
 
   convertEpisodeToMediaRef(episode, userId) {
 
-    // Convert the episode into a mediaRef object
-    let epMediaRef = {};
-    epMediaRef.title = episode.title;
-    epMediaRef.startTime = 0;
-    epMediaRef.ownerId = userId;
-    epMediaRef.podcastTitle = episode.podcast.title;
-    epMediaRef.podcastFeedUrl = episode.podcast.feedUrl;
-    epMediaRef.podcastImageUrl = episode.podcast.imageUrl;
-    epMediaRef.episodeTitle = episode.title;
-    epMediaRef.episodeMediaUrl = episode.mediaUrl;
-    epMediaRef.episodeImageUrl = episode.imageUrl;
-    epMediaRef.episodeLinkUrl = episode.link;
-    epMediaRef.episodePubDate = episode.pubDate;
-    epMediaRef.episodeSummary = episode.summary;
+    const FeedUrlService = locator.get('FeedUrlService');
 
-    return epMediaRef;
+    return FeedUrlService.findPodcastAuthorityFeedUrl(episode.podcastId)
+      .then(feedUrl => {
+        // Convert the episode into a mediaRef object
+        let epMediaRef = {};
+        epMediaRef.title = episode.title;
+        epMediaRef.startTime = 0;
+        epMediaRef.ownerId = userId;
+        epMediaRef.podcastTitle = episode.podcast.title;
+        epMediaRef.podcastFeedUrl = feedUrl;
+        epMediaRef.podcastImageUrl = episode.podcast.imageUrl;
+        epMediaRef.episodeTitle = episode.title;
+        epMediaRef.episodeMediaUrl = episode.mediaUrl;
+        epMediaRef.episodeImageUrl = episode.imageUrl;
+        epMediaRef.episodeLinkUrl = episode.link;
+        epMediaRef.episodePubDate = episode.pubDate;
+        epMediaRef.episodeSummary = episode.summary;
+
+        return epMediaRef;
+      })
+      .catch(e => {
+        console.log(e);
+        return
+      })
   }
 
   pruneEpisodeMediaRef(item) {

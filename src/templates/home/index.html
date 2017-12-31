@@ -32,32 +32,41 @@
             <div class="playlist-item-podcast-title">
               {{ clip.podcastTitle | decodeHTML }}
             </div>
-            <div class="playlist-item-sub-title">
-              {{ clip.episodeTitle | decodeHTML }}
-            </div>
-            <div class="playlist-item-time">
-              Clip:
-              {{ clip.startTime | convertSecToHHMMSS }}
-              {% if clip.endTime %}
-                to {{ clip.endTime | convertSecToHHMMSS }}
-              {% else %}
-                start time
-              {% endif %}
-            </div>
+
+            <div class="clearfix"></div>
+
             <div class="playlist-item-date">
               <!-- TODO: clips seem to be randomly saving pubDates. Does PostgreSQL
-                         need some kind of special time zone handling or something?
-                         It seems like the pubDates of clips are getting incrementally
-                         bigger by 6 hours... -->
+              need some kind of special time zone handling or something?
+              It seems like the pubDates of clips are getting incrementally
+              bigger by 6 hours... -->
               {{ clip.episodePubDate | readableDate }}
               <!-- {{ clip.episodePubDate | readableDate }} -->
             </div>
-          </div>
-          {% if clip.title %}
-            <div class="playlist-item-details">
-              {{ clip.title | truncate(275) }}
+
+            <div class="playlist-item-sub-title">
+              {{ clip.episodeTitle | decodeHTML }}
             </div>
-          {% endif %}
+          </div>
+          <div class="clearfix"></div>
+          <div class="playlist-item-title">
+            {% if clip.title %}
+              {{ clip.title | truncate(275) }}
+            {% endif %}
+          </div>
+          <div class="playlist-item-duration">
+            {% if clip.endTime %}
+              {{ clip.duration | secondsToReadableDuration }}
+            {% endif %}
+          </div>
+          <div class="playlist-item-time">
+            {{ clip.startTime | convertSecToHHMMSS }}
+            {% if clip.endTime %}
+              - {{ clip.endTime | convertSecToHHMMSS }}
+            {% else %}
+              start time
+            {% endif %}
+          </div>
         </a><!-- /.playlist-item -->
       {% endfor %}
       <div class="pv-pagination">
