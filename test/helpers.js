@@ -6,6 +6,7 @@ const
     appFactory = require('appFactory.js'),
     PodcastService = require('podcast-db/src/services/podcast/PodcastService.js'),
     EpisodeService = require('podcast-db/src/services/episode/EpisodeService.js'),
+    FeedUrlService = require('podcast-db/src/services/feedUrl/FeedUrlService.js'),
     PlaylistService = require('services/playlist/PlaylistService.js'),
     ClipService = require('services/clip/ClipService.js'),
     UserService = require('services/user/UserService.js'),
@@ -41,6 +42,7 @@ function createTestApp (Models) {
   locator.set('ClipService', new ClipService());
   locator.set('PodcastService', new PodcastService());
   locator.set('EpisodeService', new EpisodeService());
+  locator.set('FeedUrlService', new FeedUrlService());
   locator.set('UserService', new UserService());
   return appFactory();
 }
@@ -114,23 +116,22 @@ function createTestPlaylist (Models) {
     });
 }
 
-function createTestPodcastAndEpisode () {
+function createTestPodcastAndEpisodeAndFeedUrl () {
 
   return new Promise((resolve, reject) => {
     let podcastService = new PodcastService(),
-        episodeService = new EpisodeService();
+        episodeService = new EpisodeService(),
+        feedUrlService = new FeedUrlService();
 
     return podcastService.create({
-      feedUrl: 'http://example.com/test333',
       title: 'Most interesting podcast in the world',
       imageUrl: 'http://example.com/image.jpg'
     }, {})
     .then(podcast => {
       this.podcast = podcast;
       return episodeService.create({
-        mediaUrl: 'http://example.com/test999',
-        feedUrl: 'http://example.com/test333',
-        title: 'Best episode in the history of time',
+        mediaUrl: 'http://something.com/1.mp3',
+        title: 'Best episode ever',
         podcastId: this.podcast.id,
         pubDate: '2017-01-30T03:58:46+00:00'
       }, {});
@@ -138,15 +139,22 @@ function createTestPodcastAndEpisode () {
     .then(episode1 => {
       this.episode1 = episode1;
       return episodeService.create({
-        mediaUrl: 'http://example.com/test2222',
-        feedUrl: 'http://example.com/test333',
+        mediaUrl: 'http://example.com/999.ogg',
         title: 'Oldest episode in the history of time',
         podcastId: this.podcast.id,
         pubDate: '1999-12-31T23:59:59+00:00'
       }, {});
     })
     .then(episode2 => {
-      resolve([this.podcast, this.episode1, episode2]);
+      this.episode2 = episode2;
+      return feedUrlService.create({
+        url: 'http://something.com/rss',
+        isAuthority: true,
+        podcastId: this.podcast.id
+      }, {});
+    })
+    .then(feedUrl => {
+      resolve([this.podcast, this.episode1, feedUrl]);
     })
     .catch(e => {
       reject(e);
@@ -162,5 +170,5 @@ module.exports = {
   createTestPlaylist,
   createTestMediaRefs,
   createTestUser,
-  createTestPodcastAndEpisode
+  createTestPodcastAndEpisodeAndFeedUrl
 };

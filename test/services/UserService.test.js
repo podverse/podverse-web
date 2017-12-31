@@ -1,5 +1,7 @@
 const
-    {configureDatabaseModels, createTestPodcastAndEpisode} = require('test/helpers.js'),
+    {configureDatabaseModels,
+     createTestPodcastAndEpisodeAndFeedUrl,
+     createTestApp} = require('test/helpers.js'),
     UserService = require('services/user/UserService.js');
 
 describe('UserService', function () {
@@ -9,6 +11,8 @@ describe('UserService', function () {
   });
 
   beforeEach(function () {
+    createTestApp();
+
     this.userSvc = new UserService();
 
     const {User} = this.Models;
@@ -84,16 +88,18 @@ describe('UserService', function () {
   describe('#retrieveUserAndAllSubscribedPodcasts', function () {
     beforeEach(function (done) {
 
-      createTestPodcastAndEpisode()
+      createTestPodcastAndEpisodeAndFeedUrl()
         .then(arr => {
           let podcast = arr[0],
-              episode = arr[1];
+              episode = arr[1],
+              feedUrl = arr[2];
 
           return this.userSvc.create({
-            subscribedPodcastFeedUrls: [podcast.feedUrl]
+            subscribedPodcastFeedUrls: [feedUrl.url]
           }, {
-            userId: 'nite_owl',
+            userId: 'nite_owl'
           })
+
         })
         .then(user => {
           this.user = user;

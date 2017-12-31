@@ -1,7 +1,10 @@
 const errors = require('feathers-errors');
 
 const ClipService = require('services/clip/ClipService.js');
-const {configureDatabaseModels, createTestUser} = require('test/helpers.js');
+const {configureDatabaseModels,
+       createTestApp,
+       createTestUser,
+       createTestPodcastAndEpisodeAndFeedUrl} = require('test/helpers.js');
 
 const {applyOwnerId} = require('hooks/common.js');
 
@@ -19,38 +22,49 @@ describe('ClipService', function () {
 
     this.clipSvc = new ClipService();
 
-    createTestUser(this.Models)
-      .then(user => {
-        this.user = user;
+    createTestApp();
 
-        return this.clipSvc.create({
-          title: 'TestTitle1',
-          startTime: 3,
-          endTime: 10,
-          podcastTitle: 'testPodcastTitle234',
-          podcastFeedUrl: 'http://something.com/rss',
-          episodeMediaUrl: 'http://something.com/1.mp3',
-          episodeTitle: 'testEpisodeTitle22'
-        })
-        .then(mediaRefClip => {
-          this.testMediaRef = mediaRefClip;
+    createTestPodcastAndEpisodeAndFeedUrl()
+      .then(arr => {
+        // podcast and episode must exist for EpisodeService.validateMediaUrl
+        let podcast = arr[0],
+            episode = arr[1];
 
-          return this.clipSvc.create({
-            title: 'TestTitle2',
-            startTime: 0,
-            podcastTitle: 'testPodcastTitle234',
-            podcastFeedUrl: 'http://something.com/rss',
-            episodeMediaUrl: 'http://something.com/1.mp3',
-            episodeTitle: 'testEpisodeTitle22'
+        createTestUser(this.Models)
+          .then(user => {
+            this.user = user;
+
+            return this.clipSvc.create({
+              title: 'TestTitle1',
+              startTime: 3,
+              endTime: 10,
+              podcastTitle: 'testPodcastTitle234',
+              podcastFeedUrl: 'http://something.com/rss',
+              episodeMediaUrl: 'http://something.com/1.mp3',
+              episodeTitle: 'testEpisodeTitle22'
+            })
+            .then(mediaRefClip => {
+              this.testMediaRef = mediaRefClip;
+
+              return this.clipSvc.create({
+                title: 'TestTitle2',
+                startTime: 0,
+                podcastTitle: 'testPodcastTitle234',
+                podcastFeedUrl: 'http://something.com/rss',
+                episodeMediaUrl: 'http://something.com/1.mp3',
+                episodeTitle: 'testEpisodeTitle22'
+              })
+              .then(mediaRefEpisode => {
+                this.testMediaRefEpisode = mediaRefEpisode;
+                done();
+              })
+            })
+            .catch(done);
           })
-        })
-        .then(mediaRefEpisode => {
-          this.testMediaRefEpisode = mediaRefEpisode;
-          done();
-        })
-        .catch(done);
       })
-
+      .catch(e => {
+        console.log(e);
+      })
 
   });
 
@@ -130,6 +144,8 @@ describe('ClipService', function () {
 
     beforeEach(function (done) {
 
+
+
       this.testData = {
         ownerId: 'foo',
         title: 'hamblam',
@@ -171,7 +187,6 @@ describe('ClipService', function () {
 
       const data = {
         ownerId: 'testOwner',
-        episodeId: 'someId',
         podcastFeedUrl: 'http://some.rss.feed.com',
         episodeMediaUrl: 'http://some.mediaURL.com'
       };

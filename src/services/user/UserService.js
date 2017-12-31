@@ -95,6 +95,7 @@ class UserService extends SequelizeService {
         id: params.userId
       },
       defaults: {
+        id: params.userId,
         name: data.name || '',
         nickname: data.nickname || '',
         subscribedPodcastFeedUrls: data.subscribedPodcastFeedUrls || []

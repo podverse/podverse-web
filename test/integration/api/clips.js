@@ -4,7 +4,8 @@ const appFactory = require('appFactory.js');
 const {configureDatabaseModels,
        createTestApp,
        createTestUser,
-       createValidTestJWT} = require('test/helpers.js');
+       createValidTestJWT,
+       createTestPodcastAndEpisodeAndFeedUrl} = require('test/helpers.js');
 
 const ClipService = require('services/clip/ClipService.js');
 const PlaylistService = require('services/playlist/PlaylistService.js');
@@ -18,11 +19,19 @@ describe('API Test: Clips', function () {
   });
 
   beforeEach(function (done) {
-    createTestUser(this.Models)
-      .then(user => {
-        this.user = user;
-        done();
-      })
+    createTestPodcastAndEpisodeAndFeedUrl()
+      .then(arr => {
+        // podcast and episode must exist for EpisodeService.validateMediaUrl
+        let podcast = arr[0],
+            episode = arr[1];
+
+        createTestUser(this.Models)
+          .then(user => {
+            this.user = user;
+            done();
+          })
+
+      });
   });
 
   beforeEach(function () {
