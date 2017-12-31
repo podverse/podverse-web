@@ -1307,9 +1307,26 @@ footer p {
 .podcast-item-last-episode-title {
     font-size: 14px;
     margin-top: 4px;
+}
+
+.podcast-list .podcast-item-last-episode-title {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+
+.playlist-list .podcast-item-last-episode-title {
+    float: left;
+}
+
+.playlist-list .podcast-item-last-episode-pubdate {
+    margin-left: 0;
+}
+
+.podcast-item-middle {
+    text-align: center;
+    font-size: 14px;
+    margin-top: 4px;
 }
 
 .podcast-item:focus {
