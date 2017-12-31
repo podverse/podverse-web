@@ -732,42 +732,32 @@ footer p {
 /*** player-page description.html styles ***/
 #player-description-truncated {
     font-size: 14px;
-    margin-bottom: 20px;
-    height: 42px;
-}
-
-#player-description-truncated small {
+    margin-bottom: 1rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     cursor: pointer;
-}
-
-#player-description-truncated-begin, #player-description-truncated-end {
-    clear: both;
 }
 
 #player-description-full {
     display: none;
     font-size: 14px;
-    margin-bottom: 20px;
-    min-height: 42px;
+    margin: 1rem 0;
 }
 
 #player-description-full img {
     display: block;
-    margin-bottom: 20px;
+    margin: 1rem 0;
     max-width: 100%;
-}
-
-@media (max-width: 560px) {
-    #player-description-truncated {
-        height: 63px;
-    }
-    #player-description-full {
-        min-height: 63px;
-    }
 }
 
 #player-description-episode-title {
     font-weight: 500;
+}
+
+#player-description-show-more {
+    font-size: 14px;
+    cursor: pointer;
 }
 
 

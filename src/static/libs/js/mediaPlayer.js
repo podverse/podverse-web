@@ -63,7 +63,7 @@ function loadClipsAsPlaylistItems (clips) {
 
   for (let clip of clips) {
 
-    let truncTitle;
+    let truncTitle = clip.title;
     if (clip.title && clip.title.length > 340) {
       truncTitle = clip.title.substr(0, 340);
       truncTitle += '...';
@@ -244,17 +244,6 @@ function setPlayerInfo () {
   let truncDescription = description;
   truncDescription = stripTags(truncDescription);
   truncDescription = truncDescription.trim();
-  truncDescription = truncDescription.substring(0, 156);
-
-  // Add "show more" if description was truncated
-  if (truncDescription.length > 155) {
-    // If last character is a space, remove it
-    if(/\s+$/.test(truncDescription)) {
-      truncDescription = truncDescription.slice(0,-1);
-    }
-
-    truncDescription += "... <span class='text-primary'><small>show more</small></span>";
-  }
 
   if (!description || description.length === 0) {
     if (isEpisode) {
@@ -264,17 +253,14 @@ function setPlayerInfo () {
     }
   }
 
-  $('#player-description-truncated').html('<div id="player-description-truncated-begin"></div>' + truncDescription + '<div id="player-description-truncated-end"></div>');
-
-
+  $('#player-description-truncated').html(truncDescription);
 
   // If is a clip, then include the episode summary after the title.
   if (!isEpisode) {
-    description = `${description}<div class="clearfix"></div><br><br><p><span id="player-description-episode-title">Episode Title:</span> ${episodeTitle}</p>`;
-    description = `${description}<p>${episodeSummary}</p>`;
-
+    // description = `${description}<div class="clearfix"></div><br><br><p><span id="player-description-episode-title">Episode Title:</span> ${episodeTitle}</p>`;
+    description = `<p>${episodeSummary}</p>`;
   } else {
-    description = `${description}<div class="clearfix"></div><br><br><p><span id="player-description-episode-title">Episode Title:</span> ${episodeTitle}</p>`;
+    description = `<div class="clearfix"></div><br><br><p><span id="player-description-episode-title">Episode Title:</span> ${episodeTitle}</p>`;
   }
   let autolinker = new Autolinker({});
   description = autolinker.link(description);
@@ -289,27 +275,9 @@ function setPlayerInfo () {
     }
   })
 
-  // The truncated element is surrounded with spans used to detect how many lines
-  // of description text have loaded on the page, and if it is more than 2 lines,
-  // then truncate characters from the string until the text only fills 2 lines.
-  if (truncDescription.length > 155) {
-    setTimeout(function () {
-      let beginTruncTopPos = $('#player-description-truncated-begin').position().top;
-      let endTruncTopPos = $('#player-description-truncated-end').position().top;
-      if (endTruncTopPos - beginTruncTopPos > 44) {
-        truncDescription = truncDescription.slice(0, -88);
-        truncDescription += "... <span class='text-primary'><small>show more</small></span>";
-        $('#player-description-truncated').html(truncDescription)
-      }
-    }, 0);
-  }
+  $('#player-description-truncated').html(truncDescription)
 
-  if (truncDescription.length < 156 && !isEpisode && truncDescription.indexOf('<small>show more</small>') < 0 && episodeSummary && episodeSummary.length > 0) {
-    setTimeout(function () {
-      truncDescription += " &nbsp;<span class='text-primary'><small>show summary</small></span>";
-      $('#player-description-truncated').html(truncDescription)
-    }, 0);
-  }
+  $('#player-description-show-more').html(`<span class='text-primary'>Show Summary</span>`);
 
   $('#player-description-truncated').show();
   $('#player-description-full').hide();
@@ -341,9 +309,32 @@ window.addEventListener('focus', resizeProgressBar);
 window.addEventListener('pageshow', resizeProgressBar);
 window.addEventListener('visibilityChange', resizeProgressBar);
 
+let isTruncated = true;
 $('#player-description-truncated').on('click', () => {
-  $('#player-description-truncated').hide();
-  $('#player-description-full').show();
+  if (isTruncated) {
+    $('#player-description-truncated').css({
+      'text-overflow': 'initial',
+      'white-space': 'normal'
+    });
+  } else {
+    $('#player-description-truncated').css({
+      'text-overflow': 'ellipsis',
+      'white-space': 'nowrap'
+    });
+  }
+  isTruncated = !isTruncated;
+});
+
+let isShowingMore = false;
+$('#player-description-show-more').on('click', () => {
+  if (isShowingMore) {
+    $('#player-description-show-more').html(`<span class='text-primary'>Show Summary</span>`);
+    $('#player-description-full').hide();
+  } else {
+    $('#player-description-show-more').html(`<span class='text-primary'>Hide Summary</span>`);
+    $('#player-description-full').show();
+  }
+  isShowingMore = !isShowingMore;
 });
 
 function setSubscribedStatus() {
@@ -677,6 +668,12 @@ function setPlaylistItemClickEvents() {
     if (e.which === 13 || e.type === 'click') {
       if (isPlayerPage) {
         if (!$(this).hasClass("edit-view")) {
+          $('#player-description-truncated').css({
+            'text-overflow': 'ellipsis',
+            'white-space': 'nowrap'
+          });
+          isTruncated = true;
+
           var index = $(".playlist-item").index(this);
           index = mediaRefs.length - index - 1;
           nowPlayingPlaylistItemIndex = index;
