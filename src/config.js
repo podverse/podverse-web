@@ -6,6 +6,7 @@ const jwtSigningKeyB64 = process.env.jwtSigningKeyB64 || 'RhvV5pbdUOHL0Rns4mX9Yg
 let postgresUri;
 
 module.exports = {
+  host: process.env.HOST || '127.0.0.1',
   port: process.env.PORT || 8080,
   baseUrl: process.env.baseUrl || 'http://localhost:8080',
   jwtSigningKey: new Buffer(jwtSigningKeyB64, 'base64'),
