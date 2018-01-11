@@ -154,38 +154,6 @@ function routes () {
     })
   })
 
-  // Show All Podcasts page can take a long time to load, so we're caching
-  // it every 30 minutes. Also Pingdom is setup to hit this page every 15 minutes
-  // to keep the page in memory.
-  .get('/podcasts/list', getLoggedInUserInfo, cache(1800), (req, res) => {
-    return PodcastService.retrieveAllPodcasts()
-      .then(podcasts => {
-
-        podcasts = _.reduce(podcasts, (acc, podcast) => {
-          if (podcast.title && podcast.title.length > 0) {
-            acc.push(podcast);
-          }
-          return acc;
-        }, []);
-
-        podcasts = _.sortBy(podcasts, (podcast) => {
-          let title = podcast.title;
-          title = title.toLowerCase();
-          title = removeArticles(title);
-          return title;
-        });
-
-        res.render('podcasts/index.html', {
-          podcasts: podcasts,
-          currentPage: 'Podcast List Page',
-          locals: res.locals
-        });
-      }).catch(e => {
-        console.log(e);
-        res.sendStatus(404);
-      });
-  })
-
   // Podcast Detail Page (Episodes)
   .get('/podcasts/:id', getLoggedInUserInfo, (req, res) => {
     let params = {};
