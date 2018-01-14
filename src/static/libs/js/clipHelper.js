@@ -92,9 +92,6 @@ export function toggleMakeClipWidget (_this) {
   $('#add-to-playlist').hide();
   $('#toggle-playlist-btn').removeClass('active');
 
-  $('#recommend').hide();
-  $('#toggle-recommend-btn').removeClass('active');
-
   $('#toggle-make-clip-btn').toggleClass('active');
   $('#make-clip').toggle();
 

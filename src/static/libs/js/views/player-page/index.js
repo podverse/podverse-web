@@ -4,6 +4,7 @@ require('../../mediaPlayer.js');
 require('../../clipCreatedModal.js');
 require('../../createPlaylistModal.js');
 require('../../createPersonModal.js');
+require('../../shareModal.js');
 
 import { initClipper,
          makeClip,
@@ -19,7 +20,8 @@ import { addToPlaylist,
          togglePlaylistEditView,
          unsubscribeFromPlaylist,
          updatePlaylistItemCount } from '../../playlistHelper.js';
-import { toggleRecommendWidget } from '../../recommendHelper.js';
+import { toggleShareModal } from '../../shareModal.js';
+import { toggleSupportModal } from '../../supportModal.js';
 import { debounce, isNonAnonLoggedInUser } from '../../utility.js';
 
 
@@ -54,21 +56,18 @@ $('#make-clip-cancel').on('click', function () {
   toggleMakeClipWidget(this);
 });
 
-
-
 // Add to Playlist widget onclick functions
 $('#toggle-playlist-btn').on('click', function () {
   togglePlaylistWidget(this);
 });
 
-
-
-// Recommend widget onclick functions
-$('#toggle-recommend-btn').on('click', function () {
-  toggleRecommendWidget(this);
+$('#toggle-share-btn').on('click', function () {
+  toggleShareModal();
 });
 
-
+$('#toggle-support-btn').on('click', function () {
+  toggleSupportModal();
+});
 
 // Playlist Item onclick events
 $('.add-to-playlist-item .add-to-playlist-item-text').on('click', function () {

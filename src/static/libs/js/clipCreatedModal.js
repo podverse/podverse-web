@@ -24,24 +24,12 @@ function toggleAddToPlaylistMenu () {
   $('#clip-created-modal-add-to-playlist-menu').toggle();
 }
 
-function toggleRecommendMenu () {
-  $('#clip-created-modal-add-to-playlist-btn').removeClass('selected');
-  $('#clip-created-modal-add-to-playlist-menu').hide();
-
-  $('#clip-created-modal-recommend-btn').toggleClass('selected');
-  $('#clip-created-modal-recommend-menu').toggle();
-}
-
 $('#clip-created-modal-copy-btn').on('click', function () {
   clipCreatedCopyUrl();
 });
 
 $('#clip-created-modal-add-to-playlist-btn').on('click', function () {
   toggleAddToPlaylistMenu();
-});
-
-$('#clip-created-modal-recommend-btn').on('click', function () {
-  toggleRecommendMenu();
 });
 
 // Playlist Item onclick events

@@ -21,7 +21,7 @@ if (isEmptyPlaylist !== true) {
   $('#player').append('<i class="fa fa-spinner fa-spin"></i>');
 
   if (isNonAnonLoggedInUser()) {
-    $('#toggle-playlist-btn, #toggle-recommend-btn').css('display', 'inline-block');
+    $('#toggle-playlist-btn').css('display', 'inline-block');
   }
 
   setPlayerInfo();
@@ -170,8 +170,6 @@ function setPlayerInfo () {
 
   $('#add-to-playlist').hide();
   $('#toggle-playlist-btn').removeClass('active');
-  $('#recommend').hide();
-  $('#toggle-recommend-btn').removeClass('active');
   $('#make-clip').hide();
   $('#toggle-make-clip-btn').removeClass('active');
   $('#make-clip-end-time input').val('');
@@ -209,7 +207,7 @@ function setPlayerInfo () {
   $('#player-time-jump-forward').html('15s <i class="fa fa-angle-right"></i>');
   $('#toggle-make-clip-btn').html('<i class="fa fa-scissors"></i>');
   $('#toggle-share-btn').html('<i class="fa fa-share"></i>');
-  $('#toggle-fund-btn').html('<i class="fa fa-money"></i>');
+  $('#toggle-support-btn').html('<i class="fa fa-money"></i>');
   $('#toggle-playlist-btn').html('<i class="fa fa-list-ul"></i>');
 
   if ($('#player-hr').length < 1) {
