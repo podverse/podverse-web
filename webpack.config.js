@@ -69,7 +69,8 @@ module.exports ={
             "tether": 'tether',
             "Tether": 'tether',
             "Bloodhound": "typeahead",
-            "Auth0Lock": "auth0-lock"
+            "Auth0Lock": "auth0-lock",
+            "Clipboard": "clipboard"
         }),
         new webpack.optimize.CommonsChunkPlugin("vendors", "vendors.js", Infinity)
     ],

@@ -69,6 +69,9 @@ $('#toggle-support-btn').on('click', function () {
   toggleSupportModal();
 });
 
+
+
+
 // Playlist Item onclick events
 $('.add-to-playlist-item .add-to-playlist-item-text').on('click', function () {
   scrapeElementsAndAddToPlaylist(this);

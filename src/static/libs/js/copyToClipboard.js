@@ -1,5 +1,6 @@
 // Thanks:) http://stackoverflow.com/questions/22581345/click-button-copy-to-clipboard-using-jquery
 
+// This should be unnecessary with the clipboard.min.js library
 export function copyToClipboard(elem) {
 	  // create hidden text element, if it doesn't already exist
     var targetId = "_hiddenCopyText_";
