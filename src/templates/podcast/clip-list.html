@@ -1,27 +1,27 @@
 <div id="podcast-clips-list">
-
-  {% if podcast.clips|length > 5 %}
+  {% if podcast.clips | length > 0 %}
     {% for clip in podcast.clips %}
       <a class="playlist-item" href="/clips/{{clip.id}}">
-
+        <div class="playlist-item-title">
+          {{clip.title | stripTags | decodeHTML | truncString(300) }}
+        </div>
         <div class="playlist-item-date">
           {{clip.episodePubDate | readableDate}}
         </div>
         <div class="playlist-item-episode-title">
           {{clip.episodeTitle | stripTags | decodeHTML}}
         </div>
-
-        <div class="playlist-item-title">{{clip.title | stripTags | decodeHTML | truncString(300) }}</div>
-
         {% if clip.endTime > 0 %}
           <div class="playlist-item-duration">
             {{ (clip.endTime - clip.startTime) | secondsToReadableDuration }}
           </div>
           <div class="playlist-item-time">
+            Clip:
             {{ clip.startTime | convertSecToHHMMSS }} - {{ clip.endTime | convertSecToHHMMSS }}
           </div>
         {% else %}
           <div class="playlist-item-time">
+            Clip:
             {{ clip.startTime | convertSecToHHMMSS }} start time {{ clip.endTime }}
           </div>
         {% endif %}
@@ -30,7 +30,6 @@
   {% else %}
     <i>No clips available for this podcast.</i>
   {% endif %}
-
 </div>
 
 <script>

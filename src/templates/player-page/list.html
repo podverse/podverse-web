@@ -57,6 +57,11 @@
             <img class="lazy" data-original="{{ item.podcastImageUrl }}">
           </div>
           <div class="playlist-item-text-wrapper">
+            <div class="playlist-item-title">
+              {% if item.title %}
+                {{ item.title | truncate(275) }}
+              {% endif %}
+            </div>
             <div class="playlist-item-remove-btn">
               <small>remove</small> <i class="fa fa-times"></i>
             </div>
@@ -70,18 +75,13 @@
               {{ item.episodeTitle | decodeHTML }}
             </div>
           </div><!-- /.playlist-item-text-wrapper -->
-          <div class="clearfix"></div>
-          <div class="playlist-item-title">
-            {% if item.title %}
-              {{ item.title | truncate(275) }}
-            {% endif %}
-          </div>
           <div class="playlist-item-duration">
             {% if item.endTime %}
               {{ item.duration | secondsToReadableDuration }}
             {% endif %}
           </div>
           <div class="playlist-item-time">
+            Clip:
             {{ item.startTime | convertSecToHHMMSS }}
             {% if item.endTime %}
               - {{ item.endTime | convertSecToHHMMSS }}

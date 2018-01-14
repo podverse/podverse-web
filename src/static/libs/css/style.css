@@ -465,7 +465,7 @@ footer p {
 #player-pub-date {
     line-height: 1.5rem;
     margin: 2px 0 0 0;
-    font-size: 12px;
+    font-size: 14px;
     color: #777;
 }
 
@@ -603,12 +603,12 @@ footer p {
 }
 
 .condensed #player {
-    margin: 0.5rem 0 0.25rem 0;
+    margin: 0.5rem 0 5px 0;
 }
 
 .condensed #player-condensed-text.should-show {
     display: block;
-    font-size: 14px;
+    font-size: 13px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -617,7 +617,7 @@ footer p {
 .condensed #player-condensed-time.should-show {
     display: block;
     float: right;
-    font-size: 14px;
+    font-size: 13px;
     margin-left: 0.25rem;
 }
 
@@ -705,7 +705,7 @@ footer p {
 
 /*** player-page description.html styles ***/
 #player-description-truncated {
-    font-size: 15px;
+    font-size: 16px;
     margin-bottom: 0.25rem;
     cursor: pointer;
     overflow: hidden;
@@ -713,14 +713,15 @@ footer p {
 
 #player-clip-duration {
     float: right;
-    font-size: 12px;
+    font-size: 14px;
     color: #777;
     margin-bottom: 1rem;
     display: none;
 }
 
 #player-clip-time {
-    font-size: 12px;
+    font-size: 14px;
+    float: left;
     color: #777;
     margin-bottom: 1rem;
     cursor: pointer;
@@ -808,7 +809,7 @@ footer p {
 .playlist-item {
     clear: both;
     display: block;
-    font-size: 15px;
+    font-size: 16px;
     padding: 1rem 0;
     border-top: 1px solid transparent;
     border-bottom: 1px solid #eee;
@@ -837,26 +838,25 @@ footer p {
 .playlist-item-image {
     float: left;
     clear: both;
-    margin: 0 0.75rem 0.25rem 0;
-    width: 3.25rem;
-    height: 3.25rem;
+    margin: 0.25rem 1rem 0.25rem 0;
+    width: 4.5rem;
+    height: 4.5rem;
 }
 
 .playlist-item-image img {
-    width: 3.25rem;
-    height: 3.25rem;
+    width: 4.5rem;
+    height: 4.5rem;
 }
 
 .playlist-item-text-wrapper {
     overflow: hidden;
-    margin-top: 0.25rem;
 }
 
 .playlist-item-remove-btn {
     float: right;
     display: none;
     cursor: pointer;
-    font-size: 15px;
+    font-size: 16px;
 }
 
 .playlist-item.edit-view .playlist-item-remove-btn {
@@ -865,61 +865,67 @@ footer p {
 
 .playlist-item-title {
     font-size: 16px;
-    font-weight: 600;
-    margin: 0.25rem 0 0.45rem 0;
-    line-height: 22px;
+    font-weight: 500;
+    margin: 6px 0 4px 0;
+    line-height: 19px;
 }
 
 .playlist-item-podcast-title {
     overflow: auto;
     text-overflow: initial;
     white-space: normal;
-    font-weight: 600;
-    font-size: 14px;
-    margin-bottom: 0.25rem;
+    font-weight: 500;
+    font-size: 13px;
+    margin-bottom: 2px;
+    line-height: 22px;
 }
 
 .playlist-item-episode-title {
     overflow: hidden;
-    font-size: 12px;
+    font-size: 13px;
     text-overflow: ellipsis;
     white-space: nowrap;
     color: #777;
+    line-height: 22px;
 }
 
 .playlist-item-sub-title {
     overflow: hidden;
-    font-size: 12px;
+    font-size: 13px;
     color: #777;
+    line-height: 22px;
 }
 
 .playlist-item-date {
     float: right;
-    font-size: 12px;
+    font-size: 13px;
     margin: 0 0 0 1rem;
     text-align: right;
     color: #777;
+    line-height: 22px;
 }
 
 .playlist-item-time {
-    font-size: 12px;
-    width: 100px;
+    font-size: 13px;
     color: #777;
+    display: inline-block;
+    line-height: 22px;
 }
 
 .playlist-item-duration {
     float: right;
-    font-size: 12px;
-    width: 100px;
+    font-size: 13px;
     text-align: right;
     color: #777;
     display: none;
+    line-height: 22px;
 }
 
 .playlist-item-details {
     clear: both;
-    font-size: 14px;
+    font-size: 13px;
     padding-top: 0.5rem;
+    line-height: 22px;
 }
 
 #empty-playlist-message {
@@ -1147,18 +1153,6 @@ footer p {
     font-size: 14px;
     font-style: italic;
 }
-
-#podcast-ranks {
-    float: right;
-    line-height: 1.5rem;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    margin-top: 2px;
-    font-size: 14px;
-    font-style: italic;
-}
-
 
 #podcast-view-selector {
     float: left;

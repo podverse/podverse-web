@@ -70,14 +70,14 @@ function loadClipsAsPlaylistItems (clips) {
     }
 
     html += `<div class="playlist-item" data-media-ref-id="${clip.id}" tabindex="0">`;
+    html +=   '<div class="playlist-item-title">';
+    html +=     truncTitle || clip.title;
+    html +=   '</div>';
     html +=   '<div class="playlist-item-date">';
     html +=     readableDate(clip.episodePubDate);
     html +=   '</div>';
     html +=   '<div class="playlist-item-episode-title">'
     html +=     clip.episodeTitle;
-    html +=   '</div>';
-    html +=   '<div class="playlist-item-title">';
-    html +=     truncTitle || clip.title;
     html +=   '</div>';
     html +=   '<div class="playlist-item-duration">';
     if (clip.endTime) {
@@ -85,7 +85,7 @@ function loadClipsAsPlaylistItems (clips) {
     }
     html +=   '</div>'
     html +=   '<div class="playlist-item-time">'
-    html +=   convertSecToHHMMSS(clip.startTime);
+    html +=   'Clip: ' + convertSecToHHMMSS(clip.startTime);
     if (clip.endTime) {
       html +=   ' - ' + convertSecToHHMMSS(clip.endTime);
     } else {
@@ -240,7 +240,7 @@ function setPlayerInfo () {
     startTimeReadable = convertSecToHHMMSS(startTime);
   }
 
-  $('#player-clip-time').html(startTimeReadable + endTimeReadable);
+  $('#player-clip-time').html('Clip: ' + startTimeReadable + endTimeReadable);
 
   if (endTime) {
     let dur = calcDuration(startTime, endTime);
@@ -274,7 +274,7 @@ function setPlayerInfo () {
     $('#player-description-show-more').show();
     $('#player-condensed-text').html(truncDescription);
     $('#player-condensed-text').addClass('should-show');
-    $('#player-condensed-time').html(startTimeReadable + endTimeReadable);
+    $('#player-condensed-time').html('Clip: ' + startTimeReadable + endTimeReadable);
     $('#player-condensed-time').addClass('should-show');
   } else {
     $('#player-description-truncated').hide();
