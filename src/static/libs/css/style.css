@@ -808,7 +808,7 @@ footer p {
     clear: both;
     display: block;
     font-size: 16px;
-    padding: 1rem 0;
+    padding: 1.25rem 0;
     border-top: 1px solid transparent;
     border-bottom: 1px solid #eee;
     color: #373a3c;
@@ -836,7 +836,7 @@ footer p {
 .playlist-item-image {
     float: left;
     clear: both;
-    margin: 0.25rem 1rem 0.25rem 0;
+    margin: 0 1rem 0 0;
     width: 4.25rem;
     height: 4.25rem;
 }
@@ -864,7 +864,7 @@ footer p {
 .playlist-item-title {
     font-size: 16px;
     font-weight: 500;
-    margin: 0.25rem 0 0.25rem 0;
+    margin: 0 0 0.25rem 0;
     line-height: 19px;
 }
 
