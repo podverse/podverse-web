@@ -16,7 +16,7 @@ $('#podcast-subscribe').on('click', function () {
     $('#podcast-subscribe').attr('title', 'Unsubscribe from podcast');
     subscribeToPodcast(window.podcastFeedUrl);
   } else {
-    $('#podcast-subscribe').html('<small class="hidden-xs-down">subscribe</small> <i class="fa fa-star-o"></i>');
+    $('#podcast-subscribe').html('<i class="fa fa-star-o"></i>');
     $('#podcast-subscribe').attr('title', 'Subscribe to podcast');
     unsubscribeFromPodcast(window.podcastFeedUrl);
   }
@@ -24,7 +24,7 @@ $('#podcast-subscribe').on('click', function () {
 
 $('#podcast-summary-truncated').on('click', function () {
   $('#podcast-summary-truncated, #podcast-summary-full').toggle();
-})
+});
 
 $(document).ready(function ($) {
   $('.clickable-row').click(function() {
@@ -34,7 +34,7 @@ $(document).ready(function ($) {
   if (isSubscribed) {
     $('#podcast-subscribe').html('<i class="fa fa-star"></i>')
   } else {
-    $('#podcast-subscribe').html('<small class="hidden-xs-down">subscribe</small> <i class="fa fa-star-o"></i>')
+    $('#podcast-subscribe').html('<i class="fa fa-star-o"></i>')
   }
 
 });

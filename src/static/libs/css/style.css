@@ -640,10 +640,10 @@ footer p {
 }
 
 #player-time-jump-back, #player-time-jump-forward, #toggle-make-clip-btn,
-#toggle-playlist-btn, #toggle-recommend-btn {
+#toggle-playlist-btn, #toggle-share-btn, #toggle-fund-btn {
     display: inline-block;
     padding: 0.5rem 0.5rem 0.5rem 0;
-    margin-right: 16px;
+    margin-right: 1rem;
     cursor: pointer;
     font-size: 16px;
     -webkit-user-select: none; /* Chrome/Safari */
@@ -652,7 +652,7 @@ footer p {
 }
 
 #player-time-jump-back:hover, #player-time-jump-forward:hover, #toggle-make-clip-btn:hover,
-#toggle-playlist-btn:hover, #toggle-recommend-btn:hover, #player-autoplay:hover,
+#toggle-playlist-btn:hover, #toggle-share-btn:hover, #toggle-fund-btn:hover, #player-autoplay:hover,
 #player-description-show-more span:hover {
     color: #025197 !important;
 }
@@ -661,7 +661,7 @@ footer p {
     font-size: 17px;
 }
 
-#toggle-make-clip-btn, #toggle-playlist-btn, #toggle-recommend-btn {
+#toggle-make-clip-btn, #toggle-playlist-btn, #toggle-share-btn, #toggle-fund-btn {
     padding: 0.5rem !important;
     margin: 0;
 }
@@ -671,7 +671,7 @@ footer p {
 }
 
 #player-time-jump-back {
-    margin-right: 8px;
+    margin-right: 0.5rem;
 }
 
 #player-time-jump-forward {
@@ -694,18 +694,8 @@ footer p {
     font-size: 21px;
 }
 
-@media (max-width: 767px) {
-    #player-time-jump-forward {
-        margin-right: 4px;
-    }
-
-    #toggle-make-clip-btn, #toggle-playlist-btn, #toggle-recommend-btn {
-        margin-right: 8px;
-    }
-
-    #player-functions .active {
-        margin-right: 8px;
-    }
+#toggle-make-clip-btn, #toggle-playlist-btn, #toggle-share-btn, #toggle-fund-btn {
+    margin-right: 0.25rem;
 }
 
 #player-hr {
