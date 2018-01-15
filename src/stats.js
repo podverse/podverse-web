@@ -1,12 +1,14 @@
 // TODO: this has no tests.
 
+let path = process.env.CRON_PATH || './';
+
 const
-    config = require('config.js'),
-    {offsetDate, lastHour} = require('util.js'),
-    {queryGoogleApiData} = require('services/googleapi/googleapi.js'),
-    sqlEngineFactory = require('repositories/sequelize/engineFactory.js'),
-    {postgresUri} = require('config'),
-    {isValidPageViewTimeRange} = require('./constants.js');
+    config = require(path + 'config.js'),
+    {offsetDate, lastHour} = require(path + 'util.js'),
+    {queryGoogleApiData} = require(path + 'services/googleapi/googleapi.js'),
+    sqlEngineFactory = require(path + 'repositories/sequelize/engineFactory.js'),
+    {postgresUri} = require(path + 'config.js'),
+    {isValidPageViewTimeRange} = require(path + 'constants.js');
 
 const sqlEngine = new sqlEngineFactory({uri: postgresUri});
 
@@ -63,16 +65,16 @@ function queryUniquePageviews(pagePath, timeRange, startIndexOffset=0) {
   .then(data => {
 
     let idArray = [];
-    let rows = data.rows;
+    let rows = data.rows || [];
 
-    for (row of rows) {
-      if (row[0].indexOf('login-redirect') > -1)
+    for (i = 0; i < rows.length; i++) {
+      if (rows[0].indexOf('login-redirect') > -1)
         continue;
 
       // use this to chop off all of the path before the id
-      // sample fields in row[0]: '/episodes/1234abc' '/clips/2345def' '/podcasts/3456ghi'
-      let idStartIndex = row[0].indexOf('s/') + 2;
-      row[0] = row[0].substr(idStartIndex);
+      // sample fields in rows[0]: '/episodes/1234abc' '/clips/2345def' '/podcasts/3456ghi'
+      let idStartIndex = rows[0].indexOf('s/') + 2;
+      rows[0] = rows[0].substr(idStartIndex);
       idArray.push(row);
     }
 
@@ -130,8 +132,8 @@ function updateBatchUniquePageviewCount (type, timeRange, rows) {
 
   let rawQuery = '';
 
-  for (row of rows) {
-    rawQuery += `UPDATE "${type}" SET "${timeRange}"=${row[1]} WHERE id='${row[0]}';`;
+  for (i = 0; i < rows.length; i++) {
+    rawQuery += `UPDATE "${type}" SET "${timeRange}"=${row[1]} WHERE id='${rows[0]}';`;
   }
 
   return sqlEngine.query(rawQuery, {

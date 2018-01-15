@@ -1,4 +1,6 @@
-let config = require('config.js');
+let path = process.env.CRON_PATH || './';
+
+let config = require(path + 'config.js');
 
 function queryGoogleApiData(resolve, reject, queryObj) {
   let google = require('googleapis');
