@@ -207,7 +207,7 @@ function setPlayerInfo () {
   $('#player-time-jump-forward').html('15s <i class="fa fa-angle-right"></i>');
   $('#toggle-make-clip-btn').html('<i class="fa fa-scissors"></i>');
   $('#toggle-share-btn').html('<i class="fa fa-share"></i>');
-  $('#toggle-support-btn').html('<i class="fa fa-money"></i>');
+  // $('#toggle-support-btn').html('<i class="fa fa-money"></i>');
   $('#toggle-playlist-btn').html('<i class="fa fa-list-ul"></i>');
 
   if ($('#player-hr').length < 1) {
