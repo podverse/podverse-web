@@ -14,7 +14,7 @@ export function togglePlaylistWidget (_this) {
     $('#player-description-full').hide();
     $('#player-description-show-more').hide();
     $('#player-clip-time').hide();
-    $('#player-description-show-more').html(`<span class="text-primary">Show Summary</span>`);
+    $('#player-description-show-more').html(`<span class="text-primary">Show Notes</span>`);
     $('#playlist').hide();
   }
 

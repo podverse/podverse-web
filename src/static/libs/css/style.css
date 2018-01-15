@@ -821,7 +821,6 @@ footer p {
     outline: none;
 }
 
-
 .playlist-item:not(.edit-view):hover {
     cursor: pointer;
 }

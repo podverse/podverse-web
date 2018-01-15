@@ -263,7 +263,7 @@ function setPlayerInfo () {
 
   $('#player-description-truncated').html(truncDescription);
 
-  $('#player-description-show-more').html(`<span class="text-primary">Show Summary</span>`);
+  $('#player-description-show-more').html(`<span class="text-primary">Show Notes</span>`);
 
   if (isEpisode === false) {
     $('#player-clip-time').show();
@@ -326,11 +326,11 @@ $('#player-description-truncated').on('click', () => {
 });
 
 $('#player-description-show-more').on('click', () => {
-  if ($('#player-description-show-more').html() === '<span class="text-primary">Hide Summary</span>') {
-    $('#player-description-show-more').html(`<span class="text-primary">Show Summary</span>`);
+  if ($('#player-description-show-more').html() === '<span class="text-primary">Hide Notes</span>') {
+    $('#player-description-show-more').html(`<span class="text-primary">Show Notes</span>`);
     $('#player-description-full').hide();
   } else {
-    $('#player-description-show-more').html(`<span class="text-primary">Hide Summary</span>`);
+    $('#player-description-show-more').html(`<span class="text-primary">Hide Notes</span>`);
     $('#player-description-full').show();
   }
 });
