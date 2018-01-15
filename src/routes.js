@@ -4,7 +4,6 @@ const
     {allowedFilters} = require('constants.js'),
     {getLoggedInUserInfo} = require('middleware/auth/getLoggedInUserInfo.js'),
     {cache} = require('middleware/cache'),
-    {queryGoogleApiData} = require('services/googleapi/googleapi.js'),
     {isNonAnonUser, removeArticles, shouldShowNextButton} = require('util.js'),
     {generatePlaylistRSSFeed} = require('services/playlist/PlaylistRSSService.js'),
     _ = require('lodash');

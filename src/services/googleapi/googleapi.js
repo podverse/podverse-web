@@ -1,4 +1,4 @@
-let path = process.env.CRON_PATH || './';
+let path = process.env.CRON_PATH || '../../';
 
 let config = require(path + 'config.js');
 
