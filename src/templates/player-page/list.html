@@ -16,9 +16,6 @@
         <i class="fa fa-list-ul"></i>&nbsp;{{ title }} <span id="playlist-total-items">({{ mediaRefs | length }})</span>
       {% endif %}
     </div>
-    <!-- <div id="playlist-rss-feed-link">
-      <a href="/playlists/{{ id }}?rssFeed">RSS Feed</a> <a href="/how-to"><i class="fa fa-info-circle"></i></a>
-    </div> -->
     <div id="playlist-subtitle">
       {% if isRecommendation %}
         From: {{ ownerName }}
@@ -73,11 +70,6 @@
               {{ item.episodeTitle | decodeHTML }}
             </div>
           </div><!-- /.playlist-item-text-wrapper -->
-          <div class="playlist-item-duration">
-            {% if item.endTime %}
-              {{ item.duration | secondsToReadableDuration }}
-            {% endif %}
-          </div>
           <div style="clear:both"></div>
         {% endif %}
       </div><!-- /.playlist-item -->

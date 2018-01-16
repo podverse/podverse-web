@@ -5,26 +5,21 @@
         <div class="playlist-item-title">
           {{clip.title | stripTags | decodeHTML | truncString(300) }}
         </div>
+        {% if clip.endTime > 0 %}
+          <div class="playlist-item-time">
+            {{ clip.startTime | convertSecToHHMMSS }} - {{ clip.endTime | convertSecToHHMMSS }}
+          </div>
+        {% else %}
+          <div class="playlist-item-time">
+            {{ clip.startTime | convertSecToHHMMSS }} start time {{ clip.endTime }}
+          </div>
+        {% endif %}        
         <div class="playlist-item-date">
           {{clip.episodePubDate | readableDate}}
         </div>
         <div class="playlist-item-episode-title">
           {{clip.episodeTitle | stripTags | decodeHTML}}
         </div>
-        {% if clip.endTime > 0 %}
-          <div class="playlist-item-duration">
-            {{ (clip.endTime - clip.startTime) | secondsToReadableDuration }}
-          </div>
-          <div class="playlist-item-time">
-            Clip:
-            {{ clip.startTime | convertSecToHHMMSS }} - {{ clip.endTime | convertSecToHHMMSS }}
-          </div>
-        {% else %}
-          <div class="playlist-item-time">
-            Clip:
-            {{ clip.startTime | convertSecToHHMMSS }} start time {{ clip.endTime }}
-          </div>
-        {% endif %}
       </a>
     {% endfor %}
   {% else %}

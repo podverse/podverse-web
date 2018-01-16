@@ -23,9 +23,10 @@ b {
 }
 
 h1 {
-    margin: 1.25rem 0 5px 0;
-    font-size: 20px;
+    margin: 1.25rem 0 0 0;
+    font-size: 18px;
     float: left;
+    line-height: 22px;
 }
 
 h4 {
@@ -163,9 +164,16 @@ a.footer-social-icon {
 }
 
 #footer-links a {
-    margin: 0 15px 0 -10px;
+    margin: 0 1rem 0 -10px;
     padding: 10px;
 }
+
+@media (max-width: 400px) {
+    #footer-links a {
+        margin: 0 0.25rem 0 -10px;
+    }
+}
+
 
 #footer-license {
     float: right;
@@ -221,8 +229,9 @@ footer p {
 }
 
 #home-list .sort-by-dropdown {
-    margin: 16px 0 0 0 !important;
+    margin: 1.25rem 0 0 0 !important;
     float: right;
+    line-height: 22px;
 }
 
 #home-list .sort-by-dropdown .dropdown-menu {
@@ -421,6 +430,7 @@ footer p {
 #player-image {
     float: left;
     margin: 0 0.75rem 0 0;
+    outline: 1px solid #eee;
 }
 
 #player-image img {
@@ -444,6 +454,7 @@ footer p {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    font-size: 18px;
 }
 
 #player-podcast-title a {
@@ -519,9 +530,10 @@ footer p {
 }
 
 .player-function-header {
-    font-weight: 600;
+    font-weight: 500;
     margin-bottom: 0.75rem;
     float: left;
+    line-height: 22px;
 }
 
 .player-function-header-btn {
@@ -573,6 +585,7 @@ footer p {
     margin-right: 0.75rem;
     float: left;
     display: block;
+    outline: 1px solid #eee;
 }
 
 .condensed #player-condensed-image img {
@@ -718,7 +731,7 @@ footer p {
 }
 
 #player-clip-time {
-    font-size: 14px;
+    font-size: 13px;
     float: left;
     color: #777;
     margin-bottom: 1rem;
@@ -762,31 +775,20 @@ footer p {
 }
 
 #playlist-title {
-    font-weight: 600;
-    line-height: 1.5rem;
+    font-weight: 500;
+    line-height: 22px;
     float: left;
+    font-size: 18px;
 }
 
 #playlist .sort-by-dropdown {
     float: right;
-    line-height: 20px;
+    line-height: 22px;
 }
 
 #playlist .sort-by-dropdown .dropdown-menu {
     left: auto;
     right: 0;
-}
-
-#playlist-rss-feed-link {
-    clear: both;
-    float: right;
-    font-size: 13px;
-    font-weight: 600;
-    margin-top: 4px;
-}
-
-#playlist-rss-feed-link a {
-    color: #373a3c;
 }
 
 #playlist-subtitle {
@@ -807,7 +809,6 @@ footer p {
 .playlist-item {
     clear: both;
     display: block;
-    font-size: 16px;
     padding: 1.25rem 0;
     border-top: 1px solid transparent;
     border-bottom: 1px solid #eee;
@@ -836,13 +837,14 @@ footer p {
     float: left;
     clear: both;
     margin: 0 1rem 0 0;
-    width: 4.25rem;
-    height: 4.25rem;
+    width: 4rem;
+    height: 4rem;
+    outline: 1px solid #eee;
 }
 
 .playlist-item-image img {
-    width: 4.25rem;
-    height: 4.25rem;
+    width: 4rem;
+    height: 4rem;
 }
 
 .playlist-item-text-wrapper {
@@ -861,20 +863,17 @@ footer p {
 }
 
 .playlist-item-title {
-    font-size: 16px;
-    font-weight: 500;
-    margin: 0 0 0.25rem 0;
-    line-height: 19px;
+    font-size: 18px;
+    margin: 2px 0 6px 0;
+    line-height: 20px;
 }
 
 .playlist-item-podcast-title {
     overflow: auto;
     text-overflow: initial;
     white-space: normal;
-    font-weight: 500;
     font-size: 13px;
-    margin-bottom: 2px;
-    line-height: 22px;
+    color: #777;
 }
 
 .playlist-item-episode-title {
@@ -883,14 +882,12 @@ footer p {
     text-overflow: ellipsis;
     white-space: nowrap;
     color: #777;
-    line-height: 22px;
 }
 
 .playlist-item-sub-title {
     overflow: hidden;
     font-size: 13px;
     color: #777;
-    line-height: 22px;
 }
 
 .playlist-item-date {
@@ -899,14 +896,11 @@ footer p {
     margin: 0 0 0 1rem;
     text-align: right;
     color: #777;
-    line-height: 22px;
 }
 
 .playlist-item-time {
     font-size: 13px;
     color: #777;
-    display: inline-block;
-    line-height: 22px;
 }
 
 .playlist-item-duration {
@@ -915,14 +909,6 @@ footer p {
     text-align: right;
     color: #777;
     display: none;
-    line-height: 22px;
-}
-
-.playlist-item-details {
-    clear: both;
-    font-size: 13px;
-    padding-top: 0.5rem;
-    line-height: 22px;
 }
 
 #empty-playlist-message {
@@ -1106,6 +1092,7 @@ footer p {
 
 #podcast-header .sort-by-dropdown {
     float: right;
+    line-height: 22px;
 }
 
 #podcast-header .dropdown-menu {
@@ -1115,7 +1102,8 @@ footer p {
 
 #podcast-image {
     float: left;
-    margin: 0 0.75rem 0 0;
+    margin: 0 1rem 0 0;
+    outline: 1px solid #eee;
 }
 
 #podcast-image img {
@@ -1139,6 +1127,7 @@ footer p {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    font-size: 18px;
 }
 
 #podcast-author {
@@ -1170,11 +1159,10 @@ footer p {
 
 #podcast-sort-by-selector {
     float: right;
-    line-height: 1.5rem;
+    line-height: 22px;
     /*cursor: pointer;*/
     color: #777;
     font-size: 13px;
-    margin: 2px 0 0 0;
 }
 
 
@@ -1214,15 +1202,16 @@ footer p {
 .podcast-episodes-list-item-pubdate {
     text-align: right;
     float: right;
-    margin-left: 0.5rem;
-    font-size: 14px;
+    margin: 0 0 0.25rem 0.25rem;
+    font-size: 13px;
+    color: #777;
     line-height: 22px;
 }
 
 .podcast-episodes-list-item-title {
     margin-bottom: 0.25rem;
-    font-size: 14px;
-    font-weight: 600;
+    font-weight: 500;
+    line-height: 22px;
 }
 
 .podcast-episodes-list-item-summary {
@@ -1264,6 +1253,7 @@ footer p {
     margin-right: 15px;
     width: 60px;
     height: 60px;
+    outline: 1px solid #eee;
 }
 
 .podcast-item-image img {
@@ -1671,6 +1661,7 @@ body.modal-open {
     border: none;
     padding: 0;
     width: auto;
+    line-height: 22px;
 }
 
 .sort-by-dropdown .episodes-sort-by {

@@ -85,7 +85,7 @@ function loadClipsAsPlaylistItems (clips) {
     }
     html +=   '</div>'
     html +=   '<div class="playlist-item-time">'
-    html +=   'Clip: ' + convertSecToHHMMSS(clip.startTime);
+    html +=   convertSecToHHMMSS(clip.startTime);
     if (clip.endTime) {
       html +=   ' - ' + convertSecToHHMMSS(clip.endTime);
     } else {
@@ -238,7 +238,7 @@ function setPlayerInfo () {
     startTimeReadable = convertSecToHHMMSS(startTime);
   }
 
-  $('#player-clip-time').html('Clip: ' + startTimeReadable + endTimeReadable);
+  $('#player-clip-time').html(startTimeReadable + endTimeReadable);
 
   if (endTime) {
     let dur = calcDuration(startTime, endTime);
