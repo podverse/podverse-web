@@ -132,9 +132,9 @@ module.exports = function(sequelize, DataTypes) {
     updatedAt: 'lastUpdated',
     createdAt: 'dateCreated',
     setterMethods: {
-        podverseUrl: function (value) {
-            this.setDataValue('podverseUrl', value);
-        }
+      podverseUrl: function (value) {
+          this.setDataValue('podverseUrl', value);
+      }
     },
     getterMethods: {
       duration: function () {

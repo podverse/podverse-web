@@ -249,6 +249,22 @@ function routes () {
       .catch(err => {
         console.log('/api/podcasts error, id:', id);
         console.log(err);
+        res.send(500);
+      });
+  })
+
+  .get('/api/podcasts/authorityFeedUrl', (req, res) => {
+    res.setHeader('Content-Type', 'application/json');
+    let id = req.query.id;
+
+    return FeedUrlService.findPodcastAuthorityFeedUrl(id)
+      .then(feedUrl => {
+        res.send(feedUrl);
+      })
+      .catch(err => {
+        console.log('/api/podcasts/authorityFeedUrl error, id:', id);
+        console.log(err);
+        res.send(500);
       });
   })
 
