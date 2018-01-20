@@ -153,7 +153,7 @@ function routes () {
     })
   })
 
-  // Podcast Detail Page (Episodes)
+  // Podcast Detail Page
   .get('/podcasts/:id', getLoggedInUserInfo, (req, res) => {
     let params = {};
 
@@ -234,6 +234,21 @@ function routes () {
       }).catch(e => {
         console.log(e);
         res.sendStatus(404);
+      });
+  })
+
+  .get('/api/podcasts', (req, res) => {
+    res.setHeader('Content-Type', 'application/json');
+    let id = req.query.id;
+    let excludeEpisodes = req.query.excludeEpisodes;
+
+    return PodcastService.get(id, {excludeEpisodes})
+      .then(podcast => {
+        res.send(JSON.stringify(podcast));
+      })
+      .catch(err => {
+        console.log('/api/podcasts error, id:', id);
+        console.log(err);
       });
   })
 
