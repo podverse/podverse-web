@@ -31,8 +31,14 @@ class UserService extends SequelizeService {
 
     return this.sqlEngine.query(`
       SELECT p.title, p."imageUrl", p.id, p."lastEpisodeTitle", (
-        SELECT MAX("pubDate") FROM episodes WHERE "podcastId"=p.id
-      ) AS "lastEpisodePubDate"
+        SELECT MAX("pubDate")
+        FROM episodes
+        WHERE "podcastId"=p.id
+      ) AS "lastEpisodePubDate", (
+        SELECT url FROM "feedUrls"
+        WHERE "podcastId"=p.id
+        AND "isAuthority"=true
+      ) AS "authorityFeedUrl"
       FROM "feedUrls" f, users u, podcasts p
       WHERE u.id='${id}'
       AND u."subscribedPodcastFeedUrls" @> ARRAY[f.url]::text[]
