@@ -1299,6 +1299,7 @@ footer p {
     text-align: center;
     font-size: 14px;
     margin-top: 4px;
+    display: none;
 }
 
 .podcast-item:focus {
