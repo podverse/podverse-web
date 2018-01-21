@@ -348,7 +348,7 @@ function setSubscribedStatus() {
       Authorization: $.cookie('idToken')
     },
     data: {
-      podcastFeedUrl: podcastFeedUrl
+      podcastId: podcastId
     },
     success: function (isSubscribed) {
       if (isSubscribed && isSubscribed != 'false') {
@@ -377,14 +377,14 @@ function toggleSubscribe() {
   if ($('#player-podcast-subscribe i').hasClass('fa-star-o')) {
     $('#player-podcast-subscribe').html('<i class="fa fa-star"></i>');
     $('#player-podcast-subscribe').attr('title', 'Unsubscribe from podcast');
-    subscribeToPodcast(podcastFeedUrl);
+    subscribeToPodcast(podcastId);
     // if (window.mediaRefs) {
     //   window.mediaRefs[index]["isSubscribed"] = true;
     // }
   } else {
     $('#player-podcast-subscribe').html('<i class="fa fa-star-o"></i>');
     $('#player-podcast-subscribe').attr('title', 'Subscribe to podcast');
-    unsubscribeFromPodcast(podcastFeedUrl);
+    unsubscribeFromPodcast(podcastId);
     // if (window.mediaRefs) {
     //   window.mediaRefs[index]["isSubscribed"] = false;
     // }

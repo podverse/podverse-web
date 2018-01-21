@@ -30,6 +30,7 @@
     window.podcastFeedUrl = item.podcastFeedUrl;
     window.podcastTitle = item.podcastTitle;
     window.podcastImageUrl = item.podcastImageUrl;
+    window.podcastId = item.podcastId;
     window.episodeMediaUrl = item.episodeMediaUrl;
     window.episodeTitle = item.episodeTitle;
     window.episodePubDate = item.episodePubDate;
@@ -92,6 +93,7 @@
     window.podcastFeedUrl = "{{ podcastFeedUrl }}"
     window.podcastTitle = "{{ podcast.title | stripTags | trimText }}";
     window.podcastImageUrl = "{{ podcast.imageUrl }}";
+    window.podcastId = "{{ podcast.id }}";
     window.episodeTitle = "{{ title | stripTags | trimText }}";
     window.episodeMediaUrl = "{{ mediaUrl }}";
     window.episodePubDate = "{{ pubDate }}";
@@ -132,6 +134,7 @@
     window.podcastFeedUrl = "{{ podcastFeedUrl }}";
     window.podcastTitle = "{{ podcastTitle | stripTags | trimText }}";
     window.podcastImageUrl = "{{ podcastImageUrl }}";
+    window.podcastId = "{{ podcastId }}";
     window.episodeTitle = "{{ episodeTitle | stripTags | trimText }}";
     window.episodeMediaUrl = "{{ episodeMediaUrl }}";
     window.episodePubDate = "{{ episodePubDate }}";

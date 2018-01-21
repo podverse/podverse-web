@@ -25,6 +25,7 @@ function processJWTIfExists (req, res, next) {
     const verifiedJwt = nJwt.verify(token, config.jwtSigningKey);
     req.feathers.userId = verifiedJwt.body.sub;
   } catch(e) {
+    console.log(e);
     next();
     return;
   }

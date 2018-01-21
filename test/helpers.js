@@ -154,7 +154,7 @@ function createTestPodcastAndEpisodeAndFeedUrl () {
       }, {});
     })
     .then(feedUrl => {
-      resolve([this.podcast, this.episode1, feedUrl]);
+      resolve([this.podcast, this.episode1, feedUrl, this.podcast.id]);
     })
     .catch(e => {
       reject(e);

@@ -48,7 +48,7 @@ function routes () {
   .get('/clips/:id', getLoggedInUserInfo, (req, res) => {
     return ClipService.get(req.params.id)
       .then((mediaRef) => {
-        req.params.podcastFeedUrl = mediaRef.podcastFeedUrl;
+        req.params.podcastId = mediaRef.podcastId;
         return new Promise((resolve, reject) => {
           isUserSubscribedToThisPodcast(resolve, reject, req);
         })
@@ -88,12 +88,12 @@ function routes () {
           let mediaRefs = playlist.dataValues.mediaRefs;
 
           return new Promise((resolve, reject) => {
-            getUsersSubscribedPodcastFeedUrls(resolve, reject, req);
+            getUsersSubscribedPodcastIds(resolve, reject, req);
           })
-            .then((subscribedPodcastFeedUrls) => {
-              subscribedPodcastFeedUrls = subscribedPodcastFeedUrls || [];
+            .then((subscribedPodcastIds) => {
+              subscribedPodcastIds = subscribedPodcastIds || [];
               mediaRefs.forEach(mediaRef => {
-                if (subscribedPodcastFeedUrls.includes(mediaRef.podcastFeedUrl)) {
+                if (subscribedPodcastIds.includes(mediaRef.podcastFeedUrl)) {
                   mediaRef.dataValues['isSubscribed'] = true;
                 }
               });
@@ -139,7 +139,7 @@ function routes () {
   })
 
   .get('/podcasts/isSubscribed', getLoggedInUserInfo, (req, res) => {
-    req.params.podcastFeedUrl = req.query.podcastFeedUrl;
+    req.params.podcastId = req.query.podcastId;
 
     return new Promise((resolve, reject) => {
       isUserSubscribedToThisPodcast(resolve, reject, req);
@@ -163,7 +163,7 @@ function routes () {
         return FeedUrlService.findPodcastAuthorityFeedUrl(req.params.id)
           .then(feedUrl => {
 
-            req.params.podcastFeedUrl = feedUrl; // needed to determine if user is subscribed
+            req.params.podcastId = podcast.id; // needed to determine if user is subscribed
             podcast.feedUrl = feedUrl; // needed by the front-end
 
             return new Promise((resolve, reject) => {
@@ -199,7 +199,7 @@ function routes () {
         return FeedUrlService.findPodcastAuthorityFeedUrl(req.params.id)
           .then(feedUrl => {
 
-            req.params.podcastFeedUrl = feedUrl; // needed to determine if user is subscribed
+            req.params.podcastId = podcast.id; // needed to determine if user is subscribed
             podcast.feedUrl = feedUrl; // needed by the front-end
 
             return new Promise((resolve, reject) => {
@@ -292,29 +292,30 @@ function routes () {
 
     res.setHeader('Content-Type', 'application/json');
     let userId = req.feathers.userId;
-
+    console.log('userId', userId)
+    console.log(req.feathers);
     UserService.retrieveUserAndAllSubscribedPodcasts(userId, {
       userId: userId
     })
     .then(user => {
 
-      let podcasts = user.dataValues.subscribedPodcasts;
+      // let podcasts = user.dataValues.subscribedPodcasts;
+      //
+      // podcasts = _.reduce(podcasts, (acc, podcast) => {
+      //   if (podcast.title && podcast.title.length > 0) {
+      //     acc.push(podcast);
+      //   }
+      //   return acc;
+      // }, []);
+      //
+      // podcasts = _.sortBy(podcasts, (podcast) => {
+      //   let title = podcast.title;
+      //   title = title.toLowerCase();
+      //   title = removeArticles(title);
+      //   return title;
+      // });
 
-      podcasts = _.reduce(podcasts, (acc, podcast) => {
-        if (podcast.title && podcast.title.length > 0) {
-          acc.push(podcast);
-        }
-        return acc;
-      }, []);
-
-      podcasts = _.sortBy(podcasts, (podcast) => {
-        let title = podcast.title;
-        title = title.toLowerCase();
-        title = removeArticles(title);
-        return title;
-      });
-
-      res.send(JSON.stringify(podcasts));
+      res.send(JSON.stringify(user));
 
     })
     .catch(e => {
@@ -382,6 +383,7 @@ function routes () {
         return FeedUrlService.findPodcastAuthorityFeedUrl(episode.podcastId)
         .then(feedUrl => {
 
+          episode.dataValues['podcastId'] = episode.podcastId;
           episode.dataValues['podcastFeedUrl'] = feedUrl;
           return new Promise((resolve, reject) => {
             isUserSubscribedToThisPodcast(resolve, reject, req);
@@ -414,27 +416,28 @@ function routes () {
   .post('/podcasts/subscribe', function (req, res) {
 
     UserService.update(req.feathers.userId, {}, {
-      subscribeToPodcastFeedUrl: req.body.podcastFeedUrl,
+      subscribeToPodcastId: req.body.podcastId,
       userId: req.feathers.userId
     })
       .then(user => {
         res.sendStatus(200);
       })
       .catch(e => {
-        console.log(e);
+        console.log('/podcasts/subscribe', e);
         throw new errors.GeneralError(e);
       });
   })
 
   .post('/podcasts/unsubscribe', function (req, res) {
     UserService.update(req.feathers.userId, {}, {
-      unsubscribeFromPodcastFeedUrl: req.body.podcastFeedUrl,
+      unsubscribeFromPodcastId: req.body.podcastId,
       userId: req.feathers.userId
     })
       .then(user => {
         res.sendStatus(200);
       })
       .catch(e => {
+        console.log('/podcasts/unsubscribe', e);
         res.sendStatus(500);
         throw new errors.GeneralError(e);
     });
@@ -684,13 +687,13 @@ function routes () {
 
 }
 
-function getUsersSubscribedPodcastFeedUrls (resolve, reject, req) {
+function getUsersSubscribedPodcastIds (resolve, reject, req) {
   if (isNonAnonUser(req.feathers.userId)) {
     const UserService = locator.get('UserService');
     return UserService.get(req.feathers.userId, { userId: req.feathers.userId })
       .then(user => {
-        let subscribedPodcastFeedUrls = user.subscribedPodcastFeedUrls;
-        resolve(subscribedPodcastFeedUrls);
+        let subscribedPodcastIds = user.subscribedPodcastIds;
+        resolve(subscribedPodcastIds);
       })
       .catch(e => {
         reject(e);
@@ -706,8 +709,8 @@ function isUserSubscribedToThisPodcast (resolve, reject, req) {
     return UserService.get(req.feathers.userId, { userId: req.feathers.userId })
       .then(user => {
         if (user) {
-          let isUserSubscribed = user.dataValues.subscribedPodcastFeedUrls.some(podcastFeedUrl => {
-            return podcastFeedUrl === req.params.podcastFeedUrl;
+          let isUserSubscribed = user.dataValues.subscribedPodcastIds.some(podcastId => {
+            return podcastId === req.params.podcastId;
           });
           resolve(isUserSubscribed);
         } else {

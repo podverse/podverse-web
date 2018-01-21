@@ -14,11 +14,11 @@ $('#podcast-subscribe').on('click', function () {
   if ($(this).children().hasClass('fa-star-o')) {
     $('#podcast-subscribe').html('<i class="fa fa-star"></i>');
     $('#podcast-subscribe').attr('title', 'Unsubscribe from podcast');
-    subscribeToPodcast(window.podcastFeedUrl);
+    subscribeToPodcast(window.podcastId);
   } else {
     $('#podcast-subscribe').html('<i class="fa fa-star-o"></i>');
     $('#podcast-subscribe').attr('title', 'Subscribe to podcast');
-    unsubscribeFromPodcast(window.podcastFeedUrl);
+    unsubscribeFromPodcast(window.podcastId);
   }
 });
 

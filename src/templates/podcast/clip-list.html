@@ -13,7 +13,7 @@
           <div class="playlist-item-time">
             {{ clip.startTime | convertSecToHHMMSS }} start time {{ clip.endTime }}
           </div>
-        {% endif %}        
+        {% endif %}
         <div class="playlist-item-date">
           {{clip.episodePubDate | readableDate}}
         </div>
@@ -29,5 +29,6 @@
 
 <script>
 window.podcastFeedUrl = '{{ podcast.feedUrl }}';
+window.podcastId = '{{ podcast.id }}';
 window.isSubscribed = {{ isSubscribed }};
 </script>

@@ -63,6 +63,8 @@ module.exports = function(sequelize, DataTypes) {
       }
     },
 
+    podcastId: DataTypes.TEXT,
+
     episodeTitle: DataTypes.TEXT,
 
     episodeMediaUrl: {

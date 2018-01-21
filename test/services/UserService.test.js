@@ -92,10 +92,11 @@ describe('UserService', function () {
         .then(arr => {
           let podcast = arr[0],
               episode = arr[1],
-              feedUrl = arr[2];
+              feedUrl = arr[2],
+              podcastId = arr[3];
 
           return this.userSvc.create({
-            subscribedPodcastFeedUrls: [feedUrl.url]
+            subscribedPodcastIds: [podcastId]
           }, {
             userId: 'nite_owl'
           })
