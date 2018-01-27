@@ -1,19 +1,20 @@
 const {readFileSync} = require('fs');
 
 module.exports = {
-  up: function (queryInterface, Sequelize) {
+  up: function (queryInterface, Sequelize, done) {
 
-    queryInterface.renameColumn(
-      'users',
-      'subscribedPodcastFeedUrls',
-      'subscribedPodcastIds'
-    );
-
-    queryInterface.addColumn(
-      'mediaRefs',
-      'podcastId',
-      Sequelize.TEXT
-    );
+    return [
+      queryInterface.renameColumn(
+        'users',
+        'subscribedPodcastFeedUrls',
+        'subscribedPodcastIds'
+      ),
+      queryInterface.addColumn(
+        'mediaRefs',
+        'podcastId',
+        Sequelize.TEXT
+      )
+    ]
 
   },
 
