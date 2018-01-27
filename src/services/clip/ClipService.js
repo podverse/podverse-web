@@ -145,7 +145,7 @@ class ClipService extends SequelizeService {
       });
   }
 
-  retrievePaginatedClips(filterType, podcastFeedUrls, episodeMediaUrl, pageIndex) {
+  retrievePaginatedClips(filterType, podcastIds, podcastFeedUrls, episodeMediaUrl, pageIndex) {
 
     return new Promise((resolve, reject) => {
 
@@ -204,7 +204,9 @@ class ClipService extends SequelizeService {
         // Also ensure that clips only have media urls that point to official content.
         const FeedUrlService = locator.get('FeedUrlService');
 
-        return FeedUrlService.findAllRelatedFeedUrls(podcastFeedUrls)
+        // findAllRelatedFeedUrls will either find by podcastIds, otherwise it
+        // falls back to find by podcastFeedUrls.
+        return FeedUrlService.findAllRelatedFeedUrls(podcastIds, podcastFeedUrls)
           .then(relatedFeedUrls => {
 
             let clipQuery = isClipMediaRef(relatedFeedUrls, null);
