@@ -865,8 +865,8 @@ footer p {
 
 .playlist-item-title {
     font-size: 18px;
-    margin: 1px 0 6px 0;
-    line-height: 21px;
+    margin: -1px 0 6px 0;
+    line-height: 22px;
 }
 
 .playlist-item-podcast-title {
