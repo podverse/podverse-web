@@ -52,9 +52,8 @@ class ClipService extends SequelizeService {
 
     return new Promise((resolve, reject) => {
 
-      const {MediaRef, Playlist, User} = this.Models;
-      const PlaylistService = locator.get('PlaylistService');
-      const EpisodeService = locator.get('EpisodeService');
+      const PodcastService = locator.get('PodcastService');
+      const FeedUrlService = locator.get('FeedUrlService');
 
       if (data.endTime === '') {
         data.endTime = null;
@@ -64,71 +63,98 @@ class ClipService extends SequelizeService {
         data.episodeDuration = null;
       }
 
-      // Ensure the mediaRef's episodeMediaUrl belongs to one of the official
-      // episodes of the podcast.
-      return EpisodeService.validateMediaUrl(data.episodeMediaUrl, data.podcastFeedUrl)
-        .then(isValid => {
-
-          if (!isValid) {
-            throw new errors.GeneralError('Invalid media URL.')
-          } else {
-
-            return MediaRef.create(data)
-              .then((c) => {
-                // If user is logged in, then add the clip to their My Clips playlist
-                if (params.userId) {
-
-                  return User.findById(params.userId)
-                    .then(user => {
-
-                      let ownerName = user.name || '';
-                      let myClipsPlaylist = {};
-                      myClipsPlaylist.title = 'My Clips';
-                      myClipsPlaylist.isMyClips = true;
-                      myClipsPlaylist.ownerName = ownerName;
-
-                      return Playlist.findOrCreate({
-                        where: {
-                          ownerId: params.userId,
-                          $and: {
-                            isMyClips: true
-                          }
-                        },
-                        defaults: myClipsPlaylist
-                      }).then(playlists => {
-                          let playlist = playlists[0];
-
-                          return user.addPlaylists([playlist.id])
-                            .then(() => {
-                              playlist.dataValues.playlistItems = [c.id];
-                              return PlaylistService.update(playlist.dataValues.id, playlist.dataValues, {
-                                userId: params.userId,
-                                addPlaylistItemsToPlaylist: true
-                              })
-                                .then(updatedPlaylist => {
-                                  resolve(c);
-                                })
-                            })
-                      })
-                  })
-                } else {
-                  resolve(c);
-                }
-
-              })
-              .catch(e => {
-                console.log(e);
-                reject(new errors.GeneralError(e));
+      if (data.podcastId) {
+        return FeedUrlService.findPodcastAuthorityFeedUrl(data.podcastId)
+          .then(feedUrl => {
+            data.podcastFeedUrl = feedUrl;
+            return this.validateThenCreateClip(data, params)
+              .then(clip => {
+                resolve(clip);
               });
-
-          }
-
-        })
-        .catch(e => {
-          reject(new errors.GeneralError('Invalid episode metadata'));
-        })
+          });
+      } else {
+        return PodcastService.findPodcastByFeedUrl(data.podcastFeedUrl)
+          .then(podcast => {
+            data.podcastId = podcast.id;
+            return this.validateThenCreateClip(data, params)
+              .then(clip => {
+                resolve(clip);
+              });
+          })
+      }
 
     });
+  }
+
+  validateThenCreateClip(data, params = {}) {
+
+    const {MediaRef, Playlist, User} = this.Models;
+    const PlaylistService = locator.get('PlaylistService');
+    const EpisodeService = locator.get('EpisodeService');
+
+    // Ensure the mediaRef's episodeMediaUrl belongs to one of the official
+    // episodes of the podcast.
+    return EpisodeService.validateMediaUrl(data.episodeMediaUrl, data.podcastFeedUrl, data.podcastId)
+      .then(isValid => {
+
+        if (!isValid) {
+          throw new errors.GeneralError('Invalid media URL.')
+        } else {
+
+          return MediaRef.create(data)
+            .then((c) => {
+              // If user is logged in, then add the clip to their My Clips playlist
+              if (params.userId) {
+
+                return User.findById(params.userId)
+                  .then(user => {
+
+                    let ownerName = user.name || '';
+                    let myClipsPlaylist = {};
+                    myClipsPlaylist.title = 'My Clips';
+                    myClipsPlaylist.isMyClips = true;
+                    myClipsPlaylist.ownerName = ownerName;
+
+                    return Playlist.findOrCreate({
+                      where: {
+                        ownerId: params.userId,
+                        $and: {
+                          isMyClips: true
+                        }
+                      },
+                      defaults: myClipsPlaylist
+                    }).then(playlists => {
+                        let playlist = playlists[0];
+
+                        return user.addPlaylists([playlist.id])
+                          .then(() => {
+                            playlist.dataValues.playlistItems = [c.id];
+                            return PlaylistService.update(playlist.dataValues.id, playlist.dataValues, {
+                              userId: params.userId,
+                              addPlaylistItemsToPlaylist: true
+                            })
+                              .then(updatedPlaylist => {
+                                return c;
+                              })
+                          })
+                    })
+                })
+              } else {
+                return c;
+              }
+
+            })
+            .catch(e => {
+              console.log(e);
+              throw new errors.GeneralError(e);
+            });
+
+        }
+
+      })
+      .catch(e => {
+        throw new errors.GeneralError('Invalid episode metadata');
+      })
   }
 
   update (id, data, params={}) {
