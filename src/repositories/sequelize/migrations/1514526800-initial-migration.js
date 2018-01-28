@@ -9,9 +9,5 @@ module.exports = {
       raw: true, type: Sequelize.QueryTypes.RAW
     });
 
-  },
-
-  down: function (queryInterface) {
-    return queryInterface.dropAllTables();
   }
 }
