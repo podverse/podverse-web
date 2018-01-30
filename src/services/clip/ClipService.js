@@ -109,6 +109,12 @@ class ClipService extends SequelizeService {
                 return User.findById(params.userId)
                   .then(user => {
 
+                    // If the user does not exist for some reason, then do not
+                    // attempt to add the new clip to a playlist.
+                    if (!user) {
+                      return c;
+                    }
+
                     let ownerName = user.name || '';
                     let myClipsPlaylist = {};
                     myClipsPlaylist.title = 'My Clips';
