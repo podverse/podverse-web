@@ -82,7 +82,8 @@ function createTestMediaRefs (Models) {
       episodeId: 'someId',
       title: `TestTitle${i}`,
       podcastFeedUrl: 'http://some.rss.feed.com',
-      episodeMediaUrl: 'http://some.mediaURL.com'
+      episodeMediaUrl: 'http://some.mediaURL.com',
+      podcastId: 'some-podcast-id'
     }
     mediaRefs.push(mediaRef);
   }
@@ -124,8 +125,8 @@ function createTestPodcastAndEpisodeAndFeedUrl () {
         feedUrlService = new FeedUrlService();
 
     return podcastService.create({
-      title: 'Most interesting podcast in the world',
-      imageUrl: 'http://example.com/image.jpg'
+      imageUrl: 'http://example.com/image.jpg',
+      title: 'Most interesting podcast in the world'
     }, {})
     .then(podcast => {
       this.podcast = podcast;

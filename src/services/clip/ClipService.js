@@ -103,6 +103,7 @@ class ClipService extends SequelizeService {
 
           return MediaRef.create(data)
             .then((c) => {
+
               // If user is logged in, then add the clip to their My Clips playlist
               if (params.userId) {
 
@@ -159,7 +160,7 @@ class ClipService extends SequelizeService {
 
       })
       .catch(e => {
-        throw new errors.GeneralError('Invalid episode metadata');
+        throw new errors.GeneralError(e);
       })
   }
 

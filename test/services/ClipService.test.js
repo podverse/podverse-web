@@ -181,28 +181,6 @@ describe('ClipService', function () {
     });
   });
 
-  describe('when creating a clip with no episode', function () {
-
-    it('should reject with an error', function (done) {
-
-      const data = {
-        ownerId: 'testOwner',
-        podcastFeedUrl: 'http://some.rss.feed.com',
-        episodeMediaUrl: 'http://some.mediaURL.com'
-      };
-
-      this.clipSvc.create(data, {ownerId: 'notnull'})
-        .then(result => {
-          done();
-        })
-        .catch(err => {
-          expect(err).to.not.equal(null);
-          done();
-        });
-    });
-
-  });
-
   describe('when updating a clip as another user id', function () {
 
     it('should throw NotAuthenticated', function (done) {
