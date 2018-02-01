@@ -131,6 +131,10 @@ class UserService extends SequelizeService {
     return this.Model.findById(id)
       .then(user => {
 
+        if (!user) {
+          return;
+        }
+
         // Handle subscribing to a podcast
         if (params.subscribeToPodcastId|| params.unsubscribeFromPodcastId) {
           let subscribedPodcastIds = user.dataValues.subscribedPodcastIds || [];
