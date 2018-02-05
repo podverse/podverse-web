@@ -631,7 +631,7 @@ footer p {
     display: block;
     float: right;
     font-size: 12px;
-    margin-top: 3px;
+    margin-top: 2px;
     margin-left: 0.25rem;
     color: #777;
 }
@@ -778,7 +778,7 @@ footer p {
 }
 
 #playlist-title {
-    font-weight: 500;
+    font-weight: 600;
     line-height: 22px;
     float: left;
     font-size: 18px;
@@ -795,8 +795,10 @@ footer p {
 }
 
 #playlist-subtitle {
-    margin: 0 0 0.25rem 0;
+    margin: 0.25rem 0 0 0;
     clear: left;
+    font-size: 13px;
+    color: #777;
 }
 
 #playlist-subscribe {
@@ -859,6 +861,7 @@ footer p {
     display: none;
     cursor: pointer;
     font-size: 16px;
+    color: red;
 }
 
 .playlist-item.edit-view .playlist-item-remove-btn {
@@ -1276,6 +1279,7 @@ footer p {
     font-size: 14px;
     margin: 4px 0 0 15px;
     float: right;
+    color: #777;
 }
 
 .podcast-item-last-episode-title {

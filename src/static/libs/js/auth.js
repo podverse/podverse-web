@@ -14,7 +14,7 @@ var options = {
   },
   additionalSignUpFields: [{
     name: 'name',
-    placeholder: 'your name (for sharing playlists)'
+    placeholder: 'your name (public)'
   }],
   theme: {
     primaryColor: '#2968B1'
