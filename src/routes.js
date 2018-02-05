@@ -589,19 +589,19 @@ function routes () {
         if (user && user.dataValues) {
           let podcasts = user.dataValues.subscribedPodcasts;
 
-          // podcasts = _.reduce(podcasts, (acc, podcast) => {
-          //   if (podcast.title && podcast.title.length > 0) {
-          //     acc.push(podcast);
-          //   }
-          //   return acc;
-          // }, []);
-          //
-          // podcasts = _.sortBy(podcasts, (podcast) => {
-          //   let title = podcast.title;
-          //   title = title.toLowerCase();
-          //   title = removeArticles(title);
-          //   return title;
-          // });
+          podcasts = _.reduce(podcasts, (acc, podcast) => {
+            if (podcast.title && podcast.title.length > 0) {
+              acc.push(podcast);
+            }
+            return acc;
+          }, []);
+
+          podcasts = _.sortBy(podcasts, (podcast) => {
+            let title = podcast.title;
+            title = title.toLowerCase();
+            title = removeArticles(title);
+            return title;
+          });
 
           user.dataValues.subscribedPodcasts = podcasts;
 
