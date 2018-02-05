@@ -28,12 +28,14 @@ function routes () {
     return ClipService.retrievePaginatedClips(filterType, [], [], null, pageIndex)
     .then(page => {
       let clips = page.data;
+      let total = page.total || [];
+      let length = total.length
 
       res.render('home/index.html', {
         clips: clips,
         dropdownText: allowedFilters[filterType].dropdownText,
         pageIndex: pageIndex,
-        showNextButton: shouldShowNextButton(pageIndex, page.total.length),
+        showNextButton: shouldShowNextButton(pageIndex, length),
         currentPage: 'Home Page',
         locals: res.locals
       });
@@ -293,8 +295,7 @@ function routes () {
 
     res.setHeader('Content-Type', 'application/json');
     let userId = req.feathers.userId;
-    console.log('userId', userId)
-    console.log(req.feathers);
+
     UserService.retrieveUserAndAllSubscribedPodcasts(userId, {
       userId: userId
     })
