@@ -786,6 +786,7 @@ footer p {
 #playlist .sort-by-dropdown {
     float: right;
     line-height: 18px;
+    margin-top: -1px;
 }
 
 #playlist .sort-by-dropdown .dropdown-menu {
