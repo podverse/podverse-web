@@ -67,7 +67,7 @@ class ClipService extends SequelizeService {
         return FeedUrlService.findPodcastAuthorityFeedUrl(data.podcastId)
           .then(feedUrl => {
             data.podcastFeedUrl = feedUrl;
-            return this.validateThenCreateClip(data, params)
+            return this.createClip(data, params)
               .then(clip => {
                 resolve(clip);
               });
@@ -76,7 +76,7 @@ class ClipService extends SequelizeService {
         return PodcastService.findPodcastByFeedUrl(data.podcastFeedUrl)
           .then(podcast => {
             data.podcastId = podcast.id;
-            return this.validateThenCreateClip(data, params)
+            return this.createClip(data, params)
               .then(clip => {
                 resolve(clip);
               });
@@ -86,82 +86,66 @@ class ClipService extends SequelizeService {
     });
   }
 
-  validateThenCreateClip(data, params = {}) {
+  createClip(data, params = {}) {
 
     const {MediaRef, Playlist, User} = this.Models;
     const PlaylistService = locator.get('PlaylistService');
     const EpisodeService = locator.get('EpisodeService');
 
-    // Ensure the mediaRef's episodeMediaUrl belongs to one of the official
-    // episodes of the podcast.
-    return EpisodeService.validateMediaUrl(data.episodeMediaUrl, data.podcastFeedUrl, data.podcastId)
-      .then(isValid => {
+    return MediaRef.create(data)
+      .then((c) => {
 
-        if (!isValid) {
-          throw new errors.GeneralError('Invalid media URL.')
-        } else {
+        // If user is logged in, then add the clip to their My Clips playlist
+        if (params.userId) {
 
-          return MediaRef.create(data)
-            .then((c) => {
+          return User.findById(params.userId)
+            .then(user => {
 
-              // If user is logged in, then add the clip to their My Clips playlist
-              if (params.userId) {
-
-                return User.findById(params.userId)
-                  .then(user => {
-
-                    // If the user does not exist for some reason, then do not
-                    // attempt to add the new clip to a playlist.
-                    if (!user) {
-                      return c;
-                    }
-
-                    let ownerName = user.name || '';
-                    let myClipsPlaylist = {};
-                    myClipsPlaylist.title = 'My Clips';
-                    myClipsPlaylist.isMyClips = true;
-                    myClipsPlaylist.ownerName = ownerName;
-
-                    return Playlist.findOrCreate({
-                      where: {
-                        ownerId: params.userId,
-                        $and: {
-                          isMyClips: true
-                        }
-                      },
-                      defaults: myClipsPlaylist
-                    }).then(playlists => {
-                        let playlist = playlists[0];
-
-                        return user.addPlaylists([playlist.id])
-                          .then(() => {
-                            playlist.dataValues.playlistItems = [c.id];
-                            return PlaylistService.update(playlist.dataValues.id, playlist.dataValues, {
-                              userId: params.userId,
-                              addPlaylistItemsToPlaylist: true
-                            })
-                              .then(updatedPlaylist => {
-                                return c;
-                              })
-                          })
-                    })
-                })
-              } else {
+              // If the user does not exist for some reason, then do not
+              // attempt to add the new clip to a playlist.
+              if (!user) {
                 return c;
               }
 
-            })
-            .catch(e => {
-              console.log(e);
-              throw new errors.GeneralError(e);
-            });
+              let ownerName = user.name || '';
+              let myClipsPlaylist = {};
+              myClipsPlaylist.title = 'My Clips';
+              myClipsPlaylist.isMyClips = true;
+              myClipsPlaylist.ownerName = ownerName;
 
+              return Playlist.findOrCreate({
+                where: {
+                  ownerId: params.userId,
+                  $and: {
+                    isMyClips: true
+                  }
+                },
+                defaults: myClipsPlaylist
+              }).then(playlists => {
+                  let playlist = playlists[0];
+
+                  return user.addPlaylists([playlist.id])
+                    .then(() => {
+                      playlist.dataValues.playlistItems = [c.id];
+                      return PlaylistService.update(playlist.dataValues.id, playlist.dataValues, {
+                        userId: params.userId,
+                        addPlaylistItemsToPlaylist: true
+                      })
+                        .then(updatedPlaylist => {
+                          return c;
+                        })
+                    })
+              })
+          })
+        } else {
+          return c;
         }
 
       })
       .catch(e => {
+        console.log(e);
         throw new errors.GeneralError(e);
-      })
+      });
   }
 
   update (id, data, params={}) {
