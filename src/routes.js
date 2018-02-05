@@ -276,8 +276,8 @@ function routes () {
 
     let filterType = req.body.filterType || 'pastWeek';
     let pageIndex = req.body.page || 1;
-    let podcastIds = req.body.podcastIds;
-    let podcastFeedUrls = req.body.podcastFeedUrls;
+    let podcastIds = req.body.podcastIds || [];
+    let podcastFeedUrls = req.body.podcastFeedUrls || [];
     let episodeMediaUrl = req.body.episodeMediaUrl;
 
     return ClipService.retrievePaginatedClips(filterType, podcastIds, podcastFeedUrls, episodeMediaUrl, pageIndex)
