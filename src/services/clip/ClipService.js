@@ -226,32 +226,39 @@ class ClipService extends SequelizeService {
         return FeedUrlService.findAllRelatedFeedUrls(podcastIds, podcastFeedUrls)
           .then(relatedFeedUrls => {
 
-            let clipQuery = isClipMediaRef(relatedFeedUrls, null);
+            if (relatedFeedUrls && relatedFeedUrls.length > 0) {
 
-            params.sequelize = {
-              where: clipQuery,
-              offset: offset,
-              order: [
-                [sqlEngine.fn('max', sqlEngine.col(allowedFilters[filterType].query)), 'DESC']
-              ],
-              group: ['id']
-            };
+              let clipQuery = isClipMediaRef(relatedFeedUrls, null);
 
-            params.paginate = {
-              default: 10,
-              max: 1000
-            };
+              params.sequelize = {
+                where: clipQuery,
+                offset: offset,
+                order: [
+                  [sqlEngine.fn('max', sqlEngine.col(allowedFilters[filterType].query)), 'DESC']
+                ],
+                group: ['id']
+              };
 
-            return super.find(params)
-            .then(page => {
-              resolve(page);
-            })
-            .catch(err => {
-              console.log(err);
-              reject(err);
-            });
+              params.paginate = {
+                default: 10,
+                max: 1000
+              };
+
+              return super.find(params)
+              .then(page => {
+                resolve(page);
+              })
+              .catch(err => {
+                console.log(err);
+                reject(err);
+              });
+
+            } else {
+              resolve({});
+            }
 
           });
+
 
       }
 
