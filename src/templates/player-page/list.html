@@ -75,10 +75,6 @@
       </div><!-- /.playlist-item -->
     {% endfor %}
   {% else %}
-    <div id="playlist-title">
-      Clips from this <span id="playlist-type-selector">podcast <!--<i class="fa fa-angle-down"></i>--></span>
-    </div>
-
     <div class="sort-by-dropdown dropdown">
       <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         top - past week <i class="fa fa-angle-down"></i>
@@ -92,6 +88,9 @@
         <a class="dropdown-item" id="allTime">top - all time</a>
         <a class="dropdown-item" id="recent">most recent</a>
       </div>
+    </div>
+    <div id="playlist-title">
+      Clips from this <span id="playlist-type-selector">podcast <!--<i class="fa fa-angle-down"></i>--></span>
     </div>
   {% endif %}
 </div><!-- /#playlist -->
