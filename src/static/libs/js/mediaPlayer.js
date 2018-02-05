@@ -272,7 +272,7 @@ function setPlayerInfo () {
     $('#player-description-show-more').show();
     $('#player-condensed-text').html(truncDescription);
     $('#player-condensed-text').addClass('should-show');
-    $('#player-condensed-time').html('Clip: ' + startTimeReadable + endTimeReadable);
+    $('#player-condensed-time').html(startTimeReadable + endTimeReadable);
     $('#player-condensed-time').addClass('should-show');
   } else {
     $('#player-description-truncated').hide();

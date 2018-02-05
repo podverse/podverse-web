@@ -621,7 +621,7 @@ footer p {
 
 .condensed #player-condensed-text.should-show {
     display: block;
-    font-size: 13px;
+    font-size: 14px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -630,8 +630,10 @@ footer p {
 .condensed #player-condensed-time.should-show {
     display: block;
     float: right;
-    font-size: 13px;
+    font-size: 12px;
+    margin-top: 3px;
     margin-left: 0.25rem;
+    color: #777;
 }
 
 
@@ -716,7 +718,7 @@ footer p {
 
 /*** player-page description.html styles ***/
 #player-description-truncated {
-    font-size: 16px;
+    font-size: 18px;
     margin-bottom: 0.25rem;
     cursor: pointer;
     overflow: hidden;
@@ -731,7 +733,7 @@ footer p {
 }
 
 #player-clip-time {
-    font-size: 13px;
+    font-size: 14px;
     float: left;
     color: #777;
     margin-bottom: 1rem;
