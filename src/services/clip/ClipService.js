@@ -226,7 +226,7 @@ class ClipService extends SequelizeService {
         return FeedUrlService.findAllRelatedFeedUrls(podcastIds, podcastFeedUrls)
           .then(relatedFeedUrls => {
 
-            if (relatedFeedUrls && relatedFeedUrls.length > 0) {
+            if (((podcastIds && podcastIds.length > 0) || (podcastFeedUrls && podcastFeedUrls.length > 0)) && (relatedFeedUrls && relatedFeedUrls.length > 0)) {
 
               let clipQuery = isClipMediaRef(relatedFeedUrls, null);
 
