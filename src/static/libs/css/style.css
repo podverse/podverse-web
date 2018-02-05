@@ -1254,18 +1254,18 @@ footer p {
 .podcast-item-image {
     float: left;
     margin-right: 15px;
-    width: 60px;
-    height: 60px;
+    width: 4rem;
+    height: 4rem;
     outline: 1px solid #eee;
 }
 
 .podcast-item-image img {
-    width: 60px;
-    height: 60px;
+    width: 4rem;
+    height: 4rem;
 }
 
 .podcast-item-title {
-    margin-top: 4px;
+    margin-top: 5px;
     font-weight: 600;
     overflow: hidden;
     text-overflow: ellipsis;
