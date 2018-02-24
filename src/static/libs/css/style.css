@@ -718,7 +718,7 @@ footer p {
 
 /*** player-page description.html styles ***/
 #player-description-truncated {
-    font-size: 18px;
+    font-size: 16px;
     margin-bottom: 0.25rem;
     cursor: pointer;
     overflow: hidden;
@@ -869,9 +869,9 @@ footer p {
 }
 
 .playlist-item-title {
-    font-size: 18px;
-    margin: -1px 0 6px 0;
-    line-height: 23px;
+    font-size: 16px;
+    margin: 0 0 6px 0;
+    line-height: 20px;
 }
 
 .playlist-item-podcast-title {
