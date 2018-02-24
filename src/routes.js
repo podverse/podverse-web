@@ -22,7 +22,7 @@ function routes () {
 
   app.get('/', getLoggedInUserInfo, function (req, res) {
 
-    let filterType = req.query.sort || 'pastDay';
+    let filterType = req.query.sort || 'pastYear';
     let pageIndex = req.query.page || 1;
 
     return ClipService.retrievePaginatedClips(filterType, [], [], null, pageIndex)
@@ -209,7 +209,7 @@ function routes () {
             })
             .then((isSubscribed) => {
 
-              let filterType = req.query.sort || 'pastDay';
+              let filterType = req.query.sort || 'pastYear';
               let pageIndex = req.query.page || 1;
 
               return ClipService.retrievePaginatedClips(filterType, [], [feedUrl], null, pageIndex)
