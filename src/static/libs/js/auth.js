@@ -5,8 +5,8 @@ var clientId = __AUTH0_CLIENTID__,
 
 // Auth0Lock stuff
 var options = {
+  configurationBaseUrl: 'https://cdn.auth0.com',
   auth: {
-    redirectUrl: __BASE_URL__ + '/login-redirect?redirectTo=' + location.href,
     responseType: 'token',
     params: {
       scope: 'openid name email user_metadata'
@@ -35,13 +35,8 @@ $(window).ready(() => {
 });
 
 lock.on('authenticated', function (authResult) {
-  // Remove # from end of url
-  window.location.replace("#");
-  if (typeof window.history.replaceState == 'function') {
-    history.replaceState({}, '', window.location.href.slice(0, -1));
-  }
 
-  lock.getProfile(authResult.idToken, function (error, profile) {
+  lock.getProfile(authResult.accessToken, function (error, profile) {
 
     if (error) {
       alert('Authentication error. Please check your internet connection and try again.');
@@ -71,10 +66,7 @@ function findOrCreateUserOnServer (profile) {
       name: name,
       nickname: profile.nickname
     },
-    dataType: 'json',
-    success: function () {
-      location.href = loginRedirectUrl;
-    }
+    dataType: 'json'
   });
 
 }
