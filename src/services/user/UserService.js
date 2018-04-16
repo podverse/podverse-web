@@ -55,13 +55,14 @@ class UserService extends SequelizeService {
         user.dataValues.subscribedPodcasts = subscribedPodcasts;
         return user;
       }).catch(e => {
-        return new errors.GeneralError(e);
+        console.log(e);
+        throw new errors.GeneralError(e);
       });
 
     })
     .catch(e => {
       console.log(e);
-      return new errors.GeneralError(e);
+      throw new errors.GeneralError(e);
     });
   }
 
@@ -94,6 +95,7 @@ class UserService extends SequelizeService {
   }
 
   create (data, params={}) {
+
     const {Playlist} = this.Models;
 
     return this.Model.findOrCreate({
