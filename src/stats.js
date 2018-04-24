@@ -69,14 +69,15 @@ function queryUniquePageviews(pagePath, timeRange, startIndexOffset=0) {
 
     for (i = 0; i < rows.length; i++) {
       let row = rows[i];
-      if (row[0].indexOf('login-redirect') > -1) {
+      const pathName = row.dimensions[0];
+      if (pathName.indexOf('login-redirect') > -1) {
         continue;
       }
 
       // use this to chop off all of the path before the id
       // sample fields in row[0]: '/episodes/1234abc' '/clips/2345def' '/podcasts/3456ghi'
-      let idStartIndex = row[0].indexOf('s/') + 2;
-      row[0] = row[0].substr(idStartIndex);
+      let idStartIndex = pathName.indexOf('s/') + 2;
+      row.dimensions[0] = pathName.substr(idStartIndex);
       idArray.push(row);
     }
 
@@ -115,9 +116,9 @@ function queryUniquePageviews(pagePath, timeRange, startIndexOffset=0) {
 }
 
 function queryForMoreIfMaxResultsReturned(data, timeRange, pagePath, startIndexOffset) {
-  if (data.rows && data.rows.length === 10000) {
-    queryUniquePageviews(timeRange, pagePath, (parseInt(startIndexOffset) + 10000))
-  }
+  // if (data.rows && data.rows.length === 10000) {
+  //   queryUniquePageviews(timeRange, pagePath, (parseInt(startIndexOffset) + 10000))
+  // }
 }
 
 function updateBatchUniquePageviewCount (type, timeRange, rows) {
@@ -136,7 +137,7 @@ function updateBatchUniquePageviewCount (type, timeRange, rows) {
 
   for (i = 0; i < rows.length; i++) {
     let row = rows[i];
-    rawQuery += `UPDATE "${type}" SET "${timeRange}"=${row[1]} WHERE id='${row[0]}';`;
+    rawQuery += `UPDATE "${type}" SET "${timeRange}"=${row.metrics[0].values[0]} WHERE id='${row.dimensions[0]}';`;
   }
 
   return sqlEngine.query(rawQuery, {
