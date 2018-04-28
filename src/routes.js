@@ -685,6 +685,12 @@ function routes () {
     req.query['currentPage'] = 'How-to Page';
     req.query['locals'] = res.locals;
     res.render('how-to/index.html', req.query);
+  })
+
+  .get('/admin/random-id', function (req, res) {
+    const shortid = require('shortid');
+    const id = shortid();
+    res.send(id);
   });
 
 }
