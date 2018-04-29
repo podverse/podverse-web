@@ -168,13 +168,6 @@ a.footer-social-icon {
     padding: 10px;
 }
 
-@media (max-width: 400px) {
-    #footer-links a {
-        margin: 0 0.25rem 0 -10px;
-    }
-}
-
-
 #footer-license {
     float: right;
     clear: right;
@@ -197,6 +190,25 @@ footer p {
     color: #ffac2a
 }
 
+@media (max-width: 480px) {
+    #footer-links a {
+        margin-bottom: 0.25rem;
+        text-align: left;
+    }
+    
+    #footer-links .footer-brand,
+    #footer-links .footer-links-subnav {
+        display: block;
+    }
+
+    #footer-license {
+        padding: 10px;
+    }
+
+    #footer-license a {
+        margin-right: -20px;
+    }
+}
 
 /*** #navbarSearchModal styles ***/
 #navbarSearchModalRequestPodcast, #navbarSearchModalAddPodcast {
