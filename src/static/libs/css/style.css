@@ -217,9 +217,26 @@ footer p {
     display: none;
 }
 
+#navbarSearchModal label {
+    margin-bottom: 0.75rem;
+}
+
+#navbarSearchModal .close {
+    margin-top: -2px;
+}
+
+#navbarSearchModal .form-group {
+    margin-bottom: 0.75rem;
+}
+
 #navbarSearchModalBrowse {
     float: right;
     text-decoration: none;
+}
+
+#navbarSearchPodcastRequest {
+    font-size: 13px;
+    margin-top: 0.25rem;
 }
 
 .request-podcast-contact-label {
@@ -1416,6 +1433,67 @@ footer p {
 .playlist-list-item-subtitle {
     font-size: 14px;
     margin-top: 0.25rem;
+}
+
+/*** search.html styles  ***/
+#search h1 {
+    margin-bottom: 1rem;
+}
+
+.search-loader {
+    display: none;
+    text-align: center;
+    margin: 2rem 0;
+}
+
+.search-result {
+    display: block;
+    padding: 1rem 0;
+    color: #373a3c;
+    border-bottom: 1px solid #eee;
+}
+
+.search-result:last-child {
+    border-bottom: none;
+}
+
+.search-result-count {
+    font-size: 14px;
+    color: #777;
+    margin-bottom: 0.75rem;
+    font-style: italic;
+}
+
+.search-result-image {
+    float: left;
+    width: 3rem;
+    height: 3rem;
+}
+
+.search-result-image img {
+    width: 3rem;
+    height: 3rem;
+}
+
+.search-result-title {
+    line-height: 3rem;
+    padding-left: 0.75rem;
+    font-weight: 500;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.search-results-empty {
+    display: none;
+    margin-top: 1.5rem;
+    font-size: 14px;
+}
+
+.search-results-error {
+    display: none;
+    margin-top: 1.5rem;
+    font-size: 14px;
 }
 
 /* about.html styles */

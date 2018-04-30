@@ -1,25 +1,45 @@
 import { sendGoogleAnalyticsEvent } from './googleAnalytics.js';
 
-export function loadPodcastSearchTypeahead() {
-  var podcastResults = new Bloodhound({
-    datumTokenizer: Bloodhound.tokenizers.obj.whitespace('title'),
-    queryTokenizer: Bloodhound.tokenizers.whitespace,
-    remote: {
-      url: __BASE_URL__ + '/podcasts?title=%QUERY',
-      wildcard: '%QUERY'
-    }
-  });
+// export function loadPodcastSearchTypeahead() {
+//   var podcastResults = new Bloodhound({
+//     datumTokenizer: Bloodhound.tokenizers.obj.whitespace('title'),
+//     queryTokenizer: Bloodhound.tokenizers.whitespace,
+//     remote: {
+//       url: __BASE_URL__ + '/podcasts?title=%QUERY',
+//       wildcard: '%QUERY'
+//     }
+//   });
 
-  $('#navbarSearchModalInput').typeahead({
-    hint: false,
-    highlight: true,
-    minLength: 1
-  }, {
-    name: 'podcasts',
-    display: 'title',
-    source: podcastResults
-  }).on('typeahead:selected typeahead:autocomplete', function (event, selection) {
-    window.location.href = '/podcasts/' + selection.id;
+//   $('#navbarSearchModalInput').typeahead({
+//     hint: false,
+//     highlight: true,
+//     minLength: 1
+//   }, {
+//     name: 'podcasts',
+//     display: 'title',
+//     source: podcastResults
+//   }).on('typeahead:selected typeahead:autocomplete', function (event, selection) {
+//     window.location.href = '/podcasts/' + selection.id;
+//   });
+// }
+
+export function searchPodcasts(query) {
+  sendGoogleAnalyticsEvent('Podcast', 'Search for podcast');
+  
+  return new Promise((resolve, reject) => {
+    $.ajax({
+      type: 'GET',
+      url: '/podcasts',
+      data: {
+        title: query
+      },
+      success: response => {
+        resolve(response);
+      },
+      error: err => {
+        reject(err);
+      }
+    });
   });
 }
 

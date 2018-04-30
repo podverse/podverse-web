@@ -46,6 +46,16 @@ function routes () {
     });
   })
 
+  // Search page
+  .get('/search', getLoggedInUserInfo, (req, res) => {
+    res.locals.searchQuery = req.query.query;
+
+    res.render('search/index.html', {
+      currentPage: 'Search Page',
+      locals: res.locals
+    });
+  })
+
   // Clip Detail Page
   .get('/clips/:id', getLoggedInUserInfo, (req, res) => {
     return ClipService.get(req.params.id)

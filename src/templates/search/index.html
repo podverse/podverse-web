@@ -1,0 +1,40 @@
+{% extends "layout.html" %} 
+
+{% block body %}
+<div id="search">
+    <h1>Search Podcasts</h1>
+    <div class="clearfix"></div>
+    <div class="form-group">
+        <div class="input-group">
+            <input class="form-control search-input" type="text" placeholder="podcast title">
+            <span class="input-group-btn">
+                <button class="btn btn-secondary search-podcasts" type="button">
+                    <i class="fa fa-search"></i>
+                </button>
+            </span>
+        </div>
+    </div>
+    <div class="search-loader">
+        <i class="fa fa-spinner fa-spin"></i>
+    </div>
+    <div class="search-results"></div>
+    <div class="search-results-empty">
+        No results found. <a href="https://goo.gl/forms/ai0VN8albaRJ12Ro1">Request podcast</a>
+    </div>
+    <div class="search-results-error">
+        <div>Something went wrong :(</div>
+        <div></div>Please check your internet connection and try again.
+    </div>
+</div>
+{% endblock %} {% block scripts %}
+<script>
+    // TODO: these should not be set on the window
+    // This should get cleaned up whenever setWindowVars.html gets cleaned up.
+    // At the moment I don't know how to load the nunjucks variables directly in JS.
+    window.userName = '{{ name }}';
+    window.userId = '{{ id }}';
+    window.searchQuery = '{{ searchQuery }}';
+</script>
+
+<script src="/static/build/vendors.js"></script>
+<script src="/static/build/search/index.js"></script> {% endblock %}

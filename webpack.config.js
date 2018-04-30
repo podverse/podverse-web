@@ -33,6 +33,7 @@ module.exports ={
         'player-page/index': [__dirname + '/src/static/libs/js/views/player-page/index.js'],
         'podcast/index': [__dirname + '/src/static/libs/js/views/podcast/index.js'],
         'podcasts/index': [__dirname + '/src/static/libs/js/views/podcasts/index.js'],
+        'search/index': [__dirname + '/src/static/libs/js/views/search/index.js'],
         'settings/index': [__dirname + '/src/static/libs/js/views/settings/index.js'],
         vendors: ["babel-polyfill",
                   "bootstrap",
