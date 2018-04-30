@@ -31,6 +31,7 @@ export function searchPodcasts(query) {
       type: 'GET',
       url: '/podcasts',
       data: {
+        $limit: 25,
         title: query
       },
       success: response => {
