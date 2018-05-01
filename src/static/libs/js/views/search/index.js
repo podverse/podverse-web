@@ -26,18 +26,26 @@ function loadSearchResults (query) {
 
   $('.search-results').html('');
   $('.search-results-empty').hide();
+  $('.search-results-error').hide();
   $('.search-loader').show();
 
   query = query || $('#search input').val();
 
+  if (!query) {
+    $('.search-loader').hide();
+    return;
+  };
+
   searchPodcasts(query)
     .then(results => {
+      $('.search-loader').hide();
 
       if (!results || results.length === 0) {
         $('.search-results-empty').show();
+        return;
       }
 
-      let html = `<div class="search-result-count">${results.length} podcast${results.length > 1 && results.length != 0 ? 's' : ''} found</div>`;
+      let html = results.length > 0 ? `<div class="search-result-count">${results.length} podcast${results.length > 1 ? 's' : ''} found</div>` : '';
 
       for (let result of results) {
         html += `<a class="search-result" href="/podcasts/${result.id}">`;
@@ -50,7 +58,6 @@ function loadSearchResults (query) {
         html += `</a>`
       }
 
-      $('.search-loader').hide();
       $('.search-results').append(html);
     })
     .catch(err => {
