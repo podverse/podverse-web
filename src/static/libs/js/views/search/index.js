@@ -37,7 +37,7 @@ function loadSearchResults (query) {
         $('.search-results-empty').show();
       }
 
-      let html = `<div class="search-result-count">${results.length} podcast${results.length > 1 ? 's' : ''} found</div>`;
+      let html = `<div class="search-result-count">${results.length} podcast${results.length > 1 && results.length != 0 ? 's' : ''} found</div>`;
 
       for (let result of results) {
         html += `<a class="search-result" href="/podcasts/${result.id}">`;
