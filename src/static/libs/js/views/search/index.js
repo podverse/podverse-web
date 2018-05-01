@@ -3,7 +3,7 @@ require('../../auth.js');
 
 import {searchPodcasts} from '../../podcastHelper';
 
-$('#search .search-podcasts').on('click', () => {
+$('#search .search-podcasts-btn').on('click', () => {
   loadSearchResults();
   if (window.searchQuery) {
     window.searchQuery = null;
@@ -22,23 +22,29 @@ $('#search .search-input').keypress((e) => {
   }
 });
 
+let isLoading = false;
+
 function loadSearchResults (query) {
+
+  query = query || $('#search input').val();
+
+  if (!query || isLoading) {
+    return;
+  };  
+
+  $('#search .search-input').prop('disabled', true);
+  $('#search .search-podcasts-btn').prop('disabled', true);
 
   $('.search-results').html('');
   $('.search-results-empty').hide();
   $('.search-results-error').hide();
   $('.search-loader').show();
 
-  query = query || $('#search input').val();
-
-  if (!query) {
-    $('.search-loader').hide();
-    return;
-  };
-
   searchPodcasts(query)
     .then(results => {
       $('.search-loader').hide();
+      $('#search .search-input').prop('disabled', false);
+      $('#search .search-podcasts-btn').prop('disabled', false);
 
       if (!results || results.length === 0) {
         $('.search-results-empty').show();
@@ -63,6 +69,8 @@ function loadSearchResults (query) {
     .catch(err => {
       $('.search-loader').hide();
       $('.search-results-error').show();
+      $('#search .search-input').prop('enabled', true);
+      $('#search .search-podcasts-btn').prop('enabled', true);
       console.log(err);
     })
 

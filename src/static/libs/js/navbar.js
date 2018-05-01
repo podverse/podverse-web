@@ -25,7 +25,7 @@ $('#navbarSearchModalInput').bind('keypress', function (event) {
   }
 });
 
-$('#navbarSearchModal .search-podcasts').on('click', function () {
+$('#navbarSearchModal .search-podcasts-btn').on('click', function () {
   const query = $('#navbarSearchModalInput').val();
   window.location = `/search?query=${query}`;
 });
