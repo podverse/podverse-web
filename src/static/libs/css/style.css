@@ -168,12 +168,15 @@ a.footer-social-icon {
     padding: 10px;
 }
 
+#footer-links a:last-child {
+    margin-right: 0;
+}
+
 #footer-license {
     float: right;
     clear: right;
     font-size: 13px;
     line-height: 1.5rem;
-    width: 100px;
     text-align: right;
 }
 
