@@ -1,6 +1,6 @@
 const
     SequelizeService = require('feathers-sequelize').Service,
-    {locator} = require('locator.js'),
+    {locator} = require('../../locator.js'),
     errors = require('feathers-errors');
 
 class UserService extends SequelizeService {

@@ -1,8 +1,8 @@
 const
     {configureDatabaseModels,
      createTestPodcastAndEpisodeAndFeedUrl,
-     createTestApp} = require('test/helpers.js'),
-    UserService = require('services/user/UserService.js');
+     createTestApp} = require('../helpers.js'),
+    UserService = require('../../src/services/user/UserService.js');
 
 describe('UserService', function () {
 

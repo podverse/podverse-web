@@ -6,3 +6,5 @@
 npm-debug.log
 podverse.sql
 /src/static/libs/build
+/.boot/
+*jwt.keys.json

@@ -1,7 +1,7 @@
 
 const
     errors = require('feathers-errors'),
-    {addUrl} = require('hooks/clip/clip.js');
+    {addUrl} = require('../../../src/hooks/clip/clip.js');
 
 describe('Hook: addUrl', function () {
 

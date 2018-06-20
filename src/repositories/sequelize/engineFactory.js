@@ -1,8 +1,8 @@
 const Sequelize = require('sequelize');
 
-module.exports = function ({ uri } = {}) {
+module.exports = function (config) {
 
-  const sequelize = new Sequelize(uri, {logging: false});
+  const sequelize = new Sequelize(config);
 
   return sequelize;
 };

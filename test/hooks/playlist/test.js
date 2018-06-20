@@ -1,7 +1,5 @@
 
-const
-    errors = require('feathers-errors'),
-    {addUrl} = require('hooks/playlist/playlist.js');
+const {addUrl} = require('../../../src/hooks/playlist/playlist.js');
 
 describe('Hook: addUrl', function () {
 

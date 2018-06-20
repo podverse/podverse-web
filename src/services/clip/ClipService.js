@@ -1,13 +1,13 @@
 const
     errors = require('feathers-errors'),
     SequelizeService = require('feathers-sequelize').Service,
-    {applyOwnerId} = require('hooks/common.js'),
-    config = require('config.js'),
-    {locator} = require('locator.js'),
-    {addUrl} = require('hooks/clip/clip.js'),
-    {isClipMediaRef, allowedFilters, isFilterAllowed} = require('constants.js'),
+    {applyOwnerId} = require('../../hooks/common.js'),
+    config = require('../../config.js'),
+    {locator} = require('../../locator.js'),
+    {addUrl} = require('../../hooks/clip/clip.js'),
+    {isClipMediaRef, allowedFilters, isFilterAllowed} = require('../../constants.js'),
     sqlEngine = locator.get('sqlEngine'),
-    {filterTypeNotAllowedMessage} = require('errors.js'),
+    {filterTypeNotAllowedMessage} = require('../../errors.js'),
     validUrl = require('valid-url');
 
 

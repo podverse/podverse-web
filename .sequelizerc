@@ -1,12 +1,6 @@
-const
-  path = require('path'),
-  {postgresUri} = require('./src/config.js'),
-  PATH = 'src/repositories/sequelize',
-
-  dbConfig = {
-    "dialect": "postgres",
-    "url": postgresUri
-  };
+const path = require('path');
+const {dbConfig} = require('./src/config.js');
+const PATH = 'src/repositories/sequelize';
 
 module.exports = {
   "migrations-path": path.resolve(PATH, 'migrations'),

@@ -1,1 +1,0 @@
-docker run --rm -t -p 8080:8080 -e HOST='<ip of web app docker container>' -e postgresUri='postgres://postgres:mysecretpw@<ip of database docker container>:5432/postgres' -e baseUrl='<baseUrl of website>' --name podverse_web_local podverse_web_local

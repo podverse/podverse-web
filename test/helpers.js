@@ -1,30 +1,31 @@
 const
-    SqlEngine = require('repositories/sequelize/engineFactory'),
-    registerModels = require('repositories/sequelize/models'),
-    registerPodcastDbModels = require('../node_modules/podcast-db/src/repositories/sequelize/models'),
-    {locator} = require('locator.js'),
-    appFactory = require('appFactory.js'),
+    SqlEngine = require('../src/repositories/sequelize/engineFactory.js'),
+    registerModels = require('../src/repositories/sequelize/models/'),
+    registerPodcastDbModels = require('../node_modules/podcast-db/src/repositories/sequelize/models/'),
+    {locator} = require('../src/locator.js'),
+    appFactory = require('../src/appFactory.js'),
+    PlaylistService = require('../src/services/playlist/PlaylistService.js'),
+    ClipService = require('../src/services/clip/ClipService.js'),
+    UserService = require('../src/services/user/UserService.js'),
     PodcastService = require('podcast-db/src/services/podcast/PodcastService.js'),
     EpisodeService = require('podcast-db/src/services/episode/EpisodeService.js'),
     FeedUrlService = require('podcast-db/src/services/feedUrl/FeedUrlService.js'),
-    PlaylistService = require('services/playlist/PlaylistService.js'),
-    ClipService = require('services/clip/ClipService.js'),
-    UserService = require('services/user/UserService.js'),
     nJwt = require('njwt'),
-    {postgresUri, jwtSigningKey} = require('config.js'),
+    {dbConfig, jwtSigningKey} = require('../src/config.js'),
     isCi = require('is-ci');
 
 function configureDatabaseModels (resolve) {
 
   beforeEach(function (done) {
-    this._sqlEngine = new SqlEngine({uri: postgresUri});
+    this._sqlEngine = new SqlEngine(dbConfig);
+
     const Models = registerModels(this._sqlEngine);
     const podcastDbModels = registerPodcastDbModels(this._sqlEngine);
-
+    
     this._sqlEngine.sync()
       .then(() => {
-        locator.set('Models', Models);
         locator.set('sqlEngine', this._sqlEngine);
+        locator.set('Models', Models);
         resolve.apply(this, [Models]);
         done();
       });

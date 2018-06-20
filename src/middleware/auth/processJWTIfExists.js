@@ -1,6 +1,6 @@
 const
     nJwt = require('njwt'),
-    config = require('config.js'),
+    config = require('../../config.js'),
     errors = require('feathers-errors');
 
 

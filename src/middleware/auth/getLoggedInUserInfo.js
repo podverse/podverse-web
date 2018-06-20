@@ -1,5 +1,5 @@
 const errors = require('feathers-errors');
-const {locator} = require('locator.js');
+const {locator} = require('../../locator.js');
 
 function getLoggedInUserInfo (req, res, next) {
 

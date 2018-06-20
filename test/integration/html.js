@@ -1,9 +1,9 @@
-const {locator} = require('locator.js');
+const {locator} = require('../../src/locator.js');
 
-const appFactory = require('appFactory.js');
-const {configureDatabaseModels} = require('test/helpers.js');
+const appFactory = require('../../src/appFactory.js');
+const {configureDatabaseModels} = require('../helpers.js');
 
-const ClipService = require('services/clip/ClipService.js');
+const ClipService = require('../../src/services/clip/ClipService.js');
 
 
 // TODO: disabling this test because it should be rewritten when we use access logs

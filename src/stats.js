@@ -5,12 +5,13 @@ let path = process.env.CRON_PATH || './';
 const
     config = require(path + 'config.js'),
     {offsetDate, lastHour} = require(path + 'util.js'),
-    {queryGoogleApiData} = require(path + 'services/googleapi/googleapi.js'),
-    sqlEngineFactory = require(path + 'repositories/sequelize/engineFactory.js'),
-    {postgresUri} = require(path + 'config.js'),
+    {queryGoogleApiData} = require(path + './services/googleapi/googleapi.js'),
+    sqlEngineFactory = require(path + './repositories/sequelize/engineFactory.js'),
     {isValidPageViewTimeRange} = require(path + 'constants.js');
 
-const sqlEngine = new sqlEngineFactory({uri: postgresUri});
+import {dbConfig} from 'src/config';
+
+const sqlEngine = new sqlEngineFactory(dbConfig);
 
 // Retrieves the unique pageview counts for the specified page path.
 // Possible pagePaths: '~/podcasts' or '~/episodes' or '~/clips'

@@ -1,11 +1,11 @@
 const
     errors = require('feathers-errors'),
-    {locator} = require('locator.js'),
-    {allowedFilters} = require('constants.js'),
-    {getLoggedInUserInfo} = require('middleware/auth/getLoggedInUserInfo.js'),
-    {cache} = require('middleware/cache'),
-    {isNonAnonUser, removeArticles, shouldShowNextButton} = require('util.js'),
-    {generatePlaylistRSSFeed} = require('services/playlist/PlaylistRSSService.js'),
+    {locator} = require('./locator.js'),
+    {allowedFilters} = require('./constants.js'),
+    {getLoggedInUserInfo} = require('./middleware/auth/getLoggedInUserInfo.js'),
+    {cache} = require('./middleware/cache'),
+    {isNonAnonUser, removeArticles, shouldShowNextButton} = require('./util.js'),
+    {generatePlaylistRSSFeed} = require('./services/playlist/PlaylistRSSService.js'),
     _ = require('lodash');
 
 function routes () {

@@ -1,5 +1,5 @@
-const {processJWTIfExists} = require('middleware/auth/processJWTIfExists.js');
-const {createValidTestJWT} = require('test/helpers.js');
+const {processJWTIfExists} = require('../../src/middleware/auth/processJWTIfExists.js');
+const {createValidTestJWT} = require('../helpers.js');
 const errors = require('feathers-errors');
 const nJwt = require('njwt');
 

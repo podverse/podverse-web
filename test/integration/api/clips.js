@@ -1,16 +1,10 @@
-const {locator} = require('locator.js');
-
-const appFactory = require('appFactory.js');
 const {configureDatabaseModels,
        createTestApp,
        createTestUser,
        createValidTestJWT,
-       createTestPodcastAndEpisodeAndFeedUrl} = require('test/helpers.js');
+       createTestPodcastAndEpisodeAndFeedUrl} = require('../../helpers.js');
 
-const ClipService = require('services/clip/ClipService.js');
-const PlaylistService = require('services/playlist/PlaylistService.js');
-
-const config = require('config.js');
+const config = require('../../../src/config.js');
 
 describe('API Test: Clips', function () {
 

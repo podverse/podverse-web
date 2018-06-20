@@ -1,14 +1,12 @@
 const errors = require('feathers-errors');
 
-const ClipService = require('services/clip/ClipService.js');
+const ClipService = require('../../src/services/clip/ClipService.js');
 const {configureDatabaseModels,
        createTestApp,
        createTestUser,
-       createTestPodcastAndEpisodeAndFeedUrl} = require('test/helpers.js');
+       createTestPodcastAndEpisodeAndFeedUrl} = require('../helpers.js');
 
-const {applyOwnerId} = require('hooks/common.js');
-
-const config = require('config.js');
+const {applyOwnerId} = require('../../src/hooks/common.js');
 
 describe('ClipService', function () {
 

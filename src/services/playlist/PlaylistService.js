@@ -1,10 +1,10 @@
 const
     errors = require('feathers-errors'),
     SequelizeService = require('feathers-sequelize').Service,
-    config = require('config.js'),
-    {locator} = require('locator.js'),
-    {applyOwnerId} = require('hooks/common.js'),
-    {addUrl} = require('hooks/playlist/playlist.js'),
+    config = require('../../config.js'),
+    {locator} = require('../../locator.js'),
+    {applyOwnerId} = require('../../hooks/common.js'),
+    {addUrl} = require('../../hooks/playlist/playlist.js'),
     {isUUID} = require('validator');
 
 class PlaylistService extends SequelizeService {

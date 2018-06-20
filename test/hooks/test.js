@@ -1,7 +1,7 @@
 
 const
     errors = require('feathers-errors'),
-    {applyOwnerId} = require('hooks/common.js');
+    {applyOwnerId} = require('../../src/hooks/common.js');
 
 describe('Hook: applyOwnerId', function () {
 
