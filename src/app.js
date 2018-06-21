@@ -2,7 +2,7 @@ const
     appFactory = require('./appFactory'),
     sqlEngineFactory = require('./repositories/sequelize/engineFactory.js'),
     modelFactory = require('./repositories/sequelize/models'),
-    {locator} = require('locator'),
+    {locator} = require('./locator'),
     {dbConfig} = require('./config');
 
 const sqlEngine = new sqlEngineFactory(dbConfig);
