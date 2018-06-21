@@ -7,9 +7,8 @@ const
     {offsetDate, lastHour} = require(path + 'util.js'),
     {queryGoogleApiData} = require(path + './services/googleapi/googleapi.js'),
     sqlEngineFactory = require(path + './repositories/sequelize/engineFactory.js'),
-    {isValidPageViewTimeRange} = require(path + 'constants.js');
-
-import {dbConfig} from 'src/config';
+    {isValidPageViewTimeRange} = require(path + 'constants.js'),
+    {dbConfig} = require('./config');
 
 const sqlEngine = new sqlEngineFactory(dbConfig);
 
