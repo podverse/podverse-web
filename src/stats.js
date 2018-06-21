@@ -1,13 +1,10 @@
 // TODO: this has no tests.
 
-let path = process.env.CRON_PATH || './';
-
 const
-    config = require(path + 'config.js'),
-    {offsetDate, lastHour} = require(path + 'util.js'),
-    {queryGoogleApiData} = require(path + './services/googleapi/googleapi.js'),
-    sqlEngineFactory = require(path + './repositories/sequelize/engineFactory.js'),
-    {isValidPageViewTimeRange} = require(path + 'constants.js'),
+    {offsetDate, lastHour} = require('./util'),
+    {queryGoogleApiData} = require('./services/googleapi/googleapi'),
+    sqlEngineFactory = require('./repositories/sequelize/engineFactory'),
+    {isValidPageViewTimeRange} = require('./constants'),
     {dbConfig} = require('./config');
 
 const sqlEngine = new sqlEngineFactory(dbConfig);

@@ -1,8 +1,7 @@
 'use strict';
 
 let path = require('path');
-let configPath = process.env.CRON_PATH || '../../';
-let config = require(configPath + 'config.js');
+let config = require('../../config.js');
 const { google } = require('googleapis');
 
 async function queryGoogleApiData (resolve, reject, queryObj) {
