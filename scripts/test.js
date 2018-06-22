@@ -8,7 +8,7 @@ if (!isCi) {
   mochaArgs.push('-w', '--colors');
 }
 
-if (process.env.NODE_ENV == 'prod' || process.env.NODE_ENV == 'local' || process.env.NODE_ENV == 'test') {
+if (process.env.NODE_ENV == 'production' || process.env.NODE_ENV == 'local' || process.env.NODE_ENV == 'test') {
   mochaArgs.push('/tmp/test/setup.js')
   mochaArgs.push('/tmp/test/');
 } else {
