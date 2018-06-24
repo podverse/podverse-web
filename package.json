@@ -74,7 +74,7 @@
   },
   "scripts": {
     "prestart": "sequelize db:migrate && webpack",
-    "start": "node src/server.js",
+    "start": "sequelize db:migrate && node src/server.js",
     "watch": "nodemon src/server.js -e js,json,html",
     "migrate": "sequelize db:migrate",
     "test": "NODE_ENV=test_db node scripts/test.js"
