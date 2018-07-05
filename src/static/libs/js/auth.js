@@ -1,4 +1,5 @@
 import { sendGoogleAnalyticsEvent } from './googleAnalytics.js';
+import { getParameterByName } from './utility';
 
 var clientId = __AUTH0_CLIENTID__,
     domain = __AUTH0_DOMAIN__;
@@ -36,7 +37,6 @@ $(window).ready(() => {
 });
 
 lock.on('authenticated', function (authResult) {
-
   // Remove # from end of url
   window.location.replace("#");
   if (typeof window.history.replaceState == 'function') {
@@ -75,7 +75,8 @@ function findOrCreateUserOnServer (profile) {
     },
     dataType: 'json',
     success: function () {
-      location.reload();
+      const redirectUrl = getParameterByName('redirectTo');
+      location.href = redirectUrl;
     }
   });
 

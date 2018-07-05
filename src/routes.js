@@ -655,8 +655,9 @@ function routes () {
       });
   })
 
-  .get('/login-redirect', function (req, res) {
+  .get('/login-redirect', getLoggedInUserInfo, function (req, res) {
     req.query['currentPage'] = 'Login Redirect Page';
+    req.query['locals'] = res.locals;
     res.render('login/redirect.html', req.query);
   })
 
