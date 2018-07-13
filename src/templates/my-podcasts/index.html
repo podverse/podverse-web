@@ -14,7 +14,9 @@
             {{ podcast.title | stripTags }}
           </div>
           <div class="podcast-item-last-episode-pubdate">
-            {{ podcast.lastEpisodePubDate | readableDate }}
+            {% if podcast.lastEpisodePubDate %}
+              {{ podcast.lastEpisodePubDate | readableDate }}
+            {% endif %}
           </div>
           <div class="podcast-item-last-episode-title">
             {{ podcast.lastEpisodeTitle | striptags }}
