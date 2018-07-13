@@ -30,11 +30,7 @@ class UserService extends SequelizeService {
     }
 
     return this.sqlEngine.query(`
-      SELECT p.title, p."imageUrl", p.id, p."lastEpisodeTitle", (
-        SELECT MAX("pubDate")
-        FROM episodes
-        WHERE "podcastId"=p.id
-      ) AS "lastEpisodePubDate", (
+      SELECT p.title, p."imageUrl", p.id, p."lastEpisodeTitle", p."lastPubDate" AS "lastEpisodePubDate", (
         SELECT url FROM "feedUrls"
         WHERE "podcastId"=p.id
         AND "isAuthority"=true
