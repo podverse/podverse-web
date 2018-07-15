@@ -1,0 +1,14 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+        {
+            "appID": "NVBK9KF43L.com.podverse.fm",
+            "paths": [
+                "/podverse.fm/clips/*",
+                "/podverse.fm/episodes/*"
+            ]
+        }
+    ]
+  }
+}

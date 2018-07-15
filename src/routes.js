@@ -6,7 +6,8 @@ const
     {cache} = require('./middleware/cache'),
     {isNonAnonUser, removeArticles, shouldShowNextButton} = require('./util.js'),
     {generatePlaylistRSSFeed} = require('./services/playlist/PlaylistRSSService.js'),
-    _ = require('lodash');
+    _ = require('lodash'),
+    fs = require('fs');
 
 function routes () {
   const app = this,
@@ -702,6 +703,11 @@ function routes () {
     const shortid = require('shortid');
     const id = shortid();
     res.send(id);
+  })
+
+  .get('/apple-app-site-association', function (req, res) {
+    const aasa = fs.readFileSync(__dirname + '/apple-app-site-association');
+    res.status(200).send(aasa);
   });
 
 }
