@@ -309,7 +309,7 @@ window.addEventListener('focus', resizeProgressBar);
 window.addEventListener('pageshow', resizeProgressBar);
 window.addEventListener('visibilityChange', resizeProgressBar);
 let resizeProgressOnScroll = throttle(function () {
-  resizeProgressBar();console.log('yo')
+  resizeProgressBar();
 }, 1000);
 window.addEventListener('scroll', resizeProgressOnScroll);
 
