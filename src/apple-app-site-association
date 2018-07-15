@@ -8,6 +8,13 @@
                 "/podverse.fm/clips/*",
                 "/podverse.fm/episodes/*"
             ]
+        },
+        {
+            "appID": "Y9D7PHM978.com.podverse.fm",
+            "paths": [
+                "/podverse.fm/clips/*",
+                "/podverse.fm/episodes/*"
+            ]
         }
     ]
   }
