@@ -1469,6 +1469,11 @@ audio {
     font-size: 14px;
 }
 
+.search-results-request {
+  margin: 0.75rem 0;
+  font-size: 14px;
+}
+
 /* about.html styles */
 
 #about-social-icons {

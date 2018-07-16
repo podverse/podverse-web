@@ -65,6 +65,10 @@ function loadSearchResults (query) {
       }
 
       $('.search-results').append(html);
+
+      let requestHtml = "<div class='search-results-request'>Not what you're looking for? <a href='https://goo.gl/forms/ai0VN8albaRJ12Ro1'>Request podcast</a></div>";
+
+      $('.search-results').append(requestHtml);
     })
     .catch(err => {
       $('.search-loader').hide();
