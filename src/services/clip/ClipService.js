@@ -317,7 +317,7 @@ class ClipService extends SequelizeService {
 
 }
 
-ClipService.prototype.remove = undefined;
 ClipService.prototype.patch = undefined;
+ClipService.prototype.remove = undefined;
 
 module.exports = ClipService;

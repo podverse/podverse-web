@@ -78,7 +78,9 @@ function routes () {
               })
         })
       }).catch(e => {
-        console.log(e);
+        if (e.code !== 404) {
+          console.log(e.code)
+        }
         res.sendStatus(404);
       });
   })
@@ -133,7 +135,9 @@ function routes () {
             })
         }
       }).catch(e => {
-        console.log(e);
+        if (e.code !== 404) {
+          console.log(e.code)
+        }
         res.sendStatus(404);
       });
   })
@@ -146,7 +150,9 @@ function routes () {
       .then(podcast => {
         res.redirect('/podcasts/' + podcast.dataValues.id);
       }).catch(e => {
-        console.log(e);
+        if (e.code !== 404) {
+          console.log(e.code)
+        }
         res.sendStatus(404);
       });
   })
@@ -199,7 +205,9 @@ function routes () {
 
         });
       }).catch(e => {
-        console.log(e);
+        if (e.code !== 404) {
+          console.log(e.code)
+        }
         res.sendStatus(404);
       });
   })
@@ -237,7 +245,9 @@ function routes () {
               })
               .catch(err => {
                 console.log(req.params.id);
-                console.log(err);
+                if (e.code !== 404) {
+                  console.log(e.code)
+                }
                 res.sendStatus(404);
               });
 
@@ -245,7 +255,82 @@ function routes () {
 
         });
       }).catch(e => {
-        console.log(e);
+        if (e.code !== 404) {
+          console.log(e.code)
+        }
+        res.sendStatus(404);
+      });
+  })
+
+  // Retrieve an individual clip if only an id is provided,
+  // else query for a list of clips.
+  .post('/api/clips', (req, res) => {
+    res.setHeader('Content-Type', 'application/json');
+    let id = req.body.id;
+
+    if (id) {  
+      return ClipService.get(id)
+        .then(clip => {
+          res.send(JSON.stringify(clip));
+        })
+        .catch(e => {
+          if (e.code !== 404) {
+            console.log(e.code)
+          }
+          res.sendStatus(404);
+        });
+
+    } else {
+      let filterType = req.body.filterType || 'pastWeek';
+      let pageIndex = req.body.page || 1;
+      let podcastIds = req.body.podcastIds || [];
+      let podcastFeedUrls = req.body.podcastFeedUrls || [];
+      let episodeMediaUrl = req.body.episodeMediaUrl;
+
+      return ClipService.retrievePaginatedClips(filterType, podcastIds, podcastFeedUrls, episodeMediaUrl, pageIndex)
+        .then(page => {
+          res.send(JSON.stringify(page));
+        })
+        .catch(e => {
+          if (e.code !== 404) {
+            console.log(e.code)
+          }
+          res.sendStatus(404);
+        });
+    }
+  })
+
+  // Retrieve an episode's data as JSON
+  .post('/api/episodes', (req, res) => {
+    res.setHeader('Content-Type', 'application/json');
+    
+    let id = req.body.id;
+
+    return EpisodeService.get(id)
+      .then(episode => {
+        res.send(JSON.stringify(episode));
+      })
+      .catch(e => {
+        if (e.code !== 404) {
+          console.log(e.code)
+        }
+        res.sendStatus(404);
+      });
+  })
+
+  // Retrieve a playlist's data as JSON
+  .post('/api/playlist', (req, res) => {
+    res.setHeader('Content-Type', 'application/json');
+    let id = req.body.id;
+
+    return PlaylistService.get(id)
+      .then(playlist => {
+        res.send(JSON.stringify(playlist));
+      })
+      .catch(e => {
+        if (e.code !== 404) {
+          console.log(e.code)
+        }
         res.sendStatus(404);
       });
   })
@@ -279,26 +364,6 @@ function routes () {
         console.log(err);
         res.send(500);
       });
-  })
-
-  // Retrieve the most popular clips as JSON
-  .post('/api/clips', (req, res) => {
-    res.setHeader('Content-Type', 'application/json');
-
-    let filterType = req.body.filterType || 'pastWeek';
-    let pageIndex = req.body.page || 1;
-    let podcastIds = req.body.podcastIds || [];
-    let podcastFeedUrls = req.body.podcastFeedUrls || [];
-    let episodeMediaUrl = req.body.episodeMediaUrl;
-
-    return ClipService.retrievePaginatedClips(filterType, podcastIds, podcastFeedUrls, episodeMediaUrl, pageIndex)
-    .then(page => {
-      res.send(JSON.stringify(page));
-    })
-    .catch(e => {
-      console.log(e);
-      res.sendStatus(404);
-    });
   })
 
   // Retrieve the logged-in user's subscribed podcasts data as JSON objects in an array
@@ -355,21 +420,6 @@ function routes () {
 
   })
 
-  // Retrieve a playlist's data as JSON
-  .post('/api/playlist', (req, res) => {
-    res.setHeader('Content-Type', 'application/json');
-    let id = req.body.id;
-
-    return PlaylistService.get(id)
-      .then(playlist => {
-        res.send(JSON.stringify(playlist));
-      })
-      .catch(e => {
-        console.log(e);
-        res.sendStatus(404);
-      });
-  })
-
   .use('podcasts', locator.get('PodcastService'))
 
   // Alias Url for the Episode Detail Page based on mediaUrl
@@ -379,7 +429,9 @@ function routes () {
       .then(episode => {
         res.redirect('/episodes/' + episode.id);
       }).catch(e => {
-        console.log(e);
+        if (e.code !== 404) {
+          console.log(e.code)
+        }
         res.sendStatus(404);
       });
   })
@@ -419,7 +471,9 @@ function routes () {
         })
 
       }).catch(e => {
-        console.log(e);
+        if (e.code !== 404) {
+          console.log(e.code)
+        }
         res.sendStatus(404);
       });
   })
@@ -625,7 +679,9 @@ function routes () {
 
       })
       .catch(e => {
-        console.log(e);
+        if (e.code !== 404) {
+          console.log(e.code)
+        }
         // redirect to home page is unauthorized
         res.redirect('/');
       });
@@ -679,6 +735,12 @@ function routes () {
     req.query['currentPage'] = 'About Page';
     req.query['locals'] = res.locals;
     res.render('about/index.html', req.query);
+  })
+
+  .get('/contact', getLoggedInUserInfo, function (req, res) {
+    req.query['currentPage'] = 'Contact Page';
+    req.query['locals'] = res.locals;
+    res.render('contact/index.html', req.query);
   })
 
   .get('/terms', getLoggedInUserInfo, function (req, res) {

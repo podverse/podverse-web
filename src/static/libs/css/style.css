@@ -135,58 +135,41 @@ audio {
     z-index: 2;
 }
 
+.footer a {
+  text-decoration: none;
+  color: #fcfcfc;
+  font-size: 14px;
+}
+
 .footer a:hover {
     color: #ddddf7 !important;
 }
 
-a.footer-social-icon {
-    margin: 0 0 0 1rem;
-    color: #fcfcfc;
+.footer-top-links {
+  text-align: left;
 }
 
-#footer-brand {
-    float: left;
-    clear: left;
-    font-size: 14px;
+.footer-brand {
     line-height: 1.5rem;
 }
 
-#footer-brand a, #footer-license a, #footer-links a {
-    text-decoration: none;
-    color: #fcfcfc;
-}
-
-#footer-links {
-    clear: both;
-    float: left;
-    font-size: 13px;
-    line-height: 1.5rem;
-}
-
-#footer-links a {
-    margin: 0 1rem 0 -10px;
-    padding: 10px;
-}
-
-#footer-links a:last-child {
-    margin-right: 0;
-}
-
-#footer-license {
+.footer-license {
     float: right;
     clear: right;
-    font-size: 13px;
     line-height: 1.5rem;
     text-align: right;
 }
 
-#footer-license a {
-    margin: 0 -10px 0 0;
-    padding: 10px;
+.footer-bottom-links {
+  clear: both;
+  text-align: left;
+  margin-top: 1rem;
+  font-size: 13px;
 }
 
-footer p {
-    margin-bottom: 0.5rem;
+.footer-bottom-links a {
+  margin-right: 1.25rem;
+  font-size: 13px;
 }
 
 .item-not-available {
@@ -194,21 +177,8 @@ footer p {
 }
 
 @media (max-width: 480px) {
-    #footer-links a {
-        margin-bottom: 0.25rem;
-        text-align: left;
-    }
-    
-    #footer-links .footer-brand,
-    #footer-links .footer-links-subnav {
-        display: block;
-    }
-
     #footer-license {
         padding: 10px;
-    }
-
-    #footer-license a {
         margin-right: -20px;
     }
 }
