@@ -150,13 +150,37 @@ class ClipService extends SequelizeService {
 
   update (id, data, params={}) {
 
+    let prunedData = {};
+
+    if (data.startTime) {
+      prunedData.startTime = data.startTime;
+    }
+
+    if (data.endTime) {
+      prunedData.endTime = data.endTime;
+    }
+
+    if (data.title) {
+      prunedData.title = data.title;
+    }
+
+    if (!prunedData.startTime && !prunedData.endTime && !prunedData.title) {
+      return
+    }
+
     return this.Models.MediaRef.findById(id)
       .then(mediaRef => {
+
+        let newData = Object.assign(mediaRef, prunedData);
+
+        if (newData.startTime >= newData.endTime) {
+          throw new errors.GeneralError('Start time must be before the end time.');
+        }
 
         if (!mediaRef.ownerId || mediaRef.ownerId !== params.userId) {
           throw new errors.Forbidden();
         } else {
-          return super.update(id, data, params);
+          return super.update(id, newData, params);
         }
 
       });
