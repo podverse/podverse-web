@@ -156,19 +156,23 @@ class ClipService extends SequelizeService {
 
     let prunedData = {};
 
-    if (data.startTime) {
+    let hasStartTime = data.startTime;
+    let hasEndTime = data.endTime || data.endTime === null;
+    let hasTitle = data.title || data.title === null;
+
+    if (hasStartTime) {
       prunedData.startTime = data.startTime;
     }
 
-    if (data.endTime) {
+    if (hasEndTime) {
       prunedData.endTime = data.endTime;
     }
 
-    if (data.title) {
+    if (hasTitle) {
       prunedData.title = data.title;
     }
 
-    if (!prunedData.startTime && !prunedData.endTime && !prunedData.title) {
+    if (!hasStartTime && !hasEndTime && !hasTitle) {
       return
     }
 
@@ -177,7 +181,7 @@ class ClipService extends SequelizeService {
 
         let newData = Object.assign(mediaRef, prunedData);
 
-        if (newData.startTime >= newData.endTime) {
+        if (newData.endTime !== null && (newData.startTime >= newData.endTime)) {
           throw new errors.GeneralError('Start time must be before the end time.');
         }
 
