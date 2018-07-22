@@ -59,6 +59,10 @@ class ClipService extends SequelizeService {
         data.endTime = null;
       }
 
+      if (data.startTime && data.endTime, data.startTime >= data.endTime) {
+        throw new errors.GeneralError('Start time must be before the end time.');
+      }
+
       if (data.episodeDuration === '') {
         data.episodeDuration = null;
       }
