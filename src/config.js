@@ -2,7 +2,7 @@
 
 const isCi = require('is-ci');
 
-const jwtSigningKey = process.env.jwtSigningKey ? new Buffer(process.env.jwtSigningKey, 'base64') : '' ;
+const jwtSigningKey = process.env.jwtSigningKey ? process.env.jwtSigningKey : '' ;
 
 const dbConfig = {
   host: process.env.DB_HOST || '127.0.0.1',
