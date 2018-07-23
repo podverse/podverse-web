@@ -85,6 +85,18 @@ function routes () {
       });
   })
 
+  // Clip Remove endpoint
+  .delete('/clips/:id', getLoggedInUserInfo, (req, res) => {
+    return ClipService.remove(req.params.id, { userId: req.feathers.userId })
+      .then(() => {
+        res.status(200).send();
+      }).catch(e => {
+        console.log(e);
+        
+        res.sendStatus(500);
+      });
+  })
+
   .use('clips', locator.get('ClipService'))
 
   // Playlist Detail Page

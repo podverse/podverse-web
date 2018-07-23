@@ -6,7 +6,8 @@ require('../../createPlaylistModal.js');
 require('../../createPersonModal.js');
 require('../../shareModal.js');
 
-import { initClipper,
+import { deleteClip,
+         initClipper,
          makeClip,
          setEditClipFields,
          setEndTime,
@@ -61,6 +62,12 @@ $('#make-clip-btn').on('click', function (event) {
 
 $('#make-clip-cancel').on('click', function () {
   toggleMakeClipWidget(this);
+});
+
+$('#make-clip-delete').on('click', function () {
+  if (window.isEditingClip) {
+    deleteClip(event);
+  }
 });
 
 // Add to Playlist widget onclick functions

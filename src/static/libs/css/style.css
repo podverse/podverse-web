@@ -288,7 +288,7 @@ audio {
   display: none;
 }
 
-#make-clip-btn, #make-clip-cancel {
+#make-clip-btn, #make-clip-cancel, #make-clip-delete {
     width: 90px;
 }
 

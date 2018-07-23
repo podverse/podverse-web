@@ -89,6 +89,8 @@ export function setEditClipFields() {
   $('#make-clip-end-time input').val(convertSecToHHMMSS(window.endTime));  
   $('#make-clip-title textarea').val(window.description);
   $('#make-clip-start-time input').focus();
+  $('#make-clip-delete').show();
+
   if (window.isPublic) {
     setClipPublic();
   } else {
@@ -100,6 +102,7 @@ export function toggleMakeClipWidget (_this) {
   $('#make-clip-header').html('Create a Clip');
   window.isEditingClip = false;
   setClipPublic();
+  $('#make-clip-delete').hide();
 
   if ($('#add-to-playlist').css('display') !== 'block' && $('#recommend').css('display') !== 'block') {
     $('#player-description-truncated').hide();
@@ -206,9 +209,6 @@ function validateClip() {
   let isPublic = document.getElementById('makeClipPrivacyButton').innerHTML;
   isPublic = isPublic.indexOf('Public') > -1;
 
-  $('#make-clip-btn').attr('disabled', true);
-  $('#make-clip-btn').html('<i class="fa fa-spinner fa-spin"></i>')
-
   return {
     startTime,
     endTime,
@@ -216,18 +216,6 @@ function validateClip() {
     isPublic
   };
 }
-
-function handleClipUpdateSuccess() {
-  toggleMakeClipWidget();
-  $('#playlist').show();
-  $('#make-clip-start-time input').val('');
-  $('#make-clip-end-time input').val('');
-  $('#make-clip-title textarea').val('');
-  $('#player-description-truncated').show();
-  $('#clip-created-modal-link').val(location.protocol + '\/\/' + location.hostname + (location.port ? ':' + location.port : '') + '\/clips\/' + response.id);
-  $('#clip-created-modal').attr('data-id', response.id);
-  $('#clip-created-modal').modal('show');
-};
 
 export function makeClip (event) {
   event.preventDefault();
@@ -237,6 +225,11 @@ export function makeClip (event) {
   let validatedClip = validateClip();
 
   if (!validatedClip) { return };
+
+  $('#make-clip-btn').attr('disabled', true);
+  $('#make-clip-cancel').attr('disabled', true);
+  $('#make-clip-delete').attr('disabled', true);
+  $('#make-clip-btn').html('<i class="fa fa-spinner fa-spin"></i>');
 
   let dataObj = {
     startTime: validatedClip.startTime,
@@ -269,7 +262,15 @@ export function makeClip (event) {
     data: dataObj,
     success: function (response) {
       if (window.isPlayerPage) {
-        handleClipUpdateSuccess();
+        toggleMakeClipWidget();
+        $('#playlist').show();
+        $('#make-clip-start-time input').val('');
+        $('#make-clip-end-time input').val('');
+        $('#make-clip-title textarea').val('');
+        $('#player-description-truncated').show();
+        $('#clip-created-modal-link').val(location.protocol + '\/\/' + location.hostname + (location.port ? ':' + location.port : '') + '\/clips\/' + response.id);
+        $('#clip-created-modal').attr('data-id', response.id);
+        $('#clip-created-modal').modal('show');
       } else {
         location.href = '\/clips\/' + response.id;
       }
@@ -281,6 +282,8 @@ export function makeClip (event) {
     complete: function () {
       window.preventResubmit = false;
       $('#make-clip-btn').removeAttr('disabled');
+      $('#make-clip-cancel').removeAttr('disabled');
+      $('#make-clip-delete').removeAttr('disabled');
       $('#make-clip-btn').html('Save');
     }
   });
@@ -295,6 +298,11 @@ export function updateClip(event) {
   let validatedClip = validateClip()
 
   if (!validatedClip) { return };
+
+  $('#make-clip-btn').attr('disabled', true);
+  $('#make-clip-cancel').attr('disabled', true);
+  $('#make-clip-delete').attr('disabled', true);
+  $('#make-clip-btn').html('<i class="fa fa-spinner fa-spin"></i>');
 
   let dataObj = {
     id: window.mediaRefId,
@@ -316,12 +324,47 @@ export function updateClip(event) {
     },
     error: function (xhr, status, error) {
       console.log(error);
-      alert('Failed to update clip. Please check your internet connection and try again.');
-    },
-    complete: function () {
-      window.preventResubmit = false;
       $('#make-clip-btn').removeAttr('disabled');
+      $('#make-clip-cancel').removeAttr('disabled');
+      $('#make-clip-delete').removeAttr('disabled');
       $('#make-clip-btn').html('Save');
+      alert('Failed to update clip. Please check your internet connection and try again.');
+    }
+  });
+
+}
+
+export function deleteClip(event) {
+  event.preventDefault();
+
+  sendGoogleAnalyticsEvent('Delete Clip', 'Delete Clip');
+
+  let shouldDelete = confirm('Are you sure you want to delete this clip?');
+
+  if (!shouldDelete) { return }
+
+  $('#make-clip-btn').attr('disabled', true);
+  $('#make-clip-cancel').attr('disabled', true);
+  $('#make-clip-delete').attr('disabled', true);
+  $('#make-clip-delete').html('<i class="fa fa-spinner fa-spin"></i>');
+
+  $.ajax({
+    type: 'DELETE',
+    url: '/clips/' + window.mediaRefId,
+    headers: {
+      Authorization: $.cookie('idToken')
+    },
+    success: function (response) {
+      alert('Clip deleted successfully.')
+      location.href = '/'
+    },
+    error: function (xhr, status, error) {
+      console.log(error);
+      $('#make-clip-delete').removeAttr('disabled');
+      $('#make-clip-cancel').removeAttr('disabled');
+      $('#make-clip-btn').removeAttr('disabled');
+      $('#make-clip-delete').html('Save');
+      alert('Could not delete clip. Please check your internet connection and try again.');
     }
   });
 

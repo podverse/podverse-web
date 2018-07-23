@@ -65,7 +65,7 @@ class ClipService extends SequelizeService {
         data.endTime = null;
       }
 
-      if (data.startTime && data.endTime, data.startTime >= data.endTime) {
+      if (data.startTime && data.endTime, parseInt(data.startTime) >= parseInt(data.endTime)) {
         throw new errors.GeneralError('Start time must be before the end time.');
       }
 
@@ -204,6 +204,21 @@ class ClipService extends SequelizeService {
           return super.update(data.id, newData, params);
         }
 
+      });
+  }
+
+  remove(id, params = {}) {
+    if (!id) {
+      return;
+    }
+
+    return this.Models.MediaRef.findById(id)
+      .then(mediaRef => {
+        if (!mediaRef.ownerId || mediaRef.ownerId !== params.userId) {
+          throw new errors.Forbidden();
+        } else {
+          return super.remove(id, {});
+        }
       });
   }
 
@@ -363,6 +378,5 @@ class ClipService extends SequelizeService {
 }
 
 ClipService.prototype.patch = undefined;
-ClipService.prototype.remove = undefined;
 
 module.exports = ClipService;
