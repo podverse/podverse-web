@@ -1,7 +1,7 @@
 import { calcDuration, convertSecToHHMMSS, throttle, isNonAnonLoggedInUser,
          readableDate, secondsToReadableDuration, checkIfiOSBrowser } from './utility.js';
 import { subscribeToPodcast, unsubscribeFromPodcast } from './podcastHelper.js';
-import { requestPaginatedClipsFromAPI } from './clipHelper.js';
+import { requestPaginatedClipsFromAPI, setClipPublic, setClipOnlyWithLink } from './clipHelper.js';
 import { sendGoogleAnalyticsPlayerPageView,
          sendGoogleAnalyticsEvent } from './googleAnalytics.js';
 import { isMobileOrTablet } from './browserSupportDetection.js';
@@ -579,12 +579,10 @@ $('#make-clip .dropdown-item').on('click', function () {
   let _this = this;
   // surrounding in setTimeout to override the default behavior of the bootstrap dropdown select behavior
   setTimeout(function () {
-    if ($(_this).attr('id') === 'isPublic') {
-      $('#makeClipPrivacyButton').html('<i class="fa fa-globe"></i> Public <i class="fa fa-angle-down"></i>');
-      $('#make-clip-share-settings').html('<i class="fa fa-globe"></i> <span>Public:</span> <i>clip may appear anywhere on the site</i>')
+    if ($(_this).attr('id') === 'isPublicItem') {
+      setClipPublic();
     } else {
-      $('#makeClipPrivacyButton').html('<i class="fa fa-link"></i> Only with link <i class="fa fa-angle-down"></i>');
-      $('#make-clip-share-settings').html('<i class="fa fa-link"></i> <span>Only with link:</span> <i>clip is visible to anyone with the link</i>')
+      setClipOnlyWithLink();
     }
   }, 10);
 });

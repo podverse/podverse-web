@@ -72,18 +72,34 @@ export function setEndTime () {
   $('#make-clip-title textarea').focus();
 }
 
+export function setClipPublic() {
+  $('#makeClipPrivacyButton').html('<i class="fa fa-globe"></i> Public <i class="fa fa-angle-down"></i>');
+  $('#make-clip-share-settings').html('<i class="fa fa-globe"></i> <span>Public:</span> <i>clip may appear anywhere on the site</i>')
+}
+
+export function setClipOnlyWithLink() {
+  $('#makeClipPrivacyButton').html('<i class="fa fa-link"></i> Only with link <i class="fa fa-angle-down"></i>');
+  $('#make-clip-share-settings').html('<i class="fa fa-link"></i> <span>Only with link:</span> <i>clip is visible to anyone with the link</i>')
+}
+
 export function setEditClipFields() {
   window.isEditingClip = true;
   $('#make-clip-header').html('Edit Clip');
   $('#make-clip-start-time input').val(convertSecToHHMMSS(window.startTime));
-  $('#make-clip-end-time input').val(convertSecToHHMMSS(window.endTime));
+  $('#make-clip-end-time input').val(convertSecToHHMMSS(window.endTime));  
   $('#make-clip-title textarea').val(window.description);
   $('#make-clip-start-time input').focus();
+  if (window.isPublic) {
+    setClipPublic();
+  } else {
+    setClipOnlyWithLink();
+  }
 }
 
 export function toggleMakeClipWidget (_this) {
   $('#make-clip-header').html('Create a Clip');
   window.isEditingClip = false;
+  setClipPublic();
 
   if ($('#add-to-playlist').css('display') !== 'block' && $('#recommend').css('display') !== 'block') {
     $('#player-description-truncated').hide();

@@ -187,11 +187,13 @@ class ClipService extends SequelizeService {
       return;
     }
 
+    prunedData.isPublic = data.isPublic === 'true';
+
     return this.Models.MediaRef.findById(data.id)
       .then(mediaRef => {
 
         let newData = Object.assign(mediaRef, prunedData);
-
+        
         if (newData.endTime !== null && (parseInt(newData.startTime) >= parseInt(newData.endTime))) {
           throw new errors.GeneralError('Start time must be before the end time.');
         }
