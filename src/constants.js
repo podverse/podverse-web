@@ -1,6 +1,6 @@
 const _ = require('lodash');
 
-const isClipMediaRef = (podcastFeedUrls, episodeMediaUrl) => {
+const isClipMediaRef = (podcastFeedUrls, episodeMediaUrl, userId) => {
 
   let customQuery = {
     $not: {
@@ -18,7 +18,7 @@ const isClipMediaRef = (podcastFeedUrls, episodeMediaUrl) => {
     }
   }
 
-  if (episodeMediaUrl || (podcastFeedUrls && podcastFeedUrls.length > 0)) {
+  if (episodeMediaUrl || (podcastFeedUrls && podcastFeedUrls.length > 0) || userId) {
     customQuery.$and.$or = [{
       $and: {
         $or: []
@@ -42,12 +42,14 @@ const isClipMediaRef = (podcastFeedUrls, episodeMediaUrl) => {
       customQuery.$and.$or.push({podcastFeedUrl: 'https://' + podcastFeedUrl});
     });
 
+  } else if (userId) {
+    customQuery.$and.$or.push({ownerId: userId});
   }
 
   return customQuery;
 }
 
-const allowedFilters = {
+const allowedSortTypes = {
   'pastHour': {
     query: 'pastHourTotalUniquePageviews',
     dropdownText: 'top - past hour'
@@ -78,8 +80,8 @@ const allowedFilters = {
   }
 };
 
-const isFilterAllowed = (filterType) => {
-  if (filterType && _.includes(Object.keys(allowedFilters), filterType)) {
+const isSortAllowed = (sortType) => {
+  if (sortType && _.includes(Object.keys(allowedSortTypes), sortType)) {
     return true;
   } else {
     return false;
@@ -102,7 +104,7 @@ const isValidPageViewTimeRange = (str) => {
 
 module.exports = {
   isClipMediaRef: isClipMediaRef,
-  allowedFilters: allowedFilters,
-  isFilterAllowed: isFilterAllowed,
+  allowedSortTypes: allowedSortTypes,
+  isSortAllowed: isSortAllowed,
   isValidPageViewTimeRange: isValidPageViewTimeRange
 }

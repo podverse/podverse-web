@@ -36,7 +36,7 @@ if (isEmptyPlaylist !== true) {
 if (!isPlaylist) {
   let params = {};
   params.podcastFeedUrls = [window.podcastFeedUrl];
-  params.filterType = 'pastMonth';
+  params.sortType = 'pastMonth';
 
   var spinnerEl = $('<div class="load-clips-spinner"><i class="fa fa-spinner fa-spin"><i></div>');
   $(spinnerEl).insertAfter('#playlist-title');
@@ -692,7 +692,7 @@ function setPlaylistItemClickEvents() {
       let params = {};
       params.podcastFeedUrls = [window.podcastFeedUrl];
       // params.episodeMediaUrl = episodeMediaUrl;
-      params.filterType = _this.target.id;
+      params.sortType = _this.target.id;
       $('#playlist .sort-by-dropdown button').html(_this.target.innerText + ' <i class="fa fa-angle-down"></i>');
       requestPaginatedClipsFromAPI(params)
       .then(page => {

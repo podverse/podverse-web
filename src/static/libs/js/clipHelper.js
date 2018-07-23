@@ -381,8 +381,8 @@ export function requestPaginatedClipsFromAPI(params) {
       data.episodeMediaUrl = params.episodeMediaUrl;
     }
 
-    if (params.filterType) {
-      data.filterType = params.filterType;
+    if (params.sortType) {
+      data.sortType = params.sortType;
     }
 
     $.ajax({

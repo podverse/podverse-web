@@ -5,9 +5,9 @@ const
     config = require('../../config.js'),
     {locator} = require('../../locator.js'),
     {addUrl} = require('../../hooks/clip/clip.js'),
-    {isClipMediaRef, allowedFilters, isFilterAllowed} = require('../../constants.js'),
+    {isClipMediaRef, allowedSortTypes, isSortAllowed} = require('../../constants.js'),
     sqlEngine = locator.get('sqlEngine'),
-    {filterTypeNotAllowedMessage} = require('../../errors.js'),
+    {sortTypeNotAllowedMessage} = require('../../errors.js'),
     validUrl = require('valid-url');
 
 
@@ -222,7 +222,7 @@ class ClipService extends SequelizeService {
       });
   }
 
-  retrievePaginatedClips(filterType, podcastIds, podcastFeedUrls, episodeMediaUrl, pageIndex) {
+  retrievePaginatedClips(sortType, podcastIds, podcastFeedUrls, episodeMediaUrl, userId, pageIndex) {
 
     return new Promise((resolve, reject) => {
 
@@ -237,11 +237,11 @@ class ClipService extends SequelizeService {
       }
 
       if (process.env.NODE_ENV != 'production') {
-        filterType = 'recent';
+        sortType = 'recent';
       }
 
-      if (!isFilterAllowed(filterType)) {
-        throw new errors.GeneralError(filterTypeNotAllowedMessage(filterType), 404);
+      if (!isSortAllowed(sortType)) {
+        throw new errors.GeneralError(sortTypeNotAllowedMessage(sortType), 404);
       }
 
       let params = {},
@@ -255,7 +255,7 @@ class ClipService extends SequelizeService {
           where: clipQuery,
           offset: offset,
           order: [
-            [sqlEngine.fn('max', sqlEngine.col(allowedFilters[filterType].query)), 'DESC']
+            [sqlEngine.fn('max', sqlEngine.col(allowedSortTypes[sortType].query)), 'DESC']
           ],
           group: ['id']
         };
@@ -273,6 +273,33 @@ class ClipService extends SequelizeService {
           console.log(err);
           reject(err);
         });
+
+      } else if (userId) { 
+        
+        let clipQuery = isClipMediaRef([], null, userId);
+
+        params.sequelize = {
+          where: clipQuery,
+          offset: offset,
+          order: [
+            [sqlEngine.fn('max', sqlEngine.col(allowedSortTypes[sortType].query)), 'DESC']
+          ],
+          group: ['id']
+        };
+
+        params.paginate = {
+          default: 10,
+          max: 1000
+        };
+
+        return super.find(params)
+          .then(page => {
+            resolve(page);
+          })
+          .catch(err => {
+            console.log(err);
+            reject(err);
+          });
 
       } else {
 
@@ -294,7 +321,7 @@ class ClipService extends SequelizeService {
                 where: clipQuery,
                 offset: offset,
                 order: [
-                  [sqlEngine.fn('max', sqlEngine.col(allowedFilters[filterType].query)), 'DESC']
+                  [sqlEngine.fn('max', sqlEngine.col(allowedSortTypes[sortType].query)), 'DESC']
                 ],
                 group: ['id']
               };

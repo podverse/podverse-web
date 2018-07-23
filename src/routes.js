@@ -1,7 +1,7 @@
 const
     errors = require('feathers-errors'),
     {locator} = require('./locator.js'),
-    {allowedFilters} = require('./constants.js'),
+    {allowedSortTypes} = require('./constants.js'),
     {getLoggedInUserInfo} = require('./middleware/auth/getLoggedInUserInfo.js'),
     {cache} = require('./middleware/cache'),
     {isNonAnonUser, removeArticles, shouldShowNextButton} = require('./util.js'),
@@ -23,28 +23,23 @@ function routes () {
 
   app.get('/', getLoggedInUserInfo, function (req, res) {
 
-    let filterType = req.query.sort || 'pastWeek';
+    let filterType = req.query.filter || 'all';
+    let sortType = req.query.sort || 'pastWeek';
     let pageIndex = req.query.page || 1;
 
-    return ClipService.retrievePaginatedClips(filterType, [], [], null, pageIndex)
-    .then(page => {
-      let clips = page.data;
-      let total = page.total || [];
-      let length = total.length
+    if (isNonAnonUser(req.feathers.userId) && filterType === 'subscribed') {
+      return new Promise((resolve, reject) => {
+        getUsersSubscribedPodcastIds(resolve, reject, req);
+      })
+        .then(subscribedPodcastIds => {
+          return handleHomePageClipQueryRequest(req, res, sortType, subscribedPodcastIds, null, null, pageIndex);
+        });
+    } else if (isNonAnonUser(req.feathers.userId) && filterType === 'myClips') {
+      return handleHomePageClipQueryRequest(req, res, sortType, [], [], req.feathers.userId, pageIndex);
+    } else {
+      return handleHomePageClipQueryRequest(req, res, sortType, [], [], null, pageIndex);
+    }
 
-      res.render('home/index.html', {
-        clips: clips,
-        dropdownText: allowedFilters[filterType].dropdownText,
-        pageIndex: pageIndex,
-        showNextButton: shouldShowNextButton(pageIndex, length),
-        currentPage: 'Home Page',
-        locals: res.locals
-      });
-    })
-    .catch(err => {
-      console.log(err);
-      res.sendStatus(404);
-    });
   })
 
   // Search page
@@ -240,15 +235,15 @@ function routes () {
             })
             .then((isSubscribed) => {
 
-              let filterType = req.query.sort || 'pastWeek';
+              let sortType = req.query.sort || 'pastWeek';
               let pageIndex = req.query.page || 1;
 
-              return ClipService.retrievePaginatedClips(filterType, [], [feedUrl], null, pageIndex)
+              return ClipService.retrievePaginatedClips(sortType, [], [feedUrl], null, null, pageIndex)
               .then(page => {
                 podcast.clips = page.data;
                 res.render('podcast/index.html', {
                   podcast: podcast,
-                  dropdownText: allowedFilters[filterType].dropdownText,
+                  dropdownText: allowedSortTypes[sortType].dropdownText,
                   currentPage: 'Podcast Detail Page',
                   isSubscribed: isSubscribed,
                   isClipsView: true,
@@ -293,13 +288,15 @@ function routes () {
         });
 
     } else {
-      let filterType = req.body.filterType || 'pastWeek';
+
+      let sortType = req.body.sortType || 'pastWeek';
       let pageIndex = req.body.page || 1;
       let podcastIds = req.body.podcastIds || [];
       let podcastFeedUrls = req.body.podcastFeedUrls || [];
       let episodeMediaUrl = req.body.episodeMediaUrl;
+      let userId = req.body.userId;
 
-      return ClipService.retrievePaginatedClips(filterType, podcastIds, podcastFeedUrls, episodeMediaUrl, pageIndex)
+      return ClipService.retrievePaginatedClips(sortType, podcastIds, podcastFeedUrls, episodeMediaUrl, userId, pageIndex)
         .then(page => {
           res.send(JSON.stringify(page));
         })
@@ -783,6 +780,29 @@ function routes () {
     const aasa = fs.readFileSync(__dirname + '/apple-app-site-association');
     res.status(200).send(aasa);
   });
+
+  function handleHomePageClipQueryRequest(req, res, sortType, podcastIds, podcastFeedUrls, userId, pageIndex) {
+    
+    return ClipService.retrievePaginatedClips(sortType, podcastIds, podcastFeedUrls, null, userId, pageIndex)
+      .then(page => {
+        let clips = page.data;
+        let total = page.total || [];
+        let length = total.length
+
+        res.render('home/index.html', {
+          clips: clips,
+          dropdownText: allowedSortTypes[sortType].dropdownText,
+          pageIndex: pageIndex,
+          showNextButton: shouldShowNextButton(pageIndex, length),
+          currentPage: 'Home Page',
+          locals: res.locals
+        });
+      })
+      .catch(err => {
+        console.log(err);
+        res.sendStatus(404);
+      });
+  } 
 
 }
 
