@@ -14,6 +14,7 @@ export function togglePlaylistWidget (_this) {
     $('#player-description-full').hide();
     $('#player-description-show-more').hide();
     $('#player-clip-time').hide();
+    $('.player-clip-edit').hide();
     $('#player-description-show-more').html(`<span class="text-primary">Show Notes</span>`);
     $('#playlist').hide();
   }
@@ -22,6 +23,7 @@ export function togglePlaylistWidget (_this) {
     $('#player-description-truncated').show();
     $('#player-description-show-more').show();
     $('#player-clip-time').show();
+    $('.player-clip-edit').show();
     $('#playlist').show();
   }
 

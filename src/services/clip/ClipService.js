@@ -37,7 +37,13 @@ class ClipService extends SequelizeService {
   }
 
   get (id, params={}) {
-    return super.get(id, params);
+    return super.get(id, params)
+      .then(clip => {
+        if (params.userId && clip.ownerId === params.userId) {
+          clip.dataValues.isLoggedInUsersClip = true;
+        }
+        return clip;
+      })
   }
 
   find (params={}) {
@@ -156,9 +162,14 @@ class ClipService extends SequelizeService {
 
     let prunedData = {};
 
+    let hasId = data.id;
     let hasStartTime = data.startTime;
     let hasEndTime = data.endTime || data.endTime === null;
     let hasTitle = data.title || data.title === null;
+
+    if (!hasId) {
+      return;
+    }
 
     if (hasStartTime) {
       prunedData.startTime = data.startTime;
@@ -173,22 +184,22 @@ class ClipService extends SequelizeService {
     }
 
     if (!hasStartTime && !hasEndTime && !hasTitle) {
-      return
+      return;
     }
 
-    return this.Models.MediaRef.findById(id)
+    return this.Models.MediaRef.findById(data.id)
       .then(mediaRef => {
 
         let newData = Object.assign(mediaRef, prunedData);
 
-        if (newData.endTime !== null && (newData.startTime >= newData.endTime)) {
+        if (newData.endTime !== null && (parseInt(newData.startTime) >= parseInt(newData.endTime))) {
           throw new errors.GeneralError('Start time must be before the end time.');
         }
 
         if (!mediaRef.ownerId || mediaRef.ownerId !== params.userId) {
           throw new errors.Forbidden();
         } else {
-          return super.update(id, newData, params);
+          return super.update(data.id, newData, params);
         }
 
       });

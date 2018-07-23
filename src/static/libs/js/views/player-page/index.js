@@ -8,9 +8,11 @@ require('../../shareModal.js');
 
 import { initClipper,
          makeClip,
+         setEditClipFields,
          setEndTime,
          setStartTime,
-         toggleMakeClipWidget } from '../../clipHelper.js';
+         toggleMakeClipWidget, 
+         updateClip} from '../../clipHelper.js';
 import { sendGoogleAnalyticsPlayerPageView } from '../../googleAnalytics.js';
 import { addToPlaylist,
          removeFromPlaylist,
@@ -28,13 +30,14 @@ import { debounce, isNonAnonLoggedInUser } from '../../utility.js';
 
 $('img.lazy').lazyload();
 
-
-
 initClipper();
 
-
-
 // Make Clip widget onclick functions
+$('.player-clip-edit').on('click', function () {
+  toggleMakeClipWidget(this);
+  setEditClipFields();
+});
+
 $('#toggle-make-clip-btn').on('click', function () {
   toggleMakeClipWidget(this);
   setStartTime();
@@ -49,7 +52,11 @@ $('#make-clip-end-time button').on('click', function () {
 });
 
 $('#make-clip-btn').on('click', function (event) {
-  makeClip(event);
+  if (window.isEditingClip) {
+    updateClip(event);
+  } else {
+    makeClip(event);
+  }
 });
 
 $('#make-clip-cancel').on('click', function () {

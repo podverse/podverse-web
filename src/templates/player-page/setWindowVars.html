@@ -144,6 +144,8 @@
     window.startTime = "{{ startTime }}";
     window.endTime = "{{ endTime }}";
     window.isEpisode = false;
+    var isLoggedInUsersClip = "{{ isLoggedInUsersClip }}";
+    window.isLoggedInUsersClip = isLoggedInUsersClip === 'true';
 
     window.episodeSummary = "{{ episodeSummary|nl2br }}";
     window.episodeSummary = decodeEntities(episodeSummary);

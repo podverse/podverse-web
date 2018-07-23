@@ -59,7 +59,7 @@ function routes () {
 
   // Clip Detail Page
   .get('/clips/:id', getLoggedInUserInfo, (req, res) => {
-    return ClipService.get(req.params.id)
+    return ClipService.get(req.params.id, {userId: req.feathers.userId})
       .then((mediaRef) => {
         req.params.podcastId = mediaRef.podcastId;
         return new Promise((resolve, reject) => {

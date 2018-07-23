@@ -239,18 +239,22 @@ function setPlayerInfo () {
 
   $('#player-clip-time').html(startTimeReadable + endTimeReadable);
 
+  if (isLoggedInUsersClip) {
+    $('.player-clip-edit').html('<i class="fa fa-pencil"></i> Edit Clip');
+  }
+
   if (endTime) {
     let dur = calcDuration(startTime, endTime);
     $('#player-clip-duration').html(secondsToReadableDuration(dur));
   }
 
-  description = `<p>${episodeTitle}</p>`;
-  description += `<p>${episodeSummary}</p>`;
+  let fullDescription = `<p>${episodeTitle}</p>`;
+  fullDescription += `<p>${episodeSummary}</p>`;
 
   let autolinker = new Autolinker({});
-  description = autolinker.link(description);
+  fullDescription = autolinker.link(fullDescription);
 
-  $('#player-description-full').html(description);
+  $('#player-description-full').html(fullDescription);
 
   // Strip any img tags served over http://, since they won't load on https://podverse.fm
   $('#player-description-full img').each(function() {
@@ -266,6 +270,7 @@ function setPlayerInfo () {
 
   if (isEpisode === false) {
     $('#player-clip-time').show();
+    $('.player-clip-edit').show();
     $('#player-description-truncated').show();
     $('#player-description-full').hide();
     $('#player-description-show-more').show();

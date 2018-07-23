@@ -72,12 +72,25 @@ export function setEndTime () {
   $('#make-clip-title textarea').focus();
 }
 
+export function setEditClipFields() {
+  window.isEditingClip = true;
+  $('#make-clip-header').html('Edit Clip');
+  $('#make-clip-start-time input').val(convertSecToHHMMSS(window.startTime));
+  $('#make-clip-end-time input').val(convertSecToHHMMSS(window.endTime));
+  $('#make-clip-title textarea').val(window.description);
+  $('#make-clip-start-time input').focus();
+}
+
 export function toggleMakeClipWidget (_this) {
+  $('#make-clip-header').html('Create a Clip');
+  window.isEditingClip = false;
+
   if ($('#add-to-playlist').css('display') !== 'block' && $('#recommend').css('display') !== 'block') {
     $('#player-description-truncated').hide();
     $('#player-description-full').hide();
     $('#player-description-show-more').hide();
     $('#player-clip-time').hide();
+    $('.player-clip-edit').hide();
     $('#player-description-show-more').html(`<span class="text-primary">Show Notes</span>`);
     $('#playlist').hide();
   }
@@ -86,6 +99,7 @@ export function toggleMakeClipWidget (_this) {
     $('#player-description-truncated').show();
     $('#player-description-show-more').show();
     $('#player-clip-time').show();
+    $('.player-clip-edit').show();
     $('#playlist').show();
   }
 
@@ -98,10 +112,11 @@ export function toggleMakeClipWidget (_this) {
   sendGoogleAnalyticsEvent('Make Clip', 'Toggle Make Clip Widget');
 }
 
-export function makeClip (event) {
-  event.preventDefault();
+function validateClip() {
 
-  sendGoogleAnalyticsEvent('Make Clip', 'Make Clip');
+  // After the form is validated, display loading state and prevent resubmit
+  if (window.preventResubmit) { return }
+  window.preventResubmit = true;
 
   $('#make-clip-start-time-error').hide();
   $('#make-clip-end-time-error').hide();
@@ -110,27 +125,30 @@ export function makeClip (event) {
   $('#make-clip-time').removeClass('has-danger');
 
   var startTime = $('#make-clip-start-time input').val(),
-      endTime = $('#make-clip-end-time input').val();
+    endTime = $('#make-clip-end-time input').val();
 
   if (startTime === '' && endTime === '') {
     $('#make-clip-start-time-error').html('Type a start time and/or end time to create a clip.');
     $('#make-clip-time').addClass('has-danger');
     $('#make-clip-start-time-error').show();
-    return;
+    window.preventResubmit = false;
+    return false;
   }
 
   if (!isHHMMSS(startTime) && startTime !== '') {
     $('#make-clip-start-time-error').html('Type time in hh:mm:ss format.');
     $('#make-clip-start-time').addClass('has-danger');
     $('#make-clip-start-time-error').show();
-    return;
+    window.preventResubmit = false;
+    return false;
   }
 
   if (!isHHMMSS(endTime) && endTime !== '') {
     $('#make-clip-end-time-error').html('Type time in hh:mm:ss format.');
     $('#make-clip-end-time').addClass('has-danger');
     $('#make-clip-end-time-error').show();
-    return;
+    window.preventResubmit = false;
+    return false;
   }
 
   startTime = convertHHMMSSToSeconds(startTime);
@@ -141,7 +159,8 @@ export function makeClip (event) {
     $('#make-clip-start-time').addClass('has-danger');
     $('#make-clip-end-time').addClass('has-danger');
     $('#make-clip-start-time-error').show();
-    return;
+    window.preventResubmit = false;
+    return false;
   }
 
   if (endTime === 0) {
@@ -153,7 +172,8 @@ export function makeClip (event) {
     $('#make-clip-start-time').addClass('has-danger');
     $('#make-clip-end-time').addClass('has-danger');
     $('#make-clip-start-time-error').show();
-    return;
+    window.preventResubmit = false;
+    return false;
   }
 
   if (endTime !== null && endTime <= startTime) {
@@ -161,45 +181,59 @@ export function makeClip (event) {
     $('#make-clip-start-time').addClass('has-danger');
     $('#make-clip-end-time').addClass('has-danger');
     $('#make-clip-start-time-error').show();
-    return;
+    window.preventResubmit = false;
+    return false;
   }
 
-  // After the form is validated, display loading state and prevent resubmit
-  if (window.preventResubmit) { return }
-  window.preventResubmit = true;
-  $('#make-clip-btn').attr('disabled', true);
-  $('#make-clip-btn').html('<i class="fa fa-spinner fa-spin"></i>')
-
-  // TODO: how can we prevent malicious scripts in the title?
   var clipTitle = $('#make-clip-title textarea').val();
 
-  // TODO: set owner name based on ownerId
-  var ownerName = 'random owner name';
-
-  if (endTime === "") {
-    endTime = null;
-  }
-
-  // NOTE: this seems like a crappy way to determine isPublic value
   let isPublic = document.getElementById('makeClipPrivacyButton').innerHTML;
   isPublic = isPublic.indexOf('Public') > -1;
 
-  // TODO: HACK: DANGER WILL ROBINSON: passing window variables into a POST
-  // isn't a good idea, right? Should consider fixing this...
+  $('#make-clip-btn').attr('disabled', true);
+  $('#make-clip-btn').html('<i class="fa fa-spinner fa-spin"></i>')
+
+  return {
+    startTime,
+    endTime,
+    clipTitle,
+    isPublic
+  };
+}
+
+function handleClipUpdateSuccess() {
+  toggleMakeClipWidget();
+  $('#playlist').show();
+  $('#make-clip-start-time input').val('');
+  $('#make-clip-end-time input').val('');
+  $('#make-clip-title textarea').val('');
+  $('#player-description-truncated').show();
+  $('#clip-created-modal-link').val(location.protocol + '\/\/' + location.hostname + (location.port ? ':' + location.port : '') + '\/clips\/' + response.id);
+  $('#clip-created-modal').attr('data-id', response.id);
+  $('#clip-created-modal').modal('show');
+};
+
+export function makeClip (event) {
+  event.preventDefault();
+
+  sendGoogleAnalyticsEvent('Make Clip', 'Make Clip');
+
+  let validatedClip = validateClip();
+
+  if (!validatedClip) { return };
 
   let dataObj = {
-    startTime: startTime,
-    endTime: endTime,
-    title: clipTitle,
-    ownerName: ownerName,
+    startTime: validatedClip.startTime,
+    endTime: validatedClip.endTime,
+    title: validatedClip.clipTitle,
+    isPublic: validatedClip.isPublic,
     podcastFeedUrl: window.podcastFeedUrl,
     podcastTitle: window.podcastTitle,
     episodeMediaUrl: window.episodeMediaUrl,
     episodeTitle: window.episodeTitle,
     episodePubDate: window.episodePubDate,
     episodeSummary: window.episodeSummary,
-    episodeDuration: window.episodeDuration,
-    isPublic: isPublic
+    episodeDuration: window.episodeDuration
   }
 
   if (window.podcastImageUrl && window.podcastImageUrl.indexOf('http') === 0) {
@@ -219,15 +253,7 @@ export function makeClip (event) {
     data: dataObj,
     success: function (response) {
       if (window.isPlayerPage) {
-        toggleMakeClipWidget();
-        $('#playlist').show();
-        $('#make-clip-start-time input').val('');
-        $('#make-clip-end-time input').val('');
-        $('#make-clip-title textarea').val('');
-        $('#player-description-truncated').show();
-        $('#clip-created-modal-link').val(location.protocol + '\/\/' + location.hostname + (location.port ? ':'+location.port: '')  + '\/clips\/' + response.id);
-        $('#clip-created-modal').attr('data-id', response.id);
-        $('#clip-created-modal').modal('show');
+        handleClipUpdateSuccess();
       } else {
         location.href = '\/clips\/' + response.id;
       }
@@ -235,6 +261,46 @@ export function makeClip (event) {
     error: function (xhr, status, error) {
       console.log(error);
       alert('Failed to create clip. Please check your internet connection and try again.');
+    },
+    complete: function () {
+      window.preventResubmit = false;
+      $('#make-clip-btn').removeAttr('disabled');
+      $('#make-clip-btn').html('Save');
+    }
+  });
+
+}
+
+export function updateClip(event) {
+  event.preventDefault();
+
+  sendGoogleAnalyticsEvent('Update Clip', 'Update Clip');
+
+  let validatedClip = validateClip()
+
+  if (!validatedClip) { return };
+
+  let dataObj = {
+    id: window.mediaRefId,
+    startTime: validatedClip.startTime,
+    endTime: validatedClip.endTime,
+    title: validatedClip.clipTitle,
+    isPublic: validatedClip.isPublic
+  }
+
+  $.ajax({
+    type: 'PUT',
+    url: '/clips',
+    headers: {
+      Authorization: $.cookie('idToken')
+    },
+    data: dataObj,
+    success: function (response) {
+      location.href = '\/clips\/' + response.id;
+    },
+    error: function (xhr, status, error) {
+      console.log(error);
+      alert('Failed to update clip. Please check your internet connection and try again.');
     },
     complete: function () {
       window.preventResubmit = false;

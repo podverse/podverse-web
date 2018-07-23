@@ -50,6 +50,12 @@ lock.on('authenticated', function (authResult) {
       return;
     }
 
+    $.cookie('user_id', authResult.idTokenPayload.user_id, {
+      secure: __IS_PROD__,
+      path: '/',
+      expires: 365
+    });
+
     $.cookie('idToken', authResult.idToken, {
       secure: __IS_PROD__,
       path: '/',

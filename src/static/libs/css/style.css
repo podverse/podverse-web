@@ -743,6 +743,15 @@ audio {
     display: none;
 }
 
+.player-clip-edit {
+    font-size: 14px;
+    float: right;
+    color: #777;
+    margin-bottom: 1rem;
+    margin-left: 1rem;
+    cursor: pointer;
+    display: none;
+}
 
 #player-description-full {
     display: none;
