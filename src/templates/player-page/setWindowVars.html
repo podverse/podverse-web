@@ -21,6 +21,8 @@
     return decodeHTMLEntities;
   })();
 
+  window.isLoggedInUsersClip = false;
+
   window.setPlaylistItemPropsOnWindow = function (item) {
 
     // Parse the selected playlist item and set its window variables
@@ -144,8 +146,8 @@
     window.startTime = "{{ startTime }}";
     window.endTime = "{{ endTime }}";
     window.isEpisode = false;
-    var isLoggedInUsersClip = "{{ isLoggedInUsersClip }}";
-    window.isLoggedInUsersClip = isLoggedInUsersClip === 'true';
+    var isUsersClip = "{{ isLoggedInUsersClip }}";
+    window.isLoggedInUsersClip = isUsersClip === 'true';
 
     window.episodeSummary = "{{ episodeSummary|nl2br }}";
     window.episodeSummary = decodeEntities(episodeSummary);
