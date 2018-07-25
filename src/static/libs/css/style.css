@@ -1728,6 +1728,7 @@ body.modal-open {
 }
 
 .filter-dropdown .btn {
+    font-size: 14px;
     color: #777 !important;
     background: transparent;
     border: none;
