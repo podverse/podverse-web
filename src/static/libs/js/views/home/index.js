@@ -10,6 +10,17 @@ import { getParameterByName } from '../../utility.js';
 $('.filter-dropdown .dropdown-item, .sort-by-dropdown .dropdown-item').on('click', function () {
   const query = $(this).data('query');
   const value = $(this).data('value');
+
+  if (!$.cookie('idToken')) {
+    if (value === 'subscribed') {
+      alert('Login to browse clips from podcasts you\'re subscribed to.');
+      return;
+    } else if (value === 'myClips') {
+      alert('Login to browse a list of clips you created.');
+      return;
+    }
+  }
+
   if (query === 'filter') {
     let sortParam = getParameterByName('sort');
     sortParam = sortParam ? '&sort=' + sortParam : '';
