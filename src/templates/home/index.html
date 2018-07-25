@@ -4,24 +4,40 @@
 <div class="row">
   <div class="col-xs-12">
     <div id="home-list">
-      <h1>Podcast Clips</h1>
-      <div class="sort-by-dropdown dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          {{ dropdownText }} <i class="fa fa-angle-down"></i>
+      <h1>Clips</h1>
+      <div class="filter-dropdown dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="filterDropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          {{ filterDropdownText }} <i class="fa fa-angle-down"></i>
         </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <a class="dropdown-item" href="/?sort=pastHour">top - past hour</a>
-          <a class="dropdown-item" href="/?sort=pastDay">top - past day</a>
-          <a class="dropdown-item" href="/?sort=pastWeek">top - past week</a>
-          <a class="dropdown-item" href="/?sort=pastMonth">top - past month</a>
-          <a class="dropdown-item" href="/?sort=pastYear">top - past year</a>
-          <a class="dropdown-item" href="/?sort=allTime">top - all time</a>
-          <a class="dropdown-item" href="/?sort=recent">most recent</a>
+        <div class="dropdown-menu" aria-labelledby="filterDropdownMenuButton">
+          <a class="dropdown-item" data-query="filter" data-value="all">All Podcasts</a>
+          <a class="dropdown-item" data-query="filter" data-value="subscribed">Subscribed Only</a>
+          <a class="dropdown-item" data-query="filter" data-value="myClips">My Clips</a>
+        </div>
+      </div>
+      <div class="sort-by-dropdown dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="sortDropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          {{ sortDropdownText }} <i class="fa fa-angle-down"></i>
+        </button>
+        <div class="dropdown-menu" aria-labelledby="sortDropdownMenuButton">
+          <a class="dropdown-item" data-query="sort" data-value="pastHour">top - past hour</a>
+          <a class="dropdown-item" data-query="sort" data-value="pastDay">top - past day</a>
+          <a class="dropdown-item" data-query="sort" data-value="pastWeek">top - past week</a>
+          <a class="dropdown-item" data-query="sort" data-value="pastMonth">top - past month</a>
+          <a class="dropdown-item" data-query="sort" data-value="sort">top - past year</a>
+          <a class="dropdown-item" data-query="sort" data-value="allTime">top - all time</a>
+          <a class="dropdown-item" data-query="sort" data-value="recent">most recent</a>
         </div>
       </div>
       <div class="clearfix"></div>
 
     <!-- NOTE: the home-list reuses the HTML / CSS of the #playlist in the player.html. The designs may diverge someday, but for now CSS changes to these elements will also change the #playlist's items. -->
+
+      {% if subscribeToPodcastsMsg %}
+        <br>
+        <p>This page lists clips from only the podcasts you are subscribed to.</p>
+        <p>Press the <i class="fa fa-star-o"></i> icon next to a podcast's title to subscribe to it.</p>
+      {% endif %}
 
       {% for clip in clips %}
         <a class="playlist-item" href="/clips/{{clip.id}}">

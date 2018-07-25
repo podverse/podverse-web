@@ -49,6 +49,26 @@ const isClipMediaRef = (podcastFeedUrls, episodeMediaUrl, userId) => {
   return customQuery;
 }
 
+const allowedFilterTypes = {
+  'all': {
+    dropdownText: 'All Podcasts'
+  },
+  'subscribed': {
+    dropdownText: 'Subscribed'
+  },
+  'myClips': {
+    dropdownText: 'My Clips'
+  }
+};
+
+const isFilterAllowed = (filterType) => {
+  if (filterType && _.includes(Object.keys(allowedFilterTypes), filterType)) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
 const allowedSortTypes = {
   'pastHour': {
     query: 'pastHourTotalUniquePageviews',
@@ -104,6 +124,7 @@ const isValidPageViewTimeRange = (str) => {
 
 module.exports = {
   isClipMediaRef: isClipMediaRef,
+  allowedFilterTypes: allowedFilterTypes,
   allowedSortTypes: allowedSortTypes,
   isSortAllowed: isSortAllowed,
   isValidPageViewTimeRange: isValidPageViewTimeRange

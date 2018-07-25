@@ -25,7 +25,6 @@ b {
 h1 {
     margin: 1.25rem 0 0 0;
     font-size: 18px;
-    float: left;
     line-height: 22px;
 }
 
@@ -230,17 +229,6 @@ audio {
     padding: 8px 0 4px 0;
 }
 
-#home-list .sort-by-dropdown {
-    margin: 18px 0 0 0 !important;
-    float: right;
-    line-height: 22px;
-}
-
-#home-list .sort-by-dropdown .dropdown-menu {
-    left: auto;
-    right: 0;
-}
-
 #home-list .playlist-item-time {
     display: none;
 }
@@ -251,16 +239,6 @@ audio {
 
 #make-clip-form {
   padding: 1rem 0 4rem 0;
-}
-
-#make-clip .sort-by-dropdown {
-    float: right;
-    margin-top: -1px;
-}
-
-#make-clip .dropdown-menu {
-    left: auto;
-    right: 0;
 }
 
 #make-clip-form #player-container {
@@ -531,6 +509,10 @@ audio {
     display: none;
 }
 
+#make-clip-header, #add-to-playlist-header {
+  margin-top: 0.25rem;
+}
+
 .player-function-header {
     font-weight: 500;
     margin-bottom: 0.75rem;
@@ -709,8 +691,14 @@ audio {
     font-size: 21px;
 }
 
-#toggle-make-clip-btn, #toggle-playlist-btn, #toggle-share-btn, #toggle-support-btn {
+#toggle-make-clip-btn, #toggle-share-btn, #toggle-support-btn {
     width: 40px;
+    height: 40px;
+}
+
+#toggle-playlist-btn {
+  width: 40px;
+  height: 39px;
 }
 
 #player-hr {
@@ -792,17 +780,7 @@ audio {
     font-weight: 600;
     line-height: 22px;
     font-size: 18px;
-}
-
-#playlist .sort-by-dropdown {
-    float: right;
-    line-height: 18px;
-    margin-top: -1px;
-}
-
-#playlist .sort-by-dropdown .dropdown-menu {
-    left: auto;
-    right: 0;
+    margin-top: 1.25rem;
 }
 
 #playlist-subtitle {
@@ -1180,6 +1158,16 @@ audio {
     /*cursor: pointer;*/
     color: #777;
     font-size: 13px;
+}
+
+.episodes-sort-by {
+  margin-top: -2px !important;
+  text-decoration: none !important;
+  cursor: default !important;
+}
+
+.clips-sort-by {
+  margin-top: -2px !important;
 }
 
 
@@ -1739,21 +1727,59 @@ body.modal-open {
     -webkit-appearance: none !important;
 }
 
+.filter-dropdown .btn {
+    color: #777 !important;
+    background: transparent;
+    border: none;
+    padding: 0;
+    height: 32px;
+    width: auto;
+    line-height: 32px;
+    float: left;
+    margin-top: 0.25rem;
+    background-color: #fff;
+}
+
+.filter-dropdown .dropdown-menu {
+    top: 34px;
+    left: -2px;
+    right: auto;
+}
+
 .sort-by-dropdown .btn {
     font-size: 13px;
     color: #777 !important;
     background: transparent;
     border: none;
     padding: 0;
+    height: 32px;
     width: auto;
-    line-height: 22px;
+    line-height: 32px;
+    float: right;
+    margin-top: 0.25rem;
+    background-color: #fff;
 }
 
-.sort-by-dropdown .episodes-sort-by {
-    cursor: default;
+.sort-by-dropdown .dropdown-menu {
+    top: 34px;
+    left: auto;
+    right: -2px;
 }
 
-.sort-by-dropdown .dropdown-item {
+.filter-dropdown .btn, .sort-by-dropdown .btn {
+  background-color: transparent !important;
+}
+
+.open .btn,
+.filter-dropdown .btn:active, .sort-by-dropdown .btn:active,
+.filter-dropdown .btn:focus, .sort-by-dropdown .btn:focus,
+.filter-dropdown .btn:hover, .sort-by-dropdown .btn:hover {
+  border: none;
+  outline: none;
+  text-decoration: underline;
+}
+
+.dropdown-item {
     cursor: pointer;
 }
 
@@ -1763,6 +1789,10 @@ body.modal-open {
 
 .dropdown-item {
     font-size: 14px;
+}
+
+#shareModal .form-control-label {
+  margin-bottom: 1rem;
 }
 
 

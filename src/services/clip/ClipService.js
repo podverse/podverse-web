@@ -223,7 +223,7 @@ class ClipService extends SequelizeService {
   }
 
   retrievePaginatedClips(sortType, podcastIds, podcastFeedUrls, episodeMediaUrl, userId, pageIndex) {
-
+    
     return new Promise((resolve, reject) => {
 
       podcastFeedUrls.forEach(podcastFeedUrl => {

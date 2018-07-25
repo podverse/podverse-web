@@ -1,7 +1,7 @@
 const
     errors = require('feathers-errors'),
     {locator} = require('./locator.js'),
-    {allowedSortTypes} = require('./constants.js'),
+    {allowedFilterTypes, allowedSortTypes} = require('./constants.js'),
     {getLoggedInUserInfo} = require('./middleware/auth/getLoggedInUserInfo.js'),
     {cache} = require('./middleware/cache'),
     {isNonAnonUser, removeArticles, shouldShowNextButton} = require('./util.js'),
@@ -32,12 +32,30 @@ function routes () {
         getUsersSubscribedPodcastIds(resolve, reject, req);
       })
         .then(subscribedPodcastIds => {
-          return handleHomePageClipQueryRequest(req, res, sortType, subscribedPodcastIds, null, null, pageIndex);
+
+          if (!subscribedPodcastIds || subscribedPodcastIds.length === 0) {
+            let allowedFilter = allowedFilterTypes[filterType] || {};
+            let filterDropdownText = allowedFilter.dropdownText;
+  
+            let allowedSort = allowedSortTypes[sortType] || {};
+            let sortDropdownText = allowedSort.dropdownText;
+  
+            res.render('home/index.html', {
+              filterDropdownText,
+              sortDropdownText,
+              subscribeToPodcastsMsg: true,
+              currentPage: 'Home Page',
+              locals: res.locals
+            });
+          } else {
+            return handleHomePageClipQueryRequest(req, res, filterType, sortType, subscribedPodcastIds, [], null, pageIndex);
+          }
+
         });
     } else if (isNonAnonUser(req.feathers.userId) && filterType === 'myClips') {
-      return handleHomePageClipQueryRequest(req, res, sortType, [], [], req.feathers.userId, pageIndex);
+      return handleHomePageClipQueryRequest(req, res, filterType, sortType, [], [], req.feathers.userId, pageIndex);
     } else {
-      return handleHomePageClipQueryRequest(req, res, sortType, [], [], null, pageIndex);
+      return handleHomePageClipQueryRequest(req, res, filterType, sortType, [], [], null, pageIndex);
     }
 
   })
@@ -243,7 +261,7 @@ function routes () {
                 podcast.clips = page.data;
                 res.render('podcast/index.html', {
                   podcast: podcast,
-                  dropdownText: allowedSortTypes[sortType].dropdownText,
+                  sortDropdownText: allowedSortTypes[sortType].dropdownText,
                   currentPage: 'Podcast Detail Page',
                   isSubscribed: isSubscribed,
                   isClipsView: true,
@@ -781,17 +799,24 @@ function routes () {
     res.status(200).send(aasa);
   });
 
-  function handleHomePageClipQueryRequest(req, res, sortType, podcastIds, podcastFeedUrls, userId, pageIndex) {
+  function handleHomePageClipQueryRequest(req, res, filterType, sortType, podcastIds, podcastFeedUrls, userId, pageIndex) {
     
     return ClipService.retrievePaginatedClips(sortType, podcastIds, podcastFeedUrls, null, userId, pageIndex)
       .then(page => {
         let clips = page.data;
         let total = page.total || [];
-        let length = total.length
+        let length = total.length;
+
+        let allowedFilter = allowedFilterTypes[filterType] || {};
+        let filterDropdownText = allowedFilter.dropdownText;
+
+        let allowedSort = allowedSortTypes[sortType] || {};
+        let sortDropdownText = allowedSort.dropdownText;
 
         res.render('home/index.html', {
           clips: clips,
-          dropdownText: allowedSortTypes[sortType].dropdownText,
+          filterDropdownText,
+          sortDropdownText,
           pageIndex: pageIndex,
           showNextButton: shouldShowNextButton(pageIndex, length),
           currentPage: 'Home Page',
@@ -811,7 +836,7 @@ function getUsersSubscribedPodcastIds (resolve, reject, req) {
     const UserService = locator.get('UserService');
     return UserService.get(req.feathers.userId, { userId: req.feathers.userId })
       .then(user => {
-        let subscribedPodcastIds = user.subscribedPodcastIds;
+        let subscribedPodcastIds = user.subscribedPodcastIds || [];
         resolve(subscribedPodcastIds);
       })
       .catch(e => {
