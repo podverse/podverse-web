@@ -734,7 +734,7 @@ audio {
 .player-clip-edit {
     font-size: 14px;
     float: right;
-    color: #777;
+    color: #777 !important;
     margin-bottom: 1rem;
     margin-left: 1rem;
     cursor: pointer;
