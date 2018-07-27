@@ -91,7 +91,7 @@ export function setEditClipFields() {
   $('#make-clip-start-time input').focus();
   $('#make-clip-delete').show();
 
-  if (window.isPublic === false) {
+  if (window.isPublic === 'false') {
     setClipOnlyWithLink();
   } else {
     setClipPublic();
