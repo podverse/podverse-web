@@ -91,10 +91,7 @@ function routes () {
               })
         })
       }).catch(e => {
-        if (e.code !== 404) {
-          console.log(e.code)
-        }
-        res.sendStatus(404);
+        res.status(404).render('404.html');
       });
   })
 
@@ -160,10 +157,7 @@ function routes () {
             })
         }
       }).catch(e => {
-        if (e.code !== 404) {
-          console.log(e.code)
-        }
-        res.sendStatus(404);
+        res.status(404).render('404.html');
       });
   })
 
@@ -175,10 +169,7 @@ function routes () {
       .then(podcast => {
         res.redirect('/podcasts/' + podcast.dataValues.id);
       }).catch(e => {
-        if (e.code !== 404) {
-          console.log(e.code)
-        }
-        res.sendStatus(404);
+        res.status(404).render('404.html');
       });
   })
 
@@ -230,10 +221,7 @@ function routes () {
 
         });
       }).catch(e => {
-        if (e.code !== 404) {
-          console.log(e.code)
-        }
-        res.sendStatus(404);
+        res.status(404).render('404.html');
       });
   })
 
@@ -270,20 +258,14 @@ function routes () {
               })
               .catch(err => {
                 console.log(req.params.id);
-                if (e.code !== 404) {
-                  console.log(e.code)
-                }
-                res.sendStatus(404);
+                res.status(404).render('404.html');
               });
 
           })
 
         });
       }).catch(e => {
-        if (e.code !== 404) {
-          console.log(e.code)
-        }
-        res.sendStatus(404);
+        res.status(404).render('404.html');
       });
   })
 
@@ -299,9 +281,6 @@ function routes () {
           res.send(JSON.stringify(clip));
         })
         .catch(e => {
-          if (e.code !== 404) {
-            console.log(e.code)
-          }
           res.sendStatus(404);
         });
 
@@ -319,9 +298,6 @@ function routes () {
           res.send(JSON.stringify(page));
         })
         .catch(e => {
-          if (e.code !== 404) {
-            console.log(e.code)
-          }
           res.sendStatus(404);
         });
     }
@@ -338,9 +314,6 @@ function routes () {
         res.send(JSON.stringify(episode));
       })
       .catch(e => {
-        if (e.code !== 404) {
-          console.log(e.code)
-        }
         res.sendStatus(404);
       });
   })
@@ -355,9 +328,6 @@ function routes () {
         res.send(JSON.stringify(playlist));
       })
       .catch(e => {
-        if (e.code !== 404) {
-          console.log(e.code)
-        }
         res.sendStatus(404);
       });
   })
@@ -456,10 +426,7 @@ function routes () {
       .then(episode => {
         res.redirect('/episodes/' + episode.id);
       }).catch(e => {
-        if (e.code !== 404) {
-          console.log(e.code)
-        }
-        res.sendStatus(404);
+        res.status(404).render('404.html');
       });
   })
 
@@ -498,10 +465,7 @@ function routes () {
         })
 
       }).catch(e => {
-        if (e.code !== 404) {
-          console.log(e.code)
-        }
-        res.sendStatus(404);
+        res.status(404).render('404.html');
       });
   })
 
@@ -706,9 +670,6 @@ function routes () {
 
       })
       .catch(e => {
-        if (e.code !== 404) {
-          console.log(e.code)
-        }
         // redirect to home page is unauthorized
         res.redirect('/');
       });
@@ -797,6 +758,10 @@ function routes () {
   .get('/apple-app-site-association', function (req, res) {
     const aasa = fs.readFileSync(__dirname + '/apple-app-site-association');
     res.status(200).send(aasa);
+  })
+
+  .use(function(req, res) {
+    res.status(404).render('404.html');
   });
 
   function handleHomePageClipQueryRequest(req, res, filterType, sortType, podcastIds, podcastFeedUrls, userId, pageIndex) {
