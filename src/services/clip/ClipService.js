@@ -274,9 +274,9 @@ class ClipService extends SequelizeService {
           reject(err);
         });
 
-      } else if (userId) { 
+      } else if (userId) { // If a userId is provided, query for My Clips
         
-        let clipQuery = isClipMediaRef([], null, userId);
+        let clipQuery = isClipMediaRef([], null, userId, true);
 
         params.sequelize = {
           where: clipQuery,

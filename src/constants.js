@@ -1,6 +1,6 @@
 const _ = require('lodash');
 
-const isClipMediaRef = (podcastFeedUrls, episodeMediaUrl, userId) => {
+const isClipMediaRef = (podcastFeedUrls, episodeMediaUrl, userId, includePrivate = false) => {
 
   let customQuery = {
     $not: {
@@ -11,11 +11,14 @@ const isClipMediaRef = (podcastFeedUrls, episodeMediaUrl, userId) => {
       $not: {
         $or: [
           {title: null},
-          {title: ''},
-          {isPublic: false}
+          {title: ''}
         ]
       }
     }
+  }
+
+  if (!includePrivate) {
+    customQuery.$and.$not.$or.push({isPublic: false});
   }
 
   if (episodeMediaUrl || (podcastFeedUrls && podcastFeedUrls.length > 0) || userId) {
