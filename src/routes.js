@@ -760,8 +760,10 @@ function routes () {
     res.status(200).send(aasa);
   })
 
-  .use(function(req, res) {
-    res.status(404).render('404.html');
+  .use(getLoggedInUserInfo, function (req, res) {
+    req.query['currentPage'] = '404 Not Found Page';
+    req.query['locals'] = res.locals;
+    res.status(404).render('404.html', req.query);
   });
 
   function handleHomePageClipQueryRequest(req, res, filterType, sortType, podcastIds, podcastFeedUrls, userId, pageIndex) {
