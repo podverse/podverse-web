@@ -5,6 +5,8 @@
         {
             "appID": "NVBK9KF43L.com.podverse.fm",
             "paths": [
+                "/",
+                "/?*",
                 "/clips/*",
                 "/episodes/*"
             ]
@@ -12,6 +14,8 @@
         {
             "appID": "Y9D7PHM978.com.podverse.fm",
             "paths": [
+                "/",
+                "/?*",
                 "/clips/*",
                 "/episodes/*"
             ]
