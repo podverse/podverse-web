@@ -1,5 +1,6 @@
 import { sendGoogleAnalyticsEvent } from './googleAnalytics.js';
 import { getParameterByName } from './utility';
+import getMobileOperatingSystem from './getMobileOperatingSystem.js';
 
 var clientId = __AUTH0_CLIENTID__,
     domain = __AUTH0_DOMAIN__;
@@ -31,8 +32,13 @@ let lock = new Auth0Lock.default(clientId, domain, options);
 
 $(window).ready(() => {
   $('#login-btn').on('click', () => {
+    let os = getMobileOperatingSystem();
+    if (os === 'iOS') {
+      $('#iosLoginModal').modal('show');
+    } else {
       lock.show();
       sendGoogleAnalyticsEvent('Auth', 'Show Lock Modal');
+    }
   });
 });
 
