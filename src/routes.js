@@ -161,6 +161,17 @@ function routes () {
       });
   })
 
+  // Playlist Remove endpoint
+  .delete('/playlists/:id', getLoggedInUserInfo, (req, res) => {
+    return PlaylistService.remove(req.params.id, { userId: req.feathers.userId })
+      .then(() => {
+        res.status(200).send();
+      }).catch(e => {
+        console.log(e);
+        res.sendStatus(500);
+      });
+  })
+
   .use('playlists', locator.get('PlaylistService'))
 
   // Alias Url for the Podcast Detail Page based on podcastFeedUrl

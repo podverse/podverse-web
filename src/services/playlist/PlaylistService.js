@@ -177,6 +177,21 @@ class PlaylistService extends SequelizeService {
 
   }
 
+  remove(id, params = {}) {
+    if (!id) {
+      throw new errors.GeneralError('A playlist id must be provided');
+    }
+
+    return this.Models.Playlist.findById(id)
+      .then(playlist => {
+        if (!playlist.ownerId || playlist.ownerId !== params.userId) {
+          throw new errors.Forbidden();
+        } else {
+          return super.remove(id, {});
+        }
+      });
+  }
+
   retrieveUsersPlaylists(ownerId) {
     return this.sqlEngine.query(`
       SELECT p.id, p.slug, p.title, p."ownerId", p."dateCreated",
@@ -192,7 +207,6 @@ class PlaylistService extends SequelizeService {
 
 }
 
-PlaylistService.prototype.remove = undefined;
 PlaylistService.prototype.patch = undefined;
 
 module.exports = PlaylistService;
