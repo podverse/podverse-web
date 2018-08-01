@@ -768,7 +768,12 @@ function routes () {
   .use(getLoggedInUserInfo, function (req, res) {
     req.query['currentPage'] = '404 Not Found Page';
     req.query['locals'] = res.locals;
-    res.status(404).render('404.html', req.query);
+
+    if (req.headers['content-type'] === 'application/json') {
+      res.status(500).send();
+    } else {
+      res.status(404).render('404.html', req.query);
+    }    
   });
 
   function handleHomePageClipQueryRequest(req, res, filterType, sortType, podcastIds, podcastFeedUrls, userId, pageIndex) {

@@ -40,6 +40,9 @@ class PlaylistService extends SequelizeService {
     data.slug = data.slug || data.id;
     data.playlistItems = data.playlistItems || [];
 
+    // Delete data.id so we don't overwrite the playlist's id
+    delete data.id;
+
     return data;
   }
 
@@ -108,7 +111,7 @@ class PlaylistService extends SequelizeService {
     const {MediaRef} = this.Models;
 
     if (!id) {
-      throw new errors.NotAcceptable(`Try using POST instead of PUT.`);
+      throw new errors.NotAcceptable(`You must provide an id.`);
     }
 
     return this.Model.findOne({
@@ -179,7 +182,7 @@ class PlaylistService extends SequelizeService {
 
   remove(id, params = {}) {
     if (!id) {
-      throw new errors.GeneralError('A playlist id must be provided');
+      throw new errors.GeneralError('A playlist id must be provided.');
     }
 
     return this.Models.Playlist.findById(id)

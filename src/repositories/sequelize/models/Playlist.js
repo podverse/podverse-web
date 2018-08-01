@@ -59,7 +59,12 @@ module.exports = function(sequelize, DataTypes) {
     },
 
     // TODO: An ownerId should only be able to have ONE playlist with isMyClips === true
-    isMyClips: DataTypes.BOOLEAN
+    isMyClips: DataTypes.BOOLEAN,
+
+    itemsOrder: {
+      type: DataTypes.ARRAY(DataTypes.TEXT),
+      defaultValue: []
+    }
 
   }, {
       updatedAt: 'lastUpdated',
