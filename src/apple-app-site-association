@@ -7,7 +7,8 @@
             "paths": [
                 "/",
                 "/clips/*",
-                "/episodes/*"
+                "/episodes/*",
+                "/playlists/*"
             ]
         },
         {
@@ -15,7 +16,8 @@
             "paths": [
                 "/",
                 "/clips/*",
-                "/episodes/*"
+                "/episodes/*",
+                "/playlists/*"
             ]
         }
     ]
