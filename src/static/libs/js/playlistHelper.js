@@ -48,8 +48,7 @@ export function createPlaylist (params, callback) {
     },
     data: {
       title: params.title,
-      ownerName: params.ownerName,
-      isRecommendation: params.isRecommendation
+      ownerName: params.ownerName
     },
     success: function (response) {
       if (callback) {

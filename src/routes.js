@@ -670,34 +670,28 @@ function routes () {
 
       })
       .catch(e => {
-        // redirect to home page is unauthorized
+        // redirect to home page if unauthorized
         res.redirect('/');
       });
   })
 
   .get('/my-playlists', getLoggedInUserInfo, (req, res) => {
-    UserService.get(req.feathers.userId, { userId: req.feathers.userId })
-      .then(user => {
-        user.dataValues['mySubscribedPlaylists'] = user.playlists;
 
-        let recommendedForMe = user.playlists.filter(function (p) {
-          return (p.ownerId !== req.feathers.userId && p.isRecommendation === true);
-        });
+    return new Promise((resolve, reject) => {
+      gatherUsersOwnedPlaylists(resolve, reject, req);
+    })
+    .then((playlists) => {
+      let dataValues = {};
+      dataValues['mySubscribedPlaylists'] = playlists;
+      dataValues['currentPage'] = 'My Playlists Page';
+      dataValues['locals'] = res.locals;
+      res.render('my-playlists/index.html', dataValues);
+    })
+    .catch(e => {
+      // redirect to home page if unauthorized
+      res.redirect('/');
+    });
 
-        user.dataValues['recommendedForMe'] = recommendedForMe;
-
-        return PlaylistService.find({ query: { ownerId: req.feathers.userId, isRecommendation: true }})
-          .then(myRecommendations => {
-            user.dataValues['recommendedByMe'] = myRecommendations;
-            user.dataValues['currentPage'] = 'My Playlists Page';
-            user.dataValues['locals'] = res.locals;
-            res.render('my-playlists/index.html', user.dataValues);
-          })
-      })
-      .catch(e => {
-        // redirect to home page is unauthorized
-        res.redirect('/');
-      });
   })
 
   .get('/login-redirect', getLoggedInUserInfo, function (req, res) {
