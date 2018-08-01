@@ -413,19 +413,17 @@ function routes () {
 
   // Retrieve the logged-in user's playlists as JSON
   .post('/api/user/playlists', getLoggedInUserInfo, (req, res) => {
-
     res.setHeader('Content-Type', 'application/json');
-    let ownerId = req.feathers.userId;
-
-    return PlaylistService.retrieveUsersPlaylists(ownerId)
-      .then(myPlaylists => {
-        res.send(JSON.stringify(myPlaylists));
+    
+    return UserService.get(req.feathers.userId, { userId: req.feathers.userId })
+      .then(user => {
+        let playlists = user.playlists || [];
+        res.send(JSON.stringify(playlists));
       })
       .catch(e => {
         console.log(e);
         res.sendStatus(401);
       });
-
   })
 
   .use('podcasts', locator.get('PodcastService'))
@@ -687,22 +685,18 @@ function routes () {
   })
 
   .get('/my-playlists', getLoggedInUserInfo, (req, res) => {
-
-    return new Promise((resolve, reject) => {
-      gatherUsersOwnedPlaylists(resolve, reject, req);
-    })
-    .then((playlists) => {
-      let dataValues = {};
-      dataValues['mySubscribedPlaylists'] = playlists;
-      dataValues['currentPage'] = 'My Playlists Page';
-      dataValues['locals'] = res.locals;
-      res.render('my-playlists/index.html', dataValues);
-    })
-    .catch(e => {
-      // redirect to home page if unauthorized
-      res.redirect('/');
-    });
-
+    UserService.get(req.feathers.userId, { userId: req.feathers.userId })
+      .then(user => {
+        let dataValues = {};
+        dataValues['mySubscribedPlaylists'] = user.playlists;
+        dataValues['currentPage'] = 'My Playlists Page';
+        dataValues['locals'] = res.locals;
+        res.render('my-playlists/index.html', dataValues);
+      })
+      .catch(e => {
+        // redirect to home page if unauthorized
+        res.redirect('/');
+      });
   })
 
   .get('/login-redirect', getLoggedInUserInfo, function (req, res) {
