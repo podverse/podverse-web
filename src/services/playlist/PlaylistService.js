@@ -189,7 +189,9 @@ class PlaylistService extends SequelizeService {
       .then(playlist => {
         if (!playlist.ownerId || playlist.ownerId !== params.userId) {
           throw new errors.Forbidden();
-        } else {
+        } else if (playlist.ownerId === params.userId && playlist.isMyClips)
+          throw new errors.Forbidden('Cannot delete your My Clips playlist.');
+        else {
           return super.remove(id, {});
         }
       });
