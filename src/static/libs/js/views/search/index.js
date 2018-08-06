@@ -3,6 +3,8 @@ require('../../auth.js');
 
 import {searchPodcasts} from '../../podcastHelper';
 
+$('#search .search-input').focus();
+
 $('#search .search-podcasts-btn').on('click', () => {
   loadSearchResults();
   if (window.searchQuery) {
