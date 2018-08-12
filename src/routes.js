@@ -203,6 +203,7 @@ function routes () {
   // Podcast Detail Page
   .get('/podcasts/:id', getLoggedInUserInfo, (req, res) => {
     let params = {};
+    params.isPublic = true;
 
     return PodcastService.get(req.params.id, params)
       .then(podcast => {
@@ -217,12 +218,6 @@ function routes () {
               isUserSubscribedToThisPodcast(resolve, reject, req);
             })
             .then((isSubscribed) => {
-              podcast.episodes = _.reduce(podcast.episodes, (acc, episode) => {
-                if (episode.isPublic === true)
-                  acc.push(episode)
-                return acc;
-              }, []);
-
               res.render('podcast/index.html', {
                 podcast: podcast,
                 currentPage: 'Podcast Detail Page',
@@ -347,7 +342,9 @@ function routes () {
   .get('/api/podcasts', (req, res) => {
     res.setHeader('Content-Type', 'application/json');
     let id = req.query.id;
-    let excludeEpisodes = req.query.excludeEpisodes;
+    let params = {};
+    params.excludeEpisodes = req.query.excludeEpisodes;
+    params.isPublic = true;
 
     return PodcastService.get(id, {excludeEpisodes})
       .then(podcast => {

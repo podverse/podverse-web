@@ -125,7 +125,6 @@ function getMediaUrlQueryParam(url) {
   return url; 
 }
 
-
 module.exports = {
   isNonAnonUser,
   offsetDate,
