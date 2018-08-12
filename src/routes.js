@@ -346,7 +346,7 @@ function routes () {
     params.excludeEpisodes = req.query.excludeEpisodes;
     params.isPublic = true;
 
-    return PodcastService.get(id, {excludeEpisodes})
+    return PodcastService.get(id, params)
       .then(podcast => {
         res.send(JSON.stringify(podcast));
       })
