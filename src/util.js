@@ -115,6 +115,17 @@ function shouldShowNextButton (pageIndex, total) {
   return showNextButton;
 }
 
+// Since an episodes mediaUrl may contain query params itself, we have to get the full
+// mediaUrl from query param manually, instead of relying on Express's req.params field.
+// We also need to convert ampersand codes back into ampersands.
+function getMediaUrlQueryParam(url) {
+  url = url.replace(/&amp;/g, '&');
+  let queryMatch = 'alias?mediaUrl=';
+  url = url.substring(url.indexOf(queryMatch) + queryMatch.length, url.length);
+  return url; 
+}
+
+
 module.exports = {
   isNonAnonUser,
   offsetDate,
@@ -122,5 +133,6 @@ module.exports = {
   convertSecToHHMMSS,
   readableDate,
   removeArticles,
-  shouldShowNextButton
+  shouldShowNextButton,
+  getMediaUrlQueryParam
 }

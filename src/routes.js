@@ -4,7 +4,8 @@ const
     {allowedFilterTypes, allowedSortTypes} = require('./constants.js'),
     {getLoggedInUserInfo} = require('./middleware/auth/getLoggedInUserInfo.js'),
     {cache} = require('./middleware/cache'),
-    {isNonAnonUser, removeArticles, shouldShowNextButton} = require('./util.js'),
+    {isNonAnonUser, removeArticles, shouldShowNextButton, 
+      getMediaUrlQueryParam} = require('./util.js'),
     {generatePlaylistRSSFeed} = require('./services/playlist/PlaylistRSSService.js'),
     _ = require('lodash'),
     fs = require('fs');
@@ -431,7 +432,9 @@ function routes () {
   // Alias Url for the Episode Detail Page based on mediaUrl
   .get('/episodes/alias', (req, res) => {
 
-    return EpisodeService.get('alias', {mediaUrl: req.query.mediaUrl})
+    let mediaUrl = getMediaUrlQueryParam(req.url);
+
+    return EpisodeService.get('alias', {mediaUrl: mediaUrl})
       .then(episode => {
         res.redirect('/episodes/' + episode.id);
       }).catch(e => {
