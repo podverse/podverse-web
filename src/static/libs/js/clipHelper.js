@@ -242,7 +242,8 @@ export function makeClip (event) {
     episodeTitle: window.episodeTitle,
     episodePubDate: window.episodePubDate,
     episodeSummary: window.episodeSummary,
-    episodeDuration: window.episodeDuration
+    episodeDuration: window.episodeDuration,
+    episodeId: window.episodeId
   }
 
   if (window.podcastImageUrl && window.podcastImageUrl.indexOf('http') === 0) {

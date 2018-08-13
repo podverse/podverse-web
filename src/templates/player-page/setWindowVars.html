@@ -39,6 +39,7 @@
     window.episodeImageUrl = item.episodeImageUrl;
     window.episodeLinkUrl = item.episodeLinkUrl;
     window.episodeDuration = item.episodeDuration;
+    window.episodeId = item.episodeId;
 
     // if item is an Episode
     if (window.startTime === 0 && window.endTime === null) {
@@ -101,7 +102,8 @@
     window.episodePubDate = "{{ pubDate }}";
     window.episodeImageUrl = "{{ imageUrl }}";
     window.episodeLinkUrl = "{{ link }}";
-    window.episodeDuration = "{{ duration }}"
+    window.episodeDuration = "{{ duration }}";
+    window.episodeId = "{{ id }}";
     window.startTime = 0;
     window.endTime = null;
     window.isEpisode = true;
@@ -143,6 +145,7 @@
     window.episodeImageUrl = "{{ episodeImageUrl }}";
     window.episodeLinkUrl = "{{ episodeLinkUrl }}";
     window.episodeDuration = "{{ episodeDuration }}";
+    window.episodeId = "{{ episodeId }}";
     window.startTime = "{{ startTime }}";
     window.endTime = "{{ endTime }}";
     window.isEpisode = false;

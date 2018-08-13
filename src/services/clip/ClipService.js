@@ -374,6 +374,7 @@ class ClipService extends SequelizeService {
         epMediaRef.episodePubDate = episode.pubDate;
         epMediaRef.episodeSummary = episode.summary;
         epMediaRef.episodeDuration = episode.duration;
+        epMediaRef.episodeId = episode.id;
 
         return epMediaRef;
       })
@@ -400,6 +401,7 @@ class ClipService extends SequelizeService {
     epMediaRef.episodePubDate = item.episodePubDate;
     epMediaRef.episodeSummary = item.episodeSummary;
     epMediaRef.episodeDuration = item.episodeDuration;
+    epMediaRef.episodeId = item.episodeId;
 
     return epMediaRef;
   }

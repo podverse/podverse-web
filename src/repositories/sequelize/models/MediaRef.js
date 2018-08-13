@@ -95,6 +95,8 @@ module.exports = function(sequelize, DataTypes) {
 
     episodeDuration: DataTypes.INTEGER,
 
+    episodeId: DataTypes.TEXT,
+
     pastHourTotalUniquePageviews: {
       type: DataTypes.INTEGER,
       defaultValue: 0
