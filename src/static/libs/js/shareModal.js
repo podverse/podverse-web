@@ -11,7 +11,13 @@ function updateShareModal() {
 
   shareModalBody.html('');
 
-  const episodeLink = `${[location.protocol, '//', location.host, '/episodes/alias?mediaUrl=', window.episodeMediaUrl].join('')}`;
+  let episodeLink = '';
+  if (window.episodeId) {
+    episodeLink = `${[location.protocol, '//', location.host, '/episodes/', window.episodeId].join('')}`;
+  } else {
+    episodeLink = `${[location.protocol, '//', location.host, '/episodes/alias?mediaUrl=', window.episodeMediaUrl].join('')}`;
+  }
+  
   shareModalBody.append(`<button class="btn btn-secondary btn-block share-modal-btn" data-clipboard-text="${episodeLink}">Episode</button>`);
 
   if (mediaRefId && (mediaRefId.indexOf('episode_') === -1 || mediaRefId.indexOf('episode_') > 0)) {
