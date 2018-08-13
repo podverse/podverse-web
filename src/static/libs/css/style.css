@@ -14,9 +14,9 @@ body {
 /* limit consecutive <br> tags to only one line break,
    used to prevent episode summaries with multiple <br> tags from having
    excessive space issues in elements like .player-description-full */
-br + br {
+/* br + br {
     display: none;
-}
+} */
 
 b {
     font-weight: 500;
