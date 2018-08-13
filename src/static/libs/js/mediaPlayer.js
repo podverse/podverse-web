@@ -187,7 +187,15 @@ function setPlayerInfo () {
 
   $('#player-condensed-title a').html(podcastTitle);
   $('#player-condensed-title a').attr('href', '/podcasts/alias?feedUrl=' + podcastFeedUrl);
-  $('#player-condensed-sub-title a').attr('href', '/episodes/alias?mediaUrl=' + episodeMediaUrl);
+  
+  if (episodeId) {
+    $('#player-condensed-sub-title a').attr('href', '/episodes/' + episodeId);
+    $('#player-sub-title a').attr('href', '/episodes/id' + episodeId);
+  } else {
+    $('#player-condensed-sub-title a').attr('href', '/episodes/alias?mediaUrl=' + episodeMediaUrl);
+    $('#player-sub-title a').attr('href', '/episodes/alias?mediaUrl=' + episodeMediaUrl);
+  }
+
   $('#player-condensed-sub-title a').html(episodeTitle);
   $('#player-condensed-image img').attr('src', podcastImageUrl);
 
@@ -195,7 +203,6 @@ function setPlayerInfo () {
   podcastTitle = he.decode(podcastTitle);
   $('#player-podcast-title a').html(podcastTitle);
 
-  $('#player-sub-title a').attr('href', '/episodes/alias?mediaUrl=' + episodeMediaUrl);
   $('#player-sub-title a').html(episodeTitle);
 
   $('#player-image a').attr('href', '/podcasts/alias?feedUrl=' + podcastFeedUrl);
