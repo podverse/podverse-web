@@ -190,7 +190,7 @@ function setPlayerInfo () {
   
   if (episodeId) {
     $('#player-condensed-sub-title a').attr('href', '/episodes/' + episodeId);
-    $('#player-sub-title a').attr('href', '/episodes/id' + episodeId);
+    $('#player-sub-title a').attr('href', '/episodes/' + episodeId);
   } else {
     $('#player-condensed-sub-title a').attr('href', '/episodes/alias?mediaUrl=' + episodeMediaUrl);
     $('#player-sub-title a').attr('href', '/episodes/alias?mediaUrl=' + episodeMediaUrl);
