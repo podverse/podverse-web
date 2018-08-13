@@ -315,10 +315,37 @@ function routes () {
     res.setHeader('Content-Type', 'application/json');
     
     let id = req.body.id;
+    let mediaUrl = req.body.mediaUrl;
 
-    return EpisodeService.get(id)
+    if (id) {
+      return EpisodeService.get(id)
+        .then(episode => {
+          res.send(JSON.stringify(episode));
+        })
+        .catch(e => {
+          res.sendStatus(404);
+        });
+    } else {
+      return EpisodeService.get(id, {mediaUrl})
+        .then(episode => {
+          res.send(JSON.stringify(episode));
+        })
+        .catch(e => {
+          res.sendStatus(404);
+        });
+    }
+  })
+
+  // Retrieve an episode's id
+  .post('/api/episodes/id', (req, res) => {
+    res.setHeader('Content-Type', 'application/json');
+    let mediaUrl = req.body.mediaUrl;
+
+    return EpisodeService.get(null, {mediaUrl})
       .then(episode => {
-        res.send(JSON.stringify(episode));
+        res.send(JSON.stringify({
+          mediaUrl: episode.id
+        }));
       })
       .catch(e => {
         res.sendStatus(404);
