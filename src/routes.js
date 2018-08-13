@@ -343,9 +343,13 @@ function routes () {
 
     return EpisodeService.get(null, {mediaUrl})
       .then(episode => {
-        res.send(JSON.stringify({
-          mediaUrl: episode.id
-        }));
+        if (!episode) {
+          res.sendStatus(404);
+        } else {
+          res.send(JSON.stringify({
+            id: episode.id
+          }));
+        }
       })
       .catch(e => {
         res.sendStatus(404);
