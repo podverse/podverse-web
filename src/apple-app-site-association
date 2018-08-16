@@ -3,17 +3,7 @@
     "apps": [],
     "details": [
         {
-            "appID": "NVBK9KF43L.com.podverse.fm",
-            "paths": [
-                "/",
-                "/clips/*",
-                "/episodes/*",
-                "/playlists/*",
-                "/podcasts/*"
-            ]
-        },
-        {
-            "appID": "Y9D7PHM978.com.podverse.fm",
+            "appID": "J8YC6KSRKT.com.podverse.fm",
             "paths": [
                 "/",
                 "/clips/*",
