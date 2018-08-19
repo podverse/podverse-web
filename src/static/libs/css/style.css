@@ -23,7 +23,7 @@ b {
 }
 
 h1 {
-    margin: 1.25rem 0 0 0;
+    margin: 0;
     font-size: 18px;
     line-height: 22px;
 }
@@ -1570,6 +1570,7 @@ span.twitter-typeahead .tt-suggestion {
 .container {
     max-width: 640px;
     width: auto !important;
+    padding-top: 1rem;
 }
 
 .form-group.required .control-label:after {
