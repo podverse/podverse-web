@@ -1077,6 +1077,7 @@ audio {
     z-index: 1;
     width: 100%;
     left: 0;
+    top: 50px;
 }
 
 #podcast-header-inner {
