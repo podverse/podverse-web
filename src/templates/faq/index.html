@@ -1,10 +1,118 @@
 {% extends "layout.html" %}
 
 {% block body %}
-<div class="row">
+<style>
+  h1 {
+    margin-bottom: 0.5rem;
+  }
+  .faq p {
+    font-size: 14px;
+    margin: 1rem 0;
+  }
+  .faq li {
+    font-size: 14px;
+  }
+  .faq .have-a-question {
+    font-size: 16px;
+    font-style: italic;
+    margin-top: 0.5rem;
+  }
+  .faq img {
+    max-width: 450px;
+  }
+  .faq img.margin {
+    margin: 0 0 1rem 0;
+  }
+</style>
+
+<div class="row faq">
   <div class="col-xs-12">
-    <h4>FAQ</h4>
-    <p>Nothing to see here :|</p>
+
+    <h1>FAQ</h1>
+    <p class="have-a-question"><a href="https://goo.gl/forms/VGVJRWlKPIGRqojY2">Have a different question?</a></p>
+    <h6>Table of Contents</h6>
+    <ul>
+      <li>
+        <a href="#edit-clips">
+          How do I edit my clips?
+        </a>
+      </li>
+      <li>
+        <a href="#my-clips">
+          Where can I find my clips?
+        </a>
+      </li>
+      <li>
+        <a href="#agplv3">
+          What does AGPLv3 mean?
+        </a>
+      </li>
+      <li>
+        <a href="#anti-monopoly">
+          How is Podverse anti-monopoly?
+        </a>
+      </li>
+    </ul>
+    <hr>
+
+
+    <h6 id="edit-clips">How do I edit my clips?</h6>
+    <p>
+      In order to edit a clip, <u>you must have been logged in when you created the clip</u>. After you create the clip, open it
+      on the website or the iOS mobile app, and there will be an <i>Edit Clip</i> button on the right hand side of the page.
+    </p>
+    <p>
+      <b>Web:</b> Go to the clip's page, then click <i>Edit Clip</i>.
+    </p>
+    <img class="margin" src="/static/images/edit-clip-web.png">
+    <p>
+      <b>iOS:</b> open the clip in the media player, then tap <i>Edit Clip</i>. 
+    </p>
+    <img src="/static/images/edit-clip-ios.png">
+    <hr>
+
+
+    <h6 id="my-clips">How do I find my clips?</h6>
+    <p>
+      If you <u>are not logged in</u> when you create a clip, then you must save the link to the clip if you want to find it later.
+    </p>
+    <p>
+      If you <u>are logged in</u> when you create a clip, then you can find it in your My Clips list at any time on web or iOS.
+    </p>
+    <p>
+      <b>Web:</b> Go to the Home page, click the dropdown in the upperleft corner, then select My Clips.
+    </p>
+    <img class="margin" src="/static/images/my-clips-web.png">
+    <p>
+      <b>iOS:</b> Go to the Clips page, click the dropdown in the upperleft corner, then select My Clips.
+    </p>
+    <img src="/static/images/my-clips-ios.png">
+    <hr>
+
+
+    <h6 id="agplv3">What does AGPLv3 mean?</h6>
+    <p>
+      The AGPLv3 is the open source license under which all Podverse technolgy is provided.
+    </p>
+    <hr>
+
+
+    <h6 id="anti-monopoly">How is Podverse anti-monopoly?</h6>
+    <p>
+      Monopolies lead to greater wealth inequality, abuses of power, and dangerous systemic single points of failure.
+      Podverse is committed to ensuring the technology we create can never be monopolized.
+    </p>
+    <p>
+      All Podverse software is distributed under the AGPLv3 open source license, which allows anyone to freely use, modify, and distribute our software, however they want,
+      as long as they share any modifications they make to the code.
+    </p>
+    <p>
+      Not all open source licenses are created equal, and some are not as monopoly resistent as the AGPLv3. For example, the MIT license does not 
+      require developers to share modifications they make to the code. As a result, modifications of software under the MIT license can become 
+      closed source, and a monopoly is more likely to form.
+    </p>
+
+
   </div><!-- col-xs-12 -->
 </div><!-- /.row -->
 {% endblock %}
