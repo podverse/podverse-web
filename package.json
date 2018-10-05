@@ -1,0 +1,22 @@
+{
+  "name": "podverse-web",
+  "version": "2.0.0",
+  "description": "Web app for the Podverse podcast clip sharing ecosystem",
+  "scripts": {
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/podverse/podverse-web.git"
+  },
+  "contributors": [
+    "Mitch Downey",
+    "Vincent Schramer",
+    "Creon Creonopoulos",
+    "Gary Johnson"
+  ],
+  "license": "AGPLv3",
+  "bugs": {
+    "url": "https://github.com/podverse/podverse-web/issues"
+  },
+  "homepage": "https://github.com/podverse/podverse-web#readme"
+}
