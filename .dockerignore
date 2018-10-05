@@ -1,3 +1,0 @@
-node_modules
-.boot
-/src/services/googleapi/jwt.keys.json
