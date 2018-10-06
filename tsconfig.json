@@ -20,8 +20,12 @@
         "noImplicitReturns": true,
         "noImplicitThis": true,
         "noUnusedLocals": true,
+        "paths": {
+            "~/*": ["./*"]
+        },
         "preserveConstEnums": true,
         "removeComments": false,
+        "rootDir": "./src",
         "skipLibCheck": true,
         "sourceMap": true,
         "strictNullChecks": true,
