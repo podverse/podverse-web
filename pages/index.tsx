@@ -4,7 +4,6 @@ import Meta from '../components/meta'
 
 export default () => (
   <Fragment>
-    <Meta />
     <ul>
       <li><Link href='/a' as='/a'><a>a</a></Link></li>
       <li><Link href='/b' as='/b'><a>b</a></Link></li>
