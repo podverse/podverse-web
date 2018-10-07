@@ -3,7 +3,7 @@
     "compilerOptions": {
         "allowJs": true,
         "allowSyntheticDefaultImports": true,
-        "baseUrl": ".",
+        "baseUrl": "./src",
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
         "forceConsistentCasingInFileNames": true,
@@ -21,11 +21,11 @@
         "noImplicitThis": true,
         "noUnusedLocals": true,
         "paths": {
-            "~/*": ["./*"]
+            "~/*": ["./src/*"]
         },
         "preserveConstEnums": true,
         "removeComments": false,
-        "rootDir": "./server",
+        "rootDir": "./src/server",
         "skipLibCheck": true,
         "sourceMap": true,
         "strictNullChecks": true,

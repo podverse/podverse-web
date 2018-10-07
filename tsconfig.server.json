@@ -5,6 +5,6 @@
         "outDir": "./next/production-server/"
     },
     "include": [
-        "server/**/*.ts"
+        "src/server/**/*.ts"
     ]
 }

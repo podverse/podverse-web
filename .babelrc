@@ -1,6 +1,8 @@
 {
   "plugins": [
-    "babel-plugin-root-import"
+    ["babel-plugin-root-import", {
+      "rootPathSuffix": "src"
+    }]
   ],
   "env": {
     "development": {
