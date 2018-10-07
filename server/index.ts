@@ -1,6 +1,7 @@
 import { createServer } from 'http'
 import { parse } from 'url'
 import * as next from 'next'
+import { routeFilePaths, routePagePaths } from 'lib/constants'
 
 // @ts-ignore
 const port = parseInt(process.env.PORT, 10) || 3000 
@@ -15,10 +16,10 @@ app.prepare()
       const parsedUrl = parse(req.url, true)
       const { pathname, query } = parsedUrl
       
-      if (pathname === '/a') {
-        app.render(req, res, '/a', query)
-      } else if (pathname === '/b') {
-        app.render(req, res, '/b', query)
+      if (pathname === routePagePaths.MAIN.CLIP) {
+        app.render(req, res, routeFilePaths.MAIN.CLIP, query)
+      } else if (pathname === routePagePaths.MAIN.CLIPS) {
+        app.render(req, res, routeFilePaths.MAIN.CLIPS, query)
       } else {
         handle(req, res, parsedUrl)
       }
