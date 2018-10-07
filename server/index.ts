@@ -1,32 +1,37 @@
-import { createServer } from 'http'
-import { parse } from 'url'
+import * as Koa from 'koa'
+import * as bodyParser from 'koa-bodyparser'
+import * as helmet from 'koa-helmet'
 import * as next from 'next'
-import { routeFilePaths, routePagePaths } from 'lib/constants'
+// import { routeFilePaths, routePagePaths } from 'lib/constants'
+import { adminRouter, authRouter, devRouter, infoRouter, mainRouter,
+  requestHandlerRouter } from 'server/routes'
 
 // @ts-ignore
-const port = parseInt(process.env.PORT, 10) || 3000 
+const port = parseInt(process.env.PORT, 10) || 8765 
 const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev })
-const handle = app.getRequestHandler()
 
 app.prepare()
   .then(() => {
-    createServer((req, res) => {
-      // @ts-ignore
-      const parsedUrl = parse(req.url, true)
-      const { pathname, query } = parsedUrl
-      
-      if (pathname === routePagePaths.MAIN.CLIP) {
-        app.render(req, res, routeFilePaths.MAIN.CLIP, query)
-      } else if (pathname === routePagePaths.MAIN.CLIPS) {
-        app.render(req, res, routeFilePaths.MAIN.CLIPS, query)
-      } else {
-        handle(req, res, parsedUrl)
-      }
+    const server = new Koa()
+
+    server.use(helmet())
+    server.use(bodyParser())
+    
+    server.use(async (ctx, next) => {
+      ctx.res.statusCode = 200
+      await next()
     })
-    .listen(port, err => {
-      if (err) throw err
-      console.log(`>Ready on http://localhost:${port}`)
+
+    server.use(adminRouter(app).routes())
+    server.use(authRouter(app).routes())
+    server.use(devRouter(app).routes())
+    server.use(infoRouter(app).routes())
+    server.use(mainRouter(app).routes())
+    server.use(requestHandlerRouter(app).routes())
+
+    server.listen(port, () => {
+      console.log(`> Ready on http://localhost:${port}`)
     })
   })
 
