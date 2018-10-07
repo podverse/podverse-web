@@ -4,7 +4,7 @@ import * as helmet from 'koa-helmet'
 import * as next from 'next'
 // import { routeFilePaths, routePagePaths } from 'lib/constants'
 import { adminRouter, authRouter, devRouter, infoRouter, mainRouter,
-  requestHandlerRouter } from 'server/routes'
+  requestHandlerRouter } from './routes'
 
 // @ts-ignore
 const port = parseInt(process.env.PORT, 10) || 8765 
