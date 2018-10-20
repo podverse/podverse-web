@@ -1,0 +1,15 @@
+.view {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+
+  .view__top {
+    flex: 1;
+    overflow-y: scroll;
+    height: 0;
+  }
+
+  .view__bottom {
+    flex: 0 0 112px;
+  }
+}

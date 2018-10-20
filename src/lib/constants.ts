@@ -118,3 +118,15 @@ export const mediaListSubSelectItemsSort = [
     value: 'most-recent'
   }
 ]
+
+export const getClipUrl = (id) => {
+  return `/clip/${id}`
+}
+
+export const getEpisodeUrl = (id) => {
+  return `/episode/${id}`
+}
+
+export const getPodcastUrl = (id) => {
+  return `/podcast/${id}`
+}

@@ -1,8 +1,11 @@
 import React, { Component, Fragment } from 'react'
 import axios from 'axios'
-import NowPlaying from '~/components/NowPlaying/NowPlaying'
+import MediaContentView from '~/components/MediaContentView/MediaContentView';
+import MediaPlayerView from '~/components/MediaPlayerView/MediaPlayerView'
 import Meta from '~/components/meta'
+import { getEpisodeUrl, getPodcastUrl } from '~/lib/constants'
 import { getMediaRefById, getMediaRefsByQuery } from '~/services/mediaRef'
+import { readableDate } from '~/lib/util';
 
 type Props = {
   mediaRef: any
@@ -26,15 +29,33 @@ export default class extends Component<Props, State> {
     return { mediaRef, mediaRefs }
   }
 
+  onClickClipTime () {
+    console.log('onClickClipTime')
+  }
+
   render () {
     const { mediaRef, mediaRefs } = this.props
-
+    const { endTime, episodeDescription, episodeId, episodePubDate, episodeTitle, 
+      podcastId, podcastImageUrl, podcastTitle, startTime, title } = mediaRef
+    
     return (
       <Fragment>
         <Meta />
-        <NowPlaying 
-          listItems={mediaRefs}
-          nowPlayingData={mediaRef} />
+        <MediaPlayerView nowPlayingData={mediaRef}>
+          <MediaContentView
+            headerBottomText={readableDate(episodePubDate)}
+            headerImageUrl={podcastImageUrl}
+            headerSubTitle={episodeTitle}
+            headerSubTitleLink={getEpisodeUrl(episodeId)}
+            headerTitle={podcastTitle}
+            headerTitleLink={getPodcastUrl(podcastId)}
+            infoClipEndTime={endTime}
+            infoClipStartTime={startTime}
+            infoClipTitle={title}
+            infoDescription={episodeDescription}
+            infoIsFullEpisode={!startTime && !endTime}
+            listItems={mediaRefs} />
+        </MediaPlayerView>
       </Fragment>
     )
   }

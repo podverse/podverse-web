@@ -71,10 +71,12 @@ export const convertSecToHHMMSS = (sec: number) => {
 }
 
 export const readableClipTime = (startTime, endTime) => {
+  let s = convertSecToHHMMSS(startTime)
   if (startTime && endTime) {
-    return `${convertSecToHHMMSS(startTime)} - ${convertSecToHHMMSS(endTime)}`
+    let e = convertSecToHHMMSS(endTime)
+    return `${s} - ${e}`
   } else {
-    return `${convertSecToHHMMSS(startTime)} start time`
+    return `Start: ${s}`
   }
 }
 
