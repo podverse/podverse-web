@@ -25,7 +25,7 @@
         },
         "preserveConstEnums": true,
         "removeComments": false,
-        "rootDir": "./src/server",
+        "rootDir": "./src",
         "skipLibCheck": true,
         "sourceMap": true,
         "strictNullChecks": true,

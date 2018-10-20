@@ -3,8 +3,9 @@ import * as Router from 'koa-router'
 export default (app) => {
   const router = new Router()
 
-  router.get('/clip', async ctx => {
-    await app.render(ctx.req, ctx.res, '/main/clip', ctx.query)
+  router.get('/clip/:id', async ctx => {
+    const query = { ...ctx.params, ...ctx.query }
+    await app.render(ctx.req, ctx.res, '/main/clip', query)
   })
 
   router.get('/clips', async ctx => {
