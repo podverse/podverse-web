@@ -1,52 +1,49 @@
-import React, { Fragment, ReactNode } from 'react'
-import { MediaPlayer } from 'podverse-ui'
+import React, { Component, ReactNode } from 'react'
+import { MediaPlayer, convertToNowPlayingItem } from 'podverse-ui'
 
 type Props = {
   children?: ReactNode
   nowPlayingData?: any
 }
 
-type State = {}
-
-type NowPlayingItem = {
-  clipEndTime?: number
-  clipStartTime?: number
-  clipTitle?: string
-  episodeMediaUrl?: string
-  episodeTitle?: string
-  imageUrl?: string
-  podcastTitle?: string
+type State = {
+  nowPlayingItem?: any
 }
 
-class MediaPlayerView extends React.Component<Props, State> {
+class MediaPlayerView extends Component<Props, State> {
+
+  constructor (props) {
+    super(props)
+    
+    if (props.nowPlayingData) {
+      this.state = {
+        nowPlayingItem: convertToNowPlayingItem(props.nowPlayingData)
+      }
+    }
+  }  
 
   render () {    
-    const { children, nowPlayingData } = this.props
-    const nowPlayingItem = convertToNowPlayingItem(nowPlayingData)
-    const { clipEndTime, clipStartTime, clipTitle, episodeMediaUrl, episodeTitle,
-      imageUrl, podcastTitle } = nowPlayingItem
+    const { children } = this.props
+    const { nowPlayingItem } = this.state  
 
     return (
       <div className='view'>
         <div className='view__top'>
           {children}
         </div>
-        <div className='view__bottom'>
-          <MediaPlayer
-            clipEndTime={clipEndTime}
-            clipStartTime={clipStartTime}
-            clipTitle={clipTitle}
-            episodeMediaUrl={episodeMediaUrl}
-            episodeTitle={episodeTitle}
-            handleOnAutoplay={this.onAutoplay}
-            handleOnEpisodeEnd={this.onEpisodeEnd}
-            handleOnPastClipTime={this.onPastClipTime}
-            handleOnSkip={this.onSkip}
-            imageUrl={imageUrl}
-            podcastTitle={podcastTitle}
-            showAutoplay={true}
-            showTimeJumpBackward={false} />
-        </div>
+        {
+          nowPlayingItem &&
+            <div className='view__bottom'>
+              <MediaPlayer
+                handleOnAutoplay={this.onAutoplay}
+                handleOnEpisodeEnd={this.onEpisodeEnd}
+                handleOnPastClipTime={this.onPastClipTime}
+                handleOnSkip={this.onSkip}
+                nowPlayingItem={nowPlayingItem}
+                showAutoplay={true}
+                showTimeJumpBackward={false} />
+            </div>
+          }
       </div>
     )
   }
@@ -66,29 +63,6 @@ class MediaPlayerView extends React.Component<Props, State> {
   onSkip () {
     console.log('onSkip')
   }
-
-}
-
-const convertToNowPlayingItem = (data) => {
-  let nowPlayingItem: NowPlayingItem = {}
-
-  // If it has a pubDate field, assume it is an Episode
-  if (data.pubDate) {
-    nowPlayingItem.episodeMediaUrl = data.mediaUrl
-    nowPlayingItem.episodeTitle = data.title
-    nowPlayingItem.imageUrl = data.podcast.imageUrl
-    nowPlayingItem.podcastTitle = data.podcast.title
-  } else { // Else assume it is a MediaRef
-    nowPlayingItem.clipEndTime = data.endTime
-    nowPlayingItem.clipStartTime = data.startTime
-    nowPlayingItem.clipTitle = data.title
-    nowPlayingItem.episodeMediaUrl = data.episode.mediaUrl
-    nowPlayingItem.episodeTitle = data.episode.title
-    nowPlayingItem.imageUrl = data.episode.podcast.imageUrl
-    nowPlayingItem.podcastTitle = data.episode.podcast.title
-  }
-
-  return nowPlayingItem
 }
 
 export default MediaPlayerView
