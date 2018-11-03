@@ -1,30 +1,146 @@
 import React, { Component, ReactNode } from 'react'
-import { MediaPlayer, convertToNowPlayingItem } from 'podverse-ui'
+import { MediaPlayer, convertToNowPlayingItem, popNextFromQueue } from 'podverse-ui'
 
 type Props = {
   children?: ReactNode
   nowPlayingData?: any
+  queueSecondaryItems?: any[]
 }
 
 type State = {
+  autoplay?: boolean
   nowPlayingItem?: any
+  playbackRate?: number
+  playing?: boolean
+  queuePrimaryItems?: any[]
+  queueSecondaryItems?: any[]
 }
 
 class MediaPlayerView extends Component<Props, State> {
 
   constructor (props) {
     super(props)
-    
-    if (props.nowPlayingData) {
-      this.state = {
-        nowPlayingItem: convertToNowPlayingItem(props.nowPlayingData)
-      }
+    const { nowPlayingData, queueSecondaryItems } = props
+
+    this.state = {
+      nowPlayingItem: nowPlayingData ? convertToNowPlayingItem(nowPlayingData) : nowPlayingData,
+      queueSecondaryItems: queueSecondaryItems || []
     }
-  }  
+  }
+
+  componentDidMount () {
+    const autoplay = this.getAutoplayValue()
+    const playbackRate = this.getPlaybackRateValue()
+
+    this.setState({ 
+      autoplay,
+      playbackRate
+    })
+  }
+
+  getAutoplayValue = () => {
+    const autoplay = localStorage.getItem(kAutoplay)
+    return autoplay ? JSON.parse(autoplay) : false
+  }
+
+  setAutoplayValue = (val) => {
+    localStorage.setItem(kAutoplay, val)
+  }
+
+  getPlaybackRateValue = () => {
+    const playbackRate = localStorage.getItem(kPlaybackRate)
+    return playbackRate ? JSON.parse(playbackRate) : 1
+  }
+
+  setPlaybackRateValue = (val) => {
+    localStorage.setItem(kPlaybackRate, val)
+  }
+
+  handleAddToQueuePlayLast = (event) => {
+    event.preventDefault()
+    alert('add to queue play last')
+  }
+
+  handleAddToQueuePlayNext = (event) => {
+    event.preventDefault()
+    alert('add to queue play next')
+  }
+
+  handleItemSkip = () => {
+    const result = popNextFromQueue()
+
+    this.setState({
+      nowPlayingItem: result.nextItem,
+      playing: this.state.autoplay,
+      queuePrimaryItems: result.primaryItems,
+      queueSecondaryItems: result.secondaryItems,
+    })
+  }
+
+  handleMakeClip = (event) => {
+    alert('make clip')
+  }
+
+  handleOnEpisodeEnd = () => {
+    const { autoplay } = this.state
+    
+    if (autoplay) {
+      this.handleItemSkip()
+    } else {
+      this.setState({ playing: false })
+    }
+  }
+
+  handleOnPastClipTime = (shouldPlay) => {
+    const { nowPlayingItem } = this.state
+    nowPlayingItem.clipStartTime = null
+    nowPlayingItem.clipEndTime = null
+    nowPlayingItem.clipTitle = null
+    this.setState({
+      nowPlayingItem,
+      playing: shouldPlay
+    })
+  }
+
+  handlePause = () => {
+    this.setState({ playing: false })
+  }
+
+  handlePlaybackRateClick = () => {
+    const { playbackRate } = this.state
+    const nextPlaybackRate = getPlaybackRateNextValue(playbackRate)
+    this.setPlaybackRateValue(nextPlaybackRate)
+    this.setState({ playbackRate: nextPlaybackRate })
+  }
+
+  handlePlaylistCreate = () => {
+    alert('create playlist')
+  }
+
+  handlePlaylistItemAdd = (event) => {
+    event.preventDefault()
+    alert('add item to playlist')
+  }
+
+  handleQueueItemClick = () => {
+    alert('queue item clicked')
+  }
+
+  handleToggleAutoplay = () => {
+    const autoplay = this.getAutoplayValue()
+    this.setAutoplayValue(!autoplay)
+    this.setState({ autoplay: !autoplay })
+  }
+
+  handleTogglePlay = () => {
+    const { playing } = this.state
+    this.setState({ playing: !playing })
+  }
 
   render () {    
     const { children } = this.props
-    const { nowPlayingItem } = this.state  
+    const { autoplay, nowPlayingItem, playbackRate, playing, queueSecondaryItems
+      } = this.state  
 
     return (
       <div className='view'>
@@ -35,34 +151,76 @@ class MediaPlayerView extends Component<Props, State> {
           nowPlayingItem &&
             <div className='view__bottom'>
               <MediaPlayer
-                handleOnAutoplay={this.onAutoplay}
-                handleOnEpisodeEnd={this.onEpisodeEnd}
-                handleOnPastClipTime={this.onPastClipTime}
-                handleOnSkip={this.onSkip}
+                autoplay={autoplay}
+                handleAddToQueuePlayLast={this.handleAddToQueuePlayLast}
+                handleAddToQueuePlayNext={this.handleAddToQueuePlayNext}
+                handleItemSkip={this.handleItemSkip}
+                handleMakeClip={this.handleMakeClip}
+                handleOnEpisodeEnd={this.handleOnEpisodeEnd}
+                handleOnPastClipTime={this.handleOnPastClipTime}
+                handleQueueItemClick={this.handleQueueItemClick}
+                handlePause={this.handlePause}
+                handlePlaybackRateClick={this.handlePlaybackRateClick}
+                handlePlaylistCreate={this.handlePlaylistCreate}
+                handlePlaylistItemAdd={this.handlePlaylistItemAdd}
+                handleToggleAutoplay={this.handleToggleAutoplay}
+                handleTogglePlay={this.handleTogglePlay}
                 nowPlayingItem={nowPlayingItem}
-                showAutoplay={true}
-                showTimeJumpBackward={false} />
+                playbackRate={playbackRate}
+                playbackRateText={getPlaybackRateText(playbackRate)}
+                playerClipLink='/clip/1234'
+                playerEpisodeLink='/episode/1234'
+                playerPodcastLink='/podcast/1234'
+                playing={playing}
+                queueSecondaryItems={queueSecondaryItems}
+                showAutoplay={true} />
             </div>
           }
       </div>
     )
   }
-
-  onAutoplay () {
-    console.log('onAutoplay')
-  }
-
-  onEpisodeEnd () {
-    console.log('onEpisodeEnd')
-  }
-
-  onPastClipTime () {
-    console.log('onPastClipTime')
-  }
-
-  onSkip () {
-    console.log('onSkip')
-  }
 }
 
 export default MediaPlayerView
+
+// Constants
+const kAutoplay = 'mediaPlayerAutoplay'
+const kPlaybackRate = 'mediaPlayerPlaybackRate'
+
+const getPlaybackRateText = num => {
+  switch (num) {
+    case 0.5:
+      return '0.5x'
+    case 0.75:
+      return '0.75x'
+    case 1:
+      return '1x'
+    case 1.25:
+      return '1.25x'
+    case 1.5:
+      return '1.5x'
+    case 2:
+      return '2x'
+    default:
+      return '1x'
+  }
+}
+
+const getPlaybackRateNextValue = num => {
+  switch (num) {
+    case 0.5:
+      return 0.75
+    case 0.75:
+      return 1
+    case 1:
+      return 1.25
+    case 1.25:
+      return 1.5
+    case 1.5:
+      return 2
+    case 2:
+      return 0.5
+    default:
+      return 1
+  }
+}

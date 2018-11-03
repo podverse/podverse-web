@@ -1,7 +1,10 @@
 // $button-color: #ff0000;
 
-@import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,200i,300,300i,400,400i,600,600i,700,700i,900,900i');
 
+@import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 @import '../../node_modules/podverse-ui/build/scss/styles.scss';
 
-@import './partials/mediaPlayerView'
+@import './core/_global';
+
+@import './partials/_mediaPlayerView';

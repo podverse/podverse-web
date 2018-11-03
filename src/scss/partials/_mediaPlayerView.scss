@@ -5,8 +5,9 @@
 
   .view__top {
     flex: 1;
-    overflow-y: scroll;
     height: 0;
+    overflow-y: scroll;
+    padding: 1rem 0;
   }
 
   .view__bottom {

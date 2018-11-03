@@ -4,7 +4,7 @@ import MediaContentView from '~/components/MediaContentView/MediaContentView';
 import MediaPlayerView from '~/components/MediaPlayerView/MediaPlayerView'
 import Meta from '~/components/meta'
 import { getEpisodeUrl, getPodcastUrl } from '~/lib/constants'
-import { getMediaRefById, getMediaRefsByQuery } from '~/services/mediaRef'
+import { getMediaRefById, getMediaRefsByQueryAsNowPlayingItem } from '~/services/mediaRef'
 import { readableDate } from '~/lib/util';
 
 type Props = {
@@ -19,7 +19,7 @@ export default class extends Component<Props, State> {
   static async getInitialProps(req) {
     const res = await axios.all([
       getMediaRefById(req.query.id), 
-      getMediaRefsByQuery({ 
+      getMediaRefsByQueryAsNowPlayingItem({ 
         podcastTitle: `The James Altucher Show`
       })
     ])
@@ -37,11 +37,13 @@ export default class extends Component<Props, State> {
     const { mediaRef, mediaRefs } = this.props
     const { endTime, episodeDescription, episodeId, episodePubDate, episodeTitle, 
       podcastId, podcastImageUrl, podcastTitle, startTime, title } = mediaRef
-    
+
     return (
       <Fragment>
         <Meta />
-        <MediaPlayerView nowPlayingData={mediaRef}>
+        <MediaPlayerView 
+          nowPlayingData={mediaRef}
+          queueSecondaryItems={mediaRefs}>
           <MediaContentView
             headerBottomText={readableDate(episodePubDate)}
             headerImageUrl={podcastImageUrl}

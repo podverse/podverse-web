@@ -35,13 +35,14 @@ class MediaContentView extends Component<Props, State> {
 
     const listItemNodes = listItems.map((x, index) =>
       <MediaListItem
-        dataClip={x}
-        itemType='clip'
-        key={`nowPlayingListItem${index}`} />
+        dataNowPlayingItem={x}
+        itemType='now-playing-item'
+        key={`nowPlayingListItem${index}`}
+        showMoreMenu={true} />
     )
 
     return (
-      <Fragment>
+      <div className='max-width'>
         <MediaHeader
           bottomText={headerBottomText}
           imageUrl={headerImageUrl}
@@ -68,7 +69,7 @@ class MediaContentView extends Component<Props, State> {
             selected={mediaListSubSelectItemsSort[0].value} />
           {listItemNodes}
         </div>
-      </Fragment>
+      </div>
     )
   }
 }
