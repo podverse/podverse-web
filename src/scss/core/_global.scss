@@ -4,5 +4,11 @@ html {
 
 .max-width {
   margin: auto;
-  max-width: 660px;
+  max-width: $body-max-width;
+}
+
+@media (max-width: ($body-max-width + 2rem)) {
+  .max-width {
+    margin: auto 1rem;
+  }
 }
