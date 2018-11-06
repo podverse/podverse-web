@@ -3,7 +3,8 @@ import Document, { Head, Main, NextScript } from 'next/document'
 export default class CustomDocument extends Document {
   render () {
     return (
-      <html theme="light">
+      // @ts-ignore
+      <html theme="dark">
         <body>
           <Head />
           <Main />

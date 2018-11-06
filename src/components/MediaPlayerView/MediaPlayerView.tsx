@@ -1,9 +1,8 @@
-import React, { Component, ReactNode } from 'react'
+import React, { Component, Fragment, ReactNode } from 'react'
 import { MediaPlayer, convertToNowPlayingItem, popNextFromQueue } from 'podverse-ui'
 
 type Props = {
-  children?: ReactNode
-  nowPlayingData?: any
+  nowPlayingItem?: any
   queueSecondaryItems?: any[]
 }
 
@@ -20,10 +19,10 @@ class MediaPlayerView extends Component<Props, State> {
 
   constructor (props) {
     super(props)
-    const { nowPlayingData, queueSecondaryItems } = props
+    const { nowPlayingItem, queueSecondaryItems } = props
 
     this.state = {
-      nowPlayingItem: nowPlayingData ? convertToNowPlayingItem(nowPlayingData) : nowPlayingData,
+      nowPlayingItem,
       queueSecondaryItems: queueSecondaryItems || []
     }
   }
@@ -137,16 +136,12 @@ class MediaPlayerView extends Component<Props, State> {
     this.setState({ playing: !playing })
   }
 
-  render () {    
-    const { children } = this.props
+  render () {
     const { autoplay, nowPlayingItem, playbackRate, playing, queueSecondaryItems
       } = this.state  
 
     return (
-      <div className='view'>
-        <div className='view__top'>
-          {children}
-        </div>
+      <Fragment>
         {
           nowPlayingItem &&
             <div className='view__bottom'>
@@ -175,8 +170,8 @@ class MediaPlayerView extends Component<Props, State> {
                 queueSecondaryItems={queueSecondaryItems}
                 showAutoplay={true} />
             </div>
-          }
-      </div>
+        }
+      </Fragment>
     )
   }
 }

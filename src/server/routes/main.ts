@@ -5,7 +5,7 @@ export default (app) => {
 
   router.get('/clip/:id', async ctx => {
     const query = { ...ctx.params, ...ctx.query }
-    await app.render(ctx.req, ctx.res, '/main/clip', query)
+    await app.render(ctx.req, ctx.res, '/clip', query)
   })
 
   router.get('/clips', async ctx => {

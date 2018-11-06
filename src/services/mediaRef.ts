@@ -10,11 +10,6 @@ export const getMediaRefsByQuery = (query: MediaRefQuery) => {
   return axios.get(`http://localhost:3000/api/v1/mediaRef?${queryString}`)
 }
 
-export const getMediaRefsByQueryAsNowPlayingItem = (query: MediaRefQuery) => {
-  const queryString = convertObjectToQueryString(query)
-  return axios.get(`http://localhost:3000/api/v1/mediaRef/?${queryString}${'&isNowPlayingItem=true'}`)
-}
-
 type MediaRefQuery = {
   _episodeId?: string
   _podcastId?: string
