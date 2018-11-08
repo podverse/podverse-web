@@ -1,5 +1,5 @@
-import React, { Component, Fragment, ReactNode } from 'react'
-import { MediaPlayer, convertToNowPlayingItem, popNextFromQueue } from 'podverse-ui'
+import React, { Component, Fragment } from 'react'
+import { MediaPlayer, popNextFromQueue } from 'podverse-ui'
 
 type Props = {
   nowPlayingItem?: any
@@ -19,15 +19,17 @@ class MediaPlayerView extends Component<Props, State> {
 
   constructor (props) {
     super(props)
-    const { nowPlayingItem, queueSecondaryItems } = props
 
-    this.state = {
-      nowPlayingItem,
-      queueSecondaryItems: queueSecondaryItems || []
-    }
+    this.state = {}
   }
 
   componentDidMount () {
+    const { nowPlayingItem } = this.props
+
+    if (!window.nowPlayingItem || (nowPlayingItem && window.nowPlayingItem && (nowPlayingItem.episodeMediaUrl !== window.nowPlayingItem.episodeMediaUrl))) {
+      window.nowPlayingItem = nowPlayingItem
+    }
+
     const autoplay = this.getAutoplayValue()
     const playbackRate = this.getPlaybackRateValue()
 
@@ -57,19 +59,21 @@ class MediaPlayerView extends Component<Props, State> {
 
   handleAddToQueuePlayLast = (event) => {
     event.preventDefault()
-    alert('add to queue play last')
+    
   }
 
   handleAddToQueuePlayNext = (event) => {
     event.preventDefault()
-    alert('add to queue play next')
   }
 
   handleItemSkip = () => {
     const result = popNextFromQueue()
 
+    if (result.nextItem) {
+      window.nowPlayingItem = result.nextItem
+    }
+
     this.setState({
-      nowPlayingItem: result.nextItem,
       playing: this.state.autoplay,
       queuePrimaryItems: result.primaryItems,
       queueSecondaryItems: result.secondaryItems,
@@ -137,8 +141,11 @@ class MediaPlayerView extends Component<Props, State> {
   }
 
   render () {
-    const { autoplay, nowPlayingItem, playbackRate, playing, queueSecondaryItems
-      } = this.state  
+    const { queueSecondaryItems } = this.props
+    const { autoplay, playbackRate, playing } = this.state
+    
+    // @ts-ignore
+    const nowPlayingItem = process.browser ? window.nowPlayingItem : this.props.nowPlayingItem || {}
 
     return (
       <Fragment>

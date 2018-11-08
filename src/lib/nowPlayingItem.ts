@@ -1,5 +1,6 @@
 export type NowPlayingItem = {
   clipEndTime?: number
+  clipId?: string
   clipStartTime?: number
   clipTitle?: string
   episodeDescription?: string
@@ -30,9 +31,10 @@ export const convertToNowPlayingItem = (data) => {
   } else { // Else assume it is a MediaRef
     const isRelational = !!data.episode
     nowPlayingItem.clipEndTime = data.endTime
+    nowPlayingItem.clipId = data.id
     nowPlayingItem.clipStartTime = data.startTime
     nowPlayingItem.clipTitle = data.title
-    nowPlayingItem.episodeDescription = isRelational? data.episode.description : data.episodeDescription
+    nowPlayingItem.episodeDescription = isRelational ? data.episode.description : data.episodeDescription
     nowPlayingItem.episodeId = isRelational ? data.episode.id : data.episodeId
     nowPlayingItem.episodeMediaUrl = isRelational ? data.episode.mediaUrl : data.episodeMediaUrl
     nowPlayingItem.episodePubDate = isRelational ? data.episode.pubDate : data.episodePubDate

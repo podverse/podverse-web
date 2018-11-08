@@ -1,26 +1,29 @@
 
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import { MediaHeader, MediaInfo, MediaListItem, MediaListSelect } from 'podverse-ui'
-import { mediaListSelectItemsPlayer, mediaListSubSelectItemsPlayer,
-  mediaListSubSelectItemsSort } from '~/lib/constants'
+import { getEpisodeUrl, getPodcastUrl, mediaListSelectItemsPlayer, 
+  mediaListSubSelectItemsPlayer, mediaListSubSelectItemsSort } from '~/lib/constants'
+import { NowPlayingItem } from '~/lib/nowPlayingItem'
+import { scrollToTopOfView } from '~/lib/scrollToTop'
+import { readableDate } from '~/lib/util';
 
 type Props = {
-  headerBottomText?: string
-  headerImageUrl?: string
-  headerSubTitle?: string
-  headerSubTitleLink?: string
-  headerTitle?: string
-  headerTitleLink?: string
-  infoClipEndTime?: string
-  infoClipStartTime?: string
-  infoClipTitle?: string
-  infoDescription?: string
-  infoIsFullEpisode?: boolean
-  infoOnClickClipTime?: string
+  episode?: any
   listItems: any[]
+  mediaRef?: any
+  nowPlayingItem?: any
+  podcast?: any
 }
 
-type State = {}
+// Load data from state to render text immediately and prevent flash-of-content
+// while the backend data loads
+type State = {
+  episode?: any
+  listItems: any[]
+  mediaRef?: any
+  nowPlayingItem?: any
+  podcast?: any
+}
 
 class MediaContentView extends Component<Props, State> {
 
@@ -28,14 +31,93 @@ class MediaContentView extends Component<Props, State> {
     listItems: []
   }
 
-  render() {
-    const { headerBottomText, headerImageUrl, headerSubTitle, headerSubTitleLink,
-      headerTitle, headerTitleLink, infoClipEndTime, infoClipStartTime, infoClipTitle,
-      infoDescription, infoIsFullEpisode, infoOnClickClipTime, listItems } = this.props
+  constructor (props) {
+    super(props)
+
+    this.state = {
+      episode: props.episode,
+      listItems: props.listItems,
+      mediaRef: props.mediaRef,
+      nowPlayingItem: props.nowPlayingItem,
+      podcast: props.podcast
+    }
+  }
+
+  handleAnchorOnClick (event, data, itemType) {
+    const { listItems } = this.state
+
+    const newState = {
+      episode: null,
+      listItems,
+      mediaRef: null,
+      nowPlayingItem: null,
+      podcast: null
+    }
+
+    // Duck-type to determine what state props to update
+    if (itemType === 'episode') { // episode
+      newState.episode = data
+    } else if (itemType === 'mediaRef') { // mediaRef
+      newState.mediaRef = data
+    } else if (itemType === 'nowPlayingItem') { // nowPlayingItem
+      newState.nowPlayingItem = data
+    } else if (itemType === 'podcast') { // podcast
+      newState.podcast = data
+    }
+
+    this.setState(newState)
+    scrollToTopOfView()
+  }
+
+  render () {
+    const { episode, listItems, mediaRef, nowPlayingItem, podcast } = this.state
+
+    let headerBottomText, headerImageUrl, headerSubTitle, headerSubTitleLink,
+      headerTitle, headerTitleLink, infoClipEndTime, infoClipStartTime,
+      infoClipTitle, infoDescription, infoIsFullEpisode
+    
+    if (episode) {
+      console.log(episode)
+    } else if (mediaRef) {
+      const { endTime, episodeDescription, episodeId, episodePubDate, episodeTitle,
+        podcastId, podcastImageUrl, podcastTitle, startTime, title } = mediaRef
+
+      headerBottomText = readableDate(episodePubDate)
+      headerImageUrl = podcastImageUrl
+      headerSubTitle = episodeTitle
+      headerSubTitleLink = getEpisodeUrl(episodeId)
+      headerTitle = podcastTitle
+      headerTitleLink = getPodcastUrl(podcastId)
+      infoClipEndTime = endTime
+      infoClipStartTime = startTime
+      infoClipTitle = title
+      infoDescription = episodeDescription
+      infoIsFullEpisode = !startTime && !endTime
+    } else if (nowPlayingItem) {
+      const { clipEndTime, clipStartTime, clipTitle, episodeDescription,
+        episodeId, episodePubDate, episodeTitle, imageUrl, podcastId,
+        podcastTitle } = nowPlayingItem
+
+      headerBottomText = readableDate(episodePubDate)
+      headerImageUrl = imageUrl
+      headerSubTitle = episodeTitle
+      headerSubTitleLink = getEpisodeUrl(episodeId)
+      headerTitle = podcastTitle
+      headerTitleLink = getPodcastUrl(podcastId)
+      infoClipEndTime = clipEndTime
+      infoClipStartTime = clipStartTime
+      infoClipTitle = clipTitle
+      infoDescription = episodeDescription
+      infoIsFullEpisode = !clipStartTime && !clipEndTime
+    } else if (podcast) {
+      console.log(podcast)
+    }
 
     const listItemNodes = listItems.map((x, index) =>
       <MediaListItem
         dataNowPlayingItem={x}
+        handleAnchorOnClick={(e) => { this.handleAnchorOnClick(e, x, 'nowPlayingItem') }}
+        hasLink={true}
         itemType='now-playing-item'
         key={`nowPlayingListItem${index}`}
         showMoreMenu={true} />
@@ -55,8 +137,7 @@ class MediaContentView extends Component<Props, State> {
           clipStartTime={infoClipStartTime}
           clipTitle={infoClipTitle}
           description={infoDescription}
-          isFullEpisode={infoIsFullEpisode}
-          onClickClipTime={infoOnClickClipTime} />
+          isFullEpisode={infoIsFullEpisode} />
         <div className='media-list'>
           <MediaListSelect
             items={mediaListSelectItemsPlayer}

@@ -1,14 +1,13 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import axios from 'axios'
 import MediaContentView from '~/components/MediaContentView/MediaContentView';
-import { getEpisodeUrl, getPodcastUrl } from '~/lib/constants'
 import { getMediaRefById, getMediaRefsByQuery } from '~/services/mediaRef'
-import { readableDate } from '~/lib/util';
 import { NowPlayingItem, convertToNowPlayingItem } from '~/lib/nowPlayingItem';
+import { addItemsToSecondaryQueue } from 'podverse-ui'
 
 type Props = {
-  nowPlayingItem: NowPlayingItem
-  secondaryQueueItems: NowPlayingItem[]
+  mediaRef: any
+  queueSecondaryItems: NowPlayingItem[]
 }
 
 type State = {}
@@ -25,14 +24,24 @@ export default class extends Component<Props, State> {
     const mediaRef = res[0].data;
     const mediaRefs = res[1].data;
     
-    const nowPlayingItem: NowPlayingItem = convertToNowPlayingItem(mediaRef)
+    let nowPlayingItem: NowPlayingItem = {}
 
-    const secondaryQueueItems: NowPlayingItem[] = []
+    // @ts-ignore
+    if (!process.browser) {
+      nowPlayingItem = convertToNowPlayingItem(mediaRef)
+    }
+
+    const queueSecondaryItems: NowPlayingItem[] = []
     for (const mediaRef of mediaRefs) {
-      secondaryQueueItems.push(convertToNowPlayingItem(mediaRef))
+      queueSecondaryItems.push(convertToNowPlayingItem(mediaRef))
     }
     
-    return { nowPlayingItem, secondaryQueueItems }
+    return { mediaRef, nowPlayingItem, queueSecondaryItems }
+  }
+
+  componentDidMount () {
+    const { queueSecondaryItems } = this.props
+    addItemsToSecondaryQueue(queueSecondaryItems)
   }
 
   onClickClipTime () {
@@ -40,24 +49,12 @@ export default class extends Component<Props, State> {
   }
 
   render () {
-    const { nowPlayingItem, secondaryQueueItems } = this.props
-    const { clipEndTime, clipStartTime, clipTitle, episodeDescription, episodeId,
-      episodePubDate, episodeTitle, imageUrl, podcastId, podcastTitle } = nowPlayingItem
+    const { mediaRef, queueSecondaryItems } = this.props
 
     return (
       <MediaContentView
-        headerBottomText={readableDate(episodePubDate)}
-        headerImageUrl={imageUrl}
-        headerSubTitle={episodeTitle}
-        headerSubTitleLink={getEpisodeUrl(episodeId)}
-        headerTitle={podcastTitle}
-        headerTitleLink={getPodcastUrl(podcastId)}
-        infoClipEndTime={clipEndTime}
-        infoClipStartTime={clipStartTime}
-        infoClipTitle={clipTitle}
-        infoDescription={episodeDescription}
-        infoIsFullEpisode={!clipStartTime && !clipEndTime}
-        listItems={secondaryQueueItems} />
+        mediaRef={mediaRef}
+        listItems={queueSecondaryItems} />
     )
   }
 
