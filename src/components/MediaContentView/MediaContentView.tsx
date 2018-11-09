@@ -1,5 +1,5 @@
 
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { MediaHeader, MediaInfo, MediaListItem, MediaListSelect } from 'podverse-ui'
 import { getEpisodeUrl, getPodcastUrl, mediaListSelectItemsPlayer, 
   mediaListSubSelectItemsPlayer, mediaListSubSelectItemsSort } from '~/lib/constants'
@@ -122,7 +122,7 @@ class MediaContentView extends Component<Props, State> {
     )
 
     return (
-      <div className='max-width'>
+      <Fragment>
         <MediaHeader
           bottomText={headerBottomText}
           imageUrl={headerImageUrl}
@@ -148,7 +148,7 @@ class MediaContentView extends Component<Props, State> {
             selected={mediaListSubSelectItemsSort[0].value} />
           {listItemNodes}
         </div>
-      </div>
+      </Fragment>
     )
   }
 }

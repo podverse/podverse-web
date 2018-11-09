@@ -3,8 +3,9 @@ html {
 }
 
 .max-width {
-  margin: auto;
+  margin: 0 auto;
   max-width: $body-max-width;
+  width: 100%;
 }
 
 @media (max-width: ($body-max-width + 2rem)) {
