@@ -30,9 +30,11 @@ export default class MyApp extends App {
       <Container>
         <Meta />
         <div className='view'>
-          <div className='view__top max-width'>
-            <Component {...pageProps} />
-            <Footer />
+          <div className='view__top'>
+            <div className='max-width'>
+              <Component {...pageProps} />
+              <Footer />
+            </div>
           </div>
           <MediaPlayerView {...pageProps} />
         </div>
