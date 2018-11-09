@@ -7,6 +7,9 @@
 @import './core/_variables';
 @import '../../node_modules/podverse-ui/build/scss/styles.scss';
 
+@import './lib/mixins';
+
 @import './core/_global';
 
+@import './partials/footer';
 @import './partials/_mediaPlayerView';

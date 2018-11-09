@@ -1,9 +1,12 @@
 import React from 'react'
 import App, { Container } from 'next/app'
-import Link from 'next/link'
 import Meta from '~/components/meta'
-import MediaPlayerView from '~/components/MediaPlayerView/MediaPlayerView';
-import { NowPlayingItem } from '~/lib/nowPlayingItem';
+import Footer from '~/components/Footer/Footer'
+import MediaPlayerView from '~/components/MediaPlayerView/MediaPlayerView'
+import { addFontAwesomeIcons } from '~/lib/fontAwesomeIcons'
+import { NowPlayingItem } from '~/lib/nowPlayingItem'
+
+addFontAwesomeIcons()
 
 declare global {
   interface Window { nowPlayingItem: NowPlayingItem }
@@ -29,6 +32,9 @@ export default class MyApp extends App {
         <div className='view'>
           <div className='view__top'>
             <Component {...pageProps} />
+            <div className='max-width'>
+              <Footer />
+            </div>
           </div>
           <MediaPlayerView {...pageProps} />
         </div>

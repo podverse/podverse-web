@@ -4,15 +4,15 @@ export default (app) => {
   const router = new Router()
 
   router.get('/about', async ctx => {
-    await app.render(ctx.req, ctx.res, '/info/about', ctx.query)
+    await app.render(ctx.req, ctx.res, '/about', ctx.query)
   })
 
   router.get('/contact', async ctx => {
-    await app.render(ctx.req, ctx.res, '/info/contact', ctx.query)
+    await app.render(ctx.req, ctx.res, '/contact', ctx.query)
   })
 
   router.get('/faq', async ctx => {
-    await app.render(ctx.req, ctx.res, '/info/faq', ctx.query)
+    await app.render(ctx.req, ctx.res, '/faq', ctx.query)
   })
 
   router.get('/signup', async ctx => {

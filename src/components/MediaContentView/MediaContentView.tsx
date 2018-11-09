@@ -3,7 +3,6 @@ import React, { Component } from 'react'
 import { MediaHeader, MediaInfo, MediaListItem, MediaListSelect } from 'podverse-ui'
 import { getEpisodeUrl, getPodcastUrl, mediaListSelectItemsPlayer, 
   mediaListSubSelectItemsPlayer, mediaListSubSelectItemsSort } from '~/lib/constants'
-import { NowPlayingItem } from '~/lib/nowPlayingItem'
 import { scrollToTopOfView } from '~/lib/scrollToTop'
 import { readableDate } from '~/lib/util';
 
@@ -54,14 +53,13 @@ class MediaContentView extends Component<Props, State> {
       podcast: null
     }
 
-    // Duck-type to determine what state props to update
-    if (itemType === 'episode') { // episode
+    if (itemType === 'episode') {
       newState.episode = data
-    } else if (itemType === 'mediaRef') { // mediaRef
+    } else if (itemType === 'mediaRef') {
       newState.mediaRef = data
-    } else if (itemType === 'nowPlayingItem') { // nowPlayingItem
+    } else if (itemType === 'nowPlayingItem') {
       newState.nowPlayingItem = data
-    } else if (itemType === 'podcast') { // podcast
+    } else if (itemType === 'podcast') {
       newState.podcast = data
     }
 
