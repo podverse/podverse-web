@@ -1,10 +1,14 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux';
 import { MediaPlayer, popNextFromQueue } from 'podverse-ui'
 import { kAutoplay, kPlaybackRate, getPlaybackRateText, getPlaybackRateNextValue
   } from '~/lib/constants'
+  import { scrollToTopOfView } from '~/lib/scrollToTop';
+import { currentPageLoadNowPlayingItem } from '~/redux/actions';
 
 type Props = {
+  currentPageLoadNowPlayingItem?: any
   mediaPlayer?: any
   playerQueue?: any
 }
@@ -58,6 +62,21 @@ class MediaPlayerView extends Component<Props, State> {
 
   handleAddToQueuePlayNext = (event) => {
     event.preventDefault()
+  }
+
+  handleAnchorOnClick(event, nowPlayingItem, itemType) {
+    const { currentPageLoadNowPlayingItem } = this.props
+
+    if (itemType === 'episode') {
+      nowPlayingItem.clipEndTime = 0
+      nowPlayingItem.clipTitle = 0
+      nowPlayingItem.clipStartTime = 0
+      currentPageLoadNowPlayingItem(nowPlayingItem)
+    } else if (itemType === 'mediaRef') {
+      currentPageLoadNowPlayingItem(nowPlayingItem)
+    }
+
+    scrollToTopOfView()
   }
 
   handleItemSkip = () => {
@@ -139,6 +158,7 @@ class MediaPlayerView extends Component<Props, State> {
   render () {
     const { mediaPlayer, playerQueue } = this.props
     const { nowPlayingItem } = mediaPlayer
+    const { clipId, episodeId } = nowPlayingItem
     const { secondaryItems } = playerQueue
     const { autoplay, playbackRate, playing } = this.state
     
@@ -165,11 +185,12 @@ class MediaPlayerView extends Component<Props, State> {
                 nowPlayingItem={nowPlayingItem}
                 playbackRate={playbackRate}
                 playbackRateText={getPlaybackRateText(playbackRate)}
-                playerClipLinkAs='/clip/wfx3yJcSbA'
-                playerClipLinkHref='/clip?id=wfx3yJcSbA'
-                playerEpisodeLinkHref ='/episode?id=1234'
-                playerEpisodeLinkAs='/episode/1234'
-                playerPodcastLinkHref='/podcast?id=1234'
+                playerClipLinkAs={`/clip/${clipId}`}
+                playerClipLinkHref={`/clip?id=${clipId}`}
+                playerClipLinkOnClick={(evt) => { this.handleAnchorOnClick(evt, nowPlayingItem, 'mediaRef') }}
+                playerEpisodeLinkAs={`/episode/${episodeId}`}
+                playerEpisodeLinkHref={`/episode?id=${episodeId}`}
+                playerEpisodeLinkOnClick={(evt) => { this.handleAnchorOnClick(evt, nowPlayingItem, 'episode') }}
                 playing={playing}
                 queueSecondaryItems={secondaryItems}
                 showAutoplay={true} />
@@ -182,6 +203,8 @@ class MediaPlayerView extends Component<Props, State> {
 
 const mapStateToProps = state => ({ ...state })
 
-const mapDispatchToProps = dispatch => ({})
+const mapDispatchToProps = dispatch => ({
+  currentPageLoadNowPlayingItem: bindActionCreators(currentPageLoadNowPlayingItem, dispatch)
+})
 
 export default connect(mapStateToProps, mapDispatchToProps)(MediaPlayerView)
