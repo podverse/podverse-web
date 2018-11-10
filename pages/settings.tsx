@@ -10,7 +10,7 @@ export default class extends Component<Props, State> {
     return (
       <Fragment>
         <Meta />
-        Home / Clips
+        Settings
       </Fragment>
     )
   }

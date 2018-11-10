@@ -17,7 +17,8 @@ declare global {
 
 const dropdownItems = [
   { 
-    href: '#',
+    as: '/settings',
+    href: '/settings',
     label: 'Settings' 
   },
   { 
@@ -28,15 +29,18 @@ const dropdownItems = [
 
 const navItems = [
   { 
-    href: '#', 
+    as: '/search',
+    href: '/search',
     icon: 'search'
   },
   {
-    href: '#',
+    as: '/podcasts',
+    href: '/podcasts',
     label: 'Podcasts'
   },
   { 
-    href: '#',
+    as: '/playlists',
+    href: '/playlists',
     label: 'Playlists'
   }
 ]
@@ -64,7 +68,7 @@ export default class MyApp extends App {
           <div className='view__navbar'>
             <Navbar
               brandText='Podverse'
-              brandUrl='#'
+              brandUrl='/'
               dropdownItems={dropdownItems}
               dropdownText={dropdownText}
               navItems={navItems} />
