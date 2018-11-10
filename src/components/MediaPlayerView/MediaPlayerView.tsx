@@ -151,7 +151,7 @@ class MediaPlayerView extends Component<Props, State> {
       <Fragment>
         {
           nowPlayingItem &&
-            <div className='view__bottom'>
+            <div className='view__mediaplayer'>
               <MediaPlayer
                 autoplay={autoplay}
                 handleAddToQueuePlayLast={this.handleAddToQueuePlayLast}

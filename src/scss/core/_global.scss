@@ -8,9 +8,9 @@ html {
   width: 100%;
 }
 
-@media (max-width: ($body-max-width + 2rem)) {
+@media (max-width: ($body-max-width + 32px)) {
   .max-width {
-    margin: auto 1rem;
+    padding: 0 0.5rem;
   }
 }
 

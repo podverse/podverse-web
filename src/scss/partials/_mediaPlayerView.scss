@@ -3,14 +3,18 @@
   flex-direction: column;
   height: 100vh;
 
-  .view__top {
+  .view__navbar {
+    flex: 0 0 auto;
+  }
+
+  .view__contents {
     flex: 1;
     height: 0;
     overflow-y: scroll;
     padding: 1rem 0;
   }
 
-  .view__bottom {
-    flex: 0 0 112px;
+  .view__mediaplayer {
+    flex: 0 0 auto;
   }
 }

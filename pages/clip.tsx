@@ -3,7 +3,7 @@ import axios from 'axios'
 import MediaContentView from '~/components/MediaContentView/MediaContentView';
 import { getMediaRefById, getMediaRefsByQuery } from '~/services/mediaRef'
 import { NowPlayingItem, convertToNowPlayingItem } from '~/lib/nowPlayingItem';
-import { addItemsToSecondaryQueue } from 'podverse-ui'
+import { addItemsToSecondaryQueue, clearItemsFromSecondaryQueue } from 'podverse-ui'
 
 type Props = {
   mediaRef: any
@@ -41,6 +41,7 @@ export default class extends Component<Props, State> {
 
   componentDidMount () {
     const { queueSecondaryItems } = this.props
+    clearItemsFromSecondaryQueue()
     addItemsToSecondaryQueue(queueSecondaryItems)
   }
 

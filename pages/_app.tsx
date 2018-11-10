@@ -1,5 +1,6 @@
 import React from 'react'
 import App, { Container } from 'next/app'
+import { Navbar } from 'podverse-ui'
 import Meta from '~/components/meta'
 import Footer from '~/components/Footer/Footer'
 import MediaPlayerView from '~/components/MediaPlayerView/MediaPlayerView'
@@ -11,6 +12,38 @@ addFontAwesomeIcons()
 declare global {
   interface Window { nowPlayingItem: NowPlayingItem }
 }
+
+const dropdownItems = [
+  { 
+    href: '#',
+    label: 'Settings' 
+  },
+  { 
+    href: '#',
+    label: 'Log out'
+  }
+]
+
+const navItems = [
+  { 
+    href: '#', 
+    icon: 'search'
+  },
+  { 
+    href: '#',
+    label: 'Clips'
+  },
+  {
+    href: '#',
+    label: 'Podcasts'
+  },
+  { 
+    href: '#',
+    label: 'Playlists'
+  }
+]
+
+const dropdownText = 'Mitch'
 
 export default class MyApp extends App {
   static async getInitialProps({ Component, router, ctx }) {
@@ -30,7 +63,15 @@ export default class MyApp extends App {
       <Container>
         <Meta />
         <div className='view'>
-          <div className='view__top'>
+          <div className='view__navbar'>
+            <Navbar
+              brandText='Podverse'
+              brandUrl='#'
+              dropdownItems={dropdownItems}
+              dropdownText={dropdownText}
+              navItems={navItems} />
+          </div>
+          <div className='view__contents'>
             <div className='max-width'>
               <Component {...pageProps} />
               <Footer />
