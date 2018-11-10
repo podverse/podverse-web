@@ -170,9 +170,11 @@ class MediaPlayerView extends Component<Props, State> {
                 nowPlayingItem={nowPlayingItem}
                 playbackRate={playbackRate}
                 playbackRateText={getPlaybackRateText(playbackRate)}
-                playerClipLink='/clip/1234'
-                playerEpisodeLink='/episode/1234'
-                playerPodcastLink='/podcast/1234'
+                playerClipLinkAs='/clip/wfx3yJcSbA'
+                playerClipLinkHref='/clip?id=wfx3yJcSbA'
+                playerEpisodeLinkHref ='/episode?id=1234'
+                playerEpisodeLinkAs='/episode/1234'
+                playerPodcastLinkHref='/podcast?id=1234'
                 playing={playing}
                 queueSecondaryItems={queueSecondaryItems}
                 showAutoplay={true} />
