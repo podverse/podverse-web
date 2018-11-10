@@ -1,27 +1,33 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import axios from 'axios'
+import { addItemsToSecondaryQueue, clearItemsFromSecondaryQueue } from 'podverse-ui'
 import MediaContentView from '~/components/MediaContentView/MediaContentView';
 import { getMediaRefById, getMediaRefsByQuery } from '~/services/mediaRef'
 import { NowPlayingItem, convertToNowPlayingItem } from '~/lib/nowPlayingItem';
-import { addItemsToSecondaryQueue, clearItemsFromSecondaryQueue } from 'podverse-ui'
+import { currentPageLoadMediaRef } from '~/redux/actions'
 
 type Props = {
+  currentPage: any
   mediaRef: any
   queueSecondaryItems: NowPlayingItem[]
 }
 
 type State = {}
 
-export default class extends Component<Props, State> {
+class Clip extends Component<Props, State> {
 
-  static async getInitialProps(req) {
+  static async getInitialProps({ query, req, store }) {    
     const res = await axios.all([
-      getMediaRefById(req.query.id), 
+      getMediaRefById(query.id), 
       getMediaRefsByQuery({ 
         podcastTitle: `The James Altucher Show`
       })
     ])
+
     const mediaRef = res[0].data;
+    store.dispatch(currentPageLoadMediaRef(mediaRef))
+
     const mediaRefs = res[1].data;
     
     let nowPlayingItem: NowPlayingItem = {}
@@ -36,7 +42,7 @@ export default class extends Component<Props, State> {
       queueSecondaryItems.push(convertToNowPlayingItem(mediaRef))
     }
     
-    return { mediaRef, nowPlayingItem, queueSecondaryItems }
+    return { nowPlayingItem, queueSecondaryItems }
   }
 
   componentDidMount () {
@@ -50,13 +56,28 @@ export default class extends Component<Props, State> {
   }
 
   render () {
-    const { mediaRef, queueSecondaryItems } = this.props
+    const { currentPage } = this.props
+    const { mediaRef } = currentPage
 
     return (
-      <MediaContentView
-        mediaRef={mediaRef}
-        listItems={queueSecondaryItems} />
+      <MediaContentView mediaRef={mediaRef} />
     )
   }
 
 }
+
+const mapStateToProps = state => {
+  return {
+    ...state,
+    currentPage: {
+      episode: state.currentPage.episode,
+      mediaRef: state.currentPage.mediaRef,
+      nowPlayingItem: state.currentPage.nowPlayingItem,
+      podcast: state.currentPage.podcast
+    }
+  }
+}
+
+const mapDispatchToProps = dispatch => ({})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Clip)

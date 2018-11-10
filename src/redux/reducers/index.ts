@@ -1,6 +1,10 @@
 import { combineReducers } from 'redux'
-import nowPlaying from 'redux/reducers/nowPlaying'
+import currentPage from '~/redux/reducers/currentPage'
+import mediaPlayer from '~/redux/reducers/mediaPlayer'
+import playerQueue from '~/redux/reducers/playerQueue'
 
 export default combineReducers({
-  nowPlaying
+  currentPage,
+  mediaPlayer,
+  playerQueue
 })
