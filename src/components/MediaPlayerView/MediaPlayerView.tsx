@@ -1,14 +1,17 @@
 import React, { Component, Fragment } from 'react'
+import { connect } from 'react-redux'
 import { MediaPlayer, popNextFromQueue } from 'podverse-ui'
+import { kAutoplay, kPlaybackRate, getPlaybackRateText, getPlaybackRateNextValue
+  } from '~/lib/constants'
 
 type Props = {
+  mediaPlayer?: any
   nowPlayingItem?: any
   queueSecondaryItems?: any[]
 }
 
 type State = {
   autoplay?: boolean
-  nowPlayingItem?: any
   playbackRate?: number
   playing?: boolean
   queuePrimaryItems?: any[]
@@ -24,12 +27,6 @@ class MediaPlayerView extends Component<Props, State> {
   }
 
   componentDidMount () {
-    const { nowPlayingItem } = this.props
-
-    if (!window.nowPlayingItem || (nowPlayingItem && window.nowPlayingItem && (nowPlayingItem.episodeMediaUrl !== window.nowPlayingItem.episodeMediaUrl))) {
-      window.nowPlayingItem = nowPlayingItem
-    }
-
     const autoplay = this.getAutoplayValue()
     const playbackRate = this.getPlaybackRateValue()
 
@@ -69,9 +66,11 @@ class MediaPlayerView extends Component<Props, State> {
   handleItemSkip = () => {
     const result = popNextFromQueue()
 
-    if (result.nextItem) {
-      window.nowPlayingItem = result.nextItem
-    }
+    // Handle dispatch
+
+    // if (result.nextItem) {
+    //   window.nowPlayingItem = result.nextItem
+    // }
 
     this.setState({
       playing: this.state.autoplay,
@@ -95,14 +94,14 @@ class MediaPlayerView extends Component<Props, State> {
   }
 
   handleOnPastClipTime = (shouldPlay) => {
-    const { nowPlayingItem } = this.state
-    nowPlayingItem.clipStartTime = null
-    nowPlayingItem.clipEndTime = null
-    nowPlayingItem.clipTitle = null
-    this.setState({
-      nowPlayingItem,
-      playing: shouldPlay
-    })
+    // const { nowPlayingItem } = this.state
+    // nowPlayingItem.clipStartTime = null
+    // nowPlayingItem.clipEndTime = null
+    // nowPlayingItem.clipTitle = null
+    // this.setState({
+    //   nowPlayingItem,
+    //   playing: shouldPlay
+    // })
   }
 
   handlePause = () => {
@@ -141,12 +140,10 @@ class MediaPlayerView extends Component<Props, State> {
   }
 
   render () {
-    const { queueSecondaryItems } = this.props
+    const { mediaPlayer, queueSecondaryItems } = this.props
+    const { nowPlayingItem } = mediaPlayer
     const { autoplay, playbackRate, playing } = this.state
     
-    // @ts-ignore
-    const nowPlayingItem = process.browser ? window.nowPlayingItem : this.props.nowPlayingItem || {}
-
     return (
       <Fragment>
         {
@@ -185,46 +182,8 @@ class MediaPlayerView extends Component<Props, State> {
   }
 }
 
-export default MediaPlayerView
+const mapStateToProps = state => ({ ...state })
 
-// Constants
-const kAutoplay = 'mediaPlayerAutoplay'
-const kPlaybackRate = 'mediaPlayerPlaybackRate'
+const mapDispatchToProps = dispatch => ({})
 
-const getPlaybackRateText = num => {
-  switch (num) {
-    case 0.5:
-      return '0.5x'
-    case 0.75:
-      return '0.75x'
-    case 1:
-      return '1x'
-    case 1.25:
-      return '1.25x'
-    case 1.5:
-      return '1.5x'
-    case 2:
-      return '2x'
-    default:
-      return '1x'
-  }
-}
-
-const getPlaybackRateNextValue = num => {
-  switch (num) {
-    case 0.5:
-      return 0.75
-    case 0.75:
-      return 1
-    case 1:
-      return 1.25
-    case 1.25:
-      return 1.5
-    case 1.5:
-      return 2
-    case 2:
-      return 0.5
-    default:
-      return 1
-  }
-}
+export default connect(mapStateToProps, mapDispatchToProps)(MediaPlayerView)

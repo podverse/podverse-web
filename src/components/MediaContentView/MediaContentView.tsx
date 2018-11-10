@@ -1,17 +1,19 @@
 
 import React, { Component, Fragment } from 'react'
+import { connect } from 'react-redux'
 import { MediaHeader, MediaInfo, MediaListItem, MediaListSelect } from 'podverse-ui'
 import { getEpisodeUrl, getPodcastUrl, mediaListSelectItemsPlayer, 
   mediaListSubSelectItemsPlayer, mediaListSubSelectItemsSort } from '~/lib/constants'
 import { scrollToTopOfView } from '~/lib/scrollToTop'
 import { readableDate } from '~/lib/util';
+import { bindActionCreators } from 'redux';
+import { currentPageLoadNowPlayingItem } from '~/redux/actions';
 
 type Props = {
-  episode?: any
+  currentPage?: any,
+  currentPageLoadNowPlayingItem?: any,
   listItems: any[]
-  mediaRef?: any
-  nowPlayingItem?: any
-  podcast?: any
+  mediaPlayer?: any
 }
 
 // Load data from state to render text immediately and prevent flash-of-content
@@ -19,8 +21,6 @@ type Props = {
 type State = {
   episode?: any
   listItems: any[]
-  mediaRef?: any
-  nowPlayingItem?: any
   podcast?: any
 }
 
@@ -36,44 +36,35 @@ class MediaContentView extends Component<Props, State> {
     this.state = {
       episode: props.episode,
       listItems: props.listItems,
-      mediaRef: props.mediaRef,
-      nowPlayingItem: props.nowPlayingItem,
       podcast: props.podcast
     }
   }
 
   handleAnchorOnClick (event, data, itemType) {
-    const { listItems } = this.state
-
-    const newState = {
-      episode: null,
-      listItems,
-      mediaRef: null,
-      nowPlayingItem: null,
-      podcast: null
-    }
+    const { currentPageLoadNowPlayingItem } = this.props
 
     if (itemType === 'episode') {
-      newState.episode = data
+      // newState.episode = data
     } else if (itemType === 'mediaRef') {
-      newState.mediaRef = data
+      // newState.mediaRef = data
     } else if (itemType === 'nowPlayingItem') {
-      newState.nowPlayingItem = data
+      currentPageLoadNowPlayingItem(data)
     } else if (itemType === 'podcast') {
-      newState.podcast = data
+      // newState.podcast = data
     }
 
-    this.setState(newState)
     scrollToTopOfView()
   }
 
   render () {
-    const { episode, listItems, mediaRef, nowPlayingItem, podcast } = this.state
+    const { currentPage } = this.props
+    const { mediaRef, nowPlayingItem } = currentPage
+    const { episode, listItems, podcast } = this.state
 
     let headerBottomText, headerImageUrl, headerSubTitle, headerSubTitleLink,
       headerTitle, headerTitleLink, infoClipEndTime, infoClipStartTime,
       infoClipTitle, infoDescription, infoIsFullEpisode
-    
+
     if (episode) {
       console.log(episode)
     } else if (mediaRef) {
@@ -153,4 +144,10 @@ class MediaContentView extends Component<Props, State> {
   }
 }
 
-export default MediaContentView
+const mapStateToProps = state => ({ ...state })
+
+const mapDispatchToProps = dispatch => ({
+  currentPageLoadNowPlayingItem: bindActionCreators(currentPageLoadNowPlayingItem, dispatch)
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(MediaContentView)

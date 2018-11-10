@@ -6,10 +6,10 @@ import MediaContentView from '~/components/MediaContentView/MediaContentView';
 import { getMediaRefById, getMediaRefsByQuery } from '~/services/mediaRef'
 import { NowPlayingItem, convertToNowPlayingItem } from '~/lib/nowPlayingItem';
 import { currentPageLoadMediaRef } from '~/redux/actions'
+import { mediaPlayerLoadNowPlayingItem } from '~/redux/actions';
 
 type Props = {
   currentPage: any
-  mediaRef: any
   queueSecondaryItems: NowPlayingItem[]
 }
 
@@ -30,11 +30,10 @@ class Clip extends Component<Props, State> {
 
     const mediaRefs = res[1].data;
     
-    let nowPlayingItem: NowPlayingItem = {}
-
     // @ts-ignore
     if (!process.browser) {
-      nowPlayingItem = convertToNowPlayingItem(mediaRef)
+      const nowPlayingItem = convertToNowPlayingItem(mediaRef)
+      store.dispatch(mediaPlayerLoadNowPlayingItem(nowPlayingItem))
     }
 
     const queueSecondaryItems: NowPlayingItem[] = []
@@ -42,7 +41,7 @@ class Clip extends Component<Props, State> {
       queueSecondaryItems.push(convertToNowPlayingItem(mediaRef))
     }
     
-    return { nowPlayingItem, queueSecondaryItems }
+    return { queueSecondaryItems }
   }
 
   componentDidMount () {
@@ -51,32 +50,18 @@ class Clip extends Component<Props, State> {
     addItemsToSecondaryQueue(queueSecondaryItems)
   }
 
-  onClickClipTime () {
-    console.log('onClickClipTime')
-  }
-
   render () {
-    const { currentPage } = this.props
-    const { mediaRef } = currentPage
+    const { queueSecondaryItems } = this.props
 
     return (
-      <MediaContentView mediaRef={mediaRef} />
+      <MediaContentView 
+        listItems={queueSecondaryItems} />
     )
   }
 
 }
 
-const mapStateToProps = state => {
-  return {
-    ...state,
-    currentPage: {
-      episode: state.currentPage.episode,
-      mediaRef: state.currentPage.mediaRef,
-      nowPlayingItem: state.currentPage.nowPlayingItem,
-      podcast: state.currentPage.podcast
-    }
-  }
-}
+const mapStateToProps = state => ({ ...state })
 
 const mapDispatchToProps = dispatch => ({})
 

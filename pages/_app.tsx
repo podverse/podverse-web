@@ -64,6 +64,7 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
 
   render() {
     const { Component, pageProps, store } = this.props
+
     const dropdownText = (<FontAwesomeIcon icon='user-circle'></FontAwesomeIcon>)
 
     return (
