@@ -12,32 +12,22 @@ import { currentPageLoadNowPlayingItem } from '~/redux/actions';
 type Props = {
   currentPage?: any,
   currentPageLoadNowPlayingItem?: any,
-  listItems: any[]
   mediaPlayer?: any
+  playerQueue?: any
 }
 
-// Load data from state to render text immediately and prevent flash-of-content
-// while the backend data loads
-type State = {
-  episode?: any
-  listItems: any[]
-  podcast?: any
-}
+type State = {}
 
 class MediaContentView extends Component<Props, State> {
 
   static defaultProps: Props = {
-    listItems: []
+    playerQueue: {
+      secondaryItems: []
+    }
   }
 
   constructor (props) {
     super(props)
-
-    this.state = {
-      episode: props.episode,
-      listItems: props.listItems,
-      podcast: props.podcast
-    }
   }
 
   handleAnchorOnClick (event, data, itemType) {
@@ -57,9 +47,9 @@ class MediaContentView extends Component<Props, State> {
   }
 
   render () {
-    const { currentPage } = this.props
-    const { mediaRef, nowPlayingItem } = currentPage
-    const { episode, listItems, podcast } = this.state
+    const { currentPage, playerQueue } = this.props
+    const { episode, mediaRef, nowPlayingItem, podcast } = currentPage
+    const { secondaryItems } = playerQueue
 
     let headerBottomText, headerImageUrl, headerSubTitle, headerSubTitleLink,
       headerTitle, headerTitleLink, infoClipEndTime, infoClipStartTime,
@@ -102,7 +92,7 @@ class MediaContentView extends Component<Props, State> {
       console.log(podcast)
     }
 
-    const listItemNodes = listItems.map((x, index) =>
+    const listItemNodes = secondaryItems.map((x, index) =>
       <MediaListItem
         dataNowPlayingItem={x}
         handleAnchorOnClick={(e) => { this.handleAnchorOnClick(e, x, 'nowPlayingItem') }}

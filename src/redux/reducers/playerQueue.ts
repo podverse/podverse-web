@@ -4,17 +4,15 @@ export default (state = {}, action) => {
 
   switch (action.type) {
     case actionTypes.PLAYER_QUEUE_LOAD_PRIMARY_ITEMS:
-      return Object.assign({}, state, {
-        playerQueue: {
-          primaryItems: action.primaryItems
-        }
-      })
+      return {
+        ...state,
+        primaryItmes: action.payload
+      }
     case actionTypes.PLAYER_QUEUE_LOAD_SECONDARY_ITEMS:
-      return Object.assign({}, state, {
-        playerQueue: {
-          secondaryItems: action.secondaryItems
-        }
-      })
+      return {
+        ...state,
+        secondaryItems: action.payload
+      }
     default:
       return state
   }

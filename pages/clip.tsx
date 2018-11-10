@@ -7,10 +7,11 @@ import { getMediaRefById, getMediaRefsByQuery } from '~/services/mediaRef'
 import { NowPlayingItem, convertToNowPlayingItem } from '~/lib/nowPlayingItem';
 import { currentPageLoadMediaRef } from '~/redux/actions'
 import { mediaPlayerLoadNowPlayingItem } from '~/redux/actions';
+import { playerQueueLoadSecondaryItems } from '~/redux/actions/playerQueue';
 
 type Props = {
   currentPage: any
-  queueSecondaryItems: NowPlayingItem[]
+  playerQueue: any
 }
 
 type State = {}
@@ -40,23 +41,20 @@ class Clip extends Component<Props, State> {
     for (const mediaRef of mediaRefs) {
       queueSecondaryItems.push(convertToNowPlayingItem(mediaRef))
     }
+    store.dispatch(playerQueueLoadSecondaryItems(queueSecondaryItems))
     
-    return { queueSecondaryItems }
+    return {}
   }
 
   componentDidMount () {
-    const { queueSecondaryItems } = this.props
+    const { playerQueue } = this.props
+    const { secondaryItems } = playerQueue
     clearItemsFromSecondaryQueue()
-    addItemsToSecondaryQueue(queueSecondaryItems)
+    addItemsToSecondaryQueue(secondaryItems)
   }
 
   render () {
-    const { queueSecondaryItems } = this.props
-
-    return (
-      <MediaContentView 
-        listItems={queueSecondaryItems} />
-    )
+    return (<MediaContentView />)
   }
 
 }

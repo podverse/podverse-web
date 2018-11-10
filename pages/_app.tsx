@@ -48,10 +48,40 @@ const navItems = [
 ]
 
 type Props = {
-  store: any
+  currentPage: {
+    episode: any,
+    mediaRef: any,
+    nowPlayingItem: any,
+    podcast: any
+  },
+  mediaPlayer: {
+    nowPlayingItem: any
+  },
+  playerQueue: {
+    primaryItems: any[],
+    secondaryItems: any[]
+  },
+  store?: any
 }
 
 export default withRedux(initializeStore)(class MyApp extends App<Props> {
+  
+  static defaultProps: Props = {
+    currentPage: {
+      episode: null,
+      mediaRef: null,
+      nowPlayingItem: null,
+      podcast: null
+    },
+    mediaPlayer: {
+      nowPlayingItem: null
+    },
+    playerQueue: {
+      primaryItems: [],
+      secondaryItems: []
+    }
+  }
+  
   static async getInitialProps({ Component, ctx }) {
     let pageProps = {}
 

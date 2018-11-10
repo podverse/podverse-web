@@ -6,16 +6,13 @@ import { kAutoplay, kPlaybackRate, getPlaybackRateText, getPlaybackRateNextValue
 
 type Props = {
   mediaPlayer?: any
-  nowPlayingItem?: any
-  queueSecondaryItems?: any[]
+  playerQueue?: any
 }
 
 type State = {
   autoplay?: boolean
   playbackRate?: number
   playing?: boolean
-  queuePrimaryItems?: any[]
-  queueSecondaryItems?: any[]
 }
 
 class MediaPlayerView extends Component<Props, State> {
@@ -64,7 +61,7 @@ class MediaPlayerView extends Component<Props, State> {
   }
 
   handleItemSkip = () => {
-    const result = popNextFromQueue()
+    // const result = popNextFromQueue()
 
     // Handle dispatch
 
@@ -74,8 +71,8 @@ class MediaPlayerView extends Component<Props, State> {
 
     this.setState({
       playing: this.state.autoplay,
-      queuePrimaryItems: result.primaryItems,
-      queueSecondaryItems: result.secondaryItems,
+      // queuePrimaryItems: result.primaryItems,
+      // queueSecondaryItems: result.secondaryItems,
     })
   }
 
@@ -140,8 +137,9 @@ class MediaPlayerView extends Component<Props, State> {
   }
 
   render () {
-    const { mediaPlayer, queueSecondaryItems } = this.props
+    const { mediaPlayer, playerQueue } = this.props
     const { nowPlayingItem } = mediaPlayer
+    const { secondaryItems } = playerQueue
     const { autoplay, playbackRate, playing } = this.state
     
     return (
@@ -173,7 +171,7 @@ class MediaPlayerView extends Component<Props, State> {
                 playerEpisodeLinkAs='/episode/1234'
                 playerPodcastLinkHref='/podcast?id=1234'
                 playing={playing}
-                queueSecondaryItems={queueSecondaryItems}
+                queueSecondaryItems={secondaryItems}
                 showAutoplay={true} />
             </div>
         }
