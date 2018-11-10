@@ -21,8 +21,8 @@ type State = {}
 class MediaContentView extends Component<Props, State> {
 
   static defaultProps: Props = {
-    playerQueue: {
-      secondaryItems: []
+    currentPage: {
+      listItems: []
     }
   }
 
@@ -47,9 +47,8 @@ class MediaContentView extends Component<Props, State> {
   }
 
   render () {
-    const { currentPage, playerQueue } = this.props
-    const { episode, mediaRef, nowPlayingItem, podcast } = currentPage
-    const { secondaryItems } = playerQueue
+    const { currentPage } = this.props
+    const { episode, listItems, mediaRef, nowPlayingItem, podcast } = currentPage
 
     let headerBottomText, headerImageUrl, headerSubTitle, headerSubTitleLink,
       headerTitle, headerTitleLink, infoClipEndTime, infoClipStartTime,
@@ -92,7 +91,7 @@ class MediaContentView extends Component<Props, State> {
       console.log(podcast)
     }
 
-    const listItemNodes = secondaryItems.map((x, index) =>
+    const listItemNodes = listItems.map((x, index) =>
       <MediaListItem
         dataNowPlayingItem={x}
         handleAnchorOnClick={(e) => { this.handleAnchorOnClick(e, x, 'nowPlayingItem') }}

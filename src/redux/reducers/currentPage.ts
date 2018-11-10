@@ -8,7 +8,13 @@ export default (state =  {}, action) => {
         episode: action.payload,
         mediaRef: null,
         nowPlayingItem: null,
+
         podcast: null
+      }
+    case actionTypes.CURRENT_PAGE_LOAD_LIST_ITEMS:
+      return {
+        ...state,
+        listItems: action.payload,
       }
     case actionTypes.CURRENT_PAGE_LOAD_MEDIA_REF:
       return {

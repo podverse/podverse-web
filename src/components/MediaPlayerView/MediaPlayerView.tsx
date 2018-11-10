@@ -1,16 +1,22 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux';
-import { MediaPlayer, popNextFromQueue } from 'podverse-ui'
+import {
+  MediaPlayer, getPriorityQueueItems, getSecondaryQueueItems, popNextFromQueue
+  } from 'podverse-ui'
 import { kAutoplay, kPlaybackRate, getPlaybackRateText, getPlaybackRateNextValue
   } from '~/lib/constants'
-  import { scrollToTopOfView } from '~/lib/scrollToTop';
-import { currentPageLoadNowPlayingItem } from '~/redux/actions';
+  import { scrollToTopOfView } from '~/lib/scrollToTop'
+import { currentPageLoadNowPlayingItem, mediaPlayerLoadNowPlayingItem,
+  playerQueueLoadPrimaryItems, playerQueueLoadSecondaryItems} from '~/redux/actions'
 
 type Props = {
   currentPageLoadNowPlayingItem?: any
   mediaPlayer?: any
+  mediaPlayerLoadNowPlayingItem?: any
   playerQueue?: any
+  playerQueueLoadPrimaryItems?: any
+  playerQueueLoadSecondaryItems?: any
 }
 
 type State = {
@@ -80,18 +86,22 @@ class MediaPlayerView extends Component<Props, State> {
   }
 
   handleItemSkip = () => {
-    // const result = popNextFromQueue()
+    const { mediaPlayerLoadNowPlayingItem, playerQueueLoadPrimaryItems,
+      playerQueueLoadSecondaryItems } = this.props
+    
+    const result = popNextFromQueue()
+    const priorityQueueItems = getPriorityQueueItems()
+    const secondaryQueueItems = getSecondaryQueueItems()
 
-    // Handle dispatch
+    if (result.nextItem) {
+      mediaPlayerLoadNowPlayingItem(result.nextItem)
+    }
 
-    // if (result.nextItem) {
-    //   window.nowPlayingItem = result.nextItem
-    // }
+    playerQueueLoadPrimaryItems(priorityQueueItems)
+    playerQueueLoadSecondaryItems(secondaryQueueItems)
 
     this.setState({
-      playing: this.state.autoplay,
-      // queuePrimaryItems: result.primaryItems,
-      // queueSecondaryItems: result.secondaryItems,
+      playing: this.state.autoplay
     })
   }
 
@@ -204,7 +214,10 @@ class MediaPlayerView extends Component<Props, State> {
 const mapStateToProps = state => ({ ...state })
 
 const mapDispatchToProps = dispatch => ({
-  currentPageLoadNowPlayingItem: bindActionCreators(currentPageLoadNowPlayingItem, dispatch)
+  currentPageLoadNowPlayingItem: bindActionCreators(currentPageLoadNowPlayingItem, dispatch),
+  mediaPlayerLoadNowPlayingItem: bindActionCreators(mediaPlayerLoadNowPlayingItem, dispatch),
+  playerQueueLoadPrimaryItems: bindActionCreators(playerQueueLoadPrimaryItems, dispatch),
+  playerQueueLoadSecondaryItems: bindActionCreators(playerQueueLoadSecondaryItems, dispatch)
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(MediaPlayerView)

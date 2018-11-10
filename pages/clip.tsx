@@ -8,6 +8,7 @@ import { NowPlayingItem, convertToNowPlayingItem } from '~/lib/nowPlayingItem';
 import { currentPageLoadMediaRef } from '~/redux/actions'
 import { mediaPlayerLoadNowPlayingItem } from '~/redux/actions';
 import { playerQueueLoadSecondaryItems } from '~/redux/actions/playerQueue';
+import { currentPageLoadListItems } from '~/redux/actions/currentPage';
 
 type Props = {
   currentPage: any
@@ -41,7 +42,13 @@ class Clip extends Component<Props, State> {
     for (const mediaRef of mediaRefs) {
       queueSecondaryItems.push(convertToNowPlayingItem(mediaRef))
     }
-    store.dispatch(playerQueueLoadSecondaryItems(queueSecondaryItems))
+
+    store.dispatch(currentPageLoadListItems(queueSecondaryItems))
+
+    // @ts-ignore
+    if (!process.browser) {
+      store.dispatch(playerQueueLoadSecondaryItems(queueSecondaryItems))
+    }
     
     return {}
   }

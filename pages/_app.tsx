@@ -50,6 +50,7 @@ const navItems = [
 type Props = {
   currentPage: {
     episode: any,
+    listItems: any[],
     mediaRef: any,
     nowPlayingItem: any,
     podcast: any
@@ -69,6 +70,7 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
   static defaultProps: Props = {
     currentPage: {
       episode: null,
+      listItems: [],
       mediaRef: null,
       nowPlayingItem: null,
       podcast: null

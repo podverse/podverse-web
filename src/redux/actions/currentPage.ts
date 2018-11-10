@@ -7,6 +7,13 @@ export const currentPageLoadEpisode = payload => {
   }
 }
 
+export const currentPageLoadListItems = payload => {
+  return {
+    type: actionTypes.CURRENT_PAGE_LOAD_LIST_ITEMS,
+    payload
+  }
+}
+
 export const currentPageLoadMediaRef = payload => {
   return {
     type: actionTypes.CURRENT_PAGE_LOAD_MEDIA_REF,
