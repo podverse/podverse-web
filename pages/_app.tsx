@@ -1,11 +1,13 @@
 import React from 'react'
 import App, { Container } from 'next/app'
 import { Navbar } from 'podverse-ui'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Meta from '~/components/meta'
 import Footer from '~/components/Footer/Footer'
 import MediaPlayerView from '~/components/MediaPlayerView/MediaPlayerView'
 import { addFontAwesomeIcons } from '~/lib/fontAwesomeIcons'
 import { NowPlayingItem } from '~/lib/nowPlayingItem'
+
 
 addFontAwesomeIcons()
 
@@ -29,10 +31,6 @@ const navItems = [
     href: '#', 
     icon: 'search'
   },
-  { 
-    href: '#',
-    label: 'Clips'
-  },
   {
     href: '#',
     label: 'Podcasts'
@@ -42,8 +40,6 @@ const navItems = [
     label: 'Playlists'
   }
 ]
-
-const dropdownText = 'Mitch'
 
 export default class MyApp extends App {
   static async getInitialProps({ Component, router, ctx }) {
@@ -58,6 +54,8 @@ export default class MyApp extends App {
 
   render () {
     const { Component, pageProps } = this.props
+
+    const dropdownText = (<FontAwesomeIcon icon='user-circle'></FontAwesomeIcon>)
 
     return (
       <Container>
