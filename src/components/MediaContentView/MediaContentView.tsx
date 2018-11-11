@@ -10,6 +10,7 @@ import { readableDate } from '~/lib/util';
 import { bindActionCreators } from 'redux';
 import { currentPageLoadNowPlayingItem, mediaPlayerLoadNowPlayingItem,
   mediaPlayerUpdatePlaying, playerQueueLoadPriorityItems } from '~/redux/actions';
+import { convertToNowPlayingItem } from '~/lib/nowPlayingItem';
 
 type Props = {
   currentPage?: any
@@ -75,47 +76,6 @@ class MediaContentView extends Component<Props, State> {
     const { currentPage } = this.props
     const { episode, listItems, mediaRef, nowPlayingItem, podcast } = currentPage
 
-    let headerBottomText, headerImageUrl, headerSubTitle, headerSubTitleLink,
-      headerTitle, headerTitleLink, infoClipEndTime, infoClipStartTime,
-      infoClipTitle, infoDescription, infoIsFullEpisode
-
-    if (episode) {
-      console.log(episode)
-    } else if (mediaRef) {
-      const { endTime, episodeDescription, episodeId, episodePubDate, episodeTitle,
-        podcastId, podcastImageUrl, podcastTitle, startTime, title } = mediaRef
-
-      headerBottomText = readableDate(episodePubDate)
-      headerImageUrl = podcastImageUrl
-      headerSubTitle = episodeTitle
-      headerSubTitleLink = getEpisodeUrl(episodeId)
-      headerTitle = podcastTitle
-      headerTitleLink = getPodcastUrl(podcastId)
-      infoClipEndTime = endTime
-      infoClipStartTime = startTime
-      infoClipTitle = title
-      infoDescription = episodeDescription
-      infoIsFullEpisode = !startTime && !endTime
-    } else if (nowPlayingItem) {
-      const { clipEndTime, clipStartTime, clipTitle, episodeDescription,
-        episodeId, episodePubDate, episodeTitle, imageUrl, podcastId,
-        podcastTitle } = nowPlayingItem
-
-      headerBottomText = readableDate(episodePubDate)
-      headerImageUrl = imageUrl
-      headerSubTitle = episodeTitle
-      headerSubTitleLink = getEpisodeUrl(episodeId)
-      headerTitle = podcastTitle
-      headerTitleLink = getPodcastUrl(podcastId)
-      infoClipEndTime = clipEndTime
-      infoClipStartTime = clipStartTime
-      infoClipTitle = clipTitle
-      infoDescription = episodeDescription
-      infoIsFullEpisode = !clipStartTime && !clipEndTime
-    } else if (podcast) {
-      console.log(podcast)
-    }
-
     const listItemNodes = listItems.map((x, index) =>
       <MediaListItem
         dataNowPlayingItem={x}
@@ -132,18 +92,24 @@ class MediaContentView extends Component<Props, State> {
     return (
       <Fragment>
         <MediaHeader
-          bottomText={headerBottomText}
-          imageUrl={headerImageUrl}
-          subTitle={headerSubTitle}
-          subTitleLink={headerSubTitleLink}
-          title={headerTitle}
-          titleLink={headerTitleLink} />
+          episode={episode}
+          mediaRef={mediaRef}
+          nowPlayingItem={nowPlayingItem}
+          podcast={podcast} />
         <MediaInfo
-          clipEndTime={infoClipEndTime}
-          clipStartTime={infoClipStartTime}
-          clipTitle={infoClipTitle}
-          description={infoDescription}
-          isFullEpisode={infoIsFullEpisode} />
+          episode={episode}
+          handlePlayItem={() => {
+            if (episode) {
+              this.handlePlayItem(convertToNowPlayingItem(episode))
+            } else if (mediaRef) {
+              this.handlePlayItem(convertToNowPlayingItem(mediaRef))
+            } else if (nowPlayingItem) {
+              this.handlePlayItem(nowPlayingItem)
+            }
+          }}
+          mediaRef={mediaRef}
+          nowPlayingItem={nowPlayingItem}
+          podcast={podcast} />
         <div className='media-list'>
           <MediaListSelect
             items={mediaListSelectItemsPlayer}

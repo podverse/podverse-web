@@ -66,12 +66,12 @@ class MediaPlayerView extends Component<Props, State> {
     localStorage.setItem(kPlaybackRate, val)
   }
 
-  handleAddToQueuePlayLast = (event) => {
+  handleAddToQueueLast = (event) => {
     event.preventDefault()
     
   }
 
-  handleAddToQueuePlayNext = (event) => {
+  handleAddToQueueNext = (event) => {
     event.preventDefault()
   }
 
@@ -181,8 +181,8 @@ class MediaPlayerView extends Component<Props, State> {
             <div className='view__mediaplayer'>
               <MediaPlayer
                 autoplay={autoplay}
-                handleAddToQueuePlayLast={this.handleAddToQueuePlayLast}
-                handleAddToQueuePlayNext={this.handleAddToQueuePlayNext}
+                handleAddToQueueLast={this.handleAddToQueueLast}
+                handleAddToQueueNext={this.handleAddToQueueNext}
                 handleItemSkip={this.handleItemSkip}
                 handleMakeClip={this.handleMakeClip}
                 handleOnEpisodeEnd={this.handleOnEpisodeEnd}
