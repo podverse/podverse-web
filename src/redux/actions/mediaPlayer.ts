@@ -6,3 +6,10 @@ export const mediaPlayerLoadNowPlayingItem = payload => {
     payload
   }
 }
+
+export const mediaPlayerUpdatePlaying = payload => {
+  return {
+    type: actionTypes.MEDIA_PLAYER_UPDATE_PLAYING,
+    payload
+  }
+}

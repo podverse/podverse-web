@@ -58,6 +58,7 @@ type Props = {
   }
   mediaPlayer: {
     nowPlayingItem: any
+    playing?: boolean
   }
   playerQueue: {
     priorityItems: any[]

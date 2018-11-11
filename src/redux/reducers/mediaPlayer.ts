@@ -8,6 +8,11 @@ export default (state = {}, action) => {
         ...state,
         nowPlayingItem: action.payload
       }
+    case actionTypes.MEDIA_PLAYER_UPDATE_PLAYING:
+      return {
+        ...state,
+        playing: action.payload
+      }
     default:
       return state
   }

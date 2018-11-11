@@ -7,12 +7,13 @@ import { kAutoplay, kPlaybackRate, getPlaybackRateText, getPlaybackRateNextValue
   } from '~/lib/constants'
 import { scrollToTopOfView } from '~/lib/scrollToTop'
 import { currentPageLoadNowPlayingItem, mediaPlayerLoadNowPlayingItem,
-  playerQueueLoadPriorityItems, playerQueueLoadSecondaryItems} from '~/redux/actions'
+  playerQueueLoadPriorityItems, playerQueueLoadSecondaryItems, mediaPlayerUpdatePlaying} from '~/redux/actions'
 
 type Props = {
   currentPageLoadNowPlayingItem?: any
   mediaPlayer?: any
   mediaPlayerLoadNowPlayingItem?: any
+  mediaPlayerUpdatePlaying?: any
   playerQueue?: any
   playerQueueLoadPriorityItems?: any
   playerQueueLoadSecondaryItems?: any
@@ -21,7 +22,6 @@ type Props = {
 type State = {
   autoplay?: boolean
   playbackRate?: number
-  playing?: boolean
 }
 
 class MediaPlayerView extends Component<Props, State> {
@@ -91,8 +91,8 @@ class MediaPlayerView extends Component<Props, State> {
   }
 
   handleItemSkip = () => {
-    const { mediaPlayerLoadNowPlayingItem, playerQueueLoadPriorityItems,
-      playerQueueLoadSecondaryItems } = this.props
+    const { mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying, 
+      playerQueueLoadPriorityItems, playerQueueLoadSecondaryItems } = this.props
     
     const result = popNextFromQueueStorage()
     const priorityQueueItems = getPriorityQueueItemsStorage()
@@ -104,10 +104,7 @@ class MediaPlayerView extends Component<Props, State> {
 
     playerQueueLoadPriorityItems(priorityQueueItems)
     playerQueueLoadSecondaryItems(secondaryQueueItems)
-
-    this.setState({
-      playing: this.state.autoplay
-    })
+    mediaPlayerUpdatePlaying(this.state.autoplay)
   }
 
   handleMakeClip = (event) => {
@@ -120,7 +117,7 @@ class MediaPlayerView extends Component<Props, State> {
     if (autoplay) {
       this.handleItemSkip()
     } else {
-      this.setState({ playing: false })
+      this.props.mediaPlayerUpdatePlaying(false)
     }
   }
 
@@ -136,7 +133,7 @@ class MediaPlayerView extends Component<Props, State> {
   }
 
   handlePause = () => {
-    this.setState({ playing: false })
+    this.props.mediaPlayerUpdatePlaying(false)
   }
 
   handlePlaybackRateClick = () => {
@@ -166,15 +163,16 @@ class MediaPlayerView extends Component<Props, State> {
   }
 
   handleTogglePlay = () => {
-    const { playing } = this.state
-    this.setState({ playing: !playing })
+    const { mediaPlayer, mediaPlayerUpdatePlaying } = this.props
+    const { playing } = mediaPlayer
+    mediaPlayerUpdatePlaying(!playing)
   }
 
   render () {
     const { mediaPlayer, playerQueue } = this.props
-    const { nowPlayingItem } = mediaPlayer
+    const { nowPlayingItem, playing } = mediaPlayer
     const { priorityItems, secondaryItems } = playerQueue
-    const { autoplay, playbackRate, playing } = this.state
+    const { autoplay, playbackRate } = this.state
     
     return (
       <Fragment>
@@ -221,6 +219,7 @@ const mapStateToProps = state => ({ ...state })
 const mapDispatchToProps = dispatch => ({
   currentPageLoadNowPlayingItem: bindActionCreators(currentPageLoadNowPlayingItem, dispatch),
   mediaPlayerLoadNowPlayingItem: bindActionCreators(mediaPlayerLoadNowPlayingItem, dispatch),
+  mediaPlayerUpdatePlaying: bindActionCreators(mediaPlayerUpdatePlaying, dispatch),
   playerQueueLoadPriorityItems: bindActionCreators(playerQueueLoadPriorityItems, dispatch),
   playerQueueLoadSecondaryItems: bindActionCreators(playerQueueLoadSecondaryItems, dispatch)
 })

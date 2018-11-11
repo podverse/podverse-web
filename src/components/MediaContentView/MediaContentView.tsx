@@ -8,12 +8,15 @@ import { getEpisodeUrl, getPodcastUrl, mediaListSelectItemsPlayer,
 import { scrollToTopOfView } from '~/lib/scrollToTop'
 import { readableDate } from '~/lib/util';
 import { bindActionCreators } from 'redux';
-import { currentPageLoadNowPlayingItem, playerQueueLoadPriorityItems } from '~/redux/actions';
+import { currentPageLoadNowPlayingItem, mediaPlayerLoadNowPlayingItem,
+  mediaPlayerUpdatePlaying, playerQueueLoadPriorityItems } from '~/redux/actions';
 
 type Props = {
   currentPage?: any
   currentPageLoadNowPlayingItem?: any
   mediaPlayer?: any
+  mediaPlayerLoadNowPlayingItem?: any
+  mediaPlayerUpdatePlaying?: any
   playerQueue?: any
   playerQueueLoadPriorityItems?: any
 }
@@ -63,7 +66,9 @@ class MediaContentView extends Component<Props, State> {
   }
 
   handlePlayItem(nowPlayingItem) {
-
+    const { mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying } = this.props
+    mediaPlayerLoadNowPlayingItem(nowPlayingItem)
+    mediaPlayerUpdatePlaying(true)
   }
 
   render () {
@@ -160,6 +165,8 @@ const mapStateToProps = state => ({ ...state })
 
 const mapDispatchToProps = dispatch => ({
   currentPageLoadNowPlayingItem: bindActionCreators(currentPageLoadNowPlayingItem, dispatch),
+  mediaPlayerLoadNowPlayingItem: bindActionCreators(mediaPlayerLoadNowPlayingItem, dispatch),
+  mediaPlayerUpdatePlaying: bindActionCreators(mediaPlayerUpdatePlaying, dispatch),
   playerQueueLoadPriorityItems: bindActionCreators(playerQueueLoadPriorityItems, dispatch)
 })
 
