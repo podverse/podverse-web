@@ -1,6 +1,6 @@
 import { actionTypes } from "~/redux/constants";
 
-export const playerQueueLoadPrimaryItems = payload => {
+export const playerQueueLoadPriorityItems = payload => {
   return {
     type: actionTypes.PLAYER_QUEUE_LOAD_PRIMARY_ITEMS,
     payload

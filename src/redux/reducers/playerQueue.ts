@@ -6,7 +6,7 @@ export default (state = {}, action) => {
     case actionTypes.PLAYER_QUEUE_LOAD_PRIMARY_ITEMS:
       return {
         ...state,
-        primaryItems: action.payload
+        priorityItems: action.payload
       }
     case actionTypes.PLAYER_QUEUE_LOAD_SECONDARY_ITEMS:
       return {

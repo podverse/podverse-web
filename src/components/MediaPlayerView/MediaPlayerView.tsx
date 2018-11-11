@@ -1,21 +1,20 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux';
-import {
-  MediaPlayer, getPriorityQueueItems, getSecondaryQueueItems, popNextFromQueue
+import { MediaPlayer, getPriorityQueueItemsStorage, getSecondaryQueueItemsStorage, popNextFromQueueStorage
   } from 'podverse-ui'
 import { kAutoplay, kPlaybackRate, getPlaybackRateText, getPlaybackRateNextValue
   } from '~/lib/constants'
-  import { scrollToTopOfView } from '~/lib/scrollToTop'
+import { scrollToTopOfView } from '~/lib/scrollToTop'
 import { currentPageLoadNowPlayingItem, mediaPlayerLoadNowPlayingItem,
-  playerQueueLoadPrimaryItems, playerQueueLoadSecondaryItems} from '~/redux/actions'
+  playerQueueLoadPriorityItems, playerQueueLoadSecondaryItems} from '~/redux/actions'
 
 type Props = {
   currentPageLoadNowPlayingItem?: any
   mediaPlayer?: any
   mediaPlayerLoadNowPlayingItem?: any
   playerQueue?: any
-  playerQueueLoadPrimaryItems?: any
+  playerQueueLoadPriorityItems?: any
   playerQueueLoadSecondaryItems?: any
 }
 
@@ -26,6 +25,12 @@ type State = {
 }
 
 class MediaPlayerView extends Component<Props, State> {
+
+  static defaultProps: Props = {
+    mediaPlayer: {
+      nowPlayingItem: {}
+    }
+  }
 
   constructor (props) {
     super(props)
@@ -86,18 +91,18 @@ class MediaPlayerView extends Component<Props, State> {
   }
 
   handleItemSkip = () => {
-    const { mediaPlayerLoadNowPlayingItem, playerQueueLoadPrimaryItems,
+    const { mediaPlayerLoadNowPlayingItem, playerQueueLoadPriorityItems,
       playerQueueLoadSecondaryItems } = this.props
     
-    const result = popNextFromQueue()
-    const priorityQueueItems = getPriorityQueueItems()
-    const secondaryQueueItems = getSecondaryQueueItems()
+    const result = popNextFromQueueStorage()
+    const priorityQueueItems = getPriorityQueueItemsStorage()
+    const secondaryQueueItems = getSecondaryQueueItemsStorage()
 
     if (result.nextItem) {
       mediaPlayerLoadNowPlayingItem(result.nextItem)
     }
 
-    playerQueueLoadPrimaryItems(priorityQueueItems)
+    playerQueueLoadPriorityItems(priorityQueueItems)
     playerQueueLoadSecondaryItems(secondaryQueueItems)
 
     this.setState({
@@ -168,8 +173,7 @@ class MediaPlayerView extends Component<Props, State> {
   render () {
     const { mediaPlayer, playerQueue } = this.props
     const { nowPlayingItem } = mediaPlayer
-    const { clipId, episodeId } = nowPlayingItem
-    const { secondaryItems } = playerQueue
+    const { priorityItems, secondaryItems } = playerQueue
     const { autoplay, playbackRate, playing } = this.state
     
     return (
@@ -195,13 +199,14 @@ class MediaPlayerView extends Component<Props, State> {
                 nowPlayingItem={nowPlayingItem}
                 playbackRate={playbackRate}
                 playbackRateText={getPlaybackRateText(playbackRate)}
-                playerClipLinkAs={`/clip/${clipId}`}
-                playerClipLinkHref={`/clip?id=${clipId}`}
+                playerClipLinkAs={`/clip/${nowPlayingItem.clipId}`}
+                playerClipLinkHref={`/clip?id=${nowPlayingItem.clipId}`}
                 playerClipLinkOnClick={(evt) => { this.handleAnchorOnClick(evt, nowPlayingItem, 'mediaRef') }}
-                playerEpisodeLinkAs={`/episode/${episodeId}`}
-                playerEpisodeLinkHref={`/episode?id=${episodeId}`}
+                playerEpisodeLinkAs={`/episode/${nowPlayingItem.episodeId}`}
+                playerEpisodeLinkHref={`/episode?id=${nowPlayingItem.episodeId}`}
                 playerEpisodeLinkOnClick={(evt) => { this.handleAnchorOnClick(evt, nowPlayingItem, 'episode') }}
                 playing={playing}
+                queuePriorityItems={priorityItems}
                 queueSecondaryItems={secondaryItems}
                 showAutoplay={true} />
             </div>
@@ -216,7 +221,7 @@ const mapStateToProps = state => ({ ...state })
 const mapDispatchToProps = dispatch => ({
   currentPageLoadNowPlayingItem: bindActionCreators(currentPageLoadNowPlayingItem, dispatch),
   mediaPlayerLoadNowPlayingItem: bindActionCreators(mediaPlayerLoadNowPlayingItem, dispatch),
-  playerQueueLoadPrimaryItems: bindActionCreators(playerQueueLoadPrimaryItems, dispatch),
+  playerQueueLoadPriorityItems: bindActionCreators(playerQueueLoadPriorityItems, dispatch),
   playerQueueLoadSecondaryItems: bindActionCreators(playerQueueLoadSecondaryItems, dispatch)
 })
 

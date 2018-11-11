@@ -2,7 +2,7 @@ import React, { Fragment } from 'react'
 import { Provider } from 'react-redux'
 import withRedux from 'next-redux-wrapper'
 import App, { Container } from 'next/app'
-import { Navbar } from 'podverse-ui'
+import { Navbar, getPriorityQueueItemsStorage } from 'podverse-ui'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Meta from '~/components/meta'
 import Footer from '~/components/Footer/Footer'
@@ -10,6 +10,7 @@ import MediaPlayerView from '~/components/MediaPlayerView/MediaPlayerView'
 import { addFontAwesomeIcons } from '~/lib/fontAwesomeIcons'
 import { NowPlayingItem } from '~/lib/nowPlayingItem'
 import { initializeStore } from '~/redux/store';
+import { playerQueueLoadPriorityItems } from '~/redux/actions';
 
 addFontAwesomeIcons()
 
@@ -49,19 +50,20 @@ const navItems = [
 
 type Props = {
   currentPage: {
-    episode: any,
-    listItems: any[],
-    mediaRef: any,
-    nowPlayingItem: any,
+    episode: any
+    listItems: any[]
+    mediaRef: any
+    nowPlayingItem: any
     podcast: any
-  },
+  }
   mediaPlayer: {
     nowPlayingItem: any
-  },
+  }
   playerQueue: {
-    primaryItems: any[],
+    priorityItems: any[]
     secondaryItems: any[]
-  },
+  }
+  playerQueueLoadPriorityItems?: any
   store?: any
 }
 
@@ -76,10 +78,10 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
       podcast: null
     },
     mediaPlayer: {
-      nowPlayingItem: null
+      nowPlayingItem: {}
     },
     playerQueue: {
-      primaryItems: [],
+      priorityItems: [],
       secondaryItems: []
     }
   }
@@ -92,6 +94,12 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
     }
 
     return { pageProps }
+  }
+
+  componentDidMount() {
+    const { store } = this.props
+    const priorityItems = getPriorityQueueItemsStorage()
+    store.dispatch(playerQueueLoadPriorityItems(priorityItems))
   }
 
   render() {
@@ -127,5 +135,3 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
     )
   }
 }) 
-
-

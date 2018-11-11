@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import axios from 'axios'
-import { addItemsToSecondaryQueue, clearItemsFromSecondaryQueue } from 'podverse-ui'
+import { addItemsToSecondaryQueueStorage, clearItemsFromSecondaryQueueStorage
+  } from 'podverse-ui'
 import MediaContentView from '~/components/MediaContentView/MediaContentView';
 import { getMediaRefById, getMediaRefsByQuery } from '~/services/mediaRef'
 import { NowPlayingItem, convertToNowPlayingItem } from '~/lib/nowPlayingItem';
@@ -11,8 +12,10 @@ import { playerQueueLoadSecondaryItems } from '~/redux/actions/playerQueue';
 import { currentPageLoadListItems } from '~/redux/actions/currentPage';
 
 type Props = {
-  currentPage: any
-  playerQueue: any
+  currentPage?: any
+  playerQueue?: any
+  playerQueueLoadPrimaryItems?: any
+  playerQueueLoadSecondaryItems?: any
 }
 
 type State = {}
@@ -56,8 +59,8 @@ class Clip extends Component<Props, State> {
   componentDidMount () {
     const { playerQueue } = this.props
     const { secondaryItems } = playerQueue
-    clearItemsFromSecondaryQueue()
-    addItemsToSecondaryQueue(secondaryItems)
+    clearItemsFromSecondaryQueueStorage()
+    addItemsToSecondaryQueueStorage(secondaryItems)
   }
 
   render () {

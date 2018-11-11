@@ -1,19 +1,21 @@
 
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
-import { MediaHeader, MediaInfo, MediaListItem, MediaListSelect } from 'podverse-ui'
+import { MediaHeader, MediaInfo, MediaListItem, MediaListSelect,
+  addItemToPriorityQueueStorage, getPriorityQueueItemsStorage } from 'podverse-ui'
 import { getEpisodeUrl, getPodcastUrl, mediaListSelectItemsPlayer, 
   mediaListSubSelectItemsPlayer, mediaListSubSelectItemsSort } from '~/lib/constants'
 import { scrollToTopOfView } from '~/lib/scrollToTop'
 import { readableDate } from '~/lib/util';
 import { bindActionCreators } from 'redux';
-import { currentPageLoadNowPlayingItem } from '~/redux/actions';
+import { currentPageLoadNowPlayingItem, playerQueueLoadPriorityItems } from '~/redux/actions';
 
 type Props = {
-  currentPage?: any,
-  currentPageLoadNowPlayingItem?: any,
+  currentPage?: any
+  currentPageLoadNowPlayingItem?: any
   mediaPlayer?: any
   playerQueue?: any
+  playerQueueLoadPriorityItems?: any
 }
 
 type State = {}
@@ -30,6 +32,20 @@ class MediaContentView extends Component<Props, State> {
     super(props)
   }
 
+  handleAddToQueueLast(nowPlayingItem) {
+    const { playerQueueLoadPriorityItems } = this.props
+    addItemToPriorityQueueStorage(nowPlayingItem, true)
+    const priorityItems = getPriorityQueueItemsStorage()
+    playerQueueLoadPriorityItems(priorityItems)
+  }
+
+  handleAddToQueueNext(nowPlayingItem) {
+    const { playerQueueLoadPriorityItems } = this.props
+    addItemToPriorityQueueStorage(nowPlayingItem, false)
+    const priorityItems = getPriorityQueueItemsStorage()
+    playerQueueLoadPriorityItems(priorityItems)
+  }
+
   handleAnchorOnClick (event, data, itemType) {
     const { currentPageLoadNowPlayingItem } = this.props
 
@@ -44,6 +60,10 @@ class MediaContentView extends Component<Props, State> {
     }
 
     scrollToTopOfView()
+  }
+
+  handlePlayItem(nowPlayingItem) {
+
   }
 
   render () {
@@ -94,7 +114,10 @@ class MediaContentView extends Component<Props, State> {
     const listItemNodes = listItems.map((x, index) =>
       <MediaListItem
         dataNowPlayingItem={x}
+        handleAddToQueueLast={(e) => { this.handleAddToQueueLast(x) }}
+        handleAddToQueueNext={(e) => { this.handleAddToQueueNext(x) }}
         handleAnchorOnClick={(e) => { this.handleAnchorOnClick(e, x, 'nowPlayingItem') }}
+        handlePlayItem={(e) => { this.handlePlayItem(x) }}
         hasLink={true}
         itemType='now-playing-item'
         key={`nowPlayingListItem${index}`}
@@ -136,7 +159,8 @@ class MediaContentView extends Component<Props, State> {
 const mapStateToProps = state => ({ ...state })
 
 const mapDispatchToProps = dispatch => ({
-  currentPageLoadNowPlayingItem: bindActionCreators(currentPageLoadNowPlayingItem, dispatch)
+  currentPageLoadNowPlayingItem: bindActionCreators(currentPageLoadNowPlayingItem, dispatch),
+  playerQueueLoadPriorityItems: bindActionCreators(playerQueueLoadPriorityItems, dispatch)
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(MediaContentView)
