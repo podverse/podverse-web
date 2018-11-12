@@ -69,7 +69,25 @@ class MediaContentView extends Component<Props, State> {
   handlePlayItem(nowPlayingItem) {
     const { mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying } = this.props
     mediaPlayerLoadNowPlayingItem(nowPlayingItem)
-    mediaPlayerUpdatePlaying(true)
+
+    if (this.isCurrentlyPlayingItem()) {
+      mediaPlayerUpdatePlaying(false)
+    } else {
+      mediaPlayerUpdatePlaying(true)
+    }
+  }
+
+  isCurrentlyPlayingItem() {
+    const { currentPage, mediaPlayer } = this.props
+    const { episode, mediaRef, nowPlayingItem } = currentPage
+    const { nowPlayingItem: mpNowPlayingItem, playing } = mediaPlayer
+    
+    return (
+      playing
+      && ((episode && episode.mediaUrl === mpNowPlayingItem.episodeMediaUrl)
+      || (mediaRef && mediaRef.episodeMediaUrl === mpNowPlayingItem.episodeMediaUrl)
+      || (nowPlayingItem && nowPlayingItem.episodeMediaUrl === mpNowPlayingItem.episodeMediaUrl))
+    )
   }
 
   render () {
@@ -109,6 +127,7 @@ class MediaContentView extends Component<Props, State> {
           }}
           mediaRef={mediaRef}
           nowPlayingItem={nowPlayingItem}
+          playing={this.isCurrentlyPlayingItem()}
           podcast={podcast} />
         <div className='media-list'>
           <MediaListSelect
