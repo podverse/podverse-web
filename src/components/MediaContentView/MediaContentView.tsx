@@ -3,10 +3,9 @@ import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { MediaHeader, MediaInfo, MediaListItem, MediaListSelect,
   addItemToPriorityQueueStorage, getPriorityQueueItemsStorage } from 'podverse-ui'
-import { getEpisodeUrl, getPodcastUrl, mediaListSelectItemsPlayer, 
-  mediaListSubSelectItemsPlayer, mediaListSubSelectItemsSort } from '~/lib/constants'
+import { mediaListSelectItemsPlayer, mediaListSubSelectItemsPlayer, 
+  mediaListSubSelectItemsSort } from '~/lib/constants'
 import { scrollToTopOfView } from '~/lib/scrollToTop'
-import { readableDate } from '~/lib/util';
 import { bindActionCreators } from 'redux';
 import { currentPageLoadNowPlayingItem, mediaPlayerLoadNowPlayingItem,
   mediaPlayerUpdatePlaying, playerQueueLoadPriorityItems } from '~/redux/actions';
@@ -36,16 +35,18 @@ class MediaContentView extends Component<Props, State> {
     super(props)
   }
 
-  handleAddToQueueLast(nowPlayingItem) {
-    const { playerQueueLoadPriorityItems } = this.props
-    addItemToPriorityQueueStorage(nowPlayingItem, true)
-    const priorityItems = getPriorityQueueItemsStorage()
-    playerQueueLoadPriorityItems(priorityItems)
-  }
+  handleAddToQueue(nowPlayingItem, isLast) {
+    const { currentPage, playerQueueLoadPriorityItems } = this.props
+    const { episode, mediaRef } = currentPage
 
-  handleAddToQueueNext(nowPlayingItem) {
-    const { playerQueueLoadPriorityItems } = this.props
-    addItemToPriorityQueueStorage(nowPlayingItem, false)
+    if (nowPlayingItem && nowPlayingItem.episodeMediaUrl) {
+      addItemToPriorityQueueStorage(nowPlayingItem, isLast)
+    } else if (episode) {
+      addItemToPriorityQueueStorage(convertToNowPlayingItem(episode))
+    } else if (mediaRef) {
+      addItemToPriorityQueueStorage(convertToNowPlayingItem(mediaRef))
+    }
+
     const priorityItems = getPriorityQueueItemsStorage()
     playerQueueLoadPriorityItems(priorityItems)
   }
@@ -97,8 +98,8 @@ class MediaContentView extends Component<Props, State> {
     const listItemNodes = listItems.map((x, index) =>
       <MediaListItem
         dataNowPlayingItem={x}
-        handleAddToQueueLast={(e) => { this.handleAddToQueueLast(x) }}
-        handleAddToQueueNext={(e) => { this.handleAddToQueueNext(x) }}
+        handleAddToQueueLast={(e) => { this.handleAddToQueue(x, true) }}
+        handleAddToQueueNext={(e) => { this.handleAddToQueue(x, false) }}
         handleAnchorOnClick={(e) => { this.handleAnchorOnClick(e, x, 'nowPlayingItem') }}
         handlePlayItem={(e) => { this.handlePlayItem(x) }}
         hasLink={true}
@@ -116,6 +117,8 @@ class MediaContentView extends Component<Props, State> {
           podcast={podcast} />
         <MediaInfo
           episode={episode}
+          handleAddToQueueLast={() => this.handleAddToQueue(null, true)}
+          handleAddToQueueNext={() => this.handleAddToQueue(null, false)}
           handlePlayItem={() => {
             if (episode) {
               this.handlePlayItem(convertToNowPlayingItem(episode))

@@ -173,7 +173,7 @@ class MediaPlayerView extends Component<Props, State> {
     const { nowPlayingItem, playing } = mediaPlayer
     const { priorityItems, secondaryItems } = playerQueue
     const { autoplay, playbackRate } = this.state
-    
+
     return (
       <Fragment>
         {
