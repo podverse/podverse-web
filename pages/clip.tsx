@@ -22,7 +22,7 @@ type State = {}
 
 class Clip extends Component<Props, State> {
 
-  static async getInitialProps({ query, req, store }) {    
+  static async getInitialProps({ query, req, store }) {
     const res = await axios.all([
       getMediaRefById(query.id), 
       getMediaRefsByQuery({ 
