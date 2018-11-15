@@ -4,6 +4,7 @@ import withRedux from 'next-redux-wrapper'
 import App, { Container } from 'next/app'
 import { Navbar, getPriorityQueueItemsStorage } from 'podverse-ui'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Auth from '~/components/auth'
 import Meta from '~/components/meta'
 import Footer from '~/components/Footer/Footer'
 import MediaPlayerView from '~/components/MediaPlayerView/MediaPlayerView'
@@ -113,6 +114,7 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
         <Provider store={store}>
           <Fragment>
             <Meta />
+            {/* <Auth /> */}
             <div className='view'>
               <div className='view__navbar'>
                 <Navbar
