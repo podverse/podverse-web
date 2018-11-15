@@ -260,19 +260,36 @@ class MediaContentView extends Component<Props, State> {
     const { currentPage } = this.props
     const { episode, listItems, mediaRef, nowPlayingItem, podcast } = currentPage
     const { queryFrom, querySort, queryType } = this.state
+    
+    let mediaListItemType = 'now-playing-item'
+    if (queryType === 'episodes') {
+      if (queryFrom === 'from-podcast') {
+        mediaListItemType = 'now-playing-item-episode-from-podcast'
+      } else if (queryFrom === 'all-podcasts') {
+        mediaListItemType = 'now-playing-item-episode-from-all-podcasts'
+      }
+    } else {
+      if (queryFrom === 'from-episode') {
+        mediaListItemType = 'now-playing-item-clip-from-episode'
+      } else if (queryFrom === 'from-podcast') {
+        mediaListItemType = 'now-playing-item-clip-from-podcast'
+      }
+    }
 
-    const listItemNodes = listItems.map((x, index) =>
-      <MediaListItem
-        dataNowPlayingItem={x}
-        handleAddToQueueLast={(e) => { this.handleAddToQueue(x, true) }}
-        handleAddToQueueNext={(e) => { this.handleAddToQueue(x, false) }}
-        handleAnchorOnClick={(e) => { this.handleAnchorOnClick(e, x, 'nowPlayingItem') }}
-        handlePlayItem={(e) => { this.handlePlayItem(x) }}
-        hasLink={true}
-        itemType='now-playing-item'
-        key={`nowPlayingListItem${index}`}
-        showMoreMenu={true} />
-    )
+    const listItemNodes = listItems.map((x, index) => {
+      return (
+        <MediaListItem
+          dataNowPlayingItem={x}
+          handleAddToQueueLast={(e) => { this.handleAddToQueue(x, true) }}
+          handleAddToQueueNext={(e) => { this.handleAddToQueue(x, false) }}
+          handleAnchorOnClick={(e) => { this.handleAnchorOnClick(e, x, 'nowPlayingItem') }}
+          handlePlayItem={(e) => { this.handlePlayItem(x) }}
+          hasLink={true}
+          itemType={mediaListItemType}
+          key={`nowPlayingListItem${index}`}
+          showMoreMenu={true} />
+      )
+    })
 
     const selectedQueryTypeOption = this.getQueryTypeOptions().filter(x => x.value === queryType)
     const selectedQueryFromOption = this.getQueryFromOptions(queryType).filter(x => x.value === queryFrom)
