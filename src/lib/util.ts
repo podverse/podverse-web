@@ -81,5 +81,9 @@ export const readableClipTime = (startTime, endTime) => {
 }
 
 export const convertObjectToQueryString = (obj) => {
-  return Object.keys(obj).map(key => key + '=' + obj[key]).join('&')
+  if (!obj) {
+    return ''
+  } else {
+    return Object.keys(obj).map(key => key + '=' + obj[key]).join('&')
+  }
 }

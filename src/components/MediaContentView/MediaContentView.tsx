@@ -144,7 +144,7 @@ class MediaContentView extends Component<Props, State> {
   }
 
   queryMediaListItems(selectedKey, selectedValue) {
-    const { queryFrom, querySort, queryType } = this.props
+    const { queryFrom, querySort, queryType } = this.state
     
     let query = {
       from: queryFrom,
@@ -183,18 +183,9 @@ class MediaContentView extends Component<Props, State> {
     ]
   }
 
-  getQueryFromOptions() {
-    return [
-      {
-        label: 'From this podcast',
-        onClick: () => this.queryMediaListItems('from', 'from-podcast'),
-        value: 'from-podcast'
-      },
-      {
-        label: 'From this episode',
-        onClick: () => this.queryMediaListItems('from', 'from-episode'),
-        value: 'from-episode'
-      },
+  getQueryFromOptions(type) {
+
+    const options = [
       {
         label: 'All podcasts',
         onClick: () => this.queryMediaListItems('from', 'all-podcasts'),
@@ -204,8 +195,25 @@ class MediaContentView extends Component<Props, State> {
         label: 'Subscribed only',
         onClick: () => this.queryMediaListItems('from', 'subscribed-only'),
         value: 'subscribed-only'
+      },
+      {
+        label: 'From this podcast',
+        onClick: () => this.queryMediaListItems('from', 'from-podcast'),
+        value: 'from-podcast'
       }
     ]
+
+    if (type === 'clips') {
+      options.push(
+        {
+          label: 'From this episode',
+          onClick: () => this.queryMediaListItems('from', 'from-episode'),
+          value: 'from-episode'
+        }
+      )
+    }
+
+    return options
   }
 
   getQuerySortOptions() {
@@ -266,6 +274,10 @@ class MediaContentView extends Component<Props, State> {
         showMoreMenu={true} />
     )
 
+    const selectedQueryTypeOption = this.getQueryTypeOptions().filter(x => x.value === queryType)
+    const selectedQueryFromOption = this.getQueryFromOptions(queryType).filter(x => x.value === queryFrom)
+    const selectedQuerySortOption = this.getQuerySortOptions().filter(x => x.value === querySort)
+
     return (
       <Fragment>
         <MediaHeader
@@ -293,13 +305,13 @@ class MediaContentView extends Component<Props, State> {
         <div className='media-list'>
           <MediaListSelect
             items={this.getQueryTypeOptions()}
-            selected={this.getQueryTypeOptions().filter(x => x.value === queryType)[0].value} />
+            selected={selectedQueryTypeOption.length > 0 ? selectedQueryTypeOption[0].value : null} />
           <MediaListSelect
-            items={this.getQueryFromOptions()}
-            selected={this.getQueryFromOptions().filter(x => x.value === queryFrom)[0].value} />
+            items={this.getQueryFromOptions(queryType)}
+            selected={selectedQueryFromOption.length > 0 ? selectedQueryFromOption[0].value : null} />
           <MediaListSelect
             items={this.getQuerySortOptions()}
-            selected={this.getQuerySortOptions().filter(x => x.value === querySort)[0].value} />
+            selected={selectedQuerySortOption.length > 0 ? selectedQuerySortOption[0].value : null} />
           {listItemNodes}
         </div>
       </Fragment>

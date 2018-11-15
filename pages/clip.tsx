@@ -3,13 +3,12 @@ import { connect } from 'react-redux'
 import axios from 'axios'
 import { addItemsToSecondaryQueueStorage, clearItemsFromSecondaryQueueStorage
   } from 'podverse-ui'
-import MediaContentView from '~/components/MediaContentView/MediaContentView';
+import MediaContentView from '~/components/MediaContentView/MediaContentView'
 import { getMediaRefById, getMediaRefsByQuery } from '~/services/mediaRef'
-import { NowPlayingItem, convertToNowPlayingItem } from '~/lib/nowPlayingItem';
-import { currentPageLoadMediaRef } from '~/redux/actions'
-import { mediaPlayerLoadNowPlayingItem } from '~/redux/actions';
-import { playerQueueLoadSecondaryItems } from '~/redux/actions/playerQueue';
-import { currentPageLoadListItems } from '~/redux/actions/currentPage';
+import { NowPlayingItem, convertToNowPlayingItem } from '~/lib/nowPlayingItem'
+import { getQueryDataForMediaRefPage } from '~/lib/mediaListController'
+import { currentPageLoadListItems, currentPageLoadMediaRef,
+  mediaPlayerLoadNowPlayingItem, playerQueueLoadSecondaryItems } from '~/redux/actions'
 
 type Props = {
   currentPage?: any
@@ -23,27 +22,24 @@ type State = {}
 class Clip extends Component<Props, State> {
 
   static async getInitialProps({ query, req, store }) {
-    const res = await axios.all([
-      getMediaRefById(query.id), 
-      getMediaRefsByQuery({ 
-        podcastTitle: `The James Altucher Show`
-      })
-    ])
-
-    const mediaRef = res[0].data;
+    const mediaRefResult = await getMediaRefById(query.id)
+    const mediaRef = mediaRefResult.data
     store.dispatch(currentPageLoadMediaRef(mediaRef))
 
-    const mediaRefs = res[1].data;
-    
     // @ts-ignore
     if (!process.browser) {
       const nowPlayingItem = convertToNowPlayingItem(mediaRef)
       store.dispatch(mediaPlayerLoadNowPlayingItem(nowPlayingItem))
     }
 
+    const subscribedPodcastIds = ['XFxLTOM9h-', 'ZuT5bspVRC']
+
+    const queryDataResult = await getQueryDataForMediaRefPage(query, mediaRef, subscribedPodcastIds)
+    const queryData = queryDataResult.data
+
     const queueSecondaryItems: NowPlayingItem[] = []
-    for (const mediaRef of mediaRefs) {
-      queueSecondaryItems.push(convertToNowPlayingItem(mediaRef))
+    for (const data of queryData) {
+      queueSecondaryItems.push(convertToNowPlayingItem(data))
     }
 
     store.dispatch(currentPageLoadListItems(queueSecondaryItems))

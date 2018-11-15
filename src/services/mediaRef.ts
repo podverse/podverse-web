@@ -1,11 +1,11 @@
 import axios from 'axios'
 import { convertObjectToQueryString } from '~/lib/util'
 
-export const getMediaRefById = (id: string) => {
+export const getMediaRefById = async (id: string) => {
   return axios.get(`http://localhost:3000/api/v1/mediaRef/${id}`);
 }
 
-export const getMediaRefsByQuery = (query: MediaRefQuery) => {
+export const getMediaRefsByQuery = async (query: MediaRefQuery) => {
   const queryString = convertObjectToQueryString(query)
   return axios.get(`http://localhost:3000/api/v1/mediaRef?${queryString}`)
 }
