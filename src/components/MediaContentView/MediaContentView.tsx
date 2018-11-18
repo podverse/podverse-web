@@ -5,13 +5,16 @@ import Router from 'next/router'
 import { MediaHeader, MediaInfo, MediaListItem, MediaListSelect,
   addItemToPriorityQueueStorage, getPriorityQueueItemsStorage } from 'podverse-ui'
 import { bindActionCreators } from 'redux';
-import { currentPageLoadNowPlayingItem, mediaPlayerLoadNowPlayingItem,
-  mediaPlayerUpdatePlaying, playerQueueLoadPriorityItems } from '~/redux/actions'
+import { currentPageListItemsLoading, currentPageLoadNowPlayingItem,
+  mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying,
+  playerQueueLoadPriorityItems } from '~/redux/actions'
 import { convertToNowPlayingItem } from '~/lib/nowPlayingItem'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 const uuidv4 = require('uuid/v4')
 
 type Props = {
   currentPage?: any
+  currentPageListItemsLoading?: any
   currentPageLoadNowPlayingItem?: any
   mediaPlayer?: any
   mediaPlayerLoadNowPlayingItem?: any
@@ -75,7 +78,7 @@ class MediaContentView extends Component<Props, State> {
   }
 
   handleAnchorOnClick (event, data, itemType) {
-    const { currentPageLoadNowPlayingItem } = this.props
+    const { currentPageListItemsLoading, currentPageLoadNowPlayingItem } = this.props
 
     if (itemType === 'episode') {
       // newState.episode = data
@@ -86,6 +89,8 @@ class MediaContentView extends Component<Props, State> {
     } else if (itemType === 'podcast') {
       // newState.podcast = data
     }
+
+    currentPageListItemsLoading(true)
   }
 
   handlePlayItem(nowPlayingItem) {
@@ -265,7 +270,8 @@ class MediaContentView extends Component<Props, State> {
 
   render () {
     const { currentPage } = this.props
-    const { episode, listItems, mediaRef, nowPlayingItem, podcast } = currentPage
+    const { episode, listItems, listItemsLoading, mediaRef, nowPlayingItem,
+      podcast } = currentPage
     const { queryFrom, querySort, queryType } = this.state
     
     let mediaListItemType = 'now-playing-item'
@@ -283,7 +289,7 @@ class MediaContentView extends Component<Props, State> {
       }
     }
 
-    const listItemNodes = listItems.map((x, index) => {
+    const listItemNodes = listItems.map(x => {
       return (
         <MediaListItem
           dataNowPlayingItem={x}
@@ -336,7 +342,15 @@ class MediaContentView extends Component<Props, State> {
           <MediaListSelect
             items={this.getQuerySortOptions()}
             selected={selectedQuerySortOption.length > 0 ? selectedQuerySortOption[0].value : null} />
-          {listItemNodes}
+          {
+            listItemsLoading ? 
+              <div className='media-list__loading'>
+                <FontAwesomeIcon 
+                  icon='spinner'
+                  spin />
+              </div>
+              : listItemNodes
+          }
         </div>
       </Fragment>
     )
@@ -346,6 +360,7 @@ class MediaContentView extends Component<Props, State> {
 const mapStateToProps = state => ({ ...state })
 
 const mapDispatchToProps = dispatch => ({
+  currentPageListItemsLoading: bindActionCreators(currentPageListItemsLoading, dispatch),
   currentPageLoadNowPlayingItem: bindActionCreators(currentPageLoadNowPlayingItem, dispatch),
   mediaPlayerLoadNowPlayingItem: bindActionCreators(mediaPlayerLoadNowPlayingItem, dispatch),
   mediaPlayerUpdatePlaying: bindActionCreators(mediaPlayerUpdatePlaying, dispatch),

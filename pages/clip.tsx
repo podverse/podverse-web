@@ -7,7 +7,7 @@ import { getQueryDataForMediaRefPage } from '~/lib/mediaListController'
 import { NowPlayingItem, convertToNowPlayingItem } from '~/lib/nowPlayingItem'
 import { scrollToTopOfView } from '~/lib/scrollToTop'
 import { currentPageLoadListItems, currentPageLoadMediaRef,
-  mediaPlayerLoadNowPlayingItem, playerQueueLoadSecondaryItems } from '~/redux/actions'
+  mediaPlayerLoadNowPlayingItem, playerQueueLoadSecondaryItems, currentPageListItemsLoading } from '~/redux/actions'
   import { getMediaRefById, getMediaRefsByQuery } from '~/services/mediaRef'
 
 type Props = {
@@ -45,6 +45,7 @@ class Clip extends Component<Props, State> {
     }
 
     store.dispatch(currentPageLoadListItems(queueSecondaryItems))
+    store.dispatch(currentPageListItemsLoading(false))
 
     // @ts-ignore
     if (!process.browser) {

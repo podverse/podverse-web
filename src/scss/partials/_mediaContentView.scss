@@ -1,3 +1,24 @@
 .media-list {
   padding: 0.75rem 0;
+
+  .media-list__loading {
+    font-size: $text-3x-em;
+    text-align: center;
+  }
+}
+
+html[theme=light] {
+  .media-list {
+    .media-list__loading {
+      color: $black;
+    }
+  }
+}
+
+html[theme=dark] {
+  .media-list {
+    .media-list__loading {
+      color: $white;
+    }
+  }
 }

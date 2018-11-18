@@ -11,6 +11,11 @@ export default (state =  {}, action) => {
         nowPlayingItem: null,
         podcast: null
       }
+    case actionTypes.CURRENT_PAGE_LIST_ITEMS_LOADING:
+      return {
+        ...state,
+        listItemsLoading: action.payload
+      }
     case actionTypes.CURRENT_PAGE_LOAD_LIST_ITEMS:
       return {
         ...state,
