@@ -110,8 +110,17 @@ class MediaContentView extends Component<Props, State> {
     return (
       playing
       && ((episode && episode.mediaUrl === mpNowPlayingItem.episodeMediaUrl)
-      || (mediaRef && mediaRef.episodeMediaUrl === mpNowPlayingItem.episodeMediaUrl)
-      || (nowPlayingItem && nowPlayingItem.episodeMediaUrl === mpNowPlayingItem.episodeMediaUrl))
+      || (mediaRef && mediaRef.id === mpNowPlayingItem.clipId)
+      || ( // OR is a nowPlayingItem clip
+        nowPlayingItem
+        && nowPlayingItem.clipStartTime > 0
+        && nowPlayingItem.clipId === mpNowPlayingItem.clipId
+      )
+      || ( // OR is a nowPlayingItem episode
+        nowPlayingItem
+        && !nowPlayingItem.clipStartTime
+        && nowPlayingItem.episodeMediaUrl === mpNowPlayingItem.episodeMediaUrl
+      ))
     )
   }
 
