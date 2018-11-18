@@ -333,15 +333,22 @@ class MediaContentView extends Component<Props, State> {
           playing={this.isCurrentlyPlayingItem()}
           podcast={podcast} />
         <div className='media-list'>
-          <MediaListSelect
-            items={this.getQueryTypeOptions()}
-            selected={selectedQueryTypeOption.length > 0 ? selectedQueryTypeOption[0].value : null} />
-          <MediaListSelect
-            items={this.getQueryFromOptions(queryType)}
-            selected={selectedQueryFromOption.length > 0 ? selectedQueryFromOption[0].value : null} />
-          <MediaListSelect
-            items={this.getQuerySortOptions()}
-            selected={selectedQuerySortOption.length > 0 ? selectedQuerySortOption[0].value : null} />
+          <div className='media-list__selects'>
+            <div className='media-list-selects__left'>
+              <MediaListSelect
+                items={this.getQueryTypeOptions()}
+                selected={selectedQueryTypeOption.length > 0 ? selectedQueryTypeOption[0].value : null} />
+              <MediaListSelect
+                items={this.getQueryFromOptions(queryType)}
+                selected={selectedQueryFromOption.length > 0 ? selectedQueryFromOption[0].value : null} />
+            </div>
+            <div className='media-list-selects__right'>
+              <MediaListSelect
+                className='align-right'
+                items={this.getQuerySortOptions()}
+                selected={selectedQuerySortOption.length > 0 ? selectedQuerySortOption[0].value : null} />
+            </div>
+          </div>
           {
             listItemsLoading ? 
               <div className='media-list__loading'>

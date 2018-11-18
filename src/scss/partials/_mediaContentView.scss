@@ -1,6 +1,31 @@
 .media-list {
   padding: 0.75rem 0;
 
+  .media-list__selects {
+    display: flex;
+
+    .media-list-selects__left {
+      display: flex;
+      flex: 1 1 auto;
+      flex-direction: column;
+
+      .dropdown {
+        flex: 0 0 auto;
+      }
+    }
+  
+    .media-list-selects__right {
+      align-items: flex-end;
+      display: flex;
+      flex: 1 1 auto;
+      flex-direction: column;
+
+      .dropdown {
+        flex: 0 0 auto;
+      }
+    }
+  }
+
   .media-list__loading {
     font-size: $text-3x-em;
     text-align: center;
