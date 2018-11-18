@@ -3,15 +3,15 @@ import { Provider } from 'react-redux'
 import withRedux from 'next-redux-wrapper'
 import App, { Container } from 'next/app'
 import { Navbar, getPriorityQueueItemsStorage } from 'podverse-ui'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Auth from '~/components/auth'
 import Meta from '~/components/meta'
 import Footer from '~/components/Footer/Footer'
 import MediaPlayerView from '~/components/MediaPlayerView/MediaPlayerView'
 import { addFontAwesomeIcons } from '~/lib/fontAwesomeIcons'
 import { NowPlayingItem } from '~/lib/nowPlayingItem'
-import { initializeStore } from '~/redux/store';
-import { playerQueueLoadPriorityItems } from '~/redux/actions';
+import { initializeStore } from '~/redux/store'
+import { playerQueueLoadPriorityItems } from '~/redux/actions'
 
 addFontAwesomeIcons()
 

@@ -1,8 +1,12 @@
 import axios from 'axios'
 import { convertObjectToQueryString } from '~/lib/util'
 
+export const createMediaRef = async (data: any) => {
+  return axios.post(`http://localhost:3000/api/v1/mediaRef`, { ...data })
+}
+
 export const getMediaRefById = async (id: string) => {
-  return axios.get(`http://localhost:3000/api/v1/mediaRef/${id}`);
+  return axios.get(`http://localhost:3000/api/v1/mediaRef/${id}`)
 }
 
 export const getMediaRefsByQuery = async (query: MediaRefQuery) => {
@@ -11,8 +15,6 @@ export const getMediaRefsByQuery = async (query: MediaRefQuery) => {
 }
 
 type MediaRefQuery = {
-  _episodeId?: string
-  _podcastId?: string
   authors?: any[]
   categories?: any[]
   description?: string

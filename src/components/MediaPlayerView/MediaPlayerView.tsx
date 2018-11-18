@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux';
+import { bindActionCreators } from 'redux'
 import { MediaPlayer, getPriorityQueueItemsStorage, getSecondaryQueueItemsStorage, popNextFromQueueStorage
   } from 'podverse-ui'
 import { kAutoplay, kPlaybackRate, getPlaybackRateText, getPlaybackRateNextValue
@@ -9,6 +9,7 @@ import { scrollToTopOfView } from '~/lib/scrollToTop'
 import { currentPageLoadNowPlayingItem, mediaPlayerLoadNowPlayingItem, mediaPlayerSetClipFinished,
   mediaPlayerSetPlayedAfterClipFinished, playerQueueLoadPriorityItems,
   playerQueueLoadSecondaryItems, mediaPlayerUpdatePlaying} from '~/redux/actions'
+import { createMediaRef } from '~/services/mediaRef'
 
 type Props = {
   currentPageLoadNowPlayingItem?: any
@@ -96,7 +97,7 @@ class MediaPlayerView extends Component<Props, State> {
   handleItemSkip = () => {
     const { mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying, 
       playerQueueLoadPriorityItems, playerQueueLoadSecondaryItems } = this.props
-    
+
     const result = popNextFromQueueStorage()
     const priorityQueueItems = getPriorityQueueItemsStorage()
     const secondaryQueueItems = getSecondaryQueueItemsStorage()
@@ -110,8 +111,33 @@ class MediaPlayerView extends Component<Props, State> {
     mediaPlayerUpdatePlaying(this.state.autoplay)
   }
 
-  handleMakeClip = (event) => {
-    alert('make clip')
+  handleMakeClip = (data) => {
+    const { mediaPlayer } = this.props
+    const { nowPlayingItem } = mediaPlayer
+    const { description, episodeDuration, episodeGuid, episodeId, episodeImageUrl, 
+      episodeLinkUrl, episodeMediaUrl, episodePubDate, episodeSummary, episodeTitle,
+      podcastFeedUrl, podcastGuid, podcastId, podcastImageUrl } = nowPlayingItem
+
+    data = {
+      ...data,
+      ...(description ? { description } : {}),
+      ...(episodeDuration ? { episodeDuration } : {}),
+      ...(episodeGuid ? { episodeGuid } : {}),
+      ...(episodeId ? { episodeId } : {}),
+      ...(episodeImageUrl ? { episodeImageUrl } : {}),
+      ...(episodeLinkUrl ? { episodeLinkUrl } : {}),
+      ...(episodeMediaUrl ? { episodeMediaUrl } : {}),
+      ...(episodePubDate ? { episodePubDate } : {}),
+      ...(episodeSummary ? { episodeSummary } : {}),
+      ...(episodeTitle ? { episodeTitle } : {}),
+      ...(podcastFeedUrl ? { podcastFeedUrl } : {}),
+      ...(podcastGuid ? { podcastGuid } : {}),
+      ...(podcastId ? { podcastId } : {}),
+      ...(podcastImageUrl ? { podcastImageUrl } : {}),
+      ...(description ? { description } : {})   
+    }
+
+    createMediaRef(data)
   }
 
   handleOnEpisodeEnd = () => {
