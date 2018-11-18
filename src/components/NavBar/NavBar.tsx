@@ -1,51 +1,87 @@
-import React, { StatelessComponent } from 'react'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { Navbar } from 'podverse-ui'
+import { LoginModal, Navbar } from 'podverse-ui'
+import { modalsHideLogin, modalsShowLogin } from '~/redux/actions';
 
-type Props = {}
-
-const dropdownItems = [
-  {
-    as: '/settings',
-    href: '/settings',
-    label: 'Settings'
-  },
-  {
-    href: '#',
-    label: 'Log out'
-  }
-]
-
-const navItems = [
-  {
-    as: '/search',
-    href: '/search',
-    icon: 'search'
-  },
-  {
-    as: '/podcasts',
-    href: '/podcasts',
-    label: 'Podcasts'
-  },
-  {
-    as: '/playlists',
-    href: '/playlists',
-    label: 'Playlists'
-  }
-]
-
-const PVNavBar: StatelessComponent<Props> = props => {
-  const dropdownText = (<FontAwesomeIcon icon='user-circle'></FontAwesomeIcon>)
-
-  return (
-    <Navbar
-      brandHideText={true}
-      brandText='Podverse'
-      brandUrl='/'
-      dropdownItems={dropdownItems}
-      dropdownText={dropdownText}
-      navItems={navItems} />
-  )
+type Props = {
+  modals?: any
+  modalsHideLogin?: any
+  modalsShowLogin?: any
 }
 
-export default PVNavBar
+type State = {}
+
+class PVNavBar extends Component<Props, State> {
+
+  navItems () {
+    return [
+      {
+        as: '/search',
+        href: '/search',
+        icon: 'search'
+      },
+      {
+        as: '/podcasts',
+        href: '/podcasts',
+        label: 'Podcasts'
+      },
+      {
+        as: '/playlists',
+        href: '/playlists',
+        label: 'Playlists'
+      }
+    ]
+  } 
+
+  dropdownItems () {
+    return [
+      {
+        as: '/settings',
+        href: '/settings',
+        label: 'Settings'
+      },
+      {
+        href: '#',
+        label: 'Log out'
+      },
+      {
+        label: 'Log in',
+        onClick: () => { this.props.modalsShowLogin() }
+      }
+    ]
+  }
+
+  render () {
+    const { modals, modalsHideLogin } = this.props
+    const { showLogin } = modals
+
+    const dropdownText = (<FontAwesomeIcon icon='user-circle'></FontAwesomeIcon>)
+  
+    return (
+      <React.Fragment>
+        <Navbar
+          brandHideText={true}
+          brandText='Podverse'
+          brandUrl='/'
+          dropdownItems={this.dropdownItems()}
+          dropdownText={dropdownText}
+          navItems={this.navItems()} />
+        <LoginModal
+          handleSubmit={() => {console.log('wtf')}}
+          hideModal={modalsHideLogin}
+          isOpen={showLogin} />
+      </React.Fragment>
+    )
+  }
+}
+
+const mapStateToProps = state => ({ ...state })
+
+const mapDispatchToProps = dispatch => ({
+  modalsHideLogin: bindActionCreators(modalsHideLogin, dispatch),
+  modalsShowLogin: bindActionCreators(modalsShowLogin, dispatch)
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(PVNavBar)
