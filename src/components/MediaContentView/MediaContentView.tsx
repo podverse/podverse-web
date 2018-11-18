@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 import Router from 'next/router'
 import { MediaHeader, MediaInfo, MediaListItem, MediaListSelect,
   addItemToPriorityQueueStorage, getPriorityQueueItemsStorage } from 'podverse-ui'
-import { scrollToTopOfView } from '~/lib/scrollToTop'
 import { bindActionCreators } from 'redux';
 import { currentPageLoadNowPlayingItem, mediaPlayerLoadNowPlayingItem,
   mediaPlayerUpdatePlaying, playerQueueLoadPriorityItems } from '~/redux/actions'
@@ -87,8 +86,6 @@ class MediaContentView extends Component<Props, State> {
     } else if (itemType === 'podcast') {
       // newState.podcast = data
     }
-
-    scrollToTopOfView()
   }
 
   handlePlayItem(nowPlayingItem) {
