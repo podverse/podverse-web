@@ -8,11 +8,17 @@ export default (state = {}, action) => {
         ...state,
         clipFinished: true
       }
+    case actionTypes.MEDIA_PLAYER_SET_PLAYED_AFTER_CLIP_FINISHED:
+      return {
+        ...state,
+        playedAfterClipFinished: true
+      }
     case actionTypes.MEDIA_PLAYER_LOAD_NOW_PLAYING_ITEM:
       return {
         ...state,
         clipFinished: false,
-        nowPlayingItem: action.payload
+        nowPlayingItem: action.payload,
+        playedAfterClipFinished: false
       }
     case actionTypes.MEDIA_PLAYER_UPDATE_PLAYING:
       return {

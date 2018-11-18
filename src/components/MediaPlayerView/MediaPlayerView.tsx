@@ -7,12 +7,15 @@ import { kAutoplay, kPlaybackRate, getPlaybackRateText, getPlaybackRateNextValue
   } from '~/lib/constants'
 import { scrollToTopOfView } from '~/lib/scrollToTop'
 import { currentPageLoadNowPlayingItem, mediaPlayerLoadNowPlayingItem, mediaPlayerSetClipFinished,
-  playerQueueLoadPriorityItems, playerQueueLoadSecondaryItems, mediaPlayerUpdatePlaying} from '~/redux/actions'
+  mediaPlayerSetPlayedAfterClipFinished, playerQueueLoadPriorityItems,
+  playerQueueLoadSecondaryItems, mediaPlayerUpdatePlaying} from '~/redux/actions'
 
 type Props = {
   currentPageLoadNowPlayingItem?: any
   mediaPlayer?: any
   mediaPlayerLoadNowPlayingItem?: any
+  mediaPlayerSetClipFinished?: any
+  mediaPlayerSetPlayedAfterClipFinished?: any
   mediaPlayerUpdatePlaying?: any
   playerQueue?: any
   playerQueueLoadPriorityItems?: any
@@ -122,7 +125,7 @@ class MediaPlayerView extends Component<Props, State> {
   }
 
   handleOnPastClipTime = () => {
-    this.props.mediaPlayerSetClipFinished(true)
+    this.props.mediaPlayerSetClipFinished()
   }
 
   handlePause = () => {
@@ -147,6 +150,10 @@ class MediaPlayerView extends Component<Props, State> {
 
   handleQueueItemClick = () => {
     alert('queue item clicked')
+  }
+
+  handleSetPlayedAfterClipFinished = () => {
+    this.props.mediaPlayerSetPlayedAfterClipFinished()
   }
 
   handleToggleAutoplay = () => {
@@ -175,7 +182,7 @@ class MediaPlayerView extends Component<Props, State> {
 
   render () {
     const { mediaPlayer, playerQueue } = this.props
-    const { clipFinished, nowPlayingItem, playing } = mediaPlayer
+    const { clipFinished, nowPlayingItem, playedAfterClipFinished, playing } = mediaPlayer
     const { priorityItems, secondaryItems } = playerQueue
     const { autoplay, playbackRate } = this.state
 
@@ -184,7 +191,7 @@ class MediaPlayerView extends Component<Props, State> {
         {
           nowPlayingItem &&
             <Fragment>
-              <div className={`view__mediaplayer-spacer${nowPlayingItem.clipId && !clipFinished ? '--full' : ''}`} />
+              <div className={`view__mediaplayer-spacer${nowPlayingItem.clipId && !clipFinished && !playedAfterClipFinished ? '--full' : ''}`} />
               <div className='view__mediaplayer'>
                 <MediaPlayer
                   autoplay={autoplay}
@@ -202,10 +209,12 @@ class MediaPlayerView extends Component<Props, State> {
                   handlePlaybackRateClick={this.handlePlaybackRateClick}
                   handlePlaylistCreate={this.handlePlaylistCreate}
                   handlePlaylistItemAdd={this.handlePlaylistItemAdd}
+                  handleSetPlayedAfterClipFinished={this.handleSetPlayedAfterClipFinished}
                   handleToggleAutoplay={this.handleToggleAutoplay}
                   handleTogglePlay={this.handleTogglePlay}
                   nowPlayingItem={nowPlayingItem}
                   playbackRate={playbackRate}
+                  playedAfterClipFinished={playedAfterClipFinished}
                   playbackRateText={getPlaybackRateText(playbackRate)}
                   playerClipLinkAs={`/clip/${nowPlayingItem.clipId}`}
                   playerClipLinkHref={`/clip?id=${nowPlayingItem.clipId}`}
@@ -231,6 +240,7 @@ const mapDispatchToProps = dispatch => ({
   currentPageLoadNowPlayingItem: bindActionCreators(currentPageLoadNowPlayingItem, dispatch),
   mediaPlayerLoadNowPlayingItem: bindActionCreators(mediaPlayerLoadNowPlayingItem, dispatch),
   mediaPlayerSetClipFinished: bindActionCreators(mediaPlayerSetClipFinished, dispatch),
+  mediaPlayerSetPlayedAfterClipFinished: bindActionCreators(mediaPlayerSetPlayedAfterClipFinished, dispatch),
   mediaPlayerUpdatePlaying: bindActionCreators(mediaPlayerUpdatePlaying, dispatch),
   playerQueueLoadPriorityItems: bindActionCreators(playerQueueLoadPriorityItems, dispatch),
   playerQueueLoadSecondaryItems: bindActionCreators(playerQueueLoadSecondaryItems, dispatch)
