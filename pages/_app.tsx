@@ -10,7 +10,6 @@ import NavBar from '~/components/NavBar/NavBar'
 import MediaPlayerView from '~/components/MediaPlayerView/MediaPlayerView'
 import { addFontAwesomeIcons } from '~/lib/fontAwesomeIcons'
 import { NowPlayingItem } from '~/lib/nowPlayingItem'
-import { scrollToTopOfView } from '~/lib/scrollToTop'
 import { initializeStore } from '~/redux/store'
 import { playerQueueLoadPriorityItems } from '~/redux/actions'
 
@@ -64,11 +63,6 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
 
     if (Component.getInitialProps) {
       pageProps = await Component.getInitialProps(ctx)
-    }
-
-    // @ts-ignore
-    if (process.browser) {
-      scrollToTopOfView()
     }
 
     return { pageProps }

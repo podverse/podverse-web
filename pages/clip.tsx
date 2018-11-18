@@ -1,14 +1,14 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import axios from 'axios'
 import { addItemsToSecondaryQueueStorage, clearItemsFromSecondaryQueueStorage
   } from 'podverse-ui'
 import MediaContentView from '~/components/MediaContentView/MediaContentView'
-import { getMediaRefById, getMediaRefsByQuery } from '~/services/mediaRef'
-import { NowPlayingItem, convertToNowPlayingItem } from '~/lib/nowPlayingItem'
 import { getQueryDataForMediaRefPage } from '~/lib/mediaListController'
+import { NowPlayingItem, convertToNowPlayingItem } from '~/lib/nowPlayingItem'
+import { scrollToTopOfView } from '~/lib/scrollToTop'
 import { currentPageLoadListItems, currentPageLoadMediaRef,
   mediaPlayerLoadNowPlayingItem, playerQueueLoadSecondaryItems } from '~/redux/actions'
+  import { getMediaRefById, getMediaRefsByQuery } from '~/services/mediaRef'
 
 type Props = {
   currentPage?: any
@@ -30,6 +30,8 @@ class Clip extends Component<Props, State> {
     if (!process.browser) {
       const nowPlayingItem = convertToNowPlayingItem(mediaRef)
       store.dispatch(mediaPlayerLoadNowPlayingItem(nowPlayingItem))
+    } else {
+      scrollToTopOfView(document)
     }
 
     const subscribedPodcastIds = ['XFxLTOM9h-', 'ZuT5bspVRC']
