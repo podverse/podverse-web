@@ -6,7 +6,7 @@ import { MediaPlayer, getPriorityQueueItemsStorage, getSecondaryQueueItemsStorag
 import { kAutoplay, kPlaybackRate, getPlaybackRateText, getPlaybackRateNextValue
   } from '~/lib/constants'
 import { scrollToTopOfView } from '~/lib/scrollToTop'
-import { currentPageLoadNowPlayingItem, mediaPlayerLoadNowPlayingItem,
+import { currentPageLoadNowPlayingItem, mediaPlayerLoadNowPlayingItem, mediaPlayerSetClipFinished,
   playerQueueLoadPriorityItems, playerQueueLoadSecondaryItems, mediaPlayerUpdatePlaying} from '~/redux/actions'
 
 type Props = {
@@ -121,15 +121,8 @@ class MediaPlayerView extends Component<Props, State> {
     }
   }
 
-  handleOnPastClipTime = (shouldPlay) => {
-    // const { nowPlayingItem } = this.state
-    // nowPlayingItem.clipStartTime = null
-    // nowPlayingItem.clipEndTime = null
-    // nowPlayingItem.clipTitle = null
-    // this.setState({
-    //   nowPlayingItem,
-    //   playing: shouldPlay
-    // })
+  handleOnPastClipTime = () => {
+    this.props.mediaPlayerSetClipFinished(true)
   }
 
   handlePause = () => {
@@ -168,9 +161,21 @@ class MediaPlayerView extends Component<Props, State> {
     mediaPlayerUpdatePlaying(!playing)
   }
 
+  handleClipStartTimePreview = () => {
+    this.props.mediaPlayerUpdatePlaying(true)
+  }
+  
+  handleClipEndTimePreview = () => {
+    this.props.mediaPlayerUpdatePlaying(true)
+
+    setTimeout(() => {
+      this.props.mediaPlayerUpdatePlaying(false)
+    }, 3000)
+  }
+
   render () {
     const { mediaPlayer, playerQueue } = this.props
-    const { nowPlayingItem, playing } = mediaPlayer
+    const { clipFinished, nowPlayingItem, playing } = mediaPlayer
     const { priorityItems, secondaryItems } = playerQueue
     const { autoplay, playbackRate } = this.state
 
@@ -178,36 +183,42 @@ class MediaPlayerView extends Component<Props, State> {
       <Fragment>
         {
           nowPlayingItem &&
-            <div className='view__mediaplayer'>
-              <MediaPlayer
-                autoplay={autoplay}
-                handleAddToQueueLast={this.handleAddToQueueLast}
-                handleAddToQueueNext={this.handleAddToQueueNext}
-                handleItemSkip={this.handleItemSkip}
-                handleMakeClip={this.handleMakeClip}
-                handleOnEpisodeEnd={this.handleOnEpisodeEnd}
-                handleOnPastClipTime={this.handleOnPastClipTime}
-                handleQueueItemClick={this.handleQueueItemClick}
-                handlePause={this.handlePause}
-                handlePlaybackRateClick={this.handlePlaybackRateClick}
-                handlePlaylistCreate={this.handlePlaylistCreate}
-                handlePlaylistItemAdd={this.handlePlaylistItemAdd}
-                handleToggleAutoplay={this.handleToggleAutoplay}
-                handleTogglePlay={this.handleTogglePlay}
-                nowPlayingItem={nowPlayingItem}
-                playbackRate={playbackRate}
-                playbackRateText={getPlaybackRateText(playbackRate)}
-                playerClipLinkAs={`/clip/${nowPlayingItem.clipId}`}
-                playerClipLinkHref={`/clip?id=${nowPlayingItem.clipId}`}
-                playerClipLinkOnClick={(evt) => { this.handleAnchorOnClick(evt, nowPlayingItem, 'mediaRef') }}
-                playerEpisodeLinkAs={`/episode/${nowPlayingItem.episodeId}`}
-                playerEpisodeLinkHref={`/episode?id=${nowPlayingItem.episodeId}`}
-                playerEpisodeLinkOnClick={(evt) => { this.handleAnchorOnClick(evt, nowPlayingItem, 'episode') }}
-                playing={playing}
-                queuePriorityItems={priorityItems}
-                queueSecondaryItems={secondaryItems}
-                showAutoplay={true} />
-            </div>
+            <Fragment>
+              <div className={`view__mediaplayer-spacer${nowPlayingItem.clipId && !clipFinished ? '--full' : ''}`} />
+              <div className='view__mediaplayer'>
+                <MediaPlayer
+                  autoplay={autoplay}
+                  clipFinished={clipFinished}
+                  handleAddToQueueLast={this.handleAddToQueueLast}
+                  handleAddToQueueNext={this.handleAddToQueueNext}
+                  handleClipStartTimePreview={this.handleClipStartTimePreview}
+                  handleClipEndTimePreview={this.handleClipEndTimePreview}
+                  handleItemSkip={this.handleItemSkip}
+                  handleMakeClip={this.handleMakeClip}
+                  handleOnEpisodeEnd={this.handleOnEpisodeEnd}
+                  handleOnPastClipTime={this.handleOnPastClipTime}
+                  handleQueueItemClick={this.handleQueueItemClick}
+                  handlePause={this.handlePause}
+                  handlePlaybackRateClick={this.handlePlaybackRateClick}
+                  handlePlaylistCreate={this.handlePlaylistCreate}
+                  handlePlaylistItemAdd={this.handlePlaylistItemAdd}
+                  handleToggleAutoplay={this.handleToggleAutoplay}
+                  handleTogglePlay={this.handleTogglePlay}
+                  nowPlayingItem={nowPlayingItem}
+                  playbackRate={playbackRate}
+                  playbackRateText={getPlaybackRateText(playbackRate)}
+                  playerClipLinkAs={`/clip/${nowPlayingItem.clipId}`}
+                  playerClipLinkHref={`/clip?id=${nowPlayingItem.clipId}`}
+                  playerClipLinkOnClick={(evt) => { this.handleAnchorOnClick(evt, nowPlayingItem, 'mediaRef') }}
+                  playerEpisodeLinkAs={`/episode/${nowPlayingItem.episodeId}`}
+                  playerEpisodeLinkHref={`/episode?id=${nowPlayingItem.episodeId}`}
+                  playerEpisodeLinkOnClick={(evt) => { this.handleAnchorOnClick(evt, nowPlayingItem, 'episode') }}
+                  playing={playing}
+                  queuePriorityItems={priorityItems}
+                  queueSecondaryItems={secondaryItems}
+                  showAutoplay={true} />
+              </div>
+            </Fragment>
         }
       </Fragment>
     )
@@ -219,6 +230,7 @@ const mapStateToProps = state => ({ ...state })
 const mapDispatchToProps = dispatch => ({
   currentPageLoadNowPlayingItem: bindActionCreators(currentPageLoadNowPlayingItem, dispatch),
   mediaPlayerLoadNowPlayingItem: bindActionCreators(mediaPlayerLoadNowPlayingItem, dispatch),
+  mediaPlayerSetClipFinished: bindActionCreators(mediaPlayerSetClipFinished, dispatch),
   mediaPlayerUpdatePlaying: bindActionCreators(mediaPlayerUpdatePlaying, dispatch),
   playerQueueLoadPriorityItems: bindActionCreators(playerQueueLoadPriorityItems, dispatch),
   playerQueueLoadSecondaryItems: bindActionCreators(playerQueueLoadSecondaryItems, dispatch)

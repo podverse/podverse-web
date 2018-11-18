@@ -13,3 +13,10 @@ export const mediaPlayerUpdatePlaying = payload => {
     payload
   }
 }
+
+export const mediaPlayerSetClipFinished = payload => {
+  return {
+    type: actionTypes.MEDIA_PLAYER_SET_CLIP_FINISHED,
+    payload
+  }
+}

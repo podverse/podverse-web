@@ -7,8 +7,9 @@ import { MediaHeader, MediaInfo, MediaListItem, MediaListSelect,
 import { scrollToTopOfView } from '~/lib/scrollToTop'
 import { bindActionCreators } from 'redux';
 import { currentPageLoadNowPlayingItem, mediaPlayerLoadNowPlayingItem,
-  mediaPlayerUpdatePlaying, playerQueueLoadPriorityItems } from '~/redux/actions';
-import { convertToNowPlayingItem } from '~/lib/nowPlayingItem';
+  mediaPlayerUpdatePlaying, playerQueueLoadPriorityItems } from '~/redux/actions'
+import { convertToNowPlayingItem } from '~/lib/nowPlayingItem'
+const uuidv4 = require('uuid/v4')
 
 type Props = {
   currentPage?: any
@@ -286,7 +287,7 @@ class MediaContentView extends Component<Props, State> {
           handlePlayItem={(e) => { this.handlePlayItem(x) }}
           hasLink={true}
           itemType={mediaListItemType}
-          key={`nowPlayingListItem${index}`}
+          key={`nowPlayingListItem-${uuidv4()}`}
           showMoreMenu={true} />
       )
     })
