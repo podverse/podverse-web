@@ -5,7 +5,7 @@ import { deleteCookie, getCookie } from '~/lib/util'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { LoginModal, Navbar } from 'podverse-ui'
 import { modalsLoginIsLoading, modalsLoginShow, userSetIsLoggedIn } from '~/redux/actions'
-import { login } from '~/services/auth'
+import { login, logOut } from '~/services/auth'
 
 type Props = {
   modals?: any
@@ -63,10 +63,13 @@ class PVNavBar extends Component<Props, State> {
         as: '',
         href: '',
         label: 'Log out',
-        onClick: () => { 
-          deleteCookie('Authentication')
-          const authCookie = getCookie('Authentication')
-          userSetIsLoggedIn(!!authCookie)
+        onClick: async () => {
+          try {
+            await logOut()
+            userSetIsLoggedIn(false)
+          } catch (error) {
+            console.log(error)
+          }
         }
       })
     } else {

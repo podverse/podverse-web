@@ -10,3 +10,10 @@ export const login = async (email: string, password: string) => {
     withCredentials: true
   })
 }
+
+export const logOut = async () => {
+  return axios(`http://localhost:3000/api/v1/auth/log-out`, {
+    method: 'post',
+    withCredentials: true
+  })
+}
