@@ -3,15 +3,23 @@ import { actionTypes } from '~/redux/constants'
 export default (state = {}, action) => {
 
   switch (action.type) {
-    case actionTypes.MODALS_HIDE_LOGIN:
+    case actionTypes.MODALS_LOGIN_SHOW:
       return {
         ...state,
-        showLogin: false
+        login: {
+          // @ts-ignore
+          ...state.login,
+          isOpen: action.payload
+        }
       }
-    case actionTypes.MODALS_SHOW_LOGIN:
+    case actionTypes.MODALS_LOGIN_IS_LOADING:
       return {
         ...state,
-        showLogin: true
+        login: {
+          // @ts-ignore
+          ...state.login,
+          isLoading: action.payload
+        }
       }
     default:
       return state

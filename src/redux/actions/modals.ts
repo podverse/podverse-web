@@ -1,13 +1,15 @@
 import { actionTypes } from "~/redux/constants";
 
-export const modalsShowLogin = () => {
+export const modalsLoginShow = payload => {
   return {
-    type: actionTypes.MODALS_SHOW_LOGIN
+    type: actionTypes.MODALS_LOGIN_SHOW,
+    payload
   }
 }
 
-export const modalsHideLogin = () => {
+export const modalsLoginIsLoading = payload => {
   return {
-    type: actionTypes.MODALS_HIDE_LOGIN
+    type: actionTypes.MODALS_LOGIN_IS_LOADING,
+    payload
   }
 }

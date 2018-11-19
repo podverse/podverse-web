@@ -87,3 +87,16 @@ export const convertObjectToQueryString = (obj) => {
     return Object.keys(obj).map(key => key + '=' + obj[key]).join('&')
   }
 }
+
+export const getCookie = name => {
+    const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'))
+    if (match) {
+      return match[2]
+    }
+
+    return
+}
+
+export const deleteCookie = name => {
+  document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;path=/;domain=localhost;'
+}

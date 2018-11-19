@@ -1,20 +1,29 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import { deleteCookie, getCookie } from '~/lib/util'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { LoginModal, Navbar } from 'podverse-ui'
-import { modalsHideLogin, modalsShowLogin } from '~/redux/actions';
+import { modalsLoginIsLoading, modalsLoginShow, userSetIsLoggedIn } from '~/redux/actions'
 import { login } from '~/services/auth'
 
 type Props = {
   modals?: any
-  modalsHideLogin?: any
-  modalsShowLogin?: any
+  modalsLoginIsLoading?: any
+  modalsLoginShow?: any
+  user?: any
+  userSetIsLoggedIn?: any
 }
 
 type State = {}
 
 class PVNavBar extends Component<Props, State> {
+
+  constructor (props) {
+    super(props)
+
+    this.handleLogin = this.handleLogin.bind(this)
+  }
 
   navItems () {
     return [
@@ -37,32 +46,61 @@ class PVNavBar extends Component<Props, State> {
   } 
 
   dropdownItems () {
-    return [
+    const { user, userSetIsLoggedIn } = this.props
+    const { isLoggedIn } = user
+
+    let dropdownItems = [
       {
         as: '/settings',
         href: '/settings',
-        label: 'Settings'
-      },
-      {
-        href: '#',
-        label: 'Log out'
-      },
-      {
-        label: 'Log in',
-        onClick: () => { this.props.modalsShowLogin() }
+        label: 'Settings',
+        onClick: () => {}
       }
     ]
+
+    if (isLoggedIn) {
+      dropdownItems.push({
+        as: '',
+        href: '',
+        label: 'Log out',
+        onClick: () => { 
+          deleteCookie('Authentication')
+          const authCookie = getCookie('Authentication')
+          userSetIsLoggedIn(!!authCookie)
+        }
+      })
+    } else {
+      dropdownItems.push({
+        as: '',
+        href: '',
+        label: 'Log in',
+        onClick: () => { this.props.modalsLoginShow(true) }
+      })
+    }
+
+    return dropdownItems
   }
 
-  handleLogin (email, password) {
-    login(email, password)
+  async handleLogin (email, password) {
+    const { modalsLoginIsLoading, modalsLoginShow, userSetIsLoggedIn } = this.props
+    modalsLoginIsLoading(true)
+    
+    try {
+      await login(email, password)
+      userSetIsLoggedIn(true)
+      modalsLoginShow(false)
+    } catch {
+      userSetIsLoggedIn(false)
+    } finally {
+      modalsLoginIsLoading(false)
+    }
   }
 
   render () {
-    const { modals, modalsHideLogin } = this.props
-    const { showLogin } = modals
+    const { modals, modalsLoginShow, user } = this.props
+    const { isLoggedIn } = user
 
-    const dropdownText = (<FontAwesomeIcon icon='user-circle'></FontAwesomeIcon>)
+    const dropdownText = (isLoggedIn ? <FontAwesomeIcon icon='user-circle'></FontAwesomeIcon> : null)
   
     return (
       <React.Fragment>
@@ -75,8 +113,9 @@ class PVNavBar extends Component<Props, State> {
           navItems={this.navItems()} />
         <LoginModal
           handleLogin={this.handleLogin}
-          hideModal={modalsHideLogin}
-          isOpen={showLogin} />
+          hideModal={() => modalsLoginShow(false)}
+          isLoading={modals.login && modals.login.isLoading}
+          isOpen={modals.login && modals.login.isOpen} />
       </React.Fragment>
     )
   }
@@ -85,8 +124,9 @@ class PVNavBar extends Component<Props, State> {
 const mapStateToProps = state => ({ ...state })
 
 const mapDispatchToProps = dispatch => ({
-  modalsHideLogin: bindActionCreators(modalsHideLogin, dispatch),
-  modalsShowLogin: bindActionCreators(modalsShowLogin, dispatch)
+  modalsLoginIsLoading: bindActionCreators(modalsLoginIsLoading, dispatch),
+  modalsLoginShow: bindActionCreators(modalsLoginShow, dispatch),
+  userSetIsLoggedIn: bindActionCreators(userSetIsLoggedIn, dispatch)
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(PVNavBar)

@@ -5,5 +5,6 @@ export { mediaPlayerLoadNowPlayingItem,mediaPlayerSetClipFinished,
   mediaPlayerSetPlayedAfterClipFinished, mediaPlayerUpdatePlaying } from '~/redux/actions/mediaPlayer'
 export { playerQueueLoadPriorityItems, playerQueueLoadSecondaryItems
   } from '~/redux/actions/playerQueue'
-export { modalsHideLogin, modalsShowLogin } from '~/redux/actions/modals'
+export { modalsLoginIsLoading, modalsLoginShow } from '~/redux/actions/modals'
+export { userSetIsLoggedIn } from '~/redux/actions/user'
   
