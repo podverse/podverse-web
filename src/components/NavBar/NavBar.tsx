@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { LoginModal, Navbar } from 'podverse-ui'
 import { modalsHideLogin, modalsShowLogin } from '~/redux/actions';
+import { login } from '~/services/auth'
 
 type Props = {
   modals?: any
@@ -53,6 +54,10 @@ class PVNavBar extends Component<Props, State> {
     ]
   }
 
+  handleLogin (email, password) {
+    login(email, password)
+  }
+
   render () {
     const { modals, modalsHideLogin } = this.props
     const { showLogin } = modals
@@ -69,7 +74,7 @@ class PVNavBar extends Component<Props, State> {
           dropdownText={dropdownText}
           navItems={this.navItems()} />
         <LoginModal
-          handleSubmit={() => {console.log('wtf')}}
+          handleLogin={this.handleLogin}
           hideModal={modalsHideLogin}
           isOpen={showLogin} />
       </React.Fragment>
