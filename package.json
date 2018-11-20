@@ -43,6 +43,7 @@
     "koa-router": "^7.4.0",
     "next": "^7.0.1",
     "next-redux-wrapper": "^2.0.0",
+    "password-validator": "^4.1.1",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
     "react-redux": "^5.1.0",

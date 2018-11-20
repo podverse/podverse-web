@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { convertObjectToQueryString } from '~/lib/util'
+import { convertObjectToQueryString } from '~/lib/utility'
 
 export const getEpisodeById = async (id: string) => {
   return axios.get(`http://localhost:3000/api/v1/episode/${id}`);

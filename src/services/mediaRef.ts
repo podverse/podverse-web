@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { convertObjectToQueryString } from '~/lib/util'
+import { convertObjectToQueryString } from '~/lib/utility'
 
 export const createMediaRef = async (data: any) => {
   return axios.post(`http://localhost:3000/api/v1/mediaRef`, { ...data })

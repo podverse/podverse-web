@@ -1,13 +1,17 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
-import { Alert, Form, FormGroup, Input, Label } from 'reactstrap'
+import { Alert, Form, FormFeedback, FormGroup, FormText, Input, Label
+  } from 'reactstrap'
 import { ButtonGroup, PVButton as Button } from 'podverse-ui'
 import Meta from '~/components/meta'
+import { validatePassword } from '~/lib/utility'
 
 type Props = {}
 
 type State = {
   errorGeneral?: string
+  errorPassword?: string
+  errorPasswordConfirm?: string
   isLoading?: boolean
   password?: string
   passwordConfirm?: string
@@ -26,13 +30,62 @@ class ResetPassword extends Component<Props, State> {
   constructor(props) {
     super(props)
 
-    this.state = {}
+    this.state = {
+      password: '',
+      passwordConfirm: ''
+    }
+
+    this.handlePasswordInputBlur = this.handlePasswordInputBlur.bind(this)
+    this.handlePasswordInputChange = this.handlePasswordInputChange.bind(this)
+    this.handlePasswordConfirmInputBlur = this.handlePasswordConfirmInputBlur.bind(this)
+    this.handlePasswordConfirmInputChange = this.handlePasswordConfirmInputChange.bind(this)
   }
 
-  handleInputChange(event) {
-    const { stateKey } = event.target.dataset
-    const newState = {}
-    newState[stateKey] = event.target.value
+  handlePasswordInputBlur(event) {
+    const { value: password } = event.target
+    const newState: any = {}
+
+    if (!validatePassword(password)) {
+      newState.errorPassword = 'Password must contain a number, uppercase, lowercase, and be at least 8 characters long.'
+    }
+
+    this.setState(newState)
+  }
+
+  handlePasswordInputChange (event) {
+    const { value: password } = event.target
+    const newState: any = {}
+    newState.password = password
+
+    if (validatePassword(password)) {
+      newState.errorPassword = null
+    }
+
+    this.setState(newState)
+  }
+
+  handlePasswordConfirmInputBlur (event) {
+    const { errorPassword, password } = this.state
+    const { value: passwordConfirm } = event.target
+    const newState: any = {}
+
+    if (!errorPassword && passwordConfirm !== password) {
+      newState.errorPasswordConfirm = 'Passwords do not match.'
+    }
+
+    this.setState(newState)
+  }
+
+  handlePasswordConfirmInputChange (event) {
+    const { errorPassword, password } = this.state
+    const { value: passwordConfirm } = event.target
+    const newState: any = {}
+    newState.passwordConfirm = passwordConfirm
+
+    if (!errorPassword && passwordConfirm === password ) {
+      newState.errorPasswordConfirm = null
+    }
+
     this.setState(newState)
   }
 
@@ -47,12 +100,13 @@ class ResetPassword extends Component<Props, State> {
   }
 
   render() {
-    const { errorGeneral, isLoading, password, passwordConfirm } = this.state
+    const { errorGeneral, errorPassword, errorPasswordConfirm, isLoading, password,
+      passwordConfirm } = this.state
 
     return (
       <Fragment>
         <Meta />
-        <Form>
+        <Form className='reset-password'>
           <h4>Reset Password</h4>
           {
             errorGeneral &&
@@ -64,21 +118,41 @@ class ResetPassword extends Component<Props, State> {
             <Label for='reset-password__password'>New Password</Label>
             <Input
               data-state-key='password'
+              invalid={errorPassword}
               name='reset-password__password'
-              onChange={this.handleInputChange}
+              onBlur={this.handlePasswordInputBlur}
+              onChange={this.handlePasswordInputChange}
               placeholder='********'
               type='password'
+              // valid={}
               value={password} />
+            {
+              errorPassword ?
+                <FormFeedback invalid='true'>
+                  {errorPassword}
+                </FormFeedback> :
+                <FormText>
+                  Password must contain a number, uppercase, lowercase, and be at least 8 characters long.
+                </FormText>
+            }
           </FormGroup>
           <FormGroup>
             <Label for='reset-password__password-confirm'>Confirm Password</Label>
             <Input
               data-state-key='passwordConfirm'
+              invalid={errorPasswordConfirm}
               name='reset-password__password-confirm'
-              onChange={this.handleInputChange}
+              onBlur={this.handlePasswordConfirmInputBlur}
+              onChange={this.handlePasswordConfirmInputChange}
               placeholder='********'
               type='password'
               value={passwordConfirm} />
+            {
+              errorPasswordConfirm &&
+                <FormFeedback invalid='true'>
+                  {errorPasswordConfirm}
+                </FormFeedback>
+            }
           </FormGroup>
           <ButtonGroup
             childrenLeft

@@ -1,3 +1,5 @@
+export { validatePassword } from './validatePassword'
+
 export const readableDate = (date) => {
   const dateObj = new Date(date),
     year = dateObj.getFullYear(),
@@ -89,12 +91,12 @@ export const convertObjectToQueryString = (obj) => {
 }
 
 export const getCookie = name => {
-    const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'))
-    if (match) {
-      return match[2]
-    }
+  const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'))
+  if (match) {
+    return match[2]
+  }
 
-    return
+  return
 }
 
 export const deleteCookie = name => {
