@@ -3,8 +3,8 @@ import { Provider } from 'react-redux'
 import withRedux from 'next-redux-wrapper'
 import App, { Container } from 'next/app'
 import { getPriorityQueueItemsStorage } from 'podverse-ui'
-import Auth from '~/components/auth'
 import Meta from '~/components/meta'
+import Auth from '~/components/Auth/Auth'
 import Footer from '~/components/Footer/Footer'
 import NavBar from '~/components/NavBar/NavBar'
 import MediaPlayerView from '~/components/MediaPlayerView/MediaPlayerView'
@@ -102,7 +102,7 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
         <Provider store={store}>
           <Fragment>
             <Meta />
-            {/* <Auth /> */}
+            <Auth />
             <div className='view'>
               <div className='view__navbar'>
                 <NavBar />

@@ -1,14 +1,15 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { deleteCookie, getCookie } from '~/lib/util'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { LoginModal, Navbar } from 'podverse-ui'
-import { modalsLoginIsLoading, modalsLoginShow, userSetIsLoggedIn } from '~/redux/actions'
-import { login, logOut } from '~/services/auth'
+import { Navbar } from 'podverse-ui'
+import { modalsLoginShow, userSetIsLoggedIn } from '~/redux/actions'
+import { logOut } from '~/services/auth'
 
 type Props = {
   modals?: any
+  modalsForgotPasswordIsLoading?: any
+  modalsForgotPasswordShow?: any
   modalsLoginIsLoading?: any
   modalsLoginShow?: any
   user?: any
@@ -18,12 +19,6 @@ type Props = {
 type State = {}
 
 class PVNavBar extends Component<Props, State> {
-
-  constructor (props) {
-    super(props)
-
-    this.handleLogin = this.handleLogin.bind(this)
-  }
 
   navItems () {
     return [
@@ -84,23 +79,8 @@ class PVNavBar extends Component<Props, State> {
     return dropdownItems
   }
 
-  async handleLogin (email, password) {
-    const { modalsLoginIsLoading, modalsLoginShow, userSetIsLoggedIn } = this.props
-    modalsLoginIsLoading(true)
-    
-    try {
-      await login(email, password)
-      userSetIsLoggedIn(true)
-      modalsLoginShow(false)
-    } catch {
-      userSetIsLoggedIn(false)
-    } finally {
-      modalsLoginIsLoading(false)
-    }
-  }
-
   render () {
-    const { modals, modalsLoginShow, user } = this.props
+    const { user } = this.props
     const { isLoggedIn } = user
 
     const dropdownText = (isLoggedIn ? <FontAwesomeIcon icon='user-circle'></FontAwesomeIcon> : null)
@@ -114,11 +94,6 @@ class PVNavBar extends Component<Props, State> {
           dropdownItems={this.dropdownItems()}
           dropdownText={dropdownText}
           navItems={this.navItems()} />
-        <LoginModal
-          handleLogin={this.handleLogin}
-          hideModal={() => modalsLoginShow(false)}
-          isLoading={modals.login && modals.login.isLoading}
-          isOpen={modals.login && modals.login.isOpen} />
       </React.Fragment>
     )
   }
@@ -127,7 +102,6 @@ class PVNavBar extends Component<Props, State> {
 const mapStateToProps = state => ({ ...state })
 
 const mapDispatchToProps = dispatch => ({
-  modalsLoginIsLoading: bindActionCreators(modalsLoginIsLoading, dispatch),
   modalsLoginShow: bindActionCreators(modalsLoginShow, dispatch),
   userSetIsLoggedIn: bindActionCreators(userSetIsLoggedIn, dispatch)
 })

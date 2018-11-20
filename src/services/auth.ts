@@ -17,3 +17,23 @@ export const logOut = async () => {
     withCredentials: true
   })
 }
+
+export const sendResetPassword = async (email: string) => {
+  return axios(`http://localhost:3000/api/v1/auth/send-reset-password`, {
+    method: 'post',
+    data: {
+      email
+    }
+  })
+}
+
+export const signUp = async (email: string, password: string) => {
+  return axios(`http://localhost:3000/api/v1/auth/sign-up`, {
+    method: 'post',
+    data: {
+      email,
+      password
+    },
+    withCredentials: true
+  })
+}
