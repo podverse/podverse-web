@@ -47,3 +47,7 @@ export const signUp = async (email: string, password: string) => {
     withCredentials: true
   })
 }
+
+export const verifyEmail = async (token?: string) => {
+  return axios.get(`http://localhost:3000/api/v1/auth/verify-email?token=${token}`)
+}

@@ -1,5 +1,4 @@
 import React, { Component, Fragment } from 'react'
-import { connect } from 'react-redux'
 import { Alert, Form, FormFeedback, FormGroup, FormText, Input, Label
   } from 'reactstrap'
 import { ButtonGroup, PVButton as Button } from 'podverse-ui'
@@ -194,8 +193,4 @@ class ResetPassword extends Component<Props, State> {
   }
 }
 
-const mapStateToProps = state => ({ ...state })
-
-const mapDispatchToProps = dispatch => ({})
-
-export default connect(mapStateToProps, mapDispatchToProps)(ResetPassword)
+export default ResetPassword
