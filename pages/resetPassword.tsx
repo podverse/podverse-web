@@ -39,13 +39,14 @@ class ResetPassword extends Component<Props, State> {
     this.handlePasswordInputChange = this.handlePasswordInputChange.bind(this)
     this.handlePasswordConfirmInputBlur = this.handlePasswordConfirmInputBlur.bind(this)
     this.handlePasswordConfirmInputChange = this.handlePasswordConfirmInputChange.bind(this)
+    this.hasConfirmedValidPassword = this.hasConfirmedValidPassword.bind(this)
   }
 
   handlePasswordInputBlur(event) {
     const { value: password } = event.target
     const newState: any = {}
 
-    if (!validatePassword(password)) {
+    if (password && !validatePassword(password)) {
       newState.errorPassword = 'Password must contain a number, uppercase, lowercase, and be at least 8 characters long.'
     }
 
@@ -95,6 +96,14 @@ class ResetPassword extends Component<Props, State> {
     this.props.handleSubmit(email)
   }
 
+  hasConfirmedValidPassword() {
+    const { password, passwordConfirm } = this.state
+
+    return password === passwordConfirm
+      && validatePassword(password)
+      && validatePassword(passwordConfirm)
+  }
+
   clearErrors() {
     this.setState({ errorGeneral: undefined })
   }
@@ -127,10 +136,13 @@ class ResetPassword extends Component<Props, State> {
               // valid={}
               value={password} />
             {
-              errorPassword ?
+              errorPassword &&
                 <FormFeedback invalid='true'>
                   {errorPassword}
-                </FormFeedback> :
+                </FormFeedback>
+            }
+            {
+              (!validatePassword(password) && !errorPassword) &&
                 <FormText>
                   Password must contain a number, uppercase, lowercase, and be at least 8 characters long.
                 </FormText>
@@ -162,6 +174,8 @@ class ResetPassword extends Component<Props, State> {
                   onClick={() => { window.location.href = '' }}
                   text='Cancel' />
                 <Button
+                  color='primary'
+                  disabled={!this.hasConfirmedValidPassword()}
                   isLoading={isLoading}
                   onClick={this.handleSubmit}
                   text='Submit' />
