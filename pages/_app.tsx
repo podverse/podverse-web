@@ -73,12 +73,15 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
   static async getInitialProps({ Component, ctx }) {
     let pageProps = {}
 
-    if (ctx.req.headers.cookie) {
-      const parsedCookie = cookie.parse(ctx.req.headers.cookie)
-      ctx.store.dispatch({
-        type: actionTypes.USER_SET_IS_LOGGED_IN,
-        payload: !!parsedCookie.Authentication
-      })
+    // @ts-ignore
+    if (!process.browser) {
+      if (ctx.req.headers.cookie) {
+        const parsedCookie = cookie.parse(ctx.req.headers.cookie)
+        ctx.store.dispatch({
+          type: actionTypes.USER_SET_IS_LOGGED_IN,
+          payload: !!parsedCookie.Authentication
+        })
+      }
     }
 
     if (Component.getInitialProps) {

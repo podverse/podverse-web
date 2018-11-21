@@ -4,27 +4,29 @@ import { Alert, Form, FormFeedback, FormGroup, FormText, Input, Label
   } from 'reactstrap'
 import { ButtonGroup, PVButton as Button } from 'podverse-ui'
 import Meta from '~/components/meta'
+import { internetConnectivityErrorMessage } from '~/lib/constants'
 import { validatePassword } from '~/lib/utility'
+import { resetPassword } from '~/services/auth'
 
-type Props = {}
+type Props = {
+  passwordResetToken?: string
+}
 
 type State = {
-  errorGeneral?: string
   errorPassword?: string
   errorPasswordConfirm?: string
+  errorResponse?: string
   isLoading?: boolean
   password?: string
   passwordConfirm?: string
 }
 
-const errorsGeneral = {
-  invalidFormat: 'Please provide a valid email address.'
-}
-
 class ResetPassword extends Component<Props, State> {
 
   static async getInitialProps({ query, req, store}) {
-    return {}
+    const token = query.token
+
+    return { passwordResetToken: token }
   }
 
   constructor(props) {
@@ -40,6 +42,7 @@ class ResetPassword extends Component<Props, State> {
     this.handlePasswordConfirmInputBlur = this.handlePasswordConfirmInputBlur.bind(this)
     this.handlePasswordConfirmInputChange = this.handlePasswordConfirmInputChange.bind(this)
     this.hasConfirmedValidPassword = this.hasConfirmedValidPassword.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   handlePasswordInputBlur(event) {
@@ -92,10 +95,17 @@ class ResetPassword extends Component<Props, State> {
     this.setState(newState)
   }
 
-  handleSubmit() {
-    const { email } = this.state
-    this.clearErrors()
-    this.props.handleSubmit(email)
+  async handleSubmit() {
+    const { passwordResetToken } = this.props
+    const { passwordConfirm } = this.state
+
+    try {
+      await resetPassword(passwordConfirm, passwordResetToken)
+      this.setState({ errorResponse: undefined })
+    } catch (error) {
+      const errorMsg = (error.response && error.response.data) || internetConnectivityErrorMessage
+      this.setState({ errorResponse: errorMsg })
+    }
   }
 
   hasConfirmedValidPassword() {
@@ -106,12 +116,8 @@ class ResetPassword extends Component<Props, State> {
       && validatePassword(passwordConfirm)
   }
 
-  clearErrors() {
-    this.setState({ errorGeneral: undefined })
-  }
-
   render() {
-    const { errorGeneral, errorPassword, errorPasswordConfirm, isLoading, password,
+    const { errorPassword, errorPasswordConfirm, errorResponse, isLoading, password,
       passwordConfirm } = this.state
 
     return (
@@ -120,9 +126,9 @@ class ResetPassword extends Component<Props, State> {
         <Form className='reset-password'>
           <h4>Reset Password</h4>
           {
-            errorGeneral &&
+            (errorResponse && !isLoading) &&
             <Alert color='danger'>
-              {errorsGeneral[errorGeneral]}
+              {errorResponse}
             </Alert>
           }
           <FormGroup>
@@ -135,7 +141,6 @@ class ResetPassword extends Component<Props, State> {
               onChange={this.handlePasswordInputChange}
               placeholder='********'
               type='password'
-              // valid={}
               value={password} />
             {
               errorPassword &&

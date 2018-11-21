@@ -18,6 +18,16 @@ export const logOut = async () => {
   })
 }
 
+export const resetPassword = async (password?: string, resetPasswordToken?: string) => {
+  return axios(`http://localhost:3000/api/v1/auth/reset-password`, {
+    method: 'post',
+    data: {
+      password,
+      resetPasswordToken
+    }
+  })
+}
+
 export const sendResetPassword = async (email: string) => {
   return axios(`http://localhost:3000/api/v1/auth/send-reset-password`, {
     method: 'post',
