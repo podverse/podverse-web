@@ -34,9 +34,9 @@ type Props = {
     playing?: boolean
   }
   modals: {
-    login: {
-      isOpen?: boolean
-    }
+    forgotPassword: {}
+    login: {}
+    signUp: {}
   }
   playerQueue: {
     priorityItems: any[]
@@ -60,9 +60,9 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
       nowPlayingItem: {}
     },
     modals: {
-      login: {
-        isOpen: false
-      }
+      forgotPassword: {},
+      login: {},
+      signUp: {}
     },
     playerQueue: {
       priorityItems: [],

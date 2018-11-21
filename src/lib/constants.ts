@@ -85,3 +85,5 @@ export const getPlaybackRateNextValue = num => {
       return 1
   }
 }
+
+export const internetConnectivityErrorMessage = 'Error: Please check your internet connection and try again.'

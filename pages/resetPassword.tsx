@@ -48,6 +48,8 @@ class ResetPassword extends Component<Props, State> {
 
     if (password && !validatePassword(password)) {
       newState.errorPassword = 'Password must contain a number, uppercase, lowercase, and be at least 8 characters long.'
+    } else if (validatePassword(password)) {
+      newState.errorPassword = null
     }
 
     this.setState(newState)
