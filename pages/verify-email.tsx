@@ -32,7 +32,7 @@ class VerifyEmail extends Component<Props, State> {
           !hasError &&
             <Fragment>
               <h4>Verification successful</h4>
-              <p>have a nice day :)</p>
+              <p>Have a nice day :)</p>
             </Fragment>
         }
         {
