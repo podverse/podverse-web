@@ -2,23 +2,30 @@ import React, { Fragment } from 'react'
 import { Provider } from 'react-redux'
 import withRedux from 'next-redux-wrapper'
 import App, { Container } from 'next/app'
-import { getPriorityQueueItemsStorage } from 'podverse-ui'
+import { addItemToPriorityQueueStorage, getPriorityQueueItemsStorage 
+  } from 'podverse-ui'
 import Meta from '~/components/meta'
 import Auth from '~/components/Auth/Auth'
 import Footer from '~/components/Footer/Footer'
+import MediaModals from '~/components/MediaModals/MediaModals'
 import NavBar from '~/components/NavBar/NavBar'
 import MediaPlayerView from '~/components/MediaPlayerView/MediaPlayerView'
 import { addFontAwesomeIcons } from '~/lib/fontAwesomeIcons'
-import { NowPlayingItem } from '~/lib/nowPlayingItem'
+import { convertToNowPlayingItem, NowPlayingItem } from '~/lib/nowPlayingItem'
 import { initializeStore } from '~/redux/store'
-import { playerQueueLoadPriorityItems } from '~/redux/actions'
+import { mediaPlayerUpdatePlaying, modalsAddToShow, modalsMakeClipIsLoading,
+  modalsMakeClipShow, modalsQueueShow, modalsShareShow, 
+  playerQueueLoadPriorityItems } from '~/redux/actions'
 import { actionTypes } from '~/redux/constants'
 const cookie = require('cookie')
 
 addFontAwesomeIcons()
 
 declare global {
-  interface Window { nowPlayingItem: NowPlayingItem }
+  interface Window { 
+    nowPlayingItem: NowPlayingItem
+    player: any
+  }
 }
 
 type Props = {
@@ -34,8 +41,12 @@ type Props = {
     playing?: boolean
   }
   modals: {
-    forgotPassword: {}
-    login: {}
+    addTo: {},
+    forgotPassword: {},
+    login: {},
+    makeClip: {},
+    queue: {},
+    share: {},
     signUp: {}
   }
   playerQueue: {
@@ -60,8 +71,12 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
       nowPlayingItem: {}
     },
     modals: {
+      addTo: {},
       forgotPassword: {},
       login: {},
+      makeClip: {},
+      queue: {},
+      share: {},
       signUp: {}
     },
     playerQueue: {
@@ -79,7 +94,7 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
         const parsedCookie = cookie.parse(ctx.req.headers.cookie)
         ctx.store.dispatch({
           type: actionTypes.USER_SET_IS_LOGGED_IN,
-          payload: !!parsedCookie.Authentication
+          payload: !!parsedCookie.Authorization
         })
       }
     }
@@ -118,6 +133,7 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
               </div>
               <MediaPlayerView {...pageProps} />
             </div>
+            <MediaModals />
           </Fragment>
         </Provider>
       </Container>

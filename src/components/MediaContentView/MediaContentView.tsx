@@ -3,11 +3,13 @@ import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import Router from 'next/router'
 import { MediaHeader, MediaInfo, MediaListItem, MediaListSelect,
-  addItemToPriorityQueueStorage, getPriorityQueueItemsStorage } from 'podverse-ui'
+  addItemToPriorityQueueStorage, getPriorityQueueItemsStorage
+  } from 'podverse-ui'
 import { bindActionCreators } from 'redux';
 import { currentPageListItemsLoading, currentPageLoadNowPlayingItem,
   mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying,
-  playerQueueLoadPriorityItems } from '~/redux/actions'
+  modalsAddToShow, modalsMakeClipShow, playerQueueLoadPriorityItems
+  } from '~/redux/actions'
 import { convertToNowPlayingItem } from '~/lib/nowPlayingItem'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 const uuidv4 = require('uuid/v4')
@@ -16,9 +18,13 @@ type Props = {
   currentPage?: any
   currentPageListItemsLoading?: any
   currentPageLoadNowPlayingItem?: any
+  handleAddToQueue?: any
   mediaPlayer?: any
   mediaPlayerLoadNowPlayingItem?: any
   mediaPlayerUpdatePlaying?: any
+  modals?: any
+  modalsAddToShow?: any
+  modalsMakeClipShow?: any
   playerQueue?: any
   playerQueueLoadPriorityItems?: any
   queryFrom?: string
@@ -59,25 +65,10 @@ class MediaContentView extends Component<Props, State> {
     }
 
     this.queryMediaListItems = this.queryMediaListItems.bind(this)
+    this.getCurrentPageItem = this.getCurrentPageItem.bind(this)
   }
 
-  handleAddToQueue(nowPlayingItem, isLast) {
-    const { currentPage, playerQueueLoadPriorityItems } = this.props
-    const { episode, mediaRef } = currentPage
-
-    if (nowPlayingItem && nowPlayingItem.episodeMediaUrl) {
-      addItemToPriorityQueueStorage(nowPlayingItem, isLast)
-    } else if (episode) {
-      addItemToPriorityQueueStorage(convertToNowPlayingItem(episode))
-    } else if (mediaRef) {
-      addItemToPriorityQueueStorage(convertToNowPlayingItem(mediaRef))
-    }
-
-    const priorityItems = getPriorityQueueItemsStorage()
-    playerQueueLoadPriorityItems(priorityItems)
-  }
-
-  handleAnchorOnClick (event, data, itemType) {
+  anchorOnClick (event, data, itemType) {
     const { currentPageListItemsLoading, currentPageLoadNowPlayingItem } = this.props
 
     if (itemType === 'episode') {
@@ -93,7 +84,20 @@ class MediaContentView extends Component<Props, State> {
     currentPageListItemsLoading(true)
   }
 
-  handlePlayItem(nowPlayingItem) {
+  getCurrentPageItem = () => {
+    const { currentPage } = this.props
+    const { episode, mediaRef, nowPlayingItem } = currentPage
+
+    if (episode) {
+      return convertToNowPlayingItem(episode)
+    } else if (mediaRef) {
+      return convertToNowPlayingItem(mediaRef)
+    } else if (nowPlayingItem) {
+      return nowPlayingItem
+    }
+  }
+
+  playItem(nowPlayingItem) {
     const { mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying } = this.props
     mediaPlayerLoadNowPlayingItem(nowPlayingItem)
 
@@ -102,6 +106,42 @@ class MediaContentView extends Component<Props, State> {
     } else {
       mediaPlayerUpdatePlaying(true)
     }
+  }
+
+  addToQueue(nowPlayingItem, isLast) {
+    const { currentPage, playerQueueLoadPriorityItems } = this.props
+    const { episode, mediaRef } = currentPage
+
+    if (nowPlayingItem && nowPlayingItem.episodeMediaUrl) {
+      addItemToPriorityQueueStorage(nowPlayingItem, isLast)
+    } else if (episode) {
+      addItemToPriorityQueueStorage(convertToNowPlayingItem(episode))
+    } else if (mediaRef) {
+      addItemToPriorityQueueStorage(convertToNowPlayingItem(mediaRef))
+    }
+
+    const priorityItems = getPriorityQueueItemsStorage()
+    playerQueueLoadPriorityItems(priorityItems)
+  }
+
+  toggleAddToModal = () => {
+    const { modals, modalsAddToShow } = this.props
+    const { addTo } = modals
+    const { isOpen } = addTo
+    const currentPageItem = this.getCurrentPageItem()
+
+    modalsAddToShow({
+      isOpen: !isOpen,
+      nowPlayingItem: currentPageItem,
+      showQueue: true
+    })
+  }
+
+  toggleMakeClipModal = () => {
+    const { modals, modalsMakeClipShow } = this.props
+    const { makeClip } = modals
+    const { isOpen } = makeClip
+    modalsMakeClipShow(!isOpen)
   }
 
   isCurrentlyPlayingItem() {
@@ -269,7 +309,11 @@ class MediaContentView extends Component<Props, State> {
   }
 
   render () {
-    const { currentPage } = this.props
+    const { currentPage, modals, modalsAddToShow, modalsMakeClipShow
+      } = this.props
+    const { addTo, makeClip } = modals
+    const { isOpen: addToIsOpen } = addTo
+    const { isOpen: makeClipIsOpen } = makeClip
     const { episode, listItems, listItemsLoading, mediaRef, nowPlayingItem,
       podcast } = currentPage
     const { queryFrom, querySort, queryType } = this.state
@@ -293,10 +337,10 @@ class MediaContentView extends Component<Props, State> {
       return (
         <MediaListItem
           dataNowPlayingItem={x}
-          handleAddToQueueLast={(e) => { this.handleAddToQueue(x, true) }}
-          handleAddToQueueNext={(e) => { this.handleAddToQueue(x, false) }}
-          handleAnchorOnClick={(e) => { this.handleAnchorOnClick(e, x, 'nowPlayingItem') }}
-          handlePlayItem={(e) => { this.handlePlayItem(x) }}
+          handleAddToQueueLast={(e) => { this.addToQueue(x, true) }}
+          handleAddToQueueNext={(e) => { this.addToQueue(x, false) }}
+          handleAnchorOnClick={(e) => { this.anchorOnClick(e, x, 'nowPlayingItem') }}
+          handlePlayItem={(e) => { this.playItem(x) }}
           hasLink={true}
           itemType={mediaListItemType}
           key={`nowPlayingListItem-${uuidv4()}`}
@@ -317,17 +361,11 @@ class MediaContentView extends Component<Props, State> {
           podcast={podcast} />
         <MediaInfo
           episode={episode}
-          handleAddToQueueLast={() => this.handleAddToQueue(null, true)}
-          handleAddToQueueNext={() => this.handleAddToQueue(null, false)}
-          handlePlayItem={() => {
-            if (episode) {
-              this.handlePlayItem(convertToNowPlayingItem(episode))
-            } else if (mediaRef) {
-              this.handlePlayItem(convertToNowPlayingItem(mediaRef))
-            } else if (nowPlayingItem) {
-              this.handlePlayItem(nowPlayingItem)
-            }
-          }}
+          handleAddToQueueLast={() => this.addToQueue(null, true)}
+          handleAddToQueueNext={() => this.addToQueue(null, false)}
+          handlePlayItem={() => this.playItem(this.getCurrentPageItem())}
+          handleToggleAddToModal={this.toggleAddToModal}
+          handleToggleMakeClipModal={() => modalsMakeClipShow(!makeClipIsOpen)}
           mediaRef={mediaRef}
           nowPlayingItem={nowPlayingItem}
           playing={this.isCurrentlyPlayingItem()}
@@ -371,6 +409,8 @@ const mapDispatchToProps = dispatch => ({
   currentPageLoadNowPlayingItem: bindActionCreators(currentPageLoadNowPlayingItem, dispatch),
   mediaPlayerLoadNowPlayingItem: bindActionCreators(mediaPlayerLoadNowPlayingItem, dispatch),
   mediaPlayerUpdatePlaying: bindActionCreators(mediaPlayerUpdatePlaying, dispatch),
+  modalsAddToShow: bindActionCreators(modalsAddToShow, dispatch),
+  modalsMakeClipShow: bindActionCreators(modalsMakeClipShow, dispatch),
   playerQueueLoadPriorityItems: bindActionCreators(playerQueueLoadPriorityItems, dispatch)
 })
 

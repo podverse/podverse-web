@@ -9,8 +9,10 @@ export type NowPlayingItem = {
   episodeMediaUrl?: string
   episodePubDate?: string
   episodeTitle?: string
-  podcastImageUrl?: string
+  isPublic?: boolean
+  ownerId?: string
   podcastId?: string
+  podcastImageUrl?: string
   podcastTitle?: string
 }
 
@@ -26,24 +28,26 @@ export const convertToNowPlayingItem = (data) => {
     nowPlayingItem.episodeMediaUrl = data.mediaUrl
     nowPlayingItem.episodePubDate = data.pubDate
     nowPlayingItem.episodeTitle = data.title
+    nowPlayingItem.ownerId = ''
     nowPlayingItem.podcastImageUrl = data.podcast.imageUrl
     nowPlayingItem.podcastId = data.podcast.id
     nowPlayingItem.podcastTitle = data.podcast.title
   } else { // Else assume it is a MediaRef
-    const isRelational = !!data.episode
     nowPlayingItem.clipEndTime = data.endTime
     nowPlayingItem.clipId = data.id
     nowPlayingItem.clipStartTime = data.startTime
     nowPlayingItem.clipTitle = data.title
-    nowPlayingItem.episodeDescription = isRelational ? data.episode.description : data.episodeDescription
-    nowPlayingItem.episodeId = isRelational ? data.episode.id : data.episodeId
-    nowPlayingItem.episodeImageUrl = isRelational ? data.episode.imageUrl : data.episodeImageUrl
-    nowPlayingItem.episodeMediaUrl = isRelational ? data.episode.mediaUrl : data.episodeMediaUrl
-    nowPlayingItem.episodePubDate = isRelational ? data.episode.pubDate : data.episodePubDate
-    nowPlayingItem.episodeTitle = isRelational ? data.episode.title : data.episodeTitle
-    nowPlayingItem.podcastImageUrl = isRelational ? data.episode.podcast.imageUrl : data.podcastImageUrl
-    nowPlayingItem.podcastId = isRelational ? data.episode.podcast.id : data.podcastId
-    nowPlayingItem.podcastTitle = isRelational ? data.episode.podcast.title : data.podcastTitle
+    nowPlayingItem.episodeDescription = data.episode.description
+    nowPlayingItem.episodeId = data.episode.id
+    nowPlayingItem.episodeImageUrl = data.episode.imageUrl
+    nowPlayingItem.episodeMediaUrl = data.episode.mediaUrl
+    nowPlayingItem.episodePubDate = data.episode.pubDate
+    nowPlayingItem.episodeTitle = data.episode.title
+    nowPlayingItem.isPublic = data.isPublic
+    nowPlayingItem.ownerId = data.ownerId
+    nowPlayingItem.podcastImageUrl = data.episode.podcast.imageUrl
+    nowPlayingItem.podcastId = data.episode.podcast.id
+    nowPlayingItem.podcastTitle = data.episode.podcast.title
   }
 
   return nowPlayingItem

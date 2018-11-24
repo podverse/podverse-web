@@ -1,4 +1,4 @@
-export const scrollToTopOfView = (document) => {
+export const scrollToTopOfView = () => {
   if (document) {
     const viewTop = document.querySelector('.view__contents')
     

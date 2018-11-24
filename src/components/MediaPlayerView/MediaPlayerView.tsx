@@ -1,23 +1,31 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { MediaPlayer, getPriorityQueueItemsStorage, getSecondaryQueueItemsStorage, popNextFromQueueStorage
-  } from 'podverse-ui'
+import { MediaPlayer, addItemToPriorityQueueStorage,
+  getPriorityQueueItemsStorage, getSecondaryQueueItemsStorage,
+  popNextFromQueueStorage } from 'podverse-ui'
 import { kAutoplay, kPlaybackRate, getPlaybackRateText, getPlaybackRateNextValue
   } from '~/lib/constants'
 import { scrollToTopOfView } from '~/lib/scrollToTop'
-import { currentPageLoadNowPlayingItem, mediaPlayerLoadNowPlayingItem, mediaPlayerSetClipFinished,
-  mediaPlayerSetPlayedAfterClipFinished, playerQueueLoadPriorityItems,
-  playerQueueLoadSecondaryItems, mediaPlayerUpdatePlaying} from '~/redux/actions'
-import { createMediaRef } from '~/services/mediaRef'
+import { currentPageLoadNowPlayingItem, mediaPlayerLoadNowPlayingItem, 
+  mediaPlayerSetClipFinished, mediaPlayerSetPlayedAfterClipFinished,
+  playerQueueLoadPriorityItems, playerQueueLoadSecondaryItems,
+  mediaPlayerUpdatePlaying, modalsAddToShow, modalsMakeClipShow,
+  modalsQueueShow, modalsShareShow } from '~/redux/actions'
 
 type Props = {
   currentPageLoadNowPlayingItem?: any
+  handleMakeClip?: Function
   mediaPlayer?: any
   mediaPlayerLoadNowPlayingItem?: any
   mediaPlayerSetClipFinished?: any
   mediaPlayerSetPlayedAfterClipFinished?: any
   mediaPlayerUpdatePlaying?: any
+  modals?: any
+  modalsAddToShow?: any
+  modalsMakeClipShow?: any
+  modalsQueueShow?: any
+  modalsShareShow?: any
   playerQueue?: any
   playerQueueLoadPriorityItems?: any
   playerQueueLoadSecondaryItems?: any
@@ -25,6 +33,7 @@ type Props = {
 
 type State = {
   autoplay?: boolean
+  makeClipIsLoading?: boolean
   playbackRate?: number
 }
 
@@ -36,17 +45,17 @@ class MediaPlayerView extends Component<Props, State> {
     }
   }
 
-  constructor (props) {
+  constructor(props) {
     super(props)
 
     this.state = {}
   }
 
-  componentDidMount () {
+  componentDidMount() {
     const autoplay = this.getAutoplayValue()
     const playbackRate = this.getPlaybackRateValue()
 
-    this.setState({ 
+    this.setState({
       autoplay,
       playbackRate
     })
@@ -70,16 +79,7 @@ class MediaPlayerView extends Component<Props, State> {
     localStorage.setItem(kPlaybackRate, val)
   }
 
-  handleAddToQueueLast = (event) => {
-    event.preventDefault()
-    
-  }
-
-  handleAddToQueueNext = (event) => {
-    event.preventDefault()
-  }
-
-  handleAnchorOnClick(event, nowPlayingItem, itemType) {
+  anchorOnClick(event, nowPlayingItem, itemType) {
     const { currentPageLoadNowPlayingItem } = this.props
 
     if (itemType === 'episode') {
@@ -94,8 +94,8 @@ class MediaPlayerView extends Component<Props, State> {
     scrollToTopOfView()
   }
 
-  handleItemSkip = () => {
-    const { mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying, 
+  itemSkip = () => {
+    const { mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying,
       playerQueueLoadPriorityItems, playerQueueLoadSecondaryItems } = this.props
 
     const result = popNextFromQueueStorage()
@@ -111,38 +111,9 @@ class MediaPlayerView extends Component<Props, State> {
     mediaPlayerUpdatePlaying(this.state.autoplay)
   }
 
-  handleMakeClip = (data) => {
-    const { mediaPlayer } = this.props
-    const { nowPlayingItem } = mediaPlayer
-    const { description, episodeDuration, episodeGuid, episodeId, episodeImageUrl, 
-      episodeLinkUrl, episodeMediaUrl, episodePubDate, episodeSummary, episodeTitle,
-      podcastFeedUrl, podcastGuid, podcastId, podcastImageUrl } = nowPlayingItem
-
-    data = {
-      ...data,
-      ...(description ? { description } : {}),
-      ...(episodeDuration ? { episodeDuration } : {}),
-      ...(episodeGuid ? { episodeGuid } : {}),
-      ...(episodeId ? { episodeId } : {}),
-      ...(episodeImageUrl ? { episodeImageUrl } : {}),
-      ...(episodeLinkUrl ? { episodeLinkUrl } : {}),
-      ...(episodeMediaUrl ? { episodeMediaUrl } : {}),
-      ...(episodePubDate ? { episodePubDate } : {}),
-      ...(episodeSummary ? { episodeSummary } : {}),
-      ...(episodeTitle ? { episodeTitle } : {}),
-      ...(podcastFeedUrl ? { podcastFeedUrl } : {}),
-      ...(podcastGuid ? { podcastGuid } : {}),
-      ...(podcastId ? { podcastId } : {}),
-      ...(podcastImageUrl ? { podcastImageUrl } : {}),
-      ...(description ? { description } : {})   
-    }
-
-    createMediaRef(data)
-  }
-
-  handleOnEpisodeEnd = () => {
+  onEpisodeEnd = () => {
     const { autoplay } = this.state
-    
+
     if (autoplay) {
       this.handleItemSkip()
     } else {
@@ -150,110 +121,124 @@ class MediaPlayerView extends Component<Props, State> {
     }
   }
 
-  handleOnPastClipTime = () => {
+  onPastClipTime = () => {
     this.props.mediaPlayerSetClipFinished()
   }
 
-  handlePause = () => {
+  pause = () => {
     this.props.mediaPlayerUpdatePlaying(false)
   }
 
-  handlePlaybackRateClick = () => {
+  playbackRateClick = () => {
     const { playbackRate } = this.state
     const nextPlaybackRate = getPlaybackRateNextValue(playbackRate)
     this.setPlaybackRateValue(nextPlaybackRate)
     this.setState({ playbackRate: nextPlaybackRate })
   }
 
-  handlePlaylistCreate = () => {
-    alert('create playlist')
-  }
-
-  handlePlaylistItemAdd = (event) => {
-    event.preventDefault()
-    alert('add item to playlist')
-  }
-
-  handleQueueItemClick = () => {
-    alert('queue item clicked')
-  }
-
-  handleSetPlayedAfterClipFinished = () => {
+  setPlayedAfterClipFinished = () => {
     this.props.mediaPlayerSetPlayedAfterClipFinished()
   }
 
-  handleToggleAutoplay = () => {
+  toggleAddToModal = () => {
+    const { mediaPlayer, modals, modalsAddToShow } = this.props
+    const { addTo } = modals
+    const { isOpen } = addTo
+    modalsAddToShow({
+      isOpen: !isOpen,
+      nowPlayingItem: mediaPlayer.nowPlayingItem,
+      showQueue: false
+    })
+  }
+
+  toggleAutoplay = () => {
     const autoplay = this.getAutoplayValue()
     this.setAutoplayValue(!autoplay)
     this.setState({ autoplay: !autoplay })
   }
 
-  handleTogglePlay = () => {
+  toggleMakeClipModal = () => {
+    const { modals, modalsMakeClipShow } = this.props
+    const { makeClip } = modals
+    const { isOpen } = makeClip
+    modalsMakeClipShow(!isOpen)
+  }
+
+  togglePlay = () => {
     const { mediaPlayer, mediaPlayerUpdatePlaying } = this.props
     const { playing } = mediaPlayer
     mediaPlayerUpdatePlaying(!playing)
   }
 
-  handleClipStartTimePreview = () => {
-    this.props.mediaPlayerUpdatePlaying(true)
-  }
-  
-  handleClipEndTimePreview = () => {
-    this.props.mediaPlayerUpdatePlaying(true)
-
-    setTimeout(() => {
-      this.props.mediaPlayerUpdatePlaying(false)
-    }, 3000)
+  toggleQueueModal = () => {
+    const { modals, modalsQueueShow } = this.props
+    const { queue } = modals
+    const { isOpen } = queue
+    modalsQueueShow(!isOpen)
   }
 
-  render () {
-    const { mediaPlayer, playerQueue } = this.props
+  toggleShareModal = () => {
+    const { mediaPlayer, modals, modalsShareShow } = this.props
+    const { nowPlayingItem } = mediaPlayer
+    const { share } = modals
+    const { isOpen } = share
+
+    const clipLinkAs = `/clip/${nowPlayingItem.clipId}`
+    const episodeLinkAs = `/episode/${nowPlayingItem.episodeId}`
+    const podcastLinkAs = `/podcast/${nowPlayingItem.podcastId}`
+
+    modalsShareShow({
+      clipLinkAs,
+      episodeLinkAs,
+      isOpen: !isOpen,
+      podcastLinkAs
+    })
+  }
+
+  render() {
+    const { handleMakeClip, mediaPlayer, playerQueue } = this.props
     const { clipFinished, nowPlayingItem, playedAfterClipFinished, playing } = mediaPlayer
     const { priorityItems, secondaryItems } = playerQueue
-    const { autoplay, playbackRate } = this.state
+    const { autoplay, makeClipIsLoading, playbackRate } = this.state
 
     return (
       <Fragment>
         {
           nowPlayingItem &&
-            <Fragment>
-              <div className='view__mediaplayer-spacer' />
-              <div className='view__mediaplayer'>
-                <MediaPlayer
-                  autoplay={autoplay}
-                  clipFinished={clipFinished}
-                  handleAddToQueueLast={this.handleAddToQueueLast}
-                  handleAddToQueueNext={this.handleAddToQueueNext}
-                  handleClipStartTimePreview={this.handleClipStartTimePreview}
-                  handleClipEndTimePreview={this.handleClipEndTimePreview}
-                  handleItemSkip={this.handleItemSkip}
-                  handleMakeClip={this.handleMakeClip}
-                  handleOnEpisodeEnd={this.handleOnEpisodeEnd}
-                  handleOnPastClipTime={this.handleOnPastClipTime}
-                  handleQueueItemClick={this.handleQueueItemClick}
-                  handlePause={this.handlePause}
-                  handlePlaybackRateClick={this.handlePlaybackRateClick}
-                  handlePlaylistCreate={this.handlePlaylistCreate}
-                  handlePlaylistItemAdd={this.handlePlaylistItemAdd}
-                  handleSetPlayedAfterClipFinished={this.handleSetPlayedAfterClipFinished}
-                  handleToggleAutoplay={this.handleToggleAutoplay}
-                  handleTogglePlay={this.handleTogglePlay}
-                  nowPlayingItem={nowPlayingItem}
-                  playbackRate={playbackRate}
-                  playedAfterClipFinished={playedAfterClipFinished}
-                  playbackRateText={getPlaybackRateText(playbackRate)}
-                  playerClipLinkAs={`/clip/${nowPlayingItem.clipId}`}
-                  playerClipLinkHref={`/clip?id=${nowPlayingItem.clipId}`}
-                  playerClipLinkOnClick={(evt) => { this.handleAnchorOnClick(evt, nowPlayingItem, 'mediaRef') }}
-                  playerEpisodeLinkAs={`/episode/${nowPlayingItem.episodeId}`}
-                  playerEpisodeLinkHref={`/episode?id=${nowPlayingItem.episodeId}`}
-                  playerEpisodeLinkOnClick={(evt) => { this.handleAnchorOnClick(evt, nowPlayingItem, 'episode') }}
-                  playing={playing}
-                  queuePriorityItems={priorityItems}
-                  queueSecondaryItems={secondaryItems}
-                  showAutoplay={true} />
-              </div>
-            </Fragment>
+          <Fragment>
+            <div className='view__mediaplayer-spacer' />
+            <div className='view__mediaplayer'>
+              <MediaPlayer
+                autoplay={autoplay}
+                clipFinished={clipFinished}
+                handleItemSkip={this.itemSkip}
+                handleOnEpisodeEnd={this.onEpisodeEnd}
+                handleOnPastClipTime={this.onPastClipTime}
+                handlePause={this.pause}
+                handlePlaybackRateClick={this.playbackRateClick}
+                handleSetPlayedAfterClipFinished={this.setPlayedAfterClipFinished}
+                handleToggleAddToModal={this.toggleAddToModal}
+                handleToggleAutoplay={this.toggleAutoplay}
+                handleToggleMakeClipModal={this.toggleMakeClipModal}
+                handleToggleQueueModal={this.toggleQueueModal}
+                handleToggleShareModal={this.toggleShareModal}
+                handleTogglePlay={this.togglePlay}
+                nowPlayingItem={nowPlayingItem}
+                playbackRate={playbackRate}
+                playedAfterClipFinished={playedAfterClipFinished}
+                playbackRateText={getPlaybackRateText(playbackRate)}
+                playerClipLinkAs={`/clip/${nowPlayingItem.clipId}`}
+                playerClipLinkHref={`/clip?id=${nowPlayingItem.clipId}`}
+                playerClipLinkOnClick={(evt) => { this.anchorOnClick(evt, nowPlayingItem, 'mediaRef') }}
+                playerEpisodeLinkAs={`/episode/${nowPlayingItem.episodeId}`}
+                playerEpisodeLinkHref={`/episode?id=${nowPlayingItem.episodeId}`}
+                playerEpisodeLinkOnClick={(evt) => { this.anchorOnClick(evt, nowPlayingItem, 'episode') }}
+                playing={playing}
+                queuePriorityItems={priorityItems}
+                queueSecondaryItems={secondaryItems}
+                showAutoplay={true} />
+            </div>
+          </Fragment>
         }
       </Fragment>
     )
@@ -268,6 +253,10 @@ const mapDispatchToProps = dispatch => ({
   mediaPlayerSetClipFinished: bindActionCreators(mediaPlayerSetClipFinished, dispatch),
   mediaPlayerSetPlayedAfterClipFinished: bindActionCreators(mediaPlayerSetPlayedAfterClipFinished, dispatch),
   mediaPlayerUpdatePlaying: bindActionCreators(mediaPlayerUpdatePlaying, dispatch),
+  modalsAddToShow: bindActionCreators(modalsAddToShow, dispatch),
+  modalsMakeClipShow: bindActionCreators(modalsMakeClipShow, dispatch),
+  modalsQueueShow: bindActionCreators(modalsQueueShow, dispatch),
+  modalsShareShow: bindActionCreators(modalsShareShow, dispatch),
   playerQueueLoadPriorityItems: bindActionCreators(playerQueueLoadPriorityItems, dispatch),
   playerQueueLoadSecondaryItems: bindActionCreators(playerQueueLoadSecondaryItems, dispatch)
 })
