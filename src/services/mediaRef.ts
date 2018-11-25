@@ -18,6 +18,14 @@ export const getMediaRefsByQuery = async (query: MediaRefQuery) => {
   return axios.get(`http://localhost:3000/api/v1/mediaRef?${queryString}`)
 }
 
+export const updateMediaRef = async (data: any) => {
+  return axios(`http://localhost:3000/api/v1/mediaRef`, {
+    method: 'patch',
+    data,
+    withCredentials: true
+  })
+}
+
 type MediaRefQuery = {
   authors?: any[]
   categories?: any[]

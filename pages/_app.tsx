@@ -2,8 +2,7 @@ import React, { Fragment } from 'react'
 import { Provider } from 'react-redux'
 import withRedux from 'next-redux-wrapper'
 import App, { Container } from 'next/app'
-import { addItemToPriorityQueueStorage, getPriorityQueueItemsStorage 
-  } from 'podverse-ui'
+import { getPriorityQueueItemsStorage } from 'podverse-ui'
 import Meta from '~/components/meta'
 import Auth from '~/components/Auth/Auth'
 import Footer from '~/components/Footer/Footer'
@@ -11,11 +10,9 @@ import MediaModals from '~/components/MediaModals/MediaModals'
 import NavBar from '~/components/NavBar/NavBar'
 import MediaPlayerView from '~/components/MediaPlayerView/MediaPlayerView'
 import { addFontAwesomeIcons } from '~/lib/fontAwesomeIcons'
-import { convertToNowPlayingItem, NowPlayingItem } from '~/lib/nowPlayingItem'
+import { NowPlayingItem } from '~/lib/nowPlayingItem'
 import { initializeStore } from '~/redux/store'
-import { mediaPlayerUpdatePlaying, modalsAddToShow, modalsMakeClipIsLoading,
-  modalsMakeClipShow, modalsQueueShow, modalsShareShow, 
-  playerQueueLoadPriorityItems } from '~/redux/actions'
+import { playerQueueLoadPriorityItems } from '~/redux/actions'
 import { actionTypes } from '~/redux/constants'
 const cookie = require('cookie')
 
@@ -93,8 +90,8 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
       if (ctx.req.headers.cookie) {
         const parsedCookie = cookie.parse(ctx.req.headers.cookie)
         ctx.store.dispatch({
-          type: actionTypes.USER_SET_IS_LOGGED_IN,
-          payload: !!parsedCookie.Authorization
+          type: actionTypes.USER_SET_INFO,
+          payload: { id: parsedCookie.userId }
         })
       }
     }
@@ -106,7 +103,7 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
     return { pageProps }
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     const { store } = this.props
     const priorityItems = getPriorityQueueItemsStorage()
     store.dispatch(playerQueueLoadPriorityItems(priorityItems))

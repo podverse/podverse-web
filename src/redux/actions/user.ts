@@ -1,8 +1,8 @@
 import { actionTypes } from "~/redux/constants";
 
-export const userSetIsLoggedIn = payload => {
+export const userSetInfo = payload => {
   return {
-    type: actionTypes.USER_SET_IS_LOGGED_IN,
+    type: actionTypes.USER_SET_INFO,
     payload
   }
 }

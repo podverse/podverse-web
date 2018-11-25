@@ -3,10 +3,10 @@ import { actionTypes } from '~/redux/constants'
 export default (state = {}, action) => {
 
   switch (action.type) {
-    case actionTypes.USER_SET_IS_LOGGED_IN:
+    case actionTypes.USER_SET_INFO:
       return {
         ...state,
-        isLoggedIn: action.payload
+        id: action.payload && action.payload.id
       }
     default:
       return state

@@ -13,7 +13,7 @@ export { modalsAddToIsLoading, modalsAddToSetErrorResponse, modalsAddToShow,
   modalsQueueShow, modalsShareIsLoading, modalsShareSetErrorResponse,
   modalsShareShow, modalsSignUpIsLoading, modalsSignUpSetErrorResponse,
   modalsSignUpShow } from '~/redux/actions/modals'
-export { userSetIsLoggedIn } from '~/redux/actions/user'
+export { userSetInfo } from '~/redux/actions/user'
 
 
 

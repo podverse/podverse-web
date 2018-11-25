@@ -158,10 +158,16 @@ class MediaPlayerView extends Component<Props, State> {
   }
 
   toggleMakeClipModal = () => {
-    const { modals, modalsMakeClipShow } = this.props
+    const { mediaPlayer, modals, modalsMakeClipShow } = this.props
+    const { nowPlayingItem } = mediaPlayer
     const { makeClip } = modals
     const { isOpen } = makeClip
-    modalsMakeClipShow(!isOpen)
+
+    modalsMakeClipShow({
+      isEditing: false,
+      isOpen: !isOpen,
+      nowPlayingItem
+    })
   }
 
   togglePlay = () => {

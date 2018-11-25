@@ -4,12 +4,13 @@ import { bindActionCreators } from 'redux'
 import { AddToModal, MakeClipModal, QueueModal, ShareModal,
   addItemToPriorityQueueStorage, getPriorityQueueItemsStorage
   } from 'podverse-ui'
-import { mediaPlayerUpdatePlaying, modalsAddToShow, modalsMakeClipShow,
-  modalsQueueShow, modalsShareShow, modalsMakeClipIsLoading,
+import { currentPageLoadMediaRef, mediaPlayerUpdatePlaying, modalsAddToShow,
+  modalsMakeClipShow, modalsQueueShow, modalsShareShow, modalsMakeClipIsLoading,
   playerQueueLoadPriorityItems } from '~/redux/actions'
-import { createMediaRef } from '~/services/mediaRef'
+import { createMediaRef, updateMediaRef } from '~/services/mediaRef'
 
 type Props = {
+  currentPageLoadMediaRef?: any
   mediaPlayer?: any
   mediaPlayerUpdatePlaying?: any
   modals?: any
@@ -76,15 +77,16 @@ class MediaModals extends Component<Props, State> {
     mediaPlayerUpdatePlaying(true)
   }
 
-  makeClipSave = async data => {
-    const { mediaPlayer, modalsMakeClipIsLoading } = this.props
+  makeClipSave = async (data, isEditing) => {
+    const { currentPageLoadMediaRef, mediaPlayer, modalsMakeClipIsLoading } = this.props
     const { nowPlayingItem } = mediaPlayer
-    const { description, episodeDuration, episodeGuid, episodeId, episodeImageUrl,
+    const { clipId, description, episodeDuration, episodeGuid, episodeId, episodeImageUrl,
       episodeLinkUrl, episodeMediaUrl, episodePubDate, episodeSummary, episodeTitle,
-      podcastFeedUrl, podcastGuid, podcastId, podcastImageUrl } = nowPlayingItem
-
+      podcastFeedUrl, podcastGuid, podcastId, podcastImageUrl, podcastTitle } = nowPlayingItem
+    
     data = {
       ...data,
+      ...(isEditing ? { id: clipId } : {}),
       ...(description ? { description } : {}),
       ...(episodeDuration ? { episodeDuration } : {}),
       ...(episodeGuid ? { episodeGuid } : {}),
@@ -99,12 +101,17 @@ class MediaModals extends Component<Props, State> {
       ...(podcastGuid ? { podcastGuid } : {}),
       ...(podcastId ? { podcastId } : {}),
       ...(podcastImageUrl ? { podcastImageUrl } : {}),
-      ...(description ? { description } : {})
+      ...(podcastTitle ? { podcastTitle } : {}),
     }
 
     try {
       modalsMakeClipIsLoading(true)
-      await createMediaRef(data)
+      if (isEditing) {
+        const updatedMediaRef = await updateMediaRef(data)
+        currentPageLoadMediaRef(updatedMediaRef && updatedMediaRef.data)
+      } else {
+        await createMediaRef(data)
+      }
     } catch (error) {
       console.log(error)
     } finally {
@@ -127,16 +134,19 @@ class MediaModals extends Component<Props, State> {
     const { addTo, makeClip, queue, share } = modals
     const { isOpen: addToIsOpen, nowPlayingItem: addToNowPlayingItem,
       showQueue: addToShowQueue } = addTo
-    const { isLoading: makeClipIsLoading, isOpen: makeClipIsOpen } = makeClip
+    const { isEditing: makeClipIsEditing, isLoading: makeClipIsLoading,
+      isOpen: makeClipIsOpen, nowPlayingItem: makeClipNowPlayingItem } = makeClip
     const { isOpen: queueIsOpen } = queue
     const { clipLinkAs, episodeLinkAs, isOpen: shareIsOpen, podcastLinkAs 
       } = share
     const { priorityItems, secondaryItems } = playerQueue
     const { isLoggedIn } = user
 
-    let currentTime = 0
-    if (typeof window !== 'undefined' && window.player) {
-      currentTime = window.player.getCurrentTime()
+    let makeClipStartTime = 0
+    if (makeClipIsEditing) {
+      makeClipStartTime = makeClipNowPlayingItem.clipStartTime
+    } else if (typeof window !== 'undefined' && window.player) {
+      makeClipStartTime = window.player.getCurrentTime()
     }
 
     return (
@@ -149,15 +159,18 @@ class MediaModals extends Component<Props, State> {
           priorityItems={priorityItems}
           secondaryItems={secondaryItems} />
         <MakeClipModal
+          endTime={makeClipIsEditing ? makeClipNowPlayingItem.clipEndTime : ''}
           handleEndTimePreview={this.makeClipEndTimePreview}
           handleHideModal={this.hideMakeClipModal}
           handleSave={this.makeClipSave}
           handleStartTimePreview={this.makeClipStartTimePreview}
+          isEditing={makeClipIsEditing}
           isLoading={makeClipIsLoading}
           isOpen={makeClipIsOpen}
           isPublic={true}
           player={typeof window !== 'undefined' && window.player}
-          startTime={currentTime} />
+          startTime={makeClipStartTime}
+          title={makeClipIsEditing ? makeClipNowPlayingItem.clipTitle : ''} />
         <AddToModal
           handleAddToQueueLast={() => this.addToQueue(true)}
           handleAddToQueueNext={() => this.addToQueue(false)}
@@ -182,6 +195,7 @@ class MediaModals extends Component<Props, State> {
 const mapStateToProps = state => ({ ...state })
 
 const mapDispatchToProps = dispatch => ({
+  currentPageLoadMediaRef: bindActionCreators(currentPageLoadMediaRef, dispatch),
   mediaPlayerUpdatePlaying: bindActionCreators(mediaPlayerUpdatePlaying, dispatch),
   modalsAddToShow: bindActionCreators(modalsAddToShow, dispatch),
   modalsMakeClipIsLoading: bindActionCreators(modalsMakeClipIsLoading, dispatch),

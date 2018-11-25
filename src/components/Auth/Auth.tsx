@@ -6,7 +6,7 @@ import { internetConnectivityErrorMessage } from '~/lib/constants'
 import { modalsForgotPasswordIsLoading, modalsForgotPasswordShow, 
   modalsForgotPasswordSetErrorResponse, modalsLoginIsLoading,
   modalsLoginShow, modalsLoginSetErrorResponse, modalsSignUpIsLoading,
-  modalsSignUpShow, modalsSignUpSetErrorResponse, userSetIsLoggedIn } from '~/redux/actions'
+  modalsSignUpShow, modalsSignUpSetErrorResponse, userSetInfo } from '~/redux/actions'
 import { login, sendResetPassword, signUp } from '~/services/auth'
 
 type Props = {
@@ -21,7 +21,7 @@ type Props = {
   modalsSignUpSetErrorResponse?: any
   modalsSignUpShow?: any
   user?: any
-  userSetIsLoggedIn?: any
+  userSetInfo?: any
 }
 
 type State = {}
@@ -33,7 +33,7 @@ class Auth extends Component<Props, State> {
 
     this.handleLogin = this.handleLogin.bind(this)
     this.handleForgotPasswordSubmit = this.handleForgotPasswordSubmit.bind(this)
-    this.handleSignUpSubmit = this.handleSignUpSubmit.bind(this)
+    this.handleSignUp = this.handleSignUp.bind(this)
   }
 
   async handleForgotPasswordSubmit (email) {
@@ -55,37 +55,37 @@ class Auth extends Component<Props, State> {
 
   async handleLogin (email, password) {
     const { modalsLoginIsLoading, modalsLoginSetErrorResponse, modalsLoginShow,
-      userSetIsLoggedIn } = this.props
+      userSetInfo } = this.props
     modalsLoginIsLoading(true)
     
     try {
-      await login(email, password)
-      userSetIsLoggedIn(true)
+      const authenticatedUserInfo = await login(email, password)
+      userSetInfo(authenticatedUserInfo && authenticatedUserInfo.data)
       modalsLoginShow(false)
       modalsLoginSetErrorResponse(null)
     } catch (error) {
       const errorMsg = (error.response && error.response.data) || internetConnectivityErrorMessage
       modalsLoginSetErrorResponse(errorMsg)
-      userSetIsLoggedIn(false)
+      userSetInfo(null)
     } finally {
       modalsLoginIsLoading(false)
     }
   }
 
-  async handleSignUpSubmit (email, password) {
+  async handleSignUp (email, password) {
     const { modalsSignUpIsLoading, modalsSignUpSetErrorResponse, modalsSignUpShow,
-      userSetIsLoggedIn } = this.props
+      userSetInfo } = this.props
     modalsSignUpIsLoading(true)
 
     try {
-      await signUp(email, password)
-      userSetIsLoggedIn(true)
+      const authenticatedUserInfo = await signUp(email, password)
+      userSetInfo(authenticatedUserInfo && authenticatedUserInfo.data)
       modalsSignUpShow(false)
       modalsSignUpSetErrorResponse(null)
     } catch (error) {
       const errorMsg = (error.response && error.response.data) || internetConnectivityErrorMessage
       modalsSignUpSetErrorResponse(errorMsg)
-      userSetIsLoggedIn(false)
+      userSetInfo(null)
     } finally {
       modalsSignUpIsLoading(false)
     }
@@ -114,7 +114,7 @@ class Auth extends Component<Props, State> {
           showSignUpModal={() => modalsSignUpShow(true)} />
         <SignUpModal
           errorResponse={signUp.errorResponse}
-          handleSignUp={this.handleSignUpSubmit}
+          handleSignUp={this.handleSignUp}
           hideModal={() => modalsSignUpShow(false)}
           isLoading={modals.signUp && modals.signUp.isLoading}
           isOpen={modals.signUp && modals.signUp.isOpen} />
@@ -135,7 +135,7 @@ const mapDispatchToProps = dispatch => ({
   modalsSignUpIsLoading: bindActionCreators(modalsSignUpIsLoading, dispatch),
   modalsSignUpShow: bindActionCreators(modalsSignUpShow, dispatch),
   modalsSignUpSetErrorResponse: bindActionCreators(modalsSignUpSetErrorResponse, dispatch),
-  userSetIsLoggedIn: bindActionCreators(userSetIsLoggedIn, dispatch)
+  userSetInfo: bindActionCreators(userSetInfo, dispatch)
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Auth)

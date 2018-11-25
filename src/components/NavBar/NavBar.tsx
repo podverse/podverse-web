@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Navbar } from 'podverse-ui'
-import { modalsLoginShow, userSetIsLoggedIn } from '~/redux/actions'
+import { modalsLoginShow, userSetInfo } from '~/redux/actions'
 import { logOut } from '~/services/auth'
 
 type Props = {
@@ -13,7 +13,7 @@ type Props = {
   modalsLoginIsLoading?: any
   modalsLoginShow?: any
   user?: any
-  userSetIsLoggedIn?: any
+  userSetInfo?: any
 }
 
 type State = {}
@@ -41,8 +41,8 @@ class PVNavBar extends Component<Props, State> {
   } 
 
   dropdownItems () {
-    const { user, userSetIsLoggedIn } = this.props
-    const { isLoggedIn } = user
+    const { user, userSetInfo } = this.props
+    const { id } = user
 
     let dropdownItems = [
       {
@@ -53,7 +53,7 @@ class PVNavBar extends Component<Props, State> {
       }
     ]
 
-    if (isLoggedIn) {
+    if (!!id) {
       dropdownItems.push({
         as: '',
         href: '',
@@ -61,7 +61,7 @@ class PVNavBar extends Component<Props, State> {
         onClick: async () => {
           try {
             await logOut()
-            userSetIsLoggedIn(false)
+            userSetInfo(false)
           } catch (error) {
             console.log(error)
           }
@@ -81,9 +81,9 @@ class PVNavBar extends Component<Props, State> {
 
   render () {
     const { user } = this.props
-    const { isLoggedIn } = user
+    const { id } = user 
 
-    const dropdownText = (isLoggedIn ? <FontAwesomeIcon icon='user-circle'></FontAwesomeIcon> : null)
+    const dropdownText = (!!id ? <FontAwesomeIcon icon='user-circle'></FontAwesomeIcon> : null)
   
     return (
       <React.Fragment>
@@ -103,7 +103,7 @@ const mapStateToProps = state => ({ ...state })
 
 const mapDispatchToProps = dispatch => ({
   modalsLoginShow: bindActionCreators(modalsLoginShow, dispatch),
-  userSetIsLoggedIn: bindActionCreators(userSetIsLoggedIn, dispatch)
+  userSetInfo: bindActionCreators(userSetInfo, dispatch)
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(PVNavBar)

@@ -146,7 +146,9 @@ export default (state = defaultState, action) => {
           makeClip: {
             // @ts-ignore
             ...state.makeClip,
-            isOpen: action.payload
+            isEditing: action.payload.isEditing,
+            isOpen: action.payload.isOpen,
+            nowPlayingItem: action.payload.nowPlayingItem
           },
           addTo: '',
           forgotPassword: '',

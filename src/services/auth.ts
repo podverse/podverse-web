@@ -1,5 +1,11 @@
 import axios from 'axios'
-import { deleteCookie } from '~/lib/utility';
+
+export const getAuthenticatedUserInfo = async () => {
+  return axios(`http://localhost:3000/api/v1/auth/get-authenticated-user-info`, {
+    method: 'post',
+    withCredentials: true
+  })
+}
 
 export const login = async (email: string, password: string) => {
   return axios(`http://localhost:3000/api/v1/auth/login`, {
@@ -13,7 +19,6 @@ export const login = async (email: string, password: string) => {
 }
 
 export const logOut = async () => {
-  deleteCookie('userId')
   return axios(`http://localhost:3000/api/v1/auth/log-out`, {
     method: 'post',
     withCredentials: true

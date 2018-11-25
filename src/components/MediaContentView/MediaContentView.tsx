@@ -30,6 +30,7 @@ type Props = {
   queryFrom?: string
   querySort?: string
   queryType?: string
+  user?: any
 }
 
 type State = {
@@ -141,7 +142,13 @@ class MediaContentView extends Component<Props, State> {
     const { modals, modalsMakeClipShow } = this.props
     const { makeClip } = modals
     const { isOpen } = makeClip
-    modalsMakeClipShow(!isOpen)
+    const currentPageItem = this.getCurrentPageItem()
+
+    modalsMakeClipShow({
+      isEditing: true,
+      isOpen: !isOpen,
+      nowPlayingItem: currentPageItem
+    })
   }
 
   isCurrentlyPlayingItem() {
@@ -309,15 +316,16 @@ class MediaContentView extends Component<Props, State> {
   }
 
   render () {
-    const { currentPage, modals, modalsAddToShow, modalsMakeClipShow
+    const { currentPage, modals, modalsAddToShow, modalsMakeClipShow, user
       } = this.props
     const { addTo, makeClip } = modals
     const { isOpen: addToIsOpen } = addTo
     const { isOpen: makeClipIsOpen } = makeClip
     const { episode, listItems, listItemsLoading, mediaRef, nowPlayingItem,
       podcast } = currentPage
+    const { id: userId } = user
     const { queryFrom, querySort, queryType } = this.state
-    
+
     let mediaListItemType = 'now-playing-item'
     if (queryType === 'episodes') {
       if (queryFrom === 'from-podcast') {
@@ -365,7 +373,8 @@ class MediaContentView extends Component<Props, State> {
           handleAddToQueueNext={() => this.addToQueue(null, false)}
           handlePlayItem={() => this.playItem(this.getCurrentPageItem())}
           handleToggleAddToModal={this.toggleAddToModal}
-          handleToggleMakeClipModal={() => modalsMakeClipShow(!makeClipIsOpen)}
+          handleToggleMakeClipModal={this.toggleMakeClipModal}
+          loggedInUserId={userId}
           mediaRef={mediaRef}
           nowPlayingItem={nowPlayingItem}
           playing={this.isCurrentlyPlayingItem()}
