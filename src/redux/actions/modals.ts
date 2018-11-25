@@ -21,6 +21,13 @@ export const modalsAddToShow = payload => {
   }
 }
 
+export const modalsClipCreatedShow = payload => {
+  return {
+    type: actionTypes.MODALS_CLIP_CREATED_SHOW,
+    payload
+  }
+}
+
 export const modalsForgotPasswordIsLoading = payload => {
   return {
     type: actionTypes.MODALS_FORGOT_PASSWORD_IS_LOADING,

@@ -1,12 +1,12 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { AddToModal, MakeClipModal, QueueModal, ShareModal,
+import { AddToModal, ClipCreatedModal, MakeClipModal, QueueModal, ShareModal,
   addItemToPriorityQueueStorage, getPriorityQueueItemsStorage
   } from 'podverse-ui'
 import { currentPageLoadMediaRef, mediaPlayerUpdatePlaying, modalsAddToShow,
-  modalsMakeClipShow, modalsQueueShow, modalsShareShow, modalsMakeClipIsLoading,
-  playerQueueLoadPriorityItems } from '~/redux/actions'
+  modalsClipCreatedShow, modalsMakeClipShow, modalsQueueShow, modalsShareShow,
+  modalsMakeClipIsLoading, playerQueueLoadPriorityItems } from '~/redux/actions'
 import { createMediaRef, updateMediaRef } from '~/services/mediaRef'
 
 type Props = {
@@ -15,6 +15,7 @@ type Props = {
   mediaPlayerUpdatePlaying?: any
   modals?: any
   modalsAddToShow?: any
+  modalsClipCreatedShow?: any
   modalsMakeClipIsLoading?: any
   modalsMakeClipShow?: any
   modalsQueueShow?: any
@@ -48,6 +49,11 @@ class MediaModals extends Component<Props, State> {
     modalsAddToShow(false)
   }
 
+  hideClipCreatedModal = () => {
+    const { modalsClipCreatedShow } = this.props
+    modalsClipCreatedShow(null)
+  }
+
   hideMakeClipModal = () => {
     const { modalsMakeClipShow } = this.props
     modalsMakeClipShow(false)
@@ -78,7 +84,8 @@ class MediaModals extends Component<Props, State> {
   }
 
   makeClipSave = async (data, isEditing) => {
-    const { currentPageLoadMediaRef, mediaPlayer, modalsMakeClipIsLoading } = this.props
+    const { currentPageLoadMediaRef, mediaPlayer, modalsClipCreatedShow,
+      modalsMakeClipIsLoading } = this.props
     const { nowPlayingItem } = mediaPlayer
     const { clipId, description, episodeDuration, episodeGuid, episodeId, episodeImageUrl,
       episodeLinkUrl, episodeMediaUrl, episodePubDate, episodeSummary, episodeTitle,
@@ -109,12 +116,16 @@ class MediaModals extends Component<Props, State> {
       if (isEditing) {
         const updatedMediaRef = await updateMediaRef(data)
         currentPageLoadMediaRef(updatedMediaRef && updatedMediaRef.data)
+        modalsMakeClipIsLoading(false)
       } else {
-        await createMediaRef(data)
+        const newMediaRef = await createMediaRef(data)
+        modalsClipCreatedShow({
+          isOpen: true,
+          mediaRef: newMediaRef && newMediaRef.data
+        })
       }
     } catch (error) {
       console.log(error)
-    } finally {
       modalsMakeClipIsLoading(false)
     }
   }
@@ -131,9 +142,10 @@ class MediaModals extends Component<Props, State> {
   render() {
     const { mediaPlayer, modals, playerQueue, user } = this.props
     const { nowPlayingItem } = mediaPlayer
-    const { addTo, makeClip, queue, share } = modals
+    const { addTo, clipCreated, makeClip, queue, share } = modals
     const { isOpen: addToIsOpen, nowPlayingItem: addToNowPlayingItem,
       showQueue: addToShowQueue } = addTo
+    const { isOpen: clipCreatedIsOpen, mediaRef: clipCreatedMediaRef } = clipCreated
     const { isEditing: makeClipIsEditing, isLoading: makeClipIsLoading,
       isOpen: makeClipIsOpen, nowPlayingItem: makeClipNowPlayingItem } = makeClip
     const { isOpen: queueIsOpen } = queue
@@ -147,6 +159,11 @@ class MediaModals extends Component<Props, State> {
       makeClipStartTime = makeClipNowPlayingItem.clipStartTime
     } else if (typeof window !== 'undefined' && window.player) {
       makeClipStartTime = window.player.getCurrentTime()
+    }
+
+    let clipCreatedLinkHref = ''
+    if (typeof location !== 'undefined' && clipCreatedMediaRef) {
+      clipCreatedLinkHref = `${location.protocol}//${location.hostname}${location.port ? `:${location.port}` : ''}/clip/${clipCreatedMediaRef && clipCreatedMediaRef.id}`
     }
 
     return (
@@ -171,6 +188,10 @@ class MediaModals extends Component<Props, State> {
           player={typeof window !== 'undefined' && window.player}
           startTime={makeClipStartTime}
           title={makeClipIsEditing ? makeClipNowPlayingItem.clipTitle : ''} />
+        <ClipCreatedModal
+          handleHideModal={this.hideClipCreatedModal}
+          isOpen={clipCreatedIsOpen}
+          linkHref={clipCreatedLinkHref} />
         <AddToModal
           handleAddToQueueLast={() => this.addToQueue(true)}
           handleAddToQueueNext={() => this.addToQueue(false)}
@@ -198,6 +219,7 @@ const mapDispatchToProps = dispatch => ({
   currentPageLoadMediaRef: bindActionCreators(currentPageLoadMediaRef, dispatch),
   mediaPlayerUpdatePlaying: bindActionCreators(mediaPlayerUpdatePlaying, dispatch),
   modalsAddToShow: bindActionCreators(modalsAddToShow, dispatch),
+  modalsClipCreatedShow: bindActionCreators(modalsClipCreatedShow, dispatch),
   modalsMakeClipIsLoading: bindActionCreators(modalsMakeClipIsLoading, dispatch),
   modalsMakeClipShow: bindActionCreators(modalsMakeClipShow, dispatch),
   modalsQueueShow: bindActionCreators(modalsQueueShow, dispatch),

@@ -2,6 +2,7 @@ import { actionTypes } from '~/redux/constants'
 
 const defaultState = {
   addTo: '',
+  clipCreated: '',
   forgotPassword: '',
   makeClip: '',
   login: '',
@@ -22,6 +23,7 @@ export default (state = defaultState, action) => {
           nowPlayingItem: action.payload.nowPlayingItem,
           showQueue: action.payload.showQueue
         },
+        clipCreated: '',
         forgotPassword: '',
         makeClip: '',
         login: '',
@@ -36,6 +38,7 @@ export default (state = defaultState, action) => {
           ...state.addTo,
           isLoading: action.payload
         },
+        clipCreated: '',
         forgotPassword: '',
         makeClip: '',
         login: '',
@@ -50,6 +53,23 @@ export default (state = defaultState, action) => {
           ...state.addTo,
           errorResponse: action.payload
         },
+        clipCreated: '',
+        forgotPassword: '',
+        makeClip: '',
+        login: '',
+        queue: '',
+        share: '',
+        signUp: ''
+      }
+    case actionTypes.MODALS_CLIP_CREATED_SHOW:
+      return {
+        clipCreated: {
+          // @ts-ignore
+          ...state.clipCreated,
+          isOpen: action.payload.isOpen,
+          mediaRef: action.payload.mediaRef
+        },
+        addTo: '',
         forgotPassword: '',
         makeClip: '',
         login: '',
@@ -65,6 +85,7 @@ export default (state = defaultState, action) => {
           isOpen: action.payload
         },
         addTo: '',
+        clipCreated: '',
         makeClip: '',
         login: '',
         queue: '',
@@ -79,6 +100,7 @@ export default (state = defaultState, action) => {
           isLoading: action.payload
         },
         addTo: '',
+        clipCreated: '',
         makeClip: '',
         login: '',
         queue: '',
@@ -93,6 +115,7 @@ export default (state = defaultState, action) => {
           errorResponse: action.payload
         },
         addTo: '',
+        clipCreated: '',
         makeClip: '',
         login: '',
         queue: '',
@@ -107,6 +130,7 @@ export default (state = defaultState, action) => {
           isOpen: action.payload
         },
         addTo: '',
+        clipCreated: '',
         forgotPassword: '',
         makeClip: '',
         queue: '',
@@ -121,6 +145,7 @@ export default (state = defaultState, action) => {
           isLoading: action.payload
         },
         addTo: '',
+        clipCreated: '',
         forgotPassword: '',
         makeClip: '',
         queue: '',
@@ -135,6 +160,7 @@ export default (state = defaultState, action) => {
           errorResponse: action.payload
         },
         addTo: '',
+        clipCreated: '',
         forgotPassword: '',
         makeClip: '',
         queue: '',
@@ -151,6 +177,7 @@ export default (state = defaultState, action) => {
             nowPlayingItem: action.payload.nowPlayingItem
           },
           addTo: '',
+          clipCreated: '',
           forgotPassword: '',
           login: '',
           queue: '',
@@ -165,6 +192,7 @@ export default (state = defaultState, action) => {
             isLoading: action.payload
           },
           addTo: '',
+          clipCreated: '',
           forgotPassword: '',
           login: '',
           queue: '',
@@ -179,6 +207,7 @@ export default (state = defaultState, action) => {
             errorResponse: action.payload
           },
           addTo: '',
+          clipCreated: '',
           forgotPassword: '',
           login: '',
           queue: '',
@@ -193,6 +222,7 @@ export default (state = defaultState, action) => {
           isOpen: action.payload
         },
         addTo: '',
+        clipCreated: '',
         forgotPassword: '',
         makeClip: '',
         login: '',
@@ -207,6 +237,7 @@ export default (state = defaultState, action) => {
           isLoading: action.payload
         },
         addTo: '',
+        clipCreated: '',
         forgotPassword: '',
         makeClip: '',
         login: '',
@@ -221,6 +252,7 @@ export default (state = defaultState, action) => {
           errorResponse: action.payload
         },
         addTo: '',
+        clipCreated: '',
         forgotPassword: '',
         makeClip: '',
         login: '',
@@ -238,6 +270,7 @@ export default (state = defaultState, action) => {
           podcastLinkAs: action.payload.podcastLinkAs
         },
         addTo: '',
+        clipCreated: '',
         forgotPassword: '',
         makeClip: '',
         login: '',
@@ -252,6 +285,7 @@ export default (state = defaultState, action) => {
           isLoading: action.payload
         },
         addTo: '',
+        clipCreated: '',
         forgotPassword: '',
         makeClip: '',
         login: '',
@@ -266,6 +300,7 @@ export default (state = defaultState, action) => {
           errorResponse: action.payload
         },
         addTo: '',
+        clipCreated: '',
         forgotPassword: '',
         makeClip: '',
         login: '',
@@ -280,6 +315,7 @@ export default (state = defaultState, action) => {
           isOpen: action.payload
         },
         addTo: '',
+        clipCreated: '',
         forgotPassword: '',
         makeClip: '',
         login: '',
@@ -294,6 +330,7 @@ export default (state = defaultState, action) => {
           isLoading: action.payload
         },
         addTo: '',
+        clipCreated: '',
         forgotPassword: '',
         makeClip: '',
         login: '',
@@ -308,6 +345,7 @@ export default (state = defaultState, action) => {
           errorResponse: action.payload
         },
         addTo: '',
+        clipCreated: '',
         forgotPassword: '',
         makeClip: '',
         login: '',

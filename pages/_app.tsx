@@ -39,6 +39,7 @@ type Props = {
   }
   modals: {
     addTo: {},
+    clipCreated: {},
     forgotPassword: {},
     login: {},
     makeClip: {},
@@ -69,6 +70,7 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
     },
     modals: {
       addTo: {},
+      clipCreated: {},
       forgotPassword: {},
       login: {},
       makeClip: {},

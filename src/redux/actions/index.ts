@@ -6,7 +6,7 @@ export { mediaPlayerLoadNowPlayingItem,mediaPlayerSetClipFinished,
 export { playerQueueLoadPriorityItems, playerQueueLoadSecondaryItems
   } from '~/redux/actions/playerQueue'
 export { modalsAddToIsLoading, modalsAddToSetErrorResponse, modalsAddToShow,
-  modalsForgotPasswordIsLoading, modalsForgotPasswordSetErrorResponse,
+  modalsClipCreatedShow,  modalsForgotPasswordIsLoading, modalsForgotPasswordSetErrorResponse,
   modalsForgotPasswordShow, modalsLoginIsLoading, modalsLoginSetErrorResponse,
   modalsLoginShow, modalsMakeClipIsLoading, modalsMakeClipSetErrorResponse,
   modalsMakeClipShow, modalsQueueIsLoading, modalsQueueSetErrorResponse,
