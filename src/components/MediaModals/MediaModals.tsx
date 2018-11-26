@@ -46,17 +46,17 @@ class MediaModals extends Component<Props, State> {
 
   hideAddToModal = () => {
     const { modalsAddToShow } = this.props
-    modalsAddToShow(false)
+    modalsAddToShow({})
   }
 
   hideClipCreatedModal = () => {
     const { modalsClipCreatedShow } = this.props
-    modalsClipCreatedShow(null)
+    modalsClipCreatedShow({})
   }
 
   hideMakeClipModal = () => {
     const { modalsMakeClipShow } = this.props
-    modalsMakeClipShow(false)
+    modalsMakeClipShow({})
   }
 
   hideQueueModal = () => {
@@ -66,7 +66,7 @@ class MediaModals extends Component<Props, State> {
 
   hideShareModal = () => {
     const { modalsShareShow } = this.props
-    modalsShareShow(false)
+    modalsShareShow({})
   }
 
   makeClipEndTimePreview = () => {
