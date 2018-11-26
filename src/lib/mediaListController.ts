@@ -13,6 +13,12 @@ export const getQueryDataForMediaRefPage = async (query, mediaRef, subscribedPod
     mediaListQuery.sort = 'top-past-week'
   }
 
+  if (query.page) {
+    mediaListQuery.page = query.page
+  } else {
+    mediaListQuery.page = 1
+  }
+
   if (query.type === 'episodes') {    
     if (query.from === 'from-podcast') {
       mediaListQuery.podcast = mediaRef.podcastId
@@ -31,7 +37,8 @@ export const getQueryDataForMediaRefPage = async (query, mediaRef, subscribedPod
       mediaListQuery.podcastId = subscribedPodcastIds
     } else {
       mediaListQuery.podcastId = mediaRef.podcastId
-    }    
+    }
+ 
     return await getMediaRefsByQuery(mediaListQuery)
   }
 }

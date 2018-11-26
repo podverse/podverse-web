@@ -16,6 +16,11 @@ export default (state =  {}, action) => {
         ...state,
         listItemsLoading: action.payload
       }
+    case actionTypes.CURRENT_PAGE_LIST_ITEMS_LOADING_NEXT_PAGE:
+      return {
+        ...state,
+        listItemsLoadingNextPage: action.payload
+      }
     case actionTypes.CURRENT_PAGE_LOAD_LIST_ITEMS:
       return {
         ...state,

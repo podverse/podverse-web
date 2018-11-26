@@ -21,6 +21,13 @@ export const currentPageLoadListItems = payload => {
   }
 }
 
+export const currentPageListItemsLoadingNextPage = payload => {
+  return {
+    type: actionTypes.CURRENT_PAGE_LIST_ITEMS_LOADING_NEXT_PAGE,
+    payload
+  }
+}
+
 export const currentPageLoadMediaRef = payload => {
   return {
     type: actionTypes.CURRENT_PAGE_LOAD_MEDIA_REF,

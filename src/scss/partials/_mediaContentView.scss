@@ -1,6 +1,14 @@
 .media-list {
   padding: 0.75rem 0;
 
+  .media-list__load-more {
+    text-align: center;
+
+    button {
+      min-width: 100px;
+    }
+  }
+
   .media-list__selects {
     display: flex;
 

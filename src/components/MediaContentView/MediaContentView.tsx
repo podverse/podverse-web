@@ -2,13 +2,13 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import Router from 'next/router'
-import { MediaHeader, MediaInfo, MediaListItem, MediaListSelect,
+import { MediaHeader, MediaInfo, MediaListItem, MediaListSelect, PVButton as Button,
   addItemToPriorityQueueStorage, getPriorityQueueItemsStorage
   } from 'podverse-ui'
 import { bindActionCreators } from 'redux';
-import { currentPageListItemsLoading, currentPageLoadNowPlayingItem,
-  mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying,
-  modalsAddToShow, modalsMakeClipShow, playerQueueLoadPriorityItems
+import { currentPageListItemsLoading, currentPageListItemsLoadingNextPage, 
+  currentPageLoadListItems, currentPageLoadNowPlayingItem, mediaPlayerLoadNowPlayingItem,
+  mediaPlayerUpdatePlaying, modalsAddToShow, modalsMakeClipShow, playerQueueLoadPriorityItems
   } from '~/redux/actions'
 import { convertToNowPlayingItem } from '~/lib/nowPlayingItem'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -18,6 +18,8 @@ const uuidv4 = require('uuid/v4')
 type Props = {
   currentPage?: any
   currentPageListItemsLoading?: any
+  currentPageListItemsLoadingNextPage?: any
+  currentPageLoadListItems?: any
   currentPageLoadNowPlayingItem?: any
   handleAddToQueue?: any
   mediaPlayer?: any
@@ -29,21 +31,18 @@ type Props = {
   playerQueue?: any
   playerQueueLoadPriorityItems?: any
   queryFrom?: string
+  queryPage?: number
   querySort?: string
   queryType?: string
   user?: any
 }
 
 type State = {
+  hasReachedEnd?: boolean
   queryFrom?: string
+  queryPage: number
   querySort?: string
   queryType?: string
-}
-
-interface MediaContentView {
-  queryFromRef: any
-  querySortRef: any
-  queryTypeRef: any
 }
 
 class MediaContentView extends Component<Props, State> {
@@ -53,7 +52,8 @@ class MediaContentView extends Component<Props, State> {
       listItems: []
     },
     queryFrom: 'from-podcast',
-    querySort: 'top-all-time',
+    queryPage: 1,
+    querySort: 'top-past-week',
     queryType: 'clips'
   }
 
@@ -62,10 +62,12 @@ class MediaContentView extends Component<Props, State> {
 
     this.state = {
       queryFrom: props.queryFrom,
+      queryPage: props.queryPage,
       querySort: props.querySort,
       queryType: props.queryType
     }
 
+    this.anchorOnClick = this.anchorOnClick.bind(this)
     this.getCurrentPageItem = this.getCurrentPageItem.bind(this)
     this.queryMediaListItems = this.queryMediaListItems.bind(this)
   }
@@ -84,6 +86,7 @@ class MediaContentView extends Component<Props, State> {
     }
 
     currentPageListItemsLoading(true)
+    this.setState({ queryPage: 1 })
     scrollToTopOfView()
   }
 
@@ -204,30 +207,42 @@ class MediaContentView extends Component<Props, State> {
     return { pageType, pageId }
   }
 
-  queryMediaListItems(selectedKey, selectedValue) {
-    const { currentPageListItemsLoading } = this.props
+  queryMediaListItems(selectedKey, selectedValue, page = 1) {
+    const { currentPageListItemsLoading, currentPageListItemsLoadingNextPage } = this.props
     const { queryFrom, querySort, queryType } = this.state
     
     let query = {
       from: queryFrom,
+      page,
       sort: querySort,
       type: queryType
     }
 
-    currentPageListItemsLoading(true)
+    if (page > 1) {
+      currentPageListItemsLoadingNextPage(true)
+    } else {
+      currentPageListItemsLoading(true)
+    }
+
+    let newState: any = { queryPage: page }
 
     if (selectedKey === 'type') {
-      this.setState({ queryType: selectedValue })
+      newState.queryType = selectedValue
       query.type = selectedValue
     } else if (selectedKey === 'from') {
-      this.setState({ queryFrom: selectedValue })
+      newState.queryFrom = selectedValue
       query.from = selectedValue
     } else if (selectedKey === 'sort') {
-      this.setState({ querySort: selectedValue })
+      newState.querySort = selectedValue
       query.sort = selectedValue
+    } else {
+      // load more, use existing query but with new page number
     }
+
+    this.setState(newState)
+
     const {pageType, pageId} = this.getPageTypeAndId()
-    const href = `/${pageType}?id=${pageId}&type=${query.type}&from=${query.from}&sort=${query.sort}`
+    const href = `/${pageType}?id=${pageId}&type=${query.type}&from=${query.from}&sort=${query.sort}&page=${query.page}`
     const as = `/${pageType}/${pageId}`
     Router.push(href, as)
   }
@@ -252,7 +267,7 @@ class MediaContentView extends Component<Props, State> {
     const options = [
       {
         label: 'All podcasts',
-        onClick: () => this.queryMediaListItems('from', 'all-podcasts'),
+        onClick: () => this.queryMediaListItems('from', 'all-podcasts', 0),
         value: 'all-podcasts'
       },
       {
@@ -322,10 +337,10 @@ class MediaContentView extends Component<Props, State> {
 
   render () {
     const { currentPage, user } = this.props
-    const { episode, listItems, listItemsLoading, mediaRef, nowPlayingItem,
-      podcast } = currentPage
+    const { episode, listItems, listItemsLoading, listItemsLoadingNextPage, mediaRef,
+      nowPlayingItem, podcast } = currentPage
     const { id: userId } = user
-    const { queryFrom, querySort, queryType } = this.state
+    const { hasReachedEnd, queryFrom, queryPage, querySort, queryType } = this.state
 
     let mediaListItemType = 'now-playing-item'
     if (queryType === 'episodes') {
@@ -346,10 +361,10 @@ class MediaContentView extends Component<Props, State> {
       return (
         <MediaListItem
           dataNowPlayingItem={x}
-          handleAddToQueueLast={(e) => { this.addToQueue(x, true) }}
-          handleAddToQueueNext={(e) => { this.addToQueue(x, false) }}
+          handleAddToQueueLast={() => { this.addToQueue(x, true) }}
+          handleAddToQueueNext={() => { this.addToQueue(x, false) }}
           handleAnchorOnClick={(e) => { this.anchorOnClick(e, x, 'nowPlayingItem') }}
-          handlePlayItem={(e) => { this.playItem(x) }}
+          handlePlayItem={() => { this.playItem(x) }}
           hasLink={true}
           itemType={mediaListItemType}
           key={`nowPlayingListItem-${uuidv4()}`}
@@ -398,13 +413,31 @@ class MediaContentView extends Component<Props, State> {
             </div>
           </div>
           {
-            listItemsLoading ? 
+            listItemsLoading &&
               <div className='media-list__loading'>
                 <FontAwesomeIcon 
                   icon='spinner'
                   spin />
               </div>
-              : listItemNodes
+          }
+          {
+            listItemNodes && listItemNodes.length > 0 &&
+              listItemNodes
+          }
+          <div className='media-list__load-more'>
+            {
+              hasReachedEnd ?
+                <div>End of results</div>
+                : <Button
+                    className='media-list-load-more__button'
+                    isLoading={listItemsLoadingNextPage}
+                    onClick={() => this.queryMediaListItems(null, null, queryPage + 1)}
+                    text='Load More' />
+            }
+          </div>
+          {
+            (!hasReachedEnd && listItemNodes.length === 0) &&
+              <div>No results found</div>
           }
         </div>
       </Fragment>
@@ -415,7 +448,9 @@ class MediaContentView extends Component<Props, State> {
 const mapStateToProps = state => ({ ...state })
 
 const mapDispatchToProps = dispatch => ({
+  currentPageListItemsLoadingNextPage: bindActionCreators(currentPageListItemsLoadingNextPage, dispatch),
   currentPageListItemsLoading: bindActionCreators(currentPageListItemsLoading, dispatch),
+  currentPageLoadListItems: bindActionCreators(currentPageLoadListItems, dispatch),
   currentPageLoadNowPlayingItem: bindActionCreators(currentPageLoadNowPlayingItem, dispatch),
   mediaPlayerLoadNowPlayingItem: bindActionCreators(mediaPlayerLoadNowPlayingItem, dispatch),
   mediaPlayerUpdatePlaying: bindActionCreators(mediaPlayerUpdatePlaying, dispatch),
