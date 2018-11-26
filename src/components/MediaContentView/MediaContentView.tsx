@@ -7,9 +7,9 @@ import { MediaHeader, MediaInfo, MediaListItem, MediaListSelect, PVButton as But
   } from 'podverse-ui'
 import { bindActionCreators } from 'redux';
 import { currentPageListItemsLoading, currentPageListItemsLoadingNextPage, 
-  currentPageLoadListItems, currentPageLoadNowPlayingItem, mediaPlayerLoadNowPlayingItem,
-  mediaPlayerUpdatePlaying, modalsAddToShow, modalsMakeClipShow, playerQueueLoadPriorityItems
-  } from '~/redux/actions'
+  currentPageLoadListItems, currentPageLoadMediaRef, currentPageLoadNowPlayingItem,
+  mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying, modalsAddToShow,
+  modalsMakeClipShow, playerQueueLoadPriorityItems } from '~/redux/actions'
 import { convertToNowPlayingItem } from '~/lib/nowPlayingItem'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { scrollToTopOfView } from '~/lib/scrollToTop';
@@ -20,6 +20,7 @@ type Props = {
   currentPageListItemsLoading?: any
   currentPageListItemsLoadingNextPage?: any
   currentPageLoadListItems?: any
+  currentPageLoadMediaRef?: any
   currentPageLoadNowPlayingItem?: any
   handleAddToQueue?: any
   mediaPlayer?: any
@@ -73,17 +74,43 @@ class MediaContentView extends Component<Props, State> {
   }
 
   anchorOnClick (event, data, itemType) {
-    const { currentPageListItemsLoading, currentPageLoadNowPlayingItem } = this.props
+    event.preventDefault()
+
+    const { currentPageListItemsLoading, currentPageLoadMediaRef,
+      currentPageLoadNowPlayingItem } = this.props
+    const { queryFrom, querySort, queryType } = this.state
     
+    let id = ''
+    let pageName = ''
     if (itemType === 'episode') {
       // newState.episode = data
     } else if (itemType === 'mediaRef') {
-      // newState.mediaRef = data
+      currentPageLoadMediaRef(data)
+      id = data.id
+      pageName = 'clip'
     } else if (itemType === 'nowPlayingItem') {
       currentPageLoadNowPlayingItem(data)
+      if (queryType === 'episodes') {
+        id = data.episodeId
+        pageName = 'episode'
+      } else {
+        id = data.clipId
+        pageName = 'clip'
+      }
     } else if (itemType === 'podcast') {
       // newState.podcast = data
     }
+
+    let query = {
+      from: queryFrom,
+      page: 1,
+      sort: querySort,
+      type: queryType
+    }
+
+    const href = `/${pageName}?id=${id}&type=${query.type}&from=${query.from}&sort=${query.sort}&page=${query.page}`
+    const as = `${event.currentTarget.href}/${id}`
+    Router.push(href, as)
 
     currentPageListItemsLoading(true)
     this.setState({ queryPage: 1 })
@@ -207,7 +234,7 @@ class MediaContentView extends Component<Props, State> {
     return { pageType, pageId }
   }
 
-  queryMediaListItems(selectedKey, selectedValue, page = 1) {
+  queryMediaListItems(selectedKey = '', selectedValue = '', page = 1) {
     const { currentPageListItemsLoading, currentPageListItemsLoadingNextPage } = this.props
     const { queryFrom, querySort, queryType } = this.state
     
@@ -241,7 +268,7 @@ class MediaContentView extends Component<Props, State> {
 
     this.setState(newState)
 
-    const {pageType, pageId} = this.getPageTypeAndId()
+    const { pageId, pageType } = this.getPageTypeAndId()
     const href = `/${pageType}?id=${pageId}&type=${query.type}&from=${query.from}&sort=${query.sort}&page=${query.page}`
     const as = `/${pageType}/${pageId}`
     Router.push(href, as)
@@ -267,7 +294,7 @@ class MediaContentView extends Component<Props, State> {
     const options = [
       {
         label: 'All podcasts',
-        onClick: () => this.queryMediaListItems('from', 'all-podcasts', 0),
+        onClick: () => this.queryMediaListItems('from', 'all-podcasts'),
         value: 'all-podcasts'
       },
       {
@@ -421,20 +448,22 @@ class MediaContentView extends Component<Props, State> {
               </div>
           }
           {
-            listItemNodes && listItemNodes.length > 0 &&
-              listItemNodes
+            !listItemsLoading && listItemNodes && listItemNodes.length > 0 &&
+              <Fragment>
+                {listItemNodes}
+                <div className='media-list__load-more'>
+                  {
+                    hasReachedEnd ?
+                      <div>End of results</div>
+                      : <Button
+                        className='media-list-load-more__button'
+                        isLoading={listItemsLoadingNextPage}
+                        onClick={() => this.queryMediaListItems(null, null, queryPage + 1)}
+                        text='Load More' />
+                  }
+                </div>
+              </Fragment>  
           }
-          <div className='media-list__load-more'>
-            {
-              hasReachedEnd ?
-                <div>End of results</div>
-                : <Button
-                    className='media-list-load-more__button'
-                    isLoading={listItemsLoadingNextPage}
-                    onClick={() => this.queryMediaListItems(null, null, queryPage + 1)}
-                    text='Load More' />
-            }
-          </div>
           {
             (!hasReachedEnd && listItemNodes.length === 0) &&
               <div>No results found</div>
@@ -451,6 +480,7 @@ const mapDispatchToProps = dispatch => ({
   currentPageListItemsLoadingNextPage: bindActionCreators(currentPageListItemsLoadingNextPage, dispatch),
   currentPageListItemsLoading: bindActionCreators(currentPageListItemsLoading, dispatch),
   currentPageLoadListItems: bindActionCreators(currentPageLoadListItems, dispatch),
+  currentPageLoadMediaRef: bindActionCreators(currentPageLoadMediaRef, dispatch),
   currentPageLoadNowPlayingItem: bindActionCreators(currentPageLoadNowPlayingItem, dispatch),
   mediaPlayerLoadNowPlayingItem: bindActionCreators(mediaPlayerLoadNowPlayingItem, dispatch),
   mediaPlayerUpdatePlaying: bindActionCreators(mediaPlayerUpdatePlaying, dispatch),

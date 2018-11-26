@@ -38,7 +38,7 @@ export const getQueryDataForMediaRefPage = async (query, mediaRef, subscribedPod
     } else {
       mediaListQuery.podcastId = mediaRef.podcastId
     }
- 
+
     return await getMediaRefsByQuery(mediaListQuery)
   }
 }
