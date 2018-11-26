@@ -85,7 +85,7 @@ class MediaModals extends Component<Props, State> {
 
   makeClipSave = async (data, isEditing) => {
     const { currentPageLoadMediaRef, mediaPlayer, modalsClipCreatedShow,
-      modalsMakeClipIsLoading } = this.props
+      modalsMakeClipIsLoading, modalsMakeClipShow } = this.props
     const { nowPlayingItem } = mediaPlayer
     const { clipId, description, episodeDuration, episodeGuid, episodeId, episodeImageUrl,
       episodeLinkUrl, episodeMediaUrl, episodePubDate, episodeSummary, episodeTitle,
@@ -117,6 +117,7 @@ class MediaModals extends Component<Props, State> {
         const updatedMediaRef = await updateMediaRef(data)
         currentPageLoadMediaRef(updatedMediaRef && updatedMediaRef.data)
         modalsMakeClipIsLoading(false)
+        modalsMakeClipShow({ isOpen: false })
       } else {
         const newMediaRef = await createMediaRef(data)
         modalsClipCreatedShow({

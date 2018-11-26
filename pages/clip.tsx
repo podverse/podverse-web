@@ -30,8 +30,6 @@ class Clip extends Component<Props, State> {
     if (!process.browser) {
       const nowPlayingItem = convertToNowPlayingItem(mediaRef)
       store.dispatch(mediaPlayerLoadNowPlayingItem(nowPlayingItem))
-    } else {
-      scrollToTopOfView()
     }
 
     const subscribedPodcastIds = ['XFxLTOM9h-', 'ZuT5bspVRC']

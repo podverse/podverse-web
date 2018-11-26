@@ -12,6 +12,7 @@ import { currentPageListItemsLoading, currentPageLoadNowPlayingItem,
   } from '~/redux/actions'
 import { convertToNowPlayingItem } from '~/lib/nowPlayingItem'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { scrollToTopOfView } from '~/lib/scrollToTop';
 const uuidv4 = require('uuid/v4')
 
 type Props = {
@@ -65,13 +66,13 @@ class MediaContentView extends Component<Props, State> {
       queryType: props.queryType
     }
 
-    this.queryMediaListItems = this.queryMediaListItems.bind(this)
     this.getCurrentPageItem = this.getCurrentPageItem.bind(this)
+    this.queryMediaListItems = this.queryMediaListItems.bind(this)
   }
 
   anchorOnClick (event, data, itemType) {
     const { currentPageListItemsLoading, currentPageLoadNowPlayingItem } = this.props
-
+    
     if (itemType === 'episode') {
       // newState.episode = data
     } else if (itemType === 'mediaRef') {
@@ -83,6 +84,7 @@ class MediaContentView extends Component<Props, State> {
     }
 
     currentPageListItemsLoading(true)
+    scrollToTopOfView()
   }
 
   getCurrentPageItem = () => {
@@ -203,6 +205,7 @@ class MediaContentView extends Component<Props, State> {
   }
 
   queryMediaListItems(selectedKey, selectedValue) {
+    const { currentPageListItemsLoading } = this.props
     const { queryFrom, querySort, queryType } = this.state
     
     let query = {
@@ -210,6 +213,8 @@ class MediaContentView extends Component<Props, State> {
       sort: querySort,
       type: queryType
     }
+
+    currentPageListItemsLoading(true)
 
     if (selectedKey === 'type') {
       this.setState({ queryType: selectedValue })
@@ -316,11 +321,7 @@ class MediaContentView extends Component<Props, State> {
   }
 
   render () {
-    const { currentPage, modals, modalsAddToShow, modalsMakeClipShow, user
-      } = this.props
-    const { addTo, makeClip } = modals
-    const { isOpen: addToIsOpen } = addTo
-    const { isOpen: makeClipIsOpen } = makeClip
+    const { currentPage, user } = this.props
     const { episode, listItems, listItemsLoading, mediaRef, nowPlayingItem,
       podcast } = currentPage
     const { id: userId } = user
