@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import { Alert, Form, FormFeedback, FormGroup, FormText, Input, Label
   } from 'reactstrap'
+import Router from 'next/router'
 import { ButtonGroup, PVButton as Button } from 'podverse-ui'
 import Meta from '~/components/meta'
 import { internetConnectivityErrorMessage } from '~/lib/constants'
@@ -18,6 +19,7 @@ type State = {
   isLoading?: boolean
   password?: string
   passwordConfirm?: string
+  wasSuccessful?: boolean
 }
 
 class ResetPassword extends Component<Props, State> {
@@ -100,7 +102,13 @@ class ResetPassword extends Component<Props, State> {
 
     try {
       await resetPassword(passwordConfirm, passwordResetToken)
-      this.setState({ errorResponse: undefined })
+
+      this.setState({
+        errorResponse: undefined,
+        wasSuccessful: true
+      })
+
+      setTimeout(() => Router.push('/', '/'), 1500)
     } catch (error) {
       const errorMsg = (error.response && error.response.data) || internetConnectivityErrorMessage
       this.setState({ errorResponse: errorMsg })
@@ -117,7 +125,7 @@ class ResetPassword extends Component<Props, State> {
 
   render() {
     const { errorPassword, errorPasswordConfirm, errorResponse, isLoading, password,
-      passwordConfirm } = this.state
+      passwordConfirm, wasSuccessful } = this.state
 
     return (
       <Fragment>
@@ -130,63 +138,74 @@ class ResetPassword extends Component<Props, State> {
               {errorResponse}
             </Alert>
           }
-          <FormGroup>
-            <Label for='reset-password__password'>New Password</Label>
-            <Input
-              data-state-key='password'
-              invalid={errorPassword}
-              name='reset-password__password'
-              onBlur={this.handlePasswordInputBlur}
-              onChange={this.handlePasswordInputChange}
-              placeholder='********'
-              type='password'
-              value={password} />
-            {
-              errorPassword &&
-                <FormFeedback invalid='true'>
-                  {errorPassword}
-                </FormFeedback>
-            }
-            {
-              (!validatePassword(password) && !errorPassword) &&
-                <FormText>
-                  Password must contain a number, uppercase, lowercase, and be at least 8 characters long.
-                </FormText>
-            }
-          </FormGroup>
-          <FormGroup>
-            <Label for='reset-password__password-confirm'>Confirm Password</Label>
-            <Input
-              data-state-key='passwordConfirm'
-              invalid={errorPasswordConfirm}
-              name='reset-password__password-confirm'
-              onBlur={this.handlePasswordConfirmInputBlur}
-              onChange={this.handlePasswordConfirmInputChange}
-              placeholder='********'
-              type='password'
-              value={passwordConfirm} />
-            {
-              errorPasswordConfirm &&
-                <FormFeedback invalid='true'>
-                  {errorPasswordConfirm}
-                </FormFeedback>
-            }
-          </FormGroup>
-          <ButtonGroup
-            childrenLeft
-            childrenRight={
-              <React.Fragment>
-                <Button
-                  onClick={() => { window.location.href = '' }}
-                  text='Cancel' />
-                <Button
-                  color='primary'
-                  disabled={!this.hasConfirmedValidPassword()}
-                  isLoading={isLoading}
-                  onClick={this.handleSubmit}
-                  text='Submit' />
-              </React.Fragment>
-            } />
+          {
+            wasSuccessful &&
+              <Alert color='primary'>
+                Success! Redirecting to the home page...
+              </Alert>
+          }
+          {
+            !wasSuccessful &&
+              <Fragment>
+                <FormGroup>
+                  <Label for='reset-password__password'>New Password</Label>
+                  <Input
+                    data-state-key='password'
+                    invalid={errorPassword}
+                    name='reset-password__password'
+                    onBlur={this.handlePasswordInputBlur}
+                    onChange={this.handlePasswordInputChange}
+                    placeholder='********'
+                    type='password'
+                    value={password} />
+                  {
+                    errorPassword &&
+                    <FormFeedback invalid='true'>
+                      {errorPassword}
+                    </FormFeedback>
+                  }
+                  {
+                    (!validatePassword(password) && !errorPassword) &&
+                    <FormText>
+                      Password must contain a number, uppercase, lowercase, and be at least 8 characters long.
+                    </FormText>
+                  }
+                </FormGroup>
+                <FormGroup>
+                  <Label for='reset-password__password-confirm'>Confirm Password</Label>
+                  <Input
+                    data-state-key='passwordConfirm'
+                    invalid={errorPasswordConfirm}
+                    name='reset-password__password-confirm'
+                    onBlur={this.handlePasswordConfirmInputBlur}
+                    onChange={this.handlePasswordConfirmInputChange}
+                    placeholder='********'
+                    type='password'
+                    value={passwordConfirm} />
+                  {
+                    errorPasswordConfirm &&
+                    <FormFeedback invalid='true'>
+                      {errorPasswordConfirm}
+                    </FormFeedback>
+                  }
+                </FormGroup>
+                <ButtonGroup
+                  childrenLeft
+                  childrenRight={
+                    <React.Fragment>
+                      <Button
+                        onClick={() => { window.location.href = '' }}
+                        text='Cancel' />
+                      <Button
+                        color='primary'
+                        disabled={!this.hasConfirmedValidPassword()}
+                        isLoading={isLoading}
+                        onClick={this.handleSubmit}
+                        text='Submit' />
+                    </React.Fragment>
+                  } />
+              </Fragment>
+          }
         </Form>
       </Fragment>
     )

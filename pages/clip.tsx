@@ -5,11 +5,9 @@ import { addItemsToSecondaryQueueStorage, clearItemsFromSecondaryQueueStorage
 import MediaContentView from '~/components/MediaContentView/MediaContentView'
 import { getQueryDataForMediaRefPage } from '~/lib/mediaListController'
 import { NowPlayingItem, convertToNowPlayingItem } from '~/lib/nowPlayingItem'
-import { scrollToTopOfView } from '~/lib/scrollToTop'
 import { currentPageLoadListItems, currentPageLoadMediaRef,
   mediaPlayerLoadNowPlayingItem, playerQueueLoadSecondaryItems, currentPageListItemsLoading } from '~/redux/actions'
-  import { getMediaRefById, getMediaRefsByQuery } from '~/services/mediaRef'
-
+import { getMediaRefById } from '~/services/mediaRef'
 type Props = {
   currentPage?: any
   playerQueue?: any
