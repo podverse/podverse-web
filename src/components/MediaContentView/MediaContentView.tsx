@@ -109,7 +109,7 @@ class MediaContentView extends Component<Props, State> {
     }
 
     const href = `/${pageName}?id=${id}&type=${query.type}&from=${query.from}&sort=${query.sort}&page=${query.page}`
-    const as = `${event.currentTarget.href}/${id}`
+    const as = `${event.currentTarget.href}`
     Router.push(href, as)
 
     currentPageListItemsLoading(true)

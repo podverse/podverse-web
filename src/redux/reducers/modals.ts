@@ -46,12 +46,42 @@ export default (state = defaultState, action) => {
         share: '',
         signUp: ''
       }
+    case actionTypes.MODALS_ADD_TO_CREATE_PLAYLIST_IS_SAVING:
+      return {
+        addTo: {
+          // @ts-ignore
+          ...state.addTo,
+          createPlaylistIsSaving: action.payload
+        },
+        clipCreated: '',
+        forgotPassword: '',
+        makeClip: '',
+        login: '',
+        queue: '',
+        share: '',
+        signUp: ''
+      }
     case actionTypes.MODALS_ADD_TO_SET_ERROR_RESPONSE:
       return {
         addTo: {
           // @ts-ignore
           ...state.addTo,
           errorResponse: action.payload
+        },
+        clipCreated: '',
+        forgotPassword: '',
+        makeClip: '',
+        login: '',
+        queue: '',
+        share: '',
+        signUp: ''
+      }
+    case actionTypes.MODALS_ADD_TO_CREATE_PLAYLIST_SHOW:
+      return {
+        addTo: {
+          // @ts-ignore
+          ...state.addTo,
+          createPlaylistShow: action.payload
         },
         clipCreated: '',
         forgotPassword: '',

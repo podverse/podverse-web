@@ -1,5 +1,19 @@
 import { actionTypes } from "~/redux/constants";
 
+export const modalsAddToCreatePlaylistIsSaving = payload => {
+  return {
+    type: actionTypes.MODALS_ADD_TO_CREATE_PLAYLIST_IS_SAVING,
+    payload
+  }
+}
+
+export const modalsAddToCreatePlaylistShow = payload => {
+  return {
+    type: actionTypes.MODALS_ADD_TO_CREATE_PLAYLIST_SHOW,
+    payload
+  }
+}
+
 export const modalsAddToIsLoading = payload => {
   return {
     type: actionTypes.MODALS_ADD_TO_IS_LOADING,

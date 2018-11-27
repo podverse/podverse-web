@@ -1,9 +1,11 @@
 import axios from 'axios'
 
-export const getAuthenticatedUserInfo = async () => {
+export const getAuthenticatedUserInfo = async (bearerToken) => {
   return axios(`http://localhost:3000/api/v1/auth/get-authenticated-user-info`, {
     method: 'post',
-    withCredentials: true
+    headers: {
+      Authorization: bearerToken
+    }
   })
 }
 

@@ -14,6 +14,7 @@ import { NowPlayingItem } from '~/lib/nowPlayingItem'
 import { initializeStore } from '~/redux/store'
 import { playerQueueLoadPriorityItems } from '~/redux/actions'
 import { actionTypes } from '~/redux/constants'
+import { getAuthenticatedUserInfo } from '~/services';
 const cookie = require('cookie')
 
 addFontAwesomeIcons()
@@ -56,45 +57,30 @@ type Props = {
 }
 
 export default withRedux(initializeStore)(class MyApp extends App<Props> {
-  
-  static defaultProps: Props = {
-    currentPage: {
-      episode: null,
-      listItems: [],
-      mediaRef: null,
-      nowPlayingItem: null,
-      podcast: null
-    },
-    mediaPlayer: {
-      nowPlayingItem: {}
-    },
-    modals: {
-      addTo: {},
-      clipCreated: {},
-      forgotPassword: {},
-      login: {},
-      makeClip: {},
-      queue: {},
-      share: {},
-      signUp: {}
-    },
-    playerQueue: {
-      priorityItems: [],
-      secondaryItems: []
-    }
-  }
-  
+    
   static async getInitialProps({ Component, ctx }) {
     let pageProps = {}
 
     // @ts-ignore
-    if (!process.browser) {
-      if (ctx.req.headers.cookie) {
-        const parsedCookie = cookie.parse(ctx.req.headers.cookie)
-        ctx.store.dispatch({
-          type: actionTypes.USER_SET_INFO,
-          payload: { id: parsedCookie.userId }
-        })
+    if (!process.browser && ctx.req.headers.cookie) {
+      const parsedCookie = cookie.parse(ctx.req.headers.cookie)
+
+      if (parsedCookie.Authorization) {
+        try {
+          const userInfo = await getAuthenticatedUserInfo(parsedCookie.Authorization)
+          if (userInfo && userInfo.data) {
+            ctx.store.dispatch({
+              type: actionTypes.USER_SET_INFO,
+              payload: {
+                id: userInfo.data.id,
+                playlists: userInfo.data.playlists,
+                subscribedPodcastIds: userInfo.data.subscribedPodcastIds
+              }
+            })
+          }
+        } catch (error) {
+          // continue with unauthenticated user
+        }
       }
     }
 

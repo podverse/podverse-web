@@ -6,13 +6,13 @@ export { mediaPlayerLoadNowPlayingItem,mediaPlayerSetClipFinished,
 export { playerQueueLoadPriorityItems, playerQueueLoadSecondaryItems
   } from '~/redux/actions/playerQueue'
 export { modalsAddToIsLoading, modalsAddToSetErrorResponse, modalsAddToShow,
-  modalsClipCreatedShow,  modalsForgotPasswordIsLoading, modalsForgotPasswordSetErrorResponse,
+  modalsAddToCreatePlaylistIsSaving, modalsAddToCreatePlaylistShow, modalsClipCreatedShow,
+  modalsForgotPasswordIsLoading, modalsForgotPasswordSetErrorResponse,
   modalsForgotPasswordShow, modalsLoginIsLoading, modalsLoginSetErrorResponse,
-  modalsLoginShow, modalsMakeClipIsLoading, modalsMakeClipSetErrorResponse,
-  modalsMakeClipShow, modalsQueueIsLoading, modalsQueueSetErrorResponse,
-  modalsQueueShow, modalsShareIsLoading, modalsShareSetErrorResponse,
-  modalsShareShow, modalsSignUpIsLoading, modalsSignUpSetErrorResponse,
-  modalsSignUpShow } from '~/redux/actions/modals'
+  modalsLoginShow, modalsMakeClipIsLoading, modalsMakeClipSetErrorResponse, modalsMakeClipShow, 
+  modalsQueueIsLoading, modalsQueueSetErrorResponse, modalsQueueShow, modalsShareIsLoading,
+  modalsShareSetErrorResponse, modalsShareShow, modalsSignUpIsLoading,
+  modalsSignUpSetErrorResponse, modalsSignUpShow } from '~/redux/actions/modals'
 export { userSetInfo } from '~/redux/actions/user'
 
 

@@ -54,6 +54,7 @@ class Auth extends Component<Props, State> {
   }
 
   async handleLogin (email, password) {
+
     const { modalsLoginIsLoading, modalsLoginSetErrorResponse, modalsLoginShow,
       userSetInfo } = this.props
     modalsLoginIsLoading(true)
