@@ -5,9 +5,9 @@ import { AddToModal, ClipCreatedModal, MakeClipModal, QueueModal, ShareModal,
   addItemToPriorityQueueStorage, getPriorityQueueItemsStorage
   } from 'podverse-ui'
 import { currentPageLoadMediaRef, mediaPlayerUpdatePlaying, modalsAddToCreatePlaylistIsSaving,
-  modalsAddToCreatePlaylistShow, modalsAddToShow, modalsClipCreatedShow, modalsMakeClipShow,
-  modalsQueueShow, modalsShareShow, modalsMakeClipIsLoading, playerQueueLoadPriorityItems,
-  userSetInfo } from '~/redux/actions'
+  modalsAddToCreatePlaylistShow, modalsAddToShow, modalsClipCreatedShow, modalsLoginShow, 
+  modalsMakeClipShow, modalsQueueShow, modalsShareShow, modalsMakeClipIsLoading,
+  playerQueueLoadPriorityItems, userSetInfo } from '~/redux/actions'
 import { addOrRemovePlaylistItem, createPlaylist } from '~/services'
 import { createMediaRef, updateMediaRef } from '~/services/mediaRef'
 import { convertToNowPlayingItem } from '~/lib/nowPlayingItem'
@@ -22,6 +22,7 @@ type Props = {
   modalsAddToCreatePlaylistShow?: any
   modalsAddToShow?: any
   modalsClipCreatedShow?: any
+  modalsLoginShow?: any
   modalsMakeClipIsLoading?: any
   modalsMakeClipShow?: any
   modalsQueueShow?: any
@@ -205,11 +206,11 @@ class MediaModals extends Component<Props, State> {
   }
 
   queueItemClick = () => {
-    alert('queue item clicked')
+    // alert('queue item clicked')
   }
 
   render() {
-    const { mediaPlayer, modals, playerQueue, user } = this.props
+    const { mediaPlayer, modals, modalsLoginShow, playerQueue, user } = this.props
     const { nowPlayingItem } = mediaPlayer
     const { addTo, clipCreated, makeClip, queue, share } = modals
     const { createPlaylistIsSaving, createPlaylistShowError, createPlaylistShow,
@@ -271,6 +272,7 @@ class MediaModals extends Component<Props, State> {
           handleCreatePlaylistHide={this.hideCreatePlaylist}
           handleCreatePlaylistSave={this.createPlaylistSave}
           handleHideModal={this.hideAddToModal}
+          handleLoginClick={modalsLoginShow}
           handlePlaylistItemAdd={this.playlistItemAdd}
           handleToggleCreatePlaylist={this.toggleCreatePlaylist}
           isOpen={addToIsOpen}
@@ -298,6 +300,7 @@ const mapDispatchToProps = dispatch => ({
   modalsAddToCreatePlaylistShow: bindActionCreators(modalsAddToCreatePlaylistShow, dispatch),
   modalsAddToShow: bindActionCreators(modalsAddToShow, dispatch),
   modalsClipCreatedShow: bindActionCreators(modalsClipCreatedShow, dispatch),
+  modalsLoginShow: bindActionCreators(modalsLoginShow, dispatch),
   modalsMakeClipIsLoading: bindActionCreators(modalsMakeClipIsLoading, dispatch),
   modalsMakeClipShow: bindActionCreators(modalsMakeClipShow, dispatch),
   modalsQueueShow: bindActionCreators(modalsQueueShow, dispatch),
