@@ -68,12 +68,14 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
       if (parsedCookie.Authorization) {
         try {
           const userInfo = await getAuthenticatedUserInfo(parsedCookie.Authorization)
+          
           if (userInfo && userInfo.data) {
             ctx.store.dispatch({
               type: actionTypes.USER_SET_INFO,
               payload: {
                 id: userInfo.data.id,
                 playlists: userInfo.data.playlists,
+                queueItems: userInfo.data.queueItems,
                 subscribedPodcastIds: userInfo.data.subscribedPodcastIds
               }
             })

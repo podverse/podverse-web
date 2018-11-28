@@ -8,7 +8,7 @@ import { currentPageLoadMediaRef, mediaPlayerUpdatePlaying, modalsAddToCreatePla
   modalsAddToCreatePlaylistShow, modalsAddToShow, modalsClipCreatedShow, modalsLoginShow, 
   modalsMakeClipShow, modalsQueueShow, modalsShareShow, modalsMakeClipIsLoading,
   playerQueueLoadPriorityItems, userSetInfo } from '~/redux/actions'
-import { addOrRemovePlaylistItem, createPlaylist } from '~/services'
+import { addOrRemovePlaylistItem, createPlaylist, updateUserQueueItems } from '~/services'
 import { createMediaRef, updateMediaRef } from '~/services/mediaRef'
 import { convertToNowPlayingItem } from '~/lib/nowPlayingItem'
 
@@ -41,14 +41,23 @@ type State = {
 
 class MediaModals extends Component<Props, State> {
 
-  addToQueue(isLast) {
-    const { modals, playerQueueLoadPriorityItems } = this.props
-    const { addTo } = modals
-    const { nowPlayingItem } = addTo
+  async addToQueue(isLast) {
+    const { mediaPlayer, playerQueueLoadPriorityItems, user } = this.props
+    const { nowPlayingItem } = mediaPlayer
 
-    addItemToPriorityQueueStorage(nowPlayingItem, isLast)
+    let priorityItems = []
+    if (user && user.id) {
+      isLast ? user.queueItems.push(nowPlayingItem) : user.queueItems.unshift(nowPlayingItem)
 
-    const priorityItems = getPriorityQueueItemsStorage()
+      const response = await updateUserQueueItems({ queueItems: user.queueItems })
+
+      priorityItems = response.data || []
+    } else {
+      addItemToPriorityQueueStorage(nowPlayingItem, isLast)
+
+      priorityItems = getPriorityQueueItemsStorage()
+    }
+
     playerQueueLoadPriorityItems(priorityItems)
   }
 
@@ -186,6 +195,7 @@ class MediaModals extends Component<Props, State> {
     userSetInfo({
       id: user.id,
       playlists: user.playlists,
+      queueItems: user.queueItems,
       subscribedPodcastIds: user.subscribedPodcastIds
     })
     modalsAddToCreatePlaylistIsSaving(false)

@@ -6,7 +6,7 @@ import { internetConnectivityErrorMessage } from '~/lib/constants'
 import { modalsForgotPasswordIsLoading, modalsForgotPasswordShow, 
   modalsForgotPasswordSetErrorResponse, modalsLoginIsLoading,
   modalsLoginShow, modalsLoginSetErrorResponse, modalsSignUpIsLoading,
-  modalsSignUpShow, modalsSignUpSetErrorResponse, userSetInfo } from '~/redux/actions'
+  modalsSignUpShow, modalsSignUpSetErrorResponse, userSetInfo, playerQueueLoadPriorityItems } from '~/redux/actions'
 import { login, sendResetPassword, signUp } from '~/services/auth'
 
 type Props = {
@@ -20,6 +20,7 @@ type Props = {
   modalsSignUpIsLoading?: any
   modalsSignUpSetErrorResponse?: any
   modalsSignUpShow?: any
+  playerQueueLoadPriorityItems?: any
   user?: any
   userSetInfo?: any
 }
@@ -56,18 +57,19 @@ class Auth extends Component<Props, State> {
   async handleLogin (email, password) {
 
     const { modalsLoginIsLoading, modalsLoginSetErrorResponse, modalsLoginShow,
-      userSetInfo } = this.props
+      playerQueueLoadPriorityItems, userSetInfo } = this.props
     modalsLoginIsLoading(true)
     
     try {
       const authenticatedUserInfo = await login(email, password)
       userSetInfo(authenticatedUserInfo && authenticatedUserInfo.data)
+      playerQueueLoadPriorityItems(authenticatedUserInfo && authenticatedUserInfo.data && authenticatedUserInfo.data.queueItems)
       modalsLoginShow(false)
-      modalsLoginSetErrorResponse(null)
+      modalsLoginSetErrorResponse()
     } catch (error) {
       const errorMsg = (error.response && error.response.data) || internetConnectivityErrorMessage
       modalsLoginSetErrorResponse(errorMsg)
-      userSetInfo(null)
+      userSetInfo({})
     } finally {
       modalsLoginIsLoading(false)
     }
@@ -86,7 +88,7 @@ class Auth extends Component<Props, State> {
     } catch (error) {
       const errorMsg = (error.response && error.response.data) || internetConnectivityErrorMessage
       modalsSignUpSetErrorResponse(errorMsg)
-      userSetInfo(null)
+      userSetInfo({})
     } finally {
       modalsSignUpIsLoading(false)
     }
@@ -136,6 +138,7 @@ const mapDispatchToProps = dispatch => ({
   modalsSignUpIsLoading: bindActionCreators(modalsSignUpIsLoading, dispatch),
   modalsSignUpShow: bindActionCreators(modalsSignUpShow, dispatch),
   modalsSignUpSetErrorResponse: bindActionCreators(modalsSignUpSetErrorResponse, dispatch),
+  playerQueueLoadPriorityItems: bindActionCreators(playerQueueLoadPriorityItems, dispatch),
   userSetInfo: bindActionCreators(userSetInfo, dispatch)
 })
 

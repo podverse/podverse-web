@@ -13,7 +13,7 @@ import { currentPageListItemsLoading, currentPageListItemsLoadingNextPage,
 import { convertToNowPlayingItem } from '~/lib/nowPlayingItem'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { scrollToTopOfView } from '~/lib/scrollToTop';
-import { toggleSubscribeToPodcast } from '~/services';
+import { toggleSubscribeToPodcast, updateUserQueueItems } from '~/services';
 const uuidv4 = require('uuid/v4')
 
 type Props = {
@@ -145,19 +145,35 @@ class MediaContentView extends Component<Props, State> {
     }
   }
 
-  addToQueue(nowPlayingItem, isLast) {
-    const { currentPage, playerQueueLoadPriorityItems } = this.props
+  async addToQueue(nowPlayingItem, isLast) {
+    const { currentPage, playerQueueLoadPriorityItems, user } = this.props
     const { episode, mediaRef } = currentPage
 
-    if (nowPlayingItem && nowPlayingItem.episodeMediaUrl) {
-      addItemToPriorityQueueStorage(nowPlayingItem, isLast)
-    } else if (episode) {
-      addItemToPriorityQueueStorage(convertToNowPlayingItem(episode))
-    } else if (mediaRef) {
-      addItemToPriorityQueueStorage(convertToNowPlayingItem(mediaRef))
+    let priorityItems = []
+    if (user && user.id) {      
+      if (nowPlayingItem && nowPlayingItem.episodeMediaUrl) {
+        isLast ? user.queueItems.push(nowPlayingItem) : user.queueItems.unshift(nowPlayingItem)
+      } else if (episode) {
+        isLast ? user.queueItems.push(convertToNowPlayingItem(episode)) : user.queueItems.unshift(convertToNowPlayingItem(episode))
+      } else if (mediaRef) {
+        isLast ? user.queueItems.push(convertToNowPlayingItem(mediaRef)) : user.queueItems.unshift(convertToNowPlayingItem(mediaRef))
+      }
+
+      const response = await updateUserQueueItems({ queueItems: user.queueItems })
+      
+      priorityItems = response.data || []
+    } else {
+      if (nowPlayingItem && nowPlayingItem.episodeMediaUrl) {
+        addItemToPriorityQueueStorage(nowPlayingItem, isLast)
+      } else if (episode) {
+        addItemToPriorityQueueStorage(convertToNowPlayingItem(episode))
+      } else if (mediaRef) {
+        addItemToPriorityQueueStorage(convertToNowPlayingItem(mediaRef))
+      }
+
+      priorityItems = getPriorityQueueItemsStorage()
     }
 
-    const priorityItems = getPriorityQueueItemsStorage()
     playerQueueLoadPriorityItems(priorityItems)
   }
 
@@ -385,6 +401,7 @@ class MediaContentView extends Component<Props, State> {
       userSetInfo({
         id: user.id,
         playlists: user.playlists,
+        queueItems: user.queueItems,
         subscribedPodcastIds: response.data
       })
     }

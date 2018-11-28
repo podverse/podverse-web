@@ -8,6 +8,7 @@ export default (state = {}, action) => {
         ...state,
         id: action.payload.id,
         playlists: action.payload.playlists,
+        queueItems: action.payload.queueItems,
         subscribedPodcastIds: action.payload.subscribedPodcastIds
       }
     default:

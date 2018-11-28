@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { addItemsToSecondaryQueueStorage, clearItemsFromSecondaryQueueStorage,
-  getSecondaryQueueItemsStorage } from 'podverse-ui'
+import { addItemsToSecondaryQueueStorage, clearItemsFromSecondaryQueueStorage } from 'podverse-ui'
 import MediaContentView from '~/components/MediaContentView/MediaContentView'
 import { getQueryDataForMediaRefPage } from '~/lib/mediaListController'
 import { NowPlayingItem, convertToNowPlayingItem } from '~/lib/nowPlayingItem'

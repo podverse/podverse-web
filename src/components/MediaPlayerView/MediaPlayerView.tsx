@@ -202,10 +202,10 @@ class MediaPlayerView extends Component<Props, State> {
   }
 
   render() {
-    const { handleMakeClip, mediaPlayer, playerQueue } = this.props
+    const { mediaPlayer, playerQueue } = this.props
     const { clipFinished, nowPlayingItem, playedAfterClipFinished, playing } = mediaPlayer
     const { priorityItems, secondaryItems } = playerQueue
-    const { autoplay, makeClipIsLoading, playbackRate } = this.state
+    const { autoplay, playbackRate } = this.state
 
     return (
       <Fragment>
