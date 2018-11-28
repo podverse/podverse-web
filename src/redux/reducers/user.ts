@@ -8,7 +8,7 @@ export default (state = {}, action) => {
         ...state,
         id: action.payload.id,
         playlists: action.payload.playlists,
-        subscribedPodcastids: action.payload.subscribedPodcastIds
+        subscribedPodcastIds: action.payload.subscribedPodcastIds
       }
     default:
       return state

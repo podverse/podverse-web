@@ -9,10 +9,11 @@ import { bindActionCreators } from 'redux';
 import { currentPageListItemsLoading, currentPageListItemsLoadingNextPage, 
   currentPageLoadListItems, currentPageLoadMediaRef, currentPageLoadNowPlayingItem,
   mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying, modalsAddToShow,
-  modalsMakeClipShow, playerQueueLoadPriorityItems } from '~/redux/actions'
+  modalsMakeClipShow, playerQueueLoadPriorityItems, userSetInfo } from '~/redux/actions'
 import { convertToNowPlayingItem } from '~/lib/nowPlayingItem'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { scrollToTopOfView } from '~/lib/scrollToTop';
+import { toggleSubscribeToPodcast } from '~/services';
 const uuidv4 = require('uuid/v4')
 
 type Props = {
@@ -36,10 +37,12 @@ type Props = {
   querySort?: string
   queryType?: string
   user?: any
+  userSetInfo?: any
 }
 
 type State = {
   hasReachedEnd?: boolean
+  isSubscribing?: boolean
   queryFrom?: string
   queryPage: number
   querySort?: string
@@ -71,6 +74,7 @@ class MediaContentView extends Component<Props, State> {
     this.anchorOnClick = this.anchorOnClick.bind(this)
     this.getCurrentPageItem = this.getCurrentPageItem.bind(this)
     this.queryMediaListItems = this.queryMediaListItems.bind(this)
+    this.toggleSubscribe = this.toggleSubscribe.bind(this)
   }
 
   anchorOnClick (event, data, itemType) {
@@ -362,12 +366,56 @@ class MediaContentView extends Component<Props, State> {
     ]
   }
 
+  async toggleSubscribe () {
+    const { currentPage, user, userSetInfo } = this.props
+    const { episode, mediaRef, nowPlayingItem, podcast } = currentPage
+    
+    if (!user || !user.id) {
+      alert('Login to subscribe to podcasts.')
+      return
+    }
+
+    const podcastId = this.getPodcastId(episode, mediaRef, nowPlayingItem, podcast)
+
+    this.setState({ isSubscribing: true })
+    
+    const response = await toggleSubscribeToPodcast(podcastId)
+
+    if (response) {
+      userSetInfo({
+        id: user.id,
+        playlists: user.playlists,
+        subscribedPodcastIds: response.data
+      })
+    }
+
+    this.setState({ isSubscribing: false })
+  }
+
+  getPodcastId (episode, mediaRef, nowPlayingItem, podcast) {
+    let podcastId = ''
+    if (episode) {
+      podcastId = episode.podcast.id
+    } else if (mediaRef) {
+      podcastId = mediaRef.podcastId
+    } else if (nowPlayingItem) {
+      podcastId = nowPlayingItem.podcastId
+    } else if (podcast) {
+      podcastId = podcast.id
+    }
+
+    return podcastId
+  }
+
   render () {
     const { currentPage, user } = this.props
     const { episode, listItems, listItemsLoading, listItemsLoadingNextPage, mediaRef,
       nowPlayingItem, podcast } = currentPage
-    const { id: userId } = user
-    const { hasReachedEnd, queryFrom, queryPage, querySort, queryType } = this.state
+    const { id: userId, subscribedPodcastIds } = user
+    const { hasReachedEnd, isSubscribing, queryFrom, queryPage, querySort,
+      queryType } = this.state
+    
+    const podcastId = this.getPodcastId(episode, mediaRef, nowPlayingItem, podcast)
 
     let mediaListItemType = 'now-playing-item'
     if (queryType === 'episodes') {
@@ -407,6 +455,9 @@ class MediaContentView extends Component<Props, State> {
       <Fragment>
         <MediaHeader
           episode={episode}
+          handleToggleSubscribe={this.toggleSubscribe}
+          isSubscribed={subscribedPodcastIds && subscribedPodcastIds.includes(podcastId)}
+          isSubscribing={isSubscribing}
           mediaRef={mediaRef}
           nowPlayingItem={nowPlayingItem}
           podcast={podcast} />
@@ -486,7 +537,8 @@ const mapDispatchToProps = dispatch => ({
   mediaPlayerUpdatePlaying: bindActionCreators(mediaPlayerUpdatePlaying, dispatch),
   modalsAddToShow: bindActionCreators(modalsAddToShow, dispatch),
   modalsMakeClipShow: bindActionCreators(modalsMakeClipShow, dispatch),
-  playerQueueLoadPriorityItems: bindActionCreators(playerQueueLoadPriorityItems, dispatch)
+  playerQueueLoadPriorityItems: bindActionCreators(playerQueueLoadPriorityItems, dispatch),
+  userSetInfo: bindActionCreators(userSetInfo, dispatch)
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(MediaContentView)
