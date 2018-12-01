@@ -57,11 +57,8 @@ class Clip extends Component<Props, State> {
     store.dispatch(currentPageListItemsLoading(false))
     store.dispatch(currentPageListItemsLoadingNextPage(false))
 
-    // @ts-ignore
-    if (!process.browser) {
-      store.dispatch(playerQueueLoadSecondaryItems(queueSecondaryItems))
-    }
-    
+    store.dispatch(playerQueueLoadSecondaryItems(queueSecondaryItems))
+
     return {}
   }
 
