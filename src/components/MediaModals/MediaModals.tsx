@@ -4,13 +4,14 @@ import { bindActionCreators } from 'redux'
 import { AddToModal, ClipCreatedModal, MakeClipModal, QueueModal, ShareModal,
   addItemToPriorityQueueStorage, updatePriorityQueueStorage, getPriorityQueueItemsStorage
   } from 'podverse-ui'
+import { kPlaybackRate } from '~/lib/constants'
+import { convertToNowPlayingItem } from '~/lib/nowPlayingItem'
 import { currentPageLoadMediaRef, mediaPlayerUpdatePlaying, modalsAddToCreatePlaylistIsSaving,
   modalsAddToCreatePlaylistShow, modalsAddToShow, modalsClipCreatedShow, modalsLoginShow, 
   modalsMakeClipShow, modalsQueueShow, modalsShareShow, modalsMakeClipIsLoading,
   playerQueueLoadItems, playerQueueLoadPriorityItems, userSetInfo } from '~/redux/actions'
-import { addOrRemovePlaylistItem, createPlaylist, updateUserQueueItems } from '~/services'
-import { createMediaRef, updateMediaRef } from '~/services/mediaRef'
-import { convertToNowPlayingItem } from '~/lib/nowPlayingItem'
+import { addOrRemovePlaylistItem, createMediaRef, createPlaylist, updateMediaRef, 
+  updateUserQueueItems } from '~/services'
 
 type Props = {
   currentPage?: any
@@ -103,6 +104,11 @@ class MediaModals extends Component<Props, State> {
     userSetInfo({ queueItems: priorityItems })
   }
 
+  getPlaybackRateValue = () => {
+    const playbackRate = localStorage.getItem(kPlaybackRate)
+    return playbackRate ? JSON.parse(playbackRate) : 1
+  }
+
   hideAddToModal = () => {
     const { modalsAddToShow } = this.props
     modalsAddToShow({})
@@ -131,10 +137,13 @@ class MediaModals extends Component<Props, State> {
   makeClipEndTimePreview = () => {
     const { mediaPlayerUpdatePlaying } = this.props
     mediaPlayerUpdatePlaying(true)
+    
+    const playbackRate = this.getPlaybackRateValue() || 1
+    let timeoutMilliseconds = 3000 / playbackRate
 
     setTimeout(() => {
       mediaPlayerUpdatePlaying(false)
-    }, 3000)
+    }, timeoutMilliseconds)
   }
 
   makeClipStartTimePreview = () => {
@@ -305,10 +314,10 @@ class MediaModals extends Component<Props, State> {
           handleHideModal={this.hideMakeClipModal}
           handleSave={this.makeClipSave}
           handleStartTimePreview={this.makeClipStartTimePreview}
+          initialIsPublic={nowPlayingItem && nowPlayingItem.isPublic}
           isEditing={makeClipIsEditing}
           isLoading={makeClipIsLoading}
           isOpen={makeClipIsOpen}
-          isPublic={true}
           player={typeof window !== 'undefined' && window.player}
           startTime={makeClipStartTime}
           title={makeClipIsEditing ? makeClipNowPlayingItem.clipTitle : ''} />
