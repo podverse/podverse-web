@@ -139,11 +139,7 @@ class MediaContentView extends Component<Props, State> {
       userSetInfo } = this.props
     mediaPlayerLoadNowPlayingItem(nowPlayingItem)
 
-    if (this.isCurrentlyPlayingItem()) {
-      mediaPlayerUpdatePlaying(false)
-    } else {
-      mediaPlayerUpdatePlaying(true)
-    }
+    mediaPlayerUpdatePlaying(true)
 
     if (user && user.id) {
       await addOrUpdateUserHistoryItem(nowPlayingItem)
