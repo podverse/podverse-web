@@ -42,7 +42,6 @@ type Props = {
 }
 
 type State = {
-  hasReachedEnd?: boolean
   isSubscribing?: boolean
   queryFrom?: string
   queryPage: number
@@ -441,11 +440,10 @@ class MediaContentView extends Component<Props, State> {
 
   render () {
     const { currentPage, user } = this.props
-    const { episode, listItems, listItemsLoading, listItemsLoadingNextPage, mediaRef,
-      nowPlayingItem, podcast } = currentPage
+    const { episode, listItems, listItemsEndReached, listItemsLoading,
+      listItemsLoadingNextPage, mediaRef, nowPlayingItem, podcast } = currentPage
     const { id: userId, subscribedPodcastIds } = user
-    const { hasReachedEnd, isSubscribing, queryFrom, queryPage, querySort,
-      queryType } = this.state
+    const { isSubscribing, queryFrom, queryPage, querySort, queryType } = this.state
     
     const podcastId = this.getPodcastId(episode, mediaRef, nowPlayingItem, podcast)
 
@@ -537,19 +535,19 @@ class MediaContentView extends Component<Props, State> {
                 {listItemNodes}
                 <div className='media-list__load-more'>
                   {
-                    hasReachedEnd ?
-                      <div>End of results</div>
+                    listItemsEndReached ?
+                      <p>End of results</p>
                       : <Button
                         className='media-list-load-more__button'
                         isLoading={listItemsLoadingNextPage}
-                        onClick={() => this.queryMediaListItems(null, null, queryPage + 1)}
+                        onClick={() => this.queryMediaListItems('', '', queryPage + 1)}
                         text='Load More' />
                   }
                 </div>
               </Fragment>  
           }
           {
-            (!hasReachedEnd && listItemNodes.length === 0) &&
+            (!listItemsEndReached && listItemNodes.length === 0) &&
               <div>No results found</div>
           }
         </div>

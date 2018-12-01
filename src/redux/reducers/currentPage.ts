@@ -24,7 +24,8 @@ export default (state =  {}, action) => {
     case actionTypes.CURRENT_PAGE_LOAD_LIST_ITEMS:
       return {
         ...state,
-        listItems: action.payload,
+        listItems: action.payload.listItems,
+        listItemsEndReached: action.payload.listItemsEndReached
       }
     case actionTypes.CURRENT_PAGE_LOAD_MEDIA_REF:
       return {

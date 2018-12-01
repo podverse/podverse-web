@@ -50,7 +50,10 @@ class Clip extends Component<Props, State> {
       queueSecondaryItems.push(convertToNowPlayingItem(data))
     }
 
-    store.dispatch(currentPageLoadListItems(queueSecondaryItems))
+    store.dispatch(currentPageLoadListItems({
+      listItems: queueSecondaryItems,
+      listItemsEndReached: queryData && queryData.length === 0
+    }))
     store.dispatch(currentPageListItemsLoading(false))
     store.dispatch(currentPageListItemsLoadingNextPage(false))
 
