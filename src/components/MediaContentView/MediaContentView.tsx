@@ -197,7 +197,7 @@ class MediaContentView extends Component<Props, State> {
     playerQueueLoadPriorityItems(priorityItems)
   }
 
-  toggleAddToModal = () => {
+  toggleAddToModal = (showQueue = true) => {
     const { modals, modalsAddToShow } = this.props
     const { addTo } = modals
     const { isOpen } = addTo
@@ -206,7 +206,7 @@ class MediaContentView extends Component<Props, State> {
     modalsAddToShow({
       isOpen: !isOpen,
       nowPlayingItem: currentPageItem,
-      showQueue: true
+      showQueue
     })
   }
 
@@ -472,6 +472,7 @@ class MediaContentView extends Component<Props, State> {
           handleAddToQueueNext={() => { this.addToQueue(x, false) }}
           handleAnchorOnClick={(e) => { this.anchorOnClick(e, x, 'nowPlayingItem') }}
           handlePlayItem={() => { this.playItem(x) }}
+          handleToggleAddToPlaylist={() => this.toggleAddToModal(false)}
           hasLink={true}
           itemType={mediaListItemType}
           key={`nowPlayingListItem-${uuidv4()}`}
