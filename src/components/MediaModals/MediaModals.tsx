@@ -35,9 +35,10 @@ type Props = {
 }
 
 type State = {
-  autoplay?: boolean
-  makeClipIsLoading?: boolean
-  playbackRate?: number
+  isAddedToPlayLast?: boolean
+  isAddedToPlayNext?: boolean
+  isAddingToPlayLast?: boolean
+  isAddingToPlayNext?: boolean
 }
 
 class MediaModals extends Component<Props, State> {
@@ -45,12 +46,21 @@ class MediaModals extends Component<Props, State> {
   constructor(props) {
     super(props)
     
+    this.state = {}
+
     this.queueDragEnd = this.queueDragEnd.bind(this)
   }
 
   async addToQueue(isLast) {
     const { mediaPlayer, playerQueueLoadPriorityItems, user, userSetInfo } = this.props
     const { nowPlayingItem } = mediaPlayer
+
+    this.setState({
+      isAddedToPlayLast: false,
+      isAddedToPlayNext: false,
+      isAddingToPlayLast: isLast,
+      isAddingToPlayNext: !isLast
+    })
 
     let priorityItems = []
     if (user && user.id) {
@@ -67,6 +77,13 @@ class MediaModals extends Component<Props, State> {
 
     playerQueueLoadPriorityItems(priorityItems)
     userSetInfo({ queueItems: priorityItems })
+
+    this.setState({
+      isAddedToPlayLast: isLast,
+      isAddedToPlayNext: !isLast,
+      isAddingToPlayLast: false,
+      isAddingToPlayNext: false
+    })
   }
 
   async queueDragEnd (priorityItems, secondaryItems) {
@@ -189,6 +206,13 @@ class MediaModals extends Component<Props, State> {
     const { addTo } = modals
     const { nowPlayingItem } = addTo
 
+    this.setState({
+      isAddedToPlayLast: false,
+      isAddedToPlayNext: false,
+      isAddingToPlayLast: false,
+      isAddingToPlayNext: false
+    })
+
     const { id: playlistId } = event.currentTarget.dataset
     
     if (playlistId) {
@@ -248,6 +272,8 @@ class MediaModals extends Component<Props, State> {
     const { clipLinkAs, episodeLinkAs, isOpen: shareIsOpen, podcastLinkAs } = share
     const { priorityItems, secondaryItems } = playerQueue
     const { id, historyItems, playlists } = user
+    const { isAddedToPlayLast, isAddedToPlayNext, isAddingToPlayLast, isAddingToPlayNext
+      } = this.state
 
     let makeClipStartTime = 0
     if (makeClipIsEditing) {
@@ -302,6 +328,10 @@ class MediaModals extends Component<Props, State> {
           handleLoginClick={modalsLoginShow}
           handlePlaylistItemAdd={this.playlistItemAdd}
           handleToggleCreatePlaylist={this.toggleCreatePlaylist}
+          isAddedToPlayLast={isAddedToPlayLast}
+          isAddedToPlayNext={isAddedToPlayNext}
+          isAddingToPlayLast={isAddingToPlayLast}
+          isAddingToPlayNext={isAddingToPlayNext}
           isOpen={addToIsOpen}
           nowPlayingItem={addToNowPlayingItem}
           playlists={playlists}
