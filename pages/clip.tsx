@@ -4,9 +4,10 @@ import { addItemsToSecondaryQueueStorage, clearItemsFromSecondaryQueueStorage } 
 import MediaContentView from '~/components/MediaContentView/MediaContentView'
 import { getQueryDataForMediaRefPage } from '~/lib/mediaListController'
 import { NowPlayingItem, convertToNowPlayingItem } from '~/lib/nowPlayingItem'
-import { currentPageListItemsLoading, currentPageListItemsLoadingNextPage,
-  currentPageLoadListItems, currentPageLoadMediaRef, mediaPlayerLoadNowPlayingItem,
-  playerQueueLoadSecondaryItems  } from '~/redux/actions'
+import { currentPageListItemsLoading,
+  currentPageListItemsLoadingNextPage, currentPageLoadListItems, 
+  currentPageLoadMediaRef, mediaPlayerLoadNowPlayingItem, playerQueueLoadSecondaryItems
+  } from '~/redux/actions'
 import { getMediaRefById } from '~/services/mediaRef'
 
 type Props = {
@@ -19,9 +20,12 @@ type State = {}
 class Clip extends Component<Props, State> {
 
   static async getInitialProps({ query, req, store }) {
+    const state = store.getState()
+    const { currentPage, user } = state
     const mediaRefResult = await getMediaRefById(query.id)
     const mediaRef = mediaRefResult.data
     store.dispatch(currentPageLoadMediaRef(mediaRef))
+
 
     // @ts-ignore
     if (!process.browser) {
@@ -29,9 +33,7 @@ class Clip extends Component<Props, State> {
       store.dispatch(mediaPlayerLoadNowPlayingItem(nowPlayingItem))
     }
 
-    const subscribedPodcastIds = ['XFxLTOM9h-', 'ZuT5bspVRC']
-
-    const queryDataResult = await getQueryDataForMediaRefPage(query, mediaRef, subscribedPodcastIds)
+    const queryDataResult = await getQueryDataForMediaRefPage(query, mediaRef, {})
     const queryData = queryDataResult.data
 
     let queueSecondaryItems: NowPlayingItem[] = []
@@ -40,8 +42,6 @@ class Clip extends Component<Props, State> {
     // the existing ones
     // @ts-ignore
     if (process.browser && query.page && query.page > 1) {
-      const state = store.getState()
-      const { currentPage } = state
       const { listItems } = currentPage
       queueSecondaryItems = listItems
     }

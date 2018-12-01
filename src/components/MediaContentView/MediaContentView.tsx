@@ -13,7 +13,8 @@ import { currentPageListItemsLoading, currentPageListItemsLoadingNextPage,
 import { convertToNowPlayingItem } from '~/lib/nowPlayingItem'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { scrollToTopOfView } from '~/lib/scrollToTop';
-import { toggleSubscribeToPodcast, updateUserQueueItems } from '~/services';
+import { addOrUpdateUserHistoryItem, toggleSubscribeToPodcast, updateUserQueueItems
+  } from '~/services';
 const uuidv4 = require('uuid/v4')
 
 type Props = {
@@ -134,14 +135,33 @@ class MediaContentView extends Component<Props, State> {
     }
   }
 
-  playItem(nowPlayingItem) {
-    const { mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying } = this.props
+  async playItem(nowPlayingItem) {
+    const { mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying, user,
+      userSetInfo } = this.props
     mediaPlayerLoadNowPlayingItem(nowPlayingItem)
 
     if (this.isCurrentlyPlayingItem()) {
       mediaPlayerUpdatePlaying(false)
     } else {
       mediaPlayerUpdatePlaying(true)
+    }
+
+    if (user && user.id) {
+      await addOrUpdateUserHistoryItem(nowPlayingItem)
+
+      const historyItems = user.historyItems.filter(x => {
+        if (x) {
+          if ((x.clipStartTime || x.clipEndTime) && x.clipId !== nowPlayingItem.clipId) {
+            return x
+          } else if (x.episodeId !== nowPlayingItem.episodeId) {
+            return x
+          }
+        }
+      })
+
+      historyItems.push(nowPlayingItem)
+
+      userSetInfo({ historyItems })
     }
   }
 
@@ -398,12 +418,7 @@ class MediaContentView extends Component<Props, State> {
     const response = await toggleSubscribeToPodcast(podcastId)
 
     if (response) {
-      userSetInfo({
-        id: user.id,
-        playlists: user.playlists,
-        queueItems: user.queueItems,
-        subscribedPodcastIds: response.data
-      })
+      userSetInfo({ subscribedPodcastIds: response.data })
     }
 
     this.setState({ isSubscribing: false })

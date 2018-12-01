@@ -1,4 +1,4 @@
-import { actionTypes } from "~/redux/constants";
+import { actionTypes } from "~/redux/constants"
 
 export const mediaPlayerLoadNowPlayingItem = payload => {
   return {

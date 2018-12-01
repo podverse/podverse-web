@@ -63,6 +63,7 @@ class PVNavBar extends Component<Props, State> {
           try {
             await logOut()
             userSetInfo({
+              historyItems: [],
               id: null,
               playlists: [],
               queueItems: [],

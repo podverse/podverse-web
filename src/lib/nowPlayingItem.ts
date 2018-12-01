@@ -14,9 +14,10 @@ export type NowPlayingItem = {
   podcastId?: string
   podcastImageUrl?: string
   podcastTitle?: string
+  userPlaybackPosition?: number
 }
 
-export const convertToNowPlayingItem = (data) => {
+export const convertToNowPlayingItem = (data, userPlaybackPosition = 0) => {
   let nowPlayingItem: NowPlayingItem = {}
 
   if (!data) { return {} }
@@ -32,6 +33,7 @@ export const convertToNowPlayingItem = (data) => {
     nowPlayingItem.podcastImageUrl = data.podcast.imageUrl
     nowPlayingItem.podcastId = data.podcast.id
     nowPlayingItem.podcastTitle = data.podcast.title
+    nowPlayingItem.userPlaybackPosition = userPlaybackPosition || 0
   } else { // Else assume it is a MediaRef
     nowPlayingItem.clipEndTime = data.endTime
     nowPlayingItem.clipId = data.id
@@ -48,6 +50,7 @@ export const convertToNowPlayingItem = (data) => {
     nowPlayingItem.podcastImageUrl = data.episode.podcast.imageUrl
     nowPlayingItem.podcastId = data.episode.podcast.id
     nowPlayingItem.podcastTitle = data.episode.podcast.title
+    nowPlayingItem.userPlaybackPosition = userPlaybackPosition || data.clipStartTime || 0
   }
 
   return nowPlayingItem

@@ -83,12 +83,7 @@ class MediaModals extends Component<Props, State> {
       secondaryItems
     })
 
-    userSetInfo({ 
-      id: user.id,
-      playlists: user.playlists,
-      queueItems: priorityItems,
-      subscribedPodcastIds: user.subscribedPodcastIds
-    })
+    userSetInfo({ queueItems: priorityItems })
   }
 
   hideAddToModal = () => {
@@ -204,7 +199,6 @@ class MediaModals extends Component<Props, State> {
 
       if (res && res.data) {
         userSetInfo({
-          ...user,
           playlists: user.playlists.map(x => {
             if (x.id === playlistId) {
               x.itemCount = res.data.playlistItemCount
@@ -222,12 +216,7 @@ class MediaModals extends Component<Props, State> {
     modalsAddToCreatePlaylistIsSaving(true)
     const result = await createPlaylist({ title })
     user.playlists.unshift(result.data)
-    userSetInfo({
-      id: user.id,
-      playlists: user.playlists,
-      queueItems: user.queueItems,
-      subscribedPodcastIds: user.subscribedPodcastIds
-    })
+    userSetInfo({ playlists: user.playlists })
     modalsAddToCreatePlaylistIsSaving(false)
     modalsAddToCreatePlaylistShow(false)
   }
@@ -258,7 +247,7 @@ class MediaModals extends Component<Props, State> {
     const { isOpen: queueIsOpen } = queue
     const { clipLinkAs, episodeLinkAs, isOpen: shareIsOpen, podcastLinkAs } = share
     const { priorityItems, secondaryItems } = playerQueue
-    const { id, playlists } = user
+    const { id, historyItems, playlists } = user
 
     let makeClipStartTime = 0
     if (makeClipIsEditing) {
@@ -277,6 +266,8 @@ class MediaModals extends Component<Props, State> {
         <QueueModal
           // handleAnchorOnClick={this.queueItemClick}
           handleHideModal={this.hideQueueModal}
+          historyItems={historyItems}
+          isLoggedIn={user && !!user.id}
           isOpen={queueIsOpen}
           nowPlayingItem={nowPlayingItem}
           handleDragEnd={this.queueDragEnd}

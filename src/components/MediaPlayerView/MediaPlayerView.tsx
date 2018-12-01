@@ -1,8 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { MediaPlayer, addItemToPriorityQueueStorage,
-  getPriorityQueueItemsStorage, getSecondaryQueueItemsStorage,
+import { MediaPlayer, getPriorityQueueItemsStorage, getSecondaryQueueItemsStorage,
   popNextFromQueueStorage } from 'podverse-ui'
 import { kAutoplay, kPlaybackRate, getPlaybackRateText, getPlaybackRateNextValue
   } from '~/lib/constants'
@@ -11,7 +10,8 @@ import { currentPageLoadNowPlayingItem, mediaPlayerLoadNowPlayingItem,
   mediaPlayerSetClipFinished, mediaPlayerSetPlayedAfterClipFinished,
   playerQueueLoadPriorityItems, playerQueueLoadSecondaryItems,
   mediaPlayerUpdatePlaying, modalsAddToShow, modalsMakeClipShow,
-  modalsQueueShow, modalsShareShow } from '~/redux/actions'
+  modalsQueueShow, modalsShareShow, userSetInfo } from '~/redux/actions'
+import { addOrUpdateUserHistoryItem } from '~/services'
 
 type Props = {
   currentPageLoadNowPlayingItem?: any
@@ -29,6 +29,8 @@ type Props = {
   playerQueue?: any
   playerQueueLoadPriorityItems?: any
   playerQueueLoadSecondaryItems?: any
+  user?: any
+  userSetInfo?: any
 }
 
 type State = {
@@ -94,16 +96,35 @@ class MediaPlayerView extends Component<Props, State> {
     scrollToTopOfView()
   }
 
-  itemSkip = () => {
+  itemSkip = async () => {
     const { mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying,
-      playerQueueLoadPriorityItems, playerQueueLoadSecondaryItems } = this.props
+      playerQueueLoadPriorityItems, playerQueueLoadSecondaryItems, user,
+      userSetInfo } = this.props
 
     const result = popNextFromQueueStorage()
     const priorityQueueItems = getPriorityQueueItemsStorage()
     const secondaryQueueItems = getSecondaryQueueItemsStorage()
 
     if (result.nextItem) {
-      mediaPlayerLoadNowPlayingItem(result.nextItem)
+      const { nextItem } = result
+      mediaPlayerLoadNowPlayingItem(nextItem)
+
+      if (user && user.id) {
+        await addOrUpdateUserHistoryItem(nextItem)
+        const historyItems = user.historyItems.filter(x => {
+          if (x) {
+            if ((x.clipStartTime || x.clipEndTime) && x.clipId !== nextItem.clipId) {
+              return x
+            } else if (x.episodeId !== nextItem.episodeId) {
+              return x
+            }
+          }
+        })
+
+        historyItems.push(nextItem)
+
+        userSetInfo({ historyItems })
+      }
     }
 
     playerQueueLoadPriorityItems(priorityQueueItems)
@@ -115,7 +136,7 @@ class MediaPlayerView extends Component<Props, State> {
     const { autoplay } = this.state
 
     if (autoplay) {
-      this.handleItemSkip()
+      this.itemSkip()
     } else {
       this.props.mediaPlayerUpdatePlaying(false)
     }
@@ -170,10 +191,12 @@ class MediaPlayerView extends Component<Props, State> {
     })
   }
 
-  togglePlay = () => {
+  togglePlay = async () => {
     const { mediaPlayer, mediaPlayerUpdatePlaying } = this.props
     const { playing } = mediaPlayer
     mediaPlayerUpdatePlaying(!playing)
+
+    await addOrUpdateUserHistoryItem(mediaPlayer.nowPlayingItem)
   }
 
   toggleQueueModal = () => {
@@ -264,7 +287,8 @@ const mapDispatchToProps = dispatch => ({
   modalsQueueShow: bindActionCreators(modalsQueueShow, dispatch),
   modalsShareShow: bindActionCreators(modalsShareShow, dispatch),
   playerQueueLoadPriorityItems: bindActionCreators(playerQueueLoadPriorityItems, dispatch),
-  playerQueueLoadSecondaryItems: bindActionCreators(playerQueueLoadSecondaryItems, dispatch)
+  playerQueueLoadSecondaryItems: bindActionCreators(playerQueueLoadSecondaryItems, dispatch),
+  userSetInfo: bindActionCreators(userSetInfo, dispatch)
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(MediaPlayerView)

@@ -4,12 +4,16 @@ export default (state = {}, action) => {
 
   switch (action.type) {
     case actionTypes.USER_SET_INFO:
+      const { historyItems, id, playlists, queueItems, subscribedPodcastIds }
+        = action.payload
+
       return {
         ...state,
-        id: action.payload.id,
-        playlists: action.payload.playlists,
-        queueItems: action.payload.queueItems,
-        subscribedPodcastIds: action.payload.subscribedPodcastIds
+        ...(historyItems ? { historyItems } : {}),
+        ...(id || id === null ? { id } : {}),
+        ...(playlists ? { playlists } : {}),
+        ...(queueItems ? { queueItems } : {}),
+        ...(subscribedPodcastIds ? { subscribedPodcastIds } : {})
       }
     default:
       return state

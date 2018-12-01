@@ -73,6 +73,7 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
             ctx.store.dispatch({
               type: actionTypes.USER_SET_INFO,
               payload: {
+                historyItems: userInfo.data.historyItems,
                 id: userInfo.data.id,
                 playlists: userInfo.data.playlists,
                 queueItems: userInfo.data.queueItems,

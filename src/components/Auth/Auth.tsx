@@ -69,7 +69,13 @@ class Auth extends Component<Props, State> {
     } catch (error) {
       const errorMsg = (error.response && error.response.data) || internetConnectivityErrorMessage
       modalsLoginSetErrorResponse(errorMsg)
-      userSetInfo({})
+      userSetInfo({
+        historyItems: [],
+        id: null,
+        playlists: [],
+        queueItems: [],
+        subscribedPodcastIds: []
+      })
     } finally {
       modalsLoginIsLoading(false)
     }
@@ -88,7 +94,13 @@ class Auth extends Component<Props, State> {
     } catch (error) {
       const errorMsg = (error.response && error.response.data) || internetConnectivityErrorMessage
       modalsSignUpSetErrorResponse(errorMsg)
-      userSetInfo({})
+      userSetInfo({
+        historyItems: [],
+        id: null,
+        playlists: [],
+        queueItems: [],
+        subscribedPodcastIds: []
+      })
     } finally {
       modalsSignUpIsLoading(false)
     }
