@@ -68,7 +68,7 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
       if (parsedCookie.Authorization) {
         try {
           const userInfo = await getAuthenticatedUserInfo(parsedCookie.Authorization)
-          
+
           if (userInfo && userInfo.data) {
             ctx.store.dispatch({
               type: actionTypes.USER_SET_INFO,
@@ -95,8 +95,15 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
 
   async componentDidMount() {
     const { store } = this.props
-    const priorityItems = getPriorityQueueItemsStorage()
-    store.dispatch(playerQueueLoadPriorityItems(priorityItems))
+    const state = store.getState()
+    const { user } = state
+  
+    if (user && user.queueItems) {
+      store.dispatch(playerQueueLoadPriorityItems(user.queueItems))
+    } else {
+      const priorityItems = getPriorityQueueItemsStorage()
+      store.dispatch(playerQueueLoadPriorityItems(priorityItems))
+    }
   }
 
   render() {

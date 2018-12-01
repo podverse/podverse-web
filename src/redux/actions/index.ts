@@ -3,7 +3,7 @@ export { currentPageLoadEpisode, currentPageLoadListItems, currentPageLoadMediaR
   currentPageLoadNowPlayingItem, currentPageLoadPodcast } from '~/redux/actions/currentPage'
 export { mediaPlayerLoadNowPlayingItem,mediaPlayerSetClipFinished,
   mediaPlayerSetPlayedAfterClipFinished, mediaPlayerUpdatePlaying } from '~/redux/actions/mediaPlayer'
-export { playerQueueLoadPriorityItems, playerQueueLoadSecondaryItems
+export { playerQueueLoadItems, playerQueueLoadPriorityItems, playerQueueLoadSecondaryItems
   } from '~/redux/actions/playerQueue'
 export { modalsAddToIsLoading, modalsAddToSetErrorResponse, modalsAddToShow,
   modalsAddToCreatePlaylistIsSaving, modalsAddToCreatePlaylistShow, modalsClipCreatedShow,

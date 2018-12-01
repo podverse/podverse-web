@@ -12,8 +12,6 @@ import { getMediaRefById } from '~/services/mediaRef'
 type Props = {
   currentPage?: any
   playerQueue?: any
-  playerQueueLoadPrimaryItems?: any
-  playerQueueLoadSecondaryItems?: any
 }
 
 type State = {}

@@ -2,12 +2,12 @@ import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { AddToModal, ClipCreatedModal, MakeClipModal, QueueModal, ShareModal,
-  addItemToPriorityQueueStorage, getPriorityQueueItemsStorage
+  addItemToPriorityQueueStorage, updatePriorityQueueStorage, getPriorityQueueItemsStorage
   } from 'podverse-ui'
 import { currentPageLoadMediaRef, mediaPlayerUpdatePlaying, modalsAddToCreatePlaylistIsSaving,
   modalsAddToCreatePlaylistShow, modalsAddToShow, modalsClipCreatedShow, modalsLoginShow, 
   modalsMakeClipShow, modalsQueueShow, modalsShareShow, modalsMakeClipIsLoading,
-  playerQueueLoadPriorityItems, userSetInfo } from '~/redux/actions'
+  playerQueueLoadItems, playerQueueLoadPriorityItems, userSetInfo } from '~/redux/actions'
 import { addOrRemovePlaylistItem, createPlaylist, updateUserQueueItems } from '~/services'
 import { createMediaRef, updateMediaRef } from '~/services/mediaRef'
 import { convertToNowPlayingItem } from '~/lib/nowPlayingItem'
@@ -28,6 +28,7 @@ type Props = {
   modalsQueueShow?: any
   modalsShareShow?: any
   playerQueue?: any
+  playerQueueLoadItems?: any
   playerQueueLoadPriorityItems?: any
   user?: any
   userSetInfo?: any
@@ -41,8 +42,14 @@ type State = {
 
 class MediaModals extends Component<Props, State> {
 
+  constructor(props) {
+    super(props)
+    
+    this.queueDragEnd = this.queueDragEnd.bind(this)
+  }
+
   async addToQueue(isLast) {
-    const { mediaPlayer, playerQueueLoadPriorityItems, user } = this.props
+    const { mediaPlayer, playerQueueLoadPriorityItems, user, userSetInfo } = this.props
     const { nowPlayingItem } = mediaPlayer
 
     let priorityItems = []
@@ -59,6 +66,29 @@ class MediaModals extends Component<Props, State> {
     }
 
     playerQueueLoadPriorityItems(priorityItems)
+    userSetInfo({ queueItems: priorityItems })
+  }
+
+  async queueDragEnd (priorityItems, secondaryItems) {
+    const { playerQueueLoadItems, user, userSetInfo } = this.props
+
+    if (user && user.id) {
+      await updateUserQueueItems({ queueItems: priorityItems })
+    } else {
+      updatePriorityQueueStorage(priorityItems)
+    }
+
+    playerQueueLoadItems({
+      priorityItems,
+      secondaryItems
+    })
+
+    userSetInfo({ 
+      id: user.id,
+      playlists: user.playlists,
+      queueItems: priorityItems,
+      subscribedPodcastIds: user.subscribedPodcastIds
+    })
   }
 
   hideAddToModal = () => {
@@ -215,10 +245,6 @@ class MediaModals extends Component<Props, State> {
     modalsAddToCreatePlaylistShow(false)
   }
 
-  queueItemClick = () => {
-    // alert('queue item clicked')
-  }
-
   render() {
     const { mediaPlayer, modals, modalsLoginShow, playerQueue, user } = this.props
     const { nowPlayingItem } = mediaPlayer
@@ -230,8 +256,7 @@ class MediaModals extends Component<Props, State> {
     const { isEditing: makeClipIsEditing, isLoading: makeClipIsLoading,
       isOpen: makeClipIsOpen, nowPlayingItem: makeClipNowPlayingItem } = makeClip
     const { isOpen: queueIsOpen } = queue
-    const { clipLinkAs, episodeLinkAs, isOpen: shareIsOpen, podcastLinkAs 
-      } = share
+    const { clipLinkAs, episodeLinkAs, isOpen: shareIsOpen, podcastLinkAs } = share
     const { priorityItems, secondaryItems } = playerQueue
     const { id, playlists } = user
 
@@ -250,10 +275,11 @@ class MediaModals extends Component<Props, State> {
     return (
       <Fragment>
         <QueueModal
-          handleAnchorOnClick={this.queueItemClick}
+          // handleAnchorOnClick={this.queueItemClick}
           handleHideModal={this.hideQueueModal}
           isOpen={queueIsOpen}
           nowPlayingItem={nowPlayingItem}
+          handleDragEnd={this.queueDragEnd}
           priorityItems={priorityItems}
           secondaryItems={secondaryItems} />
         <MakeClipModal
@@ -315,6 +341,7 @@ const mapDispatchToProps = dispatch => ({
   modalsMakeClipShow: bindActionCreators(modalsMakeClipShow, dispatch),
   modalsQueueShow: bindActionCreators(modalsQueueShow, dispatch),
   modalsShareShow: bindActionCreators(modalsShareShow, dispatch),
+  playerQueueLoadItems: bindActionCreators(playerQueueLoadItems, dispatch),
   playerQueueLoadPriorityItems: bindActionCreators(playerQueueLoadPriorityItems, dispatch),
   userSetInfo: bindActionCreators(userSetInfo, dispatch)
 })
