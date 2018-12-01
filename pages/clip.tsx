@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { addItemsToSecondaryQueueStorage, clearItemsFromSecondaryQueueStorage } from 'podverse-ui'
 import MediaContentView from '~/components/MediaContentView/MediaContentView'
-import { getQueryDataForMediaRefPage } from '~/lib/mediaListController'
+import { getQueryDataForClipPage } from '~/lib/mediaListController'
 import { NowPlayingItem, convertToNowPlayingItem } from '~/lib/nowPlayingItem'
 import { currentPageListItemsLoading,
   currentPageListItemsLoadingNextPage, currentPageLoadListItems, 
@@ -33,7 +33,7 @@ class Clip extends Component<Props, State> {
       store.dispatch(mediaPlayerLoadNowPlayingItem(nowPlayingItem))
     }
 
-    const queryDataResult = await getQueryDataForMediaRefPage(query, mediaRef, {})
+    const queryDataResult = await getQueryDataForClipPage(query, mediaRef, user.subscribedPodcastIds)
     const queryData = queryDataResult.data
 
     let queueSecondaryItems: NowPlayingItem[] = []

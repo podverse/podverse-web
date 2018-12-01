@@ -1,10 +1,6 @@
 import { getEpisodesByQuery, getMediaRefsByQuery } from '~/services/'
 
-export const getQueryDataForEpisodePage = async (query, episode, subscribedPodcastIds) => {
-
-}
-
-export const getQueryDataForMediaRefPage = async (query, mediaRef, subscribedPodcastIds) => {
+export const getQueryDataForClipPage = async (query, mediaRef, subscribedPodcastIds) => {
   let mediaListQuery: any = {}
 
   if (query.sort) {
@@ -41,6 +37,10 @@ export const getQueryDataForMediaRefPage = async (query, mediaRef, subscribedPod
 
     return await getMediaRefsByQuery(mediaListQuery)
   }
+}
+
+export const getQueryDataForEpisodePage = async (query, episode, subscribedPodcastIds) => {
+
 }
 
 export const getQueryDataForPodcastPage = async (query, podcast, subscribedPodcastIds) => {
