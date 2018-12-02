@@ -160,6 +160,11 @@ class MediaContentView extends Component<Props, State> {
     }
   }
 
+  pauseItem() {
+    const { mediaPlayerUpdatePlaying } = this.props
+    mediaPlayerUpdatePlaying(false)
+  }
+
   async addToQueue(nowPlayingItem, isLast) {
     const { currentPage, playerQueueLoadPriorityItems, user } = this.props
     const { episode, mediaRef } = currentPage

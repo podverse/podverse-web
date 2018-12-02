@@ -39,8 +39,7 @@ class Clip extends Component<Props, State> {
 
     let queueSecondaryItems: NowPlayingItem[] = []
 
-    // If beyond the first page and browser-side, concat new secondaryItems with
-    // the existing ones
+    // Only keep the currentPage.listItems if beyond the first page query
     // @ts-ignore
     if (process.browser && query.page && query.page > 1) {
       const { listItems } = currentPage
