@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { MediaPlayer } from 'podverse-ui'
+import { MediaPlayer, popNextFromQueueStorage } from 'podverse-ui'
 import { kAutoplay, kPlaybackRate, getPlaybackRateText, getPlaybackRateNextValue
   } from '~/lib/constants'
 import { scrollToTopOfView } from '~/lib/scrollToTop'
@@ -122,6 +122,8 @@ class MediaPlayerView extends Component<Props, State> {
         nextItem = playerQueue.secondaryItems.splice(0, 1)[0]
         secondaryItems = playerQueue.secondaryItems
       }
+      
+      popNextFromQueueStorage()
     }
 
     if (nextItem) {

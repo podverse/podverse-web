@@ -9,6 +9,7 @@ import { currentPageListItemsLoading,
   currentPageLoadMediaRef, mediaPlayerLoadNowPlayingItem, playerQueueLoadSecondaryItems
   } from '~/redux/actions'
 import { getMediaRefById } from '~/services/mediaRef'
+import { clone } from '~/lib/utility'
 
 type Props = {
   currentPage?: any
@@ -57,7 +58,7 @@ class Clip extends Component<Props, State> {
     store.dispatch(currentPageListItemsLoading(false))
     store.dispatch(currentPageListItemsLoadingNextPage(false))
 
-    store.dispatch(playerQueueLoadSecondaryItems(queueSecondaryItems))
+    store.dispatch(playerQueueLoadSecondaryItems(clone(queueSecondaryItems)))
 
     return {}
   }
