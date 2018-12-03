@@ -111,6 +111,26 @@ export const getQueryDataForHomePage = async (query, subscribedPodcastIds) => {
   }
 }
 
-export const getQueryDataForPodcastPage = async (query, podcast, subscribedPodcastIds) => {
+export const getQueryDataForPodcastPage = async (query, podcastId) => {
+  let filteredQuery: any = {}
 
+  if (query.sort) {
+    filteredQuery.sort = query.sort
+  } else {
+    filteredQuery.sort = 'top-past-week'
+  }
+
+  if (query.page) {
+    filteredQuery.page = query.page
+  } else {
+    filteredQuery.page = 1
+  }
+
+  filteredQuery.podcastId = podcastId
+
+  if (query.type === 'episodes') {
+    return await getEpisodesByQuery(filteredQuery)
+  } else { // type = clips
+    return await getMediaRefsByQuery(filteredQuery)
+  }
 }

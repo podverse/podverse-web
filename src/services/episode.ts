@@ -12,7 +12,7 @@ export const getEpisodesByQuery = async (query: EpisodeQuery) => {
 
 type EpisodeQuery = {
   authors?: any[]
-  categoryId?: string
+  category?: string
   categories?: any[]
   description?: string
   duration?: number
@@ -27,5 +27,8 @@ type EpisodeQuery = {
   mediaRefs?: any[]
   podcastId?: string
   pubDate?: string
+  skip?: number
+  sort?: string
+  take?: number
   title?: string
 }

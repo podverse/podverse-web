@@ -481,9 +481,6 @@ class MediaContentView extends Component<Props, State> {
       }
     }
 
-    const currentPageHasItem = !!episode || !!mediaRef || !!nowPlayingItem || !!podcast
-    const isLoggedIn = user && !!user.id
-
     const listItemNodes = listItems.map(x => {
       return (
         <MediaListItem
@@ -499,6 +496,10 @@ class MediaContentView extends Component<Props, State> {
           showMoreMenu={true} />
       )
     })
+
+    const currentPageHasItem = !!episode || !!mediaRef || !!nowPlayingItem || !!podcast
+    const isLoggedIn = user && !!user.id
+    const showSelectFrom = !podcast
 
     const selectedQueryTypeOption = this.getQueryTypeOptions().filter(x => x.value === queryType)
     const selectedQueryFromOption = this.getQueryFromOptions(queryType, currentPageHasItem, isLoggedIn).filter(x => x.value === queryFrom)
@@ -538,9 +539,12 @@ class MediaContentView extends Component<Props, State> {
               <MediaListSelect
                 items={this.getQueryTypeOptions()}
                 selected={selectedQueryTypeOption.length > 0 ? selectedQueryTypeOption[0].value : null} />
-              <MediaListSelect
-                items={this.getQueryFromOptions(queryType, currentPageHasItem, isLoggedIn)}
-                selected={selectedQueryFromOption.length > 0 ? selectedQueryFromOption[0].value : null} />
+              {
+                showSelectFrom &&
+                  <MediaListSelect
+                    items={this.getQueryFromOptions(queryType, currentPageHasItem, isLoggedIn)}
+                    selected={selectedQueryFromOption.length > 0 ? selectedQueryFromOption[0].value : null} />
+              }
             </div>
             <div className='media-list-selects__right'>
               <MediaListSelect
