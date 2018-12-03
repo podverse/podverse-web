@@ -73,6 +73,7 @@ class MediaContentView extends Component<Props, State> {
 
     this.anchorOnClick = this.anchorOnClick.bind(this)
     this.getCurrentPageItem = this.getCurrentPageItem.bind(this)
+    this.pauseItem = this.pauseItem.bind(this)
     this.queryMediaListItems = this.queryMediaListItems.bind(this)
     this.toggleSubscribe = this.toggleSubscribe.bind(this)
   }
@@ -271,7 +272,7 @@ class MediaContentView extends Component<Props, State> {
       pageType = 'podcast'
     }
 
-    return { pageType, pageId }
+    return { pageId, pageType }
   }
 
   queryMediaListItems(selectedKey = '', selectedValue = '', page = 1) {
@@ -309,9 +310,15 @@ class MediaContentView extends Component<Props, State> {
     this.setState(newState)
 
     const { pageId, pageType } = this.getPageTypeAndId()
-    const href = `/${pageType}?id=${pageId}&type=${query.type}&from=${query.from}&sort=${query.sort}&page=${query.page}`
-    const as = `/${pageType}/${pageId}`
-    Router.push(href, as)
+    if (pageId && pageType) {
+      const href = `/${pageType}?id=${pageId}&type=${query.type}&from=${query.from}&sort=${query.sort}&page=${query.page}`
+      const as = `/${pageType}/${pageId}`
+      Router.push(href, as)
+    } else {
+      const href = `/?&type=${query.type}&from=${query.from}&sort=${query.sort}&page=${query.page}`
+      const as = `/`
+      Router.push(href, as)   
+    }
   }
 
   getQueryTypeOptions() {
@@ -329,7 +336,7 @@ class MediaContentView extends Component<Props, State> {
     ]
   }
 
-  getQueryFromOptions(type) {
+  getQueryFromOptions(type, currentPageHasItem, isLoggedIn) {
 
     const options = [
       {
@@ -339,17 +346,28 @@ class MediaContentView extends Component<Props, State> {
       },
       {
         label: 'Subscribed only',
-        onClick: () => this.queryMediaListItems('from', 'subscribed-only'),
+        onClick: () => {
+          if (isLoggedIn) {
+            this.queryMediaListItems('from', 'subscribed-only')
+          } else {
+            alert('Login to filter clips and episodes by your subscribed podcasts.')
+          }
+        },
         value: 'subscribed-only'
-      },
-      {
-        label: 'From this podcast',
-        onClick: () => this.queryMediaListItems('from', 'from-podcast'),
-        value: 'from-podcast'
       }
     ]
 
-    if (type === 'clips') {
+    if (currentPageHasItem) {
+      options.push(
+        {
+          label: 'From this podcast',
+          onClick: () => this.queryMediaListItems('from', 'from-podcast'),
+          value: 'from-podcast'
+        }
+      )
+    }
+
+    if (type === 'clips' && currentPageHasItem) {
       options.push(
         {
           label: 'From this episode',
@@ -463,6 +481,9 @@ class MediaContentView extends Component<Props, State> {
       }
     }
 
+    const currentPageHasItem = !!episode || !!mediaRef || !!nowPlayingItem || !!podcast
+    const isLoggedIn = user && !!user.id
+
     const listItemNodes = listItems.map(x => {
       return (
         <MediaListItem
@@ -480,39 +501,45 @@ class MediaContentView extends Component<Props, State> {
     })
 
     const selectedQueryTypeOption = this.getQueryTypeOptions().filter(x => x.value === queryType)
-    const selectedQueryFromOption = this.getQueryFromOptions(queryType).filter(x => x.value === queryFrom)
+    const selectedQueryFromOption = this.getQueryFromOptions(queryType, currentPageHasItem, isLoggedIn).filter(x => x.value === queryFrom)
     const selectedQuerySortOption = this.getQuerySortOptions().filter(x => x.value === querySort)
 
     return (
       <Fragment>
-        <MediaHeader
-          episode={episode}
-          handleToggleSubscribe={this.toggleSubscribe}
-          isSubscribed={subscribedPodcastIds && subscribedPodcastIds.includes(podcastId)}
-          isSubscribing={isSubscribing}
-          mediaRef={mediaRef}
-          nowPlayingItem={nowPlayingItem}
-          podcast={podcast} />
-        <MediaInfo
-          episode={episode}
-          handleAddToQueueLast={() => this.addToQueue(null, true)}
-          handleAddToQueueNext={() => this.addToQueue(null, false)}
-          handlePlayItem={() => this.playItem(this.getCurrentPageItem())}
-          handleToggleAddToModal={this.toggleAddToModal}
-          handleToggleMakeClipModal={this.toggleMakeClipModal}
-          loggedInUserId={userId}
-          mediaRef={mediaRef}
-          nowPlayingItem={nowPlayingItem}
-          playing={this.isCurrentlyPlayingItem()}
-          podcast={podcast} />
-        <div className='media-list'>
+        {
+          currentPageHasItem &&
+            <Fragment>
+              <MediaHeader
+                episode={episode}
+                handleToggleSubscribe={this.toggleSubscribe}
+                isSubscribed={subscribedPodcastIds && subscribedPodcastIds.includes(podcastId)}
+                isSubscribing={isSubscribing}
+                mediaRef={mediaRef}
+                nowPlayingItem={nowPlayingItem}
+                podcast={podcast} />
+              <MediaInfo
+                episode={episode}
+                handleAddToQueueLast={() => this.addToQueue(null, true)}
+                handleAddToQueueNext={() => this.addToQueue(null, false)}
+                handlePauseItem={this.pauseItem}
+                handlePlayItem={() => this.playItem(this.getCurrentPageItem())}
+                handleToggleAddToModal={this.toggleAddToModal}
+                handleToggleMakeClipModal={this.toggleMakeClipModal}
+                loggedInUserId={userId}
+                mediaRef={mediaRef}
+                nowPlayingItem={nowPlayingItem}
+                playing={this.isCurrentlyPlayingItem()}
+                podcast={podcast} />
+            </Fragment>
+        }
+        <div className={`media-list ${currentPageHasItem ? '' : 'adjust-top-position'}`}>
           <div className='media-list__selects'>
             <div className='media-list-selects__left'>
               <MediaListSelect
                 items={this.getQueryTypeOptions()}
                 selected={selectedQueryTypeOption.length > 0 ? selectedQueryTypeOption[0].value : null} />
               <MediaListSelect
-                items={this.getQueryFromOptions(queryType)}
+                items={this.getQueryFromOptions(queryType, currentPageHasItem, isLoggedIn)}
                 selected={selectedQueryFromOption.length > 0 ? selectedQueryFromOption[0].value : null} />
             </div>
             <div className='media-list-selects__right'>

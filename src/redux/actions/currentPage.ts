@@ -1,5 +1,11 @@
 import { actionTypes } from "~/redux/constants";
 
+export const currentPageClearItem = () => {
+  return {
+    type: actionTypes.CURRENT_PAGE_CLEAR_ITEM
+  }
+}
+
 export const currentPageLoadEpisode = payload => {
   return {
     type: actionTypes.CURRENT_PAGE_LOAD_EPISODE,

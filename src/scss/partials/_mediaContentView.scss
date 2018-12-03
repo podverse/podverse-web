@@ -1,6 +1,10 @@
 .media-list {
   padding: 0.75rem 0;
 
+  &.adjust-top-position {
+    margin-top: -1.25rem;
+  }
+
   .media-list__load-more {
     text-align: center;
 

@@ -1,5 +1,5 @@
-export { currentPageLoadEpisode, currentPageLoadListItems, currentPageLoadMediaRef, 
-  currentPageListItemsLoading, currentPageListItemsLoadingNextPage, 
+export { currentPageClearItem, currentPageLoadEpisode, currentPageLoadListItems,
+  currentPageLoadMediaRef, currentPageListItemsLoading, currentPageListItemsLoadingNextPage, 
   currentPageLoadNowPlayingItem, currentPageLoadPodcast } from '~/redux/actions/currentPage'
 export { mediaPlayerLoadNowPlayingItem,mediaPlayerSetClipFinished,
   mediaPlayerSetPlayedAfterClipFinished, mediaPlayerUpdatePlaying } from '~/redux/actions/mediaPlayer'

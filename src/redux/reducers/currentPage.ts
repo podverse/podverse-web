@@ -3,6 +3,14 @@ import { actionTypes } from '~/redux/constants'
 export default (state =  {}, action) => {
 
   switch (action.type) {
+    case actionTypes.CURRENT_PAGE_CLEAR_ITEM:
+      return {
+        ...state,
+        episode: null,
+        mediaRef: null,
+        nowPlayingItem: null,
+        podcast: null
+      }
     case actionTypes.CURRENT_PAGE_LOAD_EPISODE:
       return {
         ...state,
