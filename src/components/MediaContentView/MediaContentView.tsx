@@ -12,7 +12,6 @@ import { currentPageListItemsLoading, currentPageListItemsLoadingNextPage,
   modalsMakeClipShow, playerQueueLoadPriorityItems, userSetInfo } from '~/redux/actions'
 import { convertToNowPlayingItem } from '~/lib/nowPlayingItem'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { scrollToTopOfView } from '~/lib/scrollToTop';
 import { addOrUpdateUserHistoryItem, toggleSubscribeToPodcast, updateUserQueueItems
   } from '~/services';
 const uuidv4 = require('uuid/v4')
@@ -113,13 +112,12 @@ class MediaContentView extends Component<Props, State> {
       type: queryType
     }
 
-    const href = `/${pageName}?id=${id}&type=${query.type}&from=${query.from}&sort=${query.sort}&page=${query.page}`
+    const href = `/${pageName}?id=${id}&type=${query.type}&from=${query.from}&sort=${query.sort}&page=${query.page}&scrollToTop=true`
     const as = `${event.currentTarget.href}`
     Router.push(href, as)
 
     currentPageListItemsLoading(true)
     this.setState({ queryPage: 1 })
-    scrollToTopOfView()
   }
 
   getCurrentPageItem = () => {

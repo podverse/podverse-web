@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { addItemsToSecondaryQueueStorage, clearItemsFromSecondaryQueueStorage } from 'podverse-ui'
 import MediaContentView from '~/components/MediaContentView/MediaContentView'
 import { getQueryDataForPodcastPage } from '~/lib/mediaListController'
+import { convertToNowPlayingItem } from '~/lib/nowPlayingItem'
 import { currentPageListItemsLoading, currentPageListItemsLoadingNextPage, currentPageLoadListItems,
   currentPageLoadPodcast, playerQueueLoadSecondaryItems } from '~/redux/actions'
 import { getPodcastById } from '~/services/podcast'
@@ -19,7 +20,7 @@ class Podcast extends Component<Props, State> {
 
   static async getInitialProps({ query, req, store }) {
     const state = store.getState()
-    const { currentPage, user } = state
+    const { currentPage } = state
     const podcastResult = await getPodcastById(query.id)
     const podcast = podcastResult.data
     store.dispatch(currentPageLoadPodcast(podcast))
@@ -36,7 +37,7 @@ class Podcast extends Component<Props, State> {
     }
 
     for (const data of newData) {
-      combinedData.push(data)
+      combinedData.push(convertToNowPlayingItem(data))
     }
 
     store.dispatch(currentPageLoadListItems({

@@ -126,7 +126,9 @@ export const getQueryDataForPodcastPage = async (query, podcastId) => {
     filteredQuery.page = 1
   }
 
-  filteredQuery.podcastId = podcastId
+  if (query.from === 'from-this-podcast') {
+    filteredQuery.podcastId = podcastId
+  }
 
   if (query.type === 'episodes') {
     return await getEpisodesByQuery(filteredQuery)

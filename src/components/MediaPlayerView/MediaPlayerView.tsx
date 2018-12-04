@@ -4,7 +4,6 @@ import { bindActionCreators } from 'redux'
 import { MediaPlayer, popNextFromQueueStorage } from 'podverse-ui'
 import { kAutoplay, kPlaybackRate, getPlaybackRateText, getPlaybackRateNextValue
   } from '~/lib/constants'
-import { scrollToTopOfView } from '~/lib/scrollToTop'
 import { currentPageLoadNowPlayingItem, mediaPlayerLoadNowPlayingItem, 
   mediaPlayerSetClipFinished, mediaPlayerSetPlayedAfterClipFinished,
   playerQueueLoadPriorityItems, playerQueueLoadSecondaryItems,
@@ -91,8 +90,6 @@ class MediaPlayerView extends Component<Props, State> {
     } else if (itemType === 'mediaRef') {
       currentPageLoadNowPlayingItem(nowPlayingItem)
     }
-
-    scrollToTopOfView()
   }
 
   itemSkip = async () => {
