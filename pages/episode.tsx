@@ -13,6 +13,9 @@ import { clone } from '~/lib/utility'
 type Props = {
   currentPage?: any
   playerQueue?: any
+  queryFrom?: any
+  querySort?: any
+  queryType?: any
 }
 
 type State = {}
@@ -58,7 +61,9 @@ class Episode extends Component<Props, State> {
 
     store.dispatch(playerQueueLoadSecondaryItems(clone(queueSecondaryItems)))
 
-    return {}
+    const { from: queryFrom, sort: querySort, type: queryType } = query
+
+    return { queryFrom, querySort, queryType }
   }
 
   componentDidMount() {
@@ -69,9 +74,15 @@ class Episode extends Component<Props, State> {
   }
 
   render() {
-    return (<MediaContentView />)
-  }
+    const { queryFrom, querySort, queryType } = this.props
 
+    return (
+      <MediaContentView
+        queryFrom={queryFrom}
+        querySort={querySort}
+        queryType={queryType} />
+    )
+  }
 }
 
 const mapStateToProps = state => ({ ...state })
