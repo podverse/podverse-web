@@ -1,6 +1,4 @@
-export { currentPageClearItem, currentPageLoadEpisode, currentPageLoadListItems,
-  currentPageLoadMediaRef, currentPageListItemsLoading, currentPageListItemsLoadingNextPage, 
-  currentPageLoadNowPlayingItem, currentPageLoadPodcast } from '~/redux/actions/currentPage'
+export { isPageLoading } from '~/redux/actions/isPageLoading'
 export { mediaPlayerLoadNowPlayingItem,mediaPlayerSetClipFinished,
   mediaPlayerSetPlayedAfterClipFinished, mediaPlayerUpdatePlaying } from '~/redux/actions/mediaPlayer'
 export { playerQueueLoadItems, playerQueueLoadPriorityItems, playerQueueLoadSecondaryItems

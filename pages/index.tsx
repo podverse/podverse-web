@@ -1,54 +1,58 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { addItemsToSecondaryQueueStorage, clearItemsFromSecondaryQueueStorage } from 'podverse-ui'
-import MediaContentView from '~/components/MediaContentView/MediaContentView'
-import { getQueryDataForHomePage } from '~/lib/mediaListController'
-import { NowPlayingItem, convertToNowPlayingItem } from '~/lib/nowPlayingItem'
-import { currentPageClearItem, currentPageListItemsLoading, currentPageListItemsLoadingNextPage,
-  currentPageLoadListItems, playerQueueLoadSecondaryItems } from '~/redux/actions'
+import MediaListCtrl from '~/components/MediaListCtrl/MediaListCtrl'
+import { convertToNowPlayingItem } from '~/lib/nowPlayingItem'
+import { isPageLoading, playerQueueLoadSecondaryItems } from '~/redux/actions'
+import { getMediaRefsByQuery } from '~/services'
 import { clone } from '~/lib/utility'
 
 type Props = {
-  currentPage?: any
+  listItems?: any
   playerQueue?: any
+  queryFrom?: any
+  queryPage: number
+  querySort?: any
+  queryType?: any
+  user?: any
+  userSetInfo?: any
 }
 
-type State = {}
+type State = {
+  listItems?: any[]
+  queryFrom?: any
+  queryPage: number
+  querySort?: any
+  queryType?: any
+}
 
 class Home extends Component<Props, State> {
 
   static async getInitialProps({ query, req, store }) {
     const state = store.getState()
-    const { currentPage, user } = state
+    const { user } = state
 
-    store.dispatch(currentPageClearItem())
+    const queryDataResult = await getMediaRefsByQuery(query)
+    const listItems = queryDataResult.data.map(x => convertToNowPlayingItem(x))
 
-    const queryDataResult = await getQueryDataForHomePage(query, user.subscribedPodcastIds)
-    const queryData = queryDataResult.data
+    store.dispatch(playerQueueLoadSecondaryItems(clone(listItems)))
+    store.dispatch(isPageLoading(false))
 
-    let queueSecondaryItems: NowPlayingItem[] = []
+    const { from: queryFrom, sort: querySort, type: queryType } = query
+    
+    return { listItems, query, queryFrom, querySort, queryType, user }
+  }
 
-    // Only keep the currentPage.listItems if beyond the first page query
-    // @ts-ignore
-    if (process.browser && query.page && query.page > 1) {
-      const { listItems } = currentPage
-      queueSecondaryItems = listItems
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      listItems: props.listItems,
+      queryFrom: props.queryFrom,
+      queryPage: props.queryPage || 1,
+      querySort: props.querySort,
+      queryType: props.queryType
     }
-
-    for (const data of queryData) {
-      queueSecondaryItems.push(convertToNowPlayingItem(data))
-    }
-
-    store.dispatch(currentPageLoadListItems({
-      listItems: queueSecondaryItems,
-      listItemsEndReached: queryData && queryData.length === 0
-    }))
-    store.dispatch(currentPageListItemsLoading(false))
-    store.dispatch(currentPageListItemsLoadingNextPage(false))
-
-    store.dispatch(playerQueueLoadSecondaryItems(clone(queueSecondaryItems)))
-
-    return {}
   }
 
   componentDidMount() {
@@ -59,15 +63,23 @@ class Home extends Component<Props, State> {
   }
 
   render() {
+    const { listItems, queryFrom, queryPage, querySort, queryType,
+      user } = this.props
+    const { subscribedPodcastIds } = user
+
     return (
-      <MediaContentView 
-        queryFrom='all-podcasts'
-        queryPage={1}
-        querySort='top-past-week'
-        queryType='clips' />
+      <Fragment>
+        <MediaListCtrl
+          adjustTopPosition
+          listItems={listItems}
+          queryFrom={queryFrom}
+          queryPage={queryPage}
+          querySort={querySort}
+          queryType={queryType}
+          subscribedPodcastIds={subscribedPodcastIds} />
+      </Fragment>
     )
   }
-
 }
 
 const mapStateToProps = state => ({ ...state })

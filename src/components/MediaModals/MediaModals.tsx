@@ -1,12 +1,12 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import Router from 'next/router'
 import { AddToModal, ClipCreatedModal, MakeClipModal, QueueModal, ShareModal,
   addItemToPriorityQueueStorage, updatePriorityQueueStorage, getPriorityQueueItemsStorage
   } from 'podverse-ui'
 import { kPlaybackRate } from '~/lib/constants'
-import { convertToNowPlayingItem } from '~/lib/nowPlayingItem'
-import { currentPageLoadMediaRef, mediaPlayerUpdatePlaying, modalsAddToCreatePlaylistIsSaving,
+import { mediaPlayerUpdatePlaying, modalsAddToCreatePlaylistIsSaving,
   modalsAddToCreatePlaylistShow, modalsAddToShow, modalsClipCreatedShow, modalsLoginShow, 
   modalsMakeClipShow, modalsQueueShow, modalsShareShow, modalsMakeClipIsLoading,
   playerQueueLoadItems, playerQueueLoadPriorityItems, userSetInfo } from '~/redux/actions'
@@ -14,8 +14,6 @@ import { addOrRemovePlaylistItem, createMediaRef, createPlaylist, updateMediaRef
   updateUserQueueItems } from '~/services'
 
 type Props = {
-  currentPage?: any
-  currentPageLoadMediaRef?: any
   mediaPlayer?: any
   mediaPlayerUpdatePlaying?: any
   modals?: any
@@ -151,18 +149,13 @@ class MediaModals extends Component<Props, State> {
     mediaPlayerUpdatePlaying(true)
   }
 
-  makeClipSave = async (data, isEditing) => {
-    const { currentPage, currentPageLoadMediaRef, modalsClipCreatedShow,
-      modalsMakeClipIsLoading, modalsMakeClipShow } = this.props
+  makeClipSave = async (data, editingNowPlayingItem) => {
+    const { modalsClipCreatedShow, modalsMakeClipIsLoading, modalsMakeClipShow } = this.props
     
     let nowPlayingItem: any = {}
 
-    if (isEditing) {
-      if (currentPage.mediaRef) {
-        nowPlayingItem = convertToNowPlayingItem(currentPage.mediaRef)
-      } else if (currentPage.nowPlayingItem) {
-        nowPlayingItem = currentPage.nowPlayingItem
-      }
+    if (editingNowPlayingItem) {
+      nowPlayingItem = editingNowPlayingItem
     }
 
     const { clipId, description, episodeDuration, episodeGuid, episodeId, episodeImageUrl,
@@ -171,7 +164,7 @@ class MediaModals extends Component<Props, State> {
     
     data = {
       ...data,
-      ...(isEditing ? { id: clipId } : {}),
+      ...(editingNowPlayingItem ? { id: clipId } : {}),
       ...(description ? { description } : {}),
       ...(episodeDuration ? { episodeDuration } : {}),
       ...(episodeGuid ? { episodeGuid } : {}),
@@ -191,9 +184,13 @@ class MediaModals extends Component<Props, State> {
 
     try {
       modalsMakeClipIsLoading(true)
-      if (isEditing) {
+      if (editingNowPlayingItem) {
         const updatedMediaRef = await updateMediaRef(data)
-        currentPageLoadMediaRef(updatedMediaRef && updatedMediaRef.data)
+        
+        const href = `/clip/${updatedMediaRef.data.id}`
+        const as = `/clip/${updatedMediaRef.data.id}`
+        Router.push(href, as)
+        
         modalsMakeClipIsLoading(false)
         modalsMakeClipShow({ isOpen: false })
       } else {
@@ -360,7 +357,6 @@ class MediaModals extends Component<Props, State> {
 const mapStateToProps = state => ({ ...state })
 
 const mapDispatchToProps = dispatch => ({
-  currentPageLoadMediaRef: bindActionCreators(currentPageLoadMediaRef, dispatch),
   mediaPlayerUpdatePlaying: bindActionCreators(mediaPlayerUpdatePlaying, dispatch),
   modalsAddToCreatePlaylistIsSaving: bindActionCreators(modalsAddToCreatePlaylistIsSaving, dispatch),
   modalsAddToCreatePlaylistShow: bindActionCreators(modalsAddToCreatePlaylistShow, dispatch),

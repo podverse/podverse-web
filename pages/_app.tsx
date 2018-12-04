@@ -12,7 +12,7 @@ import MediaPlayerView from '~/components/MediaPlayerView/MediaPlayerView'
 import { addFontAwesomeIcons } from '~/lib/fontAwesomeIcons'
 import { NowPlayingItem } from '~/lib/nowPlayingItem'
 import { initializeStore } from '~/redux/store'
-import { playerQueueLoadPriorityItems } from '~/redux/actions'
+import { isPageLoading, playerQueueLoadPriorityItems } from '~/redux/actions'
 import { actionTypes } from '~/redux/constants'
 import { getAuthenticatedUserInfo } from '~/services';
 import { scrollToTopOfView } from '~/lib/scrollToTop';
@@ -28,13 +28,7 @@ declare global {
 }
 
 type Props = {
-  currentPage: {
-    episode: any
-    listItems: any[]
-    mediaRef: any
-    nowPlayingItem: any
-    podcast: any
-  }
+  isPageLoading?: boolean,
   mediaPlayer: {
     nowPlayingItem: any
     playing?: boolean
@@ -61,6 +55,8 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
     
   static async getInitialProps({ Component, ctx }) {
     let pageProps = {}
+
+    ctx.store.dispatch(isPageLoading(true))
 
     // @ts-ignore
     if (!process.browser && ctx.req.headers.cookie) {

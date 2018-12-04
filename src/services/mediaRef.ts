@@ -9,13 +9,37 @@ export const createMediaRef = async (data: any) => {
   })
 }
 
-export const getMediaRefById = async (id: string) => {
-  return axios.get(`http://localhost:3000/api/v1/mediaRef/${id}`)
-}
+export const getMediaRefsByQuery = async (query) => {
+  let filteredQuery: any = {}
 
-export const getMediaRefsByQuery = async (query: MediaRefQuery) => {
+  if (query.sort) {
+    filteredQuery.sort = query.sort
+  } else {
+    filteredQuery.sort = 'top-past-week'
+  }
+
+  if (query.page) {
+    filteredQuery.page = query.page
+  } else {
+    filteredQuery.page = 1
+  }
+
+  if (query.from === 'from-podcast') {
+    filteredQuery.podcastId = query.podcastId
+  } else if (query.from === 'from-episode') {
+    filteredQuery.episodeId = query.episodeId
+  } else if (query.from === 'subscribed-only') {
+    filteredQuery.podcastId = query.subscribedPodcastIds
+  } else { // from = all-podcasts
+    // add nothing
+  }
+
   const queryString = convertObjectToQueryString(query)
   return axios.get(`http://localhost:3000/api/v1/mediaRef?${queryString}`)
+}
+
+export const getMediaRefById = async (id: string) => {
+  return axios.get(`http://localhost:3000/api/v1/mediaRef/${id}`)
 }
 
 export const updateMediaRef = async (data: any) => {
@@ -24,26 +48,4 @@ export const updateMediaRef = async (data: any) => {
     data,
     withCredentials: true
   })
-}
-
-type MediaRefQuery = {
-  authors?: any[]
-  categories?: any[]
-  description?: string
-  endTime?: number
-  episodeDuration?: number
-  episodeId?: string
-  episodeImageUrl?: string
-  episodeMediaUrl?: string
-  episodePubDate?: string
-  episodeSummary?: string
-  episodeTitle?: string
-  id?: string
-  podcastFeedUrl?: string
-  podcastGuid?: string
-  podcastImageUrl?: string
-  podcastIsExplicit?: boolean
-  podcastTitle?: string
-  startTime?: number
-  title?: string
 }

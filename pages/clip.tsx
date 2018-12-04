@@ -1,22 +1,25 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { addItemsToSecondaryQueueStorage, clearItemsFromSecondaryQueueStorage } from 'podverse-ui'
-import MediaContentView from '~/components/MediaContentView/MediaContentView'
-import { getQueryDataForClipPage } from '~/lib/mediaListController'
-import { NowPlayingItem, convertToNowPlayingItem } from '~/lib/nowPlayingItem'
-import { currentPageListItemsLoading,
-  currentPageListItemsLoadingNextPage, currentPageLoadListItems, 
-  currentPageLoadMediaRef, mediaPlayerLoadNowPlayingItem, playerQueueLoadSecondaryItems
+import MediaHeaderCtrl from '~/components/MediaHeaderCtrl/MediaHeaderCtrl'
+import MediaInfoCtrl from '~/components/MediaInfoCtrl/MediaInfoCtrl'
+import MediaListCtrl from '~/components/MediaListCtrl/MediaListCtrl'
+import { convertToNowPlayingItem } from '~/lib/nowPlayingItem'
+import { isPageLoading, mediaPlayerLoadNowPlayingItem, playerQueueLoadSecondaryItems
   } from '~/redux/actions'
-import { getMediaRefById } from '~/services/mediaRef'
+import { getMediaRefsByQuery, getMediaRefById } from '~/services/'
 import { clone } from '~/lib/utility'
 
 type Props = {
-  currentPage?: any
+  listItems?: any
+  mediaRef?: any
   playerQueue?: any
   queryFrom?: any
+  queryPage: number
   querySort?: any
   queryType?: any
+  user?: any
+  userSetInfo?: any
 }
 
 type State = {}
@@ -25,46 +28,25 @@ class Clip extends Component<Props, State> {
 
   static async getInitialProps({ query, req, store }) {
     const state = store.getState()
-    const { currentPage, user } = state
+    const { user } = state
     const mediaRefResult = await getMediaRefById(query.id)
     const mediaRef = mediaRefResult.data
-    store.dispatch(currentPageLoadMediaRef(mediaRef))
-
-
+    
     // @ts-ignore
     if (!process.browser) {
       const nowPlayingItem = convertToNowPlayingItem(mediaRef)
       store.dispatch(mediaPlayerLoadNowPlayingItem(nowPlayingItem))
     }
 
-    const queryDataResult = await getQueryDataForClipPage(query, mediaRef, user.subscribedPodcastIds)
-    const queryData = queryDataResult.data
+    const queryDataResult = await getMediaRefsByQuery(query)
+    const listItems = queryDataResult.data.map(x => convertToNowPlayingItem(x))
 
-    let queueSecondaryItems: NowPlayingItem[] = []
-
-    // Only keep the currentPage.listItems if beyond the first page query
-    // @ts-ignore
-    if (process.browser && query.page && query.page > 1) {
-      const { listItems } = currentPage
-      queueSecondaryItems = listItems
-    }
-
-    for (const data of queryData) {
-      queueSecondaryItems.push(convertToNowPlayingItem(data))
-    }
-
-    store.dispatch(currentPageLoadListItems({
-      listItems: queueSecondaryItems,
-      listItemsEndReached: queryData && queryData.length === 0
-    }))
-    store.dispatch(currentPageListItemsLoading(false))
-    store.dispatch(currentPageListItemsLoadingNextPage(false))
-
-    store.dispatch(playerQueueLoadSecondaryItems(clone(queueSecondaryItems)))
+    store.dispatch(playerQueueLoadSecondaryItems(clone(listItems)))
+    store.dispatch(isPageLoading(false))
 
     const { from: queryFrom, sort: querySort, type: queryType } = query
 
-    return { queryFrom, querySort, queryType }
+    return { listItems, mediaRef, query, queryFrom, querySort, queryType, user }
   }
 
   componentDidMount () {
@@ -75,13 +57,24 @@ class Clip extends Component<Props, State> {
   }
 
   render () {
-    const { queryFrom, querySort, queryType } = this.props
+    const { listItems, mediaRef, queryFrom, queryPage, querySort, queryType,
+      user } = this.props
+    const { subscribedPodcastIds } = user
 
     return (
-      <MediaContentView
-        queryFrom={queryFrom}
-        querySort={querySort}
-        queryType={queryType} />
+      <Fragment>
+        <MediaHeaderCtrl mediaRef={mediaRef} />
+        <MediaInfoCtrl mediaRef={mediaRef} />
+        <MediaListCtrl
+          episodeId={mediaRef.episodeId}
+          listItems={listItems}
+          podcastId={mediaRef.podcastId}
+          queryFrom={queryFrom}
+          queryPage={queryPage}
+          querySort={querySort}
+          queryType={queryType}
+          subscribedPodcastIds={subscribedPodcastIds} />
+      </Fragment>
     )
   }
 }

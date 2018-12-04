@@ -5,30 +5,29 @@ export const getEpisodeById = async (id: string) => {
   return axios.get(`http://localhost:3000/api/v1/episode/${id}`);
 }
 
-export const getEpisodesByQuery = async (query: EpisodeQuery) => {
+export const getEpisodesByQuery = async (query) => {
+  let filteredQuery: any = {}
+
+  if (query.sort) {
+    filteredQuery.sort = query.sort
+  } else {
+    filteredQuery.sort = 'top-past-week'
+  }
+
+  if (query.page) {
+    filteredQuery.page = query.page
+  } else {
+    filteredQuery.page = 1
+  }
+
+  if (query.from === 'from-podcast') {
+    filteredQuery.podcastId = query.podcastId
+  } else if (query.from === 'subscribed-only') {
+    filteredQuery.podcastId = query.subscribedPodcastIds
+  } else { // from = all-podcasts
+    // add nothing
+  }
+
   const queryString = convertObjectToQueryString(query)
   return axios.get(`http://localhost:3000/api/v1/episode?${queryString}`)
-}
-
-type EpisodeQuery = {
-  authors?: any[]
-  category?: string
-  categories?: any[]
-  description?: string
-  duration?: number
-  episodeType?: string
-  guid?: string
-  id?: string
-  imageUrl?: string
-  isExplicit?: boolean
-  isPublic?: boolean
-  linkUrl?: string
-  mediaUrl?: string
-  mediaRefs?: any[]
-  podcastId?: string
-  pubDate?: string
-  skip?: number
-  sort?: string
-  take?: number
-  title?: string
 }

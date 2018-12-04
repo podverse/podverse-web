@@ -1,34 +1,42 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { addItemsToSecondaryQueueStorage, clearItemsFromSecondaryQueueStorage } from 'podverse-ui'
-import MediaContentView from '~/components/MediaContentView/MediaContentView'
-import { getQueryDataForEpisodePage } from '~/lib/mediaListController'
-import { NowPlayingItem, convertToNowPlayingItem } from '~/lib/nowPlayingItem'
-import { currentPageListItemsLoading, currentPageListItemsLoadingNextPage, currentPageLoadListItems,
-  currentPageLoadEpisode, mediaPlayerLoadNowPlayingItem, playerQueueLoadSecondaryItems
-} from '~/redux/actions'
-import { getEpisodeById } from '~/services/episode'
+import MediaHeaderCtrl from '~/components/MediaHeaderCtrl/MediaHeaderCtrl'
+import MediaInfoCtrl from '~/components/MediaInfoCtrl/MediaInfoCtrl'
+import MediaListCtrl from '~/components/MediaListCtrl/MediaListCtrl'
+import { convertToNowPlayingItem } from '~/lib/nowPlayingItem'
+import { isPageLoading, mediaPlayerLoadNowPlayingItem, playerQueueLoadSecondaryItems
+  } from '~/redux/actions'
+import { getEpisodeById, getMediaRefsByQuery } from '~/services/'
 import { clone } from '~/lib/utility'
 
 type Props = {
-  currentPage?: any
+  episode?: any
+  listItems?: any
   playerQueue?: any
   queryFrom?: any
+  queryPage: number
+  querySort?: any
+  queryType?: any
+  user?: any
+  userSetInfo?: any
+}
+
+type State = {
+  listItems?: any[]
+  queryFrom?: any
+  queryPage: number
   querySort?: any
   queryType?: any
 }
-
-type State = {}
 
 class Episode extends Component<Props, State> {
 
   static async getInitialProps({ query, req, store }) {
     const state = store.getState()
-    const { currentPage, user } = state
+    const { user } = state
     const episodeResult = await getEpisodeById(query.id)
     const episode = episodeResult.data
-    store.dispatch(currentPageLoadEpisode(episode))
-
 
     // @ts-ignore
     if (!process.browser) {
@@ -36,34 +44,26 @@ class Episode extends Component<Props, State> {
       store.dispatch(mediaPlayerLoadNowPlayingItem(nowPlayingItem))
     }
 
-    const queryDataResult = await getQueryDataForEpisodePage(query, episode, user.subscribedPodcastIds)
-    const queryData = queryDataResult.data
+    const queryDataResult = await getMediaRefsByQuery(query)
+    const listItems = queryDataResult.data.map(x => convertToNowPlayingItem(x))
 
-    let queueSecondaryItems: NowPlayingItem[] = []
-
-    // Only keep the currentPage.listItems if beyond the first page query
-    // @ts-ignore
-    if (process.browser && query.page && query.page > 1) {
-      const { listItems } = currentPage
-      queueSecondaryItems = listItems
-    }
-
-    for (const data of queryData) {
-      queueSecondaryItems.push(convertToNowPlayingItem(data))
-    }
-
-    store.dispatch(currentPageLoadListItems({
-      listItems: queueSecondaryItems,
-      listItemsEndReached: queryData && queryData.length === 0
-    }))
-    store.dispatch(currentPageListItemsLoading(false))
-    store.dispatch(currentPageListItemsLoadingNextPage(false))
-
-    store.dispatch(playerQueueLoadSecondaryItems(clone(queueSecondaryItems)))
+    store.dispatch(playerQueueLoadSecondaryItems(clone(listItems)))
+    store.dispatch(isPageLoading(false))
 
     const { from: queryFrom, sort: querySort, type: queryType } = query
+    return { episode, query, queryFrom, querySort, queryType, user }
+  }
 
-    return { queryFrom, querySort, queryType }
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      listItems: props.listItems,
+      queryFrom: props.queryFrom,
+      queryPage: props.queryPage || 1,
+      querySort: props.querySort,
+      queryType: props.queryType
+    }
   }
 
   componentDidMount() {
@@ -74,13 +74,24 @@ class Episode extends Component<Props, State> {
   }
 
   render() {
-    const { queryFrom, querySort, queryType } = this.props
-
+    const { episode, listItems, queryFrom, queryPage, querySort, queryType,
+      user } = this.props
+    const { subscribedPodcastIds } = user
+    
     return (
-      <MediaContentView
-        queryFrom={queryFrom}
-        querySort={querySort}
-        queryType={queryType} />
+      <Fragment>
+        <MediaHeaderCtrl episode={episode} />
+        <MediaInfoCtrl episode={episode} />
+        <MediaListCtrl
+          episodeId={episode.id}
+          listItems={listItems}
+          podcastId={episode.podcast.id}
+          queryFrom={queryFrom}
+          queryPage={queryPage}
+          querySort={querySort}
+          queryType={queryType}
+          subscribedPodcastIds={subscribedPodcastIds} />
+      </Fragment>
     )
   }
 }
