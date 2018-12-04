@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import { addItemsToSecondaryQueueStorage, clearItemsFromSecondaryQueueStorage } from 'podverse-ui'
 import MediaContentView from '~/components/MediaContentView/MediaContentView'
 import { getQueryDataForPodcastPage } from '~/lib/mediaListController'
-import { convertToNowPlayingItem } from '~/lib/nowPlayingItem'
 import { currentPageListItemsLoading, currentPageListItemsLoadingNextPage, currentPageLoadListItems,
   currentPageLoadPodcast, playerQueueLoadSecondaryItems } from '~/redux/actions'
 import { getPodcastById } from '~/services/podcast'

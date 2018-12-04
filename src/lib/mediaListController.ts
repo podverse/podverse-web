@@ -1,4 +1,4 @@
-import { getEpisodesByQuery, getMediaRefsByQuery } from '~/services/'
+import { getEpisodesByQuery, getMediaRefsByQuery, getPodcastsByQuery } from '~/services/'
 
 export const getQueryDataForClipPage = async (query, mediaRef, subscribedPodcastIds) => {
   let mediaListQuery: any = {}
@@ -133,4 +133,30 @@ export const getQueryDataForPodcastPage = async (query, podcastId) => {
   } else { // type = clips
     return await getMediaRefsByQuery(filteredQuery)
   }
+}
+
+export const getQueryDataForPodcastsPage = async (query, subscribedPodcastIds, categories) => {
+  let filteredQuery: any = {}
+
+  if (query.sort) {
+    filteredQuery.sort = query.sort
+  } else {
+    filteredQuery.sort = 'top-past-week'
+  }
+
+  if (query.page) {
+    filteredQuery.page = query.page
+  } else {
+    filteredQuery.page = 1
+  }
+
+  if (subscribedPodcastIds) {
+    filteredQuery.podcastId = subscribedPodcastIds
+  }
+
+  if (categories) {
+    filteredQuery.categories = categories
+  }
+  
+  return await getPodcastsByQuery(filteredQuery)
 }

@@ -336,7 +336,7 @@ class MediaContentView extends Component<Props, State> {
     ]
   }
 
-  getQueryFromOptions(type, currentPageHasItem, isLoggedIn) {
+  getQueryFromOptions(showFromPodcast, showFromEpisode, isLoggedIn) {
 
     const options = [
       {
@@ -357,7 +357,7 @@ class MediaContentView extends Component<Props, State> {
       }
     ]
 
-    if (currentPageHasItem) {
+    if (showFromPodcast) {
       options.push(
         {
           label: 'From this podcast',
@@ -367,7 +367,7 @@ class MediaContentView extends Component<Props, State> {
       )
     }
 
-    if (type === 'clips' && currentPageHasItem) {
+    if (showFromEpisode) {
       options.push(
         {
           label: 'From this episode',
@@ -497,12 +497,13 @@ class MediaContentView extends Component<Props, State> {
       )
     })
 
+    const showFromEpisode = (!!episode || !!mediaRef || !!nowPlayingItem) && queryType === 'clips'
+    const showFromPodcast = !!episode || !!mediaRef || !!nowPlayingItem || !!podcast
     const currentPageHasItem = !!episode || !!mediaRef || !!nowPlayingItem || !!podcast
     const isLoggedIn = user && !!user.id
-    const showSelectFrom = !podcast
 
     const selectedQueryTypeOption = this.getQueryTypeOptions().filter(x => x.value === queryType)
-    const selectedQueryFromOption = this.getQueryFromOptions(queryType, currentPageHasItem, isLoggedIn).filter(x => x.value === queryFrom)
+    const selectedQueryFromOption = this.getQueryFromOptions(showFromPodcast, showFromEpisode, isLoggedIn).filter(x => x.value === queryFrom)
     const selectedQuerySortOption = this.getQuerySortOptions().filter(x => x.value === querySort)
 
     return (
@@ -539,12 +540,9 @@ class MediaContentView extends Component<Props, State> {
               <MediaListSelect
                 items={this.getQueryTypeOptions()}
                 selected={selectedQueryTypeOption.length > 0 ? selectedQueryTypeOption[0].value : null} />
-              {
-                showSelectFrom &&
-                  <MediaListSelect
-                    items={this.getQueryFromOptions(queryType, currentPageHasItem, isLoggedIn)}
-                    selected={selectedQueryFromOption.length > 0 ? selectedQueryFromOption[0].value : null} />
-              }
+              <MediaListSelect
+                items={this.getQueryFromOptions(showFromPodcast, showFromEpisode, isLoggedIn)}
+                selected={selectedQueryFromOption.length > 0 ? selectedQueryFromOption[0].value : null} />
             </div>
             <div className='media-list-selects__right'>
               <MediaListSelect

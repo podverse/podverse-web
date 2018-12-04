@@ -15,6 +15,7 @@ import { initializeStore } from '~/redux/store'
 import { playerQueueLoadPriorityItems } from '~/redux/actions'
 import { actionTypes } from '~/redux/constants'
 import { getAuthenticatedUserInfo } from '~/services';
+import { scrollToTopOfView } from '~/lib/scrollToTop';
 const cookie = require('cookie')
 
 addFontAwesomeIcons()
@@ -89,6 +90,11 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
 
     if (Component.getInitialProps) {
       pageProps = await Component.getInitialProps(ctx)
+    }
+
+    // @ts-ignore
+    if (process.browser && ctx.query && ctx.query.scrollToTop) {
+      scrollToTopOfView()
     }
 
     return { pageProps }
