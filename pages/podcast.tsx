@@ -5,8 +5,7 @@ import MediaHeaderCtrl from '~/components/MediaHeaderCtrl/MediaHeaderCtrl'
 import MediaInfoCtrl from '~/components/MediaInfoCtrl/MediaInfoCtrl'
 import MediaListCtrl from '~/components/MediaListCtrl/MediaListCtrl'
 import { convertToNowPlayingItem } from '~/lib/nowPlayingItem'
-import { isPageLoading, mediaPlayerLoadNowPlayingItem, playerQueueLoadSecondaryItems
-  } from '~/redux/actions'
+import { isPageLoading, playerQueueLoadSecondaryItems } from '~/redux/actions'
 import { getEpisodesByQuery, getPodcastById } from '~/services/'
 import { clone } from '~/lib/utility'
 
@@ -38,12 +37,6 @@ class Podcast extends Component<Props, State> {
     const podcastResult = await getPodcastById(query.id)
     const podcast = podcastResult.data
 
-    // @ts-ignore
-    if (!process.browser) {
-      const nowPlayingItem = convertToNowPlayingItem(podcast)
-      store.dispatch(mediaPlayerLoadNowPlayingItem(nowPlayingItem))
-    }
-
     const queryDataResult = await getEpisodesByQuery(query)
     const listItems = queryDataResult.data.map(x => convertToNowPlayingItem(x))
 
@@ -74,9 +67,8 @@ class Podcast extends Component<Props, State> {
   }
 
   render() {
-    const { listItems, podcast, queryFrom, queryPage, querySort, queryType,
-      user } = this.props
-    const { subscribedPodcastIds } = user
+    const { listItems, podcast, queryFrom, queryPage, querySort, queryType
+      } = this.props
 
     return (
       <Fragment>
@@ -88,8 +80,7 @@ class Podcast extends Component<Props, State> {
           queryPage={queryPage}
           querySort={querySort}
           queryType={queryType}
-          podcastId={podcast.id}
-          subscribedPodcastIds={subscribedPodcastIds} />
+          podcastId={podcast.id} />
       </Fragment>
     )
   }

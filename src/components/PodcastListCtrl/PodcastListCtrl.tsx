@@ -22,6 +22,7 @@ type State = {
   queryPage: number
   querySort?: string
   queryType?: string
+  selected?: string
 }
 
 class PodcastListCtrl extends Component<Props, State> {
@@ -44,40 +45,69 @@ class PodcastListCtrl extends Component<Props, State> {
       queryType: props.queryType
     }
 
+    this.generateCategorySelectNodes = this.generateCategorySelectNodes.bind(this)
     this.queryPodcasts = this.queryPodcasts.bind(this)
   }
 
   async queryPodcasts(selectedKey = '', selectedValue = '', page = 1) {
-    const { queryCategoryId, queryFrom, querySort } = this.state
+    const { user } = this.props
+    const { subscribedPodcastIds } = user
+    const { listItems, queryCategoryId, queryFrom, querySort } = this.state
 
-    let query = {
-      categories: queryCategoryId,
-      from: queryFrom,
+    let query: any = {
+      ...!!queryCategoryId && { categories: queryCategoryId },
       page,
-      sort: querySort
+      ...!!querySort && { sort: querySort }
     }
 
     this.setState({ isLoadingMore: true })
 
-
-    let newState: any = { queryPage: page }
+    let newState: any = {
+      queryPage: page,
+      ...selectedKey !== 'sort' && { selected: selectedKey }
+    }
 
     if (selectedKey === 'categories') {
-      query.from = 'from-category'
+      newState.queryFrom = 'from-category'
       newState.queryCategoryId = selectedValue
       query.categories = selectedValue
     } else if (selectedKey === 'sort') {
       newState.querySort = selectedValue
       query.sort = selectedValue
-    } else {
-      query.from = 'all-podcasts'
+    } else if (selectedKey === 'subscribed-only') {
+      newState.queryFrom = 'subscribed-only'
+      newState.queryCategoryId = null
+      query.podcastId = subscribedPodcastIds
+      delete query.categories
+    } else if (selectedKey === 'all-podcasts') {
+      newState.queryFrom = 'all-podcasts'
+      newState.queryCategoryId = null
+      delete query.categories
+      delete query.podcastid
     }
 
     this.setState(newState)
 
-    const response = await getPodcastsByQuery(query)
-    const podcasts = response.data || []
-    this.setState({ listItems: podcasts })
+    let combinedListItems: any = []
+
+    if (page > 1) {
+      combinedListItems = listItems
+    }
+
+    try {
+      const response = await getPodcastsByQuery(query)
+      const podcasts = response.data || []
+      combinedListItems = combinedListItems.concat(podcasts)
+
+      this.setState({ 
+        endReached: podcasts.length === 0,
+        isLoadingMore: false,
+        listItems: page > 1 ? combinedListItems : podcasts
+      })
+    } catch (error) {
+      console.log(error)
+      this.setState({ isLoadingMore: false })
+    }
   }
 
   getQuerySortOptions() {
@@ -120,8 +150,8 @@ class PodcastListCtrl extends Component<Props, State> {
     ]
   }
 
-  generateCategorySelectNodes (allCategories, queryCategoryId) {
-    
+  generateCategorySelectNodes (allCategories, queryCategoryId, user) {
+    const { selected } = this.state
     const categoryItems = allCategories.map(x => {
       return {
         hasSubcategories: x.categories && x.categories.length > 0,
@@ -132,11 +162,20 @@ class PodcastListCtrl extends Component<Props, State> {
       }
     })
 
+    if (user && user.id) {
+      categoryItems.unshift({
+        label: 'Subscribed',
+        onClick: () => this.queryPodcasts('subscribed-only', ''),
+        parentValue: null,
+        value: 'subscribed-only'
+      })
+    }
+
     categoryItems.unshift({
       label: 'All Podcasts',
       onClick: () => this.queryPodcasts('all-podcasts', ''),
       parentValue: null,
-      value: 'all podcasts'
+      value: 'all-podcasts'
     })
 
     const selectedCategoryArray = categoryItems.filter(x => x.value === queryCategoryId)
@@ -176,9 +215,11 @@ class PodcastListCtrl extends Component<Props, State> {
       }
       // Else if it is a sub-category
       else if (selectedCategory.parentValue) {
+        const topLevelCategoryItems = categoryItems.filter(x => x.parentValue === null)
+
         categorySelectNodes.push(
           <MediaListSelect
-            items={categoryItems}
+            items={topLevelCategoryItems}
             key='category-select-1'
             selected={selectedCategory.parentValue} />
         )
@@ -205,7 +246,8 @@ class PodcastListCtrl extends Component<Props, State> {
       categorySelectNodes.push(
         <MediaListSelect
           items={topLevelCategoryItems}
-          key='category-select-1' />
+          key='category-select-1'
+          selected={selected} />
       )
     }
 
@@ -213,8 +255,8 @@ class PodcastListCtrl extends Component<Props, State> {
   }
 
   render() {
-    const { allCategories } = this.props
-    const { endReached, isLoadingMore, listItems, queryCategoryId, queryPage,
+    const { allCategories, user } = this.props
+    const { endReached, isLoadingMore, listItems, queryCategoryId, queryFrom, queryPage,
       querySort } = this.state
 
     const listItemNodes = listItems.map(x => {
@@ -227,7 +269,7 @@ class PodcastListCtrl extends Component<Props, State> {
       )
     })
 
-    const categorySelectNodes = this.generateCategorySelectNodes(allCategories, queryCategoryId)
+    const categorySelectNodes = this.generateCategorySelectNodes(allCategories, queryCategoryId, user)
 
     const selectedQuerySortOption = this.getQuerySortOptions().filter(x => x.value === querySort)
 
@@ -255,7 +297,7 @@ class PodcastListCtrl extends Component<Props, State> {
                   : <Button
                     className='media-list-load-more__button'
                     isLoading={isLoadingMore}
-                    onClick={() => this.queryPodcasts('', '', queryPage + 1)}
+                    onClick={() => this.queryPodcasts(queryFrom, '', queryPage + 1)}
                     text='Load More' />
               }
             </div>

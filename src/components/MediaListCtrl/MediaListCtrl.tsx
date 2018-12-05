@@ -24,7 +24,6 @@ type Props = {
   queryPage: number
   querySort?: string
   queryType?: string
-  subscribedPodcastIds?: any
   user?: any
 }
 
@@ -64,7 +63,8 @@ class MediaListCtrl extends Component<Props, State> {
 
   async queryMediaListItems(selectedKey = '', selectedValue = '', page = 1) {
     const { episodeId, playerQueueAddSecondaryItems, playerQueueLoadSecondaryItems,
-      podcastId, subscribedPodcastIds } = this.props
+      podcastId, user } = this.props
+    const { subscribedPodcastIds } = user
     const { listItems, queryFrom, querySort, queryType } = this.state
 
     let query: any = {
@@ -278,11 +278,15 @@ class MediaListCtrl extends Component<Props, State> {
 
     const listItemNodes = listItems.map(x => {
       const isActive = () => {
-        if (x.clipId) {
-          return x.clipId === mpNowPlayingItem.clipId
-        } else {
-          return x.episodeId === mpNowPlayingItem.episodeId
+        if (mpNowPlayingItem) {
+          if (x.clipId) {
+            return x.clipId === mpNowPlayingItem.clipId
+          } else if (x.episodeId) {
+            return x.episodeId === mpNowPlayingItem.episodeId
+          }
         }
+
+        return false
       }
 
       return (
