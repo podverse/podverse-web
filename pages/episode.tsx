@@ -51,7 +51,7 @@ class Episode extends Component<Props, State> {
     store.dispatch(isPageLoading(false))
 
     const { from: queryFrom, sort: querySort, type: queryType } = query
-    return { episode, query, queryFrom, querySort, queryType, user }
+    return { episode, listItems, query, queryFrom, querySort, queryType, user }
   }
 
   constructor(props) {
@@ -77,7 +77,7 @@ class Episode extends Component<Props, State> {
     const { episode, listItems, queryFrom, queryPage, querySort, queryType,
       user } = this.props
     const { subscribedPodcastIds } = user
-    
+
     return (
       <Fragment>
         <MediaHeaderCtrl episode={episode} />

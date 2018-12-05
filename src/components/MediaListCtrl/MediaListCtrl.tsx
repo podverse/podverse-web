@@ -61,12 +61,10 @@ class MediaListCtrl extends Component<Props, State> {
     const { episodeId, podcastId, subscribedPodcastIds } = this.props
     const { listItems, queryFrom, querySort, queryType } = this.state
 
-    let query = {
+    let query: any = {
       from: queryFrom,
-      episodeId: '',
       id: '',
       page,
-      podcastId: '',
       sort: querySort,
       type: queryType
     }
@@ -94,9 +92,7 @@ class MediaListCtrl extends Component<Props, State> {
       combinedListItems = listItems
     }
 
-    if (query.from === 'from-episode') {
-      query.episodeId = episodeId
-    } else if (query.from === 'from-podcast') {
+    if (query.from === 'from-podcast') {
       query.podcastId = podcastId
     } else if (query.from === 'subscribed-only') {
       query.podcastId = subscribedPodcastIds
@@ -105,25 +101,40 @@ class MediaListCtrl extends Component<Props, State> {
     }
 
     if (query.type === 'clips') {
-      const response = await getMediaRefsByQuery(query)
-      const mediaRefs = response.data && response.data.map(x => convertToNowPlayingItem(x))
-      combinedListItems = combinedListItems.concat(mediaRefs)
-
-      this.setState({
-        endReached: mediaRefs.length === 0,
-        isLoadingMore: false,
-        listItems: combinedListItems
-      })
+      if (query.from === 'from-episode') {
+        query.episodeId = episodeId
+      }
+      
+      try {
+        const response = await getMediaRefsByQuery(query)
+        const mediaRefs = response.data && response.data.map(x => convertToNowPlayingItem(x))
+        combinedListItems = combinedListItems.concat(mediaRefs)
+  
+        this.setState({
+          endReached: mediaRefs.length === 0,
+          isLoadingMore: false,
+          listItems: combinedListItems
+        })
+      } catch (error) {
+        console.log(error)
+        this.setState({ isLoadingMore: false })
+      }
     } else if (query.type === 'episodes') {
-      const response = await getEpisodesByQuery(query)
-      const episodes = response.data && response.data.map(x => convertToNowPlayingItem(x))
-      combinedListItems = combinedListItems.concat(episodes)
+      try {
+        const response = await getEpisodesByQuery(query)
+        const episodes = response.data && response.data.map(x => convertToNowPlayingItem(x))
+        combinedListItems = combinedListItems.concat(episodes)
 
-      this.setState({
-        endReached: episodes.length === 0,
-        isLoadingMore: false,
-        listItems: combinedListItems
-      })
+        this.setState({
+          endReached: episodes.length === 0,
+          isLoadingMore: false,
+          listItems: combinedListItems
+        })
+      } catch (error) {
+        console.log(error)
+        this.setState({ isLoadingMore: false })
+      }
+
     }
   }
 
@@ -256,7 +267,7 @@ class MediaListCtrl extends Component<Props, State> {
     })
 
     const selectedQueryTypeOption = this.getQueryTypeOptions().filter(x => x.value === queryType)
-    const selectedQueryFromOption = this.getQueryFromOptions(!!podcastId, !!episodeId, !!user && !!user.id).filter(x => x.value === queryFrom)
+    const selectedQueryFromOption = this.getQueryFromOptions(!!podcastId, queryType === 'clips', !!user && !!user.id).filter(x => x.value === queryFrom)
     const selectedQuerySortOption = this.getQuerySortOptions().filter(x => x.value === querySort)
 
     return (      
@@ -267,7 +278,7 @@ class MediaListCtrl extends Component<Props, State> {
               items={this.getQueryTypeOptions()}
               selected={selectedQueryTypeOption.length > 0 ? selectedQueryTypeOption[0].value : null} />
             <MediaListSelect
-              items={this.getQueryFromOptions(!!podcastId, !!episodeId, user && user.id)}
+              items={this.getQueryFromOptions(!!podcastId, queryType === 'clips', user && user.id)}
               selected={selectedQueryFromOption.length > 0 ? selectedQueryFromOption[0].value : null} />
           </div>
           <div className='media-list-selects__right'>

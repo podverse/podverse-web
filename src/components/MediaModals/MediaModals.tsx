@@ -149,42 +149,39 @@ class MediaModals extends Component<Props, State> {
     mediaPlayerUpdatePlaying(true)
   }
 
-  makeClipSave = async (data, editingNowPlayingItem) => {
-    const { modalsClipCreatedShow, modalsMakeClipIsLoading, modalsMakeClipShow } = this.props
+  makeClipSave = async (formData, isEditing) => {
+    const { modals, modalsClipCreatedShow, modalsMakeClipIsLoading,
+      modalsMakeClipShow } = this.props
+    const { makeClip } = modals
+    const { nowPlayingItem } = makeClip
     
-    let nowPlayingItem: any = {}
-
-    if (editingNowPlayingItem) {
-      nowPlayingItem = editingNowPlayingItem
-    }
-
     const { clipId, description, episodeDuration, episodeGuid, episodeId, episodeImageUrl,
       episodeLinkUrl, episodeMediaUrl, episodePubDate, episodeSummary, episodeTitle,
       podcastFeedUrl, podcastGuid, podcastId, podcastImageUrl, podcastTitle } = nowPlayingItem
     
-    data = {
-      ...data,
-      ...(editingNowPlayingItem ? { id: clipId } : {}),
-      ...(description ? { description } : {}),
-      ...(episodeDuration ? { episodeDuration } : {}),
-      ...(episodeGuid ? { episodeGuid } : {}),
-      ...(episodeId ? { episodeId } : {}),
-      ...(episodeImageUrl ? { episodeImageUrl } : {}),
-      ...(episodeLinkUrl ? { episodeLinkUrl } : {}),
-      ...(episodeMediaUrl ? { episodeMediaUrl } : {}),
-      ...(episodePubDate ? { episodePubDate } : {}),
-      ...(episodeSummary ? { episodeSummary } : {}),
-      ...(episodeTitle ? { episodeTitle } : {}),
-      ...(podcastFeedUrl ? { podcastFeedUrl } : {}),
-      ...(podcastGuid ? { podcastGuid } : {}),
-      ...(podcastId ? { podcastId } : {}),
-      ...(podcastImageUrl ? { podcastImageUrl } : {}),
-      ...(podcastTitle ? { podcastTitle } : {})
+    const data = {
+      ...formData,
+      ...isEditing && { id: clipId },
+      ...description && { description },
+      ...episodeDuration && { episodeDuration },
+      ...episodeGuid && { episodeGuid },
+      ...episodeId && { episodeId },
+      ...episodeImageUrl && { episodeImageUrl },
+      ...episodeLinkUrl && { episodeLinkUrl },
+      ...episodeMediaUrl && { episodeMediaUrl },
+      ...episodePubDate && { episodePubDate },
+      ...episodeSummary && { episodeSummary },
+      ...episodeTitle && { episodeTitle },
+      ...podcastFeedUrl && { podcastFeedUrl },
+      ...podcastGuid && { podcastGuid },
+      ...podcastId && { podcastId },
+      ...podcastImageUrl && { podcastImageUrl },
+      ...podcastTitle && { podcastTitle }
     }
 
     try {
       modalsMakeClipIsLoading(true)
-      if (editingNowPlayingItem) {
+      if (isEditing) {
         const updatedMediaRef = await updateMediaRef(data)
         
         const href = `/clip/${updatedMediaRef.data.id}`
