@@ -5,8 +5,10 @@ import { MediaListSelect, PVButton as Button } from 'podverse-ui'
 import { bindActionCreators } from 'redux'
 import MediaListItemCtrl from '~/components/MediaListItemCtrl/MediaListItemCtrl'
 import { convertToNowPlayingItem } from '~/lib/nowPlayingItem'
+import { clone } from '~/lib/utility'
 import { mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying, modalsAddToShow,
-  modalsMakeClipShow, playerQueueLoadPriorityItems, userSetInfo } from '~/redux/actions'
+  modalsMakeClipShow, playerQueueAddSecondaryItems, playerQueueLoadPriorityItems, 
+  userSetInfo } from '~/redux/actions'
 import { getEpisodesByQuery, getMediaRefsByQuery } from '~/services'
 const uuidv4 = require('uuid/v4')
 
@@ -14,6 +16,7 @@ type Props = {
   adjustTopPosition?: boolean
   episodeId?: string
   listItems: any[]
+  playerQueueAddSecondaryItems?: any
   podcastId?: string
   queryFrom?: string
   queryPage: number
@@ -58,7 +61,8 @@ class MediaListCtrl extends Component<Props, State> {
   }
 
   async queryMediaListItems(selectedKey = '', selectedValue = '', page = 1) {
-    const { episodeId, podcastId, subscribedPodcastIds } = this.props
+    const { episodeId, playerQueueAddSecondaryItems, podcastId, subscribedPodcastIds
+      } = this.props
     const { listItems, queryFrom, querySort, queryType } = this.state
 
     let query: any = {
@@ -109,7 +113,9 @@ class MediaListCtrl extends Component<Props, State> {
         const response = await getMediaRefsByQuery(query)
         const mediaRefs = response.data && response.data.map(x => convertToNowPlayingItem(x))
         combinedListItems = combinedListItems.concat(mediaRefs)
-  
+        
+        playerQueueAddSecondaryItems(clone(mediaRefs))
+
         this.setState({
           endReached: mediaRefs.length === 0,
           isLoadingMore: false,
@@ -124,6 +130,8 @@ class MediaListCtrl extends Component<Props, State> {
         const response = await getEpisodesByQuery(query)
         const episodes = response.data && response.data.map(x => convertToNowPlayingItem(x))
         combinedListItems = combinedListItems.concat(episodes)
+
+        playerQueueAddSecondaryItems(clone(episodes))
 
         this.setState({
           endReached: episodes.length === 0,
@@ -321,6 +329,7 @@ const mapDispatchToProps = dispatch => ({
   mediaPlayerUpdatePlaying: bindActionCreators(mediaPlayerUpdatePlaying, dispatch),
   modalsAddToShow: bindActionCreators(modalsAddToShow, dispatch),
   modalsMakeClipShow: bindActionCreators(modalsMakeClipShow, dispatch),
+  playerQueueAddSecondaryItems: bindActionCreators(playerQueueAddSecondaryItems, dispatch),
   playerQueueLoadPriorityItems: bindActionCreators(playerQueueLoadPriorityItems, dispatch),
   userSetInfo: bindActionCreators(userSetInfo, dispatch)
 })

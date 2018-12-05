@@ -1,6 +1,6 @@
 import { actionTypes } from '~/redux/constants'
 
-export default (state = {}, action) => {
+export default (state: any = {}, action) => {
 
   switch (action.type) {
     case actionTypes.PLAYER_QUEUE_LOAD_ITEMS:
@@ -8,6 +8,14 @@ export default (state = {}, action) => {
         ...state,
         priorityItems: action.payload.priorityItems,
         secondaryItems: action.payload.secondaryItems
+      }
+    case actionTypes.PLAYER_QUEUE_ADD_SECONDARY_ITEMS:
+      let combinedItems = state.secondaryItems || []
+      combinedItems = combinedItems.concat(action.payload)
+      
+      return {
+        ...state,
+        secondaryItems: combinedItems
       }
     case actionTypes.PLAYER_QUEUE_LOAD_PRIMARY_ITEMS:
       return {

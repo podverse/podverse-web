@@ -1,8 +1,8 @@
 export { isPageLoading } from '~/redux/actions/isPageLoading'
 export { mediaPlayerLoadNowPlayingItem,mediaPlayerSetClipFinished,
   mediaPlayerSetPlayedAfterClipFinished, mediaPlayerUpdatePlaying } from '~/redux/actions/mediaPlayer'
-export { playerQueueLoadItems, playerQueueLoadPriorityItems, playerQueueLoadSecondaryItems
-  } from '~/redux/actions/playerQueue'
+export { playerQueueAddSecondaryItems, playerQueueLoadItems, playerQueueLoadPriorityItems,
+  playerQueueLoadSecondaryItems } from '~/redux/actions/playerQueue'
 export { modalsAddToIsLoading, modalsAddToSetErrorResponse, modalsAddToShow,
   modalsAddToCreatePlaylistIsSaving, modalsAddToCreatePlaylistShow, modalsClipCreatedShow,
   modalsForgotPasswordIsLoading, modalsForgotPasswordSetErrorResponse,
