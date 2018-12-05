@@ -8,7 +8,7 @@ import { convertToNowPlayingItem } from '~/lib/nowPlayingItem'
 import { clone } from '~/lib/utility'
 import { mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying, modalsAddToShow,
   modalsMakeClipShow, playerQueueAddSecondaryItems, playerQueueLoadPriorityItems, 
-  userSetInfo } from '~/redux/actions'
+  playerQueueLoadSecondaryItems, userSetInfo } from '~/redux/actions'
 import { getEpisodesByQuery, getMediaRefsByQuery } from '~/services'
 const uuidv4 = require('uuid/v4')
 
@@ -16,7 +16,9 @@ type Props = {
   adjustTopPosition?: boolean
   episodeId?: string
   listItems: any[]
+  mediaPlayer?: any
   playerQueueAddSecondaryItems?: any
+  playerQueueLoadSecondaryItems?: any
   podcastId?: string
   queryFrom?: string
   queryPage: number
@@ -61,8 +63,8 @@ class MediaListCtrl extends Component<Props, State> {
   }
 
   async queryMediaListItems(selectedKey = '', selectedValue = '', page = 1) {
-    const { episodeId, playerQueueAddSecondaryItems, podcastId, subscribedPodcastIds
-      } = this.props
+    const { episodeId, playerQueueAddSecondaryItems, playerQueueLoadSecondaryItems,
+      podcastId, subscribedPodcastIds } = this.props
     const { listItems, queryFrom, querySort, queryType } = this.state
 
     let query: any = {
@@ -114,12 +116,16 @@ class MediaListCtrl extends Component<Props, State> {
         const mediaRefs = response.data && response.data.map(x => convertToNowPlayingItem(x))
         combinedListItems = combinedListItems.concat(mediaRefs)
         
-        playerQueueAddSecondaryItems(clone(mediaRefs))
+        if (page > 1) {
+          playerQueueAddSecondaryItems(clone(mediaRefs))
+        } else {
+          playerQueueLoadSecondaryItems(clone(mediaRefs))
+        }
 
         this.setState({
           endReached: mediaRefs.length === 0,
           isLoadingMore: false,
-          listItems: combinedListItems
+          listItems: page > 1 ? combinedListItems : mediaRefs
         })
       } catch (error) {
         console.log(error)
@@ -131,12 +137,16 @@ class MediaListCtrl extends Component<Props, State> {
         const episodes = response.data && response.data.map(x => convertToNowPlayingItem(x))
         combinedListItems = combinedListItems.concat(episodes)
 
-        playerQueueAddSecondaryItems(clone(episodes))
+        if (page > 1) {
+          playerQueueAddSecondaryItems(clone(episodes))
+        } else {
+          playerQueueLoadSecondaryItems(clone(episodes))
+        }
 
         this.setState({
           endReached: episodes.length === 0,
           isLoadingMore: false,
-          listItems: combinedListItems
+          listItems: page > 1 ? combinedListItems : episodes
         })
       } catch (error) {
         console.log(error)
@@ -246,7 +256,8 @@ class MediaListCtrl extends Component<Props, State> {
   }
 
   render() {
-    const { adjustTopPosition, episodeId, podcastId, user } = this.props
+    const { adjustTopPosition, episodeId, mediaPlayer, podcastId, user } = this.props
+    const { nowPlayingItem: mpNowPlayingItem } = mediaPlayer
     const { endReached, isLoadingMore, listItems, queryFrom, queryPage,
       querySort, queryType } = this.state
 
@@ -266,9 +277,18 @@ class MediaListCtrl extends Component<Props, State> {
     }
 
     const listItemNodes = listItems.map(x => {
+      const isActive = () => {
+        if (x.clipId) {
+          return x.clipId === mpNowPlayingItem.clipId
+        } else {
+          return x.episodeId === mpNowPlayingItem.episodeId
+        }
+      }
+
       return (
         <MediaListItemCtrl
           key={`media-list-item-${uuidv4()}`}
+          isActive={isActive()}
           mediaListItemType={mediaListItemType}
           nowPlayingItem={x} />
       )
@@ -331,6 +351,7 @@ const mapDispatchToProps = dispatch => ({
   modalsMakeClipShow: bindActionCreators(modalsMakeClipShow, dispatch),
   playerQueueAddSecondaryItems: bindActionCreators(playerQueueAddSecondaryItems, dispatch),
   playerQueueLoadPriorityItems: bindActionCreators(playerQueueLoadPriorityItems, dispatch),
+  playerQueueLoadSecondaryItems: bindActionCreators(playerQueueLoadSecondaryItems, dispatch),
   userSetInfo: bindActionCreators(userSetInfo, dispatch)
 })
 

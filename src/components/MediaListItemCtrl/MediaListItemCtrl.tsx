@@ -10,6 +10,7 @@ import { addOrUpdateUserHistoryItem, updateUserQueueItems } from '~/services';
 const uuidv4 = require('uuid/v4')
 
 type Props = {
+  isActive?: boolean
   mediaListItemType?: any
   mediaPlayerLoadNowPlayingItem?: any
   mediaPlayerUpdatePlaying?: any
@@ -84,7 +85,7 @@ class MediaListItemCtrl extends Component<Props, State> {
   }
 
   render() {
-    const { mediaListItemType, nowPlayingItem } = this.props
+    const { isActive, mediaListItemType, nowPlayingItem } = this.props
 
     return (
       <MediaListItem
@@ -94,6 +95,7 @@ class MediaListItemCtrl extends Component<Props, State> {
         handlePlayItem={() => { this.playItem(nowPlayingItem) }}
         handleToggleAddToPlaylist={() => this.toggleAddToModal(false)}
         hasLink={true}
+        isActive={isActive}
         itemType={mediaListItemType}
         key={`nowPlayingListItem-${uuidv4()}`}
         showMoreMenu={true} />
