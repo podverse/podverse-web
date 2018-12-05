@@ -21,13 +21,7 @@ type Props = {
   userSetInfo?: any
 }
 
-type State = {
-  listItems?: any[]
-  queryFrom?: any
-  queryPage: number
-  querySort?: any
-  queryType?: any
-}
+type State = {}
 
 class Podcast extends Component<Props, State> {
 
@@ -37,6 +31,8 @@ class Podcast extends Component<Props, State> {
     const podcastResult = await getPodcastById(query.id)
     const podcast = podcastResult.data
 
+    query.from = 'from-podcast'
+    query.podcastId = podcast.id
     const queryDataResult = await getEpisodesByQuery(query)
     const listItems = queryDataResult.data.map(x => convertToNowPlayingItem(x))
 
@@ -44,19 +40,7 @@ class Podcast extends Component<Props, State> {
     store.dispatch(isPageLoading(false))
 
     const { from: queryFrom, sort: querySort, type: queryType } = query
-    return { podcast, query, queryFrom, querySort, queryType, user }
-  }
-
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      listItems: props.listItems,
-      queryFrom: props.queryFrom,
-      queryPage: props.queryPage || 1,
-      querySort: props.querySort,
-      queryType: props.queryType
-    }
+    return { listItems, podcast, query, queryFrom, querySort, queryType, user }
   }
 
   componentDidMount() {
@@ -76,10 +60,10 @@ class Podcast extends Component<Props, State> {
         <MediaInfoCtrl podcast={podcast} />
         <MediaListCtrl
           listItems={listItems}
-          queryFrom={queryFrom}
-          queryPage={queryPage}
-          querySort={querySort}
-          queryType={queryType}
+          queryFrom={queryFrom || 'from-podcast'}
+          queryPage={queryPage || 1}
+          querySort={querySort || 'top-past-week'}
+          queryType={queryType || 'episodes'}
           podcastId={podcast.id} />
       </Fragment>
     )

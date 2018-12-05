@@ -28,3 +28,20 @@ html {
   -o-transform: scaleX(-1); 
   -webkit-transform: scaleX(-1); 
 }
+
+.no-results-msg {
+  margin: 1rem 0;
+  text-align: center;
+}
+
+[theme=light] {
+  .no-results-msg {
+    color: $gray-darker;
+  }
+}
+
+[theme=dark] {
+  .no-results-msg {
+    color: $gray-lighter;
+  }
+}

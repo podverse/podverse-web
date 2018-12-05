@@ -339,7 +339,7 @@ class MediaListCtrl extends Component<Props, State> {
         }
         {
           (!endReached && listItemNodes.length === 0) &&
-          <div>No results found</div>
+          <div className='no-results-msg'>No {queryType === 'episodes' ? 'episodes' : 'clips'} found</div>
         }
       </div>
     )
