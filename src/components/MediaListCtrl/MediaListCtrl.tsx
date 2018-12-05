@@ -14,6 +14,7 @@ const uuidv4 = require('uuid/v4')
 
 type Props = {
   adjustTopPosition?: boolean
+  currentId?: string
   episodeId?: string
   listItems: any[]
   mediaPlayer?: any
@@ -28,6 +29,7 @@ type Props = {
 }
 
 type State = {
+  currentId?: string
   endReached?: boolean
   isLoadingMore?: boolean
   listItems: any[]
@@ -51,6 +53,7 @@ class MediaListCtrl extends Component<Props, State> {
     super(props)
 
     this.state = {
+      currentId: props.currentId,
       listItems: props.listItems || [],
       queryFrom: props.queryFrom,
       queryPage: props.queryPage,
@@ -59,6 +62,21 @@ class MediaListCtrl extends Component<Props, State> {
     }
 
     this.queryMediaListItems = this.queryMediaListItems.bind(this)
+  }
+
+  static getDerivedStateFromProps(props, current_state) {
+    if (props.currentId !== current_state.currentId) {
+      return {
+        currentId: props.currentId,
+        listItems: props.listItems || [],
+        queryFrom: props.queryFrom,
+        queryPage: props.queryPage,
+        querySort: props.querySort,
+        queryType: props.queryType
+      }
+    }
+
+    return null
   }
 
   async queryMediaListItems(selectedKey = '', selectedValue = '', page = 1) {

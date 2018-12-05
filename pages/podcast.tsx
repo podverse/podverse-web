@@ -10,6 +10,7 @@ import { getEpisodesByQuery, getPodcastById } from '~/services/'
 import { clone } from '~/lib/utility'
 
 type Props = {
+  currentId?: string
   listItems?: any
   playerQueue?: any
   podcast?: any
@@ -30,6 +31,7 @@ class Podcast extends Component<Props, State> {
     const { user } = state
     const podcastResult = await getPodcastById(query.id)
     const podcast = podcastResult.data
+    const currentId = podcast.id
 
     query.from = 'from-podcast'
     query.podcastId = podcast.id
@@ -40,7 +42,7 @@ class Podcast extends Component<Props, State> {
     store.dispatch(isPageLoading(false))
 
     const { from: queryFrom, sort: querySort, type: queryType } = query
-    return { listItems, podcast, query, queryFrom, querySort, queryType, user }
+    return { currentId, listItems, podcast, query, queryFrom, querySort, queryType, user }
   }
 
   componentDidMount() {
@@ -51,7 +53,7 @@ class Podcast extends Component<Props, State> {
   }
 
   render() {
-    const { listItems, podcast, queryFrom, queryPage, querySort, queryType
+    const { currentId, listItems, podcast, queryFrom, queryPage, querySort, queryType
       } = this.props
 
     return (
@@ -59,6 +61,7 @@ class Podcast extends Component<Props, State> {
         <MediaHeaderCtrl podcast={podcast} />
         <MediaInfoCtrl podcast={podcast} />
         <MediaListCtrl
+          currentId={currentId}
           listItems={listItems}
           queryFrom={queryFrom || 'from-podcast'}
           queryPage={queryPage || 1}

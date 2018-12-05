@@ -261,6 +261,10 @@ class MediaModals extends Component<Props, State> {
     modalsAddToCreatePlaylistShow(false)
   }
 
+  queueItemClick = () => {
+    this.hideQueueModal()
+  }
+
   render() {
     const { mediaPlayer, modals, modalsLoginShow, playerQueue, user } = this.props
     const { nowPlayingItem } = mediaPlayer
@@ -293,7 +297,7 @@ class MediaModals extends Component<Props, State> {
     return (
       <Fragment>
         <QueueModal
-          // handleAnchorOnClick={this.queueItemClick}
+          handleAnchorOnClick={this.queueItemClick}
           handleHideModal={this.hideQueueModal}
           historyItems={historyItems}
           isLoggedIn={user && !!user.id}

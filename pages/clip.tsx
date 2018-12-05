@@ -31,6 +31,7 @@ class Clip extends Component<Props, State> {
     const { user } = state
     const mediaRefResult = await getMediaRefById(query.id)
     const mediaRef = mediaRefResult.data
+    const currentId = mediaRef.id
     
     // @ts-ignore
     if (!process.browser) {
@@ -43,10 +44,10 @@ class Clip extends Component<Props, State> {
 
     store.dispatch(playerQueueLoadSecondaryItems(clone(listItems)))
     store.dispatch(isPageLoading(false))
-
+    
     const { from: queryFrom, sort: querySort, type: queryType } = query
 
-    return { listItems, mediaRef, query, queryFrom, querySort, queryType, user }
+    return { currentId, listItems, mediaRef, query, queryFrom, querySort, queryType, user }
   }
 
   componentDidMount () {
@@ -57,23 +58,22 @@ class Clip extends Component<Props, State> {
   }
 
   render () {
-    const { listItems, mediaRef, queryFrom, queryPage, querySort, queryType,
-      user } = this.props
-    const { subscribedPodcastIds } = user
+    const { currentId, listItems, mediaRef, queryFrom, queryPage, querySort, queryType
+      } = this.props
 
     return (
       <Fragment>
         <MediaHeaderCtrl mediaRef={mediaRef} />
         <MediaInfoCtrl mediaRef={mediaRef} />
         <MediaListCtrl
+          currentId={currentId}
           episodeId={mediaRef.episodeId}
           listItems={listItems}
           podcastId={mediaRef.podcastId}
           queryFrom={queryFrom}
           queryPage={queryPage}
           querySort={querySort}
-          queryType={queryType}
-          subscribedPodcastIds={subscribedPodcastIds} />
+          queryType={queryType} />
       </Fragment>
     )
   }

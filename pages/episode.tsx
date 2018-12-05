@@ -11,6 +11,7 @@ import { getEpisodeById, getMediaRefsByQuery } from '~/services/'
 import { clone } from '~/lib/utility'
 
 type Props = {
+  currentId?: string
   episode?: any
   listItems?: any
   playerQueue?: any
@@ -22,13 +23,7 @@ type Props = {
   userSetInfo?: any
 }
 
-type State = {
-  listItems?: any[]
-  queryFrom?: any
-  queryPage: number
-  querySort?: any
-  queryType?: any
-}
+type State = {}
 
 class Episode extends Component<Props, State> {
 
@@ -37,6 +32,7 @@ class Episode extends Component<Props, State> {
     const { user } = state
     const episodeResult = await getEpisodeById(query.id)
     const episode = episodeResult.data
+    const currentId = episode.id
 
     // @ts-ignore
     if (!process.browser) {
@@ -51,19 +47,7 @@ class Episode extends Component<Props, State> {
     store.dispatch(isPageLoading(false))
 
     const { from: queryFrom, sort: querySort, type: queryType } = query
-    return { episode, listItems, query, queryFrom, querySort, queryType, user }
-  }
-
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      listItems: props.listItems,
-      queryFrom: props.queryFrom,
-      queryPage: props.queryPage || 1,
-      querySort: props.querySort,
-      queryType: props.queryType
-    }
+    return { currentId, episode, listItems, query, queryFrom, querySort, queryType, user }
   }
 
   componentDidMount() {
@@ -74,23 +58,22 @@ class Episode extends Component<Props, State> {
   }
 
   render() {
-    const { episode, listItems, queryFrom, queryPage, querySort, queryType,
-      user } = this.props
-    const { subscribedPodcastIds } = user
+    const { currentId, episode, listItems, queryFrom, queryPage, querySort, queryType
+      } = this.props
 
     return (
       <Fragment>
         <MediaHeaderCtrl episode={episode} />
         <MediaInfoCtrl episode={episode} />
         <MediaListCtrl
+          currentId={currentId}
           episodeId={episode.id}
           listItems={listItems}
           podcastId={episode.podcast.id}
           queryFrom={queryFrom}
           queryPage={queryPage}
           querySort={querySort}
-          queryType={queryType}
-          subscribedPodcastIds={subscribedPodcastIds} />
+          queryType={queryType} />
       </Fragment>
     )
   }
