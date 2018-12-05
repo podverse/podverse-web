@@ -9,13 +9,14 @@ import Footer from '~/components/Footer/Footer'
 import MediaModals from '~/components/MediaModals/MediaModals'
 import NavBar from '~/components/NavBar/NavBar'
 import MediaPlayerView from '~/components/MediaPlayerView/MediaPlayerView'
+import PageLoadingOverlay from '~/components/PageLoadingOverlay/PageLoadingOverlay'
 import { addFontAwesomeIcons } from '~/lib/fontAwesomeIcons'
 import { NowPlayingItem } from '~/lib/nowPlayingItem'
 import { initializeStore } from '~/redux/store'
-import { isPageLoading, playerQueueLoadPriorityItems } from '~/redux/actions'
+import { pageIsLoading, playerQueueLoadPriorityItems } from '~/redux/actions'
 import { actionTypes } from '~/redux/constants'
-import { getAuthenticatedUserInfo } from '~/services';
-import { scrollToTopOfView } from '~/lib/scrollToTop';
+import { getAuthenticatedUserInfo } from '~/services'
+import { scrollToTopOfView } from '~/lib/scrollToTop'
 const cookie = require('cookie')
 
 addFontAwesomeIcons()
@@ -28,7 +29,6 @@ declare global {
 }
 
 type Props = {
-  isPageLoading?: boolean,
   mediaPlayer: {
     nowPlayingItem: any
     playing?: boolean
@@ -43,6 +43,9 @@ type Props = {
     share: {},
     signUp: {}
   }
+  page: {
+    isLoading?: boolean
+  },
   playerQueue: {
     priorityItems: any[]
     secondaryItems: any[]
@@ -54,9 +57,9 @@ type Props = {
 export default withRedux(initializeStore)(class MyApp extends App<Props> {
     
   static async getInitialProps({ Component, ctx }) {
-    let pageProps = {}
+        let pageProps = {}
 
-    ctx.store.dispatch(isPageLoading(true))
+    ctx.store.dispatch(pageIsLoading(true))
 
     // @ts-ignore
     if (!process.browser && ctx.req.headers.cookie) {
@@ -100,7 +103,7 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
     const { store } = this.props
     const state = store.getState()
     const { user } = state
-  
+ 
     if (user && user.queueItems) {
       store.dispatch(playerQueueLoadPriorityItems(user.queueItems))
     } else {
@@ -118,6 +121,7 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
           <Fragment>
             <Meta />
             <Auth />
+            <PageLoadingOverlay />
             <div className='view'>
               <div className='view__navbar'>
                 <NavBar />

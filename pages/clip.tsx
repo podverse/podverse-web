@@ -5,12 +5,13 @@ import MediaHeaderCtrl from '~/components/MediaHeaderCtrl/MediaHeaderCtrl'
 import MediaInfoCtrl from '~/components/MediaInfoCtrl/MediaInfoCtrl'
 import MediaListCtrl from '~/components/MediaListCtrl/MediaListCtrl'
 import { convertToNowPlayingItem } from '~/lib/nowPlayingItem'
-import { isPageLoading, mediaPlayerLoadNowPlayingItem, playerQueueLoadSecondaryItems
+import { mediaPlayerLoadNowPlayingItem, pageIsLoading, playerQueueLoadSecondaryItems
   } from '~/redux/actions'
 import { getMediaRefsByQuery, getMediaRefById } from '~/services/'
 import { clone } from '~/lib/utility'
 
 type Props = {
+  currentId?: string
   listItems?: any
   mediaRef?: any
   playerQueue?: any
@@ -43,10 +44,9 @@ class Clip extends Component<Props, State> {
     const listItems = queryDataResult.data.map(x => convertToNowPlayingItem(x))
 
     store.dispatch(playerQueueLoadSecondaryItems(clone(listItems)))
-    store.dispatch(isPageLoading(false))
+    store.dispatch(pageIsLoading(false))
     
     const { from: queryFrom, sort: querySort, type: queryType } = query
-
     return { currentId, listItems, mediaRef, query, queryFrom, querySort, queryType, user }
   }
 

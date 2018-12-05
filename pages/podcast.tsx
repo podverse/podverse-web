@@ -5,7 +5,7 @@ import MediaHeaderCtrl from '~/components/MediaHeaderCtrl/MediaHeaderCtrl'
 import MediaInfoCtrl from '~/components/MediaInfoCtrl/MediaInfoCtrl'
 import MediaListCtrl from '~/components/MediaListCtrl/MediaListCtrl'
 import { convertToNowPlayingItem } from '~/lib/nowPlayingItem'
-import { isPageLoading, playerQueueLoadSecondaryItems } from '~/redux/actions'
+import { pageIsLoading, playerQueueLoadSecondaryItems } from '~/redux/actions'
 import { getEpisodesByQuery, getPodcastById } from '~/services/'
 import { clone } from '~/lib/utility'
 
@@ -39,7 +39,7 @@ class Podcast extends Component<Props, State> {
     const listItems = queryDataResult.data.map(x => convertToNowPlayingItem(x))
 
     store.dispatch(playerQueueLoadSecondaryItems(clone(listItems)))
-    store.dispatch(isPageLoading(false))
+    store.dispatch(pageIsLoading(false))
 
     const { from: queryFrom, sort: querySort, type: queryType } = query
     return { currentId, listItems, podcast, query, queryFrom, querySort, queryType, user }

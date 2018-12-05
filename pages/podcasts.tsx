@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { getCategoriesByQuery, getPodcastsByQuery } from '~/services'
-import { isPageLoading } from '~/redux/actions'
+import { pageIsLoading } from '~/redux/actions'
 import PodcastListCtrl from '~/components/PodcastListCtrl/PodcastListCtrl';
 
 type Props = {
@@ -28,10 +28,9 @@ class Podcasts extends Component<Props, State> {
     const queryDataResult = await getPodcastsByQuery(query)
     const listItems = queryDataResult.data
 
-    store.dispatch(isPageLoading(false))
+    store.dispatch(pageIsLoading(false))
 
     const { from: queryFrom, sort: querySort, type: queryType } = query
-
     return { allCategories, listItems, query, queryFrom, querySort, queryType,
       selectedCategoryId, user }
   }

@@ -1,0 +1,34 @@
+.page-loading-overlay {
+  align-items: center;
+  bottom: 0;
+  display: none;
+  font-size: 48px;
+  justify-content: center;
+  left: 0;
+  pointer-events: none;
+  position: fixed;
+  right: 0;
+  text-align: center;
+  top: -32px;
+  z-index: 1;
+
+  &.show {
+    display: flex;
+  }
+  
+  svg {
+    flex: 0 0 auto;
+  }
+}
+
+[theme=light] {
+  .page-loading-overlay {
+    color: $gray-light;
+  }
+}
+
+[theme=dark] {
+  .page-loading-overlay {
+    color: $gray-dark;
+  }
+}

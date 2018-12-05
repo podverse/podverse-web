@@ -38,10 +38,18 @@ html {
   .no-results-msg {
     color: $gray-darker;
   }
+
+  .page-loading-overlay {
+    color: $gray-light;
+  }
 }
 
 [theme=dark] {
   .no-results-msg {
     color: $gray-lighter;
+  }
+
+  .page-loading-overlay {
+    color: $gray-dark;
   }
 }

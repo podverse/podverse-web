@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { addItemsToSecondaryQueueStorage, clearItemsFromSecondaryQueueStorage } from 'podverse-ui'
 import MediaListCtrl from '~/components/MediaListCtrl/MediaListCtrl'
 import { convertToNowPlayingItem } from '~/lib/nowPlayingItem'
-import { isPageLoading, playerQueueLoadSecondaryItems } from '~/redux/actions'
+import { pageIsLoading, playerQueueLoadSecondaryItems } from '~/redux/actions'
 import { getMediaRefsByQuery } from '~/services'
 import { clone } from '~/lib/utility'
 
@@ -36,10 +36,9 @@ class Home extends Component<Props, State> {
     const listItems = queryDataResult.data.map(x => convertToNowPlayingItem(x))
 
     store.dispatch(playerQueueLoadSecondaryItems(clone(listItems)))
-    store.dispatch(isPageLoading(false))
+    store.dispatch(pageIsLoading(false))
 
     const { from: queryFrom, sort: querySort, type: queryType } = query
-    
     return { listItems, query, queryFrom, querySort, queryType, user }
   }
 
@@ -63,9 +62,7 @@ class Home extends Component<Props, State> {
   }
 
   render() {
-    const { listItems, queryFrom, queryPage, querySort, queryType,
-      user } = this.props
-    const { subscribedPodcastIds } = user
+    const { listItems, queryFrom, queryPage, querySort, queryType } = this.props
 
     return (
       <Fragment>
@@ -75,8 +72,7 @@ class Home extends Component<Props, State> {
           queryFrom={queryFrom}
           queryPage={queryPage}
           querySort={querySort}
-          queryType={queryType}
-          subscribedPodcastIds={subscribedPodcastIds} />
+          queryType={queryType} />
       </Fragment>
     )
   }

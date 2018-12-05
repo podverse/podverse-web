@@ -1,6 +1,6 @@
-export { isPageLoading } from '~/redux/actions/isPageLoading'
 export { mediaPlayerLoadNowPlayingItem,mediaPlayerSetClipFinished,
   mediaPlayerSetPlayedAfterClipFinished, mediaPlayerUpdatePlaying } from '~/redux/actions/mediaPlayer'
+export { pageIsLoading } from '~/redux/actions/page'
 export { playerQueueAddSecondaryItems, playerQueueLoadItems, playerQueueLoadPriorityItems,
   playerQueueLoadSecondaryItems } from '~/redux/actions/playerQueue'
 export { modalsAddToIsLoading, modalsAddToSetErrorResponse, modalsAddToShow,
@@ -12,8 +12,3 @@ export { modalsAddToIsLoading, modalsAddToSetErrorResponse, modalsAddToShow,
   modalsShareSetErrorResponse, modalsShareShow, modalsSignUpIsLoading,
   modalsSignUpSetErrorResponse, modalsSignUpShow } from '~/redux/actions/modals'
 export { userSetInfo } from '~/redux/actions/user'
-
-
-
-
-

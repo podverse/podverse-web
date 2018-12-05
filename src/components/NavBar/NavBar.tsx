@@ -3,7 +3,8 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Navbar, getPriorityQueueItemsStorage } from 'podverse-ui'
-import { modalsLoginShow, userSetInfo, playerQueueLoadPriorityItems } from '~/redux/actions'
+import { modalsLoginShow, pageIsLoading, playerQueueLoadPriorityItems, userSetInfo
+  } from '~/redux/actions'
 import { logOut } from '~/services/auth'
 
 type Props = {
@@ -12,6 +13,7 @@ type Props = {
   modalsForgotPasswordShow?: any
   modalsLoginIsLoading?: any
   modalsLoginShow?: any
+  pageIsLoading?: any
   playerQueueLoadPriorityItems?: any
   user?: any
   userSetInfo?: any
@@ -88,7 +90,7 @@ class PVNavBar extends Component<Props, State> {
   }
 
   render () {
-    const { user } = this.props
+    const { pageIsLoading, user } = this.props
     const { id } = user 
 
     const dropdownText = (!!id ? <FontAwesomeIcon icon='user-circle'></FontAwesomeIcon> : null)
@@ -111,6 +113,7 @@ const mapStateToProps = state => ({ ...state })
 
 const mapDispatchToProps = dispatch => ({
   modalsLoginShow: bindActionCreators(modalsLoginShow, dispatch),
+  pageIsLoading: bindActionCreators(pageIsLoading, dispatch),
   playerQueueLoadPriorityItems: bindActionCreators(playerQueueLoadPriorityItems, dispatch),
   userSetInfo: bindActionCreators(userSetInfo, dispatch)
 })
