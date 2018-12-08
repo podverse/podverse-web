@@ -69,6 +69,7 @@ class PVNavBar extends Component<Props, State> {
               id: null,
               playlists: [],
               queueItems: [],
+              subscribedPlaylistIds: [],
               subscribedPodcastIds: []
             })
             playerQueueLoadPriorityItems(getPriorityQueueItemsStorage())

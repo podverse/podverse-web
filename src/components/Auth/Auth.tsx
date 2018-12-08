@@ -74,6 +74,7 @@ class Auth extends Component<Props, State> {
         id: null,
         playlists: [],
         queueItems: [],
+        subscribedPlaylistIds: [],
         subscribedPodcastIds: []
       })
     } finally {

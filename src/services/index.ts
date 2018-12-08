@@ -4,6 +4,7 @@ export { getCategoriesByQuery } from '~/services/category'
 export { getEpisodeById, getEpisodesByQuery } from '~/services/episode'
 export { createMediaRef, getMediaRefById, getMediaRefsByQuery, updateMediaRef
   } from '~/services/mediaRef'
-export { addOrRemovePlaylistItem, createPlaylist } from '~/services/playlist'
+export { addOrRemovePlaylistItem, createPlaylist, getPlaylistById,
+  toggleSubscribeToPlaylist } from '~/services/playlist'
 export { getPodcastById, getPodcastsByQuery, toggleSubscribeToPodcast } from '~/services/podcast'
 export { addOrUpdateUserHistoryItem, updateUserQueueItems } from '~/services/user'

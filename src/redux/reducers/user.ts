@@ -4,8 +4,8 @@ export default (state = {}, action) => {
 
   switch (action.type) {
     case actionTypes.USER_SET_INFO:
-      const { historyItems, id, playlists, queueItems, subscribedPodcastIds }
-        = action.payload
+      const { historyItems, id, playlists, queueItems, subscribedPlaylistIds,
+        subscribedPodcastIds } = action.payload
 
       return {
         ...state,
@@ -13,6 +13,7 @@ export default (state = {}, action) => {
         ...(id || id === null ? { id } : {}),
         ...(playlists ? { playlists } : {}),
         ...(queueItems ? { queueItems } : {}),
+        ...(subscribedPlaylistIds ? { subscribedPlaylistIds } : {}),
         ...(subscribedPodcastIds ? { subscribedPodcastIds } : {})
       }
     default:

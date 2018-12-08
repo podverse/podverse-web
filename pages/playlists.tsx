@@ -55,13 +55,13 @@ class Playlists extends Component<Props, State> {
                 }
                 {
                   (mediaListItemNodes.length === 0) &&
-                    <div className='no-results-msg'>No playlists found.</div>
+                    <div className='no-results-msg'>No playlists found</div>
                 }
               </Fragment>
           }
           {
             (!user || !user.id) &&
-              <div className='no-results-msg'>Login to view your playlists.</div>
+              <div className='no-results-msg'>Login to view your playlists</div>
           }
         </div>
       </Fragment>

@@ -39,17 +39,17 @@ export const convertToNowPlayingItem = (data, userPlaybackPosition = 0) => {
     nowPlayingItem.clipId = data.id
     nowPlayingItem.clipStartTime = data.startTime
     nowPlayingItem.clipTitle = data.title
-    nowPlayingItem.episodeDescription = data.episode.description
-    nowPlayingItem.episodeId = data.episode.id
-    nowPlayingItem.episodeImageUrl = data.episode.imageUrl
-    nowPlayingItem.episodeMediaUrl = data.episode.mediaUrl
-    nowPlayingItem.episodePubDate = data.episode.pubDate
-    nowPlayingItem.episodeTitle = data.episode.title
+    nowPlayingItem.episodeDescription = (data.episode && data.episode.description) || data.episodeDescription
+    nowPlayingItem.episodeId = (data.episode && data.episode.id) || data.episodeId
+    nowPlayingItem.episodeImageUrl = (data.episode && data.episode.imageUrl) || data.episodeImageUrl
+    nowPlayingItem.episodeMediaUrl = (data.episode && data.episode.mediaUrl) || data.episodeMediaUrl
+    nowPlayingItem.episodePubDate = (data.episode && data.episode.pubDate) || data.episodePubDate
+    nowPlayingItem.episodeTitle = (data.episode && data.episode.title) || data.episodeTitle
     nowPlayingItem.isPublic = data.isPublic
     nowPlayingItem.ownerId = data.owner && data.owner.id
-    nowPlayingItem.podcastImageUrl = data.episode.podcast.imageUrl
-    nowPlayingItem.podcastId = data.episode.podcast.id
-    nowPlayingItem.podcastTitle = data.episode.podcast.title
+    nowPlayingItem.podcastImageUrl = (data.episode && data.episode.podcast && data.episode.podcast.imageUrl) || data.podcastImageUrl
+    nowPlayingItem.podcastId = (data.episode && data.episode.podcast && data.episode.podcast.id) || data.podcastId
+    nowPlayingItem.podcastTitle = (data.episode && data.episode.podcast && data.episode.podcast.title) || data.podcastTitle
     nowPlayingItem.userPlaybackPosition = userPlaybackPosition || data.clipStartTime || 0
   }
 

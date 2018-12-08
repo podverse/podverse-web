@@ -51,7 +51,15 @@ type Props = {
     secondaryItems: any[]
   }
   playerQueueLoadPriorityItems?: any
-  store?: any
+  store?: any,
+  user: {
+    historyItems: any[]
+    id: string
+    playlists: any[]
+    queueItems: any[]
+    subscribedPlaylistIds: any[]
+    subscribedPodcastIds: any[]
+  }
 }
 
 export default withRedux(initializeStore)(class MyApp extends App<Props> {
@@ -77,6 +85,7 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
                 id: userInfo.data.id,
                 playlists: userInfo.data.playlists,
                 queueItems: userInfo.data.queueItems,
+                subscribedPlaylistIds: userInfo.data.subscribedPlaylistIds,
                 subscribedPodcastIds: userInfo.data.subscribedPodcastIds
               }
             })
