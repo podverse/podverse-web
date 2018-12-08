@@ -6,10 +6,11 @@ import { MediaListItem, addItemToPriorityQueueStorage, getPriorityQueueItemsStor
 import { bindActionCreators } from 'redux';
 import { mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying, modalsAddToShow,
   playerQueueLoadPriorityItems, userSetInfo } from '~/redux/actions'
-import { addOrUpdateUserHistoryItem, updateUserQueueItems } from '~/services';
+import { addOrUpdateUserHistoryItem, updateUserQueueItems } from '~/services'
 const uuidv4 = require('uuid/v4')
 
 type Props = {
+  handleRemoveItem?: (event: React.MouseEvent<HTMLButtonElement>) => void
   isActive?: boolean
   mediaListItemType?: any
   mediaPlayerLoadNowPlayingItem?: any
@@ -20,6 +21,8 @@ type Props = {
   playerQueueLoadPriorityItems?: any
   queryFrom?: string
   queryType?: string
+  showMoreMenu?: boolean
+  showRemove?: boolean
   user?: any
   userSetInfo?: any
 }
@@ -85,7 +88,8 @@ class MediaListItemCtrl extends Component<Props, State> {
   }
 
   render() {
-    const { isActive, mediaListItemType, nowPlayingItem } = this.props
+    const { handleRemoveItem, isActive, mediaListItemType, nowPlayingItem, showMoreMenu,
+      showRemove } = this.props
 
     return (
       <MediaListItem
@@ -93,12 +97,14 @@ class MediaListItemCtrl extends Component<Props, State> {
         handleAddToQueueLast={() => { this.addToQueue(nowPlayingItem, true) }}
         handleAddToQueueNext={() => { this.addToQueue(nowPlayingItem, false) }}
         handlePlayItem={() => { this.playItem(nowPlayingItem) }}
-        handleToggleAddToPlaylist={() => this.toggleAddToModal(false)}
+        handleRemoveItem={handleRemoveItem}
+        handleToggleAddToPlaylist={() => this.toggleAddToModal(nowPlayingItem, false)}
         hasLink={true}
         isActive={isActive}
         itemType={mediaListItemType}
         key={`nowPlayingListItem-${uuidv4()}`}
-        showMoreMenu={true} />
+        showMoreMenu={showMoreMenu}
+        showRemove={showRemove} />
     )
   }
 }

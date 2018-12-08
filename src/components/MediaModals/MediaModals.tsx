@@ -219,20 +219,25 @@ class MediaModals extends Component<Props, State> {
     const { id: playlistId } = event.currentTarget.dataset
     
     if (playlistId) {
-      const res = await addOrRemovePlaylistItem({
-        playlistId,
-        mediaRefId: nowPlayingItem.clipId
-      })
-
-      if (res && res.data) {
-        userSetInfo({
-          playlists: user.playlists.map(x => {
-            if (x.id === playlistId) {
-              x.itemCount = res.data.playlistItemCount
-            }
-            return x
-          })
+      try {
+        const res = await addOrRemovePlaylistItem({
+          playlistId,
+          mediaRefId: nowPlayingItem.clipId
         })
+  
+        if (res && res.data) {
+          userSetInfo({
+            playlists: user.playlists.map(x => {
+              if (x.id === playlistId) {
+                x.itemCount = res.data.playlistItemCount
+              }
+              return x
+            })
+          })
+        }
+      } catch (error) {
+        console.log(error)
+        alert('Could add to playlist. Please check your internet connection and try again.')
       }
     }
   }

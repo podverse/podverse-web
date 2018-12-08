@@ -312,7 +312,8 @@ class MediaListCtrl extends Component<Props, State> {
           key={`media-list-item-${uuidv4()}`}
           isActive={isActive()}
           mediaListItemType={mediaListItemType}
-          nowPlayingItem={x} />
+          nowPlayingItem={x}
+          showMoreMenu={true} />
       )
     })
 

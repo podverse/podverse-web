@@ -7,13 +7,14 @@
 @import './core/_variables';
 @import '../../node_modules/podverse-ui/build/scss/styles.scss';
 
-@import './lib/mixins';
+@import './lib/_mixins';
 
 @import './core/_global';
 
-@import './pages/resetPassword';
+@import './pages/_playlist';
+@import './pages/_resetPassword';
 
-@import './partials/footer';
+@import './partials/_footer';
 @import './partials/_mediaContentView';
 @import './partials/_mediaPlayerView';
 @import './partials//pageLoadingOverlay';

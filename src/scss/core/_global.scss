@@ -34,6 +34,14 @@ html {
   text-align: center;
 }
 
+.pull-left {
+  float: left;
+}
+
+.pull-right {
+  float: right;
+}
+
 [theme=light] {
   .no-results-msg {
     color: $gray-darker;
