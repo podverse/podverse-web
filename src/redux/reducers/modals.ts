@@ -214,21 +214,6 @@ export default (state = defaultState, action) => {
           share: '',
           signUp: ''
         }
-      case actionTypes.MODALS_MAKE_CLIP_IS_LOADING:
-        return {
-          makeClip: {
-            // @ts-ignore
-            ...state.makeClip,
-            isLoading: action.payload
-          },
-          addTo: '',
-          clipCreated: '',
-          forgotPassword: '',
-          login: '',
-          queue: '',
-          share: '',
-          signUp: ''
-        }
       case actionTypes.MODALS_MAKE_CLIP_SET_ERROR_RESPONSE:
         return {
           makeClip: {

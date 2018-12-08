@@ -8,10 +8,11 @@ import { AddToModal, ClipCreatedModal, MakeClipModal, QueueModal, ShareModal,
 import { kPlaybackRate } from '~/lib/constants'
 import { mediaPlayerUpdatePlaying, modalsAddToCreatePlaylistIsSaving,
   modalsAddToCreatePlaylistShow, modalsAddToShow, modalsClipCreatedShow, modalsLoginShow, 
-  modalsMakeClipShow, modalsQueueShow, modalsShareShow, modalsMakeClipIsLoading,
-  playerQueueLoadItems, playerQueueLoadPriorityItems, userSetInfo } from '~/redux/actions'
-import { addOrRemovePlaylistItem, createMediaRef, createPlaylist, updateMediaRef, 
-  updateUserQueueItems } from '~/services'
+  modalsMakeClipShow, modalsQueueShow, modalsShareShow,
+  pageIsLoading, playerQueueLoadItems, playerQueueLoadPriorityItems, userSetInfo
+  } from '~/redux/actions'
+import { addOrRemovePlaylistItem, createMediaRef, createPlaylist, deleteMediaRef,
+  updateMediaRef, updateUserQueueItems } from '~/services'
 
 type Props = {
   mediaPlayer?: any
@@ -22,10 +23,10 @@ type Props = {
   modalsAddToShow?: any
   modalsClipCreatedShow?: any
   modalsLoginShow?: any
-  modalsMakeClipIsLoading?: any
   modalsMakeClipShow?: any
   modalsQueueShow?: any
   modalsShareShow?: any
+  pageIsLoading?: any
   playerQueue?: any
   playerQueueLoadItems?: any
   playerQueueLoadPriorityItems?: any
@@ -38,6 +39,8 @@ type State = {
   isAddedToPlayNext?: boolean
   isAddingToPlayLast?: boolean
   isAddingToPlayNext?: boolean
+  makeClipIsDeleting?: boolean
+  makeClipIsSaving?: boolean
 }
 
 class MediaModals extends Component<Props, State> {
@@ -47,6 +50,8 @@ class MediaModals extends Component<Props, State> {
     
     this.state = {}
 
+    this.makeClipDelete = this.makeClipDelete.bind(this)
+    this.makeClipSave = this.makeClipSave.bind(this)
     this.queueDragEnd = this.queueDragEnd.bind(this)
   }
 
@@ -150,8 +155,9 @@ class MediaModals extends Component<Props, State> {
   }
 
   makeClipSave = async (formData, isEditing) => {
-    const { modals, modalsClipCreatedShow, modalsMakeClipIsLoading,
-      modalsMakeClipShow } = this.props
+    this.setState({ makeClipIsSaving: true })
+
+    const { modals, modalsClipCreatedShow, modalsMakeClipShow } = this.props
     const { makeClip } = modals
     const { nowPlayingItem } = makeClip
     
@@ -180,18 +186,21 @@ class MediaModals extends Component<Props, State> {
     }
 
     try {
-      modalsMakeClipIsLoading(true)
       if (isEditing) {
         const updatedMediaRef = await updateMediaRef(data)
-        
-        const href = `/clip/${updatedMediaRef.data.id}`
+               
+        this.setState({ makeClipIsSaving: false })
+        modalsMakeClipShow({
+          isEditing: false,
+          isOpen: false
+        })
+
+        const href = `/clip?id=${updatedMediaRef.data.id}`
         const as = `/clip/${updatedMediaRef.data.id}`
         Router.push(href, as)
-        
-        modalsMakeClipIsLoading(false)
-        modalsMakeClipShow({ isOpen: false })
       } else {
         const newMediaRef = await createMediaRef(data)
+        this.setState({ makeClipIsSaving: false })
         modalsClipCreatedShow({
           isOpen: true,
           mediaRef: newMediaRef && newMediaRef.data
@@ -199,8 +208,35 @@ class MediaModals extends Component<Props, State> {
       }
     } catch (error) {
       console.log(error)
-      modalsMakeClipIsLoading(false)
     }
+  }
+
+  async makeClipDelete() {
+    this.setState({ makeClipIsDeleting: true })
+
+    const { modals, modalsMakeClipShow, pageIsLoading } = this.props
+    const { makeClip } = modals
+    const { nowPlayingItem } = makeClip
+    const { clipId } = nowPlayingItem
+
+    try {
+      await deleteMediaRef(clipId)
+
+      pageIsLoading(true)
+
+      const href = `/`
+      const as = `/`
+      Router.push(href, as)
+    } catch (error) {
+      console.log(error)
+      alert('Delete clip failed. Please check your internet connection and try again.')
+    }
+    
+    this.setState({ makeClipIsDeleting: false })
+    modalsMakeClipShow({
+      isEditing: false,
+      isOpen: false
+    })
   }
 
   playlistItemAdd = async event => {
@@ -278,14 +314,14 @@ class MediaModals extends Component<Props, State> {
       isOpen: addToIsOpen, nowPlayingItem: addToNowPlayingItem, showQueue: addToShowQueue
       } = addTo
     const { isOpen: clipCreatedIsOpen, mediaRef: clipCreatedMediaRef } = clipCreated
-    const { isEditing: makeClipIsEditing, isLoading: makeClipIsLoading,
-      isOpen: makeClipIsOpen, nowPlayingItem: makeClipNowPlayingItem } = makeClip
+    const { isEditing: makeClipIsEditing, isOpen: makeClipIsOpen, 
+      nowPlayingItem: makeClipNowPlayingItem } = makeClip
     const { isOpen: queueIsOpen } = queue
     const { clipLinkAs, episodeLinkAs, isOpen: shareIsOpen, podcastLinkAs } = share
     const { priorityItems, secondaryItems } = playerQueue
     const { id, historyItems, playlists } = user
-    const { isAddedToPlayLast, isAddedToPlayNext, isAddingToPlayLast, isAddingToPlayNext
-      } = this.state
+    const { isAddedToPlayLast, isAddedToPlayNext, isAddingToPlayLast, isAddingToPlayNext,
+      makeClipIsDeleting, makeClipIsSaving } = this.state
 
     let makeClipStartTime = 0
     if (makeClipIsEditing) {
@@ -313,13 +349,15 @@ class MediaModals extends Component<Props, State> {
           secondaryItems={secondaryItems} />
         <MakeClipModal
           endTime={makeClipIsEditing ? makeClipNowPlayingItem.clipEndTime : ''}
+          handleDelete={this.makeClipDelete}
           handleEndTimePreview={this.makeClipEndTimePreview}
           handleHideModal={this.hideMakeClipModal}
           handleSave={this.makeClipSave}
           handleStartTimePreview={this.makeClipStartTimePreview}
           initialIsPublic={nowPlayingItem && nowPlayingItem.isPublic}
+          isDeleting={makeClipIsDeleting}
           isEditing={makeClipIsEditing}
-          isLoading={makeClipIsLoading}
+          isSaving={makeClipIsSaving}
           isOpen={makeClipIsOpen}
           player={typeof window !== 'undefined' && window.player}
           startTime={makeClipStartTime}
@@ -369,10 +407,10 @@ const mapDispatchToProps = dispatch => ({
   modalsAddToShow: bindActionCreators(modalsAddToShow, dispatch),
   modalsClipCreatedShow: bindActionCreators(modalsClipCreatedShow, dispatch),
   modalsLoginShow: bindActionCreators(modalsLoginShow, dispatch),
-  modalsMakeClipIsLoading: bindActionCreators(modalsMakeClipIsLoading, dispatch),
   modalsMakeClipShow: bindActionCreators(modalsMakeClipShow, dispatch),
   modalsQueueShow: bindActionCreators(modalsQueueShow, dispatch),
   modalsShareShow: bindActionCreators(modalsShareShow, dispatch),
+  pageIsLoading: bindActionCreators(pageIsLoading, dispatch),
   playerQueueLoadItems: bindActionCreators(playerQueueLoadItems, dispatch),
   playerQueueLoadPriorityItems: bindActionCreators(playerQueueLoadPriorityItems, dispatch),
   userSetInfo: bindActionCreators(userSetInfo, dispatch)

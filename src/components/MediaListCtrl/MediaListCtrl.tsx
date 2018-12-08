@@ -9,7 +9,8 @@ import { clone } from '~/lib/utility'
 import { mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying, modalsAddToShow,
   modalsMakeClipShow, playerQueueAddSecondaryItems, playerQueueLoadPriorityItems, 
   playerQueueLoadSecondaryItems, userSetInfo } from '~/redux/actions'
-import { getEpisodesByQuery, getMediaRefsByQuery } from '~/services'
+import { addOrUpdateUserHistoryItem, getEpisodesByQuery, getMediaRefsByQuery
+  } from '~/services'
 const uuidv4 = require('uuid/v4')
 
 type Props = {
@@ -18,6 +19,8 @@ type Props = {
   episodeId?: string
   listItems: any[]
   mediaPlayer?: any
+  mediaPlayerLoadNowPlayingItem?: any
+  mediaPlayerUpdatePlaying?: any
   playerQueueAddSecondaryItems?: any
   playerQueueLoadSecondaryItems?: any
   podcastId?: string
@@ -26,6 +29,7 @@ type Props = {
   querySort?: string
   queryType?: string
   user?: any
+  userSetInfo?: any
 }
 
 type State = {
@@ -61,6 +65,7 @@ class MediaListCtrl extends Component<Props, State> {
       queryType: props.queryType
     }
 
+    this.playItem = this.playItem.bind(this)
     this.queryMediaListItems = this.queryMediaListItems.bind(this)
   }
 
@@ -273,6 +278,43 @@ class MediaListCtrl extends Component<Props, State> {
     ]
   }
 
+  async playItem(nowPlayingItem) {
+    const { mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying,
+      playerQueueLoadSecondaryItems, user, userSetInfo } = this.props
+    const { listItems } = this.state
+
+    mediaPlayerLoadNowPlayingItem(nowPlayingItem)
+    mediaPlayerUpdatePlaying(true)
+
+    let nowPlayingItemIndex = -1
+    if (nowPlayingItem.clipId) {
+      nowPlayingItemIndex = listItems.map((x) => x.clipId).indexOf(nowPlayingItem && nowPlayingItem.clipId)
+    } else if (nowPlayingItem.episodeId) {
+      nowPlayingItemIndex = listItems.map((x) => x.episodeId).indexOf(nowPlayingItem && nowPlayingItem.episodeId)
+    }
+    let queuedListItems = clone(listItems)
+    nowPlayingItemIndex > -1 ? queuedListItems.splice(0, nowPlayingItemIndex + 1) : queuedListItems
+    playerQueueLoadSecondaryItems(queuedListItems)
+
+    if (user && user.id) {
+      await addOrUpdateUserHistoryItem(nowPlayingItem)
+
+      const historyItems = user.historyItems.filter(x => {
+        if (x) {
+          if ((x.clipStartTime || x.clipEndTime) && x.clipId !== nowPlayingItem.clipId) {
+            return x
+          } else if (x.episodeId !== nowPlayingItem.episodeId) {
+            return x
+          }
+        }
+      })
+
+      historyItems.push(nowPlayingItem)
+
+      userSetInfo({ historyItems })
+    }
+  }
+
   render() {
     const { adjustTopPosition, episodeId, mediaPlayer, podcastId, user } = this.props
     const { nowPlayingItem: mpNowPlayingItem } = mediaPlayer
@@ -309,6 +351,7 @@ class MediaListCtrl extends Component<Props, State> {
 
       return (
         <MediaListItemCtrl
+          handlePlayItem={this.playItem}
           key={`media-list-item-${uuidv4()}`}
           isActive={isActive()}
           mediaListItemType={mediaListItemType}

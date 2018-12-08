@@ -305,7 +305,7 @@ class PodcastListCtrl extends Component<Props, State> {
         }
         {
           (!endReached && listItemNodes.length === 0) &&
-          <div className='no-results-msg'>No podcasts found.</div>
+          <div className='no-results-msg'>No podcasts found</div>
         }
       </div>
     )

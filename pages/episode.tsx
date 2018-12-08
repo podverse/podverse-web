@@ -45,7 +45,7 @@ class Episode extends Component<Props, State> {
     let listItems = queryDataResult.data.map(x => convertToNowPlayingItem(x))
     let nowPlayingItemIndex = listItems.map((x) => x.clipId).indexOf(nowPlayingItem && nowPlayingItem.clipId)
     let queuedListItems = clone(listItems)
-    nowPlayingItemIndex > 0 ? queuedListItems.splice(0, nowPlayingItemIndex + 1) : queuedListItems
+    nowPlayingItemIndex > -1 ? queuedListItems.splice(0, nowPlayingItemIndex + 1) : queuedListItems
 
     store.dispatch(playerQueueLoadSecondaryItems(queuedListItems))
     store.dispatch(pageIsLoading(false))

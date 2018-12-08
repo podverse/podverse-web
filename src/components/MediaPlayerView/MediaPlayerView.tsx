@@ -33,7 +33,8 @@ type Props = {
 
 type State = {
   autoplay?: boolean
-  makeClipIsLoading?: boolean
+  makeClipIsDeleting?: boolean
+  makeClipIsSaving?: boolean
   playbackRate?: number
 }
 
@@ -85,11 +86,11 @@ class MediaPlayerView extends Component<Props, State> {
       nowPlayingItem.clipTitle = 0
       nowPlayingItem.clipStartTime = 0
 
-      const href = `/episode/${nowPlayingItem.episodeId}`
+      const href = `/episode?id=${nowPlayingItem.episodeId}`
       const as = `/episode/${nowPlayingItem.episodeId}`
       Router.push(href, as)
     } else if (itemType === 'mediaRef') {
-      const href = `/clip/${nowPlayingItem.episodeId}`
+      const href = `/clip?id=${nowPlayingItem.episodeId}`
       const as = `/clip/${nowPlayingItem.episodeId}`
       Router.push(href, as)
     }

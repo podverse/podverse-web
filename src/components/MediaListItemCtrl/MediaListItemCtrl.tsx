@@ -4,12 +4,13 @@ import { connect } from 'react-redux'
 import { MediaListItem, addItemToPriorityQueueStorage, getPriorityQueueItemsStorage
   } from 'podverse-ui'
 import { bindActionCreators } from 'redux';
-import { mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying, modalsAddToShow,
-  playerQueueLoadPriorityItems, userSetInfo } from '~/redux/actions'
-import { addOrUpdateUserHistoryItem, updateUserQueueItems } from '~/services'
+import { modalsAddToShow, playerQueueLoadPriorityItems, userSetInfo } from '~/redux/actions'
+import { updateUserQueueItems } from '~/services'
 const uuidv4 = require('uuid/v4')
 
 type Props = {
+  canDrag?: boolean
+  handlePlayItem?: (event: React.MouseEvent<HTMLButtonElement>) => void
   handleRemoveItem?: (event: React.MouseEvent<HTMLButtonElement>) => void
   isActive?: boolean
   mediaListItemType?: any
@@ -61,42 +62,16 @@ class MediaListItemCtrl extends Component<Props, State> {
     })
   }
 
-  async playItem(nowPlayingItem) {
-    const { mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying, user,
-      userSetInfo } = this.props
-    mediaPlayerLoadNowPlayingItem(nowPlayingItem)
-
-    mediaPlayerUpdatePlaying(true)
-
-    if (user && user.id) {
-      await addOrUpdateUserHistoryItem(nowPlayingItem)
-
-      const historyItems = user.historyItems.filter(x => {
-        if (x) {
-          if ((x.clipStartTime || x.clipEndTime) && x.clipId !== nowPlayingItem.clipId) {
-            return x
-          } else if (x.episodeId !== nowPlayingItem.episodeId) {
-            return x
-          }
-        }
-      })
-
-      historyItems.push(nowPlayingItem)
-
-      userSetInfo({ historyItems })
-    }
-  }
-
   render() {
-    const { handleRemoveItem, isActive, mediaListItemType, nowPlayingItem, showMoreMenu,
-      showRemove } = this.props
+    const { handleRemoveItem, handlePlayItem, isActive, mediaListItemType, nowPlayingItem,
+      showMoreMenu, showRemove } = this.props
 
     return (
       <MediaListItem
         dataNowPlayingItem={nowPlayingItem}
         handleAddToQueueLast={() => { this.addToQueue(nowPlayingItem, true) }}
         handleAddToQueueNext={() => { this.addToQueue(nowPlayingItem, false) }}
-        handlePlayItem={() => { this.playItem(nowPlayingItem) }}
+        handlePlayItem={() => { handlePlayItem ? handlePlayItem(nowPlayingItem) : null }}
         handleRemoveItem={handleRemoveItem}
         handleToggleAddToPlaylist={() => this.toggleAddToModal(nowPlayingItem, false)}
         hasLink={true}
@@ -112,8 +87,6 @@ class MediaListItemCtrl extends Component<Props, State> {
 const mapStateToProps = state => ({ ...state })
 
 const mapDispatchToProps = dispatch => ({
-  mediaPlayerLoadNowPlayingItem: bindActionCreators(mediaPlayerLoadNowPlayingItem, dispatch),
-  mediaPlayerUpdatePlaying: bindActionCreators(mediaPlayerUpdatePlaying, dispatch),
   modalsAddToShow: bindActionCreators(modalsAddToShow, dispatch),
   playerQueueLoadPriorityItems: bindActionCreators(playerQueueLoadPriorityItems, dispatch),
   userSetInfo: bindActionCreators(userSetInfo, dispatch)

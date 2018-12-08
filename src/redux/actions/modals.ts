@@ -84,13 +84,6 @@ export const modalsLoginShow = payload => {
   }
 }
 
-export const modalsMakeClipIsLoading = payload => {
-  return {
-    type: actionTypes.MODALS_MAKE_CLIP_IS_LOADING,
-    payload
-  }
-}
-
 export const modalsMakeClipSetErrorResponse = payload => {
   return {
     type: actionTypes.MODALS_MAKE_CLIP_SET_ERROR_RESPONSE,

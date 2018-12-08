@@ -9,6 +9,13 @@ export const createMediaRef = async (data: any) => {
   })
 }
 
+export const deleteMediaRef = async (id: string) => {
+  return axios(`http://localhost:3000/api/v1/mediaRef/${id}`, {
+    method: 'delete',
+    withCredentials: true
+  })
+}
+
 export const getMediaRefsByQuery = async (query) => {
   let filteredQuery: any = {}
 
@@ -34,7 +41,7 @@ export const getMediaRefsByQuery = async (query) => {
     // add nothing
   }
 
-  const queryString = convertObjectToQueryString(query)
+  const queryString = convertObjectToQueryString(filteredQuery)
   return axios.get(`http://localhost:3000/api/v1/mediaRef?${queryString}`)
 }
 
