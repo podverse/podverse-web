@@ -24,7 +24,13 @@ export const getPodcastsByQuery = async (query) => {
     // add nothing
   }
 
-  const queryString = convertObjectToQueryString(query)
+  if (query.searchBy === 'podcast') {
+    filteredQuery.searchTitle = query.searchText
+  } else if (query.searchBy === 'host') {
+    filteredQuery.searchAuthor = query.searchText
+  }
+
+  const queryString = convertObjectToQueryString(filteredQuery)
   return axios.get(`http://localhost:3000/api/v1/podcast?${queryString}`)
 }
 

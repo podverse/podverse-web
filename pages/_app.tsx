@@ -136,8 +136,10 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
                 <NavBar />
               </div>
               <div className='view__contents'>
-                <div className='max-width'>
+                <div className='max-width top'>
                   <Component {...pageProps} />
+                </div>
+                <div className='max-width bottom'>
                   <Footer />
                 </div>
               </div>

@@ -8,10 +8,21 @@
   }
 
   .view__contents {
+    display: flex;
+    flex-direction: column;
     flex: 1;
     height: 0;
+    justify-content: space-between;
     overflow-y: scroll;
-    padding: 1.5rem 0 1.25rem 0;
+    padding: 1.5rem 0 0.5rem 0;
+
+    .top {
+      flex: 1;
+    }
+
+    .bottom {
+      flex: 0 1 auto;
+    }
   }
 
   .view__mediaplayer-spacer {
