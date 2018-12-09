@@ -4,7 +4,7 @@ import { Alert, Form, FormFeedback, FormGroup, FormText, Input, Label
 import Router from 'next/router'
 import { ButtonGroup, PVButton as Button } from 'podverse-ui'
 import Meta from '~/components/meta'
-import { internetConnectivityErrorMessage } from '~/lib/constants'
+import { internetConnectivityErrorMessage } from '~/lib/constants/misc'
 import { validatePassword } from '~/lib/utility'
 import { resetPassword } from '~/services/auth'
 

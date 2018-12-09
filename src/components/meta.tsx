@@ -1,7 +1,7 @@
 import { Fragment } from 'react'
 import Head from 'next/head'
 import '~/scss/styles.scss'
-import '~/lib/constants'
+import '~/lib/constants/misc'
 
 export default () => (
   <Fragment>

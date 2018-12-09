@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { MediaPlayer, popNextFromQueueStorage } from 'podverse-ui'
 import { kAutoplay, kPlaybackRate, getPlaybackRateText, getPlaybackRateNextValue
-  } from '~/lib/constants'
+  } from '~/lib/constants/misc'
 import { mediaPlayerLoadNowPlayingItem, 
   mediaPlayerSetClipFinished, mediaPlayerSetPlayedAfterClipFinished,
   playerQueueLoadPriorityItems, playerQueueLoadSecondaryItems,

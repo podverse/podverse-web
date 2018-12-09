@@ -5,7 +5,7 @@ import Router from 'next/router'
 import { AddToModal, ClipCreatedModal, MakeClipModal, QueueModal, ShareModal,
   addItemToPriorityQueueStorage, updatePriorityQueueStorage, getPriorityQueueItemsStorage
   } from 'podverse-ui'
-import { kPlaybackRate } from '~/lib/constants'
+import { kPlaybackRate } from '~/lib/constants/misc'
 import { mediaPlayerUpdatePlaying, modalsAddToCreatePlaylistIsSaving,
   modalsAddToCreatePlaylistShow, modalsAddToShow, modalsClipCreatedShow, modalsLoginShow, 
   modalsMakeClipShow, modalsQueueShow, modalsShareShow,

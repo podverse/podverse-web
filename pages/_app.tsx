@@ -51,6 +51,10 @@ type Props = {
     secondaryItems: any[]
   }
   playerQueueLoadPriorityItems?: any
+  settings: {
+    nsfwMode: boolean
+    uiTheme: string
+  }
   store?: any,
   user: {
     historyItems: any[]
@@ -65,13 +69,21 @@ type Props = {
 export default withRedux(initializeStore)(class MyApp extends App<Props> {
     
   static async getInitialProps({ Component, ctx }) {
-        let pageProps = {}
+    let pageProps = {}
 
     ctx.store.dispatch(pageIsLoading(true))
 
     // @ts-ignore
     if (!process.browser && ctx.req.headers.cookie) {
       const parsedCookie = cookie.parse(ctx.req.headers.cookie)
+
+      if (parsedCookie.uiTheme) {
+        let uiTheme = parsedCookie.uiTheme ? parsedCookie.uiTheme : 'dark'
+        ctx.store.dispatch({
+          type: actionTypes.SETTINGS_SET_UI_THEME,
+          payload: uiTheme
+        })
+      }
 
       if (parsedCookie.Authorization) {
         try {
