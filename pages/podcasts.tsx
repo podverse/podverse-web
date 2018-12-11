@@ -19,13 +19,14 @@ class Podcasts extends Component<Props, State> {
 
   static async getInitialProps({ query, req, store }) {
     const state = store.getState()
-    const { user } = state
+    const { settings, user } = state
+    const { nsfwMode } = settings
     const selectedCategoryId = query.categories
 
     const allCategoriesResult = await getCategoriesByQuery({})
     const allCategories = allCategoriesResult.data || []
     
-    const queryDataResult = await getPodcastsByQuery(query)
+    const queryDataResult = await getPodcastsByQuery(query, nsfwMode)
     const listItems = queryDataResult.data
 
     store.dispatch(pageIsLoading(false))

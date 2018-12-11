@@ -47,6 +47,7 @@
     "react": "^16.5.2",
     "react-beautiful-dnd": "^10.0.2",
     "react-dom": "^16.5.2",
+    "react-modal": "^3.7.1",
     "react-redux": "^5.1.0",
     "react-switch": "^3.0.4",
     "reactstrap": "^6.5.0",

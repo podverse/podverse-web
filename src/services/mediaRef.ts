@@ -16,7 +16,7 @@ export const deleteMediaRef = async (id: string) => {
   })
 }
 
-export const getMediaRefsByQuery = async (query) => {
+export const getMediaRefsByQuery = async (query, nsfwMode = 'on') => {
   let filteredQuery: any = {}
 
   if (query.sort) {
@@ -42,7 +42,12 @@ export const getMediaRefsByQuery = async (query) => {
   }
 
   const queryString = convertObjectToQueryString(filteredQuery)
-  return axios.get(`http://localhost:3000/api/v1/mediaRef?${queryString}`)
+  return axios(`http://localhost:3000/api/v1/mediaRef?${queryString}`, {
+    method: 'get',
+    headers: {
+      nsfwMode
+    }
+  })
 }
 
 export const getMediaRefById = async (id: string) => {

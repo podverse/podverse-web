@@ -28,14 +28,16 @@ class Podcast extends Component<Props, State> {
 
   static async getInitialProps({ query, req, store }) {
     const state = store.getState()
-    const { user } = state
+    const { settings, user } = state
+    const { nsfwMode } = settings
+
     const podcastResult = await getPodcastById(query.id)
     const podcast = podcastResult.data
     const currentId = podcast.id
 
     query.from = 'from-podcast'
     query.podcastId = podcast.id
-    const queryDataResult = await getEpisodesByQuery(query)
+    const queryDataResult = await getEpisodesByQuery(query, nsfwMode)
     const listItems = queryDataResult.data.map(x => convertToNowPlayingItem(x))
 
     store.dispatch(playerQueueLoadSecondaryItems(clone(listItems)))

@@ -29,8 +29,10 @@ class Clip extends Component<Props, State> {
 
   static async getInitialProps({ query, req, store }) {
     const state = store.getState()
-    const { mediaPlayer, user } = state
+    const { mediaPlayer, settings, user } = state
     const { nowPlayingItem } = mediaPlayer
+    const { nsfwMode } = settings
+  
     const mediaRefResult = await getMediaRefById(query.id)
     const mediaRef = mediaRefResult.data
     const currentId = mediaRef.id
@@ -41,7 +43,7 @@ class Clip extends Component<Props, State> {
       store.dispatch(mediaPlayerLoadNowPlayingItem(nowPlayingItem))
     }
 
-    const queryDataResult = await getMediaRefsByQuery(query)
+    const queryDataResult = await getMediaRefsByQuery(query, nsfwMode)
     let listItems = queryDataResult.data.map(x => convertToNowPlayingItem(x))
     let nowPlayingItemIndex = listItems.map((x) => x.clipId).indexOf(nowPlayingItem && nowPlayingItem.clipId)
     let queuedListItems = clone(listItems)

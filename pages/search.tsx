@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
-import { ButtonGroup, Form, FormGroup, Input, InputGroup, InputGroupAddon } from 'reactstrap'
+import { Form, FormGroup, Input, InputGroup, InputGroupAddon } from 'reactstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { MediaListItem, PVButton as Button } from 'podverse-ui'
 import Meta from '~/components/meta'
@@ -8,7 +8,9 @@ import { pageIsLoading } from '~/redux/actions'
 import { getPodcastsByQuery } from '~/services'
 const uuidv4 = require('uuid/v4')
 
-type Props = {}
+type Props = {
+  settings?: any
+}
 
 type State = {
   endReached?: boolean
@@ -56,6 +58,8 @@ class Search extends Component<Props, State> {
       isSearching: !loadMore
     })
 
+    const { settings } = this.props
+    const { nsfwMode } = settings
     const { podcasts, searchBy, searchText } = this.state
 
     try {
@@ -64,7 +68,7 @@ class Search extends Component<Props, State> {
         searchBy,
         searchText
       }
-      const response = await getPodcastsByQuery(query)
+      const response = await getPodcastsByQuery(query, nsfwMode)
       const newPodcasts = response.data || []
 
       let combinedPodcasts: any = []

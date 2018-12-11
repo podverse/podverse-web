@@ -28,6 +28,7 @@ type Props = {
   queryPage: number
   querySort?: string
   queryType?: string
+  settings?: any
   user?: any
   userSetInfo?: any
 }
@@ -86,7 +87,8 @@ class MediaListCtrl extends Component<Props, State> {
 
   async queryMediaListItems(selectedKey = '', selectedValue = '', page = 1) {
     const { episodeId, playerQueueAddSecondaryItems, playerQueueLoadSecondaryItems,
-      podcastId, user } = this.props
+      podcastId, settings, user } = this.props
+    const { nsfwMode } = settings
     const { subscribedPodcastIds } = user
     const { listItems, queryFrom, querySort, queryType } = this.state
 
@@ -135,7 +137,7 @@ class MediaListCtrl extends Component<Props, State> {
       }
       
       try {
-        const response = await getMediaRefsByQuery(query)
+        const response = await getMediaRefsByQuery(query, nsfwMode)
         const mediaRefs = response.data && response.data.map(x => convertToNowPlayingItem(x))
         combinedListItems = combinedListItems.concat(mediaRefs)
         
@@ -156,7 +158,7 @@ class MediaListCtrl extends Component<Props, State> {
       }
     } else if (query.type === 'episodes') {
       try {
-        const response = await getEpisodesByQuery(query)
+        const response = await getEpisodesByQuery(query, nsfwMode)
         const episodes = response.data && response.data.map(x => convertToNowPlayingItem(x))
         combinedListItems = combinedListItems.concat(episodes)
 

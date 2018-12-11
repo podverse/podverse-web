@@ -5,7 +5,7 @@ export const getEpisodeById = async (id: string) => {
   return axios.get(`http://localhost:3000/api/v1/episode/${id}`);
 }
 
-export const getEpisodesByQuery = async (query) => {
+export const getEpisodesByQuery = async (query, nsfwMode = 'on') => {
   let filteredQuery: any = {}
 
   if (query.sort) {
@@ -28,6 +28,11 @@ export const getEpisodesByQuery = async (query) => {
     // add nothing
   }
 
-  const queryString = convertObjectToQueryString(query)
-  return axios.get(`http://localhost:3000/api/v1/episode?${queryString}`)
+  const queryString = convertObjectToQueryString(query)  
+  return axios(`http://localhost:3000/api/v1/episode?${queryString}`, {
+    method: 'get',
+    headers: {
+      nsfwMode
+    }
+  })
 }

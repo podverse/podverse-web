@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { convertObjectToQueryString } from '~/lib/utility'
 
-export const getPodcastsByQuery = async (query) => {
+export const getPodcastsByQuery = async (query, nsfwMode = 'on') => {
   let filteredQuery: any = {}
 
   if (query.sort) {
@@ -29,9 +29,14 @@ export const getPodcastsByQuery = async (query) => {
   } else if (query.searchBy === 'host') {
     filteredQuery.searchAuthor = query.searchText
   }
-
-  const queryString = convertObjectToQueryString(filteredQuery)
-  return axios.get(`http://localhost:3000/api/v1/podcast?${queryString}`)
+console.log(nsfwMode, 'asdf')
+  const queryString = convertObjectToQueryString(query)
+  return axios(`http://localhost:3000/api/v1/podcast?${queryString}`, {
+    method: 'get',
+    headers: {
+      nsfwMode
+    }
+  })
 }
 
 export const getPodcastById = async (id: string) => {

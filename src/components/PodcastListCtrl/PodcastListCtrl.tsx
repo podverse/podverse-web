@@ -10,6 +10,7 @@ type Props = {
   queryCategoryId?: string
   queryPage: number
   querySort?: string
+  settings?: any
   user?: any
 }
 
@@ -50,7 +51,8 @@ class PodcastListCtrl extends Component<Props, State> {
   }
 
   async queryPodcasts(selectedKey = '', selectedValue = '', page = 1) {
-    const { user } = this.props
+    const { settings, user } = this.props
+    const { nsfwMode } = settings
     const { subscribedPodcastIds } = user
     const { listItems, queryCategoryId, queryFrom, querySort } = this.state
 
@@ -95,7 +97,7 @@ class PodcastListCtrl extends Component<Props, State> {
     }
 
     try {
-      const response = await getPodcastsByQuery(query)
+      const response = await getPodcastsByQuery(query, nsfwMode)
       const podcasts = response.data || []
       combinedListItems = combinedListItems.concat(podcasts)
 

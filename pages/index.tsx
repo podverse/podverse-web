@@ -30,10 +30,11 @@ class Home extends Component<Props, State> {
 
   static async getInitialProps({ query, req, store }) {
     const state = store.getState()
-    const { mediaPlayer, user } = state
+    const { mediaPlayer, settings, user } = state
     const { nowPlayingItem } = mediaPlayer
+    const { nsfwMode } = settings
 
-    const queryDataResult = await getMediaRefsByQuery(query)
+    const queryDataResult = await getMediaRefsByQuery(query, nsfwMode)
     let listItems = queryDataResult.data.map(x => convertToNowPlayingItem(x))
     let nowPlayingItemIndex = listItems.map((x) => x.clipId).indexOf(nowPlayingItem && nowPlayingItem.clipId)
     let queuedListItems = clone(listItems)
@@ -68,7 +69,7 @@ class Home extends Component<Props, State> {
   render() {
     const { listItems, queryFrom, queryPage, querySort, queryType } = this.props
 
-    return (
+  return (
       <Fragment>
         <MediaListCtrl
           adjustTopPosition

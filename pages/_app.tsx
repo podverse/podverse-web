@@ -85,6 +85,16 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
         })
       }
 
+      let nsfwMode = 'on'
+      if (parsedCookie.nsfwMode) {
+        nsfwMode = parsedCookie.nsfwMode
+      }
+
+      ctx.store.dispatch({
+        type: actionTypes.SETTINGS_SET_NSFW_MODE,
+        payload: nsfwMode
+      })
+
       if (parsedCookie.Authorization) {
         try {
           const userInfo = await getAuthenticatedUserInfo(parsedCookie.Authorization)
