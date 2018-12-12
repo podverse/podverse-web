@@ -59,6 +59,7 @@ type Props = {
   user: {
     historyItems: any[]
     id: string
+    name: string
     playlists: any[]
     queueItems: any[]
     subscribedPlaylistIds: any[]
@@ -95,6 +96,26 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
         payload: nsfwMode
       })
 
+      let nsfwModeHide = 'on'
+      if (parsedCookie.nsfwModeHide) {
+        nsfwModeHide = parsedCookie.nsfwModeHide
+      }
+
+      ctx.store.dispatch({
+        type: actionTypes.SETTINGS_SET_HIDE_NSFW_MODE,
+        payload: nsfwModeHide
+      })
+
+      let uiThemeHide = 'on'
+      if (parsedCookie.uiThemeHide) {
+        uiThemeHide = parsedCookie.uiThemeHide
+      }
+
+      ctx.store.dispatch({
+        type: actionTypes.SETTINGS_SET_HIDE_UI_THEME,
+        payload: uiThemeHide
+      })
+
       if (parsedCookie.Authorization) {
         try {
           const userInfo = await getAuthenticatedUserInfo(parsedCookie.Authorization)
@@ -105,6 +126,7 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
               payload: {
                 historyItems: userInfo.data.historyItems,
                 id: userInfo.data.id,
+                name: userInfo.data.name,
                 playlists: userInfo.data.playlists,
                 queueItems: userInfo.data.queueItems,
                 subscribedPlaylistIds: userInfo.data.subscribedPlaylistIds,

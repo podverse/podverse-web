@@ -74,7 +74,7 @@ class Footer extends Component<Props, State> {
 
   render () {
     const { settings } = this.props
-    const { nsfwMode, uiTheme } = settings
+    const { nsfwMode, nsfwModeHide, uiTheme, uiThemeHide } = settings
     const { nsfwModalIsOpen } = this.state
 
     const uiThemeAriaLabel = uiTheme === 'dark' ? 'Turn on light mode' : 'Turn on dark mode'
@@ -91,39 +91,45 @@ class Footer extends Component<Props, State> {
                 Podverse<sup>FM</sup>
               </a>
             </Link>
-            <div className='footer-top__ui-theme'>
-              <span className='footer-top-ui-theme__left'>
-                <FontAwesomeIcon icon='sun' />&nbsp;
-              </span>
-              <Switch
-                aria-label={uiThemeAriaLabel}
-                checked={uiTheme === 'dark'}
-                checkedIcon
-                height={24}
-                id="ui-theme-switch"
-                offColor={colors.grayLighter}
-                onColor={colors.grayDarker}
-                onChange={this.handleUIThemeChange}
-                uncheckedIcon
-                width={40} />
-              <span className='footer-top-ui-theme__right'>
-                &nbsp;<FontAwesomeIcon icon='moon' />
-              </span>
-            </div>
-            <div className='footer-top__nsfw'>
-              <span className='footer-top-nsfw__left'>SFW&nbsp;</span>
-              <Switch
-                aria-label={nsfwModeAriaLabel}
-                checked={nsfwMode === 'on'}
-                checkedIcon
-                height={24}
-                offColor={colors.blue}
-                onChange={this.handleNSFWModeChange}
-                onColor={colors.redDarker}
-                uncheckedIcon
-                width={40} />
-              <span className='footer-top-nsfw__right'>&nbsp;NSFW</span>
-            </div>
+            {
+              uiThemeHide !== 'on' &&
+                <div className='footer-top__ui-theme'>
+                  <span className='footer-top-ui-theme__left'>
+                    <FontAwesomeIcon icon='sun' />&nbsp;
+                  </span>
+                  <Switch
+                    aria-label={uiThemeAriaLabel}
+                    checked={uiTheme === 'dark'}
+                    checkedIcon
+                    height={24}
+                    id="ui-theme-switch"
+                    offColor={colors.grayLighter}
+                    onColor={colors.grayDarker}
+                    onChange={this.handleUIThemeChange}
+                    uncheckedIcon
+                    width={40} />
+                  <span className='footer-top-ui-theme__right'>
+                    &nbsp;<FontAwesomeIcon icon='moon' />
+                  </span>
+                </div>
+            }
+            {
+              nsfwModeHide !== 'on' &&
+                <div className='footer-top__nsfw'>
+                  <span className='footer-top-nsfw__left'>SFW&nbsp;</span>
+                  <Switch
+                    aria-label={nsfwModeAriaLabel}
+                    checked={nsfwMode === 'on'}
+                    checkedIcon
+                    height={24}
+                    offColor={colors.blue}
+                    onChange={this.handleNSFWModeChange}
+                    onColor={colors.redDarker}
+                    uncheckedIcon
+                    width={40} />
+                  <span className='footer-top-nsfw__right'>&nbsp;NSFW</span>
+                </div>
+            }
             <Link
               as='https://www.gnu.org/licenses/agpl-3.0.en.html'
               href='https://www.gnu.org/licenses/agpl-3.0.en.html'>

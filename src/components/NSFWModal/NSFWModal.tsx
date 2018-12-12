@@ -1,5 +1,6 @@
 import * as React from 'react'
 import * as Modal from 'react-modal'
+import colors from '~/lib/constants/colors'
 
 export interface Props {
   handleHideModal?: (event: React.MouseEvent<HTMLButtonElement>) => void
@@ -11,7 +12,7 @@ const customStyles = {
   content: {
     bottom: 'unset',
     left: '50%',
-    maxWidth: '420px',
+    maxWidth: '360px',
     overflow: 'unset',
     right: 'unset',
     textAlign: 'center',
@@ -39,16 +40,16 @@ export const NSFWModal: React.StatelessComponent<Props> = props => {
       {
         isNSFWModeOn &&
           <div>
-            <h4>NSFW mode is ON</h4>
-            <p>Please refresh your browser to include NSFW podcasts in results.</p>
+          <h4 style={{ color: colors.redDarker }}>NSFW is ON</h4>
+            <p>Refresh your browser to show NSFW podcasts</p>
           </div>
       }
       {
         !isNSFWModeOn &&
         <div>
-          <h4>NSFW mode is OFF</h4>
-          <p>Please refresh your browser to exclude NSFW podcasts in results.</p>
-          <p style={{fontSize: '0.875rem'}}>Ratings are provided by the podcasters themselves. Content may not actually be "safe for work."</p>
+          <h4 style={{ color: colors.blue }}>NSFW is OFF</h4>
+          <p>Refresh your browser to hide NSFW podcasts</p>
+          <p style={{fontSize: '0.875rem'}}>*Ratings are provided by the podcasters themselves. Content may not be "safe for work."</p>
         </div>
       }
     </Modal>

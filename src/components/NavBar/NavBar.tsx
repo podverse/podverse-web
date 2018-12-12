@@ -67,6 +67,7 @@ class PVNavBar extends Component<Props, State> {
             userSetInfo({
               historyItems: [],
               id: null,
+              name: null,
               playlists: [],
               queueItems: [],
               subscribedPlaylistIds: [],

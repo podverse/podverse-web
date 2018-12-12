@@ -1,0 +1,30 @@
+.settings {
+  ul {
+    padding-left: 1.25rem;
+
+    li {
+      list-style-type: disc;
+      margin-bottom: 0.25rem;
+    }
+  }
+
+  .settings__btns {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1.5rem;
+
+    .settings-btns__download {
+      flex: 0;
+      min-width: 120px;
+    }
+
+    .settings-btns__delete-account {
+      flex: 0;
+      min-width: 150px;
+    }
+  }
+
+  .settings__sign-up-premium {
+    margin-top: 0.5rem;
+  }
+}
