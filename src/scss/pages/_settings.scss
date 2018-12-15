@@ -8,23 +8,55 @@
     }
   }
 
-  .settings__btns {
+  .settings-profile__btns {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     margin-top: 1.5rem;
 
-    .settings-btns__download {
-      flex: 0;
-      min-width: 120px;
+    .settings-profile-btns__save {
+      flex: 0 0 auto;
+      margin-left: 1rem;
+      min-width: 80px;
     }
 
-    .settings-btns__delete-account {
-      flex: 0;
-      min-width: 150px;
+    .settings-profile-btns__cancel {
+      flex: 0 0 auto;
+      min-width: 80px;
     }
   }
 
-  .settings__sign-up-premium {
-    margin-top: 0.5rem;
+  .settings__download {
+    min-width: 170px;
+  }
+
+  .settings-membership__status {
+    font-size: $text-md-lg-rem;
+    font-weight: 500;
+
+    &.is-active {
+      color: $blue;
+    }
+
+    &.is-expired {
+      color: $yellow;
+    }
+  }
+
+  .settings-membership__btns {
+    display: flex;
+    margin-top: 1.5rem;
+
+    .settings-membership-btns__checkout {
+      flex: 0 0 auto;
+      margin-right: 1rem;
+    }
+    
+    .settings-membership-btns__free-trial {
+      flex: 0 0 auto;
+    }
+  }
+
+  .settings__delete-account {
+    min-width: 136px;
   }
 }

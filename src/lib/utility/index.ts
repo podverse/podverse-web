@@ -1,5 +1,26 @@
 export { validatePassword } from './validatePassword'
 
+export const convertToYYYYMMDDHHMMSS = () => {
+  const now = new Date()
+  let year = '' + now.getFullYear()
+  let month = '' + (now.getMonth() + 1); if (month.length === 1) { month = '0' + month }
+  let day = '' + now.getDate(); if (day.length === 1) { day = '0' + day }
+  let hour = '' + now.getHours(); if (hour.length === 1) { hour = '0' + hour }
+  let minute = '' + now.getMinutes(); if (minute.length === 1) { minute = '0' + minute }
+  let second = '' + now.getSeconds(); if (second.length === 1) { second = '0' + second }
+  return year + '-' + month + '-' + day + ' ' + hour + ':' + minute + ':' + second
+}
+
+export const isBeforeExpirationDate = expirationDate => {
+  const currentDate = new Date()
+  return new Date(expirationDate) > currentDate
+}
+
+export const validateEmail = email => {
+  const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+  return re.test(String(email).toLowerCase())
+}
+
 export const readableDate = (date) => {
   const dateObj = new Date(date),
     year = dateObj.getFullYear(),

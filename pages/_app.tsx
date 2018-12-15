@@ -57,8 +57,11 @@ type Props = {
   }
   store?: any,
   user: {
+    email: string
+    freeTrialExpiration: any
     historyItems: any[]
     id: string
+    membershipExpiration: any
     name: string
     playlists: any[]
     queueItems: any[]
@@ -124,8 +127,11 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
             ctx.store.dispatch({
               type: actionTypes.USER_SET_INFO,
               payload: {
+                email: userInfo.data.email,
+                freeTrialExpiration: userInfo.data.freeTrialExpiration,
                 historyItems: userInfo.data.historyItems,
                 id: userInfo.data.id,
+                membershipExpiration: userInfo.data.membershipExpiration,
                 name: userInfo.data.name,
                 playlists: userInfo.data.playlists,
                 queueItems: userInfo.data.queueItems,

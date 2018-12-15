@@ -7,4 +7,5 @@ export { createMediaRef, deleteMediaRef, getMediaRefById, getMediaRefsByQuery,
 export { addOrRemovePlaylistItem, createPlaylist, deletePlaylist, getPlaylistById,
   getPlaylistsByQuery, toggleSubscribeToPlaylist, updatePlaylist } from '~/services/playlist'
 export { getPodcastById, getPodcastsByQuery, toggleSubscribeToPodcast } from '~/services/podcast'
-export { addOrUpdateUserHistoryItem, updateUserQueueItems } from '~/services/user'
+export { addOrUpdateUserHistoryItem, downloadUserData, updateUser, updateUserQueueItems
+  } from '~/services/user'

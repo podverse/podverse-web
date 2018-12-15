@@ -18,3 +18,18 @@ export const updateUserQueueItems = async (data: any) => {
     withCredentials: true
   })
 }
+
+export const updateUser = async (data: any) => {
+  return axios(`http://localhost:3000/api/v1/user`, {
+    method: 'patch',
+    data,
+    withCredentials: true
+  })
+}
+
+export const downloadUserData = async (id: string) => {
+  return axios(`http://localhost:3000/api/v1/user/download/${id}`, {
+    method: 'get',
+    withCredentials: true
+  })
+}

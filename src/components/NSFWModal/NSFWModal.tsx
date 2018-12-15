@@ -12,7 +12,7 @@ const customStyles = {
   content: {
     bottom: 'unset',
     left: '50%',
-    maxWidth: '360px',
+    maxWidth: '380px',
     overflow: 'unset',
     right: 'unset',
     textAlign: 'center',
@@ -41,7 +41,7 @@ export const NSFWModal: React.StatelessComponent<Props> = props => {
         isNSFWModeOn &&
           <div>
           <h4 style={{ color: colors.redDarker }}>NSFW is ON</h4>
-            <p>Refresh your browser to show NSFW podcasts</p>
+            <p>Refresh your browser to include NSFW podcasts</p>
           </div>
       }
       {
@@ -49,7 +49,7 @@ export const NSFWModal: React.StatelessComponent<Props> = props => {
         <div>
           <h4 style={{ color: colors.blue }}>NSFW is OFF</h4>
           <p>Refresh your browser to hide NSFW podcasts</p>
-          <p style={{fontSize: '0.875rem'}}>*Ratings are provided by the podcasters themselves. Content may not be "safe for work."</p>
+          <p>Ratings are provided by the podcasters themselves. Content may not be "safe for work."</p>
         </div>
       }
     </Modal>

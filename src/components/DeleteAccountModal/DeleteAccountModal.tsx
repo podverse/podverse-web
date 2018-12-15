@@ -10,7 +10,7 @@ const customStyles = {
   content: {
     bottom: 'unset',
     left: '50%',
-    maxWidth: '360px',
+    maxWidth: '380px',
     overflow: 'unset',
     right: 'unset',
     textAlign: 'center',

@@ -6,7 +6,7 @@ import Switch from 'react-switch'
 import { settingsSetNSFWMode, settingsSetUITheme } from '~/redux/actions'
 import colors from '~/lib/constants/colors'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { NSFWModal } from '../NSFWModal/NSFWModal';
+import { NSFWModal } from '../NSFWModal/NSFWModal'
 const cookie = require('cookie')
 
 type Props = {

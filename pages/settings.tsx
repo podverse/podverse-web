@@ -1,24 +1,32 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
-import { Form, FormGroup, FormText, Label, Input } from 'reactstrap'
+import { Form, FormFeedback, FormGroup, FormText, Label, Input } from 'reactstrap'
+import { bindActionCreators } from 'redux'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { PVButton as Button } from 'podverse-ui'
 import Meta from '~/components/meta'
-import { pageIsLoading, settingsHideNSFWMode, settingsHideUITheme
-  } from '~/redux/actions'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { bindActionCreators } from 'redux';
+import { convertToYYYYMMDDHHMMSS, isBeforeExpirationDate, validateEmail } from '~/lib/utility'
+import { modalsSignUpShow, pageIsLoading, settingsHideNSFWMode, settingsHideUITheme,
+  userSetInfo } from '~/redux/actions'
+import { downloadUserData, updateUser } from '~/services'
+const fileDownload = require('js-file-download')
 const cookie = require('cookie')
 
 type Props = {
+  modalsSignUpShow?: any
   settings?: any
   settingsHideNSFWMode?: any
   settingsHideUITheme?: any
   user?: any
+  userSetInfo?: any
 }
 
 type State = {
+  email?: string
+  emailError?: string
   isDeleting?: boolean
   isDownloading?: boolean
+  isSaving?: boolean
   name?: string
 }
 
@@ -34,23 +42,58 @@ class Settings extends Component<Props, State> {
     const { user } = props
 
     this.state = {
+      ...(user.email ? { email: user.email } : {}),
       isDownloading: false,
       ...(user.name ? {name: user.name} : {})
     }
 
     this.deleteAccount = this.deleteAccount.bind(this)
     this.downloadUserData = this.downloadUserData.bind(this)
+    this.handleEmailChange = this.handleEmailChange.bind(this)
     this.handleNameChange = this.handleNameChange.bind(this)
     this.handleToggleNSFWMode = this.handleToggleNSFWMode.bind(this)
     this.handleToggleUITheme = this.handleToggleUITheme.bind(this)
+    this.resetProfileChanges = this.resetProfileChanges.bind(this)
+    this.showSignUpModal = this.showSignUpModal.bind(this)
+    this.updateProfile = this.updateProfile.bind(this)
+    this.validateEmail = this.validateEmail.bind(this)
+    this.validateProfileData = this.validateProfileData.bind(this)
+  }
+
+  componentWillReceiveProps (newProps) {
+    const oldProps = this.props
+    
+    if (!oldProps.user.id && newProps.user.id) {
+      this.setState({
+        email: newProps.user.email,
+        name: newProps.user.name
+      })
+    }
   }
 
   deleteAccount () {
     this.setState({ isDeleting: true })
   }
 
-  downloadUserData () {
+  async downloadUserData () {
     this.setState({ isDownloading: true })
+    const { user } = this.props
+
+    try {
+      const userData = await downloadUserData(user.id)
+      fileDownload(JSON.stringify(userData),  `podverse-${convertToYYYYMMDDHHMMSS()}`)
+      
+    } catch (error) {
+      console.log(error)
+      alert('Something went wrong. Please check your internet connection.')
+    }
+
+    this.setState({ isDownloading: false })
+  }
+
+  handleEmailChange(event) {
+    const email = event.target.value
+    this.setState({ email })
   }
 
   handleNameChange(event) {
@@ -89,77 +132,251 @@ class Settings extends Component<Props, State> {
 
     settingsHideUITheme(val)
   }
+
+  validateProfileData() {
+    const { user } = this.props
+    const { email: oldEmail, name: oldName } = user
+    const { email: newEmail, name: newName } = this.state
+
+    return (
+      (oldEmail !== newEmail && validateEmail(newEmail))
+      || oldName !== newName && (!newEmail || validateEmail(newEmail))
+    )
+  }
+
+  validateEmail() {
+    const { email } = this.state
+    if (!validateEmail(email)) {
+      this.setState({ emailError: 'Please provide a valid email address' })
+    } else {
+      this.setState({ emailError: '' })
+    }
+  }
+
+  resetProfileChanges() {
+    const { user } = this.props
+    const { email, name } = user
+    this.setState({ email, name })
+  }
+
+  async updateProfile() {
+    this.setState({ isSaving: true })
+    const { user, userSetInfo } = this.props
+    const { id } = user
+    const { email, name } = this.state
+
+    try {
+      const newData = { email, id, name }
+      await updateUser(newData)
+      userSetInfo(newData)
+    } catch (error) {
+      console.log(error)
+      alert('Something went wrong. Please check your internet connection.')
+    }
+
+    this.setState({ isSaving: false })
+  }
+
+  showCheckoutModal () {
+    
+  }
+  
+  showSignUpModal () {
+    const { modalsSignUpShow } = this.props
+    modalsSignUpShow(true)
+  }
   
   render() {
-    const { settings } = this.props
+    const { settings, user } = this.props
     const { nsfwModeHide, uiThemeHide } = settings
-    const { isDeleting, isDownloading, name } = this.state
+    const { email, emailError, isDeleting, isDownloading, isSaving, name } = this.state
+    const isLoggedIn = user && !!user.id
+
+    const premiumMembershipNode = (
+      <Fragment>
+        <p>Premium features include:</p>
+        <ul>
+          <li>Create and share playlists</li>
+          <li>Edit your clips</li>
+          <li>Sync your queue across all devices</li>
+          <li>Sync your podcast list across all devices</li>
+          <li>Support open source software and user data rights</li>
+        </ul>
+        <p>$3 per year, checkout with PayPal or crypto</p>
+        <div className='settings-membership__btns'>
+          {
+            user && user.id &&
+              <Button
+                className='settings-membership-btns__checkout'
+                color='primary'
+                onClick={this.showCheckoutModal}>
+                <FontAwesomeIcon icon='shopping-cart' />&nbsp;&nbsp;Checkout
+              </Button>
+          }
+          {
+            !user || !user.id &&
+              <Button
+                className='settings-membership-btns__free-trial'
+                color='primary'
+                onClick={this.showSignUpModal}>
+                Start Free Trial
+              </Button>
+          }
+        </div>
+        {
+          user && user.id &&
+            <hr />
+        }
+      </Fragment>
+    )
 
     return (
       <div className='settings'>
         <Meta />
         <h3>Settings</h3>
         <Form>
-          <FormGroup>
-            <Label for='settings-name'>Name</Label>
-            <Input 
-              id='settings-name'
-              name='settings-name'
-              onChange={this.handleNameChange}
-              placeholder='anonymous'
-              type='text'
-              value={name} />
-            <FormText>Appears next to your playlists</FormText>
-            <FormGroup check>
-              <Label className='checkbox-label' check>
-                <Input
-                  checked={uiThemeHide === 'on'}
-                  onChange={this.handleToggleUITheme}
-                  type="checkbox" />
-                &nbsp;&nbsp;Hide dark-mode switch in footer
-              </Label>
-              <Label className='checkbox-label' check>
-                <Input
-                  checked={nsfwModeHide === 'on'}
-                  onChange={this.handleToggleNSFWMode}
-                  type="checkbox" />
-                &nbsp;&nbsp;Hide nsfw-mode switch in footer
-              </Label>
-              <div className='clearfix' />
-            </FormGroup>
-            <div className='settings__btns'>
+          {
+            isLoggedIn &&
+              <Fragment>
+                <FormGroup>
+                  <Label for='settings-name'>Name</Label>
+                  <Input 
+                    id='settings-name'
+                    name='settings-name'
+                    onChange={this.handleNameChange}
+                    placeholder='anonymous'
+                    type='text'
+                    value={name} />
+                  <FormText>May appear next to content you create</FormText>
+                </FormGroup>
+                <FormGroup>
+                  <Label for='settings-name'>Email</Label>
+                  <Input
+                    id='settings-email'
+                    invalid={emailError}
+                    name='settings-email'
+                    onBlur={this.validateEmail}
+                    onChange={this.handleEmailChange}
+                    placeholder=''
+                    type='text'
+                    value={email} />
+                  {
+                    emailError &&
+                      <FormFeedback invalid='true'>
+                        {emailError}
+                      </FormFeedback>
+                  }
+                </FormGroup>
+                <div className='settings-profile__btns'>
+                  <Button
+                    className='settings-profile-btns__cancel'
+                    onClick={this.resetProfileChanges}>
+                    Cancel
+                  </Button>
+                  <Button
+                    className='settings-profile-btns__save'
+                    color='primary'
+                    disabled={!this.validateProfileData()}
+                    isLoading={isSaving}
+                    onClick={this.updateProfile}>
+                    Save
+                  </Button>
+                </div>
+              <hr />
+              </Fragment>
+          }
+          <h4>Interface</h4>
+          <FormGroup check>
+            <Label className='checkbox-label' check>
+              <Input
+                checked={uiThemeHide === 'on'}
+                onChange={this.handleToggleUITheme}
+                type="checkbox" />
+              &nbsp;&nbsp;Hide dark-mode switch in footer
+            </Label>
+          </FormGroup>
+          <FormGroup check>
+            <Label className='checkbox-label' check>
+              <Input
+                checked={nsfwModeHide === 'on'}
+                onChange={this.handleToggleNSFWMode}
+                type="checkbox" />
+              &nbsp;&nbsp;Hide nsfw-mode switch in footer
+            </Label>
+          </FormGroup>
+          <hr />
+          {
+            user && user.id &&
+            <Fragment>
+              <h4>User Data</h4>
               <Button
                 className='settings__download'
                 isLoading={isDownloading}
                 onClick={this.downloadUserData}>
-                <FontAwesomeIcon icon='download' />&nbsp;&nbsp;Download
+                <FontAwesomeIcon icon='download' />&nbsp;&nbsp;Download Backup
               </Button>
-              <Button
-                className='settings__delete-account'
-                color='danger'
-                isLoading={isDeleting}
-                onClick={this.deleteAccount}>
-                <FontAwesomeIcon icon='trash' />&nbsp;&nbsp;Delete Account
-              </Button>
-            </div>
-          </FormGroup>
+              <hr />
+            </Fragment>
+          }
+          {
+            !user || !user.id &&
+            <Fragment>
+              <h4>Membership Status</h4>
+              {premiumMembershipNode}
+            </Fragment>
+          }
+          {
+            user && user.id &&
+            <Fragment>
+              {
+                (user.membershipExpiration
+                  && isBeforeExpirationDate(user.membershipExpiration)) &&
+                <Fragment>
+                  <h4>Membership Status</h4>
+                  <p className='settings-membership__status is-active'>Premium</p>
+                  <p>Ends: {new Date(user.membershipExpiration).toLocaleString()}</p>
+                  <hr />
+                </Fragment>
+              }
+              {
+                (!user.membershipExpiration
+                  && user.freeTrialExpiration
+                  && isBeforeExpirationDate(user.freeTrialExpiration)) &&
+                <Fragment>
+                  <h4>Membership Status</h4>
+                  <p className='settings-membership__status is-active'>Free Trial</p>
+                  <p>Ends: {new Date(user.freeTrialExpiration).toLocaleString()}</p>
+                  {premiumMembershipNode}
+                </Fragment>
+              }
+              {
+                (user.freeTrialExpiration && user.membershipExpiration
+                  && !isBeforeExpirationDate(user.freeTrialExpiration)
+                  && !isBeforeExpirationDate(user.membershipExpiration)) &&
+                <Fragment>
+                  <h4>Membership Status</h4>
+                  <p className='settings-membership__status is-expired'>Expired</p>
+                  <p>Since: {new Date(user.membershipExpiration).toLocaleString()}</p>
+                  <p>Your membership has expired. Please renew to continue using premium features.</p>
+                  {premiumMembershipNode}
+                </Fragment>
+              }
+            </Fragment>
+          }
+          {
+            user && user.id &&
+              <Fragment>
+                <h4>Management</h4>
+                <Button
+                  className='settings__delete-account'
+                  color='danger'
+                  isLoading={isDeleting}
+                  onClick={this.deleteAccount}>
+                  <FontAwesomeIcon icon='trash' />&nbsp;&nbsp;Delete Account
+                </Button>
+              </Fragment>
+          }
         </Form>
-        <hr />
-        <h4>Premium Membership</h4>
-        <ul>
-          <li>Sync your podcasts and queue across all devices</li>
-          <li>Create and share playlists of episodes and clips</li>
-          <li>Automatically save your clips to a playlist</li>
-          <li>Download a backup of your Podverse data</li>
-          <li>Support open source software and user data rights</li>
-        </ul>
-        <p>$3 per year, checkout with PayPal or crypto</p>
-        <Button
-          className='settings__sign-up-premium'
-          color='primary'
-          onClick={this.deleteAccount}>
-          <FontAwesomeIcon icon='headphones' />&nbsp;&nbsp;Go Premium
-        </Button>
       </div>
     )
   }
@@ -168,8 +385,10 @@ class Settings extends Component<Props, State> {
 const mapStateToProps = state => ({ ...state })
 
 const mapDispatchToProps = dispatch => ({
+  modalsSignUpShow: bindActionCreators(modalsSignUpShow, dispatch),
   settingsHideNSFWMode: bindActionCreators(settingsHideNSFWMode, dispatch),
-  settingsHideUITheme: bindActionCreators(settingsHideUITheme, dispatch)
+  settingsHideUITheme: bindActionCreators(settingsHideUITheme, dispatch),
+  userSetInfo: bindActionCreators(userSetInfo, dispatch)
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Settings)

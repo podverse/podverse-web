@@ -70,8 +70,11 @@ class Auth extends Component<Props, State> {
       const errorMsg = (error.response && error.response.data) || internetConnectivityErrorMessage
       modalsLoginSetErrorResponse(errorMsg)
       userSetInfo({
+        email: null,
+        freeTrialExpiration: null,
         historyItems: [],
         id: null,
+        membershipExpiration: null,
         name: null,
         playlists: [],
         queueItems: [],
@@ -114,6 +117,15 @@ class Auth extends Component<Props, State> {
       } = this.props
     const { forgotPassword, login, signUp } = modals
 
+    const signUpTopText = (
+      <React.Fragment>
+        <p style={{ textAlign: 'center' }}>
+          Try premium free for 30 days
+          <br />$3/year after that
+        </p>
+      </React.Fragment>
+    )
+
     return (
       <React.Fragment>
         <ForgotPasswordModal
@@ -135,7 +147,8 @@ class Auth extends Component<Props, State> {
           handleSignUp={this.handleSignUp}
           hideModal={() => modalsSignUpShow(false)}
           isLoading={modals.signUp && modals.signUp.isLoading}
-          isOpen={modals.signUp && modals.signUp.isOpen} />
+          isOpen={modals.signUp && modals.signUp.isOpen}
+          topText={signUpTopText} />
       </React.Fragment>
     )
   }
