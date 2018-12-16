@@ -5,7 +5,8 @@ import { bindActionCreators } from 'redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { PVButton as Button } from 'podverse-ui'
 import Meta from '~/components/meta'
-import { convertToYYYYMMDDHHMMSS, isBeforeExpirationDate, validateEmail } from '~/lib/utility'
+import { DeleteAccountModal } from '~/components/DeleteAccountModal/DeleteAccountModal'
+import { convertToYYYYMMDDHHMMSS, isBeforeDate, validateEmail } from '~/lib/utility'
 import { modalsSignUpShow, pageIsLoading, settingsHideNSFWMode, settingsHideUITheme,
   userSetInfo } from '~/redux/actions'
 import { downloadUserData, updateUser } from '~/services'
@@ -24,6 +25,7 @@ type Props = {
 type State = {
   email?: string
   emailError?: string
+  isDeleteAccountOpen?: boolean
   isDeleting?: boolean
   isDownloading?: boolean
   isSaving?: boolean
@@ -47,7 +49,6 @@ class Settings extends Component<Props, State> {
       ...(user.name ? {name: user.name} : {})
     }
 
-    this.deleteAccount = this.deleteAccount.bind(this)
     this.downloadUserData = this.downloadUserData.bind(this)
     this.handleEmailChange = this.handleEmailChange.bind(this)
     this.handleNameChange = this.handleNameChange.bind(this)
@@ -55,6 +56,7 @@ class Settings extends Component<Props, State> {
     this.handleToggleUITheme = this.handleToggleUITheme.bind(this)
     this.resetProfileChanges = this.resetProfileChanges.bind(this)
     this.showSignUpModal = this.showSignUpModal.bind(this)
+    this.toggleDeleteAccountModal = this.toggleDeleteAccountModal.bind(this)
     this.updateProfile = this.updateProfile.bind(this)
     this.validateEmail = this.validateEmail.bind(this)
     this.validateProfileData = this.validateProfileData.bind(this)
@@ -69,10 +71,6 @@ class Settings extends Component<Props, State> {
         name: newProps.user.name
       })
     }
-  }
-
-  deleteAccount () {
-    this.setState({ isDeleting: true })
   }
 
   async downloadUserData () {
@@ -177,20 +175,34 @@ class Settings extends Component<Props, State> {
     this.setState({ isSaving: false })
   }
 
+  showSignUpModal () {
+    const { modalsSignUpShow } = this.props
+    modalsSignUpShow(true)
+  }
+
   showCheckoutModal () {
     
   }
   
-  showSignUpModal () {
-    const { modalsSignUpShow } = this.props
-    modalsSignUpShow(true)
+  toggleDeleteAccountModal (show) {
+    this.setState({ isDeleteAccountOpen: show })
   }
   
   render() {
     const { settings, user } = this.props
     const { nsfwModeHide, uiThemeHide } = settings
-    const { email, emailError, isDeleting, isDownloading, isSaving, name } = this.state
+    const { email, emailError, isDeleteAccountOpen, isDownloading, isSaving,
+      name } = this.state
     const isLoggedIn = user && !!user.id
+
+    const checkoutBtn = (isRenew = false) => (
+      <Button
+        className='settings-membership__checkout'
+        color='primary'
+        onClick={this.showCheckoutModal}>
+        <FontAwesomeIcon icon='shopping-cart' />&nbsp;&nbsp;{isRenew ? 'Renew' : 'Checkout'}
+      </Button>
+    )
 
     const premiumMembershipNode = (
       <Fragment>
@@ -198,37 +210,30 @@ class Settings extends Component<Props, State> {
         <ul>
           <li>Create and share playlists</li>
           <li>Edit your clips</li>
-          <li>Sync your queue across all devices</li>
-          <li>Sync your podcast list across all devices</li>
+          <li>Sync your podcast list on all devices</li>
+          <li>Sync your queue on all devices</li>
           <li>Support open source software and user data rights</li>
         </ul>
         <p>$3 per year, checkout with PayPal or crypto</p>
         <div className='settings-membership__btns'>
           {
             user && user.id &&
-              <Button
-                className='settings-membership-btns__checkout'
-                color='primary'
-                onClick={this.showCheckoutModal}>
-                <FontAwesomeIcon icon='shopping-cart' />&nbsp;&nbsp;Checkout
-              </Button>
+              checkoutBtn
           }
           {
             !user || !user.id &&
               <Button
-                className='settings-membership-btns__free-trial'
+                className='settings-membership__free-trial'
                 color='primary'
                 onClick={this.showSignUpModal}>
                 Start Free Trial
               </Button>
           }
         </div>
-        {
-          user && user.id &&
-            <hr />
-        }
       </Fragment>
     )
+
+    const membershipStatusHeader = <h4 id='membership'>Membership Status</h4>
 
     return (
       <div className='settings'>
@@ -321,7 +326,7 @@ class Settings extends Component<Props, State> {
           {
             !user || !user.id &&
             <Fragment>
-              <h4>Membership Status</h4>
+              {membershipStatusHeader}
               {premiumMembershipNode}
             </Fragment>
           }
@@ -330,35 +335,65 @@ class Settings extends Component<Props, State> {
             <Fragment>
               {
                 (user.membershipExpiration
-                  && isBeforeExpirationDate(user.membershipExpiration)) &&
+                  && isBeforeDate(user.membershipExpiration)) &&
                 <Fragment>
-                  <h4>Membership Status</h4>
+                  {membershipStatusHeader}
                   <p className='settings-membership__status is-active'>Premium</p>
                   <p>Ends: {new Date(user.membershipExpiration).toLocaleString()}</p>
+                  {checkoutBtn(true)}
                   <hr />
                 </Fragment>
               }
               {
                 (!user.membershipExpiration
                   && user.freeTrialExpiration
-                  && isBeforeExpirationDate(user.freeTrialExpiration)) &&
+                  && isBeforeDate(user.freeTrialExpiration)) &&
                 <Fragment>
-                  <h4>Membership Status</h4>
-                  <p className='settings-membership__status is-active'>Free Trial</p>
+                  {membershipStatusHeader}
+                  <p className='settings-membership__status is-active'>Premium (Free Trial)</p>
                   <p>Ends: {new Date(user.freeTrialExpiration).toLocaleString()}</p>
                   {premiumMembershipNode}
+                  {checkoutBtn()}
+                  <hr />
+                </Fragment>
+              }
+              {
+                (!user.membershipExpiration
+                  && user.freeTrialExpiration
+                  && !isBeforeDate(user.freeTrialExpiration)) &&
+                <Fragment>
+                  {membershipStatusHeader}
+                  <p className='settings-membership__status is-expired'>Expired</p>
+                  <p>Ended: {new Date(user.freeTrialExpiration).toLocaleString()}</p>
+                  <p>Your free trial has ended. Please renew to continue using premium features.</p>
+                  {premiumMembershipNode}
+                  {checkoutBtn()}
+                  <hr />
                 </Fragment>
               }
               {
                 (user.freeTrialExpiration && user.membershipExpiration
-                  && !isBeforeExpirationDate(user.freeTrialExpiration)
-                  && !isBeforeExpirationDate(user.membershipExpiration)) &&
+                  && !isBeforeDate(user.freeTrialExpiration)
+                  && !isBeforeDate(user.membershipExpiration)) &&
                 <Fragment>
-                  <h4>Membership Status</h4>
+                  {membershipStatusHeader}
                   <p className='settings-membership__status is-expired'>Expired</p>
-                  <p>Since: {new Date(user.membershipExpiration).toLocaleString()}</p>
+                  <p>Ended: {new Date(user.membershipExpiration).toLocaleString()}</p>
                   <p>Your membership has expired. Please renew to continue using premium features.</p>
                   {premiumMembershipNode}
+                  {checkoutBtn(true)}
+                  <hr />
+                </Fragment>
+              }
+              {
+                (user.id && !user.freeTrialExpiration && !user.membershipExpiration) &&
+                <Fragment>
+                  {membershipStatusHeader}
+                  <p className='settings-membership__status is-expired'>Inactive</p>
+                  <p>Your membership is inactive. Please renew to continue using premium features.</p>
+                  {premiumMembershipNode}
+                  {checkoutBtn(true)}
+                  <hr />
                 </Fragment>
               }
             </Fragment>
@@ -370,10 +405,14 @@ class Settings extends Component<Props, State> {
                 <Button
                   className='settings__delete-account'
                   color='danger'
-                  isLoading={isDeleting}
-                  onClick={this.deleteAccount}>
+                  onClick={() => this.toggleDeleteAccountModal(true)}>
                   <FontAwesomeIcon icon='trash' />&nbsp;&nbsp;Delete Account
                 </Button>
+                <DeleteAccountModal 
+                  email={email}
+                  handleHideModal={() => this.toggleDeleteAccountModal(false)}
+                  id={user.id}
+                  isOpen={isDeleteAccountOpen} />
               </Fragment>
           }
         </Form>

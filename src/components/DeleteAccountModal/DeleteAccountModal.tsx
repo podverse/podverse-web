@@ -1,9 +1,20 @@
 import * as React from 'react'
 import * as Modal from 'react-modal'
+import { PVButton as Button, ButtonGroup, CloseButton } from 'podverse-ui'
+import { Input, Label } from 'reactstrap'
+import { deleteUser } from '~/services'
 
-export interface Props {
-  handleHideModal?: (event: React.MouseEvent<HTMLButtonElement>) => void
+type Props = {
+  email?: string
+  handleHideModal: Function
+  id: string
   isOpen?: boolean
+}
+
+type State = {
+  confirmEmail?: string
+  isConfirmed?: boolean
+  isDeleting?: boolean
 }
 
 const customStyles = {
@@ -20,25 +31,94 @@ const customStyles = {
   }
 }
 
-export const DeleteAccountModal: React.StatelessComponent<Props> = props => {
-  const { handleHideModal, isOpen } = props
+export class DeleteAccountModal extends React.Component<Props, State> {
 
-  // @ts-ignore
-  const appEl = process.browser ? document.querySelector('body') : null
+  constructor (props) {
+    super(props)
 
-  return (
-    <Modal
-      appElement={appEl}
-      contentLabel='Delete Account'
-      isOpen={isOpen}
-      onRequestClose={handleHideModal}
-      portalClassName='delete-account-modal over-media-player'
-      shouldCloseOnOverlayClick
-      style={customStyles}>
-      <div>
-        <h4>Delete Account</h4>
-        <p>Are you sure you want to delete your account? This is irreversible (unless you download your data and restore it later).</p>
-      </div>
-    </Modal>
-  )
+    this.state = {
+      confirmEmail: ''
+    }
+
+    this.handleConfirmEmailInputChange = this.handleConfirmEmailInputChange.bind(this)
+    this.handleDeleteAccount = this.handleDeleteAccount.bind(this)
+    this.handleHideModal = this.handleHideModal.bind(this)
+  }
+
+  handleConfirmEmailInputChange (event) {
+    const { email } = this.props
+    const { value: confirmEmail } = event.target
+    this.setState({
+      confirmEmail,
+      isConfirmed: confirmEmail && email === confirmEmail
+    })
+  }
+
+  handleHideModal () {
+    const { handleHideModal } = this.props
+    this.setState({ confirmEmail: '' })
+    handleHideModal()
+  }
+
+  async handleDeleteAccount () {
+    this.setState({ isDeleting: true })
+    const { id } = this.props
+
+    try {
+      await deleteUser(id)
+      window.location.href = '/'
+    } catch (error) {
+      console.log(error)
+      alert('Something went wrong. Please check your internet connection.')
+    }
+  }
+
+  render () {
+    const { email, handleHideModal, isOpen } = this.props
+    const { confirmEmail, isConfirmed, isDeleting } = this.state
+  
+    // @ts-ignore
+    const appEl = process.browser ? document.querySelector('body') : null
+
+    return (
+      <Modal
+        appElement={appEl}
+        contentLabel='Delete Account'
+        isOpen={isOpen}
+        onRequestClose={handleHideModal}
+        portalClassName='delete-account-modal over-media-player'
+        shouldCloseOnOverlayClick
+        style={customStyles}>
+        <div>
+          <h4>Delete Account</h4>
+          <CloseButton onClick={handleHideModal} />
+          <p>This will delete all of your Podverse data!</p>
+          <p>Any links you created will no longer work!</p>
+          <Label for='delete-account-modal__confirm-email'>Type your email to proceed:</Label>
+          <Input
+            name='delete-account-modal__confirm-email'
+            onChange={this.handleConfirmEmailInputChange}
+            placeholder={email}
+            type='text'
+            value={confirmEmail} />
+          <ButtonGroup
+            childrenRight={(
+              <React.Fragment>
+                <Button
+                  className='delete-account-modal__cancel'
+                  onClick={this.handleHideModal}
+                  text='Cancel' />
+                <Button
+                  className='delete-account-modal__submit'
+                  color='danger'
+                  disabled={!isConfirmed}
+                  isLoading={isDeleting}
+                  onClick={this.handleDeleteAccount}
+                  text='Delete' />
+              </React.Fragment>
+            )} />
+        </div>
+      </Modal>
+    )
+  }
 }

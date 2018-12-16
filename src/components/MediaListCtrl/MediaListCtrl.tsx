@@ -378,6 +378,7 @@ class MediaListCtrl extends Component<Props, State> {
               selected={selectedQueryFromOption.length > 0 ? selectedQueryFromOption[0].value : null} />
           </div>
           <div className='media-list-selects__right'>
+            <div className='media-list-selects-right__spacer' />
             <MediaListSelect
               className='align-right'
               items={this.getQuerySortOptions()}

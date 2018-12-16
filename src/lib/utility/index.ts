@@ -11,9 +11,18 @@ export const convertToYYYYMMDDHHMMSS = () => {
   return year + '-' + month + '-' + day + ' ' + hour + ':' + minute + ':' + second
 }
 
-export const isBeforeExpirationDate = expirationDate => {
+// @ts-ignore
+Date.prototype.addDays = function (days) {
+  const date = new Date(this.valueOf())
+  date.setDate(date.getDate() + days)
+  return date
+}
+
+export const isBeforeDate = (expirationDate, dayOffset = 0) => {
   const currentDate = new Date()
-  return new Date(expirationDate) > currentDate
+  // @ts-ignore
+  const offsetDate = currentDate.addDays(dayOffset)
+  return new Date(expirationDate) > offsetDate
 }
 
 export const validateEmail = email => {

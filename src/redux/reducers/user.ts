@@ -10,12 +10,12 @@ export default (state = {}, action) => {
 
       return {
         ...state,
-        ...(email ? { email } : {}),
-        ...(freeTrialExpiration ? { freeTrialExpiration } : {}),
+        ...(email || email === '' ? { email } : {}),
+        ...(freeTrialExpiration || freeTrialExpiration === '' ? { freeTrialExpiration } : {}),
         ...(historyItems ? { historyItems } : {}),
-        ...(id || id === null ? { id } : {}),
-        ...(membershipExpiration ? { membershipExpiration } : {}),
-        name,
+        ...(id || id === '' ? { id } : {}),
+        ...(membershipExpiration || freeTrialExpiration === '' ? { membershipExpiration } : {}),
+        ...(name || name === '' ? { name } : {}),
         ...(playlists ? { playlists } : {}),
         ...(queueItems ? { queueItems } : {}),
         ...(subscribedPlaylistIds ? { subscribedPlaylistIds } : {}),

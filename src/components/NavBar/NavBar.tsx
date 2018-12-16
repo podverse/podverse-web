@@ -95,7 +95,7 @@ class PVNavBar extends Component<Props, State> {
   }
 
   render () {
-    const { pageIsLoading, user } = this.props
+    const { user } = this.props
     const { id } = user 
 
     const dropdownText = (!!id ? <FontAwesomeIcon icon='user-circle'></FontAwesomeIcon> : null)

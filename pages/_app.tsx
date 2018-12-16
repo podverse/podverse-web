@@ -4,6 +4,7 @@ import withRedux from 'next-redux-wrapper'
 import App, { Container } from 'next/app'
 import { getPriorityQueueItemsStorage } from 'podverse-ui'
 import Meta from '~/components/meta'
+import Alerts from '~/components/Alerts/Alerts'
 import Auth from '~/components/Auth/Auth'
 import Footer from '~/components/Footer/Footer'
 import MediaModals from '~/components/MediaModals/MediaModals'
@@ -29,6 +30,7 @@ declare global {
 }
 
 type Props = {
+  cookies: any
   mediaPlayer: {
     nowPlayingItem: any
     playing?: boolean
@@ -77,6 +79,7 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
 
     ctx.store.dispatch(pageIsLoading(true))
 
+    let cookies = {}
     // @ts-ignore
     if (!process.browser && ctx.req.headers.cookie) {
       const parsedCookie = cookie.parse(ctx.req.headers.cookie)
@@ -144,6 +147,13 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
           // continue with unauthenticated user
         }
       }
+
+      cookies = {
+        showFreeTrialHasEnded: parsedCookie.showFreeTrialHasEnded,
+        showFreeTrialWarning: parsedCookie.showFreeTrialWarning,
+        showMembershipHasEnded: parsedCookie.showMembershipHasEnded,
+        showMembershipWarning: parsedCookie.showMembershipWarning
+      }
     }
 
     if (Component.getInitialProps) {
@@ -155,7 +165,7 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
       scrollToTopOfView()
     }
 
-    return { pageProps }
+    return { pageProps, cookies }
   }
 
   async componentDidMount() {
@@ -172,7 +182,7 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
   }
 
   render() {
-    const { Component, pageProps, store } = this.props
+    const { Component, cookies, pageProps, store } = this.props
 
     return (
       <Container>
@@ -187,6 +197,7 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
               </div>
               <div className='view__contents'>
                 <div className='max-width top'>
+                  <Alerts cookies={cookies} />
                   <Component {...pageProps} />
                 </div>
                 <div className='max-width bottom'>

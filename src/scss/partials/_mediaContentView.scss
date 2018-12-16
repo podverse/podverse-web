@@ -31,7 +31,10 @@
       display: flex;
       flex: 1 1 auto;
       flex-direction: column;
-      padding-top: 2.25rem;
+
+      .media-list-selects-right__spacer {
+        height: 2.25rem;
+      }
 
       .dropdown {
         flex: 0 0 auto;

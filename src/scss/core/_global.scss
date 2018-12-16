@@ -42,6 +42,10 @@ html {
   float: right;
 }
 
+.alert {
+  margin-bottom: 1.25rem;
+}
+
 [theme=light] {
   .no-results-msg {
     color: $gray-darker;

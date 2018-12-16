@@ -42,21 +42,17 @@
     }
   }
 
-  .settings-membership__btns {
-    display: flex;
-    margin-top: 1.5rem;
-
-    .settings-membership-btns__checkout {
-      flex: 0 0 auto;
-      margin-right: 1rem;
-    }
-    
-    .settings-membership-btns__free-trial {
-      flex: 0 0 auto;
-    }
+  .settings-membership__checkout {
+    flex: 0 0 auto;
+    margin-top: 0.5rem;
+  }
+  
+  .settings-membership__free-trial {
+    flex: 0 0 auto;
+    margin-top: 0.5rem;
   }
 
   .settings__delete-account {
-    min-width: 136px;
+    min-width: 146px;
   }
 }
