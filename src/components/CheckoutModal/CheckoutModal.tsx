@@ -29,7 +29,7 @@ const PAYPAL_CLIENT = {
   production: paypalConfig.production,
   sandbox: paypalConfig.sandbox
 }
-const PAYPAL_ENV = process.env.NODE_ENV === 'production' ? 'production' : 'sandbox'
+const PAYPAL_ENV = paypalConfig.env
 
 
 class CheckoutModal extends React.Component<Props, State> {
@@ -79,7 +79,7 @@ class CheckoutModal extends React.Component<Props, State> {
             onCancel={this.onCancel}
             onError={this.onError}
             onSuccess={this.onSuccess}
-            total={100} />
+            total={3} />
           <hr />
           <button>coingate</button>
         </div>

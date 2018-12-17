@@ -93,6 +93,7 @@ class PaypalButton extends React.Component<Props, State> {
             <paypal.Button.react
               client={client}
               commit={commit}
+              env={env}
               onAuthorize={onAuthorize}
               onCancel={onCancel}
               onError={onError}

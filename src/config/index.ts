@@ -5,6 +5,7 @@ export const cookieConfig = {
 }
 
 export const paypalConfig = {
+  env: process.env.NODE_ENV === 'production' ? 'production' : 'sandbox',
   production: process.env.PAYPAL_CLIENT_ID_PRODUCTION,
   sandbox: process.env.PAYPAL_CLIENT_ID_SANDBOX
 }
