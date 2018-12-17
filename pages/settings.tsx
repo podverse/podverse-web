@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { PVButton as Button } from 'podverse-ui'
 import Meta from '~/components/meta'
+import CheckoutModal from '~/components/CheckoutModal/CheckoutModal'
 import { DeleteAccountModal } from '~/components/DeleteAccountModal/DeleteAccountModal'
 import { convertToYYYYMMDDHHMMSS, isBeforeDate, validateEmail } from '~/lib/utility'
 import { modalsSignUpShow, pageIsLoading, settingsHideNSFWMode, settingsHideUITheme,
@@ -25,6 +26,7 @@ type Props = {
 type State = {
   email?: string
   emailError?: string
+  isCheckoutOpen?: boolean
   isDeleteAccountOpen?: boolean
   isDeleting?: boolean
   isDownloading?: boolean
@@ -56,6 +58,7 @@ class Settings extends Component<Props, State> {
     this.handleToggleUITheme = this.handleToggleUITheme.bind(this)
     this.resetProfileChanges = this.resetProfileChanges.bind(this)
     this.showSignUpModal = this.showSignUpModal.bind(this)
+    this.toggleCheckoutModal = this.toggleCheckoutModal.bind(this)
     this.toggleDeleteAccountModal = this.toggleDeleteAccountModal.bind(this)
     this.updateProfile = this.updateProfile.bind(this)
     this.validateEmail = this.validateEmail.bind(this)
@@ -180,8 +183,8 @@ class Settings extends Component<Props, State> {
     modalsSignUpShow(true)
   }
 
-  showCheckoutModal () {
-    
+  toggleCheckoutModal (show) {
+    this.setState({ isCheckoutOpen: show })
   }
   
   toggleDeleteAccountModal (show) {
@@ -191,15 +194,15 @@ class Settings extends Component<Props, State> {
   render() {
     const { settings, user } = this.props
     const { nsfwModeHide, uiThemeHide } = settings
-    const { email, emailError, isDeleteAccountOpen, isDownloading, isSaving,
-      name } = this.state
+    const { email, emailError, isCheckoutOpen, isDeleteAccountOpen, isDownloading,
+      isSaving, name } = this.state
     const isLoggedIn = user && !!user.id
 
     const checkoutBtn = (isRenew = false) => (
       <Button
         className='settings-membership__checkout'
         color='primary'
-        onClick={this.showCheckoutModal}>
+        onClick={() => this.toggleCheckoutModal(true)}>
         <FontAwesomeIcon icon='shopping-cart' />&nbsp;&nbsp;{isRenew ? 'Renew' : 'Checkout'}
       </Button>
     )
@@ -415,6 +418,9 @@ class Settings extends Component<Props, State> {
                   isOpen={isDeleteAccountOpen} />
               </Fragment>
           }
+          <CheckoutModal
+            handleHideModal={() => this.toggleCheckoutModal(false)}
+            isOpen={isCheckoutOpen} />
         </Form>
       </div>
     )

@@ -1,8 +1,17 @@
-{
+const env = require('./env-config.js')
+
+module.exports = {
   "plugins": [
-    ["babel-plugin-root-import", {
-      "rootPathSuffix": "./src"
-    }]
+    [
+      "babel-plugin-root-import",
+      {
+        "rootPathSuffix": "./src"
+      }
+    ],
+    [
+      "transform-define",
+      env
+    ]
   ],
   "env": {
     "development": {

@@ -77,7 +77,7 @@ class Footer extends Component<Props, State> {
     const { nsfwMode, nsfwModeHide, uiTheme, uiThemeHide } = settings
     const { nsfwModalIsOpen } = this.state
 
-    const uiThemeAriaLabel = uiTheme === 'dark' ? 'Turn on light mode' : 'Turn on dark mode'
+    const uiThemeAriaLabel = uiTheme === 'dark' || !uiTheme ? 'Turn on light mode' : 'Turn on dark mode'
     const nsfwModeAriaLabel = nsfwMode ? 'Turn off NSFW content' : 'Turn on NSFW content'
 
     return (
@@ -99,7 +99,7 @@ class Footer extends Component<Props, State> {
                   </span>
                   <Switch
                     aria-label={uiThemeAriaLabel}
-                    checked={uiTheme === 'dark'}
+                    checked={uiTheme === 'dark' || !uiTheme}
                     checkedIcon
                     height={24}
                     id="ui-theme-switch"

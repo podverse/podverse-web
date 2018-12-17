@@ -1,3 +1,5 @@
+require('dotenv').config({ path: '.env' })
+
 import * as Koa from 'koa'
 import * as bodyParser from 'koa-bodyparser'
 import * as helmet from 'koa-helmet'
