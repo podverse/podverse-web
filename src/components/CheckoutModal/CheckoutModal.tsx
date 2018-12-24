@@ -1,12 +1,16 @@
 import * as React from 'react'
 import * as Modal from 'react-modal'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import { CloseButton } from 'podverse-ui'
 import PayPalButton from '~/components/PayPalButton/PayPalButton'
 import { paypalConfig } from '~/config'
+import { pageIsLoading } from '~/redux/actions'
 
 type Props = {
   handleHideModal: Function
   isOpen?: boolean
+  pageIsLoading: any
 }
 
 type State = {}
@@ -40,20 +44,8 @@ class CheckoutModal extends React.Component<Props, State> {
     this.state = {}
   }
 
-  onCancel (data) {
-    console.log('Cancelled payment!', data)
-  }
-
-  onError (error) {
-    console.log('Erroneous payment OR failed to load script!', error)
-  }
-
-  onSuccess (payment) {
-    console.log('Successful payment!', payment)
-  }
-
   render () {
-    const { handleHideModal, isOpen } = this.props
+    const { handleHideModal, isOpen, pageIsLoading } = this.props
   
     // @ts-ignore
     const appEl = process.browser ? document.querySelector('body') : null
@@ -70,15 +62,13 @@ class CheckoutModal extends React.Component<Props, State> {
         <div style={{textAlign: 'center'}}>
           <h4>Checkout</h4>
           <CloseButton onClick={handleHideModal} />
-          <div id="paypal-button"></div>
           <PayPalButton
             client={PAYPAL_CLIENT}
             commit={true}
             currency={'USD'}
             env={PAYPAL_ENV}
-            onCancel={this.onCancel}
-            onError={this.onError}
-            onSuccess={this.onSuccess}
+            handlePageIsLoading={pageIsLoading}
+            hideCheckoutModal={handleHideModal}
             total={3} />
           <hr />
           <button>coingate</button>
@@ -88,4 +78,10 @@ class CheckoutModal extends React.Component<Props, State> {
   }
 }
 
-export default CheckoutModal
+const mapStateToProps = state => ({ ...state })
+
+const mapDispatchToProps = dispatch => ({
+  pageIsLoading: bindActionCreators(pageIsLoading, dispatch)
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(CheckoutModal)

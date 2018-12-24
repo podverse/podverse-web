@@ -1,17 +1,24 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import scriptLoader from 'react-async-script-loader'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { DOMAIN, PROTOCOL } from '~/config'
+import { createPayPalOrder } from '~/services/paypal'
 
 type Props = {
   client?: string
   commit?: string
   currency?: string
   env?: string
+  handlePageIsLoading: any
+  hideCheckoutModal?: Function
   isScriptLoaded?: boolean
   isScriptLoadSucceed?: boolean
   onCancel: Function
   onError: Function
   onSuccess: Function
+  subtotal?: string
+  tax?: number
   total?: number
 }
 
@@ -27,6 +34,7 @@ class PaypalButton extends React.Component<Props, State> {
       showButton: false,
     }
 
+    // React and ReactDOM are needed by the paypal.Button.react component
     //@ts-ignore
     window.React = React
     //@ts-ignore
@@ -53,40 +61,86 @@ class PaypalButton extends React.Component<Props, State> {
   }
 
   render () {
-    const { client, commit, currency, env, onCancel, onError, onSuccess, total } = this.props
+    const { client, commit, currency, env, handlePageIsLoading, hideCheckoutModal,
+      subtotal, tax, total } = this.props
     const { showButton } = this.state
 
-    const payment = () => (
-      // @ts-ignore
-      paypal.rest.payment.create(env, client, {
-        transactions: [
-          {
-            amount: {
-              total,
-              currency
-            }
-          }
-        ]
-      })
-    )
-    
-    const onAuthorize = (data, actions) =>
-      actions.payment.execute()
-        .then(() => {
-          const payment = {
-            paid: true,
-            cancelled: false,
-            payerID: data.payerID,
-            paymentID: data.paymentID,
-            paymentToken: data.paymentToken,
-            returnUrl: data.returnUrl
-          }
+    const payment = async (resolve, reject) => {
 
-          onSuccess(payment)
+      try {
+        // @ts-ignore
+        const paymentID = await paypal.rest.payment.create(env, client, {
+          intent: 'sale',
+          payer: {
+            payment_method: 'paypal'
+          },
+          transactions: [
+            {
+              amount: {
+                total,
+                currency,
+                details: {
+                  subtotal,
+                  tax
+                }
+              }
+            }
+          ],
+          application_context: {
+            brand_name: 'Podverse',
+            locale: 'US',
+            landing_page: 'Login',
+            shipping_preference: 'NO_SHIPPING'
+          },
+          redirect_urls: {
+            cancel_url: `${PROTOCOL}://${DOMAIN}/settings#membership`,
+            return_url: `${PROTOCOL}://${DOMAIN}/settings#membership`
+          }
         })
 
+        try {
+          createPayPalOrder({ paymentID })
+          resolve(paymentID)
+        } catch (error) {
+          console.log(error)
+          alert('Something went wrong. Please check your internet connection.')
+          reject()
+        }
+      } catch (error) {
+        console.log(error)
+        alert('Something went wrong. Please check your internet connection.')
+        reject()
+      }
+    }
+    
+    
+    const onAuthorize = (data, actions) => {
+      handlePageIsLoading(true)
+      console.log(handlePageIsLoading)
+
+      return actions.payment.execute()
+        .then(() => {
+          location.href = `${PROTOCOL}://${DOMAIN}/payment/paypal-confirming?id=${data.paymentID}`
+        })
+        .catch(() => {
+          alert('Something went wrong. Please check your internet connection.')
+          handlePageIsLoading(false)
+        })
+    }
+
+    const onCancel = () => {
+      if (hideCheckoutModal) {
+        hideCheckoutModal()
+      }
+    }
+
+    const onError = (error) => {
+      console.log(error)
+      alert('Something went wrong. Please check your internet connection.')
+    }
+
     return (
-      <div>
+      <div className='paypal-button'>
         {
           showButton && 
             // @ts-ignore
@@ -97,7 +151,14 @@ class PaypalButton extends React.Component<Props, State> {
               onAuthorize={onAuthorize}
               onCancel={onCancel}
               onError={onError}
-              payment={payment} />
+              payment={payment}
+              style={{
+                size: 'medium'
+              }} />
+        }
+        {
+          !showButton &&
+            <FontAwesomeIcon icon='spinner' spin />
         }
       </div>
     )

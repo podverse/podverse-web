@@ -2,6 +2,7 @@
   align-items: center;
   bottom: 0;
   display: none;
+  flex-direction: column;
   font-size: 48px;
   justify-content: center;
   left: 0;
@@ -10,10 +11,14 @@
   right: 0;
   text-align: center;
   top: -32px;
-  z-index: 1;
+  z-index: 2147483647;
 
   &.show {
     display: flex;
+  }
+
+  &.allow-pointer-events {
+    pointer-events: all;
   }
   
   svg {
