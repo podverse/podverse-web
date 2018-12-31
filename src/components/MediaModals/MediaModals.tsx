@@ -13,6 +13,7 @@ import { mediaPlayerUpdatePlaying, modalsAddToCreatePlaylistIsSaving,
   } from '~/redux/actions'
 import { addOrRemovePlaylistItem, createMediaRef, createPlaylist, deleteMediaRef,
   updateMediaRef, updateUserQueueItems } from '~/services'
+import { alertPremiumRequired, alertSomethingWentWrong } from '~/lib/utility'
 
 type Props = {
   mediaPlayer?: any
@@ -207,7 +208,12 @@ class MediaModals extends Component<Props, State> {
         })
       }
     } catch (error) {
-      console.log(error)
+      if (error.response.data === 'Premium Membership Required') {
+        alert('Your Premium membership has expired. Renew your membership on the Settings page, or log out to create a clip anonymously.')
+      } else {
+        alertSomethingWentWrong()
+      }
+      this.setState({ makeClipIsSaving: false })
     }
   }
 
@@ -272,8 +278,11 @@ class MediaModals extends Component<Props, State> {
           })
         }
       } catch (error) {
-        console.log(error)
-        alert('Could add to playlist. Please check your internet connection and try again.')
+        if (error.response.data === 'Premium Membership Required') {
+          alertPremiumRequired()
+        } else {
+          alertSomethingWentWrong()
+        }
       }
     }
   }
@@ -282,11 +291,21 @@ class MediaModals extends Component<Props, State> {
     const { modalsAddToCreatePlaylistIsSaving, modalsAddToCreatePlaylistShow,
       user, userSetInfo } = this.props
     modalsAddToCreatePlaylistIsSaving(true)
-    const result = await createPlaylist({ title })
-    user.playlists.unshift(result.data)
-    userSetInfo({ playlists: user.playlists })
-    modalsAddToCreatePlaylistIsSaving(false)
-    modalsAddToCreatePlaylistShow(false)
+
+    try {
+      const result = await createPlaylist({ title })
+      user.playlists.unshift(result.data)
+      userSetInfo({ playlists: user.playlists })
+      modalsAddToCreatePlaylistIsSaving(false)
+      modalsAddToCreatePlaylistShow(false)
+    } catch (error) {
+      if (error.response.data === 'Premium Membership Required') {
+        alertPremiumRequired()
+      } else {
+        alertSomethingWentWrong()
+      }
+      modalsAddToCreatePlaylistIsSaving(false)
+    }
   }
 
   toggleCreatePlaylist = () => {

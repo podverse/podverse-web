@@ -14,11 +14,3 @@ export const getPayPalOrderById = async (id: string) => {
     withCredentials: true
   })
 }
-
-export const updatePayPalOrder = async (data: any) => {
-  return axios(`http://localhost:3000/api/v1/paypal/order`, {
-    method: 'patch',
-    data,
-    withCredentials: true
-  })
-}

@@ -11,7 +11,8 @@ import { faStar as fasStar } from '@fortawesome/free-solid-svg-icons'
 import { PVButton as Button } from 'podverse-ui'
 import MediaListItemCtrl from '~/components/MediaListItemCtrl/MediaListItemCtrl'
 import { convertToNowPlayingItem } from '~/lib/nowPlayingItem'
-import { clone, readableDate } from '~/lib/utility'
+import { alertPremiumRequired, alertSomethingWentWrong, clone,
+  readableDate } from '~/lib/utility'
 import { mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying, pageIsLoading,
   playerQueueLoadSecondaryItems, userSetInfo } from '~/redux/actions'
 import { addOrRemovePlaylistItem, addOrUpdateUserHistoryItem, deletePlaylist,
@@ -217,10 +218,18 @@ class Playlist extends Component<Props, State> {
 
     this.setState({ isSubscribing: true })
 
-    const response = await toggleSubscribeToPlaylist(playlist.id)
-
-    if (response) {
-      userSetInfo({ subscribedPlaylistIds: response.data })
+    try {
+      const response = await toggleSubscribeToPlaylist(playlist.id)
+  
+      if (response) {
+        userSetInfo({ subscribedPlaylistIds: response.data })
+      }
+    } catch (error) {
+      if (error.response.data === 'Premium Membership Required') {
+        alertPremiumRequired()
+      } else {
+        alertSomethingWentWrong()
+      }
     }
 
     this.setState({ isSubscribing: false })

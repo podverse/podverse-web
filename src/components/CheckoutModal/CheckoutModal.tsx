@@ -2,7 +2,7 @@ import * as React from 'react'
 import * as Modal from 'react-modal'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { CloseButton } from 'podverse-ui'
+import { PVButton as Button, CloseButton } from 'podverse-ui'
 import PayPalButton from '~/components/PayPalButton/PayPalButton'
 import { paypalConfig } from '~/config'
 import { pageIsLoading } from '~/redux/actions'
@@ -44,6 +44,10 @@ class CheckoutModal extends React.Component<Props, State> {
     this.state = {}
   }
 
+  createCoingateOrder () {
+    console.log('coingate')
+  }
+
   render () {
     const { handleHideModal, isOpen, pageIsLoading } = this.props
   
@@ -71,7 +75,12 @@ class CheckoutModal extends React.Component<Props, State> {
             hideCheckoutModal={handleHideModal}
             total={3} />
           <hr />
-          <button>coingate</button>
+          <Button
+            className='checkout-modal__coinbase'
+            color='secondary'
+            onClick={this.createCoingateOrder}>
+            Pay with Crypto
+          </Button>
         </div>
       </Modal>
     )

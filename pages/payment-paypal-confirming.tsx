@@ -37,6 +37,8 @@ class PaymentConfirmingPayPal extends Component<Props, State> {
 
   async componentDidMount () {
     const { id } = this.props
+    this.setState({ isChecking: true })
+    
     const paypalOrder = await getPayPalOrderById(id)
 
     const intervalId = setInterval(this.checkPaymentStatus, 5000)

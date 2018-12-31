@@ -7,7 +7,8 @@ import { PVButton as Button } from 'podverse-ui'
 import Meta from '~/components/meta'
 import CheckoutModal from '~/components/CheckoutModal/CheckoutModal'
 import { DeleteAccountModal } from '~/components/DeleteAccountModal/DeleteAccountModal'
-import { convertToYYYYMMDDHHMMSS, isBeforeDate, validateEmail } from '~/lib/utility'
+import { alertPremiumRequired, alertSomethingWentWrong, convertToYYYYMMDDHHMMSS,
+  isBeforeDate, validateEmail } from '~/lib/utility'
 import { modalsSignUpShow, pageIsLoading, settingsHideNSFWMode, settingsHideUITheme,
   userSetInfo } from '~/redux/actions'
 import { downloadUserData, updateUser } from '~/services'
@@ -171,8 +172,11 @@ class Settings extends Component<Props, State> {
       await updateUser(newData)
       userSetInfo(newData)
     } catch (error) {
-      console.log(error)
-      alert('Something went wrong. Please check your internet connection.')
+      if (error.response.data === 'Premium Membership Required') {
+        alertPremiumRequired()
+      } else {
+        alertSomethingWentWrong()
+      }
     }
 
     this.setState({ isSaving: false })

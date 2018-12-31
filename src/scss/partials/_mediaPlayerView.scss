@@ -5,6 +5,7 @@
 
   .view__navbar {
     flex: 0 0 auto;
+    z-index: 1;
   }
 
   .view__contents {
@@ -22,6 +23,7 @@
 
     .bottom {
       flex: 0 1 auto;
+      z-index: 1;
     }
   }
 

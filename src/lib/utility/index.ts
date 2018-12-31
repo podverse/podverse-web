@@ -141,3 +141,11 @@ export const clone = obj => {
   }
   return copy
 }
+
+export const alertPremiumRequired = () => {
+  alert('This feature is only available for premium members. Please visit the Settings page to sign up.')
+}
+
+export const alertSomethingWentWrong = () => {
+  alert('Something went wrong. Please check your internet connection.')
+}

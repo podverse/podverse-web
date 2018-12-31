@@ -116,7 +116,6 @@ class PaypalButton extends React.Component<Props, State> {
     
     const onAuthorize = (data, actions) => {
       handlePageIsLoading(true)
-      console.log(handlePageIsLoading)
 
       return actions.payment.execute()
         .then(() => {

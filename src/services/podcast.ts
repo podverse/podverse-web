@@ -29,7 +29,7 @@ export const getPodcastsByQuery = async (query, nsfwMode = 'on') => {
   } else if (query.searchBy === 'host') {
     filteredQuery.searchAuthor = query.searchText
   }
-console.log(nsfwMode, 'asdf')
+
   const queryString = convertObjectToQueryString(query)
   return axios(`http://localhost:3000/api/v1/podcast?${queryString}`, {
     method: 'get',

@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { MediaHeader } from 'podverse-ui'
 import { bindActionCreators } from 'redux'
+import { alertPremiumRequired, alertSomethingWentWrong } from '~/lib/utility'
 import { userSetInfo } from '~/redux/actions'
 import { toggleSubscribeToPodcast } from '~/services'
 
@@ -43,10 +44,18 @@ class MediaHeaderCtrl extends Component<Props, State> {
 
     this.setState({ isSubscribing: true })
 
-    const response = await toggleSubscribeToPodcast(podcastId)
-
-    if (response) {
-      userSetInfo({ subscribedPodcastIds: response.data })
+    try {
+      const response = await toggleSubscribeToPodcast(podcastId)
+  
+      if (response) {
+        userSetInfo({ subscribedPodcastIds: response.data })
+      }
+    } catch (error) {
+      if (error.response.data === 'Premium Membership Required') {
+        alertPremiumRequired()
+      } else {
+        alertSomethingWentWrong()
+      }
     }
 
     this.setState({ isSubscribing: false })
