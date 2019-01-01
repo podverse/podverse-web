@@ -65,12 +65,12 @@ class PVNavBar extends Component<Props, State> {
           try {
             await logOut()
             userSetInfo({
-              email: null,
+              email: '',
               freeTrialExpiration: null,
               historyItems: [],
-              id: null,
+              id: '',
               membershipExpiration: null,
-              name: null,
+              name: '',
               playlists: [],
               queueItems: [],
               subscribedPlaylistIds: [],
