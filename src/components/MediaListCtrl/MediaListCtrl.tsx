@@ -126,7 +126,7 @@ class MediaListCtrl extends Component<Props, State> {
     if (query.from === 'from-podcast') {
       query.podcastId = podcastId
     } else if (query.from === 'subscribed-only') {
-      query.podcastId = subscribedPodcastIds
+      query.subscribedPodcastIds = subscribedPodcastIds
     } else {
       // all-podcasts, add nothing
     }

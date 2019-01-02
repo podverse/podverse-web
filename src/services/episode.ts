@@ -28,7 +28,7 @@ export const getEpisodesByQuery = async (query, nsfwMode = 'on') => {
     // add nothing
   }
 
-  const queryString = convertObjectToQueryString(query)  
+  const queryString = convertObjectToQueryString(filteredQuery)  
   return axios(`http://localhost:3000/api/v1/episode?${queryString}`, {
     method: 'get',
     headers: {
