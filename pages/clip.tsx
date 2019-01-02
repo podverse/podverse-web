@@ -73,9 +73,9 @@ class Clip extends Component<Props, State> {
         <MediaInfoCtrl mediaRef={mediaRef} />
         <MediaListCtrl
           currentId={currentId}
-          episodeId={mediaRef.episodeId}
+          episodeId={mediaRef.episode.id}
           listItems={listItems}
-          podcastId={mediaRef.podcastId}
+          podcastId={mediaRef.episode.podcast.id}
           queryFrom={queryFrom}
           queryPage={queryPage}
           querySort={querySort}
