@@ -35,5 +35,14 @@ export default (app) => {
     await app.render(ctx.req, ctx.res, '/search', ctx.query)
   })
 
+  router.get('/my-profile', async ctx => {
+    await app.render(ctx.req, ctx.res, '/user')
+  })
+
+  router.get('/profile/:id', async ctx => {
+    const query = { ...ctx.params, ...ctx.query }
+    await app.render(ctx.req, ctx.res, '/user', query)
+  })
+
   return router
 }

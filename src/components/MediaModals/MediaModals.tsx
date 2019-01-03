@@ -162,28 +162,13 @@ class MediaModals extends Component<Props, State> {
     const { makeClip } = modals
     const { nowPlayingItem } = makeClip
     
-    const { clipId, description, episodeDuration, episodeGuid, episodeId, episodeImageUrl,
-      episodeLinkUrl, episodeMediaUrl, episodePubDate, episodeSummary, episodeTitle,
-      podcastFeedUrl, podcastGuid, podcastId, podcastImageUrl, podcastTitle } = nowPlayingItem
+    const { clipId, description, episodeId } = nowPlayingItem
     
     const data = {
       ...formData,
       ...isEditing && { id: clipId },
       ...description && { description },
-      ...episodeDuration && { episodeDuration },
-      ...episodeGuid && { episodeGuid },
-      ...episodeId && { episodeId },
-      ...episodeImageUrl && { episodeImageUrl },
-      ...episodeLinkUrl && { episodeLinkUrl },
-      ...episodeMediaUrl && { episodeMediaUrl },
-      ...episodePubDate && { episodePubDate },
-      ...episodeSummary && { episodeSummary },
-      ...episodeTitle && { episodeTitle },
-      ...podcastFeedUrl && { podcastFeedUrl },
-      ...podcastGuid && { podcastGuid },
-      ...podcastId && { podcastId },
-      ...podcastImageUrl && { podcastImageUrl },
-      ...podcastTitle && { podcastTitle }
+      ...episodeId && { episodeId }
     }
 
     try {

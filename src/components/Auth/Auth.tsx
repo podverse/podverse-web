@@ -74,6 +74,7 @@ class Auth extends Component<Props, State> {
         freeTrialExpiration: null,
         historyItems: [],
         id: null,
+        mediaRefs: [],
         membershipExpiration: null,
         name: null,
         playlists: [],
@@ -103,6 +104,7 @@ class Auth extends Component<Props, State> {
         historyItems: [],
         id: null,
         name: null,
+        mediaRefs: [],
         playlists: [],
         queueItems: [],
         subscribedPodcastIds: []

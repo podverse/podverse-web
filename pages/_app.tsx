@@ -63,6 +63,7 @@ type Props = {
     freeTrialExpiration: any
     historyItems: any[]
     id: string
+    mediaRefs: any[]
     membershipExpiration: any
     name: string
     playlists: any[]
@@ -134,6 +135,7 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
                 freeTrialExpiration: userInfo.data.freeTrialExpiration,
                 historyItems: userInfo.data.historyItems,
                 id: userInfo.data.id,
+                mediaRefs: userInfo.data.mediaRefs,
                 membershipExpiration: userInfo.data.membershipExpiration,
                 name: userInfo.data.name,
                 playlists: userInfo.data.playlists,

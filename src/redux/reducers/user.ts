@@ -4,8 +4,8 @@ export default (state = {}, action) => {
 
   switch (action.type) {
     case actionTypes.USER_SET_INFO:
-      const { email, freeTrialExpiration, historyItems, id, membershipExpiration, name,
-        playlists, queueItems, subscribedPlaylistIds, subscribedPodcastIds
+      const { email, freeTrialExpiration, historyItems, id, mediaRefs, membershipExpiration,
+        name, playlists, queueItems, subscribedPlaylistIds, subscribedPodcastIds
         } = action.payload
 
       return {
@@ -14,6 +14,7 @@ export default (state = {}, action) => {
         ...(freeTrialExpiration || freeTrialExpiration === '' ? { freeTrialExpiration } : {}),
         ...(historyItems ? { historyItems } : {}),
         ...(id || id === '' ? { id } : {}),
+        ...(mediaRefs ? { mediaRefs } : {}),
         ...(membershipExpiration || freeTrialExpiration === '' ? { membershipExpiration } : {}),
         ...(name || name === '' ? { name } : {}),
         ...(playlists ? { playlists } : {}),

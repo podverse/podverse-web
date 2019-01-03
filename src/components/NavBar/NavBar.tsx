@@ -69,6 +69,7 @@ class PVNavBar extends Component<Props, State> {
               freeTrialExpiration: null,
               historyItems: [],
               id: '',
+              mediaRefs: [],
               membershipExpiration: null,
               name: '',
               playlists: [],
