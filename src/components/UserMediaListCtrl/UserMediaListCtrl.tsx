@@ -298,13 +298,13 @@ class UserMediaListCtrl extends Component<Props, State> {
     let noResultsMsg = ''
     if (queryType === 'clips') {
       mediaListItemType = 'now-playing-item'
-      noResultsMsg = 'This profile has not created any public clips.'
+      noResultsMsg = 'This person has not created public clips.'
     } else if (queryType === 'playlists') {
       mediaListItemType = 'playlist'
-      noResultsMsg = 'This profile has not created any public playlists.'
+      noResultsMsg = 'This person has not created public playlists.'
     } else if (queryType === 'podcasts') {
       mediaListItemType = 'podcast'
-      noResultsMsg = 'This profile is not subscribed to any podcasts.'
+      noResultsMsg = 'This person is not subscribed to any podcasts.'
     }
 
     const listItemNodes = listItems.map(x => {
@@ -367,7 +367,7 @@ class UserMediaListCtrl extends Component<Props, State> {
           </Fragment>
         }
         {
-          (!endReached && listItemNodes.length === 0) &&
+          listItemNodes.length === 0 &&
           <div className='no-results-msg'>{noResultsMsg}</div>
         }
       </div>

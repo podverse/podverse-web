@@ -45,5 +45,9 @@ export default (app) => {
     await app.render(ctx.req, ctx.res, '/public-profile', query)
   })
 
+  router.get('/profiles', async ctx => {
+    await app.render(ctx.req, ctx.res, '/public-profiles', ctx.query)
+  })
+
   return router
 }

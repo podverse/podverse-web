@@ -22,6 +22,7 @@ type Props = {
   playerQueueLoadPriorityItems?: any
   playlist?: any
   podcast?: any
+  profileUser?: any
   queryFrom?: string
   queryType?: string
   showMoreMenu?: boolean
@@ -66,13 +67,14 @@ class MediaListItemCtrl extends Component<Props, State> {
 
   render() {
     const { handleRemoveItem, handlePlayItem, isActive, mediaListItemType, nowPlayingItem,
-      playlist, podcast, showMoreMenu, showRemove } = this.props
+      playlist, podcast, profileUser, showMoreMenu, showRemove } = this.props
 
     return (
       <MediaListItem
         dataNowPlayingItem={nowPlayingItem}
         dataPlaylist={playlist}
         dataPodcast={podcast}
+        dataUser={profileUser}
         handleAddToQueueLast={() => { this.addToQueue(nowPlayingItem, true) }}
         handleAddToQueueNext={() => { this.addToQueue(nowPlayingItem, false) }}
         handlePlayItem={() => { handlePlayItem ? handlePlayItem(nowPlayingItem) : null }}
@@ -80,6 +82,7 @@ class MediaListItemCtrl extends Component<Props, State> {
         handleToggleAddToPlaylist={() => this.toggleAddToModal(nowPlayingItem, false)}
         hasLink={true}
         isActive={isActive}
+        isSlim={!!profileUser}
         itemType={mediaListItemType}
         key={`nowPlayingListItem-${uuidv4()}`}
         showMoreMenu={showMoreMenu}

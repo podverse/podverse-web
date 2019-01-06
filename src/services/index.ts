@@ -10,5 +10,5 @@ export { addOrRemovePlaylistItem, createPlaylist, deletePlaylist, getPlaylistByI
   getPlaylistsByQuery, toggleSubscribeToPlaylist, updatePlaylist } from '~/services/playlist'
 export { getPodcastById, getPodcastsByQuery, toggleSubscribeToPodcast } from '~/services/podcast'
 export { addOrUpdateUserHistoryItem, deleteUser, downloadUserData, getPublicUser,
-  getUserMediaRefs, getUserPlaylists, toggleSubscribeToUser, updateUser,
-  updateUserQueueItems } from '~/services/user'
+  getPublicUsersByQuery, getUserMediaRefs, getUserPlaylists, toggleSubscribeToUser,
+  updateUser, updateUserQueueItems } from '~/services/user'

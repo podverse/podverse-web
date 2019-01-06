@@ -328,7 +328,7 @@ class Settings extends Component<Props, State> {
                 {
                   (user.isPublic && isPublic) &&
                   <FormGroup>
-                    <Label for='settings-privacy-profile-link'>Profile Link</Label>
+                    <Label for='settings-privacy-profile-link'>Sharable Profile Link</Label>
                     <InputGroup id='settings-privacy-profile-link'>
                       <Input
                         readOnly={true}

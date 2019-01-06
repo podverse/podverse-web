@@ -67,6 +67,25 @@ export const getUserPlaylists = async (
   })
 }
 
+export const getPublicUsersByQuery = async query => {
+  let filteredQuery: any = {}
+
+  if (query.page) {
+    filteredQuery.page = query.page
+  } else {
+    filteredQuery.page = 1
+  }
+
+  if (query.userIds) {
+    filteredQuery.userIds = query.userIds
+  }
+
+  const queryString = convertObjectToQueryString(filteredQuery)
+  return axios(`${API_BASE_URL}/api/v1/user?${queryString}`, {
+    method: 'get'
+  })
+}
+
 export const toggleSubscribeToUser = async (userId: string) => {
   return axios(`${API_BASE_URL}/api/v1/user/toggle-subscribe/${userId}`, {
     method: 'get',
