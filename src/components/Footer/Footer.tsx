@@ -171,13 +171,6 @@ class Footer extends Component<Props, State> {
                 Terms
               </a>
             </Link>
-            <Link
-              as='/dev'
-              href='/dev'>
-              <a className='footer-bottom__link'>
-                Dev
-              </a>
-            </Link>
           </div>
         </div>
         <NSFWModal

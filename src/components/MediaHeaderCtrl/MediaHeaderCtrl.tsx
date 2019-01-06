@@ -33,10 +33,11 @@ class MediaHeaderCtrl extends Component<Props, State> {
   }
 
   async toggleSubscribe() {
-    const { episode, mediaRef, nowPlayingItem, podcast, user, userSetInfo } = this.props
+    const { episode, mediaRef, nowPlayingItem, podcast, user, userSetInfo
+      } = this.props
     
     if (!user || !user.id) {
-      alert('Login to subscribe to podcasts.')
+      alert('Login to subscribe to this podcast.')
       return
     }
 
@@ -46,7 +47,7 @@ class MediaHeaderCtrl extends Component<Props, State> {
 
     try {
       const response = await toggleSubscribeToPodcast(podcastId)
-  
+
       if (response) {
         userSetInfo({ subscribedPodcastIds: response.data })
       }

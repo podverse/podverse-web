@@ -6,30 +6,29 @@ import { bindActionCreators } from 'redux'
 import MediaListItemCtrl from '~/components/MediaListItemCtrl/MediaListItemCtrl'
 import { convertToNowPlayingItem } from '~/lib/nowPlayingItem'
 import { clone } from '~/lib/utility'
-import { mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying, playerQueueAddSecondaryItems,
-  playerQueueLoadPriorityItems, playerQueueLoadSecondaryItems, userSetInfo
-  } from '~/redux/actions'
-import { addOrUpdateUserHistoryItem, getEpisodesByQuery, getMediaRefsByQuery
-  } from '~/services'
+import { mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying, 
+  playerQueueAddSecondaryItems, playerQueueLoadPriorityItems, playerQueueLoadSecondaryItems,
+  userSetInfo } from '~/redux/actions'
+import { addOrUpdateUserHistoryItem, getPodcastsByQuery, getUserMediaRefs, getUserPlaylists,
+  getLoggedInUserMediaRefs, getLoggedInUserPlaylists } from '~/services'
 const uuidv4 = require('uuid/v4')
 
 type Props = {
   adjustTopPosition?: boolean
   currentId?: string
-  episodeId?: string
+  isMyProfilePage?: boolean
   listItems: any[]
+  loggedInUser?: any
   mediaPlayer?: any
   mediaPlayerLoadNowPlayingItem?: any
   mediaPlayerUpdatePlaying?: any
   playerQueueAddSecondaryItems?: any
   playerQueueLoadSecondaryItems?: any
-  podcastId?: string
-  queryFrom?: string
+  profileUser?: any
   queryPage: number
   querySort?: string
   queryType?: string
   settings?: any
-  user?: any
   userSetInfo?: any
 }
 
@@ -38,17 +37,15 @@ type State = {
   endReached?: boolean
   isLoadingMore?: boolean
   listItems: any[]
-  queryFrom?: string
   queryPage: number
   querySort?: string
   queryType?: string
 }
 
-class MediaListCtrl extends Component<Props, State> {
+class UserMediaListCtrl extends Component<Props, State> {
 
   static defaultProps: Props = {
     listItems: [],
-    queryFrom: 'all-podcasts',
     queryPage: 1,
     querySort: 'top-past-week',
     queryType: 'clips'
@@ -60,7 +57,6 @@ class MediaListCtrl extends Component<Props, State> {
     this.state = {
       currentId: props.currentId,
       listItems: props.listItems || [],
-      queryFrom: props.queryFrom,
       queryPage: props.queryPage,
       querySort: props.querySort,
       queryType: props.queryType
@@ -75,7 +71,6 @@ class MediaListCtrl extends Component<Props, State> {
       return {
         currentId: props.currentId,
         listItems: props.listItems || [],
-        queryFrom: props.queryFrom,
         queryPage: props.queryPage,
         querySort: props.querySort,
         queryType: props.queryType
@@ -86,14 +81,12 @@ class MediaListCtrl extends Component<Props, State> {
   }
 
   async queryMediaListItems(selectedKey = '', selectedValue = '', page = 1) {
-    const { episodeId, playerQueueAddSecondaryItems, playerQueueLoadSecondaryItems,
-      podcastId, settings, user } = this.props
+    const { isMyProfilePage, playerQueueAddSecondaryItems, playerQueueLoadSecondaryItems,
+      profileUser, settings } = this.props
     const { nsfwMode } = settings
-    const { subscribedPodcastIds } = user
-    const { listItems, queryFrom, querySort, queryType } = this.state
+    const { listItems, querySort, queryType } = this.state
 
     let query: any = {
-      from: queryFrom,
       id: '',
       page,
       sort: querySort,
@@ -107,9 +100,6 @@ class MediaListCtrl extends Component<Props, State> {
     if (selectedKey === 'type') {
       newState.queryType = selectedValue
       query.type = selectedValue
-    } else if (selectedKey === 'from') {
-      newState.queryFrom = selectedValue
-      query.from = selectedValue
     } else if (selectedKey === 'sort') {
       newState.querySort = selectedValue
       query.sort = selectedValue
@@ -123,21 +113,41 @@ class MediaListCtrl extends Component<Props, State> {
       combinedListItems = listItems
     }
 
-    if (query.from === 'from-podcast') {
-      query.podcastId = podcastId
-    } else if (query.from === 'subscribed-only') {
-      query.subscribedPodcastIds = subscribedPodcastIds
-    } else {
-      // all-podcasts, add nothing
-    }
-
-    if (query.type === 'clips') {
-      if (query.from === 'from-episode') {
-        query.episodeId = episodeId
-      }
-      
+    if (query.type === 'podcasts') {
       try {
-        const response = await getMediaRefsByQuery(query, nsfwMode)
+        query.subscribedPodcastIds = profileUser.subscribedPodcastIds
+        query.from = 'subscribed-only'
+        const response = await getPodcastsByQuery(query, nsfwMode)
+        const podcasts = response.data
+        combinedListItems = combinedListItems.concat(podcasts)
+
+        this.setState({
+          endReached: podcasts.length === 0,
+          isLoadingMore: false,
+          listItems: page > 1 ? combinedListItems : podcasts
+        })
+      } catch (error) {
+        console.log(error)
+        this.setState({ isLoadingMore: false })
+      }
+    } else if (query.type === 'clips') {
+      try {
+        let response: any = {}
+        if (isMyProfilePage) {
+          response = await getLoggedInUserMediaRefs(
+            '',
+            nsfwMode,
+            query.sort,
+            page
+          )
+        } else {
+          response = await getUserMediaRefs(
+            profileUser.id,
+            nsfwMode,
+            query.sort,
+            page
+          )
+        }
         const mediaRefs = response.data && response.data.map(x => convertToNowPlayingItem(x))
         combinedListItems = combinedListItems.concat(mediaRefs)
         
@@ -156,22 +166,21 @@ class MediaListCtrl extends Component<Props, State> {
         console.log(error)
         this.setState({ isLoadingMore: false })
       }
-    } else if (query.type === 'episodes') {
+    } else if (query.type === 'playlists') {
       try {
-        const response = await getEpisodesByQuery(query, nsfwMode)
-        const episodes = response.data && response.data.map(x => convertToNowPlayingItem(x))
-        combinedListItems = combinedListItems.concat(episodes)
-
-        if (page > 1) {
-          playerQueueAddSecondaryItems(clone(episodes))
+        let response: any = {}
+        if (isMyProfilePage) {
+          response = await getLoggedInUserPlaylists('', query.sort, page)
         } else {
-          playerQueueLoadSecondaryItems(clone(episodes))
+          response = await getUserPlaylists(profileUser.id, nsfwMode, page)
         }
+        const playlists = response.data
+        combinedListItems = combinedListItems.concat(playlists)
 
         this.setState({
-          endReached: episodes.length === 0,
+          endReached: playlists.length === 0,
           isLoadingMore: false,
-          listItems: page > 1 ? combinedListItems : episodes
+          listItems: page > 1 ? combinedListItems : playlists
         })
       } catch (error) {
         console.log(error)
@@ -184,64 +193,35 @@ class MediaListCtrl extends Component<Props, State> {
   getQueryTypeOptions() {
     return [
       {
+        label: 'Podcasts',
+        onClick: () => this.queryMediaListItems('type', 'podcasts'),
+        value: 'podcasts',
+      },
+      {
         label: 'Clips',
         onClick: () => this.queryMediaListItems('type', 'clips'),
         value: 'clips',
       },
       {
-        label: 'Episodes',
-        onClick: () => this.queryMediaListItems('type', 'episodes'),
-        value: 'episodes',
+        label: 'Playlists',
+        onClick: () => this.queryMediaListItems('type', 'playlists'),
+        value: 'playlists'
       }
     ]
-  }
-
-  getQueryFromOptions(showFromPodcast, showFromEpisode, isLoggedIn) {
-
-    const options = [
-      {
-        label: 'All podcasts',
-        onClick: () => this.queryMediaListItems('from', 'all-podcasts'),
-        value: 'all-podcasts'
-      },
-      {
-        label: 'Subscribed only',
-        onClick: () => {
-          if (isLoggedIn) {
-            this.queryMediaListItems('from', 'subscribed-only')
-          } else {
-            alert('Login to filter clips and episodes by your subscribed podcasts.')
-          }
-        },
-        value: 'subscribed-only'
-      }
-    ]
-
-    if (showFromPodcast) {
-      options.push(
-        {
-          label: 'From this podcast',
-          onClick: () => this.queryMediaListItems('from', 'from-podcast'),
-          value: 'from-podcast'
-        }
-      )
-    }
-
-    if (showFromEpisode) {
-      options.push(
-        {
-          label: 'From this episode',
-          onClick: () => this.queryMediaListItems('from', 'from-episode'),
-          value: 'from-episode'
-        }
-      )
-    }
-
-    return options
   }
 
   getQuerySortOptions() {
     return [
+      {
+        label: 'alphabetical',
+        onClick: () => this.queryMediaListItems('sort', 'alphabetical'),
+        value: 'alphabetical'
+      },
+      {
+        label: 'most recent',
+        onClick: () => this.queryMediaListItems('sort', 'most-recent'),
+        value: 'most-recent'
+      },
       {
         label: 'top - past hour',
         onClick: () => this.queryMediaListItems('sort', 'top-past-hour'),
@@ -271,18 +251,13 @@ class MediaListCtrl extends Component<Props, State> {
         label: 'top - all time',
         onClick: () => this.queryMediaListItems('sort', 'top-all-time'),
         value: 'top-all-time'
-      },
-      {
-        label: 'most recent',
-        onClick: () => this.queryMediaListItems('sort', 'most-recent'),
-        value: 'most-recent'
       }
     ]
   }
 
   async playItem(nowPlayingItem) {
-    const { mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying,
-      playerQueueLoadSecondaryItems, user, userSetInfo } = this.props
+    const { loggedInUser, mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying,
+      playerQueueLoadSecondaryItems, userSetInfo } = this.props
     const { listItems } = this.state
 
     mediaPlayerLoadNowPlayingItem(nowPlayingItem)
@@ -291,21 +266,17 @@ class MediaListCtrl extends Component<Props, State> {
     let nowPlayingItemIndex = -1
     if (nowPlayingItem.clipId) {
       nowPlayingItemIndex = listItems.map((x) => x.clipId).indexOf(nowPlayingItem && nowPlayingItem.clipId)
-    } else if (nowPlayingItem.episodeId) {
-      nowPlayingItemIndex = listItems.map((x) => x.episodeId).indexOf(nowPlayingItem && nowPlayingItem.episodeId)
     }
     let queuedListItems = clone(listItems)
     nowPlayingItemIndex > -1 ? queuedListItems.splice(0, nowPlayingItemIndex + 1) : queuedListItems
     playerQueueLoadSecondaryItems(queuedListItems)
 
-    if (user && user.id) {
+    if (loggedInUser && loggedInUser.id) {
       await addOrUpdateUserHistoryItem(nowPlayingItem)
 
-      const historyItems = user.historyItems.filter(x => {
+      const historyItems = loggedInUser.historyItems.filter(x => {
         if (x) {
           if ((x.clipStartTime || x.clipEndTime) && x.clipId !== nowPlayingItem.clipId) {
-            return x
-          } else if (x.episodeId !== nowPlayingItem.episodeId) {
             return x
           }
         }
@@ -318,33 +289,29 @@ class MediaListCtrl extends Component<Props, State> {
   }
 
   render() {
-    const { adjustTopPosition, episodeId, mediaPlayer, podcastId, user } = this.props
+    const { adjustTopPosition, mediaPlayer } = this.props
     const { nowPlayingItem: mpNowPlayingItem } = mediaPlayer
-    const { endReached, isLoadingMore, listItems, queryFrom, queryPage,
-      querySort, queryType } = this.state
+    const { endReached, isLoadingMore, listItems, queryPage, querySort, queryType
+      } = this.state
 
     let mediaListItemType = 'now-playing-item'
-    if (queryType === 'episodes') {
-      if (queryFrom === 'from-podcast') {
-        mediaListItemType = 'now-playing-item-episode-from-podcast'
-      } else if (queryFrom === 'all-podcasts') {
-        mediaListItemType = 'now-playing-item-episode-from-all-podcasts'
-      }
-    } else {
-      if (queryFrom === 'from-episode') {
-        mediaListItemType = 'now-playing-item-clip-from-episode'
-      } else if (queryFrom === 'from-podcast') {
-        mediaListItemType = 'now-playing-item-clip-from-podcast'
-      }
+    let noResultsMsg = ''
+    if (queryType === 'clips') {
+      mediaListItemType = 'now-playing-item'
+      noResultsMsg = 'This profile has not created any public clips.'
+    } else if (queryType === 'playlists') {
+      mediaListItemType = 'playlist'
+      noResultsMsg = 'This profile has not created any public playlists.'
+    } else if (queryType === 'podcasts') {
+      mediaListItemType = 'podcast'
+      noResultsMsg = 'This profile is not subscribed to any podcasts.'
     }
 
     const listItemNodes = listItems.map(x => {
       const isActive = () => {
-        if (mpNowPlayingItem) {
+        if (mpNowPlayingItem && queryType === 'clips') {
           if (x.clipId) {
             return x.clipId === mpNowPlayingItem.clipId
-          } else if (x.episodeId) {
-            return x.episodeId === mpNowPlayingItem.episodeId
           }
         }
 
@@ -357,13 +324,14 @@ class MediaListCtrl extends Component<Props, State> {
           key={`media-list-item-${uuidv4()}`}
           isActive={isActive()}
           mediaListItemType={mediaListItemType}
-          nowPlayingItem={x}
-          showMoreMenu={true} />
+          nowPlayingItem={queryType === 'clips' ? x : null}
+          playlist={queryType === 'playlists' ? x : null}
+          showMoreMenu={queryType === 'clips'}
+          podcast={queryType === 'podcasts' ? x : null} />
       )
     })
 
     const selectedQueryTypeOption = this.getQueryTypeOptions().filter(x => x.value === queryType)
-    const selectedQueryFromOption = this.getQueryFromOptions(!!podcastId, !!episodeId && queryType === 'clips', !!user && !!user.id).filter(x => x.value === queryFrom)
     const selectedQuerySortOption = this.getQuerySortOptions().filter(x => x.value === querySort)
 
     return (      
@@ -373,12 +341,8 @@ class MediaListCtrl extends Component<Props, State> {
             <MediaListSelect
               items={this.getQueryTypeOptions()}
               selected={selectedQueryTypeOption.length > 0 ? selectedQueryTypeOption[0].value : null} />
-            <MediaListSelect
-              items={this.getQueryFromOptions(!!podcastId, !!episodeId && queryType === 'clips', user && user.id)}
-              selected={selectedQueryFromOption.length > 0 ? selectedQueryFromOption[0].value : null} />
           </div>
           <div className='media-list-selects__right'>
-            <div className='media-list-selects-right__spacer' />
             <MediaListSelect
               className='align-right'
               items={this.getQuerySortOptions()}
@@ -404,7 +368,7 @@ class MediaListCtrl extends Component<Props, State> {
         }
         {
           (!endReached && listItemNodes.length === 0) &&
-          <div className='no-results-msg'>No {queryType === 'episodes' ? 'episodes' : 'clips'} found</div>
+          <div className='no-results-msg'>{noResultsMsg}</div>
         }
       </div>
     )
@@ -422,4 +386,4 @@ const mapDispatchToProps = dispatch => ({
   userSetInfo: bindActionCreators(userSetInfo, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(MediaListCtrl)
+export default connect(mapStateToProps, mapDispatchToProps)(UserMediaListCtrl)

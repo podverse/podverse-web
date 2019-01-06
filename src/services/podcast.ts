@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { API_BASE_URL } from '~/config'
 import { convertObjectToQueryString } from '~/lib/utility'
 
 export const getPodcastsByQuery = async (query, nsfwMode = 'on') => {
@@ -30,8 +31,8 @@ export const getPodcastsByQuery = async (query, nsfwMode = 'on') => {
     filteredQuery.searchAuthor = query.searchText
   }
 
-  const queryString = convertObjectToQueryString(query)
-  return axios(`http://localhost:3000/api/v1/podcast?${queryString}`, {
+  const queryString = convertObjectToQueryString(filteredQuery)
+  return axios(`${API_BASE_URL}/api/v1/podcast?${queryString}`, {
     method: 'get',
     headers: {
       nsfwMode
@@ -40,11 +41,11 @@ export const getPodcastsByQuery = async (query, nsfwMode = 'on') => {
 }
 
 export const getPodcastById = async (id: string) => {
-  return axios.get(`http://localhost:3000/api/v1/podcast/${id}`);
+  return axios.get(`${API_BASE_URL}/api/v1/podcast/${id}`);
 }
 
 export const toggleSubscribeToPodcast = async (podcastId: string) => {
-  return axios(`http://localhost:3000/api/v1/podcast/toggle-subscribe/${podcastId}`, {
+  return axios(`${API_BASE_URL}/api/v1/podcast/toggle-subscribe/${podcastId}`, {
     method: 'get',
     withCredentials: true
   })

@@ -49,6 +49,18 @@ class PVNavBar extends Component<Props, State> {
 
     let dropdownItems = [
       {
+        as: '/my-profile',
+        href: '/my-profile',
+        label: 'My Profile',
+        onClick: () => {}
+      },
+      {
+        as: '/profiles',
+        href: '/profiles',
+        label: 'Profiles',
+        onClick: () => {}
+      },
+      {
         as: '/settings',
         href: '/settings',
         label: 'Settings',
@@ -69,13 +81,15 @@ class PVNavBar extends Component<Props, State> {
               freeTrialExpiration: null,
               historyItems: [],
               id: '',
+              isPublic: null,
               mediaRefs: [],
               membershipExpiration: null,
               name: '',
               playlists: [],
               queueItems: [],
               subscribedPlaylistIds: [],
-              subscribedPodcastIds: []
+              subscribedPodcastIds: [],
+              subscribedUserIds: []
             })
             playerQueueLoadPriorityItems(getPriorityQueueItemsStorage())
           } catch (error) {

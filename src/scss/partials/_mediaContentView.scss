@@ -50,6 +50,9 @@
 
 html[theme=light] {
   .media-list {
+    .media-list__description {
+      color: $gray-darker;
+    }
     .media-list__loading {
       color: $black;
     }
@@ -58,6 +61,9 @@ html[theme=light] {
 
 html[theme=dark] {
   .media-list {
+    .media-list__description {
+      color: $gray-lighter;
+    }
     .media-list__loading {
       color: $white;
     }

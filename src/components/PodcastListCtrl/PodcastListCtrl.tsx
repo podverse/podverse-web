@@ -58,6 +58,7 @@ class PodcastListCtrl extends Component<Props, State> {
 
     let query: any = {
       ...!!queryCategoryId && { categories: queryCategoryId },
+      ...!!queryFrom && { from: queryFrom },
       page,
       ...!!querySort && { sort: querySort }
     }
@@ -69,23 +70,27 @@ class PodcastListCtrl extends Component<Props, State> {
       ...selectedKey !== 'sort' && { selected: selectedKey }
     }
 
-    if (selectedKey === 'categories') {
-      newState.queryFrom = 'from-category'
-      newState.queryCategoryId = selectedValue
-      query.categories = selectedValue
-    } else if (selectedKey === 'sort') {
+    if (selectedKey === 'sort') {
       newState.querySort = selectedValue
       query.sort = selectedValue
+      query.subscribedPodcastIds = subscribedPodcastIds
+    } else if (selectedKey === 'categories') {
+      newState.queryFrom = 'from-category'
+      newState.queryCategoryId = selectedValue
+      query.from = 'from-category'
+      query.categories = selectedValue
     } else if (selectedKey === 'subscribed-only') {
       newState.queryFrom = 'subscribed-only'
       newState.queryCategoryId = null
-      query.podcastId = subscribedPodcastIds
+      query.from = 'subscribed-only'
+      query.subscribedPodcastIds = subscribedPodcastIds
       delete query.categories
     } else if (selectedKey === 'all-podcasts') {
       newState.queryFrom = 'all-podcasts'
       newState.queryCategoryId = null
+      query.from = 'all-podcasts'
       delete query.categories
-      delete query.podcastid
+      delete query.subscribedPodcastIds
     }
 
     this.setState(newState)
@@ -166,7 +171,7 @@ class PodcastListCtrl extends Component<Props, State> {
 
     if (user && user.id) {
       categoryItems.unshift({
-        label: 'Subscribed',
+        label: 'Subscribed Only',
         onClick: () => this.queryPodcasts('subscribed-only', ''),
         parentValue: null,
         value: 'subscribed-only'

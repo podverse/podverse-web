@@ -1,5 +1,5 @@
-export { getAuthenticatedUserInfo, login, logOut, resetPassword,
-sendResetPassword, signUp, verifyEmail } from '~/services/auth'
+export { getAuthenticatedUserInfo, getLoggedInUserMediaRefs, getLoggedInUserPlaylists,
+  login, logOut, resetPassword, sendResetPassword, signUp, verifyEmail } from '~/services/auth'
 export { getCategoriesByQuery } from '~/services/category'
 export { createCoingateOrder, getCoingateOrderById } from '~/services/coingate'
 export { getEpisodeById, getEpisodesByQuery } from '~/services/episode'
@@ -9,5 +9,6 @@ export { createPayPalOrder, getPayPalOrderById } from '~/services/paypal'
 export { addOrRemovePlaylistItem, createPlaylist, deletePlaylist, getPlaylistById,
   getPlaylistsByQuery, toggleSubscribeToPlaylist, updatePlaylist } from '~/services/playlist'
 export { getPodcastById, getPodcastsByQuery, toggleSubscribeToPodcast } from '~/services/podcast'
-export { addOrUpdateUserHistoryItem, deleteUser, downloadUserData, updateUser,
+export { addOrUpdateUserHistoryItem, deleteUser, downloadUserData, getPublicUser,
+  getUserMediaRefs, getUserPlaylists, toggleSubscribeToUser, updateUser,
   updateUserQueueItems } from '~/services/user'

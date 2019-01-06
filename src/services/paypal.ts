@@ -1,7 +1,8 @@
 import axios from 'axios'
+import { API_BASE_URL } from '~/config'
 
 export const createPayPalOrder = async (data: any) => {
-  return axios(`http://localhost:3000/api/v1/paypal/order`, {
+  return axios(`${API_BASE_URL}/api/v1/paypal/order`, {
     method: 'post',
     data,
     withCredentials: true
@@ -9,7 +10,7 @@ export const createPayPalOrder = async (data: any) => {
 }
 
 export const getPayPalOrderById = async (id: string) => {
-  return axios(`http://localhost:3000/api/v1/paypal/order/${id}`, {
+  return axios(`${API_BASE_URL}/api/v1/paypal/order/${id}`, {
     method: 'get',
     withCredentials: true
   })

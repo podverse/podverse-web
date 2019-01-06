@@ -63,6 +63,7 @@ type Props = {
     freeTrialExpiration: any
     historyItems: any[]
     id: string
+    isPublic: boolean
     mediaRefs: any[]
     membershipExpiration: any
     name: string
@@ -70,6 +71,7 @@ type Props = {
     queueItems: any[]
     subscribedPlaylistIds: any[]
     subscribedPodcastIds: any[]
+    subscribedUserIds: any[]
   }
 }
 
@@ -81,6 +83,7 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
     ctx.store.dispatch(pageIsLoading(true))
 
     let cookies = {}
+
     // @ts-ignore
     if (!process.browser && ctx.req.headers.cookie) {
       const parsedCookie = cookie.parse(ctx.req.headers.cookie)
@@ -128,6 +131,8 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
           const userInfo = await getAuthenticatedUserInfo(parsedCookie.Authorization)
 
           if (userInfo && userInfo.data) {
+            ctx.bearerToken = parsedCookie.Authorization
+
             ctx.store.dispatch({
               type: actionTypes.USER_SET_INFO,
               payload: {
@@ -135,13 +140,15 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
                 freeTrialExpiration: userInfo.data.freeTrialExpiration,
                 historyItems: userInfo.data.historyItems,
                 id: userInfo.data.id,
+                isPublic: userInfo.data.isPublic,
                 mediaRefs: userInfo.data.mediaRefs,
                 membershipExpiration: userInfo.data.membershipExpiration,
                 name: userInfo.data.name,
                 playlists: userInfo.data.playlists,
                 queueItems: userInfo.data.queueItems,
                 subscribedPlaylistIds: userInfo.data.subscribedPlaylistIds,
-                subscribedPodcastIds: userInfo.data.subscribedPodcastIds
+                subscribedPodcastIds: userInfo.data.subscribedPodcastIds,
+                subscribedUserIds: userInfo.data.subscribedUserIds
               }
             })
           }

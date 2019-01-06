@@ -1,19 +1,22 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
-import { Form, FormFeedback, FormGroup, FormText, Label, Input } from 'reactstrap'
+import { Form, FormFeedback, FormGroup, FormText, Input, InputGroup, InputGroupAddon,
+  Label } from 'reactstrap'
 import { bindActionCreators } from 'redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { PVButton as Button } from 'podverse-ui'
 import Meta from '~/components/meta'
 import CheckoutModal from '~/components/CheckoutModal/CheckoutModal'
 import { DeleteAccountModal } from '~/components/DeleteAccountModal/DeleteAccountModal'
+import { BASE_URL } from '~/config'
 import { alertPremiumRequired, alertSomethingWentWrong, convertToYYYYMMDDHHMMSS,
-  isBeforeDate, validateEmail } from '~/lib/utility'
+  copyToClipboard, isBeforeDate, validateEmail } from '~/lib/utility'
 import { modalsSignUpShow, pageIsLoading, settingsHideNSFWMode, settingsHideUITheme,
   userSetInfo } from '~/redux/actions'
 import { downloadUserData, updateUser } from '~/services'
 const fileDownload = require('js-file-download')
 const cookie = require('cookie')
+
 
 type Props = {
   modalsSignUpShow?: any
@@ -31,8 +34,10 @@ type State = {
   isDeleteAccountOpen?: boolean
   isDeleting?: boolean
   isDownloading?: boolean
+  isPublic?: boolean
   isSaving?: boolean
   name?: string
+  wasCopied?: boolean
 }
 
 class Settings extends Component<Props, State> {
@@ -49,14 +54,18 @@ class Settings extends Component<Props, State> {
     this.state = {
       ...(user.email ? { email: user.email } : {}),
       isDownloading: false,
+      ...(user.isPublic || user.isPublic === false ? {isPublic: user.isPublic} : {}),
       ...(user.name ? {name: user.name} : {})
     }
 
+    this.copyProfileLink = this.copyProfileLink.bind(this)
     this.downloadUserData = this.downloadUserData.bind(this)
     this.handleEmailChange = this.handleEmailChange.bind(this)
     this.handleNameChange = this.handleNameChange.bind(this)
+    this.handlePrivacyChange = this.handlePrivacyChange.bind(this)
     this.handleToggleNSFWMode = this.handleToggleNSFWMode.bind(this)
     this.handleToggleUITheme = this.handleToggleUITheme.bind(this)
+    this.profileLinkHref = this.profileLinkHref.bind(this)
     this.resetProfileChanges = this.resetProfileChanges.bind(this)
     this.showSignUpModal = this.showSignUpModal.bind(this)
     this.toggleCheckoutModal = this.toggleCheckoutModal.bind(this)
@@ -66,12 +75,26 @@ class Settings extends Component<Props, State> {
     this.validateProfileData = this.validateProfileData.bind(this)
   }
 
+  profileLinkHref () {
+    const { user } = this.props
+    return `${BASE_URL}/profile/${user.id}`
+  }
+
+  copyProfileLink() {
+    copyToClipboard(this.profileLinkHref())
+    this.setState({ wasCopied: true })
+    setTimeout(() => {
+      this.setState({ wasCopied: false })
+    }, 3000)
+  }
+
   componentWillReceiveProps (newProps) {
     const oldProps = this.props
     
     if (!oldProps.user.id && newProps.user.id) {
       this.setState({
         email: newProps.user.email,
+        isPublic: newProps.user.isPublic,
         name: newProps.user.name
       })
     }
@@ -83,7 +106,7 @@ class Settings extends Component<Props, State> {
 
     try {
       const userData = await downloadUserData(user.id)
-      fileDownload(JSON.stringify(userData),  `podverse-${convertToYYYYMMDDHHMMSS()}`)
+      fileDownload(JSON.stringify(userData), `podverse-${convertToYYYYMMDDHHMMSS()}`)
       
     } catch (error) {
       console.log(error)
@@ -101,6 +124,11 @@ class Settings extends Component<Props, State> {
   handleNameChange(event) {
     const name = event.target.value
     this.setState({ name })
+  }
+
+  handlePrivacyChange(event) {
+    const isPublic = event.target.value
+    this.setState({ isPublic: isPublic === 'public' })
   }
 
   handleToggleNSFWMode(event) {
@@ -137,12 +165,13 @@ class Settings extends Component<Props, State> {
 
   validateProfileData() {
     const { user } = this.props
-    const { email: oldEmail, name: oldName } = user
-    const { email: newEmail, name: newName } = this.state
+    const { email: oldEmail, isPublic: oldIsPublic, name: oldName } = user
+    const { email: newEmail, isPublic: newIsPublic, name: newName } = this.state
 
     return (
       (oldEmail !== newEmail && validateEmail(newEmail))
-      || oldName !== newName && (!newEmail || validateEmail(newEmail))
+      || (oldName !== newName && (!newEmail || validateEmail(newEmail))
+      || (oldIsPublic !== newIsPublic && (!newEmail || validateEmail(newEmail))))
     )
   }
 
@@ -165,10 +194,10 @@ class Settings extends Component<Props, State> {
     this.setState({ isSaving: true })
     const { user, userSetInfo } = this.props
     const { id } = user
-    const { email, name } = this.state
+    const { email, isPublic, name } = this.state
 
     try {
-      const newData = { email, id, name }
+      const newData = { email, id, isPublic, name }
       await updateUser(newData)
       userSetInfo(newData)
     } catch (error) {
@@ -199,7 +228,7 @@ class Settings extends Component<Props, State> {
     const { settings, user } = this.props
     const { nsfwModeHide, uiThemeHide } = settings
     const { email, emailError, isCheckoutOpen, isDeleteAccountOpen, isDownloading,
-      isSaving, name } = this.state
+      isPublic, isSaving, name, wasCopied } = this.state
     const isLoggedIn = user && !!user.id
 
     const checkoutBtn = (isRenew = false) => (
@@ -279,6 +308,41 @@ class Settings extends Component<Props, State> {
                       </FormFeedback>
                   }
                 </FormGroup>
+                <FormGroup>
+                  <Label for='settings-privacy'>Profile Privacy</Label>
+                  <Input
+                    className='settings-privacy'
+                    name='settings-privacy'
+                    onChange={this.handlePrivacyChange}
+                    type='select'
+                    value={isPublic ? 'public' : 'private'}>
+                    <option value='public'>Public</option>
+                    <option value='private'>Private</option>
+                  </Input>
+                  {
+                    isPublic ?
+                      <FormText>Podcasts, clips, and playlists are visible on your profile page.</FormText>
+                      : <FormText>Your profile page is hidden. Your public links are still accessible.</FormText>
+                  }
+                </FormGroup>
+                {
+                  (user.isPublic && isPublic) &&
+                  <FormGroup>
+                    <Label for='settings-privacy-profile-link'>Profile Link</Label>
+                    <InputGroup id='settings-privacy-profile-link'>
+                      <Input
+                        readOnly={true}
+                        value={`${BASE_URL}/profile/${user.id}`} />
+                      <InputGroupAddon
+                        addonType='append'>
+                        <Button
+                          color='primary'
+                          onClick={this.copyProfileLink}
+                          text={wasCopied ? 'Copied!' : 'Copy'} />
+                      </InputGroupAddon>
+                    </InputGroup>
+                  </FormGroup>
+                }
                 <div className='settings-profile__btns'>
                   <Button
                     className='settings-profile-btns__cancel'
@@ -294,7 +358,7 @@ class Settings extends Component<Props, State> {
                     Save
                   </Button>
                 </div>
-              <hr />
+                <hr />
               </Fragment>
           }
           <h4>Interface</h4>

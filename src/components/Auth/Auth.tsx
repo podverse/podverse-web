@@ -74,13 +74,15 @@ class Auth extends Component<Props, State> {
         freeTrialExpiration: null,
         historyItems: [],
         id: null,
+        isPublic: null,
         mediaRefs: [],
         membershipExpiration: null,
         name: null,
         playlists: [],
         queueItems: [],
         subscribedPlaylistIds: [],
-        subscribedPodcastIds: []
+        subscribedPodcastIds: [],
+        subscribedUserIds: []
       })
     } finally {
       modalsLoginIsLoading(false)
@@ -103,11 +105,13 @@ class Auth extends Component<Props, State> {
       userSetInfo({
         historyItems: [],
         id: null,
+        isPublic: null,
         name: null,
         mediaRefs: [],
         playlists: [],
         queueItems: [],
-        subscribedPodcastIds: []
+        subscribedPodcastIds: [],
+        subscribedUserIds: []
       })
     } finally {
       modalsSignUpIsLoading(false)

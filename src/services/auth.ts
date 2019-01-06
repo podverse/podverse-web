@@ -1,7 +1,9 @@
 import axios from 'axios'
+import { API_BASE_URL } from '~/config'
+import { convertObjectToQueryString } from '~/lib/utility'
 
 export const getAuthenticatedUserInfo = async (bearerToken) => {
-  return axios(`http://localhost:3000/api/v1/auth/get-authenticated-user-info`, {
+  return axios(`${API_BASE_URL}/api/v1/auth/get-authenticated-user-info`, {
     method: 'post',
     headers: {
       Authorization: bearerToken
@@ -9,8 +11,42 @@ export const getAuthenticatedUserInfo = async (bearerToken) => {
   })
 }
 
+export const getLoggedInUserMediaRefs = async (bearerToken, nsfwMode, sort = 'most-recent', page = 1) => {
+  let filteredQuery: any = {}
+  filteredQuery.sort = sort
+  filteredQuery.page = page
+  const queryString = convertObjectToQueryString(filteredQuery)
+
+  return axios(`${API_BASE_URL}/api/v1/auth/mediaRefs?${queryString}`, {
+    method: 'get',
+    headers: {
+      Authorization: bearerToken,
+      nsfwMode
+    },
+    withCredentials: true
+  })
+}
+
+export const getLoggedInUserPlaylists = async (bearerToken, sort = 'alphabetical', page = 1) => {
+  let filteredQuery: any = {}
+  filteredQuery.sort = sort
+  filteredQuery.page = page
+  const queryString = convertObjectToQueryString(filteredQuery)
+
+  return axios(`${API_BASE_URL}/api/v1/auth/playlists?${queryString}`, {
+    method: 'get',
+    data: {
+      page
+    },
+    headers: {
+      Authorization: bearerToken
+    },
+    withCredentials: true
+  })
+}
+
 export const login = async (email: string, password: string) => {
-  return axios(`http://localhost:3000/api/v1/auth/login`, {
+  return axios(`${API_BASE_URL}/api/v1/auth/login`, {
     method: 'post',
     data: {
       email,
@@ -21,14 +57,14 @@ export const login = async (email: string, password: string) => {
 }
 
 export const logOut = async () => {
-  return axios(`http://localhost:3000/api/v1/auth/log-out`, {
+  return axios(`${API_BASE_URL}/api/v1/auth/log-out`, {
     method: 'post',
     withCredentials: true
   })
 }
 
 export const resetPassword = async (password?: string, resetPasswordToken?: string) => {
-  return axios(`http://localhost:3000/api/v1/auth/reset-password`, {
+  return axios(`${API_BASE_URL}/api/v1/auth/reset-password`, {
     method: 'post',
     data: {
       password,
@@ -38,7 +74,7 @@ export const resetPassword = async (password?: string, resetPasswordToken?: stri
 }
 
 export const sendResetPassword = async (email: string) => {
-  return axios(`http://localhost:3000/api/v1/auth/send-reset-password`, {
+  return axios(`${API_BASE_URL}/api/v1/auth/send-reset-password`, {
     method: 'post',
     data: {
       email
@@ -47,7 +83,7 @@ export const sendResetPassword = async (email: string) => {
 }
 
 export const signUp = async (email: string, password: string) => {
-  return axios(`http://localhost:3000/api/v1/auth/sign-up`, {
+  return axios(`${API_BASE_URL}/api/v1/auth/sign-up`, {
     method: 'post',
     data: {
       email,
@@ -58,5 +94,5 @@ export const signUp = async (email: string, password: string) => {
 }
 
 export const verifyEmail = async (token?: string) => {
-  return axios.get(`http://localhost:3000/api/v1/auth/verify-email?token=${token}`)
+  return axios.get(`${API_BASE_URL}/api/v1/auth/verify-email?token=${token}`)
 }

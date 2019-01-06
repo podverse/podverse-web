@@ -3,7 +3,7 @@ import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { MediaListItem } from 'podverse-ui'
 import { pageIsLoading } from '~/redux/actions'
-import { getPlaylistsByQuery } from '~/services';
+import { getPlaylistsByQuery } from '~/services'
 const uuidv4 = require('uuid/v4')
 
 type Props = {
@@ -16,11 +16,13 @@ type State = {}
 
 class Playlists extends Component<Props, State> {
 
-  static async getInitialProps({ query, req, store }) {
+  static async getInitialProps({ req, store }) {
     const state = store.getState()
     const { user } = state
-    const myPlaylists = user.playlists || []
+    
     const subscribedPlaylistIds = user.subscribedPlaylistIds || []
+
+    let myPlaylists = (user && user.playlists) || []
 
     let subscribedPlaylists = []
     if (subscribedPlaylistIds && subscribedPlaylistIds.length > 0) {
@@ -43,10 +45,9 @@ class Playlists extends Component<Props, State> {
   }
 
   render() {
-    const { subscribedPlaylists, user } = this.props
-    const playlists = user.playlists || []
-
-    const myPlaylistNodes = playlists.map(x => (
+    const { myPlaylists, subscribedPlaylists, user } = this.props
+    
+    const myPlaylistNodes = myPlaylists.map(x => (
         <MediaListItem
           dataPlaylist={x}
           hasLink
