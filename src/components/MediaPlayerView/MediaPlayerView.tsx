@@ -24,6 +24,7 @@ type Props = {
   modalsMakeClipShow?: any
   modalsQueueShow?: any
   modalsShareShow?: any
+  pageIsLoading?: any
   playerQueue?: any
   playerQueueLoadPriorityItems?: any
   playerQueueLoadSecondaryItems?: any
@@ -50,6 +51,8 @@ class MediaPlayerView extends Component<Props, State> {
     super(props)
 
     this.state = {}
+
+    this.anchorOnClick = this.anchorOnClick.bind(this)
   }
 
   componentDidMount() {
@@ -81,7 +84,10 @@ class MediaPlayerView extends Component<Props, State> {
   }
 
   anchorOnClick(nowPlayingItem, itemType) {
+    const { pageIsLoading } = this.props
+
     if (itemType === 'episode') {
+      pageIsLoading(true)
       nowPlayingItem.clipEndTime = 0
       nowPlayingItem.clipTitle = 0
       nowPlayingItem.clipStartTime = 0
@@ -90,6 +96,7 @@ class MediaPlayerView extends Component<Props, State> {
       const as = `/episode/${nowPlayingItem.episodeId}`
       Router.push(href, as)
     } else if (itemType === 'mediaRef') {
+      pageIsLoading(true)
       const href = `/clip?id=${nowPlayingItem.episodeId}`
       const as = `/clip/${nowPlayingItem.episodeId}`
       Router.push(href, as)

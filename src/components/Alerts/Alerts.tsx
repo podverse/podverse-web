@@ -1,12 +1,15 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import { Alert } from 'reactstrap'
 import Link from 'next/link'
 import { getCookie, isBeforeDate } from '~/lib/utility'
+import { pageIsLoading } from '~/redux/actions'
 const cookie = require('cookie')
 
 type Props = {
   cookies: any
+  pageIsLoading?: any
   user?: any
 }
 
@@ -26,6 +29,7 @@ class Alerts extends Component<Props, State> {
     this.state = this.generateStateObject(user, cookies)
 
     this.hideAlert = this.hideAlert.bind(this)
+    this.linkClick = this.linkClick.bind(this)
   }
 
   componentWillReceiveProps(newProps) {
@@ -78,6 +82,11 @@ class Alerts extends Component<Props, State> {
     document.cookie = hideAlertCookie
   }
 
+  linkClick() {
+    const { pageIsLoading } = this.props
+    pageIsLoading(true)
+  }
+
   render () {
     const { showFreeTrialHasEnded, showFreeTrialWarning, showMembershipHasEnded,
       showMembershipWarning } = this.state
@@ -86,7 +95,7 @@ class Alerts extends Component<Props, State> {
       <Link
         as='/settings#membership'
         href='/settings'>
-        <a>Renew</a>
+        <a onClick={this.linkClick}>Renew</a>
       </Link>
     )
 
@@ -138,6 +147,8 @@ class Alerts extends Component<Props, State> {
 
 const mapStateToProps = state => ({ ...state })
 
-const mapDispatchToProps = dispatch => ({})
+const mapDispatchToProps = dispatch => ({
+  pageIsLoading: bindActionCreators(pageIsLoading, dispatch)
+})
 
 export default connect(mapStateToProps, mapDispatchToProps)(Alerts)

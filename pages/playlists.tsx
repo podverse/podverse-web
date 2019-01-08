@@ -1,6 +1,7 @@
 
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import { MediaListItem } from 'podverse-ui'
 import { pageIsLoading } from '~/redux/actions'
 import { getPlaylistsByQuery } from '~/services'
@@ -8,6 +9,7 @@ const uuidv4 = require('uuid/v4')
 
 type Props = {
   myPlaylists: any[]
+  pageIsLoading?: any
   subscribedPlaylists: any[]
   user: any
 }
@@ -42,6 +44,13 @@ class Playlists extends Component<Props, State> {
     super(props)
 
     this.state = {}
+
+    this.linkClick = this.linkClick.bind(this)
+  }
+
+  linkClick() {
+    const { pageIsLoading } = this.props
+    pageIsLoading(true)
   }
 
   render() {
@@ -50,6 +59,7 @@ class Playlists extends Component<Props, State> {
     const myPlaylistNodes = myPlaylists.map(x => (
         <MediaListItem
           dataPlaylist={x}
+          handleLinkClick={this.linkClick}
           hasLink
           itemType='playlist'
           key={`media-list-item-${uuidv4()}`} />
@@ -58,6 +68,7 @@ class Playlists extends Component<Props, State> {
     const subscribedPlaylistNodes = subscribedPlaylists.map(x => (
       <MediaListItem
         dataPlaylist={x}
+        handleLinkClick={this.linkClick}
         hasLink
         itemType='playlist'
         key={`media-list-item-${uuidv4()}`}
@@ -102,6 +113,8 @@ class Playlists extends Component<Props, State> {
 
 const mapStateToProps = state => ({ ...state })
 
-const mapDispatchToProps = dispatch => ({})
+const mapDispatchToProps = dispatch => ({
+  pageIsLoading: bindActionCreators(pageIsLoading, dispatch)
+})
 
 export default connect(mapStateToProps, mapDispatchToProps)(Playlists)

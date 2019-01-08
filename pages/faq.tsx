@@ -1,17 +1,25 @@
 import React, { Component, Fragment } from 'react'
+import { connect } from 'react-redux'
 import Meta from '~/components/meta'
+import { pageIsLoading } from '~/redux/actions'
 
 type Props = {}
 
 type State = {}
 
-export default class extends Component<Props, State> {
+class FAQ extends Component<Props, State> {
+
+  static async getInitialProps({ query, req, store }) {
+    store.dispatch(pageIsLoading(false))
+    return {}
+  }
+
   render () {
     return (
       <Fragment>
         <Meta />
         <h3>FAQ</h3>
-        <p><a href='https://goo.gl/forms/VGVJRWlKPIGRqojY2'>Ask a question</a></p>
+        <p><a href='https://goo.gl/forms/VGVJRWlKPIGRqojY2' target='_blank'>Ask a question</a></p>
         <h4>Table of Contents</h4>
         <ul>
           <li>
@@ -69,3 +77,9 @@ export default class extends Component<Props, State> {
     )
   }
 }
+
+const mapStateToProps = state => ({ ...state })
+
+const mapDispatchToProps = dispatch => ({})
+
+export default connect(mapStateToProps, mapDispatchToProps)(FAQ)

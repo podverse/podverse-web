@@ -4,13 +4,14 @@ import { connect } from 'react-redux'
 import { MediaHeader } from 'podverse-ui'
 import { bindActionCreators } from 'redux'
 import { alertPremiumRequired, alertSomethingWentWrong } from '~/lib/utility'
-import { userSetInfo } from '~/redux/actions'
+import { pageIsLoading, userSetInfo } from '~/redux/actions'
 import { toggleSubscribeToPodcast } from '~/services'
 
 type Props = {
   episode?: any
   mediaRef?: any
   nowPlayingItem?: any
+  pageIsLoading?: any
   podcast?: any
   user?: any
   userSetInfo?: any
@@ -29,6 +30,7 @@ class MediaHeaderCtrl extends Component<Props, State> {
 
     this.state = {}
 
+    this.linkClick = this.linkClick.bind(this)
     this.toggleSubscribe = this.toggleSubscribe.bind(this)
   }
 
@@ -77,6 +79,11 @@ class MediaHeaderCtrl extends Component<Props, State> {
     return podcastId
   }
 
+  linkClick () {
+    const { pageIsLoading } = this.props
+    pageIsLoading(true)
+  }
+
   render() {
     const { episode, mediaRef, nowPlayingItem, podcast, user } = this.props
     const { subscribedPodcastIds } = user
@@ -87,6 +94,7 @@ class MediaHeaderCtrl extends Component<Props, State> {
     return (
       <MediaHeader
         episode={episode}
+        handleLinkClick={this.linkClick}
         handleToggleSubscribe={this.toggleSubscribe}
         isSubscribed={subscribedPodcastIds && subscribedPodcastIds.includes(podcastId)}
         isSubscribing={isSubscribing}
@@ -100,6 +108,7 @@ class MediaHeaderCtrl extends Component<Props, State> {
 const mapStateToProps = state => ({ ...state })
 
 const mapDispatchToProps = dispatch => ({
+  pageIsLoading: bindActionCreators(pageIsLoading, dispatch),
   userSetInfo: bindActionCreators(userSetInfo, dispatch)
 })
 

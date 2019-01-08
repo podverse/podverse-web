@@ -1,8 +1,9 @@
 
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
-import { MediaListSelect, PVButton as Button } from 'podverse-ui'
 import { bindActionCreators } from 'redux'
+import { MediaListSelect, PVButton as Button } from 'podverse-ui'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import MediaListItemCtrl from '~/components/MediaListItemCtrl/MediaListItemCtrl'
 import { convertToNowPlayingItem } from '~/lib/nowPlayingItem'
 import { clone } from '~/lib/utility'
@@ -36,6 +37,7 @@ type Props = {
 type State = {
   currentId?: string
   endReached?: boolean
+  isLoadingInitial?: boolean
   isLoadingMore?: boolean
   listItems: any[]
   queryFrom?: string
@@ -115,6 +117,10 @@ class MediaListCtrl extends Component<Props, State> {
       query.sort = selectedValue
     }
 
+    if (['type', 'from', 'sort'].includes(selectedKey)) {
+      newState.isLoadingInitial = true
+    }
+
     this.setState(newState)
     
     let combinedListItems: any = []
@@ -149,12 +155,16 @@ class MediaListCtrl extends Component<Props, State> {
 
         this.setState({
           endReached: mediaRefs.length < 2,
+          isLoadingInitial: false,
           isLoadingMore: false,
           listItems: page > 1 ? combinedListItems : mediaRefs
         })
       } catch (error) {
         console.log(error)
-        this.setState({ isLoadingMore: false })
+        this.setState({
+          isLoadingInitial: false,
+          isLoadingMore: false
+        })
       }
     } else if (query.type === 'episodes') {
       try {
@@ -170,12 +180,16 @@ class MediaListCtrl extends Component<Props, State> {
 
         this.setState({
           endReached: episodes.length < 2,
+          isLoadingInitial: false,
           isLoadingMore: false,
           listItems: page > 1 ? combinedListItems : episodes
         })
       } catch (error) {
         console.log(error)
-        this.setState({ isLoadingMore: false })
+        this.setState({
+          isLoadingInitial: false,
+          isLoadingMore: false
+        })
       }
 
     }
@@ -320,7 +334,7 @@ class MediaListCtrl extends Component<Props, State> {
   render() {
     const { adjustTopPosition, episodeId, mediaPlayer, podcastId, user } = this.props
     const { nowPlayingItem: mpNowPlayingItem } = mediaPlayer
-    const { endReached, isLoadingMore, listItems, queryFrom, queryPage,
+    const { endReached, isLoadingInitial, isLoadingMore, listItems, queryFrom, queryPage,
       querySort, queryType } = this.state
 
     let mediaListItemType = 'now-playing-item'
@@ -386,25 +400,36 @@ class MediaListCtrl extends Component<Props, State> {
           </div>
         </div>
         {
-          listItemNodes && listItemNodes.length > 0 &&
-          <Fragment>
-            {listItemNodes}
-            <div className='media-list__load-more'>
-              {
-                endReached ?
-                  <p>End of results</p>
-                  : <Button
-                    className='media-list-load-more__button'
-                    isLoading={isLoadingMore}
-                    onClick={() => this.queryMediaListItems('', '', queryPage + 1)}
-                    text='Load More' />
-              }
+          isLoadingInitial &&
+            <div className='media-list__loader'>
+              <FontAwesomeIcon icon='spinner' spin />
             </div>
-          </Fragment>
         }
         {
-          (!endReached && listItemNodes.length === 0) &&
-          <div className='no-results-msg'>No {queryType === 'episodes' ? 'episodes' : 'clips'} found</div>
+          !isLoadingInitial &&
+            <Fragment>
+              {
+                listItemNodes && listItemNodes.length > 0 &&
+                <Fragment>
+                  {listItemNodes}
+                  <div className='media-list__load-more'>
+                    {
+                      endReached ?
+                        <p>End of results</p>
+                        : <Button
+                          className='media-list-load-more__button'
+                          isLoading={isLoadingMore}
+                          onClick={() => this.queryMediaListItems('', '', queryPage + 1)}
+                          text='Load More' />
+                    }
+                  </div>
+                </Fragment>
+              }
+              {
+                (!endReached && listItemNodes.length === 0) &&
+                <div className='no-results-msg'>No {queryType === 'episodes' ? 'episodes' : 'clips'} found</div>
+              }
+            </Fragment>
         }
       </div>
     )

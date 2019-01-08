@@ -1,11 +1,19 @@
 import React, { Component, Fragment } from 'react'
+import { connect } from 'react-redux'
 import Meta from '~/components/meta'
+import { pageIsLoading } from '~/redux/actions'
 
 type Props = {}
 
 type State = {}
 
-export default class extends Component<Props, State> {
+class Terms extends Component<Props, State> {
+
+  static async getInitialProps({ store }) {
+    store.dispatch(pageIsLoading(false))
+    return {}
+  }
+
   render() {
     return (
       <Fragment>
@@ -33,3 +41,9 @@ export default class extends Component<Props, State> {
     )
   }
 }
+
+const mapStateToProps = state => ({ ...state })
+
+const mapDispatchToProps = dispatch => ({})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Terms)

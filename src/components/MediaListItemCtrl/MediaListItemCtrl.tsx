@@ -4,7 +4,8 @@ import { connect } from 'react-redux'
 import { MediaListItem, addItemToPriorityQueueStorage, getPriorityQueueItemsStorage
   } from 'podverse-ui'
 import { bindActionCreators } from 'redux';
-import { modalsAddToShow, playerQueueLoadPriorityItems, userSetInfo } from '~/redux/actions'
+import { modalsAddToShow, pageIsLoading, playerQueueLoadPriorityItems,
+  userSetInfo } from '~/redux/actions'
 import { updateUserQueueItems } from '~/services'
 const uuidv4 = require('uuid/v4')
 
@@ -19,6 +20,7 @@ type Props = {
   modals?: any
   modalsAddToShow?: any
   nowPlayingItem?: any
+  pageIsLoading?: any
   playerQueueLoadPriorityItems?: any
   playlist?: any
   podcast?: any
@@ -34,6 +36,12 @@ type Props = {
 type State = {}
 
 class MediaListItemCtrl extends Component<Props, State> {
+
+  constructor (props) {
+    super(props)
+
+    this.linkClick = this.linkClick.bind(this)
+  }
 
   async addToQueue(nowPlayingItem, isLast) {
     const { playerQueueLoadPriorityItems, user } = this.props
@@ -65,6 +73,11 @@ class MediaListItemCtrl extends Component<Props, State> {
     })
   }
 
+  linkClick () {
+    const { pageIsLoading } = this.props
+    pageIsLoading(true)
+  }
+
   render() {
     const { handleRemoveItem, handlePlayItem, isActive, mediaListItemType, nowPlayingItem,
       playlist, podcast, profileUser, showMoreMenu, showRemove } = this.props
@@ -77,6 +90,7 @@ class MediaListItemCtrl extends Component<Props, State> {
         dataUser={profileUser}
         handleAddToQueueLast={() => { this.addToQueue(nowPlayingItem, true) }}
         handleAddToQueueNext={() => { this.addToQueue(nowPlayingItem, false) }}
+        handleLinkClick={this.linkClick}
         handlePlayItem={() => { handlePlayItem ? handlePlayItem(nowPlayingItem) : null }}
         handleRemoveItem={handleRemoveItem}
         handleToggleAddToPlaylist={() => this.toggleAddToModal(nowPlayingItem, false)}
@@ -95,6 +109,7 @@ const mapStateToProps = state => ({ ...state })
 
 const mapDispatchToProps = dispatch => ({
   modalsAddToShow: bindActionCreators(modalsAddToShow, dispatch),
+  pageIsLoading: bindActionCreators(pageIsLoading, dispatch),
   playerQueueLoadPriorityItems: bindActionCreators(playerQueueLoadPriorityItems, dispatch),
   userSetInfo: bindActionCreators(userSetInfo, dispatch)
 })

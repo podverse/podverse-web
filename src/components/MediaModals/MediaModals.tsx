@@ -382,9 +382,9 @@ class MediaModals extends Component<Props, State> {
     return (
       <Fragment>
         <QueueModal
-          handleAnchorOnClick={this.queueItemClick}
           handleDragEnd={this.queueDragEnd}
           handleHideModal={this.hideQueueModal}
+          handleLinkClick={this.queueItemClick}
           handleRemoveItem={this.removeItem}
           historyItems={historyItems}
           isLoggedIn={user && !!user.id}

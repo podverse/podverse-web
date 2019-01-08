@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import { Form, FormGroup, Input, InputGroup, InputGroupAddon } from 'reactstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { MediaListItem, PVButton as Button } from 'podverse-ui'
@@ -9,6 +10,7 @@ import { getPodcastsByQuery } from '~/services'
 const uuidv4 = require('uuid/v4')
 
 type Props = {
+  pageIsLoading?: any
   settings?: any
 }
 
@@ -40,6 +42,7 @@ class Search extends Component<Props, State> {
 
     this.handleSearchByChange = this.handleSearchByChange.bind(this)
     this.handleSearchInputChange = this.handleSearchInputChange.bind(this)
+    this.linkClick = this.linkClick.bind(this)
     this.queryPodcasts = this.queryPodcasts.bind(this)
   }
 
@@ -92,6 +95,11 @@ class Search extends Component<Props, State> {
     }
   }
 
+  linkClick() {
+    const { pageIsLoading } = this.props
+    pageIsLoading(true)
+  }
+
   render() {
     const { endReached, isLoadingMore, isSearching, podcasts, queryPage, searchBy,
       searchText } = this.state
@@ -102,6 +110,7 @@ class Search extends Component<Props, State> {
       return (
         <MediaListItem
           dataPodcast={x}
+          handleLinkClick={this.linkClick}
           hasLink={true}
           itemType='podcast'
           key={`podcast-list-item-${uuidv4()}`} />
@@ -192,6 +201,8 @@ class Search extends Component<Props, State> {
 
 const mapStateToProps = state => ({ ...state })
 
-const mapDispatchToProps = dispatch => ({})
+const mapDispatchToProps = dispatch => ({
+  pageIsLoading: bindActionCreators(pageIsLoading, dispatch)
+})
 
 export default connect(mapStateToProps, mapDispatchToProps)(Search)

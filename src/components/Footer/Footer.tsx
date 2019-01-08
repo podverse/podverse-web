@@ -3,13 +3,14 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import Link from 'next/link'
 import Switch from 'react-switch'
-import { settingsSetNSFWMode, settingsSetUITheme } from '~/redux/actions'
+import { pageIsLoading, settingsSetNSFWMode, settingsSetUITheme } from '~/redux/actions'
 import colors from '~/lib/constants/colors'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { NSFWModal } from '../NSFWModal/NSFWModal'
 const cookie = require('cookie')
 
 type Props = {
+  pageIsLoading?: any
   settings: any
   settingsSetNSFWMode: any
   settingsSetUITheme: any
@@ -29,6 +30,7 @@ class Footer extends Component<Props, State> {
     this.handleNSFWModeChange = this.handleNSFWModeChange.bind(this)
     this.handleUIThemeChange = this.handleUIThemeChange.bind(this)
     this.hideNSFWModal = this.hideNSFWModal.bind(this)
+    this.linkClick = this.linkClick.bind(this)
   }
   
   handleUIThemeChange(checked) {
@@ -72,6 +74,11 @@ class Footer extends Component<Props, State> {
     this.setState({ nsfwModalIsOpen: false })
   }
 
+  linkClick() {
+    const { pageIsLoading } = this.props
+    pageIsLoading(true)
+  }
+
   render () {
     const { settings } = this.props
     const { nsfwMode, nsfwModeHide, uiTheme, uiThemeHide } = settings
@@ -87,7 +94,9 @@ class Footer extends Component<Props, State> {
             <Link
               as='/'
               href='/'>
-              <a className='footer-top__brand'>
+              <a
+                className='footer-top__brand'
+                onClick={this.linkClick}>
                 Podverse<sup>FM</sup>
               </a>
             </Link>
@@ -153,21 +162,27 @@ class Footer extends Component<Props, State> {
             <Link
               as='/faq'
               href='/faq'>
-              <a className='footer-bottom__link'>
+              <a
+                className='footer-bottom__link'
+                onClick={this.linkClick}>
                 FAQ
               </a>
             </Link>
             <Link
               as='/about'
               href='/about'>
-              <a className='footer-bottom__link'>
+              <a
+                className='footer-bottom__link'
+                onClick={this.linkClick}>
                 About
               </a>
             </Link>
             <Link
               as='/terms'
               href='/terms'>
-              <a className='footer-bottom__link'>
+              <a
+                className='footer-bottom__link'
+                onClick={this.linkClick}>
                 Terms
               </a>
             </Link>
@@ -185,6 +200,7 @@ class Footer extends Component<Props, State> {
 const mapStateToProps = state => ({ ...state })
 
 const mapDispatchToProps = dispatch => ({
+  pageIsLoading: bindActionCreators(pageIsLoading, dispatch),
   settingsSetNSFWMode: bindActionCreators(settingsSetNSFWMode, dispatch),
   settingsSetUITheme: bindActionCreators(settingsSetUITheme, dispatch)
 })

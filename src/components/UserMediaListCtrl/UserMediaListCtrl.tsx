@@ -56,6 +56,7 @@ class UserMediaListCtrl extends Component<Props, State> {
 
     this.state = {
       currentId: props.currentId,
+      endReached: props.listItems && props.listItems.length > 0 && props.listItems.length < 20,
       listItems: props.listItems || [],
       queryPage: props.queryPage,
       querySort: props.querySort,

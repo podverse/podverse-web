@@ -5,6 +5,12 @@
     margin-top: -1.25rem;
   }
 
+  .media-list__loader {
+    font-size: 36px;
+    margin: 1rem 0;
+    text-align: center;
+  }
+
   .media-list__load-more {
     text-align: center;
 
@@ -50,6 +56,9 @@
 
 html[theme=light] {
   .media-list {
+    .media-list__loader {
+      color: $gray-light;
+    }
     .media-list__description {
       color: $gray-darker;
     }
@@ -61,6 +70,9 @@ html[theme=light] {
 
 html[theme=dark] {
   .media-list {
+    .media-list__loader {
+      color: $gray-dark;
+    }
     .media-list__description {
       color: $gray-lighter;
     }

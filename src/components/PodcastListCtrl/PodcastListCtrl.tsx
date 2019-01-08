@@ -1,12 +1,16 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import { MediaListItem, MediaListSelect, PVButton as Button } from 'podverse-ui'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { pageIsLoading } from '~/redux/actions'
 import { getPodcastsByQuery } from '~/services'
 const uuidv4 = require('uuid/v4')
 
 type Props = {
   allCategories?: any
   listItems: any[]
+  pageIsLoading?: any
   queryCategoryId?: string
   queryPage: number
   querySort?: string
@@ -16,6 +20,7 @@ type Props = {
 
 type State = {
   endReached?: boolean
+  isLoadingInitial?: boolean
   isLoadingMore?: boolean
   listItems: any[]
   queryCategoryId?: string
@@ -47,6 +52,7 @@ class PodcastListCtrl extends Component<Props, State> {
     }
 
     this.generateCategorySelectNodes = this.generateCategorySelectNodes.bind(this)
+    this.linkClick = this.linkClick.bind(this)
     this.queryPodcasts = this.queryPodcasts.bind(this)
   }
 
@@ -93,6 +99,10 @@ class PodcastListCtrl extends Component<Props, State> {
       delete query.subscribedPodcastIds
     }
 
+    if (['sort', 'categories', 'subscribed-only', 'all-podcasts'].includes(selectedKey)) {
+      newState.isLoadingInitial = true
+    }
+
     this.setState(newState)
 
     let combinedListItems: any = []
@@ -108,12 +118,16 @@ class PodcastListCtrl extends Component<Props, State> {
 
       this.setState({ 
         endReached: podcasts.length < 2,
+        isLoadingInitial: false,
         isLoadingMore: false,
         listItems: page > 1 ? combinedListItems : podcasts
       })
     } catch (error) {
       console.log(error)
-      this.setState({ isLoadingMore: false })
+      this.setState({
+        isLoadingInitial: false,
+        isLoadingMore: false
+      })
     }
   }
 
@@ -261,15 +275,21 @@ class PodcastListCtrl extends Component<Props, State> {
     return categorySelectNodes
   }
 
+  linkClick() {
+    const { pageIsLoading } = this.props
+    pageIsLoading(true)
+  }
+
   render() {
     const { allCategories, user } = this.props
-    const { endReached, isLoadingMore, listItems, queryCategoryId, queryFrom, queryPage,
-      querySort } = this.state
+    const { endReached, isLoadingInitial, isLoadingMore, listItems, queryCategoryId,
+      queryFrom, queryPage, querySort } = this.state
 
     const listItemNodes = listItems.map(x => {
       return (
         <MediaListItem
           dataPodcast={x}
+          handleLinkClick={this.linkClick}
           hasLink={true}
           itemType='podcast'
           key={`podcast-list-item-${uuidv4()}`} />
@@ -294,25 +314,36 @@ class PodcastListCtrl extends Component<Props, State> {
           </div>
         </div>
         {
-          listItemNodes && listItemNodes.length > 0 &&
-          <Fragment>
-            {listItemNodes}
-            <div className='media-list__load-more'>
-              {
-                endReached ?
-                  <p>End of results</p>
-                  : <Button
-                    className='media-list-load-more__button'
-                    isLoading={isLoadingMore}
-                    onClick={() => this.queryPodcasts(queryFrom, '', queryPage + 1)}
-                    text='Load More' />
-              }
+          isLoadingInitial &&
+            <div className='media-list__loader'>
+              <FontAwesomeIcon icon='spinner' spin />
             </div>
-          </Fragment>
         }
         {
-          (!endReached && listItemNodes.length === 0) &&
-          <div className='no-results-msg'>No podcasts found</div>
+          !isLoadingInitial &&
+            <Fragment>
+              {
+                listItemNodes && listItemNodes.length > 0 &&
+                <Fragment>
+                  {listItemNodes}
+                  <div className='media-list__load-more'>
+                    {
+                      endReached ?
+                        <p>End of results</p>
+                        : <Button
+                          className='media-list-load-more__button'
+                          isLoading={isLoadingMore}
+                          onClick={() => this.queryPodcasts('', '', queryPage + 1)}
+                          text='Load More' />
+                    }
+                  </div>
+                </Fragment>
+              }
+              {
+                (!endReached && listItemNodes.length === 0) &&
+                <div className='no-results-msg'>No podcasts found</div>
+              }
+            </Fragment>
         }
       </div>
     )
@@ -321,6 +352,8 @@ class PodcastListCtrl extends Component<Props, State> {
 
 const mapStateToProps = state => ({ ...state })
 
-const mapDispatchToProps = dispatch => ({})
+const mapDispatchToProps = dispatch => ({
+  pageIsLoading: bindActionCreators(pageIsLoading, dispatch)
+})
 
 export default connect(mapStateToProps, mapDispatchToProps)(PodcastListCtrl)

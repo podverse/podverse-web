@@ -1,14 +1,17 @@
 
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import { PVButton as Button } from 'podverse-ui'
 import MediaListItemCtrl from '~/components/MediaListItemCtrl/MediaListItemCtrl'
+import { pageIsLoading } from '~/redux/actions'
 import { getPublicUsersByQuery } from '~/services'
 import Link from 'next/link';
 const uuidv4 = require('uuid/v4')
 
 type Props = {
   listItems?: any[]
+  pageIsLoading?: any
   queryPage?: number
   user?: any
 }
@@ -35,6 +38,7 @@ class UserListCtrl extends Component<Props, State> {
       queryPage: props.queryPage
     }
 
+    this.linkClick = this.linkClick.bind(this)
     this.queryUserListItems = this.queryUserListItems.bind(this)
   }
 
@@ -73,6 +77,12 @@ class UserListCtrl extends Component<Props, State> {
     }
   }
 
+
+  linkClick () {
+    const { pageIsLoading } = this.props
+    pageIsLoading(true)
+  }
+
   render() {
     const { endReached, isLoadingMore, listItems, queryPage } = this.state
 
@@ -109,7 +119,7 @@ class UserListCtrl extends Component<Props, State> {
           <div className='no-results-msg'>
             <p>You are not subscribed to any user profiles.</p>
             <p>Share links to your public profile with friends to let them subscribe.</p>
-            <p>Visit the <Link as='/settings' href='/settings'><a>Settings page</a></Link> to make your profile public.</p>
+            <p>Visit the <Link as='/settings' href='/settings'><a onClick={this.linkClick}>Settings page</a></Link> to make your profile public.</p>
           </div>
         }
       </div>
@@ -119,6 +129,8 @@ class UserListCtrl extends Component<Props, State> {
 
 const mapStateToProps = state => ({ ...state })
 
-const mapDispatchToProps = dispatch => ({})
+const mapDispatchToProps = dispatch => ({
+  pageIsLoading: bindActionCreators(pageIsLoading, dispatch)
+})
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserListCtrl)

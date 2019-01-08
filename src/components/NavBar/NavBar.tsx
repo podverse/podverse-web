@@ -23,6 +23,12 @@ type State = {}
 
 class PVNavBar extends Component<Props, State> {
 
+  constructor (props) {
+    super(props)
+
+    this.linkClick = this.linkClick.bind(this)
+  }
+
   navItems () {
     return [
       {
@@ -109,6 +115,11 @@ class PVNavBar extends Component<Props, State> {
     return dropdownItems
   }
 
+  linkClick() {
+    const { pageIsLoading } = this.props
+    pageIsLoading(true)
+  }
+
   render () {
     const { user } = this.props
     const { id } = user 
@@ -123,6 +134,7 @@ class PVNavBar extends Component<Props, State> {
           brandUrl='/'
           dropdownItems={this.dropdownItems()}
           dropdownText={dropdownText}
+          handleLinkClick={this.linkClick}
           navItems={this.navItems()} />
       </React.Fragment>
     )
