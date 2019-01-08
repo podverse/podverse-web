@@ -158,7 +158,7 @@ class UserMediaListCtrl extends Component<Props, State> {
         }
 
         this.setState({
-          endReached: mediaRefs.length === 0,
+          endReached: mediaRefs.length < 2,
           isLoadingMore: false,
           listItems: page > 1 ? combinedListItems : mediaRefs
         })
@@ -178,7 +178,7 @@ class UserMediaListCtrl extends Component<Props, State> {
         combinedListItems = combinedListItems.concat(playlists)
 
         this.setState({
-          endReached: playlists.length === 0,
+          endReached: playlists.length < 2,
           isLoadingMore: false,
           listItems: page > 1 ? combinedListItems : playlists
         })

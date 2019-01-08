@@ -3,17 +3,18 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import Router from 'next/router'
 import { AddToModal, ClipCreatedModal, MakeClipModal, QueueModal, ShareModal,
-  addItemToPriorityQueueStorage, updatePriorityQueueStorage, getPriorityQueueItemsStorage
-  } from 'podverse-ui'
+  addItemToPriorityQueueStorage, updatePriorityQueueStorage, getPriorityQueueItemsStorage,
+  getSecondaryQueueItemsStorage, removeItemFromPriorityQueueStorage,
+  removeItemFromSecondaryQueueStorage } from 'podverse-ui'
 import { kPlaybackRate } from '~/lib/constants/misc'
 import { mediaPlayerUpdatePlaying, modalsAddToCreatePlaylistIsSaving,
   modalsAddToCreatePlaylistShow, modalsAddToShow, modalsClipCreatedShow, modalsLoginShow, 
   modalsMakeClipShow, modalsQueueShow, modalsShareShow,
-  pageIsLoading, playerQueueLoadItems, playerQueueLoadPriorityItems, userSetInfo
+  pageIsLoading, playerQueueLoadItems, playerQueueLoadPriorityItems, userSetInfo, playerQueueLoadSecondaryItems
   } from '~/redux/actions'
 import { addOrRemovePlaylistItem, createMediaRef, createPlaylist, deleteMediaRef,
   updateMediaRef, updateUserQueueItems } from '~/services'
-import { alertPremiumRequired, alertSomethingWentWrong } from '~/lib/utility'
+import { alertPremiumRequired, alertSomethingWentWrong, clone } from '~/lib/utility'
 
 type Props = {
   mediaPlayer?: any
@@ -31,6 +32,7 @@ type Props = {
   playerQueue?: any
   playerQueueLoadItems?: any
   playerQueueLoadPriorityItems?: any
+  playerQueueLoadSecondaryItems?: any
   user?: any
   userSetInfo?: any
 }
@@ -54,6 +56,7 @@ class MediaModals extends Component<Props, State> {
     this.makeClipDelete = this.makeClipDelete.bind(this)
     this.makeClipSave = this.makeClipSave.bind(this)
     this.queueDragEnd = this.queueDragEnd.bind(this)
+    this.removeItem = this.removeItem.bind(this)
   }
 
   async addToQueue(isLast) {
@@ -310,6 +313,43 @@ class MediaModals extends Component<Props, State> {
     this.hideQueueModal()
   }
 
+  async removeItem(clipId, episodeId, isPriority) {
+    const { playerQueueLoadPriorityItems, playerQueueLoadSecondaryItems, user,
+      userSetInfo } = this.props
+    const { queueItems } = user
+
+    let newQueueItems = clone(queueItems)
+
+    if (isPriority) {
+      if (clipId) {
+        newQueueItems = newQueueItems.filter(x => x.clipId !== clipId)
+      } else if (episodeId) {
+        newQueueItems = newQueueItems.filter(x => x.episodeId !== episodeId)
+      }
+
+      if (user && user.id) {
+        try {
+          const response = await updateUserQueueItems({ queueItems: newQueueItems })
+          const priorityItems = response.data || []
+          userSetInfo({ queueItems: priorityItems })
+          playerQueueLoadPriorityItems(priorityItems)
+        } catch (error) {
+          console.log(error)
+          alert('Could not update queue on server. Please check your internet connection.')
+        }
+      } else {
+        removeItemFromPriorityQueueStorage(clipId, episodeId)
+        const priorityItems = getPriorityQueueItemsStorage()
+        userSetInfo({ queueItems: priorityItems })
+        playerQueueLoadPriorityItems(priorityItems)
+      }
+    } else {
+      removeItemFromSecondaryQueueStorage(clipId, episodeId)
+      const secondaryItems = getSecondaryQueueItemsStorage()
+      playerQueueLoadSecondaryItems(secondaryItems)
+    }
+  }
+
   render() {
     const { mediaPlayer, modals, modalsLoginShow, playerQueue, user } = this.props
     const { nowPlayingItem } = mediaPlayer
@@ -343,12 +383,13 @@ class MediaModals extends Component<Props, State> {
       <Fragment>
         <QueueModal
           handleAnchorOnClick={this.queueItemClick}
+          handleDragEnd={this.queueDragEnd}
           handleHideModal={this.hideQueueModal}
+          handleRemoveItem={this.removeItem}
           historyItems={historyItems}
           isLoggedIn={user && !!user.id}
           isOpen={queueIsOpen}
           nowPlayingItem={nowPlayingItem}
-          handleDragEnd={this.queueDragEnd}
           priorityItems={priorityItems}
           secondaryItems={secondaryItems} />
         <MakeClipModal
@@ -417,6 +458,7 @@ const mapDispatchToProps = dispatch => ({
   pageIsLoading: bindActionCreators(pageIsLoading, dispatch),
   playerQueueLoadItems: bindActionCreators(playerQueueLoadItems, dispatch),
   playerQueueLoadPriorityItems: bindActionCreators(playerQueueLoadPriorityItems, dispatch),
+  playerQueueLoadSecondaryItems: bindActionCreators(playerQueueLoadSecondaryItems, dispatch),
   userSetInfo: bindActionCreators(userSetInfo, dispatch)
 })
 

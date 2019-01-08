@@ -169,7 +169,7 @@ class MediaListCtrl extends Component<Props, State> {
         }
 
         this.setState({
-          endReached: episodes.length === 0,
+          endReached: episodes.length < 2,
           isLoadingMore: false,
           listItems: page > 1 ? combinedListItems : episodes
         })
