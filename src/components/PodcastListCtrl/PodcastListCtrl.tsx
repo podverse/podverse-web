@@ -107,7 +107,7 @@ class PodcastListCtrl extends Component<Props, State> {
       combinedListItems = combinedListItems.concat(podcasts)
 
       this.setState({ 
-        endReached: podcasts.length === 0,
+        endReached: podcasts.length < 2,
         isLoadingMore: false,
         listItems: page > 1 ? combinedListItems : podcasts
       })

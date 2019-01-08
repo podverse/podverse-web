@@ -63,7 +63,7 @@ class UserListCtrl extends Component<Props, State> {
       combinedListItems = combinedListItems.concat(users)
 
       this.setState({
-        endReached: users.length === 0,
+        endReached: users.length < 2,
         isLoadingMore: false,
         listItems: page > 1 ? combinedListItems : users
       })

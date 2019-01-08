@@ -80,7 +80,7 @@ class Search extends Component<Props, State> {
       combinedPodcasts = combinedPodcasts.concat(newPodcasts)
       
       this.setState({
-        endReached: newPodcasts.length === 0,
+        endReached: newPodcasts.length < 2,
         isLoadingMore: false,
         isSearching: false,
         podcasts: combinedPodcasts,

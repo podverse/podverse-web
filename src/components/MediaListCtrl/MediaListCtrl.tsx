@@ -148,7 +148,7 @@ class MediaListCtrl extends Component<Props, State> {
         }
 
         this.setState({
-          endReached: mediaRefs.length === 0,
+          endReached: mediaRefs.length < 2,
           isLoadingMore: false,
           listItems: page > 1 ? combinedListItems : mediaRefs
         })
