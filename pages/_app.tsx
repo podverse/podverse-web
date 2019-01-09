@@ -48,6 +48,7 @@ type Props = {
   page: {
     isLoading?: boolean
   },
+  pages: {},
   playerQueue: {
     priorityItems: any[]
     secondaryItems: any[]

@@ -1,17 +1,20 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import { addItemsToSecondaryQueueStorage, clearItemsFromSecondaryQueueStorage } from 'podverse-ui'
 import MediaHeaderCtrl from '~/components/MediaHeaderCtrl/MediaHeaderCtrl'
 import MediaInfoCtrl from '~/components/MediaInfoCtrl/MediaInfoCtrl'
 import MediaListCtrl from '~/components/MediaListCtrl/MediaListCtrl'
 import { convertToNowPlayingItem } from '~/lib/nowPlayingItem'
-import { pageIsLoading, playerQueueLoadSecondaryItems } from '~/redux/actions'
-import { getEpisodesByQuery, getPodcastById } from '~/services/'
+import { pageIsLoading, pagesSetQueryState, playerQueueLoadSecondaryItems
+  } from '~/redux/actions'
+import { getEpisodesByQuery, getMediaRefsByQuery, getPodcastById } from '~/services/'
 import { clone } from '~/lib/utility'
 
 type Props = {
-  currentId?: string
   listItems?: any
+  pageKeyWithId?: string
+  pagesSetQueryState?: any
   playerQueue?: any
   podcast?: any
   queryFrom?: any
@@ -24,27 +27,70 @@ type Props = {
 
 type State = {}
 
+const kPageKey = 'podcast_'
+
 class Podcast extends Component<Props, State> {
 
-  static async getInitialProps({ query, req, store }) {
+  static async getInitialProps({ query, store }) {
+    const pageKeyWithId = `${kPageKey}${query.id}`
     const state = store.getState()
-    const { settings, user } = state
+    const { pages, settings, user } = state
     const { nsfwMode } = settings
 
     const podcastResult = await getPodcastById(query.id)
     const podcast = podcastResult.data
-    const currentId = podcast.id
 
-    query.from = 'from-podcast'
-    query.podcastId = podcast.id
-    const queryDataResult = await getEpisodesByQuery(query, nsfwMode)
-    const listItems = queryDataResult.data.map(x => convertToNowPlayingItem(x))
+    const currentPage = pages[pageKeyWithId] || {}
+    const queryFrom = currentPage.queryFrom || query.from || 'from-podcast'
+    const queryPage = currentPage.queryPage || query.page || 1
+    const querySort = currentPage.querySort || query.sort || 'top-past-week'
+    const queryType = currentPage.queryType || query.type || 'episodes'
+    let podcastId = ''
 
-    store.dispatch(playerQueueLoadSecondaryItems(clone(listItems)))
+    if (queryFrom === 'from-podcast') {
+      podcastId = podcast.id
+    } else if (queryFrom === 'subscribed-only') {
+      podcastId = user.subscribedPodcastIds
+    }
+
+    if (Object.keys(currentPage).length === 0) {
+      let queryDataResult
+
+      if (queryType === 'episodes') {
+        queryDataResult = await getEpisodesByQuery({
+          from: queryFrom,
+          page: queryPage,
+          ...(podcastId ? { podcastId } : {}),
+          sort: querySort,
+          type: queryType
+        }, nsfwMode)
+      } else {
+        queryDataResult = await getMediaRefsByQuery({
+          from: queryFrom,
+          page: queryPage,
+          ...(podcastId ? { podcastId } : {}),
+          sort: querySort,
+          type: queryType
+        }, nsfwMode)
+      }
+      
+      let listItems = queryDataResult.data.map(x => convertToNowPlayingItem(x))
+      
+      store.dispatch(playerQueueLoadSecondaryItems(clone(listItems)))
+
+      store.dispatch(pagesSetQueryState({
+        pageKey: pageKeyWithId,
+        listItems,
+        queryFrom,
+        queryPage,
+        querySort,
+        queryType
+      }))
+    }
+
     store.dispatch(pageIsLoading(false))
 
-    const { from: queryFrom, sort: querySort, type: queryType } = query
-    return { currentId, listItems, podcast, query, queryFrom, querySort, queryType, user }
+    return { pageKeyWithId, podcast, queryFrom, queryPage, querySort, queryType }
   }
 
   componentDidMount() {
@@ -55,20 +101,20 @@ class Podcast extends Component<Props, State> {
   }
 
   render() {
-    const { currentId, listItems, podcast, queryFrom, queryPage, querySort, queryType
-      } = this.props
+    const { pageKeyWithId, pagesSetQueryState, podcast, queryFrom, queryPage,
+      querySort, queryType } = this.props
 
     return (
       <Fragment>
         <MediaHeaderCtrl podcast={podcast} />
         <MediaInfoCtrl podcast={podcast} />
         <MediaListCtrl
-          currentId={currentId}
-          listItems={listItems}
-          queryFrom={queryFrom || 'from-podcast'}
-          queryPage={queryPage || 1}
-          querySort={querySort || 'top-past-week'}
-          queryType={queryType || 'episodes'}
+          handleSetPageQueryState={pagesSetQueryState}
+          pageKey={pageKeyWithId}
+          queryFrom={queryFrom}
+          queryPage={queryPage}
+          querySort={querySort}
+          queryType={queryType}
           podcastId={podcast.id} />
       </Fragment>
     )
@@ -77,6 +123,8 @@ class Podcast extends Component<Props, State> {
 
 const mapStateToProps = state => ({ ...state })
 
-const mapDispatchToProps = dispatch => ({})
+const mapDispatchToProps = dispatch => ({
+  pagesSetQueryState: bindActionCreators(pagesSetQueryState, dispatch)
+})
 
 export default connect(mapStateToProps, mapDispatchToProps)(Podcast)

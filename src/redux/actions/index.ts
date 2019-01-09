@@ -1,6 +1,7 @@
 export { mediaPlayerLoadNowPlayingItem,mediaPlayerSetClipFinished,
   mediaPlayerSetPlayedAfterClipFinished, mediaPlayerUpdatePlaying } from '~/redux/actions/mediaPlayer'
 export { pageIsLoading } from '~/redux/actions/page'
+export { pagesSetQueryState } from '~/redux/actions/pages'
 export { playerQueueAddSecondaryItems, playerQueueLoadItems, playerQueueLoadPriorityItems,
   playerQueueLoadSecondaryItems } from '~/redux/actions/playerQueue'
 export { modalsAddToIsLoading, modalsAddToSetErrorResponse, modalsAddToShow,

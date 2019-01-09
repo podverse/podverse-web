@@ -247,9 +247,9 @@ class MediaPlayerView extends Component<Props, State> {
     const { share } = modals
     const { isOpen } = share
 
-    const clipLinkAs = `/clip/${nowPlayingItem.clipId}`
-    const episodeLinkAs = `/episode/${nowPlayingItem.episodeId}`
-    const podcastLinkAs = `/podcast/${nowPlayingItem.podcastId}`
+    const clipLinkAs = `${window.location.host}/clip/${nowPlayingItem.clipId}`
+    const episodeLinkAs = `${window.location.host}/episode/${nowPlayingItem.episodeId}`
+    const podcastLinkAs = `${window.location.host}/podcast/${nowPlayingItem.podcastId}`
 
     modalsShareShow({
       clipLinkAs,

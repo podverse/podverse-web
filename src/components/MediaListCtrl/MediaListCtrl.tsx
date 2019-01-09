@@ -18,10 +18,12 @@ type Props = {
   adjustTopPosition?: boolean
   currentId?: string
   episodeId?: string
-  listItems: any[]
+  handleSetPageQueryState: Function
   mediaPlayer?: any
   mediaPlayerLoadNowPlayingItem?: any
   mediaPlayerUpdatePlaying?: any
+  pageKey: string
+  pages?: any
   playerQueueAddSecondaryItems?: any
   playerQueueLoadSecondaryItems?: any
   podcastId?: string
@@ -34,65 +36,29 @@ type Props = {
   userSetInfo?: any
 }
 
-type State = {
-  currentId?: string
-  endReached?: boolean
-  isLoadingInitial?: boolean
-  isLoadingMore?: boolean
-  listItems: any[]
-  queryFrom?: string
-  queryPage: number
-  querySort?: string
-  queryType?: string
-}
+type State = {}
 
 class MediaListCtrl extends Component<Props, State> {
 
   static defaultProps: Props = {
-    listItems: [],
-    queryFrom: 'all-podcasts',
-    queryPage: 1,
-    querySort: 'top-past-week',
-    queryType: 'clips'
+    handleSetPageQueryState: () => {},
+    pageKey: 'default',
+    queryPage: 1
   }
 
   constructor(props) {
     super(props)
 
-    this.state = {
-      currentId: props.currentId,
-      listItems: props.listItems || [],
-      queryFrom: props.queryFrom,
-      queryPage: props.queryPage,
-      querySort: props.querySort,
-      queryType: props.queryType
-    }
-
     this.playItem = this.playItem.bind(this)
     this.queryMediaListItems = this.queryMediaListItems.bind(this)
   }
 
-  static getDerivedStateFromProps(props, current_state) {
-    if (props.currentId !== current_state.currentId) {
-      return {
-        currentId: props.currentId,
-        listItems: props.listItems || [],
-        queryFrom: props.queryFrom,
-        queryPage: props.queryPage,
-        querySort: props.querySort,
-        queryType: props.queryType
-      }
-    }
-
-    return null
-  }
-
   async queryMediaListItems(selectedKey = '', selectedValue = '', page = 1) {
-    const { episodeId, playerQueueAddSecondaryItems, playerQueueLoadSecondaryItems,
-      podcastId, settings, user } = this.props
+    const { episodeId, handleSetPageQueryState, pageKey, pages, playerQueueAddSecondaryItems,
+      playerQueueLoadSecondaryItems, podcastId, settings, user } = this.props
     const { nsfwMode } = settings
     const { subscribedPodcastIds } = user
-    const { listItems, queryFrom, querySort, queryType } = this.state
+    const { listItems, queryFrom, querySort, queryType } = pages[pageKey]
 
     let query: any = {
       from: queryFrom,
@@ -102,9 +68,15 @@ class MediaListCtrl extends Component<Props, State> {
       type: queryType
     }
 
-    this.setState({ isLoadingMore: true })
+    handleSetPageQueryState({
+      pageKey,
+      isLoadingMore: true
+    })
 
-    let newState: any = { queryPage: page }
+    let newState: any = {
+      pageKey,
+      queryPage: page
+    }
 
     if (selectedKey === 'type') {
       newState.queryType = selectedValue
@@ -121,7 +93,7 @@ class MediaListCtrl extends Component<Props, State> {
       newState.isLoadingInitial = true
     }
 
-    this.setState(newState)
+    handleSetPageQueryState(newState)
     
     let combinedListItems: any = []
 
@@ -152,8 +124,8 @@ class MediaListCtrl extends Component<Props, State> {
         } else {
           playerQueueLoadSecondaryItems(clone(mediaRefs))
         }
-
-        this.setState({
+        handleSetPageQueryState({
+          pageKey,
           endReached: mediaRefs.length < 2,
           isLoadingInitial: false,
           isLoadingMore: false,
@@ -161,7 +133,8 @@ class MediaListCtrl extends Component<Props, State> {
         })
       } catch (error) {
         console.log(error)
-        this.setState({
+        handleSetPageQueryState({
+          pageKey,
           isLoadingInitial: false,
           isLoadingMore: false
         })
@@ -178,7 +151,8 @@ class MediaListCtrl extends Component<Props, State> {
           playerQueueLoadSecondaryItems(clone(episodes))
         }
 
-        this.setState({
+        handleSetPageQueryState({
+          pageKey,
           endReached: episodes.length < 2,
           isLoadingInitial: false,
           isLoadingMore: false,
@@ -186,7 +160,8 @@ class MediaListCtrl extends Component<Props, State> {
         })
       } catch (error) {
         console.log(error)
-        this.setState({
+        handleSetPageQueryState({
+          pageKey,
           isLoadingInitial: false,
           isLoadingMore: false
         })
@@ -295,9 +270,9 @@ class MediaListCtrl extends Component<Props, State> {
   }
 
   async playItem(nowPlayingItem) {
-    const { mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying,
+    const { mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying, pageKey, pages,
       playerQueueLoadSecondaryItems, user, userSetInfo } = this.props
-    const { listItems } = this.state
+    const { listItems } = pages[pageKey]
 
     mediaPlayerLoadNowPlayingItem(nowPlayingItem)
     mediaPlayerUpdatePlaying(true)
@@ -332,10 +307,10 @@ class MediaListCtrl extends Component<Props, State> {
   }
 
   render() {
-    const { adjustTopPosition, episodeId, mediaPlayer, podcastId, user } = this.props
+    const { adjustTopPosition, episodeId, mediaPlayer, pageKey, pages, podcastId, user } = this.props
     const { nowPlayingItem: mpNowPlayingItem } = mediaPlayer
     const { endReached, isLoadingInitial, isLoadingMore, listItems, queryFrom, queryPage,
-      querySort, queryType } = this.state
+      querySort, queryType } = pages[pageKey]
 
     let mediaListItemType = 'now-playing-item'
     if (queryType === 'episodes') {
