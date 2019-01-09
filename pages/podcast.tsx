@@ -12,7 +12,6 @@ import { getEpisodesByQuery, getMediaRefsByQuery, getPodcastById } from '~/servi
 import { clone } from '~/lib/utility'
 
 type Props = {
-  listItems?: any
   pageKeyWithId?: string
   pagesSetQueryState?: any
   playerQueue?: any

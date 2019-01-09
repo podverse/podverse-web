@@ -1,50 +1,72 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { getCategoriesByQuery, getPodcastsByQuery } from '~/services'
-import { pageIsLoading } from '~/redux/actions'
+import { pageIsLoading, pagesSetQueryState } from '~/redux/actions'
 import PodcastListCtrl from '~/components/PodcastListCtrl/PodcastListCtrl';
+import { bindActionCreators } from 'redux';
 
 type Props = {
   allCategories?: any[]
-  listItems?: any
+  categoryId?: string
+  pagesSetQueryState?: any
   playerQueue?: any
-  queryCategoryId?: any
+  queryFrom?: string
   queryPage: number
   querySort?: any
 }
 
 type State = {}
 
+const kPageKey = 'podcasts'
+
 class Podcasts extends Component<Props, State> {
 
-  static async getInitialProps({ query, req, store }) {
+  static async getInitialProps({ query, store }) {
     const state = store.getState()
-    const { settings, user } = state
+    const { pages, settings, user } = state
     const { nsfwMode } = settings
-    const selectedCategoryId = query.categories
 
     const allCategoriesResult = await getCategoriesByQuery({})
     const allCategories = allCategoriesResult.data || []
+
+    const currentPage = pages[kPageKey] || {}
+    const categoryId = currentPage.categoryId || query.categoryId
+    const queryPage = currentPage.queryPage || query.page || 1
+    const querySort = currentPage.querySort || query.sort || 'top-past-week'
     
-    const queryDataResult = await getPodcastsByQuery(query, nsfwMode)
-    const listItems = queryDataResult.data
+    if (Object.keys(currentPage).length === 0) {
+      const queryDataResult = await getPodcastsByQuery({
+        ...(categoryId ? { categoryId } : {}),
+        page: queryPage,
+        sort: querySort
+      }, nsfwMode)
+
+      const listItems = queryDataResult.data
+
+      store.dispatch(pagesSetQueryState({
+        pageKey: kPageKey,
+        listItems,
+        queryPage,
+        querySort,
+      }))
+    }
 
     store.dispatch(pageIsLoading(false))
 
-    const { from: queryFrom, sort: querySort, type: queryType } = query
-    return { allCategories, listItems, query, queryFrom, querySort, queryType,
-      selectedCategoryId, user }
+    return { allCategories, categoryId, queryPage, querySort, user }
   }
 
   render() {
-    const { allCategories, listItems, queryCategoryId, queryPage, querySort
-      } = this.props
+    const { allCategories, categoryId, pagesSetQueryState, queryFrom, queryPage,
+      querySort } = this.props
     
     return (
       <PodcastListCtrl 
         allCategories={allCategories}
-        listItems={listItems}
-        queryCategoryId={queryCategoryId}
+        categoryId={categoryId}
+        handleSetPageQueryState={pagesSetQueryState}
+        pageKey={kPageKey}
+        queryFrom={queryFrom}
         queryPage={queryPage}
         querySort={querySort} />
     )
@@ -54,6 +76,8 @@ class Podcasts extends Component<Props, State> {
 
 const mapStateToProps = state => ({ ...state })
 
-const mapDispatchToProps = dispatch => ({})
+const mapDispatchToProps = dispatch => ({
+  pagesSetQueryState: bindActionCreators(pagesSetQueryState, dispatch)
+})
 
 export default connect(mapStateToProps, mapDispatchToProps)(Podcasts)
