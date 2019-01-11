@@ -50,30 +50,33 @@ class PVNavBar extends Component<Props, State> {
   } 
 
   dropdownItems () {
-    const { playerQueueLoadPriorityItems, user, userSetInfo } = this.props
+    const { pageIsLoading, playerQueueLoadPriorityItems, user, userSetInfo } = this.props
     const { id } = user
 
-    let dropdownItems = [
-      {
+    let dropdownItems = []
+
+    if (!!id) {
+      dropdownItems.push({
         as: '/my-profile',
         href: '/my-profile',
         label: 'My Profile',
-        onClick: () => {}
-      },
-      {
+        onClick: () => { pageIsLoading(true) }
+      })
+      dropdownItems.push({
         as: '/profiles',
         href: '/profiles',
         label: 'Profiles',
-        onClick: () => {}
-      },
-      {
-        as: '/settings',
-        href: '/settings',
-        label: 'Settings',
-        onClick: () => {}
-      }
-    ]
+        onClick: () => { pageIsLoading(true) }
+      })
+    }
 
+    dropdownItems.push({
+      as: '/settings',
+      href: '/settings',
+      label: 'Settings',
+      onClick: () => { pageIsLoading(true) }
+    })
+    
     if (!!id) {
       dropdownItems.push({
         as: '',

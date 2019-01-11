@@ -18,7 +18,7 @@ type State = {}
 
 class Playlists extends Component<Props, State> {
 
-  static async getInitialProps({ req, store }) {
+  static async getInitialProps({ store }) {
     const state = store.getState()
     const { user } = state
     

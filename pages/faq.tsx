@@ -68,10 +68,10 @@ class FAQ extends Component<Props, State> {
         <hr />
         <h4 id='monopoly-proof'>How is Podverse monopoly-proof?</h4>
         <p>
-          Podverse software is distributed under the AGPLv3 open source license, which allows anyone to freely use, modify, and distribute the software, as long as they share their modifications to the code as well. The share-alike requirement of the AGPLv3 ensures that the code is and will always remain free.
+          Podverse software is distributed under the AGPLv3 open source license, which allows anyone to freely use, modify, and distribute the software, as long as they share their modifications as well. The share-alike requirement of the AGPLv3 ensures that the code is and will always remain free.
         </p>
         <p>
-          Also, to prevent data lock-in, future releases of Podverse will be built in accordance with podcast open data standards, so that all Podverse data will be easily compatible with any app that follows those same data standards. The benefit of this is, say you wanted to stop using Podverse and use a different podcast app instead, you could download all your Podverse data and transfer it into the competitor's app, and get up and running without losing anything in the process.
+          Also, to prevent data lock-in, future releases of Podverse will be built in accordance with podcast open data standards, so that all Podverse data will be easily compatible with any app that follows those same data standards. The benefit of this is, if you wanted to stop using Podverse and use a different podcast app instead, you could download all your Podverse data and transfer it into the competitor's app, and get up and running without losing anything in the process. Even further than that, you could use multiple different podcast apps, but share data between all of them, so they are always in sync with one another.
         </p>
       </Fragment>
     )

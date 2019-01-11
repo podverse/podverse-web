@@ -26,7 +26,7 @@ type State = {}
 class PodcastListCtrl extends Component<Props, State> {
 
   static defaultProps: Props = {
-    handleSetPageQueryState: () => { },
+    handleSetPageQueryState: () => {},
     pageKey: 'default'
   }
 

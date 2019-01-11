@@ -10,45 +10,39 @@ import Link from 'next/link';
 const uuidv4 = require('uuid/v4')
 
 type Props = {
-  listItems?: any[]
+  handleSetPageQueryState: Function
   pageIsLoading?: any
+  pageKey: string
+  pages?: any
   queryPage?: number
   user?: any
 }
 
-type State = {
-  endReached?: boolean
-  isLoadingMore?: boolean
-  listItems: any[]
-  queryPage: number
-}
+type State = {}
 
 class UserListCtrl extends Component<Props, State> {
 
   static defaultProps: Props = {
-    listItems: [],
+    handleSetPageQueryState: () => { },
+    pageKey: 'default',
     queryPage: 1
   }
 
   constructor(props) {
     super(props)
 
-    this.state = {
-      listItems: props.listItems || [],
-      queryPage: props.queryPage
-    }
-
     this.linkClick = this.linkClick.bind(this)
     this.queryUserListItems = this.queryUserListItems.bind(this)
   }
 
   async queryUserListItems(page = 1) {
-    const { user } = this.props
-    const { listItems } = this.state
+    const { handleSetPageQueryState, pageKey, pages, user } = this.props
+    const { listItems } = pages[pageKey]
 
     let query: any = { page }
 
-    this.setState({
+    handleSetPageQueryState({
+      pageKey,
       isLoadingMore: true,
       queryPage: page
     })
@@ -66,14 +60,18 @@ class UserListCtrl extends Component<Props, State> {
       const users = response.data
       combinedListItems = combinedListItems.concat(users)
 
-      this.setState({
+      handleSetPageQueryState({
+        pageKey,
         endReached: users.length < 2,
         isLoadingMore: false,
         listItems: page > 1 ? combinedListItems : users
       })
     } catch (error) {
       console.log(error)
-      this.setState({ isLoadingMore: false })
+      handleSetPageQueryState({
+        pageKey,
+        isLoadingMore: false
+      })
     }
   }
 
@@ -84,7 +82,8 @@ class UserListCtrl extends Component<Props, State> {
   }
 
   render() {
-    const { endReached, isLoadingMore, listItems, queryPage } = this.state
+    const { pageKey, pages } = this.props
+    const { endReached, isLoadingMore, listItems, queryPage } = pages[pageKey]
 
     const listItemNodes = listItems.map(x => {
       return (
