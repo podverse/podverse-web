@@ -1,33 +1,42 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { Form, FormGroup, Input, InputGroup, InputGroupAddon } from 'reactstrap'
+import { ButtonGroup, Form, FormGroup, Input, InputGroup, InputGroupAddon } from 'reactstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { MediaListItem, PVButton as Button } from 'podverse-ui'
 import Meta from '~/components/meta'
-import { pageIsLoading } from '~/redux/actions'
+import { pageIsLoading, pagesSetQueryState } from '~/redux/actions'
 import { getPodcastsByQuery } from '~/services'
 const uuidv4 = require('uuid/v4')
 
 type Props = {
   pageIsLoading?: any
+  pages?: any
+  pagesSetQueryState?: any
   settings?: any
 }
 
 type State = {
-  endReached?: boolean
-  isLoadingMore?: boolean
-  isSearching?: boolean
-  podcasts?: any[]
-  queryPage: number
-  searchBy?: string
-  searchText?: string
+  currentSearch?: string
 }
+
+const kPageKey = 'search'
 
 class Search extends Component<Props, State> {
 
-  static async getInitialProps({ query, req, store }) {
+  static async getInitialProps({ query, store }) {
     store.dispatch(pageIsLoading(false))
+    const state = store.getState()
+    const { pages } = state
+
+    const currentPage = pages[kPageKey] || {}
+    const querySearchBy = currentPage.searchBy || query.searchBy || 'podcast'
+
+    store.dispatch(pagesSetQueryState({ 
+      pageKey: kPageKey,
+      searchBy: querySearchBy
+    }))
+
     return {}
   }
 
@@ -35,9 +44,7 @@ class Search extends Component<Props, State> {
     super(props)
 
     this.state = {
-      queryPage: 1,
-      searchBy: 'podcast',
-      searchText: ''
+      currentSearch: ''
     }
 
     this.handleSearchByChange = this.handleSearchByChange.bind(this)
@@ -47,48 +54,59 @@ class Search extends Component<Props, State> {
   }
 
   handleSearchByChange(searchBy) {
-    this.setState({ searchBy })
+    const { pagesSetQueryState } = this.props
+    pagesSetQueryState({
+      pageKey: kPageKey,
+      searchBy
+    })
   }
 
   handleSearchInputChange(event) {
-    const { value: searchText } = event.target
-    this.setState({ searchText })
+    const { value: currentSearch } = event.target
+    this.setState({ currentSearch })
   }
 
   async queryPodcasts(queryPage = 1, loadMore = false) {
-    this.setState({
+    const { pages, pagesSetQueryState, settings } = this.props
+    const { nsfwMode } = settings
+    const { listItems, searchBy, searchText } = pages[kPageKey]
+    const { currentSearch } = this.state
+    
+    if (!currentSearch) { return }
+
+    const query = { 
+      page: queryPage,
+      searchBy,
+      searchText: loadMore ? searchText : currentSearch
+    }
+
+    pagesSetQueryState({
+      pageKey: kPageKey,
       isLoadingMore: loadMore,
-      isSearching: !loadMore
+      isSearching: !loadMore,
+      searchText: loadMore ? searchText : currentSearch
     })
 
-    const { settings } = this.props
-    const { nsfwMode } = settings
-    const { podcasts, searchBy, searchText } = this.state
+    let combinedListItems: any = []
+
+    if (queryPage > 1) {
+      combinedListItems = listItems
+    }
 
     try {
-      const query = { 
-        page: queryPage,
-        searchBy,
-        searchText
-      }
       const response = await getPodcastsByQuery(query, nsfwMode)
-      const newPodcasts = response.data || []
-
-      let combinedPodcasts: any = []
-
-      if (queryPage > 1) {
-        combinedPodcasts = podcasts
-      }
-
-      combinedPodcasts = combinedPodcasts.concat(newPodcasts)
+      const podcasts = response.data || []
+      combinedListItems = combinedListItems.concat(podcasts)
       
-      this.setState({
-        endReached: newPodcasts.length < 2,
+      pagesSetQueryState({
+        pageKey: kPageKey,
+        endReached: podcasts.length < 2,
         isLoadingMore: false,
         isSearching: false,
-        podcasts: combinedPodcasts,
+        listItems: queryPage > 1 ? combinedListItems : podcasts,
         queryPage
       })
+
     } catch (error) {
       console.log(error)
       alert('Search failed. Please check your internet connection and try again.')
@@ -101,12 +119,14 @@ class Search extends Component<Props, State> {
   }
 
   render() {
-    const { endReached, isLoadingMore, isSearching, podcasts, queryPage, searchBy,
-      searchText } = this.state
+    const { pages } = this.props
+    const { endReached, isLoadingMore, isSearching, listItems, queryPage, searchBy } = pages[kPageKey]
+    const { currentSearch } = this.state
 
-    const placeholder = searchBy === 'podcast' ? 'search by podcast title' : 'search by podcast host'
+    const placeholder = searchBy === 'host'
+      ? 'search by host' : 'search by title'
 
-    const podcastNodes = podcasts ? podcasts.map(x => {
+    const listItemNodes = listItems ? listItems.map(x => {
       return (
         <MediaListItem
           dataPodcast={x}
@@ -125,7 +145,7 @@ class Search extends Component<Props, State> {
           autoComplete='off'
           className='search'>
           <FormGroup>
-            {/* <ButtonGroup
+            <ButtonGroup
               className='search__by'>
               <Button
                 className='search-by__podcast'
@@ -143,7 +163,7 @@ class Search extends Component<Props, State> {
                 outline>
                 Host
               </Button>
-            </ButtonGroup> */}
+            </ButtonGroup>
             <InputGroup>
               <Input
                 aria-label='Search input'
@@ -158,7 +178,7 @@ class Search extends Component<Props, State> {
                 }}
                 placeholder={placeholder}
                 type='text'
-                value={searchText} />
+                value={currentSearch} />
               <InputGroupAddon addonType='append'>
                 <Button
                   className='search__input-btn'
@@ -173,13 +193,13 @@ class Search extends Component<Props, State> {
         </Form>
         <div className={'media-list adjust-top-position'}>
           {
-            podcastNodes && podcastNodes.length > 0 &&
+            listItemNodes && listItemNodes.length > 0 &&
             <Fragment>
-              {podcastNodes}
+              {listItemNodes}
               <div className='media-list__load-more'>
                 {
                   endReached ?
-                    <p>End of results</p>
+                    <p className='no-results-msg'>End of results</p>
                     : <Button
                       className='media-list-load-more__button'
                       isLoading={isLoadingMore}
@@ -190,7 +210,7 @@ class Search extends Component<Props, State> {
             </Fragment>
           }
           {
-            (!endReached && podcastNodes && podcastNodes.length === 0) &&
+            (!endReached && listItemNodes && listItemNodes.length === 0) &&
             <div className='no-results-msg'>No podcasts found</div>
           }
         </div>
@@ -202,7 +222,8 @@ class Search extends Component<Props, State> {
 const mapStateToProps = state => ({ ...state })
 
 const mapDispatchToProps = dispatch => ({
-  pageIsLoading: bindActionCreators(pageIsLoading, dispatch)
+  pageIsLoading: bindActionCreators(pageIsLoading, dispatch),
+  pagesSetQueryState: bindActionCreators(pagesSetQueryState, dispatch)
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Search)

@@ -166,7 +166,6 @@ class MediaListCtrl extends Component<Props, State> {
           isLoadingMore: false
         })
       }
-
     }
   }
 
@@ -270,9 +269,22 @@ class MediaListCtrl extends Component<Props, State> {
   }
 
   async playItem(nowPlayingItem) {
-    const { mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying, pageKey, pages,
-      playerQueueLoadSecondaryItems, user, userSetInfo } = this.props
+    const { mediaPlayer, mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying,
+      pageKey, pages, playerQueueLoadSecondaryItems, user, userSetInfo } = this.props
     const { listItems } = pages[pageKey]
+    const { nowPlayingItem: previousItem } = mediaPlayer
+
+    // If loading a new episode, clear the player to prevent the error:
+    // TypeError: Failed to set the 'currentTime' property on 'HTMLMediaElement': The provided double value is non-finite.
+    // I don't know why this is happening because everywhere I am setting player.seekTo
+    // the value should be wrapped in a Math.floor().
+    // I also don't understand why this issue happens only for new episodes, but not new clips :(
+    if (nowPlayingItem 
+        && previousItem 
+        && !nowPlayingItem.clipStartTime
+        && nowPlayingItem.episodeId !== previousItem.episodeId) {
+      window.player = null
+    }
 
     mediaPlayerLoadNowPlayingItem(nowPlayingItem)
     mediaPlayerUpdatePlaying(true)
@@ -390,7 +402,7 @@ class MediaListCtrl extends Component<Props, State> {
                   <div className='media-list__load-more'>
                     {
                       endReached ?
-                        <p>End of results</p>
+                        <p className='no-results-msg'>End of results</p>
                         : <Button
                           className='media-list-load-more__button'
                           isLoading={isLoadingMore}

@@ -54,7 +54,7 @@ interface Playlist {
 
 class Playlist extends Component<Props, State> {
 
-  static async getInitialProps({ query, req, store }) {
+  static async getInitialProps({ query, store }) {
     const state = store.getState()
     const { user } = state
     const playlistResult = await getPlaylistById(query.id) || {}

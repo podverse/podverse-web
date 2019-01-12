@@ -104,10 +104,10 @@ class MediaPlayerView extends Component<Props, State> {
   }
 
   itemSkip = async () => {
-    const { mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying,
+    const { mediaPlayer, mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying,
       playerQueue, playerQueueLoadPriorityItems, playerQueueLoadSecondaryItems, user,
       userSetInfo } = this.props
-    
+    const previousItem = mediaPlayer.nowPlayingItem
     let nextItem
     let priorityItems = []
     let secondaryItems = []
@@ -135,6 +135,15 @@ class MediaPlayerView extends Component<Props, State> {
     }
 
     if (nextItem) {
+      // If loading a new episode, clear the player to prevent the error:
+      // TypeError: Failed to set the 'currentTime' property on 'HTMLMediaElement': The provided double value is non-finite.
+      // I don't know why this is happening because everywhere I am setting player.seekTo
+      // the value should be wrapped in a Math.floor().
+      // I also don't understand why this issue happens only for new episodes, but not new clips :(
+      if (!nextItem.clipStartTime && nextItem.episodeId !== previousItem.episodeId) {
+        window.player = null
+      }
+
       mediaPlayerLoadNowPlayingItem(nextItem)
 
       if (user && user.id) {

@@ -15,7 +15,7 @@ type State = {}
 
 const kPageKey = 'public_profiles'
 
-class PublicProfiles extends Component<Props, State> {
+class Profiles extends Component<Props, State> {
 
   static async getInitialProps({ query, store }) {
     const state = store.getState()
@@ -31,7 +31,7 @@ class PublicProfiles extends Component<Props, State> {
       const listItems = response.data
 
       store.dispatch(pagesSetQueryState({
-        endReached: listItems.length < 2,
+        endReached: listItems.length < 50,
         pageKey: kPageKey,
         listItems,
         queryPage
@@ -65,4 +65,4 @@ const mapDispatchToProps = dispatch => ({
   pagesSetQueryState: bindActionCreators(pagesSetQueryState, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(PublicProfiles)
+export default connect(mapStateToProps, mapDispatchToProps)(Profiles)

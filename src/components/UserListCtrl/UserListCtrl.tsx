@@ -62,7 +62,7 @@ class UserListCtrl extends Component<Props, State> {
 
       handleSetPageQueryState({
         pageKey,
-        endReached: users.length < 2,
+        endReached: users.length < 50,
         isLoadingMore: false,
         listItems: page > 1 ? combinedListItems : users
       })
@@ -103,7 +103,7 @@ class UserListCtrl extends Component<Props, State> {
             <div className='media-list__load-more'>
               {
                 endReached ?
-                  <p>End of results</p>
+                  <p className='no-results-msg'>End of results</p>
                   : <Button
                     className='media-list-load-more__button'
                     isLoading={isLoadingMore}

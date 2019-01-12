@@ -13,7 +13,6 @@ import { clone } from '~/lib/utility'
 
 type Props = {
   episode?: any
-  listItems?: any
   pageKeyWithId?: string
   pagesSetQueryState?: any
   playerQueue?: any

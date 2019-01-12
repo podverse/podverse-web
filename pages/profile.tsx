@@ -6,13 +6,15 @@ import UserHeaderCtrl from '~/components/UserHeaderCtrl/UserHeaderCtrl'
 import UserMediaListCtrl from '~/components/UserMediaListCtrl/UserMediaListCtrl'
 import { convertToNowPlayingItem } from '~/lib/nowPlayingItem'
 import { clone } from '~/lib/utility'
-import { pageIsLoading, playerQueueLoadSecondaryItems, pagesSetQueryState } from '~/redux/actions'
-import { getLoggedInUserMediaRefs, getLoggedInUserPlaylists, getPodcastsByQuery
-  } from '~/services'
+import { pageIsLoading, pagesSetQueryState, playerQueueLoadSecondaryItems
+  } from '~/redux/actions'
+import { getPodcastsByQuery, getPublicUser, getUserMediaRefs, getUserPlaylists } from '~/services'
 
 type Props = {
   listItems?: any[]
+  pageKeyWithId?: string
   pagesSetQueryState?: any
+  publicUser?: any
   queryPage?: number
   querySort?: string
   queryType?: string
@@ -21,81 +23,84 @@ type Props = {
 
 type State = {}
 
-const kPageKey = 'my_profile'
+const kPageKey = 'public_profile_'
 
-class MyProfile extends Component<Props, State> {
+class Profile extends Component<Props, State> {
 
-  static async getInitialProps({ bearerToken, query, req, store }) {
+  static async getInitialProps({ query, store }) {
+    const pageKeyWithId = `${kPageKey}${query.id}`
     const state = store.getState()
-    const { pages, settings, user } = state
+    const { pages, settings } = state
     const { nsfwMode } = settings
-    
-    const currentPage = pages[kPageKey] || {}
+
+    const currentId = query.id
+    const currentPage = pages[pageKeyWithId] || {}
     const queryPage = currentPage.queryPage || query.page || 1
     const querySort = currentPage.querySort || query.sort || 'top-past-week'
     const queryType = currentPage.queryType || query.type || 'podcasts'
+    let publicUser
 
     if (Object.keys(currentPage).length === 0) {
+      const response = await getPublicUser(currentId)
+      publicUser = response.data
       let queryDataResult
       let listItems = []
-
-      if (queryType === 'clips') {
-        queryDataResult = await getLoggedInUserMediaRefs(bearerToken, nsfwMode, queryPage)
-        listItems = queryDataResult.data
+      
+      if (query.type === 'clips') {
+        queryDataResult = await getUserMediaRefs(currentId, nsfwMode)
         listItems = queryDataResult.data.map(x => convertToNowPlayingItem(x))
         store.dispatch(playerQueueLoadSecondaryItems(clone(listItems)))
-      } else if (queryType === 'playlists') {
-        queryDataResult = await getLoggedInUserPlaylists(bearerToken, queryPage)
+      } else if (query.type === 'playlists') {
+        queryDataResult = await getUserPlaylists(currentId)
         listItems = queryDataResult.data
-      } else if (queryType === 'podcasts') {
+      } else {
         queryDataResult = await getPodcastsByQuery({
           from: 'subscribed-only',
-          page: queryPage,
-          subscribedPodcastIds: user.subscribedPodcastIds
+          subscribedPodcastIds: publicUser.subscribedPodcastIds
         }, nsfwMode)
         listItems = queryDataResult.data
       }
 
       store.dispatch(pagesSetQueryState({
-        pageKey: kPageKey,
+        pageKey: pageKeyWithId,
         listItems,
         queryPage,
         querySort,
         queryType
       }))
     }
-    
+
     store.dispatch(pageIsLoading(false))
 
-    return { user }
+    return { pageKeyWithId, publicUser }
   }
 
   render() {
-    const { pagesSetQueryState, queryPage, querySort, queryType, user } = this.props
+    const { pageKeyWithId, pagesSetQueryState, publicUser, queryPage, querySort,
+      queryType, user } = this.props
 
     return (
       <div className='user-profile'>
         <Meta />
         {
-          !user &&
-          <h3>Page not found</h3>
+          !publicUser &&
+            <h3>Page not found</h3>
         }
         {
-          user &&
-          <Fragment>
-            <UserHeaderCtrl
-              loggedInUser={user}
-              profileUser={user} />
-            <UserMediaListCtrl
-              handleSetPageQueryState={pagesSetQueryState}
-              isMyProfilePage={true}
-              loggedInUser={user}
-              pageKey={kPageKey}
-              queryPage={queryPage}
-              querySort={querySort}
-              queryType={queryType}
-              profileUser={user} />
-          </Fragment>
+          publicUser &&
+            <Fragment>
+              <UserHeaderCtrl 
+                loggedInUser={user}
+                profileUser={publicUser} />
+              <UserMediaListCtrl
+                handleSetPageQueryState={pagesSetQueryState}
+                loggedInUser={user}
+                pageKey={pageKeyWithId}
+                profileUser={publicUser}
+                queryPage={queryPage}
+                querySort={querySort}
+                queryType={queryType} />
+            </Fragment>
         }
       </div>
     )
@@ -108,4 +113,4 @@ const mapDispatchToProps = dispatch => ({
   pagesSetQueryState: bindActionCreators(pagesSetQueryState, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(MyProfile)
+export default connect(mapStateToProps, mapDispatchToProps)(Profile)

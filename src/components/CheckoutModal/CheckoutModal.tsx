@@ -21,6 +21,7 @@ const customStyles = {
     left: '50%',
     maxWidth: '380px',
     overflow: 'unset',
+    padding: '20px 20px 25px 20px',
     right: 'unset',
     textAlign: 'center',
     top: '50%',
@@ -76,10 +77,10 @@ class CheckoutModal extends React.Component<Props, State> {
             total={3} />
           <hr />
           <Button
-            className='checkout-modal__coinbase'
+            className='checkout-modal__coingate'
             color='secondary'
             onClick={this.createCoingateOrder}>
-            Pay with Crypto
+            Crypto Checkout
           </Button>
         </div>
       </Modal>

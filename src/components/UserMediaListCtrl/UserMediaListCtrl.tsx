@@ -2,6 +2,7 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { MediaListSelect, PVButton as Button } from 'podverse-ui'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { bindActionCreators } from 'redux'
 import MediaListItemCtrl from '~/components/MediaListItemCtrl/MediaListItemCtrl'
 import { convertToNowPlayingItem } from '~/lib/nowPlayingItem'
@@ -16,12 +17,14 @@ const uuidv4 = require('uuid/v4')
 type Props = {
   adjustTopPosition?: boolean
   currentId?: string
+  handleSetPageQueryState: Function
   isMyProfilePage?: boolean
-  listItems: any[]
   loggedInUser?: any
   mediaPlayer?: any
   mediaPlayerLoadNowPlayingItem?: any
   mediaPlayerUpdatePlaying?: any
+  pageKey: string
+  pages?: any
   playerQueueAddSecondaryItems?: any
   playerQueueLoadSecondaryItems?: any
   profileUser?: any
@@ -32,71 +35,47 @@ type Props = {
   userSetInfo?: any
 }
 
-type State = {
-  currentId?: string
-  endReached?: boolean
-  isLoadingMore?: boolean
-  listItems: any[]
-  queryPage: number
-  querySort?: string
-  queryType?: string
-}
+type State = {}
 
 class UserMediaListCtrl extends Component<Props, State> {
 
   static defaultProps: Props = {
-    listItems: [],
-    queryPage: 1,
-    querySort: 'top-past-week',
-    queryType: 'clips'
+    handleSetPageQueryState: () => { },
+    pageKey: 'default',
+    queryPage: 1
   }
 
   constructor(props) {
     super(props)
 
-    this.state = {
-      currentId: props.currentId,
-      endReached: props.listItems && props.listItems.length > 0 && props.listItems.length < 2,
-      listItems: props.listItems || [],
-      queryPage: props.queryPage,
-      querySort: props.querySort,
-      queryType: props.queryType
-    }
-
     this.playItem = this.playItem.bind(this)
     this.queryMediaListItems = this.queryMediaListItems.bind(this)
   }
 
-  static getDerivedStateFromProps(props, current_state) {
-    if (props.currentId !== current_state.currentId) {
-      return {
-        currentId: props.currentId,
-        listItems: props.listItems || [],
-        queryPage: props.queryPage,
-        querySort: props.querySort,
-        queryType: props.queryType
-      }
-    }
-
-    return null
-  }
-
   async queryMediaListItems(selectedKey = '', selectedValue = '', page = 1) {
-    const { isMyProfilePage, playerQueueAddSecondaryItems, playerQueueLoadSecondaryItems,
-      profileUser, settings } = this.props
+    const { handleSetPageQueryState, isMyProfilePage, pages, pageKey,
+      playerQueueAddSecondaryItems, playerQueueLoadSecondaryItems, profileUser,
+      settings } = this.props
     const { nsfwMode } = settings
-    const { listItems, querySort, queryType } = this.state
+    const { listItems, querySort, queryType } = pages[pageKey]
 
     let query: any = {
-      id: '',
       page,
       sort: querySort,
       type: queryType
     }
 
-    this.setState({ isLoadingMore: true })
+    if (page > 1) {
+      handleSetPageQueryState({
+        pageKey,
+        isLoadingMore: true
+      })
+    }
 
-    let newState: any = { queryPage: page }
+    let newState: any = { 
+      pageKey,
+      queryPage: page
+    }
 
     if (selectedKey === 'type') {
       newState.queryType = selectedValue
@@ -106,7 +85,11 @@ class UserMediaListCtrl extends Component<Props, State> {
       query.sort = selectedValue
     }
 
-    this.setState(newState)
+    if (['type', 'sort'].includes(selectedKey)) {
+      newState.isLoadingInitial = true
+    }
+
+    handleSetPageQueryState(newState)
     
     let combinedListItems: any = []
 
@@ -122,14 +105,20 @@ class UserMediaListCtrl extends Component<Props, State> {
         const podcasts = response.data
         combinedListItems = combinedListItems.concat(podcasts)
 
-        this.setState({
+        handleSetPageQueryState({
+          pageKey,
           endReached: podcasts.length < 2,
+          isLoadingInitial: false,
           isLoadingMore: false,
           listItems: page > 1 ? combinedListItems : podcasts
         })
       } catch (error) {
         console.log(error)
-        this.setState({ isLoadingMore: false })
+        handleSetPageQueryState({
+          pageKey,
+          isLoadingInitial: false,
+          isLoadingMore: false
+        })
       }
     } else if (query.type === 'clips') {
       try {
@@ -158,14 +147,20 @@ class UserMediaListCtrl extends Component<Props, State> {
           playerQueueLoadSecondaryItems(clone(mediaRefs))
         }
 
-        this.setState({
+        handleSetPageQueryState({
+          pageKey,
           endReached: mediaRefs.length < 2,
+          isLoadingInitial: false,
           isLoadingMore: false,
           listItems: page > 1 ? combinedListItems : mediaRefs
         })
       } catch (error) {
         console.log(error)
-        this.setState({ isLoadingMore: false })
+        handleSetPageQueryState({
+          pageKey,
+          isLoadingInitial: false,
+          isLoadingMore: false
+        })
       }
     } else if (query.type === 'playlists') {
       try {
@@ -178,16 +173,21 @@ class UserMediaListCtrl extends Component<Props, State> {
         const playlists = response.data
         combinedListItems = combinedListItems.concat(playlists)
 
-        this.setState({
+        handleSetPageQueryState({
+          pageKey,
           endReached: playlists.length < 2,
+          isLoadingInitial: false,
           isLoadingMore: false,
           listItems: page > 1 ? combinedListItems : playlists
         })
       } catch (error) {
         console.log(error)
-        this.setState({ isLoadingMore: false })
+        handleSetPageQueryState({
+          pageKey,
+          isLoadingInitial: false,
+          isLoadingMore: false
+        })
       }
-
     }
   }
 
@@ -258,8 +258,8 @@ class UserMediaListCtrl extends Component<Props, State> {
 
   async playItem(nowPlayingItem) {
     const { loggedInUser, mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying,
-      playerQueueLoadSecondaryItems, userSetInfo } = this.props
-    const { listItems } = this.state
+      pages, pageKey, playerQueueLoadSecondaryItems, userSetInfo } = this.props
+    const { listItems } = pages[pageKey]
 
     mediaPlayerLoadNowPlayingItem(nowPlayingItem)
     mediaPlayerUpdatePlaying(true)
@@ -290,22 +290,24 @@ class UserMediaListCtrl extends Component<Props, State> {
   }
 
   render() {
-    const { adjustTopPosition, mediaPlayer } = this.props
+    const { adjustTopPosition, mediaPlayer, pages, pageKey, profileUser
+      } = this.props
     const { nowPlayingItem: mpNowPlayingItem } = mediaPlayer
-    const { endReached, isLoadingMore, listItems, queryPage, querySort, queryType
-      } = this.state
-
+    const { endReached, isLoadingInitial, isLoadingMore, listItems,
+      queryPage, querySort, queryType } = pages[pageKey]
+    const username = `${profileUser.name || 'This person'}`
+    
     let mediaListItemType = 'now-playing-item'
     let noResultsMsg = ''
     if (queryType === 'clips') {
       mediaListItemType = 'now-playing-item'
-      noResultsMsg = 'This person has not created public clips.'
+      noResultsMsg = `No results`
     } else if (queryType === 'playlists') {
       mediaListItemType = 'playlist'
-      noResultsMsg = 'This person has not created public playlists.'
+      noResultsMsg = `No results`
     } else if (queryType === 'podcasts') {
       mediaListItemType = 'podcast'
-      noResultsMsg = 'This person is not subscribed to any podcasts.'
+      noResultsMsg = `${username} is not subscribed to any podcasts`
     }
 
     const listItemNodes = listItems.map(x => {
@@ -343,29 +345,43 @@ class UserMediaListCtrl extends Component<Props, State> {
               items={this.getQueryTypeOptions()}
               selected={selectedQueryTypeOption.length > 0 ? selectedQueryTypeOption[0].value : null} />
           </div>
-          <div className='media-list-selects__right'>
-            <MediaListSelect
-              className='align-right'
-              items={this.getQuerySortOptions()}
-              selected={selectedQuerySortOption.length > 0 ? selectedQuerySortOption[0].value : null} />
-          </div>
+          {
+            queryType !== 'playlists' &&
+              <div className='media-list-selects__right'>
+                <MediaListSelect
+                  className='align-right'
+                  items={this.getQuerySortOptions()}
+                  selected={selectedQuerySortOption.length > 0 ? selectedQuerySortOption[0].value : null} />
+              </div>
+          }
         </div>
         {
-          listItemNodes && listItemNodes.length > 0 &&
-          <Fragment>
-            {listItemNodes}
-            <div className='media-list__load-more'>
-              {
-                endReached ?
-                  <p>End of results</p>
-                  : <Button
-                    className='media-list-load-more__button'
-                    isLoading={isLoadingMore}
-                    onClick={() => this.queryMediaListItems('', '', queryPage + 1)}
-                    text='Load More' />
-              }
+          isLoadingInitial &&
+            <div className='media-list__loader'>
+              <FontAwesomeIcon icon='spinner' spin />
             </div>
-          </Fragment>
+        }
+        {
+          !isLoadingInitial &&
+            <Fragment>
+              {
+                listItemNodes && listItemNodes.length > 0 &&
+                <Fragment>
+                  {listItemNodes}
+                  <div className='media-list__load-more'>
+                    {
+                      endReached ?
+                        <p className='no-results-msg'>End of results</p>
+                        : <Button
+                            className='media-list-load-more__button'
+                            isLoading={isLoadingMore}
+                            onClick={() => this.queryMediaListItems('', '', queryPage + 1)}
+                            text='Load More' />
+                    }
+                  </div>
+                </Fragment>
+              }
+            </Fragment> 
         }
         {
           listItemNodes.length === 0 &&

@@ -371,7 +371,7 @@ class MediaModals extends Component<Props, State> {
     if (makeClipIsEditing) {
       makeClipStartTime = makeClipNowPlayingItem.clipStartTime
     } else if (typeof window !== 'undefined' && window.player) {
-      makeClipStartTime = window.player.getCurrentTime()
+      makeClipStartTime = Math.floor(window.player.getCurrentTime())
     }
 
     let clipCreatedLinkHref = ''
