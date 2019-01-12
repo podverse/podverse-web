@@ -39,14 +39,8 @@ const PAYPAL_ENV = paypalConfig.env
 
 class CheckoutModal extends React.Component<Props, State> {
 
-  constructor (props) {
-    super(props)
-
-    this.state = {}
-  }
-
   createCoingateOrder () {
-    console.log('coingate')
+    createCoingateOrder()
   }
 
   render () {

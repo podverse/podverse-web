@@ -97,7 +97,9 @@ class UserMediaListCtrl extends Component<Props, State> {
       combinedListItems = listItems
     }
 
-    if (query.type === 'podcasts') {
+    if (queryType === 'podcasts' 
+        && profileUser.subscribedPodcastIds
+        && profileUser.subscribedPodcastIds.length > 0) {
       try {
         query.subscribedPodcastIds = profileUser.subscribedPodcastIds
         query.from = 'subscribed-only'
@@ -188,6 +190,14 @@ class UserMediaListCtrl extends Component<Props, State> {
           isLoadingMore: false
         })
       }
+    } else {
+      handleSetPageQueryState({
+        pageKey,
+        endReached: true,
+        isLoadingInitial: false,
+        isLoadingMore: false,
+        listItems: []
+      })
     }
   }
 

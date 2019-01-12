@@ -3,8 +3,8 @@ import { actionTypes } from '~/redux/constants'
 const generateDataObj = payload => {
   if (payload) {
     const { categoryId, endReached, isLoadingInitial, isLoadingMore, isSearching,
-      listItems, queryFrom, queryPage, querySort, queryType, searchBy, searchText,
-      selected } = payload
+      listItems, publicUser, queryFrom, queryPage, querySort, queryType, searchBy,
+      searchText, selected } = payload
   
     return {
       ...(categoryId ? { categoryId } : {}),
@@ -13,6 +13,7 @@ const generateDataObj = payload => {
       ...(isLoadingMore || isLoadingMore === false ? { isLoadingMore } : {}),
       ...(isSearching || isSearching === false ? { isSearching } : {}),
       ...(listItems ? { listItems } : {}),
+      ...(publicUser ? { publicUser } : {}),
       ...(queryFrom ? { queryFrom } : {}),
       ...(queryPage ? { queryPage } : {}),
       ...(querySort ? { querySort } : {}),

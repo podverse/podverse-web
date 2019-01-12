@@ -95,6 +95,7 @@ class PaymentConfirmingCoingate extends Component<Props, State> {
             <FontAwesomeIcon icon='spinner' spin />
             <p>This may take a while. You may leave this page and check your <a href='/settings#membership'>Settings page</a> later
               to confirm your transaction has completed.</p>
+            <p>Thank you for using decentralized, open source technology :D</p>
           </Fragment>
         }
         {

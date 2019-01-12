@@ -38,7 +38,7 @@ class Profile extends Component<Props, State> {
     const queryPage = currentPage.queryPage || query.page || 1
     const querySort = currentPage.querySort || query.sort || 'top-past-week'
     const queryType = currentPage.queryType || query.type || 'podcasts'
-    let publicUser
+    let publicUser = currentPage.publicUser
 
     if (Object.keys(currentPage).length === 0) {
       const response = await getPublicUser(currentId)
@@ -53,7 +53,9 @@ class Profile extends Component<Props, State> {
       } else if (query.type === 'playlists') {
         queryDataResult = await getUserPlaylists(currentId)
         listItems = queryDataResult.data
-      } else {
+      } else if (queryType === 'podcasts' 
+                  && user.subscribedPodcastIds
+                  && user.subscribedPodcastIds.length > 0) {
         queryDataResult = await getPodcastsByQuery({
           from: 'subscribed-only',
           subscribedPodcastIds: publicUser.subscribedPodcastIds
@@ -64,6 +66,7 @@ class Profile extends Component<Props, State> {
       store.dispatch(pagesSetQueryState({
         pageKey: pageKeyWithId,
         listItems,
+        publicUser,
         queryPage,
         querySort,
         queryType
