@@ -246,11 +246,12 @@ class Settings extends Component<Props, State> {
         <ul>
           <li>Create and share playlists</li>
           <li>Edit your clips</li>
-          <li>Sync your podcast list on all devices</li>
           <li>Sync your queue on all devices</li>
-          <li>Support open source software and user data rights</li>
+          <li>Sync your podcast list on all devices</li>
+          <li>Share your user profile</li>
+          <li>Support open source software :)</li>
         </ul>
-        <p>$3 per year, checkout with PayPal or crypto</p>
+        <p>$3 per year, checkout with PayPal or BitPay</p>
         <div className='settings-membership__btns'>
           {
             user && user.id &&

@@ -21,7 +21,7 @@ class About extends Component<Props, State> {
         <h3>About</h3>
         <p>Create and share podcast highlights</p>
         <p>Create and share playlists</p>
-        <p>Subscribe to friends' profiles</p>
+        <p>Share your user profile</p>
         <p>Free and open source software <i className="fa fa-copyright fa-flip-horizontal"></i></p>
         <p>Will never sell user data</p>
         <hr />

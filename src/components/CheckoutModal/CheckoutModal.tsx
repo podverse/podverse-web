@@ -6,6 +6,7 @@ import { PVButton as Button, CloseButton } from 'podverse-ui'
 import PayPalButton from '~/components/PayPalButton/PayPalButton'
 import { paypalConfig } from '~/config'
 import { pageIsLoading } from '~/redux/actions'
+import { createBitPayInvoice } from '~/services'
 
 type Props = {
   handleHideModal: Function
@@ -21,7 +22,7 @@ const customStyles = {
     left: '50%',
     maxWidth: '380px',
     overflow: 'unset',
-    padding: '20px 20px 25px 20px',
+    padding: '20px 20px 30px 20px',
     right: 'unset',
     textAlign: 'center',
     top: '50%',
@@ -39,13 +40,29 @@ const PAYPAL_ENV = paypalConfig.env
 
 class CheckoutModal extends React.Component<Props, State> {
 
-  createCoingateOrder () {
-    createCoingateOrder()
+  constructor (props) {
+    super(props)
+
+    this.createBitPayOrder = this.createBitPayOrder.bind(this)
+  }
+
+  async createBitPayOrder () {
+    const { pageIsLoading } = this.props
+    pageIsLoading(true)
+    try {
+      const response = await createBitPayInvoice()
+      const obj = response.data
+      location.href = obj.url // Redirect to BitPay invoice
+    } catch (err) {
+      console.log(err)
+      pageIsLoading(false)
+      alert('Something went wrong. Please check your internet connection.')
+    }
   }
 
   render () {
     const { handleHideModal, isOpen, pageIsLoading } = this.props
-  
+
     // @ts-ignore
     const appEl = process.browser ? document.querySelector('body') : null
     
@@ -61,6 +78,8 @@ class CheckoutModal extends React.Component<Props, State> {
         <div style={{textAlign: 'center'}}>
           <h4>Checkout</h4>
           <CloseButton onClick={handleHideModal} />
+          <p>$3 = 1 year of Podverse Premium</p>
+          <p></p>
           <PayPalButton
             client={PAYPAL_CLIENT}
             commit={true}
@@ -69,13 +88,13 @@ class CheckoutModal extends React.Component<Props, State> {
             handlePageIsLoading={pageIsLoading}
             hideCheckoutModal={handleHideModal}
             total={3} />
-          <hr />
-          <Button
-            className='checkout-modal__coingate'
-            color='secondary'
-            onClick={this.createCoingateOrder}>
-            Crypto Checkout
-          </Button>
+          <input 
+            alt="Pay with BitPay"
+            className='checkout-modal__bitpay'
+            height="45px"
+            onClick={this.createBitPayOrder}
+            src="/static/images/bitpay-btn-pay.svg"
+            type="image" />
         </div>
       </Modal>
     )

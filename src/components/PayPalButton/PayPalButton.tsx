@@ -152,7 +152,7 @@ class PaypalButton extends React.Component<Props, State> {
               onError={onError}
               payment={payment}
               style={{
-                size: 'medium'
+                size: 'large'
               }} />
         }
         {
