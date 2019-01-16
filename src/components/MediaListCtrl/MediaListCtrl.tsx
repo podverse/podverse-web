@@ -104,6 +104,16 @@ class MediaListCtrl extends Component<Props, State> {
     if (query.from === 'from-podcast') {
       query.podcastId = podcastId
     } else if (query.from === 'subscribed-only') {
+      if (!subscribedPodcastIds || subscribedPodcastIds.length === 0) {
+        handleSetPageQueryState({
+          pageKey,
+          endReached: false,
+          isLoadingInitial: false,
+          isLoadingMore: false,
+          listItems: []
+        })
+        return
+      }
       query.subscribedPodcastIds = subscribedPodcastIds
     } else {
       // all-podcasts, add nothing

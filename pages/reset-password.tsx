@@ -3,12 +3,13 @@ import { Alert, Form, FormFeedback, FormGroup, FormText, Input, Label
   } from 'reactstrap'
 import Router from 'next/router'
 import { ButtonGroup, PVButton as Button } from 'podverse-ui'
-import Meta from '~/components/meta'
+import Meta from '~/components/Meta/Meta'
 import { internetConnectivityErrorMessage } from '~/lib/constants/misc'
-import { validatePassword } from '~/lib/utility'
+import { getUrlFromRequestOrWindow, validatePassword } from '~/lib/utility'
 import { resetPassword } from '~/services/auth'
 
 type Props = {
+  meta?: any
   passwordResetToken?: string
 }
 
@@ -27,7 +28,13 @@ class ResetPassword extends Component<Props, State> {
   static async getInitialProps({ query, req, store}) {
     const token = query.token
 
-    return { passwordResetToken: token }
+    const meta = {
+      currentUrl: getUrlFromRequestOrWindow(req),
+      description: 'Reset your account password on Podverse',
+      title: `Reset Password`
+    }
+
+    return { meta, passwordResetToken: token }
   }
 
   constructor(props) {
@@ -124,12 +131,22 @@ class ResetPassword extends Component<Props, State> {
   }
 
   render() {
+    const { meta } = this.props
     const { errorPassword, errorPasswordConfirm, errorResponse, isLoading, password,
       passwordConfirm, wasSuccessful } = this.state
 
     return (
       <Fragment>
-        <Meta />
+        <Meta
+          description={meta.description}
+          ogDescription={meta.description}
+          ogTitle={meta.title}
+          ogType='website'
+          ogUrl={meta.currentUrl}
+          robotsNoIndex={true}
+          title={meta.title}
+          twitterDescription={meta.description}
+          twitterTitle={meta.title} />
         <Form className='reset-password'>
           <h4>Reset Password</h4>
           {

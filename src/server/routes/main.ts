@@ -1,4 +1,5 @@
 import * as Router from 'koa-router'
+const fs = require('fs')
 
 export default (app) => {
   const router = new Router()
@@ -47,6 +48,11 @@ export default (app) => {
 
   router.get('/profiles', async ctx => {
     await app.render(ctx.req, ctx.res, '/profiles', ctx.query)
+  })
+
+  router.get('/apple-app-site-association', async ctx => {
+    const aasa = fs.readFileSync(__dirname + '/../../config/apple-app-site-association');
+    ctx.body = aasa
   })
 
   return router

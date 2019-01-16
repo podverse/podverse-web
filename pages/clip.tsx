@@ -5,8 +5,9 @@ import { addItemsToSecondaryQueueStorage, clearItemsFromSecondaryQueueStorage } 
 import MediaHeaderCtrl from '~/components/MediaHeaderCtrl/MediaHeaderCtrl'
 import MediaInfoCtrl from '~/components/MediaInfoCtrl/MediaInfoCtrl'
 import MediaListCtrl from '~/components/MediaListCtrl/MediaListCtrl'
+import Meta from '~/components/Meta/Meta'
 import { convertToNowPlayingItem } from '~/lib/nowPlayingItem'
-import { clone } from '~/lib/utility'
+import { clone, getUrlFromRequestOrWindow, removeDoubleQuotes } from '~/lib/utility'
 import { mediaPlayerLoadNowPlayingItem, pageIsLoading, pagesSetQueryState, 
   playerQueueLoadSecondaryItems } from '~/redux/actions'
 import { getEpisodesByQuery, getMediaRefsByQuery, getMediaRefById } from '~/services/'
@@ -14,6 +15,7 @@ import { getEpisodesByQuery, getMediaRefsByQuery, getMediaRefById } from '~/serv
 type Props = {
   listItems?: any
   mediaRef?: any
+  meta?: any
   pageKeyWithId?: string
   pagesSetQueryState?: any
   playerQueue?: any
@@ -31,7 +33,7 @@ const kPageKey = 'clip_'
 
 class Clip extends Component<Props, State> {
 
-  static async getInitialProps({ query, store }) {
+  static async getInitialProps({ query, req, store }) {
     const pageKeyWithId = `${kPageKey}${query.id}`
     const state = store.getState()
     const { mediaPlayer, pages, settings, user } = state
@@ -103,8 +105,17 @@ class Clip extends Component<Props, State> {
     }
 
     store.dispatch(pageIsLoading(false))
+
+    const meta = {
+      currentUrl: getUrlFromRequestOrWindow(req),
+      description: removeDoubleQuotes(`${mediaRef.description} - ${mediaRef.episode.title} - ${mediaRef.episode.podcast.title}`),
+      imageAlt: (mediaRef.episode.imageUrl || mediaRef.episode.podcast.imageUrl) ? 
+        `${mediaRef.episode.imageUrl ? mediaRef.episode.title : mediaRef.episode.podcast.title}` : 'Podverse logo',
+      imageUrl: mediaRef.episode.imageUrl || mediaRef.episode.podcast.imageUrl,
+      title: `${mediaRef.title} - ${mediaRef.episode.title} - ${mediaRef.episode.podcast.title}`
+    }
     
-    return { mediaRef, pageKeyWithId, queryFrom, querySort, queryType }
+    return { mediaRef, meta, pageKeyWithId, queryFrom, querySort, queryType }
   }
 
   componentDidMount () {
@@ -115,11 +126,24 @@ class Clip extends Component<Props, State> {
   }
 
   render () {
-    const { mediaRef, pageKeyWithId, pagesSetQueryState, queryFrom, queryPage,
-      querySort, queryType } = this.props
+    const { mediaRef, meta, pageKeyWithId, pagesSetQueryState, queryFrom,
+      queryPage, querySort, queryType } = this.props
 
     return (
       <Fragment>
+        <Meta
+          description={meta.description}
+          ogDescription={meta.description}
+          ogImage={meta.imageUrl}
+          ogTitle={meta.title}
+          ogType='website'
+          ogUrl={meta.currentUrl}
+          robotsNoIndex={false}
+          title={meta.title}
+          twitterDescription={meta.description}
+          twitterImage={meta.imageUrl}
+          twitterImageAlt={meta.imageAlt}
+          twitterTitle={meta.title} />
         <MediaHeaderCtrl mediaRef={mediaRef} />
         <MediaInfoCtrl mediaRef={mediaRef} />
         <MediaListCtrl

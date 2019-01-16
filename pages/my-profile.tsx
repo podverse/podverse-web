@@ -1,17 +1,18 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import Meta from '~/components/meta'
+import Meta from '~/components/Meta/Meta'
 import UserHeaderCtrl from '~/components/UserHeaderCtrl/UserHeaderCtrl'
 import UserMediaListCtrl from '~/components/UserMediaListCtrl/UserMediaListCtrl'
 import { convertToNowPlayingItem } from '~/lib/nowPlayingItem'
-import { clone } from '~/lib/utility'
+import { clone, getUrlFromRequestOrWindow } from '~/lib/utility'
 import { pageIsLoading, playerQueueLoadSecondaryItems, pagesSetQueryState } from '~/redux/actions'
 import { getLoggedInUserMediaRefs, getLoggedInUserPlaylists, getPodcastsByQuery
   } from '~/services'
 
 type Props = {
   listItems?: any[]
+  meta?: any
   pagesSetQueryState?: any
   queryPage?: number
   querySort?: string
@@ -69,15 +70,31 @@ class MyProfile extends Component<Props, State> {
     
     store.dispatch(pageIsLoading(false))
 
-    return { user }
+    const meta = {
+      currentUrl: getUrlFromRequestOrWindow(req),
+      description: 'My Podverse Profile. Subscribe to podcasts, playlists, and other profiles',
+      title: 'My Profile'
+    }
+
+    return { meta, user }
   }
 
   render() {
-    const { pagesSetQueryState, queryPage, querySort, queryType, user } = this.props
+    const { meta, pagesSetQueryState, queryPage, querySort, queryType, user
+      } = this.props
 
     return (
       <div className='user-profile'>
-        <Meta />
+        <Meta
+          description={meta.description}
+          ogDescription={meta.description}
+          ogTitle={meta.title}
+          ogType='website'
+          ogUrl={meta.currentUrl}
+          robotsNoIndex={true}
+          title={meta.title}
+          twitterDescription={meta.description}
+          twitterTitle={meta.title} />
         {
           !user &&
           <h3>Page not found</h3>

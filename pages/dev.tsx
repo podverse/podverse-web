@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react'
-import Meta from '~/components/meta'
+import Meta from '~/components/Meta/Meta'
 
 type Props = {}
 
@@ -9,8 +9,7 @@ export default class extends Component<Props, State> {
   render() {
     return (
       <Fragment>
-        <Meta />
-        Dev
+        <h1>Coming Soon</h1>
       </Fragment>
     )
   }

@@ -1,23 +1,44 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
-import Meta from '~/components/meta'
+import Meta from '~/components/Meta/Meta'
+import { getUrlFromRequestOrWindow } from '~/lib/utility'
 import { pageIsLoading } from '~/redux/actions'
 
-type Props = {}
+type Props = {
+  meta?: any
+}
 
 type State = {}
 
 class Terms extends Component<Props, State> {
 
-  static async getInitialProps({ store }) {
+  static async getInitialProps({ req, store }) {
     store.dispatch(pageIsLoading(false))
-    return {}
+
+    const meta = {
+      currentUrl: getUrlFromRequestOrWindow(req),
+      description: `Podverse's terms of service agreement.`,
+      title: `Terms of Service`
+    }
+
+    return { meta }
   }
 
   render() {
+    const { meta } = this.props
+
     return (
       <Fragment>
-        <Meta />
+        <Meta
+          description={meta.description}
+          ogDescription={meta.description}
+          ogTitle={meta.title}
+          ogType='website'
+          ogUrl={meta.currentUrl}
+          robotsNoIndex={false}
+          title={meta.title}
+          twitterDescription={meta.description}
+          twitterTitle={meta.title} />
         <h4>Terms of Service</h4>
         <p>
           <i>Podverse:</i>

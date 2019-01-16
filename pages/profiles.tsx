@@ -1,12 +1,15 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import Meta from '~/components/Meta/Meta'
 import UserListCtrl from '~/components/UserListCtrl/UserListCtrl'
+import { getUrlFromRequestOrWindow } from '~/lib/utility'
 import { pageIsLoading, pagesSetQueryState } from '~/redux/actions'
 import { getPublicUsersByQuery } from '~/services'
 
 type Props = {
   listItems?: any
+  meta?: any
   pagesSetQueryState?: any
   queryPage: number
 }
@@ -17,7 +20,7 @@ const kPageKey = 'public_profiles'
 
 class Profiles extends Component<Props, State> {
 
-  static async getInitialProps({ query, store }) {
+  static async getInitialProps({ query, req, store }) {
     const state = store.getState()
     const { pages, user } = state
 
@@ -40,14 +43,30 @@ class Profiles extends Component<Props, State> {
 
     store.dispatch(pageIsLoading(false))
 
-    return { }
+    const meta = {
+      currentUrl: getUrlFromRequestOrWindow(req),
+      description: `My subscribed profiles on Podverse`,
+      title: `Profiles`
+    }
+
+    return { meta }
   }
 
   render() {
-    const { pagesSetQueryState, queryPage } = this.props
+    const { meta, pagesSetQueryState, queryPage } = this.props
 
     return (
       <Fragment>
+        <Meta
+          description={meta.description}
+          ogDescription={meta.description}
+          ogTitle={meta.title}
+          ogType='website'
+          ogUrl={meta.currentUrl}
+          robotsNoIndex={true}
+          title={meta.title}
+          twitterDescription={meta.description}
+          twitterTitle={meta.title} />
         <h3>Profiles</h3>
         <UserListCtrl
           handleSetPageQueryState={pagesSetQueryState}

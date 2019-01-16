@@ -18,3 +18,5 @@ export const paypalConfig = {
   production: process.env.PAYPAL_CLIENT_ID_PRODUCTION,
   sandbox: process.env.PAYPAL_CLIENT_ID_SANDBOX
 }
+
+export const metaDefaultImageUrl1200x630 = 'https://podverse.fm/static/images/podverse-logo-1200x630.png'

@@ -1,11 +1,14 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import Meta from '~/components/Meta/Meta'
+import { getUrlFromRequestOrWindow } from '~/lib/utility'
 import { pageIsLoading } from '~/redux/actions'
 import { getBitPayInvoiceStatusByOrderId } from '~/services/'
 
 type Props = {
   id: string
+  meta?: any
 }
 
 type State = {
@@ -21,7 +24,14 @@ class PaymentConfirmingBitPay extends Component<Props, State> {
 
   static async getInitialProps({ query, req, store }) {
     store.dispatch(pageIsLoading(false))
-    return { id: query.id }
+
+    const meta = {
+      currentUrl: getUrlFromRequestOrWindow(req),
+      description: 'BitPay payment confirmation screen on Podverse',
+      title: 'Confirming BitPay payment...'
+    }
+
+    return { id: query.id, meta }
   }
 
   constructor(props) {
@@ -84,11 +94,21 @@ class PaymentConfirmingBitPay extends Component<Props, State> {
   }
 
   render() {
-    const { id } = this.props
+    const { id, meta } = this.props
     const { hasError, isChecking, wasSuccessful } = this.state
 
     return (
       <Fragment>
+        <Meta
+          description={meta.description}
+          ogDescription={meta.description}
+          ogTitle={meta.title}
+          ogType='website'
+          ogUrl={meta.currentUrl}
+          robotsNoIndex={true}
+          title={meta.title}
+          twitterDescription={meta.description}
+          twitterTitle={meta.title} />
         {
           !id &&
             <p>Page not found</p>

@@ -5,13 +5,15 @@ import { addItemsToSecondaryQueueStorage, clearItemsFromSecondaryQueueStorage } 
 import MediaHeaderCtrl from '~/components/MediaHeaderCtrl/MediaHeaderCtrl'
 import MediaInfoCtrl from '~/components/MediaInfoCtrl/MediaInfoCtrl'
 import MediaListCtrl from '~/components/MediaListCtrl/MediaListCtrl'
+import Meta from '~/components/Meta/Meta'
 import { convertToNowPlayingItem } from '~/lib/nowPlayingItem'
+import { clone, getUrlFromRequestOrWindow, removeDoubleQuotes } from '~/lib/utility'
 import { pageIsLoading, pagesSetQueryState, playerQueueLoadSecondaryItems
   } from '~/redux/actions'
 import { getEpisodesByQuery, getMediaRefsByQuery, getPodcastById } from '~/services/'
-import { clone } from '~/lib/utility'
 
 type Props = {
+  meta?: any
   pageKeyWithId?: string
   pagesSetQueryState?: any
   playerQueue?: any
@@ -30,7 +32,7 @@ const kPageKey = 'podcast_'
 
 class Podcast extends Component<Props, State> {
 
-  static async getInitialProps({ query, store }) {
+  static async getInitialProps({ query, req, store }) {
     const pageKeyWithId = `${kPageKey}${query.id}`
     const state = store.getState()
     const { pages, settings, user } = state
@@ -89,7 +91,15 @@ class Podcast extends Component<Props, State> {
 
     store.dispatch(pageIsLoading(false))
 
-    return { pageKeyWithId, podcast, queryFrom, queryPage, querySort, queryType }
+    const meta = {
+      currentUrl: getUrlFromRequestOrWindow(req),
+      description: removeDoubleQuotes(podcast.description),
+      imageAlt: podcast.imageUrl ? podcast.title : 'Podverse logo',
+      imageUrl: podcast.imageUrl,
+      title: podcast.title
+    }
+
+    return { meta, pageKeyWithId, podcast, queryFrom, queryPage, querySort, queryType }
   }
 
   componentDidMount() {
@@ -100,11 +110,24 @@ class Podcast extends Component<Props, State> {
   }
 
   render() {
-    const { pageKeyWithId, pagesSetQueryState, podcast, queryFrom, queryPage,
+    const { meta, pageKeyWithId, pagesSetQueryState, podcast, queryFrom, queryPage,
       querySort, queryType } = this.props
 
     return (
       <Fragment>
+        <Meta
+          description={meta.description}
+          ogDescription={meta.description}
+          ogImage={meta.imageUrl}
+          ogTitle={meta.title}
+          ogType='website'
+          ogUrl={meta.currentUrl}
+          robotsNoIndex={false}
+          title={meta.title}
+          twitterDescription={meta.description}
+          twitterImage={meta.imageUrl}
+          twitterImageAlt={meta.imageAlt}
+          twitterTitle={meta.title} />
         <MediaHeaderCtrl podcast={podcast} />
         <MediaInfoCtrl podcast={podcast} />
         <MediaListCtrl

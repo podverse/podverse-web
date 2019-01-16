@@ -5,14 +5,16 @@ import { addItemsToSecondaryQueueStorage, clearItemsFromSecondaryQueueStorage } 
 import MediaHeaderCtrl from '~/components/MediaHeaderCtrl/MediaHeaderCtrl'
 import MediaInfoCtrl from '~/components/MediaInfoCtrl/MediaInfoCtrl'
 import MediaListCtrl from '~/components/MediaListCtrl/MediaListCtrl'
+import Meta from '~/components/Meta/Meta'
 import { convertToNowPlayingItem } from '~/lib/nowPlayingItem'
+import { clone, getUrlFromRequestOrWindow, removeDoubleQuotes } from '~/lib/utility'
 import { mediaPlayerLoadNowPlayingItem, pageIsLoading, pagesSetQueryState,
   playerQueueLoadSecondaryItems } from '~/redux/actions'
 import { getEpisodeById, getEpisodesByQuery, getMediaRefsByQuery } from '~/services/'
-import { clone } from '~/lib/utility'
 
 type Props = {
   episode?: any
+  meta?: any
   pageKeyWithId?: string
   pagesSetQueryState?: any
   playerQueue?: any
@@ -26,11 +28,11 @@ type Props = {
 
 type State = {}
 
-const kPageKey = 'podcast_'
+const kPageKey = 'episode_'
 
 class Episode extends Component<Props, State> {
 
-  static async getInitialProps({ query, store }) {
+  static async getInitialProps({ query, req, store }) {
     const pageKeyWithId = `${kPageKey}${query.id}`
     const state = store.getState()
     const { mediaPlayer, pages, settings, user } = state
@@ -102,8 +104,18 @@ class Episode extends Component<Props, State> {
     }
 
     store.dispatch(pageIsLoading(false))
+    
+    const meta = {
+      currentUrl: getUrlFromRequestOrWindow(req),
+      description: removeDoubleQuotes(episode.description),
+      imageAlt: (episode.imageUrl || episode.podcast.imageUrl)
+        ? `${episode.imageUrl ? episode.title : episode.podcast.title}`
+        : 'Podverse logo',
+      imageUrl: episode.imageUrl || episode.podcast.imageUrl,
+      title: `${episode.title} - ${episode.podcast.title}`
+    }
 
-    return { episode, pageKeyWithId, queryFrom, querySort, queryType }
+    return { episode, meta, pageKeyWithId, queryFrom, querySort, queryType }
   }
 
   componentDidMount() {
@@ -114,11 +126,22 @@ class Episode extends Component<Props, State> {
   }
 
   render() {
-    const { episode, pageKeyWithId, pagesSetQueryState, queryFrom, queryPage,
+    const { episode, meta, pageKeyWithId, pagesSetQueryState, queryFrom, queryPage,
       querySort, queryType } = this.props
 
     return (
       <Fragment>
+        <Meta
+          description={meta.description}
+          ogDescription={meta.description}
+          ogTitle={meta.title}
+          ogType='website'
+          ogUrl={meta.currentUrl}
+          robotsNoIndex={false}
+          title={meta.title}
+          twitterDescription={meta.description}
+          twitterImageAlt={meta.imageAlt}
+          twitterTitle={meta.title} />
         <MediaHeaderCtrl episode={episode} />
         <MediaInfoCtrl episode={episode} />
         <MediaListCtrl

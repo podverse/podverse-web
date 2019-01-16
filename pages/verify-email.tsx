@@ -1,33 +1,50 @@
 import React, { Component, Fragment } from 'react'
-import Meta from '~/components/meta'
+import Meta from '~/components/Meta/Meta'
+import { getUrlFromRequestOrWindow } from '~/lib/utility'
 import { verifyEmail } from '~/services/auth'
 
 type Props = {
   hasError?: string
+  meta?: any
 }
 
 type State = {}
 
 class VerifyEmail extends Component<Props, State> {
 
-  static async getInitialProps({ query, req, store }) {
+  static async getInitialProps({ query, req }) {
     const token = query.token
+
+    const meta = {
+      currentUrl: getUrlFromRequestOrWindow(req),
+      description: `Verify your email address on Podverse`,
+      title: `Verify your email address`
+    }
     
     try {
       await verifyEmail(token)
 
-      return {}
+      return { meta }
     } catch (error) {
-      return { hasError: true }
+      return { hasError: true, meta }
     }
   }
 
   render() {
-    const { hasError } = this.props
+    const { hasError, meta } = this.props
 
     return (
       <Fragment>
-        <Meta />
+        <Meta
+          description={meta.description}
+          ogDescription={meta.description}
+          ogTitle={meta.title}
+          ogType='website'
+          ogUrl={meta.currentUrl}
+          robotsNoIndex={true}
+          title={meta.title}
+          twitterDescription={meta.description}
+          twitterTitle={meta.title} />
         {
           !hasError &&
             <Fragment>

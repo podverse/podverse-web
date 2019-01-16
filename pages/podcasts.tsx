@@ -1,13 +1,16 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
-import { getCategoriesByQuery, getPodcastsByQuery } from '~/services'
+import { bindActionCreators } from 'redux'
+import Meta from '~/components/Meta/Meta'
+import PodcastListCtrl from '~/components/PodcastListCtrl/PodcastListCtrl'
+import { getUrlFromRequestOrWindow } from '~/lib/utility'
 import { pageIsLoading, pagesSetQueryState } from '~/redux/actions'
-import PodcastListCtrl from '~/components/PodcastListCtrl/PodcastListCtrl';
-import { bindActionCreators } from 'redux';
+import { getCategoriesByQuery, getPodcastsByQuery } from '~/services'
 
 type Props = {
   allCategories?: any[]
   categoryId?: string
+  meta?: any
   pagesSetQueryState?: any
   playerQueue?: any
   queryFrom?: string
@@ -21,7 +24,7 @@ const kPageKey = 'podcasts'
 
 class Podcasts extends Component<Props, State> {
 
-  static async getInitialProps({ query, store }) {
+  static async getInitialProps({ query, req, store }) {
     const state = store.getState()
     const { pages, settings, user } = state
     const { nsfwMode } = settings
@@ -53,22 +56,40 @@ class Podcasts extends Component<Props, State> {
 
     store.dispatch(pageIsLoading(false))
 
-    return { allCategories, categoryId, queryPage, querySort, user }
+    const meta = {
+      currentUrl: getUrlFromRequestOrWindow(req),
+      description: 'Podcasts on Podverse. Find and subscribe to podcasts.',
+      title: `Podcasts`
+    }
+
+    return { allCategories, categoryId, meta, queryPage, querySort, user }
   }
 
   render() {
-    const { allCategories, categoryId, pagesSetQueryState, queryFrom, queryPage,
-      querySort } = this.props
+    const { allCategories, categoryId, meta, pagesSetQueryState, queryFrom,
+      queryPage, querySort } = this.props
     
     return (
-      <PodcastListCtrl 
-        allCategories={allCategories}
-        categoryId={categoryId}
-        handleSetPageQueryState={pagesSetQueryState}
-        pageKey={kPageKey}
-        queryFrom={queryFrom}
-        queryPage={queryPage}
-        querySort={querySort} />
+      <Fragment>
+        <Meta
+          description={meta.description}
+          ogDescription={meta.description}
+          ogTitle={meta.title}
+          ogType='website'
+          ogUrl={meta.currentUrl}
+          robotsNoIndex={true}
+          title={meta.title}
+          twitterDescription={meta.description}
+          twitterTitle={meta.title} />
+        <PodcastListCtrl 
+          allCategories={allCategories}
+          categoryId={categoryId}
+          handleSetPageQueryState={pagesSetQueryState}
+          pageKey={kPageKey}
+          queryFrom={queryFrom}
+          queryPage={queryPage}
+          querySort={querySort} />
+      </Fragment>
     )
   }
 

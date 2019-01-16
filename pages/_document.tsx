@@ -31,7 +31,7 @@ export default class MyDocument extends Document<Props> {
 
     return (
       // @ts-ignore
-      <html theme={initialUITheme}>
+      <html lang='en' theme={initialUITheme}>
         <body>
           <Head />
           <Main />

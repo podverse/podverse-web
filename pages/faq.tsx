@@ -1,23 +1,44 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
-import Meta from '~/components/meta'
+import Meta from '~/components/Meta/Meta'
+import { getUrlFromRequestOrWindow } from '~/lib/utility'
 import { pageIsLoading } from '~/redux/actions'
 
-type Props = {}
+type Props = {
+  meta?: any
+}
 
 type State = {}
 
 class FAQ extends Component<Props, State> {
 
-  static async getInitialProps({ query, req, store }) {
+  static async getInitialProps({ req, store }) {
     store.dispatch(pageIsLoading(false))
-    return {}
+
+    const meta = {
+      currentUrl: getUrlFromRequestOrWindow(req),
+      description: 'Podverse frequently asked questions',
+      title: 'FAQ'
+    }
+
+    return { meta }
   }
 
   render () {
+    const { meta } = this.props
+
     return (
       <Fragment>
-        <Meta />
+        <Meta
+          description={meta.description}
+          ogDescription={meta.description}
+          ogTitle={meta.title}
+          ogType='website'
+          ogUrl={meta.currentUrl}
+          robotsNoIndex={false}
+          title={meta.title}
+          twitterDescription={meta.description}
+          twitterTitle={meta.title} />
         <h3>FAQ</h3>
         <p><a href='https://goo.gl/forms/VGVJRWlKPIGRqojY2' target='_blank'>Ask a question</a></p>
         <h4>Table of Contents</h4>

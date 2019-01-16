@@ -3,11 +3,14 @@ import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { MediaListItem } from 'podverse-ui'
+import Meta from '~/components/Meta/Meta'
+import { getUrlFromRequestOrWindow } from '~/lib/utility'
 import { pageIsLoading } from '~/redux/actions'
 import { getPlaylistsByQuery } from '~/services'
 const uuidv4 = require('uuid/v4')
 
 type Props = {
+  meta?: any
   myPlaylists: any[]
   pageIsLoading?: any
   subscribedPlaylists: any[]
@@ -18,7 +21,7 @@ type State = {}
 
 class Playlists extends Component<Props, State> {
 
-  static async getInitialProps({ store }) {
+  static async getInitialProps({ req, store }) {
     const state = store.getState()
     const { user } = state
     
@@ -37,7 +40,13 @@ class Playlists extends Component<Props, State> {
 
     store.dispatch(pageIsLoading(false))
 
-    return { myPlaylists, subscribedPlaylists, user }
+    const meta = {
+      currentUrl: getUrlFromRequestOrWindow(req),
+      description: 'Playlists on Podverse. Create playlists of podcast clips and episodes.',
+      title: `Playlists`
+    }
+
+    return { meta, myPlaylists, subscribedPlaylists, user }
   }
 
   constructor(props) {
@@ -54,7 +63,7 @@ class Playlists extends Component<Props, State> {
   }
 
   render() {
-    const { myPlaylists, subscribedPlaylists, user } = this.props
+    const { meta, myPlaylists, subscribedPlaylists, user } = this.props
     
     const myPlaylistNodes = myPlaylists.map(x => (
         <MediaListItem
@@ -77,6 +86,16 @@ class Playlists extends Component<Props, State> {
 
     return (
       <Fragment>
+        <Meta
+          description={meta.description}
+          ogDescription={meta.description}
+          ogTitle={meta.title}
+          ogType='website'
+          ogUrl={meta.currentUrl}
+          robotsNoIndex={true}
+          title={meta.title}
+          twitterDescription={meta.description}
+          twitterTitle={meta.title} />
         {
           (!user || !user.id) &&
             <div className='no-results-msg'>Login to view your playlists</div>

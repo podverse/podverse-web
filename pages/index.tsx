@@ -3,14 +3,16 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { addItemsToSecondaryQueueStorage, clearItemsFromSecondaryQueueStorage } from 'podverse-ui'
 import MediaListCtrl from '~/components/MediaListCtrl/MediaListCtrl'
+import Meta from '~/components/Meta/Meta'
 import { convertToNowPlayingItem } from '~/lib/nowPlayingItem'
+import { clone, getUrlFromRequestOrWindow } from '~/lib/utility'
 import { pageIsLoading, pagesSetQueryState, playerQueueLoadSecondaryItems
   } from '~/redux/actions'
 import { getEpisodesByQuery, getMediaRefsByQuery } from '~/services'
-import { clone } from '~/lib/utility'
 
 type Props = {
   listItems?: any
+  meta?: any
   pagesSetQueryState?: any
   playerQueue?: any
   queryFrom?: any
@@ -27,7 +29,7 @@ const kPageKey = 'home'
 
 class Home extends Component<Props, State> {
 
-  static async getInitialProps({ query, store }) {
+  static async getInitialProps({ query, req, store }) {
     const state = store.getState()
     const { mediaPlayer, pages, settings, user } = state
     const { nowPlayingItem } = mediaPlayer
@@ -84,7 +86,13 @@ class Home extends Component<Props, State> {
     
     store.dispatch(pageIsLoading(false))
 
-    return { queryFrom, queryPage, querySort, queryType }
+    const meta = {
+      currentUrl: getUrlFromRequestOrWindow(req),
+      description: 'The Podverse web and iOS mobile app. Create and share clips of your favorite podcasts. Share playlists and your user profile. Sync podcasts between web and mobile. Open source and monopoly-proof software.',
+      title: 'Podverse - Create podcast highlights'
+    }
+
+    return { meta, queryFrom, queryPage, querySort, queryType }
   }
 
   constructor(props) {
@@ -101,11 +109,21 @@ class Home extends Component<Props, State> {
   }
 
   render() {
-    const { pagesSetQueryState, queryFrom, queryPage, querySort, queryType
+    const { meta, pagesSetQueryState, queryFrom, queryPage, querySort, queryType
       } = this.props
     
     return (
       <Fragment>
+        <Meta
+          description={meta.description}
+          ogDescription={meta.description}
+          ogTitle={meta.title}
+          ogType='website'
+          ogUrl={meta.currentUrl}
+          robotsNoIndex={false}
+          title={meta.title}
+          twitterDescription={meta.description}
+          twitterTitle={meta.title} />
         <MediaListCtrl
           adjustTopPosition
           handleSetPageQueryState={pagesSetQueryState}

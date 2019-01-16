@@ -72,6 +72,16 @@ class PodcastListCtrl extends Component<Props, State> {
       query.from = 'from-category'
       query.categories = selectedValue
     } else if (selectedKey === 'subscribed-only') {
+      if (!subscribedPodcastIds || subscribedPodcastIds.length === 0) {
+        handleSetPageQueryState({
+          pageKey,
+          endReached: false,
+          isLoadingInitial: false,
+          isLoadingMore: false,
+          listItems: []
+        })
+        return
+      }
       newState.queryFrom = 'subscribed-only'
       newState.categoryId = null
       query.from = 'subscribed-only'

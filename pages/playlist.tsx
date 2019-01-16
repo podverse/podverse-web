@@ -10,9 +10,10 @@ import { faStar as farStar } from '@fortawesome/free-regular-svg-icons'
 import { faStar as fasStar } from '@fortawesome/free-solid-svg-icons'
 import { PVButton as Button } from 'podverse-ui'
 import MediaListItemCtrl from '~/components/MediaListItemCtrl/MediaListItemCtrl'
+import Meta from '~/components/Meta/Meta'
 import { convertToNowPlayingItem } from '~/lib/nowPlayingItem'
 import { alertPremiumRequired, alertSomethingWentWrong, clone,
-  readableDate } from '~/lib/utility'
+  getUrlFromRequestOrWindow, readableDate, removeDoubleQuotes } from '~/lib/utility'
 import { mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying, pageIsLoading,
   playerQueueLoadSecondaryItems, userSetInfo } from '~/redux/actions'
 import { addOrRemovePlaylistItem, addOrUpdateUserHistoryItem, deletePlaylist,
@@ -24,6 +25,7 @@ type Props = {
   mediaPlayer: any
   mediaPlayerLoadNowPlayingItem: any
   mediaPlayerUpdatePlaying: any
+  meta?: any
   pageIsLoading: any
   playerQueueLoadSecondaryItems: any
   playlist: any
@@ -54,7 +56,7 @@ interface Playlist {
 
 class Playlist extends Component<Props, State> {
 
-  static async getInitialProps({ query, store }) {
+  static async getInitialProps({ query, req, store }) {
     const state = store.getState()
     const { user } = state
     const playlistResult = await getPlaylistById(query.id) || {}
@@ -66,7 +68,13 @@ class Playlist extends Component<Props, State> {
 
     store.dispatch(pageIsLoading(false))
     
-    return { playlist, playlistItems, user }
+    const meta = {
+      currentUrl: getUrlFromRequestOrWindow(req),
+      description: removeDoubleQuotes(`${playlist.title ? playlist.title : 'Untitled Playlist'} - playlist on Podverse ${playlist.description ? playlist.description : ''}`),
+      title: `${playlist.title ? playlist.title : 'Untitled Playlist'}`
+    }
+
+    return { meta, playlist, playlistItems, user }
   }
 
   constructor(props) {
@@ -341,7 +349,7 @@ class Playlist extends Component<Props, State> {
   }
 
   render() {
-    const { mediaPlayer, user } = this.props
+    const { mediaPlayer, meta, user } = this.props
     const { nowPlayingItem: mpNowPlayingItem } = mediaPlayer
     const { subscribedPlaylistIds } = user
     const { isDeleting, isEditing, isLoading, isSubscribing, isUpdating, newDescription, 
@@ -395,6 +403,16 @@ class Playlist extends Component<Props, State> {
 
     return (
       <Fragment>
+        <Meta
+          description={meta.description}
+          ogDescription={meta.description}
+          ogTitle={meta.title}
+          ogType='website'
+          ogUrl={meta.currentUrl}
+          robotsNoIndex={!playlist.isPublic}
+          title={meta.title}
+          twitterDescription={meta.description}
+          twitterTitle={meta.title} />
         <h3>Playlist</h3>
         <div className='media-header'>
           <div className='text-wrapper'>

@@ -1,17 +1,19 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import Meta from '~/components/meta'
+import Meta from '~/components/Meta/Meta'
 import UserHeaderCtrl from '~/components/UserHeaderCtrl/UserHeaderCtrl'
 import UserMediaListCtrl from '~/components/UserMediaListCtrl/UserMediaListCtrl'
 import { convertToNowPlayingItem } from '~/lib/nowPlayingItem'
-import { clone } from '~/lib/utility'
+import { clone, getUrlFromRequestOrWindow } from '~/lib/utility'
 import { pageIsLoading, pagesSetQueryState, playerQueueLoadSecondaryItems
   } from '~/redux/actions'
-import { getPodcastsByQuery, getPublicUser, getUserMediaRefs, getUserPlaylists } from '~/services'
+import { getPodcastsByQuery, getPublicUser, getUserMediaRefs, getUserPlaylists
+  } from '~/services'
 
 type Props = {
   listItems?: any[]
+  meta?: any
   pageKeyWithId?: string
   pagesSetQueryState?: any
   publicUser?: any
@@ -27,7 +29,7 @@ const kPageKey = 'public_profile_'
 
 class Profile extends Component<Props, State> {
 
-  static async getInitialProps({ query, store }) {
+  static async getInitialProps({ query, req, store }) {
     const pageKeyWithId = `${kPageKey}${query.id}`
     const state = store.getState()
     const { pages, settings } = state
@@ -54,8 +56,8 @@ class Profile extends Component<Props, State> {
         queryDataResult = await getUserPlaylists(currentId)
         listItems = queryDataResult.data
       } else if (queryType === 'podcasts' 
-                  && user.subscribedPodcastIds
-                  && user.subscribedPodcastIds.length > 0) {
+          && publicUser.subscribedPodcastIds
+          && publicUser.subscribedPodcastIds.length > 0) {
         queryDataResult = await getPodcastsByQuery({
           from: 'subscribed-only',
           subscribedPodcastIds: publicUser.subscribedPodcastIds
@@ -75,16 +77,31 @@ class Profile extends Component<Props, State> {
 
     store.dispatch(pageIsLoading(false))
 
-    return { pageKeyWithId, publicUser }
+    const meta = {
+      currentUrl: getUrlFromRequestOrWindow(req),
+      description: `${publicUser.name ? publicUser.name : 'anonymous'}'s profile on Podverse`,
+      title: `${publicUser.name ? publicUser.name : 'anonymous'}'s profile on Podverse`
+    }
+
+    return { meta, pageKeyWithId, publicUser }
   }
 
   render() {
-    const { pageKeyWithId, pagesSetQueryState, publicUser, queryPage, querySort,
-      queryType, user } = this.props
+    const { meta, pageKeyWithId, pagesSetQueryState, publicUser, queryPage,
+      querySort, queryType, user } = this.props
 
     return (
       <div className='user-profile'>
-        <Meta />
+        <Meta
+          description={meta.description}
+          ogDescription={meta.description}
+          ogTitle={meta.title}
+          ogType='website'
+          ogUrl={meta.currentUrl}
+          robotsNoIndex={!publicUser.isPublic}
+          title={meta.title}
+          twitterDescription={meta.description}
+          twitterTitle={meta.title} />
         {
           !publicUser &&
             <h3>Page not found</h3>

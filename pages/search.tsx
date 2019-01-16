@@ -4,12 +4,14 @@ import { bindActionCreators } from 'redux'
 import { ButtonGroup, Form, FormGroup, Input, InputGroup, InputGroupAddon } from 'reactstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { MediaListItem, PVButton as Button } from 'podverse-ui'
-import Meta from '~/components/meta'
+import Meta from '~/components/Meta/Meta'
+import { getUrlFromRequestOrWindow } from '~/lib/utility'
 import { pageIsLoading, pagesSetQueryState } from '~/redux/actions'
 import { getPodcastsByQuery } from '~/services'
 const uuidv4 = require('uuid/v4')
 
 type Props = {
+  meta?: any
   pageIsLoading?: any
   pages?: any
   pagesSetQueryState?: any
@@ -24,7 +26,7 @@ const kPageKey = 'search'
 
 class Search extends Component<Props, State> {
 
-  static async getInitialProps({ query, store }) {
+  static async getInitialProps({ query, req, store }) {
     store.dispatch(pageIsLoading(false))
     const state = store.getState()
     const { pages } = state
@@ -37,7 +39,13 @@ class Search extends Component<Props, State> {
       searchBy: querySearchBy
     }))
 
-    return {}
+    const meta = {
+      currentUrl: getUrlFromRequestOrWindow(req),
+      description: 'Search for podcasts by title or host on Podverse.',
+      title: 'Search'
+    }
+
+    return { meta }
   }
 
   constructor(props) {
@@ -119,7 +127,7 @@ class Search extends Component<Props, State> {
   }
 
   render() {
-    const { pages } = this.props
+    const { meta, pages } = this.props
     const { endReached, isLoadingMore, isSearching, listItems, queryPage, searchBy } = pages[kPageKey]
     const { currentSearch } = this.state
 
@@ -139,7 +147,19 @@ class Search extends Component<Props, State> {
 
     return (
       <Fragment>
-        <Meta />
+        <Meta
+          description={meta.description}
+          ogDescription={meta.description}
+          ogImage={meta.imageUrl}
+          ogTitle={meta.title}
+          ogType='website'
+          ogUrl={meta.currentUrl}
+          robotsNoIndex={false}
+          title={meta.title}
+          twitterDescription={meta.description}
+          twitterImage={meta.imageUrl}
+          twitterImageAlt={meta.imageAlt}
+          twitterTitle={meta.title} />
         <h3>Search</h3>
         <Form
           autoComplete='off'

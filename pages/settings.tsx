@@ -5,12 +5,13 @@ import { Form, FormFeedback, FormGroup, FormText, Input, InputGroup, InputGroupA
 import { bindActionCreators } from 'redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { PVButton as Button } from 'podverse-ui'
-import Meta from '~/components/meta'
+import Meta from '~/components/Meta/Meta'
 import CheckoutModal from '~/components/CheckoutModal/CheckoutModal'
 import { DeleteAccountModal } from '~/components/DeleteAccountModal/DeleteAccountModal'
 import { BASE_URL } from '~/config'
 import { alertPremiumRequired, alertSomethingWentWrong, convertToYYYYMMDDHHMMSS,
-  copyToClipboard, isBeforeDate, validateEmail } from '~/lib/utility'
+  copyToClipboard, getUrlFromRequestOrWindow, isBeforeDate, validateEmail
+  } from '~/lib/utility'
 import { modalsSignUpShow, pageIsLoading, settingsHideNSFWMode, settingsHideUITheme,
   userSetInfo } from '~/redux/actions'
 import { downloadUserData, updateUser } from '~/services'
@@ -19,6 +20,7 @@ const cookie = require('cookie')
 
 
 type Props = {
+  meta?: any
   modalsSignUpShow?: any
   settings?: any
   settingsHideNSFWMode?: any
@@ -42,9 +44,16 @@ type State = {
 
 class Settings extends Component<Props, State> {
 
-  static async getInitialProps({ query, req, store }) {
+  static async getInitialProps({ req, store }) {
     store.dispatch(pageIsLoading(false))
-    return {}
+
+    const meta = {
+      currentUrl: getUrlFromRequestOrWindow(req),
+      description: 'Customize my account settings on Podverse.',
+      title: `Settings`
+    }
+
+    return { meta }
   }
 
   constructor(props) {
@@ -225,7 +234,7 @@ class Settings extends Component<Props, State> {
   }
   
   render() {
-    const { settings, user } = this.props
+    const { meta, settings, user } = this.props
     const { nsfwModeHide, uiThemeHide } = settings
     const { email, emailError, isCheckoutOpen, isDeleteAccountOpen, isDownloading,
       isPublic, isSaving, name, wasCopied } = this.state
@@ -274,7 +283,16 @@ class Settings extends Component<Props, State> {
 
     return (
       <div className='settings'>
-        <Meta />
+        <Meta
+          description={meta.description}
+          ogDescription={meta.description}
+          ogTitle={meta.title}
+          ogType='website'
+          ogUrl={meta.currentUrl}
+          robotsNoIndex={true}
+          title={meta.title}
+          twitterDescription={meta.description}
+          twitterTitle={meta.title} />
         <h3>Settings</h3>
         <Form>
           {

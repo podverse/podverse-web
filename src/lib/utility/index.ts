@@ -142,6 +142,11 @@ export const clone = obj => {
   return copy
 }
 
+export const getUrlFromRequestOrWindow = req =>
+  req && req.headers ? 
+    req.headers.referer
+    : `${location.protocol}//${location.hostname}${location.pathname}`
+
 export const alertPremiumRequired = () => {
   alert('This feature is only available for premium members. Please visit the Settings page to sign up.')
 }
@@ -161,3 +166,6 @@ export const copyToClipboard = (text) => {
   document.execCommand('copy')
   document.body.removeChild(el)
 }
+
+// Remove double quotes from text so it does not cut off in SEO descriptions
+export const removeDoubleQuotes = str => str.replace(/["]+/g, '')
