@@ -1,12 +1,19 @@
 import axios from 'axios'
 import { API_BASE_URL } from '~/config'
-import { convertObjectToQueryString } from '~/lib/utility'
+import { alertIfRateLimitError, convertObjectToQueryString } from '~/lib/utility'
 
 export const addOrRemovePlaylistItem = async (data: any) => {
   return axios(`${API_BASE_URL}/api/v1/playlist/add-or-remove`, {
     method: 'patch',
     data,
     withCredentials: true
+  })
+  .catch(err => {
+    if (err && err.response && err.response.data.message === 429) {
+      alertIfRateLimitError(err)
+      return
+    }
+    throw err
   })
 }
 
@@ -15,6 +22,13 @@ export const createPlaylist = async (data: any) => {
     method: 'post',
     data,
     withCredentials: true
+  })
+  .catch(err => {
+    if (err && err.response && err.response.data.message === 429) {
+      alertIfRateLimitError(err)
+      return
+    }
+    throw err
   })
 }
 
@@ -45,6 +59,13 @@ export const toggleSubscribeToPlaylist = async (playlistId: string) => {
     method: 'get',
     withCredentials: true
   })
+  .catch(err => {
+    if (err && err.response && err.response.data.message === 429) {
+      alertIfRateLimitError(err)
+      return
+    }
+    throw err
+  })
 }
 
 export const updatePlaylist = async (data: any) => {
@@ -52,5 +73,12 @@ export const updatePlaylist = async (data: any) => {
     method: 'patch',
     data,
     withCredentials: true
+  })
+  .catch(err => {
+    if (err && err.response && err.response.data.message === 429) {
+      alertIfRateLimitError(err)
+      return
+    }
+    throw err
   })
 }

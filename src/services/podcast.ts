@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { API_BASE_URL } from '~/config'
-import { convertObjectToQueryString } from '~/lib/utility'
+import { alertIfRateLimitError, convertObjectToQueryString } from '~/lib/utility'
 
 export const getPodcastsByQuery = async (query, nsfwMode = 'on') => {
   let filteredQuery: any = {}
@@ -48,5 +48,12 @@ export const toggleSubscribeToPodcast = async (podcastId: string) => {
   return axios(`${API_BASE_URL}/api/v1/podcast/toggle-subscribe/${podcastId}`, {
     method: 'get',
     withCredentials: true
+  })
+  .catch(err => {
+    if (err && err.response && err.response.data.message === 429) {
+      alertIfRateLimitError(err)
+      return
+    }
+    throw err
   })
 }

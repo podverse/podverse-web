@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { API_BASE_URL } from '~/config'
 import { NowPlayingItem } from 'lib/nowPlayingItem'
-import { convertObjectToQueryString } from '~/lib/utility'
+import { alertIfRateLimitError, convertObjectToQueryString } from '~/lib/utility'
 
 export const addOrUpdateUserHistoryItem = async (nowPlayingItem: NowPlayingItem) => {
   return axios(`${API_BASE_URL}/api/v1/user/add-or-update-history-item`, {
@@ -24,6 +24,13 @@ export const downloadUserData = async (id: string) => {
   return axios(`${API_BASE_URL}/api/v1/user/download/${id}`, {
     method: 'get',
     withCredentials: true
+  })
+  .catch(err => {
+    if (err && err.response && err.response.data.message === 429) {
+      alertIfRateLimitError(err)
+      return
+    }
+    throw err
   })
 }
 
@@ -91,6 +98,13 @@ export const toggleSubscribeToUser = async (userId: string) => {
     method: 'get',
     withCredentials: true
   })
+  .catch(err => {
+    if (err && err.response && err.response.data.message === 429) {
+      alertIfRateLimitError(err)
+      return
+    }
+    throw err
+  })
 }
 
 export const updateUser = async (data: any) => {
@@ -99,6 +113,13 @@ export const updateUser = async (data: any) => {
     data,
     withCredentials: true
   })
+  .catch(err => {
+    if (err && err.response && err.response.data.message === 429) {
+      alertIfRateLimitError(err)
+      return
+    }
+    throw err
+  })
 }
 
 export const updateUserQueueItems = async (data: any) => {
@@ -106,5 +127,12 @@ export const updateUserQueueItems = async (data: any) => {
     method: 'patch',
     data,
     withCredentials: true
+  })
+  .catch(err => {
+    if (err && err.response && err.response.data.message === 429) {
+      alertIfRateLimitError(err)
+      return
+    }
+    throw err
   })
 }

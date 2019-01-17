@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { API_BASE_URL } from '~/config'
-import { convertObjectToQueryString } from '~/lib/utility'
+import { alertIfRateLimitError, convertObjectToQueryString } from '~/lib/utility'
 
 export const getAuthenticatedUserInfo = async (bearerToken) => {
   return axios(`${API_BASE_URL}/api/v1/auth/get-authenticated-user-info`, {
@@ -54,6 +54,13 @@ export const login = async (email: string, password: string) => {
     },
     withCredentials: true
   })
+  .catch(err => {
+    if (err && err.response && err.response.data.message === 429) {
+      alertIfRateLimitError(err)
+      return
+    }
+    throw err
+  })
 }
 
 export const logOut = async () => {
@@ -71,6 +78,13 @@ export const resetPassword = async (password?: string, resetPasswordToken?: stri
       resetPasswordToken
     }
   })
+  .catch(err => {
+    if (err && err.response && err.response.data.message === 429) {
+      alertIfRateLimitError(err)
+      return
+    }
+    throw err
+  })
 }
 
 export const sendResetPassword = async (email: string) => {
@@ -79,6 +93,13 @@ export const sendResetPassword = async (email: string) => {
     data: {
       email
     }
+  })
+  .catch(err => {
+    if (err && err.response && err.response.data.message === 429) {
+      alertIfRateLimitError(err)
+      return
+    }
+    throw err
   })
 }
 
@@ -95,4 +116,11 @@ export const signUp = async (email: string, password: string) => {
 
 export const verifyEmail = async (token?: string) => {
   return axios.get(`${API_BASE_URL}/api/v1/auth/verify-email?token=${token}`)
+    .catch(err => {
+      if (err && err.response && err.response.data.message === 429) {
+        alertIfRateLimitError(err)
+        return
+      }
+      throw err
+    })
 }
