@@ -20,3 +20,7 @@ export const paypalConfig = {
 }
 
 export const metaDefaultImageUrl1200x630 = 'https://podverse.fm/static/images/podverse-logo-1200x630.png'
+
+export const googleAnalyticsConfig = {
+  trackingId: process.env.GOOGLE_ANALYTICS_TRACKING_ID
+}

@@ -2,6 +2,7 @@ import React, { Fragment } from 'react'
 import { Provider } from 'react-redux'
 import withRedux from 'next-redux-wrapper'
 import App, { Container } from 'next/app'
+import ReactGA from 'react-ga'
 import { getPriorityQueueItemsStorage } from 'podverse-ui'
 import Meta from '~/components/Meta/Meta'
 import Alerts from '~/components/Alerts/Alerts'
@@ -11,6 +12,7 @@ import MediaModals from '~/components/MediaModals/MediaModals'
 import NavBar from '~/components/NavBar/NavBar'
 import MediaPlayerView from '~/components/MediaPlayerView/MediaPlayerView'
 import PageLoadingOverlay from '~/components/PageLoadingOverlay/PageLoadingOverlay'
+import { googleAnalyticsConfig, paypalConfig } from '~/config'
 import { addFontAwesomeIcons } from '~/lib/fontAwesomeIcons'
 import { NowPlayingItem } from '~/lib/nowPlayingItem'
 import { initializeStore } from '~/redux/store'
@@ -170,6 +172,10 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
       pageProps = await Component.getInitialProps(ctx)
     }
 
+    if (typeof(window) === 'object') {
+      ReactGA.pageview(ctx.asPath)
+    }
+
     // @ts-ignore
     if (process.browser && ctx.query && ctx.query.scrollToTop) {
       scrollToTopOfView()
@@ -189,6 +195,9 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
       const priorityItems = getPriorityQueueItemsStorage()
       store.dispatch(playerQueueLoadPriorityItems(priorityItems))
     }
+
+    ReactGA.initialize(googleAnalyticsConfig.trackingId)
+    ReactGA.pageview(window.location.pathname + window.location.search)
   }
 
   render() {
