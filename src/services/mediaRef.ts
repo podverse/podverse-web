@@ -3,7 +3,7 @@ import { API_BASE_URL } from '~/config'
 import { alertIfRateLimitError, convertObjectToQueryString } from '~/lib/utility'
 
 export const createMediaRef = async (data: any) => {
-  return axios(`${API_BASE_URL}/api/v1/mediaRef`, {
+  return axios(`${API_BASE_URL}/mediaRef`, {
     method: 'post',
     data,
     withCredentials: true
@@ -18,7 +18,7 @@ export const createMediaRef = async (data: any) => {
 }
 
 export const deleteMediaRef = async (id: string) => {
-  return axios(`${API_BASE_URL}/api/v1/mediaRef/${id}`, {
+  return axios(`${API_BASE_URL}/mediaRef/${id}`, {
     method: 'delete',
     withCredentials: true
   })
@@ -50,7 +50,7 @@ export const getMediaRefsByQuery = async (query, nsfwMode = 'on') => {
   }
 
   const queryString = convertObjectToQueryString(filteredQuery)
-  return axios(`${API_BASE_URL}/api/v1/mediaRef?${queryString}`, {
+  return axios(`${API_BASE_URL}/mediaRef?${queryString}`, {
     method: 'get',
     headers: {
       nsfwMode
@@ -59,11 +59,11 @@ export const getMediaRefsByQuery = async (query, nsfwMode = 'on') => {
 }
 
 export const getMediaRefById = async (id: string) => {
-  return axios.get(`${API_BASE_URL}/api/v1/mediaRef/${id}`)
+  return axios.get(`${API_BASE_URL}/mediaRef/${id}`)
 }
 
 export const updateMediaRef = async (data: any) => {
-  return axios(`${API_BASE_URL}/api/v1/mediaRef`, {
+  return axios(`${API_BASE_URL}/mediaRef`, {
     method: 'patch',
     data,
     withCredentials: true

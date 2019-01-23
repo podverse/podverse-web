@@ -3,7 +3,7 @@ import { API_BASE_URL } from '~/config'
 import { convertObjectToQueryString } from '~/lib/utility'
 
 export const getEpisodeById = async (id: string) => {
-  return axios.get(`${API_BASE_URL}/api/v1/episode/${id}`);
+  return axios.get(`${API_BASE_URL}/episode/${id}`);
 }
 
 export const getEpisodesByQuery = async (query, nsfwMode = 'on') => {
@@ -30,7 +30,7 @@ export const getEpisodesByQuery = async (query, nsfwMode = 'on') => {
   }
 
   const queryString = convertObjectToQueryString(filteredQuery)  
-  return axios(`${API_BASE_URL}/api/v1/episode?${queryString}`, {
+  return axios(`${API_BASE_URL}/episode?${queryString}`, {
     method: 'get',
     headers: {
       nsfwMode

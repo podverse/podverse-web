@@ -4,7 +4,7 @@ import { NowPlayingItem } from 'lib/nowPlayingItem'
 import { alertIfRateLimitError, convertObjectToQueryString } from '~/lib/utility'
 
 export const addOrUpdateUserHistoryItem = async (nowPlayingItem: NowPlayingItem) => {
-  return axios(`${API_BASE_URL}/api/v1/user/add-or-update-history-item`, {
+  return axios(`${API_BASE_URL}/user/add-or-update-history-item`, {
     method: 'patch',
     data: {
       historyItem: nowPlayingItem
@@ -14,14 +14,14 @@ export const addOrUpdateUserHistoryItem = async (nowPlayingItem: NowPlayingItem)
 }
 
 export const deleteUser = async (id: string) => {
-  return axios(`${API_BASE_URL}/api/v1/user/${id}`, {
+  return axios(`${API_BASE_URL}/user/${id}`, {
     method: 'delete',
     withCredentials: true
   })
 }
 
 export const downloadUserData = async (id: string) => {
-  return axios(`${API_BASE_URL}/api/v1/user/download/${id}`, {
+  return axios(`${API_BASE_URL}/user/download/${id}`, {
     method: 'get',
     withCredentials: true
   })
@@ -35,7 +35,7 @@ export const downloadUserData = async (id: string) => {
 }
 
 export const getPublicUser = async (id: string) => {
-  return axios(`${API_BASE_URL}/api/v1/user/${id}`, {
+  return axios(`${API_BASE_URL}/user/${id}`, {
     method: 'get'
   })
 }
@@ -51,7 +51,7 @@ export const getUserMediaRefs = async (
   filteredQuery.page = page
   const queryString = convertObjectToQueryString(filteredQuery)
 
-  return axios(`${API_BASE_URL}/api/v1/user/${id}/mediaRefs?${queryString}`, {
+  return axios(`${API_BASE_URL}/user/${id}/mediaRefs?${queryString}`, {
     method: 'get',
     headers: {
       nsfwMode
@@ -69,7 +69,7 @@ export const getUserPlaylists = async (
   filteredQuery.page = page
   const queryString = convertObjectToQueryString(filteredQuery)
 
-  return axios(`${API_BASE_URL}/api/v1/user/${id}/playlists?${queryString}`, {
+  return axios(`${API_BASE_URL}/user/${id}/playlists?${queryString}`, {
     method: 'get'
   })
 }
@@ -88,13 +88,13 @@ export const getPublicUsersByQuery = async query => {
   }
 
   const queryString = convertObjectToQueryString(filteredQuery)
-  return axios(`${API_BASE_URL}/api/v1/user?${queryString}`, {
+  return axios(`${API_BASE_URL}/user?${queryString}`, {
     method: 'get'
   })
 }
 
 export const toggleSubscribeToUser = async (userId: string) => {
-  return axios(`${API_BASE_URL}/api/v1/user/toggle-subscribe/${userId}`, {
+  return axios(`${API_BASE_URL}/user/toggle-subscribe/${userId}`, {
     method: 'get',
     withCredentials: true
   })
@@ -108,7 +108,7 @@ export const toggleSubscribeToUser = async (userId: string) => {
 }
 
 export const updateUser = async (data: any) => {
-  return axios(`${API_BASE_URL}/api/v1/user`, {
+  return axios(`${API_BASE_URL}/user`, {
     method: 'patch',
     data,
     withCredentials: true
@@ -123,7 +123,7 @@ export const updateUser = async (data: any) => {
 }
 
 export const updateUserQueueItems = async (data: any) => {
-  return axios(`${API_BASE_URL}/api/v1/user/update-queue`, {
+  return axios(`${API_BASE_URL}/user/update-queue`, {
     method: 'patch',
     data,
     withCredentials: true

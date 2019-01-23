@@ -3,7 +3,7 @@ import { API_BASE_URL } from '~/config'
 import { alertIfRateLimitError } from '~/lib/utility'
 
 export const createBitPayInvoice = async () => {
-  return axios(`${API_BASE_URL}/api/v1/bitpay/invoice`, {
+  return axios(`${API_BASE_URL}/bitpay/invoice`, {
     method: 'post',
     withCredentials: true
   })
@@ -17,7 +17,7 @@ export const createBitPayInvoice = async () => {
 }
 
 export const getBitPayInvoiceStatusByOrderId = async (orderId: string) => {
-  return axios(`${API_BASE_URL}/api/v1/bitpay/invoice/${orderId}`, {
+  return axios(`${API_BASE_URL}/bitpay/invoice/${orderId}`, {
     method: 'get',
     withCredentials: true
   })

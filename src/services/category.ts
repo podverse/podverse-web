@@ -2,7 +2,7 @@ import axios from 'axios'
 import { API_BASE_URL } from '~/config'
 
 export const getCategoriesByQuery = async (query: CategoryQuery) => {
-  return axios.get(`${API_BASE_URL}/api/v1/category`)
+  return axios.get(`${API_BASE_URL}/category`)
 }
 
 type CategoryQuery = {

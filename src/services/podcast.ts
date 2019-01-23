@@ -32,7 +32,7 @@ export const getPodcastsByQuery = async (query, nsfwMode = 'on') => {
   }
 
   const queryString = convertObjectToQueryString(filteredQuery)
-  return axios(`${API_BASE_URL}/api/v1/podcast?${queryString}`, {
+  return axios(`${API_BASE_URL}/podcast?${queryString}`, {
     method: 'get',
     headers: {
       nsfwMode
@@ -41,11 +41,11 @@ export const getPodcastsByQuery = async (query, nsfwMode = 'on') => {
 }
 
 export const getPodcastById = async (id: string) => {
-  return axios.get(`${API_BASE_URL}/api/v1/podcast/${id}`);
+  return axios.get(`${API_BASE_URL}/podcast/${id}`);
 }
 
 export const toggleSubscribeToPodcast = async (podcastId: string) => {
-  return axios(`${API_BASE_URL}/api/v1/podcast/toggle-subscribe/${podcastId}`, {
+  return axios(`${API_BASE_URL}/podcast/toggle-subscribe/${podcastId}`, {
     method: 'get',
     withCredentials: true
   })

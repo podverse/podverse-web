@@ -3,7 +3,7 @@ import { API_BASE_URL } from '~/config'
 import { alertIfRateLimitError } from '~/lib/utility'
 
 export const createPayPalOrder = async (data: any) => {
-  return axios(`${API_BASE_URL}/api/v1/paypal/order`, {
+  return axios(`${API_BASE_URL}/paypal/order`, {
     method: 'post',
     data,
     withCredentials: true
@@ -18,7 +18,7 @@ export const createPayPalOrder = async (data: any) => {
 }
 
 export const getPayPalOrderById = async (id: string) => {
-  return axios(`${API_BASE_URL}/api/v1/paypal/order/${id}`, {
+  return axios(`${API_BASE_URL}/paypal/order/${id}`, {
     method: 'get',
     withCredentials: true
   })
