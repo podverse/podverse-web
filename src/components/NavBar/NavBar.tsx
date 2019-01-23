@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { Navbar, getPriorityQueueItemsStorage } from 'podverse-ui'
+import { Navbar, getPriorityQueueItemsStorage } from 'podverse_ui'
 import { modalsLoginShow, pageIsLoading, playerQueueLoadPriorityItems, userSetInfo
   } from '~/redux/actions'
 import { logOut } from '~/services/auth'

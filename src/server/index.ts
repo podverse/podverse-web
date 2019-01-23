@@ -1,4 +1,4 @@
-require('dotenv').config({ path: '.env' })
+// require('dotenv').config({ path: '.env' })
 
 import * as Koa from 'koa'
 import * as bodyParser from 'koa-bodyparser'
@@ -9,7 +9,7 @@ import { adminRouter, authRouter, devRouter, infoRouter, mainRouter,
   paymentRouter, requestHandlerRouter } from './routes'
 import { PORT } from '~/config'
 
-const dev = process.env.NODE_ENV !== 'production'
+const dev = process.env.NODE_ENV === 'development' || !process.env.NODE_ENV
 const app = next({ dev })
 
 app.prepare()

@@ -2,7 +2,7 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { MediaListItem } from 'podverse-ui'
+import { MediaListItem } from 'podverse_ui'
 import Meta from '~/components/Meta/Meta'
 import { getUrlFromRequestOrWindow } from '~/lib/utility'
 import { pageIsLoading } from '~/redux/actions'

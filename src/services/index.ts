@@ -2,7 +2,6 @@ export { getAuthenticatedUserInfo, getLoggedInUserMediaRefs, getLoggedInUserPlay
   login, logOut, resetPassword, sendResetPassword, signUp, verifyEmail } from '~/services/auth'
 export { createBitPayInvoice, getBitPayInvoiceStatusByOrderId } from '~/services/bitpay'
 export { getCategoriesByQuery } from '~/services/category'
-export { createCoingateOrder, getCoingateOrderById } from '~/services/coingate'
 export { getEpisodeById, getEpisodesByQuery } from '~/services/episode'
 export { createMediaRef, deleteMediaRef, getMediaRefById, getMediaRefsByQuery,
   updateMediaRef } from '~/services/mediaRef'

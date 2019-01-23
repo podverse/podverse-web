@@ -1,4 +1,4 @@
-require('dotenv').config({ path: '/.env' })
+// require('dotenv').config({ path: '/.env' })
 
 module.exports = {
   'process.env.NODE_ENV': process.env.NODE_ENV,

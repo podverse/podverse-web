@@ -2,7 +2,7 @@ import * as React from 'react'
 import * as Modal from 'react-modal'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { PVButton as Button, CloseButton } from 'podverse-ui'
+import { PVButton as Button, CloseButton } from 'podverse_ui'
 import PayPalButton from '~/components/PayPalButton/PayPalButton'
 import { paypalConfig } from '~/config'
 import { pageIsLoading } from '~/redux/actions'
@@ -36,7 +36,6 @@ const PAYPAL_CLIENT = {
   sandbox: paypalConfig.sandbox
 }
 const PAYPAL_ENV = paypalConfig.env
-
 
 class CheckoutModal extends React.Component<Props, State> {
 
