@@ -8,16 +8,16 @@ import { PVButton as Button } from 'podverse_ui'
 import Meta from '~/components/Meta/Meta'
 import CheckoutModal from '~/components/CheckoutModal/CheckoutModal'
 import { DeleteAccountModal } from '~/components/DeleteAccountModal/DeleteAccountModal'
-import { BASE_URL } from '~/config'
 import { alertPremiumRequired, alertSomethingWentWrong, convertToYYYYMMDDHHMMSS,
   copyToClipboard, getUrlFromRequestOrWindow, isBeforeDate, validateEmail
   } from '~/lib/utility'
 import { modalsSignUpShow, pageIsLoading, settingsHideNSFWMode, settingsHideUITheme,
   userSetInfo } from '~/redux/actions'
 import { downloadUserData, updateUser } from '~/services'
+import config from '~/config'
+const { BASE_URL } = config()
 const fileDownload = require('js-file-download')
 const cookie = require('cookie')
-
 
 type Props = {
   meta?: any

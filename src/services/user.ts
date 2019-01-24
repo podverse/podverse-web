@@ -1,7 +1,8 @@
 import axios from 'axios'
-import { API_BASE_URL } from '~/config'
 import { NowPlayingItem } from 'lib/nowPlayingItem'
 import { alertIfRateLimitError, convertObjectToQueryString } from '~/lib/utility'
+import config from '~/config'
+const { API_BASE_URL } = config()
 
 export const addOrUpdateUserHistoryItem = async (nowPlayingItem: NowPlayingItem) => {
   return axios(`${API_BASE_URL}/user/add-or-update-history-item`, {

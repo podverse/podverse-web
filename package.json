@@ -19,15 +19,10 @@
   "homepage": "https://github.com/podverse/podverse-web#readme",
   "scripts": {
     "analyze": "NODE_ENV=production ANALYZE=true next build",
-    "build:dev": "next build",
-    "build": "NODE_ENV=production next build",
+    "build": "next build && tsc --project tsconfig.server.json",
     "dev": "nodemon src/server/index.ts",
-    "export": "next export",
-    "start:dev": "next",
-    "start": "next start",
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage",
+    "start:dev": "NODE_ENV=production node next/production-server/server/index.dev.js",
+    "start": "NODE_ENV=production node next/production-server/server/index.js",
     "ts:check": "tsc --noEmit"
   },
   "dependencies": {

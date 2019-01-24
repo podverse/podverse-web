@@ -1,4 +1,4 @@
-// require('dotenv').config({ path: '.env' }) use .env in index.dev.ts only
+require('dotenv').config({ path: '.env' }) // use .env in index.dev.ts only
 
 import * as Koa from 'koa'
 import * as bodyParser from 'koa-bodyparser'
@@ -7,7 +7,8 @@ import * as next from 'next'
 // import { routeFilePaths, routePagePaths } from 'lib/constants'
 import { adminRouter, authRouter, devRouter, infoRouter, mainRouter,
   paymentRouter, requestHandlerRouter } from './routes'
-
+    // Config is only available after Next.js has started
+    const { PORT } = require('../config').default()
 const dev = process.env.NODE_ENV === 'development' || !process.env.NODE_ENV
 const app = next({ dev })
 
@@ -30,9 +31,6 @@ app.prepare()
     server.use(mainRouter(app).routes())
     server.use(paymentRouter(app).routes())
     server.use(requestHandlerRouter(app).routes())
-
-    // Config is only available after Next.js has started
-    const { PORT } = require('../config').default()
 
     server.listen(PORT, () => {
       console.log(`> Ready on http://localhost:${PORT}`)

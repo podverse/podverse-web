@@ -1,6 +1,7 @@
 import axios from 'axios'
-import { API_BASE_URL } from '~/config'
 import { alertIfRateLimitError } from '~/lib/utility'
+import config from '~/config'
+const { API_BASE_URL } = config()
 
 export const createBitPayInvoice = async () => {
   return axios(`${API_BASE_URL}/bitpay/invoice`, {

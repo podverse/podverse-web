@@ -1,6 +1,7 @@
 import axios from 'axios'
-import { API_BASE_URL } from '~/config'
 import { alertIfRateLimitError, convertObjectToQueryString } from '~/lib/utility'
+import config from '~/config'
+const { API_BASE_URL } = config()
 
 export const getPodcastsByQuery = async (query, nsfwMode = 'on') => {
   let filteredQuery: any = {}

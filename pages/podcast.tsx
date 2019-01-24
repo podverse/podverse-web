@@ -38,68 +38,74 @@ class Podcast extends Component<Props, State> {
     const { pages, settings, user } = state
     const { nsfwMode } = settings
 
-    const podcastResult = await getPodcastById(query.id)
-    const podcast = podcastResult.data
+    try {
+      const podcastResult = await getPodcastById(query.id)
+      const podcast = podcastResult.data
 
-    const currentPage = pages[pageKeyWithId] || {}
-    const queryFrom = currentPage.queryFrom || query.from || 'from-podcast'
-    const queryPage = currentPage.queryPage || query.page || 1
-    const querySort = currentPage.querySort || query.sort || 'top-past-week'
-    const queryType = currentPage.queryType || query.type || 'episodes'
-    let podcastId = ''
+      const currentPage = pages[pageKeyWithId] || {}
+      const queryFrom = currentPage.queryFrom || query.from || 'from-podcast'
+      const queryPage = currentPage.queryPage || query.page || 1
+      const querySort = currentPage.querySort || query.sort || 'top-past-week'
+      const queryType = currentPage.queryType || query.type || 'episodes'
+      let podcastId = ''
 
-    if (queryFrom === 'from-podcast') {
-      podcastId = podcast.id
-    } else if (queryFrom === 'subscribed-only') {
-      podcastId = user.subscribedPodcastIds
-    }
-
-    if (Object.keys(currentPage).length === 0) {
-      let queryDataResult
-
-      if (queryType === 'episodes') {
-        queryDataResult = await getEpisodesByQuery({
-          from: queryFrom,
-          page: queryPage,
-          ...(podcastId ? { podcastId } : {}),
-          sort: querySort,
-          type: queryType
-        }, nsfwMode)
-      } else {
-        queryDataResult = await getMediaRefsByQuery({
-          from: queryFrom,
-          page: queryPage,
-          ...(podcastId ? { podcastId } : {}),
-          sort: querySort,
-          type: queryType
-        }, nsfwMode)
+      if (queryFrom === 'from-podcast') {
+        podcastId = podcast.id
+      } else if (queryFrom === 'subscribed-only') {
+        podcastId = user.subscribedPodcastIds
       }
-      
-      let listItems = queryDataResult.data.map(x => convertToNowPlayingItem(x))
-      
-      store.dispatch(playerQueueLoadSecondaryItems(clone(listItems)))
 
-      store.dispatch(pagesSetQueryState({
-        pageKey: pageKeyWithId,
-        listItems,
-        queryFrom,
-        queryPage,
-        querySort,
-        queryType
-      }))
+      if (Object.keys(currentPage).length === 0) {
+        let queryDataResult
+
+        if (queryType === 'episodes') {
+          queryDataResult = await getEpisodesByQuery({
+            from: queryFrom,
+            page: queryPage,
+            ...(podcastId ? { podcastId } : {}),
+            sort: querySort,
+            type: queryType
+          }, nsfwMode)
+        } else {
+          queryDataResult = await getMediaRefsByQuery({
+            from: queryFrom,
+            page: queryPage,
+            ...(podcastId ? { podcastId } : {}),
+            sort: querySort,
+            type: queryType
+          }, nsfwMode)
+        }
+        
+        let listItems = queryDataResult.data.map(x => convertToNowPlayingItem(x))
+        
+        store.dispatch(playerQueueLoadSecondaryItems(clone(listItems)))
+
+        store.dispatch(pagesSetQueryState({
+          pageKey: pageKeyWithId,
+          listItems,
+          queryFrom,
+          queryPage,
+          querySort,
+          queryType
+        }))
+      }
+
+      store.dispatch(pageIsLoading(false))
+
+      const meta = {
+        currentUrl: getUrlFromRequestOrWindow(req),
+        description: removeDoubleQuotes(podcast.description),
+        imageAlt: podcast.imageUrl ? podcast.title : 'Podverse logo',
+        imageUrl: podcast.imageUrl,
+        title: podcast.title
+      }
+
+      return { meta, pageKeyWithId, podcast, queryFrom, queryPage, querySort, queryType }
+
+    } catch (error) {
+      console.log(error)
+      return {}
     }
-
-    store.dispatch(pageIsLoading(false))
-
-    const meta = {
-      currentUrl: getUrlFromRequestOrWindow(req),
-      description: removeDoubleQuotes(podcast.description),
-      imageAlt: podcast.imageUrl ? podcast.title : 'Podverse logo',
-      imageUrl: podcast.imageUrl,
-      title: podcast.title
-    }
-
-    return { meta, pageKeyWithId, podcast, queryFrom, queryPage, querySort, queryType }
   }
 
   componentDidMount() {

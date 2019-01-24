@@ -1,8 +1,9 @@
 import { Component } from 'react'
 import Head from 'next/head'
-import { metaDefaultImageUrl1200x630 } from '~/config'
 import '~/lib/constants/misc'
 import '~/scss/styles.scss'
+import config from '~/config'
+const { metaDefaultImageUrl1200x630 } = config()
 
 type Props = {
   description?: string

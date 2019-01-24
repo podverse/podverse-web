@@ -4,9 +4,10 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { PVButton as Button, CloseButton } from 'podverse_ui'
 import PayPalButton from '~/components/PayPalButton/PayPalButton'
-import { paypalConfig } from '~/config'
 import { pageIsLoading } from '~/redux/actions'
 import { createBitPayInvoice } from '~/services'
+import config from '~/config'
+const { paypalConfig } = config()
 
 type Props = {
   handleHideModal: Function

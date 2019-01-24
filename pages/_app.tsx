@@ -12,7 +12,6 @@ import MediaModals from '~/components/MediaModals/MediaModals'
 import NavBar from '~/components/NavBar/NavBar'
 import MediaPlayerView from '~/components/MediaPlayerView/MediaPlayerView'
 import PageLoadingOverlay from '~/components/PageLoadingOverlay/PageLoadingOverlay'
-import { googleAnalyticsConfig, paypalConfig } from '~/config'
 import { addFontAwesomeIcons } from '~/lib/fontAwesomeIcons'
 import { NowPlayingItem } from '~/lib/nowPlayingItem'
 import { initializeStore } from '~/redux/store'
@@ -20,6 +19,8 @@ import { pageIsLoading, playerQueueLoadPriorityItems } from '~/redux/actions'
 import { actionTypes } from '~/redux/constants'
 import { getAuthenticatedUserInfo } from '~/services'
 import { scrollToTopOfView } from '~/lib/scrollToTop'
+import config from '~/config'
+const { googleAnalyticsConfig, paypalConfig } = config()
 const cookie = require('cookie')
 
 addFontAwesomeIcons()

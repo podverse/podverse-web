@@ -1,6 +1,7 @@
 import axios from 'axios'
-import { API_BASE_URL } from '~/config'
 import { convertObjectToQueryString } from '~/lib/utility'
+import config from '~/config'
+const { API_BASE_URL } = config()
 
 export const getEpisodeById = async (id: string) => {
   return axios.get(`${API_BASE_URL}/episode/${id}`);

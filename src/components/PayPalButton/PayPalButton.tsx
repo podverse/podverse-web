@@ -2,8 +2,9 @@ import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import scriptLoader from 'react-async-script-loader'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { DOMAIN, PROTOCOL } from '~/config'
 import { createPayPalOrder } from '~/services/paypal'
+import config from '~/config'
+const { DOMAIN, PROTOCOL } = config()
 
 type Props = {
   client?: string
