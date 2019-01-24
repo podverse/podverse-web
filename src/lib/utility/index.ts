@@ -168,7 +168,7 @@ export const copyToClipboard = (text) => {
 }
 
 // Remove double quotes from text so it does not cut off in SEO descriptions
-export const removeDoubleQuotes = str => str.replace(/["]+/g, '')
+export const removeDoubleQuotes = str => str ? str.replace(/["]+/g, '') : ''
 
 export const alertIfRateLimitError = err => {
   if (err && err.response && err.response.status === 429) {
