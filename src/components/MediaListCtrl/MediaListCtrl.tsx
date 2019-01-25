@@ -415,6 +415,7 @@ class MediaListCtrl extends Component<Props, State> {
                         <p className='no-results-msg'>End of results</p>
                         : <Button
                           className='media-list-load-more__button'
+                          disabled={isLoadingMore}
                           isLoading={isLoadingMore}
                           onClick={() => this.queryMediaListItems('', '', queryPage + 1)}
                           text='Load More' />
