@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react'
 import { Alert, Form, FormFeedback, FormGroup, FormText, Input, Label
   } from 'reactstrap'
 import Router from 'next/router'
-import { ButtonGroup, PVButton as Button } from 'podverse-ui'
+import { ButtonGroup, PVButton as Button } from 'podverse_ui'
 import Meta from '~/components/Meta/Meta'
 import { internetConnectivityErrorMessage } from '~/lib/constants/misc'
 import { getUrlFromRequestOrWindow, validatePassword } from '~/lib/utility'

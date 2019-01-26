@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { ForgotPasswordModal, LoginModal, SignUpModal } from 'podverse-ui'
+import { ForgotPasswordModal, LoginModal, SignUpModal } from 'podverse_ui'
 import { internetConnectivityErrorMessage } from '~/lib/constants/misc'
 import { modalsForgotPasswordIsLoading, modalsForgotPasswordShow, 
   modalsForgotPasswordSetErrorResponse, modalsLoginIsLoading,

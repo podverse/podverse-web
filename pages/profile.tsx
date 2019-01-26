@@ -47,7 +47,7 @@ class Profile extends Component<Props, State> {
       publicUser = response.data
       let queryDataResult
       let listItems = []
-      
+
       if (query.type === 'clips') {
         queryDataResult = await getUserMediaRefs(currentId, nsfwMode)
         listItems = queryDataResult.data.map(x => convertToNowPlayingItem(x))

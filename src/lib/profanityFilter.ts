@@ -1,5 +1,9 @@
-const Filter = require('bad-words')
-const filter = new Filter()
+// const Filter = require('bad-words')
+// const filter = new Filter()
+
+const filter = {
+  clean: (str) => str
+}
 
 export const sfwFilterPodcast = (podcast: any = {}) => {
   return {
@@ -44,9 +48,11 @@ export const sfwFilterMediaRef = (mediaRef: any = {}) => {
     episode: {
       ...sfwFilterEpisode(mediaRef.episode)
     },
-    owner: {
-      ...sfwFilterUser(mediaRef.owner)
-    }
+    ...(mediaRef.owner ? {
+      owner: {
+        ...sfwFilterUser(mediaRef.owner)
+      }
+    } : {})
   }
 }
 

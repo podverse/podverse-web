@@ -1,7 +1,7 @@
 
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { MediaHeader } from 'podverse-ui'
+import { MediaHeader } from 'podverse_ui'
 import { bindActionCreators } from 'redux'
 import { alertPremiumRequired, alertSomethingWentWrong } from '~/lib/utility'
 import { pageIsLoading, userSetInfo } from '~/redux/actions'

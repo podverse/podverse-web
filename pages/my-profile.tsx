@@ -41,7 +41,7 @@ class MyProfile extends Component<Props, State> {
       let listItems = []
 
       if (queryType === 'clips') {
-        queryDataResult = await getLoggedInUserMediaRefs(bearerToken, nsfwMode, queryPage)
+        queryDataResult = await getLoggedInUserMediaRefs(bearerToken, 'on', queryPage)
         listItems = queryDataResult.data
         listItems = queryDataResult.data.map(x => convertToNowPlayingItem(x))
         store.dispatch(playerQueueLoadSecondaryItems(clone(listItems)))
@@ -55,7 +55,7 @@ class MyProfile extends Component<Props, State> {
           from: 'subscribed-only',
           page: queryPage,
           subscribedPodcastIds: user.subscribedPodcastIds
-        }, nsfwMode)
+        }, 'on')
         listItems = queryDataResult.data
       }
 

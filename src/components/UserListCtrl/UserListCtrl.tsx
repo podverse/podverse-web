@@ -2,7 +2,7 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { PVButton as Button } from 'podverse-ui'
+import { PVButton as Button } from 'podverse_ui'
 import MediaListItemCtrl from '~/components/MediaListItemCtrl/MediaListItemCtrl'
 import { pageIsLoading } from '~/redux/actions'
 import { getPublicUsersByQuery } from '~/services'

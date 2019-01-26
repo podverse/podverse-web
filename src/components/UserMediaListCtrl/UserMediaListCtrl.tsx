@@ -1,7 +1,7 @@
 
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
-import { MediaListSelect, PVButton as Button } from 'podverse-ui'
+import { MediaListSelect, PVButton as Button } from 'podverse_ui'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { bindActionCreators } from 'redux'
 import MediaListItemCtrl from '~/components/MediaListItemCtrl/MediaListItemCtrl'
@@ -97,13 +97,13 @@ class UserMediaListCtrl extends Component<Props, State> {
       combinedListItems = listItems
     }
 
-    if (queryType === 'podcasts' 
+    if (query.type === 'podcasts' 
         && profileUser.subscribedPodcastIds
         && profileUser.subscribedPodcastIds.length > 0) {
       try {
         query.subscribedPodcastIds = profileUser.subscribedPodcastIds
         query.from = 'subscribed-only'
-        const response = await getPodcastsByQuery(query, nsfwMode)
+        const response = await getPodcastsByQuery(query, isMyProfilePage ? 'on' : nsfwMode)
         const podcasts = response.data
         combinedListItems = combinedListItems.concat(podcasts)
 
@@ -170,7 +170,7 @@ class UserMediaListCtrl extends Component<Props, State> {
         if (isMyProfilePage) {
           response = await getLoggedInUserPlaylists('', query.sort, page)
         } else {
-          response = await getUserPlaylists(profileUser.id, null, null, nsfwMode)
+          response = await getUserPlaylists(profileUser.id, nsfwMode, null, null)
         }
         const playlists = response.data
         combinedListItems = combinedListItems.concat(playlists)

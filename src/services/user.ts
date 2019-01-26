@@ -70,6 +70,7 @@ export const getUserMediaRefs = async (
 
 export const getUserPlaylists = async (
   id: string,
+  nsfwMode: string = 'on',
   sort: string = 'alphabetical',
   page: number = 1
 ) => {

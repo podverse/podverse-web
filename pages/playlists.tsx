@@ -2,7 +2,7 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { MediaListItem } from 'podverse-ui'
+import { MediaListItem } from 'podverse_ui'
 import Meta from '~/components/Meta/Meta'
 import { getUrlFromRequestOrWindow } from '~/lib/utility'
 import { pageIsLoading } from '~/redux/actions'
@@ -25,7 +25,7 @@ class Playlists extends Component<Props, State> {
     const state = store.getState()
     const { settings, user } = state
     const { nsfwMode } = settings
-    
+
     const subscribedPlaylistIds = user.subscribedPlaylistIds || []
 
     let myPlaylists = (user && user.playlists) || []

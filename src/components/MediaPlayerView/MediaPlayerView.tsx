@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { MediaPlayer, popNextFromQueueStorage } from 'podverse-ui'
+import { MediaPlayer, popNextFromQueueStorage } from 'podverse_ui'
 import { kAutoplay, kPlaybackRate, getPlaybackRateText, getPlaybackRateNextValue
   } from '~/lib/constants/misc'
 import { mediaPlayerLoadNowPlayingItem, 
