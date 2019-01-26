@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { MediaListItem, MediaListSelect, PVButton as Button } from 'podverse_ui'
+import { MediaListItem, MediaListSelect, PVButton as Button } from 'podverse-ui'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { pageIsLoading } from '~/redux/actions'
 import { getPodcastsByQuery } from '~/services'

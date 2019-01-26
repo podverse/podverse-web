@@ -26,7 +26,6 @@ const envVars = {
 }
 
 module.exports = withImages(withTypescript(withCss(withSass({
-  
   serverRuntimeConfig: {
     ...envVars
   },

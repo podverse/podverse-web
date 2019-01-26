@@ -4,7 +4,7 @@ import { Form, FormFeedback, FormGroup, FormText, Input, InputGroup, InputGroupA
   Label } from 'reactstrap'
 import { bindActionCreators } from 'redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { PVButton as Button } from 'podverse_ui'
+import { PVButton as Button } from 'podverse-ui'
 import Meta from '~/components/Meta/Meta'
 import CheckoutModal from '~/components/CheckoutModal/CheckoutModal'
 import { DeleteAccountModal } from '~/components/DeleteAccountModal/DeleteAccountModal'
@@ -258,7 +258,8 @@ class Settings extends Component<Props, State> {
           <li>Sync your queue on all devices</li>
           <li>Sync your podcast list on all devices</li>
           <li>Share your user profile</li>
-          <li>Support open source software :)</li>
+          <li>Own your personal data :)</li>
+          <li>Support monopoly-proof software :)</li>
         </ul>
         <p>$3 per year, checkout with PayPal or BitPay</p>
         <div className='settings-membership__btns'>

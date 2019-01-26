@@ -1,5 +1,3 @@
-const env = require('./env-config.js')
-
 module.exports = {
   "plugins": [
     [
@@ -9,8 +7,7 @@ module.exports = {
       }
     ],
     [
-      "transform-define",
-      env
+      "transform-define"
     ]
   ],
   "env": {
