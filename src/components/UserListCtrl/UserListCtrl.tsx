@@ -36,7 +36,8 @@ class UserListCtrl extends Component<Props, State> {
   }
 
   async queryUserListItems(page = 1) {
-    const { handleSetPageQueryState, pageKey, pages, user } = this.props
+    const { handleSetPageQueryState, pageKey, pages, settings, user } = this.props
+    const { nsfwMode } = settings
     const { listItems } = pages[pageKey]
 
     let query: any = { page }
@@ -56,7 +57,7 @@ class UserListCtrl extends Component<Props, State> {
     try {
       query.userIds = user.subscribedUserIds
 
-      const response = await getPublicUsersByQuery(query)
+      const response = await getPublicUsersByQuery(query, nsfwMode)
       const users = response.data
       combinedListItems = combinedListItems.concat(users)
 

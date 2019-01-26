@@ -1,5 +1,7 @@
 import axios from 'axios'
-import { NowPlayingItem } from 'lib/nowPlayingItem'
+import { sfwFilterMediaRefs, sfwFilterPlaylists, sfwFilterUser, sfwFilterUsers
+  } from '~/lib/profanityFilter'
+import { NowPlayingItem } from '~/lib/nowPlayingItem'
 import { alertIfRateLimitError, convertObjectToQueryString } from '~/lib/utility'
 import config from '~/config'
 const { API_BASE_URL } = config()
@@ -35,9 +37,12 @@ export const downloadUserData = async (id: string) => {
   })
 }
 
-export const getPublicUser = async (id: string) => {
+export const getPublicUser = async (id: string, nsfwMode = 'on') => {
   return axios(`${API_BASE_URL}/user/${id}`, {
     method: 'get'
+  })
+  .then(result => {
+    return nsfwMode === 'on' ? { data: result.data } : { data: sfwFilterUser(result.data) }
   })
 }
 
@@ -58,6 +63,9 @@ export const getUserMediaRefs = async (
       nsfwMode
     }
   })
+  .then(result => {
+    return nsfwMode === 'on' ? { data: result.data } : { data: sfwFilterMediaRefs(result.data) }
+  })
 }
 
 export const getUserPlaylists = async (
@@ -73,9 +81,12 @@ export const getUserPlaylists = async (
   return axios(`${API_BASE_URL}/user/${id}/playlists?${queryString}`, {
     method: 'get'
   })
+  .then(result => {
+    return nsfwMode === 'on' ? { data: result.data } : { data: sfwFilterPlaylists(result.data) }
+  })
 }
 
-export const getPublicUsersByQuery = async query => {
+export const getPublicUsersByQuery = async (query, nsfwMode = 'on') => {
   let filteredQuery: any = {}
 
   if (query.page) {
@@ -91,6 +102,9 @@ export const getPublicUsersByQuery = async query => {
   const queryString = convertObjectToQueryString(filteredQuery)
   return axios(`${API_BASE_URL}/user?${queryString}`, {
     method: 'get'
+  })
+  .then(result => {
+    return nsfwMode === 'on' ? { data: result.data } : { data: sfwFilterUsers(result.data) }
   })
 }
 

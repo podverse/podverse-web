@@ -40,7 +40,7 @@ class Clip extends Component<Props, State> {
     const { nowPlayingItem } = mediaPlayer
     const { nsfwMode } = settings
      
-    const mediaRefResult = await getMediaRefById(query.id)
+    const mediaRefResult = await getMediaRefById(query.id, nsfwMode)
     const mediaRef = mediaRefResult.data
     
     // @ts-ignore

@@ -1,10 +1,14 @@
 import axios from 'axios'
+import { sfwFilterEpisode, sfwFilterEpisodes } from '~/lib/profanityFilter'
 import { convertObjectToQueryString } from '~/lib/utility'
 import config from '~/config'
 const { API_BASE_URL } = config()
 
-export const getEpisodeById = async (id: string) => {
-  return axios.get(`${API_BASE_URL}/episode/${id}`);
+export const getEpisodeById = async (id: string, nsfwMode = 'on') => {
+  return axios.get(`${API_BASE_URL}/episode/${id}`)
+  .then(result => {
+    return nsfwMode === 'on' ? { data: result.data } : { data: sfwFilterEpisode(result.data) }
+  })
 }
 
 export const getEpisodesByQuery = async (query, nsfwMode = 'on') => {
@@ -36,5 +40,8 @@ export const getEpisodesByQuery = async (query, nsfwMode = 'on') => {
     headers: {
       nsfwMode
     }
+  })
+  .then(result => {
+    return nsfwMode === 'on' ? { data: result.data } : { data: sfwFilterEpisodes(result.data) }
   })
 }

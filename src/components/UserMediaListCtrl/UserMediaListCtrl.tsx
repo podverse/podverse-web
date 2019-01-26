@@ -170,7 +170,7 @@ class UserMediaListCtrl extends Component<Props, State> {
         if (isMyProfilePage) {
           response = await getLoggedInUserPlaylists('', query.sort, page)
         } else {
-          response = await getUserPlaylists(profileUser.id, nsfwMode, page)
+          response = await getUserPlaylists(profileUser.id, null, null, nsfwMode)
         }
         const playlists = response.data
         combinedListItems = combinedListItems.concat(playlists)

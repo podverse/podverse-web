@@ -43,7 +43,7 @@ class Profile extends Component<Props, State> {
     let publicUser = currentPage.publicUser
 
     if (Object.keys(currentPage).length === 0) {
-      const response = await getPublicUser(currentId)
+      const response = await getPublicUser(currentId, nsfwMode)
       publicUser = response.data
       let queryDataResult
       let listItems = []
@@ -53,7 +53,7 @@ class Profile extends Component<Props, State> {
         listItems = queryDataResult.data.map(x => convertToNowPlayingItem(x))
         store.dispatch(playerQueueLoadSecondaryItems(clone(listItems)))
       } else if (query.type === 'playlists') {
-        queryDataResult = await getUserPlaylists(currentId)
+        queryDataResult = await getUserPlaylists(currentId, null, null, nsfwMode)
         listItems = queryDataResult.data
       } else if (queryType === 'podcasts' 
           && publicUser.subscribedPodcastIds

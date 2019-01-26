@@ -58,8 +58,9 @@ class Playlist extends Component<Props, State> {
 
   static async getInitialProps({ query, req, store }) {
     const state = store.getState()
-    const { user } = state
-    const playlistResult = await getPlaylistById(query.id) || {}
+    const { settings, user } = state
+    const { nsfwMode } = settings
+    const playlistResult = await getPlaylistById(query.id, nsfwMode) || {}
     const playlist = playlistResult.data || {}
     const episodes = playlist.episodes || []
     const mediaRefs = playlist.mediaRefs || []

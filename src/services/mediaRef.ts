@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { sfwFilterMediaRef, sfwFilterMediaRefs } from '~/lib/profanityFilter'
 import { alertIfRateLimitError, convertObjectToQueryString } from '~/lib/utility'
 import config from '~/config'
 const { API_BASE_URL } = config()
@@ -57,10 +58,16 @@ export const getMediaRefsByQuery = async (query, nsfwMode = 'on') => {
       nsfwMode
     }
   })
+  .then(result => {
+    return nsfwMode === 'on' ? { data: result.data } : { data: sfwFilterMediaRefs(result.data) }
+  })
 }
 
-export const getMediaRefById = async (id: string) => {
+export const getMediaRefById = async (id: string, nsfwMode = 'on') => {
   return axios.get(`${API_BASE_URL}/mediaRef/${id}`)
+  .then(result => {
+    return nsfwMode === 'on' ? { data: result.data } : { data: sfwFilterMediaRef(result.data) }
+  })
 }
 
 export const updateMediaRef = async (data: any) => {

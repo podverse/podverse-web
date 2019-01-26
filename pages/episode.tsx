@@ -39,7 +39,7 @@ class Episode extends Component<Props, State> {
     const { nowPlayingItem } = mediaPlayer
     const { nsfwMode } = settings
 
-    const episodeResult = await getEpisodeById(query.id)
+    const episodeResult = await getEpisodeById(query.id, nsfwMode)
     const episode = episodeResult.data
 
     // @ts-ignore

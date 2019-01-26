@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { sfwFilterPlaylist, sfwFilterPlaylists } from '~/lib/profanityFilter'
 import { alertIfRateLimitError, convertObjectToQueryString } from '~/lib/utility'
 import config from '~/config'
 const { API_BASE_URL } = config()
@@ -40,11 +41,14 @@ export const deletePlaylist = async (id: string) => {
   })
 }
 
-export const getPlaylistById = async (id: string) => {
+export const getPlaylistById = async (id: string, nsfwMode = 'on') => {
   return axios.get(`${API_BASE_URL}/playlist/${id}`)
+  .then(result => {
+    return nsfwMode === 'on' ? { data: result.data } : { data: sfwFilterPlaylist(result.data) }
+  })
 }
 
-export const getPlaylistsByQuery = async (query) => {
+export const getPlaylistsByQuery = async (query, nsfwMode = 'on') => {
   let filteredQuery: any = {}
 
   if (query.from === 'subscribed-only') {
@@ -53,6 +57,9 @@ export const getPlaylistsByQuery = async (query) => {
 
   const queryString = convertObjectToQueryString(filteredQuery)
   return axios.get(`${API_BASE_URL}/playlist?${queryString}`)
+  .then(result => {
+    return nsfwMode === 'on' ? { data: result.data } : { data: sfwFilterPlaylists(result.data) }
+  })
 }
 
 export const toggleSubscribeToPlaylist = async (playlistId: string) => {

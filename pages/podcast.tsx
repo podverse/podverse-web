@@ -39,7 +39,7 @@ class Podcast extends Component<Props, State> {
     const { nsfwMode } = settings
 
     try {
-      const podcastResult = await getPodcastById(query.id)
+      const podcastResult = await getPodcastById(query.id, nsfwMode)
       const podcast = podcastResult.data
 
       const currentPage = pages[pageKeyWithId] || {}
