@@ -2,6 +2,7 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import Error from 'next/error'
 import Router from 'next/router'
 import { Input } from 'reactstrap'
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd'
@@ -22,6 +23,7 @@ import { addOrRemovePlaylistItem, addOrUpdateUserHistoryItem, deletePlaylist,
 const uuidv4 = require('uuid/v4')
 
 type Props = {
+  is404Page?: boolean
   mediaPlayer: any
   mediaPlayerLoadNowPlayingItem: any
   mediaPlayerUpdatePlaying: any
@@ -61,7 +63,13 @@ class Playlist extends Component<Props, State> {
     const { settings, user } = state
     const { nsfwMode } = settings
     const playlistResult = await getPlaylistById(query.id, nsfwMode) || {}
-    const playlist = playlistResult.data || {}
+    const playlist = playlistResult.data
+console.log('wtf', playlist)
+    if (!playlist) {
+      store.dispatch(pageIsLoading(false))
+      return { is404Page: true }
+    }
+
     const episodes = playlist.episodes || []
     const mediaRefs = playlist.mediaRefs || []
     
@@ -102,7 +110,10 @@ class Playlist extends Component<Props, State> {
   }
 
   componentDidMount() {
-    const { mediaPlayer, playerQueueLoadSecondaryItems, playlistItems } = this.props
+    const {is404Page, mediaPlayer, playerQueueLoadSecondaryItems, playlistItems } = this.props
+    
+    if (is404Page) return
+
     const { nowPlayingItem } = mediaPlayer
     const { playlist } = this.state
     const itemsOrder = playlist.itemsOrder
@@ -350,7 +361,12 @@ class Playlist extends Component<Props, State> {
   }
 
   render() {
-    const { mediaPlayer, meta, user } = this.props
+    const { is404Page, mediaPlayer, meta, user } = this.props
+
+    if (is404Page) {
+      return <Error statusCode={404} />
+    }
+
     const { nowPlayingItem: mpNowPlayingItem } = mediaPlayer
     const { subscribedPlaylistIds } = user
     const { isDeleting, isEditing, isLoading, isSubscribing, isUpdating, newDescription, 

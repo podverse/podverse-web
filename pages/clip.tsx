@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import Error from 'next/error'
 import { addItemsToSecondaryQueueStorage, clearItemsFromSecondaryQueueStorage } from 'podverse_ui'
 import MediaHeaderCtrl from '~/components/MediaHeaderCtrl/MediaHeaderCtrl'
 import MediaInfoCtrl from '~/components/MediaInfoCtrl/MediaInfoCtrl'
@@ -13,6 +14,7 @@ import { mediaPlayerLoadNowPlayingItem, pageIsLoading, pagesSetQueryState,
 import { getEpisodesByQuery, getMediaRefsByQuery, getMediaRefById } from '~/services/'
 
 type Props = {
+  is404Page?: boolean
   listItems?: any
   mediaRef?: any
   meta?: any
@@ -42,6 +44,11 @@ class Clip extends Component<Props, State> {
      
     const mediaRefResult = await getMediaRefById(query.id, nsfwMode)
     const mediaRef = mediaRefResult.data
+
+    if (!mediaRef) {
+      store.dispatch(pageIsLoading(false))
+      return { is404Page: true }
+    }
     
     // @ts-ignore
     if (!process.browser) {
@@ -119,15 +126,23 @@ class Clip extends Component<Props, State> {
   }
 
   componentDidMount () {
-    const { playerQueue } = this.props
+    const { is404Page, playerQueue } = this.props    
+
+    if (is404Page) return
+
     const { secondaryItems } = playerQueue
+    
     clearItemsFromSecondaryQueueStorage()
     addItemsToSecondaryQueueStorage(secondaryItems)
   }
 
   render () {
-    const { mediaRef, meta, pageKeyWithId, pagesSetQueryState, queryFrom,
+    const { is404Page, mediaRef, meta, pageKeyWithId, pagesSetQueryState, queryFrom,
       queryPage, querySort, queryType } = this.props
+
+    if (is404Page) {
+      return <Error statusCode={404} />
+    }
 
     return (
       <Fragment>

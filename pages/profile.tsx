@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import Error from 'next/error'
 import Meta from '~/components/Meta/Meta'
 import UserHeaderCtrl from '~/components/UserHeaderCtrl/UserHeaderCtrl'
 import UserMediaListCtrl from '~/components/UserMediaListCtrl/UserMediaListCtrl'
@@ -12,6 +13,7 @@ import { getPodcastsByQuery, getPublicUser, getUserMediaRefs, getUserPlaylists
   } from '~/services'
 
 type Props = {
+  is404Page?: boolean
   listItems?: any[]
   meta?: any
   pageKeyWithId?: string
@@ -47,6 +49,11 @@ class Profile extends Component<Props, State> {
       publicUser = response.data
       let queryDataResult
       let listItems = []
+
+      if (!publicUser) {
+        store.dispatch(pageIsLoading(false))
+        return { is404Page: true }
+      }
 
       if (query.type === 'clips') {
         queryDataResult = await getUserMediaRefs(currentId, nsfwMode)
@@ -87,8 +94,12 @@ class Profile extends Component<Props, State> {
   }
 
   render() {
-    const { meta, pageKeyWithId, pagesSetQueryState, publicUser, queryPage,
-      querySort, queryType, user } = this.props
+    const { is404Page, meta, pageKeyWithId, pagesSetQueryState, publicUser,
+      queryPage, querySort, queryType, user } = this.props
+
+    if (is404Page) {
+      return <Error statusCode={404} />
+    }
 
     return (
       <div className='user-profile'>

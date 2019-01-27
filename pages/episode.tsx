@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import Error from 'next/error'
 import { addItemsToSecondaryQueueStorage, clearItemsFromSecondaryQueueStorage } from 'podverse_ui'
 import MediaHeaderCtrl from '~/components/MediaHeaderCtrl/MediaHeaderCtrl'
 import MediaInfoCtrl from '~/components/MediaInfoCtrl/MediaInfoCtrl'
@@ -14,6 +15,7 @@ import { getEpisodeById, getEpisodesByQuery, getMediaRefsByQuery } from '~/servi
 
 type Props = {
   episode?: any
+  is404Page?: boolean
   meta?: any
   pageKeyWithId?: string
   pagesSetQueryState?: any
@@ -41,6 +43,11 @@ class Episode extends Component<Props, State> {
 
     const episodeResult = await getEpisodeById(query.id, nsfwMode)
     const episode = episodeResult.data
+
+    if (!episode) {
+      store.dispatch(pageIsLoading(false))
+      return { is404Page: true }
+    }
 
     // @ts-ignore
     if (!process.browser) {
@@ -119,15 +126,22 @@ class Episode extends Component<Props, State> {
   }
 
   componentDidMount() {
-    const { playerQueue } = this.props
+    const { is404Page, playerQueue } = this.props
+    
+    if (is404Page) return
+
     const { secondaryItems } = playerQueue
     clearItemsFromSecondaryQueueStorage()
     addItemsToSecondaryQueueStorage(secondaryItems)
   }
 
   render() {
-    const { episode, meta, pageKeyWithId, pagesSetQueryState, queryFrom, queryPage,
-      querySort, queryType } = this.props
+    const { episode, is404Page, meta, pageKeyWithId, pagesSetQueryState, queryFrom,
+      queryPage, querySort, queryType } = this.props
+
+    if (is404Page) {
+      return <Error statusCode={404} />
+    }
 
     return (
       <Fragment>
