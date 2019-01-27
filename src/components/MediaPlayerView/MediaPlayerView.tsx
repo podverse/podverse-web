@@ -8,9 +8,8 @@ import { mediaPlayerLoadNowPlayingItem,
   mediaPlayerSetClipFinished, mediaPlayerSetPlayedAfterClipFinished,
   playerQueueLoadPriorityItems, playerQueueLoadSecondaryItems,
   mediaPlayerUpdatePlaying, modalsAddToShow, modalsMakeClipShow,
-  modalsQueueShow, modalsShareShow, userSetInfo } from '~/redux/actions'
+  modalsQueueShow, modalsShareShow, pageIsLoading, userSetInfo } from '~/redux/actions'
 import { addOrUpdateUserHistoryItem, updateUserQueueItems } from '~/services'
-import Router from 'next/router';
 
 type Props = {
   handleMakeClip?: Function
@@ -52,7 +51,7 @@ class MediaPlayerView extends Component<Props, State> {
 
     this.state = {}
 
-    this.anchorOnClick = this.anchorOnClick.bind(this)
+    this.linkClick = this.linkClick.bind(this)
   }
 
   componentDidMount() {
@@ -81,26 +80,6 @@ class MediaPlayerView extends Component<Props, State> {
 
   setPlaybackRateValue = (val) => {
     localStorage.setItem(kPlaybackRate, val)
-  }
-
-  anchorOnClick(nowPlayingItem, itemType) {
-    const { pageIsLoading } = this.props
-
-    if (itemType === 'episode') {
-      pageIsLoading(true)
-      nowPlayingItem.clipEndTime = 0
-      nowPlayingItem.clipTitle = 0
-      nowPlayingItem.clipStartTime = 0
-
-      const href = `/episode?id=${nowPlayingItem.episodeId}`
-      const as = `/episode/${nowPlayingItem.episodeId}`
-      Router.push(href, as)
-    } else if (itemType === 'mediaRef') {
-      pageIsLoading(true)
-      const href = `/clip?id=${nowPlayingItem.episodeId}`
-      const as = `/clip/${nowPlayingItem.episodeId}`
-      Router.push(href, as)
-    }
   }
 
   itemSkip = async () => {
@@ -268,6 +247,11 @@ class MediaPlayerView extends Component<Props, State> {
     })
   }
 
+  linkClick() {
+    const { pageIsLoading } = this.props
+    pageIsLoading(true)
+  }
+
   render() {
     const { mediaPlayer, playerQueue } = this.props
     const { clipFinished, nowPlayingItem, playedAfterClipFinished, playing } = mediaPlayer
@@ -305,11 +289,11 @@ class MediaPlayerView extends Component<Props, State> {
                 playedAfterClipFinished={playedAfterClipFinished}
                 playbackRateText={getPlaybackRateText(playbackRate)}
                 playerClipLinkAs={`/clip/${nowPlayingItem.clipId}`}
-                playerClipLinkHref={`/clip?id=${nowPlayingItem.clipId}`}
-                playerClipLinkOnClick={() => { this.anchorOnClick(nowPlayingItem, 'mediaRef') }}
+                playerClipLinkHref={`/clip?id=${nowPlayingItem.clipId}&scrollToTop=true`}
+                playerClipLinkOnClick={this.linkClick}
                 playerEpisodeLinkAs={`/episode/${nowPlayingItem.episodeId}`}
-                playerEpisodeLinkHref={`/episode?id=${nowPlayingItem.episodeId}`}
-                playerEpisodeLinkOnClick={() => { this.anchorOnClick(nowPlayingItem, 'episode') }}
+                playerEpisodeLinkHref={`/episode?id=${nowPlayingItem.episodeId}&scrollToTop=true`}
+                playerEpisodeLinkOnClick={this.linkClick}
                 playing={playing}
                 queuePriorityItems={priorityItems}
                 queueSecondaryItems={secondaryItems}
@@ -333,6 +317,7 @@ const mapDispatchToProps = dispatch => ({
   modalsMakeClipShow: bindActionCreators(modalsMakeClipShow, dispatch),
   modalsQueueShow: bindActionCreators(modalsQueueShow, dispatch),
   modalsShareShow: bindActionCreators(modalsShareShow, dispatch),
+  pageIsLoading: bindActionCreators(pageIsLoading, dispatch),
   playerQueueLoadPriorityItems: bindActionCreators(playerQueueLoadPriorityItems, dispatch),
   playerQueueLoadSecondaryItems: bindActionCreators(playerQueueLoadSecondaryItems, dispatch),
   userSetInfo: bindActionCreators(userSetInfo, dispatch)
