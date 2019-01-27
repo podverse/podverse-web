@@ -64,7 +64,7 @@ class Playlist extends Component<Props, State> {
     const { nsfwMode } = settings
     const playlistResult = await getPlaylistById(query.id, nsfwMode) || {}
     const playlist = playlistResult.data
-console.log('wtf', playlist)
+
     if (!playlist) {
       store.dispatch(pageIsLoading(false))
       return { is404Page: true }
