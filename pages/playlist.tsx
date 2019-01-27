@@ -417,62 +417,66 @@ class Playlist extends Component<Props, State> {
         <h3>Playlist</h3>
         <div className='media-header'>
           <div className='text-wrapper'>
-            {
-              !isEditing &&
-                <Fragment>
-                  {
-                    (!user.id || (user && user.id && user.id !== playlist.owner.id)) &&
-                      <button
-                        className='media-header__subscribe'
-                        onClick={this.toggleSubscribe}>
-                        {
-                          isSubscribing ?
-                            <FontAwesomeIcon icon='spinner' spin />
-                            :
-                            <React.Fragment>
-                              {
-                                isSubscribed ?
-                                  <FontAwesomeIcon icon={fasStar} />
-                                  // @ts-ignore
-                                  : <FontAwesomeIcon icon={farStar} />
-                              }
-                            </React.Fragment>
-                        }
-                      </button>
-                  }
-                  {
-                    (user && user.id && user.id === playlist.owner.id) &&
-                      <button
-                        className='media-header__edit'
-                        onClick={this.startEditing}>
-                        <FontAwesomeIcon icon='edit' />
-                      </button>
-                  }
-                </Fragment>
-            }
-            {
-              isEditing &&
-                <div className='media-header__title-edit'>
-                  <Input
-                    innerRef={this.inputTitle}
-                    name='playlist__title'
-                    onChange={this.handleTitleInputChange}
-                    placeholder='title'
-                    type='text'
-                    value={newTitle} />
-                </div>
-            }
-            {
-              !isEditing &&
-                <Fragment>
-                  <div className='media-header__title'>
-                    {title ? title : 'Untitled Playlist'}
+            <div className='media-header__top'>
+              {
+                !isEditing &&
+                  <Fragment>
+                    <div className='media-header__title'>
+                      {title ? title : 'Untitled Playlist'}
+                    </div>
+                  </Fragment>
+              }
+              {
+                !isEditing &&
+                  <Fragment>
+                    {
+                      (user && user.id && user.id === playlist.owner.id) &&
+                        <button
+                          className='media-header__edit'
+                          onClick={this.startEditing}>
+                          <FontAwesomeIcon icon='edit' />
+                        </button>
+                    }
+                    {
+                      (!user.id || (user && user.id && user.id !== playlist.owner.id)) &&
+                        <button
+                          className='media-header__subscribe'
+                          onClick={this.toggleSubscribe}>
+                          {
+                            isSubscribing ?
+                              <FontAwesomeIcon icon='spinner' spin />
+                              :
+                              <React.Fragment>
+                                {
+                                  isSubscribed ?
+                                    <FontAwesomeIcon icon={fasStar} />
+                                    // @ts-ignore
+                                    : <FontAwesomeIcon icon={farStar} />
+                                }
+                              </React.Fragment>
+                          }
+                        </button>
+                    }
+                  </Fragment>
+              }
+              {
+                isEditing &&
+                  <div className='media-header__title-edit'>
+                    <Input
+                      innerRef={this.inputTitle}
+                      name='playlist__title'
+                      onChange={this.handleTitleInputChange}
+                      placeholder='title'
+                      type='text'
+                      value={newTitle} />
                   </div>
-                  <div className='media-header__sub-title'>
-                    By: {owner.name ? owner.name : 'anonymous'}
-                  </div>
-                </Fragment>
-            }
+              }
+            </div>
+            <div className='media-header__middle'>
+              <div className='media-header__sub-title'>
+                By: {owner.name ? owner.name : 'anonymous'}
+              </div>
+            </div>
           </div>
         </div>
         <div className='media-info'>

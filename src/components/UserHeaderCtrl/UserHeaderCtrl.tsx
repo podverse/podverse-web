@@ -67,40 +67,42 @@ class UserHeaderCtrl extends Component<Props, State> {
     return (
       <div className='media-header'>
         <div className='text-wrapper'>
-          {
-            loggedInUser && profileUser && loggedInUser.id === profileUser.id ?
-              <div className='media-header__subscribe'>
-                {
-                  loggedInUser.isPublic ?
-                    <React.Fragment>
-                      <FontAwesomeIcon icon='globe-americas' />
-                    </React.Fragment>
-                    :
-                    <React.Fragment>
-                      <FontAwesomeIcon icon='lock' />
-                    </React.Fragment>
-                }
-              </div> :
-              <button
-                className='media-header__subscribe'
-                onClick={this.toggleSubscribe}>
-                {
-                  isSubscribing ?
-                    <FontAwesomeIcon icon='spinner' spin />
-                    :
-                    <React.Fragment>
-                      {
-                        isSubscribed ?
-                          <FontAwesomeIcon icon={fasStar} />
-                          // @ts-ignore
-                          : <FontAwesomeIcon icon={farStar} />
-                      }
-                    </React.Fragment>
-                }
-              </button>
-          }
-          <div className='media-header__title'>
-            {profileUser.name ? profileUser.name : 'anonymous'}
+          <div className='media-header__top'>
+            <div className='media-header__title'>
+              {profileUser.name ? profileUser.name : 'anonymous'}
+            </div>
+            {
+              loggedInUser && profileUser && loggedInUser.id === profileUser.id ?
+                <div className='media-header__subscribe'>
+                  {
+                    loggedInUser.isPublic ?
+                      <React.Fragment>
+                        <FontAwesomeIcon icon='globe-americas' />
+                      </React.Fragment>
+                      :
+                      <React.Fragment>
+                        <FontAwesomeIcon icon='lock' />
+                      </React.Fragment>
+                  }
+                </div> :
+                <button
+                  className='media-header__subscribe'
+                  onClick={this.toggleSubscribe}>
+                  {
+                    isSubscribing ?
+                      <FontAwesomeIcon icon='spinner' spin />
+                      :
+                      <React.Fragment>
+                        {
+                          isSubscribed ?
+                            <FontAwesomeIcon icon={fasStar} />
+                            // @ts-ignore
+                            : <FontAwesomeIcon icon={farStar} />
+                        }
+                      </React.Fragment>
+                  }
+                </button>
+            }
           </div>
         </div>
       </div>
