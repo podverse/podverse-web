@@ -259,7 +259,7 @@ class Settings extends Component<Props, State> {
           <li>Sync your podcast list on all devices</li>
           <li>Share your user profile</li>
           <li>Own your personal data :)</li>
-          <li>Support monopoly-proof software :)</li>
+          <li>Support open-source software :)</li>
         </ul>
         <p>$3 per year, checkout with PayPal or BitPay</p>
         <div className='settings-membership__btns'>
