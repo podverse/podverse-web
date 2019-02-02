@@ -1,3 +1,5 @@
-.git
-node_modules
 .env
+.git
+.next
+next
+node_modules
