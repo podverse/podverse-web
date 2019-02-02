@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react'
-import { Button } from 'podverse_ui'
+import { Button } from 'podverse-ui'
 import Meta from '~/components/Meta/Meta'
 
 export default () => {

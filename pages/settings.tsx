@@ -4,7 +4,7 @@ import { Form, FormFeedback, FormGroup, FormText, Input, InputGroup, InputGroupA
   Label } from 'reactstrap'
 import { bindActionCreators } from 'redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { PVButton as Button } from 'podverse_ui'
+import { PVButton as Button } from 'podverse-ui'
 import Meta from '~/components/Meta/Meta'
 import CheckoutModal from '~/components/CheckoutModal/CheckoutModal'
 import { DeleteAccountModal } from '~/components/DeleteAccountModal/DeleteAccountModal'

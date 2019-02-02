@@ -2,7 +2,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { MediaInfo, addItemToPriorityQueueStorage, getPriorityQueueItemsStorage
-  } from 'podverse_ui'
+  } from 'podverse-ui'
 import { bindActionCreators } from 'redux';
 import { mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying, modalsAddToShow,
   modalsMakeClipShow, pageIsLoading, playerQueueLoadPriorityItems, userSetInfo
