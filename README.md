@@ -4,7 +4,7 @@ Web application for the Podverse ecosystem
 
 ## Getting Started
 
-### Local Development and Deployment
+### Local / Stage / Prod
 This repo contains steps for running podverse-web locally for development.
 
 For stage/prod deployment instructions, please refer to the
@@ -30,5 +30,5 @@ npm run dev
 ### Updating podverse-ui components
 
 If you want to update a podverse-ui components and see how it looks in
-podverse-web, you'll need to follow the "npm link" instructions in
+podverse-web, you'll need to follow the _npm link_ instructions in
 the [podverse-ui docs](https://github.com/podverse/podverse-ui).
