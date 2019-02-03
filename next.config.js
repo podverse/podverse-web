@@ -10,7 +10,6 @@ const envVars = {
   PROTOCOL: process.env.PROTOCOL,
   PORT: process.env.PORT,
   API_PROTOCOL: process.env.API_PROTOCOL,
-  API_PORT: process.env.API_PORT,
   API_PATH: process.env.API_PATH,
   API_VERSION: process.env.API_VERSION,
   COOKIE_DOMAIN: process.env.COOKIE_DOMAIN,

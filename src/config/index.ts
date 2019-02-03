@@ -5,7 +5,6 @@ export interface Config {
   PROTOCOL?: string
   PORT?: number
   API_PROTOCOL?: string
-  API_PORT?: number
   API_PATH?: string
   API_VERSION?: string
   COOKIE_DOMAIN?: string
@@ -34,7 +33,6 @@ export default () => {
     PROTOCOL: publicRuntimeConfig.PROTOCOL,
     PORT: publicRuntimeConfig.PORT,
     API_PROTOCOL: publicRuntimeConfig.API_PROTOCOL,
-    API_PORT: publicRuntimeConfig.API_PORT,
     API_PATH: publicRuntimeConfig.API_PATH,
     API_VERSION: publicRuntimeConfig.API_VERSION,
     COOKIE_DOMAIN: publicRuntimeConfig.COOKIE_DOMAIN,
@@ -50,12 +48,14 @@ export default () => {
   if (Object.keys(serverRuntimeConfig).length > 0) {
     Object.assign(config, {
       DOMAIN: serverRuntimeConfig.DOMAIN,
-      API_DOMAIN: serverRuntimeConfig.API_DOMAIN
+      API_DOMAIN: serverRuntimeConfig.API_DOMAIN,
+      API_PROTOCOL: serverRuntimeConfig.API_PROTOCOL
     })
   } else if (Object.keys(publicRuntimeConfig).length > 0) {
     Object.assign(config, {
       DOMAIN: publicRuntimeConfig.PUBLIC_DOMAIN,
-      API_DOMAIN: publicRuntimeConfig.PUBLIC_API_DOMAIN
+      API_DOMAIN: publicRuntimeConfig.PUBLIC_API_DOMAIN,
+      API_PROTOCOL: serverRuntimeConfig.PUBLIC_API_PROTOCOL
     })
   }
 
