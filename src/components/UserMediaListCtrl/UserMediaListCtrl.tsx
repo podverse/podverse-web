@@ -224,11 +224,6 @@ class UserMediaListCtrl extends Component<Props, State> {
   getQuerySortOptions() {
     return [
       {
-        label: 'alphabetical',
-        onClick: () => this.queryMediaListItems('sort', 'alphabetical'),
-        value: 'alphabetical'
-      },
-      {
         label: 'most recent',
         onClick: () => this.queryMediaListItems('sort', 'most-recent'),
         value: 'most-recent'

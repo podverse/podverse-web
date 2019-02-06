@@ -58,14 +58,15 @@ class PodcastListCtrl extends Component<Props, State> {
 
     let newState: any = {
       pageKey,
+      queryFrom,
       queryPage: page,
+      querySort,
       ...selectedKey !== 'sort' && { selected: selectedKey },
     }
 
     if (selectedKey === 'sort') {
       newState.querySort = selectedValue
       query.sort = selectedValue
-      query.subscribedPodcastIds = subscribedPodcastIds
     } else if (selectedKey === 'categories') {
       newState.queryFrom = 'from-category'
       newState.categoryId = selectedValue
@@ -78,7 +79,8 @@ class PodcastListCtrl extends Component<Props, State> {
           endReached: false,
           isLoadingInitial: false,
           isLoadingMore: false,
-          listItems: []
+          listItems: [],
+          selected: selectedKey
         })
         return
       }
@@ -86,13 +88,10 @@ class PodcastListCtrl extends Component<Props, State> {
       newState.categoryId = null
       query.from = 'subscribed-only'
       query.subscribedPodcastIds = subscribedPodcastIds
-      delete query.categories
     } else if (selectedKey === 'all-podcasts') {
       newState.queryFrom = 'all-podcasts'
       newState.categoryId = null
       query.from = 'all-podcasts'
-      delete query.categories
-      delete query.subscribedPodcastIds
     }
 
     if (['sort', 'categories', 'subscribed-only', 'all-podcasts'].includes(selectedKey)) {
@@ -169,6 +168,7 @@ class PodcastListCtrl extends Component<Props, State> {
     ]
   }
 
+  // BEWARE! X_X
   generateCategorySelectNodes (allCategories, categoryId, user) {
     const { pageKey, pages } = this.props
     const { selected } = pages[pageKey]
@@ -289,7 +289,7 @@ class PodcastListCtrl extends Component<Props, State> {
   render() {
     const { allCategories, pageKey, pages, user } = this.props
     const { categoryId, endReached, isLoadingInitial, isLoadingMore, listItems,
-      queryPage, querySort } = pages[pageKey]
+      queryFrom, queryPage, querySort } = pages[pageKey]
 
     const listItemNodes = listItems.map(x => {
       return (

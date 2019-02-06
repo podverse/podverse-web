@@ -28,7 +28,7 @@ export const getLoggedInUserMediaRefs = async (bearerToken, nsfwMode, sort = 'mo
   })
 }
 
-export const getLoggedInUserPlaylists = async (bearerToken, sort = 'alphabetical', page = 1) => {
+export const getLoggedInUserPlaylists = async (bearerToken, page = 1) => {
   let filteredQuery: any = {}
   filteredQuery.sort = sort
   filteredQuery.page = page
