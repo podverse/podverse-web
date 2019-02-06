@@ -93,42 +93,32 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
       const parsedCookie = cookie.parse(ctx.req.headers.cookie)
 
       if (parsedCookie.uiTheme) {
-        let uiTheme = parsedCookie.uiTheme ? parsedCookie.uiTheme : 'dark'
         ctx.store.dispatch({
           type: actionTypes.SETTINGS_SET_UI_THEME,
-          payload: uiTheme
+          payload: parsedCookie.uiTheme
         })
       }
 
-      let nsfwMode = 'on'
       if (parsedCookie.nsfwMode) {
-        nsfwMode = parsedCookie.nsfwMode
+        ctx.store.dispatch({
+          type: actionTypes.SETTINGS_SET_NSFW_MODE,
+          payload: parsedCookie.nsfwMode
+        })
       }
 
-      ctx.store.dispatch({
-        type: actionTypes.SETTINGS_SET_NSFW_MODE,
-        payload: nsfwMode
-      })
-
-      let nsfwModeHide = 'on'
       if (parsedCookie.nsfwModeHide) {
-        nsfwModeHide = parsedCookie.nsfwModeHide
+        ctx.store.dispatch({
+          type: actionTypes.SETTINGS_SET_HIDE_NSFW_MODE,
+          payload: parsedCookie.nsfwModeHide
+        })
       }
 
-      ctx.store.dispatch({
-        type: actionTypes.SETTINGS_SET_HIDE_NSFW_MODE,
-        payload: nsfwModeHide
-      })
-
-      let uiThemeHide = 'on'
       if (parsedCookie.uiThemeHide) {
-        uiThemeHide = parsedCookie.uiThemeHide
+        ctx.store.dispatch({
+          type: actionTypes.SETTINGS_SET_HIDE_UI_THEME,
+          payload: parsedCookie.uiThemeHide
+        })
       }
-
-      ctx.store.dispatch({
-        type: actionTypes.SETTINGS_SET_HIDE_UI_THEME,
-        payload: uiThemeHide
-      })
 
       if (parsedCookie.Authorization) {
         try {

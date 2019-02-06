@@ -55,7 +55,7 @@ export default () => {
     Object.assign(config, {
       DOMAIN: publicRuntimeConfig.PUBLIC_DOMAIN,
       API_DOMAIN: publicRuntimeConfig.PUBLIC_API_DOMAIN,
-      API_PROTOCOL: serverRuntimeConfig.PUBLIC_API_PROTOCOL
+      API_PROTOCOL: publicRuntimeConfig.PUBLIC_API_PROTOCOL
     })
   }
 

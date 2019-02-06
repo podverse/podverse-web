@@ -101,14 +101,14 @@ class Footer extends Component<Props, State> {
               </a>
             </Link>
             {
-              uiThemeHide !== 'on' &&
+              !uiThemeHide &&
                 <div className='footer-top__ui-theme'>
                   <span className='footer-top-ui-theme__left'>
                     <FontAwesomeIcon icon='sun' />&nbsp;
                   </span>
                   <Switch
                     aria-label={uiThemeAriaLabel}
-                    checked={uiTheme === 'dark' || !uiTheme}
+                    checked={!uiTheme || uiTheme === 'dark'}
                     checkedIcon
                     height={24}
                     id="ui-theme-switch"
@@ -123,12 +123,12 @@ class Footer extends Component<Props, State> {
                 </div>
             }
             {
-              nsfwModeHide !== 'on' &&
+              !nsfwModeHide &&
                 <div className='footer-top__nsfw'>
                   <span className='footer-top-nsfw__left'>SFW&nbsp;</span>
                   <Switch
                     aria-label={nsfwModeAriaLabel}
-                    checked={nsfwMode === 'on'}
+                    checked={!nsfwMode || nsfwMode === 'on'}
                     checkedIcon
                     height={24}
                     offColor={colors.blue}

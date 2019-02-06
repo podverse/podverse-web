@@ -21,6 +21,7 @@ const envVars = {
   DOMAIN: process.env.DOMAIN,
   API_DOMAIN: process.env.API_DOMAIN,
   PUBLIC_DOMAIN: process.env.PUBLIC_DOMAIN,
+  PUBLIC_API_PROTOCOL: process.env.PUBLIC_API_PROTOCOL,
   PUBLIC_API_DOMAIN: process.env.PUBLIC_API_DOMAIN
 }
 
@@ -31,7 +32,8 @@ module.exports = withImages(withTypescript(withCss(withSass({
   publicRuntimeConfig: {
     ...envVars,
     DOMAIN: process.env.PUBLIC_DOMAIN,
-    API_DOMAIN: process.env.PUBLIC_API_DOMAIN
+    API_PROTOCOL: process.env.PUBLIC_API_PROTOCOL,
+    API_DOMAIN: process.env.PUBLIC_API_DOMAIN,
   },
   webpack(config, options) {
     return {

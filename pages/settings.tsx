@@ -143,7 +143,7 @@ class Settings extends Component<Props, State> {
   handleToggleNSFWMode(event) {
     const { settingsHideNSFWMode } = this.props
     const isChecked = event.currentTarget.checked
-    const val = isChecked ? 'on' : 'off'
+    const val = isChecked ? true : false
 
     const expires = new Date()
     expires.setDate(expires.getDate() + 365)
@@ -159,7 +159,7 @@ class Settings extends Component<Props, State> {
   handleToggleUITheme(event) {
     const { settingsHideUITheme } = this.props
     const isChecked = event.currentTarget.checked
-    const val = isChecked ? 'on' : 'off'
+    const val = isChecked ? true : false
 
     const expires = new Date()
     expires.setDate(expires.getDate() + 365)
@@ -258,8 +258,8 @@ class Settings extends Component<Props, State> {
           <li>Sync your queue on all devices</li>
           <li>Sync your podcast list on all devices</li>
           <li>Share your user profile</li>
-          <li>Own your personal data :)</li>
-          <li>Support open-source software :)</li>
+          <li>Own your personal data</li>
+          <li>Support open-source software</li>
         </ul>
         <p>$3 per year, checkout with PayPal or BitPay</p>
         <div className='settings-membership__btns'>
@@ -385,7 +385,7 @@ class Settings extends Component<Props, State> {
           <FormGroup check>
             <Label className='checkbox-label' check>
               <Input
-                checked={uiThemeHide === 'on'}
+                checked={uiThemeHide === false}
                 onChange={this.handleToggleUITheme}
                 type="checkbox" />
               &nbsp;&nbsp;Hide dark-mode switch in footer
@@ -394,7 +394,7 @@ class Settings extends Component<Props, State> {
           <FormGroup check>
             <Label className='checkbox-label' check>
               <Input
-                checked={nsfwModeHide === 'on'}
+                checked={nsfwModeHide === false}
                 onChange={this.handleToggleNSFWMode}
                 type="checkbox" />
               &nbsp;&nbsp;Hide nsfw-mode switch in footer
