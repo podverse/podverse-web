@@ -252,6 +252,7 @@ class MediaModals extends Component<Props, State> {
       try {
         const res = await addOrRemovePlaylistItem({
           playlistId,
+          episodeId: nowPlayingItem.episodeId,
           mediaRefId: nowPlayingItem.clipId
         })
   
