@@ -101,6 +101,7 @@ class PVNavBar extends Component<Props, State> {
               subscribedUserIds: []
             })
             playerQueueLoadPriorityItems(getPriorityQueueItemsStorage())
+            window.location.reload()
           } catch (error) {
             console.log(error)
           }
