@@ -36,6 +36,7 @@ class Search extends Component<Props, State> {
 
     store.dispatch(pagesSetQueryState({ 
       pageKey: kPageKey,
+      isLoadingInitial: true,
       searchBy: querySearchBy
     }))
 
@@ -65,6 +66,9 @@ class Search extends Component<Props, State> {
     const { pagesSetQueryState } = this.props
     pagesSetQueryState({
       pageKey: kPageKey,
+      endReached: false,
+      isLoadingInitial: true,
+      listItems: [],
       searchBy
     })
   }
@@ -90,6 +94,7 @@ class Search extends Component<Props, State> {
 
     pagesSetQueryState({
       pageKey: kPageKey,
+      isLoadingInitial: false,
       isLoadingMore: loadMore,
       isSearching: !loadMore,
       searchText: loadMore ? searchText : currentSearch
@@ -105,7 +110,7 @@ class Search extends Component<Props, State> {
       const response = await getPodcastsByQuery(query, nsfwMode)
       const podcasts = response.data || []
       combinedListItems = combinedListItems.concat(podcasts)
-      
+
       pagesSetQueryState({
         pageKey: kPageKey,
         endReached: podcasts.length < 2,
@@ -128,7 +133,8 @@ class Search extends Component<Props, State> {
 
   render() {
     const { meta, pages } = this.props
-    const { endReached, isLoadingMore, isSearching, listItems, queryPage, searchBy } = pages[kPageKey]
+    const { endReached, isLoadingInitial, isLoadingMore, isSearching, listItems,
+      queryPage, searchBy } = pages[kPageKey]
     const { currentSearch } = this.state
 
     const placeholder = searchBy === 'host'
@@ -231,8 +237,9 @@ class Search extends Component<Props, State> {
             </Fragment>
           }
           {
-            (!endReached && listItemNodes && listItemNodes.length === 0) &&
-            <div className='no-results-msg'>No podcasts found</div>
+            (!isLoadingInitial && !isSearching
+              && listItemNodes && listItemNodes.length === 0) &&
+              <div className='no-results-msg'>No podcasts found</div>
           }
         </div>
       </Fragment>
