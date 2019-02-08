@@ -43,14 +43,7 @@ class PodcastListCtrl extends Component<Props, State> {
     const { nsfwMode } = settings
     const { subscribedPodcastIds } = user
     const { categoryId, listItems, queryFrom, querySort } = pages[pageKey]
-
-    let query: any = {
-      ...!!categoryId && { categories: categoryId },
-      ...!!queryFrom && { from: queryFrom },
-      page,
-      ...!!querySort && { sort: querySort }
-    }
-
+    
     handleSetPageQueryState({
       pageKey,
       isLoadingMore: true
@@ -58,47 +51,57 @@ class PodcastListCtrl extends Component<Props, State> {
 
     let newState: any = {
       pageKey,
-      queryFrom,
-      queryPage: page,
-      querySort,
-      ...selectedKey !== 'sort' && { selected: selectedKey },
+      queryPage: page
     }
+    let query: any = { page }
 
-    if (selectedKey === 'sort') {
-      newState.querySort = selectedValue
-      query.sort = selectedValue
-    } else if (selectedKey === 'categories') {
-      newState.queryFrom = 'from-category'
-      newState.categoryId = selectedValue
-      query.from = 'from-category'
-      query.categories = selectedValue
-    } else if (selectedKey === 'subscribed-only') {
-      if (!subscribedPodcastIds || subscribedPodcastIds.length === 0) {
-        handleSetPageQueryState({
-          pageKey,
-          endReached: false,
-          isLoadingInitial: false,
-          isLoadingMore: false,
-          listItems: [],
-          selected: selectedKey
-        })
-        return
+    // If no selectedKey, then take the Load More path
+    if (!selectedKey) {
+      if (queryFrom === 'from-category') {
+        query.from = 'from-category'
+        query.sort = querySort
+        query.categories = categoryId
+      } else if (queryFrom === 'subscribed-only') {
+        query.from = 'subscribed-only'
+        query.subscribedPodcastIds = subscribedPodcastIds
+      } else { // all-podcasts
+        // only update the page value
       }
-      newState.queryFrom = 'subscribed-only'
-      newState.categoryId = null
-      query.from = 'subscribed-only'
-      query.subscribedPodcastIds = subscribedPodcastIds
-    } else if (selectedKey === 'all-podcasts') {
-      newState.queryFrom = 'all-podcasts'
-      newState.categoryId = null
-      query.from = 'all-podcasts'
     }
+    // Else take the load initial query path
+    else {
+      handleSetPageQueryState({
+        pageKey,
+        endReached: false,
+        isLoadingInitial: true
+      })
 
-    if (['sort', 'categories', 'subscribed-only', 'all-podcasts'].includes(selectedKey)) {
-      newState.isLoadingInitial = true
+      newState = {
+        ...newState,
+        queryFrom,
+        querySort,
+        ...selectedKey !== 'sort' && { selected: selectedKey }
+      }
+
+      if (selectedKey === 'sort') {
+        newState.querySort = selectedValue
+        query.sort = selectedValue
+      } else if (selectedKey === 'categories') {
+        newState.queryFrom = 'from-category'
+        newState.categoryId = selectedValue
+        query.from = 'from-category'
+        query.categories = selectedValue
+      } else if (selectedKey === 'subscribed-only') {
+        newState.queryFrom = 'subscribed-only'
+        newState.categoryId = null
+        query.from = 'subscribed-only'
+        query.subscribedPodcastIds = subscribedPodcastIds
+      } else if (selectedKey === 'all-podcasts') {
+        newState.queryFrom = 'all-podcasts'
+        newState.categoryId = null
+        query.from = 'all-podcasts'
+      }
     }
-
-    handleSetPageQueryState(newState)
 
     let combinedListItems: any = []
 
@@ -112,8 +115,8 @@ class PodcastListCtrl extends Component<Props, State> {
       combinedListItems = combinedListItems.concat(podcasts)
 
       handleSetPageQueryState({
-        pageKey,
-        endReached: podcasts.length < 2,
+        ...newState,
+        endReached: !selectedKey && podcasts.length < 2,
         isLoadingInitial: false,
         isLoadingMore: false,
         listItems: page > 1 ? combinedListItems : podcasts
@@ -122,8 +125,10 @@ class PodcastListCtrl extends Component<Props, State> {
       console.log(error)
       handleSetPageQueryState({
         pageKey,
+        endReached: false,
         isLoadingInitial: false,
-        isLoadingMore: false
+        isLoadingMore: false,
+        listItems: []
       })
     }
   }
