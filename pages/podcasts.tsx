@@ -35,6 +35,7 @@ class Podcasts extends Component<Props, State> {
     const currentPage = pages[kPageKey] || {}
     const categoryId = currentPage.categoryId || query.categoryId
     const queryPage = currentPage.queryPage || query.page || 1
+    const queryFrom = currentPage.queryFrom || query.from || 'all-podcasts'
     const querySort = currentPage.querySort || query.sort || 'top-past-week'
     
     if (Object.keys(currentPage).length === 0) {
@@ -50,6 +51,7 @@ class Podcasts extends Component<Props, State> {
         pageKey: kPageKey,
         listItems,
         queryPage,
+        queryFrom,
         querySort,
       }))
     }

@@ -36,76 +36,21 @@ class PodcastListCtrl extends Component<Props, State> {
     this.generateCategorySelectNodes = this.generateCategorySelectNodes.bind(this)
     this.linkClick = this.linkClick.bind(this)
     this.queryPodcasts = this.queryPodcasts.bind(this)
+    this.queryLoadInitial = this.queryLoadInitial.bind(this)
+    this.queryPodcastsAll = this.queryPodcastsAll.bind(this)
+    this.queryPodcastsCategory = this.queryPodcastsCategory.bind(this)
+    this.queryPodcastsSubscribed = this.queryPodcastsSubscribed.bind(this)
+    this.queryPodcastsSort = this.queryPodcastsSort.bind(this)
+    this.queryPodcastsLoadMore = this.queryPodcastsLoadMore.bind(this)
   }
 
-  async queryPodcasts(selectedKey = '', selectedValue = '', page = 1) {
-    const { handleSetPageQueryState, pageKey, pages, settings, user } = this.props
+  async queryPodcasts(query, newState, isLoadMore = false) {
+    const { handleSetPageQueryState, pageKey, pages, settings } = this.props
     const { nsfwMode } = settings
-    const { subscribedPodcastIds } = user
-    const { categoryId, listItems, queryFrom, querySort } = pages[pageKey]
-    
-    handleSetPageQueryState({
-      pageKey,
-      isLoadingMore: true
-    })
+    const { listItems } = pages[pageKey]
 
-    let newState: any = {
-      pageKey,
-      queryPage: page
-    }
-    let query: any = { page }
-
-    // If no selectedKey, then take the Load More path
-    if (!selectedKey) {
-      if (queryFrom === 'from-category') {
-        query.from = 'from-category'
-        query.sort = querySort
-        query.categories = categoryId
-      } else if (queryFrom === 'subscribed-only') {
-        query.from = 'subscribed-only'
-        query.subscribedPodcastIds = subscribedPodcastIds
-      } else { // all-podcasts
-        // only update the page value
-      }
-    }
-    // Else take the load initial query path
-    else {
-      handleSetPageQueryState({
-        pageKey,
-        endReached: false,
-        isLoadingInitial: true
-      })
-
-      newState = {
-        ...newState,
-        queryFrom,
-        querySort,
-        ...selectedKey !== 'sort' && { selected: selectedKey }
-      }
-
-      if (selectedKey === 'sort') {
-        newState.querySort = selectedValue
-        query.sort = selectedValue
-      } else if (selectedKey === 'categories') {
-        newState.queryFrom = 'from-category'
-        newState.categoryId = selectedValue
-        query.from = 'from-category'
-        query.categories = selectedValue
-      } else if (selectedKey === 'subscribed-only') {
-        newState.queryFrom = 'subscribed-only'
-        newState.categoryId = null
-        query.from = 'subscribed-only'
-        query.subscribedPodcastIds = subscribedPodcastIds
-      } else if (selectedKey === 'all-podcasts') {
-        newState.queryFrom = 'all-podcasts'
-        newState.categoryId = null
-        query.from = 'all-podcasts'
-      }
-    }
-
-    let combinedListItems: any = []
-
-    if (page > 1) {
+    let combinedListItems = []
+    if (isLoadMore) {
       combinedListItems = listItems
     }
 
@@ -116,10 +61,10 @@ class PodcastListCtrl extends Component<Props, State> {
 
       handleSetPageQueryState({
         ...newState,
-        endReached: !selectedKey && podcasts.length < 2,
+        endReached: podcasts.length < 2,
         isLoadingInitial: false,
         isLoadingMore: false,
-        listItems: page > 1 ? combinedListItems : podcasts
+        listItems: combinedListItems
       })
     } catch (error) {
       console.log(error)
@@ -133,41 +78,166 @@ class PodcastListCtrl extends Component<Props, State> {
     }
   }
 
+  queryLoadInitial() {
+    const { handleSetPageQueryState, pageKey } = this.props
+
+    handleSetPageQueryState({
+      pageKey,
+      isLoadingInitial: true,
+      categoryId: null
+    })
+  }
+
+  async queryPodcastsAll() {
+    const { pageKey, pages } = this.props
+    const { querySort } = pages[pageKey]
+
+    this.queryLoadInitial()
+
+    let query: any = {
+      page: 1,
+      from: 'all-podcasts',
+      sort: querySort
+    }
+
+    let newState: any = {
+      pageKey,
+      queryPage: 1,
+      queryFrom: 'all-podcasts'
+    }
+
+    await this.queryPodcasts(query, newState)
+  }
+
+  async queryPodcastsCategory(categoryId) {
+    const { pageKey, pages } = this.props
+    const { querySort } = pages[pageKey]
+
+    this.queryLoadInitial()
+
+    let query: any = {
+      page: 1,
+      from: 'from-category',
+      sort: querySort,
+      categories: categoryId
+    }
+
+    let newState: any = {
+      pageKey,
+      queryPage: 1,
+      queryFrom: 'from-category',
+      categoryId
+    }
+
+    await this.queryPodcasts(query, newState)
+  }
+
+  async queryPodcastsSubscribed() {
+    const { pageKey, pages, user } = this.props
+    const { subscribedPodcastIds } = user
+    const { querySort } = pages[pageKey]
+
+    this.queryLoadInitial()
+
+    let query: any = {
+      page: 1,
+      from: 'subscribed-only',
+      sort: querySort,
+      subscribedPodcastIds
+    }
+
+    let newState: any = {
+      pageKey,
+      queryFrom: 'subscribed-only',
+      queryPage: 1,
+    }
+
+    await this.queryPodcasts(query, newState)
+  }
+  
+  async queryPodcastsSort(selectedValue) {
+    const { pageKey, pages, user } = this.props
+    const { subscribedPodcastIds } = user
+    const { categoryId, queryFrom } = pages[pageKey]
+
+    this.queryLoadInitial()
+
+    let query: any = {
+      page: 1,
+      from: queryFrom,
+      sort: selectedValue,
+      categories: queryFrom === 'from-category' ? categoryId : null,
+      subscribedPodcastIds: queryFrom === 'subscribed-only' ? subscribedPodcastIds : null
+    }
+
+    let newState: any = {
+      pageKey,
+      queryPage: 1,
+      queryFrom,
+      querySort: selectedValue
+    }
+
+    await this.queryPodcasts(query, newState)
+  }
+
+  async queryPodcastsLoadMore() {
+    const { pageKey, pages, user } = this.props
+    const { subscribedPodcastIds } = user
+    const { categoryId, queryFrom, queryPage, querySort } = pages[pageKey]
+
+    let query: any = {
+      page: queryPage + 1,
+      from: queryFrom,
+      sort: querySort,
+      categories: queryFrom === 'from-category' ? categoryId : null,
+      subscribedPodcastIds: queryFrom === 'subscribed-only' ? subscribedPodcastIds : null
+    }
+
+    let newState: any = {
+      pageKey,
+      queryPage: queryPage + 1,
+      queryFrom,
+      querySort
+    }
+
+    await this.queryPodcasts(query, newState, true)
+  }
+
   getQuerySortOptions() {
     return [
       {
         label: 'top - past hour',
-        onClick: () => this.queryPodcasts('sort', 'top-past-hour'),
+        onClick: () => this.queryPodcastsSort('top-past-hour'),
         value: 'top-past-hour'
       },
       {
         label: 'top - past day',
-        onClick: () => this.queryPodcasts('sort', 'top-past-day'),
+        onClick: () => this.queryPodcastsSort('top-past-day'),
         value: 'top-past-day'
       },
       {
         label: 'top - past week',
-        onClick: () => this.queryPodcasts('sort', 'top-past-week'),
+        onClick: () => this.queryPodcastsSort('top-past-week'),
         value: 'top-past-week'
       },
       {
         label: 'top - past month',
-        onClick: () => this.queryPodcasts('sort', 'top-past-month'),
+        onClick: () => this.queryPodcastsSort('top-past-month'),
         value: 'top-past-month'
       },
       {
         label: 'top - past year',
-        onClick: () => this.queryPodcasts('sort', 'top-past-year'),
+        onClick: () => this.queryPodcastsSort('top-past-year'),
         value: 'top-past-year'
       },
       {
         label: 'top - all time',
-        onClick: () => this.queryPodcasts('sort', 'top-all-time'),
+        onClick: () => this.queryPodcastsSort('top-all-time'),
         value: 'top-all-time'
       },
       {
         label: 'most recent',
-        onClick: () => this.queryPodcasts('sort', 'most-recent'),
+        onClick: () => this.queryPodcastsSort('most-recent'),
         value: 'most-recent'
       }
     ]
@@ -181,7 +251,7 @@ class PodcastListCtrl extends Component<Props, State> {
       return {
         hasSubcategories: x.categories && x.categories.length > 0,
         label: x.title,
-        onClick: () => this.queryPodcasts('categories', x.id),
+        onClick: () => this.queryPodcastsCategory(x.id),
         parentValue: (x.category && x.category.id) || null,
         value: x.id
       }
@@ -190,7 +260,7 @@ class PodcastListCtrl extends Component<Props, State> {
     if (user && user.id) {
       categoryItems.unshift({
         label: 'Subscribed Only',
-        onClick: () => this.queryPodcasts('subscribed-only', ''),
+        onClick: () => this.queryPodcastsSubscribed(),
         parentValue: null,
         value: 'subscribed-only'
       })
@@ -198,7 +268,7 @@ class PodcastListCtrl extends Component<Props, State> {
 
     categoryItems.unshift({
       label: 'All Podcasts',
-      onClick: () => this.queryPodcasts('all-podcasts', ''),
+      onClick: () => this.queryPodcastsAll(),
       parentValue: null,
       value: 'all-podcasts'
     })
@@ -226,7 +296,7 @@ class PodcastListCtrl extends Component<Props, State> {
 
       subcategoryItems.unshift({
         label: 'All',
-        onClick: () => this.queryPodcasts('categories', selectedCategory.parentValue),
+        onClick: () => this.queryPodcastsCategory(selectedCategory.parentValue),
         parentValue: null,
         value: selectedCategory.parentValue
       })
@@ -294,7 +364,7 @@ class PodcastListCtrl extends Component<Props, State> {
   render() {
     const { allCategories, pageKey, pages, user } = this.props
     const { categoryId, endReached, isLoadingInitial, isLoadingMore, listItems,
-      queryFrom, queryPage, querySort } = pages[pageKey]
+      queryPage, querySort } = pages[pageKey]
 
     const listItemNodes = listItems.map(x => {
       return (
@@ -345,14 +415,14 @@ class PodcastListCtrl extends Component<Props, State> {
                           className='media-list-load-more__button'
                           disabled={isLoadingMore}
                           isLoading={isLoadingMore}
-                          onClick={() => this.queryPodcasts('', '', queryPage + 1)}
+                          onClick={this.queryPodcastsLoadMore}
                           text='Load More' />
                     }
                   </div>
                 </Fragment>
               }
               {
-                (!endReached && listItemNodes.length === 0) &&
+                (queryPage === 1 && listItemNodes.length === 0) &&
                 <div className='no-results-msg'>No podcasts found</div>
               }
             </Fragment>
