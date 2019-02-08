@@ -4,6 +4,7 @@ import scriptLoader from 'react-async-script-loader'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { createPayPalOrder } from '~/services/paypal'
 import config from '~/config'
+import { alertRateLimitError } from '~/lib/utility';
 const { DOMAIN, PROTOCOL } = config()
 
 type Props = {
@@ -108,8 +109,13 @@ class PaypalButton extends React.Component<Props, State> {
           reject()
         }
       } catch (error) {
+        if (error && error.response && error.response.status === 429) {
+          alertRateLimitError(error)
+          return
+        } else {
+          alert('Something went wrong. Please check your internet connection.')
+        }
         console.log(error)
-        alert('Something went wrong. Please check your internet connection.')
         reject()
       }
     }

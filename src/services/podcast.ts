@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { sfwFilterPodcast, sfwFilterPodcasts } from '~/lib/profanityFilter'
-import { alertIfRateLimitError, convertObjectToQueryString } from '~/lib/utility'
+import { alertRateLimitError, convertObjectToQueryString } from '~/lib/utility'
 import config from '~/config'
 const { API_BASE_URL } = config()
 
@@ -56,12 +56,5 @@ export const toggleSubscribeToPodcast = async (podcastId: string) => {
   return axios(`${API_BASE_URL}/podcast/toggle-subscribe/${podcastId}`, {
     method: 'get',
     withCredentials: true
-  })
-  .catch(err => {
-    if (err && err.response && err.response.data.message === 429) {
-      alertIfRateLimitError(err)
-      return
-    }
-    throw err
   })
 }

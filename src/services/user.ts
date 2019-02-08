@@ -2,7 +2,7 @@ import axios from 'axios'
 import { sfwFilterMediaRefs, sfwFilterPlaylists, sfwFilterUser, sfwFilterUsers
   } from '~/lib/profanityFilter'
 import { NowPlayingItem } from '~/lib/nowPlayingItem'
-import { alertIfRateLimitError, convertObjectToQueryString } from '~/lib/utility'
+import { alertRateLimitError, convertObjectToQueryString } from '~/lib/utility'
 import config from '~/config'
 const { API_BASE_URL } = config()
 
@@ -27,13 +27,6 @@ export const downloadUserData = async (id: string) => {
   return axios(`${API_BASE_URL}/user/download/${id}`, {
     method: 'get',
     withCredentials: true
-  })
-  .catch(err => {
-    if (err && err.response && err.response.data.message === 429) {
-      alertIfRateLimitError(err)
-      return
-    }
-    throw err
   })
 }
 
@@ -113,13 +106,6 @@ export const toggleSubscribeToUser = async (userId: string) => {
     method: 'get',
     withCredentials: true
   })
-  .catch(err => {
-    if (err && err.response && err.response.data.message === 429) {
-      alertIfRateLimitError(err)
-      return
-    }
-    throw err
-  })
 }
 
 export const updateUser = async (data: any) => {
@@ -128,13 +114,6 @@ export const updateUser = async (data: any) => {
     data,
     withCredentials: true
   })
-  .catch(err => {
-    if (err && err.response && err.response.data.message === 429) {
-      alertIfRateLimitError(err)
-      return
-    }
-    throw err
-  })
 }
 
 export const updateUserQueueItems = async (data: any) => {
@@ -142,12 +121,5 @@ export const updateUserQueueItems = async (data: any) => {
     method: 'patch',
     data,
     withCredentials: true
-  })
-  .catch(err => {
-    if (err && err.response && err.response.data.message === 429) {
-      alertIfRateLimitError(err)
-      return
-    }
-    throw err
   })
 }

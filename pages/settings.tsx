@@ -9,7 +9,7 @@ import Meta from '~/components/Meta/Meta'
 import CheckoutModal from '~/components/CheckoutModal/CheckoutModal'
 import { DeleteAccountModal } from '~/components/DeleteAccountModal/DeleteAccountModal'
 import { alertPremiumRequired, alertSomethingWentWrong, convertToYYYYMMDDHHMMSS,
-  copyToClipboard, getUrlFromRequestOrWindow, isBeforeDate, validateEmail
+  copyToClipboard, getUrlFromRequestOrWindow, isBeforeDate, validateEmail, alertRateLimitError
   } from '~/lib/utility'
 import { modalsSignUpShow, pageIsLoading, settingsHideNSFWMode, settingsHideUITheme,
   userSetInfo } from '~/redux/actions'
@@ -116,10 +116,13 @@ class Settings extends Component<Props, State> {
     try {
       const userData = await downloadUserData(user.id)
       fileDownload(JSON.stringify(userData), `podverse-${convertToYYYYMMDDHHMMSS()}`)
-      
     } catch (error) {
+      if (error && error.response && error.response.status === 429) {
+        alertRateLimitError(error)
+      } else {
+        alert('Something went wrong. Please check your internet connection.')
+      }
       console.log(error)
-      alert('Something went wrong. Please check your internet connection.')
     }
 
     this.setState({ isDownloading: false })
@@ -212,6 +215,8 @@ class Settings extends Component<Props, State> {
     } catch (error) {
       if (error.response.data === 'Premium Membership Required') {
         alertPremiumRequired()
+      } else if (error && error.response && error.response.status === 429) {
+        alertRateLimitError(error)
       } else {
         alertSomethingWentWrong()
       }

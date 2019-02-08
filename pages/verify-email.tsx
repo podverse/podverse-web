@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import Meta from '~/components/Meta/Meta'
-import { getUrlFromRequestOrWindow } from '~/lib/utility'
+import { getUrlFromRequestOrWindow, alertRateLimitError } from '~/lib/utility'
 import { verifyEmail } from '~/services/auth'
 
 type Props = {
@@ -26,6 +26,11 @@ class VerifyEmail extends Component<Props, State> {
 
       return { meta }
     } catch (error) {
+      if (error && error.response && error.response.status === 429) {
+        alertRateLimitError(error)
+        return
+      }
+
       return { hasError: true, meta }
     }
   }

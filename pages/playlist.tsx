@@ -14,7 +14,7 @@ import MediaListItemCtrl from '~/components/MediaListItemCtrl/MediaListItemCtrl'
 import Meta from '~/components/Meta/Meta'
 import { convertToNowPlayingItem } from '~/lib/nowPlayingItem'
 import { alertPremiumRequired, alertSomethingWentWrong, clone,
-  getUrlFromRequestOrWindow, readableDate, removeDoubleQuotes } from '~/lib/utility'
+  getUrlFromRequestOrWindow, readableDate, removeDoubleQuotes, alertRateLimitError } from '~/lib/utility'
 import { mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying, pageIsLoading,
   playerQueueLoadSecondaryItems, userSetInfo } from '~/redux/actions'
 import { addOrRemovePlaylistItem, addOrUpdateUserHistoryItem, deletePlaylist,
@@ -220,9 +220,13 @@ class Playlist extends Component<Props, State> {
         playlist: updatedPlaylist.data
       })
     } catch (error) {
-      console.log(error)
+      if (error && error.response && error.response.status === 429) {
+        alertRateLimitError(error)
+      } else {
+        alert('Update playlist failed. Please check your internet connection and try again.')
+      }
       this.setState({ isUpdating: false })
-      alert('Update playlist failed. Please check your internet connection and try again.')
+      console.log(error)
     }
 
   }
@@ -247,6 +251,8 @@ class Playlist extends Component<Props, State> {
     } catch (error) {
       if (error.response.data === 'Premium Membership Required') {
         alertPremiumRequired()
+      } else if (error && error.response && error.response.status === 429) {
+        alertRateLimitError(error)
       } else {
         alertSomethingWentWrong()
       }
@@ -297,8 +303,12 @@ class Playlist extends Component<Props, State> {
         }
       }
     } catch (error) {
+      if (error && error.response && error.response.status === 429) {
+        alertRateLimitError(error)
+      } else {
+        alert('Could not remove from playlist. Please check your internet connection and try again.')
+      }
       console.log(error)
-      alert('Could not remove from playlist. Please check your internet connection and try again.')
     }
   }
 

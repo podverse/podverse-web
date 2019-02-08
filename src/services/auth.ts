@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { alertIfRateLimitError, convertObjectToQueryString } from '~/lib/utility'
+import { alertRateLimitError, convertObjectToQueryString } from '~/lib/utility'
 import config from '~/config'
 const { API_BASE_URL } = config()
 
@@ -55,13 +55,6 @@ export const login = async (email: string, password: string) => {
     },
     withCredentials: true
   })
-  .catch(err => {
-    if (err && err.response && err.response.data.message === 429) {
-      alertIfRateLimitError(err)
-      return
-    }
-    throw err
-  })
 }
 
 export const logOut = async () => {
@@ -79,13 +72,6 @@ export const resetPassword = async (password?: string, resetPasswordToken?: stri
       resetPasswordToken
     }
   })
-  .catch(err => {
-    if (err && err.response && err.response.data.message === 429) {
-      alertIfRateLimitError(err)
-      return
-    }
-    throw err
-  })
 }
 
 export const sendResetPassword = async (email: string) => {
@@ -94,13 +80,6 @@ export const sendResetPassword = async (email: string) => {
     data: {
       email
     }
-  })
-  .catch(err => {
-    if (err && err.response && err.response.data.message === 429) {
-      alertIfRateLimitError(err)
-      return
-    }
-    throw err
   })
 }
 
@@ -117,11 +96,4 @@ export const signUp = async (email: string, password: string) => {
 
 export const verifyEmail = async (token?: string) => {
   return axios.get(`${API_BASE_URL}/auth/verify-email?token=${token}`)
-    .catch(err => {
-      if (err && err.response && err.response.data.message === 429) {
-        alertIfRateLimitError(err)
-        return
-      }
-      throw err
-    })
 }

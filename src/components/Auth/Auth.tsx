@@ -8,6 +8,7 @@ import { modalsForgotPasswordIsLoading, modalsForgotPasswordShow,
   modalsLoginShow, modalsLoginSetErrorResponse, modalsSignUpIsLoading,
   modalsSignUpShow, modalsSignUpSetErrorResponse, userSetInfo, playerQueueLoadPriorityItems } from '~/redux/actions'
 import { login, sendResetPassword, signUp } from '~/services/auth'
+import { alertRateLimitError } from '~/lib/utility';
 
 type Props = {
   modals?: any
@@ -47,8 +48,12 @@ class Auth extends Component<Props, State> {
       modalsForgotPasswordShow(false)
       modalsForgotPasswordSetErrorResponse(null)
     } catch (error) {
-      const errorMsg = (error.response && error.response.data) || internetConnectivityErrorMessage
-      modalsForgotPasswordSetErrorResponse(errorMsg)
+      if (error && error.response && error.response.status === 429) {
+        alertRateLimitError(error)
+      } else {
+        const errorMsg = (error.response && error.response.data) || internetConnectivityErrorMessage
+        modalsForgotPasswordSetErrorResponse(errorMsg)
+      }
     } finally {
       modalsForgotPasswordIsLoading(false)
     }
@@ -100,8 +105,12 @@ class Auth extends Component<Props, State> {
       modalsSignUpShow(false)
       modalsSignUpSetErrorResponse(null)
     } catch (error) {
-      const errorMsg = (error.response && error.response.data) || internetConnectivityErrorMessage
-      modalsSignUpSetErrorResponse(errorMsg)
+      if (error && error.response && error.response.status === 429) {
+        alertRateLimitError(error)
+      } else {
+        const errorMsg = (error.response && error.response.data) || internetConnectivityErrorMessage
+        modalsSignUpSetErrorResponse(errorMsg)
+      }
       userSetInfo({
         historyItems: [],
         id: null,

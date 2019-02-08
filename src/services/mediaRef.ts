@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { sfwFilterMediaRef, sfwFilterMediaRefs } from '~/lib/profanityFilter'
-import { alertIfRateLimitError, convertObjectToQueryString } from '~/lib/utility'
+import { alertRateLimitError, convertObjectToQueryString } from '~/lib/utility'
 import config from '~/config'
 const { API_BASE_URL } = config()
 
@@ -9,13 +9,6 @@ export const createMediaRef = async (data: any) => {
     method: 'post',
     data,
     withCredentials: true
-  })
-  .catch(err => {
-    if (err && err.response && err.response.data.message === 429) {
-      alertIfRateLimitError(err)
-      return
-    }
-    throw err
   })
 }
 
@@ -75,12 +68,5 @@ export const updateMediaRef = async (data: any) => {
     method: 'patch',
     data,
     withCredentials: true
-  })
-  .catch(err => {
-    if (err && err.response && err.response.data.message === 429) {
-      alertIfRateLimitError(err)
-      return
-    }
-    throw err
   })
 }

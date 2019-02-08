@@ -5,7 +5,7 @@ import Router from 'next/router'
 import { ButtonGroup, PVButton as Button } from 'podverse-ui'
 import Meta from '~/components/Meta/Meta'
 import { internetConnectivityErrorMessage } from '~/lib/constants/misc'
-import { getUrlFromRequestOrWindow, validatePassword } from '~/lib/utility'
+import { getUrlFromRequestOrWindow, validatePassword, alertRateLimitError } from '~/lib/utility'
 import { resetPassword } from '~/services/auth'
 
 type Props = {
@@ -117,8 +117,12 @@ class ResetPassword extends Component<Props, State> {
 
       setTimeout(() => Router.push('/', '/'), 1500)
     } catch (error) {
-      const errorMsg = (error.response && error.response.data) || internetConnectivityErrorMessage
-      this.setState({ errorResponse: errorMsg })
+      if (error && error.response && error.response.status === 429) {
+        alertRateLimitError(error)
+      } else {
+        const errorMsg = (error.response && error.response.data) || internetConnectivityErrorMessage
+        this.setState({ errorResponse: errorMsg })
+      }
     }
   }
 

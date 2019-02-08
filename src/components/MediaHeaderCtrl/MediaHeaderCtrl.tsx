@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { MediaHeader } from 'podverse-ui'
 import { bindActionCreators } from 'redux'
-import { alertPremiumRequired, alertSomethingWentWrong } from '~/lib/utility'
+import { alertPremiumRequired, alertSomethingWentWrong, alertRateLimitError } from '~/lib/utility'
 import { pageIsLoading, userSetInfo } from '~/redux/actions'
 import { toggleSubscribeToPodcast } from '~/services'
 
@@ -56,6 +56,8 @@ class MediaHeaderCtrl extends Component<Props, State> {
     } catch (error) {
       if (error.response.data === 'Premium Membership Required') {
         alertPremiumRequired()
+      } else if (error && error.response && error.response.status === 429) {
+        alertRateLimitError(error)
       } else {
         alertSomethingWentWrong()
       }

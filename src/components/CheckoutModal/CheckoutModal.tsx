@@ -2,11 +2,12 @@ import * as React from 'react'
 import * as Modal from 'react-modal'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { PVButton as Button, CloseButton } from 'podverse-ui'
+import { CloseButton } from 'podverse-ui'
 import PayPalButton from '~/components/PayPalButton/PayPalButton'
 import { pageIsLoading } from '~/redux/actions'
 import { createBitPayInvoice } from '~/services'
 import config from '~/config'
+import { alertRateLimitError } from '~/lib/utility';
 const { paypalConfig } = config()
 
 type Props = {
@@ -53,10 +54,14 @@ class CheckoutModal extends React.Component<Props, State> {
       const response = await createBitPayInvoice()
       const obj = response.data
       location.href = obj.url // Redirect to BitPay invoice
-    } catch (err) {
-      console.log(err)
+    } catch (error) {
       pageIsLoading(false)
-      alert('Something went wrong. Please check your internet connection.')
+      if (error && error.response && error.response.status === 429) {
+        alertRateLimitError(error)
+        return
+      } else {
+        alert('Something went wrong. Please check your internet connection.')
+      }
     }
   }
 

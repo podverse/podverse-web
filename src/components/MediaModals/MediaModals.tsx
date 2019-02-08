@@ -14,7 +14,7 @@ import { mediaPlayerUpdatePlaying, modalsAddToCreatePlaylistIsSaving,
   } from '~/redux/actions'
 import { addOrRemovePlaylistItem, createMediaRef, createPlaylist, deleteMediaRef,
   updateMediaRef, updateUserQueueItems } from '~/services'
-import { alertPremiumRequired, alertSomethingWentWrong, clone } from '~/lib/utility'
+import { alertPremiumRequired, alertSomethingWentWrong, clone, alertRateLimitError } from '~/lib/utility'
 
 type Props = {
   mediaPlayer?: any
@@ -198,6 +198,8 @@ class MediaModals extends Component<Props, State> {
     } catch (error) {
       if (error.response.data === 'Premium Membership Required') {
         alert('Your Premium membership has expired. Renew your membership on the Settings page, or log out to create a clip anonymously.')
+      } else if (error && error.response && error.response.status === 429) {
+        alertRateLimitError(error)
       } else {
         alertSomethingWentWrong()
       }
@@ -269,6 +271,8 @@ class MediaModals extends Component<Props, State> {
       } catch (error) {
         if (error.response.data === 'Premium Membership Required') {
           alertPremiumRequired()
+        } else if (error && error.response && error.response.status === 429) {
+          alertRateLimitError(error)
         } else {
           alertSomethingWentWrong()
         }
@@ -290,6 +294,8 @@ class MediaModals extends Component<Props, State> {
     } catch (error) {
       if (error.response.data === 'Premium Membership Required') {
         alertPremiumRequired()
+      } else if (error && error.response && error.response.status === 429) {
+        alertRateLimitError(error)
       } else {
         alertSomethingWentWrong()
       }

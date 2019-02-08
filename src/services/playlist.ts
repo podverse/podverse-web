@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { sfwFilterPlaylist, sfwFilterPlaylists } from '~/lib/profanityFilter'
-import { alertIfRateLimitError, convertObjectToQueryString } from '~/lib/utility'
+import { alertRateLimitError, convertObjectToQueryString } from '~/lib/utility'
 import config from '~/config'
 const { API_BASE_URL } = config()
 
@@ -10,13 +10,6 @@ export const addOrRemovePlaylistItem = async (data: any) => {
     data,
     withCredentials: true
   })
-  .catch(err => {
-    if (err && err.response && err.response.data.message === 429) {
-      alertIfRateLimitError(err)
-      return
-    }
-    throw err
-  })
 }
 
 export const createPlaylist = async (data: any) => {
@@ -24,13 +17,6 @@ export const createPlaylist = async (data: any) => {
     method: 'post',
     data,
     withCredentials: true
-  })
-  .catch(err => {
-    if (err && err.response && err.response.data.message === 429) {
-      alertIfRateLimitError(err)
-      return
-    }
-    throw err
   })
 }
 
@@ -67,13 +53,6 @@ export const toggleSubscribeToPlaylist = async (playlistId: string) => {
     method: 'get',
     withCredentials: true
   })
-  .catch(err => {
-    if (err && err.response && err.response.data.message === 429) {
-      alertIfRateLimitError(err)
-      return
-    }
-    throw err
-  })
 }
 
 export const updatePlaylist = async (data: any) => {
@@ -81,12 +60,5 @@ export const updatePlaylist = async (data: any) => {
     method: 'patch',
     data,
     withCredentials: true
-  })
-  .catch(err => {
-    if (err && err.response && err.response.data.message === 429) {
-      alertIfRateLimitError(err)
-      return
-    }
-    throw err
   })
 }

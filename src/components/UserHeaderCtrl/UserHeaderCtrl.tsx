@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar as farStar } from '@fortawesome/free-regular-svg-icons'
 import { faStar as fasStar } from '@fortawesome/free-solid-svg-icons'
-import { alertPremiumRequired, alertSomethingWentWrong } from '~/lib/utility'
+import { alertPremiumRequired, alertSomethingWentWrong, alertRateLimitError } from '~/lib/utility'
 import { userSetInfo } from '~/redux/actions'
 import { toggleSubscribeToUser } from '~/services'
 
@@ -50,6 +50,8 @@ class UserHeaderCtrl extends Component<Props, State> {
     } catch (error) {
       if (error.response.data === 'Premium Membership Required') {
         alertPremiumRequired()
+      } else if (error && error.response && error.response.status === 429) {
+        alertRateLimitError(error)
       } else {
         alertSomethingWentWrong()
       }
