@@ -115,7 +115,7 @@ class Settings extends Component<Props, State> {
 
     try {
       const userData = await downloadUserData(user.id)
-      fileDownload(JSON.stringify(userData), `podverse-${convertToYYYYMMDDHHMMSS()}`)
+      fileDownload(JSON.stringify(userData.data), `podverse-${convertToYYYYMMDDHHMMSS()}`)
     } catch (error) {
       if (error && error.response && error.response.status === 429) {
         alertRateLimitError(error)
@@ -409,7 +409,7 @@ class Settings extends Component<Props, State> {
           {
             user && user.id &&
             <Fragment>
-              <h4>User Data</h4>
+              <h4>My Data</h4>
               <Button
                 className='settings__download'
                 isLoading={isDownloading}
