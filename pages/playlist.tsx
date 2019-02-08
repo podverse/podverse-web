@@ -410,7 +410,9 @@ class Playlist extends Component<Props, State> {
           showRemove={isEditing} />
       )
 
-      if (user && user.id && user.id === playlist.owner.id) {
+      if (user && user.id
+          && playlist && playlist.owner
+          && user.id === playlist.owner.id) {
         return (
           <Draggable draggableId={`playlist-item-${index}`} index={index}>
             {(provided, snapshot) => (
@@ -456,7 +458,9 @@ class Playlist extends Component<Props, State> {
                 !isEditing &&
                   <Fragment>
                     {
-                      (user && user.id && user.id === playlist.owner.id) &&
+                      (user && user.id
+                        && playlist && playlist.owner
+                        && user.id === playlist.owner.id) &&
                         <button
                           className='media-header__edit'
                           onClick={this.startEditing}>
@@ -464,7 +468,9 @@ class Playlist extends Component<Props, State> {
                         </button>
                     }
                     {
-                      (!user.id || (user && user.id && user.id !== playlist.owner.id)) &&
+                    (!user.id || (user && user.id
+                      && playlist && playlist.owner
+                      && user.id !== playlist.owner.id)) &&
                         <button
                           className='media-header__subscribe'
                           onClick={this.toggleSubscribe}>
@@ -500,7 +506,10 @@ class Playlist extends Component<Props, State> {
             </div>
             <div className='media-header__middle'>
               <div className='media-header__sub-title'>
-                By: {owner.name ? owner.name : 'anonymous'}
+              {
+                owner &&
+                  <Fragment>By: {owner.name ? owner.name : 'anonymous'}</Fragment>
+              }
               </div>
             </div>
           </div>
