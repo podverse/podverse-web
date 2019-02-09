@@ -46,169 +46,140 @@ class MediaListCtrl extends Component<Props, State> {
     queryPage: 1
   }
 
-  constructor(props) {
-    super(props)
+  queryLoadInitial = () => {
+    const { handleSetPageQueryState, pageKey } = this.props
 
-    this.playItem = this.playItem.bind(this)
-    this.queryMediaListItems = this.queryMediaListItems.bind(this)
+    handleSetPageQueryState({
+      pageKey,
+      isLoadingInitial: true
+    })
   }
 
-  async queryMediaListItems(selectedKey = '', selectedValue = '', page = 1) {
-    const { episodeId, handleSetPageQueryState, pageKey, pages, playerQueueAddSecondaryItems,
+  queryListItems = async (queryType, queryFrom, querySort, isLoadMore = false) => {
+    const { episodeId, handleSetPageQueryState, pageKey, pages,
       playerQueueLoadSecondaryItems, podcastId, settings, user } = this.props
     const { nsfwMode } = settings
     const { subscribedPodcastIds } = user
-    const { listItems, queryFrom, querySort, queryType } = pages[pageKey]
+    const { listItems, queryPage } = pages[pageKey]
+    
+    if (!isLoadMore) {
+      this.queryLoadInitial()
+    }
 
     let query: any = {
+      page: isLoadMore ? queryPage + 1 : 1,
       from: queryFrom,
-      id: '',
-      page,
       sort: querySort,
-      type: queryType
+      episodeId: queryFrom === 'from-episode' ? episodeId : null,
+      podcastId: queryFrom === 'from-podcast' ? podcastId : null,
+      subscribedPodcastIds: queryFrom === 'subscribed-only' ? subscribedPodcastIds : null
     }
+
+    let newState: any = {
+      pageKey,
+      queryPage: isLoadMore ? queryPage + 1 : 1,
+      queryType,
+      queryFrom,
+      querySort
+    }
+
+    let combinedListItems = []
+    if (isLoadMore) {
+      combinedListItems = listItems
+    }
+
+    try {
+      let endReached
+
+      if (queryType === 'episodes') {
+        let response = await getEpisodesByQuery(query, nsfwMode)
+        const episodes = response.data && response.data.map(x => convertToNowPlayingItem(x))
+        endReached = episodes.length < 2
+        combinedListItems = combinedListItems.concat(episodes)
+      } else {
+        let response = await getMediaRefsByQuery(query, nsfwMode)
+        const mediaRefs = response.data && response.data.map(x => convertToNowPlayingItem(x))
+        endReached = mediaRefs.length < 2
+        combinedListItems = combinedListItems.concat(mediaRefs)
+      }
+
+      playerQueueLoadSecondaryItems(clone(combinedListItems))
+
+      handleSetPageQueryState({
+        ...newState,
+        endReached,
+        isLoadingInitial: false,
+        isLoadingMore: false,
+        listItems: combinedListItems
+      })
+    } catch (error) {
+      console.log(error)
+      handleSetPageQueryState({
+        ...newState,
+        endReached: false,
+        isLoadingInitial: false,
+        isLoadingMore: false,
+        listItems: []
+      })
+    }
+  }
+
+  querySort = async selectedValue => {
+    const { pageKey, pages } = this.props
+    const { queryFrom, queryType } = pages[pageKey]
+
+    this.queryLoadInitial()
+        
+    await this.queryListItems(queryType, queryFrom, selectedValue)
+  }
+
+  queryLoadMore = async () => {
+    const { handleSetPageQueryState, pageKey, pages } = this.props
+    const { queryFrom, querySort, queryType } = pages[pageKey]
 
     handleSetPageQueryState({
       pageKey,
       isLoadingMore: true
     })
 
-    let newState: any = {
-      pageKey,
-      queryPage: page
-    }
-
-    if (selectedKey === 'type') {
-      newState.queryType = selectedValue
-      query.type = selectedValue
-    } else if (selectedKey === 'from') {
-      newState.queryFrom = selectedValue
-      query.from = selectedValue
-    } else if (selectedKey === 'sort') {
-      newState.querySort = selectedValue
-      query.sort = selectedValue
-    }
-
-    if (['type', 'from', 'sort'].includes(selectedKey)) {
-      newState.isLoadingInitial = true
-    }
-
-    handleSetPageQueryState(newState)
-    
-    let combinedListItems: any = []
-
-    if (page > 1) {
-      combinedListItems = listItems
-    }
-
-    if (query.from === 'from-podcast') {
-      query.podcastId = podcastId
-    } else if (query.from === 'subscribed-only') {
-      if (!subscribedPodcastIds || subscribedPodcastIds.length === 0) {
-        handleSetPageQueryState({
-          pageKey,
-          endReached: false,
-          isLoadingInitial: false,
-          isLoadingMore: false,
-          listItems: []
-        })
-        return
-      }
-      query.subscribedPodcastIds = subscribedPodcastIds
-    } else {
-      // all-podcasts, add nothing
-    }
-
-    if (query.type === 'clips') {
-      if (query.from === 'from-episode') {
-        query.episodeId = episodeId
-      }
-      
-      try {
-        const response = await getMediaRefsByQuery(query, nsfwMode)
-        const mediaRefs = response.data && response.data.map(x => convertToNowPlayingItem(x))
-        combinedListItems = combinedListItems.concat(mediaRefs)
-        
-        if (page > 1) {
-          playerQueueAddSecondaryItems(clone(mediaRefs))
-        } else {
-          playerQueueLoadSecondaryItems(clone(mediaRefs))
-        }
-        handleSetPageQueryState({
-          pageKey,
-          endReached: mediaRefs.length < 2,
-          isLoadingInitial: false,
-          isLoadingMore: false,
-          listItems: page > 1 ? combinedListItems : mediaRefs
-        })
-      } catch (error) {
-        console.log(error)
-        handleSetPageQueryState({
-          pageKey,
-          isLoadingInitial: false,
-          isLoadingMore: false
-        })
-      }
-    } else if (query.type === 'episodes') {
-      try {
-        const response = await getEpisodesByQuery(query, nsfwMode)
-        const episodes = response.data && response.data.map(x => convertToNowPlayingItem(x))
-        combinedListItems = combinedListItems.concat(episodes)
-
-        if (page > 1) {
-          playerQueueAddSecondaryItems(clone(episodes))
-        } else {
-          playerQueueLoadSecondaryItems(clone(episodes))
-        }
-
-        handleSetPageQueryState({
-          pageKey,
-          endReached: episodes.length < 2,
-          isLoadingInitial: false,
-          isLoadingMore: false,
-          listItems: page > 1 ? combinedListItems : episodes
-        })
-      } catch (error) {
-        console.log(error)
-        handleSetPageQueryState({
-          pageKey,
-          isLoadingInitial: false,
-          isLoadingMore: false
-        })
-      }
-    }
+    await this.queryListItems(queryType, queryFrom, querySort, true)
   }
 
-  getQueryTypeOptions() {
+  getQueryTypeOptions = () => {
+    const { pageKey, pages } = this.props
+    const { queryFrom, querySort } = pages[pageKey]
+
     return [
       {
         label: 'Clips',
-        onClick: () => this.queryMediaListItems('type', 'clips'),
+        onClick: () => this.queryListItems('clips', queryFrom, querySort),
         value: 'clips',
       },
       {
         label: 'Episodes',
-        onClick: () => this.queryMediaListItems('type', 'episodes'),
+        onClick: () => this.queryListItems('episodes', queryFrom, querySort),
         value: 'episodes',
       }
     ]
   }
 
-  getQueryFromOptions(showFromPodcast, showFromEpisode, isLoggedIn) {
+  getQueryFromOptions = (showFromPodcast, showFromEpisode) => {
+    const { pageKey, pages, user } = this.props
+    const { querySort, queryType } = pages[pageKey]
 
     const options = [
       {
         label: 'All podcasts',
-        onClick: () => this.queryMediaListItems('from', 'all-podcasts'),
+        onClick: () => this.queryListItems(queryType, 'all-podcasts', querySort),
         value: 'all-podcasts'
       },
       {
         label: 'Subscribed only',
         onClick: () => {
-          if (isLoggedIn) {
-            this.queryMediaListItems('from', 'subscribed-only')
+          if (user && user.id) {
+            this.queryListItems(queryType, 'subscribed-only', querySort)
           } else {
-            alert('Login to filter clips and episodes by your subscribed podcasts.')
+            alert('Login to filter by your subscribed podcasts.')
           }
         },
         value: 'subscribed-only'
@@ -219,7 +190,7 @@ class MediaListCtrl extends Component<Props, State> {
       options.push(
         {
           label: 'From this podcast',
-          onClick: () => this.queryMediaListItems('from', 'from-podcast'),
+          onClick: () => this.queryListItems(queryType, 'from-podcast', querySort),
           value: 'from-podcast'
         }
       )
@@ -229,7 +200,7 @@ class MediaListCtrl extends Component<Props, State> {
       options.push(
         {
           label: 'From this episode',
-          onClick: () => this.queryMediaListItems('from', 'from-episode'),
+          onClick: () => this.queryListItems(queryType, 'from-episode', querySort),
           value: 'from-episode'
         }
       )
@@ -242,43 +213,43 @@ class MediaListCtrl extends Component<Props, State> {
     return [
       {
         label: 'top - past hour',
-        onClick: () => this.queryMediaListItems('sort', 'top-past-hour'),
+        onClick: () => this.querySort('top-past-hour'),
         value: 'top-past-hour'
       },
       {
         label: 'top - past day',
-        onClick: () => this.queryMediaListItems('sort', 'top-past-day'),
+        onClick: () => this.querySort('top-past-day'),
         value: 'top-past-day'
       },
       {
         label: 'top - past week',
-        onClick: () => this.queryMediaListItems('sort', 'top-past-week'),
+        onClick: () => this.querySort('top-past-week'),
         value: 'top-past-week'
       },
       {
         label: 'top - past month',
-        onClick: () => this.queryMediaListItems('sort', 'top-past-month'),
+        onClick: () => this.querySort('top-past-month'),
         value: 'top-past-month'
       },
       {
         label: 'top - past year',
-        onClick: () => this.queryMediaListItems('sort', 'top-past-year'),
+        onClick: () => this.querySort('top-past-year'),
         value: 'top-past-year'
       },
       {
         label: 'top - all time',
-        onClick: () => this.queryMediaListItems('sort', 'top-all-time'),
+        onClick: () => this.querySort('top-all-time'),
         value: 'top-all-time'
       },
       {
         label: 'most recent',
-        onClick: () => this.queryMediaListItems('sort', 'most-recent'),
+        onClick: () => this.querySort('most-recent'),
         value: 'most-recent'
       }
     ]
   }
 
-  async playItem(nowPlayingItem) {
+  playItem = async nowPlayingItem => {
     const { mediaPlayer, mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying,
       pageKey, pages, playerQueueLoadSecondaryItems, user, userSetInfo } = this.props
     const { listItems } = pages[pageKey]
@@ -374,7 +345,9 @@ class MediaListCtrl extends Component<Props, State> {
     })
 
     const selectedQueryTypeOption = this.getQueryTypeOptions().filter(x => x.value === queryType)
-    const selectedQueryFromOption = this.getQueryFromOptions(!!podcastId, !!episodeId && queryType === 'clips', !!user && !!user.id).filter(x => x.value === queryFrom)
+    const selectedQueryFromOption = this.getQueryFromOptions(
+      !!podcastId, !!episodeId && queryType === 'clips').filter(x => x.value === queryFrom
+    )
     const selectedQuerySortOption = this.getQuerySortOptions().filter(x => x.value === querySort)
 
     return (      
@@ -385,7 +358,7 @@ class MediaListCtrl extends Component<Props, State> {
               items={this.getQueryTypeOptions()}
               selected={selectedQueryTypeOption.length > 0 ? selectedQueryTypeOption[0].value : null} />
             <MediaListSelect
-              items={this.getQueryFromOptions(!!podcastId, !!episodeId && queryType === 'clips', user && user.id)}
+              items={this.getQueryFromOptions(!!podcastId, !!episodeId && queryType === 'clips')}
               selected={selectedQueryFromOption.length > 0 ? selectedQueryFromOption[0].value : null} />
           </div>
           <div className='media-list-selects__right'>
@@ -417,14 +390,14 @@ class MediaListCtrl extends Component<Props, State> {
                           className='media-list-load-more__button'
                           disabled={isLoadingMore}
                           isLoading={isLoadingMore}
-                          onClick={() => this.queryMediaListItems('', '', queryPage + 1)}
+                          onClick={this.queryLoadMore}
                           text='Load More' />
                     }
                   </div>
                 </Fragment>
               }
               {
-                (!endReached && listItemNodes.length === 0) &&
+                (queryPage === 1 && listItemNodes.length === 0) &&
                 <div className='no-results-msg'>No {queryType === 'episodes' ? 'episodes' : 'clips'} found</div>
               }
             </Fragment>

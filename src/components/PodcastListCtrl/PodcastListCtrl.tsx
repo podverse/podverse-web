@@ -69,7 +69,7 @@ class PodcastListCtrl extends Component<Props, State> {
     } catch (error) {
       console.log(error)
       handleSetPageQueryState({
-        pageKey,
+        ...newState,
         endReached: false,
         isLoadingInitial: false,
         isLoadingMore: false,
@@ -181,9 +181,14 @@ class PodcastListCtrl extends Component<Props, State> {
   }
 
   async queryPodcastsLoadMore() {
-    const { pageKey, pages, user } = this.props
+    const { handleSetPageQueryState, pageKey, pages, user } = this.props
     const { subscribedPodcastIds } = user
     const { categoryId, queryFrom, queryPage, querySort } = pages[pageKey]
+
+    handleSetPageQueryState({
+      pageKey,
+      isLoadingMore: true
+    })
 
     let query: any = {
       page: queryPage + 1,
