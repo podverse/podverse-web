@@ -375,33 +375,30 @@ class MediaListCtrl extends Component<Props, State> {
               <FontAwesomeIcon icon='spinner' spin />
             </div>
         }
-        {
-          !isLoadingInitial &&
+        <Fragment>
+          {
+            listItemNodes && listItemNodes.length > 0 &&
             <Fragment>
-              {
-                listItemNodes && listItemNodes.length > 0 &&
-                <Fragment>
-                  {listItemNodes}
-                  <div className='media-list__load-more'>
-                    {
-                      endReached ?
-                        <p className='no-results-msg'>End of results</p>
-                        : <Button
-                          className='media-list-load-more__button'
-                          disabled={isLoadingMore}
-                          isLoading={isLoadingMore}
-                          onClick={this.queryLoadMore}
-                          text='Load More' />
-                    }
-                  </div>
-                </Fragment>
-              }
-              {
-                (queryPage === 1 && listItemNodes.length === 0) &&
-                <div className='no-results-msg'>No {queryType === 'episodes' ? 'episodes' : 'clips'} found</div>
-              }
+              {listItemNodes}
+              <div className='media-list__load-more'>
+                {
+                  endReached ?
+                    <p className='no-results-msg'>End of results</p>
+                    : <Button
+                      className='media-list-load-more__button'
+                      disabled={isLoadingMore}
+                      isLoading={isLoadingMore}
+                      onClick={this.queryLoadMore}
+                      text='Load More' />
+                }
+              </div>
             </Fragment>
-        }
+          }
+          {
+            (queryPage === 1 && listItemNodes.length === 0) &&
+            <div className='no-results-msg'>No {queryType === 'episodes' ? 'episodes' : 'clips'} found</div>
+          }
+        </Fragment>
       </div>
     )
   }

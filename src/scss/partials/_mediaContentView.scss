@@ -1,5 +1,6 @@
 .media-list {
   padding: 0.75rem 0;
+  position: relative;
 
   &.adjust-top-position {
     margin-top: -1.25rem;
@@ -7,8 +8,11 @@
 
   .media-list__loader {
     font-size: 48px;
+    left: 46%;
     margin: 1.25rem 0;
+    position: absolute;
     text-align: center;
+    top: 80px;
   }
 
   .media-list__load-more {
