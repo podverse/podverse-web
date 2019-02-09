@@ -157,7 +157,7 @@ class MediaListCtrl extends Component<Props, State> {
       },
       {
         label: 'Episodes',
-        onClick: () => this.queryListItems('episodes', queryFrom, querySort),
+        onClick: () => this.queryListItems('episodes', 'from-podcast', 'most-recent'),
         value: 'episodes',
       }
     ]
