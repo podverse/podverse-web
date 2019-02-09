@@ -146,7 +146,7 @@ class MediaListCtrl extends Component<Props, State> {
   }
 
   getQueryTypeOptions = () => {
-    const { pageKey, pages } = this.props
+    const { pageKey, pages, podcastId } = this.props
     const { queryFrom, querySort } = pages[pageKey]
 
     return [
@@ -157,7 +157,11 @@ class MediaListCtrl extends Component<Props, State> {
       },
       {
         label: 'Episodes',
-        onClick: () => this.queryListItems('episodes', 'from-podcast', 'most-recent'),
+        onClick: () => this.queryListItems(
+          'episodes',
+          podcastId ? 'from-podcast' : queryFrom,
+          'most-recent'
+        ),
         value: 'episodes',
       }
     ]
