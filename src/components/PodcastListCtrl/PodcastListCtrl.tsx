@@ -103,7 +103,8 @@ class PodcastListCtrl extends Component<Props, State> {
     let newState: any = {
       pageKey,
       queryPage: 1,
-      queryFrom: 'all-podcasts'
+      queryFrom: 'all-podcasts',
+      selected: 'all-podcasts',
     }
 
     await this.queryPodcasts(query, newState)
@@ -126,7 +127,8 @@ class PodcastListCtrl extends Component<Props, State> {
       pageKey,
       queryPage: 1,
       queryFrom: 'from-category',
-      categoryId
+      categoryId,
+      selected: categoryId
     }
 
     await this.queryPodcasts(query, newState)
@@ -150,6 +152,7 @@ class PodcastListCtrl extends Component<Props, State> {
       pageKey,
       queryFrom: 'subscribed-only',
       queryPage: 1,
+      selected: 'subscribed-only',
     }
 
     await this.queryPodcasts(query, newState)
