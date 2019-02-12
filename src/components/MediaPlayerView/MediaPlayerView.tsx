@@ -288,8 +288,8 @@ class MediaPlayerView extends Component<Props, State> {
                 playbackRate={playbackRate}
                 playedAfterClipFinished={playedAfterClipFinished}
                 playbackRateText={getPlaybackRateText(playbackRate)}
-                playerClipLinkAs={`/clip/${nowPlayingItem.clipId}`}
-                playerClipLinkHref={`/clip?id=${nowPlayingItem.clipId}&scrollToTop=true`}
+                playerClipLinkAs={nowPlayingItem.clipId ? `/clip/${nowPlayingItem.clipId}` : ''}
+                playerClipLinkHref={nowPlayingItem.clipId ? `/clip?id=${nowPlayingItem.clipId}&scrollToTop=true` : ''}
                 playerClipLinkOnClick={this.linkClick}
                 playerEpisodeLinkAs={`/episode/${nowPlayingItem.episodeId}`}
                 playerEpisodeLinkHref={`/episode?id=${nowPlayingItem.episodeId}&scrollToTop=true`}

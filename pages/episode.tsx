@@ -2,21 +2,23 @@ import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import Error from 'next/error'
-import { addItemsToSecondaryQueueStorage, clearItemsFromSecondaryQueueStorage } from 'podverse-ui'
+import { addItemsToSecondaryQueueStorage, clearItemsFromSecondaryQueueStorage
+  } from 'podverse-ui'
 import MediaHeaderCtrl from '~/components/MediaHeaderCtrl/MediaHeaderCtrl'
 import MediaInfoCtrl from '~/components/MediaInfoCtrl/MediaInfoCtrl'
 import MediaListCtrl from '~/components/MediaListCtrl/MediaListCtrl'
 import Meta from '~/components/Meta/Meta'
 import { convertToNowPlayingItem } from '~/lib/nowPlayingItem'
 import { clone, getUrlFromRequestOrWindow, removeDoubleQuotes } from '~/lib/utility'
-import { mediaPlayerLoadNowPlayingItem, pageIsLoading, pagesSetQueryState,
-  playerQueueLoadSecondaryItems } from '~/redux/actions'
+import { pageIsLoading, pagesSetQueryState, playerQueueLoadSecondaryItems
+  } from '~/redux/actions'
 import { getEpisodeById, getEpisodesByQuery, getMediaRefsByQuery } from '~/services/'
 
 type Props = {
   episode?: any
   is404Page?: boolean
   meta?: any
+  newPlayingItem?: any
   pageKeyWithId?: string
   pagesSetQueryState?: any
   playerQueue?: any
@@ -43,16 +45,16 @@ class Episode extends Component<Props, State> {
 
     const episodeResult = await getEpisodeById(query.id, nsfwMode)
     const episode = episodeResult.data
-
+    
     if (!episode) {
       store.dispatch(pageIsLoading(false))
       return { is404Page: true }
     }
-
+    
+    let newPlayingItem
     // @ts-ignore
     if (!process.browser) {
-      const nowPlayingItem = convertToNowPlayingItem(episode)
-      store.dispatch(mediaPlayerLoadNowPlayingItem(nowPlayingItem))
+      newPlayingItem = convertToNowPlayingItem(episode)
     }
 
     const currentPage = pages[pageKeyWithId] || {}
@@ -122,11 +124,12 @@ class Episode extends Component<Props, State> {
       title: `${episode.title} - ${episode.podcast.title}`
     }
 
-    return { episode, meta, pageKeyWithId, queryFrom, querySort, queryType }
+    return { episode, meta, newPlayingItem, pageKeyWithId, queryFrom, querySort,
+      queryType }
   }
 
   componentDidMount() {
-    const { is404Page, playerQueue } = this.props
+    const { is404Page, newPlayingItem, playerQueue } = this.props
     
     if (is404Page) return
 

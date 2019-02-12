@@ -2,7 +2,8 @@ import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import Error from 'next/error'
-import { addItemsToSecondaryQueueStorage, clearItemsFromSecondaryQueueStorage } from 'podverse-ui'
+import { addItemsToSecondaryQueueStorage, clearItemsFromSecondaryQueueStorage,
+  setNowPlayingItemInStorage } from 'podverse-ui'
 import MediaHeaderCtrl from '~/components/MediaHeaderCtrl/MediaHeaderCtrl'
 import MediaInfoCtrl from '~/components/MediaInfoCtrl/MediaInfoCtrl'
 import MediaListCtrl from '~/components/MediaListCtrl/MediaListCtrl'
@@ -18,6 +19,7 @@ type Props = {
   listItems?: any
   mediaRef?: any
   meta?: any
+  newPlayingItem?: any
   pageKeyWithId?: string
   pagesSetQueryState?: any
   playerQueue?: any
@@ -41,19 +43,19 @@ class Clip extends Component<Props, State> {
     const { mediaPlayer, pages, settings, user } = state
     const { nowPlayingItem } = mediaPlayer
     const { nsfwMode } = settings
-     
+
     const mediaRefResult = await getMediaRefById(query.id, nsfwMode)
     const mediaRef = mediaRefResult.data
-
+    
     if (!mediaRef) {
       store.dispatch(pageIsLoading(false))
       return { is404Page: true }
     }
     
+    let newPlayingItem
     // @ts-ignore
     if (!process.browser) {
-      const nowPlayingItem = convertToNowPlayingItem(mediaRef)
-      store.dispatch(mediaPlayerLoadNowPlayingItem(nowPlayingItem))
+      newPlayingItem = convertToNowPlayingItem(mediaRef)
     }
 
     const currentPage = pages[pageKeyWithId] || {}
@@ -122,11 +124,12 @@ class Clip extends Component<Props, State> {
       title: `${mediaRef.title} - ${mediaRef.episode.title} - ${mediaRef.episode.podcast.title}`
     }
     
-    return { mediaRef, meta, pageKeyWithId, queryFrom, querySort, queryType }
+    return { mediaRef, meta, newPlayingItem, pageKeyWithId, queryFrom, querySort,
+      queryType }
   }
 
   componentDidMount () {
-    const { is404Page, playerQueue } = this.props    
+    const { is404Page, newPlayingItem, playerQueue } = this.props    
 
     if (is404Page) return
 
@@ -134,6 +137,7 @@ class Clip extends Component<Props, State> {
     
     clearItemsFromSecondaryQueueStorage()
     addItemsToSecondaryQueueStorage(secondaryItems)
+    setNowPlayingItemInStorage(newPlayingItem)
   }
 
   render () {

@@ -3,7 +3,8 @@ import { Provider } from 'react-redux'
 import withRedux from 'next-redux-wrapper'
 import App, { Container } from 'next/app'
 import ReactGA from 'react-ga'
-import { getPriorityQueueItemsStorage } from 'podverse-ui'
+import { getNowPlayingOrNextFromStorage, getPriorityQueueItemsStorage,
+  setNowPlayingItemInStorage } from 'podverse-ui'
 import Meta from '~/components/Meta/Meta'
 import Alerts from '~/components/Alerts/Alerts'
 import Auth from '~/components/Auth/Auth'
@@ -15,7 +16,8 @@ import PageLoadingOverlay from '~/components/PageLoadingOverlay/PageLoadingOverl
 import { addFontAwesomeIcons } from '~/lib/fontAwesomeIcons'
 import { NowPlayingItem } from '~/lib/nowPlayingItem'
 import { initializeStore } from '~/redux/store'
-import { pageIsLoading, playerQueueLoadPriorityItems } from '~/redux/actions'
+import { mediaPlayerLoadNowPlayingItem, pageIsLoading,
+    playerQueueLoadPriorityItems } from '~/redux/actions'
 import { actionTypes } from '~/redux/constants'
 import { getAuthenticatedUserInfo } from '~/services'
 import { scrollToTopOfView } from '~/lib/scrollToTop'
@@ -24,6 +26,8 @@ const { googleAnalyticsConfig, paypalConfig } = config()
 const cookie = require('cookie')
 
 addFontAwesomeIcons()
+
+let windowHasLoaded = false
 
 declare global {
   interface Window { 
@@ -167,19 +171,35 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
       ReactGA.pageview(ctx.asPath)
     }
 
+    const { newPlayingItem } = pageProps
+
+    if (!process.browser && newPlayingItem) {
+      ctx.store.dispatch(mediaPlayerLoadNowPlayingItem(newPlayingItem))
+    }
+
     // @ts-ignore
     if (process.browser && ctx.query && ctx.query.scrollToTop) {
       scrollToTopOfView()
     }
 
-    return { pageProps, cookies }
+    return { pageProps, cookies, newPlayingItem }
   }
 
   async componentDidMount() {
-    const { store } = this.props
+    const { newPlayingItem, store } = this.props
     const state = store.getState()
     const { user } = state
- 
+
+    if (!windowHasLoaded) {
+      if (newPlayingItem) {
+        setNowPlayingItemInStorage(newPlayingItem)
+      } else {
+        const currentItem = getNowPlayingOrNextFromStorage()
+  
+        if (currentItem) store.dispatch(mediaPlayerLoadNowPlayingItem(currentItem))
+      }
+    }
+
     if (user && user.queueItems) {
       store.dispatch(playerQueueLoadPriorityItems(user.queueItems))
     } else {
@@ -189,6 +209,8 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
 
     ReactGA.initialize(googleAnalyticsConfig.trackingId)
     ReactGA.pageview(window.location.pathname + window.location.search)
+
+    windowHasLoaded = true
   }
 
   render() {

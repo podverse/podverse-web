@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import Meta from '~/components/Meta/Meta'
 import { getUrlFromRequestOrWindow } from '~/lib/utility'
 import { pageIsLoading } from '~/redux/actions'
+import { bindActionCreators } from 'redux';
 
 type Props = {
   meta?: any
@@ -40,7 +41,7 @@ class About extends Component<Props, State> {
           twitterDescription={meta.description}
           twitterTitle={meta.title} />
         <h3>About</h3>
-        <p>Create and share podcast highlights</p>
+        <p>Create and share highlights</p>
         <p>Create and share playlists</p>
         <p>Share your user profile</p>
         <p>Free and open source software <i className="fa fa-copyright fa-flip-horizontal"></i></p>
