@@ -36,8 +36,9 @@ class Home extends Component<Props, State> {
     const { nsfwMode } = settings
     
     const currentPage = pages[kPageKey] || {}
+    const queryRefresh = !!query.refresh
     const queryFrom = currentPage.queryFrom || query.from || 'all-podcasts'
-    const queryPage = currentPage.queryPage || query.page || 1
+    const queryPage = (queryRefresh && 1) || currentPage.queryPage || query.page || 1
     const querySort = currentPage.querySort || query.sort || 'top-past-week'
     const queryType = currentPage.queryType || query.type || 'clips'
     let podcastId = ''
@@ -46,7 +47,7 @@ class Home extends Component<Props, State> {
       podcastId = user.subscribedPodcastIds
     }
 
-    if (Object.keys(currentPage).length === 0) {
+    if (Object.keys(currentPage).length === 0 || queryRefresh) {
       let queryDataResult
 
       if (queryType === 'episodes') {
@@ -80,7 +81,10 @@ class Home extends Component<Props, State> {
         queryFrom,
         queryPage,
         querySort,
-        queryType
+        queryType,
+        endReached: false,
+        isLoadingInitial: false,
+        isLoadingMore: false
       }))
     }
     
