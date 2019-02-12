@@ -79,12 +79,11 @@ class PodcastListCtrl extends Component<Props, State> {
   }
 
   queryLoadInitial() {
-    const { handleSetPageQueryState, pageKey } = this.props
+    const { categoryId, handleSetPageQueryState, pageKey } = this.props
 
     handleSetPageQueryState({
       pageKey,
-      isLoadingInitial: true,
-      categoryId: null
+      isLoadingInitial: true
     })
   }
 

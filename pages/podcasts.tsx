@@ -33,14 +33,19 @@ class Podcasts extends Component<Props, State> {
     const allCategories = allCategoriesResult.data || []
 
     const currentPage = pages[kPageKey] || {}
-    const categoryId = currentPage.categoryId || query.categoryId
-    const queryPage = currentPage.queryPage || query.page || 1
-    const queryFrom = currentPage.queryFrom || query.from || 'all-podcasts'
-    const querySort = currentPage.querySort || query.sort || 'top-past-week'
-    
-    if (Object.keys(currentPage).length === 0) {
+    const queryRefresh = !!query.refresh
+    const categoryId = query.categoryId || currentPage.categoryId
+    const queryPage = (queryRefresh && 1) || query.page || currentPage.queryPage || 1
+    const queryFrom = query.from
+      || (query.categoryId && 'from-category')
+      || currentPage.queryFrom
+      || 'all-podcasts'
+    const querySort = query.sort || currentPage.querySort || 'top-past-week'
+
+    if (Object.keys(currentPage).length === 0 || queryRefresh) {
       const queryDataResult = await getPodcastsByQuery({
-        ...(categoryId ? { categoryId } : {}),
+        ...(categoryId ? { categories: categoryId } : {}),
+        from: queryFrom,
         page: queryPage,
         sort: querySort
       }, nsfwMode)
@@ -49,6 +54,7 @@ class Podcasts extends Component<Props, State> {
 
       store.dispatch(pagesSetQueryState({
         pageKey: kPageKey,
+        categoryId,
         listItems,
         queryPage,
         queryFrom,
@@ -64,7 +70,8 @@ class Podcasts extends Component<Props, State> {
       title: `Podcasts`
     }
 
-    return { allCategories, categoryId, meta, queryPage, querySort, user }
+    return { allCategories, categoryId, meta, nsfwMode, queryFrom, queryPage,
+      querySort, user }
   }
 
   render() {
