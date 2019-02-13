@@ -167,7 +167,7 @@ class MediaInfoCtrl extends Component<Props, State> {
 
   render() {
     const { episode, mediaRef, nowPlayingItem, podcast, user } = this.props
-    const { id: userId } = user
+    let userId = user && user.id
 
     return (
       <MediaInfo
