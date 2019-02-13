@@ -5,7 +5,7 @@ const generateDataObj = payload => {
     const { categoryId, endReached, filterIsShowing, filterText, isLoadingInitial,
       isLoadingMore, isSearching, listItems, publicUser, queryFrom, queryPage, querySort,
       queryType, searchBy, searchText, selected } = payload
-      console.log(filterText, 'hyep')
+
     return {
       ...(categoryId ? { categoryId } : {}),
       ...(endReached || endReached === false ? { endReached } : {}),
