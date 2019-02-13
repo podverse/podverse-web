@@ -13,6 +13,10 @@
 
     .footer-top__brand {
       flex: 0 0 auto;
+
+      sup {
+        font-size: 11px;
+      }
     }
 
     .footer-top__nsfw {
