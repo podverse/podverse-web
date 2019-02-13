@@ -426,7 +426,7 @@ class MediaListCtrl extends Component<Props, State> {
               <Fragment>
                 <Input
                   onChange={this.handleFilterTextChange}
-                  value={filterText} />
+                  value={filterText || ''} />
                 <InputGroupAddon
                   addonType='append'
                   className='media-list-filter__clear-icon'>
