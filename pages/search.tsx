@@ -113,7 +113,7 @@ class Search extends Component<Props, State> {
 
       pagesSetQueryState({
         pageKey: kPageKey,
-        endReached: podcasts.length < 2,
+        endReached: podcasts.length < 20,
         isLoadingMore: false,
         isSearching: false,
         listItems: queryPage > 1 ? combinedListItems : podcasts,

@@ -109,7 +109,7 @@ class UserMediaListCtrl extends Component<Props, State> {
 
         handleSetPageQueryState({
           pageKey,
-          endReached: podcasts.length < 2,
+          endReached: podcasts.length < 20,
           isLoadingInitial: false,
           isLoadingMore: false,
           listItems: page > 1 ? combinedListItems : podcasts
@@ -151,7 +151,7 @@ class UserMediaListCtrl extends Component<Props, State> {
 
         handleSetPageQueryState({
           pageKey,
-          endReached: mediaRefs.length < 2,
+          endReached: mediaRefs.length < 20,
           isLoadingInitial: false,
           isLoadingMore: false,
           listItems: page > 1 ? combinedListItems : mediaRefs
@@ -177,7 +177,7 @@ class UserMediaListCtrl extends Component<Props, State> {
 
         handleSetPageQueryState({
           pageKey,
-          endReached: playlists.length < 2,
+          endReached: playlists.length < 20,
           isLoadingInitial: false,
           isLoadingMore: false,
           listItems: page > 1 ? combinedListItems : playlists

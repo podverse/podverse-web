@@ -61,7 +61,7 @@ class PodcastListCtrl extends Component<Props, State> {
 
       handleSetPageQueryState({
         ...newState,
-        endReached: podcasts.length < 2,
+        endReached: podcasts.length < 20,
         isLoadingInitial: false,
         isLoadingMore: false,
         listItems: combinedListItems

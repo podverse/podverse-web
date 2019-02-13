@@ -55,7 +55,12 @@ class MediaListCtrl extends Component<Props, State> {
     })
   }
 
-  queryListItems = async (queryType, queryFrom, querySort, isLoadMore = false) => {
+  queryListItems = async (
+    queryType,
+    queryFrom,
+    querySort,
+    isLoadMore = false,
+    isLastLoadMore = false) => {
     const { episodeId, handleSetPageQueryState, pageKey, pages,
       playerQueueLoadSecondaryItems, podcastId, settings, user } = this.props
     const { nsfwMode } = settings
@@ -94,12 +99,12 @@ class MediaListCtrl extends Component<Props, State> {
       if (queryType === 'episodes') {
         let response = await getEpisodesByQuery(query, nsfwMode)
         const episodes = response.data && response.data.map(x => convertToNowPlayingItem(x))
-        endReached = episodes.length < 2
+        endReached = isLastLoadMore || episodes.length < 20
         combinedListItems = combinedListItems.concat(episodes)
       } else {
         let response = await getMediaRefsByQuery(query, nsfwMode)
         const mediaRefs = response.data && response.data.map(x => convertToNowPlayingItem(x))
-        endReached = mediaRefs.length < 2
+        endReached = mediaRefs.length < 20
         combinedListItems = combinedListItems.concat(mediaRefs)
       }
 
@@ -142,7 +147,9 @@ class MediaListCtrl extends Component<Props, State> {
       isLoadingMore: true
     })
 
-    await this.queryListItems(queryType, queryFrom, querySort, true)
+    const isLastLoadMore = queryType === 'episodes' && queryFrom === 'from-podcast'
+
+    await this.queryListItems(queryType, queryFrom, querySort, true, isLastLoadMore)
   }
 
   getQueryTypeOptions = () => {
