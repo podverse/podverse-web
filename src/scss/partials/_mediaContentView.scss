@@ -35,20 +35,52 @@
         flex: 0 0 auto;
       }
     }
-  
+    
     .media-list-selects__right {
       align-items: flex-end;
       display: flex;
       flex: 1 1 auto;
       flex-direction: column;
-
-      .media-list-selects-right__spacer {
-        height: 2.25rem;
-      }
-
+      
+      
       .dropdown {
         flex: 0 0 auto;
       }
+    }
+
+    .media-list-selects__spacer {
+      height: 2.25rem;
+    }
+  }
+
+  .media-list__filter {
+    margin: 0.75rem 0;
+
+    .media-list-filter__filter-icon, .media-list-filter__clear-icon {
+      font-size: 20px;
+      height: 32px;
+      line-height: 32px;
+    }
+    
+    .media-list-filter__filter-icon button {
+      padding: 0 0.75rem;
+
+      &.not-showing {
+        border-radius: 3px;
+      }
+    }
+
+    input {
+      border-left: transparent;
+      border-right: transparent;
+      height: 32px;
+      line-height: 32px;
+    }
+
+    .media-list-filter__clear-icon button {
+      border-left: transparent;
+      padding: 0;
+      width: 40px;
     }
   }
 
@@ -60,12 +92,28 @@
 
 html[theme=light] {
   .media-list {
+    .media-list__filter {
+      .media-list-filter__filter-icon button, .media-list-filter__clear-icon button {
+        background-color: $white;
+        border-color: $gray-lighter;
+        color: $gray-darker;
+      }
+
+      input {
+        background-color: $white;
+        border-color: $gray-lighter;
+        color: $black;
+      }
+    }
+
     .media-list__loader {
       color: $gray-light;
     }
+
     .media-list__description {
       color: $gray-darker;
     }
+  
     .media-list__loading {
       color: $black;
     }
@@ -74,12 +122,28 @@ html[theme=light] {
 
 html[theme=dark] {
   .media-list {
+    .media-list__filter {
+      .media-list-filter__filter-icon button, .media-list-filter__clear-icon button {
+        background-color: $black;
+        border-color: $gray-darker;
+        color: $gray-lighter;
+      }
+
+      input {
+        background-color: $black;
+        border-color: $gray-darker;
+        color: $white;
+      }
+    }
+
     .media-list__loader {
       color: $gray-dark;
     }
+
     .media-list__description {
       color: $gray-lighter;
     }
+
     .media-list__loading {
       color: $white;
     }

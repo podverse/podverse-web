@@ -2,6 +2,7 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import { InputGroup, InputGroupAddon, Input } from 'reactstrap'
 import { MediaListSelect, PVButton as Button } from 'podverse-ui'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import MediaListItemCtrl from '~/components/MediaListItemCtrl/MediaListItemCtrl'
@@ -310,11 +311,40 @@ class MediaListCtrl extends Component<Props, State> {
     }
   }
 
+  toggleFilter = () => {
+    const { handleSetPageQueryState, pageKey, pages } = this.props
+    const { filterIsShowing } = pages[pageKey]
+    
+    handleSetPageQueryState({
+      pageKey,
+      filterIsShowing: !filterIsShowing
+    })
+  }
+
+  handleFilterTextChange = event => {
+    const { handleSetPageQueryState, pageKey } = this.props
+    const text = event.target.value
+
+    handleSetPageQueryState({
+      pageKey,
+      filterText: text
+    })
+  }
+
+  clearFilterText = () => {
+    const { handleSetPageQueryState, pageKey } = this.props
+
+    handleSetPageQueryState({
+      pageKey,
+      filterText: ''
+    })
+  }
+
   render() {
-    const { adjustTopPosition, episodeId, mediaPlayer, pageKey, pages, podcastId, user } = this.props
+    const { adjustTopPosition, episodeId, mediaPlayer, pageKey, pages, podcastId } = this.props
     const { nowPlayingItem: mpNowPlayingItem } = mediaPlayer
-    const { endReached, isLoadingInitial, isLoadingMore, listItems, queryFrom, queryPage,
-      querySort, queryType } = pages[pageKey]
+    const { endReached, filterIsShowing, filterText, isLoadingInitial, isLoadingMore,
+      listItems, queryFrom, queryPage, querySort, queryType } = pages[pageKey]
 
     let mediaListItemType = 'now-playing-item'
     if (queryType === 'episodes') {
@@ -373,12 +403,40 @@ class MediaListCtrl extends Component<Props, State> {
               selected={selectedQueryFromOption.length > 0 ? selectedQueryFromOption[0].value : null} />
           </div>
           <div className='media-list-selects__right'>
-            <div className='media-list-selects-right__spacer' />
+            <div className='media-list-selects__spacer' />
             <MediaListSelect
               className='align-right'
               items={this.getQuerySortOptions()}
               selected={selectedQuerySortOption.length > 0 ? selectedQuerySortOption[0].value : null} />
           </div>
+        </div>
+        <div className='media-list__filter'>
+          <InputGroup>
+            <InputGroupAddon
+              addonType='prepend'
+              className='media-list-filter__filter-icon'>
+              <Button
+                className={filterIsShowing ? '' : 'not-showing'}
+                onClick={this.toggleFilter}>
+                <FontAwesomeIcon icon='filter' /> filter
+              </Button>
+            </InputGroupAddon>
+            {
+              filterIsShowing &&
+              <Fragment>
+                <Input
+                  onChange={this.handleFilterTextChange}
+                  value={filterText} />
+                <InputGroupAddon
+                  addonType='append'
+                  className='media-list-filter__clear-icon'>
+                  <Button onClick={this.clearFilterText}>
+                    <FontAwesomeIcon icon='times' />
+                  </Button>
+                </InputGroupAddon>
+              </Fragment>  
+            }
+          </InputGroup>
         </div>
         {
           isLoadingInitial &&
