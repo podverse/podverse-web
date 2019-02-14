@@ -35,6 +35,7 @@
     "@zeit/next-css": "^1.0.1",
     "@zeit/next-sass": "^1.0.1",
     "@zeit/next-typescript": "^1.1.1",
+    "awesome-debounce-promise": "^1.0.0",
     "axios": "^0.18.0",
     "babel-loader": "^8.0.4",
     "babel-plugin-root-import": "^6.1.0",

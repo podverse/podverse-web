@@ -13,7 +13,11 @@ import { mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying, playerQueueAdd
   } from '~/redux/actions'
 import { addOrUpdateUserHistoryItem, getEpisodesByQuery, getMediaRefsByQuery
   } from '~/services'
+import AwesomeDebouncePromise from 'awesome-debounce-promise'
 const uuidv4 = require('uuid/v4')
+
+const debouncedEpisodeFilterQuery = AwesomeDebouncePromise(getEpisodesByQuery, 750)
+const debouncedMediaRefFilterQuery = AwesomeDebouncePromise(getMediaRefsByQuery, 750)
 
 type Props = {
   adjustTopPosition?: boolean
@@ -61,12 +65,13 @@ class MediaListCtrl extends Component<Props, State> {
     queryFrom,
     querySort,
     isLoadMore = false,
-    isLastLoadMore = false) => {
+    isLastLoadMore = false,
+    ignoreFilter = false) => {
     const { episodeId, handleSetPageQueryState, pageKey, pages,
       playerQueueLoadSecondaryItems, podcastId, settings, user } = this.props
     const { nsfwMode } = settings
     const { subscribedPodcastIds } = user
-    const { listItems, queryPage } = pages[pageKey]
+    const { filterIsShowing, filterText, listItems, queryPage } = pages[pageKey]
     
     if (!isLoadMore) {
       this.queryLoadInitial()
@@ -78,7 +83,8 @@ class MediaListCtrl extends Component<Props, State> {
       sort: querySort,
       episodeId: queryFrom === 'from-episode' ? episodeId : null,
       podcastId: queryFrom === 'from-podcast' ? podcastId : null,
-      subscribedPodcastIds: queryFrom === 'subscribed-only' ? subscribedPodcastIds : null
+      subscribedPodcastIds: queryFrom === 'subscribed-only' ? subscribedPodcastIds : null,
+      ...(!ignoreFilter && filterIsShowing ? { searchAllFieldsText: filterText } : {})
     }
 
     let newState: any = {
@@ -311,24 +317,76 @@ class MediaListCtrl extends Component<Props, State> {
     }
   }
 
-  toggleFilter = () => {
+  toggleFilter = async () => {
     const { handleSetPageQueryState, pageKey, pages } = this.props
-    const { filterIsShowing } = pages[pageKey]
+    const { filterIsShowing, queryFrom, querySort, queryType } = pages[pageKey]
+    
+    if (filterIsShowing) {
+      await this.queryListItems(queryType, queryFrom, querySort, false, false, true)
+    }
     
     handleSetPageQueryState({
       pageKey,
-      filterIsShowing: !filterIsShowing
+      filterIsShowing: !filterIsShowing,
+      ...(filterIsShowing ? { filterText: '' } : {})
     })
   }
 
-  handleFilterTextChange = event => {
-    const { handleSetPageQueryState, pageKey } = this.props
+  handleFilterTextChange = async event => {
+    const { episodeId, handleSetPageQueryState, pageKey, pages, podcastId,
+      settings, user } = this.props
+    const { queryFrom, querySort, queryType } = pages[pageKey]
+    const { nsfwMode } = settings
+    const { subscribedPodcastIds } = user
     const text = event.target.value
 
     handleSetPageQueryState({
       pageKey,
       filterText: text
     })
+
+    let query: any = {
+      page: 1,
+      from: queryFrom,
+      sort: querySort,
+      episodeId: queryFrom === 'from-episode' ? episodeId : null,
+      podcastId: queryFrom === 'from-podcast' ? podcastId : null,
+      subscribedPodcastIds: queryFrom === 'subscribed-only' ? subscribedPodcastIds : null,
+      searchAllFieldsText: text
+    }
+    
+    try {
+      let items
+      let endReached
+      if (queryType === 'episodes') {
+        let response = await debouncedEpisodeFilterQuery(query, nsfwMode)
+        items = response.data && response.data.map(x => convertToNowPlayingItem(x))
+        endReached = items.length < 20
+      } else {
+        let response = await debouncedMediaRefFilterQuery(query, nsfwMode)
+        items = response.data && response.data.map(x => convertToNowPlayingItem(x))
+        endReached = items.length < 20
+      }
+      
+      playerQueueLoadSecondaryItems(clone(items))
+      console.log(items)
+      handleSetPageQueryState({
+        pageKey,
+        endReached,
+        isLoadingInitial: false,
+        isLoadingMore: false,
+        listItems: items
+      })
+    } catch (error) {
+      console.log(error)
+      handleSetPageQueryState({
+        pageKey,
+        endReached: false,
+        isLoadingInitial: false,
+        isLoadingMore: false,
+        listItems: []
+      })
+    }
   }
 
   clearFilterText = () => {
