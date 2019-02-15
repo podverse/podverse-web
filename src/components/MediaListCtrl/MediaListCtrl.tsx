@@ -117,6 +117,12 @@ class MediaListCtrl extends Component<Props, State> {
 
       playerQueueLoadSecondaryItems(clone(combinedListItems))
 
+      // Stay in .view__contents element Y position after Load More finishes.
+      // This is hacky...I don't know how else to do it...
+      const viewContentsEl = document.querySelector('.view__contents')
+      const scrLeft = viewContentsEl.scrollLeft
+      const scrTop = viewContentsEl.scrollTop
+
       handleSetPageQueryState({
         ...newState,
         endReached,
@@ -124,6 +130,11 @@ class MediaListCtrl extends Component<Props, State> {
         isLoadingMore: false,
         listItems: combinedListItems
       })
+
+      viewContentsEl.scrollTo(
+        scrLeft,
+        scrTop
+      )
     } catch (error) {
       console.log(error)
       handleSetPageQueryState({
