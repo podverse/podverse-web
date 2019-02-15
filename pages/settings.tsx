@@ -11,8 +11,8 @@ import { DeleteAccountModal } from '~/components/DeleteAccountModal/DeleteAccoun
 import { alertPremiumRequired, alertSomethingWentWrong, convertToYYYYMMDDHHMMSS,
   copyToClipboard, getUrlFromRequestOrWindow, isBeforeDate, validateEmail, alertRateLimitError
   } from '~/lib/utility'
-import { modalsSignUpShow, pageIsLoading, settingsHideNSFWMode, settingsHideUITheme,
-  userSetInfo } from '~/redux/actions'
+import { modalsSignUpShow, pageIsLoading, settingsHideFilterButton, settingsHideNSFWMode,
+  settingsHideUITheme, userSetInfo } from '~/redux/actions'
 import { downloadUserData, updateUser } from '~/services'
 import config from '~/config'
 const { BASE_URL } = config()
@@ -23,6 +23,7 @@ type Props = {
   meta?: any
   modalsSignUpShow?: any
   settings?: any
+  settingsHideFilterButton?: any
   settingsHideNSFWMode?: any
   settingsHideUITheme?: any
   user?: any
@@ -156,7 +157,7 @@ class Settings extends Component<Props, State> {
     })
     document.cookie = nsfwModeHideCookie
         
-    settingsHideNSFWMode(val)
+    settingsHideNSFWMode(`${val}`)
   }
 
   handleToggleUITheme(event) {
@@ -172,7 +173,23 @@ class Settings extends Component<Props, State> {
     })
     document.cookie = uiThemeHideCookie
 
-    settingsHideUITheme(val)
+    settingsHideUITheme(`${val}`)
+  }
+
+  handleToggleFilterButton = event => {
+    const { settingsHideFilterButton } = this.props
+    const isChecked = event.currentTarget.checked
+    const val = isChecked ? true : false
+
+    const expires = new Date()
+    expires.setDate(expires.getDate() + 365)
+    const filterButtonHideCookie = cookie.serialize('filterButtonHide', val, {
+      expires,
+      path: '/'
+    })
+    document.cookie = filterButtonHideCookie
+
+    settingsHideFilterButton(`${val}`)
   }
 
   validateProfileData() {
@@ -240,11 +257,11 @@ class Settings extends Component<Props, State> {
   
   render() {
     const { meta, settings, user } = this.props
-    const { nsfwModeHide, uiThemeHide } = settings
+    const { filterButtonHide, nsfwModeHide, uiThemeHide } = settings
     const { email, emailError, isCheckoutOpen, isDeleteAccountOpen, isDownloading,
       isPublic, isSaving, name, wasCopied } = this.state
     const isLoggedIn = user && !!user.id
-
+    
     const checkoutBtn = (isRenew = false) => (
       <Button
         className='settings-membership__checkout'
@@ -390,7 +407,16 @@ class Settings extends Component<Props, State> {
           <FormGroup check>
             <Label className='checkbox-label' check>
               <Input
-                checked={uiThemeHide === false}
+                checked={filterButtonHide !== 'false'}
+                onChange={this.handleToggleFilterButton}
+                type="checkbox" />
+              &nbsp;&nbsp;Hide filter button
+            </Label>
+          </FormGroup>
+          <FormGroup check>
+            <Label className='checkbox-label' check>
+              <Input
+                checked={uiThemeHide !== 'false'}
                 onChange={this.handleToggleUITheme}
                 type="checkbox" />
               &nbsp;&nbsp;Hide dark-mode switch in footer
@@ -399,7 +425,7 @@ class Settings extends Component<Props, State> {
           <FormGroup check>
             <Label className='checkbox-label' check>
               <Input
-                checked={nsfwModeHide === false}
+                checked={nsfwModeHide !== 'false'}
                 onChange={this.handleToggleNSFWMode}
                 type="checkbox" />
               &nbsp;&nbsp;Hide nsfw-mode switch in footer
@@ -524,6 +550,7 @@ const mapStateToProps = state => ({ ...state })
 
 const mapDispatchToProps = dispatch => ({
   modalsSignUpShow: bindActionCreators(modalsSignUpShow, dispatch),
+  settingsHideFilterButton: bindActionCreators(settingsHideFilterButton, dispatch),
   settingsHideNSFWMode: bindActionCreators(settingsHideNSFWMode, dispatch),
   settingsHideUITheme: bindActionCreators(settingsHideUITheme, dispatch),
   userSetInfo: bindActionCreators(userSetInfo, dispatch)

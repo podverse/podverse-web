@@ -82,7 +82,7 @@ class Podcast extends Component<Props, State> {
             type: queryType
           }, nsfwMode)
         }
-        
+
         let listItems = queryDataResult.data.map(x => convertToNowPlayingItem(x))
         
         store.dispatch(playerQueueLoadSecondaryItems(clone(listItems)))

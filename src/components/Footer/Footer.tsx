@@ -101,7 +101,7 @@ class Footer extends Component<Props, State> {
               </a>
             </Link>
             {
-              !uiThemeHide &&
+              uiThemeHide !== 'true' &&
                 <div className='footer-top__ui-theme'>
                   <span className='footer-top-ui-theme__left'>
                     <FontAwesomeIcon icon='sun' />&nbsp;
@@ -123,7 +123,7 @@ class Footer extends Component<Props, State> {
                 </div>
             }
             {
-              !nsfwModeHide &&
+              nsfwModeHide !== 'true' &&
                 <div className='footer-top__nsfw'>
                   <span className='footer-top-nsfw__left'>SFW&nbsp;</span>
                   <Switch

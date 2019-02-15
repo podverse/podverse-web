@@ -399,7 +399,9 @@ class MediaListCtrl extends Component<Props, State> {
   }
 
   render() {
-    const { adjustTopPosition, episodeId, mediaPlayer, pageKey, pages, podcastId } = this.props
+    const { adjustTopPosition, episodeId, mediaPlayer, pageKey, pages, podcastId,
+      settings } = this.props
+    const { filterButtonHide } = settings
     const { nowPlayingItem: mpNowPlayingItem } = mediaPlayer
     const { endReached, filterIsShowing, filterText, isLoadingInitial, isLoadingMore,
       listItems, queryFrom, queryPage, querySort, queryType } = pages[pageKey]
@@ -468,34 +470,37 @@ class MediaListCtrl extends Component<Props, State> {
               selected={selectedQuerySortOption.length > 0 ? selectedQuerySortOption[0].value : null} />
           </div>
         </div>
-        <div className='media-list__filter'>
-          <InputGroup>
-            <InputGroupAddon
-              addonType='prepend'
-              className='media-list-filter__filter-icon'>
-              <Button
-                className={filterIsShowing ? '' : 'not-showing'}
-                onClick={this.toggleFilter}>
-                <FontAwesomeIcon icon='filter' /> filter
-              </Button>
-            </InputGroupAddon>
-            {
-              filterIsShowing &&
-              <Fragment>
-                <Input
-                  onChange={this.handleFilterTextChange}
-                  value={filterText || ''} />
+        {
+          filterButtonHide !== 'true' &&
+            <div className='media-list__filter'>
+              <InputGroup>
                 <InputGroupAddon
-                  addonType='append'
-                  className='media-list-filter__clear-icon'>
-                  <Button onClick={this.clearFilterText}>
-                    <FontAwesomeIcon icon='times' />
+                  addonType='prepend'
+                  className='media-list-filter__filter-icon'>
+                  <Button
+                    className={filterIsShowing ? '' : 'not-showing'}
+                    onClick={this.toggleFilter}>
+                    <FontAwesomeIcon icon='filter' /> filter
                   </Button>
                 </InputGroupAddon>
-              </Fragment>  
-            }
-          </InputGroup>
-        </div>
+                {
+                  filterIsShowing &&
+                  <Fragment>
+                    <Input
+                      onChange={this.handleFilterTextChange}
+                      value={filterText || ''} />
+                    <InputGroupAddon
+                      addonType='append'
+                      className='media-list-filter__clear-icon'>
+                      <Button onClick={this.clearFilterText}>
+                        <FontAwesomeIcon icon='times' />
+                      </Button>
+                    </InputGroupAddon>
+                  </Fragment>  
+                }
+              </InputGroup>
+            </div>
+        }
         {
           isLoadingInitial &&
             <div className='media-list__loader'>

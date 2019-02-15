@@ -14,6 +14,13 @@ export const settingsHideUITheme = payload => {
   }
 }
 
+export const settingsHideFilterButton = payload => {
+  return {
+    type: actionTypes.SETTINGS_SET_HIDE_FILTER_BUTTON,
+    payload
+  }
+}
+
 export const settingsSetNSFWMode = payload => {
   return {
     type: actionTypes.SETTINGS_SET_NSFW_MODE,

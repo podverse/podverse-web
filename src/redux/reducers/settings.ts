@@ -13,6 +13,11 @@ export default (state = {}, action) => {
         ...state,
         uiThemeHide: action.payload
       }
+    case actionTypes.SETTINGS_SET_HIDE_FILTER_BUTTON:
+      return {
+        ...state,
+        filterButtonHide: action.payload
+      }
     case actionTypes.SETTINGS_SET_NSFW_MODE:
       return {
         ...state,

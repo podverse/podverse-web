@@ -124,6 +124,18 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
         })
       }
 
+      if (parsedCookie.filterButtonHide) {
+        ctx.store.dispatch({
+          type: actionTypes.SETTINGS_SET_HIDE_FILTER_BUTTON,
+          payload: parsedCookie.filterButtonHide
+        })
+      } else {
+        ctx.store.dispatch({
+          type: actionTypes.SETTINGS_SET_HIDE_FILTER_BUTTON,
+          payload: 'true'
+        })
+      }
+
       if (parsedCookie.Authorization) {
         try {
           const userInfo = await getAuthenticatedUserInfo(parsedCookie.Authorization)

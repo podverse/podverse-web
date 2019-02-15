@@ -31,9 +31,9 @@ export const convertToNowPlayingItem = (data, userPlaybackPosition = 0) => {
     nowPlayingItem.episodeMediaUrl = data.mediaUrl
     nowPlayingItem.episodePubDate = data.pubDate
     nowPlayingItem.episodeTitle = data.title
-    nowPlayingItem.podcastImageUrl = data.podcast.imageUrl
-    nowPlayingItem.podcastId = data.podcast.id
-    nowPlayingItem.podcastTitle = data.podcast.title
+    nowPlayingItem.podcastImageUrl = data.podcast && data.podcast.imageUrl
+    nowPlayingItem.podcastId = data.podcast && data.podcast.id
+    nowPlayingItem.podcastTitle = data.podcast && data.podcast.title
     nowPlayingItem.userPlaybackPosition = userPlaybackPosition || 0
   } else { // Else assume it is a MediaRef
     nowPlayingItem.clipEndTime = data.endTime
