@@ -38,6 +38,10 @@ export const getEpisodesByQuery = async (query, nsfwMode = 'on') => {
     filteredQuery.searchAllFieldsText = query.searchAllFieldsText
   }
 
+  if (query.includePodcast) {
+    filteredQuery.includePodcast = query.includePodcast
+  }
+
   const queryString = convertObjectToQueryString(filteredQuery)  
   return axios(`${API_BASE_URL}/episode?${queryString}`, {
     method: 'get',

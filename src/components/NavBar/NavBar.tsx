@@ -19,14 +19,17 @@ type Props = {
   userSetInfo?: any
 }
 
-type State = {}
+type State = {
+  dropdownMenuIsOpen?: boolean
+  mobileMenuIsOpen?: boolean
+}
 
 class PVNavBar extends Component<Props, State> {
 
-  constructor (props) {
+  constructor(props) {
     super(props)
 
-    this.linkClick = this.linkClick.bind(this)
+    this.state = {}
   }
 
   navItems () {
@@ -60,13 +63,13 @@ class PVNavBar extends Component<Props, State> {
         as: '/my-profile',
         href: '/my-profile',
         label: 'My Profile',
-        onClick: () => { pageIsLoading(true) }
+        onClick: () => { this.linkClick() }
       })
       dropdownItems.push({
         as: '/profiles',
         href: '/profiles',
         label: 'Profiles',
-        onClick: () => { pageIsLoading(true) }
+        onClick: () => { this.linkClick() }
       })
     }
 
@@ -74,7 +77,7 @@ class PVNavBar extends Component<Props, State> {
       as: '/settings',
       href: '/settings',
       label: 'Settings',
-      onClick: () => { pageIsLoading(true) }
+      onClick: () => { this.linkClick() }
     })
     
     if (!!id) {
@@ -119,17 +122,33 @@ class PVNavBar extends Component<Props, State> {
     return dropdownItems
   }
 
-  linkClick() {
+  handleToggleDropdownMenu = () => {
+    const { dropdownMenuIsOpen } = this.state
+    this.setState({ dropdownMenuIsOpen: !dropdownMenuIsOpen })
+  }
+
+  handleToggleMobileMenu = () => {
+    const { mobileMenuIsOpen } = this.state
+    this.setState({ mobileMenuIsOpen: !mobileMenuIsOpen })
+  }
+
+  linkClick = () => {
     const { pageIsLoading } = this.props
     pageIsLoading(true)
+    
+    this.setState({
+      dropdownMenuIsOpen: false,
+      mobileMenuIsOpen: false
+    })
   }
 
   render () {
     const { user } = this.props
     const { id } = user 
+    const { dropdownMenuIsOpen, mobileMenuIsOpen } = this.state
 
     const dropdownText = (!!id ? <FontAwesomeIcon icon='user-circle'></FontAwesomeIcon> : null)
-  
+
     return (
       <React.Fragment>
         <Navbar
@@ -137,8 +156,12 @@ class PVNavBar extends Component<Props, State> {
           brandText='Podverse'
           brandUrl='/'
           dropdownItems={this.dropdownItems()}
+          dropdownMenuIsOpen={dropdownMenuIsOpen}
           dropdownText={dropdownText}
           handleLinkClick={this.linkClick}
+          handleToggleDropdownMenu={this.handleToggleDropdownMenu}
+          handleToggleMobileMenu={this.handleToggleMobileMenu}
+          mobileMenuIsOpen={mobileMenuIsOpen}
           navItems={this.navItems()} />
       </React.Fragment>
     )

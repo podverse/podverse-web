@@ -24,8 +24,19 @@ export const convertToNowPlayingItem = (data, userPlaybackPosition = 0) => {
 
   if (!data) { return {} }
 
+  // If it has a podcast_id field, assume it is an Episode list item
+  if (data.podcast_id) {
+    nowPlayingItem.episodeDescription = data.description
+    nowPlayingItem.episodeId = data.id
+    nowPlayingItem.episodeMediaUrl = data.mediaUrl
+    nowPlayingItem.episodePubDate = data.pubDate
+    nowPlayingItem.episodeTitle = data.title
+    nowPlayingItem.podcastImageUrl = data.podcast_imageUrl
+    nowPlayingItem.podcastId = data.podcast_id
+    nowPlayingItem.podcastTitle = data.podcast_title
+    nowPlayingItem.userPlaybackPosition = userPlaybackPosition || 0
   // If it has a pubDate field, assume it is an Episode
-  if (data.pubDate) {
+  } else if (data.pubDate) {
     nowPlayingItem.episodeDescription = data.description
     nowPlayingItem.episodeId = data.id
     nowPlayingItem.episodeMediaUrl = data.mediaUrl
@@ -35,7 +46,8 @@ export const convertToNowPlayingItem = (data, userPlaybackPosition = 0) => {
     nowPlayingItem.podcastId = data.podcast && data.podcast.id
     nowPlayingItem.podcastTitle = data.podcast && data.podcast.title
     nowPlayingItem.userPlaybackPosition = userPlaybackPosition || 0
-  } else { // Else assume it is a MediaRef
+  // Else assume it is a MediaRef
+  } else { 
     nowPlayingItem.clipEndTime = data.endTime
     nowPlayingItem.clipId = data.id
     nowPlayingItem.clipStartTime = data.startTime
