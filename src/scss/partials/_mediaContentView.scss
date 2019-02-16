@@ -1,6 +1,9 @@
 .media-list {
-  padding: 0.75rem 0;
   position: relative;
+
+  hr:last-of-type {
+    display: none;
+  }
 
   &.adjust-top-position {
     margin-top: -1.25rem;
