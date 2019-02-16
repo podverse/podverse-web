@@ -239,7 +239,9 @@ class Search extends Component<Props, State> {
           {
             (!isLoadingInitial && !isSearching
               && listItemNodes && listItemNodes.length === 0) &&
-              <div className='no-results-msg'>No podcasts found</div>
+              <div className='no-results-msg'>
+                No podcasts {`${searchBy === 'host' ? 'with that host' : ''}`} found.
+              </div>
           }
         </div>
       </Fragment>
