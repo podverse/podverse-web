@@ -152,9 +152,10 @@ class PVNavBar extends Component<Props, State> {
     return (
       <React.Fragment>
         <Navbar
+          brandAs='/'
+          brandHref='/?refresh=true'
           brandHideText={true}
           brandText='Podverse'
-          brandUrl='/'
           dropdownItems={this.dropdownItems()}
           dropdownMenuIsOpen={dropdownMenuIsOpen}
           dropdownText={dropdownText}

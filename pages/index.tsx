@@ -41,6 +41,7 @@ class Home extends Component<Props, State> {
     const queryPage = (queryRefresh && 1) || currentPage.queryPage || query.page || 1
     const querySort = currentPage.querySort || query.sort || 'top-past-week'
     const queryType = currentPage.queryType || query.type || 'clips'
+    const includePodcast = currentPage.queryType === 'episodes' || query.type === 'episodes'
     let podcastId = ''
 
     if (queryFrom === 'subscribed-only') {
@@ -56,7 +57,8 @@ class Home extends Component<Props, State> {
           page: queryPage,
           ...(podcastId ? { podcastId } : {}),
           sort: querySort,
-          type: queryType
+          type: queryType,
+          ...(includePodcast ? { includePodcast } : {})
         }, nsfwMode)
       } else {
         queryDataResult = await getMediaRefsByQuery({

@@ -85,7 +85,8 @@ class MediaListCtrl extends Component<Props, State> {
       podcastId: queryFrom === 'from-podcast' ? podcastId : null,
       subscribedPodcastIds: queryFrom === 'subscribed-only' ? subscribedPodcastIds : null,
       ...(!ignoreFilter && filterIsShowing ? { searchAllFieldsText: filterText } : {}),
-      ...(queryFrom === 'all-podcasts' ? { includePodcast: true } : {})
+      ...(queryFrom === 'all-podcasts' ||
+          queryFrom === 'subscribed-only' ? { includePodcast: true } : {})
     }
 
     let newState: any = {
