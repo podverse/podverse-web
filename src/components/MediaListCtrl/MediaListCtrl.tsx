@@ -283,7 +283,7 @@ class MediaListCtrl extends Component<Props, State> {
   playItem = async nowPlayingItem => {
     const { mediaPlayer, mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying,
       pageKey, pages, playerQueueLoadSecondaryItems, user, userSetInfo } = this.props
-    const { listItems } = pages[pageKey]
+    const { listItems, podcast } = pages[pageKey]
     const { nowPlayingItem: previousItem } = mediaPlayer
 
     // If loading a new episode, clear the player to prevent the error:
@@ -296,6 +296,15 @@ class MediaListCtrl extends Component<Props, State> {
         && !nowPlayingItem.clipStartTime
         && nowPlayingItem.episodeId !== previousItem.episodeId) {
       window.player = null
+    }
+
+    // If podcast data is not a part of the nowPlayingItem, then user must be
+    // using the 'From this podcast' filter on the podcast, episode, or clip page,
+    // and we will need to enrich the nowPlayingItem with the podcast data.
+    if (!nowPlayingItem.podcastId && podcast) {
+      nowPlayingItem.podcastId = podcast.id
+      nowPlayingItem.podcastImageUrl = podcast.imageUrl
+      nowPlayingItem.podcastTitle = podcast.title
     }
 
     mediaPlayerLoadNowPlayingItem(nowPlayingItem)

@@ -105,6 +105,7 @@ class Episode extends Component<Props, State> {
       store.dispatch(pagesSetQueryState({
         pageKey: pageKeyWithId,
         listItems,
+        podcast: episode.podcast,
         queryFrom,
         queryPage,
         querySort,
@@ -129,7 +130,7 @@ class Episode extends Component<Props, State> {
   }
 
   componentDidMount() {
-    const { is404Page, newPlayingItem, playerQueue } = this.props
+    const { is404Page, playerQueue } = this.props
     
     if (is404Page) return
 

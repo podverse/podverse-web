@@ -10,8 +10,8 @@ import MediaListCtrl from '~/components/MediaListCtrl/MediaListCtrl'
 import Meta from '~/components/Meta/Meta'
 import { convertToNowPlayingItem } from '~/lib/nowPlayingItem'
 import { clone, getUrlFromRequestOrWindow, removeDoubleQuotes } from '~/lib/utility'
-import { mediaPlayerLoadNowPlayingItem, pageIsLoading, pagesSetQueryState, 
-  playerQueueLoadSecondaryItems } from '~/redux/actions'
+import { pageIsLoading, pagesSetQueryState, playerQueueLoadSecondaryItems
+  } from '~/redux/actions'
 import { getEpisodesByQuery, getMediaRefsByQuery, getMediaRefById } from '~/services/'
 
 type Props = {
@@ -106,6 +106,7 @@ class Clip extends Component<Props, State> {
       store.dispatch(pagesSetQueryState({
         pageKey: pageKeyWithId,
         listItems,
+        podcast: mediaRef.episode.podcast,
         queryFrom,
         queryPage,
         querySort,

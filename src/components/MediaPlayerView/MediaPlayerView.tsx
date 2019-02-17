@@ -108,6 +108,8 @@ class MediaPlayerView extends Component<Props, State> {
       } else if (playerQueue.secondaryItems && playerQueue.secondaryItems.length > 0) {
         nextItem = playerQueue.secondaryItems.splice(0, 1)[0]
         secondaryItems = playerQueue.secondaryItems
+      } else {
+        return
       }
       
       popNextFromQueueStorage()
@@ -164,7 +166,13 @@ class MediaPlayerView extends Component<Props, State> {
   }
 
   onPastClipTime = () => {
-    this.props.mediaPlayerSetClipFinished()
+    const { autoplay } = this.state
+
+    if (autoplay) {
+      this.itemSkip()
+    } else {
+      this.props.mediaPlayerSetClipFinished()
+    }
   }
 
   pause = () => {
@@ -235,7 +243,7 @@ class MediaPlayerView extends Component<Props, State> {
     const { share } = modals
     const { isOpen } = share
 
-    const clipLinkAs = `${window.location.host}/clip/${nowPlayingItem.clipId}`
+    const clipLinkAs = nowPlayingItem.clipId ? `${window.location.host}/clip/${nowPlayingItem.clipId}` : ''
     const episodeLinkAs = `${window.location.host}/episode/${nowPlayingItem.episodeId}`
     const podcastLinkAs = `${window.location.host}/podcast/${nowPlayingItem.podcastId}`
 

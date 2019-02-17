@@ -90,6 +90,7 @@ class Podcast extends Component<Props, State> {
         store.dispatch(pagesSetQueryState({
           pageKey: pageKeyWithId,
           listItems,
+          podcast,
           queryFrom,
           queryPage,
           querySort,
