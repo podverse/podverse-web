@@ -402,6 +402,7 @@ class Playlist extends Component<Props, State> {
         <MediaListItemCtrl
           handlePlayItem={this.playItem}
           handleRemoveItem={() => this.removeItem(playlist.id, x.clipId, x.episodeId)}
+          hideDescription={true}
           key={`media-list-item-${uuidv4()}`}
           isActive={isActive()}
           mediaListItemType='now-playing-item'

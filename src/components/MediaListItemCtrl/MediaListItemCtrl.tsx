@@ -13,6 +13,8 @@ type Props = {
   canDrag?: boolean
   handlePlayItem?: (event: React.MouseEvent<HTMLButtonElement>) => void
   handleRemoveItem?: (event: React.MouseEvent<HTMLButtonElement>) => void
+  hideDescription?: boolean
+  hideDivider?: boolean
   isActive?: boolean
   mediaListItemType?: any
   mediaPlayerLoadNowPlayingItem?: any
@@ -79,8 +81,9 @@ class MediaListItemCtrl extends Component<Props, State> {
   }
 
   render() {
-    const { handleRemoveItem, handlePlayItem, isActive, mediaListItemType, nowPlayingItem,
-      playlist, podcast, profileUser, showMoreMenu, showRemove } = this.props
+    const { handleRemoveItem, handlePlayItem, hideDescription, hideDivider, isActive,
+      mediaListItemType, nowPlayingItem, playlist, podcast, profileUser, showMoreMenu,
+      showRemove } = this.props
 
     return (
       <MediaListItem
@@ -95,6 +98,8 @@ class MediaListItemCtrl extends Component<Props, State> {
         handleRemoveItem={handleRemoveItem}
         handleToggleAddToPlaylist={() => this.toggleAddToModal(nowPlayingItem, false)}
         hasLink={true}
+        hideDescription={hideDescription}
+        hideDivider={hideDivider}
         isActive={isActive}
         isSlim={!!profileUser}
         itemType={mediaListItemType}

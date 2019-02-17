@@ -15,6 +15,7 @@ type Props = {
   pageKey: string
   pages?: any
   queryPage?: number
+  settings?: any
   user?: any
 }
 
@@ -96,7 +97,7 @@ class UserListCtrl extends Component<Props, State> {
     })
 
     return (
-      <div className='media-list adjust-top-position'>
+      <div className='media-list reduced-margin adjust-top-position'>
         {
           listItemNodes && listItemNodes.length > 0 &&
           <Fragment>

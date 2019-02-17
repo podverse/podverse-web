@@ -103,7 +103,7 @@ class Playlists extends Component<Props, State> {
         }
         {
           (user && user.id) &&
-          <Fragment>
+          <div className='reduced-margin'>
             <h3>My Playlists</h3>
             <div className='media-list'>
               {
@@ -124,7 +124,7 @@ class Playlists extends Component<Props, State> {
                   </div>
                 </Fragment>
             }
-          </Fragment>
+          </div>
         }
       </Fragment>
     )
