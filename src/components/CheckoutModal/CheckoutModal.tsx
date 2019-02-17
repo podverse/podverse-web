@@ -41,13 +41,7 @@ const PAYPAL_ENV = paypalConfig.env
 
 class CheckoutModal extends React.Component<Props, State> {
 
-  constructor (props) {
-    super(props)
-
-    this.createBitPayOrder = this.createBitPayOrder.bind(this)
-  }
-
-  async createBitPayOrder () {
+  createBitPayOrder = async () => {
     const { pageIsLoading } = this.props
     pageIsLoading(true)
     try {
@@ -65,7 +59,7 @@ class CheckoutModal extends React.Component<Props, State> {
     }
   }
 
-  render () {
+  render() {
     const { handleHideModal, isOpen, pageIsLoading } = this.props
 
     // @ts-ignore

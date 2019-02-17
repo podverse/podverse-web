@@ -40,8 +40,6 @@ class PaymentConfirmingBitPay extends Component<Props, State> {
     this.state = {
       currentCount: 0
     }
-
-    this.checkPaymentStatus = this.checkPaymentStatus.bind(this)
   }
 
   async componentDidMount() {
@@ -62,7 +60,7 @@ class PaymentConfirmingBitPay extends Component<Props, State> {
     clearInterval(this.state.intervalId)
   }
 
-  async checkPaymentStatus() {
+  checkPaymentStatus = async () => {
     const { id } = this.props
     const { currentCount } = this.state
     let newState: any = {}

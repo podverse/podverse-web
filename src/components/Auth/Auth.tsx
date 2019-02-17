@@ -30,15 +30,7 @@ type State = {}
 
 class Auth extends Component<Props, State> {
 
-  constructor (props) {
-    super(props)
-
-    this.handleLogin = this.handleLogin.bind(this)
-    this.handleForgotPasswordSubmit = this.handleForgotPasswordSubmit.bind(this)
-    this.handleSignUp = this.handleSignUp.bind(this)
-  }
-
-  async handleForgotPasswordSubmit (email) {
+  handleForgotPasswordSubmit = async email => {
     const { modalsForgotPasswordIsLoading, modalsForgotPasswordSetErrorResponse,
       modalsForgotPasswordShow } = this.props
     modalsForgotPasswordIsLoading(true)
@@ -59,8 +51,7 @@ class Auth extends Component<Props, State> {
     }
   }
 
-  async handleLogin (email, password) {
-
+  handleLogin = async (email, password) => {
     const { modalsLoginIsLoading, modalsLoginSetErrorResponse, modalsLoginShow,
       playerQueueLoadPriorityItems, userSetInfo } = this.props
     modalsLoginIsLoading(true)
@@ -94,7 +85,7 @@ class Auth extends Component<Props, State> {
     }
   }
 
-  async handleSignUp (email, password) {
+  handleSignUp = async (email, password) => {
     const { modalsSignUpIsLoading, modalsSignUpSetErrorResponse, modalsSignUpShow,
       userSetInfo } = this.props
     modalsSignUpIsLoading(true)
@@ -127,7 +118,7 @@ class Auth extends Component<Props, State> {
     }
   }
 
-  render () {
+  render() {
     const { modals, modalsForgotPasswordShow, modalsLoginShow, modalsSignUpShow
       } = this.props
     const { forgotPassword, login, signUp } = modals

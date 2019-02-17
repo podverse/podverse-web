@@ -42,7 +42,7 @@ type State = {
   isAddedToPlayNext?: boolean
   isAddingToPlayLast?: boolean
   isAddingToPlayNext?: boolean
-  loadingItemId?: strintg
+  loadingItemId?: string
   makeClipIsDeleting?: boolean
   makeClipIsSaving?: boolean
 }
@@ -53,14 +53,9 @@ class MediaModals extends Component<Props, State> {
     super(props)
     
     this.state = {}
-
-    this.makeClipDelete = this.makeClipDelete.bind(this)
-    this.makeClipSave = this.makeClipSave.bind(this)
-    this.queueDragEnd = this.queueDragEnd.bind(this)
-    this.removeItem = this.removeItem.bind(this)
   }
 
-  async addToQueue(isLast) {
+  addToQueue = async isLast => {
     const { mediaPlayer, playerQueueLoadPriorityItems, user, userSetInfo } = this.props
     const { nowPlayingItem } = mediaPlayer
 
@@ -97,7 +92,7 @@ class MediaModals extends Component<Props, State> {
     })
   }
 
-  async queueDragEnd (priorityItems, secondaryItems) {
+  queueDragEnd = async (priorityItems, secondaryItems) => {
     const { playerQueueLoadItems, user, userSetInfo } = this.props
 
     if (user && user.id) {
@@ -210,7 +205,7 @@ class MediaModals extends Component<Props, State> {
     }
   }
 
-  async makeClipDelete() {
+  makeClipDelete = async () => {
     this.setState({ makeClipIsDeleting: true })
 
     const { modals, modalsMakeClipShow, pageIsLoading } = this.props
@@ -327,7 +322,7 @@ class MediaModals extends Component<Props, State> {
     this.hideQueueModal()
   }
 
-  async removeItem(clipId, episodeId, isPriority) {
+  removeItem = async (clipId, episodeId, isPriority) => {
     const { playerQueueLoadPriorityItems, playerQueueLoadSecondaryItems, user,
       userSetInfo } = this.props
     const { queueItems } = user

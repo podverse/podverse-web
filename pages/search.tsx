@@ -55,14 +55,9 @@ class Search extends Component<Props, State> {
     this.state = {
       currentSearch: ''
     }
-
-    this.handleSearchByChange = this.handleSearchByChange.bind(this)
-    this.handleSearchInputChange = this.handleSearchInputChange.bind(this)
-    this.linkClick = this.linkClick.bind(this)
-    this.queryPodcasts = this.queryPodcasts.bind(this)
   }
 
-  handleSearchByChange(searchBy) {
+  handleSearchByChange = searchBy => {
     const { pagesSetQueryState } = this.props
     pagesSetQueryState({
       pageKey: kPageKey,
@@ -73,12 +68,12 @@ class Search extends Component<Props, State> {
     })
   }
 
-  handleSearchInputChange(event) {
+  handleSearchInputChange = event => {
     const { value: currentSearch } = event.target
     this.setState({ currentSearch })
   }
 
-  async queryPodcasts(queryPage = 1, loadMore = false) {
+  queryPodcasts = async (queryPage = 1, loadMore = false) => {
     const { pages, pagesSetQueryState, settings } = this.props
     const { nsfwMode } = settings
     const { listItems, searchBy, searchText } = pages[kPageKey]
@@ -126,7 +121,7 @@ class Search extends Component<Props, State> {
     }
   }
 
-  linkClick() {
+  linkClick = () => {
     const { pageIsLoading } = this.props
     pageIsLoading(true)
   }

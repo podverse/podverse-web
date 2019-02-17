@@ -54,11 +54,9 @@ class Playlists extends Component<Props, State> {
     super(props)
 
     this.state = {}
-
-    this.linkClick = this.linkClick.bind(this)
   }
 
-  linkClick() {
+  linkClick = () => {
     const { pageIsLoading } = this.props
     pageIsLoading(true)
   }

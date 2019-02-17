@@ -44,16 +44,9 @@ class ResetPassword extends Component<Props, State> {
       password: '',
       passwordConfirm: ''
     }
-
-    this.handlePasswordInputBlur = this.handlePasswordInputBlur.bind(this)
-    this.handlePasswordInputChange = this.handlePasswordInputChange.bind(this)
-    this.handlePasswordConfirmInputBlur = this.handlePasswordConfirmInputBlur.bind(this)
-    this.handlePasswordConfirmInputChange = this.handlePasswordConfirmInputChange.bind(this)
-    this.hasConfirmedValidPassword = this.hasConfirmedValidPassword.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  handlePasswordInputBlur(event) {
+  handlePasswordInputBlur = event => {
     const { value: password } = event.target
     const newState: any = {}
 
@@ -66,7 +59,7 @@ class ResetPassword extends Component<Props, State> {
     this.setState(newState)
   }
 
-  handlePasswordInputChange (event) {
+  handlePasswordInputChange = event => {
     const { value: password } = event.target
     const newState: any = {}
     newState.password = password
@@ -78,7 +71,7 @@ class ResetPassword extends Component<Props, State> {
     this.setState(newState)
   }
 
-  handlePasswordConfirmInputBlur (event) {
+  handlePasswordConfirmInputBlur = event => {
     const { errorPassword, password } = this.state
     const { value: passwordConfirm } = event.target
     const newState: any = {}
@@ -90,7 +83,7 @@ class ResetPassword extends Component<Props, State> {
     this.setState(newState)
   }
 
-  handlePasswordConfirmInputChange (event) {
+  handlePasswordConfirmInputChange = event => {
     const { errorPassword, password } = this.state
     const { value: passwordConfirm } = event.target
     const newState: any = {}
@@ -103,7 +96,7 @@ class ResetPassword extends Component<Props, State> {
     this.setState(newState)
   }
 
-  async handleSubmit() {
+  handleSubmit = async () => {
     const { passwordResetToken } = this.props
     const { passwordConfirm } = this.state
 
@@ -126,7 +119,7 @@ class ResetPassword extends Component<Props, State> {
     }
   }
 
-  hasConfirmedValidPassword() {
+  hasConfirmedValidPassword = () => {
     const { password, passwordConfirm } = this.state
 
     return password === passwordConfirm

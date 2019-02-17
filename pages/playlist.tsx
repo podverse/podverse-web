@@ -95,18 +95,6 @@ class Playlist extends Component<Props, State> {
       playlistItemsOrder: [], 
       sortedNowPlayingItems: []
     }
-    this.inputTitle = React.createRef()
-    this.inputDescription = React.createRef()
-    this.cancelEditing = this.cancelEditing.bind(this)
-    this.deletePlaylist = this.deletePlaylist.bind(this)
-    this.handleTitleInputChange = this.handleTitleInputChange.bind(this)
-    this.handleDescriptionInputChange = this.handleDescriptionInputChange.bind(this)
-    this.onDragEnd = this.onDragEnd.bind(this)
-    this.playItem = this.playItem.bind(this)
-    this.removeItem = this.removeItem.bind(this)
-    this.startEditing = this.startEditing.bind(this)
-    this.toggleSubscribe = this.toggleSubscribe.bind(this)
-    this.updatePlaylist = this.updatePlaylist.bind(this)
   }
 
   componentDidMount() {
@@ -150,7 +138,7 @@ class Playlist extends Component<Props, State> {
     })
   }
 
-  startEditing() {
+  startEditing = () => {
     const { playlist } = this.state
     const { description, title } = playlist
 
@@ -161,11 +149,11 @@ class Playlist extends Component<Props, State> {
     })
   }
 
-  cancelEditing() {
+  cancelEditing = () => {
     this.setState({ isEditing: false })
   }
 
-  async deletePlaylist() {
+  deletePlaylist = async () => {
     this.setState({ isDeleting: true })
 
     const { pageIsLoading, user, userSetInfo } = this.props
@@ -200,7 +188,7 @@ class Playlist extends Component<Props, State> {
     }
   }
 
-  async updatePlaylist() {
+  updatePlaylist = async () => {
     this.setState({ isUpdating: true })
 
     const { playlist } = this.state
@@ -231,7 +219,7 @@ class Playlist extends Component<Props, State> {
 
   }
 
-  async toggleSubscribe() {
+  toggleSubscribe = async () => {
     const { user, userSetInfo } = this.props
     const { playlist } = this.state
 
@@ -261,17 +249,17 @@ class Playlist extends Component<Props, State> {
     this.setState({ isSubscribing: false })
   }
 
-  handleTitleInputChange(event) {
+  handleTitleInputChange = event => {
     const { value: newTitle } = event.target
     this.setState({ newTitle })
   }
 
-  handleDescriptionInputChange(event) {
+  handleDescriptionInputChange = event => {
     const { value: newDescription } = event.target
     this.setState({ newDescription })
   }
 
-  async removeItem(playlistId, mediaRefId, episodeId) {
+  removeItem = async (playlistId, mediaRefId, episodeId) => {
     const { user, userSetInfo } = this.props
     const { sortedNowPlayingItems } = this.state
 
@@ -312,7 +300,7 @@ class Playlist extends Component<Props, State> {
     }
   }
 
-  async onDragEnd(data) {
+  onDragEnd = async data => {
     let { playerQueueLoadSecondaryItems } = this.props
     let { playlist, sortedNowPlayingItems } = this.state
     const { destination, source } = data
@@ -338,7 +326,7 @@ class Playlist extends Component<Props, State> {
     this.setState({ sortedNowPlayingItems })
   }
 
-  async playItem(nowPlayingItem) {
+  playItem = async nowPlayingItem => {
     const { mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying,
       playerQueueLoadSecondaryItems, user, userSetInfo } = this.props
     const { sortedNowPlayingItems } = this.state

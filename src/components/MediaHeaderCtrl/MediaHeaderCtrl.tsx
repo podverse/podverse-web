@@ -29,12 +29,9 @@ class MediaHeaderCtrl extends Component<Props, State> {
     super(props)
 
     this.state = {}
-
-    this.linkClick = this.linkClick.bind(this)
-    this.toggleSubscribe = this.toggleSubscribe.bind(this)
   }
 
-  async toggleSubscribe() {
+  toggleSubscribe = async () => {
     const { episode, mediaRef, nowPlayingItem, podcast, user, userSetInfo
       } = this.props
     
@@ -81,7 +78,7 @@ class MediaHeaderCtrl extends Component<Props, State> {
     return podcastId
   }
 
-  linkClick () {
+  linkClick = () => {
     const { pageIsLoading } = this.props
     pageIsLoading(true)
   }

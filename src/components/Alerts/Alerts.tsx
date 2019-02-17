@@ -27,9 +27,6 @@ class Alerts extends Component<Props, State> {
 
     const { cookies, user } = props
     this.state = this.generateStateObject(user, cookies)
-
-    this.hideAlert = this.hideAlert.bind(this)
-    this.linkClick = this.linkClick.bind(this)
   }
 
   componentWillReceiveProps(newProps) {
@@ -68,7 +65,7 @@ class Alerts extends Component<Props, State> {
     }
   }
 
-  hideAlert (stateKey) {
+  hideAlert = stateKey => {
     const newState = {}
     newState[stateKey] = false
     this.setState(newState)
@@ -82,12 +79,12 @@ class Alerts extends Component<Props, State> {
     document.cookie = hideAlertCookie
   }
 
-  linkClick() {
+  linkClick = () => {
     const { pageIsLoading } = this.props
     pageIsLoading(true)
   }
 
-  render () {
+  render() {
     const { showFreeTrialHasEnded, showFreeTrialWarning, showMembershipHasEnded,
       showMembershipWarning } = this.state
 

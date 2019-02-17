@@ -45,14 +45,7 @@ class UserMediaListCtrl extends Component<Props, State> {
     queryPage: 1
   }
 
-  constructor(props) {
-    super(props)
-
-    this.playItem = this.playItem.bind(this)
-    this.queryMediaListItems = this.queryMediaListItems.bind(this)
-  }
-
-  async queryMediaListItems(selectedKey = '', selectedValue = '', page = 1) {
+  queryMediaListItems = async (selectedKey = '', selectedValue = '', page = 1) => {
     const { handleSetPageQueryState, isMyProfilePage, pages, pageKey,
       playerQueueAddSecondaryItems, playerQueueLoadSecondaryItems, profileUser,
       settings } = this.props
@@ -262,7 +255,7 @@ class UserMediaListCtrl extends Component<Props, State> {
     ]
   }
 
-  async playItem(nowPlayingItem) {
+  playItem = async nowPlayingItem => {
     const { loggedInUser, mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying,
       pages, pageKey, playerQueueLoadSecondaryItems, userSetInfo } = this.props
     const { listItems } = pages[pageKey]

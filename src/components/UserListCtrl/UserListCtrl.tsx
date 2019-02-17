@@ -29,14 +29,7 @@ class UserListCtrl extends Component<Props, State> {
     queryPage: 1
   }
 
-  constructor(props) {
-    super(props)
-
-    this.linkClick = this.linkClick.bind(this)
-    this.queryUserListItems = this.queryUserListItems.bind(this)
-  }
-
-  async queryUserListItems(page = 1) {
+  queryUserListItems = async (page = 1) => {
     const { handleSetPageQueryState, pageKey, pages, settings, user } = this.props
     const { nsfwMode } = settings
     const { listItems } = pages[pageKey]
@@ -78,7 +71,7 @@ class UserListCtrl extends Component<Props, State> {
   }
 
 
-  linkClick () {
+  linkClick = () => {
     const { pageIsLoading } = this.props
     pageIsLoading(true)
   }

@@ -26,14 +26,9 @@ class Footer extends Component<Props, State> {
     super(props)
 
     this.state = {}
-
-    this.handleNSFWModeChange = this.handleNSFWModeChange.bind(this)
-    this.handleUIThemeChange = this.handleUIThemeChange.bind(this)
-    this.hideNSFWModal = this.hideNSFWModal.bind(this)
-    this.linkClick = this.linkClick.bind(this)
   }
   
-  handleUIThemeChange(checked) {
+  handleUIThemeChange = checked => {
     const { settingsSetUITheme } = this.props
     const uiTheme = checked ? 'dark' : 'light'
 
@@ -53,7 +48,7 @@ class Footer extends Component<Props, State> {
     }
   }
 
-  handleNSFWModeChange (checked) {
+  handleNSFWModeChange = checked => {
     const { settingsSetNSFWMode } = this.props
     const nsfwMode = checked ? 'on' : 'off'
 
@@ -74,12 +69,12 @@ class Footer extends Component<Props, State> {
     this.setState({ nsfwModalIsOpen: false })
   }
 
-  linkClick() {
+  linkClick = () => {
     const { pageIsLoading } = this.props
     pageIsLoading(true)
   }
 
-  render () {
+  render() {
     const { settings } = this.props
     const { nsfwMode, nsfwModeHide, uiTheme, uiThemeHide } = settings
     const { nsfwModalIsOpen } = this.state

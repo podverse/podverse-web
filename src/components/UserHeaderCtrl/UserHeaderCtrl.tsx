@@ -27,11 +27,9 @@ class UserHeaderCtrl extends Component<Props, State> {
     super(props)
 
     this.state = {}
-
-    this.toggleSubscribe = this.toggleSubscribe.bind(this)
   }
 
-  async toggleSubscribe() {
+  toggleSubscribe = async () => {
     const { loggedInUser, profileUser, userSetInfo } = this.props
 
     if (!loggedInUser || !loggedInUser.id) {

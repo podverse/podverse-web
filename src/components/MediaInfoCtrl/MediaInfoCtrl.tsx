@@ -33,15 +33,7 @@ class MediaInfoCtrl extends Component<Props, State> {
 
   static defaultProps: Props = {}
 
-  constructor(props) {
-    super(props)
-
-    this.getCurrentPageItem = this.getCurrentPageItem.bind(this)
-    this.linkClick = this.linkClick.bind(this)
-    this.pauseItem = this.pauseItem.bind(this)
-  }
-
-  async playItem(nowPlayingItem) {
+  playItem = async nowPlayingItem => {
     const { mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying, user,
       userSetInfo } = this.props
     mediaPlayerLoadNowPlayingItem(nowPlayingItem)

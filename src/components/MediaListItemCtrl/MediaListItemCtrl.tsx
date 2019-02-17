@@ -39,13 +39,7 @@ type State = {}
 
 class MediaListItemCtrl extends Component<Props, State> {
 
-  constructor (props) {
-    super(props)
-
-    this.linkClick = this.linkClick.bind(this)
-  }
-
-  async addToQueue(nowPlayingItem, isLast) {
+  addToQueue = async (nowPlayingItem, isLast) => {
     const { playerQueueLoadPriorityItems, user } = this.props
 
     let priorityItems = []
@@ -75,7 +69,7 @@ class MediaListItemCtrl extends Component<Props, State> {
     })
   }
 
-  linkClick () {
+  linkClick = () => {
     const { pageIsLoading } = this.props
     pageIsLoading(true)
   }

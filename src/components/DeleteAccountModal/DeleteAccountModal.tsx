@@ -39,13 +39,9 @@ export class DeleteAccountModal extends React.Component<Props, State> {
     this.state = {
       confirmEmail: ''
     }
-
-    this.handleConfirmEmailInputChange = this.handleConfirmEmailInputChange.bind(this)
-    this.handleDeleteAccount = this.handleDeleteAccount.bind(this)
-    this.handleHideModal = this.handleHideModal.bind(this)
   }
 
-  handleConfirmEmailInputChange (event) {
+  handleConfirmEmailInputChange = event => {
     const { email } = this.props
     const { value: confirmEmail } = event.target
     this.setState({
@@ -54,13 +50,13 @@ export class DeleteAccountModal extends React.Component<Props, State> {
     })
   }
 
-  handleHideModal () {
+  handleHideModal = () => {
     const { handleHideModal } = this.props
     this.setState({ confirmEmail: '' })
     handleHideModal()
   }
 
-  async handleDeleteAccount () {
+  handleDeleteAccount = async () => {
     this.setState({ isDeleting: true })
     const { id } = this.props
 
@@ -73,7 +69,7 @@ export class DeleteAccountModal extends React.Component<Props, State> {
     }
   }
 
-  render () {
+  render() {
     const { email, handleHideModal, isOpen } = this.props
     const { confirmEmail, isConfirmed, isDeleting } = this.state
   

@@ -50,8 +50,6 @@ class MediaPlayerView extends Component<Props, State> {
     super(props)
 
     this.state = {}
-
-    this.linkClick = this.linkClick.bind(this)
   }
 
   componentDidMount() {
@@ -255,7 +253,7 @@ class MediaPlayerView extends Component<Props, State> {
     })
   }
 
-  linkClick() {
+  linkClick = () => {
     const { pageIsLoading } = this.props
     pageIsLoading(true)
   }

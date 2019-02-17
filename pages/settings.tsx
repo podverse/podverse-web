@@ -67,30 +67,14 @@ class Settings extends Component<Props, State> {
       ...(user.isPublic || user.isPublic === false ? {isPublic: user.isPublic} : {}),
       ...(user.name ? {name: user.name} : {})
     }
-
-    this.copyProfileLink = this.copyProfileLink.bind(this)
-    this.downloadUserData = this.downloadUserData.bind(this)
-    this.handleEmailChange = this.handleEmailChange.bind(this)
-    this.handleNameChange = this.handleNameChange.bind(this)
-    this.handlePrivacyChange = this.handlePrivacyChange.bind(this)
-    this.handleToggleNSFWMode = this.handleToggleNSFWMode.bind(this)
-    this.handleToggleUITheme = this.handleToggleUITheme.bind(this)
-    this.profileLinkHref = this.profileLinkHref.bind(this)
-    this.resetProfileChanges = this.resetProfileChanges.bind(this)
-    this.showSignUpModal = this.showSignUpModal.bind(this)
-    this.toggleCheckoutModal = this.toggleCheckoutModal.bind(this)
-    this.toggleDeleteAccountModal = this.toggleDeleteAccountModal.bind(this)
-    this.updateProfile = this.updateProfile.bind(this)
-    this.validateEmail = this.validateEmail.bind(this)
-    this.validateProfileData = this.validateProfileData.bind(this)
   }
 
-  profileLinkHref () {
+  profileLinkHref = () => {
     const { user } = this.props
     return `${BASE_URL}/profile/${user.id}`
   }
 
-  copyProfileLink() {
+  copyProfileLink = () => {
     copyToClipboard(this.profileLinkHref())
     this.setState({ wasCopied: true })
     setTimeout(() => {
@@ -110,7 +94,7 @@ class Settings extends Component<Props, State> {
     }
   }
 
-  async downloadUserData () {
+  downloadUserData = async () => {
     this.setState({ isDownloading: true })
     const { user } = this.props
 
@@ -129,22 +113,22 @@ class Settings extends Component<Props, State> {
     this.setState({ isDownloading: false })
   }
 
-  handleEmailChange(event) {
+  handleEmailChange = event => {
     const email = event.target.value
     this.setState({ email })
   }
 
-  handleNameChange(event) {
+  handleNameChange = event => {
     const name = event.target.value
     this.setState({ name })
   }
 
-  handlePrivacyChange(event) {
+  handlePrivacyChange = event => {
     const isPublic = event.target.value
     this.setState({ isPublic: isPublic === 'public' })
   }
 
-  handleToggleNSFWMode(event) {
+  handleToggleNSFWMode = event => {
     const { settingsHideNSFWMode } = this.props
     const isChecked = event.currentTarget.checked
     const val = isChecked ? true : false
@@ -160,7 +144,7 @@ class Settings extends Component<Props, State> {
     settingsHideNSFWMode(`${val}`)
   }
 
-  handleToggleUITheme(event) {
+  handleToggleUITheme = event => {
     const { settingsHideUITheme } = this.props
     const isChecked = event.currentTarget.checked
     const val = isChecked ? true : false
@@ -192,7 +176,7 @@ class Settings extends Component<Props, State> {
     settingsHideFilterButton(`${val}`)
   }
 
-  validateProfileData() {
+  validateProfileData = () => {
     const { user } = this.props
     const { email: oldEmail, isPublic: oldIsPublic, name: oldName } = user
     const { email: newEmail, isPublic: newIsPublic, name: newName } = this.state
@@ -204,7 +188,7 @@ class Settings extends Component<Props, State> {
     )
   }
 
-  validateEmail() {
+  validateEmail = () => {
     const { email } = this.state
     if (!validateEmail(email)) {
       this.setState({ emailError: 'Please provide a valid email address' })
@@ -213,13 +197,13 @@ class Settings extends Component<Props, State> {
     }
   }
 
-  resetProfileChanges() {
+  resetProfileChanges = () => {
     const { user } = this.props
     const { email, name } = user
     this.setState({ email, name })
   }
 
-  async updateProfile() {
+  updateProfile = async () => {
     this.setState({ isSaving: true })
     const { user, userSetInfo } = this.props
     const { id } = user
@@ -242,16 +226,16 @@ class Settings extends Component<Props, State> {
     this.setState({ isSaving: false })
   }
 
-  showSignUpModal () {
+  showSignUpModal = () => {
     const { modalsSignUpShow } = this.props
     modalsSignUpShow(true)
   }
 
-  toggleCheckoutModal (show) {
+  toggleCheckoutModal = show => {
     this.setState({ isCheckoutOpen: show })
   }
   
-  toggleDeleteAccountModal (show) {
+  toggleDeleteAccountModal = show => {
     this.setState({ isDeleteAccountOpen: show })
   }
   

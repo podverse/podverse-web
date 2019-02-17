@@ -30,21 +30,7 @@ class PodcastListCtrl extends Component<Props, State> {
     pageKey: 'default'
   }
 
-  constructor(props) {
-    super(props)
-
-    this.generateCategorySelectNodes = this.generateCategorySelectNodes.bind(this)
-    this.linkClick = this.linkClick.bind(this)
-    this.queryPodcasts = this.queryPodcasts.bind(this)
-    this.queryLoadInitial = this.queryLoadInitial.bind(this)
-    this.queryPodcastsAll = this.queryPodcastsAll.bind(this)
-    this.queryPodcastsCategory = this.queryPodcastsCategory.bind(this)
-    this.queryPodcastsSubscribed = this.queryPodcastsSubscribed.bind(this)
-    this.queryPodcastsSort = this.queryPodcastsSort.bind(this)
-    this.queryPodcastsLoadMore = this.queryPodcastsLoadMore.bind(this)
-  }
-
-  async queryPodcasts(query, newState, isLoadMore = false) {
+  queryPodcasts = async (query, newState, isLoadMore = false) => {
     const { handleSetPageQueryState, pageKey, pages, settings } = this.props
     const { nsfwMode } = settings
     const { listItems } = pages[pageKey]
@@ -78,7 +64,7 @@ class PodcastListCtrl extends Component<Props, State> {
     }
   }
 
-  queryLoadInitial() {
+  queryLoadInitial = () => {
     const { categoryId, handleSetPageQueryState, pageKey } = this.props
 
     handleSetPageQueryState({
@@ -87,7 +73,7 @@ class PodcastListCtrl extends Component<Props, State> {
     })
   }
 
-  async queryPodcastsAll() {
+  queryPodcastsAll = async () => {
     const { pageKey, pages } = this.props
     const { querySort } = pages[pageKey]
 
@@ -109,7 +95,7 @@ class PodcastListCtrl extends Component<Props, State> {
     await this.queryPodcasts(query, newState)
   }
 
-  async queryPodcastsCategory(categoryId) {
+  queryPodcastsCategory = async categoryId => {
     const { pageKey, pages } = this.props
     const { querySort } = pages[pageKey]
 
@@ -133,7 +119,7 @@ class PodcastListCtrl extends Component<Props, State> {
     await this.queryPodcasts(query, newState)
   }
 
-  async queryPodcastsSubscribed() {
+  queryPodcastsSubscribed = async () => {
     const { pageKey, pages, user } = this.props
     const { subscribedPodcastIds } = user
     const { querySort } = pages[pageKey]
@@ -157,7 +143,7 @@ class PodcastListCtrl extends Component<Props, State> {
     await this.queryPodcasts(query, newState)
   }
   
-  async queryPodcastsSort(selectedValue) {
+  queryPodcastsSort = async selectedValue => {
     const { pageKey, pages, user } = this.props
     const { subscribedPodcastIds } = user
     const { categoryId, queryFrom } = pages[pageKey]
@@ -182,7 +168,7 @@ class PodcastListCtrl extends Component<Props, State> {
     await this.queryPodcasts(query, newState)
   }
 
-  async queryPodcastsLoadMore() {
+  queryPodcastsLoadMore = async () => {
     const { handleSetPageQueryState, pageKey, pages, user } = this.props
     const { subscribedPodcastIds } = user
     const { categoryId, queryFrom, queryPage, querySort } = pages[pageKey]
@@ -251,7 +237,7 @@ class PodcastListCtrl extends Component<Props, State> {
   }
 
   // BEWARE! X_X
-  generateCategorySelectNodes (allCategories, categoryId, user) {
+  generateCategorySelectNodes = (allCategories, categoryId, user) => {
     const { pageKey, pages } = this.props
     const { selected } = pages[pageKey]
     const categoryItems = allCategories.map(x => {
@@ -363,7 +349,7 @@ class PodcastListCtrl extends Component<Props, State> {
     return categorySelectNodes
   }
 
-  linkClick() {
+  linkClick = () => {
     const { pageIsLoading } = this.props
     pageIsLoading(true)
   }
