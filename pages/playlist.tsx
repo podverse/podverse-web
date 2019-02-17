@@ -249,7 +249,7 @@ class Playlist extends Component<Props, State> {
         userSetInfo({ subscribedPlaylistIds: response.data })
       }
     } catch (error) {
-      if (error.response.data === 'Premium Membership Required') {
+      if (error && error.response && error.response.data === 'Premium Membership Required') {
         alertPremiumRequired()
       } else if (error && error.response && error.response.status === 429) {
         alertRateLimitError(error)
@@ -515,7 +515,7 @@ class Playlist extends Component<Props, State> {
             </div>
           </div>
         </div>
-        <div className='media-info'>
+        <div className='media-info' style={{ paddingTop: 0 }}>
           {
             !isEditing &&
               <Fragment>

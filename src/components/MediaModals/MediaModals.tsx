@@ -199,7 +199,7 @@ class MediaModals extends Component<Props, State> {
         })
       }
     } catch (error) {
-      if (error.response.data === 'Premium Membership Required') {
+      if (error && error.response && error.response.data === 'Premium Membership Required') {
         alert('Your Premium membership has expired. Renew your membership on the Settings page, or log out to create a clip anonymously.')
       } else if (error && error.response && error.response.status === 429) {
         alertRateLimitError(error)
@@ -274,7 +274,7 @@ class MediaModals extends Component<Props, State> {
           })
         }
       } catch (error) {
-        if (error.response.data === 'Premium Membership Required') {
+        if (error && error.response && error.response.data === 'Premium Membership Required') {
           alertPremiumRequired()
         } else if (error && error.response && error.response.status === 429) {
           alertRateLimitError(error)
@@ -299,7 +299,7 @@ class MediaModals extends Component<Props, State> {
       modalsAddToCreatePlaylistIsSaving(false)
       modalsAddToCreatePlaylistShow(false)
     } catch (error) {
-      if (error.response.data === 'Premium Membership Required') {
+      if (error && error.response && error.response.data === 'Premium Membership Required') {
         alertPremiumRequired()
       } else if (error && error.response && error.response.status === 429) {
         alertRateLimitError(error)
