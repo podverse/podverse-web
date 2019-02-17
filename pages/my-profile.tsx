@@ -48,9 +48,10 @@ class MyProfile extends Component<Props, State> {
       } else if (queryType === 'playlists') {
         queryDataResult = await getLoggedInUserPlaylists(bearerToken, queryPage)
         listItems = queryDataResult.data
-      } else if (queryType === 'podcasts' 
-                  && user.subscribedPodcastIds
-                  && user.subscribedPodcastIds.length > 0) {
+      } else if (
+        queryType === 'podcasts' 
+        && user.subscribedPodcastIds
+        && user.subscribedPodcastIds.length > 0) {
         queryDataResult = await getPodcastsByQuery({
           from: 'subscribed-only',
           page: queryPage,

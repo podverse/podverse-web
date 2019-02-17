@@ -84,7 +84,7 @@ class MediaListItemCtrl extends Component<Props, State> {
     const { handleRemoveItem, handlePlayItem, hideDescription, hideDivider, isActive,
       mediaListItemType, nowPlayingItem, playlist, podcast, profileUser, showMoreMenu,
       showRemove } = this.props
-
+    
     return (
       <MediaListItem
         dataNowPlayingItem={nowPlayingItem}

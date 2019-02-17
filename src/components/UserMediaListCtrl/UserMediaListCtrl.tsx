@@ -329,13 +329,14 @@ class UserMediaListCtrl extends Component<Props, State> {
       return (
         <MediaListItemCtrl
           handlePlayItem={this.playItem}
-          key={`media-list-item-${uuidv4()}`}
+          hideDescription
           isActive={isActive()}
+          key={`media-list-item-${uuidv4()}`}
           mediaListItemType={mediaListItemType}
           nowPlayingItem={queryType === 'clips' ? x : null}
           playlist={queryType === 'playlists' ? x : null}
-          showMoreMenu={queryType === 'clips'}
-          podcast={queryType === 'podcasts' ? x : null} />
+          podcast={queryType === 'podcasts' ? x : null}
+          showMoreMenu={queryType === 'clips'} />
       )
     })
 
