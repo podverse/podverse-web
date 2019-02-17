@@ -167,10 +167,11 @@ class UserMediaListCtrl extends Component<Props, State> {
     } else if (query.type === 'playlists') {
       try {
         let response: any = {}
+
         if (isMyProfilePage) {
-          response = await getLoggedInUserPlaylists('', query.sort, page)
+          response = await getLoggedInUserPlaylists('', page)
         } else {
-          response = await getUserPlaylists(profileUser.id, nsfwMode, null, null)
+          response = await getUserPlaylists(profileUser.id, nsfwMode)
         }
         const playlists = response.data
         combinedListItems = combinedListItems.concat(playlists)
@@ -372,7 +373,7 @@ class UserMediaListCtrl extends Component<Props, State> {
             <Fragment>
               {
                 listItemNodes && listItemNodes.length > 0 &&
-                <Fragment>
+                <div className={queryType === 'playlists' ? 'reduced-margin' : ''}>
                   {listItemNodes}
                   <div className='media-list__load-more'>
                     {
@@ -386,7 +387,7 @@ class UserMediaListCtrl extends Component<Props, State> {
                             text='Load More' />
                     }
                   </div>
-                </Fragment>
+                </div>
               }
             </Fragment> 
         }

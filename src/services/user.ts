@@ -67,7 +67,6 @@ export const getUserPlaylists = async (
   page: number = 1
 ) => {
   let filteredQuery: any = {}
-  filteredQuery.sort = sort
   filteredQuery.page = page
   const queryString = convertObjectToQueryString(filteredQuery)
 

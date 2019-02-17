@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { alertRateLimitError, convertObjectToQueryString } from '~/lib/utility'
+import { convertObjectToQueryString } from '~/lib/utility'
 import config from '~/config'
 const { API_BASE_URL } = config()
 
@@ -30,7 +30,6 @@ export const getLoggedInUserMediaRefs = async (bearerToken, nsfwMode, sort = 'mo
 
 export const getLoggedInUserPlaylists = async (bearerToken, page = 1) => {
   let filteredQuery: any = {}
-  filteredQuery.sort = sort
   filteredQuery.page = page
   const queryString = convertObjectToQueryString(filteredQuery)
 
