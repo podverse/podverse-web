@@ -81,9 +81,10 @@ class MediaPlayerView extends Component<Props, State> {
   }
 
   itemSkip = async () => {
-    const { mediaPlayer, mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying,
-      playerQueue, playerQueueLoadPriorityItems, playerQueueLoadSecondaryItems, user,
-      userSetInfo } = this.props
+    const { mediaPlayer, mediaPlayerLoadNowPlayingItem,
+      mediaPlayerSetPlayedAfterClipFinished, mediaPlayerUpdatePlaying, playerQueue,
+      playerQueueLoadPriorityItems, playerQueueLoadSecondaryItems, user, userSetInfo
+      } = this.props
     const previousItem = mediaPlayer.nowPlayingItem
     let nextItem
     let priorityItems = []
@@ -124,6 +125,7 @@ class MediaPlayerView extends Component<Props, State> {
       }
 
       mediaPlayerLoadNowPlayingItem(nextItem)
+      mediaPlayerSetPlayedAfterClipFinished(false)
 
       if (user && user.id) {
         await addOrUpdateUserHistoryItem(nextItem)
@@ -185,7 +187,7 @@ class MediaPlayerView extends Component<Props, State> {
   }
 
   setPlayedAfterClipFinished = () => {
-    this.props.mediaPlayerSetPlayedAfterClipFinished()
+    this.props.mediaPlayerSetPlayedAfterClipFinished(true)
   }
 
   toggleAddToModal = () => {
