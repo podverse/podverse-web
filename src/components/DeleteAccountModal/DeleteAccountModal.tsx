@@ -86,7 +86,7 @@ export class DeleteAccountModal extends React.Component<Props, State> {
         shouldCloseOnOverlayClick
         style={customStyles}>
         <div>
-          <h4>Delete Account</h4>
+          <h3>Delete Account</h3>
           <CloseButton onClick={handleHideModal} />
           <p>This will delete all of your Podverse data!</p>
           <p>Any links you created will no longer work!</p>

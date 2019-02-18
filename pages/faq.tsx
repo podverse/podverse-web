@@ -41,7 +41,7 @@ class FAQ extends Component<Props, State> {
           twitterTitle={meta.title} />
         <h3>FAQ</h3>
         <p><a href='https://goo.gl/forms/VGVJRWlKPIGRqojY2' target='_blank'>Ask a question</a></p>
-        <h4>Table of Contents</h4>
+        <h3>Table of Contents</h3>
         <ul>
           <li>
             <a href='#edit-clips'>How do I edit my clips?</a>
@@ -57,7 +57,7 @@ class FAQ extends Component<Props, State> {
           </li>
         </ul>
         <hr />
-        <h4 id='edit-clips'>How do I edit my clips?</h4>
+        <h3 id='edit-clips'>How do I edit my clips?</h3>
         <p>
           In order to edit a clip, <u>you must have been logged in when you created the clip</u>. After you create the clip, open it on the website or the iOS mobile app, and there will be an <i>Edit Clip</i> button on the right hand side of the page.
         </p>
@@ -68,7 +68,7 @@ class FAQ extends Component<Props, State> {
           <img className='responsive' src='/static/images/edit-clip-ios.png' />
         </div>
         <hr />
-        <h4 id='my-clips'>How do I find my clips?</h4>
+        <h3 id='my-clips'>How do I find my clips?</h3>
         <p>
           If you <u>are not logged in</u> when you create a clip, then you must save the link to the clip if you want to find it later.
         </p>
@@ -82,12 +82,12 @@ class FAQ extends Component<Props, State> {
           <img className='responsive' src='/static/images/my-clips-ios.png' />
         </div>
         <hr />
-        <h4 id='agplv3'>What does AGPLv3 mean?</h4>
+        <h3 id='agplv3'>What does AGPLv3 mean?</h3>
         <p>
           <a href='https://www.gnu.org/licenses/agpl-3.0.en.html' target='_blank'>AGPLv3</a> is the open source license under which all Podverse technolgy is provided.
         </p>
         <hr />
-        <h4 id='monopoly-proof'>How is Podverse monopoly-proof?</h4>
+        <h3 id='monopoly-proof'>How is Podverse monopoly-proof?</h3>
         <p>
           Podverse software is distributed under the AGPLv3 open source license, which allows anyone to freely use, modify, and distribute the software, as long as they share their modifications as well. The share-alike requirement of the AGPLv3 ensures that the code is and will always remain free.
         </p>

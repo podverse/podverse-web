@@ -75,7 +75,7 @@ class CheckoutModal extends React.Component<Props, State> {
         shouldCloseOnOverlayClick
         style={customStyles}>
         <div style={{textAlign: 'center'}}>
-          <h4>Checkout</h4>
+          <h3>Checkout</h3>
           <CloseButton onClick={handleHideModal} />
           <p>$3 = 1 year of Podverse Premium</p>
           <p></p>

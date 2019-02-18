@@ -53,14 +53,14 @@ class VerifyEmail extends Component<Props, State> {
         {
           !hasError &&
             <Fragment>
-              <h4>Verification successful</h4>
+              <h3>Verification successful</h3>
               <p>Have a nice day :)</p>
             </Fragment>
         }
         {
           hasError &&
             <Fragment>
-              <h4>Verification failed</h4>
+              <h3>Verification failed</h3>
               <p>This token may have expired.</p>
               <p>Resend verification email</p>
             </Fragment>

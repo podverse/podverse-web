@@ -39,7 +39,7 @@ class Terms extends Component<Props, State> {
           title={meta.title}
           twitterDescription={meta.description}
           twitterTitle={meta.title} />
-        <h4>Terms of Service</h4>
+        <h3>Terms of Service</h3>
         <p>
           <i>Podverse:</i>
         </p>

@@ -145,7 +145,7 @@ class ResetPassword extends Component<Props, State> {
           twitterDescription={meta.description}
           twitterTitle={meta.title} />
         <Form className='reset-password'>
-          <h4>Reset Password</h4>
+          <h3>Reset Password</h3>
           {
             (errorResponse && !isLoading) &&
             <Alert color='danger'>

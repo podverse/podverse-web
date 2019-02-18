@@ -22,6 +22,7 @@ type Props = {
 
 type State = {
   currentSearch?: string
+  searchCompleted?: boolean
 }
 
 const kPageKey = 'search'
@@ -54,7 +55,8 @@ class Search extends Component<Props, State> {
     super(props)
 
     this.state = {
-      currentSearch: ''
+      currentSearch: '',
+      searchCompleted: false
     }
   }
 
@@ -65,11 +67,16 @@ class Search extends Component<Props, State> {
       listItems: [],
       searchBy
     })
+
+    this.setState({ searchCompleted: false })
   }
 
   handleSearchInputChange = event => {
     const { value: currentSearch } = event.target
-    this.setState({ currentSearch })
+    this.setState({
+      currentSearch,
+      searchCompleted: false
+    })
   }
 
   queryPodcasts = async (page = 1) => {
@@ -104,6 +111,8 @@ class Search extends Component<Props, State> {
         listItemsTotal: podcasts[1]        
       })
 
+      this.setState({ searchCompleted: true })
+
     } catch (error) {
       console.log(error)
       alert('Search failed. Please check your internet connection and try again.')
@@ -130,7 +139,7 @@ class Search extends Component<Props, State> {
   render() {
     const { meta, pages } = this.props
     const { isSearching, listItems, listItemsTotal, queryPage, searchBy } = pages[kPageKey]
-    const { currentSearch } = this.state
+    const { currentSearch, searchCompleted } = this.state
 
     const placeholder = searchBy === 'host'
       ? 'search by host' : 'search by title'
@@ -225,7 +234,7 @@ class Search extends Component<Props, State> {
             </Fragment>
           }
           {
-            (!isSearching && listItemNodes && listItemNodes.length === 0) &&
+            (!isSearching && searchCompleted && listItemNodes && listItemNodes.length === 0) &&
               <div className='no-results-msg'>
                 No podcasts {`${searchBy === 'host' ? 'with that host' : ''}`} found.
               </div>

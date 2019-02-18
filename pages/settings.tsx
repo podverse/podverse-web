@@ -282,7 +282,7 @@ class Settings extends Component<Props, State> {
       </Fragment>
     )
 
-    const membershipStatusHeader = <h4 id='membership'>Membership Status</h4>
+    const membershipStatusHeader = <h3 id='membership'>Membership Status</h3>
 
     return (
       <div className='settings'>
@@ -383,7 +383,7 @@ class Settings extends Component<Props, State> {
                 <hr />
               </Fragment>
           }
-          <h4>Interface</h4>
+          <h3>Interface</h3>
           <FormGroup check>
             <Label className='checkbox-label' check>
               <Input
@@ -415,7 +415,7 @@ class Settings extends Component<Props, State> {
           {
             user && user.id &&
             <Fragment>
-              <h4>My Data</h4>
+              <h3>My Data</h3>
               <Button
                 className='settings__download'
                 isLoading={isDownloading}
@@ -503,7 +503,7 @@ class Settings extends Component<Props, State> {
           {
             user && user.id &&
               <Fragment>
-                <h4>Management</h4>
+                <h3>Management</h3>
                 <Button
                   className='settings__delete-account'
                   color='danger'

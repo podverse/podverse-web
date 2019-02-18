@@ -11,7 +11,7 @@
   }
 
   .media-list__loader {
-    font-size: 48px;
+    font-size: $text-3x-rem;
     left: 46%;
     margin: 1.25rem 0;
     position: absolute;
@@ -61,7 +61,7 @@
     margin: 0.75rem 0;
 
     .media-list-filter__filter-icon, .media-list-filter__clear-icon {
-      font-size: 20px;
+      font-size: $text-xl-rem;
       height: 32px;
       line-height: 32px;
     }
@@ -89,7 +89,7 @@
   }
 
   .media-list__loading {
-    font-size: $text-3x-em;
+    font-size: $text-3x-rem;
     text-align: center;
   }
 }
