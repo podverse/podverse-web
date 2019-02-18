@@ -270,10 +270,6 @@ class Settings extends Component<Props, State> {
         <p>$3 per year, checkout with PayPal or BitPay</p>
         <div className='settings-membership__btns'>
           {
-            user && user.id &&
-              checkoutBtn
-          }
-          {
             !user || !user.id &&
               <Button
                 className='settings-membership__free-trial'
