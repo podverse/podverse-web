@@ -36,7 +36,7 @@ class PodcastListCtrl extends Component<Props, State> {
     try {
       const response = await getPodcastsByQuery(query, nsfwMode)
       const podcasts = response.data || []
-      console.log(podcasts)
+
       handleSetPageQueryState({
         ...newState,
         endReached: podcasts.length < 20,
@@ -410,7 +410,7 @@ class PodcastListCtrl extends Component<Props, State> {
                     <Pagination
                       currentPage={queryPage || 1}
                       handleQueryPage={this.handleQueryPage}
-                      pageRange={1}
+                      pageRange={2}
                       totalPages={Math.ceil(listItemsTotal / QUERY_PODCASTS_LIMIT)}/>
                   </div>
                 </Fragment>
