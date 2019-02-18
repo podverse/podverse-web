@@ -15,6 +15,7 @@ import MediaPlayerView from '~/components/MediaPlayerView/MediaPlayerView'
 import PageLoadingOverlay from '~/components/PageLoadingOverlay/PageLoadingOverlay'
 import { addFontAwesomeIcons } from '~/lib/fontAwesomeIcons'
 import { NowPlayingItem } from '~/lib/nowPlayingItem'
+import { disableHoverOnTouchDevices } from '~/lib/utility/disableHoverOnTouchDevices'
 import { initializeStore } from '~/redux/store'
 import { mediaPlayerLoadNowPlayingItem, pageIsLoading,
     playerQueueLoadPriorityItems } from '~/redux/actions'
@@ -180,6 +181,7 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
     }
 
     if (typeof(window) === 'object') {
+      disableHoverOnTouchDevices()
       ReactGA.pageview(ctx.asPath)
     }
 

@@ -2,8 +2,8 @@ import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import Error from 'next/error'
-import { addItemsToSecondaryQueueStorage, clearItemsFromSecondaryQueueStorage,
-  setNowPlayingItemInStorage } from 'podverse-ui'
+import { addItemsToSecondaryQueueStorage, clearItemsFromSecondaryQueueStorage
+  } from 'podverse-ui'
 import MediaHeaderCtrl from '~/components/MediaHeaderCtrl/MediaHeaderCtrl'
 import MediaInfoCtrl from '~/components/MediaInfoCtrl/MediaInfoCtrl'
 import MediaListCtrl from '~/components/MediaListCtrl/MediaListCtrl'
@@ -138,7 +138,6 @@ class Clip extends Component<Props, State> {
     
     clearItemsFromSecondaryQueueStorage()
     addItemsToSecondaryQueueStorage(secondaryItems)
-    setNowPlayingItemInStorage(newPlayingItem)
   }
 
   render () {

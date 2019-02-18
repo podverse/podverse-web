@@ -9,7 +9,7 @@ import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar as farStar } from '@fortawesome/free-regular-svg-icons'
 import { faStar as fasStar } from '@fortawesome/free-solid-svg-icons'
-import { PVButton as Button } from 'podverse-ui'
+import { PVButton as Button, setNowPlayingItemInStorage } from 'podverse-ui'
 import MediaListItemCtrl from '~/components/MediaListItemCtrl/MediaListItemCtrl'
 import Meta from '~/components/Meta/Meta'
 import { convertToNowPlayingItem } from '~/lib/nowPlayingItem'
@@ -332,6 +332,7 @@ class Playlist extends Component<Props, State> {
     const { sortedNowPlayingItems } = this.state
 
     mediaPlayerLoadNowPlayingItem(nowPlayingItem)
+    setNowPlayingItemInStorage(nowPlayingItem)
     mediaPlayerUpdatePlaying(true)
 
     let nowPlayingItemIndex = sortedNowPlayingItems.map((x) => x.clipId).indexOf(nowPlayingItem && nowPlayingItem.clipId)
@@ -403,9 +404,13 @@ class Playlist extends Component<Props, State> {
           && playlist && playlist.owner
           && user.id === playlist.owner.id) {
         return (
-          <Draggable draggableId={`playlist-item-${index}`} index={index}>
+          <Draggable
+            draggableId={`playlist-item-${index}`}
+            index={index}
+            key={`media-list-item-${uuidv4()}`}>
             {(provided, snapshot) => (
               <div
+                key={`media-list-item-${uuidv4()}`}
                 ref={provided.innerRef}
                 {...provided.draggableProps}
                 {...provided.dragHandleProps}>

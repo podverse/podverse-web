@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { MediaPlayer, popNextFromQueueStorage } from 'podverse-ui'
+import { MediaPlayer, popNextFromQueueStorage, setNowPlayingItemInStorage } from 'podverse-ui'
 import { kAutoplay, kPlaybackRate, getPlaybackRateText, getPlaybackRateNextValue
   } from '~/lib/constants/misc'
 import { mediaPlayerLoadNowPlayingItem, 
@@ -125,6 +125,7 @@ class MediaPlayerView extends Component<Props, State> {
       }
 
       mediaPlayerLoadNowPlayingItem(nextItem)
+      setNowPlayingItemInStorage(nextItem)
       mediaPlayerSetPlayedAfterClipFinished(false)
 
       if (user && user.id) {

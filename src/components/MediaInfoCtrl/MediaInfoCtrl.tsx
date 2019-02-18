@@ -1,8 +1,8 @@
 
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { MediaInfo, addItemToPriorityQueueStorage, getPriorityQueueItemsStorage
-  } from 'podverse-ui'
+import { MediaInfo, addItemToPriorityQueueStorage, getPriorityQueueItemsStorage,
+  setNowPlayingItemInStorage } from 'podverse-ui'
 import { bindActionCreators } from 'redux';
 import { mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying, modalsAddToShow,
   modalsMakeClipShow, pageIsLoading, playerQueueLoadPriorityItems, userSetInfo
@@ -37,7 +37,7 @@ class MediaInfoCtrl extends Component<Props, State> {
     const { mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying, user,
       userSetInfo } = this.props
     mediaPlayerLoadNowPlayingItem(nowPlayingItem)
-
+    setNowPlayingItemInStorage(nowPlayingItem)
     mediaPlayerUpdatePlaying(true)
 
     if (user && user.id) {

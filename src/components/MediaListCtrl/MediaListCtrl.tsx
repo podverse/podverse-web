@@ -3,7 +3,7 @@ import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { InputGroup, InputGroupAddon, Input } from 'reactstrap'
-import { MediaListSelect, PVButton as Button } from 'podverse-ui'
+import { MediaListSelect, PVButton as Button, setNowPlayingItemInStorage } from 'podverse-ui'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import MediaListItemCtrl from '~/components/MediaListItemCtrl/MediaListItemCtrl'
 import { convertToNowPlayingItem } from '~/lib/nowPlayingItem'
@@ -308,6 +308,7 @@ class MediaListCtrl extends Component<Props, State> {
     }
 
     mediaPlayerLoadNowPlayingItem(nowPlayingItem)
+    setNowPlayingItemInStorage(nowPlayingItem)
     mediaPlayerUpdatePlaying(true)
 
     let nowPlayingItemIndex = -1
