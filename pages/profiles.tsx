@@ -31,12 +31,12 @@ class Profiles extends Component<Props, State> {
       const response = await getPublicUsersByQuery({ 
         userIds: user.subscribedUserIds
       })
-      const listItems = response.data
+      const users = response.data
 
       store.dispatch(pagesSetQueryState({
-        endReached: listItems.length < 50,
         pageKey: kPageKey,
-        listItems,
+        listItems: users[0],
+        listItemsTotal: users[1],
         queryPage
       }))
     }
