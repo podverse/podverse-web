@@ -2,7 +2,7 @@ import axios from 'axios'
 import { sfwFilterMediaRefs, sfwFilterPlaylists, sfwFilterUser, sfwFilterUsers
   } from '~/lib/profanityFilter'
 import { NowPlayingItem } from '~/lib/nowPlayingItem'
-import { alertRateLimitError, convertObjectToQueryString } from '~/lib/utility'
+import { convertObjectToQueryString } from '~/lib/utility'
 import config from '~/config'
 const { API_BASE_URL } = config()
 
