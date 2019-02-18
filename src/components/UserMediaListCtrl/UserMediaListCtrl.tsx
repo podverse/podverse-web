@@ -1,7 +1,7 @@
 
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
-import { MediaListSelect, PVButton as Button, setNowPlayingItemInStorage
+import { MediaListSelect, Button, setNowPlayingItemInStorage
   } from 'podverse-ui'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { bindActionCreators } from 'redux'

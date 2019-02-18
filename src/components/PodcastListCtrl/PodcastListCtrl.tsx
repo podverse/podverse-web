@@ -1,11 +1,13 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { MediaListItem, MediaListSelect, PVButton as Button } from 'podverse-ui'
+import { MediaListItem, MediaListSelect, Button, Pagination } from 'podverse-ui'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import config from '~/config'
 import { pageIsLoading } from '~/redux/actions'
 import { getPodcastsByQuery } from '~/services'
 const uuidv4 = require('uuid/v4')
+const { QUERY_PODCASTS_LIMIT } = config()
 
 type Props = {
   allCategories?: any
@@ -14,9 +16,6 @@ type Props = {
   pageIsLoading?: any
   pageKey: string
   pages?: any
-  queryFrom?: string
-  queryPage?: number
-  querySort?: string
   settings?: any
   user?: any
 }
@@ -30,27 +29,21 @@ class PodcastListCtrl extends Component<Props, State> {
     pageKey: 'default'
   }
 
-  queryPodcasts = async (query, newState, isLoadMore = false) => {
-    const { handleSetPageQueryState, pageKey, pages, settings } = this.props
+  queryPodcasts = async (query, newState) => {
+    const { handleSetPageQueryState, settings } = this.props
     const { nsfwMode } = settings
-    const { listItems } = pages[pageKey]
-
-    let combinedListItems = []
-    if (isLoadMore) {
-      combinedListItems = listItems
-    }
 
     try {
       const response = await getPodcastsByQuery(query, nsfwMode)
       const podcasts = response.data || []
-      combinedListItems = combinedListItems.concat(podcasts)
-
+      console.log(podcasts)
       handleSetPageQueryState({
         ...newState,
         endReached: podcasts.length < 20,
         isLoadingInitial: false,
         isLoadingMore: false,
-        listItems: combinedListItems
+        listItems: podcasts[0],
+        listItemsTotal: podcasts[1]
       })
     } catch (error) {
       console.log(error)
@@ -59,13 +52,14 @@ class PodcastListCtrl extends Component<Props, State> {
         endReached: false,
         isLoadingInitial: false,
         isLoadingMore: false,
-        listItems: []
+        listItems: [],
+        totalItemsCount: 0
       })
     }
   }
 
   queryLoadInitial = () => {
-    const { categoryId, handleSetPageQueryState, pageKey } = this.props
+    const { handleSetPageQueryState, pageKey } = this.props
 
     handleSetPageQueryState({
       pageKey,
@@ -168,10 +162,10 @@ class PodcastListCtrl extends Component<Props, State> {
     await this.queryPodcasts(query, newState)
   }
 
-  queryPodcastsLoadMore = async () => {
+  queryPodcastsLoadPage = async page => {
     const { handleSetPageQueryState, pageKey, pages, user } = this.props
     const { subscribedPodcastIds } = user
-    const { categoryId, queryFrom, queryPage, querySort } = pages[pageKey]
+    const { categoryId, queryFrom, querySort } = pages[pageKey]
 
     handleSetPageQueryState({
       pageKey,
@@ -179,7 +173,7 @@ class PodcastListCtrl extends Component<Props, State> {
     })
 
     let query: any = {
-      page: queryPage + 1,
+      page,
       from: queryFrom,
       sort: querySort,
       categories: queryFrom === 'from-category' ? categoryId : null,
@@ -188,12 +182,12 @@ class PodcastListCtrl extends Component<Props, State> {
 
     let newState: any = {
       pageKey,
-      queryPage: queryPage + 1,
+      queryPage: page,
       queryFrom,
       querySort
     }
 
-    await this.queryPodcasts(query, newState, true)
+    await this.queryPodcasts(query, newState)
   }
 
   getQuerySortOptions() {
@@ -354,10 +348,22 @@ class PodcastListCtrl extends Component<Props, State> {
     pageIsLoading(true)
   }
 
+  handleQueryPage = async page => {
+    const { pageIsLoading } = this.props
+    pageIsLoading(true)
+    await this.queryPodcastsLoadPage(page)
+    pageIsLoading(false)
+
+    const mediaListSelectsEl = document.querySelector('.media-list__selects')
+    if (mediaListSelectsEl) {
+      mediaListSelectsEl.scrollIntoView()
+    }
+  }
+
   render() {
     const { allCategories, pageKey, pages, user } = this.props
-    const { categoryId, endReached, isLoadingInitial, isLoadingMore, listItems,
-      queryPage, querySort } = pages[pageKey]
+    const { categoryId, isLoadingInitial, listItems, listItemsTotal, queryPage,
+      querySort } = pages[pageKey]
 
     const listItemNodes = listItems.map(x => {
       return (
@@ -373,7 +379,7 @@ class PodcastListCtrl extends Component<Props, State> {
     const categorySelectNodes = this.generateCategorySelectNodes(allCategories, categoryId, user)
 
     const selectedQuerySortOption = this.getQuerySortOptions().filter(x => x.value === querySort)
-
+    
     return (
       <div className={'media-list adjust-top-position'}>
         <div className='media-list__selects'>
@@ -400,17 +406,12 @@ class PodcastListCtrl extends Component<Props, State> {
                 listItemNodes && listItemNodes.length > 0 &&
                 <Fragment>
                   {listItemNodes}
-                  <div className='media-list__load-more'>
-                    {
-                      endReached ?
-                        <p className='no-results-msg'>End of results</p>
-                        : <Button
-                          className='media-list-load-more__button'
-                          disabled={isLoadingMore}
-                          isLoading={isLoadingMore}
-                          onClick={this.queryPodcastsLoadMore}
-                          text='Load More' />
-                    }
+                  <div className='pv-pagination'>
+                    <Pagination
+                      currentPage={queryPage || 1}
+                      handleQueryPage={this.handleQueryPage}
+                      pageRange={1}
+                      totalPages={Math.ceil(listItemsTotal / QUERY_PODCASTS_LIMIT)}/>
                   </div>
                 </Fragment>
               }

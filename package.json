@@ -61,6 +61,7 @@
     "react-dom": "^16.5.2",
     "react-ga": "^2.5.6",
     "react-modal": "^3.7.1",
+    "react-paginate": "^6.3.0",
     "react-redux": "^5.1.0",
     "react-switch": "^3.0.4",
     "reactstrap": "^6.5.0",

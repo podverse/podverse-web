@@ -13,7 +13,7 @@ const { paypalConfig } = config()
 type Props = {
   handleHideModal: Function
   isOpen?: boolean
-  pageIsLoading: any
+  pageIsLoading?: any
 }
 
 type State = {}

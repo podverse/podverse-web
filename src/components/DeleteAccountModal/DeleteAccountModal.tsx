@@ -1,6 +1,6 @@
 import * as React from 'react'
 import * as Modal from 'react-modal'
-import { PVButton as Button, ButtonGroup, CloseButton } from 'podverse-ui'
+import { Button, ButtonGroup, CloseButton } from 'podverse-ui'
 import { Input, Label } from 'reactstrap'
 import { deleteUser } from '~/services'
 

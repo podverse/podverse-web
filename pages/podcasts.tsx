@@ -50,12 +50,13 @@ class Podcasts extends Component<Props, State> {
         sort: querySort
       }, nsfwMode)
 
-      const listItems = queryDataResult.data
+      const podcasts = queryDataResult.data
 
       store.dispatch(pagesSetQueryState({
         pageKey: kPageKey,
         categoryId,
-        listItems,
+        listItems: podcasts[0],
+        listItemsTotal: podcasts[1],
         queryPage,
         queryFrom,
         querySort,

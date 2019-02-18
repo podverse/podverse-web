@@ -7,6 +7,10 @@ export interface Config {
   API_PROTOCOL?: string
   API_PATH?: string
   API_VERSION?: string
+  QUERY_EPISODES_LIMIT: number
+  QUERY_MEDIA_REFS_LIMIT: number
+  QUERY_PODCASTS_LIMIT: number
+  QUERY_USERS_LIMIT: number
   COOKIE_DOMAIN?: string
   COOKIE_PATH?: string
   PAYPAL_ENV?: string
@@ -26,21 +30,23 @@ export interface Config {
 export default () => {
   const { serverRuntimeConfig, publicRuntimeConfig } = getConfig()
 
-  let config : Config = {}
-
-  config = {
+  let config: Config = {
     NODE_ENV: publicRuntimeConfig.NODE_ENV,
     PROTOCOL: publicRuntimeConfig.PROTOCOL,
     PORT: publicRuntimeConfig.PORT,
     API_PROTOCOL: publicRuntimeConfig.API_PROTOCOL,
     API_PATH: publicRuntimeConfig.API_PATH,
     API_VERSION: publicRuntimeConfig.API_VERSION,
+    QUERY_EPISODES_LIMIT: publicRuntimeConfig.QUERY_EPISODES_LIMIT,
+    QUERY_MEDIA_REFS_LIMIT: publicRuntimeConfig.QUERY_MEDIA_REFS_LIMIT,
+    QUERY_PODCASTS_LIMIT: publicRuntimeConfig.QUERY_PODCASTS_LIMIT,
+    QUERY_USERS_LIMIT: publicRuntimeConfig.QUERY_USERS_LIMIT,
     COOKIE_DOMAIN: publicRuntimeConfig.COOKIE_DOMAIN,
     COOKIE_PATH: publicRuntimeConfig.COOKIE_PATH,
     PAYPAL_ENV: publicRuntimeConfig.PAYPAL_ENV,
     PAYPAL_CLIENT_ID_PRODUCTION: publicRuntimeConfig.PAYPAL_CLIENT_ID_PRODUCTION,
     PAYPAL_CLIENT_ID_SANDBOX: publicRuntimeConfig.PAYPAL_CLIENT_ID_SANDBOX,
-    GOOGLE_ANALYTICS_TRACKING_ID: publicRuntimeConfig.GOOGLE_ANALYTICS_TRACKING_ID,  
+    GOOGLE_ANALYTICS_TRACKING_ID: publicRuntimeConfig.GOOGLE_ANALYTICS_TRACKING_ID,
   }
 
   // For back-end use docker container namespaces,
@@ -78,6 +84,7 @@ export default () => {
   config.googleAnalyticsConfig = {
     trackingId: config.GOOGLE_ANALYTICS_TRACKING_ID
   }
+
 
   return config
 }
