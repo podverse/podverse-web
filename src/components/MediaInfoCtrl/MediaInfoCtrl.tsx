@@ -59,12 +59,12 @@ class MediaInfoCtrl extends Component<Props, State> {
     }
   }
 
-  pauseItem() {
+  pauseItem = () => {
     const { mediaPlayerUpdatePlaying } = this.props
     mediaPlayerUpdatePlaying(false)
   }
 
-  async addToQueue(nowPlayingItem, isLast) {
+  addToQueue = async (nowPlayingItem, isLast) => {
     const { episode, mediaRef, playerQueueLoadPriorityItems, user } = this.props
     
     let priorityItems = []
@@ -131,7 +131,7 @@ class MediaInfoCtrl extends Component<Props, State> {
     }
   }
 
-  isCurrentlyPlayingItem() {
+  isCurrentlyPlayingItem = () => {
     const { episode, mediaRef, mediaPlayer, nowPlayingItem } = this.props
     const { nowPlayingItem: mpNowPlayingItem, playing } = mediaPlayer
 
@@ -152,7 +152,7 @@ class MediaInfoCtrl extends Component<Props, State> {
     )
   }
 
-  linkClick() {
+  linkClick = () => {
     const { pageIsLoading } = this.props
     pageIsLoading(true)
   }
