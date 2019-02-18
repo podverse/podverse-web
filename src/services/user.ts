@@ -43,7 +43,7 @@ export const getUserMediaRefs = async (
   id: string,
   nsfwMode: string = 'on',
   sort: string = 'most-recent',
-  page: number = 1
+  page
 ) => {
   let filteredQuery: any = {}
   filteredQuery.sort = sort
@@ -64,7 +64,7 @@ export const getUserMediaRefs = async (
 export const getUserPlaylists = async (
   id: string,
   nsfwMode: string = 'on',
-  page: number = 1
+  page
 ) => {
   let filteredQuery: any = {}
   filteredQuery.page = page

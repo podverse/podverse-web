@@ -56,11 +56,11 @@ class Profile extends Component<Props, State> {
       }
 
       if (query.type === 'clips') {
-        queryDataResult = await getUserMediaRefs(currentId, nsfwMode)
+        queryDataResult = await getUserMediaRefs(currentId, nsfwMode, querySort, queryPage)
         listItems = queryDataResult.data.map(x => convertToNowPlayingItem(x))
         store.dispatch(playerQueueLoadSecondaryItems(clone(listItems)))
       } else if (query.type === 'playlists') {
-        queryDataResult = await getUserPlaylists(currentId, null, null, nsfwMode)
+        queryDataResult = await getUserPlaylists(currentId, nsfwMode, queryPage)
         listItems = queryDataResult.data
       } else if (queryType === 'podcasts' 
           && publicUser.subscribedPodcastIds
@@ -74,7 +74,8 @@ class Profile extends Component<Props, State> {
 
       store.dispatch(pagesSetQueryState({
         pageKey: pageKeyWithId,
-        listItems,
+        listItems: listItems[0],
+        listItemsTotal: listItems[1],
         publicUser,
         queryPage,
         querySort,

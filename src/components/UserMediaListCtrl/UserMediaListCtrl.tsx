@@ -91,7 +91,6 @@ class UserMediaListCtrl extends Component<Props, State> {
 
         handleSetPageQueryState({
           pageKey,
-          endReached: podcasts.length < 20,
           isLoadingInitial: false,
           listItems: podcasts[0],
           listItemsTotal: podcasts[1]
@@ -151,13 +150,12 @@ class UserMediaListCtrl extends Component<Props, State> {
         if (isMyProfilePage) {
           response = await getLoggedInUserPlaylists('', page)
         } else {
-          response = await getUserPlaylists(profileUser.id, nsfwMode)
+          response = await getUserPlaylists(profileUser.id, nsfwMode, page)
         }
         const playlists = response.data
 
         handleSetPageQueryState({
           pageKey,
-          endReached: playlists.length < 20,
           isLoadingInitial: false,
           listItems: playlists[0],
           listItemsTotal: playlists[1]
@@ -172,9 +170,7 @@ class UserMediaListCtrl extends Component<Props, State> {
     } else {
       handleSetPageQueryState({
         pageKey,
-        endReached: true,
         isLoadingInitial: false,
-        isLoadingMore: false,
         listItems: []
       })
     }
@@ -275,6 +271,7 @@ class UserMediaListCtrl extends Component<Props, State> {
   }
 
   handleQueryPage = async page => {
+
     const { pageIsLoading } = this.props
     pageIsLoading(true)
     await this.queryMediaListItems('', '', page)

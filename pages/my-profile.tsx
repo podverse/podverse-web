@@ -28,8 +28,7 @@ class MyProfile extends Component<Props, State> {
 
   static async getInitialProps({ bearerToken, query, req, store }) {
     const state = store.getState()
-    const { pages, settings, user } = state
-    const { nsfwMode } = settings
+    const { pages, user } = state
     
     const currentPage = pages[kPageKey] || {}
     const queryPage = currentPage.queryPage || query.page || 1
@@ -62,7 +61,8 @@ class MyProfile extends Component<Props, State> {
 
       store.dispatch(pagesSetQueryState({
         pageKey: kPageKey,
-        listItems,
+        listItems: listItems[0],
+        listItemsTotal: listItems[1],
         queryPage,
         querySort,
         queryType
