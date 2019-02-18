@@ -132,8 +132,8 @@ class Search extends Component<Props, State> {
 
   render() {
     const { meta, pages } = this.props
-    const { isLoadingInitial, isSearching, listItems, listItemsTotal,
-      queryPage, searchBy } = pages[kPageKey]
+    const { isLoadingInitial, isSearching, listItems, listItemsTotal, queryPage,
+      searchBy } = pages[kPageKey]
     const { currentSearch } = this.state
 
     const placeholder = searchBy === 'host'

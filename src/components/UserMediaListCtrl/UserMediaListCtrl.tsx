@@ -1,19 +1,20 @@
 
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
-import { MediaListSelect, Button, setNowPlayingItemInStorage
-  } from 'podverse-ui'
+import { MediaListSelect, Pagination, setNowPlayingItemInStorage } from 'podverse-ui'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { bindActionCreators } from 'redux'
 import MediaListItemCtrl from '~/components/MediaListItemCtrl/MediaListItemCtrl'
+import config from '~/config'
 import { convertToNowPlayingItem } from '~/lib/nowPlayingItem'
 import { clone } from '~/lib/utility'
-import { mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying, 
+import { mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying, pageIsLoading, 
   playerQueueAddSecondaryItems, playerQueueLoadPriorityItems, playerQueueLoadSecondaryItems,
   userSetInfo } from '~/redux/actions'
 import { addOrUpdateUserHistoryItem, getPodcastsByQuery, getUserMediaRefs, getUserPlaylists,
   getLoggedInUserMediaRefs, getLoggedInUserPlaylists } from '~/services'
 const uuidv4 = require('uuid/v4')
+const { QUERY_MEDIA_REFS_LIMIT } = config()
 
 type Props = {
   adjustTopPosition?: boolean
@@ -24,6 +25,7 @@ type Props = {
   mediaPlayer?: any
   mediaPlayerLoadNowPlayingItem?: any
   mediaPlayerUpdatePlaying?: any
+  pageIsLoading?: any
   pageKey: string
   pages?: any
   playerQueueAddSecondaryItems?: any
@@ -51,19 +53,12 @@ class UserMediaListCtrl extends Component<Props, State> {
       playerQueueAddSecondaryItems, playerQueueLoadSecondaryItems, profileUser,
       settings } = this.props
     const { nsfwMode } = settings
-    const { listItems, querySort, queryType } = pages[pageKey]
+    const { querySort, queryType } = pages[pageKey]
 
     let query: any = {
       page,
       sort: querySort,
       type: queryType
-    }
-
-    if (page > 1) {
-      handleSetPageQueryState({
-        pageKey,
-        isLoadingMore: true
-      })
     }
 
     let newState: any = { 
@@ -85,12 +80,6 @@ class UserMediaListCtrl extends Component<Props, State> {
 
     handleSetPageQueryState(newState)
     
-    let combinedListItems: any = []
-
-    if (page > 1) {
-      combinedListItems = listItems
-    }
-
     if (query.type === 'podcasts' 
         && profileUser.subscribedPodcastIds
         && profileUser.subscribedPodcastIds.length > 0) {
@@ -99,21 +88,19 @@ class UserMediaListCtrl extends Component<Props, State> {
         query.from = 'subscribed-only'
         const response = await getPodcastsByQuery(query, isMyProfilePage ? 'on' : nsfwMode)
         const podcasts = response.data
-        combinedListItems = combinedListItems.concat(podcasts)
 
         handleSetPageQueryState({
           pageKey,
           endReached: podcasts.length < 20,
           isLoadingInitial: false,
-          isLoadingMore: false,
-          listItems: page > 1 ? combinedListItems : podcasts
+          listItems: podcasts[0],
+          listItemsTotal: podcasts[1]
         })
       } catch (error) {
         console.log(error)
         handleSetPageQueryState({
           pageKey,
-          isLoadingInitial: false,
-          isLoadingMore: false
+          isLoadingInitial: false
         })
       }
     } else if (query.type === 'clips') {
@@ -134,28 +121,27 @@ class UserMediaListCtrl extends Component<Props, State> {
             page
           )
         }
-        const mediaRefs = response.data && response.data.map(x => convertToNowPlayingItem(x))
-        combinedListItems = combinedListItems.concat(mediaRefs)
+
+        const mediaRefs = response.data
+        const nowPlayingItems = mediaRefs[0].map(x => convertToNowPlayingItem(x))
         
         if (page > 1) {
-          playerQueueAddSecondaryItems(clone(mediaRefs))
+          playerQueueAddSecondaryItems(clone(nowPlayingItems))
         } else {
-          playerQueueLoadSecondaryItems(clone(mediaRefs))
+          playerQueueLoadSecondaryItems(clone(nowPlayingItems))
         }
 
         handleSetPageQueryState({
           pageKey,
-          endReached: mediaRefs.length < 20,
           isLoadingInitial: false,
-          isLoadingMore: false,
-          listItems: page > 1 ? combinedListItems : mediaRefs
+          listItems: nowPlayingItems,
+          listItemsTotal: mediaRefs[1]
         })
       } catch (error) {
         console.log(error)
         handleSetPageQueryState({
           pageKey,
-          isLoadingInitial: false,
-          isLoadingMore: false
+          isLoadingInitial: false
         })
       }
     } else if (query.type === 'playlists') {
@@ -168,21 +154,19 @@ class UserMediaListCtrl extends Component<Props, State> {
           response = await getUserPlaylists(profileUser.id, nsfwMode)
         }
         const playlists = response.data
-        combinedListItems = combinedListItems.concat(playlists)
 
         handleSetPageQueryState({
           pageKey,
           endReached: playlists.length < 20,
           isLoadingInitial: false,
-          isLoadingMore: false,
-          listItems: page > 1 ? combinedListItems : playlists
+          listItems: playlists[0],
+          listItemsTotal: playlists[1]
         })
       } catch (error) {
         console.log(error)
         handleSetPageQueryState({
           pageKey,
-          isLoadingInitial: false,
-          isLoadingMore: false
+          isLoadingInitial: false
         })
       }
     } else {
@@ -290,12 +274,24 @@ class UserMediaListCtrl extends Component<Props, State> {
     }
   }
 
+  handleQueryPage = async page => {
+    const { pageIsLoading } = this.props
+    pageIsLoading(true)
+    await this.queryMediaListItems('', '', page)
+    pageIsLoading(false)
+
+    const mediaListSelectsEl = document.querySelector('.media-list__selects')
+    if (mediaListSelectsEl) {
+      mediaListSelectsEl.scrollIntoView()
+    }
+  }
+
   render() {
     const { adjustTopPosition, mediaPlayer, pages, pageKey, profileUser
       } = this.props
     const { nowPlayingItem: mpNowPlayingItem } = mediaPlayer
-    const { endReached, isLoadingInitial, isLoadingMore, listItems,
-      queryPage, querySort, queryType } = pages[pageKey]
+    const { isLoadingInitial, listItems, listItemsTotal, queryPage, querySort,
+      queryType } = pages[pageKey]
     const username = `${profileUser.name || 'This person'}`
     
     let mediaListItemType = 'now-playing-item'
@@ -370,18 +366,11 @@ class UserMediaListCtrl extends Component<Props, State> {
                 listItemNodes && listItemNodes.length > 0 &&
                 <div className={queryType === 'playlists' ? 'reduced-margin' : ''}>
                   {listItemNodes}
-                  <div className='media-list__load-more'>
-                    {
-                      endReached ?
-                        <p className='no-results-msg'>End of results</p>
-                        : <Button
-                            className='media-list-load-more__button'
-                            disabled={isLoadingMore}
-                            isLoading={isLoadingMore}
-                            onClick={() => this.queryMediaListItems('', '', queryPage + 1)}
-                            text='Load More' />
-                    }
-                  </div>
+                  <Pagination
+                    currentPage={queryPage || 1}
+                    handleQueryPage={this.handleQueryPage}
+                    pageRange={2}
+                    totalPages={Math.ceil(listItemsTotal / QUERY_MEDIA_REFS_LIMIT)} />
                 </div>
               }
             </Fragment> 
@@ -400,6 +389,7 @@ const mapStateToProps = state => ({ ...state })
 const mapDispatchToProps = dispatch => ({
   mediaPlayerLoadNowPlayingItem: bindActionCreators(mediaPlayerLoadNowPlayingItem, dispatch),
   mediaPlayerUpdatePlaying: bindActionCreators(mediaPlayerUpdatePlaying, dispatch),
+  pageIsLoading: bindActionCreators(pageIsLoading, dispatch),
   playerQueueAddSecondaryItems: bindActionCreators(playerQueueAddSecondaryItems, dispatch),
   playerQueueLoadPriorityItems: bindActionCreators(playerQueueLoadPriorityItems, dispatch),
   playerQueueLoadSecondaryItems: bindActionCreators(playerQueueLoadSecondaryItems, dispatch),

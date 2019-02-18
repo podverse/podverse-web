@@ -9,6 +9,7 @@ export interface Config {
   API_VERSION?: string
   QUERY_EPISODES_LIMIT: number
   QUERY_MEDIA_REFS_LIMIT: number
+  QUERY_PLAYLISTS_LIMIT: number
   QUERY_PODCASTS_LIMIT: number
   QUERY_USERS_LIMIT: number
   COOKIE_DOMAIN?: string
@@ -39,6 +40,7 @@ export default () => {
     API_VERSION: publicRuntimeConfig.API_VERSION,
     QUERY_EPISODES_LIMIT: publicRuntimeConfig.QUERY_EPISODES_LIMIT,
     QUERY_MEDIA_REFS_LIMIT: publicRuntimeConfig.QUERY_MEDIA_REFS_LIMIT,
+    QUERY_PLAYLISTS_LIMIT: publicRuntimeConfig.QUERY_PLAYLISTS_LIMIT,
     QUERY_PODCASTS_LIMIT: publicRuntimeConfig.QUERY_PODCASTS_LIMIT,
     QUERY_USERS_LIMIT: publicRuntimeConfig.QUERY_USERS_LIMIT,
     COOKIE_DOMAIN: publicRuntimeConfig.COOKIE_DOMAIN,
