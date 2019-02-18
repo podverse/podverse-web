@@ -3,18 +3,21 @@ import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { InputGroup, InputGroupAddon, Input } from 'reactstrap'
-import { MediaListSelect, Button, setNowPlayingItemInStorage } from 'podverse-ui'
+import { Button, MediaListSelect, Pagination, setNowPlayingItemInStorage
+  } from 'podverse-ui'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import MediaListItemCtrl from '~/components/MediaListItemCtrl/MediaListItemCtrl'
+import config from '~/config'
 import { convertToNowPlayingItem } from '~/lib/nowPlayingItem'
 import { clone } from '~/lib/utility'
-import { mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying, playerQueueAddSecondaryItems,
-  playerQueueLoadPriorityItems, playerQueueLoadSecondaryItems, userSetInfo
-  } from '~/redux/actions'
+import { mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying, pageIsLoading,
+  playerQueueAddSecondaryItems, playerQueueLoadPriorityItems,
+  playerQueueLoadSecondaryItems, userSetInfo } from '~/redux/actions'
 import { addOrUpdateUserHistoryItem, getEpisodesByQuery, getMediaRefsByQuery
   } from '~/services'
 import AwesomeDebouncePromise from 'awesome-debounce-promise'
 const uuidv4 = require('uuid/v4')
+const { QUERY_MEDIA_REFS_LIMIT } = config()
 
 const debouncedEpisodeFilterQuery = AwesomeDebouncePromise(getEpisodesByQuery, 750)
 const debouncedMediaRefFilterQuery = AwesomeDebouncePromise(getMediaRefsByQuery, 750)
@@ -27,6 +30,7 @@ type Props = {
   mediaPlayer?: any
   mediaPlayerLoadNowPlayingItem?: any
   mediaPlayerUpdatePlaying?: any
+  pageIsLoading?: any
   pageKey: string
   pages?: any
   playerQueueAddSecondaryItems?: any
@@ -51,100 +55,62 @@ class MediaListCtrl extends Component<Props, State> {
     queryPage: 1
   }
 
-  queryLoadInitial = () => {
-    const { handleSetPageQueryState, pageKey } = this.props
-
-    handleSetPageQueryState({
-      pageKey,
-      isLoadingInitial: true
-    })
-  }
-
-  queryListItems = async (
-    queryType,
-    queryFrom,
-    querySort,
-    isLoadMore = false,
-    isLastLoadMore = false,
-    ignoreFilter = false) => {
+  queryListItems = async (queryType, queryFrom, querySort, page) => {
     const { episodeId, handleSetPageQueryState, pageKey, pages,
       playerQueueLoadSecondaryItems, podcastId, settings, user } = this.props
     const { nsfwMode } = settings
     const { subscribedPodcastIds } = user
-    const { filterIsShowing, filterText, listItems, queryPage } = pages[pageKey]
-    
-    if (!isLoadMore) {
-      this.queryLoadInitial()
-    }
+    const { filterIsShowing, filterText } = pages[pageKey]
 
     let query: any = {
-      page: isLoadMore ? queryPage + 1 : 1,
+      page,
       from: queryFrom,
       sort: querySort,
       episodeId: queryFrom === 'from-episode' ? episodeId : null,
       podcastId: queryFrom === 'from-podcast' ? podcastId : null,
       subscribedPodcastIds: queryFrom === 'subscribed-only' ? subscribedPodcastIds : null,
-      ...(!ignoreFilter && filterIsShowing ? { searchAllFieldsText: filterText } : {}),
+      ...(filterIsShowing ? { searchAllFieldsText: filterText } : {}),
       ...(queryFrom === 'all-podcasts' ||
           queryFrom === 'subscribed-only' ? { includePodcast: true } : {})
     }
 
     let newState: any = {
       pageKey,
-      queryPage: isLoadMore ? queryPage + 1 : 1,
+      queryPage: page,
       queryType,
       queryFrom,
       querySort
     }
 
-    let combinedListItems = []
-    if (isLoadMore) {
-      combinedListItems = listItems
-    }
-
     try {
-      let endReached
+      let nowPlayingItems = []
+      let listItemsTotal
 
       if (queryType === 'episodes') {
         let response = await getEpisodesByQuery(query, nsfwMode)
-        const episodes = response.data && response.data.map(x => convertToNowPlayingItem(x))
-        endReached = isLastLoadMore || episodes.length < 20
-        combinedListItems = combinedListItems.concat(episodes)
+        const episodes = response.data
+        listItemsTotal = episodes[1]
+        nowPlayingItems = episodes[0].map(x => convertToNowPlayingItem(x))
       } else {
         let response = await getMediaRefsByQuery(query, nsfwMode)
-        const mediaRefs = response.data && response.data.map(x => convertToNowPlayingItem(x))
-        endReached = mediaRefs.length < 20
-        combinedListItems = combinedListItems.concat(mediaRefs)
+        const mediaRefs = response.data
+        listItemsTotal = mediaRefs[1]
+        nowPlayingItems = mediaRefs[0].map(x => convertToNowPlayingItem(x))
       }
 
-      playerQueueLoadSecondaryItems(clone(combinedListItems))
-
-      // Stay in .view__contents element Y position after Load More finishes.
-      // This is hacky...I don't know how else to do it...
-      const viewContentsEl = document.querySelector('.view__contents')
-      const scrLeft = viewContentsEl.scrollLeft
-      const scrTop = viewContentsEl.scrollTop
+      playerQueueLoadSecondaryItems(clone(nowPlayingItems))
 
       handleSetPageQueryState({
         ...newState,
-        endReached,
-        isLoadingInitial: false,
-        isLoadingMore: false,
-        listItems: combinedListItems
+        listItems: nowPlayingItems,
+        listItemsTotal
       })
-
-      viewContentsEl.scrollTo(
-        scrLeft,
-        scrTop
-      )
     } catch (error) {
       console.log(error)
       handleSetPageQueryState({
         ...newState,
-        endReached: false,
-        isLoadingInitial: false,
-        isLoadingMore: false,
-        listItems: []
+        listItems: [],
+        listItemsTotal: 0
       })
     }
   }
@@ -152,24 +118,8 @@ class MediaListCtrl extends Component<Props, State> {
   querySort = async selectedValue => {
     const { pageKey, pages } = this.props
     const { queryFrom, queryType } = pages[pageKey]
-
-    this.queryLoadInitial()
         
-    await this.queryListItems(queryType, queryFrom, selectedValue)
-  }
-
-  queryLoadMore = async () => {
-    const { handleSetPageQueryState, pageKey, pages } = this.props
-    const { queryFrom, querySort, queryType } = pages[pageKey]
-
-    handleSetPageQueryState({
-      pageKey,
-      isLoadingMore: true
-    })
-
-    const isLastLoadMore = queryType === 'episodes' && queryFrom === 'from-podcast'
-
-    await this.queryListItems(queryType, queryFrom, querySort, true, isLastLoadMore)
+    await this.queryListItems(queryType, queryFrom, selectedValue, 1)
   }
 
   getQueryTypeOptions = () => {
@@ -179,7 +129,7 @@ class MediaListCtrl extends Component<Props, State> {
     return [
       {
         label: 'Clips',
-        onClick: () => this.queryListItems('clips', queryFrom, querySort),
+        onClick: () => this.queryListItems('clips', queryFrom, querySort, 1),
         value: 'clips',
       },
       {
@@ -187,7 +137,8 @@ class MediaListCtrl extends Component<Props, State> {
         onClick: () => this.queryListItems(
           'episodes',
           podcastId ? 'from-podcast' : queryFrom,
-          'most-recent'
+          'most-recent',
+          1
         ),
         value: 'episodes',
       }
@@ -201,14 +152,14 @@ class MediaListCtrl extends Component<Props, State> {
     const options = [
       {
         label: 'All podcasts',
-        onClick: () => this.queryListItems(queryType, 'all-podcasts', querySort),
+        onClick: () => this.queryListItems(queryType, 'all-podcasts', querySort, 1),
         value: 'all-podcasts'
       },
       {
         label: 'Subscribed only',
         onClick: () => {
           if (user && user.id) {
-            this.queryListItems(queryType, 'subscribed-only', querySort)
+            this.queryListItems(queryType, 'subscribed-only', querySort, 1)
           } else {
             alert('Login to filter by your subscribed podcasts.')
           }
@@ -221,7 +172,7 @@ class MediaListCtrl extends Component<Props, State> {
       options.push(
         {
           label: 'From this podcast',
-          onClick: () => this.queryListItems(queryType, 'from-podcast', querySort),
+          onClick: () => this.queryListItems(queryType, 'from-podcast', querySort, 1),
           value: 'from-podcast'
         }
       )
@@ -231,7 +182,7 @@ class MediaListCtrl extends Component<Props, State> {
       options.push(
         {
           label: 'From this episode',
-          onClick: () => this.queryListItems(queryType, 'from-episode', querySort),
+          onClick: () => this.queryListItems(queryType, 'from-episode', querySort, 1),
           value: 'from-episode'
         }
       )
@@ -345,7 +296,7 @@ class MediaListCtrl extends Component<Props, State> {
     const { filterIsShowing, queryFrom, querySort, queryType } = pages[pageKey]
     
     if (filterIsShowing) {
-      await this.queryListItems(queryType, queryFrom, querySort, false, false, true)
+      await this.queryListItems(queryType, queryFrom, querySort, 1)
     }
     
     handleSetPageQueryState({
@@ -380,34 +331,29 @@ class MediaListCtrl extends Component<Props, State> {
     
     try {
       let items
-      let endReached
       if (queryType === 'episodes') {
         let response = await debouncedEpisodeFilterQuery(query, nsfwMode)
-        items = response.data && response.data.map(x => convertToNowPlayingItem(x))
-        endReached = items.length < 20
+        const episodes = response.data
+        items = episodes.map(x => convertToNowPlayingItem(x))
       } else {
         let response = await debouncedMediaRefFilterQuery(query, nsfwMode)
-        items = response.data && response.data.map(x => convertToNowPlayingItem(x))
-        endReached = items.length < 20
+        const mediaRefs = response.data
+        items = mediaRefs.map(x => convertToNowPlayingItem(x))
       }
       
       playerQueueLoadSecondaryItems(clone(items))
-      console.log(items)
+
       handleSetPageQueryState({
         pageKey,
-        endReached,
-        isLoadingInitial: false,
-        isLoadingMore: false,
-        listItems: items
+        listItems: items[0],
+        listItemsTotal: items[1]
       })
     } catch (error) {
       console.log(error)
       handleSetPageQueryState({
         pageKey,
-        endReached: false,
-        isLoadingInitial: false,
-        isLoadingMore: false,
-        listItems: []
+        listItems: [],
+        listItemsTotal: 0
       })
     }
   }
@@ -421,13 +367,33 @@ class MediaListCtrl extends Component<Props, State> {
     })
   }
 
+  handleQueryPage = async page => {
+    const { pageIsLoading, pageKey, pages } = this.props
+    const { queryFrom, querySort, queryType } = pages[pageKey]
+    pageIsLoading(true)
+
+    await this.queryListItems(
+      queryType,
+      queryFrom,
+      querySort,
+      page
+    )
+    
+    pageIsLoading(false)
+
+    const mediaListSelectsEl = document.querySelector('.media-list__selects')
+    if (mediaListSelectsEl) {
+      mediaListSelectsEl.scrollIntoView()
+    }
+  }
+
   render() {
     const { adjustTopPosition, episodeId, mediaPlayer, pageKey, pages, podcastId,
       settings } = this.props
     const { filterButtonHide } = settings
     const { nowPlayingItem: mpNowPlayingItem } = mediaPlayer
-    const { endReached, filterIsShowing, filterText, isLoadingInitial, isLoadingMore,
-      listItems, queryFrom, queryPage, querySort, queryType } = pages[pageKey]
+    const { filterIsShowing, filterText, listItems, listItemsTotal, queryFrom,
+      queryPage, querySort, queryType } = pages[pageKey]
 
     let mediaListItemType = 'now-playing-item'
     if (queryType === 'episodes') {
@@ -524,29 +490,16 @@ class MediaListCtrl extends Component<Props, State> {
               </InputGroup>
             </div>
         }
-        {
-          isLoadingInitial &&
-            <div className='media-list__loader'>
-              <FontAwesomeIcon icon='spinner' spin />
-            </div>
-        }
         <Fragment>
           {
             listItemNodes && listItemNodes.length > 0 &&
             <Fragment>
               {listItemNodes}
-              <div className='media-list__load-more'>
-                {
-                  endReached ?
-                    <p className='no-results-msg'>End of results</p>
-                    : <Button
-                      className='media-list-load-more__button'
-                      disabled={isLoadingMore}
-                      isLoading={isLoadingMore}
-                      onClick={this.queryLoadMore}
-                      text='Load More' />
-                }
-              </div>
+              <Pagination
+                currentPage={queryPage || 1}
+                handleQueryPage={this.handleQueryPage}
+                pageRange={2}
+                totalPages={Math.ceil(listItemsTotal / QUERY_MEDIA_REFS_LIMIT)} />
             </Fragment>
           }
           {
@@ -564,6 +517,7 @@ const mapStateToProps = state => ({ ...state })
 const mapDispatchToProps = dispatch => ({
   mediaPlayerLoadNowPlayingItem: bindActionCreators(mediaPlayerLoadNowPlayingItem, dispatch),
   mediaPlayerUpdatePlaying: bindActionCreators(mediaPlayerUpdatePlaying, dispatch),
+  pageIsLoading: bindActionCreators(pageIsLoading, dispatch),
   playerQueueAddSecondaryItems: bindActionCreators(playerQueueAddSecondaryItems, dispatch),
   playerQueueLoadPriorityItems: bindActionCreators(playerQueueLoadPriorityItems, dispatch),
   playerQueueLoadSecondaryItems: bindActionCreators(playerQueueLoadSecondaryItems, dispatch),

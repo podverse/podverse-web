@@ -74,10 +74,6 @@ class UserMediaListCtrl extends Component<Props, State> {
       query.sort = selectedValue
     }
 
-    if (['type', 'sort'].includes(selectedKey)) {
-      newState.isLoadingInitial = true
-    }
-
     handleSetPageQueryState(newState)
     
     if (query.type === 'podcasts' 
@@ -91,16 +87,11 @@ class UserMediaListCtrl extends Component<Props, State> {
 
         handleSetPageQueryState({
           pageKey,
-          isLoadingInitial: false,
           listItems: podcasts[0],
           listItemsTotal: podcasts[1]
         })
       } catch (error) {
         console.log(error)
-        handleSetPageQueryState({
-          pageKey,
-          isLoadingInitial: false
-        })
       }
     } else if (query.type === 'clips') {
       try {
@@ -132,16 +123,11 @@ class UserMediaListCtrl extends Component<Props, State> {
 
         handleSetPageQueryState({
           pageKey,
-          isLoadingInitial: false,
           listItems: nowPlayingItems,
           listItemsTotal: mediaRefs[1]
         })
       } catch (error) {
         console.log(error)
-        handleSetPageQueryState({
-          pageKey,
-          isLoadingInitial: false
-        })
       }
     } else if (query.type === 'playlists') {
       try {
@@ -156,22 +142,17 @@ class UserMediaListCtrl extends Component<Props, State> {
 
         handleSetPageQueryState({
           pageKey,
-          isLoadingInitial: false,
           listItems: playlists[0],
           listItemsTotal: playlists[1]
         })
       } catch (error) {
         console.log(error)
-        handleSetPageQueryState({
-          pageKey,
-          isLoadingInitial: false
-        })
       }
     } else {
       handleSetPageQueryState({
         pageKey,
-        isLoadingInitial: false,
-        listItems: []
+        listItems: [],
+        listItemsTotal: 0
       })
     }
   }
@@ -287,8 +268,7 @@ class UserMediaListCtrl extends Component<Props, State> {
     const { adjustTopPosition, mediaPlayer, pages, pageKey, profileUser
       } = this.props
     const { nowPlayingItem: mpNowPlayingItem } = mediaPlayer
-    const { isLoadingInitial, listItems, listItemsTotal, queryPage, querySort,
-      queryType } = pages[pageKey]
+    const { listItems, listItemsTotal, queryPage, querySort, queryType } = pages[pageKey]
     const username = `${profileUser.name || 'This person'}`
     
     let mediaListItemType = 'now-playing-item'
@@ -350,28 +330,19 @@ class UserMediaListCtrl extends Component<Props, State> {
               </div>
           }
         </div>
-        {
-          isLoadingInitial &&
-            <div className='media-list__loader'>
-              <FontAwesomeIcon icon='spinner' spin />
+        <Fragment>
+          {
+            listItemNodes && listItemNodes.length > 0 &&
+            <div className={queryType === 'playlists' ? 'reduced-margin' : ''}>
+              {listItemNodes}
+              <Pagination
+                currentPage={queryPage || 1}
+                handleQueryPage={this.handleQueryPage}
+                pageRange={2}
+                totalPages={Math.ceil(listItemsTotal / QUERY_MEDIA_REFS_LIMIT)} />
             </div>
-        }
-        {
-          !isLoadingInitial &&
-            <Fragment>
-              {
-                listItemNodes && listItemNodes.length > 0 &&
-                <div className={queryType === 'playlists' ? 'reduced-margin' : ''}>
-                  {listItemNodes}
-                  <Pagination
-                    currentPage={queryPage || 1}
-                    handleQueryPage={this.handleQueryPage}
-                    pageRange={2}
-                    totalPages={Math.ceil(listItemsTotal / QUERY_MEDIA_REFS_LIMIT)} />
-                </div>
-              }
-            </Fragment> 
-        }
+          }
+        </Fragment> 
         {
           listItemNodes.length === 0 &&
           <div className='no-results-msg'>{noResultsMsg}</div>

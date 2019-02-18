@@ -50,17 +50,11 @@ class UserListCtrl extends Component<Props, State> {
 
       handleSetPageQueryState({
         pageKey,
-        endReached: users.length < 50,
-        isLoadingMore: false,
         listItems: users[0],
         listItemsTotal: users[1]
       })
     } catch (error) {
       console.log(error)
-      handleSetPageQueryState({
-        pageKey,
-        isLoadingMore: false
-      })
     }
   }
 

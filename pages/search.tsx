@@ -38,7 +38,6 @@ class Search extends Component<Props, State> {
 
     store.dispatch(pagesSetQueryState({ 
       pageKey: kPageKey,
-      isLoadingInitial: true,
       searchBy: querySearchBy
     }))
 
@@ -63,7 +62,6 @@ class Search extends Component<Props, State> {
     const { pagesSetQueryState } = this.props
     pagesSetQueryState({
       pageKey: kPageKey,
-      isLoadingInitial: true,
       listItems: [],
       searchBy
     })
@@ -90,7 +88,6 @@ class Search extends Component<Props, State> {
 
     pagesSetQueryState({
       pageKey: kPageKey,
-      isLoadingInitial: false,
       isSearching: page === 1,
       queryPage: page,
       searchText: currentSearch
@@ -132,8 +129,7 @@ class Search extends Component<Props, State> {
 
   render() {
     const { meta, pages } = this.props
-    const { isLoadingInitial, isSearching, listItems, listItemsTotal, queryPage,
-      searchBy } = pages[kPageKey]
+    const { isSearching, listItems, listItemsTotal, queryPage, searchBy } = pages[kPageKey]
     const { currentSearch } = this.state
 
     const placeholder = searchBy === 'host'
@@ -229,8 +225,7 @@ class Search extends Component<Props, State> {
             </Fragment>
           }
           {
-            (!isLoadingInitial && !isSearching
-              && listItemNodes && listItemNodes.length === 0) &&
+            (!isSearching && listItemNodes && listItemNodes.length === 0) &&
               <div className='no-results-msg'>
                 No podcasts {`${searchBy === 'host' ? 'with that host' : ''}`} found.
               </div>

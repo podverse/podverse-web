@@ -39,9 +39,6 @@ class PodcastListCtrl extends Component<Props, State> {
 
       handleSetPageQueryState({
         ...newState,
-        endReached: podcasts.length < 20,
-        isLoadingInitial: false,
-        isLoadingMore: false,
         listItems: podcasts[0],
         listItemsTotal: podcasts[1]
       })
@@ -49,29 +46,15 @@ class PodcastListCtrl extends Component<Props, State> {
       console.log(error)
       handleSetPageQueryState({
         ...newState,
-        endReached: false,
-        isLoadingInitial: false,
-        isLoadingMore: false,
         listItems: [],
-        totalItemsCount: 0
+        listItemsTotal: 0
       })
     }
-  }
-
-  queryLoadInitial = () => {
-    const { handleSetPageQueryState, pageKey } = this.props
-
-    handleSetPageQueryState({
-      pageKey,
-      isLoadingInitial: true
-    })
   }
 
   queryPodcastsAll = async () => {
     const { pageKey, pages } = this.props
     const { querySort } = pages[pageKey]
-
-    this.queryLoadInitial()
 
     let query: any = {
       page: 1,
@@ -163,14 +146,9 @@ class PodcastListCtrl extends Component<Props, State> {
   }
 
   queryPodcastsLoadPage = async page => {
-    const { handleSetPageQueryState, pageKey, pages, user } = this.props
+    const { pageKey, pages, user } = this.props
     const { subscribedPodcastIds } = user
     const { categoryId, queryFrom, querySort } = pages[pageKey]
-
-    handleSetPageQueryState({
-      pageKey,
-      isLoadingMore: true
-    })
 
     let query: any = {
       page,
@@ -362,8 +340,7 @@ class PodcastListCtrl extends Component<Props, State> {
 
   render() {
     const { allCategories, pageKey, pages, user } = this.props
-    const { categoryId, isLoadingInitial, listItems, listItemsTotal, queryPage,
-      querySort } = pages[pageKey]
+    const { categoryId, listItems, listItemsTotal, queryPage, querySort } = pages[pageKey]
 
     const listItemNodes = listItems.map(x => {
       return (
@@ -393,32 +370,23 @@ class PodcastListCtrl extends Component<Props, State> {
               selected={selectedQuerySortOption.length > 0 ? selectedQuerySortOption[0].value : null} />
           </div>
         </div>
-        {
-          isLoadingInitial &&
-            <div className='media-list__loader'>
-              <FontAwesomeIcon icon='spinner' spin />
-            </div>
-        }
-        {
-          !isLoadingInitial &&
-            <Fragment>
-              {
-                listItemNodes && listItemNodes.length > 0 &&
-                  <Fragment>
-                    {listItemNodes}
-                    <Pagination
-                      currentPage={queryPage || 1}
-                      handleQueryPage={this.handleQueryPage}
-                      pageRange={2}
-                      totalPages={Math.ceil(listItemsTotal / QUERY_PODCASTS_LIMIT)}/>
-                  </Fragment>
-              }
-              {
-                (queryPage === 1 && listItemNodes.length === 0) &&
-                <div className='no-results-msg'>No podcasts found</div>
-              }
-            </Fragment>
-        }
+        <Fragment>
+          {
+            listItemNodes && listItemNodes.length > 0 &&
+              <Fragment>
+                {listItemNodes}
+                <Pagination
+                  currentPage={queryPage || 1}
+                  handleQueryPage={this.handleQueryPage}
+                  pageRange={2}
+                  totalPages={Math.ceil(listItemsTotal / QUERY_PODCASTS_LIMIT)}/>
+              </Fragment>
+          }
+          {
+            (queryPage === 1 && listItemNodes.length === 0) &&
+            <div className='no-results-msg'>No podcasts found</div>
+          }
+        </Fragment>
       </div>
     )
   }

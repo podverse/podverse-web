@@ -49,10 +49,10 @@ class Home extends Component<Props, State> {
     }
 
     if (Object.keys(currentPage).length === 0 || queryRefresh) {
-      let queryDataResult
+      let results
 
       if (queryType === 'episodes') {
-        queryDataResult = await getEpisodesByQuery({
+        results = await getEpisodesByQuery({
           from: queryFrom,
           page: queryPage,
           ...(podcastId ? { podcastId } : {}),
@@ -61,7 +61,7 @@ class Home extends Component<Props, State> {
           ...(includePodcast ? { includePodcast } : {})
         }, nsfwMode)
       } else {
-        queryDataResult = await getMediaRefsByQuery({
+        results = await getMediaRefsByQuery({
           from: queryFrom,
           page: queryPage,
           ...(podcastId ? { podcastId } : {}),
@@ -70,7 +70,7 @@ class Home extends Component<Props, State> {
         }, nsfwMode)
       }
       
-      let listItems = queryDataResult.data.map(x => convertToNowPlayingItem(x)) || []
+      let listItems = results.data[0].map(x => convertToNowPlayingItem(x)) || []
       let nowPlayingItemIndex = listItems.map((x) => x.clipId).indexOf(nowPlayingItem && nowPlayingItem.clipId)
       let queuedListItems = clone(listItems)
       nowPlayingItemIndex > -1 ? queuedListItems.splice(0, nowPlayingItemIndex + 1) : queuedListItems
@@ -80,13 +80,11 @@ class Home extends Component<Props, State> {
       store.dispatch(pagesSetQueryState({
         pageKey: kPageKey,
         listItems,
+        listItemsTotal: results.data[1],
         queryFrom,
         queryPage,
         querySort,
-        queryType,
-        endReached: false,
-        isLoadingInitial: false,
-        isLoadingMore: false
+        queryType
       }))
     }
     
