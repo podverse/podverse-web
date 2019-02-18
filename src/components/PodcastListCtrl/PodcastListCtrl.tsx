@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { MediaListItem, MediaListSelect, Button, Pagination } from 'podverse-ui'
+import { MediaListItem, MediaListSelect, Pagination } from 'podverse-ui'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import config from '~/config'
 import { pageIsLoading } from '~/redux/actions'
@@ -404,16 +404,14 @@ class PodcastListCtrl extends Component<Props, State> {
             <Fragment>
               {
                 listItemNodes && listItemNodes.length > 0 &&
-                <Fragment>
-                  {listItemNodes}
-                  <div className='pv-pagination'>
+                  <Fragment>
+                    {listItemNodes}
                     <Pagination
                       currentPage={queryPage || 1}
                       handleQueryPage={this.handleQueryPage}
                       pageRange={2}
                       totalPages={Math.ceil(listItemsTotal / QUERY_PODCASTS_LIMIT)}/>
-                  </div>
-                </Fragment>
+                  </Fragment>
               }
               {
                 (queryPage === 1 && listItemNodes.length === 0) &&

@@ -3,12 +3,14 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { ButtonGroup, Form, FormGroup, Input, InputGroup, InputGroupAddon } from 'reactstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { MediaListItem, Button } from 'podverse-ui'
+import { Button, MediaListItem, Pagination } from 'podverse-ui'
 import Meta from '~/components/Meta/Meta'
+import config from '~/config'
 import { getUrlFromRequestOrWindow } from '~/lib/utility'
 import { pageIsLoading, pagesSetQueryState } from '~/redux/actions'
 import { getPodcastsByQuery } from '~/services'
 const uuidv4 = require('uuid/v4')
+const { QUERY_PODCASTS_LIMIT } = config()
 
 type Props = {
   meta?: any
@@ -61,7 +63,6 @@ class Search extends Component<Props, State> {
     const { pagesSetQueryState } = this.props
     pagesSetQueryState({
       pageKey: kPageKey,
-      endReached: false,
       isLoadingInitial: true,
       listItems: [],
       searchBy
@@ -73,46 +74,37 @@ class Search extends Component<Props, State> {
     this.setState({ currentSearch })
   }
 
-  queryPodcasts = async (queryPage = 1, loadMore = false) => {
+  queryPodcasts = async (page = 1) => {
     const { pages, pagesSetQueryState, settings } = this.props
     const { nsfwMode } = settings
-    const { listItems, searchBy, searchText } = pages[kPageKey]
+    const { searchBy } = pages[kPageKey]
     const { currentSearch } = this.state
     
     if (!currentSearch) { return }
 
     const query = { 
-      page: queryPage,
+      page,
       searchBy,
-      searchText: loadMore ? searchText : currentSearch
+      searchText: currentSearch
     }
 
     pagesSetQueryState({
       pageKey: kPageKey,
       isLoadingInitial: false,
-      isLoadingMore: loadMore,
-      isSearching: !loadMore,
-      searchText: loadMore ? searchText : currentSearch
+      isSearching: page === 1,
+      queryPage: page,
+      searchText: currentSearch
     })
-
-    let combinedListItems: any = []
-
-    if (queryPage > 1) {
-      combinedListItems = listItems
-    }
 
     try {
       const response = await getPodcastsByQuery(query, nsfwMode)
       const podcasts = response.data || []
-      combinedListItems = combinedListItems.concat(podcasts)
 
       pagesSetQueryState({
         pageKey: kPageKey,
-        endReached: podcasts.length < 20,
-        isLoadingMore: false,
         isSearching: false,
-        listItems: queryPage > 1 ? combinedListItems : podcasts,
-        queryPage
+        listItems: podcasts[0],
+        listItemsTotal: podcasts[1]        
       })
 
     } catch (error) {
@@ -126,9 +118,21 @@ class Search extends Component<Props, State> {
     pageIsLoading(true)
   }
 
+  handleQueryPage = async page => {
+    const { pageIsLoading } = this.props
+    pageIsLoading(true)
+    await this.queryPodcasts(page)
+    pageIsLoading(false)
+
+    const mediaListSelectsEl = document.querySelector('.search__by')
+    if (mediaListSelectsEl) {
+      mediaListSelectsEl.scrollIntoView()
+    }
+  }
+
   render() {
     const { meta, pages } = this.props
-    const { endReached, isLoadingInitial, isLoadingMore, isSearching, listItems,
+    const { isLoadingInitial, isSearching, listItems, listItemsTotal,
       queryPage, searchBy } = pages[kPageKey]
     const { currentSearch } = this.state
 
@@ -194,7 +198,7 @@ class Search extends Component<Props, State> {
                 onKeyPress={target => {
                   if (target.charCode === 13) {
                     target.nativeEvent.preventDefault()
-                    this.queryPodcasts(1, false)
+                    this.queryPodcasts()
                   }
                 }}
                 placeholder={placeholder}
@@ -205,7 +209,7 @@ class Search extends Component<Props, State> {
                   className='search__input-btn'
                   color='primary'
                   isLoading={isSearching}
-                  onClick={() => this.queryPodcasts(1, false)}>
+                  onClick={() => this.queryPodcasts()}>
                   <FontAwesomeIcon icon='search' />
                 </Button>
               </InputGroupAddon>
@@ -217,18 +221,11 @@ class Search extends Component<Props, State> {
             listItemNodes && listItemNodes.length > 0 &&
             <Fragment>
               {listItemNodes}
-              <div className='media-list__load-more'>
-                {
-                  endReached ?
-                    <p className='no-results-msg'>End of results</p>
-                    : <Button
-                      className='media-list-load-more__button'
-                      disabled={isLoadingMore}
-                      isLoading={isLoadingMore}
-                      onClick={() => this.queryPodcasts(queryPage + 1, true)}
-                      text='Load More' />
-                }
-              </div>
+              <Pagination
+                currentPage={queryPage || 1}
+                handleQueryPage={this.handleQueryPage}
+                pageRange={2}
+                totalPages={Math.ceil(listItemsTotal / QUERY_PODCASTS_LIMIT)} />
             </Fragment>
           }
           {
