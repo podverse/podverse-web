@@ -68,7 +68,8 @@ class MediaListCtrl extends Component<Props, State> {
       sort: querySort,
       episodeId: queryFrom === 'from-episode' ? episodeId : null,
       podcastId: queryFrom === 'from-podcast' ? podcastId : null,
-      subscribedPodcastIds: queryFrom === 'subscribed-only' ? subscribedPodcastIds : null,
+      subscribedPodcastIds: queryFrom === 'subscribed-only' ?
+        (subscribedPodcastIds ? subscribedPodcastIds.length > 0 : ['no-results']) : null,
       ...(filterIsShowing ? { searchAllFieldsText: filterText } : {}),
       ...(queryFrom === 'all-podcasts' ||
           queryFrom === 'subscribed-only' ? { includePodcast: true } : {})
@@ -325,28 +326,33 @@ class MediaListCtrl extends Component<Props, State> {
       sort: querySort,
       episodeId: queryFrom === 'from-episode' ? episodeId : null,
       podcastId: queryFrom === 'from-podcast' ? podcastId : null,
-      subscribedPodcastIds: queryFrom === 'subscribed-only' ? subscribedPodcastIds : null,
+      subscribedPodcastIds: queryFrom === 'subscribed-only' ?
+        (subscribedPodcastIds ? subscribedPodcastIds.length > 0 : ['no-results']) : null,
       searchAllFieldsText: text
     }
     
     try {
-      let items
+      let nowPlayingItems
+      let listItemsTotal
+
       if (queryType === 'episodes') {
         let response = await debouncedEpisodeFilterQuery(query, nsfwMode)
         const episodes = response.data
-        items = episodes.map(x => convertToNowPlayingItem(x))
+        nowPlayingItems = episodes[0].map(x => convertToNowPlayingItem(x))
+        listItemsTotal = episodes[1]
       } else {
         let response = await debouncedMediaRefFilterQuery(query, nsfwMode)
         const mediaRefs = response.data
-        items = mediaRefs.map(x => convertToNowPlayingItem(x))
+        nowPlayingItems = mediaRefs[0].map(x => convertToNowPlayingItem(x))
+        listItemsTotal = mediaRefs[1]
       }
       
-      playerQueueLoadSecondaryItems(clone(items))
+      playerQueueLoadSecondaryItems(clone(nowPlayingItems))
 
       handleSetPageQueryState({
         pageKey,
-        listItems: items[0],
-        listItemsTotal: items[1]
+        listItems: nowPlayingItems,
+        listItemsTotal
       })
     } catch (error) {
       console.log(error)

@@ -76,8 +76,6 @@ class PodcastListCtrl extends Component<Props, State> {
     const { pageKey, pages } = this.props
     const { querySort } = pages[pageKey]
 
-    this.queryLoadInitial()
-
     let query: any = {
       page: 1,
       from: 'from-category',
@@ -101,8 +99,6 @@ class PodcastListCtrl extends Component<Props, State> {
     const { subscribedPodcastIds } = user
     const { querySort } = pages[pageKey]
 
-    this.queryLoadInitial()
-
     let query: any = {
       page: 1,
       from: 'subscribed-only',
@@ -124,8 +120,6 @@ class PodcastListCtrl extends Component<Props, State> {
     const { pageKey, pages, user } = this.props
     const { subscribedPodcastIds } = user
     const { categoryId, queryFrom } = pages[pageKey]
-
-    this.queryLoadInitial()
 
     let query: any = {
       page: 1,
