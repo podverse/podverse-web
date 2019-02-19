@@ -397,7 +397,7 @@ class Settings extends Component<Props, State> {
           <FormGroup check>
             <Label className='checkbox-label' check>
               <Input
-                checked={filterButtonHide !== 'false'}
+                checked={filterButtonHide !== 'false' && !!filterButtonHide}
                 onChange={this.handleToggleFilterButton}
                 type="checkbox" />
               &nbsp;&nbsp;Hide filter button
@@ -406,7 +406,7 @@ class Settings extends Component<Props, State> {
           <FormGroup check>
             <Label className='checkbox-label' check>
               <Input
-                checked={uiThemeHide !== 'false'}
+                checked={uiThemeHide !== 'false' && !!uiThemeHide}
                 onChange={this.handleToggleUITheme}
                 type="checkbox" />
               &nbsp;&nbsp;Hide dark-mode switch in footer
@@ -415,7 +415,7 @@ class Settings extends Component<Props, State> {
           <FormGroup check>
             <Label className='checkbox-label' check>
               <Input
-                checked={nsfwModeHide !== 'false'}
+                checked={nsfwModeHide !== 'false' && !!nsfwModeHide}
                 onChange={this.handleToggleNSFWMode}
                 type="checkbox" />
               &nbsp;&nbsp;Hide nsfw-mode switch in footer
