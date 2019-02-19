@@ -128,7 +128,6 @@ class MediaPlayerView extends Component<Props, State> {
 
       mediaPlayerLoadNowPlayingItem(nextItem)
       setNowPlayingItemInStorage(nextItem)
-      mediaPlayerSetPlayedAfterClipFinished(false)
 
       if (user && user.id) {
         await addOrUpdateUserHistoryItem(nextItem)
@@ -151,6 +150,8 @@ class MediaPlayerView extends Component<Props, State> {
           queueItems: priorityItems
         })
       }
+
+      mediaPlayerSetPlayedAfterClipFinished(false)
     }
 
     playerQueueLoadPriorityItems(priorityItems)
@@ -172,9 +173,10 @@ class MediaPlayerView extends Component<Props, State> {
     const { autoplay } = this.state
 
     if (autoplay) {
+      this.props.mediaPlayerSetPlayedAfterClipFinished(false)
       this.itemSkip()
     } else {
-      this.props.mediaPlayerSetClipFinished()
+      this.props.mediaPlayerSetClipFinished(true)
     }
   }
 

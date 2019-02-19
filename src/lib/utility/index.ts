@@ -90,7 +90,7 @@ export const readableClipTime = (startTime, endTime) => {
   let s = convertSecToHHMMSS(startTime)
   if ((startTime || startTime === 0) && endTime) {
     let e = convertSecToHHMMSS(endTime)
-    return `${s} - ${e}`
+    return `${s} to ${e}`
   } else {
     return `Start: ${s}`
   }

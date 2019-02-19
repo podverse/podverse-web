@@ -103,6 +103,9 @@ class Playlist extends Component<Props, State> {
       playlistItemsOrder: [], 
       sortedNowPlayingItems: []
     }
+
+    this.inputTitle = React.createRef()
+    this.inputDescription = React.createRef()
   }
 
   componentDidMount() {
@@ -510,7 +513,7 @@ class Playlist extends Component<Props, State> {
             <div className='media-header__middle'>
               <div className='media-header__sub-title'>
               {
-                owner &&
+                owner && !isEditing &&
                   <Fragment>By: {owner.name ? owner.name : 'anonymous'}</Fragment>
               }
               </div>
