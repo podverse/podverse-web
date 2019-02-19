@@ -21,8 +21,9 @@ export const mediaPlayerSetClipFinished = payload => {
   }
 }
 
-export const mediaPlayerSetPlayedAfterClipFinished = () => {
+export const mediaPlayerSetPlayedAfterClipFinished = payload => {
   return {
-    type: actionTypes.MEDIA_PLAYER_SET_PLAYED_AFTER_CLIP_FINISHED
+    type: actionTypes.MEDIA_PLAYER_SET_PLAYED_AFTER_CLIP_FINISHED,
+    payload
   }
 }
