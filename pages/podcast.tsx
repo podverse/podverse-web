@@ -137,6 +137,7 @@ class Podcast extends Component<Props, State> {
 
     return (
       <Fragment>
+        <style>{`.media-info .media-info__description { margin-top: 0 }`}</style>
         <Meta
           description={meta.description}
           ogDescription={meta.description}
