@@ -39,9 +39,8 @@ class Home extends Component<Props, State> {
     
     const currentPage = pages[kPageKey] || {}
     const lastScrollPosition = currentPage.lastScrollPosition
-    const queryRefresh = !!query.refresh
     const queryFrom = currentPage.queryFrom || query.from || 'all-podcasts'
-    const queryPage = (queryRefresh && 1) || currentPage.queryPage || query.page || 1
+    const queryPage = currentPage.queryPage || query.page || 1
     const querySort = currentPage.querySort || query.sort || 'top-past-week'
     const queryType = currentPage.queryType || query.type || 'clips'
     const includePodcast = currentPage.queryType === 'episodes' || query.type === 'episodes'
@@ -51,7 +50,7 @@ class Home extends Component<Props, State> {
       podcastId = user.subscribedPodcastIds
     }
 
-    if (Object.keys(currentPage).length === 0 || queryRefresh) {
+    if (Object.keys(currentPage).length === 0) {
       let results
 
       if (queryType === 'episodes') {
