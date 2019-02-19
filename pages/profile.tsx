@@ -14,9 +14,10 @@ import { getPodcastsByQuery, getPublicUser, getUserMediaRefs, getUserPlaylists
 
 type Props = {
   is404Page?: boolean
+  lastScrollPosition?: number
   listItems?: any[]
   meta?: any
-  pageKeyWithId?: string
+  pageKey?: string
   pagesSetQueryState?: any
   publicUser?: any
   queryPage?: number
@@ -39,6 +40,7 @@ class Profile extends Component<Props, State> {
 
     const currentId = query.id
     const currentPage = pages[pageKeyWithId] || {}
+    const lastScrollPosition = currentPage.lastScrollPosition
     const queryPage = currentPage.queryPage || query.page || 1
     const querySort = currentPage.querySort || query.sort || 'top-past-week'
     const queryType = currentPage.queryType || query.type || 'podcasts'
@@ -91,11 +93,11 @@ class Profile extends Component<Props, State> {
       title: `${publicUser.name ? publicUser.name : 'anonymous'}'s profile on Podverse`
     }
 
-    return { meta, pageKeyWithId, publicUser }
+    return { lastScrollPosition, meta, pageKey: pageKeyWithId, publicUser }
   }
 
   render() {
-    const { is404Page, meta, pageKeyWithId, pagesSetQueryState, publicUser,
+    const { is404Page, meta, pageKey, pagesSetQueryState, publicUser,
       queryPage, querySort, queryType, user } = this.props
 
     if (is404Page) {
@@ -127,7 +129,7 @@ class Profile extends Component<Props, State> {
               <UserMediaListCtrl
                 handleSetPageQueryState={pagesSetQueryState}
                 loggedInUser={user}
-                pageKey={pageKeyWithId}
+                pageKey={pageKey}
                 profileUser={publicUser}
                 queryPage={queryPage}
                 querySort={querySort}

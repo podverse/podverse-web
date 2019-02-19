@@ -3,8 +3,8 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Navbar, getPriorityQueueItemsStorage } from 'podverse-ui'
-import { modalsLoginShow, pageIsLoading, playerQueueLoadPriorityItems, userSetInfo
-  } from '~/redux/actions'
+import { modalsLoginShow, pageIsLoading, pagesSetQueryState,
+  playerQueueLoadPriorityItems, userSetInfo } from '~/redux/actions'
 import { logOut } from '~/services/auth'
 
 type Props = {
@@ -14,6 +14,7 @@ type Props = {
   modalsLoginIsLoading?: any
   modalsLoginShow?: any
   pageIsLoading?: any
+  pageKey?: string
   playerQueueLoadPriorityItems?: any
   user?: any
   userSetInfo?: any
@@ -133,8 +134,14 @@ class PVNavBar extends Component<Props, State> {
   }
 
   linkClick = () => {
-    const { pageIsLoading } = this.props
+    const { pageIsLoading, pageKey, pagesSetQueryState } = this.props
     pageIsLoading(true)
+
+    const scrollPos = document.querySelector('.view__contents').scrollTop
+    pagesSetQueryState({
+      pageKey,
+      lastScrollPosition: scrollPos
+    })
     
     this.setState({
       dropdownMenuIsOpen: false,
@@ -174,6 +181,7 @@ const mapStateToProps = state => ({ ...state })
 const mapDispatchToProps = dispatch => ({
   modalsLoginShow: bindActionCreators(modalsLoginShow, dispatch),
   pageIsLoading: bindActionCreators(pageIsLoading, dispatch),
+  pagesSetQueryState: bindActionCreators(pagesSetQueryState, dispatch),
   playerQueueLoadPriorityItems: bindActionCreators(playerQueueLoadPriorityItems, dispatch),
   userSetInfo: bindActionCreators(userSetInfo, dispatch)
 })

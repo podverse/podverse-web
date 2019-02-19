@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { MediaListItem, addItemToPriorityQueueStorage, getPriorityQueueItemsStorage
   } from 'podverse-ui'
 import { bindActionCreators } from 'redux';
-import { modalsAddToShow, pageIsLoading, playerQueueLoadPriorityItems,
+import { modalsAddToShow, pageIsLoading, pagesSetQueryState, playerQueueLoadPriorityItems,
   userSetInfo } from '~/redux/actions'
 import { updateUserQueueItems } from '~/services'
 const uuidv4 = require('uuid/v4')
@@ -23,6 +23,7 @@ type Props = {
   modalsAddToShow?: any
   nowPlayingItem?: any
   pageIsLoading?: any
+  pageKey?: string
   playerQueueLoadPriorityItems?: any
   playlist?: any
   podcast?: any
@@ -70,8 +71,14 @@ class MediaListItemCtrl extends Component<Props, State> {
   }
 
   linkClick = () => {
-    const { pageIsLoading } = this.props
+    const { pageIsLoading, pageKey, pagesSetQueryState } = this.props
     pageIsLoading(true)
+
+    const scrollPos = document.querySelector('.view__contents').scrollTop
+    pagesSetQueryState({
+      pageKey,
+      lastScrollPosition: scrollPos
+    })
   }
 
   render() {
@@ -109,6 +116,7 @@ const mapStateToProps = state => ({ ...state })
 const mapDispatchToProps = dispatch => ({
   modalsAddToShow: bindActionCreators(modalsAddToShow, dispatch),
   pageIsLoading: bindActionCreators(pageIsLoading, dispatch),
+  pagesSetQueryState: bindActionCreators(pagesSetQueryState, dispatch),
   playerQueueLoadPriorityItems: bindActionCreators(playerQueueLoadPriorityItems, dispatch),
   userSetInfo: bindActionCreators(userSetInfo, dispatch)
 })

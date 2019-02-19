@@ -2,15 +2,16 @@ import { actionTypes } from '~/redux/constants'
 
 const generateDataObj = payload => {
   if (payload) {
-    const { categoryId, filterIsShowing, filterText, isSearching, listItems,
-      listItemsTotal, podcast, publicUser, queryFrom, queryPage, querySort, queryType,
-      searchBy, searchText, selected } = payload
+    const { categoryId, filterIsShowing, filterText, isSearching, lastScrollPosition,
+      listItems, listItemsTotal, podcast, publicUser, queryFrom, queryPage, querySort,
+      queryType, searchBy, searchText, selected } = payload
 
     return {
       ...(categoryId ? { categoryId } : {}),
       ...(filterIsShowing || filterIsShowing === false ? { filterIsShowing } : {}),
       ...(filterText || filterText === '' ? { filterText } : {}),
       ...(isSearching || isSearching === false ? { isSearching } : {}),
+      ...(lastScrollPosition || lastScrollPosition === 0 ? { lastScrollPosition } : {}),
       ...(listItems ? { listItems } : {}),
       ...(listItemsTotal || listItemsTotal === 0 ? { listItemsTotal } : {}),
       ...(podcast ? { podcast } : {}),

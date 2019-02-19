@@ -16,7 +16,7 @@ import { convertToNowPlayingItem } from '~/lib/nowPlayingItem'
 import { alertPremiumRequired, alertSomethingWentWrong, clone,
   getUrlFromRequestOrWindow, readableDate, removeDoubleQuotes, alertRateLimitError } from '~/lib/utility'
 import { mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying, pageIsLoading,
-  playerQueueLoadSecondaryItems, userSetInfo } from '~/redux/actions'
+  pagesSetQueryState, playerQueueLoadSecondaryItems, userSetInfo } from '~/redux/actions'
 import { addOrRemovePlaylistItem, addOrUpdateUserHistoryItem, deletePlaylist,
   getPlaylistById, toggleSubscribeToPlaylist, updatePlaylist } from '~/services/'
 
@@ -24,11 +24,13 @@ const uuidv4 = require('uuid/v4')
 
 type Props = {
   is404Page?: boolean
+  lastScrollPosition?: number
   mediaPlayer: any
   mediaPlayerLoadNowPlayingItem: any
   mediaPlayerUpdatePlaying: any
   meta?: any
   pageIsLoading: any
+  pageKey?: string
   playerQueueLoadSecondaryItems: any
   playlist: any
   playlistItems: any[]
@@ -56,11 +58,14 @@ interface Playlist {
   inputTitle: any
 }
 
+const kPageKey = 'playlist_'
+
 class Playlist extends Component<Props, State> {
 
   static async getInitialProps({ query, req, store }) {
+    const pageKeyWithId = `${kPageKey}${query.id}`
     const state = store.getState()
-    const { settings, user } = state
+    const { pages, settings, user } = state
     const { nsfwMode } = settings
     const playlistResult = await getPlaylistById(query.id, nsfwMode) || {}
     const playlist = playlistResult.data
@@ -75,6 +80,9 @@ class Playlist extends Component<Props, State> {
     
     let playlistItems = episodes.concat(mediaRefs)
 
+    const currentPage = pages[pageKeyWithId] || {}
+    const lastScrollPosition = currentPage.lastScrollPosition
+
     store.dispatch(pageIsLoading(false))
     
     const meta = {
@@ -83,7 +91,7 @@ class Playlist extends Component<Props, State> {
       title: `${playlist.title ? playlist.title : 'Untitled Playlist'}`
     }
 
-    return { meta, playlist, playlistItems, user }
+    return { lastScrollPosition, meta, pageKey: pageKeyWithId, playlist, playlistItems, user }
   }
 
   constructor(props) {
@@ -360,7 +368,7 @@ class Playlist extends Component<Props, State> {
   }
 
   render() {
-    const { is404Page, mediaPlayer, meta, user } = this.props
+    const { is404Page, mediaPlayer, meta, pageKey, user } = this.props
 
     if (is404Page) {
       return <Error statusCode={404} />
@@ -396,6 +404,7 @@ class Playlist extends Component<Props, State> {
           isActive={isActive()}
           mediaListItemType='now-playing-item'
           nowPlayingItem={x}
+          pageKey={pageKey}
           showMoreMenu={!isEditing}
           showRemove={isEditing} />
       )
@@ -607,6 +616,7 @@ const mapDispatchToProps = dispatch => ({
   mediaPlayerLoadNowPlayingItem: bindActionCreators(mediaPlayerLoadNowPlayingItem, dispatch),
   mediaPlayerUpdatePlaying: bindActionCreators(mediaPlayerUpdatePlaying, dispatch),
   pageIsLoading: bindActionCreators(pageIsLoading, dispatch),
+  pagesSetQueryState: bindActionCreators(pagesSetQueryState, dispatch),
   playerQueueLoadSecondaryItems: bindActionCreators(playerQueueLoadSecondaryItems, dispatch),
   userSetInfo: bindActionCreators(userSetInfo, dispatch)
 })

@@ -5,30 +5,38 @@ import { bindActionCreators } from 'redux'
 import { MediaListItem } from 'podverse-ui'
 import Meta from '~/components/Meta/Meta'
 import { getUrlFromRequestOrWindow } from '~/lib/utility'
-import { pageIsLoading } from '~/redux/actions'
+import { pageIsLoading, pagesSetQueryState } from '~/redux/actions'
 import { getPlaylistsByQuery } from '~/services'
 const uuidv4 = require('uuid/v4')
 
 type Props = {
+  lastScrollPosition?: number
   meta?: any
   myPlaylists: any[]
   pageIsLoading?: any
+  pageKey?: string
+  pagesSetQueryState?: any
   subscribedPlaylists: any[]
   user: any
 }
 
 type State = {}
 
+const kPageKey = 'playlists'
+
 class Playlists extends Component<Props, State> {
 
   static async getInitialProps({ req, store }) {
     const state = store.getState()
-    const { settings, user } = state
+    const { pages, settings, user } = state
     const { nsfwMode } = settings
 
     const subscribedPlaylistIds = user.subscribedPlaylistIds || []
 
     let myPlaylists = (user && user.playlists) || []
+
+    const currentPage = pages[kPageKey] || {}
+    const lastScrollPosition = currentPage.lastScrollPosition
 
     let subscribedPlaylists = []
     if (subscribedPlaylistIds && subscribedPlaylistIds.length > 0) {
@@ -47,7 +55,8 @@ class Playlists extends Component<Props, State> {
       title: `Playlists`
     }
 
-    return { meta, myPlaylists, subscribedPlaylists, user }
+    return { lastScrollPosition, meta, myPlaylists, pageKey: kPageKey, subscribedPlaylists,
+      user }
   }
 
   constructor(props) {
@@ -57,8 +66,14 @@ class Playlists extends Component<Props, State> {
   }
 
   linkClick = () => {
-    const { pageIsLoading } = this.props
+    const { pageIsLoading, pageKey, pagesSetQueryState } = this.props
     pageIsLoading(true)
+
+    const scrollPos = document.querySelector('.view__contents').scrollTop
+    pagesSetQueryState({
+      pageKey,
+      lastScrollPosition: scrollPos
+    })
   }
 
   render() {
@@ -101,28 +116,28 @@ class Playlists extends Component<Props, State> {
         }
         {
           (user && user.id) &&
-          <div className='reduced-margin'>
-            <h3>My Playlists</h3>
-            <div className='media-list'>
+            <div className='reduced-margin'>
+              <h3>My Playlists</h3>
+              <div className='media-list'>
+                {
+                  (myPlaylistNodes && myPlaylistNodes.length > 0) &&
+                    myPlaylistNodes
+                }
+                {
+                  (myPlaylistNodes.length === 0) &&
+                    <div className='no-results-msg'>No playlists found</div>
+                }
+              </div>
               {
-                (myPlaylistNodes && myPlaylistNodes.length > 0) &&
-                  myPlaylistNodes
-              }
-              {
-                (myPlaylistNodes.length === 0) &&
-                  <div className='no-results-msg'>No playlists found</div>
+                (subscribedPlaylistNodes && subscribedPlaylistNodes.length > 0) &&
+                  <Fragment>
+                    <h3>Subscribed Playlists</h3>
+                    <div className='media-list'>
+                      {subscribedPlaylistNodes}
+                    </div>
+                  </Fragment>
               }
             </div>
-            {
-              (subscribedPlaylistNodes && subscribedPlaylistNodes.length > 0) &&
-                <Fragment>
-                  <h3>Subscribed Playlists</h3>
-                  <div className='media-list'>
-                    {subscribedPlaylistNodes}
-                  </div>
-                </Fragment>
-            }
-          </div>
         }
       </Fragment>
     )
@@ -132,7 +147,8 @@ class Playlists extends Component<Props, State> {
 const mapStateToProps = state => ({ ...state })
 
 const mapDispatchToProps = dispatch => ({
-  pageIsLoading: bindActionCreators(pageIsLoading, dispatch)
+  pageIsLoading: bindActionCreators(pageIsLoading, dispatch),
+  pagesSetQueryState: bindActionCreators(pagesSetQueryState, dispatch)
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Playlists)

@@ -8,8 +8,10 @@ import { pageIsLoading, pagesSetQueryState } from '~/redux/actions'
 import { getPublicUsersByQuery } from '~/services'
 
 type Props = {
+  lastScrollPosition?: number
   listItems?: any
   meta?: any
+  pageKey?: string
   pagesSetQueryState?: any
   queryPage: number
 }
@@ -25,8 +27,9 @@ class Profiles extends Component<Props, State> {
     const { pages, user } = state
 
     const currentPage = pages[kPageKey] || {}
+    const lastScrollPosition = currentPage.lastScrollPosition
     const queryPage = currentPage.queryPage || query.page || 1
-
+console.log(currentPage)
     if (Object.keys(currentPage).length === 0) {
       const response = await getPublicUsersByQuery({ 
         userIds: user.subscribedUserIds
@@ -49,11 +52,11 @@ class Profiles extends Component<Props, State> {
       title: `Profiles`
     }
 
-    return { meta }
+    return { lastScrollPosition, meta, pageKey: kPageKey }
   }
 
   render() {
-    const { meta, pagesSetQueryState, queryPage } = this.props
+    const { meta, pageKey, pagesSetQueryState, queryPage } = this.props
 
     return (
       <Fragment>
@@ -70,7 +73,7 @@ class Profiles extends Component<Props, State> {
         <h3>Profiles</h3>
         <UserListCtrl
           handleSetPageQueryState={pagesSetQueryState}
-          pageKey={kPageKey}
+          pageKey={pageKey}
           queryPage={queryPage} />
       </Fragment>
     )

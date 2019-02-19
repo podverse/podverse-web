@@ -26,7 +26,7 @@ type Props = {
   mediaPlayerLoadNowPlayingItem?: any
   mediaPlayerUpdatePlaying?: any
   pageIsLoading?: any
-  pageKey: string
+  pageKey?: string
   pages?: any
   playerQueueAddSecondaryItems?: any
   playerQueueLoadSecondaryItems?: any
@@ -303,6 +303,7 @@ class UserMediaListCtrl extends Component<Props, State> {
           key={`media-list-item-${uuidv4()}`}
           mediaListItemType={mediaListItemType}
           nowPlayingItem={queryType === 'clips' ? x : null}
+          pageKey={pageKey}
           playlist={queryType === 'playlists' ? x : null}
           podcast={queryType === 'podcasts' ? x : null}
           showMoreMenu={queryType === 'clips'} />

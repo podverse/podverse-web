@@ -4,12 +4,13 @@ import { bindActionCreators } from 'redux'
 import { Alert } from 'reactstrap'
 import Link from 'next/link'
 import { getCookie, isBeforeDate } from '~/lib/utility'
-import { pageIsLoading } from '~/redux/actions'
+import { pageIsLoading, pagesSetQueryState } from '~/redux/actions'
 const cookie = require('cookie')
 
 type Props = {
   cookies: any
   pageIsLoading?: any
+  pageKey?: string
   user?: any
 }
 
@@ -80,8 +81,14 @@ class Alerts extends Component<Props, State> {
   }
 
   linkClick = () => {
-    const { pageIsLoading } = this.props
+    const { pageIsLoading, pageKey, pagesSetQueryState } = this.props
     pageIsLoading(true)
+
+    const scrollPos = document.querySelector('.view__contents').scrollTop
+    pagesSetQueryState({
+      pageKey,
+      lastScrollPosition: scrollPos
+    })
   }
 
   render() {
@@ -145,7 +152,8 @@ class Alerts extends Component<Props, State> {
 const mapStateToProps = state => ({ ...state })
 
 const mapDispatchToProps = dispatch => ({
-  pageIsLoading: bindActionCreators(pageIsLoading, dispatch)
+  pageIsLoading: bindActionCreators(pageIsLoading, dispatch),
+  pagesSetQueryState: bindActionCreators(pagesSetQueryState, dispatch)
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Alerts)

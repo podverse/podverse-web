@@ -15,13 +15,13 @@ import MediaPlayerView from '~/components/MediaPlayerView/MediaPlayerView'
 import PageLoadingOverlay from '~/components/PageLoadingOverlay/PageLoadingOverlay'
 import { addFontAwesomeIcons } from '~/lib/fontAwesomeIcons'
 import { NowPlayingItem } from '~/lib/nowPlayingItem'
+import { scrollToTopOfView } from '~/lib/scrollToTop'
 import { disableHoverOnTouchDevices } from '~/lib/utility/disableHoverOnTouchDevices'
 import { initializeStore } from '~/redux/store'
 import { mediaPlayerLoadNowPlayingItem, pageIsLoading,
     playerQueueLoadPriorityItems } from '~/redux/actions'
 import { actionTypes } from '~/redux/constants'
 import { getAuthenticatedUserInfo } from '~/services'
-import { scrollToTopOfView } from '~/lib/scrollToTop'
 import config from '~/config'
 const { googleAnalyticsConfig, paypalConfig } = config()
 const cookie = require('cookie')
@@ -185,14 +185,17 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
       ReactGA.pageview(ctx.asPath)
     }
 
-    const { newPlayingItem } = pageProps
+    const { lastScrollPosition, newPlayingItem } = pageProps
 
     if (!process.browser && newPlayingItem) {
       ctx.store.dispatch(mediaPlayerLoadNowPlayingItem(newPlayingItem))
     }
 
-    // @ts-ignore
-    if (process.browser && ctx.query && ctx.query.scrollToTop) {
+    if (process.browser && lastScrollPosition) {
+      setTimeout(() => {
+        document.querySelector('.view__contents').scrollTop = lastScrollPosition
+      }, 0)
+    } else if (process.browser) {
       scrollToTopOfView()
     }
 
@@ -229,6 +232,7 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
 
   render() {
     const { Component, cookies, pageProps, store } = this.props
+    const { pageKey } = pageProps
 
     return (
       <Container>
@@ -239,15 +243,17 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
             <PageLoadingOverlay />
             <div className='view'>
               <div className='view__navbar'>
-                <NavBar />
+                <NavBar pageKey={pageKey} />
               </div>
               <div className='view__contents'>
                 <div className='max-width top'>
-                  <Alerts cookies={cookies} />
+                  <Alerts
+                    cookies={cookies}
+                    pageKey={pageKey} />
                   <Component {...pageProps} />
                 </div>
                 <div className='max-width bottom'>
-                  <Footer />
+                  <Footer pageKey={pageKey} />
                 </div>
               </div>
               <MediaPlayerView {...pageProps} />

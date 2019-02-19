@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { MediaHeader } from 'podverse-ui'
 import { bindActionCreators } from 'redux'
 import { alertPremiumRequired, alertSomethingWentWrong, alertRateLimitError } from '~/lib/utility'
-import { pageIsLoading, userSetInfo } from '~/redux/actions'
+import { pageIsLoading, pagesSetQueryState, userSetInfo } from '~/redux/actions'
 import { toggleSubscribeToPodcast } from '~/services'
 
 type Props = {
@@ -12,6 +12,7 @@ type Props = {
   mediaRef?: any
   nowPlayingItem?: any
   pageIsLoading?: any
+  pageKey?: string
   podcast?: any
   user?: any
   userSetInfo?: any
@@ -79,8 +80,14 @@ class MediaHeaderCtrl extends Component<Props, State> {
   }
 
   linkClick = () => {
-    const { pageIsLoading } = this.props
+    const { pageIsLoading, pageKey, pagesSetQueryState } = this.props
     pageIsLoading(true)
+
+    const scrollPos = document.querySelector('.view__contents').scrollTop
+    pagesSetQueryState({
+      pageKey,
+      lastScrollPosition: scrollPos
+    })
   }
 
   render() {
@@ -108,6 +115,7 @@ const mapStateToProps = state => ({ ...state })
 
 const mapDispatchToProps = dispatch => ({
   pageIsLoading: bindActionCreators(pageIsLoading, dispatch),
+  pagesSetQueryState: bindActionCreators(pagesSetQueryState, dispatch),
   userSetInfo: bindActionCreators(userSetInfo, dispatch)
 })
 

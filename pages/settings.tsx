@@ -20,8 +20,10 @@ const fileDownload = require('js-file-download')
 const cookie = require('cookie')
 
 type Props = {
+  lastScrollPosition?: number
   meta?: any
   modalsSignUpShow?: any
+  pageKey?: string
   settings?: any
   settingsHideFilterButton?: any
   settingsHideNSFWMode?: any
@@ -43,9 +45,17 @@ type State = {
   wasCopied?: boolean
 }
 
+const kPageKey = 'settings'
+
 class Settings extends Component<Props, State> {
 
   static async getInitialProps({ req, store }) {
+    const state = store.getState()
+    const { pages } = state
+
+    const currentPage = pages[kPageKey] || {}
+    const lastScrollPosition = currentPage.lastScrollPosition
+
     store.dispatch(pageIsLoading(false))
 
     const meta = {
@@ -54,7 +64,7 @@ class Settings extends Component<Props, State> {
       title: `Settings`
     }
 
-    return { meta }
+    return { lastScrollPosition, meta, pageKey: kPageKey }
   }
 
   constructor(props) {

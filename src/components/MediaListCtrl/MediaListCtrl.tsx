@@ -437,6 +437,7 @@ class MediaListCtrl extends Component<Props, State> {
           isActive={isActive()}
           mediaListItemType={mediaListItemType}
           nowPlayingItem={x}
+          pageKey={pageKey}
           showMoreMenu={true} />
       )
     })

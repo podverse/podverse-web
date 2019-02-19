@@ -11,8 +11,10 @@ import { pageIsLoading, pagesSetQueryState, playerQueueLoadSecondaryItems
 import { getEpisodesByQuery, getMediaRefsByQuery } from '~/services'
 
 type Props = {
+  lastScrollPosition?: number
   listItems?: any
   meta?: any
+  pageKey?: string
   pagesSetQueryState?: any
   playerQueue?: any
   queryFrom?: any
@@ -36,6 +38,7 @@ class Home extends Component<Props, State> {
     const { nsfwMode } = settings
     
     const currentPage = pages[kPageKey] || {}
+    const lastScrollPosition = currentPage.lastScrollPosition
     const queryRefresh = !!query.refresh
     const queryFrom = currentPage.queryFrom || query.from || 'all-podcasts'
     const queryPage = (queryRefresh && 1) || currentPage.queryPage || query.page || 1
@@ -96,7 +99,8 @@ class Home extends Component<Props, State> {
       title: 'Podverse - Create podcast highlights'
     }
 
-    return { meta, queryFrom, queryPage, querySort, queryType }
+    return { lastScrollPosition, meta, pageKey: kPageKey, queryFrom, queryPage, querySort,
+      queryType }
   }
 
   constructor(props) {

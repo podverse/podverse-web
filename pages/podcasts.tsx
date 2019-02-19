@@ -10,7 +10,9 @@ import { getCategoriesByQuery, getPodcastsByQuery } from '~/services'
 type Props = {
   allCategories?: any[]
   categoryId?: string
+  lastScrollPosition?: number
   meta?: any
+  pageKey?: string
   pagesSetQueryState?: any
   playerQueue?: any
   queryFrom?: string
@@ -33,6 +35,7 @@ class Podcasts extends Component<Props, State> {
     const allCategories = allCategoriesResult.data || []
 
     const currentPage = pages[kPageKey] || {}
+    const lastScrollPosition = currentPage.lastScrollPosition
     const queryRefresh = !!query.refresh
     const categoryId = query.categoryId || currentPage.categoryId
     const queryPage = (queryRefresh && 1) || query.page || currentPage.queryPage || 1
@@ -71,12 +74,12 @@ class Podcasts extends Component<Props, State> {
       title: `Podcasts`
     }
 
-    return { allCategories, categoryId, meta, nsfwMode, queryFrom, queryPage,
-      querySort, user }
+    return { allCategories, categoryId, lastScrollPosition, meta, nsfwMode, 
+      pageKey: kPageKey, queryFrom, queryPage, querySort, user }
   }
 
   render() {
-    const { allCategories, categoryId, meta, pagesSetQueryState, queryFrom,
+    const { allCategories, categoryId, meta, pageKey, pagesSetQueryState, queryFrom,
       queryPage, querySort } = this.props
     
     return (
@@ -95,7 +98,7 @@ class Podcasts extends Component<Props, State> {
           allCategories={allCategories}
           categoryId={categoryId}
           handleSetPageQueryState={pagesSetQueryState}
-          pageKey={kPageKey}
+          pageKey={pageKey}
           queryFrom={queryFrom}
           queryPage={queryPage}
           querySort={querySort} />

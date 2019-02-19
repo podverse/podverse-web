@@ -1,19 +1,29 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import Meta from '~/components/Meta/Meta'
 import { getUrlFromRequestOrWindow } from '~/lib/utility'
-import { pageIsLoading } from '~/redux/actions'
-import { bindActionCreators } from 'redux';
+import { pageIsLoading, pagesSetQueryState } from '~/redux/actions'
 
 type Props = {
+  lastScrollPosition?: number
   meta?: any
+  pageKey?: string
 }
 
 type State = {}
 
+const kPageKey = 'about'
+
 class About extends Component<Props, State> {
 
   static async getInitialProps({ req, store }) {
+    const state = store.getState()
+    const { pages } = state
+
+    const currentPage = pages[kPageKey] || {}
+    const lastScrollPosition = currentPage.lastScrollPosition
+
     store.dispatch(pageIsLoading(false))
 
     const meta = {
@@ -22,7 +32,7 @@ class About extends Component<Props, State> {
       title: 'About'
     }
 
-    return { meta }
+    return { lastScrollPosition, meta, pageKey: kPageKey }
   }
 
   render() {
@@ -59,6 +69,8 @@ class About extends Component<Props, State> {
 
 const mapStateToProps = state => ({ ...state })
 
-const mapDispatchToProps = dispatch => ({})
+const mapDispatchToProps = dispatch => ({
+  pagesSetQueryState: bindActionCreators(pagesSetQueryState, dispatch)
+})
 
 export default connect(mapStateToProps, mapDispatchToProps)(About)

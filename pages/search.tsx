@@ -13,8 +13,10 @@ const uuidv4 = require('uuid/v4')
 const { QUERY_PODCASTS_LIMIT } = config()
 
 type Props = {
+  lastScrollPosition?: number
   meta?: any
   pageIsLoading?: any
+  pageKey?: string
   pages?: any
   pagesSetQueryState?: any
   settings?: any
@@ -35,6 +37,7 @@ class Search extends Component<Props, State> {
     const { pages } = state
 
     const currentPage = pages[kPageKey] || {}
+    const lastScrollPosition = currentPage.lastScrollPosition
     const querySearchBy = currentPage.searchBy || query.searchBy || 'podcast'
 
     store.dispatch(pagesSetQueryState({ 
@@ -48,7 +51,7 @@ class Search extends Component<Props, State> {
       title: 'Search'
     }
 
-    return { meta }
+    return { lastScrollPosition, meta, pageKey: kPageKey }
   }
 
   constructor(props) {

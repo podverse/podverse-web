@@ -3,7 +3,8 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import Link from 'next/link'
 import Switch from 'react-switch'
-import { pageIsLoading, settingsSetNSFWMode, settingsSetUITheme } from '~/redux/actions'
+import { pageIsLoading, pagesSetQueryState, settingsSetNSFWMode, settingsSetUITheme
+  } from '~/redux/actions'
 import colors from '~/lib/constants/colors'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { NSFWModal } from '../NSFWModal/NSFWModal'
@@ -11,6 +12,7 @@ const cookie = require('cookie')
 
 type Props = {
   pageIsLoading?: any
+  pageKey?: string
   settings: any
   settingsSetNSFWMode: any
   settingsSetUITheme: any
@@ -70,8 +72,14 @@ class Footer extends Component<Props, State> {
   }
 
   linkClick = () => {
-    const { pageIsLoading } = this.props
+    const { pageIsLoading, pageKey, pagesSetQueryState } = this.props
     pageIsLoading(true)
+
+    const scrollPos = document.querySelector('.view__contents').scrollTop
+    pagesSetQueryState({
+      pageKey,
+      lastScrollPosition: scrollPos
+    })
   }
 
   render() {
@@ -196,6 +204,7 @@ const mapStateToProps = state => ({ ...state })
 
 const mapDispatchToProps = dispatch => ({
   pageIsLoading: bindActionCreators(pageIsLoading, dispatch),
+  pagesSetQueryState: bindActionCreators(pagesSetQueryState, dispatch),
   settingsSetNSFWMode: bindActionCreators(settingsSetNSFWMode, dispatch),
   settingsSetUITheme: bindActionCreators(settingsSetUITheme, dispatch)
 })

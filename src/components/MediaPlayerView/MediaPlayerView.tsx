@@ -8,7 +8,8 @@ import { mediaPlayerLoadNowPlayingItem,
   mediaPlayerSetClipFinished, mediaPlayerSetPlayedAfterClipFinished,
   playerQueueLoadPriorityItems, playerQueueLoadSecondaryItems,
   mediaPlayerUpdatePlaying, modalsAddToShow, modalsMakeClipShow,
-  modalsQueueShow, modalsShareShow, pageIsLoading, userSetInfo } from '~/redux/actions'
+  modalsQueueShow, modalsShareShow, pageIsLoading, pagesSetQueryState,
+  userSetInfo } from '~/redux/actions'
 import { addOrUpdateUserHistoryItem, updateUserQueueItems } from '~/services'
 
 type Props = {
@@ -24,6 +25,7 @@ type Props = {
   modalsQueueShow?: any
   modalsShareShow?: any
   pageIsLoading?: any
+  pageKey?: string
   playerQueue?: any
   playerQueueLoadPriorityItems?: any
   playerQueueLoadSecondaryItems?: any
@@ -257,8 +259,14 @@ class MediaPlayerView extends Component<Props, State> {
   }
 
   linkClick = () => {
-    const { pageIsLoading } = this.props
+    const { pageIsLoading, pageKey, pagesSetQueryState } = this.props
     pageIsLoading(true)
+
+    const scrollPos = document.querySelector('.view__contents').scrollTop
+    pagesSetQueryState({
+      pageKey,
+      lastScrollPosition: scrollPos
+    })
   }
 
   render() {
@@ -298,10 +306,10 @@ class MediaPlayerView extends Component<Props, State> {
                 playedAfterClipFinished={playedAfterClipFinished}
                 playbackRateText={getPlaybackRateText(playbackRate)}
                 playerClipLinkAs={nowPlayingItem.clipId ? `/clip/${nowPlayingItem.clipId}` : ''}
-                playerClipLinkHref={nowPlayingItem.clipId ? `/clip?id=${nowPlayingItem.clipId}&scrollToTop=true` : ''}
+                playerClipLinkHref={nowPlayingItem.clipId ? `/clip?id=${nowPlayingItem.clipId}` : ''}
                 playerClipLinkOnClick={this.linkClick}
                 playerEpisodeLinkAs={`/episode/${nowPlayingItem.episodeId}`}
-                playerEpisodeLinkHref={`/episode?id=${nowPlayingItem.episodeId}&scrollToTop=true`}
+                playerEpisodeLinkHref={`/episode?id=${nowPlayingItem.episodeId}`}
                 playerEpisodeLinkOnClick={this.linkClick}
                 playing={playing}
                 queuePriorityItems={priorityItems}
@@ -327,6 +335,7 @@ const mapDispatchToProps = dispatch => ({
   modalsQueueShow: bindActionCreators(modalsQueueShow, dispatch),
   modalsShareShow: bindActionCreators(modalsShareShow, dispatch),
   pageIsLoading: bindActionCreators(pageIsLoading, dispatch),
+  pagesSetQueryState: bindActionCreators(pagesSetQueryState, dispatch),
   playerQueueLoadPriorityItems: bindActionCreators(playerQueueLoadPriorityItems, dispatch),
   playerQueueLoadSecondaryItems: bindActionCreators(playerQueueLoadSecondaryItems, dispatch),
   userSetInfo: bindActionCreators(userSetInfo, dispatch)

@@ -16,11 +16,12 @@ import { getEpisodesByQuery, getMediaRefsByQuery, getMediaRefById } from '~/serv
 
 type Props = {
   is404Page?: boolean
+  lastScrollPosition?: number
   listItems?: any
   mediaRef?: any
   meta?: any
   newPlayingItem?: any
-  pageKeyWithId?: string
+  pageKey?: string
   pagesSetQueryState?: any
   playerQueue?: any
   queryFrom?: any
@@ -59,6 +60,7 @@ class Clip extends Component<Props, State> {
     }
 
     const currentPage = pages[pageKeyWithId] || {}
+    const lastScrollPosition = currentPage.lastScrollPosition
     const queryFrom = currentPage.queryFrom || query.from || 'from-podcast'
     const queryPage = currentPage.queryPage || query.page || 1
     const querySort = currentPage.querySort || query.sort || 'top-past-week'
@@ -126,8 +128,8 @@ class Clip extends Component<Props, State> {
       title: `${mediaRef.title} - ${mediaRef.episode.title} - ${mediaRef.episode.podcast.title}`
     }
     
-    return { mediaRef, meta, newPlayingItem, pageKeyWithId, queryFrom, querySort,
-      queryType }
+    return { lastScrollPosition, mediaRef, meta, newPlayingItem, pageKey: pageKeyWithId, queryFrom,
+      querySort, queryType }
   }
 
   componentDidMount () {
@@ -142,7 +144,7 @@ class Clip extends Component<Props, State> {
   }
 
   render () {
-    const { is404Page, mediaRef, meta, pageKeyWithId, pagesSetQueryState, queryFrom,
+    const { is404Page, mediaRef, meta, pageKey, pagesSetQueryState, queryFrom,
       queryPage, querySort, queryType } = this.props
 
     if (is404Page) {
@@ -164,12 +166,16 @@ class Clip extends Component<Props, State> {
           twitterImage={meta.imageUrl}
           twitterImageAlt={meta.imageAlt}
           twitterTitle={meta.title} />
-        <MediaHeaderCtrl mediaRef={mediaRef} />
-        <MediaInfoCtrl mediaRef={mediaRef} />
+        <MediaHeaderCtrl 
+          mediaRef={mediaRef}
+          pageKey={pageKey} />
+        <MediaInfoCtrl
+          mediaRef={mediaRef}
+          pageKey={pageKey} />
         <MediaListCtrl
           episodeId={mediaRef.episode.id}
           handleSetPageQueryState={pagesSetQueryState}
-          pageKey={pageKeyWithId}
+          pageKey={pageKey}
           podcastId={mediaRef.episode.podcastId}
           queryFrom={queryFrom}
           queryPage={queryPage}

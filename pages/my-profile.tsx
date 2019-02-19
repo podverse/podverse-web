@@ -11,8 +11,10 @@ import { getLoggedInUserMediaRefs, getLoggedInUserPlaylists, getPodcastsByQuery
   } from '~/services'
 
 type Props = {
+  lastScrollPosition?: number
   listItems?: any[]
   meta?: any
+  pageKey?: string
   pagesSetQueryState?: any
   queryPage?: number
   querySort?: string
@@ -31,6 +33,7 @@ class MyProfile extends Component<Props, State> {
     const { pages, user } = state
     
     const currentPage = pages[kPageKey] || {}
+    const lastScrollPosition = currentPage.lastScrollPosition
     const queryPage = currentPage.queryPage || query.page || 1
     const querySort = currentPage.querySort || query.sort || 'top-past-week'
     const queryType = currentPage.queryType || query.type || 'podcasts'
@@ -77,11 +80,11 @@ class MyProfile extends Component<Props, State> {
       title: 'My Profile'
     }
 
-    return { meta, user }
+    return { lastScrollPosition, meta, pageKey: kPageKey, user }
   }
 
   render() {
-    const { meta, pagesSetQueryState, queryPage, querySort, queryType, user
+    const { meta, pageKey, pagesSetQueryState, queryPage, querySort, queryType, user
       } = this.props
 
     return (
@@ -110,7 +113,7 @@ class MyProfile extends Component<Props, State> {
               handleSetPageQueryState={pagesSetQueryState}
               isMyProfilePage={true}
               loggedInUser={user}
-              pageKey={kPageKey}
+              pageKey={pageKey}
               queryPage={queryPage}
               querySort={querySort}
               queryType={queryType}

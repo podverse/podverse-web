@@ -17,9 +17,10 @@ import { getEpisodeById, getEpisodesByQuery, getMediaRefsByQuery } from '~/servi
 type Props = {
   episode?: any
   is404Page?: boolean
+  lastScrollPosition?: number
   meta?: any
   newPlayingItem?: any
-  pageKeyWithId?: string
+  pageKey?: string
   pagesSetQueryState?: any
   playerQueue?: any
   queryFrom?: any
@@ -58,6 +59,7 @@ class Episode extends Component<Props, State> {
     }
 
     const currentPage = pages[pageKeyWithId] || {}
+    const lastScrollPosition = currentPage.lastScrollPosition
     const queryFrom = currentPage.queryFrom || query.from || 'from-episode'
     const queryPage = currentPage.queryPage || query.page || 1
     const querySort = currentPage.querySort || query.sort || 'top-past-week'
@@ -126,8 +128,8 @@ class Episode extends Component<Props, State> {
       title: `${episode.title} - ${episode.podcast.title}`
     }
 
-    return { episode, meta, newPlayingItem, pageKeyWithId, queryFrom, querySort,
-      queryType }
+    return { episode, lastScrollPosition, meta, newPlayingItem, pageKey: pageKeyWithId,
+      queryFrom, querySort, queryType }
   }
 
   componentDidMount() {
@@ -141,7 +143,7 @@ class Episode extends Component<Props, State> {
   }
 
   render() {
-    const { episode, is404Page, meta, pageKeyWithId, pagesSetQueryState, queryFrom,
+    const { episode, is404Page, meta, pageKey, pagesSetQueryState, queryFrom,
       queryPage, querySort, queryType } = this.props
 
     if (is404Page) {
@@ -161,12 +163,16 @@ class Episode extends Component<Props, State> {
           twitterDescription={meta.description}
           twitterImageAlt={meta.imageAlt}
           twitterTitle={meta.title} />
-        <MediaHeaderCtrl episode={episode} />
-        <MediaInfoCtrl episode={episode} />
+        <MediaHeaderCtrl
+          episode={episode}
+          pageKey={pageKey} />
+        <MediaInfoCtrl
+          episode={episode}
+          pageKey={pageKey} />
         <MediaListCtrl
           episodeId={episode.id}
           handleSetPageQueryState={pagesSetQueryState}
-          pageKey={pageKeyWithId}
+          pageKey={pageKey}
           podcastId={episode.podcast.id}
           queryFrom={queryFrom}
           queryPage={queryPage}

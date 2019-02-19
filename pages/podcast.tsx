@@ -15,8 +15,9 @@ import { getEpisodesByQuery, getMediaRefsByQuery, getPodcastById } from '~/servi
 
 type Props = {
   is404Page?: boolean
+  lastScrollPosition?: number
   meta?: any
-  pageKeyWithId?: string
+  pageKey?: string
   pagesSetQueryState?: any
   playerQueue?: any
   podcast?: any
@@ -50,6 +51,7 @@ class Podcast extends Component<Props, State> {
       }
 
       const currentPage = pages[pageKeyWithId] || {}
+      const lastScrollPosition = currentPage.lastScrollPosition
       const queryFrom = currentPage.queryFrom || query.from || 'from-podcast'
       const queryPage = currentPage.queryPage || query.page || 1
       const querySort = currentPage.querySort || query.sort || 'top-past-week'
@@ -109,7 +111,8 @@ class Podcast extends Component<Props, State> {
         title: podcast.title
       }
 
-      return { meta, pageKeyWithId, podcast, queryFrom, queryPage, querySort, queryType }
+      return { lastScrollPosition, meta, pageKey: pageKeyWithId, podcast, queryFrom, queryPage,
+        querySort, queryType }
 
     } catch (error) {
       console.log(error)
@@ -128,7 +131,7 @@ class Podcast extends Component<Props, State> {
   }
 
   render() {
-    const { is404Page, meta, pageKeyWithId, pagesSetQueryState, podcast, queryFrom,
+    const { is404Page, meta, pageKey, pagesSetQueryState, podcast, queryFrom,
       queryPage, querySort, queryType } = this.props
 
     if (is404Page) {
@@ -151,11 +154,15 @@ class Podcast extends Component<Props, State> {
           twitterImage={meta.imageUrl}
           twitterImageAlt={meta.imageAlt}
           twitterTitle={meta.title} />
-        <MediaHeaderCtrl podcast={podcast} />
-        <MediaInfoCtrl podcast={podcast} />
+        <MediaHeaderCtrl
+          pageKey={pageKey}
+          podcast={podcast} />
+        <MediaInfoCtrl
+          pageKey={pageKey}
+          podcast={podcast} />
         <MediaListCtrl
           handleSetPageQueryState={pagesSetQueryState}
-          pageKey={pageKeyWithId}
+          pageKey={pageKey}
           queryFrom={queryFrom}
           queryPage={queryPage}
           querySort={querySort}

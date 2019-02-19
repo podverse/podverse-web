@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux'
 import { MediaListItem, MediaListSelect, Pagination } from 'podverse-ui'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import config from '~/config'
-import { pageIsLoading } from '~/redux/actions'
+import { pageIsLoading, pagesSetQueryState } from '~/redux/actions'
 import { getPodcastsByQuery } from '~/services'
 const uuidv4 = require('uuid/v4')
 const { QUERY_PODCASTS_LIMIT } = config()
@@ -14,7 +14,7 @@ type Props = {
   categoryId?: string
   handleSetPageQueryState: Function
   pageIsLoading?: any
-  pageKey: string
+  pageKey?: string
   pages?: any
   settings?: any
   user?: any
@@ -316,8 +316,14 @@ class PodcastListCtrl extends Component<Props, State> {
   }
 
   linkClick = () => {
-    const { pageIsLoading } = this.props
+    const { pageIsLoading, pageKey, pagesSetQueryState } = this.props
     pageIsLoading(true)
+
+    const scrollPos = document.querySelector('.view__contents').scrollTop
+    pagesSetQueryState({
+      pageKey,
+      lastScrollPosition: scrollPos
+    })
   }
 
   handleQueryPage = async page => {
@@ -389,7 +395,8 @@ class PodcastListCtrl extends Component<Props, State> {
 const mapStateToProps = state => ({ ...state })
 
 const mapDispatchToProps = dispatch => ({
-  pageIsLoading: bindActionCreators(pageIsLoading, dispatch)
+  pageIsLoading: bindActionCreators(pageIsLoading, dispatch),
+  pagesSetQueryState: bindActionCreators(pagesSetQueryState, dispatch)
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(PodcastListCtrl)

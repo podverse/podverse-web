@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux'
 import { Pagination } from 'podverse-ui'
 import MediaListItemCtrl from '~/components/MediaListItemCtrl/MediaListItemCtrl'
 import config from '~/config'
-import { pageIsLoading } from '~/redux/actions'
+import { pageIsLoading, pagesSetQueryState } from '~/redux/actions'
 import { getPublicUsersByQuery } from '~/services'
 import Link from 'next/link';
 const uuidv4 = require('uuid/v4')
@@ -14,7 +14,7 @@ const { QUERY_MEDIA_REFS_LIMIT } = config()
 type Props = {
   handleSetPageQueryState: Function
   pageIsLoading?: any
-  pageKey: string
+  pageKey?: string
   pages?: any
   queryPage?: number
   settings?: any
@@ -59,8 +59,14 @@ class UserListCtrl extends Component<Props, State> {
   }
 
   linkClick = () => {
-    const { pageIsLoading } = this.props
+    const { pageIsLoading, pageKey, pagesSetQueryState } = this.props
     pageIsLoading(true)
+
+    const scrollPos = document.querySelector('.view__contents').scrollTop
+    pagesSetQueryState({
+      pageKey,
+      lastScrollPosition: scrollPos
+    })
   }
 
   handleQueryPage = async page => {
@@ -79,11 +85,12 @@ class UserListCtrl extends Component<Props, State> {
     const { pageKey, pages } = this.props
     const { listItems, listItemsTotal, queryPage } = pages[pageKey]
 
-    const listItemNodes = listItems.map(x => {
+    const listItemNodes = listItems && listItems.map(x => {
       return (
         <MediaListItemCtrl
           key={`media-list-item-${uuidv4()}`}
           mediaListItemType='user'
+          pageKey={pageKey}
           profileUser={x} />
       )
     })
@@ -102,7 +109,7 @@ class UserListCtrl extends Component<Props, State> {
           </Fragment>
         }
         {
-          (listItemNodes.length === 0) &&
+          (!listItemNodes || listItemNodes.length === 0) &&
           <div className='no-results-msg'>
             <p>You are not subscribed to any user profiles.</p>
             <p>Share your public profile with friends to let them subscribe.</p>
@@ -117,7 +124,8 @@ class UserListCtrl extends Component<Props, State> {
 const mapStateToProps = state => ({ ...state })
 
 const mapDispatchToProps = dispatch => ({
-  pageIsLoading: bindActionCreators(pageIsLoading, dispatch)
+  pageIsLoading: bindActionCreators(pageIsLoading, dispatch),
+  pagesSetQueryState: bindActionCreators(pagesSetQueryState, dispatch)
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserListCtrl)
