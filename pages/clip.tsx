@@ -47,7 +47,7 @@ class Clip extends Component<Props, State> {
 
     const mediaRefResult = await getMediaRefById(query.id, nsfwMode)
     const mediaRef = mediaRefResult.data
-    
+
     if (!mediaRef) {
       store.dispatch(pageIsLoading(false))
       return { is404Page: true }
@@ -133,7 +133,7 @@ class Clip extends Component<Props, State> {
   }
 
   componentDidMount () {
-    const { is404Page, newPlayingItem, playerQueue } = this.props    
+    const { is404Page, playerQueue } = this.props    
 
     if (is404Page) return
 

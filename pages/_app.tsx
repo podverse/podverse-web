@@ -25,6 +25,7 @@ import { getAuthenticatedUserInfo } from '~/services'
 import config from '~/config'
 const { googleAnalyticsConfig, paypalConfig } = config()
 const cookie = require('cookie')
+const MobileDetect = require('mobile-detect')
 
 addFontAwesomeIcons()
 
@@ -93,6 +94,15 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
 
     let cookies = {}
 
+    let isMobileDevice = false
+    if (typeof window === 'object') {
+      const md = new MobileDetect(window.navigator.userAgent)
+      isMobileDevice = !!md.mobile()
+    } else {
+      const md = new MobileDetect(ctx.req.headers['user-agent'])
+      isMobileDevice = !!md.mobile()
+    }
+
     // @ts-ignore
     if (!process.browser && ctx.req.headers.cookie) {
       const parsedCookie = cookie.parse(ctx.req.headers.cookie)
@@ -130,10 +140,24 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
           type: actionTypes.SETTINGS_SET_HIDE_FILTER_BUTTON,
           payload: parsedCookie.filterButtonHide
         })
-      } else {
+      }
+
+      if (parsedCookie.timeJumpBackwardButtonHide) {
         ctx.store.dispatch({
-          type: actionTypes.SETTINGS_SET_HIDE_FILTER_BUTTON,
-          payload: 'true'
+          type: actionTypes.SETTINGS_SET_HIDE_TIME_JUMP_BACKWARD_BUTTON,
+          payload: parsedCookie.timeJumpBackwardButtonHide
+        })
+      } else if (isMobileDevice) {
+        ctx.store.dispatch({
+          type: actionTypes.SETTINGS_SET_HIDE_TIME_JUMP_BACKWARD_BUTTON,
+          payload: 'false'
+        })
+      }
+
+      if (parsedCookie.playbackSpeedButtonHide) {
+        ctx.store.dispatch({
+          type: actionTypes.SETTINGS_SET_HIDE_PLAYBACK_SPEED_BUTTON,
+          payload: parsedCookie.playbackSpeedButtonHide
         })
       }
 
@@ -199,7 +223,7 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
       scrollToTopOfView()
     }
 
-    return { pageProps, cookies, newPlayingItem }
+    return { pageProps, cookies, isMobileDevice, newPlayingItem }
   }
 
   async componentDidMount() {
@@ -231,7 +255,7 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
   }
 
   render() {
-    const { Component, cookies, pageProps, store } = this.props
+    const { Component, cookies, isMobileDevice, pageProps, store } = this.props
     const { pageKey } = pageProps
 
     return (
@@ -256,7 +280,9 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
                   <Footer pageKey={pageKey} />
                 </div>
               </div>
-              <MediaPlayerView {...pageProps} />
+              <MediaPlayerView
+                {...pageProps}
+                isMobileDevice={isMobileDevice} />
             </div>
             <MediaModals />
           </Fragment>

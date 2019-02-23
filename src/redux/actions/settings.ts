@@ -1,5 +1,12 @@
 import { actionTypes } from '~/redux/constants'
 
+export const settingsHideFilterButton = payload => {
+  return {
+    type: actionTypes.SETTINGS_SET_HIDE_FILTER_BUTTON,
+    payload
+  }
+}
+
 export const settingsHideNSFWMode = payload => {
   return {
     type: actionTypes.SETTINGS_SET_HIDE_NSFW_MODE,
@@ -7,16 +14,23 @@ export const settingsHideNSFWMode = payload => {
   }
 }
 
-export const settingsHideUITheme = payload => {
+export const settingsHidePlaybackSpeedButton = payload => {
   return {
-    type: actionTypes.SETTINGS_SET_HIDE_UI_THEME,
+    type: actionTypes.SETTINGS_SET_HIDE_PLAYBACK_SPEED_BUTTON,
     payload
   }
 }
 
-export const settingsHideFilterButton = payload => {
+export const settingsHideTimeJumpBackwardButton = payload => {
   return {
-    type: actionTypes.SETTINGS_SET_HIDE_FILTER_BUTTON,
+    type: actionTypes.SETTINGS_SET_HIDE_TIME_JUMP_BACKWARD_BUTTON,
+    payload
+  }
+}
+
+export const settingsHideUITheme = payload => {
+  return {
+    type: actionTypes.SETTINGS_SET_HIDE_UI_THEME,
     payload
   }
 }

@@ -13,6 +13,8 @@ export type NowPlayingItem = {
   ownerId?: string
   ownerIsPublic?: boolean
   ownerName?: string
+  podcastAuthors?: string
+  podcastCategories?: string
   podcastId?: string
   podcastImageUrl?: string
   podcastTitle?: string
@@ -62,6 +64,8 @@ export const convertToNowPlayingItem = (data, userPlaybackPosition = 0) => {
     nowPlayingItem.ownerId = data.owner && data.owner.id
     nowPlayingItem.ownerIsPublic = data.owner && data.owner.isPublic
     nowPlayingItem.ownerName = data.owner && data.owner.name
+    nowPlayingItem.podcastAuthors = data.episode.podcast.authors
+    nowPlayingItem.podcastCategories = data.episode.podcast.categories
     nowPlayingItem.podcastImageUrl = data.episode.podcast.imageUrl
     nowPlayingItem.podcastId = data.episode.podcast.id
     nowPlayingItem.podcastTitle = data.episode.podcast.title

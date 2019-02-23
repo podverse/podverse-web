@@ -12,7 +12,8 @@ import { alertPremiumRequired, alertSomethingWentWrong, convertToYYYYMMDDHHMMSS,
   copyToClipboard, getUrlFromRequestOrWindow, isBeforeDate, validateEmail, alertRateLimitError
   } from '~/lib/utility'
 import { modalsSignUpShow, pageIsLoading, settingsHideFilterButton, settingsHideNSFWMode,
-  settingsHideUITheme, userSetInfo } from '~/redux/actions'
+  settingsHidePlaybackSpeedButton, settingsHideTimeJumpBackwardButton, settingsHideUITheme,
+  userSetInfo } from '~/redux/actions'
 import { downloadUserData, updateUser } from '~/services'
 import config from '~/config'
 const { BASE_URL } = config()
@@ -27,6 +28,7 @@ type Props = {
   settings?: any
   settingsHideFilterButton?: any
   settingsHideNSFWMode?: any
+  settingsHideTimeJumpBackwardButton?: any
   settingsHideUITheme?: any
   user?: any
   userSetInfo?: any
@@ -138,6 +140,22 @@ class Settings extends Component<Props, State> {
     this.setState({ isPublic: isPublic === 'public' })
   }
 
+  handleToggleFilterButton = event => {
+    const { settingsHideFilterButton } = this.props
+    const isChecked = event.currentTarget.checked
+    const val = isChecked ? true : false
+
+    const expires = new Date()
+    expires.setDate(expires.getDate() + 365)
+    const filterButtonHideCookie = cookie.serialize('filterButtonHide', val, {
+      expires,
+      path: '/'
+    })
+    document.cookie = filterButtonHideCookie
+
+    settingsHideFilterButton(`${val}`)
+  }
+
   handleToggleNSFWMode = event => {
     const { settingsHideNSFWMode } = this.props
     const isChecked = event.currentTarget.checked
@@ -154,6 +172,38 @@ class Settings extends Component<Props, State> {
     settingsHideNSFWMode(`${val}`)
   }
 
+  handleTogglePlaybackSpeedButton = event => {
+    const { settingsHidePlaybackSpeedButton } = this.props
+    const isChecked = event.currentTarget.checked
+    const val = isChecked ? true : false
+
+    const expires = new Date()
+    expires.setDate(expires.getDate() + 365)
+    const c = cookie.serialize('playbackSpeedButtonHide', val, {
+      expires,
+      path: '/'
+    })
+    document.cookie = c
+
+    settingsHidePlaybackSpeedButton(`${val}`)
+  }
+
+  handleToggleTimeJumpBackwardButton = event => {
+    const { settingsHideTimeJumpBackwardButton } = this.props
+    const isChecked = event.currentTarget.checked
+    const val = isChecked ? true : false
+
+    const expires = new Date()
+    expires.setDate(expires.getDate() + 365)
+    const c = cookie.serialize('timeJumpBackwardButtonHide', val, {
+      expires,
+      path: '/'
+    })
+    document.cookie = c
+
+    settingsHideTimeJumpBackwardButton(`${val}`)
+  }
+
   handleToggleUITheme = event => {
     const { settingsHideUITheme } = this.props
     const isChecked = event.currentTarget.checked
@@ -168,22 +218,6 @@ class Settings extends Component<Props, State> {
     document.cookie = uiThemeHideCookie
 
     settingsHideUITheme(`${val}`)
-  }
-
-  handleToggleFilterButton = event => {
-    const { settingsHideFilterButton } = this.props
-    const isChecked = event.currentTarget.checked
-    const val = isChecked ? true : false
-
-    const expires = new Date()
-    expires.setDate(expires.getDate() + 365)
-    const filterButtonHideCookie = cookie.serialize('filterButtonHide', val, {
-      expires,
-      path: '/'
-    })
-    document.cookie = filterButtonHideCookie
-
-    settingsHideFilterButton(`${val}`)
   }
 
   validateProfileData = () => {
@@ -251,11 +285,12 @@ class Settings extends Component<Props, State> {
   
   render() {
     const { meta, settings, user } = this.props
-    const { filterButtonHide, nsfwModeHide, uiThemeHide } = settings
+    const { filterButtonHide, nsfwModeHide, playbackSpeedButtonHide,
+      timeJumpBackwardButtonHide, uiThemeHide } = settings
     const { email, emailError, isCheckoutOpen, isDeleteAccountOpen, isDownloading,
       isPublic, isSaving, name, wasCopied } = this.state
     const isLoggedIn = user && !!user.id
-    
+
     const checkoutBtn = (isRenew = false) => (
       <Button
         className='settings-membership__checkout'
@@ -397,10 +432,28 @@ class Settings extends Component<Props, State> {
           <FormGroup check>
             <Label className='checkbox-label' check>
               <Input
+                checked={timeJumpBackwardButtonHide === 'true'}
+                onChange={this.handleToggleTimeJumpBackwardButton}
+                type="checkbox" />
+              &nbsp;&nbsp;Hide jump backwards button
+            </Label>
+          </FormGroup>
+          <FormGroup check>
+            <Label className='checkbox-label' check>
+              <Input
+                checked={playbackSpeedButtonHide !== 'false' && !!playbackSpeedButtonHide}
+                onChange={this.handleTogglePlaybackSpeedButton}
+                type="checkbox" />
+              &nbsp;&nbsp;Hide playback speed button
+            </Label>
+          </FormGroup>    
+          <FormGroup check>
+            <Label className='checkbox-label' check>
+              <Input
                 checked={filterButtonHide !== 'false' && !!filterButtonHide}
                 onChange={this.handleToggleFilterButton}
                 type="checkbox" />
-              &nbsp;&nbsp;Hide filter button
+              &nbsp;&nbsp;Hide filter buttons
             </Label>
           </FormGroup>
           <FormGroup check>
@@ -542,6 +595,8 @@ const mapDispatchToProps = dispatch => ({
   modalsSignUpShow: bindActionCreators(modalsSignUpShow, dispatch),
   settingsHideFilterButton: bindActionCreators(settingsHideFilterButton, dispatch),
   settingsHideNSFWMode: bindActionCreators(settingsHideNSFWMode, dispatch),
+  settingsHidePlaybackSpeedButton: bindActionCreators(settingsHidePlaybackSpeedButton, dispatch),
+  settingsHideTimeJumpBackwardButton: bindActionCreators(settingsHideTimeJumpBackwardButton, dispatch),
   settingsHideUITheme: bindActionCreators(settingsHideUITheme, dispatch),
   userSetInfo: bindActionCreators(userSetInfo, dispatch)
 })
