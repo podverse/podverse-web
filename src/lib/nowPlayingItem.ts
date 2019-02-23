@@ -17,6 +17,7 @@ export type NowPlayingItem = {
   podcastCategories?: string
   podcastId?: string
   podcastImageUrl?: string
+  podcastIsExplicit?: boolean
   podcastTitle?: string
   userPlaybackPosition?: number
 }
@@ -35,6 +36,7 @@ export const convertToNowPlayingItem = (data, userPlaybackPosition = 0) => {
     nowPlayingItem.episodeTitle = data.title
     nowPlayingItem.podcastImageUrl = data.podcast_imageUrl
     nowPlayingItem.podcastId = data.podcast_id
+    nowPlayingItem.podcastIsExplicit = data.podcast_isExplicit
     nowPlayingItem.podcastTitle = data.podcast_title
     nowPlayingItem.userPlaybackPosition = userPlaybackPosition || 0
   // If it has a pubDate field, assume it is an Episode
@@ -46,6 +48,7 @@ export const convertToNowPlayingItem = (data, userPlaybackPosition = 0) => {
     nowPlayingItem.episodeTitle = data.title
     nowPlayingItem.podcastImageUrl = data.podcast && data.podcast.imageUrl
     nowPlayingItem.podcastId = data.podcast && data.podcast.id
+    nowPlayingItem.podcastIsExplicit = data.podcast && data.podcast.isExplicit
     nowPlayingItem.podcastTitle = data.podcast && data.podcast.title
     nowPlayingItem.userPlaybackPosition = userPlaybackPosition || 0
   // Else assume it is a MediaRef
@@ -68,6 +71,7 @@ export const convertToNowPlayingItem = (data, userPlaybackPosition = 0) => {
     nowPlayingItem.podcastCategories = data.episode.podcast.categories
     nowPlayingItem.podcastImageUrl = data.episode.podcast.imageUrl
     nowPlayingItem.podcastId = data.episode.podcast.id
+    nowPlayingItem.podcastIsExplicit = data.episode.podcast.isExplicit
     nowPlayingItem.podcastTitle = data.episode.podcast.title
     nowPlayingItem.userPlaybackPosition = userPlaybackPosition || data.clipStartTime || 0
   }
