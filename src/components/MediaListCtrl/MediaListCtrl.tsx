@@ -170,7 +170,7 @@ class MediaListCtrl extends Component<Props, State> {
     ]
 
     if (showFromPodcast) {
-      options.push(
+      options.unshift(
         {
           label: 'From this podcast',
           onClick: () => this.queryListItems(queryType, 'from-podcast', querySort, 1),
@@ -180,7 +180,7 @@ class MediaListCtrl extends Component<Props, State> {
     }
 
     if (showFromEpisode) {
-      options.push(
+      options.unshift(
         {
           label: 'From this episode',
           onClick: () => this.queryListItems(queryType, 'from-episode', querySort, 1),

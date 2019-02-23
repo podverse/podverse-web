@@ -21,11 +21,12 @@
       display: flex;
       flex: 1 0 auto;
       flex-direction: column;
+      z-index: 99;
     }
 
     .bottom {
       flex: 0 1 auto;
-      z-index: 100;
+      z-index: 99;
     }
   }
 
