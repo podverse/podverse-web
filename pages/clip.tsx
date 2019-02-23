@@ -119,13 +119,16 @@ class Clip extends Component<Props, State> {
 
     store.dispatch(pageIsLoading(false))
 
-    const meta = {
-      currentUrl: getUrlFromRequestOrWindow(req),
-      description: removeDoubleQuotes(`${mediaRef.description} - ${mediaRef.episode.title} - ${mediaRef.episode.podcast.title}`),
-      imageAlt: (mediaRef.episode.imageUrl || mediaRef.episode.podcast.imageUrl) ? 
-        `${mediaRef.episode.imageUrl ? mediaRef.episode.title : mediaRef.episode.podcast.title}` : 'Podverse logo',
-      imageUrl: mediaRef.episode.imageUrl || mediaRef.episode.podcast.imageUrl,
-      title: `${mediaRef.title} - ${mediaRef.episode.title} - ${mediaRef.episode.podcast.title}`
+    let meta = {}
+    if (mediaRef) {
+      meta = {
+        currentUrl: getUrlFromRequestOrWindow(req),
+        description: removeDoubleQuotes(`${mediaRef.description} - ${mediaRef.episode.title} - ${mediaRef.episode.podcast.title}`),
+        imageAlt: (mediaRef.episode.imageUrl || mediaRef.episode.podcast.imageUrl) ? 
+          `${mediaRef.episode.imageUrl ? mediaRef.episode.title : mediaRef.episode.podcast.title}` : 'Podverse logo',
+        imageUrl: mediaRef.episode.imageUrl || mediaRef.episode.podcast.imageUrl,
+        title: `${mediaRef.title} - ${mediaRef.episode.title} - ${mediaRef.episode.podcast.title}`
+      }
     }
     
     return { lastScrollPosition, mediaRef, meta, newPlayingItem, pageKey: pageKeyWithId, queryFrom,

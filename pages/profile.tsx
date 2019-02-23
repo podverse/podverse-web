@@ -87,10 +87,13 @@ class Profile extends Component<Props, State> {
 
     store.dispatch(pageIsLoading(false))
 
-    const meta = {
-      currentUrl: getUrlFromRequestOrWindow(req),
-      description: `${publicUser.name ? publicUser.name : 'anonymous'}'s profile on Podverse`,
-      title: `${publicUser.name ? publicUser.name : 'anonymous'}'s profile on Podverse`
+    let meta = {}
+    if (publicUser) {
+      meta = {
+        currentUrl: getUrlFromRequestOrWindow(req),
+        description: `${publicUser.name ? publicUser.name : 'anonymous'}'s profile on Podverse`,
+        title: `${publicUser.name ? publicUser.name : 'anonymous'}'s profile on Podverse`
+      }
     }
 
     return { lastScrollPosition, meta, pageKey: pageKeyWithId, publicUser }

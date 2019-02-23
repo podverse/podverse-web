@@ -34,12 +34,9 @@
     }
   }
 
-  .settings__download {
-    min-width: 170px;
-  }
-
   .settings-membership__status {
     font-size: $text-lg-rem;
+    font-weight: 400;
 
     &.is-active {
       color: $blue;

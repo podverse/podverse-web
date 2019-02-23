@@ -14,12 +14,12 @@ export const sfwFilterPodcast = (podcast: any = {}) => {
   }
 }
 
-export const sfwFilterPodcasts = (podcasts: any[] = []) => {
+export const sfwFilterPodcasts = (podcastsAndCount: any[] = []) => {
   const filteredPodcasts: any[] = []
-  for (const podcast of podcasts) {
+  for (const podcast of podcastsAndCount[0]) {
     filteredPodcasts.push(sfwFilterPodcast(podcast))
   }
-  return filteredPodcasts
+  return [filteredPodcasts, podcastsAndCount[1]]
 }
 
 export const sfwFilterEpisode = (episode: any = {}) => {
@@ -33,12 +33,12 @@ export const sfwFilterEpisode = (episode: any = {}) => {
   }
 }
 
-export const sfwFilterEpisodes = (episodes: any[] = []) => {
+export const sfwFilterEpisodes = (episodesAndCount: any[] = []) => {
   const filteredEpisodes: any[] = []
-  for (const episode of episodes) {
+  for (const episode of episodesAndCount[0]) {
     filteredEpisodes.push(sfwFilterEpisode(episode))
   }
-  return filteredEpisodes
+  return [filteredEpisodes, episodesAndCount[1]]
 }
 
 export const sfwFilterMediaRef = (mediaRef: any = {}) => {
@@ -56,14 +56,13 @@ export const sfwFilterMediaRef = (mediaRef: any = {}) => {
   }
 }
 
-export const sfwFilterMediaRefs = (mediaRefs: any[] = []) => {
+export const sfwFilterMediaRefs = (mediaRefsAndCount: any[] = []) => {
   const filteredMediaRefs: any[] = []
-  for (const mediaRef of mediaRefs) {
+  for (const mediaRef of mediaRefsAndCount[0]) {
     filteredMediaRefs.push(sfwFilterMediaRef(mediaRef))
   }
-  return filteredMediaRefs
+  return [filteredMediaRefs, mediaRefsAndCount[1]]
 }
-
 
 export const sfwFilterPlaylist = (playlist: any = {}) => {
   return {
@@ -76,12 +75,12 @@ export const sfwFilterPlaylist = (playlist: any = {}) => {
   }
 }
 
-export const sfwFilterPlaylists = (playlists: any[] = []) => {
+export const sfwFilterPlaylists = (playlistsAndCount: any[] = []) => {
   const filteredPlaylists: any[] = []
-  for (const playlist of playlists) {
+  for (const playlist of playlistsAndCount[0]) {
     filteredPlaylists.push(sfwFilterPlaylist(playlist))
   }
-  return filteredPlaylists
+  return [filteredPlaylists, playlistsAndCount[1]]
 }
 
 export const sfwFilterUser = (user: any = {}) => {
@@ -93,10 +92,10 @@ export const sfwFilterUser = (user: any = {}) => {
   }
 }
 
-export const sfwFilterUsers = (users: any[] = []) => {
+export const sfwFilterUsers = (usersAndCount: any[] = []) => {
   const filteredUsers: any[] = []
-  for (const user of users) {
+  for (const user of usersAndCount[0]) {
     filteredUsers.push(sfwFilterMediaRef(user))
   }
-  return filteredUsers
+  return [filteredUsers, usersAndCount[1]]
 }

@@ -118,14 +118,17 @@ class Episode extends Component<Props, State> {
 
     store.dispatch(pageIsLoading(false))
     
-    const meta = {
-      currentUrl: getUrlFromRequestOrWindow(req),
-      description: removeDoubleQuotes(episode.description),
-      imageAlt: (episode.imageUrl || episode.podcast.imageUrl)
-        ? `${episode.imageUrl ? episode.title : episode.podcast.title}`
-        : 'Podverse logo',
-      imageUrl: episode.imageUrl || episode.podcast.imageUrl,
-      title: `${episode.title} - ${episode.podcast.title}`
+    let meta = {}
+    if (episode) {
+      meta = {
+        currentUrl: getUrlFromRequestOrWindow(req),
+        description: removeDoubleQuotes(episode.description),
+        imageAlt: (episode.imageUrl || episode.podcast.imageUrl)
+          ? `${episode.imageUrl ? episode.title : episode.podcast.title}`
+          : 'Podverse logo',
+        imageUrl: episode.imageUrl || episode.podcast.imageUrl,
+        title: `${episode.title} - ${episode.podcast.title}`
+      }
     }
 
     return { episode, lastScrollPosition, meta, newPlayingItem, pageKey: pageKeyWithId,

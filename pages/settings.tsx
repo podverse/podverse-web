@@ -428,66 +428,6 @@ class Settings extends Component<Props, State> {
                 <hr />
               </Fragment>
           }
-          <h3>Interface</h3>
-          <FormGroup check>
-            <Label className='checkbox-label' check>
-              <Input
-                checked={timeJumpBackwardButtonHide === 'true'}
-                onChange={this.handleToggleTimeJumpBackwardButton}
-                type="checkbox" />
-              &nbsp;&nbsp;Hide jump backwards button
-            </Label>
-          </FormGroup>
-          <FormGroup check>
-            <Label className='checkbox-label' check>
-              <Input
-                checked={playbackSpeedButtonHide !== 'false' && !!playbackSpeedButtonHide}
-                onChange={this.handleTogglePlaybackSpeedButton}
-                type="checkbox" />
-              &nbsp;&nbsp;Hide playback speed button
-            </Label>
-          </FormGroup>    
-          <FormGroup check>
-            <Label className='checkbox-label' check>
-              <Input
-                checked={filterButtonHide !== 'false' && !!filterButtonHide}
-                onChange={this.handleToggleFilterButton}
-                type="checkbox" />
-              &nbsp;&nbsp;Hide filter buttons
-            </Label>
-          </FormGroup>
-          <FormGroup check>
-            <Label className='checkbox-label' check>
-              <Input
-                checked={uiThemeHide !== 'false' && !!uiThemeHide}
-                onChange={this.handleToggleUITheme}
-                type="checkbox" />
-              &nbsp;&nbsp;Hide dark-mode switch in footer
-            </Label>
-          </FormGroup>
-          <FormGroup check>
-            <Label className='checkbox-label' check>
-              <Input
-                checked={nsfwModeHide !== 'false' && !!nsfwModeHide}
-                onChange={this.handleToggleNSFWMode}
-                type="checkbox" />
-              &nbsp;&nbsp;Hide nsfw-mode switch in footer
-            </Label>
-          </FormGroup>
-          <hr />
-          {
-            user && user.id &&
-            <Fragment>
-              <h3>My Data</h3>
-              <Button
-                className='settings__download'
-                isLoading={isDownloading}
-                onClick={this.downloadUserData}>
-                <FontAwesomeIcon icon='download' />&nbsp;&nbsp;Download Backup
-              </Button>
-              <hr />
-            </Fragment>
-          }
           {
             !user || !user.id &&
             <Fragment>
@@ -561,6 +501,70 @@ class Settings extends Component<Props, State> {
                   <hr />
                 </Fragment>
               }
+            </Fragment>
+          }
+          <h3>Interface</h3>
+          <FormGroup check>
+            <Label className='checkbox-label' check>
+              <Input
+                checked={timeJumpBackwardButtonHide === 'true'}
+                onChange={this.handleToggleTimeJumpBackwardButton}
+                type="checkbox" />
+              &nbsp;&nbsp;Hide jump backwards button
+            </Label>
+          </FormGroup>
+          <FormGroup check>
+            <Label className='checkbox-label' check>
+              <Input
+                checked={playbackSpeedButtonHide !== 'false' && !!playbackSpeedButtonHide}
+                onChange={this.handleTogglePlaybackSpeedButton}
+                type="checkbox" />
+              &nbsp;&nbsp;Hide playback speed button
+            </Label>
+          </FormGroup>    
+          <FormGroup check>
+            <Label className='checkbox-label' check>
+              <Input
+                checked={filterButtonHide !== 'false' && !!filterButtonHide}
+                onChange={this.handleToggleFilterButton}
+                type="checkbox" />
+              &nbsp;&nbsp;Hide filter buttons
+            </Label>
+          </FormGroup>
+          <FormGroup check>
+            <Label className='checkbox-label' check>
+              <Input
+                checked={uiThemeHide !== 'false' && !!uiThemeHide}
+                onChange={this.handleToggleUITheme}
+                type="checkbox" />
+              &nbsp;&nbsp;Hide dark-mode switch in footer
+            </Label>
+          </FormGroup>
+          <FormGroup check>
+            <Label className='checkbox-label' check>
+              <Input
+                checked={nsfwModeHide !== 'false' && !!nsfwModeHide}
+                onChange={this.handleToggleNSFWMode}
+                type="checkbox" />
+              &nbsp;&nbsp;Hide nsfw-mode switch in footer
+            </Label>
+          </FormGroup>
+          <hr />
+          {
+            user && user.id &&
+            <Fragment>
+              <h3>My Data</h3>
+              <p>
+                Podverse lets you download a full copy of your data to use as a backup,
+                or to load elsewhere if you decide to use a different app.
+              </p>
+              <Button
+                className='settings__download'
+                isLoading={isDownloading}
+                onClick={this.downloadUserData}>
+                <FontAwesomeIcon icon='download' />&nbsp;&nbsp;Download
+              </Button>
+              <hr />
             </Fragment>
           }
           {

@@ -85,10 +85,13 @@ class Playlist extends Component<Props, State> {
 
     store.dispatch(pageIsLoading(false))
     
-    const meta = {
-      currentUrl: getUrlFromRequestOrWindow(req),
-      description: removeDoubleQuotes(`${playlist.title ? playlist.title : 'Untitled Playlist'} - playlist on Podverse ${playlist.description ? playlist.description : ''}`),
-      title: `${playlist.title ? playlist.title : 'Untitled Playlist'}`
+    let meta = {}
+    if (playlist) {
+      meta = {
+        currentUrl: getUrlFromRequestOrWindow(req),
+        description: removeDoubleQuotes(`${playlist.title ? playlist.title : 'Untitled Playlist'} - playlist on Podverse ${playlist.description ? playlist.description : ''}`),
+        title: `${playlist.title ? playlist.title : 'Untitled Playlist'}`
+      }
     }
 
     return { lastScrollPosition, meta, pageKey: pageKeyWithId, playlist, playlistItems, user }
