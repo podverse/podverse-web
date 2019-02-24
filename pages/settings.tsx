@@ -11,9 +11,9 @@ import { DeleteAccountModal } from '~/components/DeleteAccountModal/DeleteAccoun
 import { alertPremiumRequired, alertSomethingWentWrong, convertToYYYYMMDDHHMMSS,
   copyToClipboard, getUrlFromRequestOrWindow, isBeforeDate, validateEmail, alertRateLimitError
   } from '~/lib/utility'
-import { modalsSignUpShow, pageIsLoading, settingsHideFilterButton, settingsHideNSFWMode,
-  settingsHidePlaybackSpeedButton, settingsHideTimeJumpBackwardButton, settingsHideUITheme,
-  userSetInfo } from '~/redux/actions'
+import { modalsSignUpShow, pageIsLoading, settingsHideFilterButton, settingsHideNSFWLabels,
+  settingsHideNSFWMode, settingsHidePlaybackSpeedButton, settingsHideTimeJumpBackwardButton,
+  settingsHideUITheme, userSetInfo } from '~/redux/actions'
 import { downloadUserData, updateUser } from '~/services'
 import config from '~/config'
 const { BASE_URL } = config()
@@ -29,6 +29,8 @@ type Props = {
   settingsHideFilterButton?: any
   settingsHideNSFWMode?: any
   settingsHideTimeJumpBackwardButton?: any
+  settingsHidePlaybackSpeedButton?: any
+  settingsHideNSFWLabels?: any
   settingsHideUITheme?: any
   user?: any
   userSetInfo?: any
@@ -147,13 +149,29 @@ class Settings extends Component<Props, State> {
 
     const expires = new Date()
     expires.setDate(expires.getDate() + 365)
-    const filterButtonHideCookie = cookie.serialize('filterButtonHide', val, {
+    const c = cookie.serialize('filterButtonHide', val, {
       expires,
       path: '/'
     })
-    document.cookie = filterButtonHideCookie
+    document.cookie = c
 
     settingsHideFilterButton(`${val}`)
+  }
+
+  handleToggleNSFWLabels = event => {
+    const { settingsHideNSFWLabels } = this.props
+    const isChecked = event.currentTarget.checked
+    const val = isChecked ? true : false
+
+    const expires = new Date()
+    expires.setDate(expires.getDate() + 365)
+    const c = cookie.serialize('nsfwLabelsHide', val, {
+      expires,
+      path: '/'
+    })
+    document.cookie = c
+
+    settingsHideNSFWLabels(`${val}`)
   }
 
   handleToggleNSFWMode = event => {
@@ -163,11 +181,11 @@ class Settings extends Component<Props, State> {
 
     const expires = new Date()
     expires.setDate(expires.getDate() + 365)
-    const nsfwModeHideCookie = cookie.serialize('nsfwModeHide', val, {
+    const c = cookie.serialize('nsfwModeHide', val, {
       expires,
       path: '/'
     })
-    document.cookie = nsfwModeHideCookie
+    document.cookie = c
         
     settingsHideNSFWMode(`${val}`)
   }
@@ -285,7 +303,7 @@ class Settings extends Component<Props, State> {
   
   render() {
     const { meta, settings, user } = this.props
-    const { filterButtonHide, nsfwModeHide, playbackSpeedButtonHide,
+    const { filterButtonHide, nsfwLabelsHide, nsfwModeHide, playbackSpeedButtonHide,
       timeJumpBackwardButtonHide, uiThemeHide } = settings
     const { email, emailError, isCheckoutOpen, isDeleteAccountOpen, isDownloading,
       isPublic, isSaving, name, wasCopied } = this.state
@@ -341,11 +359,11 @@ class Settings extends Component<Props, State> {
           title={meta.title}
           twitterDescription={meta.description}
           twitterTitle={meta.title} />
-        <h3>Settings</h3>
         <Form>
           {
             isLoggedIn &&
-              <Fragment>
+            <Fragment>
+                <h3>Profile Settings</h3>
                 <FormGroup>
                   <Label for='settings-name'>Name</Label>
                   <Input 
@@ -433,6 +451,7 @@ class Settings extends Component<Props, State> {
             <Fragment>
               {membershipStatusHeader}
               {premiumMembershipNode}
+              <hr />
             </Fragment>
           }
           {
@@ -537,7 +556,7 @@ class Settings extends Component<Props, State> {
                 checked={uiThemeHide !== 'false' && !!uiThemeHide}
                 onChange={this.handleToggleUITheme}
                 type="checkbox" />
-              &nbsp;&nbsp;Hide dark-mode switch in footer
+              &nbsp;&nbsp;Hide Dark mode switch in footer
             </Label>
           </FormGroup>
           <FormGroup check>
@@ -546,7 +565,16 @@ class Settings extends Component<Props, State> {
                 checked={nsfwModeHide !== 'false' && !!nsfwModeHide}
                 onChange={this.handleToggleNSFWMode}
                 type="checkbox" />
-              &nbsp;&nbsp;Hide nsfw-mode switch in footer
+              &nbsp;&nbsp;Hide NSFW mode switch in footer
+            </Label>
+          </FormGroup>
+          <FormGroup check>
+            <Label className='checkbox-label' check>
+              <Input
+                checked={nsfwLabelsHide === 'true'}
+                onChange={this.handleToggleNSFWLabels}
+                type="checkbox" />
+              &nbsp;&nbsp;Hide NSFW Labels
             </Label>
           </FormGroup>
           <hr />
@@ -555,8 +583,9 @@ class Settings extends Component<Props, State> {
             <Fragment>
               <h3>My Data</h3>
               <p>
-                Podverse lets you download a full copy of your data to use as a backup,
+                Download a full copy of your data to use as a backup,
                 or to load elsewhere if you decide to use a different app.
+                No apps support this yet, but they could :)
               </p>
               <Button
                 className='settings__download'
@@ -598,6 +627,7 @@ const mapStateToProps = state => ({ ...state })
 const mapDispatchToProps = dispatch => ({
   modalsSignUpShow: bindActionCreators(modalsSignUpShow, dispatch),
   settingsHideFilterButton: bindActionCreators(settingsHideFilterButton, dispatch),
+  settingsHideNSFWLabels: bindActionCreators(settingsHideNSFWLabels, dispatch),
   settingsHideNSFWMode: bindActionCreators(settingsHideNSFWMode, dispatch),
   settingsHidePlaybackSpeedButton: bindActionCreators(settingsHidePlaybackSpeedButton, dispatch),
   settingsHideTimeJumpBackwardButton: bindActionCreators(settingsHideTimeJumpBackwardButton, dispatch),

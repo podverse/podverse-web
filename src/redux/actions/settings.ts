@@ -7,6 +7,13 @@ export const settingsHideFilterButton = payload => {
   }
 }
 
+export const settingsHideNSFWLabels = payload => {
+  return {
+    type: actionTypes.SETTINGS_SET_HIDE_NSFW_LABELS,
+    payload
+  }
+}
+
 export const settingsHideNSFWMode = payload => {
   return {
     type: actionTypes.SETTINGS_SET_HIDE_NSFW_MODE,

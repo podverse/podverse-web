@@ -121,6 +121,13 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
         })
       }
 
+      if (parsedCookie.uiThemeHide) {
+        ctx.store.dispatch({
+          type: actionTypes.SETTINGS_SET_HIDE_UI_THEME,
+          payload: parsedCookie.uiThemeHide
+        })
+      }
+
       if (parsedCookie.nsfwModeHide) {
         ctx.store.dispatch({
           type: actionTypes.SETTINGS_SET_HIDE_NSFW_MODE,
@@ -128,10 +135,10 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
         })
       }
 
-      if (parsedCookie.uiThemeHide) {
+      if (parsedCookie.nsfwLabelsHide) {
         ctx.store.dispatch({
-          type: actionTypes.SETTINGS_SET_HIDE_UI_THEME,
-          payload: parsedCookie.uiThemeHide
+          type: actionTypes.SETTINGS_SET_HIDE_NSFW_LABELS,
+          payload: parsedCookie.nsfwLabelsHide
         })
       }
 
