@@ -40,18 +40,18 @@ export const NSFWModal: React.StatelessComponent<Props> = props => {
       {
         isNSFWModeOn &&
           <div>
-          <h3 style={{ color: colors.redDarker }}>NSFW is ON</h3>
+          <h3 style={{ color: colors.redDarker }}>NSFW mode on</h3>
             <p>Refresh your browser to include NSFW content</p>
           </div>
       }
       {
         !isNSFWModeOn &&
         <div>
-          <h3 style={{ color: colors.blue }}>NSFW is OFF</h3>
+          <h3 style={{ color: colors.blue }}>SFW mode on</h3>
           <p>Refresh your browser to hide NSFW content</p>
           <p>
-            *Ratings are provided by the podcasters themselves,
-            content may not be safe for your work.
+            Ratings are provided by the podcasters themselves,
+            content may not be safe for your work!
           </p>
         </div>
       }

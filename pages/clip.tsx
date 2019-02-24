@@ -179,7 +179,7 @@ class Clip extends Component<Props, State> {
           episodeId={mediaRef.episode.id}
           handleSetPageQueryState={pagesSetQueryState}
           pageKey={pageKey}
-          podcastId={mediaRef.episode.podcastId}
+          podcastId={mediaRef.episode.podcast.id}
           queryFrom={queryFrom}
           queryPage={queryPage}
           querySort={querySort}
