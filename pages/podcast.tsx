@@ -85,7 +85,13 @@ class Podcast extends Component<Props, State> {
           }, nsfwMode)
         }
 
-        let listItems = results.data[0].map(x => convertToNowPlayingItem(x))
+        let listItems = results.data[0].map(x => {
+          let item = convertToNowPlayingItem(x)
+          item.podcastId = podcast.id
+          item.podcastImageUrl = podcast.imageUrl
+          item.podcastTitle = podcast.title
+          return item
+        })
         
         store.dispatch(playerQueueLoadSecondaryItems(clone(listItems)))
 
