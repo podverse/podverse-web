@@ -39,9 +39,9 @@ export const getMediaRefsByQuery = async (query, nsfwMode = 'on') => {
   } else if (query.from === 'from-episode') {
     filteredQuery.episodeId = query.episodeId
   } else if (query.from === 'subscribed-only') {
-    filteredQuery.podcastId = query.subscribedPodcastIds
-      && query.subscribedPodcastIds.length ? query.subscribedPodcastIds : ['no-results']
-  } else { // from = all-podcasts
+    filteredQuery.podcastId = query.podcastId ? query.podcastId : ['no-results']
+  } else {
+    // from = all-podcasts
     // add nothing
   }
 

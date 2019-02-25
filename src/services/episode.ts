@@ -30,7 +30,7 @@ export const getEpisodesByQuery = async (query, nsfwMode = 'on') => {
     filteredQuery.podcastId = query.podcastId
   } else if (query.from === 'subscribed-only') {
     filteredQuery.podcastId = query.subscribedPodcastIds
-      && query.subscribedPodcastIds.length ? query.subscribedPodcastIds : ['no-results']
+      ? query.subscribedPodcastIds : ['no-results']
   } else { // from = all-podcasts
     // add nothing
   }

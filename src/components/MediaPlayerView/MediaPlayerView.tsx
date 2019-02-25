@@ -14,6 +14,7 @@ import { addOrUpdateUserHistoryItem, updateUserQueueItems } from '~/services'
 
 type Props = {
   handleMakeClip?: Function
+  isMobileDevice?: boolean
   mediaPlayer?: any
   mediaPlayerLoadNowPlayingItem?: any
   mediaPlayerSetClipFinished?: any
@@ -29,6 +30,7 @@ type Props = {
   playerQueue?: any
   playerQueueLoadPriorityItems?: any
   playerQueueLoadSecondaryItems?: any
+  settings?: any
   user?: any
   userSetInfo?: any
 }
@@ -173,7 +175,7 @@ class MediaPlayerView extends Component<Props, State> {
     const { autoplay } = this.state
 
     if (autoplay) {
-      this.props.mediaPlayerSetPlayedAfterClipFinished(false)
+      this.props.mediaPlayerSetPlayedAfterClipFinished(true)
       this.itemSkip()
     } else {
       this.props.mediaPlayerSetClipFinished(true)
