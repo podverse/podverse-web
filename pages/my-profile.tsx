@@ -35,7 +35,7 @@ class MyProfile extends Component<Props, State> {
     const currentPage = pages[kPageKey] || {}
     const lastScrollPosition = currentPage.lastScrollPosition
     const queryPage = currentPage.queryPage || query.page || 1
-    const querySort = currentPage.querySort || query.sort || 'top-past-week'
+    const querySort = currentPage.querySort || query.sort || 'alphabetical'
     const queryType = currentPage.queryType || query.type || 'podcasts'
 
     if (Object.keys(currentPage).length === 0) {
@@ -57,6 +57,7 @@ class MyProfile extends Component<Props, State> {
         queryDataResult = await getPodcastsByQuery({
           from: 'subscribed-only',
           page: queryPage,
+          sort: querySort,
           subscribedPodcastIds: user.subscribedPodcastIds
         }, 'on')
         listItems = queryDataResult.data

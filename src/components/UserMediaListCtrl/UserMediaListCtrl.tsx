@@ -181,8 +181,8 @@ class UserMediaListCtrl extends Component<Props, State> {
     ]
   }
 
-  getQuerySortOptions() {
-    return [
+  getQuerySortOptions(isPodcasts) {
+    let items = [
       {
         label: 'most recent',
         onClick: () => this.queryMediaListItems('sort', 'most-recent'),
@@ -219,6 +219,16 @@ class UserMediaListCtrl extends Component<Props, State> {
         value: 'top-all-time'
       }
     ]
+
+    if (isPodcasts) {
+      items.unshift({
+        label: 'alphabetical',
+        onClick: () => this.queryMediaListItems('sort', 'alphabetical'),
+        value: 'alphabetical'
+      })
+    }
+
+    return items
   }
 
   playItem = async nowPlayingItem => {
@@ -309,7 +319,7 @@ class UserMediaListCtrl extends Component<Props, State> {
     }) : []
 
     const selectedQueryTypeOption = this.getQueryTypeOptions().filter(x => x.value === queryType)
-    const selectedQuerySortOption = this.getQuerySortOptions().filter(x => x.value === querySort)
+    const selectedQuerySortOption = this.getQuerySortOptions(queryType === 'podcasts').filter(x => x.value === querySort)
 
     return (      
       <div className={`media-list ${adjustTopPosition ? 'adjust-top-position' : ''}`}>
@@ -324,7 +334,7 @@ class UserMediaListCtrl extends Component<Props, State> {
               <div className='media-list-selects__right'>
                 <MediaListSelect
                   className='align-right'
-                  items={this.getQuerySortOptions()}
+                  items={this.getQuerySortOptions(queryType === 'podcasts')}
                   selected={selectedQuerySortOption.length > 0 ? selectedQuerySortOption[0].value : null} />
               </div>
           }
