@@ -2,7 +2,6 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { MediaListSelect, Pagination, setNowPlayingItemInStorage } from 'podverse-ui'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { bindActionCreators } from 'redux'
 import MediaListItemCtrl from '~/components/MediaListItemCtrl/MediaListItemCtrl'
 import config from '~/config'
@@ -49,11 +48,13 @@ class UserMediaListCtrl extends Component<Props, State> {
   }
 
   queryMediaListItems = async (selectedKey = '', selectedValue = '', page = 1) => {
-    const { handleSetPageQueryState, isMyProfilePage, pages, pageKey,
+    const { handleSetPageQueryState, isMyProfilePage, pageIsLoading, pages, pageKey,
       playerQueueAddSecondaryItems, playerQueueLoadSecondaryItems, profileUser,
       settings } = this.props
     const { nsfwMode } = settings
     const { querySort, queryType } = pages[pageKey]
+
+    pageIsLoading(true)
 
     let query: any = {
       page,
@@ -61,7 +62,8 @@ class UserMediaListCtrl extends Component<Props, State> {
       type: queryType
     }
 
-    let newState: any = { 
+    let newState: any = {
+      listItems: [],
       pageKey,
       queryPage: page
     }
@@ -155,6 +157,8 @@ class UserMediaListCtrl extends Component<Props, State> {
         listItemsTotal: 0
       })
     }
+
+    pageIsLoading(false)
   }
 
   getQueryTypeOptions() {
@@ -252,39 +256,33 @@ class UserMediaListCtrl extends Component<Props, State> {
   }
 
   handleQueryPage = async page => {
-
-    const { pageIsLoading } = this.props
-    pageIsLoading(true)
     await this.queryMediaListItems('', '', page)
-    pageIsLoading(false)
 
-    const mediaListSelectsEl = document.querySelector('.media-list__selects')
-    if (mediaListSelectsEl) {
-      mediaListSelectsEl.scrollIntoView()
+    const viewContentsEl = document.querySelector('.view__contents')
+    if (viewContentsEl) {
+      viewContentsEl.scrollTop = 0
     }
   }
 
   render() {
-    const { adjustTopPosition, mediaPlayer, pages, pageKey, profileUser
-      } = this.props
+    const { adjustTopPosition, mediaPlayer, page, pages, pageKey } = this.props
     const { nowPlayingItem: mpNowPlayingItem } = mediaPlayer
     const { listItems, listItemsTotal, queryPage, querySort, queryType } = pages[pageKey]
-    const username = `${profileUser.name || 'This person'}`
     
     let mediaListItemType = 'now-playing-item'
     let noResultsMsg = ''
     if (queryType === 'clips') {
       mediaListItemType = 'now-playing-item'
-      noResultsMsg = `No results`
+      noResultsMsg = `No clips found`
     } else if (queryType === 'playlists') {
       mediaListItemType = 'playlist'
-      noResultsMsg = `No results`
+      noResultsMsg = `No playlists found`
     } else if (queryType === 'podcasts') {
       mediaListItemType = 'podcast'
-      noResultsMsg = `${username} is not subscribed to any podcasts`
+      noResultsMsg = `No subscribed podcasts found`
     }
 
-    const listItemNodes = listItems.map(x => {
+    const listItemNodes = Array.isArray(listItems) ? listItems.map(x => {
       const isActive = () => {
         if (mpNowPlayingItem && queryType === 'clips') {
           if (x.clipId) {
@@ -308,7 +306,7 @@ class UserMediaListCtrl extends Component<Props, State> {
           podcast={queryType === 'podcasts' ? x : null}
           showMoreMenu={queryType === 'clips'} />
       )
-    })
+    }) : []
 
     const selectedQueryTypeOption = this.getQueryTypeOptions().filter(x => x.value === queryType)
     const selectedQuerySortOption = this.getQuerySortOptions().filter(x => x.value === querySort)
@@ -345,8 +343,8 @@ class UserMediaListCtrl extends Component<Props, State> {
           }
         </Fragment> 
         {
-          listItemNodes.length === 0 &&
-          <div className='no-results-msg'>{noResultsMsg}</div>
+          !page.isLoading && listItemNodes.length === 0 &&
+            <div className='no-results-msg'>{noResultsMsg}</div>
         }
       </div>
     )

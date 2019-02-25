@@ -111,7 +111,7 @@ class UserListCtrl extends Component<Props, State> {
         {
           (!listItemNodes || listItemNodes.length === 0) &&
           <div className='no-results-msg'>
-            <p>You are not subscribed to any user profiles.</p>
+            <p>You are not subscribed to user profiles.</p>
             <p>Share your public profile with friends to let them subscribe.</p>
             <p>Visit the <Link as='/settings' href='/settings'><a onClick={this.linkClick}>Settings page</a></Link> to make your profile public.</p>
           </div>
