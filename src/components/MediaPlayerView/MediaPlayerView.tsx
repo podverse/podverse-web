@@ -320,7 +320,7 @@ class MediaPlayerView extends Component<Props, State> {
                 queuePriorityItems={priorityItems}
                 queueSecondaryItems={secondaryItems}
                 showAutoplay={!isMobileDevice}
-                showPlaybackSpeed={playbackSpeedButtonHide === 'false'}
+                showPlaybackSpeed={playbackSpeedButtonHide === 'false' || !playbackSpeedButtonHide}
                 showTimeJumpBackward={timeJumpBackwardButtonHide === 'false'} />
             </div>
           </Fragment>

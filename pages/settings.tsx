@@ -577,10 +577,10 @@ class Settings extends Component<Props, State> {
               &nbsp;&nbsp;Hide NSFW Labels
             </Label>
           </FormGroup>
-          <hr />
           {
             user && user.id &&
             <Fragment>
+              <hr />
               <h3>My Data</h3>
               <p>
                 Download a full copy of your data to use as a backup,

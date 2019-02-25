@@ -140,6 +140,11 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
           type: actionTypes.SETTINGS_SET_HIDE_NSFW_LABELS,
           payload: parsedCookie.nsfwLabelsHide
         })
+      } else {
+        ctx.store.dispatch({
+          type: actionTypes.SETTINGS_SET_HIDE_NSFW_LABELS,
+          payload: 'true'
+        })
       }
 
       if (parsedCookie.filterButtonHide) {
