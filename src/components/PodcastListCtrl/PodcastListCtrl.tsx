@@ -165,6 +165,11 @@ class PodcastListCtrl extends Component<Props, State> {
   getQuerySortOptions() {
     return [
       {
+        label: 'alphabetical',
+        onClick: () => this.queryPodcastsSort('alphabetical'),
+        value: 'alphabetical'
+      },
+      {
         label: 'top - past hour',
         onClick: () => this.queryPodcastsSort('top-past-hour'),
         value: 'top-past-hour'
