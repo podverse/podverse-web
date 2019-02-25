@@ -326,8 +326,14 @@ class MediaModals extends Component<Props, State> {
     const { playerQueueLoadPriorityItems, playerQueueLoadSecondaryItems, user,
       userSetInfo } = this.props
     const { queueItems } = user
+    const localQueueItems = getPriorityQueueItemsStorage()
 
-    let newQueueItems = clone(queueItems)
+    let newQueueItems
+    if (user && user.id) {
+      newQueueItems = clone(queueItems)
+    } else {
+      newQueueItems = clone(localQueueItems)
+    }
 
     if (isPriority) {
       if (clipId) {

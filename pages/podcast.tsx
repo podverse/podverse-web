@@ -54,7 +54,7 @@ class Podcast extends Component<Props, State> {
       const lastScrollPosition = currentPage.lastScrollPosition
       const queryFrom = currentPage.queryFrom || query.from || 'from-podcast'
       const queryPage = currentPage.queryPage || query.page || 1
-      const querySort = currentPage.querySort || query.sort || 'top-past-week'
+      const querySort = currentPage.querySort || query.sort || 'most-recent'
       const queryType = currentPage.queryType || query.type || 'episodes'
       let podcastId = ''
 
