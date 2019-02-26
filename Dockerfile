@@ -1,4 +1,4 @@
-FROM node:11
+FROM node
 WORKDIR /tmp
 COPY . .
 RUN npm install -g ts-node
