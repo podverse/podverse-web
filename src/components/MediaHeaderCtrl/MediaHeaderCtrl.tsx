@@ -13,7 +13,9 @@ type Props = {
   nowPlayingItem?: any
   pageIsLoading?: any
   pageKey?: string
+  pagesSetQueryState?: any
   podcast?: any
+  settings?: any
   user?: any
   userSetInfo?: any
 }

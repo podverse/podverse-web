@@ -56,6 +56,7 @@
     "next-redux-wrapper": "^2.0.0",
     "password-validator": "^4.1.1",
     "paypal-checkout": "^4.0.239",
+    "podverse-ui": "^1.0.5",
     "react": "^16.5.2",
     "react-async-script-loader": "^0.3.0",
     "react-beautiful-dnd": "^10.0.2",
