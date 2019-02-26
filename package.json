@@ -22,7 +22,7 @@
     "build": "next build && tsc --project tsconfig.server.json",
     "dev": "nodemon src/server/index.dev.ts",
     "start:dev": "NODE_ENV=production node next/production-server/server/index.dev.js",
-    "start": "NODE_ENV=production node next/production-server/server/index.js",
+    "start": "NODE_ENV=production ts-node next/production-server/server/index.js",
     "ts:check": "tsc --noEmit"
   },
   "dependencies": {

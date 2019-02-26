@@ -4,7 +4,6 @@ import * as Koa from 'koa'
 import * as bodyParser from 'koa-bodyparser'
 import * as helmet from 'koa-helmet'
 import * as next from 'next'
-// import { routeFilePaths, routePagePaths } from 'lib/constants'
 import { adminRouter, authRouter, devRouter, infoRouter, mainRouter,
   paymentRouter, requestHandlerRouter } from './routes'
 
@@ -32,10 +31,10 @@ app.prepare()
     server.use(requestHandlerRouter(app).routes())
 
     // Config is only available after Next.js has started
-    const { PORT } = require('../config').default()
+    const config = require(process.cwd() + '/src/config/index.ts').default()
+    const { BASE_URL, PORT } = config
 
     server.listen(PORT, () => {
-      console.log(`> Ready on http://localhost:${PORT}`)
+      console.log(`> Ready on ${BASE_URL}:${PORT}`)
     })
   })
-

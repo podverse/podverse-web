@@ -87,6 +87,5 @@ export default () => {
     trackingId: config.GOOGLE_ANALYTICS_TRACKING_ID
   }
 
-
   return config
 }
