@@ -171,6 +171,11 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
           type: actionTypes.SETTINGS_SET_HIDE_PLAYBACK_SPEED_BUTTON,
           payload: parsedCookie.playbackSpeedButtonHide
         })
+      } else if (isMobileDevice) {
+        ctx.store.dispatch({
+          type: actionTypes.SETTINGS_SET_HIDE_PLAYBACK_SPEED_BUTTON,
+          payload: true
+        })
       }
 
       if (parsedCookie.Authorization) {

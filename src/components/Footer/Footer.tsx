@@ -148,7 +148,8 @@ class Footer extends Component<Props, State> {
               <a 
                 className='footer-top__license'
                 target='_blank'>
-                <span className='flip-text-horizontal'>&copy;</span> AGPLv3
+                <span className='flip-text-horizontal'>&copy;</span>
+                <span className='hide-tiny'> copyleft</span>
               </a>
             </Link>
           </div>
