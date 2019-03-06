@@ -333,7 +333,7 @@ class MediaListCtrl extends Component<Props, State> {
       subscribedPodcastIds: queryFrom === 'subscribed-only' ?
         (subscribedPodcastIds ? subscribedPodcastIds.length > 0 : ['no-results']) : null,
       searchAllFieldsText: text,
-      includePodcast: text!!
+      includePodcast: !!text
     }
     
     try {

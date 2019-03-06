@@ -56,15 +56,16 @@ class MediaModals extends Component<Props, State> {
   }
 
   addToQueue = async isLast => {
-    const { mediaPlayer, playerQueueLoadPriorityItems, user, userSetInfo } = this.props
-    const { nowPlayingItem } = mediaPlayer
+    const { modals, playerQueueLoadPriorityItems, user, userSetInfo } = this.props
+    const { addTo } = modals
+    const { nowPlayingItem } = addTo
 
     this.setState({
       isAddedToPlayLast: false,
       isAddedToPlayNext: false,
       isAddingToPlayLast: isLast,
       isAddingToPlayNext: !isLast,
-      loadingItemId: null
+      loadingItemId: ''
     })
 
     let priorityItems = []
@@ -88,7 +89,7 @@ class MediaModals extends Component<Props, State> {
       isAddedToPlayNext: !isLast,
       isAddingToPlayLast: false,
       isAddingToPlayNext: false,
-      loadingItemId: null
+      loadingItemId: ''
     })
   }
 
