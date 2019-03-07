@@ -86,15 +86,12 @@ class Auth extends Component<Props, State> {
   }
 
   handleSignUp = async (email, password) => {
-    const { modalsSignUpIsLoading, modalsSignUpSetErrorResponse, modalsSignUpShow,
-      userSetInfo } = this.props
+    const { modalsSignUpIsLoading, modalsSignUpSetErrorResponse, userSetInfo } = this.props
     modalsSignUpIsLoading(true)
 
     try {
-      const authenticatedUserInfo = await signUp(email, password)
-      userSetInfo(authenticatedUserInfo && authenticatedUserInfo.data)
-      modalsSignUpShow(false)
-      modalsSignUpSetErrorResponse(null)
+      await signUp(email, password)
+      window.location.reload()
     } catch (error) {
       if (error && error.response && error.response.status === 429) {
         alertRateLimitError(error)

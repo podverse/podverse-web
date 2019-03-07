@@ -91,6 +91,13 @@ class MediaModals extends Component<Props, State> {
       isAddingToPlayNext: false,
       loadingItemId: ''
     })
+
+    setTimeout(() => {
+      this.setState({ 
+        isAddedToPlayLast: false,
+        isAddedToPlayNext: false
+      })
+    }, 2500)
   }
 
   queueDragEnd = async (priorityItems, secondaryItems) => {
