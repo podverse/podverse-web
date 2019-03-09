@@ -17,6 +17,7 @@
     overflow-y: scroll;
     padding: 1.5rem 0 0.5rem 0;
     scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
 
     .top {
       display: flex;
