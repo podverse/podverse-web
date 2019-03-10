@@ -17,6 +17,7 @@ import { addFontAwesomeIcons } from '~/lib/fontAwesomeIcons'
 import { NowPlayingItem } from '~/lib/nowPlayingItem'
 import { scrollToTopOfView } from '~/lib/scrollToTop'
 import { disableHoverOnTouchDevices } from '~/lib/utility/disableHoverOnTouchDevices'
+import { fixMobileViewportHeight } from '~/lib/utility/fixMobileViewportHeight'
 import { initializeStore } from '~/redux/store'
 import { mediaPlayerLoadNowPlayingItem, pageIsLoading,
     playerQueueLoadPriorityItems } from '~/redux/actions'
@@ -228,6 +229,7 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
 
     if (typeof(window) === 'object') {
       disableHoverOnTouchDevices()
+      fixMobileViewportHeight()
       ReactGA.pageview(ctx.asPath)
     }
 

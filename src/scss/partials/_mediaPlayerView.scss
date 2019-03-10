@@ -2,9 +2,15 @@
   display: flex;
   flex-direction: column;
   height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
+  position: relative;
 
   .view__navbar {
     flex: 0 0 auto;
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
     z-index: 100;
   }
 
@@ -14,9 +20,9 @@
     flex: 1;
     height: 0;
     justify-content: space-between;
+    margin-top: 48px;
     overflow-y: scroll;
     padding: 1.5rem 0 0.5rem 0;
-    scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch;
 
     .top {
@@ -39,7 +45,7 @@
   .view__mediaplayer {
     bottom: 0;
     left: 0;
-    position: fixed;
+    position: absolute;
     right: 0;
     z-index: 100;
   }
