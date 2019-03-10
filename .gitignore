@@ -8,3 +8,7 @@ podverse.sql
 /src/static/libs/build
 /.boot/
 *jwt.keys.json
+/.next/
+/next/
+yarn-error.log
+.env

@@ -91,33 +91,34 @@ class UserService extends SequelizeService {
   }
 
   create (data, params={}) {
+    return new Promise((resolve, reject) => { resolve() })
+    
+    // const {Playlist} = this.Models;
 
-    const {Playlist} = this.Models;
-
-    return this.Model.findOrCreate({
-      where: {
-        id: params.userId
-      },
-      defaults: {
-        id: params.userId,
-        name: data.name || '',
-        nickname: data.nickname || '',
-        subscribedPodcastIds: data.subscribedPodcastIds || []
-      },
-      include: {
-        model: Playlist,
-        through: 'subscribedPlaylists'
-      }
-    })
-    .then(user => {
-      // TODO: I might be doing something wrong here. Basically I would like to do
-      // getOrCreate so the returned object isn't in an array, but seems like that doesn't exist.
-      return user[0];
-    })
-    .catch(e => {
-      console.log(e);
-      new errors.GeneralError(e);
-    });
+    // return this.Model.findOrCreate({
+    //   where: {
+    //     id: params.userId
+    //   },
+    //   defaults: {
+    //     id: params.userId,
+    //     name: data.name || '',
+    //     nickname: data.nickname || '',
+    //     subscribedPodcastIds: data.subscribedPodcastIds || []
+    //   },
+    //   include: {
+    //     model: Playlist,
+    //     through: 'subscribedPlaylists'
+    //   }
+    // })
+    // .then(user => {
+    //   // TODO: I might be doing something wrong here. Basically I would like to do
+    //   // getOrCreate so the returned object isn't in an array, but seems like that doesn't exist.
+    //   return user[0];
+    // })
+    // .catch(e => {
+    //   console.log(e);
+    //   new errors.GeneralError(e);
+    // });
   }
 
   update (id, data, params={}) {

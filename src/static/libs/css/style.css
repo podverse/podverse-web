@@ -1,3 +1,12 @@
+.old-website-notice {
+  background-color: #f8de7e;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  margin-top: -1rem;
+  padding: 1rem 0 1px 0;
+  text-align: center;
+}
+
 /*** global overrides ***/
 
 html, body {

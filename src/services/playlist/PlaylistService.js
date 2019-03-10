@@ -84,99 +84,102 @@ class PlaylistService extends SequelizeService {
   }
 
   create (data) {
-    data = this._transformBeforeSave(data);
+    return new Promise((resolve, reject) => { resolve() })
+    // data = this._transformBeforeSave(data);
 
-    const {User} = this.Models;
-    return User.findById(data.ownerId)
-      .then(user => {
-        data.ownerName = user.name || '';
-        return this.Model.create(data)
-          .then(pl => {
-            return pl.setMediaRefs(data.playlistItems)
-              .then(() => {
-                return user.addPlaylists([pl.id])
-                  .then(() => {
-                    return pl;
-                  });
-              });
-            });
-      })
-      .catch(e => {
-        throw new errors.GeneralError(e);
-      });
+    // const {User} = this.Models;
+    // return User.findById(data.ownerId)
+    //   .then(user => {
+    //     data.ownerName = user.name || '';
+    //     return this.Model.create(data)
+    //       .then(pl => {
+    //         return pl.setMediaRefs(data.playlistItems)
+    //           .then(() => {
+    //             return user.addPlaylists([pl.id])
+    //               .then(() => {
+    //                 return pl;
+    //               });
+    //           });
+    //         });
+    //   })
+    //   .catch(e => {
+    //     throw new errors.GeneralError(e);
+    //   });
 
   }
 
   update (id, data, params={}) {
-    const {MediaRef} = this.Models;
+    return new Promise((resolve, reject) => { resolve() })
 
-    if (!id) {
-      throw new errors.NotAcceptable(`You must provide an id.`);
-    }
+    // const {MediaRef} = this.Models;
 
-    return this.Model.findOne({
-      where: {
-        $or: [
-          {id: id},
-          {slug: id}
-        ]
-      },
-      include: [MediaRef]
-    }).then(pl => {
+    // if (!id) {
+    //   throw new errors.NotAcceptable(`You must provide an id.`);
+    // }
 
-      if (pl === null) {
-        throw new errors.NotFound(`Could not find a playlist by "${id}"`)
-      }
+    // return this.Model.findOne({
+    //   where: {
+    //     $or: [
+    //       {id: id},
+    //       {slug: id}
+    //     ]
+    //   },
+    //   include: [MediaRef]
+    // }).then(pl => {
 
-      if (!pl.ownerId || pl.ownerId !== params.userId) {
-        throw new errors.Forbidden();
-      }
+    //   if (pl === null) {
+    //     throw new errors.NotFound(`Could not find a playlist by "${id}"`)
+    //   }
 
-      if (pl.isMyClips && params.isFullEpisode) {
-        // TODO: send this error to the front end in an alert box for the user
-        // TODO: add test for this after alert box is handled
-        throw new errors.GeneralError(`Sorry folks! You can't add full episodes to the My Clips playlist.`);
-      }
+    //   if (!pl.ownerId || pl.ownerId !== params.userId) {
+    //     throw new errors.Forbidden();
+    //   }
 
-      let playlistItemCount = (pl.mediaRefs && pl.mediaRefs.length) || 0;
+    //   if (pl.isMyClips && params.isFullEpisode) {
+    //     // TODO: send this error to the front end in an alert box for the user
+    //     // TODO: add test for this after alert box is handled
+    //     throw new errors.GeneralError(`Sorry folks! You can't add full episodes to the My Clips playlist.`);
+    //   }
 
-      data = this._transformBeforeSave(data);
+    //   let playlistItemCount = (pl.mediaRefs && pl.mediaRefs.length) || 0;
 
-      return this.Model.update(data, {
-        where: {
-          id: id
-        }
-      }).then(() => {
+    //   data = this._transformBeforeSave(data);
 
-        if (params.addPlaylistItemsToPlaylist) {
+    //   return this.Model.update(data, {
+    //     where: {
+    //       id: id
+    //     }
+    //   }).then(() => {
 
-          return pl.addMediaRefs(data.playlistItems)
-          .then((result) => {
-            // NOTE: this assumes you are only adding one association at a time
-            let changed = 0;
-            if (result[0] && result[0].length) {
-              changed++;
-            }
-            return playlistItemCount + changed;
-          });
+    //     if (params.addPlaylistItemsToPlaylist) {
 
-        } else if (params.removePlaylistItemsFromPlaylist) {
+    //       return pl.addMediaRefs(data.playlistItems)
+    //       .then((result) => {
+    //         // NOTE: this assumes you are only adding one association at a time
+    //         let changed = 0;
+    //         if (result[0] && result[0].length) {
+    //           changed++;
+    //         }
+    //         return playlistItemCount + changed;
+    //       });
 
-          return pl.removeMediaRefs(data.playlistItems)
-          .then((result) => {
-            // NOTE: this assumes you are only deleting one association at a time
-            return playlistItemCount - 1;
-          });
+    //     } else if (params.removePlaylistItemsFromPlaylist) {
 
-        } else {
-          return this.get(id, params);
-        }
+    //       return pl.removeMediaRefs(data.playlistItems)
+    //       .then((result) => {
+    //         // NOTE: this assumes you are only deleting one association at a time
+    //         return playlistItemCount - 1;
+    //       });
 
-      });
+    //     } else {
+    //       return this.get(id, params);
+    //     }
 
-    }).catch(e => {
-      console.log(e);
-    });
+    //   });
+
+    // }).catch(e => {
+    //   console.log(e);
+    // });
 
   }
 
