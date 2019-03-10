@@ -372,9 +372,10 @@ class MediaListCtrl extends Component<Props, State> {
   clearFilterText = () => {
     const { handleSetPageQueryState, pageKey } = this.props
 
-    handleSetPageQueryState({
-      pageKey,
-      filterText: ''
+    handleFilterTextChange({
+      target: {
+        value: ''
+      }
     })
   }
 
