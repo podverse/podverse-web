@@ -228,8 +228,6 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
     }
 
     if (typeof(window) === 'object') {
-      disableHoverOnTouchDevices()
-      fixMobileViewportHeight()
       ReactGA.pageview(ctx.asPath)
     }
 
@@ -256,6 +254,9 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
     const { user } = state
 
     if (!windowHasLoaded) {
+      disableHoverOnTouchDevices()
+      fixMobileViewportHeight()
+      
       if (newPlayingItem) {
         setNowPlayingItemInStorage(newPlayingItem)
       } else {

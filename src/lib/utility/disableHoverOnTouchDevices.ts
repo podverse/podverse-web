@@ -1,6 +1,8 @@
 // thanks to blade on Stack Overflow for this script
 // https://stackoverflow.com/questions/23885255/how-to-remove-ignore-hover-css-style-on-touch-devices
 
+let hoverDisabled = false
+
 export const disableHoverOnTouchDevices = () => {
   function hasTouch() {
     return 'ontouchstart' in document.documentElement
@@ -8,7 +10,7 @@ export const disableHoverOnTouchDevices = () => {
       || navigator.msMaxTouchPoints > 0
   }
   
-  if (document && navigator && hasTouch()) { // remove all :hover stylesheets
+  if (!hoverDisabled && document && navigator && hasTouch()) { // remove all :hover stylesheets
     // prevent exception on browsers not supporting DOM styleSheets properly
     try {
       for (const si in document.styleSheets) {
@@ -23,6 +25,8 @@ export const disableHoverOnTouchDevices = () => {
           }
         }
       }
+
+      hoverDisabled = true
     } catch (ex) { }
   }
 }
