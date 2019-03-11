@@ -55,158 +55,152 @@ class ClipService extends SequelizeService {
   }
 
   create (data, params={}) {
+    return new Promise((resolve, reject) => {
 
-    return new Promise((resolve, reject) => { resolve() })
+      const PodcastService = locator.get('PodcastService');
+      const FeedUrlService = locator.get('FeedUrlService');
 
-    // return new Promise((resolve, reject) => {
+      if (data.endTime === '') {
+        data.endTime = null;
+      }
 
-      // const PodcastService = locator.get('PodcastService');
-      // const FeedUrlService = locator.get('FeedUrlService');
+      if (data.startTime && data.endTime, parseInt(data.startTime) >= parseInt(data.endTime)) {
+        throw new errors.GeneralError('Start time must be before the end time.');
+      }
 
-      // if (data.endTime === '') {
-      //   data.endTime = null;
-      // }
+      if (data.episodeDuration === '') {
+        data.episodeDuration = null;
+      }
 
-      // if (data.startTime && data.endTime, parseInt(data.startTime) >= parseInt(data.endTime)) {
-      //   throw new errors.GeneralError('Start time must be before the end time.');
-      // }
-
-      // if (data.episodeDuration === '') {
-      //   data.episodeDuration = null;
-      // }
-
-      // if (data.podcastId) {
-      //   return FeedUrlService.findPodcastAuthorityFeedUrl(data.podcastId)
-      //     .then(feedUrl => {
-      //       data.podcastFeedUrl = feedUrl;
-      //       return this.createClip(data, params)
-      //         .then(clip => {
-      //           resolve(clip);
-      //         });
-      //     });
-      // } else {
-      //   return PodcastService.findPodcastByFeedUrl(data.podcastFeedUrl)
-      //     .then(podcast => {
-      //       data.podcastId = podcast.id;
-      //       return this.createClip(data, params)
-      //         .then(clip => {
-      //           resolve(clip);
-      //         });
-      //     })
-      // }
-    // });
+      if (data.podcastId) {
+        return FeedUrlService.findPodcastAuthorityFeedUrl(data.podcastId)
+          .then(feedUrl => {
+            data.podcastFeedUrl = feedUrl;
+            return this.createClip(data, params)
+              .then(clip => {
+                resolve(clip);
+              });
+          });
+      } else {
+        return PodcastService.findPodcastByFeedUrl(data.podcastFeedUrl)
+          .then(podcast => {
+            data.podcastId = podcast.id;
+            return this.createClip(data, params)
+              .then(clip => {
+                resolve(clip);
+              });
+          })
+      }
+    });
   }
 
   createClip(data, params = {}) {
-    return new Promise((resolve, reject) => { resolve() })
+    const {MediaRef, Playlist, User} = this.Models;
+    const PlaylistService = locator.get('PlaylistService');
+    const EpisodeService = locator.get('EpisodeService');
 
-    // const {MediaRef, Playlist, User} = this.Models;
-    // const PlaylistService = locator.get('PlaylistService');
-    // const EpisodeService = locator.get('EpisodeService');
+    return MediaRef.create(data)
+      .then((c) => {
 
-    // return MediaRef.create(data)
-    //   .then((c) => {
+        // If user is logged in, then add the clip to their My Clips playlist
+        if (params.userId) {
 
-    //     // If user is logged in, then add the clip to their My Clips playlist
-    //     if (params.userId) {
+          return User.findById(params.userId)
+            .then(user => {
 
-    //       return User.findById(params.userId)
-    //         .then(user => {
+              // If the user does not exist for some reason, then do not
+              // attempt to add the new clip to a playlist.
+              if (!user) {
+                return c;
+              }
 
-    //           // If the user does not exist for some reason, then do not
-    //           // attempt to add the new clip to a playlist.
-    //           if (!user) {
-    //             return c;
-    //           }
+              let ownerName = user.name || '';
+              let myClipsPlaylist = {};
+              myClipsPlaylist.title = 'My Clips';
+              myClipsPlaylist.isMyClips = true;
+              myClipsPlaylist.ownerName = ownerName;
 
-    //           let ownerName = user.name || '';
-    //           let myClipsPlaylist = {};
-    //           myClipsPlaylist.title = 'My Clips';
-    //           myClipsPlaylist.isMyClips = true;
-    //           myClipsPlaylist.ownerName = ownerName;
+              return Playlist.findOrCreate({
+                where: {
+                  ownerId: params.userId,
+                  $and: {
+                    isMyClips: true
+                  }
+                },
+                defaults: myClipsPlaylist
+              }).then(playlists => {
+                  let playlist = playlists[0];
 
-    //           return Playlist.findOrCreate({
-    //             where: {
-    //               ownerId: params.userId,
-    //               $and: {
-    //                 isMyClips: true
-    //               }
-    //             },
-    //             defaults: myClipsPlaylist
-    //           }).then(playlists => {
-    //               let playlist = playlists[0];
+                  return user.addPlaylists([playlist.id])
+                    .then(() => {
+                      playlist.dataValues.playlistItems = [c.id];
+                      return PlaylistService.update(playlist.dataValues.id, playlist.dataValues, {
+                        userId: params.userId,
+                        addPlaylistItemsToPlaylist: true
+                      })
+                        .then(updatedPlaylist => {
+                          return c;
+                        })
+                    })
+              })
+          })
+        } else {
+          return c;
+        }
 
-    //               return user.addPlaylists([playlist.id])
-    //                 .then(() => {
-    //                   playlist.dataValues.playlistItems = [c.id];
-    //                   return PlaylistService.update(playlist.dataValues.id, playlist.dataValues, {
-    //                     userId: params.userId,
-    //                     addPlaylistItemsToPlaylist: true
-    //                   })
-    //                     .then(updatedPlaylist => {
-    //                       return c;
-    //                     })
-    //                 })
-    //           })
-    //       })
-    //     } else {
-    //       return c;
-    //     }
-
-    //   })
-    //   .catch(e => {
-    //     console.log(e);
-    //     throw new errors.GeneralError(e);
-    //   });
+      })
+      .catch(e => {
+        console.log(e);
+        throw new errors.GeneralError(e);
+      });
   }
 
   update (id, data, params={}) {
-    return new Promise((resolve, reject) => { resolve() })
-    // let prunedData = {};
+    let prunedData = {};
 
-    // let hasId = data.id;
-    // let hasStartTime = data.startTime;
-    // let hasEndTime = data.endTime || data.endTime === null;
-    // let hasTitle = data.title || data.title === null;
+    let hasId = data.id;
+    let hasStartTime = data.startTime;
+    let hasEndTime = data.endTime || data.endTime === null;
+    let hasTitle = data.title || data.title === null;
 
-    // if (!hasId) {
-    //   return;
-    // }
+    if (!hasId) {
+      return;
+    }
 
-    // if (hasStartTime) {
-    //   prunedData.startTime = data.startTime;
-    // }
+    if (hasStartTime) {
+      prunedData.startTime = data.startTime;
+    }
 
-    // if (hasEndTime) {
-    //   prunedData.endTime = data.endTime;
-    // }
+    if (hasEndTime) {
+      prunedData.endTime = data.endTime;
+    }
 
-    // if (hasTitle) {
-    //   prunedData.title = data.title;
-    // }
+    if (hasTitle) {
+      prunedData.title = data.title;
+    }
 
-    // if (!hasStartTime && !hasEndTime && !hasTitle) {
-    //   return;
-    // }
+    if (!hasStartTime && !hasEndTime && !hasTitle) {
+      return;
+    }
 
-    // prunedData.isPublic = data.isPublic === 'true';
+    prunedData.isPublic = data.isPublic === 'true';
 
-    // return this.Models.MediaRef.findById(data.id)
-    //   .then(mediaRef => {
+    return this.Models.MediaRef.findById(data.id)
+      .then(mediaRef => {
 
-    //     let newData = Object.assign(mediaRef, prunedData);
+        let newData = Object.assign(mediaRef, prunedData);
         
-    //     if (newData.endTime !== null && (parseInt(newData.startTime) >= parseInt(newData.endTime))) {
-    //       throw new errors.GeneralError('Start time must be before the end time.');
-    //     }
+        if (newData.endTime !== null && (parseInt(newData.startTime) >= parseInt(newData.endTime))) {
+          throw new errors.GeneralError('Start time must be before the end time.');
+        }
 
-    //     if (!mediaRef.ownerId || mediaRef.ownerId !== params.userId) {
-    //       throw new errors.Forbidden();
-    //     } else {
-    //       return super.update(data.id, newData, params);
-    //     }
+        if (!mediaRef.ownerId || mediaRef.ownerId !== params.userId) {
+          throw new errors.Forbidden();
+        } else {
+          return super.update(data.id, newData, params);
+        }
 
-    //   });
+      });
   }
 
   remove(id, params = {}) {
