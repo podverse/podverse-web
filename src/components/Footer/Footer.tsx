@@ -163,7 +163,7 @@ class Footer extends Component<Props, State> {
                 Contact
               </a>
             </Link>
-            <Link
+            {/* <Link
               as='/faq'
               href='/faq'>
               <a
@@ -171,7 +171,7 @@ class Footer extends Component<Props, State> {
                 onClick={this.linkClick}>
                 FAQ
               </a>
-            </Link>
+            </Link> */}
             <Link
               as='/about'
               href='/about'>
