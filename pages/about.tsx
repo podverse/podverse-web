@@ -71,7 +71,7 @@ class About extends Component<Props, State> {
 
         <hr />
 
-        <h4>Internet Data Rights</h4>
+        <h4>Your Data Rights</h4>
         <p>We will never sell or share private user data.</p>
         <p>We will never add advertisements without a podcaster's permission.</p>
         <p>We will never lock your data into our service. You can download a copy of all your account's data at any time.</p>
@@ -79,14 +79,16 @@ class About extends Component<Props, State> {
         <hr />
 
         <h4>Features</h4>
-        <p>Subscribe to podcasts</p>
-        <p>Create and share highlights</p>
-        <p>Create and share playlists</p>
-        <p>Share your user profile</p>
-        <p>Navigate the site without stopping audio</p>
-        <p>Sync your queue across all devices</p>
-        <p>SFW / NSFW mode</p>
-        <p>Light / Dark mode</p>
+        <ul style={{ listStyle: 'disc', marginLeft: '1.125rem' }}>
+          <li style={{ marginBottom: '0.125rem' }}>Subscribe to podcasts</li>
+          <li style={{ marginBottom: '0.125rem' }}>Create and share highlights</li>
+          <li style={{ marginBottom: '0.125rem' }}>Create and share playlists</li>
+          <li style={{ marginBottom: '0.125rem' }}>Sync your queue across all devices</li>
+          <li style={{ marginBottom: '0.125rem' }}>Navigate the site without stopping audio</li>
+          <li style={{ marginBottom: '0.125rem' }}>Share your user profile</li>
+          <li style={{ marginBottom: '0.125rem' }}>SFW / NSFW mode</li>
+          <li style={{ marginBottom: '0.125rem' }}>Light / Dark mode</li>
+        </ul>
 
         <hr />
 
@@ -100,6 +102,8 @@ class About extends Component<Props, State> {
           Furthermore, premium memberships help ensure that we put the interests of our users first.
           Many sites that claim to be "free" actually cost a great deal in terms of violations of our privacy,
           manipulation of public opinion, and disrespect of our time and well-being by promoting addictive behaviors.
+        </p>
+        <p>
           These "free" websites use shady practices because they care more about advertisers than users,
           but a subscription-based model can help us avoid this trap.
         </p>
