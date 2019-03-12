@@ -66,21 +66,15 @@ class About extends Component<Props, State> {
         </p>
         <p>
           Copyleft licenses are the only way to guarantee software is and will always remain free,
-          and they are essential to preventing the formation of tech monopolies.
+          and are essential to preventing tech monopolies.
         </p>
 
         <hr />
 
         <h4>Internet Data Rights</h4>
-        <p>
-          We will never sell or share private user data.
-        </p>
-        <p>
-          We will never add advertisements without a podcaster's permission.
-        </p>
-        <p>
-          We will never lock your data into our service. You can download a copy of all your account's data at any time.
-        </p>
+        <p>We will never sell or share private user data.</p>
+        <p>We will never add advertisements without a podcaster's permission.</p>
+        <p>We will never lock your data into our service. You can download a copy of all your account's data at any time.</p>
 
         <hr />
 
