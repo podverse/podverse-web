@@ -54,7 +54,7 @@ class About extends Component<Props, State> {
         <h4>Our Mission</h4>
         <p>1) Create the world's greatest podcast software</p>
         <p>2) Liberate independent media from gatekeepers and monopolies</p>
-        <p>3) Respect and defend your internet data rights</p>
+        <p>3) Respect and defend your personal data rights</p>
 
         <hr />
 
