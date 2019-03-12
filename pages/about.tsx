@@ -65,13 +65,13 @@ class About extends Component<Props, State> {
           as long as they share their changes to the code.
         </p>
         <p>
-          Copyleft licenses are the only way to guarantee software is and will always remain free,
-          and are essential to preventing tech monopolies.
+          Copyleft licenses are essential to preventing tech monopolies because
+          they are the only way to guarantee software is and will always remain free.
         </p>
 
         <hr />
 
-        <h4>Your Data Rights</h4>
+        <h4>Ethics</h4>
         <p>We will never sell or share private user data.</p>
         <p>We will never add advertisements without a podcaster's permission.</p>
         <p>We will never lock your data into our service. You can download a copy of all your account's data at any time.</p>
@@ -99,13 +99,13 @@ class About extends Component<Props, State> {
           full-time to the project while covering necessary business expenses.
         </p>
         <p>
-          Furthermore, premium memberships help ensure that we put the interests of our users first.
+          Furthermore, premium memberships help ensure that we always put the interests of our users first.
           Many sites that claim to be "free" actually cost a great deal in terms of violations of our privacy,
-          manipulation of public opinion, and disrespect of our time and well-being by promoting addictive behaviors.
+          manipulation of public opinion, and disrespect of our well-being by promoting addictive behaviors.
         </p>
         <p>
-          These "free" websites use shady practices because they care more about advertisers than users,
-          but a subscription-based model can help us avoid this trap.
+          "Free" websites engage in these practices because they care more about advertisers than users,
+          but subscription-based models can help tech companies avoid this trap.
         </p>
         
         <hr />
