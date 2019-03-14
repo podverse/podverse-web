@@ -51,10 +51,17 @@ class About extends Component<Props, State> {
           twitterDescription={meta.description}
           twitterTitle={meta.title} />
 
-        <h4>Our Mission</h4>
-        <p>1) Create the world's greatest podcast software</p>
-        <p>2) Liberate independent media from gatekeepers and monopolies</p>
-        <p>3) Respect and defend your personal data rights</p>
+        <h4>Features</h4>
+        <ul style={{ listStyle: 'disc', marginLeft: '1.125rem' }}>
+          <li style={{ marginBottom: '0.125rem' }}>Subscribe to podcasts</li>
+          <li style={{ marginBottom: '0.125rem' }}>Create and share highlights</li>
+          <li style={{ marginBottom: '0.125rem' }}>Create and share playlists</li>
+          <li style={{ marginBottom: '0.125rem' }}>Sync your queue across all devices</li>
+          <li style={{ marginBottom: '0.125rem' }}>Navigate the site without stopping audio</li>
+          <li style={{ marginBottom: '0.125rem' }}>Share your user profile</li>
+          <li style={{ marginBottom: '0.125rem' }}>SFW / NSFW mode</li>
+          <li style={{ marginBottom: '0.125rem' }}>Light / Dark mode</li>
+        </ul>
 
         <hr />
 
@@ -71,24 +78,10 @@ class About extends Component<Props, State> {
 
         <hr />
 
-        <h4>Ethics</h4>
+        <h4>Our Ethics</h4>
         <p>We will never sell or share private user data.</p>
         <p>We will never add advertisements without a podcaster's permission.</p>
         <p>We will never lock your data into our service. You can download a copy of all your account's data at any time.</p>
-
-        <hr />
-
-        <h4>Features</h4>
-        <ul style={{ listStyle: 'disc', marginLeft: '1.125rem' }}>
-          <li style={{ marginBottom: '0.125rem' }}>Subscribe to podcasts</li>
-          <li style={{ marginBottom: '0.125rem' }}>Create and share highlights</li>
-          <li style={{ marginBottom: '0.125rem' }}>Create and share playlists</li>
-          <li style={{ marginBottom: '0.125rem' }}>Sync your queue across all devices</li>
-          <li style={{ marginBottom: '0.125rem' }}>Navigate the site without stopping audio</li>
-          <li style={{ marginBottom: '0.125rem' }}>Share your user profile</li>
-          <li style={{ marginBottom: '0.125rem' }}>SFW / NSFW mode</li>
-          <li style={{ marginBottom: '0.125rem' }}>Light / Dark mode</li>
-        </ul>
 
         <hr />
 
