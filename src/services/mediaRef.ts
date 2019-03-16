@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { sfwFilterMediaRef, sfwFilterMediaRefs } from '~/lib/profanityFilter'
-import { alertRateLimitError, convertObjectToQueryString } from '~/lib/utility'
+import { convertObjectToQueryString } from '~/lib/utility'
 import config from '~/config'
 const { API_BASE_URL } = config()
 
