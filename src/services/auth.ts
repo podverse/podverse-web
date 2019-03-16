@@ -57,7 +57,7 @@ export const login = async (email: string, password: string) => {
 }
 
 export const logOut = async () => {
-  return axios(`${API_BASE_URL}/auth/log-out`, {
+  return axios(`${API_BASE_URL}/auth/logout`, {
     method: 'post',
     withCredentials: true
   })
