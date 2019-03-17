@@ -2,14 +2,18 @@ import React, { Component, Fragment } from 'react'
 import Meta from '~/components/Meta/Meta'
 import { getUrlFromRequestOrWindow, alertRateLimitError } from '~/lib/utility'
 import { pageIsLoading } from '~/redux/actions'
-import { verifyEmail } from '~/services/auth'
+import { sendVerification, verifyEmail } from '~/services/auth'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 type Props = {
   hasError?: string
   meta?: any
 }
 
-type State = {}
+type State = {
+  hasSent?: boolean
+  isSending?: boolean
+}
 
 class VerifyEmail extends Component<Props, State> {
 
@@ -38,8 +42,40 @@ class VerifyEmail extends Component<Props, State> {
     }
   }
 
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      hasSent: false,
+      isSending: false
+    }
+  }
+
+  sendEmail = async () => {
+    const { hasSent, isSending } = this.state
+    
+    if (hasSent || isSending) return
+
+    this.setState({ isSending: true })
+
+    try {
+      await sendVerification()
+      this.setState({
+        hasSent: true,
+        isSending: false
+      })
+    } catch (error) {
+      this.setState({
+        hasSent: false,
+        isSending: false
+      })
+      console.log(error)
+    }
+  }
+
   render() {
     const { hasError, meta } = this.props
+    const { hasSent, isSending } = this.state
 
     return (
       <Fragment>
@@ -65,7 +101,18 @@ class VerifyEmail extends Component<Props, State> {
             <Fragment>
               <h3>Verification failed</h3>
               <p>This token may have expired.</p>
-              <p>Resend verification email</p>
+              {
+                !hasSent && !isSending &&
+                  <p>Login to your account then <a href='#' onClick={this.sendEmail}>resend verification email</a></p>
+              }
+              {
+                hasSent &&
+                  <p>Email Sent! Please check your inbox.</p>
+              }
+              {
+                !hasSent && isSending &&
+                <p>Email sending... <FontAwesomeIcon icon='spinner' spin /></p>
+              }
             </Fragment>
         }
       </Fragment>

@@ -83,6 +83,13 @@ export const sendResetPassword = async (email: string) => {
   })
 }
 
+export const sendVerification = async () => {
+  return axios(`${API_BASE_URL}/auth/send-verification`, {
+    method: 'post',
+    withCredentials: true
+  })
+}
+
 export const signUp = async (email: string, password: string) => {
   return axios(`${API_BASE_URL}/auth/sign-up`, {
     method: 'post',
