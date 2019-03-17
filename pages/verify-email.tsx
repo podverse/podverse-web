@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import Meta from '~/components/Meta/Meta'
 import { getUrlFromRequestOrWindow, alertRateLimitError } from '~/lib/utility'
+import { pageIsLoading } from '~/redux/actions'
 import { verifyEmail } from '~/services/auth'
 
 type Props = {
@@ -12,7 +13,7 @@ type State = {}
 
 class VerifyEmail extends Component<Props, State> {
 
-  static async getInitialProps({ query, req }) {
+  static async getInitialProps({ query, req, store }) {
     const token = query.token
 
     const meta = {
@@ -20,6 +21,8 @@ class VerifyEmail extends Component<Props, State> {
       description: `Verify your email address on Podverse`,
       title: `Verify your email address`
     }
+
+    store.dispatch(pageIsLoading(false))
     
     try {
       await verifyEmail(token)
