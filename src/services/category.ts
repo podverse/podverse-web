@@ -10,5 +10,4 @@ type CategoryQuery = {
   id?: string
   slug?: string
   title?: string
-  category?: string
 }

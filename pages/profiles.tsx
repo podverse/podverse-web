@@ -29,7 +29,7 @@ class Profiles extends Component<Props, State> {
     const currentPage = pages[kPageKey] || {}
     const lastScrollPosition = currentPage.lastScrollPosition
     const queryPage = currentPage.queryPage || query.page || 1
-console.log(currentPage)
+
     if (Object.keys(currentPage).length === 0) {
       const response = await getPublicUsersByQuery({ 
         userIds: user.subscribedUserIds

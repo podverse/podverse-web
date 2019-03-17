@@ -2,7 +2,7 @@ import * as React from 'react'
 import * as Modal from 'react-modal'
 import { Button, ButtonGroup, CloseButton } from 'podverse-ui'
 import { Input, Label } from 'reactstrap'
-import { deleteUser } from '~/services'
+import { deleteLoggedInUser } from '~/services'
 
 type Props = {
   email?: string
@@ -61,7 +61,7 @@ export class DeleteAccountModal extends React.Component<Props, State> {
     const { id } = this.props
 
     try {
-      await deleteUser(id)
+      await deleteLoggedInUser(id)
       window.location.href = '/'
     } catch (error) {
       console.log(error)

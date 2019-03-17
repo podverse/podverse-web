@@ -1,6 +1,7 @@
 import axios from 'axios'
-import { convertObjectToQueryString } from '~/lib/utility'
 import config from '~/config'
+import { NowPlayingItem } from '~/lib/nowPlayingItem'
+import { convertObjectToQueryString } from '~/lib/utility'
 const { API_BASE_URL } = config()
 
 export const getAuthenticatedUserInfo = async (bearerToken) => {
@@ -9,6 +10,24 @@ export const getAuthenticatedUserInfo = async (bearerToken) => {
     headers: {
       Authorization: bearerToken
     }
+  })
+}
+
+export const login = async (email: string, password: string) => {
+  return axios(`${API_BASE_URL}/auth/login`, {
+    method: 'post',
+    data: {
+      email,
+      password
+    },
+    withCredentials: true
+  })
+}
+
+export const logOut = async () => {
+  return axios(`${API_BASE_URL}/auth/logout`, {
+    method: 'post',
+    withCredentials: true
   })
 }
 
@@ -45,24 +64,6 @@ export const getLoggedInUserPlaylists = async (bearerToken, page = 1) => {
   })
 }
 
-export const login = async (email: string, password: string) => {
-  return axios(`${API_BASE_URL}/auth/login`, {
-    method: 'post',
-    data: {
-      email,
-      password
-    },
-    withCredentials: true
-  })
-}
-
-export const logOut = async () => {
-  return axios(`${API_BASE_URL}/auth/logout`, {
-    method: 'post',
-    withCredentials: true
-  })
-}
-
 export const resetPassword = async (password?: string, resetPasswordToken?: string) => {
   return axios(`${API_BASE_URL}/auth/reset-password`, {
     method: 'post',
@@ -89,6 +90,46 @@ export const signUp = async (email: string, password: string) => {
       email,
       password
     },
+    withCredentials: true
+  })
+}
+
+export const deleteLoggedInUser = async (id: string) => {
+  return axios(`${API_BASE_URL}/auth/user`, {
+    method: 'delete',
+    withCredentials: true
+  })
+}
+
+export const updateLoggedInUser = async (data: any) => {
+  return axios(`${API_BASE_URL}/auth/user`, {
+    method: 'patch',
+    data,
+    withCredentials: true
+  })
+}
+
+export const addOrUpdateUserHistoryItem = async (nowPlayingItem: NowPlayingItem) => {
+  return axios(`${API_BASE_URL}/auth/user/add-or-update-history-item`, {
+    method: 'patch',
+    data: {
+      historyItem: nowPlayingItem
+    },
+    withCredentials: true
+  })
+}
+
+export const downloadLoggedInUserData = async (id: string) => {
+  return axios(`${API_BASE_URL}/auth/user/download`, {
+    method: 'get',
+    withCredentials: true
+  })
+}
+
+export const updateUserQueueItems = async (data: any) => {
+  return axios(`${API_BASE_URL}/auth/user/update-queue`, {
+    method: 'patch',
+    data,
     withCredentials: true
   })
 }

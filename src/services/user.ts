@@ -1,34 +1,9 @@
 import axios from 'axios'
 import { sfwFilterMediaRefs, sfwFilterPlaylists, sfwFilterUser, sfwFilterUsers
   } from '~/lib/profanityFilter'
-import { NowPlayingItem } from '~/lib/nowPlayingItem'
 import { convertObjectToQueryString } from '~/lib/utility'
 import config from '~/config'
 const { API_BASE_URL } = config()
-
-export const addOrUpdateUserHistoryItem = async (nowPlayingItem: NowPlayingItem) => {
-  return axios(`${API_BASE_URL}/user/add-or-update-history-item`, {
-    method: 'patch',
-    data: {
-      historyItem: nowPlayingItem
-    },
-    withCredentials: true
-  })
-}
-
-export const deleteUser = async (id: string) => {
-  return axios(`${API_BASE_URL}/user/${id}`, {
-    method: 'delete',
-    withCredentials: true
-  })
-}
-
-export const downloadUserData = async (id: string) => {
-  return axios(`${API_BASE_URL}/user/download/${id}`, {
-    method: 'get',
-    withCredentials: true
-  })
-}
 
 export const getPublicUser = async (id: string, nsfwMode = 'on') => {
   return axios(`${API_BASE_URL}/user/${id}`, {
@@ -103,22 +78,6 @@ export const getPublicUsersByQuery = async (query, nsfwMode = 'on') => {
 export const toggleSubscribeToUser = async (userId: string) => {
   return axios(`${API_BASE_URL}/user/toggle-subscribe/${userId}`, {
     method: 'get',
-    withCredentials: true
-  })
-}
-
-export const updateUser = async (data: any) => {
-  return axios(`${API_BASE_URL}/user`, {
-    method: 'patch',
-    data,
-    withCredentials: true
-  })
-}
-
-export const updateUserQueueItems = async (data: any) => {
-  return axios(`${API_BASE_URL}/user/update-queue`, {
-    method: 'patch',
-    data,
     withCredentials: true
   })
 }

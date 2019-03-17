@@ -14,7 +14,7 @@ import { alertPremiumRequired, alertSomethingWentWrong, convertToYYYYMMDDHHMMSS,
 import { modalsSignUpShow, pageIsLoading, settingsHideFilterButton, settingsHideNSFWLabels,
   settingsHideNSFWMode, settingsHidePlaybackSpeedButton, settingsHideTimeJumpBackwardButton,
   settingsHideUITheme, userSetInfo } from '~/redux/actions'
-import { downloadUserData, updateUser } from '~/services'
+import { downloadLoggedInUserData, updateLoggedInUser } from '~/services'
 import config from '~/config'
 const { BASE_URL } = config()
 const fileDownload = require('js-file-download')
@@ -108,12 +108,12 @@ class Settings extends Component<Props, State> {
     }
   }
 
-  downloadUserData = async () => {
+  downloadLoggedInUserData = async () => {
     this.setState({ isDownloading: true })
     const { user } = this.props
 
     try {
-      const userData = await downloadUserData(user.id)
+      const userData = await downloadLoggedInUserData(user.id)
       fileDownload(JSON.stringify(userData.data), `podverse-${convertToYYYYMMDDHHMMSS()}`)
     } catch (error) {
       if (error && error.response && error.response.status === 429) {
@@ -273,7 +273,7 @@ class Settings extends Component<Props, State> {
 
     try {
       const newData = { email, id, isPublic, name }
-      await updateUser(newData)
+      await updateLoggedInUser(newData)
       userSetInfo(newData)
     } catch (error) {
       if (error && error.response && error.response.data === 'Premium Membership Required') {
@@ -590,7 +590,7 @@ class Settings extends Component<Props, State> {
               <Button
                 className='settings__download'
                 isLoading={isDownloading}
-                onClick={this.downloadUserData}>
+                onClick={this.downloadLoggedInUserData}>
                 <FontAwesomeIcon icon='download' />&nbsp;&nbsp;Download
               </Button>
               <hr />
