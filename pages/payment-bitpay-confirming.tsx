@@ -48,7 +48,7 @@ class PaymentConfirmingBitPay extends Component<Props, State> {
 
     const bitpayInvoice = await getBitPayInvoiceStatusByOrderId(id)
 
-    const intervalId = setInterval(this.checkPaymentStatus, 5000)
+    const intervalId = setInterval(this.checkPaymentStatus, 10000)
     this.setState({
       bitpayInvoice,
       intervalId,
@@ -119,7 +119,7 @@ class PaymentConfirmingBitPay extends Component<Props, State> {
                 <Fragment>
                   <p>Confirming payment with the network...</p>
                   <FontAwesomeIcon icon='spinner' spin />
-                  <p>This may take a while. You can leave this page and check your <a href='/settings#membership'>Settings page</a> later
+                  <p>This may take 5-20 minutes. You can leave this page and check your <a href='/settings#membership'>Settings page</a> later
                     to confirm when your transaction has completed.</p>
                 </Fragment>
               }
