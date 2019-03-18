@@ -6,6 +6,7 @@ import { ButtonGroup, Button } from 'podverse-ui'
 import Meta from '~/components/Meta/Meta'
 import { internetConnectivityErrorMessage } from '~/lib/constants/misc'
 import { getUrlFromRequestOrWindow, validatePassword, alertRateLimitError } from '~/lib/utility'
+import { pageIsLoading } from '~/redux/actions'
 import { resetPassword } from '~/services/auth'
 
 type Props = {
@@ -33,6 +34,8 @@ class ResetPassword extends Component<Props, State> {
       description: 'Reset your account password on Podverse',
       title: `Reset Password`
     }
+
+    store.dispatch(pageIsLoading(false))
 
     return { meta, passwordResetToken: token }
   }
