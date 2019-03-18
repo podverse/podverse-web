@@ -330,7 +330,7 @@ class Settings extends Component<Props, State> {
           <li>Own your personal data</li>
           <li>Support open-source software</li>
         </ul>
-        <p>$3 per year, checkout with PayPal or BitPay</p>
+        <p>$5 per year, checkout with PayPal or BitPay</p>
         <div className='settings-membership__btns'>
           {
             !user || !user.id &&

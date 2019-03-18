@@ -124,7 +124,7 @@ class Auth extends Component<Props, State> {
       <React.Fragment>
         <p style={{ textAlign: 'center' }}>
           Try premium free for 30 days
-          <br />$3/year after that
+          <br />$5/year after that
         </p>
       </React.Fragment>
     )

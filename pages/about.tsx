@@ -87,7 +87,7 @@ class About extends Component<Props, State> {
 
         <h4>Why charge for premium memberships?</h4>
         <p>
-          While all Podverse software is free and open source, premium memberships cost $3 a year.
+          While all Podverse software is free and open source, premium memberships cost $5 a year.
           Our goal is not to make as much money as possible, but to make just enough so we can dedicate ourselves
           full-time to the project while covering necessary business expenses.
         </p>
