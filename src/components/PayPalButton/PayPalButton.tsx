@@ -25,6 +25,7 @@ type Props = {
 }
 
 type State = {
+  addButtonToDOM?: any
   showButton?: any
 }
 
@@ -33,7 +34,8 @@ class PaypalButton extends React.Component<Props, State> {
     super(props);
 
     this.state = {
-      showButton: false,
+      addButtonToDOM: false,
+      showButton: false
     }
 
     // React and ReactDOM are needed by the paypal.Button.react component
@@ -46,8 +48,15 @@ class PaypalButton extends React.Component<Props, State> {
   componentDidMount () {
     const { isScriptLoaded, isScriptLoadSucceed } = this.props
 
+    // NOTE: There is a delay between when isScriptLoad is finished and when
+    // the click event actually becomes active on the button. The setTimeout
+    // adds the button hidden to the DOM, but waits before letting the user click it.
+    // Hopefully there's a better way to do this...
     if (isScriptLoaded && isScriptLoadSucceed) {
-      this.setState({ showButton: true })
+      this.setState({ addButtonToDOM: true })
+      setTimeout(() => {
+        this.setState({ showButton: true })
+      }, 3000)
     }
   }
 
@@ -58,14 +67,17 @@ class PaypalButton extends React.Component<Props, State> {
       !this.props.isScriptLoaded && isScriptLoaded
 
     if (isLoadedButWasntLoadedBefore && isScriptLoadSucceed) {
-      this.setState({ showButton: true })
+      this.setState({ addButtonToDOM: true })
+      setTimeout(() => {
+        this.setState({ showButton: true })
+      }, 3000)
     }
   }
 
   render () {
     const { client, commit, currency, env, handlePageIsLoading, hideCheckoutModal,
       subtotal, tax, total } = this.props
-    const { showButton } = this.state
+    const { addButtonToDOM, showButton } = this.state
 
     const payment = async (resolve, reject) => {
 
@@ -146,27 +158,36 @@ class PaypalButton extends React.Component<Props, State> {
     }
 
     return (
-      <div className='paypal-button'>
+      <React.Fragment>
         {
-          showButton && 
-            // @ts-ignore
-            <paypal.Button.react
-              client={client}
-              commit={commit}
-              env={env}
-              onAuthorize={onAuthorize}
-              onCancel={onCancel}
-              onError={onError}
-              payment={payment}
+          addButtonToDOM &&
+            <div
+              className='paypal-button'
               style={{
-                size: 'large'
-              }} />
+                display: showButton ? 'block' : 'none'
+              }}>
+              {
+                addButtonToDOM &&
+                // @ts-ignore
+                <paypal.Button.react
+                  client={client}
+                  commit={commit}
+                  env={env}
+                  onAuthorize={onAuthorize}
+                  onCancel={onCancel}
+                  onError={onError}
+                  payment={payment}
+                  style={{ size: 'large' }} />
+              }
+            </div>
         }
         {
           !showButton &&
-            <FontAwesomeIcon icon='spinner' spin />
+            <div className='paypal-button-loading'>
+              <FontAwesomeIcon icon='spinner' spin />
+            </div>
         }
-      </div>
+      </React.Fragment>
     )
   }
 }
