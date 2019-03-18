@@ -322,10 +322,10 @@ class Settings extends Component<Props, State> {
       <Fragment>
         <p>Premium features include:</p>
         <ul>
-          <li>Create and share playlists</li>
-          <li>Edit your clips</li>
           <li>Sync your queue on all devices</li>
           <li>Sync your podcast list on all devices</li>
+          <li>Create and share playlists</li>
+          <li>Edit your clips</li>
           <li>Share your user profile</li>
           <li>Own your personal data</li>
           <li>Support open-source software</li>
@@ -583,9 +583,7 @@ class Settings extends Component<Props, State> {
               <hr />
               <h3>My Data</h3>
               <p>
-                Download a full copy of your data to use as a backup,
-                or to load elsewhere if you decide to use a different app.
-                No apps support this yet, but they could :)
+                Download a full copy of your data to use as a backup.
               </p>
               <Button
                 className='settings__download'
