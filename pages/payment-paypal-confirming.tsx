@@ -69,7 +69,7 @@ class PaymentConfirmingPayPal extends Component<Props, State> {
     try {
       const paypalOrder = await getPayPalOrderById(id)
   
-      if (paypalOrder && paypalOrder.data && paypalOrder.data.state === 'completed') {
+      if (paypalOrder && paypalOrder.data && paypalOrder.data.state === 'approved') {
         newState.hasError = false
         newState.isChecking = false
         newState.isTakingLonger = false
