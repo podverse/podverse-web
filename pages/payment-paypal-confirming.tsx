@@ -120,7 +120,11 @@ class PaymentConfirmingPayPal extends Component<Props, State> {
                 <FontAwesomeIcon icon='spinner' spin />
                 {
                   isTakingLonger && 
-                    <p>taking longer than expected...</p>
+                    <p>Taking longer than expected...</p>
+                }
+                {
+                  !isTakingLonger &&
+                    <p>This may take a minute...</p>
                 }
               </Fragment>
           }
@@ -135,7 +139,7 @@ class PaymentConfirmingPayPal extends Component<Props, State> {
             wasSuccessful &&
               <Fragment>
                 <p>Payment confirmed!</p>
-                <p>Redirecting to your settings page...</p>
+                <p>Redirecting to your Settings page...</p>
               </Fragment>
           }
         </div> 
