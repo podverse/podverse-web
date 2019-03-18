@@ -1,0 +1,31 @@
+.waiting-for-payment {
+  justify-content: center;
+  pointer-events: none;
+  text-align: center;
+  
+  z-index: 2147483647;
+  
+  p {
+    margin: 1rem 0;
+  }
+  
+  svg {
+    font-size: $text-3x-rem;
+  }
+}
+
+[theme=light] {
+  .waiting-for-payment {
+    svg {
+      color: $gray-light;
+    }
+  }
+}
+
+[theme=dark] {
+  .waiting-for-payment {
+    svg {
+      color: $gray-dark;
+    }
+  }
+}

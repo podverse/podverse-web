@@ -112,7 +112,7 @@ class PaymentConfirmingPayPal extends Component<Props, State> {
           title={meta.title}
           twitterDescription={meta.description}
           twitterTitle={meta.title} />
-        <div className='page-loading-overlay show max-width allow-pointer-events'>
+        <div className='waiting-for-payment'>
           {
             isChecking &&
               <Fragment>

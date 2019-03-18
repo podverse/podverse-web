@@ -113,7 +113,7 @@ class PaymentConfirmingBitPay extends Component<Props, State> {
         }
         {
           !!id &&
-            <div className='page-loading-overlay show max-width allow-pointer-events'>
+            <div className='waiting-for-payment'>
               {
                 isChecking &&
                 <Fragment>
