@@ -31,8 +31,8 @@ class Podcasts extends Component<Props, State> {
     const { pages, settings, user } = state
     const { nsfwMode } = settings
 
-    const allCategoriesResult = await getCategoriesByQuery({})
-    const allCategories = allCategoriesResult.data || []
+    const allCategoriesAndCountResult = await getCategoriesByQuery({})
+    const allCategories = allCategoriesAndCountResult.data[0] || []
 
     const currentPage = pages[kPageKey] || {}
     const lastScrollPosition = currentPage.lastScrollPosition

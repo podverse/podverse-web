@@ -211,6 +211,7 @@ class PodcastListCtrl extends Component<Props, State> {
   generateCategorySelectNodes = (allCategories, categoryId, user) => {
     const { pageKey, pages } = this.props
     const { selected } = pages[pageKey]
+
     const categoryItems = allCategories.map(x => {
       return {
         hasSubcategories: x.categories && x.categories.length > 0,
@@ -308,7 +309,6 @@ class PodcastListCtrl extends Component<Props, State> {
       }
     } else {
       const topLevelCategoryItems = categoryItems.filter(x => x.parentValue === null)
-
       categorySelectNodes.push(
         <MediaListSelect
           items={topLevelCategoryItems}
