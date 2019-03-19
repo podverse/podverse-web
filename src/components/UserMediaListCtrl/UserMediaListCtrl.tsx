@@ -102,14 +102,14 @@ class UserMediaListCtrl extends Component<Props, State> {
           response = await getLoggedInUserMediaRefs(
             '',
             nsfwMode,
-            query.sort,
+            query.sort === 'alphabetical' ? 'most-recent' : query.sort,
             page
           )
         } else {
           response = await getUserMediaRefs(
             profileUser.id,
             nsfwMode,
-            query.sort,
+            query.sort === 'alphabetical' ? 'most-recent' : query.sort,
             page
           )
         }
