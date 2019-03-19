@@ -369,10 +369,21 @@ class MediaListCtrl extends Component<Props, State> {
     }
   }
 
-  clearFilterText = () => {
-    const { handleSetPageQueryState, pageKey } = this.props
+  clearFilterText = async () => {
+    const { pageIsLoading, pageKey, pages } = this.props
+    const { queryFrom, querySort, queryType } = pages[pageKey]
+    pageIsLoading(true)
 
-    handleFilterTextChange({
+    await this.queryListItems(
+      queryType,
+      queryFrom,
+      querySort,
+      1
+    )
+
+    pageIsLoading(false)
+
+    this.handleFilterTextChange({
       target: {
         value: ''
       }
