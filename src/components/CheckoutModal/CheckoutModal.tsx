@@ -77,8 +77,6 @@ class CheckoutModal extends React.Component<Props, State> {
         <div style={{textAlign: 'center'}}>
           <h3>Checkout</h3>
           <CloseButton onClick={handleHideModal} />
-          <p>$5 = 1 year of Podverse Premium</p>
-          <p></p>
           <PayPalButton
             client={PAYPAL_CLIENT}
             commit={true}
