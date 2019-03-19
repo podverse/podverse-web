@@ -87,14 +87,6 @@ class MediaListCtrl extends Component<Props, State> {
       querySort
     }
 
-    if (!page || page === 1) {
-      handleSetPageQueryState({
-        ...newState,
-        listItems: [],
-        listItemsTotal: 0
-      })
-    }
-
     try {
       let nowPlayingItems = []
       let listItemsTotal
@@ -380,13 +372,6 @@ class MediaListCtrl extends Component<Props, State> {
   clearFilterText = async () => {
     const { pageIsLoading, pageKey, pages } = this.props
     const { queryFrom, querySort, queryType } = pages[pageKey]
-
-    handleSetPageQueryState({
-      ...newState,
-      listItems: [],
-      listItemsTotal: 0
-    })
-
     pageIsLoading(true)
 
     await this.queryListItems(
