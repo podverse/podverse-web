@@ -56,7 +56,7 @@ class Terms extends Component<Props, State> {
           Hosts podcast links and content from third-party podcast feeds and sites. These have their own independent privacy policies, and we have no responsibility for their content or activities.
         </p>
         <p>
-          Will never sell user data.
+          Will never sell or share private user data.
         </p>
       </Fragment>
     )
