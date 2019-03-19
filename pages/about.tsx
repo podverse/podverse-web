@@ -56,7 +56,8 @@ class About extends Component<Props, State> {
           <li style={{ marginBottom: '0.125rem' }}>Subscribe to podcasts</li>
           <li style={{ marginBottom: '0.125rem' }}>Create and share highlights</li>
           <li style={{ marginBottom: '0.125rem' }}>Create and share playlists</li>
-          <li style={{ marginBottom: '0.125rem' }}>Sync your queue across all devices</li>
+          <li style={{ marginBottom: '0.125rem' }}>Sync your queue on all devices</li>
+          <li style={{ marginBottom: '0.125rem' }}>Drag and drop queue ordering</li>
           <li style={{ marginBottom: '0.125rem' }}>Navigate the site without stopping audio</li>
           <li style={{ marginBottom: '0.125rem' }}>Share your user profile</li>
           <li style={{ marginBottom: '0.125rem' }}>SFW / NSFW mode</li>
@@ -69,38 +70,36 @@ class About extends Component<Props, State> {
         <p>
           All Podverse software is provided under a copyleft license.
           Anyone can freely download the software and use it for any purpose,
-          as long as they share their changes to the code.
+          as long as they also share their changes to the code.
         </p>
         <p>
-          Copyleft licenses are essential to preventing tech monopolies because
+          Copyleft licenses are necessary to preventing tech monopolies because
           they are the only way to guarantee software is and will always remain free.
         </p>
 
         <hr />
 
-        <h4>Our Ethics</h4>
-        <p>We will never sell or share private user data.</p>
-        <p>We will never add advertisements without a podcaster's permission.</p>
-        <p>We will never lock your data into our service. You can download a copy of all your account's data at any time.</p>
+        <h4>Principles</h4>
+        <p>Never sell or share your private data.</p>
+        <p>Never add advertisements without a podcaster's permission.</p>
+        <p>Never lock you into our service. You can download a copy of all your data and leave the site at any time.</p>
 
         <hr />
 
         <h4>Why charge for premium memberships?</h4>
         <p>
           While all Podverse software is free and open source, premium memberships cost $5 a year.
-          Our goal is not to make as much money as possible, but to make just enough so we can dedicate ourselves
-          full-time to the project while covering necessary business expenses.
+          Our goal is not to make as much money as possible, but to make enough to cover business expenses
+          and dedicate ourselves full-time to the project.
         </p>
         <p>
-          Furthermore, premium memberships help ensure that we always put the interests of our users first.
-          Many sites that claim to be "free" actually cost a great deal in terms of violations of our privacy,
-          manipulation of public opinion, and disrespect of our well-being by promoting addictive behaviors.
+          Many apps that claim to be "free" actually cost us a great deal through violations of our privacy,
+          manipulation of public opinion, and disrespect for our health by promoting addictive
+          behaviors. This happens because so-called "free" apps tend to make their money from advertisers
+          and selling your data. By adopting a subscription-based premium model we have more incentive
+          to honestly serve the best interests of our users.
         </p>
-        <p>
-          "Free" websites engage in these practices because they care more about advertisers than users,
-          but subscription-based models can help tech companies avoid this trap.
-        </p>
-        
+
         <hr />
 
         <h3>Team</h3>
