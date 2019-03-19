@@ -51,7 +51,7 @@ class About extends Component<Props, State> {
           twitterDescription={meta.description}
           twitterTitle={meta.title} />
 
-        <h4>Features</h4>
+        <h3>Features</h3>
         <ul style={{ listStyle: 'disc', marginLeft: '1.125rem' }}>
           <li style={{ marginBottom: '0.125rem' }}>Subscribe to podcasts</li>
           <li style={{ marginBottom: '0.125rem' }}>Create and share highlights</li>
@@ -66,7 +66,7 @@ class About extends Component<Props, State> {
 
         <hr />
 
-        <h4>Open Source</h4>
+        <h3>Open Source</h3>
         <p>
           All Podverse software is provided under a copyleft license.
           Anyone can freely download the software and use it for any purpose,
@@ -79,18 +79,18 @@ class About extends Component<Props, State> {
 
         <hr />
 
-        <h4>Principles</h4>
+        <h3>Principles</h3>
         <p>Never sell or share your private data.</p>
         <p>Never add advertisements without a podcaster's permission.</p>
         <p>Never lock you into our service. You can download a copy of all your data and leave the site at any time.</p>
 
         <hr />
 
-        <h4>Why charge for premium memberships?</h4>
+        <h3>Why charge for premium memberships?</h3>
         <p>
           While all Podverse software is free and open source, premium memberships cost $5 a year.
-          Our goal is not to make as much money as possible, but to make enough to cover business expenses
-          and dedicate ourselves full-time to the project.
+          Our goal is not to make as much money as possible, but to make enough money to cover
+          business expenses and dedicate ourselves full-time to the project.
         </p>
         <p>
           Many apps that claim to be "free" actually cost us a great deal through violations of our privacy,
