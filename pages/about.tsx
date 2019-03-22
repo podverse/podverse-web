@@ -86,21 +86,21 @@ class About extends Component<Props, State> {
 
         <hr />
 
-        <h3>Why charge for premium memberships?</h3>
+        {/* <h3>Why charge for premium memberships?</h3>
         <p>
           While all Podverse software is free and open source, premium memberships cost $5 a year.
           That's because although you have the freedom to download, use, and modify the software
           however you like, it still costs us time and money to keep the servers running, so we
           need to charge something to keep the project sustainable.
-        </p>
-        <p>
+        </p> */}
+        {/* <p>
           Many apps that claim to be "free" actually cost us a great deal through violations of our privacy,
           manipulation of public opinion, and disrespect for our health by promoting addictive
-          behaviors. This happens so frequently because so-called "free" apps tend to have to make their money
+          behaviors. This happens because so-called "free" apps tend to have to make their money
           from advertisements and selling your data, so they care more about advertisers and large corporations
           than their acutal users. A subscription-based premium model gives us more incentive to honestly
           serve the best interests of our users.
-        </p>
+        </p> */}
 
         <hr />
 
