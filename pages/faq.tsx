@@ -58,7 +58,7 @@ class FAQ extends Component<Props, State> {
             <a href='#agplv3'>What does AGPLv3 mean?</a>
           </li>
           <li>
-            <a href='#monopoly-proof'>How is Podverse monopoly-proof?</a>
+            <a href='#federated'>How is Podverse federated?</a>
           </li>
         </ul>
         <hr />
@@ -67,7 +67,7 @@ class FAQ extends Component<Props, State> {
           <a href='https://www.gnu.org/licenses/agpl-3.0.en.html' target='_blank'>AGPLv3</a> is the open source license under which all Podverse technolgy is provided.
         </p>
         <hr />
-        <h3 id='monopoly-proof'>How is Podverse monopoly-proof?</h3>
+        <h3 id='federated'>How is Podverse federated?</h3>
         <p>
           Podverse software is distributed under the AGPLv3 open source license, which allows anyone to freely use, modify, and distribute the software, as long as they share their modifications as well. The share-alike requirement of the AGPLv3 ensures that the code is and will always remain free.
         </p>

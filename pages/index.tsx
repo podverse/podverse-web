@@ -94,7 +94,7 @@ class Home extends Component<Props, State> {
 
     const meta = {
       currentUrl: getUrlFromRequestOrWindow(req),
-      description: 'The Podverse web and iOS mobile app. Create and share clips of your favorite podcasts. Share playlists and your user profile. Sync podcasts between web and mobile. Open source and monopoly-proof software.',
+      description: 'The Podverse web and iOS mobile app. Create and share clips of your favorite podcasts. Share playlists and your user profile. Sync podcasts between web and mobile. Open source and federated software.',
       title: 'Podverse - Create podcast highlights'
     }
 

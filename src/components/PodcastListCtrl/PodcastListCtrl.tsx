@@ -344,7 +344,7 @@ class PodcastListCtrl extends Component<Props, State> {
   }
 
   render() {
-    const { allCategories, pageKey, pages, user } = this.props
+    const { allCategories, pageIsLoading, pageKey, pages, user } = this.props
     const { categoryId, listItems, listItemsTotal, queryPage, querySort } = pages[pageKey]
 
     const listItemNodes = listItems.map(x => {
@@ -388,7 +388,7 @@ class PodcastListCtrl extends Component<Props, State> {
               </Fragment>
           }
           {
-            (queryPage === 1 && listItemNodes.length === 0) &&
+            (!pageIsLoading && queryPage === 1 && listItemNodes.length === 0) &&
             <div className='no-results-msg'>No podcasts found</div>
           }
         </Fragment>

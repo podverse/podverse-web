@@ -411,8 +411,8 @@ class MediaListCtrl extends Component<Props, State> {
   }
 
   render() {
-    const { adjustTopPosition, episodeId, mediaPlayer, pageKey, pages, podcastId,
-      settings } = this.props
+    const { adjustTopPosition, episodeId, mediaPlayer, pageIsLoading, pageKey, pages,
+      podcastId, settings } = this.props
     const { filterButtonHide } = settings
     const { nowPlayingItem: mpNowPlayingItem } = mediaPlayer
     const { filterIsShowing, filterText, listItems, listItemsTotal, queryFrom,
@@ -527,7 +527,7 @@ class MediaListCtrl extends Component<Props, State> {
             </Fragment>
           }
           {
-            (queryPage === 1 && listItemNodes.length === 0) &&
+            (!pageIsLoading && queryPage === 1 && listItemNodes.length === 0) &&
             <div className='no-results-msg'>No {queryType === 'episodes' ? 'episodes' : 'clips'} found</div>
           }
         </Fragment>
