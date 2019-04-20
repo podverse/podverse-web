@@ -70,6 +70,7 @@ class Podcast extends Component<Props, State> {
         if (queryType === 'episodes') {
           results = await getEpisodesByQuery({
             from: queryFrom,
+            ...(!podcastId ? { includePodcast: true } : {}),
             page: queryPage,
             ...(podcastId ? { podcastId } : {}),
             sort: querySort,
@@ -78,6 +79,7 @@ class Podcast extends Component<Props, State> {
         } else {
           results = await getMediaRefsByQuery({
             from: queryFrom,
+            ...(!podcastId ? { includePodcast: true } : {}),
             page: queryPage,
             ...(podcastId ? { podcastId } : {}),
             sort: querySort,
@@ -86,7 +88,7 @@ class Podcast extends Component<Props, State> {
         }
 
         let listItems = results.data[0].map(x => {
-          let item = convertToNowPlayingItem(x)
+          let item = convertToNowPlayingItem(x, null, podcast)
           item.podcastId = podcast.id
           item.podcastImageUrl = podcast.imageUrl
           item.podcastTitle = podcast.title
@@ -169,11 +171,12 @@ class Podcast extends Component<Props, State> {
         <MediaListCtrl
           handleSetPageQueryState={pagesSetQueryState}
           pageKey={pageKey}
+          podcast={podcast}
+          podcastId={podcast.id}
           queryFrom={queryFrom}
           queryPage={queryPage}
           querySort={querySort}
-          queryType={queryType}
-          podcastId={podcast.id} />
+          queryType={queryType} />
       </Fragment>
     )
   }

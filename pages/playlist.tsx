@@ -608,7 +608,7 @@ class Playlist extends Component<Props, State> {
           }
           {
             (listItemNodes.length === 0) &&
-            <div className='no-results-msg'>No playlist items found</div>
+              <div className='no-results-msg'>No playlist items found</div>
           }
         </div>
       </Fragment>

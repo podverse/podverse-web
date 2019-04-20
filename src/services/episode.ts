@@ -14,16 +14,16 @@ export const getEpisodeById = async (id: string, nsfwMode = 'on') => {
 export const getEpisodesByQuery = async (query, nsfwMode = 'on') => {
   let filteredQuery: any = {}
 
-  if (query.sort) {
-    filteredQuery.sort = query.sort
-  } else {
-    filteredQuery.sort = 'top-past-week'
-  }
-
   if (query.page) {
     filteredQuery.page = query.page
   } else {
     filteredQuery.page = 1
+  }
+
+  if (query.sort) {
+    filteredQuery.sort = query.sort
+  } else {
+    filteredQuery.sort = 'top-past-week'
   }
 
   if (query.from === 'from-podcast') {

@@ -25,6 +25,7 @@ const debouncedMediaRefFilterQuery = AwesomeDebouncePromise(getMediaRefsByQuery,
 type Props = {
   adjustTopPosition?: boolean
   currentId?: string
+  episode?: any
   episodeId?: string
   handleSetPageQueryState: Function
   mediaPlayer?: any
@@ -35,6 +36,7 @@ type Props = {
   pages?: any
   playerQueueAddSecondaryItems?: any
   playerQueueLoadSecondaryItems?: any
+  podcast?: any
   podcastId?: string
   queryFrom?: string
   queryPage: number
@@ -56,8 +58,8 @@ class MediaListCtrl extends Component<Props, State> {
   }
 
   queryListItems = async (queryType, queryFrom, querySort, page) => {
-    const { episodeId, handleSetPageQueryState, pageKey, pages,
-      playerQueueLoadSecondaryItems, podcastId, settings, user } = this.props
+    const { episode, episodeId, handleSetPageQueryState, pageKey, pages,
+      playerQueueLoadSecondaryItems, podcast, podcastId, settings, user } = this.props
     const { nsfwMode } = settings
     const { subscribedPodcastIds } = user
     const { filterIsShowing, filterText } = pages[pageKey]
@@ -70,7 +72,8 @@ class MediaListCtrl extends Component<Props, State> {
       podcastId: queryFrom === 'from-podcast' ? podcastId : null,
       ...(filterIsShowing ? { searchAllFieldsText: filterText } : {}),
       ...(queryFrom === 'all-podcasts' ||
-          queryFrom === 'subscribed-only' ? { includePodcast: true } : {})
+          queryFrom === 'subscribed-only' ? { includePodcast: true } : {}),
+      ...(queryFrom === 'from-podcast' ? { includeEpisode: true } : {})
     }
 
     if (queryFrom === 'from-podcast') {
@@ -95,12 +98,12 @@ class MediaListCtrl extends Component<Props, State> {
         let response = await getEpisodesByQuery(query, nsfwMode)
         const episodes = response.data
         listItemsTotal = episodes[1]
-        nowPlayingItems = episodes[0].map(x => convertToNowPlayingItem(x))
+        nowPlayingItems = episodes[0].map(x => convertToNowPlayingItem(x, episode, podcast))
       } else {
         let response = await getMediaRefsByQuery(query, nsfwMode)
         const mediaRefs = response.data
         listItemsTotal = mediaRefs[1]
-        nowPlayingItems = mediaRefs[0].map(x => convertToNowPlayingItem(x))
+        nowPlayingItems = mediaRefs[0].map(x => convertToNowPlayingItem(x, episode, podcast))
       }
 
       playerQueueLoadSecondaryItems(clone(nowPlayingItems))
@@ -154,24 +157,28 @@ class MediaListCtrl extends Component<Props, State> {
     const { pageKey, pages, user } = this.props
     const { querySort, queryType } = pages[pageKey]
 
-    const options = [
-      {
-        label: 'All podcasts',
-        onClick: () => this.queryListItems(queryType, 'all-podcasts', querySort, 1),
-        value: 'all-podcasts'
-      },
-      {
-        label: 'Subscribed only',
-        onClick: () => {
-          if (user && user.id) {
-            this.queryListItems(queryType, 'subscribed-only', querySort, 1)
-          } else {
-            alert('Login to filter by your subscribed podcasts.')
-          }
+    const options = []
+
+    if (!showFromPodcast && !showFromEpisode) {
+      options.push(
+        {
+          label: 'All podcasts',
+          onClick: () => this.queryListItems(queryType, 'all-podcasts', querySort, 1),
+          value: 'all-podcasts'
         },
-        value: 'subscribed-only'
-      }
-    ]
+        {
+          label: 'Subscribed only',
+          onClick: () => {
+            if (user && user.id) {
+              this.queryListItems(queryType, 'subscribed-only', querySort, 1)
+            } else {
+              alert('Login to filter by your subscribed podcasts.')
+            }
+          },
+          value: 'subscribed-only'
+        }
+      )
+    }
 
     if (showFromPodcast) {
       options.unshift(
@@ -460,8 +467,7 @@ class MediaListCtrl extends Component<Props, State> {
 
     const selectedQueryTypeOption = this.getQueryTypeOptions().filter(x => x.value === queryType)
     const selectedQueryFromOption = this.getQueryFromOptions(
-      !!podcastId, !!episodeId && queryType === 'clips').filter(x => x.value === queryFrom
-    )
+      !!podcastId, !!episodeId && queryType === 'clips').filter(x => x.value === queryFrom)
     const selectedQuerySortOption = this.getQuerySortOptions().filter(x => x.value === querySort)
 
     return (      

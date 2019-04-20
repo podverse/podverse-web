@@ -43,7 +43,6 @@ class Home extends Component<Props, State> {
     const queryPage = currentPage.queryPage || query.page || 1
     const querySort = currentPage.querySort || query.sort || 'top-past-week'
     const queryType = currentPage.queryType || query.type || 'clips'
-    const includePodcast = currentPage.queryType === 'episodes' || query.type === 'episodes'
     let podcastId = ''
 
     if (queryFrom === 'subscribed-only') {
@@ -60,11 +59,12 @@ class Home extends Component<Props, State> {
           ...(podcastId ? { podcastId } : {}),
           sort: querySort,
           type: queryType,
-          ...(includePodcast ? { includePodcast } : {})
+          includePodcast: true
         }, nsfwMode)
       } else {
         results = await getMediaRefsByQuery({
           from: queryFrom,
+          includePodcast: true,
           page: queryPage,
           ...(podcastId ? { podcastId } : {}),
           sort: querySort,
@@ -72,7 +72,7 @@ class Home extends Component<Props, State> {
         }, nsfwMode)
       }
       
-      let listItems = results.data[0].map(x => convertToNowPlayingItem(x)) || []
+      let listItems = results.data[0].map(x => convertToNowPlayingItem(x, null, null)) || []
       let nowPlayingItemIndex = listItems.map((x) => x.clipId).indexOf(nowPlayingItem && nowPlayingItem.clipId)
       let queuedListItems = clone(listItems)
       nowPlayingItemIndex > -1 ? queuedListItems.splice(0, nowPlayingItemIndex + 1) : queuedListItems

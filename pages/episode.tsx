@@ -82,6 +82,7 @@ class Episode extends Component<Props, State> {
         results = await getEpisodesByQuery({
           from: queryFrom,
           page: queryPage,
+          ...(!podcastId ? { includePodcast: true } : {}),
           ...(podcastId ? { podcastId } : {}),
           sort: querySort,
           type: queryType
@@ -90,14 +91,16 @@ class Episode extends Component<Props, State> {
         results = await getMediaRefsByQuery({
           ...(episodeId ? { episodeId } : {}),
           from: queryFrom,
+          ...(!episodeId && podcastId ? { includeEpisode: true } : {}),
+          ...(!episodeId && !podcastId ? { includePodcast: true } : {}),
           page: queryPage,
           ...(podcastId ? { podcastId } : {}),
           sort: querySort,
           type: queryType
         }, nsfwMode)
       }
-      
-      let listItems = results.data[0].map(x => convertToNowPlayingItem(x))
+
+      let listItems = results.data[0].map(x => convertToNowPlayingItem(x, episode, episode.podcast))
       let nowPlayingItemIndex = listItems.map((x) => x.clipId).indexOf(nowPlayingItem && nowPlayingItem.clipId)
       let queuedListItems = clone(listItems)
       nowPlayingItemIndex > -1 ? queuedListItems.splice(0, nowPlayingItemIndex + 1) : queuedListItems
@@ -173,9 +176,11 @@ class Episode extends Component<Props, State> {
           episode={episode}
           pageKey={pageKey} />
         <MediaListCtrl
+          episode={episode}
           episodeId={episode.id}
           handleSetPageQueryState={pagesSetQueryState}
           pageKey={pageKey}
+          podcast={episode.podcast}
           podcastId={episode.podcast.id}
           queryFrom={queryFrom}
           queryPage={queryPage}

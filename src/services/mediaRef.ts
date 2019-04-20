@@ -22,16 +22,16 @@ export const deleteMediaRef = async (id: string) => {
 export const getMediaRefsByQuery = async (query, nsfwMode = 'on') => {
   let filteredQuery: any = {}
 
-  if (query.sort) {
-    filteredQuery.sort = query.sort
-  } else {
-    filteredQuery.sort = 'top-past-week'
-  }
-
   if (query.page) {
     filteredQuery.page = query.page
   } else {
     filteredQuery.page = 1
+  }
+
+  if (query.sort) {
+    filteredQuery.sort = query.sort
+  } else {
+    filteredQuery.sort = 'top-past-week'
   }
 
   if (query.from === 'from-podcast') {
@@ -43,6 +43,12 @@ export const getMediaRefsByQuery = async (query, nsfwMode = 'on') => {
   } else {
     // from = all-podcasts
     // add nothing
+  }
+
+  if (query.includePodcast) {
+    filteredQuery.includePodcast = true
+  } else if (query.includeEpisode) {
+    filteredQuery.includeEpisode = true
   }
 
   if (query.searchAllFieldsText) {
