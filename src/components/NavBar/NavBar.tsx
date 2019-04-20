@@ -61,15 +61,15 @@ class PVNavBar extends Component<Props, State> {
 
     if (!!id) {
       dropdownItems.push({
-        as: '/my-profile',
-        href: '/my-profile',
-        label: 'My Profile',
-        onClick: () => { this.linkClick() }
-      })
-      dropdownItems.push({
         as: '/profiles',
         href: '/profiles',
         label: 'Profiles',
+        onClick: () => { this.linkClick() }
+      })
+      dropdownItems.push({
+        as: '/my-profile',
+        href: '/my-profile',
+        label: 'My Profile',
         onClick: () => { this.linkClick() }
       })
     }
