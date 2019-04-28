@@ -284,7 +284,7 @@ class Playlist extends Component<Props, State> {
         playlistId
       }
       const res = await addOrRemovePlaylistItem(requestData)
-      const { data } = res
+      const data = res[0]
 
       if (data) {
         userSetInfo({
