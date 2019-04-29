@@ -84,7 +84,7 @@ class About extends Component<Props, State> {
         <p>Never add advertisements without a podcaster's permission.</p>
         <p>Never lock you into our service. You can download a copy of all your data and leave the site at any time.</p>
 
-        <hr />
+        {/* <hr /> */}
 
         {/* <h3>Why charge for premium memberships?</h3>
         <p>
