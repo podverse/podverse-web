@@ -73,7 +73,7 @@ class About extends Component<Props, State> {
           as long as they also share their changes to the code.
         </p>
         <p>
-          Copyleft licenses are necessary to preventing tech monopolies because
+          Copyleft licenses are necessary for preventing tech monopolies because
           they are the only way to guarantee software is and will always remain free.
         </p>
 
