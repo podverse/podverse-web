@@ -125,7 +125,7 @@ class Footer extends Component<Props, State> {
                   </span>
                 </div>
             }
-            {/* {
+            {
               nsfwModeHide !== 'true' &&
                 <div className='footer-top__nsfw'>
                   <span className='footer-top-nsfw__left'>SFW&nbsp;</span>
@@ -141,7 +141,7 @@ class Footer extends Component<Props, State> {
                     width={40} />
                   <span className='footer-top-nsfw__right'>&nbsp;NSFW</span>
                 </div>
-            } */}
+            }
             <Link
               as='https://www.gnu.org/licenses/agpl-3.0.en.html'
               href='https://www.gnu.org/licenses/agpl-3.0.en.html'>
