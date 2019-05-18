@@ -100,7 +100,7 @@ class Footer extends Component<Props, State> {
               <a
                 className='footer-top__brand'
                 onClick={this.linkClick}>
-                Podverse<sup>FM</sup>
+                Podverse
               </a>
             </Link>
             {
