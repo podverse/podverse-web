@@ -73,8 +73,8 @@ class About extends Component<Props, State> {
           as long as they also share their changes to the code.
         </p>
         <p>
-          Copyleft licenses are necessary for preventing tech monopolies because
-          they are the only way to guarantee software is and will always remain free.
+          Copyleft licenses are necessary for preventing tech monopolies.
+          They are the only way to guarantee software is and will always remain free.
         </p>
 
         <hr />
@@ -84,23 +84,22 @@ class About extends Component<Props, State> {
         <p>Never add advertisements without a podcaster's permission.</p>
         <p>Never lock you into our service. You can download a copy of all your data and leave the site at any time.</p>
 
-        {/* <hr /> */}
+        <hr />
 
-        {/* <h3>Why charge for premium memberships?</h3>
+        <h3>Why charge for premium memberships?</h3>
         <p>
           While all Podverse software is free and open source, premium memberships cost $5 a year.
-          That's because although you have the freedom to download, use, and modify the software
-          however you like, it still costs us time and money to keep the servers running, so we
-          need to charge something to keep the project sustainable.
-        </p> */}
-        {/* <p>
-          Many apps that claim to be "free" actually cost us a great deal through violations of our privacy,
-          manipulation of public opinion, and disrespect for our health by promoting addictive
-          behaviors. This happens because so-called "free" apps tend to have to make their money
-          from advertisements and selling your data, so they care more about advertisers and large corporations
-          than their acutal users. A subscription-based premium model gives us more incentive to honestly
-          serve the best interests of our users.
-        </p> */}
+          It costs us time and money to keep the servers running, so we need to charge something to
+          keep the project sustainable.
+        </p>
+        <p>
+          Many apps that claim to be "free" today actually cost us a great deal through violations
+          of our privacy, manipulation of public opinion, and disrespect for our health by promoting addictive behaviors.
+          These so-called "free" apps often make their money from advertisements and selling your data,
+          and as a result, they care more about advertisers and massive corporations than actual people.
+          A subscription-based premium model gives us the most incentive to honestly serve the interests
+          of podcasters and their audiences. 
+        </p>
 
         <hr />
 
