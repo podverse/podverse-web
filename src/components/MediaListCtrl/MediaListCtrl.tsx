@@ -33,6 +33,7 @@ type Props = {
   mediaPlayerUpdatePlaying?: any
   pageIsLoading?: any
   pageKey: string
+  page?: any
   pages?: any
   playerQueueAddSecondaryItems?: any
   playerQueueLoadSecondaryItems?: any
@@ -418,8 +419,9 @@ class MediaListCtrl extends Component<Props, State> {
   }
 
   render() {
-    const { adjustTopPosition, episodeId, mediaPlayer, pageIsLoading, pageKey, pages,
+    const { adjustTopPosition, episodeId, mediaPlayer, page, pageKey, pages,
       podcastId, settings } = this.props
+    const { isLoading } = page
     const { filterButtonHide } = settings
     const { nowPlayingItem: mpNowPlayingItem } = mediaPlayer
     const { filterIsShowing, filterText, listItems, listItemsTotal, queryFrom,
@@ -533,8 +535,8 @@ class MediaListCtrl extends Component<Props, State> {
             </Fragment>
           }
           {
-            (!pageIsLoading && queryPage === 1 && listItemNodes.length === 0) &&
-            <div className='no-results-msg'>No {queryType === 'episodes' ? 'episodes' : 'clips'} found</div>
+            (!isLoading && queryPage === 1 && listItemNodes.length === 0) &&
+              <div className='no-results-msg'>No {queryType === 'episodes' ? 'episodes' : 'clips'} found</div>
           }
         </Fragment>
       </div>

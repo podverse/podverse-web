@@ -90,7 +90,7 @@ export const getLoggedInUserMediaRefs = async (bearerToken, nsfwMode, sort = 'mo
   filteredQuery.page = page
   const queryString = convertObjectToQueryString(filteredQuery)
 
-  return axios(`${API_BASE_URL}/mediaRefs?${queryString}`, {
+  return axios(`${API_BASE_URL}/user/mediaRefs?${queryString}`, {
     method: 'get',
     headers: {
       Authorization: bearerToken,
@@ -105,7 +105,7 @@ export const getLoggedInUserPlaylists = async (bearerToken, page = 1) => {
   filteredQuery.page = page
   const queryString = convertObjectToQueryString(filteredQuery)
 
-  return axios(`${API_BASE_URL}/playlists?${queryString}`, {
+  return axios(`${API_BASE_URL}/user/playlists?${queryString}`, {
     method: 'get',
     data: {
       page

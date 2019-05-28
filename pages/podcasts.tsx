@@ -12,6 +12,7 @@ type Props = {
   categoryId?: string
   lastScrollPosition?: number
   meta?: any
+  pageIsLoading?: boolean
   pageKey?: string
   pagesSetQueryState?: any
   playerQueue?: any
@@ -79,7 +80,7 @@ class Podcasts extends Component<Props, State> {
   }
 
   render() {
-    const { allCategories, categoryId, meta, pageKey, pagesSetQueryState, queryFrom,
+    const { allCategories, categoryId, meta, pageKey, pageIsLoading, pagesSetQueryState, queryFrom,
       queryPage, querySort } = this.props
     
     return (
@@ -98,6 +99,7 @@ class Podcasts extends Component<Props, State> {
           allCategories={allCategories}
           categoryId={categoryId}
           handleSetPageQueryState={pagesSetQueryState}
+          pageIsLoading={pageIsLoading}
           pageKey={pageKey}
           queryFrom={queryFrom}
           queryPage={queryPage}

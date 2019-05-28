@@ -2,7 +2,6 @@ import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { MediaListItem, MediaListSelect, Pagination } from 'podverse-ui'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import config from '~/config'
 import { pageIsLoading, pagesSetQueryState } from '~/redux/actions'
 import { getPodcastsByQuery } from '~/services'
@@ -13,6 +12,7 @@ type Props = {
   allCategories?: any
   categoryId?: string
   handleSetPageQueryState: Function
+  page?: any
   pageIsLoading?: any
   pageKey?: string
   pages?: any
@@ -95,7 +95,7 @@ class PodcastListCtrl extends Component<Props, State> {
   }
 
   queryPodcastsSubscribed = async () => {
-    const { pageKey, pages, user } = this.props
+    const { handleSetPageQueryState, pageKey, pages, user } = this.props
     const { subscribedPodcastIds } = user
     const { querySort } = pages[pageKey]
 
@@ -103,7 +103,7 @@ class PodcastListCtrl extends Component<Props, State> {
       page: 1,
       from: 'subscribed-only',
       sort: querySort,
-      subscribedPodcastIds
+      subscribedPodcastIds: subscribedPodcastIds || []
     }
 
     let newState: any = {
@@ -111,6 +111,15 @@ class PodcastListCtrl extends Component<Props, State> {
       queryFrom: 'subscribed-only',
       queryPage: 1,
       selected: 'subscribed-only',
+    }
+
+    if (subscribedPodcastIds.length < 1) {
+      handleSetPageQueryState({
+        ...newState,
+        listItems: [],
+        listItemsTotal: 0
+      })
+      return
     }
 
     await this.queryPodcasts(query, newState)
@@ -344,7 +353,8 @@ class PodcastListCtrl extends Component<Props, State> {
   }
 
   render() {
-    const { allCategories, pageIsLoading, pageKey, pages, user } = this.props
+    const { allCategories, page, pageKey, pages, user } = this.props
+    const { isLoading } = page
     const { categoryId, listItems, listItemsTotal, queryPage, querySort } = pages[pageKey]
 
     const listItemNodes = listItems.map(x => {
@@ -361,7 +371,7 @@ class PodcastListCtrl extends Component<Props, State> {
     const categorySelectNodes = this.generateCategorySelectNodes(allCategories, categoryId, user)
 
     const selectedQuerySortOption = this.getQuerySortOptions().filter(x => x.value === querySort)
-    
+
     return (
       <div className={'media-list adjust-top-position'}>
         <div className='media-list__selects'>
@@ -388,8 +398,8 @@ class PodcastListCtrl extends Component<Props, State> {
               </Fragment>
           }
           {
-            (!pageIsLoading && queryPage === 1 && listItemNodes.length === 0) &&
-            <div className='no-results-msg'>No podcasts found</div>
+            (!isLoading && queryPage === 1 && listItemNodes.length === 0) &&
+              <div className='no-results-msg'>No podcasts found</div>
           }
         </Fragment>
       </div>
