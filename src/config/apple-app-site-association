@@ -3,23 +3,18 @@
     "apps": [],
     "details": [
         {
-            "appID": "J8YC6KSRKT.com.podverse.fm",
+            "appID": "WDBC8NPW4M.com.podverse.fm",
             "paths": [
                 "/",
-                "/clips/*",
-                "/episodes/*",
-                "/playlists/*",
-                "/podcasts/*"
-            ]
-        },
-        {
-            "appID": "DF9KG8H54B.com.podverse.fm",
-            "paths": [
-                "/",
-                "/clips/*",
-                "/episodes/*",
-                "/playlists/*",
-                "/podcasts/*"
+                "/clip/*",
+                "/episode/*",
+                "/playlist/*",
+                "/playlists",
+                "/podcast/*",
+                "/podcasts",
+                "/profile/*",
+                "/profiles",
+                "/search"
             ]
         }
     ]
