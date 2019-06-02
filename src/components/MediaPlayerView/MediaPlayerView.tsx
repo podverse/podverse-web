@@ -2,7 +2,8 @@ import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { MediaPlayer, popNextFromQueueStorage, setNowPlayingItemInStorage } from 'podverse-ui'
-import { assignLocalOrLoggedInNowPlayingItemPlaybackPosition, getPlaybackPositionFromHistory } from '~/lib/utility'
+import { assignLocalOrLoggedInNowPlayingItemPlaybackPosition, getPlaybackPositionFromHistory,
+  updateHistoryItemPlaybackPosition } from '~/lib/utility'
 import { kAutoplay, kPlaybackRate, getPlaybackRateText, getPlaybackRateNextValue
   } from '~/lib/constants/misc'
 import { mediaPlayerLoadNowPlayingItem, 
@@ -10,7 +11,7 @@ import { mediaPlayerLoadNowPlayingItem,
   playerQueueLoadPriorityItems, playerQueueLoadSecondaryItems,
   mediaPlayerUpdatePlaying, modalsAddToShow, modalsMakeClipShow,
   modalsQueueShow, modalsShareShow, pageIsLoading, pagesSetQueryState,
-  userSetInfo, userUpdateHistoryItem } from '~/redux/actions'
+  userSetInfo } from '~/redux/actions'
 import { addOrUpdateUserHistoryItem, updateUserQueueItems } from '~/services'
 
 type Props = {
@@ -95,7 +96,8 @@ class MediaPlayerView extends Component<Props, State> {
     let priorityItems = []
     let secondaryItems = []
 
-    await this.updateHistoryItemPlaybackPosition()
+    const currentTime = Math.floor(window.player.getCurrentTime()) || 0
+    await updateHistoryItemPlaybackPosition(previousItem, user, currentTime)
 
     if (user && user.id) {
       if (user.queueItems && user.queueItems.length > 0) {
@@ -177,9 +179,11 @@ class MediaPlayerView extends Component<Props, State> {
   }
 
   onEpisodeEnd = async () => {
+    const { mediaPlayer, user } = this.props
+    const { nowPlayingItem } = mediaPlayer
     const { autoplay } = this.state
 
-    await this.updateHistoryItemPlaybackPosition(0)
+    await updateHistoryItemPlaybackPosition(nowPlayingItem, user, 0)
     
     if (autoplay) {
       this.itemSkip()
@@ -200,8 +204,9 @@ class MediaPlayerView extends Component<Props, State> {
   }
 
   pause = async () => {
+    const { mediaPlayer, user } = this.props
     this.props.mediaPlayerUpdatePlaying(false)
-    await this.updateHistoryItemPlaybackPosition()
+    await updateHistoryItemPlaybackPosition(mediaPlayer.nowPlayingItem, user)
   }
 
   playbackRateClick = () => {
@@ -246,10 +251,10 @@ class MediaPlayerView extends Component<Props, State> {
   }
 
   togglePlay = async () => {
-    const { mediaPlayer, mediaPlayerUpdatePlaying } = this.props
+    const { mediaPlayer, mediaPlayerUpdatePlaying, user } = this.props
     const { playing } = mediaPlayer
     mediaPlayerUpdatePlaying(!playing)
-    await this.updateHistoryItemPlaybackPosition()
+    await updateHistoryItemPlaybackPosition(mediaPlayer.nowPlayingItem, user)
   }
 
   toggleQueueModal = () => {
@@ -275,21 +280,6 @@ class MediaPlayerView extends Component<Props, State> {
       isOpen: !isOpen,
       podcastLinkAs
     })
-  }
-
-  updateHistoryItemPlaybackPosition = async (overridePosition?: number) => {
-    const { mediaPlayer, user } = this.props
-    const { nowPlayingItem } = mediaPlayer
-    let currentTime = Math.floor(window.player.getCurrentTime()) || 0
-    currentTime = overridePosition ? overridePosition : currentTime
-    nowPlayingItem.userPlaybackPosition = currentTime
-
-    if (user && user.id) {
-      await addOrUpdateUserHistoryItem(nowPlayingItem)
-      await userUpdateHistoryItem(nowPlayingItem)
-    }
-
-    await setNowPlayingItemInStorage(nowPlayingItem)
   }
 
   render() {

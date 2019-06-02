@@ -8,7 +8,8 @@ import { mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying, modalsAddToSho
   modalsMakeClipShow, pageIsLoading, pagesSetQueryState, playerQueueLoadPriorityItems,
   userSetInfo } from '~/redux/actions'
 import { convertToNowPlayingItem } from '~/lib/nowPlayingItem'
-import { assignLocalOrLoggedInNowPlayingItemPlaybackPosition } from '~/lib/utility'
+import { assignLocalOrLoggedInNowPlayingItemPlaybackPosition, updateHistoryItemPlaybackPosition
+  } from '~/lib/utility'
 import { addOrUpdateUserHistoryItem, updateUserQueueItems } from '~/services'
 
 type Props = {
@@ -38,6 +39,9 @@ class MediaInfoCtrl extends Component<Props, State> {
   playItem = async nowPlayingItem => {
     const { mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying, user,
       userSetInfo } = this.props
+
+    const currentTime = Math.floor(window.player.getCurrentTime()) || 0
+    await updateHistoryItemPlaybackPosition(mediaPlayer.nowPlayingItem, user, currentTime)
     nowPlayingItem = assignLocalOrLoggedInNowPlayingItemPlaybackPosition(user, nowPlayingItem)
     mediaPlayerLoadNowPlayingItem(nowPlayingItem)
     setNowPlayingItemInStorage(nowPlayingItem)

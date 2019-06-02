@@ -13,8 +13,8 @@ import { Button, setNowPlayingItemInStorage } from 'podverse-ui'
 import MediaListItemCtrl from '~/components/MediaListItemCtrl/MediaListItemCtrl'
 import Meta from '~/components/Meta/Meta'
 import { convertToNowPlayingItem } from '~/lib/nowPlayingItem'
-import { alertPremiumRequired, alertSomethingWentWrong, assignLocalOrLoggedInNowPlayingItemPlaybackPosition, clone,
-  getUrlFromRequestOrWindow, readableDate, removeDoubleQuotes, alertRateLimitError } from '~/lib/utility'
+import { alertPremiumRequired, alertRateLimitError, alertSomethingWentWrong, assignLocalOrLoggedInNowPlayingItemPlaybackPosition,
+  clone, getUrlFromRequestOrWindow, readableDate, removeDoubleQuotes, updateHistoryItemPlaybackPosition } from '~/lib/utility'
 import { mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying, pageIsLoading,
   pagesSetQueryState, playerQueueLoadSecondaryItems, userSetInfo } from '~/redux/actions'
 import { addOrRemovePlaylistItem, addOrUpdateUserHistoryItem, deletePlaylist,
@@ -34,9 +34,9 @@ type Props = {
   playerQueueLoadSecondaryItems: any
   playlist: any
   playlistItems: any[]
+  sortedNowPlayingItems
   user: any
   userSetInfo: any
-  sortedNowPlayingItems
 }
 
 type State = {
@@ -341,10 +341,12 @@ class Playlist extends Component<Props, State> {
   }
 
   playItem = async nowPlayingItem => {
-    const { mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying,
+    const { mediaPlayer, mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying,
       playerQueueLoadSecondaryItems, user, userSetInfo } = this.props
     const { sortedNowPlayingItems } = this.state
 
+    const currentTime = Math.floor(window.player.getCurrentTime()) || 0
+    await updateHistoryItemPlaybackPosition(mediaPlayer.nowPlayingItem, user, currentTime)
     nowPlayingItem = assignLocalOrLoggedInNowPlayingItemPlaybackPosition(user, nowPlayingItem)
     mediaPlayerLoadNowPlayingItem(nowPlayingItem)
     setNowPlayingItemInStorage(nowPlayingItem)

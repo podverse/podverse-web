@@ -25,7 +25,7 @@ import { mediaPlayerLoadNowPlayingItem, pageIsLoading,
 import { actionTypes } from '~/redux/constants'
 import { getAuthenticatedUserInfo } from '~/services'
 import config from '~/config'
-const { googleAnalyticsConfig, paypalConfig } = config()
+const { googleAnalyticsConfig } = config()
 const cookie = require('cookie')
 const MobileDetect = require('mobile-detect')
 

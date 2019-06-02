@@ -6,7 +6,8 @@ import { bindActionCreators } from 'redux'
 import MediaListItemCtrl from '~/components/MediaListItemCtrl/MediaListItemCtrl'
 import config from '~/config'
 import { convertToNowPlayingItem } from '~/lib/nowPlayingItem'
-import { assignLocalOrLoggedInNowPlayingItemPlaybackPosition, clone } from '~/lib/utility'
+import { assignLocalOrLoggedInNowPlayingItemPlaybackPosition, clone, updateHistoryItemPlaybackPosition
+  } from '~/lib/utility'
 import { mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying, pageIsLoading, 
   playerQueueAddSecondaryItems, playerQueueLoadPriorityItems, playerQueueLoadSecondaryItems,
   userSetInfo } from '~/redux/actions'
@@ -232,10 +233,11 @@ class UserMediaListCtrl extends Component<Props, State> {
   }
 
   playItem = async nowPlayingItem => {
-    const { loggedInUser, mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying,
+    const { loggedInUser, mediaPlayer, mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying,
       pages, pageKey, playerQueueLoadSecondaryItems, user, userSetInfo } = this.props
     const { listItems } = pages[pageKey]
-
+    const currentTime = Math.floor(window.player.getCurrentTime()) || 0
+    await updateHistoryItemPlaybackPosition(mediaPlayer.nowPlayingItem, user, currentTime)
     nowPlayingItem = assignLocalOrLoggedInNowPlayingItemPlaybackPosition(user, nowPlayingItem)
     mediaPlayerLoadNowPlayingItem(nowPlayingItem)
     setNowPlayingItemInStorage(nowPlayingItem)

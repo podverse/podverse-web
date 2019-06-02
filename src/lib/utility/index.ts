@@ -1,4 +1,6 @@
-import { getNowPlayingOrNextFromStorage } from 'podverse-ui'
+import { getNowPlayingOrNextFromStorage, setNowPlayingItemInStorage } from 'podverse-ui'
+import { userUpdateHistoryItem } from '~/redux/actions'
+import { addOrUpdateUserHistoryItem } from '~/services'
 export { validatePassword } from './validatePassword'
 
 export const convertToYYYYMMDDHHMMSS = () => {
@@ -161,7 +163,8 @@ export const alertRateLimitError = err => {
 
 export const getPlaybackPositionFromHistory = (historyItems: any[], nowPlayingItem: any) => {
   if (historyItems && historyItems.length > 0) {
-    const oldItem = historyItems.find((x) => x.episodeId && nowPlayingItem.episodeId)
+    const oldItem = historyItems.find((x) => x.episodeId === nowPlayingItem.episodeId)
+
     if (oldItem && oldItem.userPlaybackPosition) {
       return oldItem.userPlaybackPosition
     }
@@ -180,4 +183,17 @@ export const assignLocalOrLoggedInNowPlayingItemPlaybackPosition = (user, nowPla
     nowPlayingItem.userPlaybackPosition = getPlaybackPositionFromHistory(user.historyItems, nowPlayingItem)
   }
   return nowPlayingItem
+}
+
+export const updateHistoryItemPlaybackPosition = async (nowPlayingItem, user, overridePosition?: number) => {
+  let currentTime = Math.floor(window.player.getCurrentTime()) || 0
+  currentTime = overridePosition ? overridePosition : currentTime
+  nowPlayingItem.userPlaybackPosition = currentTime
+
+  if (user && user.id) {
+    await addOrUpdateUserHistoryItem(nowPlayingItem)
+    await userUpdateHistoryItem(nowPlayingItem)
+  }
+
+  await setNowPlayingItemInStorage(nowPlayingItem)
 }

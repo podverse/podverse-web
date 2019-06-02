@@ -9,7 +9,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import MediaListItemCtrl from '~/components/MediaListItemCtrl/MediaListItemCtrl'
 import config from '~/config'
 import { convertToNowPlayingItem } from '~/lib/nowPlayingItem'
-import { assignLocalOrLoggedInNowPlayingItemPlaybackPosition, clone } from '~/lib/utility'
+import { assignLocalOrLoggedInNowPlayingItemPlaybackPosition, clone, updateHistoryItemPlaybackPosition
+  } from '~/lib/utility'
 import { mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying, pageIsLoading,
   playerQueueAddSecondaryItems, playerQueueLoadPriorityItems,
   playerQueueLoadSecondaryItems, userSetInfo } from '~/redux/actions'
@@ -249,6 +250,8 @@ class MediaListCtrl extends Component<Props, State> {
       pageKey, pages, playerQueueLoadSecondaryItems, user, userSetInfo } = this.props
     const { listItems, podcast } = pages[pageKey]
     const { nowPlayingItem: previousItem } = mediaPlayer
+    const currentTime = Math.floor(window.player.getCurrentTime()) || 0
+    await updateHistoryItemPlaybackPosition(mediaPlayer.nowPlayingItem, user, currentTime)
 
     // If loading a new episode, clear the player to prevent the error:
     // TypeError: Failed to set the 'currentTime' property on 'HTMLMediaElement': The provided double value is non-finite.
