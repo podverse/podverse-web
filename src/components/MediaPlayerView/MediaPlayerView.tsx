@@ -292,7 +292,7 @@ class MediaPlayerView extends Component<Props, State> {
   }
 
   render() {
-    const { isMobileDevice, mediaPlayer, playerQueue, settings } = this.props
+    const { isMobileDevice, mediaPlayer, playerQueue, settings, user } = this.props
     const { clipFinished, nowPlayingItem, playedAfterClipFinished, playing } = mediaPlayer
     const { priorityItems, secondaryItems } = playerQueue
     const { playbackSpeedButtonHide, timeJumpBackwardButtonHide } = settings
@@ -308,7 +308,7 @@ class MediaPlayerView extends Component<Props, State> {
               <MediaPlayer
                 autoplay={autoplay}
                 clipFinished={clipFinished}
-                handleGetPlaybackPositionFromHistory={getPlaybackPositionFromHistory}
+                handleGetPlaybackPositionFromHistory={user && user.id ? () => getPlaybackPositionFromHistory(user.historyItems, nowPlayingItem) : null}
                 handleItemSkip={this.itemSkip}
                 handleOnEpisodeEnd={this.onEpisodeEnd}
                 handleOnPastClipTime={this.onPastClipTime}
