@@ -46,7 +46,7 @@ class UserHeaderCtrl extends Component<Props, State> {
         userSetInfo({ subscribedUserIds: response.data })
       }
     } catch (error) {
-      if (error && error.response && error.response.data === 'Premium Membership Required') {
+      if (error && error.response && error.response.data && error.response.data.message === 'Premium Membership Required') {
         alertPremiumRequired()
       } else if (error && error.response && error.response.status === 429) {
         alertRateLimitError(error)

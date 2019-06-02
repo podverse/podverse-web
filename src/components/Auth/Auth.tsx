@@ -43,7 +43,7 @@ class Auth extends Component<Props, State> {
       if (error && error.response && error.response.status === 429) {
         alertRateLimitError(error)
       } else {
-        const errorMsg = (error.response && error.response.data) || internetConnectivityErrorMessage
+        const errorMsg = (error.response && error.response.data && error.response.data.message) || internetConnectivityErrorMessage
         modalsForgotPasswordSetErrorResponse(errorMsg)
       }
     } finally {
@@ -63,7 +63,7 @@ class Auth extends Component<Props, State> {
       modalsLoginShow(false)
       modalsLoginSetErrorResponse()
     } catch (error) {
-      const errorMsg = (error.response && error.response.data) || internetConnectivityErrorMessage
+      const errorMsg = (error.response && error.response.data && error.response.data.message) || internetConnectivityErrorMessage
       modalsLoginSetErrorResponse(errorMsg)
       userSetInfo({
         email: null,
@@ -96,7 +96,7 @@ class Auth extends Component<Props, State> {
       if (error && error.response && error.response.status === 429) {
         alertRateLimitError(error)
       } else {
-        const errorMsg = (error.response && error.response.data) || internetConnectivityErrorMessage
+        const errorMsg = (error.response && error.response.data && error.response.data.message) || internetConnectivityErrorMessage
         modalsSignUpSetErrorResponse(errorMsg)
       }
       userSetInfo({

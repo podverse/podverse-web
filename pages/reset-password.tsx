@@ -116,7 +116,7 @@ class ResetPassword extends Component<Props, State> {
       if (error && error.response && error.response.status === 429) {
         alertRateLimitError(error)
       } else {
-        const errorMsg = (error.response && error.response.data) || internetConnectivityErrorMessage
+        const errorMsg = (error.response && error.response.data && error.response.data.message) || internetConnectivityErrorMessage
         this.setState({ errorResponse: errorMsg })
       }
     }
