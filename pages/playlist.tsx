@@ -13,7 +13,7 @@ import { Button, setNowPlayingItemInStorage } from 'podverse-ui'
 import MediaListItemCtrl from '~/components/MediaListItemCtrl/MediaListItemCtrl'
 import Meta from '~/components/Meta/Meta'
 import { convertToNowPlayingItem } from '~/lib/nowPlayingItem'
-import { alertPremiumRequired, alertSomethingWentWrong, clone,
+import { alertPremiumRequired, alertSomethingWentWrong, assignLocalOrLoggedInNowPlayingItemPlaybackPosition, clone,
   getUrlFromRequestOrWindow, readableDate, removeDoubleQuotes, alertRateLimitError } from '~/lib/utility'
 import { mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying, pageIsLoading,
   pagesSetQueryState, playerQueueLoadSecondaryItems, userSetInfo } from '~/redux/actions'
@@ -345,6 +345,7 @@ class Playlist extends Component<Props, State> {
       playerQueueLoadSecondaryItems, user, userSetInfo } = this.props
     const { sortedNowPlayingItems } = this.state
 
+    nowPlayingItem = assignLocalOrLoggedInNowPlayingItemPlaybackPosition(user, nowPlayingItem)
     mediaPlayerLoadNowPlayingItem(nowPlayingItem)
     setNowPlayingItemInStorage(nowPlayingItem)
     mediaPlayerUpdatePlaying(true)

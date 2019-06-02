@@ -16,7 +16,7 @@ import PageLoadingOverlay from '~/components/PageLoadingOverlay/PageLoadingOverl
 import { addFontAwesomeIcons } from '~/lib/fontAwesomeIcons'
 import { NowPlayingItem } from '~/lib/nowPlayingItem'
 import { scrollToTopOfView } from '~/lib/scrollToTop'
-import { getPlaybackPositionFromHistory } from '~/lib/utility'
+import { assignLocalOrLoggedInNowPlayingItemPlaybackPosition } from '~/lib/utility'
 import { disableHoverOnTouchDevices } from '~/lib/utility/disableHoverOnTouchDevices'
 import { fixMobileViewportHeight } from '~/lib/utility/fixMobileViewportHeight'
 import { initializeStore } from '~/redux/store'
@@ -56,9 +56,10 @@ type Props = {
     share: {},
     signUp: {}
   }
+  newPlayingItem: any
   page: {
     isLoading?: boolean
-  },
+  }
   pages: {},
   playerQueue: {
     priorityItems: any[]
@@ -250,7 +251,8 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
   }
 
   async componentDidMount() {
-    const { newPlayingItem, store } = this.props
+    let { newPlayingItem } = this.props
+    const { store } = this.props
     const state = store.getState()
     const { user } = state
 
@@ -259,14 +261,7 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
       fixMobileViewportHeight()
 
       if (newPlayingItem) {
-        if (!user || !user.id) {
-          const currentItem = getNowPlayingOrNextFromStorage()
-          if (currentItem && currentItem.episodeId === newPlayingItem.episodeId) {
-            newPlayingItem.userPlaybackPosition = currentItem.userPlaybackPosition
-          }
-        } else {
-          newPlayingItem.userPlaybackPosition = getPlaybackPositionFromHistory(user.historyItems, newPlayingItem)
-        }
+        newPlayingItem = assignLocalOrLoggedInNowPlayingItemPlaybackPosition(user, newPlayingItem)
         store.dispatch(mediaPlayerLoadNowPlayingItem(newPlayingItem))
         setNowPlayingItemInStorage(newPlayingItem)
       } else {

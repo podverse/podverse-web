@@ -1,3 +1,4 @@
+import { getNowPlayingOrNextFromStorage } from 'podverse-ui'
 export { validatePassword } from './validatePassword'
 
 export const convertToYYYYMMDDHHMMSS = () => {
@@ -167,4 +168,16 @@ export const getPlaybackPositionFromHistory = (historyItems: any[], nowPlayingIt
   }
 
   return nowPlayingItem.userPlaybackPosition || 0
+}
+
+export const assignLocalOrLoggedInNowPlayingItemPlaybackPosition = (user, nowPlayingItem) => {
+  if (!user || !user.id) {
+    const currentItem = getNowPlayingOrNextFromStorage()
+    if (currentItem && currentItem.episodeId === nowPlayingItem.episodeId) {
+      nowPlayingItem.userPlaybackPosition = currentItem.userPlaybackPosition
+    }
+  } else {
+    nowPlayingItem.userPlaybackPosition = getPlaybackPositionFromHistory(user.historyItems, nowPlayingItem)
+  }
+  return nowPlayingItem
 }

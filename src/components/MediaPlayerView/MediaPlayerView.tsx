@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { MediaPlayer, popNextFromQueueStorage, setNowPlayingItemInStorage } from 'podverse-ui'
-import { getPlaybackPositionFromHistory } from '~/lib/utility'
+import { assignLocalOrLoggedInNowPlayingItemPlaybackPosition, getPlaybackPositionFromHistory } from '~/lib/utility'
 import { kAutoplay, kPlaybackRate, getPlaybackRateText, getPlaybackRateNextValue
   } from '~/lib/constants/misc'
 import { mediaPlayerLoadNowPlayingItem, 
@@ -131,6 +131,7 @@ class MediaPlayerView extends Component<Props, State> {
         window.player = null
       }
 
+      nextItem = assignLocalOrLoggedInNowPlayingItemPlaybackPosition(user, nextItem)
       mediaPlayerLoadNowPlayingItem(nextItem)
       setNowPlayingItemInStorage(nextItem)
 
