@@ -53,7 +53,7 @@ export default (app) => {
 
   router.get('/apple-app-site-association', async ctx => {
     const aasa = fs.readFileSync(path.resolve(__dirname, '../../config/apple-app-site-association'))
-    ctx.set('Content-Type', 'application/json')
+    ctx.set('Content-Type', 'application/pkcs7-mime')
     ctx.body = aasa
   })
 
