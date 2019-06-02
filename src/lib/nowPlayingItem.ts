@@ -10,6 +10,8 @@ export type NowPlayingItem = {
   episodePubDate?: string
   episodeTitle?: string
   isPublic?: boolean
+  podcastAuthors?: string
+  podcastCategories?: string
   podcastId?: string
   podcastImageUrl?: string
   podcastIsExplicit?: boolean
@@ -36,11 +38,11 @@ export const convertNowPlayingItemToEpisode = (item: NowPlayingItem) => {
 export const convertNowPlayingItemToMediaRef = (item: NowPlayingItem) => {
   return {
     endTime: item.clipEndTime,
+    episode: convertNowPlayingItemToEpisode(item),
     id: item.clipId,
     isPublic: item.isPublic,
     startTime: item.clipStartTime,
-    title: item.clipTitle,
-    episode: convertNowPlayingItemToEpisode(item)
+    title: item.clipTitle
   }
 }
 
@@ -102,6 +104,8 @@ export const convertToNowPlayingItem = (data, inheritedEpisode, inheritedPodcast
     nowPlayingItem.episodePubDate = e.pubDate
     nowPlayingItem.episodeTitle = e.title
     nowPlayingItem.isPublic = data.isPublic
+    nowPlayingItem.podcastAuthors = p.authors
+    nowPlayingItem.podcastCategories = p.categories
     nowPlayingItem.podcastId = p.id
     nowPlayingItem.podcastIsExplicit = p.isExplicit
     nowPlayingItem.podcastImageUrl = p.imageUrl

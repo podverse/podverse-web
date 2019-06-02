@@ -15,4 +15,4 @@ export { modalsAddToIsLoading, modalsAddToSetErrorResponse, modalsAddToShow,
 export { settingsHideFilterButton, settingsHideNSFWLabels, settingsHideNSFWMode,
   settingsHidePlaybackSpeedButton, settingsHideTimeJumpBackwardButton, settingsHideUITheme,
   settingsSetUITheme, settingsSetNSFWMode } from '~/redux/actions/settings'
-export { userSetInfo } from '~/redux/actions/user'
+export { userSetInfo, userUpdateHistoryItem } from '~/redux/actions/user'

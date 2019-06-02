@@ -16,6 +16,7 @@ import PageLoadingOverlay from '~/components/PageLoadingOverlay/PageLoadingOverl
 import { addFontAwesomeIcons } from '~/lib/fontAwesomeIcons'
 import { NowPlayingItem } from '~/lib/nowPlayingItem'
 import { scrollToTopOfView } from '~/lib/scrollToTop'
+import { getPlaybackPositionFromHistory } from '~/lib/utility'
 import { disableHoverOnTouchDevices } from '~/lib/utility/disableHoverOnTouchDevices'
 import { fixMobileViewportHeight } from '~/lib/utility/fixMobileViewportHeight'
 import { initializeStore } from '~/redux/store'
@@ -256,12 +257,20 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
     if (!windowHasLoaded) {
       disableHoverOnTouchDevices()
       fixMobileViewportHeight()
-      
+
       if (newPlayingItem) {
+        if (!user || !user.id) {
+          const currentItem = getNowPlayingOrNextFromStorage()
+          if (currentItem && currentItem.episodeId === newPlayingItem.episodeId) {
+            newPlayingItem.userPlaybackPosition = currentItem.userPlaybackPosition
+          }
+        } else {
+          newPlayingItem.userPlaybackPosition = getPlaybackPositionFromHistory(user.historyItems, newPlayingItem)
+        }
+        store.dispatch(mediaPlayerLoadNowPlayingItem(newPlayingItem))
         setNowPlayingItemInStorage(newPlayingItem)
       } else {
         const currentItem = getNowPlayingOrNextFromStorage()
-  
         if (currentItem) store.dispatch(mediaPlayerLoadNowPlayingItem(currentItem))
       }
     }

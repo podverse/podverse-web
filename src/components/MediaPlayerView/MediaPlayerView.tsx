@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { MediaPlayer, popNextFromQueueStorage, setNowPlayingItemInStorage } from 'podverse-ui'
+import { getPlaybackPositionFromHistory } from '~/lib/utility'
 import { kAutoplay, kPlaybackRate, getPlaybackRateText, getPlaybackRateNextValue
   } from '~/lib/constants/misc'
 import { mediaPlayerLoadNowPlayingItem, 
@@ -9,7 +10,7 @@ import { mediaPlayerLoadNowPlayingItem,
   playerQueueLoadPriorityItems, playerQueueLoadSecondaryItems,
   mediaPlayerUpdatePlaying, modalsAddToShow, modalsMakeClipShow,
   modalsQueueShow, modalsShareShow, pageIsLoading, pagesSetQueryState,
-  userSetInfo } from '~/redux/actions'
+  userSetInfo, userUpdateHistoryItem } from '~/redux/actions'
 import { addOrUpdateUserHistoryItem, updateUserQueueItems } from '~/services'
 
 type Props = {
@@ -94,6 +95,8 @@ class MediaPlayerView extends Component<Props, State> {
     let priorityItems = []
     let secondaryItems = []
 
+    await this.updateHistoryItemPlaybackPosition()
+
     if (user && user.id) {
       if (user.queueItems && user.queueItems.length > 0) {
         nextItem = user.queueItems.splice(0, 1)[0]
@@ -161,9 +164,22 @@ class MediaPlayerView extends Component<Props, State> {
     mediaPlayerUpdatePlaying(this.state.autoplay)
   }
 
-  onEpisodeEnd = () => {
+  linkClick = () => {
+    const { pageIsLoading, pageKey, pagesSetQueryState } = this.props
+    pageIsLoading(true)
+
+    const scrollPos = document.querySelector('.view__contents').scrollTop
+    pagesSetQueryState({
+      pageKey,
+      lastScrollPosition: scrollPos
+    })
+  }
+
+  onEpisodeEnd = async () => {
     const { autoplay } = this.state
 
+    await this.updateHistoryItemPlaybackPosition(0)
+    
     if (autoplay) {
       this.itemSkip()
     } else {
@@ -182,8 +198,9 @@ class MediaPlayerView extends Component<Props, State> {
     }
   }
 
-  pause = () => {
+  pause = async () => {
     this.props.mediaPlayerUpdatePlaying(false)
+    await this.updateHistoryItemPlaybackPosition()
   }
 
   playbackRateClick = () => {
@@ -228,13 +245,10 @@ class MediaPlayerView extends Component<Props, State> {
   }
 
   togglePlay = async () => {
-    const { mediaPlayer, mediaPlayerUpdatePlaying, user } = this.props
+    const { mediaPlayer, mediaPlayerUpdatePlaying } = this.props
     const { playing } = mediaPlayer
     mediaPlayerUpdatePlaying(!playing)
-
-    if (user && user.id) {
-      await addOrUpdateUserHistoryItem(mediaPlayer.nowPlayingItem)
-    }
+    await this.updateHistoryItemPlaybackPosition()
   }
 
   toggleQueueModal = () => {
@@ -262,15 +276,19 @@ class MediaPlayerView extends Component<Props, State> {
     })
   }
 
-  linkClick = () => {
-    const { pageIsLoading, pageKey, pagesSetQueryState } = this.props
-    pageIsLoading(true)
+  updateHistoryItemPlaybackPosition = async (overridePosition?: number) => {
+    const { mediaPlayer, user } = this.props
+    const { nowPlayingItem } = mediaPlayer
+    let currentTime = Math.floor(window.player.getCurrentTime()) || 0
+    currentTime = overridePosition ? overridePosition : currentTime
+    nowPlayingItem.userPlaybackPosition = currentTime
 
-    const scrollPos = document.querySelector('.view__contents').scrollTop
-    pagesSetQueryState({
-      pageKey,
-      lastScrollPosition: scrollPos
-    })
+    if (user && user.id) {
+      await addOrUpdateUserHistoryItem(nowPlayingItem)
+      await userUpdateHistoryItem(nowPlayingItem)
+    }
+
+    await setNowPlayingItemInStorage(nowPlayingItem)
   }
 
   render() {
@@ -290,6 +308,7 @@ class MediaPlayerView extends Component<Props, State> {
               <MediaPlayer
                 autoplay={autoplay}
                 clipFinished={clipFinished}
+                handleGetPlaybackPositionFromHistory={getPlaybackPositionFromHistory}
                 handleItemSkip={this.itemSkip}
                 handleOnEpisodeEnd={this.onEpisodeEnd}
                 handleOnPastClipTime={this.onPastClipTime}

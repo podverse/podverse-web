@@ -6,3 +6,10 @@ export const userSetInfo = payload => {
     payload
   }
 }
+
+export const userUpdateHistoryItem = payload => {
+  return {
+    type: actionTypes.USER_UPDATE_HISTORY_ITEM,
+    payload
+  }
+}

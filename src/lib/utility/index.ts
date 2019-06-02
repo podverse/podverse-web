@@ -157,3 +157,14 @@ export const removeDoubleQuotes = str => str ? str.replace(/["]+/g, '') : ''
 export const alertRateLimitError = err => {
   alert(err.response.data.message)
 }
+
+export const getPlaybackPositionFromHistory = (historyItems: any[], nowPlayingItem: any) => {
+  if (historyItems && historyItems.length > 0) {
+    const oldItem = historyItems.find((x) => x.episodeId && nowPlayingItem.episodeId)
+    if (oldItem && oldItem.userPlaybackPosition) {
+      return oldItem.userPlaybackPosition
+    }
+  }
+
+  return nowPlayingItem.userPlaybackPosition || 0
+}

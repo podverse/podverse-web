@@ -24,6 +24,16 @@ export default (state = {}, action) => {
         ...(subscribedPodcastIds ? { subscribedPodcastIds } : {}),
         ...(subscribedUserIds ? { subscribedUserIds } : {})
       }
+
+    case actionTypes.USER_UPDATE_HISTORY_ITEM:
+      const nowPlayingItem = action.payload
+      const oldHistoryItems = state.historyItems
+      const newHistoryItems = oldHistoryItems.map(x => x.episodeId === nowPlayingItem.episodeId ? nowPlayingItem : x)
+
+      return {
+        ...state,
+        historyItems: newHistoryItems
+      }
     default:
       return state
   }
