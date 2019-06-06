@@ -37,7 +37,7 @@ class MediaInfoCtrl extends Component<Props, State> {
   static defaultProps: Props = {}
 
   playItem = async nowPlayingItem => {
-    const { mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying, user,
+    const { mediaPlayer, mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying, user,
       userSetInfo } = this.props
 
     const currentTime = Math.floor(window.player.getCurrentTime()) || 0
