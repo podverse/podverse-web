@@ -10,6 +10,9 @@ export type NowPlayingItem = {
   episodePubDate?: string
   episodeTitle?: string
   isPublic?: boolean
+  ownerId?: string
+  ownerIsPublic?: boolean
+  ownerName?: string
   podcastAuthors?: string
   podcastCategories?: string
   podcastId?: string
@@ -35,7 +38,7 @@ export const convertNowPlayingItemToEpisode = (item: NowPlayingItem) => {
   }
 }
 
-export const convertNowPlayingItemToMediaRef = (item: NowPlayingItem) => {
+export const convertNowPlayingItemToMediaRef = (item: NowPlayingItem = {}) => {
   return {
     endTime: item.clipEndTime,
     episode: convertNowPlayingItemToEpisode(item),
@@ -62,7 +65,7 @@ export const convertNowPlayingItemClipToNowPlayingItemEpisode = (data: any, user
 }
 
 export const convertToNowPlayingItem = (data, inheritedEpisode, inheritedPodcast, userPlaybackPosition = 0) => {
-  let nowPlayingItem: NowPlayingItem = {}
+  const nowPlayingItem: NowPlayingItem = {}
 
   if (!data) { return {} }
   const e = (data.pubDate && data) || data.episode || inheritedEpisode
@@ -104,6 +107,9 @@ export const convertToNowPlayingItem = (data, inheritedEpisode, inheritedPodcast
     nowPlayingItem.episodePubDate = e.pubDate
     nowPlayingItem.episodeTitle = e.title
     nowPlayingItem.isPublic = data.isPublic
+    nowPlayingItem.ownerId = data.owner && data.owner.id
+    nowPlayingItem.ownerIsPublic = data.owner && data.owner.isPublic
+    nowPlayingItem.ownerName = data.owner && data.owner.name
     nowPlayingItem.podcastAuthors = p.authors
     nowPlayingItem.podcastCategories = p.categories
     nowPlayingItem.podcastId = p.id
