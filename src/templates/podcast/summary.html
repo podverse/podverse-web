@@ -1,9 +1,0 @@
-<div id="podcast-summary-truncated">
-  {{ podcast.summary | truncate(335) }}
-  {% if podcast.summary | length > 335 %}
-    <span class='text-primary'><small>show more</small></span>
-  {% endif %}
-</div>
-<div id="podcast-summary-full">
-  {{ podcast.summary }}
-</div>

@@ -1,0 +1,71 @@
+html {
+  font-family: 'Roboto', sans-serif;
+}
+
+.max-width {
+  margin: 0 auto;
+  max-width: $body-max-width;
+  width: 100%;
+}
+
+@media (max-width: ($body-max-width + 32px)) {
+  .max-width {
+    padding: 0 1rem;
+  }
+}
+
+.flip-horizontal {
+  @include flipHorizontal
+}
+
+.flip-text-horizontal {
+  display: inline-block;
+  filter: FlipH; 
+  text-align: right;
+  transform: scaleX(-1); 
+  -moz-transform: scaleX(-1);
+  -ms-filter: “FlipH”;
+  -o-transform: scaleX(-1); 
+  -webkit-transform: scaleX(-1); 
+}
+
+.no-results-msg {
+  margin: 1.5rem 0;
+  text-align: center;
+}
+
+.pull-left {
+  float: left;
+}
+
+.pull-right {
+  float: right;
+}
+
+.alert {
+  margin-bottom: 1.25rem;
+}
+
+.pv-pagination {
+  margin-top: 2.5rem;
+}
+
+[theme=light] {
+  .no-results-msg {
+    color: $gray-darker;
+  }
+
+  .page-loading-overlay {
+    color: $gray-light;
+  }
+}
+
+[theme=dark] {
+  .no-results-msg {
+    color: $gray-lighter;
+  }
+
+  .page-loading-overlay {
+    color: $gray-dark;
+  }
+}

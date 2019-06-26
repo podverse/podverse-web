@@ -1,0 +1,44 @@
+.page-loading-overlay {
+  align-items: center;
+  bottom: 0;
+  display: none;
+  flex-direction: column;
+  font-size: $text-3x-rem;
+  justify-content: center;
+  left: 0;
+  pointer-events: none;
+  position: fixed;
+  right: 0;
+  text-align: center;
+  top: -32px;
+  z-index: 2147483647;
+
+  p {
+    margin: 1rem 0;
+  }
+
+  &.show {
+    display: flex;
+  }
+
+  &.allow-pointer-events {
+    pointer-events: all;
+    z-index: 0;
+  }
+  
+  svg {
+    flex: 0 0 auto;
+  }
+}
+
+[theme=light] {
+  .page-loading-overlay {
+    color: $gray-light;
+  }
+}
+
+[theme=dark] {
+  .page-loading-overlay {
+    color: $gray-dark;
+  }
+}

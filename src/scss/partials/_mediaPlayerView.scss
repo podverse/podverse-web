@@ -1,0 +1,52 @@
+.view {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
+  position: relative;
+
+  .view__navbar {
+    flex: 0 0 auto;
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 100;
+  }
+
+  .view__contents {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    height: 0;
+    justify-content: space-between;
+    margin-top: 40px;
+    overflow-y: scroll;
+    padding: 1.5rem 0 0.5rem 0;
+    -webkit-overflow-scrolling: touch;
+
+    .top {
+      display: flex;
+      flex: 1 0 auto;
+      flex-direction: column;
+      z-index: 99;
+    }
+
+    .bottom {
+      flex: 0 1 auto;
+      z-index: 98;
+    }
+  }
+
+  .view__mediaplayer-spacer {
+    flex: 0 0 100px;
+  }
+
+  .view__mediaplayer {
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    right: 0;
+    z-index: 100;
+  }
+}

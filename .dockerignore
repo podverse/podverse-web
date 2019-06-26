@@ -1,3 +1,5 @@
+.env
+.git
+.next
+next
 node_modules
-.boot
-/src/services/googleapi/jwt.keys.json

@@ -1,0 +1,18 @@
+.playlist-edit-btns {
+  margin-top: 1rem;
+  text-align: right;
+
+  .playlist-edit-btns__delete {
+    float: left;
+    min-width: 80px;
+  }
+
+  .playlist-edit-btns__cancel {
+    min-width: 80px;
+  }
+  
+  .playlist-edit-btns__update {
+    margin-left: 1rem;
+    min-width: 80px;
+  }
+}

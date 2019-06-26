@@ -1,0 +1,39 @@
+{
+    "compileOnSave": false,
+    "compilerOptions": {
+        "baseUrl": ".",
+        "lib": [
+            "dom",
+            "es5",
+            "es2015",
+            "es2016",
+            "es2017"
+        ],
+        "module": "commonjs",
+        "jsx": "preserve",
+        "moduleResolution": "node",
+        "paths": {
+            "~/*": ["./src/*"]
+        },
+        "rootDir": "./src",
+        "target": "es6",
+        "typeRoots": [
+            "./node_modules/@types"
+        ],
+        "allowJs": true,
+        "allowSyntheticDefaultImports": true,
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "forceConsistentCasingInFileNames": true,
+        "noImplicitAny": false,
+        "noImplicitReturns": true,
+        "noImplicitThis": true,
+        "noUnusedLocals": true,
+        "preserveConstEnums": true,
+        "removeComments": false,
+        "skipLibCheck": true,
+        "sourceMap": true,
+        "strictNullChecks": true,
+        "suppressImplicitAnyIndexErrors": true
+    }
+}

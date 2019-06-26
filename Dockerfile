@@ -1,6 +1,7 @@
 FROM node
 WORKDIR /tmp
 COPY . .
-RUN npm install && npm install -g mocha
-RUN ["chmod", "+x", "/tmp/scripts/queryUniquePageviews.js"]
-RUN ["chmod", "+x", "/tmp/scripts/test.js"]
+RUN npm install -g ts-node
+RUN npm install
+RUN npm run build
+COPY ./src/config/apple-app-site-association /tmp/next/production-server/config/apple-app-site-association

@@ -1,56 +1,34 @@
-#podverse-web#
+# podverse-web
 
-Web app for the Podverse podcast clip sharing system
+Web application for the Podverse ecosystem
 
----
+## Getting Started
 
-## Tests
+### Local / Stage / Prod
+This repo contains steps for running podverse-web locally for development.
 
-You need to have docker available.
+For stage/prod deployment instructions, please refer to the
+[podverse-ops docs](https://github.com/podverse/podverse-ops).
 
-Run `scripts/postgres-ci.sh start` to start postgres on `localhost:5432`.
+### Prereqs
 
-Then run `npm test`
+For podverse-web to work you will need
+[podverse-api](https://github.com/podverse/podverse-api) running.
 
-### Setup instructions
+### Install node_modules
 
-```shell
-source init_env.sh
-
+```
 npm install
-
-npm start
 ```
 
-open localhost:8080 in your browser
+### Start dev server
 
-### Migrate DB
+```
+npm run dev
+```
 
-`npm run migrate`
+### Updating podverse-ui components
 
-### Google Core Reporting API cron job for unique pageview counts*
-
-podverse-web currently runs parsing with the following commands:
-
-````
-10 * * * * docker run --rm podverse_stats podverse_web_dev node ~/podverse-web/scripts/queryUniquePageviews.js '~/clips' 'pastHourTotalUniquePageviews'
-40 1 * * * docker run --rm podverse_stats podverse_web_dev node ~/podverse-web/scripts/queryUniquePageviews.js '~/clips' 'pastDayTotalUniquePageviews'
-40 2 * * * docker run --rm podverse_stats podverse_web_dev node ~/podverse-web/scripts/queryUniquePageviews.js '~/clips' 'pastWeekTotalUniquePageviews'
-40 3 * * * docker run --rm podverse_stats podverse_web_dev node ~/podverse-web/scripts/queryUniquePageviews.js '~/clips' 'pastMonthTotalUniquePageviews'
-40 4 * * 0 docker run --rm podverse_stats podverse_web_dev node ~/podverse-web/scripts/queryUniquePageviews.js '~/clips' 'pastYearTotalUniquePageviews'
-40 5 * * 0 docker run --rm podverse_stats podverse_web_dev node ~/podverse-web/scripts/queryUniquePageviews.js '~/clips' 'allTimeTotalUniquePageviews'
-
-20 * * * * docker run --rm podverse_stats podverse_web_dev node ~/podverse-web/scripts/queryUniquePageviews.js '~/episodes' 'pastHourTotalUniquePageviews'
-50 1 * * * docker run --rm podverse_stats podverse_web_dev node ~/podverse-web/scripts/queryUniquePageviews.js '~/episodes' 'pastDayTotalUniquePageviews'
-50 2 * * * docker run --rm podverse_stats podverse_web_dev node ~/podverse-web/scripts/queryUniquePageviews.js '~/episodes' 'pastWeekTotalUniquePageviews'
-50 3 * * * docker run --rm podverse_stats podverse_web_dev node ~/podverse-web/scripts/queryUniquePageviews.js '~/episodes' 'pastMonthTotalUniquePageviews'
-50 4 * * 0 docker run --rm podverse_stats podverse_web_dev node ~/podverse-web/scripts/queryUniquePageviews.js '~/episodes' 'pastYearTotalUniquePageviews'
-50 5 * * 0 docker run --rm podverse_stats podverse_web_dev node ~/podverse-web/scripts/queryUniquePageviews.js '~/episodes' 'allTimeTotalUniquePageviews'
-
-30 * * * * docker run --rm podverse_stats podverse_web_dev node ~/podverse-web/scripts/queryUniquePageviews.js '~/podcasts' 'pastHourTotalUniquePageviews'
-0 1 * * * docker run --rm podverse_stats podverse_web_dev node ~/podverse-web/scripts/queryUniquePageviews.js '~/podcasts' 'pastDayTotalUniquePageviews'
-0 2 * * * docker run --rm podverse_stats podverse_web_dev node ~/podverse-web/scripts/queryUniquePageviews.js '~/podcasts' 'pastWeekTotalUniquePageviews'
-0 3 * * * docker run --rm podverse_stats podverse_web_dev node ~/podverse-web/scripts/queryUniquePageviews.js '~/podcasts' 'pastMonthTotalUniquePageviews'
-0 4 * * 0 docker run --rm podverse_stats podverse_web_dev node ~/podverse-web/scripts/queryUniquePageviews.js '~/podcasts' 'pastYearTotalUniquePageviews'
-0 5 * * 0 docker run --rm podverse_stats podverse_web_dev node ~/podverse-web/scripts/queryUniquePageviews.js '~/podcasts' 'allTimeTotalUniquePageviews'
-````
+If you want to update a podverse-ui components and see how it looks in
+podverse-web, you'll need to follow the _npm link_ instructions in
+the [podverse-ui docs](https://github.com/podverse/podverse-ui).
