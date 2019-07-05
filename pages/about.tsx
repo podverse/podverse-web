@@ -60,7 +60,7 @@ class About extends Component<Props, State> {
           <li style={{ marginBottom: '0.125rem' }}>Drag and drop queue ordering</li>
           <li style={{ marginBottom: '0.125rem' }}>Navigate the site without stopping audio</li>
           <li style={{ marginBottom: '0.125rem' }}>Share your user profile</li>
-          <li style={{ marginBottom: '0.125rem' }}>SFW / NSFW mode</li>
+          {/* <li style={{ marginBottom: '0.125rem' }}>SFW / NSFW mode</li> */}
           <li style={{ marginBottom: '0.125rem' }}>Light / Dark mode</li>
         </ul>
 
@@ -80,11 +80,11 @@ class About extends Component<Props, State> {
         <hr />
 
         <h3>Principles</h3>
-        <p>Never sell or share your private data.</p>
+        <p>Never sell or share private user data.</p>
         <p>Never add advertisements without a podcaster's permission.</p>
         <p>Never lock you into our service. You can download a copy of all your data and leave the site at any time.</p>
 
-        <hr />
+        {/* <hr />
 
         <h3>Why charge for premium memberships?</h3>
         <p>
@@ -99,7 +99,7 @@ class About extends Component<Props, State> {
           and as a result, they care more about advertisers and massive corporations than actual people.
           A subscription-based premium model gives us the most incentive to honestly serve the interests
           of podcasters and their audiences. 
-        </p>
+        </p> */}
 
         <hr />
 
