@@ -97,6 +97,13 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
 
     let cookies = {}
 
+    if (!process.browser && ctx.query && ctx.query.forgotPassword) {
+      ctx.store.dispatch({
+        type: actionTypes.MODALS_FORGOT_PASSWORD_SHOW,
+        payload: ctx.query.forgotPassword
+      })
+    }
+
     let isMobileDevice = false
     if (typeof window === 'object') {
       const md = new MobileDetect(window.navigator.userAgent)
@@ -105,6 +112,7 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
       const md = new MobileDetect(ctx.req.headers['user-agent'])
       isMobileDevice = !!md.mobile()
     }
+
 
     // @ts-ignore
     if (!process.browser && ctx.req.headers.cookie) {
