@@ -390,6 +390,7 @@ class MediaModals extends Component<Props, State> {
     const { isAddedToPlayLast, isAddedToPlayNext, isAddingToPlayLast, 
       isAddingToPlayNext, loadingItemId, makeClipIsDeleting, makeClipIsSaving
       } = this.state
+    const isLoggedIn = user && user.id
 
     let makeClipStartTime = 0
     if (makeClipIsEditing) {
@@ -426,6 +427,7 @@ class MediaModals extends Component<Props, State> {
           initialIsPublic={ makeClipIsEditing ? nowPlayingItem && nowPlayingItem.isPublic : true }
           isDeleting={makeClipIsDeleting}
           isEditing={makeClipIsEditing}
+          isLoggedIn={isLoggedIn}
           isSaving={makeClipIsSaving}
           isOpen={makeClipIsOpen}
           player={typeof window !== 'undefined' && window.player}
