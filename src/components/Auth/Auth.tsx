@@ -122,9 +122,17 @@ class Auth extends Component<Props, State> {
 
     const signUpTopText = (
       <React.Fragment>
+        <br />
         <p style={{ textAlign: 'center' }}>
-          Try premium free for 30 days
-          <br />$5/year after that
+          Podverse premium accounts are currently available by invite only.
+          <br />
+          <br />
+          <a
+            href='https://docs.google.com/forms/d/e/1FAIpQLSd0LJcAQ4zViL7lrl-yg192kHOQN49rvcLcf_RPTcPn-wjmgg/viewform?usp=sf_link'
+            style={{ fontWeight: 500 }}
+            target='_blank'>
+            Join Waiting List
+          </a>
         </p>
       </React.Fragment>
     )

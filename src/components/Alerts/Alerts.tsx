@@ -111,7 +111,7 @@ class Alerts extends Component<Props, State> {
           isOpen={showFreeTrialHasEnded}
           toggle={() => this.hideAlert('showFreeTrialHasEnded')}>
           Your free trial has ended. {renewLink} to continue using premium features.
-      </Alert>
+        </Alert>
       )
     } else if (showFreeTrialWarning) {
       return (
@@ -121,7 +121,7 @@ class Alerts extends Component<Props, State> {
           isOpen={showFreeTrialWarning}
           toggle={() => this.hideAlert('showFreeTrialWarning')}>
           Your free trial will end soon. {renewLink} to continue using premium features.
-      </Alert>
+        </Alert>
       )
     } else if (showMembershipHasEnded) {
       return (
@@ -131,7 +131,7 @@ class Alerts extends Component<Props, State> {
           isOpen={showMembershipHasEnded}
           toggle={() => this.hideAlert('showMembershipHasEnded')}>
           Your membership has ended. {renewLink} to continue using premium features.
-      </Alert>
+        </Alert>
       )
     } else if (showMembershipWarning) {
       return (
@@ -141,7 +141,7 @@ class Alerts extends Component<Props, State> {
           isOpen={showMembershipWarning}
           toggle={() => this.hideAlert('showMembershipWarning')}>
           Your membership will end soon. {renewLink} to continue using premium features.
-      </Alert>
+        </Alert>
       )
     } else {
       return <React.Fragment />

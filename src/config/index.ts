@@ -26,6 +26,7 @@ export interface Config {
   paypalConfig?: any
   metaDefaultImageUrl1200x630?: string
   googleAnalyticsConfig?: any
+  REQUEST_PODCAST_URL?: string
 }
 
 export default () => {
@@ -49,6 +50,7 @@ export default () => {
     PAYPAL_CLIENT_ID_PRODUCTION: publicRuntimeConfig.PAYPAL_CLIENT_ID_PRODUCTION,
     PAYPAL_CLIENT_ID_SANDBOX: publicRuntimeConfig.PAYPAL_CLIENT_ID_SANDBOX,
     GOOGLE_ANALYTICS_TRACKING_ID: publicRuntimeConfig.GOOGLE_ANALYTICS_TRACKING_ID,
+    REQUEST_PODCAST_URL: publicRuntimeConfig.REQUEST_PODCAST_URL
   }
 
   // For back-end use docker container namespaces,

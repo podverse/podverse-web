@@ -399,7 +399,9 @@ class PodcastListCtrl extends Component<Props, State> {
           }
           {
             (!isLoading && queryPage === 1 && listItemNodes.length === 0) &&
-              <div className='no-results-msg'>No podcasts found</div>
+              <div className='no-results-msg'>
+                No podcasts found
+              </div>
           }
         </Fragment>
       </div>

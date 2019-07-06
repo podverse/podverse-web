@@ -47,6 +47,9 @@ class Terms extends Component<Props, State> {
           Does not host or edit podcast audio files. All audio files on podverse.fm are referenced from links in publicly available podcast feeds.
         </p>
         <p>
+          All clips are crowd-sourced and unofficial, unless otherwise noted by the podcaster/s.
+        </p>
+        <p>
           Clips load within the full episode's media file, so the listener always has access to the full media file.
         </p>
         <p>
