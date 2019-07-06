@@ -405,7 +405,7 @@ class PodcastListCtrl extends Component<Props, State> {
           }
           {
             !isLoading &&
-              <a className='request-podcast' href={REQUEST_PODCAST_URL} target='_blank'>Request Podcast</a>
+              <a className='request-podcast' href={REQUEST_PODCAST_URL} target='_blank'>Request a podcast</a>
           }
         </Fragment>
       </div>
