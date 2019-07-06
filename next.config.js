@@ -27,7 +27,8 @@ const envVars = {
   API_DOMAIN: process.env.API_DOMAIN,
   PUBLIC_DOMAIN: process.env.PUBLIC_DOMAIN,
   PUBLIC_API_PROTOCOL: process.env.PUBLIC_API_PROTOCOL,
-  PUBLIC_API_DOMAIN: process.env.PUBLIC_API_DOMAIN
+  PUBLIC_API_DOMAIN: process.env.PUBLIC_API_DOMAIN,
+  REQUEST_PODCAST_URL: process.env.REQUEST_PODCAST_URL
 }
 
 module.exports = withImages(withTypescript(withCss(withSass({
