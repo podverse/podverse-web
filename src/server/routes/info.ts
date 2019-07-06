@@ -15,6 +15,10 @@ export default (app) => {
   //   await app.render(ctx.req, ctx.res, '/faq', ctx.query)
   // })
 
+  router.get('/membership', async ctx => {
+    await app.render(ctx.req, ctx.res, '/membership', ctx.query)
+  })
+
   router.get('/signup', async ctx => {
     await app.render(ctx.req, ctx.res, '/signup', ctx.query)
   })

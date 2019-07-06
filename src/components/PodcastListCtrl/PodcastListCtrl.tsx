@@ -6,7 +6,7 @@ import config from '~/config'
 import { pageIsLoading, pagesSetQueryState } from '~/redux/actions'
 import { getPodcastsByQuery } from '~/services'
 const uuidv4 = require('uuid/v4')
-const { QUERY_PODCASTS_LIMIT, REQUEST_PODCAST_URL } = config()
+const { QUERY_PODCASTS_LIMIT } = config()
 
 type Props = {
   allCategories?: any
@@ -402,10 +402,6 @@ class PodcastListCtrl extends Component<Props, State> {
               <div className='no-results-msg'>
                 No podcasts found
               </div>
-          }
-          {
-            !isLoading &&
-              <a className='request-podcast' href={REQUEST_PODCAST_URL} target='_blank'>Request a podcast</a>
           }
         </Fragment>
       </div>

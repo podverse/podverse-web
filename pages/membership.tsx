@@ -13,9 +13,9 @@ type Props = {
 
 type State = {}
 
-const kPageKey = 'about'
+const kPageKey = 'membership'
 
-class About extends Component<Props, State> {
+class Membership extends Component<Props, State> {
 
   static async getInitialProps({ req, store }) {
     const state = store.getState()
@@ -28,8 +28,8 @@ class About extends Component<Props, State> {
 
     const meta = {
       currentUrl: getUrlFromRequestOrWindow(req),
-      description: 'Information about Podverse, our people, and our technology.',
-      title: 'About'
+      description: 'Podverse - Membership Info',
+      title: 'Podverse - Membership Info'
     }
 
     return { lastScrollPosition, meta, pageKey: kPageKey }
@@ -51,32 +51,18 @@ class About extends Component<Props, State> {
           twitterDescription={meta.description}
           twitterTitle={meta.title} />
 
-        <h3>Open Source</h3>
-        <p>
-          All Podverse software is provided under a copyleft license.
-          Anyone can freely download the software and use it for any purpose,
-          as long as they also share their changes to the code.
+        <h3>Membership</h3>
+
+        <p className='membership-top-text'>
+          Podverse premium is currently available by invite only.
         </p>
-        <p>
-          Copyleft licenses can help prevent tech monopolies
-          by ensuring that software is and will always remain free.
-        </p>
-
-        <hr />
-
-        <h3>Principles</h3>
-        <p>Never sell or share private user data.</p>
-        <p>Never add advertisements without a podcaster's permission.</p>
-        <p>Never lock you into our service. You can download a copy of all your data and leave the site at any time.</p>
-
-        <hr />
-
-        <h3>Team</h3>
-        <p>Creon Creonopoulos - Programmer</p>
-        <p>Mitch Downey – Programmer</p>
-        <p>Gary Johnson – UX Designer</p>
-        <p>Vincent Schramer – Programmer</p>
-
+        <div className='membership-join-list'>
+          <a
+            href='https://docs.google.com/forms/d/e/1FAIpQLSd0LJcAQ4zViL7lrl-yg192kHOQN49rvcLcf_RPTcPn-wjmgg/viewform?usp=sf_link'
+            target='_blank'>
+            Join Waiting List
+          </a>
+        </div>
       </Fragment>
     )
   }
@@ -88,4 +74,4 @@ const mapDispatchToProps = dispatch => ({
   pagesSetQueryState: bindActionCreators(pagesSetQueryState, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(About)
+export default connect(mapStateToProps, mapDispatchToProps)(Membership)

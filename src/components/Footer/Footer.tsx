@@ -190,6 +190,15 @@ class Footer extends Component<Props, State> {
                 Terms
               </a>
             </Link>
+            <Link
+              as='/membership'
+              href='/membership'>
+              <a
+                className='footer-bottom__link'
+                onClick={this.linkClick}>
+                Premium
+              </a>
+            </Link>
           </div>
         </div>
         <NSFWModal
