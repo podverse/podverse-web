@@ -1,3 +1,4 @@
+import { ComparisonTable } from 'podverse-ui'
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -63,10 +64,69 @@ class Membership extends Component<Props, State> {
             Join Waiting List
           </a>
         </div>
+        <ComparisonTable
+          featuresData={featuresData}
+          headerIcon1='Free'
+          headerIcon2='Premium'
+          headerText='Features' />
       </Fragment>
     )
   }
 }
+
+const featuresData = [
+  {
+    text: 'subscribe to podcasts',
+    icon1: true,
+    icon2: true
+  },
+  {
+    text: 'play clips and episodes',
+    icon1: true,
+    icon2: true
+  },
+  {
+    text: 'manage your queue',
+    icon1: true,
+    icon2: true
+  },
+  {
+    text: 'create clips of any length',
+    icon1: true,
+    icon2: true
+  },
+  {
+    text: 'create more discoverable clips',
+    icon1: false,
+    icon2: true
+  },
+  {
+    text: 'edit your clips',
+    icon1: false,
+    icon2: true
+  },
+  {
+    text: 'create playlists',
+    icon1: false,
+    icon2: true
+  },
+  {
+    text: 'share your profile',
+    icon1: false,
+    icon2: true
+  },
+  {
+    text: 'sync your queue across all devices',
+    icon1: false,
+    icon2: true
+  },
+  {
+    text: 'support open source software',
+    icon1: true,
+    icon2: true,
+    iconType: 'smile'
+  }
+]
 
 const mapStateToProps = state => ({ ...state })
 
