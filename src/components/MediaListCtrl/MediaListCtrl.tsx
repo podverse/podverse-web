@@ -60,7 +60,7 @@ class MediaListCtrl extends Component<Props, State> {
   }
 
   queryListItems = async (queryType, queryFrom, querySort, page) => {
-    const { episode, episodeId, handleSetPageQueryState, pageKey, pages,
+    const { episode, episodeId, handleSetPageQueryState, pageIsLoading, pageKey, pages,
       playerQueueLoadSecondaryItems, podcast, podcastId, settings, user } = this.props
     const { nsfwMode } = settings
     const { subscribedPodcastIds } = user
@@ -85,6 +85,12 @@ class MediaListCtrl extends Component<Props, State> {
       queryFrom,
       querySort
     }
+    pageIsLoading(true)
+
+    handleSetPageQueryState({
+      ...newState,
+      ...(page <= 1 ? { listItems: []} : {})
+    })
 
     if (queryFrom === 'from-podcast') {
       query.podcastId = podcastId
@@ -97,7 +103,7 @@ class MediaListCtrl extends Component<Props, State> {
           listItems: [],
           listItemsTotal: 0
         })
-
+        pageIsLoading(false)
         return
       }
     }
@@ -133,6 +139,8 @@ class MediaListCtrl extends Component<Props, State> {
         listItemsTotal: 0
       })
     }
+
+    pageIsLoading(false)
   }
 
   querySort = async selectedValue => {
