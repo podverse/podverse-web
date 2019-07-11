@@ -86,8 +86,6 @@ class MediaListCtrl extends Component<Props, State> {
       querySort
     }
 
-    handleSetPageQueryState(newState)
-
     if (queryFrom === 'from-podcast') {
       query.podcastId = podcastId
     } else if (queryFrom === 'subscribed-only') {
