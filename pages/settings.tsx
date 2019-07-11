@@ -320,7 +320,7 @@ class Settings extends Component<Props, State> {
 
     const premiumMembershipNode = (
       <Fragment>
-        <p>Premium features include:</p>
+        {/* <p>Premium features include:</p>
         <ul>
           <li>Sync your queue on all devices</li>
           <li>Sync your podcast list on all devices</li>
@@ -330,7 +330,7 @@ class Settings extends Component<Props, State> {
           <li>Own your personal data</li>
           <li>Support open-source software</li>
         </ul>
-        <p>$5 per year, checkout with PayPal or BitPay</p>
+        <p>$X per year, checkout with PayPal or BitPay</p>
         <div className='settings-membership__btns'>
           {
             !user || !user.id &&
@@ -341,7 +341,7 @@ class Settings extends Component<Props, State> {
                 Start Free Trial
               </Button>
           }
-        </div>
+        </div> */}
       </Fragment>
     )
 
@@ -446,14 +446,14 @@ class Settings extends Component<Props, State> {
                 <hr />
               </Fragment>
           }
-          {
+          {/* {
             !user || !user.id &&
             <Fragment>
               {membershipStatusHeader}
               {premiumMembershipNode}
               <hr />
             </Fragment>
-          }
+          } */}
           {
             user && user.id &&
             <Fragment>
