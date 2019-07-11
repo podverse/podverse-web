@@ -30,9 +30,11 @@ class PodcastListCtrl extends Component<Props, State> {
   }
 
   queryPodcasts = async (query, newState) => {
-    const { handleSetPageQueryState, pageKey, pages, settings } = this.props
+    const { handleSetPageQueryState, pageIsLoading, pageKey, pages, settings } = this.props
     const { queryPage: prevPage } = pages[pageKey]
     const { nsfwMode } = settings
+
+    pageIsLoading(true)
 
     handleSetPageQueryState({
       newState,
@@ -56,6 +58,8 @@ class PodcastListCtrl extends Component<Props, State> {
         listItemsTotal: 0
       })
     }
+
+    pageIsLoading(false)
   }
 
   queryPodcastsAll = async () => {
