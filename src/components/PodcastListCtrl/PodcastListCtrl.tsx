@@ -14,7 +14,7 @@ type Props = {
   handleSetPageQueryState: Function
   page?: any
   pageIsLoading?: any
-  pageKey?: string
+  pageKey: string
   pages?: any
   settings?: any
   user?: any
@@ -30,10 +30,14 @@ class PodcastListCtrl extends Component<Props, State> {
   }
 
   queryPodcasts = async (query, newState) => {
-    const { handleSetPageQueryState, settings } = this.props
+    const { handleSetPageQueryState, pageKey, pages, settings } = this.props
+    const { queryPage: prevPage } = pages[pageKey]
     const { nsfwMode } = settings
 
-    handleSetPageQueryState(newState)
+    handleSetPageQueryState({
+      newState,
+      queryPage: prevPage // wait before updating queryPage
+    })
 
     try {
       const response = await getPodcastsByQuery(query, nsfwMode)

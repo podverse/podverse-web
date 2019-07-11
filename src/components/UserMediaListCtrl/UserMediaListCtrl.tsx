@@ -53,7 +53,7 @@ class UserMediaListCtrl extends Component<Props, State> {
       playerQueueAddSecondaryItems, playerQueueLoadSecondaryItems, profileUser,
       settings } = this.props
     const { nsfwMode } = settings
-    const { querySort, queryType } = pages[pageKey]
+    const { queryPage: prevPage, querySort, queryType } = pages[pageKey]
 
     pageIsLoading(true)
 
@@ -77,7 +77,10 @@ class UserMediaListCtrl extends Component<Props, State> {
       query.sort = selectedValue
     }
 
-    handleSetPageQueryState(newState)
+    handleSetPageQueryState({
+      newState,
+      queryPage: prevPage // wait before updating queryPage
+    })
     
     if (query.type === 'podcasts' 
         && profileUser.subscribedPodcastIds
