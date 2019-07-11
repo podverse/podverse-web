@@ -78,12 +78,6 @@ class MediaListCtrl extends Component<Props, State> {
       ...(queryFrom === 'from-podcast' ? { includeEpisode: true } : {})
     }
 
-    if (queryFrom === 'from-podcast') {
-      query.podcastId = podcastId
-    } else if (queryFrom === 'subscribed-only') {
-      query.podcastId = subscribedPodcastIds
-    }
-
     let newState: any = {
       pageKey,
       queryPage: page,
@@ -92,7 +86,23 @@ class MediaListCtrl extends Component<Props, State> {
       querySort
     }
 
-    handleSetPageQueryState({newState})
+    handleSetPageQueryState(newState)
+
+    if (queryFrom === 'from-podcast') {
+      query.podcastId = podcastId
+    } else if (queryFrom === 'subscribed-only') {
+      if (subscribedPodcastIds.length > 0) {
+        query.podcastId = subscribedPodcastIds
+      } else {
+        handleSetPageQueryState({
+          ...newState,
+          listItems: [],
+          listItemsTotal: 0
+        })
+
+        return
+      }
+    }
 
     try {
       let nowPlayingItems = []
