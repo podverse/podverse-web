@@ -33,6 +33,8 @@ class PodcastListCtrl extends Component<Props, State> {
     const { handleSetPageQueryState, settings } = this.props
     const { nsfwMode } = settings
 
+    handleSetPageQueryState(newState)
+
     try {
       const response = await getPodcastsByQuery(query, nsfwMode)
       const podcasts = response.data || []
@@ -120,6 +122,8 @@ class PodcastListCtrl extends Component<Props, State> {
         listItemsTotal: 0
       })
       return
+    } else {
+      handleSetPageQueryState(newState)
     }
 
     await this.queryPodcasts(query, newState)
