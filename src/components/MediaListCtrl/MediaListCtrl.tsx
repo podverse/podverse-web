@@ -88,7 +88,10 @@ class MediaListCtrl extends Component<Props, State> {
     pageIsLoading(true)
 
     handleSetPageQueryState({
-      ...newState,
+      pageKey,
+      queryType,
+      queryFrom,
+      querySort,
       ...(page <= 1 ? { listItems: []} : {})
     })
 
