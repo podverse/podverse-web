@@ -43,26 +43,32 @@ class MediaInfoCtrl extends Component<Props, State> {
     const currentTime = Math.floor(window.player.getCurrentTime()) || 0
     await updateHistoryItemPlaybackPosition(mediaPlayer.nowPlayingItem, user, currentTime)
     nowPlayingItem = assignLocalOrLoggedInNowPlayingItemPlaybackPosition(user, nowPlayingItem)
-    mediaPlayerLoadNowPlayingItem(nowPlayingItem)
-    setNowPlayingItemInStorage(nowPlayingItem)
     mediaPlayerUpdatePlaying(true)
 
-    if (user && user.id) {
-      await addOrUpdateUserHistoryItem(nowPlayingItem)
-
-      const historyItems = user.historyItems.filter(x => {
-        if (x) {
-          if ((x.clipStartTime || x.clipEndTime) && x.clipId !== nowPlayingItem.clipId) {
-            return x
-          } else if (x.episodeId !== nowPlayingItem.episodeId) {
-            return x
+    if (
+      !mediaPlayer.nowPlayingItem ||
+      nowPlayingItem.clipId && (mediaPlayer.nowPlayingItem.clipId !== nowPlayingItem.clipId) ||
+      nowPlayingItem.episodeId && (mediaPlayer.nowPlayingItem.episodeId !== nowPlayingItem.episodeId)
+    ) {
+      mediaPlayerLoadNowPlayingItem(nowPlayingItem)
+      setNowPlayingItemInStorage(nowPlayingItem)
+      if (user && user.id) {
+        await addOrUpdateUserHistoryItem(nowPlayingItem)
+  
+        const historyItems = user.historyItems.filter(x => {
+          if (x) {
+            if ((x.clipStartTime || x.clipEndTime) && x.clipId !== nowPlayingItem.clipId) {
+              return x
+            } else if (x.episodeId !== nowPlayingItem.episodeId) {
+              return x
+            }
           }
-        }
-      })
-
-      historyItems.push(nowPlayingItem)
-
-      userSetInfo({ historyItems })
+        })
+  
+        historyItems.push(nowPlayingItem)
+  
+        userSetInfo({ historyItems })
+      }
     }
   }
 
