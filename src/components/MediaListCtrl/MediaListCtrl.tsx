@@ -345,30 +345,37 @@ class MediaListCtrl extends Component<Props, State> {
   }
 
   handleFilterTextChange = async event => {
-    const { episodeId, handleSetPageQueryState, pageKey, pages, podcastId,
+    const { episodeId, handleSetPageQueryState, pageIsLoading, pageKey, pages, podcastId,
       settings, user } = this.props
     const { queryFrom, querySort, queryType } = pages[pageKey]
     const { nsfwMode } = settings
     const { subscribedPodcastIds } = user
     const text = event.target.value
 
+    pageIsLoading(true)
+
     handleSetPageQueryState({
       pageKey,
       filterText: text
     })
+
+    let pId = null
+    if (queryFrom === 'from-podcast') {
+      pId = podcastId
+    } else if (queryFrom === 'subscribed-only') {
+      pId = subscribedPodcastIds && subscribedPodcastIds.length > 0 ? subscribedPodcastIds : ['no-results']
+    }
 
     let query: any = {
       page: 1,
       from: queryFrom,
       sort: querySort,
       episodeId: queryFrom === 'from-episode' ? episodeId : null,
-      podcastId: queryFrom === 'from-podcast' ? podcastId : null,
-      subscribedPodcastIds: queryFrom === 'subscribed-only' ?
-        (subscribedPodcastIds ? subscribedPodcastIds.length > 0 : ['no-results']) : null,
+      podcastId: pId,
       searchAllFieldsText: text,
-      includePodcast: !!text
+      includePodcast: !!text || queryFrom === 'subscribed-only' || queryFrom === 'all-podcasts'
     }
-    
+
     try {
       let nowPlayingItems
       let listItemsTotal
@@ -400,22 +407,11 @@ class MediaListCtrl extends Component<Props, State> {
         listItemsTotal: 0
       })
     }
+
+    pageIsLoading(false)
   }
 
   clearFilterText = async () => {
-    const { pageIsLoading, pageKey, pages } = this.props
-    const { queryFrom, querySort, queryType } = pages[pageKey]
-    pageIsLoading(true)
-
-    await this.queryListItems(
-      queryType,
-      queryFrom,
-      querySort,
-      1
-    )
-
-    pageIsLoading(false)
-
     this.handleFilterTextChange({
       target: {
         value: ''
