@@ -4,6 +4,14 @@ html {
 
 html[is-switching-ui-mode=true] * {
   transition: none !important;
+
+  .react-switch-bg {
+    transition: background 0.25s ease 0s !important;
+  }
+
+  .react-switch-handle {
+    transition: background-color 0.25s ease 0s, transform 0.25s ease 0s, box-shadow 0.15s ease 0s !important;
+  }
 }
 
 .max-width {
