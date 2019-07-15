@@ -5682,10 +5682,10 @@ platform@1.3.5:
   resolved "https://registry.yarnpkg.com/platform/-/platform-1.3.5.tgz#fb6958c696e07e2918d2eeda0f0bc9448d733444"
   integrity sha512-TuvHS8AOIZNAlE77WUDiR4rySV/VMptyMfcfeoMgs4P8apaZM3JrnbzBiixKUv+XR6i+BXrQh8WAnjaSPFO65Q==
 
-podverse-ui@^1.0.5:
-  version "1.0.17"
-  resolved "https://registry.yarnpkg.com/podverse-ui/-/podverse-ui-1.0.17.tgz#000009ed20ae257e54efa73bea836402833e04f2"
-  integrity sha512-WpgEoRfH6x2w/IgyI1TYqmpe1S1WSU2vM6jEyQ9A/PfI/nP3gSxzUXf5sB6xivVRZwn70fv9+/lsmV/Q6jeN+A==
+podverse-ui@^2.0.0:
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/podverse-ui/-/podverse-ui-2.0.4.tgz#4bccbe50d242d52fb165c16a62e35ab9f0aa011a"
+  integrity sha512-7BzT/Sll5KREyx9w981bD4nha40DZ/ruL27hO8SKXPFCbC2Jto3jDPWKUJMlDbkKOsqy5Ca2rs6F5rtCmrUm0Q==
   dependencies:
     "@fortawesome/fontawesome-svg-core" "^1.2.4"
     "@fortawesome/free-regular-svg-icons" "^5.5.0"
