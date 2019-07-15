@@ -82,6 +82,7 @@ class Auth extends Component<Props, State> {
       })
     } finally {
       modalsLoginIsLoading(false)
+      window.location.reload()
     }
   }
 
