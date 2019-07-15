@@ -72,10 +72,10 @@ class About extends Component<Props, State> {
         <hr />
 
         <h3>Team</h3>
-        <p>Creon Creonopoulos - Programmer</p>
-        <p>Mitch Downey – Programmer</p>
+        <p>Creon Creonopoulos - Software Developer</p>
+        <p>Mitch Downey – Software Developer</p>
         <p>Gary Johnson – UX Designer</p>
-        <p>Vincent Schramer – Programmer</p>
+        <p>Vincent Schramer – Software Developer</p>
 
       </Fragment>
     )
