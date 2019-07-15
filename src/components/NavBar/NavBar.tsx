@@ -38,23 +38,26 @@ class PVNavBar extends Component<Props, State> {
       {
         as: '/search',
         href: '/search',
-        icon: 'search'
+        icon: 'search',
+        onClick: () => { this.linkClick() }
       },
       {
         as: '/podcasts',
         href: '/podcasts',
-        label: 'Podcasts'
+        label: 'Podcasts',
+        onClick: () => { this.linkClick() }
       },
       {
         as: '/playlists',
         href: '/playlists',
-        label: 'Playlists'
+        label: 'Playlists',
+        onClick: () => { this.linkClick() }
       }
     ]
   } 
 
   dropdownItems () {
-    const { pageIsLoading, playerQueueLoadPriorityItems, user, userSetInfo } = this.props
+    const { playerQueueLoadPriorityItems, user, userSetInfo } = this.props
     const { id } = user
 
     let dropdownItems = []
@@ -116,7 +119,13 @@ class PVNavBar extends Component<Props, State> {
         as: '',
         href: '',
         label: 'Log in',
-        onClick: () => { this.props.modalsLoginShow(true) }
+        onClick: () => { 
+          this.props.modalsLoginShow(true)
+          this.setState({
+            dropdownMenuIsOpen: false,
+            mobileMenuIsOpen: false
+          })
+        }
       })
     }
 
