@@ -168,7 +168,7 @@ class MediaListCtrl extends Component<Props, State> {
         onClick: () => this.queryListItems(
           'episodes',
           podcastId ? 'from-podcast' : queryFrom,
-          'most-recent',
+          'top-past-week',
           1
         ),
         value: 'episodes',
@@ -190,7 +190,7 @@ class MediaListCtrl extends Component<Props, State> {
           value: 'all-podcasts'
         },
         {
-          label: 'Subscribed only',
+          label: 'Subscribed',
           onClick: () => {
             if (user && user.id) {
               this.queryListItems(queryType, 'subscribed-only', querySort, 1)
