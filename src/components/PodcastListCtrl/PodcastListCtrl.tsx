@@ -245,7 +245,7 @@ class PodcastListCtrl extends Component<Props, State> {
 
     if (user && user.id) {
       categoryItems.unshift({
-        label: 'Subscribed Only',
+        label: 'Subscribed',
         onClick: () => this.queryPodcastsSubscribed(),
         parentValue: null,
         value: 'subscribed-only'
