@@ -231,7 +231,7 @@ class PodcastListCtrl extends Component<Props, State> {
   // BEWARE! X_X
   generateCategorySelectNodes = (allCategories, categoryId, user) => {
     const { pageKey, pages } = this.props
-    const { selected } = pages[pageKey]
+    let { selected } = pages[pageKey]
 
     const categoryItems = allCategories.map(x => {
       return {
@@ -244,6 +244,7 @@ class PodcastListCtrl extends Component<Props, State> {
     })
 
     if (user && user.id) {
+      selected = selected || 'subscribed-only'
       categoryItems.unshift({
         label: 'Subscribed',
         onClick: () => this.queryPodcastsSubscribed(),

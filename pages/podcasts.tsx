@@ -31,6 +31,7 @@ class Podcasts extends Component<Props, State> {
     const state = store.getState()
     const { pages, settings, user } = state
     const { nsfwMode } = settings
+    const { subscribedPodcastIds } = user
 
     const allCategoriesAndCountResult = await getCategoriesByQuery({})
     const allCategories = allCategoriesAndCountResult.data[0] || []
@@ -51,7 +52,8 @@ class Podcasts extends Component<Props, State> {
         ...(categoryId ? { categories: categoryId } : {}),
         from: queryFrom,
         page: queryPage,
-        sort: querySort
+        sort: querySort,
+        ...(queryFrom === 'subscribed-only' ? { subscribedPodcastIds } : {})
       }, nsfwMode)
 
       const podcasts = queryDataResult.data
