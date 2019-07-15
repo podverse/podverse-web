@@ -43,8 +43,8 @@ class Podcasts extends Component<Props, State> {
     const queryFrom = query.from
       || (query.categoryId && 'from-category')
       || currentPage.queryFrom
-      || 'all-podcasts'
-    const querySort = query.sort || currentPage.querySort || 'alphabetical'
+      || (user && user.id ? 'subscribed-only' : 'all-podcasts')
+    const querySort = query.sort || currentPage.querySort || (user && user.id ? 'alphabetical' : 'top-past-week')
 
     if (Object.keys(currentPage).length === 0 || queryRefresh) {
       const queryDataResult = await getPodcastsByQuery({
