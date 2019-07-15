@@ -2,6 +2,10 @@ html {
   font-family: 'Roboto', sans-serif;
 }
 
+html[is-switching-ui-mode=true] * {
+  transition: none !important;
+}
+
 .max-width {
   margin: 0 auto;
   max-width: $body-max-width;

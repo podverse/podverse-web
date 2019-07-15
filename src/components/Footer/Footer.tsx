@@ -47,6 +47,11 @@ class Footer extends Component<Props, State> {
     const html = document.querySelector('html')
     if (html) {
       html.setAttribute('theme', uiTheme)
+      // use .is-switching-ui-mode to prevent ugly transition effects
+      html.setAttribute('is-switching-ui-mode', 'true')
+      setTimeout(() => {
+        html.setAttribute('is-switching-ui-mode', '')
+      }, 1000)
     }
   }
 
