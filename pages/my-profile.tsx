@@ -102,7 +102,7 @@ class MyProfile extends Component<Props, State> {
           twitterTitle={meta.title} />
         {
           !user &&
-          <h3>Page not found</h3>
+            <h3>Page not found</h3>
         }
         {
           user &&
