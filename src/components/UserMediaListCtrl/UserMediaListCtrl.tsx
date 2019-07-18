@@ -75,10 +75,13 @@ class UserMediaListCtrl extends Component<Props, State> {
     } else if (selectedKey === 'sort') {
       newState.querySort = selectedValue
       query.sort = selectedValue
+    } else {
+      newState.queryType = queryType
+      newState.querySort = querySort
     }
 
     handleSetPageQueryState({
-      newState,
+      ...newState,
       queryPage: prevPage // wait before updating queryPage
     })
     
