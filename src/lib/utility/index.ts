@@ -142,18 +142,6 @@ export const alertSomethingWentWrong = () => {
   alert('Something went wrong. Please check your internet connection.')
 }
 
-export const copyToClipboard = (text) => {
-  const el = document.createElement('textarea')
-  el.value = text
-  el.setAttribute('readonly', '')
-  el.style.position = 'absolute'
-  el.style.left = '-9999px'
-  document.body.appendChild(el)
-  el.select()
-  document.execCommand('copy')
-  document.body.removeChild(el)
-}
-
 // Remove double quotes from text so it does not cut off in SEO descriptions
 export const removeDoubleQuotes = str => str ? str.replace(/["]+/g, '') : ''
 

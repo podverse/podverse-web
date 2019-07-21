@@ -1,16 +1,14 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
-import { Form, FormFeedback, FormGroup, FormText, Input, InputGroup, InputGroupAddon,
-  Label } from 'reactstrap'
+import { Form, FormFeedback, FormGroup, FormText, Input, InputGroup, InputGroupAddon, Label } from 'reactstrap'
 import { bindActionCreators } from 'redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Button } from 'podverse-ui'
 import Meta from '~/components/Meta/Meta'
 import CheckoutModal from '~/components/CheckoutModal/CheckoutModal'
 import { DeleteAccountModal } from '~/components/DeleteAccountModal/DeleteAccountModal'
-import { alertPremiumRequired, alertSomethingWentWrong, convertToYYYYMMDDHHMMSS,
-  copyToClipboard, getUrlFromRequestOrWindow, isBeforeDate, validateEmail, alertRateLimitError
-  } from '~/lib/utility'
+import { alertPremiumRequired, alertSomethingWentWrong, convertToYYYYMMDDHHMMSS, getUrlFromRequestOrWindow, isBeforeDate, validateEmail,
+  alertRateLimitError } from '~/lib/utility'
 import { modalsSignUpShow, pageIsLoading, settingsHideFilterButton, settingsHideNSFWLabels,
   settingsHideNSFWMode, settingsHidePlaybackSpeedButton, settingsHideTimeJumpBackwardButton,
   settingsHideUITheme, userSetInfo } from '~/redux/actions'
@@ -19,6 +17,7 @@ import config from '~/config'
 const { BASE_URL } = config()
 const fileDownload = require('js-file-download')
 const cookie = require('cookie')
+import ClipboardJS from 'clipboard'
 
 type Props = {
   lastScrollPosition?: number
@@ -83,13 +82,16 @@ class Settings extends Component<Props, State> {
     }
   }
 
+  componentDidMount() {
+    new ClipboardJS('#settings-privacy-profile-link .btn')
+  }
+
   profileLinkHref = () => {
     const { user } = this.props
     return `${BASE_URL}/profile/${user.id}`
   }
 
   copyProfileLink = () => {
-    copyToClipboard(this.profileLinkHref())
     this.setState({ wasCopied: true })
     setTimeout(() => {
       this.setState({ wasCopied: false })
@@ -139,7 +141,12 @@ class Settings extends Component<Props, State> {
 
   handlePrivacyChange = event => {
     const isPublic = event.target.value
-    this.setState({ isPublic: isPublic === 'public' })
+    this.setState({ isPublic: isPublic === 'public' }, () => {
+      // If the share button should have appeared, apply the Clipboard event listener
+      if (isPublic === 'public') {
+        new ClipboardJS('#settings-privacy-profile-link .btn')
+      }
+    })
   }
 
   handleToggleFilterButton = event => {
@@ -412,21 +419,23 @@ class Settings extends Component<Props, State> {
                 </FormGroup>
                 {
                   (user.isPublic && isPublic) &&
-                  <FormGroup style={{marginBottom: '2rem'}}>
-                    <Label for='settings-privacy-profile-link'>Sharable Profile Link</Label>
-                    <InputGroup id='settings-privacy-profile-link'>
-                      <Input
-                        readOnly={true}
-                        value={`${BASE_URL}/profile/${user.id}`} />
-                      <InputGroupAddon
-                        addonType='append'>
-                        <Button
-                          color='primary'
-                          onClick={this.copyProfileLink}
-                          text={wasCopied ? 'Copied!' : 'Copy'} />
-                      </InputGroupAddon>
-                    </InputGroup>
-                  </FormGroup>
+                    <FormGroup style={{marginBottom: '2rem'}}>
+                      <Label for='settings-privacy-profile-link'>Sharable Profile Link</Label>
+                      <InputGroup id='settings-privacy-profile-link'>
+                        <Input
+                          id='settings-privacy-profile-link-input'
+                          readOnly={true}
+                          value={`${BASE_URL}/profile/${user.id}`} />
+                        <InputGroupAddon
+                          addonType='append'>
+                          <Button
+                            color='primary'
+                            dataclipboardtarget='#settings-privacy-profile-link-input'
+                            onClick={this.copyProfileLink}
+                            text={wasCopied ? 'Copied!' : 'Copy'} />
+                        </InputGroupAddon>
+                      </InputGroup>
+                    </FormGroup>
                 }
                 <div className='settings-profile__btns'>
                   <Button
