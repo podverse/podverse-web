@@ -16,6 +16,7 @@ type Props = {
   pageIsLoading?: any
   pageKey?: string
   playerQueueLoadPriorityItems?: any
+  settings?: any
   user?: any
   userSetInfo?: any
 }
@@ -159,7 +160,8 @@ class PVNavBar extends Component<Props, State> {
   }
 
   render () {
-    const { user } = this.props
+    const { settings, user } = this.props
+    const { uiTheme } = settings
     const { id } = user 
     const { dropdownMenuIsOpen, mobileMenuIsOpen } = this.state
 
@@ -178,6 +180,7 @@ class PVNavBar extends Component<Props, State> {
           handleLinkClick={this.linkClick}
           handleToggleDropdownMenu={this.handleToggleDropdownMenu}
           handleToggleMobileMenu={this.handleToggleMobileMenu}
+          isDarkMode={uiTheme === 'dark'}
           mobileMenuIsOpen={mobileMenuIsOpen}
           navItems={this.navItems()} />
       </React.Fragment>
