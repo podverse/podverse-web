@@ -17,7 +17,8 @@ type Props = {
   is404Page?: boolean
   lastScrollPosition?: number
   meta?: any
-  pageKey?: string
+  pageKey: string
+  pages?: any
   pagesSetQueryState?: any
   playerQueue?: any
   podcast?: any
@@ -139,8 +140,8 @@ class Podcast extends Component<Props, State> {
   }
 
   render() {
-    const { is404Page, meta, pageKey, pagesSetQueryState, podcast, queryFrom,
-      queryPage, querySort, queryType } = this.props
+    const { is404Page, meta, pageKey, pages, pagesSetQueryState, podcast } = this.props
+    const { queryFrom, queryPage, querySort, queryType } = pages[pageKey]
 
     if (is404Page) {
       return <Error statusCode={404} />
@@ -170,6 +171,7 @@ class Podcast extends Component<Props, State> {
           podcast={podcast} />
         <MediaListCtrl
           handleSetPageQueryState={pagesSetQueryState}
+          includeOldest={queryType === 'episodes'}
           pageKey={pageKey}
           podcast={podcast}
           podcastId={podcast.id}

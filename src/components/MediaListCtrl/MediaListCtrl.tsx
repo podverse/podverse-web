@@ -29,6 +29,7 @@ type Props = {
   episode?: any
   episodeId?: string
   handleSetPageQueryState: Function
+  includeOldest?: boolean
   mediaPlayer?: any
   mediaPlayerLoadNowPlayingItem?: any
   mediaPlayerUpdatePlaying?: any
@@ -226,13 +227,13 @@ class MediaListCtrl extends Component<Props, State> {
     return options
   }
 
-  getQuerySortOptions() {
-    return [
-      {
-        label: 'top - past hour',
-        onClick: () => this.querySort('top-past-hour'),
-        value: 'top-past-hour'
-      },
+  getQuerySortOptions(includeOldest?: boolean) {
+    const items = [
+      // {
+      //   label: 'top - past hour',
+      //   onClick: () => this.querySort('top-past-hour'),
+      //   value: 'top-past-hour'
+      // },
       {
         label: 'top - past day',
         onClick: () => this.querySort('top-past-day'),
@@ -264,6 +265,16 @@ class MediaListCtrl extends Component<Props, State> {
         value: 'most-recent'
       }
     ]
+
+    if (includeOldest) {
+      items.push({
+        label: 'oldest',
+        onClick: () => this.querySort('oldest'),
+        value: 'oldest'
+      })
+    }
+
+    return items
   }
 
   playItem = async nowPlayingItem => {
@@ -440,7 +451,7 @@ class MediaListCtrl extends Component<Props, State> {
   }
 
   render() {
-    const { adjustTopPosition, episodeId, mediaPlayer, page, pageKey, pages,
+    const { adjustTopPosition, episodeId, includeOldest, mediaPlayer, page, pageKey, pages,
       podcastId, settings } = this.props
     const { isLoading } = page
     const { filterButtonHide } = settings
@@ -491,7 +502,8 @@ class MediaListCtrl extends Component<Props, State> {
     const selectedQueryTypeOption = this.getQueryTypeOptions().filter(x => x.value === queryType)
     const selectedQueryFromOption = this.getQueryFromOptions(
       !!podcastId, !!episodeId && queryType === 'clips').filter(x => x.value === queryFrom)
-    const selectedQuerySortOption = this.getQuerySortOptions().filter(x => x.value === querySort)
+    const sortOptions = this.getQuerySortOptions(includeOldest)
+    const selectedQuerySortOption = sortOptions.filter(x => x.value === querySort)
 
     return (      
       <div className={`media-list ${adjustTopPosition ? 'adjust-top-position' : ''}`}>
@@ -508,7 +520,7 @@ class MediaListCtrl extends Component<Props, State> {
             <div className='media-list-selects__spacer' />
             <MediaListSelect
               className='align-right'
-              items={this.getQuerySortOptions()}
+              items={sortOptions}
               selected={selectedQuerySortOption.length > 0 ? selectedQuerySortOption[0].value : null} />
           </div>
         </div>
@@ -546,14 +558,14 @@ class MediaListCtrl extends Component<Props, State> {
         <Fragment>
           {
             listItemNodes && listItemNodes.length > 0 &&
-            <Fragment>
-              {listItemNodes}
-              <Pagination
-                currentPage={queryPage || 1}
-                handleQueryPage={this.handleQueryPage}
-                pageRange={2}
-                totalPages={Math.ceil(listItemsTotal / QUERY_MEDIA_REFS_LIMIT)} />
-            </Fragment>
+              <Fragment>
+                {listItemNodes}
+                <Pagination
+                  currentPage={queryPage || 1}
+                  handleQueryPage={this.handleQueryPage}
+                  pageRange={2}
+                  totalPages={Math.ceil(listItemsTotal / QUERY_MEDIA_REFS_LIMIT)} />
+              </Fragment>
           }
           {
             (!isLoading && queryPage === 1 && listItemNodes.length === 0) &&

@@ -21,7 +21,8 @@ type Props = {
   mediaRef?: any
   meta?: any
   newPlayingItem?: any
-  pageKey?: string
+  pageKey: string
+  pages?: any
   pagesSetQueryState?: any
   playerQueue?: any
   queryFrom?: any
@@ -150,8 +151,8 @@ class Clip extends Component<Props, State> {
   }
 
   render () {
-    const { is404Page, mediaRef, meta, pageKey, pagesSetQueryState, queryFrom,
-      queryPage, querySort, queryType } = this.props
+    const { is404Page, mediaRef, meta, pageKey, pages, pagesSetQueryState } = this.props
+    const { queryFrom, queryPage, querySort, queryType } = pages[pageKey]
 
     if (is404Page) {
       return <Error statusCode={404} />
@@ -182,6 +183,7 @@ class Clip extends Component<Props, State> {
           episode={mediaRef.episode}
           episodeId={mediaRef.episode.id}
           handleSetPageQueryState={pagesSetQueryState}
+          includeOldest={queryType == 'episodes'}
           pageKey={pageKey}
           podcast={mediaRef.episode.podcast}
           podcastId={mediaRef.episode.podcast.id}

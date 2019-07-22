@@ -195,11 +195,11 @@ class UserMediaListCtrl extends Component<Props, State> {
         onClick: () => this.queryMediaListItems('sort', 'most-recent'),
         value: 'most-recent'
       },
-      {
-        label: 'top - past hour',
-        onClick: () => this.queryMediaListItems('sort', 'top-past-hour'),
-        value: 'top-past-hour'
-      },
+      // {
+      //   label: 'top - past hour',
+      //   onClick: () => this.queryMediaListItems('sort', 'top-past-hour'),
+      //   value: 'top-past-hour'
+      // },
       {
         label: 'top - past day',
         onClick: () => this.queryMediaListItems('sort', 'top-past-day'),
