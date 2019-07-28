@@ -67,6 +67,7 @@ class Auth extends Component<Props, State> {
     } catch (error) {
       const errorMsg = (error.response && error.response.data && error.response.data.message) || internetConnectivityErrorMessage
       modalsLoginSetErrorResponse(errorMsg)
+      modalsLoginIsLoading(false)
       userSetInfo({
         email: null,
         freeTrialExpiration: null,
