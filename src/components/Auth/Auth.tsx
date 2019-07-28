@@ -62,6 +62,8 @@ class Auth extends Component<Props, State> {
       playerQueueLoadPriorityItems(authenticatedUserInfo && authenticatedUserInfo.data && authenticatedUserInfo.data.queueItems)
       modalsLoginShow(false)
       modalsLoginSetErrorResponse()
+      modalsLoginIsLoading(false)
+      window.location.reload()
     } catch (error) {
       const errorMsg = (error.response && error.response.data && error.response.data.message) || internetConnectivityErrorMessage
       modalsLoginSetErrorResponse(errorMsg)
@@ -80,9 +82,6 @@ class Auth extends Component<Props, State> {
         subscribedPodcastIds: [],
         subscribedUserIds: []
       })
-    } finally {
-      modalsLoginIsLoading(false)
-      window.location.reload()
     }
   }
 
