@@ -56,27 +56,23 @@ class About extends Component<Props, State> {
           All Podverse software is provided under a copyleft license.
           Anyone can freely download the software and use it for any purpose,
           as long as they also share their changes to the code.
-        </p>
-        <p>
-          Copyleft licenses can help prevent tech monopolies
-          by ensuring that software is and will always remain free.
+          Copyleft licenses help prevent tech monopolies :)
         </p>
 
         <hr />
 
         <h3>Principles</h3>
         <p>Never sell or share private user data.</p>
-        <p>Never add advertisements without a podcaster's permission.</p>
-        <p>Never lock you into our service. You can download a copy of all your data and leave the site at any time.</p>
+        <p>Never add advertisements without (podcaster permission).</p>
+        <p>Allow users to download their complete data, so they can leave the site at any time.</p>
 
         <hr />
 
         <h3>Team</h3>
-        <p>Creon Creonopoulos - Software Developer</p>
-        <p>Mitch Downey – Software Developer</p>
-        <p>Gary Johnson – UX Designer</p>
-        <p>Vincent Schramer – Software Developer</p>
-
+        <p>Mitch Downey – Programmer</p>
+        <p>Creon Creonopoulos - Programmer</p>
+        <p>Vincent Schramer – Programmer</p>
+        <p>Gary Johnson – Designer</p>
       </Fragment>
     )
   }
