@@ -56,7 +56,7 @@ class About extends Component<Props, State> {
           All Podverse software is provided under a copyleft license.
           Anyone can freely download the software and use it for any purpose,
           as long as they also share their changes to the code.
-          Copyleft licenses help prevent tech monopolies :)
+          Copyleft licenses can help prevent tech monopolies.
         </p>
 
         <hr />
