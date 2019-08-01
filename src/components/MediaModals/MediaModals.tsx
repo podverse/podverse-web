@@ -231,7 +231,7 @@ class MediaModals extends Component<Props, State> {
       Router.push(href, as)
     } catch (error) {
       console.log(error)
-      alert('Delete clip failed. Please check your internet connection and try again.')
+      alert('Delete clip failed. Please check your internet connection and try again later.')
     }
     
     this.setState({ makeClipIsDeleting: false })

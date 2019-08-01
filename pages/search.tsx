@@ -118,7 +118,7 @@ class Search extends Component<Props, State> {
 
     } catch (error) {
       console.log(error)
-      alert('Search failed. Please check your internet connection and try again.')
+      alert('Search failed. Please check your internet connection and try again later.')
     }
   }
 
