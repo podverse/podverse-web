@@ -424,7 +424,7 @@ class MediaModals extends Component<Props, State> {
           handleHideModal={this.hideMakeClipModal}
           handleSave={this.makeClipSave}
           handleStartTimePreview={this.makeClipStartTimePreview}
-          initialIsPublic={ makeClipIsEditing ? nowPlayingItem && nowPlayingItem.isPublic : true }
+          initialIsPublic={makeClipIsEditing ? makeClipNowPlayingItem.isPublic : true}
           isDeleting={makeClipIsDeleting}
           isEditing={makeClipIsEditing}
           isLoggedIn={isLoggedIn}
