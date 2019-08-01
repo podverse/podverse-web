@@ -119,6 +119,13 @@ export const modalsQueueShow = payload => {
   }
 }
 
+export const modalsResetPasswordShow = payload => {
+  return {
+    type: actionTypes.MODALS_RESET_PASSWORD_SHOW,
+    payload
+  }
+}
+
 export const modalsShareIsLoading = payload => {
   return {
     type: actionTypes.MODALS_SHARE_IS_LOADING,

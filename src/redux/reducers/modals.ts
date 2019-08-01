@@ -112,7 +112,8 @@ export default (state = defaultState, action) => {
         forgotPassword: {
           // @ts-ignore
           ...state.forgotPassword,
-          isOpen: action.payload
+          isOpen: action.payload,
+          isResetPassword: false
         },
         addTo: {},
         clipCreated: {},
@@ -271,6 +272,22 @@ export default (state = defaultState, action) => {
         forgotPassword: {},
         makeClip: {},
         login: {},
+        share: {},
+        signUp: {}
+      }
+    case actionTypes.MODALS_RESET_PASSWORD_SHOW:
+      return {
+        forgotPassword: {
+          // @ts-ignore
+          ...state.forgotPassword,
+          isOpen: action.payload,
+          isResetPassword: true
+        },
+        addTo: {},
+        clipCreated: {},
+        makeClip: {},
+        login: {},
+        queue: {},
         share: {},
         signUp: {}
       }

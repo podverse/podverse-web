@@ -145,7 +145,8 @@ class Auth extends Component<Props, State> {
           handleSubmit={this.handleForgotPasswordSubmit}
           hideModal={() => modalsForgotPasswordShow(false)}
           isLoading={modals.forgotPassword && modals.forgotPassword.isLoading}
-          isOpen={modals.forgotPassword && modals.forgotPassword.isOpen} />
+          isOpen={(modals.forgotPassword && modals.forgotPassword.isOpen)}
+          isResetPassword={modals.forgotPassword && modals.forgotPassword.isResetPassword} />
         <LoginModal
           errorResponse={login.errorResponse}
           handleLogin={this.handleLogin}
