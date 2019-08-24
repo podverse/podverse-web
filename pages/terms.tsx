@@ -58,9 +58,6 @@ class Terms extends Component<Props, State> {
         <p>
           We host podcast links and content from third-party podcast feeds and sites. These have their own independent privacy policies, and we have no responsibility for their content or activities.
         </p>
-        <p>
-          Thanks for visiting :)
-        </p>
       </Fragment>
     )
   }
