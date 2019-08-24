@@ -41,25 +41,25 @@ class Terms extends Component<Props, State> {
           twitterTitle={meta.title} />
         <h3>Terms of Service</h3>
         <p>
-          <i>Podverse:</i>
+          Podverse will never sell or share private user data.
         </p>
         <p>
-          Does not host or edit podcast audio files. All audio files on podverse.fm are referenced from links in publicly available podcast feeds.
+          We will never put advertisements next to or within a podcast's content without that podcast's permission.
         </p>
         <p>
-          All clips are crowd-sourced and unofficial, unless otherwise noted by the podcaster/s.
+          All audio files found on podverse.fm load from the podcaster's own public server. We do not host podcast audio files ourselves.
         </p>
         <p>
-          Clips load within the full episode's media file, so the listener always has access to the full media file.
+          All clips hosted on podverse.fm are crowd-sourced and unofficial, unless otherwise noted by the podcaster.
         </p>
         <p>
-          Does not put advertisements next to or within a podcast's content, without that podcast's permission.
+          Clips load within the full episode's media file, so the user always has access to the full recording.
         </p>
         <p>
-          Hosts podcast links and content from third-party podcast feeds and sites. These have their own independent privacy policies, and we have no responsibility for their content or activities.
+          We host podcast links and content from third-party podcast feeds and sites. These have their own independent privacy policies, and we have no responsibility for their content or activities.
         </p>
         <p>
-          Will never sell or share private user data.
+          Thanks for visiting :)
         </p>
       </Fragment>
     )
