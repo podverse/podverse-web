@@ -28,7 +28,7 @@ class About extends Component<Props, State> {
 
     const meta = {
       currentUrl: getUrlFromRequestOrWindow(req),
-      description: 'Information about Podverse, our people, and our technology.',
+      description: 'About Podverse - Create and share podcast highlights',
       title: 'About'
     }
 
