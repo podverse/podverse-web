@@ -61,13 +61,17 @@
     margin: 0.75rem 0 1.5rem 0;
 
     .media-list-filter__filter-icon, .media-list-filter__clear-icon {
+      background-color: transparent;
       font-size: $text-xl-rem;
       height: 32px;
       line-height: 32px;
+      transition: none;
     }
     
     .media-list-filter__filter-icon button {
+      background-color: transparent;
       padding: 0 0.75rem;
+      transition: none;
 
       &.not-showing {
         border-radius: 3px;
