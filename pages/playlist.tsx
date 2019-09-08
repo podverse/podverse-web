@@ -589,10 +589,6 @@ class Playlist extends Component<Props, State> {
         </div>
         <div className='media-list'>
           {
-            isLoading &&
-              <FontAwesomeIcon icon='spinner' spin />
-          }
-          {
             (listItemNodes && listItemNodes.length > 0) &&
               <Fragment>
                 <DragDropContext onDragEnd={this.onDragEnd}>
@@ -610,7 +606,7 @@ class Playlist extends Component<Props, State> {
               </Fragment>
           }
           {
-            (listItemNodes.length === 0) &&
+            (!isLoading && listItemNodes.length === 0) &&
               <div className='no-results-msg'>No playlist items found</div>
           }
         </div>

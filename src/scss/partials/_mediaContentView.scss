@@ -2,6 +2,15 @@
   margin: 1rem 0 0 0;
   position: relative;
 
+  > svg {
+    display: block;
+    height: 16px;
+    margin: auto;
+    width: 16px;
+    -webkit-animation: fa-spin 2s infinite linear;
+    animation: fa-spin 2s infinite linear;
+  }
+
   hr:last-of-type {
     display: none;
   }

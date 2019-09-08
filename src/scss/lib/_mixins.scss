@@ -5,3 +5,9 @@
   -ms-transform: rotate(180deg);
   transform: rotate(180deg);
 }
+
+@mixin preventFontAwesomeSizeFOUC() {
+  height: 1rem;
+  vertical-align: -0.125rem;
+  width: 1rem;
+}
