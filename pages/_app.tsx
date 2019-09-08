@@ -20,7 +20,7 @@ import { disableHoverOnTouchDevices } from '~/lib/utility/disableHoverOnTouchDev
 import { fixMobileViewportHeight } from '~/lib/utility/fixMobileViewportHeight'
 import { initializeStore } from '~/redux/store'
 import { mediaPlayerLoadNowPlayingItem, pageIsLoading,
-    playerQueueLoadPriorityItems } from '~/redux/actions'
+  playerQueueLoadPriorityItems } from '~/redux/actions'
 import { actionTypes } from '~/redux/constants'
 import { getAuthenticatedUserInfo } from '~/services'
 import config from '~/config'
@@ -33,7 +33,7 @@ addFontAwesomeIcons()
 let windowHasLoaded = false
 
 declare global {
-  interface Window { 
+  interface Window {
     nowPlayingItem: NowPlayingItem
     player: any
   }
@@ -89,7 +89,7 @@ type Props = {
 }
 
 export default withRedux(initializeStore)(class MyApp extends App<Props> {
-    
+
   static async getInitialProps({ Component, ctx }) {
     let pageProps = {}
 
@@ -242,7 +242,7 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
       pageProps = await Component.getInitialProps(ctx)
     }
 
-    if (typeof(window) === 'object') {
+    if (typeof (window) === 'object') {
       ReactGA.pageview(ctx.asPath)
     }
 

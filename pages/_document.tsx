@@ -1,4 +1,4 @@
-import Document, { Head, Main, NextScript } from 'next/document'
+import Document, { Head, Html, Main, NextScript } from 'next/document'
 import { actionTypes } from '~/redux/constants'
 const cookie = require('cookie')
 
@@ -26,18 +26,18 @@ export default class MyDocument extends Document<Props> {
     return { ...initialProps, initialUITheme }
   }
 
-  render () {
+  render() {
     const { initialUITheme } = this.props
 
     return (
       // @ts-ignore
-      <html lang='en' theme={initialUITheme}>
+      <Html lang='en' theme={initialUITheme}>
+        <Head />
         <body>
-          <Head />
           <Main />
           <NextScript />
         </body>
-      </html>
+      </Html>
     )
   }
 }

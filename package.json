@@ -52,7 +52,7 @@
     "koa-helmet": "^4.0.0",
     "koa-router": "^7.4.0",
     "mobile-detect": "^1.4.3",
-    "next": "^7.0.1",
+    "next": "8.0.4",
     "next-images": "^1.0.4",
     "next-redux-wrapper": "^2.0.0",
     "password-validator": "^4.1.1",
