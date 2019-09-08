@@ -51,6 +51,14 @@ class About extends Component<Props, State> {
           twitterDescription={meta.description}
           twitterTitle={meta.title} />
 
+        <h3>About</h3>
+        <p>
+          Our goal is to create the world’s most artist and user friendly podcast technology.
+          The primary features of Podverse are 1) the ability to create and share podcast clips, playlists,
+          and user profiles, 2) an easy to manage player queue that syncs across all your devices,
+          and 3) an intuitive and streamlined podcast listening experience.
+        </p>
+
         <h3>Open Source</h3>
         <p>
           All Podverse software is provided under a copyleft license.
