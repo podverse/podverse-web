@@ -27,9 +27,9 @@ type State = {}
 class Meta extends Component<Props, State> {
 
   render () {
-    const { description, iphoneCustomScheme, ogDescription, ogImage, ogImageAlt,
-      ogTitle, ogType, ogUrl, robotsNoIndex, title, twitterDescription, twitterImage,
-      twitterImageAlt, twitterTitle } = this.props
+    const { description = '', iphoneCustomScheme = '', ogDescription = '', ogImage = '', ogImageAlt = '',
+      ogTitle = '', ogType = '', ogUrl = '', robotsNoIndex = '', title = '', twitterDescription = '', twitterImage = '',
+      twitterImageAlt = '', twitterTitle = '' } = this.props
     
     let ogImg = !ogImage ? metaDefaultImageUrl1200x630 : ogImage
     let twitterImg = !twitterImage ? metaDefaultImageUrl1200x630 : twitterImage

@@ -5,7 +5,6 @@ import App, { Container } from 'next/app'
 import ReactGA from 'react-ga'
 import { getNowPlayingOrNextFromStorage, getPriorityQueueItemsStorage,
   setNowPlayingItemInStorage } from 'podverse-ui'
-import Meta from '~/components/Meta/Meta'
 import Alerts from '~/components/Alerts/Alerts'
 import Auth from '~/components/Auth/Auth'
 import Footer from '~/components/Footer/Footer'
@@ -42,6 +41,7 @@ declare global {
 
 type Props = {
   cookies: any
+  isMobileDevice: boolean
   mediaPlayer: {
     nowPlayingItem: any
     playing?: boolean
@@ -304,7 +304,6 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
       <Container>
         <Provider store={store}>
           <Fragment>
-            <Meta />
             <Auth />
             <PageLoadingOverlay />
             <div className='view'>

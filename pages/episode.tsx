@@ -162,6 +162,7 @@ class Episode extends Component<Props, State> {
         <Meta
           description={meta.description}
           ogDescription={meta.description}
+          ogImage={meta.imageUrl}
           ogTitle={meta.title}
           ogType='website'
           ogUrl={meta.currentUrl}
