@@ -96,7 +96,7 @@ const featuresData = [
     icon2: true
   },
   {
-    text: 'create more discoverable clips',
+    text: 'create publicly discoverable clips',
     icon1: false,
     icon2: true
   },
