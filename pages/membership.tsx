@@ -116,7 +116,12 @@ const featuresData = [
     icon2: true
   },
   {
-    text: 'sync your queue across all devices',
+    text: 'sync subscriptions on all devices',
+    icon1: false,
+    icon2: true
+  },
+  {
+    text: 'sync your queue on all devices',
     icon1: false,
     icon2: true
   },
