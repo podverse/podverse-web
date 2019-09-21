@@ -325,33 +325,6 @@ class Settings extends Component<Props, State> {
       </Button>
     )
 
-    const premiumMembershipNode = (
-      <Fragment>
-        {/* <p>Premium features include:</p>
-        <ul>
-          <li>Sync your queue on all devices</li>
-          <li>Sync your podcast list on all devices</li>
-          <li>Create and share playlists</li>
-          <li>Edit your clips</li>
-          <li>Share your user profile</li>
-          <li>Own your personal data</li>
-          <li>Support open-source software</li>
-        </ul>
-        <p>$X per year, checkout with PayPal or BitPay</p>
-        <div className='settings-membership__btns'>
-          {
-            !user || !user.id &&
-              <Button
-                className='settings-membership__free-trial'
-                color='primary'
-                onClick={this.showSignUpModal}>
-                Start Free Trial
-              </Button>
-          }
-        </div> */}
-      </Fragment>
-    )
-
     const membershipStatusHeader = <h3 id='membership'>Membership Status</h3>
 
     return (
@@ -455,14 +428,6 @@ class Settings extends Component<Props, State> {
                 <hr />
               </Fragment>
           }
-          {/* {
-            !user || !user.id &&
-            <Fragment>
-              {membershipStatusHeader}
-              {premiumMembershipNode}
-              <hr />
-            </Fragment>
-          } */}
           {
             user && user.id &&
             <Fragment>
@@ -485,7 +450,6 @@ class Settings extends Component<Props, State> {
                   {membershipStatusHeader}
                   <p className='settings-membership__status is-active'>Premium (Free Trial)</p>
                   <p>Ends: {new Date(user.freeTrialExpiration).toLocaleString()}</p>
-                  {premiumMembershipNode}
                   {checkoutBtn()}
                   <hr />
                 </Fragment>
@@ -499,7 +463,6 @@ class Settings extends Component<Props, State> {
                   <p className='settings-membership__status is-expired'>Expired</p>
                   <p>Ended: {new Date(user.freeTrialExpiration).toLocaleString()}</p>
                   <p>Your free trial has ended. Please renew to continue using premium features.</p>
-                  {premiumMembershipNode}
                   {checkoutBtn()}
                   <hr />
                 </Fragment>
@@ -513,7 +476,6 @@ class Settings extends Component<Props, State> {
                   <p className='settings-membership__status is-expired'>Expired</p>
                   <p>Ended: {new Date(user.membershipExpiration).toLocaleString()}</p>
                   <p>Your membership has expired. Please renew to continue using premium features.</p>
-                  {premiumMembershipNode}
                   {checkoutBtn(true)}
                   <hr />
                 </Fragment>
@@ -524,7 +486,6 @@ class Settings extends Component<Props, State> {
                   {membershipStatusHeader}
                   <p className='settings-membership__status is-expired'>Inactive</p>
                   <p>Your membership is inactive. Please renew to continue using premium features.</p>
-                  {premiumMembershipNode}
                   {checkoutBtn(true)}
                   <hr />
                 </Fragment>
@@ -566,15 +527,6 @@ class Settings extends Component<Props, State> {
                 onChange={this.handleToggleUITheme}
                 type="checkbox" />
               &nbsp;&nbsp;Hide Dark mode switch in footer
-            </Label>
-          </FormGroup>
-          <FormGroup check>
-            <Label className='checkbox-label' check>
-              <Input
-                checked={nsfwModeHide !== 'false' && !!nsfwModeHide}
-                onChange={this.handleToggleNSFWMode}
-                type="checkbox" />
-              &nbsp;&nbsp;Hide NSFW mode switch in footer
             </Label>
           </FormGroup>
           <FormGroup check>
