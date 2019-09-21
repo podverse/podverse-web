@@ -55,7 +55,7 @@ class About extends Component<Props, State> {
         <p>
           Our goal is to create the world’s most artist and user friendly podcast technology.
           The primary features of Podverse are 1) the ability to create and share podcast clips, playlists,
-          and user profiles, 2) an easy to manage player queue that syncs across all your devices,
+          and user profiles, 2) an easy to manage queue that syncs across all your devices,
           and 3) an intuitive and streamlined podcast listening experience.
         </p>
 
@@ -79,7 +79,6 @@ class About extends Component<Props, State> {
         <h3>Team</h3>
         <p>Mitch Downey – Programmer</p>
         <p>Creon Creonopoulos - Programmer</p>
-        <p>Vincent Schramer – Programmer</p>
         <p>Gary Johnson – Designer</p>
       </Fragment>
     )
