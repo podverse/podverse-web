@@ -53,10 +53,10 @@ class About extends Component<Props, State> {
 
         <h3>About</h3>
         <p>
-          Our goal is to create the world’s most artist and user friendly podcast technology.
-          The primary features of Podverse are 1) the ability to create and share podcast clips, playlists,
-          and user profiles, 2) an easy to manage queue that syncs across all your devices,
-          and 3) an intuitive and streamlined podcast listening experience.
+          Our goal is to create the world’s most artist friendly podcast technology.
+          Currently Podverse's primary features are 1) the ability to easily create and share podcast clips,
+          playlists, and user profiles, 2) a playback queue that syncs across all your devices,
+          3) intuitive and streamlined app design for web, iOS, and Android.
         </p>
 
         <h3>Open Source</h3>
