@@ -69,6 +69,18 @@ html[is-switching-ui-mode=true] * {
   margin-top: 2.5rem;
 }
 
+.font-bold {
+  font-weight: 400;
+}
+
+.font-bolder {
+  font-weight: 500;
+}
+
+.font-italic {
+  font-style: italic;
+}
+
 [theme=light] {
   .no-results-msg {
     color: $gray-darker;
