@@ -53,26 +53,41 @@ class About extends Component<Props, State> {
 
         <h3>About</h3>
         <p>
-          Our goal is to create the world’s most artist friendly podcast technology.
-          Currently Podverse's primary features are 1) the ability to easily create and share podcast clips,
-          playlists, and user profiles, 2) a playback queue that syncs across all your devices,
-          3) intuitive and streamlined app design for web, iOS, and Android.
+          Podverse makes it easy to create, share, and discover full-length clips from your favorite podcasts.
+          Other features include an intuitive streamlined design, sharable playlists, user profiles,
+          and auto-syncing your queue and subscriptions across all your devices.
         </p>
 
-        <h3>Open Source</h3>
         <p>
-          All Podverse software is provided under a copyleft license.
-          Anyone can freely download the software and use it for any purpose,
-          as long as they also share their changes to the code.
-          Copyleft licenses can help prevent tech monopolies.
+          Our mission is to create the most world's most artist and user-friendly podcast app.
+          All Podverse software is provided under an open source <i>copyleft</i> license. Anyone can freely download
+          Podverse software and use it for any purpose, as long as they also share their changes to the code.
+          Furthermore, we are committed to following humane technology principles to show the highest level
+          of respect for your time and data.
+        </p>
+
+        <p>
+          This project has been a labor of love for over 5 years now, and we hope to continue on it for the rest
+          of our lives. Our goal is to be a force for good in the podcasting industry,
+          defending the independent spirit of podcasting from monopolies and centralization,
+          while empowering artists with equal access to open source technology.
+        </p>
+
+        <p>
+          If you have any questions, please reach out to us by emailing
+          <a href='mailto:contact@podverse.fm'>contact@podverse.fm</a>.
+          Thanks for checking out the site!
         </p>
 
         <hr />
 
         <h3>Principles</h3>
         <p>Never sell or share private user data.</p>
-        <p>Never add advertisements without (podcaster permission).</p>
+        <p>Never add advertisements without podcaster permission.</p>
         <p>Allow users to download their complete data, so they can leave the site at any time.</p>
+        <p>Strive to make all our software meet ethical technology standards, like those laid out by the
+          <a href='https://humanetech.com/' target='_blank'>Center for Humane Technology</a>.
+        </p>
 
         <hr />
 
