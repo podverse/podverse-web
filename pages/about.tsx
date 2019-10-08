@@ -53,7 +53,7 @@ class About extends Component<Props, State> {
 
         <h3>About</h3>
         <p>
-          <span class='font-bold'>Podverse makes it easy to create, share, and discover full-length clips from your favorite podcasts. </span>
+          <span className='font-bold'>Podverse makes it easy to create, share, and discover full-length clips from your favorite podcasts. </span>
           Additional features include an intuitive streamlined design, sharable playlists, user profiles,
           and auto-syncing your queue and subscriptions across all of your devices.
         </p>
