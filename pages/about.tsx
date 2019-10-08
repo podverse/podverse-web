@@ -70,7 +70,6 @@ class About extends Component<Props, State> {
 
         <p>
           If you have any questions or feedback please reach out by emailing&nbsp;<a href='mailto:contact@podverse.fm'>contact@podverse.fm</a>.
-          Thank you!
         </p>
 
         <p><a href='https://apps.apple.com/us/app/podverse/id1390888454'>Podverse on the App Store</a></p>
