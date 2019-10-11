@@ -60,7 +60,7 @@ class About extends Component<Props, State> {
   render() {
     const { meta } = this.props
     const { smiley } = this.state
-    const thankYou = "Thanks for visiting! Have a nice day&nbsp;" + smiley
+    const thankYou = "Thank you for visiting! Have a nice day&nbsp;" + smiley
 
     return (
       <Fragment>
@@ -84,7 +84,7 @@ class About extends Component<Props, State> {
         <p>
           We want to create the most world's most artist and user-friendly podcast technology.
           All Podverse software is provided under an open source copyleft license,
-          and we strive to follow humane technology principles to respect your time, well-being and data.
+          and should follow humane technology principles to respect your time, well-being and data.
         </p>
 
         <p><a href='https://apps.apple.com/us/app/podverse/id1390888454'>Podverse on the App Store</a></p>
