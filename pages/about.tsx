@@ -78,13 +78,13 @@ class About extends Component<Props, State> {
         <h3>About</h3>
         <p>
           <span className='font-bold'>Podverse makes it easy to create, share, and discover full-length clips from your favorite podcasts. </span>
-          Other features include an intuitive design, sharable playlists, user profiles, and a queue that syncs across all of your devices.
+          Other features include sharable playlists, user profiles, a queue that syncs across all of your devices, and an intuitive design.
         </p>
 
         <p>
-          We want to create the most world's most artist and user-friendly podcast technology.
-          All Podverse software is provided under an open source copyleft license,
-          and should follow humane technology principles to respect your time, well-being and data.
+          All Podverse software is provided under an open source, copyleft license.
+          You are free to download, modify, and use it for any purpose,
+          as long as you share-alike your modifications to the code.
         </p>
 
         <p><a href='https://apps.apple.com/us/app/podverse/id1390888454'>Podverse on the App Store</a></p>
@@ -92,7 +92,7 @@ class About extends Component<Props, State> {
         <p><a href='https://play.google.com/store/apps/details?id=com.podverse&hl=en_US'>Podverse on the Play Store</a></p>
 
         <p>
-          If you have any questions or feedback you can reach us by <a href='mailto:contact@podverse.fm'>email</a>.
+          If you have any questions or feedback please send us an <a href='mailto:contact@podverse.fm'>email</a>.
         </p>
 
         <p dangerouslySetInnerHTML={{ __html: thankYou }} />
