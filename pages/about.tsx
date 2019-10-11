@@ -60,7 +60,7 @@ class About extends Component<Props, State> {
   render() {
     const { meta } = this.props
     const { smiley } = this.state
-    const thankYou = "Thank you for visiting! Have a nice day&nbsp;" + smiley
+    const thankYou = "Thanks for visiting! Have a nice day&nbsp;" + smiley
 
     return (
       <Fragment>
