@@ -153,8 +153,8 @@ class Footer extends Component<Props, State> {
               <a 
                 className='footer-top__license'
                 target='_blank'>
+                <span className='hide-tiny'>copyleft </span>
                 <span className='flip-text-horizontal'>&copy;</span>
-                <span className='hide-tiny'> copyleft</span>
               </a>
             </Link>
           </div>
