@@ -82,8 +82,8 @@ class About extends Component<Props, State> {
         </p>
 
         <p>
-          All Podverse software is provided under an open source, copyleft license.
-          You can download, modify, and use it for any purpose,
+          Podverse software is provided under an open source, copyleft license.
+          You may download, modify, and use it for any purpose,
           as long as you share your modifications to the code.
         </p>
 
