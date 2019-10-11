@@ -87,9 +87,9 @@ class About extends Component<Props, State> {
           as long as you share your modifications to the code.
         </p>
 
-        <p><a href='https://apps.apple.com/us/app/podverse/id1390888454'>Podverse on the App Store</a></p>
+        <p><a href='https://apps.apple.com/us/app/podverse/id1390888454'>Download from the App Store</a></p>
 
-        <p><a href='https://play.google.com/store/apps/details?id=com.podverse&hl=en_US'>Podverse on the Play Store</a></p>
+        <p><a href='https://play.google.com/store/apps/details?id=com.podverse&hl=en_US'>Download from the Play Store</a></p>
 
         <p>
           If you have any questions or feedback please send us an <a href='mailto:contact@podverse.fm'>email</a>.
