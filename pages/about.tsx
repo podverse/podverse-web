@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import Meta from '~/components/Meta/Meta'
-import { getUrlFromRequestOrWindow } from '~/lib/utility'
+import { getUrlFromRequestOrWindow, smileyRandomizer } from '~/lib/utility'
 import { pageIsLoading, pagesSetQueryState } from '~/redux/actions'
 
 type Props = {
@@ -11,7 +11,9 @@ type Props = {
   pageKey?: string
 }
 
-type State = {}
+type State = {
+  smiley: string
+}
 
 const kPageKey = 'about'
 
@@ -35,8 +37,30 @@ class About extends Component<Props, State> {
     return { lastScrollPosition, meta, pageKey: kPageKey }
   }
 
+  constructor(props: Props) {
+    super(props)
+
+    this.state = {
+      smiley: smileyRandomizer()
+    }
+  }
+
+  componentDidMount() {
+    this.interval = setInterval(this.randomizeSmiley, 4000)
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval)
+  }
+
+  randomizeSmiley = () => {
+    this.setState({ smiley: smileyRandomizer() })
+  }
+
   render() {
     const { meta } = this.props
+    const { smiley } = this.state
+    const thankYou = "Thanks for visiting! Have a nice day&nbsp;" + smiley
 
     return (
       <Fragment>
@@ -54,27 +78,24 @@ class About extends Component<Props, State> {
         <h3>About</h3>
         <p>
           <span className='font-bold'>Podverse makes it easy to create, share, and discover full-length clips from your favorite podcasts. </span>
-          Additional features include an intuitive streamlined design, sharable playlists, user profiles,
-          and auto-syncing your queue and subscriptions across all of your devices.
+          Other features include an intuitive design, sharable playlists, user profiles, and a queue that syncs across all of your devices.
         </p>
 
         <p>
-          Our mission is to create the most world's most artist and user-friendly podcast app.
-          All Podverse software is provided under an open source copyleft license. Anyone can freely download
-          Podverse software and use it for any purpose, as long as they also share their changes to the code.
-        </p>
-
-        <p>
-          Furthermore, we are committed to following humane technology principles to respect your time, attention, and data.
-        </p>
-
-        <p>
-          If you have any questions or feedback please reach out by emailing&nbsp;<a href='mailto:contact@podverse.fm'>contact@podverse.fm</a>.
+          We want to create the most world's most artist and user-friendly podcast technology.
+          All Podverse software is provided under an open source copyleft license,
+          and we strive to follow humane technology principles to respect your time, well-being and data.
         </p>
 
         <p><a href='https://apps.apple.com/us/app/podverse/id1390888454'>Podverse on the App Store</a></p>
 
         <p><a href='https://play.google.com/store/apps/details?id=com.podverse&hl=en_US'>Podverse on the Play Store</a></p>
+
+        <p>
+          If you have any questions or feedback you can reach us by <a href='mailto:contact@podverse.fm'>email</a>.
+        </p>
+
+        <p dangerouslySetInnerHTML={{ __html: thankYou }} />
 
         <hr />
 
@@ -82,7 +103,7 @@ class About extends Component<Props, State> {
         <p>Never sell or share private user data.</p>
         <p>Never add advertisements without podcaster permission.</p>
         <p>Allow users to download their complete data, so they can leave the site at any time.</p>
-        <p>Strive to make all Podverse software meet ethical technology standards, such as those provided by the&nbsp;<a href='https://humanetech.com/' target='_blank'>Center for Humane Technology</a>.</p>
+        <p>Build in accordance with <a href='https://humanetech.com/problem/'>humane technology</a> principles.</p>
 
         <hr />
 
