@@ -187,8 +187,8 @@ export const updateHistoryItemPlaybackPosition = async (nowPlayingItem, user, ov
 }
 
 export const smileyRandomizer = () => {
-  // [🙂, 😊, 😁, 😄, 😎, 😺, 😸, 🌚, 🌝, 🌞]
+  // [🙂, 😊, 😁, 😄, 😎, 😺, 😸, 🌝, 🌞]
   const smilies = ['&#128578;', '&#128522;', '&#128513;', '&#128516;', '&#128526;',
-    '&#128570;', '&#128568;', '&#x1F31A;', '&#127773;', '&#127774;'] as any
+    '&#128570;', '&#128568;', '&#127773;', '&#127774;'] as any
   return smilies[Math.floor(Math.random() * smilies.length)]
 }
