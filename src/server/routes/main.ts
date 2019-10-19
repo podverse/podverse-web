@@ -1,6 +1,6 @@
 import * as Router from 'koa-router'
-// const fs = require('fs')
-// const path = require('path')
+const fs = require('fs')
+const path = require('path')
 
 export default (app) => {
   const router = new Router()
