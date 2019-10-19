@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import Meta from '~/components/Meta/Meta'
-import { getUrlFromRequestOrWindow, smileyRandomizer } from '~/lib/utility'
+import { getUrlFromRequestOrWindow } from '~/lib/utility'
 import { pageIsLoading, pagesSetQueryState } from '~/redux/actions'
 
 type Props = {
@@ -11,9 +11,7 @@ type Props = {
   pageKey?: string
 }
 
-type State = {
-  smiley: string
-}
+type State = {}
 
 const kPageKey = 'about'
 
@@ -37,30 +35,8 @@ class About extends Component<Props, State> {
     return { lastScrollPosition, meta, pageKey: kPageKey }
   }
 
-  constructor(props: Props) {
-    super(props)
-
-    this.state = {
-      smiley: smileyRandomizer()
-    }
-  }
-
-  componentDidMount() {
-    this.interval = setInterval(this.randomizeSmiley, 4000)
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.interval)
-  }
-
-  randomizeSmiley = () => {
-    this.setState({ smiley: smileyRandomizer() })
-  }
-
   render() {
     const { meta } = this.props
-    const { smiley } = this.state
-    const thankYou = "Thanks for checking out the site! Have a nice day&nbsp;" + smiley
 
     return (
       <Fragment>
@@ -78,24 +54,18 @@ class About extends Component<Props, State> {
         <h3>About</h3>
         <p>
           <span className='font-bold'>Podverse makes it easy to create, share, and discover full-length clips from your favorite podcasts. </span>
-          Other features include sharable playlists, user profiles, a queue that syncs across all of your devices, and an intuitive design.
+          Other features include an intuitive design, sharable playlists, user profiles, a queue that syncs across all of your devices.
         </p>
 
         <p>
-          Podverse software is provided under an open source, copyleft license.
+          All Podverse software is provided under an open source, copyleft license.
           You may download, modify, and use it for any purpose,
-          as long as you share your modifications to the code.
+          as long as you share your changes to the code.
         </p>
 
         <p><a href='https://apps.apple.com/us/app/podverse/id1390888454'>Download from the App Store</a></p>
 
         <p><a href='https://play.google.com/store/apps/details?id=com.podverse&hl=en_US'>Download from the Play Store</a></p>
-
-        <p>
-          If you have any questions or feedback please send us an <a href='mailto:contact@podverse.fm'>email</a>.
-        </p>
-
-        <p dangerouslySetInnerHTML={{ __html: thankYou }} />
 
         <hr />
 
