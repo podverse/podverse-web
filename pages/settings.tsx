@@ -496,7 +496,7 @@ class Settings extends Component<Props, State> {
           <FormGroup check>
             <Label className='checkbox-label' check>
               <Input
-                checked={timeJumpBackwardButtonHide === 'true' || !timeJumpBackwardButtonHide}
+                checked={timeJumpBackwardButtonHide === 'true'}
                 onChange={this.handleToggleTimeJumpBackwardButton}
                 type="checkbox" />
               &nbsp;&nbsp;Hide jump backwards button
