@@ -74,11 +74,14 @@ class UserHeaderCtrl extends Component<Props, State> {
             {
               loggedInUser && profileUser && loggedInUser.id === profileUser.id ?
                 <React.Fragment>
-                  <a
-                    className='media-header__link'
-                    href={`/profile/${loggedInUser.id}`}>
-                    <FontAwesomeIcon icon='link' />
-                  </a>
+                  {
+                    loggedInUser.isPublic &&
+                      <a
+                        className='media-header__link'
+                        href={`/profile/${loggedInUser.id}`}>
+                        <FontAwesomeIcon icon='link' />
+                      </a>
+                  }
                   <div className='media-header__subscribe'>
                     {
                       loggedInUser.isPublic ?
