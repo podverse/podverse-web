@@ -142,7 +142,7 @@ class Alerts extends Component<Props, State> {
         <a onClick={this.linkClick}>Renew</a>
       </Link>
     )
-      console.log('asdfasdf', this.state)
+
     if (showEmailVerificationNeeded && !isVerifyEmailPage) {
       return (
         <Alert
