@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import React, { Component, Fragment } from 'react'
 import Meta from '~/components/Meta/Meta'
 import { getUrlFromRequestOrWindow, alertRateLimitError } from '~/lib/utility'
@@ -92,8 +93,10 @@ class VerifyEmail extends Component<Props, State> {
         {
           !hasError &&
             <Fragment>
-              <h3>Verification successful</h3>
-              <p>Have a nice day :)</p>
+              <h3>Email Verified</h3>
+              <p>Thank you for verifying your email.</p>
+              <p>You will now be able to access premium features as long as your membership is valid.</p>
+              <p><Link as='/' href='/'><a>Go to Home Page</a></Link></p>
             </Fragment>
         }
         {
@@ -107,7 +110,11 @@ class VerifyEmail extends Component<Props, State> {
               }
               {
                 hasSent &&
-                  <p>Email Sent! Please check your inbox.</p>
+                  <Fragment>
+                    <p>Email Sent! Please check your inbox.</p>
+                    <p>If an it does not appear in the next couple minutes, please check your inbox's Spam or Promotions folders.</p>
+                    <p>If it still doesn't appear, please email <a href='mailto:contact@podverse.fm'>contact@podverse.fm</a> for support.</p>
+                  </Fragment>
               }
               {
                 !hasSent && isSending &&

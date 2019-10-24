@@ -544,7 +544,7 @@ class Settings extends Component<Props, State> {
               <hr />
               <h3>My Data</h3>
               <p>
-                Download a full copy of your data to use as a backup.
+                Download a backup of your data.
               </p>
               <Button
                 className='settings__download'

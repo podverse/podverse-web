@@ -132,7 +132,7 @@ class PaymentConfirmingPayPal extends Component<Props, State> {
             hasError &&
               <Fragment>
                 <p>Something went wrong. Please check your internet connection, or go to <a href='/settings#membership'>Settings > Membership</a> to check if your purchase was successful.</p>
-                <p>If the problem continues, please contact <a href='mailto:support@podverse.fm'>support@podverse.fm</a> for help.</p>
+                <p>If the problem continues, please email <a href='mailto:contact@podverse.fm'>contact@podverse.fm</a> for support.</p>
               </Fragment>
           }
           {

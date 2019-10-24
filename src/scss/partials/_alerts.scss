@@ -1,7 +1,23 @@
 html {
   .alert {
+    p, span {
+      font-weight: 400 !important;
+    }
+
     .close {
       padding: 0.625rem 1.25rem;
     }
+  }
+}
+
+[theme=light] {
+  .alert p, .alert span {
+    color: $gray-darkest
+  }
+}
+
+[theme=dark] {
+  .alert p, .alert span {
+    color: $gray-darkest
   }
 }

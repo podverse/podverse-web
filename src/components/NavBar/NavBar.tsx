@@ -95,6 +95,7 @@ class PVNavBar extends Component<Props, State> {
             await logOut()
             userSetInfo({
               email: '',
+              emailVerified: null,
               freeTrialExpiration: null,
               historyItems: [],
               id: '',

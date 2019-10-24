@@ -73,6 +73,7 @@ type Props = {
   store?: any,
   user: {
     email: string
+    emailVerified?: boolean
     freeTrialExpiration: any
     historyItems: any[]
     id: string
@@ -210,6 +211,7 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
               type: actionTypes.USER_SET_INFO,
               payload: {
                 email: userInfo.data.email,
+                emailVerified: userInfo.data.emailVerified,
                 freeTrialExpiration: userInfo.data.freeTrialExpiration,
                 historyItems: userInfo.data.historyItems,
                 id: userInfo.data.id,

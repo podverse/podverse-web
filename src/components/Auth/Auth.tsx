@@ -70,6 +70,7 @@ class Auth extends Component<Props, State> {
       modalsLoginIsLoading(false)
       userSetInfo({
         email: null,
+        emailVerified: null,
         freeTrialExpiration: null,
         historyItems: [],
         id: null,
@@ -123,17 +124,9 @@ class Auth extends Component<Props, State> {
 
     const signUpTopText = (
       <React.Fragment>
-        <br />
         <p style={{ textAlign: 'center' }}>
-          Podverse premium accounts are currently available by invite only.
-          <br />
-          <br />
-          <a
-            href='https://docs.google.com/forms/d/e/1FAIpQLSd0LJcAQ4zViL7lrl-yg192kHOQN49rvcLcf_RPTcPn-wjmgg/viewform?usp=sf_link'
-            style={{ fontWeight: 500 }}
-            target='_blank'>
-            Join Waiting List
-          </a>
+          Try premium free for 365 days
+          <br />$10 per year after that
         </p>
       </React.Fragment>
     )

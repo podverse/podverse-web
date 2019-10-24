@@ -4,13 +4,14 @@ export default (state = {}, action) => {
 
   switch (action.type) {
     case actionTypes.USER_SET_INFO:
-      const { email, freeTrialExpiration, historyItems, id, isPublic, mediaRefs,
+      const { email, emailVerified, freeTrialExpiration, historyItems, id, isPublic, mediaRefs,
         membershipExpiration, name, playlists, queueItems, subscribedPlaylistIds,
         subscribedPodcastIds, subscribedUserIds } = action.payload
 
       return {
         ...state,
         ...(email || email === '' ? { email } : {}),
+        ...(emailVerified ? { emailVerified } : {}),
         ...(freeTrialExpiration || freeTrialExpiration === '' || freeTrialExpiration === null ? { freeTrialExpiration } : {}),
         ...(historyItems ? { historyItems } : {}),
         ...(id || id === '' ? { id } : {}),
