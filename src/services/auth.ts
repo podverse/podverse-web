@@ -48,10 +48,12 @@ export const sendResetPassword = async (email: string) => {
   })
 }
 
-export const sendVerification = async () => {
+export const sendVerification = async (email: string) => {
   return axios(`${API_BASE_URL}/auth/send-verification`, {
     method: 'post',
-    withCredentials: true
+    data: {
+      email
+    }
   })
 }
 

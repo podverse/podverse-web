@@ -96,9 +96,9 @@ const featuresData = [
     icon2: true
   },
   {
-    text: 'create publicly discoverable clips',
-    icon1: false,
-    icon2: true
+    text: 'automatically save your clips to a playlist',
+    column1: false,
+    column2: true
   },
   {
     text: 'edit your clips',
@@ -116,7 +116,7 @@ const featuresData = [
     icon2: true
   },
   {
-    text: 'sync subscriptions on all devices',
+    text: 'sync your subscriptions on all devices',
     icon1: false,
     icon2: true
   },

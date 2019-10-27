@@ -281,7 +281,25 @@ export default (state = defaultState, action) => {
           // @ts-ignore
           ...state.forgotPassword,
           isOpen: action.payload,
-          isResetPassword: true
+          isResetPassword: true,
+          isSendVerificationEmail: false
+        },
+        addTo: {},
+        clipCreated: {},
+        makeClip: {},
+        login: {},
+        queue: {},
+        share: {},
+        signUp: {}
+      }
+    case actionTypes.MODALS_SEND_VERIFICATION_EMAIL_SHOW:
+      return {
+        forgotPassword: {
+          // @ts-ignore
+          ...state.forgotPassword,
+          isOpen: action.payload,
+          isResetPassword: false,
+          isSendVerificationEmail: true
         },
         addTo: {},
         clipCreated: {},

@@ -1,13 +1,13 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { ForgotPasswordModal, LoginModal, SignUpModal } from 'podverse-ui'
 import { internetConnectivityErrorMessage } from '~/lib/constants/misc'
-import { modalsForgotPasswordIsLoading, modalsForgotPasswordShow, 
-  modalsForgotPasswordSetErrorResponse, modalsLoginIsLoading,
-  modalsLoginShow, modalsLoginSetErrorResponse, modalsSignUpIsLoading,
-  modalsSignUpShow, modalsSignUpSetErrorResponse, userSetInfo, playerQueueLoadPriorityItems } from '~/redux/actions'
-import { login, sendResetPassword, signUp } from '~/services/auth'
+import { modalsForgotPasswordIsLoading, modalsForgotPasswordShow, modalsForgotPasswordSetErrorResponse,
+  modalsLoginIsLoading, modalsLoginShow, modalsSendVerificationEmailShow, modalsLoginSetErrorResponse,
+  modalsSignUpIsLoading, modalsSignUpShow, modalsSignUpSetErrorResponse, userSetInfo,
+  playerQueueLoadPriorityItems } from '~/redux/actions'
+import { login, sendResetPassword, signUp, sendVerification } from '~/services/auth'
 import { alertRateLimitError } from '~/lib/utility';
 
 type Props = {
@@ -18,6 +18,7 @@ type Props = {
   modalsLoginIsLoading?: any
   modalsLoginSetErrorResponse?: any
   modalsLoginShow?: any
+  modalsSendVerificationEmailShow?: any
   modalsSignUpIsLoading?: any
   modalsSignUpSetErrorResponse?: any
   modalsSignUpShow?: any
@@ -51,6 +52,29 @@ class Auth extends Component<Props, State> {
     }
   }
 
+
+  handleSendVerificationEmailSubmit = async email => {
+    const { modalsForgotPasswordIsLoading, modalsForgotPasswordSetErrorResponse,
+      modalsSendVerificationEmailShow } = this.props
+    modalsForgotPasswordIsLoading(true)
+
+    try {
+      await sendVerification(email)
+      modalsSendVerificationEmailShow(false)
+      modalsForgotPasswordSetErrorResponse(null)
+    } catch (error) {
+      console.log('handleSendVerificationEmailSubmit', error)
+      if (error && error.response && error.response.status === 429) {
+        alertRateLimitError(error)
+      } else {
+        const errorMsg = (error.response && error.response.data && error.response.data.message) || internetConnectivityErrorMessage
+        modalsForgotPasswordSetErrorResponse(errorMsg)
+      }
+    } finally {
+      modalsForgotPasswordIsLoading(false)
+    }
+  }
+
   handleLogin = async (email, password) => {
     const { modalsLoginIsLoading, modalsLoginSetErrorResponse, modalsLoginShow,
       playerQueueLoadPriorityItems, userSetInfo } = this.props
@@ -65,7 +89,16 @@ class Auth extends Component<Props, State> {
       modalsLoginIsLoading(false)
       window.location.reload()
     } catch (error) {
-      const errorMsg = (error.response && error.response.data && error.response.data.message) || internetConnectivityErrorMessage
+      const pleaseVerifyMessage = (
+        <Fragment>
+          <p>Please verify your email address to login.</p>
+          <span><a href='#' onClick={this._showSendVerificationEmailModal}>send verification email</a></span>
+        </Fragment>
+      )
+      const errorMsg =
+        (error.response && error.response.status === 460 && pleaseVerifyMessage) ||
+        (error.response && error.response.data && error.response.data.message)
+        || internetConnectivityErrorMessage
       modalsLoginSetErrorResponse(errorMsg)
       modalsLoginIsLoading(false)
       userSetInfo({
@@ -117,6 +150,11 @@ class Auth extends Component<Props, State> {
     }
   }
 
+  _showSendVerificationEmailModal = async () => {
+    const { modalsSendVerificationEmailShow } = this.props
+    modalsSendVerificationEmailShow(true)
+  }
+
   render() {
     const { modals, modalsForgotPasswordShow, modalsLoginShow, modalsSignUpShow
       } = this.props
@@ -135,11 +173,13 @@ class Auth extends Component<Props, State> {
       <React.Fragment>
         <ForgotPasswordModal
           errorResponse={forgotPassword.errorResponse}
-          handleSubmit={this.handleForgotPasswordSubmit}
+          handleSubmit={modals.forgotPassword && modals.forgotPassword.isSendVerificationEmail ?
+            this.handleSendVerificationEmailSubmit : this.handleForgotPasswordSubmit}
           hideModal={() => modalsForgotPasswordShow(false)}
           isLoading={modals.forgotPassword && modals.forgotPassword.isLoading}
           isOpen={(modals.forgotPassword && modals.forgotPassword.isOpen)}
-          isResetPassword={modals.forgotPassword && modals.forgotPassword.isResetPassword} />
+          isResetPassword={modals.forgotPassword && modals.forgotPassword.isResetPassword}
+          isSendVerificationEmail={modals.forgotPassword && modals.forgotPassword.isSendVerificationEmail} />
         <LoginModal
           errorResponse={login.errorResponse}
           handleLogin={this.handleLogin}
@@ -169,6 +209,7 @@ const mapDispatchToProps = dispatch => ({
   modalsLoginIsLoading: bindActionCreators(modalsLoginIsLoading, dispatch),
   modalsLoginShow: bindActionCreators(modalsLoginShow, dispatch),
   modalsLoginSetErrorResponse: bindActionCreators(modalsLoginSetErrorResponse, dispatch),
+  modalsSendVerificationEmailShow: bindActionCreators(modalsSendVerificationEmailShow, dispatch),
   modalsSignUpIsLoading: bindActionCreators(modalsSignUpIsLoading, dispatch),
   modalsSignUpShow: bindActionCreators(modalsSignUpShow, dispatch),
   modalsSignUpSetErrorResponse: bindActionCreators(modalsSignUpSetErrorResponse, dispatch),

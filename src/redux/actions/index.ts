@@ -9,9 +9,9 @@ export { modalsAddToIsLoading, modalsAddToSetErrorResponse, modalsAddToShow,
   modalsForgotPasswordIsLoading, modalsForgotPasswordSetErrorResponse,
   modalsForgotPasswordShow, modalsLoginIsLoading, modalsLoginSetErrorResponse,
   modalsLoginShow, modalsMakeClipSetErrorResponse, modalsMakeClipShow, modalsQueueIsLoading,
-  modalsQueueSetErrorResponse, modalsQueueShow, modalsShareIsLoading, modalsShareSetErrorResponse,
-  modalsShareShow, modalsSignUpIsLoading, modalsSignUpSetErrorResponse, modalsSignUpShow
-  } from '~/redux/actions/modals'
+  modalsQueueSetErrorResponse, modalsQueueShow, modalsSendVerificationEmailShow, modalsShareIsLoading,
+  modalsShareSetErrorResponse, modalsShareShow, modalsSignUpIsLoading, modalsSignUpSetErrorResponse,
+  modalsSignUpShow } from '~/redux/actions/modals'
 export { settingsHideFilterButton, settingsHideNSFWLabels, settingsHideNSFWMode,
   settingsHidePlaybackSpeedButton, settingsHideTimeJumpBackwardButton, settingsHideUITheme,
   settingsSetUITheme, settingsSetNSFWMode } from '~/redux/actions/settings'

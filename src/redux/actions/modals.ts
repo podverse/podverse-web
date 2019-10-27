@@ -126,6 +126,13 @@ export const modalsResetPasswordShow = payload => {
   }
 }
 
+export const modalsSendVerificationEmailShow = payload => {
+  return {
+    type: actionTypes.MODALS_SEND_VERIFICATION_EMAIL_SHOW,
+    payload
+  }
+}
+
 export const modalsShareIsLoading = payload => {
   return {
     type: actionTypes.MODALS_SHARE_IS_LOADING,

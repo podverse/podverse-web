@@ -108,6 +108,11 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
         type: actionTypes.MODALS_RESET_PASSWORD_SHOW,
         payload: ctx.query.resetPassword
       })
+    } else if (!process.browser && ctx.query && ctx.query.sendVerificationEmail) {
+      ctx.store.dispatch({
+        type: actionTypes.MODALS_SEND_VERIFICATION_EMAIL_SHOW,
+        payload: ctx.query.sendVerificationEmail
+      })
     }
 
     let isMobileDevice = false

@@ -4,8 +4,7 @@ import { bindActionCreators } from 'redux'
 import { Alert } from 'reactstrap'
 import Link from 'next/link'
 import { getCookie, isBeforeDate } from '~/lib/utility'
-import { pageIsLoading, pagesSetQueryState } from '~/redux/actions'
-import { sendVerification } from '~/services/auth'
+import { modalsSendVerificationEmailShow, pageIsLoading, pagesSetQueryState } from '~/redux/actions'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 const cookie = require('cookie')
 
@@ -20,6 +19,7 @@ type State = {
   hasSent?: boolean
   isVerifyEmailPage?: boolean
   isSending?: boolean
+  modalsSendVerificationEmailShow?: boolean
   showEmailVerificationNeeded?: boolean
   showFreeTrialHasEnded?: boolean
   showFreeTrialWarning?: boolean
@@ -109,26 +109,9 @@ class Alerts extends Component<Props, State> {
     })
   }
 
-  sendEmail = async () => {
-    const { hasSent, isSending } = this.state
-    
-    if (hasSent || isSending) return
-
-    this.setState({ isSending: true })
-
-    try {
-      await sendVerification()
-      this.setState({
-        hasSent: true,
-        isSending: false
-      })
-    } catch (error) {
-      this.setState({
-        hasSent: false,
-        isSending: false
-      })
-      console.log(error)
-    }
+  _showSendVerificationEmailModal = async () => {
+    const { modalsSendVerificationEmailShow } = this.props
+    modalsSendVerificationEmailShow(true)
   }
 
   render() {
@@ -165,8 +148,8 @@ class Alerts extends Component<Props, State> {
           {
             !hasSent && !isSending &&
               <Fragment>
-                <p>Please verify your email address to begin using premium features.</p>
-                <a href='#' onClick={this.sendEmail}>resend verification email</a>
+                <p>Please verify your email address to login.</p>
+                <span><a href='#' onClick={this._showSendVerificationEmailModal}>send verification email</a></span>
               </Fragment>
           }
         </Alert>
@@ -220,6 +203,7 @@ class Alerts extends Component<Props, State> {
 const mapStateToProps = state => ({ ...state })
 
 const mapDispatchToProps = dispatch => ({
+  modalsSendVerificationEmailShow: bindActionCreators(modalsSendVerificationEmailShow, dispatch),
   pageIsLoading: bindActionCreators(pageIsLoading, dispatch),
   pagesSetQueryState: bindActionCreators(pagesSetQueryState, dispatch)
 })

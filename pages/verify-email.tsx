@@ -1,14 +1,18 @@
 import Link from 'next/link'
 import React, { Component, Fragment } from 'react'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import Meta from '~/components/Meta/Meta'
 import { getUrlFromRequestOrWindow, alertRateLimitError } from '~/lib/utility'
-import { pageIsLoading } from '~/redux/actions'
-import { sendVerification, verifyEmail } from '~/services/auth'
+import { modalsLoginShow, modalsSendVerificationEmailShow, pageIsLoading } from '~/redux/actions'
+import { verifyEmail } from '~/services/auth'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 type Props = {
   hasError?: string
   meta?: any
+  modalsLoginShow?: any
+  modalsSendVerificationEmailShow?: any
 }
 
 type State = {
@@ -52,26 +56,14 @@ class VerifyEmail extends Component<Props, State> {
     }
   }
 
-  sendEmail = async () => {
-    const { hasSent, isSending } = this.state
-    
-    if (hasSent || isSending) return
+  _showSendVerificationEmailModal = async () => {
+    const { modalsSendVerificationEmailShow } = this.props
+    modalsSendVerificationEmailShow(true)
+  }
 
-    this.setState({ isSending: true })
-
-    try {
-      await sendVerification()
-      this.setState({
-        hasSent: true,
-        isSending: false
-      })
-    } catch (error) {
-      this.setState({
-        hasSent: false,
-        isSending: false
-      })
-      console.log(error)
-    }
+  _handleLoginPress = () => {
+    const { modalsLoginShow } = this.props
+    modalsLoginShow(true)
   }
 
   render() {
@@ -94,19 +86,18 @@ class VerifyEmail extends Component<Props, State> {
           !hasError &&
             <Fragment>
               <h3>Email Verified</h3>
-              <p>Thank you for verifying your email.</p>
-              <p>You will now be able to access premium features as long as your membership is valid.</p>
-              <p><Link as='/' href='/'><a>Go to Home Page</a></Link></p>
+              <p>Thank you for verifying! You should now be able to login.</p>
+              <p><Link as='/' href='/'><a onClick={this._handleLoginPress}>Login</a></Link></p>
             </Fragment>
         }
         {
           hasError &&
             <Fragment>
-              <h3>Verification failed</h3>
+              <h3>Email Verification Failed</h3>
               <p>This token may have expired.</p>
               {
                 !hasSent && !isSending &&
-                  <p>Login to your account then <a href='#' onClick={this.sendEmail}>resend verification email</a></p>
+                  <p><a href='#' onClick={this._showSendVerificationEmailModal}>send verification email</a></p>
               }
               {
                 hasSent &&
@@ -118,7 +109,7 @@ class VerifyEmail extends Component<Props, State> {
               }
               {
                 !hasSent && isSending &&
-                <p>Email sending... <FontAwesomeIcon icon='spinner' spin /></p>
+                  <p>Email sending... <FontAwesomeIcon icon='spinner' spin /></p>
               }
             </Fragment>
         }
@@ -127,4 +118,11 @@ class VerifyEmail extends Component<Props, State> {
   }
 }
 
-export default VerifyEmail
+const mapStateToProps = state => ({ ...state })
+
+const mapDispatchToProps = dispatch => ({
+  modalsLoginShow: bindActionCreators(modalsLoginShow, dispatch),
+  modalsSendVerificationEmailShow: bindActionCreators(modalsSendVerificationEmailShow, dispatch)
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(VerifyEmail)

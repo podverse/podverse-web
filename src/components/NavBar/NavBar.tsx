@@ -9,8 +9,6 @@ import { logOut } from '~/services/auth'
 
 type Props = {
   modals?: any
-  modalsForgotPasswordIsLoading?: any
-  modalsForgotPasswordShow?: any
   modalsLoginIsLoading?: any
   modalsLoginShow?: any
   pageIsLoading?: any
