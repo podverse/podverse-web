@@ -15,10 +15,7 @@ type Props = {
   modalsSendVerificationEmailShow?: any
 }
 
-type State = {
-  hasSent?: boolean
-  isSending?: boolean
-}
+type State = {}
 
 class VerifyEmail extends Component<Props, State> {
 
@@ -50,10 +47,7 @@ class VerifyEmail extends Component<Props, State> {
   constructor(props) {
     super(props)
 
-    this.state = {
-      hasSent: false,
-      isSending: false
-    }
+    this.state = {}
   }
 
   _showSendVerificationEmailModal = async () => {
@@ -68,7 +62,6 @@ class VerifyEmail extends Component<Props, State> {
 
   render() {
     const { hasError, meta } = this.props
-    const { hasSent, isSending } = this.state
 
     return (
       <Fragment>
@@ -95,22 +88,7 @@ class VerifyEmail extends Component<Props, State> {
             <Fragment>
               <h3>Email Verification Failed</h3>
               <p>This token may have expired.</p>
-              {
-                !hasSent && !isSending &&
-                  <p><a href='#' onClick={this._showSendVerificationEmailModal}>send verification email</a></p>
-              }
-              {
-                hasSent &&
-                  <Fragment>
-                    <p>Email Sent! Please check your inbox.</p>
-                    <p>If an it does not appear in the next couple minutes, please check your inbox's Spam or Promotions folders.</p>
-                    <p>If it still doesn't appear, please email <a href='mailto:contact@podverse.fm'>contact@podverse.fm</a> for support.</p>
-                  </Fragment>
-              }
-              {
-                !hasSent && isSending &&
-                  <p>Email sending... <FontAwesomeIcon icon='spinner' spin /></p>
-              }
+              <p><a href='#' onClick={this._showSendVerificationEmailModal}>send verification email</a></p>
             </Fragment>
         }
       </Fragment>
