@@ -84,7 +84,7 @@ class CheckoutModal extends React.Component<Props, State> {
             env={PAYPAL_ENV}
             handlePageIsLoading={pageIsLoading}
             hideCheckoutModal={handleHideModal}
-            total={5} />
+            total={10} />
           {/* <input 
             alt="Pay with BitPay"
             className='checkout-modal__bitpay'
