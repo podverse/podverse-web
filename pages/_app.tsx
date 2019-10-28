@@ -311,7 +311,6 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
       <Container>
         <Provider store={store}>
           <Fragment>
-            <Auth />
             <PageLoadingOverlay />
             <div className='view'>
               <div className='view__navbar'>
@@ -332,6 +331,7 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
                 {...pageProps}
                 isMobileDevice={isMobileDevice} />
             </div>
+            <Auth />
             <MediaModals />
           </Fragment>
         </Provider>

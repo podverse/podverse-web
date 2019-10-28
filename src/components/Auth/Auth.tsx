@@ -169,8 +169,8 @@ class Auth extends Component<Props, State> {
       </React.Fragment>
     )
 
-    return (
-      <React.Fragment>
+    if (modals.forgotPassword && modals.forgotPassword.isOpen) {
+      return (
         <ForgotPasswordModal
           errorResponse={forgotPassword.errorResponse}
           handleSubmit={modals.forgotPassword && modals.forgotPassword.isSendVerificationEmail ?
@@ -180,6 +180,9 @@ class Auth extends Component<Props, State> {
           isOpen={(modals.forgotPassword && modals.forgotPassword.isOpen)}
           isResetPassword={modals.forgotPassword && modals.forgotPassword.isResetPassword}
           isSendVerificationEmail={modals.forgotPassword && modals.forgotPassword.isSendVerificationEmail} />
+      )
+    } else if (modals.login && modals.login.isOpen) {
+      return (
         <LoginModal
           errorResponse={login.errorResponse}
           handleLogin={this.handleLogin}
@@ -188,6 +191,9 @@ class Auth extends Component<Props, State> {
           isOpen={modals.login && modals.login.isOpen}
           showForgotPasswordModal={() => modalsForgotPasswordShow(true)}
           showSignUpModal={() => modalsSignUpShow(true)} />
+      )
+    } else if (modals.signUp && modals.signUp.isOpen) {
+      return (
         <SignUpModal
           errorResponse={signUp.errorResponse}
           handleSignUp={this.handleSignUp}
@@ -195,8 +201,10 @@ class Auth extends Component<Props, State> {
           isLoading={modals.signUp && modals.signUp.isLoading}
           isOpen={modals.signUp && modals.signUp.isOpen}
           topText={signUpTopText} />
-      </React.Fragment>
-    )
+      )
+    } else {
+      return null
+    }
   }
 }
 
