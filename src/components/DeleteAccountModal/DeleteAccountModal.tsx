@@ -44,8 +44,9 @@ export class DeleteAccountModal extends React.Component<Props, State> {
   handleConfirmEmailInputChange = event => {
     const { email } = this.props
     const { value: confirmEmail } = event.target
+
     this.setState({
-      confirmEmail,
+      confirmEmail: confirmEmail.trim(),
       isConfirmed: confirmEmail && email === confirmEmail
     })
   }
