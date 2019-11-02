@@ -4,11 +4,12 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import Meta from '~/components/Meta/Meta'
 import { getUrlFromRequestOrWindow } from '~/lib/utility'
-import { pageIsLoading, pagesSetQueryState } from '~/redux/actions'
+import { pageIsLoading, pagesSetQueryState, modalsSignUpShow } from '~/redux/actions'
 
 type Props = {
   lastScrollPosition?: number
   meta?: any
+  modalsSignUpShow?: any
   pageKey?: string
 }
 
@@ -36,6 +37,10 @@ class Membership extends Component<Props, State> {
     return { lastScrollPosition, meta, pageKey: kPageKey }
   }
 
+  showSignUp = () => {
+    this.props.modalsSignUpShow(true)
+  }
+
   render() {
     const { meta } = this.props
 
@@ -52,16 +57,17 @@ class Membership extends Component<Props, State> {
           twitterDescription={meta.description}
           twitterTitle={meta.title} />
 
-        <h3>Membership</h3>
+        <h3>Premium</h3>
 
         <p className='membership-top-text'>
-          Podverse premium is currently available by invite only.
+          Get 1 year of Podverse premium for free!
+        </p>
+        <p className='membership-top-text'>
+          $10/year after that
         </p>
         <div className='membership-join-list'>
-          <a
-            href='https://docs.google.com/forms/d/e/1FAIpQLSd0LJcAQ4zViL7lrl-yg192kHOQN49rvcLcf_RPTcPn-wjmgg/viewform?usp=sf_link'
-            target='_blank'>
-            Join Waiting List
+          <a onClick={this.showSignUp}>
+            Sign Up
           </a>
         </div>
         <ComparisonTable
@@ -96,12 +102,12 @@ const featuresData = [
     icon2: true
   },
   {
-    text: 'automatically save your clips to a playlist',
-    column1: false,
-    column2: true
+    text: 'sync your subscriptions on all devices',
+    icon1: false,
+    icon2: true
   },
   {
-    text: 'edit your clips',
+    text: 'sync your queue on all devices',
     icon1: false,
     icon2: true
   },
@@ -111,17 +117,22 @@ const featuresData = [
     icon2: true
   },
   {
+    text: 'auto save your clips to a playlist',
+    icon1: false,
+    icon2: true
+  },
+  {
+    text: 'edit your clips',
+    icon1: false,
+    icon2: true
+  },
+  {
     text: 'share your profile',
     icon1: false,
     icon2: true
   },
   {
-    text: 'sync your subscriptions on all devices',
-    icon1: false,
-    icon2: true
-  },
-  {
-    text: 'sync your queue on all devices',
+    text: 'download a backup of your data',
     icon1: false,
     icon2: true
   },
@@ -136,6 +147,7 @@ const featuresData = [
 const mapStateToProps = state => ({ ...state })
 
 const mapDispatchToProps = dispatch => ({
+  modalsSignUpShow: bindActionCreators(modalsSignUpShow, dispatch),
   pagesSetQueryState: bindActionCreators(pagesSetQueryState, dispatch)
 })
 
