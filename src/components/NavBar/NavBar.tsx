@@ -118,7 +118,7 @@ class PVNavBar extends Component<Props, State> {
       dropdownItems.push({
         as: '',
         href: '',
-        label: 'Log in',
+        label: 'Login',
         onClick: () => { 
           this.props.modalsLoginShow(true)
           this.setState({
