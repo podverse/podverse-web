@@ -53,6 +53,32 @@ html[is-switching-ui-mode=true] * {
   text-align: center;
 }
 
+.download-on-the-app-store {
+  background: url(https://linkmaker.itunes.apple.com/en-us/badge-lrg.svg?releaseDate=2018-07-28&kind=iossoftware&bubble=ios_apps) no-repeat;
+  display: inline-block;
+  height: 40px;
+  margin: 8px 0;
+  overflow: hidden;
+  width: 135px;
+}
+
+.get-it-on-google-play {
+  display: inline-block;
+  margin: 8px 0 8px 20px;
+  position: relative;
+
+  img {
+    left: -8px;
+    position: absolute;
+    top: -9px;
+    width: 152px;
+  }
+}
+
+.flex-row {
+  display: flex;
+}
+
 .pull-left {
   float: left;
 }

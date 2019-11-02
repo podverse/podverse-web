@@ -63,17 +63,20 @@ class About extends Component<Props, State> {
           as long as you share your changes to the code.
         </p>
 
-        <p><a href='https://apps.apple.com/us/app/podverse/id1390888454'>Download from the App Store</a></p>
-
-        <p><a href='https://play.google.com/store/apps/details?id=com.podverse&hl=en_US'>Download from the Play Store</a></p>
-
-        <hr />
-
-        <h3>Principles</h3>
-        <p>Never sell or share private user data.</p>
-        <p>Never add advertisements without podcaster permission.</p>
-        <p>Allow users to download their complete data, so they can leave the site at any time.</p>
-        <p>Build in accordance with <a href='https://humanetech.com/problem/'>humane technology</a> principles.</p>
+        <div className='flex-row'>
+          <a
+            className="download-on-the-app-store"
+            href="https://apps.apple.com/us/app/podverse/id1390888454?mt=8"
+          />
+          <a
+            className="get-it-on-google-play"
+            href='https://play.google.com/store/apps/details?id=com.podverse&hl=en_US&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'>
+            <img
+              alt='Get it on Google Play'
+              src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png'
+            />
+          </a>
+        </div>
 
         <hr />
 
