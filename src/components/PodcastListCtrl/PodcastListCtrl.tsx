@@ -190,6 +190,11 @@ class PodcastListCtrl extends Component<Props, State> {
         onClick: () => this.queryPodcastsSort('alphabetical'),
         value: 'alphabetical'
       },
+      {
+        label: 'most recent',
+        onClick: () => this.queryPodcastsSort('most-recent'),
+        value: 'most-recent'
+      },
       // {
       //   label: 'top - past hour',
       //   onClick: () => this.queryPodcastsSort('top-past-hour'),
@@ -224,11 +229,6 @@ class PodcastListCtrl extends Component<Props, State> {
         label: 'random',
         onClick: () => this.queryPodcastsSort('random'),
         value: 'random'
-      },
-      {
-        label: 'most recent',
-        onClick: () => this.queryPodcastsSort('most-recent'),
-        value: 'most-recent'
       }
     ]
   }

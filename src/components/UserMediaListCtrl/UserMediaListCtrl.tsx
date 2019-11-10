@@ -190,6 +190,11 @@ class UserMediaListCtrl extends Component<Props, State> {
 
   getQuerySortOptions(isPodcasts) {
     let items = [
+      {
+        label: 'most recent',
+        onClick: () => this.queryMediaListItems('sort', 'most-recent'),
+        value: 'most-recent'
+      },
       // {
       //   label: 'top - past hour',
       //   onClick: () => this.queryMediaListItems('sort', 'top-past-hour'),
@@ -224,11 +229,6 @@ class UserMediaListCtrl extends Component<Props, State> {
         label: 'random',
         onClick: () => this.queryMediaListItems('random'),
         value: 'random'
-      },
-      {
-        label: 'most recent',
-        onClick: () => this.queryMediaListItems('sort', 'most-recent'),
-        value: 'most-recent'
       }
     ]
 
