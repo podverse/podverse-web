@@ -221,6 +221,11 @@ class PodcastListCtrl extends Component<Props, State> {
         value: 'top-all-time'
       },
       {
+        label: 'random',
+        onClick: () => this.queryPodcastsSort('random'),
+        value: 'random'
+      },
+      {
         label: 'most recent',
         onClick: () => this.queryPodcastsSort('most-recent'),
         value: 'most-recent'

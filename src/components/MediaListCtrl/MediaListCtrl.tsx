@@ -260,6 +260,11 @@ class MediaListCtrl extends Component<Props, State> {
         value: 'top-all-time'
       },
       {
+        label: 'random',
+        onClick: () => this.querySort('random'),
+        value: 'random'
+      },
+      {
         label: 'most recent',
         onClick: () => this.querySort('most-recent'),
         value: 'most-recent'
