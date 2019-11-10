@@ -138,7 +138,7 @@ class Alerts extends Component<Props, State> {
               <Fragment>
                 <p>Email Sent! Please check your inbox.</p>
                 <p>If it does not appear in the next 5 minutes, please check your inbox's Spam or Promotions folders.</p>
-                <span>If it still doesn't appear, please email <a href='mailto:contact@podverse.fm'>contact@podverse.fm</a> for support.</span>
+                <span>If it still doesn't appear, please email <a href='mailto:support@podverse.fm'>support@podverse.fm</a> for help.</span>
               </Fragment>
           }
           {

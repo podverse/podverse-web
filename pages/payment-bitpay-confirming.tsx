@@ -127,7 +127,7 @@ class PaymentConfirmingBitPay extends Component<Props, State> {
                 hasError &&
                 <Fragment>
                   <p>An error may have occurred, or the transaction is just taking a long time to confirm with the network.</p>
-                  <p>Please visit your Settings page at a later time to check if your transaction completed, or email contact@podverse.fm if you have an issue.</p>
+                  <p>Please visit your Settings page at a later time to check if your transaction completed, or email support@podverse.fm if you have an issue.</p>
                 </Fragment>
               }
               {
