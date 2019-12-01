@@ -23,5 +23,9 @@ export default (app) => {
     await app.render(ctx.req, ctx.res, '/signup', ctx.query)
   })
 
+  router.get('/terms', async ctx => {
+    await app.render(ctx.req, ctx.res, '/terms', ctx.query)
+  })
+
   return router
 }
