@@ -20,7 +20,7 @@
     "analyze": "NODE_ENV=production ANALYZE=true next build",
     "build": "next build && tsc --project tsconfig.server.json",
     "dev": "nodemon src/server/index.dev.ts",
-    "start": "NODE_ENV=production next start",
+    "start": "NODE_ENV=production next start -- -p 8765",
     "ts:check": "tsc --noEmit"
   },
   "dependencies": {
