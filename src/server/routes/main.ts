@@ -10,6 +10,12 @@ export default (app) => {
     await app.render(ctx.req, ctx.res, '/index', query)
   })
 
+  router.get('/apple-app-site-association', async ctx => {
+    const aasa = fs.readFileSync(path.resolve(__dirname, '../../config/apple-app-site-association'))
+    ctx.set('Content-Type', 'application/json')
+    ctx.body = aasa
+  })
+
   router.get('/clip/:id', async ctx => {
     const query = { ...ctx.params, ...ctx.query }
     await app.render(ctx.req, ctx.res, '/clip', query)
@@ -58,12 +64,6 @@ export default (app) => {
 
   router.get('/settings', async ctx => {
     await app.render(ctx.req, ctx.res, '/settings', ctx.query)
-  })
-
-  router.get('/apple-app-site-association', async ctx => {
-    const aasa = fs.readFileSync(path.resolve(__dirname, '../../config/apple-app-site-association'))
-    ctx.set('Content-Type', 'application/json')
-    ctx.body = aasa
   })
 
   return router
