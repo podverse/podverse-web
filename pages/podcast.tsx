@@ -89,7 +89,7 @@ class Podcast extends Component<Props, State> {
         }
 
         let listItems = results.data[0].map(x => {
-          let item = convertToNowPlayingItem(x, null, podcast)
+          let item = convertToNowPlayingItem(x, {}, podcast)
           item.podcastId = podcast.id
           item.podcastImageUrl = podcast.imageUrl
           item.podcastTitle = podcast.title

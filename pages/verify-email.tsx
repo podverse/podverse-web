@@ -6,7 +6,6 @@ import Meta from '~/components/Meta/Meta'
 import { getUrlFromRequestOrWindow, alertRateLimitError } from '~/lib/utility'
 import { modalsLoginShow, modalsSendVerificationEmailShow, pageIsLoading } from '~/redux/actions'
 import { verifyEmail } from '~/services/auth'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 type Props = {
   hasError?: string

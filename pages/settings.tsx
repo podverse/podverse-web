@@ -310,7 +310,7 @@ class Settings extends Component<Props, State> {
   
   render() {
     const { meta, settings, user } = this.props
-    const { filterButtonHide, nsfwLabelsHide, nsfwModeHide, playbackSpeedButtonHide,
+    const { filterButtonHide, nsfwLabelsHide, playbackSpeedButtonHide,
       timeJumpBackwardButtonHide, uiThemeHide } = settings
     const { email, emailError, isCheckoutOpen, isDeleteAccountOpen, isDownloading,
       isPublic, isSaving, name, wasCopied } = this.state

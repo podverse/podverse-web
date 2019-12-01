@@ -1,5 +1,4 @@
 import React, { Component, Fragment } from 'react'
-import Meta from '~/components/Meta/Meta'
 
 type Props = {}
 
