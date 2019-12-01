@@ -17,6 +17,7 @@ type Props = {
   pageIsLoading?: any
   pageKey: string
   pages?: any
+  pagesSetQueryState?: any
   settings?: any
   user?: any
 }

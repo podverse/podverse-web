@@ -15,8 +15,9 @@ const { QUERY_MEDIA_REFS_LIMIT } = config()
 type Props = {
   handleSetPageQueryState: Function
   pageIsLoading?: any
-  pageKey?: string
+  pageKey: string
   pages?: any
+  pagesSetQueryState?: any
   queryPage?: number
   settings?: any
   user?: any

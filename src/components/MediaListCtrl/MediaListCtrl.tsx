@@ -181,7 +181,7 @@ class MediaListCtrl extends Component<Props, State> {
     const { pageKey, pages, user } = this.props
     const { querySort, queryType } = pages[pageKey]
 
-    const options = []
+    const options = [] as any
 
     if (!showFromPodcast && !showFromEpisode) {
       options.push(
@@ -375,7 +375,7 @@ class MediaListCtrl extends Component<Props, State> {
       filterText: text
     })
 
-    let pId = null
+    let pId
     if (queryFrom === 'from-podcast') {
       pId = podcastId
     } else if (queryFrom === 'subscribed-only') {
@@ -387,7 +387,7 @@ class MediaListCtrl extends Component<Props, State> {
       from: queryFrom,
       sort: querySort,
       episodeId: queryFrom === 'from-episode' ? episodeId : null,
-      podcastId: pId,
+      podcastId: pId || null,
       searchAllFieldsText: text,
       includePodcast: !!text || queryFrom === 'subscribed-only' || queryFrom === 'all-podcasts'
     }

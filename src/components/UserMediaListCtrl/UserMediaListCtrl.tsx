@@ -25,8 +25,9 @@ type Props = {
   mediaPlayer?: any
   mediaPlayerLoadNowPlayingItem?: any
   mediaPlayerUpdatePlaying?: any
+  page?: any
   pageIsLoading?: any
-  pageKey?: string
+  pageKey: string
   pages?: any
   playerQueueAddSecondaryItems?: any
   playerQueueLoadSecondaryItems?: any
@@ -35,6 +36,7 @@ type Props = {
   querySort?: string
   queryType?: string
   settings?: any
+  user?: any
   userSetInfo?: any
 }
 

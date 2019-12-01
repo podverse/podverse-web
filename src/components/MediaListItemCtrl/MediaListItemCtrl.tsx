@@ -25,6 +25,7 @@ type Props = {
   nowPlayingItem?: any
   pageIsLoading?: any
   pageKey?: string
+  pagesSetQueryState?: any
   playerQueueLoadPriorityItems?: any
   playlist?: any
   podcast?: any
