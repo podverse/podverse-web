@@ -1,10 +1,10 @@
-// require('dotenv').config({ path: '.env' }) use .env in index.dev.ts only
+// require('dotenv').config({ path: '.env' }) // use .env in index.dev.ts only
 
-import * as Koa from 'koa'
-import * as bodyParser from 'koa-bodyparser'
-import * as helmet from 'koa-helmet'
-import { adminRouter, authRouter, devRouter, infoRouter, mainRouter,
-  paymentRouter, requestHandlerRouter } from './routes'
+import { authRouter, infoRouter, mainRouter, paymentRouter, requestHandlerRouter } from './routes'
+
+const Koa = require('koa')
+const bodyParser = require('koa-bodyparser')
+const helmet = require('koa-helmet')
 const next = require('next')
 
 const dev = process.env.NODE_ENV === 'development' || !process.env.NODE_ENV
@@ -22,9 +22,7 @@ app.prepare()
       await next()
     })
 
-    server.use(adminRouter(app).routes())
     server.use(authRouter(app).routes())
-    server.use(devRouter(app).routes())
     server.use(infoRouter(app).routes())
     server.use(mainRouter(app).routes())
     server.use(paymentRouter(app).routes())

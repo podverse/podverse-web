@@ -1,7 +1,6 @@
 require('dotenv').config({ path: '.env' }) // use .env in index.dev.ts only
 
-import { adminRouter, authRouter, devRouter, infoRouter, mainRouter,
-  paymentRouter, requestHandlerRouter } from './routes'
+import { authRouter, infoRouter, mainRouter, paymentRouter, requestHandlerRouter } from './routes'
   
 const Koa = require('koa')
 const bodyParser = require('koa-bodyparser')
@@ -23,9 +22,7 @@ app.prepare()
       await next()
     })
 
-    server.use(adminRouter(app).routes())
     server.use(authRouter(app).routes())
-    server.use(devRouter(app).routes())
     server.use(infoRouter(app).routes())
     server.use(mainRouter(app).routes())
     server.use(paymentRouter(app).routes())

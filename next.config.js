@@ -1,7 +1,5 @@
 const withCss = require('@zeit/next-css')
 const withSass = require('@zeit/next-sass')
-const path = require('path')
-const webpack = require('webpack')
 const withImages = require('next-images')
 
 const envVars = {
@@ -31,6 +29,7 @@ const envVars = {
 }
 
 module.exports = withImages(withCss(withSass({
+  useFileSystemPublicRoutes: false,
   serverRuntimeConfig: {
     ...envVars
   },
