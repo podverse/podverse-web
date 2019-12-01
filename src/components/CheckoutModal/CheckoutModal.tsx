@@ -16,7 +16,9 @@ type Props = {
   pageIsLoading?: any
 }
 
-type State = {}
+type State = {
+  buttonIsLoading: boolean
+}
 
 const customStyles = {
   content: {
@@ -24,7 +26,7 @@ const customStyles = {
     left: '50%',
     maxWidth: '380px',
     overflow: 'unset',
-    padding: '20px 20px 30px 20px',
+    padding: '20px',
     right: 'unset',
     textAlign: 'center',
     top: '50%',
@@ -41,6 +43,14 @@ const PAYPAL_ENV = paypalConfig.env
 
 class CheckoutModal extends React.Component<Props, State> {
 
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      buttonIsLoading: true
+    }
+  }
+
   createBitPayOrder = async () => {
     const { pageIsLoading } = this.props
     pageIsLoading(true)
@@ -50,6 +60,7 @@ class CheckoutModal extends React.Component<Props, State> {
       location.href = obj.url // Redirect to BitPay invoice
     } catch (error) {
       pageIsLoading(false)
+      this.setState({ buttonIsLoading: false })
       if (error && error.response && error.response.status === 429) {
         alertRateLimitError(error)
         return
@@ -59,9 +70,23 @@ class CheckoutModal extends React.Component<Props, State> {
     }
   }
 
-  render() {
-    const { handleHideModal, isOpen, pageIsLoading } = this.props
+  handleButtonIsLoading = () => {
+    this.setState({ buttonIsLoading: true })
+  }
 
+  handleButtonIsNotLoading = () => {
+    this.setState({ buttonIsLoading: false })
+  }
+
+  handleHideModal = () => {
+    const { handleHideModal } = this.props
+    this.handleButtonIsLoading()
+    handleHideModal()
+  }
+
+  render() {
+    const { isOpen, pageIsLoading } = this.props
+    const { buttonIsLoading } = this.state
     // @ts-ignore
     const appEl = process.browser ? document.querySelector('body') : null
     
@@ -70,28 +95,32 @@ class CheckoutModal extends React.Component<Props, State> {
         appElement={appEl}
         contentLabel='Checkout'
         isOpen={isOpen}
-        onRequestClose={handleHideModal}
+        onRequestClose={this.handleHideModal}
         portalClassName='checkout-modal over-media-player'
         shouldCloseOnOverlayClick
         style={customStyles}>
         <div style={{textAlign: 'center'}}>
           <h3>Checkout</h3>
-          <CloseButton onClick={handleHideModal} />
+          <CloseButton onClick={this.handleHideModal} />
           <PayPalButton
             client={PAYPAL_CLIENT}
             commit={true}
             currency={'USD'}
             env={PAYPAL_ENV}
             handlePageIsLoading={pageIsLoading}
-            hideCheckoutModal={handleHideModal}
+            hideCheckoutModal={this.handleHideModal}
+            updateStateAfterScriptLoads={this.handleButtonIsNotLoading}
             total={10} />
-          {/* <input 
-            alt="Pay with BitPay"
-            className='checkout-modal__bitpay'
-            height="45px"
-            onClick={this.createBitPayOrder}
-            src="/static/images/bitpay-btn-pay.svg"
-            type="image" /> */}
+          {
+            !buttonIsLoading &&
+              <input 
+                alt="Pay with BitPay"
+                className='checkout-modal__bitpay'
+                height="45px"
+                onClick={this.createBitPayOrder}
+                src="/static/images/bitpay-btn-pay.svg"
+                type="image" />
+          }
         </div>
       </Modal>
     )

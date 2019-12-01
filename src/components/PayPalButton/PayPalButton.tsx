@@ -22,6 +22,7 @@ type Props = {
   subtotal?: string
   tax?: number
   total?: number
+  updateStateAfterScriptLoads?: Function
 }
 
 type State = {
@@ -46,7 +47,7 @@ class PaypalButton extends React.Component<Props, State> {
   }
 
   componentDidMount () {
-    const { isScriptLoaded, isScriptLoadSucceed } = this.props
+    const { isScriptLoaded, isScriptLoadSucceed, updateStateAfterScriptLoads } = this.props
 
     // NOTE: There is a delay between when isScriptLoad is finished and when
     // the click event actually becomes active on the button. The setTimeout
@@ -56,12 +57,15 @@ class PaypalButton extends React.Component<Props, State> {
       this.setState({ addButtonToDOM: true })
       setTimeout(() => {
         this.setState({ showButton: true })
+        if (updateStateAfterScriptLoads) {
+          updateStateAfterScriptLoads()
+        }
       }, 3000)
     }
   }
 
   componentWillReceiveProps (nextProps) {
-    const { isScriptLoaded, isScriptLoadSucceed } = nextProps
+    const { isScriptLoaded, isScriptLoadSucceed, updateStateAfterScriptLoads } = nextProps
 
     const isLoadedButWasntLoadedBefore = !this.state.showButton &&
       !this.props.isScriptLoaded && isScriptLoaded
@@ -70,6 +74,9 @@ class PaypalButton extends React.Component<Props, State> {
       this.setState({ addButtonToDOM: true })
       setTimeout(() => {
         this.setState({ showButton: true })
+        if (updateStateAfterScriptLoads) {
+          updateStateAfterScriptLoads()
+        }
       }, 3000)
     }
   }
