@@ -1,14 +1,14 @@
 const Router = require('koa-router')
 
 export default (app) => {
-  const router = new Router()
+  const router = new Router({ prefix: '/payment' })
 
-  router.get('/payment/bitpay-confirming', async ctx => {
+  router.get('/bitpay-confirming', async ctx => {
     const query = { ...ctx.params, ...ctx.query }
     await app.render(ctx.req, ctx.res, '/payment-bitpay-confirming', query)
   })
 
-  router.get('/payment/paypal-confirming', async ctx => {
+  router.get('/paypal-confirming', async ctx => {
     const query = { ...ctx.params, ...ctx.query }
     await app.render(ctx.req, ctx.res, '/payment-paypal-confirming', query)
   })
