@@ -163,8 +163,8 @@ class Auth extends Component<Props, State> {
     const signUpTopText = (
       <React.Fragment>
         <p style={{ textAlign: 'center' }}>
-          Try premium free for 1 year
-          <br />$10/year after that
+          Try premium free for 1 year!
+          <br />$10 per year after that
         </p>
       </React.Fragment>
     )
