@@ -118,7 +118,7 @@ class CheckoutModal extends React.Component<Props, State> {
                 className='checkout-modal__bitpay'
                 height="45px"
                 onClick={this.createBitPayOrder}
-                src="/static/images/bitpay-btn-pay.svg"
+                src="/images/bitpay-btn-pay.svg"
                 type="image" />
           }
         </div>

@@ -3,9 +3,9 @@
 import * as Koa from 'koa'
 import * as bodyParser from 'koa-bodyparser'
 import * as helmet from 'koa-helmet'
-import * as next from 'next'
 import { adminRouter, authRouter, devRouter, infoRouter, mainRouter,
   paymentRouter, requestHandlerRouter } from './routes'
+const next = require('next')
 
 const dev = process.env.NODE_ENV === 'development' || !process.env.NODE_ENV
 const app = next({ dev })

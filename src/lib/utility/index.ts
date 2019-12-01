@@ -186,6 +186,16 @@ export const updateHistoryItemPlaybackPosition = async (nowPlayingItem, user, ov
   await setNowPlayingItemInStorage(nowPlayingItem)
 }
 
+export const getViewContentsElementScrollTop = () => {
+  if (document) {
+    const el = document.querySelector('.view__contents')
+    if (el) {
+      return el.scrollTop
+    }
+  }
+  return 0
+}
+
 export const smileyRandomizer = () => {
   // [🙂, 😊, 😁, 😄, 😎, 😺, 😸, 🌝, 🌞]
   const smilies = ['&#128578;', '&#128522;', '&#128513;', '&#128516;', '&#128526;',

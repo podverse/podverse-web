@@ -14,13 +14,11 @@ module.exports = {
     "development": {
       "presets": [
         "next/babel",
-        "@zeit/next-typescript/babel"
       ]
     },
     "production": {
       "presets": [
         "next/babel", 
-        "@zeit/next-typescript/babel"
       ]
     },
     "test": {
@@ -31,8 +29,7 @@ module.exports = {
             "preset-env": { 
               "modules": "commonjs"
             }
-          },
-          "@zeit/next-typescript/babel"
+          }
         ]
       ]
     }

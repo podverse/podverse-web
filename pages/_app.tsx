@@ -1,7 +1,12 @@
 import React, { Fragment } from 'react'
 import { Provider } from 'react-redux'
 import withRedux from 'next-redux-wrapper'
-import App, { Container } from 'next/app'
+import App from 'next/app'
+
+import { config as fontAwesomeConfig } from '@fortawesome/fontawesome-svg-core'
+import '@fortawesome/fontawesome-svg-core/styles.css' // Import the CSS
+fontAwesomeConfig.autoAddCss = false // Tell Font Awesome to skip adding the CSS automatically since it's being imported above
+
 import ReactGA from 'react-ga'
 import { getNowPlayingOrNextFromStorage, getPriorityQueueItemsStorage,
   setNowPlayingItemInStorage } from 'podverse-ui'
@@ -92,7 +97,7 @@ type Props = {
 export default withRedux(initializeStore)(class MyApp extends App<Props> {
 
   static async getInitialProps({ Component, ctx }) {
-    let pageProps = {}
+    let pageProps = {} as any
 
     ctx.store.dispatch(pageIsLoading(true))
 
@@ -261,7 +266,10 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
 
     if (process.browser && lastScrollPosition) {
       setTimeout(() => {
-        document.querySelector('.view__contents').scrollTop = lastScrollPosition
+        const el = document.querySelector('.view__contents')
+        if (el) {
+          el.scrollTop = lastScrollPosition
+        }
       }, 0)
     } else if (process.browser) {
       scrollToTopOfView()
@@ -308,34 +316,32 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
     const { pageKey } = pageProps
 
     return (
-      <Container>
-        <Provider store={store}>
-          <Fragment>
-            <PageLoadingOverlay />
-            <div className='view'>
-              <div className='view__navbar'>
-                <NavBar pageKey={pageKey} />
-              </div>
-              <div className='view__contents'>
-                <div className='max-width top'>
-                  <Alerts
-                    cookies={cookies}
-                    pageKey={pageKey} />
-                  <Component {...pageProps} />
-                </div>
-                <div className='max-width bottom'>
-                  <Footer pageKey={pageKey} />
-                </div>
-              </div>
-              <MediaPlayerView
-                {...pageProps}
-                isMobileDevice={isMobileDevice} />
+      <Provider store={store}>
+        <Fragment>
+          <PageLoadingOverlay />
+          <div className='view'>
+            <div className='view__navbar'>
+              <NavBar pageKey={pageKey} />
             </div>
-            <Auth />
-            <MediaModals />
-          </Fragment>
-        </Provider>
-      </Container>
+            <div className='view__contents'>
+              <div className='max-width top'>
+                <Alerts
+                  cookies={cookies}
+                  pageKey={pageKey} />
+                <Component {...pageProps} />
+              </div>
+              <div className='max-width bottom'>
+                <Footer pageKey={pageKey} />
+              </div>
+            </div>
+            <MediaPlayerView
+              {...pageProps}
+              isMobileDevice={isMobileDevice} />
+          </div>
+          <Auth />
+          <MediaModals />
+        </Fragment>
+      </Provider>
     )
   }
 }) 

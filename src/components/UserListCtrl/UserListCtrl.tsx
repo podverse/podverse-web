@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux'
 import { Pagination } from 'podverse-ui'
 import MediaListItemCtrl from '~/components/MediaListItemCtrl/MediaListItemCtrl'
 import config from '~/config'
+import { getViewContentsElementScrollTop } from '~/lib/utility'
 import { pageIsLoading, pagesSetQueryState } from '~/redux/actions'
 import { getPublicUsersByQuery } from '~/services'
 import Link from 'next/link';
@@ -62,7 +63,7 @@ class UserListCtrl extends Component<Props, State> {
     const { pageIsLoading, pageKey, pagesSetQueryState } = this.props
     pageIsLoading(true)
 
-    const scrollPos = document.querySelector('.view__contents').scrollTop
+    const scrollPos = getViewContentsElementScrollTop()
     pagesSetQueryState({
       pageKey,
       lastScrollPosition: scrollPos

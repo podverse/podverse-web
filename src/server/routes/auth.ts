@@ -1,4 +1,4 @@
-import * as Router from 'koa-router'
+const Router = require('koa-router')
 
 export default (app) => {
   const router = new Router()

@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { MediaPlayer, popNextFromQueueStorage, setNowPlayingItemInStorage } from 'podverse-ui'
 import { assignLocalOrLoggedInNowPlayingItemPlaybackPosition, getPlaybackPositionFromHistory,
-  updateHistoryItemPlaybackPosition } from '~/lib/utility'
+  getViewContentsElementScrollTop, updateHistoryItemPlaybackPosition } from '~/lib/utility'
 import { kAutoplay, kPlaybackRate, getPlaybackRateText, getPlaybackRateNextValue
   } from '~/lib/constants/misc'
 import { mediaPlayerLoadNowPlayingItem, 
@@ -29,6 +29,7 @@ type Props = {
   modalsShareShow?: any
   pageIsLoading?: any
   pageKey?: string
+  pagesSetQueryState?: any
   playerQueue?: any
   playerQueueLoadPriorityItems?: any
   playerQueueLoadSecondaryItems?: any
@@ -171,7 +172,7 @@ class MediaPlayerView extends Component<Props, State> {
     const { pageIsLoading, pageKey, pagesSetQueryState } = this.props
     pageIsLoading(true)
 
-    const scrollPos = document.querySelector('.view__contents').scrollTop
+    const scrollPos = getViewContentsElementScrollTop()
     pagesSetQueryState({
       pageKey,
       lastScrollPosition: scrollPos

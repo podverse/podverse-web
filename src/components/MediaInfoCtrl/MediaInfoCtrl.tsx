@@ -8,8 +8,8 @@ import { mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying, modalsAddToSho
   modalsMakeClipShow, pageIsLoading, pagesSetQueryState, playerQueueLoadPriorityItems,
   userSetInfo } from '~/redux/actions'
 import { convertToNowPlayingItem } from '~/lib/nowPlayingItem'
-import { assignLocalOrLoggedInNowPlayingItemPlaybackPosition, updateHistoryItemPlaybackPosition
-  } from '~/lib/utility'
+import { assignLocalOrLoggedInNowPlayingItemPlaybackPosition, getViewContentsElementScrollTop,
+  updateHistoryItemPlaybackPosition } from '~/lib/utility'
 import { addOrUpdateUserHistoryItem, updateUserQueueItems } from '~/services'
 
 type Props = {
@@ -169,7 +169,7 @@ class MediaInfoCtrl extends Component<Props, State> {
     const { pageIsLoading, pageKey, pagesSetQueryState } = this.props
     pageIsLoading(true)
 
-    const scrollPos = document.querySelector('.view__contents').scrollTop
+    const scrollPos = getViewContentsElementScrollTop()
     pagesSetQueryState({
       pageKey,
       lastScrollPosition: scrollPos

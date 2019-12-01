@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { MediaHeader } from 'podverse-ui'
 import { bindActionCreators } from 'redux'
-import { alertPremiumRequired, alertSomethingWentWrong, alertRateLimitError } from '~/lib/utility'
+import { alertPremiumRequired, alertSomethingWentWrong, alertRateLimitError, getViewContentsElementScrollTop } from '~/lib/utility'
 import { pageIsLoading, pagesSetQueryState, userSetInfo } from '~/redux/actions'
 import { toggleSubscribeToPodcast } from '~/services'
 
@@ -85,7 +85,7 @@ class MediaHeaderCtrl extends Component<Props, State> {
     const { pageIsLoading, pageKey, pagesSetQueryState } = this.props
     pageIsLoading(true)
 
-    const scrollPos = document.querySelector('.view__contents').scrollTop
+    const scrollPos = getViewContentsElementScrollTop()
     pagesSetQueryState({
       pageKey,
       lastScrollPosition: scrollPos

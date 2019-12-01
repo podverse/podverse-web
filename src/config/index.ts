@@ -83,7 +83,7 @@ export default () => {
     sandbox: config.PAYPAL_CLIENT_ID_SANDBOX
   }
 
-  config.metaDefaultImageUrl1200x630 = 'https://podverse.fm/static/images/podverse-logo-1200x630.png'
+  config.metaDefaultImageUrl1200x630 = 'https://podverse.fm/images/podverse-logo-1200x630.png'
 
   config.googleAnalyticsConfig = {
     trackingId: config.GOOGLE_ANALYTICS_TRACKING_ID

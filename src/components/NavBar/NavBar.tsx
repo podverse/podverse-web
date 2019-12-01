@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Navbar, getPriorityQueueItemsStorage } from 'podverse-ui'
+import { getViewContentsElementScrollTop } from '~/lib/utility'
 import { modalsLoginShow, pageIsLoading, pagesSetQueryState,
   playerQueueLoadPriorityItems, userSetInfo } from '~/redux/actions'
 import { logOut } from '~/services/auth'
@@ -13,6 +14,7 @@ type Props = {
   modalsLoginShow?: any
   pageIsLoading?: any
   pageKey?: string
+  pagesSetQueryState?: any
   playerQueueLoadPriorityItems?: any
   settings?: any
   user?: any
@@ -59,7 +61,7 @@ class PVNavBar extends Component<Props, State> {
     const { playerQueueLoadPriorityItems, user, userSetInfo } = this.props
     const { id } = user
 
-    let dropdownItems = []
+    let dropdownItems = [] as any
 
     if (!!id) {
       dropdownItems.push({
@@ -146,7 +148,7 @@ class PVNavBar extends Component<Props, State> {
     const { pageIsLoading, pageKey, pagesSetQueryState } = this.props
     pageIsLoading(true)
 
-    const scrollPos = document.querySelector('.view__contents').scrollTop
+    const scrollPos = getViewContentsElementScrollTop()
     pagesSetQueryState({
       pageKey,
       lastScrollPosition: scrollPos

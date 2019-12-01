@@ -287,7 +287,7 @@ class MediaModals extends Component<Props, State> {
       }
     }
 
-    this.setState({ loadingItemId: null })
+    this.setState({ loadingItemId: '' })
   }
 
   createPlaylistSave = async title => {

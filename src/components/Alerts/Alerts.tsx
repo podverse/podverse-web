@@ -1,17 +1,19 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
 import { Alert } from 'reactstrap'
+import { bindActionCreators } from 'redux'
 import Link from 'next/link'
-import { getCookie, isBeforeDate } from '~/lib/utility'
+import { getCookie, getViewContentsElementScrollTop, isBeforeDate } from '~/lib/utility'
 import { modalsSendVerificationEmailShow, pageIsLoading, pagesSetQueryState } from '~/redux/actions'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 const cookie = require('cookie')
 
 type Props = {
   cookies: any
+  modalsSendVerificationEmailShow?: any
   pageIsLoading?: any
   pageKey?: string
+  pagesSetQueryState?: any
   user?: any
 }
 
@@ -102,7 +104,7 @@ class Alerts extends Component<Props, State> {
     const { pageIsLoading, pageKey, pagesSetQueryState } = this.props
     pageIsLoading(true)
 
-    const scrollPos = document.querySelector('.view__contents').scrollTop
+    const scrollPos = getViewContentsElementScrollTop()
     pagesSetQueryState({
       pageKey,
       lastScrollPosition: scrollPos

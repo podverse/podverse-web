@@ -1,4 +1,4 @@
-import * as Router from 'koa-router'
+const Router = require('koa-router')
 const fs = require('fs')
 const path = require('path')
 

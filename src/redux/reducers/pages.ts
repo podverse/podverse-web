@@ -1,5 +1,8 @@
 import { actionTypes } from '~/redux/constants'
 
+// TODO: this produces a "Expression produces a union type that is too complex to represent" error.
+// How can we fix that?
+// @ts-ignore
 const generateDataObj = payload => {
   if (payload) {
     const { categoryId, filterIsShowing, filterText, isSearching, lastScrollPosition,

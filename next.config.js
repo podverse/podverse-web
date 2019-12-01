@@ -1,4 +1,3 @@
-const withTypescript = require('@zeit/next-typescript')
 const withCss = require('@zeit/next-css')
 const withSass = require('@zeit/next-sass')
 const path = require('path')
@@ -31,7 +30,7 @@ const envVars = {
   REQUEST_PODCAST_URL: process.env.REQUEST_PODCAST_URL
 }
 
-module.exports = withImages(withTypescript(withCss(withSass({
+module.exports = withImages(withCss(withSass({
   serverRuntimeConfig: {
     ...envVars
   },
@@ -49,4 +48,4 @@ module.exports = withImages(withTypescript(withCss(withSass({
       }
     }
   }
-}))))
+})))

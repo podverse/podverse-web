@@ -1,18 +1,20 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import Link from 'next/link'
 import Switch from 'react-switch'
+import colors from '~/lib/constants/colors'
+import { getViewContentsElementScrollTop } from '~/lib/utility'
 import { pageIsLoading, pagesSetQueryState, settingsSetNSFWMode, settingsSetUITheme
   } from '~/redux/actions'
-import colors from '~/lib/constants/colors'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { NSFWModal } from '../NSFWModal/NSFWModal'
 const cookie = require('cookie')
 
 type Props = {
   pageIsLoading?: any
   pageKey?: string
+  pagesSetQueryState?: any
   settings: any
   settingsSetNSFWMode: any
   settingsSetUITheme: any
@@ -80,7 +82,7 @@ class Footer extends Component<Props, State> {
     const { pageIsLoading, pageKey, pagesSetQueryState } = this.props
     pageIsLoading(true)
 
-    const scrollPos = document.querySelector('.view__contents').scrollTop
+    const scrollPos = getViewContentsElementScrollTop()
     pagesSetQueryState({
       pageKey,
       lastScrollPosition: scrollPos
@@ -89,11 +91,10 @@ class Footer extends Component<Props, State> {
 
   render() {
     const { settings } = this.props
-    const { nsfwMode, nsfwModeHide, uiTheme, uiThemeHide } = settings
+    const { nsfwMode, uiTheme, uiThemeHide } = settings
     const { nsfwModalIsOpen } = this.state
 
     const uiThemeAriaLabel = uiTheme === 'dark' || !uiTheme ? 'Turn on light mode' : 'Turn on dark mode'
-    const nsfwModeAriaLabel = nsfwMode ? 'Turn off NSFW content' : 'Turn on NSFW content'
 
     return (
       <React.Fragment>

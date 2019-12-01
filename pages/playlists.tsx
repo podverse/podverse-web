@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { MediaListItem } from 'podverse-ui'
 import Meta from '~/components/Meta/Meta'
-import { getUrlFromRequestOrWindow } from '~/lib/utility'
+import { getUrlFromRequestOrWindow, getViewContentsElementScrollTop } from '~/lib/utility'
 import { pageIsLoading, pagesSetQueryState } from '~/redux/actions'
 import { getPlaylistsByQuery } from '~/services'
 const uuidv4 = require('uuid/v4')
@@ -69,7 +69,7 @@ class Playlists extends Component<Props, State> {
     const { pageIsLoading, pageKey, pagesSetQueryState } = this.props
     pageIsLoading(true)
 
-    const scrollPos = document.querySelector('.view__contents').scrollTop
+    const scrollPos = getViewContentsElementScrollTop()
     pagesSetQueryState({
       pageKey,
       lastScrollPosition: scrollPos

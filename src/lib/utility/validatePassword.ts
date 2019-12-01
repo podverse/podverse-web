@@ -1,7 +1,6 @@
-import * as passwordValidator from 'password-validator'
+const passwordValidator = require('password-validator')
 
 const schema = new passwordValidator()
-
 const validatePasswordSchema = schema
   .is().min(8)
   .has().uppercase()
