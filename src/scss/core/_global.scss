@@ -26,6 +26,27 @@ html[is-switching-ui-mode=true] * {
   }
 }
 
+.full-centered-content-view {
+  align-items: center;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+
+  h1, p {
+    flex: 0;
+  }
+
+  p:last-child {
+    margin: 0
+  }
+
+  .error-icon {
+    font-size: 32px;
+    margin-bottom: 1rem;
+  }
+}
+
 .flip-horizontal {
   @include flipHorizontal
 }
