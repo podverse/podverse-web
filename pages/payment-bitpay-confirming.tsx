@@ -68,7 +68,7 @@ class PaymentConfirmingBitPay extends Component<Props, State> {
     try {
       const bitpayInvoice = await getBitPayInvoiceStatusByOrderId(id)
 
-      if (bitpayInvoice && bitpayInvoice.data && bitpayInvoice.data === 'confirmed') {
+      if (bitpayInvoice && bitpayInvoice.data && (bitpayInvoice.data === 'confirmed' || bitpayInvoice.data === 'complete')) {
         newState.hasError = false
         newState.isChecking = false
         newState.wasSuccessful = true
@@ -116,26 +116,26 @@ class PaymentConfirmingBitPay extends Component<Props, State> {
             <div className='waiting-for-payment'>
               {
                 isChecking &&
-                <Fragment>
-                  <p>Confirming payment with the network...</p>
-                  <FontAwesomeIcon icon='spinner' spin />
-                  <p>This may take 5-20 minutes. You can leave this page and check your <a href='/settings#membership'>Settings page</a> later
-                    to confirm when your transaction has completed.</p>
-                </Fragment>
+                  <Fragment>
+                    <p>Confirming payment with the network...</p>
+                    <FontAwesomeIcon icon='spinner' spin />
+                    <p>This may take 5-20 minutes. You can leave this page and check your <a href='/settings#membership'>Settings page</a> later
+                      to confirm when your transaction has completed.</p>
+                  </Fragment>
               }
               {
                 hasError &&
-                <Fragment>
-                  <p>An error may have occurred, or the transaction is just taking a long time to confirm with the network.</p>
-                  <p>Please visit your Settings page at a later time to check if your transaction completed, or email support@podverse.fm if you have an issue.</p>
-                </Fragment>
+                  <Fragment>
+                    <p>An error may have occurred, or the transaction is just taking a long time to confirm with the network.</p>
+                    <p>Please visit your Settings page at a later time to check if your transaction completed, or email support@podverse.fm if you have an issue.</p>
+                  </Fragment>
               }
               {
                 wasSuccessful &&
-                <Fragment>
-                  <p>Payment confirmed!</p>
-                  <p>Redirecting to your settings page...</p>
-                </Fragment>
+                  <Fragment>
+                    <p>Payment confirmed!</p>
+                    <p>Redirecting to your settings page...</p>
+                  </Fragment>
               }
             </div>
         }
