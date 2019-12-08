@@ -20,10 +20,29 @@
     "analyze": "NODE_ENV=production ANALYZE=true next build",
     "build": "next build && tsc --project tsconfig.server.json",
     "dev": "nodemon src/server/index.dev.ts",
-    "lint:scss": "stylelint 'src/scss/**/*.scss'",
+    "lint:scss": "stylelint src/scss/**/*.scss",
     "lint:ts": "eslint pages/**/*.tsx src/**/*.ts",
     "start": "NODE_ENV=production ts-node --compilerOptions '{\"module\":\"commonjs\"}' src/server/index.ts -- -p 8765",
     "ts:check": "tsc --noEmit"
+  },
+  "lint-staged": {
+      "pages/**/*.{ts,tsx}": [
+        "eslint .",
+        "git add"
+      ],
+      "src/**/*.{ts,tsx}": [
+        "eslint .",
+        "git add"
+      ],
+      "src/**/*.scss": [
+        "stylelint",
+        "git add"
+      ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   },
   "dependencies": {
     "@babel/core": "7.7.4",
@@ -33,7 +52,7 @@
     "@fortawesome/free-solid-svg-icons": "5.11.2",
     "@fortawesome/react-fontawesome": "0.1.7",
     "@types/next-redux-wrapper": "3.0.0",
-    "@types/node": "^12.12.14",
+    "@types/node": "12.12.14",
     "@typescript-eslint/eslint-plugin": "2.x",
     "@typescript-eslint/parser": "2.x",
     "@zeit/next-css": "1.0.1",
@@ -50,27 +69,27 @@
     "cookie": "0.4.0",
     "dotenv": "8.2.0",
     "eslint": "6.x",
-    "eslint-config-react-app": "^5.1.0",
+    "eslint-config-react-app": "5.1.0",
     "eslint-plugin-flowtype": "3.x",
     "eslint-plugin-import": "2.x",
     "eslint-plugin-jsx-a11y": "6.x",
     "eslint-plugin-react": "7.x",
     "eslint-plugin-react-hooks": "1.x",
     "fs": "0.0.2",
-    "husky": "^3.1.0",
+    "husky": "3.1.0",
     "js-file-download": "0.4.8",
     "koa": "2.11.0",
     "koa-bodyparser": "4.2.1",
     "koa-helmet": "5.2.0",
     "koa-router": "7.4.0",
-    "lint-staged": "^9.5.0",
+    "lint-staged": "9.5.0",
     "mobile-detect": "1.4.4",
     "next": "9.1.4",
     "next-images": "1.2.0",
     "next-redux-wrapper": "4.0.1",
     "password-validator": "5.0.3",
     "paypal-checkout": "4.0.305",
-    "podverse-ui": "^2.2.3",
+    "podverse-ui": "2.2.3",
     "react": "16.12.0",
     "react-async-script-loader": "0.3.0",
     "react-beautiful-dnd": "12.1.1",
@@ -83,9 +102,9 @@
     "reactstrap": "8.1.1",
     "redux": "4.0.4",
     "redux-thunk": "2.3.0",
-    "stylelint": "^12.0.0",
-    "stylelint-config-recommended": "^3.0.0",
-    "stylelint-scss": "^3.13.0",
+    "stylelint": "12.0.0",
+    "stylelint-config-recommended": "3.0.0",
+    "stylelint-scss": "3.13.0",
     "typescript": "3.7.2",
     "typescript-babel-jest": "1.0.6"
   },
