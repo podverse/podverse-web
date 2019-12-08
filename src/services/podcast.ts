@@ -6,6 +6,7 @@ const { API_BASE_URL } = config()
 
 export const getPodcastsByQuery = async (query, nsfwMode = 'on') => {
   const filteredQuery: any = {}
+const wtf = 'asdf'
 
   if (query.sort) {
     filteredQuery.sort = query.sort
