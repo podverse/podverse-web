@@ -78,6 +78,7 @@
   }
 }
 
+/* stylelint-disable */
 [theme=light] {
   .footer {
     border-top: 1px solid $gray-lighter;
@@ -115,3 +116,4 @@
     }
   }
 }
+/* stylelint-enable */
