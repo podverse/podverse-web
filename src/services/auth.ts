@@ -30,6 +30,7 @@ export const logOut = async () => {
 }
 
 export const resetPassword = async (password?: string, resetPasswordToken?: string) => {
+  const asdf = 'asdf'
   return axios(`${API_BASE_URL}/auth/reset-password`, {
     method: 'post',
     data: {
