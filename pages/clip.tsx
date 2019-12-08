@@ -55,7 +55,6 @@ class Clip extends Component<Props, State> {
     }
     
     let newPlayingItem
-    // @ts-ignore
     if (!process.browser) {
       newPlayingItem = convertToNowPlayingItem(mediaRef)
     }
@@ -102,10 +101,12 @@ class Clip extends Component<Props, State> {
         }, nsfwMode)
       }
 
-      let listItems = results.data[0].map(x => convertToNowPlayingItem(x, mediaRef.episode, mediaRef.episode.podcast))
-      let nowPlayingItemIndex = listItems.map((x) => x.clipId).indexOf(nowPlayingItem && nowPlayingItem.clipId)
-      let queuedListItems = clone(listItems)
-      nowPlayingItemIndex > -1 ? queuedListItems.splice(0, nowPlayingItemIndex + 1) : queuedListItems
+      const listItems = results.data[0].map(x => convertToNowPlayingItem(x, mediaRef.episode, mediaRef.episode.podcast))
+      const nowPlayingItemIndex = listItems.map((x) => x.clipId).indexOf(nowPlayingItem && nowPlayingItem.clipId)
+      const queuedListItems = clone(listItems)
+      if (nowPlayingItemIndex > -1) {
+        queuedListItems.splice(0, nowPlayingItemIndex + 1)
+      }
       
       store.dispatch(playerQueueLoadSecondaryItems(queuedListItems))
 
@@ -183,7 +184,7 @@ class Clip extends Component<Props, State> {
           episode={mediaRef.episode}
           episodeId={mediaRef.episode.id}
           handleSetPageQueryState={pagesSetQueryState}
-          includeOldest={queryType == 'episodes'}
+          includeOldest={queryType === 'episodes'}
           pageKey={pageKey}
           podcast={mediaRef.episode.podcast}
           podcastId={mediaRef.episode.podcast.id}

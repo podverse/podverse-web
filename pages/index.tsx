@@ -72,10 +72,12 @@ class Home extends Component<Props, State> {
         }, nsfwMode)
       }
       
-      let listItems = results.data[0].map(x => convertToNowPlayingItem(x, null, null)) || []
-      let nowPlayingItemIndex = listItems.map((x) => x.clipId).indexOf(nowPlayingItem && nowPlayingItem.clipId)
-      let queuedListItems = clone(listItems)
-      nowPlayingItemIndex > -1 ? queuedListItems.splice(0, nowPlayingItemIndex + 1) : queuedListItems
+      const listItems = results.data[0].map(x => convertToNowPlayingItem(x, null, null)) || []
+      const nowPlayingItemIndex = listItems.map((x) => x.clipId).indexOf(nowPlayingItem && nowPlayingItem.clipId)
+      const queuedListItems = clone(listItems)
+      if (nowPlayingItemIndex > -1) {
+        queuedListItems.splice(0, nowPlayingItemIndex + 1)
+      }
 
       store.dispatch(playerQueueLoadSecondaryItems(queuedListItems))
       

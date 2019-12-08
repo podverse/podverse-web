@@ -1,3 +1,4 @@
+import ClipboardJS from 'clipboard'
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { Form, FormFeedback, FormGroup, FormText, Input, InputGroup, InputGroupAddon, Label } from 'reactstrap'
@@ -17,7 +18,6 @@ import config from '~/config'
 const { BASE_URL } = config()
 const fileDownload = require('js-file-download')
 const cookie = require('cookie')
-import ClipboardJS from 'clipboard'
 
 type Props = {
   lastScrollPosition?: number

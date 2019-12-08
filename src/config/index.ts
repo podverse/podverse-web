@@ -32,7 +32,7 @@ export interface Config {
 export default () => {
   const { serverRuntimeConfig, publicRuntimeConfig } = getConfig()
 
-  let config: Config = {
+  const config: Config = {
     NODE_ENV: publicRuntimeConfig.NODE_ENV,
     PROTOCOL: publicRuntimeConfig.PROTOCOL,
     PORT: publicRuntimeConfig.PORT,

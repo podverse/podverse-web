@@ -54,7 +54,6 @@ class Episode extends Component<Props, State> {
     }
     
     let newPlayingItem
-    // @ts-ignore
     if (!process.browser) {
       newPlayingItem = convertToNowPlayingItem(episode)
     }
@@ -101,10 +100,12 @@ class Episode extends Component<Props, State> {
         }, nsfwMode)
       }
 
-      let listItems = results.data[0].map(x => convertToNowPlayingItem(x, episode, episode.podcast))
-      let nowPlayingItemIndex = listItems.map((x) => x.clipId).indexOf(nowPlayingItem && nowPlayingItem.clipId)
-      let queuedListItems = clone(listItems)
-      nowPlayingItemIndex > -1 ? queuedListItems.splice(0, nowPlayingItemIndex + 1) : queuedListItems
+      const listItems = results.data[0].map(x => convertToNowPlayingItem(x, episode, episode.podcast))
+      const nowPlayingItemIndex = listItems.map((x) => x.clipId).indexOf(nowPlayingItem && nowPlayingItem.clipId)
+      const queuedListItems = clone(listItems)
+      if (nowPlayingItemIndex > -1) {
+        queuedListItems.splice(0, nowPlayingItemIndex + 1)
+      }
       
       store.dispatch(playerQueueLoadSecondaryItems(queuedListItems))
 
@@ -181,7 +182,7 @@ class Episode extends Component<Props, State> {
           episode={episode}
           episodeId={episode.id}
           handleSetPageQueryState={pagesSetQueryState}
-          includeOldest={queryType == 'episodes'}
+          includeOldest={queryType === 'episodes'}
           pageKey={pageKey}
           podcast={episode.podcast}
           podcastId={episode.podcast.id}

@@ -51,7 +51,7 @@ class FAQ extends Component<Props, State> {
           twitterDescription={meta.description}
           twitterTitle={meta.title} />
         <h3>FAQ</h3>
-        <p><a href='https://goo.gl/forms/VGVJRWlKPIGRqojY2' target='_blank'>Ask a question</a></p>
+        <p><a href='https://goo.gl/forms/VGVJRWlKPIGRqojY2' target='_blank' rel="noopener noreferrer">Ask a question</a></p>
         <h3>Table of Contents</h3>
         <ul>
           <li>
@@ -64,7 +64,7 @@ class FAQ extends Component<Props, State> {
         <hr />
         <h3 id='agplv3'>What does AGPLv3 mean?</h3>
         <p>
-          <a href='https://www.gnu.org/licenses/agpl-3.0.en.html' target='_blank'>AGPLv3</a> is the open source license under which all Podverse technolgy is provided.
+          <a href='https://www.gnu.org/licenses/agpl-3.0.en.html' target='_blank' rel="noopener noreferrer">AGPLv3</a> is the open source license under which all Podverse technolgy is provided.
         </p>
         <hr />
         <h3 id='federated'>How is Podverse federated?</h3>

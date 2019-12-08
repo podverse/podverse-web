@@ -88,8 +88,8 @@ class Podcast extends Component<Props, State> {
           }, nsfwMode)
         }
 
-        let listItems = results.data[0].map(x => {
-          let item = convertToNowPlayingItem(x, {}, podcast)
+        const listItems = results.data[0].map(x => {
+          const item = convertToNowPlayingItem(x, {}, podcast)
           item.podcastId = podcast.id
           item.podcastImageUrl = podcast.imageUrl
           item.podcastTitle = podcast.title

@@ -1,5 +1,6 @@
 require('dotenv').config({ path: '.env' }) // use .env in index.dev.ts only
 
+// eslint-disable-next-line import/first
 import { authRouter, infoRouter, mainRouter, paymentRouter, requestHandlerRouter } from './routes'
   
 const Koa = require('koa')

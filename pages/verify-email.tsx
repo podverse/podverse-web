@@ -79,7 +79,11 @@ class VerifyEmail extends Component<Props, State> {
             <Fragment>
               <h3>Email Verified</h3>
               <p>Thank you for verifying! You should now be able to login.</p>
-              <p className='font-bolder'><Link as='/' href='/'><a onClick={this._handleLoginPress}>Login</a></Link></p>
+              <p className='font-bolder'>
+                <Link as='/' href='/'>
+                  <a onClick={this._handleLoginPress}>Login</a>
+                </Link>
+              </p>
             </Fragment>
         }
         {
@@ -87,7 +91,11 @@ class VerifyEmail extends Component<Props, State> {
             <Fragment>
               <h3>Email Verification Failed</h3>
               <p>This token may have expired.</p>
-              <p><a href='#' onClick={this._showSendVerificationEmailModal}>send verification email</a></p>
+              <p>
+                <a href='#' onClick={this._showSendVerificationEmailModal}>
+                  send verification email
+                </a>
+              </p>
             </Fragment>
         }
       </Fragment>

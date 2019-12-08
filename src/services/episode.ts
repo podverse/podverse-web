@@ -12,7 +12,7 @@ export const getEpisodeById = async (id: string, nsfwMode = 'on') => {
 }
 
 export const getEpisodesByQuery = async (query, nsfwMode = 'on') => {
-  let filteredQuery: any = {}
+  const filteredQuery: any = {}
 
   if (query.page) {
     filteredQuery.page = query.page

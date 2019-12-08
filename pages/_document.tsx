@@ -1,3 +1,4 @@
+import React from 'react'
 import Document, { Head, Html, Main, NextScript } from 'next/document'
 import { actionTypes } from '~/redux/constants'
 const cookie = require('cookie')
@@ -30,7 +31,6 @@ export default class MyDocument extends Document<Props> {
     const { initialUITheme } = this.props
 
     return (
-      // @ts-ignore
       <Html lang='en' theme={initialUITheme}>
         <Head />
         <body>

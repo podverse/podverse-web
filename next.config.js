@@ -39,7 +39,7 @@ module.exports = withImages(withCss(withSass({
     API_PROTOCOL: process.env.PUBLIC_API_PROTOCOL,
     API_DOMAIN: process.env.PUBLIC_API_DOMAIN,
   },
-  webpack(config, options) {
+  webpack(config) {
     return {
       ...config,
       node: {

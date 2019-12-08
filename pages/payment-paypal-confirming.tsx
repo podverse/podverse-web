@@ -64,7 +64,7 @@ class PaymentConfirmingPayPal extends Component<Props, State> {
   checkPaymentStatus = async () => {
     const { id } = this.props
     const { currentCount } = this.state
-    let newState: any = {}
+    const newState: any = {}
 
     try {
       const paypalOrder = await getPayPalOrderById(id)

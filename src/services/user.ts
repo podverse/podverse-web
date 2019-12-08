@@ -17,11 +17,11 @@ export const getPublicUser = async (id: string, nsfwMode = 'on') => {
 
 export const getUserMediaRefs = async (
   id: string,
-  nsfwMode: string = 'on',
-  sort: string = 'most-recent',
+  nsfwMode = 'on',
+  sort = 'most-recent',
   page
 ) => {
-  let filteredQuery: any = {}
+  const filteredQuery: any = {}
   filteredQuery.sort = sort
   filteredQuery.page = page
   const queryString = convertObjectToQueryString(filteredQuery)
@@ -39,10 +39,10 @@ export const getUserMediaRefs = async (
 
 export const getUserPlaylists = async (
   id: string,
-  nsfwMode: string = 'on',
+  nsfwMode = 'on',
   page
 ) => {
-  let filteredQuery: any = {}
+  const filteredQuery: any = {}
   filteredQuery.page = page
   const queryString = convertObjectToQueryString(filteredQuery)
 
@@ -55,7 +55,7 @@ export const getUserPlaylists = async (
 }
 
 export const getPublicUsersByQuery = async (query, nsfwMode = 'on') => {
-  let filteredQuery: any = {}
+  const filteredQuery: any = {}
 
   if (query.page) {
     filteredQuery.page = query.page
@@ -85,7 +85,7 @@ export const toggleSubscribeToUser = async (userId: string) => {
 
 
 export const getLoggedInUserMediaRefs = async (bearerToken, nsfwMode, sort = 'most-recent', page = 1) => {
-  let filteredQuery: any = {}
+  const filteredQuery: any = {}
   filteredQuery.sort = sort
   filteredQuery.page = page
   const queryString = convertObjectToQueryString(filteredQuery)
@@ -101,7 +101,7 @@ export const getLoggedInUserMediaRefs = async (bearerToken, nsfwMode, sort = 'mo
 }
 
 export const getLoggedInUserPlaylists = async (bearerToken, page = 1) => {
-  let filteredQuery: any = {}
+  const filteredQuery: any = {}
   filteredQuery.page = page
   const queryString = convertObjectToQueryString(filteredQuery)
 

@@ -5,7 +5,7 @@ import config from '~/config'
 const { API_BASE_URL } = config()
 
 export const getPodcastsByQuery = async (query, nsfwMode = 'on') => {
-  let filteredQuery: any = {}
+  const filteredQuery: any = {}
 
   if (query.sort) {
     filteredQuery.sort = query.sort

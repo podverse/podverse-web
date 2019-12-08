@@ -13,8 +13,12 @@
         "react"
     ],
     "rules": {
+        "@typescript-eslint/explicit-function-return-type": 0,
         "@typescript-eslint/member-delimiter-style": 0,
         "@typescript-eslint/no-explicit-any": 0,
-        "@typescript-eslint/no-var-requires": 0
+        "@typescript-eslint/no-var-requires": 0,
+        "jsx-a11y/anchor-is-valid": 0,
+        "no-mixed-operators": 0,
+        "no-restricted-globals": 0,
     }
 }

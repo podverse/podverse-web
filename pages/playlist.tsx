@@ -78,7 +78,7 @@ class Playlist extends Component<Props, State> {
     const episodes = playlist.episodes || []
     const mediaRefs = playlist.mediaRefs || []
     
-    let playlistItems = episodes.concat(mediaRefs)
+    const playlistItems = episodes.concat(mediaRefs)
 
     const currentPage = pages[pageKeyWithId] || {}
     const lastScrollPosition = currentPage.lastScrollPosition
@@ -121,12 +121,13 @@ class Playlist extends Component<Props, State> {
     const itemsOrder = playlist.itemsOrder
 
     const sortedPlaylistItems = itemsOrder.map(id => {
-      let items = playlistItems.filter(y => y.id === id)
+      const items = playlistItems.filter(y => y.id === id)
       if (items.length > 0) {
-        let index = playlistItems.indexOf(items[0])
+        const index = playlistItems.indexOf(items[0])
         playlistItems.splice(index, 1)
         return items[0]
       }
+      return {}
     })
 
     let sortedNowPlayingItems = sortedPlaylistItems.concat(playlistItems).map(
@@ -140,9 +141,12 @@ class Playlist extends Component<Props, State> {
       return result
     }, [])
 
-    let nowPlayingItemIndex = sortedNowPlayingItems.map((x) => x.clipId).indexOf(nowPlayingItem && nowPlayingItem.clipId)
-    let queuedListItems = clone(sortedNowPlayingItems)
-    nowPlayingItemIndex > -1 ? queuedListItems.splice(0, nowPlayingItemIndex + 1) : queuedListItems
+    const nowPlayingItemIndex = sortedNowPlayingItems.map((x) => x.clipId).indexOf(nowPlayingItem && nowPlayingItem.clipId)
+    const queuedListItems = clone(sortedNowPlayingItems)
+
+    if (nowPlayingItemIndex > -1) {
+      queuedListItems.splice(0, nowPlayingItemIndex + 1)
+    }
     
     playerQueueLoadSecondaryItems(queuedListItems)
 
@@ -278,7 +282,7 @@ class Playlist extends Component<Props, State> {
     const { sortedNowPlayingItems } = this.state
 
     try {
-      let requestData = {
+      const requestData = {
         ...(episodeId ? {episodeId} : []),
         ...(mediaRefId ? {mediaRefId} : []),
         playlistId
@@ -297,10 +301,10 @@ class Playlist extends Component<Props, State> {
         })
 
         if (mediaRefId) {
-          const newItems = sortedNowPlayingItems.filter(x => x.clipId != mediaRefId)
+          const newItems = sortedNowPlayingItems.filter(x => x.clipId !== mediaRefId)
           this.setState({ sortedNowPlayingItems: newItems })
         } else if (episodeId) {
-          const newItems = sortedNowPlayingItems.filter(x => x.episodeId != episodeId)
+          const newItems = sortedNowPlayingItems.filter(x => x.episodeId !== episodeId)
           this.setState({ sortedNowPlayingItems: newItems })
         }
       }
@@ -315,8 +319,8 @@ class Playlist extends Component<Props, State> {
   }
 
   onDragEnd = async data => {
-    let { playerQueueLoadSecondaryItems } = this.props
-    let { playlist, sortedNowPlayingItems } = this.state
+    const { playerQueueLoadSecondaryItems } = this.props
+    const { playlist, sortedNowPlayingItems } = this.state
     const { destination, source } = data
 
     let itemToMove: any = []
@@ -352,9 +356,12 @@ class Playlist extends Component<Props, State> {
     setNowPlayingItemInStorage(nowPlayingItem)
     mediaPlayerUpdatePlaying(true)
 
-    let nowPlayingItemIndex = sortedNowPlayingItems.map((x) => x.clipId).indexOf(nowPlayingItem && nowPlayingItem.clipId)
-    let queuedListItems = clone(sortedNowPlayingItems)
-    nowPlayingItemIndex > -1 ? queuedListItems.splice(0, nowPlayingItemIndex + 1) : queuedListItems
+    const nowPlayingItemIndex = sortedNowPlayingItems.map((x) => x.clipId).indexOf(nowPlayingItem && nowPlayingItem.clipId)
+    const queuedListItems = clone(sortedNowPlayingItems)
+    if (nowPlayingItemIndex > -1) {
+      queuedListItems.splice(0, nowPlayingItemIndex + 1)
+    }
+
     playerQueueLoadSecondaryItems(queuedListItems)
 
     if (user && user.id) {
@@ -368,6 +375,7 @@ class Playlist extends Component<Props, State> {
             return x
           }
         }
+        return {}
       })
 
       historyItems.push(nowPlayingItem)
@@ -404,7 +412,7 @@ class Playlist extends Component<Props, State> {
         return false
       }
 
-      let listItemNode = (
+      const listItemNode = (
         <MediaListItemCtrl
           handlePlayItem={this.playItem}
           handleRemoveItem={() => this.removeItem(playlist.id, x.clipId, x.episodeId)}
@@ -494,7 +502,6 @@ class Playlist extends Component<Props, State> {
                                 {
                                   isSubscribed ?
                                     <FontAwesomeIcon icon={fasStar} />
-                                    // @ts-ignore
                                     : <FontAwesomeIcon icon={farStar} />
                                 }
                               </React.Fragment>

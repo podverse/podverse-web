@@ -20,7 +20,7 @@ export const deleteMediaRef = async (id: string) => {
 }
 
 export const getMediaRefsByQuery = async (query, nsfwMode = 'on') => {
-  let filteredQuery: any = {}
+  const filteredQuery: any = {}
 
   if (query.page) {
     filteredQuery.page = query.page

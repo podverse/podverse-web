@@ -244,7 +244,13 @@ class Search extends Component<Props, State> {
           }
           {
             !isSearching &&
-              <a className='request-podcast' href={REQUEST_PODCAST_URL} target='_blank'>Request a podcast</a>
+              <a
+                className='request-podcast'
+                href={REQUEST_PODCAST_URL}
+                rel="noopener noreferrer"
+                target='_blank'>
+                Request a podcast
+              </a>
           }
         </div>
       </Fragment>

@@ -64,6 +64,7 @@ class About extends Component<Props, State> {
         </p>
 
         <div className='flex-row'>
+          {/* eslint-disable-next-line jsx-a11y/anchor-has-content */}
           <a
             className="download-on-the-app-store"
             href="https://apps.apple.com/us/app/podverse/id1390888454?mt=8"

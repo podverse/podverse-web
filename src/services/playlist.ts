@@ -35,7 +35,7 @@ export const getPlaylistById = async (id: string, nsfwMode = 'on') => {
 }
 
 export const getPlaylistsByQuery = async (query, nsfwMode = 'on') => {
-  let filteredQuery: any = {}
+  const filteredQuery: any = {}
 
   if (query.from === 'subscribed-only') {
     filteredQuery.playlistId = query.subscribedPlaylistIds

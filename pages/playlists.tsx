@@ -33,7 +33,7 @@ class Playlists extends Component<Props, State> {
 
     const subscribedPlaylistIds = user.subscribedPlaylistIds || []
 
-    let myPlaylists = (user && user.playlists) || []
+    const myPlaylists = (user && user.playlists) || []
 
     const currentPage = pages[kPageKey] || {}
     const lastScrollPosition = currentPage.lastScrollPosition
