@@ -2,11 +2,8 @@ import React, { Fragment } from 'react'
 import { Provider } from 'react-redux'
 import withRedux from 'next-redux-wrapper'
 import App from 'next/app'
-
 import { config as fontAwesomeConfig } from '@fortawesome/fontawesome-svg-core'
 import '@fortawesome/fontawesome-svg-core/styles.css' // Import the CSS
-fontAwesomeConfig.autoAddCss = false // Tell Font Awesome to skip adding the CSS automatically since it's being imported above
-
 import ReactGA from 'react-ga'
 import { getNowPlayingOrNextFromStorage, getPriorityQueueItemsStorage,
   setNowPlayingItemInStorage } from 'podverse-ui'
@@ -32,6 +29,9 @@ import config from '~/config'
 const { googleAnalyticsConfig } = config()
 const cookie = require('cookie')
 const MobileDetect = require('mobile-detect')
+
+// Tell Font Awesome to skip adding the CSS automatically since it's being imported above
+fontAwesomeConfig.autoAddCss = false
 
 addFontAwesomeIcons()
 
@@ -129,8 +129,6 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
       isMobileDevice = !!md.mobile()
     }
 
-
-    // @ts-ignore
     if (!process.browser && ctx.req.headers.cookie) {
       const parsedCookie = cookie.parse(ctx.req.headers.cookie)
 

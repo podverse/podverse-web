@@ -5,9 +5,16 @@
         "useJSXTextNode": true
     },
     "extends": [
-        "plugin:@typescript-eslint/recommended"
+        "plugin:@typescript-eslint/recommended",
+        "react-app"
     ],
     "plugins": [
-        "@typescript-eslint"
-    ]
+        "@typescript-eslint",
+        "react"
+    ],
+    "rules": {
+        "@typescript-eslint/member-delimiter-style": 0,
+        "@typescript-eslint/no-explicit-any": 0,
+        "@typescript-eslint/no-var-requires": 0
+    }
 }
