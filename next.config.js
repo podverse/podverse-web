@@ -2,6 +2,7 @@ const withCss = require('@zeit/next-css')
 const withSass = require('@zeit/next-sass')
 const withImages = require('next-images')
 
+global.__basedir = __dirname
 const envVars = {
   NODE_ENV: process.env.NODE_ENV,
   PROTOCOL: process.env.PROTOCOL,

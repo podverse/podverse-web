@@ -3,9 +3,14 @@ import { userUpdateHistoryItem } from '~/redux/actions'
 import { addOrUpdateUserHistoryItem } from '~/services'
 export { validatePassword } from './validatePassword'
 
+// This checks if we are server-side rendering or rendering on the front-end.
+export const checkIfLoadingOnFrontEnd = () => {
+  return typeof window !== 'undefined'
+}
+
 export const convertToYYYYMMDDHHMMSS = () => {
   const now = new Date()
-  let year = '' + now.getFullYear()
+  const year = '' + now.getFullYear()
   let month = '' + (now.getMonth() + 1); if (month.length === 1) { month = '0' + month }
   let day = '' + now.getDate(); if (day.length === 1) { day = '0' + day }
   let hour = '' + now.getHours(); if (hour.length === 1) { hour = '0' + hour }
@@ -14,6 +19,7 @@ export const convertToYYYYMMDDHHMMSS = () => {
   return year + '-' + month + '-' + day + ' ' + hour + ':' + minute + ':' + second
 }
 
+// eslint-disable-next-line
 // @ts-ignore
 Date.prototype.addDays = function (days) {
   const date = new Date(this.valueOf())
@@ -22,8 +28,7 @@ Date.prototype.addDays = function (days) {
 }
 
 export const isBeforeDate = (expirationDate, dayOffset = 0) => {
-  const currentDate = new Date()
-  // @ts-ignore
+  const currentDate = new Date() as any
   const offsetDate = currentDate.addDays(dayOffset)
   return new Date(expirationDate) > offsetDate
 }
@@ -39,8 +44,8 @@ export const readableDate = (date) => {
     month = dateObj.getMonth() + 1,
     day = dateObj.getDate();
 
-  var today = new Date();
-  var yesterday = new Date(today);
+  const today = new Date();
+  const yesterday = new Date(today);
   yesterday.setDate(today.getDate() - 1);
 
   return month + '/' + day + '/' + year;
@@ -90,9 +95,9 @@ export const convertSecToHHMMSS = (sec: number) => {
 }
 
 export const readableClipTime = (startTime, endTime) => {
-  let s = convertSecToHHMMSS(startTime)
+  const s = convertSecToHHMMSS(startTime)
   if ((startTime || startTime === 0) && endTime) {
-    let e = convertSecToHHMMSS(endTime)
+    const e = convertSecToHHMMSS(endTime)
     return `${s} to ${e}`
   } else {
     return `Start: ${s}`
@@ -122,8 +127,8 @@ export const deleteCookie = name => {
 
 export const clone = obj => {
   if (null == obj || "object" != typeof obj) return obj
-  var copy = obj.constructor()
-  for (var attr in obj) {
+  const copy = obj.constructor()
+  for (const attr in obj) {
     if (obj.hasOwnProperty(attr)) copy[attr] = obj[attr]
   }
   return copy

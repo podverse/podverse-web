@@ -2,6 +2,7 @@ import * as React from 'react'
 import * as Modal from 'react-modal'
 import { Button, ButtonGroup, CloseButton } from 'podverse-ui'
 import { Input, Label } from 'reactstrap'
+import { checkIfLoadingOnFrontEnd } from '~/lib/utility'
 import { deleteLoggedInUser } from '~/services'
 
 type Props = {
@@ -73,9 +74,7 @@ export class DeleteAccountModal extends React.Component<Props, State> {
   render() {
     const { email, handleHideModal, isOpen } = this.props
     const { confirmEmail, isConfirmed, isDeleting } = this.state
-  
-    // @ts-ignore
-    const appEl = process.browser ? document.querySelector('body') : null
+    const appEl = checkIfLoadingOnFrontEnd() ? document.querySelector('body') : null
 
     return (
       <Modal

@@ -17,7 +17,7 @@ import PageLoadingOverlay from '~/components/PageLoadingOverlay/PageLoadingOverl
 import { addFontAwesomeIcons } from '~/lib/fontAwesomeIcons'
 import { NowPlayingItem } from '~/lib/nowPlayingItem'
 import { scrollToTopOfView } from '~/lib/scrollToTop'
-import { assignLocalOrLoggedInNowPlayingItemPlaybackPosition } from '~/lib/utility'
+import { assignLocalOrLoggedInNowPlayingItemPlaybackPosition, checkIfLoadingOnFrontEnd } from '~/lib/utility'
 import { disableHoverOnTouchDevices } from '~/lib/utility/disableHoverOnTouchDevices'
 import { fixMobileViewportHeight } from '~/lib/utility/fixMobileViewportHeight'
 import { initializeStore } from '~/redux/store'
@@ -103,17 +103,17 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
 
     let cookies = {}
 
-    if (!process.browser && ctx.query && ctx.query.forgotPassword) {
+    if (!checkIfLoadingOnFrontEnd() && ctx.query && ctx.query.forgotPassword) {
       ctx.store.dispatch({
         type: actionTypes.MODALS_FORGOT_PASSWORD_SHOW,
         payload: ctx.query.forgotPassword
       })
-    } else if (!process.browser && ctx.query && ctx.query.resetPassword) {
+    } else if (!checkIfLoadingOnFrontEnd() && ctx.query && ctx.query.resetPassword) {
       ctx.store.dispatch({
         type: actionTypes.MODALS_RESET_PASSWORD_SHOW,
         payload: ctx.query.resetPassword
       })
-    } else if (!process.browser && ctx.query && ctx.query.sendVerificationEmail) {
+    } else if (!checkIfLoadingOnFrontEnd() && ctx.query && ctx.query.sendVerificationEmail) {
       ctx.store.dispatch({
         type: actionTypes.MODALS_SEND_VERIFICATION_EMAIL_SHOW,
         payload: ctx.query.sendVerificationEmail
@@ -129,7 +129,7 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
       isMobileDevice = !!md.mobile()
     }
 
-    if (!process.browser && ctx.req.headers.cookie) {
+    if (!checkIfLoadingOnFrontEnd() && ctx.req.headers.cookie) {
       const parsedCookie = cookie.parse(ctx.req.headers.cookie)
 
       if (parsedCookie.uiTheme) {
@@ -258,18 +258,18 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
 
     const { lastScrollPosition, newPlayingItem } = pageProps
 
-    if (!process.browser && newPlayingItem) {
+    if (!checkIfLoadingOnFrontEnd() && newPlayingItem) {
       ctx.store.dispatch(mediaPlayerLoadNowPlayingItem(newPlayingItem))
     }
 
-    if (process.browser && lastScrollPosition) {
+    if (checkIfLoadingOnFrontEnd() && lastScrollPosition) {
       setTimeout(() => {
         const el = document.querySelector('.view__contents')
         if (el) {
           el.scrollTop = lastScrollPosition
         }
       }, 0)
-    } else if (process.browser) {
+    } else if (checkIfLoadingOnFrontEnd()) {
       scrollToTopOfView()
     }
 

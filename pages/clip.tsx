@@ -9,7 +9,7 @@ import MediaInfoCtrl from '~/components/MediaInfoCtrl/MediaInfoCtrl'
 import MediaListCtrl from '~/components/MediaListCtrl/MediaListCtrl'
 import Meta from '~/components/Meta/Meta'
 import { convertToNowPlayingItem } from '~/lib/nowPlayingItem'
-import { clone, getUrlFromRequestOrWindow, removeDoubleQuotes } from '~/lib/utility'
+import { checkIfLoadingOnFrontEnd, clone, getUrlFromRequestOrWindow, removeDoubleQuotes } from '~/lib/utility'
 import { pageIsLoading, pagesSetQueryState, playerQueueLoadSecondaryItems
   } from '~/redux/actions'
 import { getEpisodesByQuery, getMediaRefsByQuery, getMediaRefById } from '~/services/'
@@ -55,7 +55,7 @@ class Clip extends Component<Props, State> {
     }
     
     let newPlayingItem
-    if (!process.browser) {
+    if (!checkIfLoadingOnFrontEnd()) {
       newPlayingItem = convertToNowPlayingItem(mediaRef)
     }
 

@@ -7,7 +7,7 @@ import PayPalButton from '~/components/PayPalButton/PayPalButton'
 import { pageIsLoading } from '~/redux/actions'
 import { createBitPayInvoice } from '~/services'
 import config from '~/config'
-import { alertRateLimitError } from '~/lib/utility';
+import { alertRateLimitError, checkIfLoadingOnFrontEnd } from '~/lib/utility';
 const { paypalConfig } = config()
 
 type Props = {
@@ -87,8 +87,7 @@ class CheckoutModal extends React.Component<Props, State> {
   render() {
     const { isOpen, pageIsLoading } = this.props
     const { buttonIsLoading } = this.state
-    // @ts-ignore
-    const appEl = process.browser ? document.querySelector('body') : null
+    const appEl = checkIfLoadingOnFrontEnd() ? document.querySelector('body') : null
     
     return (
       <Modal

@@ -1,6 +1,7 @@
 import * as React from 'react'
 import * as Modal from 'react-modal'
 import colors from '~/lib/constants/colors'
+import { checkIfLoadingOnFrontEnd } from '~/lib/utility'
 
 export interface Props {
   handleHideModal?: (event: React.MouseEvent<HTMLButtonElement>) => void
@@ -24,9 +25,7 @@ const customStyles = {
 
 export const NSFWModal: React.StatelessComponent<Props> = props => {
   const { handleHideModal, isNSFWModeOn, isOpen } = props
-
-  // @ts-ignore
-  const appEl = process.browser ? document.querySelector('body') : null
+  const appEl = checkIfLoadingOnFrontEnd() ? document.querySelector('body') : null
 
   return (
     <Modal
