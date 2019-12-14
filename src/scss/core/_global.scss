@@ -128,7 +128,7 @@ html[is-switching-ui-mode=true] * {
   font-style: italic;
 }
 
-[data-theme=light] {
+html[data-theme=light] {
   .no-results-msg {
     color: $gray-darker;
   }
@@ -138,7 +138,7 @@ html[is-switching-ui-mode=true] * {
   }
 }
 
-[data-theme=dark] {
+html[data-theme=dark] {
   .no-results-msg {
     color: $gray-lighter;
   }

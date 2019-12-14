@@ -12,7 +12,7 @@
   }
 }
 
-[data-theme=light] {
+html[data-theme=light] {
   .waiting-for-payment {
     svg {
       color: $gray-light;
@@ -20,7 +20,7 @@
   }
 }
 
-[data-theme=dark] {
+html[data-theme=dark] {
   .waiting-for-payment {
     svg {
       color: $gray-dark;
