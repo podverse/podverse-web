@@ -1,4 +1,5 @@
 export default {
+  brandColor: '#2968B1',
   white: '#fff',
   grayLightest: '#eee',
   grayLighter: '#c1c1c1',
@@ -11,6 +12,10 @@ export default {
   blueLigher: '#4f83bf',
   blue: '#2968B1',
   blueDarker: '#225691',
+  redLighter: '#c43745',
   red: '#dc3545',
-  redDarker: '#bd2130'
+  redDarker: '#bd2130',
+  green: '#29b160',
+  yellow: '#ffc107',
+  opacity: 0.1
 }
