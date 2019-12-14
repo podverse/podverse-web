@@ -32,7 +32,7 @@ app.prepare()
     server.use(mount(
       // eslint-disable-next-line
       // @ts-ignore
-      '/public', koaStatic(path.join(global.__basedir + '/src/public'))
+      '/', koaStatic(path.join(global.__basedir + '/src/public'))
     ))
 
     server.use(authRouter(app).routes())

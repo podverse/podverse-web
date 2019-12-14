@@ -1,4 +1,4 @@
-import { Component } from 'react'
+import React, { Component } from 'react'
 import Head from 'next/head'
 import '~/lib/constants/misc'
 import '~/scss/styles.scss'
@@ -31,8 +31,8 @@ class Meta extends Component<Props, State> {
       ogTitle = '', ogType = '', ogUrl = '', robotsNoIndex = '', title = '', twitterDescription = '', twitterImage = '',
       twitterImageAlt = '', twitterTitle = '' } = this.props
     
-    let ogImg = !ogImage ? metaDefaultImageUrl1200x630 : ogImage
-    let twitterImg = !twitterImage ? metaDefaultImageUrl1200x630 : twitterImage
+    const ogImg = !ogImage ? metaDefaultImageUrl1200x630 : ogImage
+    const twitterImg = !twitterImage ? metaDefaultImageUrl1200x630 : twitterImage
 
     return (
       <Head>
@@ -46,7 +46,7 @@ class Meta extends Component<Props, State> {
         <link rel='apple-touch-icon' sizes='180x180' href='/images/apple-touch-icon.png' />
         <link rel='icon' type='image/png' sizes='32x32' href='/images/favicon-32x32.png' />
         <link rel='icon' type='image/png' sizes='16x16' href='/images/favicon-16x16.png' />
-        <link rel='manifest' href='/images/site.webmanifest' />
+        <link rel='manifest' href='/site.webmanifest' />
         <link rel='mask-icon' href='/images/safari-pinned-tab.svg' color='#5bbad5' />
         <meta name='msapplication-TileColor' content='#da532c' />
         <meta name='theme-color' content='#ffffff' />
