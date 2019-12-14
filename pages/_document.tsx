@@ -31,7 +31,7 @@ export default class MyDocument extends Document<Props> {
     const { initialUITheme } = this.props
 
     return (
-      <Html lang='en' theme={initialUITheme}>
+      <Html lang='en' data-theme={initialUITheme}>
         <Head />
         <body>
           <Main />

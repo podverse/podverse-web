@@ -107,7 +107,7 @@
   }
 }
 
-html[theme=light] {
+html[data-theme=light] {
   .media-list {
     .media-list__filter {
       .media-list-filter__filter-icon button, .media-list-filter__clear-icon button {
@@ -137,7 +137,7 @@ html[theme=light] {
   }
 }
 
-html[theme=dark] {
+html[data-theme=dark] {
   .media-list {
     .media-list__filter {
       .media-list-filter__filter-icon button, .media-list-filter__clear-icon button {

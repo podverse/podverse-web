@@ -33,13 +33,13 @@
   }
 }
 
-[theme=light] {
+[data-theme=light] {
   .page-loading-overlay {
     color: $gray-light;
   }
 }
 
-[theme=dark] {
+[data-theme=dark] {
   .page-loading-overlay {
     color: $gray-dark;
   }

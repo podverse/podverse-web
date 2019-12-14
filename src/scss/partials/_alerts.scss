@@ -10,13 +10,13 @@ html {
   }
 }
 
-[theme=light] {
+[data-theme=light] {
   .alert p, .alert span {
     color: $gray-darkest
   }
 }
 
-[theme=dark] {
+[data-theme=dark] {
   .alert p, .alert span {
     color: $gray-darkest
   }

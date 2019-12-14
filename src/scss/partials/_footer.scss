@@ -79,7 +79,7 @@
 }
 
 /* stylelint-disable */
-[theme=light] {
+[data-theme=light] {
   .footer {
     border-top: 1px solid $gray-lighter;
 
@@ -98,7 +98,7 @@
   }
 }
 
-[theme=dark] {
+[data-theme=dark] {
   .footer {
     border-top: 1px solid $gray-darker;
 
