@@ -25,8 +25,9 @@ app.prepare()
       ctx.res.statusCode = 200
       await next()
     })
-    console.log('dirasdfasdf', __dirname)
-    console.log('huh', path.join(__dirname + '../public'))
+
+    // eslint-disable-next-line
+    // @ts-ignore
     // eslint-disable-next-line
     server.use(mount(
       // eslint-disable-next-line
