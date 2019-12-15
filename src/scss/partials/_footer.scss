@@ -3,7 +3,7 @@
   flex-direction: column;
   font-size: $text-sm-rem;
   margin-top: 3em;
-  padding-top: 0.5em;
+  padding-top: 0.75em;
 
   .footer__top {
     display: flex;
@@ -81,19 +81,19 @@
 /* stylelint-disable */
 html[data-theme=light] {
   .footer {
-    border-top: 1px solid $gray-lighter;
+    border-top: 1px solid $gray-light;
 
     a, span {
-      color: $gray-dark;
+      color: $gray-darker;
       text-decoration: none;
     }
 
     a:hover {
-      color: $gray-darker
+      color: $gray-darkest
     }
 
     .footer__disclaimer {
-      color: $gray-dark;
+      color: $gray-darker;
     }
   }
 }
@@ -103,12 +103,12 @@ html[data-theme=dark] {
     border-top: 1px solid $gray-darker;
 
     a, span {
-      color: $gray-light;
+      color: $gray-lighter;
       text-decoration: none;
     }
 
     a:hover {
-      color: $gray-lighter;
+      color: $gray-lightest;
     }
 
     .footer__disclaimer {
