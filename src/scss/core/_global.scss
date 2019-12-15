@@ -134,7 +134,11 @@ html[data-theme=light] {
   }
 
   .page-loading-overlay {
-    color: $gray-light;
+    color: $gray;
+  }
+
+  .form-control {
+    border-color: $gray-dark;
   }
 }
 
@@ -145,5 +149,9 @@ html[data-theme=dark] {
 
   .page-loading-overlay {
     color: $gray-dark;
+  }
+
+  .form-control {
+    border-color: $gray-light;
   }
 }
