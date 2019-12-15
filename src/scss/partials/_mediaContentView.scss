@@ -112,19 +112,19 @@ html[data-theme=light] {
     .media-list__filter {
       .media-list-filter__filter-icon button, .media-list-filter__clear-icon button {
         background-color: $white;
-        border-color: $gray-lighter;
+        border-color: $gray-darker;
         color: $gray-darker;
       }
 
       input {
         background-color: $white;
-        border-color: $gray-lighter;
+        border-color: $gray-darker;
         color: $black;
       }
     }
 
     .media-list__loader {
-      color: $gray-light;
+      color: $gray-darker;
     }
 
     .media-list__description {
