@@ -103,20 +103,25 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
 
     let cookies = {}
 
-    if (!checkIfLoadingOnFrontEnd() && ctx.query && ctx.query.forgotPassword) {
+    if (!checkIfLoadingOnFrontEnd() && ctx.query && ctx.query.login) {
+      ctx.store.dispatch({
+        type: actionTypes.MODALS_LOGIN_SHOW,
+        payload: true
+      })
+    } else if (!checkIfLoadingOnFrontEnd() && ctx.query && ctx.query.forgotPassword) {
       ctx.store.dispatch({
         type: actionTypes.MODALS_FORGOT_PASSWORD_SHOW,
-        payload: ctx.query.forgotPassword
+        payload: true
       })
     } else if (!checkIfLoadingOnFrontEnd() && ctx.query && ctx.query.resetPassword) {
       ctx.store.dispatch({
         type: actionTypes.MODALS_RESET_PASSWORD_SHOW,
-        payload: ctx.query.resetPassword
+        payload: true
       })
     } else if (!checkIfLoadingOnFrontEnd() && ctx.query && ctx.query.sendVerificationEmail) {
       ctx.store.dispatch({
         type: actionTypes.MODALS_SEND_VERIFICATION_EMAIL_SHOW,
-        payload: ctx.query.sendVerificationEmail
+        payload: true
       })
     }
 
@@ -281,6 +286,17 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
     const { store } = this.props
     const state = store.getState()
     const { user } = state
+
+    // If page uses a query parameter to show a modal on page load,
+    // then update history so the query parameter version is not last in history.
+    const urlParams = new URLSearchParams(window.location.search)
+    const paramLogin = urlParams.get('login')
+    const paramForgotPassword = urlParams.get('forgotPassword')
+    const paramResetPassword = urlParams.get('resetPassword')
+    const paramSendVerificationEmail = urlParams.get('sendVerificationEmail')
+    if (paramLogin || paramForgotPassword || paramResetPassword || paramSendVerificationEmail) {
+      window.history.pushState({}, document.title, window.location.origin + window.location.pathname)
+    }
 
     if (!windowHasLoaded) {
       disableHoverOnTouchDevices()
