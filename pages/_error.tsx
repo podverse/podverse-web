@@ -58,7 +58,6 @@ const errors = {
   500: {
     header: 'Servers under maintenance',
     message1: 'The site will be offline until the work is complete.',
-    message2: 'Sorry for the inconvenience!',
     icon: 'tools'
   },
   defaultError: {
