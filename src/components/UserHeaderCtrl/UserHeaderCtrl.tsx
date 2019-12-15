@@ -106,7 +106,6 @@ class UserHeaderCtrl extends Component<Props, State> {
                           {
                             isSubscribed ?
                               <FontAwesomeIcon icon={fasStar} />
-                              // @ts-ignore
                               : <FontAwesomeIcon icon={farStar} />
                           }
                         </React.Fragment>

@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/camelcase */
+
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import scriptLoader from 'react-async-script-loader'
@@ -40,9 +42,12 @@ class PaypalButton extends React.Component<Props, State> {
     }
 
     // React and ReactDOM are needed by the paypal.Button.react component
-    //@ts-ignore
+
+    // eslint-disable-next-line
+    // @ts-ignore
     window.React = React
-    //@ts-ignore
+    // eslint-disable-next-line
+    // @ts-ignore
     window.ReactDOM = ReactDOM
   }
 
@@ -87,8 +92,8 @@ class PaypalButton extends React.Component<Props, State> {
     const { addButtonToDOM, showButton } = this.state
 
     const payment = async (resolve, reject) => {
-
       try {
+        // eslint-disable-next-line
         // @ts-ignore
         const paymentID = await paypal.rest.payment.create(env, client, {
           intent: 'sale',
@@ -175,7 +180,9 @@ class PaypalButton extends React.Component<Props, State> {
               }}>
               {
                 addButtonToDOM &&
+                // eslint-disable-next-line
                 // @ts-ignore
+                // eslint-disable-next-line
                 <paypal.Button.react
                   client={client}
                   commit={commit}

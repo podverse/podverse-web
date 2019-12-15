@@ -1,7 +1,8 @@
 import { actionTypes } from '~/redux/constants'
 
-// TODO: this produces a "Expression produces a union type that is too complex to represent" error.
+// TODO: this produces a "Expression produces a union type that is too complex to represent" linter error.
 // How can we fix that?
+// eslint-disable-next-line
 // @ts-ignore
 const generateDataObj = payload => {
   if (payload) {

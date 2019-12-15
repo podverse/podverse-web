@@ -54,11 +54,6 @@ class VerifyEmail extends Component<Props, State> {
     modalsSendVerificationEmailShow(true)
   }
 
-  _handleLoginPress = () => {
-    const { modalsLoginShow } = this.props
-    modalsLoginShow(true)
-  }
-
   render() {
     const { hasError, meta } = this.props
 
@@ -80,8 +75,8 @@ class VerifyEmail extends Component<Props, State> {
               <h3>Email Verified</h3>
               <p>Thank you for verifying! You should now be able to login.</p>
               <p className='font-bolder'>
-                <Link as='/' href='/'>
-                  <a onClick={this._handleLoginPress}>Login</a>
+                <Link as='/?login' href='/?login'>
+                  <a>Login</a>
                 </Link>
               </p>
             </Fragment>
