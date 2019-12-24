@@ -170,6 +170,7 @@ class Episode extends Component<Props, State> {
           robotsNoIndex={false}
           title={meta.title}
           twitterDescription={meta.description}
+          twitterImage={meta.imageUrl}
           twitterImageAlt={meta.imageAlt}
           twitterTitle={meta.title} />
         <MediaHeaderCtrl

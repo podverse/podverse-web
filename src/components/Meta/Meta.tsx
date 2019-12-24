@@ -4,6 +4,7 @@ import '~/lib/constants/misc'
 import '~/scss/styles.scss'
 import config from '~/config'
 const { metaDefaultImageUrl1200x630 } = config()
+const striptags = require('striptags')
 
 type Props = {
   description?: string
@@ -34,6 +35,10 @@ class Meta extends Component<Props, State> {
     const ogImg = !ogImage ? metaDefaultImageUrl1200x630 : ogImage
     const twitterImg = !twitterImage ? metaDefaultImageUrl1200x630 : twitterImage
 
+    const strippedDescription = striptags(description)
+    const strippedOgDescription = striptags(ogDescription)
+    const strippedTwitterDescription = striptags(twitterDescription)
+
     return (
       <Head>
         <title>{title}</title>
@@ -52,7 +57,7 @@ class Meta extends Component<Props, State> {
         <meta name='theme-color' content='#ffffff' />
 
         <meta name='title' content={title} />
-        <meta name='description' content={description} />
+        <meta name='description' content={strippedDescription} />
 
         <meta name='apple-itunes-app' content='app-id=1390888454' />
 
@@ -62,7 +67,7 @@ class Meta extends Component<Props, State> {
         <meta property='og:image' content={ogImg} />
         <meta property='og:image:alt' content={ogImageAlt || 'Podverse logo'} />
         <meta property='og:image:secure_url' content={ogImg} />
-        <meta property='og:image:description' content={ogDescription} />
+        <meta property='og:image:description' content={strippedOgDescription} />
         <meta property='og:site_name' content='Podverse' />
         <meta property='og:url' content={ogUrl} />
         <meta property='fb:app_id' content='300336890140007' />
@@ -87,7 +92,7 @@ class Meta extends Component<Props, State> {
 
         {/* Twitter page-specific meta tags */}
         <meta name='twitter:card' content='summary_large_image' />
-        <meta name='twitter:description' content={twitterDescription} />
+        <meta name='twitter:description' content={strippedTwitterDescription} />
         <meta name='twitter:title' content={twitterTitle} />
         <meta name='twitter:image' content={twitterImg} />
         <meta name='twitter:image:alt' content={twitterImageAlt || 'Podverse logo'} />
