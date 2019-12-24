@@ -1,10 +1,9 @@
 import axios from 'axios'
-import { sfwFilterPodcast, sfwFilterPodcasts } from '~/lib/profanityFilter'
 import { convertObjectToQueryString } from '~/lib/utility'
 import config from '~/config'
 const { API_BASE_URL } = config()
 
-export const getPodcastsByQuery = async (query, nsfwMode = 'on') => {
+export const getPodcastsByQuery = async (query) => {
   const filteredQuery: any = {}
 
   if (query.sort) {
@@ -37,21 +36,12 @@ export const getPodcastsByQuery = async (query, nsfwMode = 'on') => {
 
   const queryString = convertObjectToQueryString(filteredQuery)
   return axios(`${API_BASE_URL}/podcast?${queryString}`, {
-    method: 'get',
-    headers: {
-      nsfwMode
-    }
-  })
-  .then(result => {
-    return nsfwMode === 'on' ? { data: result.data } : { data: sfwFilterPodcasts(result.data) }
+    method: 'get'
   })
 }
 
-export const getPodcastById = async (id: string, nsfwMode = 'on') => {
+export const getPodcastById = async (id: string) => {
   return axios.get(`${API_BASE_URL}/podcast/${id}`)
-  .then(result => {
-    return nsfwMode === 'on' ? { data: result.data } : { data: sfwFilterPodcast(result.data) }
-  })
 }
 
 export const toggleSubscribeToPodcast = async (podcastId: string) => {

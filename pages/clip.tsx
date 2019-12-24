@@ -1,9 +1,9 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import Error from 'next/error'
 import { addItemsToSecondaryQueueStorage, clearItemsFromSecondaryQueueStorage
-  } from 'podverse-ui'
+} from 'podverse-ui'
+import Error from './_error'
 import MediaHeaderCtrl from '~/components/MediaHeaderCtrl/MediaHeaderCtrl'
 import MediaInfoCtrl from '~/components/MediaInfoCtrl/MediaInfoCtrl'
 import MediaListCtrl from '~/components/MediaListCtrl/MediaListCtrl'
@@ -15,7 +15,7 @@ import { pageIsLoading, pagesSetQueryState, playerQueueLoadSecondaryItems
 import { getEpisodesByQuery, getMediaRefsByQuery, getMediaRefById } from '~/services/'
 
 type Props = {
-  is404Page?: boolean
+  errorCode?: number
   lastScrollPosition?: number
   listItems?: any
   mediaRef?: any
@@ -42,18 +42,18 @@ class Clip extends Component<Props, State> {
   static async getInitialProps({ query, req, store }) {
     const pageKeyWithId = `${kPageKey}${query.id}`
     const state = store.getState()
-    const { mediaPlayer, pages, settings, user } = state
+    const { mediaPlayer, pages, user } = state
     const { nowPlayingItem } = mediaPlayer
-    const { nsfwMode } = settings
 
-    const mediaRefResult = await getMediaRefById(query.id, nsfwMode)
-    const mediaRef = mediaRefResult.data
-
-    if (!mediaRef) {
+    let mediaRefResult
+    try {
+      mediaRefResult = await getMediaRefById(query.id)
+    } catch (err) {
       store.dispatch(pageIsLoading(false))
-      return { is404Page: true }
+      return { errorCode: err.response && err.response.status || 500 }
     }
-    
+
+    const mediaRef = mediaRefResult.data
     let newPlayingItem
     if (!checkIfLoadingOnFrontEnd()) {
       newPlayingItem = convertToNowPlayingItem(mediaRef)
@@ -87,7 +87,7 @@ class Clip extends Component<Props, State> {
           ...(!podcastId ? { includePodcast: true } : {}),
           sort: querySort,
           type: queryType
-        }, nsfwMode)
+        })
       } else {
         results = await getMediaRefsByQuery({
           ...(episodeId ? { episodeId } : {}),
@@ -98,7 +98,7 @@ class Clip extends Component<Props, State> {
           ...(podcastId ? { podcastId } : {}),
           sort: querySort,
           type: queryType
-        }, nsfwMode)
+        })
       }
 
       const listItems = results.data[0].map(x => convertToNowPlayingItem(x, mediaRef.episode, mediaRef.episode.podcast))
@@ -141,22 +141,22 @@ class Clip extends Component<Props, State> {
   }
 
   componentDidMount () {
-    const { is404Page, playerQueue } = this.props    
+    const { errorCode, playerQueue } = this.props
 
-    if (is404Page) return
+    if (errorCode) return
 
     const { secondaryItems } = playerQueue
-    
     clearItemsFromSecondaryQueueStorage()
     addItemsToSecondaryQueueStorage(secondaryItems)
   }
 
   render () {
-    const { is404Page, mediaRef, meta, pageKey, pages, pagesSetQueryState } = this.props
-    const { queryFrom, queryPage, querySort, queryType } = pages[pageKey]
+    const { errorCode, mediaRef, meta, pageKey, pages, pagesSetQueryState } = this.props
+    const page = pages[pageKey] || {}
+    const { queryFrom, queryPage, querySort, queryType } = page
 
-    if (is404Page) {
-      return <Error statusCode={404} />
+    if (errorCode) {
+      return <Error statusCode={errorCode} />
     }
 
     return (

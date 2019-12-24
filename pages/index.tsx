@@ -33,9 +33,8 @@ class Home extends Component<Props, State> {
 
   static async getInitialProps({ query, req, store }) {
     const state = store.getState()
-    const { mediaPlayer, pages, settings, user } = state
+    const { mediaPlayer, pages, user } = state
     const { nowPlayingItem } = mediaPlayer
-    const { nsfwMode } = settings
     
     const currentPage = pages[kPageKey] || {}
     const lastScrollPosition = currentPage.lastScrollPosition
@@ -60,7 +59,7 @@ class Home extends Component<Props, State> {
           sort: querySort,
           type: queryType,
           includePodcast: true
-        }, nsfwMode)
+        })
       } else {
         results = await getMediaRefsByQuery({
           from: queryFrom,
@@ -69,7 +68,7 @@ class Home extends Component<Props, State> {
           ...(podcastId ? { podcastId } : {}),
           sort: querySort,
           type: queryType
-        }, nsfwMode)
+        })
       }
       
       const listItems = results.data[0].map(x => convertToNowPlayingItem(x, null, null)) || []

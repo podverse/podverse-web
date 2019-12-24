@@ -59,13 +59,13 @@ class UserMediaListCtrl extends Component<Props, State> {
 
     pageIsLoading(true)
 
-    let query: any = {
+    const query: any = {
       page,
       sort: querySort,
       type: queryType
     }
 
-    let newState: any = {
+    const newState: any = {
       listItems: [],
       pageKey,
       queryPage: page
@@ -93,7 +93,7 @@ class UserMediaListCtrl extends Component<Props, State> {
       try {
         query.subscribedPodcastIds = profileUser.subscribedPodcastIds
         query.from = 'subscribed-only'
-        const response = await getPodcastsByQuery(query, isMyProfilePage ? 'on' : nsfwMode)
+        const response = await getPodcastsByQuery(query)
         const podcasts = response.data
 
         handleSetPageQueryState({
@@ -191,7 +191,7 @@ class UserMediaListCtrl extends Component<Props, State> {
   }
 
   getQuerySortOptions(isPodcasts) {
-    let items = [
+    const items = [
       {
         label: 'most recent',
         onClick: () => this.queryMediaListItems('sort', 'most-recent'),
@@ -260,8 +260,8 @@ class UserMediaListCtrl extends Component<Props, State> {
     if (nowPlayingItem.clipId) {
       nowPlayingItemIndex = listItems.map((x) => x.clipId).indexOf(nowPlayingItem && nowPlayingItem.clipId)
     }
-    let queuedListItems = clone(listItems)
-    nowPlayingItemIndex > -1 ? queuedListItems.splice(0, nowPlayingItemIndex + 1) : queuedListItems
+    const queuedListItems = clone(listItems)
+    if (nowPlayingItemIndex > -1) queuedListItems.splice(0, nowPlayingItemIndex + 1)
     playerQueueLoadSecondaryItems(queuedListItems)
 
     if (loggedInUser && loggedInUser.id) {
@@ -273,6 +273,7 @@ class UserMediaListCtrl extends Component<Props, State> {
             return x
           }
         }
+        return null
       })
 
       historyItems.push(nowPlayingItem)

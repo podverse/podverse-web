@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import Error from 'next/error'
+import Error from './_error'
 import Meta from '~/components/Meta/Meta'
 import UserHeaderCtrl from '~/components/UserHeaderCtrl/UserHeaderCtrl'
 import UserMediaListCtrl from '~/components/UserMediaListCtrl/UserMediaListCtrl'
@@ -13,7 +13,7 @@ import { getPodcastsByQuery, getPublicUser, getUserMediaRefs, getUserPlaylists
   } from '~/services'
 
 type Props = {
-  is404Page?: boolean
+  errorCode?: number
   lastScrollPosition?: number
   listItems?: any[]
   meta?: any
@@ -47,15 +47,18 @@ class Profile extends Component<Props, State> {
     let publicUser = currentPage.publicUser
 
     if (Object.keys(currentPage).length === 0) {
-      const response = await getPublicUser(currentId, nsfwMode)
-      publicUser = response.data
+      let userResult
+      try {
+        userResult = await getPublicUser(currentId)
+      } catch (err) {
+        store.dispatch(pageIsLoading(false))
+        return { errorCode: err.response && err.response.status || 500 }
+      }
+
+      publicUser = userResult.data
+
       let queryDataResult
       let listItems = []
-
-      if (!publicUser) {
-        store.dispatch(pageIsLoading(false))
-        return { is404Page: true }
-      }
 
       if (query.type === 'clips') {
         queryDataResult = await getUserMediaRefs(currentId, nsfwMode, querySort, queryPage)
@@ -71,7 +74,7 @@ class Profile extends Component<Props, State> {
           from: 'subscribed-only',
           sort: querySort,
           subscribedPodcastIds: publicUser.subscribedPodcastIds
-        }, nsfwMode)
+        })
         listItems = queryDataResult.data
       }
 
@@ -101,11 +104,11 @@ class Profile extends Component<Props, State> {
   }
 
   render() {
-    const { is404Page, meta, pageKey, pagesSetQueryState, publicUser,
+    const { errorCode, meta, pageKey, pagesSetQueryState, publicUser,
       queryPage, querySort, queryType, user } = this.props
 
-    if (is404Page) {
-      return <Error statusCode={404} />
+    if (errorCode) {
+      return <Error statusCode={errorCode} />
     }
 
     return (
@@ -120,10 +123,6 @@ class Profile extends Component<Props, State> {
           title={meta.title}
           twitterDescription={meta.description}
           twitterTitle={meta.title} />
-        {
-          !publicUser &&
-            <h3>Page not found</h3>
-        }
         {
           publicUser &&
             <Fragment>

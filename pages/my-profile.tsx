@@ -59,7 +59,7 @@ class MyProfile extends Component<Props, State> {
           page: queryPage,
           sort: querySort,
           subscribedPodcastIds: user.subscribedPodcastIds
-        }, 'on')
+        })
         listItems = queryDataResult.data
       }
 

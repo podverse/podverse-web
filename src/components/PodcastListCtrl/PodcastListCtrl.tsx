@@ -32,9 +32,8 @@ class PodcastListCtrl extends Component<Props, State> {
   }
 
   queryPodcasts = async (query, newState) => {
-    const { handleSetPageQueryState, pageIsLoading, pageKey, pages, settings } = this.props
+    const { handleSetPageQueryState, pageIsLoading, pageKey, pages } = this.props
     const { queryPage: prevPage } = pages[pageKey]
-    const { nsfwMode } = settings
 
     pageIsLoading(true)
 
@@ -44,7 +43,7 @@ class PodcastListCtrl extends Component<Props, State> {
     })
 
     try {
-      const response = await getPodcastsByQuery(query, nsfwMode)
+      const response = await getPodcastsByQuery(query)
       const podcasts = response.data || []
 
       handleSetPageQueryState({
@@ -68,13 +67,13 @@ class PodcastListCtrl extends Component<Props, State> {
     const { pageKey, pages } = this.props
     const { querySort } = pages[pageKey]
 
-    let query: any = {
+    const query: any = {
       page: 1,
       from: 'all-podcasts',
       sort: querySort
     }
 
-    let newState: any = {
+    const newState: any = {
       pageKey,
       queryPage: 1,
       queryFrom: 'all-podcasts',
@@ -88,14 +87,14 @@ class PodcastListCtrl extends Component<Props, State> {
     const { pageKey, pages } = this.props
     const { querySort } = pages[pageKey]
 
-    let query: any = {
+    const query: any = {
       page: 1,
       from: 'from-category',
       sort: querySort,
       categories: categoryId
     }
 
-    let newState: any = {
+    const newState: any = {
       pageKey,
       queryPage: 1,
       queryFrom: 'from-category',
@@ -111,14 +110,14 @@ class PodcastListCtrl extends Component<Props, State> {
     const { subscribedPodcastIds } = user
     const { querySort } = pages[pageKey]
 
-    let query: any = {
+    const query: any = {
       page: 1,
       from: 'subscribed-only',
       sort: querySort,
       subscribedPodcastIds: subscribedPodcastIds || []
     }
 
-    let newState: any = {
+    const newState: any = {
       pageKey,
       queryFrom: 'subscribed-only',
       queryPage: 1,
@@ -144,7 +143,7 @@ class PodcastListCtrl extends Component<Props, State> {
     const { subscribedPodcastIds } = user
     const { categoryId, queryFrom } = pages[pageKey]
 
-    let query: any = {
+    const query: any = {
       page: 1,
       from: queryFrom,
       sort: selectedValue,
@@ -152,7 +151,7 @@ class PodcastListCtrl extends Component<Props, State> {
       subscribedPodcastIds: queryFrom === 'subscribed-only' ? subscribedPodcastIds : null
     }
 
-    let newState: any = {
+    const newState: any = {
       pageKey,
       queryPage: 1,
       queryFrom,
@@ -167,7 +166,7 @@ class PodcastListCtrl extends Component<Props, State> {
     const { subscribedPodcastIds } = user
     const { categoryId, queryFrom, querySort } = pages[pageKey]
 
-    let query: any = {
+    const query: any = {
       page,
       from: queryFrom,
       sort: querySort,
@@ -175,7 +174,7 @@ class PodcastListCtrl extends Component<Props, State> {
       subscribedPodcastIds: queryFrom === 'subscribed-only' ? subscribedPodcastIds : null
     }
 
-    let newState: any = {
+    const newState: any = {
       pageKey,
       queryPage: page,
       queryFrom,
@@ -275,7 +274,7 @@ class PodcastListCtrl extends Component<Props, State> {
     } else if (categoryId) {
       selectedCategoryArray = categoryItems.filter(x => x.value === categoryId)
     }
-    let categorySelectNodes: any[] = []
+    const categorySelectNodes: any[] = []
 
     if (selectedCategoryArray.length > 0) {
       const selectedCategory = selectedCategoryArray[0]

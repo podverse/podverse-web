@@ -34,10 +34,9 @@ class UserListCtrl extends Component<Props, State> {
   }
 
   queryUserListItems = async (page = 1) => {
-    const { handleSetPageQueryState, pageKey, settings, user } = this.props
-    const { nsfwMode } = settings
+    const { handleSetPageQueryState, pageKey, user } = this.props
 
-    let query: any = { page }
+    const query: any = { page }
 
     handleSetPageQueryState({
       pageKey,
@@ -47,7 +46,7 @@ class UserListCtrl extends Component<Props, State> {
     try {
       query.userIds = user.subscribedUserIds
 
-      const response = await getPublicUsersByQuery(query, nsfwMode)
+      const response = await getPublicUsersByQuery(query)
       const users = response.data
 
       handleSetPageQueryState({

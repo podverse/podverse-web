@@ -2,7 +2,6 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import Error from 'next/error'
 import Router from 'next/router'
 import { Input } from 'reactstrap'
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd'
@@ -10,6 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar as farStar } from '@fortawesome/free-regular-svg-icons'
 import { faStar as fasStar } from '@fortawesome/free-solid-svg-icons'
 import { Button, setNowPlayingItemInStorage } from 'podverse-ui'
+import Error from './_error'
 import MediaListItemCtrl from '~/components/MediaListItemCtrl/MediaListItemCtrl'
 import Meta from '~/components/Meta/Meta'
 import { convertToNowPlayingItem } from '~/lib/nowPlayingItem'
@@ -23,7 +23,7 @@ import { addOrRemovePlaylistItem, addOrUpdateUserHistoryItem, deletePlaylist,
 const uuidv4 = require('uuid/v4')
 
 type Props = {
-  is404Page?: boolean
+  errorCode?: number
   lastScrollPosition?: number
   mediaPlayer: any
   mediaPlayerLoadNowPlayingItem: any
@@ -65,15 +65,17 @@ class Playlist extends Component<Props, State> {
   static async getInitialProps({ query, req, store }) {
     const pageKeyWithId = `${kPageKey}${query.id}`
     const state = store.getState()
-    const { pages, settings, user } = state
-    const { nsfwMode } = settings
-    const playlistResult = await getPlaylistById(query.id, nsfwMode) || {}
-    const playlist = playlistResult.data
+    const { pages, user } = state
 
-    if (!playlist) {
+    let playlistResult
+    try {
+      playlistResult = await getPlaylistById(query.id) || {}
+    } catch (err) {
       store.dispatch(pageIsLoading(false))
-      return { is404Page: true }
+      return { errorCode: err.response && err.response.status || 500 }
     }
+
+    const playlist = playlistResult.data
 
     const episodes = playlist.episodes || []
     const mediaRefs = playlist.mediaRefs || []
@@ -112,9 +114,9 @@ class Playlist extends Component<Props, State> {
   }
 
   componentDidMount() {
-    const {is404Page, mediaPlayer, playerQueueLoadSecondaryItems, playlistItems } = this.props
-    
-    if (is404Page) return
+    const { errorCode, mediaPlayer, playerQueueLoadSecondaryItems, playlistItems } = this.props
+
+    if (errorCode) return
 
     const { nowPlayingItem } = mediaPlayer
     const { playlist } = this.state
@@ -385,10 +387,10 @@ class Playlist extends Component<Props, State> {
   }
 
   render() {
-    const { is404Page, mediaPlayer, meta, pageKey, user } = this.props
+    const { errorCode, mediaPlayer, meta, pageKey, user } = this.props
 
-    if (is404Page) {
-      return <Error statusCode={404} />
+    if (errorCode) {
+      return <Error statusCode={errorCode} />
     }
 
     const { nowPlayingItem: mpNowPlayingItem } = mediaPlayer

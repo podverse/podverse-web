@@ -62,12 +62,11 @@ class MediaListCtrl extends Component<Props, State> {
 
   queryListItems = async (queryType, queryFrom, querySort, page) => {
     const { episode, episodeId, handleSetPageQueryState, pageIsLoading, pageKey, pages,
-      playerQueueLoadSecondaryItems, podcast, podcastId, settings, user } = this.props
-    const { nsfwMode } = settings
+      playerQueueLoadSecondaryItems, podcast, podcastId, user } = this.props
     const { subscribedPodcastIds } = user
     const { filterIsShowing, filterText } = pages[pageKey]
 
-    let query: any = {
+    const query: any = {
       page,
       from: queryFrom,
       sort: querySort,
@@ -79,7 +78,7 @@ class MediaListCtrl extends Component<Props, State> {
       ...(queryFrom === 'from-podcast' ? { includeEpisode: true } : {})
     }
 
-    let newState: any = {
+    const newState: any = {
       pageKey,
       queryPage: page,
       queryType,
@@ -117,12 +116,12 @@ class MediaListCtrl extends Component<Props, State> {
       let listItemsTotal
 
       if (queryType === 'episodes') {
-        let response = await getEpisodesByQuery(query, nsfwMode)
+        const response = await getEpisodesByQuery(query)
         const episodes = response.data
         listItemsTotal = episodes[1]
         nowPlayingItems = episodes[0].map(x => convertToNowPlayingItem(x, episode, podcast))
       } else {
-        let response = await getMediaRefsByQuery(query, nsfwMode)
+        const response = await getMediaRefsByQuery(query)
         const mediaRefs = response.data
         listItemsTotal = mediaRefs[1]
         nowPlayingItems = mediaRefs[0].map(x => convertToNowPlayingItem(x, episode, podcast))
@@ -322,8 +321,8 @@ class MediaListCtrl extends Component<Props, State> {
     } else if (nowPlayingItem.episodeId) {
       nowPlayingItemIndex = listItems.map((x) => x.episodeId).indexOf(nowPlayingItem && nowPlayingItem.episodeId)
     }
-    let queuedListItems = clone(listItems)
-    nowPlayingItemIndex > -1 ? queuedListItems.splice(0, nowPlayingItemIndex + 1) : queuedListItems
+    const queuedListItems = clone(listItems)
+    if (nowPlayingItemIndex > -1) queuedListItems.splice(0, nowPlayingItemIndex + 1)
     playerQueueLoadSecondaryItems(queuedListItems)
 
     if (user && user.id) {
@@ -337,6 +336,7 @@ class MediaListCtrl extends Component<Props, State> {
             return x
           }
         }
+        return null
       })
 
       historyItems.push(nowPlayingItem)
@@ -362,9 +362,8 @@ class MediaListCtrl extends Component<Props, State> {
 
   handleFilterTextChange = async event => {
     const { episodeId, handleSetPageQueryState, pageIsLoading, pageKey, pages, podcastId,
-      settings, user } = this.props
+      user } = this.props
     const { queryFrom, querySort, queryType } = pages[pageKey]
-    const { nsfwMode } = settings
     const { subscribedPodcastIds } = user
     const text = event.target.value
 
@@ -382,7 +381,7 @@ class MediaListCtrl extends Component<Props, State> {
       pId = subscribedPodcastIds && subscribedPodcastIds.length > 0 ? subscribedPodcastIds : ['no-results']
     }
 
-    let query: any = {
+    const query: any = {
       page: 1,
       from: queryFrom,
       sort: querySort,
@@ -397,12 +396,12 @@ class MediaListCtrl extends Component<Props, State> {
       let listItemsTotal
 
       if (queryType === 'episodes') {
-        let response = await debouncedEpisodeFilterQuery(query, nsfwMode)
+        const response = await debouncedEpisodeFilterQuery(query)
         const episodes = response.data
         nowPlayingItems = episodes[0].map(x => convertToNowPlayingItem(x))
         listItemsTotal = episodes[1]
       } else {
-        let response = await debouncedMediaRefFilterQuery(query, nsfwMode)
+        const response = await debouncedMediaRefFilterQuery(query)
         const mediaRefs = response.data
         nowPlayingItems = mediaRefs[0].map(x => convertToNowPlayingItem(x))
         listItemsTotal = mediaRefs[1]

@@ -54,7 +54,7 @@ class Podcasts extends Component<Props, State> {
         page: queryPage,
         sort: querySort,
         ...(queryFrom === 'subscribed-only' ? { subscribedPodcastIds } : {})
-      }, nsfwMode)
+      })
 
       const podcasts = queryDataResult.data
 

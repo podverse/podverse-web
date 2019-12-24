@@ -83,8 +83,7 @@ class Search extends Component<Props, State> {
   }
 
   queryPodcasts = async (page = 1) => {
-    const { pages, pagesSetQueryState, settings } = this.props
-    const { nsfwMode } = settings
+    const { pages, pagesSetQueryState } = this.props
     const { searchBy } = pages[kPageKey]
     const { currentSearch } = this.state
     
@@ -104,7 +103,7 @@ class Search extends Component<Props, State> {
     })
 
     try {
-      const response = await getPodcastsByQuery(query, nsfwMode)
+      const response = await getPodcastsByQuery(query)
       const podcasts = response.data || []
 
       pagesSetQueryState({

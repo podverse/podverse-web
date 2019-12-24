@@ -63,7 +63,7 @@ const errors = {
   defaultError: {
     header: 'Something went wrong',
     message1: 'We\'re not sure what happened there :(',
-    message2: 'Maybe check your internet connection, or try a different page.'
+    message2: 'Check your internet connection, or try a different page.'
   }
 }
 

@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import Error from 'next/error'
+import Error from './_error'
 import { addItemsToSecondaryQueueStorage, clearItemsFromSecondaryQueueStorage
   } from 'podverse-ui'
 import MediaHeaderCtrl from '~/components/MediaHeaderCtrl/MediaHeaderCtrl'
@@ -16,7 +16,7 @@ import { getEpisodeById, getEpisodesByQuery, getMediaRefsByQuery } from '~/servi
 
 type Props = {
   episode?: any
-  is404Page?: boolean
+  errorCode?: number
   lastScrollPosition?: number
   meta?: any
   newPlayingItem?: any
@@ -41,18 +41,18 @@ class Episode extends Component<Props, State> {
   static async getInitialProps({ query, req, store }) {
     const pageKeyWithId = `${kPageKey}${query.id}`
     const state = store.getState()
-    const { mediaPlayer, pages, settings, user } = state
+    const { mediaPlayer, pages, user } = state
     const { nowPlayingItem } = mediaPlayer
-    const { nsfwMode } = settings
 
-    const episodeResult = await getEpisodeById(query.id, nsfwMode)
-    const episode = episodeResult.data
-    
-    if (!episode) {
+    let episodeResult
+    try {
+      episodeResult = await getEpisodeById(query.id)
+    } catch (err) {
       store.dispatch(pageIsLoading(false))
-      return { is404Page: true }
+      return { errorCode: err.response && err.response.status || 500 }
     }
-    
+
+    const episode = episodeResult.data
     let newPlayingItem
     if (!checkIfLoadingOnFrontEnd()) {
       newPlayingItem = convertToNowPlayingItem(episode)
@@ -86,7 +86,7 @@ class Episode extends Component<Props, State> {
           ...(podcastId ? { podcastId } : {}),
           sort: querySort,
           type: queryType
-        }, nsfwMode)
+        })
       } else {
         results = await getMediaRefsByQuery({
           ...(episodeId ? { episodeId } : {}),
@@ -97,7 +97,7 @@ class Episode extends Component<Props, State> {
           ...(podcastId ? { podcastId } : {}),
           sort: querySort,
           type: queryType
-        }, nsfwMode)
+        })
       }
 
       const listItems = results.data[0].map(x => convertToNowPlayingItem(x, episode, episode.podcast))
@@ -141,9 +141,9 @@ class Episode extends Component<Props, State> {
   }
 
   componentDidMount() {
-    const { is404Page, playerQueue } = this.props
-    
-    if (is404Page) return
+    const { errorCode, playerQueue } = this.props
+
+    if (errorCode) return
 
     const { secondaryItems } = playerQueue
     clearItemsFromSecondaryQueueStorage()
@@ -151,11 +151,12 @@ class Episode extends Component<Props, State> {
   }
 
   render() {
-    const { episode, is404Page, meta, pageKey, pages, pagesSetQueryState } = this.props
-    const { queryFrom, queryPage, querySort, queryType } = pages[pageKey]
+    const { episode, errorCode, meta, pageKey, pages, pagesSetQueryState } = this.props
+    const page = pages[pageKey] || {}
+    const { queryFrom, queryPage, querySort, queryType } = page
 
-    if (is404Page) {
-      return <Error statusCode={404} />
+    if (errorCode) {
+      return <Error statusCode={errorCode} />
     }
 
     return (

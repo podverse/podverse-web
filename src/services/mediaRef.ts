@@ -1,5 +1,4 @@
 import axios from 'axios'
-import { sfwFilterMediaRef, sfwFilterMediaRefs } from '~/lib/profanityFilter'
 import { convertObjectToQueryString } from '~/lib/utility'
 import config from '~/config'
 const { API_BASE_URL } = config()
@@ -19,7 +18,7 @@ export const deleteMediaRef = async (id: string) => {
   })
 }
 
-export const getMediaRefsByQuery = async (query, nsfwMode = 'on') => {
+export const getMediaRefsByQuery = async (query) => {
   const filteredQuery: any = {}
 
   if (query.page) {
@@ -57,21 +56,12 @@ export const getMediaRefsByQuery = async (query, nsfwMode = 'on') => {
 
   const queryString = convertObjectToQueryString(filteredQuery)
   return axios(`${API_BASE_URL}/mediaRef?${queryString}`, {
-    method: 'get',
-    headers: {
-      nsfwMode
-    }
-  })
-  .then(result => {
-    return nsfwMode === 'on' ? { data: result.data } : { data: sfwFilterMediaRefs(result.data) }
+    method: 'get'
   })
 }
 
-export const getMediaRefById = async (id: string, nsfwMode = 'on') => {
+export const getMediaRefById = async (id: string) => {
   return axios.get(`${API_BASE_URL}/mediaRef/${id}`)
-  .then(result => {
-    return nsfwMode === 'on' ? { data: result.data } : { data: sfwFilterMediaRef(result.data) }
-  })
 }
 
 export const updateMediaRef = async (data: any) => {

@@ -1,8 +1,8 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import Error from 'next/error'
 import { addItemsToSecondaryQueueStorage, clearItemsFromSecondaryQueueStorage } from 'podverse-ui'
+import Error from './_error'
 import MediaHeaderCtrl from '~/components/MediaHeaderCtrl/MediaHeaderCtrl'
 import MediaInfoCtrl from '~/components/MediaInfoCtrl/MediaInfoCtrl'
 import MediaListCtrl from '~/components/MediaListCtrl/MediaListCtrl'
@@ -14,7 +14,7 @@ import { pageIsLoading, pagesSetQueryState, playerQueueLoadSecondaryItems
 import { getEpisodesByQuery, getMediaRefsByQuery, getPodcastById } from '~/services/'
 
 type Props = {
-  is404Page?: boolean
+  errorCode?: number
   lastScrollPosition?: number
   meta?: any
   pageKey: string
@@ -39,112 +39,108 @@ class Podcast extends Component<Props, State> {
   static async getInitialProps({ query, req, store }) {
     const pageKeyWithId = `${kPageKey}${query.id}`
     const state = store.getState()
-    const { pages, settings, user } = state
-    const { nsfwMode } = settings
+    const { pages, user } = state
 
+    let podcastResult
     try {
-      const podcastResult = await getPodcastById(query.id, nsfwMode)
-      const podcast = podcastResult.data
-
-      if (!podcast) {
-        store.dispatch(pageIsLoading(false))
-        return { is404Page: true }
-      }
-
-      const currentPage = pages[pageKeyWithId] || {}
-      const lastScrollPosition = currentPage.lastScrollPosition
-      const queryFrom = currentPage.queryFrom || query.from || 'from-podcast'
-      const queryPage = currentPage.queryPage || query.page || 1
-      const querySort = currentPage.querySort || query.sort || 'most-recent'
-      const queryType = currentPage.queryType || query.type || 'episodes'
-      let podcastId = ''
-
-      if (queryFrom === 'from-podcast') {
-        podcastId = podcast.id
-      } else if (queryFrom === 'subscribed-only') {
-        podcastId = user.subscribedPodcastIds
-      }
-
-      if (Object.keys(currentPage).length === 0) {
-        let results
-
-        if (queryType === 'episodes') {
-          results = await getEpisodesByQuery({
-            from: queryFrom,
-            ...(!podcastId ? { includePodcast: true } : {}),
-            page: queryPage,
-            ...(podcastId ? { podcastId } : {}),
-            sort: querySort,
-            type: queryType
-          }, nsfwMode)
-        } else {
-          results = await getMediaRefsByQuery({
-            from: queryFrom,
-            ...(!podcastId ? { includePodcast: true } : {}),
-            page: queryPage,
-            ...(podcastId ? { podcastId } : {}),
-            sort: querySort,
-            type: queryType
-          }, nsfwMode)
-        }
-
-        const listItems = results.data[0].map(x => {
-          const item = convertToNowPlayingItem(x, {}, podcast)
-          item.podcastId = podcast.id
-          item.podcastImageUrl = podcast.imageUrl
-          item.podcastTitle = podcast.title
-          return item
-        })
-        
-        store.dispatch(playerQueueLoadSecondaryItems(clone(listItems)))
-
-        store.dispatch(pagesSetQueryState({
-          pageKey: pageKeyWithId,
-          listItems,
-          listItemsTotal: results.data[1],
-          podcast,
-          queryFrom,
-          queryPage,
-          querySort,
-          queryType
-        }))
-      }
-
+      podcastResult = await getPodcastById(query.id)
+    } catch (err) {
       store.dispatch(pageIsLoading(false))
+      return { errorCode: err.response && err.response.status || 500 }
+    }
 
-      const meta = {
-        currentUrl: getUrlFromRequestOrWindow(req),
-        description: removeDoubleQuotes(podcast.description),
-        imageAlt: podcast.imageUrl ? podcast.title : 'Podverse logo',
-        imageUrl: podcast.imageUrl,
-        title: podcast.title
+    const podcast = podcastResult.data
+
+    const currentPage = pages[pageKeyWithId] || {}
+    const lastScrollPosition = currentPage.lastScrollPosition
+    const queryFrom = currentPage.queryFrom || query.from || 'from-podcast'
+    const queryPage = currentPage.queryPage || query.page || 1
+    const querySort = currentPage.querySort || query.sort || 'most-recent'
+    const queryType = currentPage.queryType || query.type || 'episodes'
+    let podcastId = ''
+
+    if (queryFrom === 'from-podcast') {
+      podcastId = podcast.id
+    } else if (queryFrom === 'subscribed-only') {
+      podcastId = user.subscribedPodcastIds
+    }
+
+    if (Object.keys(currentPage).length === 0) {
+      let results
+
+      if (queryType === 'episodes') {
+        results = await getEpisodesByQuery({
+          from: queryFrom,
+          ...(!podcastId ? { includePodcast: true } : {}),
+          page: queryPage,
+          ...(podcastId ? { podcastId } : {}),
+          sort: querySort,
+          type: queryType
+        })
+      } else {
+        results = await getMediaRefsByQuery({
+          from: queryFrom,
+          ...(!podcastId ? { includePodcast: true } : {}),
+          page: queryPage,
+          ...(podcastId ? { podcastId } : {}),
+          sort: querySort,
+          type: queryType
+        })
       }
 
-      return { lastScrollPosition, meta, pageKey: pageKeyWithId, podcast, queryFrom, queryPage,
-        querySort, queryType }
+      const listItems = results.data[0].map(x => {
+        const item = convertToNowPlayingItem(x, {}, podcast)
+        item.podcastId = podcast.id
+        item.podcastImageUrl = podcast.imageUrl
+        item.podcastTitle = podcast.title
+        return item
+      })
+      
+      store.dispatch(playerQueueLoadSecondaryItems(clone(listItems)))
 
-    } catch (error) {
-      console.log(error)
-      return {}
+      store.dispatch(pagesSetQueryState({
+        pageKey: pageKeyWithId,
+        listItems,
+        listItemsTotal: results.data[1],
+        podcast,
+        queryFrom,
+        queryPage,
+        querySort,
+        queryType
+      }))
     }
+
+    store.dispatch(pageIsLoading(false))
+
+    const meta = {
+      currentUrl: getUrlFromRequestOrWindow(req),
+      description: removeDoubleQuotes(podcast.description),
+      imageAlt: podcast.imageUrl ? podcast.title : 'Podverse logo',
+      imageUrl: podcast.imageUrl,
+      title: podcast.title
+    }
+
+    return { lastScrollPosition, meta, pageKey: pageKeyWithId, podcast, queryFrom, queryPage,
+      querySort, queryType }
   }
 
   componentDidMount() {
-    const { is404Page, playerQueue } = this.props
+    const { errorCode, playerQueue } = this.props
     const { secondaryItems } = playerQueue
 
-    if (is404Page) return
+    if (errorCode) return
 
     clearItemsFromSecondaryQueueStorage()
     addItemsToSecondaryQueueStorage(secondaryItems)
   }
 
   render() {
-    const { is404Page, meta, pageKey, pages, pagesSetQueryState, podcast } = this.props
-    const { queryFrom, queryPage, querySort, queryType } = pages[pageKey]
+    const { errorCode, meta, pageKey, pages, pagesSetQueryState, podcast } = this.props
+    const page = pages[pageKey] || {}
+    const { queryFrom, queryPage, querySort, queryType } = page
 
-    if (is404Page) {
-      return <Error statusCode={404} />
+    if (errorCode) {
+      return <Error statusCode={errorCode} />
     }
 
     return (

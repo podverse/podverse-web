@@ -28,8 +28,7 @@ class Playlists extends Component<Props, State> {
 
   static async getInitialProps({ req, store }) {
     const state = store.getState()
-    const { pages, settings, user } = state
-    const { nsfwMode } = settings
+    const { pages, user } = state
 
     const subscribedPlaylistIds = user.subscribedPlaylistIds || []
 
@@ -43,7 +42,7 @@ class Playlists extends Component<Props, State> {
       const subscribedPlaylistsData = await getPlaylistsByQuery({
         from: 'subscribed-only',
         subscribedPlaylistIds
-      }, nsfwMode)
+      })
       subscribedPlaylists = subscribedPlaylistsData.data
     }
 

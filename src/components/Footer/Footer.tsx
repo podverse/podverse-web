@@ -8,7 +8,6 @@ import colors from '~/lib/constants/colors'
 import { getViewContentsElementScrollTop } from '~/lib/utility'
 import { pageIsLoading, pagesSetQueryState, settingsSetNSFWMode, settingsSetUITheme
   } from '~/redux/actions'
-import { NSFWModal } from '../NSFWModal/NSFWModal'
 const cookie = require('cookie')
 
 type Props = {
@@ -91,8 +90,7 @@ class Footer extends Component<Props, State> {
 
   render() {
     const { settings } = this.props
-    const { nsfwMode, uiTheme, uiThemeHide } = settings
-    const { nsfwModalIsOpen } = this.state
+    const { uiTheme, uiThemeHide } = settings
 
     const uiThemeAriaLabel = uiTheme === 'dark' || !uiTheme ? 'Turn on light mode' : 'Turn on dark mode'
 
@@ -207,10 +205,10 @@ class Footer extends Component<Props, State> {
             </Link>
           </div>
         </div>
-        <NSFWModal
+        {/* <NSFWModal
           handleHideModal={this.hideNSFWModal}
           isNSFWModeOn={nsfwMode === 'on'}
-          isOpen={nsfwModalIsOpen} />
+          isOpen={nsfwModalIsOpen} /> */}
       </React.Fragment>
     )
   }

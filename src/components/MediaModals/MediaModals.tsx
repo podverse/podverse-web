@@ -152,7 +152,7 @@ class MediaModals extends Component<Props, State> {
     mediaPlayerUpdatePlaying(true)
     
     const playbackRate = this.getPlaybackRateValue() || 1
-    let timeoutMilliseconds = 3000 / playbackRate
+    const timeoutMilliseconds = 3000 / playbackRate
 
     setTimeout(() => {
       mediaPlayerUpdatePlaying(false)
