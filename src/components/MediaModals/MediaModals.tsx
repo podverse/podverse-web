@@ -70,6 +70,7 @@ class MediaModals extends Component<Props, State> {
 
     let priorityItems = []
     if (user && user.id) {
+      user.queueItems = Array.isArray(user.queueItems) ? user.queueItems : []
       isLast ? user.queueItems.push(nowPlayingItem) : user.queueItems.unshift(nowPlayingItem)
 
       const response = await updateUserQueueItems({ queueItems: user.queueItems })
