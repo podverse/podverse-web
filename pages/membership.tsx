@@ -127,7 +127,7 @@ const featuresData = [
     icon2: true
   },
   {
-    text: 'share your profile',
+    text: 'share your user profile',
     icon1: false,
     icon2: true
   },
