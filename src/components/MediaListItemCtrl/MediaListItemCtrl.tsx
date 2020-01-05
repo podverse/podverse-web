@@ -47,6 +47,7 @@ class MediaListItemCtrl extends Component<Props, State> {
 
     let priorityItems = []
     if (user && user.id) {
+      user.queueItems = Array.isArray(user.queueItems) ? user.queueItems : []
       isLast ? user.queueItems.push(nowPlayingItem) : user.queueItems.unshift(nowPlayingItem)
 
       const response = await updateUserQueueItems({ queueItems: user.queueItems })
@@ -97,7 +98,7 @@ class MediaListItemCtrl extends Component<Props, State> {
         handleAddToQueueLast={() => { this.addToQueue(nowPlayingItem, true) }}
         handleAddToQueueNext={() => { this.addToQueue(nowPlayingItem, false) }}
         handleLinkClick={this.linkClick}
-        handlePlayItem={() => { handlePlayItem ? handlePlayItem(nowPlayingItem) : null }}
+        handlePlayItem={() => handlePlayItem ? handlePlayItem(nowPlayingItem) : null}
         handleRemoveItem={handleRemoveItem}
         handleToggleAddToPlaylist={() => this.toggleAddToModal(nowPlayingItem, false)}
         hasLink={true}

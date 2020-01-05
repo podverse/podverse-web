@@ -82,6 +82,7 @@ class MediaInfoCtrl extends Component<Props, State> {
     const { episode, mediaRef, playerQueueLoadPriorityItems, user } = this.props
     
     let priorityItems = []
+    user.queueItems = Array.isArray(user.queueItems) ? user.queueItems : []
     if (user && user.id) {
       if (nowPlayingItem && nowPlayingItem.episodeMediaUrl) {
         isLast ? user.queueItems.push(nowPlayingItem) : user.queueItems.unshift(nowPlayingItem)
@@ -179,7 +180,7 @@ class MediaInfoCtrl extends Component<Props, State> {
 
   render() {
     const { episode, mediaRef, nowPlayingItem, podcast, user } = this.props
-    let userId = user && user.id
+    const userId = user && user.id
 
     return (
       <MediaInfo
