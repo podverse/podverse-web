@@ -82,6 +82,14 @@ class UserHeaderCtrl extends Component<Props, State> {
                         <FontAwesomeIcon icon='link' />
                       </a>
                   }
+                  {
+                    loggedInUser.isPublic &&
+                      <a
+                        className='media-header__edit'
+                        href={'/settings'}>
+                        <FontAwesomeIcon icon='edit' />
+                      </a>
+                  }
                   <div className='media-header__subscribe'>
                     {
                       loggedInUser.isPublic ?
