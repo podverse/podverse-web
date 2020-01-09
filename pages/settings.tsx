@@ -343,7 +343,7 @@ class Settings extends Component<Props, State> {
           {
             isLoggedIn &&
             <Fragment>
-                <h3>Profile Settings</h3>
+                <h3>Settings</h3>
                 <FormGroup>
                   <Label for='settings-name'>Name</Label>
                   <Input 
