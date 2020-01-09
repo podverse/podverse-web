@@ -27,9 +27,16 @@ type Props = {
   userSetInfo?: any
 }
 
-type State = {}
+type State = {
+  signUpFinished?: boolean
+}
 
 class Auth extends Component<Props, State> {
+
+  constructor(props) {
+    super(props)
+    this.state = {}
+  }
 
   handleForgotPasswordSubmit = async email => {
     const { modalsForgotPasswordIsLoading, modalsForgotPasswordSetErrorResponse,
@@ -126,7 +133,7 @@ class Auth extends Component<Props, State> {
 
     try {
       await signUp(email, password)
-      window.location.reload()
+      this.setState({ signUpFinished: true })
     } catch (error) {
       if (error && error.response && error.response.status === 429) {
         alertRateLimitError(error)
@@ -159,6 +166,7 @@ class Auth extends Component<Props, State> {
     const { modals, modalsForgotPasswordShow, modalsLoginShow, modalsSignUpShow
       } = this.props
     const { forgotPassword, login, signUp } = modals
+    const { signUpFinished } = this.state
 
     const signUpTopText = (
       <React.Fragment>
@@ -194,6 +202,7 @@ class Auth extends Component<Props, State> {
           hideModal={() => modalsSignUpShow(false)}
           isLoading={modals.signUp && modals.signUp.isLoading}
           isOpen={modals.signUp && modals.signUp.isOpen}
+          signUpFinished={signUpFinished}
           topText={signUpTopText} />
       </React.Fragment>
     )
