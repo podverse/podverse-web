@@ -37,14 +37,17 @@ class MediaInfoCtrl extends Component<Props, State> {
 
   static defaultProps: Props = {}
 
-  playItem = async nowPlayingItem => {
+  playItem = async (nowPlayingItem, loadOnly = false) => {
     const { mediaPlayer, mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying, user,
       userSetInfo } = this.props
 
     const currentTime = Math.floor(window.player.getCurrentTime()) || 0
     await updateHistoryItemPlaybackPosition(mediaPlayer.nowPlayingItem, user, currentTime)
     nowPlayingItem = assignLocalOrLoggedInNowPlayingItemPlaybackPosition(user, nowPlayingItem)
-    mediaPlayerUpdatePlaying(true)
+
+    if (!loadOnly) {
+      mediaPlayerUpdatePlaying(true)
+    }
 
     if (
       !mediaPlayer.nowPlayingItem ||
@@ -122,10 +125,14 @@ class MediaInfoCtrl extends Component<Props, State> {
     })
   }
 
-  toggleMakeClipModal = () => {
+  toggleEditClipModal = () => {
     const { modals, modalsMakeClipShow } = this.props
     const { makeClip } = modals
     const { isOpen } = makeClip
+
+    if (!this.isCurrentlyPlayingItem()) {
+      this.playItem(this.getCurrentPageItem(), true)
+    }
 
     modalsMakeClipShow({
       isEditing: true,
@@ -191,7 +198,7 @@ class MediaInfoCtrl extends Component<Props, State> {
         handlePauseItem={this.pauseItem}
         handlePlayItem={() => this.playItem(this.getCurrentPageItem())}
         handleToggleAddToModal={this.toggleAddToModal}
-        handleToggleMakeClipModal={this.toggleMakeClipModal}
+        handleToggleEditClipModal={this.toggleEditClipModal}
         loggedInUserId={userId}
         mediaRef={mediaRef}
         nowPlayingItem={nowPlayingItem}
