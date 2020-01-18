@@ -6,13 +6,13 @@ import { bindActionCreators } from 'redux'
 import MediaListItemCtrl from '~/components/MediaListItemCtrl/MediaListItemCtrl'
 import config from '~/config'
 import { convertToNowPlayingItem } from '~/lib/nowPlayingItem'
-import { assignLocalOrLoggedInNowPlayingItemPlaybackPosition, clone, updateHistoryItemPlaybackPosition
-  } from '~/lib/utility'
+import { addOrUpdateHistoryItemPlaybackPosition, assignLocalOrLoggedInNowPlayingItemPlaybackPosition,
+  clone } from '~/lib/utility'
 import { mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying, pageIsLoading, 
   playerQueueAddSecondaryItems, playerQueueLoadPriorityItems, playerQueueLoadSecondaryItems,
   userSetInfo } from '~/redux/actions'
-import { addOrUpdateUserHistoryItem, getPodcastsByQuery, getUserMediaRefs, getUserPlaylists,
-  getLoggedInUserMediaRefs, getLoggedInUserPlaylists } from '~/services'
+import { getLoggedInUserMediaRefs, getLoggedInUserPlaylists, getPodcastsByQuery, getUserMediaRefs,
+  getUserPlaylists } from '~/services'
 const uuidv4 = require('uuid/v4')
 const { QUERY_MEDIA_REFS_LIMIT } = config()
 
@@ -250,7 +250,7 @@ class UserMediaListCtrl extends Component<Props, State> {
       pages, pageKey, playerQueueLoadSecondaryItems, user, userSetInfo } = this.props
     const { listItems } = pages[pageKey]
     const currentTime = Math.floor(window.player.getCurrentTime()) || 0
-    await updateHistoryItemPlaybackPosition(mediaPlayer.nowPlayingItem, user, currentTime)
+    await addOrUpdateHistoryItemPlaybackPosition(mediaPlayer.nowPlayingItem, user, currentTime)
     nowPlayingItem = assignLocalOrLoggedInNowPlayingItemPlaybackPosition(user, nowPlayingItem)
     mediaPlayerLoadNowPlayingItem(nowPlayingItem)
     setNowPlayingItemInStorage(nowPlayingItem)
@@ -265,7 +265,7 @@ class UserMediaListCtrl extends Component<Props, State> {
     playerQueueLoadSecondaryItems(queuedListItems)
 
     if (loggedInUser && loggedInUser.id) {
-      await addOrUpdateUserHistoryItem(nowPlayingItem)
+      await addOrUpdateHistoryItemPlaybackPosition(nowPlayingItem, user)
 
       const historyItems = loggedInUser.historyItems.filter(x => {
         if (x) {

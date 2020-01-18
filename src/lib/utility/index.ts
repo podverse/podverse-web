@@ -1,6 +1,6 @@
-import { getNowPlayingOrNextFromStorage, setNowPlayingItemInStorage } from 'podverse-ui'
+import { getLastHistoryItemOrNowPlayingItemFromStorage, setNowPlayingItemInStorage } from 'podverse-ui'
 import { userUpdateHistoryItem } from '~/redux/actions'
-import { addOrUpdateUserHistoryItem } from '~/services'
+import { addOrUpdateUserHistoryItem, updateHistoryItemPlaybackPosition } from '~/services'
 export { validatePassword } from './validatePassword'
 
 // This checks if we are server-side rendering or rendering on the front-end.
@@ -169,7 +169,7 @@ export const getPlaybackPositionFromHistory = (historyItems: any[], nowPlayingIt
 
 export const assignLocalOrLoggedInNowPlayingItemPlaybackPosition = (user, nowPlayingItem) => {
   if (!user || !user.id) {
-    const currentItem = getNowPlayingOrNextFromStorage()
+    const currentItem = getLastHistoryItemOrNowPlayingItemFromStorage(user && user.historyItems)
     if (currentItem && currentItem.episodeId === nowPlayingItem.episodeId) {
       nowPlayingItem.userPlaybackPosition = currentItem.userPlaybackPosition
     }
@@ -179,13 +179,14 @@ export const assignLocalOrLoggedInNowPlayingItemPlaybackPosition = (user, nowPla
   return nowPlayingItem
 }
 
-export const updateHistoryItemPlaybackPosition = async (nowPlayingItem, user, overridePosition?: number) => {
+export const addOrUpdateHistoryItemPlaybackPosition = async (nowPlayingItem, user, overridePosition?: number) => {
   let currentTime = Math.floor(window.player.getCurrentTime()) || 0
   currentTime = overridePosition ? overridePosition : currentTime
   nowPlayingItem.userPlaybackPosition = currentTime
 
   if (user && user.id) {
     await addOrUpdateUserHistoryItem(nowPlayingItem)
+    updateHistoryItemPlaybackPosition(nowPlayingItem)
     await userUpdateHistoryItem(nowPlayingItem)
   }
 

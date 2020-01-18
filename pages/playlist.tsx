@@ -13,11 +13,11 @@ import Error from './_error'
 import MediaListItemCtrl from '~/components/MediaListItemCtrl/MediaListItemCtrl'
 import Meta from '~/components/Meta/Meta'
 import { convertToNowPlayingItem } from '~/lib/nowPlayingItem'
-import { alertPremiumRequired, alertRateLimitError, alertSomethingWentWrong, assignLocalOrLoggedInNowPlayingItemPlaybackPosition,
-  clone, getUrlFromRequestOrWindow, readableDate, removeDoubleQuotes, updateHistoryItemPlaybackPosition } from '~/lib/utility'
+import { addOrUpdateHistoryItemPlaybackPosition, alertPremiumRequired, alertRateLimitError, alertSomethingWentWrong,
+  assignLocalOrLoggedInNowPlayingItemPlaybackPosition, clone, getUrlFromRequestOrWindow, readableDate, removeDoubleQuotes } from '~/lib/utility'
 import { mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying, pageIsLoading,
   pagesSetQueryState, playerQueueLoadSecondaryItems, userSetInfo } from '~/redux/actions'
-import { addOrRemovePlaylistItem, addOrUpdateUserHistoryItem, deletePlaylist,
+import { addOrRemovePlaylistItem, deletePlaylist,
   getPlaylistById, toggleSubscribeToPlaylist, updatePlaylist } from '~/services/'
 
 const uuidv4 = require('uuid/v4')
@@ -352,7 +352,7 @@ class Playlist extends Component<Props, State> {
     const { sortedNowPlayingItems } = this.state
 
     const currentTime = Math.floor(window.player.getCurrentTime()) || 0
-    await updateHistoryItemPlaybackPosition(mediaPlayer.nowPlayingItem, user, currentTime)
+    await addOrUpdateHistoryItemPlaybackPosition(mediaPlayer.nowPlayingItem, user, currentTime)
     nowPlayingItem = assignLocalOrLoggedInNowPlayingItemPlaybackPosition(user, nowPlayingItem)
     mediaPlayerLoadNowPlayingItem(nowPlayingItem)
     setNowPlayingItemInStorage(nowPlayingItem)
@@ -367,7 +367,7 @@ class Playlist extends Component<Props, State> {
     playerQueueLoadSecondaryItems(queuedListItems)
 
     if (user && user.id) {
-      await addOrUpdateUserHistoryItem(nowPlayingItem)
+      await addOrUpdateHistoryItemPlaybackPosition(nowPlayingItem, user)
 
       const historyItems = user.historyItems.filter(x => {
         if (x) {

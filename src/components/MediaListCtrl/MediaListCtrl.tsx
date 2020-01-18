@@ -9,13 +9,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import MediaListItemCtrl from '~/components/MediaListItemCtrl/MediaListItemCtrl'
 import config from '~/config'
 import { convertToNowPlayingItem } from '~/lib/nowPlayingItem'
-import { assignLocalOrLoggedInNowPlayingItemPlaybackPosition, clone, updateHistoryItemPlaybackPosition
-  } from '~/lib/utility'
+import { addOrUpdateHistoryItemPlaybackPosition, assignLocalOrLoggedInNowPlayingItemPlaybackPosition,
+  clone } from '~/lib/utility'
 import { mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying, pageIsLoading,
   playerQueueAddSecondaryItems, playerQueueLoadPriorityItems,
   playerQueueLoadSecondaryItems, userSetInfo } from '~/redux/actions'
-import { addOrUpdateUserHistoryItem, getEpisodesByQuery, getMediaRefsByQuery
-  } from '~/services'
+import { getEpisodesByQuery, getMediaRefsByQuery } from '~/services'
 import AwesomeDebouncePromise from 'awesome-debounce-promise'
 const uuidv4 = require('uuid/v4')
 const { QUERY_MEDIA_REFS_LIMIT } = config()
@@ -287,7 +286,7 @@ class MediaListCtrl extends Component<Props, State> {
     const { listItems, podcast } = pages[pageKey]
     const { nowPlayingItem: previousItem } = mediaPlayer
     const currentTime = Math.floor(window.player.getCurrentTime()) || 0
-    await updateHistoryItemPlaybackPosition(mediaPlayer.nowPlayingItem, user, currentTime)
+    await addOrUpdateHistoryItemPlaybackPosition(mediaPlayer.nowPlayingItem, user, currentTime)
 
     // If loading a new episode, clear the player to prevent the error:
     // TypeError: Failed to set the 'currentTime' property on 'HTMLMediaElement': The provided double value is non-finite.
@@ -326,7 +325,7 @@ class MediaListCtrl extends Component<Props, State> {
     playerQueueLoadSecondaryItems(queuedListItems)
 
     if (user && user.id) {
-      await addOrUpdateUserHistoryItem(nowPlayingItem)
+      await addOrUpdateHistoryItemPlaybackPosition(nowPlayingItem, user)
 
       const historyItems = user.historyItems.filter(x => {
         if (x) {

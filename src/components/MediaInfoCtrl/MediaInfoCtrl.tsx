@@ -8,9 +8,9 @@ import { mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying, modalsAddToSho
   modalsMakeClipShow, pageIsLoading, pagesSetQueryState, playerQueueLoadPriorityItems,
   userSetInfo } from '~/redux/actions'
 import { convertToNowPlayingItem } from '~/lib/nowPlayingItem'
-import { assignLocalOrLoggedInNowPlayingItemPlaybackPosition, getViewContentsElementScrollTop,
-  updateHistoryItemPlaybackPosition } from '~/lib/utility'
-import { addOrUpdateUserHistoryItem, updateUserQueueItems } from '~/services'
+import { addOrUpdateHistoryItemPlaybackPosition, assignLocalOrLoggedInNowPlayingItemPlaybackPosition,
+  getViewContentsElementScrollTop } from '~/lib/utility'
+import { updateUserQueueItems } from '~/services'
 
 type Props = {
   episode?: any
@@ -42,7 +42,7 @@ class MediaInfoCtrl extends Component<Props, State> {
       userSetInfo } = this.props
 
     const currentTime = Math.floor(window.player.getCurrentTime()) || 0
-    await updateHistoryItemPlaybackPosition(mediaPlayer.nowPlayingItem, user, currentTime)
+    await addOrUpdateHistoryItemPlaybackPosition(mediaPlayer.nowPlayingItem, user, currentTime)
     nowPlayingItem = assignLocalOrLoggedInNowPlayingItemPlaybackPosition(user, nowPlayingItem)
 
     if (!loadOnly) {
@@ -57,7 +57,7 @@ class MediaInfoCtrl extends Component<Props, State> {
       mediaPlayerLoadNowPlayingItem(nowPlayingItem)
       setNowPlayingItemInStorage(nowPlayingItem)
       if (user && user.id) {
-        await addOrUpdateUserHistoryItem(nowPlayingItem)
+        await addOrUpdateHistoryItemPlaybackPosition(nowPlayingItem, user)
   
         const historyItems = user.historyItems.filter(x => {
           if (x) {

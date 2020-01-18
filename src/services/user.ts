@@ -129,6 +129,22 @@ export const addOrUpdateUserHistoryItem = async (nowPlayingItem: NowPlayingItem)
   })
 }
 
+export const updateHistoryItemPlaybackPosition = async (nowPlayingItem: NowPlayingItem) => {
+  nowPlayingItem = {
+    clipId: nowPlayingItem.clipId,
+    episodeId: nowPlayingItem.episodeId,
+    userPlaybackPosition: nowPlayingItem.userPlaybackPosition
+  }
+
+  return axios(`${API_BASE_URL}/user/update-history-item-playback-position`, {
+    method: 'patch',
+    data: {
+      historyItem: nowPlayingItem
+    },
+    withCredentials: true
+  })
+}
+
 export const downloadLoggedInUserData = async (id: string) => {
   return axios(`${API_BASE_URL}/user/download`, {
     method: 'get',
