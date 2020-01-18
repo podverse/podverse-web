@@ -5,7 +5,7 @@ import { MediaInfo, addItemToPriorityQueueStorage, getPriorityQueueItemsStorage,
   setNowPlayingItemInStorage } from 'podverse-ui'
 import { bindActionCreators } from 'redux';
 import { mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying, modalsAddToShow,
-  modalsMakeClipShow, pageIsLoading, pagesSetQueryState, playerQueueLoadPriorityItems,
+  modalsMakeClipShow, modalsShareShow, pageIsLoading, pagesSetQueryState, playerQueueLoadPriorityItems,
   userSetInfo } from '~/redux/actions'
 import { convertToNowPlayingItem } from '~/lib/nowPlayingItem'
 import { addOrUpdateHistoryItemPlaybackPosition, assignLocalOrLoggedInNowPlayingItemPlaybackPosition,
@@ -21,6 +21,7 @@ type Props = {
   modals?: any
   modalsAddToShow?: any
   modalsMakeClipShow?: any
+  modalsShareShow?: any
   nowPlayingItem?: any
   pageIsLoading?: any
   pageKey?: string
@@ -141,6 +142,38 @@ class MediaInfoCtrl extends Component<Props, State> {
     })
   }
 
+  toggleMakeClipModal = () => {
+    const { modals, modalsMakeClipShow } = this.props
+    const { makeClip } = modals
+    const { isOpen } = makeClip
+
+    if (!this.isCurrentlyPlayingItem()) {
+      this.playItem(this.getCurrentPageItem(), true)
+    }
+
+    modalsMakeClipShow({
+      isEditing: false,
+      isOpen: !isOpen,
+      nowPlayingItem: this.getCurrentPageItem()
+    })
+  }
+
+  toggleShareModal = () => {
+    const { modals, modalsShareShow } = this.props
+    const { share } = modals
+    const { isOpen } = share
+    const nowPlayingItem = this.getCurrentPageItem()
+
+    const clipLinkAs = nowPlayingItem.clipId ? `${window.location.host}/clip/${nowPlayingItem.clipId}` : ''
+    const episodeLinkAs = `${window.location.host}/episode/${nowPlayingItem.episodeId}`
+
+    modalsShareShow({
+      clipLinkAs,
+      episodeLinkAs,
+      isOpen: !isOpen
+    })
+  }
+
   getCurrentPageItem = () => {
     const { episode, mediaRef, nowPlayingItem } = this.props
 
@@ -199,6 +232,8 @@ class MediaInfoCtrl extends Component<Props, State> {
         handlePlayItem={() => this.playItem(this.getCurrentPageItem())}
         handleToggleAddToModal={this.toggleAddToModal}
         handleToggleEditClipModal={this.toggleEditClipModal}
+        handleToggleMakeClipModal={this.toggleMakeClipModal}
+        handleToggleShareModal={this.toggleShareModal}
         loggedInUserId={userId}
         mediaRef={mediaRef}
         nowPlayingItem={nowPlayingItem}
@@ -215,6 +250,7 @@ const mapDispatchToProps = dispatch => ({
   mediaPlayerUpdatePlaying: bindActionCreators(mediaPlayerUpdatePlaying, dispatch),
   modalsAddToShow: bindActionCreators(modalsAddToShow, dispatch),
   modalsMakeClipShow: bindActionCreators(modalsMakeClipShow, dispatch),
+  modalsShareShow: bindActionCreators(modalsShareShow, dispatch),
   pageIsLoading: bindActionCreators(pageIsLoading, dispatch),
   pagesSetQueryState: bindActionCreators(pagesSetQueryState, dispatch),
   playerQueueLoadPriorityItems: bindActionCreators(playerQueueLoadPriorityItems, dispatch),
