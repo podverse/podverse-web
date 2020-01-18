@@ -130,19 +130,30 @@ export const addOrUpdateUserHistoryItem = async (nowPlayingItem: NowPlayingItem)
 }
 
 export const updateHistoryItemPlaybackPosition = async (nowPlayingItem: NowPlayingItem) => {
+  const origNowPlayingItem = nowPlayingItem
   nowPlayingItem = {
     clipId: nowPlayingItem.clipId,
     episodeId: nowPlayingItem.episodeId,
     userPlaybackPosition: nowPlayingItem.userPlaybackPosition
   }
+  try {
+    const result = await axios(`${API_BASE_URL}/user/update-history-item-playback-positionasdf`, {
+      method: 'patch',
+      data: {
+        historyItem: nowPlayingItem
+      },
+      withCredentials: true
+    })
+    return result
+  } catch (error) {
 
-  return axios(`${API_BASE_URL}/user/update-history-item-playback-position`, {
-    method: 'patch',
-    data: {
-      historyItem: nowPlayingItem
-    },
-    withCredentials: true
-  })
+    // If 406 NoAcceptable error, then the historyItem may be missing from the history, so try to add it.
+    if (error.response && error.response.status === 406) {
+      await addOrUpdateUserHistoryItem(origNowPlayingItem)
+    }
+
+    return
+  }
 }
 
 export const downloadLoggedInUserData = async (id: string) => {
