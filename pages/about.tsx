@@ -53,14 +53,18 @@ class About extends Component<Props, State> {
 
         <h3>About</h3>
         <p>
-          <span className='font-bold'>Podverse makes it easy to create, share, and discover full-length clips from your favorite podcasts. </span>
-          Other features include an intuitive design, sharable playlists, user profiles, and the ability to sync your subscriptions and queue across all of your devices.
+          <span className='font-bold'>Podverse is a multi-platform podcast app with unlimited clip sharing and more <span aria-label='Partying emoji' role='img'>🥳</span></span>
+          Other features include an intuitive design, sharable playlists, sharable user profiles, and the ability to sync your subscriptions and queue across all of your devices.
         </p>
 
         <p>
           All Podverse software is provided under an open source, copyleft license.
           You may download, modify, and use it for any purpose,
           as long as you share your changes to the code.
+        </p>
+
+        <p>
+          Sign up today and get 1 year of Podverse Premium for free!
         </p>
 
         <div className='flex-row'>
