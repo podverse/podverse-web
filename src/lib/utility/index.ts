@@ -203,6 +203,24 @@ export const getViewContentsElementScrollTop = () => {
   return 0
 }
 
+export const enrichPodcastsWithCategoriesString = (podcasts: any) => {
+  const enrichedPodcasts = [] as any
+  for (const podcast of podcasts) {
+    const { categories = [] } = podcast
+    let categoriesString = ''
+    if (categories && categories.length > 0) {
+      for (const category of categories) {
+        categoriesString += category.title + ', '
+      }
+      categoriesString = categoriesString.substring(0, categoriesString.length - 2)
+    }
+
+    podcast.categoriesString = categoriesString
+    enrichedPodcasts.push(podcast)
+  }
+  return enrichedPodcasts
+}
+
 export const smileyRandomizer = () => {
   // [🙂, 😊, 😁, 😄, 😎, 😺, 😸, 🌝, 🌞]
   const smilies = ['&#128578;', '&#128522;', '&#128513;', '&#128516;', '&#128526;',

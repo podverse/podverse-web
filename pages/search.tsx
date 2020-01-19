@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Button, MediaListItem, Pagination } from 'podverse-ui'
 import Meta from '~/components/Meta/Meta'
 import config from '~/config'
-import { getUrlFromRequestOrWindow } from '~/lib/utility'
+import { getUrlFromRequestOrWindow, enrichPodcastsWithCategoriesString } from '~/lib/utility'
 import { pageIsLoading, pagesSetQueryState } from '~/redux/actions'
 import { getPodcastsByQuery } from '~/services'
 const uuidv4 = require('uuid/v4')
@@ -105,11 +105,12 @@ class Search extends Component<Props, State> {
     try {
       const response = await getPodcastsByQuery(query)
       const podcasts = response.data || []
+      const enrichedPodcasts = enrichPodcastsWithCategoriesString(podcasts[0])
 
       pagesSetQueryState({
         pageKey: kPageKey,
         isSearching: false,
-        listItems: podcasts[0],
+        listItems: enrichedPodcasts,
         listItemsTotal: podcasts[1]        
       })
 
@@ -146,13 +147,14 @@ class Search extends Component<Props, State> {
     const placeholder = searchBy === 'host'
       ? 'search by host' : 'search by title'
 
+      
     const listItemNodes = listItems ? listItems.map(x => {
       return (
         <MediaListItem
           dataPodcast={x}
           handleLinkClick={this.linkClick}
           hasLink={true}
-          itemType='podcast'
+          itemType='podcast-search-result'
           key={`podcast-list-item-${uuidv4()}`} />
       )
     }) : null
