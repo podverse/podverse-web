@@ -52,20 +52,36 @@ class About extends Component<Props, State> {
           twitterTitle={meta.title} />
 
         <h3>About</h3>
-        <p>
-          <span className='font-bold'>Podverse is a multi-platform podcast app with unlimited clip sharing and more <span aria-label='Partying emoji' role='img'>🥳</span></span>
-          Other features include an intuitive design, sharable playlists, sharable user profiles, and the ability to sync your subscriptions and queue across all of your devices.
-        </p>
-
-        <p>
-          All Podverse software is provided under an open source, copyleft license.
-          You may download, modify, and use it for any purpose,
-          as long as you share your changes to the code.
-        </p>
-
-        <p>
-          Sign up today and get 1 year of Podverse Premium for free!
-        </p>
+        <div className='about'>
+          <p>
+            Create and share highlights of your favorite podcasts with Podverse!
+            Now available on iOS, Android, and web.
+            Sign up today and get 1 year of Podverse premium for free <span aria-label='partying face' role='img'>🥳</span>
+          </p>
+          <label>Free features:</label>
+          <ul>
+            <li>Subscribe to podcasts</li>
+            <li>Download episodes</li>
+            <li>Auto-download new episodes</li>
+            <li>Create and share podcast clips of any length</li>
+            <li>Add episodes and clips to a queue</li>
+            <li>Light / Dark mode</li>
+          </ul>
+          <label>Premium features:</label>
+          <ul>
+            <li>Sync your subscriptions across all devices</li>
+            <li>Sync your queue across all devices</li>
+            <li>Create and share playlists</li>
+            <li>Subscribe to playlists</li>
+            <li>Share your user profile</li>
+            <li>Subscribe to user profiles</li>
+          </ul>
+          <p>
+            All Podverse software is provided under an open source, copyleft license.
+            You may download, modify, and use it for any purpose,
+            as long as you also share your changes to the code.
+          </p>
+        </div>
 
         <div className='flex-row'>
           {/* eslint-disable-next-line jsx-a11y/anchor-has-content */}
