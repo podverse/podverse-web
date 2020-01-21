@@ -345,7 +345,9 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
                 <Component {...pageProps} />
               </div>
               <div className='max-width bottom'>
-                <Footer pageKey={pageKey} />
+                <Footer
+                  isMobileDevice={isMobileDevice}
+                  pageKey={pageKey} />
               </div>
             </div>
             <MediaPlayerView

@@ -11,12 +11,14 @@ import { pageIsLoading, pagesSetQueryState, settingsSetNSFWMode, settingsSetUITh
 const cookie = require('cookie')
 
 type Props = {
+  isMobileDevice?: boolean
   pageIsLoading?: any
   pageKey?: string
   pagesSetQueryState?: any
   settings: any
   settingsSetNSFWMode: any
   settingsSetUITheme: any
+  user: any
 }
 
 type State = {
@@ -89,8 +91,9 @@ class Footer extends Component<Props, State> {
   }
 
   render() {
-    const { settings } = this.props
+    const { isMobileDevice, settings, user } = this.props
     const { uiTheme, uiThemeHide } = settings
+    const isLoggedIn = user && !!user.id
 
     const uiThemeAriaLabel = uiTheme === 'dark' || !uiTheme ? 'Turn on light mode' : 'Turn on dark mode'
 
@@ -204,6 +207,24 @@ class Footer extends Component<Props, State> {
               </a>
             </Link>
           </div>
+          {
+            !isLoggedIn && isMobileDevice &&
+              <div className='footer__app-links'>
+                {/* eslint-disable-next-line jsx-a11y/anchor-has-content */}
+                <a
+                  className="download-on-the-app-store"
+                  href="https://apps.apple.com/us/app/podverse/id1390888454?mt=8"
+                />
+                <a
+                  className="get-it-on-google-play"
+                  href='https://play.google.com/store/apps/details?id=com.podverse&hl=en_US&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'>
+                  <img
+                    alt='Get it on Google Play'
+                    src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png'
+                  />
+                </a>
+              </div>
+          }
         </div>
         {/* <NSFWModal
           handleHideModal={this.hideNSFWModal}
