@@ -54,12 +54,18 @@ class About extends Component<Props, State> {
         <h3>About</h3>
         <div className='about'>
           <p>
-            Create and share highlights of your favorite podcasts with Podverse!
-            Now available on iOS, Android, and web.
-            Sign up today and get 1 year of Podverse premium for free <span aria-label='partying face' role='img'>🥳</span>
+            Podverse is the easiest way to create and share podcast highlights of any length online.
+            Discover new podcasts by browsing highlights in the app, and send highlights to your friends to introduce
+            them to your favorite shows. No login necessary!
+          </p>
+          <p>
+            Beyond clip-sharing, Podverse is a fully functional podcast app for iOS, Android, and web,
+            and is designed to sync across all your devices.
+            Sign up today for a 1 year free trial of Podverse premium <span aria-label='partying face' role='img'>🥳</span>
           </p>
           <label>Free features:</label>
           <ul>
+            <li>Play episodes and clips</li>
             <li>Subscribe to podcasts</li>
             <li>Download episodes</li>
             <li>Auto-download new episodes</li>
@@ -69,6 +75,7 @@ class About extends Component<Props, State> {
           </ul>
           <label>Premium features:</label>
           <ul>
+            <li>Switch devices and play from where you left off</li>
             <li>Sync your subscriptions across all devices</li>
             <li>Sync your queue across all devices</li>
             <li>Create and share playlists</li>
@@ -78,8 +85,13 @@ class About extends Component<Props, State> {
           </ul>
           <p>
             All Podverse software is provided under an open source, copyleft license.
-            You may download, modify, and use it for any purpose,
-            as long as you also share your changes to the code.
+            Anyone can download, modify, and use Podverse software for any purpose for free,
+            as long as they also share their changes to the code.
+            In other words, a podcast network can launch their own podcast app for free with Podverse software.
+          </p>
+          <p>
+            Thanks for checking out the site!
+            Any questions, feedback, or feature requests would be greatly appreciated.
           </p>
         </div>
 
