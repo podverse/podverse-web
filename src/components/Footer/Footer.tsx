@@ -1,14 +1,18 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faFacebookF, faGithub, faRedditAlien, faTwitter } from '@fortawesome/free-brands-svg-icons'
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import Link from 'next/link'
 import Switch from 'react-switch'
+import config from '~/config'
 import colors from '~/lib/constants/colors'
 import { getViewContentsElementScrollTop } from '~/lib/utility'
 import { pageIsLoading, pagesSetQueryState, settingsSetNSFWMode, settingsSetUITheme
   } from '~/redux/actions'
 const cookie = require('cookie')
+const { SOCIAL_FACEBOOK_PAGE_URL, SOCIAL_GITHUB_PAGE_URL, SOCIAL_REDDIT_PAGE_URL,
+  SOCIAL_TWITTER_PAGE_URL } = config()
 
 type Props = {
   isMobileDevice?: boolean
@@ -161,51 +165,103 @@ class Footer extends Component<Props, State> {
             </Link>
           </div>
           <div className='footer__bottom'>
-            <Link
-              as='https://goo.gl/forms/BK9WPAsK1q6xD4Xw1'
-              href='https://goo.gl/forms/BK9WPAsK1q6xD4Xw1'>
-              <a 
-                className='footer-bottom__link'
-                target='_blank'>
-                Contact
-              </a>
-            </Link>
-            {/* <Link
-              as='/faq'
-              href='/faq'>
-              <a
-                className='footer-bottom__link'
-                onClick={this.linkClick}>
-                FAQ
-              </a>
-            </Link> */}
-            <Link
-              as='/about'
-              href='/about'>
-              <a
-                className='footer-bottom__link'
-                onClick={this.linkClick}>
-                About
-              </a>
-            </Link>
-            <Link
-              as='/terms'
-              href='/terms'>
-              <a
-                className='footer-bottom__link'
-                onClick={this.linkClick}>
-                Terms
-              </a>
-            </Link>
-            <Link
-              as='/membership'
-              href='/membership'>
-              <a
-                className='footer-bottom__link'
-                onClick={this.linkClick}>
-                Premium
-              </a>
-            </Link>
+            <div className='footer-bottom__site-links'>
+              <Link
+                as='https://goo.gl/forms/BK9WPAsK1q6xD4Xw1'
+                href='https://goo.gl/forms/BK9WPAsK1q6xD4Xw1'>
+                <a 
+                  className='footer-bottom__link'
+                  target='_blank'>
+                  Contact
+                </a>
+              </Link>
+              {/* <Link
+                as='/faq'
+                href='/faq'>
+                <a
+                  className='footer-bottom__link'
+                  onClick={this.linkClick}>
+                  FAQ
+                </a>
+              </Link> */}
+              <Link
+                as='/about'
+                href='/about'>
+                <a
+                  className='footer-bottom__link'
+                  onClick={this.linkClick}>
+                  About
+                </a>
+              </Link>
+              <Link
+                as='/terms'
+                href='/terms'>
+                <a
+                  className='footer-bottom__link'
+                  onClick={this.linkClick}>
+                  Terms
+                </a>
+              </Link>
+              <Link
+                as='/membership'
+                href='/membership'>
+                <a
+                  className='footer-bottom__link'
+                  onClick={this.linkClick}>
+                  Premium
+                </a>
+              </Link>
+            </div>
+            <div className='footer-bottom__social-links'>
+              {
+                SOCIAL_TWITTER_PAGE_URL &&
+                  <Link
+                    as={SOCIAL_TWITTER_PAGE_URL}
+                    href={SOCIAL_TWITTER_PAGE_URL}>
+                    <a
+                      className='footer-bottom__social-link'
+                      target='_blank'>
+                      <FontAwesomeIcon icon={faTwitter} />
+                    </a>
+                  </Link>
+              }
+              {
+                SOCIAL_FACEBOOK_PAGE_URL &&
+                  <Link
+                    as={SOCIAL_FACEBOOK_PAGE_URL}
+                    href={SOCIAL_FACEBOOK_PAGE_URL}>
+                    <a
+                      className='footer-bottom__social-link'
+                      target='_blank'>
+                      <FontAwesomeIcon icon={faFacebookF} />
+                    </a>
+                  </Link>
+              }
+              {
+                SOCIAL_REDDIT_PAGE_URL &&
+                  <Link
+                    as={SOCIAL_REDDIT_PAGE_URL}
+                    href={SOCIAL_REDDIT_PAGE_URL}>
+                    <a
+                      className='footer-bottom__social-link'
+                      target='_blank'>
+                      <FontAwesomeIcon icon={faRedditAlien} />
+                    </a>
+                  </Link>
+              }
+              {
+                SOCIAL_GITHUB_PAGE_URL &&
+                  <Link
+                    as={SOCIAL_GITHUB_PAGE_URL}
+                    href={SOCIAL_GITHUB_PAGE_URL}>
+                    <a
+                      className='footer-bottom__social-link'
+                      target='_blank'>
+                      <FontAwesomeIcon icon={faGithub} />
+                    </a>
+                  </Link>
+              }
+            </div>
           </div>
           {
             !isLoggedIn && isMobileDevice &&

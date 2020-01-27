@@ -27,6 +27,14 @@ export interface Config {
   metaDefaultImageUrl1200x630?: string
   googleAnalyticsConfig?: any
   REQUEST_PODCAST_URL?: string
+  SOCIAL_FACEBOOK_IMAGE_URL?: string
+  SOCIAL_FACEBOOK_PAGE_URL?: string
+  SOCIAL_GITHUB_IMAGE_URL?: string
+  SOCIAL_GITHUB_PAGE_URL?: string
+  SOCIAL_REDDIT_IMAGE_URL?: string
+  SOCIAL_REDDIT_PAGE_URL?: string
+  SOCIAL_TWITTER_IMAGE_URL?: string
+  SOCIAL_TWITTER_PAGE_URL?: string
 }
 
 export default () => {
@@ -50,7 +58,15 @@ export default () => {
     PAYPAL_CLIENT_ID_PRODUCTION: publicRuntimeConfig.PAYPAL_CLIENT_ID_PRODUCTION,
     PAYPAL_CLIENT_ID_SANDBOX: publicRuntimeConfig.PAYPAL_CLIENT_ID_SANDBOX,
     GOOGLE_ANALYTICS_TRACKING_ID: publicRuntimeConfig.GOOGLE_ANALYTICS_TRACKING_ID,
-    REQUEST_PODCAST_URL: publicRuntimeConfig.REQUEST_PODCAST_URL
+    REQUEST_PODCAST_URL: publicRuntimeConfig.REQUEST_PODCAST_URL,
+    SOCIAL_FACEBOOK_IMAGE_URL: publicRuntimeConfig.SOCIAL_FACEBOOK_IMAGE_URL,
+    SOCIAL_FACEBOOK_PAGE_URL: publicRuntimeConfig.SOCIAL_FACEBOOK_PAGE_URL,
+    SOCIAL_GITHUB_IMAGE_URL: publicRuntimeConfig.SOCIAL_GITHUB_IMAGE_URL,
+    SOCIAL_GITHUB_PAGE_URL: publicRuntimeConfig.SOCIAL_GITHUB_PAGE_URL,
+    SOCIAL_REDDIT_IMAGE_URL: publicRuntimeConfig.SOCIAL_REDDIT_IMAGE_URL,
+    SOCIAL_REDDIT_PAGE_URL: publicRuntimeConfig.SOCIAL_REDDIT_PAGE_URL,
+    SOCIAL_TWITTER_IMAGE_URL: publicRuntimeConfig.SOCIAL_TWITTER_IMAGE_URL,
+    SOCIAL_TWITTER_PAGE_URL: publicRuntimeConfig.SOCIAL_TWITTER_PAGE_URL
   }
 
   // For back-end use docker container namespaces,
