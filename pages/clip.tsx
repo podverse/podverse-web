@@ -132,7 +132,7 @@ class Clip extends Component<Props, State> {
         imageAlt: (mediaRef.episode.imageUrl || mediaRef.episode.podcast.imageUrl) ? 
           `${mediaRef.episode.imageUrl ? mediaRef.episode.title : mediaRef.episode.podcast.title}` : 'Podverse logo',
         imageUrl: mediaRef.episode.imageUrl || mediaRef.episode.podcast.imageUrl,
-        title: `${mediaRef.title ? mediaRef.title : 'Untitled clip'}`
+        title: `${mediaRef.title ? mediaRef.title : 'untitled clip'}`
       }
     }
     

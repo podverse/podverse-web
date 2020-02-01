@@ -91,8 +91,8 @@ class Playlist extends Component<Props, State> {
     if (playlist) {
       meta = {
         currentUrl: getUrlFromRequestOrWindow(req),
-        description: removeDoubleQuotes(`${playlist.title ? playlist.title : 'Untitled Playlist'} - playlist on Podverse ${playlist.description ? playlist.description : ''}`),
-        title: `${playlist.title ? playlist.title : 'Untitled Playlist'}`
+        description: removeDoubleQuotes(`${playlist.title ? playlist.title : 'untitled playlist'} - playlist on Podverse ${playlist.description ? playlist.description : ''}`),
+        title: `${playlist.title ? playlist.title : 'untitled playlist'}`
       }
     }
 
@@ -472,7 +472,7 @@ class Playlist extends Component<Props, State> {
                 !isEditing &&
                   <Fragment>
                     <div className='media-header__title'>
-                      {title ? title : 'Untitled Playlist'}
+                      {title ? title : 'untitled playlist'}
                     </div>
                   </Fragment>
               }
