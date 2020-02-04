@@ -138,7 +138,7 @@ export const updateHistoryItemPlaybackPosition = async (nowPlayingItem: NowPlayi
   }
 
   try {
-    const result = await axios(`${API_BASE_URL}/user/update-history-item-playback-positionasdf`, {
+    const result = await axios(`${API_BASE_URL}/user/update-history-item-playback-position`, {
       method: 'patch',
       data: {
         historyItem: nowPlayingItem
