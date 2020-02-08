@@ -14,6 +14,7 @@ import { updateUserQueueItems } from '~/services'
 
 type Props = {
   episode?: any
+  initialShowDescription?: boolean
   mediaPlayer?: any
   mediaPlayerLoadNowPlayingItem?: any
   mediaPlayerUpdatePlaying?: any
@@ -28,6 +29,7 @@ type Props = {
   pagesSetQueryState?: any
   playerQueueLoadPriorityItems?: any
   podcast?: any
+  showDescription?: boolean
   user?: any
   userSetInfo?: any
 }
@@ -219,7 +221,7 @@ class MediaInfoCtrl extends Component<Props, State> {
   }
 
   render() {
-    const { episode, mediaRef, nowPlayingItem, podcast, user } = this.props
+    const { episode, initialShowDescription, mediaRef, nowPlayingItem, podcast, user } = this.props
     const userId = user && user.id
 
     return (
@@ -234,6 +236,7 @@ class MediaInfoCtrl extends Component<Props, State> {
         handleToggleEditClipModal={this.toggleEditClipModal}
         handleToggleMakeClipModal={this.toggleMakeClipModal}
         handleToggleShareModal={this.toggleShareModal}
+        initialShowDescription={initialShowDescription}
         loggedInUserId={userId}
         mediaRef={mediaRef}
         nowPlayingItem={nowPlayingItem}
