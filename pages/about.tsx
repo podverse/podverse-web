@@ -59,8 +59,8 @@ class About extends Component<Props, State> {
             them to your favorite shows. No login necessary!
           </p>
           <p>
-            Beyond clip-sharing, Podverse is a fully functional podcast app for iOS, Android, and web,
-            and is designed to sync across all your devices.
+            Podverse is also a fully functional podcast app for iOS, Android, and web,
+            designed to sync across all of your devices.
             Sign up today for a 1 year free trial of Podverse premium <span aria-label='partying face' role='img'>🥳</span>
           </p>
           <label>Free features:</label>
