@@ -171,19 +171,20 @@ class UserMediaListCtrl extends Component<Props, State> {
   }
 
   getQueryTypeOptions() {
+    const { isMyProfilePage } = this.props
     return [
       {
-        label: 'Podcasts',
+        label: isMyProfilePage ? 'My Podcasts' : 'Podcasts',
         onClick: () => this.queryMediaListItems('type', 'podcasts'),
         value: 'podcasts',
       },
       {
-        label: 'Clips',
+        label: isMyProfilePage ? 'My Clips' : 'Clips',
         onClick: () => this.queryMediaListItems('type', 'clips'),
         value: 'clips',
       },
       {
-        label: 'Playlists',
+        label: isMyProfilePage ? 'My Playlists' : 'Playlists',
         onClick: () => this.queryMediaListItems('type', 'playlists'),
         value: 'playlists'
       }
