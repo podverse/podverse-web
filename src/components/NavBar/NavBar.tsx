@@ -69,7 +69,7 @@ class PVNavBar extends Component<Props, State> {
   }
 
   dropdownItems () {
-    const { pageKey, playerQueueLoadPriorityItems, user, userSetInfo } = this.props
+    const { playerQueueLoadPriorityItems, user, userSetInfo } = this.props
     const { id } = user
 
     const dropdownItems = [] as any
