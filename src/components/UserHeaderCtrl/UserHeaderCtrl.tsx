@@ -2,12 +2,17 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import { Input, InputGroup, InputGroupAddon, Label, Popover, PopoverBody, PopoverHeader } from 'reactstrap'
+import { Button } from 'podverse-ui'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar as farStar } from '@fortawesome/free-regular-svg-icons'
 import { faStar as fasStar } from '@fortawesome/free-solid-svg-icons'
 import { alertPremiumRequired, alertSomethingWentWrong, alertRateLimitError } from '~/lib/utility'
 import { userSetInfo } from '~/redux/actions'
 import { toggleSubscribeToUser } from '~/services'
+import config from '~/config'
+const { BASE_URL } = config()
+const ClipboardJS = require('clipboard')
 
 type Props = {
   loggedInUser?: any
@@ -17,6 +22,8 @@ type Props = {
 
 type State = {
   isSubscribing?: boolean
+  shareLinkPopoverOpen?: boolean
+  wasCopied?: boolean
 }
 
 class UserHeaderCtrl extends Component<Props, State> {
@@ -27,6 +34,10 @@ class UserHeaderCtrl extends Component<Props, State> {
     super(props)
 
     this.state = {}
+  }
+
+  componentDidMount() {
+    new ClipboardJS('#profile-link .btn')
   }
 
   toggleSubscribe = async () => {
@@ -58,9 +69,26 @@ class UserHeaderCtrl extends Component<Props, State> {
     this.setState({ isSubscribing: false })
   }
 
+  copyProfileLink = () => {
+    this.setState({ wasCopied: true })
+    setTimeout(() => {
+      this.setState({
+        shareLinkPopoverOpen: false,
+        wasCopied: false
+      })
+    }, 2250)
+  }
+
+  toggleShareLinkPopoverOpen = () => {
+    const { shareLinkPopoverOpen } = this.state
+    this.setState({ shareLinkPopoverOpen: !shareLinkPopoverOpen }, () => {
+      new ClipboardJS('#clip-created-copy-link .btn')
+    })
+  }
+
   render() {
     const { loggedInUser, profileUser } = this.props
-    const { isSubscribing } = this.state
+    const { isSubscribing, shareLinkPopoverOpen, wasCopied } = this.state
     const { subscribedUserIds } = loggedInUser
     const isSubscribed = subscribedUserIds && subscribedUserIds.includes(profileUser.id)
 
@@ -76,11 +104,39 @@ class UserHeaderCtrl extends Component<Props, State> {
                 <React.Fragment>
                   {
                     loggedInUser.isPublic &&
-                      <a
-                        className='media-header__link'
-                        href={`/profile/${loggedInUser.id}`}>
-                        <FontAwesomeIcon icon='link' />
-                      </a>
+                      <React.Fragment>
+                        <a
+                          className='media-header__link'
+                          id='profileShareLink'
+                          onClick={this.toggleShareLinkPopoverOpen}>
+                          <FontAwesomeIcon icon='link' />
+                        </a>
+                        <Popover
+                          className='media-header__link-popover'
+                          isOpen={shareLinkPopoverOpen}
+                          placement='bottom'
+                          target='profileShareLink'>
+                          <PopoverHeader>
+                            Copy Link to your Profile
+                          </PopoverHeader>
+                          <PopoverBody>
+                            <InputGroup id='profile-link'>
+                              <Input
+                                id='profile-link-input'
+                                readOnly={true}
+                                value={`${BASE_URL}/profile/${loggedInUser.id}`} />
+                              <InputGroupAddon
+                                addonType='append'>
+                                <Button
+                                  color='primary'
+                                  dataclipboardtarget='#profile-link-input'
+                                  onClick={this.copyProfileLink}
+                                  text={wasCopied ? 'Copied!' : 'Copy'} />
+                              </InputGroupAddon>
+                            </InputGroup>
+                          </PopoverBody>
+                        </Popover>
+                      </React.Fragment>
                   }
                   {
                     loggedInUser.isPublic &&
