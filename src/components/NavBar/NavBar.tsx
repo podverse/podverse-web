@@ -55,10 +55,21 @@ class PVNavBar extends Component<Props, State> {
         onClick: () => { this.linkClick() }
       }
     ]
-  } 
+  }
+
+  clearMyProfilePageState () {
+    pagesSetQueryState({
+      pageKey: 'my_profile',
+      listItems: [],
+      listItemsTotal: 0,
+      queryPage: null,
+      querySort: null,
+      queryType: null
+    })
+  }
 
   dropdownItems () {
-    const { playerQueueLoadPriorityItems, user, userSetInfo } = this.props
+    const { pageKey, playerQueueLoadPriorityItems, user, userSetInfo } = this.props
     const { id } = user
 
     const dropdownItems = [] as any
@@ -74,7 +85,19 @@ class PVNavBar extends Component<Props, State> {
         as: '/my-profile',
         href: '/my-profile',
         label: 'My Profile',
-        onClick: () => { this.linkClick() }
+        onClick: () => {
+          this.clearMyProfilePageState()
+          this.linkClick()
+        }
+      })
+      dropdownItems.push({
+        as: '/my-profile?type=clips',
+        href: '/my-profile?type=clips',
+        label: 'My Clips',
+        onClick: () => {
+          this.clearMyProfilePageState()
+          this.linkClick()
+        }
       })
     }
 
