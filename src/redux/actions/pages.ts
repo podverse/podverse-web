@@ -6,3 +6,10 @@ export const pagesSetQueryState = payload => {
     payload
   }
 }
+
+export const pagesClearQueryState = payload => {
+  return {
+    type: actionTypes.PAGES_CLEAR_QUERY_STATE,
+    payload
+  }
+}

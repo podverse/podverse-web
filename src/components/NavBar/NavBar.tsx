@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Navbar, getPriorityQueueItemsStorage } from 'podverse-ui'
 import { getViewContentsElementScrollTop } from '~/lib/utility'
-import { modalsLoginShow, pageIsLoading, pagesSetQueryState,
+import { modalsLoginShow, pageIsLoading, pagesClearQueryState, pagesSetQueryState,
   playerQueueLoadPriorityItems, userSetInfo } from '~/redux/actions'
 import { logOut } from '~/services/auth'
 
@@ -14,6 +14,7 @@ type Props = {
   modalsLoginShow?: any
   pageIsLoading?: any
   pageKey?: string
+  pagesClearQueryState?: any
   pagesSetQueryState?: any
   playerQueueLoadPriorityItems?: any
   settings?: any
@@ -57,19 +58,8 @@ class PVNavBar extends Component<Props, State> {
     ]
   }
 
-  clearMyProfilePageState () {
-    pagesSetQueryState({
-      pageKey: 'my_profile',
-      listItems: [],
-      listItemsTotal: 0,
-      queryPage: null,
-      querySort: null,
-      queryType: null
-    })
-  }
-
   dropdownItems () {
-    const { playerQueueLoadPriorityItems, user, userSetInfo } = this.props
+    const { pageIsLoading, pagesClearQueryState, playerQueueLoadPriorityItems, user, userSetInfo } = this.props
     const { id } = user
 
     const dropdownItems = [] as any
@@ -86,8 +76,8 @@ class PVNavBar extends Component<Props, State> {
         href: '/my-profile',
         label: 'My Profile',
         onClick: () => {
-          this.clearMyProfilePageState()
-          this.linkClick()
+          pagesClearQueryState({ pageKey: 'my_profile' })
+          pageIsLoading(true)
         }
       })
       dropdownItems.push({
@@ -95,8 +85,8 @@ class PVNavBar extends Component<Props, State> {
         href: '/my-profile?type=clips',
         label: 'My Clips',
         onClick: () => {
-          this.clearMyProfilePageState()
-          this.linkClick()
+          pagesClearQueryState({ pageKey: 'my_profile' })
+          pageIsLoading(true)
         }
       })
     }
@@ -217,6 +207,7 @@ const mapStateToProps = state => ({ ...state })
 const mapDispatchToProps = dispatch => ({
   modalsLoginShow: bindActionCreators(modalsLoginShow, dispatch),
   pageIsLoading: bindActionCreators(pageIsLoading, dispatch),
+  pagesClearQueryState: bindActionCreators(pagesClearQueryState, dispatch),
   pagesSetQueryState: bindActionCreators(pagesSetQueryState, dispatch),
   playerQueueLoadPriorityItems: bindActionCreators(playerQueueLoadPriorityItems, dispatch),
   userSetInfo: bindActionCreators(userSetInfo, dispatch)

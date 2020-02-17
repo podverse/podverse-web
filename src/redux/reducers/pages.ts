@@ -37,21 +37,28 @@ export default (state = {}, action) => {
   const dataObj = generateDataObj(action.payload)
   
   switch (action.type) {
+    case actionTypes.PAGES_CLEAR_QUERY_STATE:
+      if (!action.payload.pageKey) {
+        return state
+      }
+      
+      return {
+        ...state,
+        [action.payload.pageKey]: {}
+      }
     case actionTypes.PAGES_SET_QUERY_STATE:
-      const pageKey = action.payload.pageKey
-      if (!pageKey) {
+      if (!action.payload.pageKey) {
         return state
       }
 
       return {
         ...state,
-        [pageKey]: {
-          ...state[pageKey],
+        [action.payload.pageKey]: {
+          ...state[action.payload.pageKey],
           ...dataObj
         }
       }
     default:
       return state
   }
-
 }

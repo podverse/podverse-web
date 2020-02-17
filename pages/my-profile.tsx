@@ -40,13 +40,14 @@ class MyProfile extends Component<Props, State> {
 
     if (Object.keys(currentPage).length === 0) {
       let queryDataResult
-      let listItems = []
+      let listItems = [] as any
 
       if (queryType === 'clips') {
         queryDataResult = await getLoggedInUserMediaRefs(bearerToken, 'on', queryPage)
-        listItems = queryDataResult.data
-        listItems = queryDataResult.data.map(x => convertToNowPlayingItem(x))
-        store.dispatch(playerQueueLoadSecondaryItems(clone(listItems)))
+        const mediaRefs = queryDataResult.data as any
+        const nowPlayingItems = mediaRefs[0].map(x => convertToNowPlayingItem(x))
+        listItems = [nowPlayingItems, mediaRefs[1]]
+        store.dispatch(playerQueueLoadSecondaryItems(clone(listItems[0])))
       } else if (queryType === 'playlists') {
         queryDataResult = await getLoggedInUserPlaylists(bearerToken, queryPage)
         listItems = queryDataResult.data
