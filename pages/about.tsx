@@ -54,9 +54,9 @@ class About extends Component<Props, State> {
         <h3>About</h3>
         <div className='about'>
           <p>
-            Podverse is the easiest way to create and share podcast highlights of any length online.
+            Podverse is the easiest way to create and share any-length podcast highlights online.
             Discover new podcasts by browsing highlights in the app, and send highlights to your friends to introduce
-            them to your favorite shows. No login necessary!
+            them to your favorite shows.
           </p>
           <p>
             Podverse is also a fully functional podcast app for iOS, Android, and web,
@@ -71,6 +71,7 @@ class About extends Component<Props, State> {
             <li>Auto-download new episodes</li>
             <li>Create and share podcast clips of any length</li>
             <li>Add episodes and clips to a queue</li>
+            <li>Sleep Timer</li>
             <li>Light / Dark mode</li>
           </ul>
           <label>Premium features:</label>
@@ -87,8 +88,8 @@ class About extends Component<Props, State> {
             All Podverse software is provided under an open source, copyleft license.
             Anyone can download, modify, and use Podverse software for any purpose for free,
             as long as they also share their changes to the code.
-            In other words, a podcast network can launch their own podcast app for free with Podverse software.
           </p>
+          <p>In other words, a podcast network can launch their own podcast app for free with Podverse open source software.</p>
           <p>
             Thanks for checking out the site!
             Any questions, feedback, or feature requests would be greatly appreciated.
