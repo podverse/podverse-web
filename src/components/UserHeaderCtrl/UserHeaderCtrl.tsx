@@ -2,7 +2,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { Input, InputGroup, InputGroupAddon, Label, Popover, PopoverBody, PopoverHeader } from 'reactstrap'
+import { Input, InputGroup, InputGroupAddon, Popover, PopoverBody, PopoverHeader } from 'reactstrap'
 import { Button } from 'podverse-ui'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar as farStar } from '@fortawesome/free-regular-svg-icons'
