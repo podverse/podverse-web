@@ -102,6 +102,11 @@ const featuresData = [
     icon2: true
   },
   {
+    text: 'sleep timer',
+    icon1: true,
+    icon2: true
+  },
+  {
     text: 'sync your subscriptions on all devices',
     icon1: false,
     icon2: true
