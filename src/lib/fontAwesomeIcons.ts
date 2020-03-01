@@ -1,7 +1,7 @@
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faFacebook, faGithub, faReddit, faTwitter } from '@fortawesome/free-brands-svg-icons'
 import {
-  faBars, faCaretDown, faCaretRight, faCheck, faCut, faDownload, faEdit,
+  faArrowsAltV, faBars, faCaretDown, faCaretRight, faCheck, faCut, faDownload, faEdit,
   faEllipsisH, faFilter, faGlobeAmericas, faHeadphones, faHistory, faInfinity,
   faLevelDownAlt, faLevelUpAlt, faLink, faListUl, faLock, faMoon, faPause, faPlay,
   faPlayCircle, faPlus, faPlusCircle, faPodcast, faRedoAlt, faSearch, faShare, faShoppingCart,
@@ -12,6 +12,7 @@ import {
 // Adds FontAwesome icons to the library so they can be used throughout the app
 export const addFontAwesomeIcons = () => {
   library.add(
+    faArrowsAltV,
     faBars,
     faCaretDown,
     faCaretRight,
