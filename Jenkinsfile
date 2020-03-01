@@ -5,11 +5,18 @@ pipeline {
     stages {
         stage('build') {
             steps {
-                sh 'node --version'
-                sh 'echo "Hello world!"'
-                sh 'ls -a'
-                sh 'pwd'
-                sh 'ls /'
+                sh '${env.BUILD_ID}'
+                sh '${env.BUILD_NUMBER}'
+                sh '${env.BUILD_TAG}'
+                sh '${env.EXECUTOR_NUMBER}'
+                sh '${env.JAVA_HOME}'
+                sh '${env.JENKINS_URL}'
+                sh '${env.JOB_NAME}'
+                sh '${env.NODE_NAME}'
+                sh '${env.WORKSPACE}'
+                sh '${env.BUILD_ID}'
+                sh '${env.BUILD_ID}'
+                sh '${env.BUILD_ID}'
             }
         }
     }
