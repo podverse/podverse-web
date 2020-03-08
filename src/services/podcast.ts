@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { convertObjectToQueryString } from '~/lib/utility'
+import { request } from '~/services'
 import config from '~/config'
 const { API_BASE_URL } = config()
 
@@ -41,7 +42,9 @@ export const getPodcastsByQuery = async (query) => {
 }
 
 export const getPodcastById = async (id: string) => {
-  return axios.get(`${API_BASE_URL}/podcast/${id}`)
+  return request({
+    endpoint: `/podcast/${id}`
+  })
 }
 
 export const toggleSubscribeToPodcast = async (podcastId: string) => {

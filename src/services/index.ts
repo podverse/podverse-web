@@ -9,6 +9,7 @@ export { createPayPalOrder, getPayPalOrderById } from '~/services/paypal'
 export { addOrRemovePlaylistItem, createPlaylist, deletePlaylist, getPlaylistById,
   getPlaylistsByQuery, toggleSubscribeToPlaylist, updatePlaylist } from '~/services/playlist'
 export { getPodcastById, getPodcastsByQuery, toggleSubscribeToPodcast } from '~/services/podcast'
+export { request } from '~/services/request'
 export { addOrUpdateUserHistoryItem, deleteLoggedInUser, downloadLoggedInUserData, getLoggedInUserMediaRefs,
   getLoggedInUserPlaylists, getPublicUser, getPublicUsersByQuery, getUserMediaRefs, getUserPlaylists,
   toggleSubscribeToUser, updateHistoryItemPlaybackPosition, updateLoggedInUser, updateUserQueueItems } from '~/services/user'

@@ -125,6 +125,7 @@ class Clip extends Component<Props, State> {
     store.dispatch(pageIsLoading(false))
 
     let meta = {}
+
     if (mediaRef) {
       meta = {
         currentUrl: getUrlFromRequestOrWindow(req),
