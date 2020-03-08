@@ -131,7 +131,7 @@ class Clip extends Component<Props, State> {
         description: removeDoubleQuotes(`${mediaRef.episode.title} - ${mediaRef.episode.podcast.title}`),
         imageAlt: (mediaRef.episode.imageUrl || mediaRef.episode.podcast.imageUrl) ? 
           `${mediaRef.episode.imageUrl ? mediaRef.episode.title : mediaRef.episode.podcast.title}` : 'Podverse logo',
-        imageUrl: mediaRef.episode.imageUrl || mediaRef.episode.podcast.imageUrl,
+        imageUrl: mediaRef.episode.imageUrl || mediaRef.episode.podcast.shrunkImageUrl || mediaRef.episode.podcast.imageUrl,
         title: `${mediaRef.title ? mediaRef.title : 'untitled clip'}`
       }
     }

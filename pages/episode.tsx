@@ -131,7 +131,7 @@ class Episode extends Component<Props, State> {
         imageAlt: (episode.imageUrl || episode.podcast.imageUrl)
           ? `${episode.imageUrl ? episode.title : episode.podcast.title}`
           : 'Podverse logo',
-        imageUrl: episode.imageUrl || episode.podcast.imageUrl,
+        imageUrl: episode.imageUrl || episode.podcast.shrunkImageUrl || episode.podcast.imageUrl,
         title: `${episode.title} - ${episode.podcast.title}`
       }
     }

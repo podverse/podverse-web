@@ -116,7 +116,7 @@ class Podcast extends Component<Props, State> {
       currentUrl: getUrlFromRequestOrWindow(req),
       description: removeDoubleQuotes(podcast.description),
       imageAlt: podcast.imageUrl ? podcast.title : 'Podverse logo',
-      imageUrl: podcast.imageUrl,
+      imageUrl: podcast.shrunkImageUrl || podcast.imageUrl,
       title: podcast.title
     }
 
