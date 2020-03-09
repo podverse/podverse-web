@@ -16,7 +16,7 @@ pipeline {
                 sh 'ls /'
                 sh 'ls /tmp'
                 echo "wtffff"
-                sh 'cd /tmp & npm run test:stage'
+                sh 'cd /tmp | npm run test:stage'
             }
         }
     }
