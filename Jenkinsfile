@@ -20,7 +20,7 @@ pipeline {
                 sh 'cd podverse-qa & ls & echo "helloo world"'
                 echo 'ok...'
                 sh 'npm install --prefix podverse-qa/podverse-web'
-                // sh 'npm run test:stage --prefix podverse-qa/podverse-web'
+                sh 'npm run test:stage --prefix podverse-qa/podverse-web'
             }
         }
     }
