@@ -9,8 +9,15 @@ pipeline {
             }
             steps {
                 echo "helloooo ${WEB_HOST}"
-                sh 'git clone "https://github.com/podverse/podverse-qa.git"'
-                sh 'cd podverse-qa & git pull & echo "helloo world"'
+                sh '''
+                    if cd podverse-qa;
+                    then
+                        git pull;
+                    else
+                        git clone https://github.com/podverse/podverse-qa.git;
+                    fi
+                '''
+                sh 'cd podverse-qa & ls & echo "helloo world"'
                 echo 'ok...'
                 // sh 'npm install --prefix podverse-qa/podverse-web'
                 // sh 'npm run test:stage --prefix podverse-qa/podverse-web'
