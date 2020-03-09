@@ -19,6 +19,17 @@ pipeline {
                 '''
                 sh 'npm install --prefix podverse-qa/podverse-web'
                 sh 'npm run test:stage --prefix podverse-qa/podverse-web'
+                echo 'asdf1'
+                sh 'ls /var/jenkins_home/workspace/podverse-web_master/podverse-qa/podverse-web/node_modules/puppeteer/'
+                echo 'asdf2'
+                sh 'ls /var/jenkins_home/workspace/podverse-web_master/podverse-qa/podverse-web/node_modules/puppeteer/.local-chromium/'
+                echo 'asdf3'
+                sh 'ls /var/jenkins_home/workspace/podverse-web_master/podverse-qa/podverse-web/node_modules/puppeteer/.local-chromium/linux-686378'
+                echo 'asdf4'
+                sh 'ls /var/jenkins_home/workspace/podverse-web_master/podverse-qa/podverse-web/node_modules/puppeteer/.local-chromium/linux-686378/chrome-linux'
+                echo 'asdf5'
+                sh 'ls /var/jenkins_home/workspace/podverse-web_master/podverse-qa/podverse-web/node_modules/puppeteer/.local-chromium/linux-686378/chrome-linux/chrome'
+                echo 'asdf6'
             }
         }
     }
