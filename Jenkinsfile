@@ -12,7 +12,6 @@ pipeline {
             }
             steps {
                 echo "Start tests on ${WEB_HOST}"
-                sh "docker images |grep -v REPOSITORY|awk '{print $1}'|xargs -L1 docker pull "
                 sh 'npm run test:stage --prefix podverse-qa/podverse-web'
             }
         }
