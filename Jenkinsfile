@@ -2,7 +2,6 @@ pipeline {
     agent {
         docker {
             image 'podverse/podverse_qa_web'
-            args '--privileged --userns=host'
         }
     }
     stages {
