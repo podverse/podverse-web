@@ -7,10 +7,8 @@ pipeline {
             steps {
                 sh 'rm -rf podverse-qa'
                 sh 'git clone "https://github.com/podverse/podverse-qa.git"'
-                sh 'podverse-qa & npm i'
-                sh 'ls podverse-qa'
-                sh 'ls podverse-qa/node_modules'
-                sh 'podverse-qa & npm run test:stage'
+                sh 'cd podverse-qa/podverse-web & npm i'
+                sh 'ls podverse-qa/podverse-web'
             }
         }
     }
