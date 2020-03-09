@@ -16,7 +16,7 @@ pipeline {
                 sh 'ls /'
                 sh 'ls /tmp'
                 echo "wtffff"
-                sh 'npm run test:stage --prefix podverse-qa/podverse-web'
+                sh 'cd /tmp & npm run test:stage'
             }
         }
     }
