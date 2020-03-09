@@ -6,8 +6,10 @@ pipeline {
         stage('build') {
             steps {
                 sh 'git clone "https://github.com/podverse/podverse-qa.git"'
-                sh 'cd podverse-qa'
-                sh 'ls'
+                sh 'podverse-qa & npm i'
+                sh 'ls podverse-qa'
+                sh 'ls podverse-qa/node_modules'
+                sh 'podverse-qa & npm run test:stage'
             }
         }
     }
