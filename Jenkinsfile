@@ -7,16 +7,9 @@ pipeline {
     }
     stages {
         stage('build') {
-            environment {
-                WEB_HOST = 'stage.podverse.fm'
-            }
             steps {
-                echo "Start tests on ${WEB_HOST}"
-                sh 'ls'
-                sh 'ls /'
-                sh 'ls /tmp'
-                echo "wtffff"
-                sh 'npm run test:stage --prefix /tmp'
+                echo "Start tests"
+                sh 'WEB_HOST="stage.podverse.fm" npm run test:stage --prefix /tmp'
             }
         }
     }
