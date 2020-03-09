@@ -29,13 +29,6 @@ export const request = async (req: PVRequest) => {
     timeout: 30000
   }
 
-  if (SERVER_BASIC_AUTH_USERNAME && SERVER_BASIC_AUTH_PASSWORD) {
-    axiosRequest.auth = {
-      username: SERVER_BASIC_AUTH_USERNAME,
-      password: SERVER_BASIC_AUTH_PASSWORD
-    }
-  }
-
   try {
     const response = await axios(axiosRequest)
 
