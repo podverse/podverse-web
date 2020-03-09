@@ -13,8 +13,8 @@ pipeline {
                 sh 'git clone "https://github.com/podverse/podverse-qa.git"'
                 sh 'cd podverse-qa & git pull & echo "helloo world"'
                 echo 'ok...'
-                sh 'npm install --prefix podverse-qa/podverse-web'
-                sh 'npm run test:stage --prefix podverse-qa/podverse-web'
+                // sh 'npm install --prefix podverse-qa/podverse-web'
+                // sh 'npm run test:stage --prefix podverse-qa/podverse-web'
             }
         }
     }
