@@ -1,6 +1,9 @@
 pipeline {
     agent {
-        docker { image 'podverse/podverse_qa_web' }
+        docker {
+            image 'podverse/podverse_qa_web'
+            args '--privileged --userns=host'
+        }
     }
     stages {
         stage('build') {
@@ -8,11 +11,7 @@ pipeline {
                 WEB_HOST = 'stage.podverse.fm'
             }
             steps {
-                echo "helloooo ${WEB_HOST}"
-                sh 'ls .'
-                echo "helloooo2"
-                sh 'ls /tmp'
-                echo "helloooo3"
+                echo "Start tests on ${WEB_HOST}"
                 sh 'npm run test:stage --prefix podverse-qa/podverse-web'
             }
         }
