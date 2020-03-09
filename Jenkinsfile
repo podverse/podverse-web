@@ -9,7 +9,6 @@ pipeline {
             }
             steps {
                 echo "helloooo ${WEB_HOST}"
-                sh 'ls /usr/bin'
                 sh 'git clone "https://github.com/podverse/podverse-qa.git"'
                 sh 'cd podverse-qa & git pull & echo "helloo world"'
                 echo 'ok...'
