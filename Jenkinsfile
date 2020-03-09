@@ -1,7 +1,7 @@
 pipeline {
     agent {
         docker {
-            image 'podverse/podverse_qa_web'
+            image 'podverse/podverse_qa_web:latest'
             alwaysPull true
         }
     }
