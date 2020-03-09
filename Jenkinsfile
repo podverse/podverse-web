@@ -5,9 +5,9 @@ pipeline {
     stages {
         stage('build') {
             steps {
-                git clone "https://github.com/podverse/podverse-qa.git"
-                cd podverse-qa
-                ls
+                sh 'git clone "https://github.com/podverse/podverse-qa.git"'
+                sh 'cd podverse-qa'
+                sh 'ls'
             }
         }
     }
