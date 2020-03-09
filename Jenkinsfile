@@ -11,8 +11,7 @@ pipeline {
                 WEB_HOST = "stage.podverse.fm"
             }
             steps {
-                echo "Start tests on ${WEB_HOST}"
-                sh "WEB_HOST='stage.podverse.fm' npm run test:stage --prefix /tmp"
+                sh "npm run test:stage --prefix /tmp"
             }
         }
     }
