@@ -13,6 +13,8 @@ pipeline {
             steps {
                 echo "Start tests on ${WEB_HOST}"
                 sh 'ls'
+                sh 'ls /'
+                sh 'ls /tmp'
                 echo "wtffff"
                 sh 'npm run test:stage --prefix podverse-qa/podverse-web'
             }
