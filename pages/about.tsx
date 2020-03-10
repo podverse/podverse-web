@@ -83,7 +83,7 @@ class About extends Component<Props, State> {
             We will never sell your data or add advertisements to podcaster content.
           </p>
           <p>
-            Any questions, feedback, or feature requests would be appreciated.
+            Any questions, feedback, or feature requests would be appreciated!
           </p>
         </div>
 
