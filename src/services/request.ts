@@ -1,6 +1,6 @@
 import axios from 'axios'
 import config from '~/config'
-const { API_BASE_URL, SERVER_BASIC_AUTH_PASSWORD, SERVER_BASIC_AUTH_USERNAME } = config()
+const { API_BASE_URL } = config()
 
 type PVRequest = {
   endpoint?: string

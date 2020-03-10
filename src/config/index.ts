@@ -35,8 +35,6 @@ export interface Config {
   SOCIAL_REDDIT_PAGE_URL?: string
   SOCIAL_TWITTER_IMAGE_URL?: string
   SOCIAL_TWITTER_PAGE_URL?: string
-  SERVER_BASIC_AUTH_USERNAME?: string
-  SERVER_BASIC_AUTH_PASSWORD?: string
 }
 
 export default () => {
@@ -68,9 +66,7 @@ export default () => {
     SOCIAL_REDDIT_IMAGE_URL: publicRuntimeConfig.SOCIAL_REDDIT_IMAGE_URL,
     SOCIAL_REDDIT_PAGE_URL: publicRuntimeConfig.SOCIAL_REDDIT_PAGE_URL,
     SOCIAL_TWITTER_IMAGE_URL: publicRuntimeConfig.SOCIAL_TWITTER_IMAGE_URL,
-    SOCIAL_TWITTER_PAGE_URL: publicRuntimeConfig.SOCIAL_TWITTER_PAGE_URL,
-    SERVER_BASIC_AUTH_USERNAME: publicRuntimeConfig.SERVER_BASIC_AUTH_USERNAME,
-    SERVER_BASIC_AUTH_PASSWORD: publicRuntimeConfig.SERVER_BASIC_AUTH_PASSWORD
+    SOCIAL_TWITTER_PAGE_URL: publicRuntimeConfig.SOCIAL_TWITTER_PAGE_URL
   }
 
   // For back-end use docker container namespaces,
