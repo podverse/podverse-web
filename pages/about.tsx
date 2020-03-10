@@ -79,8 +79,8 @@ class About extends Component<Props, State> {
             <li>Subscribe to user profiles</li>
           </ul>
           <p>
-            All Podverse software is provided free and open source under the AGPLv3 license,
-            and we will never sell your data or add advertisements to podcaster content.
+            All Podverse software is provided free and open source under the AGPLv3 license.
+            We will never sell your data or add advertisements to podcaster content.
           </p>
           <p>
             Any questions, feedback, or feature requests would be appreciated.
