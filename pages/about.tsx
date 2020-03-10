@@ -56,9 +56,9 @@ class About extends Component<Props, State> {
           <p>
             Podverse is the easiest way to create and share podcast highlights online,
             and the only podcast app you'll ever need.
+            Sign up today for 1 year of premium for free! <span role='img' aria-label='partying face emoji'>🥳</span>
           </p>
-          <label>Features include:</label>
-          <label>Free:</label>
+          <label>Free version:</label>
           <ul>
             <li>Create and share podcast highlights</li>
             <li>Subscribe to podcasts</li>
@@ -68,7 +68,7 @@ class About extends Component<Props, State> {
             <li>Support for devices with large fonts</li>
             <li>Light / Dark mode</li>
           </ul>
-          <label>Premium:</label>
+          <label>Premium version:</label>
           <ul>
             <li>Switch devices and play from where you left off</li>
             <li>Sync your subscriptions across devices</li>
@@ -79,13 +79,10 @@ class About extends Component<Props, State> {
             <li>Subscribe to user profiles</li>
           </ul>
           <p>
-            Premium memberships are $10 per year. Sign up today for 1 year of premium for free! <span role='img' aria-label='partying face emoji'>🥳</span>
+            All Podverse software is provided free and open source under the AGPLv3 license,
+            and we will never sell your data or add advertisements to podcaster content.
           </p>
           <p>
-            All Podverse software is provided free and open source under the AGPLv3 license.
-          </p>
-          <p>
-            Thanks for checking out the site!
             Any questions, feedback, or feature requests would be appreciated.
           </p>
         </div>
