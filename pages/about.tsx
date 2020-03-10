@@ -70,9 +70,9 @@ class About extends Component<Props, State> {
           </ul>
           <label>Premium version:</label>
           <ul>
-            <li>Switch devices and play from where you left off</li>
             <li>Sync your subscriptions across devices</li>
             <li>Sync your queue across devices</li>
+            <li>Switch devices and play from where you left off</li>
             <li>Create and share playlists</li>
             <li>Subscribe to playlists</li>
             <li>Share your user profile</li>
