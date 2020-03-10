@@ -65,13 +65,12 @@ class About extends Component<Props, State> {
           </p>
           <label>Free features:</label>
           <ul>
-            <li>Play episodes and clips</li>
+            <li>Create and share any-length podcast clips</li>
             <li>Subscribe to podcasts</li>
             <li>Download episodes</li>
-            <li>Auto-download new episodes</li>
-            <li>Create and share podcast clips of any length</li>
             <li>Add episodes and clips to a queue</li>
             <li>Sleep Timer</li>
+            <li>Support for devices with large fonts</li>
             <li>Light / Dark mode</li>
           </ul>
           <label>Premium features:</label>
