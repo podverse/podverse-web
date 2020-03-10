@@ -54,44 +54,39 @@ class About extends Component<Props, State> {
         <h3>About</h3>
         <div className='about'>
           <p>
-            Podverse is the easiest way to create and share any-length podcast highlights online.
-            Discover new podcasts by browsing highlights in the app, and send highlights to your friends to introduce
-            them to your favorite shows.
+            Podverse is the easiest way to create and share podcast highlights online,
+            and the only podcast app you'll ever need.
           </p>
-          <p>
-            Podverse is also a fully functional podcast app for iOS, Android, and web,
-            designed to sync across all of your devices.
-            Sign up today for a 1 year free trial of Podverse premium <span aria-label='partying face' role='img'>🥳</span>
-          </p>
-          <label>Free features:</label>
+          <label>Features include:</label>
+          <label>Free:</label>
           <ul>
-            <li>Create and share any-length podcast clips</li>
+            <li>Create and share podcast highlights</li>
             <li>Subscribe to podcasts</li>
             <li>Download episodes</li>
-            <li>Add episodes and clips to a queue</li>
+            <li>Drag-and-drop player queue</li>
             <li>Sleep Timer</li>
             <li>Support for devices with large fonts</li>
             <li>Light / Dark mode</li>
           </ul>
-          <label>Premium features:</label>
+          <label>Premium:</label>
           <ul>
             <li>Switch devices and play from where you left off</li>
-            <li>Sync your subscriptions across all devices</li>
-            <li>Sync your queue across all devices</li>
+            <li>Sync your subscriptions across devices</li>
+            <li>Sync your queue across devices</li>
             <li>Create and share playlists</li>
             <li>Subscribe to playlists</li>
             <li>Share your user profile</li>
             <li>Subscribe to user profiles</li>
           </ul>
           <p>
-            All Podverse software is provided under an open source, copyleft license.
-            Anyone can download, modify, and use Podverse software for any purpose for free,
-            as long as they also share their changes to the code.
+            Premium memberships are $10 per year. Sign up today for 1 year of premium for free! <span role='img' aria-label='partying face emoji'>🥳</span>
           </p>
-          <p>In other words, a podcast network can launch their own podcast app for free with Podverse open source software.</p>
+          <p>
+            All Podverse software is provided free and open source under the AGPLv3 license.
+          </p>
           <p>
             Thanks for checking out the site!
-            Any questions, feedback, or feature requests would be greatly appreciated.
+            Any questions, feedback, or feature requests would be appreciated.
           </p>
         </div>
 
