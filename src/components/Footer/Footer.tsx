@@ -159,7 +159,7 @@ class Footer extends Component<Props, State> {
               <a 
                 className='footer-top__license'
                 target='_blank'>
-                <span className='hide-tiny'>copyleft </span>
+                <span className='hide-tiny'>open source </span>
                 <span className='flip-text-horizontal'>&copy;</span>
               </a>
             </Link>
