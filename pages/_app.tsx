@@ -357,7 +357,6 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
                   isMobileDevice={isMobileDevice}
                   pageKey={pageKey} />
               </div>
-              <div className='view__mediaplayer-spacer' />
             </div>
             <MediaPlayerView
               {...pageProps}
