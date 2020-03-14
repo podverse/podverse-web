@@ -214,6 +214,18 @@ class Footer extends Component<Props, State> {
             </div>
             <div className='footer-bottom__social-links'>
               {
+                SOCIAL_REDDIT_PAGE_URL &&
+                  <Link
+                    as={SOCIAL_REDDIT_PAGE_URL}
+                    href={SOCIAL_REDDIT_PAGE_URL}>
+                    <a
+                      className='footer-bottom__social-link'
+                      target='_blank'>
+                      <FontAwesomeIcon icon={faRedditAlien} />
+                    </a>
+                  </Link>
+              }
+              {
                 SOCIAL_TWITTER_PAGE_URL &&
                   <Link
                     as={SOCIAL_TWITTER_PAGE_URL}
@@ -234,18 +246,6 @@ class Footer extends Component<Props, State> {
                       className='footer-bottom__social-link'
                       target='_blank'>
                       <FontAwesomeIcon icon={faFacebookF} />
-                    </a>
-                  </Link>
-              }
-              {
-                SOCIAL_REDDIT_PAGE_URL &&
-                  <Link
-                    as={SOCIAL_REDDIT_PAGE_URL}
-                    href={SOCIAL_REDDIT_PAGE_URL}>
-                    <a
-                      className='footer-bottom__social-link'
-                      target='_blank'>
-                      <FontAwesomeIcon icon={faRedditAlien} />
                     </a>
                   </Link>
               }
