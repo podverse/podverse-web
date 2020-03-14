@@ -300,8 +300,16 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
 
     if (!windowHasLoaded) {
       disableHoverOnTouchDevices()
-      fixMobileViewportHeight()
 
+      let fixMobileViewportHeightCount = 0
+      const fixMobileViewportHeightInterval = setInterval(() => {
+        fixMobileViewportHeight()
+        fixMobileViewportHeightCount++
+        if (fixMobileViewportHeightCount >= 5) {
+          clearInterval(fixMobileViewportHeightInterval)
+        }
+      }, 2000)
+      
       if (newPlayingItem) {
         newPlayingItem = assignLocalOrLoggedInNowPlayingItemPlaybackPosition(user, newPlayingItem)
         store.dispatch(mediaPlayerLoadNowPlayingItem(newPlayingItem))
@@ -349,6 +357,7 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
                   isMobileDevice={isMobileDevice}
                   pageKey={pageKey} />
               </div>
+              <div className='view__mediaplayer-spacer' />
             </div>
             <MediaPlayerView
               {...pageProps}
