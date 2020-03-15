@@ -287,15 +287,6 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
     const state = store.getState()
     const { user } = state
 
-    // This userAgent tries to fix a CSS height bug that happens with .view
-    // when pages are opened in the Reddit iOS mobile app.
-    // It does not appear like there is a way to target the Reddit mobile app specifically,
-    // so this CSS rule will be applied to all iOS mobile app WebViews.
-    // const isiOSWebView = /(iPhone|iPod|iPad).*AppleWebKit(?!.*Safari)/i.test(navigator.userAgent)
-    // if (isiOSWebView && document) {
-    //   document.documentElement.className = 'ios-webview-polyfill'
-    // }
-
     // If page uses a query parameter to show a modal on page load,
     // then update history so the query parameter version is not last in history.
     const urlParams = new URLSearchParams(window.location.search)
@@ -350,10 +341,10 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
       <Provider store={store}>
         <Fragment>
           <PageLoadingOverlay />
-          <div className='navbar-wrapper'>
-            <NavBar pageKey={pageKey} />
-          </div>
           <div className='view'>
+            <div className='view__navbar'>
+              <NavBar pageKey={pageKey} />
+            </div>
             <div className='view__contents'>
               <div className='max-width top'>
                 <Alerts
@@ -367,10 +358,10 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
                   pageKey={pageKey} />
               </div>
             </div>
+            <MediaPlayerView
+              {...pageProps}
+              isMobileDevice={isMobileDevice} />
           </div>
-          <MediaPlayerView
-            {...pageProps}
-            isMobileDevice={isMobileDevice} />
           <Auth />
           <MediaModals />
         </Fragment>

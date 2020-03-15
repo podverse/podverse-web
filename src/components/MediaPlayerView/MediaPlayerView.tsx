@@ -295,7 +295,8 @@ class MediaPlayerView extends Component<Props, State> {
         {
           nowPlayingItem &&
           <Fragment>
-            <div className='mediaplayer-wrapper'>
+            <div className='view__mediaplayer-spacer' />
+            <div className='view__mediaplayer'>
               <MediaPlayer
                 autoplay={autoplay}
                 clipFinished={clipFinished}
