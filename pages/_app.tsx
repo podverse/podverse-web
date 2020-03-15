@@ -353,10 +353,10 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
       <Provider store={store}>
         <Fragment>
           <PageLoadingOverlay />
+          <div className='navbar-wrapper'>
+            <NavBar pageKey={pageKey} />
+          </div>
           <div className='view'>
-            <div className='view__navbar'>
-              <NavBar pageKey={pageKey} />
-            </div>
             <div className='view__contents'>
               <div className='max-width top'>
                 <Alerts
@@ -370,10 +370,10 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
                   pageKey={pageKey} />
               </div>
             </div>
-            <MediaPlayerView
-              {...pageProps}
-              isMobileDevice={isMobileDevice} />
           </div>
+          <MediaPlayerView
+            {...pageProps}
+            isMobileDevice={isMobileDevice} />
           <Auth />
           <MediaModals />
         </Fragment>
