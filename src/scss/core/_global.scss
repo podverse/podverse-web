@@ -26,26 +26,6 @@ html[is-switching-ui-mode=true] * {
   }
 }
 
-// This is meant to adjust an issue with the .view having too much height
-// when loaded through the iOS Reddit mobile app WebView.
-.height-webview-adjust {
-  display: block !important;
-  height: calc(100vh - 148px) !important;
-  max-height: calc(100vh - 148px) !important;
-
-  .view__contents {
-    display: block !important;
-    flex: 0 !important;
-    height: calc(100vh - 148px) !important;
-    max-height: calc(100vh - 148px) !important;
-    justify-content: unset !important;
-  }
-
-  .view__mediaplayer-spacer {
-    display: none !important;
-  }
-}
-
 .full-centered-content-view {
   align-items: center;
   display: flex;
