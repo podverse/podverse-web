@@ -291,13 +291,10 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
     // when pages are opened in the Reddit iOS mobile app.
     // It does not appear like there is a way to target the Reddit mobile app specifically,
     // so this CSS rule will be applied to all iOS mobile app WebViews.
-    const isiOSWebView = /(iPhone|iPod|iPad).*AppleWebKit(?!.*Safari)/i.test(navigator.userAgent)
-    if (isiOSWebView) {
-      const view = document.querySelector('.view')
-      if (view) {
-        view.className = 'view auto-height'
-      }
-    }
+    // const isiOSWebView = /(iPhone|iPod|iPad).*AppleWebKit(?!.*Safari)/i.test(navigator.userAgent)
+    // if (isiOSWebView && document) {
+    //   document.documentElement.className = 'ios-webview-polyfill'
+    // }
 
     // If page uses a query parameter to show a modal on page load,
     // then update history so the query parameter version is not last in history.
