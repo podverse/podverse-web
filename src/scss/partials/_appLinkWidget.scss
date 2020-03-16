@@ -1,0 +1,72 @@
+html {
+  .app-link-widget {
+    display: flex;
+    margin-bottom: 20px;
+
+    .app-link-widget__open-in-app {
+      margin-right: 24px;
+    }
+  }
+
+  .open-in-the-app-modal {
+    .open-in-the-app-modal__i-have-the-app-wrapper {
+      margin-bottom: 32px;
+      margin-top: 32px;
+
+      text-align: center;
+
+      .Android {
+        height: 42px;
+        width: 135px;
+      }
+
+      .iOS {
+        height: 40px;
+        width: 135px;
+      }
+    }
+
+    .open-in-the-app-modal__download-app {
+      margin-bottom: 16px;
+      text-align: center;
+
+      .download-on-the-app-store {
+        background: url(https://linkmaker.itunes.apple.com/en-us/badge-lrg.svg?releaseDate=2018-07-28&kind=iossoftware&bubble=ios_apps) no-repeat;
+        display: block;
+        height: 40px;
+        margin: auto;
+        overflow: hidden;
+        width: 135px;
+      }
+  
+      .get-it-on-google-play {
+        display: block;
+        margin-bottom: -16px;
+        margin-top: -8px;
+        position: relative;
+  
+        img {
+          width: 152px;
+        }
+      }
+    }
+  }
+}
+
+html[data-theme=light] {
+  .app-link-widget {
+    color: $gray-darker;
+    .button {
+      color: $gray-darker;
+    }
+  }
+}
+
+html[data-theme=dark] {
+  .app-link-widget {
+    color: $gray-lighter;
+    .button {
+      color: $gray-lighter;
+    }
+  }
+}

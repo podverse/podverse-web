@@ -8,6 +8,7 @@ import ReactGA from 'react-ga'
 import { getLastHistoryItemOrNowPlayingItemFromStorage, getPriorityQueueItemsStorage,
   setNowPlayingItemInStorage } from 'podverse-ui'
 import Alerts from '~/components/Alerts/Alerts'
+import AppLinkWidget from '~/components/AppLinkWidget/AppLinkWidget'
 import Auth from '~/components/Auth/Auth'
 import Footer from '~/components/Footer/Footer'
 import MediaModals from '~/components/MediaModals/MediaModals'
@@ -298,6 +299,14 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
       window.history.pushState({}, document.title, window.location.origin + window.location.pathname)
     }
 
+    const isiOSWebView = /(iPhone|iPod|iPad).*AppleWebKit(?!.*Safari)/i.test(navigator.userAgent)
+    if (isiOSWebView) {
+      const view = document.querySelector('.view')
+      if (view) {
+        view.className = 'view ios-webview-polyfill'
+      }
+    }
+
     if (!windowHasLoaded) {
       disableHoverOnTouchDevices()
 
@@ -346,6 +355,10 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
               <NavBar pageKey={pageKey} />
             </div>
             <div className='view__contents'>
+              {
+                (isMobileDevice || true) &&
+                  <AppLinkWidget pageKey={pageKey} />
+              }
               <div className='max-width top'>
                 <Alerts
                   cookies={cookies}

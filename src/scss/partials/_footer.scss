@@ -12,7 +12,7 @@
     line-height: 3em;
 
     .footer-top__brand {
-      flex: 0 0 auto;
+      flex: 1;
 
       sup {
         font-size: $text-tiny-rem;
@@ -30,7 +30,8 @@
 
     .footer-top__ui-theme {
       display: flex;
-      flex: 0 0 auto;
+      flex: 1;
+      justify-content: center;
       
       > div {
         align-self: center;
@@ -38,7 +39,8 @@
     }
 
     .footer-top__license {
-      flex: 0 0 auto;
+      flex: 1;
+      text-align: right;
     }
 
     @media(max-width: 399px) {

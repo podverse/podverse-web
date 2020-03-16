@@ -295,7 +295,6 @@ class MediaPlayerView extends Component<Props, State> {
         {
           nowPlayingItem &&
           <Fragment>
-            <div className='view__mediaplayer-spacer' />
             <div className='view__mediaplayer'>
               <MediaPlayer
                 autoplay={autoplay}

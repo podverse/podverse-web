@@ -221,9 +221,32 @@ export const enrichPodcastsWithCategoriesString = (podcasts: any) => {
   return enrichedPodcasts
 }
 
-export const smileyRandomizer = () => {
-  // [🙂, 😊, 😁, 😄, 😎, 😺, 😸, 🌝, 🌞]
-  const smilies = ['&#128578;', '&#128522;', '&#128513;', '&#128516;', '&#128526;',
-    '&#128570;', '&#128568;', '&#127773;', '&#127774;'] as any
-  return smilies[Math.floor(Math.random() * smilies.length)]
+/**
+ * Determine the mobile operating system.
+ * This function returns one of 'iOS', 'Android', 'Windows Phone', or 'unknown'.
+ *
+ * @returns {String}
+ */
+export const getMobileOperatingSystem = () => {
+  if (typeof window !== 'undefined') {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+    // @ts-ignore
+    const userAgent = navigator.userAgent || navigator.vendor || window.opera
+  
+    // Windows Phone must come first because its UA also contains 'Android'
+    if (/windows phone/i.test(userAgent)) {
+      return 'Windows Phone'
+    }
+  
+    if (/android/i.test(userAgent)) {
+      return 'Android'
+    }
+  
+    // iOS detection from: http://stackoverflow.com/a/9039885/177710
+    if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+      return 'iOS'
+    }
+  }
+
+  return 'unknown'
 }

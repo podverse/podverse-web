@@ -3,7 +3,7 @@ import { faFacebook, faGithub, faReddit, faTwitter } from '@fortawesome/free-bra
 import {
   faArrowsAltV, faBars, faCaretDown, faCaretRight, faCheck, faCut, faDownload, faEdit,
   faEllipsisH, faFilter, faGlobeAmericas, faHeadphones, faHistory, faInfinity,
-  faLevelDownAlt, faLevelUpAlt, faLink, faListUl, faLock, faMoon, faPause, faPlay,
+  faLevelDownAlt, faLevelUpAlt, faLink, faListUl, faLock, faMobileAlt, faMoon, faPause, faPlay,
   faPlayCircle, faPlus, faPlusCircle, faPodcast, faRedoAlt, faSearch, faShare, faShoppingCart,
   faSmile, faSpinner, faStepBackward, faStepForward, faSun, faTimes, faTools, faTrash, faUndoAlt,
   faUserCircle, faUserSecret, faVolumeOff, faVolumeUp
@@ -33,6 +33,7 @@ export const addFontAwesomeIcons = () => {
     faLink,
     faListUl,
     faLock,
+    faMobileAlt,
     faMoon,
     faPause,
     faPlay,

@@ -23,6 +23,7 @@
     "lint:scss": "stylelint src/scss/**/*.scss",
     "lint:ts": "eslint pages/**/*.tsx src/**/*.ts",
     "start": "NODE_ENV=production ts-node --compilerOptions '{\"module\":\"commonjs\"}' src/server/index.ts -- -p 8765",
+    "start:local": "NODE_ENV=production ts-node --compilerOptions '{\"module\":\"commonjs\"}' src/server/index.dev.ts -- -p 8765",
     "ts:check": "tsc --noEmit"
   },
   "lint-staged": {

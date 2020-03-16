@@ -20,9 +20,9 @@
     flex: 1;
     height: 0;
     justify-content: space-between;
-    margin-top: 48px;
     overflow-y: scroll;
-    padding-top: 1.25rem;
+    padding-bottom: 100px;
+    padding-top: 68px;
     -webkit-overflow-scrolling: touch;
 
     .top {
@@ -36,10 +36,6 @@
       flex: 0 0 auto;
       z-index: 98;
     }
-  }
-
-  .view__mediaplayer-spacer {
-    flex: 0 0 100px;
   }
 
   .view__mediaplayer {

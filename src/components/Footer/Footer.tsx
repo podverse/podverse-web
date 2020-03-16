@@ -11,7 +11,7 @@ import { getViewContentsElementScrollTop } from '~/lib/utility'
 import { pageIsLoading, pagesSetQueryState, settingsSetNSFWMode, settingsSetUITheme
   } from '~/redux/actions'
 const cookie = require('cookie')
-const { SOCIAL_FACEBOOK_PAGE_URL, SOCIAL_GITHUB_PAGE_URL, SOCIAL_REDDIT_PAGE_URL,
+const { CONTACT_FORM_URL, SOCIAL_FACEBOOK_PAGE_URL, SOCIAL_GITHUB_PAGE_URL, SOCIAL_REDDIT_PAGE_URL,
   SOCIAL_TWITTER_PAGE_URL } = config()
 
 type Props = {
@@ -95,9 +95,8 @@ class Footer extends Component<Props, State> {
   }
 
   render() {
-    const { isMobileDevice, settings, user } = this.props
+    const { settings } = this.props
     const { uiTheme, uiThemeHide } = settings
-    const isLoggedIn = user && !!user.id
 
     const uiThemeAriaLabel = uiTheme === 'dark' || !uiTheme ? 'Turn on light mode' : 'Turn on dark mode'
 
@@ -167,8 +166,8 @@ class Footer extends Component<Props, State> {
           <div className='footer__bottom'>
             <div className='footer-bottom__site-links'>
               <Link
-                as='https://goo.gl/forms/BK9WPAsK1q6xD4Xw1'
-                href='https://goo.gl/forms/BK9WPAsK1q6xD4Xw1'>
+                as={CONTACT_FORM_URL}
+                href={CONTACT_FORM_URL || ''}>
                 <a 
                   className='footer-bottom__link'
                   target='_blank'>
@@ -263,24 +262,6 @@ class Footer extends Component<Props, State> {
               }
             </div>
           </div>
-          {
-            !isLoggedIn && isMobileDevice &&
-              <div className='footer__app-links'>
-                {/* eslint-disable-next-line jsx-a11y/anchor-has-content */}
-                <a
-                  className="download-on-the-app-store"
-                  href="https://apps.apple.com/us/app/podverse/id1390888454?mt=8"
-                />
-                <a
-                  className="get-it-on-google-play"
-                  href='https://play.google.com/store/apps/details?id=com.podverse&hl=en_US&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'>
-                  <img
-                    alt='Get it on Google Play'
-                    src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png'
-                  />
-                </a>
-              </div>
-          }
         </div>
         {/* <NSFWModal
           handleHideModal={this.hideNSFWModal}
