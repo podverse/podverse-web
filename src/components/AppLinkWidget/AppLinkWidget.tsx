@@ -21,7 +21,9 @@ const createDeepLink = (pageKey: string) => {
   pageKey = pageKey === 'home' ? 'podcasts' : pageKey
 
   if (pageKey) {
-    const pageKeys = pageKey.split('_')
+    // split on only the first matching underscore,
+    // because ids may contain underscores
+    const pageKeys = pageKey.split(/_(.+)/)
     let path = ''
     if (pageKeys.length === 2) {
       path = pageKeys[0] + '/' + pageKeys[1]
