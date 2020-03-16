@@ -356,7 +356,7 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
             </div>
             <div className='view__contents'>
               {
-                (isMobileDevice || true) &&
+                isMobileDevice &&
                   <AppLinkWidget pageKey={pageKey} />
               }
               <div className='max-width top'>
