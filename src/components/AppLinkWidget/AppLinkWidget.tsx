@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import * as Modal from 'react-modal'
 import { connect } from 'react-redux'
 import { Button, CloseButton } from 'podverse-ui'
@@ -117,7 +117,7 @@ class AppLinkWidget extends Component<Props, State> {
     const { isValidMobileOS, mobileOS, modalIsOpen } = this.state
     const downloadButton = createDownloadButton(mobileOS)
 
-    if (!isValidMobileOS) return null
+    if (!isValidMobileOS) return <div />
 
     let appEl
     if (checkIfLoadingOnFrontEnd()) {
@@ -125,7 +125,7 @@ class AppLinkWidget extends Component<Props, State> {
     }
 
     return (
-      <Fragment>
+      <div>
         <div className='app-link-widget max-width'>
           <Button
             className='app-link-widget__open-in-app'
@@ -154,7 +154,7 @@ class AppLinkWidget extends Component<Props, State> {
             {downloadButton}
           </div>
         </Modal>
-      </Fragment>
+      </div>
     )
   }
 }
