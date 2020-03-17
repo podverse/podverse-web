@@ -21,11 +21,13 @@ const createDeepLink = (pageKey: string) => {
   pageKey = pageKey === 'home' ? 'podcasts' : pageKey
 
   if (pageKey) {
-    // split on only the first matching underscore,
-    // because ids may contain underscores
+    // Split on only the first matching underscore,
+    // because ids may contain underscores.
+    // Note this adds an extra empty string in the last array position
+    // if it finds an underscore.
     const pageKeys = pageKey.split(/_(.+)/)
     let path = ''
-    if (pageKeys.length === 2) {
+    if (pageKeys.length === 3) {
       path = pageKeys[0] + '/' + pageKeys[1]
     } else if (pageKeys.length === 1) {
       path = pageKeys[0]
@@ -98,6 +100,7 @@ class AppLinkWidget extends Component<Props, State> {
     const { pageKey } = this.props
     const { mobileOS } = this.state
     const deepLink = createDeepLink(pageKey)
+
     if (mobileOS === 'Android') {
       window.location.href = deepLink
     } else if (mobileOS === 'iOS') {
