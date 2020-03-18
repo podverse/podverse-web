@@ -35,13 +35,14 @@ class PVNavBar extends Component<Props, State> {
     this.state = {}
   }
 
-  navItems () {
-    return [
+  navItems (isLoggedIn: boolean) {
+    const items = [
       {
         as: '/search',
         href: '/search',
         icon: 'search',
-        onClick: () => { this.linkClick() }
+        onClick: () => { this.linkClick() },
+        hideMobile: true
       },
       {
         as: '/podcasts',
@@ -55,7 +56,53 @@ class PVNavBar extends Component<Props, State> {
         label: 'Playlists',
         onClick: () => { this.linkClick() }
       }
-    ]
+    ] as any
+
+    if (!isLoggedIn) {
+      items.push({
+        as: '',
+        href: '',
+        label: 'Login',
+        onClick: () => {
+          this.props.modalsLoginShow(true)
+          this.setState({
+            dropdownMenuIsOpen: false,
+            mobileMenuIsOpen: false
+          })
+        },
+        hideMobile: true
+      })
+    }
+
+    return items
+  }
+
+  mobileNavItems (isLoggedIn: boolean) {
+    const items = [
+      {
+        as: '/search',
+        href: '/search',
+        icon: 'search',
+        onClick: () => { this.linkClick() }
+      }
+    ] as any
+
+    if (!isLoggedIn) {
+      items.push({
+        as: '',
+        href: '',
+        label: 'Login',
+        onClick: () => {
+          this.props.modalsLoginShow(true)
+          this.setState({
+            dropdownMenuIsOpen: false,
+            mobileMenuIsOpen: false
+          })
+        }
+      })
+    }
+
+    return items
   }
 
   dropdownItems () {
@@ -129,19 +176,6 @@ class PVNavBar extends Component<Props, State> {
           }
         }
       })
-    } else {
-      dropdownItems.push({
-        as: '',
-        href: '',
-        label: 'Login',
-        onClick: () => { 
-          this.props.modalsLoginShow(true)
-          this.setState({
-            dropdownMenuIsOpen: false,
-            mobileMenuIsOpen: false
-          })
-        }
-      })
     }
 
     return dropdownItems
@@ -196,7 +230,8 @@ class PVNavBar extends Component<Props, State> {
           handleToggleMobileMenu={this.handleToggleMobileMenu}
           isDarkMode={uiTheme === 'dark'}
           mobileMenuIsOpen={mobileMenuIsOpen}
-          navItems={this.navItems()} />
+          mobileNavItems={this.mobileNavItems(!!id)}
+          navItems={this.navItems(!!id)} />
       </React.Fragment>
     )
   }
