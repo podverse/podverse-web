@@ -83,24 +83,23 @@ class About extends Component<Props, State> {
             We will never sell your data or add advertisements to podcaster content.
           </p>
           <p>
-            Any questions, feedback, or feature requests would be appreciated!
+            Any questions or feedback would be appreciated. Thank you!
           </p>
-        </div>
-
-        <div className='flex-row'>
-          {/* eslint-disable-next-line jsx-a11y/anchor-has-content */}
-          <a
-            className="download-on-the-app-store"
-            href="https://apps.apple.com/us/app/podverse/id1390888454?mt=8"
-          />
-          <a
-            className="get-it-on-google-play"
-            href='https://play.google.com/store/apps/details?id=com.podverse&hl=en_US&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'>
-            <img
-              alt='Get it on Google Play'
-              src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png'
+          <div className='flex-row'>
+            {/* eslint-disable-next-line jsx-a11y/anchor-has-content */}
+            <a
+              className="download-on-the-app-store"
+              href="https://apps.apple.com/us/app/podverse/id1390888454?mt=8"
             />
-          </a>
+            <a
+              className="get-it-on-google-play"
+              href='https://play.google.com/store/apps/details?id=com.podverse&hl=en_US&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'>
+              <img
+                alt='Get it on Google Play'
+                src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png'
+              />
+            </a>
+          </div>
         </div>
 
         <hr />
