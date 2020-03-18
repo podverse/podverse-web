@@ -1,0 +1,9 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "com.podverse",
+    "sha256_cert_fingerprints":
+    ["39:40:07:B6:DE:08:D2:70:64:E3:1F:D4:49:8B:97:8B:78:A4:6A:7D:40:CE:5E:16:EB:00:72:B9:B0:A5:05:33"]
+  }
+}]

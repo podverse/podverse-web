@@ -16,6 +16,12 @@ export default (app) => {
     ctx.body = aasa
   })
 
+  router.get('/.well-known/assetlinks.json', async ctx => {
+    const assetLinks = fs.readFileSync(path.resolve(__dirname, '../../config/assetlinks.json'))
+    ctx.set('Content-Type', 'application/json')
+    ctx.body = assetLinks
+  })
+
   router.get('/clip/:id', async ctx => {
     const query = { ...ctx.params, ...ctx.query }
     await app.render(ctx.req, ctx.res, '/clip', query)
