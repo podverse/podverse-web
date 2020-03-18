@@ -59,7 +59,7 @@ class Meta extends Component<Props, State> {
         <meta name='title' content={title} />
         <meta name='description' content={strippedDescription} />
 
-        <meta name='apple-itunes-app' content='app-id=1390888454' />
+        {/* <meta name='apple-itunes-app' content='app-id=1390888454' /> */}
 
         {/* Open Graph meta tags  */}
         <meta property='og:title' content={ogTitle} />
