@@ -258,7 +258,9 @@ class MediaPlayerView extends Component<Props, State> {
     const { playing } = mediaPlayer
     mediaPlayerUpdatePlaying(!playing)
 
-    await addOrUpdateHistoryItemPlaybackPosition(mediaPlayer.nowPlayingItem, user)
+    if (playing) {
+      await addOrUpdateHistoryItemPlaybackPosition(mediaPlayer.nowPlayingItem, user)
+    }
   }
 
   toggleQueueModal = () => {
