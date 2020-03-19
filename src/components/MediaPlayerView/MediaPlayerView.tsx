@@ -43,6 +43,7 @@ type State = {
   makeClipIsDeleting?: boolean
   makeClipIsSaving?: boolean
   playbackRate?: number
+  shouldWaitToLoad?: boolean
 }
 
 class MediaPlayerView extends Component<Props, State> {
@@ -56,7 +57,9 @@ class MediaPlayerView extends Component<Props, State> {
   constructor(props) {
     super(props)
 
-    this.state = {}
+    this.state = {
+      shouldWaitToLoad: true
+    }
   }
 
   componentDidMount() {
@@ -252,10 +255,23 @@ class MediaPlayerView extends Component<Props, State> {
   }
 
   togglePlay = async () => {
-    const { mediaPlayer, mediaPlayerUpdatePlaying, user } = this.props
-    const { playing } = mediaPlayer
-    mediaPlayerUpdatePlaying(!playing)
-    await addOrUpdateHistoryItemPlaybackPosition(mediaPlayer.nowPlayingItem, user)
+    const handleTogglePlay = async () => {
+      const { mediaPlayer, mediaPlayerUpdatePlaying, user } = this.props
+      const { playing } = mediaPlayer
+      mediaPlayerUpdatePlaying(!playing)
+
+      await addOrUpdateHistoryItemPlaybackPosition(mediaPlayer.nowPlayingItem, user)
+    }
+
+    const { shouldWaitToLoad } = this.state
+
+    // Don't load the player on the first page load, so we don't unnecessarily
+    // start downloading the media file. 
+    if (shouldWaitToLoad) {
+      this.setState({ shouldWaitToLoad: false }, handleTogglePlay)
+    } else {
+      handleTogglePlay()
+    }
   }
 
   toggleQueueModal = () => {
@@ -288,7 +304,7 @@ class MediaPlayerView extends Component<Props, State> {
     const { clipFinished, nowPlayingItem, playedAfterClipFinished, playing } = mediaPlayer
     const { priorityItems, secondaryItems } = playerQueue
     const { playbackSpeedButtonHide, timeJumpBackwardButtonHide } = settings
-    const { autoplay, playbackRate } = this.state
+    const { autoplay, playbackRate, shouldWaitToLoad } = this.state
 
     return (
       <Fragment>
@@ -329,6 +345,7 @@ class MediaPlayerView extends Component<Props, State> {
                 playing={playing}
                 queuePriorityItems={priorityItems}
                 queueSecondaryItems={secondaryItems}
+                shouldWaitToLoad={shouldWaitToLoad}
                 showAutoplay={!isMobileDevice}
                 showPlaybackSpeed={playbackSpeedButtonHide === 'false' || !playbackSpeedButtonHide}
                 showTimeJumpBackward={timeJumpBackwardButtonHide === 'false'} />
