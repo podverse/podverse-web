@@ -43,7 +43,6 @@ type State = {
   makeClipIsDeleting?: boolean
   makeClipIsSaving?: boolean
   playbackRate?: number
-  shouldWaitToLoad?: boolean
 }
 
 class MediaPlayerView extends Component<Props, State> {
@@ -57,9 +56,7 @@ class MediaPlayerView extends Component<Props, State> {
   constructor(props) {
     super(props)
 
-    this.state = {
-      shouldWaitToLoad: true
-    }
+    this.state = {}
   }
 
   componentDidMount() {
@@ -100,8 +97,10 @@ class MediaPlayerView extends Component<Props, State> {
     let priorityItems = []
     let secondaryItems = []
 
-    const currentTime = Math.floor(window.player.getCurrentTime()) || 0
-    await addOrUpdateHistoryItemPlaybackPosition(previousItem, user, currentTime)
+    if (window.player) {
+      const currentTime = Math.floor(window.player.getCurrentTime()) || 0
+      await addOrUpdateHistoryItemPlaybackPosition(previousItem, user, currentTime)
+    }
 
     if (user && user.id) {
       if (user.queueItems && user.queueItems.length > 0) {
@@ -255,23 +254,11 @@ class MediaPlayerView extends Component<Props, State> {
   }
 
   togglePlay = async () => {
-    const handleTogglePlay = async () => {
-      const { mediaPlayer, mediaPlayerUpdatePlaying, user } = this.props
-      const { playing } = mediaPlayer
-      mediaPlayerUpdatePlaying(!playing)
+    const { mediaPlayer, mediaPlayerUpdatePlaying, user } = this.props
+    const { playing } = mediaPlayer
+    mediaPlayerUpdatePlaying(!playing)
 
-      await addOrUpdateHistoryItemPlaybackPosition(mediaPlayer.nowPlayingItem, user)
-    }
-
-    const { shouldWaitToLoad } = this.state
-
-    // Don't load the player on the first page load, so we don't unnecessarily
-    // start downloading the media file. 
-    if (shouldWaitToLoad) {
-      this.setState({ shouldWaitToLoad: false }, handleTogglePlay)
-    } else {
-      handleTogglePlay()
-    }
+    await addOrUpdateHistoryItemPlaybackPosition(mediaPlayer.nowPlayingItem, user)
   }
 
   toggleQueueModal = () => {
@@ -301,10 +288,10 @@ class MediaPlayerView extends Component<Props, State> {
 
   render() {
     const { isMobileDevice, mediaPlayer, playerQueue, settings, user } = this.props
-    const { clipFinished, nowPlayingItem, playedAfterClipFinished, playing } = mediaPlayer
+    const { clipFinished, didWaitToLoad, nowPlayingItem, playedAfterClipFinished, playing } = mediaPlayer
     const { priorityItems, secondaryItems } = playerQueue
     const { playbackSpeedButtonHide, timeJumpBackwardButtonHide } = settings
-    const { autoplay, playbackRate, shouldWaitToLoad } = this.state
+    const { autoplay, playbackRate } = this.state
 
     return (
       <Fragment>
@@ -315,6 +302,7 @@ class MediaPlayerView extends Component<Props, State> {
               <MediaPlayer
                 autoplay={autoplay}
                 clipFinished={clipFinished}
+                didWaitToLoad={didWaitToLoad}
                 handleGetPlaybackPositionFromHistory={user && user.id ? () => getPlaybackPositionFromHistory(user.historyItems, nowPlayingItem) : null}
                 handleItemSkip={this.itemSkip}
                 handleOnEpisodeEnd={this.onEpisodeEnd}
@@ -345,7 +333,6 @@ class MediaPlayerView extends Component<Props, State> {
                 playing={playing}
                 queuePriorityItems={priorityItems}
                 queueSecondaryItems={secondaryItems}
-                shouldWaitToLoad={shouldWaitToLoad}
                 showAutoplay={!isMobileDevice}
                 showPlaybackSpeed={playbackSpeedButtonHide === 'false' || !playbackSpeedButtonHide}
                 showTimeJumpBackward={timeJumpBackwardButtonHide === 'false'} />

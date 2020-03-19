@@ -23,7 +23,8 @@ export default (state = {}, action) => {
     case actionTypes.MEDIA_PLAYER_UPDATE_PLAYING:
       return {
         ...state,
-        playing: action.payload
+        playing: action.payload,
+        didWaitToLoad: true
       }
     default:
       return state

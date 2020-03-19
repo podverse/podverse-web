@@ -250,8 +250,12 @@ class UserMediaListCtrl extends Component<Props, State> {
     const { loggedInUser, mediaPlayer, mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying,
       pages, pageKey, playerQueueLoadSecondaryItems, user, userSetInfo } = this.props
     const { listItems } = pages[pageKey]
-    const currentTime = Math.floor(window.player.getCurrentTime()) || 0
-    await addOrUpdateHistoryItemPlaybackPosition(mediaPlayer.nowPlayingItem, user, currentTime)
+
+    if (window.player) {
+      const currentTime = Math.floor(window.player.getCurrentTime()) || 0
+      await addOrUpdateHistoryItemPlaybackPosition(mediaPlayer.nowPlayingItem, user, currentTime)
+    }
+
     nowPlayingItem = assignLocalOrLoggedInNowPlayingItemPlaybackPosition(user, nowPlayingItem)
     mediaPlayerLoadNowPlayingItem(nowPlayingItem)
     setNowPlayingItemInStorage(nowPlayingItem)

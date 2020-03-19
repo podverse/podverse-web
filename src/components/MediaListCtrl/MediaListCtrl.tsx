@@ -285,8 +285,11 @@ class MediaListCtrl extends Component<Props, State> {
       pageKey, pages, playerQueueLoadSecondaryItems, user, userSetInfo } = this.props
     const { listItems, podcast } = pages[pageKey]
     const { nowPlayingItem: previousItem } = mediaPlayer
-    const currentTime = Math.floor(window.player.getCurrentTime()) || 0
-    await addOrUpdateHistoryItemPlaybackPosition(mediaPlayer.nowPlayingItem, user, currentTime)
+    
+    if (window.player) {
+      const currentTime = Math.floor(window.player.getCurrentTime()) || 0
+      await addOrUpdateHistoryItemPlaybackPosition(mediaPlayer.nowPlayingItem, user, currentTime)
+    }
 
     // If loading a new episode, clear the player to prevent the error:
     // TypeError: Failed to set the 'currentTime' property on 'HTMLMediaElement': The provided double value is non-finite.

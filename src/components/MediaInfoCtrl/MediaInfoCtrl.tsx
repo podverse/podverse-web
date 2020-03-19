@@ -43,9 +43,12 @@ class MediaInfoCtrl extends Component<Props, State> {
   playItem = async (nowPlayingItem, loadOnly = false) => {
     const { mediaPlayer, mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying, user,
       userSetInfo } = this.props
+    
+    if (window.player) {
+      const currentTime = Math.floor(window.player.getCurrentTime()) || 0
+      await addOrUpdateHistoryItemPlaybackPosition(mediaPlayer.nowPlayingItem, user, currentTime)
+    }
 
-    const currentTime = Math.floor(window.player.getCurrentTime()) || 0
-    await addOrUpdateHistoryItemPlaybackPosition(mediaPlayer.nowPlayingItem, user, currentTime)
     nowPlayingItem = assignLocalOrLoggedInNowPlayingItemPlaybackPosition(user, nowPlayingItem)
 
     if (!loadOnly) {

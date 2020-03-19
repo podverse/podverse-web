@@ -351,8 +351,11 @@ class Playlist extends Component<Props, State> {
       playerQueueLoadSecondaryItems, user, userSetInfo } = this.props
     const { sortedNowPlayingItems } = this.state
 
-    const currentTime = Math.floor(window.player.getCurrentTime()) || 0
-    await addOrUpdateHistoryItemPlaybackPosition(mediaPlayer.nowPlayingItem, user, currentTime)
+    if (window.player) {
+      const currentTime = Math.floor(window.player.getCurrentTime()) || 0
+      await addOrUpdateHistoryItemPlaybackPosition(mediaPlayer.nowPlayingItem, user, currentTime)
+    }
+
     nowPlayingItem = assignLocalOrLoggedInNowPlayingItemPlaybackPosition(user, nowPlayingItem)
     mediaPlayerLoadNowPlayingItem(nowPlayingItem)
     setNowPlayingItemInStorage(nowPlayingItem)

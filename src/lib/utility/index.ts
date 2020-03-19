@@ -180,7 +180,7 @@ export const assignLocalOrLoggedInNowPlayingItemPlaybackPosition = (user, nowPla
 }
 
 export const addOrUpdateHistoryItemPlaybackPosition = async (nowPlayingItem, user, overridePosition?: number) => {
-  let currentTime = Math.floor(window.player.getCurrentTime()) || 0
+  let currentTime = (window.player && Math.floor(window.player.getCurrentTime())) || 0
   currentTime = overridePosition ? overridePosition : currentTime
   nowPlayingItem.userPlaybackPosition = currentTime
 
