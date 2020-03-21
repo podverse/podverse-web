@@ -1,7 +1,6 @@
 import React from 'react'
 import Document, { Head, Html, Main, NextScript } from 'next/document'
 import { actionTypes } from '~/redux/constants'
-import '~/scss/styles.scss'
 const cookie = require('cookie')
 
 type Props = {
