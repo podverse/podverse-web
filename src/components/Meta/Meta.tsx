@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import Head from 'next/head'
 import '~/lib/constants/misc'
-import '~/scss/styles.scss'
 import config from '~/config'
 const { metaDefaultImageUrl1200x630 } = config()
 const striptags = require('striptags')
