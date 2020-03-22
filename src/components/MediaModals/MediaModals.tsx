@@ -38,6 +38,9 @@ type Props = {
 }
 
 type State = {
+  inProgressClipEndTime?: string
+  inProgressClipStartTime?: string
+  inProgressClipTitle?: string
   isAddedToPlayLast?: boolean
   isAddedToPlayNext?: boolean
   isAddingToPlayLast?: boolean
@@ -47,12 +50,30 @@ type State = {
   makeClipIsSaving?: boolean
 }
 
+interface MediaModals {
+  makeClipInputStartTime: any
+  makeClipInputEndTime: any
+  makeClipInputTitle: any
+}
+
+const _inProgressMakeClipTitleKey = 'inProgressMakeClipTitle'
+const _inProgressMakeStartTimeKey = 'inProgressMakeStartTime'
+const _inProgressMakeEndTimeKey = 'inProgressMakeEndTime'
+
 class MediaModals extends Component<Props, State> {
 
   constructor(props) {
     super(props)
     
-    this.state = {}
+    this.state = {
+      inProgressClipEndTime: '',
+      inProgressClipStartTime: '',
+      inProgressClipTitle: ''
+    }
+
+    this.makeClipInputStartTime = React.createRef()
+    this.makeClipInputEndTime = React.createRef()
+    this.makeClipInputTitle = React.createRef()
   }
 
   addToQueue = async isLast => {
@@ -135,6 +156,15 @@ class MediaModals extends Component<Props, State> {
 
   hideMakeClipModal = () => {
     const { modalsMakeClipShow } = this.props
+
+    const { value: startTime } = this.makeClipInputStartTime.current
+    const { value: endTime } = this.makeClipInputEndTime.current
+    const { value: title } = this.makeClipInputTitle.current
+
+    window.sessionStorage.setItem(_inProgressMakeStartTimeKey, startTime)
+    window.sessionStorage.setItem(_inProgressMakeEndTimeKey, endTime)
+    window.sessionStorage.setItem(_inProgressMakeClipTitleKey, title)
+
     modalsMakeClipShow({})
   }
 
@@ -202,6 +232,11 @@ class MediaModals extends Component<Props, State> {
           mediaRef: newMediaRef && newMediaRef.data
         })
       }
+
+      window.sessionStorage.removeItem('inProgressMakeClipTitle')
+      window.sessionStorage.removeItem('inProgressMakeStartTime')
+      window.sessionStorage.removeItem('inProgressMakeEndTime')
+
     } catch (error) {
       if (error && error.response && error.response.data && error.response.data.message === 'Premium Membership Required') {
         alert('Your Premium membership has expired. Renew your membership on the Settings page, or log out to create a clip anonymously.')
@@ -432,6 +467,9 @@ class MediaModals extends Component<Props, State> {
           isSaving={makeClipIsSaving}
           isOpen={makeClipIsOpen}
           player={typeof window !== 'undefined' && window.player}
+          refInputEndTime={this.makeClipInputEndTime}
+          refInputStartTime={this.makeClipInputStartTime}
+          refInputTitle={this.makeClipInputTitle}
           startTime={makeClipStartTime}
           title={makeClipIsEditing ? makeClipNowPlayingItem.clipTitle : ''} />
         <ClipCreatedModal
