@@ -190,27 +190,12 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
           type: actionTypes.SETTINGS_SET_HIDE_TIME_JUMP_BACKWARD_BUTTON,
           payload: parsedCookie.timeJumpBackwardButtonHide
         })
-      } else if (isMobileDevice) {
-        ctx.store.dispatch({
-          type: actionTypes.SETTINGS_SET_HIDE_TIME_JUMP_BACKWARD_BUTTON,
-          payload: 'false'
-        })
-      } else {
-        ctx.store.dispatch({
-          type: actionTypes.SETTINGS_SET_HIDE_TIME_JUMP_BACKWARD_BUTTON,
-          payload: 'false'
-        })
       }
 
       if (parsedCookie.playbackSpeedButtonHide) {
         ctx.store.dispatch({
           type: actionTypes.SETTINGS_SET_HIDE_PLAYBACK_SPEED_BUTTON,
           payload: parsedCookie.playbackSpeedButtonHide
-        })
-      } else if (isMobileDevice) {
-        ctx.store.dispatch({
-          type: actionTypes.SETTINGS_SET_HIDE_PLAYBACK_SPEED_BUTTON,
-          payload: true
         })
       }
 
