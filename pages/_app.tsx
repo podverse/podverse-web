@@ -340,6 +340,8 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
     ReactGA.pageview(window.location.pathname + window.location.search)
 
     windowHasLoaded = true
+
+    this.forceUpdate()
   }
 
   render() {
@@ -349,34 +351,39 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
     return (
       <Provider store={store}>
         <Fragment>
-          <PageLoadingOverlay />
-          <div className='view'>
-            <div className='view__navbar'>
-              <NavBar pageKey={pageKey} />
-            </div>
-            <div className='view__contents'>
-              {
-                isMobileDevice &&
-                  <AppLinkWidget pageKey={pageKey} />
-              }
-              <div className='max-width top'>
-                <Alerts
-                  cookies={cookies}
-                  pageKey={pageKey} />
-                <Component {...pageProps} />
-              </div>
-              <div className='max-width bottom'>
-                <Footer
-                  isMobileDevice={isMobileDevice}
-                  pageKey={pageKey} />
-              </div>
-            </div>
-            <MediaPlayerView
-              {...pageProps}
-              isMobileDevice={isMobileDevice} />
-          </div>
-          <Auth />
-          <MediaModals />
+          {
+            windowHasLoaded &&
+              <Fragment>
+                <PageLoadingOverlay />
+                <div className='view'>
+                  <div className='view__navbar'>
+                    <NavBar pageKey={pageKey} />
+                  </div>
+                  <div className='view__contents'>
+                    {
+                      isMobileDevice &&
+                        <AppLinkWidget pageKey={pageKey} />
+                    }
+                    <div className='max-width top'>
+                      <Alerts
+                        cookies={cookies}
+                        pageKey={pageKey} />
+                      <Component {...pageProps} />
+                    </div>
+                    <div className='max-width bottom'>
+                      <Footer
+                        isMobileDevice={isMobileDevice}
+                        pageKey={pageKey} />
+                    </div>
+                  </div>
+                  <MediaPlayerView
+                    {...pageProps}
+                    isMobileDevice={isMobileDevice} />
+                </div>
+                <Auth />
+                <MediaModals />
+              </Fragment>
+          }
         </Fragment>
       </Provider>
     )
