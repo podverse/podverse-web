@@ -505,7 +505,7 @@ class Settings extends Component<Props, State> {
           <FormGroup check>
             <Label className='checkbox-label' check>
               <Input
-                checked={playbackSpeedButtonHide !== 'false' && !!playbackSpeedButtonHide}
+                checked={playbackSpeedButtonHide === 'true'}
                 onChange={this.handleTogglePlaybackSpeedButton}
                 type="checkbox" />
               &nbsp;&nbsp;Hide playback speed button
@@ -514,7 +514,7 @@ class Settings extends Component<Props, State> {
           <FormGroup check>
             <Label className='checkbox-label' check>
               <Input
-                checked={filterButtonHide !== 'false' && !!filterButtonHide}
+                checked={filterButtonHide === 'true'}
                 onChange={this.handleToggleFilterButton}
                 type="checkbox" />
               &nbsp;&nbsp;Hide filter buttons
