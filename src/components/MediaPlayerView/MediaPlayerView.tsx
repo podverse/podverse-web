@@ -322,6 +322,7 @@ class MediaPlayerView extends Component<Props, State> {
                   (priorityItems && priorityItems.length > 0) 
                   || (secondaryItems && secondaryItems.length > 0)
                 }
+                hideTimeJumpBackward={timeJumpBackwardButtonHide === 'true'}
                 nowPlayingItem={nowPlayingItem}
                 playbackRate={playbackRate}
                 playedAfterClipFinished={playedAfterClipFinished}
@@ -336,8 +337,7 @@ class MediaPlayerView extends Component<Props, State> {
                 queuePriorityItems={priorityItems}
                 queueSecondaryItems={secondaryItems}
                 showAutoplay={!isMobileDevice}
-                showPlaybackSpeed={playbackSpeedButtonHide === 'false' || !playbackSpeedButtonHide}
-                showTimeJumpBackward={timeJumpBackwardButtonHide === 'false'} />
+                showPlaybackSpeed={playbackSpeedButtonHide === 'false' || !playbackSpeedButtonHide} />
             </div>
           </Fragment>
         }
