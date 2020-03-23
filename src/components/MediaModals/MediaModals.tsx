@@ -242,6 +242,8 @@ class MediaModals extends Component<Props, State> {
         alert('Your Premium membership has expired. Renew your membership on the Settings page, or log out to create a clip anonymously.')
       } else if (error && error.response && error.response.status === 429) {
         alertRateLimitError(error)
+      } else if (error && error.response && error.response.status === 401) {
+        alertPremiumRequired()
       } else {
         alertSomethingWentWrong()
       }
@@ -458,6 +460,7 @@ class MediaModals extends Component<Props, State> {
           handleDelete={this.makeClipDelete}
           handleEndTimePreview={this.makeClipEndTimePreview}
           handleHideModal={this.hideMakeClipModal}
+          handleLoginClick={modalsLoginShow}
           handleSave={this.makeClipSave}
           handleStartTimePreview={this.makeClipStartTimePreview}
           initialIsPublic={makeClipIsEditing ? makeClipNowPlayingItem.isPublic : true}
