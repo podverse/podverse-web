@@ -35,13 +35,12 @@ class Home extends Component<Props, State> {
     const state = store.getState()
     const { mediaPlayer, pages, user } = state
     const { nowPlayingItem } = mediaPlayer
-    
     const currentPage = pages[kPageKey] || {}
     const lastScrollPosition = currentPage.lastScrollPosition
     const queryFrom = currentPage.queryFrom || query.from || (user && user.id ? 'subscribed-only' : 'all-podcasts')
     const queryPage = currentPage.queryPage || query.page || 1
-    const querySort = currentPage.querySort || query.sort || 'top-past-week'
-    const queryType = currentPage.queryType || query.type || 'clips'
+    const querySort = currentPage.querySort || query.sort || (user && user.id ? 'most-recent' : 'top-past-week')
+    const queryType = currentPage.queryType || query.type || (user && user.id ? 'episodes' : 'clips')
     let podcastId = ''
 
     if (queryFrom === 'subscribed-only') {

@@ -153,13 +153,13 @@ class MediaListCtrl extends Component<Props, State> {
   }
 
   getQueryTypeOptions = () => {
-    const { pageKey, pages, podcastId } = this.props
-    const { queryFrom, querySort } = pages[pageKey]
+    const { pageKey, pages, podcastId, user } = this.props
+    const { queryFrom } = pages[pageKey]
 
     return [
       {
         label: 'Clips',
-        onClick: () => this.queryListItems('clips', queryFrom, querySort, 1),
+        onClick: () => this.queryListItems('clips', queryFrom, 'top-past-week', 1),
         value: 'clips',
       },
       {
@@ -167,7 +167,7 @@ class MediaListCtrl extends Component<Props, State> {
         onClick: () => this.queryListItems(
           'episodes',
           podcastId ? 'from-podcast' : queryFrom,
-          'most-recent',
+          (user && user.id && !podcastId) ? 'most-recent' : 'top-past-week',
           1
         ),
         value: 'episodes',
@@ -185,7 +185,11 @@ class MediaListCtrl extends Component<Props, State> {
       options.push(
         {
           label: 'All podcasts',
-          onClick: () => this.queryListItems(queryType, 'all-podcasts', querySort, 1),
+          onClick: () => this.queryListItems(
+            queryType,
+            'all-podcasts',
+            querySort === 'most-recent' ? 'top-past-week' : querySort,
+          1),
           value: 'all-podcasts'
         },
         {
