@@ -229,8 +229,13 @@ class MediaListCtrl extends Component<Props, State> {
     return options
   }
 
-  getQuerySortOptions(includeOldest?: boolean) {
+  getQuerySortOptions(includeOldest?: boolean, showChronological?: boolean) {
     const items = [
+      {
+        label: 'chronological',
+        onClick: () => this.querySort('chronological'),
+        value: 'chronological'
+      },
       {
         label: 'most recent',
         onClick: () => this.querySort('most-recent'),
@@ -512,7 +517,7 @@ class MediaListCtrl extends Component<Props, State> {
     const selectedQueryTypeOption = this.getQueryTypeOptions().filter(x => x.value === queryType)
     const selectedQueryFromOption = this.getQueryFromOptions(
       !!podcastId, !!episodeId && queryType === 'clips').filter(x => x.value === queryFrom)
-    const sortOptions = this.getQuerySortOptions(includeOldest)
+    const sortOptions = this.getQuerySortOptions(includeOldest, !!episodeId && queryType === 'clips' && queryFrom === 'from-episode')
     const selectedQuerySortOption = sortOptions.filter(x => x.value === querySort)
 
     return (      
