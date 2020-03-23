@@ -141,7 +141,7 @@ export const getUrlFromRequestOrWindow = req =>
     : `${location.protocol}//${location.hostname}${location.pathname}`
 
 export const alertPremiumRequired = () => {
-  alert('This feature is only available for premium members. Please visit the Settings page to sign up.')
+  alert('This feature is only available for premium members. Login for a free trial.')
 }
 
 export const alertSomethingWentWrong = () => {
