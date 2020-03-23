@@ -51,6 +51,10 @@ class ErrorPage extends Component<Props, State> {
 }
 
 const errors = {
+  401: {
+    header: 'Login Needed',
+    message1: 'You must login to use this feature.'
+  },
   404: {
     header: '404 Error',
     message1: 'Page not found'
