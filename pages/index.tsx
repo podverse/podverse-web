@@ -94,7 +94,7 @@ class Home extends Component<Props, State> {
 
     const meta = {
       currentUrl: getUrlFromRequestOrWindow(req),
-      description: 'Podcast app for iOS, Android, and web. Sync your queue across all devices. Create and share podcast highlights, playlists, and your listener profile. Open source software (AGPLv3).',
+      description: 'Podcast app for iOS, Android, and web. Sync your queue across all devices. Create and share podcast highlights, playlists, and your listener profile. Open source software.',
       title: 'Podverse - Sync your podcasts across iOS, Android, and web. Create podcast highlights and playlists. Open source.'
     }
 
