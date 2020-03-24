@@ -140,8 +140,12 @@ class MediaModals extends Component<Props, State> {
   }
 
   getPlaybackRateValue = () => {
-    const playbackRate = localStorage.getItem(kPlaybackRate)
-    return playbackRate ? JSON.parse(playbackRate) : 1
+    try {
+      const playbackRate = localStorage.getItem(kPlaybackRate)
+      return playbackRate ? JSON.parse(playbackRate) : 1
+    } catch (error) {
+      console.log('getPlaybackRateValue', error)
+    }
   }
 
   hideAddToModal = () => {
