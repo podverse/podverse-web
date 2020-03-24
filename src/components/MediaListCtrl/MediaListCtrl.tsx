@@ -230,12 +230,8 @@ class MediaListCtrl extends Component<Props, State> {
   }
 
   getQuerySortOptions(includeOldest?: boolean, showChronological?: boolean) {
+
     const items = [
-      {
-        label: 'chronological',
-        onClick: () => this.querySort('chronological'),
-        value: 'chronological'
-      },
       {
         label: 'most recent',
         onClick: () => this.querySort('most-recent'),
@@ -277,6 +273,15 @@ class MediaListCtrl extends Component<Props, State> {
         value: 'random'
       }
     ]
+
+    if (showChronological) {
+      items.unshift({
+        label: 'chronological',
+        onClick: () => this.querySort('chronological'),
+        value: 'chronological'
+      })
+    }
+    
 
     if (includeOldest) {
       items.splice(1, 0, {
