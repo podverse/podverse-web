@@ -336,39 +336,36 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
     return (
       <Provider store={store}>
         <Fragment>
-          {
-            windowHasLoaded &&
-              <Fragment>
-                <PageLoadingOverlay />
-                <div className='view'>
-                  <div className='view__navbar'>
-                    <NavBar pageKey={pageKey} />
-                  </div>
-                  <div className='view__contents'>
-                    {
-                      isMobileDevice &&
-                        <AppLinkWidget pageKey={pageKey} />
-                    }
-                    <div className='max-width top'>
-                      <Alerts
-                        cookies={cookies}
-                        pageKey={pageKey} />
-                      <Component {...pageProps} />
-                    </div>
-                    <div className='max-width bottom'>
-                      <Footer
-                        isMobileDevice={isMobileDevice}
-                        pageKey={pageKey} />
-                    </div>
-                  </div>
-                  <MediaPlayerView
-                    {...pageProps}
-                    isMobileDevice={isMobileDevice} />
+          <Fragment>
+            <PageLoadingOverlay />
+            <div className='view'>
+              <div className='view__navbar'>
+                <NavBar pageKey={pageKey} />
+              </div>
+              <div className='view__contents'>
+                {
+                  isMobileDevice &&
+                    <AppLinkWidget pageKey={pageKey} />
+                }
+                <div className='max-width top'>
+                  <Alerts
+                    cookies={cookies}
+                    pageKey={pageKey} />
+                  <Component {...pageProps} />
                 </div>
-                <Auth />
-                <MediaModals />
-              </Fragment>
-          }
+                <div className='max-width bottom'>
+                  <Footer
+                    isMobileDevice={isMobileDevice}
+                    pageKey={pageKey} />
+                </div>
+              </div>
+              <MediaPlayerView
+                {...pageProps}
+                isMobileDevice={isMobileDevice} />
+            </div>
+            <Auth />
+            <MediaModals />
+          </Fragment>
         </Fragment>
       </Provider>
     )
