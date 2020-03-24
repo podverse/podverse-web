@@ -50,6 +50,10 @@ class UserMediaListCtrl extends Component<Props, State> {
     queryPage: 1
   }
 
+  componentDidMount() {
+    this.queryMediaListItems('type', 'clips')
+  }
+
   queryMediaListItems = async (selectedKey = '', selectedValue = '', page = 1) => {
     const { handleSetPageQueryState, isMyProfilePage, pageIsLoading, pages, pageKey,
       playerQueueAddSecondaryItems, playerQueueLoadSecondaryItems, profileUser,
@@ -198,11 +202,6 @@ class UserMediaListCtrl extends Component<Props, State> {
         onClick: () => this.queryMediaListItems('sort', 'most-recent'),
         value: 'most-recent'
       },
-      // {
-      //   label: 'top - past hour',
-      //   onClick: () => this.queryMediaListItems('sort', 'top-past-hour'),
-      //   value: 'top-past-hour'
-      // },
       {
         label: 'top - past day',
         onClick: () => this.queryMediaListItems('sort', 'top-past-day'),
