@@ -5,8 +5,10 @@ import App from 'next/app'
 import { config as fontAwesomeConfig } from '@fortawesome/fontawesome-svg-core'
 import '@fortawesome/fontawesome-svg-core/styles.css' // Import the CSS
 import ReactGA from 'react-ga'
-import { getLastHistoryItemOrNowPlayingItemFromStorage, getPriorityQueueItemsStorage,
-  setNowPlayingItemInStorage } from 'podverse-ui'
+import {
+  getLastHistoryItemOrNowPlayingItemFromStorage, getPriorityQueueItemsStorage,
+  setNowPlayingItemInStorage
+} from 'podverse-ui'
 import Alerts from '~/components/Alerts/Alerts'
 import AppLinkWidget from '~/components/AppLinkWidget/AppLinkWidget'
 import Auth from '~/components/Auth/Auth'
@@ -22,8 +24,10 @@ import { assignLocalOrLoggedInNowPlayingItemPlaybackPosition, checkIfLoadingOnFr
 import { disableHoverOnTouchDevices } from '~/lib/utility/disableHoverOnTouchDevices'
 import { fixMobileViewportHeight } from '~/lib/utility/fixMobileViewportHeight'
 import { initializeStore } from '~/redux/store'
-import { mediaPlayerLoadNowPlayingItem, pageIsLoading,
-  playerQueueLoadPriorityItems } from '~/redux/actions'
+import {
+  mediaPlayerLoadNowPlayingItem, pageIsLoading,
+  playerQueueLoadPriorityItems
+} from '~/redux/actions'
 import { actionTypes } from '~/redux/constants'
 import { getAuthenticatedUserInfo } from '~/services'
 import config from '~/config'
@@ -303,7 +307,7 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
           clearInterval(fixMobileViewportHeightInterval)
         }
       }, 2000)
-      
+
       if (newPlayingItem) {
         newPlayingItem = assignLocalOrLoggedInNowPlayingItemPlaybackPosition(user, newPlayingItem)
         store.dispatch(mediaPlayerLoadNowPlayingItem(newPlayingItem))
@@ -336,36 +340,39 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
     return (
       <Provider store={store}>
         <Fragment>
-          <Fragment>
-            <PageLoadingOverlay />
-            <div className='view'>
-              <div className='view__navbar'>
-                <NavBar pageKey={pageKey} />
-              </div>
-              <div className='view__contents'>
-                {
-                  isMobileDevice &&
-                    <AppLinkWidget pageKey={pageKey} />
-                }
-                <div className='max-width top'>
-                  <Alerts
-                    cookies={cookies}
-                    pageKey={pageKey} />
-                  <Component {...pageProps} />
+          {
+            windowHasLoaded &&
+              <Fragment>
+                <PageLoadingOverlay />
+                <div className='view'>
+                  <div className='view__navbar'>
+                    <NavBar pageKey={pageKey} />
+                  </div>
+                  <div className='view__contents'>
+                    {
+                      isMobileDevice &&
+                      <AppLinkWidget pageKey={pageKey} />
+                    }
+                    <div className='max-width top'>
+                      <Alerts
+                        cookies={cookies}
+                        pageKey={pageKey} />
+                      <Component {...pageProps} />
+                    </div>
+                    <div className='max-width bottom'>
+                      <Footer
+                        isMobileDevice={isMobileDevice}
+                        pageKey={pageKey} />
+                    </div>
+                  </div>
+                  <MediaPlayerView
+                    {...pageProps}
+                    isMobileDevice={isMobileDevice} />
                 </div>
-                <div className='max-width bottom'>
-                  <Footer
-                    isMobileDevice={isMobileDevice}
-                    pageKey={pageKey} />
-                </div>
-              </div>
-              <MediaPlayerView
-                {...pageProps}
-                isMobileDevice={isMobileDevice} />
-            </div>
-            <Auth />
-            <MediaModals />
-          </Fragment>
+                <Auth />
+                <MediaModals />
+              </Fragment>
+          }
         </Fragment>
       </Provider>
     )
