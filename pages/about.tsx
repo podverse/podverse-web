@@ -54,13 +54,12 @@ class About extends Component<Props, State> {
         <h3>About</h3>
         <div className='about'>
           <p>
-            Podverse is the easiest way to create and share podcast highlights online,
-            and the only podcast app you'll ever need.
+            Podverse is the easiest way to create, share, and discover podcast highlights online,
+            and a fully functional podcast app that syncs across all your devices.
             Sign up today for 1 year of premium for free! <span role='img' aria-label='partying face emoji'>🥳</span>
           </p>
           <label>Free version:</label>
           <ul>
-            <li>Create and share podcast highlights</li>
             <li>Subscribe to podcasts</li>
             <li>Download episodes</li>
             <li>Drag-and-drop player queue</li>
@@ -70,6 +69,7 @@ class About extends Component<Props, State> {
           </ul>
           <label>Premium version:</label>
           <ul>
+            <li>Create and share podcast highlights</li>
             <li>Sync your subscriptions across devices</li>
             <li>Sync your queue across devices</li>
             <li>Switch devices and play from where you left off</li>
