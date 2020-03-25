@@ -43,7 +43,7 @@ const createDownloadButton = (mobileOS: string) => {
   if (mobileOS === 'Android') {
     return (
       <a
-        className="get-it-on-google-play"
+        className='get-it-on-google-play'
         href={APP_GET_IT_ON_GOOGLE_PLAY_URL}
         rel='noopener noreferrer'
         target='_blank'>
@@ -57,7 +57,7 @@ const createDownloadButton = (mobileOS: string) => {
     return (
       // eslint-disable-next-line jsx-a11y/anchor-has-content
       <a
-        className="download-on-the-app-store"
+        className='download-on-the-app-store'
         href={APP_DOWNLOAD_ON_THE_APP_STORE_URL}
         rel='noopener noreferrer'
         target='_blank'
@@ -80,6 +80,19 @@ const customStyles = {
     width: '100%'
   }
 }
+
+const deepLinkPages = [
+  'clip_',
+  'episode_',
+  'home',
+  'playlist_',
+  'playlists',
+  'podcast_',
+  'podcasts',
+  'public_profile',
+  'public_profiles',
+  'search'
+]
 
 class AppLinkWidget extends Component<Props, State> {
 
@@ -117,10 +130,13 @@ class AppLinkWidget extends Component<Props, State> {
   }
 
   render() {
+    const { pageKey } = this.props
     const { isValidMobileOS, mobileOS, modalIsOpen } = this.state
     const downloadButton = createDownloadButton(mobileOS)
 
-    if (!isValidMobileOS) return <div />
+    const isDeepLinkPage = deepLinkPages.find((x) => pageKey.indexOf(x) >= 0)
+
+    if (isValidMobileOS || !isDeepLinkPage) return <div />
 
     let appEl
     if (checkIfLoadingOnFrontEnd()) {
