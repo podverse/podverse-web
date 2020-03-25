@@ -130,7 +130,7 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
       })
     }
 
-    let isMobileDevice = false
+    let isMobileDevice = null as boolean | null
     if (typeof window === 'object') {
       const md = new MobileDetect(window.navigator.userAgent)
       isMobileDevice = !!md.mobile()
@@ -337,6 +337,8 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
     const { Component, cookies, isMobileDevice, pageProps, store } = this.props
     const { pageKey } = pageProps
 
+    const shouldHidePageContents = isMobileDevice === null
+
     return (
       <Provider store={store}>
         <Fragment>
@@ -346,11 +348,8 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
               <div className='view__navbar'>
                 <NavBar pageKey={pageKey} />
               </div>
-              <div className='view__contents'>
-                {
-                  isMobileDevice &&
-                  <AppLinkWidget pageKey={pageKey} />
-                }
+              <div className={`view__contents ${shouldHidePageContents ? 'hide' : ''}`}>
+                <AppLinkWidget pageKey={pageKey} />
                 <div className='max-width top'>
                   <Alerts
                     cookies={cookies}
