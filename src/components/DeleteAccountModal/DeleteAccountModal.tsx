@@ -2,7 +2,7 @@ import * as React from 'react'
 import * as Modal from 'react-modal'
 import { Button, ButtonGroup, CloseButton } from 'podverse-ui'
 import { Input, Label } from 'reactstrap'
-import { checkIfLoadingOnFrontEnd } from '~/lib/utility'
+import { checkIfLoadingOnFrontEnd, safeAlert } from '~/lib/utility'
 import { deleteLoggedInUser } from '~/services'
 
 type Props = {
