@@ -136,7 +136,7 @@ class AppLinkWidget extends Component<Props, State> {
 
     const isDeepLinkPage = deepLinkPages.find((x) => pageKey.indexOf(x) >= 0)
 
-    if (isValidMobileOS || !isDeepLinkPage) return <div />
+    if (!isValidMobileOS || !isDeepLinkPage) return <div />
 
     let appEl
     if (checkIfLoadingOnFrontEnd()) {
