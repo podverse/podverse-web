@@ -130,11 +130,11 @@ class AppLinkWidget extends Component<Props, State> {
   }
 
   render() {
-    const { pageKey } = this.props
+    const { pageKey = '' } = this.props
     const { isValidMobileOS, mobileOS, modalIsOpen } = this.state
     const downloadButton = createDownloadButton(mobileOS)
 
-    const isDeepLinkPage = deepLinkPages.find((x) => pageKey.indexOf(x) >= 0)
+    const isDeepLinkPage = pageKey && deepLinkPages.find((x) => pageKey.indexOf(x) >= 0)
 
     if (!isValidMobileOS || !isDeepLinkPage) return <div />
 

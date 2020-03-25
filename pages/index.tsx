@@ -32,22 +32,28 @@ const kPageKey = 'home'
 class Home extends Component<Props, State> {
 
   static async getInitialProps({ query, req, store }) {
+
     const state = store.getState()
     const { mediaPlayer, pages, user } = state
     const { nowPlayingItem } = mediaPlayer
     const currentPage = pages[kPageKey] || {}
     const lastScrollPosition = currentPage.lastScrollPosition
+    const queryRefresh = !!query.refresh
     const queryFrom = currentPage.queryFrom || query.from || (user && user.id ? 'subscribed-only' : 'all-podcasts')
-    const queryPage = currentPage.queryPage || query.page || 1
-    const querySort = currentPage.querySort || query.sort || (user && user.id ? 'most-recent' : 'top-past-week')
-    const queryType = currentPage.queryType || query.type || (user && user.id ? 'episodes' : 'clips')
+    const queryPage = (queryRefresh && 1) || currentPage.queryPage || query.page || 1
+    let querySort = currentPage.querySort || query.sort || (user && user.id ? 'most-recent' : 'top-past-week')
+    const queryType = (queryRefresh && query.type) || currentPage.queryType || query.type || (user && user.id ? 'episodes' : 'clips')
     let podcastId = ''
+
+    if (queryRefresh) {
+      querySort = queryType === 'episodes' ? (user && user.id ? 'most-recent' : 'top-past-week') : 'top-past-week'
+    }
 
     if (queryFrom === 'subscribed-only') {
       podcastId = user.subscribedPodcastIds
     }
 
-    if (Object.keys(currentPage).length === 0) {
+    if (Object.keys(currentPage).length === 0 || queryRefresh) {
       let results
 
       if (queryType === 'episodes') {

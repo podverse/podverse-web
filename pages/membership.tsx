@@ -56,19 +56,20 @@ class Membership extends Component<Props, State> {
           title={meta.title}
           twitterDescription={meta.description}
           twitterTitle={meta.title} />
+        <div style={{ textAlign: 'center' }}>
+          <h3>Premium</h3>
 
-        <h3>Premium</h3>
-
-        <p className='membership-top-text'>
-          Get 1 year of Podverse premium for free!
-        </p>
-        <p className='membership-top-text'>
-          $10/year after that
-        </p>
-        <div className='membership-join-list'>
-          <a onClick={this.showSignUp}>
-            Sign Up
-          </a>
+          <p className='membership-top-text'>
+            Get 1 year of Podverse premium for free!
+          </p>
+          <p className='membership-top-text'>
+            $10/year after that
+          </p>
+          <div className='membership-join-list'>
+            <a onClick={this.showSignUp}>
+              Sign Up
+            </a>
+          </div>
         </div>
         <ComparisonTable
           featuresData={featuresData}
