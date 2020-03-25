@@ -67,7 +67,7 @@ export class DeleteAccountModal extends React.Component<Props, State> {
       window.location.href = '/'
     } catch (error) {
       console.log(error)
-      alert('Something went wrong. Please check your internet connection.')
+      safeAlert('Something went wrong. Please check your internet connection.')
     }
   }
 

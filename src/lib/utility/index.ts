@@ -35,7 +35,7 @@ export const isBeforeDate = (expirationDate, dayOffset = 0) => {
 }
 
 export const validateEmail = email => {
-  const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+  const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
   return re.test(String(email).toLowerCase())
 }
 
@@ -141,18 +141,18 @@ export const getUrlFromRequestOrWindow = req =>
     : `${location.protocol}//${location.hostname}${location.pathname}`
 
 export const alertPremiumRequired = () => {
-  alert('This feature is only available for premium members. Login for a free trial.')
+  safeAlert('This feature is only available for premium members. Login for a free trial.')
 }
 
 export const alertSomethingWentWrong = () => {
-  alert('Something went wrong. Please check your internet connection.')
+  safeAlert('Something went wrong. Please check your internet connection.')
 }
 
 // Remove double quotes from text so it does not cut off in SEO descriptions
 export const removeDoubleQuotes = str => str ? str.replace(/["]+/g, '') : ''
 
 export const alertRateLimitError = err => {
-  alert(err.response.data.message)
+  safeAlert(err.response.data.message)
 }
 
 export const getPlaybackPositionFromHistory = (historyItems: any[], nowPlayingItem: any) => {
@@ -249,4 +249,10 @@ export const getMobileOperatingSystem = () => {
   }
 
   return 'unknown'
+}
+
+export const safeAlert = (text: string) => {
+  if (typeof window !== 'undefined') {
+    alert(text)
+  }
 }

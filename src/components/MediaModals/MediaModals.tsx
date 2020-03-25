@@ -14,7 +14,7 @@ import { mediaPlayerUpdatePlaying, modalsAddToCreatePlaylistIsSaving,
   } from '~/redux/actions'
 import { addOrRemovePlaylistItem, createMediaRef, createPlaylist, deleteMediaRef,
   updateMediaRef, updateUserQueueItems } from '~/services'
-import { alertPremiumRequired, alertSomethingWentWrong, clone, alertRateLimitError } from '~/lib/utility'
+import { alertPremiumRequired, alertSomethingWentWrong, clone, alertRateLimitError, safeAlert } from '~/lib/utility'
 
 type Props = {
   mediaPlayer?: any
@@ -243,7 +243,7 @@ class MediaModals extends Component<Props, State> {
 
     } catch (error) {
       if (error && error.response && error.response.data && error.response.data.message === 'Premium Membership Required') {
-        alert('Your Premium membership has expired. Renew your membership on the Settings page, or log out to create a clip anonymously.')
+        safeAlert('Your Premium membership has expired. Renew your membership on the Settings page, or log out to create a clip anonymously.')
       } else if (error && error.response && error.response.status === 429) {
         alertRateLimitError(error)
       } else if (error && error.response && error.response.status === 401) {
@@ -273,7 +273,7 @@ class MediaModals extends Component<Props, State> {
       Router.push(href, as)
     } catch (error) {
       console.log(error)
-      alert('Delete clip failed. Please check your internet connection and try again later.')
+      safeAlert('Delete clip failed. Please check your internet connection and try again later.')
     }
     
     this.setState({ makeClipIsDeleting: false })
@@ -400,7 +400,7 @@ class MediaModals extends Component<Props, State> {
           playerQueueLoadPriorityItems(priorityItems)
         } catch (error) {
           console.log(error)
-          alert('Could not update queue on server. Please check your internet connection.')
+          safeAlert('Could not update queue on server. Please check your internet connection.')
         }
       } else {
         removeItemFromPriorityQueueStorage(clipId, episodeId)

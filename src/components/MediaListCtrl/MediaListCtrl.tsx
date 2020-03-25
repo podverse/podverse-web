@@ -10,7 +10,7 @@ import MediaListItemCtrl from '~/components/MediaListItemCtrl/MediaListItemCtrl'
 import config from '~/config'
 import { convertToNowPlayingItem } from '~/lib/nowPlayingItem'
 import { addOrUpdateHistoryItemPlaybackPosition, assignLocalOrLoggedInNowPlayingItemPlaybackPosition,
-  clone } from '~/lib/utility'
+  clone, safeAlert } from '~/lib/utility'
 import { mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying, pageIsLoading,
   playerQueueAddSecondaryItems, playerQueueLoadPriorityItems,
   playerQueueLoadSecondaryItems, userSetInfo } from '~/redux/actions'
@@ -198,7 +198,7 @@ class MediaListCtrl extends Component<Props, State> {
             if (user && user.id) {
               this.queryListItems(queryType, 'subscribed-only', querySort, 1)
             } else {
-              alert('Login to filter by your subscribed podcasts.')
+              safeAlert('Login to filter by your subscribed podcasts.')
             }
           },
           value: 'subscribed-only'

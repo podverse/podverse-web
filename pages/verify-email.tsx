@@ -85,7 +85,7 @@ class VerifyEmail extends Component<Props, State> {
           hasError &&
             <Fragment>
               <h3>Email Verification Failed</h3>
-              <p>This token may have expired.</p>
+              <p>This email has already been verified, or the verififaction token has expired.</p>
               <p>
                 <a href='#' onClick={this._showSendVerificationEmailModal}>
                   send verification email

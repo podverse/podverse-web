@@ -14,7 +14,8 @@ import MediaListItemCtrl from '~/components/MediaListItemCtrl/MediaListItemCtrl'
 import Meta from '~/components/Meta/Meta'
 import { convertToNowPlayingItem } from '~/lib/nowPlayingItem'
 import { addOrUpdateHistoryItemPlaybackPosition, alertPremiumRequired, alertRateLimitError, alertSomethingWentWrong,
-  assignLocalOrLoggedInNowPlayingItemPlaybackPosition, clone, getUrlFromRequestOrWindow, readableDate, removeDoubleQuotes } from '~/lib/utility'
+  assignLocalOrLoggedInNowPlayingItemPlaybackPosition, clone, getUrlFromRequestOrWindow, readableDate,
+  removeDoubleQuotes, safeAlert } from '~/lib/utility'
 import { mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying, pageIsLoading,
   pagesSetQueryState, playerQueueLoadSecondaryItems, userSetInfo } from '~/redux/actions'
 import { addOrRemovePlaylistItem, deletePlaylist,
@@ -204,7 +205,7 @@ class Playlist extends Component<Props, State> {
     } catch (error) {
       console.log(error)
       this.setState({ isDeleting: false })
-      alert('Delete playlist failed. Please check your internet connection and try again later.')
+      safeAlert('Delete playlist failed. Please check your internet connection and try again later.')
     }
   }
 
@@ -231,7 +232,7 @@ class Playlist extends Component<Props, State> {
       if (error && error.response && error.response.status === 429) {
         alertRateLimitError(error)
       } else {
-        alert('Update playlist failed. Please check your internet connection and try again later.')
+        safeAlert('Update playlist failed. Please check your internet connection and try again later.')
       }
       this.setState({ isUpdating: false })
       console.log(error)
@@ -244,7 +245,7 @@ class Playlist extends Component<Props, State> {
     const { playlist } = this.state
 
     if (!user || !user.id) {
-      alert('Login to subscribe to playlists.')
+      safeAlert('Login to subscribe to playlists.')
       return
     }
 
@@ -314,7 +315,7 @@ class Playlist extends Component<Props, State> {
       if (error && error.response && error.response.status === 429) {
         alertRateLimitError(error)
       } else {
-        alert('Could not remove from playlist. Please check your internet connection and try again later.')
+        safeAlert('Could not remove from playlist. Please check your internet connection and try again later.')
       }
       console.log(error)
     }

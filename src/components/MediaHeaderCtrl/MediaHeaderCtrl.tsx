@@ -3,7 +3,8 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { MediaHeader } from 'podverse-ui'
 import { bindActionCreators } from 'redux'
-import { alertPremiumRequired, alertSomethingWentWrong, alertRateLimitError, getViewContentsElementScrollTop } from '~/lib/utility'
+import { alertPremiumRequired, alertSomethingWentWrong, alertRateLimitError, getViewContentsElementScrollTop,
+  safeAlert } from '~/lib/utility'
 import { pageIsLoading, pagesSetQueryState, userSetInfo } from '~/redux/actions'
 import { toggleSubscribeToPodcast } from '~/services'
 
@@ -39,7 +40,7 @@ class MediaHeaderCtrl extends Component<Props, State> {
       } = this.props
     
     if (!user || !user.id) {
-      alert('Login to subscribe to this podcast.')
+      safeAlert('Login to subscribe to this podcast.')
       return
     }
 
@@ -98,7 +99,7 @@ class MediaHeaderCtrl extends Component<Props, State> {
     const { subscribedPodcastIds } = user
     const { isSubscribing } = this.state
     
-    let podcastId = this.getPodcastId(episode, mediaRef, nowPlayingItem, podcast)
+    const podcastId = this.getPodcastId(episode, mediaRef, nowPlayingItem, podcast)
 
     return (
       <MediaHeader

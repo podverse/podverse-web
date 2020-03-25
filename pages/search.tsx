@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Button, MediaListItem, Pagination } from 'podverse-ui'
 import Meta from '~/components/Meta/Meta'
 import config from '~/config'
-import { getUrlFromRequestOrWindow, enrichPodcastsWithCategoriesString } from '~/lib/utility'
+import { enrichPodcastsWithCategoriesString, getUrlFromRequestOrWindow, safeAlert } from '~/lib/utility'
 import { pageIsLoading, pagesSetQueryState } from '~/redux/actions'
 import { getPodcastsByQuery } from '~/services'
 const uuidv4 = require('uuid/v4')
@@ -118,7 +118,7 @@ class Search extends Component<Props, State> {
 
     } catch (error) {
       console.log(error)
-      alert('Search failed. Please check your internet connection and try again later.')
+      safeAlert('Search failed. Please check your internet connection and try again later.')
     }
   }
 

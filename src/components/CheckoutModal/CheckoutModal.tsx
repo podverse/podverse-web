@@ -7,7 +7,7 @@ import PayPalButton from '~/components/PayPalButton/PayPalButton'
 import { pageIsLoading } from '~/redux/actions'
 import { createBitPayInvoice } from '~/services'
 import config from '~/config'
-import { alertRateLimitError, checkIfLoadingOnFrontEnd } from '~/lib/utility';
+import { alertRateLimitError, checkIfLoadingOnFrontEnd, safeAlert } from '~/lib/utility';
 const { paypalConfig } = config()
 
 type Props = {
@@ -65,7 +65,7 @@ class CheckoutModal extends React.Component<Props, State> {
         alertRateLimitError(error)
         return
       } else {
-        alert('Something went wrong. Please check your internet connection.')
+        safeAlert('Something went wrong. Please check your internet connection.')
       }
     }
   }
