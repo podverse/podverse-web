@@ -65,6 +65,8 @@ class MediaListCtrl extends Component<Props, State> {
     const { subscribedPodcastIds } = user
     const { filterIsShowing, filterText } = pages[pageKey]
 
+    this.setTemporaryMinHeightOnMediaList()
+
     const query: any = {
       page,
       from: queryFrom,
@@ -145,6 +147,8 @@ class MediaListCtrl extends Component<Props, State> {
     }
 
     pageIsLoading(false)
+
+    this.clearTemporaryMinHeightOnMediaList()
   }
 
   querySort = async selectedValue => {
@@ -152,6 +156,20 @@ class MediaListCtrl extends Component<Props, State> {
     const { queryFrom, queryType } = pages[pageKey]
         
     await this.queryListItems(queryType, queryFrom, selectedValue, 1)
+  }
+
+  setTemporaryMinHeightOnMediaList = () => {
+    const mediaListEl = document.querySelector('.media-list') as any
+    if (mediaListEl && mediaListEl.clientHeight > 0) {
+      mediaListEl.style.minHeight = `${mediaListEl.clientHeight}px`
+    }
+  }
+
+  clearTemporaryMinHeightOnMediaList = () => {
+    const mediaListEl = document.querySelector('.media-list') as any
+    if (mediaListEl) {
+      mediaListEl.style.minHeight = 'unset'
+    }
   }
 
   getQueryTypeOptions = () => {
