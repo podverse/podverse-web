@@ -5,7 +5,16 @@
         {
             "appID": "DF9KG8H54B.com.podverse.fm",
             "paths": [
-                "NOT *"
+                "NOT /",
+                "NOT /clip/*",
+                "NOT /episode/*",
+                "NOT /playlist/*",
+                "NOT /playlists",
+                "NOT /podcast/*",
+                "NOT /profile/*",
+                "NOT /profiles",
+                "NOT /search",
+                /podcasts
             ]
         }
     ]
