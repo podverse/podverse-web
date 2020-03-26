@@ -5,7 +5,7 @@ import { addItemsToSecondaryQueueStorage, clearItemsFromSecondaryQueueStorage } 
 import MediaListCtrl from '~/components/MediaListCtrl/MediaListCtrl'
 import Meta from '~/components/Meta/Meta'
 import { convertToNowPlayingItem } from '~/lib/nowPlayingItem'
-import { clone, getUrlFromRequestOrWindow } from '~/lib/utility'
+import { clone, cookieGetQuery, getUrlFromRequestOrWindow } from '~/lib/utility'
 import { pageIsLoading, pagesSetQueryState, playerQueueLoadSecondaryItems
   } from '~/redux/actions'
 import { getEpisodesByQuery, getMediaRefsByQuery } from '~/services'
@@ -36,13 +36,17 @@ class Home extends Component<Props, State> {
     const state = store.getState()
     const { mediaPlayer, pages, user } = state
     const { nowPlayingItem } = mediaPlayer
+
+    const localStorageQuery = cookieGetQuery(req, kPageKey)
+
     const currentPage = pages[kPageKey] || {}
     const lastScrollPosition = currentPage.lastScrollPosition
     const queryRefresh = !!query.refresh
-    const queryFrom = currentPage.queryFrom || query.from || (user && user.id ? 'subscribed-only' : 'all-podcasts')
+    const queryFrom = currentPage.queryFrom || query.from || localStorageQuery.from || (user && user.id ? 'subscribed-only' : 'all-podcasts')
     const queryPage = (queryRefresh && 1) || currentPage.queryPage || query.page || 1
-    let querySort = currentPage.querySort || query.sort || (user && user.id ? 'most-recent' : 'top-past-week')
-    const queryType = (queryRefresh && query.type) || currentPage.queryType || query.type || (user && user.id ? 'episodes' : 'clips')
+    let querySort = currentPage.querySort || query.sort || localStorageQuery.sort || (user && user.id ? 'most-recent' : 'top-past-week')
+    const queryType = (queryRefresh && query.type) || currentPage.queryType || query.type ||
+      localStorageQuery.type || (user && user.id ? 'episodes' : 'clips')
     let podcastId = ''
 
     if (queryRefresh) {

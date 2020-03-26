@@ -9,7 +9,8 @@ import MediaInfoCtrl from '~/components/MediaInfoCtrl/MediaInfoCtrl'
 import MediaListCtrl from '~/components/MediaListCtrl/MediaListCtrl'
 import Meta from '~/components/Meta/Meta'
 import { convertToNowPlayingItem } from '~/lib/nowPlayingItem'
-import { checkIfLoadingOnFrontEnd, clone, getUrlFromRequestOrWindow, removeDoubleQuotes } from '~/lib/utility'
+import { checkIfLoadingOnFrontEnd, clone, cookieGetQuery, getUrlFromRequestOrWindow,
+  removeDoubleQuotes } from '~/lib/utility'
 import { pageIsLoading, pagesSetQueryState, playerQueueLoadSecondaryItems
   } from '~/redux/actions'
 import { getEpisodesByQuery, getMediaRefsByQuery, getMediaRefById } from '~/services/'
@@ -59,12 +60,14 @@ class Clip extends Component<Props, State> {
       newPlayingItem = convertToNowPlayingItem(mediaRef)
     }
 
+    const localStorageQuery = cookieGetQuery(req, kPageKey)
+
     const currentPage = pages[pageKeyWithId] || {}
     const lastScrollPosition = currentPage.lastScrollPosition
-    const queryFrom = currentPage.queryFrom || query.from || 'from-episode'
+    const queryFrom = currentPage.queryFrom || query.from || localStorageQuery.from || 'from-episode'
     const queryPage = currentPage.queryPage || query.page || 1
-    const querySort = currentPage.querySort || query.sort || 'top-past-week'
-    const queryType = currentPage.queryType || query.type || 'clips'
+    const querySort = currentPage.querySort || query.sort || localStorageQuery.sort || 'chronological'
+    const queryType = currentPage.queryType || query.type || localStorageQuery.type || 'clips'
     let podcastId = ''
     let episodeId = ''
 

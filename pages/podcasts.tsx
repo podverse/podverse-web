@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import Meta from '~/components/Meta/Meta'
 import PodcastListCtrl from '~/components/PodcastListCtrl/PodcastListCtrl'
-import { getUrlFromRequestOrWindow } from '~/lib/utility'
+import { cookieGetQuery, getUrlFromRequestOrWindow } from '~/lib/utility'
 import { pageIsLoading, pagesSetQueryState } from '~/redux/actions'
 import { getCategoriesByQuery, getPodcastsByQuery } from '~/services'
 
@@ -36,6 +36,8 @@ class Podcasts extends Component<Props, State> {
     const allCategoriesAndCountResult = await getCategoriesByQuery({})
     const allCategories = allCategoriesAndCountResult.data[0] || []
 
+    const localStorageQuery = cookieGetQuery(req, kPageKey)
+
     const currentPage = pages[kPageKey] || {}
     const lastScrollPosition = currentPage.lastScrollPosition
     const queryRefresh = !!query.refresh
@@ -44,8 +46,9 @@ class Podcasts extends Component<Props, State> {
     const queryFrom = query.from
       || (query.categoryId && 'from-category')
       || currentPage.queryFrom
+      || localStorageQuery.from
       || (user && user.id ? 'subscribed-only' : 'all-podcasts')
-    const querySort = query.sort || currentPage.querySort || (user && user.id ? 'alphabetical' : 'top-past-week')
+    const querySort = query.sort || currentPage.querySort || localStorageQuery.sort || (user && user.id ? 'alphabetical' : 'top-past-week')
 
     if (Object.keys(currentPage).length === 0 || queryRefresh) {
       const queryDataResult = await getPodcastsByQuery({
@@ -66,6 +69,7 @@ class Podcasts extends Component<Props, State> {
         queryPage,
         queryFrom,
         querySort,
+        selected: queryFrom
       }))
     }
 

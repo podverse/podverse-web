@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { MediaListItem, MediaListSelect, Pagination } from 'podverse-ui'
 import config from '~/config'
-import { getViewContentsElementScrollTop } from '~/lib/utility'
+import { cookieSetQuery, getViewContentsElementScrollTop } from '~/lib/utility'
 import { pageIsLoading, pagesSetQueryState } from '~/redux/actions'
 import { getPodcastsByQuery } from '~/services'
 const uuidv4 = require('uuid/v4')
@@ -34,6 +34,8 @@ class PodcastListCtrl extends Component<Props, State> {
   queryPodcasts = async (query, newState) => {
     const { handleSetPageQueryState, pageIsLoading, pageKey, pages } = this.props
     const { queryPage: prevPage } = pages[pageKey]
+
+    cookieSetQuery(pageKey, query.from, query.type, query.sort)
 
     pageIsLoading(true)
 

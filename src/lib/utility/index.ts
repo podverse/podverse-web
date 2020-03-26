@@ -122,6 +122,28 @@ export const getCookie = name => {
   return
 }
 
+export const getCookieFromRequest = (req, key) => {
+  const { cookie } = (req && req.headers) || document
+
+  if (cookie) {
+    const match = cookie.match(new RegExp('(^| )' + key + '=([^;]+)'))
+    if (match) {
+      return match[2]
+    }
+  }
+  return ''
+}
+
+export const setCookie = (name, value, days = 365) => {
+  let expires = '';
+  if (days) {
+    const date = new Date();
+    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+    expires = "; expires=" + date.toUTCString();
+  }
+  document.cookie = name + "=" + (value || "") + expires + "; path=/";
+}
+
 export const deleteCookie = name => {
   document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;path=/;domain=localhost;'
 }
@@ -254,5 +276,54 @@ export const getMobileOperatingSystem = () => {
 export const safeAlert = (text: string) => {
   if (typeof window !== 'undefined') {
     alert(text)
+  }
+}
+
+export const cookieGetQuery = (req: any, pageKey: string) => {
+  const key = cookieCreateQueryKey(pageKey)
+  if (key) {
+    try {
+      const item = getCookieFromRequest(req, key)
+      return item ? JSON.parse(item) : {}
+    } catch (error) {
+      console.log(key + ' cookieGetQuery', error)
+    }
+  }
+  return {}
+}
+
+export const cookieSetQuery = (pageKey: string, from: string, type: string, sort: string) => {
+  const key = cookieCreateQueryKey(pageKey)
+  if (key) {
+    try {
+      setCookie(key, JSON.stringify({
+        from,
+        type,
+        sort,
+      }))
+    } catch (error) {
+      console.log(key + ' cookieSetQuery', error)
+      deleteCookie(key)
+    }
+  }
+}
+
+const cookieCreateQueryKey = (pageKey: string) => {
+  if (pageKey === 'home') {
+    return 'home_query'
+  } else if (pageKey === 'podcasts') {
+    return 'podcasts_query'
+  } else if (pageKey.indexOf('podcast_') >= 0) {
+    return 'podcast_query'
+  } else if (pageKey === 'episodes') {
+    return 'episodes_query'
+  } else if (pageKey.indexOf('episode_') >= 0) {
+    return 'episode_query'
+  } else if (pageKey === 'clips') {
+    return 'clips_query'
+  } else if (pageKey.indexOf('clip_') >= 0) {
+    return 'clip_query'
+  } else {
+    return ''
   }
 }

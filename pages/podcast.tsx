@@ -8,7 +8,7 @@ import MediaInfoCtrl from '~/components/MediaInfoCtrl/MediaInfoCtrl'
 import MediaListCtrl from '~/components/MediaListCtrl/MediaListCtrl'
 import Meta from '~/components/Meta/Meta'
 import { convertToNowPlayingItem } from '~/lib/nowPlayingItem'
-import { clone, getUrlFromRequestOrWindow, removeDoubleQuotes } from '~/lib/utility'
+import { clone, cookieGetQuery, getUrlFromRequestOrWindow, removeDoubleQuotes } from '~/lib/utility'
 import { pageIsLoading, pagesSetQueryState, playerQueueLoadSecondaryItems
   } from '~/redux/actions'
 import { getEpisodesByQuery, getMediaRefsByQuery, getPodcastById } from '~/services/'
@@ -51,12 +51,14 @@ class Podcast extends Component<Props, State> {
 
     const podcast = podcastResult.data
 
+    const localStorageQuery = cookieGetQuery(req, kPageKey)
+
     const currentPage = pages[pageKeyWithId] || {}
     const lastScrollPosition = currentPage.lastScrollPosition
-    const queryFrom = currentPage.queryFrom || query.from || 'from-podcast'
+    const queryFrom = currentPage.queryFrom || query.from || localStorageQuery.from || 'from-podcast'
     const queryPage = currentPage.queryPage || query.page || 1
-    const querySort = currentPage.querySort || query.sort || 'most-recent'
-    const queryType = currentPage.queryType || query.type || 'episodes'
+    const querySort = currentPage.querySort || query.sort || localStorageQuery.sort || 'most-recent'
+    const queryType = currentPage.queryType || query.type || localStorageQuery.type || 'episodes'
     let podcastId = ''
 
     if (queryFrom === 'from-podcast') {
