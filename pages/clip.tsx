@@ -130,12 +130,13 @@ class Clip extends Component<Props, State> {
     let meta = {}
 
     if (mediaRef) {
+      const podcastTitle = (mediaRef && mediaRef.episode && mediaRef.episode.podcast &&
+        mediaRef.episode.podcast.title) || 'untitled podcast'
       meta = {
         currentUrl: getUrlFromRequestOrWindow(req),
-        description: removeDoubleQuotes(`${mediaRef.episode.title} - ${mediaRef.episode.podcast.title}`),
-        imageAlt: (mediaRef.episode.imageUrl || mediaRef.episode.podcast.imageUrl) ? 
-          `${mediaRef.episode.imageUrl ? mediaRef.episode.title : mediaRef.episode.podcast.title}` : 'Podverse logo',
-        imageUrl: mediaRef.episode.imageUrl || mediaRef.episode.podcast.shrunkImageUrl || mediaRef.episode.podcast.imageUrl,
+        description: removeDoubleQuotes(`${mediaRef.episode.title} - ${podcastTitle}`),
+        imageAlt: podcastTitle,
+        imageUrl: mediaRef.episode.imageUrl || mediaRef.episode.podcast.imageUrl,
         title: `${mediaRef.title ? mediaRef.title : 'untitled clip'}`
       }
     }

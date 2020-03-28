@@ -128,14 +128,13 @@ class Episode extends Component<Props, State> {
     
     let meta = {}
     if (episode) {
+      const podcastTitle = (episode && episode.podcast && episode.podcast.title) || 'untitled podcast'
       meta = {
         currentUrl: getUrlFromRequestOrWindow(req),
         description: removeDoubleQuotes(episode.description),
-        imageAlt: (episode.imageUrl || episode.podcast.imageUrl)
-          ? `${episode.imageUrl ? episode.title : episode.podcast.title}`
-          : 'Podverse logo',
-        imageUrl: episode.imageUrl || episode.podcast.shrunkImageUrl || episode.podcast.imageUrl,
-        title: `${episode.title} - ${episode.podcast.title}`
+        imageAlt: podcastTitle,
+        imageUrl: episode.imageUrl || episode.podcast.imageUrl,
+        title: `${episode.title} - ${podcastTitle}`
       }
     }
 

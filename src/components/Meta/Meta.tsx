@@ -67,7 +67,7 @@ class Meta extends Component<Props, State> {
         <meta property='og:image' content={ogImg} />
         <meta property='og:image:alt' content={ogImageAlt || 'Podverse logo'} />
         <meta property='og:image:secure_url' content={ogImg} />
-        <meta property='og:image:description' content={strippedOgDescription} />
+        <meta property='og:description' content={strippedOgDescription} />
         <meta property='og:site_name' content='Podverse' />
         <meta property='og:url' content={ogUrl} />
         <meta property='fb:app_id' content='300336890140007' />

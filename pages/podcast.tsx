@@ -113,13 +113,13 @@ class Podcast extends Component<Props, State> {
     }
 
     store.dispatch(pageIsLoading(false))
-
+    const podcastTitle = podcast.title || 'untitled podcast'
     const meta = {
       currentUrl: getUrlFromRequestOrWindow(req),
       description: removeDoubleQuotes(podcast.description),
-      imageAlt: podcast.imageUrl ? podcast.title : 'Podverse logo',
-      imageUrl: podcast.shrunkImageUrl || podcast.imageUrl,
-      title: podcast.title
+      imageAlt: podcastTitle,
+      imageUrl: podcast.imageUrl,
+      title: podcastTitle
     }
 
     return { lastScrollPosition, meta, pageKey: pageKeyWithId, podcast, queryFrom, queryPage,

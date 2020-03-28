@@ -164,15 +164,12 @@ class Search extends Component<Props, State> {
         <Meta
           description={meta.description}
           ogDescription={meta.description}
-          ogImage={meta.imageUrl}
           ogTitle={meta.title}
           ogType='website'
           ogUrl={meta.currentUrl}
           robotsNoIndex={false}
           title={meta.title}
           twitterDescription={meta.description}
-          twitterImage={meta.imageUrl}
-          twitterImageAlt={meta.imageAlt}
           twitterTitle={meta.title} />
         <h3>Search</h3>
         <Form
