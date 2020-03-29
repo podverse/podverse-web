@@ -202,6 +202,15 @@ class Footer extends Component<Props, State> {
                 </a>
               </Link>
               <Link
+                as='/faq'
+                href='/faq'>
+                <a
+                  className='footer-bottom__link'
+                  onClick={this.linkClick}>
+                  FAQ
+                </a>
+              </Link>
+              <Link
                 as='/membership'
                 href='/membership'>
                 <a
