@@ -52,7 +52,7 @@ class FAQ extends Component<Props, State> {
           twitterTitle={meta.title} />
         <h3>FAQ</h3>
 
-        <p><a href='https://goo.gl/forms/VGVJRWlKPIGRqojY2' target='_blank' rel="noopener noreferrer">Ask a question</a></p>
+        <p><a href='https://goo.gl/forms/VGVJRWlKPIGRqojY2' target='_blank' rel="noopener noreferrer">Contact Us / Ask a question</a></p>
         
         <h3>Table of Contents</h3>
 
@@ -77,17 +77,21 @@ class FAQ extends Component<Props, State> {
         </h4>
 
         <p>
-          Clips of podcasts that use dynamic ads will not stay 100% accurate.
-          These podcasts rotate different ads with different lengths into the same episode.
-          Since we can't predict which ads each listener will get,
+          Podverse clip-sharing should work reliably for the vast majority of
+          podcasts that do not use dynamic ads, but the start time of clips from podcasts
+          that use dynamic ads will not stay 100% accurate.
+        </p>
+        <p>
+          Podcasts that use dyanmic ads rotate different ads into the same episode.
+          Since we can't predict which ads each listener will get or how long they will be,
           we can't determine the correct clip start time for all listeners.
         </p>
         <p>
-          We would love to add full support for all podcasts some day,
-          but we will need to collaborate with podcasters to resolve the dynamic ads issue.
-          In the meantime, Podverse clips should work accurately for the vast majority of
-          podcasts today that do not use dynamic ads.
+          We would love to add full support for podcasts that use dynamic ads some day,
+          but we will need to collaborate with podcasters and their ad networks to do so.
         </p>
+
+        <hr />
 
         <h4
           className='offset-anchor-tag'
@@ -101,6 +105,8 @@ class FAQ extends Component<Props, State> {
           as long as they also share their changes to the code.
         </p>
 
+        <hr />
+
         <h4
           className='offset-anchor-tag'
           id='why-is-podverse-open-source'>
@@ -108,13 +114,21 @@ class FAQ extends Component<Props, State> {
         </h4>
 
         <p>
-          Podverse's goal is to help podcasting stay beyond the reach of monopolies and corporate gatekeepers.
-          We open source Podverse software to ensure that anyone can launch their own
-          podcast app as affordably as possible. If a podcast network wants to create their
-          own podcast app, they can use Podverse software and do it for a tiny fraction of what it would cost
-          to hire programmers to build an app from scratch.
+          Our goal is to not only create the world's greatest podcast technology,
+          but to help podcasting stay a truly independent medium
+          that is beyond the control of monopolies and gatekeepers.
         </p>
-
+        <p>
+          We open source all Podverse software to ensure that anyone can launch their own
+          podcast app as affordably as possible. If a podcast network wants to create their own podcast app
+          that they 100% own and control, they can use Podverse software and do it
+          for a tiny fraction of what it would cost to hire programmers to build them an app from scratch.
+        </p>
+        <p>
+          Our hope is this will help level the playing field between giant corporations and independent media (aka podcasters),
+          so independent media has the same technological advantages that typically only giant corporations would have.
+        </p>
+        
       </Fragment>
     )
   }
