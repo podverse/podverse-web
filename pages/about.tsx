@@ -61,10 +61,10 @@ class About extends Component<Props, State> {
           <label>Free version:</label>
           <ul>
             <li>Subscribe to podcasts</li>
+            <li>Play clips and episodes</li>
             <li>Download episodes</li>
             <li>Drag-and-drop player queue</li>
             <li>Sleep Timer</li>
-            <li>Support for devices with large fonts</li>
             <li>Light / Dark mode</li>
           </ul>
           <label>Premium version:</label>
