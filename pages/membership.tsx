@@ -30,8 +30,8 @@ class Membership extends Component<Props, State> {
 
     const meta = {
       currentUrl: getUrlFromRequestOrWindow(req),
-      description: 'Podverse - Membership Info',
-      title: 'A list of features available on Podverse.'
+      description: 'Free and premium membership options.',
+      title: 'Podverse - Membership'
     }
 
     return { lastScrollPosition, meta, pageKey: kPageKey }

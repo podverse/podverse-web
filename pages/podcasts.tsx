@@ -77,7 +77,7 @@ class Podcasts extends Component<Props, State> {
 
     const meta = {
       currentUrl: getUrlFromRequestOrWindow(req),
-      description: 'Podcasts on Podverse. Find and subscribe to podcasts.',
+      description: 'Find and subscribe to podcasts.',
       title: `Podcasts`
     }
 

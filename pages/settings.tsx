@@ -63,8 +63,8 @@ class Settings extends Component<Props, State> {
 
     const meta = {
       currentUrl: getUrlFromRequestOrWindow(req),
-      description: 'Customize my account settings on Podverse.',
-      title: `Settings`
+      description: 'Customize your account settings on Podverse.',
+      title: `Podverse - Settings`
     }
 
     return { lastScrollPosition, meta, pageKey: kPageKey }

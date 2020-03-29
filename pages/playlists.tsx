@@ -50,7 +50,7 @@ class Playlists extends Component<Props, State> {
 
     const meta = {
       currentUrl: getUrlFromRequestOrWindow(req),
-      description: 'Playlists on Podverse. Create playlists of podcast clips and episodes.',
+      description: 'Create and share playlists of podcast clips and episodes.',
       title: `Playlists`
     }
 

@@ -48,7 +48,7 @@ class Search extends Component<Props, State> {
     const meta = {
       currentUrl: getUrlFromRequestOrWindow(req),
       description: 'Search for podcasts by title or host on Podverse.',
-      title: 'Search'
+      title: 'Podverse - Search'
     }
 
     return { lastScrollPosition, meta, pageKey: kPageKey }

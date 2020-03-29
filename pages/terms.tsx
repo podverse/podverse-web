@@ -18,7 +18,7 @@ class Terms extends Component<Props, State> {
     const meta = {
       currentUrl: getUrlFromRequestOrWindow(req),
       description: `Podverse terms of service agreement.`,
-      title: `Terms of Service`
+      title: `Podverse - Terms of Service`
     }
 
     return { meta }

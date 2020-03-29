@@ -28,8 +28,8 @@ class About extends Component<Props, State> {
 
     const meta = {
       currentUrl: getUrlFromRequestOrWindow(req),
-      description: 'About Podverse - Create podcast highlights',
-      title: 'About'
+      description: 'Information about the Podverse open source podcast app.',
+      title: 'Podverse - About'
     }
 
     return { lastScrollPosition, meta, pageKey: kPageKey }
