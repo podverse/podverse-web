@@ -58,7 +58,7 @@ class FAQ extends Component<Props, State> {
 
         <ul>
           <li>
-            <a href='#why-clip-time'>Why is my clip's start and end time not staying accurate?</a>
+            <a href='#dyanmic-ads'>Dynamic ads: Why do some of my clips start at the wrong time?</a>
           </li>
           <li>
             <a href='#what-does-open-source-mean'>What does open source mean?</a>
@@ -70,24 +70,30 @@ class FAQ extends Component<Props, State> {
         
         <hr />
 
-        <h4 id='why-clip-time'>Why is my clip's start and end time not staying accurate?</h4>
+        <h4
+          className='offset-anchor-tag'
+          id='dyanmic-ads'>
+          Dynamic ads: Why do some clips start at the wrong time?
+        </h4>
 
         <p>
-          This is an issue that affects some, but not all podcasts on Podverse.
-          The most common reason is dynamic ad insertion.
-          Podcasts that use dynamic ads rotate different ads in for different listeners of the same episode.
+          Clips of podcasts that use dynamic ads will not stay 100% accurate.
+          These podcasts rotate different ads with different lengths into the same episode.
           Since we can't predict which ads each listener will get,
-          we can't predict exactly when a clip is supposed to start or how long they are,
-          the result is their clips may have a start and end time that is off by seconds or minutes.
+          we can't determine the correct clip start time for all listeners.
         </p>
         <p>
-          We would love to resolve this limitation some day, and we can,
-          but we'll need to collaborate with podcast hosting services and their ad networks to do so.
-          In the meantime, Podverse clips should work reliably for the vast majority of
-          podcasts that do not use dynamic ad insertion.
+          We would love to add full support for all podcasts some day,
+          but we will need to collaborate with podcasters to resolve the dynamic ads issue.
+          In the meantime, Podverse clips should work accurately for the vast majority of
+          podcasts today that do not use dynamic ads.
         </p>
 
-        <h4 id='what-does-open-source-mean'>What does AGPLv3 / open source mean?</h4>
+        <h4
+          className='offset-anchor-tag'
+          id='what-does-open-source-mean'>
+          What does AGPLv3 / open source mean?
+        </h4>
 
         <p>
           AGPLv3 is the open source license under which all Podverse software is provided.
@@ -95,7 +101,11 @@ class FAQ extends Component<Props, State> {
           as long as they also share their changes to the code.
         </p>
 
-        <h4 id='why-is-podverse-open-source'>Why is Podverse open source?</h4>
+        <h4
+          className='offset-anchor-tag'
+          id='why-is-podverse-open-source'>
+          Why is Podverse open source?
+        </h4>
 
         <p>
           Podverse's goal is to help podcasting stay beyond the reach of monopolies and corporate gatekeepers.
@@ -105,7 +115,6 @@ class FAQ extends Component<Props, State> {
           to hire programmers to build an app from scratch.
         </p>
 
-        <hr />
       </Fragment>
     )
   }
