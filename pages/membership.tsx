@@ -103,11 +103,6 @@ const featuresData = [
     icon2: true
   },
   {
-    text: 'large font accessibility support',
-    icon1: true,
-    icon2: true
-  },
-  {
     text: 'create clips of any length',
     icon1: false,
     icon2: true
