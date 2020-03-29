@@ -58,7 +58,7 @@ class FAQ extends Component<Props, State> {
 
         <ul>
           <li>
-            <a href='#dyanmic-ads'>Dynamic ads: Why do some of my clips start at the wrong time?</a>
+            <a href='#dyanmic-ads'>Dynamic ads: Why do some clips start at the wrong time?</a>
           </li>
           <li>
             <a href='#what-does-open-source-mean'>What does open source mean?</a>
@@ -78,7 +78,7 @@ class FAQ extends Component<Props, State> {
 
         <p>
           Podverse clip-sharing should work reliably for the vast majority of
-          podcasts that do not use dynamic ads, but the start time of clips from podcasts
+          podcasts that do not use dynamic ads, but the start times of clips from podcasts
           that use dynamic ads will not stay 100% accurate.
         </p>
         <p>
