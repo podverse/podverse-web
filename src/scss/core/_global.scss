@@ -138,6 +138,13 @@ html[is-switching-ui-mode=true] * {
   font-style: italic;
 }
 
+// This makes the element render below the fixed navbar when navigating to an element
+// via the # id in a URL.
+.offset-anchor-tag {
+  margin-top: -64px;
+  padding-top: 64px;
+}
+
 html[data-theme=light] {
   .no-results-msg {
     color: $gray-darker;
