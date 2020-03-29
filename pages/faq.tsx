@@ -77,9 +77,9 @@ class FAQ extends Component<Props, State> {
         </h4>
 
         <p>
-          Podverse clip-sharing should work reliably for the vast majority of
-          podcasts that do not use dynamic ads, but the start times of clips from podcasts
-          that use dynamic ads will not stay 100% accurate.
+          Podverse clips should work reliably for the vast majority of
+          podcasts that do not use dynamic ads, but the start times of clips from shows
+          that use dynamic ads will not stay accurate.
         </p>
         <p>
           Podcasts that use dyanmic ads rotate different ads into the same episode.
