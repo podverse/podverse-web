@@ -49,20 +49,6 @@ class PVNavBar extends Component<Props, State> {
         href: '/podcasts',
         label: 'Podcasts',
         onClick: () => { this.linkClick() }
-      },
-      {
-        as: '/',
-        href: '/?type=episodes&refresh=true',
-        label: 'Episodes',
-        onClick: () => { this.linkClick() },
-        hideMobile: true
-      },
-      {
-        as: '/',
-        href: '/?type=clips&refresh=true',
-        label: 'Clips',
-        onClick: () => { this.linkClick() },
-        hideMobile: true
       }
     ] as any
 
@@ -118,6 +104,22 @@ class PVNavBar extends Component<Props, State> {
     const { id } = user
 
     const dropdownItems = [] as any
+
+    dropdownItems.push({
+        as: '/',
+        href: '/?type=episodes&refresh=true',
+        label: 'Episodes',
+        onClick: () => { this.linkClick() },
+        hideMobile: true
+    })
+
+    dropdownItems.push({
+      as: '/',
+      href: '/?type=clips&refresh=true',
+      label: 'Clips',
+      onClick: () => { this.linkClick() },
+      hideMobile: true
+    })
 
     dropdownItems.push({
       as: '/playlists',

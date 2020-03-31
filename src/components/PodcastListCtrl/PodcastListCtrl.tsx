@@ -126,7 +126,7 @@ class PodcastListCtrl extends Component<Props, State> {
       selected: 'subscribed-only',
     }
 
-    if (subscribedPodcastIds.length < 1) {
+    if (subscribedPodcastIds && subscribedPodcastIds.length < 1) {
       handleSetPageQueryState({
         ...newState,
         listItems: [],
@@ -239,7 +239,7 @@ class PodcastListCtrl extends Component<Props, State> {
   // BEWARE! X_X
   generateCategorySelectNodes = (allCategories, categoryId, user) => {
     const { pageKey, pages } = this.props
-    let { selected } = pages[pageKey]
+    const { selected } = pages[pageKey]
 
     const categoryItems = allCategories.map(x => {
       return {
@@ -251,15 +251,12 @@ class PodcastListCtrl extends Component<Props, State> {
       }
     })
 
-    if (user && user.id) {
-      selected = selected || 'subscribed-only'
-      categoryItems.unshift({
-        label: 'Subscribed',
-        onClick: () => this.queryPodcastsSubscribed(),
-        parentValue: null,
-        value: 'subscribed-only'
-      })
-    }
+    categoryItems.unshift({
+      label: 'Subscribed',
+      onClick: () => this.queryPodcastsSubscribed(),
+      parentValue: null,
+      value: 'subscribed-only'
+    })
 
     categoryItems.unshift({
       label: 'All Podcasts',
@@ -277,9 +274,8 @@ class PodcastListCtrl extends Component<Props, State> {
       selectedCategoryArray = categoryItems.filter(x => x.value === categoryId)
     }
     const categorySelectNodes: any[] = []
-
-    if (selectedCategoryArray.length > 0) {
-      const selectedCategory = selectedCategoryArray[0]
+    const selectedCategory = selectedCategoryArray[0]
+    if (selectedCategory) {
       const topLevelCategoryItems = categoryItems.filter(x => x.parentValue === null)
 
       let subcategoryItems: any[] = []
