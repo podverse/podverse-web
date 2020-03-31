@@ -136,7 +136,7 @@ class Clip extends Component<Props, State> {
         currentUrl: getUrlFromRequestOrWindow(req),
         description: removeDoubleQuotes(`${mediaRef.episode.title} - ${podcastTitle}`),
         imageAlt: podcastTitle,
-        imageUrl: mediaRef.episode.imageUrl || mediaRef.episode.podcast.imageUrl,
+        imageUrl: mediaRef.episode.shrunkImageUrl || mediaRef.episode.podcast.shrunkImageUrl || mediaRef.episode.imageUrl || mediaRef.episode.podcast.imageUrl,
         title: `${mediaRef.title ? mediaRef.title : 'untitled clip'}`
       }
     }

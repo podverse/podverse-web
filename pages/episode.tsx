@@ -133,7 +133,7 @@ class Episode extends Component<Props, State> {
         currentUrl: getUrlFromRequestOrWindow(req),
         description: removeDoubleQuotes(episode.description),
         imageAlt: podcastTitle,
-        imageUrl: episode.imageUrl || episode.podcast.imageUrl,
+        imageUrl: episode.shrunkImageUrl || episode.podcast.shrunkImageUrl || episode.imageUrl || episode.podcast.imageUrl,
         title: `${episode.title} - ${podcastTitle}`
       }
     }
