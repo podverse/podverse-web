@@ -106,22 +106,6 @@ class PVNavBar extends Component<Props, State> {
     const dropdownItems = [] as any
 
     dropdownItems.push({
-        as: '/',
-        href: '/?type=episodes&refresh=true',
-        label: 'Episodes',
-        onClick: () => { this.linkClick() },
-        hideMobile: true
-    })
-
-    dropdownItems.push({
-      as: '/',
-      href: '/?type=clips&refresh=true',
-      label: 'Clips',
-      onClick: () => { this.linkClick() },
-      hideMobile: true
-    })
-
-    dropdownItems.push({
       as: '/playlists',
       href: '/playlists',
       label: 'Playlists',
