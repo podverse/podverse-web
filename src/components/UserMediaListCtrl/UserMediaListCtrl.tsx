@@ -273,7 +273,7 @@ class UserMediaListCtrl extends Component<Props, State> {
 
       const historyItems = loggedInUser.historyItems.filter(x => {
         if (x) {
-          if ((x.clipStartTime || x.clipEndTime) && x.clipId !== nowPlayingItem.clipId) {
+          if ((x.clipStartTime || x.clipStartTime === 0 || x.clipEndTime) && x.clipId !== nowPlayingItem.clipId) {
             return x
           }
         }
