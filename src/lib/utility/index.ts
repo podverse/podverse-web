@@ -1,6 +1,6 @@
 import { getLastHistoryItemOrNowPlayingItemFromStorage, setNowPlayingItemInStorage } from 'podverse-ui'
 import { userUpdateHistoryItem } from '~/redux/actions'
-import { addOrUpdateUserHistoryItem, updateHistoryItemPlaybackPosition } from '~/services'
+import { updateHistoryItemPlaybackPosition } from '~/services'
 export { validatePassword } from './validatePassword'
 
 // This checks if we are server-side rendering or rendering on the front-end.
@@ -207,7 +207,6 @@ export const addOrUpdateHistoryItemPlaybackPosition = async (nowPlayingItem, use
   nowPlayingItem.userPlaybackPosition = currentTime
 
   if (user && user.id) {
-    await addOrUpdateUserHistoryItem(nowPlayingItem)
     updateHistoryItemPlaybackPosition(nowPlayingItem)
     await userUpdateHistoryItem(nowPlayingItem)
   }
