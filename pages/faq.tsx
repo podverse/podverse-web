@@ -77,7 +77,7 @@ class FAQ extends Component<Props, State> {
         </h4>
 
         <p>
-          Podverse clips should work reliably for the vast majority of
+          Podverse clips should work reliably for the majority of
           podcasts that do not use dynamic ads, but the start times of clips from shows
           that use dynamic ads will not stay accurate.
         </p>
@@ -96,13 +96,14 @@ class FAQ extends Component<Props, State> {
         <h4
           className='offset-anchor-tag'
           id='what-does-open-source-mean'>
-          What does AGPLv3 / open source mean?
+          What does open source (AGPLv3) mean?
         </h4>
 
         <p>
           AGPLv3 is the open source license under which all Podverse software is provided.
-          It says that anyone can download, modify, and use this software for any purposes for free,
+          The license states that anyone can download, modify, and use this software for any purposes for free,
           as long as they also share their changes to the code.
+          This is also known as a "share-alike" or "copyleft" license.
         </p>
 
         <hr />
@@ -114,19 +115,15 @@ class FAQ extends Component<Props, State> {
         </h4>
 
         <p>
-          Our goal is to not only create the world's greatest podcast technology,
-          but to help podcasting stay a truly independent medium
-          that is beyond the control of monopolies and gatekeepers.
+          Podverse software is open source so anyone can launch their own
+          podcast app as affordably as possible. If a podcast network wants to create their own podcast app,
+          they can use Podverse software and do it for a tiny fraction of the cost
+          of hiring programmers to build a podcast app from scratch.
         </p>
         <p>
-          We open source all Podverse software to ensure that anyone can launch their own
-          podcast app as affordably as possible. If a podcast network wants to create their own podcast app
-          that they 100% own and control, they can use Podverse software and do it
-          for a tiny fraction of what it would cost to hire programmers to build them an app from scratch.
-        </p>
-        <p>
-          Our hope is this will help level the playing field between giant corporations and independent media (aka podcasters),
-          so independent media has the same technological advantages that typically only giant corporations would have.
+          Our goal is to help level the playing field between the corporate world and independent media,
+          so independent media has the same technological advantages as large corporations,
+          and open source software is essential to that mission.
         </p>
         
       </Fragment>
