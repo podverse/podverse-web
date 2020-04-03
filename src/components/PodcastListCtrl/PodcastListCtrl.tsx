@@ -35,7 +35,7 @@ class PodcastListCtrl extends Component<Props, State> {
     const { handleSetPageQueryState, pageIsLoading, pageKey, pages } = this.props
     const { queryPage: prevPage } = pages[pageKey]
 
-    cookieSetQuery(pageKey, query.from, query.type, query.sort)
+    cookieSetQuery(pageKey, query.from, query.type, query.sort, query.categories)
 
     pageIsLoading(true)
 

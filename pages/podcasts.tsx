@@ -41,7 +41,7 @@ class Podcasts extends Component<Props, State> {
     const currentPage = pages[kPageKey] || {}
     const lastScrollPosition = currentPage.lastScrollPosition
     const queryRefresh = !!query.refresh
-    const categoryId = query.categoryId || currentPage.categoryId
+    const categoryId = query.categoryId || currentPage.categoryId || localStorageQuery.categoryId
     const queryPage = (queryRefresh && 1) || query.page || currentPage.queryPage || 1
     const queryFrom = query.from
       || (query.categoryId && 'from-category')

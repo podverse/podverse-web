@@ -291,7 +291,7 @@ export const cookieGetQuery = (req: any, pageKey: string) => {
   return {}
 }
 
-export const cookieSetQuery = (pageKey: string, from: string, type: string, sort: string) => {
+export const cookieSetQuery = (pageKey: string, from: string, type: string, sort: string, categoryId?: string) => {
   const key = cookieCreateQueryKey(pageKey)
   if (key) {
     try {
@@ -299,6 +299,7 @@ export const cookieSetQuery = (pageKey: string, from: string, type: string, sort
         from,
         type,
         sort,
+        categoryId
       }))
     } catch (error) {
       console.log(key + ' cookieSetQuery', error)
