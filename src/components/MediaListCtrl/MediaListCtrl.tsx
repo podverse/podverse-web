@@ -101,7 +101,7 @@ class MediaListCtrl extends Component<Props, State> {
     if (queryFrom === 'from-podcast') {
       query.podcastId = podcastId
     } else if (queryFrom === 'subscribed-only') {
-      if (subscribedPodcastIds.length > 0) {
+      if (subscribedPodcastIds && subscribedPodcastIds.length > 0) {
         query.podcastId = subscribedPodcastIds
       } else {
         handleSetPageQueryState({
@@ -610,8 +610,8 @@ class MediaListCtrl extends Component<Props, State> {
               </Fragment>
           }
           {
-            (!isLoading && queryPage === 1 && listItemNodes.length === 0) &&
-          <div className='no-results-msg'>{noResultsFoundMsg}</div>
+            (!isLoading && queryPage === 1 && listItemNodes && listItemNodes.length === 0) &&
+              <div className='no-results-msg'>{noResultsFoundMsg}</div>
           }
         </Fragment>
       </div>
