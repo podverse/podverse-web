@@ -100,7 +100,8 @@ class MediaListCtrl extends Component<Props, State> {
       queryFrom,
       querySort,
       ...(page <= 1 ? { listItems: []} : {}),
-      categoryId
+      categoryId,
+      selected: queryFrom
     })
 
     if (queryFrom === 'from-podcast') {
