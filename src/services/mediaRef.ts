@@ -39,6 +39,9 @@ export const getMediaRefsByQuery = async (query) => {
     filteredQuery.episodeId = query.episodeId
   } else if (query.from === 'subscribed-only') {
     filteredQuery.podcastId = Array.isArray(query.podcastId) && query.podcastId.length > 0 ? query.podcastId : ['no-results']
+  } else if (query.from === 'from-category') {
+    filteredQuery.categories = query.categories
+    filteredQuery.includePodcast = true
   } else {
     // from = all-podcasts
     // add nothing

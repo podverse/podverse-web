@@ -11,7 +11,6 @@ const { QUERY_PODCASTS_LIMIT } = config()
 
 type Props = {
   allCategories?: any
-  categoryId?: string
   handleSetPageQueryState: Function
   page?: any
   pageIsLoading?: any

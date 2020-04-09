@@ -11,7 +11,7 @@ const generateDataObj = payload => {
       queryType, searchBy, searchText, selected } = payload
 
     return {
-      ...(categoryId ? { categoryId } : {}),
+      ...(categoryId || categoryId === null ? { categoryId } : {}),
       ...(filterIsShowing || filterIsShowing === false ? { filterIsShowing } : {}),
       ...(filterText || filterText === '' ? { filterText } : {}),
       ...(isSearching || isSearching === false ? { isSearching } : {}),

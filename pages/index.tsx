@@ -8,9 +8,11 @@ import { convertToNowPlayingItem } from '~/lib/nowPlayingItem'
 import { clone, cookieGetQuery, getUrlFromRequestOrWindow } from '~/lib/utility'
 import { pageIsLoading, pagesSetQueryState, playerQueueLoadSecondaryItems
   } from '~/redux/actions'
-import { getEpisodesByQuery, getMediaRefsByQuery } from '~/services'
+import { getCategoriesByQuery, getEpisodesByQuery, getMediaRefsByQuery } from '~/services'
 
 type Props = {
+  allCategories?: any[]
+  categoryId?: string
   lastScrollPosition?: number
   listItems?: any
   meta?: any
@@ -32,6 +34,8 @@ const kPageKey = 'home'
 class Home extends Component<Props, State> {
 
   static async getInitialProps({ query, req, store }) {
+    const allCategoriesAndCountResult = await getCategoriesByQuery({})
+    const allCategories = allCategoriesAndCountResult.data[0] || []
 
     const state = store.getState()
     const { mediaPlayer, pages, user } = state
@@ -42,7 +46,8 @@ class Home extends Component<Props, State> {
     const currentPage = pages[kPageKey] || {}
     const lastScrollPosition = currentPage.lastScrollPosition
     const queryRefresh = !!query.refresh
-    const queryFrom = currentPage.queryFrom || query.from || localStorageQuery.from || (user && user.id ? 'subscribed-only' : 'all-podcasts')
+    const categoryId = query.categoryId || currentPage.categoryId || localStorageQuery.categoryId
+    const queryFrom = currentPage.queryFrom || query.from || (query.categoryId && 'from-category') || localStorageQuery.from || (user && user.id ? 'subscribed-only' : 'all-podcasts')
     const queryPage = (queryRefresh && 1) || currentPage.queryPage || query.page || 1
     let querySort = currentPage.querySort || query.sort || localStorageQuery.sort || (user && user.id ? 'most-recent' : 'top-past-week')
     const queryType = (queryRefresh && query.type) || currentPage.queryType || query.type ||
@@ -67,6 +72,7 @@ class Home extends Component<Props, State> {
           ...(podcastId ? { podcastId } : {}),
           sort: querySort,
           type: queryType,
+          ...(categoryId ? { categories: categoryId } : {}),
           includePodcast: true
         })
       } else {
@@ -76,7 +82,8 @@ class Home extends Component<Props, State> {
           page: queryPage,
           ...(podcastId ? { podcastId } : {}),
           sort: querySort,
-          type: queryType
+          type: queryType,
+          ...(categoryId ? { categories: categoryId } : {}),
         })
       }
       
@@ -91,12 +98,13 @@ class Home extends Component<Props, State> {
       
       store.dispatch(pagesSetQueryState({
         pageKey: kPageKey,
+        categoryId,
         listItems,
         listItemsTotal: results.data[1],
         queryFrom,
         queryPage,
         querySort,
-        queryType
+        queryType,
       }))
     }
     
@@ -108,7 +116,7 @@ class Home extends Component<Props, State> {
       title: 'Podverse - Create podcast highlights. Sync your podcasts across iOS, Android, and web. Open source technology.'
     }
 
-    return { lastScrollPosition, meta, pageKey: kPageKey, queryFrom, queryPage, querySort,
+    return { allCategories, lastScrollPosition, meta, pageKey: kPageKey, queryFrom, queryPage, querySort,
       queryType }
   }
 
@@ -126,7 +134,7 @@ class Home extends Component<Props, State> {
   }
 
   render() {
-    const { meta, pagesSetQueryState, queryFrom, queryPage, querySort, queryType
+    const { allCategories, categoryId, meta, pagesSetQueryState, queryFrom, queryPage, querySort, queryType
       } = this.props
     
     return (
@@ -143,6 +151,8 @@ class Home extends Component<Props, State> {
           twitterTitle={meta.title} />
         <MediaListCtrl
           adjustTopPosition
+          allCategories={allCategories}
+          categoryId={categoryId}
           handleSetPageQueryState={pagesSetQueryState}
           pageKey={kPageKey}
           queryFrom={queryFrom}
