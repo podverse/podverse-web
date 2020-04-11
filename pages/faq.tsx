@@ -58,7 +58,7 @@ class FAQ extends Component<Props, State> {
 
         <ul>
           <li>
-            <a href='#dyanmic-ads'>Dynamic ads: Why do some clips start at the wrong time?</a>
+            <a href='#why-do-some-clips-start-at-the-wrong-time'>Why do some clips start at the wrong time? (dynamic ads)</a>
           </li>
           <li>
             <a href='#what-does-open-source-mean'>What does open source mean?</a>
@@ -72,23 +72,23 @@ class FAQ extends Component<Props, State> {
 
         <h4
           className='offset-anchor-tag'
-          id='dyanmic-ads'>
-          Dynamic ads: Why do some clips start at the wrong time?
+          id='why-do-some-clips-start-at-the-wrong-time'>
+          Why do some clips start at the wrong time?
         </h4>
-
         <p>
-          Podverse clips should work reliably for the majority of
-          podcasts that do not use dynamic ads, but the start times of clips from shows
-          that use dynamic ads will not stay accurate.
+          One advantage of Podverse is it lets you create podcast clips of any length,
+          whereas most apps today limit clips to be less than a minute long.
+          A disadvantage of Podverse is it currently does not support clips from podcasts that use dynamic ads.
         </p>
         <p>
-          Podcasts that use dyanmic ads rotate different ads into the same episode.
-          Since we can't predict which ads each listener will get or how long they will be,
-          we can't determine the correct clip start time for all listeners.
+          Dynamic ads are different advertisements that rotate into the same episode,
+          so each listener may hear a different series of advertisements.
+          Since dynamic ads change the overall length of the episode,
+          the timestamps of clips created from that episode will not stay accurate.
         </p>
         <p>
-          We would love to add full support for podcasts that use dynamic ads some day,
-          but we will need to collaborate with podcasters and their ad networks to do so.
+          We would love to add full support for podcasts with dynamic ads some day, and we can,
+          but for fair use / legal reasons we will need to get permission from each podcaster to do so.
         </p>
 
         <hr />
