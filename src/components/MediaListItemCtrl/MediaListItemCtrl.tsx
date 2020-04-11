@@ -4,8 +4,8 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux';
 import { MediaListItem, addItemToPriorityQueueStorage, getPriorityQueueItemsStorage
   } from 'podverse-ui'
-import { getViewContentsElementScrollTop } from '~/lib/utility'
-import { modalsAddToShow, pageIsLoading, pagesSetQueryState, playerQueueLoadPriorityItems,
+import { generateShareURLs, getViewContentsElementScrollTop } from '~/lib/utility'
+import { modalsAddToShow, modalsShareShow, pageIsLoading, pagesSetQueryState, playerQueueLoadPriorityItems,
   userSetInfo } from '~/redux/actions'
 import { updateUserQueueItems } from '~/services'
 const uuidv4 = require('uuid/v4')
@@ -22,6 +22,7 @@ type Props = {
   mediaPlayerUpdatePlaying?: any
   modals?: any
   modalsAddToShow?: any
+  modalsShareShow?: any
   nowPlayingItem?: any
   pageIsLoading?: any
   pageKey?: string
@@ -73,6 +74,21 @@ class MediaListItemCtrl extends Component<Props, State> {
     })
   }
 
+  toggleShareModal = (nowPlayingItem) => {
+    const { modals, modalsShareShow } = this.props
+    const { share } = modals
+    const { isOpen } = share
+
+    const { clipLinkAs, episodeLinkAs, podcastLinkAs } = generateShareURLs(nowPlayingItem)
+
+    modalsShareShow({
+      clipLinkAs,
+      episodeLinkAs,
+      isOpen: !isOpen,
+      podcastLinkAs
+    })
+  }
+
   linkClick = () => {
     const { pageIsLoading, pageKey, pagesSetQueryState } = this.props
     pageIsLoading(true)
@@ -101,6 +117,7 @@ class MediaListItemCtrl extends Component<Props, State> {
         handlePlayItem={() => handlePlayItem ? handlePlayItem(nowPlayingItem) : null}
         handleRemoveItem={handleRemoveItem}
         handleToggleAddToPlaylist={() => this.toggleAddToModal(nowPlayingItem, false)}
+        handleToggleShare={() => this.toggleShareModal(nowPlayingItem)}
         hasLink={true}
         hideDescription={hideDescription}
         hideDivider={hideDivider}
@@ -118,6 +135,7 @@ const mapStateToProps = state => ({ ...state })
 
 const mapDispatchToProps = dispatch => ({
   modalsAddToShow: bindActionCreators(modalsAddToShow, dispatch),
+  modalsShareShow: bindActionCreators(modalsShareShow, dispatch),
   pageIsLoading: bindActionCreators(pageIsLoading, dispatch),
   pagesSetQueryState: bindActionCreators(pagesSetQueryState, dispatch),
   playerQueueLoadPriorityItems: bindActionCreators(playerQueueLoadPriorityItems, dispatch),

@@ -327,3 +327,15 @@ const cookieCreateQueryKey = (pageKey: string) => {
     return ''
   }
 }
+
+export const generateShareURLs = (nowPlayingItem) => {
+  if (nowPlayingItem) {
+    const clipLinkAs = nowPlayingItem.clipId ? `${window.location.host}/clip/${nowPlayingItem.clipId}` : ''
+    const episodeLinkAs = `${window.location.host}/episode/${nowPlayingItem.episodeId}`
+    const podcastLinkAs = `${window.location.host}/podcast/${nowPlayingItem.podcastId}`
+    
+    return { clipLinkAs, episodeLinkAs, podcastLinkAs }
+  } else {
+    return {}
+  }
+}

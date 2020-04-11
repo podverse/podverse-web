@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { MediaPlayer, popNextFromQueueStorage, setNowPlayingItemInStorage } from 'podverse-ui'
 import { addOrUpdateHistoryItemPlaybackPosition, assignLocalOrLoggedInNowPlayingItemPlaybackPosition,
-  getPlaybackPositionFromHistory, getViewContentsElementScrollTop } from '~/lib/utility'
+  generateShareURLs, getPlaybackPositionFromHistory, getViewContentsElementScrollTop } from '~/lib/utility'
 import { kAutoplay, kPlaybackRate, getPlaybackRateText, getPlaybackRateNextValue
   } from '~/lib/constants/misc'
 import { mediaPlayerLoadNowPlayingItem, 
@@ -285,9 +285,7 @@ class MediaPlayerView extends Component<Props, State> {
     const { share } = modals
     const { isOpen } = share
 
-    const clipLinkAs = nowPlayingItem.clipId ? `${window.location.host}/clip/${nowPlayingItem.clipId}` : ''
-    const episodeLinkAs = `${window.location.host}/episode/${nowPlayingItem.episodeId}`
-    const podcastLinkAs = `${window.location.host}/podcast/${nowPlayingItem.podcastId}`
+    const { clipLinkAs, episodeLinkAs, podcastLinkAs } = generateShareURLs(nowPlayingItem)
 
     modalsShareShow({
       clipLinkAs,
