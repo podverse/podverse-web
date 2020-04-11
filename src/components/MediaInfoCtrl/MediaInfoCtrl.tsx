@@ -9,7 +9,8 @@ import { mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying, modalsAddToSho
   userSetInfo } from '~/redux/actions'
 import { convertToNowPlayingItem } from '~/lib/nowPlayingItem'
 import { addOrUpdateHistoryItemPlaybackPosition, assignLocalOrLoggedInNowPlayingItemPlaybackPosition,
-  getViewContentsElementScrollTop } from '~/lib/utility'
+  getViewContentsElementScrollTop, 
+  generateShareURLs} from '~/lib/utility'
 import { updateUserQueueItems } from '~/services'
 
 type Props = {
@@ -169,13 +170,13 @@ class MediaInfoCtrl extends Component<Props, State> {
     const { isOpen } = share
     const nowPlayingItem = this.getCurrentPageItem()
 
-    const clipLinkAs = nowPlayingItem.clipId ? `${window.location.host}/clip/${nowPlayingItem.clipId}` : ''
-    const episodeLinkAs = `${window.location.host}/episode/${nowPlayingItem.episodeId}`
+    const { clipLinkAs, episodeLinkAs, podcastLinkAs } = generateShareURLs(nowPlayingItem)
 
     modalsShareShow({
       clipLinkAs,
       episodeLinkAs,
-      isOpen: !isOpen
+      isOpen: !isOpen,
+      podcastLinkAs
     })
   }
 
