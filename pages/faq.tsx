@@ -85,7 +85,7 @@ class FAQ extends Component<Props, State> {
           Dynamic ads are different advertisements that are rotated into the same episode,
           so each listener can hear a different series of advertisements.
           Since dynamic ads change the overall length of the episode,
-          the timestamps of clips created from that episode will not stay accurate.
+          the timestamps of clips created from that episode may not stay accurate.
         </p>
         <p>
           We would love to add full support for podcasts with dynamic ads some day, and we can,
