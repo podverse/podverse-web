@@ -21,13 +21,14 @@
     height: 0;
     justify-content: space-between;
     overflow-y: scroll;
-    padding-top: 68px;
+    padding-top: 49px;
     -webkit-overflow-scrolling: touch;
 
     .top {
       display: flex;
       flex: 1 0 auto;
       flex-direction: column;
+      padding-top: 1.25rem;
       z-index: 99;
     }
 
