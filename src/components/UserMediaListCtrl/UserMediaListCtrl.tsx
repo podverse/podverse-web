@@ -51,7 +51,9 @@ class UserMediaListCtrl extends Component<Props, State> {
   }
 
   componentDidMount() {
-    this.queryMediaListItems('type', 'clips')
+    const { pages, pageKey } = this.props
+    const { queryType } = pages[pageKey]
+    this.queryMediaListItems('type', queryType)
   }
 
   queryMediaListItems = async (selectedKey = '', selectedValue = '', page = 1) => {
