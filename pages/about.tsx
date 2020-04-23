@@ -62,7 +62,7 @@ class About extends Component<Props, State> {
           <ul>
             <li>Subscribe to podcasts</li>
             <li>Play clips and episodes</li>
-            <li>Download episodes</li>
+            <li>Download episodes (mobile)</li>
             <li>Drag-and-drop player queue</li>
             <li>Sleep Timer</li>
             <li>Light / Dark mode</li>
