@@ -91,7 +91,12 @@ const featuresData = [
     icon2: true
   },
   {
-    text: 'manage your queue',
+    text: 'download episodes',
+    icon1: true,
+    icon2: true
+  },
+  {
+    text: 'drag-and-drop queue',
     icon1: true,
     icon2: true
   },
@@ -117,11 +122,6 @@ const featuresData = [
   },
   {
     text: 'create playlists',
-    icon1: false,
-    icon2: true
-  },
-  {
-    text: 'auto save your clips to a playlist',
     icon1: false,
     icon2: true
   },
