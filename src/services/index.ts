@@ -1,3 +1,4 @@
+export { getAccountClaimToken, redeemAccountClaimToken } from '~/services/accountClaimToken'
 export { getAuthenticatedUserInfo, login, logOut, resetPassword, sendResetPassword, signUp, verifyEmail
   } from '~/services/auth'
 export { createBitPayInvoice, getBitPayInvoiceStatusByOrderId } from '~/services/bitpay'

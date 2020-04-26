@@ -3,7 +3,7 @@
 // eslint-disable-next-line import/first
 import path from 'path'
 // eslint-disable-next-line import/first
-import { authRouter, infoRouter, mainRouter, paymentRouter, requestHandlerRouter } from './routes'
+import { authRouter, infoRouter, mainRouter, paymentRouter, requestHandlerRouter, redeemRouter } from './routes'
 
 const Koa = require('koa')
 const bodyParser = require('koa-bodyparser')
@@ -39,6 +39,9 @@ app.prepare()
     server.use(infoRouter(app).routes())
     server.use(mainRouter(app).routes())
     server.use(paymentRouter(app).routes())
+    server.use(redeemRouter(app).routes())
+
+    // requestHandlerRouter will catch and handle all other requests
     server.use(requestHandlerRouter(app).routes())
 
     // Config is only available after Next.js has started

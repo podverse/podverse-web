@@ -1,6 +1,7 @@
 import { getLastHistoryItemOrNowPlayingItemFromStorage, setNowPlayingItemInStorage } from 'podverse-ui'
 import { userUpdateHistoryItem } from '~/redux/actions'
 import { updateHistoryItemPlaybackPosition } from '~/services'
+import confetti from 'canvas-confetti'
 export { validatePassword } from './validatePassword'
 
 // This checks if we are server-side rendering or rendering on the front-end.
@@ -338,4 +339,12 @@ export const generateShareURLs = (nowPlayingItem) => {
   } else {
     return {}
   }
+}
+
+export const fireConfetti = () => {
+  confetti({
+    particleCount: 50,
+    spread: 70,
+    origin: { y: 0.6 }
+  })
 }
