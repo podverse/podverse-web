@@ -45,8 +45,8 @@ class Redeem extends Component<Props, State> {
 
     const meta = {
       currentUrl: getUrlFromRequestOrWindow(req),
-      description: 'Redeem your special offer.',
-      title: 'Podverse - Offer Code'
+      description: 'Redeem your special offer',
+      title: 'Podverse - Coupon'
     }
 
     return { id, lastScrollPosition, meta, pageKey: kPageKey }
