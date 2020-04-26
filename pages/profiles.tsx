@@ -3,9 +3,10 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import Meta from '~/components/Meta/Meta'
 import UserListCtrl from '~/components/UserListCtrl/UserListCtrl'
-import { getUrlFromRequestOrWindow } from '~/lib/utility'
+import config from '~/config'
 import { pageIsLoading, pagesSetQueryState } from '~/redux/actions'
 import { getPublicUsersByQuery } from '~/services'
+const { BASE_URL } = config()
 
 type Props = {
   lastScrollPosition?: number
@@ -47,7 +48,7 @@ class Profiles extends Component<Props, State> {
     store.dispatch(pageIsLoading(false))
 
     const meta = {
-      currentUrl: getUrlFromRequestOrWindow(req),
+      currentUrl: BASE_URL + '/profiles',
       description: `My subscribed profiles on Podverse`,
       title: `Profiles`
     }

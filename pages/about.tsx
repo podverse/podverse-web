@@ -2,8 +2,9 @@ import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import Meta from '~/components/Meta/Meta'
-import { getUrlFromRequestOrWindow } from '~/lib/utility'
+import config from '~/config'
 import { pageIsLoading, pagesSetQueryState } from '~/redux/actions'
+const { BASE_URL } = config()
 
 type Props = {
   lastScrollPosition?: number
@@ -27,7 +28,7 @@ class About extends Component<Props, State> {
     store.dispatch(pageIsLoading(false))
 
     const meta = {
-      currentUrl: getUrlFromRequestOrWindow(req),
+      currentUrl: BASE_URL + '/about',
       description: 'Information about the Podverse open source podcast app.',
       title: 'Podverse - About'
     }
@@ -56,13 +57,13 @@ class About extends Component<Props, State> {
           <p>
             Podverse is the easiest way to create, share, and discover podcast highlights online,
             and a fully functional podcast app that syncs across all your devices.
-            Sign up today for 1 year of premium for free! <span role='img' aria-label='partying face emoji'>🥳</span>
+            Sign up today for 1 year of premium features for free! <span role='img' aria-label='partying face emoji'>🥳</span>
           </p>
           <label>Free version:</label>
           <ul>
             <li>Subscribe to podcasts</li>
             <li>Play clips and episodes</li>
-            <li>Download episodes (mobile)</li>
+            <li>Download episodes (mobile only)</li>
             <li>Drag-and-drop player queue</li>
             <li>Sleep Timer</li>
             <li>Light / Dark mode</li>

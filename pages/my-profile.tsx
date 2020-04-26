@@ -4,11 +4,13 @@ import { bindActionCreators } from 'redux'
 import Meta from '~/components/Meta/Meta'
 import UserHeaderCtrl from '~/components/UserHeaderCtrl/UserHeaderCtrl'
 import UserMediaListCtrl from '~/components/UserMediaListCtrl/UserMediaListCtrl'
+import config from '~/config'
 import { convertToNowPlayingItem } from '~/lib/nowPlayingItem'
-import { clone, getUrlFromRequestOrWindow } from '~/lib/utility'
+import { clone } from '~/lib/utility'
 import { pageIsLoading, playerQueueLoadSecondaryItems, pagesSetQueryState } from '~/redux/actions'
 import { getLoggedInUserMediaRefs, getLoggedInUserPlaylists, getPodcastsByQuery
   } from '~/services'
+const { BASE_URL } = config()
 
 type Props = {
   lastScrollPosition?: number
@@ -77,7 +79,7 @@ class MyProfile extends Component<Props, State> {
     store.dispatch(pageIsLoading(false))
 
     const meta = {
-      currentUrl: getUrlFromRequestOrWindow(req),
+      currentUrl: BASE_URL + '/my-profile',
       description: 'My Podverse Profile. Subscribe to podcasts, playlists, and other profiles',
       title: 'My Profile'
     }

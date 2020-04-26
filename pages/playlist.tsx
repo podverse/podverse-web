@@ -12,14 +12,15 @@ import { Button, setNowPlayingItemInStorage } from 'podverse-ui'
 import Error from './_error'
 import MediaListItemCtrl from '~/components/MediaListItemCtrl/MediaListItemCtrl'
 import Meta from '~/components/Meta/Meta'
+import config from '~/config'
 import { convertToNowPlayingItem } from '~/lib/nowPlayingItem'
 import { addOrUpdateHistoryItemPlaybackPosition, alertPremiumRequired, alertRateLimitError, alertSomethingWentWrong,
-  assignLocalOrLoggedInNowPlayingItemPlaybackPosition, clone, getUrlFromRequestOrWindow, readableDate,
-  removeDoubleQuotes, safeAlert } from '~/lib/utility'
+  assignLocalOrLoggedInNowPlayingItemPlaybackPosition, clone, readableDate, removeDoubleQuotes, safeAlert } from '~/lib/utility'
 import { mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying, pageIsLoading,
   pagesSetQueryState, playerQueueLoadSecondaryItems, userSetInfo } from '~/redux/actions'
 import { addOrRemovePlaylistItem, deletePlaylist,
   getPlaylistById, toggleSubscribeToPlaylist, updatePlaylist } from '~/services/'
+const { BASE_URL } = config()
 
 const uuidv4 = require('uuid/v4')
 
@@ -91,7 +92,7 @@ class Playlist extends Component<Props, State> {
     let meta = {}
     if (playlist) {
       meta = {
-        currentUrl: getUrlFromRequestOrWindow(req),
+        currentUrl: BASE_URL + '/playlist/' + playlist.id,
         description: removeDoubleQuotes(`${playlist.title ? playlist.title : 'untitled playlist'} - playlist on Podverse ${playlist.description ? playlist.description : ''}`),
         title: `${playlist.title ? playlist.title : 'untitled playlist'}`
       }

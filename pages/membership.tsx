@@ -3,8 +3,9 @@ import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import Meta from '~/components/Meta/Meta'
-import { getUrlFromRequestOrWindow } from '~/lib/utility'
+import config from '~/config'
 import { pageIsLoading, pagesSetQueryState, modalsSignUpShow } from '~/redux/actions'
+const { BASE_URL } = config()
 
 type Props = {
   lastScrollPosition?: number
@@ -29,7 +30,7 @@ class Membership extends Component<Props, State> {
     store.dispatch(pageIsLoading(false))
 
     const meta = {
-      currentUrl: getUrlFromRequestOrWindow(req),
+      currentUrl: BASE_URL + '/membership',
       description: 'Free and premium membership options.',
       title: 'Podverse - Membership'
     }

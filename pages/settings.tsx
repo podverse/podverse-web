@@ -9,7 +9,7 @@ import Meta from '~/components/Meta/Meta'
 import CheckoutModal from '~/components/CheckoutModal/CheckoutModal'
 import { DeleteAccountModal } from '~/components/DeleteAccountModal/DeleteAccountModal'
 import { alertPremiumRequired, alertRateLimitError, alertSomethingWentWrong, convertToYYYYMMDDHHMMSS,
-  getUrlFromRequestOrWindow, isBeforeDate, validateEmail, safeAlert } from '~/lib/utility'
+  isBeforeDate, validateEmail, safeAlert } from '~/lib/utility'
 import { modalsSignUpShow, pageIsLoading, settingsHideFilterButton, settingsHideNSFWLabels,
   settingsHideNSFWMode, settingsHidePlaybackSpeedButton, settingsHideTimeJumpBackwardButton,
   settingsHideUITheme, userSetInfo } from '~/redux/actions'
@@ -62,7 +62,7 @@ class Settings extends Component<Props, State> {
     store.dispatch(pageIsLoading(false))
 
     const meta = {
-      currentUrl: getUrlFromRequestOrWindow(req),
+      currentUrl: BASE_URL + '/settings',
       description: 'Customize your account settings on Podverse.',
       title: `Podverse - Settings`
     }

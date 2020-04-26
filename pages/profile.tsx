@@ -5,12 +5,14 @@ import Error from './_error'
 import Meta from '~/components/Meta/Meta'
 import UserHeaderCtrl from '~/components/UserHeaderCtrl/UserHeaderCtrl'
 import UserMediaListCtrl from '~/components/UserMediaListCtrl/UserMediaListCtrl'
+import config from '~/config'
 import { convertToNowPlayingItem } from '~/lib/nowPlayingItem'
-import { clone, getUrlFromRequestOrWindow } from '~/lib/utility'
+import { clone } from '~/lib/utility'
 import { pageIsLoading, pagesSetQueryState, playerQueueLoadSecondaryItems
   } from '~/redux/actions'
 import { getPodcastsByQuery, getPublicUser, getUserMediaRefs, getUserPlaylists
   } from '~/services'
+const { BASE_URL } = config()
 
 type Props = {
   errorCode?: number
@@ -94,7 +96,7 @@ class Profile extends Component<Props, State> {
     let meta = {}
     if (publicUser) {
       meta = {
-        currentUrl: getUrlFromRequestOrWindow(req),
+        currentUrl: BASE_URL + '/profile/' + publicUser.id,
         description: `${publicUser.name ? publicUser.name : 'anonymous'}'s profile on Podverse`,
         title: `${publicUser.name ? publicUser.name : 'anonymous'}'s profile on Podverse`
       }

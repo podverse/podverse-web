@@ -3,9 +3,11 @@ import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import Meta from '~/components/Meta/Meta'
-import { getUrlFromRequestOrWindow, alertRateLimitError } from '~/lib/utility'
+import config from '~/config'
+import { alertRateLimitError } from '~/lib/utility'
 import { modalsLoginShow, modalsSendVerificationEmailShow, pageIsLoading } from '~/redux/actions'
 import { verifyEmail } from '~/services/auth'
+const { BASE_URL } = config()
 
 type Props = {
   hasError?: string
@@ -22,7 +24,7 @@ class VerifyEmail extends Component<Props, State> {
     const token = query.token
 
     const meta = {
-      currentUrl: getUrlFromRequestOrWindow(req),
+      currentUrl: BASE_URL + '/verify-email',
       description: `Verify your email address on Podverse`,
       title: `Verify your email address`
     }

@@ -3,9 +3,11 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import Meta from '~/components/Meta/Meta'
 import PodcastListCtrl from '~/components/PodcastListCtrl/PodcastListCtrl'
-import { cookieGetQuery, getUrlFromRequestOrWindow } from '~/lib/utility'
+import config from '~/config'
+import { cookieGetQuery } from '~/lib/utility'
 import { pageIsLoading, pagesSetQueryState } from '~/redux/actions'
 import { getCategoriesByQuery, getPodcastsByQuery } from '~/services'
+const { BASE_URL } = config()
 
 type Props = {
   allCategories?: any[]
@@ -76,7 +78,7 @@ class Podcasts extends Component<Props, State> {
     store.dispatch(pageIsLoading(false))
 
     const meta = {
-      currentUrl: getUrlFromRequestOrWindow(req),
+      currentUrl: BASE_URL + '/podcasts',
       description: 'Find and subscribe to podcasts.',
       title: `Podcasts`
     }

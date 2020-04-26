@@ -1,8 +1,9 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import Meta from '~/components/Meta/Meta'
-import { getUrlFromRequestOrWindow } from '~/lib/utility'
+import config from '~/config'
 import { pageIsLoading } from '~/redux/actions'
+const { BASE_URL } = config()
 
 type Props = {
   meta?: any
@@ -16,7 +17,7 @@ class Terms extends Component<Props, State> {
     store.dispatch(pageIsLoading(false))
 
     const meta = {
-      currentUrl: getUrlFromRequestOrWindow(req),
+      currentUrl: BASE_URL + '/terms',
       description: `Podverse terms of service agreement.`,
       title: `Podverse - Terms of Service`
     }

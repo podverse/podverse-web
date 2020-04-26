@@ -158,11 +158,6 @@ export const clone = obj => {
   return copy
 }
 
-export const getUrlFromRequestOrWindow = req =>
-  req && req.headers ? 
-    req.headers.referer
-    : `${location.protocol}//${location.hostname}${location.pathname}`
-
 export const alertPremiumRequired = () => {
   safeAlert('This feature is only available for premium members. Login for a free trial.')
 }
