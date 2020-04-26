@@ -72,10 +72,13 @@ class Redeem extends Component<Props, State> {
       accountClaimToken = accountClaimTokenResult.data
       this.setState({ accountClaimToken })
       pageIsLoading(false)
+      setTimeout(() => {
+        fireConfetti()
+      }, 1500)
       setInterval(() => {
         setTimeout(() => {
           fireConfetti()
-        }, 500)
+        }, 10000)
       }, 10000)
     } catch (err) {
       Router.push('/')
@@ -90,7 +93,7 @@ class Redeem extends Component<Props, State> {
       this.setState({ isRedeeming: true })
       try {
         await redeemAccountClaimToken(accountClaimToken.id, email)
-        alert('Success! Login and go to your Settings page to confirm your Membership Status.')
+        alert('Success! Login and go to your Settings page to confirm your Membership Status. You may need to refresh the page.')
       } catch (error) {
         if (error.response && error.response.data && error.response.data.message) {
           alert(error.response.data.message)
