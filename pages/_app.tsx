@@ -207,26 +207,26 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
         try {
           const userInfo = await getAuthenticatedUserInfo(parsedCookie.Authorization)
 
-          if (userInfo && userInfo.data) {
+          if (userInfo) {
             ctx.bearerToken = parsedCookie.Authorization
 
             ctx.store.dispatch({
               type: actionTypes.USER_SET_INFO,
               payload: {
-                email: userInfo.data.email,
-                emailVerified: userInfo.data.emailVerified,
-                freeTrialExpiration: userInfo.data.freeTrialExpiration,
-                historyItems: userInfo.data.historyItems,
-                id: userInfo.data.id,
-                isPublic: userInfo.data.isPublic,
-                mediaRefs: userInfo.data.mediaRefs,
-                membershipExpiration: userInfo.data.membershipExpiration,
-                name: userInfo.data.name,
-                playlists: userInfo.data.playlists,
-                queueItems: userInfo.data.queueItems,
-                subscribedPlaylistIds: userInfo.data.subscribedPlaylistIds,
-                subscribedPodcastIds: userInfo.data.subscribedPodcastIds,
-                subscribedUserIds: userInfo.data.subscribedUserIds
+                email: userInfo.email,
+                emailVerified: userInfo.emailVerified,
+                freeTrialExpiration: userInfo.freeTrialExpiration,
+                historyItems: userInfo.historyItems,
+                id: userInfo.id,
+                isPublic: userInfo.isPublic,
+                mediaRefs: userInfo.mediaRefs,
+                membershipExpiration: userInfo.membershipExpiration,
+                name: userInfo.name,
+                playlists: userInfo.playlists,
+                queueItems: userInfo.queueItems,
+                subscribedPlaylistIds: userInfo.subscribedPlaylistIds,
+                subscribedPodcastIds: userInfo.subscribedPodcastIds,
+                subscribedUserIds: userInfo.subscribedUserIds
               }
             })
           }

@@ -1,16 +1,16 @@
 
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { MediaInfo, addItemToPriorityQueueStorage, getPriorityQueueItemsStorage,
+import { KEYS, MediaInfo, addItemToPriorityQueueStorage, getPriorityQueueItemsStorage,
   setNowPlayingItemInStorage } from 'podverse-ui'
 import { bindActionCreators } from 'redux';
-import { mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying, modalsAddToShow,
-  modalsMakeClipShow, modalsShareShow, pageIsLoading, pagesSetQueryState, playerQueueLoadPriorityItems,
-  userSetInfo } from '~/redux/actions'
 import { convertToNowPlayingItem } from '~/lib/nowPlayingItem'
 import { addOrUpdateHistoryItemPlaybackPosition, assignLocalOrLoggedInNowPlayingItemPlaybackPosition,
   getViewContentsElementScrollTop, 
   generateShareURLs} from '~/lib/utility'
+import { mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying, modalsAddToShow,
+  modalsMakeClipShow, modalsShareShow, pageIsLoading, pagesSetQueryState, playerQueueLoadPriorityItems,
+  userSetInfo } from '~/redux/actions'
 import { updateUserQueueItems } from '~/services'
 
 type Props = {
@@ -140,6 +140,18 @@ class MediaInfoCtrl extends Component<Props, State> {
     if (!this.isCurrentlyPlayingItem()) {
       this.playItem(this.getCurrentPageItem(), true)
     }
+
+    const { modalsMakeClipShow } = this.props
+
+    const { value: startTime } = this.makeClipInputStartTime.current
+    const { value: endTime } = this.makeClipInputEndTime.current
+    const { value: title } = this.makeClipInputTitle.current
+
+    window.sessionStorage.setItem(KEYS.inProgressMakeStartTimeKey, startTime)
+    window.sessionStorage.setItem(KEYS.inProgressMakeEndTimeKey, endTime)
+    window.sessionStorage.setItem(KEYS.inProgressMakeClipTitleKey, title)
+
+    modalsMakeClipShow({})
 
     modalsMakeClipShow({
       isEditing: true,

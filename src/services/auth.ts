@@ -3,12 +3,19 @@ import config from '~/config'
 const { API_BASE_URL } = config()
 
 export const getAuthenticatedUserInfo = async (bearerToken) => {
-  return axios(`${API_BASE_URL}/auth/get-authenticated-user-info`, {
+  const response = await axios(`${API_BASE_URL}/auth/get-authenticated-user-info`, {
     method: 'post',
     headers: {
       Authorization: bearerToken
     }
   })
+
+  const userInfo = response && response.data
+  if (userInfo && !Array.isArray(userInfo.historyItems)) {
+    userInfo.historyItems = []
+  }
+
+  return userInfo
 }
 
 export const login = async (email: string, password: string) => {

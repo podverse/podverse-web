@@ -2,11 +2,12 @@ import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import Router from 'next/router'
-import { AddToModal, ClipCreatedModal, MakeClipModal, QueueModal, ShareModal,
+import { AddToModal, ClipCreatedModal, KEYS, MakeClipModal, QueueModal, ShareModal,
   addItemToPriorityQueueStorage, updatePriorityQueueStorage, getPriorityQueueItemsStorage,
   getSecondaryQueueItemsStorage, removeItemFromPriorityQueueStorage,
   removeItemFromSecondaryQueueStorage } from 'podverse-ui'
 import { kPlaybackRate } from '~/lib/constants/misc'
+import { alertPremiumRequired, alertSomethingWentWrong, clone, alertRateLimitError, safeAlert } from '~/lib/utility'
 import { mediaPlayerUpdatePlaying, modalsAddToCreatePlaylistIsSaving,
   modalsAddToCreatePlaylistShow, modalsAddToShow, modalsClipCreatedShow, modalsLoginShow, 
   modalsMakeClipShow, modalsQueueShow, modalsShareShow,
@@ -14,7 +15,6 @@ import { mediaPlayerUpdatePlaying, modalsAddToCreatePlaylistIsSaving,
   } from '~/redux/actions'
 import { addOrRemovePlaylistItem, createMediaRef, createPlaylist, deleteMediaRef,
   updateMediaRef, updateUserQueueItems } from '~/services'
-import { alertPremiumRequired, alertSomethingWentWrong, clone, alertRateLimitError, safeAlert } from '~/lib/utility'
 
 type Props = {
   mediaPlayer?: any
@@ -55,10 +55,6 @@ interface MediaModals {
   makeClipInputEndTime: any
   makeClipInputTitle: any
 }
-
-const _inProgressMakeClipTitleKey = 'inProgressMakeClipTitle'
-const _inProgressMakeStartTimeKey = 'inProgressMakeStartTime'
-const _inProgressMakeEndTimeKey = 'inProgressMakeEndTime'
 
 class MediaModals extends Component<Props, State> {
 
@@ -165,9 +161,9 @@ class MediaModals extends Component<Props, State> {
     const { value: endTime } = this.makeClipInputEndTime.current
     const { value: title } = this.makeClipInputTitle.current
 
-    window.sessionStorage.setItem(_inProgressMakeStartTimeKey, startTime)
-    window.sessionStorage.setItem(_inProgressMakeEndTimeKey, endTime)
-    window.sessionStorage.setItem(_inProgressMakeClipTitleKey, title)
+    window.sessionStorage.setItem(KEYS.inProgressMakeStartTimeKey, startTime)
+    window.sessionStorage.setItem(KEYS.inProgressMakeEndTimeKey, endTime)
+    window.sessionStorage.setItem(KEYS.inProgressMakeClipTitleKey, title)
 
     modalsMakeClipShow({})
   }
@@ -237,9 +233,9 @@ class MediaModals extends Component<Props, State> {
         })
       }
 
-      window.sessionStorage.removeItem('inProgressMakeClipTitle')
-      window.sessionStorage.removeItem('inProgressMakeStartTime')
-      window.sessionStorage.removeItem('inProgressMakeEndTime')
+      window.sessionStorage.removeItem(KEYS.inProgressMakeClipTitleKey)
+      window.sessionStorage.removeItem(KEYS.inProgressMakeStartTimeKey)
+      window.sessionStorage.removeItem(KEYS.inProgressMakeEndTimeKey)
 
     } catch (error) {
       if (error && error.response && error.response.data && error.response.data.message === 'Premium Membership Required') {
