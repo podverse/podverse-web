@@ -2,7 +2,7 @@ import Router from 'next/router'
 import { Button } from 'podverse-ui'
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
-import { FormGroup, Input, Label } from 'reactstrap'
+import { FormGroup, Input } from 'reactstrap'
 import { bindActionCreators } from 'redux'
 import Error from './_error'
 import Meta from '~/components/Meta/Meta'
@@ -75,11 +75,6 @@ class Redeem extends Component<Props, State> {
       setTimeout(() => {
         fireConfetti()
       }, 1500)
-      setInterval(() => {
-        setTimeout(() => {
-          fireConfetti()
-        }, 10000)
-      }, 10000)
     } catch (err) {
       Router.push('/')
     }
@@ -93,7 +88,7 @@ class Redeem extends Component<Props, State> {
       this.setState({ isRedeeming: true })
       try {
         await redeemAccountClaimToken(accountClaimToken.id, email)
-        alert('Success! Login and go to your Settings page to confirm your Membership Status. You may need to refresh the page.')
+        alert('Success! Redirecting to the home page...')
       } catch (error) {
         if (error.response && error.response.data && error.response.data.message) {
           alert(error.response.data.message)
@@ -122,7 +117,6 @@ class Redeem extends Component<Props, State> {
     }
 
     const yearText = accountClaimToken.yearsToAdd === 1 ? 'year ' : 'years '
-    const yearPronoun = accountClaimToken.yearsToAdd === 1? 'it' : 'them'
 
     return (
       <Fragment>
@@ -138,38 +132,30 @@ class Redeem extends Component<Props, State> {
           twitterTitle={meta.title} />
         {
           !isLoading &&
-            <Fragment>
-              <h3>Congratulations! <span role='img' aria-label='partying face emoji'>🥳</span></h3>
-              <div className='redeem'>
-                <p>
-                  You've received {accountClaimToken.yearsToAdd} {yearText} of Podverse premium for free!
-                </p>
-                <p>To add {yearPronoun} to your account:</p>
-                <p>
-                  1) <a onClick={this.showSignUp}>Sign up</a> for Podverse using your email address (if you haven't already).
-                </p>
-                <p>
-                  2) Enter your email address and press the Redeem button below.
-                </p>
-                <p>
-                  3) To confirm it succeeded, login to your account, go to your Settings page, and check your Membership Status.
-                </p>
-                <hr />
-                <FormGroup>
-                  <Label for='redeem__email'>Email</Label>
-                  <Input
-                    defaultValue=''
-                    innerRef={this.refEmailInput}
-                    name='redeem__email'
-                    onChange={this.handleEmailKeyPress}
-                    placeholder='type your email'
-                    type='input' />
-                </FormGroup>
-                <Button color='primary' disabled={!email} isLoading={isRedeeming} onClick={this._redeem}>
-                  Redeem
-                </Button>
-              </div>
-            </Fragment>
+            <div className='redeem'>
+              <p>
+                This coupon is good for {accountClaimToken.yearsToAdd} {yearText} of Podverse premium
+                <span role='img' aria-label='partying face emoji'> 🥳</span>
+              </p>
+              <p>
+                1) <a onClick={this.showSignUp}>Sign up</a> on Podverse (if you haven't already).
+              </p>
+              <p>
+                2) Type your email then press Redeem.
+              </p>
+              <FormGroup>
+                <Input
+                  defaultValue=''
+                  innerRef={this.refEmailInput}
+                  name='redeem__email'
+                  onChange={this.handleEmailKeyPress}
+                  placeholder='your email'
+                  type='input' />
+              </FormGroup>
+              <Button color='primary' disabled={!email} isLoading={isRedeeming} onClick={this._redeem}>
+                Redeem
+              </Button>
+            </div>
         }
       </Fragment>
     )

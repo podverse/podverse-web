@@ -3,9 +3,9 @@ const Router = require('koa-router')
 export default (app) => {
   const router = new Router()
 
-  router.get('/offer-code/:id', async ctx => {
+  router.get('/coupon/:id', async ctx => {
     const query = { ...ctx.params }
-    await app.render(ctx.req, ctx.res, '/offer-code', query)
+    await app.render(ctx.req, ctx.res, '/coupon', query)
   })
 
   return router

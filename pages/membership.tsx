@@ -59,7 +59,7 @@ class Membership extends Component<Props, State> {
         <h3>Premium</h3>
 
         <p className='membership-top-text'>
-          Get 1 year of Podverse premium for free!
+          Get 1 year free when you sign up for Podverse premium
         </p>
         <p className='membership-top-text'>
           $10/year after that
