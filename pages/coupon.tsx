@@ -74,7 +74,7 @@ class Redeem extends Component<Props, State> {
       pageIsLoading(false)
       setTimeout(() => {
         fireConfetti()
-      }, 1500)
+      }, 1000)
     } catch (err) {
       Router.push('/')
     }
