@@ -12,7 +12,8 @@ import { mediaPlayerLoadNowPlayingItem,
   mediaPlayerUpdatePlaying, modalsAddToShow, modalsMakeClipShow,
   modalsQueueShow, modalsShareShow, pageIsLoading, pagesSetQueryState,
   userSetInfo } from '~/redux/actions'
-import { updateUserQueueItems } from '~/services'
+import { updateUserQueueItems, addOrUpdateUserHistoryItem } from '~/services'
+import { convertNowPlayingItemClipToNowPlayingItemEpisode } from '~/lib/nowPlayingItem'
 
 type Props = {
   handleMakeClip?: Function
@@ -229,7 +230,15 @@ class MediaPlayerView extends Component<Props, State> {
   }
 
   setPlayedAfterClipFinished = () => {
+    const { mediaPlayer } = this.props
+    const { nowPlayingItem } = mediaPlayer
     this.props.mediaPlayerSetPlayedAfterClipFinished(true)
+    if (nowPlayingItem) {
+      const nowPlayingItemEpisode = convertNowPlayingItemClipToNowPlayingItemEpisode(nowPlayingItem)
+      if (nowPlayingItemEpisode) {
+        addOrUpdateUserHistoryItem(nowPlayingItemEpisode)
+      }
+    }
   }
 
   toggleAddToModal = () => {
