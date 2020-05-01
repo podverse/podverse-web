@@ -387,7 +387,8 @@ class Settings extends Component<Props, State> {
                   {
                     isPublic ?
                       <FormText>Podcasts, clips, and playlists are visible on your profile page.</FormText>
-                      : <FormText>Your profile page is hidden. Your clip and playlist links are still accessible to anyone with the URL.</FormText>
+                      : <FormText>Your profile page is hidden. Your Public clips are still accessible by anyone,
+                        and your Only with Link clips and playlists are still accessible to anyone with the URL.</FormText>
                   }
                 </FormGroup>
                 {
