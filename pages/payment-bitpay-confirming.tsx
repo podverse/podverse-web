@@ -2,9 +2,10 @@ import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Meta from '~/components/Meta/Meta'
-import { getUrlFromRequestOrWindow } from '~/lib/utility'
 import { pageIsLoading } from '~/redux/actions'
 import { getBitPayInvoiceStatusByOrderId } from '~/services/'
+import config from '~/config'
+const { BASE_URL } = config()
 
 type Props = {
   id: string
@@ -26,7 +27,7 @@ class PaymentConfirmingBitPay extends Component<Props, State> {
     store.dispatch(pageIsLoading(false))
 
     const meta = {
-      currentUrl: getUrlFromRequestOrWindow(req),
+      currentUrl: BASE_URL + '/payment-bitpay-confirming',
       description: 'BitPay payment confirmation screen on Podverse',
       title: 'Confirming BitPay payment...'
     }

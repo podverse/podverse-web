@@ -4,11 +4,13 @@ import { bindActionCreators } from 'redux'
 import { addItemsToSecondaryQueueStorage, clearItemsFromSecondaryQueueStorage } from 'podverse-ui'
 import MediaListCtrl from '~/components/MediaListCtrl/MediaListCtrl'
 import Meta from '~/components/Meta/Meta'
+import config from '~/config'
 import { convertToNowPlayingItem } from '~/lib/nowPlayingItem'
-import { clone, cookieGetQuery, getUrlFromRequestOrWindow } from '~/lib/utility'
+import { clone, cookieGetQuery } from '~/lib/utility'
 import { pageIsLoading, pagesSetQueryState, playerQueueLoadSecondaryItems
   } from '~/redux/actions'
 import { getCategoriesByQuery, getEpisodesByQuery, getMediaRefsByQuery } from '~/services'
+const { BASE_URL } = config()
 
 type Props = {
   allCategories?: any[]
@@ -111,7 +113,7 @@ class Home extends Component<Props, State> {
     store.dispatch(pageIsLoading(false))
 
     const meta = {
-      currentUrl: getUrlFromRequestOrWindow(req),
+      currentUrl: BASE_URL,
       description: 'Podcast app for iOS, Android, and web. Create and share podcast highlights and playlists. Sync your queue across all devices. Open source software.',
       title: 'Podverse - Create podcast highlights. Sync your podcasts across iOS, Android, and web. Open source technology.'
     }

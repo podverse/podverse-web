@@ -6,11 +6,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Button, MediaListItem, Pagination } from 'podverse-ui'
 import Meta from '~/components/Meta/Meta'
 import config from '~/config'
-import { enrichPodcastsWithCategoriesString, getUrlFromRequestOrWindow, safeAlert } from '~/lib/utility'
+import { enrichPodcastsWithCategoriesString, safeAlert } from '~/lib/utility'
 import { pageIsLoading, pagesSetQueryState } from '~/redux/actions'
 import { getPodcastsByQuery } from '~/services'
 const uuidv4 = require('uuid/v4')
-const { QUERY_PODCASTS_LIMIT, REQUEST_PODCAST_URL } = config()
+const { BASE_URL, QUERY_PODCASTS_LIMIT, REQUEST_PODCAST_URL } = config()
 
 type Props = {
   lastScrollPosition?: number
@@ -46,7 +46,7 @@ class Search extends Component<Props, State> {
     }))
 
     const meta = {
-      currentUrl: getUrlFromRequestOrWindow(req),
+      currentUrl: BASE_URL + '/search',
       description: 'Search for podcasts by title or host on Podverse.',
       title: 'Podverse - Search'
     }

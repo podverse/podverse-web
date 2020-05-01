@@ -6,9 +6,11 @@ import { FormGroup, Input } from 'reactstrap'
 import { bindActionCreators } from 'redux'
 import Error from './_error'
 import Meta from '~/components/Meta/Meta'
-import { fireConfetti, getUrlFromRequestOrWindow } from '~/lib/utility'
+import config from '~/config'
+import { fireConfetti } from '~/lib/utility'
 import { modalsSignUpShow, pageIsLoading, pagesSetQueryState } from '~/redux/actions'
 import { getAccountClaimToken, redeemAccountClaimToken } from '~/services'
+const { BASE_URL } = config()
 
 type Props = {
   errorCode?: number
@@ -44,7 +46,7 @@ class Redeem extends Component<Props, State> {
     const lastScrollPosition = currentPage.lastScrollPosition
 
     const meta = {
-      currentUrl: getUrlFromRequestOrWindow(req),
+      currentUrl: BASE_URL + '/coupon/' + id,
       description: 'Redeem your special offer',
       title: 'Podverse - Coupon'
     }

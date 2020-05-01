@@ -4,10 +4,12 @@ import { Alert, Form, FormFeedback, FormGroup, FormText, Input, Label
 import Router from 'next/router'
 import { ButtonGroup, Button } from 'podverse-ui'
 import Meta from '~/components/Meta/Meta'
+import config from '~/config'
 import { internetConnectivityErrorMessage } from '~/lib/constants/misc'
-import { getUrlFromRequestOrWindow, validatePassword, alertRateLimitError } from '~/lib/utility'
+import { validatePassword, alertRateLimitError } from '~/lib/utility'
 import { pageIsLoading } from '~/redux/actions'
 import { resetPassword } from '~/services/auth'
+const { BASE_URL } = config()
 
 type Props = {
   meta?: any
@@ -30,7 +32,7 @@ class ResetPassword extends Component<Props, State> {
     const token = query.token
 
     const meta = {
-      currentUrl: getUrlFromRequestOrWindow(req),
+      currentUrl: BASE_URL + '/reset-password',
       description: 'Reset your account password on Podverse',
       title: `Reset Password`
     }

@@ -4,10 +4,12 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { MediaListItem } from 'podverse-ui'
 import Meta from '~/components/Meta/Meta'
-import { getUrlFromRequestOrWindow, getViewContentsElementScrollTop } from '~/lib/utility'
+import config from '~/config'
+import { getViewContentsElementScrollTop } from '~/lib/utility'
 import { pageIsLoading, pagesSetQueryState } from '~/redux/actions'
 import { getPlaylistsByQuery } from '~/services'
 const uuidv4 = require('uuid/v4')
+const { BASE_URL } = config()
 
 type Props = {
   lastScrollPosition?: number
@@ -49,7 +51,7 @@ class Playlists extends Component<Props, State> {
     store.dispatch(pageIsLoading(false))
 
     const meta = {
-      currentUrl: getUrlFromRequestOrWindow(req),
+      currentUrl: BASE_URL + '/playlists',
       description: 'Create and share playlists of podcast clips and episodes.',
       title: `Playlists`
     }

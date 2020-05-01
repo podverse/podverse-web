@@ -9,7 +9,7 @@ import Meta from '~/components/Meta/Meta'
 import CheckoutModal from '~/components/CheckoutModal/CheckoutModal'
 import { DeleteAccountModal } from '~/components/DeleteAccountModal/DeleteAccountModal'
 import { alertPremiumRequired, alertRateLimitError, alertSomethingWentWrong, convertToYYYYMMDDHHMMSS,
-  getUrlFromRequestOrWindow, isBeforeDate, validateEmail, safeAlert } from '~/lib/utility'
+  isBeforeDate, validateEmail, safeAlert } from '~/lib/utility'
 import { modalsSignUpShow, pageIsLoading, settingsHideFilterButton, settingsHideNSFWLabels,
   settingsHideNSFWMode, settingsHidePlaybackSpeedButton, settingsHideTimeJumpBackwardButton,
   settingsHideUITheme, userSetInfo } from '~/redux/actions'
@@ -62,7 +62,7 @@ class Settings extends Component<Props, State> {
     store.dispatch(pageIsLoading(false))
 
     const meta = {
-      currentUrl: getUrlFromRequestOrWindow(req),
+      currentUrl: BASE_URL + '/settings',
       description: 'Customize your account settings on Podverse.',
       title: `Podverse - Settings`
     }
@@ -387,7 +387,8 @@ class Settings extends Component<Props, State> {
                   {
                     isPublic ?
                       <FormText>Podcasts, clips, and playlists are visible on your profile page.</FormText>
-                      : <FormText>Your profile page is hidden. Your clip and playlist links are still accessible to anyone with the URL.</FormText>
+                      : <FormText>Your profile page is hidden. Your Public clips are still accessible by anyone,
+                        and your Only with Link clips and playlists are still accessible to anyone with the URL.</FormText>
                   }
                 </FormGroup>
                 {

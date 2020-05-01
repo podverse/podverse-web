@@ -2,8 +2,9 @@ import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import Meta from '~/components/Meta/Meta'
-import { getUrlFromRequestOrWindow } from '~/lib/utility'
+import config from '~/config'
 import { pageIsLoading, pagesSetQueryState } from '~/redux/actions'
+const { BASE_URL } = config()
 
 type Props = {
   lastScrollPosition?: number
@@ -27,7 +28,7 @@ class FAQ extends Component<Props, State> {
     store.dispatch(pageIsLoading(false))
 
     const meta = {
-      currentUrl: getUrlFromRequestOrWindow(req),
+      currentUrl: BASE_URL + '/faq',
       description: 'Podverse - Frequently asked questions',
       title: 'Podverse - FAQ'
     }

@@ -8,9 +8,9 @@ import { convertToNowPlayingItem } from '~/lib/nowPlayingItem'
 import { addOrUpdateHistoryItemPlaybackPosition, assignLocalOrLoggedInNowPlayingItemPlaybackPosition,
   getViewContentsElementScrollTop, 
   generateShareURLs} from '~/lib/utility'
-import { mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying, modalsAddToShow,
-  modalsMakeClipShow, modalsShareShow, pageIsLoading, pagesSetQueryState, playerQueueLoadPriorityItems,
-  userSetInfo } from '~/redux/actions'
+import { mediaPlayerLoadNowPlayingItem, mediaPlayerSetClipFinished, mediaPlayerSetPlayedAfterClipFinished, 
+  mediaPlayerUpdatePlaying, modalsAddToShow, modalsMakeClipShow, modalsShareShow, pageIsLoading,
+  pagesSetQueryState, playerQueueLoadPriorityItems, userSetInfo } from '~/redux/actions'
 import { updateUserQueueItems } from '~/services'
 
 type Props = {
@@ -18,6 +18,8 @@ type Props = {
   initialShowDescription?: boolean
   mediaPlayer?: any
   mediaPlayerLoadNowPlayingItem?: any
+  mediaPlayerSetClipFinished?: any
+  mediaPlayerSetPlayedAfterClipFinished?: any
   mediaPlayerUpdatePlaying?: any
   mediaRef?: any
   modals?: any
@@ -37,11 +39,17 @@ type Props = {
 
 type State = {}
 
+interface MediaInfoCtrl {
+  makeClipInputStartTime: any
+  makeClipInputEndTime: any
+  makeClipInputTitle: any
+}
+
 class MediaInfoCtrl extends Component<Props, State> {
 
   static defaultProps: Props = {}
 
-  playItem = async (nowPlayingItem, loadOnly = false) => {
+  playItem = async (nowPlayingItem, loadOnly = false, setPosition = false) => {
     const { mediaPlayer, mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying, user,
       userSetInfo } = this.props
     
@@ -63,6 +71,11 @@ class MediaInfoCtrl extends Component<Props, State> {
     ) {
       mediaPlayerLoadNowPlayingItem(nowPlayingItem)
       setNowPlayingItemInStorage(nowPlayingItem)
+
+      if (setPosition && nowPlayingItem && nowPlayingItem.clipStartTime) {
+        window.player.seekTo(Math.floor(nowPlayingItem.clipStartTime))
+      }
+
       if (user && user.id) {
         await addOrUpdateHistoryItemPlaybackPosition(nowPlayingItem, user)
   
@@ -79,6 +92,12 @@ class MediaInfoCtrl extends Component<Props, State> {
         historyItems.push(nowPlayingItem)
   
         userSetInfo({ historyItems })
+      }
+    } else if (setPosition) {
+      if (window.player && nowPlayingItem && nowPlayingItem.clipStartTime) {
+        this.props.mediaPlayerSetClipFinished(false)
+        this.props.mediaPlayerSetPlayedAfterClipFinished(false)
+        window.player.seekTo(Math.floor(nowPlayingItem.clipStartTime))
       }
     }
   }
@@ -140,8 +159,6 @@ class MediaInfoCtrl extends Component<Props, State> {
     if (!this.isCurrentlyPlayingItem()) {
       this.playItem(this.getCurrentPageItem(), true)
     }
-
-    const { modalsMakeClipShow } = this.props
 
     const { value: startTime } = this.makeClipInputStartTime.current
     const { value: endTime } = this.makeClipInputEndTime.current
@@ -248,6 +265,7 @@ class MediaInfoCtrl extends Component<Props, State> {
         handleLinkClick={this.linkClick}
         handlePauseItem={this.pauseItem}
         handlePlayItem={() => this.playItem(this.getCurrentPageItem())}
+        handleReplayClip={() => this.playItem(this.getCurrentPageItem(), false, true)}
         handleToggleAddToModal={this.toggleAddToModal}
         handleToggleEditClipModal={this.toggleEditClipModal}
         handleToggleMakeClipModal={this.toggleMakeClipModal}
@@ -266,6 +284,8 @@ const mapStateToProps = state => ({ ...state })
 
 const mapDispatchToProps = dispatch => ({
   mediaPlayerLoadNowPlayingItem: bindActionCreators(mediaPlayerLoadNowPlayingItem, dispatch),
+  mediaPlayerSetClipFinished: bindActionCreators(mediaPlayerSetClipFinished, dispatch),
+  mediaPlayerSetPlayedAfterClipFinished: bindActionCreators(mediaPlayerSetPlayedAfterClipFinished, dispatch),
   mediaPlayerUpdatePlaying: bindActionCreators(mediaPlayerUpdatePlaying, dispatch),
   modalsAddToShow: bindActionCreators(modalsAddToShow, dispatch),
   modalsMakeClipShow: bindActionCreators(modalsMakeClipShow, dispatch),

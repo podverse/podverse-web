@@ -2,9 +2,10 @@ import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Meta from '~/components/Meta/Meta'
-import { getUrlFromRequestOrWindow } from '~/lib/utility'
+import config from '~/config'
 import { pageIsLoading } from '~/redux/actions'
 import { getPayPalOrderById } from '~/services/'
+const { BASE_URL } = config()
 
 type Props = {
   id: string
@@ -27,7 +28,7 @@ class PaymentConfirmingPayPal extends Component<Props, State> {
     store.dispatch(pageIsLoading(false))
 
     const meta = {
-      currentUrl: getUrlFromRequestOrWindow(req),
+      currentUrl: BASE_URL + '/payment-paypal-confirming',
       description: 'PayPal payment confirmation screen on Podverse',
       title: 'Confirming PayPal payment...'
     }
