@@ -14,7 +14,7 @@ pipeline {
     stage('Docker build image') {
       steps {
         sh """
-        echo 'hello worlds'
+        echo 'hello worldss'
         echo $PATH
         docker build -t podverse_web .
         """
