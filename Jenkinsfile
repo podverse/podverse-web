@@ -1,5 +1,5 @@
 pipeline {
-  agent docker
+  agent any
   options {
     buildDiscarder(logRotator(numToKeepStr: '100', artifactNumToKeepStr: '100'))
   }
@@ -11,6 +11,10 @@ pipeline {
     DOCKERHUB_USERNAME = credentials('dockerhub-username')
   }
   stages {
+    stage('Initialize'){
+        def dockerHome = tool 'myDocker'
+        env.PATH = "${dockerHome}/bin:${env.PATH}"
+    }
     stage('Docker build image') {
       steps {
         sh """
