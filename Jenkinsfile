@@ -1,7 +1,7 @@
 pipeline {
   agent any
-  properties([pipelineTriggers([githubPush()])])
   options {
+    pipelineTriggers([githubPush()])
     buildDiscarder(logRotator(numToKeepStr: '100', artifactNumToKeepStr: '100'))
   }
   environment {
