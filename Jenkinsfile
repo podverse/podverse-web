@@ -1,8 +1,10 @@
 pipeline {
   agent any
   options {
-    pipelineTriggers([githubPush()])
     buildDiscarder(logRotator(numToKeepStr: '100', artifactNumToKeepStr: '100'))
+  }
+  triggers {
+    githubPush()
   }
   environment {
     DOCKERHUB_PASSWORD = credentials('dockerhub-password')
