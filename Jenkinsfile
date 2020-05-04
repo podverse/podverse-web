@@ -1,18 +1,34 @@
 pipeline {
-    agent {
-        docker {
-            image 'podverse/podverse_qa_web:latest'
-            alwaysPull true
-        }
+  agent any
+  options {
+    buildDiscarder(logRotator(numToKeepStr: '100', artifactNumToKeepStr: '100'))
+  }
+  environment {
+    DOCKERHUB_PASSWORD = credentials('dockerhub-password')
+    DOCKERHUB_USERNAME = credentials('dockerhub-username')
+  }
+  stages {
+    stage('Docker build image') {
+      steps {
+        sh """
+        docker build -t podverse_web .
+        """
+      }
     }
-    stages {
-        stage('build') {
-            environment {
-                WEB_HOST = "stage.podverse.fm"
-            }
-            steps {
-                sh "npm run test:stage --prefix /tmp"
-            }
-        }
+    stage('Docker login') {
+      steps {
+        sh """
+        docker login --username $DOCKERHUB_USERNAME --password $DOCKERHUB_PASSWORD
+        """
+      }
     }
+    stage('Docker push images') {
+      steps {
+        sh """
+        docker tag podverse_web podverse/podverse_web:stage
+        docker push podverse/podverse_web:stage
+        """
+      }
+    }
+  }
 }
