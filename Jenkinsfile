@@ -1,5 +1,6 @@
 pipeline {
   agent any
+  properties([pipelineTriggers([githubPush()])])
   options {
     buildDiscarder(logRotator(numToKeepStr: '100', artifactNumToKeepStr: '100'))
   }
