@@ -276,7 +276,7 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
     const { store } = this.props
     const state = store.getState()
     const { user } = state
-
+console.log('github action works :D')
     // If page uses a query parameter to show a modal on page load,
     // then update history so the query parameter version is not last in history.
     const urlParams = new URLSearchParams(window.location.search)
