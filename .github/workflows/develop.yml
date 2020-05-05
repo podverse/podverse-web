@@ -1,4 +1,4 @@
-name: develop-branch-actions
+name: develop-branch
 
 on:
   push:
@@ -21,14 +21,15 @@ jobs:
         repository: podverse/podverse_web
         tags: stage
         
-    - name: ls -a via ssh
+    - name: log into stage, deploy latest stage image, then run e2e tests
       uses: garygrossgarten/github-action-ssh@release
       with:
         command: |
-          echo hello
-          echo world
-          ls -a
-          
+          ./podverse-ops/scripts/runLatestPodverseWeb.sh stage
+          cd podverse-qa
+          git pull
+          cd podverse-web
+          npm run test:stage
         host: ${{ secrets.STAGE_SSH_HOST }}
         username: ${{ secrets.STAGE_SSH_USERNAME }}
         passphrase: ${{ secrets.STAGE_SSH_PASSPHRASE }}
