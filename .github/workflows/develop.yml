@@ -25,6 +25,8 @@ jobs:
       uses: garygrossgarten/github-action-ssh@release
       with:
         command: |
+          docker ps -a
+          echo wtf
           ./podverse-ops/scripts/runLatestPodverseWeb.sh stage
           cd podverse-qa
           git pull
