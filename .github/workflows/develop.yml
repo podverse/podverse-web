@@ -27,7 +27,10 @@ jobs:
         command: |
           docker ps -a
           echo wtf
-          ./podverse-ops/scripts/runLatestPodverseWeb.sh stage
+          docker stop podverse_web_stage
+          docker rm podverse_web_stage
+          docker image rm podverse/podverse_web
+          docker-compose -f /home/mitch/podverse-ops/docker-compose.stage.yml up -d podverse_web
           cd podverse-qa
           git pull
           cd podverse-web
