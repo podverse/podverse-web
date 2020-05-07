@@ -1,10 +1,10 @@
-name: develop-branch
+name: master-branch
 
 on:
   push:
-    branches: [ develop ]
+    branches: [ master ]
   pull_request:
-    branches: [ develop ]
+    branches: [ master ]
 
 jobs:
   build:
@@ -27,13 +27,13 @@ jobs:
           latest
           ${{ steps.package-node-version.outputs.version }}
         
-    - name: log into stage, deploy latest stage image, then run e2e tests
+    - name: log into prod, deploy latest prod image, then run e2e tests
       uses: garygrossgarten/github-action-ssh@release
       with:
         command: |
-          docker stop podverse_web_stage
-          docker rm podverse_web_stage
-          docker image rm podverse/podverse_web:stage
+          docker stop podverse_web_prod
+          docker rm podverse_web_prod
+          docker image rm podverse/podverse_web:latest
           docker-compose -f /home/mitch/podverse-ops/docker-compose.prod.yml up -d podverse_web
         host: ${{ secrets.PROD_SSH_HOST }}
         username: ${{ secrets.PROD_SSH_USERNAME }}
