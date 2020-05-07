@@ -3,6 +3,9 @@ pipeline {
   options {
     buildDiscarder(logRotator(numToKeepStr: '100', artifactNumToKeepStr: '100'))
   }
+  triggers {
+    githubPush()
+  }
   environment {
     DOCKERHUB_PASSWORD = credentials('dockerhub-password')
     DOCKERHUB_USERNAME = credentials('dockerhub-username')
@@ -11,7 +14,8 @@ pipeline {
     stage('Docker build image') {
       steps {
         sh """
-        echo 'hello world'
+        echo 'github action test'
+        echo $PATH
         docker build -t podverse_web .
         """
       }
