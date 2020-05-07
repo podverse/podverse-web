@@ -24,7 +24,10 @@ jobs:
       uses: garygrossgarten/github-action-ssh@release
       with:
         command: |
-          ./podverse-ops/scripts/runLatestPodverseWeb.sh stage
+          docker stop podverse_web_stage
+          docker rm podverse_web_stage
+          docker image rm podverse/podverse_web:stage
+          docker-compose -f /home/mitch/podverse-ops/docker-compose.stage.yml up -d podverse_web
           cd podverse-qa
           git pull
           cd podverse-web
