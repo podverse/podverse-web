@@ -64,5 +64,5 @@ typings/
 .next
 
 # e2e tests
-./__tests__/e2e/tests_output
-./tests_output
+__tests__/e2e/tests_output/
+tests_output/
