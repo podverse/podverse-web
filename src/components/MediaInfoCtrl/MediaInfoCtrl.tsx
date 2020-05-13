@@ -1,7 +1,7 @@
 
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { KEYS, MediaInfo, addItemToPriorityQueueStorage, getPriorityQueueItemsStorage,
+import { MediaInfo, addItemToPriorityQueueStorage, getPriorityQueueItemsStorage,
   setNowPlayingItemInStorage } from 'podverse-ui'
 import { bindActionCreators } from 'redux';
 import { convertToNowPlayingItem } from '~/lib/nowPlayingItem'
@@ -159,14 +159,6 @@ class MediaInfoCtrl extends Component<Props, State> {
     if (!this.isCurrentlyPlayingItem()) {
       this.playItem(this.getCurrentPageItem(), true)
     }
-
-    const { value: startTime } = this.makeClipInputStartTime.current
-    const { value: endTime } = this.makeClipInputEndTime.current
-    const { value: title } = this.makeClipInputTitle.current
-
-    window.sessionStorage.setItem(KEYS.inProgressMakeStartTimeKey, startTime)
-    window.sessionStorage.setItem(KEYS.inProgressMakeEndTimeKey, endTime)
-    window.sessionStorage.setItem(KEYS.inProgressMakeClipTitleKey, title)
 
     modalsMakeClipShow({})
 
