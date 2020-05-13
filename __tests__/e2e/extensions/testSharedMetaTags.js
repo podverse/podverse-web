@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-expressions */
+
 module.exports.command = function () {
   this.expect.element('meta[name="twitter:site"][content="@podverse"]').to.be.present
   this.expect.element('meta[name="twitter:site:id"][content="2555941009"]').to.be.present

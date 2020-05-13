@@ -1,8 +1,8 @@
-#!/usr/bin/env node
+/* eslint-disable @typescript-eslint/camelcase */
 
-var Nightwatch = require('nightwatch');
-var browserstack = require('browserstack-local');
-var bs_local;
+const Nightwatch = require('nightwatch');
+const browserstack = require('browserstack-local');
+let bs_local;
 
 try {
 

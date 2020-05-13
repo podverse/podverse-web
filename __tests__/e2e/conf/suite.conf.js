@@ -1,6 +1,8 @@
+/* eslint-disable @typescript-eslint/camelcase */
+
 require('dotenv').config()
 
-nightwatch_config = {
+const nightwatch_config = {
   src_folders : [ "__tests__/e2e/tests" ],
 
   custom_commands_path: "./__tests__/e2e/extensions",
@@ -33,8 +35,8 @@ nightwatch_config = {
 };
 
 // Code to copy seleniumhost/port into test settings
-for(var i in nightwatch_config.test_settings){
-  var config = nightwatch_config.test_settings[i];
+for(const i in nightwatch_config.test_settings){
+  const config = nightwatch_config.test_settings[i];
   config['selenium_host'] = nightwatch_config.selenium.host;
   config['selenium_port'] = nightwatch_config.selenium.port;
 }
