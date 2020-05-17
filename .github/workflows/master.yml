@@ -25,7 +25,7 @@ jobs:
         repository: podverse/podverse_web
         tags: latest,${{ steps.package-node-version.outputs.version }}
         
-    - name: log into prod, deploy latest prod image
+    - name: log into prod, then deploy latest prod image
       uses: garygrossgarten/github-action-ssh@release
       with:
         command: |
@@ -37,3 +37,8 @@ jobs:
         username: ${{ secrets.PROD_SSH_USERNAME }}
         passphrase: ${{ secrets.PROD_SSH_PASSPHRASE }}
         privateKey: ${{ secrets.PROD_SSH_PRIVATE_KEY }}
+
+    - name: Slack Notification
+      uses: rtCamp/action-slack-notify@v2.0.0
+      env:
+        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}

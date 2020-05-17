@@ -1,5 +1,7 @@
 {
-  "watch": ["pages", "src"],
-  "ext": "ts, tsx",
-  "exec": "ts-node -r tsconfig-paths/register --typeCheck --compilerOptions '{\"module\":\"commonjs\"}'"
+    "verbose": true,
+    "ignore": ["node_modules", ".next"],
+    "watch": ["pages", "src"],
+    "ext": "ts, tsx",
+    "exec": "ts-node -r tsconfig-paths/register --typeCheck --compilerOptions '{\"module\":\"commonjs\"}'"
 }

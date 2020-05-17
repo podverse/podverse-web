@@ -36,3 +36,8 @@ jobs:
         username: ${{ secrets.STAGE_SSH_USERNAME }}
         passphrase: ${{ secrets.STAGE_SSH_PASSPHRASE }}
         privateKey: ${{ secrets.STAGE_SSH_PRIVATE_KEY }}
+
+    - name: Slack Notification
+      uses: rtCamp/action-slack-notify@v2.0.0
+      env:
+        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
