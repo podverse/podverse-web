@@ -61,6 +61,17 @@
       }
     }
 
+    .media-list-selects__left-and-right {
+      display: flex;
+      flex: 1 1 auto;
+      flex-direction: row;
+      justify-content: space-between;
+
+      .dropdown {
+        flex: 0 0 auto;
+      }
+    }
+
     .media-list-selects__spacer {
       height: 2.25rem;
     }

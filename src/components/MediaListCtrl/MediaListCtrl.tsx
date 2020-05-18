@@ -61,7 +61,7 @@ class MediaListCtrl extends Component<Props, State> {
   }
 
   queryListItems = async (queryType, queryFrom, querySort, page, categoryId) => {
-    const { episode, episodeId, handleSetPageQueryState, pageIsLoading, pageKey, pages,
+    const { allCategories, episode, episodeId, handleSetPageQueryState, pageIsLoading, pageKey, pages,
       playerQueueLoadSecondaryItems, podcast, podcastId, user } = this.props
     const { subscribedPodcastIds } = user
     const { filterIsShowing, filterText } = pages[pageKey]
@@ -74,7 +74,7 @@ class MediaListCtrl extends Component<Props, State> {
       sort: querySort,
       episodeId: queryFrom === 'from-episode' ? episodeId : null,
       podcastId: queryFrom === 'from-podcast' ? podcastId : null,
-      categories: categoryId,
+      categories: categoryId || allCategories[2].id /* Arts */,
       ...(filterIsShowing ? { searchAllFieldsText: filterText } : {}),
       ...(queryFrom === 'all-podcasts' ||
           queryFrom === 'subscribed-only' ? { includePodcast: true } : {}),
@@ -446,9 +446,42 @@ class MediaListCtrl extends Component<Props, State> {
     })
   }
 
-  // BEWARE! X_X
-  generateCategorySelectNodes = (allCategories, categoryId, user) => {
+  generateTopLevelSelectNodes = () => {
     const { pageKey, pages } = this.props
+    const { queryFrom, queryType, querySort } = pages[pageKey]
+    const topLevelItems = [] as any[]
+
+    topLevelItems.push({
+      label: 'Subscribed',
+      onClick: () => this.queryListItems(queryType, 'subscribed-only', querySort, 1, null),
+      parentValue: null,
+      value: 'subscribed-only'
+    })
+
+    topLevelItems.push({
+      label: 'All Podcasts',
+      onClick: () => this.queryListItems(queryType, 'all-podcasts', querySort, 1, null),
+      parentValue: null,
+      value: 'all-podcasts'
+    })
+
+    topLevelItems.push({
+      label: 'Categories',
+      onClick: () => this.queryListItems(queryType, 'from-category', querySort, 1, null),
+      parentValue: null,
+      value: 'from-category'
+    })
+
+    return (
+      <MediaListSelect
+        items={topLevelItems}
+        key='top-level-select'
+        selected={queryFrom} />
+    )
+  }
+
+  generateCategorySelectNodes = (selectedCategoryId) => {
+    const { allCategories, pageKey, pages } = this.props
     const { queryType, queryFrom, querySort, selected } = pages[pageKey]
 
     const categoryItems = allCategories.map(x => {
@@ -461,30 +494,9 @@ class MediaListCtrl extends Component<Props, State> {
       }
     })
 
-    categoryItems.unshift({
-      label: 'Subscribed',
-      onClick: () => this.queryListItems(queryType, 'subscribed-only', querySort, 1, null),
-      parentValue: null,
-      value: 'subscribed-only'
-    })
-
-    categoryItems.unshift({
-      label: 'All Podcasts',
-      onClick: () => this.queryListItems(queryType, 'all-podcasts', querySort, 1, null),
-      parentValue: null,
-      value: 'all-podcasts'
-    })
-
-    let selectedCategoryArray = [] as any[]
-    if (selected === 'all-podcasts') {
-      selectedCategoryArray = [categoryItems[0]]
-    } else if (selected === 'subscribed-only') {
-      selectedCategoryArray = [categoryItems[1]]
-    } else if (categoryId) {
-      selectedCategoryArray = categoryItems.filter(x => x.value === categoryId)
-    }
     const categorySelectNodes: any[] = []
-    const selectedCategory = selectedCategoryArray[0]
+    const selectedCategory = categoryItems.find(x => x.value === selectedCategoryId) || categoryItems[2] // Arts category
+
     if (selectedCategory) {
       const topLevelCategoryItems = categoryItems.filter(x => x.parentValue === null)
 
@@ -512,6 +524,7 @@ class MediaListCtrl extends Component<Props, State> {
         )
         categorySelectNodes.push(
           <MediaListSelect
+            className='align-right-2'
             items={subcategoryItems}
             key='category-select-2' />
         )
@@ -529,6 +542,7 @@ class MediaListCtrl extends Component<Props, State> {
 
         categorySelectNodes.push(
           <MediaListSelect
+            className='align-right-2'
             items={subcategoryItems}
             key='category-select-4'
             selected={selectedCategory.value} />
@@ -578,8 +592,8 @@ class MediaListCtrl extends Component<Props, State> {
   }
 
   render() {
-    const { adjustTopPosition, allCategories, episodeId, includeOldest, mediaPlayer, page, pageKey, pages,
-      podcastId, settings, user } = this.props
+    const { adjustTopPosition, episodeId, includeOldest, mediaPlayer, page, pageKey, pages,
+      podcastId, settings } = this.props
     const { isLoading } = page
     const { filterButtonHide } = settings
     const { nowPlayingItem: mpNowPlayingItem } = mediaPlayer
@@ -626,16 +640,14 @@ class MediaListCtrl extends Component<Props, State> {
       )
     })
 
-    const selectedQueryTypeOption = this.getQueryTypeOptions().filter(x => x.value === queryType)
     const selectedQueryFromOption = this.getQueryFromOptions(
       !!podcastId, !!episodeId && queryType === 'clips').filter(x => x.value === queryFrom)
     const sortOptions = this.getQuerySortOptions(includeOldest, !!episodeId && queryType === 'clips' && queryFrom === 'from-episode')
     const selectedQuerySortOption = sortOptions.filter(x => x.value === querySort)
 
-
     let bottomSelectNodes = []
     if (!podcastId && !episodeId) {
-      bottomSelectNodes = this.generateCategorySelectNodes(allCategories, categoryId, user) as any
+      bottomSelectNodes = this.generateCategorySelectNodes(categoryId) as any
     } else if (podcastId || episodeId) {
       bottomSelectNodes = [
         <MediaListSelect
@@ -650,17 +662,18 @@ class MediaListCtrl extends Component<Props, State> {
       <div className={`media-list ${adjustTopPosition ? 'adjust-top-position' : ''}`}>
         <div className='media-list__selects'>
           <div className='media-list-selects__left'>
-            <MediaListSelect
-              items={this.getQueryTypeOptions()}
-              selected={selectedQueryTypeOption.length > 0 ? selectedQueryTypeOption[0].value : null} />
-            {bottomSelectNodes}
+            {this.generateTopLevelSelectNodes()}
           </div>
           <div className='media-list-selects__right'>
-            <div className='media-list-selects__spacer' />
             <MediaListSelect
               className='align-right'
               items={sortOptions}
               selected={selectedQuerySortOption.length > 0 ? selectedQuerySortOption[0].value : null} />
+          </div>
+        </div>
+        <div className='media-list__selects'>
+          <div className='media-list-selects__left-and-right'>
+            {queryFrom === 'from-category' && bottomSelectNodes}
           </div>
         </div>
         {

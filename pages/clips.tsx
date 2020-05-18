@@ -1,5 +1,3 @@
-/* NOTE! THE HOME PAGE IS AN EXACT COPY OF clips.tsx */
-
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'

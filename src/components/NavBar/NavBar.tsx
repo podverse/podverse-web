@@ -51,14 +51,14 @@ class PVNavBar extends Component<Props, State> {
         onClick: () => { this.linkClick() }
       },
       {
-        as: '/',
-        href: '/?type=episodes&refresh=true',
+        as: '/episodes',
+        href: '/episodes',
         label: 'Episodes',
         onClick: () => { this.linkClick() }
       },
       {
-        as: '/',
-        href: '/?type=clips&refresh=true',
+        as: '/clips',
+        href: '/clips',
         label: 'Clips',
         onClick: () => { this.linkClick() }
       }
