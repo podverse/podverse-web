@@ -3,8 +3,6 @@ name: develop-branch
 on:
   push:
     branches: [ develop ]
-  pull_request:
-    branches: [ develop ]
 
 jobs:
   build:
