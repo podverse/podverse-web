@@ -61,7 +61,7 @@ class MediaListCtrl extends Component<Props, State> {
   }
 
   queryListItems = async (queryType, queryFrom, querySort, page, categoryId) => {
-    const { episode, episodeId, handleSetPageQueryState, pageIsLoading, pageKey, pages,
+    const { allCategories, episode, episodeId, handleSetPageQueryState, pageIsLoading, pageKey, pages,
       playerQueueLoadSecondaryItems, podcast, podcastId, user } = this.props
     const { subscribedPodcastIds } = user
     const { filterIsShowing, filterText } = pages[pageKey]
@@ -74,7 +74,7 @@ class MediaListCtrl extends Component<Props, State> {
       sort: querySort,
       episodeId: queryFrom === 'from-episode' ? episodeId : null,
       podcastId: queryFrom === 'from-podcast' ? podcastId : null,
-      categories: categoryId,
+      categories: categoryId || allCategories[2].id /* Arts */,
       ...(filterIsShowing ? { searchAllFieldsText: filterText } : {}),
       ...(queryFrom === 'all-podcasts' ||
           queryFrom === 'subscribed-only' ? { includePodcast: true } : {}),
@@ -448,7 +448,7 @@ class MediaListCtrl extends Component<Props, State> {
 
   generateTopLevelSelectNodes = () => {
     const { pageKey, pages } = this.props
-    const { queryFrom, queryType, querySort, selected } = pages[pageKey]
+    const { queryFrom, queryType, querySort } = pages[pageKey]
     const topLevelItems = [] as any[]
 
     topLevelItems.push({
@@ -476,12 +476,12 @@ class MediaListCtrl extends Component<Props, State> {
       <MediaListSelect
         items={topLevelItems}
         key='top-level-select'
-        selected={selected || queryFrom} />
+        selected={queryFrom} />
     )
   }
 
-  generateCategorySelectNodes = (allCategories, selectedCategoryId) => {
-    const { pageKey, pages } = this.props
+  generateCategorySelectNodes = (selectedCategoryId) => {
+    const { allCategories, pageKey, pages } = this.props
     const { queryType, queryFrom, querySort, selected } = pages[pageKey]
 
     const categoryItems = allCategories.map(x => {
@@ -592,7 +592,7 @@ class MediaListCtrl extends Component<Props, State> {
   }
 
   render() {
-    const { adjustTopPosition, allCategories, episodeId, includeOldest, mediaPlayer, page, pageKey, pages,
+    const { adjustTopPosition, episodeId, includeOldest, mediaPlayer, page, pageKey, pages,
       podcastId, settings } = this.props
     const { isLoading } = page
     const { filterButtonHide } = settings
@@ -648,7 +648,7 @@ class MediaListCtrl extends Component<Props, State> {
 
     let bottomSelectNodes = []
     if (!podcastId && !episodeId) {
-      bottomSelectNodes = this.generateCategorySelectNodes(allCategories, categoryId) as any
+      bottomSelectNodes = this.generateCategorySelectNodes(categoryId) as any
     } else if (podcastId || episodeId) {
       bottomSelectNodes = [
         <MediaListSelect
