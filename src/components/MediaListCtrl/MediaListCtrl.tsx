@@ -640,7 +640,6 @@ class MediaListCtrl extends Component<Props, State> {
       )
     })
 
-    const selectedQueryTypeOption = this.getQueryTypeOptions().filter(x => x.value === queryType)
     const selectedQueryFromOption = this.getQueryFromOptions(
       !!podcastId, !!episodeId && queryType === 'clips').filter(x => x.value === queryFrom)
     const sortOptions = this.getQuerySortOptions(includeOldest, !!episodeId && queryType === 'clips' && queryFrom === 'from-episode')
@@ -663,13 +662,9 @@ class MediaListCtrl extends Component<Props, State> {
       <div className={`media-list ${adjustTopPosition ? 'adjust-top-position' : ''}`}>
         <div className='media-list__selects'>
           <div className='media-list-selects__left'>
-            <MediaListSelect
-              items={this.getQueryTypeOptions()}
-              selected={selectedQueryTypeOption.length > 0 ? selectedQueryTypeOption[0].value : null} />
             {this.generateTopLevelSelectNodes()}
           </div>
           <div className='media-list-selects__right'>
-            <div className='media-list-selects__spacer' />
             <MediaListSelect
               className='align-right'
               items={sortOptions}

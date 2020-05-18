@@ -1,5 +1,3 @@
-/* NOTE! THE HOME PAGE IS AN EXACT COPY OF clips.tsx */
-
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -12,7 +10,7 @@ import { clone, cookieGetQuery } from '~/lib/utility'
 import {
   pageIsLoading, pagesSetQueryState, playerQueueLoadSecondaryItems
 } from '~/redux/actions'
-import { getCategoriesByQuery, getMediaRefsByQuery } from '~/services'
+import { getCategoriesByQuery, getEpisodesByQuery } from '~/services'
 const { BASE_URL } = config()
 
 type Props = {
@@ -34,7 +32,7 @@ type Props = {
 
 type State = {}
 
-const kPageKey = 'clips'
+const kPageKey = 'home'
 
 class Home extends Component<Props, State> {
 
@@ -54,29 +52,28 @@ class Home extends Component<Props, State> {
     const categoryId = query.categoryId || currentPage.categoryId || localStorageQuery.categoryId
     const queryFrom = currentPage.queryFrom || query.from || (query.categoryId && 'from-category') || localStorageQuery.from || (user && user.id ? 'subscribed-only' : 'all-podcasts')
     const queryPage = (queryRefresh && 1) || currentPage.queryPage || query.page || 1
-    const querySort = currentPage.querySort || query.sort || localStorageQuery.sort || 'top-past-week'
+    const querySort = currentPage.querySort || query.sort || localStorageQuery.sort || (user && user.id ? 'most-recent' : 'top-past-week')
     const queryType = (queryRefresh && query.type) || currentPage.queryType || query.type ||
-      localStorageQuery.type || 'clips'
+      localStorageQuery.type || 'episodes'
     let podcastId = ''
-
 
     if (queryFrom === 'subscribed-only') {
       podcastId = user.subscribedPodcastIds
     }
 
     if (Object.keys(currentPage).length === 0 || queryRefresh) {
-      const results = await getMediaRefsByQuery({
+      const results = await getEpisodesByQuery({
         from: queryFrom,
-        includePodcast: true,
         page: queryPage,
         ...(podcastId ? { podcastId } : {}),
         sort: querySort,
         type: queryType,
         ...(categoryId ? { categories: categoryId } : {}),
+        includePodcast: true
       })
 
       const listItems = results.data[0].map(x => convertToNowPlayingItem(x, null, null)) || []
-      const nowPlayingItemIndex = listItems.map((x) => x.clipId).indexOf(nowPlayingItem && nowPlayingItem.clipId)
+      const nowPlayingItemIndex = listItems.map((x) => x.episodeId).indexOf(nowPlayingItem && nowPlayingItem.episodeId)
       const queuedListItems = clone(listItems)
       if (nowPlayingItemIndex > -1) {
         queuedListItems.splice(0, nowPlayingItemIndex + 1)
@@ -139,7 +136,7 @@ class Home extends Component<Props, State> {
           title={meta.title}
           twitterDescription={meta.description}
           twitterTitle={meta.title} />
-        <h3>Clips</h3>
+        <h3>Episodes</h3>
         <MediaListCtrl
           adjustTopPosition
           allCategories={allCategories}

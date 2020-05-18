@@ -27,6 +27,10 @@ export default (app) => {
     await app.render(ctx.req, ctx.res, '/clip', query)
   })
 
+  router.get('/clips', async ctx => {
+    await app.render(ctx.req, ctx.res, '/clips', ctx.query)
+  })
+
   router.get('/episode/:id', async ctx => {
     const query = { ...ctx.params, ...ctx.query }
     await app.render(ctx.req, ctx.res, '/episode', query)
