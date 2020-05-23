@@ -1,32 +1,32 @@
+const { WEB_ORIGIN } = require('../constants')
+
 module.exports = {
-    before: function (browser) {
-        browser.url('https://stage.podverse.fm/')
-    },
-    'Modals': function (browser) {
-        browser
+  before: function (browser) {
+      browser.url(`${WEB_ORIGIN}/`)
+  },
+  'Modals': function (browser) {
+    browser
+      .waitForXpathPresent(`//div[contains(text(), "Amet aliquam id diam maecenas ultricies mi eget.")]`)
 
-            .waitForXpathPresent(`//div[contains(text(), "Amet aliquam id diam maecenas ultricies mi eget.")]`)
+      .click(`xpath`, `//li[@class="hide-mobile nav-item"]//a[@class="nav-link"][contains (text(), "Login")]`)
+      .waitForXpathPresent(`//h3[contains(text(), 'Login')]`)
+      .click('.login-modal__sign-up')
+      .waitForXpathPresent(`//h3[contains(text(), 'Sign Up')]`)
+      .click('.close-btn')
 
-            .click(`xpath`, `//li[@class="hide-mobile nav-item"]//a[@class="nav-link"][contains (text(), "Login")]`)
-            .waitForXpathPresent(`//h3[contains(text(), 'Login')]`)
-            click('.login-modal__sign-up')
-            .waitForXpathPresent(`//h3[contains(text(), 'Sign Up')]`)
-            .click('.close-btn')
+      .click(`xpath`, `//li[@class="hide-mobile nav-item"]//a[@class="nav-link"][contains (text(), "Login")]`)
+      .waitForXpathPresent(`//h3[contains(text(), 'Login')]`)
+      .click('.login-modal__forgot')
+      .waitForXpathPresent(`//h3[contains(text(), 'Forgot Password')]`)
+      .click('.close-btn')
 
-            .click(`xpath`, `//li[@class="hide-mobile nav-item"]//a[@class="nav-link"][contains (text(), "Login")]`)
-            .waitForXpathPresent(`//h3[contains(text(), 'Login')]`)
-            .click('.login-modal__forgot')
-            .waitForXpathPresent(`//h3[contains(text(), 'Forgot Password')]`)
-            .click('.close-btn')
-
-            .clickModalAndClose(`queue`, `mp-queue`)
-            .clickModalAndClose(`clip`, `make-clip`, `clip`)
-            .clickModalAndClose(`add`, `mp-add-to`)
-            .clickModalAndClose(`share`, `mp-share`)
-            .clickModalAndClose(`queue`, `mp-queue`)
-            
-    },
-    after: function (browser) {
-        browser.end()
-    }
-};
+      .clickModalAndClose(`queue`)
+      .clickModalAndClose(`make-clip`, `clip`)
+      .clickModalAndClose(`add-to`)
+      .clickModalAndClose(`share`)
+      .clickModalAndClose(`queue`)
+  },
+  after: function (browser) {
+      browser.end()
+  }
+}

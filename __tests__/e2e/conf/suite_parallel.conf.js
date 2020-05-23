@@ -44,16 +44,16 @@ const nightwatch_config = {
   //   "enabled": true,
   //   "workers": 10
   // }
-};
+}
 
 for (const i in nightwatch_config.test_settings) {
-  const config = nightwatch_config.test_settings[i];
-  config['selenium_host'] = nightwatch_config.selenium.host;
-  config['selenium_port'] = nightwatch_config.selenium.port;
-  config['desiredCapabilities'] = config['desiredCapabilities'] || {};
+  const config = nightwatch_config.test_settings[i]
+  config['selenium_host'] = nightwatch_config.selenium.host
+  config['selenium_port'] = nightwatch_config.selenium.port
+  config['desiredCapabilities'] = config['desiredCapabilities'] || {}
   for (const j in nightwatch_config.common_capabilities) {
-    config['desiredCapabilities'][j] = config['desiredCapabilities'][j] || nightwatch_config.common_capabilities[j];
+    config['desiredCapabilities'][j] = config['desiredCapabilities'][j] || nightwatch_config.common_capabilities[j]
   }
 }
 
-module.exports = nightwatch_config;
+module.exports = nightwatch_config
