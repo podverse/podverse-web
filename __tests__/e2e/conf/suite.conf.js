@@ -32,13 +32,13 @@ const nightwatch_config = {
   //   "enabled": false,
   //   "workers": 5
   // }   
-};
-
-// Code to copy seleniumhost/port into test settings
-for(const i in nightwatch_config.test_settings){
-  const config = nightwatch_config.test_settings[i];
-  config['selenium_host'] = nightwatch_config.selenium.host;
-  config['selenium_port'] = nightwatch_config.selenium.port;
 }
 
-module.exports = nightwatch_config;
+// Code to copy seleniumhost/port into test settings
+for(const i in nightwatch_config.test_settings) {
+  const config = nightwatch_config.test_settings[i]
+  config['selenium_host'] = nightwatch_config.selenium.host
+  config['selenium_port'] = nightwatch_config.selenium.port
+}
+
+module.exports = nightwatch_config

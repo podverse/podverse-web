@@ -55,36 +55,47 @@ class About extends Component<Props, State> {
         <h3>About</h3>
         <div className='about'>
           <p>
-            Podverse is the easiest way to create, share, and discover podcast highlights online,
-            and a fully functional podcast app that syncs across all your devices.
-            Sign up today for 1 year of premium features for free! <span role='img' aria-label='partying face emoji'>🥳</span>
+            Podverse is an open source podcast manager for Android, iOS, and web with cross-platform syncing,
+            clip and playlist sharing, an intuitive interface, and more!
           </p>
-          <label>Free version:</label>
+          <label>Free features:</label>
           <ul>
             <li>Subscribe to podcasts</li>
             <li>Play clips and episodes</li>
-            <li>Download episodes (mobile only)</li>
-            <li>Drag-and-drop player queue</li>
-            <li>Sleep Timer</li>
-            <li>Light / Dark mode</li>
+            <li>Auto-download episodes</li>
+            <li>Drag-and-drop queue</li>
+            <li>Add podcasts by RSS</li>
+            <li>Sleep timer</li>
+            <li>Light / Dark mode </li>
           </ul>
-          <label>Premium version:</label>
+          <label>Premium features:</label>
           <ul>
             <li>Create and share podcast highlights</li>
-            <li>Sync your subscriptions across devices</li>
-            <li>Sync your queue across devices</li>
             <li>Switch devices and play from where you left off</li>
+            <li>Sync your subscriptions across devices</li>
+            <li>Sync your "added by RSS" podcasts across devices</li>
+            <li>Sync your queue across devices</li>
             <li>Create and share playlists</li>
             <li>Subscribe to playlists</li>
             <li>Share your user profile</li>
             <li>Subscribe to user profiles</li>
           </ul>
           <p>
-            All Podverse software is provided free and open source under the AGPLv3 license.
-            We will never sell your data or add advertisements to podcaster content.
+            Our mission is to support the original independent spirit
+            of podcasting. We would love to collaborate with any and all podcast apps
+            to make our technologies as cross-compatible, convenient,
+            and empowering for people as possible.
           </p>
           <p>
-            Any questions or feedback would be appreciated. Thank you!
+            All Podverse software is provided free and open source (FOSS),
+            but features that require updating our servers
+            are available only with a Premium membership.
+            Sign up today and get 1 year of Premium for free <span role='img' aria-label='partying face emoji'>🥳</span>
+          </p>
+          <p>
+            If you have any questions or would be interested in collaborating
+            please email <a href="mailto:contact@podverse.fm">contact@podverse.fm</a>,
+            or reach us through one of our social media channels.
           </p>
           <div className='flex-row'>
             {/* eslint-disable-next-line jsx-a11y/anchor-has-content */}

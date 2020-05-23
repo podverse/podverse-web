@@ -295,7 +295,7 @@ export const cookieSetQuery = (pageKey: string, from: string, type: string, sort
         from,
         type,
         sort,
-        categoryId
+        ...(categoryId ? { categoryId } : {})
       }))
     } catch (error) {
       console.log(key + ' cookieSetQuery', error)

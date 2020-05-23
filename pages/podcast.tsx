@@ -178,7 +178,8 @@ class Podcast extends Component<Props, State> {
           queryFrom={queryFrom}
           queryPage={queryPage}
           querySort={querySort}
-          queryType={queryType} />
+          queryType={queryType}
+          showQueryTypeSelect={true} />
       </Fragment>
     )
   }

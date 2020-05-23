@@ -493,7 +493,7 @@ class Settings extends Component<Props, State> {
               }
             </Fragment>
           }
-          <h3>Interface</h3>
+          <h3>Settings</h3>
           <FormGroup check>
             <Label className='checkbox-label' check>
               <Input
