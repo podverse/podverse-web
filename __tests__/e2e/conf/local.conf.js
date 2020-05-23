@@ -3,7 +3,7 @@
 
 require('dotenv').config()
 
-const browserstack = require('browserstack-local');
+const browserstack = require('browserstack-local')
 
 const nightwatch_config = {
   src_folders : [ "__tests__/e2e/tests" ],
@@ -29,13 +29,13 @@ const nightwatch_config = {
       }
     }
   }
-};
-
-// Code to copy seleniumhost/port into test settings
-for(const i in nightwatch_config.test_settings){
-  const config = nightwatch_config.test_settings[i];
-  config['selenium_host'] = nightwatch_config.selenium.host;
-  config['selenium_port'] = nightwatch_config.selenium.port;
 }
 
-module.exports = nightwatch_config;
+// Code to copy seleniumhost/port into test settings
+for(const i in nightwatch_config.test_settings) {
+  const config = nightwatch_config.test_settings[i]
+  config['selenium_host'] = nightwatch_config.selenium.host
+  config['selenium_port'] = nightwatch_config.selenium.port
+}
+
+module.exports = nightwatch_config

@@ -1,8 +1,10 @@
+const WEB_ORIGIN = require('../constants')
+
 const searchInput = `.search__input`
 
 module.exports = {
   before: function (browser) {
-    browser.url('https://stage.podverse.fm/search')
+    browser.url(`${WEB_ORIGIN}/search`)
   },
   'Search Page': function (browser) {
     browser
@@ -28,7 +30,7 @@ module.exports = {
       .click(`.media-list__item `)
       .waitForXpathPresent(`//div[@class="media-header__sub-title"][contains (text(), "Tamler Sommers & David Pizarro")]`)
 
-      .url('https://stage.podverse.fm/search')
+      .url(`${WEB_ORIGIN}/search`)
 
       .click(`.search-by__host`)
       .sendKeys(searchInput, `Joe Rogan`)
@@ -48,4 +50,4 @@ module.exports = {
   after: function (browser) {
     browser.end()
   }
-};
+}

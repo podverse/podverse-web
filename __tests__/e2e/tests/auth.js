@@ -1,9 +1,11 @@
+const WEB_ORIGIN = require('../constants')
+
 const freeTrialExpiredAlertXpath = '//div[contains (text(), "Your free trial has ended.")]'
 const membershipExpiredAlertXpath = '//div[contains (text(), "Your membership has expired.")]'
 
 module.exports = {
   before: function (browser) {
-    browser.url('https://stage.podverse.fm')
+    browser.url(`${WEB_ORIGIN}`)
   },
   'User login tests': function (browser) {
     browser
@@ -25,4 +27,4 @@ module.exports = {
   after: function (browser) {
     browser.end()
   }
-};
+}

@@ -1,6 +1,8 @@
+const WEB_ORIGIN = require('../constants')
+
 module.exports = {
   before: function (browser) {
-    browser.url('https://stage.podverse.fm/')
+    browser.url(`${WEB_ORIGIN}/`)
   },
   'Navigation Tests': function (browser) {
     browser
@@ -32,4 +34,4 @@ module.exports = {
   after: function (browser) {
     browser.end()
   }
-};
+}

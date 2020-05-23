@@ -1,10 +1,12 @@
+const WEB_ORIGIN = require('../constants')
+
 module.exports = {
   before: function (browser) {
-    browser.url('https://stage.podverse.fm/')
+    browser.url(`${WEB_ORIGIN}/`)
   },
   'Profiles Tests': function (browser) {
     browser
-      .url('https://stage.podverse.fm/profiles')
+      .url(`${WEB_ORIGIN}/profiles`)
       .waitForElementWithText('p', 'You are not subscribed to any user profiles.')
       .testSharedMetaTags()
       .testPageMetaTags(
@@ -15,4 +17,4 @@ module.exports = {
   after: function (browser) {
     browser.end()
   }
-};
+}

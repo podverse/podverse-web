@@ -1,3 +1,5 @@
+const WEB_ORIGIN = require('../constants')
+
 const dropdownToggleClipsXpath = '//button[@class="transparent dropdown-toggle btn btn-secondary"][contains (text(), "Clips")]'
 const dropdownToggleEpisodesXpath = '//button[@class="transparent dropdown-toggle btn btn-secondary"][contains (text(), "Episodes")]'
 const dropdownItemClipsXpath = '//button[@class="dropdown-item"][contains (text(), "Clips")]'
@@ -6,7 +8,7 @@ const mediaListSelectsSelector = '.media-list__selects'
 
 module.exports = {
   before: function (browser) {
-    browser.url('https://stage.podverse.fm/clip/9rA5BhWp')
+    browser.url(`${WEB_ORIGIN}/clip/9rA5BhWp`)
   },
   'Clip Page tests': function (browser) {
     browser
@@ -27,4 +29,4 @@ module.exports = {
   after: function (browser) {
     browser.end()
   }
-};
+}

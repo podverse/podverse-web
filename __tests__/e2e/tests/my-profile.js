@@ -1,13 +1,15 @@
+const WEB_ORIGIN = require('../constants')
+
 module.exports = {
   before: function (browser) {
-      browser.url('https://stage.podverse.fm/')
+      browser.url(`${WEB_ORIGIN}/`)
   },
   'My-Profile': function (browser) {
     browser
       .waitForXpathPresent('//div[contains(text(), "Amet aliquam id diam maecenas ultricies mi eget.")]')
       .loginUsingModal(`premium@stage.podverse.fm`)
 
-      .url('https://stage.podverse.fm/my-profile')
+      .url(`${WEB_ORIGIN}/my-profile`)
       .waitForXpathPresent('//div[contains(text(), "Premium Valid - Test User")]')
 
       .testSharedMetaTags()
@@ -19,4 +21,4 @@ module.exports = {
   after: function (browser) {
       browser.end()
   }
-};
+}

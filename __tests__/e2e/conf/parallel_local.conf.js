@@ -2,7 +2,7 @@
 
 require('dotenv').config()
 
-// const browserstack = require('browserstack-local');
+// const browserstack = require('browserstack-local')
 
 const nightwatch_config = {
   src_folders : [ "__tests__/e2e/tests" ],
@@ -42,17 +42,17 @@ const nightwatch_config = {
       }
     }
   }
-};
+}
 
 // Code to support common capabilites
-for(const i in nightwatch_config.test_settings){
-  const config = nightwatch_config.test_settings[i];
-  config['selenium_host'] = nightwatch_config.selenium.host;
-  config['selenium_port'] = nightwatch_config.selenium.port;
-  config['desiredCapabilities'] = config['desiredCapabilities'] || {};
-  for(const j in nightwatch_config.common_capabilities){
-    config['desiredCapabilities'][j] = config['desiredCapabilities'][j] || nightwatch_config.common_capabilities[j];
+for(const i in nightwatch_config.test_settings) {
+  const config = nightwatch_config.test_settings[i]
+  config['selenium_host'] = nightwatch_config.selenium.host
+  config['selenium_port'] = nightwatch_config.selenium.port
+  config['desiredCapabilities'] = config['desiredCapabilities'] || {}
+  for(const j in nightwatch_config.common_capabilities) {
+    config['desiredCapabilities'][j] = config['desiredCapabilities'][j] || nightwatch_config.common_capabilities[j]
   }
 }
 
-module.exports = nightwatch_config;
+module.exports = nightwatch_config

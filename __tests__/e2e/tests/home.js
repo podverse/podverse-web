@@ -1,8 +1,10 @@
+const WEB_ORIGIN = require('../constants')
+
 const mediaListSelectsSelector = '.media-list__selects'
 
 module.exports = {
   before: function (browser) {
-    browser.url('https://stage.podverse.fm/')
+    browser.url(`${WEB_ORIGIN}/`)
   },
   'Home Page tests': function (browser) {
     browser
@@ -26,4 +28,4 @@ module.exports = {
   after: function (browser) {
     browser.end()
   }
-};
+}

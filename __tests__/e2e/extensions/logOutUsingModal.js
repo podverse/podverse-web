@@ -1,3 +1,5 @@
+const WEB_ORIGIN = require('../constants')
+
 module.exports.command = function () {
   this.click({
     locateStrategy: 'xpath',
@@ -11,7 +13,7 @@ module.exports.command = function () {
   })
   this.pause(500)
 
-  this.url('https://stage.podverse.fm')
+  this.url(`${WEB_ORIGIN}`)
   this.waitForElementPresent({
     locateStrategy: 'xpath',
     selector: '//li[@class="hide-mobile nav-item"]//a[@class="nav-link"][contains(text(), "Login")]'
