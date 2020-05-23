@@ -1,34 +1,3 @@
-//         it('Home Page: Sort ► Most Recent', async () => {
-//             await testDropdownItemSelect(page, "top - past week", "most recent")
-//         })
-
-//         it('Home Page: Sort ► Top Past Day', async () => {
-//             await testDropdownItemSelect(page, "most recent", "top - past day")
-//         })
-
-//         it('Home Page: Sort ► Top Past Week', async () => {
-//             await testDropdownItemSelect(page, "top - past day", "top - past week")
-//         })
-
-//         it('Home Page: Sort ► Top Past Month', async () => {
-//             await testDropdownItemSelect(page, "top - past week", "top - past month")
-//         })
-
-//         it('Home Page: Sort ► Top Past Year', async () => {
-//             await testDropdownItemSelect(page, "top - past month", "top - past year")
-//         })
-
-//         it('Home Page: Sort ► Top All Time', async () => {
-//             await testDropdownItemSelect(page, "top - past year", "top - all time")
-//         })
-
-//         it('Home Page: Sort ► Random', async () => {
-//             await testDropdownItemSelect(page, "top - all time", "random")
-//         })
-
-
-//     }, 60000)
-
 const mediaListSelectsSelector = '.media-list__selects'
 
 module.exports = {
@@ -51,28 +20,8 @@ module.exports = {
             .clickDropdownToggleAndItem(`Subscribed`, `All Podcasts`)
 
             .scrollToSelector(mediaListSelectsSelector)
-            .clickDropdownToggleAndItem(`All Podcasts`, `Arts`)
+            .clickDropdownToggleAndItem(`All Podcasts`, `Categories`)
 
-            .scrollToSelector(mediaListSelectsSelector)
-            .clickDropdownToggleAndItem("Arts", "Business")
-
-            .scrollToSelector(mediaListSelectsSelector)
-            .clickDropdownToggleAndItem("Business", "Comedy")
-
-            .scrollToSelector(mediaListSelectsSelector)
-            .clickDropdownToggleAndItem("Comedy", "Education")
-
-            .scrollToSelector(mediaListSelectsSelector)
-            .clickDropdownToggleAndItem("Education", "Games & Hobbies")
-
-            .scrollToSelector(mediaListSelectsSelector)
-            .clickDropdownToggleAndItem("Games & Hobbies", "Government & Organizations")
-
-            .scrollToSelector(mediaListSelectsSelector)
-            .clickDropdownToggleAndItem("Government & Organizations", "Health")
-
-            .scrollToSelector(mediaListSelectsSelector)
-            .clickDropdownToggleAndItem("Health", "Music")
     },
     after: function (browser) {
         browser.end()
