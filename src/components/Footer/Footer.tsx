@@ -11,8 +11,8 @@ import { getViewContentsElementScrollTop } from '~/lib/utility'
 import { pageIsLoading, pagesSetQueryState, settingsSetNSFWMode, settingsSetUITheme
   } from '~/redux/actions'
 const cookie = require('cookie')
-const { CONTACT_FORM_URL, SOCIAL_FACEBOOK_PAGE_URL, SOCIAL_GITHUB_PAGE_URL, SOCIAL_REDDIT_PAGE_URL,
-  SOCIAL_TWITTER_PAGE_URL } = config()
+const { CONTACT_FORM_URL, SOCIAL_FACEBOOK_PAGE_URL, SOCIAL_GITHUB_PAGE_URL,
+  SOCIAL_REDDIT_PAGE_URL, SOCIAL_TWITTER_PAGE_URL } = config()
 
 type Props = {
   isMobileDevice?: boolean
@@ -222,14 +222,14 @@ class Footer extends Component<Props, State> {
             </div>
             <div className='footer-bottom__social-links'>
               {
-                SOCIAL_REDDIT_PAGE_URL &&
+                SOCIAL_GITHUB_PAGE_URL &&
                   <Link
-                    as={SOCIAL_REDDIT_PAGE_URL}
-                    href={SOCIAL_REDDIT_PAGE_URL}>
+                    as={SOCIAL_GITHUB_PAGE_URL}
+                    href={SOCIAL_GITHUB_PAGE_URL}>
                     <a
                       className='footer-bottom__social-link'
                       target='_blank'>
-                      <FontAwesomeIcon icon={faRedditAlien} />
+                      <FontAwesomeIcon icon={faGithub} />
                     </a>
                   </Link>
               }
@@ -258,24 +258,20 @@ class Footer extends Component<Props, State> {
                   </Link>
               }
               {
-                SOCIAL_GITHUB_PAGE_URL &&
+                SOCIAL_REDDIT_PAGE_URL &&
                   <Link
-                    as={SOCIAL_GITHUB_PAGE_URL}
-                    href={SOCIAL_GITHUB_PAGE_URL}>
+                    as={SOCIAL_REDDIT_PAGE_URL}
+                    href={SOCIAL_REDDIT_PAGE_URL}>
                     <a
                       className='footer-bottom__social-link'
                       target='_blank'>
-                      <FontAwesomeIcon icon={faGithub} />
+                      <FontAwesomeIcon icon={faRedditAlien} />
                     </a>
                   </Link>
               }
             </div>
           </div>
         </div>
-        {/* <NSFWModal
-          handleHideModal={this.hideNSFWModal}
-          isNSFWModeOn={nsfwMode === 'on'}
-          isOpen={nsfwModalIsOpen} /> */}
       </React.Fragment>
     )
   }
