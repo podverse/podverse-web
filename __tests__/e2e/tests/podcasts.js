@@ -1,31 +1,21 @@
-// const { getTestOrigin, testPageMetaTags, testSharedMetaTags } = require('../utility')
-// const origin = getTestOrigin()
+module.exports = {
+    before: function (browser) {
+        browser.url('https://stage.podverse.fm/')
+    },
+    'Podcasts Tests': function (browser) {
+        browser
+            .url('https://stage.podverse.fm/podcasts')
+            .waitForElementWithText('div', 'The Joe Rogan Experience')
 
-// describe(
-//     '/ (Podcasts Page)',
-//     () => {
+            .testSharedMetaTags()
+            .testPageMetaTags(
+                `Podcasts`,
+                `Find and subscribe to podcasts.`
+            )
 
-//         let page
-//         beforeAll(async () => {
-//             page = await global.__BROWSER__.newPage()
-//             await page.goto(origin + '/podcasts')
-//         })
 
-//         afterAll(async () => {
-//             await page.close()
-//             await page.waitFor(1000)
-//         })
-
-//         it('loads the page', async () => {
-//             await page.waitForXPath('//div[contains(text(), "The Joe Rogan Experience")]')
-//         }, 10000)
-
-//         it('Podcasts Page: Shared Meta Tags', async () => {
-//             await testSharedMetaTags(page)
-//         })
-
-//         it('Podcasts Page: Page Meta Tags', async () => {
-//             await testPageMetaTags(page, `Podcasts`, `Find and subscribe to podcasts.`)
-//         })
-
-//     }, 60000)
+    },
+    after: function (browser) {
+        browser.end()
+    }
+};
