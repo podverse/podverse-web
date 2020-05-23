@@ -46,6 +46,7 @@ type Props = {
   querySort?: string
   queryType?: string
   settings?: any
+  showQueryTypeSelect?: boolean
   user?: any
   userSetInfo?: any
 }
@@ -74,7 +75,7 @@ class MediaListCtrl extends Component<Props, State> {
       sort: querySort,
       episodeId: queryFrom === 'from-episode' ? episodeId : null,
       podcastId: queryFrom === 'from-podcast' ? podcastId : null,
-      categories: categoryId || allCategories[2].id /* Arts */,
+      categories: categoryId || allCategories && allCategories[2].id /* Arts */,
       ...(filterIsShowing ? { searchAllFieldsText: filterText } : {}),
       ...(queryFrom === 'all-podcasts' ||
           queryFrom === 'subscribed-only' ? { includePodcast: true } : {}),
@@ -446,6 +447,30 @@ class MediaListCtrl extends Component<Props, State> {
     })
   }
 
+  generateQueryTypeOptions = () => {
+    const { pageKey, pages, podcastId, user } = this.props
+    const { categoryId, queryFrom } = pages[pageKey]
+
+    return [
+      {
+        label: 'Clips',
+        onClick: () => this.queryListItems('clips', queryFrom, 'top-past-week', 1, categoryId),
+        value: 'clips',
+      },
+      {
+        label: 'Episodes',
+        onClick: () => this.queryListItems(
+          'episodes',
+          podcastId ? 'from-podcast' : queryFrom,
+          (user && user.id && !podcastId) ? 'most-recent' : 'top-past-week',
+          1,
+          categoryId
+        ),
+        value: 'episodes',
+      }
+    ]
+  }
+
   generateTopLevelSelectNodes = () => {
     const { pageKey, pages } = this.props
     const { queryFrom, queryType, querySort } = pages[pageKey]
@@ -593,7 +618,7 @@ class MediaListCtrl extends Component<Props, State> {
 
   render() {
     const { adjustTopPosition, episodeId, includeOldest, mediaPlayer, page, pageKey, pages,
-      podcastId, settings } = this.props
+      podcastId, settings, showQueryTypeSelect } = this.props
     const { isLoading } = page
     const { filterButtonHide } = settings
     const { nowPlayingItem: mpNowPlayingItem } = mediaPlayer
@@ -640,21 +665,11 @@ class MediaListCtrl extends Component<Props, State> {
       )
     })
 
+    const selectedQueryTypeOption = this.getQueryTypeOptions().filter(x => x.value === queryType)
     const selectedQueryFromOption = this.getQueryFromOptions(
       !!podcastId, !!episodeId && queryType === 'clips').filter(x => x.value === queryFrom)
     const sortOptions = this.getQuerySortOptions(includeOldest, !!episodeId && queryType === 'clips' && queryFrom === 'from-episode')
     const selectedQuerySortOption = sortOptions.filter(x => x.value === querySort)
-
-    let bottomSelectNodes = []
-    if (!podcastId && !episodeId) {
-      bottomSelectNodes = this.generateCategorySelectNodes(categoryId) as any
-    } else if (podcastId || episodeId) {
-      bottomSelectNodes = [
-        <MediaListSelect
-          items={this.getQueryFromOptions(!!podcastId, !!episodeId && queryType === 'clips')}
-          selected={selectedQueryFromOption.length > 0 ? selectedQueryFromOption[0].value : null} />
-      ] as any
-    }
 
     const noResultsFoundMsg = `No ${queryType === 'episodes' ? 'episodes' : 'clips'} found`
 
@@ -662,7 +677,19 @@ class MediaListCtrl extends Component<Props, State> {
       <div className={`media-list ${adjustTopPosition ? 'adjust-top-position' : ''}`}>
         <div className='media-list__selects'>
           <div className='media-list-selects__left'>
-            {this.generateTopLevelSelectNodes()}
+            {
+              showQueryTypeSelect &&
+                <MediaListSelect
+                  items={this.getQueryTypeOptions()}
+                  selected={selectedQueryTypeOption.length > 0 ? selectedQueryTypeOption[0].value : null} />
+            }
+            {
+              (podcastId || episodeId) ?
+                <MediaListSelect
+                  items={this.getQueryFromOptions(!!podcastId, !!episodeId && queryType === 'clips')}
+                  selected={selectedQueryFromOption.length > 0 ? selectedQueryFromOption[0].value : null} />
+                :
+                this.generateTopLevelSelectNodes()}
           </div>
           <div className='media-list-selects__right'>
             <MediaListSelect
@@ -673,7 +700,7 @@ class MediaListCtrl extends Component<Props, State> {
         </div>
         <div className='media-list__selects'>
           <div className='media-list-selects__left-and-right'>
-            {queryFrom === 'from-category' && bottomSelectNodes}
+            {queryFrom === 'from-category' && !podcastId && !episodeId && this.generateCategorySelectNodes(categoryId)}
           </div>
         </div>
         {
