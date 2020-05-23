@@ -374,9 +374,9 @@ class MediaListCtrl extends Component<Props, State> {
   }
 
   handleFilterTextChange = async event => {
-    const { episodeId, handleSetPageQueryState, pageIsLoading, pageKey, pages, podcastId,
-      user } = this.props
-    const { queryFrom, querySort, queryType } = pages[pageKey]
+    const { allCategories, episodeId, handleSetPageQueryState, pageIsLoading, pageKey,
+      pages, podcastId, user } = this.props
+    const { categoryId, queryFrom, querySort, queryType } = pages[pageKey]
     const { subscribedPodcastIds } = user
     const text = event.target.value
 
@@ -398,6 +398,7 @@ class MediaListCtrl extends Component<Props, State> {
       page: 1,
       from: queryFrom,
       sort: querySort,
+      categories: categoryId || ((queryFrom === 'from-category' && allCategories) ? allCategories[2].id : null),
       episodeId: queryFrom === 'from-episode' ? episodeId : null,
       podcastId: pId || null,
       searchAllFieldsText: text,
