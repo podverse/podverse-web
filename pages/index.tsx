@@ -47,7 +47,6 @@ class Home extends Component<Props, State> {
     const { nowPlayingItem } = mediaPlayer
 
     const localStorageQuery = cookieGetQuery(req, kPageKey)
-
     const currentPage = pages[kPageKey] || {}
     const lastScrollPosition = currentPage.lastScrollPosition
     const queryRefresh = !!query.refresh
@@ -58,7 +57,6 @@ class Home extends Component<Props, State> {
     const queryType = (queryRefresh && query.type) || currentPage.queryType || query.type ||
       localStorageQuery.type || 'clips'
     let podcastId = ''
-
 
     if (queryFrom === 'subscribed-only') {
       podcastId = user.subscribedPodcastIds
