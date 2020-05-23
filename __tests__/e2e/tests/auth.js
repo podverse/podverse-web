@@ -1,4 +1,4 @@
-const WEB_ORIGIN = require('../constants')
+const { WEB_ORIGIN } = require('../constants')
 
 const freeTrialExpiredAlertXpath = '//div[contains (text(), "Your free trial has ended.")]'
 const membershipExpiredAlertXpath = '//div[contains (text(), "Your membership has expired.")]'

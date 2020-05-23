@@ -1,4 +1,4 @@
-const WEB_ORIGIN = require('../constants')
+const { WEB_ORIGIN } = require('../constants')
 
 const dropdownToggleClipsXpath = '//button[@class="transparent dropdown-toggle btn btn-secondary"][contains (text(), "Clips")]'
 const dropdownToggleEpisodesXpath = '//button[@class="transparent dropdown-toggle btn btn-secondary"][contains (text(), "Episodes")]'

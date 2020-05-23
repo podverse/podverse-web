@@ -1,4 +1,4 @@
-const WEB_ORIGIN = require('../constants')
+const { WEB_ORIGIN } = require('../constants')
 
 const searchInput = `.search__input`
 

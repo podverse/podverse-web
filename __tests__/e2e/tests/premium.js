@@ -1,4 +1,4 @@
-const WEB_ORIGIN = require('../constants')
+const { WEB_ORIGIN } = require('../constants')
 
 module.exports = {
   before: function (browser) {
