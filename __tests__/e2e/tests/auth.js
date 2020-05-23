@@ -1,4 +1,3 @@
-const episodesDropdownButtonXpath = '//button[contains (text(), "Episodes")]'
 const freeTrialExpiredAlertXpath = '//div[contains (text(), "Your free trial has ended.")]'
 const membershipExpiredAlertXpath = '//div[contains (text(), "Your membership has expired.")]'
 
@@ -8,16 +7,16 @@ module.exports = {
   },
   'User login tests': function (browser) {
     browser
+      .waitForElementWithText('h3', 'Clips')
       .waitForElementWithText('.hide-mobile:nth-child(5) a', 'Login')
       .loginUsingModal('freetrial@stage.podverse.fm')
-      .waitForXpathPresent(episodesDropdownButtonXpath)
+      .pause(3000)
       .logOutUsingModal()
       .loginUsingModal('freetrialexpired@stage.podverse.fm')
-      .waitForXpathPresent(episodesDropdownButtonXpath)
       .waitForXpathPresent(freeTrialExpiredAlertXpath)
       .logOutUsingModal()
       .loginUsingModal('premium@stage.podverse.fm')
-      .waitForXpathPresent(episodesDropdownButtonXpath)
+      .pause(3000)
       .logOutUsingModal()
       .loginUsingModal('premiumexpired@stage.podverse.fm')
       .waitForXpathPresent(membershipExpiredAlertXpath)

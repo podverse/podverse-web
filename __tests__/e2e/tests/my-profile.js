@@ -1,24 +1,22 @@
 module.exports = {
-    before: function (browser) {
-        browser.url('https://stage.podverse.fm/')
-    },
-    'My-Profile': function (browser) {
-        browser
+  before: function (browser) {
+      browser.url('https://stage.podverse.fm/')
+  },
+  'My-Profile': function (browser) {
+    browser
+      .waitForXpathPresent('//div[contains(text(), "Amet aliquam id diam maecenas ultricies mi eget.")]')
+      .loginUsingModal(`premium@stage.podverse.fm`)
 
-            .loginUsingModal(`premium@stage.podverse.fm`)
+      .url('https://stage.podverse.fm/my-profile')
+      .waitForXpathPresent('//div[contains(text(), "Premium Valid - Test User")]')
 
-            .url('https://stage.podverse.fm/my-profile')
-            .waitForXpathPresent('//div[contains(text(), "Premium Valid - Test User")]')
-
-            .testSharedMetaTags()
-            .testPageMetaTags(
-                `My Profile`,
-                `My Podverse Profile. Subscribe to podcasts, playlists, and other profiles`
-            )
-
-            
-    },
-    after: function (browser) {
-        browser.end()
-    }
+      .testSharedMetaTags()
+      .testPageMetaTags(
+        `My Profile`,
+        `My Podverse Profile. Subscribe to podcasts, playlists, and other profiles`
+      )            
+  },
+  after: function (browser) {
+      browser.end()
+  }
 };

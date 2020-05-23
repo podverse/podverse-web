@@ -10,12 +10,12 @@ module.exports = {
   },
   'Clip Page tests': function (browser) {
     browser
+      .waitForXpathPresent('//div[contains(text(), "Amet aliquam id diam maecenas ultricies mi eget.")]')
       .testSharedMetaTags()
       .testPageMetaTags(
         'Amet aliquam id diam maecenas ultricies mi eget.',
         `Jason Calacanis: TikTok should be banned, Tim Cook doesn't have enough chutzpah, and Uber will be fine - Recode Decode`
       )
-      .waitForXpathPresent('//div[contains(text(), "Amet aliquam id diam maecenas ultricies mi eget.")]')
       .scrollToSelector(mediaListSelectsSelector)
       .click('xpath', dropdownToggleClipsXpath)
       .click('xpath', dropdownItemEpisodesXpath)

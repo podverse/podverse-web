@@ -4,12 +4,12 @@ module.exports = {
   },
   'About Page': function (browser) {
     browser
+      .waitForElementWithText('h3', 'About')
       .testSharedMetaTags()
       .testPageMetaTags(
         'Podverse - About',
         'Information about the Podverse open source podcast app.'
       )
-      .waitForElementWithText('h3', 'About')
   },
   after: function (browser) {
     browser.end()
