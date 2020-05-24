@@ -5,7 +5,6 @@ import '~/scss/styles.scss'
 import config from '~/config'
 const { metaDefaultImageUrl1200x630 } = config()
 const striptags = require('striptags')
-const uuidv4 = require('uuid/v4')
 
 type Props = {
   description?: string
