@@ -33,11 +33,11 @@ class Meta extends Component<Props, State> {
       twitterImageAlt = '', twitterTitle = '' } = this.props
     
     // Twitter images are cached by URL, and do not update. To make sure the latest image is used,
-    // we're setting the cacheBustDateTime as a url parameter in the meta tag.
-    const cacheBustDateTime = '-' + new Date().toISOString().slice(0, 10) + '-' + new Date().getHours()
+    // we're setting the cacheBustUrlParam as a url parameter in the meta tag.
+    const cacheBustUrlParam = '?cacheBust=' + new Date().toISOString().slice(0, 10) + '-' + new Date().getHours()
 
     const ogImg = !ogImage ? metaDefaultImageUrl1200x630 : ogImage
-    const twitterImg = !twitterImage ? metaDefaultImageUrl1200x630 : twitterImage + cacheBustDateTime
+    const twitterImg = !twitterImage ? metaDefaultImageUrl1200x630 : twitterImage + cacheBustUrlParam
 
     const strippedDescription = striptags(description)
     const strippedOgDescription = striptags(ogDescription)
