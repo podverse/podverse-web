@@ -94,7 +94,7 @@ class About extends Component<Props, State> {
           </p>
           <p>
             If you have any questions or would be interested in collaborating
-            please email <a href="mailto:contact@podverse.fm">contact@podverse.fm</a>,
+            please email <a href="mailto:contact@podverse.fm">contact@podverse.fm</a>
             or reach us through one of our social media channels.
           </p>
           <div className='flex-row'>
