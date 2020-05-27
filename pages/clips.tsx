@@ -49,7 +49,7 @@ class Home extends Component<Props, State> {
     const currentPage = pages[kPageKey] || {}
     const lastScrollPosition = currentPage.lastScrollPosition
     const queryRefresh = !!query.refresh
-    const categoryId = query.categoryId || currentPage.categoryId || localStorageQuery.categoryId
+    const categoryId = query.categoryId || currentPage.categoryId || localStorageQuery.categoryId || (allCategories && allCategories[2] && allCategories[2].id /* Arts */)
     const queryFrom = currentPage.queryFrom || query.from || (query.categoryId && 'from-category') || localStorageQuery.from || (user && user.id ? 'subscribed-only' : 'all-podcasts')
     const queryPage = (queryRefresh && 1) || currentPage.queryPage || query.page || 1
     const querySort = currentPage.querySort || query.sort || localStorageQuery.sort || 'top-past-week'
@@ -99,7 +99,7 @@ class Home extends Component<Props, State> {
     const meta = {
       currentUrl: BASE_URL,
       description: 'Podcast app for iOS, Android, and web. Create and share podcast highlights and playlists. Sync your queue across all devices. Open source software.',
-      title: 'Podverse - Create podcast highlights. Sync your podcasts across iOS, Android, and web. Open source technology.'
+      title: 'Clips'
     }
 
     return {

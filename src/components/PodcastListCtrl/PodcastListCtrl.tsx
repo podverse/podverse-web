@@ -383,7 +383,7 @@ class PodcastListCtrl extends Component<Props, State> {
   }
 
   render() {
-    const { page, pageKey, pages } = this.props
+    const { page, pageKey, pages, user } = this.props
     const { isLoading } = page
     const { categoryId, listItems, listItemsTotal, queryFrom, queryPage, querySort } = pages[pageKey]
 
@@ -401,6 +401,8 @@ class PodcastListCtrl extends Component<Props, State> {
     const bottomSelectNodes = this.generateCategorySelectNodes(categoryId)
 
     const selectedQuerySortOption = this.getQuerySortOptions().filter(x => x.value === querySort)
+
+    const noResultsFoundMsg = !user || !user.id ? `Login to view your subscriptions` : `No podcasts found`
 
     return (
       <div className={'media-list adjust-top-position'}>
@@ -435,7 +437,7 @@ class PodcastListCtrl extends Component<Props, State> {
           {
             (!isLoading && queryPage === 1 && listItemNodes.length === 0) &&
               <div className='no-results-msg'>
-                No podcasts found
+                {noResultsFoundMsg}
               </div>
           }
         </Fragment>

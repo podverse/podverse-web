@@ -1,6 +1,6 @@
 {
   "name": "podverse-web",
-  "version": "2.6.26",
+  "version": "2.6.27",
   "description": "Web app for the Podverse podcast clip sharing ecosystem",
   "repository": {
     "type": "git",
@@ -24,9 +24,9 @@
     "lint:ts": "eslint pages/**/*.tsx src/**/*.ts",
     "start": "NODE_ENV=production ts-node --compilerOptions '{\"module\":\"commonjs\"}' src/server/index.ts -- -p 8765",
     "start:local": "NODE_ENV=production ts-node --compilerOptions '{\"module\":\"commonjs\"}' src/server/index.dev.ts -- -p 8765",
-    "test:e2e:local": "./node_modules/.bin/nightwatch -c __tests__/e2e/conf/local.conf.js",
+    "test:e2e:local": "BROWSERSTACK_LOCAL_IDENTIFER=$(date) node __tests__/e2e/scripts/local.runner.js -c __tests__/e2e/conf/local.conf.js",
     "test:e2e:parallel": "./node_modules/.bin/nightwatch -c __tests__/e2e/conf/parallel.conf.js -e chrome,firefox,ie",
-    "test:e2e:parallel_local": "node __tests__/e2e/scripts/local.runner.js -c __tests__/e2e/conf/parallel_local.conf.js -e chrome,firefox",
+    "test:e2e:parallel_local": "BROWSERSTACK_LOCAL_IDENTIFER=$(date) node __tests__/e2e/scripts/local.runner.js -c __tests__/e2e/conf/parallel_local.conf.js -e chrome,firefox",
     "test:e2e:single": "./node_modules/.bin/nightwatch -c __tests__/e2e/conf/single.conf.js",
     "test:e2e:suite": "./node_modules/.bin/nightwatch -c __tests__/e2e/conf/suite.conf.js",
     "test:e2e:suite_parallel": "./node_modules/.bin/nightwatch -c __tests__/e2e/conf/suite_parallel.conf.js -e chrome,firefox,ie",

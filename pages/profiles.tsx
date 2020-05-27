@@ -15,6 +15,7 @@ type Props = {
   pageKey?: string
   pagesSetQueryState?: any
   queryPage: number
+  user?: any
 }
 
 type State = {}
@@ -53,11 +54,11 @@ class Profiles extends Component<Props, State> {
       title: `Profiles`
     }
 
-    return { lastScrollPosition, meta, pageKey: kPageKey }
+    return { lastScrollPosition, meta, pageKey: kPageKey, user }
   }
 
   render() {
-    const { meta, pageKey, pagesSetQueryState, queryPage } = this.props
+    const { meta, pageKey, pagesSetQueryState, queryPage, user } = this.props
 
     return (
       <Fragment>
@@ -75,7 +76,8 @@ class Profiles extends Component<Props, State> {
         <UserListCtrl
           handleSetPageQueryState={pagesSetQueryState}
           pageKey={pageKey}
-          queryPage={queryPage} />
+          queryPage={queryPage}
+          user={user} />
       </Fragment>
     )
   }

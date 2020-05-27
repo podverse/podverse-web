@@ -83,7 +83,7 @@ class UserListCtrl extends Component<Props, State> {
   }
 
   render() {
-    const { pageKey, pages } = this.props
+    const { pageKey, pages, user } = this.props
     const { listItems, listItemsTotal, queryPage } = pages[pageKey]
 
     const listItemNodes = listItems && listItems.map(x => {
@@ -95,6 +95,8 @@ class UserListCtrl extends Component<Props, State> {
           profileUser={x} />
       )
     })
+
+    const noResultsFoundMsg = !user || !user.id ? `Login to view your profiles` : `No profiles found`
 
     return (
       <div className='media-list reduced-margin adjust-top-position'>
@@ -112,8 +114,11 @@ class UserListCtrl extends Component<Props, State> {
         {
           (!listItemNodes || listItemNodes.length === 0) &&
           <div className='no-results-msg'>
-            <p>You are not subscribed to any user profiles.</p>
-            <p>Visit the <Link as='/settings' href='/settings'><a onClick={this.linkClick}>Settings page</a></Link> to make your profile public and share your user profile with friends.</p>
+            <p>{noResultsFoundMsg}</p>
+            {
+              user && user.id &&
+                <p>Visit the <Link as='/settings' href='/settings'><a onClick={this.linkClick}>Settings page</a></Link> to make your profile public</p>
+            }
           </div>
         }
       </div>

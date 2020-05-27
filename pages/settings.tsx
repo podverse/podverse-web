@@ -339,11 +339,11 @@ class Settings extends Component<Props, State> {
           title={meta.title}
           twitterDescription={meta.description}
           twitterTitle={meta.title} />
+        <h3>Settings</h3>
         <Form>
           {
             isLoggedIn &&
             <Fragment>
-                <h3>Settings</h3>
                 <FormGroup>
                   <Label for='settings-name'>Name</Label>
                   <Input 
@@ -386,7 +386,7 @@ class Settings extends Component<Props, State> {
                   </Input>
                   {
                     isPublic ?
-                      <FormText>Podcasts, clips, and playlists are visible on your profile page.</FormText>
+                      <FormText>Podcasts, clips, and playlists are visible on your profile page</FormText>
                       : <FormText>Your profile page is hidden. Your Public clips are still accessible by anyone,
                         and your Only with Link clips and playlists are still accessible to anyone with the URL.</FormText>
                   }
@@ -493,7 +493,7 @@ class Settings extends Component<Props, State> {
               }
             </Fragment>
           }
-          <h3>Settings</h3>
+          <h3>Interface</h3>
           <FormGroup check>
             <Label className='checkbox-label' check>
               <Input
