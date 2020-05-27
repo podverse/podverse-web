@@ -68,6 +68,8 @@ class MediaListCtrl extends Component<Props, State> {
     const { filterIsShowing, filterText } = pages[pageKey]
 
     this.setTemporaryMinHeightOnMediaList()
+    
+    const categories = categoryId || allCategories && allCategories[2].id /* Arts */
 
     const query: any = {
       page,
@@ -75,7 +77,7 @@ class MediaListCtrl extends Component<Props, State> {
       sort: querySort,
       episodeId: queryFrom === 'from-episode' ? episodeId : null,
       podcastId: queryFrom === 'from-podcast' ? podcastId : null,
-      categories: categoryId || allCategories && allCategories[2].id /* Arts */,
+      categories,
       ...(filterIsShowing ? { searchAllFieldsText: filterText } : {}),
       ...(queryFrom === 'all-podcasts' ||
           queryFrom === 'subscribed-only' ? { includePodcast: true } : {}),
