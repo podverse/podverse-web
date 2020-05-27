@@ -111,14 +111,14 @@ class Playlists extends Component<Props, State> {
           title={meta.title}
           twitterDescription={meta.description}
           twitterTitle={meta.title} />
+        <h3>Playlists</h3>
         {
           (!user || !user.id) &&
             <div className='no-results-msg'>Login to view your playlists</div>
         }
         {
           (user && user.id) &&
-            <div className='reduced-margin'>
-              <h3>My Playlists</h3>
+            <div className='reduced-margin playlists'>
               <div className='media-list'>
                 {
                   (myPlaylistNodes && myPlaylistNodes.length > 0) &&
@@ -132,7 +132,6 @@ class Playlists extends Component<Props, State> {
               {
                 (subscribedPlaylistNodes && subscribedPlaylistNodes.length > 0) &&
                   <Fragment>
-                    <h3>Subscribed Playlists</h3>
                     <div className='media-list'>
                       {subscribedPlaylistNodes}
                     </div>

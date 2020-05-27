@@ -621,7 +621,7 @@ class MediaListCtrl extends Component<Props, State> {
 
   render() {
     const { adjustTopPosition, episodeId, includeOldest, mediaPlayer, page, pageKey, pages,
-      podcastId, settings, showQueryTypeSelect } = this.props
+      podcastId, settings, showQueryTypeSelect, user } = this.props
     const { isLoading } = page
     const { filterButtonHide } = settings
     const { nowPlayingItem: mpNowPlayingItem } = mediaPlayer
@@ -674,7 +674,9 @@ class MediaListCtrl extends Component<Props, State> {
     const sortOptions = this.getQuerySortOptions(includeOldest, !!episodeId && queryType === 'clips' && queryFrom === 'from-episode')
     const selectedQuerySortOption = sortOptions.filter(x => x.value === querySort)
 
-    const noResultsFoundMsg = `No ${queryType === 'episodes' ? 'episodes' : 'clips'} found`
+    const noResultsFoundMsg = !user || !user.id ?
+    `Login to view your subscriptions` :
+      `No ${queryType === 'episodes' ? 'episodes' : 'clips'} found`
 
     return (      
       <div className={`media-list ${adjustTopPosition ? 'adjust-top-position' : ''}`}>
