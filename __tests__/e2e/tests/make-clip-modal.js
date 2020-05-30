@@ -4,7 +4,7 @@ module.exports = {
   before: function (browser) {
     browser.url(`${WEB_ORIGIN}/`)
   },
-  'Modals': function (browser) {
+  'Make Clip Modal': function (browser) {
     browser
 
       .loginUsingModal('freetrial@stage.podverse.fm')
