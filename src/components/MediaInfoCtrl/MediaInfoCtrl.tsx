@@ -253,7 +253,7 @@ class MediaInfoCtrl extends Component<Props, State> {
 
     return (
       <MediaInfo
-        censorNSFWText={censorNSFWText}
+        censorNSFWText={censorNSFWText === 'true' || !censorNSFWText}
         episode={episode}
         handleAddToQueueLast={() => this.addToQueue(null, true)}
         handleAddToQueueNext={() => this.addToQueue(null, false)}
