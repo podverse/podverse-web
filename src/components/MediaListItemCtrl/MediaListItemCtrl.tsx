@@ -109,7 +109,7 @@ class MediaListItemCtrl extends Component<Props, State> {
 
     return (
       <MediaListItem
-        censorNSFWText={censorNSFWText}
+        censorNSFWText={censorNSFWText === 'true' || !censorNSFWText}
         dataNowPlayingItem={nowPlayingItem}
         dataPlaylist={playlist}
         dataPodcast={podcast}

@@ -102,7 +102,7 @@ class MediaHeaderCtrl extends Component<Props, State> {
 
     return (
       <MediaHeader
-        censorNSFWText={censorNSFWText}
+        censorNSFWText={censorNSFWText === 'true' || !censorNSFWText}
         episode={episode}
         handleLinkClick={this.linkClick}
         handleToggleSubscribe={this.toggleSubscribe}
