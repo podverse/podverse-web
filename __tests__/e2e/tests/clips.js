@@ -16,7 +16,7 @@ module.exports = {
       .waitForXpathPresent('//div[contains(text(), "Amet aliquam id diam maecenas ultricies mi eget.")]')
       .testSharedMetaTags()
       .testPageMetaTags(
-        `Podverse - Create podcast highlights. Sync your podcasts across iOS, Android, and web. Open source technology.`,
+        `Clips`,
         `Podcast app for iOS, Android, and web. Create and share podcast highlights and playlists. Sync your queue across all devices. Open source software.`
       )
 

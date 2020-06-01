@@ -95,14 +95,14 @@ class MediaHeaderCtrl extends Component<Props, State> {
 
   render() {
     const { episode, mediaRef, nowPlayingItem, podcast, settings, user } = this.props
-    const { nsfwLabelsHide } = settings
+    const { censorNSFWText, nsfwLabelsHide } = settings
     const { subscribedPodcastIds } = user
     const { isSubscribing } = this.state
-    
     const podcastId = this.getPodcastId(episode, mediaRef, nowPlayingItem, podcast)
 
     return (
       <MediaHeader
+        censorNSFWText={censorNSFWText}
         episode={episode}
         handleLinkClick={this.linkClick}
         handleToggleSubscribe={this.toggleSubscribe}

@@ -1,5 +1,12 @@
 import { actionTypes } from '~/redux/constants'
 
+export const settingsCensorNSFWText = payload => {
+  return {
+    type: actionTypes.SETTINGS_CENSOR_NSFW_TEXT,
+    payload
+  }
+}
+
 export const settingsHideFilterButton = payload => {
   return {
     type: actionTypes.SETTINGS_SET_HIDE_FILTER_BUTTON,
@@ -31,13 +38,6 @@ export const settingsHidePlaybackSpeedButton = payload => {
 export const settingsHideTimeJumpBackwardButton = payload => {
   return {
     type: actionTypes.SETTINGS_SET_HIDE_TIME_JUMP_BACKWARD_BUTTON,
-    payload
-  }
-}
-
-export const settingsHideUITheme = payload => {
-  return {
-    type: actionTypes.SETTINGS_SET_HIDE_UI_THEME,
     payload
   }
 }
