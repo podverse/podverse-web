@@ -36,6 +36,7 @@ type Props = {
   playerQueueLoadSecondaryItems: any
   playlist: any
   playlistItems: any[]
+  settings?: any
   sortedNowPlayingItems
   user: any
   userSetInfo: any
@@ -392,7 +393,8 @@ class Playlist extends Component<Props, State> {
   }
 
   render() {
-    const { errorCode, mediaPlayer, meta, pageKey, user } = this.props
+    const { errorCode, mediaPlayer, meta, pageKey, settings, user } = this.props
+    const { censorNSFWText } = settings
 
     if (errorCode) {
       return <Error statusCode={errorCode} />
@@ -560,20 +562,20 @@ class Playlist extends Component<Props, State> {
           }
           {
             isEditing &&
-            <div className='media-info__description-edit'>
-              <Input
-                innerRef={this.inputDescription}
-                name='playlist__description'
-                onChange={this.handleDescriptionInputChange}
-                placeholder='description'
-                type='textarea'
-                value={newDescription} />
-            </div>
+              <div className='media-info__description-edit'>
+                <Input
+                  innerRef={this.inputDescription}
+                  name='playlist__description'
+                  onChange={this.handleDescriptionInputChange}
+                  placeholder='description'
+                  type='textarea'
+                  value={newDescription} />
+              </div>
           }
           {
             (!isEditing && description) &&
               <div className='media-info__description'>
-                {description}
+                {description ? description.sanitize(censorNSFWText) : ''}
               </div>
           }
           {
