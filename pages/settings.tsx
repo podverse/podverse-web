@@ -10,9 +10,9 @@ import CheckoutModal from '~/components/CheckoutModal/CheckoutModal'
 import { DeleteAccountModal } from '~/components/DeleteAccountModal/DeleteAccountModal'
 import { alertPremiumRequired, alertRateLimitError, alertSomethingWentWrong, convertToYYYYMMDDHHMMSS,
   isBeforeDate, validateEmail, safeAlert } from '~/lib/utility'
-import { modalsSignUpShow, pageIsLoading, settingsHideFilterButton, settingsHideNSFWLabels,
-  settingsHideNSFWMode, settingsHidePlaybackSpeedButton, settingsHideTimeJumpBackwardButton,
-  settingsHideUITheme, userSetInfo } from '~/redux/actions'
+import { modalsSignUpShow, pageIsLoading, settingsCensorNSFWText, settingsHideFilterButton,
+  settingsHideNSFWLabels, settingsHideNSFWMode, settingsHidePlaybackSpeedButton,
+  settingsHideTimeJumpBackwardButton, userSetInfo } from '~/redux/actions'
 import { downloadLoggedInUserData, updateLoggedInUser } from '~/services'
 import config from '~/config'
 const { BASE_URL } = config()
@@ -25,12 +25,12 @@ type Props = {
   modalsSignUpShow?: any
   pageKey?: string
   settings?: any
+  settingsCensorNSFWText?: any
   settingsHideFilterButton?: any
   settingsHideNSFWMode?: any
   settingsHideTimeJumpBackwardButton?: any
   settingsHidePlaybackSpeedButton?: any
   settingsHideNSFWLabels?: any
-  settingsHideUITheme?: any
   user?: any
   userSetInfo?: any
 }
@@ -181,6 +181,22 @@ class Settings extends Component<Props, State> {
     settingsHideNSFWLabels(`${val}`)
   }
 
+  handleToggleCensorNSFWText = event => {
+    const { settingsCensorNSFWText } = this.props
+    const isChecked = event.currentTarget.checked
+    const val = isChecked ? true : false
+
+    const expires = new Date()
+    expires.setDate(expires.getDate() + 365)
+    const c = cookie.serialize('censorNSFWText', val, {
+      expires,
+      path: '/'
+    })
+    document.cookie = c
+
+    settingsCensorNSFWText(`${val}`)
+  }
+
   handleToggleNSFWMode = event => {
     const { settingsHideNSFWMode } = this.props
     const isChecked = event.currentTarget.checked
@@ -227,22 +243,6 @@ class Settings extends Component<Props, State> {
     document.cookie = c
 
     settingsHideTimeJumpBackwardButton(`${val}`)
-  }
-
-  handleToggleUITheme = event => {
-    const { settingsHideUITheme } = this.props
-    const isChecked = event.currentTarget.checked
-    const val = isChecked ? true : false
-
-    const expires = new Date()
-    expires.setDate(expires.getDate() + 365)
-    const uiThemeHideCookie = cookie.serialize('uiThemeHide', val, {
-      expires,
-      path: '/'
-    })
-    document.cookie = uiThemeHideCookie
-
-    settingsHideUITheme(`${val}`)
   }
 
   validateProfileData = () => {
@@ -310,8 +310,8 @@ class Settings extends Component<Props, State> {
   
   render() {
     const { meta, settings, user } = this.props
-    const { filterButtonHide, nsfwLabelsHide, playbackSpeedButtonHide,
-      timeJumpBackwardButtonHide, uiThemeHide } = settings
+    const { censorNSFWText, filterButtonHide, nsfwLabelsHide, playbackSpeedButtonHide,
+      timeJumpBackwardButtonHide } = settings
     const { email, emailError, isCheckoutOpen, isDeleteAccountOpen, isDownloading,
       isPublic, isSaving, name, wasCopied } = this.state
     const isLoggedIn = user && !!user.id
@@ -339,11 +339,11 @@ class Settings extends Component<Props, State> {
           title={meta.title}
           twitterDescription={meta.description}
           twitterTitle={meta.title} />
+        <h3>Settings</h3>
         <Form>
           {
             isLoggedIn &&
             <Fragment>
-                <h3>Settings</h3>
                 <FormGroup>
                   <Label for='settings-name'>Name</Label>
                   <Input 
@@ -386,7 +386,7 @@ class Settings extends Component<Props, State> {
                   </Input>
                   {
                     isPublic ?
-                      <FormText>Podcasts, clips, and playlists are visible on your profile page.</FormText>
+                      <FormText>Podcasts, clips, and playlists are visible on your profile page</FormText>
                       : <FormText>Your profile page is hidden. Your Public clips are still accessible by anyone,
                         and your Only with Link clips and playlists are still accessible to anyone with the URL.</FormText>
                   }
@@ -493,7 +493,25 @@ class Settings extends Component<Props, State> {
               }
             </Fragment>
           }
-          <h3>Settings</h3>
+          <h3>Interface</h3>
+          <FormGroup check>
+            <Label className='checkbox-label' check>
+              <Input
+                checked={censorNSFWText === 'true' || !censorNSFWText}
+                onChange={this.handleToggleCensorNSFWText}
+                type="checkbox" />
+              &nbsp;&nbsp;Censor NSFW text
+            </Label>
+          </FormGroup>
+          <FormGroup check>
+            <Label className='checkbox-label' check>
+              <Input
+                checked={nsfwLabelsHide === 'true' || !nsfwLabelsHide}
+                onChange={this.handleToggleNSFWLabels}
+                type="checkbox" />
+              &nbsp;&nbsp;Hide NSFW labels
+            </Label>
+          </FormGroup>
           <FormGroup check>
             <Label className='checkbox-label' check>
               <Input
@@ -519,24 +537,6 @@ class Settings extends Component<Props, State> {
                 onChange={this.handleToggleFilterButton}
                 type="checkbox" />
               &nbsp;&nbsp;Hide filter buttons
-            </Label>
-          </FormGroup>
-          <FormGroup check>
-            <Label className='checkbox-label' check>
-              <Input
-                checked={uiThemeHide !== 'false' && !!uiThemeHide}
-                onChange={this.handleToggleUITheme}
-                type="checkbox" />
-              &nbsp;&nbsp;Hide Dark mode switch in footer
-            </Label>
-          </FormGroup>
-          <FormGroup check>
-            <Label className='checkbox-label' check>
-              <Input
-                checked={nsfwLabelsHide === 'true' || !nsfwLabelsHide}
-                onChange={this.handleToggleNSFWLabels}
-                type="checkbox" />
-              &nbsp;&nbsp;Hide NSFW Labels
             </Label>
           </FormGroup>
           {
@@ -586,12 +586,12 @@ const mapStateToProps = state => ({ ...state })
 
 const mapDispatchToProps = dispatch => ({
   modalsSignUpShow: bindActionCreators(modalsSignUpShow, dispatch),
+  settingsCensorNSFWText: bindActionCreators(settingsCensorNSFWText, dispatch),
   settingsHideFilterButton: bindActionCreators(settingsHideFilterButton, dispatch),
   settingsHideNSFWLabels: bindActionCreators(settingsHideNSFWLabels, dispatch),
   settingsHideNSFWMode: bindActionCreators(settingsHideNSFWMode, dispatch),
   settingsHidePlaybackSpeedButton: bindActionCreators(settingsHidePlaybackSpeedButton, dispatch),
   settingsHideTimeJumpBackwardButton: bindActionCreators(settingsHideTimeJumpBackwardButton, dispatch),
-  settingsHideUITheme: bindActionCreators(settingsHideUITheme, dispatch),
   userSetInfo: bindActionCreators(userSetInfo, dispatch)
 })
 

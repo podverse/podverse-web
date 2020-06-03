@@ -32,6 +32,7 @@ type Props = {
   pagesSetQueryState?: any
   playerQueueLoadPriorityItems?: any
   podcast?: any
+  settings?: any
   showDescription?: boolean
   user?: any
   userSetInfo?: any
@@ -246,11 +247,13 @@ class MediaInfoCtrl extends Component<Props, State> {
   }
 
   render() {
-    const { episode, initialShowDescription, mediaRef, nowPlayingItem, podcast, user } = this.props
+    const { episode, initialShowDescription, mediaRef, nowPlayingItem, podcast, settings, user } = this.props
     const userId = user && user.id
+    const { censorNSFWText } = settings
 
     return (
       <MediaInfo
+        censorNSFWText={censorNSFWText === 'true' || !censorNSFWText}
         episode={episode}
         handleAddToQueueLast={() => this.addToQueue(null, true)}
         handleAddToQueueNext={() => this.addToQueue(null, false)}

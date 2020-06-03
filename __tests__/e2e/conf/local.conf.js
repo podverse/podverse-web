@@ -3,7 +3,9 @@
 
 require('dotenv').config()
 
-const timeoutOverride = parseInt(process.env.TEST_TIMEOUT_OVERRIDE) || 5000
+const { BROWSERSTACK } = require('../constants')
+const globalHooks = require('../hooks')
+const timeoutOverride = parseInt(process.env.TEST_TIMEOUT_OVERRIDE) || 10000
 
 const nightwatch_config = {
   src_folders : [ "__tests__/e2e/tests" ],
@@ -25,10 +27,12 @@ const nightwatch_config = {
         'browserstack.key': process.env.BROWSERSTACK_ACCESS_KEY || 'BROWSERSTACK_ACCESS_KEY',
         'browserstack.debug': true,
         'browserstack.local': true,
-        'browser': 'chrome'
+        'browser': 'chrome',
+        'browserstack.localIdentifier': BROWSERSTACK.BROWSERSTACK_LOCAL_IDENTIFER
       },
       "globals": {
-        "waitForConditionTimeout": timeoutOverride
+        "waitForConditionTimeout": timeoutOverride,
+        ...globalHooks
       }
     }
   }

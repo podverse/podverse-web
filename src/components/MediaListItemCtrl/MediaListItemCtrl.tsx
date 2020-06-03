@@ -33,6 +33,7 @@ type Props = {
   profileUser?: any
   queryFrom?: string
   queryType?: string
+  settings?: any
   showMoreMenu?: boolean
   showRemove?: boolean
   user?: any
@@ -102,11 +103,13 @@ class MediaListItemCtrl extends Component<Props, State> {
 
   render() {
     const { handleRemoveItem, handlePlayItem, hideDescription, hideDivider, isActive,
-      mediaListItemType, nowPlayingItem, playlist, podcast, profileUser, showMoreMenu,
+      mediaListItemType, nowPlayingItem, playlist, podcast, profileUser, settings, showMoreMenu,
       showRemove } = this.props
-    
+    const { censorNSFWText } = settings
+
     return (
       <MediaListItem
+        censorNSFWText={censorNSFWText === 'true' || !censorNSFWText}
         dataNowPlayingItem={nowPlayingItem}
         dataPlaylist={playlist}
         dataPodcast={podcast}

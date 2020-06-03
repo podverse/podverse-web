@@ -2,6 +2,9 @@
 
 require('dotenv').config()
 
+const globalHooks = require('../hooks')
+const timeoutOverride = parseInt(process.env.TEST_TIMEOUT_OVERRIDE) || 10000
+
 const nightwatch_config = {
   src_folders : [ "__tests__/e2e/tests" ],
 
@@ -24,6 +27,10 @@ const nightwatch_config = {
         'os': 'Windows',
         'os_version': '10',
         'browser': 'chrome',
+      },
+      "globals": {
+        "waitForConditionTimeout": timeoutOverride,
+        ...globalHooks
       }
     }
   },

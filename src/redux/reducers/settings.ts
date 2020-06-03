@@ -3,6 +3,11 @@ import { actionTypes } from '~/redux/constants'
 export default (state = {}, action) => {
 
   switch (action.type) {
+    case actionTypes.SETTINGS_CENSOR_NSFW_TEXT:
+      return {
+        ...state,
+        censorNSFWText: action.payload
+      }
     case actionTypes.SETTINGS_SET_HIDE_FILTER_BUTTON:
       return {
         ...state,
@@ -13,7 +18,7 @@ export default (state = {}, action) => {
         ...state,
         nsfwLabelsHide: action.payload
       }
-      case actionTypes.SETTINGS_SET_HIDE_NSFW_MODE:
+    case actionTypes.SETTINGS_SET_HIDE_NSFW_MODE:
       return {
         ...state,
         nsfwModeHide: action.payload
