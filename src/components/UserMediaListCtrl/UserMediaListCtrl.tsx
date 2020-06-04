@@ -103,6 +103,7 @@ class UserMediaListCtrl extends Component<Props, State> {
         const podcasts = response.data
 
         handleSetPageQueryState({
+          ...newState,
           pageKey,
           listItems: podcasts[0],
           listItemsTotal: podcasts[1]
@@ -139,6 +140,7 @@ class UserMediaListCtrl extends Component<Props, State> {
         }
 
         handleSetPageQueryState({
+          ...newState,
           pageKey,
           listItems: nowPlayingItems,
           listItemsTotal: mediaRefs[1]
@@ -158,6 +160,7 @@ class UserMediaListCtrl extends Component<Props, State> {
         const playlists = response.data
 
         handleSetPageQueryState({
+          ...newState,
           pageKey,
           listItems: playlists[0],
           listItemsTotal: playlists[1]
@@ -167,6 +170,7 @@ class UserMediaListCtrl extends Component<Props, State> {
       }
     } else {
       handleSetPageQueryState({
+        ...newState,
         pageKey,
         listItems: [],
         listItemsTotal: 0
@@ -365,14 +369,14 @@ class UserMediaListCtrl extends Component<Props, State> {
         <Fragment>
           {
             listItemNodes && listItemNodes.length > 0 &&
-            <div className={queryType === 'playlists' ? 'reduced-margin' : ''}>
-              {listItemNodes}
-              <Pagination
-                currentPage={queryPage || 1}
-                handleQueryPage={this.handleQueryPage}
-                pageRange={2}
-                totalPages={Math.ceil(listItemsTotal / QUERY_MEDIA_REFS_LIMIT)} />
-            </div>
+              <div className={queryType === 'playlists' ? 'reduced-margin' : ''}>
+                {listItemNodes}
+                <Pagination
+                  currentPage={queryPage || 1}
+                  handleQueryPage={this.handleQueryPage}
+                  pageRange={2}
+                  totalPages={Math.ceil(listItemsTotal / QUERY_MEDIA_REFS_LIMIT)} />
+              </div>
           }
         </Fragment> 
         {
