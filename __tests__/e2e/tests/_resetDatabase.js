@@ -3,7 +3,7 @@ const { WEB_ORIGIN } = require('../constants')
 module.exports = {
   before: function (browser) {
     browser
-      .resetDatabase()
+      ._resetDatabase()
       .url(`${WEB_ORIGIN}/`)
   },
   'Reset Database': function (browser) {
