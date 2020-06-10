@@ -20,6 +20,8 @@ module.exports = {
         `Podcast app for iOS, Android, and web. Create and share podcast highlights and playlists. Sync your queue across all devices. Open source software.`
       )
 
+      .checkFilter(`JSJ 420: OpenAPI, Redoc, and API Documentation with Adam Altman`)
+
       .waitForElementWithText(dropdownSelector, 'All Podcasts')
       .waitForElementWithText(rightDropdownSelector, 'top - past week')
 
