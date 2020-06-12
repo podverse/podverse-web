@@ -20,6 +20,8 @@ module.exports = {
         `Podcast app for iOS, Android, and web. Create and share podcast highlights and playlists. Sync your queue across all devices. Open source software.`
       )
 
+      .checkFilter('Quam elementum pulvinar etiam non quam lacus suspendisse.')
+
       .waitForElementWithText(dropdownSelector, 'All Podcasts')
       .waitForElementWithText(rightDropdownSelector, 'top - past week')
 
