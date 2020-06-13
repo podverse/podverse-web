@@ -22,6 +22,11 @@ module.exports = {
 
       .checkFilter(`JSJ 420: OpenAPI, Redoc, and API Documentation with Adam Altman`)
 
+      .scrollToSelector(`.pv-pagination`)
+      .clickByXpath(`//button[@class="page-link"][contains (text(), "3")]`)
+      .waitForXpathPresent('//div[@class="media-list-item-a__title"][contains(text(), "183 JSJ Should I go to college?")]')
+      .refresh()
+
       .waitForElementWithText(dropdownSelector, 'All Podcasts')
       .waitForElementWithText(rightDropdownSelector, 'top - past week')
 

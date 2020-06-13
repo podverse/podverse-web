@@ -18,6 +18,12 @@ module.exports = {
 
       .checkFilter('Quam elementum pulvinar etiam non quam lacus suspendisse.')
 
+      .scrollToSelector(`.pv-pagination`)
+      .clickByXpath(`//button[@class="page-link"][contains (text(), "3")]`)
+      .waitForXpathPresent('//div[@class="media-list-item-a__title"][contains(text(), "Tellus elementum sagittis vitae et.")]')
+
+      .refresh()
+
       .scrollToSelector(mediaListSelectsSelector)
       .clickDropdownToggleAndItem(`All Podcasts`, `Subscribed`)
 
