@@ -497,7 +497,7 @@ class Settings extends Component<Props, State> {
           <FormGroup check>
             <Label className='checkbox-label' check>
               <Input
-                checked={censorNSFWText === 'true' || !censorNSFWText}
+                checked={censorNSFWText === 'true'}
                 onChange={this.handleToggleCensorNSFWText}
                 type="checkbox" />
               &nbsp;&nbsp;Censor NSFW text
