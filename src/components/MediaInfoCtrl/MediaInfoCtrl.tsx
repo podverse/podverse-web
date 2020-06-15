@@ -73,7 +73,7 @@ class MediaInfoCtrl extends Component<Props, State> {
       mediaPlayerLoadNowPlayingItem(nowPlayingItem)
       setNowPlayingItemInStorage(nowPlayingItem)
 
-      if (setPosition && nowPlayingItem && nowPlayingItem.clipStartTime) {
+      if (window.player && setPosition && nowPlayingItem && nowPlayingItem.clipStartTime) {
         window.player.seekTo(Math.floor(nowPlayingItem.clipStartTime))
       }
 

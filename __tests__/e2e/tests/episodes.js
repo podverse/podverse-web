@@ -3,8 +3,8 @@ const { WEB_ORIGIN } = require('../constants')
 const mediaListSelectsSelector = `.media-list__selects`
 const dropdownSelector = `.transparent.dropdown-toggle.btn.btn-secondary`
 const rightDropdownSelector = `.media-list-selects__right ${dropdownSelector}`
-const subLeftDropdownSelector = `.media-list-selects__left-and-right .media-list__sub-select.dropdown`
-const subRightDropdownSelector = `.media-list-selects__left-and-right .media-list__sub-select.align-right-2.dropdown`
+const subLeftDropdownSelector = `.media-list-selects__inline .media-list__sub-select.dropdown`
+const subRightDropdownSelector = `.media-list-selects__inline .media-list__sub-select.dropdown`
 
 module.exports = {
   before: function (browser) {
@@ -21,6 +21,11 @@ module.exports = {
       )
 
       .checkFilter(`JSJ 420: OpenAPI, Redoc, and API Documentation with Adam Altman`)
+
+      .scrollToSelector(`.pv-pagination`)
+      .clickByXpath(`//button[@class="page-link"][contains (text(), "3")]`)
+      .waitForXpathPresent('//div[@class="media-list-item-a__title"][contains(text(), "183 JSJ Should I go to college?")]')
+      .refresh()
 
       .waitForElementWithText(dropdownSelector, 'All Podcasts')
       .waitForElementWithText(rightDropdownSelector, 'top - past week')

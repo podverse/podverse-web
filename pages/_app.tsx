@@ -175,11 +175,6 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
           type: actionTypes.SETTINGS_CENSOR_NSFW_TEXT,
           payload: parsedCookie.censorNSFWText
         })
-      } else {
-        ctx.store.dispatch({
-          type: actionTypes.SETTINGS_CENSOR_NSFW_TEXT,
-          payload: 'true'
-        })
       }
 
       if (parsedCookie.nsfwLabelsHide) {

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 const { WEB_ORIGIN } = require('../constants')
 
 module.exports = {
