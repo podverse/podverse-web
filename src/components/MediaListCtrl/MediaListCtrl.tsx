@@ -674,7 +674,7 @@ class MediaListCtrl extends Component<Props, State> {
     const sortOptions = this.getQuerySortOptions(includeOldest, !!episodeId && queryType === 'clips' && queryFrom === 'from-episode')
     const selectedQuerySortOption = sortOptions.filter(x => x.value === querySort)
 
-    const noResultsFoundMsg = !user || !user.id ?
+    const noResultsFoundMsg = (!user || !user.id) && queryFrom === 'subscribed-only' ?
     `Login to view your subscriptions` :
       `No ${queryType === 'episodes' ? 'episodes' : 'clips'} found`
 
