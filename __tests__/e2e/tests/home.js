@@ -15,6 +15,7 @@ module.exports = {
         `Podverse - Create podcast highlights. Sync your podcasts across iOS, Android, and web. Open source technology.`,
         `Podcast app for iOS, Android, and web. Create and share podcast highlights and playlists. Sync your queue across all devices. Open source software.`
       )
+      .checkCurrentMedia(`Recode Decode`, `podcast`)
 
       .checkFilter('Quam elementum pulvinar etiam non quam lacus suspendisse.')
 

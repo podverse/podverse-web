@@ -9,6 +9,7 @@ module.exports = {
   'Podcast Tests': function (browser) {
     browser
       .waitForElementWithText('span.media-header__title', 'Very Bad Wizards')
+      .checkCurrentMedia(`Episode 185: The Devil's Playground`, `episode`)
 
       .scrollToSelector(mediaListSelectsSelector)
       .clickDropdownToggleAndItem(`Episodes`, `Clips`)
