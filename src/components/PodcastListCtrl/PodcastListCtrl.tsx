@@ -284,7 +284,7 @@ class PodcastListCtrl extends Component<Props, State> {
     })
 
     const categorySelectNodes: any[] = []
-    const selectedCategory = categoryItems.find(x => x.value === selectedCategoryId) || categoryItems[2] // Arts category
+    const selectedCategory = categoryItems.find(x => x.value === selectedCategoryId) || categoryItems[3] // Arts category
 
     if (selectedCategory) {
       const topLevelCategoryItems = categoryItems.filter(x => x.parentValue === null)
@@ -313,7 +313,6 @@ class PodcastListCtrl extends Component<Props, State> {
         )
         categorySelectNodes.push(
           <MediaListSelect
-            className='align-right-2'
             items={subcategoryItems}
             key='category-select-2' />
         )
@@ -331,7 +330,6 @@ class PodcastListCtrl extends Component<Props, State> {
 
         categorySelectNodes.push(
           <MediaListSelect
-            className='align-right-2'
             items={subcategoryItems}
             key='category-select-4'
             selected={selectedCategory.value} />
@@ -418,7 +416,7 @@ class PodcastListCtrl extends Component<Props, State> {
           </div>
         </div>
         <div className='media-list__selects'>
-          <div className='media-list-selects__left-and-right'>
+          <div className='media-list-selects__inline'>
             {queryFrom === 'from-category' && bottomSelectNodes}
           </div>
         </div>

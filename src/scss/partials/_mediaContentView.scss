@@ -61,14 +61,17 @@
       }
     }
 
-    .media-list-selects__left-and-right {
+    .media-list-selects__inline {
       display: flex;
       flex: 1 1 auto;
       flex-direction: row;
-      justify-content: space-between;
 
       .dropdown {
         flex: 0 0 auto;
+      }
+
+      .dropdown:first-child {
+        margin-right: 1.375rem;
       }
     }
 
