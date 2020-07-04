@@ -78,6 +78,7 @@
     "cookie": "0.4.0",
     "core-js": "3.6.5",
     "dotenv": "8.2.0",
+    "es-abstract": "1.17.5",
     "eslint": "6.x",
     "eslint-config-react-app": "5.1.0",
     "eslint-plugin-flowtype": "3.x",
