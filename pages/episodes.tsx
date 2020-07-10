@@ -5,6 +5,7 @@ import { addItemsToSecondaryQueueStorage, clearItemsFromSecondaryQueueStorage } 
 import MediaListCtrl from '~/components/MediaListCtrl/MediaListCtrl'
 import Meta from '~/components/Meta/Meta'
 import config from '~/config'
+import { constants } from '~/lib/constants/misc'
 import { convertToNowPlayingItem } from '~/lib/nowPlayingItem'
 import { clone, cookieGetQuery } from '~/lib/utility'
 import {
@@ -98,7 +99,7 @@ class Episodes extends Component<Props, State> {
     const meta = {
       currentUrl: BASE_URL,
       description: 'Podcast app for iOS, Android, and web. Create and share podcast highlights and playlists. Sync your queue across all devices. Open source software.',
-      title: 'Episodes'
+      title: constants.core.Episodes,
     }
 
     return {
@@ -136,7 +137,7 @@ class Episodes extends Component<Props, State> {
           title={meta.title}
           twitterDescription={meta.description}
           twitterTitle={meta.title} />
-        <h3>Episodes</h3>
+        <h3>{constants.core.Episodes}</h3>
         <MediaListCtrl
           adjustTopPosition
           allCategories={allCategories}

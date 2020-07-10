@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux'
 import Meta from '~/components/Meta/Meta'
 import UserListCtrl from '~/components/UserListCtrl/UserListCtrl'
 import config from '~/config'
+import { constants } from '~/lib/constants/misc'
 import { pageIsLoading, pagesSetQueryState } from '~/redux/actions'
 import { getPublicUsersByQuery } from '~/services'
 const { BASE_URL } = config()
@@ -51,7 +52,7 @@ class Profiles extends Component<Props, State> {
     const meta = {
       currentUrl: BASE_URL + '/profiles',
       description: `My subscribed profiles on Podverse`,
-      title: `Profiles`
+      title: constants.core.Profiles
     }
 
     return { lastScrollPosition, meta, pageKey: kPageKey, user }
@@ -72,7 +73,7 @@ class Profiles extends Component<Props, State> {
           title={meta.title}
           twitterDescription={meta.description}
           twitterTitle={meta.title} />
-        <h3>Profiles</h3>
+        <h3>{constants.core.Profiles}</h3>
         <UserListCtrl
           handleSetPageQueryState={pagesSetQueryState}
           pageKey={pageKey}

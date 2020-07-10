@@ -7,6 +7,7 @@ import Link from 'next/link'
 import Switch from 'react-switch'
 import config from '~/config'
 import colors from '~/lib/constants/colors'
+import { constants } from '~/lib/constants/misc'
 import { getViewContentsElementScrollTop } from '~/lib/utility'
 import { pageIsLoading, pagesSetQueryState, settingsSetNSFWMode, settingsSetUITheme
   } from '~/redux/actions'
@@ -216,7 +217,7 @@ class Footer extends Component<Props, State> {
                 <a
                   className='footer-bottom__link'
                   onClick={this.linkClick}>
-                  Premium
+                  {constants.core.Premium}
                 </a>
               </Link>
             </div>

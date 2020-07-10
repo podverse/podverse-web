@@ -5,6 +5,7 @@ import { MediaListSelect, Pagination, setNowPlayingItemInStorage } from 'podvers
 import { bindActionCreators } from 'redux'
 import MediaListItemCtrl from '~/components/MediaListItemCtrl/MediaListItemCtrl'
 import config from '~/config'
+import { constants } from '~/lib/constants/misc'
 import { convertToNowPlayingItem } from '~/lib/nowPlayingItem'
 import { addOrUpdateHistoryItemPlaybackPosition, assignLocalOrLoggedInNowPlayingItemPlaybackPosition,
   clone } from '~/lib/utility'
@@ -184,17 +185,17 @@ class UserMediaListCtrl extends Component<Props, State> {
     const { isMyProfilePage } = this.props
     return [
       {
-        label: isMyProfilePage ? 'My Podcasts' : 'Podcasts',
+        label: isMyProfilePage ? 'My Podcasts' : constants.core.Podcasts,
         onClick: () => this.queryMediaListItems('type', 'podcasts'),
         value: 'podcasts',
       },
       {
-        label: isMyProfilePage ? 'My Clips' : 'Clips',
+        label: isMyProfilePage ? constants.core.MyClips : constants.core.Clips,
         onClick: () => this.queryMediaListItems('type', 'clips'),
         value: 'clips',
       },
       {
-        label: isMyProfilePage ? 'My Playlists' : 'Playlists',
+        label: isMyProfilePage ? 'My Playlists' : constants.core.Playlists,
         onClick: () => this.queryMediaListItems('type', 'playlists'),
         value: 'playlists'
       }

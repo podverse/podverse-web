@@ -75,3 +75,23 @@ export const getPlaybackRateNextValue = num => {
 }
 
 export const internetConnectivityErrorMessage = 'Error: Please check your internet connection and try again later.'
+
+export const constants = {
+  core: {
+    Podcasts: 'Podcasts',
+    Episodes: 'Episodes',
+    Clips: 'Clips',
+    Playlists: 'Playlists',
+    Profiles: 'Profiles',
+    MyProfile: 'My Profile',
+    MyClips: 'My Clips',
+    Settings: 'Settings',
+    Premium: 'Premium',
+    PremiumFreeTrial: 'Premium (Free Trial)',
+    Login:  'Login'
+
+  },
+  pages: {
+    Home: {}
+  }
+}

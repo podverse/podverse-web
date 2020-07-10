@@ -16,6 +16,7 @@ import { mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying, pageIsLoading,
   playerQueueLoadSecondaryItems, userSetInfo } from '~/redux/actions'
 import { getEpisodesByQuery, getMediaRefsByQuery } from '~/services'
 import AwesomeDebouncePromise from 'awesome-debounce-promise'
+import { constants } from '~/lib/constants/misc'
 const uuidv4 = require('uuid/v4')
 const { QUERY_MEDIA_REFS_LIMIT } = config()
 
@@ -187,12 +188,12 @@ class MediaListCtrl extends Component<Props, State> {
 
     return [
       {
-        label: 'Clips',
+        label: constants.core.Clips,
         onClick: () => this.queryListItems('clips', queryFrom, 'top-past-week', 1, categoryId),
         value: 'clips',
       },
       {
-        label: 'Episodes',
+        label: constants.core.Episodes,
         onClick: () => this.queryListItems(
           'episodes',
           podcastId ? 'from-podcast' : queryFrom,
@@ -456,12 +457,12 @@ class MediaListCtrl extends Component<Props, State> {
 
     return [
       {
-        label: 'Clips',
+        label: constants.core.Clips,
         onClick: () => this.queryListItems('clips', queryFrom, 'top-past-week', 1, categoryId),
         value: 'clips',
       },
       {
-        label: 'Episodes',
+        label: constants.core.Episodes,
         onClick: () => this.queryListItems(
           'episodes',
           podcastId ? 'from-podcast' : queryFrom,

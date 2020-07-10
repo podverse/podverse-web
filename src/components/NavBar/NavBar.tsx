@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Navbar, getPriorityQueueItemsStorage } from 'podverse-ui'
+import { constants } from '~/lib/constants/misc'
 import { getViewContentsElementScrollTop } from '~/lib/utility'
 import { modalsLoginShow, pageIsLoading, pagesClearQueryState, pagesSetQueryState,
   playerQueueLoadPriorityItems, userSetInfo } from '~/redux/actions'
@@ -47,19 +48,19 @@ class PVNavBar extends Component<Props, State> {
       {
         as: '/podcasts',
         href: '/podcasts',
-        label: 'Podcasts',
+        label: constants.core.Podcasts,
         onClick: () => { this.linkClick() }
       },
       {
         as: '/episodes',
         href: '/episodes',
-        label: 'Episodes',
+        label: constants.core.Episodes,
         onClick: () => { this.linkClick() }
       },
       {
         as: '/clips',
         href: '/clips',
-        label: 'Clips',
+        label: constants.core.Clips,
         onClick: () => { this.linkClick() }
       }
     ] as any
@@ -68,7 +69,7 @@ class PVNavBar extends Component<Props, State> {
       items.push({
         as: '',
         href: '',
-        label: 'Login',
+        label: constants.core.Login,
         onClick: () => {
           this.props.modalsLoginShow(true)
           this.setState({
@@ -97,7 +98,7 @@ class PVNavBar extends Component<Props, State> {
       items.push({
         as: '',
         href: '',
-        label: 'Login',
+        label: constants.core.Login,
         onClick: () => {
           this.props.modalsLoginShow(true)
           this.setState({
@@ -120,13 +121,13 @@ class PVNavBar extends Component<Props, State> {
     dropdownItems.push({
       as: '/playlists',
       href: '/playlists',
-      label: 'Playlists',
+      label: constants.core.Playlists,
       onClick: () => { this.linkClick() }
     })
     dropdownItems.push({
       as: '/profiles',
       href: '/profiles',
-      label: 'Profiles',
+      label: constants.core.Profiles,
       onClick: () => { this.linkClick() }
     })
 
@@ -134,7 +135,7 @@ class PVNavBar extends Component<Props, State> {
       dropdownItems.push({
         as: '/my-profile',
         href: '/my-profile',
-        label: 'My Profile',
+        label: constants.core.MyProfile,
         onClick: () => {
           pagesClearQueryState({ pageKey: 'my_profile' })
           pageIsLoading(true)
@@ -143,7 +144,7 @@ class PVNavBar extends Component<Props, State> {
       dropdownItems.push({
         as: '/my-profile?type=clips',
         href: '/my-profile?type=clips',
-        label: 'My Clips',
+        label: constants.core.MyClips,
         onClick: () => {
           pagesClearQueryState({ pageKey: 'my_profile' })
           pageIsLoading(true)
@@ -154,7 +155,7 @@ class PVNavBar extends Component<Props, State> {
     dropdownItems.push({
       as: '/settings',
       href: '/settings',
-      label: 'Settings',
+      label: constants.core.Settings,
       onClick: () => { this.linkClick() }
     })
     
@@ -195,7 +196,7 @@ class PVNavBar extends Component<Props, State> {
       dropdownItems.push({
         as: '/membership',
         href: '/membership',
-        label: 'Premium',
+        label: constants.core.Premium,
         onClick: () => { this.linkClick() }
       })
     }
