@@ -46,11 +46,6 @@
       "git add"
     ]
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
   "dependencies": {
     "@babel/core": "7.7.4",
     "@fortawesome/fontawesome-svg-core": "1.2.25",
