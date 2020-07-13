@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { MediaHeader } from 'podverse-ui'
 import { bindActionCreators } from 'redux'
+import { constants } from '~/lib/constants/misc'
 import { alertPremiumRequired, alertSomethingWentWrong, alertRateLimitError, getViewContentsElementScrollTop,
   safeAlert } from '~/lib/utility'
 import { pageIsLoading, pagesSetQueryState, userSetInfo } from '~/redux/actions'
@@ -40,7 +41,7 @@ class MediaHeaderCtrl extends Component<Props, State> {
       } = this.props
     
     if (!user || !user.id) {
-      safeAlert('Login to subscribe to this podcast.')
+      safeAlert(constants.errors.login.SubscribeToPodcast)
       return
     }
 

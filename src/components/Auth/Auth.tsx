@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { ForgotPasswordModal, LoginModal, SignUpModal } from 'podverse-ui'
-import { internetConnectivityErrorMessage } from '~/lib/constants/misc'
+import { internetConnectivityErrorMessage, constants } from '~/lib/constants/misc'
 import { modalsForgotPasswordIsLoading, modalsForgotPasswordShow, modalsForgotPasswordSetErrorResponse,
   modalsLoginIsLoading, modalsLoginShow, modalsSendVerificationEmailShow, modalsLoginSetErrorResponse,
   modalsSignUpIsLoading, modalsSignUpShow, modalsSignUpSetErrorResponse, userSetInfo,
@@ -70,7 +70,7 @@ class Auth extends Component<Props, State> {
       modalsSendVerificationEmailShow(false)
       modalsForgotPasswordSetErrorResponse(null)
     } catch (error) {
-      console.log('handleSendVerificationEmailSubmit', error)
+      console.log(constants.cookies.handleSendVerificationEmailSubmit, error)
       if (error && error.response && error.response.status === 429) {
         alertRateLimitError(error)
       } else {

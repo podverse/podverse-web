@@ -40,13 +40,13 @@ class Footer extends Component<Props, State> {
   
   handleUIThemeChange = checked => {
     const { settingsSetUITheme } = this.props
-    const uiTheme = checked ? 'dark' : 'light'
+    const uiTheme = checked ? constants.core.dark : constants.core.light
 
     settingsSetUITheme(uiTheme)
 
     const expires = new Date()
     expires.setDate(expires.getDate() + 365)
-    const uiThemeCookie = cookie.serialize('uiTheme', uiTheme, {
+    const uiThemeCookie = cookie.serialize(constants.cookies.uiTheme, uiTheme, {
       expires,
       path: '/'
     })
@@ -54,11 +54,11 @@ class Footer extends Component<Props, State> {
 
     const html = document.querySelector('html')
     if (html) {
-      html.setAttribute('data-theme', uiTheme)
+      html.setAttribute(constants.attributes.data_theme, uiTheme)
       // use .is-switching-ui-mode to prevent ugly transition effects
-      html.setAttribute('is-switching-ui-mode', 'true')
+      html.setAttribute(constants.attributes.is_switching_ui_mode, 'true')
       setTimeout(() => {
-        html.setAttribute('is-switching-ui-mode', '')
+        html.setAttribute(constants.attributes.is_switching_ui_mode, '')
       }, 1000)
     }
   }
@@ -71,7 +71,7 @@ class Footer extends Component<Props, State> {
 
     const expires = new Date()
     expires.setDate(expires.getDate() + 365)
-    const nsfwModeCookie = cookie.serialize('nsfwMode', nsfwMode, {
+    const nsfwModeCookie = cookie.serialize(constants.core.nsfwMode, nsfwMode, {
       expires,
       path: '/'
     })
@@ -99,7 +99,7 @@ class Footer extends Component<Props, State> {
     const { settings } = this.props
     const { uiTheme, uiThemeHide } = settings
 
-    const uiThemeAriaLabel = uiTheme === 'dark' || !uiTheme ? 'Turn on light mode' : 'Turn on dark mode'
+    const uiThemeAriaLabel = uiTheme === constants.core.dark || !uiTheme ? constants.core.TurnOnLight : constants.core.TurnOnDark
 
     return (
       <React.Fragment>
