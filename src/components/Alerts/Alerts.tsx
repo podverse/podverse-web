@@ -58,7 +58,7 @@ class Alerts extends Component<Props, State> {
     const { user } = this.props
     const { emailVerified } = user
     if (user && user.id) {
-      const isVerifyEmailPage = window.location.href.indexOf('verify-email') >= 0
+      const isVerifyEmailPage = window.location.href.indexOf(constants.attributes.verify_email) >= 0
       this.setState({
         isVerifyEmailPage,
         ...(!emailVerified ? { showEmailVerificationNeeded: true } : { showEmailVerificationNeeded: false })
@@ -123,8 +123,8 @@ class Alerts extends Component<Props, State> {
 
     const renewLink = (
       <Link
-        as='/settings#membership'
-        href='/settings'>
+        as={constants.paths.settings_membership}
+        href={constants.paths.settings}>
         <a onClick={this.linkClick}>Renew</a>
       </Link>
     )
@@ -132,7 +132,7 @@ class Alerts extends Component<Props, State> {
     if (showEmailVerificationNeeded && !isVerifyEmailPage) {
       return (
         <Alert
-          color="warning"
+          color={constants.colors.warning}
           fade={false}
           isOpen={showEmailVerificationNeeded}
           toggle={() => this.hideAlert(constants.cookies.showEmailVerificationNeeded)}>
@@ -141,12 +141,12 @@ class Alerts extends Component<Props, State> {
               <Fragment>
                 <p>Email Sent! Please check your inbox.</p>
                 <p>If it does not appear in the next 5 minutes, please check your inbox's Spam or Promotions folders.</p>
-                <span>If it still doesn't appear, please email <a href='mailto:support@podverse.fm'>support@podverse.fm</a> for help.</span>
+                <span>If it still doesn't appear, please email <a href={constants.paths.support_podverse_fm}>support@podverse.fm</a> for help.</span>
               </Fragment>
           }
           {
             !hasSent && isSending &&
-              <span>Email sending... <FontAwesomeIcon icon='spinner' spin /></span>
+              <span>Email sending... <FontAwesomeIcon icon={constants.icons.spinner} spin /></span>
           }
           {
             !hasSent && !isSending &&

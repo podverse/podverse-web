@@ -80,40 +80,6 @@ export const internetConnectivityErrorMessage = 'Error: Please check your intern
 
 export const constants = {
   core: {
-    query: {
-      label:{
-        most_recent: 'most recent',
-        top_past_day: 'top - past day',
-        top_past_week: 'top - past week',
-        top_past_month: 'top - past month',
-        top_past_year: 'top - past year',
-        top_all_time: 'top - all time',
-        random: 'random',
-        Subscribed: 'Subscribed',
-        AllPodcasts: 'All Podcasts',
-        Categories: 'Categories',
-        All: 'All'
-      },
-      from_episode: 'from-episode',
-      from_podcast: 'from-podcast',
-      from_category: 'from-category',
-      all_podcasts: 'all-podcasts',
-      subscribed_only: 'subscribed-only',
-      episodes: 'episodes',
-      clips: 'clips',
-      podcasts: 'podcasts',
-      most_recent: 'most-recent',
-      top_past_day: 'top-past-day',
-      top_past_week: 'top-past-week',
-      top_past_month: 'top-past-month',
-      top_past_year: 'top-past-year',
-      top_all_time: 'top-all-time',
-      random: 'random',
-      chronological: 'chronological',
-      oldest: 'oldest',
-      no_results: 'no-results'
-
-    },
     Podcasts: 'Podcasts',
     Episodes: 'Episodes',
     Clips: 'Clips',
@@ -175,7 +141,39 @@ export const constants = {
     my_profile_clips: '/my-profile?type=clips',
     settings: '/settings',
     membership: '/membership'
+  },
+  query: {
+    label:{
+      most_recent: 'most recent',
+      top_past_day: 'top - past day',
+      top_past_week: 'top - past week',
+      top_past_month: 'top - past month',
+      top_past_year: 'top - past year',
+      top_all_time: 'top - all time',
+      random: 'random',
+      Subscribed: 'Subscribed',
+      AllPodcasts: 'All Podcasts',
+      Categories: 'Categories',
+      All: 'All'
+    },
+    from_episode: 'from-episode',
+    from_podcast: 'from-podcast',
+    from_category: 'from-category',
+    all_podcasts: 'all-podcasts',
+    subscribed_only: 'subscribed-only',
+    episodes: 'episodes',
+    clips: 'clips',
+    podcasts: 'podcasts',
+    most_recent: 'most-recent',
+    top_past_day: 'top-past-day',
+    top_past_week: 'top-past-week',
+    top_past_month: 'top-past-month',
+    top_past_year: 'top-past-year',
+    top_all_time: 'top-all-time',
+    random: 'random',
+    chronological: 'chronological',
+    oldest: 'oldest',
+    no_results: 'no-results'
 
   }
-
 }
