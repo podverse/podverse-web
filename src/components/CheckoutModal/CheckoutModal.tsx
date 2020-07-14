@@ -110,7 +110,7 @@ class CheckoutModal extends React.Component<Props, State> {
             hideCheckoutModal={this.handleHideModal}
             updateStateAfterScriptLoads={this.handleButtonIsNotLoading}
             total={10} />
-          {
+          {/* {
             !buttonIsLoading &&
               <input 
                 alt="Pay with BitPay"
@@ -119,7 +119,7 @@ class CheckoutModal extends React.Component<Props, State> {
                 onClick={this.createBitPayOrder}
                 src="/images/bitpay-btn-pay.svg"
                 type="image" />
-          }
+          } */}
         </div>
       </Modal>
     )
