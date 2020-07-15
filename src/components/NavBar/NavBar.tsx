@@ -39,27 +39,27 @@ class PVNavBar extends Component<Props, State> {
   navItems (isLoggedIn: boolean) {
     const items = [
       {
-        as: '/search',
-        href: '/search',
-        icon: 'search',
+        as: constants.paths.search,
+        href: constants.paths.search,
+        icon: constants.icons.search,
         onClick: () => { this.linkClick() },
         hideMobile: true
       },
       {
-        as: '/podcasts',
-        href: '/podcasts',
+        as: constants.paths.podcasts,
+        href: constants.paths.podcasts,
         label: constants.core.Podcasts,
         onClick: () => { this.linkClick() }
       },
       {
-        as: '/episodes',
-        href: '/episodes',
+        as: constants.paths.episodes,
+        href: constants.paths.episodes,
         label: constants.core.Episodes,
         onClick: () => { this.linkClick() }
       },
       {
-        as: '/clips',
-        href: '/clips',
+        as: constants.paths.clips,
+        href: constants.paths.clips,
         label: constants.core.Clips,
         onClick: () => { this.linkClick() }
       }
@@ -87,9 +87,9 @@ class PVNavBar extends Component<Props, State> {
   mobileNavItems (isLoggedIn: boolean) {
     const items = [
       {
-        as: '/search',
-        href: '/search',
-        icon: 'search',
+        as: constants.paths.search,
+        href: constants.paths.search,
+        icon: constants.icons.search,
         onClick: () => { this.linkClick() }
       }
     ] as any
@@ -119,22 +119,22 @@ class PVNavBar extends Component<Props, State> {
     const dropdownItems = [] as any
 
     dropdownItems.push({
-      as: '/playlists',
-      href: '/playlists',
+      as: constants.paths.playlists,
+      href: constants.paths.playlists,
       label: constants.core.Playlists,
       onClick: () => { this.linkClick() }
     })
     dropdownItems.push({
-      as: '/profiles',
-      href: '/profiles',
+      as: constants.paths.profiles,
+      href: constants.paths.profiles,
       label: constants.core.Profiles,
       onClick: () => { this.linkClick() }
     })
 
     if (!!id) {
       dropdownItems.push({
-        as: '/my-profile',
-        href: '/my-profile',
+        as: constants.paths.my_profile,
+        href: constants.paths.my_profile,
         label: constants.core.MyProfile,
         onClick: () => {
           pagesClearQueryState({ pageKey: 'my_profile' })
@@ -142,8 +142,8 @@ class PVNavBar extends Component<Props, State> {
         }
       })
       dropdownItems.push({
-        as: '/my-profile?type=clips',
-        href: '/my-profile?type=clips',
+        as: constants.paths.my_profile_clips,
+        href: constants.paths.my_profile_clips,
         label: constants.core.MyClips,
         onClick: () => {
           pagesClearQueryState({ pageKey: 'my_profile' })
@@ -153,8 +153,8 @@ class PVNavBar extends Component<Props, State> {
     }
 
     dropdownItems.push({
-      as: '/settings',
-      href: '/settings',
+      as: constants.paths.settings,
+      href: constants.paths.settings,
       label: constants.core.Settings,
       onClick: () => { this.linkClick() }
     })
@@ -163,7 +163,7 @@ class PVNavBar extends Component<Props, State> {
       dropdownItems.push({
         as: '',
         href: '',
-        label: 'Log out',
+        label:  constants.core.Logout,
         onClick: async () => {
           try {
             await logOut()
@@ -194,8 +194,8 @@ class PVNavBar extends Component<Props, State> {
 
     if (!id) {
       dropdownItems.push({
-        as: '/membership',
-        href: '/membership',
+        as: constants.paths.membership,
+        href: constants.paths.membership,
         label: constants.core.Premium,
         onClick: () => { this.linkClick() }
       })

@@ -6,7 +6,7 @@ import { AddToModal, ClipCreatedModal, KEYS, MakeClipModal, QueueModal, ShareMod
   addItemToPriorityQueueStorage, updatePriorityQueueStorage, getPriorityQueueItemsStorage,
   getSecondaryQueueItemsStorage, removeItemFromPriorityQueueStorage,
   removeItemFromSecondaryQueueStorage } from 'podverse-ui'
-import { kPlaybackRate } from '~/lib/constants/misc'
+import { constants, kPlaybackRate } from '~/lib/constants/misc'
 import { alertPremiumRequired, alertSomethingWentWrong, clone, alertRateLimitError, safeAlert } from '~/lib/utility'
 import { mediaPlayerUpdatePlaying, modalsAddToCreatePlaylistIsSaving,
   modalsAddToCreatePlaylistShow, modalsAddToShow, modalsClipCreatedShow, modalsLoginShow, 
@@ -140,7 +140,7 @@ class MediaModals extends Component<Props, State> {
       const playbackRate = localStorage.getItem(kPlaybackRate)
       return playbackRate ? JSON.parse(playbackRate) : 1
     } catch (error) {
-      console.log('getPlaybackRateValue', error)
+      console.log(constants.errors.getPlaybackRateValue, error)
     }
   }
 
@@ -238,8 +238,8 @@ class MediaModals extends Component<Props, State> {
       window.sessionStorage.removeItem(KEYS.inProgressMakeEndTimeKey)
 
     } catch (error) {
-      if (error && error.response && error.response.data && error.response.data.message === 'Premium Membership Required') {
-        safeAlert('Your Premium membership has expired. Renew your membership on the Settings page, or log out to create a clip anonymously.')
+      if (error && error.response && error.response.data && error.response.data.message === constants.errors.premiumRequired) {
+        safeAlert(constants.errors.alerts.premiumRequired)
       } else if (error && error.response && error.response.status === 429) {
         alertRateLimitError(error)
       } else if (error && error.response && error.response.status === 401) {
@@ -264,12 +264,12 @@ class MediaModals extends Component<Props, State> {
 
       pageIsLoading(true)
 
-      const href = `/`
-      const as = `/`
+      const href = constants.paths.home
+      const as = constants.paths.home
       Router.push(href, as)
     } catch (error) {
       console.log(error)
-      safeAlert('Delete clip failed. Please check your internet connection and try again later.')
+      safeAlert(constants.errors.alerts.deleteClipFailed)
     }
     
     this.setState({ makeClipIsDeleting: false })
@@ -396,7 +396,7 @@ class MediaModals extends Component<Props, State> {
           playerQueueLoadPriorityItems(priorityItems)
         } catch (error) {
           console.log(error)
-          safeAlert('Could not update queue on server. Please check your internet connection.')
+          safeAlert(constants.errors.alerts.couldNotUpdateQueue)
         }
       } else {
         removeItemFromPriorityQueueStorage(clipId, episodeId)

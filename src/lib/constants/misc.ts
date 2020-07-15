@@ -1,3 +1,5 @@
+import membership from "pages/membership"
+
 const routeApps = {
   ADMIN: '/admin',
   DEV: '/dev',
@@ -78,20 +80,125 @@ export const internetConnectivityErrorMessage = 'Error: Please check your intern
 
 export const constants = {
   core: {
-    Podcasts: 'Podcasts',
-    Episodes: 'Episodes',
     Clips: 'Clips',
-    Playlists: 'Playlists',
-    Profiles: 'Profiles',
-    MyProfile: 'My Profile',
+    Episodes: 'Episodes',
+    FromThisEpisode: 'From this episode',
+    FromThisPodcast: 'From this podcast',
+    Login:  'Login',
+    Logout: 'Log out',
     MyClips: 'My Clips',
-    Settings: 'Settings',
+    MyProfile: 'My Profile',
+    Playlists: 'Playlists',
+    Podcasts: 'Podcasts',
     Premium: 'Premium',
     PremiumFreeTrial: 'Premium (Free Trial)',
-    Login:  'Login'
-
+    Profiles: 'Profiles',
+    Settings: 'Settings',
+    TurnOnDark: 'Turn on dark mode',
+    TurnOnLight: 'Turn on light mode'
   },
-  pages: {
-    Home: {}
+  attributes: {
+    dark: 'dark',
+    data_theme: 'data-theme',
+    is_switching_ui_mode: 'is-switching-ui-mode',
+    light: 'light',
+    nsfwMode: 'nsfwMode',
+    verify_email: 'verify-email',
+  },
+  colors:{
+    danger: 'danger',
+    warning: 'warning'
+  },
+  cookies: {
+    handleSendVerificationEmailSubmit: 'handleSendVerificationEmailSubmit',
+    showEmailVerificationNeeded: 'showEmailVerificationNeeded',
+    showFreeTrialHasEnded: 'showFreeTrialHasEnded',
+    showFreeTrialWarning: 'showFreeTrialWarning',
+    showMembershipHasEnded: 'showMembershipHasEnded',
+    showMembershipWarning: 'showMembershipWarning',
+    uiTheme: 'uiTheme',
+  },
+  errors: {
+    alerts: {
+      couldNotUpdateQueue: 'Could not update queue on server. Please check your internet connection.',
+      deleteClipFailed: 'Delete clip failed. Please check your internet connection and try again later.',
+      premiumRequired: 'Your Premium membership has expired. Renew your membership on the Settings page, or log out to create a clip anonymously.',
+      somethingWentWrong: 'Something went wrong. Please check your internet connection.'
+    },
+    login: {
+      SubscribeToPodcast: 'Login to subscribe to this podcast.',
+      ViewYourSubscriptions: 'Login to view your subscriptions'
+    },
+    premiumRequired: 'Premium Membership Required',
+    getAutoplayValue: 'getAutoplayValue',
+    getPlaybackRateValue: 'getPlaybackRateValue',
+    
+  },
+  icons: {
+    filter: 'filter',
+    times: 'times',
+    moon: 'moon',
+    search: 'search',
+    spinner: 'spinner',
+    sun: 'sun'
+  },
+  mediaList: {
+    now_playing_clip_from_episode: 'now-playing-item-clip-from-episode',
+    now_playing_clip_from_podcast: 'now-playing-item-clip-from-podcast',
+    now_playing_episode_from_all_podcasts: 'now-playing-item-episode-from-all-podcasts',
+    now_playing_episode_from_podcast: 'now-playing-item-episode-from-podcast',
+    now_playing_item: 'now-playing-item'
+  },
+  paths: {
+    about: '/about',
+    clips: '/clips',
+    episodes: '/episodes',
+    home: '/',
+    license: 'https://www.gnu.org/licenses/agpl-3.0.en.html',
+    membership: '/membership',
+    my_profile_clips: '/my-profile?type=clips',
+    my_profile: '/my-profile',
+    playlists: '/playlists',
+    podcasts: '/podcasts',
+    profiles: '/profiles',
+    search: '/search',
+    faq: '/faq',
+    settings_membership: '/settings#membership',
+    settings: '/settings',
+    support_podverse_fm: 'mailto:support@podverse.fm',
+    terms: '/terms'
+  },
+  query: {
+    label:{
+      All: 'All',
+      AllPodcasts: 'All Podcasts',
+      Categories: 'Categories',
+      most_recent: 'most recent',
+      random: 'random',
+      Subscribed: 'Subscribed',
+      top_all_time: 'top - all time',
+      top_past_day: 'top - past day',
+      top_past_month: 'top - past month',
+      top_past_week: 'top - past week',
+      top_past_year: 'top - past year'
+    },
+    all_podcasts: 'all-podcasts',
+    chronological: 'chronological',
+    clips: 'clips',
+    episodes: 'episodes',
+    from_category: 'from-category',
+    from_episode: 'from-episode',
+    from_podcast: 'from-podcast',
+    most_recent: 'most-recent',
+    no_results: 'no-results',
+    oldest: 'oldest',
+    podcasts: 'podcasts',
+    random: 'random',
+    subscribed_only: 'subscribed-only',
+    top_all_time: 'top-all-time',
+    top_past_day: 'top-past-day',
+    top_past_month: 'top-past-month',
+    top_past_week: 'top-past-week',
+    top_past_year: 'top-past-year'
   }
 }

@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { Alert } from 'reactstrap'
 import { bindActionCreators } from 'redux'
 import Link from 'next/link'
+import { constants } from '~/lib/constants/misc'
 import { getCookie, getViewContentsElementScrollTop, isBeforeDate } from '~/lib/utility'
 import { modalsSendVerificationEmailShow, pageIsLoading, pagesSetQueryState } from '~/redux/actions'
 const cookie = require('cookie')
@@ -43,10 +44,10 @@ class Alerts extends Component<Props, State> {
 
     if (!oldProps.user.id && newProps.user.id || !newProps.user.id) {
       const cookies = {
-        showFreeTrialHasEnded: getCookie('showFreeTrialHasEnded'),
-        showFreeTrialWarning: getCookie('showFreeTrialWarning'),
-        showMembershipHasEnded: getCookie('showMembershipHasEnded'),
-        showMembershipWarning: getCookie('showMembershipWarning'),
+        showFreeTrialHasEnded: getCookie(constants.cookies.showFreeTrialHasEnded),
+        showFreeTrialWarning: getCookie(constants.cookies.showFreeTrialWarning),
+        showMembershipHasEnded: getCookie(constants.cookies.showMembershipHasEnded),
+        showMembershipWarning: getCookie(constants.cookies.showMembershipWarning),
       }
             
       this.setState(this.generateStateObject(newProps.user, cookies))
@@ -57,7 +58,7 @@ class Alerts extends Component<Props, State> {
     const { user } = this.props
     const { emailVerified } = user
     if (user && user.id) {
-      const isVerifyEmailPage = window.location.href.indexOf('verify-email') >= 0
+      const isVerifyEmailPage = window.location.href.indexOf(constants.attributes.verify_email) >= 0
       this.setState({
         isVerifyEmailPage,
         ...(!emailVerified ? { showEmailVerificationNeeded: true } : { showEmailVerificationNeeded: false })
@@ -122,8 +123,8 @@ class Alerts extends Component<Props, State> {
 
     const renewLink = (
       <Link
-        as='/settings#membership'
-        href='/settings'>
+        as={constants.paths.settings_membership}
+        href={constants.paths.settings}>
         <a onClick={this.linkClick}>Renew</a>
       </Link>
     )
@@ -131,21 +132,21 @@ class Alerts extends Component<Props, State> {
     if (showEmailVerificationNeeded && !isVerifyEmailPage) {
       return (
         <Alert
-          color="warning"
+          color={constants.colors.warning}
           fade={false}
           isOpen={showEmailVerificationNeeded}
-          toggle={() => this.hideAlert('showEmailVerificationNeeded')}>
+          toggle={() => this.hideAlert(constants.cookies.showEmailVerificationNeeded)}>
           {
             hasSent &&
               <Fragment>
                 <p>Email Sent! Please check your inbox.</p>
                 <p>If it does not appear in the next 5 minutes, please check your inbox's Spam or Promotions folders.</p>
-                <span>If it still doesn't appear, please email <a href='mailto:support@podverse.fm'>support@podverse.fm</a> for help.</span>
+                <span>If it still doesn't appear, please email <a href={constants.paths.support_podverse_fm}>support@podverse.fm</a> for help.</span>
               </Fragment>
           }
           {
             !hasSent && isSending &&
-              <span>Email sending... <FontAwesomeIcon icon='spinner' spin /></span>
+              <span>Email sending... <FontAwesomeIcon icon={constants.icons.spinner} spin /></span>
           }
           {
             !hasSent && !isSending &&
@@ -159,40 +160,40 @@ class Alerts extends Component<Props, State> {
     } else if (showFreeTrialHasEnded) {
       return (
         <Alert
-          color="danger"
+          color={constants.colors.danger}
           fade={false}
           isOpen={showFreeTrialHasEnded}
-          toggle={() => this.hideAlert('showFreeTrialHasEnded')}>
+          toggle={() => this.hideAlert(constants.cookies.showFreeTrialHasEnded)}>
           Your free trial has ended. {renewLink} to continue using premium features.
         </Alert>
       )
     } else if (showFreeTrialWarning) {
       return (
         <Alert
-          color="warning"
+          color={constants.colors.warning}
           fade={false}
           isOpen={showFreeTrialWarning}
-          toggle={() => this.hideAlert('showFreeTrialWarning')}>
+          toggle={() => this.hideAlert(constants.cookies.showFreeTrialWarning)}>
           Your free trial will end soon. {renewLink} to continue using premium features.
         </Alert>
       )
     } else if (showMembershipHasEnded) {
       return (
         <Alert
-          color="danger"
+          color={constants.colors.danger}
           fade={false}
           isOpen={showMembershipHasEnded}
-          toggle={() => this.hideAlert('showMembershipHasEnded')}>
+          toggle={() => this.hideAlert(constants.cookies.showMembershipHasEnded)}>
           Your membership has expired. {renewLink} to continue using premium features.
         </Alert>
       )
     } else if (showMembershipWarning) {
       return (
         <Alert
-          color="warning"
+          color={constants.colors.warning}
           fade={false}
           isOpen={showMembershipWarning}
-          toggle={() => this.hideAlert('showMembershipWarning')}>
+          toggle={() => this.hideAlert(constants.cookies.showMembershipWarning)}>
           Your membership will expire soon. {renewLink} to continue using premium features.
         </Alert>
       )

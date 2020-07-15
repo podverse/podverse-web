@@ -112,7 +112,7 @@ class UserMediaListCtrl extends Component<Props, State> {
       } catch (error) {
         console.log(error)
       }
-    } else if (query.type === 'clips') {
+    } else if (query.type === constants.query.clips) {
       try {
         let response: any = {}
         if (isMyProfilePage) {
@@ -191,8 +191,8 @@ class UserMediaListCtrl extends Component<Props, State> {
       },
       {
         label: isMyProfilePage ? constants.core.MyClips : constants.core.Clips,
-        onClick: () => this.queryMediaListItems('type', 'clips'),
-        value: 'clips',
+        onClick: () => this.queryMediaListItems('type', constants.query.clips),
+        value: constants.query.clips,
       },
       {
         label: isMyProfilePage ? 'My Playlists' : constants.core.Playlists,
@@ -309,7 +309,7 @@ class UserMediaListCtrl extends Component<Props, State> {
     
     let mediaListItemType = 'now-playing-item'
     let noResultsMsg = ''
-    if (queryType === 'clips') {
+    if (queryType === constants.query.clips) {
       mediaListItemType = 'now-playing-item'
       noResultsMsg = `No clips found`
     } else if (queryType === 'playlists') {
@@ -322,7 +322,7 @@ class UserMediaListCtrl extends Component<Props, State> {
 
     const listItemNodes = Array.isArray(listItems) ? listItems.map(x => {
       const isActive = () => {
-        if (mpNowPlayingItem && queryType === 'clips') {
+        if (mpNowPlayingItem && queryType === constants.query.clips) {
           if (x.clipId) {
             return x.clipId === mpNowPlayingItem.clipId
           }
@@ -338,11 +338,11 @@ class UserMediaListCtrl extends Component<Props, State> {
           isActive={isActive()}
           key={`media-list-item-${uuidv4()}`}
           mediaListItemType={mediaListItemType}
-          nowPlayingItem={queryType === 'clips' ? x : null}
+          nowPlayingItem={queryType === constants.query.clips ? x : null}
           pageKey={pageKey}
           playlist={queryType === 'playlists' ? x : null}
           podcast={queryType === 'podcasts' ? x : null}
-          showMoreMenu={queryType === 'clips'} />
+          showMoreMenu={queryType === constants.query.clips} />
       )
     }) : []
 

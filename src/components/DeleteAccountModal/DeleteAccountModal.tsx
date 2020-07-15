@@ -2,8 +2,10 @@ import * as React from 'react'
 import * as Modal from 'react-modal'
 import { Button, ButtonGroup, CloseButton } from 'podverse-ui'
 import { Input, Label } from 'reactstrap'
+import { constants } from '~/lib/constants/misc'
 import { checkIfLoadingOnFrontEnd, safeAlert } from '~/lib/utility'
 import { deleteLoggedInUser } from '~/services'
+import { constants } from 'buffer'
 
 type Props = {
   email?: string
@@ -67,7 +69,7 @@ export class DeleteAccountModal extends React.Component<Props, State> {
       window.location.href = '/'
     } catch (error) {
       console.log(error)
-      safeAlert('Something went wrong. Please check your internet connection.')
+      safeAlert(constants.errors.alerts.somethingWentWrong)
     }
   }
 
