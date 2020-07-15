@@ -704,7 +704,7 @@ class MediaListCtrl extends Component<Props, State> {
         </div>
         <div className='media-list__selects'>
           <div className='media-list-selects__inline'>
-            {queryFrom === 'from-category' && !podcastId && !episodeId && this.generateCategorySelectNodes(categoryId)}
+            {queryFrom === constants.query.from_category && !podcastId && !episodeId && this.generateCategorySelectNodes(categoryId)}
           </div>
         </div>
         {
@@ -717,7 +717,7 @@ class MediaListCtrl extends Component<Props, State> {
                   <Button
                     className={filterIsShowing ? '' : 'not-showing'}
                     onClick={this.toggleFilter}>
-                    <FontAwesomeIcon icon='filter' /> filter
+                    <FontAwesomeIcon icon={constants.icons.filter} /> filter
                   </Button>
                 </InputGroupAddon>
                 {
@@ -730,7 +730,7 @@ class MediaListCtrl extends Component<Props, State> {
                       addonType='append'
                       className='media-list-filter__clear-icon'>
                       <Button onClick={this.clearFilterText}>
-                        <FontAwesomeIcon icon='times' />
+                        <FontAwesomeIcon icon={constants.icons.times} />
                       </Button>
                     </InputGroupAddon>
                   </Fragment>  

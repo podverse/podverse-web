@@ -40,7 +40,7 @@ class Footer extends Component<Props, State> {
   
   handleUIThemeChange = checked => {
     const { settingsSetUITheme } = this.props
-    const uiTheme = checked ? constants.core.dark : constants.core.light
+    const uiTheme = checked ? constants.attributes.dark : constants.attributes.light
 
     settingsSetUITheme(uiTheme)
 
@@ -48,7 +48,7 @@ class Footer extends Component<Props, State> {
     expires.setDate(expires.getDate() + 365)
     const uiThemeCookie = cookie.serialize(constants.cookies.uiTheme, uiTheme, {
       expires,
-      path: '/'
+      path: constants.paths.home
     })
     document.cookie = uiThemeCookie
 
@@ -71,9 +71,9 @@ class Footer extends Component<Props, State> {
 
     const expires = new Date()
     expires.setDate(expires.getDate() + 365)
-    const nsfwModeCookie = cookie.serialize(constants.core.nsfwMode, nsfwMode, {
+    const nsfwModeCookie = cookie.serialize(constants.attributes.nsfwMode, nsfwMode, {
       expires,
-      path: '/'
+      path: constants.paths.home
     })
     document.cookie = nsfwModeCookie
 
@@ -99,15 +99,15 @@ class Footer extends Component<Props, State> {
     const { settings } = this.props
     const { uiTheme, uiThemeHide } = settings
 
-    const uiThemeAriaLabel = uiTheme === constants.core.dark || !uiTheme ? constants.core.TurnOnLight : constants.core.TurnOnDark
+    const uiThemeAriaLabel = uiTheme === constants.attributes.dark || !uiTheme ? constants.core.TurnOnLight : constants.core.TurnOnDark
 
     return (
       <React.Fragment>
         <div className='footer'>
           <div className='footer__top'>
             <Link
-              as='/'
-              href='/'>
+              as={constants.paths.home}
+              href={constants.paths.home}>
               <a
                 className='footer-top__brand'
                 onClick={this.linkClick}>
@@ -118,11 +118,11 @@ class Footer extends Component<Props, State> {
               uiThemeHide !== 'true' &&
                 <div className='footer-top__ui-theme'>
                   <span className='footer-top-ui-theme__left'>
-                    <FontAwesomeIcon icon='sun' />&nbsp;
+                    <FontAwesomeIcon icon={constants.icons.sun} />&nbsp;
                   </span>
                   <Switch
                     aria-label={uiThemeAriaLabel}
-                    checked={!uiTheme || uiTheme === 'dark'}
+                    checked={!uiTheme || uiTheme === constants.attributes.dark}
                     checkedIcon
                     height={24}
                     id="ui-theme-switch"
@@ -132,7 +132,7 @@ class Footer extends Component<Props, State> {
                     uncheckedIcon
                     width={40} />
                   <span className='footer-top-ui-theme__right'>
-                    &nbsp;<FontAwesomeIcon icon='moon' />
+                    &nbsp;<FontAwesomeIcon icon={constants.icons.moon} />
                   </span>
                 </div>
             }
@@ -154,8 +154,8 @@ class Footer extends Component<Props, State> {
                 </div>
             } */}
             <Link
-              as='https://www.gnu.org/licenses/agpl-3.0.en.html'
-              href='https://www.gnu.org/licenses/agpl-3.0.en.html'>
+              as={constants.paths.license}
+              href={constants.paths.license}>
               <a 
                 className='footer-top__license'
                 target='_blank'>
@@ -185,8 +185,8 @@ class Footer extends Component<Props, State> {
                 </a>
               </Link> */}
               <Link
-                as='/about'
-                href='/about'>
+                as={constants.paths.about}
+                href={constants.paths.about}>
                 <a
                   className='footer-bottom__link'
                   onClick={this.linkClick}>
@@ -194,8 +194,8 @@ class Footer extends Component<Props, State> {
                 </a>
               </Link>
               <Link
-                as='/terms'
-                href='/terms'>
+                as={constants.paths.terms}
+                href={constants.paths.terms}>
                 <a
                   className='footer-bottom__link'
                   onClick={this.linkClick}>
@@ -203,8 +203,8 @@ class Footer extends Component<Props, State> {
                 </a>
               </Link>
               <Link
-                as='/faq'
-                href='/faq'>
+                as={constants.paths.faq}
+                href={constants.paths.faq}>
                 <a
                   className='footer-bottom__link'
                   onClick={this.linkClick}>
@@ -212,8 +212,8 @@ class Footer extends Component<Props, State> {
                 </a>
               </Link>
               <Link
-                as='/membership'
-                href='/membership'>
+                as={constants.paths.membership}
+                href={constants.paths.membership}>
                 <a
                   className='footer-bottom__link'
                   onClick={this.linkClick}>

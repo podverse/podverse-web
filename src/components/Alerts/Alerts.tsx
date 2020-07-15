@@ -160,7 +160,7 @@ class Alerts extends Component<Props, State> {
     } else if (showFreeTrialHasEnded) {
       return (
         <Alert
-          color="danger"
+          color={constants.colors.danger}
           fade={false}
           isOpen={showFreeTrialHasEnded}
           toggle={() => this.hideAlert(constants.cookies.showFreeTrialHasEnded)}>
@@ -170,7 +170,7 @@ class Alerts extends Component<Props, State> {
     } else if (showFreeTrialWarning) {
       return (
         <Alert
-          color="warning"
+          color={constants.colors.warning}
           fade={false}
           isOpen={showFreeTrialWarning}
           toggle={() => this.hideAlert(constants.cookies.showFreeTrialWarning)}>
@@ -180,7 +180,7 @@ class Alerts extends Component<Props, State> {
     } else if (showMembershipHasEnded) {
       return (
         <Alert
-          color="danger"
+          color={constants.colors.danger}
           fade={false}
           isOpen={showMembershipHasEnded}
           toggle={() => this.hideAlert(constants.cookies.showMembershipHasEnded)}>
@@ -190,7 +190,7 @@ class Alerts extends Component<Props, State> {
     } else if (showMembershipWarning) {
       return (
         <Alert
-          color="warning"
+          color={constants.colors.warning}
           fade={false}
           isOpen={showMembershipWarning}
           toggle={() => this.hideAlert(constants.cookies.showMembershipWarning)}>

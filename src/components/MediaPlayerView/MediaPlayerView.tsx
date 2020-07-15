@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux'
 import { MediaPlayer, popNextFromQueueStorage, setNowPlayingItemInStorage } from 'podverse-ui'
 import { addOrUpdateHistoryItemPlaybackPosition, assignLocalOrLoggedInNowPlayingItemPlaybackPosition,
   generateShareURLs, getPlaybackPositionFromHistory, getViewContentsElementScrollTop } from '~/lib/utility'
-import { kAutoplay, kPlaybackRate, getPlaybackRateText, getPlaybackRateNextValue
+import { constants, kAutoplay, kPlaybackRate, getPlaybackRateText, getPlaybackRateNextValue
   } from '~/lib/constants/misc'
 import { mediaPlayerLoadNowPlayingItem, 
   mediaPlayerSetClipFinished, mediaPlayerSetPlayedAfterClipFinished,
@@ -75,7 +75,7 @@ class MediaPlayerView extends Component<Props, State> {
       const autoplay = localStorage.getItem(kAutoplay)
       return autoplay ? JSON.parse(autoplay) : false
     } catch (error) {
-      console.log('getAutoplayValue', error)
+      console.log(constants.errors.getAutoplayValue, error)
       return false
     }
   }
@@ -89,7 +89,7 @@ class MediaPlayerView extends Component<Props, State> {
       const playbackRate = localStorage.getItem(kPlaybackRate)
       return playbackRate ? JSON.parse(playbackRate) : 1
     } catch (error) {
-      console.log('getPlaybackRateValue', error)
+      console.log(constants.errors.getPlaybackRateValue, error)
     }
   }
 

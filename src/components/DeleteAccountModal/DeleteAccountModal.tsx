@@ -69,7 +69,7 @@ export class DeleteAccountModal extends React.Component<Props, State> {
       window.location.href = '/'
     } catch (error) {
       console.log(error)
-      safeAlert(constants.errors.error_429)
+      safeAlert(constants.errors.alerts.error_429)
     }
   }
 
