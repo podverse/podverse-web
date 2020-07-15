@@ -67,7 +67,7 @@ class CheckoutModal extends React.Component<Props, State> {
         alertRateLimitError(error)
         return
       } else {
-        safeAlert(constants.errors.alerts.error_429)
+        safeAlert(constants.errors.alerts.somethingWentWrong)
       }
     }
   }

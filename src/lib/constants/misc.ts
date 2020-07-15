@@ -122,14 +122,15 @@ export const constants = {
     alerts: {
       couldNotUpdateQueue: 'Could not update queue on server. Please check your internet connection.',
       deleteClipFailed: 'Delete clip failed. Please check your internet connection and try again later.',
-      error_429: 'Something went wrong. Please check your internet connection.',
-      premiumRequired: 'Your Premium membership has expired. Renew your membership on the Settings page, or log out to create a clip anonymously.'
+      premiumRequired: 'Your Premium membership has expired. Renew your membership on the Settings page, or log out to create a clip anonymously.',
+      somethingWentWrong: 'Something went wrong. Please check your internet connection.'
     },
     login: {
       SubscribeToPodcast: 'Login to subscribe to this podcast.',
       ViewYourSubscriptions: 'Login to view your subscriptions'
     },
     premiumRequired: 'Premium Membership Required',
+    getAutoplayValue: 'getAutoplayValue',
     getPlaybackRateValue: 'getPlaybackRateValue',
     
   },
