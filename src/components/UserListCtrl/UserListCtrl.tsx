@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux'
 import { Pagination } from 'podverse-ui'
 import MediaListItemCtrl from '~/components/MediaListItemCtrl/MediaListItemCtrl'
 import config from '~/config'
+import { constants } from '~/lib/constants/misc'
 import { getViewContentsElementScrollTop } from '~/lib/utility'
 import { pageIsLoading, pagesSetQueryState } from '~/redux/actions'
 import { getPublicUsersByQuery } from '~/services'
@@ -96,7 +97,7 @@ class UserListCtrl extends Component<Props, State> {
       )
     })
 
-    const noResultsFoundMsg = !user || !user.id ? `Login to view your profiles` : `No profiles found`
+    const noResultsFoundMsg = !user || !user.id ? constants.errors.login.ViewYourProfiles : constants.errors.alerts.noProfilesFound
 
     return (
       <div className='media-list reduced-margin adjust-top-position'>

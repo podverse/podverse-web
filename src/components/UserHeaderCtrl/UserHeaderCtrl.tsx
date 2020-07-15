@@ -7,6 +7,7 @@ import { Button } from 'podverse-ui'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar as farStar } from '@fortawesome/free-regular-svg-icons'
 import { faStar as fasStar } from '@fortawesome/free-solid-svg-icons'
+import { constants } from '~/lib/constants/misc'
 import { alertPremiumRequired, alertSomethingWentWrong, alertRateLimitError, safeAlert } from '~/lib/utility'
 import { userSetInfo } from '~/redux/actions'
 import { toggleSubscribeToUser } from '~/services'
@@ -44,7 +45,7 @@ class UserHeaderCtrl extends Component<Props, State> {
     const { loggedInUser, profileUser, userSetInfo } = this.props
 
     if (!loggedInUser || !loggedInUser.id) {
-      safeAlert('Login to subscribe to this profile.')
+      safeAlert(constants.errors.login.SubscribeToProfile)
       return
     }
 

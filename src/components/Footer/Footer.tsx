@@ -118,7 +118,7 @@ class Footer extends Component<Props, State> {
               uiThemeHide !== 'true' &&
                 <div className='footer-top__ui-theme'>
                   <span className='footer-top-ui-theme__left'>
-                    <FontAwesomeIcon icon={constants.icons.sun} />&nbsp;
+                    <FontAwesomeIcon icon='sun' />&nbsp;
                   </span>
                   <Switch
                     aria-label={uiThemeAriaLabel}
@@ -132,7 +132,7 @@ class Footer extends Component<Props, State> {
                     uncheckedIcon
                     width={40} />
                   <span className='footer-top-ui-theme__right'>
-                    &nbsp;<FontAwesomeIcon icon={constants.icons.moon} />
+                    &nbsp;<FontAwesomeIcon icon='moon' />
                   </span>
                 </div>
             }

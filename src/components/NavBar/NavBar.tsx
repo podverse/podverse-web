@@ -41,7 +41,7 @@ class PVNavBar extends Component<Props, State> {
       {
         as: constants.paths.search,
         href: constants.paths.search,
-        icon: constants.icons.search,
+        icon: 'search',
         onClick: () => { this.linkClick() },
         hideMobile: true
       },
@@ -89,7 +89,7 @@ class PVNavBar extends Component<Props, State> {
       {
         as: constants.paths.search,
         href: constants.paths.search,
-        icon: constants.icons.search,
+        icon: 'search',
         onClick: () => { this.linkClick() }
       }
     ] as any

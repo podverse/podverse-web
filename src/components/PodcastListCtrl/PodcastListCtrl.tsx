@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { MediaListItem, MediaListSelect, Pagination } from 'podverse-ui'
 import config from '~/config'
+import { constants } from '~/lib/constants/misc'
 import { cookieSetQuery, getViewContentsElementScrollTop } from '~/lib/utility'
 import { pageIsLoading, pagesSetQueryState } from '~/redux/actions'
 import { getPodcastsByQuery } from '~/services'
@@ -70,15 +71,15 @@ class PodcastListCtrl extends Component<Props, State> {
 
     const query: any = {
       page: 1,
-      from: 'all-podcasts',
+      from: constants.query.all_podcasts,
       sort: querySort
     }
 
     const newState: any = {
       pageKey,
       queryPage: 1,
-      queryFrom: 'all-podcasts',
-      selected: 'all-podcasts',
+      queryFrom: constants.query.all_podcasts,
+      selected: constants.query.all_podcasts,
     }
 
     await this.queryPodcasts(query, newState)
@@ -90,7 +91,7 @@ class PodcastListCtrl extends Component<Props, State> {
 
     const query: any = {
       page: 1,
-      from: 'from-category',
+      from: constants.query.from_category,
       sort: querySort,
       categories: categoryId
     }
@@ -98,7 +99,7 @@ class PodcastListCtrl extends Component<Props, State> {
     const newState: any = {
       pageKey,
       queryPage: 1,
-      queryFrom: 'from-category',
+      queryFrom: constants.query.from_category,
       categoryId,
       selected: categoryId
     }
@@ -113,16 +114,16 @@ class PodcastListCtrl extends Component<Props, State> {
 
     const query: any = {
       page: 1,
-      from: 'subscribed-only',
+      from: constants.query.subscribed_only,
       sort: querySort,
       subscribedPodcastIds: subscribedPodcastIds || []
     }
 
     const newState: any = {
       pageKey,
-      queryFrom: 'subscribed-only',
+      queryFrom: constants.query.subscribed_only,
       queryPage: 1,
-      selected: 'subscribed-only',
+      selected: constants.query.subscribed_only,
     }
 
     if (subscribedPodcastIds && subscribedPodcastIds.length < 1) {
@@ -148,8 +149,8 @@ class PodcastListCtrl extends Component<Props, State> {
       page: 1,
       from: queryFrom,
       sort: selectedValue,
-      categories: queryFrom === 'from-category' ? categoryId : null,
-      subscribedPodcastIds: queryFrom === 'subscribed-only' ? subscribedPodcastIds : null
+      categories: queryFrom === constants.query.from_category ? categoryId : null,
+      subscribedPodcastIds: queryFrom === constants.query.subscribed_only ? subscribedPodcastIds : null
     }
 
     const newState: any = {
@@ -171,8 +172,8 @@ class PodcastListCtrl extends Component<Props, State> {
       page,
       from: queryFrom,
       sort: querySort,
-      categories: queryFrom === 'from-category' ? categoryId : null,
-      subscribedPodcastIds: queryFrom === 'subscribed-only' ? subscribedPodcastIds : null
+      categories: queryFrom === constants.query.from_category ? categoryId : null,
+      subscribedPodcastIds: queryFrom === constants.query.subscribed_only ? subscribedPodcastIds : null
     }
 
     const newState: any = {
@@ -188,14 +189,14 @@ class PodcastListCtrl extends Component<Props, State> {
   getQuerySortOptions() {
     return [
       {
-        label: 'alphabetical',
-        onClick: () => this.queryPodcastsSort('alphabetical'),
-        value: 'alphabetical'
+        label: constants.query.label.alphabetical,
+        onClick: () => this.queryPodcastsSort(constants.query.alphabetical),
+        value: constants.query.alphabetical
       },
       {
-        label: 'most recent',
-        onClick: () => this.queryPodcastsSort('most-recent'),
-        value: 'most-recent'
+        label: constants.query.label.most_recent,
+        onClick: () => this.queryPodcastsSort(constants.query.most_recent),
+        value: constants.query.most_recent
       },
       // {
       //   label: 'top - past hour',
@@ -203,34 +204,34 @@ class PodcastListCtrl extends Component<Props, State> {
       //   value: 'top-past-hour'
       // },
       {
-        label: 'top - past day',
-        onClick: () => this.queryPodcastsSort('top-past-day'),
-        value: 'top-past-day'
+        label: constants.query.label.top_past_day,
+        onClick: () => this.queryPodcastsSort(constants.query.top_past_day),
+        value: constants.query.top_past_day
       },
       {
-        label: 'top - past week',
-        onClick: () => this.queryPodcastsSort('top-past-week'),
-        value: 'top-past-week'
+        label: constants.query.label.top_past_week,
+        onClick: () => this.queryPodcastsSort(constants.query.top_past_week),
+        value: constants.query.top_past_week
       },
       {
-        label: 'top - past month',
-        onClick: () => this.queryPodcastsSort('top-past-month'),
-        value: 'top-past-month'
+        label: constants.query.label.top_past_month,
+        onClick: () => this.queryPodcastsSort(constants.query.top_past_month),
+        value: constants.query.top_past_month
       },
       {
-        label: 'top - past year',
-        onClick: () => this.queryPodcastsSort('top-past-year'),
-        value: 'top-past-year'
+        label: constants.query.label.top_past_year,
+        onClick: () => this.queryPodcastsSort(constants.query.top_past_year),
+        value: constants.query.top_past_year
       },
       {
-        label: 'top - all time',
-        onClick: () => this.queryPodcastsSort('top-all-time'),
-        value: 'top-all-time'
+        label: constants.query.label.top_all_time,
+        onClick: () => this.queryPodcastsSort(constants.query.top_all_time),
+        value: constants.query.top_all_time
       },
       {
-        label: 'random',
-        onClick: () => this.queryPodcastsSort('random'),
-        value: 'random'
+        label: constants.query.label.random,
+        onClick: () => this.queryPodcastsSort(constants.query.random),
+        value: constants.query.random
       }
     ]
   }

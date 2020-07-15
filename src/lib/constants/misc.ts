@@ -1,5 +1,3 @@
-import membership from "pages/membership"
-
 const routeApps = {
   ADMIN: '/admin',
   DEV: '/dev',
@@ -87,6 +85,8 @@ export const constants = {
     Login:  'Login',
     Logout: 'Log out',
     MyClips: 'My Clips',
+    MyPlaylists: 'My Playlists',
+    MyPodcasts: 'My Podcasts',
     MyProfile: 'My Profile',
     Playlists: 'Playlists',
     Podcasts: 'Podcasts',
@@ -123,31 +123,33 @@ export const constants = {
       couldNotUpdateQueue: 'Could not update queue on server. Please check your internet connection.',
       deleteClipFailed: 'Delete clip failed. Please check your internet connection and try again later.',
       premiumRequired: 'Your Premium membership has expired. Renew your membership on the Settings page, or log out to create a clip anonymously.',
-      somethingWentWrong: 'Something went wrong. Please check your internet connection.'
+      somethingWentWrong: 'Something went wrong. Please check your internet connection.',
+      noProfilesFound: 'No profiles found'
     },
     login: {
       SubscribeToPodcast: 'Login to subscribe to this podcast.',
-      ViewYourSubscriptions: 'Login to view your subscriptions'
+      SubscribeToProfile: 'Login to subscribe to this profile.',
+      ViewYourSubscriptions: 'Login to view your subscriptions',
+      ViewYourProfiles: 'Login to view your profiles'
     },
     premiumRequired: 'Premium Membership Required',
     getAutoplayValue: 'getAutoplayValue',
     getPlaybackRateValue: 'getPlaybackRateValue',
     
   },
-  icons: {
-    filter: 'filter',
-    times: 'times',
-    moon: 'moon',
-    search: 'search',
-    spinner: 'spinner',
-    sun: 'sun'
-  },
   mediaList: {
+    noResultMsg: {
+      noClipsFound: 'No clips found',
+      noPlaylistsFound: 'No playlists found',
+      noSubscribedPodcastsFound: 'No subscribed podcasts found',
+    },
     now_playing_clip_from_episode: 'now-playing-item-clip-from-episode',
     now_playing_clip_from_podcast: 'now-playing-item-clip-from-podcast',
     now_playing_episode_from_all_podcasts: 'now-playing-item-episode-from-all-podcasts',
     now_playing_episode_from_podcast: 'now-playing-item-episode-from-podcast',
-    now_playing_item: 'now-playing-item'
+    now_playing_item: 'now-playing-item',
+    playlist: 'playlist',
+    podcast: 'podcast'
   },
   paths: {
     about: '/about',
@@ -172,6 +174,7 @@ export const constants = {
     label:{
       All: 'All',
       AllPodcasts: 'All Podcasts',
+      alphabetical: 'alphabetical',
       Categories: 'Categories',
       most_recent: 'most recent',
       random: 'random',
@@ -182,6 +185,7 @@ export const constants = {
       top_past_week: 'top - past week',
       top_past_year: 'top - past year'
     },
+    alphabetical: 'alphabetical',
     all_podcasts: 'all-podcasts',
     chronological: 'chronological',
     clips: 'clips',
@@ -193,6 +197,7 @@ export const constants = {
     no_results: 'no-results',
     oldest: 'oldest',
     podcasts: 'podcasts',
+    playlists: 'playlists',
     random: 'random',
     subscribed_only: 'subscribed-only',
     top_all_time: 'top-all-time',

@@ -146,7 +146,7 @@ class Alerts extends Component<Props, State> {
           }
           {
             !hasSent && isSending &&
-              <span>Email sending... <FontAwesomeIcon icon={constants.icons.spinner} spin /></span>
+              <span>Email sending... <FontAwesomeIcon icon='spinner' spin /></span>
           }
           {
             !hasSent && !isSending &&
