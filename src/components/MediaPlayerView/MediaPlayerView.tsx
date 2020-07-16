@@ -343,11 +343,11 @@ class MediaPlayerView extends Component<Props, State> {
                 playbackRate={playbackRate}
                 playedAfterClipFinished={playedAfterClipFinished}
                 playbackRateText={getPlaybackRateText(playbackRate)}
-                playerClipLinkAs={nowPlayingItem.clipId ? `/clip/${nowPlayingItem.clipId}` : ''}
-                playerClipLinkHref={nowPlayingItem.clipId ? `/clip?id=${nowPlayingItem.clipId}` : ''}
+                playerClipLinkAs={nowPlayingItem.clipId ? `${constants.paths.clip}/${nowPlayingItem.clipId}` : ''}
+                playerClipLinkHref={nowPlayingItem.clipId ? `${constants.paths.clip}?id=${nowPlayingItem.clipId}` : ''}
                 playerClipLinkOnClick={this.linkClick}
-                playerEpisodeLinkAs={`/episode/${nowPlayingItem.episodeId}`}
-                playerEpisodeLinkHref={`/episode?id=${nowPlayingItem.episodeId}`}
+                playerEpisodeLinkAs={`${constants.paths.episode}/${nowPlayingItem.episodeId}`}
+                playerEpisodeLinkHref={`${constants.paths.episode}?id=${nowPlayingItem.episodeId}`}
                 playerEpisodeLinkOnClick={this.linkClick}
                 playing={playing}
                 queuePriorityItems={priorityItems}

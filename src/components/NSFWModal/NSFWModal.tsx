@@ -1,6 +1,7 @@
 import * as React from 'react'
 import * as Modal from 'react-modal'
 import colors from '~/lib/constants/colors'
+import { constants } from '~/lib/constants/misc'
 import { checkIfLoadingOnFrontEnd } from '~/lib/utility'
 
 export interface Props {
@@ -30,7 +31,7 @@ export const NSFWModal: React.StatelessComponent<Props> = props => {
   return (
     <Modal
       appElement={appEl}
-      contentLabel='NSFW Confirm Popup'
+      contentLabel={constants.src.components.NSFWModal}
       isOpen={isOpen}
       onRequestClose={handleHideModal}
       portalClassName='nsfw-confirm-modal over-media-player'
@@ -39,18 +40,18 @@ export const NSFWModal: React.StatelessComponent<Props> = props => {
       {
         isNSFWModeOn &&
           <div>
-          <h3 style={{ color: colors.redDarker }}>NSFW mode on</h3>
-            <p>Refresh your browser to include NSFW content</p>
+          <h3 style={{ color: colors.redDarker }}>{constants.src.components.NSFWModal.NSFWModeOn}</h3>
+            <p>{constants.src.components.NSFWModal.RefreshToIncludeNSFW}</p>
           </div>
       }
       {
         !isNSFWModeOn &&
         <div>
-          <h3 style={{ color: colors.blue }}>SFW mode on</h3>
-          <p>Refresh your browser to hide NSFW content</p>
+          <h3 style={{ color: colors.blue }}>{constants.src.components.NSFWModal.SFWModeOn}</h3>
+          <p>{constants.src.components.NSFWModal.RefreshToHideNSFW}</p>
           <p>
-            Ratings are provided by the podcasters themselves,
-            content may not be safe for your work!
+            {constants.src.components.NSFWModal.RatingsProvidedByPodcasters}
+            {constants.src.components.NSFWModal.ContentMayBeNSFW}
           </p>
         </div>
       }

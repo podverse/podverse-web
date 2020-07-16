@@ -118,7 +118,7 @@ class UserListCtrl extends Component<Props, State> {
             <p>{noResultsFoundMsg}</p>
             {
               user && user.id &&
-                <p>Visit the <Link as='/settings' href='/settings'><a onClick={this.linkClick}>Settings page</a></Link> to make your profile public</p>
+                <p>{constants.src.components.UserListCtrl.VisitThe}<Link as={constants.paths.settings} href={constants.paths.settings}><a onClick={this.linkClick}>{constants.src.components.UserListCtrl.SettingsPage}</a></Link>{constants.src.components.UserListCtrl.MakeProfilePublic}</p>
             }
           </div>
         }

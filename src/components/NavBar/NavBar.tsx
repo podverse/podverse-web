@@ -251,7 +251,7 @@ class PVNavBar extends Component<Props, State> {
           handleLinkClick={this.linkClick}
           handleToggleDropdownMenu={this.handleToggleDropdownMenu}
           handleToggleMobileMenu={this.handleToggleMobileMenu}
-          isDarkMode={uiTheme === 'dark'}
+          isDarkMode={uiTheme === constants.attributes.dark}
           mobileMenuIsOpen={mobileMenuIsOpen}
           mobileNavItems={this.mobileNavItems(!!id)}
           navItems={this.navItems(!!id)} />

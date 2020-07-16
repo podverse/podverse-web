@@ -172,7 +172,7 @@ class Footer extends Component<Props, State> {
                 <a 
                   className='footer-bottom__link'
                   target='_blank'>
-                  Contact
+                  {constants.core.Contact}
                 </a>
               </Link>
               {/* <Link
@@ -190,7 +190,7 @@ class Footer extends Component<Props, State> {
                 <a
                   className='footer-bottom__link'
                   onClick={this.linkClick}>
-                  About
+                  {constants.core.About}
                 </a>
               </Link>
               <Link
@@ -199,7 +199,7 @@ class Footer extends Component<Props, State> {
                 <a
                   className='footer-bottom__link'
                   onClick={this.linkClick}>
-                  Terms
+                  {constants.paths.terms}
                 </a>
               </Link>
               <Link
@@ -208,7 +208,7 @@ class Footer extends Component<Props, State> {
                 <a
                   className='footer-bottom__link'
                   onClick={this.linkClick}>
-                  FAQ
+                  {constants.core.FAQ}
                 </a>
               </Link>
               <Link

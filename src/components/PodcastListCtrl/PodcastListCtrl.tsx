@@ -401,7 +401,7 @@ class PodcastListCtrl extends Component<Props, State> {
 
     const selectedQuerySortOption = this.getQuerySortOptions().filter(x => x.value === querySort)
 
-    const noResultsFoundMsg = !user || !user.id ? `Login to view your subscriptions` : `No podcasts found`
+    const noResultsFoundMsg = !user || !user.id ? constants.errors.login.ViewYourSubscriptions : constants.mediaList.noResultMsg.noPodcastsFound
 
     return (
       <div className={'media-list adjust-top-position'}>
@@ -418,7 +418,7 @@ class PodcastListCtrl extends Component<Props, State> {
         </div>
         <div className='media-list__selects'>
           <div className='media-list-selects__inline'>
-            {queryFrom === 'from-category' && bottomSelectNodes}
+            {queryFrom === constants.query.from_category && bottomSelectNodes}
           </div>
         </div>
         <Fragment>
