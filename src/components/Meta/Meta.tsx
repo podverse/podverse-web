@@ -3,7 +3,6 @@ import Head from 'next/head'
 import { constants } from '~/lib/constants/misc'
 import '~/scss/styles.scss'
 import config from '~/config'
-import { constants } from 'buffer'
 const { metaDefaultImageUrl1200x630 } = config()
 const striptags = require('striptags')
 
