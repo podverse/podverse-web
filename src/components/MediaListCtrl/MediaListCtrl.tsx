@@ -717,7 +717,7 @@ class MediaListCtrl extends Component<Props, State> {
                   <Button
                     className={filterIsShowing ? '' : 'not-showing'}
                     onClick={this.toggleFilter}>
-                    <FontAwesomeIcon icon={constants.icons.filter} /> filter
+                    <FontAwesomeIcon icon='filter' /> filter
                   </Button>
                 </InputGroupAddon>
                 {
@@ -730,7 +730,7 @@ class MediaListCtrl extends Component<Props, State> {
                       addonType='append'
                       className='media-list-filter__clear-icon'>
                       <Button onClick={this.clearFilterText}>
-                        <FontAwesomeIcon icon={constants.icons.times} />
+                        <FontAwesomeIcon icon='times' />
                       </Button>
                     </InputGroupAddon>
                   </Fragment>  

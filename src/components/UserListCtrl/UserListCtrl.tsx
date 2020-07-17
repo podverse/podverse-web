@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux'
 import { Pagination } from 'podverse-ui'
 import MediaListItemCtrl from '~/components/MediaListItemCtrl/MediaListItemCtrl'
 import config from '~/config'
+import { constants } from '~/lib/constants/misc'
 import { getViewContentsElementScrollTop } from '~/lib/utility'
 import { pageIsLoading, pagesSetQueryState } from '~/redux/actions'
 import { getPublicUsersByQuery } from '~/services'
@@ -96,7 +97,7 @@ class UserListCtrl extends Component<Props, State> {
       )
     })
 
-    const noResultsFoundMsg = !user || !user.id ? `Login to view your profiles` : `No profiles found`
+    const noResultsFoundMsg = !user || !user.id ? constants.errors.login.ViewYourProfiles : constants.errors.alerts.noProfilesFound
 
     return (
       <div className='media-list reduced-margin adjust-top-position'>
@@ -117,7 +118,7 @@ class UserListCtrl extends Component<Props, State> {
             <p>{noResultsFoundMsg}</p>
             {
               user && user.id &&
-                <p>Visit the <Link as='/settings' href='/settings'><a onClick={this.linkClick}>Settings page</a></Link> to make your profile public</p>
+                <p>{constants.src.components.UserListCtrl.VisitThe}<Link as={constants.paths.settings} href={constants.paths.settings}><a onClick={this.linkClick}>{constants.src.components.UserListCtrl.SettingsPage}</a></Link>{constants.src.components.UserListCtrl.MakeProfilePublic}</p>
             }
           </div>
         }

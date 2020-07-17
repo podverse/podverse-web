@@ -94,7 +94,7 @@ class CheckoutModal extends React.Component<Props, State> {
     return (
       <Modal
         appElement={appEl}
-        contentLabel='Checkout'
+        contentLabel={constants.src.components.CheckoutModal.CheckoutLabel}
         isOpen={isOpen}
         onRequestClose={this.handleHideModal}
         portalClassName='checkout-modal over-media-player'

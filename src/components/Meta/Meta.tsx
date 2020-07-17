@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import Head from 'next/head'
-import '~/lib/constants/misc'
+import { constants } from '~/lib/constants/misc'
 import '~/scss/styles.scss'
 import config from '~/config'
+import { constants } from 'buffer'
 const { metaDefaultImageUrl1200x630 } = config()
 const striptags = require('striptags')
 
@@ -48,7 +49,7 @@ class Meta extends Component<Props, State> {
         <title>{title}</title>
         <meta charSet='utf-8' />
         <meta name='viewport' content='width=device-width, initial-scale=1' />
-        <meta name='no-email-collection' content='http://www.unspam.com/noemailcollection/' />
+        <meta name='no-email-collection' content={constants.paths.unspam} />
         { robotsNoIndex && <meta name='robots' content='noindex' /> }
         
         {/* Favicons */}

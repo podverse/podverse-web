@@ -139,14 +139,14 @@ class Alerts extends Component<Props, State> {
           {
             hasSent &&
               <Fragment>
-                <p>Email Sent! Please check your inbox.</p>
-                <p>If it does not appear in the next 5 minutes, please check your inbox's Spam or Promotions folders.</p>
-                <span>If it still doesn't appear, please email <a href={constants.paths.support_podverse_fm}>support@podverse.fm</a> for help.</span>
+                <p>{constants.src.components.Alerts.EmailSent}</p>
+                <p>{constants.src.components.Alerts.PleaseCheckInbox}</p>
+                <span>{constants.src.components.Alerts.PleaseEmail}<a href={constants.paths.support_podverse_fm}>{constants.src.components.Alerts.SupportEmail}</a>{constants.src.components.Alerts.ForHelp}</span>
               </Fragment>
           }
           {
             !hasSent && isSending &&
-              <span>Email sending... <FontAwesomeIcon icon={constants.icons.spinner} spin /></span>
+              <span>Email sending... <FontAwesomeIcon icon='spinner' spin /></span>
           }
           {
             !hasSent && !isSending &&

@@ -118,7 +118,7 @@ class Footer extends Component<Props, State> {
               uiThemeHide !== 'true' &&
                 <div className='footer-top__ui-theme'>
                   <span className='footer-top-ui-theme__left'>
-                    <FontAwesomeIcon icon={constants.icons.sun} />&nbsp;
+                    <FontAwesomeIcon icon='sun' />&nbsp;
                   </span>
                   <Switch
                     aria-label={uiThemeAriaLabel}
@@ -132,7 +132,7 @@ class Footer extends Component<Props, State> {
                     uncheckedIcon
                     width={40} />
                   <span className='footer-top-ui-theme__right'>
-                    &nbsp;<FontAwesomeIcon icon={constants.icons.moon} />
+                    &nbsp;<FontAwesomeIcon icon='moon' />
                   </span>
                 </div>
             }
@@ -172,7 +172,7 @@ class Footer extends Component<Props, State> {
                 <a 
                   className='footer-bottom__link'
                   target='_blank'>
-                  Contact
+                  {constants.core.Contact}
                 </a>
               </Link>
               {/* <Link
@@ -190,7 +190,7 @@ class Footer extends Component<Props, State> {
                 <a
                   className='footer-bottom__link'
                   onClick={this.linkClick}>
-                  About
+                  {constants.core.About}
                 </a>
               </Link>
               <Link
@@ -199,7 +199,7 @@ class Footer extends Component<Props, State> {
                 <a
                   className='footer-bottom__link'
                   onClick={this.linkClick}>
-                  Terms
+                  {constants.paths.terms}
                 </a>
               </Link>
               <Link
@@ -208,7 +208,7 @@ class Footer extends Component<Props, State> {
                 <a
                   className='footer-bottom__link'
                   onClick={this.linkClick}>
-                  FAQ
+                  {constants.core.FAQ}
                 </a>
               </Link>
               <Link
