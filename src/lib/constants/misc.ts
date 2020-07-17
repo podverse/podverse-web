@@ -63,7 +63,7 @@ export const constants = {
   },
   attributes: {
     dark: `dark`,
-    // TODO: the linter is throwing errors because these variables
+    // TODO: the linter is throwing errors because these key names
     // are not using camel case, but this is actually a situation where
     // underscore ("snake case") makes sense. Highlight the red error,
     // select the "Quick fix" option, then select the option to
