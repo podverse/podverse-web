@@ -1,3 +1,5 @@
+// NOTE! Save this TODO for last, after all constants are replaced and
+// organized in the misc file.
 // TODO: separate the constants defined in the misc object into their own files.
 // follow the example of the colors file, and after each is setup in its own
 // file and imported/exported here, then run a find and replace to update the
