@@ -1,4 +1,4 @@
-export default {
+export const colors = {
   brandColor: '#2968B1',
   white: '#fff',
   grayLightest: '#eee',

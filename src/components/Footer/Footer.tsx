@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 import Link from 'next/link'
 import Switch from 'react-switch'
 import config from '~/config'
-import colors from '~/lib/constants/colors'
+import PV from '~/lib/constants'
 import { constants } from '~/lib/constants/misc'
 import { getViewContentsElementScrollTop } from '~/lib/utility'
 import { pageIsLoading, pagesSetQueryState, settingsSetNSFWMode, settingsSetUITheme
@@ -126,8 +126,8 @@ class Footer extends Component<Props, State> {
                     checkedIcon
                     height={24}
                     id="ui-theme-switch"
-                    offColor={colors.grayLighter}
-                    onColor={colors.grayDarker}
+                    offColor={PV.colors.grayLighter}
+                    onColor={PV.colors.grayDarker}
                     onChange={this.handleUIThemeChange}
                     uncheckedIcon
                     width={40} />
