@@ -1,6 +1,6 @@
 import * as React from 'react'
 import * as Modal from 'react-modal'
-import colors from '~/lib/constants/colors'
+import PV from '~/lib/constants'
 import { constants } from '~/lib/constants/misc'
 import { checkIfLoadingOnFrontEnd } from '~/lib/utility'
 
@@ -40,14 +40,14 @@ export const NSFWModal: React.StatelessComponent<Props> = props => {
       {
         isNSFWModeOn &&
           <div>
-          <h3 style={{ color: colors.redDarker }}>{constants.src.components.NSFWModal.NSFWModeOn}</h3>
+          <h3 style={{ color: PV.colors.redDarker }}>{constants.src.components.NSFWModal.NSFWModeOn}</h3>
             <p>{constants.src.components.NSFWModal.RefreshToIncludeNSFW}</p>
           </div>
       }
       {
         !isNSFWModeOn &&
         <div>
-          <h3 style={{ color: colors.blue }}>{constants.src.components.NSFWModal.SFWModeOn}</h3>
+          <h3 style={{ color: PV.colors.blue }}>{constants.src.components.NSFWModal.SFWModeOn}</h3>
           <p>{constants.src.components.NSFWModal.RefreshToHideNSFW}</p>
           <p>
             {constants.src.components.NSFWModal.RatingsProvidedByPodcasters}

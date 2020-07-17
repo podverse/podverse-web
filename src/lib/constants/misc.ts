@@ -1,41 +1,3 @@
-const routeApps = {
-  ADMIN: `/admin`,
-  DEV: `/dev`,
-  MAIN: `/main`
-}
-
-export const routeFilePaths = {
-  ADMIN: ``,
-  DEV: ``,
-  MAIN: {
-    CLIP: `${routeApps.MAIN}/clip`,
-    CLIPS: `${routeApps.MAIN}/clips`,
-    EPISODE: `${routeApps.MAIN}/episode`,
-    PLAYLIST: `${routeApps.MAIN}/playlist`,
-    PLAYLISTS: `${routeApps.MAIN}/playlists`,
-    PODCAST: `${routeApps.MAIN}/podcast`,
-    PODCASTS: `${routeApps.MAIN}/podcasts`
-  }
-}
-
-export const routePagePaths = {
-  ADMIN: ``,
-  DEV: ``,
-  MAIN: {
-    CLIP: `/clip`,
-    CLIPS: `/clips`,
-    EPISODE: `/episode`,
-    PLAYLIST: `/playlist`,
-    PLAYLISTS: `/playlists`,
-    PODCAST: `/podcast`,
-    PODCASTS: `/podcasts`
-  }
-}
-
-/* MediaPlayer */
-export const kAutoplay = `mediaPlayerAutoplay`
-export const kPlaybackRate = `mediaPlayerPlaybackRate`
-
 export const getPlaybackRateText = num => {
   switch (num) {
     case 0.5:
@@ -74,8 +36,6 @@ export const getPlaybackRateNextValue = num => {
   }
 }
 
-export const internetConnectivityErrorMessage = `Error: Please check your internet connection and try again later.`
-
 export const constants = {
   core: {
     About: `About`,
@@ -103,6 +63,11 @@ export const constants = {
   },
   attributes: {
     dark: `dark`,
+    // TODO: the linter is throwing errors because these variables
+    // are not using camel case, but this is actually a situation where
+    // underscore ("snake case") makes sense. Highlight the red error,
+    // select the "Quick fix" option, then select the option to
+    // disable the camel case rule for this whole file.
     data_theme: `data-theme`,
     is_switching_ui_mode: `is-switching-ui-mode`,
     light: `light`,
@@ -222,7 +187,11 @@ export const constants = {
         ForHelp: ` for help.`,
         PleaseCheckInbox: `If it does not appear in the next 5 minutes, please check your inbox's Spam or Promotions folders.`,
         PleaseEmail: `If it still doesn't appear, please email `,
-        SupportEmail: `support@podverse.fm`
+        SupportEmail: `support@podverse.fm`,
+        // TODO: replace strings with dynamic values with a constants function,
+        // like YourFreeTrialHasEnded. See Alerts.tsx for an example.
+        // Note how a string is passed in as a parameter to the function and called a "renewLink".
+        YourFreeTrialHasEnded: (renewLink) => `Your free trial has ended. ${renewLink} to continue using premium features.`
       },
       AppLinkWidget: {
         GetItOnGooglePlay: `Get it on Google Play`,
@@ -257,3 +226,10 @@ export const constants = {
     },
   }
 }
+
+// TODO: move these into the constants object, update files where they are used
+// player
+export const kAutoplay = `mediaPlayerAutoplay`
+export const kPlaybackRate = `mediaPlayerPlaybackRate`
+// error message
+export const internetConnectivityErrorMessage = `Error: Please check your internet connection and try again later.`

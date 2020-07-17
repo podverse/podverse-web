@@ -164,7 +164,7 @@ class Alerts extends Component<Props, State> {
           fade={false}
           isOpen={showFreeTrialHasEnded}
           toggle={() => this.hideAlert(constants.cookies.showFreeTrialHasEnded)}>
-          Your free trial has ended. {renewLink} to continue using premium features.
+          {constants.src.components.Alerts.YourFreeTrialHasEnded(renewLink)}
         </Alert>
       )
     } else if (showFreeTrialWarning) {
