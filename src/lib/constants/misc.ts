@@ -188,8 +188,8 @@ export const constants = {
         PleaseCheckInbox: `If it does not appear in the next 5 minutes, please check your inbox's Spam or Promotions folders.`,
         PleaseEmail: `If it still doesn't appear, please email `,
         SupportEmail: `support@podverse.fm`,
-        // TODO: replace strings with dynamic values with a constants function,
-        // like YourFreeTrialHasEnded. See Alerts.tsx for an example.
+        // TODO: replace strings with dynamic values with a constants function
+        // like YourFreeTrialHasEnded below. See Alerts.tsx for an example.
         // Note how a string is passed in as a parameter to the function and called a "renewLink".
         YourFreeTrialHasEnded: (renewLink) => `Your free trial has ended. ${renewLink} to continue using premium features.`
       },
