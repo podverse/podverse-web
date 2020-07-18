@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { ForgotPasswordModal, LoginModal, SignUpModal } from 'podverse-ui'
-import { constants, internetConnectivityErrorMessage } from '~/lib/constants/misc'
+import PV from '~/lib/constants'
 import { modalsForgotPasswordIsLoading, modalsForgotPasswordShow, modalsForgotPasswordSetErrorResponse,
   modalsLoginIsLoading, modalsLoginShow, modalsSendVerificationEmailShow, modalsLoginSetErrorResponse,
   modalsSignUpIsLoading, modalsSignUpShow, modalsSignUpSetErrorResponse, userSetInfo,
@@ -51,7 +51,7 @@ class Auth extends Component<Props, State> {
       if (error && error.response && error.response.status === 429) {
         alertRateLimitError(error)
       } else {
-        const errorMsg = (error.response && error.response.data && error.response.data.message) || internetConnectivityErrorMessage
+        const errorMsg = (error.response && error.response.data && error.response.data.message) || PV.errors.internetConnectivityErrorMessage
         modalsForgotPasswordSetErrorResponse(errorMsg)
       }
     } finally {
@@ -70,11 +70,11 @@ class Auth extends Component<Props, State> {
       modalsSendVerificationEmailShow(false)
       modalsForgotPasswordSetErrorResponse(null)
     } catch (error) {
-      console.log(constants.cookies.handleSendVerificationEmailSubmit, error)
+      console.log(PV.cookies.handleSendVerificationEmailSubmit, error)
       if (error && error.response && error.response.status === 429) {
         alertRateLimitError(error)
       } else {
-        const errorMsg = (error.response && error.response.data && error.response.data.message) || internetConnectivityErrorMessage
+        const errorMsg = (error.response && error.response.data && error.response.data.message) || PV.errors.internetConnectivityErrorMessage
         modalsForgotPasswordSetErrorResponse(errorMsg)
       }
     } finally {
@@ -105,7 +105,7 @@ class Auth extends Component<Props, State> {
       const errorMsg =
         (error.response && error.response.status === 460 && pleaseVerifyMessage) ||
         (error.response && error.response.data && error.response.data.message)
-        || internetConnectivityErrorMessage
+        || PV.errors.internetConnectivityErrorMessage
       modalsLoginSetErrorResponse(errorMsg)
       modalsLoginIsLoading(false)
       userSetInfo({
@@ -138,7 +138,7 @@ class Auth extends Component<Props, State> {
       if (error && error.response && error.response.status === 429) {
         alertRateLimitError(error)
       } else {
-        const errorMsg = (error.response && error.response.data && error.response.data.message) || internetConnectivityErrorMessage
+        const errorMsg = (error.response && error.response.data && error.response.data.message) || PV.errors.internetConnectivityErrorMessage
         modalsSignUpSetErrorResponse(errorMsg)
       }
       userSetInfo({

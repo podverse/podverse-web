@@ -6,7 +6,7 @@ import { AddToModal, ClipCreatedModal, KEYS, MakeClipModal, QueueModal, ShareMod
   addItemToPriorityQueueStorage, updatePriorityQueueStorage, getPriorityQueueItemsStorage,
   getSecondaryQueueItemsStorage, removeItemFromPriorityQueueStorage,
   removeItemFromSecondaryQueueStorage } from 'podverse-ui'
-import { constants, kPlaybackRate } from '~/lib/constants/misc'
+import PV from '~/lib/constants'
 import { alertPremiumRequired, alertSomethingWentWrong, clone, alertRateLimitError, safeAlert } from '~/lib/utility'
 import { mediaPlayerUpdatePlaying, modalsAddToCreatePlaylistIsSaving,
   modalsAddToCreatePlaylistShow, modalsAddToShow, modalsClipCreatedShow, modalsLoginShow, 
@@ -137,10 +137,10 @@ class MediaModals extends Component<Props, State> {
 
   getPlaybackRateValue = () => {
     try {
-      const playbackRate = localStorage.getItem(kPlaybackRate)
+      const playbackRate = localStorage.getItem(PV.player.kPlaybackRate)
       return playbackRate ? JSON.parse(playbackRate) : 1
     } catch (error) {
-      console.log(constants.errors.getPlaybackRateValue, error)
+      console.log(PV.errors.getPlaybackRateValue, error)
     }
   }
 
@@ -238,8 +238,8 @@ class MediaModals extends Component<Props, State> {
       window.sessionStorage.removeItem(KEYS.inProgressMakeEndTimeKey)
 
     } catch (error) {
-      if (error && error.response && error.response.data && error.response.data.message === constants.errors.premiumRequired) {
-        safeAlert(constants.errors.alerts.premiumRequired)
+      if (error && error.response && error.response.data && error.response.data.message === PV.errors.premiumRequired) {
+        safeAlert(PV.errors.alerts.premiumRequired)
       } else if (error && error.response && error.response.status === 429) {
         alertRateLimitError(error)
       } else if (error && error.response && error.response.status === 401) {
@@ -264,12 +264,12 @@ class MediaModals extends Component<Props, State> {
 
       pageIsLoading(true)
 
-      const href = constants.paths.home
-      const as = constants.paths.home
+      const href = PV.paths.home
+      const as = PV.paths.home
       Router.push(href, as)
     } catch (error) {
       console.log(error)
-      safeAlert(constants.errors.alerts.deleteClipFailed)
+      safeAlert(PV.errors.alerts.deleteClipFailed)
     }
     
     this.setState({ makeClipIsDeleting: false })
@@ -396,7 +396,7 @@ class MediaModals extends Component<Props, State> {
           playerQueueLoadPriorityItems(priorityItems)
         } catch (error) {
           console.log(error)
-          safeAlert(constants.errors.alerts.couldNotUpdateQueue)
+          safeAlert(PV.errors.alerts.couldNotUpdateQueue)
         }
       } else {
         removeItemFromPriorityQueueStorage(clipId, episodeId)

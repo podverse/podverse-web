@@ -9,8 +9,29 @@
 // to "PV.###". This PV object for constants is a pattern we're currently
 // using in the mobile app. See the NSFWModal file for an example in podverse-web.
 
+import { attributes } from '~/lib/constants/attributes'
 import { colors } from '~/lib/constants/colors'
+import { cookies } from '~/lib/constants/cookies'
+import { core } from '~/lib/constants/core'
+import { errors } from '~/lib/constants/errors'
+import { mediaList } from '~/lib/constants/mediaList'
+import { getPlaybackRateText, getPlaybackRateNextValue } from '~/lib/constants/misc'
+import { paths } from '~/lib/constants/paths'
+import { player } from '~/lib/constants/player'
+import { query } from '~/lib/constants/query'
+import { src } from '~/lib/constants/src'
 
 export default {
-  colors
+  attributes,
+  colors,
+  cookies,
+  core,
+  errors,
+  getPlaybackRateNextValue,
+  getPlaybackRateText,
+  mediaList,
+  paths,
+  player,
+  query,
+  src
 }

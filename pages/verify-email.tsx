@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import Meta from '~/components/Meta/Meta'
 import config from '~/config'
-import { constants } from '~/lib/constants/misc'
+import PV from '~/lib/constants'
 import { alertRateLimitError } from '~/lib/utility'
 import { modalsLoginShow, modalsSendVerificationEmailShow, pageIsLoading } from '~/redux/actions'
 import { verifyEmail } from '~/services/auth'
@@ -79,7 +79,7 @@ class VerifyEmail extends Component<Props, State> {
               <p>Thank you for verifying! You should now be able to login.</p>
               <p className='font-bolder'>
                 <Link as='/?login' href='/?login'>
-                  <a>{constants.core.Login}</a>
+                  <a>{PV.core.Login}</a>
                 </Link>
               </p>
             </Fragment>

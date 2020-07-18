@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Head from 'next/head'
-import { constants } from '~/lib/constants/misc'
+import PV from '~/lib/constants'
 import '~/scss/styles.scss'
 import config from '~/config'
 const { metaDefaultImageUrl1200x630 } = config()
@@ -48,7 +48,7 @@ class Meta extends Component<Props, State> {
         <title>{title}</title>
         <meta charSet='utf-8' />
         <meta name='viewport' content='width=device-width, initial-scale=1' />
-        <meta name='no-email-collection' content={constants.paths.unspam} />
+        <meta name='no-email-collection' content={PV.paths.unspam} />
         { robotsNoIndex && <meta name='robots' content='noindex' /> }
         
         {/* Favicons */}

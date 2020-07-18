@@ -7,7 +7,7 @@ import { addItemsToSecondaryQueueStorage, clearItemsFromSecondaryQueueStorage } 
 import MediaListCtrl from '~/components/MediaListCtrl/MediaListCtrl'
 import Meta from '~/components/Meta/Meta'
 import config from '~/config'
-import { constants } from '~/lib/constants/misc'
+import PV from '~/lib/constants'
 import { convertToNowPlayingItem } from '~/lib/nowPlayingItem'
 import { clone, cookieGetQuery } from '~/lib/utility'
 import {
@@ -138,7 +138,7 @@ class Home extends Component<Props, State> {
           title={meta.title}
           twitterDescription={meta.description}
           twitterTitle={meta.title} />
-        <h3>{constants.core.Clips}</h3>
+        <h3>{PV.core.Clips}</h3>
         <MediaListCtrl
           adjustTopPosition
           allCategories={allCategories}

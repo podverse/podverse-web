@@ -8,7 +8,7 @@ import { Button } from 'podverse-ui'
 import Meta from '~/components/Meta/Meta'
 import CheckoutModal from '~/components/CheckoutModal/CheckoutModal'
 import { DeleteAccountModal } from '~/components/DeleteAccountModal/DeleteAccountModal'
-import { constants } from '~/lib/constants/misc'
+import PV from '~/lib/constants'
 import { alertPremiumRequired, alertRateLimitError, alertSomethingWentWrong, convertToYYYYMMDDHHMMSS,
   isBeforeDate, validateEmail, safeAlert } from '~/lib/utility'
 import { modalsSignUpShow, pageIsLoading, settingsCensorNSFWText, settingsHideFilterButton,
@@ -65,7 +65,7 @@ class Settings extends Component<Props, State> {
     const meta = {
       currentUrl: BASE_URL + '/settings',
       description: 'Customize your account settings on Podverse.',
-      title: `Podverse - ` + constants.core.Settings
+      title: `Podverse - ` + PV.core.Settings
     }
 
     return { lastScrollPosition, meta, pageKey: kPageKey }
@@ -340,7 +340,7 @@ class Settings extends Component<Props, State> {
           title={meta.title}
           twitterDescription={meta.description}
           twitterTitle={meta.title} />
-        <h3>{constants.core.Settings}</h3>
+        <h3>{PV.core.Settings}</h3>
         <Form>
           {
             isLoggedIn &&
@@ -438,7 +438,7 @@ class Settings extends Component<Props, State> {
                   && isBeforeDate(user.membershipExpiration)) &&
                 <Fragment>
                   {membershipStatusHeader}
-                  <p className='settings-membership__status is-active'>{constants.core.Premium}</p>
+                  <p className='settings-membership__status is-active'>{PV.core.Premium}</p>
                   <p>Ends: {new Date(user.membershipExpiration).toLocaleString()}</p>
                   {checkoutBtn(true)}
                   <hr />
@@ -450,7 +450,7 @@ class Settings extends Component<Props, State> {
                   && isBeforeDate(user.freeTrialExpiration)) &&
                 <Fragment>
                   {membershipStatusHeader}
-                  <p className='settings-membership__status is-active'>{constants.core.PremiumFreeTrial}</p>
+                  <p className='settings-membership__status is-active'>{PV.core.PremiumFreeTrial}</p>
                   <p>Ends: {new Date(user.freeTrialExpiration).toLocaleString()}</p>
                   {checkoutBtn()}
                   <hr />

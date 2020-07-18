@@ -2,7 +2,7 @@ import * as React from 'react'
 import * as Modal from 'react-modal'
 import { Button, ButtonGroup, CloseButton } from 'podverse-ui'
 import { Input, Label } from 'reactstrap'
-import { constants } from '~/lib/constants/misc'
+import PV from '~/lib/constants'
 import { checkIfLoadingOnFrontEnd, safeAlert } from '~/lib/utility'
 import { deleteLoggedInUser } from '~/services'
 import { constants } from 'buffer'
@@ -69,7 +69,7 @@ export class DeleteAccountModal extends React.Component<Props, State> {
       window.location.href = '/'
     } catch (error) {
       console.log(error)
-      safeAlert(constants.errors.alerts.somethingWentWrong)
+      safeAlert(PV.errors.alerts.somethingWentWrong)
     }
   }
 
@@ -81,7 +81,7 @@ export class DeleteAccountModal extends React.Component<Props, State> {
     return (
       <Modal
         appElement={appEl}
-        contentLabel={constants.src.components.DeleteAccountModal.DeleteAccountLabel}
+        contentLabel={PV.src.components.DeleteAccountModal.DeleteAccountLabel}
         isOpen={isOpen}
         onRequestClose={handleHideModal}
         portalClassName='delete-account-modal over-media-player'
@@ -105,14 +105,14 @@ export class DeleteAccountModal extends React.Component<Props, State> {
                 <Button
                   className='delete-account-modal__cancel'
                   onClick={this.handleHideModal}
-                  text={constants.src.components.DeleteAccountModal.Cancel} />
+                  text={PV.src.components.DeleteAccountModal.Cancel} />
                 <Button
                   className='delete-account-modal__submit'
                   color='danger'
                   disabled={!isConfirmed}
                   isLoading={isDeleting}
                   onClick={this.handleDeleteAccount}
-                  text={constants.src.components.DeleteAccountModal.Delete} />
+                  text={PV.src.components.DeleteAccountModal.Delete} />
               </React.Fragment>
             )} />
         </div>

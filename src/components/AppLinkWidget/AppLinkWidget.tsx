@@ -4,7 +4,7 @@ import * as Modal from 'react-modal'
 import { connect } from 'react-redux'
 import { Button, CloseButton } from 'podverse-ui'
 import config from '~/config'
-import { constants } from '~/lib/constants/misc'
+import PV from '~/lib/constants'
 import { checkIfLoadingOnFrontEnd, getMobileOperatingSystem } from '~/lib/utility'
 const { APP_DOWNLOAD_ON_THE_APP_STORE_URL, APP_GET_IT_ON_GOOGLE_PLAY_URL, APP_PROTOCOL } = config()
 
@@ -49,8 +49,8 @@ const createDownloadButton = (mobileOS: string) => {
         rel='noopener noreferrer'
         target='_blank'>
         <img
-          alt={constants.src.components.AppLinkWidget.GetItOnGooglePlay}
-          src={constants.paths.googlePlayStoreBadge}
+          alt={PV.src.components.AppLinkWidget.GetItOnGooglePlay}
+          src={PV.paths.googlePlayStoreBadge}
         />
       </a>
     )
@@ -155,7 +155,7 @@ class AppLinkWidget extends Component<Props, State> {
         </div>
         <Modal
           appElement={appEl}
-          contentLabel={constants.src.components.AppLinkWidget.OpenInTheApp}
+          contentLabel={PV.src.components.AppLinkWidget.OpenInTheApp}
           isOpen={modalIsOpen}
           onRequestClose={this._handleHideModal}
           portalClassName='open-in-the-app-modal over-media-player'
@@ -168,7 +168,7 @@ class AppLinkWidget extends Component<Props, State> {
               className={`open-in-the-app-modal__i-have-the-app ${mobileOS}`}
               onClick={this.handleOpenInApp}
               outline={true}
-              text={constants.src.components.AppLinkWidget.IHaveTheApp} />
+              text={PV.src.components.AppLinkWidget.IHaveTheApp} />
           </div>
           <div className='open-in-the-app-modal__download-app'>
             {downloadButton}

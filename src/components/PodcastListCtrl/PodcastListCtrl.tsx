@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { MediaListItem, MediaListSelect, Pagination } from 'podverse-ui'
 import config from '~/config'
-import { constants } from '~/lib/constants/misc'
+import PV from '~/lib/constants'
 import { cookieSetQuery, getViewContentsElementScrollTop } from '~/lib/utility'
 import { pageIsLoading, pagesSetQueryState } from '~/redux/actions'
 import { getPodcastsByQuery } from '~/services'
@@ -71,15 +71,15 @@ class PodcastListCtrl extends Component<Props, State> {
 
     const query: any = {
       page: 1,
-      from: constants.query.all_podcasts,
+      from: PV.query.all_podcasts,
       sort: querySort
     }
 
     const newState: any = {
       pageKey,
       queryPage: 1,
-      queryFrom: constants.query.all_podcasts,
-      selected: constants.query.all_podcasts,
+      queryFrom: PV.query.all_podcasts,
+      selected: PV.query.all_podcasts,
     }
 
     await this.queryPodcasts(query, newState)
@@ -91,7 +91,7 @@ class PodcastListCtrl extends Component<Props, State> {
 
     const query: any = {
       page: 1,
-      from: constants.query.from_category,
+      from: PV.query.from_category,
       sort: querySort,
       categories: categoryId
     }
@@ -99,7 +99,7 @@ class PodcastListCtrl extends Component<Props, State> {
     const newState: any = {
       pageKey,
       queryPage: 1,
-      queryFrom: constants.query.from_category,
+      queryFrom: PV.query.from_category,
       categoryId,
       selected: categoryId
     }
@@ -114,16 +114,16 @@ class PodcastListCtrl extends Component<Props, State> {
 
     const query: any = {
       page: 1,
-      from: constants.query.subscribed_only,
+      from: PV.query.subscribed_only,
       sort: querySort,
       subscribedPodcastIds: subscribedPodcastIds || []
     }
 
     const newState: any = {
       pageKey,
-      queryFrom: constants.query.subscribed_only,
+      queryFrom: PV.query.subscribed_only,
       queryPage: 1,
-      selected: constants.query.subscribed_only,
+      selected: PV.query.subscribed_only,
     }
 
     if (subscribedPodcastIds && subscribedPodcastIds.length < 1) {
@@ -149,8 +149,8 @@ class PodcastListCtrl extends Component<Props, State> {
       page: 1,
       from: queryFrom,
       sort: selectedValue,
-      categories: queryFrom === constants.query.from_category ? categoryId : null,
-      subscribedPodcastIds: queryFrom === constants.query.subscribed_only ? subscribedPodcastIds : null
+      categories: queryFrom === PV.query.from_category ? categoryId : null,
+      subscribedPodcastIds: queryFrom === PV.query.subscribed_only ? subscribedPodcastIds : null
     }
 
     const newState: any = {
@@ -172,8 +172,8 @@ class PodcastListCtrl extends Component<Props, State> {
       page,
       from: queryFrom,
       sort: querySort,
-      categories: queryFrom === constants.query.from_category ? categoryId : null,
-      subscribedPodcastIds: queryFrom === constants.query.subscribed_only ? subscribedPodcastIds : null
+      categories: queryFrom === PV.query.from_category ? categoryId : null,
+      subscribedPodcastIds: queryFrom === PV.query.subscribed_only ? subscribedPodcastIds : null
     }
 
     const newState: any = {
@@ -189,14 +189,14 @@ class PodcastListCtrl extends Component<Props, State> {
   getQuerySortOptions() {
     return [
       {
-        label: constants.query.label.alphabetical,
-        onClick: () => this.queryPodcastsSort(constants.query.alphabetical),
-        value: constants.query.alphabetical
+        label: PV.query.label.alphabetical,
+        onClick: () => this.queryPodcastsSort(PV.query.alphabetical),
+        value: PV.query.alphabetical
       },
       {
-        label: constants.query.label.most_recent,
-        onClick: () => this.queryPodcastsSort(constants.query.most_recent),
-        value: constants.query.most_recent
+        label: PV.query.label.most_recent,
+        onClick: () => this.queryPodcastsSort(PV.query.most_recent),
+        value: PV.query.most_recent
       },
       // {
       //   label: 'top - past hour',
@@ -204,34 +204,34 @@ class PodcastListCtrl extends Component<Props, State> {
       //   value: 'top-past-hour'
       // },
       {
-        label: constants.query.label.top_past_day,
-        onClick: () => this.queryPodcastsSort(constants.query.top_past_day),
-        value: constants.query.top_past_day
+        label: PV.query.label.top_past_day,
+        onClick: () => this.queryPodcastsSort(PV.query.top_past_day),
+        value: PV.query.top_past_day
       },
       {
-        label: constants.query.label.top_past_week,
-        onClick: () => this.queryPodcastsSort(constants.query.top_past_week),
-        value: constants.query.top_past_week
+        label: PV.query.label.top_past_week,
+        onClick: () => this.queryPodcastsSort(PV.query.top_past_week),
+        value: PV.query.top_past_week
       },
       {
-        label: constants.query.label.top_past_month,
-        onClick: () => this.queryPodcastsSort(constants.query.top_past_month),
-        value: constants.query.top_past_month
+        label: PV.query.label.top_past_month,
+        onClick: () => this.queryPodcastsSort(PV.query.top_past_month),
+        value: PV.query.top_past_month
       },
       {
-        label: constants.query.label.top_past_year,
-        onClick: () => this.queryPodcastsSort(constants.query.top_past_year),
-        value: constants.query.top_past_year
+        label: PV.query.label.top_past_year,
+        onClick: () => this.queryPodcastsSort(PV.query.top_past_year),
+        value: PV.query.top_past_year
       },
       {
-        label: constants.query.label.top_all_time,
-        onClick: () => this.queryPodcastsSort(constants.query.top_all_time),
-        value: constants.query.top_all_time
+        label: PV.query.label.top_all_time,
+        onClick: () => this.queryPodcastsSort(PV.query.top_all_time),
+        value: PV.query.top_all_time
       },
       {
-        label: constants.query.label.random,
-        onClick: () => this.queryPodcastsSort(constants.query.random),
-        value: constants.query.random
+        label: PV.query.label.random,
+        onClick: () => this.queryPodcastsSort(PV.query.random),
+        value: PV.query.random
       }
     ]
   }
@@ -401,7 +401,7 @@ class PodcastListCtrl extends Component<Props, State> {
 
     const selectedQuerySortOption = this.getQuerySortOptions().filter(x => x.value === querySort)
 
-    const noResultsFoundMsg = !user || !user.id ? constants.errors.login.ViewYourSubscriptions : constants.mediaList.noResultMsg.noPodcastsFound
+    const noResultsFoundMsg = !user || !user.id ? PV.errors.login.ViewYourSubscriptions : PV.mediaList.noResultMsg.noPodcastsFound
 
     return (
       <div className={'media-list adjust-top-position'}>
@@ -418,7 +418,7 @@ class PodcastListCtrl extends Component<Props, State> {
         </div>
         <div className='media-list__selects'>
           <div className='media-list-selects__inline'>
-            {queryFrom === constants.query.from_category && bottomSelectNodes}
+            {queryFrom === PV.query.from_category && bottomSelectNodes}
           </div>
         </div>
         <Fragment>
