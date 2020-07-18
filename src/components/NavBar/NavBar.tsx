@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Navbar, getPriorityQueueItemsStorage } from 'podverse-ui'
-import { constants } from '~/lib/constants/misc'
+import PV from '~/lib/constants'
 import { getViewContentsElementScrollTop } from '~/lib/utility'
 import { modalsLoginShow, pageIsLoading, pagesClearQueryState, pagesSetQueryState,
   playerQueueLoadPriorityItems, userSetInfo } from '~/redux/actions'
@@ -39,28 +39,28 @@ class PVNavBar extends Component<Props, State> {
   navItems (isLoggedIn: boolean) {
     const items = [
       {
-        as: constants.paths.search,
-        href: constants.paths.search,
+        as: PV.paths.search,
+        href: PV.paths.search,
         icon: 'search',
         onClick: () => { this.linkClick() },
         hideMobile: true
       },
       {
-        as: constants.paths.podcasts,
-        href: constants.paths.podcasts,
-        label: constants.core.Podcasts,
+        as: PV.paths.podcasts,
+        href: PV.paths.podcasts,
+        label: PV.core.Podcasts,
         onClick: () => { this.linkClick() }
       },
       {
-        as: constants.paths.episodes,
-        href: constants.paths.episodes,
-        label: constants.core.Episodes,
+        as: PV.paths.episodes,
+        href: PV.paths.episodes,
+        label: PV.core.Episodes,
         onClick: () => { this.linkClick() }
       },
       {
-        as: constants.paths.clips,
-        href: constants.paths.clips,
-        label: constants.core.Clips,
+        as: PV.paths.clips,
+        href: PV.paths.clips,
+        label: PV.core.Clips,
         onClick: () => { this.linkClick() }
       }
     ] as any
@@ -69,7 +69,7 @@ class PVNavBar extends Component<Props, State> {
       items.push({
         as: '',
         href: '',
-        label: constants.core.Login,
+        label: PV.core.Login,
         onClick: () => {
           this.props.modalsLoginShow(true)
           this.setState({
@@ -87,8 +87,8 @@ class PVNavBar extends Component<Props, State> {
   mobileNavItems (isLoggedIn: boolean) {
     const items = [
       {
-        as: constants.paths.search,
-        href: constants.paths.search,
+        as: PV.paths.search,
+        href: PV.paths.search,
         icon: 'search',
         onClick: () => { this.linkClick() }
       }
@@ -98,7 +98,7 @@ class PVNavBar extends Component<Props, State> {
       items.push({
         as: '',
         href: '',
-        label: constants.core.Login,
+        label: PV.core.Login,
         onClick: () => {
           this.props.modalsLoginShow(true)
           this.setState({
@@ -119,32 +119,32 @@ class PVNavBar extends Component<Props, State> {
     const dropdownItems = [] as any
 
     dropdownItems.push({
-      as: constants.paths.playlists,
-      href: constants.paths.playlists,
-      label: constants.core.Playlists,
+      as: PV.paths.playlists,
+      href: PV.paths.playlists,
+      label: PV.core.Playlists,
       onClick: () => { this.linkClick() }
     })
     dropdownItems.push({
-      as: constants.paths.profiles,
-      href: constants.paths.profiles,
-      label: constants.core.Profiles,
+      as: PV.paths.profiles,
+      href: PV.paths.profiles,
+      label: PV.core.Profiles,
       onClick: () => { this.linkClick() }
     })
 
     if (!!id) {
       dropdownItems.push({
-        as: constants.paths.my_profile,
-        href: constants.paths.my_profile,
-        label: constants.core.MyProfile,
+        as: PV.paths.my_profile,
+        href: PV.paths.my_profile,
+        label: PV.core.MyProfile,
         onClick: () => {
           pagesClearQueryState({ pageKey: 'my_profile' })
           pageIsLoading(true)
         }
       })
       dropdownItems.push({
-        as: constants.paths.my_profile_clips,
-        href: constants.paths.my_profile_clips,
-        label: constants.core.MyClips,
+        as: PV.paths.my_profile_clips,
+        href: PV.paths.my_profile_clips,
+        label: PV.core.MyClips,
         onClick: () => {
           pagesClearQueryState({ pageKey: 'my_profile' })
           pageIsLoading(true)
@@ -153,9 +153,9 @@ class PVNavBar extends Component<Props, State> {
     }
 
     dropdownItems.push({
-      as: constants.paths.settings,
-      href: constants.paths.settings,
-      label: constants.core.Settings,
+      as: PV.paths.settings,
+      href: PV.paths.settings,
+      label: PV.core.Settings,
       onClick: () => { this.linkClick() }
     })
     
@@ -163,7 +163,7 @@ class PVNavBar extends Component<Props, State> {
       dropdownItems.push({
         as: '',
         href: '',
-        label:  constants.core.Logout,
+        label:  PV.core.Logout,
         onClick: async () => {
           try {
             await logOut()
@@ -194,9 +194,9 @@ class PVNavBar extends Component<Props, State> {
 
     if (!id) {
       dropdownItems.push({
-        as: constants.paths.membership,
-        href: constants.paths.membership,
-        label: constants.core.Premium,
+        as: PV.paths.membership,
+        href: PV.paths.membership,
+        label: PV.core.Premium,
         onClick: () => { this.linkClick() }
       })
     }
@@ -251,7 +251,7 @@ class PVNavBar extends Component<Props, State> {
           handleLinkClick={this.linkClick}
           handleToggleDropdownMenu={this.handleToggleDropdownMenu}
           handleToggleMobileMenu={this.handleToggleMobileMenu}
-          isDarkMode={uiTheme === constants.attributes.dark}
+          isDarkMode={uiTheme === PV.attributes.dark}
           mobileMenuIsOpen={mobileMenuIsOpen}
           mobileNavItems={this.mobileNavItems(!!id)}
           navItems={this.navItems(!!id)} />

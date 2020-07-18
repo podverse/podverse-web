@@ -7,7 +7,6 @@ import Link from 'next/link'
 import Switch from 'react-switch'
 import config from '~/config'
 import PV from '~/lib/constants'
-import { constants } from '~/lib/constants/misc'
 import { getViewContentsElementScrollTop } from '~/lib/utility'
 import { pageIsLoading, pagesSetQueryState, settingsSetNSFWMode, settingsSetUITheme
   } from '~/redux/actions'
@@ -40,25 +39,25 @@ class Footer extends Component<Props, State> {
   
   handleUIThemeChange = checked => {
     const { settingsSetUITheme } = this.props
-    const uiTheme = checked ? constants.attributes.dark : constants.attributes.light
+    const uiTheme = checked ? PV.attributes.dark : PV.attributes.light
 
     settingsSetUITheme(uiTheme)
 
     const expires = new Date()
     expires.setDate(expires.getDate() + 365)
-    const uiThemeCookie = cookie.serialize(constants.cookies.uiTheme, uiTheme, {
+    const uiThemeCookie = cookie.serialize(PV.cookies.uiTheme, uiTheme, {
       expires,
-      path: constants.paths.home
+      path: PV.paths.home
     })
     document.cookie = uiThemeCookie
 
     const html = document.querySelector('html')
     if (html) {
-      html.setAttribute(constants.attributes.data_theme, uiTheme)
+      html.setAttribute(PV.attributes.data_theme, uiTheme)
       // use .is-switching-ui-mode to prevent ugly transition effects
-      html.setAttribute(constants.attributes.is_switching_ui_mode, 'true')
+      html.setAttribute(PV.attributes.is_switching_ui_mode, 'true')
       setTimeout(() => {
-        html.setAttribute(constants.attributes.is_switching_ui_mode, '')
+        html.setAttribute(PV.attributes.is_switching_ui_mode, '')
       }, 1000)
     }
   }
@@ -71,9 +70,9 @@ class Footer extends Component<Props, State> {
 
     const expires = new Date()
     expires.setDate(expires.getDate() + 365)
-    const nsfwModeCookie = cookie.serialize(constants.attributes.nsfwMode, nsfwMode, {
+    const nsfwModeCookie = cookie.serialize(PV.attributes.nsfwMode, nsfwMode, {
       expires,
-      path: constants.paths.home
+      path: PV.paths.home
     })
     document.cookie = nsfwModeCookie
 
@@ -99,15 +98,15 @@ class Footer extends Component<Props, State> {
     const { settings } = this.props
     const { uiTheme, uiThemeHide } = settings
 
-    const uiThemeAriaLabel = uiTheme === constants.attributes.dark || !uiTheme ? constants.core.TurnOnLight : constants.core.TurnOnDark
+    const uiThemeAriaLabel = uiTheme === PV.attributes.dark || !uiTheme ? PV.core.TurnOnLight : PV.core.TurnOnDark
 
     return (
       <React.Fragment>
         <div className='footer'>
           <div className='footer__top'>
             <Link
-              as={constants.paths.home}
-              href={constants.paths.home}>
+              as={PV.paths.home}
+              href={PV.paths.home}>
               <a
                 className='footer-top__brand'
                 onClick={this.linkClick}>
@@ -122,7 +121,7 @@ class Footer extends Component<Props, State> {
                   </span>
                   <Switch
                     aria-label={uiThemeAriaLabel}
-                    checked={!uiTheme || uiTheme === constants.attributes.dark}
+                    checked={!uiTheme || uiTheme === PV.attributes.dark}
                     checkedIcon
                     height={24}
                     id="ui-theme-switch"
@@ -154,8 +153,8 @@ class Footer extends Component<Props, State> {
                 </div>
             } */}
             <Link
-              as={constants.paths.license}
-              href={constants.paths.license}>
+              as={PV.paths.license}
+              href={PV.paths.license}>
               <a 
                 className='footer-top__license'
                 target='_blank'>
@@ -172,7 +171,7 @@ class Footer extends Component<Props, State> {
                 <a 
                   className='footer-bottom__link'
                   target='_blank'>
-                  {constants.core.Contact}
+                  {PV.core.Contact}
                 </a>
               </Link>
               {/* <Link
@@ -185,39 +184,39 @@ class Footer extends Component<Props, State> {
                 </a>
               </Link> */}
               <Link
-                as={constants.paths.about}
-                href={constants.paths.about}>
+                as={PV.paths.about}
+                href={PV.paths.about}>
                 <a
                   className='footer-bottom__link'
                   onClick={this.linkClick}>
-                  {constants.core.About}
+                  {PV.core.About}
                 </a>
               </Link>
               <Link
-                as={constants.paths.terms}
-                href={constants.paths.terms}>
+                as={PV.paths.terms}
+                href={PV.paths.terms}>
                 <a
                   className='footer-bottom__link'
                   onClick={this.linkClick}>
-                  {constants.paths.terms}
+                  {PV.paths.terms}
                 </a>
               </Link>
               <Link
-                as={constants.paths.faq}
-                href={constants.paths.faq}>
+                as={PV.paths.faq}
+                href={PV.paths.faq}>
                 <a
                   className='footer-bottom__link'
                   onClick={this.linkClick}>
-                  {constants.core.FAQ}
+                  {PV.core.FAQ}
                 </a>
               </Link>
               <Link
-                as={constants.paths.membership}
-                href={constants.paths.membership}>
+                as={PV.paths.membership}
+                href={PV.paths.membership}>
                 <a
                   className='footer-bottom__link'
                   onClick={this.linkClick}>
-                  {constants.core.Premium}
+                  {PV.core.Premium}
                 </a>
               </Link>
             </div>

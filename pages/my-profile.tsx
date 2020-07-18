@@ -5,7 +5,7 @@ import Meta from '~/components/Meta/Meta'
 import UserHeaderCtrl from '~/components/UserHeaderCtrl/UserHeaderCtrl'
 import UserMediaListCtrl from '~/components/UserMediaListCtrl/UserMediaListCtrl'
 import config from '~/config'
-import { constants } from '~/lib/constants/misc'
+import PV from '~/lib/constants'
 import { convertToNowPlayingItem } from '~/lib/nowPlayingItem'
 import { clone } from '~/lib/utility'
 import { pageIsLoading, playerQueueLoadSecondaryItems, pagesSetQueryState } from '~/redux/actions'
@@ -82,7 +82,7 @@ class MyProfile extends Component<Props, State> {
     const meta = {
       currentUrl: BASE_URL + '/my-profile',
       description: 'My Podverse Profile. Subscribe to podcasts, playlists, and other profiles',
-      title: constants.core.MyProfile
+      title: PV.core.MyProfile
     }
 
     return { lastScrollPosition, meta, pageKey: kPageKey, user }

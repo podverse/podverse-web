@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { Alert } from 'reactstrap'
 import { bindActionCreators } from 'redux'
 import Link from 'next/link'
-import { constants } from '~/lib/constants/misc'
+import PV from '~/lib/constants'
 import { getCookie, getViewContentsElementScrollTop, isBeforeDate } from '~/lib/utility'
 import { modalsSendVerificationEmailShow, pageIsLoading, pagesSetQueryState } from '~/redux/actions'
 const cookie = require('cookie')
@@ -44,10 +44,10 @@ class Alerts extends Component<Props, State> {
 
     if (!oldProps.user.id && newProps.user.id || !newProps.user.id) {
       const cookies = {
-        showFreeTrialHasEnded: getCookie(constants.cookies.showFreeTrialHasEnded),
-        showFreeTrialWarning: getCookie(constants.cookies.showFreeTrialWarning),
-        showMembershipHasEnded: getCookie(constants.cookies.showMembershipHasEnded),
-        showMembershipWarning: getCookie(constants.cookies.showMembershipWarning),
+        showFreeTrialHasEnded: getCookie(PV.cookies.showFreeTrialHasEnded),
+        showFreeTrialWarning: getCookie(PV.cookies.showFreeTrialWarning),
+        showMembershipHasEnded: getCookie(PV.cookies.showMembershipHasEnded),
+        showMembershipWarning: getCookie(PV.cookies.showMembershipWarning),
       }
             
       this.setState(this.generateStateObject(newProps.user, cookies))
@@ -58,7 +58,7 @@ class Alerts extends Component<Props, State> {
     const { user } = this.props
     const { emailVerified } = user
     if (user && user.id) {
-      const isVerifyEmailPage = window.location.href.indexOf(constants.attributes.verify_email) >= 0
+      const isVerifyEmailPage = window.location.href.indexOf(PV.attributes.verify_email) >= 0
       this.setState({
         isVerifyEmailPage,
         ...(!emailVerified ? { showEmailVerificationNeeded: true } : { showEmailVerificationNeeded: false })
@@ -123,36 +123,36 @@ class Alerts extends Component<Props, State> {
 
     const renewLink = (
       <Link
-        as={constants.paths.settings_membership}
-        href={constants.paths.settings}>
-        <a onClick={this.linkClick}>Renew</a>
+        as={PV.paths.settings_membership}
+        href={PV.paths.settings}>
+        <a onClick={this.linkClick}>{PV.src.components.Alerts.Renew}</a>
       </Link>
     )
 
     if (showEmailVerificationNeeded && !isVerifyEmailPage) {
       return (
         <Alert
-          color={constants.colors.warning}
+          color={PV.colors.warning}
           fade={false}
           isOpen={showEmailVerificationNeeded}
-          toggle={() => this.hideAlert(constants.cookies.showEmailVerificationNeeded)}>
+          toggle={() => this.hideAlert(PV.cookies.showEmailVerificationNeeded)}>
           {
             hasSent &&
               <Fragment>
-                <p>{constants.src.components.Alerts.EmailSent}</p>
-                <p>{constants.src.components.Alerts.PleaseCheckInbox}</p>
-                <span>{constants.src.components.Alerts.PleaseEmail}<a href={constants.paths.support_podverse_fm}>{constants.src.components.Alerts.SupportEmail}</a>{constants.src.components.Alerts.ForHelp}</span>
+                <p>{PV.src.components.Alerts.EmailSent}</p>
+                <p>{PV.src.components.Alerts.PleaseCheckInbox}</p>
+                <span>{PV.src.components.Alerts.PleaseEmail}<a href={PV.paths.support_podverse_fm}>{PV.src.components.Alerts.SupportEmail}</a>{PV.src.components.Alerts.ForHelp}</span>
               </Fragment>
           }
           {
             !hasSent && isSending &&
-              <span>Email sending... <FontAwesomeIcon icon='spinner' spin /></span>
+              <span>{PV.src.components.Alerts.EmailSending}<FontAwesomeIcon icon='spinner' spin /></span>
           }
           {
             !hasSent && !isSending &&
               <Fragment>
-                <p>Please verify your email address to login.</p>
-                <span><a href='#' onClick={this._showSendVerificationEmailModal}>send verification email</a></span>
+                <p>{PV.src.components.Alerts.PleaseVerifyEmail}</p>
+                <span><a href='#' onClick={this._showSendVerificationEmailModal}>{PV.src.components.Alerts.SendVerificationEmail}.</a></span>
               </Fragment>
           }
         </Alert>
@@ -160,41 +160,41 @@ class Alerts extends Component<Props, State> {
     } else if (showFreeTrialHasEnded) {
       return (
         <Alert
-          color={constants.colors.danger}
+          color={PV.colors.danger}
           fade={false}
           isOpen={showFreeTrialHasEnded}
-          toggle={() => this.hideAlert(constants.cookies.showFreeTrialHasEnded)}>
-          {constants.src.components.Alerts.YourFreeTrialHasEnded(renewLink)}
+          toggle={() => this.hideAlert(PV.cookies.showFreeTrialHasEnded)}>
+          {PV.src.components.Alerts.YourFreeTrialHasEnded(renewLink)}
         </Alert>
       )
     } else if (showFreeTrialWarning) {
       return (
         <Alert
-          color={constants.colors.warning}
+          color={PV.colors.warning}
           fade={false}
           isOpen={showFreeTrialWarning}
-          toggle={() => this.hideAlert(constants.cookies.showFreeTrialWarning)}>
-          Your free trial will end soon. {renewLink} to continue using premium features.
+          toggle={() => this.hideAlert(PV.cookies.showFreeTrialWarning)}>
+          {PV.src.components.Alerts.YourFreeTrialWillEndSoon(renewLink)}
         </Alert>
       )
     } else if (showMembershipHasEnded) {
       return (
         <Alert
-          color={constants.colors.danger}
+          color={PV.colors.danger}
           fade={false}
           isOpen={showMembershipHasEnded}
-          toggle={() => this.hideAlert(constants.cookies.showMembershipHasEnded)}>
-          Your membership has expired. {renewLink} to continue using premium features.
+          toggle={() => this.hideAlert(PV.cookies.showMembershipHasEnded)}>
+          {PV.src.components.Alerts.YourMembershipHasExpired(renewLink)}
         </Alert>
       )
     } else if (showMembershipWarning) {
       return (
         <Alert
-          color={constants.colors.warning}
+          color={PV.colors.warning}
           fade={false}
           isOpen={showMembershipWarning}
-          toggle={() => this.hideAlert(constants.cookies.showMembershipWarning)}>
-          Your membership will expire soon. {renewLink} to continue using premium features.
+          toggle={() => this.hideAlert(PV.cookies.showMembershipWarning)}>
+          {PV.src.components.Alerts.YourMembershipWillExpireSoon(renewLink)}
         </Alert>
       )
     } else {

@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { MediaHeader } from 'podverse-ui'
 import { bindActionCreators } from 'redux'
-import { constants } from '~/lib/constants/misc'
+import PV from '~/lib/constants'
 import { alertPremiumRequired, alertSomethingWentWrong, alertRateLimitError, getViewContentsElementScrollTop,
   safeAlert } from '~/lib/utility'
 import { pageIsLoading, pagesSetQueryState, userSetInfo } from '~/redux/actions'
@@ -41,7 +41,7 @@ class MediaHeaderCtrl extends Component<Props, State> {
       } = this.props
     
     if (!user || !user.id) {
-      safeAlert(constants.errors.login.SubscribeToPodcast)
+      safeAlert(PV.errors.login.SubscribeToPodcast)
       return
     }
 

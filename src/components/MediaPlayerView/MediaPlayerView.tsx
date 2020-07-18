@@ -4,8 +4,9 @@ import { bindActionCreators } from 'redux'
 import { MediaPlayer, popNextFromQueueStorage, setNowPlayingItemInStorage } from 'podverse-ui'
 import { addOrUpdateHistoryItemPlaybackPosition, assignLocalOrLoggedInNowPlayingItemPlaybackPosition,
   generateShareURLs, getPlaybackPositionFromHistory, getViewContentsElementScrollTop } from '~/lib/utility'
-import { constants, kAutoplay, kPlaybackRate, getPlaybackRateText, getPlaybackRateNextValue
+import { getPlaybackRateText, getPlaybackRateNextValue
   } from '~/lib/constants/misc'
+import PV from '~/lib/constants'
 import { mediaPlayerLoadNowPlayingItem, 
   mediaPlayerSetClipFinished, mediaPlayerSetPlayedAfterClipFinished,
   playerQueueLoadPriorityItems, playerQueueLoadSecondaryItems,
@@ -72,29 +73,29 @@ class MediaPlayerView extends Component<Props, State> {
 
   getAutoplayValue = () => {
     try {
-      const autoplay = localStorage.getItem(kAutoplay)
+      const autoplay = localStorage.getItem(PV.player.kAutoplay)
       return autoplay ? JSON.parse(autoplay) : false
     } catch (error) {
-      console.log(constants.errors.getAutoplayValue, error)
+      console.log(PV.errors.getAutoplayValue, error)
       return false
     }
   }
 
   setAutoplayValue = (val) => {
-    localStorage.setItem(kAutoplay, val)
+    localStorage.setItem(PV.player.kAutoplay, val)
   }
 
   getPlaybackRateValue = () => {
     try {
-      const playbackRate = localStorage.getItem(kPlaybackRate)
+      const playbackRate = localStorage.getItem(PV.player.kPlaybackRate)
       return playbackRate ? JSON.parse(playbackRate) : 1
     } catch (error) {
-      console.log(constants.errors.getPlaybackRateValue, error)
+      console.log(PV.errors.getPlaybackRateValue, error)
     }
   }
 
   setPlaybackRateValue = (val) => {
-    localStorage.setItem(kPlaybackRate, val)
+    localStorage.setItem(PV.player.kPlaybackRate, val)
   }
 
   itemSkip = async () => {
@@ -343,11 +344,11 @@ class MediaPlayerView extends Component<Props, State> {
                 playbackRate={playbackRate}
                 playedAfterClipFinished={playedAfterClipFinished}
                 playbackRateText={getPlaybackRateText(playbackRate)}
-                playerClipLinkAs={nowPlayingItem.clipId ? `${constants.paths.clip}/${nowPlayingItem.clipId}` : ''}
-                playerClipLinkHref={nowPlayingItem.clipId ? `${constants.paths.clip}?id=${nowPlayingItem.clipId}` : ''}
+                playerClipLinkAs={nowPlayingItem.clipId ? `${PV.paths.clip}/${nowPlayingItem.clipId}` : ''}
+                playerClipLinkHref={nowPlayingItem.clipId ? `${PV.paths.clip}?id=${nowPlayingItem.clipId}` : ''}
                 playerClipLinkOnClick={this.linkClick}
-                playerEpisodeLinkAs={`${constants.paths.episode}/${nowPlayingItem.episodeId}`}
-                playerEpisodeLinkHref={`${constants.paths.episode}?id=${nowPlayingItem.episodeId}`}
+                playerEpisodeLinkAs={`${PV.paths.episode}/${nowPlayingItem.episodeId}`}
+                playerEpisodeLinkHref={`${PV.paths.episode}?id=${nowPlayingItem.episodeId}`}
                 playerEpisodeLinkOnClick={this.linkClick}
                 playing={playing}
                 queuePriorityItems={priorityItems}

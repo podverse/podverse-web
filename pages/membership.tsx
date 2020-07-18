@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import Meta from '~/components/Meta/Meta'
 import config from '~/config'
-import { constants } from '~/lib/constants/misc'
+import PV from '~/lib/constants'
 import { pageIsLoading, pagesSetQueryState, modalsSignUpShow } from '~/redux/actions'
 const { BASE_URL } = config()
 
@@ -58,7 +58,7 @@ class Membership extends Component<Props, State> {
           title={meta.title}
           twitterDescription={meta.description}
           twitterTitle={meta.title} />
-        <h3>{constants.core.Premium}</h3>
+        <h3>{PV.core.Premium}</h3>
 
         <p className='membership-top-text'>
           Get 1 year free when you sign up for Podverse premium
@@ -74,7 +74,7 @@ class Membership extends Component<Props, State> {
         <ComparisonTable
           featuresData={featuresData}
           headerIcon1='Free'
-          headerIcon2={constants.core.Premium}
+          headerIcon2={PV.core.Premium}
           headerText='Features' />
       </Fragment>
     )

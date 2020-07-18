@@ -7,7 +7,7 @@ import PayPalButton from '~/components/PayPalButton/PayPalButton'
 import { pageIsLoading } from '~/redux/actions'
 import { createBitPayInvoice } from '~/services'
 import config from '~/config'
-import { constants } from '~/lib/constants/misc'
+import PV from '~/lib/constants'
 import { alertRateLimitError, checkIfLoadingOnFrontEnd, safeAlert } from '~/lib/utility';
 import { constants } from 'buffer'
 const { paypalConfig } = config()
@@ -67,7 +67,7 @@ class CheckoutModal extends React.Component<Props, State> {
         alertRateLimitError(error)
         return
       } else {
-        safeAlert(constants.errors.alerts.somethingWentWrong)
+        safeAlert(PV.errors.alerts.somethingWentWrong)
       }
     }
   }
@@ -94,7 +94,7 @@ class CheckoutModal extends React.Component<Props, State> {
     return (
       <Modal
         appElement={appEl}
-        contentLabel={constants.src.components.CheckoutModal.CheckoutLabel}
+        contentLabel={PV.src.components.CheckoutModal.CheckoutLabel}
         isOpen={isOpen}
         onRequestClose={this.handleHideModal}
         portalClassName='checkout-modal over-media-player'

@@ -8,7 +8,7 @@ import config from '~/config'
 import { getViewContentsElementScrollTop } from '~/lib/utility'
 import { pageIsLoading, pagesSetQueryState } from '~/redux/actions'
 import { getPlaylistsByQuery } from '~/services'
-import { constants } from '~/lib/constants/misc'
+import PV from '~/lib/constants'
 const uuidv4 = require('uuid/v4')
 const { BASE_URL } = config()
 
@@ -54,7 +54,7 @@ class Playlists extends Component<Props, State> {
     const meta = {
       currentUrl: BASE_URL + '/playlists',
       description: 'Create and share playlists of podcast clips and episodes.',
-      title: constants.core.Playlists
+      title: PV.core.Playlists
     }
 
     return { lastScrollPosition, meta, myPlaylists, pageKey: kPageKey, subscribedPlaylists,
@@ -112,7 +112,7 @@ class Playlists extends Component<Props, State> {
           title={meta.title}
           twitterDescription={meta.description}
           twitterTitle={meta.title} />
-        <h3>{constants.core.Playlists}</h3>
+        <h3>{PV.core.Playlists}</h3>
         {
           (!user || !user.id) &&
             <div className='no-results-msg'>Login to view your playlists</div>

@@ -1,0 +1,23 @@
+export const paths = {
+  about: `/about`,
+  clip: `/clip`,
+  clips: `/clips`,
+  episode: `/episode`,
+  episodes: `/episodes`,
+  faq: `/faq`,
+  googlePlayStoreBadge: `https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png`,
+  home: `/`,
+  license: `https://www.gnu.org/licenses/agpl-3.0.en.html`,
+  membership: `/membership`,
+  my_profile_clips: `/my-profile?type=clips`,
+  my_profile: `/my-profile`,
+  playlists: `/playlists`,
+  podcasts: `/podcasts`,
+  profiles: `/profiles`,
+  search: `/search`,
+  settings_membership: `/settings#membership`,
+  settings: `/settings`,
+  support_podverse_fm: `mailto:support@podverse.fm`,
+  terms: `/terms`,
+  unspam: `http://www.unspam.com/noemailcollection/`
+}

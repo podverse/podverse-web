@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux'
 import Meta from '~/components/Meta/Meta'
 import PodcastListCtrl from '~/components/PodcastListCtrl/PodcastListCtrl'
 import config from '~/config'
-import { constants } from '~/lib/constants/misc'
+import PV from '~/lib/constants'
 import { cookieGetQuery } from '~/lib/utility'
 import { pageIsLoading, pagesSetQueryState } from '~/redux/actions'
 import { getCategoriesByQuery, getPodcastsByQuery } from '~/services'
@@ -81,7 +81,7 @@ class Podcasts extends Component<Props, State> {
     const meta = {
       currentUrl: BASE_URL + '/podcasts',
       description: 'Find and subscribe to podcasts.',
-      title: constants.core.Podcasts
+      title: PV.core.Podcasts
     }
 
     return { allCategories, categoryId, lastScrollPosition, meta, nsfwMode, 
@@ -104,7 +104,7 @@ class Podcasts extends Component<Props, State> {
           title={meta.title}
           twitterDescription={meta.description}
           twitterTitle={meta.title} />
-        <h3>{constants.core.Podcasts}</h3>
+        <h3>{PV.core.Podcasts}</h3>
         <PodcastListCtrl 
           allCategories={allCategories}
           categoryId={categoryId}

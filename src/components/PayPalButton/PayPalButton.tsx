@@ -6,7 +6,7 @@ import scriptLoader from 'react-async-script-loader'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { createPayPalOrder } from '~/services/paypal'
 import config from '~/config'
-import { constants } from '~/lib/constants/misc'
+import PV from '~/lib/constants'
 import { alertRateLimitError, safeAlert } from '~/lib/utility';
 const { DOMAIN, PROTOCOL } = config()
 
@@ -130,7 +130,7 @@ class PaypalButton extends React.Component<Props, State> {
           resolve(paymentID)
         } catch (error) {
           console.log(error)
-          safeAlert(constants.errors.alerts.somethingWentWrong)
+          safeAlert(PV.errors.alerts.somethingWentWrong)
           reject()
         }
       } catch (error) {
@@ -138,7 +138,7 @@ class PaypalButton extends React.Component<Props, State> {
           alertRateLimitError(error)
           return
         } else {
-          safeAlert(constants.errors.alerts.somethingWentWrong)
+          safeAlert(PV.errors.alerts.somethingWentWrong)
         }
         console.log(error)
         reject()
@@ -154,7 +154,7 @@ class PaypalButton extends React.Component<Props, State> {
           location.href = `${PROTOCOL}://${DOMAIN}/payment/paypal-confirming?id=${data.paymentID}`
         })
         .catch(() => {
-          safeAlert(constants.errors.alerts.somethingWentWrong)
+          safeAlert(PV.errors.alerts.somethingWentWrong)
           handlePageIsLoading(false)
         })
     }
@@ -167,7 +167,7 @@ class PaypalButton extends React.Component<Props, State> {
 
     const onError = (error) => {
       console.log(error)
-      safeAlert(constants.errors.alerts.somethingWentWrong)
+      safeAlert(PV.errors.alerts.somethingWentWrong)
     }
 
     return (

@@ -7,7 +7,7 @@ import { Button } from 'podverse-ui'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar as farStar } from '@fortawesome/free-regular-svg-icons'
 import { faStar as fasStar } from '@fortawesome/free-solid-svg-icons'
-import { constants } from '~/lib/constants/misc'
+import PV from '~/lib/constants'
 import { alertPremiumRequired, alertSomethingWentWrong, alertRateLimitError, safeAlert } from '~/lib/utility'
 import { userSetInfo } from '~/redux/actions'
 import { toggleSubscribeToUser } from '~/services'
@@ -45,7 +45,7 @@ class UserHeaderCtrl extends Component<Props, State> {
     const { loggedInUser, profileUser, userSetInfo } = this.props
 
     if (!loggedInUser || !loggedInUser.id) {
-      safeAlert(constants.errors.login.SubscribeToProfile)
+      safeAlert(PV.errors.login.SubscribeToProfile)
       return
     }
 
@@ -118,7 +118,7 @@ class UserHeaderCtrl extends Component<Props, State> {
                           placement='bottom'
                           target='profileShareLink'>
                           <PopoverHeader>
-                            {constants.src.components.UserHeaderCtrl.CopyLinkToProfile}
+                            {PV.src.components.UserHeaderCtrl.CopyLinkToProfile}
                           </PopoverHeader>
                           <PopoverBody>
                             <InputGroup id='profile-link'>
