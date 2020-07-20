@@ -19,11 +19,12 @@ import { getPlaybackRateText, getPlaybackRateNextValue } from '~/lib/constants/m
 import { paths } from '~/lib/constants/paths'
 import { player } from '~/lib/constants/player'
 import { query } from '~/lib/constants/query'
-import { src } from '~/lib/constants/src'
+import { components } from '~/lib/constants/components'
 
 export default {
   attributes,
   colors,
+  components,
   cookies,
   core,
   errors,
@@ -32,6 +33,5 @@ export default {
   mediaList,
   paths,
   player,
-  query,
-  src
+  query
 }

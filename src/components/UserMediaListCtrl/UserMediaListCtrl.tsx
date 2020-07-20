@@ -313,10 +313,10 @@ class UserMediaListCtrl extends Component<Props, State> {
       mediaListItemType = PV.mediaList.now_playing_item
       noResultsMsg = PV.mediaList.noResultMsg.noClipsFound
     } else if (queryType === PV.query.playlists) {
-      mediaListItemType = PV.mediaList.playlist
+      mediaListItemType = PV.query.playlist
       noResultsMsg = PV.mediaList.noResultMsg.noPlaylistsFound
     } else if (queryType === PV.query.podcasts) {
-      mediaListItemType = PV.mediaList.podcast
+      mediaListItemType = PV.query.podcast
       noResultsMsg = PV.mediaList.noResultMsg.noSubscribedPodcastsFound
     }
 

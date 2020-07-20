@@ -118,7 +118,7 @@ class UserHeaderCtrl extends Component<Props, State> {
                           placement='bottom'
                           target='profileShareLink'>
                           <PopoverHeader>
-                            {PV.src.components.UserHeaderCtrl.CopyLinkToProfile}
+                            {PV.components.UserHeaderCtrl.CopyLinkToProfile}
                           </PopoverHeader>
                           <PopoverBody>
                             <InputGroup id='profile-link'>
