@@ -4,9 +4,9 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { CloseButton } from 'podverse-ui'
 import PayPalButton from '~/components/PayPalButton/PayPalButton'
+import config from '~/config'
 import { pageIsLoading } from '~/redux/actions'
 import { createBitPayInvoice } from '~/services'
-import config from '~/config'
 import PV from '~/lib/constants'
 import { alertRateLimitError, checkIfLoadingOnFrontEnd, safeAlert } from '~/lib/utility';
 const { paypalConfig } = config()
