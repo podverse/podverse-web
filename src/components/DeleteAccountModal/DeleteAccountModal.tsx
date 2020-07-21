@@ -81,7 +81,7 @@ export class DeleteAccountModal extends React.Component<Props, State> {
     return (
       <Modal
         appElement={appEl}
-        contentLabel={PV.src.components.DeleteAccountModal.DeleteAccountLabel}
+        contentLabel={PV.components.DeleteAccountModal.DeleteAccountLabel}
         isOpen={isOpen}
         onRequestClose={handleHideModal}
         portalClassName='delete-account-modal over-media-player'
@@ -105,14 +105,14 @@ export class DeleteAccountModal extends React.Component<Props, State> {
                 <Button
                   className='delete-account-modal__cancel'
                   onClick={this.handleHideModal}
-                  text={PV.src.components.DeleteAccountModal.Cancel} />
+                  text={PV.components.DeleteAccountModal.Cancel} />
                 <Button
                   className='delete-account-modal__submit'
                   color='danger'
                   disabled={!isConfirmed}
                   isLoading={isDeleting}
                   onClick={this.handleDeleteAccount}
-                  text={PV.src.components.DeleteAccountModal.Delete} />
+                  text={PV.components.DeleteAccountModal.Delete} />
               </React.Fragment>
             )} />
         </div>

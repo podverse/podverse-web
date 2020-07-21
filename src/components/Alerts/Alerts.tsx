@@ -125,7 +125,7 @@ class Alerts extends Component<Props, State> {
       <Link
         as={PV.paths.settings_membership}
         href={PV.paths.settings}>
-        <a onClick={this.linkClick}>{PV.src.components.Alerts.Renew}</a>
+        <a onClick={this.linkClick}>{PV.components.Alerts.Renew}</a>
       </Link>
     )
 
@@ -139,20 +139,20 @@ class Alerts extends Component<Props, State> {
           {
             hasSent &&
               <Fragment>
-                <p>{PV.src.components.Alerts.EmailSent}</p>
-                <p>{PV.src.components.Alerts.PleaseCheckInbox}</p>
-                <span>{PV.src.components.Alerts.PleaseEmail}<a href={PV.paths.support_podverse_fm}>{PV.src.components.Alerts.SupportEmail}</a>{PV.src.components.Alerts.ForHelp}</span>
+                <p>{PV.components.Alerts.EmailSent}</p>
+                <p>{PV.components.Alerts.PleaseCheckInbox}</p>
+                <span>{PV.components.Alerts.PleaseEmail}<a href={PV.paths.support_podverse_fm}>{PV.components.Alerts.SupportEmail}</a>{PV.components.Alerts.ForHelp}</span>
               </Fragment>
           }
           {
             !hasSent && isSending &&
-              <span>{PV.src.components.Alerts.EmailSending}<FontAwesomeIcon icon='spinner' spin /></span>
+              <span>{PV.components.Alerts.EmailSending}<FontAwesomeIcon icon='spinner' spin /></span>
           }
           {
             !hasSent && !isSending &&
               <Fragment>
-                <p>{PV.src.components.Alerts.PleaseVerifyEmail}</p>
-                <span><a href='#' onClick={this._showSendVerificationEmailModal}>{PV.src.components.Alerts.SendVerificationEmail}.</a></span>
+                <p>{PV.components.Alerts.PleaseVerifyEmail}</p>
+                <span><a href='#' onClick={this._showSendVerificationEmailModal}>{PV.components.Alerts.SendVerificationEmail}.</a></span>
               </Fragment>
           }
         </Alert>
@@ -164,7 +164,7 @@ class Alerts extends Component<Props, State> {
           fade={false}
           isOpen={showFreeTrialHasEnded}
           toggle={() => this.hideAlert(PV.cookies.showFreeTrialHasEnded)}>
-          {PV.src.components.Alerts.YourFreeTrialHasEnded(renewLink)}
+          {PV.components.Alerts.YourFreeTrialHasEnded(renewLink)}
         </Alert>
       )
     } else if (showFreeTrialWarning) {
@@ -174,7 +174,7 @@ class Alerts extends Component<Props, State> {
           fade={false}
           isOpen={showFreeTrialWarning}
           toggle={() => this.hideAlert(PV.cookies.showFreeTrialWarning)}>
-          {PV.src.components.Alerts.YourFreeTrialWillEndSoon(renewLink)}
+          {PV.components.Alerts.YourFreeTrialWillEndSoon(renewLink)}
         </Alert>
       )
     } else if (showMembershipHasEnded) {
@@ -184,7 +184,7 @@ class Alerts extends Component<Props, State> {
           fade={false}
           isOpen={showMembershipHasEnded}
           toggle={() => this.hideAlert(PV.cookies.showMembershipHasEnded)}>
-          {PV.src.components.Alerts.YourMembershipHasExpired(renewLink)}
+          {PV.components.Alerts.YourMembershipHasExpired(renewLink)}
         </Alert>
       )
     } else if (showMembershipWarning) {
@@ -194,7 +194,7 @@ class Alerts extends Component<Props, State> {
           fade={false}
           isOpen={showMembershipWarning}
           toggle={() => this.hideAlert(PV.cookies.showMembershipWarning)}>
-          {PV.src.components.Alerts.YourMembershipWillExpireSoon(renewLink)}
+          {PV.components.Alerts.YourMembershipWillExpireSoon(renewLink)}
         </Alert>
       )
     } else {
