@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/camelcase */
+
 export const paths = {
   about: `/about`,
   add_or_remove: `/add-or-remove`,
