@@ -80,6 +80,7 @@ class MediaInfoCtrl extends Component<Props, State> {
       if (user && user.id) {
         await addOrUpdateHistoryItemPlaybackPosition(nowPlayingItem, user)
   
+        // eslint-disable-next-line array-callback-return
         const historyItems = user.historyItems.filter(x => {
           if (x) {
             if ((x.clipStartTime || x.clipEndTime) && x.clipId !== nowPlayingItem.clipId) {

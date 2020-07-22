@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 export const pages = {
   about: {
     _Description: `Information about the Podverse open source podcast app.`,

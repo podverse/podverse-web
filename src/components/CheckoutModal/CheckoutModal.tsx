@@ -9,7 +9,6 @@ import { createBitPayInvoice } from '~/services'
 import config from '~/config'
 import PV from '~/lib/constants'
 import { alertRateLimitError, checkIfLoadingOnFrontEnd, safeAlert } from '~/lib/utility';
-import { constants } from 'buffer'
 const { paypalConfig } = config()
 
 type Props = {
@@ -88,7 +87,6 @@ class CheckoutModal extends React.Component<Props, State> {
 
   render() {
     const { isOpen, pageIsLoading } = this.props
-    const { buttonIsLoading } = this.state
     const appEl = checkIfLoadingOnFrontEnd() ? document.querySelector('body') : null
     
     return (

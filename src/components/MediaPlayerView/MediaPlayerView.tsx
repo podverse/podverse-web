@@ -153,6 +153,7 @@ class MediaPlayerView extends Component<Props, State> {
 
       if (user && user.id) {
         await addOrUpdateHistoryItemPlaybackPosition(nextItem, user)
+        // eslint-disable-next-line array-callback-return
         const historyItems = user.historyItems.filter(x => {
           if (x) {
             if ((x.clipStartTime || x.clipEndTime) && x.clipId !== nextItem.clipId) {

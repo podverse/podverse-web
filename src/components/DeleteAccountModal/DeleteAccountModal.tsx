@@ -5,7 +5,6 @@ import { Input, Label } from 'reactstrap'
 import PV from '~/lib/constants'
 import { checkIfLoadingOnFrontEnd, safeAlert } from '~/lib/utility'
 import { deleteLoggedInUser } from '~/services'
-import { constants } from 'buffer'
 
 type Props = {
   email?: string
