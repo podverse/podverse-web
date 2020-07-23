@@ -18,7 +18,7 @@ class Terms extends Component<Props, State> {
     store.dispatch(pageIsLoading(false))
 
     const meta = {
-      currentUrl: BASE_URL + PV.paths.terms,
+      currentUrl: BASE_URL + PV.paths.web.terms,
       description: PV.pages.terms._Description,
       title: PV.pages.terms._Title
     }

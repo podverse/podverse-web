@@ -264,8 +264,8 @@ class MediaModals extends Component<Props, State> {
 
       pageIsLoading(true)
 
-      const href = PV.paths.home
-      const as = PV.paths.home
+      const href = PV.paths.web.home
+      const as = PV.paths.web.home
       Router.push(href, as)
     } catch (error) {
       console.log(error)

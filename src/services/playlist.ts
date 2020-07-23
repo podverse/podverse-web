@@ -6,7 +6,7 @@ import constants from '~/lib/constants'
 const { API_BASE_URL } = config()
 
 export const addOrRemovePlaylistItem = async (data: any) => {
-  return axios(`${API_BASE_URL}${PV.paths.playlist}${PV.paths.add_or_remove}`, {
+  return axios(`${API_BASE_URL}${PV.paths.api.playlist}${PV.paths.api.add_or_remove}`, {
     method: 'patch',
     data,
     withCredentials: true
@@ -14,7 +14,7 @@ export const addOrRemovePlaylistItem = async (data: any) => {
 }
 
 export const createPlaylist = async (data: any) => {
-  return axios(`${API_BASE_URL}${PV.paths.playlist}`, {
+  return axios(`${API_BASE_URL}${PV.paths.api.playlist}`, {
     method: 'post',
     data,
     withCredentials: true
@@ -22,14 +22,14 @@ export const createPlaylist = async (data: any) => {
 }
 
 export const deletePlaylist = async (id: string) => {
-  return axios(`${API_BASE_URL}${PV.paths.playlist}/${id}`, {
+  return axios(`${API_BASE_URL}${PV.paths.api.playlist}/${id}`, {
     method: 'delete',
     withCredentials: true
   })
 }
 
 export const getPlaylistById = async (id: string) => {
-  return axios.get(`${API_BASE_URL}${PV.paths.playlist}/${id}`)
+  return axios.get(`${API_BASE_URL}${PV.paths.api.playlist}/${id}`)
 }
 
 export const getPlaylistsByQuery = async (query) => {
@@ -40,18 +40,18 @@ export const getPlaylistsByQuery = async (query) => {
   }
 
   const queryString = convertObjectToQueryString(filteredQuery)
-  return axios.get(`${API_BASE_URL}${PV.paths.playlist}?${queryString}`)
+  return axios.get(`${API_BASE_URL}${PV.paths.api.playlist}?${queryString}`)
 }
 
 export const toggleSubscribeToPlaylist = async (playlistId: string) => {
-  return axios(`${API_BASE_URL}${PV.paths.playlist}${PV.paths.toggle_subscribe}/${playlistId}`, {
+  return axios(`${API_BASE_URL}${PV.paths.api.playlist}${PV.paths.api.toggle_subscribe}/${playlistId}`, {
     method: 'get',
     withCredentials: true
   })
 }
 
 export const updatePlaylist = async (data: any) => {
-  return axios(`${API_BASE_URL}${PV.paths.playlist}`, {
+  return axios(`${API_BASE_URL}${PV.paths.api.playlist}`, {
     method: 'patch',
     data,
     withCredentials: true

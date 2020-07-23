@@ -29,7 +29,7 @@ class About extends Component<Props, State> {
     store.dispatch(pageIsLoading(false))
 
     const meta = {
-      currentUrl: BASE_URL + PV.paths.about,
+      currentUrl: BASE_URL + PV.paths.web.about,
       description: PV.pages.about._Description,
       title: PV.pages.about._Title
     }
