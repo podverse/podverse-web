@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/camelcase */
+
 export const query = {
   label:{
     All: `All`,

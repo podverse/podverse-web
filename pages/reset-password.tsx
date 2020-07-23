@@ -5,7 +5,7 @@ import Router from 'next/router'
 import { ButtonGroup, Button } from 'podverse-ui'
 import Meta from '~/components/Meta/Meta'
 import config from '~/config'
-import { internetConnectivityErrorMessage } from '~/lib/constants/misc'
+import PV from '~/lib/constants'
 import { validatePassword, alertRateLimitError } from '~/lib/utility'
 import { pageIsLoading } from '~/redux/actions'
 import { resetPassword } from '~/services/auth'
@@ -118,7 +118,7 @@ class ResetPassword extends Component<Props, State> {
       if (error && error.response && error.response.status === 429) {
         alertRateLimitError(error)
       } else {
-        const errorMsg = (error.response && error.response.data && error.response.data.message) || internetConnectivityErrorMessage
+        const errorMsg = (error.response && error.response.data && error.response.data.message) || PV.errors.internetConnectivityErrorMessage
         this.setState({ errorResponse: errorMsg })
       }
     }
