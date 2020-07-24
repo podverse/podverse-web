@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import Meta from '~/components/Meta/Meta'
 import config from '~/config'
+import PV from '~/lib/constants'
 import { pageIsLoading, pagesSetQueryState } from '~/redux/actions'
 const { BASE_URL } = config()
 
@@ -28,9 +29,9 @@ class About extends Component<Props, State> {
     store.dispatch(pageIsLoading(false))
 
     const meta = {
-      currentUrl: BASE_URL + '/about',
-      description: 'Information about the Podverse open source podcast app.',
-      title: 'Podverse - About'
+      currentUrl: BASE_URL + PV.paths.web.about,
+      description: PV.pages.about._Description,
+      title: PV.pages.about._Title
     }
 
     return { lastScrollPosition, meta, pageKey: kPageKey }

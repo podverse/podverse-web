@@ -153,6 +153,7 @@ class MediaPlayerView extends Component<Props, State> {
 
       if (user && user.id) {
         await addOrUpdateHistoryItemPlaybackPosition(nextItem, user)
+        // eslint-disable-next-line array-callback-return
         const historyItems = user.historyItems.filter(x => {
           if (x) {
             if ((x.clipStartTime || x.clipEndTime) && x.clipId !== nextItem.clipId) {
@@ -344,11 +345,11 @@ class MediaPlayerView extends Component<Props, State> {
                 playbackRate={playbackRate}
                 playedAfterClipFinished={playedAfterClipFinished}
                 playbackRateText={getPlaybackRateText(playbackRate)}
-                playerClipLinkAs={nowPlayingItem.clipId ? `${PV.paths.clip}/${nowPlayingItem.clipId}` : ''}
-                playerClipLinkHref={nowPlayingItem.clipId ? `${PV.paths.clip}?id=${nowPlayingItem.clipId}` : ''}
+                playerClipLinkAs={nowPlayingItem.clipId ? `${PV.paths.web.clip}/${nowPlayingItem.clipId}` : ''}
+                playerClipLinkHref={nowPlayingItem.clipId ? `${PV.paths.web.clip}?id=${nowPlayingItem.clipId}` : ''}
                 playerClipLinkOnClick={this.linkClick}
-                playerEpisodeLinkAs={`${PV.paths.episode}/${nowPlayingItem.episodeId}`}
-                playerEpisodeLinkHref={`${PV.paths.episode}?id=${nowPlayingItem.episodeId}`}
+                playerEpisodeLinkAs={`${PV.paths.web.episode}/${nowPlayingItem.episodeId}`}
+                playerEpisodeLinkHref={`${PV.paths.web.episode}?id=${nowPlayingItem.episodeId}`}
                 playerEpisodeLinkOnClick={this.linkClick}
                 playing={playing}
                 queuePriorityItems={priorityItems}

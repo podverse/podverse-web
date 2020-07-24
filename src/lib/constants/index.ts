@@ -16,6 +16,7 @@ import { core } from '~/lib/constants/core'
 import { errors } from '~/lib/constants/errors'
 import { mediaList } from '~/lib/constants/mediaList'
 import { getPlaybackRateText, getPlaybackRateNextValue } from '~/lib/constants/misc'
+import { pages } from '~/lib/constants/pages'
 import { paths } from '~/lib/constants/paths'
 import { player } from '~/lib/constants/player'
 import { query } from '~/lib/constants/query'
@@ -31,6 +32,7 @@ export default {
   getPlaybackRateNextValue,
   getPlaybackRateText,
   mediaList,
+  pages,
   paths,
   player,
   query

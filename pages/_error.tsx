@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import PV from '~/lib/constants'
 import '~/lib/constants/misc'
 import { pageIsLoading } from '~/redux/actions'
 import '~/scss/styles.scss'
@@ -52,22 +53,22 @@ class ErrorPage extends Component<Props, State> {
 
 const errors = {
   401: {
-    header: 'Login Needed',
-    message1: 'You must login to use this feature.'
+    header: PV.errors.header.LoginNeeded,
+    message1: PV.errors.message.YouMustLoginToUseThisFeature
   },
   404: {
-    header: '404 Error',
-    message1: 'Page not found'
+    header: PV.errors.header.Error_404,
+    message1: PV.errors.message.PageNotFound
   },
   500: {
-    header: 'Servers under maintenance',
-    message1: 'The site will be offline until the work is complete.',
+    header: PV.errors.header.ServersUnderMaintenance,
+    message1: PV.errors.message.SiteOfflineUntilWorkIsComplete,
     icon: 'tools'
   },
   defaultError: {
-    header: 'Something went wrong',
-    message1: 'We\'re not sure what happened there :(',
-    message2: 'Please check your internet connection, or try a different page.'
+    header: PV.errors.header.SomethingWentWrong,
+    message1: PV.errors.message.WeAreNotSureWhatHappened,
+    message2: PV.errors.message.CheckConnectionOrDifferentPage
   }
 }
 

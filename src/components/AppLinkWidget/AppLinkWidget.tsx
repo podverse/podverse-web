@@ -50,7 +50,7 @@ const createDownloadButton = (mobileOS: string) => {
         target='_blank'>
         <img
           alt={PV.components.AppLinkWidget.GetItOnGooglePlay}
-          src={PV.paths.googlePlayStoreBadge}
+          src={PV.paths.web.googlePlayStoreBadge}
         />
       </a>
     )

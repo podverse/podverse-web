@@ -5,7 +5,7 @@ import config from '~/config'
 const { API_BASE_URL } = config()
 
 export const createMediaRef = async (data: any) => {
-  return axios(`${API_BASE_URL}${PV.paths.mediaRef}`, {
+  return axios(`${API_BASE_URL}${PV.paths.api.mediaRef}`, {
     method: 'post',
     data,
     withCredentials: true
@@ -13,7 +13,7 @@ export const createMediaRef = async (data: any) => {
 }
 
 export const deleteMediaRef = async (id: string) => {
-  return axios(`${API_BASE_URL}${PV.paths.mediaRef}/${id}`, {
+  return axios(`${API_BASE_URL}${PV.paths.api.mediaRef}/${id}`, {
     method: 'delete',
     withCredentials: true
   })
@@ -59,17 +59,17 @@ export const getMediaRefsByQuery = async (query) => {
   }
 
   const queryString = convertObjectToQueryString(filteredQuery)
-  return axios(`${API_BASE_URL}${PV.paths.mediaRef}?${queryString}`, {
+  return axios(`${API_BASE_URL}${PV.paths.api.mediaRef}?${queryString}`, {
     method: 'get'
   })
 }
 
 export const getMediaRefById = async (id: string) => {
-  return axios.get(`${API_BASE_URL}${PV.paths.mediaRef}/${id}`)
+  return axios.get(`${API_BASE_URL}${PV.paths.api.mediaRef}/${id}`)
 }
 
 export const updateMediaRef = async (data: any) => {
-  return axios(`${API_BASE_URL}${PV.paths.mediaRef}`, {
+  return axios(`${API_BASE_URL}${PV.paths.api.mediaRef}`, {
     method: 'patch',
     data,
     withCredentials: true
