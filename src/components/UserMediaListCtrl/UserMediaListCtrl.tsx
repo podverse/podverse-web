@@ -78,10 +78,10 @@ class UserMediaListCtrl extends Component<Props, State> {
       queryPage: page
     }
 
-    if (selectedKey === 'type') {
+    if (selectedKey === PV.query.key.type) {
       newState.queryType = selectedValue
       query.type = selectedValue
-    } else if (selectedKey === 'sort') {
+    } else if (selectedKey === PV.query.key.sort) {
       newState.querySort = selectedValue
       query.sort = selectedValue
     } else {
@@ -186,17 +186,17 @@ class UserMediaListCtrl extends Component<Props, State> {
     return [
       {
         label: isMyProfilePage ? PV.core.MyPodcasts : PV.core.Podcasts,
-        onClick: () => this.queryMediaListItems('type', PV.query.podcasts),
+        onClick: () => this.queryMediaListItems(PV.query.key.type, PV.query.podcasts),
         value: PV.query.podcasts,
       },
       {
         label: isMyProfilePage ? PV.core.MyClips : PV.core.Clips,
-        onClick: () => this.queryMediaListItems('type', PV.query.clips),
+        onClick: () => this.queryMediaListItems(PV.query.key.type, PV.query.clips),
         value: PV.query.clips,
       },
       {
         label: isMyProfilePage ? PV.core.MyPlaylists : PV.core.Playlists,
-        onClick: () => this.queryMediaListItems('type', PV.query.playlists),
+        onClick: () => this.queryMediaListItems(PV.query.key.type, PV.query.playlists),
         value: PV.query.playlists
       }
     ]
@@ -206,32 +206,32 @@ class UserMediaListCtrl extends Component<Props, State> {
     const items = [
       {
         label: PV.query.label.most_recent,
-        onClick: () => this.queryMediaListItems('sort', PV.query.most_recent),
+        onClick: () => this.queryMediaListItems(PV.query.key.sort, PV.query.most_recent),
         value: PV.query.most_recent
       },
       {
         label: PV.query.label.top_past_day,
-        onClick: () => this.queryMediaListItems('sort', PV.query.top_past_day),
+        onClick: () => this.queryMediaListItems(PV.query.key.sort, PV.query.top_past_day),
         value: PV.query.top_past_day
       },
       {
         label: PV.query.label.top_past_week,
-        onClick: () => this.queryMediaListItems('sort', PV.query.top_past_week),
+        onClick: () => this.queryMediaListItems(PV.query.key.sort, PV.query.top_past_week),
         value: PV.query.top_past_week
       },
       {
         label: PV.query.label.top_past_month,
-        onClick: () => this.queryMediaListItems('sort', PV.query.top_past_month),
+        onClick: () => this.queryMediaListItems(PV.query.key.sort, PV.query.top_past_month),
         value: PV.query.top_past_month
       },
       {
         label: PV.query.label.top_past_year,
-        onClick: () => this.queryMediaListItems('sort', PV.query.top_past_year),
+        onClick: () => this.queryMediaListItems(PV.query.key.sort, PV.query.top_past_year),
         value: PV.query.top_past_year
       },
       {
         label: PV.query.label.top_all_time,
-        onClick: () => this.queryMediaListItems('sort', PV.query.top_all_time),
+        onClick: () => this.queryMediaListItems(PV.query.key.sort, PV.query.top_all_time),
         value: PV.query.top_all_time
       },
       {
@@ -244,7 +244,7 @@ class UserMediaListCtrl extends Component<Props, State> {
     if (isPodcasts) {
       items.unshift({
         label: PV.query.label.alphabetical,
-        onClick: () => this.queryMediaListItems('sort', PV.query.alphabetical),
+        onClick: () => this.queryMediaListItems(PV.query.key.sort, PV.query.alphabetical),
         value: PV.query.alphabetical
       })
     }

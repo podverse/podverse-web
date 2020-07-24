@@ -58,7 +58,7 @@ class UserHeaderCtrl extends Component<Props, State> {
         userSetInfo({ subscribedUserIds: response.data })
       }
     } catch (error) {
-      if (error && error.response && error.response.data && error.response.data.message === 'Premium Membership Required') {
+      if (error && error.response && error.response.data && error.response.data.message === PV.errors.premiumRequired) {
         alertPremiumRequired()
       } else if (error && error.response && error.response.status === 429) {
         alertRateLimitError(error)
@@ -98,7 +98,7 @@ class UserHeaderCtrl extends Component<Props, State> {
         <div className='text-wrapper'>
           <div className='media-header__top'>
             <div className='media-header__title'>
-              {profileUser.name ? profileUser.name : 'anonymous'}
+              {profileUser.name ? profileUser.name : PV.core.anonymous}
             </div>
             {
               loggedInUser && profileUser && loggedInUser.id === profileUser.id ?
@@ -143,7 +143,7 @@ class UserHeaderCtrl extends Component<Props, State> {
                     loggedInUser.isPublic &&
                       <a
                         className='media-header__edit'
-                        href={'/settings'}>
+                        href={PV.paths.web.settings}>
                         <FontAwesomeIcon icon='edit' />
                       </a>
                   }

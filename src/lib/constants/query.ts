@@ -20,6 +20,10 @@ export const query = {
     top_past_week: `top - past week`,
     top_past_year: `top - past year`
   },
+  key: {
+    type: `type`,
+    sort: `sort`
+  },
   all_podcasts: `all-podcasts`,
   alphabetical: `alphabetical`,
   chronological: `chronological`,

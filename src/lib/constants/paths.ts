@@ -44,6 +44,8 @@ export const paths = {
     membership: `/membership`,
     my_profile_clips: `/my-profile?type=clips`,
     my_profile: `/my-profile`,
+    payment: `/payment`,
+    paypal_confirming: `/paypal-confirming`,
     playlists: `/playlists`,
     podcast: `/podcast`,
     podcasts: `/podcasts`,
