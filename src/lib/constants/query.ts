@@ -1,5 +1,10 @@
 /* eslint-disable @typescript-eslint/camelcase */
 
+// *TODO: Separate this file into two files.
+// Call one file queryLabel and the other queryParams.
+// The reason is because the queryLabel file will need translations,
+// but the queryParams will not.
+
 export const query = {
   label:{
     All: `All`,

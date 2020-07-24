@@ -6,5 +6,4 @@ export const cookies = {
   showMembershipHasEnded: `showMembershipHasEnded`,
   showMembershipWarning: `showMembershipWarning`,
   uiTheme: `uiTheme`,
-  }
-  
+}

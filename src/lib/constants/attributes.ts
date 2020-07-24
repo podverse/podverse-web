@@ -8,4 +8,3 @@ export const attributes = {
   nsfwMode: `nsfwMode`,
   verify_email: `verify-email`
 }
-  

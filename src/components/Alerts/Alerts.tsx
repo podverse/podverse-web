@@ -141,7 +141,7 @@ class Alerts extends Component<Props, State> {
               <Fragment>
                 <p>{PV.components.Alerts.EmailSent}</p>
                 <p>{PV.components.Alerts.PleaseCheckInbox}</p>
-                <span>{PV.components.Alerts.PleaseEmail}<a href={PV.paths.web.support_podverse_fm}>{PV.components.Alerts.SupportEmail}</a>{PV.components.Alerts.ForHelp}</span>
+                {PV.components.Alerts.ContactSupport()}
               </Fragment>
           }
           {

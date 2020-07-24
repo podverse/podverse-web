@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 export const errors = {
   alerts: {
     couldNotUpdateQueue: `Could not update queue on server. Please check your internet connection.`,
@@ -22,11 +23,11 @@ export const errors = {
       PageNotFound: `Page not found`,
       CheckConnectionOrDifferentPage: `Please check your internet connection, or try a different page.`,
       SiteOfflineUntilWorkIsComplete: `The site will be offline until the work is complete.`,
-      WeAreNotSureWhatHappened: `We\'re not sure what happened there :(`,
+      WeAreNotSureWhatHappened: `We're not sure what happened there :(`,
       YouMustLoginToUseThisFeature: `You must login to use this feature.`
     },
   getAutoplayValue: `getAutoplayValue`,
   getPlaybackRateValue: `getPlaybackRateValue`,
   internetConnectivityErrorMessage: `Error: Please check your internet connection and try again later.`,
   premiumRequired: `Premium Membership Required`
-  }
+}
