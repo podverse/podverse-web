@@ -37,19 +37,19 @@ export const getPodcastsByQuery = async (query) => {
   }
 
   const queryString = convertObjectToQueryString(filteredQuery)
-  return axios(`${API_BASE_URL}${PV.paths.podcast}?${queryString}`, {
+  return axios(`${API_BASE_URL}${PV.paths.api.podcast}?${queryString}`, {
     method: 'get'
   })
 }
 
 export const getPodcastById = async (id: string) => {
   return request({
-    endpoint: `${PV.paths.podcast}/${id}`
+    endpoint: `${PV.paths.api.podcast}/${id}`
   })
 }
 
 export const toggleSubscribeToPodcast = async (podcastId: string) => {
-  return axios(`${API_BASE_URL}${PV.paths.podcast}${PV.paths.toggle_subscribe}/${podcastId}`, {
+  return axios(`${API_BASE_URL}${PV.paths.api.podcast}${PV.paths.api.toggle_subscribe}/${podcastId}`, {
     method: 'get',
     withCredentials: true
   })

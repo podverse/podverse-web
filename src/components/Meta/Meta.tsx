@@ -48,7 +48,7 @@ class Meta extends Component<Props, State> {
         <title>{title}</title>
         <meta charSet='utf-8' />
         <meta name='viewport' content='width=device-width, initial-scale=1' />
-        <meta name='no-email-collection' content={PV.paths.unspam} />
+        <meta name='no-email-collection' content={PV.paths.web.unspam} />
         { robotsNoIndex && <meta name='robots' content='noindex' /> }
         
         {/* Favicons */}

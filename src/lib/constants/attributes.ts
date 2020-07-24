@@ -6,6 +6,6 @@ export const attributes = {
   is_switching_ui_mode: `is-switching-ui-mode`,
   light: `light`,
   nsfwMode: `nsfwMode`,
-  verify_email: `verify-email`,
+  verify_email: `verify-email`
 }
   

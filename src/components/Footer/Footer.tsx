@@ -47,7 +47,7 @@ class Footer extends Component<Props, State> {
     expires.setDate(expires.getDate() + 365)
     const uiThemeCookie = cookie.serialize(PV.cookies.uiTheme, uiTheme, {
       expires,
-      path: PV.paths.home
+      path: PV.paths.web.home
     })
     document.cookie = uiThemeCookie
 
@@ -72,7 +72,7 @@ class Footer extends Component<Props, State> {
     expires.setDate(expires.getDate() + 365)
     const nsfwModeCookie = cookie.serialize(PV.attributes.nsfwMode, nsfwMode, {
       expires,
-      path: PV.paths.home
+      path: PV.paths.web.home
     })
     document.cookie = nsfwModeCookie
 
@@ -105,8 +105,8 @@ class Footer extends Component<Props, State> {
         <div className='footer'>
           <div className='footer__top'>
             <Link
-              as={PV.paths.home}
-              href={PV.paths.home}>
+              as={PV.paths.web.home}
+              href={PV.paths.web.home}>
               <a
                 className='footer-top__brand'
                 onClick={this.linkClick}>
@@ -153,8 +153,8 @@ class Footer extends Component<Props, State> {
                 </div>
             } */}
             <Link
-              as={PV.paths.license}
-              href={PV.paths.license}>
+              as={PV.paths.web.license}
+              href={PV.paths.web.license}>
               <a 
                 className='footer-top__license'
                 target='_blank'>
@@ -184,8 +184,8 @@ class Footer extends Component<Props, State> {
                 </a>
               </Link> */}
               <Link
-                as={PV.paths.about}
-                href={PV.paths.about}>
+                as={PV.paths.web.about}
+                href={PV.paths.web.about}>
                 <a
                   className='footer-bottom__link'
                   onClick={this.linkClick}>
@@ -193,17 +193,17 @@ class Footer extends Component<Props, State> {
                 </a>
               </Link>
               <Link
-                as={PV.paths.terms}
-                href={PV.paths.terms}>
+                as={PV.paths.web.terms}
+                href={PV.paths.web.terms}>
                 <a
                   className='footer-bottom__link'
                   onClick={this.linkClick}>
-                  {PV.paths.terms}
+                  {PV.paths.web.terms}
                 </a>
               </Link>
               <Link
-                as={PV.paths.faq}
-                href={PV.paths.faq}>
+                as={PV.paths.web.faq}
+                href={PV.paths.web.faq}>
                 <a
                   className='footer-bottom__link'
                   onClick={this.linkClick}>
@@ -211,8 +211,8 @@ class Footer extends Component<Props, State> {
                 </a>
               </Link>
               <Link
-                as={PV.paths.membership}
-                href={PV.paths.membership}>
+                as={PV.paths.web.membership}
+                href={PV.paths.web.membership}>
                 <a
                   className='footer-bottom__link'
                   onClick={this.linkClick}>

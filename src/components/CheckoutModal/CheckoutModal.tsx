@@ -87,7 +87,6 @@ class CheckoutModal extends React.Component<Props, State> {
 
   render() {
     const { isOpen, pageIsLoading } = this.props
-    const { buttonIsLoading } = this.state
     const appEl = checkIfLoadingOnFrontEnd() ? document.querySelector('body') : null
     
     return (

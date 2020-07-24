@@ -4,7 +4,7 @@ import PV from '~/lib/constants'
 const { API_BASE_URL } = config()
 
 export const getAuthenticatedUserInfo = async (bearerToken) => {
-  const response = await axios(`${API_BASE_URL}${PV.paths.auth}${PV.paths.get_authenticated_user_info}`, {
+  const response = await axios(`${API_BASE_URL}${PV.paths.api.auth}${PV.paths.api.get_authenticated_user_info}`, {
     method: 'post',
     headers: {
       Authorization: bearerToken
@@ -20,7 +20,7 @@ export const getAuthenticatedUserInfo = async (bearerToken) => {
 }
 
 export const login = async (email: string, password: string) => {
-  return axios(`${API_BASE_URL}${PV.paths.auth}${PV.paths.login}`, {
+  return axios(`${API_BASE_URL}${PV.paths.api.auth}${PV.paths.api.login}`, {
     method: 'post',
     data: {
       email,
@@ -31,14 +31,14 @@ export const login = async (email: string, password: string) => {
 }
 
 export const logOut = async () => {
-  return axios(`${API_BASE_URL}${PV.paths.auth}${PV.paths.logout}`, {
+  return axios(`${API_BASE_URL}${PV.paths.api.auth}${PV.paths.api.logout}`, {
     method: 'post',
     withCredentials: true
   })
 }
 
 export const resetPassword = async (password?: string, resetPasswordToken?: string) => {
-  return axios(`${API_BASE_URL}${PV.paths.auth}${PV.paths.reset_password}`, {
+  return axios(`${API_BASE_URL}${PV.paths.api.auth}${PV.paths.api.reset_password}`, {
     method: 'post',
     data: {
       password,
@@ -48,7 +48,7 @@ export const resetPassword = async (password?: string, resetPasswordToken?: stri
 }
 
 export const sendResetPassword = async (email: string) => {
-  return axios(`${API_BASE_URL}${PV.paths.auth}${PV.paths.send_reset_password}`, {
+  return axios(`${API_BASE_URL}${PV.paths.api.auth}${PV.paths.api.send_reset_password}`, {
     method: 'post',
     data: {
       email
@@ -57,7 +57,7 @@ export const sendResetPassword = async (email: string) => {
 }
 
 export const sendVerification = async (email: string) => {
-  return axios(`${API_BASE_URL}${PV.paths.auth}${PV.paths.send_verification}`, {
+  return axios(`${API_BASE_URL}${PV.paths.api.auth}${PV.paths.api.send_verification}`, {
     method: 'post',
     data: {
       email
@@ -66,7 +66,7 @@ export const sendVerification = async (email: string) => {
 }
 
 export const signUp = async (email: string, password: string) => {
-  return axios(`${API_BASE_URL}${PV.paths.auth}${PV.paths.sign_up}`, {
+  return axios(`${API_BASE_URL}${PV.paths.api.auth}${PV.paths.api.sign_up}`, {
     method: 'post',
     data: {
       email,
@@ -77,5 +77,5 @@ export const signUp = async (email: string, password: string) => {
 }
 
 export const verifyEmail = async (token?: string) => {
-  return axios.get(`${API_BASE_URL}${PV.paths.auth}${PV.paths.verify_email}?token=${token}`)
+  return axios.get(`${API_BASE_URL}${PV.paths.api.auth}${PV.paths.api.verify_email}?token=${token}`)
 }

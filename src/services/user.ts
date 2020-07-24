@@ -22,7 +22,7 @@ export const getUserMediaRefs = async (
   filteredQuery.page = page
   const queryString = convertObjectToQueryString(filteredQuery)
 
-  return axios(`${API_BASE_URL}${PV.paths.user}/${id}${PV.paths.mediaRefs}?${queryString}`, {
+  return axios(`${API_BASE_URL}${PV.paths.api.user}/${id}${PV.paths.api.mediaRefs}?${queryString}`, {
     method: 'get',
     headers: {
       nsfwMode
@@ -39,7 +39,7 @@ export const getUserPlaylists = async (
   filteredQuery.page = page
   const queryString = convertObjectToQueryString(filteredQuery)
 
-  return axios(`${API_BASE_URL}${PV.paths.user}/${id}${PV.paths.playlists}?${queryString}`, {
+  return axios(`${API_BASE_URL}${PV.paths.api.user}/${id}${PV.paths.api.playlists}?${queryString}`, {
     method: 'get'
   })
 }
@@ -58,13 +58,13 @@ export const getPublicUsersByQuery = async (query) => {
   }
 
   const queryString = convertObjectToQueryString(filteredQuery)
-  return axios(`${API_BASE_URL}${PV.paths.user}?${queryString}`, {
+  return axios(`${API_BASE_URL}${PV.paths.api.user}?${queryString}`, {
     method: 'get'
   })
 }
 
 export const toggleSubscribeToUser = async (userId: string) => {
-  return axios(`${API_BASE_URL}${PV.paths.user}${PV.paths.toggle_subscribe}/${userId}`, {
+  return axios(`${API_BASE_URL}${PV.paths.api.user}${PV.paths.api.toggle_subscribe}/${userId}`, {
     method: 'get',
     withCredentials: true
   })
@@ -77,7 +77,7 @@ export const getLoggedInUserMediaRefs = async (bearerToken, nsfwMode, sort = PV.
   filteredQuery.page = page
   const queryString = convertObjectToQueryString(filteredQuery)
 
-  return axios(`${API_BASE_URL}${PV.paths.user}${PV.paths.mediaRefs}?${queryString}`, {
+  return axios(`${API_BASE_URL}${PV.paths.api.user}${PV.paths.api.mediaRefs}?${queryString}`, {
     method: 'get',
     headers: {
       Authorization: bearerToken,
@@ -92,7 +92,7 @@ export const getLoggedInUserPlaylists = async (bearerToken, page = 1) => {
   filteredQuery.page = page
   const queryString = convertObjectToQueryString(filteredQuery)
 
-  return axios(`${API_BASE_URL}${PV.paths.user}${PV.paths.playlists}?${queryString}`, {
+  return axios(`${API_BASE_URL}${PV.paths.api.user}${PV.paths.api.playlists}?${queryString}`, {
     method: 'get',
     data: {
       page
@@ -106,14 +106,14 @@ export const getLoggedInUserPlaylists = async (bearerToken, page = 1) => {
 
 
 export const deleteLoggedInUser = async (id: string) => {
-  return axios(`${API_BASE_URL}${PV.paths.user}`, {
+  return axios(`${API_BASE_URL}${PV.paths.api.user}`, {
     method: 'delete',
     withCredentials: true
   })
 }
 
 export const updateLoggedInUser = async (data: any) => {
-  return axios(`${API_BASE_URL}${PV.paths.user}`, {
+  return axios(`${API_BASE_URL}${PV.paths.api.user}`, {
     method: 'patch',
     data,
     withCredentials: true
@@ -121,7 +121,7 @@ export const updateLoggedInUser = async (data: any) => {
 }
 
 export const addOrUpdateUserHistoryItem = async (nowPlayingItem: NowPlayingItem) => {
-  return axios(`${API_BASE_URL}${PV.paths.user}${PV.paths.add_or_update_history_item}`, {
+  return axios(`${API_BASE_URL}${PV.paths.api.user}${PV.paths.api.add_or_update_history_item}`, {
     method: 'patch',
     data: {
       historyItem: nowPlayingItem
@@ -139,7 +139,7 @@ export const updateHistoryItemPlaybackPosition = async (nowPlayingItem: NowPlayi
   }
 
   try {
-    const result = await axios(`${API_BASE_URL}${PV.paths.user}${PV.paths.update_history_item_playback_position}`, {
+    const result = await axios(`${API_BASE_URL}${PV.paths.api.user}${PV.paths.api.update_history_item_playback_position}`, {
       method: 'patch',
       data: {
         historyItem: nowPlayingItem
@@ -159,14 +159,14 @@ export const updateHistoryItemPlaybackPosition = async (nowPlayingItem: NowPlayi
 }
 
 export const downloadLoggedInUserData = async (id: string) => {
-  return axios(`${API_BASE_URL}${PV.paths.user}${PV.paths.download}`, {
+  return axios(`${API_BASE_URL}${PV.paths.api.user}${PV.paths.api.download}`, {
     method: 'get',
     withCredentials: true
   })
 }
 
 export const updateUserQueueItems = async (data: any) => {
-  return axios(`${API_BASE_URL}${PV.paths.user}${PV.paths.update_queue}`, {
+  return axios(`${API_BASE_URL}${PV.paths.api.user}${PV.paths.api.update_queue}`, {
     method: 'patch',
     data,
     withCredentials: true

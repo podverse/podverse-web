@@ -118,7 +118,7 @@ class UserListCtrl extends Component<Props, State> {
             <p>{noResultsFoundMsg}</p>
             {
               user && user.id &&
-                <p>{PV.components.UserListCtrl.VisitThe}<Link as={PV.paths.settings} href={PV.paths.settings}><a onClick={this.linkClick}>{PV.components.UserListCtrl.SettingsPage}</a></Link>{PV.components.UserListCtrl.MakeProfilePublic}</p>
+                <p>{PV.components.UserListCtrl.VisitThe}<Link as={PV.paths.web.settings} href={PV.paths.web.settings}><a onClick={this.linkClick}>{PV.components.UserListCtrl.SettingsPage}</a></Link>{PV.components.UserListCtrl.MakeProfilePublic}</p>
             }
           </div>
         }

@@ -5,7 +5,7 @@ import config from '~/config'
 const { API_BASE_URL } = config()
 
 export const getEpisodeById = async (id: string) => {
-  return axios.get(`${API_BASE_URL}${PV.paths.episode}/${id}`)
+  return axios.get(`${API_BASE_URL}${PV.paths.api.episode}/${id}`)
 }
 
 export const getEpisodesByQuery = async (query) => {
@@ -44,7 +44,7 @@ export const getEpisodesByQuery = async (query) => {
   }
 
   const queryString = convertObjectToQueryString(filteredQuery)  
-  return axios(`${API_BASE_URL}${PV.paths.episode}?${queryString}`, {
+  return axios(`${API_BASE_URL}${PV.paths.api.episode}?${queryString}`, {
     method: 'get'
   })
 }

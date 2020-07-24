@@ -123,8 +123,8 @@ class Alerts extends Component<Props, State> {
 
     const renewLink = (
       <Link
-        as={PV.paths.settings_membership}
-        href={PV.paths.settings}>
+        as={PV.paths.web.settings_membership}
+        href={PV.paths.web.settings}>
         <a onClick={this.linkClick}>{PV.components.Alerts.Renew}</a>
       </Link>
     )
@@ -141,7 +141,7 @@ class Alerts extends Component<Props, State> {
               <Fragment>
                 <p>{PV.components.Alerts.EmailSent}</p>
                 <p>{PV.components.Alerts.PleaseCheckInbox}</p>
-                <span>{PV.components.Alerts.PleaseEmail}<a href={PV.paths.support_podverse_fm}>{PV.components.Alerts.SupportEmail}</a>{PV.components.Alerts.ForHelp}</span>
+                <span>{PV.components.Alerts.PleaseEmail}<a href={PV.paths.web.support_podverse_fm}>{PV.components.Alerts.SupportEmail}</a>{PV.components.Alerts.ForHelp}</span>
               </Fragment>
           }
           {
