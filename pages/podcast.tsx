@@ -8,6 +8,7 @@ import MediaInfoCtrl from '~/components/MediaInfoCtrl/MediaInfoCtrl'
 import MediaListCtrl from '~/components/MediaListCtrl/MediaListCtrl'
 import Meta from '~/components/Meta/Meta'
 import config from '~/config'
+import PV from '~/lib/constants'
 import { convertToNowPlayingItem } from '~/lib/nowPlayingItem'
 import { clone, cookieGetQuery, removeDoubleQuotes } from '~/lib/utility'
 import { pageIsLoading, pagesSetQueryState, playerQueueLoadSecondaryItems
@@ -57,22 +58,22 @@ class Podcast extends Component<Props, State> {
 
     const currentPage = pages[pageKeyWithId] || {}
     const lastScrollPosition = currentPage.lastScrollPosition
-    const queryFrom = currentPage.queryFrom || query.from || localStorageQuery.from || 'from-podcast'
+    const queryFrom = currentPage.queryFrom || query.from || localStorageQuery.from || PV.query.from_podcast
     const queryPage = currentPage.queryPage || query.page || 1
-    const querySort = currentPage.querySort || query.sort || localStorageQuery.sort || 'most-recent'
-    const queryType = currentPage.queryType || query.type || localStorageQuery.type || 'episodes'
+    const querySort = currentPage.querySort || query.sort || localStorageQuery.sort || PV.query.most_recent
+    const queryType = currentPage.queryType || query.type || localStorageQuery.type || PV.query.episodes
     let podcastId = ''
 
-    if (queryFrom === 'from-podcast') {
+    if (queryFrom === PV.query.from_podcast) {
       podcastId = podcast.id
-    } else if (queryFrom === 'subscribed-only') {
+    } else if (queryFrom === PV.query.subscribed_only) {
       podcastId = user.subscribedPodcastIds
     }
 
     if (Object.keys(currentPage).length === 0) {
       let results
 
-      if (queryType === 'episodes') {
+      if (queryType === PV.query.episodes) {
         results = await getEpisodesByQuery({
           from: queryFrom,
           ...(!podcastId ? { includePodcast: true } : {}),
@@ -115,9 +116,9 @@ class Podcast extends Component<Props, State> {
     }
 
     store.dispatch(pageIsLoading(false))
-    const podcastTitle = podcast.title || 'untitled podcast'
+    const podcastTitle = podcast.title || PV.core.untitledPodcast
     const meta = {
-      currentUrl: BASE_URL + '/podcast/' + podcast.id,
+      currentUrl: BASE_URL + PV.paths.web.podcast + '/' + podcast.id,
       description: removeDoubleQuotes(podcast.description),
       imageAlt: podcastTitle,
       imageUrl: podcast.shrunkImageUrl || podcast.imageUrl,
@@ -171,7 +172,7 @@ class Podcast extends Component<Props, State> {
           podcast={podcast} />
         <MediaListCtrl
           handleSetPageQueryState={pagesSetQueryState}
-          includeOldest={queryType === 'episodes'}
+          includeOldest={queryType === PV.query.episodes}
           pageKey={pageKey}
           podcast={podcast}
           podcastId={podcast.id}

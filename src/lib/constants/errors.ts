@@ -2,7 +2,10 @@
 export const errors = {
   alerts: {
     couldNotUpdateQueue: `Could not update queue on server. Please check your internet connection.`,
+    couldNotRemoveFromPlaylist: `Could not remove from playlist. Please check your internet connection and try again later.`,
     deleteClipFailed: `Delete clip failed. Please check your internet connection and try again later.`,
+    deletePlaylistFailed: `Delete playlist failed. Please check your internet connection and try again later.`,
+    updatePlaylistFailed: `Update playlist failed. Please check your internet connection and try again later.`,
     premiumRequired: `Your Premium membership has expired. Renew your membership on the Settings page, or log out to create a clip anonymously.`,
     somethingWentWrong: `Something went wrong. Please check your internet connection.`,
     noProfilesFound: `No profiles found`
@@ -14,6 +17,7 @@ export const errors = {
     SomethingWentWrong: `Something went wrong`
   },
   login: {
+    SubscribeToPlaylists: `Login to subscribe to playlists.`,
     SubscribeToPodcast: `Login to subscribe to this podcast.`,
     SubscribeToProfile: `Login to subscribe to this profile.`,
     ViewYourSubscriptions: `Login to view your subscriptions`,

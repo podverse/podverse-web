@@ -31,9 +31,9 @@ class Membership extends Component<Props, State> {
     store.dispatch(pageIsLoading(false))
 
     const meta = {
-      currentUrl: BASE_URL + '/membership',
-      description: 'Free and premium membership options.',
-      title: 'Podverse - Membership'
+      currentUrl: BASE_URL + PV.paths.web.membership,
+      description: PV.pages.membership._Description,
+      title: PV.pages.membership._Title
     }
 
     return { lastScrollPosition, meta, pageKey: kPageKey }

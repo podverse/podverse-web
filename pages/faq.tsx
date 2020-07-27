@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import Meta from '~/components/Meta/Meta'
 import config from '~/config'
+import PV from '~/lib/constants'
 import { pageIsLoading, pagesSetQueryState } from '~/redux/actions'
 const { BASE_URL } = config()
 
@@ -28,9 +29,9 @@ class FAQ extends Component<Props, State> {
     store.dispatch(pageIsLoading(false))
 
     const meta = {
-      currentUrl: BASE_URL + '/faq',
-      description: 'Podverse - Frequently asked questions',
-      title: 'Podverse - FAQ'
+      currentUrl: BASE_URL + PV.paths.web.faq,
+      description: PV.pages.faq._Description,
+      title: PV.pages.faq._Title
     }
 
     return { lastScrollPosition, pageKey: kPageKey, meta }
@@ -53,7 +54,7 @@ class FAQ extends Component<Props, State> {
           twitterTitle={meta.title} />
         <h3>FAQ</h3>
 
-        <p><a href='https://goo.gl/forms/VGVJRWlKPIGRqojY2' target='_blank' rel="noopener noreferrer">Contact Us / Ask a question</a></p>
+        <p><a href={PV.paths.web.contactUs} target='_blank' rel="noopener noreferrer">Contact Us / Ask a question</a></p>
         
         <h3>Table of Contents</h3>
 

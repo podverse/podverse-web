@@ -51,14 +51,14 @@ class Episodes extends Component<Props, State> {
     const lastScrollPosition = currentPage.lastScrollPosition
     const queryRefresh = !!query.refresh
     const categoryId = query.categoryId || currentPage.categoryId || localStorageQuery.categoryId || (allCategories && allCategories[2] && allCategories[2].id /* Arts */)
-    const queryFrom = currentPage.queryFrom || query.from || (query.categoryId && 'from-category') || localStorageQuery.from || (user && user.id ? 'subscribed-only' : 'all-podcasts')
+    const queryFrom = currentPage.queryFrom || query.from || (query.categoryId && PV.query.from_category) || localStorageQuery.from || (user && user.id ? PV.query.subscribed_only : PV.query.all_podcasts)
     const queryPage = (queryRefresh && 1) || currentPage.queryPage || query.page || 1
-    const querySort = currentPage.querySort || query.sort || localStorageQuery.sort || (user && user.id ? 'most-recent' : 'top-past-week')
+    const querySort = currentPage.querySort || query.sort || localStorageQuery.sort || (user && user.id ? PV.query.most_recent : PV.query.top_past_week)
     const queryType = (queryRefresh && query.type) || currentPage.queryType || query.type ||
-      localStorageQuery.type || 'episodes'
+      localStorageQuery.type || PV.query.episodes
     let podcastId = ''
 
-    if (queryFrom === 'subscribed-only') {
+    if (queryFrom === PV.query.subscribed_only) {
       podcastId = user.subscribedPodcastIds
     }
 
@@ -98,8 +98,8 @@ class Episodes extends Component<Props, State> {
 
     const meta = {
       currentUrl: BASE_URL,
-      description: 'Podcast app for iOS, Android, and web. Create and share podcast highlights and playlists. Sync your queue across all devices. Open source software.',
-      title: PV.core.Episodes,
+      description: PV.pages.episodes._Description,
+      title: PV.pages.episodes._Title,
     }
 
     return {

@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Button, MediaListItem, Pagination } from 'podverse-ui'
 import Meta from '~/components/Meta/Meta'
 import config from '~/config'
+import PV from '~/lib/constants'
 import { enrichPodcastsWithCategoriesString, safeAlert } from '~/lib/utility'
 import { pageIsLoading, pagesSetQueryState } from '~/redux/actions'
 import { getPodcastsByQuery } from '~/services'
@@ -38,7 +39,7 @@ class Search extends Component<Props, State> {
 
     const currentPage = pages[kPageKey] || {}
     const lastScrollPosition = currentPage.lastScrollPosition
-    const querySearchBy = currentPage.searchBy || query.searchBy || 'podcast'
+    const querySearchBy = currentPage.searchBy || query.searchBy || PV.query.podcast
 
     store.dispatch(pagesSetQueryState({ 
       pageKey: kPageKey,
@@ -46,9 +47,9 @@ class Search extends Component<Props, State> {
     }))
 
     const meta = {
-      currentUrl: BASE_URL + '/search',
-      description: 'Search for podcasts by title or host on Podverse.',
-      title: 'Podverse - Search'
+      currentUrl: BASE_URL + PV.paths.web.search,
+      description: PV.pages.search._Description,
+      title: PV.pages.search._Title
     }
 
     return { lastScrollPosition, meta, pageKey: kPageKey }
@@ -118,7 +119,7 @@ class Search extends Component<Props, State> {
 
     } catch (error) {
       console.log(error)
-      safeAlert('Search failed. Please check your internet connection and try again later.')
+      safeAlert(PV.pages.search.searchError)
     }
   }
 
@@ -144,8 +145,8 @@ class Search extends Component<Props, State> {
     const { isSearching, listItems, listItemsTotal, queryPage, searchBy } = pages[kPageKey]
     const { currentSearch, searchCompleted } = this.state
 
-    const placeholder = searchBy === 'host'
-      ? 'search by host' : 'search by title'
+    const placeholder = searchBy === PV.query.host
+      ? PV.pages.search.searchByHost : PV.pages.search.searchByTitle
 
       
     const listItemNodes = listItems ? listItems.map(x => {
@@ -237,7 +238,7 @@ class Search extends Component<Props, State> {
           {
             (!isSearching && searchCompleted && listItemNodes && listItemNodes.length === 0) &&
               <div className='no-results-msg'>
-                No podcasts {`${searchBy === 'host' ? 'with that host' : ''}`} found.
+                No podcasts {`${searchBy === PV.query.host ? 'with that host' : ''}`} found.
               </div>
           }
           {

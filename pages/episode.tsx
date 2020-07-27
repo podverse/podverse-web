@@ -9,6 +9,7 @@ import MediaInfoCtrl from '~/components/MediaInfoCtrl/MediaInfoCtrl'
 import MediaListCtrl from '~/components/MediaListCtrl/MediaListCtrl'
 import Meta from '~/components/Meta/Meta'
 import config from '~/config'
+import PV from '~/lib/constants'
 import { convertToNowPlayingItem } from '~/lib/nowPlayingItem'
 import { checkIfLoadingOnFrontEnd, clone, cookieGetQuery, removeDoubleQuotes } from '~/lib/utility'
 import { pageIsLoading, pagesSetQueryState, playerQueueLoadSecondaryItems
@@ -64,25 +65,25 @@ class Episode extends Component<Props, State> {
 
     const currentPage = pages[pageKeyWithId] || {}
     const lastScrollPosition = currentPage.lastScrollPosition
-    const queryFrom = currentPage.queryFrom || query.from || localStorageQuery.from || 'from-episode'
+    const queryFrom = currentPage.queryFrom || query.from || localStorageQuery.from || PV.query.from_episode
     const queryPage = currentPage.queryPage || query.page || 1
-    const querySort = currentPage.querySort || query.sort || localStorageQuery.sort || 'top-past-week'
-    const queryType = currentPage.queryType || query.type || localStorageQuery.type || 'clips'
+    const querySort = currentPage.querySort || query.sort || localStorageQuery.sort || PV.query.top_past_week
+    const queryType = currentPage.queryType || query.type || localStorageQuery.type || PV.query.clips
     let podcastId = ''
     let episodeId = ''
 
-    if (queryFrom === 'from-podcast') {
+    if (queryFrom === PV.query.from_podcast) {
       podcastId = episode.podcast.id
-    } else if (queryFrom === 'from-episode') {
+    } else if (queryFrom === PV.query.from_episode) {
       episodeId = episode.id
-    } else if (queryFrom === 'subscribed-only') {
+    } else if (queryFrom === PV.query.subscribed_only) {
       podcastId = user.subscribedPodcastIds
     }
 
     if (Object.keys(currentPage).length === 0) {
       let results
 
-      if (queryType === 'episodes') {
+      if (queryType === PV.query.episodes) {
         results = await getEpisodesByQuery({
           from: queryFrom,
           page: queryPage,
@@ -129,9 +130,9 @@ class Episode extends Component<Props, State> {
     
     let meta = {}
     if (episode) {
-      const podcastTitle = (episode && episode.podcast && episode.podcast.title) || 'untitled podcast'
+      const podcastTitle = (episode && episode.podcast && episode.podcast.title) || PV.core.untitledPodcast
       meta = {
-        currentUrl: BASE_URL + '/episode/' + episode.id,
+        currentUrl: BASE_URL + PV.paths.web.episode + '/' + episode.id,
         description: removeDoubleQuotes(episode.description),
         imageAlt: podcastTitle,
         imageUrl: episode.shrunkImageUrl || episode.podcast.shrunkImageUrl || episode.imageUrl || episode.podcast.imageUrl,
@@ -188,7 +189,7 @@ class Episode extends Component<Props, State> {
           episode={episode}
           episodeId={episode.id}
           handleSetPageQueryState={pagesSetQueryState}
-          includeOldest={queryType === 'episodes'}
+          includeOldest={queryType === PV.query.episodes}
           pageKey={pageKey}
           podcast={episode.podcast}
           podcastId={episode.podcast.id}

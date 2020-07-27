@@ -43,7 +43,7 @@ class Playlists extends Component<Props, State> {
     let subscribedPlaylists = []
     if (subscribedPlaylistIds && subscribedPlaylistIds.length > 0) {
       const subscribedPlaylistsData = await getPlaylistsByQuery({
-        from: 'subscribed-only',
+        from: PV.query.subscribed_only,
         subscribedPlaylistIds
       })
       subscribedPlaylists = subscribedPlaylistsData.data
@@ -52,9 +52,9 @@ class Playlists extends Component<Props, State> {
     store.dispatch(pageIsLoading(false))
 
     const meta = {
-      currentUrl: BASE_URL + '/playlists',
-      description: 'Create and share playlists of podcast clips and episodes.',
-      title: PV.core.Playlists
+      currentUrl: BASE_URL + PV.paths.web.playlists,
+      description: PV.pages.playlists._Description,
+      title: PV.pages.playlists._Title
     }
 
     return { lastScrollPosition, meta, myPlaylists, pageKey: kPageKey, subscribedPlaylists,
