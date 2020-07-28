@@ -238,7 +238,7 @@ class MediaModals extends Component<Props, State> {
       window.sessionStorage.removeItem(KEYS.inProgressMakeEndTimeKey)
 
     } catch (error) {
-      if (error && error.response && error.response.data && error.response.data.message === PV.errors.premiumRequired) {
+      if (error && error.response && error.response.data && error.response.data.message === PV.errorResponseMessages.premiumRequired) {
         safeAlert(PV.errors.alerts.premiumRequired)
       } else if (error && error.response && error.response.status === 429) {
         alertRateLimitError(error)
@@ -315,7 +315,7 @@ class MediaModals extends Component<Props, State> {
           })
         }
       } catch (error) {
-        if (error && error.response && error.response.data && error.response.data.message === PV.errors.premiumRequired) {
+        if (error && error.response && error.response.data && error.response.data.message === PV.errorResponseMessages.premiumRequired) {
           alertPremiumRequired()
         } else if (error && error.response && error.response.status === 429) {
           alertRateLimitError(error)
@@ -340,7 +340,7 @@ class MediaModals extends Component<Props, State> {
       modalsAddToCreatePlaylistIsSaving(false)
       modalsAddToCreatePlaylistShow(false)
     } catch (error) {
-      if (error && error.response && error.response.data && error.response.data.message === PV.errors.premiumRequired) {
+      if (error && error.response && error.response.data && error.response.data.message === PV.errorResponseMessages.premiumRequired) {
         alertPremiumRequired()
       } else if (error && error.response && error.response.status === 429) {
         alertRateLimitError(error)

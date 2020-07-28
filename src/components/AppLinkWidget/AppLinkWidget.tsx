@@ -49,7 +49,7 @@ const createDownloadButton = (mobileOS: string) => {
         rel='noopener noreferrer'
         target='_blank'>
         <img
-          alt={PV.components.AppLinkWidget.GetItOnGooglePlay}
+          alt={PV.core.GetItOnGooglePlay}
           src={PV.paths.web.googlePlayStoreBadge}
         />
       </a>
@@ -155,7 +155,7 @@ class AppLinkWidget extends Component<Props, State> {
         </div>
         <Modal
           appElement={appEl}
-          contentLabel={PV.components.AppLinkWidget.OpenInTheApp}
+          contentLabel={PV.core.OpenInTheApp}
           isOpen={modalIsOpen}
           onRequestClose={this._handleHideModal}
           portalClassName='open-in-the-app-modal over-media-player'
@@ -168,7 +168,7 @@ class AppLinkWidget extends Component<Props, State> {
               className={`open-in-the-app-modal__i-have-the-app ${mobileOS}`}
               onClick={this.handleOpenInApp}
               outline={true}
-              text={PV.components.AppLinkWidget.IHaveTheApp} />
+              text={PV.core.IHaveTheApp} />
           </div>
           <div className='open-in-the-app-modal__download-app'>
             {downloadButton}

@@ -261,7 +261,7 @@ class Playlist extends Component<Props, State> {
         userSetInfo({ subscribedPlaylistIds: response.data })
       }
     } catch (error) {
-      if (error && error.response && error.response.data && error.response.data.message === PV.errors.premiumRequired) {
+      if (error && error.response && error.response.data && error.response.data.message === PV.errorResponseMessages.premiumRequired) {
         alertPremiumRequired()
       } else if (error && error.response && error.response.status === 429) {
         alertRateLimitError(error)
@@ -624,7 +624,9 @@ class Playlist extends Component<Props, State> {
           }
           {
             (!isLoading && listItemNodes.length === 0) &&
-              <div className='no-results-msg'>No playlist items found</div>
+              <div className='no-results-msg'>
+                {PV.core.noResultsMessage(PV.core.Playlists)}
+              </div>
           }
         </div>
       </Fragment>

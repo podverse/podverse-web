@@ -119,7 +119,7 @@ class Search extends Component<Props, State> {
 
     } catch (error) {
       console.log(error)
-      safeAlert(PV.pages.search.searchError)
+      safeAlert(PV.core.SearchError)
     }
   }
 
@@ -238,7 +238,7 @@ class Search extends Component<Props, State> {
           {
             (!isSearching && searchCompleted && listItemNodes && listItemNodes.length === 0) &&
               <div className='no-results-msg'>
-                No podcasts {`${searchBy === PV.query.host ? 'with that host' : ''}`} found.
+                {PV.core.noResultsMessage(PV.core.podcasts, searchBy === PV.query.host ? 'with that host' : '')}
               </div>
           }
           {
@@ -248,7 +248,7 @@ class Search extends Component<Props, State> {
                 href={REQUEST_PODCAST_URL}
                 rel="noopener noreferrer"
                 target='_blank'>
-                Request a podcast
+                {PV.core.RequestAPodcast}
               </a>
           }
         </div>

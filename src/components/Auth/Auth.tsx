@@ -170,7 +170,7 @@ class Auth extends Component<Props, State> {
 
     const signUpTopText = (
       <React.Fragment>
-        {PV.components.Auth.TryPremium1Year()}
+        {PV.core.TryPremium1Year()}
       </React.Fragment>
     )
 

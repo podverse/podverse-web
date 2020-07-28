@@ -392,7 +392,7 @@ class PodcastListCtrl extends Component<Props, State> {
           dataPodcast={x}
           handleLinkClick={this.linkClick}
           hasLink={true}
-          itemType={PV.query.podcast}
+          itemType={PV.attributes.mediaListItem.itemType.podcast}
           key={`podcast-list-item-${uuidv4()}`} />
       )
     })
@@ -400,8 +400,8 @@ class PodcastListCtrl extends Component<Props, State> {
     const bottomSelectNodes = this.generateCategorySelectNodes(categoryId)
 
     const selectedQuerySortOption = this.getQuerySortOptions().filter(x => x.value === querySort)
-
-    const noResultsFoundMsg = !user || !user.id ? PV.errors.login.ViewYourSubscriptions : PV.mediaList.noResultMsg.noPodcastsFound
+    const isNotLoggedIn = !user || !user.id
+    const noResultsFoundMsg = isNotLoggedIn ? PV.errors.login.ViewYourSubscriptions : PV.mediaList.noResultMsg.noPodcastsFound
 
     return (
       <div className={'media-list adjust-top-position'}>

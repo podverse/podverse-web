@@ -58,7 +58,7 @@ class UserHeaderCtrl extends Component<Props, State> {
         userSetInfo({ subscribedUserIds: response.data })
       }
     } catch (error) {
-      if (error && error.response && error.response.data && error.response.data.message === PV.errors.premiumRequired) {
+      if (error && error.response && error.response.data && error.response.data.message === PV.errorResponseMessages.premiumRequired) {
         alertPremiumRequired()
       } else if (error && error.response && error.response.status === 429) {
         alertRateLimitError(error)
@@ -118,7 +118,7 @@ class UserHeaderCtrl extends Component<Props, State> {
                           placement='bottom'
                           target='profileShareLink'>
                           <PopoverHeader>
-                            {PV.components.UserHeaderCtrl.CopyLinkToProfile}
+                            {PV.core.CopyLinkToProfile}
                           </PopoverHeader>
                           <PopoverBody>
                             <InputGroup id='profile-link'>
