@@ -64,6 +64,30 @@ export const pages = {
     searchByHost: `search by host`,
     searchByTitle: `search by title`,
   },
+  settings: {
+    _Description: `Customize your account settings on Podverse.`,
+    _Title: `Podverse - Settings`,
+    CensorNSFWText: `Censor NSFW text`,
+    DownloadDataBackup: `Download a backup of your data.`,
+    Ends: `Ends: `,
+    Ended: `Ended: `,
+    Expired: `Expired`,
+    HideFilterButtons: `Hide filter buttons`,
+    HideJumpBackwardsButton: `Hide jump backwards button`,
+    HidePlaybackSpeedButton: `Hide playback speed button`,
+    HideNSFWLabels: `Hide NSFW labels`,
+    Inactive: `Inactive`,
+    Interface: `Interface`,
+    Management: `Management`,
+    MembershipStatus: `Membership Status`,
+    TrialEnded: `Your free trial has ended. Please renew to continue using premium features.`,
+    MayAppearNextToContentYouCreate: `May appear next to content you create`,
+    MembershipEnded: `Your membership has expired. Please renew to continue using premium features.`,
+    MembershipInactive: `Your membership is inactive. Please renew to continue using premium features.`,
+    MyData: `My Data`,
+
+
+  },
   terms: {
     _Description: `Podverse terms of service agreement.`,
     _Title: `Podverse - Terms of Service`,
@@ -75,5 +99,14 @@ export const pages = {
     PodverseTerms_6: `We host podcast links and content from third-party podcast feeds and sites. These have their own independent privacy policies, and we have no responsibility for their content or activities.`,
     PodverseTerms_7: `We also host reduced size podcast images from podcasters' feeds, to save user network data and speed up page loading times.`,
     TermsOfService: `Terms of Service`
+  },
+  verify_email: {
+    _Description: `Verify your email address on Podverse`,
+    _Title: `Verify your email address`,
+    EmailAlreadyVerifiedOrTokenExpired: ``,
+    EmailVerificationFailed: `Email Verification Failed`,
+    EmailVerified: `Email Verified`,
+    SendVerificationEmail: `send verification email`,
+    ThankYouForVerifying: ``,
   }
 }

@@ -24,6 +24,7 @@ export const errors = {
     ViewYourProfiles: `Login to view your profiles`
   },
   message: {
+    PleaseProvideValidEmail: `Please provide a valid email address`,
     PageNotFound: `Page not found`,
     CheckConnectionOrDifferentPage: `Please check your internet connection, or try a different page.`,
     SiteOfflineUntilWorkIsComplete: `The site will be offline until the work is complete.`,
