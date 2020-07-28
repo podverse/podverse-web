@@ -288,10 +288,10 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
     // If page uses a query parameter to show a modal on page load,
     // then update history so the query parameter version is not last in history.
     const urlParams = new URLSearchParams(window.location.search)
-    const paramLogin = urlParams.get(PV.core.login)
-    const paramForgotPassword = urlParams.get(PV.core.forgotPassword)
-    const paramResetPassword = urlParams.get(PV.core.resetPassword)
-    const paramSendVerificationEmail = urlParams.get(PV.core.sendVerificationEmail)
+    const paramLogin = urlParams.get(PV.query.login)
+    const paramForgotPassword = urlParams.get(PV.query.forgotPassword)
+    const paramResetPassword = urlParams.get(PV.query.resetPassword)
+    const paramSendVerificationEmail = urlParams.get(PV.query.sendVerificationEmail)
     if (paramLogin || paramForgotPassword || paramResetPassword || paramSendVerificationEmail) {
       window.history.pushState({}, document.title, window.location.origin + window.location.pathname)
     }

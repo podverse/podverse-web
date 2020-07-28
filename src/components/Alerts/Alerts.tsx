@@ -125,7 +125,7 @@ class Alerts extends Component<Props, State> {
       <Link
         as={PV.paths.web.settings_membership}
         href={PV.paths.web.settings}>
-        <a onClick={this.linkClick}>{PV.components.Alerts.Renew}</a>
+        <a onClick={this.linkClick}>{PV.core.Renew}</a>
       </Link>
     )
 
@@ -139,14 +139,14 @@ class Alerts extends Component<Props, State> {
           {
             hasSent &&
               <Fragment>
-                <p>{PV.components.Alerts.EmailSent}</p>
-                <p>{PV.components.Alerts.PleaseCheckInbox}</p>
-                {PV.components.Alerts.ContactSupport()}
+                <p>{PV.core.EmailSent}</p>
+                <p>{PV.core.PleaseCheckInbox}</p>
+                {PV.core.ContactSupport()}
               </Fragment>
           }
           {
             !hasSent && isSending &&
-              <span>{PV.components.Alerts.EmailSending}<FontAwesomeIcon icon='spinner' spin /></span>
+              <span>{PV.core.EmailSending}<FontAwesomeIcon icon='spinner' spin /></span>
           }
           {
             !hasSent && !isSending &&
@@ -164,7 +164,7 @@ class Alerts extends Component<Props, State> {
           fade={false}
           isOpen={showFreeTrialHasEnded}
           toggle={() => this.hideAlert(PV.cookies.showFreeTrialHasEnded)}>
-          {PV.components.Alerts.YourFreeTrialHasEnded(renewLink)}
+          {PV.core.YourFreeTrialHasEnded(renewLink)}
         </Alert>
       )
     } else if (showFreeTrialWarning) {
@@ -174,7 +174,7 @@ class Alerts extends Component<Props, State> {
           fade={false}
           isOpen={showFreeTrialWarning}
           toggle={() => this.hideAlert(PV.cookies.showFreeTrialWarning)}>
-          {PV.components.Alerts.YourFreeTrialWillEndSoon(renewLink)}
+          {PV.core.YourFreeTrialWillEndSoon(renewLink)}
         </Alert>
       )
     } else if (showMembershipHasEnded) {
@@ -184,7 +184,7 @@ class Alerts extends Component<Props, State> {
           fade={false}
           isOpen={showMembershipHasEnded}
           toggle={() => this.hideAlert(PV.cookies.showMembershipHasEnded)}>
-          {PV.components.Alerts.YourMembershipHasExpired(renewLink)}
+          {PV.core.YourMembershipHasExpired(renewLink)}
         </Alert>
       )
     } else if (showMembershipWarning) {
@@ -194,7 +194,7 @@ class Alerts extends Component<Props, State> {
           fade={false}
           isOpen={showMembershipWarning}
           toggle={() => this.hideAlert(PV.cookies.showMembershipWarning)}>
-          {PV.components.Alerts.YourMembershipWillExpireSoon(renewLink)}
+          {PV.core.YourMembershipWillExpireSoon(renewLink)}
         </Alert>
       )
     } else {

@@ -22,16 +22,15 @@ export const errors = {
     SubscribeToProfile: `Login to subscribe to this profile.`,
     ViewYourSubscriptions: `Login to view your subscriptions`,
     ViewYourProfiles: `Login to view your profiles`
-    },
-    message: {
-      PageNotFound: `Page not found`,
-      CheckConnectionOrDifferentPage: `Please check your internet connection, or try a different page.`,
-      SiteOfflineUntilWorkIsComplete: `The site will be offline until the work is complete.`,
-      WeAreNotSureWhatHappened: `We're not sure what happened there :(`,
-      YouMustLoginToUseThisFeature: `You must login to use this feature.`
-    },
+  },
+  message: {
+    PageNotFound: `Page not found`,
+    CheckConnectionOrDifferentPage: `Please check your internet connection, or try a different page.`,
+    SiteOfflineUntilWorkIsComplete: `The site will be offline until the work is complete.`,
+    WeAreNotSureWhatHappened: `We're not sure what happened there :(`,
+    YouMustLoginToUseThisFeature: `You must login to use this feature.`
+  },
   getAutoplayValue: `getAutoplayValue`,
   getPlaybackRateValue: `getPlaybackRateValue`,
-  internetConnectivityErrorMessage: `Error: Please check your internet connection and try again later.`,
-  premiumRequired: `Premium Membership Required`
+  internetConnectivityErrorMessage: `Error: Please check your internet connection and try again later.`
 }

@@ -63,7 +63,6 @@ export const pages = {
     _Title: `Podverse - Search`,
     searchByHost: `search by host`,
     searchByTitle: `search by title`,
-    searchError: `Search failed. Please check your internet connection and try again later.`
   },
   terms: {
     _Description: `Podverse terms of service agreement.`,

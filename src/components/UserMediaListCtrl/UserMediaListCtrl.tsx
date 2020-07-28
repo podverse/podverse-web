@@ -310,14 +310,13 @@ class UserMediaListCtrl extends Component<Props, State> {
     let mediaListItemType = PV.mediaList.now_playing_item
     let noResultsMsg = ''
     if (queryType === PV.query.clips) {
-      mediaListItemType = PV.mediaList.now_playing_item
-      noResultsMsg = PV.mediaList.noResultMsg.noClipsFound
+      noResultsMsg = PV.core.noResultsMessage(PV.core.clips)
     } else if (queryType === PV.query.playlists) {
       mediaListItemType = PV.query.playlist
-      noResultsMsg = PV.mediaList.noResultMsg.noPlaylistsFound
+      noResultsMsg = PV.core.noResultsMessage(PV.core.playlists)
     } else if (queryType === PV.query.podcasts) {
       mediaListItemType = PV.query.podcast
-      noResultsMsg = PV.mediaList.noResultMsg.noSubscribedPodcastsFound
+      noResultsMsg = PV.core.noResultsMessage(PV.core.podcasts)
     }
 
     const listItemNodes = Array.isArray(listItems) ? listItems.map(x => {

@@ -133,9 +133,9 @@ class Clip extends Component<Props, State> {
 
     if (mediaRef) {
       const podcastTitle = (mediaRef && mediaRef.episode && mediaRef.episode.podcast &&
-        mediaRef.episode.podcast.title) || PV.core.untitledPodcast
+        mediaRef.episode.podcast.title) || PV.core.untitledClip
       meta = {
-        currentUrl: BASE_URL + PV.paths.web.clip + '/' + mediaRef.id,
+        currentUrl: BASE_URL + PV.query.web.clip + '/' + mediaRef.id,
         description: removeDoubleQuotes(`${mediaRef.episode.title} - ${podcastTitle}`),
         imageAlt: podcastTitle,
         imageUrl: mediaRef.episode.shrunkImageUrl || mediaRef.episode.podcast.shrunkImageUrl || mediaRef.episode.imageUrl || mediaRef.episode.podcast.imageUrl,

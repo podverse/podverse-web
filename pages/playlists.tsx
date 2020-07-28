@@ -115,7 +115,9 @@ class Playlists extends Component<Props, State> {
         <h3>{PV.core.Playlists}</h3>
         {
           (!user || !user.id) &&
-            <div className='no-results-msg'>Login to view your playlists</div>
+            <div className='no-results-msg'>
+              {PV.core.LoginToViewYour(PV.core.playlists)}
+            </div>
         }
         {
           (user && user.id) &&
@@ -127,7 +129,9 @@ class Playlists extends Component<Props, State> {
                 }
                 {
                   (myPlaylistNodes.length === 0) &&
-                    <div className='no-results-msg'>No playlists found</div>
+                    <div className='no-results-msg'>
+                      {PV.core.noResultsMessage(PV.core.playlists)}
+                    </div>
                 }
               </div>
               {

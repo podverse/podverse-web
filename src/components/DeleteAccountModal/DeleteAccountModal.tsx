@@ -80,7 +80,7 @@ export class DeleteAccountModal extends React.Component<Props, State> {
     return (
       <Modal
         appElement={appEl}
-        contentLabel={PV.components.DeleteAccountModal.DeleteAccountLabel}
+        contentLabel={PV.core.DeleteAccount}
         isOpen={isOpen}
         onRequestClose={handleHideModal}
         portalClassName='delete-account-modal over-media-player'
