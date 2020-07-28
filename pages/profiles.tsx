@@ -50,9 +50,9 @@ class Profiles extends Component<Props, State> {
     store.dispatch(pageIsLoading(false))
 
     const meta = {
-      currentUrl: BASE_URL + '/profiles',
-      description: `My subscribed profiles on Podverse`,
-      title: PV.core.Profiles
+      currentUrl: BASE_URL + PV.paths.web.profiles,
+      description: PV.pages.profiles._Description,
+      title: PV.pages.profiles._Title
     }
 
     return { lastScrollPosition, meta, pageKey: kPageKey, user }

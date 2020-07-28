@@ -9,6 +9,7 @@ import MediaInfoCtrl from '~/components/MediaInfoCtrl/MediaInfoCtrl'
 import MediaListCtrl from '~/components/MediaListCtrl/MediaListCtrl'
 import Meta from '~/components/Meta/Meta'
 import config from '~/config'
+import PV from '~/lib/constants'
 import { convertToNowPlayingItem } from '~/lib/nowPlayingItem'
 import { checkIfLoadingOnFrontEnd, clone, cookieGetQuery, removeDoubleQuotes } from '~/lib/utility'
 import { pageIsLoading, pagesSetQueryState, playerQueueLoadSecondaryItems
@@ -65,25 +66,25 @@ class Clip extends Component<Props, State> {
 
     const currentPage = pages[pageKeyWithId] || {}
     const lastScrollPosition = currentPage.lastScrollPosition
-    const queryFrom = currentPage.queryFrom || query.from || localStorageQuery.from || 'from-episode'
+    const queryFrom = currentPage.queryFrom || query.from || localStorageQuery.from || PV.query.from_episode
     const queryPage = currentPage.queryPage || query.page || 1
-    const querySort = currentPage.querySort || query.sort || localStorageQuery.sort || 'chronological'
-    const queryType = currentPage.queryType || query.type || localStorageQuery.type || 'clips'
+    const querySort = currentPage.querySort || query.sort || localStorageQuery.sort || PV.query.chronological
+    const queryType = currentPage.queryType || query.type || localStorageQuery.type || PV.query.clips
     let podcastId = ''
     let episodeId = ''
 
-    if (queryFrom === 'from-podcast') {
+    if (queryFrom === PV.query.from_podcast) {
       podcastId = mediaRef.episode.podcast.id
-    } else if (queryFrom === 'from-episode') {
+    } else if (queryFrom === PV.query.from_episode) {
       episodeId = mediaRef.episode.id
-    } else if (queryFrom === 'subscribed-only') {
+    } else if (queryFrom === PV.query.subscribed_only) {
       podcastId = user.subscribedPodcastIds
     }
 
     if (Object.keys(currentPage).length === 0) {
       let results
 
-      if (queryType === 'episodes') {
+      if (queryType === PV.query.episodes) {
         results = await getEpisodesByQuery({
           from: queryFrom,
           page: queryPage,
@@ -132,13 +133,13 @@ class Clip extends Component<Props, State> {
 
     if (mediaRef) {
       const podcastTitle = (mediaRef && mediaRef.episode && mediaRef.episode.podcast &&
-        mediaRef.episode.podcast.title) || 'untitled podcast'
+        mediaRef.episode.podcast.title) || PV.core.untitledPodcast
       meta = {
-        currentUrl: BASE_URL + '/clip/' + mediaRef.id,
+        currentUrl: BASE_URL + PV.paths.web.clip + '/' + mediaRef.id,
         description: removeDoubleQuotes(`${mediaRef.episode.title} - ${podcastTitle}`),
         imageAlt: podcastTitle,
         imageUrl: mediaRef.episode.shrunkImageUrl || mediaRef.episode.podcast.shrunkImageUrl || mediaRef.episode.imageUrl || mediaRef.episode.podcast.imageUrl,
-        title: `${mediaRef.title ? mediaRef.title : 'untitled clip'}`
+        title: `${mediaRef.title ? mediaRef.title : PV.core.untitledPodcast}`
       }
     }
     
@@ -190,7 +191,7 @@ class Clip extends Component<Props, State> {
           episode={mediaRef.episode}
           episodeId={mediaRef.episode.id}
           handleSetPageQueryState={pagesSetQueryState}
-          includeOldest={queryType === 'episodes'}
+          includeOldest={queryType === PV.query.episodes}
           pageKey={pageKey}
           podcast={mediaRef.episode.podcast}
           podcastId={mediaRef.episode.podcast.id}

@@ -151,8 +151,8 @@ class Alerts extends Component<Props, State> {
           {
             !hasSent && !isSending &&
               <Fragment>
-                <p>{PV.components.Alerts.PleaseVerifyEmail}</p>
-                <span><a href='#' onClick={this._showSendVerificationEmailModal}>{PV.components.Alerts.SendVerificationEmail}.</a></span>
+                <p>{PV.core.PleaseVerifyEmail}</p>
+                <span><a href='#' onClick={this._showSendVerificationEmailModal}>{PV.core.SendVerificationEmail}</a></span>
               </Fragment>
           }
         </Alert>

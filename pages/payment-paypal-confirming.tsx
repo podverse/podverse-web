@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Meta from '~/components/Meta/Meta'
 import config from '~/config'
+import PV from '~/lib/constants'
 import { pageIsLoading } from '~/redux/actions'
 import { getPayPalOrderById } from '~/services/'
 const { BASE_URL } = config()
@@ -28,9 +29,9 @@ class PaymentConfirmingPayPal extends Component<Props, State> {
     store.dispatch(pageIsLoading(false))
 
     const meta = {
-      currentUrl: BASE_URL + '/payment-paypal-confirming',
-      description: 'PayPal payment confirmation screen on Podverse',
-      title: 'Confirming PayPal payment...'
+      currentUrl: BASE_URL + PV.paths.web.payment_paypal_confirming,
+      description: PV.pages.payment_paypal_confirming._Description,
+      title: PV.pages.payment_paypal_confirming._Title
     }
 
     return { id: query.id, meta }
@@ -76,11 +77,11 @@ class PaymentConfirmingPayPal extends Component<Props, State> {
         newState.isTakingLonger = false
         newState.wasSuccessful = true
         this.setState(newState)
-        location.href = '/settings#membership'
+        location.href = PV.paths.web.settings_membership
       } else {
         if (currentCount > 10) {
           clearInterval(this.state.intervalId)
-          newState.errorMessage = 'Something went wrong. Please check your internet connection.'
+          newState.errorMessage = PV.errors.alerts.somethingWentWrong
           newState.isChecking = false
         } else if (currentCount > 5) {
           newState.currentCount = currentCount + 1
@@ -93,7 +94,7 @@ class PaymentConfirmingPayPal extends Component<Props, State> {
     } catch (error) {
       console.log(error)
       clearInterval(this.state.intervalId)
-      newState.errorMessage = 'Something went wrong. Please check your internet connection.'
+      newState.errorMessage = PV.errors.alerts.somethingWentWrong
     }
   }
 
@@ -132,8 +133,8 @@ class PaymentConfirmingPayPal extends Component<Props, State> {
           {
             hasError &&
               <Fragment>
-                <p>Something went wrong. Please check your internet connection, or go to <a href='/settings#membership'>Settings > Membership</a> to check if your purchase was successful.</p>
-                <p>If the problem continues, please email <a href='mailto:support@podverse.fm'>support@podverse.fm</a> for help.</p>
+                <p>Something went wrong. Please check your internet connection, or go to <a href={PV.paths.web.settings_membership}>Settings > Membership</a> to check if your purchase was successful.</p>
+                <p>If the problem continues, please email <a href={PV.paths.web.support_podverse_fm}>support@podverse.fm</a> for help.</p>
               </Fragment>
           }
           {

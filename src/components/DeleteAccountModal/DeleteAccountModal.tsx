@@ -104,14 +104,14 @@ export class DeleteAccountModal extends React.Component<Props, State> {
                 <Button
                   className='delete-account-modal__cancel'
                   onClick={this.handleHideModal}
-                  text={PV.components.DeleteAccountModal.Cancel} />
+                  text={PV.core.Cancel} />
                 <Button
                   className='delete-account-modal__submit'
                   color='danger'
                   disabled={!isConfirmed}
                   isLoading={isDeleting}
                   onClick={this.handleDeleteAccount}
-                  text={PV.components.DeleteAccountModal.Delete} />
+                  text={PV.core.Delete} />
               </React.Fragment>
             )} />
         </div>

@@ -6,6 +6,7 @@ import Meta from '~/components/Meta/Meta'
 import UserHeaderCtrl from '~/components/UserHeaderCtrl/UserHeaderCtrl'
 import UserMediaListCtrl from '~/components/UserMediaListCtrl/UserMediaListCtrl'
 import config from '~/config'
+import PV from '~/lib/constants'
 import { convertToNowPlayingItem } from '~/lib/nowPlayingItem'
 import { clone } from '~/lib/utility'
 import { pageIsLoading, pagesSetQueryState, playerQueueLoadSecondaryItems
@@ -44,8 +45,8 @@ class Profile extends Component<Props, State> {
     const currentPage = pages[pageKeyWithId] || {}
     const lastScrollPosition = currentPage.lastScrollPosition
     const queryPage = currentPage.queryPage || query.page || 1
-    const querySort = currentPage.querySort || query.sort || 'alphabetical'
-    const queryType = currentPage.queryType || query.type || 'podcasts'
+    const querySort = currentPage.querySort || query.sort || PV.query.alphabetical
+    const queryType = currentPage.queryType || query.type || PV.query.podcasts
     let publicUser = currentPage.publicUser
 
     if (Object.keys(currentPage).length === 0) {
@@ -62,18 +63,18 @@ class Profile extends Component<Props, State> {
       let queryDataResult
       let listItems = []
 
-      if (query.type === 'clips') {
+      if (query.type === PV.query.clips) {
         queryDataResult = await getUserMediaRefs(currentId, nsfwMode, querySort, queryPage)
         listItems = queryDataResult.data.map(x => convertToNowPlayingItem(x))
         store.dispatch(playerQueueLoadSecondaryItems(clone(listItems)))
-      } else if (query.type === 'playlists') {
+      } else if (query.type === PV.query.playlists) {
         queryDataResult = await getUserPlaylists(currentId, nsfwMode, queryPage)
         listItems = queryDataResult.data
-      } else if (queryType === 'podcasts' 
+      } else if (queryType === PV.query.podcasts 
           && publicUser.subscribedPodcastIds
           && publicUser.subscribedPodcastIds.length > 0) {
         queryDataResult = await getPodcastsByQuery({
-          from: 'subscribed-only',
+          from: PV.query.subscribed_only,
           sort: querySort,
           subscribedPodcastIds: publicUser.subscribedPodcastIds
         })
@@ -96,9 +97,9 @@ class Profile extends Component<Props, State> {
     let meta = {}
     if (publicUser) {
       meta = {
-        currentUrl: BASE_URL + '/profile/' + publicUser.id,
-        description: `${publicUser.name ? publicUser.name : 'anonymous'}'s profile on Podverse`,
-        title: `${publicUser.name ? publicUser.name : 'anonymous'}'s profile on Podverse`
+        currentUrl: BASE_URL + PV.paths.web.profile + '/' + publicUser.id,
+        description: `${publicUser.name ? publicUser.name : PV.core.anonymous}'s profile on Podverse`,
+        title: `${publicUser.name ? publicUser.name : PV.core.anonymous}'s profile on Podverse`
       }
     }
 

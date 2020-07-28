@@ -7,6 +7,7 @@ import { bindActionCreators } from 'redux'
 import Error from './_error'
 import Meta from '~/components/Meta/Meta'
 import config from '~/config'
+import PV from '~/lib/constants'
 import { fireConfetti } from '~/lib/utility'
 import { modalsSignUpShow, pageIsLoading, pagesSetQueryState } from '~/redux/actions'
 import { getAccountClaimToken, redeemAccountClaimToken } from '~/services'
@@ -46,9 +47,9 @@ class Redeem extends Component<Props, State> {
     const lastScrollPosition = currentPage.lastScrollPosition
 
     const meta = {
-      currentUrl: BASE_URL + '/coupon/' + id,
-      description: 'Redeem your special offer',
-      title: 'Podverse - Coupon'
+      currentUrl: BASE_URL + PV.paths.web.coupon + '/' + id,
+      description: PV.pages.coupon._Description,
+      title: PV.pages.coupon._Title
     }
 
     return { id, lastScrollPosition, meta, pageKey: kPageKey }

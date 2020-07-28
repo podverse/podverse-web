@@ -32,9 +32,9 @@ class ResetPassword extends Component<Props, State> {
     const token = query.token
 
     const meta = {
-      currentUrl: BASE_URL + '/reset-password',
-      description: 'Reset your account password on Podverse',
-      title: `Reset Password`
+      currentUrl: BASE_URL + PV.paths.web.reset_password,
+      description: PV.pages.reset_password._Description,
+      title: PV.pages.reset_password._Title
     }
 
     store.dispatch(pageIsLoading(false))
@@ -56,7 +56,7 @@ class ResetPassword extends Component<Props, State> {
     const newState: any = {}
 
     if (password && !validatePassword(password)) {
-      newState.errorPassword = 'Password must contain a number, uppercase, lowercase, and be at least 8 characters long.'
+      newState.errorPassword = PV.pages.reset_password.passwordError
     } else if (validatePassword(password)) {
       newState.errorPassword = null
     }
@@ -82,7 +82,7 @@ class ResetPassword extends Component<Props, State> {
     const newState: any = {}
 
     if (!errorPassword && passwordConfirm !== password) {
-      newState.errorPasswordConfirm = 'Passwords do not match.'
+      newState.errorPasswordConfirm = PV.pages.reset_password.passwordMatchError
     }
 
     this.setState(newState)
@@ -214,13 +214,13 @@ class ResetPassword extends Component<Props, State> {
                     <React.Fragment>
                       <Button
                         onClick={() => { window.location.href = '' }}
-                        text='Cancel' />
+                        text={PV.core.Cancel} />
                       <Button
                         color='primary'
                         disabled={!this.hasConfirmedValidPassword()}
                         isLoading={isLoading}
                         onClick={this.handleSubmit}
-                        text='Submit' />
+                        text={PV.core.Submit} />
                     </React.Fragment>
                   } />
               </Fragment>

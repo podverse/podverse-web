@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Meta from '~/components/Meta/Meta'
+import PV from '~/lib/constants'
 import { pageIsLoading } from '~/redux/actions'
 import { getBitPayInvoiceStatusByOrderId } from '~/services/'
 import config from '~/config'
@@ -27,9 +28,9 @@ class PaymentConfirmingBitPay extends Component<Props, State> {
     store.dispatch(pageIsLoading(false))
 
     const meta = {
-      currentUrl: BASE_URL + '/payment-bitpay-confirming',
-      description: 'BitPay payment confirmation screen on Podverse',
-      title: 'Confirming BitPay payment...'
+      currentUrl: BASE_URL + PV.paths.web.payment_bitpay_confirming,
+      description: PV.pages.payment_bitpay_confirming._Description,
+      title: PV.pages.payment_bitpay_confirming._Title
     }
 
     return { id: query.id, meta }
@@ -69,12 +70,12 @@ class PaymentConfirmingBitPay extends Component<Props, State> {
     try {
       const bitpayInvoice = await getBitPayInvoiceStatusByOrderId(id)
 
-      if (bitpayInvoice && bitpayInvoice.data && (bitpayInvoice.data === 'confirmed' || bitpayInvoice.data === 'complete')) {
+      if (bitpayInvoice && bitpayInvoice.data && (bitpayInvoice.data === PV.core.confirmed || bitpayInvoice.data === PV.core.complete)) {
         newState.hasError = false
         newState.isChecking = false
         newState.wasSuccessful = true
         this.setState(newState)
-        location.href = '/settings#membership'
+        location.href = PV.paths.web.settings_membership
       } else {
         if (currentCount > 50) {
           clearInterval(this.state.intervalId)
@@ -120,7 +121,7 @@ class PaymentConfirmingBitPay extends Component<Props, State> {
                   <Fragment>
                     <p>Confirming payment with the network...</p>
                     <FontAwesomeIcon icon='spinner' spin />
-                    <p>This may take 5-20 minutes. You can leave this page and check your <a href='/settings#membership'>Settings page</a> later
+                    <p>This may take 5-20 minutes. You can leave this page and check your <a href={PV.paths.web.settings_membership}>Settings page</a> later
                       to confirm when your transaction has completed.</p>
                   </Fragment>
               }

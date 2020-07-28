@@ -9,7 +9,6 @@ import PV from '~/lib/constants'
 import { getViewContentsElementScrollTop } from '~/lib/utility'
 import { pageIsLoading, pagesSetQueryState } from '~/redux/actions'
 import { getPublicUsersByQuery } from '~/services'
-import Link from 'next/link';
 const uuidv4 = require('uuid/v4')
 const { QUERY_MEDIA_REFS_LIMIT } = config()
 
@@ -118,7 +117,7 @@ class UserListCtrl extends Component<Props, State> {
             <p>{noResultsFoundMsg}</p>
             {
               user && user.id &&
-                <p>{PV.components.UserListCtrl.VisitThe}<Link as={PV.paths.web.settings} href={PV.paths.web.settings}><a onClick={this.linkClick}>{PV.components.UserListCtrl.SettingsPage}</a></Link>{PV.components.UserListCtrl.MakeProfilePublic}</p>
+                PV.components.UserListCtrl.MakeProfilePublic(this)
             }
           </div>
         }

@@ -4,6 +4,67 @@ export const pages = {
     _Description: `Information about the Podverse open source podcast app.`,
     _Title: `Podverse - About`
   },
+  clips: {
+    _Description: `Podcast app for iOS, Android, and web. Create and share podcast highlights and playlists. Sync your queue across all devices. Open source software.`,
+    _Title: `Clips`,
+  },
+  coupon: {
+    _Description: `Redeem your special offer`,
+    _Title: `Podverse - Coupon`
+  },
+  episodes: {
+    _Description: `Podcast app for iOS, Android, and web. Create and share podcast highlights and playlists. Sync your queue across all devices. Open source software.`,
+    _Title: `Episodes`
+  },
+  faq: {
+    _Description: `Podverse - Frequently asked questions`,
+    _Title: `Podverse - FAQ`
+  },
+  index: {
+    _Description: `Podcast app for iOS, Android, and web. Create and share podcast highlights and playlists. Sync your queue across all devices. Open source software.`,
+    _Title: `Podverse - Create podcast highlights. Sync your podcasts across iOS, Android, and web. Open source technology.`,
+  },
+  membership: {
+    _Description: `Free and premium membership options.`,
+    _Title: `Podverse - Membership`
+  },
+  my_profile: {
+    _Description: `My Podverse Profile. Subscribe to podcasts, playlists, and other profiles`,
+    _Title: `My Profile`
+  },
+  payment_bitpay_confirming: {
+    _Description: `BitPay payment confirmation screen on Podverse`,
+    _Title: `Confirming BitPay payment...`
+  },
+  payment_paypal_confirming: {
+    _Description: `PayPal payment confirmation screen on Podverse`,
+    _Title: `Confirming PayPal payment...`
+  },
+  playlists: {
+    _Description: `Create and share playlists of podcast clips and episodes.`,
+    _Title: `Playlists`
+  },
+  podcasts: {
+    _Description: `Find and subscribe to podcasts.`,
+    _Title: `Podcasts`
+  },
+  profiles: {
+    _Description: `My subscribed profiles on Podverse`,
+    _Title: `Profiles`
+  },
+  reset_password: {
+    _Description: `Reset your account password on Podverse`,
+    _Title: `Reset Password`,
+    passwordError: `Password must contain a number, uppercase, lowercase, and be at least 8 characters long.`,
+    passwordMatchError: `Passwords do not match.`
+  },
+  search: {
+    _Description: `Search for podcasts by title or host on Podverse.`,
+    _Title: `Podverse - Search`,
+    searchByHost: `search by host`,
+    searchByTitle: `search by title`,
+    searchError: `Search failed. Please check your internet connection and try again later.`
+  },
   terms: {
     _Description: `Podverse terms of service agreement.`,
     _Title: `Podverse - Terms of Service`,

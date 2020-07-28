@@ -242,24 +242,24 @@ class PodcastListCtrl extends Component<Props, State> {
     const topLevelItems = [] as any[]
 
     topLevelItems.push({
-      label: 'Subscribed',
+      label: PV.query.label.Subscribed,
       onClick: () => this.queryPodcastsSubscribed(),
       parentValue: null,
-      value: 'subscribed-only'
+      value: PV.query.subscribed_only
     })
 
     topLevelItems.push({
-      label: 'All Podcasts',
+      label: PV.query.label.AllPodcasts,
       onClick: () => this.queryPodcastsAll(),
       parentValue: null,
-      value: 'all-podcasts'
+      value: PV.query.all_podcasts
     })
 
     topLevelItems.push({
-      label: 'Categories',
+      label: PV.query.label.Categories,
       onClick: () => this.queryPodcastsCategory(categoryId || allCategories[2].id /* Arts */),
       parentValue: null,
-      value: 'from-category'
+      value: PV.query.from_category
     })
 
     return (
@@ -298,7 +298,7 @@ class PodcastListCtrl extends Component<Props, State> {
       }
 
       subcategoryItems.unshift({
-        label: 'All',
+        label: PV.query.label.All,
         onClick: () => this.queryPodcastsCategory(selectedCategory.parentValue),
         parentValue: null,
         value: selectedCategory.parentValue
@@ -392,7 +392,7 @@ class PodcastListCtrl extends Component<Props, State> {
           dataPodcast={x}
           handleLinkClick={this.linkClick}
           hasLink={true}
-          itemType='podcast'
+          itemType={PV.query.podcast}
           key={`podcast-list-item-${uuidv4()}`} />
       )
     })

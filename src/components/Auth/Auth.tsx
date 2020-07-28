@@ -98,8 +98,8 @@ class Auth extends Component<Props, State> {
     } catch (error) {
       const pleaseVerifyMessage = (
         <Fragment>
-          <p>Please verify your email address to login.</p>
-          <span><a href='#' onClick={this._showSendVerificationEmailModal}>send verification email</a></span>
+          <p>{PV.core.PleaseVerifyEmail}</p>
+                <span><a href='#' onClick={this._showSendVerificationEmailModal}>{PV.core.SendVerificationEmail}</a></span>
         </Fragment>
       )
       const errorMsg =
@@ -170,10 +170,7 @@ class Auth extends Component<Props, State> {
 
     const signUpTopText = (
       <React.Fragment>
-        <p style={{ textAlign: 'center' }}>
-          Try premium free for 1 year!
-          <br />$10 per year after that
-        </p>
+        {PV.components.Auth.TryPremium1Year()}
       </React.Fragment>
     )
 

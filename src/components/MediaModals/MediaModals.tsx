@@ -221,8 +221,8 @@ class MediaModals extends Component<Props, State> {
           isOpen: false
         })
 
-        const href = `/clip?id=${updatedMediaRef.data.id}`
-        const as = `/clip/${updatedMediaRef.data.id}`
+        const href = `${PV.paths.web.clip}?id=${updatedMediaRef.data.id}`
+        const as = `${PV.paths.web.clip}/${updatedMediaRef.data.id}`
         Router.push(href, as)
       } else {
         const newMediaRef = await createMediaRef(data)
@@ -315,7 +315,7 @@ class MediaModals extends Component<Props, State> {
           })
         }
       } catch (error) {
-        if (error && error.response && error.response.data && error.response.data.message === 'Premium Membership Required') {
+        if (error && error.response && error.response.data && error.response.data.message === PV.errors.premiumRequired) {
           alertPremiumRequired()
         } else if (error && error.response && error.response.status === 429) {
           alertRateLimitError(error)
@@ -340,7 +340,7 @@ class MediaModals extends Component<Props, State> {
       modalsAddToCreatePlaylistIsSaving(false)
       modalsAddToCreatePlaylistShow(false)
     } catch (error) {
-      if (error && error.response && error.response.data && error.response.data.message === 'Premium Membership Required') {
+      if (error && error.response && error.response.data && error.response.data.message === PV.errors.premiumRequired) {
         alertPremiumRequired()
       } else if (error && error.response && error.response.status === 429) {
         alertRateLimitError(error)
@@ -439,7 +439,7 @@ class MediaModals extends Component<Props, State> {
 
     let clipCreatedLinkHref = ''
     if (typeof location !== 'undefined' && clipCreatedMediaRef) {
-      clipCreatedLinkHref = `${location.protocol}//${location.hostname}${location.port ? `:${location.port}` : ''}/clip/${clipCreatedMediaRef && clipCreatedMediaRef.id}`
+      clipCreatedLinkHref = `${location.protocol}//${location.hostname}${location.port ? `:${location.port}` : ''}${PV.paths.web.clip}/${clipCreatedMediaRef && clipCreatedMediaRef.id}`
     }
 
     return (

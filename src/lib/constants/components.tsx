@@ -1,5 +1,6 @@
 import React from 'react'
 import { paths } from './paths'
+import Link from 'next/link'
 
 export const components = {
   Alerts: {
@@ -7,9 +8,7 @@ export const components = {
     EmailSending: `Email sending... `,
     EmailSent: `Email Sent! Please check your inbox.`,
     PleaseCheckInbox: `If it does not appear in the next 5 minutes, please check your inbox's Spam or Promotions folders.`,
-    PleaseVerifyEmail: `Please verify your email address to login.`,
     Renew: `Renew`,
-    SendVerificationEmail: `send verification email`,
     SupportEmail: `support@podverse.fm`,
     YourFreeTrialHasEnded: (renewLink) => `Your free trial has ended. ${renewLink} to continue using premium features.`,
     YourFreeTrialWillEndSoon: (renewLink) => `Your free trial will end soon. ${renewLink} to continue using premium features.`,
@@ -21,13 +20,14 @@ export const components = {
     IHaveTheApp: `I have the app`,
     OpenInTheApp: `Open in the app`
   },
-  CheckoutModal: {
-    CheckoutLabel: `Checkout`
+  Auth: {
+    TryPremium1Year: () =>  (<p style={{ textAlign: 'center' }}>Try premium free for 1 year!<br />$10 per year after that</p>)
   },
   DeleteAccountModal: {
-    Cancel: `Cancel`,
-    Delete: `Delete`,
     DeleteAccountLabel: `Delete Account`,
+  },
+  MediaHeaderCtrl: {
+    PremiumMembershipRequired: `Premium Membership Required`
   },
   NSFWModal: {
     ContentMayBeNSFW: `content may not be safe for your work!`,
@@ -42,8 +42,6 @@ export const components = {
     CopyLinkToProfile: `Copy Link to your Profile`,
   },
   UserListCtrl: {
-    MakeProfilePublic: ` to make your profile public`,
-    SettingsPage: `Settings page`,
-    VisitThe: `Visit the `
+    MakeProfilePublic: (instance) => (<p>Visit the <Link as={paths.web.settings} href={paths.web.settings}><a onClick={instance.linkClick}>Settings page</a></Link> to make your profile public</p>)
   }
 }

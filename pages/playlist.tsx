@@ -13,6 +13,7 @@ import Error from './_error'
 import MediaListItemCtrl from '~/components/MediaListItemCtrl/MediaListItemCtrl'
 import Meta from '~/components/Meta/Meta'
 import config from '~/config'
+import PV from '~/lib/constants'
 import { convertToNowPlayingItem } from '~/lib/nowPlayingItem'
 import { addOrUpdateHistoryItemPlaybackPosition, alertPremiumRequired, alertRateLimitError, alertSomethingWentWrong,
   assignLocalOrLoggedInNowPlayingItemPlaybackPosition, clone, readableDate, removeDoubleQuotes, safeAlert } from '~/lib/utility'
@@ -93,9 +94,9 @@ class Playlist extends Component<Props, State> {
     let meta = {}
     if (playlist) {
       meta = {
-        currentUrl: BASE_URL + '/playlist/' + playlist.id,
-        description: removeDoubleQuotes(`${playlist.title ? playlist.title : 'untitled playlist'} - playlist on Podverse ${playlist.description ? playlist.description : ''}`),
-        title: `${playlist.title ? playlist.title : 'untitled playlist'}`
+        currentUrl: BASE_URL + PV.paths.web.playlist + '/' + playlist.id,
+        description: removeDoubleQuotes(`${playlist.title ? playlist.title : PV.core.untitledPlaylist}${PV.core.playlistOnPodverse}${playlist.description ? playlist.description : ''}`),
+        title: `${playlist.title ? playlist.title : PV.core.untitledPlaylist}`
       }
     }
 
@@ -201,13 +202,13 @@ class Playlist extends Component<Props, State> {
       pageIsLoading(true)
       userSetInfo({ playlists: newPlaylists })
 
-      const href = `/playlists`
-      const as = `/playlists`
+      const href = PV.paths.web.playlists
+      const as = PV.paths.web.playlists
       Router.push(href, as)
     } catch (error) {
       console.log(error)
       this.setState({ isDeleting: false })
-      safeAlert('Delete playlist failed. Please check your internet connection and try again later.')
+      safeAlert(PV.errors.alerts.deletePlaylistFailed)
     }
   }
 
@@ -234,7 +235,7 @@ class Playlist extends Component<Props, State> {
       if (error && error.response && error.response.status === 429) {
         alertRateLimitError(error)
       } else {
-        safeAlert('Update playlist failed. Please check your internet connection and try again later.')
+        safeAlert(PV.errors.alerts.updatePlaylistFailed)
       }
       this.setState({ isUpdating: false })
       console.log(error)
@@ -247,7 +248,7 @@ class Playlist extends Component<Props, State> {
     const { playlist } = this.state
 
     if (!user || !user.id) {
-      safeAlert('Login to subscribe to playlists.')
+      safeAlert(PV.errors.login.SubscribeToPlaylists)
       return
     }
 
@@ -260,7 +261,7 @@ class Playlist extends Component<Props, State> {
         userSetInfo({ subscribedPlaylistIds: response.data })
       }
     } catch (error) {
-      if (error && error.response && error.response.data && error.response.data.message === 'Premium Membership Required') {
+      if (error && error.response && error.response.data && error.response.data.message === PV.errors.premiumRequired) {
         alertPremiumRequired()
       } else if (error && error.response && error.response.status === 429) {
         alertRateLimitError(error)
@@ -317,7 +318,7 @@ class Playlist extends Component<Props, State> {
       if (error && error.response && error.response.status === 429) {
         alertRateLimitError(error)
       } else {
-        safeAlert('Could not remove from playlist. Please check your internet connection and try again later.')
+        safeAlert(PV.errors.alerts.couldNotRemoveFromPlaylist)
       }
       console.log(error)
     }
@@ -428,7 +429,7 @@ class Playlist extends Component<Props, State> {
           hideDescription={true}
           key={`media-list-item-${uuidv4()}`}
           isActive={isActive()}
-          mediaListItemType='now-playing-item'
+          mediaListItemType={PV.mediaList.now_playing_item}
           nowPlayingItem={x}
           pageKey={pageKey}
           showMoreMenu={!isEditing}
@@ -479,7 +480,7 @@ class Playlist extends Component<Props, State> {
                 !isEditing &&
                   <Fragment>
                     <div className='media-header__title'>
-                      {title ? title : 'untitled playlist'}
+                      {title ? title : PV.core.untitledPlaylist}
                     </div>
                   </Fragment>
               }
@@ -536,7 +537,7 @@ class Playlist extends Component<Props, State> {
               <div className='media-header__sub-title'>
               {
                 owner && !isEditing &&
-                  <Fragment>By: {owner.name ? owner.name : 'anonymous'}</Fragment>
+                  <Fragment>By: {owner.name ? owner.name : PV.core.anonymous}</Fragment>
               }
               </div>
             </div>
@@ -587,19 +588,19 @@ class Playlist extends Component<Props, State> {
                 color='danger'
                 isLoading={isDeleting}
                 onClick={this.deletePlaylist}
-                text='Delete' />
+                text={PV.core.Delete} />
               <Button
                 className='playlist-edit-btns__cancel'
                 disabled={isDeleting || isUpdating}
                 onClick={this.cancelEditing}
-                text='Cancel' />
+                text={PV.core.Cancel} />
               <Button
                 className='playlist-edit-btns__update'
                 color='primary'
                 disabled={isDeleting || isUpdating}
                 isLoading={isUpdating}
                 onClick={this.updatePlaylist}
-                text='Update' />
+                text={PV.core.Update} />
             </div>
           }
         </div>

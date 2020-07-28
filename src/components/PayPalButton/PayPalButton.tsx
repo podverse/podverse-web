@@ -120,8 +120,8 @@ class PaypalButton extends React.Component<Props, State> {
             shipping_preference: 'NO_SHIPPING'
           },
           redirect_urls: {
-            cancel_url: `${PROTOCOL}://${DOMAIN}/settings#membership`,
-            return_url: `${PROTOCOL}://${DOMAIN}/settings#membership`
+            cancel_url: `${PROTOCOL}://${DOMAIN}${PV.paths.web.settings}#membership`,
+            return_url: `${PROTOCOL}://${DOMAIN}${PV.paths.web.settings}#membership`
           }
         })
 
@@ -151,7 +151,7 @@ class PaypalButton extends React.Component<Props, State> {
 
       return actions.payment.execute()
         .then(() => {
-          location.href = `${PROTOCOL}://${DOMAIN}/payment/paypal-confirming?id=${data.paymentID}`
+          location.href = `${PROTOCOL}://${DOMAIN}${PV.paths.web.payment}${PV.paths.web.paypal_confirming}?id=${data.paymentID}`
         })
         .catch(() => {
           safeAlert(PV.errors.alerts.somethingWentWrong)
