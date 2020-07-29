@@ -1,28 +1,27 @@
 import { attributes } from '~/lib/constants/attributes'
 import { colors } from '~/lib/constants/colors'
 import { cookies } from '~/lib/constants/cookies'
-import { core } from '~/lib/constants/core'
-import { errors } from '~/lib/constants/errors'
+import { core } from '~/lib/constants/i18n/core'
+import { errorMessages } from '~/lib/constants/i18n/errorMessages'
 import { errorResponseMessages } from '~/lib/constants/errorResponseMessages'
-import { mediaList } from '~/lib/constants/mediaList'
-import { getPlaybackRateText, getPlaybackRateNextValue } from '~/lib/constants/misc'
-import { pages } from '~/lib/constants/pages'
+import { pages } from '~/lib/constants/i18n/pages'
 import { paths } from '~/lib/constants/paths'
-import { player } from '~/lib/constants/player'
-import { query } from '~/lib/constants/query'
+import { queryLabels } from '~/lib/constants/i18n/queryLabels'
+import { queryParams } from '~/lib/constants/queryParams'
+import { storageKeys } from '~/lib/constants/storageKeys'
 
 export default {
   attributes,
   colors,
   cookies,
-  core,
   errorResponseMessages,
-  errors,
-  getPlaybackRateNextValue,
-  getPlaybackRateText,
-  mediaList,
-  pages,
+  i18n: {
+    core,
+    errorMessages,
+    pages,
+    queryLabels
+  },
   paths,
-  player,
-  query
+  queryParams,
+  storageKeys
 }

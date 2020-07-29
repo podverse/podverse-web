@@ -4,8 +4,7 @@ import { bindActionCreators } from 'redux'
 import { MediaPlayer, popNextFromQueueStorage, setNowPlayingItemInStorage } from 'podverse-ui'
 import { addOrUpdateHistoryItemPlaybackPosition, assignLocalOrLoggedInNowPlayingItemPlaybackPosition,
   generateShareURLs, getPlaybackPositionFromHistory, getViewContentsElementScrollTop } from '~/lib/utility'
-import { getPlaybackRateText, getPlaybackRateNextValue
-  } from '~/lib/constants/misc'
+import { getPlaybackRateText, getPlaybackRateNextValue } from '~/lib/utility'
 import PV from '~/lib/constants'
 import { mediaPlayerLoadNowPlayingItem, 
   mediaPlayerSetClipFinished, mediaPlayerSetPlayedAfterClipFinished,
@@ -73,29 +72,29 @@ class MediaPlayerView extends Component<Props, State> {
 
   getAutoplayValue = () => {
     try {
-      const autoplay = localStorage.getItem(PV.player.kAutoplay)
+      const autoplay = localStorage.getItem(PV.storageKeys.kAutoplay)
       return autoplay ? JSON.parse(autoplay) : false
     } catch (error) {
-      console.log(PV.errors.getAutoplayValue, error)
+      console.log(PV.i18n.errorMessages.getAutoplayValue, error)
       return false
     }
   }
 
   setAutoplayValue = (val) => {
-    localStorage.setItem(PV.player.kAutoplay, val)
+    localStorage.setItem(PV.storageKeys.kAutoplay, val)
   }
 
   getPlaybackRateValue = () => {
     try {
-      const playbackRate = localStorage.getItem(PV.player.kPlaybackRate)
+      const playbackRate = localStorage.getItem(PV.storageKeys.kPlaybackRate)
       return playbackRate ? JSON.parse(playbackRate) : 1
     } catch (error) {
-      console.log(PV.errors.getPlaybackRateValue, error)
+      console.log(PV.i18n.errorMessages.getPlaybackRateValue, error)
     }
   }
 
   setPlaybackRateValue = (val) => {
-    localStorage.setItem(PV.player.kPlaybackRate, val)
+    localStorage.setItem(PV.storageKeys.kPlaybackRate, val)
   }
 
   itemSkip = async () => {

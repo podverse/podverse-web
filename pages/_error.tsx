@@ -2,7 +2,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PV from '~/lib/constants'
-import '~/lib/constants/misc'
 import { pageIsLoading } from '~/redux/actions'
 import '~/scss/styles.scss'
 
@@ -53,22 +52,22 @@ class ErrorPage extends Component<Props, State> {
 
 const errors = {
   401: {
-    header: PV.errors.header.LoginNeeded,
-    message1: PV.errors.message.YouMustLoginToUseThisFeature
+    header: PV.i18n.errorMessages.header.LoginNeeded,
+    message1: PV.i18n.errorMessages.message.YouMustLoginToUseThisFeature
   },
   404: {
-    header: PV.errors.header.Error_404,
-    message1: PV.errors.message.PageNotFound
+    header: PV.i18n.errorMessages.header.Error_404,
+    message1: PV.i18n.errorMessages.message.PageNotFound
   },
   500: {
-    header: PV.errors.header.ServersUnderMaintenance,
-    message1: PV.errors.message.SiteOfflineUntilWorkIsComplete,
+    header: PV.i18n.errorMessages.header.ServersUnderMaintenance,
+    message1: PV.i18n.errorMessages.message.SiteOfflineUntilWorkIsComplete,
     icon: 'tools'
   },
   defaultError: {
-    header: PV.errors.header.SomethingWentWrong,
-    message1: PV.errors.message.WeAreNotSureWhatHappened,
-    message2: PV.errors.message.CheckConnectionOrDifferentPage
+    header: PV.i18n.errorMessages.header.SomethingWentWrong,
+    message1: PV.i18n.errorMessages.message.AnUnknownErrorHasOccurred,
+    message2: PV.i18n.errorMessages.message.CheckConnectionOrDifferentPage
   }
 }
 

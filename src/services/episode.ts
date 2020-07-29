@@ -20,14 +20,14 @@ export const getEpisodesByQuery = async (query) => {
   if (query.sort) {
     filteredQuery.sort = query.sort
   } else {
-    filteredQuery.sort = PV.query.top_past_week
+    filteredQuery.sort = PV.queryParams.top_past_week
   }
 
-  if (query.from === PV.query.from_podcast) {
+  if (query.from === PV.queryParams.from_podcast) {
     filteredQuery.podcastId = query.podcastId
-  } else if (query.from === PV.query.subscribed_only) {
+  } else if (query.from === PV.queryParams.subscribed_only) {
     filteredQuery.podcastId = Array.isArray(query.podcastId) && query.podcastId.length > 0 ? query.podcastId : ['no-results']
-  } else if (query.from === PV.query.from_category) {
+  } else if (query.from === PV.queryParams.from_category) {
     filteredQuery.categories = query.categories
     filteredQuery.includePodcast = true
   } else {

@@ -45,8 +45,8 @@ class Profile extends Component<Props, State> {
     const currentPage = pages[pageKeyWithId] || {}
     const lastScrollPosition = currentPage.lastScrollPosition
     const queryPage = currentPage.queryPage || query.page || 1
-    const querySort = currentPage.querySort || query.sort || PV.query.alphabetical
-    const queryType = currentPage.queryType || query.type || PV.query.podcasts
+    const querySort = currentPage.querySort || query.sort || PV.queryParams.alphabetical
+    const queryType = currentPage.queryType || query.type || PV.queryParams.podcasts
     let publicUser = currentPage.publicUser
 
     if (Object.keys(currentPage).length === 0) {
@@ -63,18 +63,18 @@ class Profile extends Component<Props, State> {
       let queryDataResult
       let listItems = []
 
-      if (query.type === PV.query.clips) {
+      if (query.type === PV.queryParams.clips) {
         queryDataResult = await getUserMediaRefs(currentId, nsfwMode, querySort, queryPage)
         listItems = queryDataResult.data.map(x => convertToNowPlayingItem(x))
         store.dispatch(playerQueueLoadSecondaryItems(clone(listItems)))
-      } else if (query.type === PV.query.playlists) {
+      } else if (query.type === PV.queryParams.playlists) {
         queryDataResult = await getUserPlaylists(currentId, nsfwMode, queryPage)
         listItems = queryDataResult.data
-      } else if (queryType === PV.query.podcasts 
+      } else if (queryType === PV.queryParams.podcasts 
           && publicUser.subscribedPodcastIds
           && publicUser.subscribedPodcastIds.length > 0) {
         queryDataResult = await getPodcastsByQuery({
-          from: PV.query.subscribed_only,
+          from: PV.queryParams.subscribed_only,
           sort: querySort,
           subscribedPodcastIds: publicUser.subscribedPodcastIds
         })
@@ -98,8 +98,8 @@ class Profile extends Component<Props, State> {
     if (publicUser) {
       meta = {
         currentUrl: BASE_URL + PV.paths.web.profile + '/' + publicUser.id,
-        description: `${publicUser.name ? publicUser.name : PV.core.anonymous}'s profile on Podverse`,
-        title: `${publicUser.name ? publicUser.name : PV.core.anonymous}'s profile on Podverse`
+        description: `${publicUser.name ? publicUser.name : PV.i18n.core.Anonymous}'s profile on Podverse`,
+        title: `${publicUser.name ? publicUser.name : PV.i18n.core.Anonymous}'s profile on Podverse`
       }
     }
 

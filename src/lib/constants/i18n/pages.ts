@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/camelcase */
+
 export const pages = {
   about: {
     _Description: `Information about the Podverse open source podcast app.`,
-    _Title: `Podverse - About`
+    _Title: `About`
   },
   clips: {
     _Description: `Podcast app for iOS, Android, and web. Create and share podcast highlights and playlists. Sync your queue across all devices. Open source software.`,
@@ -10,15 +11,15 @@ export const pages = {
   },
   coupon: {
     _Description: `Redeem your special offer`,
-    _Title: `Podverse - Coupon`
+    _Title: `Coupon`
   },
   episodes: {
     _Description: `Podcast app for iOS, Android, and web. Create and share podcast highlights and playlists. Sync your queue across all devices. Open source software.`,
     _Title: `Episodes`
   },
   faq: {
-    _Description: `Podverse - Frequently asked questions`,
-    _Title: `Podverse - FAQ`
+    _Description: `Frequently asked questions`,
+    _Title: `FAQ`
   },
   index: {
     _Description: `Podcast app for iOS, Android, and web. Create and share podcast highlights and playlists. Sync your queue across all devices. Open source software.`,
@@ -26,7 +27,7 @@ export const pages = {
   },
   membership: {
     _Description: `Free and premium membership options.`,
-    _Title: `Podverse - Membership`
+    _Title: `Membership`
   },
   my_profile: {
     _Description: `My Podverse Profile. Subscribe to podcasts, playlists, and other profiles`,
@@ -60,13 +61,13 @@ export const pages = {
   },
   search: {
     _Description: `Search for podcasts by title or host on Podverse.`,
-    _Title: `Podverse - Search`,
+    _Title: `Search`,
     searchByHost: `search by host`,
     searchByTitle: `search by title`,
   },
   settings: {
     _Description: `Customize your account settings on Podverse.`,
-    _Title: `Podverse - Settings`,
+    _Title: `Settings`,
     CensorNSFWText: `Censor NSFW text`,
     DownloadDataBackup: `Download a backup of your data.`,
     Ends: `Ends: `,
@@ -85,12 +86,10 @@ export const pages = {
     MembershipEnded: `Your membership has expired. Please renew to continue using premium features.`,
     MembershipInactive: `Your membership is inactive. Please renew to continue using premium features.`,
     MyData: `My Data`,
-
-
   },
   terms: {
     _Description: `Podverse terms of service agreement.`,
-    _Title: `Podverse - Terms of Service`,
+    _Title: `Terms of Service`,
     PodverseTerms_1: `Podverse will never sell or share private user data.`,
     PodverseTerms_2: `We will never put advertisements next to or within a podcast's content without that podcast's permission.`,
     PodverseTerms_3: `All audio files found on podverse.fm load from the podcaster's own public server. We do not host podcast audio files ourselves.`,

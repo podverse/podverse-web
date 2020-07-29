@@ -51,7 +51,7 @@ class Auth extends Component<Props, State> {
       if (error && error.response && error.response.status === 429) {
         alertRateLimitError(error)
       } else {
-        const errorMsg = (error.response && error.response.data && error.response.data.message) || PV.errors.internetConnectivityErrorMessage
+        const errorMsg = (error.response && error.response.data && error.response.data.message) || PV.i18n.errorMessages.internetConnectivityErrorMessage
         modalsForgotPasswordSetErrorResponse(errorMsg)
       }
     } finally {
@@ -74,7 +74,7 @@ class Auth extends Component<Props, State> {
       if (error && error.response && error.response.status === 429) {
         alertRateLimitError(error)
       } else {
-        const errorMsg = (error.response && error.response.data && error.response.data.message) || PV.errors.internetConnectivityErrorMessage
+        const errorMsg = (error.response && error.response.data && error.response.data.message) || PV.i18n.errorMessages.internetConnectivityErrorMessage
         modalsForgotPasswordSetErrorResponse(errorMsg)
       }
     } finally {
@@ -98,14 +98,14 @@ class Auth extends Component<Props, State> {
     } catch (error) {
       const pleaseVerifyMessage = (
         <Fragment>
-          <p>{PV.core.PleaseVerifyEmail}</p>
-                <span><a href='#' onClick={this._showSendVerificationEmailModal}>{PV.core.SendVerificationEmail}</a></span>
+          <p>{PV.i18n.core.PleaseVerifyEmail}</p>
+                <span><a href='#' onClick={this._showSendVerificationEmailModal}>{PV.i18n.core.SendVerificationEmail}</a></span>
         </Fragment>
       )
       const errorMsg =
         (error.response && error.response.status === 460 && pleaseVerifyMessage) ||
         (error.response && error.response.data && error.response.data.message)
-        || PV.errors.internetConnectivityErrorMessage
+        || PV.i18n.errorMessages.internetConnectivityErrorMessage
       modalsLoginSetErrorResponse(errorMsg)
       modalsLoginIsLoading(false)
       userSetInfo({
@@ -138,7 +138,7 @@ class Auth extends Component<Props, State> {
       if (error && error.response && error.response.status === 429) {
         alertRateLimitError(error)
       } else {
-        const errorMsg = (error.response && error.response.data && error.response.data.message) || PV.errors.internetConnectivityErrorMessage
+        const errorMsg = (error.response && error.response.data && error.response.data.message) || PV.i18n.errorMessages.internetConnectivityErrorMessage
         modalsSignUpSetErrorResponse(errorMsg)
       }
       userSetInfo({
@@ -170,7 +170,7 @@ class Auth extends Component<Props, State> {
 
     const signUpTopText = (
       <React.Fragment>
-        {PV.core.TryPremium1Year()}
+        {PV.i18n.core.TryPremium1Year()}
       </React.Fragment>
     )
 

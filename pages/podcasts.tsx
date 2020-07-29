@@ -47,11 +47,11 @@ class Podcasts extends Component<Props, State> {
     const categoryId = query.categoryId || currentPage.categoryId || localStorageQuery.categoryId
     const queryPage = (queryRefresh && 1) || query.page || currentPage.queryPage || 1
     const queryFrom = query.from
-      || (query.categoryId && PV.query.from_category)
+      || (query.categoryId && PV.queryParams.from_category)
       || currentPage.queryFrom
       || localStorageQuery.from
-      || (user && user.id ? PV.query.subscribed_only : PV.query.all_podcasts)
-    const querySort = query.sort || currentPage.querySort || localStorageQuery.sort || (user && user.id ? PV.query.alphabetical : PV.query.top_past_week)
+      || (user && user.id ? PV.queryParams.subscribed_only : PV.queryParams.all_podcasts)
+    const querySort = query.sort || currentPage.querySort || localStorageQuery.sort || (user && user.id ? PV.queryParams.alphabetical : PV.queryParams.top_past_week)
 
     if (Object.keys(currentPage).length === 0 || queryRefresh) {
       const queryDataResult = await getPodcastsByQuery({
@@ -59,7 +59,7 @@ class Podcasts extends Component<Props, State> {
         from: queryFrom,
         page: queryPage,
         sort: querySort,
-        ...(queryFrom === PV.query.subscribed_only ? { subscribedPodcastIds } : {})
+        ...(queryFrom === PV.queryParams.subscribed_only ? { subscribedPodcastIds } : {})
       })
 
       const podcasts = queryDataResult.data
@@ -80,8 +80,8 @@ class Podcasts extends Component<Props, State> {
 
     const meta = {
       currentUrl: BASE_URL + PV.paths.web.podcasts,
-      description: PV.pages.podcasts._Description,
-      title: PV.pages.podcasts._Title
+      description: PV.i18n.pages.podcasts._Description,
+      title: PV.i18n.pages.podcasts._Title
     }
 
     return { allCategories, categoryId, lastScrollPosition, meta, nsfwMode, 
@@ -104,7 +104,7 @@ class Podcasts extends Component<Props, State> {
           title={meta.title}
           twitterDescription={meta.description}
           twitterTitle={meta.title} />
-        <h3>{PV.core.Podcasts}</h3>
+        <h3>{PV.i18n.core.Podcasts}</h3>
         <PodcastListCtrl 
           allCategories={allCategories}
           categoryId={categoryId}

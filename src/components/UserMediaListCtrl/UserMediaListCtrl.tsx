@@ -78,10 +78,10 @@ class UserMediaListCtrl extends Component<Props, State> {
       queryPage: page
     }
 
-    if (selectedKey === PV.query.key.type) {
+    if (selectedKey === PV.queryParams.key.type) {
       newState.queryType = selectedValue
       query.type = selectedValue
-    } else if (selectedKey === PV.query.key.sort) {
+    } else if (selectedKey === PV.queryParams.key.sort) {
       newState.querySort = selectedValue
       query.sort = selectedValue
     } else {
@@ -94,12 +94,12 @@ class UserMediaListCtrl extends Component<Props, State> {
       queryPage: prevPage // wait before updating queryPage
     })
     
-    if (query.type === PV.query.podcasts 
+    if (query.type === PV.queryParams.podcasts 
         && profileUser.subscribedPodcastIds
         && profileUser.subscribedPodcastIds.length > 0) {
       try {
         query.subscribedPodcastIds = profileUser.subscribedPodcastIds
-        query.from = PV.query.subscribed_only
+        query.from = PV.queryParams.subscribed_only
         const response = await getPodcastsByQuery(query)
         const podcasts = response.data
 
@@ -112,21 +112,21 @@ class UserMediaListCtrl extends Component<Props, State> {
       } catch (error) {
         console.log(error)
       }
-    } else if (query.type === PV.query.clips) {
+    } else if (query.type === PV.queryParams.clips) {
       try {
         let response: any = {}
         if (isMyProfilePage) {
           response = await getLoggedInUserMediaRefs(
             '',
             nsfwMode,
-            query.sort === PV.query.alphabetical ? PV.query.most_recent : query.sort,
+            query.sort === PV.queryParams.alphabetical ? PV.queryParams.most_recent : query.sort,
             page
           )
         } else {
           response = await getUserMediaRefs(
             profileUser.id,
             nsfwMode,
-            query.sort === PV.query.alphabetical ? PV.query.most_recent : query.sort,
+            query.sort === PV.queryParams.alphabetical ? PV.queryParams.most_recent : query.sort,
             page
           )
         }
@@ -149,7 +149,7 @@ class UserMediaListCtrl extends Component<Props, State> {
       } catch (error) {
         console.log(error)
       }
-    } else if (query.type === PV.query.playlists) {
+    } else if (query.type === PV.queryParams.playlists) {
       try {
         let response: any = {}
 
@@ -185,19 +185,19 @@ class UserMediaListCtrl extends Component<Props, State> {
     const { isMyProfilePage } = this.props
     return [
       {
-        label: isMyProfilePage ? PV.core.MyPodcasts : PV.core.Podcasts,
-        onClick: () => this.queryMediaListItems(PV.query.key.type, PV.query.podcasts),
-        value: PV.query.podcasts,
+        label: isMyProfilePage ? PV.i18n.core.MyPodcasts : PV.i18n.core.Podcasts,
+        onClick: () => this.queryMediaListItems(PV.queryParams.key.type, PV.queryParams.podcasts),
+        value: PV.queryParams.podcasts,
       },
       {
-        label: isMyProfilePage ? PV.core.MyClips : PV.core.Clips,
-        onClick: () => this.queryMediaListItems(PV.query.key.type, PV.query.clips),
-        value: PV.query.clips,
+        label: isMyProfilePage ? PV.i18n.core.MyClips : PV.i18n.core.Clips,
+        onClick: () => this.queryMediaListItems(PV.queryParams.key.type, PV.queryParams.clips),
+        value: PV.queryParams.clips,
       },
       {
-        label: isMyProfilePage ? PV.core.MyPlaylists : PV.core.Playlists,
-        onClick: () => this.queryMediaListItems(PV.query.key.type, PV.query.playlists),
-        value: PV.query.playlists
+        label: isMyProfilePage ? PV.i18n.core.MyPlaylists : PV.i18n.core.Playlists,
+        onClick: () => this.queryMediaListItems(PV.queryParams.key.type, PV.queryParams.playlists),
+        value: PV.queryParams.playlists
       }
     ]
   }
@@ -205,47 +205,47 @@ class UserMediaListCtrl extends Component<Props, State> {
   getQuerySortOptions(isPodcasts) {
     const items = [
       {
-        label: PV.query.label.most_recent,
-        onClick: () => this.queryMediaListItems(PV.query.key.sort, PV.query.most_recent),
-        value: PV.query.most_recent
+        label: PV.i18n.queryLabels.most_recent,
+        onClick: () => this.queryMediaListItems(PV.queryParams.key.sort, PV.queryParams.most_recent),
+        value: PV.queryParams.most_recent
       },
       {
-        label: PV.query.label.top_past_day,
-        onClick: () => this.queryMediaListItems(PV.query.key.sort, PV.query.top_past_day),
-        value: PV.query.top_past_day
+        label: PV.i18n.queryLabels.top_past_day,
+        onClick: () => this.queryMediaListItems(PV.queryParams.key.sort, PV.queryParams.top_past_day),
+        value: PV.queryParams.top_past_day
       },
       {
-        label: PV.query.label.top_past_week,
-        onClick: () => this.queryMediaListItems(PV.query.key.sort, PV.query.top_past_week),
-        value: PV.query.top_past_week
+        label: PV.i18n.queryLabels.top_past_week,
+        onClick: () => this.queryMediaListItems(PV.queryParams.key.sort, PV.queryParams.top_past_week),
+        value: PV.queryParams.top_past_week
       },
       {
-        label: PV.query.label.top_past_month,
-        onClick: () => this.queryMediaListItems(PV.query.key.sort, PV.query.top_past_month),
-        value: PV.query.top_past_month
+        label: PV.i18n.queryLabels.top_past_month,
+        onClick: () => this.queryMediaListItems(PV.queryParams.key.sort, PV.queryParams.top_past_month),
+        value: PV.queryParams.top_past_month
       },
       {
-        label: PV.query.label.top_past_year,
-        onClick: () => this.queryMediaListItems(PV.query.key.sort, PV.query.top_past_year),
-        value: PV.query.top_past_year
+        label: PV.i18n.queryLabels.top_past_year,
+        onClick: () => this.queryMediaListItems(PV.queryParams.key.sort, PV.queryParams.top_past_year),
+        value: PV.queryParams.top_past_year
       },
       {
-        label: PV.query.label.top_all_time,
-        onClick: () => this.queryMediaListItems(PV.query.key.sort, PV.query.top_all_time),
-        value: PV.query.top_all_time
+        label: PV.i18n.queryLabels.top_all_time,
+        onClick: () => this.queryMediaListItems(PV.queryParams.key.sort, PV.queryParams.top_all_time),
+        value: PV.queryParams.top_all_time
       },
       {
-        label: PV.query.label.random,
-        onClick: () => this.queryMediaListItems(PV.query.random),
-        value: PV.query.random
+        label: PV.i18n.queryLabels.random,
+        onClick: () => this.queryMediaListItems(PV.queryParams.random),
+        value: PV.queryParams.random
       }
     ]
 
     if (isPodcasts) {
       items.unshift({
-        label: PV.query.label.alphabetical,
-        onClick: () => this.queryMediaListItems(PV.query.key.sort, PV.query.alphabetical),
-        value: PV.query.alphabetical
+        label: PV.i18n.queryLabels.alphabetical,
+        onClick: () => this.queryMediaListItems(PV.queryParams.key.sort, PV.queryParams.alphabetical),
+        value: PV.queryParams.alphabetical
       })
     }
 
@@ -307,21 +307,21 @@ class UserMediaListCtrl extends Component<Props, State> {
     const { nowPlayingItem: mpNowPlayingItem } = mediaPlayer
     const { listItems, listItemsTotal, queryPage, querySort, queryType } = pages[pageKey]
     
-    let mediaListItemType = PV.mediaList.now_playing_item
+    let mediaListItemType = PV.attributes.mediaListItem.now_playing_item
     let noResultsMsg = ''
-    if (queryType === PV.query.clips) {
-      noResultsMsg = PV.core.noResultsMessage(PV.core.clips)
-    } else if (queryType === PV.query.playlists) {
-      mediaListItemType = PV.query.playlist
-      noResultsMsg = PV.core.noResultsMessage(PV.core.playlists)
-    } else if (queryType === PV.query.podcasts) {
-      mediaListItemType = PV.query.podcast
-      noResultsMsg = PV.core.noResultsMessage(PV.core.podcasts)
+    if (queryType === PV.queryParams.clips) {
+      noResultsMsg = PV.i18n.core.noResultsMessage(PV.i18n.core.clips)
+    } else if (queryType === PV.queryParams.playlists) {
+      mediaListItemType = PV.queryParams.playlist
+      noResultsMsg = PV.i18n.core.noResultsMessage(PV.i18n.core.playlists)
+    } else if (queryType === PV.queryParams.podcasts) {
+      mediaListItemType = PV.queryParams.podcast
+      noResultsMsg = PV.i18n.core.noResultsMessage(PV.i18n.core.podcasts)
     }
 
     const listItemNodes = Array.isArray(listItems) ? listItems.map(x => {
       const isActive = () => {
-        if (mpNowPlayingItem && queryType === PV.query.clips) {
+        if (mpNowPlayingItem && queryType === PV.queryParams.clips) {
           if (x.clipId) {
             return x.clipId === mpNowPlayingItem.clipId
           }
@@ -337,16 +337,16 @@ class UserMediaListCtrl extends Component<Props, State> {
           isActive={isActive()}
           key={`media-list-item-${uuidv4()}`}
           mediaListItemType={mediaListItemType}
-          nowPlayingItem={queryType === PV.query.clips ? x : null}
+          nowPlayingItem={queryType === PV.queryParams.clips ? x : null}
           pageKey={pageKey}
-          playlist={queryType === PV.query.playlists ? x : null}
-          podcast={queryType === PV.query.podcasts ? x : null}
-          showMoreMenu={queryType === PV.query.clips} />
+          playlist={queryType === PV.queryParams.playlists ? x : null}
+          podcast={queryType === PV.queryParams.podcasts ? x : null}
+          showMoreMenu={queryType === PV.queryParams.clips} />
       )
     }) : []
 
     const selectedQueryTypeOption = this.getQueryTypeOptions().filter(x => x.value === queryType)
-    const selectedQuerySortOption = this.getQuerySortOptions(queryType === PV.query.podcasts).filter(x => x.value === querySort)
+    const selectedQuerySortOption = this.getQuerySortOptions(queryType === PV.queryParams.podcasts).filter(x => x.value === querySort)
 
     return (      
       <div className={`media-list ${adjustTopPosition ? 'adjust-top-position' : ''}`}>
@@ -357,11 +357,11 @@ class UserMediaListCtrl extends Component<Props, State> {
               selected={selectedQueryTypeOption.length > 0 ? selectedQueryTypeOption[0].value : null} />
           </div>
           {
-            queryType !== PV.query.playlists &&
+            queryType !== PV.queryParams.playlists &&
               <div className='media-list-selects__right'>
                 <MediaListSelect
                   className='align-right'
-                  items={this.getQuerySortOptions(queryType === PV.query.podcasts)}
+                  items={this.getQuerySortOptions(queryType === PV.queryParams.podcasts)}
                   selected={selectedQuerySortOption.length > 0 ? selectedQuerySortOption[0].value : null} />
               </div>
           }
@@ -369,7 +369,7 @@ class UserMediaListCtrl extends Component<Props, State> {
         <Fragment>
           {
             listItemNodes && listItemNodes.length > 0 &&
-              <div className={queryType === PV.query.playlists ? 'reduced-margin' : ''}>
+              <div className={queryType === PV.queryParams.playlists ? 'reduced-margin' : ''}>
                 {listItemNodes}
                 <Pagination
                   currentPage={queryPage || 1}

@@ -65,25 +65,25 @@ class Episode extends Component<Props, State> {
 
     const currentPage = pages[pageKeyWithId] || {}
     const lastScrollPosition = currentPage.lastScrollPosition
-    const queryFrom = currentPage.queryFrom || query.from || localStorageQuery.from || PV.query.from_episode
+    const queryFrom = currentPage.queryFrom || query.from || localStorageQuery.from || PV.queryParams.from_episode
     const queryPage = currentPage.queryPage || query.page || 1
-    const querySort = currentPage.querySort || query.sort || localStorageQuery.sort || PV.query.top_past_week
-    const queryType = currentPage.queryType || query.type || localStorageQuery.type || PV.query.clips
+    const querySort = currentPage.querySort || query.sort || localStorageQuery.sort || PV.queryParams.top_past_week
+    const queryType = currentPage.queryType || query.type || localStorageQuery.type || PV.queryParams.clips
     let podcastId = ''
     let episodeId = ''
 
-    if (queryFrom === PV.query.from_podcast) {
+    if (queryFrom === PV.queryParams.from_podcast) {
       podcastId = episode.podcast.id
-    } else if (queryFrom === PV.query.from_episode) {
+    } else if (queryFrom === PV.queryParams.from_episode) {
       episodeId = episode.id
-    } else if (queryFrom === PV.query.subscribed_only) {
+    } else if (queryFrom === PV.queryParams.subscribed_only) {
       podcastId = user.subscribedPodcastIds
     }
 
     if (Object.keys(currentPage).length === 0) {
       let results
 
-      if (queryType === PV.query.episodes) {
+      if (queryType === PV.queryParams.episodes) {
         results = await getEpisodesByQuery({
           from: queryFrom,
           page: queryPage,
@@ -130,7 +130,7 @@ class Episode extends Component<Props, State> {
     
     let meta = {}
     if (episode) {
-      const podcastTitle = (episode && episode.podcast && episode.podcast.title) || PV.core.untitledPodcast
+      const podcastTitle = (episode && episode.podcast && episode.podcast.title) || PV.i18n.core.untitledPodcast
       meta = {
         currentUrl: BASE_URL + PV.paths.web.episode + '/' + episode.id,
         description: removeDoubleQuotes(episode.description),
@@ -189,7 +189,7 @@ class Episode extends Component<Props, State> {
           episode={episode}
           episodeId={episode.id}
           handleSetPageQueryState={pagesSetQueryState}
-          includeOldest={queryType === PV.query.episodes}
+          includeOldest={queryType === PV.queryParams.episodes}
           pageKey={pageKey}
           podcast={episode.podcast}
           podcastId={episode.podcast.id}

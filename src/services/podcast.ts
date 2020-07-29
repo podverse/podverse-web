@@ -11,7 +11,7 @@ export const getPodcastsByQuery = async (query) => {
   if (query.sort) {
     filteredQuery.sort = query.sort
   } else {
-    filteredQuery.sort = PV.query.top_past_week
+    filteredQuery.sort = PV.queryParams.top_past_week
   }
 
   if (query.page) {
@@ -20,19 +20,19 @@ export const getPodcastsByQuery = async (query) => {
     filteredQuery.page = 1
   }
 
-  if (query.from === PV.query.from_category) {
+  if (query.from === PV.queryParams.from_category) {
     filteredQuery.categories = query.categories
-  } else if (query.from === PV.query.subscribed_only) {
+  } else if (query.from === PV.queryParams.subscribed_only) {
     filteredQuery.podcastId = Array.isArray(query.subscribedPodcastIds) && query.subscribedPodcastIds.length > 0
-      ? query.subscribedPodcastIds : [PV.query.no_results]
+      ? query.subscribedPodcastIds : [PV.queryParams.no_results]
   } else {
     // from = all-podcasts
     // add nothing
   }
 
-  if (query.searchBy === PV.query.podcast) {
+  if (query.searchBy === PV.queryParams.podcast) {
     filteredQuery.searchTitle = query.searchText
-  } else if (query.searchBy === PV.query.host) {
+  } else if (query.searchBy === PV.queryParams.host) {
     filteredQuery.searchAuthor = query.searchText
   }
 

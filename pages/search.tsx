@@ -39,7 +39,7 @@ class Search extends Component<Props, State> {
 
     const currentPage = pages[kPageKey] || {}
     const lastScrollPosition = currentPage.lastScrollPosition
-    const querySearchBy = currentPage.searchBy || query.searchBy || PV.query.podcast
+    const querySearchBy = currentPage.searchBy || query.searchBy || PV.queryParams.podcast
 
     store.dispatch(pagesSetQueryState({ 
       pageKey: kPageKey,
@@ -48,8 +48,8 @@ class Search extends Component<Props, State> {
 
     const meta = {
       currentUrl: BASE_URL + PV.paths.web.search,
-      description: PV.pages.search._Description,
-      title: PV.pages.search._Title
+      description: PV.i18n.pages.search._Description,
+      title: PV.i18n.pages.search._Title
     }
 
     return { lastScrollPosition, meta, pageKey: kPageKey }
@@ -119,7 +119,7 @@ class Search extends Component<Props, State> {
 
     } catch (error) {
       console.log(error)
-      safeAlert(PV.core.SearchError)
+      safeAlert(PV.i18n.core.SearchError)
     }
   }
 
@@ -145,8 +145,8 @@ class Search extends Component<Props, State> {
     const { isSearching, listItems, listItemsTotal, queryPage, searchBy } = pages[kPageKey]
     const { currentSearch, searchCompleted } = this.state
 
-    const placeholder = searchBy === PV.query.host
-      ? PV.pages.search.searchByHost : PV.pages.search.searchByTitle
+    const placeholder = searchBy === PV.queryParams.host
+      ? PV.i18n.pages.search.searchByHost : PV.i18n.pages.search.searchByTitle
 
       
     const listItemNodes = listItems ? listItems.map(x => {
@@ -238,7 +238,7 @@ class Search extends Component<Props, State> {
           {
             (!isSearching && searchCompleted && listItemNodes && listItemNodes.length === 0) &&
               <div className='no-results-msg'>
-                {PV.core.noResultsMessage(PV.core.podcasts, searchBy === PV.query.host ? 'with that host' : '')}
+                {PV.i18n.core.noResultsMessage(PV.i18n.core.podcasts, searchBy === PV.queryParams.host ? 'with that host' : '')}
               </div>
           }
           {
@@ -248,7 +248,7 @@ class Search extends Component<Props, State> {
                 href={REQUEST_PODCAST_URL}
                 rel="noopener noreferrer"
                 target='_blank'>
-                {PV.core.RequestAPodcast}
+                {PV.i18n.core.RequestAPodcast}
               </a>
           }
         </div>

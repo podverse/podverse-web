@@ -48,8 +48,8 @@ class Redeem extends Component<Props, State> {
 
     const meta = {
       currentUrl: BASE_URL + PV.paths.web.coupon + '/' + id,
-      description: PV.pages.coupon._Description,
-      title: PV.pages.coupon._Title
+      description: PV.i18n.pages.coupon._Description,
+      title: PV.i18n.pages.coupon._Title
     }
 
     return { id, lastScrollPosition, meta, pageKey: kPageKey }

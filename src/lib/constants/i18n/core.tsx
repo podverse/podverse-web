@@ -1,10 +1,10 @@
 import React from 'react'
-import { paths } from './paths'
+import { paths } from '../paths'
 import Link from 'next/link'
 
 export const core = {
   About: `About`,
-  anonymous: `anonymous`,
+  Anonymous: `Anonymous`,
   Cancel: `Cancel`,
   Checkout: `Checkout`,
   clips: `clips`,
@@ -23,8 +23,6 @@ export const core = {
   EmailSent: `Email Sent! Please check your inbox.`,
   Episodes: `Episodes`,
   FAQ: `FAQ`,
-  FromThisEpisode: `From this episode`,
-  FromThisPodcast: `From this podcast`,
   GetItOnGooglePlay: `Get it on Google Play`,
   IHaveTheApp: `I have the app`,
   Login:  `Login`,

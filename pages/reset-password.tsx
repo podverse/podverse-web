@@ -33,8 +33,8 @@ class ResetPassword extends Component<Props, State> {
 
     const meta = {
       currentUrl: BASE_URL + PV.paths.web.reset_password,
-      description: PV.pages.reset_password._Description,
-      title: PV.pages.reset_password._Title
+      description: PV.i18n.pages.reset_password._Description,
+      title: PV.i18n.pages.reset_password._Title
     }
 
     store.dispatch(pageIsLoading(false))
@@ -56,7 +56,7 @@ class ResetPassword extends Component<Props, State> {
     const newState: any = {}
 
     if (password && !validatePassword(password)) {
-      newState.errorPassword = PV.pages.reset_password.passwordError
+      newState.errorPassword = PV.i18n.pages.reset_password.passwordError
     } else if (validatePassword(password)) {
       newState.errorPassword = null
     }
@@ -82,7 +82,7 @@ class ResetPassword extends Component<Props, State> {
     const newState: any = {}
 
     if (!errorPassword && passwordConfirm !== password) {
-      newState.errorPasswordConfirm = PV.pages.reset_password.passwordMatchError
+      newState.errorPasswordConfirm = PV.i18n.pages.reset_password.passwordMatchError
     }
 
     this.setState(newState)
@@ -118,7 +118,7 @@ class ResetPassword extends Component<Props, State> {
       if (error && error.response && error.response.status === 429) {
         alertRateLimitError(error)
       } else {
-        const errorMsg = (error.response && error.response.data && error.response.data.message) || PV.errors.internetConnectivityErrorMessage
+        const errorMsg = (error.response && error.response.data && error.response.data.message) || PV.i18n.errorMessages.internetConnectivityErrorMessage
         this.setState({ errorResponse: errorMsg })
       }
     }
@@ -214,13 +214,13 @@ class ResetPassword extends Component<Props, State> {
                     <React.Fragment>
                       <Button
                         onClick={() => { window.location.href = '' }}
-                        text={PV.core.Cancel} />
+                        text={PV.i18n.core.Cancel} />
                       <Button
                         color='primary'
                         disabled={!this.hasConfirmedValidPassword()}
                         isLoading={isLoading}
                         onClick={this.handleSubmit}
-                        text={PV.core.Submit} />
+                        text={PV.i18n.core.Submit} />
                     </React.Fragment>
                   } />
               </Fragment>

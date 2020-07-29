@@ -71,7 +71,7 @@ export const toggleSubscribeToUser = async (userId: string) => {
 }
 
 
-export const getLoggedInUserMediaRefs = async (bearerToken, nsfwMode, sort = PV.query.most_recent, page = 1) => {
+export const getLoggedInUserMediaRefs = async (bearerToken, nsfwMode, sort = PV.queryParams.most_recent, page = 1) => {
   const filteredQuery: any = {}
   filteredQuery.sort = sort
   filteredQuery.page = page

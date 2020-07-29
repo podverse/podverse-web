@@ -97,7 +97,7 @@ class UserListCtrl extends Component<Props, State> {
     })
 
     const isNotLoggedIn = !user || !user.id
-    const noResultsFoundMsg = isNotLoggedIn ? PV.errors.login.ViewYourProfiles : PV.errors.alerts.noProfilesFound
+    const noResultsFoundMsg = isNotLoggedIn ? PV.i18n.errorMessages.login.ViewYourProfiles : PV.i18n.errorMessages.alerts.noProfilesFound
 
     return (
       <div className='media-list reduced-margin adjust-top-position'>
@@ -118,7 +118,7 @@ class UserListCtrl extends Component<Props, State> {
             <p>{noResultsFoundMsg}</p>
             {
               user && user.id &&
-                PV.core.MakeProfilePublic(this)
+                PV.i18n.core.MakeProfilePublic(this)
             }
           </div>
         }

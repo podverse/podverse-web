@@ -95,8 +95,8 @@ class Playlist extends Component<Props, State> {
     if (playlist) {
       meta = {
         currentUrl: BASE_URL + PV.paths.web.playlist + '/' + playlist.id,
-        description: removeDoubleQuotes(`${playlist.title ? playlist.title : PV.core.untitledPlaylist}${PV.core.playlistOnPodverse}${playlist.description ? playlist.description : ''}`),
-        title: `${playlist.title ? playlist.title : PV.core.untitledPlaylist}`
+        description: removeDoubleQuotes(`${playlist.title ? playlist.title : PV.i18n.core.untitledPlaylist}${PV.i18n.core.playlistOnPodverse}${playlist.description ? playlist.description : ''}`),
+        title: `${playlist.title ? playlist.title : PV.i18n.core.untitledPlaylist}`
       }
     }
 
@@ -208,7 +208,7 @@ class Playlist extends Component<Props, State> {
     } catch (error) {
       console.log(error)
       this.setState({ isDeleting: false })
-      safeAlert(PV.errors.alerts.deletePlaylistFailed)
+      safeAlert(PV.i18n.errorMessages.alerts.deletePlaylistFailed)
     }
   }
 
@@ -235,7 +235,7 @@ class Playlist extends Component<Props, State> {
       if (error && error.response && error.response.status === 429) {
         alertRateLimitError(error)
       } else {
-        safeAlert(PV.errors.alerts.updatePlaylistFailed)
+        safeAlert(PV.i18n.errorMessages.alerts.updatePlaylistFailed)
       }
       this.setState({ isUpdating: false })
       console.log(error)
@@ -248,7 +248,7 @@ class Playlist extends Component<Props, State> {
     const { playlist } = this.state
 
     if (!user || !user.id) {
-      safeAlert(PV.errors.login.SubscribeToPlaylists)
+      safeAlert(PV.i18n.errorMessages.login.SubscribeToPlaylists)
       return
     }
 
@@ -318,7 +318,7 @@ class Playlist extends Component<Props, State> {
       if (error && error.response && error.response.status === 429) {
         alertRateLimitError(error)
       } else {
-        safeAlert(PV.errors.alerts.couldNotRemoveFromPlaylist)
+        safeAlert(PV.i18n.errorMessages.alerts.couldNotRemoveFromPlaylist)
       }
       console.log(error)
     }
@@ -429,7 +429,7 @@ class Playlist extends Component<Props, State> {
           hideDescription={true}
           key={`media-list-item-${uuidv4()}`}
           isActive={isActive()}
-          mediaListItemType={PV.mediaList.now_playing_item}
+          mediaListItemType={PV.attributes.mediaListItem.now_playing_item}
           nowPlayingItem={x}
           pageKey={pageKey}
           showMoreMenu={!isEditing}
@@ -480,7 +480,7 @@ class Playlist extends Component<Props, State> {
                 !isEditing &&
                   <Fragment>
                     <div className='media-header__title'>
-                      {title ? title : PV.core.untitledPlaylist}
+                      {title ? title : PV.i18n.core.untitledPlaylist}
                     </div>
                   </Fragment>
               }
@@ -537,7 +537,7 @@ class Playlist extends Component<Props, State> {
               <div className='media-header__sub-title'>
               {
                 owner && !isEditing &&
-                  <Fragment>By: {owner.name ? owner.name : PV.core.anonymous}</Fragment>
+                  <Fragment>By: {owner.name ? owner.name : PV.i18n.core.Anonymous}</Fragment>
               }
               </div>
             </div>
@@ -588,19 +588,19 @@ class Playlist extends Component<Props, State> {
                 color='danger'
                 isLoading={isDeleting}
                 onClick={this.deletePlaylist}
-                text={PV.core.Delete} />
+                text={PV.i18n.core.Delete} />
               <Button
                 className='playlist-edit-btns__cancel'
                 disabled={isDeleting || isUpdating}
                 onClick={this.cancelEditing}
-                text={PV.core.Cancel} />
+                text={PV.i18n.core.Cancel} />
               <Button
                 className='playlist-edit-btns__update'
                 color='primary'
                 disabled={isDeleting || isUpdating}
                 isLoading={isUpdating}
                 onClick={this.updatePlaylist}
-                text={PV.core.Update} />
+                text={PV.i18n.core.Update} />
             </div>
           }
         </div>
@@ -625,7 +625,7 @@ class Playlist extends Component<Props, State> {
           {
             (!isLoading && listItemNodes.length === 0) &&
               <div className='no-results-msg'>
-                {PV.core.noResultsMessage(PV.core.Playlists)}
+                {PV.i18n.core.noResultsMessage(PV.i18n.core.Playlists)}
               </div>
           }
         </div>

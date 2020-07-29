@@ -71,15 +71,15 @@ class PodcastListCtrl extends Component<Props, State> {
 
     const query: any = {
       page: 1,
-      from: PV.query.all_podcasts,
+      from: PV.queryParams.all_podcasts,
       sort: querySort
     }
 
     const newState: any = {
       pageKey,
       queryPage: 1,
-      queryFrom: PV.query.all_podcasts,
-      selected: PV.query.all_podcasts,
+      queryFrom: PV.queryParams.all_podcasts,
+      selected: PV.queryParams.all_podcasts,
     }
 
     await this.queryPodcasts(query, newState)
@@ -91,7 +91,7 @@ class PodcastListCtrl extends Component<Props, State> {
 
     const query: any = {
       page: 1,
-      from: PV.query.from_category,
+      from: PV.queryParams.from_category,
       sort: querySort,
       categories: categoryId
     }
@@ -99,7 +99,7 @@ class PodcastListCtrl extends Component<Props, State> {
     const newState: any = {
       pageKey,
       queryPage: 1,
-      queryFrom: PV.query.from_category,
+      queryFrom: PV.queryParams.from_category,
       categoryId,
       selected: categoryId
     }
@@ -114,16 +114,16 @@ class PodcastListCtrl extends Component<Props, State> {
 
     const query: any = {
       page: 1,
-      from: PV.query.subscribed_only,
+      from: PV.queryParams.subscribed_only,
       sort: querySort,
       subscribedPodcastIds: subscribedPodcastIds || []
     }
 
     const newState: any = {
       pageKey,
-      queryFrom: PV.query.subscribed_only,
+      queryFrom: PV.queryParams.subscribed_only,
       queryPage: 1,
-      selected: PV.query.subscribed_only,
+      selected: PV.queryParams.subscribed_only,
     }
 
     if (subscribedPodcastIds && subscribedPodcastIds.length < 1) {
@@ -149,8 +149,8 @@ class PodcastListCtrl extends Component<Props, State> {
       page: 1,
       from: queryFrom,
       sort: selectedValue,
-      categories: queryFrom === PV.query.from_category ? categoryId : null,
-      subscribedPodcastIds: queryFrom === PV.query.subscribed_only ? subscribedPodcastIds : null
+      categories: queryFrom === PV.queryParams.from_category ? categoryId : null,
+      subscribedPodcastIds: queryFrom === PV.queryParams.subscribed_only ? subscribedPodcastIds : null
     }
 
     const newState: any = {
@@ -172,8 +172,8 @@ class PodcastListCtrl extends Component<Props, State> {
       page,
       from: queryFrom,
       sort: querySort,
-      categories: queryFrom === PV.query.from_category ? categoryId : null,
-      subscribedPodcastIds: queryFrom === PV.query.subscribed_only ? subscribedPodcastIds : null
+      categories: queryFrom === PV.queryParams.from_category ? categoryId : null,
+      subscribedPodcastIds: queryFrom === PV.queryParams.subscribed_only ? subscribedPodcastIds : null
     }
 
     const newState: any = {
@@ -189,14 +189,14 @@ class PodcastListCtrl extends Component<Props, State> {
   getQuerySortOptions() {
     return [
       {
-        label: PV.query.label.alphabetical,
-        onClick: () => this.queryPodcastsSort(PV.query.alphabetical),
-        value: PV.query.alphabetical
+        label: PV.i18n.queryLabels.alphabetical,
+        onClick: () => this.queryPodcastsSort(PV.queryParams.alphabetical),
+        value: PV.queryParams.alphabetical
       },
       {
-        label: PV.query.label.most_recent,
-        onClick: () => this.queryPodcastsSort(PV.query.most_recent),
-        value: PV.query.most_recent
+        label: PV.i18n.queryLabels.most_recent,
+        onClick: () => this.queryPodcastsSort(PV.queryParams.most_recent),
+        value: PV.queryParams.most_recent
       },
       // {
       //   label: 'top - past hour',
@@ -204,34 +204,34 @@ class PodcastListCtrl extends Component<Props, State> {
       //   value: 'top-past-hour'
       // },
       {
-        label: PV.query.label.top_past_day,
-        onClick: () => this.queryPodcastsSort(PV.query.top_past_day),
-        value: PV.query.top_past_day
+        label: PV.i18n.queryLabels.top_past_day,
+        onClick: () => this.queryPodcastsSort(PV.queryParams.top_past_day),
+        value: PV.queryParams.top_past_day
       },
       {
-        label: PV.query.label.top_past_week,
-        onClick: () => this.queryPodcastsSort(PV.query.top_past_week),
-        value: PV.query.top_past_week
+        label: PV.i18n.queryLabels.top_past_week,
+        onClick: () => this.queryPodcastsSort(PV.queryParams.top_past_week),
+        value: PV.queryParams.top_past_week
       },
       {
-        label: PV.query.label.top_past_month,
-        onClick: () => this.queryPodcastsSort(PV.query.top_past_month),
-        value: PV.query.top_past_month
+        label: PV.i18n.queryLabels.top_past_month,
+        onClick: () => this.queryPodcastsSort(PV.queryParams.top_past_month),
+        value: PV.queryParams.top_past_month
       },
       {
-        label: PV.query.label.top_past_year,
-        onClick: () => this.queryPodcastsSort(PV.query.top_past_year),
-        value: PV.query.top_past_year
+        label: PV.i18n.queryLabels.top_past_year,
+        onClick: () => this.queryPodcastsSort(PV.queryParams.top_past_year),
+        value: PV.queryParams.top_past_year
       },
       {
-        label: PV.query.label.top_all_time,
-        onClick: () => this.queryPodcastsSort(PV.query.top_all_time),
-        value: PV.query.top_all_time
+        label: PV.i18n.queryLabels.top_all_time,
+        onClick: () => this.queryPodcastsSort(PV.queryParams.top_all_time),
+        value: PV.queryParams.top_all_time
       },
       {
-        label: PV.query.label.random,
-        onClick: () => this.queryPodcastsSort(PV.query.random),
-        value: PV.query.random
+        label: PV.i18n.queryLabels.random,
+        onClick: () => this.queryPodcastsSort(PV.queryParams.random),
+        value: PV.queryParams.random
       }
     ]
   }
@@ -242,24 +242,24 @@ class PodcastListCtrl extends Component<Props, State> {
     const topLevelItems = [] as any[]
 
     topLevelItems.push({
-      label: PV.query.label.Subscribed,
+      label: PV.i18n.queryLabels.Subscribed,
       onClick: () => this.queryPodcastsSubscribed(),
       parentValue: null,
-      value: PV.query.subscribed_only
+      value: PV.queryParams.subscribed_only
     })
 
     topLevelItems.push({
-      label: PV.query.label.AllPodcasts,
+      label: PV.i18n.queryLabels.AllPodcasts,
       onClick: () => this.queryPodcastsAll(),
       parentValue: null,
-      value: PV.query.all_podcasts
+      value: PV.queryParams.all_podcasts
     })
 
     topLevelItems.push({
-      label: PV.query.label.Categories,
+      label: PV.i18n.queryLabels.Categories,
       onClick: () => this.queryPodcastsCategory(categoryId || allCategories[2].id /* Arts */),
       parentValue: null,
-      value: PV.query.from_category
+      value: PV.queryParams.from_category
     })
 
     return (
@@ -298,7 +298,7 @@ class PodcastListCtrl extends Component<Props, State> {
       }
 
       subcategoryItems.unshift({
-        label: PV.query.label.All,
+        label: PV.i18n.queryLabels.All,
         onClick: () => this.queryPodcastsCategory(selectedCategory.parentValue),
         parentValue: null,
         value: selectedCategory.parentValue
@@ -392,7 +392,7 @@ class PodcastListCtrl extends Component<Props, State> {
           dataPodcast={x}
           handleLinkClick={this.linkClick}
           hasLink={true}
-          itemType={PV.attributes.mediaListItem.itemType.podcast}
+          itemType={PV.attributes.mediaListItem.podcast}
           key={`podcast-list-item-${uuidv4()}`} />
       )
     })
@@ -401,7 +401,7 @@ class PodcastListCtrl extends Component<Props, State> {
 
     const selectedQuerySortOption = this.getQuerySortOptions().filter(x => x.value === querySort)
     const isNotLoggedIn = !user || !user.id
-    const noResultsFoundMsg = isNotLoggedIn ? PV.errors.login.ViewYourSubscriptions : PV.mediaList.noResultMsg.noPodcastsFound
+    const noResultsFoundMsg = isNotLoggedIn ? PV.i18n.errorMessages.login.ViewYourSubscriptions : PV.i18n.core.noResultsMessage(PV.i18n.core.podcasts)
 
     return (
       <div className={'media-list adjust-top-position'}>
@@ -418,7 +418,7 @@ class PodcastListCtrl extends Component<Props, State> {
         </div>
         <div className='media-list__selects'>
           <div className='media-list-selects__inline'>
-            {queryFrom === PV.query.from_category && bottomSelectNodes}
+            {queryFrom === PV.queryParams.from_category && bottomSelectNodes}
           </div>
         </div>
         <Fragment>
