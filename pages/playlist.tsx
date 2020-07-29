@@ -429,7 +429,7 @@ class Playlist extends Component<Props, State> {
           hideDescription={true}
           key={`media-list-item-${uuidv4()}`}
           isActive={isActive()}
-          mediaListItemType={PV.mediaList.now_playing_item}
+          mediaListItemType={PV.attributes.mediaListItem.now_playing_item}
           nowPlayingItem={x}
           pageKey={pageKey}
           showMoreMenu={!isEditing}

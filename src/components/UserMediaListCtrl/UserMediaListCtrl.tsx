@@ -307,7 +307,7 @@ class UserMediaListCtrl extends Component<Props, State> {
     const { nowPlayingItem: mpNowPlayingItem } = mediaPlayer
     const { listItems, listItemsTotal, queryPage, querySort, queryType } = pages[pageKey]
     
-    let mediaListItemType = PV.mediaList.now_playing_item
+    let mediaListItemType = PV.attributes.mediaListItem.now_playing_item
     let noResultsMsg = ''
     if (queryType === PV.queryParams.clips) {
       noResultsMsg = PV.core.noResultsMessage(PV.core.clips)

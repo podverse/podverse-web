@@ -627,18 +627,18 @@ class MediaListCtrl extends Component<Props, State> {
     const { categoryId, filterIsShowing, filterText, listItems, listItemsTotal, queryFrom,
       queryPage, querySort, queryType } = pages[pageKey]
 
-    let mediaListItemType = PV.mediaList.now_playing_item
+    let mediaListItemType = PV.attributes.mediaListItem.now_playing_item
     if (queryType === PV.queryParams.episodes) {
       if (queryFrom === PV.queryParams.from_podcast) {
-        mediaListItemType = PV.mediaList.now_playing_episode_from_podcast
+        mediaListItemType = PV.attributes.mediaListItem.now_playing_episode_from_podcast
       } else if (queryFrom === PV.queryParams.all_podcasts) {
-        mediaListItemType = PV.mediaList.now_playing_episode_from_all_podcasts
+        mediaListItemType = PV.attributes.mediaListItem.now_playing_episode_from_all_podcasts
       }
     } else {
       if (queryFrom === PV.queryParams.from_episode) {
-        mediaListItemType = PV.mediaList.now_playing_clip_from_episode
+        mediaListItemType = PV.attributes.mediaListItem.now_playing_clip_from_episode
       } else if (queryFrom === PV.queryParams.from_podcast) {
-        mediaListItemType = PV.mediaList.now_playing_clip_from_podcast
+        mediaListItemType = PV.attributes.mediaListItem.now_playing_clip_from_podcast
       }
     }
 
