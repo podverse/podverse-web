@@ -42,7 +42,6 @@ const kPageKey = 'clips'
 class Home extends Component<Props, State> {
 
   static async getInitialProps({ query, req, store }) {
-    console.log('home')
     const allCategoriesAndCountResult = await getCategoriesByQuery({})
     const allCategories = allCategoriesAndCountResult.data[0] || []
 
