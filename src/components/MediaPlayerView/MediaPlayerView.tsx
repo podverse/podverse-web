@@ -4,8 +4,7 @@ import { bindActionCreators } from 'redux'
 import { MediaPlayer, popNextFromQueueStorage, setNowPlayingItemInStorage } from 'podverse-ui'
 import { addOrUpdateHistoryItemPlaybackPosition, assignLocalOrLoggedInNowPlayingItemPlaybackPosition,
   generateShareURLs, getPlaybackPositionFromHistory, getViewContentsElementScrollTop } from '~/lib/utility'
-import { getPlaybackRateText, getPlaybackRateNextValue
-  } from '~/lib/constants/misc'
+import { getPlaybackRateText, getPlaybackRateNextValue } from '~/lib/utility'
 import PV from '~/lib/constants'
 import { mediaPlayerLoadNowPlayingItem, 
   mediaPlayerSetClipFinished, mediaPlayerSetPlayedAfterClipFinished,

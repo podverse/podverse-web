@@ -4,7 +4,6 @@ import { cookies } from '~/lib/constants/cookies'
 import { core } from '~/lib/constants/core'
 import { errorMessages } from '~/lib/constants/errorMessages'
 import { errorResponseMessages } from '~/lib/constants/errorResponseMessages'
-import { getPlaybackRateText, getPlaybackRateNextValue } from '~/lib/constants/misc'
 import { pages } from '~/lib/constants/pages'
 import { paths } from '~/lib/constants/paths'
 import { queryLabel } from '~/lib/constants/queryLabel'
@@ -18,8 +17,6 @@ export default {
   core,
   errorMessages,
   errorResponseMessages,
-  getPlaybackRateNextValue,
-  getPlaybackRateText,
   pages,
   paths,
   queryLabel,
