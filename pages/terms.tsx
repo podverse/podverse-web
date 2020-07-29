@@ -19,8 +19,8 @@ class Terms extends Component<Props, State> {
 
     const meta = {
       currentUrl: BASE_URL + PV.paths.web.terms,
-      description: PV.pages.terms._Description,
-      title: PV.pages.terms._Title
+      description: PV.i18n.pages.terms._Description,
+      title: PV.i18n.pages.terms._Title
     }
 
     return { meta }
@@ -41,27 +41,27 @@ class Terms extends Component<Props, State> {
           title={meta.title}
           twitterDescription={meta.description}
           twitterTitle={meta.title} />
-        <h3>{PV.pages.terms.TermsOfService}</h3>
+        <h3>{PV.i18n.pages.terms.TermsOfService}</h3>
         <p>
-          {PV.pages.terms.PodverseTerms_1}
+          {PV.i18n.pages.terms.PodverseTerms_1}
         </p>
         <p>
-          {PV.pages.terms.PodverseTerms_2}
+          {PV.i18n.pages.terms.PodverseTerms_2}
         </p>
         <p>
-          {PV.pages.terms.PodverseTerms_3}
+          {PV.i18n.pages.terms.PodverseTerms_3}
         </p>
         <p>
-          {PV.pages.terms.PodverseTerms_4}
+          {PV.i18n.pages.terms.PodverseTerms_4}
         </p>
         <p>
-          {PV.pages.terms.PodverseTerms_5}
+          {PV.i18n.pages.terms.PodverseTerms_5}
         </p>
         <p>
-          {PV.pages.terms.PodverseTerms_6}
+          {PV.i18n.pages.terms.PodverseTerms_6}
         </p>
         <p>
-          {PV.pages.terms.PodverseTerms_7}
+          {PV.i18n.pages.terms.PodverseTerms_7}
         </p>
       </Fragment>
     )

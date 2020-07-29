@@ -188,12 +188,12 @@ class MediaListCtrl extends Component<Props, State> {
 
     return [
       {
-        label: PV.core.Clips,
+        label: PV.i18n.core.Clips,
         onClick: () => this.queryListItems(PV.queryParams.clips, queryFrom, PV.queryParams.top_past_week, 1, categoryId),
         value: PV.queryParams.clips,
       },
       {
-        label: PV.core.Episodes,
+        label: PV.i18n.core.Episodes,
         onClick: () => this.queryListItems(
           PV.queryParams.episodes,
           podcastId ? PV.queryParams.from_podcast : queryFrom,
@@ -215,7 +215,7 @@ class MediaListCtrl extends Component<Props, State> {
     if (showFromPodcast) {
       options.unshift(
         {
-          label: PV.queryLabels.FromThisPodcast,
+          label: PV.i18n.queryLabels.FromThisPodcast,
           onClick: () => this.queryListItems(queryType, PV.queryParams.from_podcast, querySort, 1, null),
           value: PV.queryParams.from_podcast
         }
@@ -225,7 +225,7 @@ class MediaListCtrl extends Component<Props, State> {
     if (showFromEpisode) {
       options.unshift(
         {
-          label: PV.queryLabels.FromThisEpisode,
+          label: PV.i18n.queryLabels.FromThisEpisode,
           onClick: () => this.queryListItems(queryType, PV.queryParams.from_episode, querySort, 1, null),
           value: PV.queryParams.from_episode
         }
@@ -239,37 +239,37 @@ class MediaListCtrl extends Component<Props, State> {
 
     const items = [
       {
-        label: PV.queryLabel.most_recent,
+        label: PV.i18n.queryLabels.most_recent,
         onClick: () => this.querySort(PV.queryParams.most_recent),
         value: PV.queryParams.most_recent
       },
       {
-        label: PV.queryLabel.top_past_day,
+        label: PV.i18n.queryLabels.top_past_day,
         onClick: () => this.querySort(PV.queryParams.top_past_day),
         value: PV.queryParams.top_past_day
       },
       {
-        label: PV.queryLabel.top_past_week,
+        label: PV.i18n.queryLabels.top_past_week,
         onClick: () => this.querySort(PV.queryParams.top_past_week),
         value: PV.queryParams.top_past_week
       },
       {
-        label: PV.queryLabel.top_past_month,
+        label: PV.i18n.queryLabels.top_past_month,
         onClick: () => this.querySort(PV.queryParams.top_past_month),
         value: PV.queryParams.top_past_month
       },
       {
-        label: PV.queryLabel.top_past_year,
+        label: PV.i18n.queryLabels.top_past_year,
         onClick: () => this.querySort(PV.queryParams.top_past_year),
         value: PV.queryParams.top_past_year
       },
       {
-        label: PV.queryLabel.top_all_time,
+        label: PV.i18n.queryLabels.top_all_time,
         onClick: () => this.querySort(PV.queryParams.top_all_time),
         value: PV.queryParams.top_all_time
       },
       {
-        label: PV.queryLabel.random,
+        label: PV.i18n.queryLabels.random,
         onClick: () => this.querySort(PV.queryParams.random),
         value: PV.queryParams.random
       }
@@ -457,12 +457,12 @@ class MediaListCtrl extends Component<Props, State> {
 
     return [
       {
-        label: PV.core.Clips,
+        label: PV.i18n.core.Clips,
         onClick: () => this.queryListItems(PV.queryParams.clips, queryFrom, PV.queryParams.top_past_week, 1, categoryId),
         value: PV.queryParams.clips,
       },
       {
-        label: PV.core.Episodes,
+        label: PV.i18n.core.Episodes,
         onClick: () => this.queryListItems(
           PV.queryParams.episodes,
           podcastId ? PV.queryParams.from_podcast : queryFrom,
@@ -481,21 +481,21 @@ class MediaListCtrl extends Component<Props, State> {
     const topLevelItems = [] as any[]
 
     topLevelItems.push({
-      label: PV.queryLabel.Subscribed,
+      label: PV.i18n.queryLabels.Subscribed,
       onClick: () => this.queryListItems(queryType, PV.queryParams.subscribed_only, querySort, 1, null),
       parentValue: null,
       value: PV.queryParams.subscribed_only
     })
 
     topLevelItems.push({
-      label: PV.queryLabel.AllPodcasts,
+      label: PV.i18n.queryLabels.AllPodcasts,
       onClick: () => this.queryListItems(queryType, PV.queryParams.all_podcasts, querySort, 1, null),
       parentValue: null,
       value: PV.queryParams.all_podcasts
     })
 
     topLevelItems.push({
-      label: PV.queryLabel.Categories,
+      label: PV.i18n.queryLabels.Categories,
       onClick: () => this.queryListItems(queryType, PV.queryParams.from_category, querySort, 1, null),
       parentValue: null,
       value: PV.queryParams.from_category
@@ -537,7 +537,7 @@ class MediaListCtrl extends Component<Props, State> {
       }
 
       subcategoryItems.unshift({
-        label: PV.queryLabel.All,
+        label: PV.i18n.queryLabels.All,
         onClick: () => this.queryListItems(queryType, queryFrom, querySort, 1, selectedCategory.parentValue),
         parentValue: null,
         value: selectedCategory.parentValue
@@ -674,7 +674,7 @@ class MediaListCtrl extends Component<Props, State> {
     const selectedQuerySortOption = sortOptions.filter(x => x.value === querySort)
     const isNotLoggedInOnSubscribedOnly = (!user || !user.id) && queryFrom === PV.queryParams.subscribed_only
     const itemType = queryType === PV.queryParams.episodes ? PV.queryParams.episodes : PV.queryParams.clips
-    const noResultsFoundMsg = isNotLoggedInOnSubscribedOnly ? PV.errorMessages.login.ViewYourSubscriptions : PV.core.noResultsMessage(itemType)
+    const noResultsFoundMsg = isNotLoggedInOnSubscribedOnly ? PV.i18n.errorMessages.login.ViewYourSubscriptions : PV.i18n.core.noResultsMessage(itemType)
 
     return (      
       <div className={`media-list ${adjustTopPosition ? 'adjust-top-position' : ''}`}>

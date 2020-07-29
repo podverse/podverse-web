@@ -53,8 +53,8 @@ class Playlists extends Component<Props, State> {
 
     const meta = {
       currentUrl: BASE_URL + PV.paths.web.playlists,
-      description: PV.pages.playlists._Description,
-      title: PV.pages.playlists._Title
+      description: PV.i18n.pages.playlists._Description,
+      title: PV.i18n.pages.playlists._Title
     }
 
     return { lastScrollPosition, meta, myPlaylists, pageKey: kPageKey, subscribedPlaylists,
@@ -112,11 +112,11 @@ class Playlists extends Component<Props, State> {
           title={meta.title}
           twitterDescription={meta.description}
           twitterTitle={meta.title} />
-        <h3>{PV.core.Playlists}</h3>
+        <h3>{PV.i18n.core.Playlists}</h3>
         {
           (!user || !user.id) &&
             <div className='no-results-msg'>
-              {PV.core.LoginToViewYour(PV.core.playlists)}
+              {PV.i18n.core.LoginToViewYour(PV.i18n.core.playlists)}
             </div>
         }
         {
@@ -130,7 +130,7 @@ class Playlists extends Component<Props, State> {
                 {
                   (myPlaylistNodes.length === 0) &&
                     <div className='no-results-msg'>
-                      {PV.core.noResultsMessage(PV.core.playlists)}
+                      {PV.i18n.core.noResultsMessage(PV.i18n.core.playlists)}
                     </div>
                 }
               </div>

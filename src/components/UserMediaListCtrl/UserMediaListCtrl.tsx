@@ -185,17 +185,17 @@ class UserMediaListCtrl extends Component<Props, State> {
     const { isMyProfilePage } = this.props
     return [
       {
-        label: isMyProfilePage ? PV.core.MyPodcasts : PV.core.Podcasts,
+        label: isMyProfilePage ? PV.i18n.core.MyPodcasts : PV.i18n.core.Podcasts,
         onClick: () => this.queryMediaListItems(PV.queryParams.key.type, PV.queryParams.podcasts),
         value: PV.queryParams.podcasts,
       },
       {
-        label: isMyProfilePage ? PV.core.MyClips : PV.core.Clips,
+        label: isMyProfilePage ? PV.i18n.core.MyClips : PV.i18n.core.Clips,
         onClick: () => this.queryMediaListItems(PV.queryParams.key.type, PV.queryParams.clips),
         value: PV.queryParams.clips,
       },
       {
-        label: isMyProfilePage ? PV.core.MyPlaylists : PV.core.Playlists,
+        label: isMyProfilePage ? PV.i18n.core.MyPlaylists : PV.i18n.core.Playlists,
         onClick: () => this.queryMediaListItems(PV.queryParams.key.type, PV.queryParams.playlists),
         value: PV.queryParams.playlists
       }
@@ -205,37 +205,37 @@ class UserMediaListCtrl extends Component<Props, State> {
   getQuerySortOptions(isPodcasts) {
     const items = [
       {
-        label: PV.queryLabel.most_recent,
+        label: PV.i18n.queryLabels.most_recent,
         onClick: () => this.queryMediaListItems(PV.queryParams.key.sort, PV.queryParams.most_recent),
         value: PV.queryParams.most_recent
       },
       {
-        label: PV.queryLabel.top_past_day,
+        label: PV.i18n.queryLabels.top_past_day,
         onClick: () => this.queryMediaListItems(PV.queryParams.key.sort, PV.queryParams.top_past_day),
         value: PV.queryParams.top_past_day
       },
       {
-        label: PV.queryLabel.top_past_week,
+        label: PV.i18n.queryLabels.top_past_week,
         onClick: () => this.queryMediaListItems(PV.queryParams.key.sort, PV.queryParams.top_past_week),
         value: PV.queryParams.top_past_week
       },
       {
-        label: PV.queryLabel.top_past_month,
+        label: PV.i18n.queryLabels.top_past_month,
         onClick: () => this.queryMediaListItems(PV.queryParams.key.sort, PV.queryParams.top_past_month),
         value: PV.queryParams.top_past_month
       },
       {
-        label: PV.queryLabel.top_past_year,
+        label: PV.i18n.queryLabels.top_past_year,
         onClick: () => this.queryMediaListItems(PV.queryParams.key.sort, PV.queryParams.top_past_year),
         value: PV.queryParams.top_past_year
       },
       {
-        label: PV.queryLabel.top_all_time,
+        label: PV.i18n.queryLabels.top_all_time,
         onClick: () => this.queryMediaListItems(PV.queryParams.key.sort, PV.queryParams.top_all_time),
         value: PV.queryParams.top_all_time
       },
       {
-        label: PV.queryLabel.random,
+        label: PV.i18n.queryLabels.random,
         onClick: () => this.queryMediaListItems(PV.queryParams.random),
         value: PV.queryParams.random
       }
@@ -243,7 +243,7 @@ class UserMediaListCtrl extends Component<Props, State> {
 
     if (isPodcasts) {
       items.unshift({
-        label: PV.queryLabel.alphabetical,
+        label: PV.i18n.queryLabels.alphabetical,
         onClick: () => this.queryMediaListItems(PV.queryParams.key.sort, PV.queryParams.alphabetical),
         value: PV.queryParams.alphabetical
       })
@@ -310,13 +310,13 @@ class UserMediaListCtrl extends Component<Props, State> {
     let mediaListItemType = PV.attributes.mediaListItem.now_playing_item
     let noResultsMsg = ''
     if (queryType === PV.queryParams.clips) {
-      noResultsMsg = PV.core.noResultsMessage(PV.core.clips)
+      noResultsMsg = PV.i18n.core.noResultsMessage(PV.i18n.core.clips)
     } else if (queryType === PV.queryParams.playlists) {
       mediaListItemType = PV.queryParams.playlist
-      noResultsMsg = PV.core.noResultsMessage(PV.core.playlists)
+      noResultsMsg = PV.i18n.core.noResultsMessage(PV.i18n.core.playlists)
     } else if (queryType === PV.queryParams.podcasts) {
       mediaListItemType = PV.queryParams.podcast
-      noResultsMsg = PV.core.noResultsMessage(PV.core.podcasts)
+      noResultsMsg = PV.i18n.core.noResultsMessage(PV.i18n.core.podcasts)
     }
 
     const listItemNodes = Array.isArray(listItems) ? listItems.map(x => {

@@ -30,8 +30,8 @@ class FAQ extends Component<Props, State> {
 
     const meta = {
       currentUrl: BASE_URL + PV.paths.web.faq,
-      description: PV.pages.faq._Description,
-      title: PV.pages.faq._Title
+      description: PV.i18n.pages.faq._Description,
+      title: PV.i18n.pages.faq._Title
     }
 
     return { lastScrollPosition, pageKey: kPageKey, meta }

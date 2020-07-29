@@ -30,8 +30,8 @@ class About extends Component<Props, State> {
 
     const meta = {
       currentUrl: BASE_URL + PV.paths.web.about,
-      description: PV.pages.about._Description,
-      title: PV.pages.about._Title
+      description: PV.i18n.pages.about._Description,
+      title: PV.i18n.pages.about._Title
     }
 
     return { lastScrollPosition, meta, pageKey: kPageKey }

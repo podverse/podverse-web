@@ -66,7 +66,7 @@ class CheckoutModal extends React.Component<Props, State> {
         alertRateLimitError(error)
         return
       } else {
-        safeAlert(PV.errorMessages.alerts.somethingWentWrong)
+        safeAlert(PV.i18n.errorMessages.alerts.somethingWentWrong)
       }
     }
   }
@@ -92,7 +92,7 @@ class CheckoutModal extends React.Component<Props, State> {
     return (
       <Modal
         appElement={appEl}
-        contentLabel={PV.core.Checkout}
+        contentLabel={PV.i18n.core.Checkout}
         isOpen={isOpen}
         onRequestClose={this.handleHideModal}
         portalClassName='checkout-modal over-media-player'

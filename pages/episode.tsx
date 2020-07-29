@@ -130,7 +130,7 @@ class Episode extends Component<Props, State> {
     
     let meta = {}
     if (episode) {
-      const podcastTitle = (episode && episode.podcast && episode.podcast.title) || PV.core.untitledPodcast
+      const podcastTitle = (episode && episode.podcast && episode.podcast.title) || PV.i18n.core.untitledPodcast
       meta = {
         currentUrl: BASE_URL + PV.paths.web.episode + '/' + episode.id,
         description: removeDoubleQuotes(episode.description),

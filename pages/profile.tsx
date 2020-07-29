@@ -98,8 +98,8 @@ class Profile extends Component<Props, State> {
     if (publicUser) {
       meta = {
         currentUrl: BASE_URL + PV.paths.web.profile + '/' + publicUser.id,
-        description: `${publicUser.name ? publicUser.name : PV.core.Anonymous}'s profile on Podverse`,
-        title: `${publicUser.name ? publicUser.name : PV.core.Anonymous}'s profile on Podverse`
+        description: `${publicUser.name ? publicUser.name : PV.i18n.core.Anonymous}'s profile on Podverse`,
+        title: `${publicUser.name ? publicUser.name : PV.i18n.core.Anonymous}'s profile on Podverse`
       }
     }
 

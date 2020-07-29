@@ -99,8 +99,8 @@ class Home extends Component<Props, State> {
 
     const meta = {
       currentUrl: BASE_URL,
-      description: PV.pages.index._Description,
-      title: PV.pages.index._Title
+      description: PV.i18n.pages.index._Description,
+      title: PV.i18n.pages.index._Title
     }
 
     return {
@@ -138,7 +138,7 @@ class Home extends Component<Props, State> {
           title={meta.title}
           twitterDescription={meta.description}
           twitterTitle={meta.title} />
-        <h3>{PV.core.Clips}</h3>
+        <h3>{PV.i18n.core.Clips}</h3>
         <MediaListCtrl
           adjustTopPosition
           allCategories={allCategories}

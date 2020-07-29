@@ -45,7 +45,7 @@ class UserHeaderCtrl extends Component<Props, State> {
     const { loggedInUser, profileUser, userSetInfo } = this.props
 
     if (!loggedInUser || !loggedInUser.id) {
-      safeAlert(PV.errorMessages.login.SubscribeToProfile)
+      safeAlert(PV.i18n.errorMessages.login.SubscribeToProfile)
       return
     }
 
@@ -98,7 +98,7 @@ class UserHeaderCtrl extends Component<Props, State> {
         <div className='text-wrapper'>
           <div className='media-header__top'>
             <div className='media-header__title'>
-              {profileUser.name ? profileUser.name : PV.core.Anonymous}
+              {profileUser.name ? profileUser.name : PV.i18n.core.Anonymous}
             </div>
             {
               loggedInUser && profileUser && loggedInUser.id === profileUser.id ?
@@ -118,7 +118,7 @@ class UserHeaderCtrl extends Component<Props, State> {
                           placement='bottom'
                           target='profileShareLink'>
                           <PopoverHeader>
-                            {PV.core.CopyLinkToProfile}
+                            {PV.i18n.core.CopyLinkToProfile}
                           </PopoverHeader>
                           <PopoverBody>
                             <InputGroup id='profile-link'>

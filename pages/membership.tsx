@@ -32,8 +32,8 @@ class Membership extends Component<Props, State> {
 
     const meta = {
       currentUrl: BASE_URL + PV.paths.web.membership,
-      description: PV.pages.membership._Description,
-      title: PV.pages.membership._Title
+      description: PV.i18n.pages.membership._Description,
+      title: PV.i18n.pages.membership._Title
     }
 
     return { lastScrollPosition, meta, pageKey: kPageKey }
@@ -58,7 +58,7 @@ class Membership extends Component<Props, State> {
           title={meta.title}
           twitterDescription={meta.description}
           twitterTitle={meta.title} />
-        <h3>{PV.core.Premium}</h3>
+        <h3>{PV.i18n.core.Premium}</h3>
 
         <p className='membership-top-text'>
           Get 1 year free when you sign up for Podverse premium
@@ -74,7 +74,7 @@ class Membership extends Component<Props, State> {
         <ComparisonTable
           featuresData={featuresData}
           headerIcon1='Free'
-          headerIcon2={PV.core.Premium}
+          headerIcon2={PV.i18n.core.Premium}
           headerText='Features' />
       </Fragment>
     )

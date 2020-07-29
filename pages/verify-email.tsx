@@ -26,8 +26,8 @@ class VerifyEmail extends Component<Props, State> {
 
     const meta = {
       currentUrl: BASE_URL + PV.paths.web.verify_email,
-      description: PV.pages.verify_email._Description,
-      title: PV.pages.verify_email._Title
+      description: PV.i18n.pages.verify_email._Description,
+      title: PV.i18n.pages.verify_email._Title
     }
 
     store.dispatch(pageIsLoading(false))
@@ -75,11 +75,11 @@ class VerifyEmail extends Component<Props, State> {
         {
           !hasError &&
             <Fragment>
-              <h3>{PV.pages.verify_email.EmailVerified}</h3>
-              <p>{PV.pages.verify_email.ThankYouForVerifying}</p>
+              <h3>{PV.i18n.pages.verify_email.EmailVerified}</h3>
+              <p>{PV.i18n.pages.verify_email.ThankYouForVerifying}</p>
               <p className='font-bolder'>
                 <Link as={PV.paths.web._login} href={PV.paths.web._login}>
-                  <a>{PV.core.Login}</a>
+                  <a>{PV.i18n.core.Login}</a>
                 </Link>
               </p>
             </Fragment>
@@ -87,11 +87,11 @@ class VerifyEmail extends Component<Props, State> {
         {
           hasError &&
             <Fragment>
-              <h3>{PV.pages.verify_email.EmailVerificationFailed}</h3>
-              <p>{PV.pages.verify_email.EmailAlreadyVerifiedOrTokenExpired}</p>
+              <h3>{PV.i18n.pages.verify_email.EmailVerificationFailed}</h3>
+              <p>{PV.i18n.pages.verify_email.EmailAlreadyVerifiedOrTokenExpired}</p>
               <p>
                 <a href='#' onClick={this._showSendVerificationEmailModal}>
-                  {PV.pages.verify_email.SendVerificationEmail}
+                  {PV.i18n.pages.verify_email.SendVerificationEmail}
                 </a>
               </p>
             </Fragment>

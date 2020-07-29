@@ -30,8 +30,8 @@ class PaymentConfirmingPayPal extends Component<Props, State> {
 
     const meta = {
       currentUrl: BASE_URL + PV.paths.web.payment_paypal_confirming,
-      description: PV.pages.payment_paypal_confirming._Description,
-      title: PV.pages.payment_paypal_confirming._Title
+      description: PV.i18n.pages.payment_paypal_confirming._Description,
+      title: PV.i18n.pages.payment_paypal_confirming._Title
     }
 
     return { id: query.id, meta }
@@ -81,7 +81,7 @@ class PaymentConfirmingPayPal extends Component<Props, State> {
       } else {
         if (currentCount > 10) {
           clearInterval(this.state.intervalId)
-          newState.errorMessage = PV.errorMessages.alerts.somethingWentWrong
+          newState.errorMessage = PV.i18n.errorMessages.alerts.somethingWentWrong
           newState.isChecking = false
         } else if (currentCount > 5) {
           newState.currentCount = currentCount + 1
@@ -94,7 +94,7 @@ class PaymentConfirmingPayPal extends Component<Props, State> {
     } catch (error) {
       console.log(error)
       clearInterval(this.state.intervalId)
-      newState.errorMessage = PV.errorMessages.alerts.somethingWentWrong
+      newState.errorMessage = PV.i18n.errorMessages.alerts.somethingWentWrong
     }
   }
 

@@ -52,22 +52,22 @@ class ErrorPage extends Component<Props, State> {
 
 const errors = {
   401: {
-    header: PV.errorMessages.header.LoginNeeded,
-    message1: PV.errorMessages.message.YouMustLoginToUseThisFeature
+    header: PV.i18n.errorMessages.header.LoginNeeded,
+    message1: PV.i18n.errorMessages.message.YouMustLoginToUseThisFeature
   },
   404: {
-    header: PV.errorMessages.header.Error_404,
-    message1: PV.errorMessages.message.PageNotFound
+    header: PV.i18n.errorMessages.header.Error_404,
+    message1: PV.i18n.errorMessages.message.PageNotFound
   },
   500: {
-    header: PV.errorMessages.header.ServersUnderMaintenance,
-    message1: PV.errorMessages.message.SiteOfflineUntilWorkIsComplete,
+    header: PV.i18n.errorMessages.header.ServersUnderMaintenance,
+    message1: PV.i18n.errorMessages.message.SiteOfflineUntilWorkIsComplete,
     icon: 'tools'
   },
   defaultError: {
-    header: PV.errorMessages.header.SomethingWentWrong,
-    message1: PV.errorMessages.message.AnUnknownErrorHasOccurred,
-    message2: PV.errorMessages.message.CheckConnectionOrDifferentPage
+    header: PV.i18n.errorMessages.header.SomethingWentWrong,
+    message1: PV.i18n.errorMessages.message.AnUnknownErrorHasOccurred,
+    message2: PV.i18n.errorMessages.message.CheckConnectionOrDifferentPage
   }
 }
 

@@ -81,8 +81,8 @@ class MyProfile extends Component<Props, State> {
 
     const meta = {
       currentUrl: BASE_URL + PV.paths.web.my_profile,
-      description: PV.pages.my_profile._Description,
-      title: PV.pages.my_profile._Title
+      description: PV.i18n.pages.my_profile._Description,
+      title: PV.i18n.pages.my_profile._Title
     }
 
     return { lastScrollPosition, meta, pageKey: kPageKey, user }

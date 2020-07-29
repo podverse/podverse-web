@@ -140,7 +140,7 @@ class MediaModals extends Component<Props, State> {
       const playbackRate = localStorage.getItem(PV.storageKeys.kPlaybackRate)
       return playbackRate ? JSON.parse(playbackRate) : 1
     } catch (error) {
-      console.log(PV.errorMessages.getPlaybackRateValue, error)
+      console.log(PV.i18n.errorMessages.getPlaybackRateValue, error)
     }
   }
 
@@ -239,7 +239,7 @@ class MediaModals extends Component<Props, State> {
 
     } catch (error) {
       if (error && error.response && error.response.data && error.response.data.message === PV.errorResponseMessages.premiumRequired) {
-        safeAlert(PV.errorMessages.alerts.premiumRequired)
+        safeAlert(PV.i18n.errorMessages.alerts.premiumRequired)
       } else if (error && error.response && error.response.status === 429) {
         alertRateLimitError(error)
       } else if (error && error.response && error.response.status === 401) {
@@ -269,7 +269,7 @@ class MediaModals extends Component<Props, State> {
       Router.push(href, as)
     } catch (error) {
       console.log(error)
-      safeAlert(PV.errorMessages.alerts.deleteClipFailed)
+      safeAlert(PV.i18n.errorMessages.alerts.deleteClipFailed)
     }
     
     this.setState({ makeClipIsDeleting: false })
@@ -396,7 +396,7 @@ class MediaModals extends Component<Props, State> {
           playerQueueLoadPriorityItems(priorityItems)
         } catch (error) {
           console.log(error)
-          safeAlert(PV.errorMessages.alerts.couldNotUpdateQueue)
+          safeAlert(PV.i18n.errorMessages.alerts.couldNotUpdateQueue)
         }
       } else {
         removeItemFromPriorityQueueStorage(clipId, episodeId)

@@ -29,8 +29,8 @@ class PaymentConfirmingBitPay extends Component<Props, State> {
 
     const meta = {
       currentUrl: BASE_URL + PV.paths.web.payment_bitpay_confirming,
-      description: PV.pages.payment_bitpay_confirming._Description,
-      title: PV.pages.payment_bitpay_confirming._Title
+      description: PV.i18n.pages.payment_bitpay_confirming._Description,
+      title: PV.i18n.pages.payment_bitpay_confirming._Title
     }
 
     return { id: query.id, meta }
@@ -70,7 +70,7 @@ class PaymentConfirmingBitPay extends Component<Props, State> {
     try {
       const bitpayInvoice = await getBitPayInvoiceStatusByOrderId(id)
 
-      if (bitpayInvoice && bitpayInvoice.data && (bitpayInvoice.data === PV.core.confirmed || bitpayInvoice.data === PV.core.complete)) {
+      if (bitpayInvoice && bitpayInvoice.data && (bitpayInvoice.data === PV.i18n.core.confirmed || bitpayInvoice.data === PV.i18n.core.complete)) {
         newState.hasError = false
         newState.isChecking = false
         newState.wasSuccessful = true

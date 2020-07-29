@@ -189,12 +189,12 @@ class PodcastListCtrl extends Component<Props, State> {
   getQuerySortOptions() {
     return [
       {
-        label: PV.queryLabel.alphabetical,
+        label: PV.i18n.queryLabels.alphabetical,
         onClick: () => this.queryPodcastsSort(PV.queryParams.alphabetical),
         value: PV.queryParams.alphabetical
       },
       {
-        label: PV.queryLabel.most_recent,
+        label: PV.i18n.queryLabels.most_recent,
         onClick: () => this.queryPodcastsSort(PV.queryParams.most_recent),
         value: PV.queryParams.most_recent
       },
@@ -204,32 +204,32 @@ class PodcastListCtrl extends Component<Props, State> {
       //   value: 'top-past-hour'
       // },
       {
-        label: PV.queryLabel.top_past_day,
+        label: PV.i18n.queryLabels.top_past_day,
         onClick: () => this.queryPodcastsSort(PV.queryParams.top_past_day),
         value: PV.queryParams.top_past_day
       },
       {
-        label: PV.queryLabel.top_past_week,
+        label: PV.i18n.queryLabels.top_past_week,
         onClick: () => this.queryPodcastsSort(PV.queryParams.top_past_week),
         value: PV.queryParams.top_past_week
       },
       {
-        label: PV.queryLabel.top_past_month,
+        label: PV.i18n.queryLabels.top_past_month,
         onClick: () => this.queryPodcastsSort(PV.queryParams.top_past_month),
         value: PV.queryParams.top_past_month
       },
       {
-        label: PV.queryLabel.top_past_year,
+        label: PV.i18n.queryLabels.top_past_year,
         onClick: () => this.queryPodcastsSort(PV.queryParams.top_past_year),
         value: PV.queryParams.top_past_year
       },
       {
-        label: PV.queryLabel.top_all_time,
+        label: PV.i18n.queryLabels.top_all_time,
         onClick: () => this.queryPodcastsSort(PV.queryParams.top_all_time),
         value: PV.queryParams.top_all_time
       },
       {
-        label: PV.queryLabel.random,
+        label: PV.i18n.queryLabels.random,
         onClick: () => this.queryPodcastsSort(PV.queryParams.random),
         value: PV.queryParams.random
       }
@@ -242,21 +242,21 @@ class PodcastListCtrl extends Component<Props, State> {
     const topLevelItems = [] as any[]
 
     topLevelItems.push({
-      label: PV.queryLabel.Subscribed,
+      label: PV.i18n.queryLabels.Subscribed,
       onClick: () => this.queryPodcastsSubscribed(),
       parentValue: null,
       value: PV.queryParams.subscribed_only
     })
 
     topLevelItems.push({
-      label: PV.queryLabel.AllPodcasts,
+      label: PV.i18n.queryLabels.AllPodcasts,
       onClick: () => this.queryPodcastsAll(),
       parentValue: null,
       value: PV.queryParams.all_podcasts
     })
 
     topLevelItems.push({
-      label: PV.queryLabel.Categories,
+      label: PV.i18n.queryLabels.Categories,
       onClick: () => this.queryPodcastsCategory(categoryId || allCategories[2].id /* Arts */),
       parentValue: null,
       value: PV.queryParams.from_category
@@ -298,7 +298,7 @@ class PodcastListCtrl extends Component<Props, State> {
       }
 
       subcategoryItems.unshift({
-        label: PV.queryLabel.All,
+        label: PV.i18n.queryLabels.All,
         onClick: () => this.queryPodcastsCategory(selectedCategory.parentValue),
         parentValue: null,
         value: selectedCategory.parentValue
@@ -401,7 +401,7 @@ class PodcastListCtrl extends Component<Props, State> {
 
     const selectedQuerySortOption = this.getQuerySortOptions().filter(x => x.value === querySort)
     const isNotLoggedIn = !user || !user.id
-    const noResultsFoundMsg = isNotLoggedIn ? PV.errorMessages.login.ViewYourSubscriptions : PV.core.noResultsMessage(PV.core.podcasts)
+    const noResultsFoundMsg = isNotLoggedIn ? PV.i18n.errorMessages.login.ViewYourSubscriptions : PV.i18n.core.noResultsMessage(PV.i18n.core.podcasts)
 
     return (
       <div className={'media-list adjust-top-position'}>

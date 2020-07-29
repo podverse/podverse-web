@@ -80,8 +80,8 @@ class Podcasts extends Component<Props, State> {
 
     const meta = {
       currentUrl: BASE_URL + PV.paths.web.podcasts,
-      description: PV.pages.podcasts._Description,
-      title: PV.pages.podcasts._Title
+      description: PV.i18n.pages.podcasts._Description,
+      title: PV.i18n.pages.podcasts._Title
     }
 
     return { allCategories, categoryId, lastScrollPosition, meta, nsfwMode, 
@@ -104,7 +104,7 @@ class Podcasts extends Component<Props, State> {
           title={meta.title}
           twitterDescription={meta.description}
           twitterTitle={meta.title} />
-        <h3>{PV.core.Podcasts}</h3>
+        <h3>{PV.i18n.core.Podcasts}</h3>
         <PodcastListCtrl 
           allCategories={allCategories}
           categoryId={categoryId}

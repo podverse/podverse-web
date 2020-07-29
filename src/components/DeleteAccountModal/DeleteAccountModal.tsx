@@ -68,7 +68,7 @@ export class DeleteAccountModal extends React.Component<Props, State> {
       window.location.href = '/'
     } catch (error) {
       console.log(error)
-      safeAlert(PV.errorMessages.alerts.somethingWentWrong)
+      safeAlert(PV.i18n.errorMessages.alerts.somethingWentWrong)
     }
   }
 
@@ -80,7 +80,7 @@ export class DeleteAccountModal extends React.Component<Props, State> {
     return (
       <Modal
         appElement={appEl}
-        contentLabel={PV.core.DeleteAccount}
+        contentLabel={PV.i18n.core.DeleteAccount}
         isOpen={isOpen}
         onRequestClose={handleHideModal}
         portalClassName='delete-account-modal over-media-player'
@@ -104,14 +104,14 @@ export class DeleteAccountModal extends React.Component<Props, State> {
                 <Button
                   className='delete-account-modal__cancel'
                   onClick={this.handleHideModal}
-                  text={PV.core.Cancel} />
+                  text={PV.i18n.core.Cancel} />
                 <Button
                   className='delete-account-modal__submit'
                   color='danger'
                   disabled={!isConfirmed}
                   isLoading={isDeleting}
                   onClick={this.handleDeleteAccount}
-                  text={PV.core.Delete} />
+                  text={PV.i18n.core.Delete} />
               </React.Fragment>
             )} />
         </div>

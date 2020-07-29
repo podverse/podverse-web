@@ -116,7 +116,7 @@ class Podcast extends Component<Props, State> {
     }
 
     store.dispatch(pageIsLoading(false))
-    const podcastTitle = podcast.title || PV.core.untitledPodcast
+    const podcastTitle = podcast.title || PV.i18n.core.untitledPodcast
     const meta = {
       currentUrl: BASE_URL + PV.paths.web.podcast + '/' + podcast.id,
       description: removeDoubleQuotes(podcast.description),
