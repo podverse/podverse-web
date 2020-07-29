@@ -2,7 +2,6 @@ import axios from 'axios'
 import PV from '~/lib/constants'
 import { convertObjectToQueryString } from '~/lib/utility'
 import config from '~/config'
-import constants from '~/lib/constants'
 const { API_BASE_URL } = config()
 
 export const addOrRemovePlaylistItem = async (data: any) => {
@@ -35,7 +34,7 @@ export const getPlaylistById = async (id: string) => {
 export const getPlaylistsByQuery = async (query) => {
   const filteredQuery: any = {}
 
-  if (query.from === constants.query.subscribed_only) {
+  if (query.from === PV.queryParams.subscribed_only) {
     filteredQuery.playlistId = query.subscribedPlaylistIds
   }
 
