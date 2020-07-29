@@ -32,6 +32,7 @@ export const paths = {
     verify_email: `/verify-email`
   },
   web: {
+    _login: `/?login`,
     about: `/about`,
     appleAppStore: `https://apps.apple.com/us/app/podverse/id1390888454?mt=8`,
     clip: `/clip`,
@@ -64,6 +65,7 @@ export const paths = {
     settings: `/settings`,
     support_podverse_fm: `mailto:support@podverse.fm`,
     terms: `/terms`,
-    unspam: `http://www.unspam.com/noemailcollection/`
+    unspam: `http://www.unspam.com/noemailcollection/`,
+    verify_email: `/verify-email`
   }
 }
