@@ -4,7 +4,7 @@ import Link from 'next/link'
 
 export const core = {
   About: `About`,
-  anonymous: `anonymous`,
+  Anonymous: `Anonymous`,
   Cancel: `Cancel`,
   Checkout: `Checkout`,
   clips: `clips`,
