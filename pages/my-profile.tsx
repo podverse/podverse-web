@@ -38,28 +38,28 @@ class MyProfile extends Component<Props, State> {
     const currentPage = pages[kPageKey] || {}
     const lastScrollPosition = currentPage.lastScrollPosition
     const queryPage = currentPage.queryPage || query.page || 1
-    const querySort = currentPage.querySort || query.sort || PV.query.alphabetical
-    const queryType = currentPage.queryType || query.type || PV.query.podcasts
+    const querySort = currentPage.querySort || query.sort || PV.queryParams.alphabetical
+    const queryType = currentPage.queryType || query.type || PV.queryParams.podcasts
 
     if (Object.keys(currentPage).length === 0) {
       let queryDataResult
       let listItems = [] as any
 
-      if (queryType === PV.query.clips) {
+      if (queryType === PV.queryParams.clips) {
         queryDataResult = await getLoggedInUserMediaRefs(bearerToken, 'on', queryPage)
         const mediaRefs = queryDataResult.data as any
         const nowPlayingItems = mediaRefs[0].map(x => convertToNowPlayingItem(x))
         listItems = [nowPlayingItems, mediaRefs[1]]
         store.dispatch(playerQueueLoadSecondaryItems(clone(listItems[0])))
-      } else if (queryType === PV.query.playlists) {
+      } else if (queryType === PV.queryParams.playlists) {
         queryDataResult = await getLoggedInUserPlaylists(bearerToken, queryPage)
         listItems = queryDataResult.data
       } else if (
-        queryType === PV.query.podcasts
+        queryType === PV.queryParams.podcasts
         && user.subscribedPodcastIds
         && user.subscribedPodcastIds.length > 0) {
         queryDataResult = await getPodcastsByQuery({
-          from: PV.query.subscribed_only,
+          from: PV.queryParams.subscribed_only,
           page: queryPage,
           sort: querySort,
           subscribedPodcastIds: user.subscribedPodcastIds

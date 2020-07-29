@@ -30,7 +30,7 @@ export const NSFWModal: React.StatelessComponent<Props> = props => {
   return (
     <Modal
       appElement={appEl}
-      contentLabel={PV.core.NSFWModal}
+      contentLabel={PV.core.NSFWConfirmPopup}
       isOpen={isOpen}
       onRequestClose={handleHideModal}
       portalClassName='nsfw-confirm-modal over-media-player'

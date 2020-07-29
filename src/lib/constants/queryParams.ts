@@ -1,25 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
 
-// *TODO: Separate this file into two files.
-// Call one file queryLabel and the other queryParams.
-// The reason is because the queryLabel file will need translations,
-// but the queryParams will not.
-
-export const query = {
-  label:{
-    All: `All`,
-    AllPodcasts: `All Podcasts`,
-    alphabetical: `alphabetical`,
-    Categories: `Categories`,
-    most_recent: `most recent`,
-    random: `random`,
-    Subscribed: `Subscribed`,
-    top_all_time: `top - all time`,
-    top_past_day: `top - past day`,
-    top_past_month: `top - past month`,
-    top_past_week: `top - past week`,
-    top_past_year: `top - past year`
-  },
+export const queryParams = {
   key: {
     type: `type`,
     sort: `sort`

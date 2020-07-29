@@ -9,7 +9,8 @@ import { getPlaybackRateText, getPlaybackRateNextValue } from '~/lib/constants/m
 import { pages } from '~/lib/constants/pages'
 import { paths } from '~/lib/constants/paths'
 import { player } from '~/lib/constants/player'
-import { query } from '~/lib/constants/query'
+import { queryLabel } from '~/lib/constants/queryLabel'
+import { queryParams } from '~/lib/constants/queryParams'
 
 export default {
   attributes,
@@ -24,5 +25,6 @@ export default {
   pages,
   paths,
   player,
-  query
+  queryLabel,
+  queryParams
 }

@@ -58,22 +58,22 @@ class Podcast extends Component<Props, State> {
 
     const currentPage = pages[pageKeyWithId] || {}
     const lastScrollPosition = currentPage.lastScrollPosition
-    const queryFrom = currentPage.queryFrom || query.from || localStorageQuery.from || PV.query.from_podcast
+    const queryFrom = currentPage.queryFrom || query.from || localStorageQuery.from || PV.queryParams.from_podcast
     const queryPage = currentPage.queryPage || query.page || 1
-    const querySort = currentPage.querySort || query.sort || localStorageQuery.sort || PV.query.most_recent
-    const queryType = currentPage.queryType || query.type || localStorageQuery.type || PV.query.episodes
+    const querySort = currentPage.querySort || query.sort || localStorageQuery.sort || PV.queryParams.most_recent
+    const queryType = currentPage.queryType || query.type || localStorageQuery.type || PV.queryParams.episodes
     let podcastId = ''
 
-    if (queryFrom === PV.query.from_podcast) {
+    if (queryFrom === PV.queryParams.from_podcast) {
       podcastId = podcast.id
-    } else if (queryFrom === PV.query.subscribed_only) {
+    } else if (queryFrom === PV.queryParams.subscribed_only) {
       podcastId = user.subscribedPodcastIds
     }
 
     if (Object.keys(currentPage).length === 0) {
       let results
 
-      if (queryType === PV.query.episodes) {
+      if (queryType === PV.queryParams.episodes) {
         results = await getEpisodesByQuery({
           from: queryFrom,
           ...(!podcastId ? { includePodcast: true } : {}),
@@ -172,7 +172,7 @@ class Podcast extends Component<Props, State> {
           podcast={podcast} />
         <MediaListCtrl
           handleSetPageQueryState={pagesSetQueryState}
-          includeOldest={queryType === PV.query.episodes}
+          includeOldest={queryType === PV.queryParams.episodes}
           pageKey={pageKey}
           podcast={podcast}
           podcastId={podcast.id}

@@ -47,11 +47,11 @@ class Podcasts extends Component<Props, State> {
     const categoryId = query.categoryId || currentPage.categoryId || localStorageQuery.categoryId
     const queryPage = (queryRefresh && 1) || query.page || currentPage.queryPage || 1
     const queryFrom = query.from
-      || (query.categoryId && PV.query.from_category)
+      || (query.categoryId && PV.queryParams.from_category)
       || currentPage.queryFrom
       || localStorageQuery.from
-      || (user && user.id ? PV.query.subscribed_only : PV.query.all_podcasts)
-    const querySort = query.sort || currentPage.querySort || localStorageQuery.sort || (user && user.id ? PV.query.alphabetical : PV.query.top_past_week)
+      || (user && user.id ? PV.queryParams.subscribed_only : PV.queryParams.all_podcasts)
+    const querySort = query.sort || currentPage.querySort || localStorageQuery.sort || (user && user.id ? PV.queryParams.alphabetical : PV.queryParams.top_past_week)
 
     if (Object.keys(currentPage).length === 0 || queryRefresh) {
       const queryDataResult = await getPodcastsByQuery({
@@ -59,7 +59,7 @@ class Podcasts extends Component<Props, State> {
         from: queryFrom,
         page: queryPage,
         sort: querySort,
-        ...(queryFrom === PV.query.subscribed_only ? { subscribedPodcastIds } : {})
+        ...(queryFrom === PV.queryParams.subscribed_only ? { subscribedPodcastIds } : {})
       })
 
       const podcasts = queryDataResult.data

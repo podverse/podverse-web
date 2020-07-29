@@ -39,7 +39,7 @@ class Search extends Component<Props, State> {
 
     const currentPage = pages[kPageKey] || {}
     const lastScrollPosition = currentPage.lastScrollPosition
-    const querySearchBy = currentPage.searchBy || query.searchBy || PV.query.podcast
+    const querySearchBy = currentPage.searchBy || query.searchBy || PV.queryParams.podcast
 
     store.dispatch(pagesSetQueryState({ 
       pageKey: kPageKey,
@@ -145,7 +145,7 @@ class Search extends Component<Props, State> {
     const { isSearching, listItems, listItemsTotal, queryPage, searchBy } = pages[kPageKey]
     const { currentSearch, searchCompleted } = this.state
 
-    const placeholder = searchBy === PV.query.host
+    const placeholder = searchBy === PV.queryParams.host
       ? PV.pages.search.searchByHost : PV.pages.search.searchByTitle
 
       
@@ -238,7 +238,7 @@ class Search extends Component<Props, State> {
           {
             (!isSearching && searchCompleted && listItemNodes && listItemNodes.length === 0) &&
               <div className='no-results-msg'>
-                {PV.core.noResultsMessage(PV.core.podcasts, searchBy === PV.query.host ? 'with that host' : '')}
+                {PV.core.noResultsMessage(PV.core.podcasts, searchBy === PV.queryParams.host ? 'with that host' : '')}
               </div>
           }
           {

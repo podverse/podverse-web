@@ -43,7 +43,7 @@ class Playlists extends Component<Props, State> {
     let subscribedPlaylists = []
     if (subscribedPlaylistIds && subscribedPlaylistIds.length > 0) {
       const subscribedPlaylistsData = await getPlaylistsByQuery({
-        from: PV.query.subscribed_only,
+        from: PV.queryParams.subscribed_only,
         subscribedPlaylistIds
       })
       subscribedPlaylists = subscribedPlaylistsData.data
