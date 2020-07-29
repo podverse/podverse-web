@@ -5,6 +5,8 @@ export const queryLabel = {
   AllPodcasts: `All Podcasts`,
   alphabetical: `alphabetical`,
   Categories: `Categories`,
+  FromThisEpisode: `From this episode`,
+  FromThisPodcast: `From this podcast`,
   most_recent: `most recent`,
   random: `random`,
   Subscribed: `Subscribed`,

@@ -215,7 +215,7 @@ class MediaListCtrl extends Component<Props, State> {
     if (showFromPodcast) {
       options.unshift(
         {
-          label: PV.core.FromThisPodcast,
+          label: PV.queryLabels.FromThisPodcast,
           onClick: () => this.queryListItems(queryType, PV.queryParams.from_podcast, querySort, 1, null),
           value: PV.queryParams.from_podcast
         }
@@ -225,7 +225,7 @@ class MediaListCtrl extends Component<Props, State> {
     if (showFromEpisode) {
       options.unshift(
         {
-          label: PV.core.FromThisEpisode,
+          label: PV.queryLabels.FromThisEpisode,
           onClick: () => this.queryListItems(queryType, PV.queryParams.from_episode, querySort, 1, null),
           value: PV.queryParams.from_episode
         }

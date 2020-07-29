@@ -23,8 +23,6 @@ export const core = {
   EmailSent: `Email Sent! Please check your inbox.`,
   Episodes: `Episodes`,
   FAQ: `FAQ`,
-  FromThisEpisode: `From this episode`,
-  FromThisPodcast: `From this podcast`,
   GetItOnGooglePlay: `Get it on Google Play`,
   IHaveTheApp: `I have the app`,
   Login:  `Login`,
