@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
-export const errors = {
+
+export const errorMessages = {
   alerts: {
     couldNotUpdateQueue: `Could not update queue on server. Please check your internet connection.`,
     couldNotRemoveFromPlaylist: `Could not remove from playlist. Please check your internet connection and try again later.`,

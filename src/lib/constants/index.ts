@@ -2,7 +2,7 @@ import { attributes } from '~/lib/constants/attributes'
 import { colors } from '~/lib/constants/colors'
 import { cookies } from '~/lib/constants/cookies'
 import { core } from '~/lib/constants/core'
-import { errors } from '~/lib/constants/errors'
+import { errorMessages } from '~/lib/constants/errorMessages'
 import { errorResponseMessages } from '~/lib/constants/errorResponseMessages'
 import { mediaList } from '~/lib/constants/mediaList'
 import { getPlaybackRateText, getPlaybackRateNextValue } from '~/lib/constants/misc'
@@ -17,8 +17,8 @@ export default {
   colors,
   cookies,
   core,
+  errorMessages,
   errorResponseMessages,
-  errors,
   getPlaybackRateNextValue,
   getPlaybackRateText,
   mediaList,

@@ -81,7 +81,7 @@ class PaymentConfirmingPayPal extends Component<Props, State> {
       } else {
         if (currentCount > 10) {
           clearInterval(this.state.intervalId)
-          newState.errorMessage = PV.errors.alerts.somethingWentWrong
+          newState.errorMessage = PV.errorMessages.alerts.somethingWentWrong
           newState.isChecking = false
         } else if (currentCount > 5) {
           newState.currentCount = currentCount + 1
@@ -94,7 +94,7 @@ class PaymentConfirmingPayPal extends Component<Props, State> {
     } catch (error) {
       console.log(error)
       clearInterval(this.state.intervalId)
-      newState.errorMessage = PV.errors.alerts.somethingWentWrong
+      newState.errorMessage = PV.errorMessages.alerts.somethingWentWrong
     }
   }
 

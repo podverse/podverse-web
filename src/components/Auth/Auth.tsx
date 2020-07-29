@@ -51,7 +51,7 @@ class Auth extends Component<Props, State> {
       if (error && error.response && error.response.status === 429) {
         alertRateLimitError(error)
       } else {
-        const errorMsg = (error.response && error.response.data && error.response.data.message) || PV.errors.internetConnectivityErrorMessage
+        const errorMsg = (error.response && error.response.data && error.response.data.message) || PV.errorMessages.internetConnectivityErrorMessage
         modalsForgotPasswordSetErrorResponse(errorMsg)
       }
     } finally {
@@ -74,7 +74,7 @@ class Auth extends Component<Props, State> {
       if (error && error.response && error.response.status === 429) {
         alertRateLimitError(error)
       } else {
-        const errorMsg = (error.response && error.response.data && error.response.data.message) || PV.errors.internetConnectivityErrorMessage
+        const errorMsg = (error.response && error.response.data && error.response.data.message) || PV.errorMessages.internetConnectivityErrorMessage
         modalsForgotPasswordSetErrorResponse(errorMsg)
       }
     } finally {
@@ -105,7 +105,7 @@ class Auth extends Component<Props, State> {
       const errorMsg =
         (error.response && error.response.status === 460 && pleaseVerifyMessage) ||
         (error.response && error.response.data && error.response.data.message)
-        || PV.errors.internetConnectivityErrorMessage
+        || PV.errorMessages.internetConnectivityErrorMessage
       modalsLoginSetErrorResponse(errorMsg)
       modalsLoginIsLoading(false)
       userSetInfo({
@@ -138,7 +138,7 @@ class Auth extends Component<Props, State> {
       if (error && error.response && error.response.status === 429) {
         alertRateLimitError(error)
       } else {
-        const errorMsg = (error.response && error.response.data && error.response.data.message) || PV.errors.internetConnectivityErrorMessage
+        const errorMsg = (error.response && error.response.data && error.response.data.message) || PV.errorMessages.internetConnectivityErrorMessage
         modalsSignUpSetErrorResponse(errorMsg)
       }
       userSetInfo({

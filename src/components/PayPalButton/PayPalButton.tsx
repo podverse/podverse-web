@@ -130,7 +130,7 @@ class PaypalButton extends React.Component<Props, State> {
           resolve(paymentID)
         } catch (error) {
           console.log(error)
-          safeAlert(PV.errors.alerts.somethingWentWrong)
+          safeAlert(PV.errorMessages.alerts.somethingWentWrong)
           reject()
         }
       } catch (error) {
@@ -138,7 +138,7 @@ class PaypalButton extends React.Component<Props, State> {
           alertRateLimitError(error)
           return
         } else {
-          safeAlert(PV.errors.alerts.somethingWentWrong)
+          safeAlert(PV.errorMessages.alerts.somethingWentWrong)
         }
         console.log(error)
         reject()
@@ -154,7 +154,7 @@ class PaypalButton extends React.Component<Props, State> {
           location.href = `${PROTOCOL}://${DOMAIN}${PV.paths.web.payment}${PV.paths.web.paypal_confirming}?id=${data.paymentID}`
         })
         .catch(() => {
-          safeAlert(PV.errors.alerts.somethingWentWrong)
+          safeAlert(PV.errorMessages.alerts.somethingWentWrong)
           handlePageIsLoading(false)
         })
     }
@@ -167,7 +167,7 @@ class PaypalButton extends React.Component<Props, State> {
 
     const onError = (error) => {
       console.log(error)
-      safeAlert(PV.errors.alerts.somethingWentWrong)
+      safeAlert(PV.errorMessages.alerts.somethingWentWrong)
     }
 
     return (

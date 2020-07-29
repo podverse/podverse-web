@@ -122,7 +122,7 @@ class Settings extends Component<Props, State> {
       if (error && error.response && error.response.status === 429) {
         alertRateLimitError(error)
       } else {
-        safeAlert(PV.errors.alerts.somethingWentWrong)
+        safeAlert(PV.errorMessages.alerts.somethingWentWrong)
       }
       console.log(error)
     }
@@ -261,7 +261,7 @@ class Settings extends Component<Props, State> {
   validateEmail = () => {
     const { email } = this.state
     if (!validateEmail(email)) {
-      this.setState({ emailError: PV.errors.message.PleaseProvideValidEmail })
+      this.setState({ emailError: PV.errorMessages.message.PleaseProvideValidEmail })
     } else {
       this.setState({ emailError: '' })
     }

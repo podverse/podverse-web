@@ -45,7 +45,7 @@ class UserHeaderCtrl extends Component<Props, State> {
     const { loggedInUser, profileUser, userSetInfo } = this.props
 
     if (!loggedInUser || !loggedInUser.id) {
-      safeAlert(PV.errors.login.SubscribeToProfile)
+      safeAlert(PV.errorMessages.login.SubscribeToProfile)
       return
     }
 

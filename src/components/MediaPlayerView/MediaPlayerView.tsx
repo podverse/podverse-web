@@ -76,7 +76,7 @@ class MediaPlayerView extends Component<Props, State> {
       const autoplay = localStorage.getItem(PV.player.kAutoplay)
       return autoplay ? JSON.parse(autoplay) : false
     } catch (error) {
-      console.log(PV.errors.getAutoplayValue, error)
+      console.log(PV.errorMessages.getAutoplayValue, error)
       return false
     }
   }
@@ -90,7 +90,7 @@ class MediaPlayerView extends Component<Props, State> {
       const playbackRate = localStorage.getItem(PV.player.kPlaybackRate)
       return playbackRate ? JSON.parse(playbackRate) : 1
     } catch (error) {
-      console.log(PV.errors.getPlaybackRateValue, error)
+      console.log(PV.errorMessages.getPlaybackRateValue, error)
     }
   }
 

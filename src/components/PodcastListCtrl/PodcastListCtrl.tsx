@@ -401,7 +401,7 @@ class PodcastListCtrl extends Component<Props, State> {
 
     const selectedQuerySortOption = this.getQuerySortOptions().filter(x => x.value === querySort)
     const isNotLoggedIn = !user || !user.id
-    const noResultsFoundMsg = isNotLoggedIn ? PV.errors.login.ViewYourSubscriptions : PV.mediaList.noResultMsg.noPodcastsFound
+    const noResultsFoundMsg = isNotLoggedIn ? PV.errorMessages.login.ViewYourSubscriptions : PV.mediaList.noResultMsg.noPodcastsFound
 
     return (
       <div className={'media-list adjust-top-position'}>

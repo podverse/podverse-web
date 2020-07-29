@@ -208,7 +208,7 @@ class Playlist extends Component<Props, State> {
     } catch (error) {
       console.log(error)
       this.setState({ isDeleting: false })
-      safeAlert(PV.errors.alerts.deletePlaylistFailed)
+      safeAlert(PV.errorMessages.alerts.deletePlaylistFailed)
     }
   }
 
@@ -235,7 +235,7 @@ class Playlist extends Component<Props, State> {
       if (error && error.response && error.response.status === 429) {
         alertRateLimitError(error)
       } else {
-        safeAlert(PV.errors.alerts.updatePlaylistFailed)
+        safeAlert(PV.errorMessages.alerts.updatePlaylistFailed)
       }
       this.setState({ isUpdating: false })
       console.log(error)
@@ -248,7 +248,7 @@ class Playlist extends Component<Props, State> {
     const { playlist } = this.state
 
     if (!user || !user.id) {
-      safeAlert(PV.errors.login.SubscribeToPlaylists)
+      safeAlert(PV.errorMessages.login.SubscribeToPlaylists)
       return
     }
 
@@ -318,7 +318,7 @@ class Playlist extends Component<Props, State> {
       if (error && error.response && error.response.status === 429) {
         alertRateLimitError(error)
       } else {
-        safeAlert(PV.errors.alerts.couldNotRemoveFromPlaylist)
+        safeAlert(PV.errorMessages.alerts.couldNotRemoveFromPlaylist)
       }
       console.log(error)
     }
