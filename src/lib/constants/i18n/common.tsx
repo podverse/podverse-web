@@ -2,7 +2,7 @@ import React from 'react'
 import { paths } from '../paths'
 import Link from 'next/link'
 
-export const core = {
+export const common = {
   About: `About`,
   Anonymous: `Anonymous`,
   Cancel: `Cancel`,
@@ -12,7 +12,7 @@ export const core = {
   complete: `complete`,
   confirmed: `confirmed`,
   Contact: `Contact`,
-  ContactSupport: () => (<span>If it still doesn't appear, please email <a href={paths.web.support_podverse_fm}>{core.SupportEmail}</a> for help.</span>),
+  ContactSupport: () => (<span>If it still doesn't appear, please email <a href={paths.web.support_podverse_fm}>{common.SupportEmail}</a> for help.</span>),
   ContentMayBeNSFW: `content may not be safe for your work!`,
   CopyLinkToProfile: `Copy Link to your Profile`,
   Delete: `Delete`,

@@ -98,7 +98,7 @@ class UserHeaderCtrl extends Component<Props, State> {
         <div className='text-wrapper'>
           <div className='media-header__top'>
             <div className='media-header__title'>
-              {profileUser.name ? profileUser.name : PV.i18n.core.Anonymous}
+              {profileUser.name ? profileUser.name : PV.i18n.common.Anonymous}
             </div>
             {
               loggedInUser && profileUser && loggedInUser.id === profileUser.id ?
@@ -118,7 +118,7 @@ class UserHeaderCtrl extends Component<Props, State> {
                           placement='bottom'
                           target='profileShareLink'>
                           <PopoverHeader>
-                            {PV.i18n.core.CopyLinkToProfile}
+                            {PV.i18n.common.CopyLinkToProfile}
                           </PopoverHeader>
                           <PopoverBody>
                             <InputGroup id='profile-link'>

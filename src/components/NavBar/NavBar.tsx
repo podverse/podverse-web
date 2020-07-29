@@ -48,19 +48,19 @@ class PVNavBar extends Component<Props, State> {
       {
         as: PV.paths.web.podcasts,
         href: PV.paths.web.podcasts,
-        label: PV.i18n.core.Podcasts,
+        label: PV.i18n.common.Podcasts,
         onClick: () => { this.linkClick() }
       },
       {
         as: PV.paths.web.episodes,
         href: PV.paths.web.episodes,
-        label: PV.i18n.core.Episodes,
+        label: PV.i18n.common.Episodes,
         onClick: () => { this.linkClick() }
       },
       {
         as: PV.paths.web.clips,
         href: PV.paths.web.clips,
-        label: PV.i18n.core.Clips,
+        label: PV.i18n.common.Clips,
         onClick: () => { this.linkClick() }
       }
     ] as any
@@ -69,7 +69,7 @@ class PVNavBar extends Component<Props, State> {
       items.push({
         as: '',
         href: '',
-        label: PV.i18n.core.Login,
+        label: PV.i18n.common.Login,
         onClick: () => {
           this.props.modalsLoginShow(true)
           this.setState({
@@ -98,7 +98,7 @@ class PVNavBar extends Component<Props, State> {
       items.push({
         as: '',
         href: '',
-        label: PV.i18n.core.Login,
+        label: PV.i18n.common.Login,
         onClick: () => {
           this.props.modalsLoginShow(true)
           this.setState({
@@ -121,13 +121,13 @@ class PVNavBar extends Component<Props, State> {
     dropdownItems.push({
       as: PV.paths.web.playlists,
       href: PV.paths.web.playlists,
-      label: PV.i18n.core.Playlists,
+      label: PV.i18n.common.Playlists,
       onClick: () => { this.linkClick() }
     })
     dropdownItems.push({
       as: PV.paths.web.profiles,
       href: PV.paths.web.profiles,
-      label: PV.i18n.core.Profiles,
+      label: PV.i18n.common.Profiles,
       onClick: () => { this.linkClick() }
     })
 
@@ -135,7 +135,7 @@ class PVNavBar extends Component<Props, State> {
       dropdownItems.push({
         as: PV.paths.web.my_profile,
         href: PV.paths.web.my_profile,
-        label: PV.i18n.core.MyProfile,
+        label: PV.i18n.common.MyProfile,
         onClick: () => {
           pagesClearQueryState({ pageKey: 'my_profile' })
           pageIsLoading(true)
@@ -144,7 +144,7 @@ class PVNavBar extends Component<Props, State> {
       dropdownItems.push({
         as: PV.paths.web.my_profile_clips,
         href: PV.paths.web.my_profile_clips,
-        label: PV.i18n.core.MyClips,
+        label: PV.i18n.common.MyClips,
         onClick: () => {
           pagesClearQueryState({ pageKey: 'my_profile' })
           pageIsLoading(true)
@@ -155,7 +155,7 @@ class PVNavBar extends Component<Props, State> {
     dropdownItems.push({
       as: PV.paths.web.settings,
       href: PV.paths.web.settings,
-      label: PV.i18n.core.Settings,
+      label: PV.i18n.common.Settings,
       onClick: () => { this.linkClick() }
     })
     
@@ -163,7 +163,7 @@ class PVNavBar extends Component<Props, State> {
       dropdownItems.push({
         as: '',
         href: '',
-        label:  PV.i18n.core.Logout,
+        label:  PV.i18n.common.Logout,
         onClick: async () => {
           try {
             await logOut()
@@ -196,7 +196,7 @@ class PVNavBar extends Component<Props, State> {
       dropdownItems.push({
         as: PV.paths.web.membership,
         href: PV.paths.web.membership,
-        label: PV.i18n.core.Premium,
+        label: PV.i18n.common.Premium,
         onClick: () => { this.linkClick() }
       })
     }

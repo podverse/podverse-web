@@ -6,6 +6,7 @@ import Meta from '~/components/Meta/Meta'
 import config from '~/config'
 import PV from '~/lib/constants'
 import { pageIsLoading, pagesSetQueryState, modalsSignUpShow } from '~/redux/actions'
+import { withTranslation } from '../i18n'
 const { BASE_URL } = config()
 
 type Props = {
@@ -13,6 +14,7 @@ type Props = {
   meta?: any
   modalsSignUpShow?: any
   pageKey?: string
+  t: any
 }
 
 type State = {}
@@ -35,8 +37,9 @@ class Membership extends Component<Props, State> {
       description: PV.i18n.pages.membership._Description,
       title: PV.i18n.pages.membership._Title
     }
+    const namespacesRequired = ['common']
 
-    return { lastScrollPosition, meta, pageKey: kPageKey }
+    return { lastScrollPosition, meta, namespacesRequired, pageKey: kPageKey }
   }
 
   showSignUp = () => {
@@ -58,7 +61,7 @@ class Membership extends Component<Props, State> {
           title={meta.title}
           twitterDescription={meta.description}
           twitterTitle={meta.title} />
-        <h3>{PV.i18n.core.Premium}</h3>
+        <h3>{PV.i18n.common.Premium}</h3>
 
         <p className='membership-top-text'>
           Get 1 year free when you sign up for Podverse premium
@@ -74,7 +77,7 @@ class Membership extends Component<Props, State> {
         <ComparisonTable
           featuresData={featuresData}
           headerIcon1='Free'
-          headerIcon2={PV.i18n.core.Premium}
+          headerIcon2={PV.i18n.common.Premium}
           headerText='Features' />
       </Fragment>
     )
@@ -157,4 +160,4 @@ const mapDispatchToProps = dispatch => ({
   pagesSetQueryState: bindActionCreators(pagesSetQueryState, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Membership)
+export default connect(mapStateToProps, mapDispatchToProps)(withTranslation('common')(Membership))

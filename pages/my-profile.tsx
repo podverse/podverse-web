@@ -11,6 +11,7 @@ import { clone } from '~/lib/utility'
 import { pageIsLoading, playerQueueLoadSecondaryItems, pagesSetQueryState } from '~/redux/actions'
 import { getLoggedInUserMediaRefs, getLoggedInUserPlaylists, getPodcastsByQuery
   } from '~/services'
+import { withTranslation } from '../i18n'
 const { BASE_URL } = config()
 
 type Props = {
@@ -22,6 +23,7 @@ type Props = {
   queryPage?: number
   querySort?: string
   queryType?: string
+  t: any
   user?: any
 }
 
@@ -84,8 +86,8 @@ class MyProfile extends Component<Props, State> {
       description: PV.i18n.pages.my_profile._Description,
       title: PV.i18n.pages.my_profile._Title
     }
-
-    return { lastScrollPosition, meta, pageKey: kPageKey, user }
+    const namespacesRequired = ['common']
+    return { lastScrollPosition, meta, namespacesRequired, pageKey: kPageKey, user }
   }
 
   render() {

@@ -15,6 +15,7 @@ import { checkIfLoadingOnFrontEnd, clone, cookieGetQuery, removeDoubleQuotes } f
 import { pageIsLoading, pagesSetQueryState, playerQueueLoadSecondaryItems
   } from '~/redux/actions'
 import { getEpisodesByQuery, getMediaRefsByQuery, getMediaRefById } from '~/services/'
+import { withTranslation } from '../i18n'
 const { BASE_URL } = config()
 
 type Props = {
@@ -32,6 +33,7 @@ type Props = {
   queryPage: number
   querySort?: any
   queryType?: any
+  t: any
   user?: any
   userSetInfo?: any
 }
@@ -133,17 +135,19 @@ class Clip extends Component<Props, State> {
 
     if (mediaRef) {
       const podcastTitle = (mediaRef && mediaRef.episode && mediaRef.episode.podcast &&
-        mediaRef.episode.podcast.title) || PV.i18n.core.untitledClip
+        mediaRef.episode.podcast.title) || PV.i18n.common.untitledClip
       meta = {
         currentUrl: BASE_URL + PV.paths.web.clip + '/' + mediaRef.id,
         description: removeDoubleQuotes(`${mediaRef.episode.title} - ${podcastTitle}`),
         imageAlt: podcastTitle,
         imageUrl: mediaRef.episode.shrunkImageUrl || mediaRef.episode.podcast.shrunkImageUrl || mediaRef.episode.imageUrl || mediaRef.episode.podcast.imageUrl,
-        title: `${mediaRef.title ? mediaRef.title : PV.i18n.core.untitledPodcast}`
+        title: `${mediaRef.title ? mediaRef.title : PV.i18n.common.untitledPodcast}`
       }
     }
+
+    const namespacesRequired = ['common']
     
-    return { lastScrollPosition, mediaRef, meta, newPlayingItem, pageKey: pageKeyWithId, queryFrom,
+    return { lastScrollPosition, mediaRef, meta, namespacesRequired, newPlayingItem, pageKey: pageKeyWithId, queryFrom,
       querySort, queryType }
   }
 
@@ -211,4 +215,4 @@ const mapDispatchToProps = dispatch => ({
   pagesSetQueryState: bindActionCreators(pagesSetQueryState, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Clip)
+export default connect(mapStateToProps, mapDispatchToProps)(withTranslation('common')(Clip))

@@ -9,11 +9,13 @@ import PV from '~/lib/constants'
 import { validatePassword, alertRateLimitError } from '~/lib/utility'
 import { pageIsLoading } from '~/redux/actions'
 import { resetPassword } from '~/services/auth'
+import { withTranslation } from '../i18n'
 const { BASE_URL } = config()
 
 type Props = {
   meta?: any
   passwordResetToken?: string
+  t: any
 }
 
 type State = {
@@ -39,7 +41,9 @@ class ResetPassword extends Component<Props, State> {
 
     store.dispatch(pageIsLoading(false))
 
-    return { meta, passwordResetToken: token }
+    const namespacesRequired = ['common']
+
+    return { meta, namespacesRequired, passwordResetToken: token }
   }
 
   constructor(props) {
@@ -214,13 +218,13 @@ class ResetPassword extends Component<Props, State> {
                     <React.Fragment>
                       <Button
                         onClick={() => { window.location.href = '' }}
-                        text={PV.i18n.core.Cancel} />
+                        text={PV.i18n.common.Cancel} />
                       <Button
                         color='primary'
                         disabled={!this.hasConfirmedValidPassword()}
                         isLoading={isLoading}
                         onClick={this.handleSubmit}
-                        text={PV.i18n.core.Submit} />
+                        text={PV.i18n.common.Submit} />
                     </React.Fragment>
                   } />
               </Fragment>
@@ -231,4 +235,4 @@ class ResetPassword extends Component<Props, State> {
   }
 }
 
-export default ResetPassword
+export default (withTranslation('common')(ResetPassword))

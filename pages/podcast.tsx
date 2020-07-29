@@ -14,6 +14,7 @@ import { clone, cookieGetQuery, removeDoubleQuotes } from '~/lib/utility'
 import { pageIsLoading, pagesSetQueryState, playerQueueLoadSecondaryItems
   } from '~/redux/actions'
 import { getEpisodesByQuery, getMediaRefsByQuery, getPodcastById } from '~/services/'
+import { withTranslation } from '../i18n'
 const { BASE_URL } = config()
 
 type Props = {
@@ -29,6 +30,7 @@ type Props = {
   queryPage: number
   querySort?: any
   queryType?: any
+  t: any
   user?: any
   userSetInfo?: any
 }
@@ -116,7 +118,7 @@ class Podcast extends Component<Props, State> {
     }
 
     store.dispatch(pageIsLoading(false))
-    const podcastTitle = podcast.title || PV.i18n.core.untitledPodcast
+    const podcastTitle = podcast.title || PV.i18n.common.untitledPodcast
     const meta = {
       currentUrl: BASE_URL + PV.paths.web.podcast + '/' + podcast.id,
       description: removeDoubleQuotes(podcast.description),
@@ -124,8 +126,9 @@ class Podcast extends Component<Props, State> {
       imageUrl: podcast.shrunkImageUrl || podcast.imageUrl,
       title: podcastTitle
     }
+    const namespacesRequired = ['common']
 
-    return { lastScrollPosition, meta, pageKey: pageKeyWithId, podcast, queryFrom, queryPage,
+    return { lastScrollPosition, meta, namespacesRequired, pageKey: pageKeyWithId, podcast, queryFrom, queryPage,
       querySort, queryType }
   }
 
@@ -192,4 +195,4 @@ const mapDispatchToProps = dispatch => ({
   pagesSetQueryState: bindActionCreators(pagesSetQueryState, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Podcast)
+export default connect(mapStateToProps, mapDispatchToProps)(withTranslation('common')(Podcast))

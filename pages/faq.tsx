@@ -5,12 +5,14 @@ import Meta from '~/components/Meta/Meta'
 import config from '~/config'
 import PV from '~/lib/constants'
 import { pageIsLoading, pagesSetQueryState } from '~/redux/actions'
+import { withTranslation } from '../i18n'
 const { BASE_URL } = config()
 
 type Props = {
   lastScrollPosition?: number
   meta?: any
   pageKey?: string
+  t: any
 }
 
 type State = {}
@@ -34,11 +36,13 @@ class FAQ extends Component<Props, State> {
       title: PV.i18n.pages.faq._Title
     }
 
-    return { lastScrollPosition, pageKey: kPageKey, meta }
+    const namespacesRequired = ['common']
+
+    return { lastScrollPosition, pageKey: kPageKey, meta, namespacesRequired }
   }
 
   render () {
-    const { meta } = this.props
+    const { meta, t } = this.props
 
     return (
       <Fragment>
@@ -57,7 +61,7 @@ class FAQ extends Component<Props, State> {
         <p><a href={PV.paths.web.contactUs} target='_blank' rel="noopener noreferrer">Contact Us / Ask a question</a></p>
         
         <h3>Table of Contents</h3>
-
+      {t('hello-world')}
         <ul>
           <li>
             <a href='#why-do-some-clips-start-at-the-wrong-time'>Why do some clips start at the wrong time? (dynamic ads)</a>
@@ -140,4 +144,4 @@ const mapDispatchToProps = dispatch => ({
   pagesSetQueryState: bindActionCreators(pagesSetQueryState, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(FAQ)
+export default connect(mapStateToProps, mapDispatchToProps)(withTranslation('common')(FAQ))

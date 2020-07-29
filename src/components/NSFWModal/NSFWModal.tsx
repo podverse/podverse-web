@@ -30,7 +30,7 @@ export const NSFWModal: React.StatelessComponent<Props> = props => {
   return (
     <Modal
       appElement={appEl}
-      contentLabel={PV.i18n.core.NSFWConfirmPopup}
+      contentLabel={PV.i18n.common.NSFWConfirmPopup}
       isOpen={isOpen}
       onRequestClose={handleHideModal}
       portalClassName='nsfw-confirm-modal over-media-player'
@@ -39,18 +39,18 @@ export const NSFWModal: React.StatelessComponent<Props> = props => {
       {
         isNSFWModeOn &&
           <div>
-          <h3 style={{ color: PV.colors.redDarker }}>{PV.i18n.core.NSFWModeOn}</h3>
-            <p>{PV.i18n.core.RefreshToIncludeNSFW}</p>
+          <h3 style={{ color: PV.colors.redDarker }}>{PV.i18n.common.NSFWModeOn}</h3>
+            <p>{PV.i18n.common.RefreshToIncludeNSFW}</p>
           </div>
       }
       {
         !isNSFWModeOn &&
         <div>
-          <h3 style={{ color: PV.colors.blue }}>{PV.i18n.core.SFWModeOn}</h3>
-          <p>{PV.i18n.core.RefreshToHideNSFW}</p>
+          <h3 style={{ color: PV.colors.blue }}>{PV.i18n.common.SFWModeOn}</h3>
+          <p>{PV.i18n.common.RefreshToHideNSFW}</p>
           <p>
-            {PV.i18n.core.RatingsProvidedByPodcasters}
-            {PV.i18n.core.ContentMayBeNSFW}
+            {PV.i18n.common.RatingsProvidedByPodcasters}
+            {PV.i18n.common.ContentMayBeNSFW}
           </p>
         </div>
       }

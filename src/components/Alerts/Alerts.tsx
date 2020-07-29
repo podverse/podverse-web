@@ -125,7 +125,7 @@ class Alerts extends Component<Props, State> {
       <Link
         as={PV.paths.web.settings_membership}
         href={PV.paths.web.settings}>
-        <a onClick={this.linkClick}>{PV.i18n.core.Renew}</a>
+        <a onClick={this.linkClick}>{PV.i18n.common.Renew}</a>
       </Link>
     )
 
@@ -139,20 +139,20 @@ class Alerts extends Component<Props, State> {
           {
             hasSent &&
               <Fragment>
-                <p>{PV.i18n.core.EmailSent}</p>
-                <p>{PV.i18n.core.PleaseCheckInbox}</p>
-                {PV.i18n.core.ContactSupport()}
+                <p>{PV.i18n.common.EmailSent}</p>
+                <p>{PV.i18n.common.PleaseCheckInbox}</p>
+                {PV.i18n.common.ContactSupport()}
               </Fragment>
           }
           {
             !hasSent && isSending &&
-              <span>{PV.i18n.core.EmailSending}<FontAwesomeIcon icon='spinner' spin /></span>
+              <span>{PV.i18n.common.EmailSending}<FontAwesomeIcon icon='spinner' spin /></span>
           }
           {
             !hasSent && !isSending &&
               <Fragment>
-                <p>{PV.i18n.core.PleaseVerifyEmail}</p>
-                <span><a href='#' onClick={this._showSendVerificationEmailModal}>{PV.i18n.core.SendVerificationEmail}</a></span>
+                <p>{PV.i18n.common.PleaseVerifyEmail}</p>
+                <span><a href='#' onClick={this._showSendVerificationEmailModal}>{PV.i18n.common.SendVerificationEmail}</a></span>
               </Fragment>
           }
         </Alert>
@@ -164,7 +164,7 @@ class Alerts extends Component<Props, State> {
           fade={false}
           isOpen={showFreeTrialHasEnded}
           toggle={() => this.hideAlert(PV.cookies.showFreeTrialHasEnded)}>
-          {PV.i18n.core.YourFreeTrialHasEnded(renewLink)}
+          {PV.i18n.common.YourFreeTrialHasEnded(renewLink)}
         </Alert>
       )
     } else if (showFreeTrialWarning) {
@@ -174,7 +174,7 @@ class Alerts extends Component<Props, State> {
           fade={false}
           isOpen={showFreeTrialWarning}
           toggle={() => this.hideAlert(PV.cookies.showFreeTrialWarning)}>
-          {PV.i18n.core.YourFreeTrialWillEndSoon(renewLink)}
+          {PV.i18n.common.YourFreeTrialWillEndSoon(renewLink)}
         </Alert>
       )
     } else if (showMembershipHasEnded) {
@@ -184,7 +184,7 @@ class Alerts extends Component<Props, State> {
           fade={false}
           isOpen={showMembershipHasEnded}
           toggle={() => this.hideAlert(PV.cookies.showMembershipHasEnded)}>
-          {PV.i18n.core.YourMembershipHasExpired(renewLink)}
+          {PV.i18n.common.YourMembershipHasExpired(renewLink)}
         </Alert>
       )
     } else if (showMembershipWarning) {
@@ -194,7 +194,7 @@ class Alerts extends Component<Props, State> {
           fade={false}
           isOpen={showMembershipWarning}
           toggle={() => this.hideAlert(PV.cookies.showMembershipWarning)}>
-          {PV.i18n.core.YourMembershipWillExpireSoon(renewLink)}
+          {PV.i18n.common.YourMembershipWillExpireSoon(renewLink)}
         </Alert>
       )
     } else {

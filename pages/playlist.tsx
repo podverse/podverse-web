@@ -21,6 +21,7 @@ import { mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying, pageIsLoading,
   pagesSetQueryState, playerQueueLoadSecondaryItems, userSetInfo } from '~/redux/actions'
 import { addOrRemovePlaylistItem, deletePlaylist,
   getPlaylistById, toggleSubscribeToPlaylist, updatePlaylist } from '~/services/'
+import { withTranslation } from '../i18n'
 const { BASE_URL } = config()
 
 const uuidv4 = require('uuid/v4')
@@ -39,6 +40,7 @@ type Props = {
   playlistItems: any[]
   settings?: any
   sortedNowPlayingItems
+  t: any
   user: any
   userSetInfo: any
 }
@@ -95,12 +97,14 @@ class Playlist extends Component<Props, State> {
     if (playlist) {
       meta = {
         currentUrl: BASE_URL + PV.paths.web.playlist + '/' + playlist.id,
-        description: removeDoubleQuotes(`${playlist.title ? playlist.title : PV.i18n.core.untitledPlaylist}${PV.i18n.core.playlistOnPodverse}${playlist.description ? playlist.description : ''}`),
-        title: `${playlist.title ? playlist.title : PV.i18n.core.untitledPlaylist}`
+        description: removeDoubleQuotes(`${playlist.title ? playlist.title : PV.i18n.common.untitledPlaylist}${PV.i18n.common.playlistOnPodverse}${playlist.description ? playlist.description : ''}`),
+        title: `${playlist.title ? playlist.title : PV.i18n.common.untitledPlaylist}`
       }
     }
 
-    return { lastScrollPosition, meta, pageKey: pageKeyWithId, playlist, playlistItems, user }
+    const namespacesRequired = ['common']
+
+    return { lastScrollPosition, meta, namespacesRequired, pageKey: pageKeyWithId, playlist, playlistItems, user }
   }
 
   constructor(props) {
@@ -480,7 +484,7 @@ class Playlist extends Component<Props, State> {
                 !isEditing &&
                   <Fragment>
                     <div className='media-header__title'>
-                      {title ? title : PV.i18n.core.untitledPlaylist}
+                      {title ? title : PV.i18n.common.untitledPlaylist}
                     </div>
                   </Fragment>
               }
@@ -537,7 +541,7 @@ class Playlist extends Component<Props, State> {
               <div className='media-header__sub-title'>
               {
                 owner && !isEditing &&
-                  <Fragment>By: {owner.name ? owner.name : PV.i18n.core.Anonymous}</Fragment>
+                  <Fragment>By: {owner.name ? owner.name : PV.i18n.common.Anonymous}</Fragment>
               }
               </div>
             </div>
@@ -588,19 +592,19 @@ class Playlist extends Component<Props, State> {
                 color='danger'
                 isLoading={isDeleting}
                 onClick={this.deletePlaylist}
-                text={PV.i18n.core.Delete} />
+                text={PV.i18n.common.Delete} />
               <Button
                 className='playlist-edit-btns__cancel'
                 disabled={isDeleting || isUpdating}
                 onClick={this.cancelEditing}
-                text={PV.i18n.core.Cancel} />
+                text={PV.i18n.common.Cancel} />
               <Button
                 className='playlist-edit-btns__update'
                 color='primary'
                 disabled={isDeleting || isUpdating}
                 isLoading={isUpdating}
                 onClick={this.updatePlaylist}
-                text={PV.i18n.core.Update} />
+                text={PV.i18n.common.Update} />
             </div>
           }
         </div>
@@ -625,7 +629,7 @@ class Playlist extends Component<Props, State> {
           {
             (!isLoading && listItemNodes.length === 0) &&
               <div className='no-results-msg'>
-                {PV.i18n.core.noResultsMessage(PV.i18n.core.Playlists)}
+                {PV.i18n.common.noResultsMessage(PV.i18n.common.Playlists)}
               </div>
           }
         </div>
@@ -645,4 +649,4 @@ const mapDispatchToProps = dispatch => ({
   userSetInfo: bindActionCreators(userSetInfo, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Playlist)
+export default connect(mapStateToProps, mapDispatchToProps)(withTranslation('common')(Playlist))

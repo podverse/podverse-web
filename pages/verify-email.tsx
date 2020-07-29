@@ -8,6 +8,7 @@ import PV from '~/lib/constants'
 import { alertRateLimitError } from '~/lib/utility'
 import { modalsLoginShow, modalsSendVerificationEmailShow, pageIsLoading } from '~/redux/actions'
 import { verifyEmail } from '~/services/auth'
+import { withTranslation } from '../i18n'
 const { BASE_URL } = config()
 
 type Props = {
@@ -15,6 +16,7 @@ type Props = {
   meta?: any
   modalsLoginShow?: any
   modalsSendVerificationEmailShow?: any
+  t: any
 }
 
 type State = {}
@@ -41,8 +43,9 @@ class VerifyEmail extends Component<Props, State> {
         alertRateLimitError(error)
         return
       }
+      const namespacesRequired = ['common']
 
-      return { hasError: true, meta }
+      return { hasError: true, meta, namespacesRequired }
     }
   }
 
@@ -79,7 +82,7 @@ class VerifyEmail extends Component<Props, State> {
               <p>{PV.i18n.pages.verify_email.ThankYouForVerifying}</p>
               <p className='font-bolder'>
                 <Link as={PV.paths.web._login} href={PV.paths.web._login}>
-                  <a>{PV.i18n.core.Login}</a>
+                  <a>{PV.i18n.common.Login}</a>
                 </Link>
               </p>
             </Fragment>
@@ -108,4 +111,4 @@ const mapDispatchToProps = dispatch => ({
   modalsSendVerificationEmailShow: bindActionCreators(modalsSendVerificationEmailShow, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(VerifyEmail)
+export default connect(mapStateToProps, mapDispatchToProps)(withTranslation('common')(VerifyEmail))

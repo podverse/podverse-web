@@ -16,6 +16,7 @@ import { modalsSignUpShow, pageIsLoading, settingsCensorNSFWText, settingsHideFi
   settingsHideTimeJumpBackwardButton, userSetInfo } from '~/redux/actions'
 import { downloadLoggedInUserData, updateLoggedInUser } from '~/services'
 import config from '~/config'
+import { withTranslation } from '../i18n'
 const { BASE_URL } = config()
 const fileDownload = require('js-file-download')
 const cookie = require('cookie')
@@ -32,6 +33,7 @@ type Props = {
   settingsHideTimeJumpBackwardButton?: any
   settingsHidePlaybackSpeedButton?: any
   settingsHideNSFWLabels?: any
+  t: any
   user?: any
   userSetInfo?: any
 }
@@ -67,8 +69,9 @@ class Settings extends Component<Props, State> {
       description: PV.i18n.pages.settings._Description,
       title: PV.i18n.pages.settings._Title
     }
+    const namespacesRequired = ['common']
 
-    return { lastScrollPosition, meta, pageKey: kPageKey }
+    return { lastScrollPosition, meta, namespacesRequired, pageKey: kPageKey }
   }
 
   constructor(props) {
@@ -284,7 +287,7 @@ class Settings extends Component<Props, State> {
       await updateLoggedInUser(newData)
       userSetInfo(newData)
     } catch (error) {
-      if (error && error.response && error.response.data && error.response.data.message === PV.i18n.core.PremiumMembershipRequired) {
+      if (error && error.response && error.response.data && error.response.data.message === PV.i18n.common.PremiumMembershipRequired) {
         alertPremiumRequired()
       } else if (error && error.response && error.response.status === 429) {
         alertRateLimitError(error)
@@ -322,7 +325,7 @@ class Settings extends Component<Props, State> {
         className='settings-membership__checkout'
         color='primary'
         onClick={() => this.toggleCheckoutModal(true)}>
-        <FontAwesomeIcon icon='shopping-cart' />&nbsp;&nbsp;{isRenew ? PV.i18n.core.Renew : PV.i18n.core.Checkout}
+        <FontAwesomeIcon icon='shopping-cart' />&nbsp;&nbsp;{isRenew ? PV.i18n.common.Renew : PV.i18n.common.Checkout}
       </Button>
     )
 
@@ -340,13 +343,13 @@ class Settings extends Component<Props, State> {
           title={meta.title}
           twitterDescription={meta.description}
           twitterTitle={meta.title} />
-        <h3>{PV.i18n.core.Settings}</h3>
+        <h3>{PV.i18n.common.Settings}</h3>
         <Form>
           {
             isLoggedIn &&
             <Fragment>
                 <FormGroup>
-                  <Label for='settings-name'>{PV.i18n.core.Name}</Label>
+                  <Label for='settings-name'>{PV.i18n.common.Name}</Label>
                   <Input 
                     id='settings-name'
                     name='settings-name'
@@ -357,7 +360,7 @@ class Settings extends Component<Props, State> {
                   <FormText>{PV.i18n.pages.settings.MayAppearNextToContentYouCreate}</FormText>
                 </FormGroup>
                 <FormGroup>
-                  <Label for='settings-name'>{PV.i18n.core.Email}</Label>
+                  <Label for='settings-name'>{PV.i18n.common.Email}</Label>
                   <Input
                     id='settings-email'
                     invalid={emailError}
@@ -382,8 +385,8 @@ class Settings extends Component<Props, State> {
                     onChange={this.handlePrivacyChange}
                     type='select'
                     value={isPublic ? 'public' : 'private'}>
-                    <option value='public'>{PV.i18n.core.Public}</option>
-                    <option value='private'>{PV.i18n.core.Private}</option>
+                    <option value='public'>{PV.i18n.common.Public}</option>
+                    <option value='private'>{PV.i18n.common.Private}</option>
                   </Input>
                   {
                     isPublic ?
@@ -395,7 +398,7 @@ class Settings extends Component<Props, State> {
                 {
                   (user.isPublic && isPublic) &&
                     <FormGroup style={{marginBottom: '2rem'}}>
-                      <Label for='settings-privacy-profile-link'>{PV.i18n.core.SharableProfileLink}</Label>
+                      <Label for='settings-privacy-profile-link'>{PV.i18n.common.SharableProfileLink}</Label>
                       <InputGroup id='settings-privacy-profile-link'>
                         <Input
                           id='settings-privacy-profile-link-input'
@@ -416,7 +419,7 @@ class Settings extends Component<Props, State> {
                   <Button
                     className='settings-profile-btns__cancel'
                     onClick={this.resetProfileChanges}>
-                    {PV.i18n.core.Cancel}
+                    {PV.i18n.common.Cancel}
                   </Button>
                   <Button
                     className='settings-profile-btns__save'
@@ -424,7 +427,7 @@ class Settings extends Component<Props, State> {
                     disabled={!this.validateProfileData()}
                     isLoading={isSaving}
                     onClick={this.updateProfile}>
-                    {PV.i18n.core.Save}
+                    {PV.i18n.common.Save}
                   </Button>
                 </div>
                 <hr />
@@ -438,7 +441,7 @@ class Settings extends Component<Props, State> {
                   && isBeforeDate(user.membershipExpiration)) &&
                 <Fragment>
                   {membershipStatusHeader}
-                  <p className='settings-membership__status is-active'>{PV.i18n.core.Premium}</p>
+                  <p className='settings-membership__status is-active'>{PV.i18n.common.Premium}</p>
                   <p>{PV.i18n.pages.settings.Ends}{new Date(user.membershipExpiration).toLocaleString()}</p>
                   {checkoutBtn(true)}
                   <hr />
@@ -450,7 +453,7 @@ class Settings extends Component<Props, State> {
                   && isBeforeDate(user.freeTrialExpiration)) &&
                 <Fragment>
                   {membershipStatusHeader}
-                  <p className='settings-membership__status is-active'>{PV.i18n.core.PremiumFreeTrial}</p>
+                  <p className='settings-membership__status is-active'>{PV.i18n.common.PremiumFreeTrial}</p>
                 <p>{PV.i18n.pages.settings.Ends}{new Date(user.freeTrialExpiration).toLocaleString()}</p>
                   {checkoutBtn()}
                   <hr />
@@ -552,7 +555,7 @@ class Settings extends Component<Props, State> {
                 className='settings__download'
                 isLoading={isDownloading}
                 onClick={this.downloadLoggedInUserData}>
-                <FontAwesomeIcon icon='download' />&nbsp;&nbsp;{PV.i18n.core.Download}
+                <FontAwesomeIcon icon='download' />&nbsp;&nbsp;{PV.i18n.common.Download}
               </Button>
               <hr />
             </Fragment>
@@ -565,7 +568,7 @@ class Settings extends Component<Props, State> {
                   className='settings__delete-account'
                   color='danger'
                   onClick={() => this.toggleDeleteAccountModal(true)}>
-                  <FontAwesomeIcon icon='trash' />&nbsp;&nbsp;{PV.i18n.core.DeleteAccount}
+                  <FontAwesomeIcon icon='trash' />&nbsp;&nbsp;{PV.i18n.common.DeleteAccount}
                 </Button>
                 <DeleteAccountModal 
                   email={email}
@@ -596,4 +599,4 @@ const mapDispatchToProps = dispatch => ({
   userSetInfo: bindActionCreators(userSetInfo, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Settings)
+export default connect(mapStateToProps, mapDispatchToProps)(withTranslation('common')(Settings))

@@ -14,7 +14,7 @@ import {
   pageIsLoading, pagesSetQueryState, playerQueueLoadSecondaryItems
 } from '~/redux/actions'
 import { getCategoriesByQuery, getMediaRefsByQuery } from '~/services'
-import i18n, { withTranslation } from '../i18n'
+import { i18n, withTranslation } from '../i18n'
 const { BASE_URL } = config()
 
 type Props = {
@@ -142,7 +142,7 @@ class Home extends Component<Props, State> {
           title={meta.title}
           twitterDescription={meta.description}
           twitterTitle={meta.title} />
-        <h3>{PV.i18n.core.Clips}</h3>
+        <h3>{PV.i18n.common.Clips}</h3>
         <button
           type='button'
           onClick={() => i18n.changeLanguage(i18n.language === 'en' ? 'es' : 'en')}>

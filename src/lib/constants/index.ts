@@ -1,7 +1,7 @@
 import { attributes } from '~/lib/constants/attributes'
 import { colors } from '~/lib/constants/colors'
 import { cookies } from '~/lib/constants/cookies'
-import { core } from '~/lib/constants/i18n/core'
+import { common } from '~/lib/constants/i18n/common'
 import { errorMessages } from '~/lib/constants/i18n/errorMessages'
 import { errorResponseMessages } from '~/lib/constants/errorResponseMessages'
 import { pages } from '~/lib/constants/i18n/pages'
@@ -16,7 +16,7 @@ export default {
   cookies,
   errorResponseMessages,
   i18n: {
-    core,
+    common,
     errorMessages,
     pages,
     queryLabels

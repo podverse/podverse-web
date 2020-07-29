@@ -98,7 +98,7 @@ class Footer extends Component<Props, State> {
     const { settings } = this.props
     const { uiTheme, uiThemeHide } = settings
 
-    const uiThemeAriaLabel = uiTheme === PV.attributes.dark || !uiTheme ? PV.i18n.core.TurnOnLight : PV.i18n.core.TurnOnDark
+    const uiThemeAriaLabel = uiTheme === PV.attributes.dark || !uiTheme ? PV.i18n.common.TurnOnLight : PV.i18n.common.TurnOnDark
 
     return (
       <React.Fragment>
@@ -171,7 +171,7 @@ class Footer extends Component<Props, State> {
                 <a 
                   className='footer-bottom__link'
                   target='_blank'>
-                  {PV.i18n.core.Contact}
+                  {PV.i18n.common.Contact}
                 </a>
               </Link>
               {/* <Link
@@ -189,7 +189,7 @@ class Footer extends Component<Props, State> {
                 <a
                   className='footer-bottom__link'
                   onClick={this.linkClick}>
-                  {PV.i18n.core.About}
+                  {PV.i18n.common.About}
                 </a>
               </Link>
               <Link
@@ -198,7 +198,7 @@ class Footer extends Component<Props, State> {
                 <a
                   className='footer-bottom__link'
                   onClick={this.linkClick}>
-                  {PV.paths.web.terms}
+                  {PV.i18n.common.Terms}
                 </a>
               </Link>
               <Link
@@ -207,7 +207,7 @@ class Footer extends Component<Props, State> {
                 <a
                   className='footer-bottom__link'
                   onClick={this.linkClick}>
-                  {PV.i18n.core.FAQ}
+                  {PV.i18n.common.FAQ}
                 </a>
               </Link>
               <Link
@@ -216,7 +216,7 @@ class Footer extends Component<Props, State> {
                 <a
                   className='footer-bottom__link'
                   onClick={this.linkClick}>
-                  {PV.i18n.core.Premium}
+                  {PV.i18n.common.Premium}
                 </a>
               </Link>
             </div>
