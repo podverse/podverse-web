@@ -25,9 +25,9 @@ class VerifyEmail extends Component<Props, State> {
     const token = query.token
 
     const meta = {
-      currentUrl: BASE_URL + '/verify-email',
-      description: `Verify your email address on Podverse`,
-      title: `Verify your email address`
+      currentUrl: BASE_URL + PV.paths.web.verify_email,
+      description: PV.pages.verify_email._Description,
+      title: PV.pages.verify_email._Title
     }
 
     store.dispatch(pageIsLoading(false))
@@ -75,10 +75,10 @@ class VerifyEmail extends Component<Props, State> {
         {
           !hasError &&
             <Fragment>
-              <h3>Email Verified</h3>
-              <p>Thank you for verifying! You should now be able to login.</p>
+              <h3>{PV.pages.verify_email.EmailVerified}</h3>
+              <p>{PV.pages.verify_email.ThankYouForVerifying}</p>
               <p className='font-bolder'>
-                <Link as='/?login' href='/?login'>
+                <Link as={PV.paths.web._login} href={PV.paths.web._login}>
                   <a>{PV.core.Login}</a>
                 </Link>
               </p>
@@ -87,11 +87,11 @@ class VerifyEmail extends Component<Props, State> {
         {
           hasError &&
             <Fragment>
-              <h3>Email Verification Failed</h3>
-              <p>This email has already been verified, or the verififaction token has expired.</p>
+              <h3>{PV.pages.verify_email.EmailVerificationFailed}</h3>
+              <p>{PV.pages.verify_email.EmailAlreadyVerifiedOrTokenExpired}</p>
               <p>
                 <a href='#' onClick={this._showSendVerificationEmailModal}>
-                  send verification email
+                  {PV.pages.verify_email.SendVerificationEmail}
                 </a>
               </p>
             </Fragment>

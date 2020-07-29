@@ -63,9 +63,9 @@ class Settings extends Component<Props, State> {
     store.dispatch(pageIsLoading(false))
 
     const meta = {
-      currentUrl: BASE_URL + '/settings',
-      description: 'Customize your account settings on Podverse.',
-      title: `Podverse - ` + PV.core.Settings
+      currentUrl: BASE_URL + PV.paths.web.settings,
+      description: PV.pages.settings._Description,
+      title: PV.pages.settings._Title
     }
 
     return { lastScrollPosition, meta, pageKey: kPageKey }
@@ -89,7 +89,7 @@ class Settings extends Component<Props, State> {
 
   profileLinkHref = () => {
     const { user } = this.props
-    return `${BASE_URL}/profile/${user.id}`
+    return `${BASE_URL}${PV.paths.web.profile}/${user.id}`
   }
 
   copyProfileLink = () => {
@@ -122,7 +122,7 @@ class Settings extends Component<Props, State> {
       if (error && error.response && error.response.status === 429) {
         alertRateLimitError(error)
       } else {
-        safeAlert('Something went wrong. Please check your internet connection.')
+        safeAlert(PV.errors.alerts.somethingWentWrong)
       }
       console.log(error)
     }
@@ -261,7 +261,7 @@ class Settings extends Component<Props, State> {
   validateEmail = () => {
     const { email } = this.state
     if (!validateEmail(email)) {
-      this.setState({ emailError: 'Please provide a valid email address' })
+      this.setState({ emailError: PV.errors.message.PleaseProvideValidEmail })
     } else {
       this.setState({ emailError: '' })
     }
@@ -284,7 +284,7 @@ class Settings extends Component<Props, State> {
       await updateLoggedInUser(newData)
       userSetInfo(newData)
     } catch (error) {
-      if (error && error.response && error.response.data && error.response.data.message === 'Premium Membership Required') {
+      if (error && error.response && error.response.data && error.response.data.message === PV.core.PremiumMembershipRequired) {
         alertPremiumRequired()
       } else if (error && error.response && error.response.status === 429) {
         alertRateLimitError(error)
@@ -322,11 +322,11 @@ class Settings extends Component<Props, State> {
         className='settings-membership__checkout'
         color='primary'
         onClick={() => this.toggleCheckoutModal(true)}>
-        <FontAwesomeIcon icon='shopping-cart' />&nbsp;&nbsp;{isRenew ? 'Renew' : 'Checkout'}
+        <FontAwesomeIcon icon='shopping-cart' />&nbsp;&nbsp;{isRenew ? PV.core.Renew : PV.core.Checkout}
       </Button>
     )
 
-    const membershipStatusHeader = <h3 id='membership'>Membership Status</h3>
+    const membershipStatusHeader = <h3 id='membership'>{PV.pages.settings.MembershipStatus}</h3>
 
     return (
       <div className='settings'>
@@ -346,7 +346,7 @@ class Settings extends Component<Props, State> {
             isLoggedIn &&
             <Fragment>
                 <FormGroup>
-                  <Label for='settings-name'>Name</Label>
+                  <Label for='settings-name'>{PV.core.Name}</Label>
                   <Input 
                     id='settings-name'
                     name='settings-name'
@@ -354,10 +354,10 @@ class Settings extends Component<Props, State> {
                     placeholder='anonymous'
                     type='text'
                     value={name} />
-                  <FormText>May appear next to content you create</FormText>
+                  <FormText>{PV.pages.settings.MayAppearNextToContentYouCreate}</FormText>
                 </FormGroup>
                 <FormGroup>
-                  <Label for='settings-name'>Email</Label>
+                  <Label for='settings-name'>{PV.core.Email}</Label>
                   <Input
                     id='settings-email'
                     invalid={emailError}
@@ -382,8 +382,8 @@ class Settings extends Component<Props, State> {
                     onChange={this.handlePrivacyChange}
                     type='select'
                     value={isPublic ? 'public' : 'private'}>
-                    <option value='public'>Public</option>
-                    <option value='private'>Private</option>
+                    <option value='public'>{PV.core.Public}</option>
+                    <option value='private'>{PV.core.Private}</option>
                   </Input>
                   {
                     isPublic ?
@@ -395,7 +395,7 @@ class Settings extends Component<Props, State> {
                 {
                   (user.isPublic && isPublic) &&
                     <FormGroup style={{marginBottom: '2rem'}}>
-                      <Label for='settings-privacy-profile-link'>Sharable Profile Link</Label>
+                      <Label for='settings-privacy-profile-link'>{PV.core.SharableProfileLink}</Label>
                       <InputGroup id='settings-privacy-profile-link'>
                         <Input
                           id='settings-privacy-profile-link-input'
@@ -416,7 +416,7 @@ class Settings extends Component<Props, State> {
                   <Button
                     className='settings-profile-btns__cancel'
                     onClick={this.resetProfileChanges}>
-                    Cancel
+                    {PV.core.Cancel}
                   </Button>
                   <Button
                     className='settings-profile-btns__save'
@@ -424,7 +424,7 @@ class Settings extends Component<Props, State> {
                     disabled={!this.validateProfileData()}
                     isLoading={isSaving}
                     onClick={this.updateProfile}>
-                    Save
+                    {PV.core.Save}
                   </Button>
                 </div>
                 <hr />
@@ -439,7 +439,7 @@ class Settings extends Component<Props, State> {
                 <Fragment>
                   {membershipStatusHeader}
                   <p className='settings-membership__status is-active'>{PV.core.Premium}</p>
-                  <p>Ends: {new Date(user.membershipExpiration).toLocaleString()}</p>
+                  <p>{PV.pages.settings.Ends}{new Date(user.membershipExpiration).toLocaleString()}</p>
                   {checkoutBtn(true)}
                   <hr />
                 </Fragment>
@@ -451,7 +451,7 @@ class Settings extends Component<Props, State> {
                 <Fragment>
                   {membershipStatusHeader}
                   <p className='settings-membership__status is-active'>{PV.core.PremiumFreeTrial}</p>
-                  <p>Ends: {new Date(user.freeTrialExpiration).toLocaleString()}</p>
+                <p>{PV.pages.settings.Ends}{new Date(user.freeTrialExpiration).toLocaleString()}</p>
                   {checkoutBtn()}
                   <hr />
                 </Fragment>
@@ -462,9 +462,9 @@ class Settings extends Component<Props, State> {
                   && !isBeforeDate(user.freeTrialExpiration)) &&
                 <Fragment>
                   {membershipStatusHeader}
-                  <p className='settings-membership__status is-expired'>Expired</p>
-                  <p>Ended: {new Date(user.freeTrialExpiration).toLocaleString()}</p>
-                  <p>Your free trial has ended. Please renew to continue using premium features.</p>
+                <p className='settings-membership__status is-expired'>{PV.pages.settings.Expired}</p>
+                  <p>{PV.pages.settings.Ended}{new Date(user.freeTrialExpiration).toLocaleString()}</p>
+                  <p>{PV.pages.settings.TrialEnded}</p>
                   {checkoutBtn()}
                   <hr />
                 </Fragment>
@@ -475,9 +475,9 @@ class Settings extends Component<Props, State> {
                   && !isBeforeDate(user.membershipExpiration)) &&
                 <Fragment>
                   {membershipStatusHeader}
-                  <p className='settings-membership__status is-expired'>Expired</p>
-                  <p>Ended: {new Date(user.membershipExpiration).toLocaleString()}</p>
-                  <p>Your membership has expired. Please renew to continue using premium features.</p>
+                  <p className='settings-membership__status is-expired'>{PV.pages.settings.Expired}</p>
+                  <p>{PV.pages.settings.Ended}{new Date(user.membershipExpiration).toLocaleString()}</p>
+                  <p>{PV.pages.settings.MembershipEnded}</p>
                   {checkoutBtn(true)}
                   <hr />
                 </Fragment>
@@ -486,22 +486,22 @@ class Settings extends Component<Props, State> {
                 (user.id && !user.freeTrialExpiration && !user.membershipExpiration) &&
                 <Fragment>
                   {membershipStatusHeader}
-                  <p className='settings-membership__status is-expired'>Inactive</p>
-                  <p>Your membership is inactive. Please renew to continue using premium features.</p>
+                  <p className='settings-membership__status is-expired'>{PV.pages.settings.Inactive}</p>
+                  <p>{PV.pages.settings.MembershipInactive}</p>
                   {checkoutBtn(true)}
                   <hr />
                 </Fragment>
               }
             </Fragment>
           }
-          <h3>Interface</h3>
+          <h3>{PV.pages.settings.Interface}</h3>
           <FormGroup check>
             <Label className='checkbox-label' check>
               <Input
                 checked={censorNSFWText === 'true'}
                 onChange={this.handleToggleCensorNSFWText}
                 type="checkbox" />
-              &nbsp;&nbsp;Censor NSFW text
+              &nbsp;&nbsp;{PV.pages.settings.CensorNSFWText}
             </Label>
           </FormGroup>
           <FormGroup check>
@@ -510,7 +510,7 @@ class Settings extends Component<Props, State> {
                 checked={nsfwLabelsHide === 'true' || !nsfwLabelsHide}
                 onChange={this.handleToggleNSFWLabels}
                 type="checkbox" />
-              &nbsp;&nbsp;Hide NSFW labels
+              &nbsp;&nbsp;{PV.pages.settings.HideNSFWLabels}
             </Label>
           </FormGroup>
           <FormGroup check>
@@ -519,7 +519,7 @@ class Settings extends Component<Props, State> {
                 checked={timeJumpBackwardButtonHide === 'true'}
                 onChange={this.handleToggleTimeJumpBackwardButton}
                 type="checkbox" />
-              &nbsp;&nbsp;Hide jump backwards button
+              &nbsp;&nbsp;{PV.pages.settings.HideJumpBackwardsButton}
             </Label>
           </FormGroup>
           <FormGroup check>
@@ -528,7 +528,7 @@ class Settings extends Component<Props, State> {
                 checked={playbackSpeedButtonHide === 'true'}
                 onChange={this.handleTogglePlaybackSpeedButton}
                 type="checkbox" />
-              &nbsp;&nbsp;Hide playback speed button
+              &nbsp;&nbsp;{PV.pages.settings.HidePlaybackSpeedButton}
             </Label>
           </FormGroup>    
           <FormGroup check>
@@ -537,22 +537,22 @@ class Settings extends Component<Props, State> {
                 checked={filterButtonHide === 'true'}
                 onChange={this.handleToggleFilterButton}
                 type="checkbox" />
-              &nbsp;&nbsp;Hide filter buttons
+              &nbsp;&nbsp;{PV.pages.settings.HideFilterButtons}
             </Label>
           </FormGroup>
           {
             user && user.id &&
             <Fragment>
               <hr />
-              <h3>My Data</h3>
+              <h3>{PV.pages.settings.MyData}</h3>
               <p>
-                Download a backup of your data.
+                {PV.pages.settings.DownloadDataBackup}
               </p>
               <Button
                 className='settings__download'
                 isLoading={isDownloading}
                 onClick={this.downloadLoggedInUserData}>
-                <FontAwesomeIcon icon='download' />&nbsp;&nbsp;Download
+                <FontAwesomeIcon icon='download' />&nbsp;&nbsp;{PV.core.Download}
               </Button>
               <hr />
             </Fragment>
@@ -560,12 +560,12 @@ class Settings extends Component<Props, State> {
           {
             user && user.id &&
               <Fragment>
-                <h3>Management</h3>
+                <h3>{PV.pages.settings.Management}</h3>
                 <Button
                   className='settings__delete-account'
                   color='danger'
                   onClick={() => this.toggleDeleteAccountModal(true)}>
-                  <FontAwesomeIcon icon='trash' />&nbsp;&nbsp;Delete Account
+                  <FontAwesomeIcon icon='trash' />&nbsp;&nbsp;{PV.core.DeleteAccount}
                 </Button>
                 <DeleteAccountModal 
                   email={email}
