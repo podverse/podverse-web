@@ -2,7 +2,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PV from '~/lib/constants'
-import '~/lib/constants/misc'
 import { pageIsLoading } from '~/redux/actions'
 import '~/scss/styles.scss'
 
@@ -67,7 +66,7 @@ const errors = {
   },
   defaultError: {
     header: PV.errorMessages.header.SomethingWentWrong,
-    message1: PV.errorMessages.message.WeAreNotSureWhatHappened,
+    message1: PV.errorMessages.message.AnUnknownErrorHasOccurred,
     message2: PV.errorMessages.message.CheckConnectionOrDifferentPage
   }
 }
