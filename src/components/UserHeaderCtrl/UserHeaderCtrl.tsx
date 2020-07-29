@@ -98,7 +98,7 @@ class UserHeaderCtrl extends Component<Props, State> {
         <div className='text-wrapper'>
           <div className='media-header__top'>
             <div className='media-header__title'>
-              {profileUser.name ? profileUser.name : PV.core.anonymous}
+              {profileUser.name ? profileUser.name : PV.core.Anonymous}
             </div>
             {
               loggedInUser && profileUser && loggedInUser.id === profileUser.id ?

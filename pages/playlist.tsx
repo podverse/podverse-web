@@ -537,7 +537,7 @@ class Playlist extends Component<Props, State> {
               <div className='media-header__sub-title'>
               {
                 owner && !isEditing &&
-                  <Fragment>By: {owner.name ? owner.name : PV.core.anonymous}</Fragment>
+                  <Fragment>By: {owner.name ? owner.name : PV.core.Anonymous}</Fragment>
               }
               </div>
             </div>
