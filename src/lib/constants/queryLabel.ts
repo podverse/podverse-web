@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/camelcase */
+
 export const queryLabel = {
   All: `All`,
   AllPodcasts: `All Podcasts`,
