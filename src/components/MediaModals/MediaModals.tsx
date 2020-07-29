@@ -137,7 +137,7 @@ class MediaModals extends Component<Props, State> {
 
   getPlaybackRateValue = () => {
     try {
-      const playbackRate = localStorage.getItem(PV.player.kPlaybackRate)
+      const playbackRate = localStorage.getItem(PV.storageKeys.kPlaybackRate)
       return playbackRate ? JSON.parse(playbackRate) : 1
     } catch (error) {
       console.log(PV.errorMessages.getPlaybackRateValue, error)

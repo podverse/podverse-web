@@ -73,7 +73,7 @@ class MediaPlayerView extends Component<Props, State> {
 
   getAutoplayValue = () => {
     try {
-      const autoplay = localStorage.getItem(PV.player.kAutoplay)
+      const autoplay = localStorage.getItem(PV.storageKeys.kAutoplay)
       return autoplay ? JSON.parse(autoplay) : false
     } catch (error) {
       console.log(PV.errorMessages.getAutoplayValue, error)
@@ -82,12 +82,12 @@ class MediaPlayerView extends Component<Props, State> {
   }
 
   setAutoplayValue = (val) => {
-    localStorage.setItem(PV.player.kAutoplay, val)
+    localStorage.setItem(PV.storageKeys.kAutoplay, val)
   }
 
   getPlaybackRateValue = () => {
     try {
-      const playbackRate = localStorage.getItem(PV.player.kPlaybackRate)
+      const playbackRate = localStorage.getItem(PV.storageKeys.kPlaybackRate)
       return playbackRate ? JSON.parse(playbackRate) : 1
     } catch (error) {
       console.log(PV.errorMessages.getPlaybackRateValue, error)
@@ -95,7 +95,7 @@ class MediaPlayerView extends Component<Props, State> {
   }
 
   setPlaybackRateValue = (val) => {
-    localStorage.setItem(PV.player.kPlaybackRate, val)
+    localStorage.setItem(PV.storageKeys.kPlaybackRate, val)
   }
 
   itemSkip = async () => {
