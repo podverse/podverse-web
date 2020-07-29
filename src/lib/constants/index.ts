@@ -4,13 +4,12 @@ import { cookies } from '~/lib/constants/cookies'
 import { core } from '~/lib/constants/core'
 import { errorMessages } from '~/lib/constants/errorMessages'
 import { errorResponseMessages } from '~/lib/constants/errorResponseMessages'
-import { mediaList } from '~/lib/constants/mediaList'
 import { getPlaybackRateText, getPlaybackRateNextValue } from '~/lib/constants/misc'
 import { pages } from '~/lib/constants/pages'
 import { paths } from '~/lib/constants/paths'
-import { player } from '~/lib/constants/player'
 import { queryLabel } from '~/lib/constants/queryLabel'
 import { queryParams } from '~/lib/constants/queryParams'
+import { storageKeys } from '~/lib/constants/storageKeys'
 
 export default {
   attributes,
@@ -21,10 +20,9 @@ export default {
   errorResponseMessages,
   getPlaybackRateNextValue,
   getPlaybackRateText,
-  mediaList,
   pages,
   paths,
-  player,
   queryLabel,
-  queryParams
+  queryParams,
+  storageKeys
 }

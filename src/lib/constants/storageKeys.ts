@@ -1,4 +1,4 @@
-export const player = {
+export const storageKeys = {
   kAutoplay: `mediaPlayerAutoplay`,
   kPlaybackRate: `mediaPlayerPlaybackRate`
 }
