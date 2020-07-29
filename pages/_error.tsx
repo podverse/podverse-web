@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import PV from '~/lib/constants'
 import { pageIsLoading } from '~/redux/actions'
 import '~/scss/styles.scss'
+import { withTranslation } from '../i18n'
 
 type Props = {
   statusCode?: number
@@ -16,7 +17,10 @@ class ErrorPage extends Component<Props, State> {
   static getInitialProps({ res, err, store }) {
     const statusCode = res ? res.statusCode : err ? err.statusCode : 404
     store.dispatch(pageIsLoading(false))
-    return { statusCode }
+
+    const namespacesRequired = ['common']
+
+    return { namespacesRequired, statusCode }
   }
 
   render () {
@@ -75,4 +79,4 @@ const mapStateToProps = state => ({ ...state })
 
 const mapDispatchToProps = dispatch => ({})
 
-export default connect(mapStateToProps, mapDispatchToProps)(ErrorPage)
+export default connect(mapStateToProps, mapDispatchToProps)(withTranslation('common')(ErrorPage))

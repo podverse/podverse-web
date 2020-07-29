@@ -1,6 +1,8 @@
 const withCss = require('@zeit/next-css')
 const withSass = require('@zeit/next-sass')
+const { nextI18NextRewrites } = require('next-i18next/rewrites')
 const withImages = require('next-images')
+const localeSubpaths = {}
 
 global.__basedir = __dirname
 
@@ -45,6 +47,7 @@ const envVars = {
 }
 
 module.exports = withImages(withCss(withSass({
+  rewrites: async () => nextI18NextRewrites(localeSubpaths),
   useFileSystemPublicRoutes: false,
   serverRuntimeConfig: {
     ...envVars
@@ -54,6 +57,7 @@ module.exports = withImages(withCss(withSass({
     DOMAIN: process.env.PUBLIC_DOMAIN,
     API_PROTOCOL: process.env.PUBLIC_API_PROTOCOL,
     API_DOMAIN: process.env.PUBLIC_API_DOMAIN,
+    localeSubpaths
   },
   webpack(config) {
     return {
