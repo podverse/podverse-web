@@ -13,6 +13,7 @@ import { pageIsLoading, pagesSetQueryState, playerQueueLoadSecondaryItems
   } from '~/redux/actions'
 import { getPodcastsByQuery, getPublicUser, getUserMediaRefs, getUserPlaylists
   } from '~/services'
+import { withTranslation } from '../i18n'
 const { BASE_URL } = config()
 
 type Props = {
@@ -26,6 +27,7 @@ type Props = {
   queryPage?: number
   querySort?: string
   queryType?: string
+  t: any
   user?: any
 }
 
@@ -98,12 +100,13 @@ class Profile extends Component<Props, State> {
     if (publicUser) {
       meta = {
         currentUrl: BASE_URL + PV.paths.web.profile + '/' + publicUser.id,
-        description: `${publicUser.name ? publicUser.name : PV.i18n.core.Anonymous}'s profile on Podverse`,
-        title: `${publicUser.name ? publicUser.name : PV.i18n.core.Anonymous}'s profile on Podverse`
+        description: `${publicUser.name ? publicUser.name : PV.i18n.common.Anonymous}'s profile on Podverse`,
+        title: `${publicUser.name ? publicUser.name : PV.i18n.common.Anonymous}'s profile on Podverse`
       }
     }
+    const namespacesRequired = ['common']
 
-    return { lastScrollPosition, meta, pageKey: pageKeyWithId, publicUser }
+    return { lastScrollPosition, meta, namespacesRequired, pageKey: pageKeyWithId, publicUser }
   }
 
   render() {

@@ -12,6 +12,7 @@ import {
   pageIsLoading, pagesSetQueryState, playerQueueLoadSecondaryItems
 } from '~/redux/actions'
 import { getCategoriesByQuery, getEpisodesByQuery } from '~/services'
+import { withTranslation } from '../i18n'
 const { BASE_URL } = config()
 
 type Props = {
@@ -27,6 +28,7 @@ type Props = {
   queryPage: number
   querySort?: any
   queryType?: any
+  t: any
   user?: any
   userSetInfo?: any
 }
@@ -101,10 +103,10 @@ class Episodes extends Component<Props, State> {
       description: PV.i18n.pages.episodes._Description,
       title: PV.i18n.pages.episodes._Title,
     }
+    const namespacesRequired = ['common']
 
     return {
-      allCategories, lastScrollPosition, meta, pageKey: kPageKey, queryFrom, queryPage, querySort,
-      queryType
+      allCategories, lastScrollPosition, meta, namespacesRequired, pageKey: kPageKey, queryFrom, queryPage, querySort, queryType
     }
   }
 
@@ -137,7 +139,7 @@ class Episodes extends Component<Props, State> {
           title={meta.title}
           twitterDescription={meta.description}
           twitterTitle={meta.title} />
-        <h3>{PV.i18n.core.Episodes}</h3>
+        <h3>{PV.i18n.common.Episodes}</h3>
         <MediaListCtrl
           adjustTopPosition
           allCategories={allCategories}
@@ -159,4 +161,4 @@ const mapDispatchToProps = dispatch => ({
   pagesSetQueryState: bindActionCreators(pagesSetQueryState, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Episodes)
+export default connect(mapStateToProps, mapDispatchToProps)(withTranslation('common')(Episodes))

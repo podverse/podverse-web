@@ -5,12 +5,14 @@ import Meta from '~/components/Meta/Meta'
 import config from '~/config'
 import PV from '~/lib/constants'
 import { pageIsLoading, pagesSetQueryState } from '~/redux/actions'
+import { withTranslation } from '../i18n'
 const { BASE_URL } = config()
 
 type Props = {
   lastScrollPosition?: number
   meta?: any
   pageKey?: string
+  t: any
 }
 
 type State = {}
@@ -33,8 +35,9 @@ class About extends Component<Props, State> {
       description: PV.i18n.pages.about._Description,
       title: PV.i18n.pages.about._Title
     }
+    const namespacesRequired = ['common']
 
-    return { lastScrollPosition, meta, pageKey: kPageKey }
+    return { lastScrollPosition, meta, pageKey: kPageKey, namespacesRequired }
   }
 
   render() {
@@ -132,4 +135,4 @@ const mapDispatchToProps = dispatch => ({
   pagesSetQueryState: bindActionCreators(pagesSetQueryState, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(About)
+export default connect(mapStateToProps, mapDispatchToProps)(withTranslation('common')(About))

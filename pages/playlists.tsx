@@ -9,6 +9,7 @@ import { getViewContentsElementScrollTop } from '~/lib/utility'
 import { pageIsLoading, pagesSetQueryState } from '~/redux/actions'
 import { getPlaylistsByQuery } from '~/services'
 import PV from '~/lib/constants'
+import { withTranslation } from '../i18n'
 const uuidv4 = require('uuid/v4')
 const { BASE_URL } = config()
 
@@ -20,6 +21,7 @@ type Props = {
   pageKey?: string
   pagesSetQueryState?: any
   subscribedPlaylists: any[]
+  t: any
   user: any
 }
 
@@ -57,7 +59,9 @@ class Playlists extends Component<Props, State> {
       title: PV.i18n.pages.playlists._Title
     }
 
-    return { lastScrollPosition, meta, myPlaylists, pageKey: kPageKey, subscribedPlaylists,
+    const namespacesRequired = ['common']
+
+    return { lastScrollPosition, meta, myPlaylists, namespacesRequired, pageKey: kPageKey, subscribedPlaylists,
       user }
   }
 
@@ -112,11 +116,11 @@ class Playlists extends Component<Props, State> {
           title={meta.title}
           twitterDescription={meta.description}
           twitterTitle={meta.title} />
-        <h3>{PV.i18n.core.Playlists}</h3>
+        <h3>{PV.i18n.common.Playlists}</h3>
         {
           (!user || !user.id) &&
             <div className='no-results-msg'>
-              {PV.i18n.core.LoginToViewYour(PV.i18n.core.playlists)}
+              {PV.i18n.common.LoginToViewYour(PV.i18n.common.playlists)}
             </div>
         }
         {
@@ -130,7 +134,7 @@ class Playlists extends Component<Props, State> {
                 {
                   (myPlaylistNodes.length === 0) &&
                     <div className='no-results-msg'>
-                      {PV.i18n.core.noResultsMessage(PV.i18n.core.playlists)}
+                      {PV.i18n.common.noResultsMessage(PV.i18n.common.playlists)}
                     </div>
                 }
               </div>
@@ -156,4 +160,4 @@ const mapDispatchToProps = dispatch => ({
   pagesSetQueryState: bindActionCreators(pagesSetQueryState, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Playlists)
+export default connect(mapStateToProps, mapDispatchToProps)(withTranslation('common')(Playlists))

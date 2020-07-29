@@ -4,10 +4,12 @@ import Meta from '~/components/Meta/Meta'
 import config from '~/config'
 import PV from '~/lib/constants'
 import { pageIsLoading } from '~/redux/actions'
+import { withTranslation } from '../i18n'
 const { BASE_URL } = config()
 
 type Props = {
   meta?: any
+  t: any
 }
 
 type State = {}
@@ -23,7 +25,9 @@ class Terms extends Component<Props, State> {
       title: PV.i18n.pages.terms._Title
     }
 
-    return { meta }
+    const namespacesRequired = ['common']
+
+    return { meta, namespacesRequired }
   }
 
   render() {
@@ -72,4 +76,4 @@ const mapStateToProps = state => ({ ...state })
 
 const mapDispatchToProps = dispatch => ({})
 
-export default connect(mapStateToProps, mapDispatchToProps)(Terms)
+export default connect(mapStateToProps, mapDispatchToProps)(withTranslation('common')(Terms))

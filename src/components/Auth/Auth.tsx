@@ -98,8 +98,8 @@ class Auth extends Component<Props, State> {
     } catch (error) {
       const pleaseVerifyMessage = (
         <Fragment>
-          <p>{PV.i18n.core.PleaseVerifyEmail}</p>
-                <span><a href='#' onClick={this._showSendVerificationEmailModal}>{PV.i18n.core.SendVerificationEmail}</a></span>
+          <p>{PV.i18n.common.PleaseVerifyEmail}</p>
+                <span><a href='#' onClick={this._showSendVerificationEmailModal}>{PV.i18n.common.SendVerificationEmail}</a></span>
         </Fragment>
       )
       const errorMsg =
@@ -170,7 +170,7 @@ class Auth extends Component<Props, State> {
 
     const signUpTopText = (
       <React.Fragment>
-        {PV.i18n.core.TryPremium1Year()}
+        {PV.i18n.common.TryPremium1Year()}
       </React.Fragment>
     )
 

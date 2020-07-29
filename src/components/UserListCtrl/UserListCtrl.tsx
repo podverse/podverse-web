@@ -118,7 +118,7 @@ class UserListCtrl extends Component<Props, State> {
             <p>{noResultsFoundMsg}</p>
             {
               user && user.id &&
-                PV.i18n.core.MakeProfilePublic(this)
+                PV.i18n.common.MakeProfilePublic(this)
             }
           </div>
         }

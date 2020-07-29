@@ -7,6 +7,7 @@ import config from '~/config'
 import PV from '~/lib/constants'
 import { pageIsLoading, pagesSetQueryState } from '~/redux/actions'
 import { getPublicUsersByQuery } from '~/services'
+import { withTranslation } from '../i18n'
 const { BASE_URL } = config()
 
 type Props = {
@@ -16,6 +17,7 @@ type Props = {
   pageKey?: string
   pagesSetQueryState?: any
   queryPage: number
+  t: any
   user?: any
 }
 
@@ -54,8 +56,9 @@ class Profiles extends Component<Props, State> {
       description: PV.i18n.pages.profiles._Description,
       title: PV.i18n.pages.profiles._Title
     }
+    const namespacesRequired = ['common']
 
-    return { lastScrollPosition, meta, pageKey: kPageKey, user }
+    return { lastScrollPosition, meta, namespacesRequired, pageKey: kPageKey, user }
   }
 
   render() {
@@ -73,7 +76,7 @@ class Profiles extends Component<Props, State> {
           title={meta.title}
           twitterDescription={meta.description}
           twitterTitle={meta.title} />
-        <h3>{PV.i18n.core.Profiles}</h3>
+        <h3>{PV.i18n.common.Profiles}</h3>
         <UserListCtrl
           handleSetPageQueryState={pagesSetQueryState}
           pageKey={pageKey}
@@ -91,4 +94,4 @@ const mapDispatchToProps = dispatch => ({
   pagesSetQueryState: bindActionCreators(pagesSetQueryState, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Profiles)
+export default connect(mapStateToProps, mapDispatchToProps)(withTranslation('common')(Profiles))

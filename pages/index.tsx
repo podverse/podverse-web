@@ -14,6 +14,7 @@ import {
   pageIsLoading, pagesSetQueryState, playerQueueLoadSecondaryItems
 } from '~/redux/actions'
 import { getCategoriesByQuery, getMediaRefsByQuery } from '~/services'
+import { i18n, withTranslation } from '../i18n'
 const { BASE_URL } = config()
 
 type Props = {
@@ -29,6 +30,7 @@ type Props = {
   queryPage: number
   querySort?: any
   queryType?: any
+  t: any
   user?: any
   userSetInfo?: any
 }
@@ -103,9 +105,11 @@ class Home extends Component<Props, State> {
       title: PV.i18n.pages.index._Title
     }
 
+    const namespacesRequired = ['common']
+
     return {
-      allCategories, lastScrollPosition, meta, pageKey: kPageKey, queryFrom, queryPage, querySort,
-      queryType
+      allCategories, lastScrollPosition, meta, namespacesRequired, pageKey: kPageKey,
+      queryFrom, queryPage, querySort, queryType
     }
   }
 
@@ -123,8 +127,8 @@ class Home extends Component<Props, State> {
   }
 
   render() {
-    const { allCategories, categoryId, meta, pagesSetQueryState, queryFrom, queryPage, querySort, queryType
-    } = this.props
+    const { allCategories, categoryId, meta, pagesSetQueryState, queryFrom, queryPage, querySort,
+      queryType, t } = this.props
 
     return (
       <Fragment>
@@ -138,7 +142,15 @@ class Home extends Component<Props, State> {
           title={meta.title}
           twitterDescription={meta.description}
           twitterTitle={meta.title} />
-        <h3>{PV.i18n.core.Clips}</h3>
+        <h3>{PV.i18n.common.Clips}</h3>
+        <button
+          type='button'
+          onClick={() => i18n.changeLanguage(i18n.language === 'en' ? 'es' : 'en')}>
+          {t('change-locale')}
+        </button>
+        <h4>
+          {t('hello-world')}
+        </h4>
         <MediaListCtrl
           adjustTopPosition
           allCategories={allCategories}
@@ -160,4 +172,4 @@ const mapDispatchToProps = dispatch => ({
   pagesSetQueryState: bindActionCreators(pagesSetQueryState, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home)
+export default connect(mapStateToProps, mapDispatchToProps)(withTranslation('common')(Home))

@@ -6,11 +6,13 @@ import PV from '~/lib/constants'
 import { pageIsLoading } from '~/redux/actions'
 import { getBitPayInvoiceStatusByOrderId } from '~/services/'
 import config from '~/config'
+import { withTranslation } from '../i18n'
 const { BASE_URL } = config()
 
 type Props = {
   id: string
   meta?: any
+  t: any
 }
 
 type State = {
@@ -32,8 +34,9 @@ class PaymentConfirmingBitPay extends Component<Props, State> {
       description: PV.i18n.pages.payment_bitpay_confirming._Description,
       title: PV.i18n.pages.payment_bitpay_confirming._Title
     }
+    const namespacesRequired = ['common']
 
-    return { id: query.id, meta }
+    return { id: query.id, meta, namespacesRequired }
   }
 
   constructor(props) {
@@ -70,7 +73,7 @@ class PaymentConfirmingBitPay extends Component<Props, State> {
     try {
       const bitpayInvoice = await getBitPayInvoiceStatusByOrderId(id)
 
-      if (bitpayInvoice && bitpayInvoice.data && (bitpayInvoice.data === PV.i18n.core.confirmed || bitpayInvoice.data === PV.i18n.core.complete)) {
+      if (bitpayInvoice && bitpayInvoice.data && (bitpayInvoice.data === PV.i18n.common.confirmed || bitpayInvoice.data === PV.i18n.common.complete)) {
         newState.hasError = false
         newState.isChecking = false
         newState.wasSuccessful = true
@@ -150,4 +153,4 @@ const mapStateToProps = state => ({ ...state })
 
 const mapDispatchToProps = dispatch => ({})
 
-export default connect(mapStateToProps, mapDispatchToProps)(PaymentConfirmingBitPay)
+export default connect(mapStateToProps, mapDispatchToProps)(withTranslation('common')(PaymentConfirmingBitPay))

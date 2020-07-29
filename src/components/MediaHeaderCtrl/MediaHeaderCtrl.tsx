@@ -56,7 +56,7 @@ class MediaHeaderCtrl extends Component<Props, State> {
         userSetInfo({ subscribedPodcastIds: response.data })
       }
     } catch (error) {
-      if (error && error.response && error.response.data && error.response.data.message === PV.i18n.core.PremiumMembershipRequired) {
+      if (error && error.response && error.response.data && error.response.data.message === PV.i18n.common.PremiumMembershipRequired) {
         alertPremiumRequired()
       } else if (error && error.response && error.response.status === 429) {
         alertRateLimitError(error)

@@ -11,6 +11,7 @@ import PV from '~/lib/constants'
 import { fireConfetti } from '~/lib/utility'
 import { modalsSignUpShow, pageIsLoading, pagesSetQueryState } from '~/redux/actions'
 import { getAccountClaimToken, redeemAccountClaimToken } from '~/services'
+import { withTranslation } from '../i18n'
 const { BASE_URL } = config()
 
 type Props = {
@@ -22,6 +23,7 @@ type Props = {
   page?: any
   pageKey?: string
   pageIsLoading?: any
+  t: any
 }
 
 type State = {
@@ -52,7 +54,9 @@ class Redeem extends Component<Props, State> {
       title: PV.i18n.pages.coupon._Title
     }
 
-    return { id, lastScrollPosition, meta, pageKey: kPageKey }
+    const namespacesRequired = ['common']
+
+    return { id, lastScrollPosition, namespacesRequired, meta, pageKey: kPageKey }
   }
 
   constructor(props) {
@@ -173,4 +177,4 @@ const mapDispatchToProps = dispatch => ({
   pagesSetQueryState: bindActionCreators(pagesSetQueryState, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Redeem)
+export default connect(mapStateToProps, mapDispatchToProps)(withTranslation('common')(Redeem))

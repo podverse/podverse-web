@@ -185,17 +185,17 @@ class UserMediaListCtrl extends Component<Props, State> {
     const { isMyProfilePage } = this.props
     return [
       {
-        label: isMyProfilePage ? PV.i18n.core.MyPodcasts : PV.i18n.core.Podcasts,
+        label: isMyProfilePage ? PV.i18n.common.MyPodcasts : PV.i18n.common.Podcasts,
         onClick: () => this.queryMediaListItems(PV.queryParams.key.type, PV.queryParams.podcasts),
         value: PV.queryParams.podcasts,
       },
       {
-        label: isMyProfilePage ? PV.i18n.core.MyClips : PV.i18n.core.Clips,
+        label: isMyProfilePage ? PV.i18n.common.MyClips : PV.i18n.common.Clips,
         onClick: () => this.queryMediaListItems(PV.queryParams.key.type, PV.queryParams.clips),
         value: PV.queryParams.clips,
       },
       {
-        label: isMyProfilePage ? PV.i18n.core.MyPlaylists : PV.i18n.core.Playlists,
+        label: isMyProfilePage ? PV.i18n.common.MyPlaylists : PV.i18n.common.Playlists,
         onClick: () => this.queryMediaListItems(PV.queryParams.key.type, PV.queryParams.playlists),
         value: PV.queryParams.playlists
       }
@@ -310,13 +310,13 @@ class UserMediaListCtrl extends Component<Props, State> {
     let mediaListItemType = PV.attributes.mediaListItem.now_playing_item
     let noResultsMsg = ''
     if (queryType === PV.queryParams.clips) {
-      noResultsMsg = PV.i18n.core.noResultsMessage(PV.i18n.core.clips)
+      noResultsMsg = PV.i18n.common.noResultsMessage(PV.i18n.common.clips)
     } else if (queryType === PV.queryParams.playlists) {
       mediaListItemType = PV.queryParams.playlist
-      noResultsMsg = PV.i18n.core.noResultsMessage(PV.i18n.core.playlists)
+      noResultsMsg = PV.i18n.common.noResultsMessage(PV.i18n.common.playlists)
     } else if (queryType === PV.queryParams.podcasts) {
       mediaListItemType = PV.queryParams.podcast
-      noResultsMsg = PV.i18n.core.noResultsMessage(PV.i18n.core.podcasts)
+      noResultsMsg = PV.i18n.common.noResultsMessage(PV.i18n.common.podcasts)
     }
 
     const listItemNodes = Array.isArray(listItems) ? listItems.map(x => {

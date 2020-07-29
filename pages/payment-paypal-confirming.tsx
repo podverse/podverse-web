@@ -6,6 +6,7 @@ import config from '~/config'
 import PV from '~/lib/constants'
 import { pageIsLoading } from '~/redux/actions'
 import { getPayPalOrderById } from '~/services/'
+import { withTranslation } from '../i18n'
 const { BASE_URL } = config()
 
 type Props = {
@@ -20,6 +21,7 @@ type State = {
   isChecking?: boolean
   isTakingLonger?: boolean
   paypalOrder?: any
+  t: any
   wasSuccessful?: boolean
 }
 
@@ -33,8 +35,9 @@ class PaymentConfirmingPayPal extends Component<Props, State> {
       description: PV.i18n.pages.payment_paypal_confirming._Description,
       title: PV.i18n.pages.payment_paypal_confirming._Title
     }
+    const namespacesRequired = ['common']
 
-    return { id: query.id, meta }
+    return { id: query.id, meta, namespacesRequired }
   }
 
   constructor (props) {
@@ -154,4 +157,4 @@ const mapStateToProps = state => ({ ...state })
 
 const mapDispatchToProps = dispatch => ({})
 
-export default connect(mapStateToProps, mapDispatchToProps)(PaymentConfirmingPayPal)
+export default connect(mapStateToProps, mapDispatchToProps)(withTranslation('common')(PaymentConfirmingPayPal))

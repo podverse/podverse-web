@@ -92,7 +92,7 @@ class CheckoutModal extends React.Component<Props, State> {
     return (
       <Modal
         appElement={appEl}
-        contentLabel={PV.i18n.core.Checkout}
+        contentLabel={PV.i18n.common.Checkout}
         isOpen={isOpen}
         onRequestClose={this.handleHideModal}
         portalClassName='checkout-modal over-media-player'

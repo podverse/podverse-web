@@ -8,6 +8,7 @@ import PV from '~/lib/constants'
 import { cookieGetQuery } from '~/lib/utility'
 import { pageIsLoading, pagesSetQueryState } from '~/redux/actions'
 import { getCategoriesByQuery, getPodcastsByQuery } from '~/services'
+import { withTranslation } from '../i18n'
 const { BASE_URL } = config()
 
 type Props = {
@@ -22,6 +23,7 @@ type Props = {
   queryFrom?: string
   queryPage: number
   querySort?: any
+  t: any
 }
 
 type State = {}
@@ -83,8 +85,9 @@ class Podcasts extends Component<Props, State> {
       description: PV.i18n.pages.podcasts._Description,
       title: PV.i18n.pages.podcasts._Title
     }
+    const namespacesRequired = ['common']
 
-    return { allCategories, categoryId, lastScrollPosition, meta, nsfwMode, 
+    return { allCategories, categoryId, lastScrollPosition, meta, namespacesRequired, nsfwMode, 
       pageKey: kPageKey, queryFrom, queryPage, querySort, user }
   }
 
@@ -104,7 +107,7 @@ class Podcasts extends Component<Props, State> {
           title={meta.title}
           twitterDescription={meta.description}
           twitterTitle={meta.title} />
-        <h3>{PV.i18n.core.Podcasts}</h3>
+        <h3>{PV.i18n.common.Podcasts}</h3>
         <PodcastListCtrl 
           allCategories={allCategories}
           categoryId={categoryId}
@@ -126,4 +129,4 @@ const mapDispatchToProps = dispatch => ({
   pagesSetQueryState: bindActionCreators(pagesSetQueryState, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Podcasts)
+export default connect(mapStateToProps, mapDispatchToProps)(withTranslation('common')(Podcasts))
