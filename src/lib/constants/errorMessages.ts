@@ -29,7 +29,7 @@ export const errorMessages = {
     PageNotFound: `Page not found`,
     CheckConnectionOrDifferentPage: `Please check your internet connection, or try a different page.`,
     SiteOfflineUntilWorkIsComplete: `The site will be offline until the work is complete.`,
-    WeAreNotSureWhatHappened: `We're not sure what happened there :(`,
+    AnUnknownErrorHasOccurred: `An unknown error has occurred.`,
     YouMustLoginToUseThisFeature: `You must login to use this feature.`
   },
   getAutoplayValue: `getAutoplayValue`,
