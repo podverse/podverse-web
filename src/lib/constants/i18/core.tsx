@@ -1,5 +1,5 @@
 import React from 'react'
-import { paths } from './paths'
+import { paths } from '../paths'
 import Link from 'next/link'
 
 export const core = {
