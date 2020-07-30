@@ -98,7 +98,7 @@ class Home extends Component<Props, State> {
 
     store.dispatch(pageIsLoading(false))
 
-    const namespacesRequired = ['common', 'pages']
+    const namespacesRequired = PV.nexti18next.namespaces
 
     return {
       allCategories, lastScrollPosition, namespacesRequired, pageKey: kPageKey,
@@ -171,4 +171,4 @@ const mapDispatchToProps = dispatch => ({
   pagesSetQueryState: bindActionCreators(pagesSetQueryState, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(withTranslation(['common', 'pages'])(Home))
+export default connect(mapStateToProps, mapDispatchToProps)(withTranslation(PV.nexti18next.namespaces)(Home))
