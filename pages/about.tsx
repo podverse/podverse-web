@@ -30,18 +30,19 @@ class About extends Component<Props, State> {
 
     store.dispatch(pageIsLoading(false))
 
-    const meta = {
-      currentUrl: BASE_URL + PV.paths.web.about,
-      description: PV.i18n.pages.about._Description,
-      title: PV.i18n.pages.about._Title
-    }
-    const namespacesRequired = ['common']
+    const namespacesRequired = PV.nexti18next.namespaces
 
-    return { lastScrollPosition, meta, pageKey: kPageKey, namespacesRequired }
+    return { lastScrollPosition, pageKey: kPageKey, namespacesRequired }
   }
 
   render() {
-    const { meta } = this.props
+    const { t } = this.props
+
+    const meta = {
+      currentUrl: BASE_URL,
+      description: t('pages:about._Description'),
+      title: t('pages:about._Title')
+    }
 
     return (
       <Fragment>
@@ -135,4 +136,4 @@ const mapDispatchToProps = dispatch => ({
   pagesSetQueryState: bindActionCreators(pagesSetQueryState, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(withTranslation('common')(About))
+export default connect(mapStateToProps, mapDispatchToProps)(withTranslation(PV.nexti18nnext.namespaces)(About))

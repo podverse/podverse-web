@@ -15,7 +15,6 @@ const { BASE_URL } = config()
 
 type Props = {
   lastScrollPosition?: number
-  meta?: any
   myPlaylists: any[]
   pageIsLoading?: any
   pageKey?: string
@@ -53,15 +52,9 @@ class Playlists extends Component<Props, State> {
 
     store.dispatch(pageIsLoading(false))
 
-    const meta = {
-      currentUrl: BASE_URL + PV.paths.web.playlists,
-      description: PV.i18n.pages.playlists._Description,
-      title: PV.i18n.pages.playlists._Title
-    }
+    const namespacesRequired = PV.nexti18next.namespaces
 
-    const namespacesRequired = ['common']
-
-    return { lastScrollPosition, meta, myPlaylists, namespacesRequired, pageKey: kPageKey, subscribedPlaylists,
+    return { lastScrollPosition, myPlaylists, namespacesRequired, pageKey: kPageKey, subscribedPlaylists,
       user }
   }
 
@@ -83,7 +76,13 @@ class Playlists extends Component<Props, State> {
   }
 
   render() {
-    const { meta, myPlaylists, subscribedPlaylists, user } = this.props
+    const { myPlaylists, subscribedPlaylists, t, user } = this.props
+
+    const meta = {
+      currentUrl: BASE_URL + PV.paths.web.playlists,
+      description: t('pages:playlists._Description'),
+      title: t('pages:playlists._Title')
+    }
     
     const myPlaylistNodes = myPlaylists.map(x => (
         <MediaListItem
@@ -160,4 +159,4 @@ const mapDispatchToProps = dispatch => ({
   pagesSetQueryState: bindActionCreators(pagesSetQueryState, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(withTranslation('common')(Playlists))
+export default connect(mapStateToProps, mapDispatchToProps)(withTranslation(PV.nexti18next.namespaces)(Playlists))

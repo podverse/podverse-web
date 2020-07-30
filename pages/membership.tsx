@@ -11,7 +11,6 @@ const { BASE_URL } = config()
 
 type Props = {
   lastScrollPosition?: number
-  meta?: any
   modalsSignUpShow?: any
   pageKey?: string
   t: any
@@ -31,15 +30,9 @@ class Membership extends Component<Props, State> {
     const lastScrollPosition = currentPage.lastScrollPosition
 
     store.dispatch(pageIsLoading(false))
+    const namespacesRequired = PV.nexti18next.namespaces
 
-    const meta = {
-      currentUrl: BASE_URL + PV.paths.web.membership,
-      description: PV.i18n.pages.membership._Description,
-      title: PV.i18n.pages.membership._Title
-    }
-    const namespacesRequired = ['common']
-
-    return { lastScrollPosition, meta, namespacesRequired, pageKey: kPageKey }
+    return { lastScrollPosition, namespacesRequired, pageKey: kPageKey }
   }
 
   showSignUp = () => {
@@ -47,7 +40,13 @@ class Membership extends Component<Props, State> {
   }
 
   render() {
-    const { meta } = this.props
+    const { t } = this.props
+
+    const meta = {
+      currentUrl: BASE_URL + PV.paths.web.membership,
+      description: t('pages:membership._Description'),
+      title: t('pages:membership._Title')
+    }
 
     return (
       <Fragment>
@@ -160,4 +159,4 @@ const mapDispatchToProps = dispatch => ({
   pagesSetQueryState: bindActionCreators(pagesSetQueryState, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(withTranslation('common')(Membership))
+export default connect(mapStateToProps, mapDispatchToProps)(withTranslation(PV.nexti18next.namespaces)(Membership))
