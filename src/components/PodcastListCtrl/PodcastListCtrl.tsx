@@ -7,6 +7,7 @@ import PV from '~/lib/constants'
 import { cookieSetQuery, getViewContentsElementScrollTop } from '~/lib/utility'
 import { pageIsLoading, pagesSetQueryState } from '~/redux/actions'
 import { getPodcastsByQuery } from '~/services'
+import { withTranslation } from '../../../i18n'
 const uuidv4 = require('uuid/v4')
 const { QUERY_PODCASTS_LIMIT } = config()
 
@@ -19,6 +20,7 @@ type Props = {
   pages?: any
   pagesSetQueryState?: any
   settings?: any
+  t?: any
   user?: any
 }
 
@@ -187,6 +189,8 @@ class PodcastListCtrl extends Component<Props, State> {
   }
 
   getQuerySortOptions() {
+    const { t } = this.props
+
     return [
       {
         label: PV.i18n.queryLabels.alphabetical,
@@ -229,7 +233,7 @@ class PodcastListCtrl extends Component<Props, State> {
         value: PV.queryParams.top_all_time
       },
       {
-        label: PV.i18n.queryLabels.random,
+        label: t('queryLabels:random'),
         onClick: () => this.queryPodcastsSort(PV.queryParams.random),
         value: PV.queryParams.random
       }
@@ -382,7 +386,7 @@ class PodcastListCtrl extends Component<Props, State> {
   }
 
   render() {
-    const { page, pageKey, pages, user } = this.props
+    const { page, pageKey, pages, t, user } = this.props
     const { isLoading } = page
     const { categoryId, listItems, listItemsTotal, queryFrom, queryPage, querySort } = pages[pageKey]
 
@@ -401,7 +405,7 @@ class PodcastListCtrl extends Component<Props, State> {
 
     const selectedQuerySortOption = this.getQuerySortOptions().filter(x => x.value === querySort)
     const isNotLoggedIn = !user || !user.id
-    const noResultsFoundMsg = isNotLoggedIn ? PV.i18n.errorMessages.login.ViewYourSubscriptions : PV.i18n.common.noResultsMessage(PV.i18n.common.podcasts)
+    const noResultsFoundMsg = isNotLoggedIn ? t('errorMessages:login.ViewYourSubscriptions') : PV.i18n.common.noResultsMessage(PV.i18n.common.podcasts)
 
     return (
       <div className={'media-list adjust-top-position'}>
@@ -452,4 +456,4 @@ const mapDispatchToProps = dispatch => ({
   pagesSetQueryState: bindActionCreators(pagesSetQueryState, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(PodcastListCtrl)
+export default connect(mapStateToProps, mapDispatchToProps)(withTranslation(PV.nexti18next.namespaces)(PodcastListCtrl))

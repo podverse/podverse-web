@@ -22,7 +22,6 @@ type Props = {
   categoryId?: string
   lastScrollPosition?: number
   listItems?: any
-  meta?: any
   pageKey?: string
   pagesSetQueryState?: any
   playerQueue?: any
@@ -99,16 +98,10 @@ class Home extends Component<Props, State> {
 
     store.dispatch(pageIsLoading(false))
 
-    const meta = {
-      currentUrl: BASE_URL,
-      description: PV.i18n.pages.index._Description,
-      title: PV.i18n.pages.index._Title
-    }
-
-    const namespacesRequired = ['common']
+    const namespacesRequired = ['common', 'pages']
 
     return {
-      allCategories, lastScrollPosition, meta, namespacesRequired, pageKey: kPageKey,
+      allCategories, lastScrollPosition, namespacesRequired, pageKey: kPageKey,
       queryFrom, queryPage, querySort, queryType
     }
   }
@@ -127,8 +120,14 @@ class Home extends Component<Props, State> {
   }
 
   render() {
-    const { allCategories, categoryId, meta, pagesSetQueryState, queryFrom, queryPage, querySort,
+    const { allCategories, categoryId, pagesSetQueryState, queryFrom, queryPage, querySort,
       queryType, t } = this.props
+
+    const meta = {
+      currentUrl: BASE_URL,
+      description: t('pages:index._Description'),
+      title: t('pages:index._Title')
+    }
 
     return (
       <Fragment>
@@ -172,4 +171,4 @@ const mapDispatchToProps = dispatch => ({
   pagesSetQueryState: bindActionCreators(pagesSetQueryState, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(withTranslation('common')(Home))
+export default connect(mapStateToProps, mapDispatchToProps)(withTranslation(['common', 'pages'])(Home))

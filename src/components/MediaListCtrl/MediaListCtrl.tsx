@@ -16,6 +16,7 @@ import { mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying, pageIsLoading,
   playerQueueAddSecondaryItems, playerQueueLoadPriorityItems,
   playerQueueLoadSecondaryItems, userSetInfo } from '~/redux/actions'
 import { getEpisodesByQuery, getMediaRefsByQuery } from '~/services'
+import { withTranslation } from '../../../i18n'
 import AwesomeDebouncePromise from 'awesome-debounce-promise'
 const uuidv4 = require('uuid/v4')
 const { QUERY_MEDIA_REFS_LIMIT } = config()
@@ -48,6 +49,7 @@ type Props = {
   queryType?: string
   settings?: any
   showQueryTypeSelect?: boolean
+  t?: any
   user?: any
   userSetInfo?: any
 }
@@ -236,6 +238,7 @@ class MediaListCtrl extends Component<Props, State> {
   }
 
   getQuerySortOptions(includeOldest?: boolean, showChronological?: boolean) {
+    const { t } = this.props
 
     const items = [
       {
@@ -269,7 +272,7 @@ class MediaListCtrl extends Component<Props, State> {
         value: PV.queryParams.top_all_time
       },
       {
-        label: PV.i18n.queryLabels.random,
+        label: t('queryLabels:random'),
         onClick: () => this.querySort(PV.queryParams.random),
         value: PV.queryParams.random
       }
@@ -620,7 +623,7 @@ class MediaListCtrl extends Component<Props, State> {
 
   render() {
     const { adjustTopPosition, episodeId, includeOldest, mediaPlayer, page, pageKey, pages,
-      podcastId, settings, showQueryTypeSelect, user } = this.props
+      podcastId, settings, showQueryTypeSelect, t, user } = this.props
     const { isLoading } = page
     const { filterButtonHide } = settings
     const { nowPlayingItem: mpNowPlayingItem } = mediaPlayer
@@ -674,7 +677,7 @@ class MediaListCtrl extends Component<Props, State> {
     const selectedQuerySortOption = sortOptions.filter(x => x.value === querySort)
     const isNotLoggedInOnSubscribedOnly = (!user || !user.id) && queryFrom === PV.queryParams.subscribed_only
     const itemType = queryType === PV.queryParams.episodes ? PV.queryParams.episodes : PV.queryParams.clips
-    const noResultsFoundMsg = isNotLoggedInOnSubscribedOnly ? PV.i18n.errorMessages.login.ViewYourSubscriptions : PV.i18n.common.noResultsMessage(itemType)
+    const noResultsFoundMsg = isNotLoggedInOnSubscribedOnly ? t('errorMessages:login.ViewYourSubscriptions') : PV.i18n.common.noResultsMessage(itemType)
 
     return (      
       <div className={`media-list ${adjustTopPosition ? 'adjust-top-position' : ''}`}>
@@ -771,4 +774,4 @@ const mapDispatchToProps = dispatch => ({
   userSetInfo: bindActionCreators(userSetInfo, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(MediaListCtrl)
+export default connect(mapStateToProps, mapDispatchToProps)(withTranslation(PV.nexti18next.namespaces)(MediaListCtrl))

@@ -1,4 +1,3 @@
-
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { MediaListSelect, Pagination, setNowPlayingItemInStorage } from 'podverse-ui'
@@ -14,6 +13,7 @@ import { mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying, pageIsLoading,
   userSetInfo } from '~/redux/actions'
 import { getLoggedInUserMediaRefs, getLoggedInUserPlaylists, getPodcastsByQuery, getUserMediaRefs,
   getUserPlaylists } from '~/services'
+import { withTranslation } from '../../../i18n'
 const uuidv4 = require('uuid/v4')
 const { QUERY_MEDIA_REFS_LIMIT } = config()
 
@@ -37,6 +37,7 @@ type Props = {
   querySort?: string
   queryType?: string
   settings?: any
+  t?: any
   user?: any
   userSetInfo?: any
 }
@@ -203,6 +204,8 @@ class UserMediaListCtrl extends Component<Props, State> {
   }
 
   getQuerySortOptions(isPodcasts) {
+    const { t } = this.props
+
     const items = [
       {
         label: PV.i18n.queryLabels.most_recent,
@@ -235,7 +238,7 @@ class UserMediaListCtrl extends Component<Props, State> {
         value: PV.queryParams.top_all_time
       },
       {
-        label: PV.i18n.queryLabels.random,
+        label: t('queryLabels:random'),
         onClick: () => this.queryMediaListItems(PV.queryParams.random),
         value: PV.queryParams.random
       }
@@ -400,4 +403,4 @@ const mapDispatchToProps = dispatch => ({
   userSetInfo: bindActionCreators(userSetInfo, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserMediaListCtrl)
+export default connect(mapStateToProps, mapDispatchToProps)(withTranslation(PV.nexti18next.namespaces)(UserMediaListCtrl))

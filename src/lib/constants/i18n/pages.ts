@@ -5,10 +5,6 @@ export const pages = {
     _Description: `Information about the Podverse open source podcast app.`,
     _Title: `About`
   },
-  clips: {
-    _Description: `Podcast app for iOS, Android, and web. Create and share podcast highlights and playlists. Sync your queue across all devices. Open source software.`,
-    _Title: `Clips`,
-  },
   coupon: {
     _Description: `Redeem your special offer`,
     _Title: `Coupon`
@@ -20,10 +16,6 @@ export const pages = {
   faq: {
     _Description: `Frequently asked questions`,
     _Title: `FAQ`
-  },
-  index: {
-    _Description: `Podcast app for iOS, Android, and web. Create and share podcast highlights and playlists. Sync your queue across all devices. Open source software.`,
-    _Title: `Podverse - Create podcast highlights. Sync your podcasts across iOS, Android, and web. Open source technology.`,
   },
   membership: {
     _Description: `Free and premium membership options.`,
