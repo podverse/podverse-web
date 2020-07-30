@@ -142,14 +142,11 @@ class Home extends Component<Props, State> {
           twitterDescription={meta.description}
           twitterTitle={meta.title} />
         <h3>{PV.i18n.common.Clips}</h3>
-        <button
+        {/* <button
           type='button'
           onClick={() => i18n.changeLanguage(i18n.language === 'en' ? 'es' : 'en')}>
           {t('change-locale')}
-        </button>
-        <h4>
-          {t('hello-world')}
-        </h4>
+        </button> */}
         <MediaListCtrl
           adjustTopPosition
           allCategories={allCategories}
