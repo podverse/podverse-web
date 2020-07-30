@@ -21,7 +21,6 @@ export const errorMessages = {
     SubscribeToPlaylists: `Login to subscribe to playlists.`,
     SubscribeToPodcast: `Login to subscribe to this podcast.`,
     SubscribeToProfile: `Login to subscribe to this profile.`,
-    ViewYourSubscriptions: `Login to view your subscriptions`,
     ViewYourProfiles: `Login to view your profiles`
   },
   message: {

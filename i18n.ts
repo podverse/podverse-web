@@ -7,7 +7,7 @@ const nextI18Next = new NextI18Next({
   otherLanguages: ['es'],
   localeSubpaths,
   localePath: path.resolve('./public/static/locales'),
-  defaultNS: []
+  defaultNS: 'common'
 })
 
 export default nextI18Next
