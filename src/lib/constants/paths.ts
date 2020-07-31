@@ -63,7 +63,7 @@ export const paths = {
     search: `/search`,
     settings_membership: `/settings#membership`,
     settings: `/settings`,
-    support_podverse_fm: `mailto:support@podverse.fm`,
+    support_podverse_fm: `mailto:contact@podverse.fm`,
     terms: `/terms`,
     unspam: `http://www.unspam.com/noemailcollection/`,
     verify_email: `/verify-email`
