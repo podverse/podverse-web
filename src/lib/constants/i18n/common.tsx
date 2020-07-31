@@ -13,7 +13,6 @@ export const common = {
   complete: `complete`,
   confirmed: `confirmed`,
   Contact: `Contact`,
-  ContactSupport: () => (<span>If it still doesn't appear, please email <a href={paths.web.support_podverse_fm}>{common.SupportEmail}</a> for help.</span>),
   ContentMayBeNSFW: `content may not be safe for your work!`,
   CopyLinkToProfile: `Copy Link to your Profile`,
   Delete: `Delete`,
