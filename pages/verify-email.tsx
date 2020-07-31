@@ -13,7 +13,6 @@ const { BASE_URL } = config()
 
 type Props = {
   hasError?: string
-  meta?: any
   modalsLoginShow?: any
   modalsSendVerificationEmailShow?: any
   t: any
@@ -26,26 +25,20 @@ class VerifyEmail extends Component<Props, State> {
   static async getInitialProps({ query, req, store }) {
     const token = query.token
 
-    const meta = {
-      currentUrl: BASE_URL + PV.paths.web.verify_email,
-      description: PV.i18n.pages.verify_email._Description,
-      title: PV.i18n.pages.verify_email._Title
-    }
-
     store.dispatch(pageIsLoading(false))
     
     try {
       await verifyEmail(token)
 
-      return { meta }
+      return
     } catch (error) {
       if (error && error.response && error.response.status === 429) {
         alertRateLimitError(error)
         return
       }
-      const namespacesRequired = ['common']
+      const namespacesRequired = PV.nexti18next.namespaces
 
-      return { hasError: true, meta, namespacesRequired }
+      return { hasError: true, namespacesRequired }
     }
   }
 
@@ -61,7 +54,13 @@ class VerifyEmail extends Component<Props, State> {
   }
 
   render() {
-    const { hasError, meta } = this.props
+    const { hasError, t } = this.props
+
+    const meta = {
+      currentUrl: BASE_URL + PV.paths.web.verify_email,
+      description: t('pages:verify_email._Description'),
+      title: t('pages:verify_email._Title')
+    }
 
     return (
       <Fragment>
@@ -79,7 +78,7 @@ class VerifyEmail extends Component<Props, State> {
           !hasError &&
             <Fragment>
               <h3>{PV.i18n.common.EmailVerified}</h3>
-              <p>{PV.i18n.pages.verify_email.ThankYouForVerifying}</p>
+              <p>{PV.i18n.common.ThankYouForVerifying}</p>
               <p className='font-bolder'>
                 <Link as={PV.paths.web._login} href={PV.paths.web._login}>
                   <a>{PV.i18n.common.Login}</a>
@@ -111,4 +110,4 @@ const mapDispatchToProps = dispatch => ({
   modalsSendVerificationEmailShow: bindActionCreators(modalsSendVerificationEmailShow, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(withTranslation('common')(VerifyEmail))
+export default connect(mapStateToProps, mapDispatchToProps)(withTranslation(PV.nexti18next.namespaces)(VerifyEmail))

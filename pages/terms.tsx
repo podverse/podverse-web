@@ -8,7 +8,6 @@ import { withTranslation } from '../i18n'
 const { BASE_URL } = config()
 
 type Props = {
-  meta?: any
   t: any
 }
 
@@ -19,19 +18,19 @@ class Terms extends Component<Props, State> {
   static async getInitialProps({ req, store }) {
     store.dispatch(pageIsLoading(false))
 
-    const meta = {
-      currentUrl: BASE_URL + PV.paths.web.terms,
-      description: PV.i18n.pages.terms._Description,
-      title: PV.i18n.pages.terms._Title
-    }
+    const namespacesRequired = PV.nexti18next.namespaces
 
-    const namespacesRequired = ['common']
-
-    return { meta, namespacesRequired }
+    return { namespacesRequired }
   }
 
   render() {
-    const { meta } = this.props
+    const { t } = this.props
+
+    const meta = {
+      currentUrl: BASE_URL + PV.paths.web.terms,
+      description: t('pages:terms._Description'),
+      title: t('pages:terms._Title'),
+    }
 
     return (
       <Fragment>
@@ -76,4 +75,4 @@ const mapStateToProps = state => ({ ...state })
 
 const mapDispatchToProps = dispatch => ({})
 
-export default connect(mapStateToProps, mapDispatchToProps)(withTranslation('common')(Terms))
+export default connect(mapStateToProps, mapDispatchToProps)(withTranslation(PV.nexti18next.namespaces)(Terms))
