@@ -48,7 +48,7 @@ class Redeem extends Component<Props, State> {
     const lastScrollPosition = currentPage.lastScrollPosition
 
     const namespacesRequired = PV.nexti18next.namespaces
-    return { lastScrollPosition, namespacesRequired, pageKey: kPageKey }
+    return { id, lastScrollPosition, namespacesRequired, pageKey: kPageKey }
   }
 
   constructor(props) {

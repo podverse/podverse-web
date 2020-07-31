@@ -149,7 +149,7 @@ class Search extends Component<Props, State> {
     }
 
     const placeholder = searchBy === PV.queryParams.host
-      ? PV.i18n.pages.search.searchByHost : PV.i18n.pages.search.searchByTitle
+      ? PV.i18n.common.searchByHost : PV.i18n.common.searchByTitle
 
       
     const listItemNodes = listItems ? listItems.map(x => {

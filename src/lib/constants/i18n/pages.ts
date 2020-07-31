@@ -11,33 +11,7 @@ export const pages = {
   },
   reset_password: {
     _Description: `Reset your account password on Podverse`,
-    _Title: `Reset Password`,
-    passwordError: `Password must contain a number, uppercase, lowercase, and be at least 8 characters long.`,
-    passwordMatchError: `Passwords do not match.`
-  },
-  search: {
-    searchByHost: `search by host`,
-    searchByTitle: `search by title`,
-  },
-  settings: {
-    CensorNSFWText: `Censor NSFW text`,
-    DownloadDataBackup: `Download a backup of your data.`,
-    Ends: `Ends: `,
-    Ended: `Ended: `,
-    Expired: `Expired`,
-    HideFilterButtons: `Hide filter buttons`,
-    HideJumpBackwardsButton: `Hide jump backwards button`,
-    HidePlaybackSpeedButton: `Hide playback speed button`,
-    HideNSFWLabels: `Hide NSFW labels`,
-    Inactive: `Inactive`,
-    Interface: `Interface`,
-    Management: `Management`,
-    MembershipStatus: `Membership Status`,
-    TrialEnded: `Your free trial has ended. Please renew to continue using premium features.`,
-    MayAppearNextToContentYouCreate: `May appear next to content you create`,
-    MembershipEnded: `Your membership has expired. Please renew to continue using premium features.`,
-    MembershipInactive: `Your membership is inactive. Please renew to continue using premium features.`,
-    MyData: `My Data`,
+    _Title: `Reset Password`
   },
   terms: {
     _Description: `Podverse terms of service agreement.`,
@@ -53,11 +27,6 @@ export const pages = {
   },
   verify_email: {
     _Description: `Verify your email address on Podverse`,
-    _Title: `Verify your email address`,
-    EmailAlreadyVerifiedOrTokenExpired: ``,
-    EmailVerificationFailed: `Email Verification Failed`,
-    EmailVerified: `Email Verified`,
-    SendVerificationEmail: `send verification email`,
-    ThankYouForVerifying: ``,
+    _Title: `Verify your email address`
   }
 }

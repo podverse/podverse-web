@@ -1,4 +1,5 @@
 {
   "hello-world": "Hello world!",
-  "change-locale": "Change locale"
+  "change-locale": "Change locale",
+  "ContactSupport": "If it still doesn't appear, please email <1>contact@podverse.fm</1> for help."
 }

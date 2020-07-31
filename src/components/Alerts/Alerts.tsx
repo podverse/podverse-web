@@ -1,5 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { Component, Fragment } from 'react'
+import { Trans } from 'react-i18next'
 import { connect } from 'react-redux'
 import { Alert } from 'reactstrap'
 import { bindActionCreators } from 'redux'
@@ -7,6 +8,7 @@ import Link from 'next/link'
 import PV from '~/lib/constants'
 import { getCookie, getViewContentsElementScrollTop, isBeforeDate } from '~/lib/utility'
 import { modalsSendVerificationEmailShow, pageIsLoading, pagesSetQueryState } from '~/redux/actions'
+import { i18n } from '../../../i18n'
 const cookie = require('cookie')
 
 type Props = {
@@ -141,7 +143,11 @@ class Alerts extends Component<Props, State> {
               <Fragment>
                 <p>{PV.i18n.common.EmailSent}</p>
                 <p>{PV.i18n.common.PleaseCheckInbox}</p>
-                {PV.i18n.common.ContactSupport()}
+                <span>
+                  <Trans i18n={i18n} i18nKey='ContactSupport'>
+                    If it still doesn't appear, please email <a href={PV.paths.web.support_podverse_fm}>{PV.misc.supportEmail}</a> for help.
+                  </Trans>
+                </span>
               </Fragment>
           }
           {

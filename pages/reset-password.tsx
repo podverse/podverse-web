@@ -60,7 +60,7 @@ class ResetPassword extends Component<Props, State> {
     const newState: any = {}
 
     if (password && !validatePassword(password)) {
-      newState.errorPassword = PV.i18n.pages.reset_password.passwordError
+      newState.errorPassword = PV.i18n.errorMessages.message.passwordError
     } else if (validatePassword(password)) {
       newState.errorPassword = null
     }
@@ -86,7 +86,7 @@ class ResetPassword extends Component<Props, State> {
     const newState: any = {}
 
     if (!errorPassword && passwordConfirm !== password) {
-      newState.errorPasswordConfirm = PV.i18n.pages.reset_password.passwordMatchError
+      newState.errorPasswordConfirm = PV.i18n.errorMessages.message.passwordMatchError
     }
 
     this.setState(newState)

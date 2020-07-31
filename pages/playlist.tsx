@@ -252,7 +252,7 @@ class Playlist extends Component<Props, State> {
     const { playlist } = this.state
 
     if (!user || !user.id) {
-      safeAlert(PV.i18n.errorMessages.login.SubscribeToPlaylists)
+      safeAlert(PV.i18n.common.LoginToSubscribeToPlaylistslists)
       return
     }
 
