@@ -16,7 +16,6 @@ const { BASE_URL, QUERY_PODCASTS_LIMIT, REQUEST_PODCAST_URL } = config()
 
 type Props = {
   lastScrollPosition?: number
-  meta?: any
   pageIsLoading?: any
   pageKey?: string
   pages?: any
@@ -48,14 +47,9 @@ class Search extends Component<Props, State> {
       searchBy: querySearchBy
     }))
 
-    const meta = {
-      currentUrl: BASE_URL + PV.paths.web.search,
-      description: PV.i18n.pages.search._Description,
-      title: PV.i18n.pages.search._Title
-    }
-    const namespacesRequired = ['common']
+    const namespacesRequired = PV.nexti18next.namespaces
 
-    return { lastScrollPosition, meta, namespacesRequired, pageKey: kPageKey }
+    return { lastScrollPosition, namespacesRequired, pageKey: kPageKey }
   }
 
   constructor(props) {
@@ -144,9 +138,15 @@ class Search extends Component<Props, State> {
   }
 
   render() {
-    const { meta, pages } = this.props
+    const { pages, t } = this.props
     const { isSearching, listItems, listItemsTotal, queryPage, searchBy } = pages[kPageKey]
     const { currentSearch, searchCompleted } = this.state
+
+    const meta = {
+      currentUrl: BASE_URL + PV.paths.web.search,
+      description: t('pages:search._Description'),
+      title: t('pages:search._Title')
+    }
 
     const placeholder = searchBy === PV.queryParams.host
       ? PV.i18n.pages.search.searchByHost : PV.i18n.pages.search.searchByTitle
@@ -267,4 +267,4 @@ const mapDispatchToProps = dispatch => ({
   pagesSetQueryState: bindActionCreators(pagesSetQueryState, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(withTranslation('common')(Search))
+export default connect(mapStateToProps, mapDispatchToProps)(withTranslation(PV.nexti18next.namespaces)(Search))

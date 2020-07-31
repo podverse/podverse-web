@@ -10,7 +10,6 @@ const { BASE_URL } = config()
 
 type Props = {
   lastScrollPosition?: number
-  meta?: any
   pageKey?: string
   t: any
 }
@@ -30,19 +29,19 @@ class FAQ extends Component<Props, State> {
 
     store.dispatch(pageIsLoading(false))
 
-    const meta = {
-      currentUrl: BASE_URL + PV.paths.web.faq,
-      description: PV.i18n.pages.faq._Description,
-      title: PV.i18n.pages.faq._Title
-    }
+    const namespacesRequired = PV.nexti18next.namespaces
 
-    const namespacesRequired = ['common']
-
-    return { lastScrollPosition, pageKey: kPageKey, meta, namespacesRequired }
+    return { lastScrollPosition, pageKey: kPageKey, namespacesRequired }
   }
 
   render () {
-    const { meta, t } = this.props
+    const { t } = this.props
+
+    const meta = {
+      currentUrl: BASE_URL + PV.paths.web.faq,
+      description: t('pages:faq._Description'),
+      title: t('pages:faq._Title')
+    }
 
     return (
       <Fragment>
@@ -144,4 +143,4 @@ const mapDispatchToProps = dispatch => ({
   pagesSetQueryState: bindActionCreators(pagesSetQueryState, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(withTranslation('common')(FAQ))
+export default connect(mapStateToProps, mapDispatchToProps)(withTranslation(PV.nexti18next.namespaces)(FAQ))

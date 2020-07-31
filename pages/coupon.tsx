@@ -18,7 +18,6 @@ type Props = {
   errorCode?: number
   id?: string
   lastScrollPosition?: number
-  meta?: any
   modalsSignUpShow?: any
   page?: any
   pageKey?: string
@@ -48,15 +47,8 @@ class Redeem extends Component<Props, State> {
     const currentPage = pages[kPageKey] || {}
     const lastScrollPosition = currentPage.lastScrollPosition
 
-    const meta = {
-      currentUrl: BASE_URL + PV.paths.web.coupon + '/' + id,
-      description: PV.i18n.pages.coupon._Description,
-      title: PV.i18n.pages.coupon._Title
-    }
-
-    const namespacesRequired = ['common']
-
-    return { id, lastScrollPosition, namespacesRequired, meta, pageKey: kPageKey }
+    const namespacesRequired = PV.nexti18next.namespaces
+    return { lastScrollPosition, namespacesRequired, pageKey: kPageKey }
   }
 
   constructor(props) {
@@ -115,9 +107,15 @@ class Redeem extends Component<Props, State> {
   }
 
   render() {
-    const { errorCode, meta, page } = this.props
+    const { errorCode, id, page, t } = this.props
     const { isLoading } = page
     const { accountClaimToken = {}, email, isRedeeming } = this.state
+
+    const meta = {
+      currentUrl: BASE_URL + PV.paths.web.coupon + '/' + id,
+      description: t('pages:coupon._Description'),
+      title: t('pages:coupon._Title')
+    }
 
     if (errorCode) {
       return <Error statusCode={errorCode} />
@@ -177,4 +175,4 @@ const mapDispatchToProps = dispatch => ({
   pagesSetQueryState: bindActionCreators(pagesSetQueryState, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(withTranslation('common')(Redeem))
+export default connect(mapStateToProps, mapDispatchToProps)(withTranslation(PV.nexti18next.namespaces)(Redeem))

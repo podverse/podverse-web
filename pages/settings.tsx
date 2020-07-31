@@ -23,7 +23,6 @@ const cookie = require('cookie')
 
 type Props = {
   lastScrollPosition?: number
-  meta?: any
   modalsSignUpShow?: any
   pageKey?: string
   settings?: any
@@ -64,14 +63,9 @@ class Settings extends Component<Props, State> {
 
     store.dispatch(pageIsLoading(false))
 
-    const meta = {
-      currentUrl: BASE_URL + PV.paths.web.settings,
-      description: PV.i18n.pages.settings._Description,
-      title: PV.i18n.pages.settings._Title
-    }
-    const namespacesRequired = ['common']
+    const namespacesRequired = PV.nexti18next.namespaces
 
-    return { lastScrollPosition, meta, namespacesRequired, pageKey: kPageKey }
+    return { lastScrollPosition, namespacesRequired, pageKey: kPageKey }
   }
 
   constructor(props) {
@@ -313,7 +307,12 @@ class Settings extends Component<Props, State> {
   }
   
   render() {
-    const { meta, settings, user } = this.props
+    const { settings, user } = this.props
+    const meta = {
+      currentUrl: BASE_URL + PV.paths.web.settings,
+      description: t('pages:settings._Description'),
+      title: t('pages:settings._Title')
+    }
     const { censorNSFWText, filterButtonHide, nsfwLabelsHide, playbackSpeedButtonHide,
       timeJumpBackwardButtonHide } = settings
     const { email, emailError, isCheckoutOpen, isDeleteAccountOpen, isDownloading,
@@ -599,4 +598,4 @@ const mapDispatchToProps = dispatch => ({
   userSetInfo: bindActionCreators(userSetInfo, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(withTranslation('common')(Settings))
+export default connect(mapStateToProps, mapDispatchToProps)(withTranslation(PV.nexti18next.namespaces)(Settings))

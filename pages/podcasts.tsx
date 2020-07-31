@@ -15,7 +15,6 @@ type Props = {
   allCategories?: any[]
   categoryId?: string
   lastScrollPosition?: number
-  meta?: any
   pageIsLoading?: boolean
   pageKey?: string
   pagesSetQueryState?: any
@@ -80,20 +79,22 @@ class Podcasts extends Component<Props, State> {
 
     store.dispatch(pageIsLoading(false))
 
-    const meta = {
-      currentUrl: BASE_URL + PV.paths.web.podcasts,
-      description: PV.i18n.pages.podcasts._Description,
-      title: PV.i18n.pages.podcasts._Title
-    }
-    const namespacesRequired = ['common']
+  
+    const namespacesRequired = PV.nexti18next.namespaces
 
-    return { allCategories, categoryId, lastScrollPosition, meta, namespacesRequired, nsfwMode, 
+    return { allCategories, categoryId, lastScrollPosition, namespacesRequired, nsfwMode, 
       pageKey: kPageKey, queryFrom, queryPage, querySort, user }
   }
 
   render() {
-    const { allCategories, categoryId, meta, pageKey, pageIsLoading, pagesSetQueryState, queryFrom,
-      queryPage, querySort } = this.props
+    const { allCategories, categoryId, pageKey, pageIsLoading, pagesSetQueryState, queryFrom,
+      queryPage, querySort, t } = this.props
+
+      const meta = {
+        currentUrl: BASE_URL + PV.paths.web.podcasts,
+        description: t('pages:podcasts._Description'),
+        title: t('pages:podcasts._Title')
+      }
     
     return (
       <Fragment>
@@ -129,4 +130,4 @@ const mapDispatchToProps = dispatch => ({
   pagesSetQueryState: bindActionCreators(pagesSetQueryState, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(withTranslation('common')(Podcasts))
+export default connect(mapStateToProps, mapDispatchToProps)(withTranslation(PV.nexti18next.namespaces)(Podcasts))

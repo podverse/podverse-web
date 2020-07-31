@@ -17,7 +17,6 @@ const { BASE_URL } = config()
 type Props = {
   lastScrollPosition?: number
   listItems?: any[]
-  meta?: any
   pageKey?: string
   pagesSetQueryState?: any
   queryPage?: number
@@ -81,18 +80,20 @@ class MyProfile extends Component<Props, State> {
     
     store.dispatch(pageIsLoading(false))
 
-    const meta = {
-      currentUrl: BASE_URL + PV.paths.web.my_profile,
-      description: PV.i18n.pages.my_profile._Description,
-      title: PV.i18n.pages.my_profile._Title
-    }
-    const namespacesRequired = ['common']
-    return { lastScrollPosition, meta, namespacesRequired, pageKey: kPageKey, user }
+    const namespacesRequired = PV.nexti18next.namespaces
+    return { lastScrollPosition, namespacesRequired, pageKey: kPageKey, user }
   }
 
   render() {
-    const { meta, pageKey, pagesSetQueryState, queryPage, querySort, queryType, user
+    const { pageKey, pagesSetQueryState, queryPage, querySort, queryType, t, user
       } = this.props
+
+    const meta = {
+      currentUrl: BASE_URL + PV.paths.web.my_profile,
+      description: t('pages:my_profile._Description'),
+      title: t('pages:my_profile._Title')
+    }
+      
 
     return (
       <div className='user-profile'>
@@ -138,4 +139,4 @@ const mapDispatchToProps = dispatch => ({
   pagesSetQueryState: bindActionCreators(pagesSetQueryState, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(MyProfile)
+export default connect(mapStateToProps, mapDispatchToProps)(withTranslation(PV.nexti18next.namespaces)(MyProfile))
