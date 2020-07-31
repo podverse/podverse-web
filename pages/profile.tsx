@@ -13,7 +13,6 @@ import { pageIsLoading, pagesSetQueryState, playerQueueLoadSecondaryItems
   } from '~/redux/actions'
 import { getPodcastsByQuery, getPublicUser, getUserMediaRefs, getUserPlaylists
   } from '~/services'
-import { withTranslation } from '../i18n'
 const { BASE_URL } = config()
 
 type Props = {

@@ -75,7 +75,7 @@ class MediaPlayerView extends Component<Props, State> {
       const autoplay = localStorage.getItem(PV.storageKeys.kAutoplay)
       return autoplay ? JSON.parse(autoplay) : false
     } catch (error) {
-      console.log(PV.i18n.errorMessages.getAutoplayValue, error)
+      console.log(error)
       return false
     }
   }

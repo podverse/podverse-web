@@ -41,7 +41,7 @@ class MediaHeaderCtrl extends Component<Props, State> {
       } = this.props
     
     if (!user || !user.id) {
-      safeAlert(PV.i18n.errorMessages.login.SubscribeToPodcast)
+      safeAlert(PV.i18n.common.LoginToSubscribeToThisPodcast)
       return
     }
 
