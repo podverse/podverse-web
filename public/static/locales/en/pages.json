@@ -50,5 +50,13 @@
   "settings": {
     "_Description": "Customize your account settings on Podverse.",
     "_Title": "Settings"
+  },
+  "terms": {
+    "_Description": "Podverse terms of service agreement.",
+    "_Title": "Terms of Service"
+  },
+  "verify_email": {
+    "_Description": "Verify your email address on Podverse",
+    "_Title": "Verify your email address"
   }
 }

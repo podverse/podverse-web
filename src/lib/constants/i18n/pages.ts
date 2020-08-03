@@ -14,8 +14,6 @@ export const pages = {
     _Title: `Reset Password`
   },
   terms: {
-    _Description: `Podverse terms of service agreement.`,
-    _Title: `Terms of Service`,
     PodverseTerms_1: `Podverse will never sell or share private user data.`,
     PodverseTerms_2: `We will never put advertisements next to or within a podcast's content without that podcast's permission.`,
     PodverseTerms_3: `All audio files found on podverse.fm load from the podcaster's own public server. We do not host podcast audio files ourselves.`,
@@ -24,9 +22,5 @@ export const pages = {
     PodverseTerms_6: `We host podcast links and content from third-party podcast feeds and sites. These have their own independent privacy policies, and we have no responsibility for their content or activities.`,
     PodverseTerms_7: `We also host reduced size podcast images from podcasters' feeds, to save user network data and speed up page loading times.`,
     TermsOfService: `Terms of Service`
-  },
-  verify_email: {
-    _Description: `Verify your email address on Podverse`,
-    _Title: `Verify your email address`
   }
 }
