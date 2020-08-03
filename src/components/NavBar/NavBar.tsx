@@ -8,6 +8,7 @@ import { getViewContentsElementScrollTop } from '~/lib/utility'
 import { modalsLoginShow, pageIsLoading, pagesClearQueryState, pagesSetQueryState,
   playerQueueLoadPriorityItems, userSetInfo } from '~/redux/actions'
 import { logOut } from '~/services/auth'
+import { withTranslation } from 'i18n'
 
 type Props = {
   modals?: any
@@ -19,6 +20,7 @@ type Props = {
   pagesSetQueryState?: any
   playerQueueLoadPriorityItems?: any
   settings?: any
+  t: any
   user?: any
   userSetInfo?: any
 }
@@ -37,6 +39,7 @@ class PVNavBar extends Component<Props, State> {
   }
 
   navItems (isLoggedIn: boolean) {
+    const { t } = this.props
     const items = [
       {
         as: PV.paths.web.search,
@@ -48,19 +51,19 @@ class PVNavBar extends Component<Props, State> {
       {
         as: PV.paths.web.podcasts,
         href: PV.paths.web.podcasts,
-        label: PV.i18n.common.Podcasts,
+        label: t('Podcasts'),
         onClick: () => { this.linkClick() }
       },
       {
         as: PV.paths.web.episodes,
         href: PV.paths.web.episodes,
-        label: PV.i18n.common.Episodes,
+        label: t('Episodes'),
         onClick: () => { this.linkClick() }
       },
       {
         as: PV.paths.web.clips,
         href: PV.paths.web.clips,
-        label: PV.i18n.common.Clips,
+        label: t('Clips'),
         onClick: () => { this.linkClick() }
       }
     ] as any
@@ -69,7 +72,7 @@ class PVNavBar extends Component<Props, State> {
       items.push({
         as: '',
         href: '',
-        label: PV.i18n.common.Login,
+        label: t('Login'),
         onClick: () => {
           this.props.modalsLoginShow(true)
           this.setState({
@@ -85,6 +88,7 @@ class PVNavBar extends Component<Props, State> {
   }
 
   mobileNavItems (isLoggedIn: boolean) {
+    const { t } = this.props
     const items = [
       {
         as: PV.paths.web.search,
@@ -98,7 +102,7 @@ class PVNavBar extends Component<Props, State> {
       items.push({
         as: '',
         href: '',
-        label: PV.i18n.common.Login,
+        label: t('Login'),
         onClick: () => {
           this.props.modalsLoginShow(true)
           this.setState({
@@ -113,7 +117,7 @@ class PVNavBar extends Component<Props, State> {
   }
 
   dropdownItems () {
-    const { pageIsLoading, pagesClearQueryState, playerQueueLoadPriorityItems, user, userSetInfo } = this.props
+    const { pageIsLoading, pagesClearQueryState, playerQueueLoadPriorityItems, t, user, userSetInfo } = this.props
     const { id } = user
 
     const dropdownItems = [] as any
@@ -121,13 +125,13 @@ class PVNavBar extends Component<Props, State> {
     dropdownItems.push({
       as: PV.paths.web.playlists,
       href: PV.paths.web.playlists,
-      label: PV.i18n.common.Playlists,
+      label: t('Playlists'),
       onClick: () => { this.linkClick() }
     })
     dropdownItems.push({
       as: PV.paths.web.profiles,
       href: PV.paths.web.profiles,
-      label: PV.i18n.common.Profiles,
+      label: t('Profiles'),
       onClick: () => { this.linkClick() }
     })
 
@@ -135,7 +139,7 @@ class PVNavBar extends Component<Props, State> {
       dropdownItems.push({
         as: PV.paths.web.my_profile,
         href: PV.paths.web.my_profile,
-        label: PV.i18n.common.MyProfile,
+        label: t('MyProfile'),
         onClick: () => {
           pagesClearQueryState({ pageKey: 'my_profile' })
           pageIsLoading(true)
@@ -144,7 +148,7 @@ class PVNavBar extends Component<Props, State> {
       dropdownItems.push({
         as: PV.paths.web.my_profile_clips,
         href: PV.paths.web.my_profile_clips,
-        label: PV.i18n.common.MyClips,
+        label: t('MyClips'),
         onClick: () => {
           pagesClearQueryState({ pageKey: 'my_profile' })
           pageIsLoading(true)
@@ -155,7 +159,7 @@ class PVNavBar extends Component<Props, State> {
     dropdownItems.push({
       as: PV.paths.web.settings,
       href: PV.paths.web.settings,
-      label: PV.i18n.common.Settings,
+      label: t('Settings'),
       onClick: () => { this.linkClick() }
     })
     
@@ -163,7 +167,7 @@ class PVNavBar extends Component<Props, State> {
       dropdownItems.push({
         as: '',
         href: '',
-        label:  PV.i18n.common.Logout,
+        label:  t('Logout'),
         onClick: async () => {
           try {
             await logOut()
@@ -196,7 +200,7 @@ class PVNavBar extends Component<Props, State> {
       dropdownItems.push({
         as: PV.paths.web.membership,
         href: PV.paths.web.membership,
-        label: PV.i18n.common.Premium,
+        label: t('Premium'),
         onClick: () => { this.linkClick() }
       })
     }
@@ -271,4 +275,4 @@ const mapDispatchToProps = dispatch => ({
   userSetInfo: bindActionCreators(userSetInfo, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(PVNavBar)
+export default connect(mapStateToProps, mapDispatchToProps)(withTranslation(PV.nexti18next.namespaces)(PVNavBar))

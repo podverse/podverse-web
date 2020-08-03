@@ -11,6 +11,7 @@ type Props = {
   handleHideModal: Function
   id: string
   isOpen?: boolean
+  t: any
 }
 
 type State = {
@@ -61,14 +62,14 @@ export class DeleteAccountModal extends React.Component<Props, State> {
 
   handleDeleteAccount = async () => {
     this.setState({ isDeleting: true })
-    const { id } = this.props
+    const { id, t } = this.props
 
     try {
       await deleteLoggedInUser(id)
       window.location.href = '/'
     } catch (error) {
       console.log(error)
-      safeAlert(PV.i18n.errorMessages.alerts.somethingWentWrong)
+      safeAlert(t('errorMessages:alerts.somethingWentWrong'))
     }
   }
 

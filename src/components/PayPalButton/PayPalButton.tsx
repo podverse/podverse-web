@@ -23,6 +23,7 @@ type Props = {
   onError: Function
   onSuccess: Function
   subtotal?: string
+  t: any
   tax?: number
   total?: number
   updateStateAfterScriptLoads?: Function
@@ -89,7 +90,7 @@ class PaypalButton extends React.Component<Props, State> {
 
   render () {
     const { client, commit, currency, env, handlePageIsLoading, hideCheckoutModal,
-      subtotal, tax, total } = this.props
+      subtotal, t, tax, total } = this.props
     const { addButtonToDOM, showButton } = this.state
 
     const payment = async (resolve, reject) => {
@@ -130,7 +131,7 @@ class PaypalButton extends React.Component<Props, State> {
           resolve(paymentID)
         } catch (error) {
           console.log(error)
-          safeAlert(PV.i18n.errorMessages.alerts.somethingWentWrong)
+          safeAlert(t('errorMessages:alerts.somethingWentWrong'))
           reject()
         }
       } catch (error) {
@@ -138,7 +139,7 @@ class PaypalButton extends React.Component<Props, State> {
           alertRateLimitError(error)
           return
         } else {
-          safeAlert(PV.i18n.errorMessages.alerts.somethingWentWrong)
+          safeAlert(t('errorMessages:alerts.somethingWentWrong'))
         }
         console.log(error)
         reject()
@@ -154,7 +155,7 @@ class PaypalButton extends React.Component<Props, State> {
           location.href = `${PROTOCOL}://${DOMAIN}${PV.paths.web.payment}${PV.paths.web.paypal_confirming}?id=${data.paymentID}`
         })
         .catch(() => {
-          safeAlert(PV.i18n.errorMessages.alerts.somethingWentWrong)
+          safeAlert(t('errorMessages:alerts.somethingWentWrong'))
           handlePageIsLoading(false)
         })
     }
@@ -167,7 +168,7 @@ class PaypalButton extends React.Component<Props, State> {
 
     const onError = (error) => {
       console.log(error)
-      safeAlert(PV.i18n.errorMessages.alerts.somethingWentWrong)
+      safeAlert(t('errorMessages:alerts.somethingWentWrong'))
     }
 
     return (

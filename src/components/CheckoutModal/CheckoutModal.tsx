@@ -9,12 +9,14 @@ import { pageIsLoading } from '~/redux/actions'
 import { createBitPayInvoice } from '~/services'
 import PV from '~/lib/constants'
 import { alertRateLimitError, checkIfLoadingOnFrontEnd, safeAlert } from '~/lib/utility';
+import { withTranslation } from 'i18n'
 const { paypalConfig } = config()
 
 type Props = {
   handleHideModal: Function
   isOpen?: boolean
   pageIsLoading?: any
+  t: any
 }
 
 type State = {
@@ -53,7 +55,7 @@ class CheckoutModal extends React.Component<Props, State> {
   }
 
   createBitPayOrder = async () => {
-    const { pageIsLoading } = this.props
+    const { pageIsLoading, t } = this.props
     pageIsLoading(true)
     try {
       const response = await createBitPayInvoice()
@@ -66,7 +68,7 @@ class CheckoutModal extends React.Component<Props, State> {
         alertRateLimitError(error)
         return
       } else {
-        safeAlert(PV.i18n.errorMessages.alerts.somethingWentWrong)
+        safeAlert(t('errorMessages:alerts.somethingWentWrong'))
       }
     }
   }
@@ -86,13 +88,13 @@ class CheckoutModal extends React.Component<Props, State> {
   }
 
   render() {
-    const { isOpen, pageIsLoading } = this.props
+    const { isOpen, pageIsLoading, t } = this.props
     const appEl = checkIfLoadingOnFrontEnd() ? document.querySelector('body') : null
     
     return (
       <Modal
         appElement={appEl}
-        contentLabel={PV.i18n.common.Checkout}
+        contentLabel={t('Checkout')}
         isOpen={isOpen}
         onRequestClose={this.handleHideModal}
         portalClassName='checkout-modal over-media-player'
@@ -132,4 +134,4 @@ const mapDispatchToProps = dispatch => ({
   pageIsLoading: bindActionCreators(pageIsLoading, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(CheckoutModal)
+export default connect(mapStateToProps, mapDispatchToProps)(withTranslation(PV.nexti18next.namespaces)(CheckoutModal))

@@ -183,20 +183,20 @@ class UserMediaListCtrl extends Component<Props, State> {
   }
 
   getQueryTypeOptions() {
-    const { isMyProfilePage } = this.props
+    const { isMyProfilePage, t } = this.props
     return [
       {
-        label: isMyProfilePage ? PV.i18n.common.MyPodcasts : PV.i18n.common.Podcasts,
+        label: isMyProfilePage ? t('MyPodcasts') : t('Podcasts'),
         onClick: () => this.queryMediaListItems(PV.queryParams.key.type, PV.queryParams.podcasts),
         value: PV.queryParams.podcasts,
       },
       {
-        label: isMyProfilePage ? PV.i18n.common.MyClips : PV.i18n.common.Clips,
+        label: isMyProfilePage ? t('MyClips') : t('Clips'),
         onClick: () => this.queryMediaListItems(PV.queryParams.key.type, PV.queryParams.clips),
         value: PV.queryParams.clips,
       },
       {
-        label: isMyProfilePage ? PV.i18n.common.MyPlaylists : PV.i18n.common.Playlists,
+        label: isMyProfilePage ? t('MyPlaylists') : t('Playlists'),
         onClick: () => this.queryMediaListItems(PV.queryParams.key.type, PV.queryParams.playlists),
         value: PV.queryParams.playlists
       }
@@ -306,20 +306,20 @@ class UserMediaListCtrl extends Component<Props, State> {
   }
 
   render() {
-    const { adjustTopPosition, mediaPlayer, page, pages, pageKey } = this.props
+    const { adjustTopPosition, mediaPlayer, page, pages, pageKey, t } = this.props
     const { nowPlayingItem: mpNowPlayingItem } = mediaPlayer
     const { listItems, listItemsTotal, queryPage, querySort, queryType } = pages[pageKey]
     
     let mediaListItemType = PV.attributes.mediaListItem.now_playing_item
     let noResultsMsg = ''
     if (queryType === PV.queryParams.clips) {
-      noResultsMsg = PV.i18n.common.noResultsMessage(PV.i18n.common.clips)
+      noResultsMsg = PV.i18n.common.noResultsMessage(t('clips'))
     } else if (queryType === PV.queryParams.playlists) {
       mediaListItemType = PV.queryParams.playlist
-      noResultsMsg = PV.i18n.common.noResultsMessage(PV.i18n.common.playlists)
+      noResultsMsg = PV.i18n.common.noResultsMessage(t('playlists'))
     } else if (queryType === PV.queryParams.podcasts) {
       mediaListItemType = PV.queryParams.podcast
-      noResultsMsg = PV.i18n.common.noResultsMessage(PV.i18n.common.podcasts)
+      noResultsMsg = PV.i18n.common.noResultsMessage(t('podcasts'))
     }
 
     const listItemNodes = Array.isArray(listItems) ? listItems.map(x => {

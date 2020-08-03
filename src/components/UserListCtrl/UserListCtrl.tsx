@@ -9,6 +9,7 @@ import PV from '~/lib/constants'
 import { getViewContentsElementScrollTop } from '~/lib/utility'
 import { pageIsLoading, pagesSetQueryState } from '~/redux/actions'
 import { getPublicUsersByQuery } from '~/services'
+import { withTranslation } from 'i18n'
 const uuidv4 = require('uuid/v4')
 const { QUERY_MEDIA_REFS_LIMIT } = config()
 
@@ -20,6 +21,7 @@ type Props = {
   pagesSetQueryState?: any
   queryPage?: number
   settings?: any
+  t?: any
   user?: any
 }
 
@@ -83,7 +85,7 @@ class UserListCtrl extends Component<Props, State> {
   }
 
   render() {
-    const { pageKey, pages, user } = this.props
+    const { pageKey, pages, t, user } = this.props
     const { listItems, listItemsTotal, queryPage } = pages[pageKey]
 
     const listItemNodes = listItems && listItems.map(x => {
@@ -97,7 +99,7 @@ class UserListCtrl extends Component<Props, State> {
     })
 
     const isNotLoggedIn = !user || !user.id
-    const noResultsFoundMsg = isNotLoggedIn ? PV.i18n.common.LoginToViewYourProfiles : PV.i18n.errorMessages.alerts.noProfilesFound
+    const noResultsFoundMsg = isNotLoggedIn ? t('LoginToViewYourProfiles') : t('errorMessages:alerts.noProfilesFound')
 
     return (
       <div className='media-list reduced-margin adjust-top-position'>
@@ -134,4 +136,4 @@ const mapDispatchToProps = dispatch => ({
   pagesSetQueryState: bindActionCreators(pagesSetQueryState, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserListCtrl)
+export default connect(mapStateToProps, mapDispatchToProps)(withTranslation(PV.nexti18next.namespaces)(UserListCtrl))

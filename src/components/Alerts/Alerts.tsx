@@ -8,7 +8,7 @@ import Link from 'next/link'
 import PV from '~/lib/constants'
 import { getCookie, getViewContentsElementScrollTop, isBeforeDate } from '~/lib/utility'
 import { modalsSendVerificationEmailShow, pageIsLoading, pagesSetQueryState } from '~/redux/actions'
-import { i18n } from '../../../i18n'
+import { i18n, withTranslation } from '../../../i18n'
 const cookie = require('cookie')
 
 type Props = {
@@ -17,6 +17,7 @@ type Props = {
   pageIsLoading?: any
   pageKey?: string
   pagesSetQueryState?: any
+  t: any
   user?: any
 }
 
@@ -120,6 +121,7 @@ class Alerts extends Component<Props, State> {
   }
 
   render() {
+    const { t } = this.props
     const { hasSent, isSending, isVerifyEmailPage, showEmailVerificationNeeded, showFreeTrialHasEnded,
       showFreeTrialWarning, showMembershipHasEnded, showMembershipWarning } = this.state
 
@@ -127,7 +129,7 @@ class Alerts extends Component<Props, State> {
       <Link
         as={PV.paths.web.settings_membership}
         href={PV.paths.web.settings}>
-        <a onClick={this.linkClick}>{PV.i18n.common.Renew}</a>
+        <a onClick={this.linkClick}>{t('Renew')}</a>
       </Link>
     )
 
@@ -141,8 +143,8 @@ class Alerts extends Component<Props, State> {
           {
             hasSent &&
               <Fragment>
-                <p>{PV.i18n.common.EmailSent}</p>
-                <p>{PV.i18n.common.PleaseCheckInbox}</p>
+                <p>{t('EmailSent')}</p>
+                <p>{t('PleaseCheckInbox')}</p>
                 <span>
                   <Trans i18n={i18n} i18nKey='ContactSupport'>
                     If it still doesn't appear, please email <a href={PV.paths.web.support_podverse_fm}>{PV.misc.supportEmail}</a> for help.
@@ -152,13 +154,13 @@ class Alerts extends Component<Props, State> {
           }
           {
             !hasSent && isSending &&
-              <span>{PV.i18n.common.EmailSending}<FontAwesomeIcon icon='spinner' spin /></span>
+              <span>{t('EmailSending')}<FontAwesomeIcon icon='spinner' spin /></span>
           }
           {
             !hasSent && !isSending &&
               <Fragment>
-                <p>{PV.i18n.common.PleaseVerifyEmail}</p>
-                <span><a href='#' onClick={this._showSendVerificationEmailModal}>{PV.i18n.common.SendVerificationEmail}</a></span>
+                <p>{t('PleaseVerifyEmail')}</p>
+                <span><a href='#' onClick={this._showSendVerificationEmailModal}>{t('SendVerificationEmail')}</a></span>
               </Fragment>
           }
         </Alert>
@@ -217,4 +219,4 @@ const mapDispatchToProps = dispatch => ({
   pagesSetQueryState: bindActionCreators(pagesSetQueryState, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Alerts)
+export default connect(mapStateToProps, mapDispatchToProps)(withTranslation(PV.nexti18next.namespaces)(Alerts))

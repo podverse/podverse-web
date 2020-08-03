@@ -8,6 +8,7 @@ import { alertPremiumRequired, alertSomethingWentWrong, alertRateLimitError, get
   safeAlert } from '~/lib/utility'
 import { pageIsLoading, pagesSetQueryState, userSetInfo } from '~/redux/actions'
 import { toggleSubscribeToPodcast } from '~/services'
+import { withTranslation } from 'i18n'
 
 type Props = {
   episode?: any
@@ -18,6 +19,7 @@ type Props = {
   pagesSetQueryState?: any
   podcast?: any
   settings?: any
+  t?: any
   user?: any
   userSetInfo?: any
 }
@@ -37,11 +39,11 @@ class MediaHeaderCtrl extends Component<Props, State> {
   }
 
   toggleSubscribe = async () => {
-    const { episode, mediaRef, nowPlayingItem, podcast, user, userSetInfo
+    const { episode, mediaRef, nowPlayingItem, podcast, t, user, userSetInfo
       } = this.props
     
     if (!user || !user.id) {
-      safeAlert(PV.i18n.common.LoginToSubscribeToThisPodcast)
+      safeAlert(t('LoginToSubscribeToThisPodcast'))
       return
     }
 
@@ -56,7 +58,7 @@ class MediaHeaderCtrl extends Component<Props, State> {
         userSetInfo({ subscribedPodcastIds: response.data })
       }
     } catch (error) {
-      if (error && error.response && error.response.data && error.response.data.message === PV.i18n.common.PremiumMembershipRequired) {
+      if (error && error.response && error.response.data && error.response.data.message === t('PremiumMembershipRequired')) {
         alertPremiumRequired()
       } else if (error && error.response && error.response.status === 429) {
         alertRateLimitError(error)
@@ -125,4 +127,4 @@ const mapDispatchToProps = dispatch => ({
   userSetInfo: bindActionCreators(userSetInfo, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(MediaHeaderCtrl)
+export default connect(mapStateToProps, mapDispatchToProps)(withTranslation(PV.nexti18next.namespaces)(MediaHeaderCtrl))

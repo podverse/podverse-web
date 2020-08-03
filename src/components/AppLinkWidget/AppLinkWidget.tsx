@@ -6,10 +6,12 @@ import { Button, CloseButton } from 'podverse-ui'
 import config from '~/config'
 import PV from '~/lib/constants'
 import { checkIfLoadingOnFrontEnd, getMobileOperatingSystem } from '~/lib/utility'
+import { withTranslation } from 'i18n'
 const { APP_DOWNLOAD_ON_THE_APP_STORE_URL, APP_GET_IT_ON_GOOGLE_PLAY_URL, APP_PROTOCOL } = config()
 
 type Props = {
   pageKey: string
+  t: any
 }
 
 type State = {
@@ -131,7 +133,7 @@ class AppLinkWidget extends Component<Props, State> {
   }
 
   render() {
-    const { pageKey = '' } = this.props
+    const { pageKey = '' , t } = this.props
     const { isValidMobileOS, mobileOS, modalIsOpen } = this.state
     const downloadButton = createDownloadButton(mobileOS)
 
@@ -155,7 +157,7 @@ class AppLinkWidget extends Component<Props, State> {
         </div>
         <Modal
           appElement={appEl}
-          contentLabel={PV.i18n.common.OpenInTheApp}
+          contentLabel={t('OpenInTheApp')}
           isOpen={modalIsOpen}
           onRequestClose={this._handleHideModal}
           portalClassName='open-in-the-app-modal over-media-player'
@@ -168,7 +170,7 @@ class AppLinkWidget extends Component<Props, State> {
               className={`open-in-the-app-modal__i-have-the-app ${mobileOS}`}
               onClick={this.handleOpenInApp}
               outline={true}
-              text={PV.i18n.common.IHaveTheApp} />
+              text={t('IHaveTheApp')} />
           </div>
           <div className='open-in-the-app-modal__download-app'>
             {downloadButton}
@@ -183,4 +185,4 @@ const mapStateToProps = state => ({ ...state })
 
 const mapDispatchToProps = dispatch => ({})
 
-export default connect(mapStateToProps, mapDispatchToProps)(AppLinkWidget)
+export default connect(mapStateToProps, mapDispatchToProps)(withTranslation(PV.nexti18next.namespaces)(AppLinkWidget))
