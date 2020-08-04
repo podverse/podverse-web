@@ -30,13 +30,13 @@ type State = {
 
 class ResetPassword extends Component<Props, State> {
 
-  static async getInitialProps({ query, req, store}) {
+  static async getInitialProps({ query, req, store, t}) {
     const token = query.token
 
     const meta = {
       currentUrl: BASE_URL + PV.paths.web.reset_password,
-      description: PV.i18n.pages.reset_password._Description,
-      title: PV.i18n.pages.reset_password._Title
+      description: t('pages:reset_password._Description'),
+      title: t('pages:reset_password._Title')
     }
 
     store.dispatch(pageIsLoading(false))
@@ -56,11 +56,12 @@ class ResetPassword extends Component<Props, State> {
   }
 
   handlePasswordInputBlur = event => {
+    const { t } = this.props
     const { value: password } = event.target
     const newState: any = {}
 
     if (password && !validatePassword(password)) {
-      newState.errorPassword = PV.i18n.errorMessages.message.passwordError
+      newState.errorPassword = t('errorMessages.message.passwordError')
     } else if (validatePassword(password)) {
       newState.errorPassword = null
     }
@@ -81,12 +82,13 @@ class ResetPassword extends Component<Props, State> {
   }
 
   handlePasswordConfirmInputBlur = event => {
+    const { t } = this.props
     const { errorPassword, password } = this.state
     const { value: passwordConfirm } = event.target
     const newState: any = {}
 
     if (!errorPassword && passwordConfirm !== password) {
-      newState.errorPasswordConfirm = PV.i18n.errorMessages.message.passwordMatchError
+      newState.errorPasswordConfirm = t('errorMessages:message.passwordMatchError')
     }
 
     this.setState(newState)
@@ -106,7 +108,7 @@ class ResetPassword extends Component<Props, State> {
   }
 
   handleSubmit = async () => {
-    const { passwordResetToken } = this.props
+    const { passwordResetToken, t } = this.props
     const { passwordConfirm } = this.state
 
     try {
@@ -122,7 +124,7 @@ class ResetPassword extends Component<Props, State> {
       if (error && error.response && error.response.status === 429) {
         alertRateLimitError(error)
       } else {
-        const errorMsg = (error.response && error.response.data && error.response.data.message) || PV.i18n.errorMessages.internetConnectivityErrorMessage
+        const errorMsg = (error.response && error.response.data && error.response.data.message) || t('errorMessages:internetConnectivityErrorMessage')
         this.setState({ errorResponse: errorMsg })
       }
     }
@@ -137,7 +139,7 @@ class ResetPassword extends Component<Props, State> {
   }
 
   render() {
-    const { meta } = this.props
+    const { meta, t } = this.props
     const { errorPassword, errorPasswordConfirm, errorResponse, isLoading, password,
       passwordConfirm, wasSuccessful } = this.state
 
@@ -218,13 +220,13 @@ class ResetPassword extends Component<Props, State> {
                     <React.Fragment>
                       <Button
                         onClick={() => { window.location.href = '' }}
-                        text={PV.i18n.common.Cancel} />
+                        text={t('Cancel')} />
                       <Button
                         color='primary'
                         disabled={!this.hasConfirmedValidPassword()}
                         isLoading={isLoading}
                         onClick={this.handleSubmit}
-                        text={PV.i18n.common.Submit} />
+                        text={t('Submit')} />
                     </React.Fragment>
                   } />
               </Fragment>

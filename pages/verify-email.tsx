@@ -77,11 +77,11 @@ class VerifyEmail extends Component<Props, State> {
         {
           !hasError &&
             <Fragment>
-              <h3>{PV.i18n.common.EmailVerified}</h3>
-              <p>{PV.i18n.common.ThankYouForVerifying}</p>
+              <h3>{t('EmailVerified')}</h3>
+              <p>{t('ThankYouForVerifying')}</p>
               <p className='font-bolder'>
                 <Link as={PV.paths.web._login} href={PV.paths.web._login}>
-                  <a>{PV.i18n.common.Login}</a>
+                  <a>{t('')Login}</a>
                 </Link>
               </p>
             </Fragment>
@@ -89,11 +89,11 @@ class VerifyEmail extends Component<Props, State> {
         {
           hasError &&
             <Fragment>
-              <h3>{PV.i18n.common.EmailVerificationFailed}</h3>
-              <p>{PV.i18n.common.EmailAlreadyVerifiedOrTokenExpired}</p>
+              <h3>{t('EmailVerificationFailed')}</h3>
+              <p>{t('EmailAlreadyVerifiedOrTokenExpired')}</p>
               <p>
                 <a href='#' onClick={this._showSendVerificationEmailModal}>
-                  {PV.i18n.common.SendVerificationEmail}
+                  {t('SendVerificationEmail')}
                 </a>
               </p>
             </Fragment>

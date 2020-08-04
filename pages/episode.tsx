@@ -43,7 +43,7 @@ const kPageKey = 'episode_'
 
 class Episode extends Component<Props, State> {
 
-  static async getInitialProps({ query, req, store }) {
+  static async getInitialProps({ query, req, store, t }) {
     const pageKeyWithId = `${kPageKey}${query.id}`
     const state = store.getState()
     const { mediaPlayer, pages, user } = state
@@ -132,7 +132,7 @@ class Episode extends Component<Props, State> {
     
     let meta = {}
     if (episode) {
-      const podcastTitle = (episode && episode.podcast && episode.podcast.title) || PV.i18n.common.untitledPodcast
+      const podcastTitle = (episode && episode.podcast && episode.podcast.title) || t('untitledPodcast')
       meta = {
         currentUrl: BASE_URL + PV.paths.web.episode + '/' + episode.id,
         description: removeDoubleQuotes(episode.description),

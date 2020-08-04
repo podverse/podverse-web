@@ -12,6 +12,7 @@ const { BASE_URL } = config()
 type Props = {
   id: string
   meta?: any
+  t: any
 }
 
 type State = {
@@ -21,19 +22,18 @@ type State = {
   isChecking?: boolean
   isTakingLonger?: boolean
   paypalOrder?: any
-  t: any
   wasSuccessful?: boolean
 }
 
 class PaymentConfirmingPayPal extends Component<Props, State> {
 
-  static async getInitialProps({ query, req, store }) {
+  static async getInitialProps({ query, req, store, t }) {
     store.dispatch(pageIsLoading(false))
 
     const meta = {
       currentUrl: BASE_URL + PV.paths.web.payment_paypal_confirming,
-      description: PV.i18n.pages.payment_paypal_confirming._Description,
-      title: PV.i18n.pages.payment_paypal_confirming._Title
+      description: t('pages:payment_paypal_confirming._Description'),
+      title: t('pages:payment_paypal_confirming._Title')
     }
     const namespacesRequired = ['common']
 
@@ -67,7 +67,7 @@ class PaymentConfirmingPayPal extends Component<Props, State> {
   }
 
   checkPaymentStatus = async () => {
-    const { id } = this.props
+    const { id, t } = this.props
     const { currentCount } = this.state
     const newState: any = {}
 
@@ -84,7 +84,7 @@ class PaymentConfirmingPayPal extends Component<Props, State> {
       } else {
         if (currentCount > 10) {
           clearInterval(this.state.intervalId)
-          newState.errorMessage = PV.i18n.errorMessages.alerts.somethingWentWrong
+          newState.errorMessage = t('errorMessages:alerts.somethingWentWrong')
           newState.isChecking = false
         } else if (currentCount > 5) {
           newState.currentCount = currentCount + 1
@@ -97,7 +97,7 @@ class PaymentConfirmingPayPal extends Component<Props, State> {
     } catch (error) {
       console.log(error)
       clearInterval(this.state.intervalId)
-      newState.errorMessage = PV.i18n.errorMessages.alerts.somethingWentWrong
+      newState.errorMessage = t('errorMessages:alerts.somethingWentWrong')
     }
   }
 
