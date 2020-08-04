@@ -12,12 +12,14 @@ import { alertPremiumRequired, alertSomethingWentWrong, alertRateLimitError, saf
 import { userSetInfo } from '~/redux/actions'
 import { toggleSubscribeToUser } from '~/services'
 import config from '~/config'
+import { withTranslation } from 'i18n'
 const { BASE_URL } = config()
 const ClipboardJS = require('clipboard')
 
 type Props = {
   loggedInUser?: any
   profileUser?: any
+  t?: any
   userSetInfo?: any
 }
 
@@ -42,10 +44,10 @@ class UserHeaderCtrl extends Component<Props, State> {
   }
 
   toggleSubscribe = async () => {
-    const { loggedInUser, profileUser, userSetInfo } = this.props
+    const { loggedInUser, profileUser, t, userSetInfo } = this.props
 
     if (!loggedInUser || !loggedInUser.id) {
-      safeAlert(PV.i18n.common.LoginToSubscribeToThisProfile)
+      safeAlert(t('LoginToSubscribeToThisProfile'))
       return
     }
 
@@ -88,7 +90,7 @@ class UserHeaderCtrl extends Component<Props, State> {
   }
 
   render() {
-    const { loggedInUser, profileUser } = this.props
+    const { loggedInUser, profileUser, t } = this.props
     const { isSubscribing, shareLinkPopoverOpen, wasCopied } = this.state
     const { subscribedUserIds } = loggedInUser
     const isSubscribed = subscribedUserIds && subscribedUserIds.includes(profileUser.id)
@@ -98,7 +100,7 @@ class UserHeaderCtrl extends Component<Props, State> {
         <div className='text-wrapper'>
           <div className='media-header__top'>
             <div className='media-header__title'>
-              {profileUser.name ? profileUser.name : PV.i18n.common.Anonymous}
+              {profileUser.name ? profileUser.name : t('Anonymous')}
             </div>
             {
               loggedInUser && profileUser && loggedInUser.id === profileUser.id ?
@@ -118,7 +120,7 @@ class UserHeaderCtrl extends Component<Props, State> {
                           placement='bottom'
                           target='profileShareLink'>
                           <PopoverHeader>
-                            {PV.i18n.common.CopyLinkToProfile}
+                            {t('CopyLinkToProfile')}
                           </PopoverHeader>
                           <PopoverBody>
                             <InputGroup id='profile-link'>
@@ -190,4 +192,4 @@ const mapDispatchToProps = dispatch => ({
   userSetInfo: bindActionCreators(userSetInfo, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserHeaderCtrl)
+export default connect(mapStateToProps, mapDispatchToProps)(withTranslation(PV.nexti18next.namespaces)(UserHeaderCtrl))

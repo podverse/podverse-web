@@ -185,17 +185,17 @@ class MediaListCtrl extends Component<Props, State> {
   }
 
   getQueryTypeOptions = () => {
-    const { pageKey, pages, podcastId, user } = this.props
+    const { pageKey, pages, podcastId, t, user } = this.props
     const { categoryId, queryFrom } = pages[pageKey]
 
     return [
       {
-        label: PV.i18n.common.Clips,
+        label: t('Clips'),
         onClick: () => this.queryListItems(PV.queryParams.clips, queryFrom, PV.queryParams.top_past_week, 1, categoryId),
         value: PV.queryParams.clips,
       },
       {
-        label: PV.i18n.common.Episodes,
+        label: t('Episodes'),
         onClick: () => this.queryListItems(
           PV.queryParams.episodes,
           podcastId ? PV.queryParams.from_podcast : queryFrom,
@@ -455,17 +455,17 @@ class MediaListCtrl extends Component<Props, State> {
   }
 
   generateQueryTypeOptions = () => {
-    const { pageKey, pages, podcastId, user } = this.props
+    const { pageKey, pages, podcastId, t, user } = this.props
     const { categoryId, queryFrom } = pages[pageKey]
 
     return [
       {
-        label: PV.i18n.common.Clips,
+        label: t('Clips'),
         onClick: () => this.queryListItems(PV.queryParams.clips, queryFrom, PV.queryParams.top_past_week, 1, categoryId),
         value: PV.queryParams.clips,
       },
       {
-        label: PV.i18n.common.Episodes,
+        label: t('Episodes'),
         onClick: () => this.queryListItems(
           PV.queryParams.episodes,
           podcastId ? PV.queryParams.from_podcast : queryFrom,

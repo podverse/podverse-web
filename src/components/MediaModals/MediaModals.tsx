@@ -15,6 +15,7 @@ import { mediaPlayerUpdatePlaying, modalsAddToCreatePlaylistIsSaving,
   } from '~/redux/actions'
 import { addOrRemovePlaylistItem, createMediaRef, createPlaylist, deleteMediaRef,
   updateMediaRef, updateUserQueueItems } from '~/services'
+import { withTranslation } from 'i18n'
 
 type Props = {
   mediaPlayer?: any
@@ -33,6 +34,7 @@ type Props = {
   playerQueueLoadItems?: any
   playerQueueLoadPriorityItems?: any
   playerQueueLoadSecondaryItems?: any
+  t: any
   user?: any
   userSetInfo?: any
 }
@@ -198,7 +200,7 @@ class MediaModals extends Component<Props, State> {
   makeClipSave = async (formData, isEditing) => {
     this.setState({ makeClipIsSaving: true })
 
-    const { modals, modalsClipCreatedShow, modalsMakeClipShow } = this.props
+    const { modals, modalsClipCreatedShow, modalsMakeClipShow, t } = this.props
     const { makeClip } = modals
     const { nowPlayingItem } = makeClip
     
@@ -239,7 +241,7 @@ class MediaModals extends Component<Props, State> {
 
     } catch (error) {
       if (error && error.response && error.response.data && error.response.data.message === PV.errorResponseMessages.premiumRequired) {
-        safeAlert(PV.i18n.errorMessages.alerts.premiumRequired)
+        safeAlert(t('errorMessages:alerts.premiumRequired'))
       } else if (error && error.response && error.response.status === 429) {
         alertRateLimitError(error)
       } else if (error && error.response && error.response.status === 401) {
@@ -254,7 +256,7 @@ class MediaModals extends Component<Props, State> {
   makeClipDelete = async () => {
     this.setState({ makeClipIsDeleting: true })
 
-    const { modals, modalsMakeClipShow, pageIsLoading } = this.props
+    const { modals, modalsMakeClipShow, pageIsLoading, t } = this.props
     const { makeClip } = modals
     const { nowPlayingItem } = makeClip
     const { clipId } = nowPlayingItem
@@ -269,7 +271,7 @@ class MediaModals extends Component<Props, State> {
       Router.push(href, as)
     } catch (error) {
       console.log(error)
-      safeAlert(PV.i18n.errorMessages.alerts.deleteClipFailed)
+      safeAlert(t('errorMessages:alerts.deleteClipFailed'))
     }
     
     this.setState({ makeClipIsDeleting: false })
@@ -369,7 +371,7 @@ class MediaModals extends Component<Props, State> {
   }
 
   removeItem = async (clipId, episodeId, isPriority) => {
-    const { playerQueueLoadPriorityItems, playerQueueLoadSecondaryItems, user,
+    const { playerQueueLoadPriorityItems, playerQueueLoadSecondaryItems, t, user,
       userSetInfo } = this.props
     const { queueItems } = user
     const localQueueItems = getPriorityQueueItemsStorage()
@@ -396,7 +398,7 @@ class MediaModals extends Component<Props, State> {
           playerQueueLoadPriorityItems(priorityItems)
         } catch (error) {
           console.log(error)
-          safeAlert(PV.i18n.errorMessages.alerts.couldNotUpdateQueue)
+          safeAlert(t('errorMessages:alerts.couldNotUpdateQueue'))
         }
       } else {
         removeItemFromPriorityQueueStorage(clipId, episodeId)
@@ -531,4 +533,4 @@ const mapDispatchToProps = dispatch => ({
   userSetInfo: bindActionCreators(userSetInfo, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(MediaModals)
+export default connect(mapStateToProps, mapDispatchToProps)(withTranslation(PV.nexti18next.namespaces)(MediaModals))

@@ -9,6 +9,7 @@ import { modalsForgotPasswordIsLoading, modalsForgotPasswordShow, modalsForgotPa
   playerQueueLoadPriorityItems } from '~/redux/actions'
 import { login, sendResetPassword, signUp, sendVerification } from '~/services/auth'
 import { alertRateLimitError } from '~/lib/utility';
+import { withTranslation } from 'i18n';
 
 type Props = {
   modals?: any
@@ -23,6 +24,7 @@ type Props = {
   modalsSignUpSetErrorResponse?: any
   modalsSignUpShow?: any
   playerQueueLoadPriorityItems?: any
+  t: any
   user?: any
   userSetInfo?: any
 }
@@ -40,7 +42,7 @@ class Auth extends Component<Props, State> {
 
   handleForgotPasswordSubmit = async email => {
     const { modalsForgotPasswordIsLoading, modalsForgotPasswordSetErrorResponse,
-      modalsForgotPasswordShow } = this.props
+      modalsForgotPasswordShow, t } = this.props
     modalsForgotPasswordIsLoading(true)
 
     try {
@@ -51,7 +53,7 @@ class Auth extends Component<Props, State> {
       if (error && error.response && error.response.status === 429) {
         alertRateLimitError(error)
       } else {
-        const errorMsg = (error.response && error.response.data && error.response.data.message) || PV.i18n.errorMessages.internetConnectivityErrorMessage
+        const errorMsg = (error.response && error.response.data && error.response.data.message) || t('errorMessages:internetConnectivityErrorMessage')
         modalsForgotPasswordSetErrorResponse(errorMsg)
       }
     } finally {
@@ -62,7 +64,7 @@ class Auth extends Component<Props, State> {
 
   handleSendVerificationEmailSubmit = async email => {
     const { modalsForgotPasswordIsLoading, modalsForgotPasswordSetErrorResponse,
-      modalsSendVerificationEmailShow } = this.props
+      modalsSendVerificationEmailShow, t } = this.props
     modalsForgotPasswordIsLoading(true)
 
     try {
@@ -74,7 +76,7 @@ class Auth extends Component<Props, State> {
       if (error && error.response && error.response.status === 429) {
         alertRateLimitError(error)
       } else {
-        const errorMsg = (error.response && error.response.data && error.response.data.message) || PV.i18n.errorMessages.internetConnectivityErrorMessage
+        const errorMsg = (error.response && error.response.data && error.response.data.message) || t('errorMessages:internetConnectivityErrorMessage')
         modalsForgotPasswordSetErrorResponse(errorMsg)
       }
     } finally {
@@ -84,7 +86,7 @@ class Auth extends Component<Props, State> {
 
   handleLogin = async (email, password) => {
     const { modalsLoginIsLoading, modalsLoginSetErrorResponse, modalsLoginShow,
-      playerQueueLoadPriorityItems, userSetInfo } = this.props
+      playerQueueLoadPriorityItems, t, userSetInfo } = this.props
     modalsLoginIsLoading(true)
     
     try {
@@ -98,14 +100,14 @@ class Auth extends Component<Props, State> {
     } catch (error) {
       const pleaseVerifyMessage = (
         <Fragment>
-          <p>{PV.i18n.common.PleaseVerifyEmail}</p>
-                <span><a href='#' onClick={this._showSendVerificationEmailModal}>{PV.i18n.common.SendVerificationEmail}</a></span>
+          <p>{t('PleaseVerifyEmail')}</p>
+                <span><a href='#' onClick={this._showSendVerificationEmailModal}>{t('SendVerificationEmail')}</a></span>
         </Fragment>
       )
       const errorMsg =
         (error.response && error.response.status === 460 && pleaseVerifyMessage) ||
         (error.response && error.response.data && error.response.data.message)
-        || PV.i18n.errorMessages.internetConnectivityErrorMessage
+        || t('errorMessages:internetConnectivityErrorMessage')
       modalsLoginSetErrorResponse(errorMsg)
       modalsLoginIsLoading(false)
       userSetInfo({
@@ -128,7 +130,7 @@ class Auth extends Component<Props, State> {
   }
 
   handleSignUp = async (email, password) => {
-    const { modalsSignUpIsLoading, modalsSignUpSetErrorResponse, userSetInfo } = this.props
+    const { modalsSignUpIsLoading, modalsSignUpSetErrorResponse, t, userSetInfo } = this.props
     modalsSignUpIsLoading(true)
 
     try {
@@ -138,7 +140,7 @@ class Auth extends Component<Props, State> {
       if (error && error.response && error.response.status === 429) {
         alertRateLimitError(error)
       } else {
-        const errorMsg = (error.response && error.response.data && error.response.data.message) || PV.i18n.errorMessages.internetConnectivityErrorMessage
+        const errorMsg = (error.response && error.response.data && error.response.data.message) || t('errorMessages:internetConnectivityErrorMessage')
         modalsSignUpSetErrorResponse(errorMsg)
       }
       userSetInfo({
@@ -223,4 +225,4 @@ const mapDispatchToProps = dispatch => ({
   userSetInfo: bindActionCreators(userSetInfo, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Auth)
+export default connect(mapStateToProps, mapDispatchToProps)(withTranslation(PV.nexti18next.namespaces)(Auth))

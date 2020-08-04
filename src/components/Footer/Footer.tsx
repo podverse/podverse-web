@@ -10,6 +10,7 @@ import PV from '~/lib/constants'
 import { getViewContentsElementScrollTop } from '~/lib/utility'
 import { pageIsLoading, pagesSetQueryState, settingsSetNSFWMode, settingsSetUITheme
   } from '~/redux/actions'
+import { withTranslation } from 'i18n'
 const cookie = require('cookie')
 const { CONTACT_FORM_URL, SOCIAL_FACEBOOK_PAGE_URL, SOCIAL_GITHUB_PAGE_URL,
   SOCIAL_REDDIT_PAGE_URL, SOCIAL_TWITTER_PAGE_URL } = config()
@@ -22,6 +23,7 @@ type Props = {
   settings: any
   settingsSetNSFWMode: any
   settingsSetUITheme: any
+  t: any
   user: any
 }
 
@@ -95,10 +97,10 @@ class Footer extends Component<Props, State> {
   }
 
   render() {
-    const { settings } = this.props
+    const { settings, t } = this.props
     const { uiTheme, uiThemeHide } = settings
 
-    const uiThemeAriaLabel = uiTheme === PV.attributes.dark || !uiTheme ? PV.i18n.common.TurnOnLight : PV.i18n.common.TurnOnDark
+    const uiThemeAriaLabel = uiTheme === PV.attributes.dark || !uiTheme ? t('TurnOnLight') : t('TurnOnDark')
 
     return (
       <React.Fragment>
@@ -171,7 +173,7 @@ class Footer extends Component<Props, State> {
                 <a 
                   className='footer-bottom__link'
                   target='_blank'>
-                  {PV.i18n.common.Contact}
+                  {t('Contact')}
                 </a>
               </Link>
               {/* <Link
@@ -189,7 +191,7 @@ class Footer extends Component<Props, State> {
                 <a
                   className='footer-bottom__link'
                   onClick={this.linkClick}>
-                  {PV.i18n.common.About}
+                  {t('About')}
                 </a>
               </Link>
               <Link
@@ -198,7 +200,7 @@ class Footer extends Component<Props, State> {
                 <a
                   className='footer-bottom__link'
                   onClick={this.linkClick}>
-                  {PV.i18n.common.Terms}
+                  {t('Terms')}
                 </a>
               </Link>
               <Link
@@ -207,7 +209,7 @@ class Footer extends Component<Props, State> {
                 <a
                   className='footer-bottom__link'
                   onClick={this.linkClick}>
-                  {PV.i18n.common.FAQ}
+                  {t('FAQ')}
                 </a>
               </Link>
               <Link
@@ -216,7 +218,7 @@ class Footer extends Component<Props, State> {
                 <a
                   className='footer-bottom__link'
                   onClick={this.linkClick}>
-                  {PV.i18n.common.Premium}
+                  {t('Premium')}
                 </a>
               </Link>
             </div>
@@ -286,4 +288,4 @@ const mapDispatchToProps = dispatch => ({
   settingsSetUITheme: bindActionCreators(settingsSetUITheme, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Footer)
+export default connect(mapStateToProps, mapDispatchToProps)(withTranslation(PV.nexti18next.namespaces)(Footer))
