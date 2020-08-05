@@ -57,10 +57,10 @@ class FAQ extends Component<Props, State> {
           twitterTitle={meta.title} />
         <h3>FAQ</h3>
 
-        <p><a href={PV.paths.web.contactUs} target='_blank' rel="noopener noreferrer">Contact Us / Ask a question</a></p>
+        <p><a href={`mailto:${PV.misc.email.contact}`} target='_blank' rel="noopener noreferrer">Contact Us / Ask a question</a></p>
         
         <h3>Table of Contents</h3>
-      {t('hello-world')}
+
         <ul>
           <li>
             <a href='#why-do-some-clips-start-at-the-wrong-time'>Why do some clips start at the wrong time? (dynamic ads)</a>
