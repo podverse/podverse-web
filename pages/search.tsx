@@ -81,7 +81,7 @@ class Search extends Component<Props, State> {
   }
 
   queryPodcasts = async (page = 1) => {
-    const { pages, pagesSetQueryState } = this.props
+    const { pages, pagesSetQueryState, t } = this.props
     const { searchBy } = pages[kPageKey]
     const { currentSearch } = this.state
     
@@ -116,7 +116,7 @@ class Search extends Component<Props, State> {
 
     } catch (error) {
       console.log(error)
-      safeAlert(PV.i18n.common.SearchError)
+      safeAlert(t('SearchError'))
     }
   }
 
@@ -149,7 +149,7 @@ class Search extends Component<Props, State> {
     }
 
     const placeholder = searchBy === PV.queryParams.host
-      ? PV.i18n.common.searchByHost : PV.i18n.common.searchByTitle
+      ? t('searchByHost') : t('searchByTitle')
 
       
     const listItemNodes = listItems ? listItems.map(x => {
@@ -241,7 +241,7 @@ class Search extends Component<Props, State> {
           {
             (!isSearching && searchCompleted && listItemNodes && listItemNodes.length === 0) &&
               <div className='no-results-msg'>
-                {PV.i18n.common.noResultsMessage(PV.i18n.common.podcasts, searchBy === PV.queryParams.host ? 'with that host' : '')}
+                {PV.i18n.common.noResultsMessage(t('podcasts'), searchBy === PV.queryParams.host ? 'with that host' : '')}
               </div>
           }
           {
@@ -251,7 +251,7 @@ class Search extends Component<Props, State> {
                 href={REQUEST_PODCAST_URL}
                 rel="noopener noreferrer"
                 target='_blank'>
-                {PV.i18n.common.RequestAPodcast}
+                {t('RequestAPodcast')}
               </a>
           }
         </div>

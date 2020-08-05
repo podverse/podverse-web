@@ -60,7 +60,7 @@ class Membership extends Component<Props, State> {
           title={meta.title}
           twitterDescription={meta.description}
           twitterTitle={meta.title} />
-        <h3>{PV.i18n.common.Premium}</h3>
+        <h3>{t('Premium')}</h3>
 
         <p className='membership-top-text'>
           Get 1 year free when you sign up for Podverse premium
@@ -76,7 +76,7 @@ class Membership extends Component<Props, State> {
         <ComparisonTable
           featuresData={featuresData}
           headerIcon1='Free'
-          headerIcon2={PV.i18n.common.Premium}
+          headerIcon2={t('Premium')}
           headerText='Features' />
       </Fragment>
     )

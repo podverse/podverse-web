@@ -68,7 +68,7 @@ const kPageKey = 'playlist_'
 
 class Playlist extends Component<Props, State> {
 
-  static async getInitialProps({ query, req, store }) {
+  static async getInitialProps({ query, req, store, t }) {
     const pageKeyWithId = `${kPageKey}${query.id}`
     const state = store.getState()
     const { pages, user } = state
@@ -97,12 +97,12 @@ class Playlist extends Component<Props, State> {
     if (playlist) {
       meta = {
         currentUrl: BASE_URL + PV.paths.web.playlist + '/' + playlist.id,
-        description: removeDoubleQuotes(`${playlist.title ? playlist.title : PV.i18n.common.untitledPlaylist}${PV.i18n.common.playlistOnPodverse}${playlist.description ? playlist.description : ''}`),
-        title: `${playlist.title ? playlist.title : PV.i18n.common.untitledPlaylist}`
+        description: removeDoubleQuotes(`${playlist.title ? playlist.title : t('untitledPlaylist')}${t('playlistOnPodverse')}${playlist.description ? playlist.description : ''}`),
+        title: `${playlist.title ? playlist.title : t('untitledPlaylist')}`
       }
     }
 
-    const namespacesRequired = ['common']
+    const namespacesRequired = PV.nexti18next.namespaces
 
     return { lastScrollPosition, meta, namespacesRequired, pageKey: pageKeyWithId, playlist, playlistItems, user }
   }
@@ -184,7 +184,7 @@ class Playlist extends Component<Props, State> {
   deletePlaylist = async () => {
     this.setState({ isDeleting: true })
 
-    const { pageIsLoading, user, userSetInfo } = this.props
+    const { pageIsLoading, t, user, userSetInfo } = this.props
     const { playlists } = user
     const { playlist } = this.state
 
@@ -212,13 +212,13 @@ class Playlist extends Component<Props, State> {
     } catch (error) {
       console.log(error)
       this.setState({ isDeleting: false })
-      safeAlert(PV.i18n.errorMessages.alerts.deletePlaylistFailed)
+      safeAlert(t('errorMessages:alerts.deletePlaylistFailed'))
     }
   }
 
-  updatePlaylist = async () => {
+  updatePlaylist = async ( ) => {
     this.setState({ isUpdating: true })
-
+    const { t } = this.props
     const { playlist } = this.state
     const { value: description } = this.inputDescription.current
     const { value: title } = this.inputTitle.current
@@ -239,7 +239,7 @@ class Playlist extends Component<Props, State> {
       if (error && error.response && error.response.status === 429) {
         alertRateLimitError(error)
       } else {
-        safeAlert(PV.i18n.errorMessages.alerts.updatePlaylistFailed)
+        safeAlert(t('errorMessages:alerts.updatePlaylistFailed'))
       }
       this.setState({ isUpdating: false })
       console.log(error)
@@ -248,11 +248,11 @@ class Playlist extends Component<Props, State> {
   }
 
   toggleSubscribe = async () => {
-    const { user, userSetInfo } = this.props
+    const { t, user, userSetInfo } = this.props
     const { playlist } = this.state
 
     if (!user || !user.id) {
-      safeAlert(PV.i18n.common.LoginToSubscribeToPlaylistslists)
+      safeAlert(t('LoginToSubscribeToPlaylistslists'))
       return
     }
 
@@ -288,7 +288,7 @@ class Playlist extends Component<Props, State> {
   }
 
   removeItem = async (playlistId, mediaRefId, episodeId) => {
-    const { user, userSetInfo } = this.props
+    const { t, user, userSetInfo } = this.props
     const { sortedNowPlayingItems } = this.state
 
     try {
@@ -322,7 +322,7 @@ class Playlist extends Component<Props, State> {
       if (error && error.response && error.response.status === 429) {
         alertRateLimitError(error)
       } else {
-        safeAlert(PV.i18n.errorMessages.alerts.couldNotRemoveFromPlaylist)
+        safeAlert(t('errorMessages:alerts.couldNotRemoveFromPlaylist'))
       }
       console.log(error)
     }
@@ -398,7 +398,7 @@ class Playlist extends Component<Props, State> {
   }
 
   render() {
-    const { errorCode, mediaPlayer, meta, pageKey, settings, user } = this.props
+    const { errorCode, mediaPlayer, meta, pageKey, settings, t, user } = this.props
     const { censorNSFWText } = settings
 
     if (errorCode) {
@@ -484,7 +484,7 @@ class Playlist extends Component<Props, State> {
                 !isEditing &&
                   <Fragment>
                     <div className='media-header__title'>
-                      {title ? title : PV.i18n.common.untitledPlaylist}
+                      {title ? title : t('untitledPlaylist')}
                     </div>
                   </Fragment>
               }
@@ -541,7 +541,7 @@ class Playlist extends Component<Props, State> {
               <div className='media-header__sub-title'>
               {
                 owner && !isEditing &&
-                  <Fragment>By: {owner.name ? owner.name : PV.i18n.common.Anonymous}</Fragment>
+                  <Fragment>By: {owner.name ? owner.name : t('Anonymous')}</Fragment>
               }
               </div>
             </div>
@@ -592,19 +592,19 @@ class Playlist extends Component<Props, State> {
                 color='danger'
                 isLoading={isDeleting}
                 onClick={this.deletePlaylist}
-                text={PV.i18n.common.Delete} />
+                text={t('Delete')} />
               <Button
                 className='playlist-edit-btns__cancel'
                 disabled={isDeleting || isUpdating}
                 onClick={this.cancelEditing}
-                text={PV.i18n.common.Cancel} />
+                text={t('Cancel')} />
               <Button
                 className='playlist-edit-btns__update'
                 color='primary'
                 disabled={isDeleting || isUpdating}
                 isLoading={isUpdating}
                 onClick={this.updatePlaylist}
-                text={PV.i18n.common.Update} />
+                text={t('Update')} />
             </div>
           }
         </div>
@@ -629,7 +629,7 @@ class Playlist extends Component<Props, State> {
           {
             (!isLoading && listItemNodes.length === 0) &&
               <div className='no-results-msg'>
-                {PV.i18n.common.noResultsMessage(PV.i18n.common.Playlists)}
+                {PV.i18n.common.noResultsMessage(t('Playlists'))}
               </div>
           }
         </div>
@@ -649,4 +649,4 @@ const mapDispatchToProps = dispatch => ({
   userSetInfo: bindActionCreators(userSetInfo, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(withTranslation('common')(Playlist))
+export default connect(mapStateToProps, mapDispatchToProps)(withTranslation(PV.nexti18next.namespaces)(Playlist))
