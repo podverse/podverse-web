@@ -103,7 +103,7 @@ class Profile extends Component<Props, State> {
         title: `${publicUser.name ? publicUser.name : t('Anonymous')}'s profile on Podverse`
       }
     }
-    const namespacesRequired = ['common']
+    const namespacesRequired = PV.nexti18next.namespaces
 
     return { lastScrollPosition, meta, namespacesRequired, pageKey: pageKeyWithId, publicUser }
   }
