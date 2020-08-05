@@ -172,7 +172,9 @@ class Alerts extends Component<Props, State> {
           fade={false}
           isOpen={showFreeTrialHasEnded}
           toggle={() => this.hideAlert(PV.cookies.showFreeTrialHasEnded)}>
-          {PV.i18n.common.YourFreeTrialHasEnded(renewLink)}
+          <Trans i18n={i18n} i18nKey='YourFreeTrialHasEnded'>
+            Your free trial has ended. {renewLink} to continue using premium features.
+          </Trans>
         </Alert>
       )
     } else if (showFreeTrialWarning) {
@@ -183,6 +185,9 @@ class Alerts extends Component<Props, State> {
           isOpen={showFreeTrialWarning}
           toggle={() => this.hideAlert(PV.cookies.showFreeTrialWarning)}>
           {PV.i18n.common.YourFreeTrialWillEndSoon(renewLink)}
+          <Trans i18n={i18n} i18nKey='YourFreeTrialWillEndSoon'>
+          Your free trial will end soon. {renewLink} to continue using premium features.
+          </Trans>
         </Alert>
       )
     } else if (showMembershipHasEnded) {
@@ -192,7 +197,9 @@ class Alerts extends Component<Props, State> {
           fade={false}
           isOpen={showMembershipHasEnded}
           toggle={() => this.hideAlert(PV.cookies.showMembershipHasEnded)}>
-          {PV.i18n.common.YourMembershipHasExpired(renewLink)}
+          <Trans i18n={i18n} i18nKey='YourMembershipHasExpired'>
+          Your membership has expired. {renewLink} to continue using premium features.
+          </Trans>
         </Alert>
       )
     } else if (showMembershipWarning) {
@@ -202,7 +209,9 @@ class Alerts extends Component<Props, State> {
           fade={false}
           isOpen={showMembershipWarning}
           toggle={() => this.hideAlert(PV.cookies.showMembershipWarning)}>
-          {PV.i18n.common.YourMembershipWillExpireSoon(renewLink)}
+          <Trans i18n={i18n} i18nKey='YourMembershipWillExpireSoon'>
+          Your membership will expire soon. {renewLink} to continue using premium features.
+          </Trans>
         </Alert>
       )
     } else {

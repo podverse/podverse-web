@@ -110,7 +110,7 @@ class Settings extends Component<Props, State> {
 
   downloadLoggedInUserData = async () => {
     this.setState({ isDownloading: true })
-    const { user } = this.props
+    const { t, user } = this.props
 
     try {
       const userData = await downloadLoggedInUserData(user.id)
@@ -119,7 +119,7 @@ class Settings extends Component<Props, State> {
       if (error && error.response && error.response.status === 429) {
         alertRateLimitError(error)
       } else {
-        safeAlert(PV.i18n.errorMessages.alerts.somethingWentWrong)
+        safeAlert(t('errorMessages:alerts.somethingWentWrong'))
       }
       console.log(error)
     }
@@ -256,9 +256,10 @@ class Settings extends Component<Props, State> {
   }
 
   validateEmail = () => {
+    const { t } = this.props
     const { email } = this.state
     if (!validateEmail(email)) {
-      this.setState({ emailError: PV.i18n.errorMessages.message.PleaseProvideValidEmail })
+      this.setState({ emailError: t('errorMessages:message.PleaseProvideValidEmail') })
     } else {
       this.setState({ emailError: '' })
     }

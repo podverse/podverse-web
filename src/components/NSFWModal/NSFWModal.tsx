@@ -2,11 +2,13 @@ import * as React from 'react'
 import * as Modal from 'react-modal'
 import PV from '~/lib/constants'
 import { checkIfLoadingOnFrontEnd } from '~/lib/utility'
+import { withTranslation } from '../../../i18n'
 
 export interface Props {
   handleHideModal?: (event: React.MouseEvent<HTMLButtonElement>) => void
   isNSFWModeOn?: boolean
   isOpen?: boolean
+  t: any
 }
 
 const customStyles = {
@@ -23,14 +25,14 @@ const customStyles = {
   }
 }
 
-export const NSFWModal: React.StatelessComponent<Props> = props => {
-  const { handleHideModal, isNSFWModeOn, isOpen } = props
+  const NSFWModal: React.StatelessComponent<Props> = props => {
+  const { handleHideModal, isNSFWModeOn, isOpen, t } = props
   const appEl = checkIfLoadingOnFrontEnd() ? document.querySelector('body') : null
 
   return (
     <Modal
       appElement={appEl}
-      contentLabel={PV.i18n.common.NSFWConfirmPopup}
+      contentLabel={t('NSFWConfirmPopup')}
       isOpen={isOpen}
       onRequestClose={handleHideModal}
       portalClassName='nsfw-confirm-modal over-media-player'
@@ -39,21 +41,23 @@ export const NSFWModal: React.StatelessComponent<Props> = props => {
       {
         isNSFWModeOn &&
           <div>
-          <h3 style={{ color: PV.colors.redDarker }}>{PV.i18n.common.NSFWModeOn}</h3>
-            <p>{PV.i18n.common.RefreshToIncludeNSFW}</p>
+          <h3 style={{ color: PV.colors.redDarker }}>{t('NSFWModeOn')}</h3>
+            <p>{t('RefreshToIncludeNSFW')}</p>
           </div>
       }
       {
         !isNSFWModeOn &&
         <div>
-          <h3 style={{ color: PV.colors.blue }}>{PV.i18n.common.SFWModeOn}</h3>
-          <p>{PV.i18n.common.RefreshToHideNSFW}</p>
+          <h3 style={{ color: PV.colors.blue }}>{t('SFWModeOn')}</h3>
+          <p>{t('RefreshToHideNSFW')}</p>
           <p>
-            {PV.i18n.common.RatingsProvidedByPodcasters}
-            {PV.i18n.common.ContentMayBeNSFW}
+            {t('RatingsProvidedByPodcasters')}
+            {t('ContentMayBeNSFW')}
           </p>
         </div>
       }
     </Modal>
   )
 }
+
+export default withTranslation(PV.nexti18next.namespaces)(NSFWModal)

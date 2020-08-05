@@ -8,6 +8,7 @@ import { withTranslation } from '../i18n'
 
 type Props = {
   statusCode?: number
+  t: any
 }
 
 type State = {}
@@ -18,15 +19,15 @@ class ErrorPage extends Component<Props, State> {
     const statusCode = res ? res.statusCode : err ? err.statusCode : 404
     store.dispatch(pageIsLoading(false))
 
-    const namespacesRequired = ['common']
+    const namespacesRequired = PV.nexti18next.namespaces
 
     return { namespacesRequired, statusCode }
   }
 
   render () {
-    const { statusCode } = this.props
-    let error = statusCode && errors[statusCode]
-    if (!error) error = errors.defaultError
+    const { statusCode, t } = this.props
+    let error = statusCode && errors(t)[statusCode]
+    if (!error) error = errors(t).defaultError
 
     return (
       <div className='full-centered-content-view'>
@@ -54,24 +55,25 @@ class ErrorPage extends Component<Props, State> {
 
 }
 
-const errors = {
-  401: {
-    header: PV.i18n.errorMessages.header.LoginNeeded,
-    message1: PV.i18n.errorMessages.message.YouMustLoginToUseThisFeature
-  },
-  404: {
-    header: PV.i18n.errorMessages.header.Error_404,
-    message1: PV.i18n.errorMessages.message.PageNotFound
-  },
-  500: {
-    header: PV.i18n.errorMessages.header.ServersUnderMaintenance,
-    message1: PV.i18n.errorMessages.message.SiteOfflineUntilWorkIsComplete,
-    icon: 'tools'
-  },
-  defaultError: {
-    header: PV.i18n.errorMessages.header.SomethingWentWrong,
-    message1: PV.i18n.errorMessages.message.AnUnknownErrorHasOccurred,
-    message2: PV.i18n.errorMessages.message.CheckConnectionOrDifferentPage
+const errors = (t) => {
+  return {
+    401: {
+      message1: t('errorMessages:message.YouMustLoginToUseThisFeature')
+    },
+    404: {
+      header: t('errorMessages.header.Error_404'),
+      message1: t('errorMessages.message.PageNotFound')
+    },
+    500: {
+      header: t('errorMessages.header.ServersUnderMaintenance'),
+      message1: t('errorMessages.message.SiteOfflineUntilWorkIsComplete'),
+      icon: 'tools'
+    },
+    defaultError: {
+      header: t('errorMessages.header.SomethingWentWrong'),
+      message1: t('errorMessages.message.AnUnknownErrorHasOccurred'),
+      message2: t('errorMessages.message.CheckConnectionOrDifferentPage')
+    }
   }
 }
 
@@ -79,4 +81,4 @@ const mapStateToProps = state => ({ ...state })
 
 const mapDispatchToProps = dispatch => ({})
 
-export default connect(mapStateToProps, mapDispatchToProps)(withTranslation('common')(ErrorPage))
+export default connect(mapStateToProps, mapDispatchToProps)(withTranslation(PV.nexti18next.namespaces)(ErrorPage))
