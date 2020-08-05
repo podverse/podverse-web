@@ -115,11 +115,11 @@ class Playlists extends Component<Props, State> {
           title={meta.title}
           twitterDescription={meta.description}
           twitterTitle={meta.title} />
-        <h3>{PV.i18n.common.Playlists}</h3>
+        <h3>{t('Playlists')}</h3>
         {
           (!user || !user.id) &&
             <div className='no-results-msg'>
-              {PV.i18n.common.LoginToViewYour(PV.i18n.common.playlists)}
+              {PV.i18n.common.LoginToViewYour(t('playlists'))}
             </div>
         }
         {
@@ -133,7 +133,7 @@ class Playlists extends Component<Props, State> {
                 {
                   (myPlaylistNodes.length === 0) &&
                     <div className='no-results-msg'>
-                      {PV.i18n.common.noResultsMessage(PV.i18n.common.playlists)}
+                      {PV.i18n.common.noResultsMessage(t('playlists'))}
                     </div>
                 }
               </div>

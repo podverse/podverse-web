@@ -41,7 +41,7 @@ const kPageKey = 'podcast_'
 
 class Podcast extends Component<Props, State> {
 
-  static async getInitialProps({ query, req, store }) {
+  static async getInitialProps({ query, req, store, t }) {
     const pageKeyWithId = `${kPageKey}${query.id}`
     const state = store.getState()
     const { pages, user } = state
@@ -118,7 +118,7 @@ class Podcast extends Component<Props, State> {
     }
 
     store.dispatch(pageIsLoading(false))
-    const podcastTitle = podcast.title || PV.i18n.common.untitledPodcast
+    const podcastTitle = podcast.title || t('untitledPodcast')
     const meta = {
       currentUrl: BASE_URL + PV.paths.web.podcast + '/' + podcast.id,
       description: removeDoubleQuotes(podcast.description),

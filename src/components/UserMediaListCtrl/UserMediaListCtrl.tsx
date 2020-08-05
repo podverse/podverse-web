@@ -208,32 +208,32 @@ class UserMediaListCtrl extends Component<Props, State> {
 
     const items = [
       {
-        label: PV.i18n.queryLabels.most_recent,
+        label: t('queryLabels:most_recent'),
         onClick: () => this.queryMediaListItems(PV.queryParams.key.sort, PV.queryParams.most_recent),
         value: PV.queryParams.most_recent
       },
       {
-        label: PV.i18n.queryLabels.top_past_day,
+        label: t('queryLabels:top_past_day'),
         onClick: () => this.queryMediaListItems(PV.queryParams.key.sort, PV.queryParams.top_past_day),
         value: PV.queryParams.top_past_day
       },
       {
-        label: PV.i18n.queryLabels.top_past_week,
+        label: t('queryLabels:top_past_week'),
         onClick: () => this.queryMediaListItems(PV.queryParams.key.sort, PV.queryParams.top_past_week),
         value: PV.queryParams.top_past_week
       },
       {
-        label: PV.i18n.queryLabels.top_past_month,
+        label: t('queryLabels:top_past_month'),
         onClick: () => this.queryMediaListItems(PV.queryParams.key.sort, PV.queryParams.top_past_month),
         value: PV.queryParams.top_past_month
       },
       {
-        label: PV.i18n.queryLabels.top_past_year,
+        label: t('queryLabels:top_past_year'),
         onClick: () => this.queryMediaListItems(PV.queryParams.key.sort, PV.queryParams.top_past_year),
         value: PV.queryParams.top_past_year
       },
       {
-        label: PV.i18n.queryLabels.top_all_time,
+        label: t('queryLabels:top_all_time'),
         onClick: () => this.queryMediaListItems(PV.queryParams.key.sort, PV.queryParams.top_all_time),
         value: PV.queryParams.top_all_time
       },
@@ -246,7 +246,7 @@ class UserMediaListCtrl extends Component<Props, State> {
 
     if (isPodcasts) {
       items.unshift({
-        label: PV.i18n.queryLabels.alphabetical,
+        label: t('queryLabels:alphabetical'),
         onClick: () => this.queryMediaListItems(PV.queryParams.key.sort, PV.queryParams.alphabetical),
         value: PV.queryParams.alphabetical
       })

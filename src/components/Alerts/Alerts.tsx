@@ -147,7 +147,7 @@ class Alerts extends Component<Props, State> {
                 <p>{t('PleaseCheckInbox')}</p>
                 <span>
                   <Trans i18n={i18n} i18nKey='ContactSupport'>
-                    If it still doesn't appear, please email <a href={PV.paths.web.support_podverse_fm}>{PV.misc.supportEmail}</a> for help.
+                    If it still doesn't appear, please email <a href={`mailto:${PV.misc.email.contact}`}>{PV.misc.email.contact}</a> for help.
                   </Trans>
                 </span>
               </Fragment>

@@ -75,7 +75,7 @@ class Profiles extends Component<Props, State> {
           title={meta.title}
           twitterDescription={meta.description}
           twitterTitle={meta.title} />
-        <h3>{PV.i18n.common.Profiles}</h3>
+        <h3>{t('Profiles')}</h3>
         <UserListCtrl
           handleSetPageQueryState={pagesSetQueryState}
           pageKey={pageKey}

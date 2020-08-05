@@ -87,9 +87,8 @@ class About extends Component<Props, State> {
           </ul>
           <p>
             Our mission is to support the original independent spirit
-            of podcasting. We would love to collaborate with any and all podcast apps
-            to make our technologies as cross-compatible, convenient,
-            and empowering for people as possible.
+            of podcasting. We would love to collaborate with all podcast apps
+            to make our technologies as cross-compatible and convenient for people as possible.
           </p>
           <p>
             All Podverse software is provided free and open source (FOSS),

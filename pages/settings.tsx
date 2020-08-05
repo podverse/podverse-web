@@ -272,7 +272,7 @@ class Settings extends Component<Props, State> {
 
   updateProfile = async () => {
     this.setState({ isSaving: true })
-    const { user, userSetInfo } = this.props
+    const { t, user, userSetInfo } = this.props
     const { id } = user
     const { email, isPublic, name } = this.state
 
@@ -281,7 +281,7 @@ class Settings extends Component<Props, State> {
       await updateLoggedInUser(newData)
       userSetInfo(newData)
     } catch (error) {
-      if (error && error.response && error.response.data && error.response.data.message === PV.i18n.common.PremiumMembershipRequired) {
+      if (error && error.response && error.response.data && error.response.data.message === t('PremiumMembershipRequired')) {
         alertPremiumRequired()
       } else if (error && error.response && error.response.status === 429) {
         alertRateLimitError(error)
@@ -324,11 +324,11 @@ class Settings extends Component<Props, State> {
         className='settings-membership__checkout'
         color='primary'
         onClick={() => this.toggleCheckoutModal(true)}>
-        <FontAwesomeIcon icon='shopping-cart' />&nbsp;&nbsp;{isRenew ? PV.i18n.common.Renew : PV.i18n.common.Checkout}
+        <FontAwesomeIcon icon='shopping-cart' />&nbsp;&nbsp;{isRenew ? t('Renew') : t('Checkout')}
       </Button>
     )
 
-    const membershipStatusHeader = <h3 id='membership'>{PV.i18n.common.MembershipStatus}</h3>
+    const membershipStatusHeader = <h3 id='membership'>{t('MembershipStatus')}</h3>
 
     return (
       <div className='settings'>
@@ -342,13 +342,13 @@ class Settings extends Component<Props, State> {
           title={meta.title}
           twitterDescription={meta.description}
           twitterTitle={meta.title} />
-        <h3>{PV.i18n.common.Settings}</h3>
+        <h3>{t('Settings')}</h3>
         <Form>
           {
             isLoggedIn &&
             <Fragment>
                 <FormGroup>
-                  <Label for='settings-name'>{PV.i18n.common.Name}</Label>
+                  <Label for='settings-name'>{t('Name')}</Label>
                   <Input 
                     id='settings-name'
                     name='settings-name'
@@ -356,10 +356,10 @@ class Settings extends Component<Props, State> {
                     placeholder='anonymous'
                     type='text'
                     value={name} />
-                  <FormText>{PV.i18n.common.MayAppearNextToContentYouCreate}</FormText>
+                  <FormText>{t('MayAppearNextToContentYouCreate')}</FormText>
                 </FormGroup>
                 <FormGroup>
-                  <Label for='settings-name'>{PV.i18n.common.Email}</Label>
+                  <Label for='settings-name'>{t('Email')}</Label>
                   <Input
                     id='settings-email'
                     invalid={emailError}
@@ -384,8 +384,8 @@ class Settings extends Component<Props, State> {
                     onChange={this.handlePrivacyChange}
                     type='select'
                     value={isPublic ? 'public' : 'private'}>
-                    <option value='public'>{PV.i18n.common.Public}</option>
-                    <option value='private'>{PV.i18n.common.Private}</option>
+                    <option value='public'>{t('Public')}</option>
+                    <option value='private'>{t('Private')}</option>
                   </Input>
                   {
                     isPublic ?
@@ -397,7 +397,7 @@ class Settings extends Component<Props, State> {
                 {
                   (user.isPublic && isPublic) &&
                     <FormGroup style={{marginBottom: '2rem'}}>
-                      <Label for='settings-privacy-profile-link'>{PV.i18n.common.SharableProfileLink}</Label>
+                      <Label for='settings-privacy-profile-link'>{t('SharableProfileLink')}</Label>
                       <InputGroup id='settings-privacy-profile-link'>
                         <Input
                           id='settings-privacy-profile-link-input'
@@ -418,7 +418,7 @@ class Settings extends Component<Props, State> {
                   <Button
                     className='settings-profile-btns__cancel'
                     onClick={this.resetProfileChanges}>
-                    {PV.i18n.common.Cancel}
+                    {t('Cancel')}
                   </Button>
                   <Button
                     className='settings-profile-btns__save'
@@ -426,7 +426,7 @@ class Settings extends Component<Props, State> {
                     disabled={!this.validateProfileData()}
                     isLoading={isSaving}
                     onClick={this.updateProfile}>
-                    {PV.i18n.common.Save}
+                    {t('Save')}
                   </Button>
                 </div>
                 <hr />
@@ -440,8 +440,8 @@ class Settings extends Component<Props, State> {
                   && isBeforeDate(user.membershipExpiration)) &&
                 <Fragment>
                   {membershipStatusHeader}
-                  <p className='settings-membership__status is-active'>{PV.i18n.common.Premium}</p>
-                  <p>{PV.i18n.common.Ends}{new Date(user.membershipExpiration).toLocaleString()}</p>
+                  <p className='settings-membership__status is-active'>{t('Premium')}</p>
+                  <p>{t('Ends')}{new Date(user.membershipExpiration).toLocaleString()}</p>
                   {checkoutBtn(true)}
                   <hr />
                 </Fragment>
@@ -452,8 +452,8 @@ class Settings extends Component<Props, State> {
                   && isBeforeDate(user.freeTrialExpiration)) &&
                 <Fragment>
                   {membershipStatusHeader}
-                  <p className='settings-membership__status is-active'>{PV.i18n.common.PremiumFreeTrial}</p>
-                <p>{PV.i18n.common.Ends}{new Date(user.freeTrialExpiration).toLocaleString()}</p>
+                  <p className='settings-membership__status is-active'>{t('PremiumFreeTrial')}</p>
+                <p>{t('Ends')}{new Date(user.freeTrialExpiration).toLocaleString()}</p>
                   {checkoutBtn()}
                   <hr />
                 </Fragment>
@@ -464,9 +464,9 @@ class Settings extends Component<Props, State> {
                   && !isBeforeDate(user.freeTrialExpiration)) &&
                 <Fragment>
                   {membershipStatusHeader}
-                <p className='settings-membership__status is-expired'>{PV.i18n.common.Expired}</p>
-                  <p>{PV.i18n.common.Ended}{new Date(user.freeTrialExpiration).toLocaleString()}</p>
-                  <p>{PV.i18n.common.TrialEnded}</p>
+                <p className='settings-membership__status is-expired'>{t('Expired')}</p>
+                  <p>{t('Ended')}{new Date(user.freeTrialExpiration).toLocaleString()}</p>
+                  <p>{t('TrialEnded')}</p>
                   {checkoutBtn()}
                   <hr />
                 </Fragment>
@@ -477,9 +477,9 @@ class Settings extends Component<Props, State> {
                   && !isBeforeDate(user.membershipExpiration)) &&
                 <Fragment>
                   {membershipStatusHeader}
-                  <p className='settings-membership__status is-expired'>{PV.i18n.common.Expired}</p>
-                  <p>{PV.i18n.common.Ended}{new Date(user.membershipExpiration).toLocaleString()}</p>
-                  <p>{PV.i18n.common.MembershipEnded}</p>
+                  <p className='settings-membership__status is-expired'>{t('Expired')}</p>
+                  <p>{t('Ended')}{new Date(user.membershipExpiration).toLocaleString()}</p>
+                  <p>{t('MembershipEnded')}</p>
                   {checkoutBtn(true)}
                   <hr />
                 </Fragment>
@@ -488,22 +488,22 @@ class Settings extends Component<Props, State> {
                 (user.id && !user.freeTrialExpiration && !user.membershipExpiration) &&
                 <Fragment>
                   {membershipStatusHeader}
-                  <p className='settings-membership__status is-expired'>{PV.i18n.common.Inactive}</p>
-                  <p>{PV.i18n.common.MembershipInactive}</p>
+                  <p className='settings-membership__status is-expired'>{t('Inactive')}</p>
+                  <p>{t('MembershipInactive')}</p>
                   {checkoutBtn(true)}
                   <hr />
                 </Fragment>
               }
             </Fragment>
           }
-          <h3>{PV.i18n.common.Interface}</h3>
+          <h3>{t('Interface')}</h3>
           <FormGroup check>
             <Label className='checkbox-label' check>
               <Input
                 checked={censorNSFWText === 'true'}
                 onChange={this.handleToggleCensorNSFWText}
                 type="checkbox" />
-              &nbsp;&nbsp;{PV.i18n.common.CensorNSFWText}
+              &nbsp;&nbsp;{t('CensorNSFWText')}
             </Label>
           </FormGroup>
           <FormGroup check>
@@ -512,7 +512,7 @@ class Settings extends Component<Props, State> {
                 checked={nsfwLabelsHide === 'true' || !nsfwLabelsHide}
                 onChange={this.handleToggleNSFWLabels}
                 type="checkbox" />
-              &nbsp;&nbsp;{PV.i18n.common.HideNSFWLabels}
+              &nbsp;&nbsp;{t('HideNSFWLabels')}
             </Label>
           </FormGroup>
           <FormGroup check>
@@ -521,7 +521,7 @@ class Settings extends Component<Props, State> {
                 checked={timeJumpBackwardButtonHide === 'true'}
                 onChange={this.handleToggleTimeJumpBackwardButton}
                 type="checkbox" />
-              &nbsp;&nbsp;{PV.i18n.common.HideJumpBackwardsButton}
+              &nbsp;&nbsp;{t('HideJumpBackwardsButton')}
             </Label>
           </FormGroup>
           <FormGroup check>
@@ -530,7 +530,7 @@ class Settings extends Component<Props, State> {
                 checked={playbackSpeedButtonHide === 'true'}
                 onChange={this.handleTogglePlaybackSpeedButton}
                 type="checkbox" />
-              &nbsp;&nbsp;{PV.i18n.common.HidePlaybackSpeedButton}
+              &nbsp;&nbsp;{t('HidePlaybackSpeedButton')}
             </Label>
           </FormGroup>    
           <FormGroup check>
@@ -539,22 +539,22 @@ class Settings extends Component<Props, State> {
                 checked={filterButtonHide === 'true'}
                 onChange={this.handleToggleFilterButton}
                 type="checkbox" />
-              &nbsp;&nbsp;{PV.i18n.common.HideFilterButtons}
+              &nbsp;&nbsp;{t('HideFilterButtons')}
             </Label>
           </FormGroup>
           {
             user && user.id &&
             <Fragment>
               <hr />
-              <h3>{PV.i18n.common.MyData}</h3>
+              <h3>{t('MyData')}</h3>
               <p>
-                {PV.i18n.common.DownloadDataBackup}
+                {t('DownloadDataBackup')}
               </p>
               <Button
                 className='settings__download'
                 isLoading={isDownloading}
                 onClick={this.downloadLoggedInUserData}>
-                <FontAwesomeIcon icon='download' />&nbsp;&nbsp;{PV.i18n.common.Download}
+                <FontAwesomeIcon icon='download' />&nbsp;&nbsp;{t('Download')}
               </Button>
               <hr />
             </Fragment>
@@ -562,12 +562,12 @@ class Settings extends Component<Props, State> {
           {
             user && user.id &&
               <Fragment>
-                <h3>{PV.i18n.common.Management}</h3>
+                <h3>{t('Management')}</h3>
                 <Button
                   className='settings__delete-account'
                   color='danger'
                   onClick={() => this.toggleDeleteAccountModal(true)}>
-                  <FontAwesomeIcon icon='trash' />&nbsp;&nbsp;{PV.i18n.common.DeleteAccount}
+                  <FontAwesomeIcon icon='trash' />&nbsp;&nbsp;{t('DeleteAccount')}
                 </Button>
                 <DeleteAccountModal 
                   email={email}

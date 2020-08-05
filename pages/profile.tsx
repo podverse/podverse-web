@@ -36,7 +36,7 @@ const kPageKey = 'public_profile_'
 
 class Profile extends Component<Props, State> {
 
-  static async getInitialProps({ query, req, store }) {
+  static async getInitialProps({ query, req, store, t }) {
     const pageKeyWithId = `${kPageKey}${query.id}`
     const state = store.getState()
     const { pages, settings } = state
@@ -99,8 +99,8 @@ class Profile extends Component<Props, State> {
     if (publicUser) {
       meta = {
         currentUrl: BASE_URL + PV.paths.web.profile + '/' + publicUser.id,
-        description: `${publicUser.name ? publicUser.name : PV.i18n.common.Anonymous}'s profile on Podverse`,
-        title: `${publicUser.name ? publicUser.name : PV.i18n.common.Anonymous}'s profile on Podverse`
+        description: `${publicUser.name ? publicUser.name : t('Anonymous')}'s profile on Podverse`,
+        title: `${publicUser.name ? publicUser.name : t('Anonymous').}'s profile on Podverse`
       }
     }
     const namespacesRequired = ['common']

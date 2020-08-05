@@ -139,7 +139,7 @@ class Episodes extends Component<Props, State> {
           title={meta.title}
           twitterDescription={meta.description}
           twitterTitle={meta.title} />
-        <h3>{PV.i18n.common.Episodes}</h3>
+        <h3>{t('Episodes')}</h3>
         <MediaListCtrl
           adjustTopPosition
           allCategories={allCategories}

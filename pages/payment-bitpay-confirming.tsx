@@ -26,13 +26,13 @@ type State = {
 
 class PaymentConfirmingBitPay extends Component<Props, State> {
 
-  static async getInitialProps({ query, req, store }) {
+  static async getInitialProps({ query, req, store, t }) {
     store.dispatch(pageIsLoading(false))
 
     const meta = {
       currentUrl: BASE_URL + PV.paths.web.payment_bitpay_confirming,
-      description: PV.i18n.pages.payment_bitpay_confirming._Description,
-      title: PV.i18n.pages.payment_bitpay_confirming._Title
+      description: t('pages:payment_bitpay_confirming._Description'),
+      title: t('pages:payment_bitpay_confirming._Title')
     }
     const namespacesRequired = ['common']
 
@@ -66,14 +66,14 @@ class PaymentConfirmingBitPay extends Component<Props, State> {
   }
 
   checkPaymentStatus = async () => {
-    const { id } = this.props
+    const { id, t } = this.props
     const { currentCount } = this.state
     const newState: any = {}
 
     try {
       const bitpayInvoice = await getBitPayInvoiceStatusByOrderId(id)
 
-      if (bitpayInvoice && bitpayInvoice.data && (bitpayInvoice.data === PV.i18n.common.confirmed || bitpayInvoice.data === PV.i18n.common.complete)) {
+      if (bitpayInvoice && bitpayInvoice.data && (bitpayInvoice.data === t('confirmed') || bitpayInvoice.data === t('complete'))) {
         newState.hasError = false
         newState.isChecking = false
         newState.wasSuccessful = true

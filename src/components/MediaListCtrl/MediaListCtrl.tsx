@@ -209,7 +209,7 @@ class MediaListCtrl extends Component<Props, State> {
   }
 
   getQueryFromOptions = (showFromPodcast, showFromEpisode) => {
-    const { pageKey, pages } = this.props
+    const { pageKey, pages, t } = this.props
     const { querySort, queryType } = pages[pageKey]
 
     const options = [] as any
@@ -217,7 +217,7 @@ class MediaListCtrl extends Component<Props, State> {
     if (showFromPodcast) {
       options.unshift(
         {
-          label: PV.i18n.queryLabels.FromThisPodcast,
+          label: t('queryLabels:FromThisPodcast'),
           onClick: () => this.queryListItems(queryType, PV.queryParams.from_podcast, querySort, 1, null),
           value: PV.queryParams.from_podcast
         }
@@ -227,7 +227,7 @@ class MediaListCtrl extends Component<Props, State> {
     if (showFromEpisode) {
       options.unshift(
         {
-          label: PV.i18n.queryLabels.FromThisEpisode,
+          label: t('queryLabels:FromThisEpisode'),
           onClick: () => this.queryListItems(queryType, PV.queryParams.from_episode, querySort, 1, null),
           value: PV.queryParams.from_episode
         }
@@ -242,32 +242,32 @@ class MediaListCtrl extends Component<Props, State> {
 
     const items = [
       {
-        label: PV.i18n.queryLabels.most_recent,
+        label: t('queryLabels:most_recent'),
         onClick: () => this.querySort(PV.queryParams.most_recent),
         value: PV.queryParams.most_recent
       },
       {
-        label: PV.i18n.queryLabels.top_past_day,
+        label: t('queryLabels:top_past_day'),
         onClick: () => this.querySort(PV.queryParams.top_past_day),
         value: PV.queryParams.top_past_day
       },
       {
-        label: PV.i18n.queryLabels.top_past_week,
+        label: t('queryLabels:top_past_week'),
         onClick: () => this.querySort(PV.queryParams.top_past_week),
         value: PV.queryParams.top_past_week
       },
       {
-        label: PV.i18n.queryLabels.top_past_month,
+        label: t('queryLabels:top_past_month'),
         onClick: () => this.querySort(PV.queryParams.top_past_month),
         value: PV.queryParams.top_past_month
       },
       {
-        label: PV.i18n.queryLabels.top_past_year,
+        label: t('queryLabels:top_past_year'),
         onClick: () => this.querySort(PV.queryParams.top_past_year),
         value: PV.queryParams.top_past_year
       },
       {
-        label: PV.i18n.queryLabels.top_all_time,
+        label: t('queryLabels:top_all_time'),
         onClick: () => this.querySort(PV.queryParams.top_all_time),
         value: PV.queryParams.top_all_time
       },
@@ -479,26 +479,26 @@ class MediaListCtrl extends Component<Props, State> {
   }
 
   generateTopLevelSelectNodes = () => {
-    const { pageKey, pages } = this.props
+    const { pageKey, pages, t } = this.props
     const { queryFrom, queryType, querySort } = pages[pageKey]
     const topLevelItems = [] as any[]
 
     topLevelItems.push({
-      label: PV.i18n.queryLabels.Subscribed,
+      label: t('queryLabels:Subscribed'),
       onClick: () => this.queryListItems(queryType, PV.queryParams.subscribed_only, querySort, 1, null),
       parentValue: null,
       value: PV.queryParams.subscribed_only
     })
 
     topLevelItems.push({
-      label: PV.i18n.queryLabels.AllPodcasts,
+      label: t('queryLabels:AllPodcasts'),
       onClick: () => this.queryListItems(queryType, PV.queryParams.all_podcasts, querySort, 1, null),
       parentValue: null,
       value: PV.queryParams.all_podcasts
     })
 
     topLevelItems.push({
-      label: PV.i18n.queryLabels.Categories,
+      label: t('queryLabels:Categories'),
       onClick: () => this.queryListItems(queryType, PV.queryParams.from_category, querySort, 1, null),
       parentValue: null,
       value: PV.queryParams.from_category
@@ -513,7 +513,7 @@ class MediaListCtrl extends Component<Props, State> {
   }
 
   generateCategorySelectNodes = (selectedCategoryId) => {
-    const { allCategories, pageKey, pages } = this.props
+    const { allCategories, pageKey, pages, t } = this.props
     const { queryType, queryFrom, querySort, selected } = pages[pageKey]
 
     const categoryItems = allCategories.map(x => {
@@ -540,7 +540,7 @@ class MediaListCtrl extends Component<Props, State> {
       }
 
       subcategoryItems.unshift({
-        label: PV.i18n.queryLabels.All,
+        label: t('queryLabels:All'),
         onClick: () => this.queryListItems(queryType, queryFrom, querySort, 1, selectedCategory.parentValue),
         parentValue: null,
         value: selectedCategory.parentValue

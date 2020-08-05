@@ -193,12 +193,12 @@ class PodcastListCtrl extends Component<Props, State> {
 
     return [
       {
-        label: PV.i18n.queryLabels.alphabetical,
+        label: t('queryLabels:alphabetical'),
         onClick: () => this.queryPodcastsSort(PV.queryParams.alphabetical),
         value: PV.queryParams.alphabetical
       },
       {
-        label: PV.i18n.queryLabels.most_recent,
+        label: t('queryLabels:most_recent'),
         onClick: () => this.queryPodcastsSort(PV.queryParams.most_recent),
         value: PV.queryParams.most_recent
       },
@@ -208,27 +208,27 @@ class PodcastListCtrl extends Component<Props, State> {
       //   value: 'top-past-hour'
       // },
       {
-        label: PV.i18n.queryLabels.top_past_day,
+        label: t('queryLabels:top_past_day'),
         onClick: () => this.queryPodcastsSort(PV.queryParams.top_past_day),
         value: PV.queryParams.top_past_day
       },
       {
-        label: PV.i18n.queryLabels.top_past_week,
+        label: t('queryLabels:top_past_week'),
         onClick: () => this.queryPodcastsSort(PV.queryParams.top_past_week),
         value: PV.queryParams.top_past_week
       },
       {
-        label: PV.i18n.queryLabels.top_past_month,
+        label: t('queryLabels:top_past_month'),
         onClick: () => this.queryPodcastsSort(PV.queryParams.top_past_month),
         value: PV.queryParams.top_past_month
       },
       {
-        label: PV.i18n.queryLabels.top_past_year,
+        label: t('queryLabels:top_past_year'),
         onClick: () => this.queryPodcastsSort(PV.queryParams.top_past_year),
         value: PV.queryParams.top_past_year
       },
       {
-        label: PV.i18n.queryLabels.top_all_time,
+        label: t('queryLabels:top_all_time'),
         onClick: () => this.queryPodcastsSort(PV.queryParams.top_all_time),
         value: PV.queryParams.top_all_time
       },
@@ -241,26 +241,26 @@ class PodcastListCtrl extends Component<Props, State> {
   }
 
   generateTopLevelSelectNodes = () => {
-    const { allCategories, pageKey, pages } = this.props
+    const { allCategories, pageKey, pages, t } = this.props
     const { categoryId, queryFrom } = pages[pageKey]
     const topLevelItems = [] as any[]
 
     topLevelItems.push({
-      label: PV.i18n.queryLabels.Subscribed,
+      label: t('queryLabels:Subscribed'),
       onClick: () => this.queryPodcastsSubscribed(),
       parentValue: null,
       value: PV.queryParams.subscribed_only
     })
 
     topLevelItems.push({
-      label: PV.i18n.queryLabels.AllPodcasts,
+      label: t('queryLabels:AllPodcasts'),
       onClick: () => this.queryPodcastsAll(),
       parentValue: null,
       value: PV.queryParams.all_podcasts
     })
 
     topLevelItems.push({
-      label: PV.i18n.queryLabels.Categories,
+      label: t('queryLabels:Categories'),
       onClick: () => this.queryPodcastsCategory(categoryId || allCategories[2].id /* Arts */),
       parentValue: null,
       value: PV.queryParams.from_category
@@ -275,7 +275,7 @@ class PodcastListCtrl extends Component<Props, State> {
   }
 
   generateCategorySelectNodes = (selectedCategoryId) => {
-    const { allCategories, pageKey, pages } = this.props
+    const { allCategories, pageKey, pages, t } = this.props
     const { selected } = pages[pageKey]
 
     const categoryItems = allCategories.map(x => {
@@ -302,7 +302,7 @@ class PodcastListCtrl extends Component<Props, State> {
       }
 
       subcategoryItems.unshift({
-        label: PV.i18n.queryLabels.All,
+        label: t('queryLabels:All'),
         onClick: () => this.queryPodcastsCategory(selectedCategory.parentValue),
         parentValue: null,
         value: selectedCategory.parentValue

@@ -141,7 +141,7 @@ class Home extends Component<Props, State> {
           title={meta.title}
           twitterDescription={meta.description}
           twitterTitle={meta.title} />
-        <h3>{PV.i18n.common.Clips}</h3>
+        <h3>{t('Clips')}</h3>
         <MediaListCtrl
           adjustTopPosition
           allCategories={allCategories}
