@@ -92,5 +92,10 @@
   "untitledPlaylist": "untitled playist",
   "untitledPodcast": "untitled podcast",
   "Update": "Update",
-  "TurnOnDark": "Turn on dark mode"
+  "TurnOnDark": "Turn on dark mode",
+  "YouFreeTrialHasEnded": "Your free trial has ended. <1>{{renewLink}}</1> to continue using premium features.",
+  "YourFreeTrialWillEndSoon": "Your free trial will end soon. <1>{{renewLink}}</1> to continue using premium features.",
+  "YourMembershipHasExpired": "Your membership has expired. <1>{{renewLink}}</1> to continue using premium features.",
+  "YourMembershipWillExpireSoon": "Your membership will expire soon. ${renewLink} to continue using premium features."
+
 }

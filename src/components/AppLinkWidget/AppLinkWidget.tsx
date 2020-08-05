@@ -42,7 +42,8 @@ const createDeepLink = (pageKey: string) => {
   }
 }
 
-const createDownloadButton = (mobileOS: string) => {
+const createDownloadButton = (mobileOS: string, t) => {
+
   if (mobileOS === 'Android') {
     return (
       <a
@@ -51,7 +52,7 @@ const createDownloadButton = (mobileOS: string) => {
         rel='noopener noreferrer'
         target='_blank'>
         <img
-          alt={PV.i18n.common.GetItOnGooglePlay}
+          alt={t('GetItOnGooglePlay')}
           src={PV.paths.web.googlePlayStoreBadge}
         />
       </a>
@@ -135,7 +136,7 @@ class AppLinkWidget extends Component<Props, State> {
   render() {
     const { pageKey = '' , t } = this.props
     const { isValidMobileOS, mobileOS, modalIsOpen } = this.state
-    const downloadButton = createDownloadButton(mobileOS)
+    const downloadButton = createDownloadButton(mobileOS, t)
 
     const isDeepLinkPage = pageKey && deepLinkPages.find((x) => pageKey.indexOf(x) >= 0)
 

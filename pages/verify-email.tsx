@@ -81,7 +81,7 @@ class VerifyEmail extends Component<Props, State> {
               <p>{t('ThankYouForVerifying')}</p>
               <p className='font-bolder'>
                 <Link as={PV.paths.web._login} href={PV.paths.web._login}>
-                  <a>{t('')Login}</a>
+                  <a>{t('Login')}</a>
                 </Link>
               </p>
             </Fragment>
