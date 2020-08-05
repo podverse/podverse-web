@@ -100,7 +100,7 @@ class Profile extends Component<Props, State> {
       meta = {
         currentUrl: BASE_URL + PV.paths.web.profile + '/' + publicUser.id,
         description: `${publicUser.name ? publicUser.name : t('Anonymous')}'s profile on Podverse`,
-        title: `${publicUser.name ? publicUser.name : t('Anonymous').}'s profile on Podverse`
+        title: `${publicUser.name ? publicUser.name : t('Anonymous')}'s profile on Podverse`
       }
     }
     const namespacesRequired = ['common']

@@ -35,7 +35,7 @@ class PaymentConfirmingPayPal extends Component<Props, State> {
       description: t('pages:payment_paypal_confirming._Description'),
       title: t('pages:payment_paypal_confirming._Title')
     }
-    const namespacesRequired = ['common']
+    const namespacesRequired = PV.nexti18next.namespaces
 
     return { id: query.id, meta, namespacesRequired }
   }

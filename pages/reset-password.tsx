@@ -41,7 +41,7 @@ class ResetPassword extends Component<Props, State> {
 
     store.dispatch(pageIsLoading(false))
 
-    const namespacesRequired = ['common']
+    const namespacesRequired = PV.nexti18next.namespaces
 
     return { meta, namespacesRequired, passwordResetToken: token }
   }

@@ -145,7 +145,7 @@ class Clip extends Component<Props, State> {
       }
     }
 
-    const namespacesRequired = ['common']
+    const namespacesRequired = PV.nexti18next.namespaces
     
     return { lastScrollPosition, mediaRef, meta, namespacesRequired, newPlayingItem, pageKey: pageKeyWithId, queryFrom,
       querySort, queryType }

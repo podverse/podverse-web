@@ -141,7 +141,7 @@ class Episode extends Component<Props, State> {
         title: `${episode.title} - ${podcastTitle}`
       }
     }
-    const namespacesRequired = ['common']
+    const namespacesRequired = PV.nexti18next.namespaces
 
     return { episode, lastScrollPosition, meta, namespacesRequired, newPlayingItem, pageKey: pageKeyWithId,
       queryFrom, querySort, queryType }

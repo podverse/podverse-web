@@ -126,7 +126,7 @@ class Podcast extends Component<Props, State> {
       imageUrl: podcast.shrunkImageUrl || podcast.imageUrl,
       title: podcastTitle
     }
-    const namespacesRequired = ['common']
+    const namespacesRequired = PV.nexti18next.namespaces
 
     return { lastScrollPosition, meta, namespacesRequired, pageKey: pageKeyWithId, podcast, queryFrom, queryPage,
       querySort, queryType }
