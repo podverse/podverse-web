@@ -61,7 +61,7 @@ class ResetPassword extends Component<Props, State> {
     const newState: any = {}
 
     if (password && !validatePassword(password)) {
-      newState.errorPassword = t('errorMessages.message.passwordError')
+      newState.errorPassword = t('errorMessages:message.passwordError')
     } else if (validatePassword(password)) {
       newState.errorPassword = null
     }
@@ -237,4 +237,4 @@ class ResetPassword extends Component<Props, State> {
   }
 }
 
-export default (withTranslation('common')(ResetPassword))
+export default (withTranslation(PV.nexti18next.namespaces)(ResetPassword))

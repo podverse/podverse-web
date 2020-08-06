@@ -61,18 +61,18 @@ const errors = (t) => {
       message1: t('errorMessages:message.YouMustLoginToUseThisFeature')
     },
     404: {
-      header: t('errorMessages.header.Error_404'),
-      message1: t('errorMessages.message.PageNotFound')
+      header: t('errorMessages:header.Error_404'),
+      message1: t('errorMessages:message.PageNotFound')
     },
     500: {
-      header: t('errorMessages.header.ServersUnderMaintenance'),
-      message1: t('errorMessages.message.SiteOfflineUntilWorkIsComplete'),
+      header: t('errorMessages:header.ServersUnderMaintenance'),
+      message1: t('errorMessages:message.SiteOfflineUntilWorkIsComplete'),
       icon: 'tools'
     },
     defaultError: {
-      header: t('errorMessages.header.SomethingWentWrong'),
-      message1: t('errorMessages.message.AnUnknownErrorHasOccurred'),
-      message2: t('errorMessages.message.CheckConnectionOrDifferentPage')
+      header: t('errorMessages:header.SomethingWentWrong'),
+      message1: t('errorMessages:message.AnUnknownErrorHasOccurred'),
+      message2: t('errorMessages:message.CheckConnectionOrDifferentPage')
     }
   }
 }

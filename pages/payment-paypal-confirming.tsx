@@ -157,4 +157,4 @@ const mapStateToProps = state => ({ ...state })
 
 const mapDispatchToProps = dispatch => ({})
 
-export default connect(mapStateToProps, mapDispatchToProps)(withTranslation('common')(PaymentConfirmingPayPal))
+export default connect(mapStateToProps, mapDispatchToProps)(withTranslation(PV.nexti18next.namespaces)(PaymentConfirmingPayPal))
