@@ -1,18 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
 
 export const pages = {
-  payment_bitpay_confirming: {
-    _Description: `BitPay payment confirmation screen on Podverse`,
-    _Title: `Confirming BitPay payment...`
-  },
-  payment_paypal_confirming: {
-    _Description: `PayPal payment confirmation screen on Podverse`,
-    _Title: `Confirming PayPal payment...`
-  },
-  reset_password: {
-    _Description: `Reset your account password on Podverse`,
-    _Title: `Reset Password`
-  },
   terms: {
     PodverseTerms_1: `Podverse will never sell or share private user data.`,
     PodverseTerms_2: `We will never put advertisements next to or within a podcast's content without that podcast's permission.`,

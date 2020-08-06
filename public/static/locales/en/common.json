@@ -1,6 +1,4 @@
 {
-  "hello-world": "Hello world!",
-  "change-locale": "Change locale",
   "About": "About",
   "Anonymous": "Anonymous",
   "Cancel": "Cancel",
@@ -97,5 +95,4 @@
   "YourFreeTrialWillEndSoon": "Your free trial will end soon. <1>{{renewLink}}</1> to continue using premium features.",
   "YourMembershipHasExpired": "Your membership has expired. <1>{{renewLink}}</1> to continue using premium features.",
   "YourMembershipWillExpireSoon": "Your membership will expire soon. ${renewLink} to continue using premium features."
-
 }
