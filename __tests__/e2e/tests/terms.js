@@ -9,7 +9,7 @@ module.exports = {
       .waitForElementWithText('h3', 'Terms of Service')
       .testSharedMetaTags()
       .testPageMetaTags(
-        'Podverse - Terms of Service',
+        'Terms of Service',
         'Podverse terms of service agreement.'
       )
   },

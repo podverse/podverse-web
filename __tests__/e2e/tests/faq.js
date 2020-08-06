@@ -9,8 +9,8 @@ module.exports = {
       .waitForElementWithText('h3', 'FAQ')
       .testSharedMetaTags()
       .testPageMetaTags(
-        'Podverse - FAQ',
-        'Podverse - Frequently asked questions'
+        'FAQ',
+        'Frequently asked questions'
       )
   },
   after: function (browser) {

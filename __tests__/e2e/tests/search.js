@@ -10,7 +10,7 @@ module.exports = {
     browser
       .testSharedMetaTags()
       .testPageMetaTags(
-        'Podverse - Search',
+        'Search',
         'Search for podcasts by title or host on Podverse.'
       )
       .waitForXpathPresent(`//h3[contains(text(), "Search")]`)

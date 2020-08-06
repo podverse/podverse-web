@@ -9,7 +9,7 @@ module.exports = {
       .waitForElementWithText('h3', 'About')
       .testSharedMetaTags()
       .testPageMetaTags(
-        'Podverse - About',
+        'About',
         'Information about the Podverse open source podcast app.'
       )
   },
