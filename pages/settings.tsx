@@ -32,7 +32,7 @@ type Props = {
   settingsHideTimeJumpBackwardButton?: any
   settingsHidePlaybackSpeedButton?: any
   settingsHideNSFWLabels?: any
-  t: any
+  t?: any
   user?: any
   userSetInfo?: any
 }

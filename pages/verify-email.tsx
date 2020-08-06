@@ -15,7 +15,7 @@ type Props = {
   hasError?: string
   modalsLoginShow?: any
   modalsSendVerificationEmailShow?: any
-  t: any
+  t?: any
 }
 
 type State = {}

@@ -21,7 +21,7 @@ type Props = {
   pages?: any
   pagesSetQueryState?: any
   settings?: any
-  t: any
+  t?: any
 }
 
 type State = {

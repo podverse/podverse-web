@@ -16,7 +16,7 @@ type Props = {
   handleHideModal: Function
   isOpen?: boolean
   pageIsLoading?: any
-  t: any
+  t?: any
 }
 
 type State = {

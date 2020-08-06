@@ -8,7 +8,7 @@ import { withTranslation } from '../i18n'
 
 type Props = {
   statusCode?: number
-  t: any
+  t?: any
 }
 
 type State = {}

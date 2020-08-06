@@ -13,7 +13,7 @@ type Props = {
   lastScrollPosition?: number
   modalsSignUpShow?: any
   pageKey?: string
-  t: any
+  t?: any
 }
 
 type State = {}

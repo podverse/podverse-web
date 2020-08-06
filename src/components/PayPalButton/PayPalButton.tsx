@@ -23,7 +23,7 @@ type Props = {
   onError: Function
   onSuccess: Function
   subtotal?: string
-  t: any
+  t?: any
   tax?: number
   total?: number
   updateStateAfterScriptLoads?: Function

@@ -10,7 +10,7 @@ type Props = {
   handleHideModal: Function
   id: string
   isOpen?: boolean
-  t: any
+  t?: any
 }
 
 type State = {

@@ -11,7 +11,7 @@ const { APP_DOWNLOAD_ON_THE_APP_STORE_URL, APP_GET_IT_ON_GOOGLE_PLAY_URL, APP_PR
 
 type Props = {
   pageKey: string
-  t: any
+  t?: any
 }
 
 type State = {

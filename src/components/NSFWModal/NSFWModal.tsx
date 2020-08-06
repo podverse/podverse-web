@@ -8,7 +8,7 @@ export interface Props {
   handleHideModal?: (event: React.MouseEvent<HTMLButtonElement>) => void
   isNSFWModeOn?: boolean
   isOpen?: boolean
-  t: any
+  t?: any
 }
 
 const customStyles = {

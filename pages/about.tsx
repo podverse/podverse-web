@@ -12,7 +12,7 @@ type Props = {
   lastScrollPosition?: number
   meta?: any
   pageKey?: string
-  t: any
+  t?: any
 }
 
 type State = {}

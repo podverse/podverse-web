@@ -23,7 +23,7 @@ type Props = {
   settings: any
   settingsSetNSFWMode: any
   settingsSetUITheme: any
-  t: any
+  t?: any
   user: any
 }
 

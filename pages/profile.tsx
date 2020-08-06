@@ -26,7 +26,7 @@ type Props = {
   queryPage?: number
   querySort?: string
   queryType?: string
-  t: any
+  t?: any
   user?: any
 }
 

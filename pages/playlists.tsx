@@ -20,7 +20,7 @@ type Props = {
   pageKey?: string
   pagesSetQueryState?: any
   subscribedPlaylists: any[]
-  t: any
+  t?: any
   user: any
 }
 

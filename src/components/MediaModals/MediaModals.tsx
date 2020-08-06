@@ -34,7 +34,7 @@ type Props = {
   playerQueueLoadItems?: any
   playerQueueLoadPriorityItems?: any
   playerQueueLoadSecondaryItems?: any
-  t: any
+  t?: any
   user?: any
   userSetInfo?: any
 }

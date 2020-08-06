@@ -22,7 +22,7 @@ type Props = {
   page?: any
   pageKey?: string
   pageIsLoading?: any
-  t: any
+  t?: any
 }
 
 type State = {

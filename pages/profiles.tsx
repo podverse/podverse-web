@@ -16,7 +16,7 @@ type Props = {
   pageKey?: string
   pagesSetQueryState?: any
   queryPage: number
-  t: any
+  t?: any
   user?: any
 }
 

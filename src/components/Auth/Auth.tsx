@@ -24,7 +24,7 @@ type Props = {
   modalsSignUpSetErrorResponse?: any
   modalsSignUpShow?: any
   playerQueueLoadPriorityItems?: any
-  t: any
+  t?: any
   user?: any
   userSetInfo?: any
 }

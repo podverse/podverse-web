@@ -22,7 +22,7 @@ type Props = {
   queryFrom?: string
   queryPage: number
   querySort?: any
-  t: any
+  t?: any
 }
 
 type State = {}

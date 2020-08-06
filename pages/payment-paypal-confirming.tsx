@@ -12,7 +12,7 @@ const { BASE_URL } = config()
 type Props = {
   id: string
   meta?: any
-  t: any
+  t?: any
 }
 
 type State = {

@@ -40,7 +40,7 @@ type Props = {
   playlistItems: any[]
   settings?: any
   sortedNowPlayingItems
-  t: any
+  t?: any
   user: any
   userSetInfo: any
 }

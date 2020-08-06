@@ -20,7 +20,7 @@ type Props = {
   pagesSetQueryState?: any
   playerQueueLoadPriorityItems?: any
   settings?: any
-  t: any
+  t?: any
   user?: any
   userSetInfo?: any
 }

@@ -15,7 +15,7 @@ const { BASE_URL } = config()
 type Props = {
   meta?: any
   passwordResetToken?: string
-  t: any
+  t?: any
 }
 
 type State = {

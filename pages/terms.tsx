@@ -8,7 +8,7 @@ import { withTranslation } from '../i18n'
 const { BASE_URL } = config()
 
 type Props = {
-  t: any
+  t?: any
 }
 
 type State = {}

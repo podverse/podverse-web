@@ -11,7 +11,7 @@ const { BASE_URL } = config()
 type Props = {
   lastScrollPosition?: number
   pageKey?: string
-  t: any
+  t?: any
 }
 
 type State = {}
