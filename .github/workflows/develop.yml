@@ -28,6 +28,7 @@ jobs:
           docker-compose -f /home/mitch/podverse-ops/docker-compose.stage.yml up -d podverse_web
           cd podverse-web
           git pull
+          npm install
           npm run test:e2e:suite
         host: ${{ secrets.STAGE_SSH_HOST }}
         username: ${{ secrets.STAGE_SSH_USERNAME }}
