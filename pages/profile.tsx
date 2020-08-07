@@ -110,7 +110,7 @@ class Profile extends Component<Props, State> {
 
   render() {
     const { errorCode, meta, pageKey, pagesSetQueryState, publicUser,
-      queryPage, querySort, queryType, user } = this.props
+      queryPage, querySort, queryType, t, user } = this.props
 
     if (errorCode) {
       return <Error statusCode={errorCode} />
