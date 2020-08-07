@@ -247,7 +247,7 @@ class MediaModals extends Component<Props, State> {
       } else if (error && error.response && error.response.status === 401) {
         alertPremiumRequired(t)
       } else {
-        alertSomethingWentWrong()
+        alertSomethingWentWrong(t)
       }
       this.setState({ makeClipIsSaving: false })
     }
@@ -322,7 +322,7 @@ class MediaModals extends Component<Props, State> {
         } else if (error && error.response && error.response.status === 429) {
           alertRateLimitError(error)
         } else {
-          alertSomethingWentWrong()
+          alertSomethingWentWrong(t)
         }
       }
     }
@@ -347,7 +347,7 @@ class MediaModals extends Component<Props, State> {
       } else if (error && error.response && error.response.status === 429) {
         alertRateLimitError(error)
       } else {
-        alertSomethingWentWrong()
+        alertSomethingWentWrong(t)
       }
       modalsAddToCreatePlaylistIsSaving(false)
     }

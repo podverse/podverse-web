@@ -63,7 +63,7 @@ class MediaHeaderCtrl extends Component<Props, State> {
       } else if (error && error.response && error.response.status === 429) {
         alertRateLimitError(error)
       } else {
-        alertSomethingWentWrong()
+        alertSomethingWentWrong(t)
       }
     }
 
