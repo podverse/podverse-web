@@ -156,7 +156,7 @@ class ResetPassword extends Component<Props, State> {
           twitterDescription={meta.description}
           twitterTitle={meta.title} />
         <Form className='reset-password'>
-          <h3>Reset Password</h3>
+          <h3>{t('Reset Password')}</h3>
           {
             (errorResponse && !isLoading) &&
             <Alert color='danger'>
@@ -166,14 +166,14 @@ class ResetPassword extends Component<Props, State> {
           {
             wasSuccessful &&
               <Alert color='primary'>
-                Success! Redirecting to the home page...
+                {t('Success! Redirecting to the home page')}
               </Alert>
           }
           {
             !wasSuccessful &&
               <Fragment>
                 <FormGroup>
-                  <Label for='reset-password__password'>New Password</Label>
+                  <Label for='reset-password__password'>{t('New Password')}</Label>
                   <Input
                     data-state-key='password'
                     invalid={errorPassword}
@@ -192,12 +192,12 @@ class ResetPassword extends Component<Props, State> {
                   {
                     (!validatePassword(password) && !errorPassword) &&
                     <FormText>
-                      Password must contain a number, uppercase, lowercase, and be at least 8 characters long.
+                      {t('Password must contain')}
                     </FormText>
                   }
                 </FormGroup>
                 <FormGroup>
-                  <Label for='reset-password__password-confirm'>Confirm Password</Label>
+                  <Label for='reset-password__password-confirm'>{t('Confirm Password')}</Label>
                   <Input
                     data-state-key='passwordConfirm'
                     invalid={errorPasswordConfirm}

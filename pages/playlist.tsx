@@ -266,7 +266,7 @@ class Playlist extends Component<Props, State> {
       }
     } catch (error) {
       if (error && error.response && error.response.data && error.response.data.message === PV.errorResponseMessages.premiumRequired) {
-        alertPremiumRequired()
+        alertPremiumRequired(t)
       } else if (error && error.response && error.response.status === 429) {
         alertRateLimitError(error)
       } else {
@@ -476,7 +476,7 @@ class Playlist extends Component<Props, State> {
           title={meta.title}
           twitterDescription={meta.description}
           twitterTitle={meta.title} />
-        <h3>Playlist</h3>
+        <h3>{t('Playlist')}</h3>
         <div className='media-header'>
           <div className='text-wrapper'>
             <div className='media-header__top'>
@@ -541,7 +541,7 @@ class Playlist extends Component<Props, State> {
               <div className='media-header__sub-title'>
               {
                 owner && !isEditing &&
-                  <Fragment>By: {owner.name ? owner.name : t('Anonymous')}</Fragment>
+                  <Fragment>{t('By')}: {owner.name ? owner.name : t('Anonymous')}</Fragment>
               }
               </div>
             </div>
@@ -554,13 +554,13 @@ class Playlist extends Component<Props, State> {
                 {
                   lastUpdated &&
                   <div className='media-info__last-updated'>
-                    Updated: {readableDate(lastUpdated)}
+                    {t('Updated')}: {readableDate(lastUpdated)}
                   </div>
                 }
                 {
                   (itemCount || itemCount === 0) &&
                   <div className='media-info__item-count'>
-                    Items: {itemCount}
+                    {t('Items')}: {itemCount}
                   </div>
                 }
               </Fragment>

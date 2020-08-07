@@ -158,12 +158,12 @@ export const clone = obj => {
   return copy
 }
 
-export const alertPremiumRequired = () => {
-  safeAlert('This feature is only available for premium members. Login for a free trial.')
+export const alertPremiumRequired = (t) => {
+  safeAlert(t('This feature is only available for premium members'))
 }
 
-export const alertSomethingWentWrong = () => {
-  safeAlert('Something went wrong. Please check your internet connection.')
+export const alertSomethingWentWrong = (t) => {
+  safeAlert(t('Something went wrong'))
 }
 
 // Remove double quotes from text so it does not cut off in SEO descriptions

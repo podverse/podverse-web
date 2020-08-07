@@ -283,7 +283,7 @@ class Settings extends Component<Props, State> {
       userSetInfo(newData)
     } catch (error) {
       if (error && error.response && error.response.data && error.response.data.message === t('PremiumMembershipRequired')) {
-        alertPremiumRequired()
+        alertPremiumRequired(t)
       } else if (error && error.response && error.response.status === 429) {
         alertRateLimitError(error)
       } else {
@@ -378,7 +378,7 @@ class Settings extends Component<Props, State> {
                   }
                 </FormGroup>
                 <FormGroup>
-                  <Label for='settings-privacy'>Profile Privacy</Label>
+                  <Label for='settings-privacy'>{t('Profile Privacy')}</Label>
                   <Input
                     className='settings-privacy'
                     name='settings-privacy'
@@ -390,9 +390,8 @@ class Settings extends Component<Props, State> {
                   </Input>
                   {
                     isPublic ?
-                      <FormText>Podcasts, clips, and playlists are visible on your profile page</FormText>
-                      : <FormText>Your profile page is hidden. Your Public clips are still accessible by anyone,
-                        and your Only with Link clips and playlists are still accessible to anyone with the URL.</FormText>
+                      <FormText>{t('Podcasts, clips, and playlists are visible on your profile page')}</FormText>
+                      : <FormText>{t('Your profile page is hidden')}</FormText>
                   }
                 </FormGroup>
                 {
@@ -410,7 +409,7 @@ class Settings extends Component<Props, State> {
                             color='primary'
                             dataclipboardtarget='#settings-privacy-profile-link-input'
                             onClick={this.copyProfileLink}
-                            text={wasCopied ? 'Copied!' : 'Copy'} />
+                            text={wasCopied ? t('Copied!') : t('Copy')} />
                         </InputGroupAddon>
                       </InputGroup>
                     </FormGroup>

@@ -245,7 +245,7 @@ class MediaModals extends Component<Props, State> {
       } else if (error && error.response && error.response.status === 429) {
         alertRateLimitError(error)
       } else if (error && error.response && error.response.status === 401) {
-        alertPremiumRequired()
+        alertPremiumRequired(t)
       } else {
         alertSomethingWentWrong()
       }
@@ -283,7 +283,7 @@ class MediaModals extends Component<Props, State> {
 
   playlistItemAdd = async event => {
     event.preventDefault()
-    const { modals, user, userSetInfo } = this.props
+    const { modals, t, user, userSetInfo } = this.props
     const { addTo } = modals
     const { nowPlayingItem } = addTo
 
@@ -318,7 +318,7 @@ class MediaModals extends Component<Props, State> {
         }
       } catch (error) {
         if (error && error.response && error.response.data && error.response.data.message === PV.errorResponseMessages.premiumRequired) {
-          alertPremiumRequired()
+          alertPremiumRequired(t)
         } else if (error && error.response && error.response.status === 429) {
           alertRateLimitError(error)
         } else {
@@ -331,7 +331,7 @@ class MediaModals extends Component<Props, State> {
   }
 
   createPlaylistSave = async title => {
-    const { modalsAddToCreatePlaylistIsSaving, modalsAddToCreatePlaylistShow,
+    const { modalsAddToCreatePlaylistIsSaving, modalsAddToCreatePlaylistShow, t,
       user, userSetInfo } = this.props
     modalsAddToCreatePlaylistIsSaving(true)
 
@@ -343,7 +343,7 @@ class MediaModals extends Component<Props, State> {
       modalsAddToCreatePlaylistShow(false)
     } catch (error) {
       if (error && error.response && error.response.data && error.response.data.message === PV.errorResponseMessages.premiumRequired) {
-        alertPremiumRequired()
+        alertPremiumRequired(t)
       } else if (error && error.response && error.response.status === 429) {
         alertRateLimitError(error)
       } else {

@@ -61,7 +61,7 @@ class UserHeaderCtrl extends Component<Props, State> {
       }
     } catch (error) {
       if (error && error.response && error.response.data && error.response.data.message === PV.errorResponseMessages.premiumRequired) {
-        alertPremiumRequired()
+        alertPremiumRequired(t)
       } else if (error && error.response && error.response.status === 429) {
         alertRateLimitError(error)
       } else {

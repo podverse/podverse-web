@@ -719,7 +719,7 @@ class MediaListCtrl extends Component<Props, State> {
                   <Button
                     className={filterIsShowing ? '' : 'not-showing'}
                     onClick={this.toggleFilter}>
-                    <FontAwesomeIcon icon='filter' /> filter
+                    <FontAwesomeIcon icon='filter' /> {t('filter')}
                   </Button>
                 </InputGroupAddon>
                 {

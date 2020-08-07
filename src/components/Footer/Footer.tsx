@@ -160,7 +160,7 @@ class Footer extends Component<Props, State> {
               <a 
                 className='footer-top__license'
                 target='_blank'>
-                <span className='hide-tiny'>open source </span>
+                <span className='hide-tiny'>{t('open source')} </span>
                 <span className='flip-text-horizontal'>&copy;</span>
               </a>
             </Link>
@@ -176,15 +176,6 @@ class Footer extends Component<Props, State> {
                   {t('Contact')}
                 </a>
               </Link>
-              {/* <Link
-                as='/faq'
-                href='/faq'>
-                <a
-                  className='footer-bottom__link'
-                  onClick={this.linkClick}>
-                  FAQ
-                </a>
-              </Link> */}
               <Link
                 as={PV.paths.web.about}
                 href={PV.paths.web.about}>

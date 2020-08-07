@@ -154,7 +154,7 @@ class AppLinkWidget extends Component<Props, State> {
             className='app-link-widget__open-in-app'
             onClick={this._handleShowModal}
             outline={true}
-            text='Open in the app' />
+            text={t('OpenInTheApp')} />
         </div>
         <Modal
           appElement={appEl}
@@ -164,7 +164,7 @@ class AppLinkWidget extends Component<Props, State> {
           portalClassName='open-in-the-app-modal over-media-player'
           shouldCloseOnOverlayClick
           style={customStyles}>
-          <h3><FontAwesomeIcon icon='mobile-alt' /> &nbsp;Open in the app</h3>
+          <h3><FontAwesomeIcon icon='mobile-alt' /> &nbsp;{t('OpenInTheApp')}</h3>
           <CloseButton onClick={this._handleHideModal} />
           <div className='open-in-the-app-modal__i-have-the-app-wrapper'>
             <Button

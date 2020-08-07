@@ -175,7 +175,7 @@ class Search extends Component<Props, State> {
           title={meta.title}
           twitterDescription={meta.description}
           twitterTitle={meta.title} />
-        <h3>Search</h3>
+        <h3>{t('Search')}</h3>
         <Form
           autoComplete='off'
           className='search'>
@@ -188,7 +188,7 @@ class Search extends Component<Props, State> {
                 isActive={searchBy === 'podcast'}
                 onClick={() => this.handleSearchByChange('podcast')}
                 outline>
-                Podcast
+                {t('Podcast')}
               </Button>
               <Button
                 className='search-by__host'
@@ -196,7 +196,7 @@ class Search extends Component<Props, State> {
                 isActive={searchBy === 'host'}
                 onClick={() => this.handleSearchByChange('host')}
                 outline>
-                Host
+                {t('Host')}
               </Button>
             </ButtonGroup>
             <InputGroup>

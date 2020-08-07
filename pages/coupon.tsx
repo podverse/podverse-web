@@ -80,6 +80,7 @@ class Redeem extends Component<Props, State> {
   }
 
   _redeem = async () => {
+    const { t } = this.props
     const { accountClaimToken } = this.state
     const { value: email } = this.refEmailInput.current
 
@@ -87,7 +88,7 @@ class Redeem extends Component<Props, State> {
       this.setState({ isRedeeming: true })
       try {
         await redeemAccountClaimToken(accountClaimToken.id, email)
-        alert('Success! Redirecting to the home page...')
+        alert(t('Success! Redirecting to the home page'))
       } catch (error) {
         if (error.response && error.response.data && error.response.data.message) {
           alert(error.response.data.message)
@@ -121,7 +122,7 @@ class Redeem extends Component<Props, State> {
       return <Error statusCode={errorCode} />
     }
 
-    const yearText = accountClaimToken.yearsToAdd === 1 ? 'year ' : 'years '
+    const yearText = (accountClaimToken.yearsToAdd === 1 ? t('year') : t('years')) + ' '
 
     return (
       <Fragment>
