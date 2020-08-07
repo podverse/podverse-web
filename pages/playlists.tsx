@@ -119,7 +119,7 @@ class Playlists extends Component<Props, State> {
         {
           (!user || !user.id) &&
             <div className='no-results-msg'>
-              {PV.i18n.common.LoginToViewYour(t('playlists'))}
+              {t('LoginToViewYourPlaylists')}
             </div>
         }
         {
@@ -133,7 +133,7 @@ class Playlists extends Component<Props, State> {
                 {
                   (myPlaylistNodes.length === 0) &&
                     <div className='no-results-msg'>
-                      {PV.i18n.common.noResultsMessage(t('playlists'))}
+                      {t('No playlists found')}
                     </div>
                 }
               </div>

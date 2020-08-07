@@ -118,10 +118,6 @@ class UserListCtrl extends Component<Props, State> {
           (!listItemNodes || listItemNodes.length === 0) &&
           <div className='no-results-msg'>
             <p>{noResultsFoundMsg}</p>
-            {
-              user && user.id &&
-                PV.i18n.common.MakeProfilePublic(this)
-            }
           </div>
         }
       </div>

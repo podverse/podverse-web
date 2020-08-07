@@ -125,11 +125,11 @@ class Alerts extends Component<Props, State> {
     const { hasSent, isSending, isVerifyEmailPage, showEmailVerificationNeeded, showFreeTrialHasEnded,
       showFreeTrialWarning, showMembershipHasEnded, showMembershipWarning } = this.state
 
-    const renewLink = (
+    const RenewLink = ({ children }) => (
       <Link
         as={PV.paths.web.settings_membership}
         href={PV.paths.web.settings}>
-        <a onClick={this.linkClick}>{t('Renew')}</a>
+        <a onClick={this.linkClick}>{children}</a>
       </Link>
     )
 
@@ -173,7 +173,7 @@ class Alerts extends Component<Props, State> {
           isOpen={showFreeTrialHasEnded}
           toggle={() => this.hideAlert(PV.cookies.showFreeTrialHasEnded)}>
           <Trans i18n={i18n} i18nKey='YourFreeTrialHasEnded'>
-            Your free trial has ended. {renewLink} to continue using premium features.
+            Your free trial has ended. <RenewLink>Renew</RenewLink> to continue using premium features.
           </Trans>
         </Alert>
       )
@@ -184,9 +184,8 @@ class Alerts extends Component<Props, State> {
           fade={false}
           isOpen={showFreeTrialWarning}
           toggle={() => this.hideAlert(PV.cookies.showFreeTrialWarning)}>
-          {PV.i18n.common.YourFreeTrialWillEndSoon(renewLink)}
           <Trans i18n={i18n} i18nKey='YourFreeTrialWillEndSoon'>
-          Your free trial will end soon. {renewLink} to continue using premium features.
+            Your free trial will end soon. <RenewLink>Renew</RenewLink> to continue using premium features.
           </Trans>
         </Alert>
       )
@@ -198,7 +197,7 @@ class Alerts extends Component<Props, State> {
           isOpen={showMembershipHasEnded}
           toggle={() => this.hideAlert(PV.cookies.showMembershipHasEnded)}>
           <Trans i18n={i18n} i18nKey='YourMembershipHasExpired'>
-          Your membership has expired. {renewLink} to continue using premium features.
+            Your membership has expired. <RenewLink>Renew</RenewLink> to continue using premium features.
           </Trans>
         </Alert>
       )
@@ -210,7 +209,7 @@ class Alerts extends Component<Props, State> {
           isOpen={showMembershipWarning}
           toggle={() => this.hideAlert(PV.cookies.showMembershipWarning)}>
           <Trans i18n={i18n} i18nKey='YourMembershipWillExpireSoon'>
-          Your membership will expire soon. {renewLink} to continue using premium features.
+            Your membership will expire soon. <RenewLink>Renew</RenewLink> to continue using premium features.
           </Trans>
         </Alert>
       )

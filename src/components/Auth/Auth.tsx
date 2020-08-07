@@ -165,14 +165,18 @@ class Auth extends Component<Props, State> {
   }
 
   render() {
-    const { modals, modalsForgotPasswordShow, modalsLoginShow, modalsSignUpShow
+    const { modals, modalsForgotPasswordShow, modalsLoginShow, modalsSignUpShow, t
       } = this.props
     const { forgotPassword, login, signUp } = modals
     const { signUpFinished } = this.state
 
     const signUpTopText = (
       <React.Fragment>
-        {PV.i18n.common.TryPremium1Year()}
+        <p style={{ textAlign: 'center' }}>
+          {t('Try premium free for 1 year!')}
+          <br />
+          {t('$10 per year after that')}
+        </p>
       </React.Fragment>
     )
 

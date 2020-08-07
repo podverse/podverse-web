@@ -629,7 +629,7 @@ class Playlist extends Component<Props, State> {
           {
             (!isLoading && listItemNodes.length === 0) &&
               <div className='no-results-msg'>
-                {PV.i18n.common.noResultsMessage(t('Playlists'))}
+                {t('No playlists found')}
               </div>
           }
         </div>

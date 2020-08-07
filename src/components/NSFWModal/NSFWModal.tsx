@@ -41,20 +41,20 @@ const customStyles = {
       {
         isNSFWModeOn &&
           <div>
-          <h3 style={{ color: PV.colors.redDarker }}>{t('NSFWModeOn')}</h3>
+            <h3 style={{ color: PV.colors.redDarker }}>{t('NSFWModeOn')}</h3>
             <p>{t('RefreshToIncludeNSFW')}</p>
           </div>
       }
       {
         !isNSFWModeOn &&
-        <div>
-          <h3 style={{ color: PV.colors.blue }}>{t('SFWModeOn')}</h3>
-          <p>{t('RefreshToHideNSFW')}</p>
-          <p>
-            {t('RatingsProvidedByPodcasters')}
-            {t('ContentMayBeNSFW')}
-          </p>
-        </div>
+          <div>
+            <h3 style={{ color: PV.colors.blue }}>{t('SFWModeOn')}</h3>
+            <p>{t('RefreshToHideNSFW')}</p>
+            <p>
+              {t('RatingsProvidedByPodcasters')}
+              {t('ContentMayBeNSFW')}
+            </p>
+          </div>
       }
     </Modal>
   )

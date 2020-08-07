@@ -99,8 +99,8 @@ class Profile extends Component<Props, State> {
     if (publicUser) {
       meta = {
         currentUrl: BASE_URL + PV.paths.web.profile + '/' + publicUser.id,
-        description: `${publicUser.name ? publicUser.name : t('Anonymous')}'s profile on Podverse`,
-        title: `${publicUser.name ? publicUser.name : t('Anonymous')}'s profile on Podverse`
+        description: `${publicUser.name ? publicUser.name : t('Anonymous')}`,
+        title: `${publicUser.name ? publicUser.name : t('Anonymous')}`
       }
     }
     const namespacesRequired = PV.nexti18next.namespaces

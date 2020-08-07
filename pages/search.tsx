@@ -241,7 +241,7 @@ class Search extends Component<Props, State> {
           {
             (!isSearching && searchCompleted && listItemNodes && listItemNodes.length === 0) &&
               <div className='no-results-msg'>
-                {PV.i18n.common.noResultsMessage(t('podcasts'), searchBy === PV.queryParams.host ? 'with that host' : '')}
+                {t('No podcasts found')}
               </div>
           }
           {

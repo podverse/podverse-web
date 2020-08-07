@@ -676,8 +676,8 @@ class MediaListCtrl extends Component<Props, State> {
     const sortOptions = this.getQuerySortOptions(includeOldest, !!episodeId && queryType === PV.queryParams.clips && queryFrom === PV.queryParams.from_episode)
     const selectedQuerySortOption = sortOptions.filter(x => x.value === querySort)
     const isNotLoggedInOnSubscribedOnly = (!user || !user.id) && queryFrom === PV.queryParams.subscribed_only
-    const itemType = queryType === PV.queryParams.episodes ? PV.queryParams.episodes : PV.queryParams.clips
-    const noResultsFoundMsg = isNotLoggedInOnSubscribedOnly ? t('errorMessages:login.ViewYourSubscriptions') : PV.i18n.common.noResultsMessage(itemType)
+    const noResultsItemTypeMsg = queryType === PV.queryParams.episodes ? t('No episodes found') : t('No clips found')
+    const noResultsFoundMsg = isNotLoggedInOnSubscribedOnly ? t('errorMessages:login.ViewYourSubscriptions') : noResultsItemTypeMsg
 
     return (      
       <div className={`media-list ${adjustTopPosition ? 'adjust-top-position' : ''}`}>

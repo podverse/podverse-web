@@ -55,21 +55,31 @@ class FAQ extends Component<Props, State> {
           title={meta.title}
           twitterDescription={meta.description}
           twitterTitle={meta.title} />
-        <h3>FAQ</h3>
+        <h3>{t('FAQ')}</h3>
 
-        <p><a href={`mailto:${PV.misc.email.contact}`} target='_blank' rel="noopener noreferrer">Contact Us / Ask a question</a></p>
+        <p>
+          <a href={`mailto:${PV.misc.email.contact}`} target='_blank' rel="noopener noreferrer">
+            {t('Contact Us / Ask a Question')}
+          </a>
+        </p>
         
-        <h3>Table of Contents</h3>
+        <h3>{t('Table of Contents')}</h3>
 
         <ul>
           <li>
-            <a href='#why-do-some-clips-start-at-the-wrong-time'>Why do some clips start at the wrong time? (dynamic ads)</a>
+            <a href='#why-do-some-clips-start-at-the-wrong-time'>
+              Why do some clips start at the wrong time? (dynamic ads)
+            </a>
           </li>
           <li>
-            <a href='#what-does-open-source-mean'>What does open source mean?</a>
+            <a href='#what-does-open-source-mean'>
+              What does open source mean?
+            </a>
           </li>
           <li>
-            <a href='#why-is-podverse-open-source'>Why is Podverse open source?</a>
+            <a href='#why-is-podverse-open-source'>
+              Why is Podverse open source?
+            </a>
           </li>
         </ul>
         

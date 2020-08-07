@@ -1,7 +1,6 @@
 import { attributes } from '~/lib/constants/attributes'
 import { colors } from '~/lib/constants/colors'
 import { cookies } from '~/lib/constants/cookies'
-import { common } from '~/lib/constants/i18n/common'
 import { errorResponseMessages } from '~/lib/constants/errorResponseMessages'
 import { misc } from '~/lib/constants/misc'
 import { nexti18next } from '~/lib/constants/nexti18next'
@@ -16,7 +15,6 @@ export default {
   cookies,
   errorResponseMessages,
   i18n: {
-    common,
     pages
   },
   misc,
