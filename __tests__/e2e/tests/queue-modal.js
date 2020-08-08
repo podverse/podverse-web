@@ -18,7 +18,7 @@ module.exports = {
 
       .click(`.scrollable-area div[data-rbd-draggable-id="secondary-item-1"] .media-list-right__remove`)
 
-      .waitForElementWithText(`.scrollable-area div[data-rbd-draggable-id="secondary-item-1"] .media-list-item-a__title`,`Egestas egestas fringilla phasellus faucibus.`)
+      .waitForElementWithText(`.scrollable-area div[data-rbd-draggable-id="secondary-item-1"] .media-list-item-a__title`,`Lacus sed turpis tincidunt id aliquet risus feugiat in ante.`)
 
   },
   after: function (browser) {
