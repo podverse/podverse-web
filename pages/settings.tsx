@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Button } from 'podverse-ui'
 import Meta from '~/components/Meta/Meta'
 import CheckoutModal from '~/components/CheckoutModal/CheckoutModal'
-import { DeleteAccountModal } from '~/components/DeleteAccountModal/DeleteAccountModal'
+import DeleteAccountModal from '~/components/DeleteAccountModal/DeleteAccountModal'
 import PV from '~/lib/constants'
 import { alertPremiumRequired, alertRateLimitError, alertSomethingWentWrong, convertToYYYYMMDDHHMMSS,
   isBeforeDate, validateEmail, safeAlert } from '~/lib/utility'
