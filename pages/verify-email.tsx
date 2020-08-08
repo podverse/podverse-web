@@ -8,7 +8,7 @@ import PV from '~/lib/constants'
 import { alertRateLimitError } from '~/lib/utility'
 import { modalsLoginShow, modalsSendVerificationEmailShow, pageIsLoading } from '~/redux/actions'
 import { verifyEmail } from '~/services/auth'
-import { withTranslation } from '../i18n'
+import { withTranslation } from '~/../i18n'
 const { BASE_URL } = config()
 
 type Props = {

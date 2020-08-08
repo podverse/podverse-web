@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import PV from '~/lib/constants'
 import { pageIsLoading } from '~/redux/actions'
 import '~/scss/styles.scss'
-import { withTranslation } from '../i18n'
+import { withTranslation } from '~/../i18n'
 
 type Props = {
   statusCode?: number

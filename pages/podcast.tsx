@@ -14,7 +14,7 @@ import { clone, cookieGetQuery, removeDoubleQuotes } from '~/lib/utility'
 import { pageIsLoading, pagesSetQueryState, playerQueueLoadSecondaryItems
   } from '~/redux/actions'
 import { getEpisodesByQuery, getMediaRefsByQuery, getPodcastById } from '~/services/'
-import { withTranslation } from '../i18n'
+import { withTranslation } from '~/../i18n'
 const { BASE_URL } = config()
 
 type Props = {

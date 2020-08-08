@@ -13,7 +13,7 @@ import { mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying, pageIsLoading,
   userSetInfo } from '~/redux/actions'
 import { getLoggedInUserMediaRefs, getLoggedInUserPlaylists, getPodcastsByQuery, getUserMediaRefs,
   getUserPlaylists } from '~/services'
-import { withTranslation } from '../../../i18n'
+import { withTranslation } from '~/../i18n'
 const uuidv4 = require('uuid/v4')
 const { QUERY_MEDIA_REFS_LIMIT } = config()
 

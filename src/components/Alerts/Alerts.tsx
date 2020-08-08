@@ -8,7 +8,7 @@ import Link from 'next/link'
 import PV from '~/lib/constants'
 import { getCookie, getViewContentsElementScrollTop, isBeforeDate } from '~/lib/utility'
 import { modalsSendVerificationEmailShow, pageIsLoading, pagesSetQueryState } from '~/redux/actions'
-import { i18n, withTranslation } from '../../../i18n'
+import { i18n, withTranslation } from '~/../i18n'
 const cookie = require('cookie')
 
 type Props = {

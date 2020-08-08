@@ -11,7 +11,7 @@ import PV from '~/lib/constants'
 import { fireConfetti } from '~/lib/utility'
 import { modalsSignUpShow, pageIsLoading, pagesSetQueryState } from '~/redux/actions'
 import { getAccountClaimToken, redeemAccountClaimToken } from '~/services'
-import { withTranslation } from '../i18n'
+import { withTranslation } from '~/../i18n'
 const { BASE_URL } = config()
 
 type Props = {

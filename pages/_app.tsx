@@ -32,7 +32,7 @@ import {
 import { actionTypes } from '~/redux/constants'
 import { getAuthenticatedUserInfo } from '~/services'
 import config from '~/config'
-import { appWithTranslation } from '../i18n'
+import { appWithTranslation } from '~/../i18n'
 const { googleAnalyticsConfig } = config()
 const cookie = require('cookie')
 const MobileDetect = require('mobile-detect')

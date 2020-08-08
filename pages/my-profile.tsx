@@ -11,7 +11,7 @@ import { clone } from '~/lib/utility'
 import { pageIsLoading, playerQueueLoadSecondaryItems, pagesSetQueryState } from '~/redux/actions'
 import { getLoggedInUserMediaRefs, getLoggedInUserPlaylists, getPodcastsByQuery
   } from '~/services'
-import { withTranslation } from '../i18n'
+import { withTranslation } from '~/../i18n'
 const { BASE_URL } = config()
 
 type Props = {

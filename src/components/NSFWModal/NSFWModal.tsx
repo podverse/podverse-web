@@ -2,7 +2,7 @@ import * as React from 'react'
 import * as Modal from 'react-modal'
 import PV from '~/lib/constants'
 import { checkIfLoadingOnFrontEnd } from '~/lib/utility'
-import { withTranslation } from '../../../i18n'
+import { withTranslation } from '~/../i18n'
 
 export interface Props {
   handleHideModal?: (event: React.MouseEvent<HTMLButtonElement>) => void

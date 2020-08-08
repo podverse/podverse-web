@@ -7,7 +7,7 @@ import PV from '~/lib/constants'
 import { cookieSetQuery, getViewContentsElementScrollTop } from '~/lib/utility'
 import { pageIsLoading, pagesSetQueryState } from '~/redux/actions'
 import { getPodcastsByQuery } from '~/services'
-import { withTranslation } from '../../../i18n'
+import { withTranslation } from '~/../i18n'
 const uuidv4 = require('uuid/v4')
 const { QUERY_PODCASTS_LIMIT } = config()
 

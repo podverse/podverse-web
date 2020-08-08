@@ -21,7 +21,7 @@ import { mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying, pageIsLoading,
   pagesSetQueryState, playerQueueLoadSecondaryItems, userSetInfo } from '~/redux/actions'
 import { addOrRemovePlaylistItem, deletePlaylist,
   getPlaylistById, toggleSubscribeToPlaylist, updatePlaylist } from '~/services/'
-import { withTranslation } from '../i18n'
+import { withTranslation } from '~/../i18n'
 const { BASE_URL } = config()
 
 const uuidv4 = require('uuid/v4')

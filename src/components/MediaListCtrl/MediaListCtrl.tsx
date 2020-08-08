@@ -16,7 +16,7 @@ import { mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying, pageIsLoading,
   playerQueueAddSecondaryItems, playerQueueLoadPriorityItems,
   playerQueueLoadSecondaryItems, userSetInfo } from '~/redux/actions'
 import { getEpisodesByQuery, getMediaRefsByQuery } from '~/services'
-import { withTranslation } from '../../../i18n'
+import { withTranslation } from '~/../i18n'
 import AwesomeDebouncePromise from 'awesome-debounce-promise'
 const uuidv4 = require('uuid/v4')
 const { QUERY_MEDIA_REFS_LIMIT } = config()

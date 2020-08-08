@@ -16,7 +16,7 @@ import { modalsSignUpShow, pageIsLoading, settingsCensorNSFWText, settingsHideFi
   settingsHideTimeJumpBackwardButton, userSetInfo } from '~/redux/actions'
 import { downloadLoggedInUserData, updateLoggedInUser } from '~/services'
 import config from '~/config'
-import { withTranslation } from '../i18n'
+import { withTranslation } from '~/../i18n'
 const { BASE_URL } = config()
 const fileDownload = require('js-file-download')
 const cookie = require('cookie')

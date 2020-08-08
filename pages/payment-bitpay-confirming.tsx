@@ -6,7 +6,7 @@ import PV from '~/lib/constants'
 import { pageIsLoading } from '~/redux/actions'
 import { getBitPayInvoiceStatusByOrderId } from '~/services/'
 import config from '~/config'
-import { withTranslation } from '../i18n'
+import { withTranslation } from '~/../i18n'
 const { BASE_URL } = config()
 
 type Props = {

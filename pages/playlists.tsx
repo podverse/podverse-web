@@ -9,7 +9,7 @@ import { getViewContentsElementScrollTop } from '~/lib/utility'
 import { pageIsLoading, pagesSetQueryState } from '~/redux/actions'
 import { getPlaylistsByQuery } from '~/services'
 import PV from '~/lib/constants'
-import { withTranslation } from '../i18n'
+import { withTranslation } from '~/../i18n'
 const uuidv4 = require('uuid/v4')
 const { BASE_URL } = config()
 

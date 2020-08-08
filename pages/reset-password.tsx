@@ -9,7 +9,7 @@ import PV from '~/lib/constants'
 import { validatePassword, alertRateLimitError } from '~/lib/utility'
 import { pageIsLoading } from '~/redux/actions'
 import { resetPassword } from '~/services/auth'
-import { withTranslation } from '../i18n'
+import { withTranslation } from '~/../i18n'
 const { BASE_URL } = config()
 
 type Props = {

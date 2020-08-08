@@ -8,7 +8,7 @@ import PV from '~/lib/constants'
 import { cookieGetQuery } from '~/lib/utility'
 import { pageIsLoading, pagesSetQueryState } from '~/redux/actions'
 import { getCategoriesByQuery, getPodcastsByQuery } from '~/services'
-import { withTranslation } from '../i18n'
+import { withTranslation } from '~/../i18n'
 const { BASE_URL } = config()
 
 type Props = {

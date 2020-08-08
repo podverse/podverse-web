@@ -6,7 +6,7 @@ import config from '~/config'
 import PV from '~/lib/constants'
 import { pageIsLoading } from '~/redux/actions'
 import { getPayPalOrderById } from '~/services/'
-import { withTranslation } from '../i18n'
+import { withTranslation } from '~/../i18n'
 const { BASE_URL } = config()
 
 type Props = {

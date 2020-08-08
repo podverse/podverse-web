@@ -12,7 +12,7 @@ import {
   pageIsLoading, pagesSetQueryState, playerQueueLoadSecondaryItems
 } from '~/redux/actions'
 import { getCategoriesByQuery, getEpisodesByQuery } from '~/services'
-import { withTranslation } from '../i18n'
+import { withTranslation } from '~/../i18n'
 const { BASE_URL } = config()
 
 type Props = {

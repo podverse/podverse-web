@@ -10,7 +10,7 @@ import PV from '~/lib/constants'
 import { enrichPodcastsWithCategoriesString, safeAlert } from '~/lib/utility'
 import { pageIsLoading, pagesSetQueryState } from '~/redux/actions'
 import { getPodcastsByQuery } from '~/services'
-import { withTranslation } from '../i18n'
+import { withTranslation } from '~/../i18n'
 const uuidv4 = require('uuid/v4')
 const { BASE_URL, QUERY_PODCASTS_LIMIT, REQUEST_PODCAST_URL } = config()
 

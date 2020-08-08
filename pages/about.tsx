@@ -5,7 +5,7 @@ import Meta from '~/components/Meta/Meta'
 import config from '~/config'
 import PV from '~/lib/constants'
 import { pageIsLoading, pagesSetQueryState } from '~/redux/actions'
-import { withTranslation } from '../i18n'
+import { withTranslation } from '~/../i18n'
 const { BASE_URL } = config()
 
 type Props = {
