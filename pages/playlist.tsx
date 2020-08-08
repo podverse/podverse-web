@@ -32,7 +32,6 @@ type Props = {
   mediaPlayer: any
   mediaPlayerLoadNowPlayingItem: any
   mediaPlayerUpdatePlaying: any
-  meta?: any
   pageIsLoading: any
   pageKey?: string
   playerQueueLoadSecondaryItems: any
@@ -93,18 +92,9 @@ class Playlist extends Component<Props, State> {
 
     store.dispatch(pageIsLoading(false))
     
-    let meta = {}
-    if (playlist) {
-      meta = {
-        currentUrl: BASE_URL + PV.paths.web.playlist + '/' + playlist.id,
-        description: removeDoubleQuotes(`${playlist.title ? playlist.title : t('untitledPlaylist')}${t('playlistOnPodverse')}${playlist.description ? playlist.description : ''}`),
-        title: `${playlist.title ? playlist.title : t('untitledPlaylist')}`
-      }
-    }
-
     const namespacesRequired = PV.nexti18next.namespaces
 
-    return { lastScrollPosition, meta, namespacesRequired, pageKey: pageKeyWithId, playlist, playlistItems, user }
+    return { lastScrollPosition, namespacesRequired, pageKey: pageKeyWithId, playlist, playlistItems, user }
   }
 
   constructor(props) {
@@ -398,7 +388,7 @@ class Playlist extends Component<Props, State> {
   }
 
   render() {
-    const { errorCode, mediaPlayer, meta, pageKey, settings, t, user } = this.props
+    const { errorCode, mediaPlayer, pageKey, settings, t, user } = this.props
     const { censorNSFWText } = settings
 
     if (errorCode) {
@@ -413,6 +403,15 @@ class Playlist extends Component<Props, State> {
     const { description, itemCount, updatedAt: lastUpdated } = playlist
     const isSubscribed = subscribedPlaylistIds && subscribedPlaylistIds.includes(playlist.id)
   
+    let meta = {}
+    if (playlist) {
+      meta = {
+        currentUrl: BASE_URL + PV.paths.web.playlist + '/' + playlist.id,
+        description: removeDoubleQuotes(`${playlist.title ? playlist.title : t('untitledPlaylist')}${t('playlistOnPodverse')}${playlist.description ? playlist.description : ''}`),
+        title: `${playlist.title ? playlist.title : t('untitledPlaylist')}`
+      }
+    }
+
     const listItemNodes = sortedNowPlayingItems.map((x, index) => {
       const isActive = () => {
         if (mpNowPlayingItem) {
