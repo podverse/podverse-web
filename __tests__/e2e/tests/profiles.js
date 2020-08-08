@@ -7,7 +7,7 @@ module.exports = {
   'Profiles Tests': function (browser) {
     browser
       .url(`${WEB_ORIGIN}/profiles`)
-      .waitForElementWithText('p', 'You are not subscribed to any user profiles.')
+      .waitForElementWithText('p', 'Login to view your profiles')
       .testSharedMetaTags()
       .testPageMetaTags(
           `Profiles`,
