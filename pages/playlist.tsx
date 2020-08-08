@@ -403,7 +403,7 @@ class Playlist extends Component<Props, State> {
     const { description, itemCount, updatedAt: lastUpdated } = playlist
     const isSubscribed = subscribedPlaylistIds && subscribedPlaylistIds.includes(playlist.id)
   
-    let meta = {}
+    let meta = {} as any
     if (playlist) {
       meta = {
         currentUrl: BASE_URL + PV.paths.web.playlist + '/' + playlist.id,
