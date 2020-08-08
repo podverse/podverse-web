@@ -71,7 +71,7 @@ class MediaListCtrl extends Component<Props, State> {
     const { filterIsShowing, filterText } = pages[pageKey]
 
     this.setTemporaryMinHeightOnMediaList()
-    
+   
     const categories = categoryId || allCategories && allCategories[2].id /* Arts */
 
     const query: any = {
@@ -166,7 +166,6 @@ class MediaListCtrl extends Component<Props, State> {
   querySort = async selectedValue => {
     const { pageKey, pages } = this.props
     const { categoryId, queryFrom, queryType } = pages[pageKey]
-        
     await this.queryListItems(queryType, queryFrom, selectedValue, 1, categoryId)
   }
 
@@ -187,7 +186,6 @@ class MediaListCtrl extends Component<Props, State> {
   getQueryTypeOptions = () => {
     const { pageKey, pages, podcastId, t, user } = this.props
     const { categoryId, queryFrom } = pages[pageKey]
-
     return [
       {
         label: t('Clips'),
@@ -367,7 +365,7 @@ class MediaListCtrl extends Component<Props, State> {
   toggleFilter = async () => {
     const { handleSetPageQueryState, pageKey, pages } = this.props
     const { categoryId, filterIsShowing, queryFrom, querySort, queryType } = pages[pageKey]
-    
+
     handleSetPageQueryState({
       pageKey,
       filterIsShowing: !filterIsShowing,
@@ -480,7 +478,7 @@ class MediaListCtrl extends Component<Props, State> {
 
   generateTopLevelSelectNodes = () => {
     const { pageKey, pages, t } = this.props
-    const { queryFrom, queryType, querySort } = pages[pageKey]
+    const { categoryId, queryFrom, queryType, querySort } = pages[pageKey]
     const topLevelItems = [] as any[]
 
     topLevelItems.push({
@@ -499,7 +497,7 @@ class MediaListCtrl extends Component<Props, State> {
 
     topLevelItems.push({
       label: t('queryLabels:Categories'),
-      onClick: () => this.queryListItems(queryType, PV.queryParams.from_category, querySort, 1, null),
+      onClick: () => this.queryListItems(queryType, PV.queryParams.from_category, querySort, 1, categoryId),
       parentValue: null,
       value: PV.queryParams.from_category
     })
