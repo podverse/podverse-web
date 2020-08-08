@@ -2,8 +2,10 @@ import * as React from 'react'
 import * as Modal from 'react-modal'
 import { Button, ButtonGroup, CloseButton } from 'podverse-ui'
 import { Input, Label } from 'reactstrap'
+import PV from '~/lib/constants'
 import { checkIfLoadingOnFrontEnd, safeAlert } from '~/lib/utility'
 import { deleteLoggedInUser } from '~/services'
+import { withTranslation } from '../../../i18n'
 
 type Props = {
   email?: string
@@ -33,7 +35,7 @@ const customStyles = {
   }
 }
 
-export class DeleteAccountModal extends React.Component<Props, State> {
+class DeleteAccountModal extends React.Component<Props, State> {
 
   constructor (props) {
     super(props)
@@ -119,3 +121,5 @@ export class DeleteAccountModal extends React.Component<Props, State> {
     )
   }
 }
+
+export default withTranslation(PV.nexti18next.namespaces)(DeleteAccountModal)
