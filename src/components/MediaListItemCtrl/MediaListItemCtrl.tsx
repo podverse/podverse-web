@@ -104,7 +104,7 @@ class MediaListItemCtrl extends Component<Props, State> {
   render() {
     const { handleRemoveItem, handlePlayItem, hideDescription, hideDivider, isActive,
       mediaListItemType, nowPlayingItem, playlist, podcast, profileUser, settings, showMoreMenu,
-      showRemove } = this.props
+      showRemove, t } = this.props
     const { censorNSFWText } = settings
 
     return (
@@ -129,7 +129,8 @@ class MediaListItemCtrl extends Component<Props, State> {
         itemType={mediaListItemType}
         key={`nowPlayingListItem-${uuidv4()}`}
         showMoreMenu={showMoreMenu}
-        showRemove={showRemove} />
+        showRemove={showRemove}
+        t={t} />
     )
   }
 }

@@ -190,7 +190,8 @@ class Auth extends Component<Props, State> {
           isLoading={modals.forgotPassword && modals.forgotPassword.isLoading}
           isOpen={(modals.forgotPassword && modals.forgotPassword.isOpen)}
           isResetPassword={modals.forgotPassword && modals.forgotPassword.isResetPassword}
-          isSendVerificationEmail={modals.forgotPassword && modals.forgotPassword.isSendVerificationEmail} />
+          isSendVerificationEmail={modals.forgotPassword && modals.forgotPassword.isSendVerificationEmail}
+          t={t} />
         <LoginModal
           errorResponse={login.errorResponse}
           handleLogin={this.handleLogin}
@@ -198,7 +199,8 @@ class Auth extends Component<Props, State> {
           isLoading={modals.login && modals.login.isLoading}
           isOpen={modals.login && modals.login.isOpen}
           showForgotPasswordModal={() => modalsForgotPasswordShow(true)}
-          showSignUpModal={() => modalsSignUpShow(true)} />
+          showSignUpModal={() => modalsSignUpShow(true)}
+          t={t} />
         <SignUpModal
           errorResponse={signUp.errorResponse}
           handleSignUp={this.handleSignUp}
@@ -206,6 +208,7 @@ class Auth extends Component<Props, State> {
           isLoading={modals.signUp && modals.signUp.isLoading}
           isOpen={modals.signUp && modals.signUp.isOpen}
           signUpFinished={signUpFinished}
+          t={t}
           topText={signUpTopText} />
       </React.Fragment>
     )

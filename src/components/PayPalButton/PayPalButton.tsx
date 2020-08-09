@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { createPayPalOrder } from '~/services/paypal'
 import config from '~/config'
 import PV from '~/lib/constants'
-import { alertRateLimitError, safeAlert } from '~/lib/utility';
+import { alertRateLimitError, safeAlert } from '~/lib/utility'
 const { DOMAIN, PROTOCOL } = config()
 
 type Props = {
@@ -208,4 +208,4 @@ class PaypalButton extends React.Component<Props, State> {
   }
 }
 
-export default scriptLoader('https://www.paypalobjects.com/api/checkout.js')(PaypalButton);
+export default scriptLoader('https://www.paypalobjects.com/api/checkout.js')(PaypalButton)

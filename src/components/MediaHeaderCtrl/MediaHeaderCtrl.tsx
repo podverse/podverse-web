@@ -97,7 +97,7 @@ class MediaHeaderCtrl extends Component<Props, State> {
   }
 
   render() {
-    const { episode, mediaRef, nowPlayingItem, podcast, settings, user } = this.props
+    const { episode, mediaRef, nowPlayingItem, podcast, settings, t, user } = this.props
     const { censorNSFWText, nsfwLabelsHide } = settings
     const { subscribedPodcastIds } = user
     const { isSubscribing } = this.state
@@ -114,7 +114,8 @@ class MediaHeaderCtrl extends Component<Props, State> {
         isSubscribing={isSubscribing}
         mediaRef={mediaRef}
         nowPlayingItem={nowPlayingItem}
-        podcast={podcast} />
+        podcast={podcast}
+        t={t} />
     )
   }
 }

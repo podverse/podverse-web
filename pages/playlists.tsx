@@ -90,7 +90,8 @@ class Playlists extends Component<Props, State> {
           handleLinkClick={this.linkClick}
           hasLink
           itemType='playlist'
-          key={`media-list-item-${uuidv4()}`} />
+          key={`media-list-item-${uuidv4()}`}
+          t={t} />
     ))
 
     const subscribedPlaylistNodes = subscribedPlaylists.map(x => (
@@ -100,7 +101,8 @@ class Playlists extends Component<Props, State> {
         hasLink
         itemType='playlist'
         key={`media-list-item-${uuidv4()}`}
-        showOwner />
+        showOwner
+        t={t} />
     ))
 
     return (

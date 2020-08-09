@@ -12,6 +12,7 @@ import { mediaPlayerLoadNowPlayingItem, mediaPlayerSetClipFinished, mediaPlayerS
   mediaPlayerUpdatePlaying, modalsAddToShow, modalsMakeClipShow, modalsShareShow, pageIsLoading,
   pagesSetQueryState, playerQueueLoadPriorityItems, userSetInfo } from '~/redux/actions'
 import { updateUserQueueItems } from '~/services'
+import { i18n, Trans, withTranslation } from '~/../i18n'
 
 type Props = {
   episode?: any
@@ -248,7 +249,7 @@ class MediaInfoCtrl extends Component<Props, State> {
   }
 
   render() {
-    const { episode, initialShowDescription, mediaRef, nowPlayingItem, podcast, settings, user } = this.props
+    const { episode, initialShowDescription, mediaRef, nowPlayingItem, podcast, settings, t, user } = this.props
     const userId = user && user.id
     const { censorNSFWText } = settings
 
@@ -271,7 +272,10 @@ class MediaInfoCtrl extends Component<Props, State> {
         mediaRef={mediaRef}
         nowPlayingItem={nowPlayingItem}
         playing={this.isCurrentlyPlayingItem()}
-        podcast={podcast} />
+        podcast={podcast}
+        i18n={i18n}
+        Trans={Trans}
+        t={t} />
     )
   }
 }
@@ -292,4 +296,4 @@ const mapDispatchToProps = dispatch => ({
   userSetInfo: bindActionCreators(userSetInfo, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(MediaInfoCtrl)
+export default connect(mapStateToProps, mapDispatchToProps)(withTranslation(PV.nexti18next.namespaces)(MediaInfoCtrl))

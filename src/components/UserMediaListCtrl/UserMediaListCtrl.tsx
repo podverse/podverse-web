@@ -378,6 +378,7 @@ class UserMediaListCtrl extends Component<Props, State> {
                   currentPage={queryPage || 1}
                   handleQueryPage={this.handleQueryPage}
                   pageRange={2}
+                  t={t}
                   totalPages={Math.ceil(listItemsTotal / QUERY_MEDIA_REFS_LIMIT)} />
               </div>
           }

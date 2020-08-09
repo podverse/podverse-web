@@ -159,7 +159,8 @@ class Search extends Component<Props, State> {
           handleLinkClick={this.linkClick}
           hasLink={true}
           itemType='podcast-search-result'
-          key={`podcast-list-item-${uuidv4()}`} />
+          key={`podcast-list-item-${uuidv4()}`}
+          t={t} />
       )
     }) : null
 
@@ -235,6 +236,7 @@ class Search extends Component<Props, State> {
                 currentPage={queryPage || 1}
                 handleQueryPage={this.handleQueryPage}
                 pageRange={2}
+                t={t}
                 totalPages={Math.ceil(listItemsTotal / QUERY_PODCASTS_LIMIT)} />
             </Fragment>
           }

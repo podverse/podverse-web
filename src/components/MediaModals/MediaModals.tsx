@@ -414,7 +414,7 @@ class MediaModals extends Component<Props, State> {
   }
 
   render() {
-    const { mediaPlayer, modals, modalsLoginShow, playerQueue, user } = this.props
+    const { mediaPlayer, modals, modalsLoginShow, playerQueue, t, user } = this.props
     const { nowPlayingItem } = mediaPlayer
     const { addTo, clipCreated, makeClip, queue, share } = modals
     const { createPlaylistIsSaving, createPlaylistShowError, createPlaylistShow,
@@ -456,7 +456,8 @@ class MediaModals extends Component<Props, State> {
           isOpen={queueIsOpen}
           nowPlayingItem={nowPlayingItem}
           priorityItems={priorityItems}
-          secondaryItems={secondaryItems} />
+          secondaryItems={secondaryItems}
+          t={t} />
         <MakeClipModal
           endTime={makeClipIsEditing ? makeClipNowPlayingItem.clipEndTime : ''}
           handleDelete={this.makeClipDelete}
@@ -476,11 +477,13 @@ class MediaModals extends Component<Props, State> {
           refInputStartTime={this.makeClipInputStartTime}
           refInputTitle={this.makeClipInputTitle}
           startTime={makeClipStartTime}
+          t={t}
           title={makeClipIsEditing ? makeClipNowPlayingItem.clipTitle : ''} />
         <ClipCreatedModal
           handleHideModal={this.hideClipCreatedModal}
           isOpen={clipCreatedIsOpen}
-          linkHref={clipCreatedLinkHref} />
+          linkHref={clipCreatedLinkHref}
+          t={t} />
         <AddToModal
           createPlaylistIsSaving={createPlaylistIsSaving}
           createPlaylistError={createPlaylistShowError}
@@ -502,13 +505,15 @@ class MediaModals extends Component<Props, State> {
           nowPlayingItem={addToNowPlayingItem}
           playlists={playlists}
           showPlaylists={!!id}
-          showQueue={addToShowQueue} />
+          showQueue={addToShowQueue}
+          t={t} />
         <ShareModal
           handleHideModal={this.hideShareModal}
           isOpen={shareIsOpen}
           playerClipLinkHref={clipLinkAs}
           playerEpisodeLinkHref={episodeLinkAs}
-          playerPodcastLinkHref={podcastLinkAs} />
+          playerPodcastLinkHref={podcastLinkAs}
+          t={t} />
       </Fragment>
     )
   }
