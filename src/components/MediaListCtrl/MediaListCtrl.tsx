@@ -483,14 +483,14 @@ class MediaListCtrl extends Component<Props, State> {
 
     topLevelItems.push({
       label: t('queryLabels:Subscribed'),
-      onClick: () => this.queryListItems(queryType, PV.queryParams.subscribed_only, querySort, 1, null),
+      onClick: () => this.queryListItems(queryType, PV.queryParams.subscribed_only, querySort, 1, categoryId),
       parentValue: null,
       value: PV.queryParams.subscribed_only
     })
 
     topLevelItems.push({
       label: t('queryLabels:AllPodcasts'),
-      onClick: () => this.queryListItems(queryType, PV.queryParams.all_podcasts, querySort, 1, null),
+      onClick: () => this.queryListItems(queryType, PV.queryParams.all_podcasts, querySort, 1, categoryId),
       parentValue: null,
       value: PV.queryParams.all_podcasts
     })
