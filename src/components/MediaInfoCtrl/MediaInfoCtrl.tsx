@@ -36,7 +36,7 @@ type Props = {
   podcast?: any
   settings?: any
   showDescription?: boolean
-  t: any
+  t?: any
   user?: any
   userSetInfo?: any
 }
