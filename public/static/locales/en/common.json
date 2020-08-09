@@ -1,5 +1,5 @@
 {
-  "$10/year after that": "$10/year after that",
+  "10 per year after that": "$10/year after that",
   "About": "About",
   "Add to Playlist": "Add to Playlist",
   "Add To": "Add To",
@@ -9,6 +9,7 @@
   "Auto Queue": "Auto Queue",
   "By": "By",
   "Cancel": "Cancel",
+  "Change Language": "Change Language",
   "Check your email after pressing submit": "Check your email after pressing submit",
   "Checkout": "Checkout",
   "Clip": "Clip",
@@ -135,7 +136,7 @@
   "PleaseCheckInbox": "Please check your inbox and verify your email to login to your account. You may need to check your Spam or Promotions folder.",
   "PleaseVerifyEmail": "Please verify your email address to login.",
   "Podcast": "Podcast",
-  "Podcasts, clips, and playlists are visible on your profile page": "asdfasdfasdff dasfadsfadsfasdf",
+  "Podcasts, clips, and playlists are visible on your profile page": "Podcasts, clips, and playlists are visible on your profile page",
   "podcasts": "podcasts",
   "Podcasts": "Podcasts",
   "Premium": "Premium",
@@ -173,7 +174,7 @@
   "Start time is required": "Start time is required",
   "Start": "Start",
   "Submit": "Submit",
-  "Success! Redirecting to the home page": "Success! Redirecting to the home page...",
+  "Success Redirecting to the home page": "Success! Redirecting to the home page...",
   "Terms": "Terms",
   "ThankYouForVerifying": "Thank you for verifying! You should now be able to login.",
   "This feature is only available for premium members": "This feature is only available for premium members. Login for a free trial.",
@@ -198,5 +199,5 @@
   "YourFreeTrialHasEnded": "Your free trial has ended. <1>Renew</1> to continue using premium features.",
   "YourFreeTrialWillEndSoon": "Your free trial will end soon. <1>Renew</1> to continue using premium features.",
   "YourMembershipHasExpired": "Your membership has expired. <1>Renew</1> to continue using premium features.",
-  "YourMembershipWillExpireSoon": "Your membership will expire soon. <1>Renew</1> to continue using premium features.",
+  "YourMembershipWillExpireSoon": "Your membership will expire soon. <1>Renew</1> to continue using premium features."
 }

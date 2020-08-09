@@ -16,7 +16,7 @@ import { modalsSignUpShow, pageIsLoading, settingsCensorNSFWText, settingsHideFi
   settingsHideTimeJumpBackwardButton, userSetInfo } from '~/redux/actions'
 import { downloadLoggedInUserData, updateLoggedInUser } from '~/services'
 import config from '~/config'
-import { withTranslation } from '~/../i18n'
+import { i18n, withTranslation } from '~/../i18n'
 const { BASE_URL } = config()
 const fileDownload = require('js-file-download')
 const cookie = require('cookie')
@@ -46,6 +46,7 @@ type State = {
   isDownloading?: boolean
   isPublic?: boolean
   isSaving?: boolean
+  language: string
   name?: string
   wasCopied?: boolean
 }
@@ -76,6 +77,7 @@ class Settings extends Component<Props, State> {
       ...(user.email ? { email: user.email } : {}),
       isDownloading: false,
       ...(user.isPublic || user.isPublic === false ? {isPublic: user.isPublic} : {}),
+      language: i18n.language,
       ...(user.name ? {name: user.name} : {})
     }
   }
@@ -144,6 +146,13 @@ class Settings extends Component<Props, State> {
       if (isPublic === 'public') {
         new ClipboardJS('#settings-privacy-profile-link .btn')
       }
+    })
+  }
+
+  handleLanguageChange = event => {
+    const language = event.target.value
+    this.setState({ language }, () => {
+      i18n.changeLanguage(language)
     })
   }
 
@@ -380,7 +389,7 @@ class Settings extends Component<Props, State> {
                 <FormGroup>
                   <Label for='settings-privacy'>{t('Profile Privacy')}</Label>
                   <Input
-                    className='settings-privacy'
+                    className='settings-privacy settings-dropdown'
                     name='settings-privacy'
                     onChange={this.handlePrivacyChange}
                     type='select'
@@ -542,6 +551,18 @@ class Settings extends Component<Props, State> {
               &nbsp;&nbsp;{t('HideFilterButtons')}
             </Label>
           </FormGroup>
+          {/* <FormGroup>
+            <Label for='settings-language'>{t('Change Language')}</Label>
+            <Input
+              className='settings-language settings-dropdown'
+              name='settings-language'
+              onChange={this.handleLanguageChange}
+              type='select'
+              value={language}>
+              <option value='en'>{t('language - en')}</option>
+              <option value='es'>{t('language - es')}</option>
+            </Input>
+          </FormGroup> */}
           {
             user && user.id &&
             <Fragment>

@@ -37,6 +37,7 @@ const { googleAnalyticsConfig } = config()
 const cookie = require('cookie')
 const MobileDetect = require('mobile-detect')
 
+
 // Tell Font Awesome to skip adding the CSS automatically since it's being imported above
 fontAwesomeConfig.autoAddCss = false
 

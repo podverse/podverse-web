@@ -66,7 +66,7 @@ class Membership extends Component<Props, State> {
           {t('Get 1 year free when you sign up for Podverse premium')}
         </p>
         <p className='membership-top-text'>
-          {t('$10/year after that')}
+          {t('10 per year after that')}
         </p>
         <div className='membership-join-list'>
           <a onClick={this.showSignUp}>
