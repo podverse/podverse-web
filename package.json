@@ -93,6 +93,7 @@
     "koa-static": "5.0.0",
     "lint-staged": "9.5.0",
     "mobile-detect": "1.4.4",
+    "moment": "2.27.0",
     "next": "9.3.2",
     "next-i18next": "5.1.0",
     "next-images": "1.2.0",
