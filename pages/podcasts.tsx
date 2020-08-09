@@ -45,7 +45,7 @@ class Podcasts extends Component<Props, State> {
     const currentPage = pages[kPageKey] || {}
     const lastScrollPosition = currentPage.lastScrollPosition
     const queryRefresh = !!query.refresh
-    const categoryId = query.categoryId || currentPage.categoryId || localStorageQuery.categoryId
+    const categoryId = query.categoryId || currentPage.categoryId || localStorageQuery.categoryId || (allCategories && allCategories[2] && allCategories[2].id /* Arts */)
     const queryPage = (queryRefresh && 1) || query.page || currentPage.queryPage || 1
     const queryFrom = query.from
       || (query.categoryId && PV.queryParams.from_category)
@@ -90,11 +90,11 @@ class Podcasts extends Component<Props, State> {
     const { allCategories, categoryId, pageKey, pageIsLoading, pagesSetQueryState, queryFrom,
       queryPage, querySort, t } = this.props
 
-      const meta = {
-        currentUrl: BASE_URL + PV.paths.web.podcasts,
-        description: t('pages:podcasts._Description'),
-        title: t('pages:podcasts._Title')
-      }
+    const meta = {
+      currentUrl: BASE_URL + PV.paths.web.podcasts,
+      description: t('pages:podcasts._Description'),
+      title: t('pages:podcasts._Title')
+    }
     
     return (
       <Fragment>
