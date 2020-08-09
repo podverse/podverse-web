@@ -1,11 +1,11 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
+import { convertToNowPlayingItem } from 'podverse-shared'
 import { MediaListSelect, Pagination, setNowPlayingItemInStorage } from 'podverse-ui'
 import { bindActionCreators } from 'redux'
 import MediaListItemCtrl from '~/components/MediaListItemCtrl/MediaListItemCtrl'
 import config from '~/config'
 import PV from '~/lib/constants'
-import { convertToNowPlayingItem } from '~/lib/nowPlayingItem'
 import { addOrUpdateHistoryItemPlaybackPosition, assignLocalOrLoggedInNowPlayingItemPlaybackPosition,
   clone } from '~/lib/utility'
 import { mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying, pageIsLoading, 

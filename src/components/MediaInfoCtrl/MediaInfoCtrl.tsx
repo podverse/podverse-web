@@ -2,11 +2,11 @@
 import React, { Component } from 'react'
 import { Trans } from 'react-i18next'
 import { connect } from 'react-redux'
+import { convertToNowPlayingItem } from 'podverse-shared'
 import { MediaInfo, addItemToPriorityQueueStorage, getPriorityQueueItemsStorage,
   setNowPlayingItemInStorage } from 'podverse-ui'
 import { bindActionCreators } from 'redux';
 import PV from '~/lib/constants'
-import { convertToNowPlayingItem } from '~/lib/nowPlayingItem'
 import { addOrUpdateHistoryItemPlaybackPosition, assignLocalOrLoggedInNowPlayingItemPlaybackPosition,
   getViewContentsElementScrollTop, 
   generateShareURLs} from '~/lib/utility'

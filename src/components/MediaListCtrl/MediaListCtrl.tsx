@@ -3,12 +3,12 @@ import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { InputGroup, InputGroupAddon, Input } from 'reactstrap'
+import { convertToNowPlayingItem } from 'podverse-shared'
 import { Button, MediaListSelect, Pagination, setNowPlayingItemInStorage
   } from 'podverse-ui'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import MediaListItemCtrl from '~/components/MediaListItemCtrl/MediaListItemCtrl'
 import config from '~/config'
-import { convertToNowPlayingItem } from '~/lib/nowPlayingItem'
 import PV from '~/lib/constants'
 import { addOrUpdateHistoryItemPlaybackPosition, assignLocalOrLoggedInNowPlayingItemPlaybackPosition,
   clone, cookieSetQuery } from '~/lib/utility'

@@ -1,12 +1,12 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import { convertToNowPlayingItem } from 'podverse-shared'
 import Meta from '~/components/Meta/Meta'
 import UserHeaderCtrl from '~/components/UserHeaderCtrl/UserHeaderCtrl'
 import UserMediaListCtrl from '~/components/UserMediaListCtrl/UserMediaListCtrl'
 import config from '~/config'
 import PV from '~/lib/constants'
-import { convertToNowPlayingItem } from '~/lib/nowPlayingItem'
 import { clone } from '~/lib/utility'
 import { pageIsLoading, playerQueueLoadSecondaryItems, pagesSetQueryState } from '~/redux/actions'
 import { getLoggedInUserMediaRefs, getLoggedInUserPlaylists, getPodcastsByQuery

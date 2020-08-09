@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import { convertNowPlayingItemClipToNowPlayingItemEpisode } from 'podverse-shared'
 import { MediaPlayer, popNextFromQueueStorage, setNowPlayingItemInStorage } from 'podverse-ui'
 import { addOrUpdateHistoryItemPlaybackPosition, assignLocalOrLoggedInNowPlayingItemPlaybackPosition,
   generateShareURLs, getPlaybackPositionFromHistory, getViewContentsElementScrollTop } from '~/lib/utility'
@@ -13,7 +14,6 @@ import { mediaPlayerLoadNowPlayingItem,
   modalsQueueShow, modalsShareShow, pageIsLoading, pagesSetQueryState,
   userSetInfo } from '~/redux/actions'
 import { updateUserQueueItems, addOrUpdateUserHistoryItem } from '~/services'
-import { convertNowPlayingItemClipToNowPlayingItemEpisode } from '~/lib/nowPlayingItem'
 
 type Props = {
   handleMakeClip?: Function

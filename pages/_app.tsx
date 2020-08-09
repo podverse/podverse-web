@@ -5,6 +5,7 @@ import App from 'next/app'
 import { config as fontAwesomeConfig } from '@fortawesome/fontawesome-svg-core'
 import '@fortawesome/fontawesome-svg-core/styles.css' // Import the CSS
 import ReactGA from 'react-ga'
+import { NowPlayingItem } from 'podverse-shared'
 import {
   getLastHistoryItemOrNowPlayingItemFromStorage, getPriorityQueueItemsStorage,
   setNowPlayingItemInStorage
@@ -19,7 +20,6 @@ import MediaPlayerView from '~/components/MediaPlayerView/MediaPlayerView'
 import PageLoadingOverlay from '~/components/PageLoadingOverlay/PageLoadingOverlay'
 import PV from '~/lib/constants'
 import { addFontAwesomeIcons } from '~/lib/fontAwesomeIcons'
-import { NowPlayingItem } from '~/lib/nowPlayingItem'
 import { scrollToTopOfView } from '~/lib/scrollToTop'
 import { assignLocalOrLoggedInNowPlayingItemPlaybackPosition, checkIfLoadingOnFrontEnd } from '~/lib/utility'
 import { disableHoverOnTouchDevices } from '~/lib/utility/disableHoverOnTouchDevices'
@@ -37,11 +37,12 @@ const { googleAnalyticsConfig } = config()
 const cookie = require('cookie')
 const MobileDetect = require('mobile-detect')
 
-
 // Tell Font Awesome to skip adding the CSS automatically since it's being imported above
 fontAwesomeConfig.autoAddCss = false
 
 addFontAwesomeIcons()
+
+
 
 let windowHasLoaded = false
 

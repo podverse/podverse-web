@@ -1,6 +1,6 @@
 import axios from 'axios'
+import { NowPlayingItem } from 'podverse-shared'
 import PV from '~/lib/constants'
-import { NowPlayingItem } from '~/lib/nowPlayingItem'
 import { convertObjectToQueryString } from '~/lib/utility'
 import config from '~/config'
 const { API_BASE_URL } = config()

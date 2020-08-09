@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import { convertToNowPlayingItem } from 'podverse-shared'
 import { addItemsToSecondaryQueueStorage, clearItemsFromSecondaryQueueStorage
 } from 'podverse-ui'
 import Error from './_error'
@@ -10,7 +11,6 @@ import MediaListCtrl from '~/components/MediaListCtrl/MediaListCtrl'
 import Meta from '~/components/Meta/Meta'
 import config from '~/config'
 import PV from '~/lib/constants'
-import { convertToNowPlayingItem } from '~/lib/nowPlayingItem'
 import { checkIfLoadingOnFrontEnd, clone, cookieGetQuery, removeDoubleQuotes } from '~/lib/utility'
 import { pageIsLoading, pagesSetQueryState, playerQueueLoadSecondaryItems
   } from '~/redux/actions'
