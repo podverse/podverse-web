@@ -1,12 +1,14 @@
 import * as React from 'react'
 import * as Modal from 'react-modal'
-import colors from '~/lib/constants/colors'
+import PV from '~/lib/constants'
 import { checkIfLoadingOnFrontEnd } from '~/lib/utility'
+import { withTranslation } from '~/../i18n'
 
 export interface Props {
   handleHideModal?: (event: React.MouseEvent<HTMLButtonElement>) => void
   isNSFWModeOn?: boolean
   isOpen?: boolean
+  t?: any
 }
 
 const customStyles = {
@@ -23,14 +25,14 @@ const customStyles = {
   }
 }
 
-export const NSFWModal: React.StatelessComponent<Props> = props => {
-  const { handleHideModal, isNSFWModeOn, isOpen } = props
+  const NSFWModal: React.StatelessComponent<Props> = props => {
+  const { handleHideModal, isNSFWModeOn, isOpen, t } = props
   const appEl = checkIfLoadingOnFrontEnd() ? document.querySelector('body') : null
 
   return (
     <Modal
       appElement={appEl}
-      contentLabel='NSFW Confirm Popup'
+      contentLabel={t('NSFWConfirmPopup')}
       isOpen={isOpen}
       onRequestClose={handleHideModal}
       portalClassName='nsfw-confirm-modal over-media-player'
@@ -39,21 +41,23 @@ export const NSFWModal: React.StatelessComponent<Props> = props => {
       {
         isNSFWModeOn &&
           <div>
-          <h3 style={{ color: colors.redDarker }}>NSFW mode on</h3>
-            <p>Refresh your browser to include NSFW content</p>
+            <h3 style={{ color: PV.colors.redDarker }}>{t('NSFWModeOn')}</h3>
+            <p>{t('RefreshToIncludeNSFW')}</p>
           </div>
       }
       {
         !isNSFWModeOn &&
-        <div>
-          <h3 style={{ color: colors.blue }}>SFW mode on</h3>
-          <p>Refresh your browser to hide NSFW content</p>
-          <p>
-            Ratings are provided by the podcasters themselves,
-            content may not be safe for your work!
-          </p>
-        </div>
+          <div>
+            <h3 style={{ color: PV.colors.blue }}>{t('SFWModeOn')}</h3>
+            <p>{t('RefreshToHideNSFW')}</p>
+            <p>
+              {t('RatingsProvidedByPodcasters')}
+              {t('ContentMayBeNSFW')}
+            </p>
+          </div>
       }
     </Modal>
   )
 }
+
+export default withTranslation(PV.nexti18next.namespaces)(NSFWModal)

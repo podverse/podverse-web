@@ -3,13 +3,16 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import Meta from '~/components/Meta/Meta'
 import config from '~/config'
+import PV from '~/lib/constants'
 import { pageIsLoading, pagesSetQueryState } from '~/redux/actions'
+import { withTranslation } from '~/../i18n'
 const { BASE_URL } = config()
 
 type Props = {
   lastScrollPosition?: number
   meta?: any
   pageKey?: string
+  t?: any
 }
 
 type State = {}
@@ -27,17 +30,19 @@ class About extends Component<Props, State> {
 
     store.dispatch(pageIsLoading(false))
 
-    const meta = {
-      currentUrl: BASE_URL + '/about',
-      description: 'Information about the Podverse open source podcast app.',
-      title: 'Podverse - About'
-    }
+    const namespacesRequired = PV.nexti18next.namespaces
 
-    return { lastScrollPosition, meta, pageKey: kPageKey }
+    return { lastScrollPosition, pageKey: kPageKey, namespacesRequired }
   }
 
   render() {
-    const { meta } = this.props
+    const { t } = this.props
+
+    const meta = {
+      currentUrl: BASE_URL,
+      description: t('pages:about._Description'),
+      title: t('pages:about._Title')
+    }
 
     return (
       <Fragment>
@@ -82,9 +87,8 @@ class About extends Component<Props, State> {
           </ul>
           <p>
             Our mission is to support the original independent spirit
-            of podcasting. We would love to collaborate with any and all podcast apps
-            to make our technologies as cross-compatible, convenient,
-            and empowering for people as possible.
+            of podcasting. We would love to collaborate with all podcast apps
+            to make our technologies as cross-compatible and convenient for people as possible.
           </p>
           <p>
             All Podverse software is provided free and open source (FOSS),
@@ -101,14 +105,14 @@ class About extends Component<Props, State> {
             {/* eslint-disable-next-line jsx-a11y/anchor-has-content */}
             <a
               className="download-on-the-app-store"
-              href="https://apps.apple.com/us/app/podverse/id1390888454?mt=8"
+              href={PV.paths.web.appleAppStore}
             />
             <a
               className="get-it-on-google-play"
-              href='https://play.google.com/store/apps/details?id=com.podverse&hl=en_US&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'>
+              href={PV.paths.web.googlePlayStore}>
               <img
                 alt='Get it on Google Play'
-                src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png'
+                src={PV.paths.web.googlePlayStoreBadge}
               />
             </a>
           </div>
@@ -131,4 +135,4 @@ const mapDispatchToProps = dispatch => ({
   pagesSetQueryState: bindActionCreators(pagesSetQueryState, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(About)
+export default connect(mapStateToProps, mapDispatchToProps)(withTranslation(PV.nexti18next.namespaces)(About))

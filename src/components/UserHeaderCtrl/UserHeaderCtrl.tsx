@@ -7,16 +7,19 @@ import { Button } from 'podverse-ui'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar as farStar } from '@fortawesome/free-regular-svg-icons'
 import { faStar as fasStar } from '@fortawesome/free-solid-svg-icons'
+import PV from '~/lib/constants'
 import { alertPremiumRequired, alertSomethingWentWrong, alertRateLimitError, safeAlert } from '~/lib/utility'
 import { userSetInfo } from '~/redux/actions'
 import { toggleSubscribeToUser } from '~/services'
 import config from '~/config'
+import { withTranslation } from 'i18n'
 const { BASE_URL } = config()
 const ClipboardJS = require('clipboard')
 
 type Props = {
   loggedInUser?: any
   profileUser?: any
+  t?: any
   userSetInfo?: any
 }
 
@@ -41,10 +44,10 @@ class UserHeaderCtrl extends Component<Props, State> {
   }
 
   toggleSubscribe = async () => {
-    const { loggedInUser, profileUser, userSetInfo } = this.props
+    const { loggedInUser, profileUser, t, userSetInfo } = this.props
 
     if (!loggedInUser || !loggedInUser.id) {
-      safeAlert('Login to subscribe to this profile.')
+      safeAlert(t('LoginToSubscribeToThisProfile'))
       return
     }
 
@@ -57,12 +60,12 @@ class UserHeaderCtrl extends Component<Props, State> {
         userSetInfo({ subscribedUserIds: response.data })
       }
     } catch (error) {
-      if (error && error.response && error.response.data && error.response.data.message === 'Premium Membership Required') {
-        alertPremiumRequired()
+      if (error && error.response && error.response.data && error.response.data.message === PV.errorResponseMessages.premiumRequired) {
+        alertPremiumRequired(t)
       } else if (error && error.response && error.response.status === 429) {
         alertRateLimitError(error)
       } else {
-        alertSomethingWentWrong()
+        alertSomethingWentWrong(t)
       }
     }
 
@@ -87,7 +90,7 @@ class UserHeaderCtrl extends Component<Props, State> {
   }
 
   render() {
-    const { loggedInUser, profileUser } = this.props
+    const { loggedInUser, profileUser, t } = this.props
     const { isSubscribing, shareLinkPopoverOpen, wasCopied } = this.state
     const { subscribedUserIds } = loggedInUser
     const isSubscribed = subscribedUserIds && subscribedUserIds.includes(profileUser.id)
@@ -97,7 +100,7 @@ class UserHeaderCtrl extends Component<Props, State> {
         <div className='text-wrapper'>
           <div className='media-header__top'>
             <div className='media-header__title'>
-              {profileUser.name ? profileUser.name : 'anonymous'}
+              {profileUser.name ? profileUser.name : t('Anonymous')}
             </div>
             {
               loggedInUser && profileUser && loggedInUser.id === profileUser.id ?
@@ -117,7 +120,7 @@ class UserHeaderCtrl extends Component<Props, State> {
                           placement='bottom'
                           target='profileShareLink'>
                           <PopoverHeader>
-                            Copy Link to your Profile
+                            {t('CopyLinkToProfile')}
                           </PopoverHeader>
                           <PopoverBody>
                             <InputGroup id='profile-link'>
@@ -142,7 +145,7 @@ class UserHeaderCtrl extends Component<Props, State> {
                     loggedInUser.isPublic &&
                       <a
                         className='media-header__edit'
-                        href={'/settings'}>
+                        href={PV.paths.web.settings}>
                         <FontAwesomeIcon icon='edit' />
                       </a>
                   }
@@ -189,4 +192,4 @@ const mapDispatchToProps = dispatch => ({
   userSetInfo: bindActionCreators(userSetInfo, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserHeaderCtrl)
+export default connect(mapStateToProps, mapDispatchToProps)(withTranslation(PV.nexti18next.namespaces)(UserHeaderCtrl))

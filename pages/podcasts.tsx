@@ -4,16 +4,17 @@ import { bindActionCreators } from 'redux'
 import Meta from '~/components/Meta/Meta'
 import PodcastListCtrl from '~/components/PodcastListCtrl/PodcastListCtrl'
 import config from '~/config'
+import PV from '~/lib/constants'
 import { cookieGetQuery } from '~/lib/utility'
 import { pageIsLoading, pagesSetQueryState } from '~/redux/actions'
 import { getCategoriesByQuery, getPodcastsByQuery } from '~/services'
+import { withTranslation } from '~/../i18n'
 const { BASE_URL } = config()
 
 type Props = {
   allCategories?: any[]
   categoryId?: string
   lastScrollPosition?: number
-  meta?: any
   pageIsLoading?: boolean
   pageKey?: string
   pagesSetQueryState?: any
@@ -21,6 +22,7 @@ type Props = {
   queryFrom?: string
   queryPage: number
   querySort?: any
+  t?: any
 }
 
 type State = {}
@@ -43,14 +45,14 @@ class Podcasts extends Component<Props, State> {
     const currentPage = pages[kPageKey] || {}
     const lastScrollPosition = currentPage.lastScrollPosition
     const queryRefresh = !!query.refresh
-    const categoryId = query.categoryId || currentPage.categoryId || localStorageQuery.categoryId
+    const categoryId = query.categoryId || currentPage.categoryId || localStorageQuery.categoryId || (allCategories && allCategories[2] && allCategories[2].id /* Arts */)
     const queryPage = (queryRefresh && 1) || query.page || currentPage.queryPage || 1
     const queryFrom = query.from
-      || (query.categoryId && 'from-category')
+      || (query.categoryId && PV.queryParams.from_category)
       || currentPage.queryFrom
       || localStorageQuery.from
-      || (user && user.id ? 'subscribed-only' : 'all-podcasts')
-    const querySort = query.sort || currentPage.querySort || localStorageQuery.sort || (user && user.id ? 'alphabetical' : 'top-past-week')
+      || (user && user.id ? PV.queryParams.subscribed_only : PV.queryParams.all_podcasts)
+    const querySort = query.sort || currentPage.querySort || localStorageQuery.sort || (user && user.id ? PV.queryParams.alphabetical : PV.queryParams.top_past_week)
 
     if (Object.keys(currentPage).length === 0 || queryRefresh) {
       const queryDataResult = await getPodcastsByQuery({
@@ -58,7 +60,7 @@ class Podcasts extends Component<Props, State> {
         from: queryFrom,
         page: queryPage,
         sort: querySort,
-        ...(queryFrom === 'subscribed-only' ? { subscribedPodcastIds } : {})
+        ...(queryFrom === PV.queryParams.subscribed_only ? { subscribedPodcastIds } : {})
       })
 
       const podcasts = queryDataResult.data
@@ -77,19 +79,22 @@ class Podcasts extends Component<Props, State> {
 
     store.dispatch(pageIsLoading(false))
 
-    const meta = {
-      currentUrl: BASE_URL + '/podcasts',
-      description: 'Find and subscribe to podcasts.',
-      title: `Podcasts`
-    }
+  
+    const namespacesRequired = PV.nexti18next.namespaces
 
-    return { allCategories, categoryId, lastScrollPosition, meta, nsfwMode, 
+    return { allCategories, categoryId, lastScrollPosition, namespacesRequired, nsfwMode, 
       pageKey: kPageKey, queryFrom, queryPage, querySort, user }
   }
 
   render() {
-    const { allCategories, categoryId, meta, pageKey, pageIsLoading, pagesSetQueryState, queryFrom,
-      queryPage, querySort } = this.props
+    const { allCategories, categoryId, pageKey, pageIsLoading, pagesSetQueryState, queryFrom,
+      queryPage, querySort, t } = this.props
+
+    const meta = {
+      currentUrl: BASE_URL + PV.paths.web.podcasts,
+      description: t('pages:podcasts._Description'),
+      title: t('pages:podcasts._Title')
+    }
     
     return (
       <Fragment>
@@ -103,7 +108,7 @@ class Podcasts extends Component<Props, State> {
           title={meta.title}
           twitterDescription={meta.description}
           twitterTitle={meta.title} />
-        <h3>Podcasts</h3>
+        <h3>{t('Podcasts')}</h3>
         <PodcastListCtrl 
           allCategories={allCategories}
           categoryId={categoryId}
@@ -125,4 +130,4 @@ const mapDispatchToProps = dispatch => ({
   pagesSetQueryState: bindActionCreators(pagesSetQueryState, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Podcasts)
+export default connect(mapStateToProps, mapDispatchToProps)(withTranslation(PV.nexti18next.namespaces)(Podcasts))

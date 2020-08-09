@@ -6,20 +6,22 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Button, MediaListItem, Pagination } from 'podverse-ui'
 import Meta from '~/components/Meta/Meta'
 import config from '~/config'
+import PV from '~/lib/constants'
 import { enrichPodcastsWithCategoriesString, safeAlert } from '~/lib/utility'
 import { pageIsLoading, pagesSetQueryState } from '~/redux/actions'
 import { getPodcastsByQuery } from '~/services'
+import { withTranslation } from '~/../i18n'
 const uuidv4 = require('uuid/v4')
 const { BASE_URL, QUERY_PODCASTS_LIMIT, REQUEST_PODCAST_URL } = config()
 
 type Props = {
   lastScrollPosition?: number
-  meta?: any
   pageIsLoading?: any
   pageKey?: string
   pages?: any
   pagesSetQueryState?: any
   settings?: any
+  t?: any
 }
 
 type State = {
@@ -38,20 +40,16 @@ class Search extends Component<Props, State> {
 
     const currentPage = pages[kPageKey] || {}
     const lastScrollPosition = currentPage.lastScrollPosition
-    const querySearchBy = currentPage.searchBy || query.searchBy || 'podcast'
+    const querySearchBy = currentPage.searchBy || query.searchBy || PV.queryParams.podcast
 
     store.dispatch(pagesSetQueryState({ 
       pageKey: kPageKey,
       searchBy: querySearchBy
     }))
 
-    const meta = {
-      currentUrl: BASE_URL + '/search',
-      description: 'Search for podcasts by title or host on Podverse.',
-      title: 'Podverse - Search'
-    }
+    const namespacesRequired = PV.nexti18next.namespaces
 
-    return { lastScrollPosition, meta, pageKey: kPageKey }
+    return { lastScrollPosition, namespacesRequired, pageKey: kPageKey }
   }
 
   constructor(props) {
@@ -83,7 +81,7 @@ class Search extends Component<Props, State> {
   }
 
   queryPodcasts = async (page = 1) => {
-    const { pages, pagesSetQueryState } = this.props
+    const { pages, pagesSetQueryState, t } = this.props
     const { searchBy } = pages[kPageKey]
     const { currentSearch } = this.state
     
@@ -118,7 +116,7 @@ class Search extends Component<Props, State> {
 
     } catch (error) {
       console.log(error)
-      safeAlert('Search failed. Please check your internet connection and try again later.')
+      safeAlert(t('SearchError'))
     }
   }
 
@@ -140,12 +138,18 @@ class Search extends Component<Props, State> {
   }
 
   render() {
-    const { meta, pages } = this.props
+    const { pages, t } = this.props
     const { isSearching, listItems, listItemsTotal, queryPage, searchBy } = pages[kPageKey]
     const { currentSearch, searchCompleted } = this.state
 
-    const placeholder = searchBy === 'host'
-      ? 'search by host' : 'search by title'
+    const meta = {
+      currentUrl: BASE_URL + PV.paths.web.search,
+      description: t('pages:search._Description'),
+      title: t('pages:search._Title')
+    }
+
+    const placeholder = searchBy === PV.queryParams.host
+      ? t('searchByHost') : t('searchByTitle')
 
       
     const listItemNodes = listItems ? listItems.map(x => {
@@ -155,7 +159,8 @@ class Search extends Component<Props, State> {
           handleLinkClick={this.linkClick}
           hasLink={true}
           itemType='podcast-search-result'
-          key={`podcast-list-item-${uuidv4()}`} />
+          key={`podcast-list-item-${uuidv4()}`}
+          t={t} />
       )
     }) : null
 
@@ -171,7 +176,7 @@ class Search extends Component<Props, State> {
           title={meta.title}
           twitterDescription={meta.description}
           twitterTitle={meta.title} />
-        <h3>Search</h3>
+        <h3>{t('Search')}</h3>
         <Form
           autoComplete='off'
           className='search'>
@@ -184,7 +189,7 @@ class Search extends Component<Props, State> {
                 isActive={searchBy === 'podcast'}
                 onClick={() => this.handleSearchByChange('podcast')}
                 outline>
-                Podcast
+                {t('Podcast')}
               </Button>
               <Button
                 className='search-by__host'
@@ -192,7 +197,7 @@ class Search extends Component<Props, State> {
                 isActive={searchBy === 'host'}
                 onClick={() => this.handleSearchByChange('host')}
                 outline>
-                Host
+                {t('Host')}
               </Button>
             </ButtonGroup>
             <InputGroup>
@@ -231,13 +236,14 @@ class Search extends Component<Props, State> {
                 currentPage={queryPage || 1}
                 handleQueryPage={this.handleQueryPage}
                 pageRange={2}
+                t={t}
                 totalPages={Math.ceil(listItemsTotal / QUERY_PODCASTS_LIMIT)} />
             </Fragment>
           }
           {
             (!isSearching && searchCompleted && listItemNodes && listItemNodes.length === 0) &&
               <div className='no-results-msg'>
-                No podcasts {`${searchBy === 'host' ? 'with that host' : ''}`} found.
+                {t('No podcasts found')}
               </div>
           }
           {
@@ -247,7 +253,7 @@ class Search extends Component<Props, State> {
                 href={REQUEST_PODCAST_URL}
                 rel="noopener noreferrer"
                 target='_blank'>
-                Request a podcast
+                {t('RequestAPodcast')}
               </a>
           }
         </div>
@@ -263,4 +269,4 @@ const mapDispatchToProps = dispatch => ({
   pagesSetQueryState: bindActionCreators(pagesSetQueryState, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Search)
+export default connect(mapStateToProps, mapDispatchToProps)(withTranslation(PV.nexti18next.namespaces)(Search))

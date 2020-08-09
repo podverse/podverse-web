@@ -1,10 +1,12 @@
 
 import React, { Component } from 'react'
+import { Trans } from 'react-i18next'
 import { connect } from 'react-redux'
+import { convertToNowPlayingItem } from 'podverse-shared'
 import { MediaInfo, addItemToPriorityQueueStorage, getPriorityQueueItemsStorage,
   setNowPlayingItemInStorage } from 'podverse-ui'
 import { bindActionCreators } from 'redux';
-import { convertToNowPlayingItem } from '~/lib/nowPlayingItem'
+import PV from '~/lib/constants'
 import { addOrUpdateHistoryItemPlaybackPosition, assignLocalOrLoggedInNowPlayingItemPlaybackPosition,
   getViewContentsElementScrollTop, 
   generateShareURLs} from '~/lib/utility'
@@ -12,6 +14,7 @@ import { mediaPlayerLoadNowPlayingItem, mediaPlayerSetClipFinished, mediaPlayerS
   mediaPlayerUpdatePlaying, modalsAddToShow, modalsMakeClipShow, modalsShareShow, pageIsLoading,
   pagesSetQueryState, playerQueueLoadPriorityItems, userSetInfo } from '~/redux/actions'
 import { updateUserQueueItems } from '~/services'
+import { i18n, withTranslation } from '~/../i18n'
 
 type Props = {
   episode?: any
@@ -34,6 +37,7 @@ type Props = {
   podcast?: any
   settings?: any
   showDescription?: boolean
+  t?: any
   user?: any
   userSetInfo?: any
 }
@@ -80,6 +84,7 @@ class MediaInfoCtrl extends Component<Props, State> {
       if (user && user.id) {
         await addOrUpdateHistoryItemPlaybackPosition(nowPlayingItem, user)
   
+        // eslint-disable-next-line array-callback-return
         const historyItems = user.historyItems.filter(x => {
           if (x) {
             if ((x.clipStartTime || x.clipEndTime) && x.clipId !== nowPlayingItem.clipId) {
@@ -247,7 +252,7 @@ class MediaInfoCtrl extends Component<Props, State> {
   }
 
   render() {
-    const { episode, initialShowDescription, mediaRef, nowPlayingItem, podcast, settings, user } = this.props
+    const { episode, initialShowDescription, mediaRef, nowPlayingItem, podcast, settings, t, user } = this.props
     const userId = user && user.id
     const { censorNSFWText } = settings
 
@@ -270,7 +275,10 @@ class MediaInfoCtrl extends Component<Props, State> {
         mediaRef={mediaRef}
         nowPlayingItem={nowPlayingItem}
         playing={this.isCurrentlyPlayingItem()}
-        podcast={podcast} />
+        podcast={podcast}
+        i18n={i18n}
+        Trans={Trans}
+        t={t} />
     )
   }
 }
@@ -291,4 +299,4 @@ const mapDispatchToProps = dispatch => ({
   userSetInfo: bindActionCreators(userSetInfo, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(MediaInfoCtrl)
+export default connect(mapStateToProps, mapDispatchToProps)(withTranslation(PV.nexti18next.namespaces)(MediaInfoCtrl))

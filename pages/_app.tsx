@@ -5,6 +5,7 @@ import App from 'next/app'
 import { config as fontAwesomeConfig } from '@fortawesome/fontawesome-svg-core'
 import '@fortawesome/fontawesome-svg-core/styles.css' // Import the CSS
 import ReactGA from 'react-ga'
+import { NowPlayingItem } from 'podverse-shared'
 import {
   getLastHistoryItemOrNowPlayingItemFromStorage, getPriorityQueueItemsStorage,
   setNowPlayingItemInStorage
@@ -17,8 +18,8 @@ import MediaModals from '~/components/MediaModals/MediaModals'
 import NavBar from '~/components/NavBar/NavBar'
 import MediaPlayerView from '~/components/MediaPlayerView/MediaPlayerView'
 import PageLoadingOverlay from '~/components/PageLoadingOverlay/PageLoadingOverlay'
+import PV from '~/lib/constants'
 import { addFontAwesomeIcons } from '~/lib/fontAwesomeIcons'
-import { NowPlayingItem } from '~/lib/nowPlayingItem'
 import { scrollToTopOfView } from '~/lib/scrollToTop'
 import { assignLocalOrLoggedInNowPlayingItemPlaybackPosition, checkIfLoadingOnFrontEnd } from '~/lib/utility'
 import { disableHoverOnTouchDevices } from '~/lib/utility/disableHoverOnTouchDevices'
@@ -31,6 +32,7 @@ import {
 import { actionTypes } from '~/redux/constants'
 import { getAuthenticatedUserInfo } from '~/services'
 import config from '~/config'
+import { appWithTranslation } from '~/../i18n'
 const { googleAnalyticsConfig } = config()
 const cookie = require('cookie')
 const MobileDetect = require('mobile-detect')
@@ -39,6 +41,8 @@ const MobileDetect = require('mobile-detect')
 fontAwesomeConfig.autoAddCss = false
 
 addFontAwesomeIcons()
+
+
 
 let windowHasLoaded = false
 
@@ -99,7 +103,7 @@ type Props = {
   }
 }
 
-export default withRedux(initializeStore)(class MyApp extends App<Props> {
+export default withRedux(initializeStore)(appWithTranslation(class MyApp extends App<Props> {
 
   static async getInitialProps({ Component, ctx }) {
     let pageProps = {} as any
@@ -287,10 +291,10 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
     // If page uses a query parameter to show a modal on page load,
     // then update history so the query parameter version is not last in history.
     const urlParams = new URLSearchParams(window.location.search)
-    const paramLogin = urlParams.get('login')
-    const paramForgotPassword = urlParams.get('forgotPassword')
-    const paramResetPassword = urlParams.get('resetPassword')
-    const paramSendVerificationEmail = urlParams.get('sendVerificationEmail')
+    const paramLogin = urlParams.get(PV.queryParams.login)
+    const paramForgotPassword = urlParams.get(PV.queryParams.forgotPassword)
+    const paramResetPassword = urlParams.get(PV.queryParams.resetPassword)
+    const paramSendVerificationEmail = urlParams.get(PV.queryParams.sendVerificationEmail)
     if (paramLogin || paramForgotPassword || paramResetPassword || paramSendVerificationEmail) {
       window.history.pushState({}, document.title, window.location.origin + window.location.pathname)
     }
@@ -380,4 +384,4 @@ export default withRedux(initializeStore)(class MyApp extends App<Props> {
       </Provider>
     )
   }
-}) 
+}))

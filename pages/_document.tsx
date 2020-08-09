@@ -1,5 +1,6 @@
 import React from 'react'
 import Document, { Head, Html, Main, NextScript } from 'next/document'
+import PV from '~/lib/constants'
 import { actionTypes } from '~/redux/constants'
 const cookie = require('cookie')
 
@@ -12,11 +13,11 @@ export default class MyDocument extends Document<Props> {
   static async getInitialProps(ctx) {
     const initialProps = await Document.getInitialProps(ctx)
 
-    let initialUITheme = 'dark'
+    let initialUITheme = PV.attributes.dark
 
     if (ctx.req.headers.cookie) {
       const parsedCookie = cookie.parse(ctx.req.headers.cookie)
-      initialUITheme = parsedCookie.uiTheme ? parsedCookie.uiTheme : 'dark'
+      initialUITheme = parsedCookie.uiTheme ? parsedCookie.uiTheme : PV.attributes.dark
     }
 
     ctx.store.dispatch({

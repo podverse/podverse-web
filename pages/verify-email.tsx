@@ -4,16 +4,18 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import Meta from '~/components/Meta/Meta'
 import config from '~/config'
+import PV from '~/lib/constants'
 import { alertRateLimitError } from '~/lib/utility'
 import { modalsLoginShow, modalsSendVerificationEmailShow, pageIsLoading } from '~/redux/actions'
 import { verifyEmail } from '~/services/auth'
+import { withTranslation } from '~/../i18n'
 const { BASE_URL } = config()
 
 type Props = {
   hasError?: string
-  meta?: any
   modalsLoginShow?: any
   modalsSendVerificationEmailShow?: any
+  t?: any
 }
 
 type State = {}
@@ -23,25 +25,20 @@ class VerifyEmail extends Component<Props, State> {
   static async getInitialProps({ query, req, store }) {
     const token = query.token
 
-    const meta = {
-      currentUrl: BASE_URL + '/verify-email',
-      description: `Verify your email address on Podverse`,
-      title: `Verify your email address`
-    }
-
     store.dispatch(pageIsLoading(false))
     
     try {
       await verifyEmail(token)
 
-      return { meta }
+      return
     } catch (error) {
       if (error && error.response && error.response.status === 429) {
         alertRateLimitError(error)
         return
       }
+      const namespacesRequired = PV.nexti18next.namespaces
 
-      return { hasError: true, meta }
+      return { hasError: true, namespacesRequired }
     }
   }
 
@@ -57,7 +54,13 @@ class VerifyEmail extends Component<Props, State> {
   }
 
   render() {
-    const { hasError, meta } = this.props
+    const { hasError, t } = this.props
+
+    const meta = {
+      currentUrl: BASE_URL + PV.paths.web.verify_email,
+      description: t('pages:verify_email._Description'),
+      title: t('pages:verify_email._Title')
+    }
 
     return (
       <Fragment>
@@ -74,11 +77,11 @@ class VerifyEmail extends Component<Props, State> {
         {
           !hasError &&
             <Fragment>
-              <h3>Email Verified</h3>
-              <p>Thank you for verifying! You should now be able to login.</p>
+              <h3>{t('EmailVerified')}</h3>
+              <p>{t('ThankYouForVerifying')}</p>
               <p className='font-bolder'>
-                <Link as='/?login' href='/?login'>
-                  <a>Login</a>
+                <Link as={PV.paths.web._login} href={PV.paths.web._login}>
+                  <a>{t('Login')}</a>
                 </Link>
               </p>
             </Fragment>
@@ -86,11 +89,11 @@ class VerifyEmail extends Component<Props, State> {
         {
           hasError &&
             <Fragment>
-              <h3>Email Verification Failed</h3>
-              <p>This email has already been verified, or the verififaction token has expired.</p>
+              <h3>{t('EmailVerificationFailed')}</h3>
+              <p>{t('EmailAlreadyVerifiedOrTokenExpired')}</p>
               <p>
                 <a href='#' onClick={this._showSendVerificationEmailModal}>
-                  send verification email
+                  {t('SendVerificationEmail')}
                 </a>
               </p>
             </Fragment>
@@ -107,4 +110,4 @@ const mapDispatchToProps = dispatch => ({
   modalsSendVerificationEmailShow: bindActionCreators(modalsSendVerificationEmailShow, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(VerifyEmail)
+export default connect(mapStateToProps, mapDispatchToProps)(withTranslation(PV.nexti18next.namespaces)(VerifyEmail))

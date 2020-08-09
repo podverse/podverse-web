@@ -4,14 +4,16 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import Meta from '~/components/Meta/Meta'
 import config from '~/config'
+import PV from '~/lib/constants'
 import { pageIsLoading, pagesSetQueryState, modalsSignUpShow } from '~/redux/actions'
+import { withTranslation } from '~/../i18n'
 const { BASE_URL } = config()
 
 type Props = {
   lastScrollPosition?: number
-  meta?: any
   modalsSignUpShow?: any
   pageKey?: string
+  t?: any
 }
 
 type State = {}
@@ -28,14 +30,9 @@ class Membership extends Component<Props, State> {
     const lastScrollPosition = currentPage.lastScrollPosition
 
     store.dispatch(pageIsLoading(false))
+    const namespacesRequired = PV.nexti18next.namespaces
 
-    const meta = {
-      currentUrl: BASE_URL + '/membership',
-      description: 'Free and premium membership options.',
-      title: 'Podverse - Membership'
-    }
-
-    return { lastScrollPosition, meta, pageKey: kPageKey }
+    return { lastScrollPosition, namespacesRequired, pageKey: kPageKey }
   }
 
   showSignUp = () => {
@@ -43,7 +40,13 @@ class Membership extends Component<Props, State> {
   }
 
   render() {
-    const { meta } = this.props
+    const { t } = this.props
+
+    const meta = {
+      currentUrl: BASE_URL + PV.paths.web.membership,
+      description: t('pages:membership._Description'),
+      title: t('pages:membership._Title')
+    }
 
     return (
       <Fragment>
@@ -57,92 +60,92 @@ class Membership extends Component<Props, State> {
           title={meta.title}
           twitterDescription={meta.description}
           twitterTitle={meta.title} />
-        <h3>Premium</h3>
+        <h3>{t('Premium')}</h3>
 
         <p className='membership-top-text'>
-          Get 1 year free when you sign up for Podverse premium
+          {t('Get 1 year free when you sign up for Podverse premium')}
         </p>
         <p className='membership-top-text'>
-          $10/year after that
+          {t('10 per year after that')}
         </p>
         <div className='membership-join-list'>
           <a onClick={this.showSignUp}>
-            Sign Up
+            {t('Sign Up')}
           </a>
         </div>
         <ComparisonTable
-          featuresData={featuresData}
+          featuresData={featuresData(t)}
           headerIcon1='Free'
-          headerIcon2='Premium'
+          headerIcon2={t('Premium')}
           headerText='Features' />
       </Fragment>
     )
   }
 }
 
-const featuresData = [
+const featuresData = (t) => [
   {
-    text: 'subscribe to podcasts',
+    text: t('features - subscribe to podcasts'),
     icon1: true,
     icon2: true
   },
   {
-    text: 'play clips and episodes',
+    text: t('features - play clips and episodes'),
     icon1: true,
     icon2: true
   },
   {
-    text: 'download episodes',
+    text: t('features - download episodes'),
     icon1: true,
     icon2: true
   },
   {
-    text: 'drag-and-drop queue',
+    text: t('features - drag-and-drop queue'),
     icon1: true,
     icon2: true
   },
   {
-    text: 'sleep timer',
+    text: t('features - sleep timer'),
     icon1: true,
     icon2: true
   },
   {
-    text: 'create clips of any length',
+    text: t('features - create clips of any length'),
     icon1: false,
     icon2: true
   },
   {
-    text: 'sync your subscriptions on all devices',
+    text: t('features - sync your subscriptions on all devices'),
     icon1: false,
     icon2: true
   },
   {
-    text: 'sync your queue on all devices',
+    text: t('features - sync your queue on all devices'),
     icon1: false,
     icon2: true
   },
   {
-    text: 'create playlists',
+    text: t('features - create playlists'),
     icon1: false,
     icon2: true
   },
   {
-    text: 'edit your clips',
+    text: t('features - edit your clips'),
     icon1: false,
     icon2: true
   },
   {
-    text: 'share your user profile',
+    text: t('features - share your user profile'),
     icon1: false,
     icon2: true
   },
   {
-    text: 'download a backup of your data',
+    text: t('features - download a backup of your data'),
     icon1: false,
     icon2: true
   },
   {
-    text: 'support open source software',
+    text: t('features - support open source software'),
     icon1: true,
     icon2: true,
     iconType: 'smile'
@@ -156,4 +159,4 @@ const mapDispatchToProps = dispatch => ({
   pagesSetQueryState: bindActionCreators(pagesSetQueryState, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Membership)
+export default connect(mapStateToProps, mapDispatchToProps)(withTranslation(PV.nexti18next.namespaces)(Membership))

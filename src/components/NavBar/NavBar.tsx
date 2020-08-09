@@ -3,10 +3,12 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Navbar, getPriorityQueueItemsStorage } from 'podverse-ui'
+import PV from '~/lib/constants'
 import { getViewContentsElementScrollTop } from '~/lib/utility'
 import { modalsLoginShow, pageIsLoading, pagesClearQueryState, pagesSetQueryState,
   playerQueueLoadPriorityItems, userSetInfo } from '~/redux/actions'
 import { logOut } from '~/services/auth'
+import { withTranslation } from 'i18n'
 
 type Props = {
   modals?: any
@@ -18,6 +20,7 @@ type Props = {
   pagesSetQueryState?: any
   playerQueueLoadPriorityItems?: any
   settings?: any
+  t?: any
   user?: any
   userSetInfo?: any
 }
@@ -36,30 +39,31 @@ class PVNavBar extends Component<Props, State> {
   }
 
   navItems (isLoggedIn: boolean) {
+    const { t } = this.props
     const items = [
       {
-        as: '/search',
-        href: '/search',
+        as: PV.paths.web.search,
+        href: PV.paths.web.search,
         icon: 'search',
         onClick: () => { this.linkClick() },
         hideMobile: true
       },
       {
-        as: '/podcasts',
-        href: '/podcasts',
-        label: 'Podcasts',
+        as: PV.paths.web.podcasts,
+        href: PV.paths.web.podcasts,
+        label: t('Podcasts'),
         onClick: () => { this.linkClick() }
       },
       {
-        as: '/episodes',
-        href: '/episodes',
-        label: 'Episodes',
+        as: PV.paths.web.episodes,
+        href: PV.paths.web.episodes,
+        label: t('Episodes'),
         onClick: () => { this.linkClick() }
       },
       {
-        as: '/clips',
-        href: '/clips',
-        label: 'Clips',
+        as: PV.paths.web.clips,
+        href: PV.paths.web.clips,
+        label: t('Clips'),
         onClick: () => { this.linkClick() }
       }
     ] as any
@@ -68,7 +72,7 @@ class PVNavBar extends Component<Props, State> {
       items.push({
         as: '',
         href: '',
-        label: 'Login',
+        label: t('Login'),
         onClick: () => {
           this.props.modalsLoginShow(true)
           this.setState({
@@ -84,10 +88,11 @@ class PVNavBar extends Component<Props, State> {
   }
 
   mobileNavItems (isLoggedIn: boolean) {
+    const { t } = this.props
     const items = [
       {
-        as: '/search',
-        href: '/search',
+        as: PV.paths.web.search,
+        href: PV.paths.web.search,
         icon: 'search',
         onClick: () => { this.linkClick() }
       }
@@ -97,7 +102,7 @@ class PVNavBar extends Component<Props, State> {
       items.push({
         as: '',
         href: '',
-        label: 'Login',
+        label: t('Login'),
         onClick: () => {
           this.props.modalsLoginShow(true)
           this.setState({
@@ -112,38 +117,38 @@ class PVNavBar extends Component<Props, State> {
   }
 
   dropdownItems () {
-    const { pageIsLoading, pagesClearQueryState, playerQueueLoadPriorityItems, user, userSetInfo } = this.props
+    const { pageIsLoading, pagesClearQueryState, playerQueueLoadPriorityItems, t, user, userSetInfo } = this.props
     const { id } = user
 
     const dropdownItems = [] as any
 
     dropdownItems.push({
-      as: '/playlists',
-      href: '/playlists',
-      label: 'Playlists',
+      as: PV.paths.web.playlists,
+      href: PV.paths.web.playlists,
+      label: t('Playlists'),
       onClick: () => { this.linkClick() }
     })
     dropdownItems.push({
-      as: '/profiles',
-      href: '/profiles',
-      label: 'Profiles',
+      as: PV.paths.web.profiles,
+      href: PV.paths.web.profiles,
+      label: t('Profiles'),
       onClick: () => { this.linkClick() }
     })
 
     if (!!id) {
       dropdownItems.push({
-        as: '/my-profile',
-        href: '/my-profile',
-        label: 'My Profile',
+        as: PV.paths.web.my_profile,
+        href: PV.paths.web.my_profile,
+        label: t('MyProfile'),
         onClick: () => {
           pagesClearQueryState({ pageKey: 'my_profile' })
           pageIsLoading(true)
         }
       })
       dropdownItems.push({
-        as: '/my-profile?type=clips',
-        href: '/my-profile?type=clips',
-        label: 'My Clips',
+        as: PV.paths.web.my_profile_clips,
+        href: PV.paths.web.my_profile_clips,
+        label: t('MyClips'),
         onClick: () => {
           pagesClearQueryState({ pageKey: 'my_profile' })
           pageIsLoading(true)
@@ -152,9 +157,9 @@ class PVNavBar extends Component<Props, State> {
     }
 
     dropdownItems.push({
-      as: '/settings',
-      href: '/settings',
-      label: 'Settings',
+      as: PV.paths.web.settings,
+      href: PV.paths.web.settings,
+      label: t('Settings'),
       onClick: () => { this.linkClick() }
     })
     
@@ -162,7 +167,7 @@ class PVNavBar extends Component<Props, State> {
       dropdownItems.push({
         as: '',
         href: '',
-        label: 'Log out',
+        label:  t('Logout'),
         onClick: async () => {
           try {
             await logOut()
@@ -193,9 +198,9 @@ class PVNavBar extends Component<Props, State> {
 
     if (!id) {
       dropdownItems.push({
-        as: '/membership',
-        href: '/membership',
-        label: 'Premium',
+        as: PV.paths.web.membership,
+        href: PV.paths.web.membership,
+        label: t('Premium'),
         onClick: () => { this.linkClick() }
       })
     }
@@ -250,7 +255,7 @@ class PVNavBar extends Component<Props, State> {
           handleLinkClick={this.linkClick}
           handleToggleDropdownMenu={this.handleToggleDropdownMenu}
           handleToggleMobileMenu={this.handleToggleMobileMenu}
-          isDarkMode={uiTheme === 'dark'}
+          isDarkMode={uiTheme === PV.attributes.dark}
           mobileMenuIsOpen={mobileMenuIsOpen}
           mobileNavItems={this.mobileNavItems(!!id)}
           navItems={this.navItems(!!id)} />
@@ -270,4 +275,4 @@ const mapDispatchToProps = dispatch => ({
   userSetInfo: bindActionCreators(userSetInfo, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(PVNavBar)
+export default connect(mapStateToProps, mapDispatchToProps)(withTranslation(PV.nexti18next.namespaces)(PVNavBar))

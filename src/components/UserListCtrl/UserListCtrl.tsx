@@ -5,10 +5,11 @@ import { bindActionCreators } from 'redux'
 import { Pagination } from 'podverse-ui'
 import MediaListItemCtrl from '~/components/MediaListItemCtrl/MediaListItemCtrl'
 import config from '~/config'
+import PV from '~/lib/constants'
 import { getViewContentsElementScrollTop } from '~/lib/utility'
 import { pageIsLoading, pagesSetQueryState } from '~/redux/actions'
 import { getPublicUsersByQuery } from '~/services'
-import Link from 'next/link';
+import { withTranslation } from 'i18n'
 const uuidv4 = require('uuid/v4')
 const { QUERY_MEDIA_REFS_LIMIT } = config()
 
@@ -20,6 +21,7 @@ type Props = {
   pagesSetQueryState?: any
   queryPage?: number
   settings?: any
+  t?: any
   user?: any
 }
 
@@ -83,7 +85,7 @@ class UserListCtrl extends Component<Props, State> {
   }
 
   render() {
-    const { pageKey, pages, user } = this.props
+    const { pageKey, pages, t, user } = this.props
     const { listItems, listItemsTotal, queryPage } = pages[pageKey]
 
     const listItemNodes = listItems && listItems.map(x => {
@@ -96,7 +98,8 @@ class UserListCtrl extends Component<Props, State> {
       )
     })
 
-    const noResultsFoundMsg = !user || !user.id ? `Login to view your profiles` : `No profiles found`
+    const isNotLoggedIn = !user || !user.id
+    const noResultsFoundMsg = isNotLoggedIn ? t('LoginToViewYourProfiles') : t('errorMessages:alerts.No profiles found')
 
     return (
       <div className='media-list reduced-margin adjust-top-position'>
@@ -108,6 +111,7 @@ class UserListCtrl extends Component<Props, State> {
               currentPage={queryPage || 1}
               handleQueryPage={this.handleQueryPage}
               pageRange={2}
+              t={t}
               totalPages={Math.ceil(listItemsTotal / QUERY_MEDIA_REFS_LIMIT)} />
           </Fragment>
         }
@@ -115,10 +119,6 @@ class UserListCtrl extends Component<Props, State> {
           (!listItemNodes || listItemNodes.length === 0) &&
           <div className='no-results-msg'>
             <p>{noResultsFoundMsg}</p>
-            {
-              user && user.id &&
-                <p>Visit the <Link as='/settings' href='/settings'><a onClick={this.linkClick}>Settings page</a></Link> to make your profile public</p>
-            }
           </div>
         }
       </div>
@@ -133,4 +133,4 @@ const mapDispatchToProps = dispatch => ({
   pagesSetQueryState: bindActionCreators(pagesSetQueryState, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserListCtrl)
+export default connect(mapStateToProps, mapDispatchToProps)(withTranslation(PV.nexti18next.namespaces)(UserListCtrl))

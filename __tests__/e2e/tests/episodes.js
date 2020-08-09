@@ -3,8 +3,8 @@ const { WEB_ORIGIN } = require('../constants')
 const mediaListSelectsSelector = `.media-list__selects`
 const dropdownSelector = `.transparent.dropdown-toggle.btn.btn-secondary`
 const rightDropdownSelector = `.media-list-selects__right ${dropdownSelector}`
-const subLeftDropdownSelector = `.media-list-selects__inline .media-list__sub-select.dropdown`
-const subRightDropdownSelector = `.media-list-selects__inline .media-list__sub-select.dropdown`
+const subLeftDropdownSelector = `.media-list-selects__inline .media-list__sub-select.dropdown:nth-child(1)`
+const subRightDropdownSelector = `.media-list-selects__inline .media-list__sub-select.dropdown:nth-child(2)`
 
 module.exports = {
   before: function (browser) {

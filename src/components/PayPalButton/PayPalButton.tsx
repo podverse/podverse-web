@@ -6,7 +6,8 @@ import scriptLoader from 'react-async-script-loader'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { createPayPalOrder } from '~/services/paypal'
 import config from '~/config'
-import { alertRateLimitError, safeAlert } from '~/lib/utility';
+import PV from '~/lib/constants'
+import { alertRateLimitError, safeAlert } from '~/lib/utility'
 const { DOMAIN, PROTOCOL } = config()
 
 type Props = {
@@ -22,6 +23,7 @@ type Props = {
   onError: Function
   onSuccess: Function
   subtotal?: string
+  t?: any
   tax?: number
   total?: number
   updateStateAfterScriptLoads?: Function
@@ -88,7 +90,7 @@ class PaypalButton extends React.Component<Props, State> {
 
   render () {
     const { client, commit, currency, env, handlePageIsLoading, hideCheckoutModal,
-      subtotal, tax, total } = this.props
+      subtotal, t, tax, total } = this.props
     const { addButtonToDOM, showButton } = this.state
 
     const payment = async (resolve, reject) => {
@@ -119,8 +121,8 @@ class PaypalButton extends React.Component<Props, State> {
             shipping_preference: 'NO_SHIPPING'
           },
           redirect_urls: {
-            cancel_url: `${PROTOCOL}://${DOMAIN}/settings#membership`,
-            return_url: `${PROTOCOL}://${DOMAIN}/settings#membership`
+            cancel_url: `${PROTOCOL}://${DOMAIN}${PV.paths.web.settings}#membership`,
+            return_url: `${PROTOCOL}://${DOMAIN}${PV.paths.web.settings}#membership`
           }
         })
 
@@ -129,7 +131,7 @@ class PaypalButton extends React.Component<Props, State> {
           resolve(paymentID)
         } catch (error) {
           console.log(error)
-          safeAlert('Something went wrong. Please check your internet connection.')
+          safeAlert(t('errorMessages:alerts.somethingWentWrong'))
           reject()
         }
       } catch (error) {
@@ -137,7 +139,7 @@ class PaypalButton extends React.Component<Props, State> {
           alertRateLimitError(error)
           return
         } else {
-          safeAlert('Something went wrong. Please check your internet connection.')
+          safeAlert(t('errorMessages:alerts.somethingWentWrong'))
         }
         console.log(error)
         reject()
@@ -150,10 +152,10 @@ class PaypalButton extends React.Component<Props, State> {
 
       return actions.payment.execute()
         .then(() => {
-          location.href = `${PROTOCOL}://${DOMAIN}/payment/paypal-confirming?id=${data.paymentID}`
+          location.href = `${PROTOCOL}://${DOMAIN}${PV.paths.web.payment}${PV.paths.web.paypal_confirming}?id=${data.paymentID}`
         })
         .catch(() => {
-          safeAlert('Something went wrong. Please check your internet connection.')
+          safeAlert(t('errorMessages:alerts.somethingWentWrong'))
           handlePageIsLoading(false)
         })
     }
@@ -166,7 +168,7 @@ class PaypalButton extends React.Component<Props, State> {
 
     const onError = (error) => {
       console.log(error)
-      safeAlert('Something went wrong. Please check your internet connection.')
+      safeAlert(t('errorMessages:alerts.somethingWentWrong'))
     }
 
     return (
@@ -206,4 +208,4 @@ class PaypalButton extends React.Component<Props, State> {
   }
 }
 
-export default scriptLoader('https://www.paypalobjects.com/api/checkout.js')(PaypalButton);
+export default scriptLoader('https://www.paypalobjects.com/api/checkout.js')(PaypalButton)

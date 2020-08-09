@@ -3,13 +3,15 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import Meta from '~/components/Meta/Meta'
 import config from '~/config'
+import PV from '~/lib/constants'
 import { pageIsLoading, pagesSetQueryState } from '~/redux/actions'
+import { withTranslation } from '~/../i18n'
 const { BASE_URL } = config()
 
 type Props = {
   lastScrollPosition?: number
-  meta?: any
   pageKey?: string
+  t?: any
 }
 
 type State = {}
@@ -27,17 +29,19 @@ class FAQ extends Component<Props, State> {
 
     store.dispatch(pageIsLoading(false))
 
-    const meta = {
-      currentUrl: BASE_URL + '/faq',
-      description: 'Podverse - Frequently asked questions',
-      title: 'Podverse - FAQ'
-    }
+    const namespacesRequired = PV.nexti18next.namespaces
 
-    return { lastScrollPosition, pageKey: kPageKey, meta }
+    return { lastScrollPosition, pageKey: kPageKey, namespacesRequired }
   }
 
   render () {
-    const { meta } = this.props
+    const { t } = this.props
+
+    const meta = {
+      currentUrl: BASE_URL + PV.paths.web.faq,
+      description: t('pages:faq._Description'),
+      title: t('pages:faq._Title')
+    }
 
     return (
       <Fragment>
@@ -51,21 +55,31 @@ class FAQ extends Component<Props, State> {
           title={meta.title}
           twitterDescription={meta.description}
           twitterTitle={meta.title} />
-        <h3>FAQ</h3>
+        <h3>{t('FAQ')}</h3>
 
-        <p><a href='https://goo.gl/forms/VGVJRWlKPIGRqojY2' target='_blank' rel="noopener noreferrer">Contact Us / Ask a question</a></p>
+        <p>
+          <a href={`mailto:${PV.misc.email.contact}`} target='_blank' rel="noopener noreferrer">
+            {t('Contact Us / Ask a Question')}
+          </a>
+        </p>
         
-        <h3>Table of Contents</h3>
+        <h3>{t('Table of Contents')}</h3>
 
         <ul>
           <li>
-            <a href='#why-do-some-clips-start-at-the-wrong-time'>Why do some clips start at the wrong time? (dynamic ads)</a>
+            <a href='#why-do-some-clips-start-at-the-wrong-time'>
+              Why do some clips start at the wrong time? (dynamic ads)
+            </a>
           </li>
           <li>
-            <a href='#what-does-open-source-mean'>What does open source mean?</a>
+            <a href='#what-does-open-source-mean'>
+              What does open source mean?
+            </a>
           </li>
           <li>
-            <a href='#why-is-podverse-open-source'>Why is Podverse open source?</a>
+            <a href='#why-is-podverse-open-source'>
+              Why is Podverse open source?
+            </a>
           </li>
         </ul>
         
@@ -139,4 +153,4 @@ const mapDispatchToProps = dispatch => ({
   pagesSetQueryState: bindActionCreators(pagesSetQueryState, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(FAQ)
+export default connect(mapStateToProps, mapDispatchToProps)(withTranslation(PV.nexti18next.namespaces)(FAQ))

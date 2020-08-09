@@ -4,17 +4,19 @@ import { bindActionCreators } from 'redux'
 import Meta from '~/components/Meta/Meta'
 import UserListCtrl from '~/components/UserListCtrl/UserListCtrl'
 import config from '~/config'
+import PV from '~/lib/constants'
 import { pageIsLoading, pagesSetQueryState } from '~/redux/actions'
 import { getPublicUsersByQuery } from '~/services'
+import { withTranslation } from '~/../i18n'
 const { BASE_URL } = config()
 
 type Props = {
   lastScrollPosition?: number
   listItems?: any
-  meta?: any
   pageKey?: string
   pagesSetQueryState?: any
   queryPage: number
+  t?: any
   user?: any
 }
 
@@ -47,18 +49,19 @@ class Profiles extends Component<Props, State> {
     }
 
     store.dispatch(pageIsLoading(false))
+    const namespacesRequired = PV.nexti18next.namespaces
 
-    const meta = {
-      currentUrl: BASE_URL + '/profiles',
-      description: `My subscribed profiles on Podverse`,
-      title: `Profiles`
-    }
-
-    return { lastScrollPosition, meta, pageKey: kPageKey, user }
+    return { lastScrollPosition, namespacesRequired, pageKey: kPageKey, user }
   }
 
   render() {
-    const { meta, pageKey, pagesSetQueryState, queryPage, user } = this.props
+    const { pageKey, pagesSetQueryState, queryPage, t, user } = this.props
+
+    const meta = {
+      currentUrl: BASE_URL + PV.paths.web.profiles,
+      description: t('pages:profiles._Description'),
+      title: t('pages:profiles._Title')
+    }
 
     return (
       <Fragment>
@@ -72,7 +75,7 @@ class Profiles extends Component<Props, State> {
           title={meta.title}
           twitterDescription={meta.description}
           twitterTitle={meta.title} />
-        <h3>Profiles</h3>
+        <h3>{t('Profiles')}</h3>
         <UserListCtrl
           handleSetPageQueryState={pagesSetQueryState}
           pageKey={pageKey}
@@ -90,4 +93,4 @@ const mapDispatchToProps = dispatch => ({
   pagesSetQueryState: bindActionCreators(pagesSetQueryState, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Profiles)
+export default connect(mapStateToProps, mapDispatchToProps)(withTranslation(PV.nexti18next.namespaces)(Profiles))

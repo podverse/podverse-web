@@ -4,16 +4,19 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { CloseButton } from 'podverse-ui'
 import PayPalButton from '~/components/PayPalButton/PayPalButton'
+import config from '~/config'
 import { pageIsLoading } from '~/redux/actions'
 import { createBitPayInvoice } from '~/services'
-import config from '~/config'
+import PV from '~/lib/constants'
 import { alertRateLimitError, checkIfLoadingOnFrontEnd, safeAlert } from '~/lib/utility';
+import { withTranslation } from 'i18n'
 const { paypalConfig } = config()
 
 type Props = {
   handleHideModal: Function
   isOpen?: boolean
   pageIsLoading?: any
+  t?: any
 }
 
 type State = {
@@ -52,7 +55,7 @@ class CheckoutModal extends React.Component<Props, State> {
   }
 
   createBitPayOrder = async () => {
-    const { pageIsLoading } = this.props
+    const { pageIsLoading, t } = this.props
     pageIsLoading(true)
     try {
       const response = await createBitPayInvoice()
@@ -65,7 +68,7 @@ class CheckoutModal extends React.Component<Props, State> {
         alertRateLimitError(error)
         return
       } else {
-        safeAlert('Something went wrong. Please check your internet connection.')
+        safeAlert(t('errorMessages:alerts.somethingWentWrong'))
       }
     }
   }
@@ -85,14 +88,13 @@ class CheckoutModal extends React.Component<Props, State> {
   }
 
   render() {
-    const { isOpen, pageIsLoading } = this.props
-    const { buttonIsLoading } = this.state
+    const { isOpen, pageIsLoading, t } = this.props
     const appEl = checkIfLoadingOnFrontEnd() ? document.querySelector('body') : null
     
     return (
       <Modal
         appElement={appEl}
-        contentLabel='Checkout'
+        contentLabel={t('Checkout')}
         isOpen={isOpen}
         onRequestClose={this.handleHideModal}
         portalClassName='checkout-modal over-media-player'
@@ -110,7 +112,7 @@ class CheckoutModal extends React.Component<Props, State> {
             hideCheckoutModal={this.handleHideModal}
             updateStateAfterScriptLoads={this.handleButtonIsNotLoading}
             total={10} />
-          {
+          {/* {
             !buttonIsLoading &&
               <input 
                 alt="Pay with BitPay"
@@ -119,7 +121,7 @@ class CheckoutModal extends React.Component<Props, State> {
                 onClick={this.createBitPayOrder}
                 src="/images/bitpay-btn-pay.svg"
                 type="image" />
-          }
+          } */}
         </div>
       </Modal>
     )
@@ -132,4 +134,4 @@ const mapDispatchToProps = dispatch => ({
   pageIsLoading: bindActionCreators(pageIsLoading, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(CheckoutModal)
+export default connect(mapStateToProps, mapDispatchToProps)(withTranslation(PV.nexti18next.namespaces)(CheckoutModal))

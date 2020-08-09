@@ -5,15 +5,17 @@ import Router from 'next/router'
 import { ButtonGroup, Button } from 'podverse-ui'
 import Meta from '~/components/Meta/Meta'
 import config from '~/config'
-import { internetConnectivityErrorMessage } from '~/lib/constants/misc'
+import PV from '~/lib/constants'
 import { validatePassword, alertRateLimitError } from '~/lib/utility'
 import { pageIsLoading } from '~/redux/actions'
 import { resetPassword } from '~/services/auth'
+import { withTranslation } from '~/../i18n'
 const { BASE_URL } = config()
 
 type Props = {
   meta?: any
   passwordResetToken?: string
+  t?: any
 }
 
 type State = {
@@ -28,18 +30,20 @@ type State = {
 
 class ResetPassword extends Component<Props, State> {
 
-  static async getInitialProps({ query, req, store}) {
+  static async getInitialProps({ query, req, store, t}) {
     const token = query.token
 
     const meta = {
-      currentUrl: BASE_URL + '/reset-password',
-      description: 'Reset your account password on Podverse',
-      title: `Reset Password`
+      currentUrl: BASE_URL + PV.paths.web.reset_password,
+      description: t('pages:reset_password._Description'),
+      title: t('pages:reset_password._Title')
     }
 
     store.dispatch(pageIsLoading(false))
 
-    return { meta, passwordResetToken: token }
+    const namespacesRequired = PV.nexti18next.namespaces
+
+    return { meta, namespacesRequired, passwordResetToken: token }
   }
 
   constructor(props) {
@@ -52,11 +56,12 @@ class ResetPassword extends Component<Props, State> {
   }
 
   handlePasswordInputBlur = event => {
+    const { t } = this.props
     const { value: password } = event.target
     const newState: any = {}
 
     if (password && !validatePassword(password)) {
-      newState.errorPassword = 'Password must contain a number, uppercase, lowercase, and be at least 8 characters long.'
+      newState.errorPassword = t('errorMessages:message.passwordError')
     } else if (validatePassword(password)) {
       newState.errorPassword = null
     }
@@ -77,12 +82,13 @@ class ResetPassword extends Component<Props, State> {
   }
 
   handlePasswordConfirmInputBlur = event => {
+    const { t } = this.props
     const { errorPassword, password } = this.state
     const { value: passwordConfirm } = event.target
     const newState: any = {}
 
     if (!errorPassword && passwordConfirm !== password) {
-      newState.errorPasswordConfirm = 'Passwords do not match.'
+      newState.errorPasswordConfirm = t('errorMessages:message.passwordMatchError')
     }
 
     this.setState(newState)
@@ -102,7 +108,7 @@ class ResetPassword extends Component<Props, State> {
   }
 
   handleSubmit = async () => {
-    const { passwordResetToken } = this.props
+    const { passwordResetToken, t } = this.props
     const { passwordConfirm } = this.state
 
     try {
@@ -118,7 +124,7 @@ class ResetPassword extends Component<Props, State> {
       if (error && error.response && error.response.status === 429) {
         alertRateLimitError(error)
       } else {
-        const errorMsg = (error.response && error.response.data && error.response.data.message) || internetConnectivityErrorMessage
+        const errorMsg = (error.response && error.response.data && error.response.data.message) || t('errorMessages:internetConnectivityErrorMessage')
         this.setState({ errorResponse: errorMsg })
       }
     }
@@ -133,7 +139,7 @@ class ResetPassword extends Component<Props, State> {
   }
 
   render() {
-    const { meta } = this.props
+    const { meta, t } = this.props
     const { errorPassword, errorPasswordConfirm, errorResponse, isLoading, password,
       passwordConfirm, wasSuccessful } = this.state
 
@@ -150,7 +156,7 @@ class ResetPassword extends Component<Props, State> {
           twitterDescription={meta.description}
           twitterTitle={meta.title} />
         <Form className='reset-password'>
-          <h3>Reset Password</h3>
+          <h3>{t('Reset Password')}</h3>
           {
             (errorResponse && !isLoading) &&
             <Alert color='danger'>
@@ -160,14 +166,14 @@ class ResetPassword extends Component<Props, State> {
           {
             wasSuccessful &&
               <Alert color='primary'>
-                Success! Redirecting to the home page...
+                {t('Success! Redirecting to the home page')}
               </Alert>
           }
           {
             !wasSuccessful &&
               <Fragment>
                 <FormGroup>
-                  <Label for='reset-password__password'>New Password</Label>
+                  <Label for='reset-password__password'>{t('New Password')}</Label>
                   <Input
                     data-state-key='password'
                     invalid={errorPassword}
@@ -186,12 +192,12 @@ class ResetPassword extends Component<Props, State> {
                   {
                     (!validatePassword(password) && !errorPassword) &&
                     <FormText>
-                      Password must contain a number, uppercase, lowercase, and be at least 8 characters long.
+                      {t('Password must contain')}
                     </FormText>
                   }
                 </FormGroup>
                 <FormGroup>
-                  <Label for='reset-password__password-confirm'>Confirm Password</Label>
+                  <Label for='reset-password__password-confirm'>{t('Confirm Password')}</Label>
                   <Input
                     data-state-key='passwordConfirm'
                     invalid={errorPasswordConfirm}
@@ -214,13 +220,13 @@ class ResetPassword extends Component<Props, State> {
                     <React.Fragment>
                       <Button
                         onClick={() => { window.location.href = '' }}
-                        text='Cancel' />
+                        text={t('Cancel')} />
                       <Button
                         color='primary'
                         disabled={!this.hasConfirmedValidPassword()}
                         isLoading={isLoading}
                         onClick={this.handleSubmit}
-                        text='Submit' />
+                        text={t('Submit')} />
                     </React.Fragment>
                   } />
               </Fragment>
@@ -231,4 +237,4 @@ class ResetPassword extends Component<Props, State> {
   }
 }
 
-export default ResetPassword
+export default (withTranslation(PV.nexti18next.namespaces)(ResetPassword))

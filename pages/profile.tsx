@@ -1,17 +1,19 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import { convertToNowPlayingItem } from 'podverse-shared'
 import Error from './_error'
 import Meta from '~/components/Meta/Meta'
 import UserHeaderCtrl from '~/components/UserHeaderCtrl/UserHeaderCtrl'
 import UserMediaListCtrl from '~/components/UserMediaListCtrl/UserMediaListCtrl'
 import config from '~/config'
-import { convertToNowPlayingItem } from '~/lib/nowPlayingItem'
+import PV from '~/lib/constants'
 import { clone } from '~/lib/utility'
 import { pageIsLoading, pagesSetQueryState, playerQueueLoadSecondaryItems
   } from '~/redux/actions'
 import { getPodcastsByQuery, getPublicUser, getUserMediaRefs, getUserPlaylists
   } from '~/services'
+import { withTranslation } from '~/../i18n'
 const { BASE_URL } = config()
 
 type Props = {
@@ -25,6 +27,7 @@ type Props = {
   queryPage?: number
   querySort?: string
   queryType?: string
+  t?: any
   user?: any
 }
 
@@ -34,7 +37,7 @@ const kPageKey = 'public_profile_'
 
 class Profile extends Component<Props, State> {
 
-  static async getInitialProps({ query, req, store }) {
+  static async getInitialProps({ query, req, store, t }) {
     const pageKeyWithId = `${kPageKey}${query.id}`
     const state = store.getState()
     const { pages, settings } = state
@@ -44,8 +47,8 @@ class Profile extends Component<Props, State> {
     const currentPage = pages[pageKeyWithId] || {}
     const lastScrollPosition = currentPage.lastScrollPosition
     const queryPage = currentPage.queryPage || query.page || 1
-    const querySort = currentPage.querySort || query.sort || 'alphabetical'
-    const queryType = currentPage.queryType || query.type || 'podcasts'
+    const querySort = currentPage.querySort || query.sort || PV.queryParams.alphabetical
+    const queryType = currentPage.queryType || query.type || PV.queryParams.podcasts
     let publicUser = currentPage.publicUser
 
     if (Object.keys(currentPage).length === 0) {
@@ -62,18 +65,18 @@ class Profile extends Component<Props, State> {
       let queryDataResult
       let listItems = []
 
-      if (query.type === 'clips') {
+      if (query.type === PV.queryParams.clips) {
         queryDataResult = await getUserMediaRefs(currentId, nsfwMode, querySort, queryPage)
         listItems = queryDataResult.data.map(x => convertToNowPlayingItem(x))
         store.dispatch(playerQueueLoadSecondaryItems(clone(listItems)))
-      } else if (query.type === 'playlists') {
+      } else if (query.type === PV.queryParams.playlists) {
         queryDataResult = await getUserPlaylists(currentId, nsfwMode, queryPage)
         listItems = queryDataResult.data
-      } else if (queryType === 'podcasts' 
+      } else if (queryType === PV.queryParams.podcasts 
           && publicUser.subscribedPodcastIds
           && publicUser.subscribedPodcastIds.length > 0) {
         queryDataResult = await getPodcastsByQuery({
-          from: 'subscribed-only',
+          from: PV.queryParams.subscribed_only,
           sort: querySort,
           subscribedPodcastIds: publicUser.subscribedPodcastIds
         })
@@ -96,18 +99,19 @@ class Profile extends Component<Props, State> {
     let meta = {}
     if (publicUser) {
       meta = {
-        currentUrl: BASE_URL + '/profile/' + publicUser.id,
-        description: `${publicUser.name ? publicUser.name : 'anonymous'}'s profile on Podverse`,
-        title: `${publicUser.name ? publicUser.name : 'anonymous'}'s profile on Podverse`
+        currentUrl: BASE_URL + PV.paths.web.profile + '/' + publicUser.id,
+        description: `${publicUser.name ? publicUser.name : t('Anonymous')}`,
+        title: `${publicUser.name ? publicUser.name : t('Anonymous')}`
       }
     }
+    const namespacesRequired = PV.nexti18next.namespaces
 
-    return { lastScrollPosition, meta, pageKey: pageKeyWithId, publicUser }
+    return { lastScrollPosition, meta, namespacesRequired, pageKey: pageKeyWithId, publicUser }
   }
 
   render() {
     const { errorCode, meta, pageKey, pagesSetQueryState, publicUser,
-      queryPage, querySort, queryType, user } = this.props
+      queryPage, querySort, queryType, t, user } = this.props
 
     if (errorCode) {
       return <Error statusCode={errorCode} />
@@ -125,7 +129,7 @@ class Profile extends Component<Props, State> {
           title={meta.title}
           twitterDescription={meta.description}
           twitterTitle={meta.title} />
-        <h3>Profile</h3>
+        <h3>{t('Profile')}</h3>
         {
           publicUser &&
             <Fragment>
@@ -153,4 +157,4 @@ const mapDispatchToProps = dispatch => ({
   pagesSetQueryState: bindActionCreators(pagesSetQueryState, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Profile)
+export default connect(mapStateToProps, mapDispatchToProps)(withTranslation(PV.nexti18next.namespaces)(Profile))

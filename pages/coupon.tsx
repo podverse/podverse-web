@@ -7,20 +7,22 @@ import { bindActionCreators } from 'redux'
 import Error from './_error'
 import Meta from '~/components/Meta/Meta'
 import config from '~/config'
+import PV from '~/lib/constants'
 import { fireConfetti } from '~/lib/utility'
 import { modalsSignUpShow, pageIsLoading, pagesSetQueryState } from '~/redux/actions'
 import { getAccountClaimToken, redeemAccountClaimToken } from '~/services'
+import { withTranslation } from '~/../i18n'
 const { BASE_URL } = config()
 
 type Props = {
   errorCode?: number
   id?: string
   lastScrollPosition?: number
-  meta?: any
   modalsSignUpShow?: any
   page?: any
   pageKey?: string
   pageIsLoading?: any
+  t?: any
 }
 
 type State = {
@@ -45,13 +47,8 @@ class Redeem extends Component<Props, State> {
     const currentPage = pages[kPageKey] || {}
     const lastScrollPosition = currentPage.lastScrollPosition
 
-    const meta = {
-      currentUrl: BASE_URL + '/coupon/' + id,
-      description: 'Redeem your special offer',
-      title: 'Podverse - Coupon'
-    }
-
-    return { id, lastScrollPosition, meta, pageKey: kPageKey }
+    const namespacesRequired = PV.nexti18next.namespaces
+    return { id, lastScrollPosition, namespacesRequired, pageKey: kPageKey }
   }
 
   constructor(props) {
@@ -83,6 +80,7 @@ class Redeem extends Component<Props, State> {
   }
 
   _redeem = async () => {
+    const { t } = this.props
     const { accountClaimToken } = this.state
     const { value: email } = this.refEmailInput.current
 
@@ -90,7 +88,7 @@ class Redeem extends Component<Props, State> {
       this.setState({ isRedeeming: true })
       try {
         await redeemAccountClaimToken(accountClaimToken.id, email)
-        alert('Success! Redirecting to the home page...')
+        alert(t('Success! Redirecting to the home page'))
       } catch (error) {
         if (error.response && error.response.data && error.response.data.message) {
           alert(error.response.data.message)
@@ -110,15 +108,21 @@ class Redeem extends Component<Props, State> {
   }
 
   render() {
-    const { errorCode, meta, page } = this.props
+    const { errorCode, id, page, t } = this.props
     const { isLoading } = page
     const { accountClaimToken = {}, email, isRedeeming } = this.state
+
+    const meta = {
+      currentUrl: BASE_URL + PV.paths.web.coupon + '/' + id,
+      description: t('pages:coupon._Description'),
+      title: t('pages:coupon._Title')
+    }
 
     if (errorCode) {
       return <Error statusCode={errorCode} />
     }
 
-    const yearText = accountClaimToken.yearsToAdd === 1 ? 'year ' : 'years '
+    const yearText = (accountClaimToken.yearsToAdd === 1 ? t('year') : t('years')) + ' '
 
     return (
       <Fragment>
@@ -172,4 +176,4 @@ const mapDispatchToProps = dispatch => ({
   pagesSetQueryState: bindActionCreators(pagesSetQueryState, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Redeem)
+export default connect(mapStateToProps, mapDispatchToProps)(withTranslation(PV.nexti18next.namespaces)(Redeem))

@@ -4,11 +4,14 @@ import * as Modal from 'react-modal'
 import { connect } from 'react-redux'
 import { Button, CloseButton } from 'podverse-ui'
 import config from '~/config'
+import PV from '~/lib/constants'
 import { checkIfLoadingOnFrontEnd, getMobileOperatingSystem } from '~/lib/utility'
+import { withTranslation } from 'i18n'
 const { APP_DOWNLOAD_ON_THE_APP_STORE_URL, APP_GET_IT_ON_GOOGLE_PLAY_URL, APP_PROTOCOL } = config()
 
 type Props = {
   pageKey: string
+  t?: any
 }
 
 type State = {
@@ -39,7 +42,8 @@ const createDeepLink = (pageKey: string) => {
   }
 }
 
-const createDownloadButton = (mobileOS: string) => {
+const createDownloadButton = (mobileOS: string, t) => {
+
   if (mobileOS === 'Android') {
     return (
       <a
@@ -48,8 +52,8 @@ const createDownloadButton = (mobileOS: string) => {
         rel='noopener noreferrer'
         target='_blank'>
         <img
-          alt='Get it on Google Play'
-          src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png'
+          alt={t('GetItOnGooglePlay')}
+          src={PV.paths.web.googlePlayStoreBadge}
         />
       </a>
     )
@@ -130,9 +134,9 @@ class AppLinkWidget extends Component<Props, State> {
   }
 
   render() {
-    const { pageKey = '' } = this.props
+    const { pageKey = '' , t } = this.props
     const { isValidMobileOS, mobileOS, modalIsOpen } = this.state
-    const downloadButton = createDownloadButton(mobileOS)
+    const downloadButton = createDownloadButton(mobileOS, t)
 
     const isDeepLinkPage = pageKey && deepLinkPages.find((x) => pageKey.indexOf(x) >= 0)
 
@@ -150,24 +154,24 @@ class AppLinkWidget extends Component<Props, State> {
             className='app-link-widget__open-in-app'
             onClick={this._handleShowModal}
             outline={true}
-            text='Open in the app' />
+            text={t('OpenInTheApp')} />
         </div>
         <Modal
           appElement={appEl}
-          contentLabel='Open in the app'
+          contentLabel={t('OpenInTheApp')}
           isOpen={modalIsOpen}
           onRequestClose={this._handleHideModal}
           portalClassName='open-in-the-app-modal over-media-player'
           shouldCloseOnOverlayClick
           style={customStyles}>
-          <h3><FontAwesomeIcon icon='mobile-alt' /> &nbsp;Open in the app</h3>
+          <h3><FontAwesomeIcon icon='mobile-alt' /> &nbsp;{t('OpenInTheApp')}</h3>
           <CloseButton onClick={this._handleHideModal} />
           <div className='open-in-the-app-modal__i-have-the-app-wrapper'>
             <Button
               className={`open-in-the-app-modal__i-have-the-app ${mobileOS}`}
               onClick={this.handleOpenInApp}
               outline={true}
-              text='I have the app' />
+              text={t('IHaveTheApp')} />
           </div>
           <div className='open-in-the-app-modal__download-app'>
             {downloadButton}
@@ -182,4 +186,4 @@ const mapStateToProps = state => ({ ...state })
 
 const mapDispatchToProps = dispatch => ({})
 
-export default connect(mapStateToProps, mapDispatchToProps)(AppLinkWidget)
+export default connect(mapStateToProps, mapDispatchToProps)(withTranslation(PV.nexti18next.namespaces)(AppLinkWidget))

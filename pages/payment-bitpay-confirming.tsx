@@ -2,14 +2,17 @@ import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Meta from '~/components/Meta/Meta'
+import PV from '~/lib/constants'
 import { pageIsLoading } from '~/redux/actions'
 import { getBitPayInvoiceStatusByOrderId } from '~/services/'
 import config from '~/config'
+import { withTranslation } from '~/../i18n'
 const { BASE_URL } = config()
 
 type Props = {
   id: string
   meta?: any
+  t?: any
 }
 
 type State = {
@@ -23,16 +26,17 @@ type State = {
 
 class PaymentConfirmingBitPay extends Component<Props, State> {
 
-  static async getInitialProps({ query, req, store }) {
+  static async getInitialProps({ query, req, store, t }) {
     store.dispatch(pageIsLoading(false))
 
     const meta = {
-      currentUrl: BASE_URL + '/payment-bitpay-confirming',
-      description: 'BitPay payment confirmation screen on Podverse',
-      title: 'Confirming BitPay payment...'
+      currentUrl: BASE_URL + PV.paths.web.payment_bitpay_confirming,
+      description: t('pages:payment_bitpay_confirming._Description'),
+      title: t('pages:payment_bitpay_confirming._Title')
     }
+    const namespacesRequired = PV.nexti18next.namespaces
 
-    return { id: query.id, meta }
+    return { id: query.id, meta, namespacesRequired }
   }
 
   constructor(props) {
@@ -62,19 +66,19 @@ class PaymentConfirmingBitPay extends Component<Props, State> {
   }
 
   checkPaymentStatus = async () => {
-    const { id } = this.props
+    const { id, t } = this.props
     const { currentCount } = this.state
     const newState: any = {}
 
     try {
       const bitpayInvoice = await getBitPayInvoiceStatusByOrderId(id)
 
-      if (bitpayInvoice && bitpayInvoice.data && (bitpayInvoice.data === 'confirmed' || bitpayInvoice.data === 'complete')) {
+      if (bitpayInvoice && bitpayInvoice.data && (bitpayInvoice.data === t('confirmed') || bitpayInvoice.data === t('complete'))) {
         newState.hasError = false
         newState.isChecking = false
         newState.wasSuccessful = true
         this.setState(newState)
-        location.href = '/settings#membership'
+        location.href = PV.paths.web.settings_membership
       } else {
         if (currentCount > 50) {
           clearInterval(this.state.intervalId)
@@ -120,7 +124,7 @@ class PaymentConfirmingBitPay extends Component<Props, State> {
                   <Fragment>
                     <p>Confirming payment with the network...</p>
                     <FontAwesomeIcon icon='spinner' spin />
-                    <p>This may take 5-20 minutes. You can leave this page and check your <a href='/settings#membership'>Settings page</a> later
+                    <p>This may take 5-20 minutes. You can leave this page and check your <a href={PV.paths.web.settings_membership}>Settings page</a> later
                       to confirm when your transaction has completed.</p>
                   </Fragment>
               }
@@ -128,7 +132,7 @@ class PaymentConfirmingBitPay extends Component<Props, State> {
                 hasError &&
                   <Fragment>
                     <p>An error may have occurred, or the transaction is just taking a long time to confirm with the network.</p>
-                    <p>Please visit your Settings page at a later time to check if your transaction completed, or email support@podverse.fm if you have an issue.</p>
+                    <p>Please visit your Settings page at a later time to check if your transaction completed, or email contact@podverse.fm if you have an issue.</p>
                   </Fragment>
               }
               {
@@ -149,4 +153,4 @@ const mapStateToProps = state => ({ ...state })
 
 const mapDispatchToProps = dispatch => ({})
 
-export default connect(mapStateToProps, mapDispatchToProps)(PaymentConfirmingBitPay)
+export default connect(mapStateToProps, mapDispatchToProps)(withTranslation(PV.nexti18next.namespaces)(PaymentConfirmingBitPay))

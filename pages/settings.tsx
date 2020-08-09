@@ -7,7 +7,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Button } from 'podverse-ui'
 import Meta from '~/components/Meta/Meta'
 import CheckoutModal from '~/components/CheckoutModal/CheckoutModal'
-import { DeleteAccountModal } from '~/components/DeleteAccountModal/DeleteAccountModal'
+import DeleteAccountModal from '~/components/DeleteAccountModal/DeleteAccountModal'
+import PV from '~/lib/constants'
 import { alertPremiumRequired, alertRateLimitError, alertSomethingWentWrong, convertToYYYYMMDDHHMMSS,
   isBeforeDate, validateEmail, safeAlert } from '~/lib/utility'
 import { modalsSignUpShow, pageIsLoading, settingsCensorNSFWText, settingsHideFilterButton,
@@ -15,13 +16,13 @@ import { modalsSignUpShow, pageIsLoading, settingsCensorNSFWText, settingsHideFi
   settingsHideTimeJumpBackwardButton, userSetInfo } from '~/redux/actions'
 import { downloadLoggedInUserData, updateLoggedInUser } from '~/services'
 import config from '~/config'
+import { i18n, withTranslation } from '~/../i18n'
 const { BASE_URL } = config()
 const fileDownload = require('js-file-download')
 const cookie = require('cookie')
 
 type Props = {
   lastScrollPosition?: number
-  meta?: any
   modalsSignUpShow?: any
   pageKey?: string
   settings?: any
@@ -31,6 +32,7 @@ type Props = {
   settingsHideTimeJumpBackwardButton?: any
   settingsHidePlaybackSpeedButton?: any
   settingsHideNSFWLabels?: any
+  t?: any
   user?: any
   userSetInfo?: any
 }
@@ -44,6 +46,7 @@ type State = {
   isDownloading?: boolean
   isPublic?: boolean
   isSaving?: boolean
+  language: string
   name?: string
   wasCopied?: boolean
 }
@@ -61,13 +64,9 @@ class Settings extends Component<Props, State> {
 
     store.dispatch(pageIsLoading(false))
 
-    const meta = {
-      currentUrl: BASE_URL + '/settings',
-      description: 'Customize your account settings on Podverse.',
-      title: `Podverse - Settings`
-    }
+    const namespacesRequired = PV.nexti18next.namespaces
 
-    return { lastScrollPosition, meta, pageKey: kPageKey }
+    return { lastScrollPosition, namespacesRequired, pageKey: kPageKey }
   }
 
   constructor(props) {
@@ -78,6 +77,7 @@ class Settings extends Component<Props, State> {
       ...(user.email ? { email: user.email } : {}),
       isDownloading: false,
       ...(user.isPublic || user.isPublic === false ? {isPublic: user.isPublic} : {}),
+      language: i18n.language,
       ...(user.name ? {name: user.name} : {})
     }
   }
@@ -88,7 +88,7 @@ class Settings extends Component<Props, State> {
 
   profileLinkHref = () => {
     const { user } = this.props
-    return `${BASE_URL}/profile/${user.id}`
+    return `${BASE_URL}${PV.paths.web.profile}/${user.id}`
   }
 
   copyProfileLink = () => {
@@ -112,7 +112,7 @@ class Settings extends Component<Props, State> {
 
   downloadLoggedInUserData = async () => {
     this.setState({ isDownloading: true })
-    const { user } = this.props
+    const { t, user } = this.props
 
     try {
       const userData = await downloadLoggedInUserData(user.id)
@@ -121,7 +121,7 @@ class Settings extends Component<Props, State> {
       if (error && error.response && error.response.status === 429) {
         alertRateLimitError(error)
       } else {
-        safeAlert('Something went wrong. Please check your internet connection.')
+        safeAlert(t('errorMessages:alerts.somethingWentWrong'))
       }
       console.log(error)
     }
@@ -146,6 +146,13 @@ class Settings extends Component<Props, State> {
       if (isPublic === 'public') {
         new ClipboardJS('#settings-privacy-profile-link .btn')
       }
+    })
+  }
+
+  handleLanguageChange = event => {
+    const language = event.target.value
+    this.setState({ language }, () => {
+      i18n.changeLanguage(language)
     })
   }
 
@@ -258,9 +265,10 @@ class Settings extends Component<Props, State> {
   }
 
   validateEmail = () => {
+    const { t } = this.props
     const { email } = this.state
     if (!validateEmail(email)) {
-      this.setState({ emailError: 'Please provide a valid email address' })
+      this.setState({ emailError: t('errorMessages:message.PleaseProvideValidEmail') })
     } else {
       this.setState({ emailError: '' })
     }
@@ -274,7 +282,7 @@ class Settings extends Component<Props, State> {
 
   updateProfile = async () => {
     this.setState({ isSaving: true })
-    const { user, userSetInfo } = this.props
+    const { t, user, userSetInfo } = this.props
     const { id } = user
     const { email, isPublic, name } = this.state
 
@@ -283,12 +291,12 @@ class Settings extends Component<Props, State> {
       await updateLoggedInUser(newData)
       userSetInfo(newData)
     } catch (error) {
-      if (error && error.response && error.response.data && error.response.data.message === 'Premium Membership Required') {
-        alertPremiumRequired()
+      if (error && error.response && error.response.data && error.response.data.message === t('PremiumMembershipRequired')) {
+        alertPremiumRequired(t)
       } else if (error && error.response && error.response.status === 429) {
         alertRateLimitError(error)
       } else {
-        alertSomethingWentWrong()
+        alertSomethingWentWrong(t)
       }
     }
 
@@ -309,7 +317,12 @@ class Settings extends Component<Props, State> {
   }
   
   render() {
-    const { meta, settings, user } = this.props
+    const { settings, t, user } = this.props
+    const meta = {
+      currentUrl: BASE_URL + PV.paths.web.settings,
+      description: t('pages:settings._Description'),
+      title: t('pages:settings._Title')
+    }
     const { censorNSFWText, filterButtonHide, nsfwLabelsHide, playbackSpeedButtonHide,
       timeJumpBackwardButtonHide } = settings
     const { email, emailError, isCheckoutOpen, isDeleteAccountOpen, isDownloading,
@@ -321,11 +334,11 @@ class Settings extends Component<Props, State> {
         className='settings-membership__checkout'
         color='primary'
         onClick={() => this.toggleCheckoutModal(true)}>
-        <FontAwesomeIcon icon='shopping-cart' />&nbsp;&nbsp;{isRenew ? 'Renew' : 'Checkout'}
+        <FontAwesomeIcon icon='shopping-cart' />&nbsp;&nbsp;{isRenew ? t('Renew') : t('Checkout')}
       </Button>
     )
 
-    const membershipStatusHeader = <h3 id='membership'>Membership Status</h3>
+    const membershipStatusHeader = <h3 id='membership'>{t('MembershipStatus')}</h3>
 
     return (
       <div className='settings'>
@@ -339,13 +352,13 @@ class Settings extends Component<Props, State> {
           title={meta.title}
           twitterDescription={meta.description}
           twitterTitle={meta.title} />
-        <h3>Settings</h3>
+        <h3>{t('Settings')}</h3>
         <Form>
           {
             isLoggedIn &&
             <Fragment>
                 <FormGroup>
-                  <Label for='settings-name'>Name</Label>
+                  <Label for='settings-name'>{t('Name')}</Label>
                   <Input 
                     id='settings-name'
                     name='settings-name'
@@ -353,10 +366,10 @@ class Settings extends Component<Props, State> {
                     placeholder='anonymous'
                     type='text'
                     value={name} />
-                  <FormText>May appear next to content you create</FormText>
+                  <FormText>{t('MayAppearNextToContentYouCreate')}</FormText>
                 </FormGroup>
                 <FormGroup>
-                  <Label for='settings-name'>Email</Label>
+                  <Label for='settings-name'>{t('Email')}</Label>
                   <Input
                     id='settings-email'
                     invalid={emailError}
@@ -374,27 +387,26 @@ class Settings extends Component<Props, State> {
                   }
                 </FormGroup>
                 <FormGroup>
-                  <Label for='settings-privacy'>Profile Privacy</Label>
+                  <Label for='settings-privacy'>{t('Profile Privacy')}</Label>
                   <Input
-                    className='settings-privacy'
+                    className='settings-privacy settings-dropdown'
                     name='settings-privacy'
                     onChange={this.handlePrivacyChange}
                     type='select'
                     value={isPublic ? 'public' : 'private'}>
-                    <option value='public'>Public</option>
-                    <option value='private'>Private</option>
+                    <option value='public'>{t('Public')}</option>
+                    <option value='private'>{t('Private')}</option>
                   </Input>
                   {
                     isPublic ?
-                      <FormText>Podcasts, clips, and playlists are visible on your profile page</FormText>
-                      : <FormText>Your profile page is hidden. Your Public clips are still accessible by anyone,
-                        and your Only with Link clips and playlists are still accessible to anyone with the URL.</FormText>
+                      <FormText>{t('Podcasts, clips, and playlists are visible on your profile page')}</FormText>
+                      : <FormText>{t('Your profile page is hidden')}</FormText>
                   }
                 </FormGroup>
                 {
                   (user.isPublic && isPublic) &&
                     <FormGroup style={{marginBottom: '2rem'}}>
-                      <Label for='settings-privacy-profile-link'>Sharable Profile Link</Label>
+                      <Label for='settings-privacy-profile-link'>{t('SharableProfileLink')}</Label>
                       <InputGroup id='settings-privacy-profile-link'>
                         <Input
                           id='settings-privacy-profile-link-input'
@@ -406,7 +418,7 @@ class Settings extends Component<Props, State> {
                             color='primary'
                             dataclipboardtarget='#settings-privacy-profile-link-input'
                             onClick={this.copyProfileLink}
-                            text={wasCopied ? 'Copied!' : 'Copy'} />
+                            text={wasCopied ? t('Copied!') : t('Copy')} />
                         </InputGroupAddon>
                       </InputGroup>
                     </FormGroup>
@@ -415,7 +427,7 @@ class Settings extends Component<Props, State> {
                   <Button
                     className='settings-profile-btns__cancel'
                     onClick={this.resetProfileChanges}>
-                    Cancel
+                    {t('Cancel')}
                   </Button>
                   <Button
                     className='settings-profile-btns__save'
@@ -423,7 +435,7 @@ class Settings extends Component<Props, State> {
                     disabled={!this.validateProfileData()}
                     isLoading={isSaving}
                     onClick={this.updateProfile}>
-                    Save
+                    {t('Save')}
                   </Button>
                 </div>
                 <hr />
@@ -437,8 +449,8 @@ class Settings extends Component<Props, State> {
                   && isBeforeDate(user.membershipExpiration)) &&
                 <Fragment>
                   {membershipStatusHeader}
-                  <p className='settings-membership__status is-active'>Premium</p>
-                  <p>Ends: {new Date(user.membershipExpiration).toLocaleString()}</p>
+                  <p className='settings-membership__status is-active'>{t('Premium')}</p>
+                  <p>{t('Ends')}{new Date(user.membershipExpiration).toLocaleString()}</p>
                   {checkoutBtn(true)}
                   <hr />
                 </Fragment>
@@ -449,8 +461,8 @@ class Settings extends Component<Props, State> {
                   && isBeforeDate(user.freeTrialExpiration)) &&
                 <Fragment>
                   {membershipStatusHeader}
-                  <p className='settings-membership__status is-active'>Premium (Free Trial)</p>
-                  <p>Ends: {new Date(user.freeTrialExpiration).toLocaleString()}</p>
+                  <p className='settings-membership__status is-active'>{t('PremiumFreeTrial')}</p>
+                <p>{t('Ends')}{new Date(user.freeTrialExpiration).toLocaleString()}</p>
                   {checkoutBtn()}
                   <hr />
                 </Fragment>
@@ -461,9 +473,9 @@ class Settings extends Component<Props, State> {
                   && !isBeforeDate(user.freeTrialExpiration)) &&
                 <Fragment>
                   {membershipStatusHeader}
-                  <p className='settings-membership__status is-expired'>Expired</p>
-                  <p>Ended: {new Date(user.freeTrialExpiration).toLocaleString()}</p>
-                  <p>Your free trial has ended. Please renew to continue using premium features.</p>
+                <p className='settings-membership__status is-expired'>{t('Expired')}</p>
+                  <p>{t('Ended')}{new Date(user.freeTrialExpiration).toLocaleString()}</p>
+                  <p>{t('TrialEnded')}</p>
                   {checkoutBtn()}
                   <hr />
                 </Fragment>
@@ -474,9 +486,9 @@ class Settings extends Component<Props, State> {
                   && !isBeforeDate(user.membershipExpiration)) &&
                 <Fragment>
                   {membershipStatusHeader}
-                  <p className='settings-membership__status is-expired'>Expired</p>
-                  <p>Ended: {new Date(user.membershipExpiration).toLocaleString()}</p>
-                  <p>Your membership has expired. Please renew to continue using premium features.</p>
+                  <p className='settings-membership__status is-expired'>{t('Expired')}</p>
+                  <p>{t('Ended')}{new Date(user.membershipExpiration).toLocaleString()}</p>
+                  <p>{t('MembershipEnded')}</p>
                   {checkoutBtn(true)}
                   <hr />
                 </Fragment>
@@ -485,22 +497,22 @@ class Settings extends Component<Props, State> {
                 (user.id && !user.freeTrialExpiration && !user.membershipExpiration) &&
                 <Fragment>
                   {membershipStatusHeader}
-                  <p className='settings-membership__status is-expired'>Inactive</p>
-                  <p>Your membership is inactive. Please renew to continue using premium features.</p>
+                  <p className='settings-membership__status is-expired'>{t('Inactive')}</p>
+                  <p>{t('MembershipInactive')}</p>
                   {checkoutBtn(true)}
                   <hr />
                 </Fragment>
               }
             </Fragment>
           }
-          <h3>Interface</h3>
+          <h3>{t('Interface')}</h3>
           <FormGroup check>
             <Label className='checkbox-label' check>
               <Input
                 checked={censorNSFWText === 'true'}
                 onChange={this.handleToggleCensorNSFWText}
                 type="checkbox" />
-              &nbsp;&nbsp;Censor NSFW text
+              &nbsp;&nbsp;{t('Censor NSFW Text')}
             </Label>
           </FormGroup>
           <FormGroup check>
@@ -509,7 +521,7 @@ class Settings extends Component<Props, State> {
                 checked={nsfwLabelsHide === 'true' || !nsfwLabelsHide}
                 onChange={this.handleToggleNSFWLabels}
                 type="checkbox" />
-              &nbsp;&nbsp;Hide NSFW labels
+              &nbsp;&nbsp;{t('HideNSFWLabels')}
             </Label>
           </FormGroup>
           <FormGroup check>
@@ -518,7 +530,7 @@ class Settings extends Component<Props, State> {
                 checked={timeJumpBackwardButtonHide === 'true'}
                 onChange={this.handleToggleTimeJumpBackwardButton}
                 type="checkbox" />
-              &nbsp;&nbsp;Hide jump backwards button
+              &nbsp;&nbsp;{t('HideJumpBackwardsButton')}
             </Label>
           </FormGroup>
           <FormGroup check>
@@ -527,7 +539,7 @@ class Settings extends Component<Props, State> {
                 checked={playbackSpeedButtonHide === 'true'}
                 onChange={this.handleTogglePlaybackSpeedButton}
                 type="checkbox" />
-              &nbsp;&nbsp;Hide playback speed button
+              &nbsp;&nbsp;{t('HidePlaybackSpeedButton')}
             </Label>
           </FormGroup>    
           <FormGroup check>
@@ -536,22 +548,34 @@ class Settings extends Component<Props, State> {
                 checked={filterButtonHide === 'true'}
                 onChange={this.handleToggleFilterButton}
                 type="checkbox" />
-              &nbsp;&nbsp;Hide filter buttons
+              &nbsp;&nbsp;{t('HideFilterButtons')}
             </Label>
           </FormGroup>
+          {/* <FormGroup>
+            <Label for='settings-language'>{t('Change Language')}</Label>
+            <Input
+              className='settings-language settings-dropdown'
+              name='settings-language'
+              onChange={this.handleLanguageChange}
+              type='select'
+              value={language}>
+              <option value='en'>{t('language - en')}</option>
+              <option value='es'>{t('language - es')}</option>
+            </Input>
+          </FormGroup> */}
           {
             user && user.id &&
             <Fragment>
               <hr />
-              <h3>My Data</h3>
+              <h3>{t('MyData')}</h3>
               <p>
-                Download a backup of your data.
+                {t('DownloadDataBackup')}
               </p>
               <Button
                 className='settings__download'
                 isLoading={isDownloading}
                 onClick={this.downloadLoggedInUserData}>
-                <FontAwesomeIcon icon='download' />&nbsp;&nbsp;Download
+                <FontAwesomeIcon icon='download' />&nbsp;&nbsp;{t('Download')}
               </Button>
               <hr />
             </Fragment>
@@ -559,12 +583,12 @@ class Settings extends Component<Props, State> {
           {
             user && user.id &&
               <Fragment>
-                <h3>Management</h3>
+                <h3>{t('Management')}</h3>
                 <Button
                   className='settings__delete-account'
                   color='danger'
                   onClick={() => this.toggleDeleteAccountModal(true)}>
-                  <FontAwesomeIcon icon='trash' />&nbsp;&nbsp;Delete Account
+                  <FontAwesomeIcon icon='trash' />&nbsp;&nbsp;{t('DeleteAccount')}
                 </Button>
                 <DeleteAccountModal 
                   email={email}
@@ -595,4 +619,4 @@ const mapDispatchToProps = dispatch => ({
   userSetInfo: bindActionCreators(userSetInfo, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Settings)
+export default connect(mapStateToProps, mapDispatchToProps)(withTranslation(PV.nexti18next.namespaces)(Settings))

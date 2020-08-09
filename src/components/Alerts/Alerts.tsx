@@ -1,11 +1,14 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { Component, Fragment } from 'react'
+import { Trans } from 'react-i18next'
 import { connect } from 'react-redux'
 import { Alert } from 'reactstrap'
 import { bindActionCreators } from 'redux'
 import Link from 'next/link'
+import PV from '~/lib/constants'
 import { getCookie, getViewContentsElementScrollTop, isBeforeDate } from '~/lib/utility'
 import { modalsSendVerificationEmailShow, pageIsLoading, pagesSetQueryState } from '~/redux/actions'
+import { i18n, withTranslation } from '~/../i18n'
 const cookie = require('cookie')
 
 type Props = {
@@ -14,6 +17,7 @@ type Props = {
   pageIsLoading?: any
   pageKey?: string
   pagesSetQueryState?: any
+  t?: any
   user?: any
 }
 
@@ -43,10 +47,10 @@ class Alerts extends Component<Props, State> {
 
     if (!oldProps.user.id && newProps.user.id || !newProps.user.id) {
       const cookies = {
-        showFreeTrialHasEnded: getCookie('showFreeTrialHasEnded'),
-        showFreeTrialWarning: getCookie('showFreeTrialWarning'),
-        showMembershipHasEnded: getCookie('showMembershipHasEnded'),
-        showMembershipWarning: getCookie('showMembershipWarning'),
+        showFreeTrialHasEnded: getCookie(PV.cookies.showFreeTrialHasEnded),
+        showFreeTrialWarning: getCookie(PV.cookies.showFreeTrialWarning),
+        showMembershipHasEnded: getCookie(PV.cookies.showMembershipHasEnded),
+        showMembershipWarning: getCookie(PV.cookies.showMembershipWarning),
       }
             
       this.setState(this.generateStateObject(newProps.user, cookies))
@@ -57,7 +61,7 @@ class Alerts extends Component<Props, State> {
     const { user } = this.props
     const { emailVerified } = user
     if (user && user.id) {
-      const isVerifyEmailPage = window.location.href.indexOf('verify-email') >= 0
+      const isVerifyEmailPage = window.location.href.indexOf(PV.attributes.verify_email) >= 0
       this.setState({
         isVerifyEmailPage,
         ...(!emailVerified ? { showEmailVerificationNeeded: true } : { showEmailVerificationNeeded: false })
@@ -117,41 +121,46 @@ class Alerts extends Component<Props, State> {
   }
 
   render() {
+    const { t } = this.props
     const { hasSent, isSending, isVerifyEmailPage, showEmailVerificationNeeded, showFreeTrialHasEnded,
       showFreeTrialWarning, showMembershipHasEnded, showMembershipWarning } = this.state
 
-    const renewLink = (
+    const RenewLink = ({ children }) => (
       <Link
-        as='/settings#membership'
-        href='/settings'>
-        <a onClick={this.linkClick}>Renew</a>
+        as={PV.paths.web.settings_membership}
+        href={PV.paths.web.settings}>
+        <a onClick={this.linkClick}>{children}</a>
       </Link>
     )
 
     if (showEmailVerificationNeeded && !isVerifyEmailPage) {
       return (
         <Alert
-          color="warning"
+          color={PV.colors.warning}
           fade={false}
           isOpen={showEmailVerificationNeeded}
-          toggle={() => this.hideAlert('showEmailVerificationNeeded')}>
+          toggle={() => this.hideAlert(PV.cookies.showEmailVerificationNeeded)}>
           {
             hasSent &&
               <Fragment>
-                <p>Email Sent! Please check your inbox.</p>
-                <p>If it does not appear in the next 5 minutes, please check your inbox's Spam or Promotions folders.</p>
-                <span>If it still doesn't appear, please email <a href='mailto:support@podverse.fm'>support@podverse.fm</a> for help.</span>
+                <p>{t('EmailSent')}</p>
+                <p>{t('PleaseCheckInbox')}</p>
+                <span>
+                  <Trans i18n={i18n} i18nKey='ContactSupport'>
+                    If it still doesn't appear, please email <a href={`mailto:${PV.misc.email.contact}`}>{PV.misc.email.contact}</a> for help.
+                  </Trans>
+                </span>
               </Fragment>
           }
           {
             !hasSent && isSending &&
-              <span>Email sending... <FontAwesomeIcon icon='spinner' spin /></span>
+              <span>{t('EmailSending')}<FontAwesomeIcon icon='spinner' spin /></span>
           }
           {
             !hasSent && !isSending &&
               <Fragment>
-                <p>Please verify your email address to login.</p>
-                <span><a href='#' onClick={this._showSendVerificationEmailModal}>send verification email</a></span>
+                <p>{t('PleaseVerifyEmail')}</p>
+                <span><a href='#' onClick={this._showSendVerificationEmailModal}>{t('SendVerificationEmail')}</a></span>
               </Fragment>
           }
         </Alert>
@@ -159,41 +168,49 @@ class Alerts extends Component<Props, State> {
     } else if (showFreeTrialHasEnded) {
       return (
         <Alert
-          color="danger"
+          color={PV.colors.danger}
           fade={false}
           isOpen={showFreeTrialHasEnded}
-          toggle={() => this.hideAlert('showFreeTrialHasEnded')}>
-          Your free trial has ended. {renewLink} to continue using premium features.
+          toggle={() => this.hideAlert(PV.cookies.showFreeTrialHasEnded)}>
+          <Trans i18n={i18n} i18nKey='YourFreeTrialHasEnded'>
+            Your free trial has ended. <RenewLink>Renew</RenewLink> to continue using premium features.
+          </Trans>
         </Alert>
       )
     } else if (showFreeTrialWarning) {
       return (
         <Alert
-          color="warning"
+          color={PV.colors.warning}
           fade={false}
           isOpen={showFreeTrialWarning}
-          toggle={() => this.hideAlert('showFreeTrialWarning')}>
-          Your free trial will end soon. {renewLink} to continue using premium features.
+          toggle={() => this.hideAlert(PV.cookies.showFreeTrialWarning)}>
+          <Trans i18n={i18n} i18nKey='YourFreeTrialWillEndSoon'>
+            Your free trial will end soon. <RenewLink>Renew</RenewLink> to continue using premium features.
+          </Trans>
         </Alert>
       )
     } else if (showMembershipHasEnded) {
       return (
         <Alert
-          color="danger"
+          color={PV.colors.danger}
           fade={false}
           isOpen={showMembershipHasEnded}
-          toggle={() => this.hideAlert('showMembershipHasEnded')}>
-          Your membership has expired. {renewLink} to continue using premium features.
+          toggle={() => this.hideAlert(PV.cookies.showMembershipHasEnded)}>
+          <Trans i18n={i18n} i18nKey='YourMembershipHasExpired'>
+            Your membership has expired. <RenewLink>Renew</RenewLink> to continue using premium features.
+          </Trans>
         </Alert>
       )
     } else if (showMembershipWarning) {
       return (
         <Alert
-          color="warning"
+          color={PV.colors.warning}
           fade={false}
           isOpen={showMembershipWarning}
-          toggle={() => this.hideAlert('showMembershipWarning')}>
-          Your membership will expire soon. {renewLink} to continue using premium features.
+          toggle={() => this.hideAlert(PV.cookies.showMembershipWarning)}>
+          <Trans i18n={i18n} i18nKey='YourMembershipWillExpireSoon'>
+            Your membership will expire soon. <RenewLink>Renew</RenewLink> to continue using premium features.
+          </Trans>
         </Alert>
       )
     } else {
@@ -210,4 +227,4 @@ const mapDispatchToProps = dispatch => ({
   pagesSetQueryState: bindActionCreators(pagesSetQueryState, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Alerts)
+export default connect(mapStateToProps, mapDispatchToProps)(withTranslation(PV.nexti18next.namespaces)(Alerts))

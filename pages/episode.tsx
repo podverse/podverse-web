@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import Error from './_error'
+import { convertToNowPlayingItem } from 'podverse-shared'
 import { addItemsToSecondaryQueueStorage, clearItemsFromSecondaryQueueStorage
   } from 'podverse-ui'
 import MediaHeaderCtrl from '~/components/MediaHeaderCtrl/MediaHeaderCtrl'
@@ -9,11 +10,12 @@ import MediaInfoCtrl from '~/components/MediaInfoCtrl/MediaInfoCtrl'
 import MediaListCtrl from '~/components/MediaListCtrl/MediaListCtrl'
 import Meta from '~/components/Meta/Meta'
 import config from '~/config'
-import { convertToNowPlayingItem } from '~/lib/nowPlayingItem'
+import PV from '~/lib/constants'
 import { checkIfLoadingOnFrontEnd, clone, cookieGetQuery, removeDoubleQuotes } from '~/lib/utility'
 import { pageIsLoading, pagesSetQueryState, playerQueueLoadSecondaryItems
   } from '~/redux/actions'
 import { getEpisodeById, getEpisodesByQuery, getMediaRefsByQuery } from '~/services/'
+import { withTranslation } from '~/../i18n'
 const { BASE_URL } = config()
 
 type Props = {
@@ -30,6 +32,7 @@ type Props = {
   queryPage: number
   querySort?: any
   queryType?: any
+  t?: any
   user?: any
   userSetInfo?: any
 }
@@ -40,7 +43,7 @@ const kPageKey = 'episode_'
 
 class Episode extends Component<Props, State> {
 
-  static async getInitialProps({ query, req, store }) {
+  static async getInitialProps({ query, req, store, t }) {
     const pageKeyWithId = `${kPageKey}${query.id}`
     const state = store.getState()
     const { mediaPlayer, pages, user } = state
@@ -64,25 +67,25 @@ class Episode extends Component<Props, State> {
 
     const currentPage = pages[pageKeyWithId] || {}
     const lastScrollPosition = currentPage.lastScrollPosition
-    const queryFrom = currentPage.queryFrom || query.from || localStorageQuery.from || 'from-episode'
+    const queryFrom = currentPage.queryFrom || query.from || localStorageQuery.from || PV.queryParams.from_episode
     const queryPage = currentPage.queryPage || query.page || 1
-    const querySort = currentPage.querySort || query.sort || localStorageQuery.sort || 'top-past-week'
-    const queryType = currentPage.queryType || query.type || localStorageQuery.type || 'clips'
+    const querySort = currentPage.querySort || query.sort || localStorageQuery.sort || PV.queryParams.top_past_week
+    const queryType = currentPage.queryType || query.type || localStorageQuery.type || PV.queryParams.clips
     let podcastId = ''
     let episodeId = ''
 
-    if (queryFrom === 'from-podcast') {
+    if (queryFrom === PV.queryParams.from_podcast) {
       podcastId = episode.podcast.id
-    } else if (queryFrom === 'from-episode') {
+    } else if (queryFrom === PV.queryParams.from_episode) {
       episodeId = episode.id
-    } else if (queryFrom === 'subscribed-only') {
+    } else if (queryFrom === PV.queryParams.subscribed_only) {
       podcastId = user.subscribedPodcastIds
     }
 
     if (Object.keys(currentPage).length === 0) {
       let results
 
-      if (queryType === 'episodes') {
+      if (queryType === PV.queryParams.episodes) {
         results = await getEpisodesByQuery({
           from: queryFrom,
           page: queryPage,
@@ -129,17 +132,18 @@ class Episode extends Component<Props, State> {
     
     let meta = {}
     if (episode) {
-      const podcastTitle = (episode && episode.podcast && episode.podcast.title) || 'untitled podcast'
+      const podcastTitle = (episode && episode.podcast && episode.podcast.title) || t('untitledPodcast')
       meta = {
-        currentUrl: BASE_URL + '/episode/' + episode.id,
+        currentUrl: BASE_URL + PV.paths.web.episode + '/' + episode.id,
         description: removeDoubleQuotes(episode.description),
         imageAlt: podcastTitle,
         imageUrl: episode.shrunkImageUrl || episode.podcast.shrunkImageUrl || episode.imageUrl || episode.podcast.imageUrl,
         title: `${episode.title} - ${podcastTitle}`
       }
     }
+    const namespacesRequired = PV.nexti18next.namespaces
 
-    return { episode, lastScrollPosition, meta, newPlayingItem, pageKey: pageKeyWithId,
+    return { episode, lastScrollPosition, meta, namespacesRequired, newPlayingItem, pageKey: pageKeyWithId,
       queryFrom, querySort, queryType }
   }
 
@@ -188,7 +192,7 @@ class Episode extends Component<Props, State> {
           episode={episode}
           episodeId={episode.id}
           handleSetPageQueryState={pagesSetQueryState}
-          includeOldest={queryType === 'episodes'}
+          includeOldest={queryType === PV.queryParams.episodes}
           pageKey={pageKey}
           podcast={episode.podcast}
           podcastId={episode.podcast.id}
@@ -208,4 +212,4 @@ const mapDispatchToProps = dispatch => ({
   pagesSetQueryState: bindActionCreators(pagesSetQueryState, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Episode)
+export default connect(mapStateToProps, mapDispatchToProps)(withTranslation(PV.nexti18next.namespaces)(Episode))

@@ -10,7 +10,7 @@ module.exports = {
       .waitForElementWithText('h3', 'Settings')
       .testSharedMetaTags()
       .testPageMetaTags(
-        'Podverse - Settings',
+        'Settings',
         'Customize your account settings on Podverse.'
       )
 

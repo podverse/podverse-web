@@ -3,9 +3,11 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { MediaListItem, MediaListSelect, Pagination } from 'podverse-ui'
 import config from '~/config'
+import PV from '~/lib/constants'
 import { cookieSetQuery, getViewContentsElementScrollTop } from '~/lib/utility'
 import { pageIsLoading, pagesSetQueryState } from '~/redux/actions'
 import { getPodcastsByQuery } from '~/services'
+import { withTranslation } from '~/../i18n'
 const uuidv4 = require('uuid/v4')
 const { QUERY_PODCASTS_LIMIT } = config()
 
@@ -18,6 +20,7 @@ type Props = {
   pages?: any
   pagesSetQueryState?: any
   settings?: any
+  t?: any
   user?: any
 }
 
@@ -70,15 +73,15 @@ class PodcastListCtrl extends Component<Props, State> {
 
     const query: any = {
       page: 1,
-      from: 'all-podcasts',
+      from: PV.queryParams.all_podcasts,
       sort: querySort
     }
 
     const newState: any = {
       pageKey,
       queryPage: 1,
-      queryFrom: 'all-podcasts',
-      selected: 'all-podcasts',
+      queryFrom: PV.queryParams.all_podcasts,
+      selected: PV.queryParams.all_podcasts,
     }
 
     await this.queryPodcasts(query, newState)
@@ -90,7 +93,7 @@ class PodcastListCtrl extends Component<Props, State> {
 
     const query: any = {
       page: 1,
-      from: 'from-category',
+      from: PV.queryParams.from_category,
       sort: querySort,
       categories: categoryId
     }
@@ -98,7 +101,7 @@ class PodcastListCtrl extends Component<Props, State> {
     const newState: any = {
       pageKey,
       queryPage: 1,
-      queryFrom: 'from-category',
+      queryFrom: PV.queryParams.from_category,
       categoryId,
       selected: categoryId
     }
@@ -113,16 +116,16 @@ class PodcastListCtrl extends Component<Props, State> {
 
     const query: any = {
       page: 1,
-      from: 'subscribed-only',
+      from: PV.queryParams.subscribed_only,
       sort: querySort,
       subscribedPodcastIds: subscribedPodcastIds || []
     }
 
     const newState: any = {
       pageKey,
-      queryFrom: 'subscribed-only',
+      queryFrom: PV.queryParams.subscribed_only,
       queryPage: 1,
-      selected: 'subscribed-only',
+      selected: PV.queryParams.subscribed_only,
     }
 
     if (subscribedPodcastIds && subscribedPodcastIds.length < 1) {
@@ -148,8 +151,8 @@ class PodcastListCtrl extends Component<Props, State> {
       page: 1,
       from: queryFrom,
       sort: selectedValue,
-      categories: queryFrom === 'from-category' ? categoryId : null,
-      subscribedPodcastIds: queryFrom === 'subscribed-only' ? subscribedPodcastIds : null
+      categories: queryFrom === PV.queryParams.from_category ? categoryId : null,
+      subscribedPodcastIds: queryFrom === PV.queryParams.subscribed_only ? subscribedPodcastIds : null
     }
 
     const newState: any = {
@@ -171,8 +174,8 @@ class PodcastListCtrl extends Component<Props, State> {
       page,
       from: queryFrom,
       sort: querySort,
-      categories: queryFrom === 'from-category' ? categoryId : null,
-      subscribedPodcastIds: queryFrom === 'subscribed-only' ? subscribedPodcastIds : null
+      categories: queryFrom === PV.queryParams.from_category ? categoryId : null,
+      subscribedPodcastIds: queryFrom === PV.queryParams.subscribed_only ? subscribedPodcastIds : null
     }
 
     const newState: any = {
@@ -186,16 +189,18 @@ class PodcastListCtrl extends Component<Props, State> {
   }
 
   getQuerySortOptions() {
+    const { t } = this.props
+
     return [
       {
-        label: 'alphabetical',
-        onClick: () => this.queryPodcastsSort('alphabetical'),
-        value: 'alphabetical'
+        label: t('queryLabels:alphabetical'),
+        onClick: () => this.queryPodcastsSort(PV.queryParams.alphabetical),
+        value: PV.queryParams.alphabetical
       },
       {
-        label: 'most recent',
-        onClick: () => this.queryPodcastsSort('most-recent'),
-        value: 'most-recent'
+        label: t('queryLabels:most_recent'),
+        onClick: () => this.queryPodcastsSort(PV.queryParams.most_recent),
+        value: PV.queryParams.most_recent
       },
       // {
       //   label: 'top - past hour',
@@ -203,62 +208,62 @@ class PodcastListCtrl extends Component<Props, State> {
       //   value: 'top-past-hour'
       // },
       {
-        label: 'top - past day',
-        onClick: () => this.queryPodcastsSort('top-past-day'),
-        value: 'top-past-day'
+        label: t('queryLabels:top_past_day'),
+        onClick: () => this.queryPodcastsSort(PV.queryParams.top_past_day),
+        value: PV.queryParams.top_past_day
       },
       {
-        label: 'top - past week',
-        onClick: () => this.queryPodcastsSort('top-past-week'),
-        value: 'top-past-week'
+        label: t('queryLabels:top_past_week'),
+        onClick: () => this.queryPodcastsSort(PV.queryParams.top_past_week),
+        value: PV.queryParams.top_past_week
       },
       {
-        label: 'top - past month',
-        onClick: () => this.queryPodcastsSort('top-past-month'),
-        value: 'top-past-month'
+        label: t('queryLabels:top_past_month'),
+        onClick: () => this.queryPodcastsSort(PV.queryParams.top_past_month),
+        value: PV.queryParams.top_past_month
       },
       {
-        label: 'top - past year',
-        onClick: () => this.queryPodcastsSort('top-past-year'),
-        value: 'top-past-year'
+        label: t('queryLabels:top_past_year'),
+        onClick: () => this.queryPodcastsSort(PV.queryParams.top_past_year),
+        value: PV.queryParams.top_past_year
       },
       {
-        label: 'top - all time',
-        onClick: () => this.queryPodcastsSort('top-all-time'),
-        value: 'top-all-time'
+        label: t('queryLabels:top_all_time'),
+        onClick: () => this.queryPodcastsSort(PV.queryParams.top_all_time),
+        value: PV.queryParams.top_all_time
       },
       {
-        label: 'random',
-        onClick: () => this.queryPodcastsSort('random'),
-        value: 'random'
+        label: t('queryLabels:random'),
+        onClick: () => this.queryPodcastsSort(PV.queryParams.random),
+        value: PV.queryParams.random
       }
     ]
   }
 
   generateTopLevelSelectNodes = () => {
-    const { allCategories, pageKey, pages } = this.props
+    const { allCategories, pageKey, pages, t } = this.props
     const { categoryId, queryFrom } = pages[pageKey]
     const topLevelItems = [] as any[]
 
     topLevelItems.push({
-      label: 'Subscribed',
+      label: t('queryLabels:Subscribed'),
       onClick: () => this.queryPodcastsSubscribed(),
       parentValue: null,
-      value: 'subscribed-only'
+      value: PV.queryParams.subscribed_only
     })
 
     topLevelItems.push({
-      label: 'All Podcasts',
+      label: t('queryLabels:AllPodcasts'),
       onClick: () => this.queryPodcastsAll(),
       parentValue: null,
-      value: 'all-podcasts'
+      value: PV.queryParams.all_podcasts
     })
 
     topLevelItems.push({
-      label: 'Categories',
+      label: t('queryLabels:Categories'),
       onClick: () => this.queryPodcastsCategory(categoryId || allCategories[2].id /* Arts */),
       parentValue: null,
-      value: 'from-category'
+      value: PV.queryParams.from_category
     })
 
     return (
@@ -270,7 +275,7 @@ class PodcastListCtrl extends Component<Props, State> {
   }
 
   generateCategorySelectNodes = (selectedCategoryId) => {
-    const { allCategories, pageKey, pages } = this.props
+    const { allCategories, pageKey, pages, t } = this.props
     const { selected } = pages[pageKey]
 
     const categoryItems = allCategories.map(x => {
@@ -297,7 +302,7 @@ class PodcastListCtrl extends Component<Props, State> {
       }
 
       subcategoryItems.unshift({
-        label: 'All',
+        label: t('queryLabels:All'),
         onClick: () => this.queryPodcastsCategory(selectedCategory.parentValue),
         parentValue: null,
         value: selectedCategory.parentValue
@@ -381,7 +386,7 @@ class PodcastListCtrl extends Component<Props, State> {
   }
 
   render() {
-    const { page, pageKey, pages, user } = this.props
+    const { page, pageKey, pages, t, user } = this.props
     const { isLoading } = page
     const { categoryId, listItems, listItemsTotal, queryFrom, queryPage, querySort } = pages[pageKey]
 
@@ -391,16 +396,17 @@ class PodcastListCtrl extends Component<Props, State> {
           dataPodcast={x}
           handleLinkClick={this.linkClick}
           hasLink={true}
-          itemType='podcast'
-          key={`podcast-list-item-${uuidv4()}`} />
+          itemType={PV.attributes.mediaListItem.podcast}
+          key={`podcast-list-item-${uuidv4()}`}
+          t={t} />
       )
     })
 
     const bottomSelectNodes = this.generateCategorySelectNodes(categoryId)
 
     const selectedQuerySortOption = this.getQuerySortOptions().filter(x => x.value === querySort)
-
-    const noResultsFoundMsg = !user || !user.id ? `Login to view your subscriptions` : `No podcasts found`
+    const isNotLoggedIn = !user || !user.id
+    const noResultsFoundMsg = isNotLoggedIn ? t('errorMessages:login.ViewYourSubscriptions') : t('No podcasts found')
 
     return (
       <div className={'media-list adjust-top-position'}>
@@ -417,7 +423,7 @@ class PodcastListCtrl extends Component<Props, State> {
         </div>
         <div className='media-list__selects'>
           <div className='media-list-selects__inline'>
-            {queryFrom === 'from-category' && bottomSelectNodes}
+            {queryFrom === PV.queryParams.from_category && bottomSelectNodes}
           </div>
         </div>
         <Fragment>
@@ -429,6 +435,7 @@ class PodcastListCtrl extends Component<Props, State> {
                   currentPage={queryPage || 1}
                   handleQueryPage={this.handleQueryPage}
                   pageRange={2}
+                  t={t}
                   totalPages={Math.ceil(listItemsTotal / QUERY_PODCASTS_LIMIT)}/>
               </Fragment>
           }
@@ -451,4 +458,4 @@ const mapDispatchToProps = dispatch => ({
   pagesSetQueryState: bindActionCreators(pagesSetQueryState, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(PodcastListCtrl)
+export default connect(mapStateToProps, mapDispatchToProps)(withTranslation(PV.nexti18next.namespaces)(PodcastListCtrl))

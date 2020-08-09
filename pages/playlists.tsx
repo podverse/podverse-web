@@ -8,17 +8,19 @@ import config from '~/config'
 import { getViewContentsElementScrollTop } from '~/lib/utility'
 import { pageIsLoading, pagesSetQueryState } from '~/redux/actions'
 import { getPlaylistsByQuery } from '~/services'
+import PV from '~/lib/constants'
+import { withTranslation } from '~/../i18n'
 const uuidv4 = require('uuid/v4')
 const { BASE_URL } = config()
 
 type Props = {
   lastScrollPosition?: number
-  meta?: any
   myPlaylists: any[]
   pageIsLoading?: any
   pageKey?: string
   pagesSetQueryState?: any
   subscribedPlaylists: any[]
+  t?: any
   user: any
 }
 
@@ -42,7 +44,7 @@ class Playlists extends Component<Props, State> {
     let subscribedPlaylists = []
     if (subscribedPlaylistIds && subscribedPlaylistIds.length > 0) {
       const subscribedPlaylistsData = await getPlaylistsByQuery({
-        from: 'subscribed-only',
+        from: PV.queryParams.subscribed_only,
         subscribedPlaylistIds
       })
       subscribedPlaylists = subscribedPlaylistsData.data
@@ -50,13 +52,9 @@ class Playlists extends Component<Props, State> {
 
     store.dispatch(pageIsLoading(false))
 
-    const meta = {
-      currentUrl: BASE_URL + '/playlists',
-      description: 'Create and share playlists of podcast clips and episodes.',
-      title: `Playlists`
-    }
+    const namespacesRequired = PV.nexti18next.namespaces
 
-    return { lastScrollPosition, meta, myPlaylists, pageKey: kPageKey, subscribedPlaylists,
+    return { lastScrollPosition, myPlaylists, namespacesRequired, pageKey: kPageKey, subscribedPlaylists,
       user }
   }
 
@@ -78,7 +76,13 @@ class Playlists extends Component<Props, State> {
   }
 
   render() {
-    const { meta, myPlaylists, subscribedPlaylists, user } = this.props
+    const { myPlaylists, subscribedPlaylists, t, user } = this.props
+
+    const meta = {
+      currentUrl: BASE_URL + PV.paths.web.playlists,
+      description: t('pages:playlists._Description'),
+      title: t('pages:playlists._Title')
+    }
     
     const myPlaylistNodes = myPlaylists.map(x => (
         <MediaListItem
@@ -86,7 +90,8 @@ class Playlists extends Component<Props, State> {
           handleLinkClick={this.linkClick}
           hasLink
           itemType='playlist'
-          key={`media-list-item-${uuidv4()}`} />
+          key={`media-list-item-${uuidv4()}`}
+          t={t} />
     ))
 
     const subscribedPlaylistNodes = subscribedPlaylists.map(x => (
@@ -96,7 +101,8 @@ class Playlists extends Component<Props, State> {
         hasLink
         itemType='playlist'
         key={`media-list-item-${uuidv4()}`}
-        showOwner />
+        showOwner
+        t={t} />
     ))
 
     return (
@@ -111,10 +117,12 @@ class Playlists extends Component<Props, State> {
           title={meta.title}
           twitterDescription={meta.description}
           twitterTitle={meta.title} />
-        <h3>Playlists</h3>
+        <h3>{t('Playlists')}</h3>
         {
           (!user || !user.id) &&
-            <div className='no-results-msg'>Login to view your playlists</div>
+            <div className='no-results-msg'>
+              {t('LoginToViewYourPlaylists')}
+            </div>
         }
         {
           (user && user.id) &&
@@ -126,7 +134,9 @@ class Playlists extends Component<Props, State> {
                 }
                 {
                   (myPlaylistNodes.length === 0) &&
-                    <div className='no-results-msg'>No playlists found</div>
+                    <div className='no-results-msg'>
+                      {t('No playlists found')}
+                    </div>
                 }
               </div>
               {
@@ -151,4 +161,4 @@ const mapDispatchToProps = dispatch => ({
   pagesSetQueryState: bindActionCreators(pagesSetQueryState, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Playlists)
+export default connect(mapStateToProps, mapDispatchToProps)(withTranslation(PV.nexti18next.namespaces)(Playlists))

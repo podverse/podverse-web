@@ -1,11 +1,12 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import { convertNowPlayingItemClipToNowPlayingItemEpisode } from 'podverse-shared'
 import { MediaPlayer, popNextFromQueueStorage, setNowPlayingItemInStorage } from 'podverse-ui'
 import { addOrUpdateHistoryItemPlaybackPosition, assignLocalOrLoggedInNowPlayingItemPlaybackPosition,
   generateShareURLs, getPlaybackPositionFromHistory, getViewContentsElementScrollTop } from '~/lib/utility'
-import { kAutoplay, kPlaybackRate, getPlaybackRateText, getPlaybackRateNextValue
-  } from '~/lib/constants/misc'
+import { getPlaybackRateText, getPlaybackRateNextValue } from '~/lib/utility'
+import PV from '~/lib/constants'
 import { mediaPlayerLoadNowPlayingItem, 
   mediaPlayerSetClipFinished, mediaPlayerSetPlayedAfterClipFinished,
   playerQueueLoadPriorityItems, playerQueueLoadSecondaryItems,
@@ -13,7 +14,6 @@ import { mediaPlayerLoadNowPlayingItem,
   modalsQueueShow, modalsShareShow, pageIsLoading, pagesSetQueryState,
   userSetInfo } from '~/redux/actions'
 import { updateUserQueueItems, addOrUpdateUserHistoryItem } from '~/services'
-import { convertNowPlayingItemClipToNowPlayingItemEpisode } from '~/lib/nowPlayingItem'
 
 type Props = {
   handleMakeClip?: Function
@@ -72,29 +72,29 @@ class MediaPlayerView extends Component<Props, State> {
 
   getAutoplayValue = () => {
     try {
-      const autoplay = localStorage.getItem(kAutoplay)
+      const autoplay = localStorage.getItem(PV.storageKeys.kAutoplay)
       return autoplay ? JSON.parse(autoplay) : false
     } catch (error) {
-      console.log('getAutoplayValue', error)
+      console.log(error)
       return false
     }
   }
 
   setAutoplayValue = (val) => {
-    localStorage.setItem(kAutoplay, val)
+    localStorage.setItem(PV.storageKeys.kAutoplay, val)
   }
 
   getPlaybackRateValue = () => {
     try {
-      const playbackRate = localStorage.getItem(kPlaybackRate)
+      const playbackRate = localStorage.getItem(PV.storageKeys.kPlaybackRate)
       return playbackRate ? JSON.parse(playbackRate) : 1
     } catch (error) {
-      console.log('getPlaybackRateValue', error)
+      console.log(error)
     }
   }
 
   setPlaybackRateValue = (val) => {
-    localStorage.setItem(kPlaybackRate, val)
+    localStorage.setItem(PV.storageKeys.kPlaybackRate, val)
   }
 
   itemSkip = async () => {
@@ -152,6 +152,7 @@ class MediaPlayerView extends Component<Props, State> {
 
       if (user && user.id) {
         await addOrUpdateHistoryItemPlaybackPosition(nextItem, user)
+        // eslint-disable-next-line array-callback-return
         const historyItems = user.historyItems.filter(x => {
           if (x) {
             if ((x.clipStartTime || x.clipEndTime) && x.clipId !== nextItem.clipId) {
@@ -343,11 +344,11 @@ class MediaPlayerView extends Component<Props, State> {
                 playbackRate={playbackRate}
                 playedAfterClipFinished={playedAfterClipFinished}
                 playbackRateText={getPlaybackRateText(playbackRate)}
-                playerClipLinkAs={nowPlayingItem.clipId ? `/clip/${nowPlayingItem.clipId}` : ''}
-                playerClipLinkHref={nowPlayingItem.clipId ? `/clip?id=${nowPlayingItem.clipId}` : ''}
+                playerClipLinkAs={nowPlayingItem.clipId ? `${PV.paths.web.clip}/${nowPlayingItem.clipId}` : ''}
+                playerClipLinkHref={nowPlayingItem.clipId ? `${PV.paths.web.clip}?id=${nowPlayingItem.clipId}` : ''}
                 playerClipLinkOnClick={this.linkClick}
-                playerEpisodeLinkAs={`/episode/${nowPlayingItem.episodeId}`}
-                playerEpisodeLinkHref={`/episode?id=${nowPlayingItem.episodeId}`}
+                playerEpisodeLinkAs={`${PV.paths.web.episode}/${nowPlayingItem.episodeId}`}
+                playerEpisodeLinkHref={`${PV.paths.web.episode}?id=${nowPlayingItem.episodeId}`}
                 playerEpisodeLinkOnClick={this.linkClick}
                 playing={playing}
                 queuePriorityItems={priorityItems}

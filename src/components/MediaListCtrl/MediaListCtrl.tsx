@@ -3,18 +3,20 @@ import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { InputGroup, InputGroupAddon, Input } from 'reactstrap'
+import { convertToNowPlayingItem } from 'podverse-shared'
 import { Button, MediaListSelect, Pagination, setNowPlayingItemInStorage
   } from 'podverse-ui'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import MediaListItemCtrl from '~/components/MediaListItemCtrl/MediaListItemCtrl'
 import config from '~/config'
-import { convertToNowPlayingItem } from '~/lib/nowPlayingItem'
+import PV from '~/lib/constants'
 import { addOrUpdateHistoryItemPlaybackPosition, assignLocalOrLoggedInNowPlayingItemPlaybackPosition,
   clone, cookieSetQuery } from '~/lib/utility'
 import { mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying, pageIsLoading,
   playerQueueAddSecondaryItems, playerQueueLoadPriorityItems,
   playerQueueLoadSecondaryItems, userSetInfo } from '~/redux/actions'
 import { getEpisodesByQuery, getMediaRefsByQuery } from '~/services'
+import { withTranslation } from '~/../i18n'
 import AwesomeDebouncePromise from 'awesome-debounce-promise'
 const uuidv4 = require('uuid/v4')
 const { QUERY_MEDIA_REFS_LIMIT } = config()
@@ -47,6 +49,7 @@ type Props = {
   queryType?: string
   settings?: any
   showQueryTypeSelect?: boolean
+  t?: any
   user?: any
   userSetInfo?: any
 }
@@ -68,20 +71,20 @@ class MediaListCtrl extends Component<Props, State> {
     const { filterIsShowing, filterText } = pages[pageKey]
 
     this.setTemporaryMinHeightOnMediaList()
-    
+   
     const categories = categoryId || allCategories && allCategories[2].id /* Arts */
 
     const query: any = {
       page,
       from: queryFrom,
       sort: querySort,
-      episodeId: queryFrom === 'from-episode' ? episodeId : null,
-      podcastId: queryFrom === 'from-podcast' ? podcastId : null,
+      episodeId: queryFrom === PV.queryParams.from_episode ? episodeId : null,
+      podcastId: queryFrom === PV.queryParams.from_podcast ? podcastId : null,
       categories,
       ...(filterIsShowing ? { searchAllFieldsText: filterText } : {}),
-      ...(queryFrom === 'all-podcasts' ||
-          queryFrom === 'subscribed-only' ? { includePodcast: true } : {}),
-      ...(queryFrom === 'from-podcast' ? { includeEpisode: true } : {})
+      ...(queryFrom === PV.queryParams.all_podcasts ||
+          queryFrom === PV.queryParams.subscribed_only ? { includePodcast: true } : {}),
+      ...(queryFrom === PV.queryParams.from_podcast ? { includeEpisode: true } : {})
     }
 
     cookieSetQuery(pageKey, queryFrom, queryType, querySort, categoryId)
@@ -107,9 +110,9 @@ class MediaListCtrl extends Component<Props, State> {
       selected: queryFrom
     })
 
-    if (queryFrom === 'from-podcast') {
+    if (queryFrom === PV.queryParams.from_podcast) {
       query.podcastId = podcastId
-    } else if (queryFrom === 'subscribed-only') {
+    } else if (queryFrom === PV.queryParams.subscribed_only) {
       if (subscribedPodcastIds && subscribedPodcastIds.length > 0) {
         query.podcastId = subscribedPodcastIds
       } else {
@@ -127,7 +130,7 @@ class MediaListCtrl extends Component<Props, State> {
       let nowPlayingItems = []
       let listItemsTotal
 
-      if (queryType === 'episodes') {
+      if (queryType === PV.queryParams.episodes) {
         const response = await getEpisodesByQuery(query)
         const episodes = response.data
         listItemsTotal = episodes[1]
@@ -163,7 +166,6 @@ class MediaListCtrl extends Component<Props, State> {
   querySort = async selectedValue => {
     const { pageKey, pages } = this.props
     const { categoryId, queryFrom, queryType } = pages[pageKey]
-        
     await this.queryListItems(queryType, queryFrom, selectedValue, 1, categoryId)
   }
 
@@ -182,31 +184,30 @@ class MediaListCtrl extends Component<Props, State> {
   }
 
   getQueryTypeOptions = () => {
-    const { pageKey, pages, podcastId, user } = this.props
+    const { pageKey, pages, podcastId, t, user } = this.props
     const { categoryId, queryFrom } = pages[pageKey]
-
     return [
       {
-        label: 'Clips',
-        onClick: () => this.queryListItems('clips', queryFrom, 'top-past-week', 1, categoryId),
-        value: 'clips',
+        label: t('Clips'),
+        onClick: () => this.queryListItems(PV.queryParams.clips, queryFrom, PV.queryParams.top_past_week, 1, categoryId),
+        value: PV.queryParams.clips,
       },
       {
-        label: 'Episodes',
+        label: t('Episodes'),
         onClick: () => this.queryListItems(
-          'episodes',
-          podcastId ? 'from-podcast' : queryFrom,
-          (user && user.id && !podcastId) ? 'most-recent' : 'top-past-week',
+          PV.queryParams.episodes,
+          podcastId ? PV.queryParams.from_podcast : queryFrom,
+          (user && user.id && !podcastId) ? PV.queryParams.most_recent : PV.queryParams.top_past_week,
           1,
           categoryId
         ),
-        value: 'episodes',
+        value: PV.queryParams.episodes,
       }
     ]
   }
 
   getQueryFromOptions = (showFromPodcast, showFromEpisode) => {
-    const { pageKey, pages } = this.props
+    const { pageKey, pages, t } = this.props
     const { querySort, queryType } = pages[pageKey]
 
     const options = [] as any
@@ -214,9 +215,9 @@ class MediaListCtrl extends Component<Props, State> {
     if (showFromPodcast) {
       options.unshift(
         {
-          label: 'From this podcast',
-          onClick: () => this.queryListItems(queryType, 'from-podcast', querySort, 1, null),
-          value: 'from-podcast'
+          label: t('queryLabels:FromThisPodcast'),
+          onClick: () => this.queryListItems(queryType, PV.queryParams.from_podcast, querySort, 1, null),
+          value: PV.queryParams.from_podcast
         }
       )
     }
@@ -224,9 +225,9 @@ class MediaListCtrl extends Component<Props, State> {
     if (showFromEpisode) {
       options.unshift(
         {
-          label: 'From this episode',
-          onClick: () => this.queryListItems(queryType, 'from-episode', querySort, 1, null),
-          value: 'from-episode'
+          label: t('queryLabels:FromThisEpisode'),
+          onClick: () => this.queryListItems(queryType, PV.queryParams.from_episode, querySort, 1, null),
+          value: PV.queryParams.from_episode
         }
       )
     }
@@ -235,58 +236,59 @@ class MediaListCtrl extends Component<Props, State> {
   }
 
   getQuerySortOptions(includeOldest?: boolean, showChronological?: boolean) {
+    const { t } = this.props
 
     const items = [
       {
-        label: 'most recent',
-        onClick: () => this.querySort('most-recent'),
-        value: 'most-recent'
+        label: t('queryLabels:most_recent'),
+        onClick: () => this.querySort(PV.queryParams.most_recent),
+        value: PV.queryParams.most_recent
       },
       {
-        label: 'top - past day',
-        onClick: () => this.querySort('top-past-day'),
-        value: 'top-past-day'
+        label: t('queryLabels:top_past_day'),
+        onClick: () => this.querySort(PV.queryParams.top_past_day),
+        value: PV.queryParams.top_past_day
       },
       {
-        label: 'top - past week',
-        onClick: () => this.querySort('top-past-week'),
-        value: 'top-past-week'
+        label: t('queryLabels:top_past_week'),
+        onClick: () => this.querySort(PV.queryParams.top_past_week),
+        value: PV.queryParams.top_past_week
       },
       {
-        label: 'top - past month',
-        onClick: () => this.querySort('top-past-month'),
-        value: 'top-past-month'
+        label: t('queryLabels:top_past_month'),
+        onClick: () => this.querySort(PV.queryParams.top_past_month),
+        value: PV.queryParams.top_past_month
       },
       {
-        label: 'top - past year',
-        onClick: () => this.querySort('top-past-year'),
-        value: 'top-past-year'
+        label: t('queryLabels:top_past_year'),
+        onClick: () => this.querySort(PV.queryParams.top_past_year),
+        value: PV.queryParams.top_past_year
       },
       {
-        label: 'top - all time',
-        onClick: () => this.querySort('top-all-time'),
-        value: 'top-all-time'
+        label: t('queryLabels:top_all_time'),
+        onClick: () => this.querySort(PV.queryParams.top_all_time),
+        value: PV.queryParams.top_all_time
       },
       {
-        label: 'random',
-        onClick: () => this.querySort('random'),
-        value: 'random'
+        label: t('queryLabels:random'),
+        onClick: () => this.querySort(PV.queryParams.random),
+        value: PV.queryParams.random
       }
     ]
 
     if (showChronological) {
       items.unshift({
-        label: 'chronological',
-        onClick: () => this.querySort('chronological'),
-        value: 'chronological'
+        label: PV.queryParams.chronological,
+        onClick: () => this.querySort(PV.queryParams.chronological),
+        value: PV.queryParams.chronological
       })
     }
 
     if (includeOldest) {
       items.splice(1, 0, {
-        label: 'oldest',
-        onClick: () => this.querySort('oldest'),
-        value: 'oldest'
+        label: PV.queryParams.oldest,
+        onClick: () => this.querySort(PV.queryParams.oldest),
+        value: PV.queryParams.oldest
       })
     }
 
@@ -363,7 +365,7 @@ class MediaListCtrl extends Component<Props, State> {
   toggleFilter = async () => {
     const { handleSetPageQueryState, pageKey, pages } = this.props
     const { categoryId, filterIsShowing, queryFrom, querySort, queryType } = pages[pageKey]
-    
+
     handleSetPageQueryState({
       pageKey,
       filterIsShowing: !filterIsShowing,
@@ -390,28 +392,28 @@ class MediaListCtrl extends Component<Props, State> {
     })
 
     let pId
-    if (queryFrom === 'from-podcast') {
+    if (queryFrom === PV.queryParams.from_podcast) {
       pId = podcastId
-    } else if (queryFrom === 'subscribed-only') {
-      pId = subscribedPodcastIds && subscribedPodcastIds.length > 0 ? subscribedPodcastIds : ['no-results']
+    } else if (queryFrom === PV.queryParams.subscribed_only) {
+      pId = subscribedPodcastIds && subscribedPodcastIds.length > 0 ? subscribedPodcastIds : [PV.queryParams.no_results]
     }
 
     const query: any = {
       page: 1,
       from: queryFrom,
       sort: querySort,
-      categories: categoryId || ((queryFrom === 'from-category' && allCategories) ? allCategories[2].id : null),
-      episodeId: queryFrom === 'from-episode' ? episodeId : null,
+      categories: categoryId || ((queryFrom === PV.queryParams.from_category && allCategories) ? allCategories[2].id : null),
+      episodeId: queryFrom === PV.queryParams.from_episode ? episodeId : null,
       podcastId: pId || null,
       searchAllFieldsText: text,
-      includePodcast: !!text || queryFrom === 'subscribed-only' || queryFrom === 'all-podcasts'
+      includePodcast: !!text || queryFrom === PV.queryParams.subscribed_only || queryFrom === PV.queryParams.all_podcasts
     }
 
     try {
       let nowPlayingItems
       let listItemsTotal
 
-      if (queryType === 'episodes') {
+      if (queryType === PV.queryParams.episodes) {
         const response = await debouncedEpisodeFilterQuery(query)
         const episodes = response.data
         nowPlayingItems = episodes[0].map(x => convertToNowPlayingItem(x))
@@ -451,53 +453,53 @@ class MediaListCtrl extends Component<Props, State> {
   }
 
   generateQueryTypeOptions = () => {
-    const { pageKey, pages, podcastId, user } = this.props
+    const { pageKey, pages, podcastId, t, user } = this.props
     const { categoryId, queryFrom } = pages[pageKey]
 
     return [
       {
-        label: 'Clips',
-        onClick: () => this.queryListItems('clips', queryFrom, 'top-past-week', 1, categoryId),
-        value: 'clips',
+        label: t('Clips'),
+        onClick: () => this.queryListItems(PV.queryParams.clips, queryFrom, PV.queryParams.top_past_week, 1, categoryId),
+        value: PV.queryParams.clips,
       },
       {
-        label: 'Episodes',
+        label: t('Episodes'),
         onClick: () => this.queryListItems(
-          'episodes',
-          podcastId ? 'from-podcast' : queryFrom,
-          (user && user.id && !podcastId) ? 'most-recent' : 'top-past-week',
+          PV.queryParams.episodes,
+          podcastId ? PV.queryParams.from_podcast : queryFrom,
+          (user && user.id && !podcastId) ? PV.queryParams.most_recent : PV.queryParams.top_past_week,
           1,
           categoryId
         ),
-        value: 'episodes',
+        value: PV.queryParams.episodes,
       }
     ]
   }
 
   generateTopLevelSelectNodes = () => {
-    const { pageKey, pages } = this.props
-    const { queryFrom, queryType, querySort } = pages[pageKey]
+    const { pageKey, pages, t } = this.props
+    const { categoryId, queryFrom, queryType, querySort } = pages[pageKey]
     const topLevelItems = [] as any[]
 
     topLevelItems.push({
-      label: 'Subscribed',
-      onClick: () => this.queryListItems(queryType, 'subscribed-only', querySort, 1, null),
+      label: t('queryLabels:Subscribed'),
+      onClick: () => this.queryListItems(queryType, PV.queryParams.subscribed_only, querySort, 1, categoryId),
       parentValue: null,
-      value: 'subscribed-only'
+      value: PV.queryParams.subscribed_only
     })
 
     topLevelItems.push({
-      label: 'All Podcasts',
-      onClick: () => this.queryListItems(queryType, 'all-podcasts', querySort, 1, null),
+      label: t('queryLabels:AllPodcasts'),
+      onClick: () => this.queryListItems(queryType, PV.queryParams.all_podcasts, querySort, 1, categoryId),
       parentValue: null,
-      value: 'all-podcasts'
+      value: PV.queryParams.all_podcasts
     })
 
     topLevelItems.push({
-      label: 'Categories',
-      onClick: () => this.queryListItems(queryType, 'from-category', querySort, 1, null),
+      label: t('queryLabels:Categories'),
+      onClick: () => this.queryListItems(queryType, PV.queryParams.from_category, querySort, 1, categoryId),
       parentValue: null,
-      value: 'from-category'
+      value: PV.queryParams.from_category
     })
 
     return (
@@ -509,14 +511,14 @@ class MediaListCtrl extends Component<Props, State> {
   }
 
   generateCategorySelectNodes = (selectedCategoryId) => {
-    const { allCategories, pageKey, pages } = this.props
+    const { allCategories, pageKey, pages, t } = this.props
     const { queryType, queryFrom, querySort, selected } = pages[pageKey]
 
     const categoryItems = allCategories.map(x => {
       return {
         hasSubcategories: x.categories && x.categories.length > 0,
         label: x.title,
-        onClick: () => this.queryListItems(queryType, 'from-category', querySort, 1, x.id),
+        onClick: () => this.queryListItems(queryType, PV.queryParams.from_category, querySort, 1, x.id),
         parentValue: (x.category && x.category.id) || null,
         value: x.id
       }
@@ -536,7 +538,7 @@ class MediaListCtrl extends Component<Props, State> {
       }
 
       subcategoryItems.unshift({
-        label: 'All',
+        label: t('queryLabels:All'),
         onClick: () => this.queryListItems(queryType, queryFrom, querySort, 1, selectedCategory.parentValue),
         parentValue: null,
         value: selectedCategory.parentValue
@@ -619,25 +621,25 @@ class MediaListCtrl extends Component<Props, State> {
 
   render() {
     const { adjustTopPosition, episodeId, includeOldest, mediaPlayer, page, pageKey, pages,
-      podcastId, settings, showQueryTypeSelect, user } = this.props
+      podcastId, settings, showQueryTypeSelect, t, user } = this.props
     const { isLoading } = page
     const { filterButtonHide } = settings
     const { nowPlayingItem: mpNowPlayingItem } = mediaPlayer
     const { categoryId, filterIsShowing, filterText, listItems, listItemsTotal, queryFrom,
       queryPage, querySort, queryType } = pages[pageKey]
 
-    let mediaListItemType = 'now-playing-item'
-    if (queryType === 'episodes') {
-      if (queryFrom === 'from-podcast') {
-        mediaListItemType = 'now-playing-item-episode-from-podcast'
-      } else if (queryFrom === 'all-podcasts') {
-        mediaListItemType = 'now-playing-item-episode-from-all-podcasts'
+    let mediaListItemType = PV.attributes.mediaListItem.now_playing_item
+    if (queryType === PV.queryParams.episodes) {
+      if (queryFrom === PV.queryParams.from_podcast) {
+        mediaListItemType = PV.attributes.mediaListItem.now_playing_episode_from_podcast
+      } else if (queryFrom === PV.queryParams.all_podcasts) {
+        mediaListItemType = PV.attributes.mediaListItem.now_playing_episode_from_all_podcasts
       }
     } else {
-      if (queryFrom === 'from-episode') {
-        mediaListItemType = 'now-playing-item-clip-from-episode'
-      } else if (queryFrom === 'from-podcast') {
-        mediaListItemType = 'now-playing-item-clip-from-podcast'
+      if (queryFrom === PV.queryParams.from_episode) {
+        mediaListItemType = PV.attributes.mediaListItem.now_playing_clip_from_episode
+      } else if (queryFrom === PV.queryParams.from_podcast) {
+        mediaListItemType = PV.attributes.mediaListItem.now_playing_clip_from_podcast
       }
     }
 
@@ -668,13 +670,12 @@ class MediaListCtrl extends Component<Props, State> {
 
     const selectedQueryTypeOption = this.getQueryTypeOptions().filter(x => x.value === queryType)
     const selectedQueryFromOption = this.getQueryFromOptions(
-      !!podcastId, !!episodeId && queryType === 'clips').filter(x => x.value === queryFrom)
-    const sortOptions = this.getQuerySortOptions(includeOldest, !!episodeId && queryType === 'clips' && queryFrom === 'from-episode')
+      !!podcastId, !!episodeId && queryType === PV.queryParams.clips).filter(x => x.value === queryFrom)
+    const sortOptions = this.getQuerySortOptions(includeOldest, !!episodeId && queryType === PV.queryParams.clips && queryFrom === PV.queryParams.from_episode)
     const selectedQuerySortOption = sortOptions.filter(x => x.value === querySort)
-
-    const noResultsFoundMsg = (!user || !user.id) && queryFrom === 'subscribed-only' ?
-    `Login to view your subscriptions` :
-      `No ${queryType === 'episodes' ? 'episodes' : 'clips'} found`
+    const isNotLoggedInOnSubscribedOnly = (!user || !user.id) && queryFrom === PV.queryParams.subscribed_only
+    const noResultsItemTypeMsg = queryType === PV.queryParams.episodes ? t('No episodes found') : t('No clips found')
+    const noResultsFoundMsg = isNotLoggedInOnSubscribedOnly ? t('errorMessages:login.ViewYourSubscriptions') : noResultsItemTypeMsg
 
     return (      
       <div className={`media-list ${adjustTopPosition ? 'adjust-top-position' : ''}`}>
@@ -689,7 +690,7 @@ class MediaListCtrl extends Component<Props, State> {
             {
               (podcastId || episodeId) ?
                 <MediaListSelect
-                  items={this.getQueryFromOptions(!!podcastId, !!episodeId && queryType === 'clips')}
+                  items={this.getQueryFromOptions(!!podcastId, !!episodeId && queryType === PV.queryParams.clips)}
                   selected={selectedQueryFromOption.length > 0 ? selectedQueryFromOption[0].value : null} />
                 :
                 this.generateTopLevelSelectNodes()}
@@ -703,7 +704,7 @@ class MediaListCtrl extends Component<Props, State> {
         </div>
         <div className='media-list__selects'>
           <div className='media-list-selects__inline'>
-            {queryFrom === 'from-category' && !podcastId && !episodeId && this.generateCategorySelectNodes(categoryId)}
+            {queryFrom === PV.queryParams.from_category && !podcastId && !episodeId && this.generateCategorySelectNodes(categoryId)}
           </div>
         </div>
         {
@@ -716,7 +717,7 @@ class MediaListCtrl extends Component<Props, State> {
                   <Button
                     className={filterIsShowing ? '' : 'not-showing'}
                     onClick={this.toggleFilter}>
-                    <FontAwesomeIcon icon='filter' /> filter
+                    <FontAwesomeIcon icon='filter' /> {t('filter')}
                   </Button>
                 </InputGroupAddon>
                 {
@@ -746,6 +747,7 @@ class MediaListCtrl extends Component<Props, State> {
                   currentPage={queryPage || 1}
                   handleQueryPage={this.handleQueryPage}
                   pageRange={2}
+                  t={t}
                   totalPages={Math.ceil(listItemsTotal / QUERY_MEDIA_REFS_LIMIT)} />
               </Fragment>
           }
@@ -771,4 +773,4 @@ const mapDispatchToProps = dispatch => ({
   userSetInfo: bindActionCreators(userSetInfo, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(MediaListCtrl)
+export default connect(mapStateToProps, mapDispatchToProps)(withTranslation(PV.nexti18next.namespaces)(MediaListCtrl))

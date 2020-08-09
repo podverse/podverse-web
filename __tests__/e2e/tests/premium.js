@@ -8,7 +8,7 @@ module.exports = {
     browser
       .testSharedMetaTags()
       .testPageMetaTags(
-          'Podverse - Membership',
+          'Membership',
           'Free and premium membership options.'
       )
       .waitForElementWithText('h3', 'Premium')

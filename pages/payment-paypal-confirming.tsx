@@ -3,13 +3,16 @@ import { connect } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Meta from '~/components/Meta/Meta'
 import config from '~/config'
+import PV from '~/lib/constants'
 import { pageIsLoading } from '~/redux/actions'
 import { getPayPalOrderById } from '~/services/'
+import { withTranslation } from '~/../i18n'
 const { BASE_URL } = config()
 
 type Props = {
   id: string
   meta?: any
+  t?: any
 }
 
 type State = {
@@ -24,16 +27,17 @@ type State = {
 
 class PaymentConfirmingPayPal extends Component<Props, State> {
 
-  static async getInitialProps({ query, req, store }) {
+  static async getInitialProps({ query, req, store, t }) {
     store.dispatch(pageIsLoading(false))
 
     const meta = {
-      currentUrl: BASE_URL + '/payment-paypal-confirming',
-      description: 'PayPal payment confirmation screen on Podverse',
-      title: 'Confirming PayPal payment...'
+      currentUrl: BASE_URL + PV.paths.web.payment_paypal_confirming,
+      description: t('pages:payment_paypal_confirming._Description'),
+      title: t('pages:payment_paypal_confirming._Title')
     }
+    const namespacesRequired = PV.nexti18next.namespaces
 
-    return { id: query.id, meta }
+    return { id: query.id, meta, namespacesRequired }
   }
 
   constructor (props) {
@@ -63,7 +67,7 @@ class PaymentConfirmingPayPal extends Component<Props, State> {
   }
 
   checkPaymentStatus = async () => {
-    const { id } = this.props
+    const { id, t } = this.props
     const { currentCount } = this.state
     const newState: any = {}
 
@@ -76,11 +80,11 @@ class PaymentConfirmingPayPal extends Component<Props, State> {
         newState.isTakingLonger = false
         newState.wasSuccessful = true
         this.setState(newState)
-        location.href = '/settings#membership'
+        location.href = PV.paths.web.settings_membership
       } else {
         if (currentCount > 10) {
           clearInterval(this.state.intervalId)
-          newState.errorMessage = 'Something went wrong. Please check your internet connection.'
+          newState.errorMessage = t('errorMessages:alerts.somethingWentWrong')
           newState.isChecking = false
         } else if (currentCount > 5) {
           newState.currentCount = currentCount + 1
@@ -93,7 +97,7 @@ class PaymentConfirmingPayPal extends Component<Props, State> {
     } catch (error) {
       console.log(error)
       clearInterval(this.state.intervalId)
-      newState.errorMessage = 'Something went wrong. Please check your internet connection.'
+      newState.errorMessage = t('errorMessages:alerts.somethingWentWrong')
     }
   }
 
@@ -132,8 +136,8 @@ class PaymentConfirmingPayPal extends Component<Props, State> {
           {
             hasError &&
               <Fragment>
-                <p>Something went wrong. Please check your internet connection, or go to <a href='/settings#membership'>Settings > Membership</a> to check if your purchase was successful.</p>
-                <p>If the problem continues, please email <a href='mailto:support@podverse.fm'>support@podverse.fm</a> for help.</p>
+                <p>Something went wrong. Please check your internet connection, or go to <a href={PV.paths.web.settings_membership}>Settings {">"} Membership</a> to check if your purchase was successful.</p>
+                <p>If the problem continues, please email <a href={`mailto:${PV.misc.email.contact}`}>{PV.misc.email.contact}</a> for help.</p>
               </Fragment>
           }
           {
@@ -153,4 +157,4 @@ const mapStateToProps = state => ({ ...state })
 
 const mapDispatchToProps = dispatch => ({})
 
-export default connect(mapStateToProps, mapDispatchToProps)(PaymentConfirmingPayPal)
+export default connect(mapStateToProps, mapDispatchToProps)(withTranslation(PV.nexti18next.namespaces)(PaymentConfirmingPayPal))

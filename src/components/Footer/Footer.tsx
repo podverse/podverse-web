@@ -6,10 +6,11 @@ import { connect } from 'react-redux'
 import Link from 'next/link'
 import Switch from 'react-switch'
 import config from '~/config'
-import colors from '~/lib/constants/colors'
+import PV from '~/lib/constants'
 import { getViewContentsElementScrollTop } from '~/lib/utility'
 import { pageIsLoading, pagesSetQueryState, settingsSetNSFWMode, settingsSetUITheme
   } from '~/redux/actions'
+import { withTranslation } from 'i18n'
 const cookie = require('cookie')
 const { CONTACT_FORM_URL, SOCIAL_FACEBOOK_PAGE_URL, SOCIAL_GITHUB_PAGE_URL,
   SOCIAL_REDDIT_PAGE_URL, SOCIAL_TWITTER_PAGE_URL } = config()
@@ -22,6 +23,7 @@ type Props = {
   settings: any
   settingsSetNSFWMode: any
   settingsSetUITheme: any
+  t?: any
   user: any
 }
 
@@ -39,25 +41,25 @@ class Footer extends Component<Props, State> {
   
   handleUIThemeChange = checked => {
     const { settingsSetUITheme } = this.props
-    const uiTheme = checked ? 'dark' : 'light'
+    const uiTheme = checked ? PV.attributes.dark : PV.attributes.light
 
     settingsSetUITheme(uiTheme)
 
     const expires = new Date()
     expires.setDate(expires.getDate() + 365)
-    const uiThemeCookie = cookie.serialize('uiTheme', uiTheme, {
+    const uiThemeCookie = cookie.serialize(PV.cookies.uiTheme, uiTheme, {
       expires,
-      path: '/'
+      path: PV.paths.web.home
     })
     document.cookie = uiThemeCookie
 
     const html = document.querySelector('html')
     if (html) {
-      html.setAttribute('data-theme', uiTheme)
+      html.setAttribute(PV.attributes.data_theme, uiTheme)
       // use .is-switching-ui-mode to prevent ugly transition effects
-      html.setAttribute('is-switching-ui-mode', 'true')
+      html.setAttribute(PV.attributes.is_switching_ui_mode, 'true')
       setTimeout(() => {
-        html.setAttribute('is-switching-ui-mode', '')
+        html.setAttribute(PV.attributes.is_switching_ui_mode, '')
       }, 1000)
     }
   }
@@ -70,9 +72,9 @@ class Footer extends Component<Props, State> {
 
     const expires = new Date()
     expires.setDate(expires.getDate() + 365)
-    const nsfwModeCookie = cookie.serialize('nsfwMode', nsfwMode, {
+    const nsfwModeCookie = cookie.serialize(PV.attributes.nsfwMode, nsfwMode, {
       expires,
-      path: '/'
+      path: PV.paths.web.home
     })
     document.cookie = nsfwModeCookie
 
@@ -95,18 +97,18 @@ class Footer extends Component<Props, State> {
   }
 
   render() {
-    const { settings } = this.props
+    const { settings, t } = this.props
     const { uiTheme, uiThemeHide } = settings
 
-    const uiThemeAriaLabel = uiTheme === 'dark' || !uiTheme ? 'Turn on light mode' : 'Turn on dark mode'
+    const uiThemeAriaLabel = uiTheme === PV.attributes.dark || !uiTheme ? t('TurnOnLight') : t('TurnOnDark')
 
     return (
       <React.Fragment>
         <div className='footer'>
           <div className='footer__top'>
             <Link
-              as='/'
-              href='/'>
+              as={PV.paths.web.home}
+              href={PV.paths.web.home}>
               <a
                 className='footer-top__brand'
                 onClick={this.linkClick}>
@@ -121,12 +123,12 @@ class Footer extends Component<Props, State> {
                   </span>
                   <Switch
                     aria-label={uiThemeAriaLabel}
-                    checked={!uiTheme || uiTheme === 'dark'}
+                    checked={!uiTheme || uiTheme === PV.attributes.dark}
                     checkedIcon
                     height={24}
                     id="ui-theme-switch"
-                    offColor={colors.grayLighter}
-                    onColor={colors.grayDarker}
+                    offColor={PV.colors.grayLighter}
+                    onColor={PV.colors.grayDarker}
                     onChange={this.handleUIThemeChange}
                     uncheckedIcon
                     width={40} />
@@ -153,12 +155,12 @@ class Footer extends Component<Props, State> {
                 </div>
             } */}
             <Link
-              as='https://www.gnu.org/licenses/agpl-3.0.en.html'
-              href='https://www.gnu.org/licenses/agpl-3.0.en.html'>
+              as={PV.paths.web.license}
+              href={PV.paths.web.license}>
               <a 
                 className='footer-top__license'
                 target='_blank'>
-                <span className='hide-tiny'>open source </span>
+                <span className='hide-tiny'>{t('open source')} </span>
                 <span className='flip-text-horizontal'>&copy;</span>
               </a>
             </Link>
@@ -171,52 +173,43 @@ class Footer extends Component<Props, State> {
                 <a 
                   className='footer-bottom__link'
                   target='_blank'>
-                  Contact
-                </a>
-              </Link>
-              {/* <Link
-                as='/faq'
-                href='/faq'>
-                <a
-                  className='footer-bottom__link'
-                  onClick={this.linkClick}>
-                  FAQ
-                </a>
-              </Link> */}
-              <Link
-                as='/about'
-                href='/about'>
-                <a
-                  className='footer-bottom__link'
-                  onClick={this.linkClick}>
-                  About
+                  {t('Contact')}
                 </a>
               </Link>
               <Link
-                as='/terms'
-                href='/terms'>
+                as={PV.paths.web.about}
+                href={PV.paths.web.about}>
                 <a
                   className='footer-bottom__link'
                   onClick={this.linkClick}>
-                  Terms
+                  {t('About')}
                 </a>
               </Link>
               <Link
-                as='/faq'
-                href='/faq'>
+                as={PV.paths.web.terms}
+                href={PV.paths.web.terms}>
                 <a
                   className='footer-bottom__link'
                   onClick={this.linkClick}>
-                  FAQ
+                  {t('Terms')}
                 </a>
               </Link>
               <Link
-                as='/membership'
-                href='/membership'>
+                as={PV.paths.web.faq}
+                href={PV.paths.web.faq}>
                 <a
                   className='footer-bottom__link'
                   onClick={this.linkClick}>
-                  Premium
+                  {t('FAQ')}
+                </a>
+              </Link>
+              <Link
+                as={PV.paths.web.membership}
+                href={PV.paths.web.membership}>
+                <a
+                  className='footer-bottom__link'
+                  onClick={this.linkClick}>
+                  {t('Premium')}
                 </a>
               </Link>
             </div>
@@ -286,4 +279,4 @@ const mapDispatchToProps = dispatch => ({
   settingsSetUITheme: bindActionCreators(settingsSetUITheme, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Footer)
+export default connect(mapStateToProps, mapDispatchToProps)(withTranslation(PV.nexti18next.namespaces)(Footer))

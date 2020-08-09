@@ -1,16 +1,18 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import { convertToNowPlayingItem } from 'podverse-shared'
 import { addItemsToSecondaryQueueStorage, clearItemsFromSecondaryQueueStorage } from 'podverse-ui'
 import MediaListCtrl from '~/components/MediaListCtrl/MediaListCtrl'
 import Meta from '~/components/Meta/Meta'
 import config from '~/config'
-import { convertToNowPlayingItem } from '~/lib/nowPlayingItem'
+import PV from '~/lib/constants'
 import { clone, cookieGetQuery } from '~/lib/utility'
 import {
   pageIsLoading, pagesSetQueryState, playerQueueLoadSecondaryItems
 } from '~/redux/actions'
 import { getCategoriesByQuery, getEpisodesByQuery } from '~/services'
+import { withTranslation } from '~/../i18n'
 const { BASE_URL } = config()
 
 type Props = {
@@ -18,7 +20,6 @@ type Props = {
   categoryId?: string
   lastScrollPosition?: number
   listItems?: any
-  meta?: any
   pageKey?: string
   pagesSetQueryState?: any
   playerQueue?: any
@@ -26,6 +27,7 @@ type Props = {
   queryPage: number
   querySort?: any
   queryType?: any
+  t?: any
   user?: any
   userSetInfo?: any
 }
@@ -50,14 +52,14 @@ class Episodes extends Component<Props, State> {
     const lastScrollPosition = currentPage.lastScrollPosition
     const queryRefresh = !!query.refresh
     const categoryId = query.categoryId || currentPage.categoryId || localStorageQuery.categoryId || (allCategories && allCategories[2] && allCategories[2].id /* Arts */)
-    const queryFrom = currentPage.queryFrom || query.from || (query.categoryId && 'from-category') || localStorageQuery.from || (user && user.id ? 'subscribed-only' : 'all-podcasts')
+    const queryFrom = currentPage.queryFrom || query.from || (query.categoryId && PV.queryParams.from_category) || localStorageQuery.from || (user && user.id ? PV.queryParams.subscribed_only : PV.queryParams.all_podcasts)
     const queryPage = (queryRefresh && 1) || currentPage.queryPage || query.page || 1
-    const querySort = currentPage.querySort || query.sort || localStorageQuery.sort || (user && user.id ? 'most-recent' : 'top-past-week')
+    const querySort = currentPage.querySort || query.sort || localStorageQuery.sort || (user && user.id ? PV.queryParams.most_recent : PV.queryParams.top_past_week)
     const queryType = (queryRefresh && query.type) || currentPage.queryType || query.type ||
-      localStorageQuery.type || 'episodes'
+      localStorageQuery.type || PV.queryParams.episodes
     let podcastId = ''
 
-    if (queryFrom === 'subscribed-only') {
+    if (queryFrom === PV.queryParams.subscribed_only) {
       podcastId = user.subscribedPodcastIds
     }
 
@@ -95,15 +97,10 @@ class Episodes extends Component<Props, State> {
 
     store.dispatch(pageIsLoading(false))
 
-    const meta = {
-      currentUrl: BASE_URL,
-      description: 'Podcast app for iOS, Android, and web. Create and share podcast highlights and playlists. Sync your queue across all devices. Open source software.',
-      title: 'Episodes'
-    }
+    const namespacesRequired = PV.nexti18next.namespaces
 
     return {
-      allCategories, lastScrollPosition, meta, pageKey: kPageKey, queryFrom, queryPage, querySort,
-      queryType
+      allCategories, lastScrollPosition, namespacesRequired, pageKey: kPageKey, queryFrom, queryPage, querySort, queryType
     }
   }
 
@@ -121,8 +118,14 @@ class Episodes extends Component<Props, State> {
   }
 
   render() {
-    const { allCategories, categoryId, meta, pagesSetQueryState, queryFrom, queryPage, querySort, queryType
+    const { allCategories, categoryId, pagesSetQueryState, queryFrom, queryPage, querySort, queryType, t
     } = this.props
+
+    const meta = {
+      currentUrl: BASE_URL,
+      description: t('pages:episodes._Description'),
+      title: t('pages:episodes._Title'),
+    }
 
     return (
       <Fragment>
@@ -136,7 +139,7 @@ class Episodes extends Component<Props, State> {
           title={meta.title}
           twitterDescription={meta.description}
           twitterTitle={meta.title} />
-        <h3>Episodes</h3>
+        <h3>{t('Episodes')}</h3>
         <MediaListCtrl
           adjustTopPosition
           allCategories={allCategories}
@@ -158,4 +161,4 @@ const mapDispatchToProps = dispatch => ({
   pagesSetQueryState: bindActionCreators(pagesSetQueryState, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Episodes)
+export default connect(mapStateToProps, mapDispatchToProps)(withTranslation(PV.nexti18next.namespaces)(Episodes))

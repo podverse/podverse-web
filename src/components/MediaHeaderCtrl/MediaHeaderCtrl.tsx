@@ -3,10 +3,12 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { MediaHeader } from 'podverse-ui'
 import { bindActionCreators } from 'redux'
+import PV from '~/lib/constants'
 import { alertPremiumRequired, alertSomethingWentWrong, alertRateLimitError, getViewContentsElementScrollTop,
   safeAlert } from '~/lib/utility'
 import { pageIsLoading, pagesSetQueryState, userSetInfo } from '~/redux/actions'
 import { toggleSubscribeToPodcast } from '~/services'
+import { withTranslation } from 'i18n'
 
 type Props = {
   episode?: any
@@ -17,6 +19,7 @@ type Props = {
   pagesSetQueryState?: any
   podcast?: any
   settings?: any
+  t?: any
   user?: any
   userSetInfo?: any
 }
@@ -36,11 +39,11 @@ class MediaHeaderCtrl extends Component<Props, State> {
   }
 
   toggleSubscribe = async () => {
-    const { episode, mediaRef, nowPlayingItem, podcast, user, userSetInfo
+    const { episode, mediaRef, nowPlayingItem, podcast, t, user, userSetInfo
       } = this.props
     
     if (!user || !user.id) {
-      safeAlert('Login to subscribe to this podcast.')
+      safeAlert(t('LoginToSubscribeToThisPodcast'))
       return
     }
 
@@ -55,12 +58,12 @@ class MediaHeaderCtrl extends Component<Props, State> {
         userSetInfo({ subscribedPodcastIds: response.data })
       }
     } catch (error) {
-      if (error && error.response && error.response.data && error.response.data.message === 'Premium Membership Required') {
-        alertPremiumRequired()
+      if (error && error.response && error.response.data && error.response.data.message === t('PremiumMembershipRequired')) {
+        alertPremiumRequired(t)
       } else if (error && error.response && error.response.status === 429) {
         alertRateLimitError(error)
       } else {
-        alertSomethingWentWrong()
+        alertSomethingWentWrong(t)
       }
     }
 
@@ -94,7 +97,7 @@ class MediaHeaderCtrl extends Component<Props, State> {
   }
 
   render() {
-    const { episode, mediaRef, nowPlayingItem, podcast, settings, user } = this.props
+    const { episode, mediaRef, nowPlayingItem, podcast, settings, t, user } = this.props
     const { censorNSFWText, nsfwLabelsHide } = settings
     const { subscribedPodcastIds } = user
     const { isSubscribing } = this.state
@@ -111,7 +114,8 @@ class MediaHeaderCtrl extends Component<Props, State> {
         isSubscribing={isSubscribing}
         mediaRef={mediaRef}
         nowPlayingItem={nowPlayingItem}
-        podcast={podcast} />
+        podcast={podcast}
+        t={t} />
     )
   }
 }
@@ -124,4 +128,4 @@ const mapDispatchToProps = dispatch => ({
   userSetInfo: bindActionCreators(userSetInfo, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(MediaHeaderCtrl)
+export default connect(mapStateToProps, mapDispatchToProps)(withTranslation(PV.nexti18next.namespaces)(MediaHeaderCtrl))

@@ -158,12 +158,12 @@ export const clone = obj => {
   return copy
 }
 
-export const alertPremiumRequired = () => {
-  safeAlert('This feature is only available for premium members. Login for a free trial.')
+export const alertPremiumRequired = (t) => {
+  safeAlert(t('This feature is only available for premium members'))
 }
 
-export const alertSomethingWentWrong = () => {
-  safeAlert('Something went wrong. Please check your internet connection.')
+export const alertSomethingWentWrong = (t) => {
+  safeAlert(t('Something went wrong'))
 }
 
 // Remove double quotes from text so it does not cut off in SEO descriptions
@@ -342,4 +342,42 @@ export const fireConfetti = () => {
     spread: 70,
     origin: { y: 0.6 }
   })
+}
+
+export const getPlaybackRateText = num => {
+  switch (num) {
+    case 0.5:
+      return `0.5x`
+    case 0.75:
+      return `0.75x`
+    case 1:
+      return `1x`
+    case 1.25:
+      return `1.25x`
+    case 1.5:
+      return `1.5x`
+    case 2:
+      return `2x`
+    default:
+      return `1x`
+  }
+}
+
+export const getPlaybackRateNextValue = num => {
+  switch (num) {
+    case 0.5:
+      return 0.75
+    case 0.75:
+      return 1
+    case 1:
+      return 1.25
+    case 1.25:
+      return 1.5
+    case 1.5:
+      return 2
+    case 2:
+      return 0.5
+    default:
+      return 1
+  }
 }

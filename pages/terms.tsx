@@ -2,11 +2,13 @@ import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import Meta from '~/components/Meta/Meta'
 import config from '~/config'
+import PV from '~/lib/constants'
 import { pageIsLoading } from '~/redux/actions'
+import { withTranslation } from '~/../i18n'
 const { BASE_URL } = config()
 
 type Props = {
-  meta?: any
+  t?: any
 }
 
 type State = {}
@@ -16,17 +18,19 @@ class Terms extends Component<Props, State> {
   static async getInitialProps({ req, store }) {
     store.dispatch(pageIsLoading(false))
 
-    const meta = {
-      currentUrl: BASE_URL + '/terms',
-      description: `Podverse terms of service agreement.`,
-      title: `Podverse - Terms of Service`
-    }
+    const namespacesRequired = PV.nexti18next.namespaces
 
-    return { meta }
+    return { namespacesRequired }
   }
 
   render() {
-    const { meta } = this.props
+    const { t } = this.props
+
+    const meta = {
+      currentUrl: BASE_URL + PV.paths.web.terms,
+      description: t('pages:terms._Description'),
+      title: t('pages:terms._Title'),
+    }
 
     return (
       <Fragment>
@@ -40,27 +44,27 @@ class Terms extends Component<Props, State> {
           title={meta.title}
           twitterDescription={meta.description}
           twitterTitle={meta.title} />
-        <h3>Terms of Service</h3>
+        <h3>{PV.i18n.pages.terms.TermsOfService}</h3>
         <p>
-          Podverse will never sell or share private user data.
+          {PV.i18n.pages.terms.PodverseTerms_1}
         </p>
         <p>
-          We will never put advertisements next to or within a podcast's content without that podcast's permission.
+          {PV.i18n.pages.terms.PodverseTerms_2}
         </p>
         <p>
-          All audio files found on podverse.fm load from the podcaster's own public server. We do not host podcast audio files ourselves.
+          {PV.i18n.pages.terms.PodverseTerms_3}
         </p>
         <p>
-          All clips hosted on podverse.fm are crowd-sourced and unofficial, unless otherwise noted by the podcaster themselves.
+          {PV.i18n.pages.terms.PodverseTerms_4}
         </p>
         <p>
-          Clips load within the full episode's media file, so the user always has access to the full recording.
+          {PV.i18n.pages.terms.PodverseTerms_5}
         </p>
         <p>
-          We host podcast links and content from third-party podcast feeds and sites. These have their own independent privacy policies, and we have no responsibility for their content or activities.
+          {PV.i18n.pages.terms.PodverseTerms_6}
         </p>
         <p>
-          We also host reduced size podcast images from podcasters' feeds, to save user network data and speed up page loading times.
+          {PV.i18n.pages.terms.PodverseTerms_7}
         </p>
       </Fragment>
     )
@@ -71,4 +75,4 @@ const mapStateToProps = state => ({ ...state })
 
 const mapDispatchToProps = dispatch => ({})
 
-export default connect(mapStateToProps, mapDispatchToProps)(Terms)
+export default connect(mapStateToProps, mapDispatchToProps)(withTranslation(PV.nexti18next.namespaces)(Terms))

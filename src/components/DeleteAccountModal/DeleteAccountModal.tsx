@@ -2,14 +2,17 @@ import * as React from 'react'
 import * as Modal from 'react-modal'
 import { Button, ButtonGroup, CloseButton } from 'podverse-ui'
 import { Input, Label } from 'reactstrap'
+import PV from '~/lib/constants'
 import { checkIfLoadingOnFrontEnd, safeAlert } from '~/lib/utility'
 import { deleteLoggedInUser } from '~/services'
+import { withTranslation } from '~/../i18n'
 
 type Props = {
   email?: string
   handleHideModal: Function
   id: string
   isOpen?: boolean
+  t?: any
 }
 
 type State = {
@@ -32,7 +35,7 @@ const customStyles = {
   }
 }
 
-export class DeleteAccountModal extends React.Component<Props, State> {
+class DeleteAccountModal extends React.Component<Props, State> {
 
   constructor (props) {
     super(props)
@@ -60,37 +63,37 @@ export class DeleteAccountModal extends React.Component<Props, State> {
 
   handleDeleteAccount = async () => {
     this.setState({ isDeleting: true })
-    const { id } = this.props
+    const { id, t } = this.props
 
     try {
       await deleteLoggedInUser(id)
       window.location.href = '/'
     } catch (error) {
       console.log(error)
-      safeAlert('Something went wrong. Please check your internet connection.')
+      safeAlert(t('errorMessages:alerts.somethingWentWrong'))
     }
   }
 
   render() {
-    const { email, handleHideModal, isOpen } = this.props
+    const { email, handleHideModal, isOpen, t } = this.props
     const { confirmEmail, isConfirmed, isDeleting } = this.state
     const appEl = checkIfLoadingOnFrontEnd() ? document.querySelector('body') : null
 
     return (
       <Modal
         appElement={appEl}
-        contentLabel='Delete Account'
+        contentLabel={t('DeleteAccount')}
         isOpen={isOpen}
         onRequestClose={handleHideModal}
         portalClassName='delete-account-modal over-media-player'
         shouldCloseOnOverlayClick
         style={customStyles}>
         <div>
-          <h3>Delete Account</h3>
+          <h3>{t('Delete Account')}</h3>
           <CloseButton onClick={handleHideModal} />
-          <p>This will delete all of your Podverse data!</p>
-          <p>Any links you created will no longer work!</p>
-          <Label for='delete-account-modal__confirm-email'>Type your email to proceed:</Label>
+          <p>{t('This will delete all of your Podverse data')}</p>
+          <p>{t('Any links you created will no longer work')}</p>
+          <Label for='delete-account-modal__confirm-email'>{t('Type your email to proceed')}</Label>
           <Input
             name='delete-account-modal__confirm-email'
             onChange={this.handleConfirmEmailInputChange}
@@ -103,14 +106,14 @@ export class DeleteAccountModal extends React.Component<Props, State> {
                 <Button
                   className='delete-account-modal__cancel'
                   onClick={this.handleHideModal}
-                  text='Cancel' />
+                  text={t('Cancel')} />
                 <Button
                   className='delete-account-modal__submit'
                   color='danger'
                   disabled={!isConfirmed}
                   isLoading={isDeleting}
                   onClick={this.handleDeleteAccount}
-                  text='Delete' />
+                  text={t('Delete')} />
               </React.Fragment>
             )} />
         </div>
@@ -118,3 +121,5 @@ export class DeleteAccountModal extends React.Component<Props, State> {
     )
   }
 }
+
+export default withTranslation(PV.nexti18next.namespaces)(DeleteAccountModal)

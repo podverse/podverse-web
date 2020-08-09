@@ -6,7 +6,7 @@ import { AddToModal, ClipCreatedModal, KEYS, MakeClipModal, QueueModal, ShareMod
   addItemToPriorityQueueStorage, updatePriorityQueueStorage, getPriorityQueueItemsStorage,
   getSecondaryQueueItemsStorage, removeItemFromPriorityQueueStorage,
   removeItemFromSecondaryQueueStorage } from 'podverse-ui'
-import { kPlaybackRate } from '~/lib/constants/misc'
+import PV from '~/lib/constants'
 import { alertPremiumRequired, alertSomethingWentWrong, clone, alertRateLimitError, safeAlert } from '~/lib/utility'
 import { mediaPlayerUpdatePlaying, modalsAddToCreatePlaylistIsSaving,
   modalsAddToCreatePlaylistShow, modalsAddToShow, modalsClipCreatedShow, modalsLoginShow, 
@@ -15,6 +15,7 @@ import { mediaPlayerUpdatePlaying, modalsAddToCreatePlaylistIsSaving,
   } from '~/redux/actions'
 import { addOrRemovePlaylistItem, createMediaRef, createPlaylist, deleteMediaRef,
   updateMediaRef, updateUserQueueItems } from '~/services'
+import { withTranslation } from 'i18n'
 
 type Props = {
   mediaPlayer?: any
@@ -33,6 +34,7 @@ type Props = {
   playerQueueLoadItems?: any
   playerQueueLoadPriorityItems?: any
   playerQueueLoadSecondaryItems?: any
+  t?: any
   user?: any
   userSetInfo?: any
 }
@@ -137,10 +139,10 @@ class MediaModals extends Component<Props, State> {
 
   getPlaybackRateValue = () => {
     try {
-      const playbackRate = localStorage.getItem(kPlaybackRate)
+      const playbackRate = localStorage.getItem(PV.storageKeys.kPlaybackRate)
       return playbackRate ? JSON.parse(playbackRate) : 1
     } catch (error) {
-      console.log('getPlaybackRateValue', error)
+      console.log(error)
     }
   }
 
@@ -198,7 +200,7 @@ class MediaModals extends Component<Props, State> {
   makeClipSave = async (formData, isEditing) => {
     this.setState({ makeClipIsSaving: true })
 
-    const { modals, modalsClipCreatedShow, modalsMakeClipShow } = this.props
+    const { modals, modalsClipCreatedShow, modalsMakeClipShow, t } = this.props
     const { makeClip } = modals
     const { nowPlayingItem } = makeClip
     
@@ -221,8 +223,8 @@ class MediaModals extends Component<Props, State> {
           isOpen: false
         })
 
-        const href = `/clip?id=${updatedMediaRef.data.id}`
-        const as = `/clip/${updatedMediaRef.data.id}`
+        const href = `${PV.paths.web.clip}?id=${updatedMediaRef.data.id}`
+        const as = `${PV.paths.web.clip}/${updatedMediaRef.data.id}`
         Router.push(href, as)
       } else {
         const newMediaRef = await createMediaRef(data)
@@ -238,14 +240,14 @@ class MediaModals extends Component<Props, State> {
       window.sessionStorage.removeItem(KEYS.inProgressMakeEndTimeKey)
 
     } catch (error) {
-      if (error && error.response && error.response.data && error.response.data.message === 'Premium Membership Required') {
-        safeAlert('Your Premium membership has expired. Renew your membership on the Settings page, or log out to create a clip anonymously.')
+      if (error && error.response && error.response.data && error.response.data.message === PV.errorResponseMessages.premiumRequired) {
+        safeAlert(t('errorMessages:alerts.premiumRequired'))
       } else if (error && error.response && error.response.status === 429) {
         alertRateLimitError(error)
       } else if (error && error.response && error.response.status === 401) {
-        alertPremiumRequired()
+        alertPremiumRequired(t)
       } else {
-        alertSomethingWentWrong()
+        alertSomethingWentWrong(t)
       }
       this.setState({ makeClipIsSaving: false })
     }
@@ -254,7 +256,7 @@ class MediaModals extends Component<Props, State> {
   makeClipDelete = async () => {
     this.setState({ makeClipIsDeleting: true })
 
-    const { modals, modalsMakeClipShow, pageIsLoading } = this.props
+    const { modals, modalsMakeClipShow, pageIsLoading, t } = this.props
     const { makeClip } = modals
     const { nowPlayingItem } = makeClip
     const { clipId } = nowPlayingItem
@@ -264,12 +266,12 @@ class MediaModals extends Component<Props, State> {
 
       pageIsLoading(true)
 
-      const href = `/`
-      const as = `/`
+      const href = PV.paths.web.home
+      const as = PV.paths.web.home
       Router.push(href, as)
     } catch (error) {
       console.log(error)
-      safeAlert('Delete clip failed. Please check your internet connection and try again later.')
+      safeAlert(t('errorMessages:alerts.deleteClipFailed'))
     }
     
     this.setState({ makeClipIsDeleting: false })
@@ -281,7 +283,7 @@ class MediaModals extends Component<Props, State> {
 
   playlistItemAdd = async event => {
     event.preventDefault()
-    const { modals, user, userSetInfo } = this.props
+    const { modals, t, user, userSetInfo } = this.props
     const { addTo } = modals
     const { nowPlayingItem } = addTo
 
@@ -315,12 +317,12 @@ class MediaModals extends Component<Props, State> {
           })
         }
       } catch (error) {
-        if (error && error.response && error.response.data && error.response.data.message === 'Premium Membership Required') {
-          alertPremiumRequired()
+        if (error && error.response && error.response.data && error.response.data.message === PV.errorResponseMessages.premiumRequired) {
+          alertPremiumRequired(t)
         } else if (error && error.response && error.response.status === 429) {
           alertRateLimitError(error)
         } else {
-          alertSomethingWentWrong()
+          alertSomethingWentWrong(t)
         }
       }
     }
@@ -329,7 +331,7 @@ class MediaModals extends Component<Props, State> {
   }
 
   createPlaylistSave = async title => {
-    const { modalsAddToCreatePlaylistIsSaving, modalsAddToCreatePlaylistShow,
+    const { modalsAddToCreatePlaylistIsSaving, modalsAddToCreatePlaylistShow, t,
       user, userSetInfo } = this.props
     modalsAddToCreatePlaylistIsSaving(true)
 
@@ -340,12 +342,12 @@ class MediaModals extends Component<Props, State> {
       modalsAddToCreatePlaylistIsSaving(false)
       modalsAddToCreatePlaylistShow(false)
     } catch (error) {
-      if (error && error.response && error.response.data && error.response.data.message === 'Premium Membership Required') {
-        alertPremiumRequired()
+      if (error && error.response && error.response.data && error.response.data.message === PV.errorResponseMessages.premiumRequired) {
+        alertPremiumRequired(t)
       } else if (error && error.response && error.response.status === 429) {
         alertRateLimitError(error)
       } else {
-        alertSomethingWentWrong()
+        alertSomethingWentWrong(t)
       }
       modalsAddToCreatePlaylistIsSaving(false)
     }
@@ -369,7 +371,7 @@ class MediaModals extends Component<Props, State> {
   }
 
   removeItem = async (clipId, episodeId, isPriority) => {
-    const { playerQueueLoadPriorityItems, playerQueueLoadSecondaryItems, user,
+    const { playerQueueLoadPriorityItems, playerQueueLoadSecondaryItems, t, user,
       userSetInfo } = this.props
     const { queueItems } = user
     const localQueueItems = getPriorityQueueItemsStorage()
@@ -396,7 +398,7 @@ class MediaModals extends Component<Props, State> {
           playerQueueLoadPriorityItems(priorityItems)
         } catch (error) {
           console.log(error)
-          safeAlert('Could not update queue on server. Please check your internet connection.')
+          safeAlert(t('errorMessages:alerts.couldNotUpdateQueue'))
         }
       } else {
         removeItemFromPriorityQueueStorage(clipId, episodeId)
@@ -412,7 +414,7 @@ class MediaModals extends Component<Props, State> {
   }
 
   render() {
-    const { mediaPlayer, modals, modalsLoginShow, playerQueue, user } = this.props
+    const { mediaPlayer, modals, modalsLoginShow, playerQueue, t, user } = this.props
     const { nowPlayingItem } = mediaPlayer
     const { addTo, clipCreated, makeClip, queue, share } = modals
     const { createPlaylistIsSaving, createPlaylistShowError, createPlaylistShow,
@@ -439,7 +441,7 @@ class MediaModals extends Component<Props, State> {
 
     let clipCreatedLinkHref = ''
     if (typeof location !== 'undefined' && clipCreatedMediaRef) {
-      clipCreatedLinkHref = `${location.protocol}//${location.hostname}${location.port ? `:${location.port}` : ''}/clip/${clipCreatedMediaRef && clipCreatedMediaRef.id}`
+      clipCreatedLinkHref = `${location.protocol}//${location.hostname}${location.port ? `:${location.port}` : ''}${PV.paths.web.clip}/${clipCreatedMediaRef && clipCreatedMediaRef.id}`
     }
 
     return (
@@ -454,7 +456,8 @@ class MediaModals extends Component<Props, State> {
           isOpen={queueIsOpen}
           nowPlayingItem={nowPlayingItem}
           priorityItems={priorityItems}
-          secondaryItems={secondaryItems} />
+          secondaryItems={secondaryItems}
+          t={t} />
         <MakeClipModal
           endTime={makeClipIsEditing ? makeClipNowPlayingItem.clipEndTime : ''}
           handleDelete={this.makeClipDelete}
@@ -474,11 +477,13 @@ class MediaModals extends Component<Props, State> {
           refInputStartTime={this.makeClipInputStartTime}
           refInputTitle={this.makeClipInputTitle}
           startTime={makeClipStartTime}
+          t={t}
           title={makeClipIsEditing ? makeClipNowPlayingItem.clipTitle : ''} />
         <ClipCreatedModal
           handleHideModal={this.hideClipCreatedModal}
           isOpen={clipCreatedIsOpen}
-          linkHref={clipCreatedLinkHref} />
+          linkHref={clipCreatedLinkHref}
+          t={t} />
         <AddToModal
           createPlaylistIsSaving={createPlaylistIsSaving}
           createPlaylistError={createPlaylistShowError}
@@ -500,13 +505,15 @@ class MediaModals extends Component<Props, State> {
           nowPlayingItem={addToNowPlayingItem}
           playlists={playlists}
           showPlaylists={!!id}
-          showQueue={addToShowQueue} />
+          showQueue={addToShowQueue}
+          t={t} />
         <ShareModal
           handleHideModal={this.hideShareModal}
           isOpen={shareIsOpen}
           playerClipLinkHref={clipLinkAs}
           playerEpisodeLinkHref={episodeLinkAs}
-          playerPodcastLinkHref={podcastLinkAs} />
+          playerPodcastLinkHref={podcastLinkAs}
+          t={t} />
       </Fragment>
     )
   }
@@ -531,4 +538,4 @@ const mapDispatchToProps = dispatch => ({
   userSetInfo: bindActionCreators(userSetInfo, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(MediaModals)
+export default connect(mapStateToProps, mapDispatchToProps)(withTranslation(PV.nexti18next.namespaces)(MediaModals))
