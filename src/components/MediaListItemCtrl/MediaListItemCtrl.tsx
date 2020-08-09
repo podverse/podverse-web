@@ -4,10 +4,12 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux';
 import { MediaListItem, addItemToPriorityQueueStorage, getPriorityQueueItemsStorage
   } from 'podverse-ui'
+import PV from '~/lib/constants'
 import { generateShareURLs, getViewContentsElementScrollTop } from '~/lib/utility'
 import { modalsAddToShow, modalsShareShow, pageIsLoading, pagesSetQueryState, playerQueueLoadPriorityItems,
   userSetInfo } from '~/redux/actions'
 import { updateUserQueueItems } from '~/services'
+import { withTranslation } from '~/../i18n'
 const uuidv4 = require('uuid/v4')
 
 type Props = {
@@ -36,6 +38,7 @@ type Props = {
   settings?: any
   showMoreMenu?: boolean
   showRemove?: boolean
+  t: any
   user?: any
   userSetInfo?: any
 }
@@ -146,4 +149,4 @@ const mapDispatchToProps = dispatch => ({
   userSetInfo: bindActionCreators(userSetInfo, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(MediaListItemCtrl)
+export default connect(mapStateToProps, mapDispatchToProps)(withTranslation(PV.nexti18next.namespaces)(MediaListItemCtrl))
