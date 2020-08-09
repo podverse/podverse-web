@@ -14,8 +14,8 @@ module.exports = {
 
       .testSharedMetaTags()
       .testPageMetaTags(
-        `Test Playlist 1`,
-        `Test Playlist 1 - playlist on Podverse `
+        `Premium - Test Playlist 1`,
+        `Premium - Test Playlist 1 - playlist on Podverse `
       )
   },
   after: function (browser) {
