@@ -1,5 +1,6 @@
 
 import React, { Component } from 'react'
+import { Trans } from 'react-i18next'
 import { connect } from 'react-redux'
 import { MediaInfo, addItemToPriorityQueueStorage, getPriorityQueueItemsStorage,
   setNowPlayingItemInStorage } from 'podverse-ui'
@@ -12,7 +13,7 @@ import { mediaPlayerLoadNowPlayingItem, mediaPlayerSetClipFinished, mediaPlayerS
   mediaPlayerUpdatePlaying, modalsAddToShow, modalsMakeClipShow, modalsShareShow, pageIsLoading,
   pagesSetQueryState, playerQueueLoadPriorityItems, userSetInfo } from '~/redux/actions'
 import { updateUserQueueItems } from '~/services'
-import { i18n, Trans, withTranslation } from '~/../i18n'
+import { i18n, withTranslation } from '~/../i18n'
 
 type Props = {
   episode?: any
