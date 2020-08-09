@@ -52,7 +52,7 @@ class Home extends Component<Props, State> {
     const currentPage = pages[kPageKey] || {}
     const lastScrollPosition = currentPage.lastScrollPosition
     const queryRefresh = !!query.refresh
-    const categoryId = query.categoryId || currentPage.categoryId || localStorageQuery.categoryId
+    const categoryId = query.categoryId || currentPage.categoryId || localStorageQuery.categoryId || (allCategories && allCategories[2] && allCategories[2].id /* Arts */)
     const queryFrom = currentPage.queryFrom || query.from || (query.categoryId && PV.queryParams.from_category) || localStorageQuery.from || (user && user.id ? PV.queryParams.subscribed_only : PV.queryParams.all_podcasts)
     const queryPage = (queryRefresh && 1) || currentPage.queryPage || query.page || 1
     const querySort = currentPage.querySort || query.sort || localStorageQuery.sort || PV.queryParams.top_past_week
@@ -142,11 +142,6 @@ class Home extends Component<Props, State> {
           twitterDescription={meta.description}
           twitterTitle={meta.title} />
         <h3>{t('Clips')}</h3>
-        {/* <button
-          type='button'
-          onClick={() => i18n.changeLanguage(i18n.language === 'en' ? 'es' : 'en')}>
-          {t('change-locale')}
-        </button> */}
         <MediaListCtrl
           adjustTopPosition
           allCategories={allCategories}
