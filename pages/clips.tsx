@@ -1,3 +1,5 @@
+/* NOTE! THE HOME PAGE IS AN EXACT COPY OF clips.tsx */
+
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -47,7 +49,6 @@ class Home extends Component<Props, State> {
     const { nowPlayingItem } = mediaPlayer
 
     const localStorageQuery = cookieGetQuery(req, kPageKey)
-
     const currentPage = pages[kPageKey] || {}
     const lastScrollPosition = currentPage.lastScrollPosition
     const queryRefresh = !!query.refresh
@@ -58,7 +59,6 @@ class Home extends Component<Props, State> {
     const queryType = (queryRefresh && query.type) || currentPage.queryType || query.type ||
       localStorageQuery.type || PV.queryParams.clips
     let podcastId = ''
-
 
     if (queryFrom === PV.queryParams.subscribed_only) {
       podcastId = user.subscribedPodcastIds
@@ -101,8 +101,8 @@ class Home extends Component<Props, State> {
     const namespacesRequired = PV.nexti18next.namespaces
 
     return {
-      allCategories, lastScrollPosition, namespacesRequired, pageKey: kPageKey, queryFrom, queryPage, querySort,
-      queryType
+      allCategories, lastScrollPosition, namespacesRequired, pageKey: kPageKey,
+      queryFrom, queryPage, querySort, queryType
     }
   }
 
