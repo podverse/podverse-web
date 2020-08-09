@@ -15,7 +15,7 @@ module.exports = {
       .testSharedMetaTags()
       .testPageMetaTags(
         `Premium - Test Playlist 1`,
-        `Premium - Test Playlist 1 - playlist on Podverse `
+        `Premium - Test Playlist 1 - playlist on Podverse Consequat ac felis donec et. Ullamcorper dignissim cras tincidunt lobortis feugiat vivamus at. Vitae et leo duis ut diam. Pretium aenean pharetra magna ac placerat vestibulum lectus. Iaculis at erat pellentesque adipiscing. Donec pretium vulputate sapien nec. Mattis pellentesque id nibh tortor id.`
       )
   },
   after: function (browser) {
