@@ -189,6 +189,7 @@ class Clip extends Component<Props, State> {
           mediaRef={mediaRef}
           pageKey={pageKey} />
         <MediaInfoCtrl
+          initialShowDescription={true}
           mediaRef={mediaRef}
           pageKey={pageKey} />
         <MediaListCtrl
