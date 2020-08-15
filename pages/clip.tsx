@@ -23,7 +23,6 @@ type Props = {
   lastScrollPosition?: number
   listItems?: any
   mediaRef?: any
-  meta?: any
   newPlayingItem?: any
   pageKey: string
   pages?: any
@@ -44,7 +43,7 @@ const kPageKey = 'clip_'
 
 class Clip extends Component<Props, State> {
 
-  static async getInitialProps({ query, req, store, t }) {
+  static async getInitialProps({ query, req, store }) {
     const pageKeyWithId = `${kPageKey}${query.id}`
     const state = store.getState()
     const { mediaPlayer, pages, user } = state
@@ -131,23 +130,9 @@ class Clip extends Component<Props, State> {
 
     store.dispatch(pageIsLoading(false))
 
-    let meta = {}
-
-    if (mediaRef) {
-      const podcastTitle = (mediaRef && mediaRef.episode && mediaRef.episode.podcast &&
-        mediaRef.episode.podcast.title) || t('untitledClip')
-      meta = {
-        currentUrl: BASE_URL + PV.paths.web.clip + '/' + mediaRef.id,
-        description: removeDoubleQuotes(`${mediaRef.episode.title} - ${podcastTitle}`),
-        imageAlt: podcastTitle,
-        imageUrl: mediaRef.episode.shrunkImageUrl || mediaRef.episode.podcast.shrunkImageUrl || mediaRef.episode.imageUrl || mediaRef.episode.podcast.imageUrl,
-        title: `${mediaRef.title ? mediaRef.title : t('untitledPodcast')}`
-      }
-    }
-
     const namespacesRequired = PV.nexti18next.namespaces
     
-    return { lastScrollPosition, mediaRef, meta, namespacesRequired, newPlayingItem, pageKey: pageKeyWithId, queryFrom,
+    return { lastScrollPosition, mediaRef, namespacesRequired, newPlayingItem, pageKey: pageKeyWithId, queryFrom,
       querySort, queryType }
   }
 
@@ -162,12 +147,31 @@ class Clip extends Component<Props, State> {
   }
 
   render () {
-    const { errorCode, mediaRef, meta, pageKey, pages, pagesSetQueryState } = this.props
+    const { errorCode, mediaRef, pageKey, pages, pagesSetQueryState, t } = this.props
     const page = pages[pageKey] || {}
     const { queryFrom, queryPage, querySort, queryType } = page
 
     if (errorCode) {
       return <Error statusCode={errorCode} />
+    }
+
+    let meta = {} as any
+    if (mediaRef) {
+      const { episode } = mediaRef
+      const podcastTitle =
+        (episode && episode.podcast && episode.podcast.title)
+        || t('untitledClip')
+      meta = {
+        currentUrl: BASE_URL + PV.paths.web.clip + '/' + mediaRef.id,
+        description: removeDoubleQuotes(`${mediaRef.episode.title} - ${podcastTitle}`),
+        imageAlt: podcastTitle,
+        imageUrl:
+          (episode && episode.shrunkImageUrl)
+          || (episode.podcast && episode.podcast.shrunkImageUrl)
+          || episode.imageUrl
+          || (episode.podcast && episode.podcast.imageUrl),
+        title: `${mediaRef.title ? mediaRef.title : t('untitledPodcast')}`
+      }
     }
 
     return (
@@ -189,6 +193,7 @@ class Clip extends Component<Props, State> {
           mediaRef={mediaRef}
           pageKey={pageKey} />
         <MediaInfoCtrl
+          initialShowDescription={true}
           mediaRef={mediaRef}
           pageKey={pageKey} />
         <MediaListCtrl

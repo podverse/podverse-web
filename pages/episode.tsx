@@ -22,7 +22,6 @@ type Props = {
   episode?: any
   errorCode?: number
   lastScrollPosition?: number
-  meta?: any
   newPlayingItem?: any
   pageKey: string
   pages?: any
@@ -43,7 +42,7 @@ const kPageKey = 'episode_'
 
 class Episode extends Component<Props, State> {
 
-  static async getInitialProps({ query, req, store, t }) {
+  static async getInitialProps({ query, req, store }) {
     const pageKeyWithId = `${kPageKey}${query.id}`
     const state = store.getState()
     const { mediaPlayer, pages, user } = state
@@ -130,20 +129,9 @@ class Episode extends Component<Props, State> {
 
     store.dispatch(pageIsLoading(false))
     
-    let meta = {}
-    if (episode) {
-      const podcastTitle = (episode && episode.podcast && episode.podcast.title) || t('untitledPodcast')
-      meta = {
-        currentUrl: BASE_URL + PV.paths.web.episode + '/' + episode.id,
-        description: removeDoubleQuotes(episode.description),
-        imageAlt: podcastTitle,
-        imageUrl: episode.shrunkImageUrl || episode.podcast.shrunkImageUrl || episode.imageUrl || episode.podcast.imageUrl,
-        title: `${episode.title} - ${podcastTitle}`
-      }
-    }
     const namespacesRequired = PV.nexti18next.namespaces
 
-    return { episode, lastScrollPosition, meta, namespacesRequired, newPlayingItem, pageKey: pageKeyWithId,
+    return { episode, lastScrollPosition, namespacesRequired, newPlayingItem, pageKey: pageKeyWithId,
       queryFrom, querySort, queryType }
   }
 
@@ -158,12 +146,29 @@ class Episode extends Component<Props, State> {
   }
 
   render() {
-    const { episode, errorCode, meta, pageKey, pages, pagesSetQueryState } = this.props
+    const { episode, errorCode, pageKey, pages, pagesSetQueryState, t } = this.props
     const page = pages[pageKey] || {}
     const { queryFrom, queryPage, querySort, queryType } = page
 
     if (errorCode) {
       return <Error statusCode={errorCode} />
+    }
+
+    let meta = {} as any
+    if (episode) {
+      const { podcast } = episode
+      const podcastTitle = (podcast && podcast.title) || t('untitledPodcast')
+      meta = {
+        currentUrl: BASE_URL + PV.paths.web.episode + '/' + episode.id,
+        description: removeDoubleQuotes(episode.description),
+        imageAlt: podcastTitle,
+        imageUrl:
+          episode.shrunkImageUrl
+          || (podcast && podcast.shrunkImageUrl)
+          || episode.imageUrl
+          || (podcast && podcast.imageUrl),
+        title: `${episode.title} - ${podcastTitle}`
+      }
     }
 
     return (
