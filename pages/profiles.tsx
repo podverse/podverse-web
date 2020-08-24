@@ -22,7 +22,7 @@ type Props = {
 
 type State = {}
 
-const kPageKey = 'public_profiles'
+const kPageKey = 'profiles'
 
 class Profiles extends Component<Props, State> {
 

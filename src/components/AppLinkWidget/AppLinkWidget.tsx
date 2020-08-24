@@ -35,7 +35,7 @@ const createDeepLink = (pageKey: string) => {
     } else if (pageKeys.length === 1) {
       path = pageKeys[0]
     }
-  
+
     return APP_PROTOCOL + path
   } else {
     return ''
@@ -93,8 +93,8 @@ const deepLinkPages = [
   'playlists',
   'podcast_',
   'podcasts',
-  'public_profile',
-  'public_profiles',
+  'profile_',
+  'profiles',
   'search'
 ]
 
@@ -134,7 +134,7 @@ class AppLinkWidget extends Component<Props, State> {
   }
 
   render() {
-    const { pageKey = '' , t } = this.props
+    const { pageKey = '', t } = this.props
     const { isValidMobileOS, mobileOS, modalIsOpen } = this.state
     const downloadButton = createDownloadButton(mobileOS, t)
 
