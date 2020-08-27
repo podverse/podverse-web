@@ -200,7 +200,7 @@ class Footer extends Component<Props, State> {
                 <a
                   className='footer-bottom__link'
                   onClick={this.linkClick}>
-                  {t('FAQ')}
+                  FAQ
                 </a>
               </Link>
               <Link
