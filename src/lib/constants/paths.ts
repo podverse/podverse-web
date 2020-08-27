@@ -32,7 +32,7 @@ export const paths = {
     verify_email: `/verify-email`
   },
   web: {
-    _login: `/?login`,
+    _login: `/?login=true`,
     about: `/about`,
     appleAppStore: `https://apps.apple.com/us/app/podverse/id1390888454?mt=8`,
     clip: `/clip`,
