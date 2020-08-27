@@ -40,7 +40,7 @@ class FAQ extends Component<Props, State> {
     const meta = {
       currentUrl: BASE_URL + PV.paths.web.faq,
       description: t('pages:faq._Description'),
-      title: t('pages:faq._Title')
+      title: 'FAQ'
     }
 
     return (
@@ -55,7 +55,7 @@ class FAQ extends Component<Props, State> {
           title={meta.title}
           twitterDescription={meta.description}
           twitterTitle={meta.title} />
-        <h3>{t('FAQ')}</h3>
+        <h3>FAQ</h3>
 
         <p>
           <a href={`mailto:${PV.misc.email.contact}`} target='_blank' rel="noopener noreferrer">

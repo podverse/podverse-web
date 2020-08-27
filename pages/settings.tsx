@@ -326,7 +326,7 @@ class Settings extends Component<Props, State> {
     const { censorNSFWText, filterButtonHide, nsfwLabelsHide, playbackSpeedButtonHide,
       timeJumpBackwardButtonHide } = settings
     const { email, emailError, isCheckoutOpen, isDeleteAccountOpen, isDownloading,
-      isPublic, isSaving, name, wasCopied } = this.state
+      isPublic, isSaving, language, name, wasCopied } = this.state
     const isLoggedIn = user && !!user.id
 
     const checkoutBtn = (isRenew = false) => (
@@ -551,8 +551,8 @@ class Settings extends Component<Props, State> {
               &nbsp;&nbsp;{t('HideFilterButtons')}
             </Label>
           </FormGroup>
-          {/* <FormGroup>
-            <Label for='settings-language'>{t('Change Language')}</Label>
+          <FormGroup>
+            <Label for='settings-language'>{t('Language')}</Label>
             <Input
               className='settings-language settings-dropdown'
               name='settings-language'
@@ -562,7 +562,7 @@ class Settings extends Component<Props, State> {
               <option value='en'>{t('language - en')}</option>
               <option value='es'>{t('language - es')}</option>
             </Input>
-          </FormGroup> */}
+          </FormGroup>
           {
             user && user.id &&
             <Fragment>
