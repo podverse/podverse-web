@@ -24,22 +24,22 @@ class VerifyEmail extends Component<Props, State> {
 
   static async getInitialProps({ query, req, store }) {
     const token = query.token
-
+    const namespacesRequired = PV.nexti18next.namespaces
     store.dispatch(pageIsLoading(false))
-    
+    let props = { namespacesRequired } as any
+
     try {
       await verifyEmail(token)
-
-      return
     } catch (error) {
       if (error && error.response && error.response.status === 429) {
         alertRateLimitError(error)
-        return
+        return { namespacesRequired }
+      } else {
+        props = { ...props, hasError: true }
       }
-      const namespacesRequired = PV.nexti18next.namespaces
-
-      return { hasError: true, namespacesRequired }
     }
+
+    return props
   }
 
   constructor(props) {
