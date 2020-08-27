@@ -13,7 +13,6 @@ import { withTranslation } from '~/../i18n'
 const { BASE_URL } = config()
 
 type Props = {
-  meta?: any
   passwordResetToken?: string
   t?: any
 }
@@ -33,17 +32,11 @@ class ResetPassword extends Component<Props, State> {
   static async getInitialProps({ query, req, store, t}) {
     const token = query.token
 
-    const meta = {
-      currentUrl: BASE_URL + PV.paths.web.reset_password,
-      description: t('pages:reset_password._Description'),
-      title: t('pages:reset_password._Title')
-    }
-
     store.dispatch(pageIsLoading(false))
 
     const namespacesRequired = PV.nexti18next.namespaces
 
-    return { meta, namespacesRequired, passwordResetToken: token }
+    return { namespacesRequired, passwordResetToken: token }
   }
 
   constructor(props) {
@@ -139,9 +132,15 @@ class ResetPassword extends Component<Props, State> {
   }
 
   render() {
-    const { meta, t } = this.props
+    const { t } = this.props
     const { errorPassword, errorPasswordConfirm, errorResponse, isLoading, password,
       passwordConfirm, wasSuccessful } = this.state
+
+    const meta = {
+      currentUrl: BASE_URL + PV.paths.web.reset_password,
+      description: t('pages:reset_password._Description'),
+      title: t('pages:reset_password._Title')
+    }
 
     return (
       <Fragment>
