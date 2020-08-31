@@ -170,7 +170,7 @@ export const alertSomethingWentWrong = (t) => {
 export const removeDoubleQuotes = str => str ? str.replace(/["]+/g, '') : ''
 
 // Remove nonAlphanumeric characters that are not supported by search crawlers
-const seoRemoveNonAlphanumericCharacters = str => str.replace(/[^0-9a-z.–_-\s]/gi, '')
+const seoRemoveNonAlphanumericCharacters = str => str.replace(/[^0-9a-z.-_–\s]/gi, '')
 
 // Titles should be limited to 60 characters
 export const seoMetaTitle = str => {
