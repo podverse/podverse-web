@@ -40,9 +40,11 @@ class Meta extends Component<Props, State> {
     const twitterImg = !twitterImage ? metaDefaultImageUrl1200x630 : twitterImage + cacheBustUrlParam
 
     const seoTitle = seoMetaTitle(title)
+    const seoOGTitle = seoMetaTitle(ogTitle)
     const seoDescription = seoMetaDescription(description)
     const seoOGDescription = seoMetaDescription(ogDescription)
     const seoTwitterDescription = seoMetaDescription(twitterDescription)
+    const seoTwitterTitle = seoMetaDescription(twitterTitle)
 
     return (
       <Head>
@@ -66,7 +68,7 @@ class Meta extends Component<Props, State> {
         {/* <meta name='apple-itunes-app' content='app-id=1390888454' /> */}
 
         {/* Open Graph meta tags  */}
-        <meta property='og:title' content={ogTitle} />
+        <meta property='og:title' content={seoOGTitle} />
         <meta property='og:type' content={ogType} />
         <meta property='og:image' content={ogImg} />
         <meta property='og:image:alt' content={ogImageAlt || 'Podverse logo'} />
@@ -97,7 +99,7 @@ class Meta extends Component<Props, State> {
         {/* Twitter page-specific meta tags */}
         <meta name='twitter:card' content='summary_large_image' />
         <meta name='twitter:description' content={seoTwitterDescription} />
-        <meta name='twitter:title' content={twitterTitle} />
+        <meta name='twitter:title' content={seoTwitterTitle} />
         <meta name='twitter:image' content={twitterImg} />
         <meta name='twitter:image:alt' content={twitterImageAlt || 'Podverse logo'} />
       </Head>
