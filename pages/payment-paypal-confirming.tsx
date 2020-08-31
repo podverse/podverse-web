@@ -11,7 +11,6 @@ const { BASE_URL } = config()
 
 type Props = {
   id: string
-  meta?: any
   t?: any
 }
 
@@ -30,14 +29,9 @@ class PaymentConfirmingPayPal extends Component<Props, State> {
   static async getInitialProps({ query, req, store, t }) {
     store.dispatch(pageIsLoading(false))
 
-    const meta = {
-      currentUrl: BASE_URL + PV.paths.web.payment_paypal_confirming,
-      description: t('pages:payment_paypal_confirming._Description'),
-      title: t('pages:payment_paypal_confirming._Title')
-    }
     const namespacesRequired = PV.nexti18next.namespaces
 
-    return { id: query.id, meta, namespacesRequired }
+    return { id: query.id, namespacesRequired }
   }
 
   constructor (props) {
@@ -102,8 +96,14 @@ class PaymentConfirmingPayPal extends Component<Props, State> {
   }
 
   render() {
-    const { meta } = this.props
+    const { t } = this.props
     const { hasError, isChecking, isTakingLonger, wasSuccessful } = this.state
+
+    const meta = {
+      currentUrl: BASE_URL + PV.paths.web.payment_paypal_confirming,
+      description: t('pages:payment_paypal_confirming._Description'),
+      title: t('pages:payment_paypal_confirming._Title')
+    }
 
     return (
       <Fragment>

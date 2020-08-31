@@ -11,7 +11,7 @@ import MediaListCtrl from '~/components/MediaListCtrl/MediaListCtrl'
 import Meta from '~/components/Meta/Meta'
 import config from '~/config'
 import PV from '~/lib/constants'
-import { checkIfLoadingOnFrontEnd, clone, cookieGetQuery, removeDoubleQuotes } from '~/lib/utility'
+import { checkIfLoadingOnFrontEnd, clone, cookieGetQuery } from '~/lib/utility'
 import { pageIsLoading, pagesSetQueryState, playerQueueLoadSecondaryItems
   } from '~/redux/actions'
 import { getEpisodeById, getEpisodesByQuery, getMediaRefsByQuery } from '~/services/'
@@ -160,7 +160,7 @@ class Episode extends Component<Props, State> {
       const podcastTitle = (podcast && podcast.title) || t('untitledPodcast')
       meta = {
         currentUrl: BASE_URL + PV.paths.web.episode + '/' + episode.id,
-        description: removeDoubleQuotes(episode.description),
+        description: episode.description,
         imageAlt: podcastTitle,
         imageUrl:
           episode.shrunkImageUrl

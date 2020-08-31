@@ -3,8 +3,8 @@ import Head from 'next/head'
 import PV from '~/lib/constants'
 import '~/scss/styles.scss'
 import config from '~/config'
+import { seoMetaDescription, seoMetaTitle } from '~/lib/utility'
 const { metaDefaultImageUrl1200x630 } = config()
-const striptags = require('striptags')
 
 type Props = {
   description?: string
@@ -39,13 +39,14 @@ class Meta extends Component<Props, State> {
     const ogImg = !ogImage ? metaDefaultImageUrl1200x630 : ogImage
     const twitterImg = !twitterImage ? metaDefaultImageUrl1200x630 : twitterImage + cacheBustUrlParam
 
-    const strippedDescription = striptags(description)
-    const strippedOgDescription = striptags(ogDescription)
-    const strippedTwitterDescription = striptags(twitterDescription)
+    const seoTitle = seoMetaTitle(title)
+    const seoDescription = seoMetaDescription(description)
+    const seoOGDescription = seoMetaDescription(ogDescription)
+    const seoTwitterDescription = seoMetaDescription(twitterDescription)
 
     return (
       <Head>
-        <title>{title}</title>
+        <title>{seoTitle}</title>
         <meta charSet='utf-8' />
         <meta name='viewport' content='width=device-width, initial-scale=1' />
         <meta name='no-email-collection' content={PV.paths.web.unspam} />
@@ -60,8 +61,7 @@ class Meta extends Component<Props, State> {
         <meta name='msapplication-TileColor' content='#da532c' />
         <meta name='theme-color' content='#ffffff' />
 
-        <meta name='title' content={title} />
-        <meta name='description' content={strippedDescription} />
+        <meta name='description' content={seoDescription} />
 
         {/* <meta name='apple-itunes-app' content='app-id=1390888454' /> */}
 
@@ -71,7 +71,7 @@ class Meta extends Component<Props, State> {
         <meta property='og:image' content={ogImg} />
         <meta property='og:image:alt' content={ogImageAlt || 'Podverse logo'} />
         <meta property='og:image:secure_url' content={ogImg} />
-        <meta property='og:description' content={strippedOgDescription} />
+        <meta property='og:description' content={seoOGDescription} />
         <meta property='og:site_name' content='Podverse' />
         <meta property='og:url' content={ogUrl} />
         <meta property='fb:app_id' content='300336890140007' />
@@ -96,7 +96,7 @@ class Meta extends Component<Props, State> {
 
         {/* Twitter page-specific meta tags */}
         <meta name='twitter:card' content='summary_large_image' />
-        <meta name='twitter:description' content={strippedTwitterDescription} />
+        <meta name='twitter:description' content={seoTwitterDescription} />
         <meta name='twitter:title' content={twitterTitle} />
         <meta name='twitter:image' content={twitterImg} />
         <meta name='twitter:image:alt' content={twitterImageAlt || 'Podverse logo'} />

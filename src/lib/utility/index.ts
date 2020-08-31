@@ -3,6 +3,7 @@ import { userUpdateHistoryItem } from '~/redux/actions'
 import { updateHistoryItemPlaybackPosition } from '~/services'
 import confetti from 'canvas-confetti'
 export { validatePassword } from './validatePassword'
+const striptags = require('striptags')
 
 // This checks if we are server-side rendering or rendering on the front-end.
 export const checkIfLoadingOnFrontEnd = () => {
@@ -166,8 +167,24 @@ export const alertSomethingWentWrong = (t) => {
   safeAlert(t('Something went wrong'))
 }
 
-// Remove double quotes from text so it does not cut off in SEO descriptions
 export const removeDoubleQuotes = str => str ? str.replace(/["]+/g, '') : ''
+
+// Remove nonAlphanumeric characters that are not supported by search crawlers
+const seoRemoveNonAlphanumericCharacters = str => str.replace(/[^0-9a-z.-_–\s]/gi, '')
+
+// Titles should be limited to 60 characters
+export const seoMetaTitle = str => {
+  str = striptags(str)
+  str = seoRemoveNonAlphanumericCharacters(str)
+  return str.substr(0, 60)
+}
+
+// Descriptions should be limited to 60 characters
+export const seoMetaDescription = str => {
+  str = striptags(str)
+  str = seoRemoveNonAlphanumericCharacters(str)
+  return str.substr(0, 160)
+}
 
 export const alertRateLimitError = err => {
   safeAlert(err.response.data.message)

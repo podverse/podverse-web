@@ -11,7 +11,6 @@ const { BASE_URL } = config()
 
 type Props = {
   id: string
-  meta?: any
   t?: any
 }
 
@@ -29,14 +28,9 @@ class PaymentConfirmingBitPay extends Component<Props, State> {
   static async getInitialProps({ query, req, store, t }) {
     store.dispatch(pageIsLoading(false))
 
-    const meta = {
-      currentUrl: BASE_URL + PV.paths.web.payment_bitpay_confirming,
-      description: t('pages:payment_bitpay_confirming._Description'),
-      title: t('pages:payment_bitpay_confirming._Title')
-    }
     const namespacesRequired = PV.nexti18next.namespaces
 
-    return { id: query.id, meta, namespacesRequired }
+    return { id: query.id, namespacesRequired }
   }
 
   constructor(props) {
@@ -97,8 +91,14 @@ class PaymentConfirmingBitPay extends Component<Props, State> {
   }
 
   render() {
-    const { id, meta } = this.props
+    const { id, t } = this.props
     const { hasError, isChecking, wasSuccessful } = this.state
+
+    const meta = {
+      currentUrl: BASE_URL + PV.paths.web.payment_bitpay_confirming,
+      description: t('pages:payment_bitpay_confirming._Description'),
+      title: t('pages:payment_bitpay_confirming._Title')
+    }
 
     return (
       <Fragment>

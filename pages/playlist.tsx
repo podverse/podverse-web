@@ -16,7 +16,7 @@ import Meta from '~/components/Meta/Meta'
 import config from '~/config'
 import PV from '~/lib/constants'
 import { addOrUpdateHistoryItemPlaybackPosition, alertPremiumRequired, alertRateLimitError, alertSomethingWentWrong,
-  assignLocalOrLoggedInNowPlayingItemPlaybackPosition, clone, readableDate, removeDoubleQuotes, safeAlert } from '~/lib/utility'
+  assignLocalOrLoggedInNowPlayingItemPlaybackPosition, clone, readableDate, safeAlert } from '~/lib/utility'
 import { mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying, pageIsLoading,
   pagesSetQueryState, playerQueueLoadSecondaryItems, userSetInfo } from '~/redux/actions'
 import { addOrRemovePlaylistItem, deletePlaylist,
@@ -407,7 +407,7 @@ class Playlist extends Component<Props, State> {
     if (playlist) {
       meta = {
         currentUrl: BASE_URL + PV.paths.web.playlist + '/' + playlist.id,
-        description: removeDoubleQuotes(`${playlist.title ? playlist.title : t('untitledPlaylist')}${t('playlistOnPodverse')}${playlist.description ? playlist.description : ''}`),
+        description: `${playlist.title ? playlist.title : t('untitledPlaylist')}${t('playlistOnPodverse')}${playlist.description ? playlist.description : ''}`,
         title: `${playlist.title ? playlist.title : t('untitledPlaylist')}`
       }
     }

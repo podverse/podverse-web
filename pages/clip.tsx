@@ -11,7 +11,7 @@ import MediaListCtrl from '~/components/MediaListCtrl/MediaListCtrl'
 import Meta from '~/components/Meta/Meta'
 import config from '~/config'
 import PV from '~/lib/constants'
-import { checkIfLoadingOnFrontEnd, clone, cookieGetQuery, removeDoubleQuotes } from '~/lib/utility'
+import { checkIfLoadingOnFrontEnd, clone, cookieGetQuery } from '~/lib/utility'
 import { pageIsLoading, pagesSetQueryState, playerQueueLoadSecondaryItems
   } from '~/redux/actions'
 import { getEpisodesByQuery, getMediaRefsByQuery, getMediaRefById } from '~/services/'
@@ -163,7 +163,7 @@ class Clip extends Component<Props, State> {
         || t('untitledClip')
       meta = {
         currentUrl: BASE_URL + PV.paths.web.clip + '/' + mediaRef.id,
-        description: removeDoubleQuotes(`${mediaRef.episode.title} - ${podcastTitle}`),
+        description: `${mediaRef.episode.title} - ${podcastTitle}`,
         imageAlt: podcastTitle,
         imageUrl:
           (episode && episode.shrunkImageUrl)

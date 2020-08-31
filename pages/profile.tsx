@@ -20,7 +20,6 @@ type Props = {
   errorCode?: number
   lastScrollPosition?: number
   listItems?: any[]
-  meta?: any
   pageKey?: string
   pagesSetQueryState?: any
   publicUser?: any
@@ -96,7 +95,16 @@ class Profile extends Component<Props, State> {
 
     store.dispatch(pageIsLoading(false))
 
-    let meta = {}
+    const namespacesRequired = PV.nexti18next.namespaces
+
+    return { lastScrollPosition, namespacesRequired, pageKey: pageKeyWithId, publicUser }
+  }
+
+  render() {
+    const { errorCode, pageKey, pagesSetQueryState, publicUser,
+      queryPage, querySort, queryType, t, user } = this.props
+
+    let meta = {} as any
     if (publicUser) {
       meta = {
         currentUrl: BASE_URL + PV.paths.web.profile + '/' + publicUser.id,
@@ -104,14 +112,6 @@ class Profile extends Component<Props, State> {
         title: `${publicUser.name ? publicUser.name : t('Anonymous')}`
       }
     }
-    const namespacesRequired = PV.nexti18next.namespaces
-
-    return { lastScrollPosition, meta, namespacesRequired, pageKey: pageKeyWithId, publicUser }
-  }
-
-  render() {
-    const { errorCode, meta, pageKey, pagesSetQueryState, publicUser,
-      queryPage, querySort, queryType, t, user } = this.props
 
     if (errorCode) {
       return <Error statusCode={errorCode} />
