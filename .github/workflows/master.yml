@@ -24,17 +24,17 @@ jobs:
         tags: latest,${{ steps.package-node-version.outputs.version }}
         
     - name: log into prod, then deploy latest prod image
-      uses: garygrossgarten/github-action-ssh@release
+      uses: appleboy/ssh-action@master
       with:
-        command: |
+        host: ${{ secrets.PROD_SSH_HOST }}
+        username: ${{ secrets.PROD_SSH_USERNAME }}
+        passphrase: ${{ secrets.PROD_SSH_PASSPHRASE }}
+        key: ${{ secrets.PROD_SSH_PRIVATE_KEY }}
+        script: |
           docker stop podverse_web_prod
           docker rm podverse_web_prod
           docker image rm podverse/podverse_web:latest
           docker-compose -f /home/mitch/podverse-ops/docker-compose.prod.yml up -d podverse_web
-        host: ${{ secrets.PROD_SSH_HOST }}
-        username: ${{ secrets.PROD_SSH_USERNAME }}
-        passphrase: ${{ secrets.PROD_SSH_PASSPHRASE }}
-        privateKey: ${{ secrets.PROD_SSH_PRIVATE_KEY }}
 
     - name: Slack Notification
       uses: rtCamp/action-slack-notify@v2.0.0
