@@ -13,7 +13,7 @@ import {
 } from '~/redux/actions'
 import { getCategoriesByQuery, getEpisodesByQuery } from '~/services'
 import { withTranslation } from '~/../i18n'
-const { BASE_URL } = config()
+const { BASE_URL, CATEGORY_ID_DEFAULT } = config()
 
 type Props = {
   allCategories?: any[]
@@ -51,7 +51,7 @@ class Episodes extends Component<Props, State> {
     const currentPage = pages[kPageKey] || {}
     const lastScrollPosition = currentPage.lastScrollPosition
     const queryRefresh = !!query.refresh
-    const categoryId = query.categoryId || currentPage.categoryId || localStorageQuery.categoryId || (allCategories && allCategories[2] && allCategories[2].id /* Arts */)
+    const categoryId = query.categoryId || currentPage.categoryId || localStorageQuery.categoryId || CATEGORY_ID_DEFAULT
     const queryFrom = currentPage.queryFrom || query.from || (query.categoryId && PV.queryParams.from_category) || localStorageQuery.from || (user && user.id ? PV.queryParams.subscribed_only : PV.queryParams.all_podcasts)
     const queryPage = (queryRefresh && 1) || currentPage.queryPage || query.page || 1
     const querySort = currentPage.querySort || query.sort || localStorageQuery.sort || (user && user.id ? PV.queryParams.most_recent : PV.queryParams.top_past_week)
