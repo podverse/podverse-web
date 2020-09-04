@@ -376,7 +376,7 @@ class MediaListCtrl extends Component<Props, State> {
   }
 
   handleFilterTextChange = async event => {
-    const { allCategories, episodeId, handleSetPageQueryState, pageIsLoading, pageKey,
+    const { episodeId, handleSetPageQueryState, pageIsLoading, pageKey,
       pages, podcastId, user } = this.props
     const { categoryId, queryFrom, querySort, queryType } = pages[pageKey]
     const { subscribedPodcastIds } = user
