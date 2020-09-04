@@ -55,7 +55,7 @@ export const getMediaRefsByQuery = async (query) => {
   }
 
   if (query.searchAllFieldsText) {
-    filteredQuery.searchAllFieldsText = query.searchAllFieldsText
+    filteredQuery.searchAllFieldsText = query.searchAllFieldsText ? encodeURIComponent(query.searchAllFieldsText) : ''
   }
 
   const queryString = convertObjectToQueryString(filteredQuery)

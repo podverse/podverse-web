@@ -36,7 +36,7 @@ export const getEpisodesByQuery = async (query) => {
   }
 
   if (query.searchAllFieldsText) {
-    filteredQuery.searchAllFieldsText = query.searchAllFieldsText
+    filteredQuery.searchAllFieldsText = query.searchAllFieldsText ? encodeURIComponent(query.searchAllFieldsText) : ''
   }
 
   if (query.includePodcast) {
