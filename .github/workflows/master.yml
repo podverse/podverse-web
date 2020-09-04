@@ -24,19 +24,28 @@ jobs:
         tags: latest,${{ steps.package-node-version.outputs.version }}
         
     - name: log into prod, then deploy latest prod image
-      uses: garygrossgarten/github-action-ssh@release
+      uses: appleboy/ssh-action@master
       with:
-        command: |
+        host: ${{ secrets.PROD_SSH_HOST }}
+        username: ${{ secrets.PROD_SSH_USERNAME }}
+        passphrase: ${{ secrets.PROD_SSH_PASSPHRASE }}
+        key: ${{ secrets.PROD_SSH_PRIVATE_KEY }}
+        command_timeout: 60m
+        script: |
           docker stop podverse_web_prod
           docker rm podverse_web_prod
           docker image rm podverse/podverse_web:latest
           docker-compose -f /home/mitch/podverse-ops/docker-compose.prod.yml up -d podverse_web
-        host: ${{ secrets.PROD_SSH_HOST }}
-        username: ${{ secrets.PROD_SSH_USERNAME }}
-        passphrase: ${{ secrets.PROD_SSH_PASSPHRASE }}
-        privateKey: ${{ secrets.PROD_SSH_PRIVATE_KEY }}
 
-    - name: Slack Notification
+    - name: Slack Notification - Success
+      if: success()
       uses: rtCamp/action-slack-notify@v2.0.0
       env:
         SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+
+    - name: Slack Notification - Failure
+      if: cancelled() || failure()
+      uses: rtCamp/action-slack-notify@v2.0.0
+      env:
+        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+        SLACK_COLOR: 'danger'

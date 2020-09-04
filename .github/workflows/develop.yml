@@ -19,9 +19,14 @@ jobs:
         tags: stage
         
     - name: log into stage, deploy latest stage image, then run e2e tests
-      uses: garygrossgarten/github-action-ssh@release
+      uses: appleboy/ssh-action@master
       with:
-        command: |
+        host: ${{ secrets.STAGE_SSH_HOST }}
+        username: ${{ secrets.STAGE_SSH_USERNAME }}
+        passphrase: ${{ secrets.STAGE_SSH_PASSPHRASE }}
+        key: ${{ secrets.STAGE_SSH_PRIVATE_KEY }}
+        command_timeout: 60m
+        script: |
           docker stop podverse_web_stage
           docker rm podverse_web_stage
           docker image rm podverse/podverse_web:stage
@@ -31,12 +36,16 @@ jobs:
           git pull
           npm install
           npm run test:e2e:suite
-        host: ${{ secrets.STAGE_SSH_HOST }}
-        username: ${{ secrets.STAGE_SSH_USERNAME }}
-        passphrase: ${{ secrets.STAGE_SSH_PASSPHRASE }}
-        privateKey: ${{ secrets.STAGE_SSH_PRIVATE_KEY }}
 
-    - name: Slack Notification
+    - name: Slack Notification - Success
+      if: success()
       uses: rtCamp/action-slack-notify@v2.0.0
       env:
         SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+
+    - name: Slack Notification - Failure
+      if: cancelled() || failure()
+      uses: rtCamp/action-slack-notify@v2.0.0
+      env:
+        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+        SLACK_COLOR: 'danger'

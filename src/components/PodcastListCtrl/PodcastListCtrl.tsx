@@ -9,7 +9,7 @@ import { pageIsLoading, pagesSetQueryState } from '~/redux/actions'
 import { getPodcastsByQuery } from '~/services'
 import { withTranslation } from '~/../i18n'
 const uuidv4 = require('uuid/v4')
-const { QUERY_PODCASTS_LIMIT } = config()
+const { CATEGORY_ID_DEFAULT, QUERY_PODCASTS_LIMIT } = config()
 
 type Props = {
   allCategories?: any
@@ -241,7 +241,7 @@ class PodcastListCtrl extends Component<Props, State> {
   }
 
   generateTopLevelSelectNodes = () => {
-    const { allCategories, pageKey, pages, t } = this.props
+    const { pageKey, pages, t } = this.props
     const { categoryId, queryFrom } = pages[pageKey]
     const topLevelItems = [] as any[]
 
@@ -261,7 +261,7 @@ class PodcastListCtrl extends Component<Props, State> {
 
     topLevelItems.push({
       label: t('queryLabels:Categories'),
-      onClick: () => this.queryPodcastsCategory(categoryId || allCategories[2].id /* Arts */),
+      onClick: () => this.queryPodcastsCategory(categoryId || CATEGORY_ID_DEFAULT),
       parentValue: null,
       value: PV.queryParams.from_category
     })

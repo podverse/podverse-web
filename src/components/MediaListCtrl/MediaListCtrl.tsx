@@ -19,7 +19,7 @@ import { getEpisodesByQuery, getMediaRefsByQuery } from '~/services'
 import { withTranslation } from '~/../i18n'
 import AwesomeDebouncePromise from 'awesome-debounce-promise'
 const uuidv4 = require('uuid/v4')
-const { QUERY_MEDIA_REFS_LIMIT } = config()
+const { CATEGORY_ID_DEFAULT, QUERY_MEDIA_REFS_LIMIT } = config()
 
 const debouncedEpisodeFilterQuery = AwesomeDebouncePromise(getEpisodesByQuery, 750)
 const debouncedMediaRefFilterQuery = AwesomeDebouncePromise(getMediaRefsByQuery, 750)
@@ -65,22 +65,20 @@ class MediaListCtrl extends Component<Props, State> {
   }
 
   queryListItems = async (queryType, queryFrom, querySort, page, categoryId) => {
-    const { allCategories, episode, episodeId, handleSetPageQueryState, pageIsLoading, pageKey, pages,
+    const { episode, episodeId, handleSetPageQueryState, pageIsLoading, pageKey, pages,
       playerQueueLoadSecondaryItems, podcast, podcastId, user } = this.props
     const { subscribedPodcastIds } = user
     const { filterIsShowing, filterText } = pages[pageKey]
 
     this.setTemporaryMinHeightOnMediaList()
    
-    const categories = categoryId || allCategories && allCategories[2].id /* Arts */
-
     const query: any = {
       page,
       from: queryFrom,
       sort: querySort,
       episodeId: queryFrom === PV.queryParams.from_episode ? episodeId : null,
       podcastId: queryFrom === PV.queryParams.from_podcast ? podcastId : null,
-      categories,
+      categories: categoryId,
       ...(filterIsShowing ? { searchAllFieldsText: filterText } : {}),
       ...(queryFrom === PV.queryParams.all_podcasts ||
           queryFrom === PV.queryParams.subscribed_only ? { includePodcast: true } : {}),
@@ -378,7 +376,7 @@ class MediaListCtrl extends Component<Props, State> {
   }
 
   handleFilterTextChange = async event => {
-    const { allCategories, episodeId, handleSetPageQueryState, pageIsLoading, pageKey,
+    const { episodeId, handleSetPageQueryState, pageIsLoading, pageKey,
       pages, podcastId, user } = this.props
     const { categoryId, queryFrom, querySort, queryType } = pages[pageKey]
     const { subscribedPodcastIds } = user
@@ -402,7 +400,7 @@ class MediaListCtrl extends Component<Props, State> {
       page: 1,
       from: queryFrom,
       sort: querySort,
-      categories: categoryId || ((queryFrom === PV.queryParams.from_category && allCategories) ? allCategories[2].id : null),
+      categories: categoryId || (queryFrom === PV.queryParams.from_category ? CATEGORY_ID_DEFAULT : null),
       episodeId: queryFrom === PV.queryParams.from_episode ? episodeId : null,
       podcastId: pId || null,
       searchAllFieldsText: text,
@@ -525,7 +523,7 @@ class MediaListCtrl extends Component<Props, State> {
     })
 
     const categorySelectNodes: any[] = []
-    const selectedCategory = categoryItems.find(x => x.value === selectedCategoryId) || categoryItems[3] // Arts category
+    const selectedCategory = categoryItems.find(x => x.value === selectedCategoryId)
 
     if (selectedCategory) {
       const topLevelCategoryItems = categoryItems.filter(x => x.parentValue === null)

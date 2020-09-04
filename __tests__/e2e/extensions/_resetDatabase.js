@@ -34,7 +34,7 @@ module.exports.command = function () {
       privateKey: require('fs').readFileSync(path.resolve(__dirname, '../../../stage_ssh_key'))
     })
 
-  this.pause(20000)
+  this.pause(30000)
 
   return this
 }

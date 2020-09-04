@@ -15,7 +15,7 @@ module.exports = {
 
       .scrollToSelector(`.pv-pagination`)
       .clickByXpath(`//button[@class="page-link"][contains (text(), "3")]`)
-      .waitForXpathPresent('//div[@class="media-list-item-b__title"][contains(text(), "Making Sense with Sam Harris")]')
+      .waitForXpathPresent('//div[@class="media-list-item-b__title"][contains(text(), "Masters of Scale with Reid Hoffman")]')
       .refresh()
 
   },
