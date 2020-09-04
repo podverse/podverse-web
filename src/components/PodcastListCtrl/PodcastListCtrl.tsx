@@ -241,7 +241,7 @@ class PodcastListCtrl extends Component<Props, State> {
   }
 
   generateTopLevelSelectNodes = () => {
-    const { allCategories, pageKey, pages, t } = this.props
+    const { pageKey, pages, t } = this.props
     const { categoryId, queryFrom } = pages[pageKey]
     const topLevelItems = [] as any[]
 
