@@ -87,7 +87,7 @@ class Podcast extends Component<Props, State> {
       } else {
         results = await getMediaRefsByQuery({
           from: queryFrom,
-          ...(!podcastId ? { includePodcast: true } : {}),
+          includeEpisode: true,
           page: queryPage,
           ...(podcastId ? { podcastId } : {}),
           sort: querySort,
