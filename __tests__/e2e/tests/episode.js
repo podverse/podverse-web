@@ -16,7 +16,7 @@ module.exports = {
       .testSharedMetaTags()
       .testPageMetaTags(
         `Show 55 - Blueprint for Armageddon VI - Dan Carlin's Hardcor`,
-        `The Americans are coming, but will the war be over by the time they get there? Germany throws everything into a last series of stupendous attacks in the West while hoping to avoid getting burned by a fire in the East they helped fan.`
+        `The Americans are coming, but will the war be over by the time they get there Germany throws everything into a last series of stupendous attacks in the West whi`
       )
       .checkCurrentMedia(`Show 55 - Blueprint for Armageddon VI`, `episode`)
       .scrollToSelector(mediaListSelectsSelector)
