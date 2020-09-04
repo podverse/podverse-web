@@ -41,10 +41,11 @@ class Meta extends Component<Props, State> {
 
     const seoTitle = seoMetaTitle(title)
     const seoOGTitle = seoMetaTitle(ogTitle)
+    const seoTwitterTitle = seoMetaTitle(twitterTitle)
+
     const seoDescription = seoMetaDescription(description)
     const seoOGDescription = seoMetaDescription(ogDescription)
     const seoTwitterDescription = seoMetaDescription(twitterDescription)
-    const seoTwitterTitle = seoMetaDescription(twitterTitle)
 
     return (
       <Head>
