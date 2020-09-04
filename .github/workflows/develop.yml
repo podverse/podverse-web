@@ -25,6 +25,7 @@ jobs:
         username: ${{ secrets.STAGE_SSH_USERNAME }}
         passphrase: ${{ secrets.STAGE_SSH_PASSPHRASE }}
         key: ${{ secrets.STAGE_SSH_PRIVATE_KEY }}
+        command_timeout: 60m
         script: |
           docker stop podverse_web_stage
           docker rm podverse_web_stage
