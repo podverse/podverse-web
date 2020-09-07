@@ -60,24 +60,21 @@ class About extends Component<Props, State> {
         <h3>About</h3>
         <div className='about'>
           <p>
-            Podverse is an open source podcast manager for Android, iOS, and web with cross-platform syncing,
-            clip and playlist sharing, an intuitive interface, and more!
+            Podverse is an open source podcast manager for iOS, Android, and web.
           </p>
           <label>Free features:</label>
           <ul>
             <li>Subscribe to podcasts</li>
             <li>Auto-download episodes</li>
             <li>Drag-and-drop queue</li>
-            <li>Add podcasts by RSS</li>
             <li>Sleep timer</li>
             <li>Light / Dark mode </li>
           </ul>
           <label>Premium features:</label>
           <ul>
-            <li>Create sharable podcast clips</li>
+            <li>Create and share podcast clips</li>
             <li>Switch devices and play from where you left off</li>
             <li>Sync your subscriptions across devices</li>
-            <li>Sync your "added by RSS" podcasts across devices</li>
             <li>Sync your queue across devices</li>
             <li>Create and share playlists</li>
             <li>Subscribe to playlists</li>
@@ -86,10 +83,6 @@ class About extends Component<Props, State> {
             All Podverse software is provided under a free and open source (FOSS) licence.
             Features that require updating our servers are available only with a Premium membership.
             Sign up today and get 1 year of Premium for free <span role='img' aria-label='partying face emoji'>🥳</span>
-          </p>
-          <p>
-            Questions,  <a href="mailto:contact@podverse.fm">contact@podverse.fm</a>
-            or reach us through one of our social media channels.
           </p>
           <div className='flex-row'>
             {/* eslint-disable-next-line jsx-a11y/anchor-has-content */}
