@@ -68,7 +68,7 @@ class About extends Component<Props, State> {
             <li>Auto-download episodes</li>
             <li>Drag-and-drop queue</li>
             <li>Sleep timer</li>
-            <li>Light / Dark mode </li>
+            <li>Light / Dark mode</li>
           </ul>
           <label>Premium features:</label>
           <ul>

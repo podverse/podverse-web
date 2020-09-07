@@ -105,7 +105,12 @@ const featuresData = (t) => [
     icon2: true
   },
   {
-    text: t('features - create sharable clips'),
+    text: t('features - light / dark mode'),
+    icon1: true,
+    icon2: true
+  },
+  {
+    text: t('features - create and share clips'),
     icon1: false,
     icon2: true
   },
