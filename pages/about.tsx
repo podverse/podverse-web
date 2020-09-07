@@ -66,7 +66,6 @@ class About extends Component<Props, State> {
           <label>Free features:</label>
           <ul>
             <li>Subscribe to podcasts</li>
-            <li>Play clips and episodes</li>
             <li>Auto-download episodes</li>
             <li>Drag-and-drop queue</li>
             <li>Add podcasts by RSS</li>
@@ -75,30 +74,21 @@ class About extends Component<Props, State> {
           </ul>
           <label>Premium features:</label>
           <ul>
-            <li>Create and share podcast highlights</li>
+            <li>Create sharable podcast clips</li>
             <li>Switch devices and play from where you left off</li>
             <li>Sync your subscriptions across devices</li>
             <li>Sync your "added by RSS" podcasts across devices</li>
             <li>Sync your queue across devices</li>
             <li>Create and share playlists</li>
             <li>Subscribe to playlists</li>
-            <li>Share your user profile</li>
-            <li>Subscribe to user profiles</li>
           </ul>
           <p>
-            Our mission is to support the original independent spirit
-            of podcasting. We would love to collaborate with all podcast apps
-            to make our technologies as cross-compatible and convenient for people as possible.
-          </p>
-          <p>
-            All Podverse software is provided free and open source (FOSS),
-            but features that require updating our servers
-            are available only with a Premium membership.
+            All Podverse software is provided under a free and open source (FOSS) licence.
+            Features that use our servers are available only with a Premium membership.
             Sign up today and get 1 year of Premium for free <span role='img' aria-label='partying face emoji'>🥳</span>
           </p>
           <p>
-            If you have any questions or would be interested in collaborating
-            please email <a href="mailto:contact@podverse.fm">contact@podverse.fm</a>
+            Questions,  <a href="mailto:contact@podverse.fm">contact@podverse.fm</a>
             or reach us through one of our social media channels.
           </p>
           <div className='flex-row'>
