@@ -90,11 +90,6 @@ const featuresData = (t) => [
     icon2: true
   },
   {
-    text: t('features - play clips and episodes'),
-    icon1: true,
-    icon2: true
-  },
-  {
     text: t('features - download episodes'),
     icon1: true,
     icon2: true
