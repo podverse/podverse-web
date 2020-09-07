@@ -84,7 +84,7 @@ class About extends Component<Props, State> {
           </ul>
           <p>
             All Podverse software is provided under a free and open source (FOSS) licence.
-            Features that use our servers are available only with a Premium membership.
+            Features that require updating our servers are available only with a Premium membership.
             Sign up today and get 1 year of Premium for free <span role='img' aria-label='partying face emoji'>🥳</span>
           </p>
           <p>
