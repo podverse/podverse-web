@@ -110,7 +110,7 @@ const featuresData = (t) => [
     icon2: true
   },
   {
-    text: t('features - create clips of any length'),
+    text: t('features - create sharable clips'),
     icon1: false,
     icon2: true
   },
@@ -126,16 +126,6 @@ const featuresData = (t) => [
   },
   {
     text: t('features - create playlists'),
-    icon1: false,
-    icon2: true
-  },
-  {
-    text: t('features - edit your clips'),
-    icon1: false,
-    icon2: true
-  },
-  {
-    text: t('features - share your user profile'),
     icon1: false,
     icon2: true
   },
