@@ -1,13 +1,22 @@
 import { getLastHistoryItemOrNowPlayingItemFromStorage, setNowPlayingItemInStorage } from 'podverse-ui'
+import config from '~/config'
 import { userUpdateHistoryItem } from '~/redux/actions'
 import { updateHistoryItemPlaybackPosition } from '~/services'
 import confetti from 'canvas-confetti'
 export { validatePassword } from './validatePassword'
 const striptags = require('striptags')
+const { IMAGE_ORIGIN_REWRITE_FROM, IMAGE_ORIGIN_REWRITE_TO } = config()
 
 // This checks if we are server-side rendering or rendering on the front-end.
 export const checkIfLoadingOnFrontEnd = () => {
   return typeof window !== 'undefined'
+}
+
+export const rewriteImageOrigin = (url) => {
+  if (url && IMAGE_ORIGIN_REWRITE_FROM && IMAGE_ORIGIN_REWRITE_TO) {
+    url = url.replace(IMAGE_ORIGIN_REWRITE_FROM, IMAGE_ORIGIN_REWRITE_TO)
+  }
+  return url
 }
 
 export const convertToYYYYMMDDHHMMSS = () => {

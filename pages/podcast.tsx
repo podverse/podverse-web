@@ -10,7 +10,7 @@ import MediaListCtrl from '~/components/MediaListCtrl/MediaListCtrl'
 import Meta from '~/components/Meta/Meta'
 import config from '~/config'
 import PV from '~/lib/constants'
-import { clone, cookieGetQuery } from '~/lib/utility'
+import { clone, cookieGetQuery, rewriteImageOrigin } from '~/lib/utility'
 import { pageIsLoading, pagesSetQueryState, playerQueueLoadSecondaryItems
   } from '~/redux/actions'
 import { getEpisodesByQuery, getMediaRefsByQuery, getPodcastById } from '~/services/'
@@ -98,7 +98,7 @@ class Podcast extends Component<Props, State> {
       const listItems = results.data[0].map(x => {
         const item = convertToNowPlayingItem(x, {}, podcast)
         item.podcastId = podcast.id
-        item.podcastImageUrl = podcast.imageUrl
+        item.podcastImageUrl = rewriteImageOrigin(podcast.imageUrl)
         item.podcastTitle = podcast.title
         return item
       })
