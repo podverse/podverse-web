@@ -3,8 +3,8 @@ import Head from 'next/head'
 import PV from '~/lib/constants'
 import '~/scss/styles.scss'
 import config from '~/config'
-import { seoMetaDescription, seoMetaTitle } from '~/lib/utility'
-const { IMAGE_ORIGIN_REWRITE_FROM, IMAGE_ORIGIN_REWRITE_TO, metaDefaultImageUrl1200x630 } = config()
+import { rewriteImageOrigin, seoMetaDescription, seoMetaTitle } from '~/lib/utility'
+const { metaDefaultImageUrl1200x630 } = config()
 
 type Props = {
   description?: string
@@ -29,17 +29,16 @@ class Meta extends Component<Props, State> {
 
   render () {
     const { description = '', iphoneCustomScheme = '', ogDescription = '', ogImageAlt = '',
-      ogTitle = '', ogType = '', ogUrl = '', robotsNoIndex = '', title = '', twitterDescription = '', twitterImage = '',
+      ogTitle = '', ogType = '', ogUrl = '', robotsNoIndex = '', title = '', twitterDescription = '',
       twitterImageAlt = '', twitterTitle = '' } = this.props
-    let { ogImage = '' } = this.props
+    let { ogImage = '', twitterImage } = this.props
     
     // Twitter images are cached by URL, and do not update. To make sure the latest image is used,
     // we're setting the cacheBustUrlParam as a url parameter in the meta tag.
     const cacheBustUrlParam = '?cacheBust=' + new Date().toISOString().slice(0, 10) + '-' + new Date().getHours()
 
-    if (ogImage && IMAGE_ORIGIN_REWRITE_FROM && IMAGE_ORIGIN_REWRITE_TO) {
-      ogImage = ogImage.replace(IMAGE_ORIGIN_REWRITE_FROM, IMAGE_ORIGIN_REWRITE_TO)
-    }
+    ogImage = rewriteImageOrigin(ogImage)
+    twitterImage = rewriteImageOrigin(ogImage)
 
     const ogImg = !ogImage ? metaDefaultImageUrl1200x630 : ogImage
     const twitterImg = !twitterImage ? metaDefaultImageUrl1200x630 : twitterImage + cacheBustUrlParam
