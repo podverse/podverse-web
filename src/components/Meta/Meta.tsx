@@ -31,7 +31,7 @@ class Meta extends Component<Props, State> {
     const { description = '', iphoneCustomScheme = '', ogDescription = '', ogImageAlt = '',
       ogTitle = '', ogType = '', ogUrl = '', robotsNoIndex = '', title = '', twitterDescription = '',
       twitterImageAlt = '', twitterTitle = '' } = this.props
-    let { ogImage = '', twitterImage } = this.props
+    let { ogImage = '', twitterImage = '' } = this.props
     
     // Twitter images are cached by URL, and do not update. To make sure the latest image is used,
     // we're setting the cacheBustUrlParam as a url parameter in the meta tag.
