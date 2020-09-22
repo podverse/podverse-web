@@ -11,7 +11,7 @@ import MediaListItemCtrl from '~/components/MediaListItemCtrl/MediaListItemCtrl'
 import config from '~/config'
 import PV from '~/lib/constants'
 import { addOrUpdateHistoryItemPlaybackPosition, assignLocalOrLoggedInNowPlayingItemPlaybackPosition,
-  clone, cookieSetQuery, rewriteImageOrigin } from '~/lib/utility'
+  clone, cookieSetQuery } from '~/lib/utility'
 import { mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying, pageIsLoading,
   playerQueueAddSecondaryItems, playerQueueLoadPriorityItems,
   playerQueueLoadSecondaryItems, userSetInfo } from '~/redux/actions'
@@ -321,7 +321,7 @@ class MediaListCtrl extends Component<Props, State> {
     // and we will need to enrich the nowPlayingItem with the podcast data.
     if (!nowPlayingItem.podcastId && podcast) {
       nowPlayingItem.podcastId = podcast.id
-      nowPlayingItem.podcastImageUrl = rewriteImageOrigin(podcast.imageUrl)
+      nowPlayingItem.podcastImageUrl = podcast.imageUrl
       nowPlayingItem.podcastTitle = podcast.title
     }
 

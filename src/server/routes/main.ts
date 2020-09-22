@@ -80,5 +80,11 @@ export default (app) => {
     await app.render(ctx.req, ctx.res, '/settings', ctx.query)
   })
 
+  router.get('/2042565f8311d995ddc589ff9bd460fe.txt', async ctx => {
+    const detectifyKey = fs.readFileSync(path.resolve(__dirname, '../../../public/static/2042565f8311d995ddc589ff9bd460fe.txt'))
+    ctx.set('Content-Type', 'text/plain')
+    ctx.body = detectifyKey
+  })
+
   return router
 }
