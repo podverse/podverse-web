@@ -8,7 +8,7 @@ module.exports = {
   },
   'Reset Database': function (browser) {
     browser
-      .waitForElementWithText('h3', 'Clips')
+      .waitForElementWithText('h3', 'Clips', 300000)
   },
   after: function (browser) {
     browser.end()

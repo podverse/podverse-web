@@ -5,7 +5,7 @@ require('dotenv').config()
 
 const { BROWSERSTACK } = require('../constants')
 const globalHooks = require('../hooks')
-const timeoutOverride = parseInt(process.env.TEST_TIMEOUT_OVERRIDE) || 10000
+const timeoutOverride = parseInt(process.env.TEST_TIMEOUT_OVERRIDE) || 15000
 
 const nightwatch_config = {
   src_folders : [ "__tests__/e2e/tests" ],
