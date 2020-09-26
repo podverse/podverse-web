@@ -4,6 +4,7 @@ module.exports = {
   before: function (browser) {
     browser
       ._resetDatabase()
+      .pause(120000)
       .url(`${WEB_ORIGIN}/`)
   },
   'Reset Database': function (browser) {

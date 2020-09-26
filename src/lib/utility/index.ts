@@ -172,18 +172,16 @@ export const removeDoubleQuotes = str => str ? str.replace(/["]+/g, '') : ''
 // Remove nonAlphanumeric characters that are not supported by search crawlers
 const seoRemoveNonAlphanumericCharacters = str => str.replace(/[^0-9a-z-_–:,'.%\s]/gi, '')
 
-// Titles should be limited to 60 characters
+// Titles are limited to ~60 characters by Google
 export const seoMetaTitle = str => {
   str = striptags(str)
-  str = seoRemoveNonAlphanumericCharacters(str)
-  return str.substr(0, 60)
+  return seoRemoveNonAlphanumericCharacters(str)
 }
 
-// Descriptions should be limited to 60 characters
+// Titles are limited to ~160 characters by Google
 export const seoMetaDescription = str => {
   str = striptags(str)
-  str = seoRemoveNonAlphanumericCharacters(str)
-  return str.substr(0, 160)
+  return seoRemoveNonAlphanumericCharacters(str)
 }
 
 export const alertRateLimitError = err => {
