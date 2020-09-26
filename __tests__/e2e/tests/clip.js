@@ -21,7 +21,7 @@ module.exports = {
       .scrollToSelector(mediaListSelectsSelector)
       .click('xpath', dropdownToggleClipsXpath)
       .click('xpath', dropdownItemEpisodesXpath)
-      .waitForXpathPresent('//div[contains(text(), "Aicha Evans and Jesse Levinson: Self-driving taxis will be here in 2021")]')
+      .waitForXpathPresent(`//div[contains(text(), '"Antisocial" author Andrew Marantz on how the far right hijacked the internet')]`)
       .click('xpath', dropdownToggleEpisodesXpath)
       .click('xpath', dropdownItemClipsXpath)
       .waitForXpathPresent('//div[contains(text(), "Viverra orci sagittis eu volutpat odio facilisis mauris sit.")]')
