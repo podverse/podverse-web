@@ -407,7 +407,7 @@ class Playlist extends Component<Props, State> {
     if (playlist) {
       meta = {
         currentUrl: BASE_URL + PV.paths.web.playlist + '/' + playlist.id,
-        description: `${playlist.title ? playlist.title : t('untitledPlaylist')}${t('playlistOnPodverse')}${playlist.description ? playlist.description : ''}`,
+        description: `${playlist.title ? playlist.title : t('untitledPlaylist')}${t('playlistOnPodverse')}${playlist.description ? `- ${playlist.description}` : ''}`,
         title: `${playlist.title ? playlist.title : t('untitledPlaylist')}`
       }
     }
