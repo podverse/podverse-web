@@ -4,6 +4,7 @@
 require('dotenv').config()
 
 const { BROWSERSTACK } = require('../constants')
+const moment = require('moment')
 const globalHooks = require('../hooks')
 const timeoutOverride = parseInt(process.env.TEST_TIMEOUT_OVERRIDE) || 15000
 
@@ -21,7 +22,7 @@ const nightwatch_config = {
   test_settings: {
     default: {
       desiredCapabilities: {
-        'build': 'Web - Local',
+        'build': `Web - Local - ${moment(new Date()).format('YYYY-MM-DD HH:mm:ss')}`,
         'project': 'podverse-web',
         'browserstack.user': process.env.BROWSERSTACK_USERNAME || 'BROWSERSTACK_USERNAME',
         'browserstack.key': process.env.BROWSERSTACK_ACCESS_KEY || 'BROWSERSTACK_ACCESS_KEY',

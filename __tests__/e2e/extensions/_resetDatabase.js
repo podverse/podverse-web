@@ -2,7 +2,7 @@ const Client = require('ssh2').Client
 const path = require('path')
 
 module.exports.command = function () {
-  const resetDB = `docker stop podverse_db_stage; docker rm podverse_db_stage; docker-compose -f ./podverse-ops/docker-compose.stage.yml up -d podverse_db; sleep 60; PGPASSWORD='${process.env.STAGE_DATABASE_PASSWORD}' psql -h localhost -U postgres -d postgres -f ./podverse-ops/sample-database/qa-database.sql;`
+  const resetDB = `docker stop podverse_db_stage; docker rm podverse_db_stage; docker-compose -f ./podverse-ops/docker-compose.stage.yml up -d podverse_db; sleep 10; PGPASSWORD='${process.env.STAGE_DATABASE_PASSWORD}' psql -h localhost -U postgres -d postgres -f ./podverse-ops/sample-database/qa-database.sql;`
   const conn = new Client()
   conn
     .on('ready', function () {

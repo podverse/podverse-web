@@ -35,7 +35,7 @@ module.exports = {
       .testSharedMetaTags()
       .testPageMetaTags(
           `Very Bad Wizards`,
-          `Very Bad Wizards is a podcast featuring a philosopher Tamler Sommers and a psychologist David Pizarro, who share a love for ethics, pop culture, and cognitive s`
+          `Very Bad Wizards is a podcast featuring a philosopher Tamler Sommers and a psychologist David Pizarro, who share a love for ethics, pop culture, and cognitive science, and who have a marked inability to distinguish sacred from profane. Each podcast includes discussions of moral philosophy, recent work on moral psychology and neuroscience, and the overlap between the two.`
       )
   },
   after: function (browser) {

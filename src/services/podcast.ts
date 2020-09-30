@@ -33,7 +33,7 @@ export const getPodcastsByQuery = async (query) => {
   if (query.searchBy === PV.queryParams.podcast) {
     filteredQuery.searchTitle = query.searchText ? encodeURIComponent(query.searchText) : ''
   } else if (query.searchBy === PV.queryParams.host) {
-    filteredQuery.searchAuthor = query.searchAuthor ? encodeURIComponent(query.searchAuthor) : ''
+    filteredQuery.searchAuthor = query.searchText ? encodeURIComponent(query.searchText) : ''
   }
 
   const queryString = convertObjectToQueryString(filteredQuery)
