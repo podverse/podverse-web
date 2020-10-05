@@ -24,7 +24,7 @@ module.exports = {
 
       .scrollToSelector(`.pv-pagination`)
       .clickByXpath(`//button[@class="page-link"][contains (text(), "3")]`)
-      .waitForXpathPresent('//div[@class="media-list-item-a__title"][contains(text(), "183 JSJ Should I go to college?")]')
+      .waitForXpathPresent('//div[@class="media-list-item-a__title"][contains(text(), "LUCIEN GREAVES")]')
       .refresh()
 
       .waitForElementWithText(dropdownSelector, 'All Podcasts')
