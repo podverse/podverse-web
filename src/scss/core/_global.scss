@@ -18,16 +18,14 @@ html[is-switching-ui-mode=true] * {
   margin: 0 auto;
   width: 100%;
 
-  @media(max-width: $body-max-width-lg - 1) {
-    max-width: $body-max-width;
+  @media(max-width: $body-max-width + 31) {
     padding: 0 1rem;
   }
 
-  @media(min-width: $body-max-width-lg) {
-    max-width: $body-max-width-lg;
+  @media(min-width: $body-max-width + 32) {
+    max-width: $body-max-width;
     padding: 0 3.75rem;
   }
-
 }
 
 // This is meant to adjust an issue with fixed elements rendering incorrectly
