@@ -16,14 +16,18 @@ html[is-switching-ui-mode=true] * {
 
 .max-width {
   margin: 0 auto;
-  max-width: $body-max-width;
   width: 100%;
-}
 
-@media (max-width: ($body-max-width + 32px)) {
-  .max-width {
+  @media(max-width: $body-max-width-lg - 1) {
+    max-width: $body-max-width;
     padding: 0 1rem;
   }
+
+  @media(min-width: $body-max-width-lg) {
+    max-width: $body-max-width-lg;
+    padding: 0 3.75rem;
+  }
+
 }
 
 // This is meant to adjust an issue with fixed elements rendering incorrectly
@@ -127,11 +131,11 @@ html[is-switching-ui-mode=true] * {
 }
 
 .font-bold {
-  font-weight: 400;
+  font-weight: 500;
 }
 
 .font-bolder {
-  font-weight: 500;
+  font-weight: 700;
 }
 
 .font-italic {
