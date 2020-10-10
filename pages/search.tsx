@@ -89,6 +89,7 @@ class Search extends Component<Props, State> {
 
     const query = { 
       page,
+      sort: 'alphabetical',
       searchBy,
       searchText: currentSearch
     }
