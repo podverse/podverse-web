@@ -1,9 +1,12 @@
+import { cleanNowPlayingItem } from "podverse-shared"
 import { actionTypes } from "~/redux/constants"
 
 export const mediaPlayerLoadNowPlayingItem = payload => {
+  const cleanedNowPlayingItem = cleanNowPlayingItem(payload)
+
   return {
     type: actionTypes.MEDIA_PLAYER_LOAD_NOW_PLAYING_ITEM,
-    payload
+    payload: cleanedNowPlayingItem
   }
 }
 
