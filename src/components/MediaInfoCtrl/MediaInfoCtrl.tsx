@@ -8,8 +8,7 @@ import { MediaInfo, addItemToPriorityQueueStorage, getPriorityQueueItemsStorage,
 import { bindActionCreators } from 'redux';
 import PV from '~/lib/constants'
 import { addOrUpdateHistoryItemPlaybackPosition, assignLocalOrLoggedInNowPlayingItemPlaybackPosition,
-  getViewContentsElementScrollTop, 
-  generateShareURLs} from '~/lib/utility'
+  getViewContentsElementScrollTop, generateShareURLs, removeProtocol} from '~/lib/utility'
 import { mediaPlayerLoadNowPlayingItem, mediaPlayerSetClipFinished, mediaPlayerSetPlayedAfterClipFinished, 
   mediaPlayerUpdatePlaying, modalsAddToShow, modalsMakeClipShow, modalsShareShow, pageIsLoading,
   pagesSetQueryState, playerQueueLoadPriorityItems, userSetInfo } from '~/redux/actions'
@@ -222,10 +221,10 @@ class MediaInfoCtrl extends Component<Props, State> {
   isCurrentlyPlayingItem = () => {
     const { episode, mediaRef, mediaPlayer, nowPlayingItem } = this.props
     const { nowPlayingItem: mpNowPlayingItem, playing } = mediaPlayer
-
+    
     return (
       playing
-      && ((episode && episode.mediaUrl === mpNowPlayingItem.episodeMediaUrl)
+      && ((episode && removeProtocol(episode.mediaUrl) === removeProtocol(mpNowPlayingItem.episodeMediaUrl))
         || (mediaRef && mediaRef.id === mpNowPlayingItem.clipId)
         || ( // OR is a nowPlayingItem clip
           nowPlayingItem
