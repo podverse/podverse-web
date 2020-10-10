@@ -351,6 +351,10 @@ export const generateShareURLs = (nowPlayingItem) => {
   }
 }
 
+export const removeProtocol = (str: string) => {
+  return str ? str.replace(/^https?\:\/\//i, '') : ''
+}
+
 export const fireConfetti = () => {
   confetti({
     particleCount: 50,
