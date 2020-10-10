@@ -352,7 +352,7 @@ export const generateShareURLs = (nowPlayingItem) => {
 }
 
 export const removeProtocol = (str: string) => {
-  return str.replace(/^https?\:\/\//i, '')
+  return str ? str.replace(/^https?\:\/\//i, '') : ''
 }
 
 export const fireConfetti = () => {
