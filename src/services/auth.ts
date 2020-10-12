@@ -1,6 +1,7 @@
 import axios from 'axios'
 import config from '~/config'
 import PV from '~/lib/constants'
+import { deleteQueryCookies } from '~/lib/utility'
 const { API_BASE_URL } = config()
 
 export const getAuthenticatedUserInfo = async (bearerToken) => {
@@ -31,6 +32,7 @@ export const login = async (email: string, password: string) => {
 }
 
 export const logOut = async () => {
+  deleteQueryCookies()
   return axios(`${API_BASE_URL}${PV.paths.api.auth}${PV.paths.api.logout}`, {
     method: 'post',
     withCredentials: true
