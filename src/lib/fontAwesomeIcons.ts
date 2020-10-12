@@ -3,10 +3,10 @@ import { faFacebook, faGithub, faLinkedin, faReddit, faTwitter } from '@fortawes
 import {
   faArrowsAltV, faBars, faCaretDown, faCaretRight, faCheck, faCut, faDownload, faEdit,
   faEllipsisH, faFilter, faGlobeAmericas, faHeadphones, faHistory, faInfinity,
-  faLevelDownAlt, faLevelUpAlt, faLink, faListUl, faLock, faMobileAlt, faMoon, faPause,
-  faPlay, faPlayCircle, faPlus, faPlusCircle, faPodcast, faRedoAlt, faSearch, faShare,
-  faShoppingCart, faSmile, faSpinner, faStepBackward, faStepForward, faSun, faTimes, faTools, faTrash,
-  faUndoAlt, faUserCircle, faUserSecret, faVolumeOff, faVolumeUp
+  faLevelDownAlt, faLevelUpAlt, faLink, faListUl, faLock, faMobileAlt, faMoon, faPause, faPlay,
+  faPlayCircle, faPlus, faPlusCircle, faPodcast, faRedoAlt, faRssSquare, faSearch, faShare, faShoppingCart,
+  faSmile, faSpinner, faStepBackward, faStepForward, faSun, faTimes, faTools, faTrash, faUndoAlt,
+  faUserCircle, faUserSecret, faVolumeOff, faVolumeUp
 } from '@fortawesome/free-solid-svg-icons'
 
 // Adds FontAwesome icons to the library so they can be used throughout the app
@@ -44,6 +44,7 @@ export const addFontAwesomeIcons = () => {
     faPodcast,
     faReddit,
     faRedoAlt,
+    faRssSquare,
     faSearch,
     faShare,
     faShoppingCart,
