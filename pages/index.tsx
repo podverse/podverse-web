@@ -36,8 +36,6 @@ type Props = {
 
 type State = {}
 
-const kPageKey = 'clips'
-
 class Home extends Component<Props, State> {
 
   static async getInitialProps({ query, req, store }) {
@@ -48,12 +46,12 @@ class Home extends Component<Props, State> {
     const { mediaPlayer, pages, user } = state
     const { nowPlayingItem } = mediaPlayer
 
-    const localStorageQuery = cookieGetQuery(req, kPageKey)
-    const currentPage = pages[kPageKey] || {}
+    const localStorageQuery = cookieGetQuery(req, PV.pageKeys.clips)
+    const currentPage = pages[PV.pageKeys.clips] || {}
     const lastScrollPosition = currentPage.lastScrollPosition
     const queryRefresh = !!query.refresh
     const categoryId = query.categoryId || currentPage.categoryId || localStorageQuery.categoryId || CATEGORY_ID_DEFAULT
-    const queryFrom = currentPage.queryFrom || query.from || (query.categoryId && PV.queryParams.from_category) || localStorageQuery.from || (user && user.id ? PV.queryParams.subscribed_only : PV.queryParams.all_podcasts)
+    const queryFrom = currentPage.queryFrom || query.from || (query.categoryId && PV.queryParams.from_category) || localStorageQuery.from || PV.queryParams.all_podcasts
     const queryPage = (queryRefresh && 1) || currentPage.queryPage || query.page || 1
     const querySort = currentPage.querySort || query.sort || localStorageQuery.sort || PV.queryParams.top_past_week
     const queryType = (queryRefresh && query.type) || currentPage.queryType || query.type ||
@@ -85,7 +83,7 @@ class Home extends Component<Props, State> {
       store.dispatch(playerQueueLoadSecondaryItems(queuedListItems))
 
       store.dispatch(pagesSetQueryState({
-        pageKey: kPageKey,
+        pageKey: PV.pageKeys.clips,
         categoryId,
         listItems,
         listItemsTotal: results.data[1],
@@ -101,7 +99,7 @@ class Home extends Component<Props, State> {
     const namespacesRequired = PV.nexti18next.namespaces
 
     return {
-      allCategories, lastScrollPosition, namespacesRequired, pageKey: kPageKey,
+      allCategories, lastScrollPosition, namespacesRequired, pageKey: PV.pageKeys.clips,
       queryFrom, queryPage, querySort, queryType
     }
   }
@@ -147,7 +145,7 @@ class Home extends Component<Props, State> {
           allCategories={allCategories}
           categoryId={categoryId}
           handleSetPageQueryState={pagesSetQueryState}
-          pageKey={kPageKey}
+          pageKey={PV.pageKeys.clips}
           queryFrom={queryFrom}
           queryPage={queryPage}
           querySort={querySort}

@@ -17,22 +17,20 @@ type Props = {
 
 type State = {}
 
-const kPageKey = 'about'
-
 class About extends Component<Props, State> {
 
   static async getInitialProps({ req, store }) {
     const state = store.getState()
     const { pages } = state
 
-    const currentPage = pages[kPageKey] || {}
+    const currentPage = pages[PV.pageKeys.about] || {}
     const lastScrollPosition = currentPage.lastScrollPosition
 
     store.dispatch(pageIsLoading(false))
 
     const namespacesRequired = PV.nexti18next.namespaces
 
-    return { lastScrollPosition, pageKey: kPageKey, namespacesRequired }
+    return { lastScrollPosition, pageKey: PV.pageKeys.about, namespacesRequired }
   }
 
   render() {

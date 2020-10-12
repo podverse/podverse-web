@@ -32,12 +32,10 @@ type Props = {
 
 type State = {}
 
-const kPageKey = 'profile_'
-
 class Profile extends Component<Props, State> {
 
   static async getInitialProps({ query, req, store, t }) {
-    const pageKeyWithId = `${kPageKey}${query.id}`
+    const pageKeyWithId = `${PV.pageKeys.profile}${query.id}`
     const state = store.getState()
     const { pages, settings } = state
     const { nsfwMode } = settings

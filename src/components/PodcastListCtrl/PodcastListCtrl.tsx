@@ -1,15 +1,18 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { MediaListItem, MediaListSelect, Pagination } from 'podverse-ui'
+import { FilterCtrl, MediaListItem, MediaListSelect, Pagination } from 'podverse-ui'
 import config from '~/config'
 import PV from '~/lib/constants'
 import { cookieSetQuery, getViewContentsElementScrollTop } from '~/lib/utility'
 import { pageIsLoading, pagesSetQueryState } from '~/redux/actions'
 import { getPodcastsByQuery } from '~/services'
 import { withTranslation } from '~/../i18n'
+import AwesomeDebouncePromise from 'awesome-debounce-promise'
 const uuidv4 = require('uuid/v4')
 const { CATEGORY_ID_DEFAULT, QUERY_PODCASTS_LIMIT } = config()
+
+const debouncedPodcastFilterQuery = AwesomeDebouncePromise(getPodcastsByQuery, 750)
 
 type Props = {
   allCategories?: any
@@ -69,12 +72,16 @@ class PodcastListCtrl extends Component<Props, State> {
 
   queryPodcastsAll = async () => {
     const { pageKey, pages } = this.props
-    const { querySort } = pages[pageKey]
+    const { filterIsShowing, filterText, querySort } = pages[pageKey]
 
     const query: any = {
       page: 1,
       from: PV.queryParams.all_podcasts,
-      sort: querySort
+      sort: querySort,
+      ...(filterIsShowing ? {
+        searchBy: PV.queryParams.podcast,
+        searchText: filterText
+      } : {})
     }
 
     const newState: any = {
@@ -89,13 +96,17 @@ class PodcastListCtrl extends Component<Props, State> {
 
   queryPodcastsCategory = async categoryId => {
     const { pageKey, pages } = this.props
-    const { querySort } = pages[pageKey]
+    const { filterIsShowing, filterText, querySort } = pages[pageKey]
 
     const query: any = {
       page: 1,
       from: PV.queryParams.from_category,
       sort: querySort,
-      categories: categoryId
+      categories: categoryId,
+      ...(filterIsShowing ? {
+        searchBy: PV.queryParams.podcast,
+        searchText: filterText
+      } : {})
     }
 
     const newState: any = {
@@ -112,13 +123,17 @@ class PodcastListCtrl extends Component<Props, State> {
   queryPodcastsSubscribed = async () => {
     const { handleSetPageQueryState, pageKey, pages, user } = this.props
     const { subscribedPodcastIds } = user
-    const { querySort } = pages[pageKey]
+    const { filterIsShowing, filterText, querySort } = pages[pageKey]
 
     const query: any = {
       page: 1,
       from: PV.queryParams.subscribed_only,
       sort: querySort,
-      subscribedPodcastIds: subscribedPodcastIds || []
+      subscribedPodcastIds: subscribedPodcastIds || [],
+      ...(filterIsShowing ? {
+        searchBy: PV.queryParams.podcast,
+        searchText: filterText
+      } : {})
     }
 
     const newState: any = {
@@ -145,14 +160,18 @@ class PodcastListCtrl extends Component<Props, State> {
   queryPodcastsSort = async selectedValue => {
     const { pageKey, pages, user } = this.props
     const { subscribedPodcastIds } = user
-    const { categoryId, queryFrom } = pages[pageKey]
+    const { categoryId, filterIsShowing, filterText, queryFrom } = pages[pageKey]
 
     const query: any = {
       page: 1,
       from: queryFrom,
       sort: selectedValue,
       categories: queryFrom === PV.queryParams.from_category ? categoryId : null,
-      subscribedPodcastIds: queryFrom === PV.queryParams.subscribed_only ? subscribedPodcastIds : null
+      subscribedPodcastIds: queryFrom === PV.queryParams.subscribed_only ? subscribedPodcastIds : null,
+      ...(filterIsShowing ? {
+        searchBy: PV.queryParams.podcast,
+        searchText: filterText
+      } : {})
     }
 
     const newState: any = {
@@ -168,14 +187,18 @@ class PodcastListCtrl extends Component<Props, State> {
   queryPodcastsLoadPage = async page => {
     const { pageKey, pages, user } = this.props
     const { subscribedPodcastIds } = user
-    const { categoryId, queryFrom, querySort } = pages[pageKey]
+    const { categoryId, filterIsShowing, filterText, queryFrom, querySort } = pages[pageKey]
 
     const query: any = {
       page,
       from: queryFrom,
       sort: querySort,
       categories: queryFrom === PV.queryParams.from_category ? categoryId : null,
-      subscribedPodcastIds: queryFrom === PV.queryParams.subscribed_only ? subscribedPodcastIds : null
+      subscribedPodcastIds: queryFrom === PV.queryParams.subscribed_only ? subscribedPodcastIds : null,
+      ...(filterIsShowing ? {
+        searchBy: PV.queryParams.podcast,
+        searchText: filterText
+      } : {})
     }
 
     const newState: any = {
@@ -362,6 +385,93 @@ class PodcastListCtrl extends Component<Props, State> {
     return categorySelectNodes
   }
 
+  toggleFilter = async () => {
+    const { handleSetPageQueryState, pageKey, pages } = this.props
+    const { categoryId, filterIsShowing, queryFrom, querySort, selected } = pages[pageKey]
+
+    handleSetPageQueryState({
+      pageKey,
+      filterIsShowing: !filterIsShowing,
+      ...(filterIsShowing ? { filterText: '' } : {})
+    })
+
+    if (filterIsShowing) {
+      const query: any = {
+        page: 1,
+        from: queryFrom,
+        sort: querySort,
+        categories: categoryId
+      }
+
+      const newState: any = {
+        pageKey,
+        queryPage: 1,
+        queryFrom,
+        selected
+      }
+
+      await this.queryPodcasts(query, newState)
+    }
+  }
+
+  handleFilterTextChange = async event => {
+    const { handleSetPageQueryState, pageIsLoading, pageKey, pages, user } = this.props
+    const { categoryId, queryFrom, querySort } = pages[pageKey]
+    const { subscribedPodcastIds } = user
+    const text = event.target.value
+
+    pageIsLoading(true)
+
+    handleSetPageQueryState({
+      pageKey,
+      filterText: text
+    })
+
+    let pId
+    if (queryFrom === PV.queryParams.subscribed_only) {
+      pId = subscribedPodcastIds && subscribedPodcastIds.length > 0 ? subscribedPodcastIds : [PV.queryParams.no_results]
+    }
+
+    const query: any = {
+      page: 1,
+      from: queryFrom,
+      sort: querySort,
+      categories: categoryId || (queryFrom === PV.queryParams.from_category ? CATEGORY_ID_DEFAULT : null),
+      podcastId: pId || null,
+      searchText: text,
+      searchBy: PV.queryParams.podcast,
+      includePodcast: !!text || queryFrom === PV.queryParams.subscribed_only || queryFrom === PV.queryParams.all_podcasts
+    }
+
+    try {
+      const response = await debouncedPodcastFilterQuery(query)
+      const podcasts = response.data
+      
+      handleSetPageQueryState({
+        pageKey,
+        listItems: podcasts[0],
+        listItemsTotal: podcasts[1]
+      })
+    } catch (error) {
+      console.log(error)
+      handleSetPageQueryState({
+        pageKey,
+        listItems: [],
+        listItemsTotal: 0
+      })
+    }
+
+    pageIsLoading(false)
+  }
+
+  clearFilterText = async () => {
+    this.handleFilterTextChange({
+      target: {
+        value: ''
+      }
+    })
+  }
+
   linkClick = () => {
     const { pageIsLoading, pageKey, pagesSetQueryState } = this.props
     pageIsLoading(true)
@@ -386,9 +496,11 @@ class PodcastListCtrl extends Component<Props, State> {
   }
 
   render() {
-    const { page, pageKey, pages, t, user } = this.props
+    const { page, pageKey, pages, settings, t, user } = this.props
     const { isLoading } = page
-    const { categoryId, listItems, listItemsTotal, queryFrom, queryPage, querySort } = pages[pageKey]
+    const { filterButtonHide } = settings
+    const { categoryId, filterIsShowing, filterText, listItems, listItemsTotal, queryFrom,
+      queryPage, querySort } = pages[pageKey]
 
     const listItemNodes = listItems.map(x => {
       return (
@@ -426,6 +538,14 @@ class PodcastListCtrl extends Component<Props, State> {
             {queryFrom === PV.queryParams.from_category && bottomSelectNodes}
           </div>
         </div>
+        <FilterCtrl
+          clearFilterText={this.clearFilterText}
+          filterButtonHide={filterButtonHide}
+          filterIsShowing={filterIsShowing}
+          filterText={filterText}
+          handleFilterTextChange={this.handleFilterTextChange}
+          t={t}
+          toggleFilter={this.toggleFilter} />
         <Fragment>
           {
             listItemNodes && listItemNodes.length > 0 &&

@@ -29,8 +29,6 @@ type State = {
   searchCompleted?: boolean
 }
 
-const kPageKey = 'search'
-
 class Search extends Component<Props, State> {
 
   static async getInitialProps({ query, req, store }) {
@@ -38,18 +36,18 @@ class Search extends Component<Props, State> {
     const state = store.getState()
     const { pages } = state
 
-    const currentPage = pages[kPageKey] || {}
+    const currentPage = pages[PV.pageKeys.search] || {}
     const lastScrollPosition = currentPage.lastScrollPosition
     const querySearchBy = currentPage.searchBy || query.searchBy || PV.queryParams.podcast
 
     store.dispatch(pagesSetQueryState({ 
-      pageKey: kPageKey,
+      pageKey: PV.pageKeys.search,
       searchBy: querySearchBy
     }))
 
     const namespacesRequired = PV.nexti18next.namespaces
 
-    return { lastScrollPosition, namespacesRequired, pageKey: kPageKey }
+    return { lastScrollPosition, namespacesRequired, pageKey: PV.pageKeys.search }
   }
 
   constructor(props) {
@@ -64,7 +62,7 @@ class Search extends Component<Props, State> {
   handleSearchByChange = searchBy => {
     const { pagesSetQueryState } = this.props
     pagesSetQueryState({
-      pageKey: kPageKey,
+      pageKey: PV.pageKeys.search,
       listItems: [],
       searchBy
     })
@@ -82,7 +80,7 @@ class Search extends Component<Props, State> {
 
   queryPodcasts = async (page = 1) => {
     const { pages, pagesSetQueryState, t } = this.props
-    const { searchBy } = pages[kPageKey]
+    const { searchBy } = pages[PV.pageKeys.search]
     const { currentSearch } = this.state
     
     if (!currentSearch) { return }
@@ -95,7 +93,7 @@ class Search extends Component<Props, State> {
     }
 
     pagesSetQueryState({
-      pageKey: kPageKey,
+      pageKey: PV.pageKeys.search,
       isSearching: page === 1,
       queryPage: page,
       searchText: currentSearch
@@ -107,7 +105,7 @@ class Search extends Component<Props, State> {
       const enrichedPodcasts = enrichPodcastsWithCategoriesString(podcasts[0])
 
       pagesSetQueryState({
-        pageKey: kPageKey,
+        pageKey: PV.pageKeys.search,
         isSearching: false,
         listItems: enrichedPodcasts,
         listItemsTotal: podcasts[1]        
@@ -140,7 +138,7 @@ class Search extends Component<Props, State> {
 
   render() {
     const { pages, t } = this.props
-    const { isSearching, listItems, listItemsTotal, queryPage, searchBy } = pages[kPageKey]
+    const { isSearching, listItems, listItemsTotal, queryPage, searchBy } = pages[PV.pageKeys.search]
     const { currentSearch, searchCompleted } = this.state
 
     const meta = {
