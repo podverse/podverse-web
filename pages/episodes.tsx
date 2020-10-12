@@ -52,9 +52,9 @@ class Episodes extends Component<Props, State> {
     const lastScrollPosition = currentPage.lastScrollPosition
     const queryRefresh = !!query.refresh
     const categoryId = query.categoryId || currentPage.categoryId || localStorageQuery.categoryId || CATEGORY_ID_DEFAULT
-    const queryFrom = currentPage.queryFrom || query.from || (query.categoryId && PV.queryParams.from_category) || localStorageQuery.from || (user && user.id ? PV.queryParams.subscribed_only : PV.queryParams.all_podcasts)
+    const queryFrom = currentPage.queryFrom || query.from || (query.categoryId && PV.queryParams.from_category) || localStorageQuery.from || PV.queryParams.all_podcasts
     const queryPage = (queryRefresh && 1) || currentPage.queryPage || query.page || 1
-    const querySort = currentPage.querySort || query.sort || localStorageQuery.sort || (user && user.id ? PV.queryParams.most_recent : PV.queryParams.top_past_week)
+    const querySort = currentPage.querySort || query.sort || localStorageQuery.sort || PV.queryParams.top_past_week
     const queryType = (queryRefresh && query.type) || currentPage.queryType || query.type ||
       localStorageQuery.type || PV.queryParams.episodes
     let podcastId = ''

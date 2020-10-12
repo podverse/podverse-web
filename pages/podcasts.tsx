@@ -51,8 +51,8 @@ class Podcasts extends Component<Props, State> {
       || (query.categoryId && PV.queryParams.from_category)
       || currentPage.queryFrom
       || localStorageQuery.from
-      || (user && user.id ? PV.queryParams.subscribed_only : PV.queryParams.all_podcasts)
-    const querySort = query.sort || currentPage.querySort || localStorageQuery.sort || (user && user.id ? PV.queryParams.alphabetical : PV.queryParams.top_past_week)
+      || PV.queryParams.all_podcasts
+    const querySort = query.sort || currentPage.querySort || localStorageQuery.sort || PV.queryParams.top_past_week
 
     if (Object.keys(currentPage).length === 0 || queryRefresh) {
       const queryDataResult = await getPodcastsByQuery({
