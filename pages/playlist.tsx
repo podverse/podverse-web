@@ -63,12 +63,10 @@ interface Playlist {
   inputTitle: any
 }
 
-const kPageKey = 'playlist_'
-
 class Playlist extends Component<Props, State> {
 
   static async getInitialProps({ query, req, store, t }) {
-    const pageKeyWithId = `${kPageKey}${query.id}`
+    const pageKeyWithId = `${PV.pageKeys.playlist}${query.id}`
     const state = store.getState()
     const { pages, user } = state
 

@@ -27,8 +27,6 @@ type Props = {
 
 type State = {}
 
-const kPageKey = 'podcasts'
-
 class Podcasts extends Component<Props, State> {
 
   static async getInitialProps({ query, req, store }) {
@@ -40,9 +38,9 @@ class Podcasts extends Component<Props, State> {
     const allCategoriesAndCountResult = await getCategoriesByQuery({})
     const allCategories = allCategoriesAndCountResult.data[0] || []
 
-    const localStorageQuery = cookieGetQuery(req, kPageKey)
+    const localStorageQuery = cookieGetQuery(req, PV.pageKeys.podcasts)
 
-    const currentPage = pages[kPageKey] || {}
+    const currentPage = pages[PV.pageKeys.podcasts] || {}
     const lastScrollPosition = currentPage.lastScrollPosition
     const queryRefresh = !!query.refresh
     const categoryId = query.categoryId || currentPage.categoryId || localStorageQuery.categoryId || CATEGORY_ID_DEFAULT
@@ -66,7 +64,7 @@ class Podcasts extends Component<Props, State> {
       const podcasts = queryDataResult.data
 
       store.dispatch(pagesSetQueryState({
-        pageKey: kPageKey,
+        pageKey: PV.pageKeys.podcasts,
         categoryId,
         listItems: podcasts[0],
         listItemsTotal: podcasts[1],
@@ -83,7 +81,7 @@ class Podcasts extends Component<Props, State> {
     const namespacesRequired = PV.nexti18next.namespaces
 
     return { allCategories, categoryId, lastScrollPosition, namespacesRequired, nsfwMode, 
-      pageKey: kPageKey, queryFrom, queryPage, querySort, user }
+      pageKey: PV.pageKeys.podcasts, queryFrom, queryPage, querySort, user }
   }
 
   render() {

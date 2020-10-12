@@ -35,8 +35,6 @@ interface Redeem {
   refEmailInput: any
 }
 
-const kPageKey = 'redeem'
-
 class Redeem extends Component<Props, State> {
 
   static async getInitialProps({ query, req, store }) {
@@ -44,11 +42,11 @@ class Redeem extends Component<Props, State> {
     const { pages } = state
     const { id } = query
 
-    const currentPage = pages[kPageKey] || {}
+    const currentPage = pages[PV.pageKeys.redeem] || {}
     const lastScrollPosition = currentPage.lastScrollPosition
 
     const namespacesRequired = PV.nexti18next.namespaces
-    return { id, lastScrollPosition, namespacesRequired, pageKey: kPageKey }
+    return { id, lastScrollPosition, namespacesRequired, pageKey: PV.pageKeys.redeem }
   }
 
   constructor(props) {

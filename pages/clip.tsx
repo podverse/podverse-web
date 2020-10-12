@@ -39,12 +39,10 @@ type Props = {
 
 type State = {}
 
-const kPageKey = 'clip_'
-
 class Clip extends Component<Props, State> {
 
   static async getInitialProps({ query, req, store }) {
-    const pageKeyWithId = `${kPageKey}${query.id}`
+    const pageKeyWithId = `${PV.pageKeys.clip}${query.id}`
     const state = store.getState()
     const { mediaPlayer, pages, user } = state
     const { nowPlayingItem } = mediaPlayer
@@ -63,7 +61,7 @@ class Clip extends Component<Props, State> {
       newPlayingItem = convertToNowPlayingItem(mediaRef)
     }
 
-    const localStorageQuery = cookieGetQuery(req, kPageKey)
+    const localStorageQuery = cookieGetQuery(req, PV.pageKeys.clip)
 
     const currentPage = pages[pageKeyWithId] || {}
     const lastScrollPosition = currentPage.lastScrollPosition

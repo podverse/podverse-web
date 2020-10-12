@@ -26,8 +26,6 @@ type Props = {
 
 type State = {}
 
-const kPageKey = 'playlists'
-
 class Playlists extends Component<Props, State> {
 
   static async getInitialProps({ req, store }) {
@@ -38,7 +36,7 @@ class Playlists extends Component<Props, State> {
 
     const myPlaylists = (user && user.playlists) || []
 
-    const currentPage = pages[kPageKey] || {}
+    const currentPage = pages[PV.pageKeys.playlists] || {}
     const lastScrollPosition = currentPage.lastScrollPosition
 
     let subscribedPlaylists = []
@@ -54,7 +52,7 @@ class Playlists extends Component<Props, State> {
 
     const namespacesRequired = PV.nexti18next.namespaces
 
-    return { lastScrollPosition, myPlaylists, namespacesRequired, pageKey: kPageKey, subscribedPlaylists,
+    return { lastScrollPosition, myPlaylists, namespacesRequired, pageKey: PV.pageKeys.playlists, subscribedPlaylists,
       user }
   }
 

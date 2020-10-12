@@ -37,12 +37,10 @@ type Props = {
 
 type State = {}
 
-const kPageKey = 'podcast_'
-
 class Podcast extends Component<Props, State> {
 
   static async getInitialProps({ query, req, store, t }) {
-    const pageKeyWithId = `${kPageKey}${query.id}`
+    const pageKeyWithId = `${PV.pageKeys.podcast}${query.id}`
     const state = store.getState()
     const { pages, user } = state
 
@@ -56,7 +54,7 @@ class Podcast extends Component<Props, State> {
 
     const podcast = podcastResult.data
 
-    const localStorageQuery = cookieGetQuery(req, kPageKey)
+    const localStorageQuery = cookieGetQuery(req, PV.pageKeys.podcast)
 
     const currentPage = pages[pageKeyWithId] || {}
     const lastScrollPosition = currentPage.lastScrollPosition

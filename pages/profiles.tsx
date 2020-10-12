@@ -22,15 +22,13 @@ type Props = {
 
 type State = {}
 
-const kPageKey = 'profiles'
-
 class Profiles extends Component<Props, State> {
 
   static async getInitialProps({ query, req, store }) {
     const state = store.getState()
     const { pages, user } = state
 
-    const currentPage = pages[kPageKey] || {}
+    const currentPage = pages[PV.pageKeys.profiles] || {}
     const lastScrollPosition = currentPage.lastScrollPosition
     const queryPage = currentPage.queryPage || query.page || 1
 
@@ -41,7 +39,7 @@ class Profiles extends Component<Props, State> {
       const users = response.data
 
       store.dispatch(pagesSetQueryState({
-        pageKey: kPageKey,
+        pageKey: PV.pageKeys.profiles,
         listItems: users[0],
         listItemsTotal: users[1],
         queryPage
@@ -51,7 +49,7 @@ class Profiles extends Component<Props, State> {
     store.dispatch(pageIsLoading(false))
     const namespacesRequired = PV.nexti18next.namespaces
 
-    return { lastScrollPosition, namespacesRequired, pageKey: kPageKey, user }
+    return { lastScrollPosition, namespacesRequired, pageKey: PV.pageKeys.profiles, user }
   }
 
   render() {
