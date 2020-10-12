@@ -2,6 +2,8 @@ import { getLastHistoryItemOrNowPlayingItemFromStorage, setNowPlayingItemInStora
 import { userUpdateHistoryItem } from '~/redux/actions'
 import { updateHistoryItemPlaybackPosition } from '~/services'
 import confetti from 'canvas-confetti'
+import config from '~/config'
+const { cookieConfig } = config()
 export { validatePassword } from './validatePassword'
 const striptags = require('striptags')
 
@@ -147,7 +149,16 @@ export const setCookie = (name, value, days = 365) => {
 }
 
 export const deleteCookie = name => {
-  document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;path=/;domain=localhost;'
+  document.cookie = name + `=;expires=Thu, 01 Jan 1970 00:00:01 GMT;path=/;domain=${cookieConfig.domain};`
+}
+
+export const deleteQueryCookies = () => {
+  const cookieNames = document.cookie.split(/=[^;]*(?:;\s*|$)/)
+  for (const cookieName of cookieNames) {
+    if (/_query/.test(cookieName)) {
+      deleteCookie(cookieName)
+    }
+  }
 }
 
 export const clone = obj => {

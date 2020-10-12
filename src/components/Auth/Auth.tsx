@@ -204,7 +204,10 @@ class Auth extends Component<Props, State> {
         <SignUpModal
           errorResponse={signUp.errorResponse}
           handleSignUp={this.handleSignUp}
-          hideModal={() => modalsSignUpShow(false)}
+          hideModal={() => {
+            this.setState({ signUpFinished: false })
+            modalsSignUpShow(false)
+          }}
           isLoading={modals.signUp && modals.signUp.isLoading}
           isOpen={modals.signUp && modals.signUp.isOpen}
           signUpFinished={signUpFinished}
