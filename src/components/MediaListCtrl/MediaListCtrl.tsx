@@ -2,11 +2,9 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { InputGroup, InputGroupAddon, Input } from 'reactstrap'
 import { convertToNowPlayingItem } from 'podverse-shared'
-import { Button, MediaListSelect, Pagination, setNowPlayingItemInStorage
+import { FilterCtrl, MediaListSelect, Pagination, setNowPlayingItemInStorage
   } from 'podverse-ui'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import MediaListItemCtrl from '~/components/MediaListItemCtrl/MediaListItemCtrl'
 import config from '~/config'
 import PV from '~/lib/constants'
@@ -705,37 +703,14 @@ class MediaListCtrl extends Component<Props, State> {
             {queryFrom === PV.queryParams.from_category && !podcastId && !episodeId && this.generateCategorySelectNodes(categoryId)}
           </div>
         </div>
-        {
-          filterButtonHide !== 'true' &&
-            <div className='media-list__filter'>
-              <InputGroup>
-                <InputGroupAddon
-                  addonType='prepend'
-                  className='media-list-filter__filter-icon'>
-                  <Button
-                    className={filterIsShowing ? '' : 'not-showing'}
-                    onClick={this.toggleFilter}>
-                    <FontAwesomeIcon icon='filter' /> {t('filter')}
-                  </Button>
-                </InputGroupAddon>
-                {
-                  filterIsShowing &&
-                  <Fragment>
-                    <Input
-                      onChange={this.handleFilterTextChange}
-                      value={filterText || ''} />
-                    <InputGroupAddon
-                      addonType='append'
-                      className='media-list-filter__clear-icon'>
-                      <Button onClick={this.clearFilterText}>
-                        <FontAwesomeIcon icon='times' />
-                      </Button>
-                    </InputGroupAddon>
-                  </Fragment>  
-                }
-              </InputGroup>
-            </div>
-        }
+        <FilterCtrl
+          clearFilterText={this.clearFilterText}
+          filterButtonHide={filterButtonHide}
+          filterIsShowing={filterIsShowing}
+          filterText={filterText}
+          handleFilterTextChange={this.handleFilterTextChange}
+          t={t}
+          toggleFilter={this.toggleFilter} />
         <Fragment>
           {
             listItemNodes && listItemNodes.length > 0 &&
