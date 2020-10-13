@@ -2,8 +2,6 @@ import { getLastHistoryItemOrNowPlayingItemFromStorage, setNowPlayingItemInStora
 import { userUpdateHistoryItem } from '~/redux/actions'
 import { updateHistoryItemPlaybackPosition } from '~/services'
 import confetti from 'canvas-confetti'
-import config from '~/config'
-const { cookieConfig } = config()
 export { validatePassword } from './validatePassword'
 const striptags = require('striptags')
 
