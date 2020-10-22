@@ -1,0 +1,305 @@
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:podcast="https://github.com/Podcastindex-org/podcast-namespace/blob/main/docs/1.0.md" version="2.0">
+  <channel>
+    <title>Podcasting 2.0</title>
+    <description>The Podcast Index presents Podcasting 2.0 - Upgrading Podcasting</description>
+    <link>http://podcastindex.org</link>
+    <docs>http://blogs.law.harvard.edu/tech/rss</docs>
+    <language>en</language>
+    <generator>Freedom Controller</generator>
+    <pubDate>Sat, 17 Oct 2020 11:52:08 +0000</pubDate>
+    <lastBuildDate>Sat, 17 Oct 2020 11:52:08 +0000</lastBuildDate>
+    <managingEditor>adam@curry.com (Adam Curry)</managingEditor>
+    <webMaster>adam@curry.com (Adam Curry)</webMaster>
+    <itunes:owner>
+      <itunes:email>adam@curry.com</itunes:email>
+      <itunes:name>Adam Curry</itunes:name>
+    </itunes:owner>
+    <image>
+      <url>https://noagendaassets.com/enc/1601061118.678_pciavatar.jpg</url>
+      <title>Podcasting 2.0</title>
+      <link>http://podcastindex.org</link>
+      <description>The Podcast Index presents Podcasting 2.0 - Upgrading Podcasting</description>
+      <width>144</width>
+      <height>144</height>
+    </image>
+    <itunes:summary>The Podcast Index presents Podcasting 2.0 - Upgrading Podcasting</itunes:summary>
+    <itunes:author>Podcast Index LLC</itunes:author>
+    <itunes:image href="https://noagendaassets.com/enc/1601061118.678_pciavatar.jpg"/>
+    <itunes:explicit>no</itunes:explicit>
+    <itunes:keywords>podcasting,media,software</itunes:keywords>
+    <itunes:category text="News &amp; Politics"/>
+    <itunes:category text="Technology"/>
+    
+    <podcast:locked owner="adam@curry.com">yes</podcast:locked>
+    <podcast:location latlon="30.3079827,-97.8934866" osmid="r113314">US|Austin, TX</podcast:location>
+    <podcast:person role="host" img="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Adam_Curry_2016.jpg/800px-Adam_Curry_2016.jpg" href="https://en.wikipedia.org/wiki/Adam_Curry">Adam Curry</podcast:person>
+    <podcast:person role="host" img="https://avatars0.githubusercontent.com/u/1498236?s=460" href="https://github.com/daveajones/">Dave Jones</podcast:person>
+    <podcast:contact type="feedback" method="email">info@podcastindex.org</podcast:contact>
+    <podcast:contact type="abuse" method="email">abuse@podcastindex.org</podcast:contact>
+    <podcast:id platform="podcastindex" id="920666" />
+    <podcast:funding platform="paypal" url="https://www.paypal.com/donate?token=gZqoKsFLrgdTtlmCD5Lf1-zY_jSdSuPBVjvzWgN86thwI9VyKZbklRrxemLt9zh7iqvBj1yZJMpM6d5D">Help us out!</podcast:funding>
+    <podcast:images srcset="https://noagendaassets.com/enc/1602948866.023_1500.jpg 1500w,
+                            https://noagendaassets.com/enc/1602948866.023_600.jpg 600w, 
+                            https://noagendaassets.com/enc/1602948866.023_300.jpg 300w,
+                            https://noagendaassets.com/enc/1602948866.023_150.jpg 150w" />
+    
+    
+    <item>
+      <title>Episode 7: Tag You're It!</title>
+      <description>&lt;p&gt;Show Notes&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;Podcasting 2.0 for October 16th 2020 Episode 7: Tag You're It!&lt;/b&gt;&lt;/p&gt;&lt;p&gt;
+&lt;a href="https://mp3s.nashownotes.com/PC20-07-2020-10-16-Final.mp3"&gt;Download the mp3&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+&lt;i&gt;Support us with your Time Talent and &lt;a href="https://www.paypal.com/donate/?token=m0z6N1K047lEsGvPDr3KMumKYHlUHRAdwPNY645UB0LR9fGf_OtpVByzHId7TEFYo9nXNS5aF33Zdjn9&amp;fromUL=true&amp;country.x=US&amp;locale.x=en_US"&gt;Treasure&lt;/a&gt;&lt;/i&gt;&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;Shownotes&lt;/b&gt;&lt;/p&gt;&lt;p&gt;
+Adam &amp; Dave discuss the week's developments on podcastindex.org&lt;/p&gt;&lt;p&gt;
+The namespace's progress is our main topic, along with thoughts about the value flow through the eco-system&lt;/p&gt;&lt;p&gt;
+Keywords&lt;/p&gt;</description>
+      <link>http://adam.curry.com/html/PC200720201016Podcas-hm4rR6xfpsCzxW8RK1xcw4j9Mc8JGm.html</link>
+      <guid isPermaLink="false">Sat, 17 Oct 2020 11:49:32 GMT</guid>
+      <pubDate>Sat, 17 Oct 2020 11:49:32 GMT</pubDate>
+      <itunes:subtitle>Episode 7: Tag You're It!</itunes:subtitle>
+      <itunes:summary>&lt;p&gt;Show Notes&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;Podcasting 2.0 for October 16th 2020 Episode 7: Tag You're It!&lt;/b&gt;&lt;/p&gt;&lt;p&gt;
+&lt;a href="https://mp3s.nashownotes.com/PC20-07-2020-10-16-Final.mp3"&gt;Download the mp3&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+&lt;i&gt;Support us with your Time Talent and &lt;a href="https://www.paypal.com/donate/?token=m0z6N1K047lEsGvPDr3KMumKYHlUHRAdwPNY645UB0LR9fGf_OtpVByzHId7TEFYo9nXNS5aF33Zdjn9&amp;fromUL=true&amp;country.x=US&amp;locale.x=en_US"&gt;Treasure&lt;/a&gt;&lt;/i&gt;&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;Shownotes&lt;/b&gt;&lt;/p&gt;&lt;p&gt;
+Adam &amp; Dave discuss the week's developments on podcastindex.org&lt;/p&gt;&lt;p&gt;
+The namespace's progress is our main topic, along with thoughts about the value flow through the eco-system&lt;/p&gt;&lt;p&gt;
+Keywords&lt;/p&gt;</itunes:summary>
+      <itunes:author>Podcast Index LLC</itunes:author>
+      <author>Podcast Index LLC</author>
+      <itunes:image href="https://noagendaassets.com/enc/1601061118.678_pciavatar.jpg"/>
+      <itunes:explicit>no</itunes:explicit>
+      <itunes:keywords>podcasting,curry,podfather,technology,deverlopers</itunes:keywords>
+      <enclosure url="https://mp3s.nashownotes.com/PC20-07-2020-10-16-Final.mp3" length="73945070" type="audio/mpeg"/>
+	  <podcast:chapter url="https://noagendaassets.com/enc/ep7_chapters.json" type="application/json" />
+    </item>
+    
+    <item>
+      <title>Episode 6: Name Your Space</title>
+      <description>&lt;p&gt;Show Notes&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;Podcasting 2.0 for October 9th 2020 Episode 6: Name Your Space&lt;/b&gt;&lt;/p&gt;&lt;p&gt;
+&lt;a href="https://mp3s.nashownotes.com/PC20-06-2020-10-09-Final.mp3"&gt;Download the mp3&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+&lt;i&gt;Support us with your Time Talent and &lt;a href="https://www.paypal.com/donate/?token=m0z6N1K047lEsGvPDr3KMumKYHlUHRAdwPNY645UB0LR9fGf_OtpVByzHId7TEFYo9nXNS5aF33Zdjn9&amp;fromUL=true&amp;country.x=US&amp;locale.x=en_US"&gt;Treasure&lt;/a&gt;&lt;/i&gt;&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;Shownotes&lt;/b&gt;&lt;/p&gt;&lt;p&gt;
+name space&lt;/p&gt;&lt;p&gt;
+images&lt;/p&gt;&lt;p&gt;
+caching&lt;/p&gt;&lt;p&gt;
+categories&lt;/p&gt;&lt;p&gt;
+tags&lt;/p&gt;&lt;p&gt;
+Todd and Rob New Media Show&lt;/p&gt;&lt;p&gt;
+Keywords&lt;/p&gt;</description>
+      <link>http://adam.curry.com/html/PC200620201009Podcas-KbW0KSnmnrKc5vWVz9zFqqx4QHwFJ7.html</link>
+      <guid isPermaLink="false">Mon, 12 Oct 2020 17:36:34 GMT</guid>
+      <pubDate>Mon, 12 Oct 2020 17:36:34 GMT</pubDate>
+      <itunes:subtitle>Episode 6: Name Your Space</itunes:subtitle>
+      <itunes:summary>&lt;p&gt;Show Notes&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;Podcasting 2.0 for October 9th 2020 Episode 6: Name Your Space&lt;/b&gt;&lt;/p&gt;&lt;p&gt;
+&lt;a href="https://mp3s.nashownotes.com/PC20-06-2020-10-09-Final.mp3"&gt;Download the mp3&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+&lt;i&gt;Support us with your Time Talent and &lt;a href="https://www.paypal.com/donate/?token=m0z6N1K047lEsGvPDr3KMumKYHlUHRAdwPNY645UB0LR9fGf_OtpVByzHId7TEFYo9nXNS5aF33Zdjn9&amp;fromUL=true&amp;country.x=US&amp;locale.x=en_US"&gt;Treasure&lt;/a&gt;&lt;/i&gt;&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;Shownotes&lt;/b&gt;&lt;/p&gt;&lt;p&gt;
+name space&lt;/p&gt;&lt;p&gt;
+images&lt;/p&gt;&lt;p&gt;
+caching&lt;/p&gt;&lt;p&gt;
+categories&lt;/p&gt;&lt;p&gt;
+tags&lt;/p&gt;&lt;p&gt;
+Todd and Rob New Media Show&lt;/p&gt;&lt;p&gt;
+Keywords&lt;/p&gt;</itunes:summary>
+      <itunes:author>Podcast Index LLC</itunes:author>
+      <author>Podcast Index LLC</author>
+      <itunes:image href="https://noagendaassets.com/enc/1601061118.678_pciavatar.jpg"/>
+      <itunes:explicit>no</itunes:explicit>
+      <itunes:keywords>podcasting,curry,podfather,technology,deverlopers</itunes:keywords>
+      <enclosure url="https://mp3s.nashownotes.com/PC20-06-2020-10-09-Final.mp3" length="55436583" type="audio/mpeg"/>
+    </item>
+    
+    <item>
+      <title>Episode 5: Juggling the Junket</title>
+      <description>&lt;p&gt;Show Notes&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;Podcasting 2.0 for October 2nd 2020 Episode 5: Juggling the Junket&lt;/b&gt;&lt;/p&gt;&lt;p&gt;
+&lt;a href="https://mp3s.nashownotes.com/PC20-05-2020-10-02-Final.mp3"&gt;Download the mp3&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+&lt;i&gt;Support us with your Time Talent and &lt;a href="https://www.paypal.com/donate/?token=m0z6N1K047lEsGvPDr3KMumKYHlUHRAdwPNY645UB0LR9fGf_OtpVByzHId7TEFYo9nXNS5aF33Zdjn9&amp;fromUL=true&amp;country.x=US&amp;locale.x=en_US"&gt;Treasure&lt;/a&gt;&lt;/i&gt;&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;Shownotes&lt;/b&gt;&lt;/p&gt;&lt;p&gt;
+International podcast day&lt;/p&gt;&lt;p&gt;
+max keizer&lt;/p&gt;&lt;p&gt;
+Home page Trent&lt;/p&gt;&lt;p&gt;
+Podfriend&lt;/p&gt;&lt;p&gt;
+Castcoverage&lt;/p&gt;&lt;p&gt;
+Podnews&lt;/p&gt;&lt;p&gt;
+New systems connected&lt;/p&gt;&lt;p&gt;
+pub/sub&lt;/p&gt;&lt;p&gt;
+Filters&lt;/p&gt;&lt;p&gt;
+Problematic feeds&lt;/p&gt;&lt;p&gt;
+re-iterate missions and obligations&lt;/p&gt;&lt;p&gt;
+Whitstone visit&lt;/p&gt;&lt;p&gt;
+Keywords&lt;/p&gt;</description>
+      <link>http://adam.curry.com/html/PC200520201002Podcas-MfFrPrlCPQnk78l43J4KGWXRTVBqpH.html</link>
+      <guid isPermaLink="false">Fri, 02 Oct 2020 21:54:55 GMT</guid>
+      <pubDate>Fri, 02 Oct 2020 21:54:55 GMT</pubDate>
+      <itunes:subtitle>Episode 5: Juggling the Junket</itunes:subtitle>
+      <itunes:summary>&lt;p&gt;Show Notes&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;Podcasting 2.0 for October 2nd 2020 Episode 5: Juggling the Junket&lt;/b&gt;&lt;/p&gt;&lt;p&gt;
+&lt;a href="https://mp3s.nashownotes.com/PC20-05-2020-10-02-Final.mp3"&gt;Download the mp3&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+&lt;i&gt;Support us with your Time Talent and &lt;a href="https://www.paypal.com/donate/?token=m0z6N1K047lEsGvPDr3KMumKYHlUHRAdwPNY645UB0LR9fGf_OtpVByzHId7TEFYo9nXNS5aF33Zdjn9&amp;fromUL=true&amp;country.x=US&amp;locale.x=en_US"&gt;Treasure&lt;/a&gt;&lt;/i&gt;&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;Shownotes&lt;/b&gt;&lt;/p&gt;&lt;p&gt;
+International podcast day&lt;/p&gt;&lt;p&gt;
+max keizer&lt;/p&gt;&lt;p&gt;
+Home page Trent&lt;/p&gt;&lt;p&gt;
+Podfriend&lt;/p&gt;&lt;p&gt;
+Castcoverage&lt;/p&gt;&lt;p&gt;
+Podnews&lt;/p&gt;&lt;p&gt;
+New systems connected&lt;/p&gt;&lt;p&gt;
+pub/sub&lt;/p&gt;&lt;p&gt;
+Filters&lt;/p&gt;&lt;p&gt;
+Problematic feeds&lt;/p&gt;&lt;p&gt;
+re-iterate missions and obligations&lt;/p&gt;&lt;p&gt;
+Whitstone visit&lt;/p&gt;&lt;p&gt;
+Keywords&lt;/p&gt;</itunes:summary>
+      <itunes:author>Podcast Index LLC</itunes:author>
+      <author>Podcast Index LLC</author>
+      <itunes:image href="http://fcassets.curry.com.s3.wasabisys.com/enc/1601061118.678_pciavatar.jpg"/>
+      <itunes:explicit>no</itunes:explicit>
+      <itunes:keywords>podcasting,curry,podfather,technology,deverlopers</itunes:keywords>
+      <enclosure url="https://mp3s.nashownotes.com/PC20-05-2020-10-02-Final.mp3" length="66174791" type="audio/mpeg"/>
+    </item>
+    
+    <item>
+      <title>Episode 4: Making Headway</title>
+      <description>&lt;p&gt;Show Notes&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;Podcasting 2.0 for September 25th 2020 Episode 4: Making Headway&lt;/b&gt;&lt;/p&gt;&lt;p&gt;
+&lt;a href="https://mp3s.nashownotes.com/PC20-04-2020-09-25-Final.mp3"&gt;Download the mp3&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+&lt;i&gt;Support us with your Time Talent and &lt;a href="https://www.paypal.com/donate/?token=m0z6N1K047lEsGvPDr3KMumKYHlUHRAdwPNY645UB0LR9fGf_OtpVByzHId7TEFYo9nXNS5aF33Zdjn9&amp;fromUL=true&amp;country.x=US&amp;locale.x=en_US"&gt;Treasure&lt;/a&gt;&lt;/i&gt;&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;Shownotes&lt;/b&gt;&lt;/p&gt;&lt;p&gt;
+Adam Curry and Dave Jones update each other on the week's progress with podcastindex.org &lt;/p&gt;&lt;p&gt;
+Topics discussed:&lt;/p&gt;&lt;p&gt;
+Spotify de-platforming&lt;/p&gt;&lt;p&gt;
+Images&lt;/p&gt;&lt;p&gt;
+People showing up with their own databases&lt;/p&gt;&lt;p&gt;
+Categories&lt;/p&gt;&lt;p&gt;
+New homepage&lt;/p&gt;&lt;p&gt;
+Need lists of apps and stuff for drunkplato&lt;/p&gt;&lt;p&gt;
+Simple Player with code&lt;/p&gt;&lt;p&gt;
+Cast coverage randmizer&lt;/p&gt;&lt;p&gt;
+Languages&lt;/p&gt;&lt;p&gt;
+Countries&lt;/p&gt;&lt;p&gt;
+AI / ML&lt;/p&gt;&lt;p&gt;
+OPML stuff showing up&lt;/p&gt;&lt;p&gt;
+Servers and $$&lt;/p&gt;&lt;p&gt;
+Submitting feeds&lt;/p&gt;&lt;p&gt;
+@podcast bot&lt;/p&gt;&lt;p&gt;
+Spreading the word about PCI!&lt;/p&gt;&lt;p&gt;
+Keywords&lt;/p&gt;</description>
+      <link>http://adam.curry.com/html/PC200420200925Podcas-Tt7rSQs5NzBXr9kntV0HkmMcHQslXr.html</link>
+      <guid isPermaLink="false">Fri, 25 Sep 2020 19:12:15 GMT</guid>
+      <pubDate>Fri, 25 Sep 2020 19:12:15 GMT</pubDate>
+      <itunes:subtitle>Episode 4: Making Headway</itunes:subtitle>
+      <itunes:summary>&lt;p&gt;Show Notes&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;Podcasting 2.0 for September 25th 2020 Episode 4: Making Headway&lt;/b&gt;&lt;/p&gt;&lt;p&gt;
+&lt;a href="https://mp3s.nashownotes.com/PC20-04-2020-09-25-Final.mp3"&gt;Download the mp3&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+&lt;i&gt;Support us with your Time Talent and &lt;a href="https://www.paypal.com/donate/?token=m0z6N1K047lEsGvPDr3KMumKYHlUHRAdwPNY645UB0LR9fGf_OtpVByzHId7TEFYo9nXNS5aF33Zdjn9&amp;fromUL=true&amp;country.x=US&amp;locale.x=en_US"&gt;Treasure&lt;/a&gt;&lt;/i&gt;&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;Shownotes&lt;/b&gt;&lt;/p&gt;&lt;p&gt;
+Adam Curry and Dave Jones update each other on the week's progress with podcastindex.org &lt;/p&gt;&lt;p&gt;
+Topics discussed:&lt;/p&gt;&lt;p&gt;
+Spotify de-platforming&lt;/p&gt;&lt;p&gt;
+Images&lt;/p&gt;&lt;p&gt;
+People showing up with their own databases&lt;/p&gt;&lt;p&gt;
+Categories&lt;/p&gt;&lt;p&gt;
+New homepage&lt;/p&gt;&lt;p&gt;
+Need lists of apps and stuff for drunkplato&lt;/p&gt;&lt;p&gt;
+Simple Player with code&lt;/p&gt;&lt;p&gt;
+Cast coverage randmizer&lt;/p&gt;&lt;p&gt;
+Languages&lt;/p&gt;&lt;p&gt;
+Countries&lt;/p&gt;&lt;p&gt;
+AI / ML&lt;/p&gt;&lt;p&gt;
+OPML stuff showing up&lt;/p&gt;&lt;p&gt;
+Servers and $$&lt;/p&gt;&lt;p&gt;
+Submitting feeds&lt;/p&gt;&lt;p&gt;
+@podcast bot&lt;/p&gt;&lt;p&gt;
+Spreading the word about PCI!&lt;/p&gt;&lt;p&gt;
+Keywords&lt;/p&gt;</itunes:summary>
+      <itunes:author>Podcast Index LLC</itunes:author>
+      <author>Podcast Index LLC</author>
+      <itunes:image href="http://fcassets.curry.com.s3.wasabisys.com/enc/1601061118.678_pciavatar.jpg"/>
+      <itunes:explicit>no</itunes:explicit>
+      <itunes:keywords>podcasting,curry,podfather,technology,deverlopers</itunes:keywords>
+      <enclosure url="https://mp3s.nashownotes.com/PC20-04-2020-09-25-Final.mp3" length="67050937" type="audio/mpeg"/>
+    </item>
+    
+    <item>
+      <title>Episode 3: First Board Meeting</title>
+      <description>&lt;p&gt;Show Notes&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;Podcasting 2.0 for September 18th 2020 Episode 3:  First Board Meeting&lt;/b&gt;&lt;/p&gt;&lt;p&gt;
+&lt;a href="https://mp3s.nashownotes.com/PC20-03-2020-09-18-Final.mp3"&gt;Download the mp3&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Support us with your Time Talent and &lt;a href="https://www.paypal.com/donate/?token=m0z6N1K047lEsGvPDr3KMumKYHlUHRAdwPNY645UB0LR9fGf_OtpVByzHId7TEFYo9nXNS5aF33Zdjn9&amp;fromUL=true&amp;country.x=US&amp;locale.x=en_US"&gt;Treasure&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;Shownotes&lt;/b&gt;&lt;/p&gt;&lt;p&gt;
+Adam Curry and Dave Jones update each other on the week's progress with podcastindex.org &lt;/p&gt;&lt;p&gt;
+Topics discussed:Categories, submissions, rogue feeds and a path to IPFS&lt;/p&gt;&lt;p&gt;
+Keywords&lt;/p&gt;</description>
+      <link>http://adam.curry.com/html/PC200320200918Podcas-DScg5pqVg9cJfDhZmN6SklB6K1Flbg.html</link>
+      <guid isPermaLink="false">Fri, 18 Sep 2020 22:18:19 GMT</guid>
+      <pubDate>Fri, 18 Sep 2020 22:18:19 GMT</pubDate>
+      <itunes:subtitle>Episode 3: First Board Meeting</itunes:subtitle>
+      <itunes:summary>&lt;p&gt;Show Notes&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;Podcasting 2.0 for September 18th 2020 Episode 3:  First Board Meeting&lt;/b&gt;&lt;/p&gt;&lt;p&gt;
+&lt;a href="https://mp3s.nashownotes.com/PC20-03-2020-09-18-Final.mp3"&gt;Download the mp3&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Support us with your Time Talent and &lt;a href="https://www.paypal.com/donate/?token=m0z6N1K047lEsGvPDr3KMumKYHlUHRAdwPNY645UB0LR9fGf_OtpVByzHId7TEFYo9nXNS5aF33Zdjn9&amp;fromUL=true&amp;country.x=US&amp;locale.x=en_US"&gt;Treasure&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;Shownotes&lt;/b&gt;&lt;/p&gt;&lt;p&gt;
+Adam Curry and Dave Jones update each other on the week's progress with podcastindex.org &lt;/p&gt;&lt;p&gt;
+Topics discussed:Categories, submissions, rogue feeds and a path to IPFS&lt;/p&gt;&lt;p&gt;
+Keywords&lt;/p&gt;</itunes:summary>
+      <itunes:author>Podcast Index LLC</itunes:author>
+      <author>Podcast Index LLC</author>
+      <itunes:image href="http://adam.curry.com/enc/1599850236.814_pciavatar-feed.jpg"/>
+      <itunes:explicit>no</itunes:explicit>
+      <itunes:keywords>podcasting,curry,podfather,technology,deverlopers</itunes:keywords>
+      <enclosure url="https://mp3s.nashownotes.com/PC20-03-2020-09-18-Final.mp3" length="62407829" type="audio/mpeg"/>
+    </item>
+    
+    <item>
+      <title>Episode 2: We Have Liftoff!</title>
+      <description>&lt;p&gt;Show Notes&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;Podcasting 2.0 for September 11th 2020 Episode 2:  We Have Liftoff!&lt;/b&gt;&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;Shownotes&lt;/b&gt;&lt;/p&gt;&lt;p&gt;
+Adam Curry and Dave Jones Discuss the start of the project and all that we have learned in the past two weeks. Thanks to all the donors who support the project at &lt;a href="http://PodcastIndex.org"&gt;podcastindex.org&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Keywords&lt;/p&gt;</description>
+      <link>http://adam.curry.com/html/PC200220200911Podcas-LlFZgcrGrvRXQJDpxwScJ27mc96jKr.html</link>
+      <guid isPermaLink="false">Fri, 11 Sep 2020 18:51:09 GMT</guid>
+      <pubDate>Fri, 11 Sep 2020 18:51:09 GMT</pubDate>
+      <itunes:subtitle>Episode 2: We Have Liftoff!</itunes:subtitle>
+      <itunes:summary>&lt;p&gt;Show Notes&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;Podcasting 2.0 for September 11th 2020 Episode 2:  We Have Liftoff!&lt;/b&gt;&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;Shownotes&lt;/b&gt;&lt;/p&gt;&lt;p&gt;
+Adam Curry and Dave Jones Discuss the start of the project and all that we have learned in the past two weeks. Thanks to all the donors who support the project at &lt;a href="http://PodcastIndex.org"&gt;podcastindex.org&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Keywords&lt;/p&gt;</itunes:summary>
+      <itunes:author>Podcast Index LLC</itunes:author>
+      <author>Podcast Index LLC</author>
+      <itunes:image href="http://adam.curry.com/enc/1599850236.814_pciavatar-feed.jpg"/>
+      <itunes:explicit>no</itunes:explicit>
+      <itunes:keywords>podcasting,curry,podfather,technology,deverlopers</itunes:keywords>
+      <enclosure url="https://mp3s.nashownotes.com/PC20-02-2020-09-11-Final.mp3" length="59902895" type="audio/mpeg"/>
+    </item>
+    
+    <item>
+      <title>Episode 1: We are upgrading podcasting</title>
+      <description>&lt;p&gt;Show Notes&lt;/p&gt;&lt;p&gt;
+Adam Curry and Dave Jones kick off The Podcast Index Project with a historical review of Podcasting and how to make it more open and better for all. Join us and support us at podcastindex.org&lt;/p&gt;&lt;p&gt;
+Keywords&lt;/p&gt;</description>
+      <link>http://podcastindex.org/</link>
+      <guid isPermaLink="false">Fri, 28 Aug 2020 21:12:19 GMT</guid>
+      <pubDate>Fri, 28 Aug 2020 21:12:19 GMT</pubDate>
+      <itunes:subtitle>Episode 1: We are upgrading podcasting</itunes:subtitle>
+      <itunes:summary>&lt;p&gt;Show Notes&lt;/p&gt;&lt;p&gt;
+Adam Curry and Dave Jones kick off The Podcast Index Project with a historical review of Podcasting and how to make it more open and better for all. Join us and support us at podcastindex.org&lt;/p&gt;&lt;p&gt;
+Keywords&lt;/p&gt;</itunes:summary>
+      <itunes:author>Podcast Index LLC</itunes:author>
+      <author>Podcast Index LLC</author>
+      <itunes:image href="http://adam.curry.com/enc/1599446746.979_pc20-logo-feed.png"/>
+      <itunes:explicit>no</itunes:explicit>
+      <itunes:keywords>podcasting,curry,podfather,technology,deverlopers</itunes:keywords>
+      <enclosure url="https://mp3s.nashownotes.com/PC20-01-2020-08-28-Final.mp3" length="61222288" type="audio/mpeg"/>
+    </item>
+  </channel>
+</rss>
