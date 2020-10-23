@@ -26,7 +26,7 @@ module.exports = {
 
       .click(`xpath`, `//a[@class="nav-link"][@href="/clips"]`)
 
-      .waitForElementWithText(`.transparent.dropdown-toggle.btn.btn-secondary`, 'Subscribed')
+      .waitForElementWithText(`.transparent.dropdown-toggle.btn.btn-secondary`, 'All Podcasts')
 
       .clickDropdownToggleAndItem(`top - past week`, `most recent`)
 
