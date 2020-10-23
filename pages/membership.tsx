@@ -133,7 +133,7 @@ const featuresData = (t) => [
     icon2: true
   },
   {
-    text: t('features - support open source software'),
+    text: t('features - support free and open source software'),
     icon1: true,
     icon2: true,
     iconType: 'smile'

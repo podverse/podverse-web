@@ -1,9 +1,9 @@
 export const colors = {
   black: '#000',
-  blue: '#2968B1',
-  blueDarker: '#225691',
-  blueLigher: '#4f83bf',
-  brandColor: '#2968B1',
+  blue: '#197BB1',
+  blueDarker: '#11567b',
+  blueLigher: '#5ea2c8',
+  brandColor: '#197BB1',
   danger: `danger`,
   gray: '#777',
   grayDark: '#575757',

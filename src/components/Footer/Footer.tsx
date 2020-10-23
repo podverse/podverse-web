@@ -195,15 +195,6 @@ class Footer extends Component<Props, State> {
                 </a>
               </Link>
               <Link
-                as={PV.paths.web.faq}
-                href={PV.paths.web.faq}>
-                <a
-                  className='footer-bottom__link'
-                  onClick={this.linkClick}>
-                  FAQ
-                </a>
-              </Link>
-              <Link
                 as={PV.paths.web.membership}
                 href={PV.paths.web.membership}>
                 <a
