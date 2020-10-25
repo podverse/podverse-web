@@ -144,15 +144,14 @@ class MediaInfoCtrl extends Component<Props, State> {
     playerQueueLoadPriorityItems(priorityItems)
   }
 
-  toggleAddToModal = (showQueue = true) => {
+  toggleAddToPlaylistModal = () => {
     const { modals, modalsAddToShow } = this.props
     const { addTo } = modals
     const { isOpen } = addTo
 
     modalsAddToShow({
       isOpen: !isOpen,
-      nowPlayingItem: this.getCurrentPageItem(),
-      showQueue
+      nowPlayingItem: this.getCurrentPageItem()
     })
   }
 
@@ -261,14 +260,13 @@ class MediaInfoCtrl extends Component<Props, State> {
         episode={episode}
         handleAddToQueueLast={() => this.addToQueue(null, true)}
         handleAddToQueueNext={() => this.addToQueue(null, false)}
+        handleAddToPlaylist={() => this.toggleAddToPlaylistModal()}
         handleLinkClick={this.linkClick}
         handlePauseItem={this.pauseItem}
         handlePlayItem={() => this.playItem(this.getCurrentPageItem())}
         handleReplayClip={() => this.playItem(this.getCurrentPageItem(), false, true)}
-        handleToggleAddToModal={this.toggleAddToModal}
         handleToggleEditClipModal={this.toggleEditClipModal}
-        handleToggleMakeClipModal={this.toggleMakeClipModal}
-        handleToggleShareModal={this.toggleShareModal}
+        handleToggleShare={this.toggleShareModal}
         initialShowDescription={initialShowDescription}
         loggedInUserId={userId}
         mediaRef={mediaRef}

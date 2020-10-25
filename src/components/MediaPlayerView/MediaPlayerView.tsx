@@ -242,7 +242,7 @@ class MediaPlayerView extends Component<Props, State> {
     }
   }
 
-  toggleAddToModal = () => {
+  toggleAddToPlaylistModal = () => {
     const { mediaPlayer, modals, modalsAddToShow } = this.props
     const { addTo } = modals
     const { isOpen } = addTo
@@ -329,7 +329,7 @@ class MediaPlayerView extends Component<Props, State> {
                 handlePause={this.pause}
                 handlePlaybackRateClick={this.playbackRateClick}
                 handleSetPlayedAfterClipFinished={this.setPlayedAfterClipFinished}
-                handleToggleAddToModal={this.toggleAddToModal}
+                handletoggleAddToPlaylistModal={this.toggleAddToPlaylistModal}
                 handleToggleAutoplay={this.toggleAutoplay}
                 handleToggleMakeClipModal={this.toggleMakeClipModal}
                 handleToggleQueueModal={this.toggleQueueModal}
