@@ -66,15 +66,14 @@ class MediaListItemCtrl extends Component<Props, State> {
     playerQueueLoadPriorityItems(priorityItems)
   }
 
-  toggleAddToModal = (nowPlayingItem, showQueue = true) => {
+  toggleAddToPlaylistModal = (nowPlayingItem) => {
     const { modals, modalsAddToShow } = this.props
     const { addTo } = modals
     const { isOpen } = addTo
 
     modalsAddToShow({
       isOpen: !isOpen,
-      nowPlayingItem,
-      showQueue
+      nowPlayingItem
     })
   }
 
@@ -122,7 +121,7 @@ class MediaListItemCtrl extends Component<Props, State> {
         handleLinkClick={this.linkClick}
         handlePlayItem={() => handlePlayItem ? handlePlayItem(nowPlayingItem) : null}
         handleRemoveItem={handleRemoveItem}
-        handleToggleAddToPlaylist={() => this.toggleAddToModal(nowPlayingItem, false)}
+        handleToggleAddToPlaylist={() => this.toggleAddToPlaylistModal(nowPlayingItem)}
         handleToggleShare={() => this.toggleShareModal(nowPlayingItem)}
         hasLink={true}
         hideDescription={hideDescription}
