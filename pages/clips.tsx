@@ -141,7 +141,6 @@ class Home extends Component<Props, State> {
           twitterTitle={meta.title} />
         <h3>{t('Clips')}</h3>
         <MediaListCtrl
-          adjustTopPosition
           allCategories={allCategories}
           categoryId={categoryId}
           handleSetPageQueryState={pagesSetQueryState}
