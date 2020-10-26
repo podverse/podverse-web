@@ -521,7 +521,7 @@ class PodcastListCtrl extends Component<Props, State> {
     const noResultsFoundMsg = isNotLoggedIn ? t('errorMessages:login.ViewYourSubscriptions') : t('No podcasts found')
 
     return (
-      <div className={'media-list adjust-top-position'}>
+      <div className={'media-list'}>
         <div className='media-list__selects'>
           <div className='media-list-selects__left'>
             {this.generateTopLevelSelectNodes()}

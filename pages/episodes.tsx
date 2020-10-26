@@ -139,7 +139,6 @@ class Episodes extends Component<Props, State> {
           twitterTitle={meta.title} />
         <h3>{t('Episodes')}</h3>
         <MediaListCtrl
-          adjustTopPosition
           allCategories={allCategories}
           categoryId={categoryId}
           handleSetPageQueryState={pagesSetQueryState}

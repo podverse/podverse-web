@@ -23,7 +23,6 @@ const debouncedEpisodeFilterQuery = AwesomeDebouncePromise(getEpisodesByQuery, 7
 const debouncedMediaRefFilterQuery = AwesomeDebouncePromise(getMediaRefsByQuery, 750)
 
 type Props = {
-  adjustTopPosition?: boolean
   allCategories?: any
   currentId?: string
   episode?: any
@@ -616,7 +615,7 @@ class MediaListCtrl extends Component<Props, State> {
   }
 
   render() {
-    const { adjustTopPosition, episodeId, includeOldest, mediaPlayer, page, pageKey, pages,
+    const { episodeId, includeOldest, mediaPlayer, page, pageKey, pages,
       podcastId, settings, showQueryTypeSelect, t, user } = this.props
     const { isLoading } = page
     const { filterButtonHide } = settings
@@ -674,7 +673,7 @@ class MediaListCtrl extends Component<Props, State> {
     const noResultsFoundMsg = isNotLoggedInOnSubscribedOnly ? t('errorMessages:login.ViewYourSubscriptions') : noResultsItemTypeMsg
 
     return (      
-      <div className={`media-list ${adjustTopPosition ? 'adjust-top-position' : ''}`}>
+      <div className={`media-list`}>
         <div className='media-list__selects'>
           <div className='media-list-selects__left'>
             {
