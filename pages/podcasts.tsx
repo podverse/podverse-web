@@ -1,3 +1,4 @@
+import { HeaderNavTabs } from 'podverse-ui'
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -106,7 +107,9 @@ class Podcasts extends Component<Props, State> {
           title={meta.title}
           twitterDescription={meta.description}
           twitterTitle={meta.title} />
-        <h3>{t('Podcasts')}</h3>
+        <HeaderNavTabs
+          handleLinkClick={pageIsLoading}
+          items={PV.homeHeaderButtons(PV.pageKeys.podcasts, t)} />
         <PodcastListCtrl 
           allCategories={allCategories}
           categoryId={categoryId}

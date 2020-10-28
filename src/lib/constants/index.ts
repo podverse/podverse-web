@@ -2,6 +2,7 @@ import { attributes } from '~/lib/constants/attributes'
 import { colors } from '~/lib/constants/colors'
 import { cookies } from '~/lib/constants/cookies'
 import { errorResponseMessages } from '~/lib/constants/errorResponseMessages'
+import { homeHeaderButtons } from '~/lib/constants/homeHeaderButtons'
 import { misc } from '~/lib/constants/misc'
 import { nexti18next } from '~/lib/constants/nexti18next'
 import { pages } from '~/lib/constants/i18n/pages'
@@ -15,6 +16,7 @@ export default {
   colors,
   cookies,
   errorResponseMessages,
+  homeHeaderButtons,
   i18n: {
     pages
   },

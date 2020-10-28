@@ -276,7 +276,7 @@ class PodcastListCtrl extends Component<Props, State> {
     })
 
     topLevelItems.push({
-      label: t('queryLabels:AllPodcasts'),
+      label: t('queryLabels:All'),
       onClick: () => this.queryPodcastsAll(),
       parentValue: null,
       value: PV.queryParams.all_podcasts

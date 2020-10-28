@@ -47,24 +47,6 @@ class PVNavBar extends Component<Props, State> {
         icon: 'search',
         onClick: () => { this.linkClick() },
         hideMobile: true
-      },
-      {
-        as: PV.paths.web.podcasts,
-        href: PV.paths.web.podcasts,
-        label: t('Podcasts'),
-        onClick: () => { this.linkClick() }
-      },
-      {
-        as: PV.paths.web.episodes,
-        href: PV.paths.web.episodes,
-        label: t('Episodes'),
-        onClick: () => { this.linkClick() }
-      },
-      {
-        as: PV.paths.web.clips,
-        href: PV.paths.web.clips,
-        label: t('Clips'),
-        onClick: () => { this.linkClick() }
       }
     ] as any
 
