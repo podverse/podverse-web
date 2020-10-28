@@ -276,7 +276,7 @@ class PodcastListCtrl extends Component<Props, State> {
     })
 
     topLevelItems.push({
-      label: t('queryLabels:AllPodcasts'),
+      label: t('queryLabels:All'),
       onClick: () => this.queryPodcastsAll(),
       parentValue: null,
       value: PV.queryParams.all_podcasts
@@ -521,7 +521,7 @@ class PodcastListCtrl extends Component<Props, State> {
     const noResultsFoundMsg = isNotLoggedIn ? t('errorMessages:login.ViewYourSubscriptions') : t('No podcasts found')
 
     return (
-      <div className={'media-list adjust-top-position'}>
+      <div className={'media-list'}>
         <div className='media-list__selects'>
           <div className='media-list-selects__left'>
             {this.generateTopLevelSelectNodes()}

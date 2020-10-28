@@ -18,7 +18,6 @@ const uuidv4 = require('uuid/v4')
 const { QUERY_MEDIA_REFS_LIMIT } = config()
 
 type Props = {
-  adjustTopPosition?: boolean
   currentId?: string
   handleSetPageQueryState: Function
   isMyProfilePage?: boolean
@@ -306,7 +305,7 @@ class UserMediaListCtrl extends Component<Props, State> {
   }
 
   render() {
-    const { adjustTopPosition, mediaPlayer, page, pages, pageKey, t } = this.props
+    const { mediaPlayer, page, pages, pageKey, t } = this.props
     const { nowPlayingItem: mpNowPlayingItem } = mediaPlayer
     const { listItems, listItemsTotal, queryPage, querySort, queryType } = pages[pageKey]
     
@@ -352,7 +351,7 @@ class UserMediaListCtrl extends Component<Props, State> {
     const selectedQuerySortOption = this.getQuerySortOptions(queryType === PV.queryParams.podcasts).filter(x => x.value === querySort)
 
     return (      
-      <div className={`media-list ${adjustTopPosition ? 'adjust-top-position' : ''}`}>
+      <div className={`media-list`}>
         <div className='media-list__selects'>
           <div className='media-list-selects__left'>
             <MediaListSelect

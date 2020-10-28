@@ -102,7 +102,7 @@ class UserListCtrl extends Component<Props, State> {
     const noResultsFoundMsg = isNotLoggedIn ? t('LoginToViewYourProfiles') : t('errorMessages:alerts.No profiles found')
 
     return (
-      <div className='media-list reduced-margin adjust-top-position'>
+      <div className='media-list reduced-margin'>
         {
           listItemNodes && listItemNodes.length > 0 &&
           <Fragment>

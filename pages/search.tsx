@@ -226,7 +226,7 @@ class Search extends Component<Props, State> {
             </InputGroup>
           </FormGroup>
         </Form>
-        <div className={'media-list adjust-top-position'}>
+        <div className={'media-list'}>
           {
             listItemNodes && listItemNodes.length > 0 &&
             <Fragment>

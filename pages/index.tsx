@@ -4,7 +4,7 @@ import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { convertToNowPlayingItem } from 'podverse-shared'
-import { addItemsToSecondaryQueueStorage, clearItemsFromSecondaryQueueStorage } from 'podverse-ui'
+import { addItemsToSecondaryQueueStorage, clearItemsFromSecondaryQueueStorage, HeaderNavTabs } from 'podverse-ui'
 import MediaListCtrl from '~/components/MediaListCtrl/MediaListCtrl'
 import Meta from '~/components/Meta/Meta'
 import config from '~/config'
@@ -139,9 +139,10 @@ class Home extends Component<Props, State> {
           title={meta.title}
           twitterDescription={meta.description}
           twitterTitle={meta.title} />
-        <h3>{t('Clips')}</h3>
+        <HeaderNavTabs
+          handleLinkClick={pageIsLoading}
+          items={PV.homeHeaderButtons(PV.pageKeys.clips, t)} />
         <MediaListCtrl
-          adjustTopPosition
           allCategories={allCategories}
           categoryId={categoryId}
           handleSetPageQueryState={pagesSetQueryState}
