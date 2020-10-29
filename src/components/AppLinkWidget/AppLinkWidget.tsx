@@ -90,12 +90,8 @@ const deepLinkPages = [
   'episode_',
   'home',
   'playlist_',
-  'playlists',
   'podcast_',
-  'podcasts',
-  'profile_',
-  'profiles',
-  'search'
+  'profile_'
 ]
 
 class AppLinkWidget extends Component<Props, State> {

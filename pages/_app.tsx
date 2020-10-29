@@ -167,13 +167,6 @@ export default withRedux(initializeStore)(appWithTranslation(class MyApp extends
         })
       }
 
-      if (parsedCookie.nsfwModeHide) {
-        ctx.store.dispatch({
-          type: actionTypes.SETTINGS_SET_HIDE_NSFW_MODE,
-          payload: parsedCookie.nsfwModeHide
-        })
-      }
-
       if (parsedCookie.censorNSFWText) {
         ctx.store.dispatch({
           type: actionTypes.SETTINGS_CENSOR_NSFW_TEXT,
@@ -190,13 +183,6 @@ export default withRedux(initializeStore)(appWithTranslation(class MyApp extends
         ctx.store.dispatch({
           type: actionTypes.SETTINGS_SET_HIDE_NSFW_LABELS,
           payload: 'true'
-        })
-      }
-
-      if (parsedCookie.filterButtonHide) {
-        ctx.store.dispatch({
-          type: actionTypes.SETTINGS_SET_HIDE_FILTER_BUTTON,
-          payload: parsedCookie.filterButtonHide
         })
       }
 

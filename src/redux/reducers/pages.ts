@@ -6,14 +6,14 @@ import { actionTypes } from '~/redux/constants'
 // @ts-ignore
 const generateDataObj = payload => {
   if (payload) {
-    const { categoryId, filterIsShowing, filterText, isSearching, lastScrollPosition,
+    const { categoryId, filterText, isAdvancedFilterShowing, isSearching, lastScrollPosition,
       listItems, listItemsTotal, podcast, publicUser, queryFrom, queryPage, querySort,
       queryType, searchBy, searchText, selected } = payload
 
     return {
       ...(categoryId || categoryId === null ? { categoryId } : {}),
-      ...(filterIsShowing || filterIsShowing === false ? { filterIsShowing } : {}),
       ...(filterText || filterText === '' ? { filterText } : {}),
+      ...(isAdvancedFilterShowing || isAdvancedFilterShowing === false ? { isAdvancedFilterShowing } : {}),
       ...(isSearching || isSearching === false ? { isSearching } : {}),
       ...(lastScrollPosition || lastScrollPosition === 0 ? { lastScrollPosition } : {}),
       ...(listItems ? { listItems } : {}),
@@ -34,8 +34,6 @@ const generateDataObj = payload => {
 }
 
 export default (state = {}, action) => {
-  const dataObj = generateDataObj(action.payload)
-  
   switch (action.type) {
     case actionTypes.PAGES_CLEAR_QUERY_STATE:
       if (!action.payload.pageKey) {
@@ -51,13 +49,16 @@ export default (state = {}, action) => {
         return state
       }
 
+      const obj1 = generateDataObj(action.payload)
+
       return {
         ...state,
         [action.payload.pageKey]: {
           ...state[action.payload.pageKey],
-          ...dataObj
+          ...obj1
         }
       }
+
     default:
       return state
   }

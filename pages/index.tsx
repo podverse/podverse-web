@@ -22,7 +22,8 @@ type Props = {
   categoryId?: string
   lastScrollPosition?: number
   listItems?: any
-  pageKey?: string
+  pageKey: string
+  pages?: any
   pagesSetQueryState?: any
   playerQueue?: any
   queryFrom?: any
@@ -117,9 +118,20 @@ class Home extends Component<Props, State> {
     addItemsToSecondaryQueueStorage(secondaryItems)
   }
 
+  toggleAdvancedFilter = async () => {
+    const { pageKey, pagesSetQueryState, pages } = this.props
+    const { isAdvancedFilterShowing } = pages[pageKey]
+
+    pagesSetQueryState({
+      pageKey,
+      isAdvancedFilterShowing: !isAdvancedFilterShowing
+    })
+  }
+
   render() {
-    const { allCategories, categoryId, pagesSetQueryState, queryFrom, queryPage, querySort,
-      queryType, t } = this.props
+    const { allCategories, categoryId, pageKey, pages, pagesSetQueryState, queryFrom,
+      queryPage, querySort, queryType, t } = this.props
+    const { isAdvancedFilterShowing } = pages[pageKey]
 
     const meta = {
       currentUrl: BASE_URL,
@@ -141,12 +153,14 @@ class Home extends Component<Props, State> {
           twitterTitle={meta.title} />
         <HeaderNavTabs
           handleLinkClick={pageIsLoading}
-          items={PV.homeHeaderButtons(PV.pageKeys.clips, t)} />
+          handleToggleAdvancedFilter={this.toggleAdvancedFilter}
+          isAdvancedFilterShowing={isAdvancedFilterShowing}
+          items={PV.homeHeaderButtons(pageKey, t)} />
         <MediaListCtrl
           allCategories={allCategories}
           categoryId={categoryId}
           handleSetPageQueryState={pagesSetQueryState}
-          pageKey={PV.pageKeys.clips}
+          pageKey={pageKey}
           queryFrom={queryFrom}
           queryPage={queryPage}
           querySort={querySort}

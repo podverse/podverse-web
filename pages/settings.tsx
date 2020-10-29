@@ -11,8 +11,8 @@ import DeleteAccountModal from '~/components/DeleteAccountModal/DeleteAccountMod
 import PV from '~/lib/constants'
 import { alertPremiumRequired, alertRateLimitError, alertSomethingWentWrong, convertToYYYYMMDDHHMMSS,
   isBeforeDate, validateEmail, safeAlert } from '~/lib/utility'
-import { modalsSignUpShow, pageIsLoading, settingsCensorNSFWText, settingsHideFilterButton,
-  settingsHideNSFWLabels, settingsHideNSFWMode, settingsHidePlaybackSpeedButton,
+import { modalsSignUpShow, pageIsLoading, settingsCensorNSFWText,
+  settingsHideNSFWLabels, settingsHidePlaybackSpeedButton,
   settingsHideTimeJumpBackwardButton, userSetInfo } from '~/redux/actions'
 import { downloadLoggedInUserData, updateLoggedInUser } from '~/services'
 import config from '~/config'
@@ -27,8 +27,6 @@ type Props = {
   pageKey?: string
   settings?: any
   settingsCensorNSFWText?: any
-  settingsHideFilterButton?: any
-  settingsHideNSFWMode?: any
   settingsHideTimeJumpBackwardButton?: any
   settingsHidePlaybackSpeedButton?: any
   settingsHideNSFWLabels?: any
@@ -154,22 +152,6 @@ class Settings extends Component<Props, State> {
     })
   }
 
-  handleToggleFilterButton = event => {
-    const { settingsHideFilterButton } = this.props
-    const isChecked = event.currentTarget.checked
-    const val = isChecked ? true : false
-
-    const expires = new Date()
-    expires.setDate(expires.getDate() + 365)
-    const c = cookie.serialize('filterButtonHide', val, {
-      expires,
-      path: '/'
-    })
-    document.cookie = c
-
-    settingsHideFilterButton(`${val}`)
-  }
-
   handleToggleNSFWLabels = event => {
     const { settingsHideNSFWLabels } = this.props
     const isChecked = event.currentTarget.checked
@@ -200,22 +182,6 @@ class Settings extends Component<Props, State> {
     document.cookie = c
 
     settingsCensorNSFWText(`${val}`)
-  }
-
-  handleToggleNSFWMode = event => {
-    const { settingsHideNSFWMode } = this.props
-    const isChecked = event.currentTarget.checked
-    const val = isChecked ? true : false
-
-    const expires = new Date()
-    expires.setDate(expires.getDate() + 365)
-    const c = cookie.serialize('nsfwModeHide', val, {
-      expires,
-      path: '/'
-    })
-    document.cookie = c
-        
-    settingsHideNSFWMode(`${val}`)
   }
 
   handleTogglePlaybackSpeedButton = event => {
@@ -321,8 +287,7 @@ class Settings extends Component<Props, State> {
       description: t('pages:settings._Description'),
       title: t('pages:settings._Title')
     }
-    const { censorNSFWText, filterButtonHide, nsfwLabelsHide, playbackSpeedButtonHide,
-      timeJumpBackwardButtonHide } = settings
+    const { censorNSFWText, nsfwLabelsHide, playbackSpeedButtonHide, timeJumpBackwardButtonHide } = settings
     const { email, emailError, isCheckoutOpen, isDeleteAccountOpen, isDownloading,
       isPublic, isSaving, language, name, wasCopied } = this.state
     const isLoggedIn = user && !!user.id
@@ -539,15 +504,6 @@ class Settings extends Component<Props, State> {
                 type="checkbox" />
               &nbsp;&nbsp;{t('HidePlaybackSpeedButton')}
             </Label>
-          </FormGroup>    
-          <FormGroup check>
-            <Label className='checkbox-label' check>
-              <Input
-                checked={filterButtonHide === 'true'}
-                onChange={this.handleToggleFilterButton}
-                type="checkbox" />
-              &nbsp;&nbsp;{t('HideFilterButtons')}
-            </Label>
           </FormGroup>
           <FormGroup>
             <Label for='settings-language'>{t('Language')}</Label>
@@ -609,9 +565,7 @@ const mapStateToProps = state => ({ ...state })
 const mapDispatchToProps = dispatch => ({
   modalsSignUpShow: bindActionCreators(modalsSignUpShow, dispatch),
   settingsCensorNSFWText: bindActionCreators(settingsCensorNSFWText, dispatch),
-  settingsHideFilterButton: bindActionCreators(settingsHideFilterButton, dispatch),
   settingsHideNSFWLabels: bindActionCreators(settingsHideNSFWLabels, dispatch),
-  settingsHideNSFWMode: bindActionCreators(settingsHideNSFWMode, dispatch),
   settingsHidePlaybackSpeedButton: bindActionCreators(settingsHidePlaybackSpeedButton, dispatch),
   settingsHideTimeJumpBackwardButton: bindActionCreators(settingsHideTimeJumpBackwardButton, dispatch),
   userSetInfo: bindActionCreators(userSetInfo, dispatch)

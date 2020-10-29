@@ -8,20 +8,10 @@ export default (state = {}, action) => {
         ...state,
         censorNSFWText: action.payload
       }
-    case actionTypes.SETTINGS_SET_HIDE_FILTER_BUTTON:
-      return {
-        ...state,
-        filterButtonHide: action.payload
-      }
     case actionTypes.SETTINGS_SET_HIDE_NSFW_LABELS:
       return {
         ...state,
         nsfwLabelsHide: action.payload
-      }
-    case actionTypes.SETTINGS_SET_HIDE_NSFW_MODE:
-      return {
-        ...state,
-        nsfwModeHide: action.payload
       }
     case actionTypes.SETTINGS_SET_HIDE_PLAYBACK_SPEED_BUTTON:
       return {

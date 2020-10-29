@@ -7,23 +7,9 @@ export const settingsCensorNSFWText = payload => {
   }
 }
 
-export const settingsHideFilterButton = payload => {
-  return {
-    type: actionTypes.SETTINGS_SET_HIDE_FILTER_BUTTON,
-    payload
-  }
-}
-
 export const settingsHideNSFWLabels = payload => {
   return {
     type: actionTypes.SETTINGS_SET_HIDE_NSFW_LABELS,
-    payload
-  }
-}
-
-export const settingsHideNSFWMode = payload => {
-  return {
-    type: actionTypes.SETTINGS_SET_HIDE_NSFW_MODE,
     payload
   }
 }

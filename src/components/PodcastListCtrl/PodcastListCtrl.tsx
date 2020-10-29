@@ -12,8 +12,6 @@ import AwesomeDebouncePromise from 'awesome-debounce-promise'
 const uuidv4 = require('uuid/v4')
 const { CATEGORY_ID_DEFAULT, QUERY_PODCASTS_LIMIT } = config()
 
-const debouncedPodcastFilterQuery = AwesomeDebouncePromise(getPodcastsByQuery, 750)
-
 type Props = {
   allCategories?: any
   handleSetPageQueryState: Function
@@ -27,13 +25,26 @@ type Props = {
   user?: any
 }
 
-type State = {}
+type State = {
+  listItemNodes: any[]
+}
 
 class PodcastListCtrl extends Component<Props, State> {
 
   static defaultProps: Props = {
     handleSetPageQueryState: () => {},
     pageKey: 'default'
+  }
+
+  constructor(props) {
+    super(props)
+    const { pageKey, pages } = props
+    const { listItems } = pages[pageKey]
+    const listItemNodes = this.createListItemNodes(listItems)
+
+    this.state = {
+      listItemNodes
+    }
   }
 
   queryPodcasts = async (query, newState) => {
@@ -60,11 +71,7 @@ class PodcastListCtrl extends Component<Props, State> {
       })
     } catch (error) {
       console.log(error)
-      handleSetPageQueryState({
-        ...newState,
-        listItems: [],
-        listItemsTotal: 0
-      })
+      this.handleSetPageQueryStateListItems(newState, [], 0)
     }
 
     pageIsLoading(false)
@@ -72,13 +79,13 @@ class PodcastListCtrl extends Component<Props, State> {
 
   queryPodcastsAll = async () => {
     const { pageKey, pages } = this.props
-    const { filterIsShowing, filterText, querySort } = pages[pageKey]
+    const { filterText, querySort } = pages[pageKey]
 
     const query: any = {
       page: 1,
       from: PV.queryParams.all_podcasts,
       sort: querySort,
-      ...(filterIsShowing ? {
+      ...(filterText ? {
         searchBy: PV.queryParams.podcast,
         searchText: filterText
       } : {})
@@ -96,14 +103,14 @@ class PodcastListCtrl extends Component<Props, State> {
 
   queryPodcastsCategory = async categoryId => {
     const { pageKey, pages } = this.props
-    const { filterIsShowing, filterText, querySort } = pages[pageKey]
+    const { filterText, querySort } = pages[pageKey]
 
     const query: any = {
       page: 1,
       from: PV.queryParams.from_category,
       sort: querySort,
       categories: categoryId,
-      ...(filterIsShowing ? {
+      ...(filterText ? {
         searchBy: PV.queryParams.podcast,
         searchText: filterText
       } : {})
@@ -123,14 +130,14 @@ class PodcastListCtrl extends Component<Props, State> {
   queryPodcastsSubscribed = async () => {
     const { handleSetPageQueryState, pageKey, pages, user } = this.props
     const { subscribedPodcastIds } = user
-    const { filterIsShowing, filterText, querySort } = pages[pageKey]
+    const { filterText, querySort } = pages[pageKey]
 
     const query: any = {
       page: 1,
       from: PV.queryParams.subscribed_only,
       sort: querySort,
       subscribedPodcastIds: subscribedPodcastIds || [],
-      ...(filterIsShowing ? {
+      ...(filterText ? {
         searchBy: PV.queryParams.podcast,
         searchText: filterText
       } : {})
@@ -144,11 +151,7 @@ class PodcastListCtrl extends Component<Props, State> {
     }
 
     if (subscribedPodcastIds && subscribedPodcastIds.length < 1) {
-      handleSetPageQueryState({
-        ...newState,
-        listItems: [],
-        listItemsTotal: 0
-      })
+      this.handleSetPageQueryStateListItems(newState, [], 0)
       return
     } else {
       handleSetPageQueryState(newState)
@@ -160,7 +163,7 @@ class PodcastListCtrl extends Component<Props, State> {
   queryPodcastsSort = async selectedValue => {
     const { pageKey, pages, user } = this.props
     const { subscribedPodcastIds } = user
-    const { categoryId, filterIsShowing, filterText, queryFrom } = pages[pageKey]
+    const { categoryId, filterText, queryFrom } = pages[pageKey]
 
     const query: any = {
       page: 1,
@@ -168,7 +171,7 @@ class PodcastListCtrl extends Component<Props, State> {
       sort: selectedValue,
       categories: queryFrom === PV.queryParams.from_category ? categoryId : null,
       subscribedPodcastIds: queryFrom === PV.queryParams.subscribed_only ? subscribedPodcastIds : null,
-      ...(filterIsShowing ? {
+      ...(filterText ? {
         searchBy: PV.queryParams.podcast,
         searchText: filterText
       } : {})
@@ -187,7 +190,7 @@ class PodcastListCtrl extends Component<Props, State> {
   queryPodcastsLoadPage = async page => {
     const { pageKey, pages, user } = this.props
     const { subscribedPodcastIds } = user
-    const { categoryId, filterIsShowing, filterText, queryFrom, querySort } = pages[pageKey]
+    const { categoryId, filterText, queryFrom, querySort } = pages[pageKey]
 
     const query: any = {
       page,
@@ -195,7 +198,7 @@ class PodcastListCtrl extends Component<Props, State> {
       sort: querySort,
       categories: queryFrom === PV.queryParams.from_category ? categoryId : null,
       subscribedPodcastIds: queryFrom === PV.queryParams.subscribed_only ? subscribedPodcastIds : null,
-      ...(filterIsShowing ? {
+      ...(filterText ? {
         searchBy: PV.queryParams.podcast,
         searchText: filterText
       } : {})
@@ -276,7 +279,7 @@ class PodcastListCtrl extends Component<Props, State> {
     })
 
     topLevelItems.push({
-      label: t('queryLabels:All'),
+      label: t('queryLabels:AllPodcasts'),
       onClick: () => this.queryPodcastsAll(),
       parentValue: null,
       value: PV.queryParams.all_podcasts
@@ -325,7 +328,7 @@ class PodcastListCtrl extends Component<Props, State> {
       }
 
       subcategoryItems.unshift({
-        label: t('queryLabels:All'),
+        label: t('queryLabels:AllPodcasts'),
         onClick: () => this.queryPodcastsCategory(selectedCategory.parentValue),
         parentValue: null,
         value: selectedCategory.parentValue
@@ -385,46 +388,16 @@ class PodcastListCtrl extends Component<Props, State> {
     return categorySelectNodes
   }
 
-  toggleFilter = async () => {
-    const { handleSetPageQueryState, pageKey, pages } = this.props
-    const { categoryId, filterIsShowing, queryFrom, querySort, selected } = pages[pageKey]
-
-    handleSetPageQueryState({
-      pageKey,
-      filterIsShowing: !filterIsShowing,
-      ...(filterIsShowing ? { filterText: '' } : {})
-    })
-
-    if (filterIsShowing) {
-      const query: any = {
-        page: 1,
-        from: queryFrom,
-        sort: querySort,
-        categories: categoryId
-      }
-
-      const newState: any = {
-        pageKey,
-        queryPage: 1,
-        queryFrom,
-        selected
-      }
-
-      await this.queryPodcasts(query, newState)
-    }
-  }
-
-  handleFilterTextChange = async event => {
+  filterTextQuery = async (filterText) => {
     const { handleSetPageQueryState, pageIsLoading, pageKey, pages, user } = this.props
     const { categoryId, queryFrom, querySort } = pages[pageKey]
     const { subscribedPodcastIds } = user
-    const text = event.target.value
 
     pageIsLoading(true)
 
     handleSetPageQueryState({
       pageKey,
-      filterText: text
+      filterText
     })
 
     let pId
@@ -438,33 +411,61 @@ class PodcastListCtrl extends Component<Props, State> {
       sort: querySort,
       categories: categoryId || (queryFrom === PV.queryParams.from_category ? CATEGORY_ID_DEFAULT : null),
       podcastId: pId || null,
-      searchText: text,
+      searchText: filterText,
       searchBy: PV.queryParams.podcast,
-      includePodcast: !!text || queryFrom === PV.queryParams.subscribed_only || queryFrom === PV.queryParams.all_podcasts
+      includePodcast: !!filterText || queryFrom === PV.queryParams.subscribed_only || queryFrom === PV.queryParams.all_podcasts
     }
 
     try {
-      const response = await debouncedPodcastFilterQuery(query)
+      const response = await getPodcastsByQuery(query)
       const podcasts = response.data
-      
-      handleSetPageQueryState({
-        pageKey,
-        listItems: podcasts[0],
-        listItemsTotal: podcasts[1]
-      })
+      this.handleSetPageQueryStateListItems({ pageKey }, podcasts[0], podcasts[1])
     } catch (error) {
       console.log(error)
-      handleSetPageQueryState({
-        pageKey,
-        listItems: [],
-        listItemsTotal: 0
-      })
+      this.handleSetPageQueryStateListItems({ pageKey }, [], 0)
     }
 
     pageIsLoading(false)
   }
 
+  debouncedFilterQuery = AwesomeDebouncePromise(this.filterTextQuery, 750)
+
+  handleSetPageQueryStateListItems = (newState, listItems, listItemsTotal) => {
+    const { handleSetPageQueryState } = this.props
+
+    handleSetPageQueryState({
+      ...newState,
+      listItems,
+      listItemsTotal
+    })
+    const listItemNodes = this.createListItemNodes(listItems)
+    this.setState({ listItemNodes })
+  }
+
+  createListItemNodes = (listItems) => {
+    const { t } = this.props
+
+    return listItems.map(x => {
+      return (
+        <MediaListItem
+          dataPodcast={x}
+          handleLinkClick={this.linkClick}
+          hasLink={true}
+          itemType={PV.attributes.mediaListItem.podcast}
+          key={`podcast-list-item-${uuidv4()}`}
+          t={t} />
+      )
+    })
+  }
+
+  handleFilterTextChange = async event => {
+    const filterText = event.target.value
+    this.debouncedFilterQuery(filterText)
+  }
+
   clearFilterText = async () => {
+    const { pageIsLoading } = this.props
+    pageIsLoading(true)
     this.handleFilterTextChange({
       target: {
         value: ''
@@ -495,24 +496,14 @@ class PodcastListCtrl extends Component<Props, State> {
     }
   }
 
-  render() {
-    const { page, pageKey, pages, settings, t, user } = this.props
-    const { isLoading } = page
-    const { filterButtonHide } = settings
-    const { categoryId, filterIsShowing, filterText, listItems, listItemsTotal, queryFrom,
-      queryPage, querySort } = pages[pageKey]
+  
 
-    const listItemNodes = listItems.map(x => {
-      return (
-        <MediaListItem
-          dataPodcast={x}
-          handleLinkClick={this.linkClick}
-          hasLink={true}
-          itemType={PV.attributes.mediaListItem.podcast}
-          key={`podcast-list-item-${uuidv4()}`}
-          t={t} />
-      )
-    })
+  render() {
+    const { page, pageKey, pages, t, user } = this.props
+    const { isLoading } = page
+    const { categoryId, filterText, isAdvancedFilterShowing, listItemsTotal,
+      queryFrom, queryPage, querySort } = pages[pageKey]
+    const { listItemNodes } = this.state
 
     const bottomSelectNodes = this.generateCategorySelectNodes(categoryId)
 
@@ -540,12 +531,10 @@ class PodcastListCtrl extends Component<Props, State> {
         </div>
         <FilterCtrl
           clearFilterText={this.clearFilterText}
-          filterButtonHide={filterButtonHide}
-          filterIsShowing={filterIsShowing}
           filterText={filterText}
           handleFilterTextChange={this.handleFilterTextChange}
-          t={t}
-          toggleFilter={this.toggleFilter} />
+          hide={!isAdvancedFilterShowing}
+          t={t} />
         <Fragment>
           {
             listItemNodes && listItemNodes.length > 0 &&
