@@ -18,11 +18,6 @@ export default (state = {}, action) => {
         ...state,
         playbackSpeedButtonHide: action.payload
       }
-    case actionTypes.SETTINGS_SET_HIDE_TIME_JUMP_BACKWARD_BUTTON:
-      return {
-        ...state,
-        timeJumpBackwardButtonHide: action.payload
-      }
     case actionTypes.SETTINGS_SET_UI_THEME:
       return {
         ...state,

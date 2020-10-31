@@ -12,7 +12,7 @@ import PV from '~/lib/constants'
 import { alertPremiumRequired, alertRateLimitError, alertSomethingWentWrong, convertToYYYYMMDDHHMMSS,
   isBeforeDate, validateEmail, safeAlert, setCookie } from '~/lib/utility'
 import { modalsSignUpShow, pageIsLoading, settingsCensorNSFWText,
-  settingsHidePlaybackSpeedButton, settingsHideTimeJumpBackwardButton, settingsSetDefaultHomepageTab,
+  settingsHidePlaybackSpeedButton, settingsSetDefaultHomepageTab,
   userSetInfo } from '~/redux/actions'
 import { downloadLoggedInUserData, updateLoggedInUser } from '~/services'
 import config from '~/config'
@@ -26,7 +26,6 @@ type Props = {
   pageKey?: string
   settings?: any
   settingsCensorNSFWText?: any
-  settingsHideTimeJumpBackwardButton?: any
   settingsHidePlaybackSpeedButton?: any
   settingsSetDefaultHomepageTab?: any
   t?: any
@@ -175,14 +174,6 @@ class Settings extends Component<Props, State> {
     settingsHidePlaybackSpeedButton(val)
   }
 
-  handleToggleTimeJumpBackwardButton = event => {
-    const { settingsHideTimeJumpBackwardButton } = this.props
-    const isChecked = event.currentTarget.checked
-    const val = isChecked ? true : false
-    setCookie(PV.cookies.timeJumpBackwardButtonHide, val)
-    settingsHideTimeJumpBackwardButton(val)
-  }
-
   validateProfileData = () => {
     const { user } = this.props
     const { email: oldEmail, isPublic: oldIsPublic, name: oldName } = user
@@ -254,7 +245,7 @@ class Settings extends Component<Props, State> {
       description: t('pages:settings._Description'),
       title: t('pages:settings._Title')
     }
-    const { censorNSFWText, defaultHomepageTab, playbackSpeedButtonHide, timeJumpBackwardButtonHide } = settings
+    const { censorNSFWText, defaultHomepageTab, playbackSpeedButtonHide } = settings
     const { email, emailError, isCheckoutOpen, isDeleteAccountOpen, isDownloading,
       isPublic, isSaving, language, name, wasCopied } = this.state
     const isLoggedIn = user && !!user.id
@@ -448,15 +439,6 @@ class Settings extends Component<Props, State> {
           <FormGroup check>
             <Label className='checkbox-label' check>
               <Input
-                checked={timeJumpBackwardButtonHide === 'true' || timeJumpBackwardButtonHide === true}
-                onChange={this.handleToggleTimeJumpBackwardButton}
-                type="checkbox" />
-              &nbsp;&nbsp;{t('HideJumpBackwardsButton')}
-            </Label>
-          </FormGroup>
-          <FormGroup check>
-            <Label className='checkbox-label' check>
-              <Input
                 checked={playbackSpeedButtonHide === 'true' || playbackSpeedButtonHide === true}
                 onChange={this.handleTogglePlaybackSpeedButton}
                 type="checkbox" />
@@ -537,7 +519,6 @@ const mapDispatchToProps = dispatch => ({
   modalsSignUpShow: bindActionCreators(modalsSignUpShow, dispatch),
   settingsCensorNSFWText: bindActionCreators(settingsCensorNSFWText, dispatch),
   settingsHidePlaybackSpeedButton: bindActionCreators(settingsHidePlaybackSpeedButton, dispatch),
-  settingsHideTimeJumpBackwardButton: bindActionCreators(settingsHideTimeJumpBackwardButton, dispatch),
   settingsSetDefaultHomepageTab: bindActionCreators(settingsSetDefaultHomepageTab, dispatch),
   userSetInfo: bindActionCreators(userSetInfo, dispatch)
 })

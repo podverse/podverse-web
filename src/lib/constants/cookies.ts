@@ -20,6 +20,5 @@ export const cookies = {
   showFreeTrialWarning: `${keyNamespace}_showFreeTrialWarning`,
   showMembershipHasEnded: `${keyNamespace}_showMembershipHasEnded`,
   showMembershipWarning: `${keyNamespace}_showMembershipWarning`,
-  timeJumpBackwardButtonHide: `${keyNamespace}_timeJumpBackwardButtonHide`,
   uiTheme: `${keyNamespace}_uiTheme`
 }
