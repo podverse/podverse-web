@@ -21,13 +21,6 @@ export const settingsHidePlaybackSpeedButton = payload => {
   }
 }
 
-export const settingsHideTimeJumpBackwardButton = payload => {
-  return {
-    type: actionTypes.SETTINGS_SET_HIDE_TIME_JUMP_BACKWARD_BUTTON,
-    payload
-  }
-}
-
 export const settingsSetUITheme = payload => {
   return {
     type: actionTypes.SETTINGS_SET_UI_THEME,

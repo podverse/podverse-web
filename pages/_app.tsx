@@ -159,13 +159,6 @@ export default withRedux(initializeStore)(appWithTranslation(class MyApp extends
         })
       }
 
-      if (parsedCookie[PV.cookies.timeJumpBackwardButtonHide]) {
-        ctx.store.dispatch({
-          type: actionTypes.SETTINGS_SET_HIDE_TIME_JUMP_BACKWARD_BUTTON,
-          payload: parsedCookie[PV.cookies.timeJumpBackwardButtonHide]
-        })
-      }
-
       if (parsedCookie[PV.cookies.playbackSpeedButtonHide]) {
         ctx.store.dispatch({
           type: actionTypes.SETTINGS_SET_HIDE_PLAYBACK_SPEED_BUTTON,

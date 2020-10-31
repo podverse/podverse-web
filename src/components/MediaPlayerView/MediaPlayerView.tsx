@@ -309,7 +309,7 @@ class MediaPlayerView extends Component<Props, State> {
     const { isMobileDevice, mediaPlayer, playerQueue, settings, user } = this.props
     const { clipFinished, didWaitToLoad, nowPlayingItem, playedAfterClipFinished, playing } = mediaPlayer
     const { priorityItems, secondaryItems } = playerQueue
-    const { playbackSpeedButtonHide, timeJumpBackwardButtonHide } = settings
+    const { playbackSpeedButtonHide } = settings
     const { autoplay, playbackRate } = this.state
 
     return (
@@ -339,7 +339,6 @@ class MediaPlayerView extends Component<Props, State> {
                   (priorityItems && priorityItems.length > 0) 
                   || (secondaryItems && secondaryItems.length > 0)
                 }
-                hideTimeJumpBackward={timeJumpBackwardButtonHide === 'true'}
                 nowPlayingItem={nowPlayingItem}
                 playbackRate={playbackRate}
                 playedAfterClipFinished={playedAfterClipFinished}
