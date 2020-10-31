@@ -180,10 +180,10 @@ export default withRedux(initializeStore)(appWithTranslation(class MyApp extends
         })
       }
 
-      if (parsedCookie.default_homepage_tab) {
+      if (parsedCookie.defaultHomepageTab) {
         ctx.store.dispatch({
           type: actionTypes.SETTINGS_SET_DEFAULT_HOMEPAGE_TAB,
-          payload: parsedCookie.default_homepage_tab
+          payload: parsedCookie.defaultHomepageTab
         })
       } else {
         ctx.store.dispatch({
