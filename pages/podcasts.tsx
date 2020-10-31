@@ -8,7 +8,7 @@ import config from '~/config'
 import PV from '~/lib/constants'
 import { cookieGetQuery } from '~/lib/utility'
 import { pageIsLoading, pagesSetQueryState } from '~/redux/actions'
-import { getCategoriesByQuery, getPodcastsByQuery } from '~/services'
+import { getCategoriesByQuery, handlePagePodcastsQuery } from '~/services'
 import { withTranslation } from '~/../i18n'
 const { BASE_URL, CATEGORY_ID_DEFAULT } = config()
 
@@ -33,8 +33,7 @@ class Podcasts extends Component<Props, State> {
 
   static async getInitialProps({ query, req, store }) {
     const state = store.getState()
-    const { pages, settings, user } = state
-    const { nsfwMode } = settings
+    const { pages, user } = state
     const { subscribedPodcastIds } = user
 
     const allCategoriesAndCountResult = await getCategoriesByQuery({})
@@ -54,35 +53,24 @@ class Podcasts extends Component<Props, State> {
       || PV.queryParams.all_podcasts
     const querySort = query.sort || currentPage.querySort || localStorageQuery.sort || PV.queryParams.top_past_week
 
-    if (Object.keys(currentPage).length === 0 || queryRefresh) {
-      const queryDataResult = await getPodcastsByQuery({
-        ...(categoryId ? { categories: categoryId } : {}),
-        from: queryFrom,
-        page: queryPage,
-        sort: querySort,
-        ...(queryFrom === PV.queryParams.subscribed_only ? { subscribedPodcastIds } : {})
-      })
-
-      const podcasts = queryDataResult.data
-
-      store.dispatch(pagesSetQueryState({
-        pageKey: PV.pageKeys.podcasts,
-        categoryId,
-        listItems: podcasts[0],
-        listItemsTotal: podcasts[1],
-        queryPage,
-        queryFrom,
-        querySort,
-        selected: queryFrom
-      }))
+    const queryObj = {
+      categoryId,
+      currentPage,
+      pageIsLoading,
+      pagesSetQueryState,
+      podcastId: subscribedPodcastIds,
+      queryFrom,
+      queryPage,
+      queryRefresh,
+      querySort,
+      store
     }
 
-    store.dispatch(pageIsLoading(false))
-
+    await handlePagePodcastsQuery(queryObj)
   
     const namespacesRequired = PV.nexti18next.namespaces
 
-    return { allCategories, categoryId, lastScrollPosition, namespacesRequired, nsfwMode, 
+    return { allCategories, categoryId, lastScrollPosition, namespacesRequired, 
       pageKey: PV.pageKeys.podcasts, queryFrom, queryPage, querySort, user }
   }
 

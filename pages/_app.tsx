@@ -81,7 +81,6 @@ type Props = {
   }
   playerQueueLoadPriorityItems?: any
   settings: {
-    nsfwMode: boolean
     uiTheme: string
   }
   store?: any,
@@ -153,13 +152,6 @@ export default withRedux(initializeStore)(appWithTranslation(class MyApp extends
         })
       }
 
-      if (parsedCookie.nsfwMode) {
-        ctx.store.dispatch({
-          type: actionTypes.SETTINGS_SET_NSFW_MODE,
-          payload: parsedCookie.nsfwMode
-        })
-      }
-
       if (parsedCookie.uiThemeHide) {
         ctx.store.dispatch({
           type: actionTypes.SETTINGS_SET_HIDE_UI_THEME,
@@ -197,6 +189,18 @@ export default withRedux(initializeStore)(appWithTranslation(class MyApp extends
         ctx.store.dispatch({
           type: actionTypes.SETTINGS_SET_HIDE_PLAYBACK_SPEED_BUTTON,
           payload: parsedCookie.playbackSpeedButtonHide
+        })
+      }
+
+      if (parsedCookie.default_homepage_tab) {
+        ctx.store.dispatch({
+          type: actionTypes.SETTINGS_SET_DEFAULT_HOMEPAGE_TAB,
+          payload: parsedCookie.default_homepage_tab
+        })
+      } else {
+        ctx.store.dispatch({
+          type: actionTypes.SETTINGS_SET_DEFAULT_HOMEPAGE_TAB,
+          payload: 'clips'
         })
       }
 

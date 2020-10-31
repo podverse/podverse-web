@@ -13,6 +13,11 @@ export default (state = {}, action) => {
         ...state,
         nsfwLabelsHide: action.payload
       }
+    case actionTypes.SETTINGS_SET_DEFAULT_HOMEPAGE_TAB:
+      return {
+        ...state,
+        defaultHomepageTab: action.payload
+      }
     case actionTypes.SETTINGS_SET_HIDE_PLAYBACK_SPEED_BUTTON:
       return {
         ...state,
@@ -27,11 +32,6 @@ export default (state = {}, action) => {
       return {
         ...state,
         uiThemeHide: action.payload
-      }
-    case actionTypes.SETTINGS_SET_NSFW_MODE:
-      return {
-        ...state,
-        nsfwMode: action.payload
       }
     case actionTypes.SETTINGS_SET_UI_THEME:
       return {

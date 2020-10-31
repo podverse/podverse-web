@@ -13,5 +13,6 @@ export { modalsAddToIsLoading, modalsAddToSetErrorResponse, modalsAddToShow,
   modalsShareSetErrorResponse, modalsShareShow, modalsSignUpIsLoading, modalsSignUpSetErrorResponse,
   modalsSignUpShow } from '~/redux/actions/modals'
 export { settingsCensorNSFWText, settingsHideNSFWLabels, settingsHidePlaybackSpeedButton,
-  settingsHideTimeJumpBackwardButton, settingsSetUITheme, settingsSetNSFWMode } from '~/redux/actions/settings'
+  settingsHideTimeJumpBackwardButton, settingsSetDefaultHomepageTab, settingsSetUITheme
+  } from '~/redux/actions/settings'
 export { userSetInfo, userUpdateHistoryItem } from '~/redux/actions/user'

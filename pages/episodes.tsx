@@ -1,17 +1,14 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { convertToNowPlayingItem } from 'podverse-shared'
 import { addItemsToSecondaryQueueStorage, clearItemsFromSecondaryQueueStorage, HeaderNavTabs } from 'podverse-ui'
 import MediaListCtrl from '~/components/MediaListCtrl/MediaListCtrl'
 import Meta from '~/components/Meta/Meta'
 import config from '~/config'
 import PV from '~/lib/constants'
-import { clone, cookieGetQuery } from '~/lib/utility'
-import {
-  pageIsLoading, pagesSetQueryState, playerQueueLoadSecondaryItems
-} from '~/redux/actions'
-import { getCategoriesByQuery, getEpisodesByQuery } from '~/services'
+import { cookieGetQuery } from '~/lib/utility'
+import { pageIsLoading, pagesSetQueryState } from '~/redux/actions'
+import { getCategoriesByQuery, handlePageEpisodesQuery } from '~/services'
 import { withTranslation } from '~/../i18n'
 const { BASE_URL, CATEGORY_ID_DEFAULT } = config()
 
@@ -62,39 +59,22 @@ class Episodes extends Component<Props, State> {
       podcastId = user.subscribedPodcastIds
     }
 
-    if (Object.keys(currentPage).length === 0 || queryRefresh) {
-      const results = await getEpisodesByQuery({
-        from: queryFrom,
-        page: queryPage,
-        ...(podcastId ? { podcastId } : {}),
-        sort: querySort,
-        type: queryType,
-        ...(categoryId ? { categories: categoryId } : {}),
-        includePodcast: true
-      })
-
-      const listItems = results.data[0].map(x => convertToNowPlayingItem(x, null, null)) || []
-      const nowPlayingItemIndex = listItems.map((x) => x.episodeId).indexOf(nowPlayingItem && nowPlayingItem.episodeId)
-      const queuedListItems = clone(listItems)
-      if (nowPlayingItemIndex > -1) {
-        queuedListItems.splice(0, nowPlayingItemIndex + 1)
-      }
-
-      store.dispatch(playerQueueLoadSecondaryItems(queuedListItems))
-
-      store.dispatch(pagesSetQueryState({
-        pageKey: PV.pageKeys.episodes,
-        categoryId,
-        listItems,
-        listItemsTotal: results.data[1],
-        queryFrom,
-        queryPage,
-        querySort,
-        queryType,
-      }))
+    const queryObj = {
+      categoryId,
+      currentPage,
+      nowPlayingItem,
+      pageIsLoading,
+      pagesSetQueryState,
+      podcastId,
+      queryFrom,
+      queryPage,
+      queryRefresh,
+      querySort,
+      queryType,
+      store
     }
 
-    store.dispatch(pageIsLoading(false))
+    await handlePageEpisodesQuery(queryObj)
 
     const namespacesRequired = PV.nexti18next.namespaces
 

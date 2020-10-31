@@ -10,16 +10,15 @@ import CheckoutModal from '~/components/CheckoutModal/CheckoutModal'
 import DeleteAccountModal from '~/components/DeleteAccountModal/DeleteAccountModal'
 import PV from '~/lib/constants'
 import { alertPremiumRequired, alertRateLimitError, alertSomethingWentWrong, convertToYYYYMMDDHHMMSS,
-  isBeforeDate, validateEmail, safeAlert } from '~/lib/utility'
+  isBeforeDate, validateEmail, safeAlert, setCookie } from '~/lib/utility'
 import { modalsSignUpShow, pageIsLoading, settingsCensorNSFWText,
   settingsHideNSFWLabels, settingsHidePlaybackSpeedButton,
-  settingsHideTimeJumpBackwardButton, userSetInfo } from '~/redux/actions'
+  settingsHideTimeJumpBackwardButton, settingsSetDefaultHomepageTab, userSetInfo } from '~/redux/actions'
 import { downloadLoggedInUserData, updateLoggedInUser } from '~/services'
 import config from '~/config'
 import { i18n, withTranslation } from '~/../i18n'
 const { BASE_URL } = config()
 const fileDownload = require('js-file-download')
-const cookie = require('cookie')
 
 type Props = {
   lastScrollPosition?: number
@@ -30,12 +29,14 @@ type Props = {
   settingsHideTimeJumpBackwardButton?: any
   settingsHidePlaybackSpeedButton?: any
   settingsHideNSFWLabels?: any
+  settingsSetDefaultHomepageTab?: any
   t?: any
   user?: any
   userSetInfo?: any
 }
 
 type State = {
+  defaultHomepageTab?: string
   email?: string
   emailError?: string
   isCheckoutOpen?: boolean
@@ -152,68 +153,43 @@ class Settings extends Component<Props, State> {
     })
   }
 
+  handleDefaultHomepageTabChange = event => {
+    const { settingsSetDefaultHomepageTab } = this.props
+    const defaultHomepageTab = event.target.value
+    setCookie('default_homepage_tab', defaultHomepageTab)
+    settingsSetDefaultHomepageTab(defaultHomepageTab)
+  }
+
   handleToggleNSFWLabels = event => {
     const { settingsHideNSFWLabels } = this.props
     const isChecked = event.currentTarget.checked
     const val = isChecked ? true : false
-
-    const expires = new Date()
-    expires.setDate(expires.getDate() + 365)
-    const c = cookie.serialize('nsfwLabelsHide', val, {
-      expires,
-      path: '/'
-    })
-    document.cookie = c
-
-    settingsHideNSFWLabels(`${val}`)
+    setCookie('nsfwLabelsHide', val)
+    settingsHideNSFWLabels(val)
   }
 
   handleToggleCensorNSFWText = event => {
     const { settingsCensorNSFWText } = this.props
     const isChecked = event.currentTarget.checked
     const val = isChecked ? true : false
-
-    const expires = new Date()
-    expires.setDate(expires.getDate() + 365)
-    const c = cookie.serialize('censorNSFWText', val, {
-      expires,
-      path: '/'
-    })
-    document.cookie = c
-
-    settingsCensorNSFWText(`${val}`)
+    setCookie('censorNSFWText', val)
+    settingsCensorNSFWText(val)
   }
 
   handleTogglePlaybackSpeedButton = event => {
     const { settingsHidePlaybackSpeedButton } = this.props
     const isChecked = event.currentTarget.checked
     const val = isChecked ? true : false
-
-    const expires = new Date()
-    expires.setDate(expires.getDate() + 365)
-    const c = cookie.serialize('playbackSpeedButtonHide', val, {
-      expires,
-      path: '/'
-    })
-    document.cookie = c
-
-    settingsHidePlaybackSpeedButton(`${val}`)
+    setCookie('playbackSpeedButtonHide', val)
+    settingsHidePlaybackSpeedButton(val)
   }
 
   handleToggleTimeJumpBackwardButton = event => {
     const { settingsHideTimeJumpBackwardButton } = this.props
     const isChecked = event.currentTarget.checked
     const val = isChecked ? true : false
-
-    const expires = new Date()
-    expires.setDate(expires.getDate() + 365)
-    const c = cookie.serialize('timeJumpBackwardButtonHide', val, {
-      expires,
-      path: '/'
-    })
-    document.cookie = c
-
-    settingsHideTimeJumpBackwardButton(`${val}`)
+    setCookie('timeJumpBackwardButtonHide', val)
+    settingsHideTimeJumpBackwardButton(val)
   }
 
   validateProfileData = () => {
@@ -287,7 +263,7 @@ class Settings extends Component<Props, State> {
       description: t('pages:settings._Description'),
       title: t('pages:settings._Title')
     }
-    const { censorNSFWText, nsfwLabelsHide, playbackSpeedButtonHide, timeJumpBackwardButtonHide } = settings
+    const { censorNSFWText, defaultHomepageTab, nsfwLabelsHide, playbackSpeedButtonHide, timeJumpBackwardButtonHide } = settings
     const { email, emailError, isCheckoutOpen, isDeleteAccountOpen, isDownloading,
       isPublic, isSaving, language, name, wasCopied } = this.state
     const isLoggedIn = user && !!user.id
@@ -468,7 +444,7 @@ class Settings extends Component<Props, State> {
               }
             </Fragment>
           }
-          <h3>{t('Interface')}</h3>
+          <h4>{t('Interface')}</h4>
           <FormGroup check>
             <Label className='checkbox-label' check>
               <Input
@@ -506,6 +482,19 @@ class Settings extends Component<Props, State> {
             </Label>
           </FormGroup>
           <FormGroup>
+            <Label for='settings-default-homepage-tab'>{t('Default homepage tab')}</Label>
+            <Input
+              className='settings-default-homepage-tab settings-dropdown'
+              name='settings-default-homepage-tab'
+              onChange={this.handleDefaultHomepageTabChange}
+              type='select'
+              value={defaultHomepageTab}>
+              <option value='podcasts'>{t('Podcasts')}</option>
+              <option value='episodes'>{t('Episodes')}</option>
+              <option value='clips'>{t('Clips')}</option>
+            </Input>
+          </FormGroup>
+          <FormGroup>
             <Label for='settings-language'>{t('Language')}</Label>
             <Input
               className='settings-language settings-dropdown'
@@ -521,7 +510,7 @@ class Settings extends Component<Props, State> {
             user && user.id &&
             <Fragment>
               <hr />
-              <h3>{t('MyData')}</h3>
+              <h4>{t('MyData')}</h4>
               <p>
                 {t('DownloadDataBackup')}
               </p>
@@ -537,7 +526,7 @@ class Settings extends Component<Props, State> {
           {
             user && user.id &&
               <Fragment>
-                <h3>{t('Management')}</h3>
+                <h4>{t('Management')}</h4>
                 <Button
                   className='settings__delete-account'
                   color='danger'
@@ -568,6 +557,7 @@ const mapDispatchToProps = dispatch => ({
   settingsHideNSFWLabels: bindActionCreators(settingsHideNSFWLabels, dispatch),
   settingsHidePlaybackSpeedButton: bindActionCreators(settingsHidePlaybackSpeedButton, dispatch),
   settingsHideTimeJumpBackwardButton: bindActionCreators(settingsHideTimeJumpBackwardButton, dispatch),
+  settingsSetDefaultHomepageTab: bindActionCreators(settingsSetDefaultHomepageTab, dispatch),
   userSetInfo: bindActionCreators(userSetInfo, dispatch)
 })
 

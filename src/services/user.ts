@@ -13,7 +13,6 @@ export const getPublicUser = async (id: string) => {
 
 export const getUserMediaRefs = async (
   id: string,
-  nsfwMode = 'on',
   sort = 'most-recent',
   page
 ) => {
@@ -23,16 +22,12 @@ export const getUserMediaRefs = async (
   const queryString = convertObjectToQueryString(filteredQuery)
 
   return axios(`${API_BASE_URL}${PV.paths.api.user}/${id}${PV.paths.api.mediaRefs}?${queryString}`, {
-    method: 'get',
-    headers: {
-      nsfwMode
-    }
+    method: 'get'
   })
 }
 
 export const getUserPlaylists = async (
   id: string,
-  nsfwMode = 'on',
   page
 ) => {
   const filteredQuery: any = {}
@@ -71,7 +66,7 @@ export const toggleSubscribeToUser = async (userId: string) => {
 }
 
 
-export const getLoggedInUserMediaRefs = async (bearerToken, nsfwMode, sort = PV.queryParams.most_recent, page = 1) => {
+export const getLoggedInUserMediaRefs = async (bearerToken, sort = PV.queryParams.most_recent, page = 1) => {
   const filteredQuery: any = {}
   filteredQuery.sort = sort
   filteredQuery.page = page
@@ -80,8 +75,7 @@ export const getLoggedInUserMediaRefs = async (bearerToken, nsfwMode, sort = PV.
   return axios(`${API_BASE_URL}${PV.paths.api.user}${PV.paths.api.mediaRefs}?${queryString}`, {
     method: 'get',
     headers: {
-      Authorization: bearerToken,
-      nsfwMode
+      Authorization: bearerToken
     },
     withCredentials: true
   })

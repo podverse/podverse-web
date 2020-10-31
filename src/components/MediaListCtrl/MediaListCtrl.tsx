@@ -63,9 +63,7 @@ class MediaListCtrl extends Component<Props, State> {
     super(props)
     const { pageKey, pages } = props
     const { listItems } = pages[pageKey]
-
     const listItemNodes = this.createListItemNodes(listItems)
-    
     this.state = {
       listItemNodes
     }
