@@ -9,15 +9,16 @@ import config from '~/config'
 import PV from '~/lib/constants'
 import { clone } from '~/lib/utility'
 import { pageIsLoading, playerQueueLoadSecondaryItems, pagesSetQueryState } from '~/redux/actions'
-import { getLoggedInUserMediaRefs, getLoggedInUserPlaylists, getPodcastsByQuery
-  } from '~/services'
+import { getLoggedInUserMediaRefsFromBackEnd, getLoggedInUserPlaylistsFromBackEnd,
+  getPodcastsByQuery } from '~/services'
 import { withTranslation } from '~/../i18n'
 const { BASE_URL } = config()
 
 type Props = {
   lastScrollPosition?: number
   listItems?: any[]
-  pageKey?: string
+  pageKey: string
+  pages?: any
   pagesSetQueryState?: any
   queryPage?: number
   querySort?: string
@@ -44,14 +45,16 @@ class MyProfile extends Component<Props, State> {
       let queryDataResult
       let listItems = [] as any
 
-      if (queryType === PV.queryParams.clips) {
-        queryDataResult = await getLoggedInUserMediaRefs(bearerToken, 'on', queryPage)
+      if (!bearerToken) {
+        // do nothing
+      } else if (queryType === PV.queryParams.clips) {
+        queryDataResult = await getLoggedInUserMediaRefsFromBackEnd(bearerToken, 'on', queryPage)
         const mediaRefs = queryDataResult.data as any
         const nowPlayingItems = mediaRefs[0].map(x => convertToNowPlayingItem(x))
         listItems = [nowPlayingItems, mediaRefs[1]]
         store.dispatch(playerQueueLoadSecondaryItems(clone(listItems[0])))
       } else if (queryType === PV.queryParams.playlists) {
-        queryDataResult = await getLoggedInUserPlaylists(bearerToken, queryPage)
+        queryDataResult = await getLoggedInUserPlaylistsFromBackEnd(bearerToken, queryPage)
         listItems = queryDataResult.data
       } else if (
         queryType === PV.queryParams.podcasts
@@ -68,8 +71,8 @@ class MyProfile extends Component<Props, State> {
 
       store.dispatch(pagesSetQueryState({
         pageKey: PV.pageKeys.myProfile,
-        listItems: listItems[0],
-        listItemsTotal: listItems[1],
+        listItems: listItems[0] ? listItems[0] : [],
+        listItemsTotal: listItems[1] ? listItems[1] : 0,
         queryPage,
         querySort,
         queryType
@@ -79,19 +82,25 @@ class MyProfile extends Component<Props, State> {
     store.dispatch(pageIsLoading(false))
 
     const namespacesRequired = PV.nexti18next.namespaces
-    return { lastScrollPosition, namespacesRequired, pageKey: PV.pageKeys.myProfile, user }
+    return { lastScrollPosition, namespacesRequired, pageKey: PV.pageKeys.myProfile, queryType, user }
   }
 
   render() {
-    const { pageKey, pagesSetQueryState, queryPage, querySort, queryType, t, user
-      } = this.props
+    const { pageKey, pages, pagesSetQueryState, t, user } = this.props
+    const { queryType } = pages[pageKey]
 
     const meta = {
       currentUrl: BASE_URL + PV.paths.web.my_profile,
       description: t('pages:my_profile._Description'),
       title: t('pages:my_profile._Title')
     }
-      
+
+    let loginMessageKey = 'LoginToViewYourProfile'
+    if (queryType === PV.queryParams.playlists) {
+      loginMessageKey = 'LoginToViewYourPlaylists'
+    } else if (queryType === PV.queryParams.clips) {
+      loginMessageKey = 'LoginToViewClipsYouCreated'
+    }
 
     return (
       <div className='user-profile'>
@@ -112,18 +121,26 @@ class MyProfile extends Component<Props, State> {
         {
           user &&
           <Fragment>
-            <UserHeaderCtrl
-              loggedInUser={user}
-              profileUser={user} />
-            <UserMediaListCtrl
-              handleSetPageQueryState={pagesSetQueryState}
-              isMyProfilePage={true}
-              loggedInUser={user}
-              pageKey={pageKey}
-              queryPage={queryPage}
-              querySort={querySort}
-              queryType={queryType}
-              profileUser={user} />
+            {
+              (!user || !user.id) &&
+                <div className='no-results-msg'>
+                  {t(loginMessageKey)}
+                </div>
+            }
+            {
+              (user && user.id) &&
+                <Fragment>
+                  <UserHeaderCtrl
+                    loggedInUser={user}
+                    profileUser={user} />
+                  <UserMediaListCtrl
+                    handleSetPageQueryState={pagesSetQueryState}
+                    isMyProfilePage={true}
+                    loggedInUser={user}
+                    pageKey={pageKey}
+                    profileUser={user} />
+                </Fragment>
+            }
           </Fragment>
         }
       </div>

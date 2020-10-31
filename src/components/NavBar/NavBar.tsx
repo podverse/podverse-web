@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faUserCircle as farUserCircle } from '@fortawesome/free-regular-svg-icons'
+import { faUserCircle as fasUserCircle } from '@fortawesome/free-solid-svg-icons'
 import { Navbar, getPriorityQueueItemsStorage } from 'podverse-ui'
 import PV from '~/lib/constants'
 import { getViewContentsElementScrollTop } from '~/lib/utility'
@@ -25,10 +26,7 @@ type Props = {
   userSetInfo?: any
 }
 
-type State = {
-  dropdownMenuIsOpen?: boolean
-  mobileMenuIsOpen?: boolean
-}
+type State = {}
 
 class PVNavBar extends Component<Props, State> {
 
@@ -38,8 +36,7 @@ class PVNavBar extends Component<Props, State> {
     this.state = {}
   }
 
-  navItems (isLoggedIn: boolean) {
-    const { t } = this.props
+  navItems () {
     const items = [
       {
         as: PV.paths.web.search,
@@ -50,8 +47,73 @@ class PVNavBar extends Component<Props, State> {
       }
     ] as any
 
-    if (!isLoggedIn) {
-      items.push({
+    return items
+  }
+
+  myLibraryDropdownItems () {
+    const { pageIsLoading, pagesClearQueryState, t } = this.props
+
+    const dropdownItems = [] as any
+
+    dropdownItems.push({
+      as: PV.paths.web.my_profile_clips,
+      href: PV.paths.web.my_profile_clips,
+      label: t('Clips'),
+      onClick: () => {
+        pagesClearQueryState({ pageKey: 'my_profile' })
+        pageIsLoading(true)
+      }
+    })
+    dropdownItems.push({
+      as: PV.paths.web.playlists,
+      href: PV.paths.web.playlists,
+      label: t('Playlists'),
+      onClick: () => { this.linkClick() }
+    })
+    dropdownItems.push({
+      as: PV.paths.web.profiles,
+      href: PV.paths.web.profiles,
+      label: t('Profiles'),
+      onClick: () => { this.linkClick() }
+    })
+
+    return dropdownItems
+  }
+
+  myAccountDropdownItems = () => {
+    const { playerQueueLoadPriorityItems, t, user, userSetInfo } = this.props
+    const { id } = user
+    const dropdownItems = [] as any
+
+    if (!!id) {
+      dropdownItems.push({
+        as: PV.paths.web.my_profile,
+        href: PV.paths.web.my_profile,
+        label: t('MyProfile'),
+        onClick: () => {
+          pagesClearQueryState({ pageKey: 'my_profile' })
+          pageIsLoading(true)
+        }
+      })
+
+    }
+
+    dropdownItems.push({
+      as: PV.paths.web.settings,
+      href: PV.paths.web.settings,
+      label: t('Settings'),
+      onClick: () => { this.linkClick() }
+    })
+
+    if (!id) {
+      dropdownItems.push({
+        as: PV.paths.web.membership,
+        href: PV.paths.web.membership,
+        label: t('Premium'),
+        onClick: () => { this.linkClick() }
+      })
+
+      dropdownItems.push({
         as: '',
         href: '',
         label: t('Login'),
@@ -66,90 +128,11 @@ class PVNavBar extends Component<Props, State> {
       })
     }
 
-    return items
-  }
-
-  mobileNavItems (isLoggedIn: boolean) {
-    const { t } = this.props
-    const items = [
-      {
-        as: PV.paths.web.search,
-        href: PV.paths.web.search,
-        icon: 'search',
-        onClick: () => { this.linkClick() }
-      }
-    ] as any
-
-    if (!isLoggedIn) {
-      items.push({
-        as: '',
-        href: '',
-        label: t('Login'),
-        onClick: () => {
-          this.props.modalsLoginShow(true)
-          this.setState({
-            dropdownMenuIsOpen: false,
-            mobileMenuIsOpen: false
-          })
-        }
-      })
-    }
-
-    return items
-  }
-
-  dropdownItems () {
-    const { pageIsLoading, pagesClearQueryState, playerQueueLoadPriorityItems, t, user, userSetInfo } = this.props
-    const { id } = user
-
-    const dropdownItems = [] as any
-
-    dropdownItems.push({
-      as: PV.paths.web.playlists,
-      href: PV.paths.web.playlists,
-      label: t('Playlists'),
-      onClick: () => { this.linkClick() }
-    })
-    dropdownItems.push({
-      as: PV.paths.web.profiles,
-      href: PV.paths.web.profiles,
-      label: t('Profiles'),
-      onClick: () => { this.linkClick() }
-    })
-
-    if (!!id) {
-      dropdownItems.push({
-        as: PV.paths.web.my_profile,
-        href: PV.paths.web.my_profile,
-        label: t('MyProfile'),
-        onClick: () => {
-          pagesClearQueryState({ pageKey: 'my_profile' })
-          pageIsLoading(true)
-        }
-      })
-      dropdownItems.push({
-        as: PV.paths.web.my_profile_clips,
-        href: PV.paths.web.my_profile_clips,
-        label: t('MyClips'),
-        onClick: () => {
-          pagesClearQueryState({ pageKey: 'my_profile' })
-          pageIsLoading(true)
-        }
-      })
-    }
-
-    dropdownItems.push({
-      as: PV.paths.web.settings,
-      href: PV.paths.web.settings,
-      label: t('Settings'),
-      onClick: () => { this.linkClick() }
-    })
-    
     if (!!id) {
       dropdownItems.push({
         as: '',
         href: '',
-        label:  t('Logout'),
+        label: t('Logout'),
         onClick: async () => {
           try {
             await logOut()
@@ -178,26 +161,7 @@ class PVNavBar extends Component<Props, State> {
       })
     }
 
-    if (!id) {
-      dropdownItems.push({
-        as: PV.paths.web.membership,
-        href: PV.paths.web.membership,
-        label: t('Premium'),
-        onClick: () => { this.linkClick() }
-      })
-    }
-
     return dropdownItems
-  }
-
-  handleToggleDropdownMenu = () => {
-    const { dropdownMenuIsOpen } = this.state
-    this.setState({ dropdownMenuIsOpen: !dropdownMenuIsOpen })
-  }
-
-  handleToggleMobileMenu = () => {
-    const { mobileMenuIsOpen } = this.state
-    this.setState({ mobileMenuIsOpen: !mobileMenuIsOpen })
   }
 
   linkClick = () => {
@@ -209,20 +173,29 @@ class PVNavBar extends Component<Props, State> {
       pageKey,
       lastScrollPosition: scrollPos
     })
-    
-    this.setState({
-      dropdownMenuIsOpen: false,
-      mobileMenuIsOpen: false
-    })
+  }
+
+  dropdowns = () => {
+    const { t, user } = this.props
+    const { id } = user
+
+    return [
+      {
+        label: t('My Library'),
+        items: this.myLibraryDropdownItems()
+      },
+      {
+        icon: !!id ? fasUserCircle : farUserCircle,
+        items: this.myAccountDropdownItems()
+      }
+    ]
   }
 
   render () {
-    const { settings, user } = this.props
+    const { settings } = this.props
     const { uiTheme } = settings
-    const { id } = user 
-    const { dropdownMenuIsOpen, mobileMenuIsOpen } = this.state
-
-    const dropdownText = (!!id ? <FontAwesomeIcon icon='user-circle'></FontAwesomeIcon> : null)
+    const dropdowns = this.dropdowns()
+    const navItems = this.navItems()
 
     return (
       <React.Fragment>
@@ -231,16 +204,10 @@ class PVNavBar extends Component<Props, State> {
           brandHref='/'
           brandHideText={true}
           brandText='Podverse'
-          dropdownItems={this.dropdownItems()}
-          dropdownMenuIsOpen={dropdownMenuIsOpen}
-          dropdownText={dropdownText}
+          dropdowns={dropdowns}
           handleLinkClick={this.linkClick}
-          handleToggleDropdownMenu={this.handleToggleDropdownMenu}
-          handleToggleMobileMenu={this.handleToggleMobileMenu}
           isDarkMode={uiTheme === PV.attributes.dark}
-          mobileMenuIsOpen={mobileMenuIsOpen}
-          mobileNavItems={this.mobileNavItems(!!id)}
-          navItems={this.navItems(!!id)} />
+          navItems={navItems} />
       </React.Fragment>
     )
   }

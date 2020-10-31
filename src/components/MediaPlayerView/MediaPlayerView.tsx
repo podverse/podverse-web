@@ -335,10 +335,6 @@ class MediaPlayerView extends Component<Props, State> {
                 handleToggleQueueModal={this.toggleQueueModal}
                 handleToggleShareModal={this.toggleShareModal}
                 handleTogglePlay={this.togglePlay}
-                hasItemInQueue={
-                  (priorityItems && priorityItems.length > 0) 
-                  || (secondaryItems && secondaryItems.length > 0)
-                }
                 nowPlayingItem={nowPlayingItem}
                 playbackRate={playbackRate}
                 playedAfterClipFinished={playedAfterClipFinished}

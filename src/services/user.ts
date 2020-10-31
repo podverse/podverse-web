@@ -66,7 +66,21 @@ export const toggleSubscribeToUser = async (userId: string) => {
 }
 
 
-export const getLoggedInUserMediaRefs = async (bearerToken, sort = PV.queryParams.most_recent, page = 1) => {
+export const getLoggedInUserMediaRefsFromFrontEnd = async (sort = PV.queryParams.most_recent, page = 1) => {
+  const filteredQuery: any = {}
+  filteredQuery.sort = sort
+  filteredQuery.page = page
+  const queryString = convertObjectToQueryString(filteredQuery)
+
+  return axios(`${API_BASE_URL}${PV.paths.api.user}${PV.paths.api.mediaRefs}?${queryString}`, {
+    method: 'get',
+    withCredentials: true
+  })
+}
+
+export const getLoggedInUserMediaRefsFromBackEnd = async (bearerToken, sort = PV.queryParams.most_recent, page = 1) => {
+  if (!bearerToken) return [[], 0]
+
   const filteredQuery: any = {}
   filteredQuery.sort = sort
   filteredQuery.page = page
@@ -76,12 +90,27 @@ export const getLoggedInUserMediaRefs = async (bearerToken, sort = PV.queryParam
     method: 'get',
     headers: {
       Authorization: bearerToken
+    }
+  })
+}
+
+export const getLoggedInUserPlaylistsFromFrontEnd = async (page = 1) => {
+  const filteredQuery: any = {}
+  filteredQuery.page = page
+  const queryString = convertObjectToQueryString(filteredQuery)
+
+  return axios(`${API_BASE_URL}${PV.paths.api.user}${PV.paths.api.playlists}?${queryString}`, {
+    method: 'get',
+    data: {
+      page
     },
     withCredentials: true
   })
 }
 
-export const getLoggedInUserPlaylists = async (bearerToken, page = 1) => {
+export const getLoggedInUserPlaylistsFromBackEnd = async (bearerToken, page = 1) => {
+  if (!bearerToken) return [[], 0]
+
   const filteredQuery: any = {}
   filteredQuery.page = page
   const queryString = convertObjectToQueryString(filteredQuery)
@@ -93,11 +122,9 @@ export const getLoggedInUserPlaylists = async (bearerToken, page = 1) => {
     },
     headers: {
       Authorization: bearerToken
-    },
-    withCredentials: true
+    }
   })
 }
-
 
 export const deleteLoggedInUser = async (id: string) => {
   return axios(`${API_BASE_URL}${PV.paths.api.user}`, {
