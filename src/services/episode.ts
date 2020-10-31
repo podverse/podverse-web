@@ -1,7 +1,9 @@
 import axios from 'axios'
-import PV from '~/lib/constants'
-import { convertObjectToQueryString } from '~/lib/utility'
+import { convertToNowPlayingItem } from 'podverse-shared'
 import config from '~/config'
+import PV from '~/lib/constants'
+import { clone, convertObjectToQueryString } from '~/lib/utility'
+import { playerQueueLoadSecondaryItems } from '~/redux/actions'
 const { API_BASE_URL } = config()
 
 export const getEpisodeById = async (id: string) => {
@@ -47,4 +49,44 @@ export const getEpisodesByQuery = async (query) => {
   return axios(`${API_BASE_URL}${PV.paths.api.episode}?${queryString}`, {
     method: 'get'
   })
+}
+
+export const handlePageEpisodesQuery = async (obj) => {
+  const { categoryId, currentPage, nowPlayingItem, pageIsLoading, pagesSetQueryState,
+    podcastId, queryFrom, queryPage, queryRefresh, querySort,
+    queryType, store } = obj
+
+  if (Object.keys(currentPage).length === 0 || queryRefresh) {
+    const results = await getEpisodesByQuery({
+      from: queryFrom,
+      page: queryPage,
+      ...(podcastId ? { podcastId } : {}),
+      sort: querySort,
+      type: queryType,
+      ...(categoryId ? { categories: categoryId } : {}),
+      includePodcast: true
+    })
+
+    const listItems = results.data[0].map(x => convertToNowPlayingItem(x, null, null)) || []
+    const nowPlayingItemIndex = listItems.map((x) => x.episodeId).indexOf(nowPlayingItem && nowPlayingItem.episodeId)
+    const queuedListItems = clone(listItems)
+    if (nowPlayingItemIndex > -1) {
+      queuedListItems.splice(0, nowPlayingItemIndex + 1)
+    }
+
+    store.dispatch(playerQueueLoadSecondaryItems(queuedListItems))
+
+    store.dispatch(pagesSetQueryState({
+      pageKey: PV.pageKeys.episodes,
+      categoryId,
+      listItems,
+      listItemsTotal: results.data[1],
+      queryFrom,
+      queryPage,
+      querySort,
+      queryType,
+    }))
+  }
+
+  store.dispatch(pageIsLoading(false))
 }

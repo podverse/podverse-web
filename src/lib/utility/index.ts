@@ -1,9 +1,12 @@
 import { getLastHistoryItemOrNowPlayingItemFromStorage, setNowPlayingItemInStorage } from 'podverse-ui'
+import config from '~/config'
+import PV from '~/lib/constants'
 import { userUpdateHistoryItem } from '~/redux/actions'
 import { updateHistoryItemPlaybackPosition } from '~/services'
 import confetti from 'canvas-confetti'
 export { validatePassword } from './validatePassword'
 const striptags = require('striptags')
+const { cookieConfig } = config()
 
 // This checks if we are server-side rendering or rendering on the front-end.
 export const checkIfLoadingOnFrontEnd = () => {
@@ -122,6 +125,27 @@ export const getCookie = name => {
   }
 
   return
+}
+
+export const getCookies = () => {
+  const pairs = document.cookie.split(";");
+  const cookies = {};
+  for (let i = 0; i < pairs.length; i++) {
+    const pair = pairs[i].split("=");
+    cookies[(pair[0] + '').trim()] = unescape(pair.slice(1).join('='));
+  }
+  return cookies;
+}
+
+// Reset all 1st-party browser cookies to increase their expiration time
+export const refreshAllBrowserCookies = () => {
+  const cookies = getCookies()
+  const keys = Object.keys(cookies)
+  for (const key of keys) {
+    if (key && key.indexOf(cookieConfig.keyNamespace) >= 0) {
+      setCookie(key, cookies[key])
+    }
+  }
 }
 
 export const getCookieFromRequest = (req, key) => {
@@ -329,20 +353,18 @@ export const cookieSetQuery = (pageKey: string, from: string, type: string, sort
 }
 
 const cookieCreateQueryKey = (pageKey: string) => {
-  if (pageKey === 'home') {
-    return 'home_query'
-  } else if (pageKey === 'podcasts') {
-    return 'podcasts_query'
+  if (pageKey === 'podcasts') {
+    return PV.cookies.query.podcasts
   } else if (pageKey.indexOf('podcast_') >= 0) {
-    return 'podcast_query'
+    return PV.cookies.query.podcast
   } else if (pageKey === 'episodes') {
-    return 'episodes_query'
+    return PV.cookies.query.episodes
   } else if (pageKey.indexOf('episode_') >= 0) {
-    return 'episode_query'
+    return PV.cookies.query.episode
   } else if (pageKey === 'clips') {
-    return 'clips_query'
+    return PV.cookies.query.clips
   } else if (pageKey.indexOf('clip_') >= 0) {
-    return 'clip_query'
+    return PV.cookies.query.clip
   } else {
     return ''
   }

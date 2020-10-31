@@ -54,3 +54,33 @@ export const toggleSubscribeToPodcast = async (podcastId: string) => {
     withCredentials: true
   })
 }
+
+export const handlePagePodcastsQuery = async (obj) => {
+  const { categoryId, currentPage, pageIsLoading, pagesSetQueryState, queryFrom, queryPage,
+    queryRefresh, querySort, store, subscribedPodcastIds } = obj
+
+  if (Object.keys(currentPage).length === 0 || queryRefresh) {
+    const queryDataResult = await getPodcastsByQuery({
+      ...(categoryId ? { categories: categoryId } : {}),
+      from: queryFrom,
+      page: queryPage,
+      sort: querySort,
+      ...(queryFrom === PV.queryParams.subscribed_only ? { subscribedPodcastIds } : {})
+    })
+
+    const podcasts = queryDataResult.data
+
+    store.dispatch(pagesSetQueryState({
+      pageKey: PV.pageKeys.podcasts,
+      categoryId,
+      listItems: podcasts[0],
+      listItemsTotal: podcasts[1],
+      queryPage,
+      queryFrom,
+      querySort,
+      selected: queryFrom
+    }))
+  }
+
+  store.dispatch(pageIsLoading(false))
+}

@@ -13,6 +13,5 @@ export const attributes = {
     now_playing_item: `now-playing-item`,
     podcast: `podcast`
   },
-  nsfwMode: `nsfwMode`,
   verify_email: `verify-email`
 }

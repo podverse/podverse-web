@@ -37,8 +37,7 @@ class Profile extends Component<Props, State> {
   static async getInitialProps({ query, req, store, t }) {
     const pageKeyWithId = `${PV.pageKeys.profile}${query.id}`
     const state = store.getState()
-    const { pages, settings } = state
-    const { nsfwMode } = settings
+    const { pages } = state
 
     const currentId = query.id
     const currentPage = pages[pageKeyWithId] || {}
@@ -63,11 +62,11 @@ class Profile extends Component<Props, State> {
       let listItems = []
 
       if (query.type === PV.queryParams.clips) {
-        queryDataResult = await getUserMediaRefs(currentId, nsfwMode, querySort, queryPage)
+        queryDataResult = await getUserMediaRefs(currentId, querySort, queryPage)
         listItems = queryDataResult.data.map(x => convertToNowPlayingItem(x))
         store.dispatch(playerQueueLoadSecondaryItems(clone(listItems)))
       } else if (query.type === PV.queryParams.playlists) {
-        queryDataResult = await getUserPlaylists(currentId, nsfwMode, queryPage)
+        queryDataResult = await getUserPlaylists(currentId, queryPage)
         listItems = queryDataResult.data
       } else if (queryType === PV.queryParams.podcasts 
           && publicUser.subscribedPodcastIds

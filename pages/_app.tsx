@@ -21,7 +21,7 @@ import PageLoadingOverlay from '~/components/PageLoadingOverlay/PageLoadingOverl
 import PV from '~/lib/constants'
 import { addFontAwesomeIcons } from '~/lib/fontAwesomeIcons'
 import { scrollToTopOfView } from '~/lib/scrollToTop'
-import { assignLocalOrLoggedInNowPlayingItemPlaybackPosition, checkIfLoadingOnFrontEnd } from '~/lib/utility'
+import { assignLocalOrLoggedInNowPlayingItemPlaybackPosition, checkIfLoadingOnFrontEnd, refreshAllBrowserCookies } from '~/lib/utility'
 import { disableHoverOnTouchDevices } from '~/lib/utility/disableHoverOnTouchDevices'
 import { fixMobileViewportHeight } from '~/lib/utility/fixMobileViewportHeight'
 import { initializeStore } from '~/redux/store'
@@ -81,7 +81,6 @@ type Props = {
   }
   playerQueueLoadPriorityItems?: any
   settings: {
-    nsfwMode: boolean
     uiTheme: string
   }
   store?: any,
@@ -153,24 +152,10 @@ export default withRedux(initializeStore)(appWithTranslation(class MyApp extends
         })
       }
 
-      if (parsedCookie.nsfwMode) {
-        ctx.store.dispatch({
-          type: actionTypes.SETTINGS_SET_NSFW_MODE,
-          payload: parsedCookie.nsfwMode
-        })
-      }
-
       if (parsedCookie.uiThemeHide) {
         ctx.store.dispatch({
           type: actionTypes.SETTINGS_SET_HIDE_UI_THEME,
           payload: parsedCookie.uiThemeHide
-        })
-      }
-
-      if (parsedCookie.nsfwModeHide) {
-        ctx.store.dispatch({
-          type: actionTypes.SETTINGS_SET_HIDE_NSFW_MODE,
-          payload: parsedCookie.nsfwModeHide
         })
       }
 
@@ -193,13 +178,6 @@ export default withRedux(initializeStore)(appWithTranslation(class MyApp extends
         })
       }
 
-      if (parsedCookie.filterButtonHide) {
-        ctx.store.dispatch({
-          type: actionTypes.SETTINGS_SET_HIDE_FILTER_BUTTON,
-          payload: parsedCookie.filterButtonHide
-        })
-      }
-
       if (parsedCookie.timeJumpBackwardButtonHide) {
         ctx.store.dispatch({
           type: actionTypes.SETTINGS_SET_HIDE_TIME_JUMP_BACKWARD_BUTTON,
@@ -211,6 +189,18 @@ export default withRedux(initializeStore)(appWithTranslation(class MyApp extends
         ctx.store.dispatch({
           type: actionTypes.SETTINGS_SET_HIDE_PLAYBACK_SPEED_BUTTON,
           payload: parsedCookie.playbackSpeedButtonHide
+        })
+      }
+
+      if (parsedCookie.default_homepage_tab) {
+        ctx.store.dispatch({
+          type: actionTypes.SETTINGS_SET_DEFAULT_HOMEPAGE_TAB,
+          payload: parsedCookie.default_homepage_tab
+        })
+      } else {
+        ctx.store.dispatch({
+          type: actionTypes.SETTINGS_SET_DEFAULT_HOMEPAGE_TAB,
+          payload: 'clips'
         })
       }
 
@@ -256,10 +246,6 @@ export default withRedux(initializeStore)(appWithTranslation(class MyApp extends
 
     if (Component.getInitialProps) {
       pageProps = await Component.getInitialProps(ctx)
-    }
-
-    if (typeof (window) === 'object') {
-      ReactGA.pageview(ctx.asPath)
     }
 
     const { lastScrollPosition, newPlayingItem } = pageProps
@@ -340,8 +326,10 @@ export default withRedux(initializeStore)(appWithTranslation(class MyApp extends
     ReactGA.pageview(window.location.pathname + window.location.search)
 
     windowHasLoaded = true
-
+    
     this.forceUpdate()
+
+    refreshAllBrowserCookies()
   }
 
   render() {

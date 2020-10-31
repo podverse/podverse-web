@@ -7,13 +7,6 @@ export const settingsCensorNSFWText = payload => {
   }
 }
 
-export const settingsHideFilterButton = payload => {
-  return {
-    type: actionTypes.SETTINGS_SET_HIDE_FILTER_BUTTON,
-    payload
-  }
-}
-
 export const settingsHideNSFWLabels = payload => {
   return {
     type: actionTypes.SETTINGS_SET_HIDE_NSFW_LABELS,
@@ -21,9 +14,9 @@ export const settingsHideNSFWLabels = payload => {
   }
 }
 
-export const settingsHideNSFWMode = payload => {
+export const settingsSetDefaultHomepageTab = payload => {
   return {
-    type: actionTypes.SETTINGS_SET_HIDE_NSFW_MODE,
+    type: actionTypes.SETTINGS_SET_DEFAULT_HOMEPAGE_TAB,
     payload
   }
 }
@@ -38,13 +31,6 @@ export const settingsHidePlaybackSpeedButton = payload => {
 export const settingsHideTimeJumpBackwardButton = payload => {
   return {
     type: actionTypes.SETTINGS_SET_HIDE_TIME_JUMP_BACKWARD_BUTTON,
-    payload
-  }
-}
-
-export const settingsSetNSFWMode = payload => {
-  return {
-    type: actionTypes.SETTINGS_SET_NSFW_MODE,
     payload
   }
 }

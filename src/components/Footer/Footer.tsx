@@ -8,7 +8,7 @@ import Switch from 'react-switch'
 import config from '~/config'
 import PV from '~/lib/constants'
 import { getViewContentsElementScrollTop } from '~/lib/utility'
-import { pageIsLoading, pagesSetQueryState, settingsSetNSFWMode, settingsSetUITheme
+import { pageIsLoading, pagesSetQueryState, settingsSetUITheme
   } from '~/redux/actions'
 import { withTranslation } from 'i18n'
 const cookie = require('cookie')
@@ -21,15 +21,12 @@ type Props = {
   pageKey?: string
   pagesSetQueryState?: any
   settings: any
-  settingsSetNSFWMode: any
   settingsSetUITheme: any
   t?: any
   user: any
 }
 
-type State = {
-  nsfwModalIsOpen?: boolean
-}
+type State = {}
 
 class Footer extends Component<Props, State> {
 
@@ -62,27 +59,6 @@ class Footer extends Component<Props, State> {
         html.setAttribute(PV.attributes.is_switching_ui_mode, '')
       }, 1000)
     }
-  }
-
-  handleNSFWModeChange = checked => {
-    const { settingsSetNSFWMode } = this.props
-    const nsfwMode = checked ? 'on' : 'off'
-
-    settingsSetNSFWMode(nsfwMode)
-
-    const expires = new Date()
-    expires.setDate(expires.getDate() + 365)
-    const nsfwModeCookie = cookie.serialize(PV.attributes.nsfwMode, nsfwMode, {
-      expires,
-      path: PV.paths.web.home
-    })
-    document.cookie = nsfwModeCookie
-
-    this.setState({ nsfwModalIsOpen: true })
-  }
-
-  hideNSFWModal = () => {
-    this.setState({ nsfwModalIsOpen: false })
   }
 
   linkClick = () => {
@@ -137,23 +113,6 @@ class Footer extends Component<Props, State> {
                   </span>
                 </div>
             }
-            {/* {
-              nsfwModeHide !== 'true' &&
-                <div className='footer-top__nsfw'>
-                  <span className='footer-top-nsfw__left'>SFW&nbsp;</span>
-                  <Switch
-                    aria-label={nsfwModeAriaLabel}
-                    checked={!nsfwMode || nsfwMode === 'on'}
-                    checkedIcon
-                    height={24}
-                    offColor={colors.blue}
-                    onChange={this.handleNSFWModeChange}
-                    onColor={colors.redDarker}
-                    uncheckedIcon
-                    width={40} />
-                  <span className='footer-top-nsfw__right'>&nbsp;NSFW</span>
-                </div>
-            } */}
             <Link
               as={PV.paths.web.license}
               href={PV.paths.web.license}>
@@ -266,7 +225,6 @@ const mapStateToProps = state => ({ ...state })
 const mapDispatchToProps = dispatch => ({
   pageIsLoading: bindActionCreators(pageIsLoading, dispatch),
   pagesSetQueryState: bindActionCreators(pagesSetQueryState, dispatch),
-  settingsSetNSFWMode: bindActionCreators(settingsSetNSFWMode, dispatch),
   settingsSetUITheme: bindActionCreators(settingsSetUITheme, dispatch)
 })
 

@@ -8,20 +8,15 @@ export default (state = {}, action) => {
         ...state,
         censorNSFWText: action.payload
       }
-    case actionTypes.SETTINGS_SET_HIDE_FILTER_BUTTON:
-      return {
-        ...state,
-        filterButtonHide: action.payload
-      }
     case actionTypes.SETTINGS_SET_HIDE_NSFW_LABELS:
       return {
         ...state,
         nsfwLabelsHide: action.payload
       }
-    case actionTypes.SETTINGS_SET_HIDE_NSFW_MODE:
+    case actionTypes.SETTINGS_SET_DEFAULT_HOMEPAGE_TAB:
       return {
         ...state,
-        nsfwModeHide: action.payload
+        defaultHomepageTab: action.payload
       }
     case actionTypes.SETTINGS_SET_HIDE_PLAYBACK_SPEED_BUTTON:
       return {
@@ -37,11 +32,6 @@ export default (state = {}, action) => {
       return {
         ...state,
         uiThemeHide: action.payload
-      }
-    case actionTypes.SETTINGS_SET_NSFW_MODE:
-      return {
-        ...state,
-        nsfwMode: action.payload
       }
     case actionTypes.SETTINGS_SET_UI_THEME:
       return {

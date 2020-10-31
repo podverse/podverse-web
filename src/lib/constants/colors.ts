@@ -19,5 +19,5 @@ export const colors = {
   redLighter: '#c43745',
   warning: `warning`,
   white: '#fff',
-  yellow: '#ffc107',
+  yellow: '#ffc107'
 }
