@@ -7,13 +7,6 @@ export const settingsCensorNSFWText = payload => {
   }
 }
 
-export const settingsHideNSFWLabels = payload => {
-  return {
-    type: actionTypes.SETTINGS_SET_HIDE_NSFW_LABELS,
-    payload
-  }
-}
-
 export const settingsSetDefaultHomepageTab = payload => {
   return {
     type: actionTypes.SETTINGS_SET_DEFAULT_HOMEPAGE_TAB,
