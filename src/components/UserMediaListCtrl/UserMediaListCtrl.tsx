@@ -11,8 +11,8 @@ import { addOrUpdateHistoryItemPlaybackPosition, assignLocalOrLoggedInNowPlaying
 import { mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying, pageIsLoading, 
   playerQueueAddSecondaryItems, playerQueueLoadPriorityItems, playerQueueLoadSecondaryItems,
   userSetInfo } from '~/redux/actions'
-import { getLoggedInUserMediaRefs, getLoggedInUserPlaylists, getPodcastsByQuery, getUserMediaRefs,
-  getUserPlaylists } from '~/services'
+import { getLoggedInUserMediaRefsFromFrontEnd, getLoggedInUserPlaylistsFromFrontEnd,
+  getPodcastsByQuery, getUserMediaRefs, getUserPlaylists } from '~/services'
 import { withTranslation } from '~/../i18n'
 const uuidv4 = require('uuid/v4')
 const { QUERY_MEDIA_REFS_LIMIT } = config()
@@ -32,9 +32,6 @@ type Props = {
   playerQueueAddSecondaryItems?: any
   playerQueueLoadSecondaryItems?: any
   profileUser?: any
-  queryPage: number
-  querySort?: string
-  queryType?: string
   settings?: any
   t?: any
   user?: any
@@ -47,14 +44,7 @@ class UserMediaListCtrl extends Component<Props, State> {
 
   static defaultProps: Props = {
     handleSetPageQueryState: () => { },
-    pageKey: 'default',
-    queryPage: 1
-  }
-
-  componentDidMount() {
-    const { pages, pageKey } = this.props
-    const { queryType } = pages[pageKey]
-    this.queryMediaListItems('type', queryType)
+    pageKey: 'default'
   }
 
   queryMediaListItems = async (selectedKey = '', selectedValue = '', page = 1) => {
@@ -114,8 +104,7 @@ class UserMediaListCtrl extends Component<Props, State> {
       try {
         let response: any = {}
         if (isMyProfilePage) {
-          response = await getLoggedInUserMediaRefs(
-            '',
+          response = await getLoggedInUserMediaRefsFromFrontEnd(
             query.sort === PV.queryParams.alphabetical ? PV.queryParams.most_recent : query.sort,
             page
           )
@@ -150,7 +139,7 @@ class UserMediaListCtrl extends Component<Props, State> {
         let response: any = {}
 
         if (isMyProfilePage) {
-          response = await getLoggedInUserPlaylists('', page)
+          response = await getLoggedInUserPlaylistsFromFrontEnd(page)
         } else {
           response = await getUserPlaylists(profileUser.id, page)
         }
@@ -356,28 +345,28 @@ class UserMediaListCtrl extends Component<Props, State> {
           </div>
           {
             queryType !== PV.queryParams.playlists &&
-              <div className='media-list-selects__right'>
-                <MediaListSelect
-                  className='align-right'
-                  items={this.getQuerySortOptions(queryType === PV.queryParams.podcasts)}
-                  selected={selectedQuerySortOption.length > 0 ? selectedQuerySortOption[0].value : null} />
-              </div>
+            <div className='media-list-selects__right'>
+              <MediaListSelect
+                className='align-right'
+                items={this.getQuerySortOptions(queryType === PV.queryParams.podcasts)}
+                selected={selectedQuerySortOption.length > 0 ? selectedQuerySortOption[0].value : null} />
+            </div>
           }
         </div>
         <Fragment>
           {
             listItemNodes && listItemNodes.length > 0 &&
-              <div className={queryType === PV.queryParams.playlists ? 'reduced-margin' : ''}>
-                {listItemNodes}
-                <Pagination
-                  currentPage={queryPage || 1}
-                  handleQueryPage={this.handleQueryPage}
-                  pageRange={2}
-                  t={t}
-                  totalPages={Math.ceil(listItemsTotal / QUERY_MEDIA_REFS_LIMIT)} />
-              </div>
+            <div className={queryType === PV.queryParams.playlists ? 'reduced-margin' : ''}>
+              {listItemNodes}
+              <Pagination
+                currentPage={queryPage || 1}
+                handleQueryPage={this.handleQueryPage}
+                pageRange={2}
+                t={t}
+                totalPages={Math.ceil(listItemsTotal / QUERY_MEDIA_REFS_LIMIT)} />
+            </div>
           }
-        </Fragment> 
+        </Fragment>
         {
           !page.isLoading && listItemNodes.length === 0 &&
             <div className='no-results-msg'>{noResultsMsg}</div>

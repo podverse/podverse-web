@@ -12,6 +12,7 @@ export { addOrRemovePlaylistItem, createPlaylist, deletePlaylist, getPlaylistByI
 export { getPodcastById, getPodcastsByQuery, handlePagePodcastsQuery, toggleSubscribeToPodcast
   } from '~/services/podcast'
 export { request } from '~/services/request'
-export { addOrUpdateUserHistoryItem, deleteLoggedInUser, downloadLoggedInUserData, getLoggedInUserMediaRefs,
-  getLoggedInUserPlaylists, getPublicUser, getPublicUsersByQuery, getUserMediaRefs, getUserPlaylists,
-  toggleSubscribeToUser, updateHistoryItemPlaybackPosition, updateLoggedInUser, updateUserQueueItems } from '~/services/user'
+export { addOrUpdateUserHistoryItem, deleteLoggedInUser, downloadLoggedInUserData, getLoggedInUserMediaRefsFromBackEnd,
+  getLoggedInUserMediaRefsFromFrontEnd, getLoggedInUserPlaylistsFromBackEnd, getLoggedInUserPlaylistsFromFrontEnd,
+  getPublicUser, getPublicUsersByQuery, getUserMediaRefs, getUserPlaylists, toggleSubscribeToUser,
+  updateHistoryItemPlaybackPosition, updateLoggedInUser, updateUserQueueItems } from '~/services/user'

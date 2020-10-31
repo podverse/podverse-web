@@ -4,7 +4,7 @@ import PV from '~/lib/constants'
 import { deleteQueryCookies } from '~/lib/utility'
 const { API_BASE_URL } = config()
 
-export const getAuthenticatedUserInfo = async (bearerToken) => {
+export const getAuthenticatedUserInfo = async (bearerToken) => {  
   const response = await axios(`${API_BASE_URL}${PV.paths.api.auth}${PV.paths.api.get_authenticated_user_info}`, {
     method: 'post',
     headers: {

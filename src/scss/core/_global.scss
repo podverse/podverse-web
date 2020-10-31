@@ -81,6 +81,12 @@ html[is-switching-ui-mode=true] * {
   }
 }
 
+.user-profile {
+  .media-header-top__buttons {
+    margin-bottom: 1.25rem;
+  }
+}
+
 .flip-horizontal {
   @include flipHorizontal
 }

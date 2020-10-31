@@ -105,20 +105,20 @@ class UserListCtrl extends Component<Props, State> {
       <div className='media-list reduced-margin'>
         {
           listItemNodes && listItemNodes.length > 0 &&
-          <Fragment>
-            {listItemNodes}
-            <Pagination
-              currentPage={queryPage || 1}
-              handleQueryPage={this.handleQueryPage}
-              pageRange={2}
-              t={t}
-              totalPages={Math.ceil(listItemsTotal / QUERY_MEDIA_REFS_LIMIT)} />
-          </Fragment>
+            <Fragment>
+              {listItemNodes}
+              <Pagination
+                currentPage={queryPage || 1}
+                handleQueryPage={this.handleQueryPage}
+                pageRange={2}
+                t={t}
+                totalPages={Math.ceil(listItemsTotal / QUERY_MEDIA_REFS_LIMIT)} />
+            </Fragment>
         }
         {
           (!listItemNodes || listItemNodes.length === 0) &&
           <div className='no-results-msg'>
-            <p>{noResultsFoundMsg}</p>
+            <div className='no-results-msg'>{noResultsFoundMsg}</div>
           </div>
         }
       </div>
