@@ -17,7 +17,7 @@ export default class MyDocument extends Document<Props> {
 
     if (ctx.req.headers.cookie) {
       const parsedCookie = cookie.parse(ctx.req.headers.cookie)
-      initialUITheme = parsedCookie.uiTheme ? parsedCookie.uiTheme : PV.attributes.dark
+      initialUITheme = parsedCookie[PV.cookies.uiTheme] ? parsedCookie[PV.cookies.uiTheme] : PV.attributes.dark
     }
 
     ctx.store.dispatch({

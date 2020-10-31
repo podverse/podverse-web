@@ -23,11 +23,6 @@ export default (state = {}, action) => {
         ...state,
         timeJumpBackwardButtonHide: action.payload
       }
-    case actionTypes.SETTINGS_SET_HIDE_UI_THEME:
-      return {
-        ...state,
-        uiThemeHide: action.payload
-      }
     case actionTypes.SETTINGS_SET_UI_THEME:
       return {
         ...state,
