@@ -166,18 +166,6 @@ export default withRedux(initializeStore)(appWithTranslation(class MyApp extends
         })
       }
 
-      if (parsedCookie.nsfwLabelsHide) {
-        ctx.store.dispatch({
-          type: actionTypes.SETTINGS_SET_HIDE_NSFW_LABELS,
-          payload: parsedCookie.nsfwLabelsHide
-        })
-      } else {
-        ctx.store.dispatch({
-          type: actionTypes.SETTINGS_SET_HIDE_NSFW_LABELS,
-          payload: 'true'
-        })
-      }
-
       if (parsedCookie.timeJumpBackwardButtonHide) {
         ctx.store.dispatch({
           type: actionTypes.SETTINGS_SET_HIDE_TIME_JUMP_BACKWARD_BUTTON,

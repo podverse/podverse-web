@@ -7,9 +7,7 @@ import { Input } from 'reactstrap'
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd'
 import { convertToNowPlayingItem } from 'podverse-shared'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faStar as farStar } from '@fortawesome/free-regular-svg-icons'
-import { faStar as fasStar } from '@fortawesome/free-solid-svg-icons'
-import { Button, setNowPlayingItemInStorage } from 'podverse-ui'
+import { Button, Pill, setNowPlayingItemInStorage } from 'podverse-ui'
 import Error from './_error'
 import MediaListItemCtrl from '~/components/MediaListItemCtrl/MediaListItemCtrl'
 import Meta from '~/components/Meta/Meta'
@@ -487,39 +485,31 @@ class Playlist extends Component<Props, State> {
               }
               {
                 !isEditing &&
-                  <Fragment>
-                    {
-                      (user && user.id
+                  <div className='media-header-top__buttons'>
+                    <Fragment>
+                      {
+                        (user && user.id
+                          && playlist && playlist.owner
+                          && user.id === playlist.owner.id) &&
+                          <button
+                            className='media-header__edit'
+                            onClick={this.startEditing}>
+                            <FontAwesomeIcon icon='edit' />
+                          </button>
+                      }
+                      {
+                      (!user.id || (user && user.id
                         && playlist && playlist.owner
-                        && user.id === playlist.owner.id) &&
-                        <button
-                          className='media-header__edit'
-                          onClick={this.startEditing}>
-                          <FontAwesomeIcon icon='edit' />
-                        </button>
-                    }
-                    {
-                    (!user.id || (user && user.id
-                      && playlist && playlist.owner
-                      && user.id !== playlist.owner.id)) &&
-                        <button
-                          className='media-header__subscribe'
-                          onClick={this.toggleSubscribe}>
-                          {
-                            isSubscribing ?
-                              <FontAwesomeIcon icon='spinner' spin />
-                              :
-                              <React.Fragment>
-                                {
-                                  isSubscribed ?
-                                    <FontAwesomeIcon icon={fasStar} />
-                                    : <FontAwesomeIcon icon={farStar} />
-                                }
-                              </React.Fragment>
-                          }
-                        </button>
-                    }
-                  </Fragment>
+                        && user.id !== playlist.owner.id)) &&
+                        <Pill
+                          isActive={isSubscribed}
+                          isLoading={isSubscribing}
+                          onClick={this.toggleSubscribe}
+                          text={isSubscribed ? t('Subscribed') : t('Subscribe')}
+                          title={isSubscribed ? t('Subscribed') : t('Subscribe')} />
+                      }
+                    </Fragment>
+                  </div>
               }
               {
                 isEditing &&

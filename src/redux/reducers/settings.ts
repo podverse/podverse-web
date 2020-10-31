@@ -8,11 +8,6 @@ export default (state = {}, action) => {
         ...state,
         censorNSFWText: action.payload
       }
-    case actionTypes.SETTINGS_SET_HIDE_NSFW_LABELS:
-      return {
-        ...state,
-        nsfwLabelsHide: action.payload
-      }
     case actionTypes.SETTINGS_SET_DEFAULT_HOMEPAGE_TAB:
       return {
         ...state,

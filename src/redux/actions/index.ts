@@ -12,7 +12,7 @@ export { modalsAddToIsLoading, modalsAddToSetErrorResponse, modalsAddToShow,
   modalsQueueSetErrorResponse, modalsQueueShow, modalsSendVerificationEmailShow, modalsShareIsLoading,
   modalsShareSetErrorResponse, modalsShareShow, modalsSignUpIsLoading, modalsSignUpSetErrorResponse,
   modalsSignUpShow } from '~/redux/actions/modals'
-export { settingsCensorNSFWText, settingsHideNSFWLabels, settingsHidePlaybackSpeedButton,
+export { settingsCensorNSFWText, settingsHidePlaybackSpeedButton,
   settingsHideTimeJumpBackwardButton, settingsSetDefaultHomepageTab, settingsSetUITheme
   } from '~/redux/actions/settings'
 export { userSetInfo, userUpdateHistoryItem } from '~/redux/actions/user'

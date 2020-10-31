@@ -3,10 +3,8 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Input, InputGroup, InputGroupAddon, Popover, PopoverBody, PopoverHeader } from 'reactstrap'
-import { Button } from 'podverse-ui'
+import { Button, Pill } from 'podverse-ui'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faStar as farStar } from '@fortawesome/free-regular-svg-icons'
-import { faStar as fasStar } from '@fortawesome/free-solid-svg-icons'
 import PV from '~/lib/constants'
 import { alertPremiumRequired, alertSomethingWentWrong, alertRateLimitError, safeAlert } from '~/lib/utility'
 import { userSetInfo } from '~/redux/actions'
@@ -102,83 +100,75 @@ class UserHeaderCtrl extends Component<Props, State> {
             <div className='media-header__title'>
               {profileUser.name ? profileUser.name : t('Anonymous')}
             </div>
-            {
-              loggedInUser && profileUser && loggedInUser.id === profileUser.id ?
-                <React.Fragment>
-                  {
-                    loggedInUser.isPublic &&
-                      <React.Fragment>
+            <div className='media-header-top__buttons'>
+              {
+                loggedInUser && profileUser && loggedInUser.id === profileUser.id ?
+                  <React.Fragment>
+                    {
+                      loggedInUser.isPublic &&
+                        <React.Fragment>
+                          <a
+                            className='media-header__link'
+                            id='profileShareLink'
+                            onClick={this.toggleShareLinkPopoverOpen}>
+                            <FontAwesomeIcon icon='link' />
+                          </a>
+                          <Popover
+                            className='media-header__link-popover'
+                            isOpen={shareLinkPopoverOpen}
+                            placement='bottom'
+                            target='profileShareLink'>
+                            <PopoverHeader>
+                              {t('CopyLinkToProfile')}
+                            </PopoverHeader>
+                            <PopoverBody>
+                              <InputGroup id='profile-link'>
+                                <Input
+                                  id='profile-link-input'
+                                  readOnly={true}
+                                  value={`${BASE_URL}/profile/${loggedInUser.id}`} />
+                                <InputGroupAddon
+                                  addonType='append'>
+                                  <Button
+                                    color='primary'
+                                    dataclipboardtarget='#profile-link-input'
+                                    onClick={this.copyProfileLink}
+                                    text={wasCopied ? 'Copied!' : 'Copy'} />
+                                </InputGroupAddon>
+                              </InputGroup>
+                            </PopoverBody>
+                          </Popover>
+                        </React.Fragment>
+                    }
+                    {
+                      loggedInUser.isPublic &&
                         <a
-                          className='media-header__link'
-                          id='profileShareLink'
-                          onClick={this.toggleShareLinkPopoverOpen}>
-                          <FontAwesomeIcon icon='link' />
+                          className='media-header__edit'
+                          href={PV.paths.web.settings}>
+                          <FontAwesomeIcon icon='edit' />
                         </a>
-                        <Popover
-                          className='media-header__link-popover'
-                          isOpen={shareLinkPopoverOpen}
-                          placement='bottom'
-                          target='profileShareLink'>
-                          <PopoverHeader>
-                            {t('CopyLinkToProfile')}
-                          </PopoverHeader>
-                          <PopoverBody>
-                            <InputGroup id='profile-link'>
-                              <Input
-                                id='profile-link-input'
-                                readOnly={true}
-                                value={`${BASE_URL}/profile/${loggedInUser.id}`} />
-                              <InputGroupAddon
-                                addonType='append'>
-                                <Button
-                                  color='primary'
-                                  dataclipboardtarget='#profile-link-input'
-                                  onClick={this.copyProfileLink}
-                                  text={wasCopied ? 'Copied!' : 'Copy'} />
-                              </InputGroupAddon>
-                            </InputGroup>
-                          </PopoverBody>
-                        </Popover>
-                      </React.Fragment>
-                  }
-                  {
-                    loggedInUser.isPublic &&
-                      <a
-                        className='media-header__edit'
-                        href={PV.paths.web.settings}>
-                        <FontAwesomeIcon icon='edit' />
-                      </a>
-                  }
-                  <div className='media-header__subscribe'>
-                    {
-                      loggedInUser.isPublic ?
-                        <React.Fragment>
-                          <FontAwesomeIcon icon='globe-americas' />
-                        </React.Fragment>
-                        :
-                        <React.Fragment>
-                          <FontAwesomeIcon icon='lock' />
-                        </React.Fragment>
                     }
-                  </div>
-                </React.Fragment> :
-                  <button
-                    className='media-header__subscribe'
-                    onClick={this.toggleSubscribe}>
-                    {
-                      isSubscribing ?
-                        <FontAwesomeIcon icon='spinner' spin />
-                        :
-                        <React.Fragment>
-                          {
-                            isSubscribed ?
-                              <FontAwesomeIcon icon={fasStar} />
-                              : <FontAwesomeIcon icon={farStar} />
-                          }
-                        </React.Fragment>
-                    }
-                  </button>
-            }
+                    <div className='media-header__privacy'>
+                      {
+                        loggedInUser.isPublic ?
+                          <React.Fragment>
+                            <FontAwesomeIcon icon='globe-americas' />
+                          </React.Fragment>
+                          :
+                          <React.Fragment>
+                            <FontAwesomeIcon icon='lock' />
+                          </React.Fragment>
+                      }
+                    </div>
+                  </React.Fragment> :
+                  <Pill
+                    isActive={isSubscribed}
+                    isLoading={isSubscribing}
+                    onClick={this.toggleSubscribe}
+                    text={isSubscribed ? t('Subscribed') : t('Subscribe')}
+                    title={isSubscribed ? t('Subscribed') : t('Subscribe')} />
+              }
+            </div>
           </div>
         </div>
       </div>

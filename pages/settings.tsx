@@ -12,8 +12,8 @@ import PV from '~/lib/constants'
 import { alertPremiumRequired, alertRateLimitError, alertSomethingWentWrong, convertToYYYYMMDDHHMMSS,
   isBeforeDate, validateEmail, safeAlert, setCookie } from '~/lib/utility'
 import { modalsSignUpShow, pageIsLoading, settingsCensorNSFWText,
-  settingsHideNSFWLabels, settingsHidePlaybackSpeedButton,
-  settingsHideTimeJumpBackwardButton, settingsSetDefaultHomepageTab, userSetInfo } from '~/redux/actions'
+  settingsHidePlaybackSpeedButton, settingsHideTimeJumpBackwardButton, settingsSetDefaultHomepageTab,
+  userSetInfo } from '~/redux/actions'
 import { downloadLoggedInUserData, updateLoggedInUser } from '~/services'
 import config from '~/config'
 import { i18n, withTranslation } from '~/../i18n'
@@ -28,7 +28,6 @@ type Props = {
   settingsCensorNSFWText?: any
   settingsHideTimeJumpBackwardButton?: any
   settingsHidePlaybackSpeedButton?: any
-  settingsHideNSFWLabels?: any
   settingsSetDefaultHomepageTab?: any
   t?: any
   user?: any
@@ -160,14 +159,6 @@ class Settings extends Component<Props, State> {
     settingsSetDefaultHomepageTab(defaultHomepageTab)
   }
 
-  handleToggleNSFWLabels = event => {
-    const { settingsHideNSFWLabels } = this.props
-    const isChecked = event.currentTarget.checked
-    const val = isChecked ? true : false
-    setCookie(PV.cookies.nsfwLabelsHide, val)
-    settingsHideNSFWLabels(val)
-  }
-
   handleToggleCensorNSFWText = event => {
     const { settingsCensorNSFWText } = this.props
     const isChecked = event.currentTarget.checked
@@ -263,7 +254,7 @@ class Settings extends Component<Props, State> {
       description: t('pages:settings._Description'),
       title: t('pages:settings._Title')
     }
-    const { censorNSFWText, defaultHomepageTab, nsfwLabelsHide, playbackSpeedButtonHide, timeJumpBackwardButtonHide } = settings
+    const { censorNSFWText, defaultHomepageTab, playbackSpeedButtonHide, timeJumpBackwardButtonHide } = settings
     const { email, emailError, isCheckoutOpen, isDeleteAccountOpen, isDownloading,
       isPublic, isSaving, language, name, wasCopied } = this.state
     const isLoggedIn = user && !!user.id
@@ -457,15 +448,6 @@ class Settings extends Component<Props, State> {
           <FormGroup check>
             <Label className='checkbox-label' check>
               <Input
-                checked={nsfwLabelsHide === 'true' || !nsfwLabelsHide}
-                onChange={this.handleToggleNSFWLabels}
-                type="checkbox" />
-              &nbsp;&nbsp;{t('HideNSFWLabels')}
-            </Label>
-          </FormGroup>
-          <FormGroup check>
-            <Label className='checkbox-label' check>
-              <Input
                 checked={timeJumpBackwardButtonHide === 'true'}
                 onChange={this.handleToggleTimeJumpBackwardButton}
                 type="checkbox" />
@@ -554,7 +536,6 @@ const mapStateToProps = state => ({ ...state })
 const mapDispatchToProps = dispatch => ({
   modalsSignUpShow: bindActionCreators(modalsSignUpShow, dispatch),
   settingsCensorNSFWText: bindActionCreators(settingsCensorNSFWText, dispatch),
-  settingsHideNSFWLabels: bindActionCreators(settingsHideNSFWLabels, dispatch),
   settingsHidePlaybackSpeedButton: bindActionCreators(settingsHidePlaybackSpeedButton, dispatch),
   settingsHideTimeJumpBackwardButton: bindActionCreators(settingsHideTimeJumpBackwardButton, dispatch),
   settingsSetDefaultHomepageTab: bindActionCreators(settingsSetDefaultHomepageTab, dispatch),

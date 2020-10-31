@@ -508,8 +508,10 @@ class PodcastListCtrl extends Component<Props, State> {
     const bottomSelectNodes = this.generateCategorySelectNodes(categoryId)
 
     const selectedQuerySortOption = this.getQuerySortOptions().filter(x => x.value === querySort)
-    const isNotLoggedIn = !user || !user.id
-    const noResultsFoundMsg = isNotLoggedIn ? t('errorMessages:login.ViewYourSubscriptions') : t('No podcasts found')
+
+    const isNotLoggedInOnSubscribedOnly = (!user || !user.id) && queryFrom === PV.queryParams.subscribed_only
+    const noResultsItemTypeMsg = t('No podcasts found')
+    const noResultsFoundMsg = isNotLoggedInOnSubscribedOnly ? t('errorMessages:login.ViewYourSubscriptions') : noResultsItemTypeMsg
 
     return (
       <div className={'media-list'}>
