@@ -14,6 +14,7 @@ export interface Config {
   QUERY_USERS_LIMIT: number
   COOKIE_DOMAIN?: string
   COOKIE_PATH?: string
+  COOKIE_KEY_NAMESPACE?: string
   PAYPAL_ENV?: string
   PAYPAL_CLIENT_ID_PRODUCTION?: string
   PAYPAL_CLIENT_ID_SANDBOX?: string
@@ -61,6 +62,7 @@ export default () => {
     QUERY_USERS_LIMIT: publicRuntimeConfig.QUERY_USERS_LIMIT,
     COOKIE_DOMAIN: publicRuntimeConfig.COOKIE_DOMAIN,
     COOKIE_PATH: publicRuntimeConfig.COOKIE_PATH,
+    COOKIE_KEY_NAMESPACE: publicRuntimeConfig.COOKIE_KEY_NAMESPACE,
     PAYPAL_ENV: publicRuntimeConfig.PAYPAL_ENV,
     PAYPAL_CLIENT_ID_PRODUCTION: publicRuntimeConfig.PAYPAL_CLIENT_ID_PRODUCTION,
     PAYPAL_CLIENT_ID_SANDBOX: publicRuntimeConfig.PAYPAL_CLIENT_ID_SANDBOX,
@@ -103,7 +105,8 @@ export default () => {
 
   config.cookieConfig = {
     domain: config.COOKIE_DOMAIN,
-    path: config.COOKIE_PATH
+    path: config.COOKIE_PATH,
+    keyNamespace: config.COOKIE_KEY_NAMESPACE
   }
 
   config.paypalConfig = {

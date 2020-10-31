@@ -21,7 +21,7 @@ import PageLoadingOverlay from '~/components/PageLoadingOverlay/PageLoadingOverl
 import PV from '~/lib/constants'
 import { addFontAwesomeIcons } from '~/lib/fontAwesomeIcons'
 import { scrollToTopOfView } from '~/lib/scrollToTop'
-import { assignLocalOrLoggedInNowPlayingItemPlaybackPosition, checkIfLoadingOnFrontEnd } from '~/lib/utility'
+import { assignLocalOrLoggedInNowPlayingItemPlaybackPosition, checkIfLoadingOnFrontEnd, refreshAllBrowserCookies } from '~/lib/utility'
 import { disableHoverOnTouchDevices } from '~/lib/utility/disableHoverOnTouchDevices'
 import { fixMobileViewportHeight } from '~/lib/utility/fixMobileViewportHeight'
 import { initializeStore } from '~/redux/store'
@@ -248,10 +248,6 @@ export default withRedux(initializeStore)(appWithTranslation(class MyApp extends
       pageProps = await Component.getInitialProps(ctx)
     }
 
-    if (typeof (window) === 'object') {
-      ReactGA.pageview(ctx.asPath)
-    }
-
     const { lastScrollPosition, newPlayingItem } = pageProps
 
     if (!checkIfLoadingOnFrontEnd() && newPlayingItem) {
@@ -330,8 +326,10 @@ export default withRedux(initializeStore)(appWithTranslation(class MyApp extends
     ReactGA.pageview(window.location.pathname + window.location.search)
 
     windowHasLoaded = true
-
+    
     this.forceUpdate()
+
+    refreshAllBrowserCookies()
   }
 
   render() {

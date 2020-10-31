@@ -156,7 +156,7 @@ class Settings extends Component<Props, State> {
   handleDefaultHomepageTabChange = event => {
     const { settingsSetDefaultHomepageTab } = this.props
     const defaultHomepageTab = event.target.value
-    setCookie('default_homepage_tab', defaultHomepageTab)
+    setCookie(PV.cookies.defaultHomepageTab, defaultHomepageTab)
     settingsSetDefaultHomepageTab(defaultHomepageTab)
   }
 
@@ -164,7 +164,7 @@ class Settings extends Component<Props, State> {
     const { settingsHideNSFWLabels } = this.props
     const isChecked = event.currentTarget.checked
     const val = isChecked ? true : false
-    setCookie('nsfwLabelsHide', val)
+    setCookie(PV.cookies.nsfwLabelsHide, val)
     settingsHideNSFWLabels(val)
   }
 
@@ -172,7 +172,7 @@ class Settings extends Component<Props, State> {
     const { settingsCensorNSFWText } = this.props
     const isChecked = event.currentTarget.checked
     const val = isChecked ? true : false
-    setCookie('censorNSFWText', val)
+    setCookie(PV.cookies.censorNSFWText, val)
     settingsCensorNSFWText(val)
   }
 
@@ -180,7 +180,7 @@ class Settings extends Component<Props, State> {
     const { settingsHidePlaybackSpeedButton } = this.props
     const isChecked = event.currentTarget.checked
     const val = isChecked ? true : false
-    setCookie('playbackSpeedButtonHide', val)
+    setCookie(PV.cookies.playbackSpeedButtonHide, val)
     settingsHidePlaybackSpeedButton(val)
   }
 
@@ -188,7 +188,7 @@ class Settings extends Component<Props, State> {
     const { settingsHideTimeJumpBackwardButton } = this.props
     const isChecked = event.currentTarget.checked
     const val = isChecked ? true : false
-    setCookie('timeJumpBackwardButtonHide', val)
+    setCookie(PV.cookies.timeJumpBackwardButtonHide, val)
     settingsHideTimeJumpBackwardButton(val)
   }
 

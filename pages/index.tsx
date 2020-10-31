@@ -27,6 +27,7 @@ type Props = {
   queryPage: number
   querySort?: any
   queryType?: any
+  settings?: any
   t?: any
   user?: any
   userSetInfo?: any
@@ -106,10 +107,14 @@ class Home extends Component<Props, State> {
   }
 
   componentDidMount() {
-    const { playerQueue } = this.props
-    const { secondaryItems } = playerQueue
-    clearItemsFromSecondaryQueueStorage()
-    addItemsToSecondaryQueueStorage(secondaryItems)
+    const { settings } = this.props
+    const { defaultHomepageTab } = settings
+    if (defaultHomepageTab === 'episodes' || defaultHomepageTab === 'clips') {
+      const { playerQueue } = this.props
+      const { secondaryItems } = playerQueue
+      clearItemsFromSecondaryQueueStorage()
+      addItemsToSecondaryQueueStorage(secondaryItems)
+    }
   }
 
   toggleAdvancedFilter = async () => {
