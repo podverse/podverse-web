@@ -439,7 +439,7 @@ class Settings extends Component<Props, State> {
           <FormGroup check>
             <Label className='checkbox-label' check>
               <Input
-                checked={censorNSFWText === 'true'}
+                checked={censorNSFWText === 'true' || censorNSFWText === true}
                 onChange={this.handleToggleCensorNSFWText}
                 type="checkbox" />
               &nbsp;&nbsp;{t('Censor NSFW Text')}
@@ -448,7 +448,7 @@ class Settings extends Component<Props, State> {
           <FormGroup check>
             <Label className='checkbox-label' check>
               <Input
-                checked={timeJumpBackwardButtonHide === 'true'}
+                checked={timeJumpBackwardButtonHide === 'true' || timeJumpBackwardButtonHide === true}
                 onChange={this.handleToggleTimeJumpBackwardButton}
                 type="checkbox" />
               &nbsp;&nbsp;{t('HideJumpBackwardsButton')}
@@ -457,7 +457,7 @@ class Settings extends Component<Props, State> {
           <FormGroup check>
             <Label className='checkbox-label' check>
               <Input
-                checked={playbackSpeedButtonHide === 'true'}
+                checked={playbackSpeedButtonHide === 'true' || playbackSpeedButtonHide === true}
                 onChange={this.handleTogglePlaybackSpeedButton}
                 type="checkbox" />
               &nbsp;&nbsp;{t('HidePlaybackSpeedButton')}

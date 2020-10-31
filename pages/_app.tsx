@@ -145,45 +145,38 @@ export default withRedux(initializeStore)(appWithTranslation(class MyApp extends
     if (!checkIfLoadingOnFrontEnd() && ctx.req.headers.cookie) {
       const parsedCookie = cookie.parse(ctx.req.headers.cookie)
 
-      if (parsedCookie.uiTheme) {
+      if (parsedCookie[PV.cookies.uiTheme]) {
         ctx.store.dispatch({
           type: actionTypes.SETTINGS_SET_UI_THEME,
-          payload: parsedCookie.uiTheme
+          payload: parsedCookie[PV.cookies.uiTheme]
         })
       }
 
-      if (parsedCookie.uiThemeHide) {
-        ctx.store.dispatch({
-          type: actionTypes.SETTINGS_SET_HIDE_UI_THEME,
-          payload: parsedCookie.uiThemeHide
-        })
-      }
-
-      if (parsedCookie.censorNSFWText) {
+      if (parsedCookie[PV.cookies.censorNSFWText]) {
         ctx.store.dispatch({
           type: actionTypes.SETTINGS_CENSOR_NSFW_TEXT,
-          payload: parsedCookie.censorNSFWText
+          payload: parsedCookie[PV.cookies.censorNSFWText]
         })
       }
 
-      if (parsedCookie.timeJumpBackwardButtonHide) {
+      if (parsedCookie[PV.cookies.timeJumpBackwardButtonHide]) {
         ctx.store.dispatch({
           type: actionTypes.SETTINGS_SET_HIDE_TIME_JUMP_BACKWARD_BUTTON,
-          payload: parsedCookie.timeJumpBackwardButtonHide
+          payload: parsedCookie[PV.cookies.timeJumpBackwardButtonHide]
         })
       }
 
-      if (parsedCookie.playbackSpeedButtonHide) {
+      if (parsedCookie[PV.cookies.playbackSpeedButtonHide]) {
         ctx.store.dispatch({
           type: actionTypes.SETTINGS_SET_HIDE_PLAYBACK_SPEED_BUTTON,
-          payload: parsedCookie.playbackSpeedButtonHide
+          payload: parsedCookie[PV.cookies.playbackSpeedButtonHide]
         })
       }
 
-      if (parsedCookie.defaultHomepageTab) {
+      if (parsedCookie[PV.cookies.defaultHomepageTab]) {
         ctx.store.dispatch({
           type: actionTypes.SETTINGS_SET_DEFAULT_HOMEPAGE_TAB,
-          payload: parsedCookie.defaultHomepageTab
+          payload: parsedCookie[PV.cookies.defaultHomepageTab]
         })
       } else {
         ctx.store.dispatch({
@@ -225,10 +218,10 @@ export default withRedux(initializeStore)(appWithTranslation(class MyApp extends
       }
 
       cookies = {
-        showFreeTrialHasEnded: parsedCookie.showFreeTrialHasEnded,
-        showFreeTrialWarning: parsedCookie.showFreeTrialWarning,
-        showMembershipHasEnded: parsedCookie.showMembershipHasEnded,
-        showMembershipWarning: parsedCookie.showMembershipWarning
+        showFreeTrialHasEnded: parsedCookie[PV.cookies.showFreeTrialHasEnded],
+        showFreeTrialWarning: parsedCookie[PV.cookies.showFreeTrialWarning],
+        showMembershipHasEnded: parsedCookie[PV.cookies.showMembershipHasEnded],
+        showMembershipWarning: parsedCookie[PV.cookies.showMembershipWarning]
       }
     }
 
