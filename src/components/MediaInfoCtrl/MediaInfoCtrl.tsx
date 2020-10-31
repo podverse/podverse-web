@@ -1,5 +1,5 @@
 
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { Trans } from 'react-i18next'
 import { connect } from 'react-redux'
 import { convertToNowPlayingItem } from 'podverse-shared'
@@ -255,27 +255,30 @@ class MediaInfoCtrl extends Component<Props, State> {
     const { censorNSFWText } = settings
 
     return (
-      <MediaInfo
-        censorNSFWText={censorNSFWText === 'true' || !censorNSFWText}
-        episode={episode}
-        handleAddToQueueLast={() => this.addToQueue(null, true)}
-        handleAddToQueueNext={() => this.addToQueue(null, false)}
-        handleAddToPlaylist={() => this.toggleAddToPlaylistModal()}
-        handleLinkClick={this.linkClick}
-        handlePauseItem={this.pauseItem}
-        handlePlayItem={() => this.playItem(this.getCurrentPageItem())}
-        handleReplayClip={() => this.playItem(this.getCurrentPageItem(), false, true)}
-        handleToggleEditClipModal={this.toggleEditClipModal}
-        handleToggleShare={this.toggleShareModal}
-        initialShowDescription={initialShowDescription}
-        loggedInUserId={userId}
-        mediaRef={mediaRef}
-        nowPlayingItem={nowPlayingItem}
-        playing={this.isCurrentlyPlayingItem()}
-        podcast={podcast}
-        i18n={i18n}
-        Trans={Trans}
-        t={t} />
+      <Fragment>
+        <MediaInfo
+          censorNSFWText={censorNSFWText === 'true' || !censorNSFWText}
+          episode={episode}
+          handleAddToQueueLast={() => this.addToQueue(null, true)}
+          handleAddToQueueNext={() => this.addToQueue(null, false)}
+          handleAddToPlaylist={() => this.toggleAddToPlaylistModal()}
+          handleLinkClick={this.linkClick}
+          handlePauseItem={this.pauseItem}
+          handlePlayItem={() => this.playItem(this.getCurrentPageItem())}
+          handleReplayClip={() => this.playItem(this.getCurrentPageItem(), false, true)}
+          handleToggleEditClipModal={this.toggleEditClipModal}
+          handleToggleShare={this.toggleShareModal}
+          initialShowDescription={initialShowDescription}
+          loggedInUserId={userId}
+          mediaRef={mediaRef}
+          nowPlayingItem={nowPlayingItem}
+          playing={this.isCurrentlyPlayingItem()}
+          podcast={podcast}
+          i18n={i18n}
+          Trans={Trans}
+          t={t} />
+        <hr />
+      </Fragment>
     )
   }
 }
