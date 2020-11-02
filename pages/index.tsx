@@ -154,7 +154,8 @@ class Home extends Component<Props, State> {
           handleLinkClick={pageIsLoading}
           handleToggleAdvancedFilter={this.toggleAdvancedFilter}
           isAdvancedFilterShowing={isAdvancedFilterShowing}
-          items={PV.homeHeaderButtons(pageKey, t)} />
+          items={PV.homeHeaderButtons(pageKey, t)}
+          t={t} />
         {
           (pageKey === 'podcasts') &&
             <PodcastListCtrl
