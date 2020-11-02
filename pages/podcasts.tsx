@@ -111,7 +111,8 @@ class Podcasts extends Component<Props, State> {
           handleLinkClick={pageIsLoading}
           handleToggleAdvancedFilter={this.toggleAdvancedFilter}
           isAdvancedFilterShowing={isAdvancedFilterShowing}
-          items={PV.homeHeaderButtons(pageKey, t)} />
+          items={PV.homeHeaderButtons(pageKey, t)}
+          t={t} />
         <PodcastListCtrl 
           allCategories={allCategories}
           categoryId={categoryId}

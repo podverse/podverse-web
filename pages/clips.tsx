@@ -161,7 +161,8 @@ class Home extends Component<Props, State> {
           handleLinkClick={pageIsLoading}
           handleToggleAdvancedFilter={this.toggleAdvancedFilter}
           isAdvancedFilterShowing={isAdvancedFilterShowing}
-          items={PV.homeHeaderButtons(PV.pageKeys.clips, t)} />
+          items={PV.homeHeaderButtons(PV.pageKeys.clips, t)}
+          t={t} />
         <MediaListCtrl
           allCategories={allCategories}
           categoryId={categoryId}

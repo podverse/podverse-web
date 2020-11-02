@@ -133,7 +133,8 @@ class Episodes extends Component<Props, State> {
           handleLinkClick={pageIsLoading}
           handleToggleAdvancedFilter={this.toggleAdvancedFilter}
           isAdvancedFilterShowing={isAdvancedFilterShowing}
-          items={PV.homeHeaderButtons(PV.pageKeys.episodes, t)} />
+          items={PV.homeHeaderButtons(PV.pageKeys.episodes, t)}
+          t={t} />
         <MediaListCtrl
           allCategories={allCategories}
           categoryId={categoryId}
