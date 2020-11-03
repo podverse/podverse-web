@@ -9,7 +9,6 @@ module.exports = {
   'Queue Modal': function (browser) {
     browser
       
-      .click(`.mp-header__queue`)
       .waitForElementWithText(`.media-list__container:nth-child(2) .media-list__item .media-list-item-a__title`, `Amet aliquam id diam maecenas ultricies mi eget.`)
 
       .waitForElementWithText(`.scrollable-area div[data-rbd-draggable-id="secondary-item-1"] .media-list-item-a__title`,`Ornare aenean euismod elementum nisi quis eleifend quam adipiscing vitae.`)

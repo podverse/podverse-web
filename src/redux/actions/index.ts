@@ -7,7 +7,7 @@ export { playerQueueAddSecondaryItems, playerQueueLoadItems, playerQueueLoadPrio
 export { modalsAddToIsLoading, modalsAddToSetErrorResponse, modalsAddToShow,
   modalsAddToCreatePlaylistIsSaving, modalsAddToCreatePlaylistShow, modalsClipCreatedShow,
   modalsForgotPasswordIsLoading, modalsForgotPasswordSetErrorResponse,
-  modalsForgotPasswordShow, modalsLoginIsLoading, modalsLoginSetErrorResponse,
+  modalsForgotPasswordShow, modalsHistoryShow, modalsLoginIsLoading, modalsLoginSetErrorResponse,
   modalsLoginShow, modalsMakeClipSetErrorResponse, modalsMakeClipShow, modalsQueueIsLoading,
   modalsQueueSetErrorResponse, modalsQueueShow, modalsSendVerificationEmailShow, modalsShareIsLoading,
   modalsShareSetErrorResponse, modalsShareShow, modalsSignUpIsLoading, modalsSignUpSetErrorResponse,

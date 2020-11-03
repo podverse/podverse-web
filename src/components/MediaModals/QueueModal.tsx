@@ -1,7 +1,6 @@
 import * as React from 'react'
 import * as Modal from 'react-modal'
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd'
-import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle } from 'reactstrap'
 import { Button, CloseButton, MediaListItem} from 'podverse-ui'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { checkIfLoadingOnFrontEnd } from '~/lib/utility'
@@ -11,7 +10,6 @@ export interface Props {
   handleDragEnd?: any
   handleHideModal?: (event: React.MouseEvent<HTMLButtonElement>) => void
   handleRemoveItem: Function
-  historyItems?: any[]
   isLoggedIn?: boolean
   isOpen: boolean
   nowPlayingItem?: any
@@ -21,7 +19,6 @@ export interface Props {
 }
 
 type State = {
-  dropdownMenuOpen?: boolean
   isEditing?: boolean
   showHistory?: boolean
 }
@@ -31,7 +28,7 @@ const customStyles = {
     bottom: 'unset',
     height: '90%',
     left: '50%',
-    maxWidth: '480px',
+    maxWidth: '520px',
     padding: '20px 20px 0 20px',
     right: 'unset',
     top: '50%',
@@ -73,12 +70,6 @@ export class QueueModal extends React.Component<Props, State> {
     handleDragEnd(priorityItems, secondaryItems)
   }
 
-  toggleDropdownMenu = () => {
-    this.setState({
-      dropdownMenuOpen: !this.state.dropdownMenuOpen
-    })
-  }
-
   toggleEditMode = () => {
     const { isEditing } = this.state
     this.setState({ isEditing: !isEditing })
@@ -90,79 +81,29 @@ export class QueueModal extends React.Component<Props, State> {
     if (handleHideModal) {
       handleHideModal(event)
       this.setState({
-        isEditing: false,
-        showHistory: false
+        isEditing: false
       })
     }
   }
 
   render () {
-    const { handleLinkClick, handleRemoveItem, historyItems = [], isLoggedIn, isOpen,
+    const { handleLinkClick, handleRemoveItem, isOpen,
       nowPlayingItem = {}, priorityItems = [], secondaryItems = [], t } = this.props
-    const { dropdownMenuOpen, isEditing, showHistory } = this.state
+    const { isEditing } = this.state
 
     const header = (
       <div className='queue-modal__header'>
-        {
-          isLoggedIn &&
-            <React.Fragment>
-              <Dropdown
-                className='queue-modal-header__dropdown'
-                direction='down'
-                isOpen={dropdownMenuOpen}
-                toggle={this.toggleDropdownMenu}>
-                <DropdownToggle
-                  caret
-                  className='header-dropdown transparent' >
-                  {
-                    !showHistory ?
-                      <React.Fragment>
-                        <FontAwesomeIcon icon='list-ul' /> &nbsp;{t('Queue')}
-                      </React.Fragment>
-                      :
-                      <React.Fragment>
-                        <FontAwesomeIcon icon='history' /> &nbsp;{t('History')}
-                      </React.Fragment>
-                  }
-                </DropdownToggle>
-                <DropdownMenu>
-                  {
-                    !showHistory &&
-                    <DropdownItem
-                      onClick={() => this.setState({ showHistory: true })}>
-                      <FontAwesomeIcon icon='history' /> &nbsp;{t('History')}
-                    </DropdownItem>
-                  }
-                  {
-                    showHistory &&
-                    <DropdownItem
-                      onClick={() => this.setState({ showHistory: false })}>
-                      <FontAwesomeIcon icon='list-ul' /> &nbsp;{t('Queue')}
-                    </DropdownItem>
-                  }
-                </DropdownMenu>
-              </Dropdown>
-            </React.Fragment>
-        }
-        {
-          !isLoggedIn &&
-            <React.Fragment>
-              <h3><FontAwesomeIcon icon='list-ul' /> &nbsp;{t('Queue')}</h3>
-            </React.Fragment>
-        }
-        {
-          !showHistory &&
-            <div className='queue-modal-header__edit'>
-              <Button
-                onClick={this.toggleEditMode}>
-                {
-                  isEditing ?
-                    <React.Fragment><FontAwesomeIcon icon='check' /> {t('Done')}</React.Fragment>
-                    : <React.Fragment><FontAwesomeIcon icon='edit' /> {t('Edit')}</React.Fragment>
-                }
-              </Button>
-            </div>
-        }
+        <h3><FontAwesomeIcon icon='list-ul' /> &nbsp;{t('Queue')}</h3>
+        <div className='queue-modal-header__edit'>
+          <Button
+            onClick={this.toggleEditMode}>
+            {
+              isEditing ?
+                <React.Fragment><FontAwesomeIcon icon='check' /> {t('Done')}</React.Fragment>
+                : <React.Fragment><FontAwesomeIcon icon='edit' /> {t('Edit')}</React.Fragment>
+            }
+          </Button>
+        </div>
         <div className='queue-modal-header__close'>
           <CloseButton onClick={this.hideModal} />
         </div>
@@ -171,84 +112,70 @@ export class QueueModal extends React.Component<Props, State> {
 
     let priorityItemNodes: any = []
     let secondaryItemNodes: any = []
-    let historyItemNodes: any = []
 
-    if (!showHistory) {
-      const queueModalPriorityItemKey = 'queueModalPriorityItemKey'
-      priorityItemNodes = Array.isArray(priorityItems) ? priorityItems.map((x, index) => (
-        <Draggable
-          draggableId={`priority-item-${index}`}
-          index={index}
-          key={`${queueModalPriorityItemKey}${index}`}>
-          {(provided, snapshot) => (
-            <React.Fragment>
-              <div
-                key={`${queueModalPriorityItemKey}b${index}`}
-                ref={provided.innerRef}
-                {...provided.draggableProps}
-                {...provided.dragHandleProps}>
-                <MediaListItem
-                  dataNowPlayingItem={x}
-                  handleLinkClick={handleLinkClick}
-                  handleRemoveItem={() => handleRemoveItem(x.clipId, x.episodeId, true)}
-                  hasLink
-                  hideDescription={true}
-                  hideDivider={true}
-                  itemType='now-playing-item'
-                  key={`${queueModalPriorityItemKey}c${index}`}
-                  showMove={!isEditing}
-                  showRemove={isEditing}
-                  t={t} />
-                <hr className='pv-divider' />
-              </div>
-            </React.Fragment>
-          )}
-        </Draggable>
-      )) : []
+    const queueModalPriorityItemKey = 'queueModalPriorityItemKey'
+    priorityItemNodes = Array.isArray(priorityItems) ? priorityItems.map((x, index) => (
+      <Draggable
+        draggableId={`priority-item-${index}`}
+        index={index}
+        key={`${queueModalPriorityItemKey}${index}`}>
+        {(provided, snapshot) => (
+          <React.Fragment>
+            <div
+              key={`${queueModalPriorityItemKey}b${index}`}
+              ref={provided.innerRef}
+              {...provided.draggableProps}
+              {...provided.dragHandleProps}>
+              <MediaListItem
+                dataNowPlayingItem={x}
+                handleLinkClick={handleLinkClick}
+                handleRemoveItem={() => handleRemoveItem(x.clipId, x.episodeId, true)}
+                hasLink
+                hideDescription={true}
+                hideDivider={true}
+                itemType='now-playing-item'
+                key={`${queueModalPriorityItemKey}c${index}`}
+                showMove={!isEditing}
+                showRemove={isEditing}
+                t={t} />
+              <hr className='pv-divider' />
+            </div>
+          </React.Fragment>
+        )}
+      </Draggable>
+    )) : []
 
-      const queueModalSecondaryItemKey = 'queueModalSecondaryItemKey'
-      secondaryItemNodes = Array.isArray(secondaryItems) ? secondaryItems.map((x, index) => (
-        <Draggable
-          draggableId={`secondary-item-${index}`}
-          index={index}
-          key={`${queueModalSecondaryItemKey}${index}`}>
-          {(provided, snapshot) => (
-            <React.Fragment>
-              <div
-                key={`${queueModalSecondaryItemKey}b${index}`}
-                ref={provided.innerRef}
-                {...provided.draggableProps}
-                {...provided.dragHandleProps}>
-                <MediaListItem
-                  dataNowPlayingItem={x}
-                  handleLinkClick={handleLinkClick}
-                  handleRemoveItem={() => handleRemoveItem(x.clipId, x.episodeId, false)}
-                  hasLink
-                  hideDescription={true}
-                  hideDivider={true}
-                  itemType='now-playing-item'
-                  key={`${queueModalSecondaryItemKey}c${index}`}
-                  showMove={!isEditing}
-                  showRemove={isEditing}
-                  t={t} />
-                <hr className='pv-divider' />
-              </div>
-            </React.Fragment>
-          )}
-        </Draggable>
-      )) : []
-    } else {
-      const queueModalHistoryItemKey = 'queueModalHistoryItemKey'
-      historyItemNodes = Array.isArray(priorityItems) ? historyItems.map((x, index) => (
-        <MediaListItem
-          dataNowPlayingItem={x}
-          hasLink
-          hideDescription={true}
-          key={`${queueModalHistoryItemKey}${index}`}
-          itemType='now-playing-item'
-          t={t} />
-      )) : []
-    }
+    const queueModalSecondaryItemKey = 'queueModalSecondaryItemKey'
+    secondaryItemNodes = Array.isArray(secondaryItems) ? secondaryItems.map((x, index) => (
+      <Draggable
+        draggableId={`secondary-item-${index}`}
+        index={index}
+        key={`${queueModalSecondaryItemKey}${index}`}>
+        {(provided, snapshot) => (
+          <React.Fragment>
+            <div
+              key={`${queueModalSecondaryItemKey}b${index}`}
+              ref={provided.innerRef}
+              {...provided.draggableProps}
+              {...provided.dragHandleProps}>
+              <MediaListItem
+                dataNowPlayingItem={x}
+                handleLinkClick={handleLinkClick}
+                handleRemoveItem={() => handleRemoveItem(x.clipId, x.episodeId, false)}
+                hasLink
+                hideDescription={true}
+                hideDivider={true}
+                itemType='now-playing-item'
+                key={`${queueModalSecondaryItemKey}c${index}`}
+                showMove={!isEditing}
+                showRemove={isEditing}
+                t={t} />
+              <hr className='pv-divider' />
+            </div>
+          </React.Fragment>
+        )}
+      </Draggable>
+    )) : []
 
     let appEl
     if (checkIfLoadingOnFrontEnd()) {
@@ -269,63 +196,56 @@ export class QueueModal extends React.Component<Props, State> {
         style={customStyles}>
         {header}
         <div className='scrollable-area'>
-          {
-            !showHistory &&
-              <React.Fragment>
-                {
-                  nowPlayingItem &&
+          <React.Fragment>
+            {
+              nowPlayingItem &&
+                <React.Fragment>
+                  <h6>{t('Now Playing')}</h6>
+                  <MediaListItem
+                    dataNowPlayingItem={nowPlayingItem}
+                    hasLink
+                    hideDescription={true}
+                    hideDivider={true}
+                    itemType={itemType}
+                    t={t} />
+                </React.Fragment>
+            }
+            <DragDropContext
+              onDragEnd={this.onDragEnd}>
+              {
+                priorityItemNodes.length > 0 &&
                   <React.Fragment>
-                    <h6>{t('Now Playing')}</h6>
-                    <MediaListItem
-                      dataNowPlayingItem={nowPlayingItem}
-                      hasLink
-                      hideDescription={true}
-                      hideDivider={true}
-                      itemType={itemType}
-                      t={t} />
+                    <h6>{t('Next Up')}</h6>
+                    <Droppable droppableId='priority-items'>
+                      {(provided, snapshot) => (
+                        <div
+                          ref={provided.innerRef}
+                          style={{ backgroundColor: snapshot.isDraggingOver ? 'blue' : 'transparent' }}
+                          {...provided.droppableProps}>
+                          {priorityItemNodes}
+                        </div>
+                      )}
+                    </Droppable>
                   </React.Fragment>
-                }
-                <DragDropContext
-                  onDragEnd={this.onDragEnd}>
-                  {
-                    priorityItemNodes.length > 0 &&
-                    <React.Fragment>
-                      <h6>{t('Next Up')}</h6>
-                      <Droppable droppableId='priority-items'>
-                        {(provided, snapshot) => (
-                          <div
-                            ref={provided.innerRef}
-                            style={{ backgroundColor: snapshot.isDraggingOver ? 'blue' : 'transparent' }}
-                            {...provided.droppableProps}>
-                            {priorityItemNodes}
-                          </div>
-                        )}
-                      </Droppable>
-                    </React.Fragment>
-                  }
-                  {
-                    secondaryItemNodes.length > 0 &&
-                    <React.Fragment>
-                      <h6>{t('Auto Queue')}</h6>
-                      <Droppable droppableId='secondary-items'>
-                        {(provided, snapshot) => (
-                          <div
-                            ref={provided.innerRef}
-                            style={{ backgroundColor: snapshot.isDraggingOver ? 'blue' : 'transparent' }}
-                            {...provided.droppableProps}>
-                            {secondaryItemNodes}
-                          </div>
-                        )}
-                      </Droppable>
-                    </React.Fragment>
-                  }
-                </DragDropContext>
-              </React.Fragment>
-          }
-          {
-            showHistory &&
-              historyItemNodes
-          }
+              }
+              {
+                secondaryItemNodes.length > 0 &&
+                  <React.Fragment>
+                    <h6>{t('Auto Queue')}</h6>
+                    <Droppable droppableId='secondary-items'>
+                      {(provided, snapshot) => (
+                        <div
+                          ref={provided.innerRef}
+                          style={{ backgroundColor: snapshot.isDraggingOver ? 'blue' : 'transparent' }}
+                          {...provided.droppableProps}>
+                          {secondaryItemNodes}
+                        </div>
+                      )}
+                    </Droppable>
+                  </React.Fragment>
+              }
+            </DragDropContext>
+          </React.Fragment>
         </div>
       </Modal>
     )

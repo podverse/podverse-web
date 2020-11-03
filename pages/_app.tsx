@@ -64,6 +64,7 @@ type Props = {
     addTo: {},
     clipCreated: {},
     forgotPassword: {},
+    history: {},
     login: {},
     makeClip: {},
     queue: {},

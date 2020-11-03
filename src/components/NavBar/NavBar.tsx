@@ -6,15 +6,17 @@ import { faUserCircle as fasUserCircle } from '@fortawesome/free-solid-svg-icons
 import { Navbar, getPriorityQueueItemsStorage } from 'podverse-ui'
 import PV from '~/lib/constants'
 import { getViewContentsElementScrollTop } from '~/lib/utility'
-import { modalsLoginShow, pageIsLoading, pagesClearQueryState, pagesSetQueryState,
-  playerQueueLoadPriorityItems, userSetInfo } from '~/redux/actions'
+import { modalsHistoryShow, modalsLoginShow, modalsQueueShow, pageIsLoading, pagesClearQueryState,
+  pagesSetQueryState, playerQueueLoadPriorityItems, userSetInfo } from '~/redux/actions'
 import { logOut } from '~/services/auth'
 import { withTranslation } from 'i18n'
 
 type Props = {
   modals?: any
+  modalsHistoryShow?: any
   modalsLoginIsLoading?: any
   modalsLoginShow?: any
+  modalsQueueShow?: any
   pageIsLoading?: any
   pageKey?: string
   pagesClearQueryState?: any
@@ -52,8 +54,17 @@ class PVNavBar extends Component<Props, State> {
 
   myLibraryDropdownItems () {
     const { pageIsLoading, pagesClearQueryState, t } = this.props
-
     const dropdownItems = [] as any
+
+    dropdownItems.push({
+      label: t('Queue'),
+      onClick: () => { this.toggleQueueModal() }
+    })
+
+    dropdownItems.push({
+      label: t('History'),
+      onClick: () => { this.toggleHistoryModal() }
+    })
 
     dropdownItems.push({
       as: PV.paths.web.my_profile_clips,
@@ -64,12 +75,14 @@ class PVNavBar extends Component<Props, State> {
         pageIsLoading(true)
       }
     })
+
     dropdownItems.push({
       as: PV.paths.web.playlists,
       href: PV.paths.web.playlists,
       label: t('Playlists'),
       onClick: () => { this.linkClick() }
     })
+
     dropdownItems.push({
       as: PV.paths.web.profiles,
       href: PV.paths.web.profiles,
@@ -95,7 +108,6 @@ class PVNavBar extends Component<Props, State> {
           pageIsLoading(true)
         }
       })
-
     }
 
     dropdownItems.push({
@@ -164,6 +176,20 @@ class PVNavBar extends Component<Props, State> {
     return dropdownItems
   }
 
+  toggleHistoryModal = () => {
+    const { modals, modalsHistoryShow } = this.props
+    const { queue } = modals
+    const { isOpen } = queue
+    modalsHistoryShow(!isOpen)
+  }
+
+  toggleQueueModal = () => {
+    const { modals, modalsQueueShow } = this.props
+    const { queue } = modals
+    const { isOpen } = queue
+    modalsQueueShow(!isOpen)
+  }
+
   linkClick = () => {
     const { pageIsLoading, pageKey, pagesSetQueryState } = this.props
     pageIsLoading(true)
@@ -216,7 +242,9 @@ class PVNavBar extends Component<Props, State> {
 const mapStateToProps = state => ({ ...state })
 
 const mapDispatchToProps = dispatch => ({
+  modalsHistoryShow: bindActionCreators(modalsHistoryShow, dispatch),
   modalsLoginShow: bindActionCreators(modalsLoginShow, dispatch),
+  modalsQueueShow: bindActionCreators(modalsQueueShow, dispatch),
   pageIsLoading: bindActionCreators(pageIsLoading, dispatch),
   pagesClearQueryState: bindActionCreators(pagesClearQueryState, dispatch),
   pagesSetQueryState: bindActionCreators(pagesSetQueryState, dispatch),

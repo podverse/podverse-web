@@ -63,6 +63,13 @@ export const modalsForgotPasswordShow = payload => {
   }
 }
 
+export const modalsHistoryShow = payload => {
+  return {
+    type: actionTypes.MODALS_HISTORY_SHOW,
+    payload
+  }
+}
+
 export const modalsLoginIsLoading = payload => {
   return {
     type: actionTypes.MODALS_LOGIN_IS_LOADING,

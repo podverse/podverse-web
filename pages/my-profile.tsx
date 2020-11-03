@@ -9,7 +9,7 @@ import config from '~/config'
 import PV from '~/lib/constants'
 import { clone } from '~/lib/utility'
 import { pageIsLoading, playerQueueLoadSecondaryItems, pagesSetQueryState } from '~/redux/actions'
-import { getLoggedInUserMediaRefsFromBackEnd, getLoggedInUserPlaylistsFromBackEnd,
+import { getLoggedInUserMediaRefsFromBackEnd, getLoggedInUserMediaRefsFromFrontEnd, getLoggedInUserPlaylistsFromBackEnd,
   getPodcastsByQuery } from '~/services'
 import { withTranslation } from '~/../i18n'
 const { BASE_URL } = config()
@@ -45,16 +45,27 @@ class MyProfile extends Component<Props, State> {
       let queryDataResult
       let listItems = [] as any
 
-      if (!bearerToken) {
-        // do nothing
-      } else if (queryType === PV.queryParams.clips) {
-        queryDataResult = await getLoggedInUserMediaRefsFromBackEnd(bearerToken, 'on', queryPage)
+      /*
+        For logged-in user clips and playlists queries,
+        a bearerToken will be available when loading on the back-end
+        but not on the front-end, so handle each case separately.
+      */
+      if (queryType === PV.queryParams.clips) {
+        if (bearerToken) {
+          queryDataResult = await getLoggedInUserMediaRefsFromBackEnd(bearerToken, 'on', queryPage)
+        } else {
+          queryDataResult = await getLoggedInUserMediaRefsFromFrontEnd('on', queryPage)
+        }
         const mediaRefs = queryDataResult.data as any
         const nowPlayingItems = mediaRefs[0].map(x => convertToNowPlayingItem(x))
         listItems = [nowPlayingItems, mediaRefs[1]]
         store.dispatch(playerQueueLoadSecondaryItems(clone(listItems[0])))
       } else if (queryType === PV.queryParams.playlists) {
-        queryDataResult = await getLoggedInUserPlaylistsFromBackEnd(bearerToken, queryPage)
+        if (bearerToken) {
+          queryDataResult = await getLoggedInUserPlaylistsFromBackEnd(bearerToken, queryPage)
+        } else {
+          queryDataResult = await getLoggedInUserPlaylistsFromBackEnd(queryPage)
+        }
         listItems = queryDataResult.data
       } else if (
         queryType === PV.queryParams.podcasts
