@@ -2,15 +2,17 @@ import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import Router from 'next/router'
-import { AddToModal, ClipCreatedModal, KEYS, MakeClipModal, QueueModal, ShareModal,
+import { AddToModal, ClipCreatedModal, KEYS, MakeClipModal, ShareModal,
   addItemToPriorityQueueStorage, updatePriorityQueueStorage, getPriorityQueueItemsStorage,
   getSecondaryQueueItemsStorage, removeItemFromPriorityQueueStorage,
   removeItemFromSecondaryQueueStorage } from 'podverse-ui'
+  import { HistoryModal } from '~/components/MediaModals/HistoryModal'
+import { QueueModal } from '~/components/MediaModals/QueueModal'
 import PV from '~/lib/constants'
 import { alertPremiumRequired, alertSomethingWentWrong, clone, alertRateLimitError, safeAlert } from '~/lib/utility'
 import { mediaPlayerUpdatePlaying, modalsAddToCreatePlaylistIsSaving,
-  modalsAddToCreatePlaylistShow, modalsAddToShow, modalsClipCreatedShow, modalsLoginShow, 
-  modalsMakeClipShow, modalsQueueShow, modalsShareShow,
+  modalsAddToCreatePlaylistShow, modalsAddToShow, modalsClipCreatedShow, modalsHistoryShow,
+  modalsLoginShow, modalsMakeClipShow, modalsQueueShow, modalsShareShow,
   pageIsLoading, playerQueueLoadItems, playerQueueLoadPriorityItems, userSetInfo, playerQueueLoadSecondaryItems
   } from '~/redux/actions'
 import { addOrRemovePlaylistItem, createMediaRef, createPlaylist, deleteMediaRef,
@@ -25,6 +27,7 @@ type Props = {
   modalsAddToCreatePlaylistShow?: any
   modalsAddToShow?: any
   modalsClipCreatedShow?: any
+  modalsHistoryShow?: any
   modalsLoginShow?: any
   modalsMakeClipShow?: any
   modalsQueueShow?: any
@@ -173,6 +176,11 @@ class MediaModals extends Component<Props, State> {
   hideQueueModal = () => {
     const { modalsQueueShow } = this.props
     modalsQueueShow(false)
+  }
+
+  hideHistoryModal = () => {
+    const { modalsHistoryShow } = this.props
+    modalsHistoryShow(false)
   }
 
   hideShareModal = () => {
@@ -416,11 +424,12 @@ class MediaModals extends Component<Props, State> {
   render() {
     const { mediaPlayer, modals, modalsLoginShow, playerQueue, t, user } = this.props
     const { nowPlayingItem } = mediaPlayer
-    const { addTo, clipCreated, makeClip, queue, share } = modals
+    const { addTo, clipCreated, history, makeClip, queue, share } = modals
     const { createPlaylistIsSaving, createPlaylistShowError, createPlaylistShow,
       isOpen: addToIsOpen, nowPlayingItem: addToNowPlayingItem, showQueue: addToShowQueue
       } = addTo
     const { isOpen: clipCreatedIsOpen, mediaRef: clipCreatedMediaRef } = clipCreated
+    const { isOpen: historyIsOpen } = history
     const { isEditing: makeClipIsEditing, isOpen: makeClipIsOpen, 
       nowPlayingItem: makeClipNowPlayingItem } = makeClip
     const { isOpen: queueIsOpen } = queue
@@ -451,12 +460,17 @@ class MediaModals extends Component<Props, State> {
           handleHideModal={this.hideQueueModal}
           handleLinkClick={this.queueItemClick}
           handleRemoveItem={this.removeItem}
-          historyItems={historyItems}
           isLoggedIn={user && !!user.id}
           isOpen={queueIsOpen}
           nowPlayingItem={nowPlayingItem}
           priorityItems={priorityItems}
           secondaryItems={secondaryItems}
+          t={t} />
+        <HistoryModal
+          handleHideModal={this.hideHistoryModal}
+          historyItems={historyItems}
+          isLoggedIn={!!id}
+          isOpen={historyIsOpen}
           t={t} />
         <MakeClipModal
           endTime={makeClipIsEditing ? makeClipNowPlayingItem.clipEndTime : ''}
@@ -527,6 +541,7 @@ const mapDispatchToProps = dispatch => ({
   modalsAddToCreatePlaylistShow: bindActionCreators(modalsAddToCreatePlaylistShow, dispatch),
   modalsAddToShow: bindActionCreators(modalsAddToShow, dispatch),
   modalsClipCreatedShow: bindActionCreators(modalsClipCreatedShow, dispatch),
+  modalsHistoryShow: bindActionCreators(modalsHistoryShow, dispatch),
   modalsLoginShow: bindActionCreators(modalsLoginShow, dispatch),
   modalsMakeClipShow: bindActionCreators(modalsMakeClipShow, dispatch),
   modalsQueueShow: bindActionCreators(modalsQueueShow, dispatch),

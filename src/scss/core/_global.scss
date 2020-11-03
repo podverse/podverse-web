@@ -146,6 +146,22 @@ html[is-switching-ui-mode=true] * {
   font-style: italic;
 }
 
+[data-react-beautiful-dnd-draggable][style*="fixed"] hr {
+  display: none;
+}
+
+[data-react-beautiful-dnd-draggable]:last-of-type {
+  margin-bottom: 1.25rem;
+
+  hr {
+    display: none;
+  }
+}
+
+[data-react-beautiful-dnd-draggable] {
+  left: 20px !important;
+}
+
 // This makes the element render below the fixed navbar when navigating to an element
 // via the # id in a URL.
 .offset-anchor-tag {

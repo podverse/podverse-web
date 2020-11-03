@@ -11,7 +11,7 @@ import { mediaPlayerLoadNowPlayingItem,
   mediaPlayerSetClipFinished, mediaPlayerSetPlayedAfterClipFinished,
   playerQueueLoadPriorityItems, playerQueueLoadSecondaryItems,
   mediaPlayerUpdatePlaying, modalsAddToShow, modalsMakeClipShow,
-  modalsQueueShow, modalsShareShow, pageIsLoading, pagesSetQueryState,
+  modalsShareShow, pageIsLoading, pagesSetQueryState,
   userSetInfo } from '~/redux/actions'
 import { updateUserQueueItems, addOrUpdateUserHistoryItem } from '~/services'
 
@@ -282,13 +282,6 @@ class MediaPlayerView extends Component<Props, State> {
     }
   }
 
-  toggleQueueModal = () => {
-    const { modals, modalsQueueShow } = this.props
-    const { queue } = modals
-    const { isOpen } = queue
-    modalsQueueShow(!isOpen)
-  }
-
   toggleShareModal = () => {
     const { mediaPlayer, modals, modalsShareShow } = this.props
     const { nowPlayingItem } = mediaPlayer
@@ -332,7 +325,6 @@ class MediaPlayerView extends Component<Props, State> {
                 handletoggleAddToPlaylistModal={this.toggleAddToPlaylistModal}
                 handleToggleAutoplay={this.toggleAutoplay}
                 handleToggleMakeClipModal={this.toggleMakeClipModal}
-                handleToggleQueueModal={this.toggleQueueModal}
                 handleToggleShareModal={this.toggleShareModal}
                 handleTogglePlay={this.togglePlay}
                 nowPlayingItem={nowPlayingItem}
@@ -367,7 +359,6 @@ const mapDispatchToProps = dispatch => ({
   mediaPlayerUpdatePlaying: bindActionCreators(mediaPlayerUpdatePlaying, dispatch),
   modalsAddToShow: bindActionCreators(modalsAddToShow, dispatch),
   modalsMakeClipShow: bindActionCreators(modalsMakeClipShow, dispatch),
-  modalsQueueShow: bindActionCreators(modalsQueueShow, dispatch),
   modalsShareShow: bindActionCreators(modalsShareShow, dispatch),
   pageIsLoading: bindActionCreators(pageIsLoading, dispatch),
   pagesSetQueryState: bindActionCreators(pagesSetQueryState, dispatch),
