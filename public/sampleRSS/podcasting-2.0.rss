@@ -32,6 +32,9 @@ Re-tooling podcasting into a platform of value</description>
 		<itunes:explicit>no</itunes:explicit>
 		<itunes:category text="News &amp; Politics" />
 		<itunes:category text="Technology" />
+        <podcast:funding url="www.example.com/shirts">Buy our shirts!</podcast:funding>
+        <podcast:funding url="www.example.com/mugs">Buy our mugs!</podcast:funding>
+        <podcast:funding url="www.example.com/donate">Donate</podcast:funding>
 		<item>
 			<title>Episode 9: Here come the pioneers</title>
 			<description>&lt;p&gt;Show Notes&lt;/p&gt;&lt;p&gt;
@@ -75,6 +78,9 @@ Keywords&lt;/p&gt;</itunes:summary>
 			<itunes:keywords>podcasting,curry,podfather,technology,deverlopers</itunes:keywords>
 			<author>Podcast Index LLC</author>
 			<itunes:author>Podcast Index LLC</itunes:author>
+            <podcast:funding url="www.example.com/sponsors">Visit our sponsors</podcast:funding>
+            <podcast:funding url="www.example.com/posters">Buy our posters!</podcast:funding>
+            <podcast:funding url="www.example.com/bitcoin">Send us Bitcoin</podcast:funding>
 		</item>
 		<item>
 			<title>Episode 8: Chapter 8</title>
@@ -115,10 +121,13 @@ Keywords&lt;/p&gt;</itunes:summary>
 			<guid>http://adam.curry.com/html/PC200820201023Podcas-mRC5pZ8HF6nPtDV1rXdFVk2mLL476n.html</guid>
 			<pubDate>Fri, 23 Oct 2020 19:26:31 GMT</pubDate>
 			<podcast:transcript url="https://mp3s.nashownotes.com/PC20-08-Captions.srt" type="text/srt" rel="captions "/>
+            <podcast:transcript type="application/json" language="es" rel="captions">https://podcastindex.org/ep0002/transcript_es.json</podcast:transcript>
+            <podcast:transcript type="application/srt">https://podcastindex.org/ep0002/transcript.srt</podcast:transcript>
 			<itunes:explicit>no</itunes:explicit>
 			<itunes:keywords>podcasting,curry,podfather,technology,deverlopers</itunes:keywords>
 			<author>Podcast Index LLC</author>
 			<itunes:author>Podcast Index LLC</itunes:author>
+            <podcast:funding url="www.example.com/dogecoin">Send us Dogecoin</podcast:funding>
 		</item>
 	</channel>
 </rss>
