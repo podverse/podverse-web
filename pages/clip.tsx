@@ -14,12 +14,14 @@ import PV from '~/lib/constants'
 import { checkIfLoadingOnFrontEnd, clone, cookieGetQuery } from '~/lib/utility'
 import { pageIsLoading, pagesSetQueryState, playerQueueLoadSecondaryItems
   } from '~/redux/actions'
-import { getEpisodesByQuery, getMediaRefsByQuery, getMediaRefById } from '~/services/'
+import { getEpisodesByQuery, getMediaRefsByQuery, getMediaRefById,
+  retrieveLatestChaptersForEpisodeId } from '~/services/'
 import { withTranslation } from '~/../i18n'
 const { BASE_URL } = config()
 
 type Props = {
   errorCode?: number
+  hasOfficialChapters?: boolean
   lastScrollPosition?: number
   listItems?: any
   mediaRef?: any
@@ -68,11 +70,16 @@ class Clip extends Component<Props, State> {
     const queryFrom = currentPage.queryFrom || query.from || localStorageQuery.from || PV.queryParams.from_episode
     const queryPage = currentPage.queryPage || query.page || 1
     const querySort = currentPage.querySort || query.sort || localStorageQuery.sort || PV.queryParams.chronological
-    const queryType = currentPage.queryType || query.type || localStorageQuery.type || PV.queryParams.clips
+    let queryType = currentPage.queryType || query.type || localStorageQuery.type || PV.queryParams.clips
     let podcastId = ''
     let episodeId = ''
 
-    if (queryFrom === PV.queryParams.from_podcast) {
+    const hasOfficialChapters = mediaRef.episode.chaptersUrl
+    if (hasOfficialChapters) queryType = PV.queryParams.officialChapters
+
+    if (queryType === PV.queryParams.officialChapters) {
+      episodeId = mediaRef.episode.id
+    } else if (queryFrom === PV.queryParams.from_podcast) {
       podcastId = mediaRef.episode.podcast.id
     } else if (queryFrom === PV.queryParams.from_episode) {
       episodeId = mediaRef.episode.id
@@ -83,7 +90,9 @@ class Clip extends Component<Props, State> {
     if (Object.keys(currentPage).length === 0) {
       let results
 
-      if (queryType === PV.queryParams.episodes) {
+      if (queryType === PV.queryParams.officialChapters) {
+        results = await retrieveLatestChaptersForEpisodeId(episodeId)
+      } else if (queryType === PV.queryParams.episodes) {
         results = await getEpisodesByQuery({
           from: queryFrom,
           page: queryPage,
@@ -130,8 +139,8 @@ class Clip extends Component<Props, State> {
 
     const namespacesRequired = PV.nexti18next.namespaces
     
-    return { lastScrollPosition, mediaRef, namespacesRequired, newPlayingItem, pageKey: pageKeyWithId, queryFrom,
-      querySort, queryType }
+    return { hasOfficialChapters, lastScrollPosition, mediaRef, namespacesRequired, newPlayingItem,
+      pageKey: pageKeyWithId, queryFrom, querySort, queryType }
   }
 
   componentDidMount () {
@@ -145,7 +154,8 @@ class Clip extends Component<Props, State> {
   }
 
   render () {
-    const { errorCode, mediaRef, pageKey, pages, pagesSetQueryState, t } = this.props
+    const { errorCode, hasOfficialChapters, mediaRef, pageKey, pages,
+      pagesSetQueryState, t } = this.props
     const page = pages[pageKey] || {}
     const { queryFrom, queryPage, querySort, queryType } = page
 
@@ -198,6 +208,7 @@ class Clip extends Component<Props, State> {
           episode={mediaRef.episode}
           episodeId={mediaRef.episode.id}
           handleSetPageQueryState={pagesSetQueryState}
+          hasOfficialChapters={hasOfficialChapters}
           includeOldest={queryType === PV.queryParams.episodes}
           pageKey={pageKey}
           podcast={mediaRef.episode.podcast}

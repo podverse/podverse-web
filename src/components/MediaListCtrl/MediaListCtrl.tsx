@@ -12,7 +12,7 @@ import { addOrUpdateHistoryItemPlaybackPosition, assignLocalOrLoggedInNowPlaying
 import { mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying, pageIsLoading,
   playerQueueAddSecondaryItems, playerQueueLoadPriorityItems,
   playerQueueLoadSecondaryItems, userSetInfo } from '~/redux/actions'
-import { getEpisodesByQuery, getMediaRefsByQuery } from '~/services'
+import { getEpisodesByQuery, getMediaRefsByQuery, retrieveLatestChaptersForEpisodeId } from '~/services'
 import { withTranslation } from '~/../i18n'
 import AwesomeDebouncePromise from 'awesome-debounce-promise'
 const uuidv4 = require('uuid/v4')
@@ -24,6 +24,7 @@ type Props = {
   episode?: any
   episodeId?: string
   handleSetPageQueryState: Function
+  hasOfficialChapters?: boolean
   includeOldest?: boolean
   mediaPlayer?: any
   mediaPlayerLoadNowPlayingItem?: any
@@ -70,8 +71,8 @@ class MediaListCtrl extends Component<Props, State> {
   }
 
   queryListItems = async (queryType, queryFrom, querySort, page, categoryId) => {
-    const { episode, episodeId, handleSetPageQueryState, pageIsLoading, pageKey, pages,
-      playerQueueLoadSecondaryItems, podcast, podcastId, user } = this.props
+    const { episode, episodeId, handleSetPageQueryState, hasOfficialChapters, pageIsLoading,
+      pageKey, pages, playerQueueLoadSecondaryItems, podcast, podcastId, user } = this.props
     const { subscribedPodcastIds } = user
     const { filterText } = pages[pageKey]
 
@@ -129,7 +130,12 @@ class MediaListCtrl extends Component<Props, State> {
       let nowPlayingItems = []
       let listItemsTotal
 
-      if (queryType === PV.queryParams.episodes) {
+      if (hasOfficialChapters && queryType === PV.queryParams.officialChapters && (episode && episode.id || episodeId)) {
+        const response = await retrieveLatestChaptersForEpisodeId(episodeId || episode.id)
+        const chapters = response.data
+        listItemsTotal = chapters[1]
+        nowPlayingItems = chapters[0].map(x => convertToNowPlayingItem(x, episode, podcast))
+      } else if (queryType === PV.queryParams.episodes) {
         const response = await getEpisodesByQuery(query)
         const episodes = response.data
         listItemsTotal = episodes[1]
@@ -175,14 +181,28 @@ class MediaListCtrl extends Component<Props, State> {
   }
 
   getQueryTypeOptions = () => {
-    const { pageKey, pages, podcastId, t, user } = this.props
-    const { categoryId, queryFrom } = pages[pageKey]
-    return [
+    const { hasOfficialChapters, pageKey, pages, podcastId, t, user } = this.props
+    const { categoryId, queryFrom, querySort } = pages[pageKey]
+    
+    const options = [] as any
+
+    if (hasOfficialChapters) {
+      options.push({
+        label: t('Official Chapters'),
+        onClick: () => this.queryListItems(PV.queryParams.officialChapters, queryFrom, querySort, 1, categoryId),
+        value: PV.queryParams.officialChapters
+      })
+    }
+
+    options.push(
       {
         label: t('Clips'),
         onClick: () => this.queryListItems(PV.queryParams.clips, queryFrom, PV.queryParams.top_past_week, 1, categoryId),
         value: PV.queryParams.clips,
-      },
+      }
+    )
+
+    options.push(
       {
         label: t('Episodes'),
         onClick: () => this.queryListItems(
@@ -194,7 +214,9 @@ class MediaListCtrl extends Component<Props, State> {
         ),
         value: PV.queryParams.episodes,
       }
-    ]
+    )
+    
+    return options
   }
 
   getQueryFromOptions = (showFromPodcast, showFromEpisode) => {
@@ -227,45 +249,49 @@ class MediaListCtrl extends Component<Props, State> {
   }
 
   getQuerySortOptions(includeOldest?: boolean, showChronological?: boolean) {
-    const { t } = this.props
+    const { queryType, t } = this.props
 
-    const items = [
-      {
-        label: t('queryLabels:most_recent'),
-        onClick: () => this.querySort(PV.queryParams.most_recent),
-        value: PV.queryParams.most_recent
-      },
-      {
-        label: t('queryLabels:top_past_day'),
-        onClick: () => this.querySort(PV.queryParams.top_past_day),
-        value: PV.queryParams.top_past_day
-      },
-      {
-        label: t('queryLabels:top_past_week'),
-        onClick: () => this.querySort(PV.queryParams.top_past_week),
-        value: PV.queryParams.top_past_week
-      },
-      {
-        label: t('queryLabels:top_past_month'),
-        onClick: () => this.querySort(PV.queryParams.top_past_month),
-        value: PV.queryParams.top_past_month
-      },
-      {
-        label: t('queryLabels:top_past_year'),
-        onClick: () => this.querySort(PV.queryParams.top_past_year),
-        value: PV.queryParams.top_past_year
-      },
-      {
-        label: t('queryLabels:top_all_time'),
-        onClick: () => this.querySort(PV.queryParams.top_all_time),
-        value: PV.queryParams.top_all_time
-      },
-      {
-        label: t('queryLabels:random'),
-        onClick: () => this.querySort(PV.queryParams.random),
-        value: PV.queryParams.random
-      }
-    ]
+    let items = [] as any
+
+    if (queryType !== PV.queryParams.officialChapters) {
+      items = [
+        {
+          label: t('queryLabels:most_recent'),
+          onClick: () => this.querySort(PV.queryParams.most_recent),
+          value: PV.queryParams.most_recent
+        },
+        {
+          label: t('queryLabels:top_past_day'),
+          onClick: () => this.querySort(PV.queryParams.top_past_day),
+          value: PV.queryParams.top_past_day
+        },
+        {
+          label: t('queryLabels:top_past_week'),
+          onClick: () => this.querySort(PV.queryParams.top_past_week),
+          value: PV.queryParams.top_past_week
+        },
+        {
+          label: t('queryLabels:top_past_month'),
+          onClick: () => this.querySort(PV.queryParams.top_past_month),
+          value: PV.queryParams.top_past_month
+        },
+        {
+          label: t('queryLabels:top_past_year'),
+          onClick: () => this.querySort(PV.queryParams.top_past_year),
+          value: PV.queryParams.top_past_year
+        },
+        {
+          label: t('queryLabels:top_all_time'),
+          onClick: () => this.querySort(PV.queryParams.top_all_time),
+          value: PV.queryParams.top_all_time
+        },
+        {
+          label: t('queryLabels:random'),
+          onClick: () => this.querySort(PV.queryParams.random),
+          value: PV.queryParams.random
+        }
+      ]
+    }
 
     if (showChronological) {
       items.unshift({
@@ -386,7 +412,10 @@ class MediaListCtrl extends Component<Props, State> {
       let nowPlayingItems
       let listItemsTotal
 
-      if (queryType === PV.queryParams.episodes) {
+      if (queryType === PV.queryParams.officialChapters) {
+        nowPlayingItems = []
+        listItemsTotal = 0
+      } else if (queryType === PV.queryParams.episodes) {
         const response = await getEpisodesByQuery(query)
         const episodes = response.data
         nowPlayingItems = episodes[0].map(x => convertToNowPlayingItem(x))
@@ -437,7 +466,7 @@ class MediaListCtrl extends Component<Props, State> {
         mediaListItemType = PV.attributes.mediaListItem.now_playing_episode_from_all_podcasts
       }
     } else {
-      if (queryFrom === PV.queryParams.from_episode) {
+      if (queryType === PV.queryParams.officialChapters || queryFrom === PV.queryParams.from_episode) {
         mediaListItemType = PV.attributes.mediaListItem.now_playing_clip_from_episode
       } else if (queryFrom === PV.queryParams.from_podcast) {
         mediaListItemType = PV.attributes.mediaListItem.now_playing_clip_from_podcast
@@ -483,30 +512,6 @@ class MediaListCtrl extends Component<Props, State> {
         value: ''
       }
     })
-  }
-
-  generateQueryTypeOptions = () => {
-    const { pageKey, pages, podcastId, t, user } = this.props
-    const { categoryId, queryFrom } = pages[pageKey]
-
-    return [
-      {
-        label: t('Clips'),
-        onClick: () => this.queryListItems(PV.queryParams.clips, queryFrom, PV.queryParams.top_past_week, 1, categoryId),
-        value: PV.queryParams.clips,
-      },
-      {
-        label: t('Episodes'),
-        onClick: () => this.queryListItems(
-          PV.queryParams.episodes,
-          podcastId ? PV.queryParams.from_podcast : queryFrom,
-          (user && user.id && !podcastId) ? PV.queryParams.most_recent : PV.queryParams.top_past_week,
-          1,
-          categoryId
-        ),
-        value: PV.queryParams.episodes,
-      }
-    ]
   }
 
   generateTopLevelSelectNodes = () => {
@@ -663,7 +668,12 @@ class MediaListCtrl extends Component<Props, State> {
     const selectedQueryTypeOption = this.getQueryTypeOptions().filter(x => x.value === queryType)
     const selectedQueryFromOption = this.getQueryFromOptions(
       !!podcastId, !!episodeId && queryType === PV.queryParams.clips).filter(x => x.value === queryFrom)
-    const sortOptions = this.getQuerySortOptions(includeOldest, !!episodeId && queryType === PV.queryParams.clips && queryFrom === PV.queryParams.from_episode)
+    const sortOptions = this.getQuerySortOptions(
+      includeOldest,
+      (
+        !!episodeId && queryType === PV.queryParams.clips && queryFrom === PV.queryParams.from_episode) ||
+        queryType === PV.queryParams.officialChapters
+      )
     const selectedQuerySortOption = sortOptions.filter(x => x.value === querySort)
     const isNotLoggedInOnSubscribedOnly = (!user || !user.id) && queryFrom === PV.queryParams.subscribed_only
     const noResultsItemTypeMsg = queryType === PV.queryParams.episodes ? t('No episodes found') : t('No clips found')
@@ -675,9 +685,9 @@ class MediaListCtrl extends Component<Props, State> {
           <div className='media-list-selects__left'>
             {
               showQueryTypeSelect &&
-              <MediaListSelect
-                items={this.getQueryTypeOptions()}
-                selected={selectedQueryTypeOption.length > 0 ? selectedQueryTypeOption[0].value : null} />
+                <MediaListSelect
+                  items={this.getQueryTypeOptions()}
+                  selected={selectedQueryTypeOption.length > 0 ? selectedQueryTypeOption[0].value : null} />
             }
             {
               (podcastId || episodeId) ?

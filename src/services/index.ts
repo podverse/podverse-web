@@ -5,7 +5,7 @@ export { createBitPayInvoice, getBitPayInvoiceStatusByOrderId } from '~/services
 export { getCategoriesByQuery } from '~/services/category'
 export { getEpisodeById, getEpisodesByQuery, handlePageEpisodesQuery } from '~/services/episode'
 export { createMediaRef, deleteMediaRef, getMediaRefById, getMediaRefsByQuery,
-  handlePageMediaRefsQuery, updateMediaRef } from '~/services/mediaRef'
+  handlePageMediaRefsQuery, retrieveLatestChaptersForEpisodeId, updateMediaRef } from '~/services/mediaRef'
 export { createPayPalOrder, getPayPalOrderById } from '~/services/paypal'
 export { addOrRemovePlaylistItem, createPlaylist, deletePlaylist, getPlaylistById,
   getPlaylistsByQuery, toggleSubscribeToPlaylist, updatePlaylist } from '~/services/playlist'

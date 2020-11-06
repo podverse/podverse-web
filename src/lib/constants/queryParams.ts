@@ -18,6 +18,7 @@ export const queryParams = {
   login: `login`,
   most_recent: `most-recent`,
   no_results: `no-results`,
+  officialChapters: 'officialChapters',
   oldest: `oldest`,
   playlist: `playlist`,
   playlists: `playlists`,

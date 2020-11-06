@@ -116,3 +116,9 @@ export const handlePageMediaRefsQuery = async (obj) => {
 
   store.dispatch(pageIsLoading(false))
 }
+
+export const retrieveLatestChaptersForEpisodeId = (episodeId) => {
+  return axios(`${API_BASE_URL}${PV.paths.api.episode}/${episodeId}/retrieve-latest-chapters`, {
+    method: 'get'
+  })
+}

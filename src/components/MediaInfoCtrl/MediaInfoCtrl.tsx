@@ -269,6 +269,7 @@ class MediaInfoCtrl extends Component<Props, State> {
           handleToggleEditClipModal={this.toggleEditClipModal}
           handleToggleShare={this.toggleShareModal}
           initialShowDescription={initialShowDescription}
+          isOfficialChapter={mediaRef && mediaRef.isOfficialChapter}
           loggedInUserId={userId}
           mediaRef={mediaRef}
           nowPlayingItem={nowPlayingItem}
