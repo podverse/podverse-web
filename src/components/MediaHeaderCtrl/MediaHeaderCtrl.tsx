@@ -6,13 +6,15 @@ import { bindActionCreators } from 'redux'
 import PV from '~/lib/constants'
 import { alertPremiumRequired, alertSomethingWentWrong, alertRateLimitError, getViewContentsElementScrollTop,
   safeAlert } from '~/lib/utility'
-import { pageIsLoading, pagesSetQueryState, userSetInfo } from '~/redux/actions'
+import { modalsSupportShow, pageIsLoading, pagesSetQueryState, userSetInfo } from '~/redux/actions'
 import { toggleSubscribeToPodcast } from '~/services'
 import { withTranslation } from 'i18n'
 
 type Props = {
   episode?: any
   mediaRef?: any
+  modals?: any
+  modalsSupportShow?: any
   nowPlayingItem?: any
   pageIsLoading?: any
   pageKey?: string
@@ -70,6 +72,22 @@ class MediaHeaderCtrl extends Component<Props, State> {
     this.setState({ isSubscribing: false })
   }
 
+  toggleSupportModal = () => {
+    const { episode, modals, modalsSupportShow, podcast } = this.props
+    const { support } = modals
+    const { isOpen } = support
+    const p = podcast || (episode && episode.podcast) || {}
+
+    modalsSupportShow({
+      episodeFunding: (episode && episode.funding) || [],
+      isOpen: !isOpen,
+      podcastFunding: p.funding || [],
+      podcastImageUrl: p.imageUrl,
+      podcastTitle: p.title,
+      podcastValue: p.value || [],
+    })
+  }
+
   getPodcastId(episode, mediaRef, nowPlayingItem, podcast) {
     let podcastId = ''
     if (episode) {
@@ -108,6 +126,7 @@ class MediaHeaderCtrl extends Component<Props, State> {
         censorNSFWText={censorNSFWText === 'true' || !censorNSFWText}
         episode={episode}
         handleLinkClick={this.linkClick}
+        handleToggleSupport={this.toggleSupportModal}
         handleToggleSubscribe={this.toggleSubscribe}
         isSubscribed={subscribedPodcastIds && subscribedPodcastIds.includes(podcastId)}
         isSubscribing={isSubscribing}
@@ -122,6 +141,7 @@ class MediaHeaderCtrl extends Component<Props, State> {
 const mapStateToProps = state => ({ ...state })
 
 const mapDispatchToProps = dispatch => ({
+  modalsSupportShow: bindActionCreators(modalsSupportShow, dispatch),
   pageIsLoading: bindActionCreators(pageIsLoading, dispatch),
   pagesSetQueryState: bindActionCreators(pagesSetQueryState, dispatch),
   userSetInfo: bindActionCreators(userSetInfo, dispatch)

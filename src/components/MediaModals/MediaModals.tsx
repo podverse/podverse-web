@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import Router from 'next/router'
-import { AddToModal, ClipCreatedModal, KEYS, MakeClipModal, ShareModal,
+import { AddToModal, ClipCreatedModal, KEYS, MakeClipModal, ShareModal, SupportModal,
   addItemToPriorityQueueStorage, updatePriorityQueueStorage, getPriorityQueueItemsStorage,
   getSecondaryQueueItemsStorage, removeItemFromPriorityQueueStorage,
   removeItemFromSecondaryQueueStorage } from 'podverse-ui'
@@ -12,7 +12,7 @@ import PV from '~/lib/constants'
 import { alertPremiumRequired, alertSomethingWentWrong, clone, alertRateLimitError, safeAlert } from '~/lib/utility'
 import { mediaPlayerUpdatePlaying, modalsAddToCreatePlaylistIsSaving,
   modalsAddToCreatePlaylistShow, modalsAddToShow, modalsClipCreatedShow, modalsHistoryShow,
-  modalsLoginShow, modalsMakeClipShow, modalsQueueShow, modalsShareShow,
+  modalsLoginShow, modalsMakeClipShow, modalsQueueShow, modalsShareShow, modalsSupportShow,
   pageIsLoading, playerQueueLoadItems, playerQueueLoadPriorityItems, userSetInfo, playerQueueLoadSecondaryItems
   } from '~/redux/actions'
 import { addOrRemovePlaylistItem, createMediaRef, createPlaylist, deleteMediaRef,
@@ -32,6 +32,7 @@ type Props = {
   modalsMakeClipShow?: any
   modalsQueueShow?: any
   modalsShareShow?: any
+  modalsSupportShow?: any
   pageIsLoading?: any
   playerQueue?: any
   playerQueueLoadItems?: any
@@ -186,6 +187,11 @@ class MediaModals extends Component<Props, State> {
   hideShareModal = () => {
     const { modalsShareShow } = this.props
     modalsShareShow({})
+  }
+
+  hideSupportModal = () => {
+    const { modalsSupportShow } = this.props
+    modalsSupportShow({})
   }
 
   makeClipEndTimePreview = () => {
@@ -424,7 +430,7 @@ class MediaModals extends Component<Props, State> {
   render() {
     const { mediaPlayer, modals, modalsLoginShow, playerQueue, t, user } = this.props
     const { nowPlayingItem } = mediaPlayer
-    const { addTo, clipCreated, history, makeClip, queue, share } = modals
+    const { addTo, clipCreated, history, makeClip, queue, share, support } = modals
     const { createPlaylistIsSaving, createPlaylistShowError, createPlaylistShow,
       isOpen: addToIsOpen, nowPlayingItem: addToNowPlayingItem, showQueue: addToShowQueue
       } = addTo
@@ -434,13 +440,14 @@ class MediaModals extends Component<Props, State> {
       nowPlayingItem: makeClipNowPlayingItem } = makeClip
     const { isOpen: queueIsOpen } = queue
     const { clipLinkAs, episodeLinkAs, isOpen: shareIsOpen, podcastLinkAs } = share
+    const { episodeFunding = [], podcastFunding = [], podcastImageUrl, podcastTitle,
+      podcastValue, isOpen: supportIsOpen } = support
     const { priorityItems, secondaryItems } = playerQueue
     const { id, historyItems, playlists } = user
     const { isAddedToPlayLast, isAddedToPlayNext, isAddingToPlayLast, 
       isAddingToPlayNext, loadingItemId, makeClipIsDeleting, makeClipIsSaving
-      } = this.state
+    } = this.state
     const isLoggedIn = user && user.id
-
     let makeClipStartTime = 0
     if (makeClipIsEditing) {
       makeClipStartTime = makeClipNowPlayingItem.clipStartTime
@@ -528,6 +535,15 @@ class MediaModals extends Component<Props, State> {
           playerEpisodeLinkHref={episodeLinkAs}
           playerPodcastLinkHref={podcastLinkAs}
           t={t} />
+        <SupportModal
+          episodeFunding={episodeFunding}
+          handleHideModal={this.hideSupportModal}
+          isOpen={supportIsOpen}
+          podcastFunding={podcastFunding}
+          podcastImageUrl={podcastImageUrl}
+          podcastTitle={podcastTitle}
+          podcastValue={podcastValue}
+          t={t} />
       </Fragment>
     )
   }
@@ -546,6 +562,7 @@ const mapDispatchToProps = dispatch => ({
   modalsMakeClipShow: bindActionCreators(modalsMakeClipShow, dispatch),
   modalsQueueShow: bindActionCreators(modalsQueueShow, dispatch),
   modalsShareShow: bindActionCreators(modalsShareShow, dispatch),
+  modalsSupportShow: bindActionCreators(modalsSupportShow, dispatch),
   pageIsLoading: bindActionCreators(pageIsLoading, dispatch),
   playerQueueLoadItems: bindActionCreators(playerQueueLoadItems, dispatch),
   playerQueueLoadPriorityItems: bindActionCreators(playerQueueLoadPriorityItems, dispatch),

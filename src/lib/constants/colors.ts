@@ -17,6 +17,9 @@ export const colors = {
   red: '#dc3545',
   redDarker: '#bd2130',
   redLighter: '#c43745',
+  orangeLighter: '#f6b472',
+  orange: '#f4a24f',
+  orangeDarker: '#c3813f',
   warning: `warning`,
   white: '#fff',
   yellow: '#ffc107'

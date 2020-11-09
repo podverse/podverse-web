@@ -10,8 +10,9 @@ import PV from '~/lib/constants'
 import { addOrUpdateHistoryItemPlaybackPosition, assignLocalOrLoggedInNowPlayingItemPlaybackPosition,
   getViewContentsElementScrollTop, generateShareURLs, removeProtocol} from '~/lib/utility'
 import { mediaPlayerLoadNowPlayingItem, mediaPlayerSetClipFinished, mediaPlayerSetPlayedAfterClipFinished, 
-  mediaPlayerUpdatePlaying, modalsAddToShow, modalsMakeClipShow, modalsShareShow, pageIsLoading,
-  pagesSetQueryState, playerQueueLoadPriorityItems, userSetInfo } from '~/redux/actions'
+  mediaPlayerUpdatePlaying, modalsAddToShow, modalsMakeClipShow, modalsShareShow,
+  pageIsLoading, pagesSetQueryState, playerQueueLoadPriorityItems,
+  userSetInfo } from '~/redux/actions'
 import { updateUserQueueItems } from '~/services'
 import { i18n, withTranslation } from '~/../i18n'
 

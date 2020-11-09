@@ -15,8 +15,6 @@ Re-tooling podcasting into a platform of value</description>
 		<managingEditor>adam@curry.com (Adam Curry)</managingEditor>
 		<webMaster>adam@curry.com (Adam Curry)</webMaster>
 		<itunes:author>Podcast Index LLC</itunes:author>
-        <itunes:author>Podcast Index LLC 2</itunes:author>
-        <itunes:author>Podcast Index LLC 3</itunes:author>
 		<itunes:owner>
 			<itunes:name>Adam Curry</itunes:name>
 			<itunes:email>adam@curry.com</itunes:email>
@@ -32,9 +30,12 @@ Re-tooling podcasting into a platform of value</description>
 		<itunes:explicit>no</itunes:explicit>
 		<itunes:category text="News &amp; Politics" />
 		<itunes:category text="Technology" />
-        <podcast:funding url="www.example.com/shirts">Buy our shirts!</podcast:funding>
-        <podcast:funding url="www.example.com/mugs">Buy our mugs!</podcast:funding>
-        <podcast:funding url="www.example.com/donate">Donate</podcast:funding>
+        <podcast:funding url="https://www.example.com/shirts">Buy our shirts!</podcast:funding>
+        <podcast:funding url="https://www.example.com/mugs">Buy our mugs!</podcast:funding>
+        <podcast:funding url="https://www.example.com/donate">Donate</podcast:funding>
+        <podcast:value type="lightning" method="keysend" suggested="0.00000015000">
+            <podcast:valueRecipient name="podcaster" type="node" address="03e691f81f08c56fa876cc4ef5c9e8b727bd682cf35605be25d48607a802526053" split="100" />
+        </podcast:value>
 		<item>
 			<title>Episode 9: Here come the pioneers</title>
 			<description>&lt;p&gt;Show Notes&lt;/p&gt;&lt;p&gt;
@@ -78,9 +79,9 @@ Keywords&lt;/p&gt;</itunes:summary>
 			<itunes:keywords>podcasting,curry,podfather,technology,deverlopers</itunes:keywords>
 			<author>Podcast Index LLC</author>
 			<itunes:author>Podcast Index LLC</itunes:author>
-            <podcast:funding url="www.example.com/sponsors">Visit our sponsors</podcast:funding>
-            <podcast:funding url="www.example.com/posters">Buy our posters!</podcast:funding>
-            <podcast:funding url="www.example.com/bitcoin">Send us Bitcoin</podcast:funding>
+            <podcast:funding url="https://www.example.com/sponsors">Visit our sponsors</podcast:funding>
+            <podcast:funding url="https://www.example.com/posters">Buy our posters!</podcast:funding>
+            <podcast:funding url="https://www.example.com/bitcoin">Send us Bitcoin</podcast:funding>
 		</item>
 		<item>
 			<title>Episode 8: Chapter 8</title>
@@ -127,7 +128,7 @@ Keywords&lt;/p&gt;</itunes:summary>
 			<itunes:keywords>podcasting,curry,podfather,technology,deverlopers</itunes:keywords>
 			<author>Podcast Index LLC</author>
 			<itunes:author>Podcast Index LLC</itunes:author>
-            <podcast:funding url="www.example.com/dogecoin">Send us Dogecoin</podcast:funding>
+            <podcast:funding url="https://www.example.com/dogecoin">Send us Dogecoin</podcast:funding>
 		</item>
 	</channel>
 </rss>

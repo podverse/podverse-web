@@ -1,7 +1,7 @@
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faFacebook, faGithub, faLinkedin, faReddit, faTwitter } from '@fortawesome/free-brands-svg-icons'
 import {
-  faArrowsAltV, faBars, faCaretDown, faCaretRight, faCheck, faCog, faCut, faDownload, faEdit,
+  faArrowsAltV, faBars, faCaretDown, faCaretRight, faCheck, faCog, faCut, faDonate, faDownload, faEdit,
   faEllipsisH, faFilter, faGlobeAmericas, faHeadphones, faHistory, faInfinity,
   faLevelDownAlt, faLevelUpAlt, faLink, faListUl, faLock, faMobileAlt, faMoon, faPause, faPlay,
   faPlayCircle, faPlus, faPlusCircle, faPodcast, faRedoAlt, faRss, faSearch, faShare, faShoppingCart,
@@ -19,6 +19,7 @@ export const addFontAwesomeIcons = () => {
     faCheck,
     faCog,
     faCut,
+    faDonate,
     faDownload,
     faEdit,
     faEllipsisH,

@@ -1,0 +1,1072 @@
+<rss xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:podcast="https://github.com/Podcastindex-org/podcast-namespace/blob/main/docs/1.0.md" version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Beginnen met Bitcoin</title>
+    <description>beginnenmetbitcoin.com</description>
+    <managingEditor>abellykens@pm.me (Beginnen met Bitcoin)</managingEditor>
+    <copyright>© 2020 beginnenmetbitcoin.com</copyright>
+    <generator>Beginnen met Bitcoin</generator>
+    <link>https://beginnenmetbitcoin.com/</link>
+    <itunes:summary>Een Nederlandstalige podcast waar ik Bitcoin uitleg.</itunes:summary>
+    <itunes:subtitle>Toegankelijke content voor een beginner die nog nooit wat met Bitcoin gedaan heeft, maar ook diepere technische uitleg.</itunes:subtitle>
+    <language>nl</language>
+    <itunes:explicit>no</itunes:explicit>
+    <itunes:category text="Technology">
+    </itunes:category>
+    <itunes:category text="Business">
+      <itunes:category text="Investing"/>
+    </itunes:category>
+    <itunes:category text="Education">
+      <itunes:category text="How To"/>
+    </itunes:category>
+    <itunes:keywords>Bitcoin,uitleg,nederland,nederlands,lightning</itunes:keywords>
+    <itunes:type>episodic</itunes:type>
+    <itunes:image href="https://beginnenmetbitcoin.com/assets/Logo-big-rgb.png"/>
+    <itunes:owner>
+      <itunes:email>abellykens@pm.me</itunes:email>
+      <itunes:name>Abel Lykens</itunes:name>
+    </itunes:owner>
+    <itunes:author>Marnix Schoorel</itunes:author>
+    <image>
+      <url>https://beginnenmetbitcoin.com/assets/Logo-big-rgb.png</url>
+      <link>https://beginnenmetbitcoin.com/</link>
+      <title>Beginnen met Bitcoin</title>
+    </image>
+    <atom:link href="https://beginnenmetbitcoin.com/podcast.rss" rel="self" type="application/rss+xml" />
+
+    <podcast:value type="lightning" method="keysend" suggested="0.00000015000">
+        <podcast:valueRecipient name="podcaster" type="node" address="03e691f81f08c56fa876cc4ef5c9e8b727bd682cf35605be25d48607a802526053" split="100" />
+    </podcast:value>
+
+    <item>
+      <link>https://beginnenmetbitcoin.com/#ep30</link>
+      <title>Aflevering 30: Podcasten en Lightning!</title>
+      <itunes:title>Aflevering 30: Podcasten en Lightning!</itunes:title>
+      <description><![CDATA[
+          <p><b>Lightning en Podcasting, een verschrikkelijk logische link</b></p>
+          <p><a href="https://podcastindex.org/">Podcast Index.org</a></p>
+          <p><a href="http://adam.curry.com/html/PC201020201106Podcas-ZV7ms5XRW9t58ntbVrTRT4WJdFKD2p.html">Aflevering podcasting2.0</a></p>
+          <p><a href="http://mp3s.nashownotes.com/pc20rss.xml">Podcastfeed podcasting2.0</a></p>
+          <p><a target="_blank" href="https://pay.beginnenmetbitcoin.com">Bitcoinstickers</a> - <a target="_blank" href="https://t.me/beginnenmetbitcoin">Telegramgroep</a> - <a target="_blank" href="https://twitter.com/beginnenbitcoin">Twitter</a> - (niks in deze podcast is beleggingsadvies)</p>
+      ]]></description>
+      <itunes:summary><![CDATA[
+        Lightning en Podcasting, een verschrikkelijk logische link
+      ]]></itunes:summary>
+      <itunes:season>3</itunes:season>
+      <guid>https://beginnenmetbitcoin.com/#ep30</guid>
+      <pubDate>Sat, 7 Nov 2020 00:00:28 +0000</pubDate>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:explicit>no</itunes:explicit>
+      <itunes:image href="https://beginnenmetbitcoin.com/assets/Logo-big-rgb.png"/>
+      <itunes:duration>00:11:38</itunes:duration>
+      <enclosure url="https://ipfs.io/ipns/QmWgJh8zA1rsN4DLwLR5PT2oBDQgrSiACBArRZzZznRRw6/mp3/ep30-AUP.mp3" type="audio/mpeg" length="14247169"/>
+    </item>
+
+    <item>
+      <link>https://beginnenmetbitcoin.com/#ep29</link>
+      <title>Aflevering 29: Lightning Pool</title>
+      <itunes:title>Aflevering 29: Lightning Pool</itunes:title>
+      <description><![CDATA[
+          <p><b>Uitleg over de nieuwe Lightning Pool</b></p>
+          <p><a target="_blank" href="https://pay.beginnenmetbitcoin.com">Bitcoinstickers</a> - <a target="_blank" href="https://t.me/beginnenmetbitcoin">Telegramgroep</a> - <a target="_blank" href="https://twitter.com/beginnenbitcoin">Twitter</a> - (niks in deze podcast is beleggingsadvies)</p>
+      ]]></description>
+      <itunes:summary><![CDATA[
+Uitleg over de nieuwe Lightning Pool
+
+https://bitcoinstickers.nl/
+      ]]></itunes:summary>
+      <itunes:season>3</itunes:season>
+      <guid>https://beginnenmetbitcoin.com/#ep29</guid>
+      <pubDate>Mon, 2 Nov 2020 00:00:28 +0000</pubDate>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:explicit>no</itunes:explicit>
+      <itunes:image href="https://beginnenmetbitcoin.com/assets/Logo-big-rgb.png"/>
+      <itunes:duration>00:19:30</itunes:duration>
+      <enclosure url="https://ipfs.io/ipns/QmWgJh8zA1rsN4DLwLR5PT2oBDQgrSiACBArRZzZznRRw6/mp3/ep29-AUP.mp3" type="audio/mpeg" length="23710349"/>
+    </item>
+    <item>
+      <link>https://beginnenmetbitcoin.com/#ep28</link>
+      <title>Aflevering 28: Wat als ik virussen op mijn computer heb icm mijn hardware wallet?</title>
+      <itunes:title>Aflevering 28: Wat als ik virussen op mijn computer heb icm mijn hardware wallet?</itunes:title>
+      <description><![CDATA[
+          <p><b>Antwoord op de vraag: Wat als ik virussen op mijn computer heb icm mijn hardware wallet?</b></p>
+          <p><a target="_blank" href="https://pay.beginnenmetbitcoin.com">Donatielink</a> - <a target="_blank" href="https://t.me/beginnenmetbitcoin">Telegramgroep</a> - <a target="_blank" href="https://twitter.com/beginnenbitcoin">Twitter</a> - (niks in deze podcast is beleggingsadvies)</p>
+      ]]></description>
+      <itunes:summary><![CDATA[
+        Antwoord op de vraag: Wat als ik virussen op mijn computer heb icm mijn hardware wallet?
+      ]]></itunes:summary>
+      <itunes:season>3</itunes:season>
+      <guid>https://beginnenmetbitcoin.com/#ep28</guid>
+      <pubDate>Sat, 15 Aug 2020 00:00:28 +0000</pubDate>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:explicit>no</itunes:explicit>
+      <itunes:image href="https://beginnenmetbitcoin.com/assets/Logo-big-rgb.png"/>
+      <itunes:duration>00:04:43</itunes:duration>
+      <enclosure url="https://ipfs.io/ipns/QmWgJh8zA1rsN4DLwLR5PT2oBDQgrSiACBArRZzZznRRw6/mp3/ep28-AUP.mp3" type="audio/mpeg" length="5956948"/>
+    </item>
+    <item>
+      <link>https://beginnenmetbitcoin.com/#ep27</link>
+      <title>Aflevering 27: Hoe veel bitcoin zijn er, komen er, en hoe controleer ik dat?</title>
+      <itunes:title>Aflevering 27: Hoe veel bitcoin zijn er, komen er, en hoe controleer ik dat?</itunes:title>
+      <description><![CDATA[
+          <p><b>Antwoord op de vraag: Hoe veel bitcoin zijn er, komen er, en hoe controleer ik dat?</b></p>
+          <p><a target="_blank" href="https://pay.beginnenmetbitcoin.com">Donatielink</a> - <a target="_blank" href="https://t.me/beginnenmetbitcoin">Telegramgroep</a> - <a target="_blank" href="https://twitter.com/beginnenbitcoin">Twitter</a> - (niks in deze podcast is beleggingsadvies)</p>
+      ]]></description>
+      <itunes:summary><![CDATA[
+        Antwoord op de vraag: Hoe veel bitcoin zijn er, komen er, en hoe controleer ik dat?
+      ]]></itunes:summary>
+      <itunes:season>3</itunes:season>
+      <guid>https://beginnenmetbitcoin.com/#ep27</guid>
+      <pubDate>Sat, 15 Aug 2020 00:00:27 +0000</pubDate>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:explicit>no</itunes:explicit>
+      <itunes:image href="https://beginnenmetbitcoin.com/assets/Logo-big-rgb.png"/>
+      <itunes:duration>00:07:02</itunes:duration>
+      <enclosure url="https://ipfs.io/ipns/QmWgJh8zA1rsN4DLwLR5PT2oBDQgrSiACBArRZzZznRRw6/mp3/ep27-AUP.mp3" type="audio/mpeg" length="8732197"/>
+    </item>
+    <item>
+      <link>https://beginnenmetbitcoin.com/#ep26</link>
+      <title>Aflevering 26: Hoe bepaal ik hoeveel fees ik betaal voor mijn bitcointransactie?</title>
+      <itunes:title>Aflevering 26: Hoe bepaal ik hoeveel fees ik betaal voor mijn bitcointransactie?</itunes:title>
+      <description><![CDATA[
+          <p><b>Antwoord op de vraag: Hoe bepaal ik hoeveel fees ik betaal voor mijn bitcointransactie?</b></p>
+          <p><a target="_blank" href="https://pay.beginnenmetbitcoin.com">Donatielink</a> - <a target="_blank" href="https://t.me/beginnenmetbitcoin">Telegramgroep</a> - <a target="_blank" href="https://twitter.com/beginnenbitcoin">Twitter</a> - (niks in deze podcast is beleggingsadvies)</p>
+      ]]></description>
+      <itunes:summary><![CDATA[
+        Antwoord op de vraag: Hoe bepaal ik hoeveel fees ik betaal voor mijn bitcointransactie?
+      ]]></itunes:summary>
+      <itunes:season>3</itunes:season>
+      <guid>https://beginnenmetbitcoin.com/#ep26</guid>
+      <pubDate>Sat, 15 Aug 2020 00:00:26 +0000</pubDate>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:explicit>no</itunes:explicit>
+      <itunes:image href="https://beginnenmetbitcoin.com/assets/Logo-big-rgb.png"/>
+      <itunes:duration>00:05:21</itunes:duration>
+      <enclosure url="https://ipfs.io/ipns/QmWgJh8zA1rsN4DLwLR5PT2oBDQgrSiACBArRZzZznRRw6/mp3/ep26-AUP.mp3" type="audio/mpeg" length="6723903"/>
+    </item>
+    <item>
+      <link>https://beginnenmetbitcoin.com/#ep25</link>
+      <title>Aflevering 25: Waarom en hoe zou ik Wasabi wallet gebruiken voor mijn hardwarewallet?</title>
+      <itunes:title>Aflevering 25: Waarom en hoe zou ik Wasabi wallet gebruiken voor mijn hardwarewallet?</itunes:title>
+      <description><![CDATA[
+          <p><b>Antwoord op de vraag: Waarom en hoe zou ik Wasabi wallet gebruiken voor mijn hardwarewallet?</b></p>
+          <p><a target="_blank" href="https://pay.beginnenmetbitcoin.com">Donatielink</a> - <a target="_blank" href="https://t.me/beginnenmetbitcoin">Telegramgroep</a> - <a target="_blank" href="https://twitter.com/beginnenbitcoin">Twitter</a> - (niks in deze podcast is beleggingsadvies)</p>
+      ]]></description>
+      <itunes:summary><![CDATA[
+        Antwoord op de vraag: Waarom en hoe zou ik Wasabi wallet gebruiken voor mijn hardwarewallet?
+      ]]></itunes:summary>
+      <itunes:season>3</itunes:season>
+      <guid>https://beginnenmetbitcoin.com/#ep25</guid>
+      <pubDate>Sat, 15 Aug 2020 00:00:25 +0000</pubDate>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:explicit>no</itunes:explicit>
+      <itunes:image href="https://beginnenmetbitcoin.com/assets/Logo-big-rgb.png"/>
+      <itunes:duration>00:03:03</itunes:duration>
+      <enclosure url="https://ipfs.io/ipns/QmWgJh8zA1rsN4DLwLR5PT2oBDQgrSiACBArRZzZznRRw6/mp3/ep25-AUP.mp3" type="audio/mpeg" length="3961193"/>
+    </item>
+    <item>
+      <link>https://beginnenmetbitcoin.com/#ep24</link>
+      <title>Aflevering 24: Waar dient de PIN op mijn hardwarewallet voor?</title>
+      <itunes:title>Aflevering 24: Waar dient de PIN op mijn hardwarewallet voor?</itunes:title>
+      <description><![CDATA[
+          <p><b>Antwoord op de vraag: Waar dient de PIN op mijn hardwarewallet voor?</b></p>
+          <p><a target="_blank" href="https://pay.beginnenmetbitcoin.com">Donatielink</a> - <a target="_blank" href="https://t.me/beginnenmetbitcoin">Telegramgroep</a> - <a target="_blank" href="https://twitter.com/beginnenbitcoin">Twitter</a> - (niks in deze podcast is beleggingsadvies)</p>
+      ]]></description>
+      <itunes:summary><![CDATA[
+        Antwoord op de vraag: Waar dient de PIN op mijn hardwarewallet voor?
+      ]]></itunes:summary>
+      <itunes:season>3</itunes:season>
+      <guid>https://beginnenmetbitcoin.com/#ep24</guid>
+      <pubDate>Sat, 15 Aug 2020 00:00:24 +0000</pubDate>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:explicit>no</itunes:explicit>
+      <itunes:image href="https://beginnenmetbitcoin.com/assets/Logo-big-rgb.png"/>
+      <itunes:duration>00:03:16</itunes:duration>
+      <enclosure url="https://ipfs.io/ipns/QmWgJh8zA1rsN4DLwLR5PT2oBDQgrSiACBArRZzZznRRw6/mp3/ep24-AUP.mp3" type="audio/mpeg" length="4224507"/>
+    </item>
+    <item>
+      <link>https://beginnenmetbitcoin.com/#ep23</link>
+      <title>Aflevering 23: Hoe belangrijk is mijn seed phrase (backupwoorden)?</title>
+      <itunes:title>Aflevering 23: Hoe belangrijk is mijn seed phrase (backupwoorden)?</itunes:title>
+      <description><![CDATA[
+          <p><b>Antwoord op de vraag: Hoe belangrijk is mijn seed phrase (backupwoorden)?</b></p>
+          <p><a target="_blank" href="https://pay.beginnenmetbitcoin.com">Donatielink</a> - <a target="_blank" href="https://t.me/beginnenmetbitcoin">Telegramgroep</a> - <a target="_blank" href="https://twitter.com/beginnenbitcoin">Twitter</a> - (niks in deze podcast is beleggingsadvies)</p>
+      ]]></description>
+      <itunes:summary><![CDATA[
+        Antwoord op de vraag: Hoe belangrijk is mijn seed phrase (backupwoorden)?
+      ]]></itunes:summary>
+      <itunes:season>3</itunes:season>
+      <guid>https://beginnenmetbitcoin.com/#ep23</guid>
+      <pubDate>Sat, 15 Aug 2020 00:00:23 +0000</pubDate>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:explicit>no</itunes:explicit>
+      <itunes:image href="https://beginnenmetbitcoin.com/assets/Logo-big-rgb.png"/>
+      <itunes:duration>00:02:38</itunes:duration>
+      <enclosure url="https://ipfs.io/ipns/QmWgJh8zA1rsN4DLwLR5PT2oBDQgrSiACBArRZzZznRRw6/mp3/ep23-AUP.mp3" type="audio/mpeg" length="3457030"/>
+    </item>
+    <item>
+      <link>https://beginnenmetbitcoin.com/#ep22</link>
+      <title>Aflevering 22: Hoe maak ik gebalanceerde kanalen?</title>
+      <itunes:title>Aflevering 22: Hoe maak ik gebalanceerde kanalen?</itunes:title>
+      <description><![CDATA[
+          <p><b>Antwoord op de vraag: Hoe maak ik gebalanceerde kanalen?</b></p>
+          <p><a target="_blank" href="https://pay.beginnenmetbitcoin.com">Donatielink</a> - <a target="_blank" href="https://t.me/beginnenmetbitcoin">Telegramgroep</a> - <a target="_blank" href="https://twitter.com/beginnenbitcoin">Twitter</a> - (niks in deze podcast is beleggingsadvies)</p>
+      ]]></description>
+      <itunes:summary><![CDATA[
+        Antwoord op de vraag: Hoe maak ik gebalanceerde kanalen?
+      ]]></itunes:summary>
+      <itunes:season>3</itunes:season>
+      <guid>https://beginnenmetbitcoin.com/#ep22</guid>
+      <pubDate>Sat, 15 Aug 2020 00:00:22 +0000</pubDate>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:explicit>no</itunes:explicit>
+      <itunes:image href="https://beginnenmetbitcoin.com/assets/Logo-big-rgb.png"/>
+      <itunes:duration>00:05:36</itunes:duration>
+      <enclosure url="https://ipfs.io/ipns/QmWgJh8zA1rsN4DLwLR5PT2oBDQgrSiACBArRZzZznRRw6/mp3/ep22-AUP.mp3" type="audio/mpeg" length="7018564"/>
+    </item>
+    <item>
+      <link>https://beginnenmetbitcoin.com/#ep21</link>
+      <title>Aflevering 21: Waarom wil ik gebalanceerde Lightningkanalen?</title>
+      <itunes:title>Aflevering 21: Waarom wil ik gebalanceerde Lightningkanalen?</itunes:title>
+      <description><![CDATA[
+          <p><b>Antwoord op de vraag: Waarom wil ik gebalanceerde Lightningkanalen?</b></p>
+          <p><a target="_blank" href="https://pay.beginnenmetbitcoin.com">Donatielink</a> - <a target="_blank" href="https://t.me/beginnenmetbitcoin">Telegramgroep</a> - <a target="_blank" href="https://twitter.com/beginnenbitcoin">Twitter</a> - (niks in deze podcast is beleggingsadvies)</p>
+      ]]></description>
+      <itunes:summary><![CDATA[
+        Antwoord op de vraag: Waarom wil ik gebalanceerde Lightningkanalen?
+      ]]></itunes:summary>
+      <itunes:season>3</itunes:season>
+      <guid>https://beginnenmetbitcoin.com/#ep21</guid>
+      <pubDate>Sat, 15 Aug 2020 00:00:21 +0000</pubDate>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:explicit>no</itunes:explicit>
+      <itunes:image href="https://beginnenmetbitcoin.com/assets/Logo-big-rgb.png"/>
+      <itunes:duration>00:02:50</itunes:duration>
+      <enclosure url="https://ipfs.io/ipns/QmWgJh8zA1rsN4DLwLR5PT2oBDQgrSiACBArRZzZznRRw6/mp3/ep21-AUP.mp3" type="audio/mpeg" length="3704671"/>
+    </item>
+    <item>
+      <link>https://beginnenmetbitcoin.com/#ep20</link>
+      <title>Aflevering 20: Wat is de rol van de software bij mijn hardware wallet?</title>
+      <itunes:title>Aflevering 20: Wat is de rol van de software bij mijn hardware wallet?</itunes:title>
+      <description><![CDATA[
+          <p><b>Antwoord op de vraag: Wat is de rol van de software bij mijn hardware wallet?</b></p>
+          <p><a target="_blank" href="https://pay.beginnenmetbitcoin.com">Donatielink</a> - <a target="_blank" href="https://t.me/beginnenmetbitcoin">Telegramgroep</a> - <a target="_blank" href="https://twitter.com/beginnenbitcoin">Twitter</a> - (niks in deze podcast is beleggingsadvies)</p>
+
+      ]]></description>
+      <itunes:summary><![CDATA[
+        Antwoord op de vraag: Wat is de rol van de software bij mijn hardware wallet?
+      ]]></itunes:summary>
+      <itunes:season>3</itunes:season>
+      <guid>https://beginnenmetbitcoin.com/#ep20</guid>
+      <pubDate>Sat, 15 Aug 2020 00:00:20 +0000</pubDate>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:explicit>no</itunes:explicit>
+      <itunes:image href="https://beginnenmetbitcoin.com/assets/Logo-big-rgb.png"/>
+      <itunes:duration>00:04:07</itunes:duration>
+      <enclosure url="https://ipfs.io/ipns/QmWgJh8zA1rsN4DLwLR5PT2oBDQgrSiACBArRZzZznRRw6/mp3/ep20-AUP.mp3" type="audio/mpeg" length="5242238"/>
+    </item>
+
+
+
+
+    <item>
+      <link>https://beginnenmetbitcoin.com/#ep19</link>
+      <title>Aflevering 19: Staan mijn bitcoin 'op' mijn hardware wallet?</title>
+      <itunes:title>Aflevering 19: Staan mijn bitcoin 'op' mijn hardware wallet?</itunes:title>
+      <description><![CDATA[
+          <p><b>Antwoord op de vraag: Staan mijn bitcoin 'op' mijn hardware wallet?</b></p>
+          <p><a target="_blank" href="https://pay.beginnenmetbitcoin.com">Donatielink</a> - <a target="_blank" href="https://t.me/beginnenmetbitcoin">Telegramgroep</a> - <a target="_blank" href="https://twitter.com/beginnenbitcoin">Twitter</a> - (niks in deze podcast is beleggingsadvies)</p>
+      ]]></description>
+      <itunes:summary><![CDATA[
+        Antwoord op de vraag: Staan mijn bitcoin 'op' mijn hardware wallet?
+      ]]></itunes:summary>
+      <itunes:season>3</itunes:season>
+      <guid>https://beginnenmetbitcoin.com/#ep19</guid>
+      <pubDate>Sat, 15 Aug 2020 00:00:00 +0000</pubDate>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:explicit>no</itunes:explicit>
+      <itunes:image href="https://beginnenmetbitcoin.com/assets/Logo-big-rgb.png"/>
+      <itunes:duration>00:02:50</itunes:duration>
+      <enclosure url="https://ipfs.io/ipns/QmWgJh8zA1rsN4DLwLR5PT2oBDQgrSiACBArRZzZznRRw6/mp3/ep19-AUP.mp3" type="audio/mpeg" length="3691609"/>
+    </item>
+
+
+    <item>
+      <link>https://beginnenmetbitcoin.com/#ep18</link>
+      <title>Aflevering 18: Lightning: Het Lightning-netwerk</title>
+      <itunes:title>Aflevering 18: Lightning: Het Lightning-netwerk</itunes:title>
+      <description><![CDATA[
+        <h2 class="blog-post-title">Aflevering 18: Lightning: Het Lightning-netwerk</h2>
+        <p class="blog-post-meta">16 juni 2020</p>
+          <p><b>Het Lightning-netwerk!</b></p>
+          <p><a target="_blank" href="https://pay.beginnenmetbitcoin.com">Donatielink</a></p>
+          <p><a target="_blank" href="https://t.me/beginnenmetbitcoin">Telegramgroep</a></p>
+          <p><a target="_blank" href="https://twitter.com/beginnenbitcoin">Twitter</a></p>
+          <p><i><a href="https://beginnenmetbitcoin.com/">beginnenmetbitcoin.com</a> - Niks in deze podcast is beleggingsadvies.</i></p>
+      ]]></description>
+      <itunes:summary><![CDATA[
+        Het Lightning-netwerk!
+      ]]></itunes:summary>
+      <itunes:season>2</itunes:season>
+      <guid>https://beginnenmetbitcoin.com/#ep18</guid>
+      <pubDate>Tue, 16 Jun 2020 00:00:00 +0000</pubDate>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:explicit>no</itunes:explicit>
+      <itunes:image href="https://beginnenmetbitcoin.com/assets/Logo-big-rgb.png"/>
+      <itunes:duration>00:04:16</itunes:duration>
+      <enclosure url="https://ipfs.io/ipns/QmWgJh8zA1rsN4DLwLR5PT2oBDQgrSiACBArRZzZznRRw6/mp3/ep18-AUP.mp3" type="audio/mpeg" length="5429812"/>
+    </item>
+
+
+    <item>
+      <link>https://beginnenmetbitcoin.com/#ep17</link>
+      <title>Aflevering 17: Lightning: Een node beginnen en onderhouden</title>
+      <itunes:title>Aflevering 17: Lightning: Een node beginnen en onderhouden</itunes:title>
+      <description><![CDATA[
+          <p><b>Wat moet je doen als je een node hebt?</b></p>
+          <ol>
+            <li>Openen van kanalen, en met wie je dat het beste kan doen</li>
+            <li>Zorgen dat je geld kan ontvangen</li>
+            <li>Kanalen balanceren</li>
+            <li>Fees aanpassen</li>
+            <li>Backups maken</li>
+            <li>Sluiten van kanalen</li>
+            <li>Node online houden</li>
+            <li>Watchtowers, tegen fraude</li>
+            <li>Node gepatcht en veilig houden</li>
+          </ol>
+          <p>Links</p>
+          <ul>
+            <li><a target="_blank" href="https://github.com/C-Otto/rebalance-lnd">rebalance-lnd</a>, script om te rebalancen</li>
+            <li><a target="_blank" href="https://gist.github.com/alexbosworth/2c5e185aedbdac45a03655b709e255a3">Backupscript voor Linux</a></li>
+            <li><a target="_blank" href="https://lightning.watch">Lightning.Watch</a>, stuurt je een berichtje als je node offline gaat</li>
+            <li><a target="_blank" href="https://1ml.com">1ml.com</a>, node site</li>
+            <li><a target="_blank" href="https://mempool.space">mempool.space</a>: hoe staat het ervoor met de mempool?</li>
+            <li><a target="_blank" href="https://cisofy.com/lynis/">Lynis</a> voor je nodebeveiliging</li>
+            <li><a target="_blank" href="https://t.me/lightningnl">LightningNL groep op telegram</a></li>
+            <li><a target="_blank" href="https://t.me/beginnenmetbitcoin">Beginnen met Bitcoin groep op telegram</a></li>
+          </ul>
+          <p><a target="_blank" href="https://pay.beginnenmetbitcoin.com">Donatielink</a></p>
+          <p><a target="_blank" href="https://t.me/beginnenmetbitcoin">Telegramgroep</a></p>
+          <p><a target="_blank" href="https://twitter.com/beginnenbitcoin">Twitter</a></p>
+          <p><i><a href="https://beginnenmetbitcoin.com/">beginnenmetbitcoin.com</a> - Niks in deze podcast is beleggingsadvies.</i></p>
+      ]]></description>
+      <itunes:summary><![CDATA[
+Wat moet je doen als je een node hebt?
+
+    Openen van kanalen, en met wie je dat het beste kan doen
+    Zorgen dat je geld kan ontvangen
+    Kanalen balanceren
+    Fees aanpassen
+    Backups maken
+    Sluiten van kanalen
+    Node online houden
+    Watchtowers, tegen fraude
+    Node gepatcht en veilig houden
+
+Links
+
+    rebalance-lnd, script om te rebalancen
+    Backupscript voor Linux
+    Lightning.Watch, stuurt je een berichtje als je node offline gaat
+    1ml.com, node site
+    LightningNL groep op telegram
+    Beginnen met Bitcoin groep op telegram
+
+      ]]></itunes:summary>
+      <itunes:season>2</itunes:season>
+      <guid>https://beginnenmetbitcoin.com/#ep17</guid>
+      <pubDate>Sun, 14 Jun 2020 00:00:00 +0000</pubDate>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:explicit>no</itunes:explicit>
+      <itunes:image href="https://beginnenmetbitcoin.com/assets/Logo-big-rgb.png"/>
+      <itunes:duration>00:20:07</itunes:duration>
+      <enclosure url="https://ipfs.io/ipns/QmWgJh8zA1rsN4DLwLR5PT2oBDQgrSiACBArRZzZznRRw6/mp3/ep17-AUP.mp3" type="audio/mpeg" length="24446955"/>
+    </item>
+
+    <item>
+      <link>https://beginnenmetbitcoin.com/#ep16</link>
+      <title>Aflevering 16: Lightning: hoe te beginnen, node of wallet?</title>
+      <itunes:title>Aflevering 16: Lightning: hoe te beginnen, node of wallet?</itunes:title>
+      <description><![CDATA[
+        <h2 class="blog-post-title">Aflevering 16: Lightning: hoe te beginnen, node of wallet?</h2>
+        <p class="blog-post-meta">9 juni 2020</p>
+          <p><b>Hoe begin je met lightning? Wat zijn de keuzes voor wallets of nodes?</b></p>
+          <p>Links</p>
+          <ul>
+            <li><a target="_blank" href="https://www.raspberrypi.org/">Raspberry Pi</a></li>
+            <li><a target="_blank" href="https://github.com/LightningNetwork/lnd">LND lightningsoftware</a></li>
+            <li><a target="_blank" href="https://www.youtube.com/playlist?list=PLweLX09dn_zCHyCBjac9F131x8-LgUnGO">Uitleg SatoshiRadio over installatie node op Raspberry Pi</a></li>
+            <li><a target="_blank" href="https://github.com/mynodebtc/mynode">Installatiescript MyNode</a></li>
+            <li><a target="_blank" href="https://github.com/rootzoll/raspiblitz">Installatiescript RaspiBlitz</a></li>
+            <li><a target="_blank" href="https://github.com/BlueWallet/BlueWallet">BlueWallet</a>, A Bitcoin & Lightning Wallet</li>
+            <li><a target="_blank" href="https://t.me/lightningNL">Telegramgroep LightningNL</a></li>
+            <li><a target="_blank" href="https://t.me/BitcoinLightningNL">Telegramgroep Bitcoin Magazine over Lightning</a></li>
+            <li><a target="_blank" href="https://t.me/beginnenmetbitcoin">Telegramgroep Beginnen met Bitcoin</a></li>
+            <li><a target="_blank" href="#">Geen</a></li>
+          </ul>
+          <p><a target="_blank" href="https://pay.beginnenmetbitcoin.com">Donatielink</a></p>
+          <p><a target="_blank" href="https://t.me/beginnenmetbitcoin">Telegramgroep</a></p>
+          <p><a target="_blank" href="https://twitter.com/beginnenbitcoin">Twitter</a></p>
+          <p><i><a href="https://beginnenmetbitcoin.com/">beginnenmetbitcoin.com</a> - Niks in deze podcast is beleggingsadvies.</i></p>
+      ]]></description>
+      <itunes:summary><![CDATA[
+Hoe begin je met lightning? Wat zijn de keuzes voor wallets of nodes?
+
+Links
+
+    Raspberry Pi
+    LND lightningsoftware
+    Uitleg SatoshiRadio over installatie node op Raspberry Pi
+    Installatiescript MyNode
+    Installatiescript RaspiBlitz
+    BlueWallet, A Bitcoin & Lightning Wallet
+    Telegramgroep LightningNL
+    Telegramgroep Bitcoin Magazine over Lightning
+    Telegramgroep Beginnen met Bitcoin
+    Geen
+
+Donatielink
+
+Telegramgroep
+
+Twitter
+      ]]></itunes:summary>
+      <itunes:season>2</itunes:season>
+      <guid>https://beginnenmetbitcoin.com/#ep16</guid>
+      <pubDate>Tue, 09 Jun 2020 00:00:00 +0000</pubDate>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:explicit>no</itunes:explicit>
+      <itunes:image href="https://beginnenmetbitcoin.com/assets/Logo-big-rgb.png"/>
+      <itunes:duration>00:09:32</itunes:duration>
+      <enclosure url="https://ipfs.io/ipns/QmWgJh8zA1rsN4DLwLR5PT2oBDQgrSiACBArRZzZznRRw6/mp3/ep16-AUP.mp3" type="audio/mpeg" length="11755625"/>
+    </item>
+
+    <item>
+      <link>https://beginnenmetbitcoin.com/#ep15</link>
+      <title>Aflevering 15: Lightning: Wat als mensen zich niet gedragen, en backup-uitdagingen</title>
+      <itunes:title>Aflevering 15: Lightning: Wat als mensen zich niet gedragen, en backup-uitdagingen</itunes:title>
+      <description><![CDATA[
+          <p><b>Wat als mensen zich niet gedragen op Lightning?</b></p>
+          <p>Luister eerst de vorige aflevering!</p>
+          <p>Besproken scenarios</p>
+          <ul>
+          <li>1. Eerst de normale sluiting, waar beide nodes het eens zijn</li>
+          <li>2. Piet gaat offline, en ik kondig netjes de laaste state aan</li>
+          <li>3. Piet gaat offline, en ik kondig een oudere state aan, waar ik meer geld krijg dan ik recht op heb</li>
+          <li>4. Piet kondigt een oude state aan</li>
+          </ul>
+          <p><a target="_blank" href="https://pay.beginnenmetbitcoin.com">Donatielink</a></p>
+          <p><a target="_blank" href="https://t.me/beginnenmetbitcoin">Telegramgroep</a></p>
+          <p><a target="_blank" href="https://twitter.com/beginnenbitcoin">Twitter</a></p>
+          <p><i><a href="https://beginnenmetbitcoin.com/">beginnenmetbitcoin.com</a> - Niks in deze podcast is beleggingsadvies.</i></p>
+      ]]></description>
+      <itunes:summary><![CDATA[
+Wat als mensen zich niet gedragen op Lightning?
+
+Luister eerst de vorige aflevering!
+
+Besproken scenarios
+
+    1. Eerst de normale sluiting, waar beide nodes het eens zijn
+    2. Piet gaat offline, en ik kondig netjes de laaste state aan
+    3. Piet gaat offline, en ik kondig een oudere state aan, waar ik meer geld krijg dan ik recht op heb
+    4. Piet kondigt een oude state aan
+
+      ]]></itunes:summary>
+      <itunes:season>2</itunes:season>
+      <guid>https://beginnenmetbitcoin.com/#ep15</guid>
+      <pubDate>Mon, 01 Jun 2020 00:00:01 +0000</pubDate>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:explicit>no</itunes:explicit>
+      <itunes:image href="https://beginnenmetbitcoin.com/assets/Logo-big-LN.png"/>
+      <itunes:duration>00:14:15</itunes:duration>
+      <enclosure url="https://ipfs.io/ipns/QmWgJh8zA1rsN4DLwLR5PT2oBDQgrSiACBArRZzZznRRw6/mp3/ep15-AUP.mp3" type="audio/mpeg" length="17412702"/>
+    </item>
+
+    <item>
+      <link>https://beginnenmetbitcoin.com/#ep14</link>
+      <title>Aflevering 14: Lightning: wat kan je ermee?</title>
+      <itunes:title>Aflevering 14: Lightning: wat kan je ermee?</itunes:title>
+      <description><![CDATA[
+        <h2 class="blog-post-title">Aflevering 14: Lightning: wat kan je ermee?</h2>
+        <p class="blog-post-meta">1 juni 2020</p>
+          <b>Conceptuele introductie van Lightning, met uitleg wat er op de bitcoin blockchain gebeurt.</b>
+          <p>Links</p>
+          <ul>
+            <li><a target="_blank" href="#">Geen</a></li>
+          </ul>
+          <p><a target="_blank" href="https://pay.beginnenmetbitcoin.com">Donatielink</a></p>
+          <p><a target="_blank" href="https://t.me/beginnenmetbitcoin">Telegramgroep</a></p>
+          <p><a target="_blank" href="https://twitter.com/beginnenbitcoin">Twitter</a></p>
+          <p><i><a href="https://beginnenmetbitcoin.com/">beginnenmetbitcoin.com</a> - Niks in deze podcast is beleggingsadvies.</i></p>
+      ]]></description>
+      <itunes:summary><![CDATA[
+Conceptuele introductie van Lightning, met uitleg wat er op de bitcoin blockchain gebeurt.
+
+Links
+
+    Geen
+
+Donatielink
+
+Telegramgroep
+
+Twitter
+      ]]></itunes:summary>
+      <itunes:season>2</itunes:season>
+      <guid>https://beginnenmetbitcoin.com/#ep14</guid>
+      <pubDate>Mon, 01 Jun 2020 00:00:00 +0000</pubDate>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:explicit>no</itunes:explicit>
+      <itunes:image href="https://beginnenmetbitcoin.com/assets/Logo-big-LN.png"/>
+      <itunes:duration>00:19:29</itunes:duration>
+      <enclosure url="https://ipfs.io/ipns/QmWgJh8zA1rsN4DLwLR5PT2oBDQgrSiACBArRZzZznRRw6/mp3/ep14-AUP.mp3" type="audio/mpeg" length="23685747"/>
+    </item>
+
+    <item>
+      <link>https://beginnenmetbitcoin.com/#ep13</link>
+      <title>Aflevering 13: Vraag en antwoord deel 1</title>
+      <itunes:title>Aflevering 13: Vraag en antwoord deel 1</itunes:title>
+      <description><![CDATA[
+          <b>Vragen en antwoorden</b>
+          <ul>
+            <li>1  Hoeveel in mobiele wallet? (Joeri)</li>
+            <li>2  Zijn er onveilige wallets? (Joeri)</li>
+            <li>3  Zijn seeds herbruikbaar in andere wallets? (Joeri)</li>
+            <li>4  Waarom mogen miners pas na 100 blokken uitgeven? (Rob)</li>
+            <li>5  Waarom 6 confirms wachten? (Rob)</li>
+            <li>6  Peer discovery in het netwerk (Rob)</li>
+            <li>7  Hoe verlies ik de KYC van mijn coins? (Ruudiano)</li>
+            <li>8  Is mixen niet ideaal voor criminelen? (Ferry)</li>
+            <li>9  Nadelen van mixen? (Matteo)</li>
+            <li>10 Transacties doen met HW wallets? (Joeri)</li>
+            <li>11 Handelen tussen exchanges (Silvio)</li>
+            <li>12 Waar komt "shitcoin" vandaan, en waarom komen er steeds meer? (Joeri)</li>
+          </ul>
+          <p>Links</p>
+          <ul>
+            <li><a target="_blank" href="https://github.com/bitcoin/bips/blob/master/bip-0039/english.txt">BIP0039 woordenlijst</a></li>
+            <li><a target="_blank" href="https://www.crypto51.app/">Kosten van een aanval</a></li>
+            <li><a target="_blank" href="https://github.com/bitcoin/bitcoin/blob/master/src/chainparams.cpp#L111-L123">Code met DNS-systeem ontwikkelaars om eerste node te vinden</a></li>
+          </ul>
+          <p><a target="_blank" href="https://pay.beginnenmetbitcoin.com">Donatielink</a></p>
+          <p><a target="_blank" href="https://t.me/beginnenmetbitcoin">Telegramgroep</a></p>
+          <p><a target="_blank" href="https://twitter.com/beginnenbitcoin">Twitter</a></p>
+          <p><i><a href="https://beginnenmetbitcoin.com/">beginnenmetbitcoin.com</a> - Niks in deze podcast is beleggingsadvies.</i></p>
+      ]]></description>
+      <itunes:summary><![CDATA[
+Vragen en antwoorden
+
+    1 Hoeveel in mobiele wallet? (Joeri)
+    2 Zijn er onveilige wallets? (Joeri)
+    3 Zijn seeds herbruikbaar in andere wallets? (Joeri)
+    4 Waarom mogen miners pas na 100 blokken uitgeven? (Rob)
+    5 Waarom 6 confirms wachten? (Rob)
+    6 Peer discovery in het netwerk (Rob)
+    7 Hoe verlies ik de KYC van mijn coins? (Ruudiano)
+    8 Is mixen niet ideaal voor criminelen? (Ferry)
+    9 Nadelen van mixen? (Matteo)
+    10 Transacties doen met HW wallets? (Joeri)
+    11 Handelen tussen exchanges (Silvio)
+    12 Waar komt "shitcoin" vandaan, en waarom komen er steeds meer? (Joeri)
+
+Links
+
+    BIP0039 woordenlijst
+    Kosten van een aanval
+    Code met DNS-systeem ontwikkelaars om eerste node te vinden
+
+Donatielink
+
+Telegramgroep
+
+Twitter
+      ]]></itunes:summary>
+      <itunes:season>1</itunes:season>
+      <guid>https://beginnenmetbitcoin.com/#ep13</guid>
+      <pubDate>Sun, 31 May 2020 00:00:00 +0000</pubDate>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:explicit>no</itunes:explicit>
+      <itunes:image href="https://beginnenmetbitcoin.com/assets/Logo-big-rgb.png"/>
+      <itunes:duration>00:26:29</itunes:duration>
+      <enclosure url="https://ipfs.io/ipns/QmWgJh8zA1rsN4DLwLR5PT2oBDQgrSiACBArRZzZznRRw6/mp3/ep13-AUP.mp3" type="audio/mpeg" length="32071038"/>
+    </item>
+
+
+    <item>
+      <link>https://beginnenmetbitcoin.com/#ep12</link>
+      <title>Aflevering 12: Cryptografie en hashing (Techniek)</title>
+      <itunes:title>Aflevering 12: Cryptografie en hashing (Techniek)</itunes:title>
+      <description><![CDATA[
+          <b>Public Key Cryptografie en Hashing</b>
+          <b>(Ik heb het in deze aflevering alleen over Sha256-hashes, ook als ik per ongeluk sha265 zeg)</b>
+          <p>Links</p>
+          <ul>
+            <li><a target="_blank" href="https://duckduckgo.com/?t=ffab&q=sha256+Beginnenmetbitcoin3471&ia=answer">Beginnenmetbitcoin3471</a> hash, die begint met 000</li>
+          </ul>
+          <p><a target="_blank" href="https://pay.beginnenmetbitcoin.com">Donatielink</a></p>
+          <p><a target="_blank" href="https://t.me/beginnenmetbitcoin">Telegramgroep</a></p>
+          <p><i><a href="https://beginnenmetbitcoin.com/">beginnenmetbitcoin.com</a> - Niks in deze podcast is beleggingsadvies.</i></p>
+      ]]></description>
+      <itunes:summary><![CDATA[
+Public Key Cryptografie en Hashing
+Ik heb het in deze aflevering alleen over Sha256-hashes, ook als ik per ongeluk sha265 zeg
+
+Links
+
+    Beginnenmetbitcoin3471 hash, die begint met 000
+
+Donatielink
+
+Telegramgroep
+      ]]></itunes:summary>
+      <itunes:season>1</itunes:season>
+      <guid>https://beginnenmetbitcoin.com/#ep12</guid>
+      <pubDate>Wed, 27 May 2020 00:00:00 +0000</pubDate>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:explicit>no</itunes:explicit>
+      <itunes:image href="https://beginnenmetbitcoin.com/assets/Logo-big-rgb.png"/>
+      <itunes:duration>00:12:50</itunes:duration>
+      <enclosure url="https://ipfs.io/ipns/QmWgJh8zA1rsN4DLwLR5PT2oBDQgrSiACBArRZzZznRRw6/mp3/ep12-AUP.mp3" type="audio/mpeg" length="15689128"/>
+    </item>
+
+
+    <item>
+      <link>https://beginnenmetbitcoin.com/#ep11</link>
+      <title>Aflevering 11: Mining pools</title>
+      <itunes:title>Aflevering 11: Mining pools</itunes:title>
+      <description><![CDATA[
+          <b>Mining pools, hoe werken die, hoe blijft dat eerlijk...</b>
+          <p>Links</p>
+          <ul>
+            <li><a target="_blank" href="https://coin.dance/blocks/allhashthisweek">Total Bitcoin Hash Rate by Mining Pool (last 7 days, all chains) Summary</a></li>
+          </ul>
+          <p><a target="_blank" href="https://pay.beginnenmetbitcoin.com">Donatielink</a></p>
+          <p><a target="_blank" href="https://t.me/beginnenmetbitcoin">Telegramgroep</a></p>
+          <p><i><a href="https://beginnenmetbitcoin.com/">beginnenmetbitcoin.com</a> - Niks in deze podcast is beleggingsadvies.</i></p>
+      ]]></description>
+      <itunes:summary><![CDATA[
+Mining pools, hoe werken die, hoe blijft dat eerlijk...
+
+Links
+
+    Total Bitcoin Hash Rate by Mining Pool (last 7 days, all chains) Summary
+
+    Donatielink
+
+    Telegramgroep
+      ]]></itunes:summary>
+      <itunes:season>1</itunes:season>
+      <guid>https://beginnenmetbitcoin.com/#ep11</guid>
+      <pubDate>Sun, 24 May 2020 00:00:01 +0000</pubDate>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:explicit>no</itunes:explicit>
+      <itunes:image href="https://beginnenmetbitcoin.com/assets/Logo-big-rgb.png"/>
+      <itunes:duration>00:10:26</itunes:duration>
+      <enclosure url="https://ipfs.io/ipns/QmWgJh8zA1rsN4DLwLR5PT2oBDQgrSiACBArRZzZznRRw6/mp3/ep11-AUP.mp3" type="audio/mpeg" length="12816703"/>
+    </item>
+
+
+    <item>
+      <link>https://beginnenmetbitcoin.com/#ep10</link>
+      <title>Aflevering 10: Risico's en Tegenargumenten</title>
+      <itunes:title>Aflevering 10: Risico's en Tegenargumenten</itunes:title>
+      <description><![CDATA[
+          <b>Argumenten tegen bitcoin!</b>
+          <p>Links</p>
+          <ul>
+            <li><a target="_blank" href="https://en.bitcoin.it/wiki/Myths">Argumenten op de bitcoin wiki</a></li>
+          </ul>
+          <p><a target="_blank" href="https://pay.beginnenmetbitcoin.com">Donatielink</a></p>
+          <p><a target="_blank" href="https://t.me/beginnenmetbitcoin">Telegramgroep</a></p>
+          <p><i><a href="https://beginnenmetbitcoin.com/">beginnenmetbitcoin.com</a> - Niks in deze podcast is beleggingsadvies.</i></p>
+      ]]></description>
+      <itunes:summary><![CDATA[
+Argumenten tegen bitcoin!
+
+Links
+
+    Argumenten op de bitcoin wiki
+
+Donatielink
+
+Telegramgroep
+      ]]></itunes:summary>
+      <itunes:season>1</itunes:season>
+      <guid>https://beginnenmetbitcoin.com/#ep10</guid>
+      <pubDate>Sun, 24 May 2020 00:00:00 +0000</pubDate>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:explicit>no</itunes:explicit>
+      <itunes:image href="https://beginnenmetbitcoin.com/assets/Logo-big-rgb.png"/>
+      <itunes:duration>00:30:22</itunes:duration>
+      <enclosure url="https://ipfs.io/ipns/QmWgJh8zA1rsN4DLwLR5PT2oBDQgrSiACBArRZzZznRRw6/mp3/ep10-AUP.mp3" type="audio/mpeg" length="36459586"/>
+    </item>
+
+    <item>
+      <link>https://beginnenmetbitcoin.com/#ep9</link>
+      <title>Aflevering 9: Anonimiteit en mixen</title>
+      <itunes:title>Aflevering 9: Anonimiteit en mixen</itunes:title>
+      <description><![CDATA[
+            <b>Anonimiteit, hoe behou je die, en wat mixen?</b>
+            <p>De besproken links</p>
+            <ul>
+              <li><a target="_blank" href="https://blockstream.com">Blockstream</a></li>
+              <li><a target="_blank" href="https://www.wasabiwallet.io/">Wasabi wallet</a></li>
+              <li><a target="_blank" href="https://samouraiwallet.com/">Samurai wallet</a></li>
+            </ul>
+            <p><a target="_blank" href="https://pay.beginnenmetbitcoin.com">Donatielink</a></p>
+            <p><a target="_blank" href="https://t.me/beginnenmetbitcoin">Telegramgroep</a></p>
+            <p><i><a href="https://beginnenmetbitcoin.com/">beginnenmetbitcoin.com</a> - Niks in deze podcast is beleggingsadvies.</i></p>
+      ]]></description>
+      <itunes:summary><![CDATA[
+ Anonimiteit, hoe behou je die, en wat mixen?
+
+De besproken links
+
+    Blockstream
+    Wasabi wallet
+    Samurai wallet
+
+Donatielink
+
+Telegramgroep
+      ]]></itunes:summary>
+      <itunes:season>1</itunes:season>
+      <guid>https://beginnenmetbitcoin.com/#ep9</guid>
+      <pubDate>Fri, 22 May 2020 00:00:01 +0000</pubDate>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:explicit>no</itunes:explicit>
+      <itunes:image href="https://beginnenmetbitcoin.com/assets/Logo-big-rgb.png"/>
+      <itunes:duration>00:13:19</itunes:duration>
+      <enclosure url="https://ipfs.io/ipns/QmWgJh8zA1rsN4DLwLR5PT2oBDQgrSiACBArRZzZznRRw6/mp3/ep9-AUP.mp3" type="audio/mpeg" length="16267477"/>
+    </item>
+
+    <item>
+      <link>https://beginnenmetbitcoin.com/#ep8</link>
+      <title>Aflevering 8: Mining</title>
+      <itunes:title>Aflevering 8: Mining</itunes:title>
+      <description><![CDATA[
+            <b>Mining, wat doen miners, wat heeft dat met jouw transacties te maken?</b>
+            <p>De besproken links</p>
+            <ul>
+              <li><a target="_blank" href="#">Geen</a></li>
+            </ul>
+            <p><a target="_blank" href="https://pay.beginnenmetbitcoin.com">Donatielink</a></p>
+            <p><a target="_blank" href="https://t.me/beginnenmetbitcoin">Telegramgroep</a></p>
+            <p><i><a href="https://beginnenmetbitcoin.com/">beginnenmetbitcoin.com</a> - Niks in deze podcast is beleggingsadvies.</i></p>
+      ]]></description>
+      <itunes:summary><![CDATA[
+ Mining, wat doen miners, wat heeft dat met jouw transacties te maken?
+
+De besproken links
+Geen
+
+Donatielink
+
+Telegramgroep
+      ]]></itunes:summary>
+      <itunes:season>1</itunes:season>
+      <guid>https://beginnenmetbitcoin.com/#ep8</guid>
+      <pubDate>Fri, 22 May 2020 00:00:00 +0000</pubDate>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:explicit>no</itunes:explicit>
+      <itunes:image href="https://beginnenmetbitcoin.com/assets/Logo-big-rgb.png"/>
+      <itunes:duration>00:20:59</itunes:duration>
+      <enclosure url="https://ipfs.io/ipns/QmWgJh8zA1rsN4DLwLR5PT2oBDQgrSiACBArRZzZznRRw6/mp3/ep8-AUP.mp3" type="audio/mpeg" length="25466758"/>
+    </item>
+
+    <item>
+      <link>https://beginnenmetbitcoin.com/#ep7</link>
+      <title>Aflevering 7: Bitcoinadressen</title>
+      <itunes:title>Aflevering 7: Bitcoinadressen</itunes:title>
+      <description><![CDATA[
+            <b>Wat is een bitcoinadres, waar komt-ie vandaan?</b>
+            <p>De besproken links</p>
+            <ul>
+              <li><a target="_blank" href="https://blockstream.info/address/bc1qykvs7lj4ju0zf6ntm7jp5p0qug2vzgs0n4jnjf">Het besproken bitcoinadres</a></li>
+              <li><a target="_blank" href="https://github.com/bitcoin/bips/blob/master/bip-0039/english.txt">De woordenlijst</a></li>
+            </ul>
+            <p><a target="_blank" href="https://pay.beginnenmetbitcoin.com">Donatielink</a></p>
+            <p><a target="_blank" href="https://t.me/beginnenmetbitcoin">Telegramgroep</a></p>
+            <p><i><a href="https://beginnenmetbitcoin.com/">beginnenmetbitcoin.com</a> - Niks in deze podcast is beleggingsadvies.</i></p>
+      ]]></description>
+      <itunes:summary><![CDATA[
+ Wat is een bitcoinadres, waar komt-ie vandaan?
+
+De besproken links
+
+    Het besproken bitcoinadres
+    De woordenlijst
+
+Donatielink
+
+Telegramgroep
+      ]]></itunes:summary>
+      <itunes:season>1</itunes:season>
+      <guid>https://beginnenmetbitcoin.com/#ep7</guid>
+      <pubDate>Sun, 17 May 2020 00:00:00 +0000</pubDate>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:explicit>no</itunes:explicit>
+      <itunes:image href="https://beginnenmetbitcoin.com/assets/Logo-big-rgb.png"/>
+      <itunes:duration>00:16:50</itunes:duration>
+      <enclosure url="https://ipfs.io/ipns/QmWgJh8zA1rsN4DLwLR5PT2oBDQgrSiACBArRZzZznRRw6/mp3/ep7-AUP.mp3" type="audio/mpeg" length="20486775"/>
+    </item>
+
+    <item>
+      <link>https://beginnenmetbitcoin.com/#ep6</link>
+      <title>Aflevering 6: Transacties</title>
+      <itunes:title>Aflevering 6: Transacties</itunes:title>
+      <description><![CDATA[
+            <b>Wat is een bitcointransactie, hoe werkt hij?</b>
+            <p>De besproken links</p>
+            <ul>
+              <li><a target="_blank" href="#">Geen</a></li>
+            </ul>
+            <p><a target="_blank" href="https://pay.beginnenmetbitcoin.com">Donatielink</a></p>
+            <p><a target="_blank" href="https://t.me/beginnenmetbitcoin">Telegramgroep</a></p>
+            <p><i><a href="https://beginnenmetbitcoin.com/">beginnenmetbitcoin.com</a> - Niks in deze podcast is beleggingsadvies.</i></p>
+      ]]></description>
+      <itunes:summary><![CDATA[
+ Wat is een bitcointransactie, hoe werkt hij?
+
+ De besproken links
+
+     Geen
+
+     Donatielink
+
+     Telegramgroep
+      ]]></itunes:summary>
+      <itunes:season>1</itunes:season>
+      <guid>https://beginnenmetbitcoin.com/#ep6</guid>
+      <pubDate>Fri, 15 May 2020 00:00:00 +0000</pubDate>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:explicit>no</itunes:explicit>
+      <itunes:image href="https://beginnenmetbitcoin.com/assets/Logo-big-rgb.png"/>
+      <itunes:duration>00:17:35</itunes:duration>
+      <enclosure url="https://ipfs.io/ipns/QmWgJh8zA1rsN4DLwLR5PT2oBDQgrSiACBArRZzZznRRw6/mp3/ep6-AUP.mp3" type="audio/mpeg" length="21397403"/>
+    </item>
+
+
+    <item>
+      <link>https://beginnenmetbitcoin.com/#ep5</link>
+      <title>Aflevering 5: De Blockchain</title>
+      <itunes:title>Aflevering 5: De Blockchain</itunes:title>
+      <description><![CDATA[
+            <b>De blockchain, wat is dat, en wat zit er in blocks?</b>
+            <p>De besproken links</p>
+            <ul>
+              <li><a target="_blank" href="https://blockstream.com">Blockchain-informatie bekijken op blockstream.com</a></li>
+              <li><a target="_blank" href="https://bitcoin.nl/explorer">Blockchain-informatie op bitcoin.nl</a></li>
+            </ul>
+            <p><a target="_blank" href="https://pay.beginnenmetbitcoin.com">Donatielink</a></p>
+            <p><a target="_blank" href="https://t.me/beginnenmetbitcoin">Telegramgroep</a></p>
+            <p><i><a href="https://beginnenmetbitcoin.com/">beginnenmetbitcoin.com</a> - Niks in deze podcast is beleggingsadvies.</i></p>
+      ]]></description>
+      <itunes:summary><![CDATA[
+De blockchain, wat is dat, en wat zit er in blocks?
+
+De besproken links
+
+    Blockchain-informatie bekijken op blockstream.com
+    Blockchain-informatie op bitcoin.nl
+
+Donatielink
+
+Telegramgroep
+      ]]></itunes:summary>
+      <itunes:season>1</itunes:season>
+      <guid>https://beginnenmetbitcoin.com/#ep5</guid>
+      <pubDate>Sun, 10 May 2020 00:01:00 +0000</pubDate>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:explicit>no</itunes:explicit>
+      <itunes:image href="https://beginnenmetbitcoin.com/assets/Logo-big-rgb.png"/>
+      <itunes:duration>00:12:13</itunes:duration>
+      <enclosure url="https://ipfs.io/ipns/QmWgJh8zA1rsN4DLwLR5PT2oBDQgrSiACBArRZzZznRRw6/mp3/ep5-AUP.mp3" type="audio/mpeg" length="14965011"/>
+    </item>
+
+
+
+
+    <item>
+      <link>https://beginnenmetbitcoin.com/#ep4</link>
+      <title>Aflevering 4: Nodes, wat, waarom en hoe?</title>
+      <itunes:title>Aflevering 4: Nodes, wat, waarom en hoe?</itunes:title>
+      <description><![CDATA[
+            <b>Wat is een bitcoin core node, wat doen nodes, en wat heb ik nodig om er een te beginnen?</b>
+            <p>De besproken links</p>
+            <ul>
+              <li><a target="_blank" href="https://bitcoin.org/en/download">Bitcoin.org downloadlink</a></li>
+              <li><a target="_blank" href="https://bitcoincore.org/">Officiele site bitcoin core</a></li>
+              <li><a target="_blank" href="https://tweakers.net/moederborden/raspberry-pi/4-model-b_p999246/vergelijken/">Raspberry Pi</a></li>
+            </ul>
+            <p><a target="_blank" href="https://pay.beginnenmetbitcoin.com">Donatielink</a></p>
+            <p><a target="_blank" href="https://t.me/beginnenmetbitcoin">Telegramgroep</a></p>
+            <p><i><a href="https://beginnenmetbitcoin.com/">beginnenmetbitcoin.com</a> - Niks in deze podcast is beleggingsadvies.</i></p>
+      ]]></description>
+      <itunes:summary><![CDATA[
+ Wat is een bitcoin core node, wat doen nodes, en wat heb ik nodig om er een te beginnen?
+
+De besproken links
+
+    Bitcoin.org downloadlink
+    Officiele site bitcoin core
+    Raspberry Pi
+
+Donatielink
+
+Telegramgroep
+      ]]></itunes:summary>
+      <itunes:season>1</itunes:season>
+      <guid>https://beginnenmetbitcoin.com/#ep4</guid>
+      <pubDate>Sun, 10 May 2020 00:00:00 +0000</pubDate>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:explicit>no</itunes:explicit>
+      <itunes:image href="https://beginnenmetbitcoin.com/assets/Logo-big-rgb.png"/>
+      <itunes:duration>00:09:45</itunes:duration>
+      <enclosure url="https://ipfs.io/ipns/QmWgJh8zA1rsN4DLwLR5PT2oBDQgrSiACBArRZzZznRRw6/mp3/ep4-AUP.mp3" type="audio/mpeg" length="11999591"/>
+    </item>
+
+
+    <item>
+      <link>https://beginnenmetbitcoin.com/#ep3</link>
+      <title>Aflevering 3: Bitcoin kopen</title>
+      <itunes:title>Aflevering 3: Bitcoin kopen</itunes:title>
+      <description><![CDATA[
+            <b>Hoe kom je aan bitcoin?</b>
+            <p><b><i>Ter info: vanaf aflevering 5 wordt de microfoon beter!</i></b></p>
+            <p>De besproken links</p>
+            <ul>
+              <li><a target="_blank" href="https://bitonic.nl">Bitonic.nl</a></li>
+              <li><a target="_blank" href="https://bl3p.eu">Bl3p exchange</a></li>
+              <li><a target="_blank" href="https://hodlhodl.com/">HodlHodl.com</a></li>
+            </ul>
+            <p><a target="_blank" href="https://t.me/beginnenmetbitcoin">Telegramgroep</a></p>
+            <p><i><a href="https://beginnenmetbitcoin.com/">beginnenmetbitcoin.com</a> - Niks in deze podcast is beleggingsadvies.</i></p>
+      ]]></description>
+      <itunes:summary><![CDATA[
+ Hoe kom je aan bitcoin?
+
+De besproken links
+
+    Bitonic.nl
+    Bl3p exchange
+    HodlHodl.com
+
+Telegramgroep
+      ]]></itunes:summary>
+      <itunes:season>1</itunes:season>
+      <guid>https://beginnenmetbitcoin.com/#ep3</guid>
+      <pubDate>Fri, 08 May 2020 00:00:00 +0000</pubDate>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:explicit>no</itunes:explicit>
+      <itunes:image href="https://beginnenmetbitcoin.com/assets/Logo-big-rgb.png"/>
+      <itunes:duration>00:10:24</itunes:duration>
+      <enclosure url="https://ipfs.io/ipns/QmWgJh8zA1rsN4DLwLR5PT2oBDQgrSiACBArRZzZznRRw6/mp3/ep3-AUP.mp3" type="audio/mpeg" length="12776995"/>
+    </item>
+
+
+
+    <item>
+      <link>https://beginnenmetbitcoin.com/#ep2</link>
+      <title>Aflevering 2: Hoe gebruik ik bitcoin, wallets en meer</title>
+      <itunes:title>Aflevering 2: Hoe gebruik ik bitcoin, wallets en meer</itunes:title>
+      <description><![CDATA[
+            <b>Hoe gebruik je bitcoin en wat is een wallet</b>
+            <p><b><i>Ter info: vanaf aflevering 5 wordt de microfoon beter!</i></b></p>
+            <p>De besproken links</p>
+            <ul>
+              <li><a href="https://bitcoin.org/nl/kies-uw-portemonnee">De Kies-uw-portemonnee op bitcoin.org</a></li>
+              <li><a href="https://www.ledger.com/">Ledger wallet</a>, de leverancier van mijn hardware wallet  </li>
+              <li><a href="https://wallet.schildbach.de/">Android wallet "Bitcoin Wallet"</a></li>
+              <li><a href="https://muun.com/">MUUN wallet op iOS (iPhone) en android</a></li>
+              <li><a href="https://itunes.apple.com/app/brd-bitcoin-wallet/id885251393">BRD wallet op iOS (iPhone)</a></li>
+              <li><a href="https://play.google.com/store/apps/details?id=com.breadwallet">BRD wallet op Android</a></li>
+            </ul>
+            <p><a href="https://t.me/beginnenmetbitcoin">Telegramgroep</a></p>
+            <p><i><a href="https://beginnenmetbitcoin.com/">beginnenmetbitcoin.com</a> - Niks in deze podcast is beleggingsadvies.</i></p>
+      ]]></description>
+      <itunes:summary><![CDATA[
+Hoe gebruik je bitcoin en wat is een wallet
+
+De besproken links
+
+    De Kies-uw-portemonnee op bitcoin.org https://bitcoin.org/nl/kies-uw-portemonnee
+    Ledger wallet, de leverancier van mijn hardware wallet https://www.ledger.com/
+    Android wallet "Bitcoin Wallet" https://wallet.schildbach.de/
+    MUUN wallet op iOS (iPhone) en android https://muun.com/
+    BRD wallet op iOS (iPhone) https://itunes.apple.com/app/brd-bitcoin-wallet/id885251393
+    BRD wallet op Android https://play.google.com/store/apps/details?id=com.breadwallet
+
+Telegramgroep https://t.me/beginnenmetbitcoin
+
+beginnenmetbitcoin.com - Niks in deze podcast is beleggingsadvies.
+      ]]></itunes:summary>
+      <itunes:season>1</itunes:season>
+      <guid>https://beginnenmetbitcoin.com/#ep2</guid>
+      <pubDate>Wed, 06 May 2020 00:00:00 +0000</pubDate>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:explicit>no</itunes:explicit>
+      <itunes:image href="https://beginnenmetbitcoin.com/assets/Logo-big-rgb.png"/>
+      <itunes:duration>00:22:14</itunes:duration>
+      <enclosure url="https://ipfs.io/ipns/QmWgJh8zA1rsN4DLwLR5PT2oBDQgrSiACBArRZzZznRRw6/mp3/ep2-AUP.mp3" type="audio/mpeg" length="18681177"/>
+    </item>
+
+
+
+
+    <item>
+      <link>https://beginnenmetbitcoin.com/#ep1</link>
+      <title>Aflevering 1: Begin van bitcoin en schaarste</title>
+      <itunes:title>Aflevering 1: Begin van bitcoin en schaarste</itunes:title>
+      <description><![CDATA[
+            <b>Hoe is bitcoin begonnen, wat geschiedenis en schaarste</b>
+            <p><b><i>Ter info: vanaf aflevering 5 wordt de microfoon beter!</i></b></p>
+            <p><a href="https://t.me/beginnenmetbitcoin">Telegramgroep</a></p>
+            <p><i><a href="https://beginnenmetbitcoin.com/">beginnenmetbitcoin.com</a> - Niks in deze podcast is beleggingsadvies.</i></p>
+      ]]></description>
+      <itunes:summary><![CDATA[
+Hoe is bitcoin begonnen, wat geschiedenis en schaarste
+Telegramgroep
+beginnenmetbitcoin.com - Niks in deze podcast is beleggingsadvies.
+      ]]></itunes:summary>
+      <itunes:season>1</itunes:season>
+      <guid>https://beginnenmetbitcoin.com/#ep1</guid>
+      <pubDate>Tue, 05 May 2020 00:00:00 +0000</pubDate>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:explicit>no</itunes:explicit>
+      <itunes:image href="https://beginnenmetbitcoin.com/assets/Logo-big-rgb.png"/>
+      <itunes:duration>00:12:02</itunes:duration>
+      <enclosure url="https://ipfs.io/ipns/QmWgJh8zA1rsN4DLwLR5PT2oBDQgrSiACBArRZzZznRRw6/mp3/ep1-AUP.mp3" type="audio/mpeg" length="10110662"/>
+    </item>
+
+
+    <item>
+      <link>https://beginnenmetbitcoin.com/#ep0</link>
+      <title>Aflevering 0: Over Beginnen met Bitcoin</title>
+      <itunes:title>Aflevering 0: Over Beginnen met Bitcoin</itunes:title>
+      <description><![CDATA[
+            <b>Introductieaflevering Beginnen met Bitcoin</b>
+            <p>Uitleg over de plannen!</p>
+            <p><b><i>Ter info: vanaf aflevering 5 wordt de microfoon beter!</i></b></p>
+            <p><a href="https://t.me/beginnenmetbitcoin">Telegramgroep</a></p>
+            <p><i><a href="https://beginnenmetbitcoin.com/">beginnenmetbitcoin.com</a> - Niks in deze podcast is beleggingsadvies.</i></p>
+      ]]></description>
+      <itunes:summary><![CDATA[
+         Introductieaflevering Beginnen met Bitcoin
+         Uitleg over de plannen!
+      ]]></itunes:summary>
+      <itunes:season>1</itunes:season>
+      <guid>https://beginnenmetbitcoin.com/#ep0</guid>
+      <pubDate>Sun, 03 May 2020 00:00:00 +0000</pubDate>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:explicit>no</itunes:explicit>
+      <itunes:image href="https://beginnenmetbitcoin.com/assets/Logo-big-rgb.png"/>
+      <itunes:duration>00:04:40</itunes:duration>
+      <enclosure url="https://ipfs.io/ipns/QmWgJh8zA1rsN4DLwLR5PT2oBDQgrSiACBArRZzZznRRw6/mp3/ep0-AUP.mp3" type="audio/mpeg" length="3929693"/>
+    </item>
+
+
+
+  </channel>
+</rss>
