@@ -9,7 +9,8 @@ const defaultState = {
   login: {},
   queue: {},
   share: {},
-  signUp: {}
+  signUp: {},
+  support: {}
 }
 
 export default (state = defaultState, action) => {
@@ -234,6 +235,35 @@ export default (state = defaultState, action) => {
         signUp: {
           ...state.signUp,
           errorResponse: action.payload
+        }
+      }
+    case actionTypes.MODALS_SUPPORT_SHOW:
+      let episodeFunding = []
+      let podcastFunding = []
+
+      try {
+        if (action.payload.episodeFunding) {
+          episodeFunding = typeof action.payload.episodeFunding === 'string'
+            ? JSON.parse(action.payload.episodeFunding) : action.payload.episodeFunding
+        }
+        if (action.payload.podcastFunding) {
+          podcastFunding = typeof action.payload.podcastFunding === 'string'
+            ? JSON.parse(action.payload.podcastFunding) : action.payload.podcastFunding
+        }
+      } catch (error) {
+        console.log('modals_support_show', error)
+      }
+
+      return {
+        ...defaultState,
+        support: {
+          ...state.support,
+          episodeFunding,
+          isOpen: action.payload.isOpen,
+          podcastFunding,
+          podcastImageUrl: action.payload.podcastImageUrl,
+          podcastTitle: action.payload.podcastTitle,
+          podcastValue: action.payload.podcastValue
         }
       }
     default:

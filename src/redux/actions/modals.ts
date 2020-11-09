@@ -181,3 +181,10 @@ export const modalsSignUpSetErrorResponse = payload => {
     payload
   }
 }
+
+export const modalsSupportShow = payload => {
+  return {
+    type: actionTypes.MODALS_SUPPORT_SHOW,
+    payload
+  }
+}

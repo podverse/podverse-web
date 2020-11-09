@@ -199,7 +199,8 @@ class Episode extends Component<Props, State> {
         <MediaInfoCtrl
           episode={episode}
           initialShowDescription={true}
-          pageKey={pageKey} />
+          pageKey={pageKey}
+          podcast={episode.podcast} />
         <MediaListCtrl
           episode={episode}
           episodeId={episode.id}

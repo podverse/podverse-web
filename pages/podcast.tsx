@@ -96,8 +96,10 @@ class Podcast extends Component<Props, State> {
       const listItems = results.data[0].map(x => {
         const item = convertToNowPlayingItem(x, {}, podcast)
         item.podcastId = podcast.id
+        item.podcastFunding = podcast.funding
         item.podcastImageUrl = podcast.imageUrl
         item.podcastTitle = podcast.title
+        item.podcastValue = podcast.value
         return item
       })
       

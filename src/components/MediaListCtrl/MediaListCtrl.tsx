@@ -317,7 +317,7 @@ class MediaListCtrl extends Component<Props, State> {
       pageKey, pages, playerQueueLoadSecondaryItems, user, userSetInfo } = this.props
     const { listItems, podcast } = pages[pageKey]
     const { nowPlayingItem: previousItem } = mediaPlayer
-    
+
     if (window.player) {
       const currentTime = Math.floor(window.player.getCurrentTime()) || 0
       await addOrUpdateHistoryItemPlaybackPosition(mediaPlayer.nowPlayingItem, user, currentTime)
@@ -342,6 +342,8 @@ class MediaListCtrl extends Component<Props, State> {
       nowPlayingItem.podcastId = podcast.id
       nowPlayingItem.podcastImageUrl = podcast.imageUrl
       nowPlayingItem.podcastTitle = podcast.title
+      nowPlayingItem.podcastFunding = podcast.funding
+      nowPlayingItem.podcastValue = podcast.value
     }
 
     nowPlayingItem = assignLocalOrLoggedInNowPlayingItemPlaybackPosition(user, nowPlayingItem)

@@ -11,7 +11,7 @@ import { mediaPlayerLoadNowPlayingItem,
   mediaPlayerSetClipFinished, mediaPlayerSetPlayedAfterClipFinished,
   playerQueueLoadPriorityItems, playerQueueLoadSecondaryItems,
   mediaPlayerUpdatePlaying, modalsAddToShow, modalsMakeClipShow,
-  modalsShareShow, pageIsLoading, pagesSetQueryState,
+  modalsShareShow, modalsSupportShow, pageIsLoading, pagesSetQueryState,
   userSetInfo } from '~/redux/actions'
 import { updateUserQueueItems, addOrUpdateUserHistoryItem } from '~/services'
 
@@ -28,6 +28,7 @@ type Props = {
   modalsMakeClipShow?: any
   modalsQueueShow?: any
   modalsShareShow?: any
+  modalsSupportShow?: any
   pageIsLoading?: any
   pageKey?: string
   pagesSetQueryState?: any
@@ -298,6 +299,24 @@ class MediaPlayerView extends Component<Props, State> {
     })
   }
 
+  toggleSupportModal = () => {
+    const { mediaPlayer, modals, modalsSupportShow } = this.props
+    const { nowPlayingItem } = mediaPlayer
+    const { support } = modals
+    const { isOpen } = support
+
+    if (!nowPlayingItem) return
+
+    modalsSupportShow({
+      episodeFunding: nowPlayingItem.episodeFunding || [],
+      isOpen: !isOpen,
+      podcastFunding: nowPlayingItem.podcastFunding || [],
+      podcastImageUrl: nowPlayingItem.podcastImageUrl,
+      podcastTitle: nowPlayingItem.podcastTitle,
+      podcastValue: nowPlayingItem.podcastValue || []
+    })
+  }
+
   render() {
     const { isMobileDevice, mediaPlayer, playerQueue, settings, user } = this.props
     const { clipFinished, didWaitToLoad, nowPlayingItem, playedAfterClipFinished, playing } = mediaPlayer
@@ -305,46 +324,48 @@ class MediaPlayerView extends Component<Props, State> {
     const { playbackSpeedButtonHide } = settings
     const { autoplay, playbackRate } = this.state
 
+    if (!nowPlayingItem) return null
+    const { episodeFunding, podcastFunding } = nowPlayingItem
+    const showSupport = (episodeFunding && episodeFunding.length > 0) ||
+      (podcastFunding && podcastFunding.length > 0)
+
     return (
       <Fragment>
-        {
-          nowPlayingItem &&
-          <Fragment>
-            <div className='view__mediaplayer'>
-              <MediaPlayer
-                autoplay={autoplay}
-                clipFinished={clipFinished}
-                didWaitToLoad={didWaitToLoad}
-                handleGetPlaybackPositionFromHistory={user && user.id ? () => getPlaybackPositionFromHistory(user.historyItems, nowPlayingItem) : null}
-                handleItemSkip={this.itemSkip}
-                handleOnEpisodeEnd={this.onEpisodeEnd}
-                handleOnPastClipTime={this.onPastClipTime}
-                handlePause={this.pause}
-                handlePlaybackRateClick={this.playbackRateClick}
-                handleSetPlayedAfterClipFinished={this.setPlayedAfterClipFinished}
-                handletoggleAddToPlaylistModal={this.toggleAddToPlaylistModal}
-                handleToggleAutoplay={this.toggleAutoplay}
-                handleToggleMakeClipModal={this.toggleMakeClipModal}
-                handleToggleShareModal={this.toggleShareModal}
-                handleTogglePlay={this.togglePlay}
-                nowPlayingItem={nowPlayingItem}
-                playbackRate={playbackRate}
-                playedAfterClipFinished={playedAfterClipFinished}
-                playbackRateText={getPlaybackRateText(playbackRate)}
-                playerClipLinkAs={nowPlayingItem.clipId ? `${PV.paths.web.clip}/${nowPlayingItem.clipId}` : ''}
-                playerClipLinkHref={nowPlayingItem.clipId ? `${PV.paths.web.clip}?id=${nowPlayingItem.clipId}` : ''}
-                playerClipLinkOnClick={this.linkClick}
-                playerEpisodeLinkAs={`${PV.paths.web.episode}/${nowPlayingItem.episodeId}`}
-                playerEpisodeLinkHref={`${PV.paths.web.episode}?id=${nowPlayingItem.episodeId}`}
-                playerEpisodeLinkOnClick={this.linkClick}
-                playing={playing}
-                queuePriorityItems={priorityItems}
-                queueSecondaryItems={secondaryItems}
-                showAutoplay={!isMobileDevice}
-                showPlaybackSpeed={playbackSpeedButtonHide === 'false' || !playbackSpeedButtonHide} />
-            </div>
-          </Fragment>
-        }
+        <div className='view__mediaplayer'>
+          <MediaPlayer
+            autoplay={autoplay}
+            clipFinished={clipFinished}
+            didWaitToLoad={didWaitToLoad}
+            handleGetPlaybackPositionFromHistory={user && user.id ? () => getPlaybackPositionFromHistory(user.historyItems, nowPlayingItem) : null}
+            handleItemSkip={this.itemSkip}
+            handleOnEpisodeEnd={this.onEpisodeEnd}
+            handleOnPastClipTime={this.onPastClipTime}
+            handlePause={this.pause}
+            handlePlaybackRateClick={this.playbackRateClick}
+            handleSetPlayedAfterClipFinished={this.setPlayedAfterClipFinished}
+            handletoggleAddToPlaylistModal={this.toggleAddToPlaylistModal}
+            handleToggleAutoplay={this.toggleAutoplay}
+            handleToggleMakeClipModal={this.toggleMakeClipModal}
+            handleToggleShareModal={this.toggleShareModal}
+            handleToggleSupportModal={this.toggleSupportModal}
+            handleTogglePlay={this.togglePlay}
+            nowPlayingItem={nowPlayingItem}
+            playbackRate={playbackRate}
+            playedAfterClipFinished={playedAfterClipFinished}
+            playbackRateText={getPlaybackRateText(playbackRate)}
+            playerClipLinkAs={nowPlayingItem.clipId ? `${PV.paths.web.clip}/${nowPlayingItem.clipId}` : ''}
+            playerClipLinkHref={nowPlayingItem.clipId ? `${PV.paths.web.clip}?id=${nowPlayingItem.clipId}` : ''}
+            playerClipLinkOnClick={this.linkClick}
+            playerEpisodeLinkAs={`${PV.paths.web.episode}/${nowPlayingItem.episodeId}`}
+            playerEpisodeLinkHref={`${PV.paths.web.episode}?id=${nowPlayingItem.episodeId}`}
+            playerEpisodeLinkOnClick={this.linkClick}
+            playing={playing}
+            queuePriorityItems={priorityItems}
+            queueSecondaryItems={secondaryItems}
+            showAutoplay={!isMobileDevice}
+            showPlaybackSpeed={playbackSpeedButtonHide === 'false' || !playbackSpeedButtonHide}
+            showSupport={showSupport} />
+        </div>
       </Fragment>
     )
   }
@@ -360,6 +381,7 @@ const mapDispatchToProps = dispatch => ({
   modalsAddToShow: bindActionCreators(modalsAddToShow, dispatch),
   modalsMakeClipShow: bindActionCreators(modalsMakeClipShow, dispatch),
   modalsShareShow: bindActionCreators(modalsShareShow, dispatch),
+  modalsSupportShow: bindActionCreators(modalsSupportShow, dispatch),
   pageIsLoading: bindActionCreators(pageIsLoading, dispatch),
   pagesSetQueryState: bindActionCreators(pagesSetQueryState, dispatch),
   playerQueueLoadPriorityItems: bindActionCreators(playerQueueLoadPriorityItems, dispatch),

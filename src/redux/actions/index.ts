@@ -11,7 +11,7 @@ export { modalsAddToIsLoading, modalsAddToSetErrorResponse, modalsAddToShow,
   modalsLoginShow, modalsMakeClipSetErrorResponse, modalsMakeClipShow, modalsQueueIsLoading,
   modalsQueueSetErrorResponse, modalsQueueShow, modalsSendVerificationEmailShow, modalsShareIsLoading,
   modalsShareSetErrorResponse, modalsShareShow, modalsSignUpIsLoading, modalsSignUpSetErrorResponse,
-  modalsSignUpShow } from '~/redux/actions/modals'
+  modalsSignUpShow, modalsSupportShow } from '~/redux/actions/modals'
 export { settingsCensorNSFWText, settingsHidePlaybackSpeedButton, settingsSetDefaultHomepageTab, settingsSetUITheme
   } from '~/redux/actions/settings'
 export { userSetInfo, userUpdateHistoryItem } from '~/redux/actions/user'
