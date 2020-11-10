@@ -198,8 +198,10 @@ class Clip extends Component<Props, State> {
           twitterImageAlt={meta.imageAlt}
           twitterTitle={meta.title} />
         <MediaHeaderCtrl 
+          episode={mediaRef && mediaRef.episode}
           mediaRef={mediaRef}
-          pageKey={pageKey} />
+          pageKey={pageKey}
+          podcast={mediaRef && mediaRef.episode && mediaRef.episode.podcast} />
         <MediaInfoCtrl
           episode={mediaRef && mediaRef.episode}
           initialShowDescription={true}

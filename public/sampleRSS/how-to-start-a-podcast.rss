@@ -1,0 +1,125 @@
+
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="https://feeds.buzzsprout.com/styles.xsl" type="text/xsl"?>
+<rss version="2.0" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:podcast="https://github.com/Podcastindex-org/podcast-namespace/blob/main/docs/1.0.md" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+  <atom:link href="https://feeds.buzzsprout.com/1.rss" rel="self" type="application/rss+xml" />
+  <atom:link href="https://pubsubhubbub.appspot.com/" rel="hub" xmlns="http://www.w3.org/2005/Atom" />
+  <title>How to Start a Podcast</title>
+  <lastBuildDate>Mon, 09 Nov 2020 14:16:40 -0500</lastBuildDate>
+  <link>https://www.buzzsprout.com/1</link>
+  <language>en-us</language>
+  <copyright>&#x2117; &amp; © 2020 How to Start a Podcast</copyright>
+  <podcast:locked owner="support@buzzsprout.com">yes</podcast:locked>
+  <itunes:subtitle><![CDATA[“How to Start a Podcast” is a serial podcast that teaches you how to create a podcast from scratch. Presented by Buzzsprout, this podcast is perfect for the newbie podcaster, the established podcaster who wants to make sure they have all their bases co...]]></itunes:subtitle>
+  <itunes:author>Buzzsprout</itunes:author>
+  <itunes:summary><![CDATA[“How to Start a Podcast” is a serial podcast that teaches you how to create a podcast from scratch. Presented by Buzzsprout, this podcast is perfect for the newbie podcaster, the established podcaster who wants to make sure they have all their bases covered, or someone who wants to learn more about what it’s like to make a podcast. Start your podcast for FREE at Buzzsprout.com]]></itunes:summary>
+  <itunes:type>serial</itunes:type>
+  <itunes:explicit>false</itunes:explicit>
+  <description><![CDATA[“How to Start a Podcast” is a serial podcast that teaches you how to create a podcast from scratch. Presented by Buzzsprout, this podcast is perfect for the newbie podcaster, the established podcaster who wants to make sure they have all their bases covered, or someone who wants to learn more about what it’s like to make a podcast. Start your podcast for FREE at Buzzsprout.com]]></description>
+  <itunes:keywords>podcasting, how to podcast, podcast strategies, podcast tutorial</itunes:keywords>
+  <itunes:owner>
+    <itunes:name>Buzzsprout</itunes:name>
+    <itunes:email>support@buzzsprout.com</itunes:email>
+  </itunes:owner>
+  <image>
+     <url>https://storage.buzzsprout.com/variants/67b7vYUiagqpNz9ZG5qwSFmE/f81607a3cd537406cf0cf506c726bfe2824c5e584c9e9dc5e04e42436c820a79?.jpg</url>
+     <title>How to Start a Podcast</title>
+     <link>https://www.buzzsprout.com/1</link>
+  </image>
+  <itunes:image href="https://storage.buzzsprout.com/variants/67b7vYUiagqpNz9ZG5qwSFmE/f81607a3cd537406cf0cf506c726bfe2824c5e584c9e9dc5e04e42436c820a79?.jpg" />
+  <itunes:category text="Education">
+    <itunes:category text="How To" />
+  </itunes:category>
+  <itunes:category text="Education">
+    <itunes:category text="Courses" />
+  </itunes:category>
+  <itunes:category text="Education" />
+  <item>
+    <itunes:title>10 Things I Wish I Knew Before I Started a Podcast</itunes:title>
+    <title>10 Things I Wish I Knew Before I Started a Podcast</title>
+    <description><![CDATA[<p>Enjoy this bonus podcast episode where we went back through the <a href="https://pqa.buzzsprout.com/">Podcasting Q&amp;A</a> and 5 Minute Mondays archives to find the top 10 things we wish we knew before starting a podcast.<br><br><b>10 Tips (Check the Chapter Markers for time stamps)</b></p><ol><li>Focus on audio quality</li><li>Podcast intros</li><li>Ideal podcast length</li><li>Go on other podcasts</li><li>Guest promotion tips</li><li>Use templates</li><li>Format your show notes</li><li>Do you need a website?</li><li>Promoting on social media</li><li>Batch your episodes</li></ol>]]></description>
+    <content:encoded><![CDATA[<p>Enjoy this bonus podcast episode where we went back through the <a href="https://pqa.buzzsprout.com/">Podcasting Q&amp;A</a> and 5 Minute Mondays archives to find the top 10 things we wish we knew before starting a podcast.<br><br><b>10 Tips (Check the Chapter Markers for time stamps)</b></p><ol><li>Focus on audio quality</li><li>Podcast intros</li><li>Ideal podcast length</li><li>Go on other podcasts</li><li>Guest promotion tips</li><li>Use templates</li><li>Format your show notes</li><li>Do you need a website?</li><li>Promoting on social media</li><li>Batch your episodes</li></ol>]]></content:encoded>
+    <itunes:author>Buzzsprout</itunes:author>
+    <itunes:summary>Enjoy this bonus podcast episode where we went back through the Podcasting Q&amp;A and 5 Minute Mondays archives to find the top 10 things we wish we knew before starting a podcast.10 Tips (Check the Chapter Markers for time stamps)Focus on audio...</itunes:summary>
+    <enclosure url="https://dts.podtrac.com/redirect.mp3/www.buzzsprout.com/1/4969151-10-things-i-wish-i-knew-before-i-started-a-podcast.mp3?blob_id=19934570" length="9083073" type="audio/mpeg" />
+    <guid isPermaLink="false">Buzzsprout-4969151</guid>
+    <pubDate>Thu, 13 Aug 2020 00:00:00 -0400</pubDate>
+    <podcast:transcript url="https://feeds.buzzsprout.com/1/4969151/transcript" type="text/html" />
+    <podcast:transcript url="https://feeds.buzzsprout.com/1/4969151/transcript.json" type="application/json" />
+    <podcast:transcript url="https://feeds.buzzsprout.com/1/4969151/transcript.srt" type="application/srt" />
+    <podcast:chapters url="https://feeds.buzzsprout.com/1/4969151/chapters.json" type="application/json" />
+    <itunes:duration>754</itunes:duration>
+    <itunes:keywords></itunes:keywords>
+    <itunes:episodeType>bonus</itunes:episodeType>
+    <itunes:explicit>false</itunes:explicit>
+  </item>
+  <item>
+    <itunes:title>The Key to Making Your Podcast Stand Out // Eric Nuzum</itunes:title>
+    <title>The Key to Making Your Podcast Stand Out // Eric Nuzum</title>
+    <description><![CDATA[<p>In this special bonus episode, Travis sits down with one of the godfathers of podcasting - Eric Nuzum.<br><br>Eric created and developed podcasts such as <em>TED Radio Hour</em>, <em>Invisibilia</em>, <em>Fresh Air with Terry Gross</em>, and many others and he shares that wisdom and expertise in his new book <a href="https://www.amazon.com/Make-Noise-Creators-Podcasting-Storytelling/dp/1523504552/ref=sr_1_2?keywords=make+noise&amp;qid=1579813278&amp;sr=8-2"><b>Make Noise: A Creator's Guide To Podcasting And Great Audio Storytelling.</b></a></p>]]></description>
+    <link><![CDATA[https://www.buzzsprout.com/1/2562823]]></link>
+    <content:encoded><![CDATA[<p>In this special bonus episode, Travis sits down with one of the godfathers of podcasting - Eric Nuzum.<br><br>Eric created and developed podcasts such as <em>TED Radio Hour</em>, <em>Invisibilia</em>, <em>Fresh Air with Terry Gross</em>, and many others and he shares that wisdom and expertise in his new book <a href="https://www.amazon.com/Make-Noise-Creators-Podcasting-Storytelling/dp/1523504552/ref=sr_1_2?keywords=make+noise&amp;qid=1579813278&amp;sr=8-2"><b>Make Noise: A Creator's Guide To Podcasting And Great Audio Storytelling.</b></a></p>]]></content:encoded>
+    <itunes:author>Eric Nuzum</itunes:author>
+    <itunes:summary>In this special bonus episode, Travis sits down with one of the godfathers of podcasting - Eric Nuzum.Eric created and developed podcasts such as TED Radio Hour, Invisibilia, Fresh Air with Terry Gross, and many others and he shares that wisdom and...</itunes:summary>
+    <enclosure url="https://dts.podtrac.com/redirect.mp3/www.buzzsprout.com/1/2562823-the-key-to-making-your-podcast-stand-out-eric-nuzum.mp3?blob_id=8499829" length="25757065" type="audio/mpeg" />
+    <guid isPermaLink="false">Buzzsprout-2562823</guid>
+    <pubDate>Fri, 24 Jan 2020 00:00:00 -0500</pubDate>
+    <podcast:transcript url="https://feeds-cdn.buzzsprout.com/1/2562823/transcript" type="text/html" />
+    <podcast:transcript url="https://feeds-cdn.buzzsprout.com/1/2562823/transcript.json" type="application/json" />
+    <podcast:transcript url="https://feeds-cdn.buzzsprout.com/1/2562823/transcript.srt" type="application/srt" />
+    <itunes:duration>2144</itunes:duration>
+    <itunes:keywords></itunes:keywords>
+    <itunes:episodeType>bonus</itunes:episodeType>
+    <itunes:explicit>false</itunes:explicit>
+  </item>
+  <item>
+    <itunes:title>Check out our new podcast!</itunes:title>
+    <title>Check out our new podcast!</title>
+    <description><![CDATA[<p>Buzzcast is the newest podcast from the people at Buzzsprout.<br><br>Listen on your favorite podcast app or at <a href="http://www.buzzsprout.com/231452"><b>Buzzsprout.com</b></a><br><br>Need some help with your podcast? Join the <a href="https://www.facebook.com/groups/BuzzsproutCommunity/"><b>Buzzsprout Podcast Community</b></a> on Facebook to get the help you need from podcasters just like you.</p>]]></description>
+    <link><![CDATA[https://www.buzzsprout.com/1/2562823]]></link>
+    <content:encoded><![CDATA[<p>Buzzcast is the newest podcast from the people at Buzzsprout.<br><br>Listen on your favorite podcast app or at <a href="http://www.buzzsprout.com/231452"><b>Buzzsprout.com</b></a><br><br>Need some help with your podcast? Join the <a href="https://www.facebook.com/groups/BuzzsproutCommunity/"><b>Buzzsprout Podcast Community</b></a> on Facebook to get the help you need from podcasters just like you.</p>]]></content:encoded>
+    <itunes:image href="https://storage.buzzsprout.com/variants/JMMVR999tbummjmxsGtbtKkK/8d66eb17bb7d02ca4856ab443a78f2148cafbb129f58a3c81282007c6fe24ff2?.jpg" />
+    <itunes:author>Buzzsprout</itunes:author>
+    <itunes:summary>Buzzcast is the newest podcast from the people at Buzzsprout.</itunes:summary>
+    <enclosure url="https://dts.podtrac.com/redirect.mp3/www.buzzsprout.com/1/895528-check-out-our-new-podcast.mp3?blob_id=1625502" length="2675427" type="audio/mpeg" />
+    <guid isPermaLink="false">Buzzsprout-895528</guid>
+    <pubDate>Sun, 19 Jan 2020 14:00:00 -0500</pubDate>
+    <podcast:transcript url="https://feeds-cdn.buzzsprout.com/1/895528/transcript" type="text/html" />
+    <podcast:transcript url="https://feeds-cdn.buzzsprout.com/1/895528/transcript.json" type="application/json" />
+    <podcast:transcript url="https://feeds-cdn.buzzsprout.com/1/895528/transcript.srt" type="application/srt" />
+    <podcast:soundbite startTime="250.4" duration="25.6" />
+    <itunes:duration>326</itunes:duration>
+    <itunes:keywords></itunes:keywords>
+    <itunes:season>1</itunes:season>
+    <itunes:episodeType>bonus</itunes:episodeType>
+    <itunes:explicit>false</itunes:explicit>
+  </item>
+  <item>
+    <itunes:title>#7 Launch your new podcast!</itunes:title>
+    <title>#7 Launch your new podcast!</title>
+    <description><![CDATA[<p><b>In this episode we cover:&nbsp;</b></p><ol><li>How to select your podcast's "Grand Opening" date&nbsp;</li><li>Overcoming "launch anxiety"</li><li>Strategies to promote your podcast launch</li></ol><p><br><a href="https://www.buzzsprout.com/podcast/Checklist.pdf?utm_source=podcast&amp;utm_medium=show-notes&amp;utm_campaign=how-to-start-a-podcastm"><b>Download the “How to Start a Podcast Checklist”</b></a>, a FREE, step-by-step guide designed to help you get your podcast off the ground without feeling overwhelmed.&nbsp;</p><p>Start your podcast for FREE with <a href="https://www.buzzsprout.com/?utm_source=podcast&amp;utm_medium=show-notes&amp;utm_campaign=how-to-start-a-podcast"><b>Buzzsprout</b></a></p>]]></description>
+    <link><![CDATA[https://www.buzzsprout.com/1/2562823]]></link>
+    <content:encoded><![CDATA[<p><b>In this episode we cover:&nbsp;</b></p><ol><li>How to select your podcast's "Grand Opening" date&nbsp;</li><li>Overcoming "launch anxiety"</li><li>Strategies to promote your podcast launch</li></ol><p><br><a href="https://www.buzzsprout.com/podcast/Checklist.pdf?utm_source=podcast&amp;utm_medium=show-notes&amp;utm_campaign=how-to-start-a-podcastm"><b>Download the “How to Start a Podcast Checklist”</b></a>, a FREE, step-by-step guide designed to help you get your podcast off the ground without feeling overwhelmed.&nbsp;</p><p>Start your podcast for FREE with <a href="https://www.buzzsprout.com/?utm_source=podcast&amp;utm_medium=show-notes&amp;utm_campaign=how-to-start-a-podcast"><b>Buzzsprout</b></a></p>]]></content:encoded>
+    <itunes:author>Buzzsprout</itunes:author>
+    <itunes:summary>Launch your new podcast</itunes:summary>
+    <enclosure url="https://dts.podtrac.com/redirect.mp3/www.buzzsprout.com/1/814110-7-launch-your-new-podcast.mp3?blob_id=1707517" length="9894829" type="audio/mpeg" />
+    <guid isPermaLink="false">Buzzsprout-814110</guid>
+    <pubDate>Sun, 12 Jan 2020 00:00:00 -0500</pubDate>
+    <podcast:transcript url="https://feeds-cdn.buzzsprout.com/1/814110/transcript" type="text/html" />
+    <podcast:transcript url="https://feeds-cdn.buzzsprout.com/1/814110/transcript.json" type="application/json" />
+    <podcast:transcript url="https://feeds-cdn.buzzsprout.com/1/814110/transcript.srt" type="application/srt" />
+    <podcast:soundbite startTime="0.6" duration="30.0">First soundbite</podcast:soundbite>
+    <podcast:soundbite startTime="122" duration="85.2">Some soundbite title</podcast:soundbite>
+    <podcast:soundbite startTime="240.2" duration="120.6">Another soundbite title</podcast:soundbite>
+    <podcast:soundbite startTime="482.1" duration="150.9">One more soundbite title</podcast:soundbite>
+    <podcast:soundbite startTime="555.0" duration="180.1" />
+    <podcast:chapters url="https://feeds-cdn.buzzsprout.com/1/814110/chapters.json" type="application/json" />
+    <itunes:duration>1232</itunes:duration>
+    <itunes:keywords></itunes:keywords>
+    <itunes:season>1</itunes:season>
+    <itunes:episodeType>full</itunes:episodeType>
+    <itunes:explicit>false</itunes:explicit>
+  </item>
+</channel>
+</rss>
