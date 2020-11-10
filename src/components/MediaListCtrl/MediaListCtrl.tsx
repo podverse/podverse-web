@@ -188,7 +188,7 @@ class MediaListCtrl extends Component<Props, State> {
 
     if (hasOfficialChapters) {
       options.push({
-        label: t('Official Chapters'),
+        label: t('Chapters'),
         onClick: () => this.queryListItems(PV.queryParams.officialChapters, queryFrom, querySort, 1, categoryId),
         value: PV.queryParams.officialChapters
       })
