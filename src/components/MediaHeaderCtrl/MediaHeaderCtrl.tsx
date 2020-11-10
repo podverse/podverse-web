@@ -90,10 +90,10 @@ class MediaHeaderCtrl extends Component<Props, State> {
 
   getPodcastId(episode, mediaRef, nowPlayingItem, podcast) {
     let podcastId = ''
-    if (episode) {
-      podcastId = episode.podcast.id
-    } else if (mediaRef) {
+    if (mediaRef) {
       podcastId = mediaRef.episode.podcast.id
+    } else if (episode) {
+      podcastId = episode.podcast.id
     } else if (nowPlayingItem) {
       podcastId = nowPlayingItem.podcastId
     } else if (podcast) {

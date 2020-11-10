@@ -121,10 +121,10 @@ class MediaInfoCtrl extends Component<Props, State> {
     if (user && user.id) {
       if (nowPlayingItem && nowPlayingItem.episodeMediaUrl) {
         isLast ? user.queueItems.push(nowPlayingItem) : user.queueItems.unshift(nowPlayingItem)
-      } else if (episode) {
-        isLast ? user.queueItems.push(convertToNowPlayingItem(episode)) : user.queueItems.unshift(convertToNowPlayingItem(episode))
       } else if (mediaRef) {
         isLast ? user.queueItems.push(convertToNowPlayingItem(mediaRef)) : user.queueItems.unshift(convertToNowPlayingItem(mediaRef))
+      } else if (episode) {
+        isLast ? user.queueItems.push(convertToNowPlayingItem(episode)) : user.queueItems.unshift(convertToNowPlayingItem(episode))
       }
 
       const response = await updateUserQueueItems({ queueItems: user.queueItems })
@@ -133,10 +133,10 @@ class MediaInfoCtrl extends Component<Props, State> {
     } else {
       if (nowPlayingItem && nowPlayingItem.episodeMediaUrl) {
         addItemToPriorityQueueStorage(nowPlayingItem, isLast)
-      } else if (episode) {
-        addItemToPriorityQueueStorage(convertToNowPlayingItem(episode))
       } else if (mediaRef) {
         addItemToPriorityQueueStorage(convertToNowPlayingItem(mediaRef))
+      } else if (episode) {
+        addItemToPriorityQueueStorage(convertToNowPlayingItem(episode))
       }
 
       priorityItems = getPriorityQueueItemsStorage()
@@ -209,10 +209,10 @@ class MediaInfoCtrl extends Component<Props, State> {
   getCurrentPageItem = () => {
     const { episode, mediaRef, nowPlayingItem } = this.props
 
-    if (episode) {
-      return convertToNowPlayingItem(episode)
-    } else if (mediaRef) {
+    if (mediaRef) {
       return convertToNowPlayingItem(mediaRef)
+    } else if (episode) {
+      return convertToNowPlayingItem(episode)
     } else if (nowPlayingItem) {
       return nowPlayingItem
     }
