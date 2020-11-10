@@ -271,6 +271,7 @@ class MediaInfoCtrl extends Component<Props, State> {
           handleToggleShare={this.toggleShareModal}
           initialShowDescription={initialShowDescription}
           isOfficialChapter={mediaRef && mediaRef.isOfficialChapter}
+          isOfficialSoundBite={mediaRef && mediaRef.isOfficialSoundBite}
           loggedInUserId={userId}
           mediaRef={mediaRef}
           nowPlayingItem={nowPlayingItem}
