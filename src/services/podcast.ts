@@ -56,8 +56,8 @@ export const toggleSubscribeToPodcast = async (podcastId: string) => {
 }
 
 export const handlePagePodcastsQuery = async (obj) => {
-  const { categoryId, currentPage, pageIsLoading, pagesSetQueryState, queryFrom, queryPage,
-    queryRefresh, querySort, store, subscribedPodcastIds } = obj
+  const { categoryId, currentPage, pageIsLoading, pagesSetQueryState, podcastId,
+    queryFrom, queryPage, queryRefresh, querySort, store } = obj
 
   if (Object.keys(currentPage).length === 0 || queryRefresh) {
     const queryDataResult = await getPodcastsByQuery({
@@ -65,7 +65,7 @@ export const handlePagePodcastsQuery = async (obj) => {
       from: queryFrom,
       page: queryPage,
       sort: querySort,
-      ...(queryFrom === PV.queryParams.subscribed_only ? { subscribedPodcastIds } : {})
+      ...(queryFrom === PV.queryParams.subscribed_only ? { subscribedPodcastIds: podcastId } : {})
     })
 
     const podcasts = queryDataResult.data

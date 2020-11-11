@@ -161,7 +161,6 @@ class Home extends Component<Props, State> {
             <PodcastListCtrl
               allCategories={allCategories}
               categoryId={categoryId}
-              handleSetPageQueryState={pagesSetQueryState}
               pageIsLoading={pageIsLoading}
               pageKey={pageKey}
               queryFrom={queryFrom}

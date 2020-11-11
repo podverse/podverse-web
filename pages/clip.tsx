@@ -110,7 +110,8 @@ class Clip extends Component<Props, State> {
           page: queryPage,
           ...(podcastId ? { podcastId } : {}),
           sort: querySort,
-          type: queryType
+          type: queryType,
+          allowUntitled: true
         })
       }
 
@@ -209,6 +210,7 @@ class Clip extends Component<Props, State> {
           pageKey={pageKey}
           podcast={mediaRef && mediaRef.episode && mediaRef.episode.podcast} />
         <MediaListCtrl
+          allowUntitledClips={true}
           episode={mediaRef.episode}
           episodeId={mediaRef.episode.id}
           handleSetPageQueryState={pagesSetQueryState}

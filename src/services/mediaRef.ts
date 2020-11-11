@@ -60,6 +60,10 @@ export const getMediaRefsByQuery = async (query) => {
     filteredQuery.searchAllFieldsText = query.searchAllFieldsText ? encodeURIComponent(query.searchAllFieldsText) : ''
   }
 
+  if (query.allowUntitled) {
+    filteredQuery.allowUntitled = true
+  }
+
   const queryString = convertObjectToQueryString(filteredQuery)
   return axios(`${API_BASE_URL}${PV.paths.api.mediaRef}?${queryString}`, {
     method: 'get'

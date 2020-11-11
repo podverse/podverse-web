@@ -108,7 +108,8 @@ class Episode extends Component<Props, State> {
           page: queryPage,
           ...(podcastId ? { podcastId } : {}),
           sort: querySort,
-          type: queryType
+          type: queryType,
+          allowUntitled: true
         })
       }
 
@@ -202,6 +203,7 @@ class Episode extends Component<Props, State> {
           pageKey={pageKey}
           podcast={episode.podcast} />
         <MediaListCtrl
+          allowUntitledClips={true}
           episode={episode}
           episodeId={episode.id}
           handleSetPageQueryState={pagesSetQueryState}
