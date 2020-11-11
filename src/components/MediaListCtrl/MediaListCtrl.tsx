@@ -25,6 +25,7 @@ type Props = {
   episodeId?: string
   handleSetPageQueryState: Function
   hasOfficialChapters?: boolean
+  includeMostRecent?: boolean
   includeOldest?: boolean
   mediaPlayer?: any
   mediaPlayerLoadNowPlayingItem?: any
@@ -75,6 +76,14 @@ class MediaListCtrl extends Component<Props, State> {
       pageKey, pages, playerQueueLoadSecondaryItems, podcast, podcastId, user } = this.props
     const { subscribedPodcastIds } = user
     const { filterText } = pages[pageKey]
+
+    if (
+      queryType === PV.queryParams.episodes
+      && queryFrom === PV.queryParams.all_podcasts
+      && querySort === PV.queryParams.most_recent
+    ) {
+      querySort = PV.queryParams.top_past_day
+    }
 
     this.setTemporaryMinHeightOnMediaList()
    
@@ -249,48 +258,49 @@ class MediaListCtrl extends Component<Props, State> {
   }
 
   getQuerySortOptions(includeOldest?: boolean, showChronological?: boolean) {
-    const { queryType, t } = this.props
-
-    let items = [] as any
+    const { pageKey, pages, t } = this.props
+    const { queryFrom, queryType } = pages[pageKey]
+    const items = [] as any
 
     if (queryType !== PV.queryParams.officialChapters) {
-      items = [
-        {
+      if (!(queryType === PV.queryParams.episodes && queryFrom === PV.queryParams.all_podcasts)) {
+        items.push({
           label: t('queryLabels:most_recent'),
           onClick: () => this.querySort(PV.queryParams.most_recent),
           value: PV.queryParams.most_recent
-        },
-        {
-          label: t('queryLabels:top_past_day'),
-          onClick: () => this.querySort(PV.queryParams.top_past_day),
-          value: PV.queryParams.top_past_day
-        },
-        {
-          label: t('queryLabels:top_past_week'),
-          onClick: () => this.querySort(PV.queryParams.top_past_week),
-          value: PV.queryParams.top_past_week
-        },
-        {
-          label: t('queryLabels:top_past_month'),
-          onClick: () => this.querySort(PV.queryParams.top_past_month),
-          value: PV.queryParams.top_past_month
-        },
-        {
-          label: t('queryLabels:top_past_year'),
-          onClick: () => this.querySort(PV.queryParams.top_past_year),
-          value: PV.queryParams.top_past_year
-        },
-        {
-          label: t('queryLabels:top_all_time'),
-          onClick: () => this.querySort(PV.queryParams.top_all_time),
-          value: PV.queryParams.top_all_time
-        },
-        {
-          label: t('queryLabels:random'),
-          onClick: () => this.querySort(PV.queryParams.random),
-          value: PV.queryParams.random
-        }
-      ]
+        })
+      }
+
+      items.push({
+        label: t('queryLabels:top_past_day'),
+        onClick: () => this.querySort(PV.queryParams.top_past_day),
+        value: PV.queryParams.top_past_day
+      })
+      items.push({
+        label: t('queryLabels:top_past_week'),
+        onClick: () => this.querySort(PV.queryParams.top_past_week),
+        value: PV.queryParams.top_past_week
+      })
+      items.push({
+        label: t('queryLabels:top_past_month'),
+        onClick: () => this.querySort(PV.queryParams.top_past_month),
+        value: PV.queryParams.top_past_month
+      })
+      items.push({
+        label: t('queryLabels:top_past_year'),
+        onClick: () => this.querySort(PV.queryParams.top_past_year),
+        value: PV.queryParams.top_past_year
+      })
+      items.push({
+        label: t('queryLabels:top_all_time'),
+        onClick: () => this.querySort(PV.queryParams.top_all_time),
+        value: PV.queryParams.top_all_time
+      })
+      items.push({
+        label: t('queryLabels:random'),
+        onClick: () => this.querySort(PV.queryParams.random),
+        value: PV.queryParams.random
+      })
     }
 
     if (showChronological) {
@@ -672,10 +682,10 @@ class MediaListCtrl extends Component<Props, State> {
       !!podcastId, !!episodeId && queryType === PV.queryParams.clips).filter(x => x.value === queryFrom)
     const sortOptions = this.getQuerySortOptions(
       includeOldest,
-      (
-        !!episodeId && queryType === PV.queryParams.clips && queryFrom === PV.queryParams.from_episode) ||
-        queryType === PV.queryParams.officialChapters
-      )
+      (!!episodeId && queryType === PV.queryParams.clips && queryFrom === PV.queryParams.from_episode)
+      || queryType === PV.queryParams.officialChapters
+    )
+
     const selectedQuerySortOption = sortOptions.filter(x => x.value === querySort)
     const isNotLoggedInOnSubscribedOnly = (!user || !user.id) && queryFrom === PV.queryParams.subscribed_only
     const noResultsItemTypeMsg = queryType === PV.queryParams.episodes ? t('No episodes found') : t('No clips found')

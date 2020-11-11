@@ -85,7 +85,7 @@ class Podcasts extends Component<Props, State> {
   }
 
   render() {
-    const { allCategories, categoryId, pageKey, pageIsLoading, pages, pagesSetQueryState, queryFrom,
+    const { allCategories, categoryId, pageKey, pageIsLoading, pages, queryFrom,
       queryPage, querySort, t } = this.props
     const { isAdvancedFilterShowing } = pages[pageKey]
 
@@ -116,7 +116,6 @@ class Podcasts extends Component<Props, State> {
         <PodcastListCtrl 
           allCategories={allCategories}
           categoryId={categoryId}
-          handleSetPageQueryState={pagesSetQueryState}
           pageIsLoading={pageIsLoading}
           pageKey={pageKey}
           queryFrom={queryFrom}

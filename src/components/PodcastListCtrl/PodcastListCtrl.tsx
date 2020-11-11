@@ -14,7 +14,6 @@ const { CATEGORY_ID_DEFAULT, QUERY_PODCASTS_LIMIT } = config()
 
 type Props = {
   allCategories?: any
-  handleSetPageQueryState: Function
   page?: any
   pageIsLoading?: any
   pageKey: string
@@ -32,7 +31,6 @@ type State = {
 class PodcastListCtrl extends Component<Props, State> {
 
   static defaultProps: Props = {
-    handleSetPageQueryState: () => {},
     pageKey: 'default'
   }
 
@@ -41,21 +39,18 @@ class PodcastListCtrl extends Component<Props, State> {
     const { pageKey, pages } = props
     const { listItems } = pages[pageKey]
     const listItemNodes = this.createListItemNodes(listItems)
-
-    this.state = {
-      listItemNodes
-    }
+    this.state = { listItemNodes }
   }
 
   queryPodcasts = async (query, newState) => {
-    const { handleSetPageQueryState, pageIsLoading, pageKey, pages } = this.props
+    const { pageIsLoading, pageKey, pages, pagesSetQueryState } = this.props
     const { queryPage: prevPage } = pages[pageKey]
 
     cookieSetQuery(pageKey, query.from, query.type, query.sort, query.categories)
 
     pageIsLoading(true)
 
-    handleSetPageQueryState({
+    pagesSetQueryState({
       ...newState,
       queryPage: prevPage // wait before updating queryPage
     })
@@ -63,12 +58,7 @@ class PodcastListCtrl extends Component<Props, State> {
     try {
       const response = await getPodcastsByQuery(query)
       const podcasts = response.data || []
-
-      handleSetPageQueryState({
-        ...newState,
-        listItems: podcasts[0],
-        listItemsTotal: podcasts[1]
-      })
+      this.handleSetPageQueryStateListItems(newState, podcasts[0], podcasts[1])
     } catch (error) {
       console.log(error)
       this.handleSetPageQueryStateListItems(newState, [], 0)
@@ -79,8 +69,10 @@ class PodcastListCtrl extends Component<Props, State> {
 
   queryPodcastsAll = async () => {
     const { pageKey, pages } = this.props
-    const { filterText, querySort } = pages[pageKey]
-
+    const { filterText } = pages[pageKey]
+    let { querySort } = pages[pageKey]
+    querySort = querySort === PV.queryParams.most_recent ? PV.queryParams.top_past_day : querySort
+    
     const query: any = {
       page: 1,
       from: PV.queryParams.all_podcasts,
@@ -93,8 +85,9 @@ class PodcastListCtrl extends Component<Props, State> {
 
     const newState: any = {
       pageKey,
-      queryPage: 1,
       queryFrom: PV.queryParams.all_podcasts,
+      queryPage: 1,
+      querySort,
       selected: PV.queryParams.all_podcasts,
     }
 
@@ -128,7 +121,7 @@ class PodcastListCtrl extends Component<Props, State> {
   }
 
   queryPodcastsSubscribed = async () => {
-    const { handleSetPageQueryState, pageKey, pages, user } = this.props
+    const { pageKey, pages, pagesSetQueryState, user } = this.props
     const { subscribedPodcastIds } = user
     const { filterText, querySort } = pages[pageKey]
 
@@ -154,7 +147,7 @@ class PodcastListCtrl extends Component<Props, State> {
       this.handleSetPageQueryStateListItems(newState, [], 0)
       return
     } else {
-      handleSetPageQueryState(newState)
+      pagesSetQueryState(newState)
     }
 
     await this.queryPodcasts(query, newState)
@@ -215,55 +208,61 @@ class PodcastListCtrl extends Component<Props, State> {
   }
 
   getQuerySortOptions() {
-    const { t } = this.props
+    const { pageKey, pages, t } = this.props
+    const { queryFrom } = pages[pageKey]
+    const items = [] as any
 
-    return [
-      {
-        label: t('queryLabels:alphabetical'),
-        onClick: () => this.queryPodcastsSort(PV.queryParams.alphabetical),
-        value: PV.queryParams.alphabetical
-      },
-      {
+    items.push({
+      label: t('queryLabels:alphabetical'),
+      onClick: () => this.queryPodcastsSort(PV.queryParams.alphabetical),
+      value: PV.queryParams.alphabetical
+    })
+
+    if (!(queryFrom === PV.queryParams.all_podcasts)) {
+      items.push({
         label: t('queryLabels:most_recent'),
         onClick: () => this.queryPodcastsSort(PV.queryParams.most_recent),
         value: PV.queryParams.most_recent
-      },
-      // {
-      //   label: 'top - past hour',
-      //   onClick: () => this.queryPodcastsSort('top-past-hour'),
-      //   value: 'top-past-hour'
-      // },
-      {
-        label: t('queryLabels:top_past_day'),
-        onClick: () => this.queryPodcastsSort(PV.queryParams.top_past_day),
-        value: PV.queryParams.top_past_day
-      },
-      {
-        label: t('queryLabels:top_past_week'),
-        onClick: () => this.queryPodcastsSort(PV.queryParams.top_past_week),
-        value: PV.queryParams.top_past_week
-      },
-      {
-        label: t('queryLabels:top_past_month'),
-        onClick: () => this.queryPodcastsSort(PV.queryParams.top_past_month),
-        value: PV.queryParams.top_past_month
-      },
-      {
-        label: t('queryLabels:top_past_year'),
-        onClick: () => this.queryPodcastsSort(PV.queryParams.top_past_year),
-        value: PV.queryParams.top_past_year
-      },
-      {
-        label: t('queryLabels:top_all_time'),
-        onClick: () => this.queryPodcastsSort(PV.queryParams.top_all_time),
-        value: PV.queryParams.top_all_time
-      },
-      {
-        label: t('queryLabels:random'),
-        onClick: () => this.queryPodcastsSort(PV.queryParams.random),
-        value: PV.queryParams.random
-      }
-    ]
+      })
+    }
+
+    items.push({
+      label: t('queryLabels:top_past_day'),
+      onClick: () => this.queryPodcastsSort(PV.queryParams.top_past_day),
+      value: PV.queryParams.top_past_day
+    })
+
+    items.push({
+      label: t('queryLabels:top_past_week'),
+      onClick: () => this.queryPodcastsSort(PV.queryParams.top_past_week),
+      value: PV.queryParams.top_past_week
+    })
+
+    items.push({
+      label: t('queryLabels:top_past_month'),
+      onClick: () => this.queryPodcastsSort(PV.queryParams.top_past_month),
+      value: PV.queryParams.top_past_month
+    })
+
+    items.push({
+      label: t('queryLabels:top_past_year'),
+      onClick: () => this.queryPodcastsSort(PV.queryParams.top_past_year),
+      value: PV.queryParams.top_past_year
+    })
+
+    items.push({
+      label: t('queryLabels:top_all_time'),
+      onClick: () => this.queryPodcastsSort(PV.queryParams.top_all_time),
+      value: PV.queryParams.top_all_time
+    })
+
+    items.push({
+      label: t('queryLabels:random'),
+      onClick: () => this.queryPodcastsSort(PV.queryParams.random),
+      value: PV.queryParams.random
+    })
+    
+    return items
   }
 
   generateTopLevelSelectNodes = () => {
@@ -389,13 +388,13 @@ class PodcastListCtrl extends Component<Props, State> {
   }
 
   filterTextQuery = async (filterText) => {
-    const { handleSetPageQueryState, pageIsLoading, pageKey, pages, user } = this.props
+    const { pageIsLoading, pageKey, pages, pagesSetQueryState, user } = this.props
     const { categoryId, queryFrom, querySort } = pages[pageKey]
     const { subscribedPodcastIds } = user
 
     pageIsLoading(true)
 
-    handleSetPageQueryState({
+    pagesSetQueryState({
       pageKey,
       filterText
     })
@@ -431,13 +430,14 @@ class PodcastListCtrl extends Component<Props, State> {
   debouncedFilterQuery = AwesomeDebouncePromise(this.filterTextQuery, 750)
 
   handleSetPageQueryStateListItems = (newState, listItems, listItemsTotal) => {
-    const { handleSetPageQueryState } = this.props
+    const { pagesSetQueryState } = this.props
 
-    handleSetPageQueryState({
+    pagesSetQueryState({
       ...newState,
       listItems,
       listItemsTotal
     })
+
     const listItemNodes = this.createListItemNodes(listItems)
     this.setState({ listItemNodes })
   }
@@ -495,8 +495,6 @@ class PodcastListCtrl extends Component<Props, State> {
       mediaListSelectsEl.scrollIntoView()
     }
   }
-
-  
 
   render() {
     const { page, pageKey, pages, t, user } = this.props
