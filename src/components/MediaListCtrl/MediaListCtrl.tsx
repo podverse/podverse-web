@@ -20,6 +20,7 @@ const { CATEGORY_ID_DEFAULT, QUERY_MEDIA_REFS_LIMIT } = config()
 
 type Props = {
   allCategories?: any
+  allowUntitledClips?: boolean
   currentId?: string
   episode?: any
   episodeId?: string
@@ -72,7 +73,7 @@ class MediaListCtrl extends Component<Props, State> {
   }
 
   queryListItems = async (queryType, queryFrom, querySort, page, categoryId) => {
-    const { episode, episodeId, handleSetPageQueryState, hasOfficialChapters, pageIsLoading,
+    const { allowUntitledClips, episode, episodeId, handleSetPageQueryState, hasOfficialChapters, pageIsLoading,
       pageKey, pages, playerQueueLoadSecondaryItems, podcast, podcastId, user } = this.props
     const { subscribedPodcastIds } = user
     const { filterText } = pages[pageKey]
@@ -150,7 +151,7 @@ class MediaListCtrl extends Component<Props, State> {
         listItemsTotal = episodes[1]
         nowPlayingItems = episodes[0].map(x => convertToNowPlayingItem(x, episode, podcast))
       } else {
-        const response = await getMediaRefsByQuery(query)
+        const response = await getMediaRefsByQuery({ ...query, allowUntitled: allowUntitledClips })
         const mediaRefs = response.data
         listItemsTotal = mediaRefs[1]
         nowPlayingItems = mediaRefs[0].map(x => convertToNowPlayingItem(x, episode, podcast))
