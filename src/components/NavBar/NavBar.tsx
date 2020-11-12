@@ -69,7 +69,7 @@ class PVNavBar extends Component<Props, State> {
     dropdownItems.push({
       as: PV.paths.web.my_profile_clips,
       href: PV.paths.web.my_profile_clips,
-      label: t('Clips'),
+      label: t('My Clips'),
       onClick: () => {
         pagesClearQueryState({ pageKey: 'my_profile' })
         pageIsLoading(true)
