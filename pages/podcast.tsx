@@ -172,6 +172,7 @@ class Podcast extends Component<Props, State> {
           pageKey={pageKey}
           podcast={podcast} />
         <MediaInfoCtrl
+          initialShowDescription={true}
           pageKey={pageKey}
           podcast={podcast} />
         <MediaListCtrl
