@@ -11,7 +11,7 @@
 
   .download-on-the-app-store {
     background: url(https://linkmaker.itunes.apple.com/en-us/badge-lrg.svg?releaseDate=2018-07-28&kind=iossoftware&bubble=ios_apps) no-repeat;
-    display: inline-block;
+    flex: 0 0 auto;
     height: 40px;
     margin: 8px 0;
     overflow: hidden;
@@ -19,9 +19,10 @@
   }
 
   .get-it-on-google-play {
-    display: inline-block;
-    margin: 8px 0 8px 22px;
+    flex: 0 0 auto;
+    margin: 8px 22px 8px 22px;
     position: relative;
+    width: 135px;
 
     img {
       left: -8px;
@@ -29,5 +30,17 @@
       top: -9px;
       width: 152px;
     }
+  }
+
+  .get-it-on-fdroid {
+    background-image: url('/images/get-it-on-fdroid.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    flex: 0 0 auto;
+    height: 40px;
+    margin: 8px 0;
+    overflow: hidden;
+    width: 135px;
   }
 }

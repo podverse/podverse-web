@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-has-content */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { Component } from 'react'
 import * as Modal from 'react-modal'
@@ -7,7 +8,8 @@ import config from '~/config'
 import PV from '~/lib/constants'
 import { checkIfLoadingOnFrontEnd, getMobileOperatingSystem } from '~/lib/utility'
 import { withTranslation } from 'i18n'
-const { APP_DOWNLOAD_ON_THE_APP_STORE_URL, APP_GET_IT_ON_GOOGLE_PLAY_URL, APP_PROTOCOL } = config()
+const { APP_DOWNLOAD_ON_THE_APP_STORE_URL, APP_GET_IT_ON_FDROID_URL,
+  APP_GET_IT_ON_GOOGLE_PLAY_URL, APP_PROTOCOL } = config()
 
 type Props = {
   pageKey: string
@@ -46,22 +48,30 @@ const createDownloadButton = (mobileOS: string, t) => {
 
   if (mobileOS === 'Android') {
     return (
-      <a
-        className='get-it-on-google-play'
-        href={APP_GET_IT_ON_GOOGLE_PLAY_URL}
-        rel='noopener noreferrer'
-        target='_blank'>
-        <img
-          alt={t('GetItOnGooglePlay')}
-          src={PV.paths.web.googlePlayStoreBadge}
-        />
-      </a>
+      <React.Fragment>
+        <a
+          className='get-it-on-google-play no-radius'
+          href={APP_GET_IT_ON_GOOGLE_PLAY_URL}
+          rel='noopener noreferrer'
+          target='_blank'>
+          <img
+            alt={t('GetItOnGooglePlay')}
+            src={PV.paths.web.googlePlayStoreBadge}
+          />
+        </a>
+        <br />
+        <a
+          className='get-it-on-fdroid no-radius'
+          href={APP_GET_IT_ON_FDROID_URL}
+          rel='noopener noreferrer'
+          target='_blank' />
+      </React.Fragment>
     )
   } else if (mobileOS === 'iOS') {
     return (
       // eslint-disable-next-line jsx-a11y/anchor-has-content
       <a
-        className='download-on-the-app-store'
+        className='download-on-the-app-store no-radius'
         href={APP_DOWNLOAD_ON_THE_APP_STORE_URL}
         rel='noopener noreferrer'
         target='_blank'

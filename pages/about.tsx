@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-has-content */
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -6,7 +7,8 @@ import config from '~/config'
 import PV from '~/lib/constants'
 import { pageIsLoading, pagesSetQueryState } from '~/redux/actions'
 import { withTranslation } from '~/../i18n'
-const { BASE_URL } = config()
+const { APP_DOWNLOAD_ON_THE_APP_STORE_URL, APP_GET_IT_ON_FDROID_URL,
+  APP_GET_IT_ON_GOOGLE_PLAY_URL, BASE_URL } = config()
 
 type Props = {
   lastScrollPosition?: number
@@ -82,20 +84,25 @@ class About extends Component<Props, State> {
             Features that require updating our servers are available only with a Premium membership.
             Sign up today and get 1 year of Premium for free <span role='img' aria-label='partying face emoji'>🥳</span>
           </p>
-          <div className='flex-row'>
+          <div className='flex-row flex-wrap'>
             {/* eslint-disable-next-line jsx-a11y/anchor-has-content */}
             <a
-              className="download-on-the-app-store"
-              href={PV.paths.web.appleAppStore}
+              className="download-on-the-app-store no-radius"
+              href={APP_DOWNLOAD_ON_THE_APP_STORE_URL}
             />
             <a
-              className="get-it-on-google-play"
-              href={PV.paths.web.googlePlayStore}>
+              className="get-it-on-google-play no-radius"
+              href={APP_GET_IT_ON_GOOGLE_PLAY_URL}>
               <img
                 alt='Get it on Google Play'
                 src={PV.paths.web.googlePlayStoreBadge}
               />
             </a>
+            <a
+              className='get-it-on-fdroid no-radius'
+              href={APP_GET_IT_ON_FDROID_URL}
+              rel='noopener noreferrer'
+              target='_blank' />
           </div>
         </div>
 

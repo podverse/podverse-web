@@ -162,6 +162,14 @@ html[is-switching-ui-mode=true] * {
   left: 20px !important;
 }
 
+.no-radius {
+  border-radius: unset !important;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
 // This makes the element render below the fixed navbar when navigating to an element
 // via the # id in a URL.
 .offset-anchor-tag {
