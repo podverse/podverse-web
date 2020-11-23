@@ -1,6 +1,6 @@
 
 <?xml version="1.0" encoding="UTF-8"?>
-<rss xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" version="2.0">
+<rss xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:podcast="https://github.com/Podcastindex-org/podcast-namespace/blob/main/docs/1.0.md" version="2.0">
   <channel>
     <title>No Agenda</title>
     <description>A show about politics with No Agenda, by Adam Curry and John C. Dvorak</description>
@@ -8,8 +8,10 @@
     <docs>http://blogs.law.harvard.edu/tech/rss</docs>
     <language>en</language>
     <generator>Freedom Controller</generator>
-    <pubDate>Sun, 18 Oct 2020 20:02:16 +0000</pubDate>
-    <lastBuildDate>Sun, 18 Oct 2020 20:02:16 +0000</lastBuildDate>
+    <pubDate>Sun, 15 Nov 2020 21:08:27 +0000</pubDate>
+    <lastBuildDate>Sun, 15 Nov 2020 21:08:27 +0000</lastBuildDate>
+    <podcast:locked owner="adam@curry.com">yes</podcast:locked>
+    <podcast:funding url="https://dvorak.org/na">Support the Show!</podcast:funding>
     <managingEditor>adam@curry.com (Adam Curry)</managingEditor>
     <webMaster>adam@curry.com (Adam Curry)</webMaster>
     <itunes:owner>
@@ -17,7 +19,7 @@
       <itunes:name>Adam Curry</itunes:name>
     </itunes:owner>
     <image>
-      <url>https://noagendaassets.com/enc/1603050729.857_na-1287-art-feed.png</url>
+      <url>https://noagendaassets.com/enc/1605473815.603_na-1295-art-feed.png</url>
       <title>No Agenda</title>
       <link>http://noagendashow.com</link>
       <description>A show about politics with No Agenda, by Adam Curry and John C. Dvorak</description>
@@ -26,11 +28,1157 @@
     </image>
     <itunes:summary>A show about politics with No Agenda, by Adam Curry and John C. Dvorak</itunes:summary>
     <itunes:author>Adam Curry &amp; John C. Dvorak</itunes:author>
-    <itunes:image href="https://noagendaassets.com/enc/1603050729.857_na-1287-art-feed.png"/>
+    <itunes:image href="https://noagendaassets.com/enc/1605473815.603_na-1295-art-feed.png"/>
     <itunes:explicit>Yes</itunes:explicit>
     <itunes:keywords>government,agenda,elections,legislation,curry,dvorak,politics,news</itunes:keywords>
     <itunes:category text="News &amp; Politics"/>
     <itunes:category text="Comedy"/>
+    
+    <item>
+      <title>1295: "Shred and Burn"</title>
+      <description>&lt;p&gt;Show Notes&lt;/p&gt;&lt;p&gt;
+No Agenda Episode 1295 - "Shred and Burn"&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;"Shred and Burn"&lt;/b&gt;&lt;/p&gt;&lt;p&gt;
+&lt;audio style="width:400px; vertical-align:middle;" controls="true" preload="none"&gt;&lt;source src="https://mp3s.nashownotes.com/NA-1295-2020-11-15-Final.mp3" type="audio/mpeg"&gt;&lt;/audio&gt;&lt;/p&gt;&lt;p&gt;
+&lt;a href="https://mp3s.nashownotes.com/NA-1295-2020-11-15-Final.mp3"&gt;&lt;img width="256" height="256" align="right" alt="A picture named NA-1295-Art-SM" src="https://noagendaassets.com/enc/1605473549.982_na-1295-art-sm.png" border="0" vspace="5" hspace="15" &gt;&lt;br=""&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Direct [&lt;a href="https://mp3s.nashownotes.com/NA-1295-2020-11-15-Final.mp3"&gt;link&lt;/a&gt;] to the mp3 file&lt;/p&gt;&lt;p&gt;
+ShowNotes Archive of links and Assets (clips etc) &lt;a href="http://1295.noagendanotes.com/"&gt; 1295.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;Sign Up&lt;/b&gt; for the &lt;a href="http://www.dvorak.org/blog/no-agenda-mailing-list-signup-here/"&gt;newsletter&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Archive of Shownotes (includes all audio and video assets used) &lt;a href="http://archive.noagendanotes.com"&gt;archive.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+The No Agenda News Network- &lt;a href="http://noagendanewsnetwork.com/"&gt;noagendanewsnetwork.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+RSS Podcast&lt;a href="http://feed.nashownotes.com/rss.xml"&gt; Feed&lt;/a&gt; &lt;/p&gt;&lt;p&gt;
+Experimental IPFS RSS &lt;a href="http://feed.nashownotes.com/naipfsrss.xml"&gt;Feed&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://nanewsapp.com/"&gt;No Agenda News App&lt;/a&gt; for your iPhone and iPad&lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://www.noagendroid.com/"&gt;NoAgendDroid app&lt;/a&gt; for your Android Phone&lt;/p&gt;&lt;p&gt;
+&lt;a href="http://bitlove.org/adamc12951/noagenda"&gt;Torrents&lt;/a&gt; of each episode via BitLove&lt;/p&gt;&lt;p&gt;
+&lt;font size= -1&gt;&lt;script&gt;document.write("Last Modified " + document.lastModified)&lt;/script&gt;&lt;/font&gt;&lt;br&gt;&lt;a href="http://freedomcontroller.com"&gt;&lt;font size= -2&gt;This page created with the FreedomController&lt;/font&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Credits&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;"Shred and Burn"&lt;/b&gt;&lt;/p&gt;&lt;p&gt;
+Executive Producers: &lt;/p&gt;&lt;p&gt;
+Tyler Lewis&lt;/p&gt;&lt;p&gt;
+Nathan Queen&lt;/p&gt;&lt;p&gt;
+ Sir &lt;a href="https://anchor.fm/pd-love"&gt;DaddyCast&lt;/a&gt;, Baron of the Center of the Universe&lt;/p&gt;&lt;p&gt;
+Sir Seabee, Knight of the Black Thumbnails&lt;/p&gt;&lt;p&gt;
+Sir Destro&lt;/p&gt;&lt;p&gt;
+John Vannorsdall&lt;/p&gt;&lt;p&gt;
+Dangerous Dan, Love event Dicktator of the Sterile Iowan&lt;/p&gt;&lt;p&gt;
+Dame Illiminadia&lt;/p&gt;&lt;p&gt;
+Anonymous&lt;/p&gt;&lt;p&gt;
+Sir Largeman, Baron of Bali&lt;/p&gt;&lt;p&gt;
+Associate Executive Producers: &lt;/p&gt;&lt;p&gt;
+Derek Boggs&lt;/p&gt;&lt;p&gt;
+Dame Beth, Baroness of Baja Arizona&lt;/p&gt;&lt;p&gt;
+Warren in Vancity, Canada&lt;/p&gt;&lt;p&gt;
+Sir David Pugh, Baron of the pew pews&lt;/p&gt;&lt;p&gt;
+Become a member of the 1296 Club, support the show &lt;a href="http://dvorak.org/na"&gt;here&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Title Changes&lt;/p&gt;&lt;p&gt;
+Dame Illiminadia -&gt; Baronetess&lt;/p&gt;&lt;p&gt;
+Sir Daddycast -&gt; Baron of the Center of the Universe (Ashland, VA)&lt;/p&gt;&lt;p&gt;
+Sir David Pugh -&gt; Baron of the Pew Pews&lt;/p&gt;&lt;p&gt;
+Knights &amp; Dames&lt;/p&gt;&lt;p&gt;
+Valerie -&gt; Dame 1 of 3&lt;/p&gt;&lt;p&gt;
+Kristan -&gt; Dame Kristan of Data and Dashboards&lt;/p&gt;&lt;p&gt;
+Jered Reynolds -&gt; Sir Jered, Knight of the Snahapish Confluence&lt;/p&gt;&lt;p&gt;
+Art By: &lt;a href="https://noagendaartgenerator.com/artist/1822"&gt;Korrekt Da Rekord&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+End of Show Mixes:  Tom Stake weather - Rolando Gonzalez - Jesse Coy Nelson&lt;/p&gt;&lt;p&gt;
+Engineering, Stream Management &amp; Wizardry&lt;/p&gt;&lt;p&gt;
+Mark van Dijk - Systems Master&lt;/p&gt;&lt;p&gt;
+Ryan Bemrose - Program Director&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;NEW:&lt;/b&gt; and soon on Netflix: &lt;a href="https://www.youtube.com/channel/UCihyXCKCTKZ0H6OQRpKN5qQ"&gt;Animated No Agenda&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;Sign Up&lt;/b&gt; for the &lt;a href="http://www.dvorak.org/blog/no-agenda-mailing-list-signup-here/"&gt;newsletter&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+ShowNotes Archive of links and Assets (clips etc) &lt;a href="http://1295.noagendanotes.com/"&gt; 1295.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+New: Directory Archive of Shownotes (includes all audio and video assets used) &lt;a href="http://archive.noagendanotes.com/"&gt;archive.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+RSS Podcast&lt;a href="http://feed.nashownotes.com/rss.xml"&gt; Feed&lt;/a&gt; &lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://nanewsapp.com/"&gt;No Agenda News App&lt;/a&gt; for your iPhone and iPad&lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://www.noagendroid.com/"&gt;NoAgendDroid app&lt;/a&gt; for your Android Phone&lt;/p&gt;&lt;p&gt;
+&lt;a href="http://itm.im/opus"&gt;No Agenda Lite&lt;/a&gt; in opus format&lt;/p&gt;&lt;p&gt;
+&lt;a href="http://noagendatorrents.com"&gt;NoAgendaTorrents.com&lt;/a&gt; has an RSS feed or show torrents&lt;/p&gt;&lt;p&gt;
+&lt;font size= -1&gt;&lt;script&gt;document.write("Last Modified " + document.lastModified)&lt;/script&gt;&lt;/font&gt;&lt;br&gt;&lt;a href="http://freedomcontroller.com"&gt;&lt;font size= -2&gt;This page created with the FreedomController&lt;/font&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+&lt;naart:artwork&gt;18623&lt;/naart:artwork&gt;&lt;/p&gt;&lt;p&gt;
+Keywords&lt;/p&gt;</description>
+      <link>http://1295.noagendanotes.com</link>
+      <guid isPermaLink="true">http://1295.noagendanotes.com</guid>
+      <pubDate>Sun, 15 Nov 2020 20:57:09 GMT</pubDate>
+      <podcast:chapters url="https://studio.hypercatcher.com/chapters/podcast/http:feed.nashownotes.comrss.xml/episode/http:1295.noagendanotes.com" type="application/json"/>
+      <podcast:transcript url="https://mp3s.nashownotes.com/NA-1295-Captions.srt" type="application/srt"/>
+      <itunes:subtitle>1295: "Shred and Burn"</itunes:subtitle>
+      <itunes:summary>&lt;p&gt;Show Notes&lt;/p&gt;&lt;p&gt;
+No Agenda Episode 1295 - "Shred and Burn"&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;"Shred and Burn"&lt;/b&gt;&lt;/p&gt;&lt;p&gt;
+&lt;audio style="width:400px; vertical-align:middle;" controls="true" preload="none"&gt;&lt;source src="https://mp3s.nashownotes.com/NA-1295-2020-11-15-Final.mp3" type="audio/mpeg"&gt;&lt;/audio&gt;&lt;/p&gt;&lt;p&gt;
+&lt;a href="https://mp3s.nashownotes.com/NA-1295-2020-11-15-Final.mp3"&gt;&lt;img width="256" height="256" align="right" alt="A picture named NA-1295-Art-SM" src="https://noagendaassets.com/enc/1605473549.982_na-1295-art-sm.png" border="0" vspace="5" hspace="15" &gt;&lt;br=""&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Direct [&lt;a href="https://mp3s.nashownotes.com/NA-1295-2020-11-15-Final.mp3"&gt;link&lt;/a&gt;] to the mp3 file&lt;/p&gt;&lt;p&gt;
+ShowNotes Archive of links and Assets (clips etc) &lt;a href="http://1295.noagendanotes.com/"&gt; 1295.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;Sign Up&lt;/b&gt; for the &lt;a href="http://www.dvorak.org/blog/no-agenda-mailing-list-signup-here/"&gt;newsletter&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Archive of Shownotes (includes all audio and video assets used) &lt;a href="http://archive.noagendanotes.com"&gt;archive.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+The No Agenda News Network- &lt;a href="http://noagendanewsnetwork.com/"&gt;noagendanewsnetwork.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+RSS Podcast&lt;a href="http://feed.nashownotes.com/rss.xml"&gt; Feed&lt;/a&gt; &lt;/p&gt;&lt;p&gt;
+Experimental IPFS RSS &lt;a href="http://feed.nashownotes.com/naipfsrss.xml"&gt;Feed&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://nanewsapp.com/"&gt;No Agenda News App&lt;/a&gt; for your iPhone and iPad&lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://www.noagendroid.com/"&gt;NoAgendDroid app&lt;/a&gt; for your Android Phone&lt;/p&gt;&lt;p&gt;
+&lt;a href="http://bitlove.org/adamc12951/noagenda"&gt;Torrents&lt;/a&gt; of each episode via BitLove&lt;/p&gt;&lt;p&gt;
+&lt;font size= -1&gt;&lt;script&gt;document.write("Last Modified " + document.lastModified)&lt;/script&gt;&lt;/font&gt;&lt;br&gt;&lt;a href="http://freedomcontroller.com"&gt;&lt;font size= -2&gt;This page created with the FreedomController&lt;/font&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Credits&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;"Shred and Burn"&lt;/b&gt;&lt;/p&gt;&lt;p&gt;
+Executive Producers: &lt;/p&gt;&lt;p&gt;
+Tyler Lewis&lt;/p&gt;&lt;p&gt;
+Nathan Queen&lt;/p&gt;&lt;p&gt;
+ Sir &lt;a href="https://anchor.fm/pd-love"&gt;DaddyCast&lt;/a&gt;, Baron of the Center of the Universe&lt;/p&gt;&lt;p&gt;
+Sir Seabee, Knight of the Black Thumbnails&lt;/p&gt;&lt;p&gt;
+Sir Destro&lt;/p&gt;&lt;p&gt;
+John Vannorsdall&lt;/p&gt;&lt;p&gt;
+Dangerous Dan, Love event Dicktator of the Sterile Iowan&lt;/p&gt;&lt;p&gt;
+Dame Illiminadia&lt;/p&gt;&lt;p&gt;
+Anonymous&lt;/p&gt;&lt;p&gt;
+Sir Largeman, Baron of Bali&lt;/p&gt;&lt;p&gt;
+Associate Executive Producers: &lt;/p&gt;&lt;p&gt;
+Derek Boggs&lt;/p&gt;&lt;p&gt;
+Dame Beth, Baroness of Baja Arizona&lt;/p&gt;&lt;p&gt;
+Warren in Vancity, Canada&lt;/p&gt;&lt;p&gt;
+Sir David Pugh, Baron of the pew pews&lt;/p&gt;&lt;p&gt;
+Become a member of the 1296 Club, support the show &lt;a href="http://dvorak.org/na"&gt;here&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Title Changes&lt;/p&gt;&lt;p&gt;
+Dame Illiminadia -&gt; Baronetess&lt;/p&gt;&lt;p&gt;
+Sir Daddycast -&gt; Baron of the Center of the Universe (Ashland, VA)&lt;/p&gt;&lt;p&gt;
+Sir David Pugh -&gt; Baron of the Pew Pews&lt;/p&gt;&lt;p&gt;
+Knights &amp; Dames&lt;/p&gt;&lt;p&gt;
+Valerie -&gt; Dame 1 of 3&lt;/p&gt;&lt;p&gt;
+Kristan -&gt; Dame Kristan of Data and Dashboards&lt;/p&gt;&lt;p&gt;
+Jered Reynolds -&gt; Sir Jered, Knight of the Snahapish Confluence&lt;/p&gt;&lt;p&gt;
+Art By: &lt;a href="https://noagendaartgenerator.com/artist/1822"&gt;Korrekt Da Rekord&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+End of Show Mixes:  Tom Stake weather - Rolando Gonzalez - Jesse Coy Nelson&lt;/p&gt;&lt;p&gt;
+Engineering, Stream Management &amp; Wizardry&lt;/p&gt;&lt;p&gt;
+Mark van Dijk - Systems Master&lt;/p&gt;&lt;p&gt;
+Ryan Bemrose - Program Director&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;NEW:&lt;/b&gt; and soon on Netflix: &lt;a href="https://www.youtube.com/channel/UCihyXCKCTKZ0H6OQRpKN5qQ"&gt;Animated No Agenda&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;Sign Up&lt;/b&gt; for the &lt;a href="http://www.dvorak.org/blog/no-agenda-mailing-list-signup-here/"&gt;newsletter&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+ShowNotes Archive of links and Assets (clips etc) &lt;a href="http://1295.noagendanotes.com/"&gt; 1295.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+New: Directory Archive of Shownotes (includes all audio and video assets used) &lt;a href="http://archive.noagendanotes.com/"&gt;archive.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+RSS Podcast&lt;a href="http://feed.nashownotes.com/rss.xml"&gt; Feed&lt;/a&gt; &lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://nanewsapp.com/"&gt;No Agenda News App&lt;/a&gt; for your iPhone and iPad&lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://www.noagendroid.com/"&gt;NoAgendDroid app&lt;/a&gt; for your Android Phone&lt;/p&gt;&lt;p&gt;
+&lt;a href="http://itm.im/opus"&gt;No Agenda Lite&lt;/a&gt; in opus format&lt;/p&gt;&lt;p&gt;
+&lt;a href="http://noagendatorrents.com"&gt;NoAgendaTorrents.com&lt;/a&gt; has an RSS feed or show torrents&lt;/p&gt;&lt;p&gt;
+&lt;font size= -1&gt;&lt;script&gt;document.write("Last Modified " + document.lastModified)&lt;/script&gt;&lt;/font&gt;&lt;br&gt;&lt;a href="http://freedomcontroller.com"&gt;&lt;font size= -2&gt;This page created with the FreedomController&lt;/font&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+&lt;naart:artwork&gt;18623&lt;/naart:artwork&gt;&lt;/p&gt;&lt;p&gt;
+Keywords&lt;/p&gt;</itunes:summary>
+      <itunes:author>Adam Curry &amp; John C. Dvorak</itunes:author>
+      <author>Adam Curry &amp; John C. Dvorak</author>
+      <itunes:image href="https://noagendaassets.com/enc/1605473815.603_na-1295-art-feed.png"/>
+      <itunes:explicit>No</itunes:explicit>
+      <itunes:keywords>curry,dvorak,noagenda,no,agenda,politics,douchebag</itunes:keywords>
+      <enclosure url="https://mp3s.nashownotes.com/NA-1295-2020-11-15-Final.mp3" length="138500015" type="audio/mpeg"/>
+    </item>
+    
+    <item>
+      <title>1294: "Ephemeral Experience"</title>
+      <description>&lt;p&gt;Show Notes&lt;/p&gt;&lt;p&gt;
+No Agenda Episode 1294 - "Ephemeral Experience"&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;"Ephemeral Experience"&lt;/b&gt;&lt;/p&gt;&lt;p&gt;
+&lt;audio style="width:400px; vertical-align:middle;" controls="true" preload="none"&gt;&lt;source src="https://mp3s.nashownotes.com/NA-1294-2020-11-12-Final.mp3" type="audio/mpeg"&gt;&lt;/audio&gt;&lt;/p&gt;&lt;p&gt;
+&lt;a href="https://mp3s.nashownotes.com/NA-1294-2020-11-12-Final.mp3"&gt;&lt;img width="256" height="256" align="right" alt="A picture named NA-1294-Art-SM" src="https://noagendaassets.com/enc/1605216244.556_na-1294-art-sm.png" border="0" vspace="5" hspace="15" &gt;&lt;br=""&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Direct [&lt;a href="https://mp3s.nashownotes.com/NA-1294-2020-11-12-Final.mp3"&gt;link&lt;/a&gt;] to the mp3 file&lt;/p&gt;&lt;p&gt;
+ShowNotes Archive of links and Assets (clips etc) &lt;a href="http://1294.noagendanotes.com/"&gt; 1294.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;Sign Up&lt;/b&gt; for the &lt;a href="http://www.dvorak.org/blog/no-agenda-mailing-list-signup-here/"&gt;newsletter&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Archive of Shownotes (includes all audio and video assets used) &lt;a href="http://archive.noagendanotes.com"&gt;archive.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+The No Agenda News Network- &lt;a href="http://noagendanewsnetwork.com/"&gt;noagendanewsnetwork.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+RSS Podcast&lt;a href="http://feed.nashownotes.com/rss.xml"&gt; Feed&lt;/a&gt; &lt;/p&gt;&lt;p&gt;
+Experimental IPFS RSS &lt;a href="http://feed.nashownotes.com/naipfsrss.xml"&gt;Feed&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://nanewsapp.com/"&gt;No Agenda News App&lt;/a&gt; for your iPhone and iPad&lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://www.noagendroid.com/"&gt;NoAgendDroid app&lt;/a&gt; for your Android Phone&lt;/p&gt;&lt;p&gt;
+&lt;a href="http://bitlove.org/adamc12941/noagenda"&gt;Torrents&lt;/a&gt; of each episode via BitLove&lt;/p&gt;&lt;p&gt;
+&lt;font size= -1&gt;&lt;script&gt;document.write("Last Modified " + document.lastModified)&lt;/script&gt;&lt;/font&gt;&lt;br&gt;&lt;a href="http://freedomcontroller.com"&gt;&lt;font size= -2&gt;This page created with the FreedomController&lt;/font&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Credits&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;"Ephemeral Experience"&lt;/b&gt;&lt;/p&gt;&lt;p&gt;
+Executive Producers: &lt;/p&gt;&lt;p&gt;
+Sir Julian, Earl of Autonomous Cars&lt;/p&gt;&lt;p&gt;
+Sir Dodd of The Pears&lt;/p&gt;&lt;p&gt;
+Donald DeHart&lt;/p&gt;&lt;p&gt;
+Rolando Gonzalez&lt;/p&gt;&lt;p&gt;
+sir 22 of the PNW&lt;/p&gt;&lt;p&gt;
+Chad Edmonds&lt;/p&gt;&lt;p&gt;
+Dame Amber of the Taverns&lt;/p&gt;&lt;p&gt;
+Associate Executive Producers: &lt;/p&gt;&lt;p&gt;
+Anonymous&lt;/p&gt;&lt;p&gt;
+Cameron Hunter&lt;/p&gt;&lt;p&gt;
+Ryan Solchenberger&lt;/p&gt;&lt;p&gt;
+Taylor Bradshaw&lt;/p&gt;&lt;p&gt;
+Become a member of the 1295 Club, support the show &lt;a href="http://dvorak.org/na"&gt;here&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Knights &amp; Dames&lt;/p&gt;&lt;p&gt;
+Amber Overall -&gt; Dame Amber of the Taverns&lt;/p&gt;&lt;p&gt;
+Hello Gents,&lt;/p&gt;&lt;p&gt;
+ITM.  Thank you for the many years delivering truly the best podcast in the universe.  Been a long time 33.33 club member and ashamed I have not claimed my knighthood for several years now.  With my birthday coming up on the 15th, I decided it was time to right my wrong and claim my title of Baron.  Accounting below.&lt;/p&gt;&lt;p&gt;
+Please grant me the title of Baron Wooden Shoes.  I'm also requesting, pending approval, the territory of the New Hampshire coastline from the glowing waters of Seabrook station to the subs sailing in Portsmouth.&lt;/p&gt;&lt;p&gt;
+Jingles, could I get Gitmo National anthem at the end of show if it's not too much trouble.  Warms the heart every time!&lt;/p&gt;&lt;p&gt;
+Sincerely,&lt;/p&gt;&lt;p&gt;
+Alex Schoonveld&lt;/p&gt;&lt;p&gt;
+PS.  Call out Mr. Zaremba as a douchebag and freshen the hookers and blow at the round table.&lt;/p&gt;&lt;p&gt;
+John, you asked who makes low temp freezers for rona vax on Disciplined Investor.  See attached for a few examples.  I monitor a few with rona samples it turns out.&lt;/p&gt;&lt;p&gt;
+Alex Schoonveld -&gt; Baron Wooden Shoes&lt;/p&gt;&lt;p&gt;
+Cameron Dodd -&gt; Sir Dodd of The Pears&lt;/p&gt;&lt;p&gt;
+Art By: &lt;a href="https://noagendaartgenerator.com/artist/1014"&gt;Mike Riley&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+End of Show Mixes:  Tennessee Shine - REXOK-WOZO - Christopher Mayer - Troy Walters&lt;/p&gt;&lt;p&gt;
+Engineering, Stream Management &amp; Wizardry&lt;/p&gt;&lt;p&gt;
+Mark van Dijk - Systems Master&lt;/p&gt;&lt;p&gt;
+Ryan Bemrose - Program Director&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;NEW:&lt;/b&gt; and soon on Netflix: &lt;a href="https://www.youtube.com/channel/UCihyXCKCTKZ0H6OQRpKN5qQ"&gt;Animated No Agenda&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;Sign Up&lt;/b&gt; for the &lt;a href="http://www.dvorak.org/blog/no-agenda-mailing-list-signup-here/"&gt;newsletter&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+ShowNotes Archive of links and Assets (clips etc) &lt;a href="http://1294.noagendanotes.com/"&gt; 1294.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+New: Directory Archive of Shownotes (includes all audio and video assets used) &lt;a href="http://archive.noagendanotes.com/"&gt;archive.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+RSS Podcast&lt;a href="http://feed.nashownotes.com/rss.xml"&gt; Feed&lt;/a&gt; &lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://nanewsapp.com/"&gt;No Agenda News App&lt;/a&gt; for your iPhone and iPad&lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://www.noagendroid.com/"&gt;NoAgendDroid app&lt;/a&gt; for your Android Phone&lt;/p&gt;&lt;p&gt;
+&lt;a href="http://itm.im/opus"&gt;No Agenda Lite&lt;/a&gt; in opus format&lt;/p&gt;&lt;p&gt;
+&lt;a href="http://noagendatorrents.com"&gt;NoAgendaTorrents.com&lt;/a&gt; has an RSS feed or show torrents&lt;/p&gt;&lt;p&gt;
+&lt;font size= -1&gt;&lt;script&gt;document.write("Last Modified " + document.lastModified)&lt;/script&gt;&lt;/font&gt;&lt;br&gt;&lt;a href="http://freedomcontroller.com"&gt;&lt;font size= -2&gt;This page created with the FreedomController&lt;/font&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+&lt;naart:artwork&gt;18595&lt;/naart:artwork&gt;&lt;/p&gt;&lt;p&gt;
+Keywords&lt;/p&gt;</description>
+      <link>http://1294.noagendanotes.com</link>
+      <guid isPermaLink="true">http://1294.noagendanotes.com</guid>
+      <pubDate>Thu, 12 Nov 2020 23:20:18 GMT</pubDate>
+      <podcast:chapters url="https://studio.hypercatcher.com/chapters/podcast/http:feed.nashownotes.comrss.xml/episode/http:1294.noagendanotes.com" type="application/json"/>
+      <podcast:transcript url="https://mp3s.nashownotes.com/NA-1294-Captions.srt" type="application/srt"/>
+      <itunes:subtitle>1294: "Ephemeral Experience"</itunes:subtitle>
+      <itunes:summary>&lt;p&gt;Show Notes&lt;/p&gt;&lt;p&gt;
+No Agenda Episode 1294 - "Ephemeral Experience"&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;"Ephemeral Experience"&lt;/b&gt;&lt;/p&gt;&lt;p&gt;
+&lt;audio style="width:400px; vertical-align:middle;" controls="true" preload="none"&gt;&lt;source src="https://mp3s.nashownotes.com/NA-1294-2020-11-12-Final.mp3" type="audio/mpeg"&gt;&lt;/audio&gt;&lt;/p&gt;&lt;p&gt;
+&lt;a href="https://mp3s.nashownotes.com/NA-1294-2020-11-12-Final.mp3"&gt;&lt;img width="256" height="256" align="right" alt="A picture named NA-1294-Art-SM" src="https://noagendaassets.com/enc/1605216244.556_na-1294-art-sm.png" border="0" vspace="5" hspace="15" &gt;&lt;br=""&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Direct [&lt;a href="https://mp3s.nashownotes.com/NA-1294-2020-11-12-Final.mp3"&gt;link&lt;/a&gt;] to the mp3 file&lt;/p&gt;&lt;p&gt;
+ShowNotes Archive of links and Assets (clips etc) &lt;a href="http://1294.noagendanotes.com/"&gt; 1294.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;Sign Up&lt;/b&gt; for the &lt;a href="http://www.dvorak.org/blog/no-agenda-mailing-list-signup-here/"&gt;newsletter&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Archive of Shownotes (includes all audio and video assets used) &lt;a href="http://archive.noagendanotes.com"&gt;archive.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+The No Agenda News Network- &lt;a href="http://noagendanewsnetwork.com/"&gt;noagendanewsnetwork.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+RSS Podcast&lt;a href="http://feed.nashownotes.com/rss.xml"&gt; Feed&lt;/a&gt; &lt;/p&gt;&lt;p&gt;
+Experimental IPFS RSS &lt;a href="http://feed.nashownotes.com/naipfsrss.xml"&gt;Feed&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://nanewsapp.com/"&gt;No Agenda News App&lt;/a&gt; for your iPhone and iPad&lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://www.noagendroid.com/"&gt;NoAgendDroid app&lt;/a&gt; for your Android Phone&lt;/p&gt;&lt;p&gt;
+&lt;a href="http://bitlove.org/adamc12941/noagenda"&gt;Torrents&lt;/a&gt; of each episode via BitLove&lt;/p&gt;&lt;p&gt;
+&lt;font size= -1&gt;&lt;script&gt;document.write("Last Modified " + document.lastModified)&lt;/script&gt;&lt;/font&gt;&lt;br&gt;&lt;a href="http://freedomcontroller.com"&gt;&lt;font size= -2&gt;This page created with the FreedomController&lt;/font&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Credits&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;"Ephemeral Experience"&lt;/b&gt;&lt;/p&gt;&lt;p&gt;
+Executive Producers: &lt;/p&gt;&lt;p&gt;
+Sir Julian, Earl of Autonomous Cars&lt;/p&gt;&lt;p&gt;
+Sir Dodd of The Pears&lt;/p&gt;&lt;p&gt;
+Donald DeHart&lt;/p&gt;&lt;p&gt;
+Rolando Gonzalez&lt;/p&gt;&lt;p&gt;
+sir 22 of the PNW&lt;/p&gt;&lt;p&gt;
+Chad Edmonds&lt;/p&gt;&lt;p&gt;
+Dame Amber of the Taverns&lt;/p&gt;&lt;p&gt;
+Associate Executive Producers: &lt;/p&gt;&lt;p&gt;
+Anonymous&lt;/p&gt;&lt;p&gt;
+Cameron Hunter&lt;/p&gt;&lt;p&gt;
+Ryan Solchenberger&lt;/p&gt;&lt;p&gt;
+Taylor Bradshaw&lt;/p&gt;&lt;p&gt;
+Become a member of the 1295 Club, support the show &lt;a href="http://dvorak.org/na"&gt;here&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Knights &amp; Dames&lt;/p&gt;&lt;p&gt;
+Amber Overall -&gt; Dame Amber of the Taverns&lt;/p&gt;&lt;p&gt;
+Hello Gents,&lt;/p&gt;&lt;p&gt;
+ITM.  Thank you for the many years delivering truly the best podcast in the universe.  Been a long time 33.33 club member and ashamed I have not claimed my knighthood for several years now.  With my birthday coming up on the 15th, I decided it was time to right my wrong and claim my title of Baron.  Accounting below.&lt;/p&gt;&lt;p&gt;
+Please grant me the title of Baron Wooden Shoes.  I'm also requesting, pending approval, the territory of the New Hampshire coastline from the glowing waters of Seabrook station to the subs sailing in Portsmouth.&lt;/p&gt;&lt;p&gt;
+Jingles, could I get Gitmo National anthem at the end of show if it's not too much trouble.  Warms the heart every time!&lt;/p&gt;&lt;p&gt;
+Sincerely,&lt;/p&gt;&lt;p&gt;
+Alex Schoonveld&lt;/p&gt;&lt;p&gt;
+PS.  Call out Mr. Zaremba as a douchebag and freshen the hookers and blow at the round table.&lt;/p&gt;&lt;p&gt;
+John, you asked who makes low temp freezers for rona vax on Disciplined Investor.  See attached for a few examples.  I monitor a few with rona samples it turns out.&lt;/p&gt;&lt;p&gt;
+Alex Schoonveld -&gt; Baron Wooden Shoes&lt;/p&gt;&lt;p&gt;
+Cameron Dodd -&gt; Sir Dodd of The Pears&lt;/p&gt;&lt;p&gt;
+Art By: &lt;a href="https://noagendaartgenerator.com/artist/1014"&gt;Mike Riley&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+End of Show Mixes:  Tennessee Shine - REXOK-WOZO - Christopher Mayer - Troy Walters&lt;/p&gt;&lt;p&gt;
+Engineering, Stream Management &amp; Wizardry&lt;/p&gt;&lt;p&gt;
+Mark van Dijk - Systems Master&lt;/p&gt;&lt;p&gt;
+Ryan Bemrose - Program Director&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;NEW:&lt;/b&gt; and soon on Netflix: &lt;a href="https://www.youtube.com/channel/UCihyXCKCTKZ0H6OQRpKN5qQ"&gt;Animated No Agenda&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;Sign Up&lt;/b&gt; for the &lt;a href="http://www.dvorak.org/blog/no-agenda-mailing-list-signup-here/"&gt;newsletter&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+ShowNotes Archive of links and Assets (clips etc) &lt;a href="http://1294.noagendanotes.com/"&gt; 1294.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+New: Directory Archive of Shownotes (includes all audio and video assets used) &lt;a href="http://archive.noagendanotes.com/"&gt;archive.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+RSS Podcast&lt;a href="http://feed.nashownotes.com/rss.xml"&gt; Feed&lt;/a&gt; &lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://nanewsapp.com/"&gt;No Agenda News App&lt;/a&gt; for your iPhone and iPad&lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://www.noagendroid.com/"&gt;NoAgendDroid app&lt;/a&gt; for your Android Phone&lt;/p&gt;&lt;p&gt;
+&lt;a href="http://itm.im/opus"&gt;No Agenda Lite&lt;/a&gt; in opus format&lt;/p&gt;&lt;p&gt;
+&lt;a href="http://noagendatorrents.com"&gt;NoAgendaTorrents.com&lt;/a&gt; has an RSS feed or show torrents&lt;/p&gt;&lt;p&gt;
+&lt;font size= -1&gt;&lt;script&gt;document.write("Last Modified " + document.lastModified)&lt;/script&gt;&lt;/font&gt;&lt;br&gt;&lt;a href="http://freedomcontroller.com"&gt;&lt;font size= -2&gt;This page created with the FreedomController&lt;/font&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+&lt;naart:artwork&gt;18595&lt;/naart:artwork&gt;&lt;/p&gt;&lt;p&gt;
+Keywords&lt;/p&gt;</itunes:summary>
+      <itunes:author>Adam Curry &amp; John C. Dvorak</itunes:author>
+      <author>Adam Curry &amp; John C. Dvorak</author>
+      <itunes:image href="https://noagendaassets.com/enc/1605216653.055_na-1294-art-feed.png"/>
+      <itunes:explicit>No</itunes:explicit>
+      <itunes:keywords>curry,dvorak,noagenda,no,agenda,politics,douchebag</itunes:keywords>
+      <enclosure url="https://mp3s.nashownotes.com/NA-1294-2020-11-12-Final.mp3" length="156759607" type="audio/mpeg"/>
+    </item>
+    
+    <item>
+      <title>1293: "Coviditos"</title>
+      <description>&lt;p&gt;Show Notes&lt;/p&gt;&lt;p&gt;
+No Agenda Episode 1293 - "Covidiots"&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;"Covidiots"&lt;/b&gt;&lt;/p&gt;&lt;p&gt;
+&lt;audio style="width:400px; vertical-align:middle;" controls="true" preload="none"&gt;&lt;source src="https://mp3s.nashownotes.com/NA-1293-2020-11-08-Final.mp3" type="audio/mpeg"&gt;&lt;/audio&gt;&lt;/p&gt;&lt;p&gt;
+&lt;a href="https://mp3s.nashownotes.com/NA-1293-2020-11-08-Final.mp3"&gt;&lt;img width="256" height="256" align="right" alt="A picture named NA-1293-Art-SM" src="https://noagendaassets.com/enc/1604868121.789_na-1263-art-sm.png" border="0" vspace="5" hspace="15" &gt;&lt;br=""&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Direct [&lt;a href="https://mp3s.nashownotes.com/NA-1293-2020-11-08-Final.mp3"&gt;link&lt;/a&gt;] to the mp3 file&lt;/p&gt;&lt;p&gt;
+ShowNotes Archive of links and Assets (clips etc) &lt;a href="http://1293.noagendanotes.com/"&gt; 1293.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;Sign Up&lt;/b&gt; for the &lt;a href="http://www.dvorak.org/blog/no-agenda-mailing-list-signup-here/"&gt;newsletter&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Archive of Shownotes (includes all audio and video assets used) &lt;a href="http://archive.noagendanotes.com"&gt;archive.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+The No Agenda News Network- &lt;a href="http://noagendanewsnetwork.com/"&gt;noagendanewsnetwork.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+RSS Podcast&lt;a href="http://feed.nashownotes.com/rss.xml"&gt; Feed&lt;/a&gt; &lt;/p&gt;&lt;p&gt;
+Experimental IPFS RSS &lt;a href="http://feed.nashownotes.com/naipfsrss.xml"&gt;Feed&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://nanewsapp.com/"&gt;No Agenda News App&lt;/a&gt; for your iPhone and iPad&lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://www.noagendroid.com/"&gt;NoAgendDroid app&lt;/a&gt; for your Android Phone&lt;/p&gt;&lt;p&gt;
+&lt;a href="http://bitlove.org/adamc12931/noagenda"&gt;Torrents&lt;/a&gt; of each episode via BitLove&lt;/p&gt;&lt;p&gt;
+&lt;font size= -1&gt;&lt;script&gt;document.write("Last Modified " + document.lastModified)&lt;/script&gt;&lt;/font&gt;&lt;br&gt;&lt;a href="http://freedomcontroller.com"&gt;&lt;font size= -2&gt;This page created with the FreedomController&lt;/font&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Credits&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;"Covidiots"&lt;/b&gt;&lt;/p&gt;&lt;p&gt;
+Executive Producers: &lt;/p&gt;&lt;p&gt;
+Matt Zeiser&lt;/p&gt;&lt;p&gt;
+Martin Walla&lt;/p&gt;&lt;p&gt;
+Sir Cal of Lavender Blossoms&lt;/p&gt;&lt;p&gt;
+Anonymous Robert&lt;/p&gt;&lt;p&gt;
+Robert Wimbrow&lt;/p&gt;&lt;p&gt;
+Ihor Marusyk&lt;/p&gt;&lt;p&gt;
+Sir Craig Porter The Ronin&lt;/p&gt;&lt;p&gt;
+Associate Executive Producers: &lt;/p&gt;&lt;p&gt;
+Jackson Gilmore&lt;/p&gt;&lt;p&gt;
+Chef James&lt;/p&gt;&lt;p&gt;
+Sir Couch Master&lt;/p&gt;&lt;p&gt;
+Dude Named Jay&lt;/p&gt;&lt;p&gt;
+Sir Mac and Dame Lauren&lt;/p&gt;&lt;p&gt;
+Robert Tyler Loew&lt;/p&gt;&lt;p&gt;
+1293 Club Members: &lt;/p&gt;&lt;p&gt;
+Sir Dave of the PNW, Black Knight&lt;/p&gt;&lt;p&gt;
+Become a member of the 1294 Club, support the show &lt;a href="http://dvorak.org/na"&gt;here&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Knights &amp; Dames&lt;/p&gt;&lt;p&gt;
+Dave of the PNW -&gt; Sir Dave of the PNW, Black Knight&lt;/p&gt;&lt;p&gt;
+Todd Troutman -&gt; Sir Couch Master&lt;/p&gt;&lt;p&gt;
+Michael Maiatico -&gt; Sir Maiatico&lt;/p&gt;&lt;p&gt;
+Art By: &lt;/p&gt;&lt;p&gt;
+End of Show Mixes:  Mad Mike - Rolando Gonzalez - Jesse Coy Nelson&lt;/p&gt;&lt;p&gt;
+Engineering, Stream Management &amp; Wizardry&lt;/p&gt;&lt;p&gt;
+Mark van Dijk - Systems Master&lt;/p&gt;&lt;p&gt;
+Ryan Bemrose - Program Director&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;NEW:&lt;/b&gt; and soon on Netflix: &lt;a href="https://www.youtube.com/channel/UCihyXCKCTKZ0H6OQRpKN5qQ"&gt;Animated No Agenda&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;Sign Up&lt;/b&gt; for the &lt;a href="http://www.dvorak.org/blog/no-agenda-mailing-list-signup-here/"&gt;newsletter&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+ShowNotes Archive of links and Assets (clips etc) &lt;a href="http://1293.noagendanotes.com/"&gt; 1293.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+New: Directory Archive of Shownotes (includes all audio and video assets used) &lt;a href="http://archive.noagendanotes.com/"&gt;archive.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+RSS Podcast&lt;a href="http://feed.nashownotes.com/rss.xml"&gt; Feed&lt;/a&gt; &lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://nanewsapp.com/"&gt;No Agenda News App&lt;/a&gt; for your iPhone and iPad&lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://www.noagendroid.com/"&gt;NoAgendDroid app&lt;/a&gt; for your Android Phone&lt;/p&gt;&lt;p&gt;
+&lt;a href="http://itm.im/opus"&gt;No Agenda Lite&lt;/a&gt; in opus format&lt;/p&gt;&lt;p&gt;
+&lt;a href="http://noagendatorrents.com"&gt;NoAgendaTorrents.com&lt;/a&gt; has an RSS feed or show torrents&lt;/p&gt;&lt;p&gt;
+&lt;font size= -1&gt;&lt;script&gt;document.write("Last Modified " + document.lastModified)&lt;/script&gt;&lt;/font&gt;&lt;br&gt;&lt;a href="http://freedomcontroller.com"&gt;&lt;font size= -2&gt;This page created with the FreedomController&lt;/font&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+&lt;naart:artwork&gt;18539&lt;/naart:artwork&gt;&lt;/p&gt;&lt;p&gt;
+Keywords&lt;/p&gt;</description>
+      <link>http://1293.noagendanotes.com/</link>
+      <guid isPermaLink="true">http://1293.noagendanotes.com/</guid>
+      <pubDate>Sun, 08 Nov 2020 20:47:40 GMT</pubDate>
+      <itunes:subtitle>1293: "Coviditos"</itunes:subtitle>
+      <itunes:summary>&lt;p&gt;Show Notes&lt;/p&gt;&lt;p&gt;
+No Agenda Episode 1293 - "Covidiots"&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;"Covidiots"&lt;/b&gt;&lt;/p&gt;&lt;p&gt;
+&lt;audio style="width:400px; vertical-align:middle;" controls="true" preload="none"&gt;&lt;source src="https://mp3s.nashownotes.com/NA-1293-2020-11-08-Final.mp3" type="audio/mpeg"&gt;&lt;/audio&gt;&lt;/p&gt;&lt;p&gt;
+&lt;a href="https://mp3s.nashownotes.com/NA-1293-2020-11-08-Final.mp3"&gt;&lt;img width="256" height="256" align="right" alt="A picture named NA-1293-Art-SM" src="https://noagendaassets.com/enc/1604868121.789_na-1263-art-sm.png" border="0" vspace="5" hspace="15" &gt;&lt;br=""&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Direct [&lt;a href="https://mp3s.nashownotes.com/NA-1293-2020-11-08-Final.mp3"&gt;link&lt;/a&gt;] to the mp3 file&lt;/p&gt;&lt;p&gt;
+ShowNotes Archive of links and Assets (clips etc) &lt;a href="http://1293.noagendanotes.com/"&gt; 1293.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;Sign Up&lt;/b&gt; for the &lt;a href="http://www.dvorak.org/blog/no-agenda-mailing-list-signup-here/"&gt;newsletter&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Archive of Shownotes (includes all audio and video assets used) &lt;a href="http://archive.noagendanotes.com"&gt;archive.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+The No Agenda News Network- &lt;a href="http://noagendanewsnetwork.com/"&gt;noagendanewsnetwork.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+RSS Podcast&lt;a href="http://feed.nashownotes.com/rss.xml"&gt; Feed&lt;/a&gt; &lt;/p&gt;&lt;p&gt;
+Experimental IPFS RSS &lt;a href="http://feed.nashownotes.com/naipfsrss.xml"&gt;Feed&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://nanewsapp.com/"&gt;No Agenda News App&lt;/a&gt; for your iPhone and iPad&lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://www.noagendroid.com/"&gt;NoAgendDroid app&lt;/a&gt; for your Android Phone&lt;/p&gt;&lt;p&gt;
+&lt;a href="http://bitlove.org/adamc12931/noagenda"&gt;Torrents&lt;/a&gt; of each episode via BitLove&lt;/p&gt;&lt;p&gt;
+&lt;font size= -1&gt;&lt;script&gt;document.write("Last Modified " + document.lastModified)&lt;/script&gt;&lt;/font&gt;&lt;br&gt;&lt;a href="http://freedomcontroller.com"&gt;&lt;font size= -2&gt;This page created with the FreedomController&lt;/font&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Credits&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;"Covidiots"&lt;/b&gt;&lt;/p&gt;&lt;p&gt;
+Executive Producers: &lt;/p&gt;&lt;p&gt;
+Matt Zeiser&lt;/p&gt;&lt;p&gt;
+Martin Walla&lt;/p&gt;&lt;p&gt;
+Sir Cal of Lavender Blossoms&lt;/p&gt;&lt;p&gt;
+Anonymous Robert&lt;/p&gt;&lt;p&gt;
+Robert Wimbrow&lt;/p&gt;&lt;p&gt;
+Ihor Marusyk&lt;/p&gt;&lt;p&gt;
+Sir Craig Porter The Ronin&lt;/p&gt;&lt;p&gt;
+Associate Executive Producers: &lt;/p&gt;&lt;p&gt;
+Jackson Gilmore&lt;/p&gt;&lt;p&gt;
+Chef James&lt;/p&gt;&lt;p&gt;
+Sir Couch Master&lt;/p&gt;&lt;p&gt;
+Dude Named Jay&lt;/p&gt;&lt;p&gt;
+Sir Mac and Dame Lauren&lt;/p&gt;&lt;p&gt;
+Robert Tyler Loew&lt;/p&gt;&lt;p&gt;
+1293 Club Members: &lt;/p&gt;&lt;p&gt;
+Sir Dave of the PNW, Black Knight&lt;/p&gt;&lt;p&gt;
+Become a member of the 1294 Club, support the show &lt;a href="http://dvorak.org/na"&gt;here&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Knights &amp; Dames&lt;/p&gt;&lt;p&gt;
+Dave of the PNW -&gt; Sir Dave of the PNW, Black Knight&lt;/p&gt;&lt;p&gt;
+Todd Troutman -&gt; Sir Couch Master&lt;/p&gt;&lt;p&gt;
+Michael Maiatico -&gt; Sir Maiatico&lt;/p&gt;&lt;p&gt;
+Art By: &lt;/p&gt;&lt;p&gt;
+End of Show Mixes:  Mad Mike - Rolando Gonzalez - Jesse Coy Nelson&lt;/p&gt;&lt;p&gt;
+Engineering, Stream Management &amp; Wizardry&lt;/p&gt;&lt;p&gt;
+Mark van Dijk - Systems Master&lt;/p&gt;&lt;p&gt;
+Ryan Bemrose - Program Director&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;NEW:&lt;/b&gt; and soon on Netflix: &lt;a href="https://www.youtube.com/channel/UCihyXCKCTKZ0H6OQRpKN5qQ"&gt;Animated No Agenda&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;Sign Up&lt;/b&gt; for the &lt;a href="http://www.dvorak.org/blog/no-agenda-mailing-list-signup-here/"&gt;newsletter&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+ShowNotes Archive of links and Assets (clips etc) &lt;a href="http://1293.noagendanotes.com/"&gt; 1293.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+New: Directory Archive of Shownotes (includes all audio and video assets used) &lt;a href="http://archive.noagendanotes.com/"&gt;archive.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+RSS Podcast&lt;a href="http://feed.nashownotes.com/rss.xml"&gt; Feed&lt;/a&gt; &lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://nanewsapp.com/"&gt;No Agenda News App&lt;/a&gt; for your iPhone and iPad&lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://www.noagendroid.com/"&gt;NoAgendDroid app&lt;/a&gt; for your Android Phone&lt;/p&gt;&lt;p&gt;
+&lt;a href="http://itm.im/opus"&gt;No Agenda Lite&lt;/a&gt; in opus format&lt;/p&gt;&lt;p&gt;
+&lt;a href="http://noagendatorrents.com"&gt;NoAgendaTorrents.com&lt;/a&gt; has an RSS feed or show torrents&lt;/p&gt;&lt;p&gt;
+&lt;font size= -1&gt;&lt;script&gt;document.write("Last Modified " + document.lastModified)&lt;/script&gt;&lt;/font&gt;&lt;br&gt;&lt;a href="http://freedomcontroller.com"&gt;&lt;font size= -2&gt;This page created with the FreedomController&lt;/font&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+&lt;naart:artwork&gt;18539&lt;/naart:artwork&gt;&lt;/p&gt;&lt;p&gt;
+Keywords&lt;/p&gt;</itunes:summary>
+      <itunes:author>Adam Curry &amp; John C. Dvorak</itunes:author>
+      <author>Adam Curry &amp; John C. Dvorak</author>
+      <itunes:image href="https://noagendaassets.com/enc/1604868432.708_na-1263-art-feed.png"/>
+      <itunes:explicit>No</itunes:explicit>
+      <itunes:keywords>curry,dvorak,noagenda,no,agenda,politics,douchebag</itunes:keywords>
+      <enclosure url="https://mp3s.nashownotes.com/NA-1293-2020-11-08-Final.mp3" length="140939434" type="audio/mpeg"/>
+    </item>
+    
+    <item>
+      <title>1292: "Killing Mink"</title>
+      <description>&lt;p&gt;Show Notes&lt;/p&gt;&lt;p&gt;
+No Agenda Episode 1292 - "Killing Mink"&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;"Killing Mink"&lt;/b&gt;&lt;/p&gt;&lt;p&gt;
+&lt;audio style="width:400px; vertical-align:middle;" controls="true" preload="none"&gt;&lt;source src="https://mp3s.nashownotes.com/NA-1292-2020-11-05-Final.mp3" type="audio/mpeg"&gt;&lt;/audio&gt;&lt;/p&gt;&lt;p&gt;
+&lt;a href="https://mp3s.nashownotes.com/NA-1292-2020-11-05-Final.mp3"&gt;&lt;img width="256" height="256" align="right" alt="A picture named NA-1292-Art-SM" src="https://noagendaassets.com/enc/1604612942.699_na-1292-art-sm.png" border="0" vspace="5" hspace="15" &gt;&lt;br=""&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Direct [&lt;a href="https://mp3s.nashownotes.com/NA-1292-2020-11-05-Final.mp3"&gt;link&lt;/a&gt;] to the mp3 file&lt;/p&gt;&lt;p&gt;
+ShowNotes Archive of links and Assets (clips etc) &lt;a href="http://1292.noagendanotes.com/"&gt; 1292.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;Sign Up&lt;/b&gt; for the &lt;a href="http://www.dvorak.org/blog/no-agenda-mailing-list-signup-here/"&gt;newsletter&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Archive of Shownotes (includes all audio and video assets used) &lt;a href="http://archive.noagendanotes.com"&gt;archive.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+The No Agenda News Network- &lt;a href="http://noagendanewsnetwork.com/"&gt;noagendanewsnetwork.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+RSS Podcast&lt;a href="http://feed.nashownotes.com/rss.xml"&gt; Feed&lt;/a&gt; &lt;/p&gt;&lt;p&gt;
+Experimental IPFS RSS &lt;a href="http://feed.nashownotes.com/naipfsrss.xml"&gt;Feed&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://nanewsapp.com/"&gt;No Agenda News App&lt;/a&gt; for your iPhone and iPad&lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://www.noagendroid.com/"&gt;NoAgendDroid app&lt;/a&gt; for your Android Phone&lt;/p&gt;&lt;p&gt;
+&lt;a href="http://bitlove.org/adamc12921/noagenda"&gt;Torrents&lt;/a&gt; of each episode via BitLove&lt;/p&gt;&lt;p&gt;
+&lt;font size= -1&gt;&lt;script&gt;document.write("Last Modified " + document.lastModified)&lt;/script&gt;&lt;/font&gt;&lt;br&gt;&lt;a href="http://freedomcontroller.com"&gt;&lt;font size= -2&gt;This page created with the FreedomController&lt;/font&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Credits&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;"Killing Mink"&lt;/b&gt;&lt;/p&gt;&lt;p&gt;
+Executive Producers: &lt;/p&gt;&lt;p&gt;
+Sir Andy Cracchiolo, Knight of the Crack's&lt;/p&gt;&lt;p&gt;
+Dave of the PNW&lt;/p&gt;&lt;p&gt;
+Sir Retired US Marine Mustang&lt;/p&gt;&lt;p&gt;
+Sir DB Knight of NorCal&lt;/p&gt;&lt;p&gt;
+David Fugazzotto, Duke of America's Heartland and the Arabian Peninsula&lt;/p&gt;&lt;p&gt;
+Sir Data Ops, the Wisconsin Millennial&lt;/p&gt;&lt;p&gt;
+Sir Danimal, Baron of the Secret City&lt;/p&gt;&lt;p&gt;
+Sir Arthur, Your Once and Future King&lt;/p&gt;&lt;p&gt;
+Stefanie Bell&lt;/p&gt;&lt;p&gt;
+Gavin McElroy&lt;/p&gt;&lt;p&gt;
+Associate Executive Producers: &lt;/p&gt;&lt;p&gt;
+Sir Donald of the fire bottles&lt;/p&gt;&lt;p&gt;
+Nathan Newberg&lt;/p&gt;&lt;p&gt;
+Sir Bee Boop&lt;/p&gt;&lt;p&gt;
+Dustin Hill&lt;/p&gt;&lt;p&gt;
+Joel Donalson&lt;/p&gt;&lt;p&gt;
+Dame Sexy Howitzer&lt;/p&gt;&lt;p&gt;
+Zachary Aubin&lt;/p&gt;&lt;p&gt;
+Sir Timothy of No Fixed Title [&lt;a href="http://goo.gl/forms/fFqzfxH7Xa"&gt;his link as requested&lt;/a&gt;]&lt;/p&gt;&lt;p&gt;
+Brett Szymovicz [&lt;a href="http://apoliticalink.com"&gt;his link as requested&lt;/a&gt;]&lt;/p&gt;&lt;p&gt;
+Vincent G Shaw&lt;/p&gt;&lt;p&gt;
+Greg Field&lt;/p&gt;&lt;p&gt;
+Sir Economic Hitman, Baron of Congressional Dish [&lt;a href="http://apps.apple.com/us/app/mancala-fantasy-online/id1476984859"&gt;his link as requested&lt;/a&gt;]&lt;/p&gt;&lt;p&gt;
+Bradley Carrier&lt;/p&gt;&lt;p&gt;
+Dame Jamie &amp; Sir Mad Hatter &lt;/p&gt;&lt;p&gt;
+Sir Roland Ref of the Frozen SHeet&lt;/p&gt;&lt;p&gt;
+Become a member of the 1293 Club, support the show &lt;a href="http://dvorak.org/na"&gt;here&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Title Changes&lt;/p&gt;&lt;p&gt;
+Sir Danimal -&gt; Sir Danimal, Baron of the Secret City (Oak Ridge TN)&lt;/p&gt;&lt;p&gt;
+Knights &amp; Dames&lt;/p&gt;&lt;p&gt;
+Tim Chapman -&gt; Sir Timothy, Knight of the Inland NW&lt;/p&gt;&lt;p&gt;
+Edith Ann -&gt; Dame Sexy Howitzer&lt;/p&gt;&lt;p&gt;
+Arthur Brewer -&gt; Sir Arthur, Your Once and Future King&lt;/p&gt;&lt;p&gt;
+Andy Cracchiolo  (Crack-E-o-LOW) -&gt; Sir Andy Cracchiolo, Knight of the Crack's&lt;/p&gt;&lt;p&gt;
+Benjamin Luster -&gt; Sir Retired US Marine Mustang&lt;/p&gt;&lt;p&gt;
+Dana Brunetti -&gt; Sir DB Knight of NorCal&lt;/p&gt;&lt;p&gt;
+Art By: &lt;a href="https://noagendaartgenerator.com/artist/444"&gt;Brad1X&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+End of Show Mixes:  Tom Starkweather - Jesse Coy Nelson&lt;/p&gt;&lt;p&gt;
+Engineering, Stream Management &amp; Wizardry&lt;/p&gt;&lt;p&gt;
+Mark van Dijk - Systems Master&lt;/p&gt;&lt;p&gt;
+Ryan Bemrose - Program Director&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;NEW:&lt;/b&gt; and soon on Netflix: &lt;a href="https://www.youtube.com/channel/UCihyXCKCTKZ0H6OQRpKN5qQ"&gt;Animated No Agenda&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;Sign Up&lt;/b&gt; for the &lt;a href="http://www.dvorak.org/blog/no-agenda-mailing-list-signup-here/"&gt;newsletter&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+ShowNotes Archive of links and Assets (clips etc) &lt;a href="http://1292.noagendanotes.com/"&gt; 1292.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+New: Directory Archive of Shownotes (includes all audio and video assets used) &lt;a href="http://archive.noagendanotes.com/"&gt;archive.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+RSS Podcast&lt;a href="http://feed.nashownotes.com/rss.xml"&gt; Feed&lt;/a&gt; &lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://nanewsapp.com/"&gt;No Agenda News App&lt;/a&gt; for your iPhone and iPad&lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://www.noagendroid.com/"&gt;NoAgendDroid app&lt;/a&gt; for your Android Phone&lt;/p&gt;&lt;p&gt;
+&lt;a href="http://itm.im/opus"&gt;No Agenda Lite&lt;/a&gt; in opus format&lt;/p&gt;&lt;p&gt;
+&lt;a href="http://noagendatorrents.com"&gt;NoAgendaTorrents.com&lt;/a&gt; has an RSS feed or show torrents&lt;/p&gt;&lt;p&gt;
+&lt;font size= -1&gt;&lt;script&gt;document.write("Last Modified " + document.lastModified)&lt;/script&gt;&lt;/font&gt;&lt;br&gt;&lt;a href="http://freedomcontroller.com"&gt;&lt;font size= -2&gt;This page created with the FreedomController&lt;/font&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+&lt;naart:artwork&gt;18442&lt;/naart:artwork&gt;&lt;/p&gt;&lt;p&gt;
+Keywords&lt;/p&gt;</description>
+      <link>http://1292.noagendanotes.com/</link>
+      <guid isPermaLink="true">http://1292.noagendanotes.com/</guid>
+      <pubDate>Thu, 05 Nov 2020 21:55:52 GMT</pubDate>
+      <itunes:subtitle>1292: "Killing Mink"</itunes:subtitle>
+      <itunes:summary>&lt;p&gt;Show Notes&lt;/p&gt;&lt;p&gt;
+No Agenda Episode 1292 - "Killing Mink"&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;"Killing Mink"&lt;/b&gt;&lt;/p&gt;&lt;p&gt;
+&lt;audio style="width:400px; vertical-align:middle;" controls="true" preload="none"&gt;&lt;source src="https://mp3s.nashownotes.com/NA-1292-2020-11-05-Final.mp3" type="audio/mpeg"&gt;&lt;/audio&gt;&lt;/p&gt;&lt;p&gt;
+&lt;a href="https://mp3s.nashownotes.com/NA-1292-2020-11-05-Final.mp3"&gt;&lt;img width="256" height="256" align="right" alt="A picture named NA-1292-Art-SM" src="https://noagendaassets.com/enc/1604612942.699_na-1292-art-sm.png" border="0" vspace="5" hspace="15" &gt;&lt;br=""&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Direct [&lt;a href="https://mp3s.nashownotes.com/NA-1292-2020-11-05-Final.mp3"&gt;link&lt;/a&gt;] to the mp3 file&lt;/p&gt;&lt;p&gt;
+ShowNotes Archive of links and Assets (clips etc) &lt;a href="http://1292.noagendanotes.com/"&gt; 1292.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;Sign Up&lt;/b&gt; for the &lt;a href="http://www.dvorak.org/blog/no-agenda-mailing-list-signup-here/"&gt;newsletter&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Archive of Shownotes (includes all audio and video assets used) &lt;a href="http://archive.noagendanotes.com"&gt;archive.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+The No Agenda News Network- &lt;a href="http://noagendanewsnetwork.com/"&gt;noagendanewsnetwork.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+RSS Podcast&lt;a href="http://feed.nashownotes.com/rss.xml"&gt; Feed&lt;/a&gt; &lt;/p&gt;&lt;p&gt;
+Experimental IPFS RSS &lt;a href="http://feed.nashownotes.com/naipfsrss.xml"&gt;Feed&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://nanewsapp.com/"&gt;No Agenda News App&lt;/a&gt; for your iPhone and iPad&lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://www.noagendroid.com/"&gt;NoAgendDroid app&lt;/a&gt; for your Android Phone&lt;/p&gt;&lt;p&gt;
+&lt;a href="http://bitlove.org/adamc12921/noagenda"&gt;Torrents&lt;/a&gt; of each episode via BitLove&lt;/p&gt;&lt;p&gt;
+&lt;font size= -1&gt;&lt;script&gt;document.write("Last Modified " + document.lastModified)&lt;/script&gt;&lt;/font&gt;&lt;br&gt;&lt;a href="http://freedomcontroller.com"&gt;&lt;font size= -2&gt;This page created with the FreedomController&lt;/font&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Credits&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;"Killing Mink"&lt;/b&gt;&lt;/p&gt;&lt;p&gt;
+Executive Producers: &lt;/p&gt;&lt;p&gt;
+Sir Andy Cracchiolo, Knight of the Crack's&lt;/p&gt;&lt;p&gt;
+Dave of the PNW&lt;/p&gt;&lt;p&gt;
+Sir Retired US Marine Mustang&lt;/p&gt;&lt;p&gt;
+Sir DB Knight of NorCal&lt;/p&gt;&lt;p&gt;
+David Fugazzotto, Duke of America's Heartland and the Arabian Peninsula&lt;/p&gt;&lt;p&gt;
+Sir Data Ops, the Wisconsin Millennial&lt;/p&gt;&lt;p&gt;
+Sir Danimal, Baron of the Secret City&lt;/p&gt;&lt;p&gt;
+Sir Arthur, Your Once and Future King&lt;/p&gt;&lt;p&gt;
+Stefanie Bell&lt;/p&gt;&lt;p&gt;
+Gavin McElroy&lt;/p&gt;&lt;p&gt;
+Associate Executive Producers: &lt;/p&gt;&lt;p&gt;
+Sir Donald of the fire bottles&lt;/p&gt;&lt;p&gt;
+Nathan Newberg&lt;/p&gt;&lt;p&gt;
+Sir Bee Boop&lt;/p&gt;&lt;p&gt;
+Dustin Hill&lt;/p&gt;&lt;p&gt;
+Joel Donalson&lt;/p&gt;&lt;p&gt;
+Dame Sexy Howitzer&lt;/p&gt;&lt;p&gt;
+Zachary Aubin&lt;/p&gt;&lt;p&gt;
+Sir Timothy of No Fixed Title [&lt;a href="http://goo.gl/forms/fFqzfxH7Xa"&gt;his link as requested&lt;/a&gt;]&lt;/p&gt;&lt;p&gt;
+Brett Szymovicz [&lt;a href="http://apoliticalink.com"&gt;his link as requested&lt;/a&gt;]&lt;/p&gt;&lt;p&gt;
+Vincent G Shaw&lt;/p&gt;&lt;p&gt;
+Greg Field&lt;/p&gt;&lt;p&gt;
+Sir Economic Hitman, Baron of Congressional Dish [&lt;a href="http://apps.apple.com/us/app/mancala-fantasy-online/id1476984859"&gt;his link as requested&lt;/a&gt;]&lt;/p&gt;&lt;p&gt;
+Bradley Carrier&lt;/p&gt;&lt;p&gt;
+Dame Jamie &amp; Sir Mad Hatter &lt;/p&gt;&lt;p&gt;
+Sir Roland Ref of the Frozen SHeet&lt;/p&gt;&lt;p&gt;
+Become a member of the 1293 Club, support the show &lt;a href="http://dvorak.org/na"&gt;here&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Title Changes&lt;/p&gt;&lt;p&gt;
+Sir Danimal -&gt; Sir Danimal, Baron of the Secret City (Oak Ridge TN)&lt;/p&gt;&lt;p&gt;
+Knights &amp; Dames&lt;/p&gt;&lt;p&gt;
+Tim Chapman -&gt; Sir Timothy, Knight of the Inland NW&lt;/p&gt;&lt;p&gt;
+Edith Ann -&gt; Dame Sexy Howitzer&lt;/p&gt;&lt;p&gt;
+Arthur Brewer -&gt; Sir Arthur, Your Once and Future King&lt;/p&gt;&lt;p&gt;
+Andy Cracchiolo  (Crack-E-o-LOW) -&gt; Sir Andy Cracchiolo, Knight of the Crack's&lt;/p&gt;&lt;p&gt;
+Benjamin Luster -&gt; Sir Retired US Marine Mustang&lt;/p&gt;&lt;p&gt;
+Dana Brunetti -&gt; Sir DB Knight of NorCal&lt;/p&gt;&lt;p&gt;
+Art By: &lt;a href="https://noagendaartgenerator.com/artist/444"&gt;Brad1X&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+End of Show Mixes:  Tom Starkweather - Jesse Coy Nelson&lt;/p&gt;&lt;p&gt;
+Engineering, Stream Management &amp; Wizardry&lt;/p&gt;&lt;p&gt;
+Mark van Dijk - Systems Master&lt;/p&gt;&lt;p&gt;
+Ryan Bemrose - Program Director&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;NEW:&lt;/b&gt; and soon on Netflix: &lt;a href="https://www.youtube.com/channel/UCihyXCKCTKZ0H6OQRpKN5qQ"&gt;Animated No Agenda&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;Sign Up&lt;/b&gt; for the &lt;a href="http://www.dvorak.org/blog/no-agenda-mailing-list-signup-here/"&gt;newsletter&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+ShowNotes Archive of links and Assets (clips etc) &lt;a href="http://1292.noagendanotes.com/"&gt; 1292.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+New: Directory Archive of Shownotes (includes all audio and video assets used) &lt;a href="http://archive.noagendanotes.com/"&gt;archive.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+RSS Podcast&lt;a href="http://feed.nashownotes.com/rss.xml"&gt; Feed&lt;/a&gt; &lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://nanewsapp.com/"&gt;No Agenda News App&lt;/a&gt; for your iPhone and iPad&lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://www.noagendroid.com/"&gt;NoAgendDroid app&lt;/a&gt; for your Android Phone&lt;/p&gt;&lt;p&gt;
+&lt;a href="http://itm.im/opus"&gt;No Agenda Lite&lt;/a&gt; in opus format&lt;/p&gt;&lt;p&gt;
+&lt;a href="http://noagendatorrents.com"&gt;NoAgendaTorrents.com&lt;/a&gt; has an RSS feed or show torrents&lt;/p&gt;&lt;p&gt;
+&lt;font size= -1&gt;&lt;script&gt;document.write("Last Modified " + document.lastModified)&lt;/script&gt;&lt;/font&gt;&lt;br&gt;&lt;a href="http://freedomcontroller.com"&gt;&lt;font size= -2&gt;This page created with the FreedomController&lt;/font&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+&lt;naart:artwork&gt;18442&lt;/naart:artwork&gt;&lt;/p&gt;&lt;p&gt;
+Keywords&lt;/p&gt;</itunes:summary>
+      <itunes:author>Adam Curry &amp; John C. Dvorak</itunes:author>
+      <author>Adam Curry &amp; John C. Dvorak</author>
+      <itunes:image href="https://noagendaassets.com/enc/1604613332.851_na-1292-art-feed-copy2.png"/>
+      <itunes:explicit>No</itunes:explicit>
+      <itunes:keywords>curry,dvorak,noagenda,no,agenda,politics,douchebag</itunes:keywords>
+      <enclosure url="https://mp3s.nashownotes.com/NA-1292-2020-11-05-Final.mp3" length="157744528" type="audio/mpeg"/>
+    </item>
+    
+    <item>
+      <title>1291: "The Election Special"</title>
+      <description>&lt;p&gt;Show Notes&lt;/p&gt;&lt;p&gt;
+No Agenda Episode 1291 - "The Election Special"&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;"Election Special"&lt;/b&gt;&lt;/p&gt;&lt;p&gt;
+&lt;audio style="width:400px; vertical-align:middle;" controls="true" preload="none"&gt;&lt;source src="https://mp3s.nashownotes.com/NA-1291-2020-11-01-Final.mp3" type="audio/mpeg"&gt;&lt;/audio&gt;&lt;/p&gt;&lt;p&gt;
+&lt;a href="https://mp3s.nashownotes.com/NA-1291-2020-11-01-Final.mp3"&gt;&lt;img width="256" height="256" align="right" alt="A picture named NA-1291-Art-SM" src="https://noagendaassets.com/enc/1604264882.59_na-1291-art-sm.png" border="0" vspace="5" hspace="15" &gt;&lt;br=""&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Direct [&lt;a href="https://mp3s.nashownotes.com/NA-1291-2020-11-01-Final.mp3"&gt;link&lt;/a&gt;] to the mp3 file&lt;/p&gt;&lt;p&gt;
+ShowNotes Archive of links and Assets (clips etc) &lt;a href="http://1291.noagendanotes.com/"&gt; 1291.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;Sign Up&lt;/b&gt; for the &lt;a href="http://www.dvorak.org/blog/no-agenda-mailing-list-signup-here/"&gt;newsletter&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Archive of Shownotes (includes all audio and video assets used) &lt;a href="http://archive.noagendanotes.com"&gt;archive.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+The No Agenda News Network- &lt;a href="http://noagendanewsnetwork.com/"&gt;noagendanewsnetwork.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+RSS Podcast&lt;a href="http://feed.nashownotes.com/rss.xml"&gt; Feed&lt;/a&gt; &lt;/p&gt;&lt;p&gt;
+Experimental IPFS RSS &lt;a href="http://feed.nashownotes.com/naipfsrss.xml"&gt;Feed&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://nanewsapp.com/"&gt;No Agenda News App&lt;/a&gt; for your iPhone and iPad&lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://www.noagendroid.com/"&gt;NoAgendDroid app&lt;/a&gt; for your Android Phone&lt;/p&gt;&lt;p&gt;
+&lt;a href="http://bitlove.org/adamc12911/noagenda"&gt;Torrents&lt;/a&gt; of each episode via BitLove&lt;/p&gt;&lt;p&gt;
+&lt;font size= -1&gt;&lt;script&gt;document.write("Last Modified " + document.lastModified)&lt;/script&gt;&lt;/font&gt;&lt;br&gt;&lt;a href="http://freedomcontroller.com"&gt;&lt;font size= -2&gt;This page created with the FreedomController&lt;/font&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Credits&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;"The Election Special"&lt;/b&gt;&lt;/p&gt;&lt;p&gt;
+No Agenda Election Special Executive Producers: &lt;/p&gt;&lt;p&gt;
+Sir Onymous of Dogpatch and Lower Slobbovia&lt;/p&gt;&lt;p&gt;
+Dame Tori of Ancapistan&lt;/p&gt;&lt;p&gt;
+Aaron Zide&lt;/p&gt;&lt;p&gt;
+Sir Molten Cheese, protector of Toronto, Pittsburgh and all the lands in between&lt;/p&gt;&lt;p&gt;
+Jason D Howard&lt;/p&gt;&lt;p&gt;
+William Cornell&lt;/p&gt;&lt;p&gt;
+Anonymous&lt;/p&gt;&lt;p&gt;
+Kevin Fitzpatrick&lt;/p&gt;&lt;p&gt;
+Vinny Pedulla&lt;/p&gt;&lt;p&gt;
+Sir Robert, Knight of the Naughty Bits&lt;/p&gt;&lt;p&gt;
+Dreb Scott Earl at Large&lt;/p&gt;&lt;p&gt;
+David Nelson&lt;/p&gt;&lt;p&gt;
+Robert Randall&lt;/p&gt;&lt;p&gt;
+Sheryl Cox&lt;/p&gt;&lt;p&gt;
+Sir Addison CEO of Shitposts&lt;/p&gt;&lt;p&gt;
+Sir Crush a Lot Night of Leelanau grape fields - Black Knight&lt;/p&gt;&lt;p&gt;
+Associate Executive Producers: &lt;/p&gt;&lt;p&gt;
+Jan Navis&lt;/p&gt;&lt;p&gt;
+Anonymous&lt;/p&gt;&lt;p&gt;
+Ryan Miller&lt;/p&gt;&lt;p&gt;
+Dame Christina, Judoka of Penn's Woods&lt;/p&gt;&lt;p&gt;
+Become a member of the 1292 Club, support the show &lt;a href="http://dvorak.org/na"&gt;here&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Knights &amp; Dames&lt;/p&gt;&lt;p&gt;
+Christina Thomas -&gt; Dame Christina, Judoka of Penn's Woods&lt;/p&gt;&lt;p&gt;
+James Fukumoto -&gt; Sir James Fukumoto, Black Knight&lt;/p&gt;&lt;p&gt;
+Michael Goodell - Sir Crush a Lot Night of Leelanau grape fields Black Knight&lt;/p&gt;&lt;p&gt;
+Robert Querback -&gt; Sir Robert, Knight of the Naughty Bits&lt;/p&gt;&lt;p&gt;
+Andrew Oxenham -&gt; Sir Ox, Scruffy Knight of the Scruffy City&lt;/p&gt;&lt;p&gt;
+Victoria Saucier -&gt; Dame Tori of Ancapistan (an-cap-istan)&lt;/p&gt;&lt;p&gt;
+Emilio -&gt; Sir Molten Cheese&lt;/p&gt;&lt;p&gt;
+Art By: &lt;a href="https://noagendaartgenerator.com/artist/1360"&gt;Sir Net Ned&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+End of Show Mixes:  Nostradamus - Jesse Coy Nelson - REXO&lt;/p&gt;&lt;p&gt;
+Engineering, Stream Management &amp; Wizardry&lt;/p&gt;&lt;p&gt;
+Mark van Dijk - Systems Master&lt;/p&gt;&lt;p&gt;
+Ryan Bemrose - Program Director&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;NEW:&lt;/b&gt; and soon on Netflix: &lt;a href="https://www.youtube.com/channel/UCihyXCKCTKZ0H6OQRpKN5qQ"&gt;Animated No Agenda&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;Sign Up&lt;/b&gt; for the &lt;a href="http://www.dvorak.org/blog/no-agenda-mailing-list-signup-here/"&gt;newsletter&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+ShowNotes Archive of links and Assets (clips etc) &lt;a href="http://1291.noagendanotes.com/"&gt; 1291.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+New: Directory Archive of Shownotes (includes all audio and video assets used) &lt;a href="http://archive.noagendanotes.com/"&gt;archive.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+RSS Podcast&lt;a href="http://feed.nashownotes.com/rss.xml"&gt; Feed&lt;/a&gt; &lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://nanewsapp.com/"&gt;No Agenda News App&lt;/a&gt; for your iPhone and iPad&lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://www.noagendroid.com/"&gt;NoAgendDroid app&lt;/a&gt; for your Android Phone&lt;/p&gt;&lt;p&gt;
+&lt;a href="http://itm.im/opus"&gt;No Agenda Lite&lt;/a&gt; in opus format&lt;/p&gt;&lt;p&gt;
+&lt;a href="http://noagendatorrents.com"&gt;NoAgendaTorrents.com&lt;/a&gt; has an RSS feed or show torrents&lt;/p&gt;&lt;p&gt;
+&lt;font size= -1&gt;&lt;script&gt;document.write("Last Modified " + document.lastModified)&lt;/script&gt;&lt;/font&gt;&lt;br&gt;&lt;a href="http://freedomcontroller.com"&gt;&lt;font size= -2&gt;This page created with the FreedomController&lt;/font&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+&lt;naart:artwork&gt;18406&lt;/naart:artwork&gt;&lt;/p&gt;&lt;p&gt;
+Keywords&lt;/p&gt;</description>
+      <link>http://1291.noagendanotes.com/</link>
+      <guid isPermaLink="true">http://1291.noagendanotes.com/</guid>
+      <pubDate>Sun, 01 Nov 2020 21:15:01 GMT</pubDate>
+      <itunes:subtitle>1291: "The Election Special"</itunes:subtitle>
+      <itunes:summary>&lt;p&gt;Show Notes&lt;/p&gt;&lt;p&gt;
+No Agenda Episode 1291 - "The Election Special"&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;"Election Special"&lt;/b&gt;&lt;/p&gt;&lt;p&gt;
+&lt;audio style="width:400px; vertical-align:middle;" controls="true" preload="none"&gt;&lt;source src="https://mp3s.nashownotes.com/NA-1291-2020-11-01-Final.mp3" type="audio/mpeg"&gt;&lt;/audio&gt;&lt;/p&gt;&lt;p&gt;
+&lt;a href="https://mp3s.nashownotes.com/NA-1291-2020-11-01-Final.mp3"&gt;&lt;img width="256" height="256" align="right" alt="A picture named NA-1291-Art-SM" src="https://noagendaassets.com/enc/1604264882.59_na-1291-art-sm.png" border="0" vspace="5" hspace="15" &gt;&lt;br=""&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Direct [&lt;a href="https://mp3s.nashownotes.com/NA-1291-2020-11-01-Final.mp3"&gt;link&lt;/a&gt;] to the mp3 file&lt;/p&gt;&lt;p&gt;
+ShowNotes Archive of links and Assets (clips etc) &lt;a href="http://1291.noagendanotes.com/"&gt; 1291.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;Sign Up&lt;/b&gt; for the &lt;a href="http://www.dvorak.org/blog/no-agenda-mailing-list-signup-here/"&gt;newsletter&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Archive of Shownotes (includes all audio and video assets used) &lt;a href="http://archive.noagendanotes.com"&gt;archive.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+The No Agenda News Network- &lt;a href="http://noagendanewsnetwork.com/"&gt;noagendanewsnetwork.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+RSS Podcast&lt;a href="http://feed.nashownotes.com/rss.xml"&gt; Feed&lt;/a&gt; &lt;/p&gt;&lt;p&gt;
+Experimental IPFS RSS &lt;a href="http://feed.nashownotes.com/naipfsrss.xml"&gt;Feed&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://nanewsapp.com/"&gt;No Agenda News App&lt;/a&gt; for your iPhone and iPad&lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://www.noagendroid.com/"&gt;NoAgendDroid app&lt;/a&gt; for your Android Phone&lt;/p&gt;&lt;p&gt;
+&lt;a href="http://bitlove.org/adamc12911/noagenda"&gt;Torrents&lt;/a&gt; of each episode via BitLove&lt;/p&gt;&lt;p&gt;
+&lt;font size= -1&gt;&lt;script&gt;document.write("Last Modified " + document.lastModified)&lt;/script&gt;&lt;/font&gt;&lt;br&gt;&lt;a href="http://freedomcontroller.com"&gt;&lt;font size= -2&gt;This page created with the FreedomController&lt;/font&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Credits&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;"The Election Special"&lt;/b&gt;&lt;/p&gt;&lt;p&gt;
+No Agenda Election Special Executive Producers: &lt;/p&gt;&lt;p&gt;
+Sir Onymous of Dogpatch and Lower Slobbovia&lt;/p&gt;&lt;p&gt;
+Dame Tori of Ancapistan&lt;/p&gt;&lt;p&gt;
+Aaron Zide&lt;/p&gt;&lt;p&gt;
+Sir Molten Cheese, protector of Toronto, Pittsburgh and all the lands in between&lt;/p&gt;&lt;p&gt;
+Jason D Howard&lt;/p&gt;&lt;p&gt;
+William Cornell&lt;/p&gt;&lt;p&gt;
+Anonymous&lt;/p&gt;&lt;p&gt;
+Kevin Fitzpatrick&lt;/p&gt;&lt;p&gt;
+Vinny Pedulla&lt;/p&gt;&lt;p&gt;
+Sir Robert, Knight of the Naughty Bits&lt;/p&gt;&lt;p&gt;
+Dreb Scott Earl at Large&lt;/p&gt;&lt;p&gt;
+David Nelson&lt;/p&gt;&lt;p&gt;
+Robert Randall&lt;/p&gt;&lt;p&gt;
+Sheryl Cox&lt;/p&gt;&lt;p&gt;
+Sir Addison CEO of Shitposts&lt;/p&gt;&lt;p&gt;
+Sir Crush a Lot Night of Leelanau grape fields - Black Knight&lt;/p&gt;&lt;p&gt;
+Associate Executive Producers: &lt;/p&gt;&lt;p&gt;
+Jan Navis&lt;/p&gt;&lt;p&gt;
+Anonymous&lt;/p&gt;&lt;p&gt;
+Ryan Miller&lt;/p&gt;&lt;p&gt;
+Dame Christina, Judoka of Penn's Woods&lt;/p&gt;&lt;p&gt;
+Become a member of the 1292 Club, support the show &lt;a href="http://dvorak.org/na"&gt;here&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Knights &amp; Dames&lt;/p&gt;&lt;p&gt;
+Christina Thomas -&gt; Dame Christina, Judoka of Penn's Woods&lt;/p&gt;&lt;p&gt;
+James Fukumoto -&gt; Sir James Fukumoto, Black Knight&lt;/p&gt;&lt;p&gt;
+Michael Goodell - Sir Crush a Lot Night of Leelanau grape fields Black Knight&lt;/p&gt;&lt;p&gt;
+Robert Querback -&gt; Sir Robert, Knight of the Naughty Bits&lt;/p&gt;&lt;p&gt;
+Andrew Oxenham -&gt; Sir Ox, Scruffy Knight of the Scruffy City&lt;/p&gt;&lt;p&gt;
+Victoria Saucier -&gt; Dame Tori of Ancapistan (an-cap-istan)&lt;/p&gt;&lt;p&gt;
+Emilio -&gt; Sir Molten Cheese&lt;/p&gt;&lt;p&gt;
+Art By: &lt;a href="https://noagendaartgenerator.com/artist/1360"&gt;Sir Net Ned&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+End of Show Mixes:  Nostradamus - Jesse Coy Nelson - REXO&lt;/p&gt;&lt;p&gt;
+Engineering, Stream Management &amp; Wizardry&lt;/p&gt;&lt;p&gt;
+Mark van Dijk - Systems Master&lt;/p&gt;&lt;p&gt;
+Ryan Bemrose - Program Director&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;NEW:&lt;/b&gt; and soon on Netflix: &lt;a href="https://www.youtube.com/channel/UCihyXCKCTKZ0H6OQRpKN5qQ"&gt;Animated No Agenda&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;Sign Up&lt;/b&gt; for the &lt;a href="http://www.dvorak.org/blog/no-agenda-mailing-list-signup-here/"&gt;newsletter&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+ShowNotes Archive of links and Assets (clips etc) &lt;a href="http://1291.noagendanotes.com/"&gt; 1291.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+New: Directory Archive of Shownotes (includes all audio and video assets used) &lt;a href="http://archive.noagendanotes.com/"&gt;archive.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+RSS Podcast&lt;a href="http://feed.nashownotes.com/rss.xml"&gt; Feed&lt;/a&gt; &lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://nanewsapp.com/"&gt;No Agenda News App&lt;/a&gt; for your iPhone and iPad&lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://www.noagendroid.com/"&gt;NoAgendDroid app&lt;/a&gt; for your Android Phone&lt;/p&gt;&lt;p&gt;
+&lt;a href="http://itm.im/opus"&gt;No Agenda Lite&lt;/a&gt; in opus format&lt;/p&gt;&lt;p&gt;
+&lt;a href="http://noagendatorrents.com"&gt;NoAgendaTorrents.com&lt;/a&gt; has an RSS feed or show torrents&lt;/p&gt;&lt;p&gt;
+&lt;font size= -1&gt;&lt;script&gt;document.write("Last Modified " + document.lastModified)&lt;/script&gt;&lt;/font&gt;&lt;br&gt;&lt;a href="http://freedomcontroller.com"&gt;&lt;font size= -2&gt;This page created with the FreedomController&lt;/font&gt;&lt;/a&gt;&lt;/p&gt;&llt;p&gt;
+&lt;naart:artwork&gt;18406&lt;/naart:artwork&gt;&lt;/p&gt;&lt;p&gt;
+Keywords&lt;/p&gt;</itunes:summary>
+      <itunes:author>Adam Curry &amp; John C. Dvorak</itunes:author>
+      <author>Adam Curry &amp; John C. Dvorak</author>
+      <itunes:image href="https://noagendaassets.com/enc/1604265283.53_na-1291-art-feed.png"/>
+      <itunes:explicit>No</itunes:explicit>
+      <itunes:keywords>curry,dvorak,noagenda,no,agenda,politics,douchebag</itunes:keywords>
+      <enclosure url="https://mp3s.nashownotes.com/NA-1291-2020-11-01-Final.mp3" length="151469497" type="audio/mpeg"/>
+    </item>
+    
+    <item>
+      <title>1290: "Hairy Legs"</title>
+      <description>&lt;p&gt;Show Notes&lt;/p&gt;&lt;p&gt;
+No Agenda Episode 1290 - "Hairy Legs"&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;"Hairy Legs"&lt;/b&gt;&lt;/p&gt;&lt;p&gt;
+&lt;audio style="width:400px; vertical-align:middle;" controls="true" preload="none"&gt;&lt;source src="https://mp3s.nashownotes.com/NA-1290-2020-10-29-Final.mp3" type="audio/mpeg"&gt;&lt;/audio&gt;&lt;/p&gt;&lt;p&gt;
+&lt;a href="https://mp3s.nashownotes.com/NA-1290-2020-10-29-Final.mp3"&gt;&lt;img width="256" height="256" align="right" alt="A picture named NA-1290-Art-SM" src="https://noagendaassets.com/enc/1604001633.978_na-1290-art-sm.png" border="0" vspace="5" hspace="15" &gt;&lt;br=""&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Direct [&lt;a href="https://mp3s.nashownotes.com/NA-1290-2020-10-29-Final.mp3"&gt;link&lt;/a&gt;] to the mp3 file&lt;/p&gt;&lt;p&gt;
+ShowNotes Archive of links and Assets (clips etc) &lt;a href="http://1290.noagendanotes.com/"&gt; 1290.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;Sign Up&lt;/b&gt; for the &lt;a href="http://www.dvorak.org/blog/no-agenda-mailing-list-signup-here/"&gt;newsletter&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Archive of Shownotes (includes all audio and video assets used) &lt;a href="http://archive.noagendanotes.com"&gt;archive.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+The No Agenda News Network- &lt;a href="http://noagendanewsnetwork.com/"&gt;noagendanewsnetwork.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+RSS Podcast&lt;a href="http://feed.nashownotes.com/rss.xml"&gt; Feed&lt;/a&gt; &lt;/p&gt;&lt;p&gt;
+Experimental IPFS RSS &lt;a href="http://feed.nashownotes.com/naipfsrss.xml"&gt;Feed&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://nanewsapp.com/"&gt;No Agenda News App&lt;/a&gt; for your iPhone and iPad&lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://www.noagendroid.com/"&gt;NoAgendDroid app&lt;/a&gt; for your Android Phone&lt;/p&gt;&lt;p&gt;
+&lt;a href="http://bitlove.org/adamc12901/noagenda"&gt;Torrents&lt;/a&gt; of each episode via BitLove&lt;/p&gt;&lt;p&gt;
+&lt;font size= -1&gt;&lt;script&gt;document.write("Last Modified " + document.lastModified)&lt;/script&gt;&lt;/font&gt;&lt;br&gt;&lt;a href="http://freedomcontroller.com"&gt;&lt;font size= -2&gt;This page created with the FreedomController&lt;/font&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Credits&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;"Hairy Legs"&lt;/b&gt;&lt;/p&gt;&lt;p&gt;
+Executive Producers: &lt;/p&gt;&lt;p&gt;
+Sir Dunabunk of the Northern Mitten&lt;/p&gt;&lt;p&gt;
+Sir Pentine Knight of the red cliff peninsula&lt;/p&gt;&lt;p&gt;
+Dana Brunetti&lt;/p&gt;&lt;p&gt;
+Sir James Fukumoto&lt;/p&gt;&lt;p&gt;
+Jackie Greene&lt;/p&gt;&lt;p&gt;
+Associate Executive Producers: &lt;/p&gt;&lt;p&gt;
+Sir Mann of the Center&lt;/p&gt;&lt;p&gt;
+Sir Borislav Marinov&lt;/p&gt;&lt;p&gt;
+Lauren Lamere&lt;/p&gt;&lt;p&gt;
+Todd Creamer&lt;/p&gt;&lt;p&gt;
+Steven Reilly&lt;/p&gt;&lt;p&gt;
+Gordon Uhlig&lt;/p&gt;&lt;p&gt;
+Jeffrey Madison&lt;/p&gt;&lt;p&gt;
+Become a member of the 1291 Club, support the show &lt;a href="http://dvorak.org/na"&gt;here&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Knights &amp; Dames&lt;/p&gt;&lt;p&gt;
+Neil Harrison -&gt; Sir Dunabunk of the Northern Mitten&lt;/p&gt;&lt;p&gt;
+Kyle Mann -&gt; Sir Mann of the Center&lt;/p&gt;&lt;p&gt;
+David Eggins -&gt; Sir David Eggins?&lt;/p&gt;&lt;p&gt;
+Anonymous - Sir Pentine Knight of the red cliff peninsula&lt;/p&gt;&lt;p&gt;
+Steven Reilley - Sir Steven of the Big Horn Basin&lt;/p&gt;&lt;p&gt;
+Sir James Fukumoto&lt;/p&gt;&lt;p&gt;
+Jackie Greene&lt;/p&gt;&lt;p&gt;
+Art By: &lt;a href="https://noagendaartgenerator.com/artist/1701"&gt;Tante Neel&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+End of Show Mixes:  Tom Starkweather - Jesse Coy Nelson - DarkDox&lt;/p&gt;&lt;p&gt;
+Engineering, Stream Management &amp; Wizardry&lt;/p&gt;&lt;p&gt;
+Mark van Dijk - Systems Master&lt;/p&gt;&lt;p&gt;
+Ryan Bemrose - Program Director&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;NEW:&lt;/b&gt; and soon on Netflix: &lt;a href="https://www.youtube.com/channel/UCihyXCKCTKZ0H6OQRpKN5qQ"&gt;Animated No Agenda&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;Sign Up&lt;/b&gt; for the &lt;a href="http://www.dvorak.org/blog/no-agenda-mailing-list-signup-here/"&gt;newsletter&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+ShowNotes Archive of links and Assets (clips etc) &lt;a href="http://1290.noagendanotes.com/"&gt; 1290.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+New: Directory Archive of Shownotes (includes all audio and video assets used) &lt;a href="http://archive.noagendanotes.com/"&gt;archive.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+RSS Podcast&lt;a href="http://feed.nashownotes.com/rss.xml"&gt; Feed&lt;/a&gt; &lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://nanewsapp.com/"&gt;No Agenda News App&lt;/a&gt; for your iPhone and iPad&lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://www.noagendroid.com/"&gt;NoAgendDroid app&lt;/a&gt; for your Android Phone&lt;/p&gt;&lt;p&gt;
+&lt;a href="http://itm.im/opus"&gt;No Agenda Lite&lt;/a&gt; in opus format&lt;/p&gt;&lt;p&gt;
+&lt;a href="http://noagendatorrents.com"&gt;NoAgendaTorrents.com&lt;/a&gt; has an RSS feed or show torrents&lt;/p&gt;&lt;p&gt;
+&lt;font size= -1&gt;&lt;script&gt;document.write("Last Modified " + document.lastModified)&lt;/script&gt;&lt;/font&gt;&lt;br&gt;&lt;a href="http://freedomcontroller.com"&gt;&lt;font size= -2&gt;This page created with the FreedomController&lt;/font&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+&lt;naart:artwork&gt;18349&lt;/naart:artwork&gt;&lt;/p&gt;&lt;p&gt;
+Keywords&lt;/p&gt;</description>
+      <link>http://1290.noagendanotes.com/</link>
+      <guid isPermaLink="true">http://1290.noagendanotes.com/</guid>
+      <pubDate>Thu, 29 Oct 2020 20:08:17 GMT</pubDate>
+      <itunes:subtitle>1290: "Hairy Legs"</itunes:subtitle>
+      <itunes:summary>&lt;p&gt;Show Notes&lt;/p&gt;&lt;p&gt;
+No Agenda Episode 1290 - "Hairy Legs"&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;"Hairy Legs"&lt;/b&gt;&lt;/p&gt;&lt;p&gt;
+&lt;audio style="width:400px; vertical-align:middle;" controls="true" preload="none"&gt;&lt;source src="https://mp3s.nashownotes.com/NA-1290-2020-10-29-Final.mp3" type="audio/mpeg"&gt;&lt;/audio&gt;&lt;/p&gt;&lt;p&gt;
+&lt;a href="https://mp3s.nashownotes.com/NA-1290-2020-10-29-Final.mp3"&gt;&lt;img width="256" height="256" align="right" alt="A picture named NA-1290-Art-SM" src="https://noagendaassets.com/enc/1604001633.978_na-1290-art-sm.png" border="0" vspace="5" hspace="15" &gt;&lt;br=""&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Direct [&lt;a href="https://mp3s.nashownotes.com/NA-1290-2020-10-29-Final.mp3"&gt;link&lt;/a&gt;] to the mp3 file&lt;/p&gt;&lt;p&gt;
+ShowNotes Archive of links and Assets (clips etc) &lt;a href="http://1290.noagendanotes.com/"&gt; 1290.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;Sign Up&lt;/b&gt; for the &lt;a href="http://www.dvorak.org/blog/no-agenda-mailing-list-signup-here/"&gt;newsletter&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Archive of Shownotes (includes all audio and video assets used) &lt;a href="http://archive.noagendanotes.com"&gt;archive.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+The No Agenda News Network- &lt;a href="http://noagendanewsnetwork.com/"&gt;noagendanewsnetwork.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+RSS Podcast&lt;a href="http://feed.nashownotes.com/rss.xml"&gt; Feed&lt;/a&gt; &lt;/p&gt;&lt;p&gt;
+Experimental IPFS RSS &lt;a href="http://feed.nashownotes.com/naipfsrss.xml"&gt;Feed&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://nanewsapp.com/"&gt;No Agenda News App&lt;/a&gt; for your iPhone and iPad&lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://www.noagendroid.com/"&gt;NoAgendDroid app&lt;/a&gt; for your Android Phone&lt;/p&gt;&lt;p&gt;
+&lt;a href="http://bitlove.org/adamc12901/noagenda"&gt;Torrents&lt;/a&gt; of each episode via BitLove&lt;/p&gt;&lt;p&gt;
+&lt;font size= -1&gt;&lt;script&gt;document.write("Last Modified " + document.lastModified)&lt;/script&gt;&lt;/font&gt;&lt;br&gt;&lt;a href="http://freedomcontroller.com"&gt;&lt;font size= -2&gt;This page created with the FreedomController&lt;/font&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Credits&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;"Hairy Legs"&lt;/b&gt;&lt;/p&gt;&lt;p&gt;
+Executive Producers: &lt;/p&gt;&lt;p&gt;
+Sir Dunabunk of the Northern Mitten&lt;/p&gt;&lt;p&gt;
+Sir Pentine Knight of the red cliff peninsula&lt;/p&gt;&lt;p&gt;
+Dana Brunetti&lt;/p&gt;&lt;p&gt;
+Sir James Fukumoto&lt;/p&gt;&lt;p&gt;
+Jackie Greene&lt;/p&gt;&lt;p&gt;
+Associate Executive Producers: &lt;/p&gt;&lt;p&gt;
+Sir Mann of the Center&lt;/p&gt;&lt;p&gt;
+Sir Borislav Marinov&lt;/p&gt;&lt;p&gt;
+Lauren Lamere&lt;/p&gt;&lt;p&gt;
+Todd Creamer&lt;/p&gt;&lt;p&gt;
+Steven Reilly&lt;/p&gt;&lt;p&gt;
+Gordon Uhlig&lt;/p&gt;&lt;p&gt;
+Jeffrey Madison&lt;/p&gt;&lt;p&gt;
+Become a member of the 1291 Club, support the show &lt;a href="http://dvorak.org/na"&gt;here&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Knights &amp; Dames&lt;/p&gt;&lt;p&gt;
+Neil Harrison -&gt; Sir Dunabunk of the Northern Mitten&lt;/p&gt;&lt;p&gt;
+Kyle Mann -&gt; Sir Mann of the Center&lt;/p&gt;&lt;p&gt;
+David Eggins -&gt; Sir David Eggins?&lt;/p&gt;&lt;p&gt;
+Anonymous - Sir Pentine Knight of the red cliff peninsula&lt;/p&gt;&lt;p&gt;
+Steven Reilley - Sir Steven of the Big Horn Basin&lt;/p&gt;&lt;p&gt;
+Sir James Fukumoto&lt;/p&gt;&lt;p&gt;
+Jackie Greene&lt;/p&gt;&lt;p&gt;
+Art By: &lt;a href="https://noagendaartgenerator.com/artist/1701"&gt;Tante Neel&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+End of Show Mixes:  Tom Starkweather - Jesse Coy Nelson - DarkDox&lt;/p&gt;&lt;p&gt;
+Engineering, Stream Management &amp; Wizardry&lt;/p&gt;&lt;p&gt;
+Mark van Dijk - Systems Master&lt;/p&gt;&lt;p&gt;
+Ryan Bemrose - Program Director&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;NEW:&lt;/b&gt; and soon on Netflix: &lt;a href="https://www.youtube.com/channel/UCihyXCKCTKZ0H6OQRpKN5qQ"&gt;Animated No Agenda&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;Sign Up&lt;/b&gt; for the &lt;a href="http://www.dvorak.org/blog/no-agenda-mailing-list-signup-here/"&gt;newsletter&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+ShowNotes Archive of links and Assets (clips etc) &lt;a href="http://1290.noagendanotes.com/"&gt; 1290.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+New: Directory Archive of Shownotes (includes all audio and video assets used) &lt;a href="http://archive.noagendanotes.com/"&gt;archive.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+RSS Podcast&lt;a href="http://feed.nashownotes.com/rss.xml"&gt; Feed&lt;/a&gt; &lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://nanewsapp.com/"&gt;No Agenda News App&lt;/a&gt; for your iPhone and iPad&lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://www.noagendroid.com/"&gt;NoAgendDroid app&lt;/a&gt; for your Android Phone&lt;/p&gt;&lt;p&gt;
+&lt;a href="http://itm.im/opus"&gt;No Agenda Lite&lt;/a&gt; in opus format&lt;/p&gt;&lt;p&gt;
+&lt;a href="http://noagendatorrents.com"&gt;NoAgendaTorrents.com&lt;/a&gt; has an RSS feed or show torrents&lt;/p&gt;&lt;p&gt;
+&lt;font size= -1&gt;&lt;script&gt;document.write("Last Modified " + document.lastModified)&lt;/script&gt;&lt;/font&gt;&lt;br&gt;&lt;a href="http://freedomcontroller.com"&gt;&lt;font size= -2&gt;This page created with the FreedomController&lt;/font&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+&lt;naart:artwork&gt;18349&lt;/naart:artwork&gt;&lt;/p&gt;&lt;p&gt;
+Keywords&lt;/p&gt;</itunes:summary>
+      <itunes:author>Adam Curry &amp; John C. Dvorak</itunes:author>
+      <author>Adam Curry &amp; John C. Dvorak</author>
+      <itunes:image href="https://noagendaassets.com/enc/1604002078.581_na-1290-art-feed.png"/>
+      <itunes:explicit>No</itunes:explicit>
+      <itunes:keywords>curry,dvorak,noagenda,no,agenda,politics,douchebag</itunes:keywords>
+      <enclosure url="https://mp3s.nashownotes.com/NA-1290-2020-10-29-Final.mp3" length="145454960" type="audio/mpeg"/>
+    </item>
+    
+    <item>
+      <title>1289: "Post Orange"</title>
+      <description>&lt;p&gt;Show Notes&lt;/p&gt;&lt;p&gt;
+No Agenda Episode 1289 - "Post Orange"&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;"Post Orange"&lt;/b&gt;&lt;/p&gt;&lt;p&gt;
+&lt;audio style="width:400px; vertical-align:middle;" controls="true" preload="none"&gt;&lt;source src="https://mp3s.nashownotes.com/NA-1289-2020-10-25-Final.mp3" type="audio/mpeg"&gt;&lt;/audio&gt;&lt;/p&gt;&lt;p&gt;
+&lt;a href="https://mp3s.nashownotes.com/NA-1289-2020-10-25-Final.mp3"&gt;&lt;img width="256" height="256" align="right" alt="A picture named NA-1289-Art-SM" src="https://noagendaassets.com/enc/1603657362.052_na-1289-art-sm.png" border="0" vspace="5" hspace="15" &gt;&lt;br=""&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Direct [&lt;a href="https://mp3s.nashownotes.com/NA-1289-2020-10-25-Final.mp3"&gt;link&lt;/a&gt;] to the mp3 file&lt;/p&gt;&lt;p&gt;
+ShowNotes Archive of links and Assets (clips etc) &lt;a href="http://1289.noagendanotes.com/"&gt; 1289.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;Sign Up&lt;/b&gt; for the &lt;a href="http://www.dvorak.org/blog/no-agenda-mailing-list-signup-here/"&gt;newsletter&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Archive of Shownotes (includes all audio and video assets used) &lt;a href="http://archive.noagendanotes.com"&gt;archive.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+The No Agenda News Network- &lt;a href="http://noagendanewsnetwork.com/"&gt;noagendanewsnetwork.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+RSS Podcast&lt;a href="http://feed.nashownotes.com/rss.xml"&gt; Feed&lt;/a&gt; &lt;/p&gt;&lt;p&gt;
+Experimental IPFS RSS &lt;a href="http://feed.nashownotes.com/naipfsrss.xml"&gt;Feed&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://nanewsapp.com/"&gt;No Agenda News App&lt;/a&gt; for your iPhone and iPad&lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://www.noagendroid.com/"&gt;NoAgendDroid app&lt;/a&gt; for your Android Phone&lt;/p&gt;&lt;p&gt;
+&lt;a href="http://bitlove.org/adamc12891/noagenda"&gt;Torrents&lt;/a&gt; of each episode via BitLove&lt;/p&gt;&lt;p&gt;
+&lt;font size= -1&gt;&lt;script&gt;document.write("Last Modified " + document.lastModified)&lt;/script&gt;&lt;/font&gt;&lt;br&gt;&lt;a href="http://freedomcontroller.com"&gt;&lt;font size= -2&gt;This page created with the FreedomController&lt;/font&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Credits&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;"Post Orange"&lt;/b&gt;&lt;/p&gt;&lt;p&gt;
+Executive Producers: &lt;/p&gt;&lt;p&gt;
+Dame of Queen Creek&lt;/p&gt;&lt;p&gt;
+Knight of Queen Creek&lt;/p&gt;&lt;p&gt;
+Dreb Scott - Earl-At-Large&lt;/p&gt;&lt;p&gt;
+Sir Craig - Knight of the Fishermen&lt;/p&gt;&lt;p&gt;
+Sir Christian of Phoenix&lt;/p&gt;&lt;p&gt;
+Sir Veyor of the Realm&lt;/p&gt;&lt;p&gt;
+Sir JD, Baron of Silicon Valley&lt;/p&gt;&lt;p&gt;
+Anonymous&lt;/p&gt;&lt;p&gt;
+Sir John of South London&lt;/p&gt;&lt;p&gt;
+David Koenen&lt;/p&gt;&lt;p&gt;
+James Fukumoto&lt;/p&gt;&lt;p&gt;
+Anonymous&lt;/p&gt;&lt;p&gt;
+Don Tomaso Di Toronto&lt;/p&gt;&lt;p&gt;
+James Powers&lt;/p&gt;&lt;p&gt;
+Kasha Grzelecka&lt;/p&gt;&lt;p&gt;
+Earl Walkman of Buckeye&lt;/p&gt;&lt;p&gt;
+Jake, the Knight of the Deep Blue Sea&lt;/p&gt;&lt;p&gt;
+Associate Executive Producers: &lt;/p&gt;&lt;p&gt;
+Laren Ball&lt;/p&gt;&lt;p&gt;
+Sir Dave, Duke of America's Heartland and the Arabian Peninsula&lt;/p&gt;&lt;p&gt;
+Paul Branum&lt;/p&gt;&lt;p&gt;
+Anonymous&lt;/p&gt;&lt;p&gt;
+Yaroslav Lapin&lt;/p&gt;&lt;p&gt;
+Sir Tristan Banning&lt;/p&gt;&lt;p&gt;
+michael bryan&lt;/p&gt;&lt;p&gt;
+GummyNerds, Viscount of the Troll Room&lt;/p&gt;&lt;p&gt;
+Jacob Forrester&lt;/p&gt;&lt;p&gt;
+Jon Downing&lt;/p&gt;&lt;p&gt;
+13th Anniversary Club Member: &lt;/p&gt;&lt;p&gt;
+Dreb Scott - Earl-At-Large&lt;/p&gt;&lt;p&gt;
+Become a member of the 1290 Club, support the show &lt;a href="http://dvorak.org/na"&gt;here&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Knights &amp; Dames&lt;/p&gt;&lt;p&gt;
+Heidi Schreiber -&gt; Dame of Queen Creek&lt;/p&gt;&lt;p&gt;
+Paul Schreiber -&gt; Knight of Queen Creek&lt;/p&gt;&lt;p&gt;
+Craig Scholle -&gt; Sir Craig, Knight of the Fisherman&lt;/p&gt;&lt;p&gt;
+Christian Lehr -&gt; Sir Christian of Phoenix&lt;/p&gt;&lt;p&gt;
+Michael Goodell -&gt; Sir Crushalot, Knight of the Leelanau Grapefields, Black Knight&lt;/p&gt;&lt;p&gt;
+Art By: &lt;a href="https://noagendaartgenerator.com/artist/1339"&gt;Mountain Jay&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Engineering, Stream Management &amp; Wizardry&lt;/p&gt;&lt;p&gt;
+Mark van Dijk - Systems Master&lt;/p&gt;&lt;p&gt;
+Ryan Bemrose - Program Director&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;NEW:&lt;/b&gt; and soon on Netflix: &lt;a href="https://www.youtube.com/channel/UCihyXCKCTKZ0H6OQRpKN5qQ"&gt;Animated No Agenda&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+End of Show Mixes:  &lt;/p&gt;&lt;p&gt;
+&lt;b&gt;Sign Up&lt;/b&gt; for the &lt;a href="http://www.dvorak.org/blog/no-agenda-mailing-list-signup-here/"&gt;newsletter&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+ShowNotes Archive of links and Assets (clips etc) &lt;a href="http://1289.noagendanotes.com/"&gt; 1289.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+New: Directory Archive of Shownotes (includes all audio and video assets used) &lt;a href="http://archive.noagendanotes.com/"&gt;archive.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+RSS Podcast&lt;a href="http://feed.nashownotes.com/rss.xml"&gt; Feed&lt;/a&gt; &lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://nanewsapp.com/"&gt;No Agenda News App&lt;/a&gt; for your iPhone and iPad&lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://www.noagendroid.com/"&gt;NoAgendDroid app&lt;/a&gt; for your Android Phone&lt;/p&gt;&lt;p&gt;
+&lt;a href="http://itm.im/opus"&gt;No Agenda Lite&lt;/a&gt; in opus format&lt;/p&gt;&lt;p&gt;
+&lt;a href="http://noagendatorrents.com"&gt;NoAgendaTorrents.com&lt;/a&gt; has an RSS feed or show torrents&lt;/p&gt;&lt;p&gt;
+&lt;font size= -1&gt;&lt;script&gt;document.write("Last Modified " + document.lastModified)&lt;/script&gt;&lt;/font&gt;&lt;br&gt;&lt;a href="http://freedomcontroller.com"&gt;&lt;font size= -2&gt;This page created with the FreedomController&lt;/font&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+&lt;naart:artwork&gt;18304&lt;/naart:artwork&gt;&lt;/p&gt;&lt;p&gt;
+Keywords&lt;/p&gt;</description>
+      <link>http://1289.noagendanotes.com/</link>
+      <guid isPermaLink="true">http://1289.noagendanotes.com/</guid>
+      <pubDate>Sun, 25 Oct 2020 20:30:05 GMT</pubDate>
+      <itunes:subtitle>1289: "Post Orange"</itunes:subtitle>
+      <itunes:summary>&lt;p&gt;Show Notes&lt;/p&gt;&lt;p&gt;
+No Agenda Episode 1289 - "Post Orange"&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;"Post Orange"&lt;/b&gt;&lt;/p&gt;&lt;p&gt;
+&lt;audio style="width:400px; vertical-align:middle;" controls="true" preload="none"&gt;&lt;source src="https://mp3s.nashownotes.com/NA-1289-2020-10-25-Final.mp3" type="audio/mpeg"&gt;&lt;/audio&gt;&lt;/p&gt;&lt;p&gt;
+&lt;a href="https://mp3s.nashownotes.com/NA-1289-2020-10-25-Final.mp3"&gt;&lt;img width="256" height="256" align="right" alt="A picture named NA-1289-Art-SM" src="https://noagendaassets.com/enc/1603657362.052_na-1289-art-sm.png" border="0" vspace="5" hspace="15" &gt;&lt;br=""&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Direct [&lt;a href="https://mp3s.nashownotes.com/NA-1289-2020-10-25-Final.mp3"&gt;link&lt;/a&gt;] to the mp3 file&lt;/p&gt;&lt;p&gt;
+ShowNotes Archive of links and Assets (clips etc) &lt;a href="http://1289.noagendanotes.com/"&gt; 1289.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;Sign Up&lt;/b&gt; for the &lt;a href="http://www.dvorak.org/blog/no-agenda-mailing-list-signup-here/"&gt;newsletter&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Archive of Shownotes (includes all audio and video assets used) &lt;a href="http://archive.noagendanotes.com"&gt;archive.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+The No Agenda News Network- &lt;a href="http://noagendanewsnetwork.com/"&gt;noagendanewsnetwork.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+RSS Podcast&lt;a href="http://feed.nashownotes.com/rss.xml"&gt; Feed&lt;/a&gt; &lt;/p&gt;&lt;p&gt;
+Experimental IPFS RSS &lt;a href="http://feed.nashownotes.com/naipfsrss.xml"&gt;Feed&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://nanewsapp.com/"&gt;No Agenda News App&lt;/a&gt; for your iPhone and iPad&lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://www.noagendroid.com/"&gt;NoAgendDroid app&lt;/a&gt; for your Android Phone&lt;/p&gt;&lt;p&gt;
+&lt;a href="http://bitlove.org/adamc12891/noagenda"&gt;Torrents&lt;/a&gt; of each episode via BitLove&lt;/p&gt;&lt;p&gt;
+&lt;font size= -1&gt;&lt;script&gt;document.write("Last Modified " + document.lastModified)&lt;/script&gt;&lt;/font&gt;&lt;br&gt;&lt;a href="http://freedomcontroller.com"&gt;&lt;font size= -2&gt;This page created with the FreedomController&lt;/font&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Credits&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;"Post Orange"&lt;/b&gt;&lt;/p&gt;&lt;p&gt;
+Executive Producers: &lt;/p&gt;&lt;p&gt;
+Dame of Queen Creek&lt;/p&gt;&lt;p&gt;
+Knight of Queen Creek&lt;/p&gt;&lt;p&gt;
+Dreb Scott - Earl-At-Large&lt;/p&gt;&lt;p&gt;
+Sir Craig - Knight of the Fishermen&lt;/p&gt;&lt;p&gt;
+Sir Christian of Phoenix&lt;/p&gt;&lt;p&gt;
+Sir Veyor of the Realm&lt;/p&gt;&lt;p&gt;
+Sir JD, Baron of Silicon Valley&lt;/p&gt;&lt;p&gt;
+Anonymous&lt;/p&gt;&lt;p&gt;
+Sir John of South London&lt;/p&gt;&lt;p&gt;
+David Koenen&lt;/p&gt;&lt;p&gt;
+James Fukumoto&lt;/p&gt;&lt;p&gt;
+Anonymous&lt;/p&gt;&lt;p&gt;
+Don Tomaso Di Toronto&lt;/p&gt;&lt;p&gt;
+James Powers&lt;/p&gt;&lt;p&gt;
+Kasha Grzelecka&lt;/p&gt;&lt;p&gt;
+Earl Walkman of Buckeye&lt;/p&gt;&lt;p&gt;
+Jake, the Knight of the Deep Blue Sea&lt;/p&gt;&lt;p&gt;
+Associate Executive Producers: &lt;/p&gt;&lt;p&gt;
+Laren Ball&lt;/p&gt;&lt;p&gt;
+Sir Dave, Duke of America's Heartland and the Arabian Peninsula&lt;/p&gt;&lt;p&gt;
+Paul Branum&lt;/p&gt;&lt;p&gt;
+Anonymous&lt;/p&gt;&lt;p&gt;
+Yaroslav Lapin&lt;/p&gt;&lt;p&gt;
+Sir Tristan Banning&lt;/p&gt;&lt;p&gt;
+michael bryan&lt;/p&gt;&lt;p&gt;
+GummyNerds, Viscount of the Troll Room&lt;/p&gt;&lt;p&gt;
+Jacob Forrester&lt;/p&gt;&lt;p&gt;
+Jon Downing&lt;/p&gt;&lt;p&gt;
+13th Anniversary Club Member: &lt;/p&gt;&lt;p&gt;
+Dreb Scott - Earl-At-Large&lt;/p&gt;&lt;p&gt;
+Become a member of the 1290 Club, support the show &lt;a href="http://dvorak.org/na"&gt;here&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Knights &amp; Dames&lt;/p&gt;&lt;p&gt;
+Heidi Schreiber -&gt; Dame of Queen Creek&lt;/p&gt;&lt;p&gt;
+Paul Schreiber -&gt; Knight of Queen Creek&lt;/p&gt;&lt;p&gt;
+Craig Scholle -&gt; Sir Craig, Knight of the Fisherman&lt;/p&gt;&lt;p&gt;
+Christian Lehr -&gt; Sir Christian of Phoenix&lt;/p&gt;&lt;p&gt;
+Michael Goodell -&gt; Sir Crushalot, Knight of the Leelanau Grapefields, Black Knight&lt;/p&gt;&lt;p&gt;
+Art By: &lt;a href="https://noagendaartgenerator.com/artist/1339"&gt;Mountain Jay&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Engineering, Stream Management &amp; Wizardry&lt;/p&gt;&lt;p&gt;
+Mark van Dijk - Systems Master&lt;/p&gt;&lt;p&gt;
+Ryan Bemrose - Program Director&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;NEW:&lt;/b&gt; and soon on Netflix: &lt;a href="https://www.youtube.com/channel/UCihyXCKCTKZ0H6OQRpKN5qQ"&gt;Animated No Agenda&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+End of Show Mixes:  &lt;/p&gt;&lt;p&gt;
+&lt;b&gt;Sign Up&lt;/b&gt; for the &lt;a href="http://www.dvorak.org/blog/no-agenda-mailing-list-signup-here/"&gt;newsletter&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+ShowNotes Archive of links and Assets (clips etc) &lt;a href="http://1289.noagendanotes.com/"&gt; 1289.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+New: Directory Archive of Shownotes (includes all audio and video assets used) &lt;a href="http://archive.noagendanotes.com/"&gt;archive.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+RSS Podcast&lt;a href="http://feed.nashownotes.com/rss.xml"&gt; Feed&lt;/a&gt; &lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://nanewsapp.com/"&gt;No Agenda News App&lt;/a&gt; for your iPhone and iPad&lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://www.noagendroid.com/"&gt;NoAgendDroid app&lt;/a&gt; for your Android Phone&lt;/p&gt;&lt;p&gt;
+&lt;a href="http://itm.im/opus"&gt;No Agenda Lite&lt;/a&gt; in opus format&lt;/p&gt;&lt;p&gt;
+&lt;a href="http://noagendatorrents.com"&gt;NoAgendaTorrents.com&lt;/a&gt; has an RSS feed or show torrents&lt;/p&gt;&lt;p&gt;
+&lt;font size= -1&gt;&lt;script&gt;document.write("Last Modified " + document.lastModified)&lt;/script&gt;&lt;/font&gt;&lt;br&gt;&lt;a href="http://freedomcontroller.com"&gt;&lt;font size= -2&gt;This page created with the FreedomController&lt;/font&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+&lt;naart:artwork&gt;18304&lt;/naart:artwork&gt;&lt;/p&gt;&lt;p&gt;
+Keywords&lt;/p&gt;</itunes:summary>
+      <itunes:author>Adam Curry &amp; John C. Dvorak</itunes:author>
+      <author>Adam Curry &amp; John C. Dvorak</author>
+      <itunes:image href="https://noagendaassets.com/enc/1603657780.198_na-1289-art-feed.png"/>
+      <itunes:explicit>No</itunes:explicit>
+      <itunes:keywords>curry,dvorak,noagenda,no,agenda,politics,douchebag</itunes:keywords>
+      <enclosure url="https://mp3s.nashownotes.com/NA-1289-2020-10-25-Final.mp3" length="155984084" type="audio/mpeg"/>
+    </item>
+    
+    <item>
+      <title>1288: "Croaker"</title>
+      <description>&lt;p&gt;Show Notes&lt;/p&gt;&lt;p&gt;
+No Agenda Episode 1288 - "Croaker"&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;"Croaker"&lt;/b&gt;&lt;/p&gt;&lt;p&gt;
+&lt;audio style="width:400px; vertical-align:middle;" controls="true" preload="none"&gt;&lt;source src="https://mp3s.nashownotes.com/NA-1288-2020-10-22-Final.mp3" type="audio/mpeg"&gt;&lt;/audio&gt;&lt;/p&gt;&lt;p&gt;
+&lt;a href="https://mp3s.nashownotes.com/NA-1288-2020-10-22-Final.mp3"&gt;&lt;img width="256" height="256" align="right" alt="A picture named NA-1288-Art-SM" src="https://noagendaassets.com/enc/1603397942.357_na-1288-art-sm.png" border="0" vspace="5" hspace="15" &gt;&lt;br=""&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Direct [&lt;a href="https://mp3s.nashownotes.com/NA-1288-2020-10-22-Final.mp3"&gt;link&lt;/a&gt;] to the mp3 file&lt;/p&gt;&lt;p&gt;
+ShowNotes Archive of links and Assets (clips etc) &lt;a href="http://1288.noagendanotes.com/"&gt; 1288.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;Sign Up&lt;/b&gt; for the &lt;a href="http://www.dvorak.org/blog/no-agenda-mailing-list-signup-here/"&gt;newsletter&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Archive of Shownotes (includes all audio and video assets used) &lt;a href="http://archive.noagendanotes.com"&gt;archive.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+The No Agenda News Network- &lt;a href="http://noagendanewsnetwork.com/"&gt;noagendanewsnetwork.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+RSS Podcast&lt;a href="http://feed.nashownotes.com/rss.xml"&gt; Feed&lt;/a&gt; &lt;/p&gt;&lt;p&gt;
+Experimental IPFS RSS &lt;a href="http://feed.nashownotes.com/naipfsrss.xml"&gt;Feed&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://nanewsapp.com/"&gt;No Agenda News App&lt;/a&gt; for your iPhone and iPad&lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://www.noagendroid.com/"&gt;NoAgendDroid app&lt;/a&gt; for your Android Phone&lt;/p&gt;&lt;p&gt;
+&lt;a href="http://bitlove.org/adamc12881/noagenda"&gt;Torrents&lt;/a&gt; of each episode via BitLove&lt;/p&gt;&lt;p&gt;
+&lt;font size= -1&gt;&lt;script&gt;document.write("Last Modified " + document.lastModified)&lt;/script&gt;&lt;/font&gt;&lt;br&gt;&lt;a href="http://freedomcontroller.com"&gt;&lt;font size= -2&gt;This page created with the FreedomController&lt;/font&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Credits&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;"Croaker"&lt;/b&gt;&lt;/p&gt;&lt;p&gt;
+Executive Producers: &lt;/p&gt;&lt;p&gt;
+Sean McCune&lt;/p&gt;&lt;p&gt;
+Sir Fromgar, Knight of the Douchebags&lt;/p&gt;&lt;p&gt;
+Raea Campbell on behalf of Bōsm Wellness&lt;/p&gt;&lt;p&gt;
+Baroness Susan Johnson&lt;/p&gt;&lt;p&gt;
+Sir Macanudo, de La Paz&lt;/p&gt;&lt;p&gt;
+Sir Rong33, Protector of San Diego and surrounding waters&lt;/p&gt;&lt;p&gt;
+Otto Land Surveying&lt;/p&gt;&lt;p&gt;
+James Fukumoto&lt;/p&gt;&lt;p&gt;
+Neil Harrelson&lt;/p&gt;&lt;p&gt;
+Sir Matt&lt;/p&gt;&lt;p&gt;
+Sir Semi-Anonymous&lt;/p&gt;&lt;p&gt;
+Sir Karys, Baron of Greater Boston&lt;/p&gt;&lt;p&gt;
+Sir Joel, Battle Born Black Baron of Northern Nevada&lt;/p&gt;&lt;p&gt;
+Brian Ellis&lt;/p&gt;&lt;p&gt;
+Associate Executive Producers: &lt;/p&gt;&lt;p&gt;
+Sir Patrick Coble, Duke of the South&lt;/p&gt;&lt;p&gt;
+Dana Brunetti&lt;/p&gt;&lt;p&gt;
+Richard Harris&lt;/p&gt;&lt;p&gt;
+Sir Karl with a K&lt;/p&gt;&lt;p&gt;
+Sir Nubbn Baron White River Valley&lt;/p&gt;&lt;p&gt;
+Anonymous&lt;/p&gt;&lt;p&gt;
+Jonathan Keegan&lt;/p&gt;&lt;p&gt;
+Brett&lt;/p&gt;&lt;p&gt;
+Become a member of the 1289 Club, support the show &lt;a href="http://dvorak.org/na"&gt;here&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Title Changes&lt;/p&gt;&lt;p&gt;
+Sir Karys -&gt; Baron of Greater Boston&lt;/p&gt;&lt;p&gt;
+Sir Brian Baronet of Northern Connecticut -&gt; Sir Brian Baron of the Connecticut River Valley&lt;/p&gt;&lt;p&gt;
+Sir Ron Gardner -&gt; Sir Ron G 33, Baron Protector of San Diego and surrounding water&lt;/p&gt;&lt;p&gt;
+Sir Nubbn Baron of the Valley -&gt; Baron of the White River Valley&lt;/p&gt;&lt;p&gt;
+Sir Karl with a K - Baron of Cuomo's internment camp of NY&lt;/p&gt;&lt;p&gt;
+Knights &amp; Dames&lt;/p&gt;&lt;p&gt;
+Ross Easterling -&gt; Sir Macanudo, de La Paz&lt;/p&gt;&lt;p&gt;
+Art By: &lt;a href="https://noagendaartgenerator.com/artist/1701"&gt;Tante Neel&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Engineering, Stream Management &amp; Wizardry&lt;/p&gt;&lt;p&gt;
+Mark van Dijk - Systems Master&lt;/p&gt;&lt;p&gt;
+Ryan Bemrose - Program Director&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;NEW:&lt;/b&gt; and soon on Netflix: &lt;a href="https://www.youtube.com/channel/UCihyXCKCTKZ0H6OQRpKN5qQ"&gt;Animated No Agenda&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+End of Show Mixes:  Jesse Coy Nelson - Rolando Gonzales&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;Sign Up&lt;/b&gt; for the &lt;a href="http://www.dvorak.org/blog/no-agenda-mailing-list-signup-here/"&gt;newsletter&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+ShowNotes Archive of links and Assets (clips etc) &lt;a href="http://1288.noagendanotes.com/"&gt; 1288.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+New: Directory Archive of Shownotes (includes all audio and video assets used) &lt;a href="http://archive.noagendanotes.com/"&gt;archive.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+RSS Podcast&lt;a href="http://feed.nashownotes.com/rss.xml"&gt; Feed&lt;/a&gt; &lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://nanewsapp.com/"&gt;No Agenda News App&lt;/a&gt; for your iPhone and iPad&lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://www.noagendroid.com/"&gt;NoAgendDroid app&lt;/a&gt; for your Android Phone&lt;/p&gt;&lt;p&gt;
+&lt;a href="http://itm.im/opus"&gt;No Agenda Lite&lt;/a&gt; in opus format&lt;/p&gt;&lt;p&gt;
+&lt;a href="http://noagendatorrents.com"&gt;NoAgendaTorrents.com&lt;/a&gt; has an RSS feed or show torrents&lt;/p&gt;&lt;p&gt;
+&lt;font size= -1&gt;&lt;script&gt;document.write("Last Modified " + document.lastModified)&lt;/script&gt;&lt;/font&gt;&lt;br&gt;&lt;a href="http://freedomcontroller.com"&gt;&lt;font size= -2&gt;This page created with the FreedomController&lt;/font&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+&lt;naart:artwork&gt;18211&lt;/naart:artwork&gt;&lt;/p&gt;&lt;p&gt;
+Keywords&lt;/p&gt;</description>
+      <link>http://1288.noagendanotes.com/</link>
+      <guid isPermaLink="true">http://1288.noagendanotes.com/</guid>
+      <pubDate>Thu, 22 Oct 2020 20:23:58 GMT</pubDate>
+      <itunes:subtitle>1288: "Croaker"</itunes:subtitle>
+      <itunes:summary>&lt;p&gt;Show Notes&lt;/p&gt;&lt;p&gt;
+No Agenda Episode 1288 - "Croaker"&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;"Croaker"&lt;/b&gt;&lt;/p&gt;&lt;p&gt;
+&lt;audio style="width:400px; vertical-align:middle;" controls="true" preload="none"&gt;&lt;source src="https://mp3s.nashownotes.com/NA-1288-2020-10-22-Final.mp3" type="audio/mpeg"&gt;&lt;/audio&gt;&lt;/p&gt;&lt;p&gt;
+&lt;a href="https://mp3s.nashownotes.com/NA-1288-2020-10-22-Final.mp3"&gt;&lt;img width="256" height="256" align="right" alt="A picture named NA-1288-Art-SM" src="https://noagendaassets.com/enc/1603397942.357_na-1288-art-sm.png" border="0" vspace="5" hspace="15" &gt;&lt;br=""&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Direct [&lt;a href="https://mp3s.nashownotes.com/NA-1288-2020-10-22-Final.mp3"&gt;link&lt;/a&gt;] to the mp3 file&lt;/p&gt;&lt;p&gt;
+ShowNotes Archive of links and Assets (clips etc) &lt;a href="http://1288.noagendanotes.com/"&gt; 1288.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;Sign Up&lt;/b&gt; for the &lt;a href="http://www.dvorak.org/blog/no-agenda-mailing-list-signup-here/"&gt;newsletter&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Archive of Shownotes (includes all audio and video assets used) &lt;a href="http://archive.noagendanotes.com"&gt;archive.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+The No Agenda News Network- &lt;a href="http://noagendanewsnetwork.com/"&gt;noagendanewsnetwork.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+RSS Podcast&lt;a href="http://feed.nashownotes.com/rss.xml"&gt; Feed&lt;/a&gt; &lt;/p&gt;&lt;p&gt;
+Experimental IPFS RSS &lt;a href="http://feed.nashownotes.com/naipfsrss.xml"&gt;Feed&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://nanewsapp.com/"&gt;No Agenda News App&lt;/a&gt; for your iPhone and iPad&lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://www.noagendroid.com/"&gt;NoAgendDroid app&lt;/a&gt; for your Android Phone&lt;/p&gt;&lt;p&gt;
+&lt;a href="http://bitlove.org/adamc12881/noagenda"&gt;Torrents&lt;/a&gt; of each episode via BitLove&lt;/p&gt;&lt;p&gt;
+&lt;font size= -1&gt;&lt;script&gt;document.write("Last Modified " + document.lastModified)&lt;/script&gt;&lt;/font&gt;&lt;br&gt;&lt;a href="http://freedomcontroller.com"&gt;&lt;font size= -2&gt;This page created with the FreedomController&lt;/font&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Credits&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;"Croaker"&lt;/b&gt;&lt;/p&gt;&lt;p&gt;
+Executive Producers: &lt;/p&gt;&lt;p&gt;
+Sean McCune&lt;/p&gt;&lt;p&gt;
+Sir Fromgar, Knight of the Douchebags&lt;/p&gt;&lt;p&gt;
+Raea Campbell on behalf of Bōsm Wellness&lt;/p&gt;&lt;p&gt;
+Baroness Susan Johnson&lt;/p&gt;&lt;p&gt;
+Sir Macanudo, de La Paz&lt;/p&gt;&lt;p&gt;
+Sir Rong33, Protector of San Diego and surrounding waters&lt;/p&gt;&lt;p&gt;
+Otto Land Surveying&lt;/p&gt;&lt;p&gt;
+James Fukumoto&lt;/p&gt;&lt;p&gt;
+Neil Harrelson&lt;/p&gt;&lt;p&gt;
+Sir Matt&lt;/p&gt;&lt;p&gt;
+Sir Semi-Anonymous&lt;/p&gt;&lt;p&gt;
+Sir Karys, Baron of Greater Boston&lt;/p&gt;&lt;p&gt;
+Sir Joel, Battle Born Black Baron of Northern Nevada&lt;/p&gt;&lt;p&gt;
+Brian Ellis&lt;/p&gt;&lt;p&gt;
+Associate Executive Producers: &lt;/p&gt;&lt;p&gt;
+Sir Patrick Coble, Duke of the South&lt;/p&gt;&lt;p&gt;
+Dana Brunetti&lt;/p&gt;&lt;p&gt;
+Richard Harris&lt;/p&gt;&lt;p&gt;
+Sir Karl with a K&lt;/p&gt;&lt;p&gt;
+Sir Nubbn Baron White River Valley&lt;/p&gt;&lt;p&gt;
+Anonymous&lt;/p&gt;&lt;p&gt;
+Jonathan Keegan&lt;/p&gt;&lt;p&gt;
+Brett&lt;/p&gt;&lt;p&gt;
+Become a member of the 1289 Club, support the show &lt;a href="http://dvorak.org/na"&gt;here&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Title Changes&lt;/p&gt;&lt;p&gt;
+Sir Karys -&gt; Baron of Greater Boston&lt;/p&gt;&lt;p&gt;
+Sir Brian Baronet of Northern Connecticut -&gt; Sir Brian Baron of the Connecticut River Valley&lt;/p&gt;&lt;p&gt;
+Sir Ron Gardner -&gt; Sir Ron G 33, Baron Protector of San Diego and surrounding water&lt;/p&gt;&lt;p&gt;
+Sir Nubbn Baron of the Valley -&gt; Baron of the White River Valley&lt;/p&gt;&lt;p&gt;
+Sir Karl with a K - Baron of Cuomo's internment camp of NY&lt;/p&gt;&lt;p&gt;
+Knights &amp; Dames&lt;/p&gt;&lt;p&gt;
+Ross Easterling -&gt; Sir Macanudo, de La Paz&lt;/p&gt;&lt;p&gt;
+Art By: &lt;a href="https://noagendaartgenerator.com/artist/1701"&gt;Tante Neel&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Engineering, Stream Management &amp; Wizardry&lt;/p&gt;&lt;p&gt;
+Mark van Dijk - Systems Master&lt;/p&gt;&lt;p&gt;
+Ryan Bemrose - Program Director&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;NEW:&lt;/b&gt; and soon on Netflix: &lt;a href="https://www.youtube.com/channel/UCihyXCKCTKZ0H6OQRpKN5qQ"&gt;Animated No Agenda&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+End of Show Mixes:  Jesse Coy Nelson - Rolando Gonzales&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;Sign Up&lt;/b&gt; for the &lt;a href="http://www.dvorak.org/blog/no-agenda-mailing-list-signup-here/"&gt;newsletter&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+ShowNotes Archive of links and Assets (clips etc) &lt;a href="http://1288.noagendanotes.com/"&gt; 1288.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+New: Directory Archive of Shownotes (includes all audio and video assets used) &lt;a href="http://archive.noagendanotes.com/"&gt;archive.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+RSS Podcast&lt;a href="http://feed.nashownotes.com/rss.xml"&gt; Feed&lt;/a&gt; &lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://nanewsapp.com/"&gt;No Agenda News App&lt;/a&gt; for your iPhone and iPad&lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://www.noagendroid.com/"&gt;NoAgendDroid app&lt;/a&gt; for your Android Phone&lt;/p&gt;&lt;p&gt;
+&lt;a href="http://itm.im/opus"&gt;No Agenda Lite&lt;/a&gt; in opus format&lt;/p&gt;&lt;p&gt;
+&lt;a href="http://noagendatorrents.com"&gt;NoAgendaTorrents.com&lt;/a&gt; has an RSS feed or show torrents&lt;/p&gt;&lt;p&gt;
+&lt;font size= -1&gt;&lt;script&gt;document.write("Last Modified " + document.lastModified)&lt;/script&gt;&lt;/font&gt;&lt;br&gt;&lt;a href="http://freedomcontroller.com"&gt;&lt;font size= -2&gt;This page created with the FreedomController&lt;/font&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+&lt;naart:artwork&gt;18211&lt;/naart:artwork&gt;&lt;/p&gt;&lt;p&gt;
+Keywords&lt;/p&gt;</itunes:summary>
+      <itunes:author>Adam Curry &amp; John C. Dvorak</itunes:author>
+      <author>Adam Curry &amp; John C. Dvorak</author>
+      <itunes:image href="https://noagendaassets.com/enc/1603398225.054_na-1288-art-feed.png"/>
+      <itunes:explicit>No</itunes:explicit>
+      <itunes:keywords>curry,dvorak,noagenda,no,agenda,politics,douchebag</itunes:keywords>
+      <enclosure url="https://mp3s.nashownotes.com/NA-1288-2020-10-22-Final.mp3" length="156852080" type="audio/mpeg"/>
+    </item>
     
     <item>
       <title>1287: "School-ology"</title>
@@ -262,6 +1410,742 @@ Keywords&lt;/p&gt;</itunes:summary>
       <itunes:explicit>No</itunes:explicit>
       <itunes:keywords>curry,dvorak,noagenda,no,agenda,politics,douchebag</itunes:keywords>
       <enclosure url="https://mp3s.nashownotes.com/NA-1286-2020-10-15-Final.mp3" length="154523630" type="audio/mpeg"/>
+    </item>
+    
+    <item>
+      <title>1285: "Davos Douche"</title>
+      <description>&lt;p&gt;Show Notes&lt;/p&gt;&lt;p&gt;
+No Agenda Episode 1285 - "Davos Douche"&lt;/p&gt;&lt;p&gt;
+No Agenda Episode 1285 - "Davos Douche"&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;"Davos Douche"&lt;/b&gt;&lt;/p&gt;&lt;p&gt;
+&lt;audio style="width:400px; vertical-align:middle;" controls="true" preload="none"&gt;&lt;source src="https://mp3s.nashownotes.com/NA-1285-2020-10-11-Final.mp3" type="audio/mpeg"&gt;&lt;/audio&gt;&lt;/p&gt;&lt;p&gt;
+&lt;a href="https://mp3s.nashownotes.com/NA-1285-2020-10-11-Final.mp3"&gt;&lt;img width="256" height="256" align="right" alt="A picture named NA-1285-Art-SM" src="https://noagendaassets.com/enc/1602446667.993_na-1285-art-sm.png" border="0" vspace="5" hspace="15" &gt;&lt;br=""&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Direct [&lt;a href="https://mp3s.nashownotes.com/NA-1285-2020-10-11-Final.mp3"&gt;link&lt;/a&gt;] to the mp3 file&lt;/p&gt;&lt;p&gt;
+ShowNotes Archive of links and Assets (clips etc) &lt;a href="http://1285.noagendanotes.com/"&gt; 1285.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;Sign Up&lt;/b&gt; for the &lt;a href="http://www.dvorak.org/blog/no-agenda-mailing-list-signup-here/"&gt;newsletter&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Archive of Shownotes (includes all audio and video assets used) &lt;a href="http://archive.noagendanotes.com"&gt;archive.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+The No Agenda News Network- &lt;a href="http://noagendanewsnetwork.com/"&gt;noagendanewsnetwork.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+RSS Podcast&lt;a href="http://feed.nashownotes.com/rss.xml"&gt; Feed&lt;/a&gt; &lt;/p&gt;&lt;p&gt;
+Experimental IPFS RSS &lt;a href="http://feed.nashownotes.com/naipfsrss.xml"&gt;Feed&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://nanewsapp.com/"&gt;No Agenda News App&lt;/a&gt; for your iPhone and iPad&lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://www.noagendroid.com/"&gt;NoAgendDroid app&lt;/a&gt; for your Android Phone&lt;/p&gt;&lt;p&gt;
+&lt;a href="http://bitlove.org/adamc12851/noagenda"&gt;Torrents&lt;/a&gt; of each episode via BitLove&lt;/p&gt;&lt;p&gt;
+&lt;font size= -1&gt;&lt;script&gt;document.write("Last Modified " + document.lastModified)&lt;/script&gt;&lt;/font&gt;&lt;br&gt;&lt;a href="http://freedomcontroller.com"&gt;&lt;font size= -2&gt;This page created with the FreedomController&lt;/font&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Credits&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;"Davos Douche"&lt;/b&gt;&lt;/p&gt;&lt;p&gt;
+Executive Producers: &lt;/p&gt;&lt;p&gt;
+Dreb Scott, Earl-at-Large&lt;/p&gt;&lt;p&gt;
+Sir Daniel Mariano&lt;/p&gt;&lt;p&gt;
+Jeff Gelenaw&lt;/p&gt;&lt;p&gt;
+Sir Dodger of Panhandle&lt;/p&gt;&lt;p&gt;
+Jonathan Sims&lt;/p&gt;&lt;p&gt;
+Joe Gates&lt;/p&gt;&lt;p&gt;
+Associate Executive Producers: &lt;/p&gt;&lt;p&gt;
+Jacob Long&lt;/p&gt;&lt;p&gt;
+Agatha Szczepaniak&lt;/p&gt;&lt;p&gt;
+Cody &amp; Sherri Wermager&lt;/p&gt;&lt;p&gt;
+Sir Real ID of the Nashville Nether regions&lt;/p&gt;&lt;p&gt;
+Marsha Cappy&lt;/p&gt;&lt;p&gt;
+Become a member of the 1286 Club, support the show &lt;a href="http://dvorak.org/na"&gt;here&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Knights &amp; Dames&lt;/p&gt;&lt;p&gt;
+Misty Gaskill -&gt; Dame Misty of New England&lt;/p&gt;&lt;p&gt;
+Rusty in Cleveland -&gt; Sir Twin Screw, Knight of the Master Chief Mess&lt;/p&gt;&lt;p&gt;
+Bart Bertens -&gt; Sir Bart, Knight of the Green Forest &lt;/p&gt;&lt;p&gt;
+Andre Adams -&gt; Sir Real ID of the Nashville Nether regions&lt;/p&gt;&lt;p&gt;
+Daniel Mariano -&gt; Sir Daniel Mariano&lt;/p&gt;&lt;p&gt;
+Art By: &lt;a href="https://noagendaartgenerator.com/artist/1014"&gt;Mike Riley&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Engineering, Stream Management &amp; Wizardry&lt;/p&gt;&lt;p&gt;
+Mark van Dijk - Systems Master&lt;/p&gt;&lt;p&gt;
+Ryan Bemrose - Program Director&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;NEW:&lt;/b&gt; and soon on Netflix: &lt;a href="https://www.youtube.com/channel/UCihyXCKCTKZ0H6OQRpKN5qQ"&gt;Animated No Agenda&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+End of Show Mixes:  &lt;/p&gt;&lt;p&gt;
+&lt;b&gt;Sign Up&lt;/b&gt; for the &lt;a href="http://www.dvorak.org/blog/no-agenda-mailing-list-signup-here/"&gt;newsletter&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+ShowNotes Archive of links and Assets (clips etc) &lt;a href="http://1285.noagendanotes.com/"&gt; 1285.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+New: Directory Archive of Shownotes (includes all audio and video assets used) &lt;a href="http://archive.noagendanotes.com/"&gt;archive.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+RSS Podcast&lt;a href="http://feed.nashownotes.com/rss.xml"&gt; Feed&lt;/a&gt; &lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://nanewsapp.com/"&gt;No Agenda News App&lt;/a&gt; for your iPhone and iPad&lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://www.noagendroid.com/"&gt;NoAgendDroid app&lt;/a&gt; for your Android Phone&lt;/p&gt;&lt;p&gt;
+&lt;a href="http://itm.im/opus"&gt;No Agenda Lite&lt;/a&gt; in opus format&lt;/p&gt;&lt;p&gt;
+&lt;a href="http://noagendatorrents.com"&gt;NoAgendaTorrents.com&lt;/a&gt; has an RSS feed or show torrents&lt;/p&gt;&lt;p&gt;
+&lt;font size= -1&gt;&lt;script&gt;document.write("Last Modified " + document.lastModified)&lt;/script&gt;&lt;/font&gt;&lt;br&gt;&lt;a href="http://freedomcontroller.com"&gt;&lt;font size= -2&gt;This page created with the FreedomController&lt;/font&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+&lt;naart:artwork&ggt;18087&lt;/naart:artwork&gt;&lt;/p&gt;&lt;p&gt;
+Keywords&lt;/p&gt;</description>
+      <link>http://1285.noagendanotes.com/</link>
+      <guid isPermaLink="true">http://1285.noagendanotes.com/</guid>
+      <pubDate>Sun, 11 Oct 2020 20:07:45 GMT</pubDate>
+      <itunes:subtitle>1285: "Davos Douche"</itunes:subtitle>
+      <itunes:summary>&lt;p&gt;Show Notes&lt;/p&gt;&lt;p&gt;
+No Agenda Episode 1285 - "Davos Douche"&lt;/p&gt;&lt;p&gt;
+No Agenda Episode 1285 - "Davos Douche"&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;"Davos Douche"&lt;/b&gt;&lt;/p&gt;&lt;p&gt;
+&lt;audio style="width:400px; vertical-align:middle;" controls="true" preload="none"&gt;&lt;source src="https://mp3s.nashownotes.com/NA-1285-2020-10-11-Final.mp3" type="audio/mpeg"&gt;&lt;/audio&gt;&lt;/p&gt;&lt;p&gt;
+&lt;a href="https://mp3s.nashownotes.com/NA-1285-2020-10-11-Final.mp3"&gt;&lt;img width="256" height="256" align="right" alt="A picture named NA-1285-Art-SM" src="https://noagendaassets.com/enc/1602446667.993_na-1285-art-sm.png" border="0" vspace="5" hspace="15" &gt;&lt;br=""&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Direct [&lt;a href="https://mp3s.nashownotes.com/NA-1285-2020-10-11-Final.mp3"&gt;link&lt;/a&gt;] to the mp3 file&lt;/p&gt;&lt;p&gt;
+ShowNotes Archive of links and Assets (clips etc) &lt;a href="http://1285.noagendanotes.com/"&gt; 1285.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;Sign Up&lt;/b&gt; for the &lt;a href="http://www.dvorak.org/blog/no-agenda-mailing-list-signup-here/"&gt;newsletter&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Archive of Shownotes (includes all audio and video assets used) &lt;a href="http://archive.noagendanotes.com"&gt;archive.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+The No Agenda News Network- &lt;a href="http://noagendanewsnetwork.com/"&gt;noagendanewsnetwork.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+RSS Podcast&lt;a href="http://feed.nashownotes.com/rss.xml"&gt; Feed&lt;/a&gt; &lt;/p&gt;&lt;p&gt;
+Experimental IPFS RSS &lt;a href="http://feed.nashownotes.com/naipfsrss.xml"&gt;Feed&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://nanewsapp.com/"&gt;No Agenda News App&lt;/a&gt; for your iPhone and iPad&lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://www.noagendroid.com/"&gt;NoAgendDroid app&lt;/a&gt; for your Android Phone&lt;/p&gt;&lt;p&gt;
+&lt;a href="http://bitlove.org/adamc12851/noagenda"&gt;Torrents&lt;/a&gt; of each episode via BitLove&lt;/p&gt;&lt;p&gt;
+&lt;font size= -1&gt;&lt;script&gt;document.write("Last Modified " + document.lastModified)&lt;/script&gt;&lt;/font&gt;&lt;br&gt;&lt;a href="http://freedomcontroller.com"&gt;&lt;font size= -2&gt;This page created with the FreedomController&lt;/font&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Credits&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;"Davos Douche"&lt;/b&gt;&lt;/p&gt;&lt;p&gt;
+Executive Producers: &lt;/p&gt;&lt;p&gt;
+Dreb Scott, Earl-at-Large&lt;/p&gt;&lt;p&gt;
+Sir Daniel Mariano&lt;/p&gt;&lt;p&gt;
+Jeff Gelenaw&lt;/p&gt;&lt;p&gt;
+Sir Dodger of Panhandle&lt;/p&gt;&lt;p&gt;
+Jonathan Sims&lt;/p&gt;&lt;p&gt;
+Joe Gates&lt;/p&gt;&lt;p&gt;
+Associate Executive Producers: &lt;/p&gt;&lt;p&gt;
+Jacob Long&lt;/p&gt;&lt;p&gt;
+Agatha Szczepaniak&lt;/p&gt;&lt;p&gt;
+Cody &amp; Sherri Wermager&lt;/p&gt;&lt;p&gt;
+Sir Real ID of the Nashville Nether regions&lt;/p&gt;&lt;p&gt;
+Marsha Cappy&lt;/p&gt;&lt;p&gt;
+Become a member of the 1286 Club, support the show &lt;a href="http://dvorak.org/na"&gt;here&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Knights &amp; Dames&lt;/p&gt;&lt;p&gt;
+Misty Gaskill -&gt; Dame Misty of New England&lt;/p&gt;&lt;p&gt;
+Rusty in Cleveland -&gt; Sir Twin Screw, Knight of the Master Chief Mess&lt;/p&gt;&lt;p&gt;
+Bart Bertens -&gt; Sir Bart, Knight of the Green Forest &lt;/p&gt;&lt;p&gt;
+Andre Adams -&gt; Sir Real ID of the Nashville Nether regions&lt;/p&gt;&lt;p&gt;
+Daniel Mariano -&gt; Sir Daniel Mariano&lt;/p&gt;&lt;p&gt;
+Art By: &lt;a href="https://noagendaartgenerator.com/artist/1014"&gt;Mike Riley&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Engineering, Stream Management &amp; Wizardry&lt;/p&gt;&lt;p&gt;
+Mark van Dijk - Systems Master&lt;/p&gt;&lt;p&gt;
+Ryan Bemrose - Program Director&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;NEW:&lt;/b&gt; and soon on Netflix: &lt;a href="https://www.youtube.com/channel/UCihyXCKCTKZ0H6OQRpKN5qQ"&gt;Animated No Agenda&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+End of Show Mixes:  &lt;/p&gt;&lt;p&gt;
+&lt;b&gt;Sign Up&lt;/b&gt; for the &lt;a href="http://www.dvorak.org/blog/no-agenda-mailing-list-signup-here/"&gt;newsletter&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+ShowNotes Archive of links and Assets (clips etc) &lt;a href="http://1285.noagendanotes.com/"&gt; 1285.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+New: Directory Archive of Shownotes (includes all audio and video assets used) &lt;a href="http://archive.noagendanotes.com/"&gt;archive.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+RSS Podcast&lt;a href="http://feed.nashownotes.com/rss.xml"&gt; Feed&lt;/a&gt; &lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://nanewsapp.com/"&gt;No Agenda News App&lt;/a&gt; for your iPhone and iPad&lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://www.noagendroid.com/"&gt;NoAgendDroid app&lt;/a&gt; for your Android Phone&lt;/p&gt;&lt;p&gt;
+&lt;a href="http://itm.im/opus"&gt;No Agenda Lite&lt;/a&gt; in opus format&lt;/p&gt;&lt;p&gt;
+&lt;a href="http://noagendatorrents.com"&gt;NoAgendaTorrents.com&lt;/a&gt; has an RSS feed or show torrents&lt;/p&gt;&lt;p&gt;
+&lt;font size= -1&gt;&lt;script&gt;document.write("Last Modified " + document.lastModified)&lt;/script&gt;&lt;/font&gt;&lt;br&gt;&lt;a href="http://freedomcontroller.com"&gt;&lt;font size= -2&gt;This page created with the FreedomController&lt;/font&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+&lt;naart:artwork&gt;18087&lt;/naart:artwork&gt;&lt;/p&gt;&lt;p&gt;
+Keywords&lt;/p&gt;</itunes:summary>
+      <itunes:author>Adam Curry &amp; John C. Dvorak</itunes:author>
+      <author>Adam Curry &amp; John C. Dvorak</author>
+      <itunes:image href="https://noagendaassets.com/enc/1602446852.247_na-1285-art-feed.png"/>
+      <itunes:explicit>No</itunes:explicit>
+      <itunes:keywords>curry,dvorak,noagenda,no,agenda,politics,douchebag</itunes:keywords>
+      <enclosure url="https://mp3s.nashownotes.com/NA-1285-2020-10-11-Final.mp3" length="142019649" type="audio/mpeg"/>
+    </item>
+    
+    <item>
+      <title>1284: "Eyeballitis"</title>
+      <description>&lt;p&gt;Show Notes&lt;/p&gt;&lt;p&gt;
+No Agenda Episode 1284 - "Eyeballitis"&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;"Eyeballitis"&lt;/b&gt;&lt;/p&gt;&lt;p&gt;
+&lt;audio style="width:400px; vertical-align:middle;" controls="true" preload="none"&gt;&lt;source src="https://mp3s.nashownotes.com/NA-1284-2020-10-08-Final.mp3" type="audio/mpeg"&gt;&lt;/audio&gt;&lt;/p&gt;&lt;p&gt;
+&lt;a href="https://mp3s.nashownotes.com/NA-1284-2020-10-08-Final.mp3"&gt;&lt;img width="256" height="256" align="right" alt="A picture named NA-1284-Art-SM" src="https://noagendaassets.com/enc/1602186172.275_na-1284-art-sm.png" border="0" vspace="5" hspace="15" &gt;&lt;br=""&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Direct [&lt;a href="https://mp3s.nashownotes.com/NA-1284-2020-10-08-Final.mp3"&gt;link&lt;/a&gt;] to the mp3 file&lt;/p&gt;&lt;p&gt;
+ShowNotes Archive of links and Assets (clips etc) &lt;a href="http://1284.noagendanotes.com/"&gt; 1284.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;Sign Up&lt;/b&gt; for the &lt;a href="http://www.dvorak.org/blog/no-agenda-mailing-list-signup-here/"&gt;newsletter&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Archive of Shownotes (includes all audio and video assets used) &lt;a href="http://archive.noagendanotes.com"&gt;archive.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+The No Agenda News Network- &lt;a href="http://noagendanewsnetwork.com/"&gt;noagendanewsnetwork.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+RSS Podcast&lt;a href="http://feed.nashownotes.com/rss.xml"&gt; Feed&lt;/a&gt; &lt;/p&gt;&lt;p&gt;
+Experimental IPFS RSS &lt;a href="http://feed.nashownotes.com/naipfsrss.xml"&gt;Feed&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://nanewsapp.com/"&gt;No Agenda News App&lt;/a&gt; for your iPhone and iPad&lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://www.noagendroid.com/"&gt;NoAgendDroid app&lt;/a&gt; for your Android Phone&lt;/p&gt;&lt;p&gt;
+&lt;a href="http://bitlove.org/adamc12841/noagenda"&gt;Torrents&lt;/a&gt; of each episode via BitLove&lt;/p&gt;&lt;p&gt;
+&lt;font size= -1&gt;&lt;script&gt;document.write("Last Modified " + document.lastModified)&lt;/script&gt;&lt;/font&gt;&lt;br&gt;&lt;a href="http://freedomcontroller.com"&gt;&lt;font size= -2&gt;This page created with the FreedomController&lt;/font&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Credits&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;"Eyeballitis"&lt;/b&gt;&lt;/p&gt;&lt;p&gt;
+Executive Producers: &lt;/p&gt;&lt;p&gt;
+Michael Auslander&lt;/p&gt;&lt;p&gt;
+Michael Goodell&lt;/p&gt;&lt;p&gt;
+Arthur Shucher&lt;/p&gt;&lt;p&gt;
+Baron Ryan of Tampa Bay&lt;/p&gt;&lt;p&gt;
+Derek Veldhouse&lt;/p&gt;&lt;p&gt;
+Addison Todd&lt;/p&gt;&lt;p&gt;
+Jason D Howard&lt;/p&gt;&lt;p&gt;
+Associate Executive Producers: &lt;/p&gt;&lt;p&gt;
+Christopher Madding&lt;/p&gt;&lt;p&gt;
+Sir Howitzer (KC3QFD)&lt;/p&gt;&lt;p&gt;
+Alex Schmitz&lt;/p&gt;&lt;p&gt;
+Become a member of the 1285 Club, support the show &lt;a href="http://dvorak.org/na"&gt;here&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Knights &amp; Dames&lt;/p&gt;&lt;p&gt;
+Andre Adams -&gt; Sir Real I.D. of the Nashville Nether-regions&lt;/p&gt;&lt;p&gt;
+Scott Minton -&gt; Sir Vent - Knight of the Orange&lt;/p&gt;&lt;p&gt;
+Art By: &lt;a href="https://noagendaartgenerator.com/artist/1014"&gt;Mike Riley&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Engineering, Stream Management &amp; Wizardry&lt;/p&gt;&lt;p&gt;
+Mark van Dijk - Systems Master&lt;/p&gt;&lt;p&gt;
+Ryan Bemrose - Program Director&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;NEW:&lt;/b&gt; and soon on Netflix: &lt;a href="https://www.youtube.com/channel/UCihyXCKCTKZ0H6OQRpKN5qQ"&gt;Animated No Agenda&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+End of Show Mixes:  Jesse Coy Nelson - Jason Lewis - Sir Chris Wilson&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;Sign Up&lt;/b&gt; for the &lt;a href="http://www.dvorak.org/blog/no-agenda-mailing-list-signup-here/"&gt;newsletter&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+ShowNotes Archive of links and Assets (clips etc) &lt;a href="http://1284.noagendanotes.com/"&gt; 1284.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+New: Directory Archive of Shownotes (includes all audio and video assets used) &lt;a href="http://archive.noagendanotes.com/"&gt;archive.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+RSS Podcast&lt;a href="http://feed.nashownotes.com/rss.xml"&gt; Feed&lt;/a&gt; &lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://nanewsapp.com/"&gt;No Agenda News App&lt;/a&gt; for your iPhone and iPad&lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://www.noagendroid.com/"&gt;NoAgendDroid app&lt;/a&gt; for your Android Phone&lt;/p&gt;&lt;p&gt;
+&lt;a href="http://itm.im/opus"&gt;No Agenda Lite&lt;/a&gt; in opus format&lt;/p&gt;&lt;p&gt;
+&lt;a href="http://noagendatorrents.com"&gt;NoAgendaTorrents.com&lt;/a&gt; has an RSS feed or show torrents&lt;/p&gt;&lt;p&gt;
+&lt;font size= -1&gt;&lt;script&gt;document.write("Last Modified " + document.lastModified)&lt;/script&gt;&lt;/font&gt;&lt;br&gt;&lt;a href="http://freedomcontroller.com"&gt;&lt;font size= -2&gt;This page created with the FreedomController&lt;/font&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+&lt;naart:artwork&gt;18043&lt;/naart:artwork&gt;&lt;/p&gt;&lt;p&gt;
+Keywords&lt;/p&gt;</description>
+      <link>http://1284.noagendanotes.com</link>
+      <guid isPermaLink="true">http://1284.noagendanotes.com</guid>
+      <pubDate>Thu, 08 Oct 2020 19:49:00 GMT</pubDate>
+      <itunes:subtitle>1284: "Eyeballitis"</itunes:subtitle>
+      <itunes:summary>&lt;p&gt;Show Notes&lt;/p&gt;&lt;p&gt;
+No Agenda Episode 1284 - "Eyeballitis"&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;"Eyeballitis"&lt;/b&gt;&lt;/p&gt;&lt;p&gt;
+&lt;audio style="width:400px; vertical-align:middle;" controls="true" preload="none"&gt;&lt;source src="https://mp3s.nashownotes.com/NA-1284-2020-10-08-Final.mp3" type="audio/mpeg"&gt;&lt;/audio&gt;&lt;/p&gt;&lt;p&gt;
+&lt;a href="https://mp3s.nashownotes.com/NA-1284-2020-10-08-Final.mp3"&gt;&lt;img width="256" height="256" align="right" alt="A picture named NA-1284-Art-SM" src="https://noagendaassets.com/enc/1602186172.275_na-1284-art-sm.png" border="0" vspace="5" hspace="15" &gt;&lt;br=""&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Direct [&lt;a href="https://mp3s.nashownotes.com/NA-1284-2020-10-08-Final.mp3"&gt;link&lt;/a&gt;] to the mp3 file&lt;/p&gt;&lt;p&gt;
+ShowNotes Archive of links and Assets (clips etc) &lt;a href="http://1284.noagendanotes.com/"&gt; 1284.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;Sign Up&lt;/b&gt; for the &lt;a href="http://www.dvorak.org/blog/no-agenda-mailing-list-signup-here/"&gt;newsletter&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Archive of Shownotes (includes all audio and video assets used) &lt;a href="http://archive.noagendanotes.com"&gt;archive.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+The No Agenda News Network- &lt;a href="http://noagendanewsnetwork.com/"&gt;noagendanewsnetwork.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+RSS Podcast&lt;a href="http://feed.nashownotes.com/rss.xml"&gt; Feed&lt;/a&gt; &lt;/p&gt;&lt;p&gt;
+Experimental IPFS RSS &lt;a href="http://feed.nashownotes.com/naipfsrss.xml"&gt;Feed&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://nanewsapp.com/"&gt;No Agenda News App&lt;/a&gt; for your iPhone and iPad&lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://www.noagendroid.com/"&gt;NoAgendDroid app&lt;/a&gt; for your Android Phone&lt;/p&gt;&lt;p&gt;
+&lt;a href="http://bitlove.org/adamc12841/noagenda"&gt;Torrents&lt;/a&gt; of each episode via BitLove&lt;/p&gt;&lt;p&gt;
+&lt;font size= -1&gt;&lt;script&gt;document.write("Last Modified " + document.lastModified)&lt;/script&gt;&lt;/font&gt;&lt;br&gt;&lt;a href="http://freedomcontroller.com"&gt;&lt;font size= -2&gt;This page created with the FreedomController&lt;/font&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Credits&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;"Eyeballitis"&lt;/b&gt;&lt;/p&gt;&lt;p&gt;
+Executive Producers: &lt;/p&gt;&lt;p&gt;
+Michael Auslander&lt;/p&gt;&lt;p&gt;
+Michael Goodell&lt;/p&gt;&lt;p&gt;
+Arthur Shucher&lt;/p&gt;&lt;p&gt;
+Baron Ryan of Tampa Bay&lt;/p&gt;&lt;p&gt;
+Derek Veldhouse&lt;/p&gt;&lt;p&gt;
+Addison Todd&lt;/p&gt;&lt;p&gt;
+Jason D Howard&lt;/p&gt;&lt;p&gt;
+Associate Executive Producers: &lt;/p&gt;&lt;p&gt;
+Christopher Madding&lt;/p&gt;&lt;p&gt;
+Sir Howitzer (KC3QFD)&lt;/p&gt;&lt;p&gt;
+Alex Schmitz&lt;/p&gt;&lt;p&gt;
+Become a member of the 1285 Club, support the show &lt;a href="http://dvorak.org/na"&gt;here&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Knights &amp; Dames&lt;/p&gt;&lt;p&gt;
+Andre Adams -&gt; Sir Real I.D. of the Nashville Nether-regions&lt;/p&gt;&lt;p&gt;
+Scott Minton -&gt; Sir Vent - Knight of the Orange&lt;/p&gt;&lt;p&gt;
+Art By: &lt;a href="https://noagendaartgenerator.com/artist/1014"&gt;Mike Riley&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Engineering, Stream Management &amp; Wizardry&lt;/p&gt;&lt;p&gt;
+Mark van Dijk - Systems Master&lt;/p&gt;&lt;p&gt;
+Ryan Bemrose - Program Director&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;NEW:&lt;/b&gt; and soon on Netflix: &lt;a href="https://www.youtube.com/channel/UCihyXCKCTKZ0H6OQRpKN5qQ"&gt;Animated No Agenda&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+End of Show Mixes:  Jesse Coy Nelson - Jason Lewis - Sir Chris Wilson&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;Sign Up&lt;/b&gt; for the &lt;a href="http://www.dvorak.org/blog/no-agenda-mailing-list-signup-here/"&gt;newsletter&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+ShowNotes Archive of links and Assets (clips etc) &lt;a href="http://1284.noagendanotes.com/"&gt; 1284.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+New: Directory Archive of Shownotes (includes all audio and video assets used) &lt;a href="http://archive.noagendanotes.com/"&gt;archive.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+RSS Podcast&lt;a href="http://feed.nashownotes.com/rss.xml"&gt; Feed&lt;/a&gt; &lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://nanewsapp.com/"&gt;No Agenda News App&lt;/a&gt; for your iPhone and iPad&lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://www.noagendroid.com/"&gt;NoAgendDroid app&lt;/a&gt; for your Android Phone&lt;/p&gt;&lt;p&gt;
+&lt;a href="http://itm.im/opus"&gt;No Agenda Lite&lt;/a&gt; in opus format&lt;/p&gt;&lt;p&gt;
+&lt;a href="http://noagendatorrents.com"&gt;NoAgendaTorrents.com&lt;/a&gt; has an RSS feed or show torrents&lt;/p&gt;&lt;p&gt;
+&lt;font size= -1&gt;&lt;script&gt;document.write("Last Modified " + document.lastModified)&lt;/script&gt;&lt;/font&gt;&lt;br&gt;&lt;a href="http://freedomcontroller.com"&gt;&lt;font size= -2&gt;This page created with the FreedomController&lt;/font&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+&lt;naart:artwork&gt;18043&lt;/naart:artwork&gt;&lt;/p&gt;&lt;p&gt;
+Keywords&lt;/p&gt;</itunes:summary>
+      <itunes:author>Adam Curry &amp; John C. Dvorak</itunes:author>
+      <author>Adam Curry &amp; John C. Dvorak</author>
+      <itunes:image href="https://noagendaassets.com/enc/1602186527.278_na-1284-art-feed.png"/>
+      <itunes:explicit>No</itunes:explicit>
+      <itunes:keywords>curry,dvorak,noagenda,no,agenda,politics,douchebag</itunes:keywords>
+      <enclosure url="https://mp3s.nashownotes.com/NA-1284-2020-10-08-Final.mp3" length="134575692" type="audio/mpeg"/>
+    </item>
+    
+    <item>
+      <title>1283: "Dumb and Sick"</title>
+      <description>&lt;p&gt;Show Notes&lt;/p&gt;&lt;p&gt;
+No Agenda Episode 1283 - "Dumb and Sick"&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;"Dumb and Sick"&lt;/b&gt;&lt;/p&gt;&lt;p&gt;
+&lt;audio style="width:400px; vertical-align:middle;" controls="true" preload="none"&gt;&lt;source src="https://mp3s.nashownotes.com/NA-1283-2020-10-04-Final.mp3" type="audio/mpeg"&gt;&lt;/audio&gt;&lt;/p&gt;&lt;p&gt;
+&lt;a href="https://mp3s.nashownotes.com/NA-1283-2020-10-04-Final.mp3"&gt;&lt;img width="256" height="256" align="right" alt="A picture named NA-1283-Art-SM" src="https://noagendaassets.com/enc/1601840889.65_na-1283-art-sm.png" border="0" vspace="5" hspace="15" &gt;&lt;br=""&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Direct [&lt;a href="https://mp3s.nashownotes.com/NA-1283-2020-10-04-Final.mp3"&gt;link&lt;/a&gt;] to the mp3 file&lt;/p&gt;&lt;p&gt;
+ShowNotes Archive of links and Assets (clips etc) &lt;a href="http://1283.noagendanotes.com/"&gt; 1283.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;Sign Up&lt;/b&gt; for the &lt;a href="http://www.dvorak.org/blog/no-agenda-mailing-list-signup-here/"&gt;newsletter&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Archive of Shownotes (includes all audio and video assets used) &lt;a href="http://archive.noagendanotes.com"&gt;archive.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+The No Agenda News Network- &lt;a href="http://noagendanewsnetwork.com/"&gt;noagendanewsnetwork.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+RSS Podcast&lt;a href="http://feed.nashownotes.com/rss.xml"&gt; Feed&lt;/a&gt; &lt;/p&gt;&lt;p&gt;
+Experimental IPFS RSS &lt;a href="http://feed.nashownotes.com/naipfsrss.xml"&gt;Feed&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://nanewsapp.com/"&gt;No Agenda News App&lt;/a&gt; for your iPhone and iPad&lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://www.noagendroid.com/"&gt;NoAgendDroid app&lt;/a&gt; for your Android Phone&lt;/p&gt;&lt;p&gt;
+&lt;a href="http://bitlove.org/adamc12831/noagenda"&gt;Torrents&lt;/a&gt; of each episode via BitLove&lt;/p&gt;&lt;p&gt;
+&lt;font size= -1&gt;&lt;script&gt;document.write("Last Modified " + document.lastModified)&lt;/script&gt;&lt;/font&gt;&lt;br&gt;&lt;a href="http://freedomcontroller.com"&gt;&lt;font size= -2&gt;This page created with the FreedomController&lt;/font&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Credits&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;"Dumb and Sick"&lt;/b&gt;&lt;/p&gt;&lt;p&gt;
+Executive Producers: &lt;/p&gt;&lt;p&gt;
+Combat Rock of the Idaho Highlands&lt;/p&gt;&lt;p&gt;
+Sharon B&lt;/p&gt;&lt;p&gt;
+Associate Executive Producers: &lt;/p&gt;&lt;p&gt;
+Taylor Butcher&lt;/p&gt;&lt;p&gt;
+Some Armenian Chick&lt;/p&gt;&lt;p&gt;
+MELODY FUGAZZOTTO&lt;/p&gt;&lt;p&gt;
+David Fugazzotto&lt;/p&gt;&lt;p&gt;
+Darya Rakitine&lt;/p&gt;&lt;p&gt;
+Become a member of the 1284 Club, support the show &lt;a href="http://dvorak.org/na"&gt;here&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Knights &amp; Dames&lt;/p&gt;&lt;p&gt;
+Katie Huemmer Reed -&gt; Katie, Dame of the Unfinished Knitting Projects&lt;/p&gt;&lt;p&gt;
+Joseph Hatch -&gt; Sir Barnotte Vente&lt;/p&gt;&lt;p&gt;
+Art By: &lt;a href="https://noagendaartgenerator.com/artist/973"&gt;Jordan-33&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Engineering, Stream Management &amp; Wizardry&lt;/p&gt;&lt;p&gt;
+Mark van Dijk - Systems Master&lt;/p&gt;&lt;p&gt;
+Ryan Bemrose - Program Director&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;NEW:&lt;/b&gt; and soon on Netflix: &lt;a href="https://www.youtube.com/channel/UCihyXCKCTKZ0H6OQRpKN5qQ"&gt;Animated No Agenda&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+End of Show Mixes:  Sir Chris Wilson - Tom Starkweather - Jesse Coy Nelson&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;Sign Up&lt;/b&gt; for the &lt;a href="http://www.dvorak.org/blog/no-agenda-mailing-list-signup-here/"&gt;newsletter&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+ShowNotes Archive of links and Assets (clips etc) &lt;a href="http://1283.noagendanotes.com/"&gt; 1283.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+New: Directory Archive of Shownotes (includes all audio and video assets used) &lt;a href="http://archive.noagendanotes.com/"&gt;archive.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+RSS Podcast&lt;a href="http://feed.nashownotes.com/rss.xml"&gt; Feed&lt;/a&gt; &lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://nanewsapp.com/"&gt;No Agenda News App&lt;/a&gt; for your iPhone and iPad&lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://www.noagendroid.com/"&gt;NoAgendDroid app&lt;/a&gt; for your Android Phone&lt;/p&gt;&lt;p&gt;
+&lt;a href="http://itm.im/opus"&gt;No Agenda Lite&lt;/a&gt; in opus format&lt;/p&gt;&lt;p&gt;
+&lt;a href="http://noagendatorrents.com"&gt;NoAgendaTorrents.com&lt;/a&gt; has an RSS feed or show torrents&lt;/p&gt;&lt;p&gt;
+&lt;font size= -1&gt;&lt;script&gt;document.write("Last Modified " + document.lastModified)&lt;/script&gt;&lt;/font&gt;&lt;br&gt;&lt;a href="http://freedomcontroller.com"&gt;&lt;font size= -2&gt;This page created with the FreedomController&lt;/font&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+&lt;naart:artwork&gt;17171&lt;/naart:artwork&gt;&lt;/p&gt;&lt;p&gt;
+Keywords&lt;/p&gt;</description>
+      <link>http://1283.noagendanotes.com/</link>
+      <guid isPermaLink="true">http://1283.noagendanotes.com/</guid>
+      <pubDate>Sun, 04 Oct 2020 19:53:11 GMT</pubDate>
+      <itunes:subtitle>1283: "Dumb and Sick"</itunes:subtitle>
+      <itunes:summary>&lt;p&gt;Show Notes&lt;/p&gt;&lt;p&gt;
+No Agenda Episode 1283 - "Dumb and Sick"&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;"Dumb and Sick"&lt;/b&gt;&lt;/p&gt;&lt;p&gt;
+&lt;audio style="width:400px; vertical-align:middle;" controls="true" preload="none"&gt;&lt;source src="https://mp3s.nashownotes.com/NA-1283-2020-10-04-Final.mp3" type="audio/mpeg"&gt;&lt;/audio&gt;&lt;/p&gt;&lt;p&gt;
+&lt;a href="https://mp3s.nashownotes.com/NA-1283-2020-10-04-Final.mp3"&gt;&lt;img width="256" height="256" align="right" alt="A picture named NA-1283-Art-SM" src="https://noagendaassets.com/enc/1601840889.65_na-1283-art-sm.png" border="0" vspace="5" hspace="15" &gt;&lt;br=""&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Direct [&lt;a href="https://mp3s.nashownotes.com/NA-1283-2020-10-04-Final.mp3"&gt;link&lt;/a&gt;] to the mp3 file&lt;/p&gt;&lt;p&gt;
+ShowNotes Archive of links and Assets (clips etc) &lt;a href="http://1283.noagendanotes.com/"&gt; 1283.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;Sign Up&lt;/b&gt; for the &lt;a href="http://www.dvorak.org/blog/no-agenda-mailing-list-signup-here/"&gt;newsletter&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Archive of Shownotes (includes all audio and video assets used) &lt;a href="http://archive.noagendanotes.com"&gt;archive.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+The No Agenda News Network- &lt;a href="http://noagendanewsnetwork.com/"&gt;noagendanewsnetwork.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+RSS Podcast&lt;a href="http://feed.nashownotes.com/rss.xml"&gt; Feed&lt;/a&gt; &lt;/p&gt;&lt;p&gt;
+Experimental IPFS RSS &lt;a href="http://feed.nashownotes.com/naipfsrss.xml"&gt;Feed&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://nanewsapp.com/"&gt;No Agenda News App&lt;/a&gt; for your iPhone and iPad&lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://www.noagendroid.com/"&gt;NoAgendDroid app&lt;/a&gt; for your Android Phone&lt;/p&gt;&lt;p&gt;
+&lt;a href="http://bitlove.org/adamc12831/noagenda"&gt;Torrents&lt;/a&gt; of each episode via BitLove&lt;/p&gt;&lt;p&gt;
+&lt;font size= -1&gt;&lt;script&gt;document.write("Last Modified " + document.lastModified)&lt;/script&gt;&lt;/font&gt;&lt;br&gt;&lt;a href="http://freedomcontroller.com"&gt;&lt;font size= -2&gt;This page created with the FreedomController&lt;/font&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Credits&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;"Dumb and Sick"&lt;/b&gt;&lt;/p&gt;&lt;p&gt;
+Executive Producers: &lt;/p&gt;&lt;p&gt;
+Combat Rock of the Idaho Highlands&lt;/p&gt;&lt;p&gt;
+Sharon B&lt;/p&gt;&lt;p&gt;
+Associate Executive Producers: &lt;/p&gt;&lt;p&gt;
+Taylor Butcher&lt;/p&gt;&lt;p&gt;
+Some Armenian Chick&lt;/p&gt;&lt;p&gt;
+MELODY FUGAZZOTTO&lt;/p&gt;&lt;p&gt;
+David Fugazzotto&lt;/p&gt;&lt;p&gt;
+Darya Rakitine&lt;/p&gt;&lt;p&gt;
+Become a member of the 1284 Club, support the show &lt;a href="http://dvorak.org/na"&gt;here&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Knights &amp; Dames&lt;/p&gt;&lt;p&gt;
+Katie Huemmer Reed -&gt; Katie, Dame of the Unfinished Knitting Projects&lt;/p&gt;&lt;p&gt;
+Joseph Hatch -&gt; Sir Barnotte Vente&lt;/p&gt;&lt;p&gt;
+Art By: &lt;a href="https://noagendaartgenerator.com/artist/973"&gt;Jordan-33&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Engineering, Stream Management &amp; Wizardry&lt;/p&gt;&lt;p&gt;
+Mark van Dijk - Systems Master&lt;/p&gt;&lt;p&gt;
+Ryan Bemrose - Program Director&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;NEW:&lt;/b&gt; and soon on Netflix: &lt;a href="https://www.youtube.com/channel/UCihyXCKCTKZ0H6OQRpKN5qQ"&gt;Animated No Agenda&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+End of Show Mixes:  Sir Chris Wilson - Tom Starkweather - Jesse Coy Nelson&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;Sign Up&lt;/b&gt; for the &lt;a href="http://www.dvorak.org/blog/no-agenda-mailing-list-signup-here/"&gt;newsletter&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+ShowNotes Archive of links and Assets (clips etc) &lt;a href="http://1283.noagendanotes.com/"&gt; 1283.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+New: Directory Archive of Shownotes (includes all audio and video assets used) &lt;a href="http://archive.noagendanotes.com/"&gt;archive.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+RSS Podcast&lt;a href="http://feed.nashownotes.com/rss.xml"&gt; Feed&lt;/a&gt; &lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://nanewsapp.com/"&gt;No Agenda News App&lt;/a&gt; for your iPhone and iPad&lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://www.noagendroid.com/"&gt;NoAgendDroid app&lt;/a&gt; for your Android Phone&lt;/p&gt;&lt;p&gt;
+&lt;a href="http://itm.im/opus"&gt;No Agenda Lite&lt;/a&gt; in opus format&lt;/p&gt;&lt;p&gt;
+&lt;a href="http://noagendatorrents.com"&gt;NoAgendaTorrents.com&lt;/a&gt; has an RSS feed or show torrents&lt;/p&gt;&lt;p&gt;
+&lt;font size= -1&gt;&lt;script&gt;document.write("Last Modified " + document.lastModified)&lt;/script&gt;&lt;/font&gt;&lt;br&gt;&lt;a href="http://freedomcontroller.com"&gt;&lt;font size= -2&gt;This page created with the FreedomController&lt;/font&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+&lt;naart:artwork&gt;17171&lt;/naart:artwork&gt;&lt;/p&gt;&lt;p&gt;
+Keywords&lt;/p&gt;</itunes:summary>
+      <itunes:author>Adam Curry &amp; John C. Dvorak</itunes:author>
+      <author>Adam Curry &amp; John C. Dvorak</author>
+      <itunes:image href="https://noagendaassets.com/enc/1601841175.296_na-1283-art-feed.png"/>
+      <itunes:explicit>No</itunes:explicit>
+      <itunes:keywords>curry,dvorak,noagenda,no,agenda,politics,douchebag</itunes:keywords>
+      <enclosure url="https://mp3s.nashownotes.com/NA-1283-2020-10-04-Final.mp3" length="138596250" type="audio/mpeg"/>
+    </item>
+    
+    <item>
+      <title>1282: "Media Decomposition"</title>
+      <description>&lt;p&gt;Show Notes&lt;/p&gt;&lt;p&gt;
+No Agenda Episode 1282 - "Media Decomposition"&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;"Media Decomposition"&lt;/b&gt;&lt;/p&gt;&lt;p&gt;
+&lt;audio style="width:400px; vertical-align:middle;" controls="true" preload="none"&gt;&lt;source src="https://mp3s.nashownotes.com/NA-1282-2020-10-01-Final.mp3" type="audio/mpeg"&gt;&lt;/audio&gt;&lt;/p&gt;&lt;p&gt;
+&lt;a href="https://mp3s.nashownotes.com/NA-1282-2020-010-01-Final.mp3"&gt;&lt;img width="256" height="256" align="right" alt="A picture named NA-1282-Art-SM" src="https://noagendaassets.com/enc/1601583559.165_na-1282-art-sm.png" border="0" vspace="5" hspace="15" &gt;&lt;br=""&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Direct [&lt;a href="https://mp3s.nashownotes.com/NA-1282-2020-010-01-Final.mp3"&gt;link&lt;/a&gt;] to the mp3 file&lt;/p&gt;&lt;p&gt;
+ShowNotes Archive of links and Assets (clips etc) &lt;a href="http://1282.noagendanotes.com/"&gt; 1282.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;Sign Up&lt;/b&gt; for the &lt;a href="http://www.dvorak.org/blog/no-agenda-mailing-list-signup-here/"&gt;newsletter&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Archive of Shownotes (includes all audio and video assets used) &lt;a href="http://archive.noagendanotes.com"&gt;archive.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+The No Agenda News Network- &lt;a href="http://noagendanewsnetwork.com/"&gt;noagendanewsnetwork.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+RSS Podcast&lt;a href="http://feed.nashownotes.com/rss.xml"&gt; Feed&lt;/a&gt; &lt;/p&gt;&lt;p&gt;
+Experimental IPFS RSS &lt;a href="http://feed.nashownotes.com/naipfsrss.xml"&gt;Feed&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://nanewsapp.com/"&gt;No Agenda News App&lt;/a&gt; for your iPhone and iPad&lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://www.noagendroid.com/"&gt;NoAgendDroid app&lt;/a&gt; for your Android Phone&lt;/p&gt;&lt;p&gt;
+&lt;a href="http://bitlove.org/adamc12821/noagenda"&gt;Torrents&lt;/a&gt; of each episode via BitLove&lt;/p&gt;&lt;p&gt;
+&lt;font size= -1&gt;&lt;script&gt;document.write("Last Modified " + document.lastModified)&lt;/script&gt;&lt;/font&gt;&lt;br&gt;&lt;a href="http://freedomcontroller.com"&gt;&lt;font size= -2&gt;This page created with the FreedomController&lt;/font&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Credits&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;"Media Decomposition"&lt;/b&gt;&lt;/p&gt;&lt;p&gt;
+Executive Producers: &lt;/p&gt;&lt;p&gt;
+Sir Onymous of Dogpatch and Lower Slobbovia&lt;/p&gt;&lt;p&gt;
+Sir Tommy Horton&lt;/p&gt;&lt;p&gt;
+Mona Blankshain&lt;/p&gt;&lt;p&gt;
+John McCabe&lt;/p&gt;&lt;p&gt;
+Brian&lt;/p&gt;&lt;p&gt;
+Eric Adams&lt;/p&gt;&lt;p&gt;
+Regan Marshall&lt;/p&gt;&lt;p&gt;
+Associate Executive Producers: &lt;/p&gt;&lt;p&gt;
+Matthew Anderson&lt;/p&gt;&lt;p&gt;
+Korey Getty&lt;/p&gt;&lt;p&gt;
+Neal Elward&lt;/p&gt;&lt;p&gt;
+Zi Zi Searles&lt;/p&gt;&lt;p&gt;
+Zechariah Chubb&lt;/p&gt;&lt;p&gt;
+Elizabeth O'Neill&lt;/p&gt;&lt;p&gt;
+Sir SLOVelo of the Central Coast&lt;/p&gt;&lt;p&gt;
+Vinny Pedulla&lt;/p&gt;&lt;p&gt;
+Chad Miller&lt;/p&gt;&lt;p&gt;
+Alex Ulrich&lt;/p&gt;&lt;p&gt;
+Become a member of the 1283 Club, support the show &lt;a href="http://dvorak.org/na"&gt;here&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Knights &amp; Dames&lt;/p&gt;&lt;p&gt;
+Robert Blankshain  -&gt; Sir Cha Chi, Knight of the Dao&lt;/p&gt;&lt;p&gt;
+Paul Gabrielson -&gt; Sir SLOVelo of the Central Coast&lt;/p&gt;&lt;p&gt;
+Tommy Horton -&gt; Sir Tommy Horton&lt;/p&gt;&lt;p&gt;
+Art By: &lt;a href="https://noagendaartgenerator.com/artist/1339"&gt;Mountain Jay&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Engineering, Stream Management &amp; Wizardry&lt;/p&gt;&lt;p&gt;
+Mark van Dijk - Systems Master&lt;/p&gt;&lt;p&gt;
+Ryan Bemrose - Program Director&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;NEW:&lt;/b&gt; and soon on Netflix: &lt;a href="https://www.youtube.com/channel/UCihyXCKCTKZ0H6OQRpKN5qQ"&gt;Animated No Agenda&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+End of Show Mixes:  Neal Jones - Sir Dave - Danny Loos&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;Sign Up&lt;/b&gt; for the &lt;a href="http://www.dvorak.org/blog/no-agenda-mailing-list-signup-here/"&gt;newsletter&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+ShowNotes Archive of links and Assets (clips etc) &lt;a href="http://1282.noagendanotes.com/"&gt; 1282.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+New: Directory Archive of Shownotes (includes all audio and video assets used) &lt;a href="http://archive.noagendanotes.com/"&gt;archive.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+RSS Podcast&lt;a href="http://feed.nashownotes.com/rss.xml"&gt; Feed&lt;/a&gt; &lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://nanewsapp.com/"&gt;No Agenda News App&lt;/a&gt; for your iPhone and iPad&lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://www.noagendroid.com/"&gt;NoAgendDroid app&lt;/a&gt; for your Android Phone&lt;/p&gt;&lt;p&gt;
+&lt;a href="http://itm.im/opus"&gt;No Agenda Lite&lt;/a&gt; in opus format&lt;/p&gt;&lt;p&gt;
+&lt;a href="http://noagendatorrents.com"&gt;NoAgendaTorrents.com&lt;/a&gt; has an RSS feed or show torrents&lt;/p&gt;&lt;p&gt;
+&lt;font size= -1&gt;&lt;script&gt;document.write("Last Modified " + document.lastModified)&lt;/script&gt;&lt;/font&gt;&lt;br&gt;&lt;a href="http://freedomcontroller.com"&gt;&lt;font size= -2&gt;This page created with the FreedomController&lt;/font&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+&lt;naart:artwork&gt;17962&lt;/naart:artwork&gt;&lt;/p&gt;&lt;p&gt;
+Keywords&lt;/p&gt;</description>
+      <link>http://1282.noagendanotes.com/</link>
+      <guid isPermaLink="true">http://1282.noagendanotes.com/</guid>
+      <pubDate>Thu, 01 Oct 2020 20:23:44 GMT</pubDate>
+      <itunes:subtitle>1282: "Media Decomposition"</itunes:subtitle>
+      <itunes:summary>&lt;p&gt;Show Notes&lt;/p&gt;&lt;p&gt;
+No Agenda Episode 1282 - "Media Decomposition"&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;"Media Decomposition"&lt;/b&gt;&lt;/p&gt;&lt;p&gt;
+&lt;audio style="width:400px; vertical-align:middle;" controls="true" preload="none"&gt;&lt;source src="https://mp3s.nashownotes.com/NA-1282-2020-10-01-Final.mp3" type="audio/mpeg"&gt;&lt;/audio&gt;&lt;/p&gt;&lt;p&gt;
+&lt;a href="https://mp3s.nashownotes.com/NA-1282-2020-010-01-Final.mp3"&gt;&lt;img width="256" height="256" align="right" alt="A picture named NA-1282-Art-SM" src="https://noagendaassets.com/enc/1601583559.165_na-1282-art-sm.png" border="0" vspace="5" hspace="15" &gt;&lt;br=""&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Direct [&lt;a href="https://mp3s.nashownotes.com/NA-1282-2020-010-01-Final.mp3"&gt;link&lt;/a&gt;] to the mp3 file&lt;/p&gt;&lt;p&gt;
+ShowNotes Archive of links and Assets (clips etc) &lt;a href="http://1282.noagendanotes.com/"&gt; 1282.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;Sign Up&lt;/b&gt; for the &lt;a href="http://www.dvorak.org/blog/no-agenda-mailing-list-signup-here/"&gt;newsletter&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Archive of Shownotes (includes all audio and video assets used) &lt;a href="http://archive.noagendanotes.com"&gt;archive.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+The No Agenda News Network- &lt;a href="http://noagendanewsnetwork.com/"&gt;noagendanewsnetwork.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+RSS Podcast&lt;a href="http://feed.nashownotes.com/rss.xml"&gt; Feed&lt;/a&gt; &lt;/p&gt;&lt;p&gt;
+Experimental IPFS RSS &lt;a href="http://feed.nashownotes.com/naipfsrss.xml"&gt;Feed&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://nanewsapp.com/"&gt;No Agenda News App&lt;/a&gt; for your iPhone and iPad&lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://www.noagendroid.com/"&gt;NoAgendDroid app&lt;/a&gt; for your Android Phone&lt;/p&gt;&lt;p&gt;
+&lt;a href="http://bitlove.org/adamc12821/noagenda"&gt;Torrents&lt;/a&gt; of each episode via BitLove&lt;/p&gt;&lt;p&gt;
+&lt;font size= -1&gt;&lt;script&gt;document.write("Last Modified " + document.lastModified)&lt;/script&gt;&lt;/font&gt;&lt;br&gt;&lt;a href="http://freedomcontroller.com"&gt;&lt;font size= -2&gt;This page created with the FreedomController&lt;/font&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Credits&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;"Media Decomposition"&lt;/b&gt;&lt;/p&gt;&lt;p&gt;
+Executive Producers: &lt;/p&gt;&lt;p&gt;
+Sir Onymous of Dogpatch and Lower Slobbovia&lt;/p&gt;&lt;p&gt;
+Sir Tommy Horton&lt;/p&gt;&lt;p&gt;
+Mona Blankshain&lt;/p&gt;&lt;p&gt;
+John McCabe&lt;/p&gt;&lt;p&gt;
+Brian&lt;/p&gt;&lt;p&gt;
+Eric Adams&lt;/p&gt;&lt;p&gt;
+Regan Marshall&lt;/p&gt;&lt;p&gt;
+Associate Executive Producers: &lt;/p&gt;&lt;p&gt;
+Matthew Anderson&lt;/p&gt;&lt;p&gt;
+Korey Getty&lt;/p&gt;&lt;p&gt;
+Neal Elward&lt;/p&gt;&lt;p&gt;
+Zi Zi Searles&lt;/p&gt;&lt;p&gt;
+Zechariah Chubb&lt;/p&gt;&lt;p&gt;
+Elizabeth O'Neill&lt;/p&gt;&lt;p&gt;
+Sir SLOVelo of the Central Coast&lt;/p&gt;&lt;p&gt;
+Vinny Pedulla&lt;/p&gt;&lt;p&gt;
+Chad Miller&lt;/p&gt;&lt;p&gt;
+Alex Ulrich&lt;/p&gt;&lt;p&gt;
+Become a member of the 1283 Club, support the show &lt;a href="http://dvorak.org/na"&gt;here&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Knights &amp; Dames&lt;/p&gt;&lt;p&gt;
+Robert Blankshain  -&gt; Sir Cha Chi, Knight of the Dao&lt;/p&gt;&lt;p&gt;
+Paul Gabrielson -&gt; Sir SLOVelo of the Central Coast&lt;/p&gt;&lt;p&gt;
+Tommy Horton -&gt; Sir Tommy Horton&lt;/p&gt;&lt;p&gt;
+Art By: &lt;a href="https://noagendaartgenerator.com/artist/1339"&gt;Mountain Jay&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Engineering, Stream Management &amp; Wizardry&lt;/p&gt;&lt;p&gt;
+Mark van Dijk - Systems Master&lt;/p&gt;&lt;p&gt;
+Ryan Bemrose - Program Director&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;NEW:&lt;/b&gt; and soon on Netflix: &lt;a href="https://www.youtube.com/channel/UCihyXCKCTKZ0H6OQRpKN5qQ"&gt;Animated No Agenda&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+End of Show Mixes:  Neal Jones - Sir Dave - Danny Loos&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;Sign Up&lt;/b&gt; for the &lt;a href="http://www.dvorak.org/blog/no-agenda-mailing-list-signup-here/"&gt;newsletter&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+ShowNotes Archive of links and Assets (clips etc) &lt;a href="http://1282.noagendanotes.com/"&gt; 1282.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+New: Directory Archive of Shownotes (includes all audio and video assets used) &lt;a href="http://archive.noagendanotes.com/"&gt;archive.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+RSS Podcast&lt;a href="http://feed.nashownotes.com/rss.xml"&gt; Feed&lt;/a&gt; &lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://nanewsapp.com/"&gt;No Agenda News App&lt;/a&gt; for your iPhone and iPad&lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://www.noagendroid.com/"&gt;NoAgendDroid app&lt;/a&gt; for your Android Phone&lt;/p&gt;&lt;p&gt;
+&lt;a href="http://itm.im/opus"&gt;No Agenda Lite&lt;/a&gt; in opus format&lt;/p&gt;&lt;p&gt;
+&lt;a href="http://noagendatorrents.com"&gt;NoAgendaTorrents.com&lt;/a&gt; has an RSS feed or show torrents&lt;/p&gt;&lt;p&gt;
+&lt;font size= -1&gt;&lt;script&gt;document.write("Last Modified " + document.lastModified)&lt;/script&gt;&lt;/font&gt;&lt;br&gt;&lt;a href="http://freedomcontroller.com"&gt;&lt;font size= -2&gt;This page created with the FreedomController&lt;/font&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+&lt;naart:artwork&gt;17962&lt;/naart:artwork&gt;&lt;/p&gt;&lt;p&gt;
+Keywords&lt;/p&gt;</itunes:summary>
+      <itunes:author>Adam Curry &amp; John C. Dvorak</itunes:author>
+      <author>Adam Curry &amp; John C. Dvorak</author>
+      <itunes:image href="https://noagendaassets.com/enc/1601583808.056_na-1282-art-feed.png"/>
+      <itunes:explicit>No</itunes:explicit>
+      <itunes:keywords>curry,dvorak,noagenda,no,agenda,politics,douchebag</itunes:keywords>
+      <enclosure url="https://mp3s.nashownotes.com/NA-1282-2020-10-01-Final.mp3" length="150762937" type="audio/mpeg"/>
+    </item>
+    
+    <item>
+      <title>1281: "Talkin' Loudy"</title>
+      <description>&lt;p&gt;Show Notes&lt;/p&gt;&lt;p&gt;
+No Agenda Episode 1281 - "Talkin' Loudy"&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;"Talkin' Loudy"&lt;/b&gt;&lt;/p&gt;&lt;p&gt;
+&lt;audio style="width:400px; vertical-align:middle;" controls="true" preload="none"&gt;&lt;source src="https://mp3s.nashownotes.com/NA-1281-2020-09-27-Final.mp3" type="audio/mpeg"&gt;&lt;/audio&gt;&lt;/p&gt;&lt;p&gt;
+&lt;a href="https://mp3s.nashownotes.com/NA-1281-2020-09-27-Final.mp3"&gt;&lt;img width="256" height="256" align="right" alt="A picture named NA-1281-Art-SM" src="http://fcassets.curry.com.s3.wasabisys.com/enc/1601237639.946_na-1281-art-sm.png" border="0" vspace="5" hspace="15" &gt;&lt;br=""&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Direct [&lt;a href="https://mp3s.nashownotes.com/NA-1281-2020-09-27-Final.mp3"&gt;link&lt;/a&gt;] to the mp3 file&lt;/p&gt;&lt;p&gt;
+ShowNotes Archive of links and Assets (clips etc) &lt;a href="http://1281.noagendanotes.com/"&gt; 1281.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;Sign Up&lt;/b&gt; for the &lt;a href="http://www.dvorak.org/blog/no-agenda-mailing-list-signup-here/"&gt;newsletter&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Archive of Shownotes (includes all audio and video assets used) &lt;a href="http://archive.noagendanotes.com"&gt;archive.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+The No Agenda News Network- &lt;a href="http://noagendanewsnetwork.com/"&gt;noagendanewsnetwork.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+RSS Podcast&lt;a href="http://feed.nashownotes.com/rss.xml"&gt; Feed&lt;/a&gt; &lt;/p&gt;&lt;p&gt;
+Experimental IPFS RSS &lt;a href="http://feed.nashownotes.com/naipfsrss.xml"&gt;Feed&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://nanewsapp.com/"&gt;No Agenda News App&lt;/a&gt; for your iPhone and iPad&lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://www.noagendroid.com/"&gt;NoAgendDroid app&lt;/a&gt; for your Android Phone&lt;/p&gt;&lt;p&gt;
+&lt;a href="http://bitlove.org/adamc12811/noagenda"&gt;Torrents&lt;/a&gt; of each episode via BitLove&lt;/p&gt;&lt;p&gt;
+&lt;font size= -1&gt;&lt;script&gt;document.write("Last Modified " + document.lastModified)&lt;/script&gt;&lt;/font&gt;&lt;br&gt;&lt;a href="http://freedomcontroller.com"&gt;&lt;font size= -2&gt;This page created with the FreedomController&lt;/font&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Credits&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;"Talkin' Loudy"&lt;/b&gt;&lt;/p&gt;&lt;p&gt;
+Executive Producers: &lt;/p&gt;&lt;p&gt;
+Kevin Fitzpatrick&lt;/p&gt;&lt;p&gt;
+Sir Tactician from the fresh coast Sycamorepropertiestravis@gmail.com&lt;/p&gt;&lt;p&gt;
+Sir Jeffro of the Rock Wall&lt;/p&gt;&lt;p&gt;
+Associate Executive Producers: &lt;/p&gt;&lt;p&gt;
+Steven Reilly&lt;/p&gt;&lt;p&gt;
+Joseph Tisch&lt;/p&gt;&lt;p&gt;
+Sir Scott of Diablo&lt;/p&gt;&lt;p&gt;
+Sir K-Mack of Western PA&lt;/p&gt;&lt;p&gt;
+Lisa&lt;/p&gt;&lt;p&gt;
+Sir DH Slammer&lt;/p&gt;&lt;p&gt;
+Become a member of the 1282 Club, support the show &lt;a href="http://dvorak.org/na"&gt;here&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Title Changes&lt;/p&gt;&lt;p&gt;
+Sir Plus of Things -&gt; Baronet&lt;/p&gt;&lt;p&gt;
+Knights &amp; Dames&lt;/p&gt;&lt;p&gt;
+Melissa Fitzpatrick -&gt; Dame Lissa-bee of the Verdant Meadows&lt;/p&gt;&lt;p&gt;
+Dawn Jesseph -&gt; Dame Window Barrett of the Wild Frontier&lt;/p&gt;&lt;p&gt;
+Mike Fries -&gt; Sir Cer-Met, Knight of the Hard Inset&lt;/p&gt;&lt;p&gt;
+Art By: &lt;a href="https://noagendaartgenerator.com/artist/1092"&gt;Darren O'Neill&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Engineering, Stream Management &amp; Wizardry&lt;/p&gt;&lt;p&gt;
+Mark van Dijk - Systems Master&lt;/p&gt;&lt;p&gt;
+Ryan Bemrose - Program Director&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;NEW:&lt;/b&gt; and soon on Netflix: &lt;a href="https://www.youtube.com/channel/UCihyXCKCTKZ0H6OQRpKN5qQ"&gt;Animated No Agenda&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+End of Show Mixes:  Jesse Coy Nelson - Dude Named James - 60 second philosophy&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;Sign Up&lt;/b&gt; for the &lt;a href="http://www.dvorak.org/blog/no-agenda-mailing-list-signup-here/"&gt;newsletter&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+ShowNotes Archive of links and Assets (clips etc) &lt;a href="http://1281.noagendanotes.com/"&gt; 1281.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+New: Directory Archive of Shownotes (includes all audio and video assets used) &lt;a href="http://archive.noagendanotes.com/"&gt;archive.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+RSS Podcast&lt;a href="http://feed.nashownotes.com/rss.xml"&gt; Feed&lt;/a&gt; &lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://nanewsapp.com/"&gt;No Agenda News App&lt;/a&gt; for your iPhone and iPad&lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://www.noagendroid.com/"&gt;NoAgendDroid app&lt;/a&gt; for your Android Phone&lt;/p&gt;&lt;p&gt;
+&lt;a href="http://itm.im/opus"&gt;No Agenda Lite&lt;/a&gt; in opus format&lt;/p&gt;&lt;p&gt;
+&lt;a href="http://noagendatorrents.com"&gt;NoAgendaTorrents.com&lt;/a&gt; has an RSS feed or show torrents&lt;/p&gt;&lt;p&gt;
+&lt;font size= -1&gt;&lt;script&gt;document.write("Last Modified " + document.lastModified)&lt;/script&gt;&lt;/font&gt;&lt;br&gt;&lt;a href="http://freedomcontroller.com"&gt;&lt;font size= -2&gt;This page created with the FreedomController&lt;/font&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+&lt;naart:artwork&gt;17884&lt;/naart:artwork&gt;&lt;/p&gt;&lt;p&gt;
+Keywords&lt;/p&gt;</description>
+      <link>http://1281.noagendanotes.com/</link>
+      <guid isPermaLink="true">http://1281.noagendanotes.com/</guid>
+      <pubDate>Sun, 27 Sep 2020 20:18:20 GMT</pubDate>
+      <itunes:subtitle>1281: "Talkin' Loudy"</itunes:subtitle>
+      <itunes:summary>&lt;p&gt;Show Notes&lt;/p&gt;&lt;p&gt;
+No Agenda Episode 1281 - "Talkin' Loudy"&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;"Talkin' Loudy"&lt;/b&gt;&lt;/p&gt;&lt;p&gt;
+&lt;audio style="width:400px; vertical-align:middle;" controls="true" preload="none"&gt;&lt;source src="https://mp3s.nashownotes.com/NA-1281-2020-09-27-Final.mp3" type="audio/mpeg"&gt;&lt;/audio&gt;&lt;/p&gt;&lt;p&gt;
+&lt;a href="https://mp3s.nashownotes.com/NA-1281-2020-09-27-Final.mp3"&gt;&lt;img width="256" height="256" align="right" alt="A picture named NA-1281-Art-SM" src="http://fcassets.curry.com.s3.wasabisys.com/enc/1601237639.946_na-1281-art-sm.png" border="0" vspace="5" hspace="15" &gt;&lt;br=""&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Direct [&lt;a href="https://mp3s.nashownotes.com/NA-1281-2020-09-27-Final.mp3"&gt;link&lt;/a&gt;] to the mp3 file&lt;/p&gt;&lt;p&gt;
+ShowNotes Archive of links and Assets (clips etc) &lt;a href="http://1281.noagendanotes.com/"&gt; 1281.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;Sign Up&lt;/b&gt; for the &lt;a href="http://www.dvorak.org/blog/no-agenda-mailing-list-signup-here/"&gt;newsletter&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Archive of Shownotes (includes all audio and video assets used) &lt;a href="http://archive.noagendanotes.com"&gt;archive.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+The No Agenda News Network- &lt;a href="http://noagendanewsnetwork.com/"&gt;noagendanewsnetwork.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+RSS Podcast&lt;a href="http://feed.nashownotes.com/rss.xml"&gt; Feed&lt;/a&gt; &lt;/p&gt;&lt;p&gt;
+Experimental IPFS RSS &lt;a href="http://feed.nashownotes.com/naipfsrss.xml"&gt;Feed&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://nanewsapp.com/"&gt;No Agenda News App&lt;/a&gt; for your iPhone and iPad&lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://www.noagendroid.com/"&gt;NoAgendDroid app&lt;/a&gt; for your Android Phone&lt;/p&gt;&lt;p&gt;
+&lt;a href="http://bitlove.org/adamc12811/noagenda"&gt;Torrents&lt;/a&gt; of each episode via BitLove&lt;/p&gt;&lt;p&gt;
+&lt;font size= -1&gt;&lt;script&gt;document.write("Last Modified " + document.lastModified)&lt;/script&gt;&lt;/font&gt;&lt;br&gt;&lt;a href="http://freedomcontroller.com"&gt;&lt;font size= -2&gt;This page created with the FreedomController&lt;/font&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Credits&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;"Talkin' Loudy"&lt;/b&gt;&lt;/p&gt;&lt;p&gt;
+Executive Producers: &lt;/p&gt;&lt;p&gt;
+Kevin Fitzpatrick&lt;/p&gt;&lt;p&gt;
+Sir Tactician from the fresh coast Sycamorepropertiestravis@gmail.com&lt;/p&gt;&lt;p&gt;
+Sir Jeffro of the Rock Wall&lt;/p&gt;&lt;p&gt;
+Associate Executive Producers: &lt;/p&gt;&lt;p&gt;
+Steven Reilly&lt;/p&gt;&lt;p&gt;
+Joseph Tisch&lt;/p&gt;&lt;p&gt;
+Sir Scott of Diablo&lt;/p&gt;&lt;p&gt;
+Sir K-Mack of Western PA&lt;/p&gt;&lt;p&gt;
+Lisa&lt;/p&gt;&lt;p&gt;
+Sir DH Slammer&lt;/p&gt;&lt;p&gt;
+Become a member of the 1282 Club, support the show &lt;a href="http://dvorak.org/na"&gt;here&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Title Changes&lt;/p&gt;&lt;p&gt;
+Sir Plus of Things -&gt; Baronet&lt;/p&gt;&lt;p&gt;
+Knights &amp; Dames&lt;/p&gt;&lt;p&gt;
+Melissa Fitzpatrick -&gt; Dame Lissa-bee of the Verdant Meadows&lt;/p&gt;&lt;p&gt;
+Dawn Jesseph -&gt; Dame Window Barrett of the Wild Frontier&lt;/p&gt;&lt;p&gt;
+Mike Fries -&gt; Sir Cer-Met, Knight of the Hard Inset&lt;/p&gt;&lt;p&gt;
+Art By: &lt;a href="https://noagendaartgenerator.com/artist/1092"&gt;Darren O'Neill&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Engineering, Stream Management &amp; Wizardry&lt;/p&gt;&lt;p&gt;
+Mark van Dijk - Systems Master&lt;/p&gt;&lt;p&gt;
+Ryan Bemrose - Program Director&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;NEW:&lt;/b&gt; and soon on Netflix: &lt;a href="https://www.youtube.com/channel/UCihyXCKCTKZ0H6OQRpKN5qQ"&gt;Animated No Agenda&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+End of Show Mixes:  Jesse Coy Nelson - Dude Named James - 60 second philosophy&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;Sign Up&lt;/b&gt; for the &lt;a href="http://www.dvorak.org/blog/no-agenda-mailing-list-signup-here/"&gt;newsletter&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+ShowNotes Archive of links and Assets (clips etc) &lt;a href="http://1281.noagendanotes.com/"&gt; 1281.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+New: Directory Archive of Shownotes (includes all audio and video assets used) &lt;a href="http://archive.noagendanotes.com/"&gt;archive.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+RSS Podcast&lt;a href="http://feed.nashownotes.com/rss.xml"&gt; Feed&lt;/a&gt; &lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://nanewsapp.com/"&gt;No Agenda News App&lt;/a&gt; for your iPhone and iPad&lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://www.noagendroid.com/"&gt;NoAgendDroid app&lt;/a&gt; for your Android Phone&lt;/p&gt;&lt;p&gt;
+&lt;a href="http://itm.im/opus"&gt;No Agenda Lite&lt;/a&gt; in opus format&lt;/p&gt;&lt;p&gt;
+&lt;a href="http://noagendatorrents.com"&gt;NoAgendaTorrents.com&lt;/a&gt; has an RSS feed or show torrents&lt;/p&gt;&lt;p&gt;
+&lt;font size= -1&gt;&lt;script&gt;document.write("Last Modified " + document.lastModified)&lt;/script&gt;&lt;/font&gt;&lt;br&gt;&lt;a href="http://freedomcontroller.com"&gt;&lt;font size= -2&gt;This page created with the FreedomController&lt;/font&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+&lt;naart:artwork&gt;17884&lt;/naart:artwork&gt;&lt;/p&gt;&lt;p&gt;
+Keywords&lt;/p&gt;</itunes:summary>
+      <itunes:author>Adam Curry &amp; John C. Dvorak</itunes:author>
+      <author>Adam Curry &amp; John C. Dvorak</author>
+      <itunes:image href="http://fcassets.curry.com.s3.wasabisys.com/enc/1601237886.578_na-1281-art-feed.png"/>
+      <itunes:explicit>No</itunes:explicit>
+      <itunes:keywords>curry,dvorak,noagenda,no,agenda,politics,douchebag</itunes:keywords>
+      <enclosure url="https://mp3s.nashownotes.com/NA-1281-2020-09-27-Final.mp3" length="154276302" type="audio/mpeg"/>
+    </item>
+    
+    <item>
+      <title>1280: "Deplatformed Duo"</title>
+      <description>&lt;p&gt;Show Notes&lt;/p&gt;&lt;p&gt;
+No Agenda Episode 1280 - "Deplatformed Duo"&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;"RBG Down!"&lt;/b&gt;&lt;/p&gt;&lt;p&gt;
+&lt;audio style="width:400px; vertical-align:middle;" controls="true" preload="none"&gt;&lt;source src="https://mp3s.nashownotes.com/NA-1280-2020-09-24-Final.mp3" type="audio/mpeg"&gt;&lt;/audio&gt;&lt;/p&gt;&lt;p&gt;
+&lt;a href="https://mp3s.nashownotes.com/NA-1280-2020-09-24-Final.mp3"&gt;&lt;img width="256" height="256" align="right" alt="A picture named NA-1280-Art-SM" src="http://fcassets.curry.com.s3.wasabisys.com/enc/1600976394.815_na-1280-art-sm.png" border="0" vspace="5" hspace="15" &gt;&lt;br=""&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Direct [&lt;a href="https://mp3s.nashownotes.com/NA-1280-2020-09-24-Final.mp3"&gt;link&lt;/a&gt;] to the mp3 file&lt;/p&gt;&lt;p&gt;
+ShowNotes Archive of links and Assets (clips etc) &lt;a href="http://1280.noagendanotes.com/"&gt; 1280.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;Sign Up&lt;/b&gt; for the &lt;a href="http://www.dvorak.org/blog/no-agenda-mailing-list-signup-here/"&gt;newsletter&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Archive of Shownotes (includes all audio and video assets used) &lt;a href="http://archive.noagendanotes.com"&gt;archive.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+The No Agenda News Network- &lt;a href="http://noagendanewsnetwork.com/"&gt;noagendanewsnetwork.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+RSS Podcast&lt;a href="http://feed.nashownotes.com/rss.xml"&gt; Feed&lt;/a&gt; &lt;/p&gt;&lt;p&gt;
+Experimental IPFS RSS &lt;a href="http://feed.nashownotes.com/naipfsrss.xml"&gt;Feed&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://nanewsapp.com/"&gt;No Agenda News App&lt;/a&gt; for your iPhone and iPad&lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://www.noagendroid.com/"&gt;NoAgendDroid app&lt;/a&gt; for your Android Phone&lt;/p&gt;&lt;p&gt;
+&lt;a href="http://bitlove.org/adamc12801/noagenda"&gt;Torrents&lt;/a&gt; of each episode via BitLove&lt;/p&gt;&lt;p&gt;
+&lt;font size= -1&gt;&lt;script&gt;document.write("Last Modified " + document.lastModified)&lt;/script&gt;&lt;/font&gt;&lt;br&gt;&lt;a href="http://freedomcontroller.com"&gt;&lt;font size= -2&gt;This page created with the FreedomController&lt;/font&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Credits&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;"Deplatformed Duo"&lt;/b&gt;&lt;/p&gt;&lt;p&gt;
+Executive Producers: &lt;/p&gt;&lt;p&gt;
+Sir Mittens of Falls City&lt;/p&gt;&lt;p&gt;
+Sir Dirt Farmer&lt;/p&gt;&lt;p&gt;
+Joe&lt;/p&gt;&lt;p&gt;
+Bill Sola&lt;/p&gt;&lt;p&gt;
+Sir Jimmy-Vee&lt;/p&gt;&lt;p&gt;
+Sir Cal of Lavender Blossoms&lt;/p&gt;&lt;p&gt;
+Sir Luca of Switzerland&lt;/p&gt;&lt;p&gt;
+Dame Anonymous of Colonial Place&lt;/p&gt;&lt;p&gt;
+Associate Executive Producers: &lt;/p&gt;&lt;p&gt;
+Noah Watenmaker aka Sir Quoia of the Sierra Batholith&lt;/p&gt;&lt;p&gt;
+Sir Micky Keck&lt;/p&gt;&lt;p&gt;
+Allison Flesch&lt;/p&gt;&lt;p&gt;
+David Wright&lt;/p&gt;&lt;p&gt;
+Sir JoeBwan of Weekapaug&lt;/p&gt;&lt;p&gt;
+Anonymous&lt;/p&gt;&lt;p&gt;
+1280 Club Members: &lt;/p&gt;&lt;p&gt;
+Sir Mittens of Falls City&lt;/p&gt;&lt;p&gt;
+Become a member of the 1281 Club, support the show &lt;a href="http://dvorak.org/na"&gt;here&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Title Changes&lt;/p&gt;&lt;p&gt;
+Sir Tom Dary -&gt; Baron&lt;/p&gt;&lt;p&gt;
+Knights &amp; Dames&lt;/p&gt;&lt;p&gt;
+Sarah Keck -&gt; Dame Sarah, Ruler of Small Dogs&lt;/p&gt;&lt;p&gt;
+Luca Asbtero -&gt; Sir Luca of Switzerland &lt;/p&gt;&lt;p&gt;
+Art By: &lt;a href="https://noagendaartgenerator.com/artist/1092"&gt;Darren O'Neill&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Engineering, Stream Management &amp; Wizardry&lt;/p&gt;&lt;p&gt;
+Mark van Dijk - Systems Master&lt;/p&gt;&lt;p&gt;
+Ryan Bemrose - Program Director&lt;/p&gt;&lt;p&gt;
+End of Show Mixes:  Rexo Kwozo - Jesse Coy Nelson - Rolando Gonzalez&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;NEW:&lt;/b&gt; and soon on Netflix: &lt;a href="https://www.youtube.com/channel/UCihyXCKCTKZ0H6OQRpKN5qQ"&gt;Animated No Agenda&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;Sign Up&lt;/b&gt; for the &lt;a href="http://www.dvorak.org/blog/no-agenda-mailing-list-signup-here/"&gt;newsletter&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+ShowNotes Archive of links and Assets (clips etc) &lt;a href="http://1280.noagendanotes.com/"&gt; 1280.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+New: Directory Archive of Shownotes (includes all audio and video assets used) &lt;a href="http://archive.noagendanotes.com/"&gt;archive.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+RSS Podcast&lt;a href="http://feed.nashownotes.com/rss.xml"&gt; Feed&lt;/a&gt; &lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://nanewsapp.com/"&gt;No Agenda News App&lt;/a&gt; for your iPhone and iPad&lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://www.noagendroid.com/"&gt;NoAgendDroid app&lt;/a&gt; for your Android Phone&lt;/p&gt;&lt;p&gt;
+&lt;a href="http://itm.im/opus"&gt;No Agenda Lite&lt;/a&gt; in opus format&lt;/p&gt;&lt;p&gt;
+&lt;a href="http://noagendatorrents.com"&gt;NoAgendaTorrents.com&lt;/a&gt; has an RSS feed or show torrents&lt;/p&gt;&lt;p&gt;
+&lt;font size= -1&gt;&lt;script&gt;document.write("Last Modified " + document.lastModified)&lt;/script&gt;&lt;/font&gt;&lt;br&gt;&lt;a href="http://freedomcontroller.com"&gt;&lt;font size= -2&gt;This page created with the FreedomController&lt;/font&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+&lt;naart:artwork&gt;17837&lt;/naart:artwork&gt;&lt;/p&gt;&lt;p&gt;
+Keywords&lt;/p&gt;</description>
+      <link>http://1280.noagendanotes.com/</link>
+      <guid isPermaLink="true">http://1280.noagendanotes.com/</guid>
+      <pubDate>Thu, 24 Sep 2020 19:47:45 GMT</pubDate>
+      <itunes:subtitle>1280: "Deplatformed Duo"</itunes:subtitle>
+      <itunes:summary>&lt;p&gt;Show Notes&lt;/p&gt;&lt;p&gt;
+No Agenda Episode 1280 - "Deplatformed Duo"&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;"RBG Down!"&lt;/b&gt;&lt;/p&gt;&lt;p&gt;
+&lt;audio style="width:400px; vertical-align:middle;" controls="true" preload="none"&gt;&lt;source src="https://mp3s.nashownotes.com/NA-1280-2020-09-24-Final.mp3" type="audio/mpeg"&gt;&lt;/audio&gt;&lt;/p&gt;&lt;p&gt;
+&lt;a href="https://mp3s.nashownotes.com/NA-1280-2020-09-24-Final.mp3"&gt;&lt;img width="256" height="256" align="right" alt="A picture named NA-1280-Art-SM" src="http://fcassets.curry.com.s3.wasabisys.com/enc/1600976394.815_na-1280-art-sm.png" border="0" vspace="5" hspace="15" &gt;&lt;br=""&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Direct [&lt;a href="https://mp3s.nashownotes.com/NA-1280-2020-09-24-Final.mp3"&gt;link&lt;/a&gt;] to the mp3 file&lt;/p&gt;&lt;p&gt;
+ShowNotes Archive of links and Assets (clips etc) &lt;a href="http://1280.noagendanotes.com/"&gt; 1280.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;Sign Up&lt;/b&gt; for the &lt;a href="http://www.dvorak.org/blog/no-agenda-mailing-list-signup-here/"&gt;newsletter&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Archive of Shownotes (includes all audio and video assets used) &lt;a href="http://archive.noagendanotes.com"&gt;archive.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+The No Agenda News Network- &lt;a href="http://noagendanewsnetwork.com/"&gt;noagendanewsnetwork.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+RSS Podcast&lt;a href="http://feed.nashownotes.com/rss.xml"&gt; Feed&lt;/a&gt; &lt;/p&gt;&lt;p&gt;
+Experimental IPFS RSS &lt;a href="http://feed.nashownotes.com/naipfsrss.xml"&gt;Feed&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://nanewsapp.com/"&gt;No Agenda News App&lt;/a&gt; for your iPhone and iPad&lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://www.noagendroid.com/"&gt;NoAgendDroid app&lt;/a&gt; for your Android Phone&lt;/p&gt;&lt;p&gt;
+&lt;a href="http://bitlove.org/adamc12801/noagenda"&gt;Torrents&lt;/a&gt; of each episode via BitLove&lt;/p&gt;&lt;p&gt;
+&lt;font size= -1&gt;&lt;script&gt;document.write("Last Modified " + document.lastModified)&lt;/script&gt;&lt;/font&gt;&lt;br&gt;&lt;a href="http://freedomcontroller.com"&gt;&lt;font size= -2&gt;This page created with the FreedomController&lt;/font&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Credits&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;"Deplatformed Duo"&lt;/b&gt;&lt;/p&gt;&lt;p&gt;
+Executive Producers: &lt;/p&gt;&lt;p&gt;
+Sir Mittens of Falls City&lt;/p&gt;&lt;p&gt;
+Sir Dirt Farmer&lt;/p&gt;&lt;p&gt;
+Joe&lt;/p&gt;&lt;p&gt;
+Bill Sola&lt;/p&gt;&lt;p&gt;
+Sir Jimmy-Vee&lt;/p&gt;&lt;p&gt;
+Sir Cal of Lavender Blossoms&lt;/p&gt;&lt;p&gt;
+Sir Luca of Switzerland&lt;/p&gt;&lt;p&gt;
+Dame Anonymous of Colonial Place&lt;/p&gt;&lt;p&gt;
+Associate Executive Producers: &lt;/p&gt;&lt;p&gt;
+Noah Watenmaker aka Sir Quoia of the Sierra Batholith&lt;/p&gt;&lt;p&gt;
+Sir Micky Keck&lt;/p&gt;&lt;p&gt;
+Allison Flesch&lt;/p&gt;&lt;p&gt;
+David Wright&lt;/p&gt;&lt;p&gt;
+Sir JoeBwan of Weekapaug&lt;/p&gt;&lt;p&gt;
+Anonymous&lt;/p&gt;&lt;p&gt;
+1280 Club Members: &lt;/p&gt;&lt;p&gt;
+Sir Mittens of Falls City&lt;/p&gt;&lt;p&gt;
+Become a member of the 1281 Club, support the show &lt;a href="http://dvorak.org/na"&gt;here&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Title Changes&lt;/p&gt;&lt;p&gt;
+Sir Tom Dary -&gt; Baron&lt;/p&gt;&lt;p&gt;
+Knights &amp; Dames&lt;/p&gt;&lt;p&gt;
+Sarah Keck -&gt; Dame Sarah, Ruler of Small Dogs&lt;/p&gt;&lt;p&gt;
+Luca Asbtero -&gt; Sir Luca of Switzerland &lt;/p&gt;&lt;p&gt;
+Art By: &lt;a href="https://noagendaartgenerator.com/artist/1092"&gt;Darren O'Neill&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+Engineering, Stream Management &amp; Wizardry&lt;/p&gt;&lt;p&gt;
+Mark van Dijk - Systems Master&lt;/p&gt;&lt;p&gt;
+Ryan Bemrose - Program Director&lt;/p&gt;&lt;p&gt;
+End of Show Mixes:  Rexo Kwozo - Jesse Coy Nelson - Rolando Gonzalez&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;NEW:&lt;/b&gt; and soon on Netflix: &lt;a href="https://www.youtube.com/channel/UCihyXCKCTKZ0H6OQRpKN5qQ"&gt;Animated No Agenda&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+&lt;b&gt;Sign Up&lt;/b&gt; for the &lt;a href="http://www.dvorak.org/blog/no-agenda-mailing-list-signup-here/"&gt;newsletter&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+ShowNotes Archive of links and Assets (clips etc) &lt;a href="http://1280.noagendanotes.com/"&gt; 1280.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+New: Directory Archive of Shownotes (includes all audio and video assets used) &lt;a href="http://archive.noagendanotes.com/"&gt;archive.noagendanotes.com&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+RSS Podcast&lt;a href="http://feed.nashownotes.com/rss.xml"&gt; Feed&lt;/a&gt; &lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://nanewsapp.com/"&gt;No Agenda News App&lt;/a&gt; for your iPhone and iPad&lt;/p&gt;&lt;p&gt;
+Get the &lt;a href="http://www.noagendroid.com/"&gt;NoAgendDroid app&lt;/a&gt; for your Android Phone&lt;/p&gt;&lt;p&gt;
+&lt;a href="http://itm.im/opus"&gt;No Agenda Lite&lt;/a&gt; in opus format&lt;/p&gt;&lt;p&gt;
+&lt;a href="http://noagendatorrents.com"&gt;NoAgendaTorrents.com&lt;/a&gt; has an RSS feed or show torrents&lt;/p&gt;&lt;p&gt;
+&lt;font size= -1&gt;&lt;script&gt;document.write("Last Modified " + document.lastModified)&lt;/script&gt;&lt;/font&gt;&lt;br&gt;&lt;a href="http://freedomcontroller.com"&gt;&lt;font size= -2&gt;This page created with the FreedomController&lt;/font&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+&lt;naart:artwork&gt;17837&lt;/naart:artwork&gt;&lt;/p&gt;&lt;p&gt;
+Keywords&lt;/p&gt;</itunes:summary>
+      <itunes:author>Adam Curry &amp; John C. Dvorak</itunes:author>
+      <author>Adam Curry &amp; John C. Dvorak</author>
+      <itunes:image href="http://fcassets.curry.com.s3.wasabisys.com/enc/1600976850.448_na-1280-art-feed.png"/>
+      <itunes:explicit>No</itunes:explicit>
+      <itunes:keywords>curry,dvorak,noagenda,no,agenda,politics,douchebag</itunes:keywords>
+      <enclosure url="https://mp3s.nashownotes.com/NA-1280-2020-09-24-Final.mp3" length="140617501" type="audio/mpeg"/>
     </item>
   </channel>
 </rss>

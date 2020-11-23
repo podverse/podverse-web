@@ -10,8 +10,8 @@ html {
 
   .open-in-the-app-modal {
     .open-in-the-app-modal__i-have-the-app-wrapper {
-      margin-bottom: 32px;
-      margin-top: 32px;
+      margin-bottom: 12px;
+      margin-top: 24px;
 
       text-align: center;
 
@@ -27,12 +27,12 @@ html {
     }
 
     .open-in-the-app-modal__download-app {
-      margin-bottom: 16px;
+      margin-bottom: 12px;
       text-align: center;
 
       .download-on-the-app-store {
         background: url(https://linkmaker.itunes.apple.com/en-us/badge-lrg.svg?releaseDate=2018-07-28&kind=iossoftware&bubble=ios_apps) no-repeat;
-        display: block;
+        flex: 0 0 auto;
         height: 40px;
         margin: auto;
         overflow: hidden;
@@ -40,7 +40,7 @@ html {
       }
   
       .get-it-on-google-play {
-        display: block;
+        flex: 0 0 auto;
         margin-bottom: -16px;
         margin-top: -8px;
         position: relative;
@@ -48,6 +48,18 @@ html {
         img {
           width: 152px;
         }
+      }
+
+      .get-it-on-fdroid {
+        background-image: url('/images/get-it-on-fdroid.png');
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        display: block;
+        height: 40px;
+        margin: 8px auto;
+        overflow: hidden;
+        width: 135px;
       }
     }
   }

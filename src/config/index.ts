@@ -41,6 +41,7 @@ export interface Config {
   SOCIAL_TWITTER_PAGE_URL?: string
   CONTACT_FORM_URL?: string
   APP_DOWNLOAD_ON_THE_APP_STORE_URL: string
+  APP_GET_IT_ON_FDROID_URL: string
   APP_GET_IT_ON_GOOGLE_PLAY_URL: string
   APP_PROTOCOL: string
 }
@@ -80,6 +81,7 @@ export default () => {
     SOCIAL_TWITTER_PAGE_URL: publicRuntimeConfig.SOCIAL_TWITTER_PAGE_URL,
     CONTACT_FORM_URL: publicRuntimeConfig.CONTACT_FORM_URL,
     APP_DOWNLOAD_ON_THE_APP_STORE_URL: publicRuntimeConfig.APP_DOWNLOAD_ON_THE_APP_STORE_URL,
+    APP_GET_IT_ON_FDROID_URL: publicRuntimeConfig.APP_GET_IT_ON_FDROID_URL,
     APP_GET_IT_ON_GOOGLE_PLAY_URL: publicRuntimeConfig.APP_GET_IT_ON_GOOGLE_PLAY_URL,
     APP_PROTOCOL: publicRuntimeConfig.APP_PROTOCOL
   }
