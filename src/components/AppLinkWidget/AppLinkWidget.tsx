@@ -165,7 +165,7 @@ class AppLinkWidget extends Component<Props, State> {
         <Modal
           appElement={appEl}
           contentLabel={t('OpenInApp')}
-          isOpen={!modalIsOpen}
+          isOpen={modalIsOpen}
           onRequestClose={this._handleHideModal}
           portalClassName='open-in-the-app-modal over-media-player'
           shouldCloseOnOverlayClick
