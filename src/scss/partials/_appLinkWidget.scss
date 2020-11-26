@@ -32,10 +32,9 @@ html {
 
       .download-on-the-app-store {
         background: url(https://linkmaker.itunes.apple.com/en-us/badge-lrg.svg?releaseDate=2018-07-28&kind=iossoftware&bubble=ios_apps) no-repeat;
-        flex: 0 0 auto;
+        display: inline-block;
         height: 40px;
-        margin: auto;
-        overflow: hidden;
+        margin-top: 0.5rem;
         width: 135px;
       }
   
