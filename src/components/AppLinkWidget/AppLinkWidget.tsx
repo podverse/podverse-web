@@ -160,24 +160,24 @@ class AppLinkWidget extends Component<Props, State> {
             className='app-link-widget__open-in-app'
             onClick={this._handleShowModal}
             outline={true}
-            text={t('OpenInTheApp')} />
+            text={t('OpenInApp')} />
         </div>
         <Modal
           appElement={appEl}
-          contentLabel={t('OpenInTheApp')}
-          isOpen={modalIsOpen}
+          contentLabel={t('OpenInApp')}
+          isOpen={!modalIsOpen}
           onRequestClose={this._handleHideModal}
           portalClassName='open-in-the-app-modal over-media-player'
           shouldCloseOnOverlayClick
           style={customStyles}>
-          <h3><FontAwesomeIcon icon='mobile-alt' /> &nbsp;{t('OpenInTheApp')}</h3>
+          <h3><FontAwesomeIcon icon='mobile-alt' /> &nbsp;{t('Mobile App')}</h3>
           <CloseButton onClick={this._handleHideModal} />
           <div className='open-in-the-app-modal__i-have-the-app-wrapper'>
             <Button
               className={`open-in-the-app-modal__i-have-the-app ${mobileOS}`}
               onClick={this.handleOpenInApp}
               outline={true}
-              text={t('IHaveTheApp')} />
+              text={t('OpenInApp')} />
           </div>
           <div className='open-in-the-app-modal__download-app'>
             {downloadButton}
