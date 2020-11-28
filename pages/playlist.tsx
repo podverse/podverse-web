@@ -116,15 +116,15 @@ class Playlist extends Component<Props, State> {
     const { playlist } = this.state
     const itemsOrder = playlist.itemsOrder
 
-    const sortedPlaylistItems = itemsOrder.map(id => {
+    const sortedPlaylistItems = itemsOrder.reduce((results, id) => {
       const items = playlistItems.filter(y => y.id === id)
       if (items.length > 0) {
         const index = playlistItems.indexOf(items[0])
         playlistItems.splice(index, 1)
-        return items[0]
+        results.push(items[0])
       }
-      return {}
-    })
+      return results
+    }, [])
 
     let sortedNowPlayingItems = sortedPlaylistItems.concat(playlistItems).map(
       x => convertToNowPlayingItem(x)
@@ -472,153 +472,155 @@ class Playlist extends Component<Props, State> {
           twitterDescription={meta.description}
           twitterTitle={meta.title} />
         <h3>{t('Playlist')}</h3>
-        <div className='media-header'>
-          <div className='text-wrapper'>
-            <div className='media-header__top'>
-              {
-                !isEditing &&
-                  <Fragment>
-                    <div className='media-header__title'>
-                      {title ? title : t('untitledPlaylist')}
-                    </div>
-                  </Fragment>
-              }
-              {
-                !isEditing &&
-                  <div className='media-header-top__buttons'>
+        <div className='playlist'>
+          <div className='media-header'>
+            <div className='text-wrapper'>
+              <div className='media-header__top'>
+                {
+                  !isEditing &&
                     <Fragment>
-                      {
-                        (user && user.id
-                          && playlist && playlist.owner
-                          && user.id === playlist.owner.id) &&
-                          <button
-                            className='media-header__edit'
-                            onClick={this.startEditing}>
-                            <FontAwesomeIcon icon='edit' />
-                          </button>
-                      }
-                      {
-                      (!user.id || (user && user.id
-                        && playlist && playlist.owner
-                        && user.id !== playlist.owner.id)) &&
-                        <Pill
-                          isActive={isSubscribed}
-                          isLoading={isSubscribing}
-                          onClick={this.toggleSubscribe}
-                          text={isSubscribed ? t('Subscribed') : t('Subscribe')}
-                          title={isSubscribed ? t('Subscribed') : t('Subscribe')} />
-                      }
+                      <div className='media-header__title'>
+                        {title ? title : t('untitledPlaylist')}
+                      </div>
                     </Fragment>
-                  </div>
-              }
-              {
-                isEditing &&
-                  <div className='media-header__title-edit'>
-                    <Input
-                      innerRef={this.inputTitle}
-                      name='playlist__title'
-                      onChange={this.handleTitleInputChange}
-                      placeholder='title'
-                      type='text'
-                      value={newTitle} />
-                  </div>
-              }
-            </div>
-            <div className='media-header__middle'>
-              <div className='media-header__sub-title'>
-              {
-                owner && !isEditing &&
-                  <Fragment>{t('By')}: {owner.name ? owner.name : t('Anonymous')}</Fragment>
-              }
+                }
+                {
+                  !isEditing &&
+                    <div className='media-header-top__buttons'>
+                      <Fragment>
+                        {
+                          (user && user.id
+                            && playlist && playlist.owner
+                            && user.id === playlist.owner.id) &&
+                            <button
+                              className='media-header__edit'
+                              onClick={this.startEditing}>
+                              <FontAwesomeIcon icon='edit' />
+                            </button>
+                        }
+                        {
+                        (!user.id || (user && user.id
+                          && playlist && playlist.owner
+                          && user.id !== playlist.owner.id)) &&
+                          <Pill
+                            isActive={isSubscribed}
+                            isLoading={isSubscribing}
+                            onClick={this.toggleSubscribe}
+                            text={isSubscribed ? t('Subscribed') : t('Subscribe')}
+                            title={isSubscribed ? t('Subscribed') : t('Subscribe')} />
+                        }
+                      </Fragment>
+                    </div>
+                }
+                {
+                  isEditing &&
+                    <div className='media-header__title-edit'>
+                      <Input
+                        innerRef={this.inputTitle}
+                        name='playlist__title'
+                        onChange={this.handleTitleInputChange}
+                        placeholder='title'
+                        type='text'
+                        value={newTitle} />
+                    </div>
+                }
+              </div>
+              <div className='media-header__middle'>
+                <div className='media-header__sub-title'>
+                {
+                  owner && !isEditing &&
+                    <Fragment>{t('By')}: {owner.name ? owner.name : t('Anonymous')}</Fragment>
+                }
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div className='media-info' style={{ paddingTop: 0 }}>
-          {
-            !isEditing &&
-              <Fragment>
-                {
-                  lastUpdated &&
-                  <div className='media-info__last-updated'>
-                    {t('Updated')}: {readableDate(lastUpdated)}
-                  </div>
-                }
-                {
-                  (itemCount || itemCount === 0) &&
-                  <div className='media-info__item-count'>
-                    {t('Items')}: {itemCount}
-                  </div>
-                }
-              </Fragment>
-          }
-          {
-            isEditing &&
-              <div className='media-info__description-edit'>
-                <Input
-                  innerRef={this.inputDescription}
-                  name='playlist__description'
-                  onChange={this.handleDescriptionInputChange}
-                  placeholder='description'
-                  type='textarea'
-                  value={newDescription} />
+          <div className='media-info' style={{ paddingTop: 0 }}>
+            {
+              !isEditing &&
+                <Fragment>
+                  {
+                    lastUpdated &&
+                    <div className='media-info__last-updated'>
+                      {t('Updated')}: {readableDate(lastUpdated)}
+                    </div>
+                  }
+                  {
+                    (itemCount || itemCount === 0) &&
+                    <div className='media-info__item-count'>
+                      {t('Items')}: {itemCount}
+                    </div>
+                  }
+                </Fragment>
+            }
+            {
+              isEditing &&
+                <div className='media-info__description-edit'>
+                  <Input
+                    innerRef={this.inputDescription}
+                    name='playlist__description'
+                    onChange={this.handleDescriptionInputChange}
+                    placeholder='description'
+                    type='textarea'
+                    value={newDescription} />
+                </div>
+            }
+            {
+              (!isEditing && description) &&
+                <div className='media-info__description'>
+                  {description ? description.sanitize(censorNSFWText) : ''}
+                </div>
+            }
+            {
+              isEditing &&
+              <div className='playlist-edit-btns'>
+                <Button
+                  className='playlist-edit-btns__delete'
+                  disabled={isDeleting || isUpdating}
+                  color='danger'
+                  isLoading={isDeleting}
+                  onClick={this.deletePlaylist}
+                  text={t('Delete')} />
+                <Button
+                  className='playlist-edit-btns__cancel'
+                  disabled={isDeleting || isUpdating}
+                  onClick={this.cancelEditing}
+                  text={t('Cancel')} />
+                <Button
+                  className='playlist-edit-btns__update'
+                  color='primary'
+                  disabled={isDeleting || isUpdating}
+                  isLoading={isUpdating}
+                  onClick={this.updatePlaylist}
+                  text={t('Update')} />
               </div>
-          }
-          {
-            (!isEditing && description) &&
-              <div className='media-info__description'>
-                {description ? description.sanitize(censorNSFWText) : ''}
-              </div>
-          }
-          {
-            isEditing &&
-            <div className='playlist-edit-btns'>
-              <Button
-                className='playlist-edit-btns__delete'
-                disabled={isDeleting || isUpdating}
-                color='danger'
-                isLoading={isDeleting}
-                onClick={this.deletePlaylist}
-                text={t('Delete')} />
-              <Button
-                className='playlist-edit-btns__cancel'
-                disabled={isDeleting || isUpdating}
-                onClick={this.cancelEditing}
-                text={t('Cancel')} />
-              <Button
-                className='playlist-edit-btns__update'
-                color='primary'
-                disabled={isDeleting || isUpdating}
-                isLoading={isUpdating}
-                onClick={this.updatePlaylist}
-                text={t('Update')} />
-            </div>
-          }
-        </div>
-        <div className='media-list'>
-          {
-            (listItemNodes && listItemNodes.length > 0) &&
-              <Fragment>
-                <DragDropContext onDragEnd={this.onDragEnd}>
-                  <Droppable droppableId='playlist-items'>
-                    {(provided, snapshot) => (
-                      <div
-                        ref={provided.innerRef}
-                        style={{ backgroundColor: snapshot.isDraggingOver ? 'blue' : 'transparent' }}
-                        {...provided.droppableProps}>
-                        {listItemNodes}
-                      </div>
-                    )}
-                  </Droppable>
-                </DragDropContext>
-              </Fragment>
-          }
-          {
-            (!isLoading && listItemNodes.length === 0) &&
-              <div className='no-results-msg'>
-                {t('No playlists found')}
-              </div>
-          }
+            }
+          </div>
+          <div className='media-list'>
+            {
+              (listItemNodes && listItemNodes.length > 0) &&
+                <Fragment>
+                  <DragDropContext onDragEnd={this.onDragEnd}>
+                    <Droppable droppableId='playlist-items'>
+                      {(provided, snapshot) => (
+                        <div
+                          ref={provided.innerRef}
+                          style={{ backgroundColor: snapshot.isDraggingOver ? 'blue' : 'transparent' }}
+                          {...provided.droppableProps}>
+                          {listItemNodes}
+                        </div>
+                      )}
+                    </Droppable>
+                  </DragDropContext>
+                </Fragment>
+            }
+            {
+              (!isLoading && listItemNodes.length === 0) &&
+                <div className='no-results-msg'>
+                  {t('No playlists found')}
+                </div>
+            }
+          </div>
         </div>
       </Fragment>
     )

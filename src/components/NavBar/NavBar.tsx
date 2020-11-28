@@ -62,11 +62,6 @@ class PVNavBar extends Component<Props, State> {
     })
 
     dropdownItems.push({
-      label: t('History'),
-      onClick: () => { this.toggleHistoryModal() }
-    })
-
-    dropdownItems.push({
       as: PV.paths.web.my_profile_clips,
       href: PV.paths.web.my_profile_clips,
       label: t('My Clips'),
@@ -88,6 +83,11 @@ class PVNavBar extends Component<Props, State> {
       href: PV.paths.web.profiles,
       label: t('Profiles'),
       onClick: () => { this.linkClick() }
+    })
+
+    dropdownItems.push({
+      label: t('History'),
+      onClick: () => { this.toggleHistoryModal() }
     })
 
     return dropdownItems
