@@ -7,7 +7,7 @@ import Meta from '~/components/Meta/Meta'
 import PodcastListCtrl from '~/components/PodcastListCtrl/PodcastListCtrl'
 import config from '~/config'
 import PV from '~/lib/constants'
-import { cookieGetQuery } from '~/lib/utility'
+import { cookieGetQuery, getCookieFromRequest } from '~/lib/utility'
 import { pageIsLoading, pagesSetQueryState } from '~/redux/actions'
 import { getCategoriesByQuery, handlePageEpisodesQuery, handlePageMediaRefsQuery,
   handlePagePodcastsQuery } from '~/services'
@@ -46,11 +46,18 @@ class Home extends Component<Props, State> {
     const { nowPlayingItem } = mediaPlayer
     const { defaultHomepageTab } = settings
 
+    const lastVisitedHomepageTab = getCookieFromRequest(req, PV.cookies.lastVisitedHomepageTab)
+
     let pageKey = 'clips'
+    const validLastVisitedHomepageTabs = ['podcasts', 'episodes', 'clips']
     if (defaultHomepageTab === 'episodes') {
       pageKey = 'episodes'
     } else if (defaultHomepageTab === 'podcasts') {
       pageKey = 'podcasts'
+    } else if (
+      defaultHomepageTab === 'last-visited' && validLastVisitedHomepageTabs.includes(lastVisitedHomepageTab)
+    ) {
+      pageKey = lastVisitedHomepageTab
     }
 
     const localStorageQuery = cookieGetQuery(req, pageKey)
@@ -84,9 +91,9 @@ class Home extends Component<Props, State> {
       store
     }
 
-    if (defaultHomepageTab === 'podcasts') {
+    if (pageKey === 'podcasts') {
       await handlePagePodcastsQuery(queryObj)
-    } else if (defaultHomepageTab === 'episodes') {
+    } else if (pageKey === 'episodes') {
       await handlePageEpisodesQuery(queryObj)
     } else {
       await handlePageMediaRefsQuery(queryObj)
@@ -107,9 +114,8 @@ class Home extends Component<Props, State> {
   }
 
   componentDidMount() {
-    const { settings } = this.props
-    const { defaultHomepageTab } = settings
-    if (defaultHomepageTab === 'episodes' || defaultHomepageTab === 'clips') {
+    const { pageKey } = this.props
+    if (pageKey === 'episodes' || pageKey === 'clips') {
       const { playerQueue } = this.props
       const { secondaryItems } = playerQueue
       clearItemsFromSecondaryQueueStorage()

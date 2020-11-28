@@ -5,6 +5,7 @@ export const pageKeys = {
   episode: 'episode_',
   episodes: 'episodes',
   faq: 'faq',
+  home: 'home',
   membership: 'membership',
   myProfile: 'my_profile',
   playlist: 'playlist_',

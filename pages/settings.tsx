@@ -453,6 +453,7 @@ class Settings extends Component<Props, State> {
               onChange={this.handleDefaultHomepageTabChange}
               type='select'
               value={defaultHomepageTab}>
+              <option value='last-visited'>{t('Last Visited')}</option>
               <option value='podcasts'>{t('Podcasts')}</option>
               <option value='episodes'>{t('Episodes')}</option>
               <option value='clips'>{t('Clips')}</option>

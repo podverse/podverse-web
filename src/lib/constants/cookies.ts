@@ -6,6 +6,7 @@ export const cookies = {
   censorNSFWText: `${keyNamespace}_censorNSFWText`,
   defaultHomepageTab: `${keyNamespace}_defaultHomepageTab`,
   handleSendVerificationEmailSubmit: `${keyNamespace}_handleSendVerificationEmailSubmit`,
+  lastVisitedHomepageTab: `${keyNamespace}_lastVisitedHomepageTab`,
   playbackSpeedButtonHide: `${keyNamespace}_playbackSpeedButtonHide`,
   query: {
     clip: `${keyNamespace}_clip_query`,
