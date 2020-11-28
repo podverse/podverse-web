@@ -1,18 +1,36 @@
-.playlist-edit-btns {
-  margin-top: 1rem;
-  text-align: right;
+.playlist {
 
-  .playlist-edit-btns__delete {
-    float: left;
-    min-width: 80px;
-  }
-
-  .playlist-edit-btns__cancel {
-    min-width: 80px;
-  }
+  .media-header {
+    .media-header__title {
+      margin-bottom: 0;
+      margin-left: 0;
+    }
   
-  .playlist-edit-btns__update {
-    margin-left: 1rem;
-    min-width: 80px;
+    .media-header__middle {
+      margin-left: 0;
+    }
   }
-}
+
+  .playlist-edit-btns {
+    margin-top: 1rem;
+    text-align: right;
+  
+    .playlist-edit-btns__delete {
+      float: left;
+      min-width: 80px;
+    }
+  
+    .playlist-edit-btns__cancel {
+      min-width: 80px;
+    }
+    
+    .playlist-edit-btns__update {
+      margin-left: 1rem;
+      min-width: 80px;
+    }
+  }
+
+  .media-list {
+    margin-top: 1.25rem;
+  }
+}  
