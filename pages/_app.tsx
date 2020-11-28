@@ -175,7 +175,7 @@ export default withRedux(initializeStore)(appWithTranslation(class MyApp extends
       } else {
         ctx.store.dispatch({
           type: actionTypes.SETTINGS_SET_DEFAULT_HOMEPAGE_TAB,
-          payload: 'clips'
+          payload: 'last-visited'
         })
       }
 
