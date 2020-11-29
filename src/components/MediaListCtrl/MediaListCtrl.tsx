@@ -25,7 +25,6 @@ type Props = {
   episode?: any
   episodeId?: string
   handleSetPageQueryState: Function
-  hasOfficialChapters?: boolean
   includeMostRecent?: boolean
   includeOldest?: boolean
   mediaPlayer?: any
@@ -73,7 +72,7 @@ class MediaListCtrl extends Component<Props, State> {
   }
 
   queryListItems = async (queryType, queryFrom, querySort, page, categoryId) => {
-    const { allowUntitledClips, episode, episodeId, handleSetPageQueryState, hasOfficialChapters, pageIsLoading,
+    const { allowUntitledClips, episode, episodeId, handleSetPageQueryState, pageIsLoading,
       pageKey, pages, playerQueueLoadSecondaryItems, podcast, podcastId, user } = this.props
     const { subscribedPodcastIds } = user
     const { filterText } = pages[pageKey]
@@ -140,7 +139,7 @@ class MediaListCtrl extends Component<Props, State> {
       let nowPlayingItems = []
       let listItemsTotal
 
-      if (hasOfficialChapters && queryType === PV.queryParams.officialChapters && (episode && episode.id || episodeId)) {
+      if (queryType === PV.queryParams.officialChapters && (episode && episode.id || episodeId)) {
         const response = await retrieveLatestChaptersForEpisodeId(episodeId || episode.id)
         const chapters = response.data
         listItemsTotal = chapters[1]
@@ -191,18 +190,16 @@ class MediaListCtrl extends Component<Props, State> {
   }
 
   getQueryTypeOptions = () => {
-    const { hasOfficialChapters, pageKey, pages, podcastId, t } = this.props
+    const { pageKey, pages, podcastId, t } = this.props
     const { categoryId, queryFrom, querySort } = pages[pageKey]
     
     const options = [] as any
 
-    if (hasOfficialChapters) {
-      options.push({
-        label: t('Chapters'),
-        onClick: () => this.queryListItems(PV.queryParams.officialChapters, queryFrom, querySort, 1, categoryId),
-        value: PV.queryParams.officialChapters
-      })
-    }
+    options.push({
+      label: t('Chapters'),
+      onClick: () => this.queryListItems(PV.queryParams.officialChapters, queryFrom, querySort, 1, categoryId),
+      value: PV.queryParams.officialChapters
+    })
 
     options.push(
       {

@@ -21,7 +21,6 @@ const { BASE_URL } = config()
 
 type Props = {
   errorCode?: number
-  hasOfficialChapters?: boolean
   lastScrollPosition?: number
   listItems?: any
   mediaRef?: any
@@ -70,12 +69,9 @@ class Clip extends Component<Props, State> {
     const queryFrom = currentPage.queryFrom || query.from || localStorageQuery.from || PV.queryParams.from_episode
     const queryPage = currentPage.queryPage || query.page || 1
     const querySort = currentPage.querySort || query.sort || localStorageQuery.sort || PV.queryParams.chronological
-    let queryType = currentPage.queryType || query.type || localStorageQuery.type || PV.queryParams.clips
+    const queryType = currentPage.queryType || query.type || localStorageQuery.type || PV.queryParams.clips
     let podcastId = ''
     let episodeId = ''
-
-    const hasOfficialChapters = mediaRef.episode.chaptersUrl
-    if (hasOfficialChapters) queryType = PV.queryParams.officialChapters
 
     if (queryFrom === PV.queryParams.from_podcast) {
       podcastId = mediaRef.episode.podcast.id
@@ -139,7 +135,7 @@ class Clip extends Component<Props, State> {
 
     const namespacesRequired = PV.nexti18next.namespaces
     
-    return { hasOfficialChapters, lastScrollPosition, mediaRef, namespacesRequired, newPlayingItem,
+    return { lastScrollPosition, mediaRef, namespacesRequired, newPlayingItem,
       pageKey: pageKeyWithId, queryFrom, querySort, queryType }
   }
 
@@ -154,8 +150,7 @@ class Clip extends Component<Props, State> {
   }
 
   render () {
-    const { errorCode, hasOfficialChapters, mediaRef, pageKey, pages,
-      pagesSetQueryState, t } = this.props
+    const { errorCode, mediaRef, pageKey, pages, pagesSetQueryState, t } = this.props
     const page = pages[pageKey] || {}
     const { queryFrom, queryPage, querySort, queryType } = page
 
@@ -213,7 +208,6 @@ class Clip extends Component<Props, State> {
           episode={mediaRef.episode}
           episodeId={mediaRef.episode.id}
           handleSetPageQueryState={pagesSetQueryState}
-          hasOfficialChapters={hasOfficialChapters}
           includeOldest={queryType === PV.queryParams.episodes}
           pageKey={pageKey}
           podcast={mediaRef.episode.podcast}
