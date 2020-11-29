@@ -77,9 +77,7 @@ class Clip extends Component<Props, State> {
     const hasOfficialChapters = mediaRef.episode.chaptersUrl
     if (hasOfficialChapters) queryType = PV.queryParams.officialChapters
 
-    if (queryType === PV.queryParams.officialChapters) {
-      episodeId = mediaRef.episode.id
-    } else if (queryFrom === PV.queryParams.from_podcast) {
+    if (queryFrom === PV.queryParams.from_podcast) {
       podcastId = mediaRef.episode.podcast.id
     } else if (queryFrom === PV.queryParams.from_episode) {
       episodeId = mediaRef.episode.id
@@ -91,6 +89,7 @@ class Clip extends Component<Props, State> {
       let results
 
       if (queryType === PV.queryParams.officialChapters) {
+        episodeId = mediaRef.episode.id
         results = await retrieveLatestChaptersForEpisodeId(episodeId)
       } else if (queryType === PV.queryParams.episodes) {
         results = await getEpisodesByQuery({
