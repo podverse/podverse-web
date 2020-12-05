@@ -1,6 +1,6 @@
 {
   "name": "podverse-web",
-  "version": "2.11.14",
+  "version": "2.11.15",
   "description": "Web app for the Podverse podcast clip sharing ecosystem",
   "repository": {
     "type": "git",
