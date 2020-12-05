@@ -348,7 +348,7 @@ class MediaListCtrl extends Component<Props, State> {
     // and we will need to enrich the nowPlayingItem with the podcast data.
     if (!nowPlayingItem.podcastId && podcast) {
       nowPlayingItem.podcastId = podcast.id
-      nowPlayingItem.podcastImageUrl = podcast.imageUrl
+      nowPlayingItem.podcastShrunkImageUrl = podcast.shrunkImageUrl
       nowPlayingItem.podcastTitle = podcast.title
       nowPlayingItem.podcastFunding = podcast.funding
       nowPlayingItem.podcastValue = podcast.value

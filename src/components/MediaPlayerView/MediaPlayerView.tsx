@@ -311,7 +311,7 @@ class MediaPlayerView extends Component<Props, State> {
       episodeFunding: nowPlayingItem.episodeFunding || [],
       isOpen: !isOpen,
       podcastFunding: nowPlayingItem.podcastFunding || [],
-      podcastImageUrl: nowPlayingItem.podcastImageUrl,
+      podcastShrunkImageUrl: nowPlayingItem.podcastShrunkImageUrl,
       podcastTitle: nowPlayingItem.podcastTitle,
       podcastValue: nowPlayingItem.podcastValue || []
     })

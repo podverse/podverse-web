@@ -166,9 +166,7 @@ class Episode extends Component<Props, State> {
         imageAlt: podcastTitle,
         imageUrl:
           episode.shrunkImageUrl
-          || (podcast && podcast.shrunkImageUrl)
-          || episode.imageUrl
-          || (podcast && podcast.imageUrl),
+          || (podcast && podcast.shrunkImageUrl),
         title: `${episode.title} - ${podcastTitle}`
       }
     }

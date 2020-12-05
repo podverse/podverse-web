@@ -82,7 +82,7 @@ class MediaHeaderCtrl extends Component<Props, State> {
       episodeFunding: (episode && episode.funding) || [],
       isOpen: !isOpen,
       podcastFunding: p.funding || [],
-      podcastImageUrl: p.imageUrl,
+      podcastShrunkImageUrl: p.shrunkImageUrl,
       podcastTitle: p.title,
       podcastValue: p.value || [],
     })
