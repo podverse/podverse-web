@@ -440,13 +440,14 @@ class MediaModals extends Component<Props, State> {
       nowPlayingItem: makeClipNowPlayingItem } = makeClip
     const { isOpen: queueIsOpen } = queue
     const { clipLinkAs, episodeLinkAs, isOpen: shareIsOpen, podcastLinkAs } = share
-    const { episodeFunding = [], podcastFunding = [], podcastImageUrl, podcastTitle,
+    const { episodeFunding = [], podcastFunding = [], podcastShrunkImageUrl, podcastTitle,
       podcastValue, isOpen: supportIsOpen } = support
     const { priorityItems, secondaryItems } = playerQueue
     const { id, historyItems, playlists } = user
     const { isAddedToPlayLast, isAddedToPlayNext, isAddingToPlayLast, 
       isAddingToPlayNext, loadingItemId, makeClipIsDeleting, makeClipIsSaving
     } = this.state
+
     const isLoggedIn = user && user.id
     let makeClipStartTime = 0
     if (makeClipIsEditing) {
@@ -540,7 +541,7 @@ class MediaModals extends Component<Props, State> {
           handleHideModal={this.hideSupportModal}
           isOpen={supportIsOpen}
           podcastFunding={podcastFunding}
-          podcastImageUrl={podcastImageUrl}
+          podcastShrunkImageUrl={podcastShrunkImageUrl}
           podcastTitle={podcastTitle}
           podcastValue={podcastValue}
           t={t} />

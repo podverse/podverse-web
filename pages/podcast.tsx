@@ -98,7 +98,7 @@ class Podcast extends Component<Props, State> {
         const item = convertToNowPlayingItem(x, {}, podcast)
         item.podcastId = podcast.id
         item.podcastFunding = podcast.funding
-        item.podcastImageUrl = podcast.imageUrl
+        item.podcastShrunkImageUrl = podcast.shrunkImageUrl
         item.podcastTitle = podcast.title
         item.podcastValue = podcast.value
         return item
@@ -124,7 +124,7 @@ class Podcast extends Component<Props, State> {
       currentUrl: BASE_URL + PV.paths.web.podcast + '/' + podcast.id,
       description: podcast.description,
       imageAlt: podcastTitle,
-      imageUrl: podcast.shrunkImageUrl || podcast.imageUrl,
+      imageUrl: podcast.shrunkImageUrl,
       title: podcastTitle
     }
     const namespacesRequired = PV.nexti18next.namespaces

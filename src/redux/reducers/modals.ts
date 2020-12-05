@@ -261,7 +261,7 @@ export default (state = defaultState, action) => {
           episodeFunding,
           isOpen: action.payload.isOpen,
           podcastFunding,
-          podcastImageUrl: action.payload.podcastImageUrl,
+          podcastShrunkImageUrl: action.payload.podcastShrunkImageUrl,
           podcastTitle: action.payload.podcastTitle,
           podcastValue: action.payload.podcastValue
         }

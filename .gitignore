@@ -70,8 +70,4 @@ __tests__/e2e/tests_output/
 tests_output/
 browserstack.err
 
-# package-lock was causing dependency issues with podverse-ui, so adding it to the gitignore
-package-lock.json
-yarn.lock
-
 stage_ssh_key
