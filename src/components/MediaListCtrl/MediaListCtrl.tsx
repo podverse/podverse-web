@@ -139,7 +139,7 @@ class MediaListCtrl extends Component<Props, State> {
       let nowPlayingItems = []
       let listItemsTotal
 
-      if (queryType === PV.queryParams.officialChapters && (episode && episode.id || episodeId)) {
+      if (queryType === PV.queryParams.chapters && (episode && episode.id || episodeId)) {
         const response = await retrieveLatestChaptersForEpisodeId(episodeId || episode.id)
         const chapters = response.data
         listItemsTotal = chapters[1]
@@ -192,14 +192,17 @@ class MediaListCtrl extends Component<Props, State> {
   getQueryTypeOptions = () => {
     const { pageKey, pages, podcastId, t } = this.props
     const { categoryId, queryFrom, querySort } = pages[pageKey]
-    
     const options = [] as any
+    const pageKeyPrefix = pageKey.split('_')[0]
 
-    options.push({
-      label: t('Chapters'),
-      onClick: () => this.queryListItems(PV.queryParams.officialChapters, queryFrom, querySort, 1, categoryId),
-      value: PV.queryParams.officialChapters
-    })
+    const includeChapters = [PV.pageKeys.clip, PV.pageKeys.episode].includes(pageKeyPrefix + '_')
+    if (includeChapters) {
+      options.push({
+        label: t('Chapters'),
+        onClick: () => this.queryListItems(PV.queryParams.chapters, queryFrom, querySort, 1, categoryId),
+        value: PV.queryParams.chapters
+      })
+    }
 
     options.push(
       {
@@ -209,19 +212,23 @@ class MediaListCtrl extends Component<Props, State> {
       }
     )
 
-    options.push(
-      {
-        label: t('Episodes'),
-        onClick: () => this.queryListItems(
-          PV.queryParams.episodes,
-          podcastId ? PV.queryParams.from_podcast : queryFrom,
-          querySort,
-          1,
-          categoryId
-        ),
-        value: PV.queryParams.episodes,
-      }
-    )
+    const includeEpisodes = [PV.pageKeys.clips, PV.pageKeys.episodes].includes(pageKeyPrefix)
+      || [PV.pageKeys.podcast].includes(pageKeyPrefix + '_')
+    if (includeEpisodes) {
+      options.push(
+        {
+          label: t('Episodes'),
+          onClick: () => this.queryListItems(
+            PV.queryParams.episodes,
+            podcastId ? PV.queryParams.from_podcast : queryFrom,
+            querySort,
+            1,
+            categoryId
+          ),
+          value: PV.queryParams.episodes,
+        }
+      )
+    }
     
     return options
   }
@@ -260,7 +267,7 @@ class MediaListCtrl extends Component<Props, State> {
     const { queryFrom, queryType } = pages[pageKey]
     const items = [] as any
 
-    if (queryType !== PV.queryParams.officialChapters) {
+    if (queryType !== PV.queryParams.chapters) {
       if (!(queryType === PV.queryParams.episodes && queryFrom === PV.queryParams.all_podcasts)) {
         items.push({
           label: t('queryLabels:most_recent'),
@@ -422,7 +429,7 @@ class MediaListCtrl extends Component<Props, State> {
       let nowPlayingItems
       let listItemsTotal
 
-      if (queryType === PV.queryParams.officialChapters) {
+      if (queryType === PV.queryParams.chapters) {
         nowPlayingItems = []
         listItemsTotal = 0
       } else if (queryType === PV.queryParams.episodes) {
@@ -476,7 +483,7 @@ class MediaListCtrl extends Component<Props, State> {
         mediaListItemType = PV.attributes.mediaListItem.now_playing_episode_from_all_podcasts
       }
     } else {
-      if (queryType === PV.queryParams.officialChapters || queryFrom === PV.queryParams.from_episode) {
+      if (queryType === PV.queryParams.chapters || queryFrom === PV.queryParams.from_episode) {
         mediaListItemType = PV.attributes.mediaListItem.now_playing_clip_from_episode
       } else if (queryFrom === PV.queryParams.from_podcast) {
         mediaListItemType = PV.attributes.mediaListItem.now_playing_clip_from_podcast
@@ -676,17 +683,26 @@ class MediaListCtrl extends Component<Props, State> {
     const { listItemNodes } = this.state
 
     const selectedQueryTypeOption = this.getQueryTypeOptions().filter(x => x.value === queryType)
-    const selectedQueryFromOption = this.getQueryFromOptions(
-      !!podcastId, !!episodeId && queryType === PV.queryParams.clips).filter(x => x.value === queryFrom)
+
+    const includeFromPodcast = !!podcastId && queryType !== PV.queryParams.chapters
+    const includeFromEpisode = !!episodeId && (queryType === PV.queryParams.clips || queryType === PV.queryParams.chapters)
+    const selectedQueryFromOption = this.getQueryFromOptions(includeFromPodcast, includeFromEpisode).filter(x => x.value === queryFrom)
     const sortOptions = this.getQuerySortOptions(
       includeOldest,
       (!!episodeId && queryType === PV.queryParams.clips && queryFrom === PV.queryParams.from_episode)
-      || queryType === PV.queryParams.officialChapters
+      || queryType === PV.queryParams.chapters
     )
 
     const selectedQuerySortOption = sortOptions.filter(x => x.value === querySort)
     const isNotLoggedInOnSubscribedOnly = (!user || !user.id) && queryFrom === PV.queryParams.subscribed_only
-    const noResultsItemTypeMsg = queryType === PV.queryParams.episodes ? t('No episodes found') : t('No clips found')
+
+    let noResultsItemTypeMsg = t('No episodes found')
+    if (queryType === PV.queryParams.clips) {
+      noResultsItemTypeMsg = t('No clips found')
+    } else if (queryType === PV.queryParams.chapters) {
+      noResultsItemTypeMsg = t('No chapters found')
+    }
+
     const noResultsFoundMsg = isNotLoggedInOnSubscribedOnly ? t('errorMessages:login.ViewYourSubscriptions') : noResultsItemTypeMsg
 
     return (
@@ -702,7 +718,7 @@ class MediaListCtrl extends Component<Props, State> {
             {
               (podcastId || episodeId) ?
                 <MediaListSelect
-                  items={this.getQueryFromOptions(!!podcastId, !!episodeId && queryType === PV.queryParams.clips)}
+                  items={this.getQueryFromOptions(includeFromPodcast, includeFromEpisode)}
                   selected={selectedQueryFromOption.length > 0 ? selectedQueryFromOption[0].value : null} />
                 :
                 this.generateTopLevelSelectNodes()}
