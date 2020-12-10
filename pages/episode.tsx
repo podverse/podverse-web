@@ -14,7 +14,7 @@ import PV from '~/lib/constants'
 import { checkIfLoadingOnFrontEnd, clone, cookieGetQuery } from '~/lib/utility'
 import { pageIsLoading, pagesSetQueryState, playerQueueLoadSecondaryItems
   } from '~/redux/actions'
-import { getEpisodeById, getEpisodesByQuery, getMediaRefsByQuery, retrieveLatestChaptersForEpisodeId } from '~/services/'
+import { getEpisodeById, getMediaRefsByQuery, retrieveLatestChaptersForEpisodeId } from '~/services/'
 import { withTranslation } from '~/../i18n'
 const { BASE_URL } = config()
 
@@ -32,8 +32,6 @@ type Props = {
   querySort?: any
   queryType?: any
   t?: any
-  user?: any
-  userSetInfo?: any
 }
 
 type State = {}
@@ -43,7 +41,7 @@ class Episode extends Component<Props, State> {
   static async getInitialProps({ query, req, store }) {
     const pageKeyWithId = `${PV.pageKeys.episode}${query.id}`
     const state = store.getState()
-    const { mediaPlayer, pages, user } = state
+    const { mediaPlayer, pages } = state
     const { nowPlayingItem } = mediaPlayer
 
     let episodeResult
@@ -66,34 +64,23 @@ class Episode extends Component<Props, State> {
     const lastScrollPosition = currentPage.lastScrollPosition
     const queryFrom = currentPage.queryFrom || query.from || localStorageQuery.from || PV.queryParams.from_episode
     const queryPage = currentPage.queryPage || query.page || 1
-    const querySort = currentPage.querySort || query.sort || localStorageQuery.sort || PV.queryParams.top_past_week
-    const queryType = currentPage.queryType || query.type || localStorageQuery.type || PV.queryParams.clips
+    const querySort = currentPage.querySort || query.sort || PV.queryParams.top_past_week
+    const queryType = currentPage.queryType || query.type || PV.queryParams.clips
     let podcastId = ''
     let episodeId = ''
 
 
     if (queryFrom === PV.queryParams.from_podcast) {
       podcastId = episode.podcast.id
-    } else if (queryFrom === PV.queryParams.from_episode) {
+    } else {
       episodeId = episode.id
-    } else if (queryFrom === PV.queryParams.subscribed_only) {
-      podcastId = user.subscribedPodcastIds
     }
 
     if (Object.keys(currentPage).length === 0) {
       let results
 
-      if (queryType === PV.queryParams.officialChapters) {
+      if (queryType === PV.queryParams.chapters) {
         results = await retrieveLatestChaptersForEpisodeId(episodeId)
-      } else if (queryType === PV.queryParams.episodes) {
-        results = await getEpisodesByQuery({
-          from: queryFrom,
-          page: queryPage,
-          ...(!podcastId ? { includePodcast: true } : {}),
-          ...(podcastId ? { podcastId } : {}),
-          sort: querySort,
-          type: queryType
-        })
       } else {
         results = await getMediaRefsByQuery({
           ...(episodeId ? { episodeId } : {}),
