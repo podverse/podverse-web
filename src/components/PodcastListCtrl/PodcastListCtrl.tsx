@@ -70,9 +70,12 @@ class PodcastListCtrl extends Component<Props, State> {
   queryPodcastsAll = async () => {
     const { pageKey, pages } = this.props
     const { filterText } = pages[pageKey]
+
     let { querySort } = pages[pageKey]
-    querySort = querySort === PV.queryParams.most_recent ? PV.queryParams.top_past_day : querySort
-    
+    querySort = [PV.queryParams.alphabetical, PV.queryParams.most_recent].includes(querySort)
+      ? PV.queryParams.top_past_week
+      : querySort
+
     const query: any = {
       page: 1,
       from: PV.queryParams.all_podcasts,
@@ -96,7 +99,12 @@ class PodcastListCtrl extends Component<Props, State> {
 
   queryPodcastsCategory = async categoryId => {
     const { pageKey, pages } = this.props
-    const { filterText, querySort } = pages[pageKey]
+    const { filterText } = pages[pageKey]
+
+    let { querySort } = pages[pageKey]
+    querySort = [PV.queryParams.alphabetical, PV.queryParams.most_recent].includes(querySort)
+      ? PV.queryParams.top_past_week
+      : querySort
 
     const query: any = {
       page: 1,
@@ -212,13 +220,13 @@ class PodcastListCtrl extends Component<Props, State> {
     const { queryFrom } = pages[pageKey]
     const items = [] as any
 
-    items.push({
-      label: t('queryLabels:alphabetical'),
-      onClick: () => this.queryPodcastsSort(PV.queryParams.alphabetical),
-      value: PV.queryParams.alphabetical
-    })
+    if (queryFrom !== PV.queryParams.all_podcasts && queryFrom !== PV.queryParams.from_category) {
+      items.push({
+        label: t('queryLabels:alphabetical'),
+        onClick: () => this.queryPodcastsSort(PV.queryParams.alphabetical),
+        value: PV.queryParams.alphabetical
+      })
 
-    if (!(queryFrom === PV.queryParams.all_podcasts)) {
       items.push({
         label: t('queryLabels:most_recent'),
         onClick: () => this.queryPodcastsSort(PV.queryParams.most_recent),
