@@ -749,12 +749,15 @@ class MediaListCtrl extends Component<Props, State> {
             listItemNodes && listItemNodes.length > 0 &&
             <Fragment>
               {listItemNodes}
-              <Pagination
-                currentPage={queryPage || 1}
-                handleQueryPage={this.handleQueryPage}
-                pageRange={2}
-                t={t}
-                totalPages={Math.ceil(listItemsTotal / QUERY_MEDIA_REFS_LIMIT)} />
+              {
+                queryType !== PV.queryParams.chapters &&
+                  <Pagination
+                    currentPage={queryPage || 1}
+                    handleQueryPage={this.handleQueryPage}
+                    pageRange={2}
+                    t={t}
+                    totalPages={Math.ceil(listItemsTotal / QUERY_MEDIA_REFS_LIMIT)} />
+              }
             </Fragment>
           }
           {
