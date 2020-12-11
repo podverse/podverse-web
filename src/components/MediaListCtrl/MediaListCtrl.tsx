@@ -79,10 +79,10 @@ class MediaListCtrl extends Component<Props, State> {
 
     if (
       queryType === PV.queryParams.episodes
-      && queryFrom === PV.queryParams.all_podcasts
+      && (queryFrom === PV.queryParams.all_podcasts || queryFrom === PV.queryParams.from_category)
       && querySort === PV.queryParams.most_recent
     ) {
-      querySort = PV.queryParams.top_past_day
+      querySort = PV.queryParams.top_past_week
     }
 
     this.setTemporaryMinHeightOnMediaList()
@@ -268,7 +268,10 @@ class MediaListCtrl extends Component<Props, State> {
     const items = [] as any
 
     if (queryType !== PV.queryParams.chapters) {
-      if (!(queryType === PV.queryParams.episodes && queryFrom === PV.queryParams.all_podcasts)) {
+      if (
+        !(queryType === PV.queryParams.episodes && queryFrom === PV.queryParams.from_category)
+        && !(queryType === PV.queryParams.episodes && queryFrom === PV.queryParams.all_podcasts)
+      ) {
         items.push({
           label: t('queryLabels:most_recent'),
           onClick: () => this.querySort(PV.queryParams.most_recent),
