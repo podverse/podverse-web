@@ -105,6 +105,11 @@ html[is-switching-ui-mode=true] * {
 .no-results-msg {
   margin: 1.75rem 0;
   text-align: center;
+
+  .no-results-msg__sub-message {
+    font-size: $text-sm-rem;
+    margin-top: 1rem;
+  }
 }
 
 .request-podcast {
