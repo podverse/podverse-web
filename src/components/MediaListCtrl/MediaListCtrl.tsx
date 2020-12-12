@@ -267,11 +267,13 @@ class MediaListCtrl extends Component<Props, State> {
     const { queryFrom, queryType } = pages[pageKey]
     const items = [] as any
 
+    const includeAllSortOptions = (
+      !(queryType === PV.queryParams.episodes && queryFrom === PV.queryParams.from_category)
+      && !(queryType === PV.queryParams.episodes && queryFrom === PV.queryParams.all_podcasts)
+    )
+
     if (queryType !== PV.queryParams.chapters) {
-      if (
-        !(queryType === PV.queryParams.episodes && queryFrom === PV.queryParams.from_category)
-        && !(queryType === PV.queryParams.episodes && queryFrom === PV.queryParams.all_podcasts)
-      ) {
+      if (includeAllSortOptions) {
         items.push({
           label: t('queryLabels:most_recent'),
           onClick: () => this.querySort(PV.queryParams.most_recent),
@@ -304,11 +306,14 @@ class MediaListCtrl extends Component<Props, State> {
         onClick: () => this.querySort(PV.queryParams.top_all_time),
         value: PV.queryParams.top_all_time
       })
-      items.push({
-        label: t('queryLabels:random'),
-        onClick: () => this.querySort(PV.queryParams.random),
-        value: PV.queryParams.random
-      })
+
+      if (includeAllSortOptions) {
+        items.push({
+          label: t('queryLabels:random'),
+          onClick: () => this.querySort(PV.queryParams.random),
+          value: PV.queryParams.random
+        })
+      }
     }
 
     if (showChronological) {
