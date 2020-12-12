@@ -703,7 +703,16 @@ class MediaListCtrl extends Component<Props, State> {
     if (queryType === PV.queryParams.clips) {
       noResultsItemTypeMsg = t('No clips found')
     } else if (queryType === PV.queryParams.chapters) {
-      noResultsItemTypeMsg = t('No chapters found')
+      noResultsItemTypeMsg = (
+        <>
+          <div>
+            {t('No chapters found')}
+          </div>
+          <div className='no-results-msg__sub-message'>
+            {t('Chapters are officially created by the podcast')}
+          </div>
+        </>
+      )
     }
 
     const noResultsFoundMsg = isNotLoggedInOnSubscribedOnly ? t('errorMessages:login.ViewYourSubscriptions') : noResultsItemTypeMsg
