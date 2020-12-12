@@ -220,7 +220,9 @@ class PodcastListCtrl extends Component<Props, State> {
     const { queryFrom } = pages[pageKey]
     const items = [] as any
 
-    if (queryFrom !== PV.queryParams.all_podcasts && queryFrom !== PV.queryParams.from_category) {
+    const includeAllSortOptions = queryFrom !== PV.queryParams.all_podcasts && queryFrom !== PV.queryParams.from_category
+
+    if (includeAllSortOptions) {
       items.push({
         label: t('queryLabels:alphabetical'),
         onClick: () => this.queryPodcastsSort(PV.queryParams.alphabetical),
@@ -264,11 +266,13 @@ class PodcastListCtrl extends Component<Props, State> {
       value: PV.queryParams.top_all_time
     })
 
-    items.push({
-      label: t('queryLabels:random'),
-      onClick: () => this.queryPodcastsSort(PV.queryParams.random),
-      value: PV.queryParams.random
-    })
+    if (includeAllSortOptions) {
+      items.push({
+        label: t('queryLabels:random'),
+        onClick: () => this.queryPodcastsSort(PV.queryParams.random),
+        value: PV.queryParams.random
+      })
+    }
     
     return items
   }
