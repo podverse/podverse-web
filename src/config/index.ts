@@ -11,6 +11,7 @@ export interface Config {
   QUERY_MEDIA_REFS_LIMIT: number
   QUERY_PLAYLISTS_LIMIT: number
   QUERY_PODCASTS_LIMIT: number
+  QUERY_USER_HISTORY_ITEMS_LIMIT: number
   QUERY_USERS_LIMIT: number
   COOKIE_DOMAIN?: string
   COOKIE_PATH?: string
@@ -60,6 +61,7 @@ export default () => {
     QUERY_MEDIA_REFS_LIMIT: publicRuntimeConfig.QUERY_MEDIA_REFS_LIMIT,
     QUERY_PLAYLISTS_LIMIT: publicRuntimeConfig.QUERY_PLAYLISTS_LIMIT,
     QUERY_PODCASTS_LIMIT: publicRuntimeConfig.QUERY_PODCASTS_LIMIT,
+    QUERY_USER_HISTORY_ITEMS_LIMIT: publicRuntimeConfig.QUERY_USER_HISTORY_ITEMS_LIMIT,
     QUERY_USERS_LIMIT: publicRuntimeConfig.QUERY_USERS_LIMIT,
     COOKIE_DOMAIN: publicRuntimeConfig.COOKIE_DOMAIN,
     COOKIE_PATH: publicRuntimeConfig.COOKIE_PATH,
