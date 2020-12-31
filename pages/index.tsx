@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { addItemsToSecondaryQueueStorage, clearItemsFromSecondaryQueueStorage, HeaderNavTabs } from 'podverse-ui'
+import { HeaderNavTabs } from 'podverse-ui'
 import MediaListCtrl from '~/components/MediaListCtrl/MediaListCtrl'
 import Meta from '~/components/Meta/Meta'
 import PodcastListCtrl from '~/components/PodcastListCtrl/PodcastListCtrl'
@@ -111,16 +111,6 @@ class Home extends Component<Props, State> {
     super(props)
 
     this.state = {}
-  }
-
-  componentDidMount() {
-    const { pageKey } = this.props
-    if (pageKey === 'episodes' || pageKey === 'clips') {
-      const { playerQueue } = this.props
-      const { secondaryItems } = playerQueue
-      clearItemsFromSecondaryQueueStorage()
-      addItemsToSecondaryQueueStorage(secondaryItems)
-    }
   }
 
   toggleAdvancedFilter = async () => {

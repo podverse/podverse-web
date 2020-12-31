@@ -85,17 +85,11 @@ class Auth extends Component<Props, State> {
   }
 
   handleLogin = async (email, password) => {
-    const { modalsLoginIsLoading, modalsLoginSetErrorResponse, modalsLoginShow,
-      playerQueueLoadPriorityItems, t, userSetInfo } = this.props
+    const { modalsLoginIsLoading, modalsLoginSetErrorResponse, t, userSetInfo } = this.props
     modalsLoginIsLoading(true)
     
     try {
-      const authenticatedUserInfo = await login(email, password)
-      userSetInfo(authenticatedUserInfo && authenticatedUserInfo.data)
-      playerQueueLoadPriorityItems(authenticatedUserInfo && authenticatedUserInfo.data && authenticatedUserInfo.data.queueItems)
-      modalsLoginShow(false)
-      modalsLoginSetErrorResponse()
-      modalsLoginIsLoading(false)
+      await login(email, password)
       window.location.reload()
     } catch (error) {
       const pleaseVerifyMessage = (

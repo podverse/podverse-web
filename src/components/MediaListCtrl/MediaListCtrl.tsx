@@ -3,16 +3,15 @@ import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { convertToNowPlayingItem } from 'podverse-shared'
-import { FilterCtrl, MediaListSelect, Pagination, setNowPlayingItemInStorage } from 'podverse-ui'
+import { FilterCtrl, MediaListSelect, Pagination } from 'podverse-ui'
 import MediaListItemCtrl from '~/components/MediaListItemCtrl/MediaListItemCtrl'
 import config from '~/config'
 import PV from '~/lib/constants'
-import { addOrUpdateHistoryItemPlaybackPosition, assignLocalOrLoggedInNowPlayingItemPlaybackPosition,
-  clone, cookieSetQuery } from '~/lib/utility'
+import { addOrUpdateHistoryItemAndState, cookieSetQuery } from '~/lib/utility'
 import { mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying, pageIsLoading,
-  playerQueueAddSecondaryItems, playerQueueLoadPriorityItems,
-  playerQueueLoadSecondaryItems, userSetInfo } from '~/redux/actions'
-import { getEpisodesByQuery, getMediaRefsByQuery, retrieveLatestChaptersForEpisodeId } from '~/services'
+  playerQueueLoadPriorityItems, userSetInfo } from '~/redux/actions'
+import { getEpisodesByQuery, getMediaRefsByQuery, retrieveLatestChaptersForEpisodeId,
+  setNowPlayingItem } from '~/services'
 import { withTranslation } from '~/../i18n'
 import AwesomeDebouncePromise from 'awesome-debounce-promise'
 const uuidv4 = require('uuid/v4')
@@ -34,8 +33,6 @@ type Props = {
   pageKey: string
   page?: any
   pages?: any
-  playerQueueAddSecondaryItems?: any
-  playerQueueLoadSecondaryItems?: any
   podcast?: any
   podcastId?: string
   queryFrom?: string
@@ -73,7 +70,7 @@ class MediaListCtrl extends Component<Props, State> {
 
   queryListItems = async (queryType, queryFrom, querySort, page, categoryId) => {
     const { allowUntitledClips, episode, episodeId, handleSetPageQueryState, pageIsLoading,
-      pageKey, pages, playerQueueLoadSecondaryItems, podcast, podcastId, user } = this.props
+      pageKey, pages, podcast, podcastId, user } = this.props
     const { subscribedPodcastIds } = user
     const { filterText } = pages[pageKey]
 
@@ -155,8 +152,6 @@ class MediaListCtrl extends Component<Props, State> {
         listItemsTotal = mediaRefs[1]
         nowPlayingItems = mediaRefs[0].map(x => convertToNowPlayingItem(x, episode, podcast))
       }
-
-      playerQueueLoadSecondaryItems(clone(nowPlayingItems))
 
       this.handleSetPageQueryStateListItems(newState, nowPlayingItems, listItemsTotal)
     } catch (error) {
@@ -337,13 +332,13 @@ class MediaListCtrl extends Component<Props, State> {
 
   playItem = async nowPlayingItem => {
     const { mediaPlayer, mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying,
-      pageKey, pages, playerQueueLoadSecondaryItems, user, userSetInfo } = this.props
-    const { listItems, podcast } = pages[pageKey]
+      pageKey, pages, user, userSetInfo } = this.props
+    const { podcast } = pages[pageKey]
     const { nowPlayingItem: previousItem } = mediaPlayer
 
     if (window.player) {
       const currentTime = Math.floor(window.player.getCurrentTime()) || 0
-      await addOrUpdateHistoryItemPlaybackPosition(mediaPlayer.nowPlayingItem, user, currentTime)
+      await addOrUpdateHistoryItemAndState(mediaPlayer.nowPlayingItem, user, currentTime)
     }
 
     // If loading a new episode, clear the player to prevent the error:
@@ -369,37 +364,12 @@ class MediaListCtrl extends Component<Props, State> {
       nowPlayingItem.podcastValue = podcast.value
     }
 
-    nowPlayingItem = assignLocalOrLoggedInNowPlayingItemPlaybackPosition(user, nowPlayingItem)
     mediaPlayerLoadNowPlayingItem(nowPlayingItem)
-    setNowPlayingItemInStorage(nowPlayingItem)
+    await setNowPlayingItem(nowPlayingItem, nowPlayingItem.userPlaybackPosition, user)
     mediaPlayerUpdatePlaying(true)
 
-    let nowPlayingItemIndex = -1
-    if (nowPlayingItem.clipId) {
-      nowPlayingItemIndex = listItems.map((x) => x.clipId).indexOf(nowPlayingItem && nowPlayingItem.clipId)
-    } else if (nowPlayingItem.episodeId) {
-      nowPlayingItemIndex = listItems.map((x) => x.episodeId).indexOf(nowPlayingItem && nowPlayingItem.episodeId)
-    }
-    const queuedListItems = clone(listItems)
-    if (nowPlayingItemIndex > -1) queuedListItems.splice(0, nowPlayingItemIndex + 1)
-    playerQueueLoadSecondaryItems(queuedListItems)
-
     if (user && user.id) {
-      await addOrUpdateHistoryItemPlaybackPosition(nowPlayingItem, user)
-
-      const historyItems = user.historyItems.filter(x => {
-        if (x) {
-          if ((x.clipStartTime || x.clipEndTime) && x.clipId !== nowPlayingItem.clipId) {
-            return x
-          } else if (x.episodeId !== nowPlayingItem.episodeId) {
-            return x
-          }
-        }
-        return null
-      })
-
-      historyItems.push(nowPlayingItem)
-
+      const historyItems = await addOrUpdateHistoryItemAndState(nowPlayingItem, user)
       userSetInfo({ historyItems })
     }
   }
@@ -451,8 +421,6 @@ class MediaListCtrl extends Component<Props, State> {
         nowPlayingItems = mediaRefs[0].map(x => convertToNowPlayingItem(x))
         listItemsTotal = mediaRefs[1]
       }
-
-      playerQueueLoadSecondaryItems(clone(nowPlayingItems))
 
       this.handleSetPageQueryStateListItems({ pageKey }, nowPlayingItems, listItemsTotal)
     } catch (error) {
@@ -790,9 +758,7 @@ const mapDispatchToProps = dispatch => ({
   mediaPlayerLoadNowPlayingItem: bindActionCreators(mediaPlayerLoadNowPlayingItem, dispatch),
   mediaPlayerUpdatePlaying: bindActionCreators(mediaPlayerUpdatePlaying, dispatch),
   pageIsLoading: bindActionCreators(pageIsLoading, dispatch),
-  playerQueueAddSecondaryItems: bindActionCreators(playerQueueAddSecondaryItems, dispatch),
   playerQueueLoadPriorityItems: bindActionCreators(playerQueueLoadPriorityItems, dispatch),
-  playerQueueLoadSecondaryItems: bindActionCreators(playerQueueLoadSecondaryItems, dispatch),
   userSetInfo: bindActionCreators(userSetInfo, dispatch)
 })
 

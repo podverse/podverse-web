@@ -2,18 +2,17 @@ import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { convertNowPlayingItemClipToNowPlayingItemEpisode } from 'podverse-shared'
-import { MediaPlayer, popNextFromQueueStorage, setNowPlayingItemInStorage } from 'podverse-ui'
-import { addOrUpdateHistoryItemPlaybackPosition, assignLocalOrLoggedInNowPlayingItemPlaybackPosition,
-  generateShareURLs, getPlaybackPositionFromHistory, getViewContentsElementScrollTop } from '~/lib/utility'
+import { MediaPlayer, popNextFromQueueStorage } from 'podverse-ui'
+import { addOrUpdateHistoryItemAndState, generateShareURLs, getViewContentsElementScrollTop } from '~/lib/utility'
 import { getPlaybackRateText, getPlaybackRateNextValue } from '~/lib/utility'
 import PV from '~/lib/constants'
 import { mediaPlayerLoadNowPlayingItem, 
   mediaPlayerSetClipFinished, mediaPlayerSetPlayedAfterClipFinished,
-  playerQueueLoadPriorityItems, playerQueueLoadSecondaryItems,
-  mediaPlayerUpdatePlaying, modalsAddToShow, modalsMakeClipShow,
-  modalsShareShow, modalsSupportShow, pageIsLoading, pagesSetQueryState,
-  userSetInfo } from '~/redux/actions'
-import { updateUserQueueItems, addOrUpdateUserHistoryItem } from '~/services'
+  playerQueueLoadPriorityItems, mediaPlayerUpdatePlaying, modalsAddToShow,
+  modalsMakeClipShow, modalsShareShow, modalsSupportShow, pageIsLoading,
+  pagesSetQueryState, userSetInfo } from '~/redux/actions'
+import { setNowPlayingItem } from '~/services'
+import { popNextFromQueueFromServer } from '~/services/userQueueItem'
 
 type Props = {
   handleMakeClip?: Function
@@ -34,7 +33,6 @@ type Props = {
   pagesSetQueryState?: any
   playerQueue?: any
   playerQueueLoadPriorityItems?: any
-  playerQueueLoadSecondaryItems?: any
   settings?: any
   user?: any
   userSetInfo?: any
@@ -101,35 +99,24 @@ class MediaPlayerView extends Component<Props, State> {
   itemSkip = async () => {
     const { mediaPlayer, mediaPlayerLoadNowPlayingItem,
       mediaPlayerSetPlayedAfterClipFinished, mediaPlayerUpdatePlaying, playerQueue,
-      playerQueueLoadPriorityItems, playerQueueLoadSecondaryItems, user, userSetInfo
-      } = this.props
+      playerQueueLoadPriorityItems, user, userSetInfo } = this.props
     const previousItem = mediaPlayer.nowPlayingItem
     let nextItem
     let priorityItems = []
-    let secondaryItems = []
 
     if (window.player) {
       const currentTime = Math.floor(window.player.getCurrentTime()) || 0
-      await addOrUpdateHistoryItemPlaybackPosition(previousItem, user, currentTime)
+      await addOrUpdateHistoryItemAndState(previousItem, user, currentTime)
     }
 
     if (user && user.id) {
-      if (user.queueItems && user.queueItems.length > 0) {
-        nextItem = user.queueItems.splice(0, 1)[0]
-        priorityItems = user.queueItems
-        secondaryItems = playerQueue.secondaryItems
-      } else if (playerQueue.secondaryItems && playerQueue.secondaryItems.length > 0) {
-        nextItem = playerQueue.secondaryItems.splice(0, 1)[0]
-        secondaryItems = playerQueue.secondaryItems
-      }
+      const results = await popNextFromQueueFromServer() as any
+      nextItem = results.nextItem
+      priorityItems = results.userQueueItems
     } else {
       if (playerQueue.priorityItems && playerQueue.priorityItems.length > 0) {
         nextItem = playerQueue.priorityItems.splice(0, 1)[0]
         priorityItems = playerQueue.priorityItems
-        secondaryItems = playerQueue.secondaryItems
-      } else if (playerQueue.secondaryItems && playerQueue.secondaryItems.length > 0) {
-        nextItem = playerQueue.secondaryItems.splice(0, 1)[0]
-        secondaryItems = playerQueue.secondaryItems
       } else {
         return
       }
@@ -147,26 +134,11 @@ class MediaPlayerView extends Component<Props, State> {
         window.player = null
       }
 
-      nextItem = assignLocalOrLoggedInNowPlayingItemPlaybackPosition(user, nextItem)
       mediaPlayerLoadNowPlayingItem(nextItem)
-      setNowPlayingItemInStorage(nextItem)
+      await setNowPlayingItem(nextItem, nextItem.userPlaybackPosition, user)
 
       if (user && user.id) {
-        await addOrUpdateHistoryItemPlaybackPosition(nextItem, user)
-        // eslint-disable-next-line array-callback-return
-        const historyItems = user.historyItems.filter(x => {
-          if (x) {
-            if ((x.clipStartTime || x.clipEndTime) && x.clipId !== nextItem.clipId) {
-              return x
-            } else if (x.episodeId !== nextItem.episodeId) {
-              return x
-            }
-          }
-        })
-
-        await updateUserQueueItems({ queueItems: priorityItems })
-        
-        historyItems.push(nextItem)
+        const historyItems = await addOrUpdateHistoryItemAndState(nextItem, user)
         
         userSetInfo({ 
           historyItems,
@@ -178,7 +150,6 @@ class MediaPlayerView extends Component<Props, State> {
     }
 
     playerQueueLoadPriorityItems(priorityItems)
-    playerQueueLoadSecondaryItems(secondaryItems)
     mediaPlayerUpdatePlaying(this.state.autoplay)
   }
 
@@ -198,7 +169,7 @@ class MediaPlayerView extends Component<Props, State> {
     const { nowPlayingItem } = mediaPlayer
     const { autoplay } = this.state
 
-    await addOrUpdateHistoryItemPlaybackPosition(nowPlayingItem, user, 0)
+    await addOrUpdateHistoryItemAndState(nowPlayingItem, user, 0)
     
     if (autoplay) {
       this.itemSkip()
@@ -221,7 +192,7 @@ class MediaPlayerView extends Component<Props, State> {
   pause = async () => {
     const { mediaPlayer, user } = this.props
     this.props.mediaPlayerUpdatePlaying(false)
-    await addOrUpdateHistoryItemPlaybackPosition(mediaPlayer.nowPlayingItem, user)
+    await addOrUpdateHistoryItemAndState(mediaPlayer.nowPlayingItem, user)
   }
 
   playbackRateClick = () => {
@@ -231,14 +202,14 @@ class MediaPlayerView extends Component<Props, State> {
     this.setState({ playbackRate: nextPlaybackRate })
   }
 
-  setPlayedAfterClipFinished = () => {
-    const { mediaPlayer } = this.props
+  setPlayedAfterClipFinished = async () => {
+    const { mediaPlayer, user } = this.props
     const { nowPlayingItem } = mediaPlayer
     this.props.mediaPlayerSetPlayedAfterClipFinished(true)
     if (nowPlayingItem) {
       const nowPlayingItemEpisode = convertNowPlayingItemClipToNowPlayingItemEpisode(nowPlayingItem)
       if (nowPlayingItemEpisode) {
-        addOrUpdateUserHistoryItem(nowPlayingItemEpisode)
+        await addOrUpdateHistoryItemAndState(mediaPlayer.nowPlayingItem, user)
       }
     }
   }
@@ -279,7 +250,7 @@ class MediaPlayerView extends Component<Props, State> {
     mediaPlayerUpdatePlaying(!playing)
 
     if (playing) {
-      await addOrUpdateHistoryItemPlaybackPosition(mediaPlayer.nowPlayingItem, user)
+      await addOrUpdateHistoryItemAndState(mediaPlayer.nowPlayingItem, user)
     }
   }
 
@@ -318,9 +289,9 @@ class MediaPlayerView extends Component<Props, State> {
   }
 
   render() {
-    const { isMobileDevice, mediaPlayer, playerQueue, settings, user } = this.props
+    const { isMobileDevice, mediaPlayer, playerQueue, settings } = this.props
     const { clipFinished, didWaitToLoad, nowPlayingItem, playedAfterClipFinished, playing } = mediaPlayer
-    const { priorityItems, secondaryItems } = playerQueue
+    const { priorityItems } = playerQueue
     const { playbackSpeedButtonHide } = settings
     const { autoplay, playbackRate } = this.state
 
@@ -336,7 +307,6 @@ class MediaPlayerView extends Component<Props, State> {
             autoplay={autoplay}
             clipFinished={clipFinished}
             didWaitToLoad={didWaitToLoad}
-            handleGetPlaybackPositionFromHistory={user && user.id ? () => getPlaybackPositionFromHistory(user.historyItems, nowPlayingItem) : null}
             handleItemSkip={this.itemSkip}
             handleOnEpisodeEnd={this.onEpisodeEnd}
             handleOnPastClipTime={this.onPastClipTime}
@@ -361,7 +331,6 @@ class MediaPlayerView extends Component<Props, State> {
             playerEpisodeLinkOnClick={this.linkClick}
             playing={playing}
             queuePriorityItems={priorityItems}
-            queueSecondaryItems={secondaryItems}
             showAutoplay={!isMobileDevice}
             showPlaybackSpeed={playbackSpeedButtonHide === 'false' || !playbackSpeedButtonHide}
             showSupport={showSupport} />
@@ -385,7 +354,6 @@ const mapDispatchToProps = dispatch => ({
   pageIsLoading: bindActionCreators(pageIsLoading, dispatch),
   pagesSetQueryState: bindActionCreators(pagesSetQueryState, dispatch),
   playerQueueLoadPriorityItems: bindActionCreators(playerQueueLoadPriorityItems, dispatch),
-  playerQueueLoadSecondaryItems: bindActionCreators(playerQueueLoadSecondaryItems, dispatch),
   userSetInfo: bindActionCreators(userSetInfo, dispatch)
 })
 

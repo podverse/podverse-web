@@ -3,13 +3,14 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { faUserCircle as farUserCircle } from '@fortawesome/free-regular-svg-icons'
 import { faUserCircle as fasUserCircle } from '@fortawesome/free-solid-svg-icons'
-import { Navbar, getPriorityQueueItemsStorage } from 'podverse-ui'
+import { Navbar } from 'podverse-ui'
 import PV from '~/lib/constants'
 import { getViewContentsElementScrollTop } from '~/lib/utility'
 import { modalsHistoryShow, modalsLoginShow, modalsQueueShow, pageIsLoading, pagesClearQueryState,
   pagesSetQueryState, playerQueueLoadPriorityItems, userSetInfo } from '~/redux/actions'
 import { logOut } from '~/services/auth'
 import { withTranslation } from 'i18n'
+import { getQueueItems } from '~/services/userQueueItem'
 
 type Props = {
   modals?: any
@@ -62,6 +63,11 @@ class PVNavBar extends Component<Props, State> {
     })
 
     dropdownItems.push({
+      label: t('History'),
+      onClick: () => { this.toggleHistoryModal() }
+    })
+
+    dropdownItems.push({
       as: PV.paths.web.my_profile_clips,
       href: PV.paths.web.my_profile_clips,
       label: t('My Clips'),
@@ -83,11 +89,6 @@ class PVNavBar extends Component<Props, State> {
       href: PV.paths.web.profiles,
       label: t('Profiles'),
       onClick: () => { this.linkClick() }
-    })
-
-    dropdownItems.push({
-      label: t('History'),
-      onClick: () => { this.toggleHistoryModal() }
     })
 
     return dropdownItems
@@ -164,7 +165,8 @@ class PVNavBar extends Component<Props, State> {
               subscribedPodcastIds: [],
               subscribedUserIds: []
             })
-            playerQueueLoadPriorityItems(getPriorityQueueItemsStorage())
+            const queueItems = await getQueueItems(user)
+            playerQueueLoadPriorityItems(queueItems)
             window.location.reload()
           } catch (error) {
             console.log(error)

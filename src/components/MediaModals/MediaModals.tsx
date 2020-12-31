@@ -3,21 +3,20 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import Router from 'next/router'
 import { AddToModal, ClipCreatedModal, KEYS, MakeClipModal, ShareModal, SupportModal,
-  addItemToPriorityQueueStorage, updatePriorityQueueStorage, getPriorityQueueItemsStorage,
-  getSecondaryQueueItemsStorage, removeItemFromPriorityQueueStorage,
-  removeItemFromSecondaryQueueStorage } from 'podverse-ui'
-  import { HistoryModal } from '~/components/MediaModals/HistoryModal'
+  addItemToPriorityQueueStorage, getPriorityQueueItemsStorage,
+  updatePriorityQueueStorage, removeItemFromPriorityQueueStorage } from 'podverse-ui'
+import { HistoryModal } from '~/components/MediaModals/HistoryModal'
 import { QueueModal } from '~/components/MediaModals/QueueModal'
 import PV from '~/lib/constants'
-import { alertPremiumRequired, alertSomethingWentWrong, clone, alertRateLimitError, safeAlert } from '~/lib/utility'
+import { alertPremiumRequired, alertSomethingWentWrong, alertRateLimitError, safeAlert } from '~/lib/utility'
 import { mediaPlayerUpdatePlaying, modalsAddToCreatePlaylistIsSaving,
   modalsAddToCreatePlaylistShow, modalsAddToShow, modalsClipCreatedShow, modalsHistoryShow,
   modalsLoginShow, modalsMakeClipShow, modalsQueueShow, modalsShareShow, modalsSupportShow,
-  pageIsLoading, playerQueueLoadItems, playerQueueLoadPriorityItems, userSetInfo, playerQueueLoadSecondaryItems
-  } from '~/redux/actions'
-import { addOrRemovePlaylistItem, createMediaRef, createPlaylist, deleteMediaRef,
-  updateMediaRef, updateUserQueueItems } from '~/services'
+  pageIsLoading, playerQueueLoadItems, playerQueueLoadPriorityItems, userSetInfo } from '~/redux/actions'
+import { addOrRemovePlaylistItem, addQueueItemLastToServer, addQueueItemNextToServer,
+  createMediaRef, createPlaylist, deleteMediaRef, updateMediaRef } from '~/services'
 import { withTranslation } from 'i18n'
+import { getQueueItems, removeQueueItemOnServer } from '~/services/userQueueItem'
 
 type Props = {
   mediaPlayer?: any
@@ -37,7 +36,6 @@ type Props = {
   playerQueue?: any
   playerQueueLoadItems?: any
   playerQueueLoadPriorityItems?: any
-  playerQueueLoadSecondaryItems?: any
   t?: any
   user?: any
   userSetInfo?: any
@@ -93,16 +91,13 @@ class MediaModals extends Component<Props, State> {
 
     let priorityItems = []
     if (user && user.id) {
-      user.queueItems = Array.isArray(user.queueItems) ? user.queueItems : []
-      isLast ? user.queueItems.push(nowPlayingItem) : user.queueItems.unshift(nowPlayingItem)
-
-      const response = await updateUserQueueItems({ queueItems: user.queueItems })
-
-      priorityItems = response.data || []
+      priorityItems = isLast
+        ? await addQueueItemLastToServer(nowPlayingItem)
+        : await addQueueItemNextToServer(nowPlayingItem)
+      priorityItems = priorityItems || []
     } else {
       addItemToPriorityQueueStorage(nowPlayingItem, isLast)
-
-      priorityItems = getPriorityQueueItemsStorage()
+      priorityItems = await getQueueItems(user)
     }
 
     playerQueueLoadPriorityItems(priorityItems)
@@ -124,19 +119,19 @@ class MediaModals extends Component<Props, State> {
     }, 2500)
   }
 
-  queueDragEnd = async (priorityItems, secondaryItems) => {
+  queueDragEnd = async (priorityItems) => {
     const { playerQueueLoadItems, user, userSetInfo } = this.props
 
     if (user && user.id) {
-      await updateUserQueueItems({ queueItems: priorityItems })
+      // HANDLE DRAG END!
+      //
+      //
+      //
     } else {
       updatePriorityQueueStorage(priorityItems)
     }
 
-    playerQueueLoadItems({
-      priorityItems,
-      secondaryItems
-    })
+    playerQueueLoadItems({ priorityItems })
 
     userSetInfo({ queueItems: priorityItems })
   }
@@ -384,46 +379,23 @@ class MediaModals extends Component<Props, State> {
     this.hideQueueModal()
   }
 
-  removeItem = async (clipId, episodeId, isPriority) => {
-    const { playerQueueLoadPriorityItems, playerQueueLoadSecondaryItems, t, user,
-      userSetInfo } = this.props
-    const { queueItems } = user
-    const localQueueItems = getPriorityQueueItemsStorage()
+  removeItem = async (clipId, episodeId) => {
+    const { playerQueueLoadPriorityItems, t, user, userSetInfo } = this.props
 
-    let newQueueItems
     if (user && user.id) {
-      newQueueItems = clone(queueItems)
-    } else {
-      newQueueItems = clone(localQueueItems)
-    }
-
-    if (isPriority) {
-      if (clipId) {
-        newQueueItems = newQueueItems.filter(x => x.clipId !== clipId)
-      } else if (episodeId) {
-        newQueueItems = newQueueItems.filter(x => x.episodeId !== episodeId)
-      }
-
-      if (user && user.id) {
-        try {
-          const response = await updateUserQueueItems({ queueItems: newQueueItems })
-          const priorityItems = response.data || []
-          userSetInfo({ queueItems: priorityItems })
-          playerQueueLoadPriorityItems(priorityItems)
-        } catch (error) {
-          console.log(error)
-          safeAlert(t('errorMessages:alerts.couldNotUpdateQueue'))
-        }
-      } else {
-        removeItemFromPriorityQueueStorage(clipId, episodeId)
-        const priorityItems = getPriorityQueueItemsStorage()
-        userSetInfo({ queueItems: priorityItems })
-        playerQueueLoadPriorityItems(priorityItems)
+      try {
+        const userQueueItems = await removeQueueItemOnServer(clipId, episodeId)
+        userSetInfo({ queueItems: userQueueItems })
+        playerQueueLoadPriorityItems(userQueueItems)
+      } catch (error) {
+        console.log(error)
+        safeAlert(t('errorMessages:alerts.couldNotUpdateQueue'))
       }
     } else {
-      removeItemFromSecondaryQueueStorage(clipId, episodeId)
-      const secondaryItems = getSecondaryQueueItemsStorage()
-      playerQueueLoadSecondaryItems(secondaryItems)
+      removeItemFromPriorityQueueStorage(clipId, episodeId)
+      const priorityItems = getPriorityQueueItemsStorage()
+      userSetInfo({ queueItems: priorityItems })
+      playerQueueLoadPriorityItems(priorityItems)
     }
   }
 
@@ -442,7 +414,7 @@ class MediaModals extends Component<Props, State> {
     const { clipLinkAs, episodeLinkAs, isOpen: shareIsOpen, podcastLinkAs } = share
     const { episodeFunding = [], podcastFunding = [], podcastShrunkImageUrl, podcastTitle,
       podcastValue, isOpen: supportIsOpen } = support
-    const { priorityItems, secondaryItems } = playerQueue
+    const { priorityItems } = playerQueue
     const { id, historyItems, playlists } = user
     const { isAddedToPlayLast, isAddedToPlayNext, isAddingToPlayLast, 
       isAddingToPlayNext, loadingItemId, makeClipIsDeleting, makeClipIsSaving
@@ -472,7 +444,6 @@ class MediaModals extends Component<Props, State> {
           isOpen={queueIsOpen}
           nowPlayingItem={nowPlayingItem}
           priorityItems={priorityItems}
-          secondaryItems={secondaryItems}
           t={t} />
         <HistoryModal
           handleHideModal={this.hideHistoryModal}
@@ -567,7 +538,6 @@ const mapDispatchToProps = dispatch => ({
   pageIsLoading: bindActionCreators(pageIsLoading, dispatch),
   playerQueueLoadItems: bindActionCreators(playerQueueLoadItems, dispatch),
   playerQueueLoadPriorityItems: bindActionCreators(playerQueueLoadPriorityItems, dispatch),
-  playerQueueLoadSecondaryItems: bindActionCreators(playerQueueLoadSecondaryItems, dispatch),
   userSetInfo: bindActionCreators(userSetInfo, dispatch)
 })
 

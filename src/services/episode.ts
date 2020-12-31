@@ -3,7 +3,6 @@ import { convertToNowPlayingItem } from 'podverse-shared'
 import config from '~/config'
 import PV from '~/lib/constants'
 import { clone, convertObjectToQueryString } from '~/lib/utility'
-import { playerQueueLoadSecondaryItems } from '~/redux/actions'
 const { API_BASE_URL } = config()
 
 export const getEpisodeById = async (id: string) => {
@@ -73,8 +72,6 @@ export const handlePageEpisodesQuery = async (obj) => {
     if (nowPlayingItemIndex > -1) {
       queuedListItems.splice(0, nowPlayingItemIndex + 1)
     }
-
-    store.dispatch(playerQueueLoadSecondaryItems(queuedListItems))
 
     store.dispatch(pagesSetQueryState({
       pageKey: PV.pageKeys.episodes,

@@ -29,6 +29,9 @@ export const paths = {
     update_history_item_playback_position: `/update-history-item-playback-position`,
     update_queue: `/update-queue`,
     user: `/user`,
+    user_history_item: `/user-history-item`,
+    user_now_playing_item: `/user-now-playing-item`,
+    user_queue_item: `/user-queue-item`,
     verify_email: `/verify-email`
   },
   web: {
