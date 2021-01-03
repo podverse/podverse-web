@@ -25,7 +25,6 @@ type Props = {
   modals?: any
   modalsAddToShow?: any
   modalsMakeClipShow?: any
-  modalsQueueShow?: any
   modalsShareShow?: any
   modalsSupportShow?: any
   pageIsLoading?: any

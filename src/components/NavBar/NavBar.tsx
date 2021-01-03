@@ -6,7 +6,7 @@ import { faUserCircle as fasUserCircle } from '@fortawesome/free-solid-svg-icons
 import { Navbar } from 'podverse-ui'
 import PV from '~/lib/constants'
 import { getViewContentsElementScrollTop } from '~/lib/utility'
-import { modalsHistoryShow, modalsLoginShow, modalsQueueShow, pageIsLoading, pagesClearQueryState,
+import { modalsHistoryShow, modalsLoginShow, pageIsLoading, pagesClearQueryState,
   pagesSetQueryState, playerQueueLoadPriorityItems, userSetInfo } from '~/redux/actions'
 import { logOut } from '~/services/auth'
 import { withTranslation } from 'i18n'
@@ -17,7 +17,6 @@ type Props = {
   modalsHistoryShow?: any
   modalsLoginIsLoading?: any
   modalsLoginShow?: any
-  modalsQueueShow?: any
   pageIsLoading?: any
   pageKey?: string
   pagesClearQueryState?: any
@@ -58,13 +57,22 @@ class PVNavBar extends Component<Props, State> {
     const dropdownItems = [] as any
 
     dropdownItems.push({
+      as: PV.paths.web.queue,
+      href: PV.paths.web.queue,
       label: t('Queue'),
-      onClick: () => { this.toggleQueueModal() }
+      onClick: () => {
+        pageIsLoading(true)
+      }
     })
 
+
     dropdownItems.push({
+      as: PV.paths.web.history,
+      href: PV.paths.web.history,
       label: t('History'),
-      onClick: () => { this.toggleHistoryModal() }
+      onClick: () => {
+        pageIsLoading(true)
+      }
     })
 
     dropdownItems.push({
@@ -185,13 +193,6 @@ class PVNavBar extends Component<Props, State> {
     modalsHistoryShow(!isOpen)
   }
 
-  toggleQueueModal = () => {
-    const { modals, modalsQueueShow } = this.props
-    const { queue } = modals
-    const { isOpen } = queue
-    modalsQueueShow(!isOpen)
-  }
-
   linkClick = () => {
     const { pageIsLoading, pageKey, pagesSetQueryState } = this.props
     pageIsLoading(true)
@@ -246,7 +247,6 @@ const mapStateToProps = state => ({ ...state })
 const mapDispatchToProps = dispatch => ({
   modalsHistoryShow: bindActionCreators(modalsHistoryShow, dispatch),
   modalsLoginShow: bindActionCreators(modalsLoginShow, dispatch),
-  modalsQueueShow: bindActionCreators(modalsQueueShow, dispatch),
   pageIsLoading: bindActionCreators(pageIsLoading, dispatch),
   pagesClearQueryState: bindActionCreators(pagesClearQueryState, dispatch),
   pagesSetQueryState: bindActionCreators(pagesSetQueryState, dispatch),

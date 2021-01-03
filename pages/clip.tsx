@@ -9,7 +9,7 @@ import MediaListCtrl from '~/components/MediaListCtrl/MediaListCtrl'
 import Meta from '~/components/Meta/Meta'
 import config from '~/config'
 import PV from '~/lib/constants'
-import { checkIfLoadingOnFrontEnd, clone, cookieGetQuery } from '~/lib/utility'
+import { checkIfLoadingOnFrontEnd, cookieGetQuery } from '~/lib/utility'
 import { pageIsLoading, pagesSetQueryState } from '~/redux/actions'
 import { getMediaRefsByQuery, getMediaRefById, retrieveLatestChaptersForEpisodeId
   } from '~/services/'
@@ -40,8 +40,7 @@ class Clip extends Component<Props, State> {
   static async getInitialProps({ query, req, store }) {
     const pageKeyWithId = `${PV.pageKeys.clip}${query.id}`
     const state = store.getState()
-    const { mediaPlayer, pages } = state
-    const { nowPlayingItem } = mediaPlayer
+    const { pages } = state
 
     let mediaRefResult
     try {

@@ -7,8 +7,8 @@ export { modalsAddToIsLoading, modalsAddToSetErrorResponse, modalsAddToShow,
   modalsAddToCreatePlaylistIsSaving, modalsAddToCreatePlaylistShow, modalsClipCreatedShow,
   modalsForgotPasswordIsLoading, modalsForgotPasswordSetErrorResponse,
   modalsForgotPasswordShow, modalsHistoryShow, modalsLoginIsLoading, modalsLoginSetErrorResponse,
-  modalsLoginShow, modalsMakeClipSetErrorResponse, modalsMakeClipShow, modalsQueueIsLoading,
-  modalsQueueSetErrorResponse, modalsQueueShow, modalsSendVerificationEmailShow, modalsShareIsLoading,
+  modalsLoginShow, modalsMakeClipSetErrorResponse, modalsMakeClipShow,
+  modalsSendVerificationEmailShow, modalsShareIsLoading,
   modalsShareSetErrorResponse, modalsShareShow, modalsSignUpIsLoading, modalsSignUpSetErrorResponse,
   modalsSignUpShow, modalsSupportShow } from '~/redux/actions/modals'
 export { settingsCensorNSFWText, settingsHidePlaybackSpeedButton, settingsSetDefaultHomepageTab, settingsSetUITheme

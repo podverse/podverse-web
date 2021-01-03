@@ -5,6 +5,7 @@ export const pageKeys = {
   episode: 'episode_',
   episodes: 'episodes',
   faq: 'faq',
+  history: 'history',
   home: 'home',
   membership: 'membership',
   myProfile: 'my_profile',
@@ -14,6 +15,7 @@ export const pageKeys = {
   podcasts: 'podcasts',
   profile: 'profile_',
   profiles: 'profiles',
+  queue: 'queue',
   redeem: 'redeem',
   search: 'search',
   settings: 'settings'

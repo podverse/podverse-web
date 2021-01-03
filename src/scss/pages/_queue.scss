@@ -1,0 +1,53 @@
+.queue {
+  .media-list__container-now-playing {
+    margin: 0;
+
+    .media-list__container {
+      margin: 0;
+    }
+  }
+}
+
+.queue-modal__header {
+  display: flex;
+
+  h3 {
+    flex: 1 0 33%;
+    margin-bottom: 0;
+  }
+
+  .queue-modal-header__dropdown {
+    flex: 1;
+  }
+
+  .queue-modal-header__edit {
+    background-color: transparent;
+    border-color: transparent;
+    flex: 0 0 34%;
+    text-align: right;
+
+    button {
+      background-color: transparent;
+      border-color: transparent;
+      height: 42px;
+      margin-top: -0.375rem;
+      width: 100px;
+    }
+  }
+
+  .queue-modal-header__close {
+    flex: 0 0 33%;
+  }
+}
+.scrollable-area {
+  overflow: auto;
+  height: calc(100% - 5.25rem);
+  margin-right: -1rem;
+  padding-right: 1rem;
+
+  .media-list-item-a__title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
