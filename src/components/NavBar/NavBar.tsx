@@ -186,13 +186,6 @@ class PVNavBar extends Component<Props, State> {
     return dropdownItems
   }
 
-  toggleHistoryModal = () => {
-    const { modals, modalsHistoryShow } = this.props
-    const { queue } = modals
-    const { isOpen } = queue
-    modalsHistoryShow(!isOpen)
-  }
-
   linkClick = () => {
     const { pageIsLoading, pageKey, pagesSetQueryState } = this.props
     pageIsLoading(true)

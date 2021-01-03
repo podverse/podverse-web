@@ -54,7 +54,6 @@ class Queue extends Component<Props, State> {
     return { lastScrollPosition, pageKey: PV.pageKeys.queue, namespacesRequired }
   }
 
-
   onDragEnd = async data => {
     const { playerQueue, playerQueueLoadItems, user, userSetInfo } = this.props
     let { priorityItems } = playerQueue

@@ -16,8 +16,8 @@ export const getAuthenticatedUserInfo = async (bearerToken) => {
 
   const userInfo = response && response.data
 
-  const historyItemsResponse = await getHistoryItemsFromServerWithBearerToken(bearerToken, 1)
-  userInfo.historyItems = historyItemsResponse[0] || []
+  const { userHistoryItems } = await getHistoryItemsFromServerWithBearerToken(bearerToken, 1)
+  userInfo.historyItems = userHistoryItems || []
 
   const queueItemsResponse = await getQueueItemsFromServerWithBearerToken(bearerToken)
   userInfo.queueItems = queueItemsResponse || []

@@ -4,11 +4,10 @@ import { bindActionCreators } from 'redux'
 import Router from 'next/router'
 import { AddToModal, ClipCreatedModal, KEYS, MakeClipModal, ShareModal,
   SupportModal } from 'podverse-ui'
-import { HistoryModal } from '~/components/MediaModals/HistoryModal'
 import PV from '~/lib/constants'
 import { alertPremiumRequired, alertSomethingWentWrong, alertRateLimitError, safeAlert } from '~/lib/utility'
 import { mediaPlayerUpdatePlaying, modalsAddToCreatePlaylistIsSaving,
-  modalsAddToCreatePlaylistShow, modalsAddToShow, modalsClipCreatedShow, modalsHistoryShow,
+  modalsAddToCreatePlaylistShow, modalsAddToShow, modalsClipCreatedShow,
   modalsLoginShow, modalsMakeClipShow, modalsShareShow, modalsSupportShow,
   pageIsLoading, userSetInfo } from '~/redux/actions'
 import { addOrRemovePlaylistItem, createMediaRef, createPlaylist, deleteMediaRef,
@@ -23,7 +22,6 @@ type Props = {
   modalsAddToCreatePlaylistShow?: any
   modalsAddToShow?: any
   modalsClipCreatedShow?: any
-  modalsHistoryShow?: any
   modalsLoginShow?: any
   modalsMakeClipShow?: any
   modalsShareShow?: any
@@ -96,11 +94,6 @@ class MediaModals extends Component<Props, State> {
     window.sessionStorage.setItem(KEYS.inProgressMakeClipTitleKey, title)
 
     modalsMakeClipShow({})
-  }
-
-  hideHistoryModal = () => {
-    const { modalsHistoryShow } = this.props
-    modalsHistoryShow(false)
   }
 
   hideShareModal = () => {
@@ -296,11 +289,10 @@ class MediaModals extends Component<Props, State> {
   render() {
     const { modals, modalsLoginShow, t, user } = this.props
 
-    const { addTo, clipCreated, history, makeClip, share, support } = modals
+    const { addTo, clipCreated, makeClip, share, support } = modals
     const { createPlaylistIsSaving, createPlaylistShowError, createPlaylistShow,
       isOpen: addToIsOpen, nowPlayingItem: addToNowPlayingItem } = addTo
     const { isOpen: clipCreatedIsOpen, mediaRef: clipCreatedMediaRef } = clipCreated
-    const { isOpen: historyIsOpen } = history
     const { isEditing: makeClipIsEditing, isOpen: makeClipIsOpen, 
       nowPlayingItem: makeClipNowPlayingItem } = makeClip
 
@@ -308,7 +300,7 @@ class MediaModals extends Component<Props, State> {
     const { episodeFunding = [], podcastFunding = [], podcastShrunkImageUrl, podcastTitle,
       podcastValue, isOpen: supportIsOpen } = support
     
-    const { id, historyItems, playlists } = user
+    const { id, playlists } = user
     const { loadingItemId, makeClipIsDeleting, makeClipIsSaving
     } = this.state
 
@@ -327,13 +319,6 @@ class MediaModals extends Component<Props, State> {
 
     return (
       <Fragment>
-
-        <HistoryModal
-          handleHideModal={this.hideHistoryModal}
-          historyItems={historyItems}
-          isLoggedIn={!!id}
-          isOpen={historyIsOpen}
-          t={t} />
         <MakeClipModal
           endTime={makeClipIsEditing ? makeClipNowPlayingItem.clipEndTime : ''}
           handleDelete={this.makeClipDelete}
@@ -405,7 +390,6 @@ const mapDispatchToProps = dispatch => ({
   modalsAddToCreatePlaylistShow: bindActionCreators(modalsAddToCreatePlaylistShow, dispatch),
   modalsAddToShow: bindActionCreators(modalsAddToShow, dispatch),
   modalsClipCreatedShow: bindActionCreators(modalsClipCreatedShow, dispatch),
-  modalsHistoryShow: bindActionCreators(modalsHistoryShow, dispatch),
   modalsLoginShow: bindActionCreators(modalsLoginShow, dispatch),
   modalsMakeClipShow: bindActionCreators(modalsMakeClipShow, dispatch),
   modalsShareShow: bindActionCreators(modalsShareShow, dispatch),
