@@ -245,20 +245,22 @@ export const addOrUpdateHistoryItemAndState = async (nowPlayingItem, user, overr
 const generateNewHistoryItems = (nowPlayingItem, user) => {
   if (!user || !Array.isArray(user.historyItems)) {
     return []
-  } else {
-    const newHistoryItems = user.historyItems.filter(x => {
+  } else {    
+    let newHistoryItems = [nowPlayingItem] as any
+
+    const filteredHistoryItems = user.historyItems.reduce((acc: any, x: any) => {
       if (x) {
         if ((x.clipStartTime || x.clipEndTime) && x.clipId !== nowPlayingItem.clipId) {
-          return x
+          acc.push(x)
         } else if (x.episodeId !== nowPlayingItem.episodeId) {
-          return x
+          acc.push(x)
         }
       }
-      return {}
-    })
-  
-    newHistoryItems.push(nowPlayingItem)
-  
+      return acc
+    }, [])
+
+    newHistoryItems = newHistoryItems.concat(filteredHistoryItems)
+    
     return newHistoryItems
   }
 }
