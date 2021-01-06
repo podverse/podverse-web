@@ -7,7 +7,7 @@ module.exports = {
   before: function (browser) {
     browser.url(`${WEB_ORIGIN}`)
   },
-  'User login tests': function (browser) {
+  'Auth: User login': function (browser) {
     browser
       .waitForElementWithText('h3', 'Clips')
       .waitForElementWithText('.hide-mobile:nth-child(5) a', 'Login')

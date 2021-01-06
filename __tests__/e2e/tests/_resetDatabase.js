@@ -10,7 +10,6 @@ module.exports = {
     browser
       .pause(60000)
       .url(`${WEB_ORIGIN}/`)
-      .waitForElementWithText('h3', 'Clips')
   },
   after: function (browser) {
     browser.end()

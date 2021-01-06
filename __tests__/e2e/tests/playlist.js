@@ -4,7 +4,7 @@ module.exports = {
   before: function (browser) {
     browser.url(`${WEB_ORIGIN}/`)
   },
-  'Playlist Tests': function (browser) {
+  'Playlist': function (browser) {
     browser
       .waitForXpathPresent('//div[contains(text(), "Amet aliquam id diam maecenas ultricies mi eget.")]')
       .loginUsingModal(`premium@stage.podverse.fm`)
