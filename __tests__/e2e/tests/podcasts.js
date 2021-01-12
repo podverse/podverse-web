@@ -4,7 +4,7 @@ module.exports = {
   before: function (browser) {
     browser.url(`${WEB_ORIGIN}/podcasts`)
   },
-  'Podcasts Tests': function (browser) {
+  'Podcasts Page': function (browser) {
     browser
       .waitForElementWithText('h3', 'Podcasts')
       .testSharedMetaTags()
