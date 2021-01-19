@@ -14,7 +14,7 @@ import Meta from '~/components/Meta/Meta'
 import config from '~/config'
 import PV from '~/lib/constants'
 import { addOrUpdateHistoryItemPlaybackPosition, alertPremiumRequired, alertRateLimitError, alertSomethingWentWrong,
-  assignLocalOrLoggedInNowPlayingItemPlaybackPosition, clone, readableDate, safeAlert } from '~/lib/utility'
+  assignLocalOrLoggedInNowPlayingItemPlaybackPosition, readableDate, safeAlert } from '~/lib/utility'
 import { mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying, pageIsLoading,
   pagesSetQueryState, userSetInfo } from '~/redux/actions'
 import { addOrRemovePlaylistItem, deletePlaylist,
