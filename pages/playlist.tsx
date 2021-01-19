@@ -16,7 +16,7 @@ import PV from '~/lib/constants'
 import { addOrUpdateHistoryItemPlaybackPosition, alertPremiumRequired, alertRateLimitError, alertSomethingWentWrong,
   assignLocalOrLoggedInNowPlayingItemPlaybackPosition, clone, readableDate, safeAlert } from '~/lib/utility'
 import { mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying, pageIsLoading,
-  pagesSetQueryState, playerQueueLoadSecondaryItems, userSetInfo } from '~/redux/actions'
+  pagesSetQueryState, userSetInfo } from '~/redux/actions'
 import { addOrRemovePlaylistItem, deletePlaylist,
   getPlaylistById, toggleSubscribeToPlaylist, updatePlaylist } from '~/services/'
 import { withTranslation } from '~/../i18n'
@@ -32,7 +32,6 @@ type Props = {
   mediaPlayerUpdatePlaying: any
   pageIsLoading: any
   pageKey?: string
-  playerQueueLoadSecondaryItems: any
   playlist: any
   playlistItems: any[]
   settings?: any
@@ -108,11 +107,10 @@ class Playlist extends Component<Props, State> {
   }
 
   componentDidMount() {
-    const { errorCode, mediaPlayer, playerQueueLoadSecondaryItems, playlistItems } = this.props
+    const { errorCode, playlistItems } = this.props
 
     if (errorCode) return
 
-    const { nowPlayingItem } = mediaPlayer
     const { playlist } = this.state
     const itemsOrder = playlist.itemsOrder
 
@@ -136,15 +134,6 @@ class Playlist extends Component<Props, State> {
       }
       return result
     }, [])
-
-    const nowPlayingItemIndex = sortedNowPlayingItems.map((x) => x.clipId).indexOf(nowPlayingItem && nowPlayingItem.clipId)
-    const queuedListItems = clone(sortedNowPlayingItems)
-
-    if (nowPlayingItemIndex > -1) {
-      queuedListItems.splice(0, nowPlayingItemIndex + 1)
-    }
-    
-    playerQueueLoadSecondaryItems(queuedListItems)
 
     this.setState({
       isLoading: false,
@@ -315,7 +304,6 @@ class Playlist extends Component<Props, State> {
   }
 
   onDragEnd = async data => {
-    const { playerQueueLoadSecondaryItems } = this.props
     const { playlist, sortedNowPlayingItems } = this.state
     const { destination, source } = data
 
@@ -336,14 +324,12 @@ class Playlist extends Component<Props, State> {
       itemsOrder
     })
     
-    playerQueueLoadSecondaryItems(sortedNowPlayingItems)
     this.setState({ sortedNowPlayingItems })
   }
 
   playItem = async nowPlayingItem => {
     const { mediaPlayer, mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying,
-      playerQueueLoadSecondaryItems, user, userSetInfo } = this.props
-    const { sortedNowPlayingItems } = this.state
+      user, userSetInfo } = this.props
 
     if (window.player) {
       const currentTime = Math.floor(window.player.getCurrentTime()) || 0
@@ -354,14 +340,6 @@ class Playlist extends Component<Props, State> {
     mediaPlayerLoadNowPlayingItem(nowPlayingItem)
     setNowPlayingItemInStorage(nowPlayingItem)
     mediaPlayerUpdatePlaying(true)
-
-    const nowPlayingItemIndex = sortedNowPlayingItems.map((x) => x.clipId).indexOf(nowPlayingItem && nowPlayingItem.clipId)
-    const queuedListItems = clone(sortedNowPlayingItems)
-    if (nowPlayingItemIndex > -1) {
-      queuedListItems.splice(0, nowPlayingItemIndex + 1)
-    }
-
-    playerQueueLoadSecondaryItems(queuedListItems)
 
     if (user && user.id) {
       await addOrUpdateHistoryItemPlaybackPosition(nowPlayingItem, user)
@@ -634,7 +612,6 @@ const mapDispatchToProps = dispatch => ({
   mediaPlayerUpdatePlaying: bindActionCreators(mediaPlayerUpdatePlaying, dispatch),
   pageIsLoading: bindActionCreators(pageIsLoading, dispatch),
   pagesSetQueryState: bindActionCreators(pagesSetQueryState, dispatch),
-  playerQueueLoadSecondaryItems: bindActionCreators(playerQueueLoadSecondaryItems, dispatch),
   userSetInfo: bindActionCreators(userSetInfo, dispatch)
 })
 

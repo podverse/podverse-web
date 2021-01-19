@@ -7,23 +7,9 @@ export const playerQueueLoadItems = payload => {
   }
 }
 
-export const playerQueueAddSecondaryItems = payload => {
-  return {
-    type: actionTypes.PLAYER_QUEUE_ADD_SECONDARY_ITEMS,
-    payload
-  }
-}
-
 export const playerQueueLoadPriorityItems = payload => {
   return {
     type: actionTypes.PLAYER_QUEUE_LOAD_PRIMARY_ITEMS,
-    payload
-  }
-}
-
-export const playerQueueLoadSecondaryItems = payload => {
-  return {
-    type: actionTypes.PLAYER_QUEUE_LOAD_SECONDARY_ITEMS,
     payload
   }
 }
