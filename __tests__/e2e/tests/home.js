@@ -6,7 +6,7 @@ module.exports = {
   before: function (browser) {
     browser.url(`${WEB_ORIGIN}/`)
   },
-  'Home Page tests': function (browser) {
+  'Home Page': function (browser) {
     browser
       .waitForElementWithText('h3', 'Clips')
       .waitForXpathPresent('//div[contains(text(), "Amet aliquam id diam maecenas ultricies mi eget.")]')

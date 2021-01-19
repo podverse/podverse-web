@@ -7,7 +7,7 @@ module.exports = {
         .url(`${WEB_ORIGIN}/`)
 
   },
-  'Subscribe to Playlist': function (browser) {
+  'Settings Logged In': function (browser) {
       browser
         .loginUsingModal('freetrial@stage.podverse.fm')
         .waitForXpathPresent(`//div[contains(text(), "Amet aliquam id diam maecenas ultricies mi eget.")]`)

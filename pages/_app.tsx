@@ -42,8 +42,6 @@ fontAwesomeConfig.autoAddCss = false
 
 addFontAwesomeIcons()
 
-
-
 let windowHasLoaded = false
 
 declare global {

@@ -6,7 +6,7 @@ module.exports = {
   before: function (browser) {
     browser.url(`${WEB_ORIGIN}/podcast/Yqft_RG8j`)
   },
-  'Podcast Tests': function (browser) {
+  'Podcast': function (browser) {
     browser
       .waitForElementWithText('span.media-header__title', 'Very Bad Wizards')
       .checkCurrentMedia(`Episode 185: The Devil's Playground`, `episode`)

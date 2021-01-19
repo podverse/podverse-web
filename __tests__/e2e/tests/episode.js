@@ -10,7 +10,7 @@ module.exports = {
   before: function (browser) {
     browser.url(`${WEB_ORIGIN}/episode/nkLmKNNwwcO`)
   },
-  'Episode Page tests': function (browser) {
+  'Episode Page': function (browser) {
     browser
       .waitForXpathPresent('//div[contains(text(), "The Americans are coming, but will the war be over by the time they get there? Germany throws everything into a last series of stupendous attacks in the West while hoping to avoid getting burned by a fire in the East they helped fan.")]')
       .testSharedMetaTags()
