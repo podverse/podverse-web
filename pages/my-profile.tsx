@@ -7,8 +7,7 @@ import UserHeaderCtrl from '~/components/UserHeaderCtrl/UserHeaderCtrl'
 import UserMediaListCtrl from '~/components/UserMediaListCtrl/UserMediaListCtrl'
 import config from '~/config'
 import PV from '~/lib/constants'
-import { clone } from '~/lib/utility'
-import { pageIsLoading, playerQueueLoadSecondaryItems, pagesSetQueryState } from '~/redux/actions'
+import { pageIsLoading, pagesSetQueryState } from '~/redux/actions'
 import { getLoggedInUserMediaRefsFromBackEnd, getLoggedInUserMediaRefsFromFrontEnd, getLoggedInUserPlaylistsFromBackEnd,
   getPodcastsByQuery } from '~/services'
 import { withTranslation } from '~/../i18n'
@@ -59,7 +58,7 @@ class MyProfile extends Component<Props, State> {
         const mediaRefs = queryDataResult.data as any
         const nowPlayingItems = mediaRefs[0].map(x => convertToNowPlayingItem(x))
         listItems = [nowPlayingItems, mediaRefs[1]]
-        store.dispatch(playerQueueLoadSecondaryItems(clone(listItems[0])))
+
       } else if (queryType === PV.queryParams.playlists) {
         if (bearerToken) {
           queryDataResult = await getLoggedInUserPlaylistsFromBackEnd(bearerToken, queryPage)

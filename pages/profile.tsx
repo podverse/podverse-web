@@ -9,8 +9,7 @@ import UserMediaListCtrl from '~/components/UserMediaListCtrl/UserMediaListCtrl'
 import config from '~/config'
 import PV from '~/lib/constants'
 import { clone } from '~/lib/utility'
-import { pageIsLoading, pagesSetQueryState, playerQueueLoadSecondaryItems
-  } from '~/redux/actions'
+import { pageIsLoading, pagesSetQueryState } from '~/redux/actions'
 import { getPodcastsByQuery, getPublicUser, getUserMediaRefs, getUserPlaylists
   } from '~/services'
 import { withTranslation } from '~/../i18n'

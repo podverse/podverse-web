@@ -8,10 +8,9 @@ import MediaListItemCtrl from '~/components/MediaListItemCtrl/MediaListItemCtrl'
 import config from '~/config'
 import PV from '~/lib/constants'
 import { addOrUpdateHistoryItemPlaybackPosition, assignLocalOrLoggedInNowPlayingItemPlaybackPosition,
-  clone, cookieSetQuery } from '~/lib/utility'
+  cookieSetQuery } from '~/lib/utility'
 import { mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying, pageIsLoading,
-  playerQueueAddSecondaryItems, playerQueueLoadPriorityItems,
-  playerQueueLoadSecondaryItems, userSetInfo } from '~/redux/actions'
+  playerQueueLoadPriorityItems, userSetInfo } from '~/redux/actions'
 import { getEpisodesByQuery, getMediaRefsByQuery, retrieveLatestChaptersForEpisodeId } from '~/services'
 import { withTranslation } from '~/../i18n'
 import AwesomeDebouncePromise from 'awesome-debounce-promise'
@@ -34,8 +33,6 @@ type Props = {
   pageKey: string
   page?: any
   pages?: any
-  playerQueueAddSecondaryItems?: any
-  playerQueueLoadSecondaryItems?: any
   podcast?: any
   podcastId?: string
   queryFrom?: string
@@ -73,7 +70,7 @@ class MediaListCtrl extends Component<Props, State> {
 
   queryListItems = async (queryType, queryFrom, querySort, page, categoryId) => {
     const { allowUntitledClips, episode, episodeId, handleSetPageQueryState, pageIsLoading,
-      pageKey, pages, playerQueueLoadSecondaryItems, podcast, podcastId, user } = this.props
+      pageKey, pages, podcast, podcastId, user } = this.props
     const { subscribedPodcastIds } = user
     const { filterText } = pages[pageKey]
 
@@ -155,8 +152,6 @@ class MediaListCtrl extends Component<Props, State> {
         listItemsTotal = mediaRefs[1]
         nowPlayingItems = mediaRefs[0].map(x => convertToNowPlayingItem(x, episode, podcast))
       }
-
-      playerQueueLoadSecondaryItems(clone(nowPlayingItems))
 
       this.handleSetPageQueryStateListItems(newState, nowPlayingItems, listItemsTotal)
     } catch (error) {
@@ -337,8 +332,8 @@ class MediaListCtrl extends Component<Props, State> {
 
   playItem = async nowPlayingItem => {
     const { mediaPlayer, mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying,
-      pageKey, pages, playerQueueLoadSecondaryItems, user, userSetInfo } = this.props
-    const { listItems, podcast } = pages[pageKey]
+      pageKey, pages, user, userSetInfo } = this.props
+    const { podcast } = pages[pageKey]
     const { nowPlayingItem: previousItem } = mediaPlayer
 
     if (window.player) {
@@ -373,16 +368,6 @@ class MediaListCtrl extends Component<Props, State> {
     mediaPlayerLoadNowPlayingItem(nowPlayingItem)
     setNowPlayingItemInStorage(nowPlayingItem)
     mediaPlayerUpdatePlaying(true)
-
-    let nowPlayingItemIndex = -1
-    if (nowPlayingItem.clipId) {
-      nowPlayingItemIndex = listItems.map((x) => x.clipId).indexOf(nowPlayingItem && nowPlayingItem.clipId)
-    } else if (nowPlayingItem.episodeId) {
-      nowPlayingItemIndex = listItems.map((x) => x.episodeId).indexOf(nowPlayingItem && nowPlayingItem.episodeId)
-    }
-    const queuedListItems = clone(listItems)
-    if (nowPlayingItemIndex > -1) queuedListItems.splice(0, nowPlayingItemIndex + 1)
-    playerQueueLoadSecondaryItems(queuedListItems)
 
     if (user && user.id) {
       await addOrUpdateHistoryItemPlaybackPosition(nowPlayingItem, user)
@@ -451,8 +436,6 @@ class MediaListCtrl extends Component<Props, State> {
         nowPlayingItems = mediaRefs[0].map(x => convertToNowPlayingItem(x))
         listItemsTotal = mediaRefs[1]
       }
-
-      playerQueueLoadSecondaryItems(clone(nowPlayingItems))
 
       this.handleSetPageQueryStateListItems({ pageKey }, nowPlayingItems, listItemsTotal)
     } catch (error) {
@@ -790,9 +773,7 @@ const mapDispatchToProps = dispatch => ({
   mediaPlayerLoadNowPlayingItem: bindActionCreators(mediaPlayerLoadNowPlayingItem, dispatch),
   mediaPlayerUpdatePlaying: bindActionCreators(mediaPlayerUpdatePlaying, dispatch),
   pageIsLoading: bindActionCreators(pageIsLoading, dispatch),
-  playerQueueAddSecondaryItems: bindActionCreators(playerQueueAddSecondaryItems, dispatch),
   playerQueueLoadPriorityItems: bindActionCreators(playerQueueLoadPriorityItems, dispatch),
-  playerQueueLoadSecondaryItems: bindActionCreators(playerQueueLoadSecondaryItems, dispatch),
   userSetInfo: bindActionCreators(userSetInfo, dispatch)
 })
 

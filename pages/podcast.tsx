@@ -2,7 +2,6 @@ import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { convertToNowPlayingItem } from 'podverse-shared'
-import { addItemsToSecondaryQueueStorage, clearItemsFromSecondaryQueueStorage } from 'podverse-ui'
 import Error from './_error'
 import MediaHeaderCtrl from '~/components/MediaHeaderCtrl/MediaHeaderCtrl'
 import MediaInfoCtrl from '~/components/MediaInfoCtrl/MediaInfoCtrl'
@@ -11,8 +10,7 @@ import Meta from '~/components/Meta/Meta'
 import config from '~/config'
 import PV from '~/lib/constants'
 import { clone, cookieGetQuery } from '~/lib/utility'
-import { pageIsLoading, pagesSetQueryState, playerQueueLoadSecondaryItems
-  } from '~/redux/actions'
+import { pageIsLoading, pagesSetQueryState } from '~/redux/actions'
 import { getEpisodesByQuery, getMediaRefsByQuery, getPodcastById } from '~/services/'
 import { withTranslation } from '~/../i18n'
 const { BASE_URL } = config()
@@ -104,8 +102,6 @@ class Podcast extends Component<Props, State> {
         return item
       })
       
-      store.dispatch(playerQueueLoadSecondaryItems(clone(listItems)))
-
       store.dispatch(pagesSetQueryState({
         pageKey: pageKeyWithId,
         listItems,
@@ -134,13 +130,9 @@ class Podcast extends Component<Props, State> {
   }
 
   componentDidMount() {
-    const { errorCode, playerQueue } = this.props
-    const { secondaryItems } = playerQueue
+    const { errorCode } = this.props
 
     if (errorCode) return
-
-    clearItemsFromSecondaryQueueStorage()
-    addItemsToSecondaryQueueStorage(secondaryItems)
   }
 
   render() {

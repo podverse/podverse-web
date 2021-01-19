@@ -2,8 +2,7 @@ import axios from 'axios'
 import { convertToNowPlayingItem } from 'podverse-shared'
 import config from '~/config'
 import PV from '~/lib/constants'
-import { clone, convertObjectToQueryString } from '~/lib/utility'
-import { playerQueueLoadSecondaryItems } from '~/redux/actions'
+import { convertObjectToQueryString } from '~/lib/utility'
 const { API_BASE_URL } = config()
 
 export const createMediaRef = async (data: any) => {
@@ -83,7 +82,7 @@ export const updateMediaRef = async (data: any) => {
 }
 
 export const handlePageMediaRefsQuery = async (obj) => {
-  const { categoryId, currentPage, nowPlayingItem, pageIsLoading, pagesSetQueryState, podcastId, queryFrom, queryPage,
+  const { categoryId, currentPage, pageIsLoading, pagesSetQueryState, podcastId, queryFrom, queryPage,
     queryRefresh, querySort, queryType, store } = obj
 
   if (Object.keys(currentPage).length === 0 || queryRefresh) {
@@ -98,13 +97,6 @@ export const handlePageMediaRefsQuery = async (obj) => {
     })
 
     const listItems = results.data[0].map(x => convertToNowPlayingItem(x, null, null)) || []
-    const nowPlayingItemIndex = listItems.map((x) => x.clipId).indexOf(nowPlayingItem && nowPlayingItem.clipId)
-    const queuedListItems = clone(listItems)
-    if (nowPlayingItemIndex > -1) {
-      queuedListItems.splice(0, nowPlayingItemIndex + 1)
-    }
-
-    store.dispatch(playerQueueLoadSecondaryItems(queuedListItems))
 
     store.dispatch(pagesSetQueryState({
       pageKey: PV.pageKeys.clips,

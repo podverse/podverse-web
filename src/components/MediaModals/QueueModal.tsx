@@ -14,7 +14,6 @@ export interface Props {
   isOpen: boolean
   nowPlayingItem?: any
   priorityItems: any[]
-  secondaryItems: any[]
   t: any
 }
 
@@ -46,7 +45,7 @@ export class QueueModal extends React.Component<Props, State> {
   }
 
   onDragEnd = data => {
-    const { handleDragEnd, priorityItems, secondaryItems } = this.props
+    const { handleDragEnd, priorityItems } = this.props
     const { destination, source } = data
 
     let itemToMove: any = []
@@ -54,20 +53,16 @@ export class QueueModal extends React.Component<Props, State> {
     if (destination && source) {
       if (source.droppableId === 'priority-items') {
         itemToMove = priorityItems.splice(source.index, 1)
-      } else if (source.droppableId === 'secondary-items') {
-        itemToMove = secondaryItems.splice(source.index, 1)
       }
 
       if (itemToMove.length > 0) {
         if (destination.droppableId === 'priority-items') {
           priorityItems.splice(destination.index, 0, itemToMove[0])
-        } else if (destination.droppableId === 'secondary-items') {
-          secondaryItems.splice(destination.index, 0, itemToMove[0])
         }
       }
     }
 
-    handleDragEnd(priorityItems, secondaryItems)
+    handleDragEnd(priorityItems)
   }
 
   toggleEditMode = () => {
@@ -88,7 +83,7 @@ export class QueueModal extends React.Component<Props, State> {
 
   render () {
     const { handleLinkClick, handleRemoveItem, isOpen,
-      nowPlayingItem = {}, priorityItems = [], secondaryItems = [], t } = this.props
+      nowPlayingItem = {}, priorityItems = [], t } = this.props
     const { isEditing } = this.state
 
     const header = (
@@ -111,7 +106,6 @@ export class QueueModal extends React.Component<Props, State> {
     )
 
     let priorityItemNodes: any = []
-    let secondaryItemNodes: any = []
 
     const queueModalPriorityItemKey = 'queueModalPriorityItemKey'
     priorityItemNodes = Array.isArray(priorityItems) ? priorityItems.map((x, index) => (
@@ -135,38 +129,6 @@ export class QueueModal extends React.Component<Props, State> {
                 hideDivider={true}
                 itemType='now-playing-item'
                 key={`${queueModalPriorityItemKey}c${index}`}
-                showMove={!isEditing}
-                showRemove={isEditing}
-                t={t} />
-              <hr className='pv-divider' />
-            </div>
-          </React.Fragment>
-        )}
-      </Draggable>
-    )) : []
-
-    const queueModalSecondaryItemKey = 'queueModalSecondaryItemKey'
-    secondaryItemNodes = Array.isArray(secondaryItems) ? secondaryItems.map((x, index) => (
-      <Draggable
-        draggableId={`secondary-item-${index}`}
-        index={index}
-        key={`${queueModalSecondaryItemKey}${index}`}>
-        {(provided, snapshot) => (
-          <React.Fragment>
-            <div
-              key={`${queueModalSecondaryItemKey}b${index}`}
-              ref={provided.innerRef}
-              {...provided.draggableProps}
-              {...provided.dragHandleProps}>
-              <MediaListItem
-                dataNowPlayingItem={x}
-                handleLinkClick={handleLinkClick}
-                handleRemoveItem={() => handleRemoveItem(x.clipId, x.episodeId, false)}
-                hasLink
-                hideDescription={true}
-                hideDivider={true}
-                itemType='now-playing-item'
-                key={`${queueModalSecondaryItemKey}c${index}`}
                 showMove={!isEditing}
                 showRemove={isEditing}
                 t={t} />
@@ -223,22 +185,6 @@ export class QueueModal extends React.Component<Props, State> {
                           style={{ backgroundColor: snapshot.isDraggingOver ? 'blue' : 'transparent' }}
                           {...provided.droppableProps}>
                           {priorityItemNodes}
-                        </div>
-                      )}
-                    </Droppable>
-                  </React.Fragment>
-              }
-              {
-                secondaryItemNodes.length > 0 &&
-                  <React.Fragment>
-                    <h6>{t('Auto Queue')}</h6>
-                    <Droppable droppableId='secondary-items'>
-                      {(provided, snapshot) => (
-                        <div
-                          ref={provided.innerRef}
-                          style={{ backgroundColor: snapshot.isDraggingOver ? 'blue' : 'transparent' }}
-                          {...provided.droppableProps}>
-                          {secondaryItemNodes}
                         </div>
                       )}
                     </Droppable>

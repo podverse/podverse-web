@@ -6,10 +6,9 @@ import { bindActionCreators } from 'redux'
 import MediaListItemCtrl from '~/components/MediaListItemCtrl/MediaListItemCtrl'
 import config from '~/config'
 import PV from '~/lib/constants'
-import { addOrUpdateHistoryItemPlaybackPosition, assignLocalOrLoggedInNowPlayingItemPlaybackPosition,
-  clone } from '~/lib/utility'
+import { addOrUpdateHistoryItemPlaybackPosition, assignLocalOrLoggedInNowPlayingItemPlaybackPosition } from '~/lib/utility'
 import { mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying, pageIsLoading, 
-  playerQueueAddSecondaryItems, playerQueueLoadPriorityItems, playerQueueLoadSecondaryItems,
+  playerQueueLoadPriorityItems,
   userSetInfo } from '~/redux/actions'
 import { getLoggedInUserMediaRefsFromFrontEnd, getLoggedInUserPlaylistsFromFrontEnd,
   getPodcastsByQuery, getUserMediaRefs, getUserPlaylists } from '~/services'
@@ -29,8 +28,6 @@ type Props = {
   pageIsLoading?: any
   pageKey: string
   pages?: any
-  playerQueueAddSecondaryItems?: any
-  playerQueueLoadSecondaryItems?: any
   profileUser?: any
   settings?: any
   t?: any
@@ -49,7 +46,7 @@ class UserMediaListCtrl extends Component<Props, State> {
 
   queryMediaListItems = async (selectedKey = '', selectedValue = '', page = 1) => {
     const { handleSetPageQueryState, isMyProfilePage, pageIsLoading, pages, pageKey,
-      playerQueueAddSecondaryItems, playerQueueLoadSecondaryItems, profileUser } = this.props
+      profileUser } = this.props
     const { queryPage: prevPage, querySort, queryType } = pages[pageKey]
 
     pageIsLoading(true)
@@ -119,12 +116,6 @@ class UserMediaListCtrl extends Component<Props, State> {
         const mediaRefs = response.data
         const nowPlayingItems = mediaRefs[0].map(x => convertToNowPlayingItem(x))
         
-        if (page > 1) {
-          playerQueueAddSecondaryItems(clone(nowPlayingItems))
-        } else {
-          playerQueueLoadSecondaryItems(clone(nowPlayingItems))
-        }
-
         handleSetPageQueryState({
           ...newState,
           pageKey,
@@ -241,8 +232,7 @@ class UserMediaListCtrl extends Component<Props, State> {
 
   playItem = async nowPlayingItem => {
     const { loggedInUser, mediaPlayer, mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying,
-      pages, pageKey, playerQueueLoadSecondaryItems, user, userSetInfo } = this.props
-    const { listItems } = pages[pageKey]
+      user, userSetInfo } = this.props
 
     if (window.player) {
       const currentTime = Math.floor(window.player.getCurrentTime()) || 0
@@ -253,14 +243,6 @@ class UserMediaListCtrl extends Component<Props, State> {
     mediaPlayerLoadNowPlayingItem(nowPlayingItem)
     setNowPlayingItemInStorage(nowPlayingItem)
     mediaPlayerUpdatePlaying(true)
-
-    let nowPlayingItemIndex = -1
-    if (nowPlayingItem.clipId) {
-      nowPlayingItemIndex = listItems.map((x) => x.clipId).indexOf(nowPlayingItem && nowPlayingItem.clipId)
-    }
-    const queuedListItems = clone(listItems)
-    if (nowPlayingItemIndex > -1) queuedListItems.splice(0, nowPlayingItemIndex + 1)
-    playerQueueLoadSecondaryItems(queuedListItems)
 
     if (loggedInUser && loggedInUser.id) {
       await addOrUpdateHistoryItemPlaybackPosition(nowPlayingItem, user)
@@ -382,9 +364,7 @@ const mapDispatchToProps = dispatch => ({
   mediaPlayerLoadNowPlayingItem: bindActionCreators(mediaPlayerLoadNowPlayingItem, dispatch),
   mediaPlayerUpdatePlaying: bindActionCreators(mediaPlayerUpdatePlaying, dispatch),
   pageIsLoading: bindActionCreators(pageIsLoading, dispatch),
-  playerQueueAddSecondaryItems: bindActionCreators(playerQueueAddSecondaryItems, dispatch),
   playerQueueLoadPriorityItems: bindActionCreators(playerQueueLoadPriorityItems, dispatch),
-  playerQueueLoadSecondaryItems: bindActionCreators(playerQueueLoadSecondaryItems, dispatch),
   userSetInfo: bindActionCreators(userSetInfo, dispatch)
 })
 

@@ -2,8 +2,6 @@ import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { convertToNowPlayingItem } from 'podverse-shared'
-import { addItemsToSecondaryQueueStorage, clearItemsFromSecondaryQueueStorage
-} from 'podverse-ui'
 import Error from './_error'
 import MediaHeaderCtrl from '~/components/MediaHeaderCtrl/MediaHeaderCtrl'
 import MediaInfoCtrl from '~/components/MediaInfoCtrl/MediaInfoCtrl'
@@ -11,9 +9,8 @@ import MediaListCtrl from '~/components/MediaListCtrl/MediaListCtrl'
 import Meta from '~/components/Meta/Meta'
 import config from '~/config'
 import PV from '~/lib/constants'
-import { checkIfLoadingOnFrontEnd, clone, cookieGetQuery } from '~/lib/utility'
-import { pageIsLoading, pagesSetQueryState, playerQueueLoadSecondaryItems
-  } from '~/redux/actions'
+import { checkIfLoadingOnFrontEnd, cookieGetQuery } from '~/lib/utility'
+import { pageIsLoading, pagesSetQueryState } from '~/redux/actions'
 import { getMediaRefsByQuery, getMediaRefById, retrieveLatestChaptersForEpisodeId
   } from '~/services/'
 import { withTranslation } from '~/../i18n'
@@ -43,8 +40,7 @@ class Clip extends Component<Props, State> {
   static async getInitialProps({ query, req, store }) {
     const pageKeyWithId = `${PV.pageKeys.clip}${query.id}`
     const state = store.getState()
-    const { mediaPlayer, pages } = state
-    const { nowPlayingItem } = mediaPlayer
+    const { pages } = state
 
     let mediaRefResult
     try {
@@ -98,13 +94,6 @@ class Clip extends Component<Props, State> {
       }
 
       const listItems = results.data[0].map(x => convertToNowPlayingItem(x, mediaRef.episode, mediaRef.episode.podcast))
-      const nowPlayingItemIndex = listItems.map((x) => x.clipId).indexOf(nowPlayingItem && nowPlayingItem.clipId)
-      const queuedListItems = clone(listItems)
-      if (nowPlayingItemIndex > -1) {
-        queuedListItems.splice(0, nowPlayingItemIndex + 1)
-      }
-      
-      store.dispatch(playerQueueLoadSecondaryItems(queuedListItems))
 
       store.dispatch(pagesSetQueryState({
         pageKey: pageKeyWithId,
@@ -127,13 +116,9 @@ class Clip extends Component<Props, State> {
   }
 
   componentDidMount () {
-    const { errorCode, playerQueue } = this.props
+    const { errorCode } = this.props
 
     if (errorCode) return
-
-    const { secondaryItems } = playerQueue
-    clearItemsFromSecondaryQueueStorage()
-    addItemsToSecondaryQueueStorage(secondaryItems)
   }
 
   render () {

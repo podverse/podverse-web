@@ -4,8 +4,7 @@ import { bindActionCreators } from 'redux'
 import Router from 'next/router'
 import { AddToModal, ClipCreatedModal, KEYS, MakeClipModal, ShareModal, SupportModal,
   addItemToPriorityQueueStorage, updatePriorityQueueStorage, getPriorityQueueItemsStorage,
-  getSecondaryQueueItemsStorage, removeItemFromPriorityQueueStorage,
-  removeItemFromSecondaryQueueStorage } from 'podverse-ui'
+  removeItemFromPriorityQueueStorage } from 'podverse-ui'
   import { HistoryModal } from '~/components/MediaModals/HistoryModal'
 import { QueueModal } from '~/components/MediaModals/QueueModal'
 import PV from '~/lib/constants'
@@ -13,7 +12,7 @@ import { alertPremiumRequired, alertSomethingWentWrong, clone, alertRateLimitErr
 import { mediaPlayerUpdatePlaying, modalsAddToCreatePlaylistIsSaving,
   modalsAddToCreatePlaylistShow, modalsAddToShow, modalsClipCreatedShow, modalsHistoryShow,
   modalsLoginShow, modalsMakeClipShow, modalsQueueShow, modalsShareShow, modalsSupportShow,
-  pageIsLoading, playerQueueLoadItems, playerQueueLoadPriorityItems, userSetInfo, playerQueueLoadSecondaryItems
+  pageIsLoading, playerQueueLoadItems, playerQueueLoadPriorityItems, userSetInfo
   } from '~/redux/actions'
 import { addOrRemovePlaylistItem, createMediaRef, createPlaylist, deleteMediaRef,
   updateMediaRef, updateUserQueueItems } from '~/services'
@@ -37,7 +36,6 @@ type Props = {
   playerQueue?: any
   playerQueueLoadItems?: any
   playerQueueLoadPriorityItems?: any
-  playerQueueLoadSecondaryItems?: any
   t?: any
   user?: any
   userSetInfo?: any
@@ -124,7 +122,7 @@ class MediaModals extends Component<Props, State> {
     }, 2500)
   }
 
-  queueDragEnd = async (priorityItems, secondaryItems) => {
+  queueDragEnd = async (priorityItems) => {
     const { playerQueueLoadItems, user, userSetInfo } = this.props
 
     if (user && user.id) {
@@ -134,8 +132,7 @@ class MediaModals extends Component<Props, State> {
     }
 
     playerQueueLoadItems({
-      priorityItems,
-      secondaryItems
+      priorityItems
     })
 
     userSetInfo({ queueItems: priorityItems })
@@ -385,7 +382,7 @@ class MediaModals extends Component<Props, State> {
   }
 
   removeItem = async (clipId, episodeId, isPriority) => {
-    const { playerQueueLoadPriorityItems, playerQueueLoadSecondaryItems, t, user,
+    const { playerQueueLoadPriorityItems, t, user,
       userSetInfo } = this.props
     const { queueItems } = user
     const localQueueItems = getPriorityQueueItemsStorage()
@@ -420,10 +417,6 @@ class MediaModals extends Component<Props, State> {
         userSetInfo({ queueItems: priorityItems })
         playerQueueLoadPriorityItems(priorityItems)
       }
-    } else {
-      removeItemFromSecondaryQueueStorage(clipId, episodeId)
-      const secondaryItems = getSecondaryQueueItemsStorage()
-      playerQueueLoadSecondaryItems(secondaryItems)
     }
   }
 
@@ -442,7 +435,7 @@ class MediaModals extends Component<Props, State> {
     const { clipLinkAs, episodeLinkAs, isOpen: shareIsOpen, podcastLinkAs } = share
     const { episodeFunding = [], podcastFunding = [], podcastShrunkImageUrl, podcastTitle,
       podcastValue, isOpen: supportIsOpen } = support
-    const { priorityItems, secondaryItems } = playerQueue
+    const { priorityItems } = playerQueue
     const { id, historyItems, playlists } = user
     const { isAddedToPlayLast, isAddedToPlayNext, isAddingToPlayLast, 
       isAddingToPlayNext, loadingItemId, makeClipIsDeleting, makeClipIsSaving
@@ -472,7 +465,6 @@ class MediaModals extends Component<Props, State> {
           isOpen={queueIsOpen}
           nowPlayingItem={nowPlayingItem}
           priorityItems={priorityItems}
-          secondaryItems={secondaryItems}
           t={t} />
         <HistoryModal
           handleHideModal={this.hideHistoryModal}
@@ -567,7 +559,6 @@ const mapDispatchToProps = dispatch => ({
   pageIsLoading: bindActionCreators(pageIsLoading, dispatch),
   playerQueueLoadItems: bindActionCreators(playerQueueLoadItems, dispatch),
   playerQueueLoadPriorityItems: bindActionCreators(playerQueueLoadPriorityItems, dispatch),
-  playerQueueLoadSecondaryItems: bindActionCreators(playerQueueLoadSecondaryItems, dispatch),
   userSetInfo: bindActionCreators(userSetInfo, dispatch)
 })
 
