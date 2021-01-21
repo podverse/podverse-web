@@ -282,7 +282,6 @@ export default withRedux(initializeStore)(appWithTranslation(class MyApp extends
         store.dispatch(mediaPlayerLoadNowPlayingItem(newPlayingItem))
         setNowPlayingItemInStorage(newPlayingItem)
       } else {
-        console.log('userasdf', user.historyItems, getLastHistoryItemOrNowPlayingItemFromStorage)
         const currentItem = getLastHistoryItemOrNowPlayingItemFromStorage(user && user.historyItems)
         if (currentItem) store.dispatch(mediaPlayerLoadNowPlayingItem(currentItem))
       }
