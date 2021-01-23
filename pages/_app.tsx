@@ -7,7 +7,7 @@ import '@fortawesome/fontawesome-svg-core/styles.css' // Import the CSS
 import ReactGA from 'react-ga'
 import { NowPlayingItem } from 'podverse-shared'
 import {
-  getLastHistoryItemOrNowPlayingItemFromStorage, getPriorityQueueItemsStorage,
+  getPriorityQueueItemsStorage, getLastHistoryItemOrNowPlayingItemFromStorage,
   setNowPlayingItemInStorage
 } from 'podverse-ui'
 import Alerts from '~/components/Alerts/Alerts'
