@@ -7,7 +7,7 @@ import '@fortawesome/fontawesome-svg-core/styles.css' // Import the CSS
 import ReactGA from 'react-ga'
 import { NowPlayingItem } from 'podverse-shared'
 import {
-  getLastHistoryItemOrNowPlayingItemFromStorage, getPriorityQueueItemsStorage,
+  getPriorityQueueItemsStorage, getLastHistoryItemOrNowPlayingItemFromStorage,
   setNowPlayingItemInStorage
 } from 'podverse-ui'
 import Alerts from '~/components/Alerts/Alerts'
@@ -282,7 +282,6 @@ export default withRedux(initializeStore)(appWithTranslation(class MyApp extends
         store.dispatch(mediaPlayerLoadNowPlayingItem(newPlayingItem))
         setNowPlayingItemInStorage(newPlayingItem)
       } else {
-        console.log('userasdf', user.historyItems, getLastHistoryItemOrNowPlayingItemFromStorage)
         const currentItem = getLastHistoryItemOrNowPlayingItemFromStorage(user && user.historyItems)
         if (currentItem) store.dispatch(mediaPlayerLoadNowPlayingItem(currentItem))
       }
