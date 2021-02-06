@@ -79,7 +79,9 @@ export const getLoggedInUserMediaRefsFromFrontEnd = async (sort = PV.queryParams
 }
 
 export const getLoggedInUserMediaRefsFromBackEnd = async (bearerToken, sort = PV.queryParams.most_recent, page = 1) => {
-  if (!bearerToken) return [[], 0]
+  if (!bearerToken) return {
+    data: [[], 0]
+  }
 
   const filteredQuery: any = {}
   filteredQuery.sort = sort
@@ -109,7 +111,9 @@ export const getLoggedInUserPlaylistsFromFrontEnd = async (page = 1) => {
 }
 
 export const getLoggedInUserPlaylistsFromBackEnd = async (bearerToken, page = 1) => {
-  if (!bearerToken) return [[], 0]
+  if (!bearerToken) return {
+    data: [[], 0]
+  }
 
   const filteredQuery: any = {}
   filteredQuery.page = page
