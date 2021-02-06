@@ -8,7 +8,7 @@ import UserMediaListCtrl from '~/components/UserMediaListCtrl/UserMediaListCtrl'
 import config from '~/config'
 import PV from '~/lib/constants'
 import { pageIsLoading, pagesSetQueryState } from '~/redux/actions'
-import { getLoggedInUserMediaRefsFromBackEnd, getLoggedInUserMediaRefsFromFrontEnd, getLoggedInUserPlaylistsFromBackEnd,
+import { getLoggedInUserMediaRefsFromBackEnd, getLoggedInUserPlaylistsFromBackEnd,
   getPodcastsByQuery } from '~/services'
 import { withTranslation } from '~/../i18n'
 const { BASE_URL } = config()
@@ -53,10 +53,11 @@ class MyProfile extends Component<Props, State> {
         if (bearerToken) {
           queryDataResult = await getLoggedInUserMediaRefsFromBackEnd(bearerToken, 'on', queryPage)
         } else {
-          queryDataResult = await getLoggedInUserMediaRefsFromFrontEnd('on', queryPage)
+          const noBearerToken = ''
+          queryDataResult = await getLoggedInUserMediaRefsFromBackEnd(noBearerToken, queryPage)
         }
         const mediaRefs = queryDataResult.data as any
-        const nowPlayingItems = mediaRefs[0].map(x => convertToNowPlayingItem(x))
+        const nowPlayingItems = mediaRefs[0] && mediaRefs[0].map(x => convertToNowPlayingItem(x))
         listItems = [nowPlayingItems, mediaRefs[1]]
 
       } else if (queryType === PV.queryParams.playlists) {
