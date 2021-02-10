@@ -3,15 +3,12 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import Router from 'next/router'
 import { AddToModal, ClipCreatedModal, KEYS, MakeClipModal, ShareModal, SupportModal } from 'podverse-ui'
-  import { HistoryModal } from '~/components/MediaModals/HistoryModal'
-import { QueueModal } from '~/components/MediaModals/QueueModal'
 import PV from '~/lib/constants'
 import { alertPremiumRequired, alertSomethingWentWrong, alertRateLimitError, safeAlert } from '~/lib/utility'
 import { mediaPlayerUpdatePlaying, modalsAddToCreatePlaylistIsSaving,
-  modalsAddToCreatePlaylistShow, modalsAddToShow, modalsClipCreatedShow, modalsHistoryShow,
-  modalsLoginShow, modalsMakeClipShow, modalsQueueShow, modalsShareShow, modalsSupportShow,
+  modalsAddToCreatePlaylistShow, modalsAddToShow, modalsClipCreatedShow,
+  modalsLoginShow, modalsMakeClipShow, modalsShareShow, modalsSupportShow,
   pageIsLoading, userSetInfo } from '~/redux/actions'
-
 import { addOrRemovePlaylistItem, createMediaRef, createPlaylist, deleteMediaRef,
   updateMediaRef } from '~/services'
 import { withTranslation } from 'i18n'
