@@ -59,7 +59,6 @@ class MyProfile extends Component<Props, State> {
         const mediaRefs = queryDataResult.data as any
         const nowPlayingItems = mediaRefs[0] && mediaRefs[0].map(x => convertToNowPlayingItem(x))
         listItems = [nowPlayingItems, mediaRefs[1]]
-
       } else if (queryType === PV.queryParams.playlists) {
         if (bearerToken) {
           queryDataResult = await getLoggedInUserPlaylistsFromBackEnd(bearerToken, queryPage)

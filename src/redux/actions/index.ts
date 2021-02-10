@@ -7,10 +7,10 @@ export { modalsAddToIsLoading, modalsAddToSetErrorResponse, modalsAddToShow,
   modalsAddToCreatePlaylistIsSaving, modalsAddToCreatePlaylistShow, modalsClipCreatedShow,
   modalsForgotPasswordIsLoading, modalsForgotPasswordSetErrorResponse,
   modalsForgotPasswordShow, modalsHistoryShow, modalsLoginIsLoading, modalsLoginSetErrorResponse,
-  modalsLoginShow, modalsMakeClipSetErrorResponse, modalsMakeClipShow, modalsQueueIsLoading,
-  modalsQueueSetErrorResponse, modalsQueueShow, modalsSendVerificationEmailShow, modalsShareIsLoading,
+  modalsLoginShow, modalsMakeClipSetErrorResponse, modalsMakeClipShow,
+  modalsSendVerificationEmailShow, modalsShareIsLoading,
   modalsShareSetErrorResponse, modalsShareShow, modalsSignUpIsLoading, modalsSignUpSetErrorResponse,
   modalsSignUpShow, modalsSupportShow } from '~/redux/actions/modals'
 export { settingsCensorNSFWText, settingsHidePlaybackSpeedButton, settingsSetDefaultHomepageTab, settingsSetUITheme
   } from '~/redux/actions/settings'
-export { userSetInfo, userUpdateHistoryItem } from '~/redux/actions/user'
+export { userSetInfo, stateUserUpdateHistoryItem } from '~/redux/actions/user'

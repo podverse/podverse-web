@@ -7,18 +7,18 @@ import { Input } from 'reactstrap'
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd'
 import { convertToNowPlayingItem } from 'podverse-shared'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { Button, Pill, setNowPlayingItemInStorage } from 'podverse-ui'
+import { Button, Pill } from 'podverse-ui'
 import Error from './_error'
 import MediaListItemCtrl from '~/components/MediaListItemCtrl/MediaListItemCtrl'
 import Meta from '~/components/Meta/Meta'
 import config from '~/config'
 import PV from '~/lib/constants'
-import { addOrUpdateHistoryItemPlaybackPosition, alertPremiumRequired, alertRateLimitError, alertSomethingWentWrong,
-  assignLocalOrLoggedInNowPlayingItemPlaybackPosition, readableDate, safeAlert } from '~/lib/utility'
+import { addOrUpdateHistoryItemAndState, alertPremiumRequired, alertRateLimitError, alertSomethingWentWrong,
+  readableDate, safeAlert } from '~/lib/utility'
 import { mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying, pageIsLoading,
   pagesSetQueryState, userSetInfo } from '~/redux/actions'
 import { addOrRemovePlaylistItem, deletePlaylist,
-  getPlaylistById, toggleSubscribeToPlaylist, updatePlaylist } from '~/services/'
+  getPlaylistById, setNowPlayingItem, toggleSubscribeToPlaylist, updatePlaylist } from '~/services'
 import { withTranslation } from '~/../i18n'
 const { BASE_URL } = config()
 
@@ -323,7 +323,6 @@ class Playlist extends Component<Props, State> {
       id: playlist.id,
       itemsOrder
     })
-    
     this.setState({ sortedNowPlayingItems })
   }
 
@@ -333,30 +332,15 @@ class Playlist extends Component<Props, State> {
 
     if (window.player) {
       const currentTime = Math.floor(window.player.getCurrentTime()) || 0
-      await addOrUpdateHistoryItemPlaybackPosition(mediaPlayer.nowPlayingItem, user, currentTime)
+      await addOrUpdateHistoryItemAndState(mediaPlayer.nowPlayingItem, user, currentTime)
     }
 
-    nowPlayingItem = assignLocalOrLoggedInNowPlayingItemPlaybackPosition(user, nowPlayingItem)
     mediaPlayerLoadNowPlayingItem(nowPlayingItem)
-    setNowPlayingItemInStorage(nowPlayingItem)
+    await setNowPlayingItem(nowPlayingItem, nowPlayingItem.playbackPosition, user)
     mediaPlayerUpdatePlaying(true)
 
     if (user && user.id) {
-      await addOrUpdateHistoryItemPlaybackPosition(nowPlayingItem, user)
-
-      const historyItems = user.historyItems.filter(x => {
-        if (x) {
-          if ((x.clipStartTime || x.clipEndTime) && x.clipId !== nowPlayingItem.clipId) {
-            return x
-          } else if (x.episodeId !== nowPlayingItem.episodeId) {
-            return x
-          }
-        }
-        return {}
-      })
-
-      historyItems.push(nowPlayingItem)
-
+      const historyItems = await addOrUpdateHistoryItemAndState(nowPlayingItem, user)
       userSetInfo({ historyItems })
     }
   }

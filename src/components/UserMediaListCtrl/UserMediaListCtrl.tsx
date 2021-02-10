@@ -1,17 +1,16 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { convertToNowPlayingItem } from 'podverse-shared'
-import { MediaListSelect, Pagination, setNowPlayingItemInStorage } from 'podverse-ui'
+import { MediaListSelect, Pagination } from 'podverse-ui'
 import { bindActionCreators } from 'redux'
 import MediaListItemCtrl from '~/components/MediaListItemCtrl/MediaListItemCtrl'
 import config from '~/config'
 import PV from '~/lib/constants'
-import { addOrUpdateHistoryItemPlaybackPosition, assignLocalOrLoggedInNowPlayingItemPlaybackPosition } from '~/lib/utility'
+import { addOrUpdateHistoryItemAndState } from '~/lib/utility'
 import { mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying, pageIsLoading, 
-  playerQueueLoadPriorityItems,
-  userSetInfo } from '~/redux/actions'
+  playerQueueLoadPriorityItems, userSetInfo } from '~/redux/actions'
 import { getLoggedInUserMediaRefsFromFrontEnd, getLoggedInUserPlaylistsFromFrontEnd,
-  getPodcastsByQuery, getUserMediaRefs, getUserPlaylists } from '~/services'
+  getPodcastsByQuery, getUserMediaRefs, getUserPlaylists, setNowPlayingItem } from '~/services'
 import { withTranslation } from '~/../i18n'
 const uuidv4 = require('uuid/v4')
 const { QUERY_MEDIA_REFS_LIMIT } = config()
@@ -236,16 +235,15 @@ class UserMediaListCtrl extends Component<Props, State> {
 
     if (window.player) {
       const currentTime = Math.floor(window.player.getCurrentTime()) || 0
-      await addOrUpdateHistoryItemPlaybackPosition(mediaPlayer.nowPlayingItem, user, currentTime)
+      await addOrUpdateHistoryItemAndState(mediaPlayer.nowPlayingItem, user, currentTime)
     }
 
-    nowPlayingItem = assignLocalOrLoggedInNowPlayingItemPlaybackPosition(user, nowPlayingItem)
     mediaPlayerLoadNowPlayingItem(nowPlayingItem)
-    setNowPlayingItemInStorage(nowPlayingItem)
+    await setNowPlayingItem(nowPlayingItem, nowPlayingItem.userPlaybackPosition, user)
     mediaPlayerUpdatePlaying(true)
 
     if (loggedInUser && loggedInUser.id) {
-      await addOrUpdateHistoryItemPlaybackPosition(nowPlayingItem, user)
+      await addOrUpdateHistoryItemAndState(nowPlayingItem, user)
 
       const historyItems = loggedInUser.historyItems.filter(x => {
         if (x) {

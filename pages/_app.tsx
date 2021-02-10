@@ -6,10 +6,6 @@ import { config as fontAwesomeConfig } from '@fortawesome/fontawesome-svg-core'
 import '@fortawesome/fontawesome-svg-core/styles.css' // Import the CSS
 import ReactGA from 'react-ga'
 import { NowPlayingItem } from 'podverse-shared'
-import {
-  getPriorityQueueItemsStorage, getLastHistoryItemOrNowPlayingItemFromStorage,
-  setNowPlayingItemInStorage
-} from 'podverse-ui'
 import Alerts from '~/components/Alerts/Alerts'
 import AppLinkWidget from '~/components/AppLinkWidget/AppLinkWidget'
 import Auth from '~/components/Auth/Auth'
@@ -21,7 +17,7 @@ import PageLoadingOverlay from '~/components/PageLoadingOverlay/PageLoadingOverl
 import PV from '~/lib/constants'
 import { addFontAwesomeIcons } from '~/lib/fontAwesomeIcons'
 import { scrollToTopOfView } from '~/lib/scrollToTop'
-import { assignLocalOrLoggedInNowPlayingItemPlaybackPosition, checkIfLoadingOnFrontEnd, refreshAllBrowserCookies } from '~/lib/utility'
+import { checkIfLoadingOnFrontEnd, refreshAllBrowserCookies } from '~/lib/utility'
 import { disableHoverOnTouchDevices } from '~/lib/utility/disableHoverOnTouchDevices'
 import { fixMobileViewportHeight } from '~/lib/utility/fixMobileViewportHeight'
 import { initializeStore } from '~/redux/store'
@@ -30,9 +26,10 @@ import {
   playerQueueLoadPriorityItems
 } from '~/redux/actions'
 import { actionTypes } from '~/redux/constants'
-import { getAuthenticatedUserInfo } from '~/services'
+import { getAuthenticatedUserInfo, getNowPlayingItem, setNowPlayingItem } from '~/services'
 import config from '~/config'
 import { appWithTranslation } from '~/../i18n'
+import { getQueueItems } from '~/services/userQueueItem'
 const { googleAnalyticsConfig } = config()
 const cookie = require('cookie')
 const MobileDetect = require('mobile-detect')
@@ -278,21 +275,17 @@ export default withRedux(initializeStore)(appWithTranslation(class MyApp extends
       }, 2000)
 
       if (newPlayingItem) {
-        newPlayingItem = assignLocalOrLoggedInNowPlayingItemPlaybackPosition(user, newPlayingItem)
+        newPlayingItem = await getNowPlayingItem(user)
         store.dispatch(mediaPlayerLoadNowPlayingItem(newPlayingItem))
-        setNowPlayingItemInStorage(newPlayingItem)
+        await setNowPlayingItem(newPlayingItem, newPlayingItem.userPlaybackPosition, user)
       } else {
-        const currentItem = getLastHistoryItemOrNowPlayingItemFromStorage(user && user.historyItems)
+        const currentItem = await getNowPlayingItem(user)
         if (currentItem) store.dispatch(mediaPlayerLoadNowPlayingItem(currentItem))
       }
     }
 
-    if (user && user.queueItems) {
-      store.dispatch(playerQueueLoadPriorityItems(user.queueItems))
-    } else {
-      const priorityItems = getPriorityQueueItemsStorage()
-      store.dispatch(playerQueueLoadPriorityItems(priorityItems))
-    }
+    const priorityItems = await getQueueItems(user)
+    store.dispatch(playerQueueLoadPriorityItems(priorityItems))
 
     ReactGA.initialize(googleAnalyticsConfig.trackingId)
     ReactGA.pageview(window.location.pathname + window.location.search)

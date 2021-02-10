@@ -2,20 +2,18 @@ import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import Router from 'next/router'
-import { AddToModal, ClipCreatedModal, KEYS, MakeClipModal, ShareModal, SupportModal,
-  addItemToPriorityQueueStorage, updatePriorityQueueStorage, getPriorityQueueItemsStorage,
-  removeItemFromPriorityQueueStorage } from 'podverse-ui'
+import { AddToModal, ClipCreatedModal, KEYS, MakeClipModal, ShareModal, SupportModal } from 'podverse-ui'
   import { HistoryModal } from '~/components/MediaModals/HistoryModal'
 import { QueueModal } from '~/components/MediaModals/QueueModal'
 import PV from '~/lib/constants'
-import { alertPremiumRequired, alertSomethingWentWrong, clone, alertRateLimitError, safeAlert } from '~/lib/utility'
+import { alertPremiumRequired, alertSomethingWentWrong, alertRateLimitError, safeAlert } from '~/lib/utility'
 import { mediaPlayerUpdatePlaying, modalsAddToCreatePlaylistIsSaving,
   modalsAddToCreatePlaylistShow, modalsAddToShow, modalsClipCreatedShow, modalsHistoryShow,
   modalsLoginShow, modalsMakeClipShow, modalsQueueShow, modalsShareShow, modalsSupportShow,
-  pageIsLoading, playerQueueLoadItems, playerQueueLoadPriorityItems, userSetInfo
-  } from '~/redux/actions'
+  pageIsLoading, userSetInfo } from '~/redux/actions'
+
 import { addOrRemovePlaylistItem, createMediaRef, createPlaylist, deleteMediaRef,
-  updateMediaRef, updateUserQueueItems } from '~/services'
+  updateMediaRef } from '~/services'
 import { withTranslation } from 'i18n'
 
 type Props = {
@@ -26,16 +24,11 @@ type Props = {
   modalsAddToCreatePlaylistShow?: any
   modalsAddToShow?: any
   modalsClipCreatedShow?: any
-  modalsHistoryShow?: any
   modalsLoginShow?: any
   modalsMakeClipShow?: any
-  modalsQueueShow?: any
   modalsShareShow?: any
   modalsSupportShow?: any
   pageIsLoading?: any
-  playerQueue?: any
-  playerQueueLoadItems?: any
-  playerQueueLoadPriorityItems?: any
   t?: any
   user?: any
   userSetInfo?: any
@@ -45,10 +38,6 @@ type State = {
   inProgressClipEndTime?: string
   inProgressClipStartTime?: string
   inProgressClipTitle?: string
-  isAddedToPlayLast?: boolean
-  isAddedToPlayNext?: boolean
-  isAddingToPlayLast?: boolean
-  isAddingToPlayNext?: boolean
   loadingItemId?: string
   makeClipIsDeleting?: boolean
   makeClipIsSaving?: boolean
@@ -74,68 +63,6 @@ class MediaModals extends Component<Props, State> {
     this.makeClipInputStartTime = React.createRef()
     this.makeClipInputEndTime = React.createRef()
     this.makeClipInputTitle = React.createRef()
-  }
-
-  addToQueue = async isLast => {
-    const { modals, playerQueueLoadPriorityItems, user, userSetInfo } = this.props
-    const { addTo } = modals
-    const { nowPlayingItem } = addTo
-
-    this.setState({
-      isAddedToPlayLast: false,
-      isAddedToPlayNext: false,
-      isAddingToPlayLast: isLast,
-      isAddingToPlayNext: !isLast,
-      loadingItemId: ''
-    })
-
-    let priorityItems = []
-    if (user && user.id) {
-      user.queueItems = Array.isArray(user.queueItems) ? user.queueItems : []
-      isLast ? user.queueItems.push(nowPlayingItem) : user.queueItems.unshift(nowPlayingItem)
-
-      const response = await updateUserQueueItems({ queueItems: user.queueItems })
-
-      priorityItems = response.data || []
-    } else {
-      addItemToPriorityQueueStorage(nowPlayingItem, isLast)
-
-      priorityItems = getPriorityQueueItemsStorage()
-    }
-
-    playerQueueLoadPriorityItems(priorityItems)
-    userSetInfo({ queueItems: priorityItems })
-
-    this.setState({
-      isAddedToPlayLast: isLast,
-      isAddedToPlayNext: !isLast,
-      isAddingToPlayLast: false,
-      isAddingToPlayNext: false,
-      loadingItemId: ''
-    })
-
-    setTimeout(() => {
-      this.setState({ 
-        isAddedToPlayLast: false,
-        isAddedToPlayNext: false
-      })
-    }, 2500)
-  }
-
-  queueDragEnd = async (priorityItems) => {
-    const { playerQueueLoadItems, user, userSetInfo } = this.props
-
-    if (user && user.id) {
-      await updateUserQueueItems({ queueItems: priorityItems })
-    } else {
-      updatePriorityQueueStorage(priorityItems)
-    }
-
-    playerQueueLoadItems({
-      priorityItems
-    })
-
-    userSetInfo({ queueItems: priorityItems })
   }
 
   getPlaybackRateValue = () => {
@@ -169,16 +96,6 @@ class MediaModals extends Component<Props, State> {
     window.sessionStorage.setItem(KEYS.inProgressMakeClipTitleKey, title)
 
     modalsMakeClipShow({})
-  }
-
-  hideQueueModal = () => {
-    const { modalsQueueShow } = this.props
-    modalsQueueShow(false)
-  }
-
-  hideHistoryModal = () => {
-    const { modalsHistoryShow } = this.props
-    modalsHistoryShow(false)
   }
 
   hideShareModal = () => {
@@ -302,13 +219,7 @@ class MediaModals extends Component<Props, State> {
     
     if (playlistId) {
 
-      this.setState({
-        isAddedToPlayLast: false,
-        isAddedToPlayNext: false,
-        isAddingToPlayLast: false,
-        isAddingToPlayNext: false,
-        loadingItemId: playlistId,
-      })
+      this.setState({ loadingItemId: playlistId })
 
       try {
         const res = await addOrRemovePlaylistItem({
@@ -377,69 +288,22 @@ class MediaModals extends Component<Props, State> {
     modalsAddToCreatePlaylistShow(false)
   }
 
-  queueItemClick = () => {
-    this.hideQueueModal()
-  }
-
-  removeItem = async (clipId, episodeId, isPriority) => {
-    const { playerQueueLoadPriorityItems, t, user,
-      userSetInfo } = this.props
-    const { queueItems } = user
-    const localQueueItems = getPriorityQueueItemsStorage()
-
-    let newQueueItems
-    if (user && user.id) {
-      newQueueItems = clone(queueItems)
-    } else {
-      newQueueItems = clone(localQueueItems)
-    }
-
-    if (isPriority) {
-      if (clipId) {
-        newQueueItems = newQueueItems.filter(x => x.clipId !== clipId)
-      } else if (episodeId) {
-        newQueueItems = newQueueItems.filter(x => x.episodeId !== episodeId)
-      }
-
-      if (user && user.id) {
-        try {
-          const response = await updateUserQueueItems({ queueItems: newQueueItems })
-          const priorityItems = response.data || []
-          userSetInfo({ queueItems: priorityItems })
-          playerQueueLoadPriorityItems(priorityItems)
-        } catch (error) {
-          console.log(error)
-          safeAlert(t('errorMessages:alerts.couldNotUpdateQueue'))
-        }
-      } else {
-        removeItemFromPriorityQueueStorage(clipId, episodeId)
-        const priorityItems = getPriorityQueueItemsStorage()
-        userSetInfo({ queueItems: priorityItems })
-        playerQueueLoadPriorityItems(priorityItems)
-      }
-    }
-  }
-
   render() {
-    const { mediaPlayer, modals, modalsLoginShow, playerQueue, t, user } = this.props
-    const { nowPlayingItem } = mediaPlayer
-    const { addTo, clipCreated, history, makeClip, queue, share, support } = modals
+    const { modals, modalsLoginShow, t, user } = this.props
+
+    const { addTo, clipCreated, makeClip, share, support } = modals
     const { createPlaylistIsSaving, createPlaylistShowError, createPlaylistShow,
-      isOpen: addToIsOpen, nowPlayingItem: addToNowPlayingItem, showQueue: addToShowQueue
-      } = addTo
+      isOpen: addToIsOpen, nowPlayingItem: addToNowPlayingItem } = addTo
     const { isOpen: clipCreatedIsOpen, mediaRef: clipCreatedMediaRef } = clipCreated
-    const { isOpen: historyIsOpen } = history
     const { isEditing: makeClipIsEditing, isOpen: makeClipIsOpen, 
       nowPlayingItem: makeClipNowPlayingItem } = makeClip
-    const { isOpen: queueIsOpen } = queue
+
     const { clipLinkAs, episodeLinkAs, isOpen: shareIsOpen, podcastLinkAs } = share
     const { episodeFunding = [], podcastFunding = [], podcastShrunkImageUrl, podcastTitle,
       podcastValue, isOpen: supportIsOpen } = support
-    const { priorityItems } = playerQueue
-    const { id, historyItems, playlists } = user
-    const { isAddedToPlayLast, isAddedToPlayNext, isAddingToPlayLast, 
-      isAddingToPlayNext, loadingItemId, makeClipIsDeleting, makeClipIsSaving
-    } = this.state
+    
+    const { id, playlists } = user
+    const { loadingItemId, makeClipIsDeleting, makeClipIsSaving } = this.state
 
     const isLoggedIn = user && user.id
     let makeClipStartTime = 0
@@ -456,22 +320,6 @@ class MediaModals extends Component<Props, State> {
 
     return (
       <Fragment>
-        <QueueModal
-          handleDragEnd={this.queueDragEnd}
-          handleHideModal={this.hideQueueModal}
-          handleLinkClick={this.queueItemClick}
-          handleRemoveItem={this.removeItem}
-          isLoggedIn={user && !!user.id}
-          isOpen={queueIsOpen}
-          nowPlayingItem={nowPlayingItem}
-          priorityItems={priorityItems}
-          t={t} />
-        <HistoryModal
-          handleHideModal={this.hideHistoryModal}
-          historyItems={historyItems}
-          isLoggedIn={!!id}
-          isOpen={historyIsOpen}
-          t={t} />
         <MakeClipModal
           endTime={makeClipIsEditing ? makeClipNowPlayingItem.clipEndTime : ''}
           handleDelete={this.makeClipDelete}
@@ -502,24 +350,17 @@ class MediaModals extends Component<Props, State> {
           createPlaylistIsSaving={createPlaylistIsSaving}
           createPlaylistError={createPlaylistShowError}
           createPlaylistShow={createPlaylistShow}
-          handleAddToQueueLast={() => this.addToQueue(true)}
-          handleAddToQueueNext={() => this.addToQueue(false)}
           handleCreatePlaylistHide={this.hideCreatePlaylist}
           handleCreatePlaylistSave={this.createPlaylistSave}
           handleHideModal={this.hideAddToModal}
           handleLoginClick={modalsLoginShow}
           handlePlaylistItemAdd={this.playlistItemAdd}
           handleToggleCreatePlaylist={this.toggleCreatePlaylist}
-          isAddedToPlayLast={isAddedToPlayLast}
-          isAddedToPlayNext={isAddedToPlayNext}
-          isAddingToPlayLast={isAddingToPlayLast}
-          isAddingToPlayNext={isAddingToPlayNext}
           isOpen={addToIsOpen}
           loadingItemId={loadingItemId}
           nowPlayingItem={addToNowPlayingItem}
           playlists={playlists}
           showPlaylists={!!id}
-          showQueue={addToShowQueue}
           t={t} />
         <ShareModal
           handleHideModal={this.hideShareModal}
@@ -550,15 +391,11 @@ const mapDispatchToProps = dispatch => ({
   modalsAddToCreatePlaylistShow: bindActionCreators(modalsAddToCreatePlaylistShow, dispatch),
   modalsAddToShow: bindActionCreators(modalsAddToShow, dispatch),
   modalsClipCreatedShow: bindActionCreators(modalsClipCreatedShow, dispatch),
-  modalsHistoryShow: bindActionCreators(modalsHistoryShow, dispatch),
   modalsLoginShow: bindActionCreators(modalsLoginShow, dispatch),
   modalsMakeClipShow: bindActionCreators(modalsMakeClipShow, dispatch),
-  modalsQueueShow: bindActionCreators(modalsQueueShow, dispatch),
   modalsShareShow: bindActionCreators(modalsShareShow, dispatch),
   modalsSupportShow: bindActionCreators(modalsSupportShow, dispatch),
   pageIsLoading: bindActionCreators(pageIsLoading, dispatch),
-  playerQueueLoadItems: bindActionCreators(playerQueueLoadItems, dispatch),
-  playerQueueLoadPriorityItems: bindActionCreators(playerQueueLoadPriorityItems, dispatch),
   userSetInfo: bindActionCreators(userSetInfo, dispatch)
 })
 

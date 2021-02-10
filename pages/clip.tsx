@@ -115,12 +115,6 @@ class Clip extends Component<Props, State> {
       pageKey: pageKeyWithId, queryFrom, querySort, queryType }
   }
 
-  componentDidMount () {
-    const { errorCode } = this.props
-
-    if (errorCode) return
-  }
-
   render () {
     const { errorCode, mediaRef, pageKey, pages, pagesSetQueryState, t } = this.props
     const page = pages[pageKey] || {}

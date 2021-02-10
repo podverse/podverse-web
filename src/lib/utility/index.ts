@@ -1,9 +1,8 @@
-import { getLastHistoryItemOrNowPlayingItemFromStorage, setNowPlayingItemInStorage } from 'podverse-ui'
 import config from '~/config'
 import PV from '~/lib/constants'
-import { userUpdateHistoryItem } from '~/redux/actions'
-import { updateHistoryItemPlaybackPosition } from '~/services'
+import { stateUserUpdateHistoryItem } from '~/redux/actions'
 import confetti from 'canvas-confetti'
+import { addOrUpdateHistoryItem } from '~/services'
 export { validatePassword } from './validatePassword'
 const striptags = require('striptags')
 const { cookieConfig } = config()
@@ -221,7 +220,7 @@ export const alertRateLimitError = err => {
 
 export const getPlaybackPositionFromHistory = (historyItems: any[], nowPlayingItem: any) => {
   if (historyItems && historyItems.length > 0) {
-    const oldItem = historyItems.find((x) => x.episodeId === nowPlayingItem.episodeId)
+    const oldItem = historyItems.find((x) => !x.clipId && x.episodeId === nowPlayingItem.episodeId)
 
     if (oldItem && oldItem.userPlaybackPosition) {
       return oldItem.userPlaybackPosition
@@ -231,29 +230,39 @@ export const getPlaybackPositionFromHistory = (historyItems: any[], nowPlayingIt
   return nowPlayingItem.userPlaybackPosition || 0
 }
 
-export const assignLocalOrLoggedInNowPlayingItemPlaybackPosition = (user, nowPlayingItem) => {
-  if (!user || !user.id) {
-    const currentItem = getLastHistoryItemOrNowPlayingItemFromStorage(user && user.historyItems)
-    if (currentItem && currentItem.episodeId === nowPlayingItem.episodeId) {
-      nowPlayingItem.userPlaybackPosition = currentItem.userPlaybackPosition
-    }
-  } else {
-    nowPlayingItem.userPlaybackPosition = getPlaybackPositionFromHistory(user.historyItems, nowPlayingItem)
-  }
-  return nowPlayingItem
-}
-
-export const addOrUpdateHistoryItemPlaybackPosition = async (nowPlayingItem, user, overridePosition?: number) => {
+export const addOrUpdateHistoryItemAndState = async (nowPlayingItem, user, overridePosition?: number) => {
   let currentTime = (window.player && Math.floor(window.player.getCurrentTime())) || 0
   currentTime = overridePosition ? overridePosition : currentTime
-  nowPlayingItem.userPlaybackPosition = currentTime
 
   if (user && user.id) {
-    updateHistoryItemPlaybackPosition(nowPlayingItem)
-    await userUpdateHistoryItem(nowPlayingItem)
+    await addOrUpdateHistoryItem(nowPlayingItem, currentTime, user)
+    await stateUserUpdateHistoryItem(nowPlayingItem)
   }
 
-  await setNowPlayingItemInStorage(nowPlayingItem)
+  return generateNewHistoryItems(nowPlayingItem, user)
+}
+
+const generateNewHistoryItems = (nowPlayingItem, user) => {
+  if (!user || !Array.isArray(user.historyItems)) {
+    return []
+  } else {    
+    let newHistoryItems = [nowPlayingItem] as any
+
+    const filteredHistoryItems = user.historyItems.reduce((acc: any, x: any) => {
+      if (x) {
+        if ((x.clipStartTime || x.clipEndTime) && x.clipId !== nowPlayingItem.clipId) {
+          acc.push(x)
+        } else if (x.episodeId !== nowPlayingItem.episodeId) {
+          acc.push(x)
+        }
+      }
+      return acc
+    }, [])
+
+    newHistoryItems = newHistoryItems.concat(filteredHistoryItems)
+    
+    return newHistoryItems
+  }
 }
 
 export const getViewContentsElementScrollTop = () => {

@@ -129,12 +129,6 @@ class Podcast extends Component<Props, State> {
       querySort, queryType }
   }
 
-  componentDidMount() {
-    const { errorCode } = this.props
-
-    if (errorCode) return
-  }
-
   render() {
     const { errorCode, meta, pageKey, pages, pagesSetQueryState, podcast } = this.props
     const page = pages[pageKey] || {}

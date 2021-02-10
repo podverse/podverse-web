@@ -38,7 +38,7 @@ class FAQ extends Component<Props, State> {
     const meta = {
       currentUrl: BASE_URL + PV.paths.web.faq,
       description: t('pages:faq._Description'),
-      title: 'FAQ'
+      title: t('pages:faq._Title')
     }
 
     return (

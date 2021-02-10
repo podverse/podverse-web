@@ -113,12 +113,6 @@ class Episode extends Component<Props, State> {
       newPlayingItem, pageKey: pageKeyWithId, queryFrom, querySort, queryType }
   }
 
-  componentDidMount() {
-    const { errorCode } = this.props
-
-    if (errorCode) return
-  }
-
   render() {
     const { episode, errorCode, pageKey, pages, pagesSetQueryState, t } = this.props
     const page = pages[pageKey] || {}

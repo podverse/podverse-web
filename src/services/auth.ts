@@ -2,6 +2,8 @@ import axios from 'axios'
 import config from '~/config'
 import PV from '~/lib/constants'
 import { deleteQueryCookies } from '~/lib/utility'
+import { getHistoryItemsFromServerWithBearerToken } from './userHistoryItem'
+import { getQueueItemsFromServerWithBearerToken } from './userQueueItem'
 const { API_BASE_URL } = config()
 
 export const getAuthenticatedUserInfo = async (bearerToken) => {  
@@ -13,9 +15,12 @@ export const getAuthenticatedUserInfo = async (bearerToken) => {
   })
 
   const userInfo = response && response.data
-  if (userInfo && !Array.isArray(userInfo.historyItems)) {
-    userInfo.historyItems = []
-  }
+
+  const { userHistoryItems } = await getHistoryItemsFromServerWithBearerToken(bearerToken, 1)
+  userInfo.historyItems = userHistoryItems || []
+
+  const queueItemsResponse = await getQueueItemsFromServerWithBearerToken(bearerToken)
+  userInfo.queueItems = queueItemsResponse || []
 
   return userInfo
 }
