@@ -94,7 +94,7 @@ class Clip extends Component<Props, State> {
       }
 
       const listItems = results.data[0].map(x => convertToNowPlayingItem(x, mediaRef.episode, mediaRef.episode.podcast))
-      
+
       store.dispatch(pagesSetQueryState({
         pageKey: pageKeyWithId,
         listItems,

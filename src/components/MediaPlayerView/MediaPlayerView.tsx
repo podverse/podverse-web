@@ -98,7 +98,8 @@ class MediaPlayerView extends Component<Props, State> {
   itemSkip = async () => {
     const { mediaPlayer, mediaPlayerLoadNowPlayingItem,
       mediaPlayerSetPlayedAfterClipFinished, mediaPlayerUpdatePlaying, playerQueue,
-      playerQueueLoadPriorityItems, user, userSetInfo } = this.props
+      playerQueueLoadPriorityItems, user, userSetInfo
+      } = this.props
     const previousItem = mediaPlayer.nowPlayingItem
     let nextItem
     let priorityItems = []

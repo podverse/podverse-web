@@ -18,7 +18,7 @@ import { addOrUpdateHistoryItemAndState, alertPremiumRequired, alertRateLimitErr
 import { mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying, pageIsLoading,
   pagesSetQueryState, userSetInfo } from '~/redux/actions'
 import { addOrRemovePlaylistItem, deletePlaylist,
-  getPlaylistById, setNowPlayingItem, toggleSubscribeToPlaylist, updatePlaylist } from '~/services/'
+  getPlaylistById, setNowPlayingItem, toggleSubscribeToPlaylist, updatePlaylist } from '~/services'
 import { withTranslation } from '~/../i18n'
 const { BASE_URL } = config()
 
@@ -323,7 +323,6 @@ class Playlist extends Component<Props, State> {
       id: playlist.id,
       itemsOrder
     })
-
     this.setState({ sortedNowPlayingItems })
   }
 

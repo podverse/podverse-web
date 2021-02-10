@@ -8,11 +8,12 @@ const subRightDropdownSelector = `.media-list-selects__inline .media-list__sub-s
 
 module.exports = {
   before: function (browser) {
-    browser.url(`${WEB_ORIGIN}/clips`)
-  },
-  'Clips Page tests': function (browser) {
     browser
-      .waitForElementWithText('h3', 'Clips')
+      ._resetDatabase()
+      .url(`${WEB_ORIGIN}/clips`)
+  },  
+  'Clips Page': function (browser) {
+    browser
       .waitForXpathPresent('//div[contains(text(), "Amet aliquam id diam maecenas ultricies mi eget.")]')
       .testSharedMetaTags()
       .testPageMetaTags(

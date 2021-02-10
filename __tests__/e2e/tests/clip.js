@@ -10,7 +10,7 @@ module.exports = {
   before: function (browser) {
     browser.url(`${WEB_ORIGIN}/clip/9rA5BhWp`)
   },
-  'Clip Page tests': function (browser) {
+  'Clip Page': function (browser) {
     browser
       .waitForXpathPresent('//div[contains(text(), "Amet aliquam id diam maecenas ultricies mi eget.")]')
       .testSharedMetaTags()

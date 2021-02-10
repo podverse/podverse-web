@@ -8,7 +8,6 @@ import UserHeaderCtrl from '~/components/UserHeaderCtrl/UserHeaderCtrl'
 import UserMediaListCtrl from '~/components/UserMediaListCtrl/UserMediaListCtrl'
 import config from '~/config'
 import PV from '~/lib/constants'
-import { clone } from '~/lib/utility'
 import { pageIsLoading, pagesSetQueryState } from '~/redux/actions'
 import { getPodcastsByQuery, getPublicUser, getUserMediaRefs, getUserPlaylists
   } from '~/services'

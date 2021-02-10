@@ -4,7 +4,7 @@ module.exports = {
   before: function (browser) {
     browser.url(`${WEB_ORIGIN}/`)
   },
-  'Profiles Tests': function (browser) {
+  'Profiles Page': function (browser) {
     browser
       .url(`${WEB_ORIGIN}/profiles`)
       .waitForElementWithText('p', 'Login to view your profiles')

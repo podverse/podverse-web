@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux'
 import MediaListItemCtrl from '~/components/MediaListItemCtrl/MediaListItemCtrl'
 import config from '~/config'
 import PV from '~/lib/constants'
-import { addOrUpdateHistoryItemAndState, clone } from '~/lib/utility'
+import { addOrUpdateHistoryItemAndState } from '~/lib/utility'
 import { mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying, pageIsLoading, 
   playerQueueLoadPriorityItems, userSetInfo } from '~/redux/actions'
 import { getLoggedInUserMediaRefsFromFrontEnd, getLoggedInUserPlaylistsFromFrontEnd,
