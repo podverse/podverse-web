@@ -105,27 +105,6 @@ export const modalsMakeClipShow = payload => {
   }
 }
 
-export const modalsQueueIsLoading = payload => {
-  return {
-    type: actionTypes.MODALS_QUEUE_IS_LOADING,
-    payload
-  }
-}
-
-export const modalsQueueSetErrorResponse = payload => {
-  return {
-    type: actionTypes.MODALS_QUEUE_SET_ERROR_RESPONSE,
-    payload
-  }
-}
-
-export const modalsQueueShow = payload => {
-  return {
-    type: actionTypes.MODALS_QUEUE_SHOW,
-    payload
-  }
-}
-
 export const modalsResetPasswordShow = payload => {
   return {
     type: actionTypes.MODALS_RESET_PASSWORD_SHOW,

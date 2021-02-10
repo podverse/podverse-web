@@ -2,14 +2,14 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux';
-import { MediaListItem, addItemToPriorityQueueStorage, getPriorityQueueItemsStorage
-  } from 'podverse-ui'
+import { MediaListItem, addItemToPriorityQueueStorage } from 'podverse-ui'
 import PV from '~/lib/constants'
 import { generateShareURLs, getViewContentsElementScrollTop } from '~/lib/utility'
 import { modalsAddToShow, modalsShareShow, pageIsLoading, pagesSetQueryState, playerQueueLoadPriorityItems,
   userSetInfo } from '~/redux/actions'
-import { updateUserQueueItems } from '~/services'
+import { addQueueItemLastToServer, addQueueItemNextToServer } from '~/services'
 import { withTranslation } from '~/../i18n'
+import { getQueueItems } from '~/services/userQueueItem';
 const uuidv4 = require('uuid/v4')
 
 type Props = {
@@ -52,15 +52,13 @@ class MediaListItemCtrl extends Component<Props, State> {
 
     let priorityItems = []
     if (user && user.id) {
-      user.queueItems = Array.isArray(user.queueItems) ? user.queueItems : []
-      isLast ? user.queueItems.push(nowPlayingItem) : user.queueItems.unshift(nowPlayingItem)
-
-      const response = await updateUserQueueItems({ queueItems: user.queueItems })
-      priorityItems = response.data || []
+      priorityItems = isLast
+        ? await addQueueItemLastToServer(nowPlayingItem)
+        : await addQueueItemNextToServer(nowPlayingItem)
+      priorityItems = priorityItems || []
     } else {
       addItemToPriorityQueueStorage(nowPlayingItem, isLast)
-
-      priorityItems = getPriorityQueueItemsStorage()
+      priorityItems = await getQueueItems(user)
     }
 
     playerQueueLoadPriorityItems(priorityItems)

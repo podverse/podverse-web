@@ -2,19 +2,20 @@
 import React, { Component, Fragment } from 'react'
 import { Trans } from 'react-i18next'
 import { connect } from 'react-redux'
-import { convertToNowPlayingItem } from 'podverse-shared'
-import { MediaInfo, addItemToPriorityQueueStorage, getPriorityQueueItemsStorage,
-  setNowPlayingItemInStorage } from 'podverse-ui'
+import { convertToNowPlayingItem, NowPlayingItem } from 'podverse-shared'
+import { addItemToPriorityQueueStorage, MediaInfo } from 'podverse-ui'
 import { bindActionCreators } from 'redux';
 import PV from '~/lib/constants'
-import { addOrUpdateHistoryItemPlaybackPosition, assignLocalOrLoggedInNowPlayingItemPlaybackPosition,
-  getViewContentsElementScrollTop, generateShareURLs, removeProtocol} from '~/lib/utility'
+import { addOrUpdateHistoryItemAndState, getViewContentsElementScrollTop, generateShareURLs,
+  removeProtocol} from '~/lib/utility'
 import { mediaPlayerLoadNowPlayingItem, mediaPlayerSetClipFinished, mediaPlayerSetPlayedAfterClipFinished, 
   mediaPlayerUpdatePlaying, modalsAddToShow, modalsMakeClipShow, modalsShareShow,
   pageIsLoading, pagesSetQueryState, playerQueueLoadPriorityItems,
   userSetInfo } from '~/redux/actions'
-import { updateUserQueueItems } from '~/services'
+import { addQueueItemLastToServer, addQueueItemNextToServer, setNowPlayingItem } from '~/services'
 import { i18n, withTranslation } from '~/../i18n'
+import { getQueueItems } from '~/services/userQueueItem'
+
 
 type Props = {
   episode?: any
@@ -60,10 +61,8 @@ class MediaInfoCtrl extends Component<Props, State> {
     
     if (window.player) {
       const currentTime = Math.floor(window.player.getCurrentTime()) || 0
-      await addOrUpdateHistoryItemPlaybackPosition(mediaPlayer.nowPlayingItem, user, currentTime)
+      await addOrUpdateHistoryItemAndState(mediaPlayer.nowPlayingItem, user, currentTime)
     }
-
-    nowPlayingItem = assignLocalOrLoggedInNowPlayingItemPlaybackPosition(user, nowPlayingItem)
 
     if (!loadOnly) {
       mediaPlayerUpdatePlaying(true)
@@ -75,28 +74,14 @@ class MediaInfoCtrl extends Component<Props, State> {
       nowPlayingItem.episodeId && (mediaPlayer.nowPlayingItem.episodeId !== nowPlayingItem.episodeId)
     ) {
       mediaPlayerLoadNowPlayingItem(nowPlayingItem)
-      setNowPlayingItemInStorage(nowPlayingItem)
+      await setNowPlayingItem(nowPlayingItem, nowPlayingItem.userPlaybackPosition, user)
 
       if (window.player && setPosition && nowPlayingItem && nowPlayingItem.clipStartTime) {
         window.player.seekTo(Math.floor(nowPlayingItem.clipStartTime))
       }
 
       if (user && user.id) {
-        await addOrUpdateHistoryItemPlaybackPosition(nowPlayingItem, user)
-  
-        // eslint-disable-next-line array-callback-return
-        const historyItems = user.historyItems.filter(x => {
-          if (x) {
-            if ((x.clipStartTime || x.clipEndTime) && x.clipId !== nowPlayingItem.clipId) {
-              return x
-            } else if (x.episodeId !== nowPlayingItem.episodeId) {
-              return x
-            }
-          }
-        })
-  
-        historyItems.push(nowPlayingItem)
-  
+        const historyItems = await addOrUpdateHistoryItemAndState(nowPlayingItem, user)  
         userSetInfo({ historyItems })
       }
     } else if (setPosition) {
@@ -117,29 +102,24 @@ class MediaInfoCtrl extends Component<Props, State> {
     const { episode, mediaRef, playerQueueLoadPriorityItems, user } = this.props
     
     let priorityItems = []
-    user.queueItems = Array.isArray(user.queueItems) ? user.queueItems : []
     if (user && user.id) {
-      if (nowPlayingItem && nowPlayingItem.episodeMediaUrl) {
-        isLast ? user.queueItems.push(nowPlayingItem) : user.queueItems.unshift(nowPlayingItem)
-      } else if (mediaRef) {
-        isLast ? user.queueItems.push(convertToNowPlayingItem(mediaRef)) : user.queueItems.unshift(convertToNowPlayingItem(mediaRef))
-      } else if (episode) {
-        isLast ? user.queueItems.push(convertToNowPlayingItem(episode)) : user.queueItems.unshift(convertToNowPlayingItem(episode))
-      }
-
-      const response = await updateUserQueueItems({ queueItems: user.queueItems })
-
-      priorityItems = response.data || []
+      priorityItems = isLast 
+        ? await addQueueItemLastToServer(nowPlayingItem)
+        : await addQueueItemNextToServer(nowPlayingItem)
     } else {
-      if (nowPlayingItem && nowPlayingItem.episodeMediaUrl) {
-        addItemToPriorityQueueStorage(nowPlayingItem, isLast)
-      } else if (mediaRef) {
-        addItemToPriorityQueueStorage(convertToNowPlayingItem(mediaRef))
-      } else if (episode) {
-        addItemToPriorityQueueStorage(convertToNowPlayingItem(episode))
-      }
+      const addQueueItemLocally = async (
+        nowPlayingItem: NowPlayingItem, episode: any, mediaRef: any, isLast: boolean) => {
+        if (nowPlayingItem && nowPlayingItem.episodeMediaUrl) {
+          addItemToPriorityQueueStorage(nowPlayingItem, isLast)
+        } else if (mediaRef) {
+          addItemToPriorityQueueStorage(convertToNowPlayingItem(mediaRef))
+        } else if (episode) {
+          addItemToPriorityQueueStorage(convertToNowPlayingItem(episode))
+        }
 
-      priorityItems = getPriorityQueueItemsStorage()
+        return await getQueueItems(user)
+      }
+      priorityItems = await addQueueItemLocally(nowPlayingItem, episode, mediaRef, isLast)
     }
 
     playerQueueLoadPriorityItems(priorityItems)

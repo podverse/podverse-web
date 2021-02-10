@@ -10,9 +10,7 @@ import Meta from '~/components/Meta/Meta'
 import config from '~/config'
 import PV from '~/lib/constants'
 import { cookieGetQuery } from '~/lib/utility'
-import {
-  pageIsLoading, pagesSetQueryState
-} from '~/redux/actions'
+import { pageIsLoading, pagesSetQueryState } from '~/redux/actions'
 import { getCategoriesByQuery, getMediaRefsByQuery } from '~/services'
 import { withTranslation } from '~/../i18n'
 const { BASE_URL, CATEGORY_ID_DEFAULT } = config()

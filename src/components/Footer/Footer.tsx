@@ -12,7 +12,7 @@ import { pageIsLoading, pagesSetQueryState, settingsSetUITheme
   } from '~/redux/actions'
 import { withTranslation } from 'i18n'
 const cookie = require('cookie')
-const { CONTACT_FORM_URL, SOCIAL_FACEBOOK_PAGE_URL, SOCIAL_GITHUB_PAGE_URL,
+const { CONTACT_US_EMAIL, SOCIAL_FACEBOOK_PAGE_URL, SOCIAL_GITHUB_PAGE_URL,
   SOCIAL_REDDIT_PAGE_URL, SOCIAL_TWITTER_PAGE_URL } = config()
 
 type Props = {
@@ -126,15 +126,11 @@ class Footer extends Component<Props, State> {
           </div>
           <div className='footer__bottom'>
             <div className='footer-bottom__site-links'>
-              <Link
-                as={CONTACT_FORM_URL}
-                href={CONTACT_FORM_URL || ''}>
-                <a 
-                  className='footer-bottom__link'
-                  target='_blank'>
-                  {t('Contact')}
-                </a>
-              </Link>
+              <a 
+                className='footer-bottom__link'
+                href={`mailto:${CONTACT_US_EMAIL}`}>
+                {t('Contact')}
+              </a>
               <Link
                 as={PV.paths.web.about}
                 href={PV.paths.web.about}>

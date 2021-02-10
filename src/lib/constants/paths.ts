@@ -29,6 +29,9 @@ export const paths = {
     update_history_item_playback_position: `/update-history-item-playback-position`,
     update_queue: `/update-queue`,
     user: `/user`,
+    user_history_item: `/user-history-item`,
+    user_now_playing_item: `/user-now-playing-item`,
+    user_queue_item: `/user-queue-item`,
     verify_email: `/verify-email`
   },
   web: {
@@ -44,6 +47,7 @@ export const paths = {
     faq: `/faq`,
     googlePlayStore: `https://play.google.com/store/apps/details?id=com.podverse&hl=en_US&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1`,
     googlePlayStoreBadge: `https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png`,
+    history: '/history',
     home: `/`,
     license: `https://www.gnu.org/licenses/agpl-3.0.en.html`,
     membership: `/membership`,
@@ -59,6 +63,7 @@ export const paths = {
     podcasts: `/podcasts`,
     profile: `/profile`,
     profiles: `/profiles`,
+    queue: '/queue',
     reset_password: `/reset-password`,
     search: `/search`,
     settings_membership: `/settings#membership`,

@@ -16,7 +16,12 @@
     "_Title": "Episodes"
   },
   "faq": {
-    "_Description": "Frequently asked questions"
+    "_Description": "Frequently asked questions",
+    "_Title": "FAQ"
+  },
+  "history": {
+    "_Description": "My history items on Podverse",
+    "_Title": "History"
   },
   "index": {
     "_Description": "Podcast app for iOS, Android, and web. Create and share podcast highlights and playlists. Sync your queue across all devices. Open source software.",
@@ -29,6 +34,10 @@
   "my_profile": {
     "_Description": "My Podverse Profile. Subscribe to podcasts, playlists, and other profiles",
     "_Title": "My Profile"
+  },
+  "queue": {
+    "_Description": "My queue on Podverse",
+    "_Title": "Queue"
   },
   "payment_bitpay_confirming": {
     "_Description": "BitPay payment confirmation screen on Podverse",

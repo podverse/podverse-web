@@ -40,6 +40,10 @@ export default (app) => {
     await app.render(ctx.req, ctx.res, '/episodes', ctx.query)
   })
 
+  router.get('/history', async ctx => {
+    await app.render(ctx.req, ctx.res, '/history', ctx.query)
+  })
+
   router.get('/my-profile', async ctx => {
     const query = { ...ctx.params, ...ctx.query }
     await app.render(ctx.req, ctx.res, '/my-profile', query)
@@ -70,6 +74,10 @@ export default (app) => {
 
   router.get('/profiles', async ctx => {
     await app.render(ctx.req, ctx.res, '/profiles', ctx.query)
+  })
+
+  router.get('/queue', async ctx => {
+    await app.render(ctx.req, ctx.res, '/queue', ctx.query)
   })
 
   router.get('/search', async ctx => {

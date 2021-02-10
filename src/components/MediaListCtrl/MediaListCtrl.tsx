@@ -3,15 +3,15 @@ import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { convertToNowPlayingItem } from 'podverse-shared'
-import { FilterCtrl, MediaListSelect, Pagination, setNowPlayingItemInStorage } from 'podverse-ui'
+import { FilterCtrl, MediaListSelect, Pagination } from 'podverse-ui'
 import MediaListItemCtrl from '~/components/MediaListItemCtrl/MediaListItemCtrl'
 import config from '~/config'
 import PV from '~/lib/constants'
-import { addOrUpdateHistoryItemPlaybackPosition, assignLocalOrLoggedInNowPlayingItemPlaybackPosition,
-  cookieSetQuery } from '~/lib/utility'
+import { addOrUpdateHistoryItemAndState, cookieSetQuery } from '~/lib/utility'
 import { mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying, pageIsLoading,
   playerQueueLoadPriorityItems, userSetInfo } from '~/redux/actions'
-import { getEpisodesByQuery, getMediaRefsByQuery, retrieveLatestChaptersForEpisodeId } from '~/services'
+import { getEpisodesByQuery, getMediaRefsByQuery, retrieveLatestChaptersForEpisodeId,
+  setNowPlayingItem } from '~/services'
 import { withTranslation } from '~/../i18n'
 import AwesomeDebouncePromise from 'awesome-debounce-promise'
 const uuidv4 = require('uuid/v4')
@@ -338,7 +338,7 @@ class MediaListCtrl extends Component<Props, State> {
 
     if (window.player) {
       const currentTime = Math.floor(window.player.getCurrentTime()) || 0
-      await addOrUpdateHistoryItemPlaybackPosition(mediaPlayer.nowPlayingItem, user, currentTime)
+      await addOrUpdateHistoryItemAndState(mediaPlayer.nowPlayingItem, user, currentTime)
     }
 
     // If loading a new episode, clear the player to prevent the error:
@@ -364,27 +364,12 @@ class MediaListCtrl extends Component<Props, State> {
       nowPlayingItem.podcastValue = podcast.value
     }
 
-    nowPlayingItem = assignLocalOrLoggedInNowPlayingItemPlaybackPosition(user, nowPlayingItem)
     mediaPlayerLoadNowPlayingItem(nowPlayingItem)
-    setNowPlayingItemInStorage(nowPlayingItem)
+    await setNowPlayingItem(nowPlayingItem, nowPlayingItem.userPlaybackPosition, user)
     mediaPlayerUpdatePlaying(true)
 
     if (user && user.id) {
-      await addOrUpdateHistoryItemPlaybackPosition(nowPlayingItem, user)
-
-      const historyItems = user.historyItems.filter(x => {
-        if (x) {
-          if ((x.clipStartTime || x.clipEndTime) && x.clipId !== nowPlayingItem.clipId) {
-            return x
-          } else if (x.episodeId !== nowPlayingItem.episodeId) {
-            return x
-          }
-        }
-        return null
-      })
-
-      historyItems.push(nowPlayingItem)
-
+      const historyItems = await addOrUpdateHistoryItemAndState(nowPlayingItem, user)
       userSetInfo({ historyItems })
     }
   }
