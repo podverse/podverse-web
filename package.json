@@ -1,6 +1,6 @@
 {
   "name": "podverse-web",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Web app for the Podverse podcast clip sharing ecosystem",
   "repository": {
     "type": "git",
@@ -9,7 +9,8 @@
   "contributors": [
     "Creon Creonopoulos",
     "Mitch Downey",
-    "Gary Johnson"
+    "Gary Johnson",
+    "Kyle Downey"
   ],
   "license": "AGPLv3",
   "bugs": {
