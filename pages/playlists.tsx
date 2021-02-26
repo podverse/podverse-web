@@ -83,13 +83,13 @@ class Playlists extends Component<Props, State> {
     }
     
     const myPlaylistNodes = myPlaylists.map(x => (
-        <MediaListItem
-          dataPlaylist={x}
-          handleLinkClick={this.linkClick}
-          hasLink
-          itemType='playlist'
-          key={`media-list-item-${uuidv4()}`}
-          t={t} />
+      <MediaListItem
+        dataPlaylist={x}
+        handleLinkClick={this.linkClick}
+        hasLink
+        itemType='playlist'
+        key={`media-list-item-${uuidv4()}`}
+        t={t} />
     ))
 
     const subscribedPlaylistNodes = subscribedPlaylists.map(x => (
