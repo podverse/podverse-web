@@ -275,7 +275,6 @@ export default withRedux(initializeStore)(appWithTranslation(class MyApp extends
       }, 2000)
 
       if (newPlayingItem) {
-        newPlayingItem = await getNowPlayingItem(user)
         store.dispatch(mediaPlayerLoadNowPlayingItem(newPlayingItem))
         await setNowPlayingItem(newPlayingItem, newPlayingItem.userPlaybackPosition, user)
       } else {
