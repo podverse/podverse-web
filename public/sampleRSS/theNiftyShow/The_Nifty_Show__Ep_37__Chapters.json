@@ -1,0 +1,335 @@
+{
+    "chapters":[
+        {
+            "img": "",
+            "startTime": 0,
+            "title": "Welcome to The Nifty Show: Episode 37",
+            "url": ""
+        },
+        {
+            "img":"https://podverse.fm/sampleRSS/theNiftyShow/whaleshark.jpg",
+            "startTime": 115,
+            "title":"Whaleshark intro",
+            "url":"https://twitter.com/whaleshark_pro"
+        },
+        {
+          "img": "https://podverse.fm/sampleRSS/theNiftyShow/whale-token.png",
+          "startTime": 206,
+          "title": "WHALE token is like an index fund for NFTs",
+          "url": ""
+        },
+        {
+          "img": "https://podverse.fm/sampleRSS/theNiftyShow/whale-website.png",
+          "startTime": 280,
+          "title": "Go to whale.me for more info about WHALE token",
+          "url": "https://whale.me/"
+        },
+        {
+          "img": "https://mkpcdn.com/1000x/c82afda61e7aa40871db1f3f72384150_992683.jpg",
+          "startTime": 309,
+          "title": "Arsenic Lullaby",
+          "url": "http://arseniclullabies.com/nft.html"
+        },
+        {
+          "img": "https://podverse.fm/sampleRSS/theNiftyShow/frankie-nines.png",
+          "startTime": 334,
+          "title": "Frankie Nines",
+          "url": "https://www.frankyaguilar.com/crypto"
+        },
+        {
+          "img": "https://podverse.fm/sampleRSS/theNiftyShow/brendon-dawes.jpg",
+          "startTime": 338,
+          "title": "Brendon Dawes",
+          "url": "http://www.brendandawes.com/"
+        },
+        {
+          "img": "https://podverse.fm/sampleRSS/theNiftyShow/whale-website.png",
+          "startTime": 342,
+          "title": "WHALE's philsophy is to collect what they love and identify value",
+          "url": ""
+        },
+        {
+          "img": "https://podverse.fm/sampleRSS/theNiftyShow/nonfungible.jpg",
+          "startTime": 374,
+          "title": "The WHALE vault is currently evaluated by NonFungible.com",
+          "url": "https://nonfungible.com/static/february-2021-whale-vault-audit.pdf"
+        },
+        {
+          "img": "https://miro.medium.com/max/3072/1*gyxYRqdcULyjIOC-WRksXw.jpeg",
+          "startTime": 442,
+          "title": "Whale has over 1500 plots in The Sandbox metaverse",
+          "url": "https://www.sandbox.game/en/"
+        },
+        {
+          "img": "https://podverse.fm/sampleRSS/theNiftyShow/cryptovoxels.jpg",
+          "startTime": 463,
+          "title": "WHALE is the largest holder of Cryptovoxels plots",
+          "url": "https://www.cryptovoxels.com/"
+        },
+        {
+          "img": "https://podverse.fm/sampleRSS/theNiftyShow/whale-website.png",
+          "startTime": 477,
+          "title": "Why are there multiple different WHALE vaults on Flow?",
+          "url": ""
+        },
+        {
+          "img": "https://podverse.fm/sampleRSS/theNiftyShow/whale-token.png",
+          "startTime": 527,
+          "title": "WHALE's vision: to empower anyone and everyone to become a whale through the WHALE token",
+          "url": ""
+        },
+        {
+          "img": "https://podverse.fm/sampleRSS/theNiftyShow/whale-token.png",
+          "startTime": 602,
+          "title": "Whaleshark plans to create a charity for disadvantaged women and children with 40% of the unreleased WHALE token supply",
+          "url": ""
+        },
+        {
+          "img": "https://podverse.fm/sampleRSS/theNiftyShow/whale-vault.png",
+          "startTime": 676,
+          "title": "How to donate NFTs to the WHALE vault pt 1/2",
+          "url": ""
+        },
+        {
+          "img": "https://podverse.fm/sampleRSS/theNiftyShow/whaleshark.jpg",
+          "startTime": 734,
+          "title": "Whaleshark gives Travis his blessing to start an NFT index fund",
+          "url": ""
+        },
+        {
+          "img": "https://podverse.fm/sampleRSS/theNiftyShow/minnowshark.png",
+          "startTime": 764,
+          "title": "Introducing Minnowshark",
+          "url": ""
+        },
+        {
+          "img": "https://podverse.fm/sampleRSS/theNiftyShow/whale-vault.png",
+          "startTime": 796,
+          "title": "How to donate NFTs to the WHALE vault pt 2/2",
+          "url": ""
+        },
+        {
+          "img": "https://podverse.fm/sampleRSS/theNiftyShow/wax.jpg",
+          "startTime": 842,
+          "title": "What does Whaleshark think of WAX?",
+          "url": "https://on.wax.io/wax-io/"
+        },
+        {
+          "img": "https://podverse.fm/sampleRSS/theNiftyShow/blockchain-heroes.jpg",
+          "startTime": 937,
+          "title": "Blockchain Heroes will be a part of the WHALE vault 🎉",
+          "url": "https://blog.bcheroes.com/"
+        },
+        {
+          "img": "https://podverse.fm/sampleRSS/theNiftyShow/blockchain-heroes-pack.jpg",
+          "startTime": 962,
+          "title": "The NFT pack opening experience / Over 90% of Blockchain Heroes packs have been opened",
+          "url": "https://blog.bcheroes.com/"
+        },
+        {
+          "img": "https://podverse.fm/sampleRSS/theNiftyShow/wax.jpg",
+          "startTime": 1052,
+          "title": "The biggest NFT projects on WAX are independent projects",
+          "url": "https://on.wax.io/wax-io/"
+        },
+        {
+          "img": "https://podverse.fm/sampleRSS/theNiftyShow/whaleshark.jpg",
+          "startTime": 1126,
+          "title": "\"99.99% of NFT projects that exist today will not be commercially viable when mainstream adoption appears.\" - Whaleshark",
+          "url": ""
+        },
+        {
+          "img": "",
+          "startTime": 1291,
+          "title": "Joel shows Whaleshark his favorite NFT",
+          "url": ""
+        },
+        {
+          "img": "https://podverse.fm/sampleRSS/theNiftyShow/whaleshark.jpg",
+          "startTime": 1322,
+          "title": "Whaleshark has collected over 210,000 NFTs and has never sold one",
+          "url": ""
+        },
+        {
+          "img": "https://podverse.fm/sampleRSS/theNiftyShow/whaleshark.jpg",
+          "startTime": 1368,
+          "title": "Where does Whaleshark get his NFT info?",
+          "url": ""
+        },
+        {
+          "img": "https://podverse.fm/sampleRSS/theNiftyShow/whale-website.png",
+          "startTime": 1460,
+          "title": "Go to whale.me to learn more and join the WHALE community",
+          "url": "https://whale.me"
+        },
+        {
+          "img": "https://podverse.fm/sampleRSS/theNiftyShow/whale-token.png",
+          "startTime": 1466,
+          "title": "WHALE token is #1 in market cap on tryroll.com",
+          "url": "https://tryroll.com/"
+        },
+        {
+          "img": "",
+          "startTime": 1484,
+          "title": "HERO: the official token of The Bad Crypto Podcast. Now on Uniswap!",
+          "url": "https://info.uniswap.org/token/0x862caa11abe48c945d5361e80eaf19348c479240"
+        },
+        {
+          "img": "https://podverse.fm/sampleRSS/theNiftyShow/bitcoin-origins.png",
+          "startTime": 1535,
+          "title": "Paul Jones of Bitcoin Origins joins The Nifty Show",
+          "url": ""
+        },
+        {
+          "img": "https://podverse.fm/sampleRSS/theNiftyShow/bitcoin-origins-pizza-day.png",
+          "startTime": 1642,
+          "title": "Bitcoin Origins \"Moment 4: Pizza Day\" drops March 6, 2021",
+          "url": "https://www.btcorigins.com/"
+        },
+        {
+          "img": "https://podverse.fm/sampleRSS/theNiftyShow/bitcoin-origins.png",
+          "startTime": 1663,
+          "title": "Bitcoin Pizza Day - a source of regret, or a breakthrough moment?",
+          "url": ""
+        },
+        {
+          "img": "https://podverse.fm/sampleRSS/theNiftyShow/bitcoin-origins.png",
+          "startTime": 1718,
+          "title": "Hey Satoshi, what do you want on your pizza?",
+          "url": ""
+        },
+        {
+          "img": "https://podverse.fm/sampleRSS/theNiftyShow/bitcoin-origins.png",
+          "startTime": 1770,
+          "title": "When will Bitcoin Origins add The Travis Moment?",
+          "url": ""
+        },
+        {
+          "img": "https://podverse.fm/sampleRSS/theNiftyShow/bitcoin-origins-pizza-day.png",
+          "startTime": 1842,
+          "title": "The Pizza Day regret card",
+          "url": "https://wax.atomichub.io/explorer/template/bitcoinorign/66540"
+        },
+        {
+          "img": "https://podverse.fm/sampleRSS/theNiftyShow/bitcoin-origins-pizza-day.png",
+          "startTime": 1857,
+          "title": "10,000 Bitcoin used to buy 2 pizzas, and now you can buy 10,000 pizzas for 2 Bitcoin",
+          "url": ""
+        },
+        {
+          "img": "https://podverse.fm/sampleRSS/theNiftyShow/bitcoin-origins-pizza-day.png",
+          "startTime": 1893,
+          "title": "The Affirmation Seed card",
+          "url": "https://wax.atomichub.io/explorer/template/bitcoinorign/66541"
+        },
+        {
+          "img": "https://podverse.fm/sampleRSS/theNiftyShow/bitcoin-origins-pride-of-the-lotus.png",
+          "startTime": 1918,
+          "title": "Pride of the Lotus card",
+          "url": "https://wax.atomichub.io/explorer/template/bitcoinorign/66542"
+        },
+        {
+          "img": "https://podverse.fm/sampleRSS/theNiftyShow/bitcoin-origins.png",
+          "startTime": 1948,
+          "title": "Bitcoin Origin packs sell out fast",
+          "url": ""
+        },
+        {
+          "img": "https://podverse.fm/sampleRSS/theNiftyShow/bitcoin-origins.png",
+          "startTime": 2003,
+          "title": "Why has Bitcoin Origins increased the supply with each release?",
+          "url": ""
+        },
+        {
+          "img": "https://podverse.fm/sampleRSS/theNiftyShow/bitcoin-origins-4mb-block.png",
+          "startTime": 2123,
+          "title": "Joel has 1 of 5 remaining unopened 4MB blocks from Bitcoin Origins Moment 1",
+          "url": "https://wax.atomichub.io/explorer/template/bitcoinorign/22161"
+        },
+        {
+          "img": "https://podverse.fm/sampleRSS/theNiftyShow/bitcoin-origins.png",
+          "startTime": 2177,
+          "title": "Paul used to work on Teenage Mutant Ninja Turtles",
+          "url": ""
+        },
+        {
+          "img": "https://podverse.fm/sampleRSS/theNiftyShow/bitcoin-origins-website.png",
+          "startTime": 2358,
+          "title": "Go to btcorigins.com to learn more",
+          "url": "https://btcorigins.com"
+        },
+        {
+          "img": "https://podverse.fm/sampleRSS/theNiftyShow/rebel-rabbits.jpeg",
+          "startTime": 2412,
+          "title": "Paul's other project Rebel Rabbits",
+          "url": "https://wax.atomichub.io/explorer/template/bitcoinorign/68818"
+        },
+        {
+          "img": "https://podverse.fm/sampleRSS/theNiftyShow/bitcoin-origins.png",
+          "startTime": 2601,
+          "title": "Paul gives a sneak peak of Moment 4 cards",
+          "url": ""
+        },
+        {
+          "img": "https://podverse.fm/sampleRSS/theNiftyShow/bitcoin-origins-legendary-card-m4.gif",
+          "startTime": 2625,
+          "title": "The Legendary Card (M4)",
+          "url": "https://wax.atomichub.io/explorer/template/bitcoinorign/66554"
+        },
+        {
+          "img": "https://podverse.fm/sampleRSS/theNiftyShow/bitcoin-origins-glitch-card-m4.gif",
+          "startTime": 2655,
+          "title": "The Glitch Card (M4)",
+          "url": "https://wax.atomichub.io/explorer/template/bitcoinorign/66560"
+        },
+        {
+          "img": "https://podverse.fm/sampleRSS/theNiftyShow/bitcoin-origins.png",
+          "startTime": 2706,
+          "title": "Bonus blocks in the Moment 4 drop",
+          "url": ""
+        },
+        {
+          "img": "",
+          "startTime": 2761,
+          "title": "End of interview with Paul",
+          "url": ""
+        },
+        {
+          "img": "https://podverse.fm/sampleRSS/theNiftyShow/collect-social-oleh.png",
+          "startTime": 2805,
+          "title": "Interview with Oleh, creator of the Dark Country game and collect.social",
+          "url": ""
+        },
+        {
+          "img": "https://podverse.fm/sampleRSS/theNiftyShow/collect-social-website.png",
+          "startTime": 2861,
+          "title": "Introducing collect.social - the collector's social platform",
+          "url": "https://collect.social"
+        },
+        {
+          "img": "https://podverse.fm/sampleRSS/theNiftyShow/collect-social-leaderboard.png",
+          "startTime": 3006,
+          "title": "Leveling up and Raccoon Coins",
+          "url": ""
+        },
+        {
+          "img": "https://podverse.fm/sampleRSS/theNiftyShow/collect-social-website.png",
+          "startTime": 3083,
+          "title": "What collections are available on collect.social right now?",
+          "url": "https://collect.social"
+        },
+        {
+          "img": "https://podverse.fm/sampleRSS/theNiftyShow/collect-social-website.png",
+          "startTime": 3179,
+          "title": "The collect.social governance token",
+          "url": ""
+        },
+        {
+          "img": "",
+          "startTime": 3222,
+          "title": "End of interview with Oleh",
+          "url": ""
+        }
+    ],
+    "version":"1.0.0"
+}
