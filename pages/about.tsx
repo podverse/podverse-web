@@ -8,7 +8,7 @@ import PV from '~/lib/constants'
 import { pageIsLoading, pagesSetQueryState } from '~/redux/actions'
 import { withTranslation } from '~/../i18n'
 const { APP_DOWNLOAD_ON_THE_APP_STORE_URL, APP_GET_IT_ON_FDROID_URL,
-  APP_GET_IT_ON_GOOGLE_PLAY_URL, BASE_URL } = config()
+  APP_GET_IT_ON_GOOGLE_PLAY_URL, PUBLIC_BASE_URL } = config()
 
 type Props = {
   lastScrollPosition?: number
@@ -39,7 +39,7 @@ class About extends Component<Props, State> {
     const { t } = this.props
 
     const meta = {
-      currentUrl: BASE_URL,
+      currentUrl: PUBLIC_BASE_URL,
       description: t('pages:about._Description'),
       title: t('pages:about._Title')
     }

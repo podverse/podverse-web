@@ -9,7 +9,7 @@ import { alertRateLimitError } from '~/lib/utility'
 import { modalsLoginShow, modalsSendVerificationEmailShow, pageIsLoading } from '~/redux/actions'
 import { verifyEmail } from '~/services/auth'
 import { withTranslation } from '~/../i18n'
-const { BASE_URL } = config()
+const { PUBLIC_BASE_URL } = config()
 
 type Props = {
   hasError?: string
@@ -57,7 +57,7 @@ class VerifyEmail extends Component<Props, State> {
     const { hasError, t } = this.props
 
     const meta = {
-      currentUrl: BASE_URL + PV.paths.web.verify_email,
+      currentUrl: PUBLIC_BASE_URL + PV.paths.web.verify_email,
       description: t('pages:verify_email._Description'),
       title: t('pages:verify_email._Title')
     }

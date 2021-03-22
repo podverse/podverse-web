@@ -17,7 +17,7 @@ import { modalsSignUpShow, pageIsLoading, settingsCensorNSFWText,
 import { downloadLoggedInUserData, updateLoggedInUser } from '~/services'
 import config from '~/config'
 import { i18n, withTranslation } from '~/../i18n'
-const { BASE_URL } = config()
+const { PUBLIC_BASE_URL } = config()
 const fileDownload = require('js-file-download')
 
 type Props = {
@@ -83,7 +83,7 @@ class Settings extends Component<Props, State> {
 
   profileLinkHref = () => {
     const { user } = this.props
-    return `${BASE_URL}${PV.paths.web.profile}/${user.id}`
+    return `${PUBLIC_BASE_URL}${PV.paths.web.profile}/${user.id}`
   }
 
   copyProfileLink = () => {
@@ -241,7 +241,7 @@ class Settings extends Component<Props, State> {
   render() {
     const { settings, t, user } = this.props
     const meta = {
-      currentUrl: BASE_URL + PV.paths.web.settings,
+      currentUrl: PUBLIC_BASE_URL + PV.paths.web.settings,
       description: t('pages:settings._Description'),
       title: t('pages:settings._Title')
     }
@@ -332,7 +332,7 @@ class Settings extends Component<Props, State> {
                         <Input
                           id='settings-privacy-profile-link-input'
                           readOnly={true}
-                          value={`${BASE_URL}/profile/${user.id}`} />
+                          value={`${PUBLIC_BASE_URL}/profile/${user.id}`} />
                         <InputGroupAddon
                           addonType='append'>
                           <Button

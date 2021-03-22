@@ -13,7 +13,7 @@ import { cookieGetQuery } from '~/lib/utility'
 import { pageIsLoading, pagesSetQueryState } from '~/redux/actions'
 import { getCategoriesByQuery, getMediaRefsByQuery } from '~/services'
 import { withTranslation } from '~/../i18n'
-const { BASE_URL, CATEGORY_ID_DEFAULT } = config()
+const { CATEGORY_ID_DEFAULT, PUBLIC_BASE_URL } = config()
 
 type Props = {
   allCategories?: any[]
@@ -123,7 +123,7 @@ class Home extends Component<Props, State> {
     const { isAdvancedFilterShowing } = pages[pageKey]
 
     const meta = {
-      currentUrl: BASE_URL,
+      currentUrl: PUBLIC_BASE_URL,
       description: t('pages:clips._Description'),
       title: t('pages:clips._Title')
     }

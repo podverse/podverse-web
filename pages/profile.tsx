@@ -12,7 +12,7 @@ import { pageIsLoading, pagesSetQueryState } from '~/redux/actions'
 import { getPodcastsByQuery, getPublicUser, getUserMediaRefs, getUserPlaylists
   } from '~/services'
 import { withTranslation } from '~/../i18n'
-const { BASE_URL } = config()
+const { PUBLIC_BASE_URL } = config()
 
 type Props = {
   errorCode?: number
@@ -101,7 +101,7 @@ class Profile extends Component<Props, State> {
     let meta = {} as any
     if (publicUser) {
       meta = {
-        currentUrl: BASE_URL + PV.paths.web.profile + '/' + publicUser.id,
+        currentUrl: PUBLIC_BASE_URL + PV.paths.web.profile + '/' + publicUser.id,
         description: `${publicUser.name ? publicUser.name : t('Anonymous')}`,
         title: `${publicUser.name ? publicUser.name : t('Anonymous')}`
       }

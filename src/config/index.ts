@@ -25,6 +25,8 @@ export interface Config {
   API_DOMAIN?: string
   BASE_URL?: string
   API_BASE_URL?: string
+  PUBLIC_DOMAIN?: string
+  PUBLIC_BASE_URL?: string
   cookieConfig?: any
   paypalConfig?: any
   metaDefaultImageUrl1200x630?: string
@@ -93,12 +95,14 @@ export default () => {
   if (Object.keys(serverRuntimeConfig).length > 0) {
     Object.assign(config, {
       DOMAIN: serverRuntimeConfig.DOMAIN,
+      PUBLIC_DOMAIN: serverRuntimeConfig.PUBLIC_DOMAIN,
       API_DOMAIN: serverRuntimeConfig.API_DOMAIN,
       API_PROTOCOL: serverRuntimeConfig.API_PROTOCOL
     })
   } else if (Object.keys(publicRuntimeConfig).length > 0) {
     Object.assign(config, {
       DOMAIN: publicRuntimeConfig.PUBLIC_DOMAIN,
+      PUBLIC_DOMAIN: serverRuntimeConfig.PUBLIC_DOMAIN,
       API_DOMAIN: publicRuntimeConfig.PUBLIC_API_DOMAIN,
       API_PROTOCOL: publicRuntimeConfig.PUBLIC_API_PROTOCOL
     })
@@ -106,6 +110,7 @@ export default () => {
 
   config.BASE_URL = `${config.PROTOCOL}://${config.DOMAIN}`
   config.API_BASE_URL = `${config.API_PROTOCOL}://${config.API_DOMAIN}/${config.API_PATH}/${config.API_VERSION}`
+  config.PUBLIC_BASE_URL = `${config.PROTOCOL}://${config.PUBLIC_DOMAIN}`
 
   config.cookieConfig = {
     domain: config.COOKIE_DOMAIN,

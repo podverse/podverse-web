@@ -11,7 +11,7 @@ import { userSetInfo } from '~/redux/actions'
 import { toggleSubscribeToUser } from '~/services'
 import config from '~/config'
 import { withTranslation } from 'i18n'
-const { BASE_URL } = config()
+const { PUBLIC_BASE_URL } = config()
 const ClipboardJS = require('clipboard')
 
 type Props = {
@@ -126,7 +126,7 @@ class UserHeaderCtrl extends Component<Props, State> {
                                 <Input
                                   id='profile-link-input'
                                   readOnly={true}
-                                  value={`${BASE_URL}/profile/${loggedInUser.id}`} />
+                                  value={`${PUBLIC_BASE_URL}/profile/${loggedInUser.id}`} />
                                 <InputGroupAddon
                                   addonType='append'>
                                   <Button

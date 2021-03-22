@@ -5,7 +5,7 @@ import config from '~/config'
 import PV from '~/lib/constants'
 import { pageIsLoading } from '~/redux/actions'
 import { withTranslation } from '~/../i18n'
-const { BASE_URL } = config()
+const { PUBLIC_BASE_URL } = config()
 
 type Props = {
   t?: any
@@ -27,7 +27,7 @@ class Terms extends Component<Props, State> {
     const { t } = this.props
 
     const meta = {
-      currentUrl: BASE_URL + PV.paths.web.terms,
+      currentUrl: PUBLIC_BASE_URL + PV.paths.web.terms,
       description: t('pages:terms._Description'),
       title: t('pages:terms._Title'),
     }

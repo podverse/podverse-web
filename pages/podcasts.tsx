@@ -10,7 +10,7 @@ import { cookieGetQuery } from '~/lib/utility'
 import { pageIsLoading, pagesSetQueryState } from '~/redux/actions'
 import { getCategoriesByQuery, handlePagePodcastsQuery } from '~/services'
 import { withTranslation } from '~/../i18n'
-const { BASE_URL, CATEGORY_ID_DEFAULT } = config()
+const { CATEGORY_ID_DEFAULT, PUBLIC_BASE_URL } = config()
 
 type Props = {
   allCategories?: any[]
@@ -90,7 +90,7 @@ class Podcasts extends Component<Props, State> {
     const { isAdvancedFilterShowing } = pages[pageKey]
 
     const meta = {
-      currentUrl: BASE_URL + PV.paths.web.podcasts,
+      currentUrl: PUBLIC_BASE_URL + PV.paths.web.podcasts,
       description: t('pages:podcasts._Description'),
       title: t('pages:podcasts._Title')
     }

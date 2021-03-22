@@ -11,7 +11,7 @@ import { pageIsLoading, pagesSetQueryState } from '~/redux/actions'
 import { getLoggedInUserMediaRefsFromBackEnd, getLoggedInUserPlaylistsFromBackEnd,
   getPodcastsByQuery } from '~/services'
 import { withTranslation } from '~/../i18n'
-const { BASE_URL } = config()
+const { PUBLIC_BASE_URL } = config()
 
 type Props = {
   lastScrollPosition?: number
@@ -100,7 +100,7 @@ class MyProfile extends Component<Props, State> {
     const { queryType } = pages[pageKey]
 
     const meta = {
-      currentUrl: BASE_URL + PV.paths.web.my_profile,
+      currentUrl: PUBLIC_BASE_URL + PV.paths.web.my_profile,
       description: t('pages:my_profile._Description'),
       title: t('pages:my_profile._Title')
     }

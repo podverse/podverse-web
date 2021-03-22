@@ -7,7 +7,7 @@ import { pageIsLoading } from '~/redux/actions'
 import { getBitPayInvoiceStatusByOrderId } from '~/services/'
 import config from '~/config'
 import { withTranslation } from '~/../i18n'
-const { BASE_URL } = config()
+const { PUBLIC_BASE_URL } = config()
 
 type Props = {
   id: string
@@ -95,7 +95,7 @@ class PaymentConfirmingBitPay extends Component<Props, State> {
     const { hasError, isChecking, wasSuccessful } = this.state
 
     const meta = {
-      currentUrl: BASE_URL + PV.paths.web.payment_bitpay_confirming,
+      currentUrl: PUBLIC_BASE_URL + PV.paths.web.payment_bitpay_confirming,
       description: t('pages:payment_bitpay_confirming._Description'),
       title: t('pages:payment_bitpay_confirming._Title')
     }

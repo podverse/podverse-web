@@ -8,7 +8,7 @@ import PV from '~/lib/constants'
 import { pageIsLoading, pagesSetQueryState } from '~/redux/actions'
 import { getPublicUsersByQuery } from '~/services'
 import { withTranslation } from '~/../i18n'
-const { BASE_URL } = config()
+const { PUBLIC_BASE_URL } = config()
 
 type Props = {
   lastScrollPosition?: number
@@ -56,7 +56,7 @@ class Profiles extends Component<Props, State> {
     const { pageKey, pagesSetQueryState, queryPage, t, user } = this.props
 
     const meta = {
-      currentUrl: BASE_URL + PV.paths.web.profiles,
+      currentUrl: PUBLIC_BASE_URL + PV.paths.web.profiles,
       description: t('pages:profiles._Description'),
       title: t('pages:profiles._Title')
     }

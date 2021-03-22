@@ -14,7 +14,7 @@ import { pageIsLoading, pagesSetQueryState } from '~/redux/actions'
 import { getMediaRefsByQuery, getMediaRefById, retrieveLatestChaptersForEpisodeId
   } from '~/services/'
 import { withTranslation } from '~/../i18n'
-const { BASE_URL } = config()
+const { PUBLIC_BASE_URL } = config()
 
 type Props = {
   errorCode?: number
@@ -131,7 +131,7 @@ class Clip extends Component<Props, State> {
         (episode && episode.podcast && episode.podcast.title)
         || t('untitledClip')
       meta = {
-        currentUrl: BASE_URL + PV.paths.web.clip + '/' + mediaRef.id,
+        currentUrl: PUBLIC_BASE_URL + PV.paths.web.clip + '/' + mediaRef.id,
         description: `${mediaRef.episode.title} - ${podcastTitle}`,
         imageAlt: podcastTitle,
         imageUrl:

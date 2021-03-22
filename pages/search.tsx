@@ -12,7 +12,7 @@ import { pageIsLoading, pagesSetQueryState } from '~/redux/actions'
 import { getPodcastsByQuery } from '~/services'
 import { withTranslation } from '~/../i18n'
 const uuidv4 = require('uuid/v4')
-const { BASE_URL, QUERY_PODCASTS_LIMIT, REQUEST_PODCAST_URL } = config()
+const { PUBLIC_BASE_URL, QUERY_PODCASTS_LIMIT, REQUEST_PODCAST_URL } = config()
 
 type Props = {
   lastScrollPosition?: number
@@ -141,7 +141,7 @@ class Search extends Component<Props, State> {
     const { currentSearch, searchCompleted } = this.state
 
     const meta = {
-      currentUrl: BASE_URL + PV.paths.web.search,
+      currentUrl: PUBLIC_BASE_URL + PV.paths.web.search,
       description: t('pages:search._Description'),
       title: t('pages:search._Title')
     }

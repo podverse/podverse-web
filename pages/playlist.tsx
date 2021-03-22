@@ -20,7 +20,7 @@ import { mediaPlayerLoadNowPlayingItem, mediaPlayerUpdatePlaying, pageIsLoading,
 import { addOrRemovePlaylistItem, deletePlaylist,
   getPlaylistById, setNowPlayingItem, toggleSubscribeToPlaylist, updatePlaylist } from '~/services'
 import { withTranslation } from '~/../i18n'
-const { BASE_URL } = config()
+const { PUBLIC_BASE_URL } = config()
 
 const uuidv4 = require('uuid/v4')
 
@@ -364,7 +364,7 @@ class Playlist extends Component<Props, State> {
     let meta = {} as any
     if (playlist) {
       meta = {
-        currentUrl: BASE_URL + PV.paths.web.playlist + '/' + playlist.id,
+        currentUrl: PUBLIC_BASE_URL + PV.paths.web.playlist + '/' + playlist.id,
         description: `${playlist.title ? playlist.title : t('untitledPlaylist')}${t('playlistOnPodverse')}${playlist.description ? `- ${playlist.description}` : ''}`,
         title: `${playlist.title ? playlist.title : t('untitledPlaylist')}`
       }
