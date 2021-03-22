@@ -6,7 +6,7 @@ import config from '~/config'
 import PV from '~/lib/constants'
 import { pageIsLoading, pagesSetQueryState } from '~/redux/actions'
 import { withTranslation } from '~/../i18n'
-const { BASE_URL } = config()
+const { PUBLIC_BASE_URL } = config()
 
 type Props = {
   lastScrollPosition?: number
@@ -36,7 +36,7 @@ class FAQ extends Component<Props, State> {
     const { t } = this.props
 
     const meta = {
-      currentUrl: BASE_URL + PV.paths.web.faq,
+      currentUrl: PUBLIC_BASE_URL + PV.paths.web.faq,
       description: t('pages:faq._Description'),
       title: t('pages:faq._Title')
     }

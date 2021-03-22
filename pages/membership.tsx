@@ -7,7 +7,7 @@ import config from '~/config'
 import PV from '~/lib/constants'
 import { pageIsLoading, pagesSetQueryState, modalsSignUpShow } from '~/redux/actions'
 import { withTranslation } from '~/../i18n'
-const { BASE_URL } = config()
+const { PUBLIC_BASE_URL } = config()
 
 type Props = {
   lastScrollPosition?: number
@@ -41,7 +41,7 @@ class Membership extends Component<Props, State> {
     const { t } = this.props
 
     const meta = {
-      currentUrl: BASE_URL + PV.paths.web.membership,
+      currentUrl: PUBLIC_BASE_URL + PV.paths.web.membership,
       description: t('pages:membership._Description'),
       title: t('pages:membership._Title')
     }

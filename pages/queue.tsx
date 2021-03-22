@@ -14,7 +14,7 @@ import { pageIsLoading, pagesSetQueryState, playerQueueLoadItems,
 import { withTranslation } from 'i18n'
 import { addQueueItemLastToServer, addQueueItemNextToServer, addQueueItemToServer, getQueueItems, removeQueueItemOnServer } from '~/services/userQueueItem'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-const { BASE_URL } = config()
+const { PUBLIC_BASE_URL } = config()
 
 type Props = {
   lastScrollPosition?: number
@@ -142,7 +142,7 @@ class Queue extends Component<Props, State> {
     const { isEditing } = this.state
 
     const meta = {
-      currentUrl: BASE_URL + PV.paths.web.queue,
+      currentUrl: PUBLIC_BASE_URL + PV.paths.web.queue,
       description: t('pages:queue._Description'),
       title: t('pages:queue._Title')
     }

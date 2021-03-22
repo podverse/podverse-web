@@ -13,7 +13,7 @@ import { checkIfLoadingOnFrontEnd, cookieGetQuery } from '~/lib/utility'
 import { pageIsLoading, pagesSetQueryState } from '~/redux/actions'
 import { getEpisodeById, getMediaRefsByQuery, retrieveLatestChaptersForEpisodeId } from '~/services/'
 import { withTranslation } from '~/../i18n'
-const { BASE_URL } = config()
+const { PUBLIC_BASE_URL } = config()
 
 type Props = {
   episode?: any
@@ -127,7 +127,7 @@ class Episode extends Component<Props, State> {
       const { podcast } = episode
       const podcastTitle = (podcast && podcast.title) || t('untitledPodcast')
       meta = {
-        currentUrl: BASE_URL + PV.paths.web.episode + '/' + episode.id,
+        currentUrl: PUBLIC_BASE_URL + PV.paths.web.episode + '/' + episode.id,
         description: episode.description,
         imageAlt: podcastTitle,
         imageUrl:

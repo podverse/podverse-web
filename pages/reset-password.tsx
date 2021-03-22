@@ -10,7 +10,7 @@ import { validatePassword, alertRateLimitError } from '~/lib/utility'
 import { pageIsLoading } from '~/redux/actions'
 import { resetPassword } from '~/services/auth'
 import { withTranslation } from '~/../i18n'
-const { BASE_URL } = config()
+const { PUBLIC_BASE_URL } = config()
 
 type Props = {
   passwordResetToken?: string
@@ -137,7 +137,7 @@ class ResetPassword extends Component<Props, State> {
       passwordConfirm, wasSuccessful } = this.state
 
     const meta = {
-      currentUrl: BASE_URL + PV.paths.web.reset_password,
+      currentUrl: PUBLIC_BASE_URL + PV.paths.web.reset_password,
       description: t('pages:reset_password._Description'),
       title: t('pages:reset_password._Title')
     }

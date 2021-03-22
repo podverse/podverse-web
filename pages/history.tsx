@@ -8,7 +8,7 @@ import config from '~/config'
 import PV from '~/lib/constants'
 import { pageIsLoading, pagesSetQueryState } from '~/redux/actions'
 import { withTranslation } from '~/../i18n'
-const { BASE_URL } = config()
+const { PUBLIC_BASE_URL } = config()
 
 type Props = {
   lastScrollPosition?: number
@@ -42,7 +42,7 @@ class History extends Component<Props, State> {
     const historyItems = user && user.historyItems || []
 
     const meta = {
-      currentUrl: BASE_URL + PV.paths.web.history,
+      currentUrl: PUBLIC_BASE_URL + PV.paths.web.history,
       description: t('pages:history._Description'),
       title: t('pages:history._Title')
     }

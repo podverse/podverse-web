@@ -13,7 +13,7 @@ import { cookieGetQuery } from '~/lib/utility'
 import { pageIsLoading, pagesSetQueryState } from '~/redux/actions'
 import { getEpisodesByQuery, getMediaRefsByQuery, getPodcastById } from '~/services/'
 import { withTranslation } from '~/../i18n'
-const { BASE_URL } = config()
+const { PUBLIC_BASE_URL } = config()
 
 type Props = {
   errorCode?: number
@@ -117,7 +117,7 @@ class Podcast extends Component<Props, State> {
     store.dispatch(pageIsLoading(false))
     const podcastTitle = podcast.title || t('untitledPodcast')
     const meta = {
-      currentUrl: BASE_URL + PV.paths.web.podcast + '/' + podcast.id,
+      currentUrl: PUBLIC_BASE_URL + PV.paths.web.podcast + '/' + podcast.id,
       description: podcast.description,
       imageAlt: podcastTitle,
       imageUrl: podcast.shrunkImageUrl,

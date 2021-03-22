@@ -11,7 +11,7 @@ import { getPlaylistsByQuery } from '~/services'
 import PV from '~/lib/constants'
 import { withTranslation } from '~/../i18n'
 const uuidv4 = require('uuid/v4')
-const { BASE_URL } = config()
+const { PUBLIC_BASE_URL } = config()
 
 type Props = {
   lastScrollPosition?: number
@@ -77,7 +77,7 @@ class Playlists extends Component<Props, State> {
     const { myPlaylists, subscribedPlaylists, t, user } = this.props
 
     const meta = {
-      currentUrl: BASE_URL + PV.paths.web.playlists,
+      currentUrl: PUBLIC_BASE_URL + PV.paths.web.playlists,
       description: t('pages:playlists._Description'),
       title: t('pages:playlists._Title')
     }

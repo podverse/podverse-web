@@ -59,6 +59,7 @@ module.exports = withImages(withCss(withSass({
   publicRuntimeConfig: {
     ...envVars,
     DOMAIN: process.env.PUBLIC_DOMAIN,
+    PUBLIC_DOMAIN: process.env.PUBLIC_DOMAIN,
     API_PROTOCOL: process.env.PUBLIC_API_PROTOCOL,
     API_DOMAIN: process.env.PUBLIC_API_DOMAIN,
     localeSubpaths

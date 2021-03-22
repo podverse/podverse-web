@@ -7,7 +7,7 @@ import PV from '~/lib/constants'
 import { pageIsLoading } from '~/redux/actions'
 import { getPayPalOrderById } from '~/services/'
 import { withTranslation } from '~/../i18n'
-const { BASE_URL } = config()
+const { PUBLIC_BASE_URL } = config()
 
 type Props = {
   id: string
@@ -100,7 +100,7 @@ class PaymentConfirmingPayPal extends Component<Props, State> {
     const { hasError, isChecking, isTakingLonger, wasSuccessful } = this.state
 
     const meta = {
-      currentUrl: BASE_URL + PV.paths.web.payment_paypal_confirming,
+      currentUrl: PUBLIC_BASE_URL + PV.paths.web.payment_paypal_confirming,
       description: t('pages:payment_paypal_confirming._Description'),
       title: t('pages:payment_paypal_confirming._Title')
     }

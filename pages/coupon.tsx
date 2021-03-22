@@ -12,7 +12,7 @@ import { fireConfetti } from '~/lib/utility'
 import { modalsSignUpShow, pageIsLoading, pagesSetQueryState } from '~/redux/actions'
 import { getAccountClaimToken, redeemAccountClaimToken } from '~/services'
 import { withTranslation } from '~/../i18n'
-const { BASE_URL } = config()
+const { PUBLIC_BASE_URL } = config()
 
 type Props = {
   errorCode?: number
@@ -111,7 +111,7 @@ class Redeem extends Component<Props, State> {
     const { accountClaimToken = {}, email, isRedeeming } = this.state
 
     const meta = {
-      currentUrl: BASE_URL + PV.paths.web.coupon + '/' + id,
+      currentUrl: PUBLIC_BASE_URL + PV.paths.web.coupon + '/' + id,
       description: t('pages:coupon._Description'),
       title: t('pages:coupon._Title')
     }
