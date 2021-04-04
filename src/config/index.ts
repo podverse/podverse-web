@@ -102,7 +102,7 @@ export default () => {
   } else if (Object.keys(publicRuntimeConfig).length > 0) {
     Object.assign(config, {
       DOMAIN: publicRuntimeConfig.PUBLIC_DOMAIN,
-      PUBLIC_DOMAIN: serverRuntimeConfig.PUBLIC_DOMAIN,
+      PUBLIC_DOMAIN: publicRuntimeConfig.PUBLIC_DOMAIN,
       API_DOMAIN: publicRuntimeConfig.PUBLIC_API_DOMAIN,
       API_PROTOCOL: publicRuntimeConfig.PUBLIC_API_PROTOCOL
     })
