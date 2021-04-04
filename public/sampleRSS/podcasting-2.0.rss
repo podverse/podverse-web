@@ -34,7 +34,22 @@ Re-tooling podcasting into a platform of value</description>
         <podcast:funding url="https://www.example.com/mugs">Buy our mugs!</podcast:funding>
         <podcast:funding url="https://www.example.com/donate">Donate</podcast:funding>
         <podcast:value type="lightning" method="keysend" suggested="0.00000015000">
-            <podcast:valueRecipient name="podcaster" type="node" address="03e691f81f08c56fa876cc4ef5c9e8b727bd682cf35605be25d48607a802526053" split="100" />
+            <podcast:valueRecipient
+                address="02b92193a4c9d035c81f8076ae4a4aba04b7ea8e04058eb3296f894e6ccd5f2e6e"
+                name="Podverse Test Wallet 1"
+                split="60" 
+                type="node" />
+            <podcast:valueRecipient
+                address="02b92193a4c9d035c81f8076ae4a4aba04b7ea8e04058eb3296f894e6ccd5f2e6e"
+                name="Podverse Test Wallet 2"
+                split="40" 
+                type="node" />
+            <podcast:valueRecipient
+                address="02b92193a4c9d035c81f8076ae4a4aba04b7ea8e04058eb3296f894e6ccd5f2e6e"
+                fee="true"
+                name="Podverse Test Wallet 4"
+                split="5" 
+                type="node" />
         </podcast:value>
 		<item>
 			<title>Episode 9: Here come the pioneers</title>
@@ -82,6 +97,29 @@ Keywords&lt;/p&gt;</itunes:summary>
             <podcast:funding url="https://www.example.com/sponsors">Visit our sponsors</podcast:funding>
             <podcast:funding url="https://www.example.com/posters">Buy our posters!</podcast:funding>
             <podcast:funding url="https://www.example.com/bitcoin">Send us Bitcoin</podcast:funding>
+            <podcast:value type="lightning" method="keysend" suggested="0.00000025000">
+                <podcast:valueRecipient
+                    address="02b92193a4c9d035c81f8076ae4a4aba04b7ea8e04058eb3296f894e6ccd5f2e6e"
+                    name="Podverse Test Wallet 1"
+                    split="48" 
+                    type="node" />
+                <podcast:valueRecipient
+                    address="02b92193a4c9d035c81f8076ae4a4aba04b7ea8e04058eb3296f894e6ccd5f2e6e"
+                    name="Podverse Test Wallet 2"
+                    split="47" 
+                    type="node" />
+                <podcast:valueRecipient
+                    address="02b92193a4c9d035c81f8076ae4a4aba04b7ea8e04058eb3296f894e6ccd5f2e6e"
+                    name="Podverse Test Wallet 3"
+                    split="5" 
+                    type="node" />
+                <podcast:valueRecipient
+                    address="02b92193a4c9d035c81f8076ae4a4aba04b7ea8e04058eb3296f894e6ccd5f2e6e"
+                    fee="true"
+                    name="Podverse Test Wallet 4"
+                    split="1" 
+                    type="node" />
+            </podcast:value>
 		</item>
 		<item>
 			<title>Episode 8: Chapter 8</title>
