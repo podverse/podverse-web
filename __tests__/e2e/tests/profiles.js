@@ -7,7 +7,7 @@ module.exports = {
   'Profiles Page': function (browser) {
     browser
       .url(`${WEB_ORIGIN}/profiles`)
-      .waitForElementWithText('p', 'Login to view your profiles')
+      // .waitForElementWithText('p', 'Login to view your profiles')
       .testSharedMetaTags()
       .testPageMetaTags(
           `Profiles`,

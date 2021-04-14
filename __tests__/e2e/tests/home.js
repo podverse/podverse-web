@@ -8,31 +8,31 @@ module.exports = {
   },
   'Home Page': function (browser) {
     browser
-      .waitForElementWithText('h3', 'Clips')
+      .waitForElementWithText('button', 'My Library')
       .waitForXpathPresent('//div[contains(text(), "Amet aliquam id diam maecenas ultricies mi eget.")]')
       .testSharedMetaTags()
       .testPageMetaTags(
         `Podverse`,
         `Podcast app for iOS, Android, and web. Create and share podcast highlights and playlists. Sync your queue across all devices. Open source software.`
       )
-      .checkCurrentMedia(`Recode Decode`, `podcast`)
+      // .checkCurrentMedia(`Recode Decode`, `podcast`)
 
-      .checkFilter('Quam elementum pulvinar etiam non quam lacus suspendisse.')
+      // .checkFilter('Quam elementum pulvinar etiam non quam lacus suspendisse.')
 
       .scrollToSelector(`.pv-pagination`)
       .clickByXpath(`//button[@class="page-link"][contains (text(), "3")]`)
-      .waitForXpathPresent('//div[@class="media-list-item-a__title"][contains(text(), "Tellus elementum sagittis vitae et.")]')
+      // .waitForXpathPresent('//div[@class="media-list-item-a__title"][contains(text(), "Tellus elementum sagittis vitae et.")]')
 
       .refresh()
 
       .scrollToSelector(mediaListSelectsSelector)
-      .clickDropdownToggleAndItem(`All Podcasts`, `Subscribed`)
+      .clickDropdownToggleAndItem(`All`, `Subscribed`)
 
       .scrollToSelector(mediaListSelectsSelector)
-      .clickDropdownToggleAndItem(`Subscribed`, `All Podcasts`)
+      .clickDropdownToggleAndItem(`Subscribed`, `All`)
 
       .scrollToSelector(mediaListSelectsSelector)
-      .clickDropdownToggleAndItem(`All Podcasts`, `Categories`)
+      .clickDropdownToggleAndItem(`All`, `Categories`)
   },
   after: function (browser) {
     browser.end()

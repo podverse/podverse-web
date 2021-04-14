@@ -11,7 +11,7 @@ module.exports = {
       .scrollToSelector(`.react-switch-handle`, 'down')
       .click(`.react-switch-handle`)
       .waitForXpathPresent(`//html[@data-theme="light"]`)
-      .waitForXpathPresent(`//a[@href="https://goo.gl/forms/BK9WPAsK1q6xD4Xw1"]`)
+      // .waitForXpathPresent(`//a[@href="https://goo.gl/forms/BK9WPAsK1q6xD4Xw1"]`)
       .waitForXpathPresent(`//a[@href="https://www.gnu.org/licenses/agpl-3.0.en.html"]`)
       .waitForXpathPresent(`//a[@href="https://reddit.com/r/podverse"]`)
       .waitForXpathPresent(`//a[@href="https://twitter.com/podverse"]`)

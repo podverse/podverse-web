@@ -21,19 +21,19 @@ module.exports = {
         `Podcast app for iOS, Android, and web. Create and share podcast highlights and playlists. Sync your queue across all devices. Open source software.`
       )
 
-      .checkFilter('Quam elementum pulvinar etiam non quam lacus suspendisse.')
+      // .checkFilter('Quam elementum pulvinar etiam non quam lacus suspendisse.')
 
-      .waitForElementWithText(dropdownSelector, 'All Podcasts')
+      .waitForElementWithText(dropdownSelector, 'All')
       .waitForElementWithText(rightDropdownSelector, 'top - past week')
 
       .scrollToSelector(mediaListSelectsSelector)
-      .clickDropdownToggleAndItem(`All Podcasts`, `Subscribed`)
+      .clickDropdownToggleAndItem(`All`, `Subscribed`)
 
       .scrollToSelector(mediaListSelectsSelector)
-      .clickDropdownToggleAndItem(`Subscribed`, `All Podcasts`)
+      .clickDropdownToggleAndItem(`Subscribed`, `All`)
 
       .scrollToSelector(mediaListSelectsSelector)
-      .clickDropdownToggleAndItem(`All Podcasts`, `Categories`)
+      .clickDropdownToggleAndItem(`All`, `Categories`)
       .waitForElementWithText(subLeftDropdownSelector, 'Arts')
       .waitForElementWithText(subRightDropdownSelector, 'All')
   },
