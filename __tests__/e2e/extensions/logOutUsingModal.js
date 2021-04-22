@@ -1,23 +1,13 @@
 const { WEB_ORIGIN } = require('../constants')
 
 module.exports.command = function () {
-  this.click({
-    locateStrategy: 'xpath',
-    selector: '//ul[@class="ml-auto navbar-nav"]//li[@class="dropdown nav-item"]//button[@class="dropdown-toggle btn btn-secondary"]'
-  })
+  this.click('.navbar .dropdown.nav-item:nth-child(3)')
   this.pause(500)
 
-  this.click({
-    locateStrategy: 'xpath',
-    selector: '//div[@class="dropdown-menu dropdown-menu-right show"]//button[@class="dropdown-item"][contains (text(), "Log out")]'
-  })
+  this.click('.navbar .dropdown.nav-item:nth-child(3) .dropdown-item:nth-child(3)')
   this.pause(500)
-
-  this.url(`${WEB_ORIGIN}`)
-  this.waitForElementPresent({
-    locateStrategy: 'xpath',
-    selector: '//li[@class="hide-mobile nav-item"]//a[@class="nav-link"][contains(text(), "Login")]'
-  })
+  
+  console.log('Logged Out')
 
   return this
 }

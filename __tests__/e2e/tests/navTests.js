@@ -20,16 +20,13 @@ module.exports = {
       .click(`.footer-bottom__link[href="/membership"]`)
       .waitForElementWithText('h3', 'Premium')
 
-      // .clickByXpath(`//li[@class="hide-mobile nav-item"]//a[@class="nav-link"][@href="/search"]`)
-      // .waitForElementWithText('h3', 'Search')
+      .click(`.dropdown:nth-child(3)`)
+      .click(`.dropdown-item[href="/settings"]`)
+      .waitForElementWithText(`h3`, `Settings`)
 
-      // .click(`.nav-link[href="/podcasts"]`)
-      // .pause(1000)
-      // .waitForElementWithText('h3', 'Podcasts')
-
-      // .click(`.dropdown-toggle`)
-      // .click(`.dropdown-item[href="/settings"]`)
-      // .waitForElementWithText(`h3`, `Settings`)
+      .click(`.navbar-brand`)
+      .click(`.nav-link`)
+      .waitForElementWithText('h3', 'Search')
   },
   after: function (browser) {
     browser.end()

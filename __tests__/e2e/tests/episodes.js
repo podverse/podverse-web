@@ -19,11 +19,11 @@ module.exports = {
         `Podcast app for iOS, Android, and web. Create and share podcast highlights and playlists. Sync your queue across all devices. Open source software.`
       )
 
-      // .checkFilter(`JSJ 420: OpenAPI, Redoc, and API Documentation with Adam Altman`)
+      .checkFilter(`JSJ 420: OpenAPI, Redoc, and API Documentation with Adam Altman`)
 
       .scrollToSelector(`.pv-pagination`)
       .clickByXpath(`//button[@class="page-link"][contains (text(), "3")]`)
-      // .waitForXpathPresent('//div[@class="media-list-item-a__title"][contains(text(), `#1428 - Brian Greene`)]')
+      .waitForXpathPresent(`//div[@class="media-list-item-a__title"][contains(text(), "067 JSJ Testem with Toby Ho")]`)
       .refresh()
 
       .waitForElementWithText(dropdownSelector, 'All')

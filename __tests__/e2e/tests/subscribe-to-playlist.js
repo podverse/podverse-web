@@ -10,18 +10,18 @@ module.exports = {
   'Subscribe to Playlist': function (browser) {
     
       browser
-        // .loginUsingModal('premium@stage.podverse.fm')
+        .loginUsingModal('premium@stage.podverse.fm')
         .waitForXpathPresent(`//div[contains(text(), "Amet aliquam id diam maecenas ultricies mi eget.")]`)
 
         .url(`${WEB_ORIGIN}/playlist/wgOok7Xp`)
 
-      // browser.expect.element(`.media-header__subscribe svg[data-prefix="fas"]`).to.be.present
-      // browser.click(`.media-header__subscribe`)
-      // browser.refresh()
-      // browser.expect.element(`.media-header__subscribe svg[data-prefix="far"]`).to.be.present
-      // browser.click(`.media-header__subscribe`)
-      // browser.refresh()
-      // browser.expect.element(`.media-header__subscribe svg[data-prefix="fas"]`).to.be.present
+      browser.expect.element(`.media-header__subscribe svg[data-prefix="fas"]`).to.be.present
+      browser.click(`.media-header__subscribe`)
+      browser.refresh()
+      browser.expect.element(`.media-header__subscribe svg[data-prefix="far"]`).to.be.present
+      browser.click(`.media-header__subscribe`)
+      browser.refresh()
+      browser.expect.element(`.media-header__subscribe svg[data-prefix="fas"]`).to.be.present
         
 
 

@@ -17,11 +17,11 @@ module.exports = {
       )
       // .checkCurrentMedia(`Recode Decode`, `podcast`)
 
-      // .checkFilter('Quam elementum pulvinar etiam non quam lacus suspendisse.')
+      .checkFilter('Quam elementum pulvinar etiam non quam lacus suspendisse.')
 
       .scrollToSelector(`.pv-pagination`)
       .clickByXpath(`//button[@class="page-link"][contains (text(), "3")]`)
-      // .waitForXpathPresent('//div[@class="media-list-item-a__title"][contains(text(), "Tellus elementum sagittis vitae et.")]')
+      .waitForXpathPresent('//div[@class="media-list-item-a__title"][contains(text(), "Convallis tellus id interdum velit.")]')
 
       .refresh()
 

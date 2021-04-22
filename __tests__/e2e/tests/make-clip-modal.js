@@ -7,8 +7,8 @@ module.exports = {
   'Make Clip Modal': function (browser) {
     browser
 
-      // .loginUsingModal('freetrial@stage.podverse.fm')
-      // .waitForXpathPresent(`//div[contains(text(), "Amet aliquam id diam maecenas ultricies mi eget.")]`)
+      .loginUsingModal('freetrial@stage.podverse.fm')
+      .waitForXpathPresent(`//div[contains(text(), "Amet aliquam id diam maecenas ultricies mi eget.")]`)
 
       // .click(`.mp-header__make-clip`)
 

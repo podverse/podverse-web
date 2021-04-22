@@ -8,17 +8,17 @@ module.exports = {
     browser
       .waitForXpathPresent(`//div[contains(text(), "Amet aliquam id diam maecenas ultricies mi eget.")]`)
 
-      // .click(`xpath`, `//li[@class="hide-mobile nav-item"]//a[@class="nav-link"][contains (text(), "Login")]`)
-      // .waitForXpathPresent(`//h3[contains(text(), 'Login')]`)
-      // .click('.login-modal__sign-up')
-      // .waitForXpathPresent(`//h3[contains(text(), 'Sign Up')]`)
-      // .click('.close-btn')
+      .click('.navbar .dropdown.nav-item:nth-child(3)')
+      .click('.navbar .dropdown.nav-item:nth-child(3) .dropdown-item:nth-child(3)')
+      .click('.login-modal__sign-up')
+      .waitForXpathPresent(`//h3[contains(text(), 'Sign Up')]`)
+      .click('.close-btn')
 
-      // .click(`xpath`, `//li[@class="hide-mobile nav-item"]//a[@class="nav-link"][contains (text(), "Login")]`)
-      // .waitForXpathPresent(`//h3[contains(text(), 'Login')]`)
-      // .click('.login-modal__forgot')
-      // .waitForXpathPresent(`//h3[contains(text(), 'Forgot Password')]`)
-      // .click('.close-btn')
+      .click('.navbar .dropdown.nav-item:nth-child(3)')
+      .click('.navbar .dropdown.nav-item:nth-child(3) .dropdown-item:nth-child(3)')
+      .click('.login-modal__forgot')
+      .waitForXpathPresent(`//h3[contains(text(), 'Forgot Password')]`)
+      .click('.close-btn')
 
       // .clickModalAndClose(`queue`)
       // .clickModalAndClose(`make-clip`, `clip`)
