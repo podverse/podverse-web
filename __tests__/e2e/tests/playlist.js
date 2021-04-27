@@ -7,7 +7,7 @@ module.exports = {
   'Playlist': function (browser) {
     browser
       .waitForXpathPresent('//div[contains(text(), "Amet aliquam id diam maecenas ultricies mi eget.")]')
-      // .loginUsingModal(`premium@stage.podverse.fm`)
+      .loginUsingModal(`premium@stage.podverse.fm`)
       
       .url(`${WEB_ORIGIN}/playlist/-67KgiG1`)
       .waitForElementWithText('div', 'Diam quis enim lobortis scelerisque fermentum dui faucibus.')

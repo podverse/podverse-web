@@ -10,55 +10,57 @@ module.exports = {
       .loginUsingModal('freetrial@stage.podverse.fm')
       .waitForXpathPresent(`//div[contains(text(), "Amet aliquam id diam maecenas ultricies mi eget.")]`)
 
-      // .click(`.mp-header__make-clip`)
+      .click(`.more-dropdown-menu`)
+      .click(`.media-list__right .dropdown-menu .dropdown-item`)
 
-      // .waitForXpathPresent(`//a[@href="/faq#why-do-some-clips-start-at-the-wrong-time"]`)
-      // .waitForXpathPresent(`//a[@href="/my-profile?type=clips"]`)
+      .click(`.mp-header__make-clip`)
 
-      // .clearValue(`.form-control[name=make-clip-modal__start-time]`)
-      // .sendKeys(`.form-control[name=make-clip-modal__start-time]`, `2:00`) //Start
-      // .sendKeys(`.form-control[name=make-clip-modal__end-time]`, `5:00`) //End
-      // .sendKeys(`.form-control[name=make-clip-modal__title]`, `Clip Title`) //Title
+      .waitForXpathPresent(`//a[@href="/faq#why-do-some-clips-start-at-the-wrong-time"]`)
+      .waitForXpathPresent(`//a[@href="/my-profile?type=clips"]`)
 
-      // .click(`.make-clip-modal__save`)
+      .clearValue(`.form-control[name=make-clip-modal__start-time]`)
+      .sendKeys(`.form-control[name=make-clip-modal__start-time]`, `2:00`)//Start
+      .sendKeys(`.form-control[name=make-clip-modal__end-time]`, `5:00`) //End
+      .sendKeys(`.form-control[name=make-clip-modal__title]`, `Clip Title`) //Title
 
-      // .click(`.close-btn`)
+      .click(`.make-clip-modal__save`)
 
-      // .click(`xpath`, `//a[@class="nav-link"][@href="/clips"]`)
+      .click(`.close-btn`)
 
-      // .waitForElementWithText(`.transparent.dropdown-toggle.btn.btn-secondary`, 'All')
+      .clickDropdownToggleAndItem(`top - past week`, `most recent`)
 
-      // .clickDropdownToggleAndItem(`top - past week`, `most recent`)
+      .waitForElementWithText(`.media-list__container:nth-child(4) .media-list-item-a__title`, `Clip Title`)
+      .waitForElementWithText(`.media-list__container:nth-child(4) .media-list-item-a__sub-top-side`, `1/14/2020`)
+      .waitForElementWithText(`.media-list__container:nth-child(4) .media-list-item-a__sub-top`, `Very Bad Wizards`)
+      .waitForElementWithText(`.media-list__container:nth-child(4) .media-list-item-a__sub-middle-side`, `2:00 to 5:00`)
+      .waitForElementWithText(`.media-list__container:nth-child(4) .media-list-item-a__sub-middle`, `Episode 180: Chekhov's Schrödinger's Dagger (Kurosawa's "Rashomon")`)
 
-      // .waitForElementWithText(`.media-list__container:nth-child(4) .media-list-item-a__title`, `Clip Title`)
-      // .waitForElementWithText(`.media-list__container:nth-child(4) .media-list-item-a__sub-top-side`, `1/14/2020`)
-      // .waitForElementWithText(`.media-list__container:nth-child(4) .media-list-item-a__sub-top`, `Very Bad Wizards`)
-      // .waitForElementWithText(`.media-list__container:nth-child(4) .media-list-item-a__sub-middle-side`, `2:00 - 5:00`)
-      // .waitForElementWithText(`.media-list__container:nth-child(4) .media-list-item-a__sub-middle`, `Episode 180: Chekhov's Schrödinger's Dagger (Kurosawa's "Rashomon")`)
+      .click(`.media-list__container:nth-child(4)`)
 
-      // .click(`.media-list__container:nth-child(4)`)
+      .click(`.media-info-controls__edit.btn.btn-secondary`)
 
-      // .click(`.media-info-controls__edit.btn.btn-secondary`)
+      .waitForElementPresent(`.form-control[name=make-clip-modal__start-time][value='2:00']`)
+      .waitForElementPresent(`.form-control[name=make-clip-modal__end-time][value='5:00']`)
+      .waitForElementWithText(`.form-control[name=make-clip-modal__title]`, `Clip Title`)
 
-      // .waitForElementPresent(`.form-control[name=make-clip-modal__start-time][value='2:00']`)
-      // .waitForElementPresent(`.form-control[name=make-clip-modal__end-time][value='5:00']`)
-      // .waitForElementWithText(`.form-control[name=make-clip-modal__title]`, `Clip Title`)
+      .click(`.make-clip-modal__is-public button:nth-child(1)`)
+      .click(`.make-clip-modal__is-public .dropdown-item:nth-child(1)`)
+      .click(`.make-clip-modal__is-public button:nth-child(1)`)
+      .click(`.make-clip-modal__is-public .dropdown-item:nth-child(1)`)
 
-      // .click(`.make-clip-modal__is-public button:nth-child(1)`)
-      // .click(`.make-clip-modal__is-public .dropdown-item:nth-child(1)`)
-      // // .clearValue(`.form-control[name=make-clip-modal__start-time]`)
-      // // .sendKeys(`.form-control[name=make-clip-modal__start-time]`, `8:00`) //Start
-      // // .clearValue(`.form-control[name=make-clip-modal__end-time]`)
-      // // .sendKeys(`.form-control[name=make-clip-modal__end-time]`, `10:00`) //End
-      // // .clearValue(`.form-control[name=make-clip-modal__title]`)
-      // // .sendKeys(`.form-control[name=make-clip-modal__title]`, `Clip Title - Edited`) //Title
+      .clearValue(`.form-control[name=make-clip-modal__start-time]`)
+      .sendKeys(`.form-control[name=make-clip-modal__start-time]`, `8:00`) //Start
+      .clearValue(`.form-control[name=make-clip-modal__end-time]`)
+      .sendKeys(`.form-control[name=make-clip-modal__end-time]`, `10:00`) //End
+      .clearValue(`.form-control[name=make-clip-modal__title]`)
+      .sendKeys(`.form-control[name=make-clip-modal__title]`, `Clip Title - Edited`) //Title
 
-      // .click(`.make-clip-modal__save`)
+      .click(`.make-clip-modal__save`)
 
-      .url(`${WEB_ORIGIN}/my-profile?type=clips`)
+      .url(`${WEB_ORIGIN}/`)
 
-      // .waitForElementWithText(`.media-list .media-list__container:nth-child(1) .media-list-item-a__title`, `Clip Title - Edited`)
-      // .waitForElementWithText(`.media-list .media-list__container:nth-child(1) .media-list-item-a__sub-middle-side`, `8:00 - 10:00`)
+      .waitForElementWithText(`.media-list-item-a__title`, `Clip Title - Edited`)
+      .waitForElementWithText(`.media-list-item-a__sub-middle-side`, `8:00 to 10:00`)
 
   },
   after: function (browser) {

@@ -15,7 +15,8 @@ module.exports = {
         `Podverse`,
         `Podcast app for iOS, Android, and web. Create and share podcast highlights and playlists. Sync your queue across all devices. Open source software.`
       )
-      // .checkCurrentMedia(`Recode Decode`, `podcast`)
+      .checkCurrentMedia(`Very Bad Wizards`, `podcast`)
+      .checkCurrentMedia(`Lacus sed turpis tincidunt id aliquet risus feugiat in ante.`, `episode`)
 
       .checkFilter('Quam elementum pulvinar etiam non quam lacus suspendisse.')
 

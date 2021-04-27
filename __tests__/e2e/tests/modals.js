@@ -20,11 +20,12 @@ module.exports = {
       .waitForXpathPresent(`//h3[contains(text(), 'Forgot Password')]`)
       .click('.close-btn')
 
-      // .clickModalAndClose(`queue`)
-      // .clickModalAndClose(`make-clip`, `clip`)
-      // .clickModalAndClose(`add-to`)
-      // .clickModalAndClose(`share`)
-      // .clickModalAndClose(`queue`)
+      .click(`.more-dropdown-menu`)
+      .click(`.media-list__right .dropdown-menu .dropdown-item`)
+
+      .clickModalAndClose(`make-clip`, `clip`)
+      .clickModalAndClose(`add-to`)
+      .clickModalAndClose(`share`)
   },
   after: function (browser) {
       browser.end()

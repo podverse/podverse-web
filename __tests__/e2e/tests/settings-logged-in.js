@@ -9,7 +9,7 @@ module.exports = {
   },
   'Settings Logged In': function (browser) {
       browser
-        // .loginUsingModal('freetrial@stage.podverse.fm')
+        .loginUsingModal('freetrial@stage.podverse.fm')
         .waitForXpathPresent(`//div[contains(text(), "Amet aliquam id diam maecenas ultricies mi eget.")]`)
         .url(`${WEB_ORIGIN}/settings`)
         // .expect.element(`input[id="settings-email"][value="freetrial@stage.podverse.fm"]`).to.be.present

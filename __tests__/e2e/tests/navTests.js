@@ -6,7 +6,7 @@ module.exports = {
   },
   'Navigation Tests': function (browser) {
     browser
-      // .waitForElementWithText('h3', 'Clips')
+      .waitForElementWithText('button', 'My Library')
 
       .scrollToSelector(`.footer-bottom__link[href="/about"]`, `down`)
       .click(`.footer-bottom__link[href="/about"]`)

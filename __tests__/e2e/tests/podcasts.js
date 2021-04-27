@@ -6,7 +6,7 @@ module.exports = {
   },
   'Podcasts Page': function (browser) {
     browser
-      // .waitForElementWithText('h3', 'Podcasts')
+      .waitForXpathPresent('//a[@class="header-nav-tab active"][contains(text(), "Podcasts")]')
       .testSharedMetaTags()
       .testPageMetaTags(
           `Podcasts`,
@@ -15,7 +15,7 @@ module.exports = {
 
       .scrollToSelector(`.pv-pagination`)
       .clickByXpath(`//button[@class="page-link"][contains (text(), "3")]`)
-      // .waitForXpathPresent('//div[@class="media-list-item-b__title"][contains(text(), "Masters of Scale with Reid Hoffman")]')
+      .waitForXpathPresent('//div[@class="media-list-item-b__title"][contains(text(), "99% Invisible")]')
       .refresh()
 
   },

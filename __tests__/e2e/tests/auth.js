@@ -9,8 +9,7 @@ module.exports = {
   },
   'Auth: User login': function (browser) {
     browser
-      .waitForElementWithText('h3', 'Clips')
-      .waitForElementWithText('.hide-mobile:nth-child(5) a', 'Login')
+      .waitForElementWithText('div', 'Clips')
       .loginUsingModal('freetrial@stage.podverse.fm')
       .pause(3000)
       .logOutUsingModal()
