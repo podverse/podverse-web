@@ -1,9 +1,9 @@
 const { WEB_ORIGIN } = require('../constants')
 
 const dropdownToggleClipsXpath = '//button[@class="transparent dropdown-toggle btn btn-secondary"][contains (text(), "Clips")]'
-const dropdownToggleEpisodesXpath = '//button[@class="transparent dropdown-toggle btn btn-secondary"][contains (text(), "Episodes")]'
+const dropdownToggleChaptersXpath = '//button[@class="transparent dropdown-toggle btn btn-secondary"][contains (text(), "Chapters")]'
 const dropdownItemClipsXpath = '//button[@class="dropdown-item"][contains (text(), "Clips")]'
-const dropdownItemEpisodesXpath = '//button[@class="dropdown-item"][contains (text(), "Episodes")]'
+const dropdownItemChaptersXpath = '//button[@class="dropdown-item"][contains (text(), "Chapters")]'
 const mediaListSelectsSelector = '.media-list__selects'
 
 module.exports = {
@@ -20,11 +20,11 @@ module.exports = {
       )
       .scrollToSelector(mediaListSelectsSelector)
       .click('xpath', dropdownToggleClipsXpath)
-      .click('xpath', dropdownItemEpisodesXpath)
-      .waitForXpathPresent(`//div[contains(text(), '"Antisocial" author Andrew Marantz on how the far right hijacked the internet')]`)
-      .click('xpath', dropdownToggleEpisodesXpath)
+      .click('xpath', dropdownItemChaptersXpath)
+      .waitForXpathPresent(`//div[contains(text(), 'No chapters found')]`)
+      .click('xpath', dropdownToggleChaptersXpath)
       .click('xpath', dropdownItemClipsXpath)
-      .waitForXpathPresent('//div[contains(text(), "Viverra orci sagittis eu volutpat odio facilisis mauris sit.")]')
+      .waitForXpathPresent('//div[contains(text(), "Amet aliquam id diam maecenas ultricies mi eget.")]')
   },
   after: function (browser) {
     browser.end()
