@@ -3,6 +3,7 @@ const { WEB_ORIGIN } = require('../constants')
 module.exports = {
   before: function (browser) {
       browser
+        ._resetDatabase()
         .url(`${WEB_ORIGIN}/`)
 
   },
@@ -11,9 +12,14 @@ module.exports = {
 
       .loginUsingModal('freetrial@stage.podverse.fm')
       .waitForXpathPresent(`//div[contains(text(), "Amet aliquam id diam maecenas ultricies mi eget.")]`)
+
+      .click(`.more-dropdown-menu`)
+      .click(`.media-list__right .dropdown-menu .dropdown-item`)
+
+      
       
       .click(`.mp-header__add-to`)
-      .waitForElementWithText(`.media-list__container:nth-child(1) .media-list-item-a__title`, `Episode 180: Chekhov's Schrödinger's Dagger (Kurosawa's "Rashomon")`)
+      .waitForElementWithText(`.media-list__container:nth-child(1) .media-list-item-a__title`, `Lacus sed turpis tincidunt id aliquet risus feugiat in ante.`)
 
       .click(`.add-to-modal-create-playlist__create`)
       .sendKeys(`.form-control[name=add-to-modal-create-playlist__title]`, `__Test__Playlist`)
@@ -27,13 +33,13 @@ module.exports = {
 
       .waitForElementWithText(`.media-list__container:nth-child(6) .media-list-item-d__title-side`, `items: 9`)
       .click(`.media-list__container:nth-child(6) .media-list-item-d__title`)
-      .waitForElementWithText(`.media-list__container:nth-child(6) .media-list-item-d__title-side`, `items: 10`)
+      .waitForElementWithText(`.media-list__container:nth-child(6) .media-list-item-d__title-side`, `items: 8`)
 
       .waitForElementWithText(`.media-list__container:nth-child(4) .media-list-item-d__title-side`, `items: 1`)
       .click(`.media-list__container:nth-child(4) .media-list-item-d__title`)
       .waitForElementWithText(`.media-list__container:nth-child(4) .media-list-item-d__title-side`, `items: 0`)
 
-      .waitForElementWithText(`.media-list__container:nth-child(6) .media-list-item-d__title-side`, `items: 10`)
+      .waitForElementWithText(`.media-list__container:nth-child(6) .media-list-item-d__title-side`, `items: 8`)
       .click(`.media-list__container:nth-child(6) .media-list-item-d__title`)
       .waitForElementWithText(`.media-list__container:nth-child(6) .media-list-item-d__title-side`, `items: 9`)
 
@@ -43,10 +49,12 @@ module.exports = {
 
       .url(`${WEB_ORIGIN}/episode/rggkv66fR`)
 
-      .click(`.media-info-controls__add-to.btn.btn-secondary`)
+      .click(`.more-dropdown-menu`)
+      .click(`.more-dropdown-menu.dropright.dropdown.show .dropdown-menu.show .dropdown-item:nth-child(3)`)
+
       .waitForElementWithText(`.add-to-modal.over-media-player .media-list-item-a__title`, `Episode 180: Chekhov's Schrödinger's Dagger (Kurosawa's "Rashomon")`)
 
-      .click(`.add-to-modal .scrollable-area .media-list__container:nth-child(9)`)
+      .click(`.scrollable-area .media-list__container:nth-child(6)`)
       .click(`.close-btn`)
 
       .click(`xpath`, `//ul[@class="ml-auto navbar-nav"]//li[@class="dropdown nav-item"]//button[@class="dropdown-toggle btn btn-secondary"]`)

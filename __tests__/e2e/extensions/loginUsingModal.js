@@ -1,5 +1,8 @@
 module.exports.command = function (email) {
-  this.click('.hide-mobile:nth-child(5) a')
+  this.click('.navbar .dropdown.nav-item:nth-child(3)')
+  this.pause(500)
+
+  this.click('.navbar .dropdown.nav-item:nth-child(3) .dropdown-item:nth-child(3)')
   this.pause(500)
 
   this.sendKeys('.form-control[name=login-modal__email]', email)
@@ -10,6 +13,7 @@ module.exports.command = function (email) {
 
   this.click('.login-modal-btns-right__login.btn.btn-primary')
   this.pause(500)
+  console.log('Logged In')
 
   return this
 }

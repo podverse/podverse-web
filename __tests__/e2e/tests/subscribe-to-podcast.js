@@ -15,13 +15,13 @@ module.exports = {
 
         .url(`${WEB_ORIGIN}/podcast/kS9ZnQNWlQc`)
 
-      browser.expect.element(`.media-header__subscribe svg[data-prefix="fas"]`).to.be.present
-      browser.click(`.media-header__subscribe`)
-      browser.refresh()
-      browser.expect.element(`.media-header__subscribe svg[data-prefix="far"]`).to.be.present
-      browser.click(`.media-header__subscribe`)
-      browser.refresh()
-      browser.expect.element(`.media-header__subscribe svg[data-prefix="fas"]`).to.be.present
+        browser.expect.element(`.pill.centered-axis-xy-wrapper.is-active`).to.be.present
+        browser.click(`.pill.centered-axis-xy-wrapper`)
+        browser.refresh()
+        browser.expect.element(`.pill.centered-axis-xy-wrapper.is-active`).to.not.be.present
+        browser.click(`.pill.centered-axis-xy-wrapper`)
+        browser.refresh()
+        browser.expect.element(`.pill.centered-axis-xy-wrapper.is-active`).to.be.present
         
 
 
