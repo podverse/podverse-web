@@ -238,29 +238,13 @@ export default (state = defaultState, action) => {
         }
       }
     case actionTypes.MODALS_SUPPORT_SHOW:
-      let episodeFunding = []
-      let podcastFunding = []
-
-      try {
-        if (action.payload.episodeFunding) {
-          episodeFunding = typeof action.payload.episodeFunding === 'string'
-            ? JSON.parse(action.payload.episodeFunding) : action.payload.episodeFunding
-        }
-        if (action.payload.podcastFunding) {
-          podcastFunding = typeof action.payload.podcastFunding === 'string'
-            ? JSON.parse(action.payload.podcastFunding) : action.payload.podcastFunding
-        }
-      } catch (error) {
-        console.log('modals_support_show', error)
-      }
-
       return {
         ...defaultState,
         support: {
           ...state.support,
-          episodeFunding,
+          episodeFunding: action.payload.episodeFunding,
           isOpen: action.payload.isOpen,
-          podcastFunding,
+          podcastFunding: action.payload.podcastFunding,
           podcastShrunkImageUrl: action.payload.podcastShrunkImageUrl,
           podcastTitle: action.payload.podcastTitle,
           podcastValue: action.payload.podcastValue
