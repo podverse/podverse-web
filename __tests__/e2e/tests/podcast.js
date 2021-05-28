@@ -1,6 +1,6 @@
 const { WEB_ORIGIN } = require('../constants')
 
-const mediaListSelectsSelector = '.media-list__selects'
+const mediaListSelectsSelector = '.media-list__sub-select.align-right'
 
 module.exports = {
   before: function (browser) {
@@ -8,7 +8,7 @@ module.exports = {
   },
   'Podcast': function (browser) {
     browser
-      .waitForElementWithText('span.media-header__title', 'Very Bad Wizards')
+      .waitForXpathPresent(`//span[@class="media-header__title"][contains (text(), "Very Bad Wizards")]`)
       .checkCurrentMedia(`Episode 185: The Devil's Playground`, `episode`)
 
       .scrollToSelector(mediaListSelectsSelector)
@@ -16,10 +16,7 @@ module.exports = {
 
       .scrollToSelector(mediaListSelectsSelector)
       .clickDropdownToggleAndItem(`Clips`, `Episodes`)
-
-      .scrollToSelector(mediaListSelectsSelector)
-      .clickDropdownToggleAndItem(`top - past week`, `most recent`)
-
+      
       .scrollToSelector(mediaListSelectsSelector)
       .clickDropdownToggleAndItem(`most recent`, `top - past day`)
 
@@ -31,6 +28,9 @@ module.exports = {
 
       .scrollToSelector(mediaListSelectsSelector)
       .clickDropdownToggleAndItem(`top - past month`, `top - past year`)
+
+      .scrollToSelector(mediaListSelectsSelector)
+      .clickDropdownToggleAndItem(`top - past year`, `most recent`)
 
       .testSharedMetaTags()
       .testPageMetaTags(

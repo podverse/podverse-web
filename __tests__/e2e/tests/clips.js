@@ -23,17 +23,17 @@ module.exports = {
 
       .checkFilter('Quam elementum pulvinar etiam non quam lacus suspendisse.')
 
-      .waitForElementWithText(dropdownSelector, 'All Podcasts')
+      .waitForElementWithText(dropdownSelector, 'All')
       .waitForElementWithText(rightDropdownSelector, 'top - past week')
 
       .scrollToSelector(mediaListSelectsSelector)
-      .clickDropdownToggleAndItem(`All Podcasts`, `Subscribed`)
+      .clickDropdownToggleAndItem(`All`, `Subscribed`)
 
       .scrollToSelector(mediaListSelectsSelector)
-      .clickDropdownToggleAndItem(`Subscribed`, `All Podcasts`)
+      .clickDropdownToggleAndItem(`Subscribed`, `All`)
 
       .scrollToSelector(mediaListSelectsSelector)
-      .clickDropdownToggleAndItem(`All Podcasts`, `Categories`)
+      .clickDropdownToggleAndItem(`All`, `Categories`)
       .waitForElementWithText(subLeftDropdownSelector, 'Arts')
       .waitForElementWithText(subRightDropdownSelector, 'All')
   },

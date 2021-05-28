@@ -12,7 +12,7 @@ module.exports = {
   },
   'Episodes Page': function (browser) {
     browser
-      .waitForXpathPresent(`//div[contains(text(), '"Antisocial" author Andrew Marantz on how the far right hijacked the internet')]`)
+      .waitForXpathPresent(`//div[contains(text(), 'Brian Greene is a theoretical physicist, mathematician, and string theorist. He has been a professor at Columbia University since 1996 and chairman of the World Science Festival since co-founding it in 2008. His new book "Until the End of Time" is now available: https://amzn.to/2ug680o')]`)
       .testSharedMetaTags()
       .testPageMetaTags(
         `Episodes`,
@@ -23,20 +23,20 @@ module.exports = {
 
       .scrollToSelector(`.pv-pagination`)
       .clickByXpath(`//button[@class="page-link"][contains (text(), "3")]`)
-      .waitForXpathPresent('//div[@class="media-list-item-a__title"][contains(text(), "LUCIEN GREAVES")]')
+      .waitForXpathPresent(`//div[@class="media-list-item-a__title"][contains(text(), "067 JSJ Testem with Toby Ho")]`)
       .refresh()
 
-      .waitForElementWithText(dropdownSelector, 'All Podcasts')
+      .waitForElementWithText(dropdownSelector, 'All')
       .waitForElementWithText(rightDropdownSelector, 'top - past week')
 
       .scrollToSelector(mediaListSelectsSelector)
-      .clickDropdownToggleAndItem(`All Podcasts`, `Subscribed`)
+      .clickDropdownToggleAndItem(`All`, `Subscribed`)
 
       .scrollToSelector(mediaListSelectsSelector)
-      .clickDropdownToggleAndItem(`Subscribed`, `All Podcasts`)
+      .clickDropdownToggleAndItem(`Subscribed`, `All`)
 
       .scrollToSelector(mediaListSelectsSelector)
-      .clickDropdownToggleAndItem(`All Podcasts`, `Categories`)
+      .clickDropdownToggleAndItem(`All`, `Categories`)
       .waitForElementWithText(subLeftDropdownSelector, 'Arts')
       .waitForElementWithText(subRightDropdownSelector, 'All')
 
