@@ -6,7 +6,7 @@ module.exports = {
   },
   'Navigation Tests': function (browser) {
     browser
-      .waitForElementWithText('h3', 'Clips')
+      .waitForElementWithText('button', 'My Library')
 
       .scrollToSelector(`.footer-bottom__link[href="/about"]`, `down`)
       .click(`.footer-bottom__link[href="/about"]`)
@@ -20,16 +20,13 @@ module.exports = {
       .click(`.footer-bottom__link[href="/membership"]`)
       .waitForElementWithText('h3', 'Premium')
 
-      .clickByXpath(`//li[@class="hide-mobile nav-item"]//a[@class="nav-link"][@href="/search"]`)
-      .waitForElementWithText('h3', 'Search')
-
-      .click(`.nav-link[href="/podcasts"]`)
-      .pause(1000)
-      .waitForElementWithText('h3', 'Podcasts')
-
-      .click(`.dropdown-toggle`)
+      .click(`.dropdown:nth-child(3)`)
       .click(`.dropdown-item[href="/settings"]`)
       .waitForElementWithText(`h3`, `Settings`)
+
+      .click(`.navbar-brand`)
+      .click(`.nav-link`)
+      .waitForElementWithText('h3', 'Search')
   },
   after: function (browser) {
     browser.end()
