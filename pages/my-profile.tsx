@@ -51,10 +51,10 @@ class MyProfile extends Component<Props, State> {
       */
       if (queryType === PV.queryParams.clips) {
         if (bearerToken) {
-          queryDataResult = await getLoggedInUserMediaRefsFromBackEnd(bearerToken, 'on', queryPage)
+          queryDataResult = await getLoggedInUserMediaRefsFromBackEnd(bearerToken, 'most-recent', queryPage)
         } else {
           const noBearerToken = ''
-          queryDataResult = await getLoggedInUserMediaRefsFromBackEnd(noBearerToken, queryPage)
+          queryDataResult = await getLoggedInUserMediaRefsFromBackEnd(noBearerToken, 'most-recent', queryPage)
         }
         const mediaRefs = queryDataResult.data as any
         const nowPlayingItems = mediaRefs[0] && mediaRefs[0].map(x => convertToNowPlayingItem(x))
