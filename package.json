@@ -120,7 +120,7 @@
     "stylelint": "12.0.0",
     "stylelint-config-recommended": "3.0.0",
     "stylelint-scss": "3.13.0",
-    "typescript": "3.7.2",
+    "typescript": "3.9.7",
     "typescript-babel-jest": "1.0.6"
   },
   "devDependencies": {
