@@ -8,7 +8,8 @@ import UserMediaListCtrl from '~/components/UserMediaListCtrl/UserMediaListCtrl'
 import config from '~/config'
 import PV from '~/lib/constants'
 import { pageIsLoading, pagesSetQueryState } from '~/redux/actions'
-import { getLoggedInUserMediaRefsFromBackEnd, getLoggedInUserPlaylistsFromBackEnd,
+import { getLoggedInUserMediaRefsFromBackEnd, getLoggedInUserMediaRefsFromFrontEnd, getLoggedInUserPlaylistsFromBackEnd,
+  getLoggedInUserPlaylistsFromFrontEnd,
   getPodcastsByQuery } from '~/services'
 import { withTranslation } from '~/../i18n'
 const { PUBLIC_BASE_URL } = config()
@@ -51,10 +52,9 @@ class MyProfile extends Component<Props, State> {
       */
       if (queryType === PV.queryParams.clips) {
         if (bearerToken) {
-          queryDataResult = await getLoggedInUserMediaRefsFromBackEnd(bearerToken, 'on', queryPage)
+          queryDataResult = await getLoggedInUserMediaRefsFromBackEnd(bearerToken, 'most-recent', queryPage)
         } else {
-          const noBearerToken = ''
-          queryDataResult = await getLoggedInUserMediaRefsFromBackEnd(noBearerToken, queryPage)
+          queryDataResult = await getLoggedInUserMediaRefsFromFrontEnd('most-recent', queryPage)
         }
         const mediaRefs = queryDataResult.data as any
         const nowPlayingItems = mediaRefs[0] && mediaRefs[0].map(x => convertToNowPlayingItem(x))
@@ -63,7 +63,7 @@ class MyProfile extends Component<Props, State> {
         if (bearerToken) {
           queryDataResult = await getLoggedInUserPlaylistsFromBackEnd(bearerToken, queryPage)
         } else {
-          queryDataResult = await getLoggedInUserPlaylistsFromBackEnd(queryPage)
+          queryDataResult = await getLoggedInUserPlaylistsFromFrontEnd(queryPage)
         }
         listItems = queryDataResult.data
       } else if (
