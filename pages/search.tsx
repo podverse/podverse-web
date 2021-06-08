@@ -8,14 +8,17 @@ import Meta from '~/components/Meta/Meta'
 import config from '~/config'
 import PV from '~/lib/constants'
 import { enrichPodcastsWithCategoriesString, safeAlert } from '~/lib/utility'
-import { pageIsLoading, pagesSetQueryState } from '~/redux/actions'
+import { modalsRequestPodcastShow, pageIsLoading, pagesSetQueryState } from '~/redux/actions'
 import { getPodcastsByQuery } from '~/services'
 import { withTranslation } from '~/../i18n'
+import { RequestPodcastModal } from '~/components/RequestPodcastModal/RequestPodcastModal'
 const uuidv4 = require('uuid/v4')
-const { PUBLIC_BASE_URL, QUERY_PODCASTS_LIMIT, REQUEST_PODCAST_URL } = config()
+const { PUBLIC_BASE_URL, QUERY_PODCASTS_LIMIT } = config()
 
 type Props = {
   lastScrollPosition?: number
+  modals: any
+  modalsRequestPodcastShow?: any
   pageIsLoading?: any
   pageKey?: string
   pages?: any
@@ -135,8 +138,15 @@ class Search extends Component<Props, State> {
     }
   }
 
+  toggleRequestPodcastModal = () => {
+    const { modals, modalsRequestPodcastShow } = this.props
+    const { isOpen: requestPodcastIsOpen } = modals.requestPodcast
+    modalsRequestPodcastShow({ isOpen: !requestPodcastIsOpen })
+  }
+
   render() {
-    const { pages, t } = this.props
+    const { modals, pages, t } = this.props
+    const { isOpen: requestPodcastIsOpen } = modals.requestPodcast
     const { isSearching, listItems, listItemsTotal, queryPage, searchBy } = pages[PV.pageKeys.search]
     const { currentSearch, searchCompleted } = this.state
 
@@ -248,13 +258,16 @@ class Search extends Component<Props, State> {
             !isSearching &&
               <a
                 className='request-podcast'
-                href={REQUEST_PODCAST_URL}
-                rel="noopener noreferrer"
-                target='_blank'>
+                onClick={this.toggleRequestPodcastModal}>
                 {t('RequestAPodcast')}
               </a>
           }
         </div>
+        <RequestPodcastModal
+          handleHideModal={this.toggleRequestPodcastModal}
+          isOpen={requestPodcastIsOpen}
+          t={t}
+        />
       </Fragment>
     )
   }
@@ -263,6 +276,7 @@ class Search extends Component<Props, State> {
 const mapStateToProps = state => ({ ...state })
 
 const mapDispatchToProps = dispatch => ({
+  modalsRequestPodcastShow: bindActionCreators(modalsRequestPodcastShow, dispatch),
   pageIsLoading: bindActionCreators(pageIsLoading, dispatch),
   pagesSetQueryState: bindActionCreators(pagesSetQueryState, dispatch)
 })
