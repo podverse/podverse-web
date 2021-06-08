@@ -105,6 +105,13 @@ export const modalsMakeClipShow = payload => {
   }
 }
 
+export const modalsRequestPodcastShow = payload => {
+  return {
+    type: actionTypes.MODALS_REQUEST_PODCAST_SHOW,
+    payload
+  }
+}
+
 export const modalsResetPasswordShow = payload => {
   return {
     type: actionTypes.MODALS_RESET_PASSWORD_SHOW,

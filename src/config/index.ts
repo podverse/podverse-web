@@ -32,6 +32,7 @@ export interface Config {
   metaDefaultImageUrl1200x630?: string
   googleAnalyticsConfig?: any
   REQUEST_PODCAST_URL?: string
+  REQUEST_PODCAST_EMAIL?: string
   SOCIAL_FACEBOOK_IMAGE_URL?: string
   SOCIAL_FACEBOOK_PAGE_URL?: string
   SOCIAL_GITHUB_IMAGE_URL?: string
@@ -74,6 +75,7 @@ export default () => {
     GOOGLE_ANALYTICS_TRACKING_ID: publicRuntimeConfig.GOOGLE_ANALYTICS_TRACKING_ID,
     CATEGORY_ID_DEFAULT: publicRuntimeConfig.CATEGORY_ID_DEFAULT,
     REQUEST_PODCAST_URL: publicRuntimeConfig.REQUEST_PODCAST_URL,
+    REQUEST_PODCAST_EMAIL: publicRuntimeConfig.REQUEST_PODCAST_EMAIL,
     SOCIAL_FACEBOOK_PAGE_URL: publicRuntimeConfig.SOCIAL_FACEBOOK_PAGE_URL,
     SOCIAL_GITHUB_IMAGE_URL: publicRuntimeConfig.SOCIAL_GITHUB_IMAGE_URL,
     SOCIAL_GITHUB_PAGE_URL: publicRuntimeConfig.SOCIAL_GITHUB_PAGE_URL,
