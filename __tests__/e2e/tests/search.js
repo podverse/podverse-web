@@ -46,9 +46,11 @@ module.exports = {
       .waitForXpathPresent(`//div[@class="media-list-item-b__title"][contains (text(), "Very Bad Wizards")]`)
 
       .click(`.request-podcast`)
-
-
       .waitForXpathPresent(`//p[contains (text(), "Can't find the podcast you're looking for?")]`)
+      .click(`.close-btn`)
+      .waitForXpathNotPresent(`//p[contains (text(), "Can't find the podcast you're looking for?")]`)
+
+
 
       
   },
