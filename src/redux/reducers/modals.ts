@@ -8,6 +8,7 @@ const defaultState = {
   makeClip: {},
   login: {},
   queue: {},
+  requestPodcast: {},
   share: {},
   signUp: {},
   support: {}
@@ -164,6 +165,13 @@ export default (state = defaultState, action) => {
         queue: {
           ...state.queue,
           errorResponse: action.payload
+        }
+      }
+    case actionTypes.MODALS_REQUEST_PODCAST_SHOW:
+      return {
+        ...defaultState,
+        requestPodcast: {
+          isOpen: action.payload.isOpen
         }
       }
     case actionTypes.MODALS_RESET_PASSWORD_SHOW:
