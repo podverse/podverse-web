@@ -7,6 +7,7 @@ export interface Config {
   API_PROTOCOL?: string
   API_PATH?: string
   API_VERSION?: string
+  CHECK_FOR_MAINTENANCE_MODE?: boolean
   QUERY_EPISODES_LIMIT: number
   QUERY_MEDIA_REFS_LIMIT: number
   QUERY_PLAYLISTS_LIMIT: number
@@ -60,6 +61,7 @@ export default () => {
     API_PROTOCOL: publicRuntimeConfig.API_PROTOCOL,
     API_PATH: publicRuntimeConfig.API_PATH,
     API_VERSION: publicRuntimeConfig.API_VERSION,
+    CHECK_FOR_MAINTENANCE_MODE: publicRuntimeConfig.CHECK_FOR_MAINTENANCE_MODE,
     QUERY_EPISODES_LIMIT: publicRuntimeConfig.QUERY_EPISODES_LIMIT,
     QUERY_MEDIA_REFS_LIMIT: publicRuntimeConfig.QUERY_MEDIA_REFS_LIMIT,
     QUERY_PLAYLISTS_LIMIT: publicRuntimeConfig.QUERY_PLAYLISTS_LIMIT,
