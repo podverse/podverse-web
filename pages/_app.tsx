@@ -102,16 +102,16 @@ type Props = {
 export default withRedux(initializeStore)(appWithTranslation(class MyApp extends App<Props> {
 
   static async getInitialProps({ Component, ctx }) {
+    let statusCode: number | null = null
 
-    let statusCode = null
     try {
       await checkIfInMaintenanceMode()
     } catch (error) {
       if (error && error.response && error.response.status) {
         if (error.response.status === 503) {
           ctx.res.statusCode = 503
+          statusCode = 503
           ctx.res.data = error.response.data
-          statusCode = ctx.res.statusCode
         }
       }
     }
@@ -315,7 +315,6 @@ export default withRedux(initializeStore)(appWithTranslation(class MyApp extends
   render() {
     const { Component, cookies, isMobileDevice, pageProps, statusCode, store } = this.props
     const { pageKey } = pageProps
-
     const shouldHidePageContents = isMobileDevice === null
 
     return (
@@ -327,7 +326,7 @@ export default withRedux(initializeStore)(appWithTranslation(class MyApp extends
                 <div className='view'>
                   <div className={`view__contents ${shouldHidePageContents ? 'hide' : ''}`}>
                     <div className='max-width top'>
-                      <Error {...pageProps} />
+                      <Error {...pageProps} statusCode={statusCode} />
                     </div>
                   </div>
                 </div>

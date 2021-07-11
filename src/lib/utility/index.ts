@@ -60,7 +60,7 @@ export const convertMinutesToHHMM = (totalMinutes: number) => {
   const minutes = totalMinutes % 60
   const hours = (totalMinutes - minutes) / 60
 
-  return `${hours}h ${minutes}m`
+  return (hours > 0 || minutes > 0) ? `${hours}h ${minutes}m` : ''
 }
 
 export const convertSecToHHMMSS = (sec: number) => {

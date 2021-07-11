@@ -13,7 +13,10 @@ type Props = {
   t?: any
 }
 
-type State = {}
+type State = {
+  errMsgBody: any
+  errorPageError: any
+}
 
 class ErrorPage extends Component<Props, State> {
 
@@ -30,30 +33,52 @@ class ErrorPage extends Component<Props, State> {
     return { errMsgBody, namespacesRequired, statusCode }
   }
 
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      errMsgBody: '',
+      errorPageError: {}
+    }
+  }
+
+  static getDerivedStateFromProps(newProps, currentState) {
+    const { t } = newProps
+
+    if (currentState.errMsgBody !== newProps.errMsgBody) {
+      let error = newProps.statusCode && errors(t, newProps.errMsgBody)[newProps.statusCode]
+      if (!error) error = errors(t, newProps.errMsgBody).defaultError
+
+      return {
+        errMsgBody: newProps.errMsgBody,
+        errorPageError: error
+      }
+    }
+    return null
+  }
+
   render () {
-    const { errMsgBody, statusCode, t } = this.props
-    let error = statusCode && errors(t, errMsgBody)[statusCode]
-    if (!error) error = errors(t, errMsgBody).defaultError
+    const { errorPageError } = this.state
 
     return (
       <div className='full-centered-content-view'>
         {
-          error.header &&
-            <h3>{error.header}</h3>
+          errorPageError.header &&
+            <h3>{errorPageError.header}</h3>
         }
         {
-          error.icon &&
+          errorPageError.icon &&
             <div className='error-icon'>
-              <FontAwesomeIcon icon={error.icon} />
+              <FontAwesomeIcon icon={errorPageError.icon} />
             </div>
         }
         {
-          error.message1 &&
-            <p>{error.message1}</p>
+          errorPageError.message1 &&
+            <p>{errorPageError.message1}</p>
         }
         {
-          error.message2 &&
-            <p>{error.message2}</p>
+          errorPageError.message2 &&
+            <p>{errorPageError.message2}</p>
         }
       </div>
     )
@@ -85,13 +110,13 @@ const errors = (t, errMsgBody) => {
 }
 
 const errorServiceUnderScheduledMaintenance = (t, errMsgBody) => {
-  const expectedDowntimeRemaining =
+  const expectedDowntimeRemainingText =
     errMsgBody && errMsgBody.expectedDowntimeRemaining
     && convertMinutesToHHMM(errMsgBody.expectedDowntimeRemaining)
 
   let message2 = ''
-  if (expectedDowntimeRemaining > 0) {
-    message2 = `${t('errorMessages:message.ExpectedDowntimeRemaining')} ${expectedDowntimeRemaining}`
+  if (expectedDowntimeRemainingText) {
+    message2 = `${t('errorMessages:message.ExpectedDowntimeRemaining')} ${expectedDowntimeRemainingText}`
   }
 
   return {
