@@ -12,6 +12,7 @@
     "Error_404": "404 Error",
     "LoginNeeded": "Login Needed",
     "ServersUnderMaintenance": "Servers under maintenance",
+    "ServersUnderScheduledMaintenance": "Servers under scheduled maintenance",
     "SomethingWentWrong": "Something went wrong"
   },
   "login": {
@@ -19,6 +20,7 @@
   },
   "message": {
     "AnUnknownErrorHasOccurred": "An unknown error has occurred.",
+    "ExpectedDowntimeRemaining": "Expected downtime remaining:",
     "CheckConnectionOrDifferentPage": "Please check your internet connection, or try a different page.",
     "PageNotFound": "Page not found",
     "passwordError": "Password must contain a number, uppercase, lowercase, and be at least 8 characters long.",

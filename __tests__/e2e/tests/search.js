@@ -45,7 +45,14 @@ module.exports = {
       .pause(500)
       .waitForXpathPresent(`//div[@class="media-list-item-b__title"][contains (text(), "Very Bad Wizards")]`)
 
-      .waitForXpathPresent(`//a[@href="https://docs.google.com/forms/d/e/1FAIpQLSdewKP-YrE8zGjDPrkmoJEwCxPl_gizEkmzAlTYsiWAuAk1Ng/viewform?usp=sf_link"]`)
+      .click(`.request-podcast`)
+      .waitForXpathPresent(`//p[contains (text(), "Can't find the podcast you're looking for?")]`)
+      .click(`.close-btn`)
+      .waitForXpathNotPresent(`//p[contains (text(), "Can't find the podcast you're looking for?")]`)
+
+
+
+      
   },
   after: function (browser) {
     browser.end()
