@@ -4,6 +4,7 @@ export { getAuthenticatedUserInfo, login, logOut, resetPassword, sendResetPasswo
 export { createBitPayInvoice, getBitPayInvoiceStatusByOrderId } from '~/services/bitpay'
 export { getCategoriesByQuery } from '~/services/category'
 export { getEpisodeById, getEpisodesByQuery, handlePageEpisodesQuery } from '~/services/episode'
+export { checkIfInMaintenanceMode } from '~/services/maintenanceMode'
 export { createMediaRef, deleteMediaRef, getMediaRefById, getMediaRefsByQuery,
   handlePageMediaRefsQuery, retrieveLatestChaptersForEpisodeId, updateMediaRef } from '~/services/mediaRef'
 export { createPayPalOrder, getPayPalOrderById } from '~/services/paypal'

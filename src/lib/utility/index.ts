@@ -56,6 +56,13 @@ export const readableDate = (date) => {
   return month + '/' + day + '/' + year;
 }
 
+export const convertMinutesToHHMM = (totalMinutes: number) => {
+  const minutes = totalMinutes % 60
+  const hours = (totalMinutes - minutes) / 60
+
+  return `${hours}h ${minutes}m`
+}
+
 export const convertSecToHHMMSS = (sec: number) => {
   let totalSec = Math.floor(sec)
   const hours = Math.floor(totalSec / 3600)
