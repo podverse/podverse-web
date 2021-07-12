@@ -234,7 +234,7 @@ class Search extends Component<Props, State> {
             </InputGroup>
             {
               searchBy === PV.queryParams.podcast &&
-                <FormText>{t('Wrap your search in double quotes for more exact matches')}</FormText>
+                <FormText>{t('use double quotes for exact matches')}</FormText>
             }
           </FormGroup>
         </Form>
