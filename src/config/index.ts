@@ -20,7 +20,9 @@ export interface Config {
   PAYPAL_ENV?: string
   PAYPAL_CLIENT_ID_PRODUCTION?: string
   PAYPAL_CLIENT_ID_SANDBOX?: string
-  GOOGLE_ANALYTICS_TRACKING_ID?: string
+  MATOMO_BASE_URL?: string
+  MATOMO_ENDPOINT_PATH?: string
+  MATOMO_SITE_ID?: string
   CATEGORY_ID_DEFAULT?: string
   DOMAIN?: string
   API_DOMAIN?: string
@@ -31,7 +33,7 @@ export interface Config {
   cookieConfig?: any
   paypalConfig?: any
   metaDefaultImageUrl1200x630?: string
-  googleAnalyticsConfig?: any
+  matomoConfig?: any
   REQUEST_PODCAST_URL?: string
   REQUEST_PODCAST_EMAIL?: string
   SOCIAL_FACEBOOK_IMAGE_URL?: string
@@ -74,7 +76,9 @@ export default () => {
     PAYPAL_ENV: publicRuntimeConfig.PAYPAL_ENV,
     PAYPAL_CLIENT_ID_PRODUCTION: publicRuntimeConfig.PAYPAL_CLIENT_ID_PRODUCTION,
     PAYPAL_CLIENT_ID_SANDBOX: publicRuntimeConfig.PAYPAL_CLIENT_ID_SANDBOX,
-    GOOGLE_ANALYTICS_TRACKING_ID: publicRuntimeConfig.GOOGLE_ANALYTICS_TRACKING_ID,
+    MATOMO_BASE_URL: publicRuntimeConfig.MATOMO_BASE_URL,
+    MATOMO_ENDPOINT_PATH: publicRuntimeConfig.MATOMO_ENDPOINT_PATH,
+    MATOMO_SITE_ID: publicRuntimeConfig.MATOMO_SITE_ID,
     CATEGORY_ID_DEFAULT: publicRuntimeConfig.CATEGORY_ID_DEFAULT,
     REQUEST_PODCAST_URL: publicRuntimeConfig.REQUEST_PODCAST_URL,
     REQUEST_PODCAST_EMAIL: publicRuntimeConfig.REQUEST_PODCAST_EMAIL,
@@ -129,10 +133,6 @@ export default () => {
   }
 
   config.metaDefaultImageUrl1200x630 = 'https://podverse.fm/images/podverse-logo-1200x630.png'
-
-  config.googleAnalyticsConfig = {
-    trackingId: config.GOOGLE_ANALYTICS_TRACKING_ID
-  }
 
   return config
 }

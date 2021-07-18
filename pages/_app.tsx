@@ -2,9 +2,9 @@ import React, { Fragment } from 'react'
 import { Provider } from 'react-redux'
 import withRedux from 'next-redux-wrapper'
 import App from 'next/app'
+import Router from 'next/router'
 import { config as fontAwesomeConfig } from '@fortawesome/fontawesome-svg-core'
 import '@fortawesome/fontawesome-svg-core/styles.css' // Import the CSS
-import ReactGA from 'react-ga'
 import { NowPlayingItem } from 'podverse-shared'
 import Error from './_error'
 import Alerts from '~/components/Alerts/Alerts'
@@ -28,10 +28,9 @@ import {
 } from '~/redux/actions'
 import { actionTypes } from '~/redux/constants'
 import { checkIfInMaintenanceMode, getAuthenticatedUserInfo, getNowPlayingItem, setNowPlayingItem } from '~/services'
-import config from '~/config'
 import { appWithTranslation } from '~/../i18n'
 import { getQueueItems } from '~/services/userQueueItem'
-const { googleAnalyticsConfig } = config()
+import { initializeMatomo, matomoTrackPageView } from '~/lib/matomo'
 const cookie = require('cookie')
 const MobileDetect = require('mobile-detect')
 
@@ -44,6 +43,8 @@ let windowHasLoaded = false
 
 declare global {
   interface Window {
+    _paq: any
+    Matomo: any
     nowPlayingItem: NowPlayingItem
     player: any
   }
@@ -301,9 +302,12 @@ export default withRedux(initializeStore)(appWithTranslation(class MyApp extends
 
     const priorityItems = await getQueueItems(user)
     store.dispatch(playerQueueLoadPriorityItems(priorityItems))
-
-    ReactGA.initialize(googleAnalyticsConfig.trackingId)
-    ReactGA.pageview(window.location.pathname + window.location.search)
+    
+    initializeMatomo()
+    matomoTrackPageView()
+    Router.events.on('routeChangeComplete', url => {
+      matomoTrackPageView()
+    })
 
     windowHasLoaded = true
     
