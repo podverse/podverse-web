@@ -136,7 +136,9 @@ class Clip extends Component<Props, State> {
         imageAlt: podcastTitle,
         imageUrl:
           (episode && episode.shrunkImageUrl)
-          || (episode.podcast && episode.podcast.shrunkImageUrl),
+          || (episode && episode.imageUrl)
+          || (episode.podcast && episode.podcast.shrunkImageUrl)
+          || (episode.podcast && episode.podcast.imageUrl),
         title: `${mediaRef.title ? mediaRef.title : t('untitledPodcast')}`
       }
     }
