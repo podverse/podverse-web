@@ -2,7 +2,7 @@
   "alerts": {
     "couldNotUpdateQueue": "No se pudo actualizar la cola en el servidor. Por favor revise su conexion a internet.",
     "couldNotRemoveFromPlaylist": "No se pudo eliminar de la lista de reproducción. Comprueba tu conexión a Internet y vuelve a intentarlo más tarde.",
-    "deleteClipFailed": "Error al eliminar el clip. Comprueba tu conexión a Internet y vuelve a intentarlo más tarde.",
+    "deleteClipFailed": "No se pudo borrar el clip. Comprueba tu conexión a Internet y vuelve a intentarlo más tarde.",
     "deletePlaylistFailed": "No se pudo borrar la lista de reproducción. Comprueba tu conexión a Internet y vuelve a intentarlo más tarde.",
     "premiumRequired": "Su membresía Premium ha expirado. Renueve su membresía en la página de Configuración o cierre la sesión para crear un clip de forma anónima.",
     "somethingWentWrong": "Algo salió mal. Por favor revise su conexion a internet.",
@@ -12,6 +12,7 @@
     "Error_404": "error 404",
     "LoginNeeded": "Es necesario iniciar sesión",
     "ServersUnderMaintenance": "Servidores en mantenimiento",
+    "ServersUnderScheduledMaintenance": "Servidores bajo mantenimiento programado",
     "SomethingWentWrong": "Algo salió mal"
   },
   "login": {
@@ -19,9 +20,10 @@
   },
   "message": {
     "AnUnknownErrorHasOccurred": "Un error desconocido a ocurrido.",
+    "ExpectedDowntimeRemaining": "Tiempo de inactividad esperado restante:",
     "CheckConnectionOrDifferentPage": "Comprueba tu conexión a Internet o prueba con otra página.",
     "PageNotFound": "Página no encontrada",
-    "passwordError": "La contraseña debe contener un número, mayúsculas y minúsculas, y tener al menos 8 caracteres.",
+    "passwordError": "La contraseña debe contener un número, mayúsculas, minúsculas y tener al menos 8 caracteres.",
     "passwordMatchError": "Las contraseñas no coinciden.",
     "PleaseProvideValidEmail": "Por favor ingrese su dirección de correo electrónico válida",
     "SiteOfflineUntilWorkIsComplete": "El sitio estará fuera de línea hasta que se complete el trabajo.",
