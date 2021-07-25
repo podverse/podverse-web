@@ -16,7 +16,12 @@
     "_Title": "Episodios"
   },
   "faq": {
-    "_Description": "Preguntas frecuentes"
+    "_Description": "Preguntas frecuentes",
+    "_Title": "Preguntas más frecuentes"
+  },
+  "history": {
+    "_Description": "Mis elementos de historial en Podverse",
+    "_Title": "Historia"
   },
   "index": {
     "_Description": "Aplicación de podcast para iOS, Android y web. Cree y comparta destacados y listas de reproducción de podcasts. Sincroniza tu cola en todos los dispositivos. Software de código abierto.",
@@ -29,6 +34,10 @@
   "my_profile": {
     "_Description": "Mi perfil de Podverse. Suscríbase a podcasts, listas de reproducción y otros perfiles",
     "_Title": "Mi perfil"
+  },
+  "queue": {
+    "_Description": "Mi cola en Podverse",
+    "_Title": "Cola"
   },
   "payment_bitpay_confirming": {
     "_Description": "Pantalla de confirmación de pago de BitPay en Podverse",
@@ -56,11 +65,11 @@
   },
   "search": {
     "_Description": "Busque podcasts por título o anfitrión en Podverse.",
-    "_Title": "Buscar"
+    "_Title": "Búsqueda"
   },
   "settings": {
     "_Description": "Personaliza la configuración de tu cuenta en Podverse.",
-    "_Title": "Configuraciones"
+    "_Title": "Ajustes"
   },
   "terms": {
     "_Description": "Acuerdo de términos de servicio de Podverse.",
