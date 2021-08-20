@@ -66,6 +66,26 @@ class Terms extends Component<Props, State> {
         <p>
           {PV.i18n.pages.terms.PodverseTerms_7}
         </p>
+        <hr />
+        <h3>{PV.i18n.pages.terms.PopularityAnalyticsHeader}</h3>
+        <p>
+          {PV.i18n.pages.terms.PopularityAnalytics_1}
+        </p>
+        <p>
+          {PV.i18n.pages.terms.PopularityAnalytics_2}
+        </p>
+        <p>
+          {PV.i18n.pages.terms.PopularityAnalytics_3}
+        </p>
+        <p>
+          {PV.i18n.pages.terms.PopularityAnalytics_4}
+        </p>
+        <p>
+          {PV.i18n.pages.terms.PopularityAnalytics_5}
+        </p>
+        <p>
+          {PV.i18n.pages.terms.PopularityAnalytics_6}
+        </p>
       </Fragment>
     )
   }

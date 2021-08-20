@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { ButtonGroup, Form, FormGroup, Input, InputGroup, InputGroupAddon } from 'reactstrap'
+import { ButtonGroup, Form, FormGroup, FormText, Input, InputGroup, InputGroupAddon } from 'reactstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Button, MediaListItem, Pagination } from 'podverse-ui'
 import Meta from '~/components/Meta/Meta'
@@ -158,7 +158,6 @@ class Search extends Component<Props, State> {
 
     const placeholder = searchBy === PV.queryParams.host
       ? t('searchByHost') : t('searchByTitle')
-
       
     const listItemNodes = listItems ? listItems.map(x => {
       return (
@@ -233,9 +232,13 @@ class Search extends Component<Props, State> {
                 </Button>
               </InputGroupAddon>
             </InputGroup>
+            {
+              searchBy === PV.queryParams.podcast &&
+                <FormText>{t('use double quotes for exact matches')}</FormText>
+            }
           </FormGroup>
         </Form>
-        <div className={'media-list'}>
+        <div className={'search-media-list'}>
           {
             listItemNodes && listItemNodes.length > 0 &&
             <Fragment>

@@ -2,10 +2,11 @@ import React, { Fragment } from 'react'
 import { Provider } from 'react-redux'
 import withRedux from 'next-redux-wrapper'
 import App from 'next/app'
+import Router from 'next/router'
 import { config as fontAwesomeConfig } from '@fortawesome/fontawesome-svg-core'
 import '@fortawesome/fontawesome-svg-core/styles.css' // Import the CSS
-import ReactGA from 'react-ga'
 import { NowPlayingItem } from 'podverse-shared'
+import Error from './_error'
 import Alerts from '~/components/Alerts/Alerts'
 import AppLinkWidget from '~/components/AppLinkWidget/AppLinkWidget'
 import Auth from '~/components/Auth/Auth'
@@ -26,11 +27,10 @@ import {
   playerQueueLoadPriorityItems
 } from '~/redux/actions'
 import { actionTypes } from '~/redux/constants'
-import { getAuthenticatedUserInfo, getNowPlayingItem, setNowPlayingItem } from '~/services'
-import config from '~/config'
+import { checkIfInMaintenanceMode, getAuthenticatedUserInfo, getNowPlayingItem, setNowPlayingItem } from '~/services'
 import { appWithTranslation } from '~/../i18n'
 import { getQueueItems } from '~/services/userQueueItem'
-const { googleAnalyticsConfig } = config()
+import { initializeMatomo, matomoTrackPageView } from '~/lib/matomo'
 const cookie = require('cookie')
 const MobileDetect = require('mobile-detect')
 
@@ -43,6 +43,8 @@ let windowHasLoaded = false
 
 declare global {
   interface Window {
+    _paq: any
+    Matomo: any
     nowPlayingItem: NowPlayingItem
     player: any
   }
@@ -95,11 +97,26 @@ type Props = {
     subscribedPodcastIds: any[]
     subscribedUserIds: any[]
   }
+  statusCode: number | null
 }
 
 export default withRedux(initializeStore)(appWithTranslation(class MyApp extends App<Props> {
 
   static async getInitialProps({ Component, ctx }) {
+    let statusCode: number | null = null
+
+    try {
+      await checkIfInMaintenanceMode()
+    } catch (error) {
+      if (error && error.response && error.response.status) {
+        if (error.response.status === 503) {
+          ctx.res.statusCode = 503
+          statusCode = 503
+          ctx.res.data = error.response.data
+        }
+      }
+    }
+
     let pageProps = {} as any
 
     ctx.store.dispatch(pageIsLoading(true))
@@ -234,7 +251,7 @@ export default withRedux(initializeStore)(appWithTranslation(class MyApp extends
       scrollToTopOfView()
     }
 
-    return { pageProps, cookies, isMobileDevice, newPlayingItem }
+    return { pageProps, cookies, isMobileDevice, newPlayingItem, statusCode }
   }
 
   async componentDidMount() {
@@ -285,9 +302,12 @@ export default withRedux(initializeStore)(appWithTranslation(class MyApp extends
 
     const priorityItems = await getQueueItems(user)
     store.dispatch(playerQueueLoadPriorityItems(priorityItems))
-
-    ReactGA.initialize(googleAnalyticsConfig.trackingId)
-    ReactGA.pageview(window.location.pathname + window.location.search)
+    
+    initializeMatomo()
+    matomoTrackPageView()
+    Router.events.on('routeChangeComplete', url => {
+      matomoTrackPageView()
+    })
 
     windowHasLoaded = true
     
@@ -297,40 +317,56 @@ export default withRedux(initializeStore)(appWithTranslation(class MyApp extends
   }
 
   render() {
-    const { Component, cookies, isMobileDevice, pageProps, store } = this.props
+    const { Component, cookies, isMobileDevice, pageProps, statusCode, store } = this.props
     const { pageKey } = pageProps
-
     const shouldHidePageContents = isMobileDevice === null
 
     return (
       <Provider store={store}>
         <Fragment>
           <Fragment>
-            <PageLoadingOverlay />
-            <div className='view'>
-              <div className='view__navbar'>
-                <NavBar pageKey={pageKey} />
-              </div>
-              <div className={`view__contents ${shouldHidePageContents ? 'hide' : ''}`}>
-                <AppLinkWidget pageKey={pageKey} />
-                <div className='max-width top'>
-                  <Alerts
-                    cookies={cookies}
-                    pageKey={pageKey} />
-                  <Component {...pageProps} />
+            {
+              statusCode === 503 && (
+                <div className='view'>
+                  <div className={`view__contents ${shouldHidePageContents ? 'hide' : ''}`}>
+                    <div className='max-width top'>
+                      <Error {...pageProps} statusCode={statusCode} />
+                    </div>
+                  </div>
                 </div>
-                <div className='max-width bottom'>
-                  <Footer
-                    isMobileDevice={isMobileDevice}
-                    pageKey={pageKey} />
-                </div>
-              </div>
-              <MediaPlayerView
-                {...pageProps}
-                isMobileDevice={isMobileDevice} />
-            </div>
-            <Auth />
-            <MediaModals />
+              ) 
+            }
+            {
+              statusCode !== 503 && (
+                <Fragment>
+                  <PageLoadingOverlay />
+                  <div className='view'>
+                    <div className='view__navbar'>
+                      <NavBar pageKey={pageKey} />
+                    </div>
+                    <div className={`view__contents ${shouldHidePageContents ? 'hide' : ''}`}>
+                      <AppLinkWidget pageKey={pageKey} />
+                      <div className='max-width top'>
+                        <Alerts
+                          cookies={cookies}
+                          pageKey={pageKey} />
+                        <Component {...pageProps} />
+                      </div>
+                      <div className='max-width bottom'>
+                        <Footer
+                          isMobileDevice={isMobileDevice}
+                          pageKey={pageKey} />
+                      </div>
+                    </div>
+                    <MediaPlayerView
+                      {...pageProps}
+                      isMobileDevice={isMobileDevice} />
+                  </div>
+                  <Auth />
+                  <MediaModals />
+                </Fragment>
+              )
+            }
           </Fragment>
         </Fragment>
       </Provider>

@@ -7,6 +7,7 @@ export interface Config {
   API_PROTOCOL?: string
   API_PATH?: string
   API_VERSION?: string
+  CHECK_FOR_MAINTENANCE_MODE?: boolean
   QUERY_EPISODES_LIMIT: number
   QUERY_MEDIA_REFS_LIMIT: number
   QUERY_PLAYLISTS_LIMIT: number
@@ -19,7 +20,9 @@ export interface Config {
   PAYPAL_ENV?: string
   PAYPAL_CLIENT_ID_PRODUCTION?: string
   PAYPAL_CLIENT_ID_SANDBOX?: string
-  GOOGLE_ANALYTICS_TRACKING_ID?: string
+  MATOMO_BASE_URL?: string
+  MATOMO_ENDPOINT_PATH?: string
+  MATOMO_SITE_ID?: string
   CATEGORY_ID_DEFAULT?: string
   DOMAIN?: string
   API_DOMAIN?: string
@@ -30,7 +33,7 @@ export interface Config {
   cookieConfig?: any
   paypalConfig?: any
   metaDefaultImageUrl1200x630?: string
-  googleAnalyticsConfig?: any
+  matomoConfig?: any
   REQUEST_PODCAST_URL?: string
   REQUEST_PODCAST_EMAIL?: string
   SOCIAL_FACEBOOK_IMAGE_URL?: string
@@ -60,6 +63,7 @@ export default () => {
     API_PROTOCOL: publicRuntimeConfig.API_PROTOCOL,
     API_PATH: publicRuntimeConfig.API_PATH,
     API_VERSION: publicRuntimeConfig.API_VERSION,
+    CHECK_FOR_MAINTENANCE_MODE: publicRuntimeConfig.CHECK_FOR_MAINTENANCE_MODE,
     QUERY_EPISODES_LIMIT: publicRuntimeConfig.QUERY_EPISODES_LIMIT,
     QUERY_MEDIA_REFS_LIMIT: publicRuntimeConfig.QUERY_MEDIA_REFS_LIMIT,
     QUERY_PLAYLISTS_LIMIT: publicRuntimeConfig.QUERY_PLAYLISTS_LIMIT,
@@ -72,7 +76,9 @@ export default () => {
     PAYPAL_ENV: publicRuntimeConfig.PAYPAL_ENV,
     PAYPAL_CLIENT_ID_PRODUCTION: publicRuntimeConfig.PAYPAL_CLIENT_ID_PRODUCTION,
     PAYPAL_CLIENT_ID_SANDBOX: publicRuntimeConfig.PAYPAL_CLIENT_ID_SANDBOX,
-    GOOGLE_ANALYTICS_TRACKING_ID: publicRuntimeConfig.GOOGLE_ANALYTICS_TRACKING_ID,
+    MATOMO_BASE_URL: publicRuntimeConfig.MATOMO_BASE_URL,
+    MATOMO_ENDPOINT_PATH: publicRuntimeConfig.MATOMO_ENDPOINT_PATH,
+    MATOMO_SITE_ID: publicRuntimeConfig.MATOMO_SITE_ID,
     CATEGORY_ID_DEFAULT: publicRuntimeConfig.CATEGORY_ID_DEFAULT,
     REQUEST_PODCAST_URL: publicRuntimeConfig.REQUEST_PODCAST_URL,
     REQUEST_PODCAST_EMAIL: publicRuntimeConfig.REQUEST_PODCAST_EMAIL,
@@ -127,10 +133,6 @@ export default () => {
   }
 
   config.metaDefaultImageUrl1200x630 = 'https://podverse.fm/images/podverse-logo-1200x630.png'
-
-  config.googleAnalyticsConfig = {
-    trackingId: config.GOOGLE_ANALYTICS_TRACKING_ID
-  }
 
   return config
 }

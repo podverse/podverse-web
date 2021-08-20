@@ -273,13 +273,12 @@ class Playlist extends Component<Props, State> {
         playlistId
       }
       const res = await addOrRemovePlaylistItem(requestData)
-      const data = res[0]
 
-      if (data) {
+      if (res && res.data) {
         userSetInfo({
           playlists: user.playlists.map(x => {
             if (x.id === playlistId) {
-              x.itemCount = data.playlistItemCount
+              x.itemCount = res.data.playlistItemCount
             }
             return x
           })

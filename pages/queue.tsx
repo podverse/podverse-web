@@ -188,7 +188,8 @@ class Queue extends Component<Props, State> {
                 key={`${queueModalPriorityItemKey}c${index}`}
                 showMove={!isEditing}
                 showRemove={isEditing}
-                t={t} />
+                t={t}
+                useEpisodeImageUrl={true} />
             </div>
             <hr className='pv-divider' />
           </React.Fragment>
@@ -225,7 +226,8 @@ class Queue extends Component<Props, State> {
                     hideDescription={true}
                     hideDivider={true}
                     itemType={itemType}
-                    t={t} />
+                    t={t}
+                    useEpisodeImageUrl={true} />
                 </div>
               </React.Fragment>
             }
