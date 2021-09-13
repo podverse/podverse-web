@@ -1,13 +1,61 @@
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { faFacebook, faGithub, faLinkedin, faReddit, faTwitter } from '@fortawesome/free-brands-svg-icons'
+import { library } from "@fortawesome/fontawesome-svg-core";
 import {
-  faArrowsAltV, faBars, faCaretDown, faCaretRight, faCheck, faCog, faCut, faDonate, faDownload, faEdit,
-  faEllipsisH, faFilter, faGlobeAmericas, faHeadphones, faHistory, faInfinity,
-  faLevelDownAlt, faLevelUpAlt, faLink, faListUl, faLock, faMobileAlt, faMoon, faPause, faPlay,
-  faPlayCircle, faPlus, faPlusCircle, faPodcast, faRedoAlt, faRss, faSearch, faShare, faShoppingCart,
-  faSmile, faSpinner, faStepBackward, faStepForward, faSun, faTimes, faTools, faTrash, faUndoAlt,
-  faUserCircle, faUserSecret, faVolumeOff, faVolumeUp
-} from '@fortawesome/free-solid-svg-icons'
+  faFacebook,
+  faGithub,
+  faLinkedin,
+  faReddit,
+  faTwitter,
+} from "@fortawesome/free-brands-svg-icons";
+import {
+  faArrowsAltV,
+  faBars,
+  faCaretDown,
+  faCaretRight,
+  faCheck,
+  faCog,
+  faCut,
+  faDonate,
+  faDownload,
+  faEdit,
+  faEllipsisH,
+  faFilter,
+  faGlobeAmericas,
+  faHeadphones,
+  faHistory,
+  faInfinity,
+  faLevelDownAlt,
+  faLevelUpAlt,
+  faLink,
+  faListUl,
+  faLock,
+  faMobileAlt,
+  faMoon,
+  faPause,
+  faPlay,
+  faPlayCircle,
+  faPlus,
+  faPlusCircle,
+  faPodcast,
+  faRedoAlt,
+  faRss,
+  faSearch,
+  faShare,
+  faShoppingCart,
+  faSmile,
+  faSpinner,
+  faStepBackward,
+  faStepForward,
+  faSun,
+  faTimes,
+  faTools,
+  faTrash,
+  faUndoAlt,
+  faUserCircle,
+  faUserSecret,
+  faVolumeOff,
+  faVolumeUp,
+  faRedo,
+} from "@fortawesome/free-solid-svg-icons";
 
 // Adds FontAwesome icons to the library so they can be used throughout the app
 export const addFontAwesomeIcons = () => {
@@ -47,6 +95,7 @@ export const addFontAwesomeIcons = () => {
     faReddit,
     faRedoAlt,
     faRss,
+    faRedo,
     faSearch,
     faShare,
     faShoppingCart,
@@ -64,5 +113,5 @@ export const addFontAwesomeIcons = () => {
     faUserSecret,
     faVolumeOff,
     faVolumeUp
-  )
-}
+  );
+};
