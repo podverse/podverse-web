@@ -32,7 +32,7 @@ export const getMediaRefsByQuery = async (query) => {
   if (query.sort) {
     filteredQuery.sort = query.sort
   } else {
-    filteredQuery.sort = PV.queryParams.top_past_week
+    filteredQuery.sort = PV.queryParams.most_recent
   }
 
   if (query.from === PV.queryParams.from_podcast) {
