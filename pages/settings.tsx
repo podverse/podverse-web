@@ -9,12 +9,13 @@ import Meta from '~/components/Meta/Meta'
 import CheckoutModal from '~/components/CheckoutModal/CheckoutModal'
 import DeleteAccountModal from '~/components/DeleteAccountModal/DeleteAccountModal'
 import PV from '~/lib/constants'
+import { opmlExport } from '~/lib/opmlExport';
 import { alertPremiumRequired, alertRateLimitError, alertSomethingWentWrong, convertToYYYYMMDDHHMMSS,
   isBeforeDate, validateEmail, safeAlert, setCookie } from '~/lib/utility'
 import { modalsSignUpShow, pageIsLoading, settingsCensorNSFWText,
   settingsHidePlaybackSpeedButton, settingsSetDefaultHomepageTab,
   userSetInfo } from '~/redux/actions'
-import { downloadLoggedInUserData, updateLoggedInUser } from '~/services'
+import { downloadLoggedInUserData, updateLoggedInUser, getPodcastsByQuery } from '~/services'
 import config from '~/config'
 import { i18n, withTranslation } from '~/../i18n'
 const { PUBLIC_BASE_URL } = config()
@@ -53,7 +54,6 @@ class Settings extends Component<Props, State> {
   static async getInitialProps({ req, store }) {
     const state = store.getState()
     const { pages } = state
-
     const currentPage = pages[PV.pageKeys.settings] || {}
     const lastScrollPosition = currentPage.lastScrollPosition
 
@@ -63,7 +63,6 @@ class Settings extends Component<Props, State> {
 
     return { lastScrollPosition, namespacesRequired, pageKey: PV.pageKeys.settings }
   }
-
   constructor(props) {
     super(props)
     const { user } = props
@@ -122,6 +121,24 @@ class Settings extends Component<Props, State> {
     }
 
     this.setState({ isDownloading: false })
+  }
+
+  downloadLoggedInOPMLData = async () => {
+    const { t, user } = this.props
+    const subscribedPodcastIds = user.subscribedPodcastIds;
+    try {
+      const queryDataResult = await getPodcastsByQuery(subscribedPodcastIds)
+      const subscribedPodcasts = queryDataResult.data[0]
+      const blob = opmlExport(subscribedPodcasts)
+      fileDownload(blob, 'podverse.opml')
+    } catch (error) {
+      if (error && error.response && error.response.status === 429) {
+        alertRateLimitError(error)
+      } else {
+        safeAlert(t('errorMessages:alerts.somethingWentWrong'))
+      }
+      console.log(error)
+    }
   }
 
   handleEmailChange = event => {
@@ -476,6 +493,13 @@ class Settings extends Component<Props, State> {
             <Fragment>
               <hr />
               <h4>{t('MyData')}</h4>
+              <p>{t('Export OPML Description')}</p>
+              <Button
+                className='settings__download'
+                onClick={this.downloadLoggedInOPMLData}>
+                <FontAwesomeIcon icon='download' />&nbsp;&nbsp;{t('Export OPML')}
+              </Button>
+              <hr />
               <p>
                 {t('DownloadDataBackup')}
               </p>

@@ -6,7 +6,9 @@ import config from '~/config'
 const { API_BASE_URL } = config()
 
 export const getPodcastsByQuery = async (query) => {
-  const filteredQuery: any = {}
+  const filteredQuery: any = {
+    maxResults: true
+  }
 
   if (query.sort) {
     filteredQuery.sort = query.sort
