@@ -15,7 +15,7 @@ import { alertPremiumRequired, alertRateLimitError, alertSomethingWentWrong, con
 import { modalsSignUpShow, pageIsLoading, settingsCensorNSFWText,
   settingsHidePlaybackSpeedButton, settingsSetDefaultHomepageTab,
   userSetInfo } from '~/redux/actions'
-import { downloadLoggedInUserData, updateLoggedInUser, getPodcastsByQuery } from '~/services'
+import { downloadLoggedInUserData, getPodcastsByQuery, updateLoggedInUser } from '~/services'
 import config from '~/config'
 import { i18n, withTranslation } from '~/../i18n'
 const { PUBLIC_BASE_URL } = config()
@@ -42,6 +42,7 @@ type State = {
   isDeleteAccountOpen?: boolean
   isDeleting?: boolean
   isDownloading?: boolean
+  isDownloadingOPML?: boolean
   isPublic?: boolean
   isSaving?: boolean
   language: string
@@ -124,10 +125,18 @@ class Settings extends Component<Props, State> {
   }
 
   downloadLoggedInOPMLData = async () => {
+    this.setState({ isDownloadingOPML: true })
     const { t, user } = this.props
-    const subscribedPodcastIds = user.subscribedPodcastIds;
+    const { subscribedPodcastIds } = user
+
+    const query = {
+      subscribedPodcastIds,
+      sort: 'alphabetical',
+      maxResults: true
+    }
+
     try {
-      const queryDataResult = await getPodcastsByQuery(subscribedPodcastIds)
+      const queryDataResult = await getPodcastsByQuery(query)
       const subscribedPodcasts = queryDataResult.data[0]
       const blob = opmlExport(subscribedPodcasts)
       fileDownload(blob, 'podverse.opml')
@@ -139,6 +148,7 @@ class Settings extends Component<Props, State> {
       }
       console.log(error)
     }
+    this.setState({ isDownloadingOPML: false })
   }
 
   handleEmailChange = event => {
@@ -263,7 +273,7 @@ class Settings extends Component<Props, State> {
       title: t('pages:settings._Title')
     }
     const { censorNSFWText, defaultHomepageTab, playbackSpeedButtonHide } = settings
-    const { email, emailError, isCheckoutOpen, isDeleteAccountOpen, isDownloading,
+    const { email, emailError, isCheckoutOpen, isDeleteAccountOpen, isDownloading, isDownloadingOPML,
       isPublic, isSaving, language, name, wasCopied } = this.state
     const isLoggedIn = user && !!user.id
 
@@ -496,6 +506,7 @@ class Settings extends Component<Props, State> {
               <p>{t('Export OPML Description')}</p>
               <Button
                 className='settings__download'
+                isLoading={isDownloadingOPML}
                 onClick={this.downloadLoggedInOPMLData}>
                 <FontAwesomeIcon icon='download' />&nbsp;&nbsp;{t('Export OPML')}
               </Button>
