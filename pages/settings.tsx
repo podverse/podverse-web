@@ -131,7 +131,7 @@ class Settings extends Component<Props, State> {
 
     const query = {
       subscribedPodcastIds,
-      sort: 'alphabetical',
+      sort: PV.queryParams.alphabetical,
       maxResults: true
     }
 
