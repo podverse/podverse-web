@@ -199,7 +199,7 @@ class Queue extends Component<Props, State> {
     
     const isClip = nowPlayingItem && nowPlayingItem.clipId
     const itemType = isClip ? 'now-playing-item-queue-clip' : 'now-playing-item-queue-episode'
-    const noItemsFoundMsg = priorityItemNodes.length? '': t('errorMessages:There are no items in your queue')
+    const noItemsFoundMsg = priorityItemNodes.length ? '' : t('errorMessages:There are no items in your queue')
 
     return (
       <Fragment>
