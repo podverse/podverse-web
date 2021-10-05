@@ -505,12 +505,11 @@ class Settings extends Component<Props, State> {
               <h4>{t('MyData')}</h4>
               <p>{t('Export OPML Description')}</p>
               <Button
-                className='settings__download'
+                className='settings__export-opml button-margin'
                 isLoading={isDownloadingOPML}
                 onClick={this.downloadLoggedInOPMLData}>
                 <FontAwesomeIcon icon='download' />&nbsp;&nbsp;{t('Export OPML')}
               </Button>
-              <hr />
               <p>
                 {t('DownloadDataBackup')}
               </p>
