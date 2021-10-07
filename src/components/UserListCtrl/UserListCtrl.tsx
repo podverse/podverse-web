@@ -99,7 +99,7 @@ class UserListCtrl extends Component<Props, State> {
     })
 
     const isNotLoggedIn = !user || !user.id
-    const noResultsFoundMsg = isNotLoggedIn ? t('LoginToViewYourProfiles') : t('errorMessages:No profiles found')
+    const noResultsFoundMsg = isNotLoggedIn ? t('LoginToViewYourProfiles') : t('No profiles found')
 
     return (
       <div className='media-list reduced-margin'>
