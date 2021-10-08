@@ -30,6 +30,7 @@ type Props = {
 
 type State = {
   isEditing?: boolean
+  isRemoving?: boolean
 }
 
 class Queue extends Component<Props, State> {
@@ -42,7 +43,7 @@ class Queue extends Component<Props, State> {
 
   static async getInitialProps({ req, store }) {
     const state = store.getState()
-    const { pages } = state
+    const { pages, isRemoving } = state
 
     const currentPage = pages[PV.pageKeys.queue] || {}
     const lastScrollPosition = currentPage.lastScrollPosition
@@ -51,7 +52,7 @@ class Queue extends Component<Props, State> {
 
     const namespacesRequired = PV.nexti18next.namespaces
 
-    return { lastScrollPosition, pageKey: PV.pageKeys.queue, namespacesRequired }
+    return { lastScrollPosition, pageKey: PV.pageKeys.queue, namespacesRequired, isRemoving }
   }
 
   onDragEnd = async data => {
@@ -114,6 +115,7 @@ class Queue extends Component<Props, State> {
   }
 
   removeQueueItem = async (clipId, episodeId) => {
+    this.setState({ isRemoving: true })
     const { playerQueueLoadPriorityItems, t, user, userSetInfo } = this.props
 
     if (user && user.id) {
@@ -131,6 +133,8 @@ class Queue extends Component<Props, State> {
       userSetInfo({ queueItems: priorityItems })
       playerQueueLoadPriorityItems(priorityItems)
     }
+
+    this.setState({ isRemoving: false })
   }
 
   render() {
@@ -139,7 +143,7 @@ class Queue extends Component<Props, State> {
 
     const { priorityItems } = playerQueue
 
-    const { isEditing } = this.state
+    const { isEditing, isRemoving } = this.state
 
     const meta = {
       currentUrl: PUBLIC_BASE_URL + PV.paths.web.queue,
@@ -181,6 +185,7 @@ class Queue extends Component<Props, State> {
               <MediaListItem
                 dataNowPlayingItem={x}
                 handleRemoveItem={() => this.removeQueueItem(x.clipId, x.episodeId)}
+                isRemoving={isRemoving}
                 hasLink
                 hideDescription={true}
                 hideDivider={true}
