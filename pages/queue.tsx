@@ -199,6 +199,7 @@ class Queue extends Component<Props, State> {
     
     const isClip = nowPlayingItem && nowPlayingItem.clipId
     const itemType = isClip ? 'now-playing-item-queue-clip' : 'now-playing-item-queue-episode'
+    const noItemsInQueueFoundMsg = priorityItemNodes.length ? '' : t('ThereAreNoItemsInYourQueue')
 
     return (
       <Fragment>
@@ -234,9 +235,11 @@ class Queue extends Component<Props, State> {
             <DragDropContext
               onDragEnd={this.onDragEnd}>
               {
-                priorityItemNodes.length > 0 &&
                 <React.Fragment>
                   <h6>{t('Next Up')}</h6>
+                  {noItemsInQueueFoundMsg && (
+                    <p>{noItemsInQueueFoundMsg}</p>
+                  )}
                   <Droppable droppableId='priority-items'>
                     {(provided, snapshot) => (
                       <div
