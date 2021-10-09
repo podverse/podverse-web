@@ -293,7 +293,7 @@ class MediaPlayerView extends Component<Props, State> {
   }
 
   render() {
-    const { isMobileDevice, mediaPlayer, playerQueue, settings } = this.props
+    const { mediaPlayer, playerQueue, settings } = this.props
     const { clipFinished, didWaitToLoad, nowPlayingItem, playedAfterClipFinished, playing } = mediaPlayer
     const { priorityItems } = playerQueue
     const { playbackSpeedButtonHide } = settings
@@ -361,4 +361,4 @@ const mapDispatchToProps = dispatch => ({
   userSetInfo: bindActionCreators(userSetInfo, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(MediaPlayerView)
+export default connect<{}, {}, Props>(mapStateToProps, mapDispatchToProps)(MediaPlayerView)

@@ -8,16 +8,16 @@ module.exports = {
     browser
       .waitForElementWithText('button', 'My Library')
 
-      .scrollToSelector(`.footer-bottom__link[href="/about"]`, `down`)
-      .click(`.footer-bottom__link[href="/about"]`)
+      .scrollToSelector(`.footer-middle__link[href="/about"]`, `down`)
+      .click(`.footer-middle__link[href="/about"]`)
       .waitForElementWithText('h3', 'About')
 
-      .scrollToSelector(`.footer-bottom__link[href="/terms"]`, `down`)
-      .click(`.footer-bottom__link[href="/terms"]`)
+      .scrollToSelector(`.footer-middle__link[href="/terms"]`, `down`)
+      .click(`.footer-middle__link[href="/terms"]`)
       .waitForElementWithText('h3', 'Terms of Service')
 
-      .scrollToSelector(`.footer-bottom__link[href="/membership"]`, `down`)
-      .click(`.footer-bottom__link[href="/membership"]`)
+      .scrollToSelector(`.footer-middle__link[href="/membership"]`, `down`)
+      .click(`.footer-middle__link[href="/membership"]`)
       .waitForElementWithText('h3', 'Premium')
 
       .click(`.dropdown:nth-child(3)`)

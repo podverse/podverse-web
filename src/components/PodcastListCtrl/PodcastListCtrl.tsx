@@ -14,11 +14,15 @@ const { CATEGORY_ID_DEFAULT, QUERY_PODCASTS_LIMIT } = config()
 
 type Props = {
   allCategories?: any
+  categoryId?: string
   page?: any
   pageIsLoading?: any
   pageKey: string
   pages?: any
   pagesSetQueryState?: any
+  queryFrom?: string
+  queryPage: number
+  querySort?: any
   settings?: any
   t?: any
   user?: any
@@ -31,7 +35,8 @@ type State = {
 class PodcastListCtrl extends Component<Props, State> {
 
   static defaultProps: Props = {
-    pageKey: 'default'
+    pageKey: 'default',
+    queryPage: 1
   }
 
   constructor(props) {
@@ -579,4 +584,4 @@ const mapDispatchToProps = dispatch => ({
   pagesSetQueryState: bindActionCreators(pagesSetQueryState, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(withTranslation(PV.nexti18next.namespaces)(PodcastListCtrl))
+export default connect<{}, {}, Props>(mapStateToProps, mapDispatchToProps)(withTranslation(PV.nexti18next.namespaces)(PodcastListCtrl))
