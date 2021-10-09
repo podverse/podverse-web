@@ -335,7 +335,7 @@ class MediaPlayerView extends Component<Props, State> {
             playerEpisodeLinkOnClick={this.linkClick}
             playing={playing}
             queuePriorityItems={priorityItems}
-            showAutoplay={!isMobileDevice}
+            showAutoplay={false} // Autoplay UX on web is buggy, hiding it for now
             showPlaybackSpeed={playbackSpeedButtonHide === 'false' || !playbackSpeedButtonHide}
             showSupport={showSupport} />
         </div>
