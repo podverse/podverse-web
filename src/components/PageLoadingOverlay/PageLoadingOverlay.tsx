@@ -27,4 +27,4 @@ const mapStateToProps = state => ({ ...state })
 
 const mapDispatchToProps = dispatch => ({})
 
-export default connect(mapStateToProps, mapDispatchToProps)(PageLoadingOverlay)
+export default connect<{}, {}, Props>(mapStateToProps, mapDispatchToProps)(PageLoadingOverlay)

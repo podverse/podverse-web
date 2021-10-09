@@ -54,48 +54,69 @@
     }
   }
 
-  .footer__bottom {
+  .footer__middle {
     display: flex;
     flex: 0 0 3em;
     justify-content: space-between;
     line-height: 3em;
-    margin-bottom: 1rem;
+    margin-bottom: 4px;
     
-    .footer-bottom__link {  
+    .footer-middle__link {  
       margin: 0 1.5em 0 -0.5em;
       padding: 0 0.5em;
     }
 
     @media (max-width: 399px) {
-      .footer-bottom__link {  
+      .footer-middle__link {  
         margin: 0 1.25em 0 -0.5em;
       }
     }
 
-    .footer-bottom__social-links {
+    .footer-middle__social-links {
       margin-right: -0.5em;
     }
 
-    .footer-bottom__social-link {
+    .footer-middle__social-link {
       font-size: large;
       margin: 0 0 0 1.25em;
       padding: 0 0.5em;
     }
 
     @media (max-width: 575px) {
-      .footer-bottom__social-links {
+      .footer-middle__social-links {
         margin-top: 0.25em;
       }
 
-      .footer-bottom__social-link {  
+      .footer-middle__social-link {  
         margin: 0 1.25em 0 -0.5em;
       }
     }
   }
 
   @media (max-width: 575px) {
-    .footer__bottom {
+    .footer__middle {
       display: block;
+    }
+  }
+
+  .footer__bottom {
+    align-items: center;
+    display: flex;
+    flex: 0 0 3em;
+    justify-content: space-between;
+    line-height: 3em;
+    margin-bottom: 1rem;
+
+    .footer-bottom__left {
+      // margin-left: -0.5rem;
+    }
+
+    .footer-bottom__right {
+      margin-right: -1px;
+
+      .footer-bottom-right__podcasting {
+        display: block
+      }
     }
   }
 }

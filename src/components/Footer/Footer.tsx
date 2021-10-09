@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import Link from 'next/link'
 import Switch from 'react-switch'
+import { PVImage } from 'podverse-ui'
 import config from '~/config'
 import PV from '~/lib/constants'
 import { getViewContentsElementScrollTop } from '~/lib/utility'
@@ -20,10 +21,10 @@ type Props = {
   pageIsLoading?: any
   pageKey?: string
   pagesSetQueryState?: any
-  settings: any
-  settingsSetUITheme: any
+  settings?: any
+  settingsSetUITheme?: any
   t?: any
-  user: any
+  user?: any
 }
 
 type State = {}
@@ -124,10 +125,10 @@ class Footer extends Component<Props, State> {
               </a>
             </Link>
           </div>
-          <div className='footer__bottom'>
-            <div className='footer-bottom__site-links'>
+          <div className='footer__middle'>
+            <div className='footer-middle__site-links'>
               <a 
-                className='footer-bottom__link'
+                className='footer-middle__link'
                 href={`mailto:${CONTACT_US_EMAIL}`}>
                 {t('Contact')}
               </a>
@@ -135,7 +136,7 @@ class Footer extends Component<Props, State> {
                 as={PV.paths.web.about}
                 href={PV.paths.web.about}>
                 <a
-                  className='footer-bottom__link'
+                  className='footer-middle__link'
                   onClick={this.linkClick}>
                   {t('About')}
                 </a>
@@ -144,7 +145,7 @@ class Footer extends Component<Props, State> {
                 as={PV.paths.web.terms}
                 href={PV.paths.web.terms}>
                 <a
-                  className='footer-bottom__link'
+                  className='footer-middle__link'
                   onClick={this.linkClick}>
                   {t('Terms')}
                 </a>
@@ -153,20 +154,20 @@ class Footer extends Component<Props, State> {
                 as={PV.paths.web.membership}
                 href={PV.paths.web.membership}>
                 <a
-                  className='footer-bottom__link'
+                  className='footer-middle__link'
                   onClick={this.linkClick}>
                   {t('Premium')}
                 </a>
               </Link>
             </div>
-            <div className='footer-bottom__social-links'>
+            <div className='footer-middle__social-links'>
               {
                 SOCIAL_GITHUB_PAGE_URL &&
                   <Link
                     as={SOCIAL_GITHUB_PAGE_URL}
                     href={SOCIAL_GITHUB_PAGE_URL}>
                     <a
-                      className='footer-bottom__social-link'
+                      className='footer-middle__social-link'
                       target='_blank'>
                       <FontAwesomeIcon icon={faGithub} />
                     </a>
@@ -178,7 +179,7 @@ class Footer extends Component<Props, State> {
                     as={SOCIAL_TWITTER_PAGE_URL}
                     href={SOCIAL_TWITTER_PAGE_URL}>
                     <a
-                      className='footer-bottom__social-link'
+                      className='footer-middle__social-link'
                       target='_blank'>
                       <FontAwesomeIcon icon={faTwitter} />
                     </a>
@@ -190,7 +191,7 @@ class Footer extends Component<Props, State> {
                     as={SOCIAL_FACEBOOK_PAGE_URL}
                     href={SOCIAL_FACEBOOK_PAGE_URL}>
                     <a
-                      className='footer-bottom__social-link'
+                      className='footer-middle__social-link'
                       target='_blank'>
                       <FontAwesomeIcon icon={faFacebookF} />
                     </a>
@@ -202,12 +203,31 @@ class Footer extends Component<Props, State> {
                     as={SOCIAL_REDDIT_PAGE_URL}
                     href={SOCIAL_REDDIT_PAGE_URL}>
                     <a
-                      className='footer-bottom__social-link'
+                      className='footer-middle__social-link'
                       target='_blank'>
                       <FontAwesomeIcon icon={faRedditAlien} />
                     </a>
                   </Link>
               }
+            </div>
+          </div>
+          <div className='footer__bottom'>
+            <div className='footer-bottom__left'>
+            </div>
+            <div className='footer-bottom__right'>
+              <Link
+                as='https://podcastindex.org'
+                href='https://podcastindex.org'>
+                <a
+                  className='footer-bottom-right__podcasting'
+                  href='https://podcastindex.org'
+                  target='_blank'
+                  rel='noreferrer'>
+                  <PVImage
+                    imageUrl='/images/podcastindex-namespace-final.svg'
+                    width='170px' />
+                </a>
+              </Link>
             </div>
           </div>
         </div>
@@ -224,4 +244,4 @@ const mapDispatchToProps = dispatch => ({
   settingsSetUITheme: bindActionCreators(settingsSetUITheme, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(withTranslation(PV.nexti18next.namespaces)(Footer))
+export default connect<{}, {}, Props>(mapStateToProps, mapDispatchToProps)(withTranslation(PV.nexti18next.namespaces)(Footer))
