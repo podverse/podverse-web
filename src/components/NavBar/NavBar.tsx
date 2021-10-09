@@ -12,7 +12,7 @@ import { logOut } from '~/services/auth'
 import { withTranslation } from 'i18n'
 import { getQueueItems } from '~/services/userQueueItem'
 
-type Props = {
+interface Props {
   modals?: any
   modalsHistoryShow?: any
   modalsLoginIsLoading?: any
@@ -220,7 +220,7 @@ class PVNavBar extends Component<Props, State> {
     const navItems = this.navItems()
 
     return (
-      <React.Fragment>
+
         <Navbar
           brandAs='/'
           brandHref='/'
@@ -230,7 +230,7 @@ class PVNavBar extends Component<Props, State> {
           handleLinkClick={this.linkClick}
           isDarkMode={uiTheme === PV.attributes.dark}
           navItems={navItems} />
-      </React.Fragment>
+
     )
   }
 }
@@ -247,4 +247,4 @@ const mapDispatchToProps = dispatch => ({
   userSetInfo: bindActionCreators(userSetInfo, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(withTranslation(PV.nexti18next.namespaces)(PVNavBar))
+export default connect<{}, {}, Props>(mapStateToProps, mapDispatchToProps)(withTranslation(PV.nexti18next.namespaces)(PVNavBar))

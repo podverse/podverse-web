@@ -20,6 +20,7 @@ const { CATEGORY_ID_DEFAULT, QUERY_MEDIA_REFS_LIMIT } = config()
 type Props = {
   allCategories?: any
   allowUntitledClips?: boolean
+  categoryId?: string
   currentId?: string
   episode?: any
   episodeId?: string
@@ -446,7 +447,7 @@ class MediaListCtrl extends Component<Props, State> {
   }
 
   createListItemNodes = (listItems) => {
-    const { mediaPlayer } = this.props
+    const { mediaPlayer, t } = this.props
     const { nowPlayingItem: mpNowPlayingItem } = mediaPlayer
     const { pageKey, pages } = this.props
     const { queryFrom, queryType } = pages[pageKey]
@@ -487,7 +488,8 @@ class MediaListCtrl extends Component<Props, State> {
           mediaListItemType={mediaListItemType}
           nowPlayingItem={x}
           pageKey={pageKey}
-          showMoreMenu={true} />
+          showMoreMenu={true}
+          t={t} />
       )
     })
   }
@@ -762,4 +764,4 @@ const mapDispatchToProps = dispatch => ({
   userSetInfo: bindActionCreators(userSetInfo, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(withTranslation(PV.nexti18next.namespaces)(MediaListCtrl))
+export default connect<{}, {}, Props>(mapStateToProps, mapDispatchToProps)(withTranslation(PV.nexti18next.namespaces)(MediaListCtrl))
