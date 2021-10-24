@@ -1,0 +1,82 @@
+{
+  "about": {
+    "_Description": "Information about the Podverse open source podcast app.",
+    "_Title": "About"
+  },
+  "coupon": {
+    "_Description": "Redeem your special offer",
+    "_Title": "Coupon"
+  },
+  "clips": {
+    "_Description": "Podcast app for iOS, Android, and web. Create and share podcast highlights and playlists. Sync your queue across all devices. Open source software.",
+    "_Title": "Clips"
+  },
+  "episodes": {
+    "_Description": "Podcast app for iOS, Android, and web. Create and share podcast highlights and playlists. Sync your queue across all devices. Open source software.",
+    "_Title": "Episodes"
+  },
+  "faq": {
+    "_Description": "Frequently asked questions",
+    "_Title": "FAQ"
+  },
+  "history": {
+    "_Description": "My history items on Podverse",
+    "_Title": "History"
+  },
+  "index": {
+    "_Description": "Podcast app for iOS, Android, and web. Create and share podcast highlights and playlists. Sync your queue across all devices. Open source software.",
+    "_Title": "Podverse"
+  },
+  "membership": {
+    "_Description": "Free and premium membership options.",
+    "_Title": "Membership"
+  },
+  "my_profile": {
+    "_Description": "My Podverse Profile. Subscribe to podcasts, playlists, and other profiles",
+    "_Title": "My Profile"
+  },
+  "queue": {
+    "_Description": "My queue on Podverse",
+    "_Title": "Queue"
+  },
+  "payment_bitpay_confirming": {
+    "_Description": "BitPay payment confirmation screen on Podverse",
+    "_Title": "Confirming BitPay payment..."
+  },
+  "payment_paypal_confirming": {
+    "_Description": "PayPal payment confirmation screen on Podverse",
+    "_Title": "Confirming PayPal payment..."
+  },
+  "playlists": {
+    "_Description": "Create and share playlists of podcast clips and episodes.",
+    "_Title": "Playlists"
+  },
+  "podcasts": {
+    "_Description": "Find and subscribe to podcasts.",
+    "_Title": "Podcasts"
+  },
+  "profiles": {
+    "_Description": "My subscribed profiles on Podverse",
+    "_Title": "Profiles"
+  },
+  "reset_password": {
+    "_Description": "Reset your account password on Podverse",
+    "_Title": "Reset Password"
+  },
+  "search": {
+    "_Description": "Search for podcasts by title or host on Podverse.",
+    "_Title": "Search"
+  },
+  "settings": {
+    "_Description": "Customize your account settings on Podverse.",
+    "_Title": "Settings"
+  },
+  "terms": {
+    "_Description": "Podverse terms of service agreement.",
+    "_Title": "Terms of Service"
+  },
+  "verify_email": {
+    "_Description": "Verify your email address on Podverse",
+    "_Title": "Verify your email address"
+  }
+}
