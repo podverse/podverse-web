@@ -1,0 +1,82 @@
+{
+  "about": {
+    "_Description": "Informacija apie atviro kodo tinklalaidės programėlę Podverse",
+    "_Title": "Apie"
+  },
+  "coupon": {
+    "_Description": "Pasinaudokite specialiu pasiūlymu",
+    "_Title": "Kuponas"
+  },
+  "clips": {
+    "_Description": "iOS, Android ir web tinklalaidės programėlė. Kurkite ir bendrinkite svarbiausias tinklalaides ir grojaraščius. Sinchronizuokite savo eilę visuose įrenginiuose. Atvirojo kodo programinė įranga.",
+    "_Title": "Klipai"
+  },
+  "episodes": {
+    "_Description": "iOS, Android ir web tinklalaidės programėlė. Kurkite ir bendrinkite svarbiausias tinklalaides ir grojaraščius. Sinchronizuokite savo eilę visuose įrenginiuose. Atvirojo kodo programinė įranga.",
+    "_Title": "Epizodai"
+  },
+  "faq": {
+    "_Description": "Dažniausiai užduodami klausimai",
+    "_Title": "DUK"
+  },
+  "history": {
+    "_Description": "Mano istorijos elementai Podverse",
+    "_Title": "Istorija"
+  },
+  "index": {
+    "_Description": "iOS, Android ir web tinklalaidės programėlė. Kurkite ir bendrinkite svarbiausias tinklalaides ir grojaraščius. Sinchronizuokite savo eilę visuose įrenginiuose. Atvirojo kodo programinė įranga.",
+    "_Title": "Podverse"
+  },
+  "membership": {
+    "_Description": "Free and premium membership options.",
+    "_Title": "Narystė"
+  },
+  "my_profile": {
+    "_Description": "Mano Podverse profilis. Prenumeruokite tinklalaides, grojaraščius ir kitus profilius",
+    "_Title": "Mano Profilis"
+  },
+  "queue": {
+    "_Description": "Mano eilė Podverse",
+    "_Title": "Eilė"
+  },
+  "payment_bitpay_confirming": {
+    "_Description": "BitPay mokėjimo patvirtinimo langas Podverse",
+    "_Title": "BitPay mokėjimo patvirtinimas..."
+  },
+  "payment_paypal_confirming": {
+    "_Description": "PayPal mokėjimo patvirtinimo langas Podverse",
+    "_Title": "PayPal mokėjimo patvirtinimas..."
+  },
+  "playlists": {
+    "_Description": "Kurkite ir bendrinkite tinklalaidžių įrašų ir epizodų grojaraščius",
+    "_Title": "Grojaraščiai"
+  },
+  "podcasts": {
+    "_Description": "Raskite ir prenumeruokite tinklalaides.",
+    "_Title": "Tinklalaides"
+  },
+  "profiles": {
+    "_Description": "Mano prenumeruojami profiliai Podverse",
+    "_Title": "Profiliai"
+  },
+  "reset_password": {
+    "_Description": "Paskyros Podverse slaptažodžio atkūrimas",
+    "_Title": "Iš naujo nustatyti slaptažodį"
+  },
+  "search": {
+    "_Description": "Podkastų paieška pagal pavadinimą arba vedėją Podverse.",
+    "_Title": "Ieškoti"
+  },
+  "settings": {
+    "_Description": "Pritaikykite savo paskyros Podverse nustatymus.",
+    "_Title": "Nustatymai"
+  },
+  "terms": {
+    "_Description": "Podverse paslaugų teikimo sutarties sąlygos.",
+    "_Title": "Paslaugų teikimo sąlygos"
+  },
+  "verify_email": {
+    "_Description": "Patikrinkite savo el. pašto adresą Podverse",
+    "_Title": "Patikrinkite savo el. pašto adresą"
+  }
+}

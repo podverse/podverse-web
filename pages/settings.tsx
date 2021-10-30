@@ -495,6 +495,7 @@ class Settings extends Component<Props, State> {
               type='select'
               value={language}>
               <option value='en'>{t('language - en')}</option>
+              <option value='lt'>{t('language - lt')}</option>
               <option value='es'>{t('language - es')}</option>
             </Input>
           </FormGroup>
