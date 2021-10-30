@@ -115,7 +115,7 @@
     "reactstrap": "8.1.1",
     "redux": "4.0.4",
     "redux-thunk": "2.3.0",
-    "ssh2": "0.8.9",
+    "ssh2": "1.4.0",
     "stylelint": "12.0.0",
     "stylelint-config-recommended": "3.0.0",
     "stylelint-scss": "3.13.0",
