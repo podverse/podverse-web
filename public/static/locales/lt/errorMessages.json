@@ -1,34 +1,34 @@
 {
   "alerts": {
-    "couldNotUpdateQueue": "Could not update queue on server. Please check your internet connection.",
-    "couldNotRemoveFromPlaylist": "Could not remove from playlist. Please check your internet connection and try again later.",
-    "deleteClipFailed": "Delete clip failed. Please check your internet connection and try again later.",
-    "deletePlaylistFailed": "Delete playlist failed. Please check your internet connection and try again later.",
-    "premiumRequired": "Your Premium membership has expired. Renew your membership on the Settings page, or log out to create a clip anonymously.",
-    "somethingWentWrong": "Something went wrong. Please check your internet connection.",
-    "updatePlaylistFailed": "Update playlist failed. Please check your internet connection and try again later."
+    "couldNotUpdateQueue": "Nepavyko atnaujinti eilės serveryje. Patikrinkite interneto ryšį.",
+    "couldNotRemoveFromPlaylist": "Nepavyko pašalinti iš grojaraščio. Patikrinkite interneto ryšį ir pabandykite vėliau.",
+    "deleteClipFailed": "Nepavyko ištrinti klipo. Patikrinkite interneto ryšį ir pabandykite vėliau.",
+    "deletePlaylistFailed": "Nepavyko ištrinti grojaraščio. Patikrinkite interneto ryšį ir pabandykite vėliau.",
+    "premiumRequired": "Jūsų Premium narystė baigėsi. Atnaujinkite narystę nustatymų puslapyje arba atsijunkite, jei norite anonimiškai sukurti klipą.",
+    "somethingWentWrong": "Kažkas nutiko ne taip. Patikrinkite savo interneto ryšį.",
+    "updatePlaylistFailed": "Nepavyko atnaujinti grojaraščio. Patikrinkite interneto ryšį ir pabandykite vėliau."
   },
   "header": {
-    "Error_404": "404 Error",
-    "LoginNeeded": "Login Needed",
-    "ServersUnderMaintenance": "Servers under maintenance",
-    "ServersUnderScheduledMaintenance": "Servers under scheduled maintenance",
-    "SomethingWentWrong": "Something went wrong"
+    "Error_404": "404 Klaida",
+    "LoginNeeded": "Reikia prisijungti",
+    "ServersUnderMaintenance": "Atliekama serverių priežiūra",
+    "ServersUnderScheduledMaintenance": "Atliekama planinė serverių priežiūra",
+    "SomethingWentWrong": "Kažkas nepavyko"
   },
   "login": {
-    "ViewYourSubscriptions": "Login to view your subscriptions"
+    "ViewYourSubscriptions": "Prisijunkite ir peržiūrėkite savo prenumeratas"
   },
   "message": {
-    "AnUnknownErrorHasOccurred": "An unknown error has occurred.",
-    "ExpectedDowntimeRemaining": "Expected downtime remaining:",
-    "CheckConnectionOrDifferentPage": "Please check your internet connection, or try a different page.",
-    "PageNotFound": "Page not found",
-    "passwordError": "Password must contain a number, uppercase, lowercase, and be at least 8 characters long.",
-    "passwordMatchError": "Passwords do not match.",
-    "PleaseProvideValidEmail": "Please provide a valid email address",
-    "SiteOfflineUntilWorkIsComplete": "The site will be offline until the work is complete.",
-    "YouMustLoginToUseThisFeature": "You must login to use this feature."
+    "AnUnknownErrorHasOccurred": "Įvyko nežinoma klaida.",
+    "ExpectedDowntimeRemaining": "Tikėtinas likęs prastovos laikas:",
+    "CheckConnectionOrDifferentPage": "Patikrinkite interneto ryšį arba pabandykite kitą puslapį.",
+    "PageNotFound": "Puslapis nerastas",
+    "passwordError": "Slaptažodį turi sudaryti skaičius, didžiosios ir mažosios raidės, jis turi būti ne trumpesnis kaip 8 ženklai.",
+    "passwordMatchError": "Slaptažodžiai nesutampa.",
+    "PleaseProvideValidEmail": "Nurodykite galiojantį el. pašto adresą",
+    "SiteOfflineUntilWorkIsComplete": "Kol darbai bus baigti, svetainė bus išjungta.",
+    "YouMustLoginToUseThisFeature": "Norėdami naudotis šia funkcija, turite prisijungti."
   },
-  "internetConnectivityErrorMessage": "Error: Please check your internet connection and try again later."
+  "internetConnectivityErrorMessage": "Klaida: Patikrinkite interneto ryšį ir pabandykite vėliau."
 }
 
