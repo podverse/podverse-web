@@ -62,7 +62,7 @@
     "@zeit/next-css": "1.0.1",
     "@zeit/next-sass": "1.0.1",
     "awesome-debounce-promise": "2.1.0",
-    "axios": "0.21.1",
+    "axios": "0.21.2",
     "babel-eslint": "10.x",
     "babel-loader": "8.0.6",
     "babel-plugin-root-import": "6.4.1",
