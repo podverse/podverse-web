@@ -88,8 +88,7 @@ class Clip extends Component<Props, State> {
           page: queryPage,
           ...(podcastId ? { podcastId } : {}),
           sort: querySort,
-          type: queryType,
-          allowUntitled: true
+          type: queryType
         })
       }
 
@@ -129,7 +128,7 @@ class Clip extends Component<Props, State> {
       const { episode } = mediaRef
       const podcastTitle =
         (episode && episode.podcast && episode.podcast.title)
-        || t('untitledClip')
+        || t('untitledPodcast')
       meta = {
         currentUrl: PUBLIC_BASE_URL + PV.paths.web.clip + '/' + mediaRef.id,
         description: `${mediaRef.episode.title} - ${podcastTitle}`,
@@ -139,7 +138,7 @@ class Clip extends Component<Props, State> {
           || (episode && episode.imageUrl)
           || (episode.podcast && episode.podcast.shrunkImageUrl)
           || (episode.podcast && episode.podcast.imageUrl),
-        title: `${mediaRef.title ? mediaRef.title : t('untitledPodcast')}`
+        title: mediaRef.title || (episode && episode.title) || t('untitledClip') || ''
       }
     }
 
@@ -170,7 +169,6 @@ class Clip extends Component<Props, State> {
           pageKey={pageKey}
           podcast={mediaRef && mediaRef.episode && mediaRef.episode.podcast} />
         <MediaListCtrl
-          allowUntitledClips={true}
           episode={mediaRef.episode}
           episodeId={mediaRef.episode.id}
           handleSetPageQueryState={pagesSetQueryState}
