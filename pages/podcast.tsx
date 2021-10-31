@@ -87,8 +87,7 @@ class Podcast extends Component<Props, State> {
           page: queryPage,
           ...(podcastId ? { podcastId } : {}),
           sort: querySort,
-          type: queryType,
-          allowUntitled: true
+          type: queryType
         })
       }
 
@@ -162,7 +161,6 @@ class Podcast extends Component<Props, State> {
           pageKey={pageKey}
           podcast={podcast} />
         <MediaListCtrl
-          allowUntitledClips={true}
           handleSetPageQueryState={pagesSetQueryState}
           includeOldest={queryType === PV.queryParams.episodes}
           pageKey={pageKey}
