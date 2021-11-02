@@ -9,7 +9,7 @@ import MediaListCtrl from '~/components/MediaListCtrl/MediaListCtrl'
 import Meta from '~/components/Meta/Meta'
 import config from '~/config'
 import PV from '~/lib/constants'
-import { checkIfLoadingOnFrontEnd, cookieGetQuery } from '~/lib/utility'
+import { checkIfLoadingOnFrontEnd, cookieGetQuery, prefixClipLabel } from '~/lib/utility'
 import { pageIsLoading, pagesSetQueryState } from '~/redux/actions'
 import { getMediaRefsByQuery, getMediaRefById, retrieveLatestChaptersForEpisodeId
   } from '~/services/'
@@ -128,7 +128,7 @@ class Clip extends Component<Props, State> {
       const { episode } = mediaRef
       const podcastTitle =
         (episode && episode.podcast && episode.podcast.title)
-        || t('untitledPodcast')
+        || prefixClipLabel(t, episode && episode.title)
       meta = {
         currentUrl: PUBLIC_BASE_URL + PV.paths.web.clip + '/' + mediaRef.id,
         description: `${mediaRef.episode.title} - ${podcastTitle}`,
@@ -138,7 +138,7 @@ class Clip extends Component<Props, State> {
           || (episode && episode.imageUrl)
           || (episode.podcast && episode.podcast.shrunkImageUrl)
           || (episode.podcast && episode.podcast.imageUrl),
-        title: mediaRef.title || (episode && episode.title) || t('untitledClip') || ''
+        title: mediaRef.title || (prefixClipLabel(t, episode && episode.title))
       }
     }
 
