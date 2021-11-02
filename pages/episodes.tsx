@@ -3,7 +3,7 @@ import Head from 'next/head'
 import { NavBar } from '~/components'
 import styles from '~/../styles/Home.module.scss'
 
-export default function Home() {
+export default function Episodes() {
   return (
     <div className={styles.container}>
       <Head>
@@ -12,6 +12,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <NavBar />
+      <p>episodes!!!</p>
     </div>
   )
 }

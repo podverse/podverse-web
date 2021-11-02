@@ -11,11 +11,18 @@ export const NavBar = ({}: Props) => {
     <nav className={styles.wrapper}>
       <NavBarBrand
         height={77}
+        href={PV.RouteNames.home}
         src={PV.Images.dark.brandLogo}
         width={300} />
-      <NavBarLink text='Podcasts' />
-      <NavBarLink text='Episodes' />
-      <NavBarLink text='Clips' />
+      <NavBarLink
+        href={PV.RouteNames.podcasts}
+        text='Podcasts' />
+      <NavBarLink
+        href={PV.RouteNames.episodes}
+        text='Episodes' />
+      <NavBarLink
+        href={PV.RouteNames.clips}
+        text='Clips' />
     </nav>
   )
 }
