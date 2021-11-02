@@ -445,3 +445,13 @@ export const getPlaybackRateNextValue = num => {
       return 1
   }
 }
+
+export const prefixClipLabel = (t: any, episodeTitle?: string) => {
+  let title = ''
+  if (episodeTitle) {
+    title = `(${t('Clip')}) ${episodeTitle}`.trim()
+  } else {
+    title = t('untitledClip')
+  }
+  return title
+}
