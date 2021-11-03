@@ -1,10 +1,17 @@
+@import "~/styles/mixins/mixins.scss";
+
 html,
 body {
-  background-color: $yellow;
   padding: 0;
   margin: 0;
+  height: 100vh;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+
+  @include themeGen() {
+    background-color: getThemeVal('backgroundPrimary');
+    color: getThemeVal('textPrimary');
+  }
 }
 
 a {

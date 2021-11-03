@@ -1,0 +1,33 @@
+@import "~/styles/themes/themes.scss";
+
+/**
+* Code created by Joshua Tzucker
+* https://joshuatz.com/posts/2019/coding-a-css-theme-switcher-a-multitude-of-web-dev-options/#method-b
+* 
+* Mixin to use to generate blocks for each theme
+* Automatically takes @content
+*/
+$scopedTheme: null;
+@mixin themeGen($allThemesMap: $themes) {
+    @each $themeName, $themeMap in $allThemesMap {
+        .theme-#{$themeName} & {
+            // Creating a map that contains values specific to theme.
+            // Global is necessary since in mixin
+            $scopedTheme: () !global;
+            @each $variableName, $variableValue in $themeMap {
+                // Merge each key-value pair into the theme specific map
+                $scopedTheme: map-merge($scopedTheme, ($variableName: $variableValue)) !global;
+            }
+            // The original content passed
+            @content;
+            // Unset
+            $scopedTheme: null !global;
+        }
+    }
+}
+/**
+* Function to call within themeGen mixin, to get value from the current theme in the iterator
+*/
+@function getThemeVal($themeVar){
+    @return map-get($scopedTheme,$themeVar);
+}

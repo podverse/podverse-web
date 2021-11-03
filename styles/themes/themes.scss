@@ -1,0 +1,57 @@
+$themes: (
+  'dark': (
+    'backgroundPrimary': $ink,
+    'backgroundSecondary': $velvet,
+    'backgroundTertiary': $black,
+    'backgroundOpaque': $blueBrightOpaque,
+    'backgroundTransparent': $blueDarkBlueGreyTransparent,
+
+    'borderPrimary': $blueDarkText,
+    'borderActive': $blueBright,
+
+    'buttonPrimaryBackground': $blueDarkText,
+    'buttonPrimaryBackgroundRollover': $blueDarkTextLighter,
+    'buttonPrimaryText': $black,
+    'buttonSecondaryBackground': $blueDarkSlate,
+    'buttonSecondaryBackgroundRollover': $blueDarkSlateLighter,
+    'buttonSecondaryText': $white,
+    'buttonTertiaryBackground': $blueBrightOpaqueLighter,
+    'buttonTertiaryBackgroundRollover': $blueDarkText,
+    'buttonTertiaryText': $white,
+    'buttonTertiaryTextRollover': $black,
+
+    'divider': $whiteOpaque,
+
+    'headerGradientLight': $blueLightNavyLight,
+    'headerGradientDark': $blueDarkBlueGrey,
+
+    'highlighted': $whiteOpaque,
+    
+    'navBackground': $blueMenu,
+
+    'navItemActiveGradientLight': $blueDusky,
+    'navItemActiveGradientDark': $blueDarkSlate,
+
+    'paginationActiveBackground': $blueBrightOpaqueLighter,
+    'paginationActiveBorder': $blueDarkText,
+    'paginationActiveText': $white,
+    'paginationInactiveBackground': $blueBrightOpaqueLighter,
+    'paginationInactiveBorder': $grayLight,
+    'paginationInactiveText': $grayLight,
+
+    'sliderClipIndicator': $blueDarkText,
+    'sliderHighlightSection': $blueDarkTextTransparent,
+    'sliderListened': $white,
+    'sliderRemaining': $blueDarkSlate,
+
+    'tabBorderActive': $blueBright,
+
+    'textPrimary': $white,
+    'textSecondary': $grayLight,
+    'textTertiary': $perrywinkle,
+    'textQuaternary': $blueDarkText
+  ),
+  'light': (
+
+  )
+);
