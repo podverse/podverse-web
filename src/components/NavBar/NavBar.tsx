@@ -1,12 +1,14 @@
+import { useTranslation } from 'next-i18next'
 import { NavBarBrand } from './NavBarBrand'
 import { NavBarLink } from './NavBarLink'
 import { PV } from '~/resources'
-
 import styles from '~/../styles/components/NavBar/NavBar.module.scss'
 
 type Props = {}
 
 export const NavBar = ({}: Props) => {
+  const { t } = useTranslation()
+
   return (
     <nav className={styles.wrapper}>
       <NavBarBrand
@@ -16,13 +18,13 @@ export const NavBar = ({}: Props) => {
         width={300} />
       <NavBarLink
         href={PV.RouteNames.podcasts}
-        text='Podcasts' />
+        text={t('Podcasts')} />
       <NavBarLink
         href={PV.RouteNames.episodes}
-        text='Episodes' />
+        text={t('Episodes')} />
       <NavBarLink
         href={PV.RouteNames.clips}
-        text='Clips' />
+        text={t('Clips')} />
     </nav>
   )
 }

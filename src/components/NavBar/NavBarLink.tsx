@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { useTranslation } from 'next-i18next'
 import styles from '~/../styles/components/NavBar/NavBarLink.module.scss'
 
 type Props = {
