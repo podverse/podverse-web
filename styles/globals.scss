@@ -1,6 +1,7 @@
-@import "~/styles/mixins/mixins.scss";
+* {
+  box-sizing: border-box;
+}
 
-html,
 body {
   padding: 0;
   margin: 0;
@@ -12,13 +13,28 @@ body {
     background-color: getThemeVal('backgroundPrimary');
     color: getThemeVal('textPrimary');
   }
-}
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
+  .app-wrapper {
+    display: flex;
+    flex-direction: row;
+  }
 
-* {
-  box-sizing: border-box;
+  main {
+    flex: 1;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+  
+  hr {
+    border-bottom: 0;
+    border-width: 1px;
+    width: 100%;
+  
+    @include themeGen() {
+      border-color: getThemeVal('divider');
+    }
+  }
 }

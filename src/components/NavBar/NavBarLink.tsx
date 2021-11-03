@@ -1,6 +1,4 @@
 import Link from 'next/link'
-import { useTranslation } from 'next-i18next'
-import styles from '~/../styles/components/NavBar/NavBarLink.module.scss'
 
 type Props = {
   href: string
@@ -10,7 +8,7 @@ type Props = {
 export const NavBarLink = ({ href, text }: Props) => {
   return (
     <Link href={href}>
-      <a className={styles.link}>
+      <a className='navbar__link'>
         {text}
       </a>
     </Link>
