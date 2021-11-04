@@ -1,7 +1,25 @@
 .navbar {
   .navbar__link {
-    flex: 0;
-    font-size: 20px;
-    font-weight: bold;
+    font-size: $text-md;
+    margin: 0 7px 11px 7px;
+    padding: 11px 0 10px 12px;
+    border-radius: $item-border-radius;
+
+    &.active {
+      font-weight: 700;
+      @include themeGen() {
+        background-image: linear-gradient(
+          to right,
+          getThemeVal('navItemActiveGradientLight') -3%,
+          getThemeVal('navItemActiveGradientDark')
+        );
+      }
+    }
+
+    .navbar-link__icon-wrapper svg {
+      height: 16px;
+      margin: 0 7px 0 0;
+      width: 16px;
+    }
   }
 }

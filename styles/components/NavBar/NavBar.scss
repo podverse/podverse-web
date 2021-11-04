@@ -7,4 +7,12 @@
   @include themeGen() {
     background-color: getThemeVal('backgroundSecondary');
   }
+
+  hr.top {
+    margin: 5px 0 16px 0;
+  }
+
+  hr.bottom {
+    margin: 10px 0 15px 0;
+  }
 }

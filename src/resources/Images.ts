@@ -1,5 +1,5 @@
 export const Images = {
   dark: {
-    brandLogo: '/images/podverse-logo-white.svg'
+    brandLogo: '/images/podverse-brand-white.svg'
   }
 }

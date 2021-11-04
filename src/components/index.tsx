@@ -1,1 +1,5 @@
+export { Icon } from './Icon/Icon'
 export { NavBar } from './NavBar/NavBar'
+export { NavBarBrand } from './NavBar/NavBarBrand'
+export { NavBarLink } from './NavBar/NavBarLink'
+export { NavBarSectionHeader } from './NavBar/NavBarSectionHeader'

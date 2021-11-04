@@ -1,0 +1,11 @@
+.navbar {
+  .navbar__section-header {
+    font-size: $text-sm;
+    font-weight: 700;
+    margin: 0 0 15px 19px;
+
+    @include themeGen() {
+      color: getThemeVal('textTertiary');
+    }
+  }
+}
