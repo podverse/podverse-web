@@ -24,7 +24,7 @@ export const NavBar = ({}: Props) => {
         text={t('Search')} />
       <hr className='top' />
       <NavBarLink
-        active={router.pathname == PV.RouteNames.podcasts}
+        active={router.pathname == PV.RouteNames.podcasts || router.pathname == PV.RouteNames.home}
         href={PV.RouteNames.podcasts}
         text={t('Podcasts')} />
       <NavBarLink
