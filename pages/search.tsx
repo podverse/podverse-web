@@ -1,3 +1,4 @@
+import { GetServerSideProps } from 'next'
 import Head from 'next/head'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
@@ -17,10 +18,14 @@ export default function Search() {
   )
 }
 
-export async function getStaticProps({ locale }) {
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const { req, locale } = ctx
+  const { cookies } = req
+
   return {
     props: {
-      ...(await serverSideTranslations(locale, PV.i18n.fileNames.all))
+      ...(await serverSideTranslations(locale, PV.i18n.fileNames.all)),
+      serverSideCookies: cookies
     }
   }
 }

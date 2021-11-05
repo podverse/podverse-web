@@ -5,10 +5,11 @@ import classnames from 'classnames'
 type Props = {
   className?: string
   faIcon: IconProp
+  onClick: any
   size: 'small'
 }
 
-export const ButtonCircle = ({ className, faIcon, size }: Props) => {
+export const ButtonCircle = ({ className, faIcon, onClick, size }: Props) => {
   const wrapperClass = classnames(
     'button-circle',
     size,
@@ -16,7 +17,7 @@ export const ButtonCircle = ({ className, faIcon, size }: Props) => {
   )
 
   return (
-    <button className={wrapperClass}>
+    <button className={wrapperClass} onClick={onClick}>
       <FontAwesomeIcon icon={faIcon} />
     </button>
   )

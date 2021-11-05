@@ -1,4 +1,5 @@
 import Document, { Html, Head, Main, NextScript } from 'next/document'
+import classnames from 'classnames'
 
 class MyDocument extends Document {
   static async getInitialProps(ctx) {
@@ -7,8 +8,14 @@ class MyDocument extends Document {
   }
 
   render() {
+    const pageProps = this.props?.__NEXT_DATA__?.props?.pageProps;
+    const appWrapperClasses = classnames(
+      'app-wrapper',
+      pageProps.serverSideCookies.darkMode ? 'theme-dark' : 'theme-light'
+    )
+
     return (
-      <Html className='theme-dark'>
+      <Html className={appWrapperClasses}>
         <Head>
           <link
             rel="preload"

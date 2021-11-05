@@ -1,14 +1,13 @@
+import { useEffect, useState } from 'react'
 import { faChevronLeft, faChevronRight, faMoon, faSun, faUserCircle } from '@fortawesome/free-solid-svg-icons'
 import { faUserCircle as faUserCircleRegular } from '@fortawesome/free-regular-svg-icons'
 import { useTranslation } from 'react-i18next'
+import { useCookies } from 'react-cookie';
 import { ButtonCircle, Dropdown, SwitchWithIcons } from '~/components'
+import { PV } from '~/resources'
 
 type Props = {
-  t: any
-}
-
-type State = {
-  checked: boolean
+  serverSideCookies: any
 }
 
 const _myProfileKey = '_myProfile'
@@ -16,10 +15,6 @@ const _membershipKey = '_membership'
 const _settingsKey = '_settings'
 const _logInKey = '_logIn'
 const _logOutKey = '_logOut'
-
-const switchOnChange = () => {
-  console.log('toggle onChange')
-}
 
 const generateDropdownItems = () => {
   const { t } = useTranslation()
@@ -40,15 +35,48 @@ const generateDropdownItems = () => {
   return items
 }
 
-export const NavBarSecondary = ({}: Props) => {
+export const NavBarSecondary = ({ serverSideCookies }: Props) => {
+  const [darkModeChecked, setDarkModeChecked] = useState<boolean>(serverSideCookies.darkMode)
+  const [cookies, setCookie, removeCookie] = useCookies([])
   const { t } = useTranslation()
   const isLoggedIn = false
+
+  useEffect(() => {
+    if (!darkModeChecked) {
+      removeCookie(PV.Cookies.keys.darkMode, { path: PV.Cookies.path })
+    } else {
+      setCookie(PV.Cookies.keys.darkMode, darkModeChecked, { path: PV.Cookies.path })
+    }
+  }, [darkModeChecked])
+
+  const navigateBack = () => {
+    window.history.back()
+  }
+
+  const navigateForward = () => {
+    window.history.forward()
+  }
+
+  const darkModeOnChange = () => {
+    setDarkModeChecked(prev => {
+      document.documentElement.className = !prev ? 'theme-dark' : 'theme-light'
+      return !prev
+    })
+  }
 
   return (
     <nav className='navbar-secondary main-max-width'>
       <div className='navbar-secondary__page-navs'>
-        <ButtonCircle className='backwards' faIcon={faChevronLeft} size='small' />
-        <ButtonCircle className='forwards' faIcon={faChevronRight} size='small' />
+        <ButtonCircle
+          className='backwards'
+          faIcon={faChevronLeft}
+          onClick={navigateBack}
+          size='small' />
+        <ButtonCircle
+          className='forwards'
+          faIcon={faChevronRight}
+          onClick={navigateForward}
+          size='small' />
       </div>
       <div className='navbar-secondary__dropdown'>
         <Dropdown
@@ -57,10 +85,10 @@ export const NavBarSecondary = ({}: Props) => {
       <div className='navbar-secondary__theme-toggle'>
         <SwitchWithIcons
           ariaLabel={t('ARIA - Toggle UI theme change')}
+          checked={!!darkModeChecked}
           faIconBeginning={faSun}
           faIconEnding={faMoon}
-          onChange={switchOnChange}
-        />
+          onChange={darkModeOnChange} />
       </div>
     </nav>
   )
