@@ -2,8 +2,8 @@ import { Component } from 'react'
 import ReactSwitch from 'react-switch'
 
 type Props = {
+  ariaLabel: string
   checked?: boolean
-  label: string
   onChange: any
 }
 
@@ -21,16 +21,20 @@ export class Switch extends Component<Props, State> {
   }
 
   render() {
-    const { label, onChange } = this.props
+    const { ariaLabel, onChange } = this.props
     const { checked } = this.state
 
     return (
-      <label>
-        <span>{label}</span>
+      <div className='switch'>
         <ReactSwitch
+          aria-label={ariaLabel}
           checked={checked}
-          onChange={onChange} />
-      </label>
+          checkedIcon={false}
+          height={22}
+          onChange={onChange}
+          uncheckedIcon={false}
+          width={37} />
+      </div>
     );
   }
 }

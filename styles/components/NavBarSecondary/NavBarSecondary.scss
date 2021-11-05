@@ -1,29 +1,50 @@
 .navbar-secondary {
-
+  align-items: center;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  padding-top: 37px;
 
   .navbar-secondary__page-navs {
-    align-items: start;
+    align-items: flex-start;
     display: flex;
     flex-direction: row;
     flex: 0;
+    margin-left: 26px;
+
+    .button-circle.backwards {
+      margin-right: 8px;
+      padding-right: 2px
+    }
+
+    .button-circle.forwards {
+      margin-left: 8px;
+      padding-left: 2px
+    }
   }
 
   .navbar-secondary__dropdown {
     flex: 0;
+    margin-left: auto;
   }
 
   .navbar-secondary__theme-toggle {
     flex: 0;
-  }
+    margin-left: 57px;
 
-  .button-circle.backwards {
-    padding-right: 2px
-  }
-
-  .button-circle.forwards {
-    padding-left: 2px
+    .switch-with-icons-wrapper {
+      align-items: center;
+      display: flex;
+  
+      .beginning {
+        height: 20px !important;
+        width: 20px !important;
+      }
+  
+      .ending {
+        height: 16px !important;
+        width: 16px !important;
+      }
+    }
   }
 }

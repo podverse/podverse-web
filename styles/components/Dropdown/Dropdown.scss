@@ -1,14 +1,32 @@
-.dropdown {
+.dropdown-wrapper {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-
+  
   .dropdown__icon {
+    align-items: center;
+    display: flex;
+    height: $button-small-height;
+    line-height: $button-small-height;
 
+    svg {
+      height: 22px;
+      width: 22px;
+    }
   }
 
-  .dropodown__chevron {
+  .dropdown__chevron {
+    align-items: center;
+    display: flex;
+    height: $button-small-height;
+    line-height: $button-small-height;
     margin-left: 8px;
+    padding-top: 3px;
+
+    svg {
+      height: 12.25px;
+      width: 14px;
+    }
   }
 }

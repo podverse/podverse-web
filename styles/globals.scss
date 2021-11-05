@@ -23,10 +23,15 @@ body {
     display: flex;
     flex: 1;
     flex-direction: column;
+    padding: 0 24px 0 0;
   }
 
   main {
     flex: 1;
+  }
+
+  .main-max-width {
+    max-width: $main-max-width;
   }
 
   a {
