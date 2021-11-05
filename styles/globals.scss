@@ -19,6 +19,12 @@ body {
     flex-direction: row;
   }
 
+  .app-main-wrapper {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+  }
+
   main {
     flex: 1;
   }

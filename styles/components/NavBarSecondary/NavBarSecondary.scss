@@ -1,0 +1,29 @@
+.navbar-secondary {
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  .navbar-secondary__page-navs {
+    align-items: start;
+    display: flex;
+    flex-direction: row;
+    flex: 0;
+  }
+
+  .navbar-secondary__dropdown {
+    flex: 0;
+  }
+
+  .navbar-secondary__theme-toggle {
+    flex: 0;
+  }
+
+  .button-circle.backwards {
+    padding-right: 2px
+  }
+
+  .button-circle.forwards {
+    padding-left: 2px
+  }
+}

@@ -1,0 +1,22 @@
+.button-circle {
+  align-items: center;
+  border-width: 1px;
+  border-radius: $button-circle-radius;
+  border-style: solid;
+  display: flex;
+  justify-content: center;
+
+  @include themeGen() {
+    border-color: getThemeVal('buttonTertiaryBorder');
+  }
+
+  svg {
+    vertical-align: 0;
+  }
+
+  &.small {
+    height: 37px;
+    line-height: 37px;
+    width: 37px;
+  }
+}
