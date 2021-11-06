@@ -1,18 +1,25 @@
 .navbar {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  overflow: hidden;
   width: $nav-width;
 
   @include themeGen() {
     background-color: getThemeVal('backgroundSecondary');
   }
 
-  hr.top {
-    margin: 5px 0 16px 0;
+  .scrollable-content {
+    display: flex;
+    flex-direction: column;
+    overflow: scroll;
+
+    hr.top {
+      margin: 5px 0 16px 0;
+    }
+  
+    hr.bottom {
+      margin: 10px 0 15px 0;
+    }
   }
 
-  hr.bottom {
-    margin: 10px 0 15px 0;
-  }
 }

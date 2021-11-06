@@ -23,43 +23,45 @@ export const NavBar = ({}: Props) => {
         href={PV.RoutePaths.web.search}
         text={t('Search')} />
       <hr className='top' />
-      <NavBarLink
-        active={
-          router.pathname == PV.RoutePaths.web.podcasts
-          || router.pathname == PV.RoutePaths.web.home
-        }
-        href={PV.RoutePaths.web.podcasts}
-        text={t('Podcasts')} />
-      <NavBarLink
-        active={router.pathname == PV.RoutePaths.web.episodes}
-        href={PV.RoutePaths.web.episodes}
-        text={t('Episodes')} />
-      <NavBarLink
-        active={router.pathname == PV.RoutePaths.web.clips}
-        href={PV.RoutePaths.web.clips}
-        text={t('Clips')} />
-      <hr className='bottom' />
-      <NavBarSectionHeader text={t('My Library')} />
-      <NavBarLink
-        active={router.pathname == PV.RoutePaths.web.queue}
-        href={PV.RoutePaths.web.queue}
-        text={t('Queue')} />
-      <NavBarLink
-        active={router.pathname == PV.RoutePaths.web.history}
-        href={PV.RoutePaths.web.history}
-        text={t('History')} />
-      <NavBarLink
-        active={router.pathname == PV.RoutePaths.web.my_profile}
-        href={PV.RoutePaths.web.my_profile}
-        text={t('My Profile')} />
-      <NavBarLink
-        active={router.pathname == PV.RoutePaths.web.playlists}
-        href={PV.RoutePaths.web.playlists}
-        text={t('Playlists')} />
-      <NavBarLink
-        active={router.pathname == PV.RoutePaths.web.profiles}
-        href={PV.RoutePaths.web.profiles}
-        text={t('Profiles')} />
+      <div className='scrollable-content'>
+        <NavBarLink
+          active={
+            router.pathname == PV.RoutePaths.web.podcasts
+            || router.pathname == PV.RoutePaths.web.home
+          }
+          href={PV.RoutePaths.web.podcasts}
+          text={t('Podcasts')} />
+        <NavBarLink
+          active={router.pathname == PV.RoutePaths.web.episodes}
+          href={PV.RoutePaths.web.episodes}
+          text={t('Episodes')} />
+        <NavBarLink
+          active={router.pathname == PV.RoutePaths.web.clips}
+          href={PV.RoutePaths.web.clips}
+          text={t('Clips')} />
+        <hr className='bottom' />
+        <NavBarSectionHeader text={t('My Library')} />
+        <NavBarLink
+          active={router.pathname == PV.RoutePaths.web.queue}
+          href={PV.RoutePaths.web.queue}
+          text={t('Queue')} />
+        <NavBarLink
+          active={router.pathname == PV.RoutePaths.web.history}
+          href={PV.RoutePaths.web.history}
+          text={t('History')} />
+        <NavBarLink
+          active={router.pathname == PV.RoutePaths.web.my_profile}
+          href={PV.RoutePaths.web.my_profile}
+          text={t('My Profile')} />
+        <NavBarLink
+          active={router.pathname == PV.RoutePaths.web.playlists}
+          href={PV.RoutePaths.web.playlists}
+          text={t('Playlists')} />
+        <NavBarLink
+          active={router.pathname == PV.RoutePaths.web.profiles}
+          href={PV.RoutePaths.web.profiles}
+          text={t('Profiles')} />
+      </div>
     </nav>
   )
 }

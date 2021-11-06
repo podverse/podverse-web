@@ -1,5 +1,6 @@
 .page-header {
-  
+  padding: 1px 0 0 0;
+
   @include themeGen() {
     background-color: getThemeVal('backgroundTertiary');
   }
