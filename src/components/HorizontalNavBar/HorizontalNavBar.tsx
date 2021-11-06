@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next'
 import { useCookies } from 'react-cookie'
 import { ButtonCircle, Dropdown, SwitchWithIcons } from '~/components'
 import { PV } from '~/resources'
+import OmniAural from "omniaural"
 
 type Props = {
   serverSideCookies: any
@@ -35,7 +36,7 @@ const generateDropdownItems = (t: any) => {
   return items
 }
 
-export const NavBarSecondary = ({ serverSideCookies }: Props) => {
+export const HorizontalNavBar = ({ serverSideCookies }: Props) => {
   const [darkModeChecked, setDarkModeChecked] = useState<boolean>(serverSideCookies.darkMode)
   const [cookies, setCookie, removeCookie] = useCookies([])
   const router = useRouter()
@@ -56,6 +57,8 @@ export const NavBarSecondary = ({ serverSideCookies }: Props) => {
 
   const navigateForward = () => {
     window.history.forward()
+
+    OmniAural.togglePlayer(!OmniAural.state.player.show.value())
   }
 
   const darkModeOnChange = () => {
