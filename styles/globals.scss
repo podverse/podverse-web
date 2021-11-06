@@ -4,21 +4,27 @@
 
 body {
   padding: 0;
-  margin: 0;
   height: 100vh;
+  margin: 0;
   font-family: Roboto, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-
+  Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  
   @include themeGen() {
     background-color: getThemeVal('backgroundPrimary');
     color: getThemeVal('textPrimary');
   }
-
+  
+  .app {
+    display: flex;
+    flex-direction: column;
+  }
+  
   .app-wrapper {
     display: flex;
     flex-direction: row;
+    flex-shrink: 1;
   }
-
+  
   .app-main-wrapper {
     display: flex;
     flex: 1;
@@ -47,5 +53,9 @@ body {
     @include themeGen() {
       border-color: getThemeVal('divider');
     }
+  }
+
+  .display-none {
+    display: none;
   }
 }
