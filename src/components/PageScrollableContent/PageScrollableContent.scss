@@ -1,0 +1,8 @@
+.page-scrollable-content {
+  flex: 1;
+  overflow: scroll;
+
+  .inner-content {
+    margin: 35px 28px;
+  }
+}

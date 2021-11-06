@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useEffect, useState } from 'react'
-import { PageHeader } from '~/components'
+import { List, PageHeader, PageScrollableContent } from '~/components'
 import { PV } from '~/resources'
 import { getPodcastsByQuery } from '~/services/podcast'
 import { PodcastListItem } from '~/components/PodcastListItem/PodcastListItem'
@@ -45,10 +45,11 @@ export default function Podcasts(props: Props) {
         text={t('Podcasts')}
         typeOptions={typeOptions}
         typeSelected={PV.Filters.type._allPodcastsKey} />
-      <div className='page-scrollable-content'>
-        {podcastListElements}
-        {/* <p>{listDataCount}</p> */}
-      </div>
+      <PageScrollableContent>
+        <List>
+          {podcastListElements}
+        </List>
+      </PageScrollableContent>
     </>
   )
 }

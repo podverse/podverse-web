@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { convertObjectToQueryString } from '~/lib/utility'
+import { convertObjectToQueryString } from '~/lib/utility/query'
 import { PV } from '~/resources'
 import { request } from '~/services/request'
 

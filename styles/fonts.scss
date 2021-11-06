@@ -28,6 +28,15 @@
 @font-face {
   font-family: 'Roboto';
   font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: local('Roboto Medium'), local('Roboto-Medium'),
+       url('/fonts/Roboto/Roboto-Medium.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
   font-weight: 700;
   font-display: swap;
   src: local('Roboto Bold'), local('Roboto-Bold'),

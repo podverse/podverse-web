@@ -42,11 +42,7 @@ body {
 
   .main-max-width {
     max-width: $main-max-width;
-  }
-
-  .page-scrollable-content {
-    flex: 1;
-    overflow: scroll;
+    margin: 0 24px;
   }
 
   a {
