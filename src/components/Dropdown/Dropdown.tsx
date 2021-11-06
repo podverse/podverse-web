@@ -1,15 +1,18 @@
 import { IconProp } from '@fortawesome/fontawesome-svg-core'
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import Select from 'react-dropdown-select'
 
 type Props = {
   faIcon: IconProp
+  onChange: any
+  options: any[]
   text?: string
 }
 
-export const Dropdown = ({ faIcon, text }: Props) => {
+const contentRenderer = (faIcon: IconProp, text?: string) => {
   return (
-    <button className='dropdown-wrapper'>
+    <div className='dropdown-wrapper'>
       {
         !!faIcon && (
           <div className='dropdown__icon'>
@@ -24,9 +27,28 @@ export const Dropdown = ({ faIcon, text }: Props) => {
           </div>
         )
       }
-      <div className='dropdown__chevron'>
-        <FontAwesomeIcon icon={faChevronDown} />
-      </div>
-    </button>
+    </div>
+  )
+}
+
+const dropdownHandleRenderer = () => {
+  return (
+    <div className='dropdown__chevron'>
+      <FontAwesomeIcon icon={faChevronDown} />
+    </div>
+  )
+}
+
+export const Dropdown = ({ faIcon, onChange, options, text }: Props) => {
+  return (
+    <Select
+      contentRenderer={() => contentRenderer(faIcon, text)}
+      dropdownHandleRenderer={() => dropdownHandleRenderer()}
+      labelField='label'
+      onChange={onChange}
+      options={options}
+      valueField='key'
+      values={[]}
+    />
   )
 }
