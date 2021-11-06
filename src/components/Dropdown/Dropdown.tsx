@@ -5,6 +5,7 @@ import classnames from 'classnames'
 import Select from 'react-dropdown-select'
 
 type Props = {
+  dropdownWidthClass?: 'width-small' | 'width-medium' | 'width-large'
   faIcon?: IconProp
   onChange: any
   options: any[]
@@ -47,9 +48,10 @@ const dropdownHandleRenderer = () => {
 }
 
 export const Dropdown = (props: Props) => {
-  const { onChange, options, outlineStyle } = props
+  const { dropdownWidthClass = 'width-small', onChange, options, outlineStyle } = props
   const wrapperClass = classnames(
-    outlineStyle ? 'outline-style' : ''
+    outlineStyle ? 'outline-style' : '',
+    dropdownWidthClass ? dropdownWidthClass : ''
   )
 
   return (

@@ -27,6 +27,7 @@ export const PageHeader = ({ sortOnChange, sortOptions, sortSelected, text,
                 typeOptions?.length && (
                   <div className='dropdown-type-wrapper'>
                     <Dropdown
+                      dropdownWidthClass='width-small'
                       onChange={typeOnChange}
                       options={typeOptions}
                       outlineStyle
@@ -38,6 +39,7 @@ export const PageHeader = ({ sortOnChange, sortOptions, sortSelected, text,
                 sortOptions?.length && (
                   <div className='dropdown-sort-wrapper'>
                     <Dropdown
+                      dropdownWidthClass='width-medium'
                       onChange={sortOnChange}
                       options={sortOptions}
                       outlineStyle

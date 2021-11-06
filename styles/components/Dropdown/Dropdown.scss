@@ -68,7 +68,6 @@ body {
       margin: 0;
       padding: 6px 0;
       right: 0 !important;
-      width: unset;
     
       @include themeGen() {
         background-color: getThemeVal('dropdownMenu');
@@ -94,6 +93,24 @@ body {
           }
         }
       }
+    }
+  }
+
+  .width-small {
+    .react-dropdown-select-dropdown {
+      width: $dropdown-menu-width-small;
+    }
+  }
+
+  .width-medium {
+    .react-dropdown-select-dropdown {
+      width: $dropdown-menu-width-medium;
+    }
+  }
+
+  .width-large {
+    .react-dropdown-select-dropdown {
+      width: $dropdown-menu-width-large;
     }
   }
 }
