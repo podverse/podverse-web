@@ -71,9 +71,9 @@ export const NavBarSecondary = ({ serverSideCookies }: Props) => {
     const item = selected[0]
     if (item) {
       if (item.key === _membershipKey) {
-        router.push(PV.RouteNames.membership)
+        router.push(PV.RoutePaths.web.membership)
       } else if (item.key === _settingsKey) {
-        router.push(PV.RouteNames.settings)
+        router.push(PV.RoutePaths.web.settings)
       } else if (item.key === _logInKey) {
         console.log('Login')
       } else if (item.key === _logOutKey) {

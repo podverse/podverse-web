@@ -27,5 +27,11 @@ export const Filters = {
   from: {
     _fromThisPodcastKey: 'from-this-podcast',
     _fromThisEpisodeKey: 'from-this-episode',
+  },
+  search: {
+    queryParams: {
+      podcast: 'podcast',
+      host: 'host'
+    }
   }
 }

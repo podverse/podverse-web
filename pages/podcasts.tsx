@@ -3,8 +3,15 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { useEffect, useState } from 'react'
 import { PageHeader } from '~/components'
 import { PV } from '~/resources'
+import { getPodcastsByQuery } from '~/services/podcast'
+
+type Props = {
+  serverListData: any[]
+  serverListDataCount: number
+}
 
 const generateTypeOptions = (t: any) => [
   { label: t('All'), key: PV.Filters.type._allPodcastsKey },
@@ -22,15 +29,22 @@ const generateSortOptions = (t: any) => [
   { label: t('Oldest'), key: PV.Filters.sort._oldestKey }
 ]
 
-export default function Podcasts() {
+export default function Podcasts(props: Props) {
+  const { serverListData, serverListDataCount } = props
+
   const router = useRouter()
   const { t } = useTranslation()
-  const pageTitle = router.pathname == PV.RouteNames.podcasts
+  const pageTitle = router.pathname == PV.RoutePaths.web.podcasts
     ? t('Podcasts')
     : t('Podverse')
 
   const sortOptions = generateSortOptions(t)
   const typeOptions = generateTypeOptions(t)
+
+  const [listData, setListData] = useState<any[]>(serverListData)
+  const [listDataCount, setListDataCount] = useState<number>(serverListDataCount)
+
+  console.log('props', listData, listDataCount)
 
   return (
     <div>
@@ -45,6 +59,8 @@ export default function Podcasts() {
         text={t('Podcasts')}
         typeOptions={typeOptions}
         typeSelected={PV.Filters.type._allPodcastsKey} />
+      <p>{listData.toString}</p>
+      <p>{listDataCount.toString}</p>
     </div>
   )
 }
@@ -53,10 +69,15 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { req, locale } = ctx
   const { cookies } = req
 
+  const podcasts = await getPodcastsByQuery({})
+  const data = podcasts.data || [[], 0]
+  
   return {
     props: {
       ...(await serverSideTranslations(locale, PV.i18n.fileNames.all)),
-      serverSideCookies: cookies
+      serverSideCookies: cookies,
+      serverListData: data[0] || [],
+      serverListDataCount: data[1] || 0
     }
   }
 }
