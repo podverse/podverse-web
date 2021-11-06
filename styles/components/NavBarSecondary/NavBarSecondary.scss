@@ -1,59 +1,64 @@
-.navbar-secondary {
-  align-items: center;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  padding: 31px 0 29px 0;
+.horizontal-navbar-wrapper {
+  @include themeGen() {
+    background-color: getThemeVal('backgroundTertiary');
+  }
 
-  .navbar-secondary__page-navs {
-    align-items: flex-start;
+  .navbar-secondary {
+    align-items: center;
     display: flex;
     flex-direction: row;
-    flex: 0;
-    margin-left: 26px;
+    justify-content: space-between;
+    padding: 31px 24px 29px 26px;
 
-    .button-circle.backwards {
-      margin-right: 8px;
-      padding-right: 1px;
-
-      svg {
-        height: 0.7em;
-        width: 0.4375em;
-      }
-    }
-
-    .button-circle.forwards {
-      margin-left: 8px;
-      padding-left: 1px;
-
-      svg {
-        height: 0.7em;
-        width: 0.4375em;
-      }
-    }
-  }
-
-  .navbar-secondary__dropdown {
-    flex: 0;
-    margin-left: auto;
-  }
-
-  .navbar-secondary__theme-toggle {
-    flex: 0;
-    margin-left: 57px;
-
-    .switch-with-icons-wrapper {
-      align-items: center;
+    .navbar-secondary__page-navs {
+      align-items: flex-start;
       display: flex;
+      flex-direction: row;
+      flex: 0;
   
-      .beginning {
-        height: 20px !important;
-        width: 20px !important;
+      .button-circle.backwards {
+        margin-right: 8px;
+        padding-right: 1px;
+  
+        svg {
+          height: 0.7em;
+          width: 0.4375em;
+        }
       }
   
-      .ending {
-        height: 16px !important;
-        width: 16px !important;
+      .button-circle.forwards {
+        margin-left: 8px;
+        padding-left: 1px;
+  
+        svg {
+          height: 0.7em;
+          width: 0.4375em;
+        }
+      }
+    }
+  
+    .navbar-secondary__dropdown {
+      flex: 0;
+      margin-left: auto;
+    }
+  
+    .navbar-secondary__theme-toggle {
+      flex: 0;
+      margin: 0 0 0 53px;
+  
+      .switch-with-icons-wrapper {
+        align-items: center;
+        display: flex;
+    
+        .beginning {
+          height: 20px !important;
+          width: 20px !important;
+        }
+    
+        .ending {
+          height: 16px !important;
+          width: 16px !important;
+        }
       }
     }
   }

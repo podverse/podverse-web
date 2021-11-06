@@ -1,10 +1,16 @@
 body {
   .dropdown-wrapper {
+    align-items: center;
     display: flex;
     flex-direction: row;
-    align-items: center;
+    font-size: $text-sm;
     justify-content: center;
+
     
+    .dropdown__text {
+      margin-right: 16px;
+    }
+
     .dropdown__icon {
       align-items: center;
       display: flex;
@@ -32,37 +38,60 @@ body {
       width: 14px;
     }
   }
-  
-  .react-dropdown-select-dropdown {
-    border: none;
-    border-radius: $item-border-radius;
-    left: unset !important;
-    margin: 0;
-    padding: 6px 0;
-    right: 0 !important;
-    width: unset;
-  
-    @include themeGen() {
-      background-color: getThemeVal('dropdownMenu');
+
+  .outline-style {
+    .dropdown__chevron {
+      height: $button-small-height - 2px;
+      line-height: $button-small-height - 2px;
     }
+  }
   
-    .react-dropdown-select-item {
+  .react-dropdown-select {
+    border-radius: $button-small-radius;
+    min-height: $button-small-height;
+    padding: 0px 5px;
+    user-select: none;
+
+    &.outline-style {
+      border: 1px solid;
+      margin: -1px 0;
+      padding: 0px 14px 0 19px;
+      @include themeGen() {
+        border-color: getThemeVal('borderPrimary');
+      }
+    }
+
+    .react-dropdown-select-dropdown {
       border: none;
       border-radius: $item-border-radius;
-      margin: 2px 8px;
-      padding: 8px 32px 8px 12px;
-      
-      &.react-dropdown-select-item-selected {
-        background-color: transparent;
-        border: none;
+      left: unset !important;
+      margin: 0;
+      padding: 6px 0;
+      right: 0 !important;
+      width: unset;
+    
+      @include themeGen() {
+        background-color: getThemeVal('dropdownMenu');
       }
-      
-      &.react-dropdown-select-item-active, &:hover {
+    
+      .react-dropdown-select-item {
         border: none;
-        box-shadow: $box-shadow;
+        border-radius: $item-border-radius;
+        margin: 2px 8px;
+        padding: 8px 32px 8px 12px;
         
-        @include themeGen() {
-          background-color: getThemeVal('dropdownMenuSelected');
+        &.react-dropdown-select-item-selected {
+          background-color: transparent;
+          border: none;
+        }
+        
+        &.react-dropdown-select-item-active, &:hover {
+          border: none;
+          box-shadow: $box-shadow;
+          
+          @include themeGen() {
+            background-color: getThemeVal('dropdownMenuSelected');
+          }
         }
       }
     }

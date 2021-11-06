@@ -8,6 +8,7 @@ body {
   height: 100vh;
   font-family: Roboto, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-weight: 400;
 
   @include themeGen() {
     background-color: getThemeVal('backgroundPrimary');
@@ -23,7 +24,6 @@ body {
     display: flex;
     flex: 1;
     flex-direction: column;
-    padding: 0 24px 0 0;
   }
 
   main {

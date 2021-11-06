@@ -1,16 +1,23 @@
 import { IconProp } from '@fortawesome/fontawesome-svg-core'
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import classnames from 'classnames'
 import Select from 'react-dropdown-select'
 
 type Props = {
-  faIcon: IconProp
+  faIcon?: IconProp
   onChange: any
   options: any[]
+  outlineStyle?: boolean
+  selectedKey?: string
   text?: string
 }
 
-const contentRenderer = (faIcon: IconProp, text?: string) => {
+const contentRenderer = (props: Props) => {
+  const { faIcon, options, selectedKey, text } = props
+  const selectedOption = options?.find(option => option.key === selectedKey)
+  const finalText = text || selectedOption?.label
+
   return (
     <div className='dropdown-wrapper'>
       {
@@ -21,9 +28,9 @@ const contentRenderer = (faIcon: IconProp, text?: string) => {
         )
       }
       {
-        !!text && (
+        !!finalText && (
           <div className='dropdown__text'>
-            {text}
+            {finalText}
           </div>
         )
       }
@@ -39,10 +46,16 @@ const dropdownHandleRenderer = () => {
   )
 }
 
-export const Dropdown = ({ faIcon, onChange, options, text }: Props) => {
+export const Dropdown = (props: Props) => {
+  const { onChange, options, outlineStyle } = props
+  const wrapperClass = classnames(
+    outlineStyle ? 'outline-style' : ''
+  )
+
   return (
     <Select
-      contentRenderer={() => contentRenderer(faIcon, text)}
+      className={wrapperClass}
+      contentRenderer={() => contentRenderer(props)}
       dropdownHandleRenderer={() => dropdownHandleRenderer()}
       labelField='label'
       onChange={onChange}

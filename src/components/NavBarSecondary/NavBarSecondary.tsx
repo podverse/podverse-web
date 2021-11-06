@@ -83,33 +83,35 @@ export const NavBarSecondary = ({ serverSideCookies }: Props) => {
   }
 
   return (
-    <nav className='navbar-secondary main-max-width'>
-      <div className='navbar-secondary__page-navs'>
-        <ButtonCircle
-          className='backwards'
-          faIcon={faChevronLeft}
-          onClick={navigateBack}
-          size='small' />
-        <ButtonCircle
-          className='forwards'
-          faIcon={faChevronRight}
-          onClick={navigateForward}
-          size='small' />
-      </div>
-      <div className='navbar-secondary__dropdown'>
-        <Dropdown
-          faIcon={isLoggedIn ? faUserCircle : faUserCircleRegular}
-          onChange={onChange}
-          options={dropdownItems} />
-      </div>
-      <div className='navbar-secondary__theme-toggle'>
-        <SwitchWithIcons
-          ariaLabel={t('ARIA - Toggle UI theme change')}
-          checked={!!darkModeChecked}
-          faIconBeginning={faSun}
-          faIconEnding={faMoon}
-          onChange={darkModeOnChange} />
-      </div>
-    </nav>
+    <div className='horizontal-navbar-wrapper'>
+      <nav className='navbar-secondary main-max-width'>
+        <div className='navbar-secondary__page-navs'>
+          <ButtonCircle
+            className='backwards'
+            faIcon={faChevronLeft}
+            onClick={navigateBack}
+            size='small' />
+          <ButtonCircle
+            className='forwards'
+            faIcon={faChevronRight}
+            onClick={navigateForward}
+            size='small' />
+        </div>
+        <div className='navbar-secondary__dropdown'>
+          <Dropdown
+            faIcon={isLoggedIn ? faUserCircle : faUserCircleRegular}
+            onChange={onChange}
+            options={dropdownItems} />
+        </div>
+        <div className='navbar-secondary__theme-toggle'>
+          <SwitchWithIcons
+            ariaLabel={t('ARIA - Toggle UI theme change')}
+            checked={!!darkModeChecked}
+            faIconBeginning={faSun}
+            faIconEnding={faMoon}
+            onChange={darkModeOnChange} />
+        </div>
+      </nav>
+    </div>
   )
 }
