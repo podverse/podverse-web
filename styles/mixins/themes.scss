@@ -23,6 +23,9 @@ $themes: (
 
     'divider': $whiteOpaque,
 
+    'dropdownMenu': $blueDarkBlueGrey,
+    'dropdownMenuSelected': $whiteOpaque,
+
     'headerGradientLight': $blueLightNavyLight,
     'headerGradientDark': $blueDarkBlueGrey,
 
@@ -44,6 +47,8 @@ $themes: (
     'sliderHighlightSection': $blueDarkTextTransparent,
     'sliderListened': $white,
     'sliderRemaining': $blueDarkSlate,
+
+    'switchBackground': $blueDarkText,
 
     'tabBorderActive': $blueBright,
 

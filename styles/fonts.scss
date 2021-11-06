@@ -1,6 +1,15 @@
 @font-face {
   font-family: 'Roboto';
   font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: local('Roboto Light'), local('Roboto-Light'),
+       url('/fonts/Roboto/Roboto-Light.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
   font-weight: 400;
   font-display: swap;
   src: local('Roboto Regular'), local('Roboto-Regular'),
@@ -14,6 +23,15 @@
   font-display: swap;
   src: local('Roboto Italic'), local('Roboto-Italic'),
        url('/fonts/Roboto/Roboto-Italic.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: local('Roboto Medium'), local('Roboto-Medium'),
+       url('/fonts/Roboto/Roboto-Medium.ttf') format('truetype');
 }
 
 @font-face {

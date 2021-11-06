@@ -4,6 +4,7 @@
 */
 
 $black: #000000;
+$blackOpaque: rgba(0, 0, 0, 0.5);
 $blueBright: #007fff;
 $blueBrightOpaque: rgba(0, 113, 227, 0.2);
 $blueBrightOpaqueLighter: rgba(30, 128, 227, 0.16);
@@ -18,9 +19,14 @@ $blueDusky: #4c549e;
 $blueLightNavyLight: rgba(23, 59, 140, 0.81);
 $blueMenu: #20244e;
 $grayLight: #cccccc;
+$gray: #808080;
+$grayDark: #333333;
 $ink: #030626;
 $perrywinkle: #74A8DC;
-$shadow: rgba(0, 0, 0, 0.5);
 $velvet: #0f1235;
 $white: #ffffff;
 $whiteOpaque: rgba(255, 255, 255, 0.2);
+
+/* shadows */
+$box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+$itemFocusShadow: 0 0 0 3px rgb(0 116 217 / 20%);

@@ -4,11 +4,11 @@
 
 body {
   padding: 0;
-  height: 100vh;
   margin: 0;
-  font-family: Roboto, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-  Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-  
+  font-family: Roboto, -apple-system, BlinkMacSystemFont, Segoe UI, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-weight: 400;
+
   @include themeGen() {
     background-color: getThemeVal('backgroundPrimary');
     color: getThemeVal('textPrimary');
@@ -17,27 +17,32 @@ body {
   .app {
     display: flex;
     flex-direction: column;
+    height: 100vh;
   }
   
   .app-wrapper {
     display: flex;
     flex-direction: row;
-    flex-shrink: 1;
+    flex: 1;
+    overflow: hidden;
   }
   
   .app-main-wrapper {
     display: flex;
     flex: 1;
     flex-direction: column;
-    padding: 0 24px 0 0;
   }
 
   main {
+    display: flex;
     flex: 1;
+    flex-direction: column;
+    overflow: hidden;
   }
 
   .main-max-width {
     max-width: $main-max-width;
+    margin: 0 24px;
   }
 
   a {

@@ -14,3 +14,9 @@
 .switch {
   display: flex;
 }
+
+.react-switch-bg {
+  @include themeGen() {
+    background-color: getThemeVal('switchBackground') !important;
+  }
+}
