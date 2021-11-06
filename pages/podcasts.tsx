@@ -7,19 +7,19 @@ import { PageHeader } from '~/components'
 import { PV } from '~/resources'
 
 const generateTypeOptions = (t: any) => [
-  { label: t('All'), key: PV.Filters.type.all },
-  { label: t('Subscribed'), key: PV.Filters.type.subscribed },
-  { label: t('Categories'), key: PV.Filters.type.categories }
+  { label: t('All'), key: PV.Filters.type._allPodcastsKey },
+  { label: t('Subscribed'), key: PV.Filters.type._subscribedKey },
+  { label: t('Categories'), key: PV.Filters.type._categoryKey }
 ]
 
 const generateSortOptions = (t: any) => [
-  { label: t('Recent'), key: PV.Filters.sort.recent },
-  { label: t('Top - Past Day'), key: PV.Filters.sort.topDay },
-  { label: t('Top - Past Week'), key: PV.Filters.sort.topWeek },
-  { label: t('Top - Past Month'), key: PV.Filters.sort.topMonth },
-  { label: t('Top - Past Year'), key: PV.Filters.sort.topYear },
-  { label: t('Top - All Time'), key: PV.Filters.sort.topAllTime },
-  { label: t('Oldest'), key: PV.Filters.sort.oldest }
+  { label: t('Recent'), key: PV.Filters.sort._mostRecentKey },
+  { label: t('Top - Past Day'), key: PV.Filters.sort._topPastDay },
+  { label: t('Top - Past Week'), key: PV.Filters.sort._topPastWeek },
+  { label: t('Top - Past Month'), key: PV.Filters.sort._topPastMonth },
+  { label: t('Top - Past Year'), key: PV.Filters.sort._topPastYear },
+  { label: t('Top - All Time'), key: PV.Filters.sort._topAllTime },
+  { label: t('Oldest'), key: PV.Filters.sort._oldestKey }
 ]
 
 export default function Podcasts() {
@@ -41,10 +41,10 @@ export default function Podcasts() {
       </Head>
       <PageHeader
         sortOptions={sortOptions}
-        sortSelected={PV.Filters.sort.topYear}
+        sortSelected={PV.Filters.sort._topPastYear}
         text={t('Podcasts')}
         typeOptions={typeOptions}
-        typeSelected={PV.Filters.type.all} />
+        typeSelected={PV.Filters.type._allPodcastsKey} />
     </div>
   )
 }
