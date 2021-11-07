@@ -1,37 +1,36 @@
 export const Filters = {
-  type: {
-    _allPodcastsKey: 'all-podcasts',
-    _subscribedKey: 'subscribed',
-    _categoryKey: 'category',
-    _myClipsKey: 'my-clips',
-    _allEpisodesKey: 'all-episodes',
-    _podcastsKey: 'podcasts',
-    _episodesKey: 'episodes',
-    _clipsKey: 'clips',
-    _chaptersKey: 'chapters',
-    _playlistsKey: 'playlists',
-    _myPlaylistsKey: 'my-playlists',
+  from: {
+    _all: 'all',
+    _category: 'category',
+    _episode: 'episode',
+    _podcast: 'podcast',
+    _subscribed: 'subscribed',
+  },
+  search: {
+    queryParams: {
+      host: 'host',
+      podcast: 'podcast'
+    }
   },
   sort: {
-    _alphabeticalKey: 'alphabetical',
-    _mostRecentKey: 'most-recent',
-    _randomKey: 'random',
+    _alphabetical: 'alphabetical',
+    _chronological: 'chronological',
+    _mostRecent: 'most-recent',
+    _oldest: 'oldest',
+    _random: 'random',
     _topPastDay: 'top-past-day',
     _topPastWeek: 'top-past-week',
     _topPastMonth: 'top-past-month',
     _topPastYear: 'top-past-year',
-    _topAllTime: 'top-all-time',
-    _chronologicalKey: 'chronological',
-    _oldestKey: 'oldest'
+    _topAllTime: 'top-all-time'
   },
-  from: {
-    _fromThisPodcastKey: 'from-this-podcast',
-    _fromThisEpisodeKey: 'from-this-episode',
-  },
-  search: {
-    queryParams: {
-      podcast: 'podcast',
-      host: 'host'
-    }
+  type: {
+    _chapters: 'chapters',
+    _clips: 'clips',
+    _episodes: 'episodes',
+    _myClips: 'my-clips',
+    _myPlaylists: 'my-playlists',
+    _playlists: 'playlists',
+    _podcasts: 'podcasts',
   }
 }

@@ -3,44 +3,37 @@ import { convertObjectToQueryString } from '~/lib/utility/query'
 import { PV } from '~/resources'
 import { request } from '~/services/request'
 
-export const getPodcastsByQuery = async (query) => {
+type PodcastQueryParams = {
+  categories?: string[]
+  from?: string
+  maxResults?: number
+  page?: number
+  podcastIds?: string[]
+  searchBy?: string
+  searchText?: string
+  sort?: string
+}
+
+export const getPodcastsByQuery = async ({ categories, from, maxResults,
+  page, podcastIds, searchBy, searchText, sort }: PodcastQueryParams) => {
+  
   const filteredQuery: any = {
-    ...(query.maxResults ? { maxResults: true } : {})
-  }
-
-  if (query.sort) {
-    filteredQuery.sort = query.sort
-  } else {
-    filteredQuery.sort = PV.Filters.sort._topPastWeek
-  }
-
-  if (query.page) {
-    filteredQuery.page = query.page
-  } else {
-    filteredQuery.page = 1
-  }
-
-  if (query.from === PV.Filters.type._categoryKey) {
-    filteredQuery.categories = query.categories
-  } else if (query.from === PV.Filters.type._subscribedKey) {
-    filteredQuery.podcastId = Array.isArray(query.subscribedPodcastIds) && query.subscribedPodcastIds.length > 0
-      ? query.subscribedPodcastIds : []
-  } else {
-    // from = all-podcasts
-    // add nothing
-  }
-
-  if (query.searchBy === PV.Filters.search.queryParams.podcast) {
-    filteredQuery.searchTitle = query.searchText ? encodeURIComponent(query.searchText) : ''
-  } else if (query.searchBy === PV.Filters.search.queryParams.host) {
-    filteredQuery.searchAuthor = query.searchText ? encodeURIComponent(query.searchText) : ''
+    ...(from === PV.Filters.from._category ? { categories } : {}),
+    ...(from === PV.Filters.from._subscribed ? { podcastId: podcastIds } : {}),
+    // If no "from", then from defaults to _allKey
+    ...(maxResults ? { maxResults: true } : {}),
+    ...(page ? { page } : { page: 1}),
+    ...(searchBy === PV.Filters.search.queryParams.podcast ? { searchTitle: encodeURIComponent(searchText) } : {}),
+    ...(searchBy === PV.Filters.search.queryParams.host ? { searchAuthor: encodeURIComponent(searchText) } : {}),
+    ...(sort ? { sort } : { sort: PV.Filters.sort._topPastDay })
   }
 
   const queryString = convertObjectToQueryString(filteredQuery)
 
-  return axios(`${PV.Config.API_BASE_URL}${PV.RoutePaths.api.podcast}?${queryString}`, {
-    method: 'get'
-  })
+  return axios(
+    `${PV.Config.API_BASE_URL}${PV.RoutePaths.api.podcast}?${queryString}`,
+    { method: 'get' }
+  )
 }
 
 export const getPodcastById = async (id: string) => {

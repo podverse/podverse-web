@@ -1,14 +1,22 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { IconProp } from '@fortawesome/fontawesome-svg-core'
+import classnames from 'classnames'
 
 type Props = {
-  faIcon: IconProp
+  isActive?: boolean
+  onClick?: any
+  text?: string | number
 }
 
-export const ButtonSquare = ({ faIcon }: Props) => {
+export const ButtonSquare = ({ isActive, onClick, text }: Props) => {
+  const wrapperClass = classnames(
+    'button-square',
+    { 'active': isActive }
+  )
+
   return (
-    <button className='button-square'>
-      <FontAwesomeIcon icon={faIcon} />
+    <button
+      className={wrapperClass}
+      onClick={onClick}>
+      {text}
     </button>
   )
 }
