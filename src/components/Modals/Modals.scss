@@ -1,0 +1,29 @@
+.ReactModal__Overlay {
+  @include themeGen() {
+    background-color: getThemeVal('modalTransparentBackground') !important;
+  }
+
+  .ReactModal__Content {
+    border-radius: $item-border-radius !important;
+    min-width: 360px;
+    padding: 16px;
+
+    @include themeGen() {
+      background-color: getThemeVal('backgroundPrimary') !important;
+    }
+
+    &.login-modal {
+      max-width: 560px;
+    }
+
+    h2 {
+      margin: 0 0 20px 0;
+    }
+
+    .button-close {
+      position: absolute;
+      top: 10px;
+      right: 16px;
+    }
+  }
+}

@@ -21,6 +21,8 @@ $themes: (
     'buttonTertiaryTextRollover': $black,
     'buttonTertiaryBorder': $blueDarkText,
 
+    'buttonCloseBackground': $velvet,
+
     'divider': $whiteOpaque,
 
     'dropdownMenu': $blueDarkBlueGrey,
@@ -30,8 +32,8 @@ $themes: (
     'headerGradientDark': $blueDarkBlueGrey,
 
     'highlighted': $whiteOpaque,
-    
-    'navBackground': '#f00',
+
+    'modalTransparentBackground': $modalBackground,
 
     'navItemActiveGradientLight': $blueDusky,
     'navItemActiveGradientDark': $blueDarkSlate,
@@ -55,7 +57,11 @@ $themes: (
     'textPrimary': $white,
     'textSecondary': $grayLight,
     'textTertiary': $perrywinkle,
-    'textQuaternary': $blueDarkText
+    'textQuaternary': $blueDarkText,
+
+    'textInputBackground': $blueDarkBlueGrey,
+    'textInputPlaceholder': $grayLight,
+    'textInputEyebrow': $perrywinkle
   ),
   'light': ()
 );

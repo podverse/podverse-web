@@ -1,0 +1,34 @@
+.text-input-outer-wrapper {
+  border-radius: $item-border-radius !important;
+  margin: 0 0 24px;
+  padding: 10px 16px;
+
+  @include themeGen() {
+    background-color: getThemeVal('textInputBackground') !important;
+  }
+
+  .text-input-inner-wrapper {
+    display: flex;
+    flex-direction: column;
+
+    .eyebrow {
+      font-size: $text-sm;
+      font-weight: $font-weight-bold;
+      margin: 0 0 2px 0;
+
+      @include themeGen() {
+        color: getThemeVal('textInputEyebrow') !important;
+      }
+    }
+
+    input {
+      font-size: $text-lg;
+
+      &::placeholder {
+        @include themeGen() {
+          color: getThemeVal('textInputPlaceholder') !important;
+        }
+      }
+    }
+  }
+}
