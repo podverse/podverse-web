@@ -1,18 +1,18 @@
-import { Dropdown } from ".."
+import { Dropdown } from "~/components"
 
 type Props = {
-  sortOnChange?: any
+  primaryOnChange?: any
+  primaryOptions?: any[]
+  primarySelected?: string
   sortOptions?: any[]
+  sortOnChange?: any
   sortSelected?: string
   text: string
-  typeOnChange?: any
-  typeOptions?: any[]
-  typeSelected?: string
 }
 
-export const PageHeader = ({ sortOnChange, sortOptions, sortSelected, text,
-  typeOnChange, typeOptions, typeSelected }: Props) => {
-  const hasDropdowns = !!(sortOptions?.length || typeOptions?.length)
+export const PageHeader = ({ primaryOnChange, primaryOptions, primarySelected,
+  sortOnChange, sortOptions, sortSelected, text }: Props) => {
+  const hasDropdowns = !!(sortOptions?.length || primaryOptions?.length)
 
   return (
     <div className='page-header'>
@@ -24,14 +24,14 @@ export const PageHeader = ({ sortOnChange, sortOptions, sortSelected, text,
           hasDropdowns && (
             <div className='dropdowns'>
               {
-                typeOptions?.length && (
-                  <div className='dropdown-type-wrapper'>
+                primaryOptions?.length && (
+                  <div className='dropdown-primary-wrapper'>
                     <Dropdown
                       dropdownWidthClass='width-small'
-                      onChange={typeOnChange}
-                      options={typeOptions}
+                      onChange={primaryOnChange}
+                      options={primaryOptions}
                       outlineStyle
-                      selectedKey={typeSelected} />
+                      selectedKey={primarySelected} />
                   </div>
                 )
               }

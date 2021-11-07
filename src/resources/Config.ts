@@ -5,5 +5,6 @@ const API_VERSION = process.env.NEXT_PUBLIC_API_VERSION
 const API_BASE_URL = `${API_PROTOCOL}://${API_DOMAIN}/${API_PATH}/${API_VERSION}`
 
 export const Config = {
-  API_BASE_URL
+  API_BASE_URL,
+  QUERY_LIMIT_DEFAULT: 20
 }

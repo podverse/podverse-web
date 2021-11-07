@@ -11,24 +11,34 @@ import { getPodcastsByQuery } from '~/services/podcast'
 import { PodcastListItem } from '~/components/PodcastListItem/PodcastListItem'
 
 type Props = {
+  serverFilterFromKey: string
+  serverFilterPage: number
+  serverFilterSortKey: string
   serverListData: Podcast[]
   serverListDataCount: number
 }
 
 export default function Podcasts(props: Props) {
-  const { serverListData, serverListDataCount } = props
+  const { serverFilterFromKey, serverFilterPage, serverFilterSortKey,
+    serverListData, serverListDataCount } = props
 
   const router = useRouter()
   const { t } = useTranslation()
+
+  const [filterFrom, setFilterFrom] = useState<string>(serverFilterFromKey)
+  const [filterSort, setFilterSort] = useState<string>(serverFilterSortKey)
+  const [filterPage, setFilterPage] = useState<number>(serverFilterPage)
+  const [listData, setListData] = useState<Podcast[]>(serverListData)
+  const [listDataCount, setListDataCount] = useState<number>(serverListDataCount)
+
+  const pageCount = listDataCount / PV.Config.QUERY_LIMIT_DEFAULT
+
   const pageTitle = router.pathname == PV.RoutePaths.web.podcasts
     ? t('Podcasts')
     : t('Podverse')
 
+  const fromOptions = generateFromOptions(t)
   const sortOptions = generateSortOptions(t)
-  const typeOptions = generateTypeOptions(t)
-
-  const [listData, setListData] = useState<Podcast[]>(serverListData)
-  const [listDataCount, setListDataCount] = useState<number>(serverListDataCount)
 
   const podcastListElements = generatePodcastListElements(listData)
 
@@ -40,55 +50,38 @@ export default function Podcasts(props: Props) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <PageHeader
+        primaryOptions={fromOptions}
+        primarySelected={filterFrom}
         sortOptions={sortOptions}
-        sortSelected={PV.Filters.sort._topPastYear}
-        text={t('Podcasts')}
-        typeOptions={typeOptions}
-        typeSelected={PV.Filters.type._allPodcastsKey} />
+        sortSelected={filterSort}
+        text={t('Podcasts')} />
       <PageScrollableContent>
         <List>
           {podcastListElements}
         </List>
         <Pagination
-          currentPageIndex={1}
+          currentPageIndex={serverFilterPage}
           onPageChange={() => { console.log('on page change') }}
-          pageCount={10} />
+          pageCount={pageCount} />
       </PageScrollableContent>
     </>
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const { req, locale } = ctx
-  const { cookies } = req
-
-  const podcasts = await getPodcastsByQuery({})
-  const data = podcasts.data as Podcast[] || [[], 0]
-  
-  return {
-    props: {
-      ...(await serverSideTranslations(locale, PV.i18n.fileNames.all)),
-      serverSideCookies: cookies,
-      serverListData: data[0] || [],
-      serverListDataCount: data[1] || 0
-    }
-  }
-}
-
-const generateTypeOptions = (t: any) => [
-  { label: t('All'), key: PV.Filters.type._allPodcastsKey },
-  { label: t('Subscribed'), key: PV.Filters.type._subscribedKey },
-  { label: t('Categories'), key: PV.Filters.type._categoryKey }
+const generateFromOptions = (t: any) => [
+  { label: t('All'), key: PV.Filters.from._all },
+  { label: t('Subscribed'), key: PV.Filters.from._subscribed },
+  { label: t('Categories'), key: PV.Filters.from._category }
 ]
 
 const generateSortOptions = (t: any) => [
-  { label: t('Recent'), key: PV.Filters.sort._mostRecentKey },
+  { label: t('Recent'), key: PV.Filters.sort._mostRecent },
   { label: t('Top - Past Day'), key: PV.Filters.sort._topPastDay },
   { label: t('Top - Past Week'), key: PV.Filters.sort._topPastWeek },
   { label: t('Top - Past Month'), key: PV.Filters.sort._topPastMonth },
   { label: t('Top - Past Year'), key: PV.Filters.sort._topPastYear },
   { label: t('Top - All Time'), key: PV.Filters.sort._topAllTime },
-  { label: t('Oldest'), key: PV.Filters.sort._oldestKey }
+  { label: t('Oldest'), key: PV.Filters.sort._oldest }
 ]
 
 const keyPrefix = 'podcasts'
@@ -98,4 +91,45 @@ const generatePodcastListElements = (listItems: Podcast[]) => {
       key={`${keyPrefix}-${index}`}
       podcast={listItem} />
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const { req, locale } = ctx
+  const { cookies } = req
+
+  const serverFilterFromKey = PV.Filters.from._all
+  const serverFilterSortKey = PV.Filters.sort._topPastDay
+  const serverFilterPage = 1
+
+  const podcasts = await getPodcastsByQuery({
+    from: serverFilterFromKey,
+    sort: serverFilterSortKey
+  })
+  const data = podcasts.data as Podcast[] || [[], 0]
+  
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, PV.i18n.fileNames.all)),
+      serverSideCookies: cookies,
+      serverListData: data[0] || [],
+      serverListDataCount: data[1] || 0,
+      serverFilterFromKey,
+      serverFilterSortKey,
+      serverFilterPage
+    }
+  }
+}
+
+type QueryPodcastsParams = {
+  filterFrom?: string
+  filterPage: number
+  filterSort?: string
+  page?: number
+}
+
+const clientQueryPodcasts = ({ from, sort, page }: QueryPodcastsParams) => {
+  const finalQuery = {
+    ...(from ? { from } : {})
+  }
+
 }
