@@ -1,37 +1,82 @@
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'
-import ReactPaginate from 'react-paginate'
 import { ButtonCircle, ButtonSquare } from '~/components'
 
 type Props = {
   currentPageIndex: number
-  onPageChange: any
+  handlePageNavigate: any
+  handlePageNext: any
+  handlePagePrevious: any
   pageCount: number
 }
 
-const prevButton = (
+const keyPrefix = 'pagination'
+
+export const Pagination = ({
+  currentPageIndex,
+  handlePageNavigate,
+  handlePageNext,
+  handlePagePrevious,
+  pageCount
+}: Props) => {
+  const pageButtons = generatePageButtons(
+    currentPageIndex,
+    handlePagePrevious,
+    handlePageNavigate,
+    handlePageNext,
+    pageCount
+  )
+
+  return (
+    <>
+      {
+        pageCount && pageCount > 1 && (
+          <div className='pagination'>
+            {pageButtons}
+          </div>
+        )
+      }
+    </>
+  )
+}
+
+/* Helpers */
+
+const prevButton = (handlePagePrev: any) => (
   <ButtonCircle
     className='backwards'
     faIcon={faChevronLeft}
+    key={`${keyPrefix}-backwards`}
+    onClick={handlePagePrev}
     size='small' />
 )
 
-const nextButton = (
+const nextButton = (handlePageNext: any) => (
   <ButtonCircle
     className='forwards'
     faIcon={faChevronRight}
+    key={`${keyPrefix}-forwards`}
+    onClick={handlePageNext}
     size='small' />
 )
 
-const pageButton = (pageNumber: number, isActive: boolean) => (
+const pageButton = (pageNumber: number, isActive: boolean, handlePageNavigate: any) => (
   <ButtonSquare
     isActive={isActive}
+    key={`${keyPrefix}-${pageNumber}`}
+    onClick={() => handlePageNavigate(pageNumber)}
     text={pageNumber} />
 )
 
-const generatePageButtons = (currentPageNumber: number, onPageChange: any, pageCount: number) => {
+const generatePageButtons = (
+  currentPageNumber: number,
+  handlePagePrev: any,
+  handlePageNavigate: any,
+  handlePageNext: any,
+  pageCount: number
+) => {
   const components = []
   if (pageCount >= 5) {
-    components.push(prevButton)
+    components.push(prevButton(handlePagePrev))
   }
 
   let maxPageButtons = 5
@@ -54,30 +99,18 @@ const generatePageButtons = (currentPageNumber: number, onPageChange: any, pageC
     maxPageButtons > 0
     && iterPageNumber <= pageCount
   ) {
-    components.push(pageButton(iterPageNumber, iterPageNumber === currentPageNumber))
+    components.push(pageButton(
+      iterPageNumber,
+      iterPageNumber === currentPageNumber,
+      handlePageNavigate
+    ))
     iterPageNumber++
     maxPageButtons--
   }
 
   if (pageCount >= 5) {
-    components.push(nextButton)
+    components.push(nextButton(handlePageNext))
   }
 
   return components
-}
-
-export const Pagination = ({ currentPageIndex, onPageChange, pageCount }: Props) => {
-  const pageButtons = generatePageButtons(currentPageIndex, onPageChange, pageCount)
-
-  return (
-    <>
-      {
-        pageCount && pageCount > 1 && (
-          <div className='pagination'>
-            {pageButtons}
-          </div>
-        )
-      }
-    </>
-  )
 }
