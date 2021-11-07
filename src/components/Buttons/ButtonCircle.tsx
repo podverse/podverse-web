@@ -5,7 +5,7 @@ import classnames from 'classnames'
 type Props = {
   className?: string
   faIcon: IconProp
-  onClick: any
+  onClick?: any
   size: 'small'
 }
 

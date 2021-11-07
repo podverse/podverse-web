@@ -1,0 +1,16 @@
+.button-square {
+  align-items: center;
+  border-width: 1px;
+  border-radius: $item-border-radius;
+  border-style: solid;
+  display: flex;
+  justify-content: center;
+  height: 40px;
+  width: 40px;
+
+  &.active {
+    @include themeGen() {
+      border-color: getThemeVal('buttonTertiaryBorder');
+    }
+  }
+}

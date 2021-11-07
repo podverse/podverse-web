@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useEffect, useState } from 'react'
-import { List, PageHeader, PageScrollableContent } from '~/components'
+import { List, PageHeader, PageScrollableContent, Pagination } from '~/components'
 import { PV } from '~/resources'
 import { getPodcastsByQuery } from '~/services/podcast'
 import { PodcastListItem } from '~/components/PodcastListItem/PodcastListItem'
@@ -49,6 +49,10 @@ export default function Podcasts(props: Props) {
         <List>
           {podcastListElements}
         </List>
+        <Pagination
+          currentPageIndex={1}
+          onPageChange={() => { console.log('on page change') }}
+          pageCount={10} />
       </PageScrollableContent>
     </>
   )
