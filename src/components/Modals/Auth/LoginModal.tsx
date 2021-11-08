@@ -7,14 +7,14 @@ import { PV } from "~/resources"
 type Props = {}
 
 export const LoginModal = (props: Props) => {
-  const [modals] = useOmniAural("modals")
+  const [login] = useOmniAural("modals.login")
   const { t } = useTranslation()
 
   return (
     <Modal
       className='login-modal centered'
       contentLabel={t('Login modal')}
-      isOpen={modals.login.show}
+      isOpen={login.show}
       onAfterOpen={onAfterOpen}
       onRequestClose={onRequestClose}>
       <h2>{t('Login')}</h2>
