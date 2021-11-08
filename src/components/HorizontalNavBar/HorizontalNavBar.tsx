@@ -18,24 +18,6 @@ const _settingsKey = '_settings'
 const _logInKey = '_logIn'
 const _logOutKey = '_logOut'
 
-const generateDropdownItems = (t: any) => {
-  const isLoggedIn = false
-
-  const items = [
-    { label: t('Membership'), key: _membershipKey },
-    { label: t('Settings'), key: _settingsKey },
-  ]
-
-  if (isLoggedIn) {
-    items.unshift({ label: t('MyProfile'), key: _myProfileKey })
-    items.push({ label: t('Login'), key: _logInKey })
-  } else {
-    items.push({ label: t('Logout'), key: _logOutKey })
-  }
-
-  return items
-}
-
 export const HorizontalNavBar = ({ serverSideCookies }: Props) => {
   const [darkModeChecked, setDarkModeChecked] = useState<boolean>(serverSideCookies.darkMode)
   const [cookies, setCookie, removeCookie] = useCookies([])
@@ -79,6 +61,7 @@ export const HorizontalNavBar = ({ serverSideCookies }: Props) => {
         router.push(PV.RoutePaths.web.settings)
       } else if (item.key === _logInKey) {
         console.log('Login')
+        OmniAural.modalsLoginShow()
       } else if (item.key === _logOutKey) {
         console.log('Logout')
       }
@@ -117,4 +100,24 @@ export const HorizontalNavBar = ({ serverSideCookies }: Props) => {
       </nav>
     </div>
   )
+}
+
+/* Helpers */
+
+const generateDropdownItems = (t: any) => {
+  const isLoggedIn = false
+
+  const items = [
+    { label: t('Membership'), key: _membershipKey },
+    { label: t('Settings'), key: _settingsKey },
+  ]
+
+  if (isLoggedIn) {
+    items.unshift({ label: t('MyProfile'), key: _myProfileKey })
+    items.push({ label: t('Logout'), key: _logOutKey })
+  } else {
+    items.push({ label: t('Login'), key: _logInKey })
+  }
+
+  return items
 }

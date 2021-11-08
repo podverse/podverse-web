@@ -4,7 +4,8 @@ import { config as fontAwesomeConfig } from '@fortawesome/fontawesome-svg-core'
 import { appWithTranslation } from 'next-i18next'
 import React from 'react'
 import { CookiesProvider } from 'react-cookie'
-import { NavBar, HorizontalNavBar, Player } from '~/components'
+import Modal from 'react-modal'
+import { Modals, NavBar, HorizontalNavBar, Player } from '~/components'
 import {initGlobalState} from "omniaural"
 import "~/state"
 import initialState from "~/state/initialState.json"
@@ -12,6 +13,8 @@ import initialState from "~/state/initialState.json"
 initGlobalState(initialState)
 
 fontAwesomeConfig.autoAddCss = false
+
+Modal.setAppElement('.app')
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -27,6 +30,7 @@ function MyApp({ Component, pageProps }) {
           </div>
         </div>
         <Player />
+        <Modals />
       </div>
     </CookiesProvider>
   )

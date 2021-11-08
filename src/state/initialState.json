@@ -1,4 +1,11 @@
 {
+    "modals": {
+      "login": {
+        "password": "",
+        "show": false,
+        "username": ""
+      }
+    },
     "player": {
         "nowPlayingItem": null,
         "show":false

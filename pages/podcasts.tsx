@@ -4,11 +4,10 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { useEffect, useRef, useState } from 'react'
-import { List, PageHeader, PageScrollableContent, Pagination } from '~/components'
+import { useEffect, useState } from 'react'
+import { List, PageHeader, PageScrollableContent, Pagination, PodcastListItem } from '~/components'
 import { PV } from '~/resources'
 import { getPodcastsByQuery } from '~/services/podcast'
-import { PodcastListItem } from '~/components/PodcastListItem/PodcastListItem'
 
 type Props = {
   serverFilterFrom: string
