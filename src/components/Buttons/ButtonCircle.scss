@@ -1,6 +1,6 @@
 .button-circle {
   align-items: center;
-  border-width: 1px;
+  border-width: $border-width-default;
   border-radius: $button-circle-radius;
   border-style: solid;
   display: flex;

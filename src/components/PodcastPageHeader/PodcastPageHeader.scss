@@ -1,0 +1,43 @@
+.podcast-page-header {
+  align-items: center;
+  display: flex;
+  height: 161px;
+
+  @include themeGen() {
+    background-image: linear-gradient(
+      to right,
+      getThemeVal('headerGradientLight') -3%,
+      getThemeVal('headerGradientDark')
+    );
+  }
+
+  .main-max-width {
+    align-items: center;
+    display: flex;
+    flex: 1;
+
+    .pv-image {
+      margin-right: 24px;
+    }
+
+    .text-wrapper {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      h1 {
+        font-size: $text-huge;
+        font-weight: $font-weight-light;
+      }
+
+      .sub-text {
+        font-size: $text-xl;
+        font-weight: $font-weight-bold;
+      }
+    }
+
+    button {
+      margin-left: auto;
+    }
+  }
+}

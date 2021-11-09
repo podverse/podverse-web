@@ -6,7 +6,7 @@ import { request } from '~/services/request'
 type PodcastQueryParams = {
   categories?: string[]
   from?: string
-  maxResults?: number
+  maxResults?: boolean
   page?: number
   podcastIds?: string[]
   searchBy?: string
@@ -17,7 +17,7 @@ type PodcastQueryParams = {
 export const getPodcastsByQuery = async ({ categories, from, maxResults,
   page, podcastIds, searchBy, searchText, sort }: PodcastQueryParams) => {
   
-  const filteredQuery: any = {
+  const filteredQuery: PodcastQueryParams = {
     ...(from === PV.Filters.from._category ? { categories } : {}),
     ...(from === PV.Filters.from._subscribed ? { podcastId: podcastIds } : {}),
     // If no "from", then from defaults to _allKey

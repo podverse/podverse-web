@@ -1,6 +1,6 @@
 .button-square {
   align-items: center;
-  border-width: 1px;
+  border-width: $border-width-default;
   border-radius: $item-border-radius;
   border-style: solid;
   display: flex;

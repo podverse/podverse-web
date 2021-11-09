@@ -1,9 +1,9 @@
 .button-rectangle {
-  border-radius: $button-rectangle-radius;
-  height: 44px;
-  min-width: 158px;
-
   &.primary {
+    border-radius: $button-rectangle-radius;
+    height: 44px;
+    min-width: 158px;
+
     @include themeGen() {
       background-color: getThemeVal('buttonPrimaryBackground') !important;
     }
@@ -16,6 +16,10 @@
   }
 
   &.secondary {
+    border-radius: $button-rectangle-radius;
+    height: 44px;
+    min-width: 158px;
+
     @include themeGen() {
       background-color: getThemeVal('buttonSecondaryBackground') !important;
     }
@@ -28,13 +32,24 @@
   }
 
   &.tertiary {
+    border-radius: $button-circle-radius;
+    border-style: solid;
+    border-width: $border-width-default;
+    font-size: $text-sm;
+    font-weight: $font-weight-bold;
+    height: 32px;
+    line-height: 30px;
+    padding: 0 20px;
+
     @include themeGen() {
       background-color: getThemeVal('buttonTertiaryBackground') !important;
+      border-color: getThemeVal('buttonTertiaryBorder') !important;
     }
 
     &:hover {
       @include themeGen() {
         background-color: getThemeVal('buttonTertiaryRolloverBackground') !important;
+        color: getThemeVal('buttonTertiaryTextRollover') !important;
       }
     }
   }
