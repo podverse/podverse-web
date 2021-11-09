@@ -1,0 +1,14 @@
+.button-link {
+  border-radius: $button-circle-radius;
+  padding: 4px 8px;
+
+  @include themeGen() {
+    color: getThemeVal('buttonLinkText') !important;
+  }
+
+  &:hover {
+    @include themeGen() {
+      color: getThemeVal('buttonLinkTextRollover') !important;
+    }
+  }
+}

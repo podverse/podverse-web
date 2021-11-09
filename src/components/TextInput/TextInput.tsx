@@ -4,11 +4,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 type Props = {
   faIcon?: IconProp
   label: string
+  onChange: any
   placeholder: string
+  type: 'email' | 'password' | 'text'
   value: string
 }
 
-export const TextInput = ({ faIcon, label, placeholder, value }: Props) => {
+export const TextInput = ({ faIcon, label, onChange, placeholder, type = 'text',
+  value }: Props) => {
   return (
     <div className='text-input-outer-wrapper'>
       {
@@ -20,7 +23,11 @@ export const TextInput = ({ faIcon, label, placeholder, value }: Props) => {
       }
       <div className='text-input-inner-wrapper'>
         {!!value && <div className='eyebrow'>{label}</div>}
-        <input placeholder={placeholder} value={value} />
+        <input
+          onChange={(event) => onChange(event.target.value)}
+          placeholder={placeholder}
+          type={type}
+          value={value} />
       </div>
     </div>
   )

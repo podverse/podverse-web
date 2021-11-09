@@ -1,5 +1,6 @@
 export { ButtonCircle } from './Buttons/ButtonCircle'
 export { ButtonClose } from './Buttons/ButtonClose'
+export { ButtonLink } from './Buttons/ButtonLink'
 export { ButtonRectangle } from './Buttons/ButtonRectangle'
 export { ButtonSquare } from './Buttons/ButtonSquare'
 export { Dropdown } from './Dropdown/Dropdown'

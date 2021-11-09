@@ -10,16 +10,18 @@ $themes: (
     'borderActive': $blueBright,
 
     'buttonPrimaryBackground': $blueDarkText,
-    'buttonPrimaryBackgroundRollover': $blueDarkTextLighter,
+    'buttonPrimaryRolloverBackground': $blueDarkTextLighter,
     'buttonPrimaryText': $black,
     'buttonSecondaryBackground': $blueDarkSlate,
-    'buttonSecondaryBackgroundRollover': $blueDarkSlateLighter,
+    'buttonSecondaryRolloverBackground': $blueDarkSlateLighter,
     'buttonSecondaryText': $white,
     'buttonTertiaryBackground': $blueBrightOpaqueLighter,
-    'buttonTertiaryBackgroundRollover': $blueDarkText,
+    'buttonTertiaryRolloverBackground': $blueDarkText,
     'buttonTertiaryText': $white,
     'buttonTertiaryTextRollover': $black,
     'buttonTertiaryBorder': $blueDarkText,
+    'buttonLinkText': $perrywinkle,
+    'buttonLinkTextRollover': $blueDarkTextLighter,
 
     'buttonCloseBackground': $velvet,
 
@@ -27,6 +29,8 @@ $themes: (
 
     'dropdownMenu': $blueDarkBlueGrey,
     'dropdownMenuSelected': $whiteOpaque,
+
+    'focusGlow': $itemFocusShadow,
 
     'headerGradientLight': $blueLightNavyLight,
     'headerGradientDark': $blueDarkBlueGrey,
@@ -61,7 +65,8 @@ $themes: (
 
     'textInputBackground': $blueDarkBlueGrey,
     'textInputPlaceholder': $grayLight,
-    'textInputEyebrow': $perrywinkle
+    'textInputEyebrow': $perrywinkle,
+    'textInputFocusBorder': $blueBright
   ),
   'light': ()
 );

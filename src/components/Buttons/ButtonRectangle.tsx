@@ -1,14 +1,24 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { IconProp } from '@fortawesome/fontawesome-svg-core'
+import classnames from 'classnames'
 
 type Props = {
-  faIcon: IconProp
+  label: string
+  onClick?: any
+  type: 'primary' | 'secondary' | 'tertiary'
 }
 
-export const ButtonRectangle = ({ faIcon }: Props) => {
+export const ButtonRectangle = ({ label, onClick, type }: Props) => {
+  const buttonClass = classnames(
+    'button-rectangle',
+    type === 'primary' ? 'primary' : '',
+    type === 'secondary' ? 'secondary' : '',
+    type === 'tertiary' ? 'tertiary' : ''
+  )
+
   return (
-    <button className='button-rectangle'>
-      <FontAwesomeIcon icon={faIcon} />
+    <button
+      className={buttonClass}
+      onClick={onClick}>
+      {label}
     </button>
   )
 }

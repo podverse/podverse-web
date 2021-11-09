@@ -1,18 +1,22 @@
-import type { Podcast } from 'podverse-shared'
 import { GetServerSideProps } from 'next'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import OmniAural from "omniaural"
+import type { Podcast } from 'podverse-shared'
 import { useEffect, useState } from 'react'
 import { List, PageHeader, PageScrollableContent, Pagination, PodcastListItem } from '~/components'
 import { PV } from '~/resources'
 import { getPodcastsByQuery } from '~/services/podcast'
+import { getAuthenticatedUserInfo } from '~/services/auth'
+import { initializeGlobalState } from '~/state/initializeGlobalState'
 
 type Props = {
   serverFilterFrom: string
   serverFilterPage: number
   serverFilterSort: string
+  serverInitialUserInfo: any
   serverListData: Podcast[]
   serverListDataCount: number
 }
@@ -26,12 +30,12 @@ type FilterState = {
 const keyPrefix = 'pages_podcasts'
 
 export default function Podcasts(props: Props) {
-  const { serverFilterFrom, serverFilterPage, serverFilterSort,
+  const { serverFilterFrom, serverFilterPage, serverFilterSort, serverInitialUserInfo,
     serverListData, serverListDataCount } = props
 
   const router = useRouter()
   const { t } = useTranslation()
-
+  
   const [filterState, setFilterState] = useState({
     filterFrom: serverFilterFrom,
     filterSort: serverFilterSort,
@@ -46,6 +50,10 @@ export default function Podcasts(props: Props) {
   const pageTitle = router.pathname == PV.RoutePaths.web.podcasts
     ? t('Podcasts')
     : t('Podverse')
+
+  useEffect(() => {
+    OmniAural.state.session.userInfo.set(serverInitialUserInfo)
+  }, [])
 
   useEffect(() => {
     (async () => {
@@ -114,6 +122,11 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { req, locale } = ctx
   const { cookies } = req
 
+  let userInfo = null
+  if (cookies.Authorization) {
+    userInfo = await getAuthenticatedUserInfo(cookies.Authorization)
+  }
+
   const serverFilterFrom = PV.Filters.from._all
   const serverFilterSort = PV.Filters.sort._topPastDay
 
@@ -132,6 +145,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       serverFilterFrom,
       serverFilterPage,
       serverFilterSort,
+      serverInitialUserInfo: userInfo,
       serverListData: data[0] || [],
       serverListDataCount: data[1] || 0,
       serverSideCookies: cookies

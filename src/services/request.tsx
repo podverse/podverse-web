@@ -1,17 +1,21 @@
 import axios from 'axios'
 import { PV } from '~/resources'
 
+axios.defaults.withCredentials = true
+
 type PVRequest = {
-  endpoint?: string
-  query?: {}
   body?: any
+  endpoint?: string
   headers?: any
   method?: string
   opts?: any
+  query?: {}
+  withCredentials?: boolean
 }
 
 export const request = async (req: PVRequest) => {
-  const { endpoint = '', query = {}, headers = {}, body, method = 'GET', opts = {} } = req
+  const { body, endpoint = '', headers, method = 'GET', opts = {}, query = {},
+    withCredentials } = req
 
   const queryString = Object.keys(query)
     .map((key) => {
@@ -20,17 +24,17 @@ export const request = async (req: PVRequest) => {
     .join('&')
 
   const axiosRequest = {
-    url: `${PV.Config.API_BASE_URL}${endpoint}?${queryString}`,
-    headers,
     ...(body ? { data: body } : {}),
+    ...(headers ? { headers } : {}),
     method,
     ...opts,
-    timeout: 30000
+    timeout: 30000,
+    url: `${PV.Config.API_BASE_URL}${endpoint}?${queryString}`,
+    ...(withCredentials ? { withCredentials: true } : {})
   }
 
   try {
     const response = await axios(axiosRequest)
-
     return response
   } catch (error) {
     console.log('error message:', error.message)

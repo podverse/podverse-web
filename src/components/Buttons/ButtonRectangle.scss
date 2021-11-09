@@ -1,0 +1,41 @@
+.button-rectangle {
+  border-radius: $button-rectangle-radius;
+  height: 44px;
+  min-width: 158px;
+
+  &.primary {
+    @include themeGen() {
+      background-color: getThemeVal('buttonPrimaryBackground') !important;
+    }
+
+    &:hover {
+      @include themeGen() {
+        background-color: getThemeVal('buttonPrimaryRolloverBackground') !important;
+      }
+    }
+  }
+
+  &.secondary {
+    @include themeGen() {
+      background-color: getThemeVal('buttonSecondaryBackground') !important;
+    }
+
+    &:hover {
+      @include themeGen() {
+        background-color: getThemeVal('buttonSecondaryRolloverBackground') !important;
+      }
+    }
+  }
+
+  &.tertiary {
+    @include themeGen() {
+      background-color: getThemeVal('buttonTertiaryBackground') !important;
+    }
+
+    &:hover {
+      @include themeGen() {
+        background-color: getThemeVal('buttonTertiaryRolloverBackground') !important;
+      }
+    }
+  }
+}

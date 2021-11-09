@@ -1,13 +1,14 @@
 {
     "modals": {
       "login": {
-        "password": "",
-        "show": false,
-        "username": ""
+        "show": false
       }
     },
     "player": {
         "nowPlayingItem": null,
         "show":false
+    },
+    "session": {
+      "userInfo": null
     }
 }
