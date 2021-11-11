@@ -26,8 +26,7 @@ export const PodcastListItem = ({ podcast }: Props) => {
               alt={t('Podcast artwork')}
               height={PV.Images.sizes.medium}
               src={podcastImageUrl}
-              width={PV.Images.sizes.medium}
-            />
+              width={PV.Images.sizes.medium} />
             <div className='text-wrapper'>
               <div className='last-episode-pub-date'>{pubDateText}</div>
               <div className='title'>{title}</div>

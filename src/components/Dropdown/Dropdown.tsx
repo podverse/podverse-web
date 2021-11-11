@@ -7,6 +7,7 @@ import Select from 'react-dropdown-select'
 type Props = {
   dropdownWidthClass?: 'width-small' | 'width-medium' | 'width-large'
   faIcon?: IconProp
+  hideCaret?: boolean
   onChange: any
   options: any[]
   outlineStyle?: boolean
@@ -15,7 +16,7 @@ type Props = {
 }
 
 const contentRenderer = (props: Props) => {
-  const { faIcon, options, selectedKey, text } = props
+  const { faIcon, hideCaret, options, selectedKey, text } = props
   const selectedOption = options?.find(option => option.key === selectedKey)
   const finalText = text || selectedOption?.label
 
@@ -39,12 +40,16 @@ const contentRenderer = (props: Props) => {
   )
 }
 
-const dropdownHandleRenderer = () => {
-  return (
-    <div className='dropdown__chevron'>
-      <FontAwesomeIcon icon={faChevronDown} />
-    </div>
-  )
+const dropdownHandleRenderer = (hideCaret?: boolean) => {
+  if (hideCaret) {
+    return <div />
+  } else {
+    return (
+      <div className='dropdown__chevron'>
+        <FontAwesomeIcon icon={faChevronDown} />
+      </div>
+    )
+  }
 }
 
 export const Dropdown = (props: Props) => {
@@ -58,7 +63,7 @@ export const Dropdown = (props: Props) => {
     <Select
       className={wrapperClass}
       contentRenderer={() => contentRenderer(props)}
-      dropdownHandleRenderer={() => dropdownHandleRenderer()}
+      dropdownHandleRenderer={() => dropdownHandleRenderer(props.hideCaret)}
       labelField='label'
       onChange={onChange}
       options={options}

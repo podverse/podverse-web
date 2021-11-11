@@ -1,1 +1,9 @@
 @import './themes.scss';
+
+@mixin line-clamp($line-count) {
+  display: -webkit-box;
+  line-clamp: $line-count;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: $line-count;
+}

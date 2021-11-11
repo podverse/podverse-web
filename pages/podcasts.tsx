@@ -10,7 +10,6 @@ import { List, PageHeader, PageScrollableContent, Pagination, PodcastListItem } 
 import { PV } from '~/resources'
 import { getPodcastsByQuery } from '~/services/podcast'
 import { getAuthenticatedUserInfo } from '~/services/auth'
-import { initializeGlobalState } from '~/state/initializeGlobalState'
 
 type Props = {
   serverFilterFrom: string

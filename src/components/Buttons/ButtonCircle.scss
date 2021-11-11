@@ -20,12 +20,18 @@
     width: 32px;
   }
 
+  &.medium {
+    height: 36px;
+    line-height: 36px;
+    width: 36px;
+  }
+
   &.backwards {
     margin-right: 8px;
     padding-right: 1px;
 
     svg {
-      height: 0.7em;
+
       width: 0.4375em;
     }
   }
@@ -35,8 +41,16 @@
     padding-left: 1px;
 
     svg {
-      height: 0.7em;
+
       width: 0.4375em;
+    }
+  }
+
+  &.play {
+    padding-left: 1px;
+
+    svg {
+      width: 10px;
     }
   }
 }

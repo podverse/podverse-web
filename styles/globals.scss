@@ -71,11 +71,44 @@ body {
     transform: translate(-50%, -50%);
   }
 
-  button {
+  .row {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .column {
+    display: flex;
+    flex-direction: column;
+  }
+
+  button, div {
     &:focus {
       @include themeGen() {
         box-shadow: getThemeVal('focusGlow');
       }
+    }
+  }
+
+  h1 {
+    font-size: $text-huge;
+    font-weight: $font-weight-light;
+  }
+
+  h2 {
+    font-size: $text-xxl;
+    font-weight: $font-weight-bold;
+  }
+
+  h3 {
+    font-size: $text-xl;
+    font-weight: $font-weight-light;
+  }
+
+  p {
+    font-size: $text-md;
+
+    @include themeGen() {
+      color: getThemeVal('textParagraph');
     }
   }
 }

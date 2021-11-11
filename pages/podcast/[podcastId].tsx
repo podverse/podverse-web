@@ -6,41 +6,42 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import OmniAural from "omniaural"
 import type { Episode, Podcast } from 'podverse-shared'
 import { useEffect, useState } from 'react'
-import { List, PageHeader, PageScrollableContent, Pagination, PodcastListItem, PodcastPageHeader } from '~/components'
+import { EpisodeListItem, List, PageHeader, PageScrollableContent, Pagination, PodcastListItem, PodcastPageHeader, SideContent } from '~/components'
 import { PV } from '~/resources'
 import { getPodcastById, getPodcastsByQuery } from '~/services/podcast'
 import { getAuthenticatedUserInfo } from '~/services/auth'
 import { getEpisodesByQuery } from '~/services/episode'
 
 type Props = {
-  serverFilterFrom: string
   serverFilterPage: number
   serverFilterSort: string
+  serverFilterType: string
   serverListData: Podcast[]
   serverListDataCount: number
   serverPodcast: Podcast
 }
 
 type FilterState = {
-  filterFrom?: string
   filterPage?: number
   filterSort?: string
+  filterType?: string
 }
 
 const keyPrefix = 'pages_podcast'
 
 export default function Podcast(props: Props) {
-  const { serverFilterFrom, serverFilterPage, serverFilterSort,
+  const { serverFilterPage, serverFilterSort, serverFilterType,
     serverListData, serverListDataCount, serverPodcast } = props
+  const { id } = serverPodcast
 
   const { t } = useTranslation()
 
   const [filterState, setFilterState] = useState({
-    filterFrom: serverFilterFrom,
+    filterPage: serverFilterPage,
     filterSort: serverFilterSort,
-    filterPage: serverFilterPage
+    filterType: serverFilterType
   } as FilterState)
-  const { filterFrom, filterPage, filterSort } = filterState
+  const { filterPage, filterSort, filterType } = filterState
   const [listData, setListData] = useState<Episode[]>(serverListData)
   const [listDataCount, setListDataCount] = useState<number>(serverListDataCount)
 
@@ -50,8 +51,8 @@ export default function Podcast(props: Props) {
 
   useEffect(() => {
     (async () => {
-      const { data } = await clientQueryPodcasts(
-        { from: filterFrom, page: filterPage, sort: filterSort },
+      const { data } = await clientQueryEpisodes(
+        { page: filterPage, podcastId: id, sort: filterSort },
         filterState
       )
       const newListData = data[0]
@@ -59,7 +60,7 @@ export default function Podcast(props: Props) {
       setListData(newListData)
       setListDataCount(newListCount)
     })()
-  }, [filterFrom, filterSort, filterPage])
+  }, [filterPage, filterSort, filterType])
 
   return (
     <>
@@ -69,29 +70,54 @@ export default function Podcast(props: Props) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <PodcastPageHeader podcast={serverPodcast} />
-      {/* <PageScrollableContent>
-        <List>
-          {generatePodcastListElements(listData)}
-        </List>
-        <Pagination
-          currentPageIndex={filterPage}
-          handlePageNavigate={(newPage) => {
-            setFilterState({ filterFrom, filterPage: newPage, filterSort })
-          }}
-          handlePageNext={() => {
-            const newPage = filterPage + 1
-            if (newPage <= pageCount) {
-              setFilterState({ filterFrom, filterPage: newPage, filterSort })
-            }
-          }}
-          handlePagePrevious={() => {
-            const newPage = filterPage - 1
-            if (newPage > 0) {
-              setFilterState({ filterFrom, filterPage: newPage, filterSort })
-            }
-          }}
-          pageCount={pageCount} />
-      </PageScrollableContent> */}
+      <PageScrollableContent>
+        <div className='row'>
+          <div className='column'>
+            <PageHeader
+              isSubHeader
+              primaryOnChange={(selectedItems: any[]) => {
+                const selectedItem = selectedItems[0]
+                setFilterState({ filterPage: 1, filterSort, filterType: selectedItem.key })
+              }}
+              primaryOptions={generateTypeOptions(t)}
+              primarySelected={filterType}
+              sortOnChange={(selectedItems: any[]) => {
+                const selectedItem = selectedItems[0]
+                setFilterState({ filterPage: 1, filterSort: selectedItem.key, filterType })
+              }}
+              sortOptions={generateSortOptions(t)}
+              sortSelected={filterSort}
+              text={t('Episodes')} />
+            <List>
+              {generateEpisodeListElements(listData)}
+            </List>
+            <Pagination
+              currentPageIndex={filterPage}
+              handlePageNavigate={(newPage) => {
+                setFilterState({ filterPage: newPage, filterSort, filterType })
+              }}
+              handlePageNext={() => {
+                const newPage = filterPage + 1
+                if (newPage <= pageCount) {
+                  setFilterState({ filterPage: newPage, filterSort, filterType })
+                }
+              }}
+              handlePagePrevious={() => {
+                const newPage = filterPage - 1
+                if (newPage > 0) {
+                  setFilterState({ filterPage: newPage, filterSort, filterType })
+                }
+              }}
+              pageCount={pageCount} />
+          </div>
+          <div className='column'>
+            <SideContent>
+              <h2>{t('About')}</h2>
+              <div className='text'>{serverPodcast.description}</div>
+            </SideContent>
+          </div>
+        </div>
+      </PageScrollableContent>
     </>
   )
 }
@@ -132,9 +158,9 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   return {
     props: {
       ...(await serverSideTranslations(locale, PV.i18n.fileNames.all)),
-      // serverFilterFrom,
-      // serverFilterPage,
-      // serverFilterSort,
+      serverFilterPage,
+      serverFilterSort,
+      serverFilterType,
       // serverInitialUserInfo: userInfo,
       serverListData: listData,
       serverListDataCount: listDataCount,
@@ -146,46 +172,45 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
 /* Client-side logic */
 
-type ClientQueryPodcasts = {
-  from?: string
+type ClientQueryEpisodes = {
   page?: number
+  podcastId?: string
   sort?: string
 }
 
-const clientQueryPodcasts = async (
-  { from, page, sort }: ClientQueryPodcasts,
+const clientQueryEpisodes = async (
+  { page, podcastId, sort }: ClientQueryEpisodes,
   filterState: FilterState
 ) => {
   const finalQuery = {
-    ...(from ? { from } : { from: filterState.filterFrom }),
+    podcastId,
     ...(page ? { page } : { page: filterState.filterPage }),
     ...(sort ? { sort } : { sort: filterState.filterSort })
   }
-  return getPodcastsByQuery(finalQuery)
+  return getEpisodesByQuery(finalQuery)
 }
 
 /* Helpers */
 
-const generateFromOptions = (t: any) => [
-  { label: t('All'), key: PV.Filters.from._all },
-  { label: t('Subscribed'), key: PV.Filters.from._subscribed },
-  { label: t('Categories'), key: PV.Filters.from._category }
+const generateTypeOptions = (t: any) => [
+  { label: t('Episodes'), key: PV.Filters.type._episodes },
+  { label: t('Clips'), key: PV.Filters.type._clips }
 ]
 
 const generateSortOptions = (t: any) => [
-  // { label: t('Recent'), key: PV.Filters.sort._mostRecent },
+  { label: t('Recent'), key: PV.Filters.sort._mostRecent },
   { label: t('Top - Past Day'), key: PV.Filters.sort._topPastDay },
   { label: t('Top - Past Week'), key: PV.Filters.sort._topPastWeek },
   { label: t('Top - Past Month'), key: PV.Filters.sort._topPastMonth },
   { label: t('Top - Past Year'), key: PV.Filters.sort._topPastYear },
-  { label: t('Top - All Time'), key: PV.Filters.sort._topAllTime }
-  // { label: t('Oldest'), key: PV.Filters.sort._oldest }
+  { label: t('Top - All Time'), key: PV.Filters.sort._topAllTime },
+  { label: t('Oldest'), key: PV.Filters.sort._oldest }
 ]
 
-const generatePodcastListElements = (listItems: Podcast[]) => {
+const generateEpisodeListElements = (listItems: Episode[]) => {
   return listItems.map((listItem, index) =>
-    <PodcastListItem
-      key={`${keyPrefix}-${index}`}
-      podcast={listItem} />
+    <EpisodeListItem
+      episode={listItem}
+      key={`${keyPrefix}-${index}`} />
   )
 }

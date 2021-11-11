@@ -1,0 +1,34 @@
+.episode-list-item {
+  margin: 25px 0 18px 0;
+  
+  .content-wrapper {
+    display: flex;
+    flex-direction: row;
+
+    img {
+      margin-right: 16px;
+    }
+
+    .text-wrapper {
+      h3 {
+        margin-bottom: 0;
+        padding-bottom: 9px;
+      }
+    
+      p {
+        margin: 0 0 17px 0;
+        @include line-clamp(2);
+      }
+
+      &:hover {
+        h3, p {
+          cursor: pointer;
+
+          @include themeGen() {
+            color: getThemeVal('textHover');
+          }
+        }
+      }
+    }
+  }
+}

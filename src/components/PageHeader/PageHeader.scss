@@ -4,15 +4,19 @@
   @include themeGen() {
     background-color: getThemeVal('backgroundTertiary');
   }
+
+  &.sub-header {
+    background-color: transparent;
+
+    .main-max-width {
+      margin: 0;
+    }
+  }
   
   .main-max-width {
     margin-bottom: 13px;
     display: flex;
     justify-content: space-between;
-
-    .title {
-      font-size: $text-huge;
-    }
 
     .dropdowns {
       display: flex;

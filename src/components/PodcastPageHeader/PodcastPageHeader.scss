@@ -1,7 +1,8 @@
 .podcast-page-header {
   align-items: center;
   display: flex;
-  height: 161px;
+  // margin-bottom: 30px;
+  min-height: 161px;
 
   @include themeGen() {
     background-image: linear-gradient(
@@ -24,11 +25,6 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-
-      h1 {
-        font-size: $text-huge;
-        font-weight: $font-weight-light;
-      }
 
       .sub-text {
         font-size: $text-xl;

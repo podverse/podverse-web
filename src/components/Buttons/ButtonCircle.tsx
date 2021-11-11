@@ -6,7 +6,7 @@ type Props = {
   className?: string
   faIcon: IconProp
   onClick?: any
-  size: 'small'
+  size: 'small' | 'medium'
 }
 
 export const ButtonCircle = ({ className, faIcon, onClick, size }: Props) => {
