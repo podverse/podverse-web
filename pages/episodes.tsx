@@ -25,7 +25,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   return {
     props: {
       ...(await serverSideTranslations(locale, PV.i18n.fileNames.all)),
-      serverSideCookies: cookies
+      serverCookies: cookies
     }
   }
 }

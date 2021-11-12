@@ -1,6 +1,8 @@
+import classnames from  'classnames'
 import { Dropdown } from "~/components"
 
 type Props = {
+  isSubHeader?: boolean
   primaryOnChange?: any
   primaryOptions?: any[]
   primarySelected?: string
@@ -10,16 +12,19 @@ type Props = {
   text: string
 }
 
-export const PageHeader = ({ primaryOnChange, primaryOptions, primarySelected,
-  sortOnChange, sortOptions, sortSelected, text }: Props) => {
+export const PageHeader = ({ isSubHeader, primaryOnChange, primaryOptions,
+  primarySelected, sortOnChange, sortOptions, sortSelected, text }: Props) => {
+  const wrapperClass = classnames(
+    'page-header',
+    isSubHeader ? 'sub-header' : ''
+  )
   const hasDropdowns = !!(sortOptions?.length || primaryOptions?.length)
 
   return (
-    <div className='page-header'>
+    <div className={wrapperClass}>
       <div className='main-max-width'>
-        <div className='title'>
-          {text}
-        </div>
+        {!isSubHeader && <h1>{text}</h1>}
+        {isSubHeader && <h2>{text}</h2>}
         {
           hasDropdowns && (
             <div className='dropdowns'>

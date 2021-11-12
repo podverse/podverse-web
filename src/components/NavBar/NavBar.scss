@@ -13,6 +13,10 @@
     flex-direction: column;
     overflow: scroll;
 
+    .navbar__link:first-child {
+      margin-top: 17px;
+    }
+
     hr.top {
       margin: 5px 0 16px 0;
     }

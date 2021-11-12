@@ -1,0 +1,17 @@
+.media-item-controls {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+
+  .time-wrapper {
+    margin: 0 14px;
+
+    .pub-date, .time-spacer, .time-info {
+      font-weight: $font-weight-bold;
+
+      @include themeGen() {
+        color: getThemeVal('textTertiary');
+      }
+    }
+  }
+}

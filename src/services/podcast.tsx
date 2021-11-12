@@ -1,12 +1,11 @@
 import axios from 'axios'
-import { convertObjectToQueryString } from '~/lib/utility/query'
 import { PV } from '~/resources'
 import { request } from '~/services/request'
 
 type PodcastQueryParams = {
   categories?: string[]
   from?: string
-  maxResults?: number
+  maxResults?: boolean
   page?: number
   podcastIds?: string[]
   searchBy?: string
@@ -17,7 +16,7 @@ type PodcastQueryParams = {
 export const getPodcastsByQuery = async ({ categories, from, maxResults,
   page, podcastIds, searchBy, searchText, sort }: PodcastQueryParams) => {
   
-  const filteredQuery: any = {
+  const filteredQuery: PodcastQueryParams = {
     ...(from === PV.Filters.from._category ? { categories } : {}),
     ...(from === PV.Filters.from._subscribed ? { podcastId: podcastIds } : {}),
     // If no "from", then from defaults to _allKey
@@ -28,23 +27,15 @@ export const getPodcastsByQuery = async ({ categories, from, maxResults,
     ...(sort ? { sort } : { sort: PV.Filters.sort._topPastDay })
   }
 
-  const queryString = convertObjectToQueryString(filteredQuery)
-
-  return axios(
-    `${PV.Config.API_BASE_URL}${PV.RoutePaths.api.podcast}?${queryString}`,
-    { method: 'get' }
-  )
+  return request({
+    endpoint: PV.RoutePaths.api.podcast,
+    method: 'get',
+    query: filteredQuery
+  })
 }
 
 export const getPodcastById = async (id: string) => {
   return request({
     endpoint: `${PV.RoutePaths.api.podcast}/${id}`
-  })
-}
-
-export const toggleSubscribeToPodcast = async (podcastId: string) => {
-  return axios(`${PV.Config.API_BASE_URL}${PV.RoutePaths.api.podcast}${PV.RoutePaths.api.toggle_subscribe}/${podcastId}`, {
-    method: 'get',
-    withCredentials: true
   })
 }

@@ -1,15 +1,22 @@
 .text-input-outer-wrapper {
   border-radius: $item-border-radius !important;
-  margin: 0 0 24px;
+  margin: 0 0 36px;
   padding: 10px 16px;
 
   @include themeGen() {
     background-color: getThemeVal('textInputBackground') !important;
   }
 
+  &:focus-within {
+    @include themeGen() {
+      border: $border-width-default solid getThemeVal('textInputFocusBorder');
+    }
+  }
+
   .text-input-inner-wrapper {
     display: flex;
     flex-direction: column;
+    height: 42px;
 
     .eyebrow {
       font-size: $text-sm;
@@ -23,6 +30,7 @@
 
     input {
       font-size: $text-lg;
+      height: 42px;
 
       &::placeholder {
         @include themeGen() {

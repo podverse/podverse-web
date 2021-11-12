@@ -1,18 +1,22 @@
-import type { Podcast } from 'podverse-shared'
 import { GetServerSideProps } from 'next'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import OmniAural from "omniaural"
+import type { Podcast } from 'podverse-shared'
 import { useEffect, useState } from 'react'
 import { List, PageHeader, PageScrollableContent, Pagination, PodcastListItem } from '~/components'
 import { PV } from '~/resources'
 import { getPodcastsByQuery } from '~/services/podcast'
+import { getAuthenticatedUserInfo, getServerSideAuthenticatedUserInfo } from '~/services/auth'
+import { scrollToTopOfPageScrollableContent } from '~/components/PageScrollableContent/PageScrollableContent'
 
 type Props = {
   serverFilterFrom: string
   serverFilterPage: number
   serverFilterSort: string
+  serverInitialUserInfo: any
   serverListData: Podcast[]
   serverListDataCount: number
 }
@@ -26,12 +30,12 @@ type FilterState = {
 const keyPrefix = 'pages_podcasts'
 
 export default function Podcasts(props: Props) {
-  const { serverFilterFrom, serverFilterPage, serverFilterSort,
+  const { serverFilterFrom, serverFilterPage, serverFilterSort, serverInitialUserInfo,
     serverListData, serverListDataCount } = props
 
   const router = useRouter()
   const { t } = useTranslation()
-
+  
   const [filterState, setFilterState] = useState({
     filterFrom: serverFilterFrom,
     filterSort: serverFilterSort,
@@ -48,6 +52,10 @@ export default function Podcasts(props: Props) {
     : t('Podverse')
 
   useEffect(() => {
+    OmniAural.state.session.userInfo.set(serverInitialUserInfo)
+  }, [])
+
+  useEffect(() => {
     (async () => {
       const { data } = await clientQueryPodcasts(
         { from: filterFrom, page: filterPage, sort: filterSort },
@@ -57,6 +65,7 @@ export default function Podcasts(props: Props) {
       const newListCount = data[1]
       setListData(newListData)
       setListDataCount(newListCount)
+      scrollToTopOfPageScrollableContent()
     })()
   }, [filterFrom, filterSort, filterPage])
 
@@ -108,37 +117,6 @@ export default function Podcasts(props: Props) {
   )
 }
 
-/* Server-side logic */
-
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const { req, locale } = ctx
-  const { cookies } = req
-
-  const serverFilterFrom = PV.Filters.from._all
-  const serverFilterSort = PV.Filters.sort._topPastDay
-
-  const serverFilterPage = 1
-
-  const podcasts = await getPodcastsByQuery({
-    from: serverFilterFrom,
-    sort: serverFilterSort
-  })
-
-  const data = podcasts.data as Podcast[] || [[], 0]
-
-  return {
-    props: {
-      ...(await serverSideTranslations(locale, PV.i18n.fileNames.all)),
-      serverFilterFrom,
-      serverFilterPage,
-      serverFilterSort,
-      serverListData: data[0] || [],
-      serverListDataCount: data[1] || 0,
-      serverSideCookies: cookies
-    }
-  }
-}
-
 /* Client-side logic */
 
 type ClientQueryPodcasts = {
@@ -183,4 +161,39 @@ const generatePodcastListElements = (listItems: Podcast[]) => {
       key={`${keyPrefix}-${index}`}
       podcast={listItem} />
   )
+}
+
+/* Server-side logic */
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const { req, locale } = ctx
+  const { cookies } = req
+
+  const userInfo = await getServerSideAuthenticatedUserInfo(cookies)
+
+  const serverFilterFrom = PV.Filters.from._all
+  const serverFilterSort = PV.Filters.sort._topPastDay
+
+  const serverFilterPage = 1
+
+  const podcasts = await getPodcastsByQuery({
+    from: serverFilterFrom,
+    sort: serverFilterSort
+  })
+
+  const data = podcasts.data as Podcast[] || [[], 0]
+
+  return {
+    props: {
+      serverUserInfo: userInfo,
+      ...(await serverSideTranslations(locale, PV.i18n.fileNames.all)),
+      serverFilterFrom,
+      serverFilterPage,
+      serverFilterSort,
+      serverInitialUserInfo: userInfo,
+      serverListData: data[0] || [],
+      serverListDataCount: data[1] || 0,
+      serverCookies: cookies
+    }
+  }
 }

@@ -11,3 +11,8 @@ export const PageScrollableContent = ({ children }: Props) => {
     </div>
   )
 }
+
+export const scrollToTopOfPageScrollableContent = () => {
+  const pageEl = document.querySelector('.page-scrollable-content')
+  if (pageEl) pageEl.scrollTop = 0
+}

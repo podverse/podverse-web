@@ -1,17 +1,20 @@
+const api = {
+  auth: '/auth'
+}
+
 export const RoutePaths = {
   api: {
     add_or_remove: `/add-or-remove`,
     add_or_update_history_item: `/add-or-update-history-item`,
-    auth: `/auth`,
     bitpay: `/bitpay`,
     category: `/category`,
-    claim_account: `/claim-account`,
+    claim_account: `${api.auth}/claim-account`,
     download: `/download`,
     episode: `/episode`,
-    get_authenticated_user_info: `/get-authenticated-user-info`,
+    get_authenticated_user_info: `${api.auth}/get-authenticated-user-info`,
     invoice: `/invoice`,
-    login: `/login`,
-    logout: `/logout`,
+    login: `${api.auth}/login`,
+    logout: `${api.auth}/logout`,
     mediaRef: `/mediaRef`,
     mediaRefs: `/mediaRefs`,
     order: `/order`,
@@ -19,9 +22,9 @@ export const RoutePaths = {
     playlist: `/playlist`,
     playlists: `/playlists`,
     podcast: `/podcast`,
-    reset_password: `/reset-password`,
-    send_reset_password: `/send-reset-password`,
-    send_verification: `/send-verification`,
+    reset_password: `${api.auth}/reset-password`,
+    send_reset_password: `${api.auth}/send-reset-password`,
+    send_verification: `${api.auth}/send-verification`,
     sign_up: `/sign-up`,
     toggle_subscribe: `/toggle-subscribe`,
     update_history_item_playback_position: `/update-history-item-playback-position`,

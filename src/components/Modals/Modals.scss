@@ -5,8 +5,8 @@
 
   .ReactModal__Content {
     border-radius: $item-border-radius !important;
-    min-width: 360px;
-    padding: 16px;
+    min-width: 400px;
+    padding: 32px 24px;
 
     @include themeGen() {
       background-color: getThemeVal('backgroundPrimary') !important;
@@ -14,15 +14,34 @@
 
     &.login-modal {
       max-width: 560px;
+
+      .submit-buttons {   
+        display: flex;
+        justify-content: center;
+        margin-bottom: 40px;
+        
+        button:last-child {
+          margin: 0 0 0 16px;
+        }
+      }
+
+      .signup-buttons {
+        display: flex;
+        justify-content: center;
+
+        button:last-child {
+          margin: 0 0 0 24px;
+        }
+      }
     }
 
     h2 {
-      margin: 0 0 20px 0;
+      margin: 0 0 28px 0;
     }
 
     .button-close {
       position: absolute;
-      top: 10px;
+      top: 24px;
       right: 16px;
     }
   }

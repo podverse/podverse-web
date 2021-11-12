@@ -1,13 +1,20 @@
 {
     "modals": {
       "login": {
-        "password": "",
-        "show": false,
-        "username": ""
+        "show": false
+      },
+      "resetPassword": {
+        "show": false
+      },
+      "signUp": {
+        "show": false
       }
     },
     "player": {
         "nowPlayingItem": null,
         "show":false
+    },
+    "session": {
+      "userInfo": null
     }
 }
