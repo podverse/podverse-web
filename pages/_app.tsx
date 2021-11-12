@@ -8,14 +8,17 @@ import { CookiesProvider } from 'react-cookie'
 import Modal from 'react-modal'
 import { Modals, NavBar, HorizontalNavBar, Player } from '~/components'
 import "~/state"
+import initialState from "~/state/initialState.json"
+
+OmniAural.initGlobalState(initialState)
 
 fontAwesomeConfig.autoAddCss = false
 
 Modal.setAppElement('.app')
 
 function MyApp({ Component, pageProps }) {
-  const { serverInitialState } = pageProps
-  OmniAural.initGlobalState(serverInitialState)
+  const { serverUserInfo } = pageProps
+  OmniAural.state.session.userInfo.set(serverUserInfo)
 
   return (
     <CookiesProvider>

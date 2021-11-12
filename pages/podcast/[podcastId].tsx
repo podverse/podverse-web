@@ -2,18 +2,17 @@ import { GetServerSideProps } from 'next'
 import Head from 'next/head'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import OmniAural from "omniaural"
 import type { Episode, MediaRef, Podcast } from 'podverse-shared'
 import { useEffect, useState } from 'react'
-import { EpisodeListItem, List, MediaRefListItem, PageHeader, PageScrollableContent, Pagination, PodcastListItem, PodcastPageHeader, SideContent } from '~/components'
+import { EpisodeListItem, List, MediaRefListItem, PageHeader, PageScrollableContent,
+  Pagination, PodcastPageHeader, SideContent } from '~/components'
+import { scrollToTopOfPageScrollableContent } from '~/components/PageScrollableContent/PageScrollableContent'
+import { calcListPageCount } from '~/lib/utility/misc'
 import { PV } from '~/resources'
 import { getPodcastById } from '~/services/podcast'
 import { getEpisodesByQuery } from '~/services/episode'
 import { getMediaRefsByQuery } from '~/services/mediaRef'
-import { refreshAuthenticatedUserInfoState } from '~/state/auth/auth'
-import { initServerState } from '~/state/initServerState'
-import { scrollToTopOfPageScrollableContent } from '~/components/PageScrollableContent/PageScrollableContent'
-import { calcListPageCount } from '~/lib/utility/misc'
+import { getServerSideAuthenticatedUserInfo } from '~/services/auth'
 
 type Props = {
   serverEpisodes: Episode[]
@@ -228,15 +227,11 @@ const generateMediaRefListElements = (listItems: MediaRef[], podcast: Podcast) =
 /* Server-side logic */
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  initServerState()
   const { locale, params, req } = ctx
   const { cookies } = req
   const { podcastId } = params
 
-  let userInfo = null
-  if (cookies.Authorization) {
-    userInfo = await refreshAuthenticatedUserInfoState(cookies.Authorization)
-  }
+  const userInfo = await getServerSideAuthenticatedUserInfo(cookies)
 
   const serverFilterType = PV.Filters.type._episodes
   const serverFilterSort = PV.Filters.sort._mostRecent
@@ -263,7 +258,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
   return {
     props: {
-      serverInitialState: OmniAural.state.value(),
+      serverUserInfo: userInfo,
       ...(await serverSideTranslations(locale, PV.i18n.fileNames.all)),
       serverCookies: cookies,
       serverEpisodes,

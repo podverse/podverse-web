@@ -9,8 +9,7 @@ import { useEffect, useState } from 'react'
 import { List, PageHeader, PageScrollableContent, Pagination, PodcastListItem } from '~/components'
 import { PV } from '~/resources'
 import { getPodcastsByQuery } from '~/services/podcast'
-import { getAuthenticatedUserInfo } from '~/services/auth'
-import { initServerState } from '~/state/initServerState'
+import { getAuthenticatedUserInfo, getServerSideAuthenticatedUserInfo } from '~/services/auth'
 import { scrollToTopOfPageScrollableContent } from '~/components/PageScrollableContent/PageScrollableContent'
 
 type Props = {
@@ -167,14 +166,10 @@ const generatePodcastListElements = (listItems: Podcast[]) => {
 /* Server-side logic */
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  initServerState()
   const { req, locale } = ctx
   const { cookies } = req
 
-  let userInfo = null
-  if (cookies.Authorization) {
-    userInfo = await getAuthenticatedUserInfo(cookies.Authorization)
-  }
+  const userInfo = await getServerSideAuthenticatedUserInfo(cookies)
 
   const serverFilterFrom = PV.Filters.from._all
   const serverFilterSort = PV.Filters.sort._topPastDay
@@ -190,7 +185,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
   return {
     props: {
-      serverInitialState: OmniAural.state.value(),
+      serverUserInfo: userInfo,
       ...(await serverSideTranslations(locale, PV.i18n.fileNames.all)),
       serverFilterFrom,
       serverFilterPage,

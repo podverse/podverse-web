@@ -2,6 +2,12 @@
     "modals": {
       "login": {
         "show": false
+      },
+      "resetPassword": {
+        "show": false
+      },
+      "signUp": {
+        "show": false
       }
     },
     "player": {

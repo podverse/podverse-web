@@ -85,7 +85,6 @@ export const LoginModal = (props: Props) => {
       <div className='submit-buttons'>
         <ButtonRectangle
           label={t('Cancel')}
-          onClick={_onRequestClose}
           type='secondary' />
         <ButtonRectangle
           label={t('Submit')}

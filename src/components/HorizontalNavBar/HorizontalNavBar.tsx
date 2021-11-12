@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next'
 import { useCookies } from 'react-cookie'
 import { ButtonCircle, Dropdown, SwitchWithIcons } from '~/components'
 import { PV } from '~/resources'
+import { logOut } from '~/services/auth'
 
 type Props = {
   serverCookies: any
@@ -52,7 +53,7 @@ export const HorizontalNavBar = ({ serverCookies }: Props) => {
 
   const dropdownItems = generateDropdownItems(t)
 
-  const onChange = (selected) => {
+  const onChange = async (selected) => {
     const item = selected[0]
     if (item) {
       if (item.key === _membershipKey) {
@@ -60,10 +61,9 @@ export const HorizontalNavBar = ({ serverCookies }: Props) => {
       } else if (item.key === _settingsKey) {
         router.push(PV.RoutePaths.web.settings)
       } else if (item.key === _logInKey) {
-        console.log('Login')
         OmniAural.modalsLoginShow()
       } else if (item.key === _logOutKey) {
-        console.log('Logout')
+        await logOut()
       }
     }
   }
@@ -105,8 +105,7 @@ export const HorizontalNavBar = ({ serverCookies }: Props) => {
 /* Helpers */
 
 const generateDropdownItems = (t: any) => {
-  const isLoggedIn = false
-
+  const isLoggedIn = !!OmniAural.state.session.userInfo.value()
   const items = [
     { label: t('Membership'), key: _membershipKey },
     { label: t('Settings'), key: _settingsKey },
