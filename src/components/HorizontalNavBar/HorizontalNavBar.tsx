@@ -68,9 +68,6 @@ export const HorizontalNavBar = ({ serverSideCookies }: Props) => {
     }
   }
 
-  // Why doesn't this update after the useEffect [] in pages/podcasts.tsx???
-  console.log('userInfo', userInfo)
-
   return (
     <div className='horizontal-navbar-wrapper'>
       <nav className='navbar-secondary main-max-width'>

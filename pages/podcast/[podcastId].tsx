@@ -1,6 +1,5 @@
 import { GetServerSideProps } from 'next'
 import Head from 'next/head'
-import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import OmniAural from "omniaural"
@@ -8,9 +7,10 @@ import type { Episode, Podcast } from 'podverse-shared'
 import { useEffect, useState } from 'react'
 import { EpisodeListItem, List, PageHeader, PageScrollableContent, Pagination, PodcastListItem, PodcastPageHeader, SideContent } from '~/components'
 import { PV } from '~/resources'
-import { getPodcastById, getPodcastsByQuery } from '~/services/podcast'
-import { getAuthenticatedUserInfo } from '~/services/auth'
+import { getPodcastById } from '~/services/podcast'
 import { getEpisodesByQuery } from '~/services/episode'
+import { refreshAuthenticatedUserInfoState } from '~/state/auth/auth'
+import { initServerState } from '~/state/initServerState'
 
 type Props = {
   serverFilterPage: number
@@ -125,13 +125,14 @@ export default function Podcast(props: Props) {
 /* Server-side logic */
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  initServerState()
   const { locale, params, req } = ctx
   const { cookies } = req
   const { podcastId } = params
 
   let userInfo = null
   if (cookies.Authorization) {
-    userInfo = await getAuthenticatedUserInfo(cookies.Authorization)
+    userInfo = await refreshAuthenticatedUserInfoState(cookies.Authorization)
   }
 
   const serverFilterType = PV.Filters.type._episodes
@@ -157,6 +158,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
   return {
     props: {
+      serverInitialState: OmniAural.state.value(),
       ...(await serverSideTranslations(locale, PV.i18n.fileNames.all)),
       serverFilterPage,
       serverFilterSort,

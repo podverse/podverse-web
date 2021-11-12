@@ -10,6 +10,7 @@ import { List, PageHeader, PageScrollableContent, Pagination, PodcastListItem } 
 import { PV } from '~/resources'
 import { getPodcastsByQuery } from '~/services/podcast'
 import { getAuthenticatedUserInfo } from '~/services/auth'
+import { initServerState } from '~/state/initServerState'
 
 type Props = {
   serverFilterFrom: string
@@ -118,6 +119,7 @@ export default function Podcasts(props: Props) {
 /* Server-side logic */
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  initServerState()
   const { req, locale } = ctx
   const { cookies } = req
 
