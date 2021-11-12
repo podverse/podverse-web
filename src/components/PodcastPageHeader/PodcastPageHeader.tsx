@@ -1,8 +1,10 @@
+import { useOmniAural } from 'omniaural'
 import type { Podcast } from 'podverse-shared'
 import { useTranslation } from 'react-i18next'
 import { generateAuthorText } from '~/lib/utility/author'
 import { generateCategoryNodes } from '~/lib/utility/category'
 import { PV } from '~/resources'
+import { toggleSubscribeToPodcast } from '~/state/loggedInUserActions'
 import { ButtonRectangle, PVImage } from '..'
 
 type Props = {
@@ -11,10 +13,13 @@ type Props = {
 
 export const PodcastPageHeader = ({ podcast }: Props) => {
   const { t } = useTranslation()
-  const { imageUrl } = podcast
-  const authorEls = generateAuthorText(podcast.authors)
-  const categoryEls = generateCategoryNodes(podcast.categories)
-  
+  const [userInfo] = useOmniAural('session.userInfo')
+  const { authors, categories, id, imageUrl } = podcast
+  const authorEls = generateAuthorText(authors)
+  const categoryEls = generateCategoryNodes(categories)
+  const isSubscribed = userInfo?.subscribedPodcastIds.includes(id)
+  const subscribedText = isSubscribed ? t('Unsubscribe') : t('Subscribe')
+
   return (
     <div
       className='podcast-page-header'>
@@ -34,7 +39,8 @@ export const PodcastPageHeader = ({ podcast }: Props) => {
           </div>
         </div>
         <ButtonRectangle
-          label={t('Subscribe')}
+          label={subscribedText}
+          onClick={() => toggleSubscribeToPodcast(id)}
           type='tertiary' />
       </div>
     </div>

@@ -39,10 +39,3 @@ export const getPodcastById = async (id: string) => {
     endpoint: `${PV.RoutePaths.api.podcast}/${id}`
   })
 }
-
-export const toggleSubscribeToPodcast = async (podcastId: string) => {
-  return axios(`${PV.Config.API_BASE_URL}${PV.RoutePaths.api.podcast}${PV.RoutePaths.api.toggle_subscribe}/${podcastId}`, {
-    method: 'get',
-    withCredentials: true
-  })
-}
