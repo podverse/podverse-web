@@ -39,12 +39,8 @@
   }
 
   .media-item-controls {
-    .time-wrapper {
-      flex: 1;
-
-      .pub-date, .time-spacer, .time-info {
-        font-size: $text-sm;
-      }
+    .pub-date, .time-spacer, .time-info {
+      font-size: $text-sm;
     }
   }
 }
