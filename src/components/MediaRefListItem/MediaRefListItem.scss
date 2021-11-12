@@ -18,9 +18,12 @@
         padding-bottom: 9px;
       }
     
-      p {
-        margin: 0 0 17px 0;
-        @include line-clamp(2);
+      .episode-podcast-titles {
+        font-size: $text-sm;
+
+        @include themeGen() {
+          color: getThemeVal('textSecondary');
+        }
       }
 
       &:hover {
