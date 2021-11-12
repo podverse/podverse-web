@@ -29,11 +29,11 @@ export const Pagination = ({
   return (
     <>
       {
-        pageCount && pageCount > 1 && (
+        pageCount > 1 ? (
           <div className='pagination'>
             {pageButtons}
           </div>
-        )
+        ) : null
       }
     </>
   )

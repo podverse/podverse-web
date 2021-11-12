@@ -1,5 +1,7 @@
 import type { Podcast } from 'podverse-shared'
 import { useTranslation } from 'react-i18next'
+import { generateAuthorText } from '~/lib/utility/author'
+import { generateCategoryNodes } from '~/lib/utility/category'
 import { PV } from '~/resources'
 import { ButtonRectangle, PVImage } from '..'
 
@@ -10,7 +12,9 @@ type Props = {
 export const PodcastPageHeader = ({ podcast }: Props) => {
   const { t } = useTranslation()
   const { imageUrl } = podcast
-
+  const authorEls = generateAuthorText(podcast.authors)
+  const categoryEls = generateCategoryNodes(podcast.categories)
+  
   return (
     <div
       className='podcast-page-header'>
@@ -24,7 +28,9 @@ export const PodcastPageHeader = ({ podcast }: Props) => {
         <div className='text-wrapper'>
           <h1>{podcast.title}</h1>
           <div className='sub-text'>
-            host name + categories
+            {authorEls.length > 0 && authorEls}
+            {authorEls.length > 0 && categoryEls.length > 0 && ' • '}
+            {categoryEls.length > 0 && categoryEls}
           </div>
         </div>
         <ButtonRectangle

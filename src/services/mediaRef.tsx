@@ -1,8 +1,10 @@
 import { PV } from "~/resources"
 import { request } from '~/services/request'
 
-type EpisodeQueryParams = {
+type MediaRefQueryParams = {
   categories?: string[]
+  episodeId?: string | string[]
+  includeEpisode?: boolean
   includePodcast?: boolean
   page?: number
   podcastId?: string | string[]
@@ -10,10 +12,12 @@ type EpisodeQueryParams = {
   sort?: string
 }
 
-export const getEpisodesByQuery = async ({ categories, includePodcast, page,
-  podcastId, searchAllFieldsText, sort }: EpisodeQueryParams) => {
-  const filteredQuery: EpisodeQueryParams = {
+export const getMediaRefsByQuery = async ({ categories, episodeId, includeEpisode,
+  includePodcast, page, podcastId, searchAllFieldsText, sort }) => {
+  const filteredQuery: MediaRefQueryParams = {
     ...(categories ? { categories } : {}),
+    ...(episodeId ? { episodeId } : {}),
+    ...(includeEpisode ? { includeEpisode } : {}),
     ...(includePodcast ? { includePodcast } : {}),
     ...(page ? { page } : { page: 1 }),
     ...(podcastId ? { podcastId } : {}),
@@ -24,7 +28,7 @@ export const getEpisodesByQuery = async ({ categories, includePodcast, page,
   }
 
   return request({
-    endpoint: PV.RoutePaths.api.episode,
+    endpoint: PV.RoutePaths.api.mediaRef,
     method: 'get',
     query: filteredQuery
   })

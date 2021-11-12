@@ -3,22 +3,27 @@ import Head from 'next/head'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import OmniAural from "omniaural"
-import type { Episode, Podcast } from 'podverse-shared'
+import type { Episode, MediaRef, Podcast } from 'podverse-shared'
 import { useEffect, useState } from 'react'
-import { EpisodeListItem, List, PageHeader, PageScrollableContent, Pagination, PodcastListItem, PodcastPageHeader, SideContent } from '~/components'
+import { EpisodeListItem, List, MediaRefListItem, PageHeader, PageScrollableContent, Pagination, PodcastListItem, PodcastPageHeader, SideContent } from '~/components'
 import { PV } from '~/resources'
 import { getPodcastById } from '~/services/podcast'
 import { getEpisodesByQuery } from '~/services/episode'
+import { getMediaRefsByQuery } from '~/services/mediaRef'
 import { refreshAuthenticatedUserInfoState } from '~/state/auth/auth'
 import { initServerState } from '~/state/initServerState'
 import { scrollToTopOfPageScrollableContent } from '~/components/PageScrollableContent/PageScrollableContent'
+import { calcListPageCount } from '~/lib/utility/misc'
 
 type Props = {
+  serverEpisodes: Episode[]
+  serverEpisodesPageCount: number
   serverFilterPage: number
   serverFilterSort: string
   serverFilterType: string
-  serverListData: Podcast[]
-  serverListDataCount: number
+  serverMediaRefs: MediaRef[]
+  serverMediaRefsPageCount: number
+  serverPageCount: number
   serverPodcast: Podcast
 }
 
@@ -32,7 +37,8 @@ const keyPrefix = 'pages_podcast'
 
 export default function Podcast(props: Props) {
   const { serverFilterPage, serverFilterSort, serverFilterType,
-    serverListData, serverListDataCount, serverPodcast } = props
+    serverEpisodes, serverEpisodesPageCount, serverMediaRefs,
+    serverMediaRefsPageCount, serverPodcast } = props
   const { id } = serverPodcast
 
   const { t } = useTranslation()
@@ -43,23 +49,36 @@ export default function Podcast(props: Props) {
     filterType: serverFilterType
   } as FilterState)
   const { filterPage, filterSort, filterType } = filterState
-  const [listData, setListData] = useState<Episode[]>(serverListData)
-  const [listDataCount, setListDataCount] = useState<number>(serverListDataCount)
-
-  const pageCount = Math.ceil(listDataCount / PV.Config.QUERY_RESULTS_LIMIT_DEFAULT)
-
+  const [episodesListData, setEpisodesListData] = useState<Episode[]>(serverEpisodes)
+  const [episodesPageCount, setEpisodesPageCount] = useState<number>(serverEpisodesPageCount)
+  const [mediaRefsListData, setMediaRefsListData] = useState<MediaRef[]>(serverMediaRefs)
+  const [mediaRefsPageCount, setMediaRefsPageCount] = useState<number>(serverMediaRefsPageCount)
+  
   const pageTitle = serverPodcast.title || t('untitledPodcast')
+  const pageSubHeader = filterType === PV.Filters.type._episodes
+    ? t('Episodes') : t('Clips')
+  const pageCount = filterType === PV.Filters.type._episodes
+    ? episodesPageCount : mediaRefsPageCount
 
   useEffect(() => {
     (async () => {
-      const { data } = await clientQueryEpisodes(
-        { page: filterPage, podcastId: id, sort: filterSort },
-        filterState
-      )
-      const newListData = data[0]
-      const newListCount = data[1]
-      setListData(newListData)
-      setListDataCount(newListCount)
+      if (filterType === PV.Filters.type._episodes) {
+        const { data } = await clientQueryEpisodes(
+          { page: filterPage, podcastId: id, sort: filterSort },
+          filterState
+        )
+        const [newEpisodesListData, newEpisodesListCount] = data
+        setEpisodesListData(newEpisodesListData)
+        setEpisodesPageCount(calcListPageCount(newEpisodesListCount))
+      } else if (filterType === PV.Filters.type._clips) {
+        const { data } = await clientQueryMediaRefs(
+          { page: filterPage, podcastId: id, sort: filterSort },
+          filterState
+        )
+        const [newMediaRefsListData, newMediaRefsListCount] = data
+        setMediaRefsListData(newMediaRefsListData)
+        setMediaRefsPageCount(calcListPageCount(newMediaRefsListCount))
+      }
       scrollToTopOfPageScrollableContent()
     })()
   }, [filterPage, filterSort, filterType])
@@ -74,7 +93,7 @@ export default function Podcast(props: Props) {
       <PodcastPageHeader podcast={serverPodcast} />
       <PageScrollableContent>
         <div className='row'>
-          <div className='column'>
+          <div className='column flex-stretch'>
             <PageHeader
               isSubHeader
               primaryOnChange={(selectedItems: any[]) => {
@@ -89,9 +108,18 @@ export default function Podcast(props: Props) {
               }}
               sortOptions={generateSortOptions(t)}
               sortSelected={filterSort}
-              text={t('Episodes')} />
+              text={pageSubHeader} />
             <List>
-              {generateEpisodeListElements(listData)}
+              {
+                filterType === PV.Filters.type._episodes && (
+                  generateEpisodeListElements(episodesListData)
+                )
+              }
+              {
+                filterType === PV.Filters.type._clips && (
+                  generateMediaRefListElements(mediaRefsListData, serverPodcast)
+                )
+              }
             </List>
             <Pagination
               currentPageIndex={filterPage}
@@ -144,7 +172,26 @@ const clientQueryEpisodes = async (
   return getEpisodesByQuery(finalQuery)
 }
 
-/* Helpers */
+type ClientQueryMediaRefs = {
+  page?: number
+  podcastId?: string
+  sort?: string
+}
+
+const clientQueryMediaRefs = async (
+  { page, podcastId, sort }: ClientQueryMediaRefs,
+  filterState: FilterState
+) => {
+  const finalQuery = {
+    podcastId,
+    includeEpisode: true,
+    ...(page ? { page } : { page: filterState.filterPage }),
+    ...(sort ? { sort } : { sort: filterState.filterSort })
+  }
+  return getMediaRefsByQuery(finalQuery)
+}
+
+/* Render Helpers */
 
 const generateTypeOptions = (t: any) => [
   { label: t('Episodes'), key: PV.Filters.type._episodes },
@@ -169,6 +216,15 @@ const generateEpisodeListElements = (listItems: Episode[]) => {
   )
 }
 
+const generateMediaRefListElements = (listItems: MediaRef[], podcast: Podcast) => {
+  return listItems.map((listItem, index) =>
+    <MediaRefListItem
+      mediaRef={listItem}
+      podcast={podcast}
+      key={`${keyPrefix}-${index}`} />
+  )
+}
+
 /* Server-side logic */
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
@@ -184,21 +240,23 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
   const serverFilterType = PV.Filters.type._episodes
   const serverFilterSort = PV.Filters.sort._mostRecent
-
   const serverFilterPage = 1
 
   const response = await getPodcastById(podcastId)
   const podcast = response.data
 
-  let listData = []
-  let listDataCount = 0
+  let serverEpisodes = []
+  let serverEpisodesPageCount = 0
+  let serverMediaRefs = []
+  let serverMediaRefsPageCount = 0
   if (serverFilterType === PV.Filters.type._episodes) {
     const response = await getEpisodesByQuery({
       podcastId: podcastId,
       sort: serverFilterSort
     })
-    listData = response.data[0]
-    listDataCount = response.data[1]
+    const [episodesListData, episodesListDataCount] = response.data
+    serverEpisodes = episodesListData
+    serverEpisodesPageCount = calcListPageCount(episodesListDataCount)
   } else {
     // handle mediaRefs query
   }
@@ -207,14 +265,15 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     props: {
       serverInitialState: OmniAural.state.value(),
       ...(await serverSideTranslations(locale, PV.i18n.fileNames.all)),
+      serverCookies: cookies,
+      serverEpisodes,
+      serverEpisodesPageCount,
       serverFilterPage,
       serverFilterSort,
       serverFilterType,
-      // serverInitialUserInfo: userInfo,
-      serverListData: listData,
-      serverListDataCount: listDataCount,
-      serverPodcast: podcast,
-      serverSideCookies: cookies
+      serverMediaRefs,
+      serverMediaRefsPageCount,
+      serverPodcast: podcast
     }
   }
 }

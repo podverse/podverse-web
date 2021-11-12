@@ -23,7 +23,7 @@ function MyApp({ Component, pageProps }) {
         <div className='app-wrapper'>
           <NavBar />
           <div className='app-main-wrapper'>
-            <HorizontalNavBar serverSideCookies={pageProps.serverSideCookies} />
+            <HorizontalNavBar serverCookies={pageProps.serverCookies} />
             <main>
               <Component {...pageProps} />
             </main>

@@ -9,7 +9,7 @@ import { ButtonCircle, Dropdown, SwitchWithIcons } from '~/components'
 import { PV } from '~/resources'
 
 type Props = {
-  serverSideCookies: any
+  serverCookies: any
 }
 
 const _myProfileKey = '_myProfile'
@@ -18,8 +18,8 @@ const _settingsKey = '_settings'
 const _logInKey = '_logIn'
 const _logOutKey = '_logOut'
 
-export const HorizontalNavBar = ({ serverSideCookies }: Props) => {
-  const [lightModeChecked, setLightModeChecked] = useState<boolean>(serverSideCookies.lightMode)
+export const HorizontalNavBar = ({ serverCookies }: Props) => {
+  const [lightModeChecked, setLightModeChecked] = useState<boolean>(serverCookies.lightMode)
   const [cookies, setCookie, removeCookie] = useCookies([])
   const router = useRouter()
   const { t } = useTranslation()

@@ -198,7 +198,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       serverInitialUserInfo: userInfo,
       serverListData: data[0] || [],
       serverListDataCount: data[1] || 0,
-      serverSideCookies: cookies
+      serverCookies: cookies
     }
   }
 }

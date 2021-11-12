@@ -43,6 +43,7 @@ body {
   .main-max-width {
     max-width: $main-max-width;
     margin: 0 24px;
+    width: 100%;
   }
 
   a {
@@ -79,6 +80,10 @@ body {
   .column {
     display: flex;
     flex-direction: column;
+  }
+
+  .flex-stretch {
+    flex: 1;
   }
 
   button, div {

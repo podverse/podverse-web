@@ -1,27 +1,29 @@
 import Link from 'next/link'
-import { Episode } from 'podverse-shared'
+import { Episode, MediaRef, Podcast } from 'podverse-shared'
 import { useTranslation } from 'react-i18next'
-import striptags from 'striptags'
 import { MediaItemControls, PVImage } from '~/components'
 import { getPodcastShrunkImageUrl } from '~/lib/utility/image'
 import { PV } from '~/resources'
 
 type Props = {
-  episode: Episode
   imageUrl?: string
+  mediaRef: MediaRef
+  podcast: Podcast
   showImage?: boolean
 }
 
-export const EpisodeListItem = ({ episode, showImage }: Props) => {
+export const MediaRefListItem = ({ mediaRef, podcast, showImage }: Props) => {
   const { t } = useTranslation()
-  const { description, id, imageUrl } = episode
-  const title = episode.title || t('untitledEpisode')
-  const episodePageUrl = `${PV.RoutePaths.web.episode}/${id}`
+  const { episode, id, imageUrl } = mediaRef
+  let episodeTitle = episode.title || t('untitledEpisode')
+  let title = mediaRef.title || `(${t('Clip')}) ${episodeTitle}`
+  const mediaRefPageUrl = `${PV.RoutePaths.web.clip}/${id}`
+  const episodePodcastTitles = `${episode.title} – ${podcast.title}`
 
   return (
     <>
-      <li className='episode-list-item'>
-        <Link href={episodePageUrl}>
+      <li className='mediaref-list-item'>
+        <Link href={mediaRefPageUrl}>
           <div className='content-wrapper' tabIndex={0}>
             {
               showImage && (
@@ -34,15 +36,13 @@ export const EpisodeListItem = ({ episode, showImage }: Props) => {
             }
             <div className='text-wrapper'>
               <h3>{title}</h3>
-              <p dangerouslySetInnerHTML={
-                {
-                  __html: striptags(description)
-                }
-              } />
+              <div className='episode-podcast-titles'>
+                {episodePodcastTitles}
+              </div>
             </div>
           </div>
         </Link>
-        <MediaItemControls episode={episode} />
+        <MediaItemControls mediaRef={mediaRef} />
       </li>
       <hr />
     </>
