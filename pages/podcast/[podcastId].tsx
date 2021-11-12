@@ -11,6 +11,7 @@ import { getPodcastById } from '~/services/podcast'
 import { getEpisodesByQuery } from '~/services/episode'
 import { refreshAuthenticatedUserInfoState } from '~/state/auth/auth'
 import { initServerState } from '~/state/initServerState'
+import { scrollToTopOfPageScrollableContent } from '~/components/PageScrollableContent/PageScrollableContent'
 
 type Props = {
   serverFilterPage: number
@@ -59,6 +60,7 @@ export default function Podcast(props: Props) {
       const newListCount = data[1]
       setListData(newListData)
       setListDataCount(newListCount)
+      scrollToTopOfPageScrollableContent()
     })()
   }, [filterPage, filterSort, filterType])
 
@@ -122,6 +124,51 @@ export default function Podcast(props: Props) {
   )
 }
 
+/* Client-side logic */
+
+type ClientQueryEpisodes = {
+  page?: number
+  podcastId?: string
+  sort?: string
+}
+
+const clientQueryEpisodes = async (
+  { page, podcastId, sort }: ClientQueryEpisodes,
+  filterState: FilterState
+) => {
+  const finalQuery = {
+    podcastId,
+    ...(page ? { page } : { page: filterState.filterPage }),
+    ...(sort ? { sort } : { sort: filterState.filterSort })
+  }
+  return getEpisodesByQuery(finalQuery)
+}
+
+/* Helpers */
+
+const generateTypeOptions = (t: any) => [
+  { label: t('Episodes'), key: PV.Filters.type._episodes },
+  { label: t('Clips'), key: PV.Filters.type._clips }
+]
+
+const generateSortOptions = (t: any) => [
+  { label: t('Recent'), key: PV.Filters.sort._mostRecent },
+  { label: t('Top - Past Day'), key: PV.Filters.sort._topPastDay },
+  { label: t('Top - Past Week'), key: PV.Filters.sort._topPastWeek },
+  { label: t('Top - Past Month'), key: PV.Filters.sort._topPastMonth },
+  { label: t('Top - Past Year'), key: PV.Filters.sort._topPastYear },
+  { label: t('Top - All Time'), key: PV.Filters.sort._topAllTime },
+  { label: t('Oldest'), key: PV.Filters.sort._oldest }
+]
+
+const generateEpisodeListElements = (listItems: Episode[]) => {
+  return listItems.map((listItem, index) =>
+    <EpisodeListItem
+      episode={listItem}
+      key={`${keyPrefix}-${index}`} />
+  )
+}
+
 /* Server-side logic */
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
@@ -170,49 +217,4 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       serverSideCookies: cookies
     }
   }
-}
-
-/* Client-side logic */
-
-type ClientQueryEpisodes = {
-  page?: number
-  podcastId?: string
-  sort?: string
-}
-
-const clientQueryEpisodes = async (
-  { page, podcastId, sort }: ClientQueryEpisodes,
-  filterState: FilterState
-) => {
-  const finalQuery = {
-    podcastId,
-    ...(page ? { page } : { page: filterState.filterPage }),
-    ...(sort ? { sort } : { sort: filterState.filterSort })
-  }
-  return getEpisodesByQuery(finalQuery)
-}
-
-/* Helpers */
-
-const generateTypeOptions = (t: any) => [
-  { label: t('Episodes'), key: PV.Filters.type._episodes },
-  { label: t('Clips'), key: PV.Filters.type._clips }
-]
-
-const generateSortOptions = (t: any) => [
-  { label: t('Recent'), key: PV.Filters.sort._mostRecent },
-  { label: t('Top - Past Day'), key: PV.Filters.sort._topPastDay },
-  { label: t('Top - Past Week'), key: PV.Filters.sort._topPastWeek },
-  { label: t('Top - Past Month'), key: PV.Filters.sort._topPastMonth },
-  { label: t('Top - Past Year'), key: PV.Filters.sort._topPastYear },
-  { label: t('Top - All Time'), key: PV.Filters.sort._topAllTime },
-  { label: t('Oldest'), key: PV.Filters.sort._oldest }
-]
-
-const generateEpisodeListElements = (listItems: Episode[]) => {
-  return listItems.map((listItem, index) =>
-    <EpisodeListItem
-      episode={listItem}
-      key={`${keyPrefix}-${index}`} />
-  )
 }

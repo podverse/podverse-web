@@ -1,33 +1,47 @@
 .podcast-list-item {
-  display: flex;
-  padding: 22px 0 18px 0;
 
   &:first-child {
-    padding: 0 0 24px 0;
+    a {
+      margin-top: -22px;
+    }
   }
 
-  .pv-image {
-    margin: 0 16px 0 0;
-  }
-
-  .text-wrapper {
+  a {
+    border-radius: $item-border-radius;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    padding: 22px 10px 18px 10px;
+    margin: 0 -10px;
 
-    .last-episode-pub-date {
-      font-size: $text-sm;
-      font-weight: $font-weight-medium;
-
+    &:hover {
       @include themeGen() {
-        color: getThemeVal('textTertiary');
+        background-color: getThemeVal('highlighted');
       }
     }
 
-    .title {
-      font-size: $text-xl;
-      font-weight: $font-weight-light;
-      margin: 4px 0 0 0;
+    .pv-image {
+      border-radius: $item-border-radius;
+      margin: 0 16px 0 0;
+    }
+  
+    .text-wrapper {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+  
+      .last-episode-pub-date {
+        font-size: $text-sm;
+        font-weight: $font-weight-medium;
+  
+        @include themeGen() {
+          color: getThemeVal('textTertiary');
+        }
+      }
+  
+      .title {
+        font-size: $text-xl;
+        font-weight: $font-weight-light;
+        margin: 4px 0 0 0;
+      }
     }
   }
 }

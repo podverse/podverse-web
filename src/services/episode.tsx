@@ -24,9 +24,9 @@ export const getEpisodesByQuery = async ({ categories, includePodcast, page,
     ...(sort ? { sort } : { sort: PV.Filters.sort._mostRecent })
   }
 
-  const queryString = convertObjectToQueryString(filteredQuery)
   return request({
-    endpoint: `${PV.RoutePaths.api.episode}?${queryString}`,
-    method: 'get'
+    endpoint: PV.RoutePaths.api.episode,
+    method: 'get',
+    query: filteredQuery
   })
 }

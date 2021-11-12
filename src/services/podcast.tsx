@@ -1,5 +1,4 @@
 import axios from 'axios'
-import { convertObjectToQueryString } from '~/lib/utility/query'
 import { PV } from '~/resources'
 import { request } from '~/services/request'
 
@@ -28,12 +27,11 @@ export const getPodcastsByQuery = async ({ categories, from, maxResults,
     ...(sort ? { sort } : { sort: PV.Filters.sort._topPastDay })
   }
 
-  const queryString = convertObjectToQueryString(filteredQuery)
-
-  return axios(
-    `${PV.Config.API_BASE_URL}${PV.RoutePaths.api.podcast}?${queryString}`,
-    { method: 'get' }
-  )
+  return request({
+    endpoint: PV.RoutePaths.api.podcast,
+    method: 'get',
+    query: filteredQuery
+  })
 }
 
 export const getPodcastById = async (id: string) => {

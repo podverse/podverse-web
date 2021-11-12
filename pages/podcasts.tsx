@@ -11,6 +11,7 @@ import { PV } from '~/resources'
 import { getPodcastsByQuery } from '~/services/podcast'
 import { getAuthenticatedUserInfo } from '~/services/auth'
 import { initServerState } from '~/state/initServerState'
+import { scrollToTopOfPageScrollableContent } from '~/components/PageScrollableContent/PageScrollableContent'
 
 type Props = {
   serverFilterFrom: string
@@ -65,6 +66,7 @@ export default function Podcasts(props: Props) {
       const newListCount = data[1]
       setListData(newListData)
       setListDataCount(newListCount)
+      scrollToTopOfPageScrollableContent()
     })()
   }, [filterFrom, filterSort, filterPage])
 
@@ -116,44 +118,6 @@ export default function Podcasts(props: Props) {
   )
 }
 
-/* Server-side logic */
-
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  initServerState()
-  const { req, locale } = ctx
-  const { cookies } = req
-
-  let userInfo = null
-  if (cookies.Authorization) {
-    userInfo = await getAuthenticatedUserInfo(cookies.Authorization)
-  }
-
-  const serverFilterFrom = PV.Filters.from._all
-  const serverFilterSort = PV.Filters.sort._topPastDay
-
-  const serverFilterPage = 1
-
-  const podcasts = await getPodcastsByQuery({
-    from: serverFilterFrom,
-    sort: serverFilterSort
-  })
-
-  const data = podcasts.data as Podcast[] || [[], 0]
-
-  return {
-    props: {
-      ...(await serverSideTranslations(locale, PV.i18n.fileNames.all)),
-      serverFilterFrom,
-      serverFilterPage,
-      serverFilterSort,
-      serverInitialUserInfo: userInfo,
-      serverListData: data[0] || [],
-      serverListDataCount: data[1] || 0,
-      serverSideCookies: cookies
-    }
-  }
-}
-
 /* Client-side logic */
 
 type ClientQueryPodcasts = {
@@ -198,4 +162,43 @@ const generatePodcastListElements = (listItems: Podcast[]) => {
       key={`${keyPrefix}-${index}`}
       podcast={listItem} />
   )
+}
+
+/* Server-side logic */
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  initServerState()
+  const { req, locale } = ctx
+  const { cookies } = req
+
+  let userInfo = null
+  if (cookies.Authorization) {
+    userInfo = await getAuthenticatedUserInfo(cookies.Authorization)
+  }
+
+  const serverFilterFrom = PV.Filters.from._all
+  const serverFilterSort = PV.Filters.sort._topPastDay
+
+  const serverFilterPage = 1
+
+  const podcasts = await getPodcastsByQuery({
+    from: serverFilterFrom,
+    sort: serverFilterSort
+  })
+
+  const data = podcasts.data as Podcast[] || [[], 0]
+
+  return {
+    props: {
+      serverInitialState: OmniAural.state.value(),
+      ...(await serverSideTranslations(locale, PV.i18n.fileNames.all)),
+      serverFilterFrom,
+      serverFilterPage,
+      serverFilterSort,
+      serverInitialUserInfo: userInfo,
+      serverListData: data[0] || [],
+      serverListDataCount: data[1] || 0,
+      serverSideCookies: cookies
+    }
+  }
 }

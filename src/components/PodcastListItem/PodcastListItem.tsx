@@ -19,9 +19,9 @@ export const PodcastListItem = ({ podcast }: Props) => {
 
   return (
     <>
-      <li>
+      <li className='podcast-list-item'>
         <Link href={podcastPageUrl}>
-          <a className='podcast-list-item'>
+          <a>
             <PVImage
               alt={t('Podcast artwork')}
               height={PV.Images.sizes.medium}
