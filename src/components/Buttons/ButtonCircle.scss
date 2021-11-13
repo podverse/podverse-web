@@ -18,6 +18,24 @@
     height: 32px;
     line-height: 32px;
     width: 32px;
+
+    &.backwards {
+      margin-right: 8px;
+      padding-right: 1px;
+      svg {
+        width: 0.4375em;
+        height: unset;
+      }
+    }
+
+    &.forwards {
+      margin-left: 8px;
+      padding-left: 1px;
+      svg {
+        width: 0.4375em;
+        height: unset;
+      }
+    }
   }
 
   &.medium {
@@ -58,7 +76,7 @@
     width: 64px;
 
     &.play {
-      padding-left: 2px;
+      padding-left: 3px;
       svg {
         width: 18px;
         height: unset;
