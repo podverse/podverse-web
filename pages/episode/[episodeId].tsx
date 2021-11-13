@@ -72,7 +72,9 @@ export default function Episode(props: ServerProps) {
       <PageScrollableContent>
         <div className='row'>
           <div className='column flex-stretch'>
-            <EpisodeInfo episode={serverEpisode} />
+            <EpisodeInfo
+              episode={serverEpisode}
+              includeMediaItemControls />
             <PageHeader
               isSubHeader
               sortOnChange={(selectedItems: any[]) => {
