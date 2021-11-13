@@ -42,7 +42,9 @@ export const EpisodeListItem = ({ episode, showImage }: Props) => {
             </div>
           </div>
         </Link>
-        <MediaItemControls episode={episode} />
+        <MediaItemControls
+          buttonSize='medium'
+          episode={episode} />
       </li>
       <hr />
     </>

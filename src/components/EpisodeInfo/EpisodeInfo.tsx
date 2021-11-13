@@ -1,6 +1,6 @@
 import { Episode } from 'podverse-shared'
 import { useTranslation } from 'react-i18next'
-import { TruncatedText } from '~/components'
+import { MediaItemControls, TruncatedText } from '~/components'
 
 type Props = {
   episode: Episode
@@ -17,6 +17,10 @@ export const EpisodeInfo = ({ episode }: Props) => {
         dangerouslySetInnerHtml
         lines={3}
         text={description} />
+      <MediaItemControls
+        buttonSize='large'
+        episode={episode} />
+      <hr />
     </div>
   )
 }

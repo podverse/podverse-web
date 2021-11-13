@@ -6,6 +6,7 @@ import { convertSecToHhoursMMinutes, readableClipTime } from "~/lib/utility/time
 import { ButtonCircle, Dropdown } from ".."
 
 type Props = {
+  buttonSize: 'medium' | 'large'
   episode?: Episode
   mediaRef?: MediaRef
 }
@@ -17,7 +18,7 @@ const _addToPlaylistKey = '_addToPlaylist'
 const _shareKey = '_share'
 const _markAsPlayedKey = '_markAsPlayedKey'
 
-export const MediaItemControls = ({ episode, mediaRef }: Props) => {
+export const MediaItemControls = ({ buttonSize, episode, mediaRef }: Props) => {
   const { t } = useTranslation()
   let pubDate = null
   let timeInfo = null
@@ -60,7 +61,7 @@ export const MediaItemControls = ({ episode, mediaRef }: Props) => {
         className='play'
         faIcon={faPlay}
         onClick={() => console.log('MediaItemControls play')}
-        size='medium' />
+        size={buttonSize} />
       <div className='time-wrapper'>
         <span className='pub-date'>{pubDate}</span>
         {!!timeInfo && (
