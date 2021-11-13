@@ -31,34 +31,13 @@ export const LoginModal = (props: Props) => {
         (error.response && error.response.data && error.response.data.message)
         || t('errorMessages:internetConnectivityErrorMessage')
 
+      // TODO: handle error message
       console.log('errorMsg', error)
-      // modalsLoginSetErrorResponse(errorMsg)
-      // modalsLoginIsLoading(false)
-      // userSetInfo({
-      //   email: null,
-      //   emailVerified: null,
-      //   freeTrialExpiration: null,
-      //   historyItems: [],
-      //   id: null,
-      //   isPublic: null,
-      //   mediaRefs: [],
-      //   membershipExpiration: null,
-      //   name: null,
-      //   playlists: [],
-      //   queueItems: [],
-      //   subscribedPlaylistIds: [],
-      //   subscribedPodcastIds: [],
-      //   subscribedUserIds: []
-      // })
     }
   }
 
-  const _onAfterOpen = () => {
-    // console.log('onAfterOpen')
-  }
-
   const _onRequestClose = () => {
-    OmniAural.modalsLoginHide()
+    OmniAural.modalsHideAll()
   }
 
   return (
@@ -66,7 +45,6 @@ export const LoginModal = (props: Props) => {
       className='login-modal centered'
       contentLabel={t('Login modal')}
       isOpen={login.show}
-      onAfterOpen={_onAfterOpen}
       onRequestClose={_onRequestClose}>
       <h2>{t('Login')}</h2>
       <ButtonClose onClick={_onRequestClose} />
@@ -94,8 +72,10 @@ export const LoginModal = (props: Props) => {
       </div>
       <div className='signup-buttons'>
         <ButtonLink
-          label={t('Reset Password')} />
+          label={t('Reset Password')}
+          onClick={() => OmniAural.modalsForgotPasswordShow()} />
         <ButtonLink
+          onClick={() => OmniAural.modalsSignUpModalShow()}
           label={t('Sign Up')} />
       </div>
     </Modal>

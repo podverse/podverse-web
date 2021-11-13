@@ -5,6 +5,7 @@ const modalsLoginHide = () => {
 }
 
 const modalsLoginShow = () => {
+  OmniAural.modalsHideAll()
   OmniAural.state.modals.login.show.set(true)
 }
 

@@ -25,7 +25,7 @@
         padding-bottom: 9px;
       }
     
-      p {
+      .description {
         margin: 0 0 17px 0;
         @include line-clamp(2);
       }

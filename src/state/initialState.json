@@ -1,5 +1,8 @@
 {
     "modals": {
+        "forgotPassword": {
+            "show": false
+        },
         "login": {
             "show": false
         },

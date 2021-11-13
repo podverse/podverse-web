@@ -5,6 +5,7 @@ const modalsResetPasswordHide = () => {
 }
 
 const modalsResetPasswordShow = () => {
+  OmniAural.modalsHideAll()
   OmniAural.state.modals.resetPassword.show.set(true)
 }
 

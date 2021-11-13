@@ -1,4 +1,4 @@
-import { Episode, MediaRef } from 'podverse-shared'
+import { Episode, MediaRef, Podcast } from 'podverse-shared'
 import { PV } from "~/resources"
 
 export const calcListPageCount = (itemCount: number) => {
@@ -11,4 +11,8 @@ export const getClipTitle = (t: any, mediaRef: MediaRef, episodeTitle: string) =
 
 export const getEpisodeTitle = (t: any, episode: Episode) => {
   return episode.title || t('untitledEpisode')
+}
+
+export const getPodcastTitle = (t: any, podcast: Podcast) => {
+  return podcast.title || t('untitledPodcast')
 }

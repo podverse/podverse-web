@@ -54,3 +54,13 @@ export const logOut = async () => {
   })
   window.location.reload()
 }
+
+export const sendResetPassword = async (email: string) => {
+  return request({
+    endpoint: PV.RoutePaths.api.send_reset_password,
+    method: 'post',
+    body: {
+      email
+    }
+  })
+}

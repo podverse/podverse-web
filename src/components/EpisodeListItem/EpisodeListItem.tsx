@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { Episode } from 'podverse-shared'
 import { useTranslation } from 'react-i18next'
 import striptags from 'striptags'
-import { MediaItemControls, PVImage } from '~/components'
+import { MediaItemControls, PVImage, PVLink } from '~/components'
 import { getPodcastShrunkImageUrl } from '~/lib/utility/image'
 import { PV } from '~/resources'
 
@@ -21,7 +21,7 @@ export const EpisodeListItem = ({ episode, showImage }: Props) => {
   return (
     <>
       <li className='episode-list-item'>
-        <Link href={episodePageUrl}>
+        <PVLink href={episodePageUrl}>
           <div className='content-wrapper' tabIndex={0}>
             {
               showImage && (
@@ -34,14 +34,15 @@ export const EpisodeListItem = ({ episode, showImage }: Props) => {
             }
             <div className='text-wrapper'>
               <h3>{title}</h3>
-              <p dangerouslySetInnerHTML={
+              <div className='description'
+                dangerouslySetInnerHTML={
                 {
                   __html: striptags(description)
                 }
               } />
             </div>
           </div>
-        </Link>
+        </PVLink>
         <MediaItemControls
           buttonSize='medium'
           episode={episode}
