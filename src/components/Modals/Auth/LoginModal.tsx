@@ -75,7 +75,7 @@ export const LoginModal = (props: Props) => {
           label={t('Reset Password')}
           onClick={() => OmniAural.modalsForgotPasswordShow()} />
         <ButtonLink
-          onClick={() => OmniAural.modalsSignUpModalShow()}
+          onClick={() => OmniAural.modalsSignUpShow()}
           label={t('Sign Up')} />
       </div>
     </Modal>
