@@ -27,9 +27,15 @@
       flex-direction: column;
       justify-content: center;
 
-      .sub-text {
+      .above-text {
         font-size: $text-xl;
         font-weight: $font-weight-bold;
+        margin-bottom: 4px;
+      }
+
+      .below-text {
+        font-size: $text-lg;
+        margin-top: 4px;
       }
     }
 

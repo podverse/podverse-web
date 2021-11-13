@@ -1,0 +1,11 @@
+.truncated-text {
+  @include themeGen() {
+    color: getThemeVal('textSecondary');
+  }
+
+  a {
+    @include themeGen() {
+      color: getThemeVal('textLink');
+    }
+  }
+}
