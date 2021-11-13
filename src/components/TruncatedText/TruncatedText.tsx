@@ -14,6 +14,7 @@ export const TruncatedText = ({ dangerouslySetInnerHtml = false, lines, text }: 
 
   return (
     <ShowMoreText
+      anchorClass='truncated-text-anchor'
       className='truncated-text'
       less={t('Show Less')}
       lines={lines}

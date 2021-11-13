@@ -8,4 +8,8 @@
       color: getThemeVal('textLink');
     }
   }
+
+  .truncated-text-anchor {
+    font-weight: $font-weight-bold;
+  }
 }
