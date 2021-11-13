@@ -7,6 +7,14 @@
     flex-direction: row;
     margin-bottom: 6px;
 
+    &:hover {
+      cursor: pointer;
+
+      @include themeGen() {
+        color: getThemeVal('textHover');
+      }
+    }
+
     img {
       margin-right: 16px;
     }
@@ -24,16 +32,6 @@
 
         @include themeGen() {
           color: getThemeVal('textSecondary');
-        }
-      }
-
-      &:hover {
-        h3, .episode-podcast-titles {
-          cursor: pointer;
-
-          @include themeGen() {
-            color: getThemeVal('textHover');
-          }
         }
       }
     }
