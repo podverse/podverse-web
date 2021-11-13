@@ -7,18 +7,18 @@ import OmniAural from "omniaural"
 import type { Podcast } from 'podverse-shared'
 import { useEffect, useState } from 'react'
 import { List, PageHeader, PageScrollableContent, Pagination, PodcastListItem } from '~/components'
+import { Page } from '~/lib/utility/page'
 import { PV } from '~/resources'
+import { getServerSideAuthenticatedUserInfo } from '~/services/auth'
 import { getPodcastsByQuery } from '~/services/podcast'
-import { getAuthenticatedUserInfo, getServerSideAuthenticatedUserInfo } from '~/services/auth'
 import { scrollToTopOfPageScrollableContent } from '~/components/PageScrollableContent/PageScrollableContent'
 
-type Props = {
+interface ServerProps extends Page {
   serverFilterFrom: string
   serverFilterPage: number
   serverFilterSort: string
-  serverInitialUserInfo: any
-  serverListData: Podcast[]
-  serverListDataCount: number
+  serverPodcastsListData: Podcast[]
+  serverPodcastsListDataCount: number
 }
 
 type FilterState = {
@@ -29,9 +29,9 @@ type FilterState = {
 
 const keyPrefix = 'pages_podcasts'
 
-export default function Podcasts(props: Props) {
-  const { serverFilterFrom, serverFilterPage, serverFilterSort, serverInitialUserInfo,
-    serverListData, serverListDataCount } = props
+export default function Podcasts(props: ServerProps) {
+  const { serverFilterFrom, serverFilterPage, serverFilterSort,
+    serverPodcastsListData, serverPodcastsListDataCount } = props
 
   const router = useRouter()
   const { t } = useTranslation()
@@ -42,18 +42,14 @@ export default function Podcasts(props: Props) {
     filterPage: serverFilterPage
   } as FilterState)
   const { filterFrom, filterPage, filterSort } = filterState
-  const [listData, setListData] = useState<Podcast[]>(serverListData)
-  const [listDataCount, setListDataCount] = useState<number>(serverListDataCount)
+  const [podcastsListData, setListData] = useState<Podcast[]>(serverPodcastsListData)
+  const [podcastsListDataCount, setListDataCount] = useState<number>(serverPodcastsListDataCount)
 
-  const pageCount = Math.ceil(listDataCount / PV.Config.QUERY_RESULTS_LIMIT_DEFAULT)
+  const pageCount = Math.ceil(podcastsListDataCount / PV.Config.QUERY_RESULTS_LIMIT_DEFAULT)
 
   const pageTitle = router.pathname == PV.RoutePaths.web.podcasts
     ? t('Podcasts')
     : t('Podverse')
-
-  useEffect(() => {
-    OmniAural.state.session.userInfo.set(serverInitialUserInfo)
-  }, [])
 
   useEffect(() => {
     (async () => {
@@ -92,7 +88,7 @@ export default function Podcasts(props: Props) {
         text={t('Podcasts')} />
       <PageScrollableContent>
         <List>
-          {generatePodcastListElements(listData)}
+          {generatePodcastListElements(podcastsListData)}
         </List>
         <Pagination
           currentPageIndex={filterPage}
@@ -117,7 +113,7 @@ export default function Podcasts(props: Props) {
   )
 }
 
-/* Client-side logic */
+/* Client-Side Queries */
 
 type ClientQueryPodcasts = {
   from?: string
@@ -137,7 +133,7 @@ const clientQueryPodcasts = async (
   return getPodcastsByQuery(finalQuery)
 }
 
-/* Helpers */
+/* Render Helpers */
 
 const generateFromOptions = (t: any) => [
   { label: t('All'), key: PV.Filters.from._all },
@@ -163,7 +159,7 @@ const generatePodcastListElements = (listItems: Podcast[]) => {
   )
 }
 
-/* Server-side logic */
+/* Server-Side Logic */
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { req, locale } = ctx
@@ -176,24 +172,23 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
   const serverFilterPage = 1
 
-  const podcasts = await getPodcastsByQuery({
+  const response = await getPodcastsByQuery({
     from: serverFilterFrom,
     sort: serverFilterSort
   })
 
-  const data = podcasts.data as Podcast[] || [[], 0]
+  const [podcastsListData, podcastsListDataCount] = response.data
 
-  return {
-    props: {
-      serverUserInfo: userInfo,
-      ...(await serverSideTranslations(locale, PV.i18n.fileNames.all)),
-      serverFilterFrom,
-      serverFilterPage,
-      serverFilterSort,
-      serverInitialUserInfo: userInfo,
-      serverListData: data[0] || [],
-      serverListDataCount: data[1] || 0,
-      serverCookies: cookies
-    }
+  const serverProps: ServerProps = {
+    serverUserInfo: userInfo,
+    ...(await serverSideTranslations(locale, PV.i18n.fileNames.all)),
+    serverFilterFrom,
+    serverFilterPage,
+    serverFilterSort,
+    serverPodcastsListData: podcastsListData,
+    serverPodcastsListDataCount: podcastsListDataCount,
+    serverCookies: cookies
   }
+
+  return { props: serverProps }
 }

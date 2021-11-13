@@ -44,7 +44,7 @@ export const MediaRefListItem = ({ mediaRef, podcast, showImage }: Props) => {
         </Link>
         <MediaItemControls mediaRef={mediaRef} />
       </li>
-      <hr />
+      <hr className='mediaref-list-item-hr' />
     </>
   )
 }

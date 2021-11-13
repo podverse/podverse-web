@@ -13,8 +13,9 @@ import { getPodcastById } from '~/services/podcast'
 import { getEpisodesByQuery } from '~/services/episode'
 import { getMediaRefsByQuery } from '~/services/mediaRef'
 import { getServerSideAuthenticatedUserInfo } from '~/services/auth'
+import { Page } from '~/lib/utility/page'
 
-type Props = {
+interface ServerProps extends Page {
   serverEpisodes: Episode[]
   serverEpisodesPageCount: number
   serverFilterPage: number
@@ -22,7 +23,6 @@ type Props = {
   serverFilterType: string
   serverMediaRefs: MediaRef[]
   serverMediaRefsPageCount: number
-  serverPageCount: number
   serverPodcast: Podcast
 }
 
@@ -34,7 +34,7 @@ type FilterState = {
 
 const keyPrefix = 'pages_podcast'
 
-export default function Podcast(props: Props) {
+export default function Podcast(props: ServerProps) {
   const { serverFilterPage, serverFilterSort, serverFilterType,
     serverEpisodes, serverEpisodesPageCount, serverMediaRefs,
     serverMediaRefsPageCount, serverPodcast } = props
@@ -151,7 +151,7 @@ export default function Podcast(props: Props) {
   )
 }
 
-/* Client-side logic */
+/* Client-Side Queries */
 
 type ClientQueryEpisodes = {
   page?: number
@@ -225,7 +225,7 @@ const generateMediaRefListElements = (listItems: MediaRef[], podcast: Podcast) =
   )
 }
 
-/* Server-side logic */
+/* Server-Side Logic */
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { locale, params, req } = ctx
@@ -257,19 +257,21 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     // handle mediaRefs query
   }
 
+  const serverProps: ServerProps = {
+    serverUserInfo: userInfo,
+    ...(await serverSideTranslations(locale, PV.i18n.fileNames.all)),
+    serverCookies: cookies,
+    serverEpisodes,
+    serverEpisodesPageCount,
+    serverFilterPage,
+    serverFilterSort,
+    serverFilterType,
+    serverMediaRefs,
+    serverMediaRefsPageCount,
+    serverPodcast: podcast
+  }
+
   return {
-    props: {
-      serverUserInfo: userInfo,
-      ...(await serverSideTranslations(locale, PV.i18n.fileNames.all)),
-      serverCookies: cookies,
-      serverEpisodes,
-      serverEpisodesPageCount,
-      serverFilterPage,
-      serverFilterSort,
-      serverFilterType,
-      serverMediaRefs,
-      serverMediaRefsPageCount,
-      serverPodcast: podcast
-    }
+    props: serverProps
   }
 }

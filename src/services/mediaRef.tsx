@@ -13,7 +13,7 @@ type MediaRefQueryParams = {
 }
 
 export const getMediaRefsByQuery = async ({ categories, episodeId, includeEpisode,
-  includePodcast, page, podcastId, searchAllFieldsText, sort }) => {
+  includePodcast, page, podcastId, searchAllFieldsText, sort }: MediaRefQueryParams) => {
   const filteredQuery: MediaRefQueryParams = {
     ...(categories ? { categories } : {}),
     ...(episodeId ? { episodeId } : {}),
