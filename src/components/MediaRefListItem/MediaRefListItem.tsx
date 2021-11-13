@@ -3,6 +3,7 @@ import { Episode, MediaRef, Podcast } from 'podverse-shared'
 import { useTranslation } from 'react-i18next'
 import { MediaItemControls, PVImage } from '~/components'
 import { getPodcastShrunkImageUrl } from '~/lib/utility/image'
+import { getMediaRefTitle } from '~/lib/utility/misc'
 import { PV } from '~/resources'
 
 type Props = {
@@ -15,10 +16,9 @@ type Props = {
 export const MediaRefListItem = ({ mediaRef, podcast, showImage }: Props) => {
   const { t } = useTranslation()
   const { episode, id, imageUrl } = mediaRef
-  let episodeTitle = episode.title || t('untitledEpisode')
-  let title = mediaRef.title || `(${t('Clip')}) ${episodeTitle}`
-  const mediaRefPageUrl = `${PV.RoutePaths.web.clip}/${id}`
+  const title = getMediaRefTitle(t, mediaRef, episode.title)
   const episodePodcastTitles = `${episode.title} – ${podcast.title}`
+  const mediaRefPageUrl = `${PV.RoutePaths.web.clip}/${id}`
 
   return (
     <>

@@ -4,14 +4,15 @@ import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import type { Episode, MediaRef } from 'podverse-shared'
 import { useEffect, useState } from 'react'
-import { EpisodeInfo, List, MediaRefListItem, PageHeader, PageScrollableContent,
-  Pagination, PodcastPageHeader } from '~/components'
+import {
+  EpisodeInfo, List, MediaRefListItem, PageHeader, PageScrollableContent,
+  Pagination, PodcastPageHeader
+} from '~/components'
 import { scrollToTopOfPageScrollableContent } from '~/components/PageScrollableContent/PageScrollableContent'
-import { calcListPageCount } from '~/lib/utility/misc'
+import { calcListPageCount, getMediaRefTitle } from '~/lib/utility/misc'
 import { Page } from '~/lib/utility/page'
 import { PV } from '~/resources'
-import { getEpisodeById } from '~/services/episode'
-import { getMediaRefsByQuery } from '~/services/mediaRef'
+import { getMediaRefById, getMediaRefsByQuery } from '~/services/mediaRef'
 import { getServerSideAuthenticatedUserInfo } from '~/services/auth'
 
 interface ServerProps extends Page {
@@ -19,7 +20,7 @@ interface ServerProps extends Page {
   serverClipsFilterPage: number
   serverClipsFilterSort: string
   serverClipsPageCount: number
-  serverEpisode: Episode
+  serverMediaRef: MediaRef
 }
 
 type FilterState = {
@@ -27,12 +28,13 @@ type FilterState = {
   clipsFilterSort?: string
 }
 
-const keyPrefix = 'pages_episode'
+const keyPrefix = 'pages_clip'
 
-export default function Episode(props: ServerProps) {
-  const { serverClips, serverClipsPageCount, serverEpisode,
-    serverClipsFilterPage, serverClipsFilterSort } = props
-  const { id, podcast } = serverEpisode
+export default function Clip(props: ServerProps) {
+  const { serverClips, serverClipsPageCount, serverClipsFilterPage,
+    serverClipsFilterSort, serverMediaRef } = props
+  const { episode } = serverMediaRef
+  const { podcast } = episode
 
   const { t } = useTranslation()
 
@@ -44,12 +46,12 @@ export default function Episode(props: ServerProps) {
   const [clipsListData, setClipsListData] = useState<MediaRef[]>(serverClips)
   const [clipsPageCount, setClipsPageCount] = useState<number>(serverClipsPageCount)
 
-  const pageTitle = serverEpisode.title || t('untitledEpisode')
+  const pageTitle = getMediaRefTitle(t, serverMediaRef, episode)
 
   useEffect(() => {
     (async () => {
       const { data } = await clientQueryClips(
-        { page: clipsFilterPage, episodeId: id, sort: clipsFilterSort },
+        { page: clipsFilterPage, episodeId: episode.id, sort: clipsFilterSort },
         filterState
       )
       const [newMediaRefsListData, newMediaRefsListCount] = data
@@ -67,14 +69,12 @@ export default function Episode(props: ServerProps) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <PodcastPageHeader
-        episode={serverEpisode}
+        episode={episode}
         podcast={podcast} />
       <PageScrollableContent>
         <div className='row'>
           <div className='column flex-stretch'>
-            <EpisodeInfo
-              episode={serverEpisode}
-              includeMediaItemControls />
+            <EpisodeInfo episode={episode} />
             <PageHeader
               isSubHeader
               sortOnChange={(selectedItems: any[]) => {
@@ -85,7 +85,7 @@ export default function Episode(props: ServerProps) {
               sortSelected={clipsFilterSort}
               text={t('Clips')} />
             <List>
-              {generateMediaRefListElements(clipsListData, serverEpisode)}
+              {generateMediaRefListElements(clipsListData, episode)}
             </List>
             <Pagination
               currentPageIndex={clipsFilterPage}
@@ -163,18 +163,19 @@ const generateMediaRefListElements = (listItems: MediaRef[], episode: Episode) =
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { locale, params, req } = ctx
   const { cookies } = req
-  const { episodeId } = params
+  const { clipId } = params
 
   const userInfo = await getServerSideAuthenticatedUserInfo(cookies)
 
-  const episodeResponse = await getEpisodeById(episodeId)
-  const serverEpisode = episodeResponse.data
+  const mediaRefResponse = await getMediaRefById(clipId)
+  const serverMediaRef = mediaRefResponse.data
+  const { episode } = serverMediaRef
 
   const serverClipsFilterSort = PV.Filters.sort._topPastYear
   const serverClipsFilterPage = 1
 
   const clipsResponse = await getMediaRefsByQuery({
-    episodeId,
+    episodeId: episode.id,
     sort: serverClipsFilterSort
   })
   const [clipsListData, clipsListDataCount] = clipsResponse.data
@@ -189,7 +190,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     serverClipsFilterPage,
     serverClipsFilterSort,
     serverClipsPageCount,
-    serverEpisode
+    serverMediaRef
   }
 
   return { props }
