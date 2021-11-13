@@ -4,7 +4,7 @@ import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import type { Episode, MediaRef } from 'podverse-shared'
 import { useEffect, useState } from 'react'
-import { EpisodeInfo, List, MediaRefListItem, PageHeader, PageScrollableContent,
+import { ClipListItem, EpisodeInfo, List, PageHeader, PageScrollableContent,
   Pagination, PodcastPageHeader } from '~/components'
 import { scrollToTopOfPageScrollableContent } from '~/components/PageScrollableContent/PageScrollableContent'
 import { calcListPageCount } from '~/lib/utility/misc'
@@ -52,9 +52,9 @@ export default function Episode(props: ServerProps) {
         { page: clipsFilterPage, episodeId: id, sort: clipsFilterSort },
         filterState
       )
-      const [newMediaRefsListData, newMediaRefsListCount] = data
-      setClipsListData(newMediaRefsListData)
-      setClipsPageCount(calcListPageCount(newMediaRefsListCount))
+      const [newClipsListData, newClipsListCount] = data
+      setClipsListData(newClipsListData)
+      setClipsPageCount(calcListPageCount(newClipsListCount))
       scrollToTopOfPageScrollableContent()
     })()
   }, [clipsFilterPage, clipsFilterSort])
@@ -85,7 +85,7 @@ export default function Episode(props: ServerProps) {
               sortSelected={clipsFilterSort}
               text={t('Clips')} />
             <List>
-              {generateMediaRefListElements(clipsListData, serverEpisode)}
+              {generateClipListElements(clipsListData, serverEpisode)}
             </List>
             <Pagination
               currentPageIndex={clipsFilterPage}
@@ -146,11 +146,11 @@ const generateSortOptions = (t: any) => [
   { label: t('Random'), key: PV.Filters.sort._random }
 ]
 
-const generateMediaRefListElements = (listItems: MediaRef[], episode: Episode) => {
+const generateClipListElements = (listItems: MediaRef[], episode: Episode) => {
   return listItems.map((listItem, index) => {
     listItem.episode = episode
     return (
-      <MediaRefListItem
+      <ClipListItem
         mediaRef={listItem}
         podcast={episode.podcast}
         key={`${keyPrefix}-${index}`} />

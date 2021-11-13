@@ -1,4 +1,5 @@
 import { faEllipsisH, faPlay } from "@fortawesome/free-solid-svg-icons"
+import classNames from "classnames"
 import { Episode, MediaRef } from 'podverse-shared'
 import { useTranslation } from 'react-i18next'
 import { readableDate } from "~/lib/utility/date"
@@ -8,7 +9,9 @@ import { ButtonCircle, Dropdown } from ".."
 type Props = {
   buttonSize: 'medium' | 'large'
   episode?: Episode
+  hidePubDate?: boolean
   mediaRef?: MediaRef
+  stretchMiddleContent?: boolean
 }
 
 const _playKey = '_play'
@@ -18,23 +21,29 @@ const _addToPlaylistKey = '_addToPlaylist'
 const _shareKey = '_share'
 const _markAsPlayedKey = '_markAsPlayedKey'
 
-export const MediaItemControls = ({ buttonSize, episode, mediaRef }: Props) => {
+export const MediaItemControls = ({ buttonSize, episode, hidePubDate,
+  mediaRef, stretchMiddleContent }: Props) => {
   const { t } = useTranslation()
   let pubDate = null
   let timeInfo = null
   let timeRemaining = null
-  if (episode) {
+  if (mediaRef) {
+    pubDate = readableDate(mediaRef.episode.pubDate)
+    timeInfo = readableClipTime(mediaRef.startTime, mediaRef.endTime)
+  } else if (episode) {
     pubDate = readableDate(episode.pubDate)
     if (episode.duration > 0) {
       timeInfo = convertSecToHhoursMMinutes(episode.duration)
     }
     // timeRemaining
-  } else if (mediaRef) {
-    pubDate = readableDate(mediaRef.episode.pubDate)
-    timeInfo = readableClipTime(mediaRef.startTime, mediaRef.endTime)
   }
 
   const dropdownItems = generateDropdownItems(t)
+
+  const timeWrapperClass = classNames(
+    'time-wrapper',
+    stretchMiddleContent ? 'flex-stretch' : ''
+  )
   
   const onChange = (selected) => {
     const item = selected[0]
@@ -62,11 +71,11 @@ export const MediaItemControls = ({ buttonSize, episode, mediaRef }: Props) => {
         faIcon={faPlay}
         onClick={() => console.log('MediaItemControls play')}
         size={buttonSize} />
-      <div className='time-wrapper'>
-        <span className='pub-date'>{pubDate}</span>
+      <div className={timeWrapperClass}>
+        {!hidePubDate && <span className='pub-date'>{pubDate}</span>}
         {!!timeInfo && (
           <>
-            <span className='time-spacer'> • </span>
+            {!hidePubDate && <span className='time-spacer'> • </span>}
             {
               timeRemaining ? (
                 <span className='time-remaining'>{timeRemaining}</span>
