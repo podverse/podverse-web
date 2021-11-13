@@ -204,7 +204,8 @@ const generateSortOptions = (t: any) => [
   { label: t('Top - Past Month'), key: PV.Filters.sort._topPastMonth },
   { label: t('Top - Past Year'), key: PV.Filters.sort._topPastYear },
   { label: t('Top - All Time'), key: PV.Filters.sort._topAllTime },
-  { label: t('Oldest'), key: PV.Filters.sort._oldest }
+  { label: t('Oldest'), key: PV.Filters.sort._oldest },
+  { label: t('Random'), key: PV.Filters.sort._random }
 ]
 
 const generateEpisodeListElements = (listItems: Episode[]) => {
