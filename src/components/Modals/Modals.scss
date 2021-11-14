@@ -12,7 +12,9 @@
     display: flex;
     flex-direction: column;
     border-radius: $item-border-radius !important;
+    max-height: 100vh;
     min-width: 400px;
+    overflow: auto;
     padding: 32px 24px;
 
     @include themeGen() {
@@ -27,6 +29,15 @@
       position: absolute;
       top: 24px;
       right: 16px;
+    }
+
+    .header-wrapper {
+      margin: -8px 0 24px 0;
+      text-align: center;
+
+      div {
+        line-height: 24px;
+      }
     }
 
     .submit-buttons {   

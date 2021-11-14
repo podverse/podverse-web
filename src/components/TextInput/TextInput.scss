@@ -1,41 +1,75 @@
-.text-input-outer-wrapper {
-  border-radius: $item-border-radius !important;
-  margin: 0 0 36px;
-  padding: 10px 16px;
+.text-input {
+  margin: 0 0 14px;
+  padding: 0 0 22px 0;
+  position: relative;
 
-  @include themeGen() {
-    background-color: getThemeVal('textInputBackground') !important;
-  }
-
-  &:focus-within {
+  .text-input-outer-wrapper {
+    border-color: transparent;
+    border-radius: $item-border-radius !important;
+    border-style: solid;
+    border-width: $border-width-default;
+    padding: 10px 16px;
+  
     @include themeGen() {
-      border: $border-width-default solid getThemeVal('textInputFocusBorder');
+      background-color: getThemeVal('textInputBackground') !important;
+    }
+  
+    &:focus-within {
+      @include themeGen() {
+        border-color: getThemeVal('textInputFocusBorder');
+      }
+    }
+  
+    .text-input-inner-wrapper {
+      display: flex;
+      flex-direction: column;
+      height: 42px;
+  
+      .eyebrow {
+        font-size: $text-sm;
+        font-weight: $font-weight-bold;
+        margin: 0 0 2px 0;
+  
+        @include themeGen() {
+          color: getThemeVal('textInputEyebrow') !important;
+        }
+      }
+  
+      input {
+        font-size: $text-lg;
+        height: 42px;
+  
+        &::placeholder {
+          @include themeGen() {
+            color: getThemeVal('textInputPlaceholder') !important;
+          }
+        }
+      }
     }
   }
 
-  .text-input-inner-wrapper {
-    display: flex;
-    flex-direction: column;
-    height: 42px;
+  .helper-text {
+    font-size: $text-sm;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
 
-    .eyebrow {
-      font-size: $text-sm;
-      font-weight: $font-weight-bold;
-      margin: 0 0 2px 0;
+    @include themeGen() {
+      color: getThemeVal('textSecondary')
+    }
+  }
 
+  &.danger {
+    .text-input-outer-wrapper { 
       @include themeGen() {
-        color: getThemeVal('textInputEyebrow') !important;
+        border-color: getThemeVal('textInputFocusBorderDanger') !important;
       }
     }
 
-    input {
-      font-size: $text-lg;
-      height: 42px;
-
-      &::placeholder {
-        @include themeGen() {
-          color: getThemeVal('textInputPlaceholder') !important;
-        }
+    .helper-text {
+      @include themeGen() {
+        color: getThemeVal('textDanger')
       }
     }
   }

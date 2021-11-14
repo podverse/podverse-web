@@ -65,11 +65,14 @@ $themes: (
     'textParagraph': $grayLight,
     'textHover': $grayLight2,
     'textLink': $perrywinkle,
+    'textDanger': $redLighter,
+    'textSuccess': $green,
 
     'textInputBackground': $blueDarkBlueGrey,
     'textInputPlaceholder': $grayLight,
     'textInputEyebrow': $perrywinkle,
-    'textInputFocusBorder': $blueBright
+    'textInputFocusBorder': $blueBright,
+    'textInputFocusBorderDanger': $redLighter
   ),
   'light': ()
 );
