@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/podverse/podverse-web#readme",
   "scripts": {
-    "dev": "next dev",
+    "dev": "NODE_OPTIONS='--inspect' next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
