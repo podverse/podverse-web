@@ -74,17 +74,17 @@ type ClientQueryPodcasts = {
   sort?: string
 }
 
-const clientQueryPodcasts = async (
-  { from, page, sort }: ClientQueryPodcasts,
-  filterState: FilterState
-) => {
-  const finalQuery = {
-    ...(from ? { from } : { from: filterState.filterFrom }),
-    ...(page ? { page } : { page: filterState.filterPage }),
-    ...(sort ? { sort } : { sort: filterState.filterSort })
-  }
-  return getPodcastsByQuery(finalQuery)
-}
+// const clientQueryPodcasts = async (
+//   { from, page, sort }: ClientQueryPodcasts,
+//   filterState: FilterState
+// ) => {
+//   const finalQuery = {
+//     ...(from ? { from } : { from: filterState.filterFrom }),
+//     ...(page ? { page } : { page: filterState.filterPage }),
+//     ...(sort ? { sort } : { sort: filterState.filterSort })
+//   }
+//   return getPodcastsByQuery(finalQuery)
+// }
 
 /* Render Helpers */
 
@@ -93,13 +93,13 @@ const generateTabOptions = (t: any) => [
   { label: t('Hosts'), key: PV.Filters.search.queryParams.host },
 ]
 
-const generatePodcastListElements = (listItems: Podcast[]) => {
-  return listItems.map((listItem, index) =>
-    <PodcastListItem
-      key={`${keyPrefix}-${index}`}
-      podcast={listItem} />
-  )
-}
+// const generatePodcastListElements = (listItems: Podcast[]) => {
+//   return listItems.map((listItem, index) =>
+//     <PodcastListItem
+//       key={`${keyPrefix}-${index}`}
+//       podcast={listItem} />
+//   )
+// }
 
 /* Server-Side Logic */
 

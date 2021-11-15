@@ -12,7 +12,7 @@ export const SearchPageInput = (props: Props) => {
       <div className='main-max-width'>
         <TextInput
           faIcon={faSearch}
-          helperText={t('Use double quotes for exact matches')} />
+          helperText={t('Use double quotes for exact matches')} label={""} onChange={undefined} placeholder={""} type={"text"} value={""} />
       </div>
     </div>
   )

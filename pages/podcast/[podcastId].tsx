@@ -237,7 +237,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const serverFilterSort = PV.Filters.sort._mostRecent
   const serverFilterPage = 1
 
-  const response = await getPodcastById(podcastId)
+  const response = await getPodcastById(podcastId as string)
   const podcast = response.data
 
   let serverEpisodes = []

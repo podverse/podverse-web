@@ -45,7 +45,7 @@ export default function Clip(props: ServerProps) {
   const [clipsListData, setClipsListData] = useState<MediaRef[]>(serverClips)
   const [clipsPageCount, setClipsPageCount] = useState<number>(serverClipsPageCount)
 
-  const pageTitle = getClipTitle(t, serverClip, episode)
+  const pageTitle = getClipTitle(t, serverClip, episode?.title)
 
   useEffect(() => {
     (async () => {
@@ -167,7 +167,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
   const userInfo = await getServerSideAuthenticatedUserInfo(cookies)
 
-  const clipResponse = await getMediaRefById(clipId)
+  const clipResponse = await getMediaRefById(clipId as string)
   const serverClip = clipResponse.data
   const { episode } = serverClip
 

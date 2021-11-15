@@ -167,7 +167,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
   const userInfo = await getServerSideAuthenticatedUserInfo(cookies)
 
-  const episodeResponse = await getEpisodeById(episodeId)
+  const episodeResponse = await getEpisodeById(episodeId as string)
   const serverEpisode = episodeResponse.data
 
   const serverClipsFilterSort = PV.Filters.sort._topPastYear

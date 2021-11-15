@@ -7,7 +7,7 @@ type Props = {
   helperText?: string
   isDanger?: boolean
   label: string
-  onBlur: any
+  onBlur?: any
   onChange: any
   placeholder: string
   type: 'email' | 'password' | 'text'

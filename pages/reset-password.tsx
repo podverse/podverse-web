@@ -23,9 +23,8 @@ export default function ResetPassword(props: ServerProps) {
   }
 
   const _handleResetPassword = async (email, password) => {
-    console.log('handle resest', password, token)
     try {
-      await resetPassword(password, token)
+      await resetPassword(password, token as string)
       alert(t('Reset password successful'))
       router.push('/')
     } catch (error) {

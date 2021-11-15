@@ -26,7 +26,7 @@ function MyApp({ Component, pageProps }) {
         <div className='app-wrapper'>
           <NavBar />
           <div className='app-main-wrapper'>
-            <HorizontalNavBar serverCookies={pageProps.serverCookies} />
+            <HorizontalNavBar serverCookies={pageProps.serverCookies || {}} />
             <main>
               <Component {...pageProps} />
             </main>

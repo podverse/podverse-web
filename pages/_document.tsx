@@ -11,7 +11,7 @@ class MyDocument extends Document {
     const pageProps = this.props?.__NEXT_DATA__?.props?.pageProps;
     const appWrapperClasses = classnames(
       'app-wrapper',
-      pageProps.serverCookies.lightMode ? 'theme-light' : 'theme-dark'
+      pageProps?.serverCookies?.lightMode ? 'theme-light' : 'theme-dark'
     )
 
     return (
