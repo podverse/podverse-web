@@ -1,0 +1,15 @@
+.truncated-text {
+  @include themeGen() {
+    color: getThemeVal('textSecondary');
+  }
+
+  a {
+    @include themeGen() {
+      color: getThemeVal('textLink');
+    }
+  }
+
+  .truncated-text-anchor {
+    font-weight: $font-weight-bold;
+  }
+}

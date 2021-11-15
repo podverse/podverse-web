@@ -1,6 +1,13 @@
 import { PV } from "~/resources"
 import { request } from '~/services/request'
 
+export const getMediaRefById = async (id: string) => {
+  return request({
+    endpoint: `${PV.RoutePaths.api.mediaRef}/${id}`,
+    method: 'get'
+  })
+}
+
 type MediaRefQueryParams = {
   categories?: string[]
   episodeId?: string | string[]
@@ -13,7 +20,7 @@ type MediaRefQueryParams = {
 }
 
 export const getMediaRefsByQuery = async ({ categories, episodeId, includeEpisode,
-  includePodcast, page, podcastId, searchAllFieldsText, sort }) => {
+  includePodcast, page, podcastId, searchAllFieldsText, sort }: MediaRefQueryParams) => {
   const filteredQuery: MediaRefQueryParams = {
     ...(categories ? { categories } : {}),
     ...(episodeId ? { episodeId } : {}),

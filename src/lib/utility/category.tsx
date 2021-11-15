@@ -1,8 +1,8 @@
-import Link from 'next/link'
+// import Link from 'next/link'
 
-const getLinkCategoryHref = id => {
-  return `/podcasts?categoryId=${id}&refresh=true`
-}
+// const getLinkCategoryHref = id => {
+//   return `/podcasts?categoryId=${id}&refresh=true`
+// }
 
 export const generateCategoryNodes = (categories) => {
   const categoryNodes: any[] = []
@@ -11,14 +11,14 @@ export const generateCategoryNodes = (categories) => {
     for (let i = 0; i < categories.length; i++) {
       const category = categories[i]
       const categoryText = category.title
-      const categoryHref = getLinkCategoryHref(category.id)
+      // const categoryHref = getLinkCategoryHref(category.id)
 
       categoryNodes.push(
         <span key={`category-${i}`}>
-          <Link
-            href={categoryHref}>
+          {/* <Link
+            href={categoryHref}> */}
             <a>{categoryText}</a>
-          </Link>
+          {/* </Link> */}
           {i < categories.length - 1 && (<span>,</span>)}
         </span>
       )

@@ -54,3 +54,47 @@ export const logOut = async () => {
   })
   window.location.reload()
 }
+
+
+export const resetPassword = async (password?: string, resetPasswordToken?: string) => {
+  return request({
+    endpoint: PV.RoutePaths.api.reset_password,
+    method: 'post',
+    body: {
+      password,
+      resetPasswordToken
+    }
+  })
+}
+
+export const sendResetPassword = async (email: string) => {
+  return request({
+    endpoint: PV.RoutePaths.api.send_reset_password,
+    method: 'post',
+    body: {
+      email
+    }
+  })
+}
+
+export const sendVerification = async (email: string) => {
+  return request({
+    endpoint: PV.RoutePaths.api.send_verification,
+    method: 'post',
+    body: {
+      email
+    }
+  })
+}
+
+export const signUp = async (email: string, password: string) => {
+  return request({
+    endpoint: PV.RoutePaths.api.sign_up,
+    method: 'post',
+    body: {
+      email,
+      password
+    },
+    withCredentials: true
+  })
+}

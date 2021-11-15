@@ -1,0 +1,26 @@
+.clip-info {
+  margin-bottom: 24px;
+  
+  .episode-title {
+    font-size: $text-xxl;
+    margin: 0 0 9px 0;
+  }
+
+  .episode-pub-date {
+    font-weight: $font-weight-bold;
+    margin: 0 0 16px 0;
+
+    @include themeGen() {
+      color: getThemeVal('textTertiary');
+    }
+  }
+
+  .clip-title {
+    font-size: $text-xxl;
+    margin: 41px 0 16px 0;
+  }
+
+  .media-item-controls {
+    margin-bottom: 24px;
+  }
+}

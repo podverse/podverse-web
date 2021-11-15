@@ -18,7 +18,7 @@ Modal.setAppElement('.app')
 
 function MyApp({ Component, pageProps }) {
   const { serverUserInfo } = pageProps
-  OmniAural.state.session.userInfo.set(serverUserInfo)
+  OmniAural.setUserInfo(serverUserInfo)
 
   return (
     <CookiesProvider>

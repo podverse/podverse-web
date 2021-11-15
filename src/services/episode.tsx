@@ -1,6 +1,13 @@
 import { PV } from "~/resources"
 import { request } from '~/services/request'
 
+export const getEpisodeById = async (id: string) => {
+  return request({
+    endpoint: `${PV.RoutePaths.api.episode}/${id}`,
+    method: 'get'
+  })
+}
+
 type EpisodeQueryParams = {
   categories?: string[]
   includePodcast?: boolean

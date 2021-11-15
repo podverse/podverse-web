@@ -4,7 +4,7 @@ import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import type { Episode, MediaRef, Podcast } from 'podverse-shared'
 import { useEffect, useState } from 'react'
-import { EpisodeListItem, List, MediaRefListItem, PageHeader, PageScrollableContent,
+import { ClipListItem, EpisodeListItem, List, PageHeader, PageScrollableContent,
   Pagination, PodcastPageHeader, SideContent } from '~/components'
 import { scrollToTopOfPageScrollableContent } from '~/components/PageScrollableContent/PageScrollableContent'
 import { calcListPageCount } from '~/lib/utility/misc'
@@ -13,16 +13,16 @@ import { getPodcastById } from '~/services/podcast'
 import { getEpisodesByQuery } from '~/services/episode'
 import { getMediaRefsByQuery } from '~/services/mediaRef'
 import { getServerSideAuthenticatedUserInfo } from '~/services/auth'
+import { Page } from '~/lib/utility/page'
 
-type Props = {
+interface ServerProps extends Page {
+  serverClips: MediaRef[]
+  serverClipsPageCount: number
   serverEpisodes: Episode[]
   serverEpisodesPageCount: number
   serverFilterPage: number
   serverFilterSort: string
   serverFilterType: string
-  serverMediaRefs: MediaRef[]
-  serverMediaRefsPageCount: number
-  serverPageCount: number
   serverPodcast: Podcast
 }
 
@@ -34,10 +34,9 @@ type FilterState = {
 
 const keyPrefix = 'pages_podcast'
 
-export default function Podcast(props: Props) {
-  const { serverFilterPage, serverFilterSort, serverFilterType,
-    serverEpisodes, serverEpisodesPageCount, serverMediaRefs,
-    serverMediaRefsPageCount, serverPodcast } = props
+export default function Podcast(props: ServerProps) {
+  const { serverClips, serverClipsPageCount, serverFilterPage, serverFilterSort,
+    serverFilterType, serverEpisodes, serverEpisodesPageCount, serverPodcast } = props
   const { id } = serverPodcast
 
   const { t } = useTranslation()
@@ -50,14 +49,14 @@ export default function Podcast(props: Props) {
   const { filterPage, filterSort, filterType } = filterState
   const [episodesListData, setEpisodesListData] = useState<Episode[]>(serverEpisodes)
   const [episodesPageCount, setEpisodesPageCount] = useState<number>(serverEpisodesPageCount)
-  const [mediaRefsListData, setMediaRefsListData] = useState<MediaRef[]>(serverMediaRefs)
-  const [mediaRefsPageCount, setMediaRefsPageCount] = useState<number>(serverMediaRefsPageCount)
+  const [clipsListData, setClipsListData] = useState<MediaRef[]>(serverClips)
+  const [clipsPageCount, setClipsPageCount] = useState<number>(serverClipsPageCount)
   
   const pageTitle = serverPodcast.title || t('untitledPodcast')
   const pageSubHeader = filterType === PV.Filters.type._episodes
     ? t('Episodes') : t('Clips')
   const pageCount = filterType === PV.Filters.type._episodes
-    ? episodesPageCount : mediaRefsPageCount
+    ? episodesPageCount : clipsPageCount
 
   useEffect(() => {
     (async () => {
@@ -70,13 +69,13 @@ export default function Podcast(props: Props) {
         setEpisodesListData(newEpisodesListData)
         setEpisodesPageCount(calcListPageCount(newEpisodesListCount))
       } else if (filterType === PV.Filters.type._clips) {
-        const { data } = await clientQueryMediaRefs(
+        const { data } = await clientQueryClips(
           { page: filterPage, podcastId: id, sort: filterSort },
           filterState
         )
-        const [newMediaRefsListData, newMediaRefsListCount] = data
-        setMediaRefsListData(newMediaRefsListData)
-        setMediaRefsPageCount(calcListPageCount(newMediaRefsListCount))
+        const [newClipsListData, newClipsListCount] = data
+        setClipsListData(newClipsListData)
+        setClipsPageCount(calcListPageCount(newClipsListCount))
       }
       scrollToTopOfPageScrollableContent()
     })()
@@ -116,7 +115,7 @@ export default function Podcast(props: Props) {
               }
               {
                 filterType === PV.Filters.type._clips && (
-                  generateMediaRefListElements(mediaRefsListData, serverPodcast)
+                  generateClipListElements(clipsListData, serverPodcast)
                 )
               }
             </List>
@@ -151,7 +150,7 @@ export default function Podcast(props: Props) {
   )
 }
 
-/* Client-side logic */
+/* Client-Side Queries */
 
 type ClientQueryEpisodes = {
   page?: number
@@ -171,14 +170,14 @@ const clientQueryEpisodes = async (
   return getEpisodesByQuery(finalQuery)
 }
 
-type ClientQueryMediaRefs = {
+type ClientQueryClips = {
   page?: number
   podcastId?: string
   sort?: string
 }
 
-const clientQueryMediaRefs = async (
-  { page, podcastId, sort }: ClientQueryMediaRefs,
+const clientQueryClips = async (
+  { page, podcastId, sort }: ClientQueryClips,
   filterState: FilterState
 ) => {
   const finalQuery = {
@@ -204,7 +203,8 @@ const generateSortOptions = (t: any) => [
   { label: t('Top - Past Month'), key: PV.Filters.sort._topPastMonth },
   { label: t('Top - Past Year'), key: PV.Filters.sort._topPastYear },
   { label: t('Top - All Time'), key: PV.Filters.sort._topAllTime },
-  { label: t('Oldest'), key: PV.Filters.sort._oldest }
+  { label: t('Oldest'), key: PV.Filters.sort._oldest },
+  { label: t('Random'), key: PV.Filters.sort._random }
 ]
 
 const generateEpisodeListElements = (listItems: Episode[]) => {
@@ -215,16 +215,16 @@ const generateEpisodeListElements = (listItems: Episode[]) => {
   )
 }
 
-const generateMediaRefListElements = (listItems: MediaRef[], podcast: Podcast) => {
+const generateClipListElements = (listItems: MediaRef[], podcast: Podcast) => {
   return listItems.map((listItem, index) =>
-    <MediaRefListItem
+    <ClipListItem
       mediaRef={listItem}
       podcast={podcast}
       key={`${keyPrefix}-${index}`} />
   )
 }
 
-/* Server-side logic */
+/* Server-Side Logic */
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { locale, params, req } = ctx
@@ -242,8 +242,8 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
   let serverEpisodes = []
   let serverEpisodesPageCount = 0
-  let serverMediaRefs = []
-  let serverMediaRefsPageCount = 0
+  let serverClips = []
+  let serverClipsPageCount = 0
   if (serverFilterType === PV.Filters.type._episodes) {
     const response = await getEpisodesByQuery({
       podcastId: podcastId,
@@ -256,19 +256,21 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     // handle mediaRefs query
   }
 
+  const serverProps: ServerProps = {
+    serverUserInfo: userInfo,
+    ...(await serverSideTranslations(locale, PV.i18n.fileNames.all)),
+    serverCookies: cookies,
+    serverClips,
+    serverClipsPageCount,
+    serverEpisodes,
+    serverEpisodesPageCount,
+    serverFilterPage,
+    serverFilterSort,
+    serverFilterType,
+    serverPodcast: podcast
+  }
+
   return {
-    props: {
-      serverUserInfo: userInfo,
-      ...(await serverSideTranslations(locale, PV.i18n.fileNames.all)),
-      serverCookies: cookies,
-      serverEpisodes,
-      serverEpisodesPageCount,
-      serverFilterPage,
-      serverFilterSort,
-      serverFilterType,
-      serverMediaRefs,
-      serverMediaRefsPageCount,
-      serverPodcast: podcast
-    }
+    props: serverProps
   }
 }

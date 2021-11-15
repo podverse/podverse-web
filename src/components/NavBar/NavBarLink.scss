@@ -5,6 +5,12 @@
     padding: 11px 0 10px 12px;
     border-radius: $item-border-radius;
 
+    &:hover {
+      @include themeGen() {
+        background-color: getThemeVal('highlighted');
+      }
+    }
+
     &.active {
       font-weight: 700;
       @include themeGen() {

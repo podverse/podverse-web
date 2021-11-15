@@ -25,7 +25,7 @@ export const RoutePaths = {
     reset_password: `${api.auth}/reset-password`,
     send_reset_password: `${api.auth}/send-reset-password`,
     send_verification: `${api.auth}/send-verification`,
-    sign_up: `/sign-up`,
+    sign_up: `${api.auth}/sign-up`,
     toggle_subscribe: `/toggle-subscribe`,
     update_history_item_playback_position: `/update-history-item-playback-position`,
     update_queue: `/update-queue`,

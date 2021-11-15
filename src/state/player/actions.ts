@@ -6,5 +6,4 @@ const togglePlayer = (show:boolean) => {
     OmniAural.state.player.show.set(show)
 }
 
-
 OmniAural.addActions(togglePlayer)

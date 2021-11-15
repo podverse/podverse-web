@@ -5,6 +5,7 @@ const modalsSignUpHide = () => {
 }
 
 const modalsSignUpShow = () => {
+  OmniAural.modalsHideAll()
   OmniAural.state.modals.signUp.show.set(true)
 }
 

@@ -1,7 +1,6 @@
 import { IconProp } from '@fortawesome/fontawesome-svg-core'
 import classnames from 'classnames'
-import Link from 'next/link'
-import { Icon } from '~/components'
+import { Icon, PVLink } from '~/components'
 
 type Props = {
   active?: boolean
@@ -17,8 +16,8 @@ export const NavBarLink = ({ active, faIconBeginning, href, text }: Props) => {
   )
 
   return (
-    <Link href={href}>
-      <a className={wrapperClass}>
+    <PVLink href={href}>
+      <div className={wrapperClass}>
         {
           !!faIconBeginning &&
             <span className='navbar-link__icon-wrapper'>
@@ -26,7 +25,7 @@ export const NavBarLink = ({ active, faIconBeginning, href, text }: Props) => {
             </span>
         }
         {text}
-      </a>
-    </Link>
+      </div>
+    </PVLink>
   )
 }

@@ -85,14 +85,12 @@ type Props = {
     email: string
     emailVerified?: boolean
     freeTrialExpiration: any
-    historyItems: any[]
     id: string
     isPublic: boolean
     mediaRefs: any[]
     membershipExpiration: any
     name: string
     playlists: any[]
-    queueItems: any[]
     subscribedPlaylistIds: any[]
     subscribedPodcastIds: any[]
     subscribedUserIds: any[]
