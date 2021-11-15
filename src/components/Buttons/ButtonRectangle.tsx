@@ -18,15 +18,13 @@ export const ButtonRectangle = ({ disabled, label, onClick, type, isLoading }: P
   )
 
   return (
-    <div>
-      <button
-        className={buttonClass}
-        disabled={disabled}
-        onClick={onClick}>
-        <span className="button__text">
-          {label}
-        </span>
-      </button>
-    </div>
+    <button
+      className={buttonClass}
+      disabled={disabled}
+      onClick={onClick}>
+      <span className="button__text">
+        {label}
+      </span>
+    </button>
   )
 }
