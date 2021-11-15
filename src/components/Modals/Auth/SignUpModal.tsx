@@ -1,4 +1,5 @@
 import OmniAural, { useOmniAural } from "omniaural"
+import { useState } from "react"
 import { useTranslation } from "react-i18next"
 import Modal from 'react-modal'
 import { ButtonClose, PasswordInputs } from "~/components"
@@ -9,14 +10,17 @@ type Props = {}
 export const SignUpModal = (props: Props) => {
   const [signUp] = useOmniAural("modals.signUp")
   const { t } = useTranslation()
+  const [isSignUpPressed, setIsSignUpPressed] = useState<boolean>(false);
 
   /* Event Handlers */
 
   const _handleSignUp = async (email: string, password: string) => {
     try {
+      setIsSignUpPressed(true);
       await signUpService(email, password)
       OmniAural.modalsVerifyEmailShow()
     } catch (error) {
+      setIsSignUpPressed(false);
       if (error.response?.status === 460) {
         OmniAural.modalsVerifyEmailShow()
       } else if (error.response?.data?.message) {
@@ -24,6 +28,8 @@ export const SignUpModal = (props: Props) => {
       } else {
         alert(t('errorMessages:internetConnectivityErrorMessage'))
       }
+    } finally {
+      setIsSignUpPressed(false);
     }
   }
 
@@ -45,7 +51,8 @@ export const SignUpModal = (props: Props) => {
       </div>
       <PasswordInputs
         handleClose={_onRequestClose}
-        handleSubmit={_handleSignUp} />
+        handleSubmit={_handleSignUp}
+        isSignUpPressed={isSignUpPressed} />
     </Modal>
   )
 }
