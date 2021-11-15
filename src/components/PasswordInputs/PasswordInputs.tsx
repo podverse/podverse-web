@@ -9,9 +9,10 @@ type Props = {
   handleClose: any
   handleSubmit: any
   hideEmail?: boolean
+  isSignUpPressed?: boolean
 }
 
-export const PasswordInputs = ({ handleClose, handleSubmit, hideEmail }: Props) => {
+export const PasswordInputs = ({ handleClose, handleSubmit, hideEmail, isSignUpPressed = false }: Props) => {
   const { t } = useTranslation()
   const [email, setEmail] = useState<string>('')
   const [emailWarningText, setEmailWarningText] = useState<string>('')
@@ -156,6 +157,7 @@ export const PasswordInputs = ({ handleClose, handleSubmit, hideEmail }: Props) 
           onClick={handleClose}
           type='secondary' />
         <ButtonRectangle
+          isLoading={isSignUpPressed}
           disabled={!fieldsAreValid}
           label={t('Submit')}
           onClick={() => handleSubmit(email, password1)}
