@@ -12,14 +12,16 @@ export const LoginModal = (props: Props) => {
   const { t } = useTranslation()
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
-
+  const [isSubmitPressed, setIsSubmitPressed] = useState<boolean>(false);
   /* Event Handlers */
 
   const _handleLogin = async () => {
     try {
+      setIsSubmitPressed(true);
       await loginService(email, password)
       window.location.reload()
     } catch (error) {
+      setIsSubmitPressed(false);
       if (error.response?.status === 460) {
         OmniAural.modalsVerifyEmailShow()
       } else if (error.response?.data?.message) {
@@ -27,6 +29,8 @@ export const LoginModal = (props: Props) => {
       } else {
         alert(t('errorMessages:internetConnectivityErrorMessage'))
       }
+    } finally {
+      setIsSubmitPressed(false);
     }
   }
 
@@ -63,6 +67,7 @@ export const LoginModal = (props: Props) => {
           onClick={_onRequestClose}
           type='secondary' />
         <ButtonRectangle
+          isLoading={isSubmitPressed}
           label={t('Submit')}
           onClick={_handleLogin}
           type='primary' />
