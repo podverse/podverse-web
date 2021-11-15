@@ -1,8 +1,7 @@
 import OmniAural, { useOmniAural } from "omniaural"
-import { useState } from "react"
 import { useTranslation } from "react-i18next"
 import Modal from 'react-modal'
-import { ButtonClose, ButtonRectangle, TextInput } from "~/components"
+import { ButtonClose, ButtonRectangle } from "~/components"
 import { sendVerification } from "~/services/auth"
 
 type Props = {}
@@ -10,8 +9,6 @@ type Props = {}
 export const VerifyEmailModal = (props: Props) => {
   const [verifyEmail] = useOmniAural("modals.verifyEmail")
   const { t } = useTranslation()
-  const [email, setEmail] = useState<string>('')
-  const [resetPasswordSent, setResetPasswordSent] = useState<boolean>(false)
 
   /* Event Handlers */
 
@@ -32,7 +29,6 @@ export const VerifyEmailModal = (props: Props) => {
   }
 
   const _onRequestClose = () => {
-    setResetPasswordSent(false)
     OmniAural.modalsHideAll()
   }
 
