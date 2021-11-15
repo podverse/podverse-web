@@ -17,22 +17,22 @@ export const validateEmail = email => {
   return re.test(String(email).toLowerCase())
 }
 
-export const hasAtLeastXCharacters = (str?: string, x = 8) => {
+export const validateHasAtLeastXCharacters = (str?: string, x = 8) => {
   return str && str.match(`^(?=.{${x},})`) ? true : false
 }
 
-export const hasLowercase = (str?: string) => {
+export const validateHasLowercase = (str?: string) => {
   return str && str.match('^(?=.*[a-z])') ? true : false
 }
 
-export const hasMatchingStrings = (str1?: string, str2?: string) => {
+export const validateHasMatchingStrings = (str1?: string, str2?: string) => {
   return str1 && str1 === str2 ? true : false
 }
 
-export const hasNumber = (str?: string) => {
+export const validateHasNumber = (str?: string) => {
   return str && str.match('^(?=.*[0-9])') ? true : false
 }
 
-export const hasUppercase = (str?: string) => {
+export const validateHasUppercase = (str?: string) => {
   return str && str.match('^(?=.*[A-Z])') ? true : false
 }

@@ -2,6 +2,7 @@
 @import './Auth/LoginModal.scss';
 @import './Auth/ResetPasswordModal.scss';
 @import './Auth/SignUpModal.scss';
+@import './Auth/VerifyEmailModal.scss';
 
 .ReactModal__Overlay {
   @include themeGen() {
@@ -13,9 +14,9 @@
     flex-direction: column;
     border-radius: $item-border-radius !important;
     max-height: 100vh;
-    min-width: 400px;
     overflow: auto;
     padding: 32px 24px;
+    width: 400px;
 
     @include themeGen() {
       background-color: getThemeVal('backgroundPrimary') !important;
@@ -59,6 +60,11 @@
         &.with-margin {
           margin-bottom: 16px;
         }
+      }
+
+      button {
+        align-self: center;
+        margin-top: 4px
       }
     }
   }

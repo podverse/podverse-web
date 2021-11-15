@@ -20,19 +20,13 @@ export const LoginModal = (props: Props) => {
       await loginService(email, password)
       window.location.reload()
     } catch (error) {
-      const pleaseVerifyMessage = (
-        <>
-          <p>{t('PleaseVerifyEmail')}</p>
-          {/* <span><a href='#' onClick={this._showSendVerificationEmailModal}>{t('SendVerificationEmail')}</a></span> */}
-        </>
-      )
-      const errorMsg =
-        (error.response && error.response.status === 460 && pleaseVerifyMessage) ||
-        (error.response && error.response.data && error.response.data.message)
-        || t('errorMessages:internetConnectivityErrorMessage')
-
-      // TODO: handle error message
-      console.log('errorMsg', error)
+      if (error.response?.status === 460) {
+        OmniAural.modalsVerifyEmailShow()
+      } else if (error.response?.data?.message) {
+        alert(error.response?.data?.message)
+      } else {
+        alert(t('errorMessages:internetConnectivityErrorMessage'))
+      }
     }
   }
 
@@ -50,7 +44,10 @@ export const LoginModal = (props: Props) => {
       <ButtonClose onClick={_onRequestClose} />
       <TextInput
         label={t('Email')}
-        onChange={setEmail}
+        onChange={(value) => {
+          setEmail(value)
+          OmniAural.modalsVerifyEmailEmail(value)
+        }}
         placeholder={t('Email')}
         type='email'
         value={login.email} />

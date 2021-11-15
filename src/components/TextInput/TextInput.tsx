@@ -7,14 +7,15 @@ type Props = {
   helperText?: string
   isDanger?: boolean
   label: string
+  onBlur: any
   onChange: any
   placeholder: string
   type: 'email' | 'password' | 'text'
   value: string
 }
 
-export const TextInput = ({ faIcon, helperText, isDanger, label, onChange,
-  placeholder, type = 'text', value }: Props) => {
+export const TextInput = ({ faIcon, helperText, isDanger, label, onBlur,
+  onChange, placeholder, type = 'text', value }: Props) => {
   const textInputClass = classNames(
     'text-input',
     isDanger ? 'danger' : ''
@@ -33,6 +34,7 @@ export const TextInput = ({ faIcon, helperText, isDanger, label, onChange,
         <div className='text-input-inner-wrapper'>
           {!!value && <div className='eyebrow'>{label}</div>}
           <input
+            onBlur={onBlur}
             onChange={(event) => onChange(event.target.value)}
             placeholder={placeholder}
             type={type}

@@ -11,6 +11,10 @@
         },
         "signUp": {
             "show": false
+        },
+        "verifyEmail": {
+          "show": false,
+          "email": ""
         }
     },
     "player": {

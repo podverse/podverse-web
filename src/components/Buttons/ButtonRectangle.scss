@@ -1,8 +1,10 @@
 .button-rectangle {
+  
   &.primary {
     border-radius: $button-rectangle-radius;
     height: 44px;
     min-width: 158px;
+    padding: 0 16px;
 
     @include themeGen() {
       background-color: getThemeVal('buttonPrimaryBackground') !important;
@@ -13,12 +15,21 @@
         background-color: getThemeVal('buttonPrimaryRolloverBackground') !important;
       }
     }
+
+    &:disabled {
+      @include themeGen() {
+        background-color: getThemeVal('buttonDisabledBackground') !important;
+        color: getThemeVal('buttonDisabledText') !important;
+        cursor: not-allowed;
+      }
+    }
   }
 
   &.secondary {
     border-radius: $button-rectangle-radius;
     height: 44px;
     min-width: 158px;
+    padding: 0 16px;
 
     @include themeGen() {
       background-color: getThemeVal('buttonSecondaryBackground') !important;

@@ -50,10 +50,7 @@
 
   .helper-text {
     font-size: $text-sm;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    margin-top: 8px;
 
     @include themeGen() {
       color: getThemeVal('textSecondary')

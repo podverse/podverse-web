@@ -16,7 +16,11 @@ export const ForgotPasswordModal = (props: Props) => {
   /* Event Handlers */
 
   const _handleForgotPassword = async (email: string) => {
-    // await sendResetPassword(email)
+    try {
+      await sendResetPassword(email)
+    } catch (error) {
+      //
+    }
     setResetPasswordSent(true)
   }
 

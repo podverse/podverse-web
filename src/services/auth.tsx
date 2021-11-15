@@ -64,3 +64,25 @@ export const sendResetPassword = async (email: string) => {
     }
   })
 }
+
+export const sendVerification = async (email: string) => {
+  return request({
+    endpoint: PV.RoutePaths.api.send_verification,
+    method: 'post',
+    body: {
+      email
+    }
+  })
+}
+
+export const signUp = async (email: string, password: string) => {
+  return request({
+    endpoint: PV.RoutePaths.api.sign_up,
+    method: 'post',
+    body: {
+      email,
+      password
+    },
+    withCredentials: true
+  })
+}
