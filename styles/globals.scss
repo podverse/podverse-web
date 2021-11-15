@@ -65,6 +65,24 @@ body {
     display: none;
   }
 
+  .form-wrapper {
+    margin: 28px;
+    max-width: 460px;
+
+    h2 {
+      margin-bottom: 28px;
+    }
+
+    .submit-buttons {
+      display: flex;
+      justify-content: flex-end;
+
+      button:last-child {
+        margin-left: 16px;
+      }
+    }
+  }
+
   .centered {
     position: fixed;
     top: 50%;

@@ -8,9 +8,10 @@ import { validateHasAtLeastXCharacters, validateHasLowercase, validateHasMatchin
 type Props = {
   handleClose: any
   handleSubmit: any
+  hideEmail?: boolean
 }
 
-export const PasswordInputs = ({ handleClose, handleSubmit }: Props) => {
+export const PasswordInputs = ({ handleClose, handleSubmit, hideEmail }: Props) => {
   const { t } = useTranslation()
   const [email, setEmail] = useState<string>('')
   const [emailWarningText, setEmailWarningText] = useState<string>('')
@@ -92,8 +93,13 @@ export const PasswordInputs = ({ handleClose, handleSubmit }: Props) => {
     const hasNumber = validateHasNumber(password1)
     const hasUppercase = validateHasUppercase(password1)
     const hasMatchingPasswords = validateHasMatchingStrings(password1, password2)
-    const fieldsAreValid = hasValidEmail && hasAtLeastXCharacters && hasLowercase
-      && hasNumber && hasUppercase && hasMatchingPasswords
+    const fieldsAreValid =
+      (hideEmail || hasValidEmail)
+      && hasAtLeastXCharacters
+      && hasLowercase
+      && hasNumber
+      && hasUppercase
+      && hasMatchingPasswords
   
     setHasAtLeastXCharacters(hasAtLeastXCharacters)
     setHasLowercase(hasLowercase)
@@ -105,18 +111,22 @@ export const PasswordInputs = ({ handleClose, handleSubmit }: Props) => {
 
   return (
     <>
-      <TextInput
-        helperText={emailWarningText}
-        isDanger={!!emailWarningText}
-        label={t('Email')}
-        onBlur={handleEmailOnBlur}
-        onChange={(value: string) => {
-          handleEmailOnChange(value)
-          OmniAural.modalsVerifyEmailEmail(value)
-        }}
-        placeholder={t('Email')}
-        type='email'
-        value={email} />
+      {
+        !hideEmail && (
+          <TextInput
+            helperText={emailWarningText}
+            isDanger={!!emailWarningText}
+            label={t('Email')}
+            onBlur={handleEmailOnBlur}
+            onChange={(value: string) => {
+              handleEmailOnChange(value)
+              OmniAural.modalsVerifyEmailEmail(value)
+            }}
+            placeholder={t('Email')}
+            type='email'
+            value={email} />
+        )  
+      }
       <TextInput
         helperText={password1WarningText}
         isDanger={!!password1WarningText}
