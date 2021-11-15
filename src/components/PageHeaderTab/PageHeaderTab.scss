@@ -1,0 +1,15 @@
+.page-header-tab {
+  align-items: center;
+  border: 1px solid yellow;
+  cursor: pointer;
+  display: flex;
+  font-size: $text-xl;
+  margin: 0 12px;
+  padding: 0 24px;
+
+  &.active {
+    border-bottom: 8px solid $blueBright;
+    font-weight: $font-weight-bold;
+    padding-top: 8px;
+  }
+}

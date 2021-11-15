@@ -8,6 +8,8 @@
     border-radius: $item-border-radius !important;
     border-style: solid;
     border-width: $border-width-default;
+    display: flex;
+    flex-direction: row;
     padding: 10px 16px;
   
     @include themeGen() {
@@ -19,9 +21,16 @@
         border-color: getThemeVal('textInputFocusBorder');
       }
     }
+
+    .icon-wrapper {
+      align-items: center;
+      display: flex;
+      margin-right: 24px;
+    }
   
     .text-input-inner-wrapper {
       display: flex;
+      flex: 1;
       flex-direction: column;
       height: 42px;
   
