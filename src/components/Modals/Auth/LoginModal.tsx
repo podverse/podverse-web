@@ -13,6 +13,7 @@ export const LoginModal = (props: Props) => {
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
   const [isSubmitPressed, setIsSubmitPressed] = useState<boolean>(false);
+
   /* Event Handlers */
 
   const _handleLogin = async () => {

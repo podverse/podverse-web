@@ -12,14 +12,19 @@ export const ForgotPasswordModal = (props: Props) => {
   const { t } = useTranslation()
   const [email, setEmail] = useState<string>('')
   const [resetPasswordSent, setResetPasswordSent] = useState<boolean>(false)
+  const [isSubmitPressed, setIsSubmitPressed] = useState<boolean>(false);
 
   /* Event Handlers */
 
   const _handleForgotPassword = async (email: string) => {
     try {
+      setIsSubmitPressed(true);
       await sendResetPassword(email)
     } catch (error) {
+      setIsSubmitPressed(false);
       //
+    } finally {
+      setIsSubmitPressed(false);
     }
     setResetPasswordSent(true)
   }
@@ -64,6 +69,7 @@ export const ForgotPasswordModal = (props: Props) => {
                 onClick={_onRequestClose}
                 type='secondary' />
               <ButtonRectangle
+                isLoading={isSubmitPressed}
                 label={t('Submit')}
                 onClick={() => _handleForgotPassword(email)}
                 type='primary' />
