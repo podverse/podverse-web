@@ -1,0 +1,29 @@
+.page-header {
+  padding: 1px 0 0 0;
+
+  @include themeGen() {
+    background-color: getThemeVal('backgroundTertiary');
+  }
+
+  &.sub-header {
+    background-color: transparent;
+
+    .main-max-width {
+      margin: 0;
+    }
+  }
+  
+  .main-max-width {
+    margin-bottom: 13px;
+    display: flex;
+    justify-content: space-between;
+
+    .dropdowns {
+      display: flex;
+    }
+
+    .dropdown-primary-wrapper, .dropdown-sort-wrapper {
+      margin: 0 0 0 8px;
+    }
+  }
+}

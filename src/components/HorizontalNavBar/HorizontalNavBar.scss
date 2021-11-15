@@ -1,0 +1,45 @@
+.horizontal-navbar-wrapper {
+  @include themeGen() {
+    background-color: getThemeVal('backgroundTertiary');
+  }
+
+  .navbar-secondary {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 31px 24px 29px 26px;
+
+    .navbar-secondary__page-navs {
+      align-items: flex-start;
+      display: flex;
+      flex-direction: row;
+      flex: 0;
+    }
+  
+    .navbar-secondary__dropdown {
+      flex: 0;
+      margin-left: auto;
+    }
+  
+    .navbar-secondary__theme-toggle {
+      flex: 0;
+      margin: 0 0 0 53px;
+  
+      .switch-with-icons-wrapper {
+        align-items: center;
+        display: flex;
+    
+        .beginning {
+          height: 20px !important;
+          width: 20px !important;
+        }
+    
+        .ending {
+          height: 16px !important;
+          width: 16px !important;
+        }
+      }
+    }
+  }
+}

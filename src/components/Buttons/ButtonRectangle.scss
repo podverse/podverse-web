@@ -1,0 +1,109 @@
+.button-rectangle {
+  position: relative;
+  &.primary {
+    border-radius: $button-rectangle-radius;
+    height: 44px;
+    min-width: 158px;
+    padding: 0 16px;
+
+    @include themeGen() {
+      background-color: getThemeVal('buttonPrimaryBackground') !important;
+    }
+
+    &:hover {
+      @include themeGen() {
+        background-color: getThemeVal('buttonPrimaryRolloverBackground') !important;
+      }
+    }
+
+    &:disabled {
+      @include themeGen() {
+        background-color: getThemeVal('buttonDisabledBackground') !important;
+        color: getThemeVal('buttonDisabledText') !important;
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  &.secondary {
+    border-radius: $button-rectangle-radius;
+    height: 44px;
+    min-width: 158px;
+    padding: 0 16px;
+
+    @include themeGen() {
+      background-color: getThemeVal('buttonSecondaryBackground') !important;
+    }
+
+    &:hover {
+      @include themeGen() {
+        background-color: getThemeVal('buttonSecondaryRolloverBackground') !important;
+      }
+    }
+  }
+
+  &.tertiary {
+    border-radius: $button-circle-radius;
+    border-style: solid;
+    border-width: $border-width-default;
+    font-size: $text-sm;
+    font-weight: $font-weight-bold;
+    height: 32px;
+    line-height: 30px;
+    padding: 0 20px;
+
+    @include themeGen() {
+      background-color: getThemeVal('buttonTertiaryBackground') !important;
+      border-color: getThemeVal('buttonTertiaryBorder') !important;
+    }
+
+    &:hover {
+      @include themeGen() {
+        background-color: getThemeVal('buttonTertiaryRolloverBackground') !important;
+        color: getThemeVal('buttonTertiaryTextRollover') !important;
+      }
+    }
+  }
+
+
+  &.loading {
+
+    .button__text {
+
+      // Hide the button text whenever loading and show spinner
+      visibility: hidden;
+      opacity: 0;
+    }
+
+    &:after {
+      content: "";
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      margin: auto;
+
+      // Create a circle with 1/4 arc
+      border: 4px solid transparent; // TODO: Use theme color function
+      border-top-color: #ffffff;
+      border-radius: 50%;
+
+      // Applies animation
+      animation: button-loading-spinner 1s ease infinite;
+    }
+
+    // Spinner animation
+    @keyframes button-loading-spinner {
+      from {
+        transform: rotate(0turn);
+      }
+
+      to {
+        transform: rotate(1turn);
+      }
+    }
+  }
+}
