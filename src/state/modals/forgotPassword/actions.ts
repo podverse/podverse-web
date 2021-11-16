@@ -9,14 +9,4 @@ const modalsForgotPasswordShow = () => {
   OmniAural.state.modals.forgotPassword.show.set(true)
 }
 
-// OmniAural.addActions(
-//   modalsForgotPasswordHide,
-//   modalsForgotPasswordShow
-// )
-
-OmniAural.addAction(
-  "modalsForgotPasswordHide", modalsForgotPasswordHide)
-
-OmniAural.addAction(
-  "modalsForgotPasswordShow", modalsForgotPasswordShow
-)
+OmniAural.addActions({ modalsForgotPasswordHide, modalsForgotPasswordShow })
