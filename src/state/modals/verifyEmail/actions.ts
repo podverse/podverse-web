@@ -13,8 +13,19 @@ const modalsVerifyEmailShow = () => {
   OmniAural.state.modals.verifyEmail.show.set(true)
 }
 
-OmniAural.addActions(
-  modalsVerifyEmailEmail,
-  modalsVerifyEmailHide,
-  modalsVerifyEmailShow
+// OmniAural.addActions(
+//   modalsVerifyEmailEmail,
+//   modalsVerifyEmailHide,
+//   modalsVerifyEmailShow
+// )
+
+OmniAural.addAction(
+  "modalsVerifyEmailEmail", modalsVerifyEmailEmail)
+
+OmniAural.addAction(
+  "modalsVerifyEmailHide", modalsVerifyEmailHide
 )
+OmniAural.addAction(
+  "modalsVerifyEmailShow", modalsVerifyEmailShow)
+
+

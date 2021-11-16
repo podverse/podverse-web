@@ -9,7 +9,14 @@ const modalsLoginShow = () => {
   OmniAural.state.modals.login.show.set(true)
 }
 
-OmniAural.addActions(
-  modalsLoginHide,
-  modalsLoginShow
+// OmniAural.addActions(
+//   modalsLoginHide,
+//   modalsLoginShow
+// )
+
+OmniAural.addAction(
+  "modalsLoginHide", modalsLoginHide)
+
+OmniAural.addAction(
+  "modalsLoginShow", modalsLoginShow
 )
