@@ -7,4 +7,12 @@ const togglePlayer = (show: boolean) => {
   OmniAural.state.player.show.set(show)
 }
 
-OmniAural.addActions({ togglePlayer })
+const setPlayerItem = (item: Episode | Podcast | MediaRef, options?: { inheritedEpisode?: Episode | null, inheritedPodcast?: Podcast | null, userPlaybackPosition?: number } ) => {
+    const  {inheritedEpisode = null, inheritedPodcast = null, userPlaybackPosition = 0} = options || {}
+    const nowPlayingItem = convertToNowPlayingItem(item, inheritedEpisode, inheritedPodcast, userPlaybackPosition)
+    OmniAural.state.player.nowPlayingItem.set(nowPlayingItem)
+    OmniAural.state.player.show.set(true)
+}
+
+OmniAural.addActions({ togglePlayer, setPlayerItem })
+        

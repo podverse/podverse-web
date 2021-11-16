@@ -1,25 +1,33 @@
 import classnames from "classnames"
-import OmniAural, {useOmniAural, useOmniAuralEffect} from "omniaural"
+import {PVImage} from "~/components"
 import type {NowPlayingItem} from "podverse-shared"
-type Props = {}
+import { PV } from '~/resources'
+import { useTranslation } from 'react-i18next'
 
-export const PlayerItemInfo = ({}: Props) => {
+type Props = {
+  nowPlayingItem: NowPlayingItem
+}
 
-  const [nowPlayingItem] = useOmniAural("player.nowPlayingItem") as [NowPlayingItem]
-  useOmniAuralEffect(() => {
-    console.log("Now: ", OmniAural.state.player.nowPlayingItem.value())
-  }, "player.nowPlayingItem")
-
+export const PlayerItemInfo = ({nowPlayingItem}: Props) => {
+  const { t } = useTranslation()
   const container = classnames(
-    "item-info-container"
+    "player-item-info-container"
+)
+const textContainer = classnames(
+  "player-item-info-text-container"
 )
 
   return (
     <div className={container}>
-      <img/>
-      <div>
-        {nowPlayingItem?.podcastTitle}
-        {nowPlayingItem?.episodeTitle}
+      <PVImage
+                  alt={t('Podcast artwork')}
+                  height={PV.Images.sizes.medium}
+                  width={PV.Images.sizes.medium}
+                  src={nowPlayingItem.episodeImageUrl || nowPlayingItem.podcastImageUrl}
+                   />
+      <div className={textContainer}>
+        <div className="item-info-title">{nowPlayingItem.episodeTitle}</div>
+        <div className="item-info-subtitle">{nowPlayingItem.podcastTitle}</div>
       </div>
     </div>
   )

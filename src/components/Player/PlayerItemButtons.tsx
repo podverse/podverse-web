@@ -5,8 +5,9 @@ type Props = {
 
 export const PlayerItemButtons = ({}: Props) => {
   
+  const container = classnames("player-buttons-container")
   return (
-    <div>
+    <div className={container}>
       {"Buttons"}
     </div>
   )

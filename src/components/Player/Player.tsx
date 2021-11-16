@@ -1,4 +1,4 @@
-import {useOmniAural} from "omniaural"
+import OmniAural, {useOmniAural} from "omniaural"
 import classnames from "classnames"
 import {PlayerItemInfo} from "./PlayerItemInfo"
 import {PlayerItemProgess} from "./PlayerItemProgress"
@@ -14,11 +14,15 @@ export const Player = ({}: Props) => {
       "player",
       !!player.show ? "" : "display-none"
   )
+
+  if(!player?.nowPlayingItem) {
+    return null
+  }
   
   return (
     <div className={mainPlayerStyle}>
-        <PlayerItemInfo/>
-        <PlayerItemProgess/>
+        <PlayerItemInfo nowPlayingItem={player.nowPlayingItem}/>
+        <PlayerItemProgess nowPlayingItem={player.nowPlayingItem}/>
         <PlayerItemButtons/>
     </div>
   )
