@@ -1,0 +1,48 @@
+.podcast-page-header {
+  align-items: center;
+  display: flex;
+  // margin-bottom: 30px;
+  min-height: 161px;
+  padding: 16px 0;
+
+  @include themeGen() {
+    background-image: linear-gradient(
+      to right,
+      getThemeVal('headerGradientLight') -3%,
+      getThemeVal('headerGradientDark')
+    );
+  }
+
+  .main-max-width {
+    align-items: center;
+    display: flex;
+    flex: 1;
+
+    .pv-image {
+      border-radius: $item-border-radius;
+      margin-right: 24px;
+    }
+
+    .text-wrapper {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding-right: 16px;
+
+      .above-text {
+        font-size: $text-xl;
+        font-weight: $font-weight-bold;
+        margin-bottom: 4px;
+      }
+
+      .below-text {
+        font-size: $text-lg;
+        margin-top: 4px;
+      }
+    }
+
+    button {
+      margin-left: auto;
+    }
+  }
+}

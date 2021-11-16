@@ -1,6 +1,0 @@
-export { default as authRouter } from './auth'
-export { default as infoRouter } from './info'
-export { default as mainRouter } from './main'
-export { default as paymentRouter } from './payment'
-export { default as redeemRouter } from './redeem'
-export { default as requestHandlerRouter } from './requestHandler'

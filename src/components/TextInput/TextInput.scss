@@ -1,0 +1,82 @@
+.text-input {
+  margin: 0 0 14px;
+  padding: 0 0 22px 0;
+  position: relative;
+
+  .text-input-outer-wrapper {
+    border-color: transparent;
+    border-radius: $item-border-radius !important;
+    border-style: solid;
+    border-width: $border-width-default;
+    display: flex;
+    flex-direction: row;
+    padding: 10px 16px;
+  
+    @include themeGen() {
+      background-color: getThemeVal('textInputBackground') !important;
+    }
+  
+    &:focus-within {
+      @include themeGen() {
+        border-color: getThemeVal('textInputFocusBorder');
+      }
+    }
+
+    .icon-wrapper {
+      align-items: center;
+      display: flex;
+      margin-right: 24px;
+    }
+  
+    .text-input-inner-wrapper {
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+      height: 42px;
+  
+      .eyebrow {
+        font-size: $text-sm;
+        font-weight: $font-weight-bold;
+        margin: 0 0 2px 0;
+  
+        @include themeGen() {
+          color: getThemeVal('textInputEyebrow') !important;
+        }
+      }
+  
+      input {
+        font-size: $text-lg;
+        height: 42px;
+  
+        &::placeholder {
+          @include themeGen() {
+            color: getThemeVal('textInputPlaceholder') !important;
+          }
+        }
+      }
+    }
+  }
+
+  .helper-text {
+    font-size: $text-sm;
+    margin-top: 8px;
+
+    @include themeGen() {
+      color: getThemeVal('textSecondary')
+    }
+  }
+
+  &.danger {
+    .text-input-outer-wrapper { 
+      @include themeGen() {
+        border-color: getThemeVal('textInputFocusBorderDanger') !important;
+      }
+    }
+
+    .helper-text {
+      @include themeGen() {
+        color: getThemeVal('textDanger')
+      }
+    }
+  }
+}

@@ -1,0 +1,12 @@
+.button-close {
+  align-items: center;
+  border-radius: $button-circle-radius;
+  display: flex;
+  justify-content: center;
+  height: $button-close-size;
+  width: $button-close-size;
+
+  @include themeGen() {
+    background-color: getThemeVal('buttonCloseBackground');
+  }
+}

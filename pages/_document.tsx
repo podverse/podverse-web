@@ -1,39 +1,38 @@
-import React from 'react'
-import Document, { Head, Html, Main, NextScript } from 'next/document'
-import PV from '~/lib/constants'
-import { actionTypes } from '~/redux/constants'
-const cookie = require('cookie')
+import Document, { Html, Head, Main, NextScript } from 'next/document'
+import classnames from 'classnames'
 
-type Props = {
-  initialUITheme?: string
-}
-
-export default class MyDocument extends Document<Props> {
-
+class MyDocument extends Document {
   static async getInitialProps(ctx) {
     const initialProps = await Document.getInitialProps(ctx)
-
-    let initialUITheme = PV.attributes.dark
-
-    if (ctx.req.headers.cookie) {
-      const parsedCookie = cookie.parse(ctx.req.headers.cookie)
-      initialUITheme = parsedCookie[PV.cookies.uiTheme] ? parsedCookie[PV.cookies.uiTheme] : PV.attributes.dark
-    }
-
-    ctx.store.dispatch({
-      type: actionTypes.SETTINGS_SET_UI_THEME,
-      payload: initialUITheme
-    })
-
-    return { ...initialProps, initialUITheme }
+    return { ...initialProps }
   }
 
   render() {
-    const { initialUITheme } = this.props
+    const pageProps = this.props?.__NEXT_DATA__?.props?.pageProps;
+    const appWrapperClasses = classnames(
+      'app-wrapper',
+      pageProps?.serverCookies?.lightMode ? 'theme-light' : 'theme-dark'
+    )
 
     return (
-      <Html lang='en' data-theme={initialUITheme}>
-        <Head />
+      <Html className={appWrapperClasses}>
+        <Head>
+          <link
+            rel="preload"
+            href="/fonts/Roboto/Roboto-Regular.ttf"
+            as="font"
+            crossOrigin="" />
+          <link
+            rel="preload"
+            href="/fonts/Roboto/Roboto-Italic.ttf"
+            as="font"
+            crossOrigin="" />
+          <link
+            rel="preload"
+            href="/fonts/Roboto/Roboto-Bold.ttf"
+            as="font"
+            crossOrigin="" />
+        </Head>
         <body>
           <Main />
           <NextScript />
@@ -42,3 +41,5 @@ export default class MyDocument extends Document<Props> {
     )
   }
 }
+
+export default MyDocument

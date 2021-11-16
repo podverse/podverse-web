@@ -1,0 +1,27 @@
+{
+    "modals": {
+        "forgotPassword": {
+            "show": false
+        },
+        "login": {
+            "show": false
+        },
+        "resetPassword": {
+            "show": false
+        },
+        "signUp": {
+            "show": false
+        },
+        "verifyEmail": {
+          "show": false,
+          "email": ""
+        }
+    },
+    "player": {
+        "nowPlayingItem": null,
+        "show":false
+    },
+    "session": {
+        "userInfo": null
+    }
+}

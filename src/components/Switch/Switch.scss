@@ -1,0 +1,22 @@
+.switch-with-icons-wrapper {
+  align-items: center;
+  display: flex;
+
+  .beginning {
+    margin-right: 10px;
+  }
+
+  .ending {
+    margin-left: 10px;
+  }
+}
+
+.switch {
+  display: flex;
+}
+
+.react-switch-bg {
+  @include themeGen() {
+    background-color: getThemeVal('switchBackground') !important;
+  }
+}

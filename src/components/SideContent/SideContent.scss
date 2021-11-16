@@ -1,0 +1,17 @@
+.side-content {
+  margin-left: 60px;
+  width: 279px;
+
+  h2 {
+    margin-bottom: 8px;
+  }
+
+  .text {
+    font-size: $text-sm;
+    line-height: 19px;
+
+    @include themeGen() {
+      color: getThemeVal('textSecondary');
+    }
+  }
+}

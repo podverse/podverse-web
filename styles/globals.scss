@@ -1,0 +1,137 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  font-family: Roboto, -apple-system, BlinkMacSystemFont, Segoe UI, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-weight: 400;
+
+  @include themeGen() {
+    background-color: getThemeVal('backgroundPrimary');
+    color: getThemeVal('textPrimary');
+  }
+  
+  .app {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
+  
+  .app-wrapper {
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+    overflow: hidden;
+  }
+  
+  .app-main-wrapper {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+  }
+
+  main {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .main-max-width {
+    max-width: $main-max-width;
+    margin: 0 24px;
+    width: 100%;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+  
+  hr {
+    border-bottom: 0;
+    border-width: 1px;
+    width: 100%;
+  
+    @include themeGen() {
+      border-color: getThemeVal('divider');
+    }
+  }
+
+  .display-none {
+    display: none;
+  }
+
+  .form-wrapper {
+    margin: 28px;
+    max-width: 460px;
+
+    h2 {
+      margin-bottom: 28px;
+    }
+
+    .submit-buttons {
+      display: flex;
+      justify-content: flex-end;
+
+      button:last-child {
+        margin-left: 16px;
+      }
+    }
+  }
+
+  .centered {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .row {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .column {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .flex-stretch {
+    flex: 1;
+  }
+
+  button, div {
+    &:focus {
+      @include themeGen() {
+        box-shadow: getThemeVal('focusGlow');
+      }
+    }
+  }
+
+  h1 {
+    font-size: $text-huge;
+    font-weight: $font-weight-light;
+  }
+
+  h2 {
+    font-size: $text-xxl;
+    font-weight: $font-weight-bold;
+  }
+
+  h3 {
+    font-size: $text-xl;
+    font-weight: $font-weight-light;
+  }
+
+  p {
+    font-size: $text-md;
+
+    @include themeGen() {
+      color: getThemeVal('textParagraph');
+    }
+  }
+}
