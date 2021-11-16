@@ -12,9 +12,4 @@ const modalsHideAll = () => {
   OmniAural.modalsVerifyEmailHide()
 }
 
-// OmniAural.addActions(
-//   modalsHideAll
-// )
-
-OmniAural.addAction(
-  "modalsHideAll", modalsHideAll)
+OmniAural.addActions({ modalsHideAll })
