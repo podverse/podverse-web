@@ -11,7 +11,7 @@ type Props = {
   onChange: any
   placeholder: string
   type: 'email' | 'password' | 'text'
-  value: string
+  value?: string
 }
 
 export const TextInput = ({ faIcon, helperText, isDanger, label, onBlur,
