@@ -7,7 +7,14 @@
   justify-content: center;
 
   @include themeGen() {
-    border-color: getThemeVal('buttonTertiaryBorder');
+    border-color: getThemeVal("buttonTertiaryBorder");
+    background-color: getThemeVal("buttonSecondaryBackground");
+  }
+
+  &:hover {
+    @include themeGen() {
+      border-color: getThemeVal("buttonTertiaryBorder");
+    }
   }
 
   svg {
@@ -39,9 +46,9 @@
   }
 
   &.medium {
-    height: 36px;
-    line-height: 36px;
-    width: 36px;
+    height: 48px;
+    line-height: 48px;
+    width: 48px;
 
     &.backwards {
       margin-right: 8px;
@@ -64,7 +71,14 @@
     &.play {
       padding-left: 1px;
       svg {
-        width: 10px;
+        width: 12px;
+        height: unset;
+      }
+    }
+
+    &.pause {
+      svg {
+        width: 12px;
         height: unset;
       }
     }
@@ -77,6 +91,13 @@
 
     &.play {
       padding-left: 3px;
+      svg {
+        width: 18px;
+        height: unset;
+      }
+    }
+
+    &.pause {
       svg {
         width: 18px;
         height: unset;

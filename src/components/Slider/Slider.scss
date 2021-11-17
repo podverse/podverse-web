@@ -1,0 +1,58 @@
+.progress-slider {
+  display: flex;
+  width: 100%;
+
+  /*Chrome*/
+  @media screen and (-webkit-min-device-pixel-ratio: 0) {
+    input[type="range"] {
+      overflow: hidden;
+      height: 6px;
+      width: 100%;
+      border-radius: 12px;
+      -webkit-appearance: none;
+      @include themeGen() {
+        background-color: $blueDarkSlate;
+      }
+    }
+
+    input[type="range"]::-webkit-slider-runnable-track {
+      height: 10px;
+      -webkit-appearance: none;
+      margin-top: -1px;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      width: 10px;
+      -webkit-appearance: none;
+      height: 10px;
+      cursor: pointer;
+      background: $white;
+      @include themeGen() {
+        box-shadow: -20vw 0 0 20vw $white;
+      }
+    }
+  }
+
+  input[type="range"]::-moz-range-progress {
+    @include themeGen() {
+      background-color: $white;
+    }
+  }
+  input[type="range"]::-moz-range-track {
+    @include themeGen() {
+      background-color: $blueDarkSlate;
+    }
+  }
+
+  /* IE*/
+  input[type="range"]::-ms-fill-lower {
+    @include themeGen() {
+      background-color: $white;
+    }
+  }
+  input[type="range"]::-ms-fill-upper {
+    @include themeGen() {
+      background-color: $blueDarkSlate;
+    }
+  }
+}

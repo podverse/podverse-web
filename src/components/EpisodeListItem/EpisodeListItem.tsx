@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Episode } from 'podverse-shared'
+import { Episode, Podcast } from 'podverse-shared'
 import { useTranslation } from 'react-i18next'
 import striptags from 'striptags'
 import { MediaItemControls, PVImage, PVLink } from '~/components'
@@ -10,9 +10,10 @@ type Props = {
   episode: Episode
   imageUrl?: string
   showImage?: boolean
+  podcast?: Podcast
 }
 
-export const EpisodeListItem = ({ episode, showImage }: Props) => {
+export const EpisodeListItem = ({ episode, showImage, podcast }: Props) => {
   const { t } = useTranslation()
   const { description, id, imageUrl } = episode
   const title = episode.title || t('untitledEpisode')
@@ -46,6 +47,7 @@ export const EpisodeListItem = ({ episode, showImage }: Props) => {
         <MediaItemControls
           buttonSize='medium'
           episode={episode}
+          podcast={podcast}
           stretchMiddleContent />
       </li>
       <hr />

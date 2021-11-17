@@ -1,27 +1,29 @@
 {
-    "modals": {
-        "forgotPassword": {
-            "show": false
-        },
-        "login": {
-            "show": false
-        },
-        "resetPassword": {
-            "show": false
-        },
-        "signUp": {
-            "show": false
-        },
-        "verifyEmail": {
-          "show": false,
-          "email": ""
-        }
+  "modals": {
+    "forgotPassword": {
+      "show": false
     },
-    "player": {
-        "nowPlayingItem": null,
-        "show":false
+    "login": {
+      "show": false
     },
-    "session": {
-        "userInfo": null
+    "resetPassword": {
+      "show": false
+    },
+    "signUp": {
+      "show": false
+    },
+    "verifyEmail": {
+      "show": false,
+      "email": ""
     }
+  },
+  "player": {
+    "nowPlayingItem": null,
+    "show": false,
+    "muted": false,
+    "playSpeed": 1
+  },
+  "session": {
+    "userInfo": null
+  }
 }

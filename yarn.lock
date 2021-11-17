@@ -2540,10 +2540,10 @@ object.values@^1.1.4, object.values@^1.1.5:
     define-properties "^1.1.3"
     es-abstract "^1.19.1"
 
-omniaural@^1.3.1:
-  version "1.3.1"
-  resolved "https://registry.yarnpkg.com/omniaural/-/omniaural-1.3.1.tgz#5d7c6230e77c7888b58dedfcac68dc8b09f73598"
-  integrity sha512-v/z4F4q+uSppTD4e5PvwefaEVdifz5qvcX+xffEG3RmLhFH9+4nGrHGb2YcqCoo7yihd5mln7IYqzYQLUTAKRQ==
+omniaural@^1.3.3:
+  version "1.3.3"
+  resolved "https://registry.yarnpkg.com/omniaural/-/omniaural-1.3.3.tgz#bcc26e0edc5d6859302b6156db34138287079638"
+  integrity sha512-B95u3Uc4grB/AIo48ZqxT5SJXQ5gMTR0sBRuw3hCr5itTZEjZjTMxxksG5tZJ12K5gfIrHHlcfilJ1G9o2wmlQ==
 
 once@^1.3.0:
   version "1.4.0"
