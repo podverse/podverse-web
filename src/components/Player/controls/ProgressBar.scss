@@ -1,0 +1,19 @@
+.player-bar-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  margin-top: 10px;
+}
+
+.player-bar {
+  margin: 0 20px;
+  width: 100%;
+}
+
+.player-bar-label {
+  font-size: 12px;
+  @include themeGen() {
+    color: getThemeVal("textTertiary");
+  }
+}

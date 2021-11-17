@@ -1,15 +1,14 @@
 .player-item-info-container {
-    display: flex;
-    flex:1;
-    flex-direction: row;
-    align-items: center;
-    background-color: green;
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  align-items: center;
 }
 
 .player-item-info-text-container {
-    display: flex;
-    flex-direction: column;
-    margin-left: 16px;
+  display: flex;
+  flex-direction: column;
+  margin-left: 16px;
 }
 
 .item-info-title {
@@ -25,15 +24,15 @@
 }
 
 .item-info-subtitle {
-    font-family: Roboto;
-    font-size: 14px;
-    font-weight: bold;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
+  font-family: Roboto;
+  font-size: 14px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
 
-    @include themeGen() {
-        color: getThemeVal('textTertiary');
-      }
+  @include themeGen() {
+    color: getThemeVal("textTertiary");
+  }
 }
