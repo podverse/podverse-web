@@ -4,10 +4,10 @@ module.exports = {
   before: function (browser) {
     browser.url(`${WEB_ORIGIN}/`)
   },
-  'Episodes': function (browser) {
+  'Queue': function (browser) {
     browser
-      .click('div a[href="/episodes"] div')
-      .waitForElementWithText('.app-main-wrapper main div p', 'episodes!!!')
+      .click('div a[href="/queue"] div')
+      .waitForElementWithText('.app-main-wrapper main div p', 'Queue!!!')
 
   },
   after: function (browser) {

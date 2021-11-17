@@ -4,10 +4,13 @@ module.exports = {
   before: function (browser) {
     browser.url(`${WEB_ORIGIN}/`)
   },
-  'Episodes': function (browser) {
+  'Login': function (browser) {
     browser
-      .click('div a[href="/episodes"] div')
-      .waitForElementWithText('.app-main-wrapper main div p', 'episodes!!!')
+      .click('.react-dropdown-select')
+      .click('.react-dropdown-select-item:nth-child(3)')
+      .waitForElementWithText('.ReactModal__Content h2', 'Login')
+      
+
 
   },
   after: function (browser) {

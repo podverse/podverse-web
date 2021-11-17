@@ -2,16 +2,13 @@ const { WEB_ORIGIN } = require('../constants')
 
 module.exports = {
   before: function (browser) {
-    browser.url(`${WEB_ORIGIN}/playlists`)
+    browser.url(`${WEB_ORIGIN}/`)
   },
-  'Playlists Page': function (browser) {
+  'Playlists': function (browser) {
     browser
-      .waitForElementWithText('div', 'Login to view your playlists')
-      .testSharedMetaTags()
-      .testPageMetaTags(
-        'Playlists',
-        'Create and share playlists of podcast clips and episodes.'
-      )
+      .click('div a[href="/playlists"] div')
+      .waitForElementWithText('.app-main-wrapper main div p', 'Playlists!!!')
+
   },
   after: function (browser) {
     browser.end()

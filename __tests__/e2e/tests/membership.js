@@ -4,10 +4,12 @@ module.exports = {
   before: function (browser) {
     browser.url(`${WEB_ORIGIN}/`)
   },
-  'Search': function (browser) {
+  'Membership': function (browser) {
     browser
-      .click('div a[href="/search"] div')
-      .waitForElementWithText('.page-header-tabs h1', 'Search')
+      .click('.react-dropdown-select')
+      .click('.react-dropdown-select-item:nth-child(1)')
+      .waitForElementWithText('.app-main-wrapper main div p', 'membership!!!')
+      
 
 
   },
