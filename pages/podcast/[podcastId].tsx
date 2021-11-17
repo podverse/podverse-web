@@ -34,6 +34,16 @@ type FilterState = {
 
 const keyPrefix = 'pages_podcast'
 
+/* *TODO* 
+    Rewrite this file to follow the patterns in pages/podcasts and pages/search.
+    Move all functions inside the render function,
+    get rid of the filterState,
+    stop passing in filterState as a parameter,
+    and instead get and set the filterState fields individually.
+    Keep the sections in the same order
+    (Initialization, useEffects, Client-Side Queries, Render Helpers).
+*/
+
 export default function Podcast(props: ServerProps) {
   const { serverClips, serverClipsPageCount, serverFilterPage, serverFilterSort,
     serverFilterType, serverEpisodes, serverEpisodesPageCount, serverPodcast } = props
@@ -140,6 +150,7 @@ export default function Podcast(props: ServerProps) {
           </div>
           <div className='column'>
             <SideContent>
+              {/* *TODO* Make the links in About description clickable */}
               <h2>{t('About')}</h2>
               <div className='text'>{serverPodcast.description}</div>
             </SideContent>
