@@ -3,6 +3,7 @@ import { IconProp as FAIconProp } from '@fortawesome/fontawesome-svg-core'
 import classNames from 'classnames'
 
 type Props = {
+  className?: string
   faIcon: FAIconProp
   spin?: boolean
 }

@@ -9,7 +9,7 @@ type Props = {
   label: string
   onBlur?: any
   onChange: any
-  onSubmit: any
+  onSubmit?: any
   placeholder: string
   type: 'email' | 'password' | 'text'
   value?: string

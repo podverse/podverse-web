@@ -123,6 +123,7 @@ export const PasswordInputs = ({ handleClose, handleSubmit, hideEmail, isSignUpP
               handleEmailOnChange(value)
               OmniAural.modalsVerifyEmailEmail(value)
             }}
+            onSubmit={() => handleSubmit(email, password1)}
             placeholder={t('Email')}
             type='email'
             value={email} />
@@ -134,6 +135,7 @@ export const PasswordInputs = ({ handleClose, handleSubmit, hideEmail, isSignUpP
         label={t('Password')}
         onBlur={handlePassword1OnBlur}
         onChange={handlePassword1OnChange}
+        onSubmit={() => handleSubmit(email, password1)}
         placeholder={t('Password')}
         type='password'
         value={password1} />
@@ -143,6 +145,7 @@ export const PasswordInputs = ({ handleClose, handleSubmit, hideEmail, isSignUpP
         label={t('Confirm Password')}
         onBlur={handlePassword2OnBlur}
         onChange={handlePassword2OnChange}
+        onSubmit={() => handleSubmit(email, password1)}
         placeholder={t('Confirm Password')}
         type='password'
         value={password2} />
