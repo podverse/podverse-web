@@ -18,6 +18,11 @@ export const EpisodeListItem = ({ episode, showImage, podcast }: Props) => {
   const { description, id, imageUrl } = episode
   const title = episode.title || t('untitledEpisode')
   const episodePageUrl = `${PV.RoutePaths.web.episode}/${id}`
+  const finalImageUrl = imageUrl
+    ? imageUrl
+    : podcast
+      ? getPodcastShrunkImageUrl(podcast)
+      : ''
 
   return (
     <>
@@ -29,7 +34,7 @@ export const EpisodeListItem = ({ episode, showImage, podcast }: Props) => {
                 <PVImage
                   alt={t('Podcast artwork')}
                   height={PV.Images.sizes.medium}
-                  src={imageUrl}
+                  src={finalImageUrl}
                   width={PV.Images.sizes.medium} />
               )
             }

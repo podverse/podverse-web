@@ -117,7 +117,6 @@ export default function Podcasts(props: ServerProps) {
     ]
   }
   
-
   const generatePodcastListElements = (listItems: Podcast[]) => {
     return listItems.map((listItem, index) =>
       <PodcastListItem
