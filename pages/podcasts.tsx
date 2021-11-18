@@ -3,6 +3,7 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import OmniAural from 'omniaural'
 import type { Podcast } from 'podverse-shared'
 import { useEffect, useState } from 'react'
 import { List, PageHeader, PageScrollableContent, Pagination, PodcastListItem,
@@ -46,11 +47,13 @@ export default function Podcasts(props: ServerProps) {
 
   useEffect(() => {
     (async () => {
+      OmniAural.pageIsLoadingShow()
       const { data } = await clientQueryPodcasts()
       const [newListData, newListCount] = data
       setListData(newListData)
       setListDataCount(newListCount)
       scrollToTopOfPageScrollableContent()
+      OmniAural.pageIsLoadingHide()
     })()
   }, [filterFrom, filterSort, filterPage])
 

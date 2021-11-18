@@ -26,6 +26,7 @@ export { NavBarSectionHeader } from './NavBar/NavBarSectionHeader'
 export { PageHeader } from './PageHeader/PageHeader'
 export { PageHeaderTab } from './PageHeaderTab/PageHeaderTab'
 export { PageHeaderWithTabs } from './PageHeaderWithTabs/PageHeaderWithTabs'
+export { PageLoadingOverlay } from './PageLoadingOverlay/PageLoadingOverlay'
 export { Pagination } from './Pagination/Pagination'
 export { PageScrollableContent, scrollToTopOfPageScrollableContent }
   from './PageScrollableContent/PageScrollableContent'

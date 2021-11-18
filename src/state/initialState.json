@@ -17,6 +17,9 @@
       "email": ""
     }
   },
+  "page": {
+    "isLoading": false
+  },
   "player": {
     "nowPlayingItem": null,
     "show": false,
