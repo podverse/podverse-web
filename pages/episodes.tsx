@@ -6,9 +6,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import OmniAural, { useOmniAural } from 'omniaural'
 import type { Episode } from 'podverse-shared'
 import { useEffect, useState } from 'react'
-import {
-  EpisodeListItem,
-  List, PageHeader, PageScrollableContent, Pagination, PodcastListItem,
+import { EpisodeListItem, List, PageHeader, PageScrollableContent, Pagination,
   scrollToTopOfPageScrollableContent
 } from '~/components'
 import { Page } from '~/lib/utility/page'
