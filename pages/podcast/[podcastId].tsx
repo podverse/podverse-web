@@ -120,7 +120,7 @@ export default function Podcast(props: ServerProps) {
             <List>
               {
                 filterType === PV.Filters.type._episodes && (
-                  generateEpisodeListElements(episodesListData)
+                  generateEpisodeListElements(episodesListData, serverPodcast)
                 )
               }
               {
@@ -218,11 +218,13 @@ const generateSortOptions = (t: any) => [
   { label: t('Random'), key: PV.Filters.sort._random }
 ]
 
-const generateEpisodeListElements = (listItems: Episode[]) => {
+const generateEpisodeListElements = (listItems: Episode[], podcast: Podcast) => {
   return listItems.map((listItem, index) =>
     <EpisodeListItem
       episode={listItem}
-      key={`${keyPrefix}-${index}`} />
+      key={`${keyPrefix}-${index}`}
+      podcast={podcast}
+      />
   )
 }
 
