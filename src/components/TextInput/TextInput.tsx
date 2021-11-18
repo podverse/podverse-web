@@ -9,17 +9,24 @@ type Props = {
   label: string
   onBlur?: any
   onChange: any
+  onSubmit: any
   placeholder: string
   type: 'email' | 'password' | 'text'
   value?: string
 }
 
 export const TextInput = ({ faIcon, helperText, isDanger, label, onBlur,
-  onChange, placeholder, type = 'text', value }: Props) => {
+  onChange, onSubmit, placeholder, type = 'text', value }: Props) => {
   const textInputClass = classNames(
     'text-input',
     isDanger ? 'danger' : ''
   )
+
+  const _handleKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      onSubmit()
+    }
+  }
 
   return (
     <div className={textInputClass}>
@@ -36,6 +43,7 @@ export const TextInput = ({ faIcon, helperText, isDanger, label, onBlur,
           <input
             onBlur={onBlur}
             onChange={(event) => onChange(event.target.value)}
+            onKeyDown={_handleKeyDown}
             placeholder={placeholder}
             type={type}
             value={value} />

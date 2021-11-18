@@ -53,12 +53,14 @@ export const LoginModal = (props: Props) => {
           setEmail(value)
           OmniAural.modalsVerifyEmailEmail(value)
         }}
+        onSubmit={_handleLogin}
         placeholder={t('Email')}
         type='email'
         value={login.email} />
       <TextInput
         label={t('Password')}
         onChange={setPassword}
+        onSubmit={_handleLogin}
         placeholder={t('Password')}
         type='password'
         value={login.password} />
