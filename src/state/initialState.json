@@ -6,6 +6,9 @@
     "login": {
       "show": false
     },
+    "loginToAlert": {
+      "alertType": ""
+    },
     "resetPassword": {
       "show": false
     },

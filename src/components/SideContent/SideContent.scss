@@ -1,5 +1,5 @@
 .side-content {
-  margin-left: 60px;
+  margin-left: 52px;
   width: 279px;
 
   h2 {
@@ -12,6 +12,12 @@
 
     @include themeGen() {
       color: getThemeVal('textSecondary');
+    }
+  }
+
+  a {
+    @include themeGen() {
+      color: getThemeVal('textLink');
     }
   }
 }

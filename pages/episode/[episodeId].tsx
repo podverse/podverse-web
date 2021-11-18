@@ -5,7 +5,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import type { Episode, MediaRef } from 'podverse-shared'
 import { useEffect, useState } from 'react'
 import { ClipListItem, EpisodeInfo, List, PageHeader, PageScrollableContent,
-  Pagination, PodcastPageHeader } from '~/components'
+  Pagination, PodcastPageHeader, SideContent } from '~/components'
 import { scrollToTopOfPageScrollableContent } from '~/components/PageScrollableContent/PageScrollableContent'
 import { calcListPageCount } from '~/lib/utility/misc'
 import { Page } from '~/lib/utility/page'
@@ -117,6 +117,9 @@ export default function Episode(props: ServerProps) {
                 }
               }}
               pageCount={clipsPageCount} />
+          </div>
+          <div className='column'>
+            <SideContent />
           </div>
         </div>
       </PageScrollableContent>

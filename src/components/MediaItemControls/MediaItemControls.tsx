@@ -1,11 +1,11 @@
 import { faEllipsisH, faPlay } from "@fortawesome/free-solid-svg-icons"
 import classNames from "classnames"
+import OmniAural from "omniaural"
 import { Episode, MediaRef, Podcast } from 'podverse-shared'
 import { useTranslation } from 'react-i18next'
 import { readableDate } from "~/lib/utility/date"
 import { convertSecToHhoursMMinutes, readableClipTime } from "~/lib/utility/time"
 import { ButtonCircle, Dropdown } from ".."
-import OmniAural from "omniaural"
 
 type Props = {
   buttonSize: 'medium' | 'large'

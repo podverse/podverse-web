@@ -1,3 +1,4 @@
+import linkifyHtml from 'linkify-html'
 import { GetServerSideProps } from 'next'
 import Head from 'next/head'
 import { useTranslation } from 'next-i18next'
@@ -14,6 +15,7 @@ import { getEpisodesByQuery } from '~/services/episode'
 import { getMediaRefsByQuery } from '~/services/mediaRef'
 import { getServerSideAuthenticatedUserInfo } from '~/services/auth'
 import { Page } from '~/lib/utility/page'
+import { sanitizeTextHtml } from '~/lib/utility/sanitize'
 
 interface ServerProps extends Page {
   serverClips: MediaRef[]
@@ -152,7 +154,13 @@ export default function Podcast(props: ServerProps) {
             <SideContent>
               {/* *TODO* Make the links in About description clickable */}
               <h2>{t('About')}</h2>
-              <div className='text'>{serverPodcast.description}</div>
+              <div
+                className='text'
+                dangerouslySetInnerHTML={
+                  {
+                    __html: sanitizeTextHtml(linkifyHtml(serverPodcast.description))
+                  }
+                } />
             </SideContent>
           </div>
         </div>
