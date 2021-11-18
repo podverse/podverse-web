@@ -15,6 +15,7 @@ export const PageHeaderTab = ({ isActive, label, onClick }: Props) => {
   return (
     <div
       className={tabStyle}
+      onClick={onClick}
       tabIndex={0}>
       {label}
     </div>

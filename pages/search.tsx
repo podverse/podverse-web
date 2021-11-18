@@ -1,12 +1,10 @@
 import { GetServerSideProps } from 'next'
 import Head from 'next/head'
-import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import OmniAural from "omniaural"
 import type { Podcast } from 'podverse-shared'
-import { useCallback, useEffect, useState } from 'react'
-import { List, PageHeader, PageHeaderWithTabs, PageScrollableContent, Pagination,
+import { useEffect, useState } from 'react'
+import { List, PageHeaderWithTabs, PageScrollableContent, Pagination,
   PodcastListItem, SearchPageInput } from '~/components'
 import { Page } from '~/lib/utility/page'
 import { PV } from '~/resources'
@@ -33,18 +31,10 @@ export default function Search(props: ServerProps) {
   const [podcastsListData, setPodcastsListData] = useState<Podcast[]>([])
   const [podcastsListDataCount, setPodcastsListDataCount] = useState<number>(0)
 
-  const [filterPage, setFilterPage] = useState<number>(3)
+  const [filterPage, setFilterPage] = useState<number>(1)
   const [filterSearchByText, setFilterSearchByText] = useState<string>('')
   const [filterSearchByType, setFilterSearchByType] = useState<string>(
     PV.Filters.search.queryParams.podcast)
-
-  const handleAutoSubmit = useCallback(
-    value => {
-      setFilterSearchByText(value)
-      setFilterPage(1)
-    },
-    []
-  );
 
   const pageCount = Math.ceil(podcastsListDataCount / PV.Config.QUERY_RESULTS_LIMIT_DEFAULT)
 
@@ -88,6 +78,7 @@ export default function Search(props: ServerProps) {
   ]
 
   const generatePodcastListElements = (listItems: Podcast[]) => {
+    
     return listItems.map((listItem, index) =>
       <PodcastListItem
         key={`${keyPrefix}-${index}`}
@@ -106,12 +97,15 @@ export default function Search(props: ServerProps) {
       </Head>
       <PageHeaderWithTabs
         keyPrefix={keyPrefix}
-        onClick={() => console.log('onClick')}
-        selectedKey={PV.Filters.search.queryParams.podcast}
+        onClick={(selectedKey: string) => setFilterSearchByType(selectedKey)}
+        selectedKey={filterSearchByType}
         tabOptions={pageHeaderTabs}
         title={pageTitle} />
       <SearchPageInput
-        handleAutoSubmit={handleAutoSubmit}
+        handleAutoSubmit={(value) => {
+          setFilterSearchByText(value)
+          setFilterPage(1)
+        }}
         label={t('Podcast title')}
         placeholder={t('searchByPodcastTitle')} />
       <PageScrollableContent>
