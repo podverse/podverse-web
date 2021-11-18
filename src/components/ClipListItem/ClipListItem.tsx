@@ -20,9 +20,17 @@ export const ClipListItem = ({ episode, mediaRef, podcast, showImage }: Props) =
   const episodePodcastTitles = episode ? `${getEpisodeTitle(t, episode)} – ${getPodcastTitle(t, podcast)}` : ''
   const clipPageUrl = `${PV.RoutePaths.web.clip}/${id}`
 
+  const finalImageUrl = imageUrl
+    ? imageUrl
+    : episode?.imageUrl
+      ? episode.imageUrl
+      : podcast
+        ? getPodcastShrunkImageUrl(podcast)
+        : ''
+
   return (
     <>
-      <li className='mediaref-list-item'>
+      <li className='clip-list-item'>
         <PVLink href={clipPageUrl}>
           <div className='content-wrapper' tabIndex={0}>
             {
@@ -30,7 +38,7 @@ export const ClipListItem = ({ episode, mediaRef, podcast, showImage }: Props) =
                 <PVImage
                   alt={t('Podcast artwork')}
                   height={PV.Images.sizes.medium}
-                  src={imageUrl}
+                  src={finalImageUrl}
                   width={PV.Images.sizes.medium} />
               )
             }
@@ -51,7 +59,7 @@ export const ClipListItem = ({ episode, mediaRef, podcast, showImage }: Props) =
           mediaRef={mediaRef}
           stretchMiddleContent />
       </li>
-      <hr className='mediaref-list-item-hr' />
+      <hr className='clip-list-item-hr' />
     </>
   )
 }

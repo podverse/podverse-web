@@ -27,7 +27,13 @@
     
       .description {
         margin: 0 0 17px 0;
+        max-width: 765px;
+
         @include line-clamp(2);
+
+        @include themeGen() {
+          color: getThemeVal('textSecondary');
+        }
       }
     }
   }

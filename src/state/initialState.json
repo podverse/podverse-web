@@ -6,6 +6,9 @@
     "login": {
       "show": false
     },
+    "loginToAlert": {
+      "alertType": ""
+    },
     "resetPassword": {
       "show": false
     },
@@ -16,6 +19,9 @@
       "show": false,
       "email": ""
     }
+  },
+  "page": {
+    "isLoading": false
   },
   "player": {
     "nowPlayingItem": null,
