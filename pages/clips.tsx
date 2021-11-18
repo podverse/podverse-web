@@ -1,32 +1,231 @@
 import { GetServerSideProps } from 'next'
 import Head from 'next/head'
+import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import OmniAural, { useOmniAural } from 'omniaural'
+import type { MediaRef } from 'podverse-shared'
+import { useEffect, useRef, useState } from 'react'
+import {
+  ClipListItem, List, PageHeader, PageScrollableContent, Pagination,
+  scrollToTopOfPageScrollableContent
+} from '~/components'
+import { Page } from '~/lib/utility/page'
 import { PV } from '~/resources'
+import { getServerSideAuthenticatedUserInfo } from '~/services/auth'
+import { getMediaRefsByQuery } from '~/services/mediaRef'
 
+interface ServerProps extends Page {
+  serverFilterFrom: string
+  serverFilterPage: number
+  serverFilterSort: string
+  serverClipsListData: MediaRef[]
+  serverClipsListDataCount: number
+}
 
-export default function Clips() {
+const keyPrefix = 'pages_clips'
+
+export default function Clips(props: ServerProps) {
+
+  /* Initialize */
+
+  const { serverFilterFrom, serverFilterPage, serverFilterSort,
+    serverClipsListData, serverClipsListDataCount } = props
+
+  const router = useRouter()
   const { t } = useTranslation()
+
+  const [filterFrom, setFilterFrom] = useState<string>(serverFilterFrom)
+  const [filterPage, setFilterPage] = useState<number>(serverFilterPage)
+  const [filterSort, setFilterSort] = useState<string>(serverFilterSort)
+  const [clipsListData, setListData] = useState<MediaRef[]>(serverClipsListData)
+  const [clipsListDataCount, setListDataCount] = useState<number>(serverClipsListDataCount)
+  const [userInfo] = useOmniAural('session.userInfo')
+  const initialRender = useRef(true)
+
+  const pageCount = Math.ceil(clipsListDataCount / PV.Config.QUERY_RESULTS_LIMIT_DEFAULT)
+
+  const pageTitle = t('Clips')
+
+  /* useEffects */
+
+  useEffect(() => {
+    (async () => {
+      if (initialRender.current) {
+        initialRender.current = false;
+      } else {
+        OmniAural.pageIsLoadingShow()
+        const { data } = await clientQueryMediaRefs()
+        const [newListData, newListCount] = data
+        setListData(newListData)
+        setListDataCount(newListCount)
+        scrollToTopOfPageScrollableContent()
+        OmniAural.pageIsLoadingHide()
+      }
+    })()
+  }, [filterFrom, filterSort, filterPage])
+
+  /* Client-Side Queries */
+
+  const clientQueryMediaRefs = async () => {
+    if (filterFrom === PV.Filters.from._all) {
+      return clientQueryMediaRefsAll()
+    } else if (filterFrom === PV.Filters.from._subscribed) {
+      return clientQueryMediaRefsBySubscribed()
+    } else if (filterFrom === PV.Filters.from._category) {
+      //
+    }
+  }
+
+  const clientQueryMediaRefsAll = async () => {
+    const finalQuery = {
+      ...(filterPage ? { page: filterPage } : {}),
+      ...(filterSort ? { sort: filterSort } : {}),
+      includePodcast: true
+    }
+    return getMediaRefsByQuery(finalQuery)
+  }
+
+  const clientQueryMediaRefsBySubscribed = async () => {
+    const subscribedPodcastIds = userInfo?.subscribedPodcastIds || []
+    const finalQuery = {
+      podcastIds: subscribedPodcastIds,
+      ...(filterPage ? { page: filterPage } : {}),
+      ...(filterSort ? { sort: filterSort } : {}),
+      includePodcast: true
+    }
+    return getMediaRefsByQuery(finalQuery)
+  }
+
+  // const clientQueryPodcastsByCategory = async () => {
+
+  // }
+
+  /* Render Helpers */
+
+  const generateFromOptions = (t: any) => [
+    { label: t('All'), key: PV.Filters.from._all },
+    { label: t('Subscribed'), key: PV.Filters.from._subscribed },
+    // { label: t('Categories'), key: PV.Filters.from._category }
+  ]
+
+  const generateSortOptions = (t: any) => {
+
+    return [
+      ...(filterFrom === PV.Filters.from._subscribed
+        ? [{ label: t('Recent'), key: PV.Filters.sort._mostRecent }]
+        : []),
+      { label: t('Top - Past Day'), key: PV.Filters.sort._topPastDay },
+      { label: t('Top - Past Week'), key: PV.Filters.sort._topPastWeek },
+      { label: t('Top - Past Month'), key: PV.Filters.sort._topPastMonth },
+      { label: t('Top - Past Year'), key: PV.Filters.sort._topPastYear },
+      { label: t('Top - All Time'), key: PV.Filters.sort._topAllTime },
+      ...(filterFrom === PV.Filters.from._subscribed
+        ? [{ label: t('Oldest'), key: PV.Filters.sort._oldest }]
+        : []),
+    ]
+  }
+
+  const generateClipListElements = (listItems: MediaRef[]) => {
+    return listItems.map((listItem, index) =>
+      <ClipListItem
+        episode={listItem.episode}
+        key={`${keyPrefix}-${index}`}
+        mediaRef={listItem}
+        podcast={listItem.episode.podcast}
+        showImage />
+    )
+  }
+
   return (
-    <div>
+    <>
       <Head>
-        <title>{t('Clips')}</title>
+        <title>{pageTitle}</title>
         <meta name="description" content="Generated by create next app" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <p>clips!!!</p>
-    </div>
+      <PageHeader
+        primaryOnChange={(selectedItems: any[]) => {
+          const selectedItem = selectedItems[0]
+          if (selectedItem.key !== filterFrom) setFilterPage(1)
+          if (
+            filterSort === PV.Filters.sort._mostRecent
+            || filterSort === PV.Filters.sort._oldest
+          ) {
+            setFilterSort(PV.Filters.sort._topPastDay)
+          }
+          setFilterFrom(selectedItem.key)
+        }}
+        primaryOptions={generateFromOptions(t)}
+        primarySelected={filterFrom}
+        sortOnChange={(selectedItems: any[]) => {
+          const selectedItem = selectedItems[0]
+          if (selectedItem.key !== filterSort) setFilterPage(1)
+          setFilterSort(selectedItem.key)
+        }}
+        sortOptions={generateSortOptions(t)}
+        sortSelected={filterSort}
+        text={pageTitle} />
+      <PageScrollableContent>
+        <List>
+          {generateClipListElements(clipsListData)}
+        </List>
+        <Pagination
+          currentPageIndex={filterPage}
+          handlePageNavigate={(newPage) => setFilterPage(newPage)}
+          handlePageNext={() => {
+            const newPage = filterPage + 1
+            if (newPage <= pageCount) setFilterPage(newPage)
+          }}
+          handlePagePrevious={() => {
+            const newPage = filterPage - 1
+            if (newPage > 0) setFilterPage(newPage)
+          }}
+          pageCount={pageCount} />
+      </PageScrollableContent>
+    </>
   )
 }
+
+/* Server-Side Logic */
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { req, locale } = ctx
   const { cookies } = req
 
-  return {
-    props: {
-      ...(await serverSideTranslations(locale, PV.i18n.fileNames.all)),
-      serverCookies: cookies
-    }
+  const userInfo = await getServerSideAuthenticatedUserInfo(cookies)
+  const serverFilterFrom = userInfo ? PV.Filters.from._subscribed : PV.Filters.from._all
+  const serverFilterSort = userInfo ? PV.Filters.sort._mostRecent : PV.Filters.sort._topPastDay
+
+  const serverFilterPage = 1
+  let response = null
+  if (userInfo) {
+    response = await getMediaRefsByQuery({
+      includeEpisode: true,
+      includePodcast: true,
+      podcastIds: userInfo.subscribedPodcastIds,
+      sort: serverFilterSort
+    })
+  } else {
+    response = await getMediaRefsByQuery({
+      includeEpisode: true,
+      includePodcast: true,
+      sort: serverFilterSort
+    })
   }
+
+  const [clipsListData, clipsListDataCount] = response.data
+
+  const serverProps: ServerProps = {
+    serverUserInfo: userInfo,
+    ...(await serverSideTranslations(locale, PV.i18n.fileNames.all)),
+    serverFilterFrom,
+    serverFilterPage,
+    serverFilterSort,
+    serverClipsListData: clipsListData,
+    serverClipsListDataCount: clipsListDataCount,
+    serverCookies: cookies
+  }
+
+  return { props: serverProps }
 }

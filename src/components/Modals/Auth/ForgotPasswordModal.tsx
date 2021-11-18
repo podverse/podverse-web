@@ -60,6 +60,7 @@ export const ForgotPasswordModal = (props: Props) => {
             <TextInput
               label={t('Email')}
               onChange={setEmail}
+              onSubmit={() => _handleForgotPassword(email)}
               placeholder={t('Email')}
               type='email'
               value={forgotPassword.email} />

@@ -1,0 +1,26 @@
+.page-loading-overlay {
+  align-items: center;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+  left: 0;
+  pointer-events: none;
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 100vw;
+
+  @include themeGen() {
+    color: getThemeVal('textSecondary');
+  }
+
+  .icon {
+    margin-top: 44px;
+
+    svg {
+      height: unset;
+      width: 44px;
+    }
+  }
+}

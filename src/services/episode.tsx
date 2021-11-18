@@ -12,18 +12,18 @@ type EpisodeQueryParams = {
   categories?: string[]
   includePodcast?: boolean
   page?: number
-  podcastId?: string | string[]
+  podcastIds?: string | string[]
   searchAllFieldsText?: string
   sort?: string
 }
 
 export const getEpisodesByQuery = async ({ categories, includePodcast, page,
-  podcastId, searchAllFieldsText, sort }: EpisodeQueryParams) => {
+  podcastIds, searchAllFieldsText, sort }: EpisodeQueryParams) => {
   const filteredQuery: EpisodeQueryParams = {
     ...(categories ? { categories } : {}),
     ...(includePodcast ? { includePodcast } : {}),
     ...(page ? { page } : { page: 1 }),
-    ...(podcastId ? { podcastId } : {}),
+    ...(podcastIds ? { podcastId: podcastIds } : {}),
     ...(searchAllFieldsText ? {
       searchAllFieldsText: encodeURIComponent(searchAllFieldsText)
     } : {}),

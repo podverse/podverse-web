@@ -1,5 +1,5 @@
 type Props = {
-  children: any
+  children?: any
 }
 
 export const SideContent = ({ children }: Props) => {

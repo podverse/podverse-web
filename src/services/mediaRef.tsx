@@ -14,20 +14,20 @@ type MediaRefQueryParams = {
   includeEpisode?: boolean
   includePodcast?: boolean
   page?: number
-  podcastId?: string | string[]
+  podcastIds?: string | string[]
   searchAllFieldsText?: string
   sort?: string
 }
 
 export const getMediaRefsByQuery = async ({ categories, episodeId, includeEpisode,
-  includePodcast, page, podcastId, searchAllFieldsText, sort }: MediaRefQueryParams) => {
+  includePodcast, page, podcastIds, searchAllFieldsText, sort }: MediaRefQueryParams) => {
   const filteredQuery: MediaRefQueryParams = {
     ...(categories ? { categories } : {}),
     ...(episodeId ? { episodeId } : {}),
     ...(includeEpisode ? { includeEpisode } : {}),
     ...(includePodcast ? { includePodcast } : {}),
     ...(page ? { page } : { page: 1 }),
-    ...(podcastId ? { podcastId } : {}),
+    ...(podcastIds ? { podcastId: podcastIds } : {}),
     ...(searchAllFieldsText ? {
       searchAllFieldsText: encodeURIComponent(searchAllFieldsText)
     } : {}),

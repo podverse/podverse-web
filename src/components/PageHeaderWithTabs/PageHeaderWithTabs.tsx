@@ -42,6 +42,6 @@ const generateTabElements = (
       isActive={tab.key === selectedKey}
       key={`${keyPrefix}-${index}`}
       label={tab.label}
-      onClick={onClick} />
+      onClick={() => onClick(tab.key)} />
   )
 }

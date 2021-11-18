@@ -3,9 +3,9 @@ import Head from 'next/head'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import type { Episode, MediaRef } from 'podverse-shared'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { ClipListItem, EpisodeInfo, List, PageHeader, PageScrollableContent,
-  Pagination, PodcastPageHeader } from '~/components'
+  Pagination, PodcastPageHeader, SideContent } from '~/components'
 import { scrollToTopOfPageScrollableContent } from '~/components/PageScrollableContent/PageScrollableContent'
 import { calcListPageCount } from '~/lib/utility/misc'
 import { Page } from '~/lib/utility/page'
@@ -29,6 +29,16 @@ type FilterState = {
 
 const keyPrefix = 'pages_episode'
 
+/* *TODO*
+    Rewrite this file to follow the patterns in pages/podcasts and pages/search.
+    Move all functions inside the render function,
+    get rid of the filterState,
+    stop passing in filterState as a parameter,
+    and instead get and set the filterState fields individually.
+    Keep the sections in the same order
+    (Initialization, useEffects, Client-Side Queries, Render Helpers).
+*/
+
 export default function Episode(props: ServerProps) {
   const { serverClips, serverClipsPageCount, serverEpisode,
     serverClipsFilterPage, serverClipsFilterSort } = props
@@ -43,19 +53,26 @@ export default function Episode(props: ServerProps) {
   const { clipsFilterPage, clipsFilterSort } = filterState
   const [clipsListData, setClipsListData] = useState<MediaRef[]>(serverClips)
   const [clipsPageCount, setClipsPageCount] = useState<number>(serverClipsPageCount)
+  const initialRender = useRef(true)
 
   const pageTitle = serverEpisode.title || t('untitledEpisode')
 
+  /* useEffects */
+
   useEffect(() => {
     (async () => {
-      const { data } = await clientQueryClips(
-        { page: clipsFilterPage, episodeId: id, sort: clipsFilterSort },
-        filterState
-      )
-      const [newClipsListData, newClipsListCount] = data
-      setClipsListData(newClipsListData)
-      setClipsPageCount(calcListPageCount(newClipsListCount))
-      scrollToTopOfPageScrollableContent()
+      if (initialRender.current) {
+        initialRender.current = false;
+      } else {
+        const { data } = await clientQueryClips(
+          { page: clipsFilterPage, episodeId: id, sort: clipsFilterSort },
+          filterState
+        )
+        const [newClipsListData, newClipsListCount] = data
+        setClipsListData(newClipsListData)
+        setClipsPageCount(calcListPageCount(newClipsListCount))
+        scrollToTopOfPageScrollableContent()
+      }
     })()
   }, [clipsFilterPage, clipsFilterSort])
 
@@ -105,6 +122,9 @@ export default function Episode(props: ServerProps) {
                 }
               }}
               pageCount={clipsPageCount} />
+          </div>
+          <div className='column'>
+            <SideContent />
           </div>
         </div>
       </PageScrollableContent>

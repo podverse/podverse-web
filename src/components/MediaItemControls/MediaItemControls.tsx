@@ -1,6 +1,7 @@
 import { faEllipsisH, faPlay } from "@fortawesome/free-solid-svg-icons"
 import classNames from "classnames"
-import { Episode, MediaRef } from 'podverse-shared'
+import OmniAural from "omniaural"
+import { Episode, MediaRef, Podcast } from 'podverse-shared'
 import { useTranslation } from 'react-i18next'
 import { readableDate } from "~/lib/utility/date"
 import { convertSecToHhoursMMinutes, readableClipTime } from "~/lib/utility/time"
@@ -12,6 +13,7 @@ type Props = {
   hidePubDate?: boolean
   mediaRef?: MediaRef
   stretchMiddleContent?: boolean
+  podcast?: Podcast
 }
 
 const _playKey = '_play'
@@ -22,7 +24,7 @@ const _shareKey = '_share'
 const _markAsPlayedKey = '_markAsPlayedKey'
 
 export const MediaItemControls = ({ buttonSize, episode, hidePubDate,
-  mediaRef, stretchMiddleContent }: Props) => {
+  mediaRef, stretchMiddleContent, podcast }: Props) => {
   const { t } = useTranslation()
   let pubDate = null
   let timeInfo = null
@@ -69,7 +71,7 @@ export const MediaItemControls = ({ buttonSize, episode, hidePubDate,
       <ButtonCircle
         className='play'
         faIcon={faPlay}
-        onClick={() => console.log('MediaItemControls play')}
+        onClick={() => OmniAural.setPlayerItem(episode, {inheritedPodcast: podcast})}
         size={buttonSize} />
       <div className={timeWrapperClass}>
         {!hidePubDate && <span className='pub-date'>{pubDate}</span>}
