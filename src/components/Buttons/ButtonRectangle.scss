@@ -1,5 +1,8 @@
 .button-rectangle {
-  position: relative;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+
   &.primary {
     border-radius: $button-rectangle-radius;
     height: 44px;
@@ -65,45 +68,8 @@
     }
   }
 
-
-  &.loading {
-
-    .button__text {
-
-      // Hide the button text whenever loading and show spinner
-      visibility: hidden;
-      opacity: 0;
-    }
-
-    &:after {
-      content: "";
-      position: absolute;
-      width: 20px;
-      height: 20px;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      margin: auto;
-
-      // Create a circle with 1/4 arc
-      border: 4px solid transparent; // TODO: Use theme color function
-      border-top-color: #ffffff;
-      border-radius: 50%;
-
-      // Applies animation
-      animation: button-loading-spinner 1s ease infinite;
-    }
-
-    // Spinner animation
-    @keyframes button-loading-spinner {
-      from {
-        transform: rotate(0turn);
-      }
-
-      to {
-        transform: rotate(1turn);
-      }
-    }
+  .icon svg {
+    height: unset;
+    width: 22px;
   }
 }
