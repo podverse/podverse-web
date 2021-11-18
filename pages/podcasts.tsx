@@ -88,16 +88,16 @@ export default function Podcasts(props: ServerProps) {
     return getPodcastsByQuery(finalQuery)
   }
 
-  const clientQueryPodcastsByCategory = async () => {
+  // const clientQueryPodcastsByCategory = async () => {
 
-  }
+  // }
 
   /* Render Helpers */
 
   const generateFromOptions = (t: any) => [
     { label: t('All'), key: PV.Filters.from._all },
     { label: t('Subscribed'), key: PV.Filters.from._subscribed },
-    { label: t('Categories'), key: PV.Filters.from._category }
+    // { label: t('Categories'), key: PV.Filters.from._category }
   ]
 
   const generateSortOptions = (t: any) => {
@@ -177,15 +177,21 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { cookies } = req
 
   const userInfo = await getServerSideAuthenticatedUserInfo(cookies)
-  const serverFilterFrom = PV.Filters.from._all
-  const serverFilterSort = PV.Filters.sort._topPastDay
+  const serverFilterFrom = userInfo ? PV.Filters.from._subscribed : PV.Filters.from._all
+  const serverFilterSort = userInfo ? PV.Filters.sort._mostRecent : PV.Filters.sort._topPastDay
 
   const serverFilterPage = 1
-
-  const response = await getPodcastsByQuery({
-    from: serverFilterFrom,
-    sort: serverFilterSort
-  })
+  let response = null
+  if (userInfo) {
+    response = await getPodcastsByQuery({
+      podcastIds: userInfo.subscribedPodcastIds,
+      sort: serverFilterSort
+    })
+  } else {
+    response = await getPodcastsByQuery({
+      sort: serverFilterSort
+    })
+  }
 
   const [podcastsListData, podcastsListDataCount] = response.data
 
