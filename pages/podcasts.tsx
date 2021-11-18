@@ -3,7 +3,7 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import OmniAural from 'omniaural'
+import OmniAural, { useOmniAural } from 'omniaural'
 import type { Podcast } from 'podverse-shared'
 import { useEffect, useState } from 'react'
 import { List, PageHeader, PageScrollableContent, Pagination, PodcastListItem,
@@ -38,6 +38,7 @@ export default function Podcasts(props: ServerProps) {
   const [filterSort, setFilterSort] = useState<string>(serverFilterSort)
   const [podcastsListData, setListData] = useState<Podcast[]>(serverPodcastsListData)
   const [podcastsListDataCount, setListDataCount] = useState<number>(serverPodcastsListDataCount)
+  const [userInfo] = useOmniAural('session.userInfo')
 
   const pageCount = Math.ceil(podcastsListDataCount / PV.Config.QUERY_RESULTS_LIMIT_DEFAULT)
 
@@ -60,12 +61,35 @@ export default function Podcasts(props: ServerProps) {
   /* Client-Side Queries */
 
   const clientQueryPodcasts = async () => {
+    if (filterFrom === PV.Filters.from._all) {
+      return clientQueryPodcastsAll()
+    } else if (filterFrom === PV.Filters.from._subscribed) {
+      return clientQueryPodcastsBySubscribed()
+    } else if (filterFrom === PV.Filters.from._category) {
+      //
+    }
+  }
+
+  const clientQueryPodcastsAll = async () => {
     const finalQuery = {
-      ...(filterFrom ? { from: filterFrom } : {}),
       ...(filterPage ? { page: filterPage } : {}),
       ...(filterSort ? { sort: filterSort } : {})
     }
     return getPodcastsByQuery(finalQuery)
+  }
+
+  const clientQueryPodcastsBySubscribed = async () => {
+    const subscribedPodcastIds = userInfo?.subscribedPodcastIds || []
+    const finalQuery = {
+      podcastIds: subscribedPodcastIds,
+      ...(filterPage ? { page: filterPage } : {}),
+      ...(filterSort ? { sort: filterSort } : {})
+    }
+    return getPodcastsByQuery(finalQuery)
+  }
+
+  const clientQueryPodcastsByCategory = async () => {
+
   }
 
   /* Render Helpers */
@@ -76,15 +100,23 @@ export default function Podcasts(props: ServerProps) {
     { label: t('Categories'), key: PV.Filters.from._category }
   ]
 
-  const generateSortOptions = (t: any) => [
-    // { label: t('Recent'), key: PV.Filters.sort._mostRecent },
-    { label: t('Top - Past Day'), key: PV.Filters.sort._topPastDay },
-    { label: t('Top - Past Week'), key: PV.Filters.sort._topPastWeek },
-    { label: t('Top - Past Month'), key: PV.Filters.sort._topPastMonth },
-    { label: t('Top - Past Year'), key: PV.Filters.sort._topPastYear },
-    { label: t('Top - All Time'), key: PV.Filters.sort._topAllTime }
-    // { label: t('Oldest'), key: PV.Filters.sort._oldest }
-  ]
+  const generateSortOptions = (t: any) => {
+
+    return [
+      ...(filterFrom === PV.Filters.from._subscribed
+        ? [{ label: t('Recent'), key: PV.Filters.sort._mostRecent }]
+        : []),
+      { label: t('Top - Past Day'), key: PV.Filters.sort._topPastDay },
+      { label: t('Top - Past Week'), key: PV.Filters.sort._topPastWeek },
+      { label: t('Top - Past Month'), key: PV.Filters.sort._topPastMonth },
+      { label: t('Top - Past Year'), key: PV.Filters.sort._topPastYear },
+      { label: t('Top - All Time'), key: PV.Filters.sort._topAllTime },
+      ...(filterFrom === PV.Filters.from._subscribed
+        ? [{ label: t('Oldest'), key: PV.Filters.sort._oldest }]
+        : []),
+    ]
+  }
+  
 
   const generatePodcastListElements = (listItems: Podcast[]) => {
     return listItems.map((listItem, index) =>
