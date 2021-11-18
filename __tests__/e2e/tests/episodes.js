@@ -7,7 +7,10 @@ module.exports = {
   'Episodes': function (browser) {
     browser
       .click('div a[href="/episodes"] div')
-      .waitForElementWithText('.app-main-wrapper main div p', 'episodes!!!')
+      .waitForElementWithText('.page-header h1', 'Episodes')
+      .waitForElementWithText('.text-wrapper h3', '#1428 - Brian Greene')
+
+
 
   },
   after: function (browser) {

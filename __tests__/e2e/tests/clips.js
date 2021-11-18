@@ -7,7 +7,9 @@ module.exports = {
   'Clips': function (browser) {
     browser
       .click('div a[href="/clips"] div')
-      .waitForElementWithText('.app-main-wrapper main div p', 'clips!!!')
+      .waitForElementWithText('.page-header h1', 'Clips')
+      .waitForElementWithText('.text-wrapper h3', 'Lacus sed turpis tincidunt id aliquet risus feugiat in ante.')
+
 
   },
   after: function (browser) {
