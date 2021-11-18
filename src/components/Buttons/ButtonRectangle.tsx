@@ -1,4 +1,6 @@
+import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 import classnames from 'classnames'
+import { Icon } from '~/components'
 
 type Props = {
   disabled?: boolean
@@ -22,9 +24,14 @@ export const ButtonRectangle = ({ disabled, label, onClick, type, isLoading }: P
       className={buttonClass}
       disabled={disabled}
       onClick={onClick}>
-      <span className="button__text">
-        {label}
-      </span>
+      {isLoading && <Icon faIcon={faSpinner} spin />}
+      {
+        !isLoading && (
+          <span className="button__text">
+            {label}
+          </span>
+        )
+      }
     </button>
   )
 }
