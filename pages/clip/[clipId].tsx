@@ -3,7 +3,7 @@ import Head from 'next/head'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import type { Episode, MediaRef } from 'podverse-shared'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { ClipInfo, ClipListItem, EpisodeInfo, List, PageHeader, PageScrollableContent,
   Pagination, PodcastPageHeader, SideContent
 } from '~/components'
@@ -54,6 +54,7 @@ export default function Clip(props: ServerProps) {
   const { clipsFilterPage, clipsFilterSort } = filterState
   const [clipsListData, setClipsListData] = useState<MediaRef[]>(serverClips)
   const [clipsPageCount, setClipsPageCount] = useState<number>(serverClipsPageCount)
+  const initialRender = useRef(true)
 
   const pageTitle = getClipTitle(t, serverClip, episode?.title)
 
@@ -61,14 +62,18 @@ export default function Clip(props: ServerProps) {
 
   useEffect(() => {
     (async () => {
-      const { data } = await clientQueryClips(
-        { page: clipsFilterPage, episodeId: episode.id, sort: clipsFilterSort },
-        filterState
-      )
-      const [newClipsListData, newClipsListCount] = data
-      setClipsListData(newClipsListData)
-      setClipsPageCount(calcListPageCount(newClipsListCount))
-      scrollToTopOfPageScrollableContent()
+      if (initialRender.current) {
+        initialRender.current = false;
+      } else {
+        const { data } = await clientQueryClips(
+          { page: clipsFilterPage, episodeId: episode.id, sort: clipsFilterSort },
+          filterState
+        )
+        const [newClipsListData, newClipsListCount] = data
+        setClipsListData(newClipsListData)
+        setClipsPageCount(calcListPageCount(newClipsListCount))
+        scrollToTopOfPageScrollableContent()
+      }
     })()
   }, [clipsFilterPage, clipsFilterSort])
 

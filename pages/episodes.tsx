@@ -5,7 +5,7 @@ import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import OmniAural, { useOmniAural } from 'omniaural'
 import type { Episode } from 'podverse-shared'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { EpisodeListItem, List, PageHeader, PageScrollableContent, Pagination,
   scrollToTopOfPageScrollableContent
 } from '~/components'
@@ -40,6 +40,7 @@ export default function Episodes(props: ServerProps) {
   const [episodesListData, setListData] = useState<Episode[]>(serverEpisodesListData)
   const [episodesListDataCount, setListDataCount] = useState<number>(serverEpisodesListDataCount)
   const [userInfo] = useOmniAural('session.userInfo')
+  const initialRender = useRef(true)
 
   const pageCount = Math.ceil(episodesListDataCount / PV.Config.QUERY_RESULTS_LIMIT_DEFAULT)
 
@@ -49,13 +50,17 @@ export default function Episodes(props: ServerProps) {
 
   useEffect(() => {
     (async () => {
-      OmniAural.pageIsLoadingShow()
-      const { data } = await clientQueryEpisodes()
-      const [newListData, newListCount] = data
-      setListData(newListData)
-      setListDataCount(newListCount)
-      scrollToTopOfPageScrollableContent()
-      OmniAural.pageIsLoadingHide()
+      if (initialRender.current) {
+        initialRender.current = false;
+      } else {
+        OmniAural.pageIsLoadingShow()
+        const { data } = await clientQueryEpisodes()
+        const [newListData, newListCount] = data
+        setListData(newListData)
+        setListDataCount(newListCount)
+        scrollToTopOfPageScrollableContent()
+        OmniAural.pageIsLoadingHide()
+      }
     })()
   }, [filterFrom, filterSort, filterPage])
 
@@ -113,10 +118,7 @@ export default function Episodes(props: ServerProps) {
       { label: t('Top - Past Week'), key: PV.Filters.sort._topPastWeek },
       { label: t('Top - Past Month'), key: PV.Filters.sort._topPastMonth },
       { label: t('Top - Past Year'), key: PV.Filters.sort._topPastYear },
-      { label: t('Top - All Time'), key: PV.Filters.sort._topAllTime },
-      ...(filterFrom === PV.Filters.from._subscribed
-        ? [{ label: t('Oldest'), key: PV.Filters.sort._oldest }]
-        : []),
+      { label: t('Top - All Time'), key: PV.Filters.sort._topAllTime }
     ]
   }
 

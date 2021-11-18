@@ -5,7 +5,7 @@ import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import OmniAural, { useOmniAural } from 'omniaural'
 import type { Podcast } from 'podverse-shared'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { List, PageHeader, PageScrollableContent, Pagination, PodcastListItem,
   scrollToTopOfPageScrollableContent } from '~/components'
 import { Page } from '~/lib/utility/page'
@@ -39,6 +39,7 @@ export default function Podcasts(props: ServerProps) {
   const [podcastsListData, setListData] = useState<Podcast[]>(serverPodcastsListData)
   const [podcastsListDataCount, setListDataCount] = useState<number>(serverPodcastsListDataCount)
   const [userInfo] = useOmniAural('session.userInfo')
+  const initialRender = useRef(true)
 
   const pageCount = Math.ceil(podcastsListDataCount / PV.Config.QUERY_RESULTS_LIMIT_DEFAULT)
 
@@ -48,13 +49,17 @@ export default function Podcasts(props: ServerProps) {
 
   useEffect(() => {
     (async () => {
-      OmniAural.pageIsLoadingShow()
-      const { data } = await clientQueryPodcasts()
-      const [newListData, newListCount] = data
-      setListData(newListData)
-      setListDataCount(newListCount)
-      scrollToTopOfPageScrollableContent()
-      OmniAural.pageIsLoadingHide()
+      if (initialRender.current) {
+        initialRender.current = false;
+      } else {
+        OmniAural.pageIsLoadingShow()
+        const { data } = await clientQueryPodcasts()
+        const [newListData, newListCount] = data
+        setListData(newListData)
+        setListDataCount(newListCount)
+        scrollToTopOfPageScrollableContent()
+        OmniAural.pageIsLoadingHide()
+      }
     })()
   }, [filterFrom, filterSort, filterPage])
 
