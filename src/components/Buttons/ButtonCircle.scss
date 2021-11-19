@@ -17,6 +17,20 @@
     }
   }
 
+  &.icon-only {
+    border-color: transparent;
+    background-color: unset;
+    @include themeGen() {
+      color: getThemeVal("textSecondary");
+    }
+
+    &:hover {
+      @include themeGen() {
+        border-color: transparent;
+      }
+    }
+  }
+
   svg {
     vertical-align: 0;
   }
@@ -80,6 +94,13 @@
       svg {
         width: 12px;
         height: unset;
+      }
+    }
+
+    &.remove {
+      svg {
+        height: unset;
+        width: 20px;
       }
     }
   }

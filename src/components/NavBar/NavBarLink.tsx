@@ -16,16 +16,16 @@ export const NavBarLink = ({ active, faIconBeginning, href, text }: Props) => {
   )
 
   return (
-    <PVLink href={href}>
-      <div className={wrapperClass}>
-        {
-          !!faIconBeginning &&
-            <span className='navbar-link__icon-wrapper'>
-              <Icon faIcon={faIconBeginning} />
-            </span>
-        }
-        {text}
-      </div>
+    <PVLink
+      className={wrapperClass}
+      href={href}>
+      {
+        !!faIconBeginning &&
+          <span className='navbar-link__icon-wrapper'>
+            <Icon faIcon={faIconBeginning} />
+          </span>
+      }
+      {text}
     </PVLink>
   )
 }

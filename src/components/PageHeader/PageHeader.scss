@@ -1,5 +1,5 @@
 .page-header {
-  padding: 1px 0 0 0;
+  padding: 4px 0 0 0;
 
   @include themeGen() {
     background-color: getThemeVal('backgroundTertiary');
@@ -14,9 +14,9 @@
   }
   
   .main-max-width {
-    margin-bottom: 13px;
     display: flex;
     justify-content: space-between;
+    margin-bottom: 13px;
 
     .dropdowns {
       display: flex;
@@ -24,6 +24,14 @@
 
     .dropdown-primary-wrapper, .dropdown-sort-wrapper {
       margin: 0 0 0 8px;
+    }
+
+    .buttons {
+      display: flex;
+
+      button {
+        margin: 0 0 0 8px;
+      }
     }
   }
 }

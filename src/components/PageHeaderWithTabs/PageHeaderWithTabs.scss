@@ -1,5 +1,5 @@
 .page-header-tabs {
-  padding: 1px 0 0 0;
+  padding: 4px 0 0 0;
 
   @include themeGen() {
     background-color: getThemeVal('backgroundTertiary');
