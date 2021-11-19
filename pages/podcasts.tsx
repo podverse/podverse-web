@@ -109,6 +109,9 @@ export default function Podcasts(props: ServerProps) {
 
     return [
       ...(filterFrom === PV.Filters.from._subscribed
+        ? [{ label: t('Alphabetical'), key: PV.Filters.sort._alphabetical }]
+        : []),
+      ...(filterFrom === PV.Filters.from._subscribed
         ? [{ label: t('Recent'), key: PV.Filters.sort._mostRecent }]
         : []),
       { label: t('Top - Past Day'), key: PV.Filters.sort._topPastDay },
@@ -182,7 +185,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
   const userInfo = await getServerSideAuthenticatedUserInfo(cookies)
   const serverFilterFrom = userInfo ? PV.Filters.from._subscribed : PV.Filters.from._all
-  const serverFilterSort = userInfo ? PV.Filters.sort._mostRecent : PV.Filters.sort._topPastDay
+  const serverFilterSort = userInfo ? PV.Filters.sort._alphabetical : PV.Filters.sort._topPastDay
 
   const serverFilterPage = 1
   let response = null

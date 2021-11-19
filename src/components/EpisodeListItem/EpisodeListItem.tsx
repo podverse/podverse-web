@@ -9,11 +9,11 @@ import { PV } from '~/resources'
 type Props = {
   episode: Episode
   imageUrl?: string
-  showImage?: boolean
   podcast?: Podcast
+  showImage?: boolean
 }
 
-export const EpisodeListItem = ({ episode, showImage, podcast }: Props) => {
+export const EpisodeListItem = ({ episode, podcast, showImage }: Props) => {
   const { t } = useTranslation()
   const { description, id, imageUrl } = episode
   const title = episode.title || t('untitledEpisode')

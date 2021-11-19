@@ -31,5 +31,6 @@
   },
   "session": {
     "userInfo": null
-  }
+  },
+  "userQueueItems": []
 }
