@@ -24,12 +24,11 @@ interface ServerProps extends Page {
 
 const keyPrefix = 'pages_podcasts'
 
-export default function Podcasts(props: ServerProps) {
+export default function Podcasts({ serverFilterFrom, serverFilterPage,
+  serverFilterSort, serverPodcastsListData, serverPodcastsListDataCount
+  }: ServerProps) {
 
   /* Initialize */
-
-  const { serverFilterFrom, serverFilterPage, serverFilterSort,
-    serverPodcastsListData, serverPodcastsListDataCount } = props
 
   const router = useRouter()
   const { t } = useTranslation()
@@ -37,9 +36,12 @@ export default function Podcasts(props: ServerProps) {
   const [filterFrom, setFilterFrom] = useState<string>(serverFilterFrom)
   const [filterPage, setFilterPage] = useState<number>(serverFilterPage)
   const [filterSort, setFilterSort] = useState<string>(serverFilterSort)
-  const [podcastsListData, setListData] = useState<Podcast[]>(serverPodcastsListData)
-  const [podcastsListDataCount, setListDataCount] = useState<number>(serverPodcastsListDataCount)
+  const [podcastsListData, setPodcastsListData] =
+    useState<Podcast[]>(serverPodcastsListData)
+  const [podcastsListDataCount, setPodcastsListDataCount] =
+    useState<number>(serverPodcastsListDataCount)
   const [userInfo] = useOmniAural('session.userInfo')
+
   const initialRender = useRef(true)
 
   const pageCount = Math.ceil(podcastsListDataCount / PV.Config.QUERY_RESULTS_LIMIT_DEFAULT)
@@ -56,8 +58,8 @@ export default function Podcasts(props: ServerProps) {
         OmniAural.pageIsLoadingShow()
         const { data } = await clientQueryPodcasts()
         const [newListData, newListCount] = data
-        setListData(newListData)
-        setListDataCount(newListCount)
+        setPodcastsListData(newListData)
+        setPodcastsListDataCount(newListCount)
         scrollToTopOfPageScrollableContent()
         OmniAural.pageIsLoadingHide()
       }

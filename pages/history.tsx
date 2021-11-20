@@ -3,21 +3,17 @@ import Head from 'next/head'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import OmniAural, { useOmniAural } from 'omniaural'
-import { useState } from 'react'
-import {
-  convertNowPlayingItemToEpisode, convertNowPlayingItemToMediaRef,
-  NowPlayingItem
-} from 'podverse-shared'
+import { useEffect, useRef, useState } from 'react'
+import { convertNowPlayingItemToEpisode, convertNowPlayingItemToMediaRef,
+  NowPlayingItem } from 'podverse-shared'
 import {
   ClipListItem, EpisodeListItem, List, PageHeader, PageScrollableContent,
-  Pagination,
-  SideContent
-} from '~/components'
+  Pagination, scrollToTopOfPageScrollableContent, SideContent } from '~/components'
 import { Page } from '~/lib/utility/page'
 import { PV } from '~/resources'
 import { getServerSideAuthenticatedUserInfo } from '~/services/auth'
 import { getServerSideUserQueueItems } from '~/services/userQueueItem'
-import { getServerSideHistoryItems } from '~/services/userHistoryItem'
+import { getHistoryItemsFromServer, getServerSideHistoryItems, removeHistoryItemEpisodeOnServer, removeHistoryItemMediaRefOnServer, removeHistoryItemsAllOnServer } from '~/services/userHistoryItem'
 
 interface ServerProps extends Page {
   serverFilterPage: number
@@ -29,9 +25,11 @@ const keyPrefix = 'pages_history'
 
 export default function History({ serverFilterPage, serverUserHistoryItems,
   serverUserHistoryItemsCount}: ServerProps) {
+
   /* Initialize */
 
   const { t } = useTranslation()
+
   const [filterPage, setFilterPage] = useState<number>(serverFilterPage)
   const [userHistoryItems, setUserHistoryItems] =
   useState<NowPlayingItem[]>(serverUserHistoryItems)
@@ -40,20 +38,61 @@ export default function History({ serverFilterPage, serverUserHistoryItems,
   const [isEditing, setIsEditing] = useState<boolean>(false)
   const [userInfo] = useOmniAural('session.userInfo')
   const hasEditButton = !!userInfo
+
+  const initialRender = useRef(true)
   
   const pageCount = Math.ceil(userHistoryItemsCount / PV.Config.QUERY_RESULTS_LIMIT_DEFAULT)
 
   const pageTitle = t('History')
 
+  /* useEffects */
+
+  useEffect(() => {
+    (async () => {
+      if (initialRender.current) {
+        initialRender.current = false;
+      } else {
+        OmniAural.pageIsLoadingShow()
+        const { userHistoryItems: newUserHistoryItems,
+          userHistoryItemsCount: newUserHistoryItemsCount } =
+          await clientQueryUserHistoryItems()
+        setUserHistoryItems(newUserHistoryItems)
+        setUserHistoryItemsCount(newUserHistoryItemsCount)
+        scrollToTopOfPageScrollableContent()
+        OmniAural.pageIsLoadingHide()
+      }
+    })()
+  }, [filterPage])
+
+  /* Client-Side Queries */
+
+  const clientQueryUserHistoryItems = async () => {
+    return getHistoryItemsFromServer(filterPage)
+  }
+
   /* Function helpers */
 
   const _removeHistoryItemsAll = async () => {
-    const answer = window.confirm(t('Are you sure you want to remove all your history items'))
+    const answer = window.confirm(t('Are you sure you want to remove all of your history items'))
     if (answer) {
       OmniAural.pageIsLoadingShow()
-      await OmniAural.removeHistoryItemsAll()
+      await removeHistoryItemsAllOnServer()
       OmniAural.pageIsLoadingHide()
+      setUserHistoryItems([])
+      setUserHistoryItemsCount(0)
     }
+  }
+
+  const _removeHistoryItemEpisode = async (episodeId: string) => {
+    const newUserHistoryItems =
+      await removeHistoryItemEpisodeOnServer(episodeId, userHistoryItems)
+    setUserHistoryItems(newUserHistoryItems)
+  }
+
+  const _removeHistoryItemMediaRef = async (mediaRefId: string) => {
+    const newUserHistoryItems =
+      await removeHistoryItemMediaRefOnServer(mediaRefId, userHistoryItems)
+    setUserHistoryItems(newUserHistoryItems)
   }
 
   /* Render Helpers */
@@ -65,7 +104,7 @@ export default function History({ serverFilterPage, serverUserHistoryItems,
         return (
           <ClipListItem
             episode={mediaRef.episode}
-            handleRemove={() => OmniAural.removeHistoryItemMediaRef(mediaRef.id)}
+            handleRemove={() => _removeHistoryItemMediaRef(mediaRef.id)}
             key={`${keyPrefix}-clip-${index}`}
             mediaRef={mediaRef}
             /* *TODO* Remove the "as any" below without throwing a Typescript error */
@@ -78,7 +117,7 @@ export default function History({ serverFilterPage, serverUserHistoryItems,
         return (
           <EpisodeListItem
             episode={episode}
-            handleRemove={() => OmniAural.removeHistoryItemEpisode(episode.id)}
+            handleRemove={() => _removeHistoryItemEpisode(episode.id)}
             key={`${keyPrefix}-episode-${index}`}
             /* *TODO* Remove the "as any" below without throwing a Typescript error */
             podcast={episode.podcast as any}

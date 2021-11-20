@@ -1,4 +1,4 @@
-import { faTrashAlt } from '@fortawesome/free-regular-svg-icons'
+import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import { Episode, MediaRef, Podcast } from 'podverse-shared'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -77,7 +77,7 @@ export const ClipListItem = ({ episode, handleRemove, mediaRef, podcast,
             <div className='side-wrapper'>
               <ButtonCircle
                 className='remove'
-                faIcon={faTrashAlt}
+                faIcon={faTimes}
                 iconOnly
                 isLoading={isRemoving}
                 onClick={_handleRemove}

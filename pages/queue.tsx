@@ -31,7 +31,7 @@ export default function Queue(props: ServerProps) {
   /* Function helpers */
 
   const _removeQueueItemsAll = async () => {
-    const answer = window.confirm(t('Are you sure you want to remove all your queue items?'))
+    const answer = window.confirm(t('Are you sure you want to remove all of your queue items?'))
     if (answer) {
       OmniAural.pageIsLoadingShow()
       await OmniAural.removeQueueItemsAll()

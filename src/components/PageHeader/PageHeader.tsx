@@ -69,7 +69,7 @@ export const PageHeader = ({ handleClearAllButton, handleEditButton, hasEditButt
               {
                 isEditing && (
                   <ButtonRectangle
-                    label={t('Clear all')}
+                    label={t('Remove All')}
                     onClick={handleClearAllButton}
                     type='tertiary' />
                 )

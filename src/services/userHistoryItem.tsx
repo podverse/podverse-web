@@ -1,3 +1,4 @@
+import { NowPlayingItem } from "~/../../podverse-shared/dist"
 import { getAuthCredentialsHeaders } from "~/lib/utility/auth"
 import { PV } from "~/resources"
 import { request } from './request'
@@ -35,22 +36,36 @@ export const removeHistoryItemsAllOnServer = async () => {
   return []
 }
 
-export const removeHistoryItemEpisodeOnServer = async (episodeId?: string) => {
-  const response = await request({
+export const removeHistoryItemEpisodeOnServer = async (
+  episodeId?: string,
+  userHistoryItems?: NowPlayingItem[]
+) => {
+  console.log('before', userHistoryItems)
+  const newUserHistoryItems = userHistoryItems.filter((userHistoryItem: NowPlayingItem) =>
+    userHistoryItem.episodeId != episodeId || userHistoryItem.clipId
+  )
+  console.log('after', newUserHistoryItems)
+  await request({
     endpoint: `/user-history-item/episode/${episodeId}`,
     method: 'DELETE',
     ...(getAuthCredentialsHeaders())
   })
 
-  return response?.data || []
+  return newUserHistoryItems
 }
 
-export const removeHistoryItemMediaRefOnServer = async (mediaRefId?: string) => {
-  const response = await request({
+export const removeHistoryItemMediaRefOnServer = async (
+  mediaRefId?: string,
+  userHistoryItems?: NowPlayingItem[]
+) => {
+  const newUserHistoryItems = userHistoryItems.filter((userHistoryItem: NowPlayingItem) =>
+    userHistoryItem.clipId != mediaRefId
+  )
+  await request({
     endpoint: `/user-history-item/mediaRef/${mediaRefId}`,
     method: 'DELETE',
     ...(getAuthCredentialsHeaders())
   })
 
-  return response?.data || []
+  return newUserHistoryItems
 }
