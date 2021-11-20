@@ -5,7 +5,7 @@ import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import type { Episode, MediaRef, Podcast } from 'podverse-shared'
 import { useEffect, useRef, useState } from 'react'
-import { ClipListItem, EpisodeListItem, List, PageHeader, PageScrollableContent,
+import { ClipListItem, ColumnsWrapper, EpisodeListItem, List, PageHeader, PageScrollableContent,
   Pagination, PodcastPageHeader, SideContent } from '~/components'
 import { scrollToTopOfPageScrollableContent } from '~/components/PageScrollableContent/PageScrollableContent'
 import { calcListPageCount } from '~/lib/utility/misc'
@@ -16,6 +16,7 @@ import { getMediaRefsByQuery } from '~/services/mediaRef'
 import { getServerSideAuthenticatedUserInfo } from '~/services/auth'
 import { Page } from '~/lib/utility/page'
 import { sanitizeTextHtml } from '~/lib/utility/sanitize'
+import { getServerSideUserQueueItems } from '~/services/userQueueItem'
 
 interface ServerProps extends Page {
   serverClips: MediaRef[]
@@ -107,57 +108,58 @@ export default function Podcast(props: ServerProps) {
       </Head>
       <PodcastPageHeader podcast={serverPodcast} />
       <PageScrollableContent>
-        <div className='row'>
-          <div className='column flex-stretch'>
-            <PageHeader
-              isSubHeader
-              primaryOnChange={(selectedItems: any[]) => {
-                const selectedItem = selectedItems[0]
-                setFilterState({ filterPage: 1, filterSort, filterType: selectedItem.key })
-              }}
-              primaryOptions={generateTypeOptions(t)}
-              primarySelected={filterType}
-              sortOnChange={(selectedItems: any[]) => {
-                const selectedItem = selectedItems[0]
-                setFilterState({ filterPage: 1, filterSort: selectedItem.key, filterType })
-              }}
-              sortOptions={generateSortOptions(t)}
-              sortSelected={filterSort}
-              text={pageSubHeader} />
-            <List>
-              {
-                filterType === PV.Filters.type._episodes && (
-                  generateEpisodeListElements(episodesListData, serverPodcast)
-                )
-              }
-              {
-                filterType === PV.Filters.type._clips && (
-                  generateClipListElements(clipsListData, serverPodcast)
-                )
-              }
-            </List>
-            <Pagination
-              currentPageIndex={filterPage}
-              handlePageNavigate={(newPage) => {
-                setFilterState({ filterPage: newPage, filterSort, filterType })
-              }}
-              handlePageNext={() => {
-                const newPage = filterPage + 1
-                if (newPage <= pageCount) {
-                  setFilterState({ filterPage: newPage, filterSort, filterType })
+        <ColumnsWrapper
+          mainColumnChildren={
+            <>
+              <PageHeader
+                isSubHeader
+                primaryOnChange={(selectedItems: any[]) => {
+                  const selectedItem = selectedItems[0]
+                  setFilterState({ filterPage: 1, filterSort, filterType: selectedItem.key })
+                }}
+                primaryOptions={generateTypeOptions(t)}
+                primarySelected={filterType}
+                sortOnChange={(selectedItems: any[]) => {
+                  const selectedItem = selectedItems[0]
+                  setFilterState({ filterPage: 1, filterSort: selectedItem.key, filterType })
+                }}
+                sortOptions={generateSortOptions(t)}
+                sortSelected={filterSort}
+                text={pageSubHeader} />
+              <List>
+                {
+                  filterType === PV.Filters.type._episodes && (
+                    generateEpisodeListElements(episodesListData, serverPodcast)
+                  )
                 }
-              }}
-              handlePagePrevious={() => {
-                const newPage = filterPage - 1
-                if (newPage > 0) {
-                  setFilterState({ filterPage: newPage, filterSort, filterType })
+                {
+                  filterType === PV.Filters.type._clips && (
+                    generateClipListElements(clipsListData, serverPodcast)
+                  )
                 }
-              }}
-              pageCount={pageCount} />
-          </div>
-          <div className='column'>
+              </List>
+              <Pagination
+                currentPageIndex={filterPage}
+                handlePageNavigate={(newPage) => {
+                  setFilterState({ filterPage: newPage, filterSort, filterType })
+                }}
+                handlePageNext={() => {
+                  const newPage = filterPage + 1
+                  if (newPage <= pageCount) {
+                    setFilterState({ filterPage: newPage, filterSort, filterType })
+                  }
+                }}
+                handlePagePrevious={() => {
+                  const newPage = filterPage - 1
+                  if (newPage > 0) {
+                    setFilterState({ filterPage: newPage, filterSort, filterType })
+                  }
+                }}
+                pageCount={pageCount} />
+            </>
+          }
+          sideColumnChildren={
             <SideContent>
-              {/* *TODO* Make the links in About description clickable */}
               <h2>{t('About')}</h2>
               <div
                 className='text'
@@ -167,8 +169,8 @@ export default function Podcast(props: ServerProps) {
                   }
                 } />
             </SideContent>
-          </div>
-        </div>
+          }
+        />
       </PageScrollableContent>
     </>
   )
@@ -257,14 +259,15 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { podcastId } = params
 
   const userInfo = await getServerSideAuthenticatedUserInfo(cookies)
-
+  const userQueueItems = await getServerSideUserQueueItems(cookies)
+  
   const serverFilterType = PV.Filters.type._episodes
   const serverFilterSort = PV.Filters.sort._mostRecent
   const serverFilterPage = 1
-
+  
   const response = await getPodcastById(podcastId as string)
   const podcast = response.data
-
+  
   let serverEpisodes = []
   let serverEpisodesPageCount = 0
   let serverClips = []
@@ -280,9 +283,10 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   } else {
     // handle mediaRefs query
   }
-
+  
   const serverProps: ServerProps = {
     serverUserInfo: userInfo,
+    serverUserQueueItems: userQueueItems,
     ...(await serverSideTranslations(locale, PV.i18n.fileNames.all)),
     serverCookies: cookies,
     serverClips,

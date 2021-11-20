@@ -31,5 +31,7 @@
   },
   "session": {
     "userInfo": null
-  }
+  },
+  "userHistoryItemsMetaData": {},
+  "userQueueItems": []
 }

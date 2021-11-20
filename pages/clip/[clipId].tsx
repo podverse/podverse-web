@@ -4,7 +4,7 @@ import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import type { Episode, MediaRef } from 'podverse-shared'
 import { useEffect, useRef, useState } from 'react'
-import { ClipInfo, ClipListItem, EpisodeInfo, List, PageHeader, PageScrollableContent,
+import { ClipInfo, ClipListItem, ColumnsWrapper, EpisodeInfo, List, PageHeader, PageScrollableContent,
   Pagination, PodcastPageHeader, SideContent
 } from '~/components'
 import { scrollToTopOfPageScrollableContent } from '~/components/PageScrollableContent/PageScrollableContent'
@@ -13,6 +13,7 @@ import { Page } from '~/lib/utility/page'
 import { PV } from '~/resources'
 import { getMediaRefById, getMediaRefsByQuery } from '~/services/mediaRef'
 import { getServerSideAuthenticatedUserInfo } from '~/services/auth'
+import { getServerSideUserQueueItems } from '~/services/userQueueItem'
 
 interface ServerProps extends Page {
   serverClip: MediaRef
@@ -86,47 +87,48 @@ export default function Clip(props: ServerProps) {
       </Head>
       <PodcastPageHeader podcast={podcast} />
       <PageScrollableContent>
-        <div className='row'>
-          <div className='column flex-stretch'>
-            <ClipInfo
-              clip={serverClip}
-              episode={episode} />
-            <EpisodeInfo episode={episode} />
-            <PageHeader
-              isSubHeader
-              sortOnChange={(selectedItems: any[]) => {
-                const selectedItem = selectedItems[0]
-                setFilterState({ clipsFilterPage: 1, clipsFilterSort: selectedItem.key })
-              }}
-              sortOptions={generateSortOptions(t)}
-              sortSelected={clipsFilterSort}
-              text={t('Clips')} />
-            <List>
-              {generateClipListElements(clipsListData, episode)}
-            </List>
-            <Pagination
-              currentPageIndex={clipsFilterPage}
-              handlePageNavigate={(newPage) => {
-                setFilterState({ clipsFilterPage: newPage, clipsFilterSort })
-              }}
-              handlePageNext={() => {
-                const newPage = clipsFilterPage + 1
-                if (newPage <= clipsPageCount) {
+
+        <ColumnsWrapper
+          mainColumnChildren={
+            <>
+              <ClipInfo
+                clip={serverClip}
+                episode={episode} />
+              <EpisodeInfo episode={episode} />
+              <PageHeader
+                isSubHeader
+                sortOnChange={(selectedItems: any[]) => {
+                  const selectedItem = selectedItems[0]
+                  setFilterState({ clipsFilterPage: 1, clipsFilterSort: selectedItem.key })
+                }}
+                sortOptions={generateSortOptions(t)}
+                sortSelected={clipsFilterSort}
+                text={t('Clips')} />
+              <List>
+                {generateClipListElements(clipsListData, episode)}
+              </List>
+              <Pagination
+                currentPageIndex={clipsFilterPage}
+                handlePageNavigate={(newPage) => {
                   setFilterState({ clipsFilterPage: newPage, clipsFilterSort })
-                }
-              }}
-              handlePagePrevious={() => {
-                const newPage = clipsFilterPage - 1
-                if (newPage > 0) {
-                  setFilterState({ clipsFilterPage: newPage, clipsFilterSort })
-                }
-              }}
-              pageCount={clipsPageCount} />
-          </div>
-          <div className='column'>
-            <SideContent />
-          </div>
-        </div>
+                }}
+                handlePageNext={() => {
+                  const newPage = clipsFilterPage + 1
+                  if (newPage <= clipsPageCount) {
+                    setFilterState({ clipsFilterPage: newPage, clipsFilterSort })
+                  }
+                }}
+                handlePagePrevious={() => {
+                  const newPage = clipsFilterPage - 1
+                  if (newPage > 0) {
+                    setFilterState({ clipsFilterPage: newPage, clipsFilterSort })
+                  }
+                }}
+                pageCount={clipsPageCount} />
+            </>
+          }
+          sideColumnChildren={<SideContent />}
+        />
       </PageScrollableContent>
     </>
   )
@@ -186,14 +188,15 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { clipId } = params
 
   const userInfo = await getServerSideAuthenticatedUserInfo(cookies)
-
+  const userQueueItems = await getServerSideUserQueueItems(cookies)
+  
   const clipResponse = await getMediaRefById(clipId as string)
   const serverClip = clipResponse.data
   const { episode } = serverClip
-
+  
   const serverClipsFilterSort = PV.Filters.sort._topPastYear
   const serverClipsFilterPage = 1
-
+  
   const clipsResponse = await getMediaRefsByQuery({
     episodeId: episode.id,
     sort: serverClipsFilterSort
@@ -201,9 +204,10 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const [clipsListData, clipsListDataCount] = clipsResponse.data
   const serverClips = clipsListData
   const serverClipsPageCount = calcListPageCount(clipsListDataCount)
-
+  
   const props: ServerProps = {
     serverUserInfo: userInfo,
+    serverUserQueueItems: userQueueItems,
     ...(await serverSideTranslations(locale, PV.i18n.fileNames.all)),
     serverCookies: cookies,
     serverClip,

@@ -1,0 +1,33 @@
+.playlist-list-item {
+  border-radius: $item-border-radius;
+  padding: 22px 10px 18px 10px;
+  margin: 0 -10px;
+
+  &:hover {
+    @include themeGen() {
+      background-color: getThemeVal('highlighted');
+    }
+  }
+
+  .title {
+    font-size: $text-xl;
+  }
+
+  .owner-name {
+    font-size: $text-md;
+    margin-top: 4px;
+    
+    @include themeGen() {
+      color: getThemeVal('textSecondary');
+    }
+  }
+
+  .items-count {
+    font-size: $text-md;
+    margin-top: 4px;
+
+    @include themeGen() {
+      color: getThemeVal('textSecondary');
+    }
+  }
+}
