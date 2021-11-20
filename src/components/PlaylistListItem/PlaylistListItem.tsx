@@ -11,8 +11,8 @@ type Props = {
 export const PlaylistListItem = ({ playlist }: Props) => {
   const { t } = useTranslation()
   const [userInfo] = useOmniAural('session.userInfo')
-  const title = playlist?.title ? playlist.title : t('untitledPlaylist')
   const isLoggedInUserPlaylist = userInfo?.id && userInfo.id === playlist?.owner?.id
+  const title = playlist?.title ? playlist.title : t('untitledPlaylist')
   const ownerName = playlist?.owner?.name || t('Anonymous')
   const itemCount = playlist?.itemCount || 0
   const playlistPageUrl = `${PV.RoutePaths.web.playlist}/${playlist.id}`
