@@ -6,7 +6,7 @@ import OmniAural, { useOmniAural } from 'omniaural'
 import { useState } from 'react'
 import { convertNowPlayingItemToEpisode, convertNowPlayingItemToMediaRef,
   NowPlayingItem } from 'podverse-shared'
-import { ClipListItem, EpisodeListItem, List, PageHeader, PageScrollableContent,
+import { ClipListItem, ColumnsWrapper, EpisodeListItem, List, PageHeader, PageScrollableContent,
   SideContent } from '~/components'
 import { Page } from '~/lib/utility/page'
 import { PV } from '~/resources'
@@ -86,28 +86,12 @@ export default function Queue(props: ServerProps) {
         hasEditButton={hasEditButton}
         text={t('Queue')} />
       <PageScrollableContent noMarginTop>
-        <div className='row'>
-          <div className='column flex-stretch'>
-            <List>
-              {generateQueueListElements(userQueueItems)}
-            </List>
-          </div>
-          <div className='column'>
-            <SideContent />
-          </div>
-        </div>
-        {/* <Pagination
-          currentPageIndex={filterPage}
-          handlePageNavigate={(newPage) => setFilterPage(newPage)}
-          handlePageNext={() => {
-            const newPage = filterPage + 1
-            if (newPage <= pageCount) setFilterPage(newPage)
-          }}
-          handlePagePrevious={() => {
-            const newPage = filterPage - 1
-            if (newPage > 0) setFilterPage(newPage)
-          }}
-          pageCount={pageCount} /> */}
+        <ColumnsWrapper
+          mainColumnChildren={
+            <List>{generateQueueListElements(userQueueItems)}</List>
+          }
+          sideColumnChildren={<SideContent />}
+         />
       </PageScrollableContent>
     </>
   )

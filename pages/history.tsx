@@ -7,7 +7,7 @@ import { useEffect, useRef, useState } from 'react'
 import { convertNowPlayingItemToEpisode, convertNowPlayingItemToMediaRef,
   NowPlayingItem } from 'podverse-shared'
 import {
-  ClipListItem, EpisodeListItem, List, PageHeader, PageScrollableContent,
+  ClipListItem, ColumnsWrapper, EpisodeListItem, List, PageHeader, PageScrollableContent,
   Pagination, scrollToTopOfPageScrollableContent, SideContent } from '~/components'
 import { Page } from '~/lib/utility/page'
 import { PV } from '~/resources'
@@ -142,16 +142,12 @@ export default function History({ serverFilterPage, serverUserHistoryItems,
         hasEditButton={hasEditButton}
         text={t('History')} />
       <PageScrollableContent noMarginTop>
-        <div className='row'>
-          <div className='column flex-stretch'>
-            <List>
-              {generateHistoryListElements(userHistoryItems)}
-            </List>
-          </div>
-          <div className='column'>
-            <SideContent />
-          </div>
-        </div>
+        <ColumnsWrapper
+          mainColumnChildren={
+            <List>{generateHistoryListElements(userHistoryItems)}</List>
+          }
+          sideColumnChildren={<SideContent />}
+        />
         <Pagination
           currentPageIndex={filterPage}
           handlePageNavigate={(newPage) => setFilterPage(newPage)}

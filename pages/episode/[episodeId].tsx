@@ -4,7 +4,7 @@ import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import type { Episode, MediaRef } from 'podverse-shared'
 import { useEffect, useRef, useState } from 'react'
-import { ClipListItem, EpisodeInfo, List, PageHeader, PageScrollableContent,
+import { ClipListItem, ColumnsWrapper, EpisodeInfo, List, PageHeader, PageScrollableContent,
   Pagination, PodcastPageHeader, SideContent } from '~/components'
 import { scrollToTopOfPageScrollableContent } from '~/components/PageScrollableContent/PageScrollableContent'
 import { calcListPageCount } from '~/lib/utility/misc'
@@ -88,46 +88,46 @@ export default function Episode(props: ServerProps) {
         episode={serverEpisode}
         podcast={podcast} />
       <PageScrollableContent>
-        <div className='row'>
-          <div className='column flex-stretch'>
-            <EpisodeInfo
-              episode={serverEpisode}
-              includeMediaItemControls />
-            <PageHeader
-              isSubHeader
-              sortOnChange={(selectedItems: any[]) => {
-                const selectedItem = selectedItems[0]
-                setFilterState({ clipsFilterPage: 1, clipsFilterSort: selectedItem.key })
-              }}
-              sortOptions={generateSortOptions(t)}
-              sortSelected={clipsFilterSort}
-              text={t('Clips')} />
-            <List>
-              {generateClipListElements(clipsListData, serverEpisode)}
-            </List>
-            <Pagination
-              currentPageIndex={clipsFilterPage}
-              handlePageNavigate={(newPage) => {
-                setFilterState({ clipsFilterPage: newPage, clipsFilterSort })
-              }}
-              handlePageNext={() => {
-                const newPage = clipsFilterPage + 1
-                if (newPage <= clipsPageCount) {
+        <ColumnsWrapper
+          mainColumnChildren={
+            <>
+              <EpisodeInfo
+                episode={serverEpisode}
+                includeMediaItemControls />
+              <PageHeader
+                isSubHeader
+                sortOnChange={(selectedItems: any[]) => {
+                  const selectedItem = selectedItems[0]
+                  setFilterState({ clipsFilterPage: 1, clipsFilterSort: selectedItem.key })
+                }}
+                sortOptions={generateSortOptions(t)}
+                sortSelected={clipsFilterSort}
+                text={t('Clips')} />
+              <List>
+                {generateClipListElements(clipsListData, serverEpisode)}
+              </List>
+              <Pagination
+                currentPageIndex={clipsFilterPage}
+                handlePageNavigate={(newPage) => {
                   setFilterState({ clipsFilterPage: newPage, clipsFilterSort })
-                }
-              }}
-              handlePagePrevious={() => {
-                const newPage = clipsFilterPage - 1
-                if (newPage > 0) {
-                  setFilterState({ clipsFilterPage: newPage, clipsFilterSort })
-                }
-              }}
-              pageCount={clipsPageCount} />
-          </div>
-          <div className='column'>
-            <SideContent />
-          </div>
-        </div>
+                }}
+                handlePageNext={() => {
+                  const newPage = clipsFilterPage + 1
+                  if (newPage <= clipsPageCount) {
+                    setFilterState({ clipsFilterPage: newPage, clipsFilterSort })
+                  }
+                }}
+                handlePagePrevious={() => {
+                  const newPage = clipsFilterPage - 1
+                  if (newPage > 0) {
+                    setFilterState({ clipsFilterPage: newPage, clipsFilterSort })
+                  }
+                }}
+                pageCount={clipsPageCount} />
+            </>
+          }
+          sideColumnChildren={<SideContent />}
+        />
       </PageScrollableContent>
     </>
   )
