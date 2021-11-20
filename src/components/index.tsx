@@ -33,6 +33,7 @@ export { Pagination } from './Pagination/Pagination'
 export { PageScrollableContent, scrollToTopOfPageScrollableContent }
   from './PageScrollableContent/PageScrollableContent'
 export { Player } from './Player/Player'
+export { PlaylistListItem } from './PlaylistListItem/PlaylistListItem'
 export { PodcastListItem } from './PodcastListItem/PodcastListItem'
 export { PodcastPageHeader } from './PodcastPageHeader/PodcastPageHeader'
 export { PVImage } from './PVImage/PVImage'
