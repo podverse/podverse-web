@@ -64,3 +64,24 @@ export const toggleSubscribeToPlaylistOnServer = async (playlistId: string) => {
 
   return response && response.data
 }
+
+export const updatePlaylist = async (data: any) => {
+  const response = await request({
+    endpoint: '/playlist',
+    method: 'PATCH',
+    ...(getAuthCredentialsHeaders()),
+    body: data
+  })
+
+  return response && response.data
+}
+
+export const deletePlaylistOnServer = async (id: string) => {
+  const response = await request({
+    endpoint: `/playlist/${id}`,
+    method: 'DELETE',
+    ...(getAuthCredentialsHeaders())
+  })
+
+  return response && response.data
+}

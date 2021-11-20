@@ -2,16 +2,16 @@ import { GetServerSideProps } from 'next'
 import Head from 'next/head'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import type { Episode, MediaRef, NowPlayingItem, Playlist } from 'podverse-shared'
-import { convertNowPlayingItemToEpisode, convertNowPlayingItemToMediaRef } from 'podverse-shared'
+import OmniAural from 'omniaural'
+import type { Episode, MediaRef, Playlist } from 'podverse-shared'
 import { useState } from 'react'
 import { ClipListItem, ColumnsWrapper, EpisodeListItem, List, PageScrollableContent,
-  PlaylistPageHeader, SideContent } from '~/components'
+  PlaylistPageHeader } from '~/components'
 import { PV } from '~/resources'
 import { getServerSideAuthenticatedUserInfo } from '~/services/auth'
 import { Page } from '~/lib/utility/page'
 import { getServerSideUserQueueItems } from '~/services/userQueueItem'
-import { combineAndSortPlaylistItems, getPlaylist } from '~/services/playlist'
+import { combineAndSortPlaylistItems, getPlaylist, updatePlaylist } from '~/services/playlist'
 
 interface ServerProps extends Page {
   serverPlaylist: Playlist
@@ -23,7 +23,9 @@ const keyPrefix = 'pages_playlist'
 export default function Playlist({ serverPlaylist, serverPlaylistSortedItems }: ServerProps) {
   const { t } = useTranslation()
   const [isEditing, setIsEditing] = useState<boolean>(false)
-  const pageTitle = serverPlaylist.title || t('untitledPlaylist')
+  const [playlist, setPlaylist] = useState<Playlist>(serverPlaylist)
+  const [editingPlaylistTitle, setEditingPlaylistTitle] = useState<string>('')
+  const pageTitle = playlist.title || t('untitledPlaylist')
 
   /* Render Helpers */
 
@@ -58,12 +60,25 @@ export default function Playlist({ serverPlaylist, serverPlaylistSortedItems }: 
     })
   }
 
-  const _handleStartEditing = () => {
-    setIsEditing(true)
+  const _handleEditCancel = () => {
+    setIsEditing(false)
+    setEditingPlaylistTitle(playlist.title)
   }
 
-  const _handleStopEditing = () => {
+  const _handleEditSave = async () => {
+    const playlistData = {
+      id: playlist.id,
+      title: editingPlaylistTitle || ''
+    }
+    OmniAural.pageIsLoadingShow()
+    const newPlaylist = await updatePlaylist(playlistData)
+    setPlaylist(newPlaylist)
+    OmniAural.pageIsLoadingHide()
     setIsEditing(false)
+  }
+
+  const _handleEditStart = () => {
+    setIsEditing(true)
   }
 
   return (
@@ -74,10 +89,12 @@ export default function Playlist({ serverPlaylist, serverPlaylistSortedItems }: 
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <PlaylistPageHeader
-        handleStartEditing={_handleStartEditing}
-        handleStopEditing={_handleStopEditing}
+        handleEditCancel={_handleEditCancel}
+        handleEditSave={_handleEditSave}
+        handleEditStart={_handleEditStart}
+        handlePlaylistTitleOnChange={setEditingPlaylistTitle}
         isEditing={isEditing}
-        playlist={serverPlaylist} />
+        playlist={playlist} />
       <PageScrollableContent>
         <ColumnsWrapper
           mainColumnChildren={

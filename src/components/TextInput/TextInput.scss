@@ -3,6 +3,11 @@
   padding: 0 0 22px 0;
   position: relative;
 
+  &.no-margin-or-padding {
+    margin: 0;
+    padding: 0;
+  }
+
   .text-input-outer-wrapper {
     border-color: transparent;
     border-radius: $item-border-radius !important;
