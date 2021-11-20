@@ -13,6 +13,7 @@ import { Page } from '~/lib/utility/page'
 import { PV } from '~/resources'
 import { getServerSideAuthenticatedUserInfo } from '~/services/auth'
 import { getEpisodesByQuery } from '~/services/episode'
+import { getServerSideUserQueueItems } from '~/services/userQueueItem'
 
 interface ServerProps extends Page {
   serverFilterFrom: string
@@ -189,9 +190,10 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { cookies } = req
 
   const userInfo = await getServerSideAuthenticatedUserInfo(cookies)
+  const userQueueItems = await getServerSideUserQueueItems(cookies)
   const serverFilterFrom = userInfo ? PV.Filters.from._subscribed : PV.Filters.from._all
   const serverFilterSort = userInfo ? PV.Filters.sort._mostRecent : PV.Filters.sort._topPastDay
-
+  
   const serverFilterPage = 1
   let response = null
   if (userInfo) {
@@ -206,11 +208,12 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       sort: serverFilterSort
     })
   }
-
+  
   const [episodesListData, episodesListDataCount] = response.data
-
+  
   const serverProps: ServerProps = {
     serverUserInfo: userInfo,
+    serverUserQueueItems: userQueueItems,
     ...(await serverSideTranslations(locale, PV.i18n.fileNames.all)),
     serverFilterFrom,
     serverFilterPage,

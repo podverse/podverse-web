@@ -13,6 +13,7 @@ import { PV } from '~/resources'
 import { getEpisodeById } from '~/services/episode'
 import { getMediaRefsByQuery } from '~/services/mediaRef'
 import { getServerSideAuthenticatedUserInfo } from '~/services/auth'
+import { getServerSideUserQueueItems } from '~/services/userQueueItem'
 
 interface ServerProps extends Page {
   serverClips: MediaRef[]
@@ -186,13 +187,14 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { episodeId } = params
 
   const userInfo = await getServerSideAuthenticatedUserInfo(cookies)
-
+  const userQueueItems = await getServerSideUserQueueItems(cookies)
+  
   const episodeResponse = await getEpisodeById(episodeId as string)
   const serverEpisode = episodeResponse.data
-
+  
   const serverClipsFilterSort = PV.Filters.sort._topPastYear
   const serverClipsFilterPage = 1
-
+  
   const clipsResponse = await getMediaRefsByQuery({
     episodeId,
     sort: serverClipsFilterSort
@@ -200,9 +202,10 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const [clipsListData, clipsListDataCount] = clipsResponse.data
   const serverClips = clipsListData
   const serverClipsPageCount = calcListPageCount(clipsListDataCount)
-
+  
   const props: ServerProps = {
     serverUserInfo: userInfo,
+    serverUserQueueItems: userQueueItems,
     ...(await serverSideTranslations(locale, PV.i18n.fileNames.all)),
     serverCookies: cookies,
     serverClips,

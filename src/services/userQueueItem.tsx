@@ -3,11 +3,11 @@ import { PV } from "~/resources"
 import { request } from './request'
 
 export const getServerSideUserQueueItems = async (cookies: any) => {
-  let userInfo = null
+  let userQueueItems = []
   if (cookies.Authorization) {
-    userInfo = await getQueueItemsFromServer(cookies.Authorization)
+    userQueueItems = await getQueueItemsFromServer(cookies.Authorization)
   }
-  return userInfo
+  return userQueueItems
 }
 
 export const getQueueItemsFromServer = async (bearerToken?: string) => {

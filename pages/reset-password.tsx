@@ -7,6 +7,7 @@ import { PasswordInputs } from '~/components'
 import { Page } from '~/lib/utility/page'
 import { PV } from '~/resources'
 import { getServerSideAuthenticatedUserInfo, resetPassword } from '~/services/auth'
+import { getServerSideUserQueueItems } from '~/services/userQueueItem'
 
 interface ServerProps extends Page {}
 
@@ -57,9 +58,11 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { cookies } = req
 
   const userInfo = await getServerSideAuthenticatedUserInfo(cookies)
-
+  const userQueueItems = await getServerSideUserQueueItems(cookies)
+  
   const serverProps: ServerProps = {
     serverUserInfo: userInfo,
+    serverUserQueueItems: userQueueItems,
     ...(await serverSideTranslations(locale, PV.i18n.fileNames.all)),
     serverCookies: cookies
   }

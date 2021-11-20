@@ -16,6 +16,7 @@ import { getMediaRefsByQuery } from '~/services/mediaRef'
 import { getServerSideAuthenticatedUserInfo } from '~/services/auth'
 import { Page } from '~/lib/utility/page'
 import { sanitizeTextHtml } from '~/lib/utility/sanitize'
+import { getServerSideUserQueueItems } from '~/services/userQueueItem'
 
 interface ServerProps extends Page {
   serverClips: MediaRef[]
@@ -257,14 +258,15 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { podcastId } = params
 
   const userInfo = await getServerSideAuthenticatedUserInfo(cookies)
-
+  const userQueueItems = await getServerSideUserQueueItems(cookies)
+  
   const serverFilterType = PV.Filters.type._episodes
   const serverFilterSort = PV.Filters.sort._mostRecent
   const serverFilterPage = 1
-
+  
   const response = await getPodcastById(podcastId as string)
   const podcast = response.data
-
+  
   let serverEpisodes = []
   let serverEpisodesPageCount = 0
   let serverClips = []
@@ -280,9 +282,10 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   } else {
     // handle mediaRefs query
   }
-
+  
   const serverProps: ServerProps = {
     serverUserInfo: userInfo,
+    serverUserQueueItems: userQueueItems,
     ...(await serverSideTranslations(locale, PV.i18n.fileNames.all)),
     serverCookies: cookies,
     serverClips,
