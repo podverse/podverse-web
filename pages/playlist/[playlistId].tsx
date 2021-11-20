@@ -24,7 +24,9 @@ export default function Playlist({ serverPlaylist, serverPlaylistSortedItems }: 
   const { t } = useTranslation()
   const [isEditing, setIsEditing] = useState<boolean>(false)
   const [playlist, setPlaylist] = useState<Playlist>(serverPlaylist)
-  const [editingPlaylistTitle, setEditingPlaylistTitle] = useState<string>('')
+  const [editingPlaylistTitle, setEditingPlaylistTitle] = useState<string>(serverPlaylist.title)
+  const [editingPlaylistIsPublic, setEditingPlaylistIsPublic] =
+    useState<boolean>(serverPlaylist.isPublic)
   const pageTitle = playlist.title || t('untitledPlaylist')
 
   /* Render Helpers */
@@ -60,6 +62,21 @@ export default function Playlist({ serverPlaylist, serverPlaylistSortedItems }: 
     })
   }
 
+  /* Commenting out since all playlists are by default Only With Link right now */
+  // const _handleChangeIsPublic = async (selectedItems: any[]) => {
+  //   const selectedItem = selectedItems[0]
+  //   const isPublic = selectedItem.key === PV.Playlists.privacyKeys.public
+  //   const playlistData = {
+  //     id: playlist.id,
+  //     title: editingPlaylistTitle || '',
+  //     isPublic
+  //   }
+  //   OmniAural.pageIsLoadingShow()
+  //   const newPlaylist = await updatePlaylist(playlistData)
+  //   setPlaylist(newPlaylist)
+  //   OmniAural.pageIsLoadingHide()
+  // }
+
   const _handleEditCancel = () => {
     setIsEditing(false)
     setEditingPlaylistTitle(playlist.title)
@@ -68,7 +85,8 @@ export default function Playlist({ serverPlaylist, serverPlaylistSortedItems }: 
   const _handleEditSave = async () => {
     const playlistData = {
       id: playlist.id,
-      title: editingPlaylistTitle || ''
+      title: editingPlaylistTitle || '',
+      isPublic: editingPlaylistIsPublic
     }
     OmniAural.pageIsLoadingShow()
     const newPlaylist = await updatePlaylist(playlistData)
@@ -89,6 +107,7 @@ export default function Playlist({ serverPlaylist, serverPlaylistSortedItems }: 
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <PlaylistPageHeader
+        // handleChangeIsPublic={_handleChangeIsPublic}
         handleEditCancel={_handleEditCancel}
         handleEditSave={_handleEditSave}
         handleEditStart={_handleEditStart}
