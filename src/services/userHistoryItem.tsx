@@ -40,11 +40,10 @@ export const removeHistoryItemEpisodeOnServer = async (
   episodeId?: string,
   userHistoryItems?: NowPlayingItem[]
 ) => {
-  console.log('before', userHistoryItems)
   const newUserHistoryItems = userHistoryItems.filter((userHistoryItem: NowPlayingItem) =>
     userHistoryItem.episodeId != episodeId || userHistoryItem.clipId
   )
-  console.log('after', newUserHistoryItems)
+
   await request({
     endpoint: `/user-history-item/episode/${episodeId}`,
     method: 'DELETE',
