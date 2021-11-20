@@ -31,9 +31,21 @@ export default function Playlist({ serverPlaylist, serverPlaylistSortedItems }: 
 
   /* Render Helpers */
 
-  const generatePlaylistItemElements = (playlistItems: any[]) => {
+  const generatePlaylistItemElements = (playlistItems: (Episode | MediaRef)[]) => {
     return playlistItems.map((playlistItem, index) => {
-      if (!playlistItem.pubDate) {
+      if ("pubDate" in playlistItem) {
+        const episode = playlistItem
+        return (
+          <EpisodeListItem
+            /* *TODO* Remove the "as any" below without throwing a Typescript error */
+            episode={episode}
+            handleRemove={() => console.log('remove episode')}
+            key={`${keyPrefix}-episode-${index}`}
+            podcast={episode.podcast as any}
+            showImage
+            showRemoveButton={isEditing} />
+        )
+      } else {
         const mediaRef = playlistItem
         return (
           <ClipListItem
@@ -43,18 +55,6 @@ export default function Playlist({ serverPlaylist, serverPlaylistSortedItems }: 
             key={`${keyPrefix}-clip-${index}`}
             mediaRef={mediaRef}
             podcast={mediaRef.episode.podcast as any}
-            showImage
-            showRemoveButton={isEditing} />
-        )
-      } else {
-        const episode = playlistItem
-        return (
-          <EpisodeListItem
-            /* *TODO* Remove the "as any" below without throwing a Typescript error */
-            episode={episode}
-            handleRemove={() => console.log('remove episode')}
-            key={`${keyPrefix}-episode-${index}`}
-            podcast={episode.podcast as any}
             showImage
             showRemoveButton={isEditing} />
         )
