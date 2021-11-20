@@ -15,11 +15,13 @@
 
   .main-max-width {
     align-items: center;
+    align-self: stretch;
     display: flex;
     flex: 1;
 
     .text-wrapper {
       display: flex;
+      flex: 1;
       flex-direction: column;
       justify-content: center;
       padding-right: 16px;
@@ -27,16 +29,46 @@
       .items-count {
         font-size: $text-lg;
         margin-top: 4px;
+
+        @include themeGen() {
+          color: getThemeVal('textSecondary');
+        }
       }
 
       .owner-name {
         font-size: $text-lg;
         margin-top: 4px;
+
+        @include themeGen() {
+          color: getThemeVal('textSecondary');
+        }
+      }
+
+      .text-input {
+        max-width: 500px;
       }
     }
 
-    button {
+    .buttons {
+      align-items: flex-end;
+      align-self: stretch;
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+      justify-content: space-around;
       margin-left: auto;
+
+      .top-row {
+        display: flex;
+      }
+
+      .bottom-row {
+        display: flex;
+      }
+
+      button {
+        margin-left: 8px;
+      }
     }
   }
 }

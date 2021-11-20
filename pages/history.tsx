@@ -103,11 +103,11 @@ export default function History({ serverFilterPage, serverUserHistoryItems,
         const mediaRef = convertNowPlayingItemToMediaRef(historyItem)
         return (
           <ClipListItem
-            episode={mediaRef.episode}
+            /* *TODO* Remove the "as any" below without throwing a Typescript error */
+            episode={mediaRef.episode as any}
             handleRemove={() => _removeHistoryItemMediaRef(mediaRef.id)}
             key={`${keyPrefix}-clip-${index}`}
-            mediaRef={mediaRef}
-            /* *TODO* Remove the "as any" below without throwing a Typescript error */
+            mediaRef={mediaRef as any}
             podcast={mediaRef.episode.podcast as any}
             showImage
             showRemoveButton={isEditing} />
@@ -116,10 +116,10 @@ export default function History({ serverFilterPage, serverUserHistoryItems,
         const episode = convertNowPlayingItemToEpisode(historyItem)
         return (
           <EpisodeListItem
-            episode={episode}
+            /* *TODO* Remove the "as any" below without throwing a Typescript error */
+            episode={episode as any}
             handleRemove={() => _removeHistoryItemEpisode(episode.id)}
             key={`${keyPrefix}-episode-${index}`}
-            /* *TODO* Remove the "as any" below without throwing a Typescript error */
             podcast={episode.podcast as any}
             showImage
             showRemoveButton={isEditing} />

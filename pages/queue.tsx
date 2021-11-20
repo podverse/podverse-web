@@ -47,11 +47,11 @@ export default function Queue(props: ServerProps) {
         const mediaRef = convertNowPlayingItemToMediaRef(queueItem)
         return (
           <ClipListItem
-            episode={mediaRef.episode}
+            /* *TODO* Remove the "as any" below without throwing a Typescript error */
+            episode={mediaRef.episode as any}
             handleRemove={() => OmniAural.removeQueueItemMediaRef(mediaRef.id)}
             key={`${keyPrefix}-clip-${index}`}
-            mediaRef={mediaRef}
-            /* *TODO* Remove the "as any" below without throwing a Typescript error */
+            mediaRef={mediaRef as any}
             podcast={mediaRef.episode.podcast as any}
             showImage
             showRemoveButton={isEditing} />
@@ -60,10 +60,10 @@ export default function Queue(props: ServerProps) {
         const episode = convertNowPlayingItemToEpisode(queueItem)
         return (
           <EpisodeListItem
-            episode={episode}
+            /* *TODO* Remove the "as any" below without throwing a Typescript error */
+            episode={episode as any}
             handleRemove={() => OmniAural.removeQueueItemEpisode(episode.id)}
             key={`${keyPrefix}-episode-${index}`}
-            /* *TODO* Remove the "as any" below without throwing a Typescript error */
             podcast={episode.podcast as any}
             showImage
             showRemoveButton={isEditing} />

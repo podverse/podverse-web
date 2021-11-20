@@ -2,16 +2,16 @@ import { GetServerSideProps } from 'next'
 import Head from 'next/head'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import type { Episode, MediaRef, NowPlayingItem, Playlist } from 'podverse-shared'
-import { convertNowPlayingItemToEpisode, convertNowPlayingItemToMediaRef } from 'podverse-shared'
+import OmniAural from 'omniaural'
+import type { Episode, MediaRef, Playlist } from 'podverse-shared'
 import { useState } from 'react'
 import { ClipListItem, ColumnsWrapper, EpisodeListItem, List, PageScrollableContent,
-  PlaylistPageHeader, SideContent } from '~/components'
+  PlaylistPageHeader } from '~/components'
 import { PV } from '~/resources'
 import { getServerSideAuthenticatedUserInfo } from '~/services/auth'
 import { Page } from '~/lib/utility/page'
 import { getServerSideUserQueueItems } from '~/services/userQueueItem'
-import { combineAndSortPlaylistItems, getPlaylist } from '~/services/playlist'
+import { combineAndSortPlaylistItems, getPlaylist, updatePlaylist } from '~/services/playlist'
 
 interface ServerProps extends Page {
   serverPlaylist: Playlist
@@ -23,21 +23,25 @@ const keyPrefix = 'pages_playlist'
 export default function Playlist({ serverPlaylist, serverPlaylistSortedItems }: ServerProps) {
   const { t } = useTranslation()
   const [isEditing, setIsEditing] = useState<boolean>(false)
-  const pageTitle = serverPlaylist.title || t('untitledPlaylist')
+  const [playlist, setPlaylist] = useState<Playlist>(serverPlaylist)
+  const [editingPlaylistTitle, setEditingPlaylistTitle] = useState<string>(serverPlaylist.title)
+  const [editingPlaylistIsPublic, setEditingPlaylistIsPublic] =
+    useState<boolean>(serverPlaylist.isPublic)
+  const pageTitle = playlist.title || t('untitledPlaylist')
 
   /* Render Helpers */
 
-  const generatePlaylistItemElements = (playlistItems: [Episode | MediaRef]) => {
+  const generatePlaylistItemElements = (playlistItems: any[]) => {
     return playlistItems.map((playlistItem, index) => {
       if (!playlistItem.pubDate) {
         const mediaRef = playlistItem
         return (
           <ClipListItem
-            episode={mediaRef.episode}
+            /* *TODO* Remove the "as any" below without throwing a Typescript error */
+            episode={mediaRef.episode as any}
             handleRemove={() => console.log('remove clip')}
             key={`${keyPrefix}-clip-${index}`}
             mediaRef={mediaRef}
-            /* *TODO* Remove the "as any" below without throwing a Typescript error */
             podcast={mediaRef.episode.podcast as any}
             showImage
             showRemoveButton={isEditing} />
@@ -46,10 +50,10 @@ export default function Playlist({ serverPlaylist, serverPlaylistSortedItems }: 
         const episode = playlistItem
         return (
           <EpisodeListItem
+            /* *TODO* Remove the "as any" below without throwing a Typescript error */
             episode={episode}
             handleRemove={() => console.log('remove episode')}
             key={`${keyPrefix}-episode-${index}`}
-            /* *TODO* Remove the "as any" below without throwing a Typescript error */
             podcast={episode.podcast as any}
             showImage
             showRemoveButton={isEditing} />
@@ -58,12 +62,41 @@ export default function Playlist({ serverPlaylist, serverPlaylistSortedItems }: 
     })
   }
 
-  const _handleStartEditing = () => {
-    setIsEditing(true)
+  /* Commenting out since all playlists are by default Only With Link right now */
+  // const _handleChangeIsPublic = async (selectedItems: any[]) => {
+  //   const selectedItem = selectedItems[0]
+  //   const isPublic = selectedItem.key === PV.Playlists.privacyKeys.public
+  //   const playlistData = {
+  //     id: playlist.id,
+  //     title: editingPlaylistTitle || '',
+  //     isPublic
+  //   }
+  //   OmniAural.pageIsLoadingShow()
+  //   const newPlaylist = await updatePlaylist(playlistData)
+  //   setPlaylist(newPlaylist)
+  //   OmniAural.pageIsLoadingHide()
+  // }
+
+  const _handleEditCancel = () => {
+    setIsEditing(false)
+    setEditingPlaylistTitle(playlist.title)
   }
 
-  const _handleStopEditing = () => {
+  const _handleEditSave = async () => {
+    const playlistData = {
+      id: playlist.id,
+      title: editingPlaylistTitle || '',
+      isPublic: editingPlaylistIsPublic
+    }
+    OmniAural.pageIsLoadingShow()
+    const newPlaylist = await updatePlaylist(playlistData)
+    setPlaylist(newPlaylist)
+    OmniAural.pageIsLoadingHide()
     setIsEditing(false)
+  }
+
+  const _handleEditStart = () => {
+    setIsEditing(true)
   }
 
   return (
@@ -74,10 +107,13 @@ export default function Playlist({ serverPlaylist, serverPlaylistSortedItems }: 
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <PlaylistPageHeader
-        handleStartEditing={_handleStartEditing}
-        handleStopEditing={_handleStopEditing}
+        // handleChangeIsPublic={_handleChangeIsPublic}
+        handleEditCancel={_handleEditCancel}
+        handleEditSave={_handleEditSave}
+        handleEditStart={_handleEditStart}
+        handlePlaylistTitleOnChange={setEditingPlaylistTitle}
         isEditing={isEditing}
-        playlist={serverPlaylist} />
+        playlist={playlist} />
       <PageScrollableContent>
         <ColumnsWrapper
           mainColumnChildren={

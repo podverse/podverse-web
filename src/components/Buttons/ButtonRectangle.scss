@@ -66,6 +66,20 @@
         color: getThemeVal('buttonTertiaryTextRollover') !important;
       }
     }
+
+    &.danger {
+      @include themeGen() {
+        background-color: getThemeVal('buttonTertiaryDangerBackground') !important;
+        border-color: getThemeVal('buttonTertiaryDangerBorder') !important;
+      }
+
+      &:hover {
+        @include themeGen() {
+          background-color: getThemeVal('buttonTertiaryDangerRolloverBackground') !important;
+          color: getThemeVal('buttonTertiaryDangerTextRollover') !important;
+        }
+      }
+    }
   }
 
   .icon svg {
