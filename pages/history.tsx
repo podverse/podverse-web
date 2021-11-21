@@ -14,6 +14,7 @@ import { PV } from '~/resources'
 import { getServerSideAuthenticatedUserInfo } from '~/services/auth'
 import { getServerSideUserQueueItems } from '~/services/userQueueItem'
 import { getHistoryItemsFromServer, getServerSideHistoryItems, removeHistoryItemEpisodeOnServer, removeHistoryItemMediaRefOnServer, removeHistoryItemsAllOnServer } from '~/services/userHistoryItem'
+import { isNowPlayingItemMediaRef } from '~/lib/utility/typeHelpers'
 
 interface ServerProps extends Page {
   serverFilterPage: number
@@ -99,8 +100,9 @@ export default function History({ serverFilterPage, serverUserHistoryItems,
 
   const generateHistoryListElements = (historyItems: NowPlayingItem[]) => {
     return historyItems.map((historyItem, index) => {
-      if (historyItem.clipId) {
-        const mediaRef = convertNowPlayingItemToMediaRef(historyItem)
+      if (isNowPlayingItemMediaRef(historyItem)) {
+        /* *TODO* remove the "as any" */
+        const mediaRef = convertNowPlayingItemToMediaRef(historyItem) as any
         return (
           <ClipListItem
             /* *TODO* Remove the "as any" below without throwing a Typescript error */
