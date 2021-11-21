@@ -15,7 +15,7 @@ import { useEffect, useRef, useState } from 'react'
 
 interface ServerProps extends Page {
   serverFilterPage: number
-  serverUsers: User
+  serverUsers: User[]
   serverUsersCount: number
 }
 
