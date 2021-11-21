@@ -1,8 +1,8 @@
-name: stage-branch
+name: develop-branch
 
 on:
   push:
-    branches: [ stage ]
+    branches: [ develop ]
 
 jobs:
   build:
