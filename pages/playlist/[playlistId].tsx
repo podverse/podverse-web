@@ -10,8 +10,9 @@ import { ClipListItem, ColumnsWrapper, EpisodeListItem, List, PageScrollableCont
 import { PV } from '~/resources'
 import { getServerSideAuthenticatedUserInfo } from '~/services/auth'
 import { Page } from '~/lib/utility/page'
+import { isEpisode } from '~/lib/utility/typeHelpers'
 import { getServerSideUserQueueItems } from '~/services/userQueueItem'
-import { combineAndSortPlaylistItems, getPlaylist, updatePlaylist } from '~/services/playlist'
+import { addOrRemovePlaylistItemEpisode, addOrRemovePlaylistItemMediaRef, combineAndSortPlaylistItems, getPlaylist, updatePlaylist } from '~/services/playlist'
 
 interface ServerProps extends Page {
   serverPlaylist: Playlist
@@ -24,22 +25,43 @@ export default function Playlist({ serverPlaylist, serverPlaylistSortedItems }: 
   const { t } = useTranslation()
   const [isEditing, setIsEditing] = useState<boolean>(false)
   const [playlist, setPlaylist] = useState<Playlist>(serverPlaylist)
+  const [playlistSortedItems, setPlaylistSortedItems] =
+    useState<Episode | MediaRef>(serverPlaylistSortedItems)
   const [editingPlaylistTitle, setEditingPlaylistTitle] = useState<string>(serverPlaylist.title)
   const [editingPlaylistIsPublic, setEditingPlaylistIsPublic] =
     useState<boolean>(serverPlaylist.isPublic)
   const pageTitle = playlist.title || t('untitledPlaylist')
 
+  const _handleRemoveEpisode = async (episodeId: string) => {
+    const response = await addOrRemovePlaylistItemEpisode(playlist.id, episodeId)
+    if (response.actionTaken === 'removed') {
+      const newPlaylistSortedItems = playlistSortedItems.filter((playlistItem: Episode | MediaRef) =>
+        playlistItem.id !== episodeId
+      )
+      setPlaylistSortedItems(newPlaylistSortedItems)
+    }
+  }
+
+  const _handleRemoveMediaRef = async (mediaRefId: string) => {
+    const response = await addOrRemovePlaylistItemMediaRef(playlist.id, mediaRefId)
+    if (response.actionTaken === 'removed') {
+      const newPlaylistSortedItems = playlistSortedItems.filter((playlistItem: Episode | MediaRef) =>
+        playlistItem.id !== mediaRefId
+      )
+      setPlaylistSortedItems(newPlaylistSortedItems)
+    }
+  }
+
   /* Render Helpers */
 
   const generatePlaylistItemElements = (playlistItems: (Episode | MediaRef)[]) => {
     return playlistItems.map((playlistItem, index) => {
-      if ("pubDate" in playlistItem) {
+      if (isEpisode(playlistItem)) {
         const episode = playlistItem
         return (
           <EpisodeListItem
-            /* *TODO* Remove the "as any" below without throwing a Typescript error */
             episode={episode}
-            handleRemove={() => console.log('remove episode')}
+            handleRemove={() => _handleRemoveEpisode(episode.id)}
             key={`${keyPrefix}-episode-${index}`}
             podcast={episode.podcast as any}
             showImage
@@ -49,12 +71,11 @@ export default function Playlist({ serverPlaylist, serverPlaylistSortedItems }: 
         const mediaRef = playlistItem
         return (
           <ClipListItem
-            /* *TODO* Remove the "as any" below without throwing a Typescript error */
-            episode={mediaRef.episode as any}
-            handleRemove={() => console.log('remove clip')}
+            episode={mediaRef.episode}
+            handleRemove={() => _handleRemoveMediaRef(mediaRef.id)}
             key={`${keyPrefix}-clip-${index}`}
             mediaRef={mediaRef}
-            podcast={mediaRef.episode.podcast as any}
+            podcast={mediaRef.episode.podcast}
             showImage
             showRemoveButton={isEditing} />
         )
@@ -119,7 +140,7 @@ export default function Playlist({ serverPlaylist, serverPlaylistSortedItems }: 
           mainColumnChildren={
             <>
               <List>
-                {generatePlaylistItemElements(serverPlaylistSortedItems)}
+                {generatePlaylistItemElements(playlistSortedItems)}
               </List>
             </>
           }

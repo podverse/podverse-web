@@ -6,12 +6,14 @@ import OmniAural, { useOmniAural } from 'omniaural'
 import { useState } from 'react'
 import { convertNowPlayingItemToEpisode, convertNowPlayingItemToMediaRef,
   NowPlayingItem } from 'podverse-shared'
+import type { Episode, MediaRef } from 'podverse-shared'
 import { ClipListItem, ColumnsWrapper, EpisodeListItem, List, PageHeader, PageScrollableContent,
   SideContent } from '~/components'
 import { Page } from '~/lib/utility/page'
 import { PV } from '~/resources'
 import { getServerSideAuthenticatedUserInfo } from '~/services/auth'
 import { getServerSideUserQueueItems } from '~/services/userQueueItem'
+import { isEpisode, isNowPlayingItemMediaRef } from '~/lib/utility/typeHelpers'
 
 interface ServerProps extends Page {}
 
@@ -43,28 +45,28 @@ export default function Queue(props: ServerProps) {
 
   const generateQueueListElements = (queueItems: NowPlayingItem[]) => {
     return queueItems.map((queueItem, index) => {
-      if (queueItem.clipId) {
-        const mediaRef = convertNowPlayingItemToMediaRef(queueItem)
+      if (isNowPlayingItemMediaRef(queueItem)) {
+        /* *TODO* remove the "as any" */
+        const mediaRef = convertNowPlayingItemToMediaRef(queueItem) as any
         return (
           <ClipListItem
-            /* *TODO* Remove the "as any" below without throwing a Typescript error */
-            episode={mediaRef.episode as any}
+            episode={mediaRef.episode}
             handleRemove={() => OmniAural.removeQueueItemMediaRef(mediaRef.id)}
             key={`${keyPrefix}-clip-${index}`}
-            mediaRef={mediaRef as any}
-            podcast={mediaRef.episode.podcast as any}
+            mediaRef={mediaRef}
+            podcast={mediaRef.episode.podcast}
             showImage
             showRemoveButton={isEditing} />
         )
       } else {
-        const episode = convertNowPlayingItemToEpisode(queueItem)
+        /* *TODO* remove the "as any" */
+        const episode = convertNowPlayingItemToEpisode(queueItem) as any
         return (
           <EpisodeListItem
-            /* *TODO* Remove the "as any" below without throwing a Typescript error */
-            episode={episode as any}
+            episode={episode}
             handleRemove={() => OmniAural.removeQueueItemEpisode(episode.id)}
             key={`${keyPrefix}-episode-${index}`}
-            podcast={episode.podcast as any}
+            podcast={episode.podcast}
             showImage
             showRemoveButton={isEditing} />
         )

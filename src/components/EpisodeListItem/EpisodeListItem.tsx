@@ -11,7 +11,6 @@ type Props = {
   episode: Episode
   handleRemove?: any
   imageUrl?: string
-  isRemoving?: boolean
   podcast?: Podcast
   showImage?: boolean
   showRemoveButton?: boolean

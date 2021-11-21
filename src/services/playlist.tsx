@@ -85,3 +85,35 @@ export const deletePlaylistOnServer = async (id: string) => {
 
   return response && response.data
 }
+
+export const addOrRemovePlaylistItemEpisode = async (playlistId: string, episodeId?: string) => {
+  const data = {
+    playlistId,
+    episodeId
+  }
+
+  const response = await request({
+    endpoint: '/playlist/add-or-remove',
+    method: 'PATCH',
+    ...(getAuthCredentialsHeaders()),
+    body: data
+  })
+
+  return response && response.data
+}
+
+export const addOrRemovePlaylistItemMediaRef = async (playlistId: string, mediaRefId?: string) => {
+  const data = {
+    playlistId,
+    mediaRefId
+  }
+
+  const response = await request({
+    endpoint: '/playlist/add-or-remove',
+    method: 'PATCH',
+    ...(getAuthCredentialsHeaders()),
+    body: data
+  })
+
+  return response && response.data
+}
