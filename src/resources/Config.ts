@@ -1,10 +1,10 @@
 import getConfig from 'next/config'
-const { publicRuntimeConfig } = getConfig()
+const { publicRuntimeConfig, serverRuntimeConfig } = getConfig()
 
-const API_PROTOCOL = publicRuntimeConfig.API_PROTOCOL
-const API_DOMAIN = publicRuntimeConfig.API_DOMAIN
-const API_PATH = publicRuntimeConfig.API_PATH
-const API_VERSION = publicRuntimeConfig.API_VERSION
+const API_PROTOCOL = serverRuntimeConfig.API_PROTOCOL || publicRuntimeConfig.API_PROTOCOL
+const API_DOMAIN = serverRuntimeConfig.API_DOMAIN || publicRuntimeConfig.API_DOMAIN
+const API_PATH = serverRuntimeConfig.API_PATH || publicRuntimeConfig.API_PATH
+const API_VERSION = serverRuntimeConfig.API_VERSION || publicRuntimeConfig.API_VERSION
 const API_BASE_URL = `${API_PROTOCOL}://${API_DOMAIN}/${API_PATH}/${API_VERSION}`
 
 export const Config = {
