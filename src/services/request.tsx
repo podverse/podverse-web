@@ -37,9 +37,6 @@ export const request = async (req: PVRequest) => {
     const response = await axios(axiosRequest)
     return response
   } catch (error) {
-    console.log('error message:', error.message)
-    console.log('error response:', error.response)
-
     throw error
   }
 }

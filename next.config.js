@@ -4,9 +4,9 @@ module.exports = {
   reactStrictMode: true,
   i18n,
   publicRuntimeConfig: {
-    NEXT_PUBLIC_API_PROTOCOL: process.env.NEXT_PUBLIC_API_PROTOCOL,
-    NEXT_PUBLIC_API_DOMAIN: process.env.NEXT_PUBLIC_API_DOMAIN,
-    NEXT_PUBLIC_API_PATH: process.env.NEXT_PUBLIC_API_PATH,
-    NEXT_PUBLIC_API_VERSION: process.env.NEXT_PUBLIC_API_VERSION
+    API_PROTOCOL: process.env.API_PROTOCOL,
+    API_DOMAIN: process.env.API_DOMAIN,
+    API_PATH: process.env.API_PATH,
+    API_VERSION: process.env.API_VERSION
   }
 }
