@@ -6,8 +6,8 @@ module.exports = {
   },
   'Profiles': function (browser) {
     browser
-      .click('div a[href="/profiles"] div')
-      .waitForElementWithText('.app-main-wrapper main div p', 'profiles!!!')
+      .click('div a[href="/profiles"]')
+      .waitForElementWithText('.page-header h1', 'Profiles')
 
   },
   after: function (browser) {

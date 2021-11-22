@@ -6,8 +6,8 @@ module.exports = {
   },
   'Queue': function (browser) {
     browser
-      .click('div a[href="/queue"] div')
-      .waitForElementWithText('.app-main-wrapper main div p', 'Queue!!!')
+      .click('div a[href="/queue"]')
+      .waitForElementWithText('.page-header h1', 'Queue')
 
   },
   after: function (browser) {

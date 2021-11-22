@@ -6,7 +6,7 @@ module.exports = {
   },
   'Clips': function (browser) {
     browser
-      .click('div a[href="/clips"] div')
+      .click('div a[href="/clips"]')
       .waitForElementWithText('.page-header h1', 'Clips')
       .waitForElementWithText('.text-wrapper h3', 'Lacus sed turpis tincidunt id aliquet risus feugiat in ante.')
 

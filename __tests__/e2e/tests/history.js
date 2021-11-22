@@ -6,8 +6,9 @@ module.exports = {
   },
   'History': function (browser) {
     browser
-      .click('div a[href="/history"] div')
-      .waitForElementWithText('.app-main-wrapper main div p', 'history!!!')
+      .click('div a[href="/history"]')
+      .waitForElementWithText('.page-header h1', 'History')
+
 
   },
   after: function (browser) {

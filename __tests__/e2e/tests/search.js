@@ -6,7 +6,7 @@ module.exports = {
   },
   'Search': function (browser) {
     browser
-      .click('div a[href="/search"] div')
+      .click('div a[href="/search"]')
       .waitForElementWithText('.page-header-tabs h1', 'Search')
 
 
