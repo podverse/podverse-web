@@ -91,7 +91,7 @@ export const ProfilePageHeader = ({ handleChangeIsPublic, handleEditCancel,
             )
           }
           {
-            isLoggedInUserProfile && isEditing && (
+            (isEditing || isLoggedInUserProfile) && (
               <div className='bottom-row'>
                 {
                   isEditing && (
@@ -110,6 +110,7 @@ export const ProfilePageHeader = ({ handleChangeIsPublic, handleEditCancel,
                 {
                   isLoggedInUserProfile && !isEditing && (
                     <Dropdown
+                      dropdownWidthClass='width-medium'
                       faIcon={user.isPublic ? faGlobe : faLink}
                       onChange={handleChangeIsPublic}
                       options={privacyDropdownItems}

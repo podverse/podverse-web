@@ -5,7 +5,8 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import OmniAural from 'omniaural'
 import type { MediaRef, Playlist, Podcast, User } from 'podverse-shared'
 import { useEffect, useRef, useState } from 'react'
-import { ColumnsWrapper, List, PageHeader, PageScrollableContent, Pagination,
+import { ClipListItem, ColumnsWrapper, List, PageHeader, PageScrollableContent, Pagination,
+  PlaylistListItem,
   PodcastListItem, ProfilePageHeader, scrollToTopOfPageScrollableContent } from '~/components'
 import { Page } from '~/lib/utility/page'
 import { PV } from '~/resources'
@@ -13,21 +14,23 @@ import { getServerSideAuthenticatedUserInfo } from '~/services/auth'
 import { getServerSideUserQueueItems } from '~/services/userQueueItem'
 import { getPublicUser, updateLoggedInUser } from '~/services/user'
 import { getPodcastsByQuery } from '~/services/podcast'
-import { isNotClipsSortOption, isNotPodcastsAllSortOption, isNotPodcastsSubscribedSortOption } from '~/resources/Filters'
+import { isNotClipsSortOption, isNotPodcastsSubscribedSortOption } from '~/resources/Filters'
+import { getUserMediaRefs } from '~/services/mediaRef'
+import { getUserPlaylists } from '~/services/playlist'
 
 interface ServerProps extends Page {
   serverFilterType: string
   serverFilterPage: number
   serverFilterSort: string
   serverUser: User
-  serverUserPodcasts: Podcast[]
-  serverUserPodcastsCount: number
+  serverUserListData: (Podcast | MediaRef | Playlist)[]
+  serverUserListDataCount: number
 }
 
 const keyPrefix = 'pages_profile'
 
 export default function Profile({ serverFilterType, serverFilterPage, serverFilterSort,
-  serverUser, serverUserPodcasts, serverUserPodcastsCount }: ServerProps) {
+  serverUser, serverUserListData, serverUserListDataCount }: ServerProps) {
   const { t } = useTranslation()
 
   const [filterType, setFilterType] = useState<string>(serverFilterType)
@@ -35,30 +38,22 @@ export default function Profile({ serverFilterType, serverFilterPage, serverFilt
   const [filterPage, setFilterPage] = useState<number>(serverFilterPage)
 
   const [user, setUser] = useState<User>(serverUser)
-  const [userPodcasts, setUserPodcasts] = useState<Podcast[]>(serverUserPodcasts)
-  const [userPodcastsCount, setUserPodcastsCount] = useState<number>(serverUserPodcastsCount)
-  const [userPlaylists, setUserPlaylists] = useState<Playlist[]>([])
-  const [userPlaylistsCount, setUserPlaylistsCount] = useState<number>(0)
-  const [userMediaRefs, setUserMediaRefs] = useState<MediaRef[]>([])
-  const [userMediaRefsCount, setUserMediaRefsCount] = useState<number>(0)
+  const [listData, setListData] = useState<(Podcast | MediaRef | Playlist)[]>(serverUserListData)
+  const [listDataCount, setListDataCount] = useState<number>(serverUserListDataCount)
   
   const [isEditing, setIsEditing] = useState<boolean>(false)
   const [editingUserName, setEditingUserName] = useState<string>(serverUser.name)
   const [editingUserIsPublic, setEditingUserIsPublic] = useState<boolean>(serverUser.isPublic)
   
-  const pageTitle = user.name || t('Anonymous')
-
   const initialRender = useRef(true)
-
-  const totalCount = filterType === PV.Filters.type._podcasts
-    ? userPodcastsCount
-    : filterType === PV.Filters.type._clips
-      ? userMediaRefsCount
-      : filterType === PV.Filters.type._playlists
-        ? userPlaylistsCount
-        : 0
-
-  const pageCount = Math.ceil(totalCount / PV.Config.QUERY_RESULTS_LIMIT_DEFAULT)
+  const pageTitle = user.name || t('Anonymous')
+  const pageSubTitle = 
+    filterType === PV.Filters.type._clips
+      ? t('Clips')
+      : filterType === PV.Filters.type._podcasts
+        ? t('Podcasts')
+        : t('Playlists')
+  const pageCount = Math.ceil(listDataCount / PV.Config.QUERY_RESULTS_LIMIT_DEFAULT)
 
   /* useEffects */
 
@@ -68,10 +63,20 @@ export default function Profile({ serverFilterType, serverFilterPage, serverFilt
         initialRender.current = false;
       } else {
         OmniAural.pageIsLoadingShow()
-        const { data } = await clientQueryUserPodcasts()
-        const [newUserPodcasts, newUserPodcastsCount] = data
-        setUserPodcasts(newUserPodcasts)
-        setUserPodcastsCount(newUserPodcastsCount)
+        if (filterType === PV.Filters.type._podcasts) {
+          const { data } = await clientQueryUserPodcasts()
+          const [newUserPodcasts, newUserPodcastsCount] = data
+          setListData(newUserPodcasts)
+          setListDataCount(newUserPodcastsCount)
+        } else if (filterType === PV.Filters.type._clips) {
+          const [newListData, newListDataCount] = await clientQueryUserClips()
+          setListData(newListData)
+          setListDataCount(newListDataCount)
+        } else {
+          const [newListData, newListDataCount] = await clientQueryUserPlaylists()
+          setListData(newListData)
+          setListDataCount(newListDataCount)
+        }
         scrollToTopOfPageScrollableContent()
         OmniAural.pageIsLoadingHide()
       }
@@ -94,22 +99,19 @@ export default function Profile({ serverFilterType, serverFilterPage, serverFilt
     }
   }
 
-  /* Function Helpers */
+  const clientQueryUserClips = async () => {
+    const finalQuery = {
+      ...(filterPage ? { page: filterPage } : {}),
+      ...(filterSort ? { sort: filterSort } : {})
+    }
+    return getUserMediaRefs(user.id, finalQuery)
+  }
 
-  /* Commenting out since all playlists are by default Only With Link right now */
-  // const _handleChangeIsPublic = async (selectedItems: any[]) => {
-  //   const selectedItem = selectedItems[0]
-  //   const isPublic = selectedItem.key === PV.Playlists.privacyKeys.public
-  //   const playlistData = {
-  //     id: playlist.id,
-  //     title: editingPlaylistTitle || '',
-  //     isPublic
-  //   }
-  //   OmniAural.pageIsLoadingShow()
-  //   const newPlaylist = await updatePlaylist(playlistData)
-  //   setPlaylist(newPlaylist)
-  //   OmniAural.pageIsLoadingHide()
-  // }
+  const clientQueryUserPlaylists = async () => {
+    return getUserPlaylists(user.id, filterPage)
+  }
+
+  /* Function Helpers */
 
   const _handleEditCancel = () => {
     setIsEditing(false)
@@ -131,6 +133,20 @@ export default function Profile({ serverFilterType, serverFilterPage, serverFilt
 
   const _handleEditStart = () => {
     setIsEditing(true)
+  }
+
+  const _handleChangeIsPublic = async (selectedItems: any[]) => {
+    const selectedItem = selectedItems[0]
+    const isPublic = selectedItem.key === PV.Users.privacyKeys.public
+    const userData = {
+      id: user.id,
+      name: editingUserName || '',
+      isPublic
+    }
+    OmniAural.pageIsLoadingShow()
+    const newUser = await updateLoggedInUser(userData)
+    setUser(newUser)
+    OmniAural.pageIsLoadingHide()
   }
 
   const _handlePrimaryOnChange = (selectedItems: any[]) => {
@@ -160,13 +176,30 @@ export default function Profile({ serverFilterType, serverFilterPage, serverFilt
 
   /* Render Helpers */
 
-  const generatePodcastItemElements = (podcasts: Podcast[]) => {
-    return podcasts.map((podcast, index) => {
-      return (
-        <PodcastListItem
-          key={`${keyPrefix}-${index}`}
-          podcast={podcast} />
-      )
+  const generateListElements = () => {
+    return listData.map((listItem: Podcast | MediaRef | Playlist, index: number) => {
+      if (listItem.podcastIndexId) {
+        return (
+          <PodcastListItem
+            key={`${keyPrefix}-${index}`}
+            podcast={listItem} />
+        )
+      } else if (listItem.startTime) {
+        return (
+          <ClipListItem
+            episode={listItem.episode}
+            key={`${keyPrefix}-${index}`}
+            mediaRef={listItem}
+            podcast={listItem.episode.podcast}
+            showImage />
+        )
+      } else {
+        return (
+          <PlaylistListItem
+            key={`${keyPrefix}-${index}`}
+            playlist={listItem} />
+        )
+      }
     })
   }
 
@@ -178,7 +211,7 @@ export default function Profile({ serverFilterType, serverFilterPage, serverFilt
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <ProfilePageHeader
-        // handleChangeIsPublic={_handleChangeIsPublic}
+        handleChangeIsPublic={_handleChangeIsPublic}
         handleEditCancel={_handleEditCancel}
         handleEditSave={_handleEditSave}
         handleEditStart={_handleEditStart}
@@ -203,10 +236,8 @@ export default function Profile({ serverFilterType, serverFilterPage, serverFilt
                       : null
                 }
                 sortSelected={filterSort}
-                text={t('Podcasts')} />
-              <List>
-                {generatePodcastItemElements(userPodcasts)}
-              </List>
+                text={pageSubTitle} />
+              <List>{generateListElements()}</List>
               <Pagination
                 currentPageIndex={filterPage}
                 handlePageNavigate={(newPage) => setFilterPage(newPage)}
@@ -236,8 +267,8 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const serverFilterPage = 1
 
   let serverUser = userInfo
-  let serverUserPodcasts = []
-  let serverUserPodcastsCount = 0
+  let serverUserListData = []
+  let serverUserListDataCount = 0
   if (!userInfo || userInfo.id !== profileId) {
     serverUser = await getPublicUser(profileId as string)
   }
@@ -250,8 +281,8 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       sort: serverFilterSort
     })
     const [podcasts, podcastsCount] = response.data
-    serverUserPodcasts = podcasts
-    serverUserPodcastsCount = podcastsCount
+    serverUserListData = podcasts
+    serverUserListDataCount = podcastsCount
   }
 
   const serverProps: ServerProps = {
@@ -263,8 +294,8 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     serverFilterPage,
     serverFilterSort,
     serverUser,
-    serverUserPodcasts,
-    serverUserPodcastsCount
+    serverUserListData,
+    serverUserListDataCount
   }
 
   return {

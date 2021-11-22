@@ -40,3 +40,12 @@ export const getMediaRefsByQuery = async ({ categories, episodeId, includeEpisod
     query: filteredQuery
   })
 }
+
+export const getUserMediaRefs = async (userId: string, query: any = {}) => {
+  const response = await request({
+    endpoint: `/user/${userId}/mediaRefs`,
+    query
+  })
+
+  return response && response.data
+}
