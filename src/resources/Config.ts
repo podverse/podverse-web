@@ -1,16 +1,10 @@
-/*
-  TODO: env vars are being hardcoded because of an issue where env vars
-  are not getting passed to the client-side in Docker containers :(
-  
-  Any help implementing a good solution for this so we don't have to
-  hardcode values and can use a .env instead would be greatly appreciated.
+import getConfig from 'next/config'
+const { publicRuntimeConfig, serverRuntimeConfig } = getConfig()
 
-  More info: https://github.com/vercel/next.js/discussions/17641
-*/
-const API_PROTOCOL = 'http'
-const API_DOMAIN = 'localhost:1234'
-const API_PATH = 'api'
-const API_VERSION = 'v1'
+const API_PROTOCOL = serverRuntimeConfig.API_PROTOCOL || publicRuntimeConfig.API_PROTOCOL
+const API_DOMAIN = serverRuntimeConfig.API_DOMAIN || publicRuntimeConfig.API_DOMAIN
+const API_PATH = serverRuntimeConfig.API_PATH || publicRuntimeConfig.API_PATH
+const API_VERSION = serverRuntimeConfig.API_VERSION || publicRuntimeConfig.API_VERSION
 const API_BASE_URL = `${API_PROTOCOL}://${API_DOMAIN}/${API_PATH}/${API_VERSION}`
 
 export const Config = {
