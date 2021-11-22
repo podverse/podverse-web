@@ -144,4 +144,57 @@ body {
       color: getThemeVal('textParagraph');
     }
   }
+
+  label {
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+
+    @include themeGen() {
+      color: getThemeVal('textParagraph');
+    }
+  }
+
+  li, ol {
+    @include themeGen() {
+      color: getThemeVal('textParagraph');
+    }
+  }
+
+  .text-page {
+    h3 {
+      font-size: $text-xl;
+      font-weight: $font-weight-bold;
+      margin: 0 0 16px 0;
+    }
+
+    p {
+      font-size: $text-md;
+      line-height: 24px;
+      margin: 0 0 16px 0;  
+
+      &.bigger {
+        font-size: $text-lg;
+        line-height: 27px;
+      }
+    }
+
+    label {
+      font-size: $text-md;
+      line-height: 24px;
+    }
+
+    li {
+      font-size: $text-md;
+      line-height: 24px;
+    }
+    
+    hr {
+      margin-bottom: 24px;
+    }
+    
+    ul {
+      list-style: inside;
+      margin-bottom: 1rem;
+    }
+  }
 }
