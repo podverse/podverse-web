@@ -62,30 +62,34 @@ export const ProfilePageHeader = ({ handleChangeIsPublic, handleEditCancel,
           }
         </div>
         <div className='buttons'>
-          <div className='top-row'>
-            {
-              isLoggedInUserProfile && !isEditing && (
-                <ButtonRectangle
-                  label={t('Edit')}
-                  onClick={handleEditStart}
-                  type='tertiary' />
-              )
-            }
-            {
-              !isLoggedInUserProfile && (
-                <ButtonRectangle
-                  label={subscribedText}
-                  onClick={() => {
-                    if (userInfo) {
-                      toggleSubscribeToUser(user.id)
-                    } else {
-                      OmniAural.modalsLoginToAlertShow('subscribe to profile')
-                    }
-                  }}
-                  type='tertiary' />
-              )
-            }
-          </div>
+          {
+            !isEditing && (
+              <div className='top-row'>
+                {
+                  isLoggedInUserProfile && !isEditing && (
+                    <ButtonRectangle
+                      label={t('Edit')}
+                      onClick={handleEditStart}
+                      type='tertiary' />
+                  )
+                }
+                {
+                  !isLoggedInUserProfile && (
+                    <ButtonRectangle
+                      label={subscribedText}
+                      onClick={() => {
+                        if (userInfo) {
+                          toggleSubscribeToUser(user.id)
+                        } else {
+                          OmniAural.modalsLoginToAlertShow('subscribe to profile')
+                        }
+                      }}
+                      type='tertiary' />
+                  )
+                }
+              </div>
+            )
+          }
           {
             isLoggedInUserProfile && isEditing && (
               <div className='bottom-row'>
