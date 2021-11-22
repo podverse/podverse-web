@@ -103,26 +103,6 @@ export default function Episodes(props: ServerProps) {
 
   /* Render Helpers */
 
-  const generateFromOptions = (t: any) => [
-    { label: t('All'), key: PV.Filters.from._all },
-    { label: t('Subscribed'), key: PV.Filters.from._subscribed },
-    // { label: t('Categories'), key: PV.Filters.from._category }
-  ]
-
-  const generateSortOptions = (t: any) => {
-
-    return [
-      ...(filterFrom === PV.Filters.from._subscribed
-        ? [{ label: t('Recent'), key: PV.Filters.sort._mostRecent }]
-        : []),
-      { label: t('Top - Past Day'), key: PV.Filters.sort._topPastDay },
-      { label: t('Top - Past Week'), key: PV.Filters.sort._topPastWeek },
-      { label: t('Top - Past Month'), key: PV.Filters.sort._topPastMonth },
-      { label: t('Top - Past Year'), key: PV.Filters.sort._topPastYear },
-      { label: t('Top - All Time'), key: PV.Filters.sort._topAllTime }
-    ]
-  }
-
   const generateEpisodeListElements = (listItems: Episode[]) => {
     return listItems.map((listItem, index) =>
       <EpisodeListItem
@@ -152,14 +132,18 @@ export default function Episodes(props: ServerProps) {
           }
           setFilterFrom(selectedItem.key)
         }}
-        primaryOptions={generateFromOptions(t)}
+        primaryOptions={PV.Filters.dropdownOptions.episodes.from}
         primarySelected={filterFrom}
         sortOnChange={(selectedItems: any[]) => {
           const selectedItem = selectedItems[0]
           if (selectedItem.key !== filterSort) setFilterPage(1)
           setFilterSort(selectedItem.key)
         }}
-        sortOptions={generateSortOptions(t)}
+        sortOptions={
+          filterFrom === PV.Filters.from._subscribed
+            ? PV.Filters.dropdownOptions.episodes.sort.subscribed
+            : PV.Filters.dropdownOptions.episodes.sort.all
+        }
         sortSelected={filterSort}
         text={pageTitle} />
       <PageScrollableContent>
@@ -169,14 +153,8 @@ export default function Episodes(props: ServerProps) {
         <Pagination
           currentPageIndex={filterPage}
           handlePageNavigate={(newPage) => setFilterPage(newPage)}
-          handlePageNext={() => {
-            const newPage = filterPage + 1
-            if (newPage <= pageCount) setFilterPage(newPage)
-          }}
-          handlePagePrevious={() => {
-            const newPage = filterPage - 1
-            if (newPage > 0) setFilterPage(newPage)
-          }}
+          handlePageNext={() => { if (filterPage + 1 <= pageCount) setFilterPage(filterPage + 1) }}
+          handlePagePrevious={() => { if (filterPage - 1 > 0) setFilterPage(filterPage - 1) }}
           pageCount={pageCount} />
       </PageScrollableContent>
     </>

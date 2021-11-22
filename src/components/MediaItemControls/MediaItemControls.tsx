@@ -98,14 +98,14 @@ export const MediaItemControls = ({ buttonSize, episode, hidePubDate,
   )
 }
 
-const generateDropdownItems = (t: any) => {
+const generateDropdownItems = () => {
   const items = [
-    { label: t('Play'), key: _playKey },
-    { label: t('Queue Next'), key: _queueNextKey },
-    { label: t('Queue Last'), key: _queueLastKey },
-    { label: t('Add to Playlist'), key: _addToPlaylistKey },
-    { label: t('Share'), key: _shareKey },
-    { label: t('Mark as Played'), key: _markAsPlayedKey }
+    { label: 'Play', key: _playKey },
+    { label: 'Queue Next', key: _queueNextKey },
+    { label: 'Queue Last', key: _queueLastKey },
+    { label: 'Add to Playlist', key: _addToPlaylistKey },
+    { label: 'Share', key: _shareKey },
+    { label: 'Mark as Played', key: _markAsPlayedKey }
   ]
 
   return items

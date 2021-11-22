@@ -100,7 +100,7 @@ export default function Episode(props: ServerProps) {
                   const selectedItem = selectedItems[0]
                   setFilterState({ clipsFilterPage: 1, clipsFilterSort: selectedItem.key })
                 }}
-                sortOptions={generateSortOptions(t)}
+                sortOptions={PV.Filters.dropdownOptions.clip.sort}
                 sortSelected={clipsFilterSort}
                 text={t('Clips')} />
               <List>
@@ -154,18 +154,6 @@ const clientQueryClips = async (
 }
 
 /* Render Helpers */
-
-const generateSortOptions = (t: any) => [
-  { label: t('Chronological'), key: PV.Filters.sort._chronological },
-  { label: t('Recent'), key: PV.Filters.sort._mostRecent },
-  { label: t('Top - Past Day'), key: PV.Filters.sort._topPastDay },
-  { label: t('Top - Past Week'), key: PV.Filters.sort._topPastWeek },
-  { label: t('Top - Past Month'), key: PV.Filters.sort._topPastMonth },
-  { label: t('Top - Past Year'), key: PV.Filters.sort._topPastYear },
-  { label: t('Top - All Time'), key: PV.Filters.sort._topAllTime },
-  { label: t('Oldest'), key: PV.Filters.sort._oldest },
-  { label: t('Random'), key: PV.Filters.sort._random }
-]
 
 const generateClipListElements = (listItems: MediaRef[], episode: Episode) => {
   return listItems.map((listItem, index) => {

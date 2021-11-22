@@ -1,0 +1,56 @@
+.profile-page-header {
+  align-items: center;
+  display: flex;
+  // margin-bottom: 30px;
+  min-height: 120px;
+  padding: 16px 0;
+
+  @include themeGen() {
+    background-image: linear-gradient(
+      to right,
+      getThemeVal('headerGradientLight') -3%,
+      getThemeVal('headerGradientDark')
+    );
+  }
+
+  .main-max-width {
+    align-items: center;
+    align-self: stretch;
+    display: flex;
+    flex: 1;
+
+    .text-wrapper {
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+      justify-content: center;
+      padding-right: 16px;
+
+      .text-input {
+        max-width: 500px;
+      }
+    }
+
+    .buttons {
+      align-items: flex-end;
+      align-self: stretch;
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+      justify-content: space-around;
+      margin-left: auto;
+
+      .top-row {
+        display: flex;
+      }
+
+      .bottom-row {
+        display: flex;
+      }
+
+      button {
+        margin-left: 8px;
+      }
+    }
+  }
+}
