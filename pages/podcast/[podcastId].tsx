@@ -117,13 +117,13 @@ export default function Podcast(props: ServerProps) {
                   const selectedItem = selectedItems[0]
                   setFilterState({ filterPage: 1, filterSort, filterType: selectedItem.key })
                 }}
-                primaryOptions={generateTypeOptions(t)}
+                primaryOptions={PV.Filters.dropdownOptions.podcast.from}
                 primarySelected={filterType}
                 sortOnChange={(selectedItems: any[]) => {
                   const selectedItem = selectedItems[0]
                   setFilterState({ filterPage: 1, filterSort: selectedItem.key, filterType })
                 }}
-                sortOptions={generateSortOptions(t)}
+                sortOptions={PV.Filters.dropdownOptions.podcast.sort}
                 sortSelected={filterSort}
                 text={pageSubHeader} />
               <List>
@@ -217,21 +217,6 @@ const clientQueryClips = async (
 
 /* Render Helpers */
 
-const generateTypeOptions = (t: any) => [
-  { label: t('Episodes'), key: PV.Filters.type._episodes },
-  { label: t('Clips'), key: PV.Filters.type._clips }
-]
-
-const generateSortOptions = (t: any) => [
-  { label: t('Recent'), key: PV.Filters.sort._mostRecent },
-  { label: t('Top - Past Day'), key: PV.Filters.sort._topPastDay },
-  { label: t('Top - Past Week'), key: PV.Filters.sort._topPastWeek },
-  { label: t('Top - Past Month'), key: PV.Filters.sort._topPastMonth },
-  { label: t('Top - Past Year'), key: PV.Filters.sort._topPastYear },
-  { label: t('Top - All Time'), key: PV.Filters.sort._topAllTime },
-  { label: t('Oldest'), key: PV.Filters.sort._oldest },
-  { label: t('Random'), key: PV.Filters.sort._random }
-]
 
 const generateEpisodeListElements = (listItems: Episode[], podcast: Podcast) => {
   return listItems.map((listItem, index) =>

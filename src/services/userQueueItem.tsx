@@ -24,7 +24,7 @@ export const getQueueItemsFromServer = async (bearerToken?: string) => {
       ...(getAuthCredentialsHeaders(bearerToken))
     })
   } catch (error) {
-    console.log('getQueueItemsFromServer', error)
+    // console.log('getQueueItemsFromServer', error)
   }
 
   return response?.data?.userQueueItems || []

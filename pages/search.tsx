@@ -116,14 +116,8 @@ export default function Search(props: ServerProps) {
         <Pagination
           currentPageIndex={filterPage}
           handlePageNavigate={(newPage) => setFilterPage(newPage)}
-          handlePageNext={() => {
-            const newPage = filterPage + 1
-            if (newPage <= pageCount) setFilterPage(newPage)
-          }}
-          handlePagePrevious={() => {
-            const newPage = filterPage - 1
-            if (newPage > 0) setFilterPage(newPage)
-          }}
+          handlePageNext={() => { if (filterPage + 1 <= pageCount) setFilterPage(filterPage + 1)}}
+          handlePagePrevious={() => { if (filterPage - 1 > 0) setFilterPage(filterPage - 1) }}
           pageCount={pageCount} />
       </PageScrollableContent>
     </>

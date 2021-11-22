@@ -73,7 +73,7 @@ export const PlaylistPageHeader = ({ handleChangeIsPublic, handleEditCancel,
                 onChange={handlePlaylistTitleOnChange}
                 onSubmit={handleEditSave}
                 placeholder={t('Playlist Title')}
-                type='email' />
+                type='text' />
             ) : (
               <h1>{title}</h1>
             )

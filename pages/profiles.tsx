@@ -8,7 +8,7 @@ import { List, PageHeader, PageScrollableContent, Pagination, PlaylistListItem, 
 import { Page } from '~/lib/utility/page'
 import { PV } from '~/resources'
 import { getServerSideAuthenticatedUserInfo } from '~/services/auth'
-import { getPublicUsersByQuery } from '~/services/profile'
+import { getPublicUsersByQuery } from '~/services/user'
 import { getServerSideUserQueueItems } from '~/services/userQueueItem'
 import { ProfileListItem } from '~/components/ProfileListItem/ProfileListItem'
 import { useEffect, useRef, useState } from 'react'
@@ -90,14 +90,8 @@ export default function Profiles({ serverFilterPage, serverUsers,
         <Pagination
           currentPageIndex={filterPage}
           handlePageNavigate={(newPage) => setFilterPage(newPage)}
-          handlePageNext={() => {
-            const newPage = filterPage + 1
-            if (newPage <= pageCount) setFilterPage(newPage)
-          }}
-          handlePagePrevious={() => {
-            const newPage = filterPage - 1
-            if (newPage > 0) setFilterPage(newPage)
-          }}
+          handlePageNext={() => { if (filterPage + 1 <= pageCount) setFilterPage(filterPage + 1) }}
+          handlePagePrevious={() => { if (filterPage - 1 > 0) setFilterPage(filterPage - 1) }}
           pageCount={pageCount} />
       </PageScrollableContent>
     </>

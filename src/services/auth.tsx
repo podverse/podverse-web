@@ -31,7 +31,7 @@ export const getAuthenticatedUserInfo = async (bearerToken?: string) => {
 
     return userInfo
   } catch (error) {
-    console.log('getAuthenticatedUserInfo error', error.message)
+    // console.log('getAuthenticatedUserInfo error', error.message)
   }
 }
 

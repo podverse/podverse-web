@@ -72,15 +72,15 @@ export const HorizontalNavBar = ({ serverCookies }: Props) => {
   const generateDropdownItems = () => {
     const isLoggedIn = !!OmniAural.state.session.userInfo.value()
     const items = [
-      { label: t('Membership'), key: _membershipKey },
-      { label: t('Settings'), key: _settingsKey },
+      { label: 'Membership', key: _membershipKey },
+      { label: 'Settings', key: _settingsKey },
     ]
 
     if (isLoggedIn) {
-      items.unshift({ label: t('MyProfile'), key: _myProfileKey })
-      items.push({ label: t('Logout'), key: _logOutKey })
+      items.unshift({ label: 'MyProfile', key: _myProfileKey })
+      items.push({ label: 'Logout', key: _logOutKey })
     } else {
-      items.push({ label: t('Login'), key: _logInKey })
+      items.push({ label: 'Login', key: _logInKey })
     }
 
     return items

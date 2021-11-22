@@ -3,6 +3,7 @@ import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import classnames from 'classnames'
 import Select from 'react-dropdown-select'
+import { useTranslation } from 'react-i18next'
 
 type Props = {
   dropdownWidthClass?: 'width-small' | 'width-medium' | 'width-large'
@@ -16,6 +17,7 @@ type Props = {
 }
 
 const contentRenderer = (props: Props) => {
+  const { t } = useTranslation()
   const { faIcon, hideCaret, options, selectedKey, text } = props
   const selectedOption = options?.find(option => option.key === selectedKey)
   const finalText = text || selectedOption?.label
@@ -32,7 +34,7 @@ const contentRenderer = (props: Props) => {
       {
         !!finalText && (
           <div className='dropdown__text'>
-            {finalText}
+            {t(`${finalText}`)}
           </div>
         )
       }

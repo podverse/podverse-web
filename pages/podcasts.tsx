@@ -13,6 +13,7 @@ import { PV } from '~/resources'
 import { getServerSideAuthenticatedUserInfo } from '~/services/auth'
 import { getPodcastsByQuery } from '~/services/podcast'
 import { getServerSideUserQueueItems } from '~/services/userQueueItem'
+import { isNotPodcastsAllSortOption } from '~/resources/Filters'
 
 interface ServerProps extends Page {
   serverFilterFrom: string
@@ -43,9 +44,7 @@ export default function Podcasts({ serverFilterFrom, serverFilterPage,
   const [userInfo] = useOmniAural('session.userInfo')
 
   const initialRender = useRef(true)
-
   const pageCount = Math.ceil(podcastsListDataCount / PV.Config.QUERY_RESULTS_LIMIT_DEFAULT)
-
   const pageTitle = router.pathname == PV.RoutePaths.web.podcasts ? t('Podcasts') : t('Podverse')
 
   /* useEffects */
@@ -73,8 +72,6 @@ export default function Podcasts({ serverFilterFrom, serverFilterPage,
       return clientQueryPodcastsAll()
     } else if (filterFrom === PV.Filters.from._subscribed) {
       return clientQueryPodcastsBySubscribed()
-    } else if (filterFrom === PV.Filters.from._category) {
-      //
     }
   }
 
@@ -96,37 +93,29 @@ export default function Podcasts({ serverFilterFrom, serverFilterPage,
     return getPodcastsByQuery(finalQuery)
   }
 
-  // const clientQueryPodcastsByCategory = async () => {
+  /* Function Helpers */
 
-  // }
+  const _handlePrimaryOnChange = (selectedItems: any[]) => {
+    const selectedItem = selectedItems[0]
+    if (selectedItem.key !== filterFrom) setFilterPage(1)
+
+    if (
+      selectedItem.key !== PV.Filters.from._subscribed
+      && isNotPodcastsAllSortOption(filterSort)
+    ) {
+      setFilterSort(PV.Filters.sort._topPastDay)
+    }
+
+    setFilterFrom(selectedItem.key)
+  }
+
+  const _handleSortOnChange = (selectedItems: any[]) => {
+    const selectedItem = selectedItems[0]
+    if (selectedItem.key !== filterSort) setFilterPage(1)
+    setFilterSort(selectedItem.key)
+  }
 
   /* Render Helpers */
-
-  const generateFromOptions = (t: any) => [
-    { label: t('All'), key: PV.Filters.from._all },
-    { label: t('Subscribed'), key: PV.Filters.from._subscribed },
-    // { label: t('Categories'), key: PV.Filters.from._category }
-  ]
-
-  const generateSortOptions = (t: any) => {
-
-    return [
-      ...(filterFrom === PV.Filters.from._subscribed
-        ? [{ label: t('Alphabetical'), key: PV.Filters.sort._alphabetical }]
-        : []),
-      ...(filterFrom === PV.Filters.from._subscribed
-        ? [{ label: t('Recent'), key: PV.Filters.sort._mostRecent }]
-        : []),
-      { label: t('Top - Past Day'), key: PV.Filters.sort._topPastDay },
-      { label: t('Top - Past Week'), key: PV.Filters.sort._topPastWeek },
-      { label: t('Top - Past Month'), key: PV.Filters.sort._topPastMonth },
-      { label: t('Top - Past Year'), key: PV.Filters.sort._topPastYear },
-      { label: t('Top - All Time'), key: PV.Filters.sort._topAllTime },
-      ...(filterFrom === PV.Filters.from._subscribed
-        ? [{ label: t('Oldest'), key: PV.Filters.sort._oldest }]
-        : []),
-    ]
-  }
   
   const generatePodcastListElements = (listItems: Podcast[]) => {
     return listItems.map((listItem, index) =>
@@ -144,21 +133,17 @@ export default function Podcasts({ serverFilterFrom, serverFilterPage,
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <PageHeader
-        primaryOnChange={(selectedItems: any[]) => {
-          const selectedItem = selectedItems[0]
-          if (selectedItem.key !== filterFrom) setFilterPage(1)
-          setFilterFrom(selectedItem.key)
-        }}
-        primaryOptions={generateFromOptions(t)}
+        primaryOnChange={_handlePrimaryOnChange}
+        primaryOptions={PV.Filters.dropdownOptions.podcasts.from}
         primarySelected={filterFrom}
-        sortOnChange={(selectedItems: any[]) => {
-          const selectedItem = selectedItems[0]
-          if (selectedItem.key !== filterSort) setFilterPage(1)
-          setFilterSort(selectedItem.key)
-        }}
-        sortOptions={generateSortOptions(t)}
+        sortOnChange={_handleSortOnChange}
+        sortOptions={
+          filterFrom === PV.Filters.from._subscribed
+            ? PV.Filters.dropdownOptions.podcasts.sort.subscribed
+            : PV.Filters.dropdownOptions.podcasts.sort.all
+        }
         sortSelected={filterSort}
-        text={t('Podcasts')} />
+        text={pageTitle} />
       <PageScrollableContent>
         <List>
           {generatePodcastListElements(podcastsListData)}
@@ -166,14 +151,8 @@ export default function Podcasts({ serverFilterFrom, serverFilterPage,
         <Pagination
           currentPageIndex={filterPage}
           handlePageNavigate={(newPage) => setFilterPage(newPage)}
-          handlePageNext={() => {
-            const newPage = filterPage + 1
-            if (newPage <= pageCount) setFilterPage(newPage)
-          }}
-          handlePagePrevious={() => {
-            const newPage = filterPage - 1
-            if (newPage > 0) setFilterPage(newPage)
-          }}
+          handlePageNext={() => { if (filterPage + 1 <= pageCount) setFilterPage(filterPage + 1) }}
+          handlePagePrevious={() => { if (filterPage - 1 > 0) setFilterPage(filterPage - 1) }}
           pageCount={pageCount} />
       </PageScrollableContent>
     </>
@@ -210,12 +189,12 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     serverUserInfo: userInfo,
     serverUserQueueItems: userQueueItems,
     ...(await serverSideTranslations(locale, PV.i18n.fileNames.all)),
+    serverCookies: cookies,
     serverFilterFrom,
     serverFilterPage,
     serverFilterSort,
     serverPodcastsListData: podcastsListData,
-    serverPodcastsListDataCount: podcastsListDataCount,
-    serverCookies: cookies
+    serverPodcastsListDataCount: podcastsListDataCount
   }
 
   return { props: serverProps }

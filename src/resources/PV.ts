@@ -6,6 +6,7 @@ import { Images } from './Images'
 import { Playlists } from './Playlists'
 import { RoutePaths } from './RoutePaths'
 import { TextInput } from './TextInput'
+import { Users } from './Users'
 
 export const PV = {
   Config,
@@ -15,5 +16,6 @@ export const PV = {
   Images,
   Playlists,
   RoutePaths,
-  TextInput
+  TextInput,
+  Users
 }
