@@ -6,6 +6,7 @@ import { convertToNowPlayingItem } from 'podverse-shared'
 import { useTranslation } from 'react-i18next'
 import { readableDate } from "~/lib/utility/date"
 import { convertSecToHhoursMMinutes, readableClipTime } from "~/lib/utility/time"
+import { addQueueItemLastOnServer, addQueueItemNextOnServer } from "~/services/userQueueItem"
 import { ButtonCircle, Dropdown } from ".."
 
 type Props = {
@@ -21,7 +22,6 @@ const _playKey = '_play'
 const _queueNextKey = '_queueNext'
 const _queueLastKey = '_queueLast'
 const _addToPlaylistKey = '_addToPlaylist'
-const _shareKey = '_share'
 const _markAsPlayedKey = '_markAsPlayedKey'
 
 export const MediaItemControls = ({ buttonSize, episode, hidePubDate,
@@ -48,21 +48,21 @@ export const MediaItemControls = ({ buttonSize, episode, hidePubDate,
     stretchMiddleContent ? 'flex-stretch' : ''
   )
   
-  const onChange = (selected) => {
+  const onChange = async (selected) => {
     const item = selected[0]
+    const nowPlayingItem = mediaRef ? convertToNowPlayingItem(mediaRef)
+      : convertToNowPlayingItem(episode)
     if (item) {
       if (item.key === _playKey) {
         console.log('play')
       } else if (item.key === _queueNextKey) {
-        console.log('queue next')
+        const newUserQueueItems = await addQueueItemNextOnServer(nowPlayingItem)
+        OmniAural.setUserQueueItems(newUserQueueItems)
       } else if (item.key === _queueLastKey) {
-        console.log('queue last')
+        const newUserQueueItems = await addQueueItemLastOnServer(nowPlayingItem)
+        OmniAural.setUserQueueItems(newUserQueueItems)
       } else if (item.key === _addToPlaylistKey) {
-        const nowPlayingItem = mediaRef ? convertToNowPlayingItem(mediaRef)
-          : convertToNowPlayingItem(episode)
         OmniAural.modalsAddToPlaylistShow(nowPlayingItem)
-      } else if (item.key === _shareKey) {
-        console.log('share')
       } else if (item.key === _markAsPlayedKey) {
         console.log('mark as played')
       }
