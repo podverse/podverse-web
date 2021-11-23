@@ -16,8 +16,7 @@ type Props = {
   text?: string
 }
 
-const contentRenderer = (props: Props) => {
-  const { t } = useTranslation()
+const contentRenderer = (props: Props, t: any) => {
   const { faIcon, hideCaret, options, selectedKey, text } = props
   const selectedOption = options?.find(option => option.key === selectedKey)
   const finalText = text || selectedOption?.label
@@ -56,6 +55,7 @@ const dropdownHandleRenderer = (hideCaret?: boolean) => {
 
 export const Dropdown = (props: Props) => {
   const { dropdownWidthClass = 'width-small', onChange, options, outlineStyle } = props
+  const { t } = useTranslation()
   const wrapperClass = classnames(
     outlineStyle ? 'outline-style' : '',
     dropdownWidthClass ? dropdownWidthClass : ''
@@ -64,7 +64,7 @@ export const Dropdown = (props: Props) => {
   return (
     <Select
       className={wrapperClass}
-      contentRenderer={() => contentRenderer(props)}
+      contentRenderer={() => contentRenderer(props, t)}
       dropdownHandleRenderer={() => dropdownHandleRenderer(props.hideCaret)}
       labelField='label'
       onChange={onChange}

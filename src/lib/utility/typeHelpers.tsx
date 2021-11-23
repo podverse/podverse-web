@@ -1,4 +1,4 @@
-import { Episode, MediaRef, NowPlayingItem } from 'podverse-shared'
+import type { Episode, MediaRef, NowPlayingItem } from 'podverse-shared'
 
 export function isEpisode (
   episodeOrMediaRef: Episode | MediaRef

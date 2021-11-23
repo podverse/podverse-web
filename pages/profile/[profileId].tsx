@@ -176,7 +176,9 @@ export default function Profile({ serverFilterType, serverFilterPage, serverFilt
   /* Render Helpers */
 
   const generateListElements = () => {
-    return listData.map((listItem: Podcast | MediaRef | Playlist, index: number) => {
+    /* *TODO* update the listItem type to Podcast | MediaRef | Playlist
+        and make sure it still builds. */
+    return listData.map((listItem: any, index: number) => {
       if (listItem.podcastIndexId) {
         return (
           <PodcastListItem
