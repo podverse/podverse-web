@@ -6,7 +6,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import OmniAural, { useOmniAural } from 'omniaural'
 import type { Podcast } from 'podverse-shared'
 import { useEffect, useRef, useState } from 'react'
-import { List, PageHeader, PageScrollableContent, Pagination, PodcastListItem,
+import { List, MessageWithAction, PageHeader, PageScrollableContent, Pagination, PodcastListItem,
   scrollToTopOfPageScrollableContent } from '~/components'
 import { Page } from '~/lib/utility/page'
 import { PV } from '~/resources'
@@ -145,15 +145,29 @@ export default function Podcasts({ serverFilterFrom, serverFilterPage,
         sortSelected={filterSort}
         text={pageTitle} />
       <PageScrollableContent>
-        <List>
-          {generatePodcastListElements(podcastsListData)}
-        </List>
-        <Pagination
-          currentPageIndex={filterPage}
-          handlePageNavigate={(newPage) => setFilterPage(newPage)}
-          handlePageNext={() => { if (filterPage + 1 <= pageCount) setFilterPage(filterPage + 1) }}
-          handlePagePrevious={() => { if (filterPage - 1 > 0) setFilterPage(filterPage - 1) }}
-          pageCount={pageCount} />
+        {
+          !userInfo && filterFrom === PV.Filters.from._subscribed && (
+            <MessageWithAction
+              actionLabel={t('Login')}
+              actionOnClick={() => OmniAural.modalsLoginShow()}
+              message={t('LoginToSubscribeToPodcasts')} />
+          )
+        }
+        {
+          userInfo || filterFrom !== PV.Filters.from._subscribed && (
+            <>
+              <List>
+                {generatePodcastListElements(podcastsListData)}
+              </List>
+              <Pagination
+                currentPageIndex={filterPage}
+                handlePageNavigate={(newPage) => setFilterPage(newPage)}
+                handlePageNext={() => { if (filterPage + 1 <= pageCount) setFilterPage(filterPage + 1) }}
+                handlePagePrevious={() => { if (filterPage - 1 > 0) setFilterPage(filterPage - 1) }}
+                pageCount={pageCount} />
+            </>
+          )
+        }
       </PageScrollableContent>
     </>
   )

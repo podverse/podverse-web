@@ -7,7 +7,7 @@ import OmniAural, { useOmniAural } from 'omniaural'
 import type { MediaRef } from 'podverse-shared'
 import { useEffect, useRef, useState } from 'react'
 import {
-  ClipListItem, List, PageHeader, PageScrollableContent, Pagination,
+  ClipListItem, List, MessageWithAction, PageHeader, PageScrollableContent, Pagination,
   scrollToTopOfPageScrollableContent
 } from '~/components'
 import { Page } from '~/lib/utility/page'
@@ -145,15 +145,29 @@ export default function Clips({ serverFilterFrom, serverFilterPage,
         sortSelected={filterSort}
         text={pageTitle} />
       <PageScrollableContent>
-        <List>
-          {generateClipListElements(clipsListData)}
-        </List>
-        <Pagination
-          currentPageIndex={filterPage}
-          handlePageNavigate={(newPage) => setFilterPage(newPage)}
-          handlePageNext={() => { if (filterPage + 1 <= pageCount) setFilterPage(filterPage + 1)}}
-          handlePagePrevious={() => { if (filterPage - 1 > 0) setFilterPage(filterPage - 1) }}
-          pageCount={pageCount} />
+        {
+          !userInfo && filterFrom === PV.Filters.from._subscribed && (
+            <MessageWithAction
+              actionLabel={t('Login')}
+              actionOnClick={() => OmniAural.modalsLoginShow()}
+              message={t('LoginToSubscribeToPodcasts')} />
+          )
+        }
+        {
+          userInfo || filterFrom !== PV.Filters.from._subscribed && (
+            <>
+              <List>
+                {generateClipListElements(clipsListData)}
+              </List>
+              <Pagination
+                currentPageIndex={filterPage}
+                handlePageNavigate={(newPage) => setFilterPage(newPage)}
+                handlePageNext={() => { if (filterPage + 1 <= pageCount) setFilterPage(filterPage + 1)}}
+                handlePagePrevious={() => { if (filterPage - 1 > 0) setFilterPage(filterPage - 1) }}
+                pageCount={pageCount} />
+            </>
+          )
+        }
       </PageScrollableContent>
     </>
   )
