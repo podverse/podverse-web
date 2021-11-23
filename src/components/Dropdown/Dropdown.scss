@@ -54,7 +54,7 @@ body {
     &.outline-style {
       border: $border-width-default solid;
       margin: -1px 0;
-      padding: 0px 14px 0 19px;
+      padding: 0px 14px;
       @include themeGen() {
         border-color: getThemeVal('borderPrimary');
       }

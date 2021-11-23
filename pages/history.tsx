@@ -7,7 +7,7 @@ import { useEffect, useRef, useState } from 'react'
 import { convertNowPlayingItemToEpisode, convertNowPlayingItemToMediaRef,
   NowPlayingItem } from 'podverse-shared'
 import {
-  ClipListItem, ColumnsWrapper, EpisodeListItem, List, PageHeader, PageScrollableContent,
+  ClipListItem, ColumnsWrapper, EpisodeListItem, List, MessageWithAction, PageHeader, PageScrollableContent,
   Pagination, scrollToTopOfPageScrollableContent, SideContent } from '~/components'
 import { Page } from '~/lib/utility/page'
 import { PV } from '~/resources'
@@ -143,19 +143,34 @@ export default function History({ serverFilterPage, serverUserHistoryItems,
         handleEditButton={() => setIsEditing(!isEditing)}
         hasEditButton={hasEditButton}
         text={t('History')} />
-      <PageScrollableContent noMarginTop>
-        <ColumnsWrapper
-          mainColumnChildren={
-            <List>{generateHistoryListElements(userHistoryItems)}</List>
-          }
-          sideColumnChildren={<SideContent />}
-        />
-        <Pagination
-          currentPageIndex={filterPage}
-          handlePageNavigate={(newPage) => setFilterPage(newPage)}
-          handlePageNext={() => { if (filterPage + 1 <= pageCount) setFilterPage(filterPage + 1) }}
-          handlePagePrevious={() => { if (filterPage - 1 > 0) setFilterPage(filterPage - 1) }}
-          pageCount={pageCount} />
+      <PageScrollableContent>
+        {
+          !userInfo && (
+            <MessageWithAction
+            actionLabel={t('Login')}
+            actionOnClick={() => OmniAural.modalsLoginShow()}
+              message={t('LoginToViewYourHistory')}
+             />
+          )
+        }
+        {
+          userInfo && (
+            <>
+              <ColumnsWrapper
+                mainColumnChildren={
+                  <List>{generateHistoryListElements(userHistoryItems)}</List>
+                }
+                sideColumnChildren={<SideContent />}
+              />
+              <Pagination
+                currentPageIndex={filterPage}
+                handlePageNavigate={(newPage) => setFilterPage(newPage)}
+                handlePageNext={() => { if (filterPage + 1 <= pageCount) setFilterPage(filterPage + 1) }}
+                handlePagePrevious={() => { if (filterPage - 1 > 0) setFilterPage(filterPage - 1) }}
+                pageCount={pageCount} />
+            </>
+          )
+        }
       </PageScrollableContent>
     </>
   )

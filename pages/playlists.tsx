@@ -1,19 +1,14 @@
 import { GetServerSideProps } from 'next'
 import Head from 'next/head'
-import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import OmniAural, { useOmniAural } from 'omniaural'
 import type { Playlist } from 'podverse-shared'
-import { useEffect, useRef, useState } from 'react'
-import {
-  List, PageHeader, PageScrollableContent, Pagination, PlaylistListItem, PodcastListItem,
-  scrollToTopOfPageScrollableContent
-} from '~/components'
+import { List, MessageWithAction, PageHeader, PageScrollableContent,
+  PlaylistListItem } from '~/components'
 import { Page } from '~/lib/utility/page'
 import { PV } from '~/resources'
 import { getServerSideAuthenticatedUserInfo } from '~/services/auth'
-import { getPodcastsByQuery } from '~/services/podcast'
 import { getServerSideUserQueueItems } from '~/services/userQueueItem'
 import { getServerSideLoggedInUserPlaylistsCombined } from '~/services/playlist'
 
@@ -31,6 +26,7 @@ export default function Playlists({ serverPlaylistsCombined }: ServerProps) {
   /* Initialize */
 
   const { t } = useTranslation()
+  const [userInfo] = useOmniAural('session.userInfo')
   const { createdPlaylists, subscribedPlaylists } = serverPlaylistsCombined
   const combinedPlaylists = createdPlaylists.concat(subscribedPlaylists)
   const pageTitle = t('Playlists')
@@ -54,9 +50,21 @@ export default function Playlists({ serverPlaylistsCombined }: ServerProps) {
       </Head>
       <PageHeader text={t('Playlists')} />
       <PageScrollableContent>
-        <List>
-          {generatePlaylistElements(combinedPlaylists)}
-        </List>
+        {
+          !userInfo && (
+            <MessageWithAction
+              actionLabel={t('Login')}
+              actionOnClick={() => OmniAural.modalsLoginShow()}
+              message={t('LoginToViewYourPlaylists')} />
+          )
+        }
+        {
+          userInfo && (
+            <List>
+              {generatePlaylistElements(combinedPlaylists)}
+            </List>
+          )
+        }
       </PageScrollableContent>
     </>
   )

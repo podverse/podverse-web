@@ -4,7 +4,7 @@ import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import OmniAural, { useOmniAural } from 'omniaural'
 import type { User } from 'podverse-shared'
-import { List, PageHeader, PageScrollableContent, Pagination, PlaylistListItem, scrollToTopOfPageScrollableContent } from '~/components'
+import { List, MessageWithAction, PageHeader, PageScrollableContent, Pagination, PlaylistListItem, scrollToTopOfPageScrollableContent } from '~/components'
 import { Page } from '~/lib/utility/page'
 import { PV } from '~/resources'
 import { getServerSideAuthenticatedUserInfo } from '~/services/auth'
@@ -84,16 +84,30 @@ export default function Profiles({ serverFilterPage, serverUsers,
       </Head>
       <PageHeader text={pageTitle} />
       <PageScrollableContent>
-        <List>
-          {generateProfileElements(usersListData)}
-        </List>
-        <Pagination
-          currentPageIndex={filterPage}
-          handlePageNavigate={(newPage) => setFilterPage(newPage)}
-          handlePageNext={() => { if (filterPage + 1 <= pageCount) setFilterPage(filterPage + 1) }}
-          handlePagePrevious={() => { if (filterPage - 1 > 0) setFilterPage(filterPage - 1) }}
-          pageCount={pageCount} />
-      </PageScrollableContent>
+        {
+          !userInfo && (
+            <MessageWithAction
+              actionLabel={t('Login')}
+              actionOnClick={() => OmniAural.modalsLoginShow()}
+              message={t('LoginToViewYourProfiles')} />
+          )
+        }
+        {
+          userInfo && (
+            <>
+              <List>
+                {generateProfileElements(usersListData)}
+              </List>
+              <Pagination
+                currentPageIndex={filterPage}
+                handlePageNavigate={(newPage) => setFilterPage(newPage)}
+                handlePageNext={() => { if (filterPage + 1 <= pageCount) setFilterPage(filterPage + 1) }}
+                handlePagePrevious={() => { if (filterPage - 1 > 0) setFilterPage(filterPage - 1) }}
+                pageCount={pageCount} />
+            </>
+          )
+        }
+        </PageScrollableContent>
     </>
   )
 }

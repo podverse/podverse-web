@@ -7,7 +7,7 @@ import { useState } from 'react'
 import { convertNowPlayingItemToEpisode, convertNowPlayingItemToMediaRef,
   NowPlayingItem } from 'podverse-shared'
 import type { Episode, MediaRef } from 'podverse-shared'
-import { ClipListItem, ColumnsWrapper, EpisodeListItem, List, PageHeader, PageScrollableContent,
+import { ClipListItem, ColumnsWrapper, EpisodeListItem, List, MessageWithAction, PageHeader, PageScrollableContent,
   SideContent } from '~/components'
 import { Page } from '~/lib/utility/page'
 import { PV } from '~/resources'
@@ -87,13 +87,26 @@ export default function Queue(props: ServerProps) {
         handleEditButton={() => setIsEditing(!isEditing)}
         hasEditButton={hasEditButton}
         text={t('Queue')} />
-      <PageScrollableContent noMarginTop>
-        <ColumnsWrapper
-          mainColumnChildren={
-            <List>{generateQueueListElements(userQueueItems)}</List>
-          }
-          sideColumnChildren={<SideContent />}
-         />
+      <PageScrollableContent>
+        {
+          !userInfo && (
+            <MessageWithAction
+              actionLabel={t('Login')}
+              actionOnClick={() => OmniAural.modalsLoginShow()}
+              message={t('LoginToViewYourQueue')}
+            />
+          )
+        }
+        {
+          userInfo && (
+            <ColumnsWrapper
+              mainColumnChildren={
+                <List>{generateQueueListElements(userQueueItems)}</List>
+              }
+              sideColumnChildren={<SideContent />}
+             />
+          )
+        }
       </PageScrollableContent>
     </>
   )
