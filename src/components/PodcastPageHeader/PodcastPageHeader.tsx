@@ -5,7 +5,7 @@ import { generateAuthorText } from '~/lib/utility/author'
 import { generateCategoryNodes } from '~/lib/utility/category'
 import { PV } from '~/resources'
 import { toggleSubscribeToPodcast } from '~/state/loggedInUserActions'
-import { ButtonRectangle, PVImage } from '..'
+import { ButtonRectangle, PVImage, PVLink } from '..'
 
 type Props = {
   episode?: Episode
@@ -35,6 +35,14 @@ export const PodcastPageHeader = ({ episode, podcast }: Props) => {
       : t('untitledPodcast')
     : null
 
+  const aboveTitleLinkUrl = episode
+    ? `${PV.RoutePaths.web.podcast}/${podcast.id}`
+    : ''
+
+  const mainTitleLinkUrl = episode
+    ? `${PV.RoutePaths.web.episode}/${episode.id}`
+    : `${PV.RoutePaths.web.podcast}/${podcast.id}`
+
   const hasBelowText = authorEls.length || categoryEls.length
 
   return (
@@ -50,10 +58,18 @@ export const PodcastPageHeader = ({ episode, podcast }: Props) => {
         <div className='text-wrapper'>
           {
             aboveTitle && (
-              <div className='above-text'>{aboveTitle}</div>
+              <PVLink
+                className='above-text'
+                href={aboveTitleLinkUrl}>
+                {aboveTitle}
+              </PVLink>
             )
           }
-          <h1>{mainTitle}</h1>
+          <h1>
+            <PVLink href={mainTitleLinkUrl}>
+              {mainTitle}
+            </PVLink>
+          </h1>
           {
             hasBelowText && (
               <div className='below-text'>

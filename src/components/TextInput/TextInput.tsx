@@ -1,12 +1,15 @@
 import { IconProp } from "@fortawesome/fontawesome-svg-core"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import classNames from "classnames"
+import { useState } from "react"
 
 type Props = {
+  defaultValue?: string
   faIcon?: IconProp
   helperText?: string
   isDanger?: boolean
   label: string
+  noMarginOrPadding?: boolean
   onBlur?: any
   onChange: any
   onSubmit?: any
@@ -15,11 +18,14 @@ type Props = {
   value?: string
 }
 
-export const TextInput = ({ faIcon, helperText, isDanger, label, onBlur,
-  onChange, onSubmit, placeholder, type = 'text', value }: Props) => {
+export const TextInput = ({ defaultValue, faIcon, helperText, isDanger,
+  label, noMarginOrPadding, onBlur, onChange, onSubmit, placeholder,
+  type = 'text', value }: Props) => {
+  const [tempValue, setTempValue] = useState<string>(value || defaultValue || '')
   const textInputClass = classNames(
     'text-input',
-    isDanger ? 'danger' : ''
+    isDanger ? 'danger' : '',
+    noMarginOrPadding ? 'no-margin-or-padding' : ''
   )
 
   const _handleKeyDown = (event) => {
@@ -39,10 +45,14 @@ export const TextInput = ({ faIcon, helperText, isDanger, label, onBlur,
           )
         }
         <div className='text-input-inner-wrapper'>
-          {!!value && <div className='eyebrow'>{label}</div>}
+          {!!tempValue && <div className='eyebrow'>{label}</div>}
           <input
+            defaultValue={defaultValue}
             onBlur={onBlur}
-            onChange={(event) => onChange(event.target.value)}
+            onChange={(event) => {
+              onChange(event.target.value)
+              setTempValue(event.target.value)
+            }}
             onKeyDown={_handleKeyDown}
             placeholder={placeholder}
             type={type}

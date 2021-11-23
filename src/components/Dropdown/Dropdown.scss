@@ -5,10 +5,9 @@ body {
     flex-direction: row;
     font-size: $text-sm;
     justify-content: center;
-
     
     .dropdown__text {
-      margin-right: 16px;
+      margin-left: 8px;
     }
 
     .dropdown__icon {
@@ -55,7 +54,7 @@ body {
     &.outline-style {
       border: $border-width-default solid;
       margin: -1px 0;
-      padding: 0px 14px 0 19px;
+      padding: 0px 14px;
       @include themeGen() {
         border-color: getThemeVal('borderPrimary');
       }
@@ -78,6 +77,10 @@ body {
         border-radius: $item-border-radius;
         margin: 2px 8px;
         padding: 8px 32px 8px 12px;
+
+        @include themeGen() {
+          color: getThemeVal('textPrimary');
+        }
         
         &.react-dropdown-select-item-selected {
           background-color: transparent;

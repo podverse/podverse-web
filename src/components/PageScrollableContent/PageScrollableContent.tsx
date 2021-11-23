@@ -1,11 +1,19 @@
+import classNames from "classnames"
+
 type Props = {
   children: any
+  noMarginTop?: boolean
 }
 
-export const PageScrollableContent = ({ children }: Props) => {
+export const PageScrollableContent = ({ children, noMarginTop }: Props) => {
+  const innerContentClassName = classNames(
+    'inner-content main-max-width',
+    noMarginTop ? 'no-margin-top' : ''
+  )
+
   return (
     <div className='page-scrollable-content'>
-      <div className='inner-content main-max-width'>
+      <div className={innerContentClassName}>
         {children}
       </div>
     </div>

@@ -34,13 +34,14 @@ export const HorizontalNavBar = ({ serverCookies }: Props) => {
     }
   }, [lightModeChecked])
 
+  /* Function Helpers */
+
   const navigateBack = () => {
     window.history.back()
   }
 
   const navigateForward = () => {
     window.history.forward()
-
     OmniAural.togglePlayer(!OmniAural.state.player.show.value())
   }
 
@@ -50,8 +51,6 @@ export const HorizontalNavBar = ({ serverCookies }: Props) => {
       return !prev
     })
   }
-
-  const dropdownItems = generateDropdownItems(t)
 
   const onChange = async (selected) => {
     const item = selected[0]
@@ -67,6 +66,27 @@ export const HorizontalNavBar = ({ serverCookies }: Props) => {
       }
     }
   }
+
+  /* Render Helpers */
+
+  const generateDropdownItems = () => {
+    const isLoggedIn = !!OmniAural.state.session.userInfo.value()
+    const items = [
+      { label: t('Membership'), key: _membershipKey },
+      { label: t('Settings'), key: _settingsKey },
+    ]
+
+    if (isLoggedIn) {
+      items.unshift({ label: t('MyProfile'), key: _myProfileKey })
+      items.push({ label: t('Logout'), key: _logOutKey })
+    } else {
+      items.push({ label: t('Login'), key: _logInKey })
+    }
+
+    return items
+  }
+
+  const dropdownItems = generateDropdownItems()
 
   return (
     <div className='horizontal-navbar-wrapper'>
@@ -102,21 +122,4 @@ export const HorizontalNavBar = ({ serverCookies }: Props) => {
   )
 }
 
-/* Helpers */
 
-const generateDropdownItems = (t: any) => {
-  const isLoggedIn = !!OmniAural.state.session.userInfo.value()
-  const items = [
-    { label: t('Membership'), key: _membershipKey },
-    { label: t('Settings'), key: _settingsKey },
-  ]
-
-  if (isLoggedIn) {
-    items.unshift({ label: t('MyProfile'), key: _myProfileKey })
-    items.push({ label: t('Logout'), key: _logOutKey })
-  } else {
-    items.push({ label: t('Login'), key: _logInKey })
-  }
-
-  return items
-}

@@ -1,6 +1,7 @@
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
+import { useOmniAural } from 'omniaural'
 import { NavBarBrand, NavBarLink, NavBarSectionHeader } from '~/components'
 import { PV } from '~/resources'
 
@@ -9,7 +10,8 @@ type Props = {}
 export const NavBar = ({}: Props) => {
   const router = useRouter()
   const { t } = useTranslation()
-
+  const [userInfo] = useOmniAural('session.userInfo')
+  
   return (
     <nav className='navbar'>
       <NavBarBrand
@@ -51,7 +53,9 @@ export const NavBar = ({}: Props) => {
           text={t('History')} />
         <NavBarLink
           active={router.pathname == PV.RoutePaths.web.my_profile}
-          href={PV.RoutePaths.web.my_profile}
+          href={userInfo
+            ? `${PV.RoutePaths.web.profile}/${userInfo.id}`
+            : `${PV.RoutePaths.web.my_profile}`}
           text={t('My Profile')} />
         <NavBarLink
           active={router.pathname == PV.RoutePaths.web.playlists}

@@ -8,6 +8,7 @@ body {
   font-family: Roboto, -apple-system, BlinkMacSystemFont, Segoe UI, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   font-weight: 400;
+  word-break: break-word;
 
   @include themeGen() {
     background-color: getThemeVal('backgroundPrimary');
@@ -46,6 +47,10 @@ body {
     width: 100%;
   }
 
+  .no-margin-top {
+    margin-top: 0 !important;
+  }
+
   a {
     color: inherit;
     text-decoration: none;
@@ -59,6 +64,11 @@ body {
     @include themeGen() {
       border-color: getThemeVal('divider');
     }
+  }
+
+  input {
+    display: block;
+    width: 100%;
   }
 
   .display-none {
@@ -92,6 +102,7 @@ body {
 
   .row {
     display: flex;
+    flex: 1;
     flex-direction: row;
   }
 
@@ -132,6 +143,59 @@ body {
 
     @include themeGen() {
       color: getThemeVal('textParagraph');
+    }
+  }
+
+  label {
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+
+    @include themeGen() {
+      color: getThemeVal('textParagraph');
+    }
+  }
+
+  li, ol {
+    @include themeGen() {
+      color: getThemeVal('textParagraph');
+    }
+  }
+
+  .text-page {
+    h3 {
+      font-size: $text-xl;
+      font-weight: $font-weight-bold;
+      margin: 0 0 16px 0;
+    }
+
+    p {
+      font-size: $text-md;
+      line-height: 24px;
+      margin: 0 0 16px 0;  
+
+      &.bigger {
+        font-size: $text-lg;
+        line-height: 27px;
+      }
+    }
+
+    label {
+      font-size: $text-md;
+      line-height: 24px;
+    }
+
+    li {
+      font-size: $text-md;
+      line-height: 24px;
+    }
+    
+    hr {
+      margin: 24px 0;
+    }
+
+    ul {
+      list-style: inside;
+      margin-bottom: 1rem;
     }
   }
 }

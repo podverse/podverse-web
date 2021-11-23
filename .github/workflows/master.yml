@@ -36,16 +36,3 @@ jobs:
           docker rm podverse_web_prod
           docker image rm podverse/podverse_web:latest
           docker-compose -f /home/mitch/podverse-ops/docker-compose.prod.yml up -d podverse_web
-
-    - name: Slack Notification - Success
-      if: success()
-      uses: rtCamp/action-slack-notify@v2.0.0
-      env:
-        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-
-    - name: Slack Notification - Failure
-      if: cancelled() || failure()
-      uses: rtCamp/action-slack-notify@v2.0.0
-      env:
-        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-        SLACK_COLOR: 'danger'

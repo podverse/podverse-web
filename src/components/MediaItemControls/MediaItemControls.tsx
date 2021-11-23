@@ -1,10 +1,12 @@
 import { faEllipsisH, faPlay } from "@fortawesome/free-solid-svg-icons"
 import classNames from "classnames"
-import OmniAural from "omniaural"
-import { Episode, MediaRef, Podcast } from 'podverse-shared'
+import OmniAural, { useOmniAural } from "omniaural"
+import type { Episode, MediaRef, NowPlayingItem, Podcast } from 'podverse-shared'
+import { convertToNowPlayingItem } from 'podverse-shared'
 import { useTranslation } from 'react-i18next'
 import { readableDate } from "~/lib/utility/date"
 import { convertSecToHhoursMMinutes, readableClipTime } from "~/lib/utility/time"
+import { addQueueItemLastOnServer, addQueueItemNextOnServer } from "~/services/userQueueItem"
 import { ButtonCircle, Dropdown } from ".."
 
 type Props = {
@@ -20,12 +22,11 @@ const _playKey = '_play'
 const _queueNextKey = '_queueNext'
 const _queueLastKey = '_queueLast'
 const _addToPlaylistKey = '_addToPlaylist'
-const _shareKey = '_share'
 const _markAsPlayedKey = '_markAsPlayedKey'
 
 export const MediaItemControls = ({ buttonSize, episode, hidePubDate,
   mediaRef, stretchMiddleContent, podcast }: Props) => {
-  const { t } = useTranslation()
+  const [userInfo] = useOmniAural('session.userInfo')
   let pubDate = null
   let timeInfo = null
   let timeRemaining = null
@@ -40,31 +41,77 @@ export const MediaItemControls = ({ buttonSize, episode, hidePubDate,
     // timeRemaining
   }
 
-  const dropdownItems = generateDropdownItems(t)
-
   const timeWrapperClass = classNames(
     'time-wrapper',
     stretchMiddleContent ? 'flex-stretch' : ''
   )
+
+  /* Function Helpers */
   
-  const onChange = (selected) => {
+  const onChange = async (selected) => {
     const item = selected[0]
+    const nowPlayingItem = mediaRef ? convertToNowPlayingItem(mediaRef)
+      : convertToNowPlayingItem(episode)
     if (item) {
       if (item.key === _playKey) {
-        console.log('play')
+        await _handlePlay(nowPlayingItem)
       } else if (item.key === _queueNextKey) {
-        console.log('queue next')
+        await _handleQueueNext(nowPlayingItem)
       } else if (item.key === _queueLastKey) {
-        console.log('queue last')
+        await _handleQueueLast(nowPlayingItem)
       } else if (item.key === _addToPlaylistKey) {
-        console.log('add to playlist')
-      } else if (item.key === _shareKey) {
-        console.log('share')
+        await _handleAddToPlaylist(nowPlayingItem)
       } else if (item.key === _markAsPlayedKey) {
         console.log('mark as played')
       }
     }
   }
+
+  const _handlePlay = async (nowPlayingItem: NowPlayingItem) => {
+    console.log('play', nowPlayingItem)
+  }
+
+  const _handleQueueNext = async (nowPlayingItem: NowPlayingItem) => {
+    if (userInfo) {
+      const newUserQueueItems = await addQueueItemNextOnServer(nowPlayingItem)
+      OmniAural.setUserQueueItems(newUserQueueItems)
+    } else {
+      OmniAural.modalsLoginToAlertShow('add item to queue')
+    }
+  }
+
+  const _handleQueueLast = async (nowPlayingItem: NowPlayingItem) => {
+    if (userInfo) {
+      const newUserQueueItems = await addQueueItemLastOnServer(nowPlayingItem)
+      OmniAural.setUserQueueItems(newUserQueueItems)
+    } else {
+      OmniAural.modalsLoginToAlertShow('add item to queue')
+    }
+  }
+
+  const _handleAddToPlaylist = (nowPlayingItem: NowPlayingItem) => {
+    if (userInfo) {
+      OmniAural.modalsAddToPlaylistShow(nowPlayingItem)
+    } else {
+      OmniAural.modalsLoginToAlertShow('add item to playlist')
+    }
+  }
+
+  /* Render Helpers */
+
+  const generateDropdownItems = () => {
+    const items = [
+      { label: 'Play', key: _playKey },
+      { label: 'Queue Next', key: _queueNextKey },
+      { label: 'Queue Last', key: _queueLastKey },
+      { label: 'Add to Playlist', key: _addToPlaylistKey },
+      // { label: 'Mark as Played', key: _markAsPlayedKey }
+    ]
+
+    return items
+  }
+
+  const dropdownItems = generateDropdownItems()
 
   return (
     <div className='media-item-controls'>
@@ -96,17 +143,4 @@ export const MediaItemControls = ({ buttonSize, episode, hidePubDate,
         options={dropdownItems} />
     </div>
   )
-}
-
-const generateDropdownItems = (t: any) => {
-  const items = [
-    { label: t('Play'), key: _playKey },
-    { label: t('Queue Next'), key: _queueNextKey },
-    { label: t('Queue Last'), key: _queueLastKey },
-    { label: t('Add to Playlist'), key: _addToPlaylistKey },
-    { label: t('Share'), key: _shareKey },
-    { label: t('Mark as Played'), key: _markAsPlayedKey }
-  ]
-
-  return items
 }

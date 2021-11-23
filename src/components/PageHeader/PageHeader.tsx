@@ -1,7 +1,12 @@
 import classnames from  'classnames'
-import { Dropdown } from "~/components"
+import { useTranslation } from 'react-i18next'
+import { ButtonRectangle, Dropdown } from "~/components"
 
 type Props = {
+  handleClearAllButton?: any
+  handleEditButton?: any
+  hasEditButton?: boolean
+  isEditing?: boolean
   isSubHeader?: boolean
   primaryOnChange?: any
   primaryOptions?: any[]
@@ -12,13 +17,16 @@ type Props = {
   text: string
 }
 
-export const PageHeader = ({ isSubHeader, primaryOnChange, primaryOptions,
-  primarySelected, sortOnChange, sortOptions, sortSelected, text }: Props) => {
+export const PageHeader = ({ handleClearAllButton, handleEditButton, hasEditButton,
+  isEditing, isSubHeader, primaryOnChange, primaryOptions, primarySelected,
+  sortOnChange, sortOptions, sortSelected, text }: Props) => {
+  const { t } = useTranslation()
   const wrapperClass = classnames(
     'page-header',
     isSubHeader ? 'sub-header' : ''
   )
   const hasDropdowns = !!(sortOptions?.length || primaryOptions?.length)
+  const hasButtons = hasEditButton
 
   return (
     <div className={wrapperClass}>
@@ -50,6 +58,28 @@ export const PageHeader = ({ isSubHeader, primaryOnChange, primaryOptions,
                       outlineStyle
                       selectedKey={sortSelected} />
                   </div>
+                )
+              }
+            </div>
+          )
+        }
+        {
+          hasButtons && (
+            <div className='buttons'>
+              {
+                isEditing && (
+                  <ButtonRectangle
+                    label={t('Remove All')}
+                    onClick={handleClearAllButton}
+                    type='tertiary' />
+                )
+              }
+              {
+                hasEditButton && (
+                  <ButtonRectangle
+                    label={isEditing ? t('Done') : t('Edit')}
+                    onClick={handleEditButton}
+                    type='tertiary' />
                 )
               }
             </div>

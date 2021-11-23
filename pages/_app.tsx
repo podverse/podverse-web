@@ -18,8 +18,9 @@ fontAwesomeConfig.autoAddCss = false
 Modal.setAppElement('.app')
 
 function MyApp({ Component, pageProps }) {
-  const { serverUserInfo } = pageProps
+  const { serverUserInfo, serverUserQueueItems } = pageProps
   OmniAural.setUserInfo(serverUserInfo)
+  OmniAural.setUserQueueItems(serverUserQueueItems)
   const router = useRouter()
 
   useEffect(() => {
