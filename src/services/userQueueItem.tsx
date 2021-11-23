@@ -1,3 +1,4 @@
+import { NowPlayingItem } from "~/../../podverse-shared/dist"
 import { getAuthCredentialsHeaders } from "~/lib/utility/auth"
 import { PV } from "~/resources"
 import { request } from './request'
@@ -55,4 +56,37 @@ export const removeQueueItemsAllFromServer = async () => {
     ...(getAuthCredentialsHeaders())
   })
   return []
+}
+
+export const addQueueItemLastOnServer = async (item: NowPlayingItem) => {
+  const maxQueuePosition = 100000
+  return addQueueItemToServer(item, maxQueuePosition)
+}
+export const addQueueItemNextOnServer = async (item: NowPlayingItem) => {
+  return addQueueItemToServer(item, 0)
+}
+
+export const addQueueItemToServer = async (item: NowPlayingItem, newPosition: number) => {
+  const { clipId, episodeId } = item
+
+  if (!clipId && !episodeId) {
+    throw new Error('A clipId or episodeId must be provided.')
+  }
+
+  const body = {
+    episodeId: (!clipId && episodeId) || null,
+    mediaRefId: clipId || null,
+    queuePosition: newPosition
+  }
+
+  const response = await request({
+    endpoint: '/user-queue-item',
+    method: 'PATCH',
+    ...(getAuthCredentialsHeaders()),
+    body
+  })
+
+  const { userQueueItems } = response.data
+
+  return userQueueItems
 }

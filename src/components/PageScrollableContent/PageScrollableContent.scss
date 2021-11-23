@@ -1,8 +1,12 @@
 .page-scrollable-content {
+  display: flex;
   flex: 1;
   overflow: scroll;
+  position: relative;
 
   .inner-content {
+    display: flex;
+    flex-direction: column;
     margin: 35px 28px;
   }
 }

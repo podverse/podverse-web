@@ -10,11 +10,15 @@ type Props = {
   headerText: string
 }
 
+const keyPrefix = 'comparion_table'
+
 export const ComparisonTable = ({ aboveSectionNodes, featuresData, headerIcon1,
   headerIcon2, headerText }: Props) => {
 
-  const dataElements = featuresData && featuresData.map((x: any) => (
-    <div className='comparison-table__row'>
+  const dataElements = featuresData && featuresData.map((x: any, index: number) => (
+    <div
+      className='comparison-table__row'
+      key={`${keyPrefix}_${index}`}>
       <div className='comparison-table-row__text'>{x.text}</div>
       <div className='comparison-table-row__icon'>{x.icon1 && <FontAwesomeIcon icon={x.iconType === 'smile' ? faSmile : faCheck} />}</div>
       <div className='comparison-table-row__icon'>{x.icon2 && <FontAwesomeIcon icon={x.iconType === 'smile' ? faSmile : faCheck} />}</div>
