@@ -87,7 +87,7 @@ export default function Queue(props: ServerProps) {
         handleEditButton={() => setIsEditing(!isEditing)}
         hasEditButton={hasEditButton}
         text={t('Queue')} />
-      <PageScrollableContent>
+      <PageScrollableContent noMarginTop>
         {
           !userInfo && (
             <MessageWithAction

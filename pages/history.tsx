@@ -143,7 +143,7 @@ export default function History({ serverFilterPage, serverUserHistoryItems,
         handleEditButton={() => setIsEditing(!isEditing)}
         hasEditButton={hasEditButton}
         text={t('History')} />
-      <PageScrollableContent>
+      <PageScrollableContent noMarginTop>
         {
           !userInfo && (
             <MessageWithAction

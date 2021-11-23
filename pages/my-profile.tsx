@@ -25,7 +25,7 @@ export default function MyProfile(props: ServerProps) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <PageHeader text={pageTitle} />
-      <PageScrollableContent>
+      <PageScrollableContent noMarginTop>
         <MessageWithAction
           actionLabel={t('Login')}
           actionOnClick={() => OmniAural.modalsLoginShow()}

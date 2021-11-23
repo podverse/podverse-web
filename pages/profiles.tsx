@@ -83,7 +83,7 @@ export default function Profiles({ serverFilterPage, serverUsers,
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <PageHeader text={pageTitle} />
-      <PageScrollableContent>
+      <PageScrollableContent noMarginTop>
         {
           !userInfo && (
             <MessageWithAction

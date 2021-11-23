@@ -49,7 +49,7 @@ export default function Playlists({ serverPlaylistsCombined }: ServerProps) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <PageHeader text={t('Playlists')} />
-      <PageScrollableContent>
+      <PageScrollableContent noMarginTop>
         {
           !userInfo && (
             <MessageWithAction

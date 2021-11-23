@@ -144,7 +144,7 @@ export default function Podcasts({ serverFilterFrom, serverFilterPage,
         }
         sortSelected={filterSort}
         text={pageTitle} />
-      <PageScrollableContent>
+      <PageScrollableContent noMarginTop>
         {
           !userInfo && filterFrom === PV.Filters.from._subscribed && (
             <MessageWithAction
