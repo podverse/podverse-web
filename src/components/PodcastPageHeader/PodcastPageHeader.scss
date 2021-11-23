@@ -30,14 +30,24 @@
       padding-right: 16px;
 
       .above-text {
+        align-self: flex-start;
         font-size: $text-xl;
         font-weight: $font-weight-bold;
         margin-bottom: 4px;
       }
 
       .below-text {
+        align-self: flex-start;
         font-size: $text-lg;
         margin-top: 4px;
+      }
+
+      [href] {
+        &:hover {
+          @include themeGen() {
+            color: getThemeVal('textSecondary');
+          }
+        }
       }
     }
 

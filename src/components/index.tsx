@@ -22,7 +22,6 @@ export { LoginModal } from './Modals/Auth/LoginModal'
 export { LoginToAlertModal } from './Modals/Auth/LoginToAlertModal'
 export { PasswordInputs } from './PasswordInputs/PasswordInputs'
 export { PasswordValidationInfo } from './PasswordInputs/PasswordValidationInfo'
-export { ShareModal } from './Modals/ShareModal/ShareModal';
 export { SignUpModal } from './Modals/Auth/SignUpModal'
 export { VerifyEmailModal } from './Modals/Auth/VerifyEmailModal'
 export { NavBar } from './NavBar/NavBar'

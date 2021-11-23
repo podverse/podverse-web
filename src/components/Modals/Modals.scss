@@ -4,7 +4,6 @@
 @import './Auth/LoginToAlertModal.scss';
 @import './Auth/SignUpModal.scss';
 @import './Auth/VerifyEmailModal.scss';
-@import './ShareModal/ShareModal.scss';
 
 .ReactModal__Overlay {
   @include themeGen() {

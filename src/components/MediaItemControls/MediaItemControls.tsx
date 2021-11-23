@@ -107,8 +107,7 @@ const generateDropdownItems = () => {
     { label: 'Queue Next', key: _queueNextKey },
     { label: 'Queue Last', key: _queueLastKey },
     { label: 'Add to Playlist', key: _addToPlaylistKey },
-    { label: 'Share', key: _shareKey },
-    { label: 'Mark as Played', key: _markAsPlayedKey }
+    // { label: 'Mark as Played', key: _markAsPlayedKey }
   ]
 
   return items

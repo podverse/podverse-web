@@ -1,5 +1,4 @@
 import { AddToPlaylistModal, ForgotPasswordModal, LoginModal, LoginToAlertModal,
-  ShareModal,
   SignUpModal, VerifyEmailModal } from "~/components"
 
 type Props = {}
@@ -11,7 +10,6 @@ export const Modals = (props: Props) => {
       <ForgotPasswordModal />
       <LoginModal />
       <LoginToAlertModal />
-      {/* <ShareModal /> */}
       <SignUpModal />
       <VerifyEmailModal />
     </>
