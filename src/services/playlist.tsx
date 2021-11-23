@@ -23,6 +23,15 @@ const getLoggedInUserPlaylistsCombinedFromServer = async (bearerToken?: string) 
   return { createdPlaylists, subscribedPlaylists }
 }
 
+export const getLoggedInUserPlaylists = async () => {
+  const response = await request({
+    endpoint: '/user/playlists',
+    ...getAuthCredentialsHeaders()
+  })
+
+  return response && response.data
+}
+
 export const getUserPlaylists = async (userId: string, page = 1) => {
   const response = await request({
     endpoint: `/user/${userId}/playlists`,
@@ -120,6 +129,17 @@ export const addOrRemovePlaylistItemMediaRef = async (playlistId: string, mediaR
   const response = await request({
     endpoint: '/playlist/add-or-remove',
     method: 'PATCH',
+    ...(getAuthCredentialsHeaders()),
+    body: data
+  })
+
+  return response && response.data
+}
+
+export const createPlaylist = async (data: any) => {
+  const response = await request({
+    endpoint: '/playlist',
+    method: 'POST',
     ...(getAuthCredentialsHeaders()),
     body: data
   })

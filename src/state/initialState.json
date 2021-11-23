@@ -1,5 +1,8 @@
 {
   "modals": {
+    "addToPlaylist": {
+      "item": null
+    },
     "forgotPassword": {
       "show": false
     },
@@ -11,6 +14,9 @@
     },
     "resetPassword": {
       "show": false
+    },
+    "share": {
+      "item": null
     },
     "signUp": {
       "show": false

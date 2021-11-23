@@ -1,7 +1,8 @@
 import { faEllipsisH, faPlay } from "@fortawesome/free-solid-svg-icons"
 import classNames from "classnames"
 import OmniAural from "omniaural"
-import { Episode, MediaRef, Podcast } from 'podverse-shared'
+import type { Episode, MediaRef, Podcast } from 'podverse-shared'
+import { convertToNowPlayingItem } from 'podverse-shared'
 import { useTranslation } from 'react-i18next'
 import { readableDate } from "~/lib/utility/date"
 import { convertSecToHhoursMMinutes, readableClipTime } from "~/lib/utility/time"
@@ -40,7 +41,7 @@ export const MediaItemControls = ({ buttonSize, episode, hidePubDate,
     // timeRemaining
   }
 
-  const dropdownItems = generateDropdownItems(t)
+  const dropdownItems = generateDropdownItems()
 
   const timeWrapperClass = classNames(
     'time-wrapper',
@@ -57,7 +58,9 @@ export const MediaItemControls = ({ buttonSize, episode, hidePubDate,
       } else if (item.key === _queueLastKey) {
         console.log('queue last')
       } else if (item.key === _addToPlaylistKey) {
-        console.log('add to playlist')
+        const nowPlayingItem = mediaRef ? convertToNowPlayingItem(mediaRef)
+          : convertToNowPlayingItem(episode)
+        OmniAural.modalsAddToPlaylistShow(nowPlayingItem)
       } else if (item.key === _shareKey) {
         console.log('share')
       } else if (item.key === _markAsPlayedKey) {
