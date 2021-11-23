@@ -1,7 +1,7 @@
 import { faEllipsisH, faPlay } from "@fortawesome/free-solid-svg-icons"
 import classNames from "classnames"
-import OmniAural from "omniaural"
-import type { Episode, MediaRef, Podcast } from 'podverse-shared'
+import OmniAural, { useOmniAural } from "omniaural"
+import type { Episode, MediaRef, NowPlayingItem, Podcast } from 'podverse-shared'
 import { convertToNowPlayingItem } from 'podverse-shared'
 import { useTranslation } from 'react-i18next'
 import { readableDate } from "~/lib/utility/date"
@@ -26,7 +26,7 @@ const _markAsPlayedKey = '_markAsPlayedKey'
 
 export const MediaItemControls = ({ buttonSize, episode, hidePubDate,
   mediaRef, stretchMiddleContent, podcast }: Props) => {
-  const { t } = useTranslation()
+  const [userInfo] = useOmniAural('session.userInfo')
   let pubDate = null
   let timeInfo = null
   let timeRemaining = null
@@ -41,12 +41,12 @@ export const MediaItemControls = ({ buttonSize, episode, hidePubDate,
     // timeRemaining
   }
 
-  const dropdownItems = generateDropdownItems()
-
   const timeWrapperClass = classNames(
     'time-wrapper',
     stretchMiddleContent ? 'flex-stretch' : ''
   )
+
+  /* Function Helpers */
   
   const onChange = async (selected) => {
     const item = selected[0]
@@ -54,20 +54,64 @@ export const MediaItemControls = ({ buttonSize, episode, hidePubDate,
       : convertToNowPlayingItem(episode)
     if (item) {
       if (item.key === _playKey) {
-        console.log('play')
+        await _handlePlay(nowPlayingItem)
       } else if (item.key === _queueNextKey) {
-        const newUserQueueItems = await addQueueItemNextOnServer(nowPlayingItem)
-        OmniAural.setUserQueueItems(newUserQueueItems)
+        await _handleQueueNext(nowPlayingItem)
       } else if (item.key === _queueLastKey) {
-        const newUserQueueItems = await addQueueItemLastOnServer(nowPlayingItem)
-        OmniAural.setUserQueueItems(newUserQueueItems)
+        await _handleQueueLast(nowPlayingItem)
       } else if (item.key === _addToPlaylistKey) {
-        OmniAural.modalsAddToPlaylistShow(nowPlayingItem)
+        await _handleAddToPlaylist(nowPlayingItem)
       } else if (item.key === _markAsPlayedKey) {
         console.log('mark as played')
       }
     }
   }
+
+  const _handlePlay = async (nowPlayingItem: NowPlayingItem) => {
+    console.log('play', nowPlayingItem)
+  }
+
+  const _handleQueueNext = async (nowPlayingItem: NowPlayingItem) => {
+    if (userInfo) {
+      const newUserQueueItems = await addQueueItemNextOnServer(nowPlayingItem)
+      OmniAural.setUserQueueItems(newUserQueueItems)
+    } else {
+      OmniAural.modalsLoginToAlertShow('add item to queue')
+    }
+  }
+
+  const _handleQueueLast = async (nowPlayingItem: NowPlayingItem) => {
+    if (userInfo) {
+      const newUserQueueItems = await addQueueItemLastOnServer(nowPlayingItem)
+      OmniAural.setUserQueueItems(newUserQueueItems)
+    } else {
+      OmniAural.modalsLoginToAlertShow('add item to queue')
+    }
+  }
+
+  const _handleAddToPlaylist = (nowPlayingItem: NowPlayingItem) => {
+    if (userInfo) {
+      OmniAural.modalsAddToPlaylistShow(nowPlayingItem)
+    } else {
+      OmniAural.modalsLoginToAlertShow('add item to playlist')
+    }
+  }
+
+  /* Render Helpers */
+
+  const generateDropdownItems = () => {
+    const items = [
+      { label: 'Play', key: _playKey },
+      { label: 'Queue Next', key: _queueNextKey },
+      { label: 'Queue Last', key: _queueLastKey },
+      { label: 'Add to Playlist', key: _addToPlaylistKey },
+      // { label: 'Mark as Played', key: _markAsPlayedKey }
+    ]
+
+    return items
+  }
+
+  const dropdownItems = generateDropdownItems()
 
   return (
     <div className='media-item-controls'>
@@ -99,16 +143,4 @@ export const MediaItemControls = ({ buttonSize, episode, hidePubDate,
         options={dropdownItems} />
     </div>
   )
-}
-
-const generateDropdownItems = () => {
-  const items = [
-    { label: 'Play', key: _playKey },
-    { label: 'Queue Next', key: _queueNextKey },
-    { label: 'Queue Last', key: _queueLastKey },
-    { label: 'Add to Playlist', key: _addToPlaylistKey },
-    // { label: 'Mark as Played', key: _markAsPlayedKey }
-  ]
-
-  return items
 }

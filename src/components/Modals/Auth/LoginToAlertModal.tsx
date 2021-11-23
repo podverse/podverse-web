@@ -21,7 +21,9 @@ export const LoginToAlertModal = (props: Props) => {
   const getMessageText = () => {
     switch (alertType) {
       case 'add item to playlist':
-        return t('LoginToSubscribeToPodcasts')
+        return t('LoginToAddItemsToPlaylists')
+      case 'add item to queue':
+        return t('LoginToAddItemToQueue')
       case 'create clip':
         return t('LoginToCreateAndShareClips')
       case 'subscribe to playlist':
