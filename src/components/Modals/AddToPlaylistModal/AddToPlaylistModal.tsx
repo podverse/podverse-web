@@ -80,7 +80,7 @@ export const AddToPlaylistModal = (props: Props) => {
     <Modal
       className='add-to-playlist-modal centered'
       contentLabel={t('Add to Playlist')}
-      isOpen={addToPlaylist.item}
+      isOpen={!!addToPlaylist.item}
       onAfterOpen={_onAfterOpen}
       onRequestClose={_onRequestClose}>
       <h2>{t('Add to Playlist')}</h2>

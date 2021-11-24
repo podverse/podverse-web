@@ -93,6 +93,25 @@ body {
     }
   }
 
+  .flex-centered-content-wrapper {
+    align-items: center;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: center;
+
+    p {
+      font-size: $text-xl;
+    }
+
+    .icon {
+      svg {
+        height: unset;
+        width: 36px;
+      }
+    }
+  }  
+
   .centered {
     position: fixed;
     top: 50%;
@@ -196,6 +215,15 @@ body {
     ul {
       list-style: inside;
       margin-bottom: 1rem;
+    }
+
+    .button-column {
+      display: flex;
+      flex-direction: column;
+      
+      button {
+        margin-bottom: 16px;
+      }
     }
   }
 }

@@ -40,7 +40,7 @@ export default function Clips({ serverFilterFrom, serverFilterPage,
   const [clipsListDataCount, setListDataCount] = useState<number>(serverClipsListDataCount)
   const [userInfo] = useOmniAural('session.userInfo')
   
-  const initialRender = useRef(true)
+  const initialRender = useRef<boolean>(true)
   const pageCount = Math.ceil(clipsListDataCount / PV.Config.QUERY_RESULTS_LIMIT_DEFAULT)
 
   /* useEffects */

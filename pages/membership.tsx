@@ -2,7 +2,7 @@ import { GetServerSideProps } from 'next'
 import Head from 'next/head'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import OmniAural from 'omniaural'
+import OmniAural, { useOmniAural } from 'omniaural'
 import { Page } from '~/lib/utility/page'
 import { PV } from '~/resources'
 import { getServerSideAuthenticatedUserInfo } from '~/services/auth'
@@ -15,6 +15,7 @@ const keyPrefix = 'pages_membership'
 
 export default function Membership(props: ServerProps) {
   const { t } = useTranslation()
+  const [userInfo] = useOmniAural('session.userInfo')
 
   return (
     <>
@@ -33,9 +34,22 @@ export default function Membership(props: ServerProps) {
                   <>
                     <p>{t('Get 1 year free when you sign up for Podverse premium')}</p>
                     <p>{t('10 per year after that')}</p>
-                    <ButtonLink
-                      label={t('Login')}
-                      onClick={() => OmniAural.modalsLoginShow()} />
+                    <div className='button-column'>
+                      {
+                        !userInfo && (
+                          <ButtonLink
+                            label={t('Login')}
+                            onClick={() => OmniAural.modalsLoginShow()} />
+                        )
+                      }
+                      {
+                        userInfo && (
+                          <ButtonLink
+                            label={t('Renew Membership')}
+                            onClick={() => OmniAural.modalsCheckoutShow()} />
+                        )
+                      }
+                    </div>
                   </>
                 }
                 featuresData={featuresData(t)}
