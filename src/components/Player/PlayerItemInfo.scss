@@ -14,6 +14,7 @@
 }
 
 .item-info-title {
+  font-weight: $font-weight-light;
   margin: 0 0 10px 0;
   @include line-clamp(2);
 }

@@ -4,4 +4,8 @@
   flex-direction: row;
   margin-left: 16px;
   width: 374px;
+
+  @include themeGen() {
+    color: getThemeVal("textSecondary");
+  }
 }

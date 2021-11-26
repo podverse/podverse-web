@@ -33,9 +33,10 @@
     "isLoading": false
   },
   "player": {
-    "nowPlayingItem": null,
+    "currentNowPlayingItem": null,
     "show": false,
     "muted": false,
+    "paused": true,
     "playSpeed": 1
   },
   "session": {

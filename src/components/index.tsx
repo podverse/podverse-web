@@ -41,6 +41,7 @@ export { PageScrollableContent, scrollToTopOfPageScrollableContent }
   from './PageScrollableContent/PageScrollableContent'
 export { PayPalButton } from './PayPalButton/PayPalButton'
 export { Player } from './Player/Player'
+export { PlayerAPI } from './Player/PlayerAPI/PlayerAPI'
 export { PlaylistListItem } from './PlaylistListItem/PlaylistListItem'
 export { PlaylistPageHeader } from './PlaylistPageHeader/PlaylistPageHeader'
 export { PodcastListItem } from './PodcastListItem/PodcastListItem'

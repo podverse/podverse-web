@@ -1,30 +1,65 @@
 import classnames from "classnames"
-import { useState } from "react"
+import { useOmniAural } from 'omniaural'
 import { ButtonCircle } from "../.."
 import { faPause, faPlay } from "@fortawesome/free-solid-svg-icons"
 import { PlayerControlButton } from "./PlayerControlButton"
+import { playerJumpBackward, playerJumpForward, playerPause, playerPlay } from "~/services/player/player"
 
-type Props = {
-  isPaused?: boolean
-}
+type Props = {}
 
-export const PlayerProgressButtons = ({ isPaused }: Props) => {
+export const PlayerProgressButtons = (props: Props) => {
+  const [player] = useOmniAural('player')
+  const { paused } = player
   const container = classnames("progress-button-container")
+  const playpause = classnames(paused ? "pause" : "play")
 
-  const playpause = classnames(isPaused ? "pause" : "play")
+  const _handleTrackPrevious = () => {
+    console.log('_handleTrackPrevious')
+  }
+
+  const _handleTimeJumpBackwards = () => {
+    playerJumpBackward()
+  }
+
+  const _handleTogglePlay = () => {
+    paused ? playerPlay() : playerPause()
+  }
+
+  const _handleTimeJumpForwards = () => {
+    playerJumpForward()
+  }
+
+  const _handleTrackNext = () => {
+    console.log('_handleTrackNext')
+  }
 
   return (
     <div className={container}>
-      <PlayerControlButton type="skip" direction="backwards" size="medium" />
-      <PlayerControlButton type="jump" direction="backwards" size="medium" />
+      <PlayerControlButton
+        direction="backwards"
+        onClick={_handleTrackPrevious}
+        size="medium" 
+        type="skip" />
+      <PlayerControlButton
+        direction="backwards"
+        onClick={_handleTimeJumpBackwards}
+        size="medium" 
+        type="jump" />
       <ButtonCircle
         className={playpause}
-        faIcon={isPaused ? faPause : faPlay}
-        onClick={() => console.log("Play Button Pressed")}
-        size={"medium"}
-      />
-      <PlayerControlButton type="jump" direction="forwards" size="medium" />
-      <PlayerControlButton type="skip" direction="forwards" size="medium" />
+        faIcon={paused ? faPlay : faPause}
+        onClick={_handleTogglePlay}
+        size={"medium"} />
+      <PlayerControlButton
+        direction="forwards"
+        onClick={_handleTimeJumpForwards}
+        size="medium"
+        type="jump" />
+      <PlayerControlButton
+        direction="forwards"
+        onClick={_handleTrackNext}
+        size="medium"
+        type="skip" />
     </div>
   )
 }

@@ -1,4 +1,4 @@
-import OmniAural, { useOmniAural } from "omniaural"
+import { useOmniAural } from "omniaural"
 import classnames from "classnames"
 import { PlayerItemInfo } from "./PlayerItemInfo"
 import { PlayerItemProgess } from "./PlayerItemProgress"
@@ -14,18 +14,20 @@ export const Player = ({}: Props) => {
     !!player.show ? "" : "display-none"
   )
 
-  if (!player?.nowPlayingItem) {
+  if (!player?.currentNowPlayingItem) {
     return null
   }
 
   return (
     <div className={mainPlayerStyle}>
-      <PlayerItemInfo nowPlayingItem={player.nowPlayingItem} />
+      <PlayerItemInfo nowPlayingItem={player.currentNowPlayingItem} />
       <PlayerItemProgess
-        nowPlayingItem={player.nowPlayingItem}
         isPaused={false}
+        nowPlayingItem={player.currentNowPlayingItem}
       />
-      <PlayerItemButtons muted={player.muted} playSpeed={player.playSpeed} />
+      <PlayerItemButtons
+        muted={player.muted}
+        playSpeed={player.playSpeed} />
     </div>
   )
 }

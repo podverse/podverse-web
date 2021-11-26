@@ -1,11 +1,11 @@
-import { faEllipsisH, faPlay } from "@fortawesome/free-solid-svg-icons"
+import { faEllipsisH, faPause, faPlay } from "@fortawesome/free-solid-svg-icons"
 import classNames from "classnames"
 import OmniAural, { useOmniAural } from "omniaural"
 import type { Episode, MediaRef, NowPlayingItem, Podcast } from 'podverse-shared'
 import { convertToNowPlayingItem } from 'podverse-shared'
-import { useTranslation } from 'react-i18next'
 import { readableDate } from "~/lib/utility/date"
 import { convertSecToHhoursMMinutes, readableClipTime } from "~/lib/utility/time"
+import { playerCheckIfCurrentlyPlayingItem, playerTogglePlayOrLoadNowPlayingItem } from "~/services/player/player"
 import { addQueueItemLastOnServer, addQueueItemNextOnServer } from "~/services/userQueueItem"
 import { ButtonCircle, Dropdown } from ".."
 
@@ -27,6 +27,7 @@ const _markAsPlayedKey = '_markAsPlayedKey'
 export const MediaItemControls = ({ buttonSize, episode, hidePubDate,
   mediaRef, stretchMiddleContent, podcast }: Props) => {
   const [userInfo] = useOmniAural('session.userInfo')
+  const [player] = useOmniAural('player')
   let pubDate = null
   let timeInfo = null
   let timeRemaining = null
@@ -41,6 +42,10 @@ export const MediaItemControls = ({ buttonSize, episode, hidePubDate,
     // timeRemaining
   }
 
+  const nowPlayingItem: NowPlayingItem = mediaRef
+    ? convertToNowPlayingItem(mediaRef, episode, podcast)
+    : convertToNowPlayingItem(episode, null, podcast)
+
   const timeWrapperClass = classNames(
     'time-wrapper',
     stretchMiddleContent ? 'flex-stretch' : ''
@@ -50,28 +55,26 @@ export const MediaItemControls = ({ buttonSize, episode, hidePubDate,
   
   const onChange = async (selected) => {
     const item = selected[0]
-    const nowPlayingItem = mediaRef ? convertToNowPlayingItem(mediaRef)
-      : convertToNowPlayingItem(episode)
     if (item) {
       if (item.key === _playKey) {
-        await _handlePlay(nowPlayingItem)
+        await _handleTogglePlay()
       } else if (item.key === _queueNextKey) {
-        await _handleQueueNext(nowPlayingItem)
+        await _handleQueueNext()
       } else if (item.key === _queueLastKey) {
-        await _handleQueueLast(nowPlayingItem)
+        await _handleQueueLast()
       } else if (item.key === _addToPlaylistKey) {
-        await _handleAddToPlaylist(nowPlayingItem)
+        await _handleAddToPlaylist()
       } else if (item.key === _markAsPlayedKey) {
         console.log('mark as played')
       }
     }
   }
 
-  const _handlePlay = async (nowPlayingItem: NowPlayingItem) => {
-    console.log('play', nowPlayingItem)
+  const _handleTogglePlay = async () => {
+    await playerTogglePlayOrLoadNowPlayingItem(nowPlayingItem)
   }
 
-  const _handleQueueNext = async (nowPlayingItem: NowPlayingItem) => {
+  const _handleQueueNext = async () => {
     if (userInfo) {
       const newUserQueueItems = await addQueueItemNextOnServer(nowPlayingItem)
       OmniAural.setUserQueueItems(newUserQueueItems)
@@ -80,7 +83,7 @@ export const MediaItemControls = ({ buttonSize, episode, hidePubDate,
     }
   }
 
-  const _handleQueueLast = async (nowPlayingItem: NowPlayingItem) => {
+  const _handleQueueLast = async () => {
     if (userInfo) {
       const newUserQueueItems = await addQueueItemLastOnServer(nowPlayingItem)
       OmniAural.setUserQueueItems(newUserQueueItems)
@@ -89,7 +92,7 @@ export const MediaItemControls = ({ buttonSize, episode, hidePubDate,
     }
   }
 
-  const _handleAddToPlaylist = (nowPlayingItem: NowPlayingItem) => {
+  const _handleAddToPlaylist = () => {
     if (userInfo) {
       OmniAural.modalsAddToPlaylistShow(nowPlayingItem)
     } else {
@@ -112,13 +115,17 @@ export const MediaItemControls = ({ buttonSize, episode, hidePubDate,
   }
 
   const dropdownItems = generateDropdownItems()
+  const isCurrentlyPlayingItem = playerCheckIfCurrentlyPlayingItem(
+    player.paused, nowPlayingItem)
+  const togglePlayIcon = isCurrentlyPlayingItem ? faPause : faPlay
+  const togglePlayClassName = isCurrentlyPlayingItem ? 'pause' : 'play'
 
   return (
     <div className='media-item-controls'>
       <ButtonCircle
-        className='play'
-        faIcon={faPlay}
-        onClick={() => OmniAural.setPlayerItem(episode, {inheritedPodcast: podcast})}
+        className={togglePlayClassName}
+        faIcon={togglePlayIcon}
+        onClick={_handleTogglePlay}
         size={buttonSize} />
       <div className={timeWrapperClass}>
         {!hidePubDate && <span className='pub-date'>{pubDate}</span>}

@@ -13,7 +13,7 @@ export const PlayerItemProgess = ({ nowPlayingItem, isPaused }: Props) => {
 
   return (
     <div className={container}>
-      <PlayerProgressButtons isPaused={isPaused} />
+      <PlayerProgressButtons />
       <ProgressBar currentTime={325} totalTime={624} />
     </div>
   )
