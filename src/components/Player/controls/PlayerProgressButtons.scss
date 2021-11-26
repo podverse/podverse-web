@@ -1,7 +1,21 @@
 .progress-button-container {
   align-self: stretch;
   display: flex;
-  justify-content: space-evenly;
-  margin: 0 auto;
+  justify-content: center;
+  margin: -1px auto 0 auto;
   width: 380px;
+
+  .player-progress-button {
+    &:first-child, &:last-child {
+      margin: 0px;
+    }
+
+    &:nth-child(2) {
+      margin: 0 18px 0 6px;
+    }
+
+    &:nth-child(4) {
+      margin: 0 6px 0 18px;
+    }
+  }
 }
