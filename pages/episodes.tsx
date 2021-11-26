@@ -161,7 +161,7 @@ export default function Episodes({ serverFilterFrom, serverFilterPage,
           )
         }
         {
-          userInfo || filterFrom !== PV.Filters.from._subscribed && (
+          (userInfo || filterFrom !== PV.Filters.from._subscribed) && (
             <>
               <List>
                 {generateEpisodeListElements(episodesListData)}

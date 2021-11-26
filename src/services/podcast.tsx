@@ -26,13 +26,17 @@ export const getPodcastsByQuery = async ({ categories, maxResults,
     ...(sort ? { sort } : {})
   }
 
-  const response = await request({
-    endpoint: PV.RoutePaths.api.podcast,
-    method: 'get',
-    query: filteredQuery
-  })
-
-  return response
+  if (podcastIds?.length === 0) {
+    return { data: [[], 0] }
+  } else {
+    const response = await request({
+      endpoint: PV.RoutePaths.api.podcast,
+      method: 'get',
+      query: filteredQuery
+    })
+  
+    return response
+  }
 }
 
 export const getPodcastById = async (id: string) => {
