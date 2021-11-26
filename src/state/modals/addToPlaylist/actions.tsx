@@ -6,6 +6,7 @@ const modalsAddToPlaylistHide = () => {
 }
 
 const modalsAddToPlaylistShow = (item: NowPlayingItem) => {
+  OmniAural.modalsHideAll()
   OmniAural.state.modals.addToPlaylist.item.set(item)
 }
 

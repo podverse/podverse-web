@@ -10,7 +10,7 @@ export const LoginToAlertModal = (props: Props) => {
   const { t } = useTranslation()
   const { alertType } = loginToAlert
 
-  /* Event Handlers */
+  /* Function Helpers */
 
   const _onRequestClose = () => {
     OmniAural.modalsHideAll()

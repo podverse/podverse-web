@@ -10,3 +10,15 @@ export const readableDate = (date) => {
 
   return month + '/' + day + '/' + year;
 }
+
+Date.prototype.addDays = function (days) {
+  const date = new Date(this.valueOf())
+  date.setDate(date.getDate() + days)
+  return date
+}
+
+export const isBeforeDate = (expirationDate, dayOffset = 0) => {
+  const currentDate = new Date() as any
+  const offsetDate = currentDate.addDays(dayOffset)
+  return new Date(expirationDate) > offsetDate
+}

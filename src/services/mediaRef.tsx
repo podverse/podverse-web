@@ -34,11 +34,15 @@ export const getMediaRefsByQuery = async ({ categories, episodeId, includeEpisod
     ...(sort ? { sort } : { sort: PV.Filters.sort._mostRecent })
   }
 
-  return request({
-    endpoint: PV.RoutePaths.api.mediaRef,
-    method: 'get',
-    query: filteredQuery
-  })
+  if (podcastIds?.length === 0) {
+    return { data: [[], 0] }
+  } else {
+    return request({
+      endpoint: PV.RoutePaths.api.mediaRef,
+      method: 'get',
+      query: filteredQuery
+    })
+  }
 }
 
 export const getUserMediaRefs = async (userId: string, query: any = {}) => {

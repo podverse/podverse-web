@@ -16,3 +16,13 @@ export const getEpisodeTitle = (t: any, episode: Episode) => {
 export const getPodcastTitle = (t: any, podcast: Podcast) => {
   return podcast.title || t('untitledPodcast')
 }
+
+export const prefixClipLabel = (t: any, episodeTitle?: string) => {
+  let title = ''
+  if (episodeTitle) {
+    title = `(${t('Clip')}) ${episodeTitle}`.trim()
+  } else {
+    title = t('untitledClip')
+  }
+  return title
+}

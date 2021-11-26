@@ -3,6 +3,9 @@
     "addToPlaylist": {
       "item": null
     },
+    "checkout": {
+      "show": false
+    },
     "forgotPassword": {
       "show": false
     },

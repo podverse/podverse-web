@@ -18,8 +18,8 @@ export const PlayerItemButtons = ({ muted, playSpeed }: Props) => {
       </PlayerOptionButton>
       <PlayerOptionButton type="add" size="small" />
       <PlayerOptionButton type="clip" size="small" />
-      <PlayerOptionButton type="share" size="small" />
-      <div style={{ marginLeft: 15, display: "flex", alignItems: "center" }}>
+      {/* <PlayerOptionButton type="share" size="small" /> */}
+      <div style={{ marginLeft: 20, display: "flex", alignItems: "center" }}>
         <PlayerOptionButton
           type={muted ? "mute" : "unmute"}
           size="small"
