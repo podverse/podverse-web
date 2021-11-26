@@ -226,4 +226,16 @@ body {
       }
     }
   }
+
+  .is-active {
+    @include themeGen() {
+      color: getThemeVal('premiumIsActive');
+    }
+  }
+
+  .is-expired {
+    @include themeGen() {
+      color: getThemeVal('premiumIsExpired');
+    }
+  }
 }

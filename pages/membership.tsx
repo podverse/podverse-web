@@ -6,7 +6,8 @@ import { Page } from '~/lib/utility/page'
 import { PV } from '~/resources'
 import { getServerSideAuthenticatedUserInfo } from '~/services/auth'
 import { getServerSideUserQueueItems } from '~/services/userQueueItem'
-import { ButtonLink, ColumnsWrapper, ComparisonTable, Meta, PageHeader, PageScrollableContent, SideContent } from '~/components'
+import { ButtonLink, ColumnsWrapper, ComparisonTable, MembershipStatus, Meta, PageHeader, PageScrollableContent, SideContent } from '~/components'
+import { isBeforeDate } from '~/lib/utility/date'
 
 interface ServerProps extends Page { }
 
@@ -44,6 +45,7 @@ export default function Membership(props: ServerProps) {
         <ColumnsWrapper
           mainColumnChildren={
             <div className='text-page'>
+              <MembershipStatus />
               <ComparisonTable
                 aboveSectionNodes={
                   <>
@@ -92,11 +94,6 @@ const featuresData = (t) => [
     icon2: true
   },
   {
-    text: t('features - drag-and-drop queue'),
-    icon1: true,
-    icon2: true
-  },
-  {
     text: t('features - sleep timer'),
     icon1: true,
     icon2: true
@@ -104,6 +101,11 @@ const featuresData = (t) => [
   {
     text: t('features - light / dark mode'),
     icon1: true,
+    icon2: true
+  },
+  {
+    text: t('features - drag-and-drop queue'),
+    icon1: false,
     icon2: true
   },
   {
