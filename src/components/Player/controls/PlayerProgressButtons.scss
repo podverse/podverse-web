@@ -1,5 +1,7 @@
 .progress-button-container {
+  align-self: stretch;
   display: flex;
-  width: 50%;
   justify-content: space-evenly;
+  margin: 0 auto;
+  width: 440px;
 }

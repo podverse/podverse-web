@@ -1,6 +1,6 @@
 .progress-slider {
   display: flex;
-  width: 100%;
+  flex: 1;
 
   /*Chrome*/
   @media screen and (-webkit-min-device-pixel-ratio: 0) {

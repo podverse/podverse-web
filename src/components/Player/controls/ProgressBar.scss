@@ -1,14 +1,13 @@
 .player-bar-container {
+  align-items: center;
   display: flex;
   justify-content: center;
-  align-items: center;
-  width: 80%;
   margin-top: 10px;
+  width: 520px;
 }
 
 .player-bar {
   margin: 0 20px;
-  width: 100%;
 }
 
 .player-bar-label {
