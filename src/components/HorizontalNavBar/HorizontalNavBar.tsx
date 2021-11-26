@@ -55,7 +55,9 @@ export const HorizontalNavBar = ({ serverCookies }: Props) => {
   const onChange = async (selected) => {
     const item = selected[0]
     if (item) {
-      if (item.key === _membershipKey) {
+      if (item.key === _myProfileKey) {
+        router.push(`${PV.RoutePaths.web.profile}/${userInfo.id}`)
+      } else if (item.key === _membershipKey) {
         router.push(PV.RoutePaths.web.membership)
       } else if (item.key === _settingsKey) {
         router.push(PV.RoutePaths.web.settings)
