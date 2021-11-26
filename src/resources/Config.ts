@@ -26,6 +26,8 @@ const PAYPAL_CLIENT = {
 
 const EMAIL_CONTACT = getServerOrPublicVariable('EMAIL_CONTACT')
 
+const metaDefaultImageUrl1200x630 = 'https://podverse.fm/images/podverse-logo-1200x630.png'
+
 export const Config = {
   API_BASE_URL,
   WEB_BASE_URL,
@@ -36,5 +38,6 @@ export const Config = {
   PAYPAL_CLIENT,
   EMAIL: {
     CONTACT: EMAIL_CONTACT
-  }
+  },
+  metaDefaultImageUrl1200x630
 }
