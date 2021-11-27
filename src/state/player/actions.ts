@@ -62,7 +62,15 @@ const setHighlightedPositions = (highlightedPositions: number[]) => {
   OmniAural.state.player.highlightedPositions.set(highlightedPositions)
 }
 
-OmniAural.addActions({ mutePlayer, pausePlayer, playerSetVolume, playPlayer,
-  setChapterFlagPositions, setChapters, setClipHasReachedEnd, setClipFlagPositions,
-  setHighlightedPositions, setPlayerDuration, setPlayerItem, setPlayerPlaybackPosition,
-  setPlaySpeed, togglePlayer, unmutePlayer })
+const playerFullViewHide = () => {
+  OmniAural.state.player.showFullView.set(false)
+}
+
+const playerFullViewShow = () => {
+  OmniAural.state.player.showFullView.set(true)
+}
+
+OmniAural.addActions({ playerFullViewHide, playerFullViewShow, mutePlayer, pausePlayer,
+  playerSetVolume, playPlayer, setChapterFlagPositions, setChapters, setClipHasReachedEnd,
+  setClipFlagPositions, setHighlightedPositions, setPlayerDuration, setPlayerItem,
+  setPlayerPlaybackPosition, setPlaySpeed, togglePlayer, unmutePlayer })

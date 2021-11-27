@@ -11,7 +11,7 @@ export const PlayerProgressButtons = (props: Props) => {
   const [player] = useOmniAural('player')
   const { paused } = player
   const container = classnames("progress-button-container")
-  const playpause = classnames(paused ? "pause" : "play")
+  const playpause = classnames(paused ? "play" : "pause")
 
   const _handleTrackPrevious = () => {
     console.log('_handleTrackPrevious')

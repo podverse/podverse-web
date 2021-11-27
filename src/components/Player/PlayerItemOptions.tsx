@@ -9,7 +9,7 @@ type Props = {}
 
 export const PlayerItemButtons = (props: Props) => {
   const [player] = useOmniAural('player')
-  const { currentNowPlayingItem, muted, playSpeed, volume } = player
+  const { currentNowPlayingItem, muted, playSpeed, showFullView, volume } = player
   const container = classnames("player-buttons-container")
 
   return (
@@ -42,7 +42,10 @@ export const PlayerItemButtons = (props: Props) => {
           onValueChange={playerSetVolume}
           startVal={0} />
       </div>
-      <PlayerOptionButton type="fullscreen" size="small" />
+      <PlayerOptionButton
+        onClick={showFullView ? OmniAural.playerFullViewHide : OmniAural.playerFullViewShow}
+        size="small"
+        type={showFullView ? 'fullscreen-hide' : 'fullscreen-show'} />
     </div>
   )
 }

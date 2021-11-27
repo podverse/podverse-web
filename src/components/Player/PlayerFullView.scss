@@ -1,0 +1,72 @@
+.player-full-view {
+  align-items: center;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  left: 0;
+  padding: 0 120px;
+  position: fixed;
+  right: 0;
+  top: 0;
+
+  backdrop-filter: blur($background-blur);
+  -webkit-backdrop-filter: blur($background-blur);
+
+  @include themeGen() {
+    background-color: getThemeVal("backgroundTransparent");
+  }
+
+  .button-close {
+    position: absolute;
+    top: 28px;
+    right: 64px;
+  }
+
+  .image-wrapper {
+    margin: 30px 0 100px 0;
+  }
+
+  .title-wrapper {
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+
+    a {
+      display: inline-block;
+
+      &:hover {
+        @include themeGen() {
+          color: getThemeVal("textHover");
+        }
+      }
+    }
+
+    .subtitle {
+      font-size: $text-xl;
+      font-weight: $font-weight-bold;
+      margin-top: 3px;
+
+      @include themeGen() {
+        color: getThemeVal("textQuaternary");
+      }
+    }
+  }
+
+  .player-buttons-wrapper {
+    align-self: stretch;
+
+    .player-bar-container {
+      margin: 43px 0 28px 0;
+      width: 100%;
+
+      .player-bar-label {
+        min-width: unset;
+      }
+    }
+
+    .player-progress-container {
+      flex-direction: row;
+    }
+  }
+}

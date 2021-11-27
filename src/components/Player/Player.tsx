@@ -1,8 +1,9 @@
 import { useOmniAural } from "omniaural"
 import classnames from "classnames"
+import { PlayerFullView } from "./PlayerFullView"
 import { PlayerItemInfo } from "./PlayerItemInfo"
-import { PlayerItemProgress } from "./PlayerItemProgress"
 import { PlayerItemButtons } from "./PlayerItemOptions"
+import { PlayerItemProgress } from "./PlayerItemProgress"
 
 type Props = {}
 
@@ -21,10 +22,17 @@ export const Player = ({}: Props) => {
   console.log('Player render')
 
   return (
-    <div className={mainPlayerStyle}>
-      <PlayerItemInfo nowPlayingItem={player.currentNowPlayingItem} />
-      <PlayerItemProgress />
-      <PlayerItemButtons />
-    </div>
+    <>
+      <div className={mainPlayerStyle}>
+        <PlayerItemInfo nowPlayingItem={player.currentNowPlayingItem} />
+        <PlayerItemProgress />
+        <PlayerItemButtons />
+      </div>
+      {
+        player?.showFullView && (
+          <PlayerFullView nowPlayingItem={player.currentNowPlayingItem} />
+        )
+      }
+    </>
   )
 }

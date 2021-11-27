@@ -17,6 +17,7 @@
 
   .highlighted-section {
     height: 20px;
+    pointer-events: none;
     position: absolute;
     top: -5px;
 
@@ -53,7 +54,7 @@
 
       @include themeGen() {
         background: getThemeVal('sliderListened');
-        box-shadow: -20vw 0 0 20vw getThemeVal('sliderListened');
+        box-shadow: -100vw 0 0 100vw getThemeVal('sliderListened');
       }
     }
   }

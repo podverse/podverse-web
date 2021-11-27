@@ -43,12 +43,12 @@ export const PlayerAPIAudio = (props: Props) => {
     }
     
     if (currentNowPlayingItem.episodeChaptersUrl) {
-      const data = await retrieveLatestChaptersForEpisodeId(currentNowPlayingItem.episodeId)
-      const [chapters, chaptersCount] = data
-      const enrichedChapters = enrichChapterDataForPlayer(chapters, duration)
-      const chapterFlagPositions = generateChapterFlagPositions(enrichedChapters, duration)
-      OmniAural.setChapterFlagPositions(chapterFlagPositions)
-      OmniAural.setChapters(enrichedChapters)
+      // const data = await retrieveLatestChaptersForEpisodeId(currentNowPlayingItem.episodeId)
+      // const [chapters, chaptersCount] = data
+      // const enrichedChapters = enrichChapterDataForPlayer(chapters, duration)
+      // const chapterFlagPositions = generateChapterFlagPositions(enrichedChapters, duration)
+      // OmniAural.setChapterFlagPositions(chapterFlagPositions)
+      // OmniAural.setChapters(enrichedChapters)
       // setChapterUpdateInterval()
     }
   }
@@ -56,7 +56,6 @@ export const PlayerAPIAudio = (props: Props) => {
   const _onListen = () => {
     playerUpdatePlaybackPosition()
     playerUpdateDuration()
-    handleChapterUpdateInterval()
   }
 
   window.playerAudio = createRef()

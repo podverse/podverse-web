@@ -5,6 +5,7 @@ export const Images = {
   sizes: {
     small: '32px',
     medium: '64px',
-    large: '128px'
+    large: '128px',
+    fullViewAudio: '300px'
   }
 }

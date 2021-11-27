@@ -45,6 +45,7 @@
     "playbackPosition": 0,
     "playSpeed": 1,
     "show": false,
+    "showFullView": false,
     "volume": 100
   },
   "session": {
