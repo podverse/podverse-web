@@ -36,6 +36,7 @@ export const Slider = ({
     return (
       <div
         className='flag'
+        key={`flag-element-${flagPosition}`}
         style={{ left: positionLeft }} />
     )
   }

@@ -24,7 +24,7 @@ export const PlayerItemInfo = ({ nowPlayingItem }: Props) => {
         src={nowPlayingItem.episodeImageUrl || nowPlayingItem.podcastImageUrl}
       />
       <div className={textContainer}>
-        <div className={title}>{nowPlayingItem.episodeTitle}</div>
+        <div className={title}>{nowPlayingItem.clipTitle || nowPlayingItem.episodeTitle}</div>
         <div className={subtitle}>{nowPlayingItem.podcastTitle}</div>
       </div>
     </div>

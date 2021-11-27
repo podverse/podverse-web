@@ -55,7 +55,8 @@ export const audioClearNowPlayingItem = () => {
 }
 
 export const audioLoadNowPlayingItem = async (
-  item: NowPlayingItem,
+  nowPlayingItem: NowPlayingItem,
+  previousNowPlayingItem: NowPlayingItem,
   shouldPlay: boolean
 ) => {
 
@@ -71,7 +72,9 @@ export const audioLoadNowPlayingItem = async (
 
   // addOrUpdateHistoryItem(item, item.userPlaybackPosition || 0, item.episodeDuration || 0, forceUpdateOrderDate)
 
-  PVPlayerAudio.src = item.episodeMediaUrl
+  if (nowPlayingItem.episodeMediaUrl != previousNowPlayingItem?.episodeMediaUrl) {
+    PVPlayerAudio.src = nowPlayingItem.episodeMediaUrl
+  }
 
   if (shouldPlay) {
     audioPlay()
@@ -81,7 +84,7 @@ export const audioLoadNowPlayingItem = async (
   //   PVEventEmitter.emit(PV.Events.PLAYER_NEW_EPISODE_LOADED)
   // }
 
-  return item
+  return nowPlayingItem
 }
 
 export const audioSetVolume = (newVolume: number) => {

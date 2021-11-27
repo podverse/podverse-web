@@ -21,10 +21,12 @@ export const PlayerAPIAudio = (props: Props) => {
   const { currentNowPlayingItem } = player
 
   useEffect(() => {
+    console.log('useEffect')
     audioInitialize()
   }, [])
 
   const _onLoadedMetaData = () => {
+    console.log('PlayerAPIAudio _onLoadedMetaData')
     if (currentNowPlayingItem.clipStartTime) {
       audioSeekTo(currentNowPlayingItem.clipStartTime)
     }
@@ -32,9 +34,7 @@ export const PlayerAPIAudio = (props: Props) => {
     const duration = playerGetDuration()
 
     if (Number.isInteger(currentNowPlayingItem.clipStartTime)) {
-      const flagPositions = generateClipFlagPositions(
-        currentNowPlayingItem, duration
-      )
+      const flagPositions = generateClipFlagPositions(currentNowPlayingItem, duration)
       OmniAural.setFlagPositions(flagPositions)
       OmniAural.setHighlightedPositions(flagPositions)
     } else if (false) {

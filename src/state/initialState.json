@@ -33,6 +33,7 @@
     "isLoading": false
   },
   "player": {
+    "clipHasReachedEnd": false,
     "currentNowPlayingItem": null,
     "duration": 0,
     "flagPositions": [],

@@ -42,6 +42,10 @@ const unmutePlayer = () => {
   OmniAural.state.player.muted.set(false)
 }
 
+const setClipHasReachedEnd = (hasReachedEnd: boolean) => {
+  OmniAural.state.player.clipHasReachedEnd.set(hasReachedEnd)
+}
+
 const setFlagPositions = (flagPositions: number[]) => {
   OmniAural.state.player.flagPositions.set(flagPositions)
 }
@@ -51,5 +55,5 @@ const setHighlightedPositions = (highlightedPositions: number[]) => {
 }
 
 OmniAural.addActions({ mutePlayer, pausePlayer, playerSetVolume, playPlayer,
-  setFlagPositions, setHighlightedPositions, setPlayerDuration, setPlayerItem,
-  setPlayerPlaybackPosition, setPlaySpeed, togglePlayer, unmutePlayer })
+  setClipHasReachedEnd, setFlagPositions, setHighlightedPositions, setPlayerDuration,
+  setPlayerItem, setPlayerPlaybackPosition, setPlaySpeed, togglePlayer, unmutePlayer })
