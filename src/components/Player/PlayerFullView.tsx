@@ -34,12 +34,16 @@ export const PlayerFullView = ({ nowPlayingItem }: Props) => {
       </div>
       <div className='title-wrapper'>
         <h1>
-          <PVLink href={episodePageUrl}>
+          <PVLink
+            href={episodePageUrl}
+            onClick={_onRequestClose}>
             {nowPlayingItem.episodeTitle || t('untitledEpisode')}
           </PVLink>
         </h1>
         <div className='subtitle'>
-          <PVLink href={podcastPageUrl}>
+          <PVLink
+            href={podcastPageUrl}
+            onClick={_onRequestClose}>
             {nowPlayingItem.podcastTitle || t('untitledPodcast')}
           </PVLink>
         </div>
