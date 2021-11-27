@@ -213,7 +213,8 @@ export const playerLoadNowPlayingItem = async (
     const previousNowPlayingItem = OmniAural.state.player.currentNowPlayingItem.value()
 
     playerLoadNowPlayingItemIntoState(nowPlayingItem)
-    // playerClearLoadedItems(nowPlayingItem)
+    playerClearLoadedItems(nowPlayingItem)
+    clearClipEndTimeListenerInterval()
 
     if (!checkIfVideoFileType(nowPlayingItem)) {
       // audioAddNowPlayingItemNextInQueue(item, itemToSetNextInQueue)
