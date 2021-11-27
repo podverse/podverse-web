@@ -1,9 +1,8 @@
 import classNames from "classnames"
 import { useOmniAural } from 'omniaural'
-import { useEffect } from "react"
 import { Slider } from "~/components/Slider/Slider"
 import { convertSecToHHMMSS } from "~/lib/utility/time"
-import { playerSeekTo, playerUpdateDuration, playerUpdatePlaybackPosition } from "~/services/player/player"
+import { playerSeekTo } from "~/services/player/player"
 
 type Props = {}
 
