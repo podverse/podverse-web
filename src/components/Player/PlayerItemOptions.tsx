@@ -1,19 +1,22 @@
 import classnames from "classnames"
+import OmniAural, { useOmniAural } from 'omniaural'
 import { PlayerOptionButton } from "./options/PlayerOptionButton"
-import OmniAural from "omniaural"
 import { Slider } from "../Slider/Slider"
+import { playerNextSpeed } from "~/services/player/player"
 
-type Props = {
-  muted: boolean
-  playSpeed: string
-}
+type Props = {}
 
-export const PlayerItemButtons = ({ muted, playSpeed }: Props) => {
+export const PlayerItemButtons = (props: Props) => {
+  const [player] = useOmniAural('player')
+  const { muted, playSpeed } = player
   const container = classnames("player-buttons-container")
 
   return (
     <div className={container}>
-      <PlayerOptionButton type="speed" size="small">
+      <PlayerOptionButton
+        onClick={playerNextSpeed}
+        size="small"
+        type="speed">
         {playSpeed}x
       </PlayerOptionButton>
       <PlayerOptionButton type="add" size="small" />
@@ -21,14 +24,13 @@ export const PlayerItemButtons = ({ muted, playSpeed }: Props) => {
       {/* <PlayerOptionButton type="share" size="small" /> */}
       <div style={{ marginLeft: 20, display: "flex", alignItems: "center" }}>
         <PlayerOptionButton
-          type={muted ? "mute" : "unmute"}
-          size="small"
           onClick={() => {
-            console.log("Attempting mute: ", muted)
             muted ? OmniAural.unmutePlayer() : OmniAural.mutePlayer()
           }}
+          size="small"
+          type={muted ? "mute" : "unmute"}
         />
-        <Slider currentVal={20} startVal={0} endVal={100} />
+        <Slider currentValue={20} startVal={0} endVal={100} />
       </div>
       <PlayerOptionButton type="fullscreen" size="small" />
     </div>

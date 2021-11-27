@@ -34,12 +34,12 @@
   },
   "player": {
     "currentNowPlayingItem": null,
-    "show": false,
+    "duration": 0,
     "muted": false,
     "paused": true,
-    "playSpeed": 1,
     "playbackPosition": 0,
-    "duration": 0
+    "playSpeed": 1,
+    "show": false
   },
   "session": {
     "userInfo": null

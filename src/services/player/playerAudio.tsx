@@ -45,6 +45,10 @@ export const audioSeekTo = (position: number) => {
   PVPlayerAudio.currentTime = position
 }
 
+export const audioSetPlaybackSpeed = (newSpeed: number) => {
+  PVPlayerAudio.playbackRate = newSpeed
+}
+
 export const audioClearNowPlayingItem = () => {
   PVPlayerAudio.src = ''
 }
