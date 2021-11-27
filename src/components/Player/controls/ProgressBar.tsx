@@ -8,7 +8,7 @@ type Props = {}
 
 export const ProgressBar = (props: Props) => {
   const [player] = useOmniAural('player')
-  const { duration, playbackPosition } = player
+  const { duration, flagPositions, highlightedPositions, playbackPosition } = player
   const currentTimeLabel = convertSecToHHMMSS(playbackPosition)
   const endTimeLabel = convertSecToHHMMSS(duration)
 
@@ -23,6 +23,8 @@ export const ProgressBar = (props: Props) => {
         className={bar}
         currentValue={playbackPosition}
         endVal={duration}
+        flagPositions={flagPositions}
+        highlightedPositions={highlightedPositions}
         onValueChange={playerSeekTo}
         startVal={0} />
       <div className={barLabel}>{endTimeLabel}</div>

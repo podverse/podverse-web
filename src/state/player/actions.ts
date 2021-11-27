@@ -42,6 +42,14 @@ const unmutePlayer = () => {
   OmniAural.state.player.muted.set(false)
 }
 
+const setFlagPositions = (flagPositions: number[]) => {
+  OmniAural.state.player.flagPositions.set(flagPositions)
+}
+
+const setHighlightedPositions = (highlightedPositions: number[]) => {
+  OmniAural.state.player.highlightedPositions.set(highlightedPositions)
+}
+
 OmniAural.addActions({ mutePlayer, pausePlayer, playerSetVolume, playPlayer,
-  setPlayerDuration, setPlayerItem, setPlayerPlaybackPosition, setPlaySpeed,
-  togglePlayer, unmutePlayer })
+  setFlagPositions, setHighlightedPositions, setPlayerDuration, setPlayerItem,
+  setPlayerPlaybackPosition, setPlaySpeed, togglePlayer, unmutePlayer })

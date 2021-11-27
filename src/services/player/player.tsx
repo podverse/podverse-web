@@ -1,8 +1,11 @@
 import OmniAural, { useOmniAural } from 'omniaural'
 import type { NowPlayingItem } from 'podverse-shared'
+import { PlayerFlagTime } from '~/lib/types'
 import { PV } from '~/resources'
 import { audioCheckIfCurrentlyPlaying, audioClearNowPlayingItem, audioGetDuration, audioGetPosition, audioIsLoaded, audioLoadNowPlayingItem, audioMute, audioPause, audioPlay, audioSeekTo, audioSetPlaybackSpeed, audioSetVolume, audioTogglePlay, audioUnmute } from './playerAudio'
 import { checkIfVideoFileType, videoIsLoaded } from './playerVideo'
+
+let clipEndTimeListenerInterval = null
 
 export const playerCheckIfCurrentlyPlayingItem = (paused: boolean, nowPlayingItem?: NowPlayingItem) => {
   const [currentNowPlayingItem] = useOmniAural('player.currentNowPlayingItem')
@@ -56,41 +59,6 @@ export const playerClearLoadedItems = () => {
   // clear video
 }
 
-export const playerLoadNowPlayingItem = async (
-  nowPlayingItem: NowPlayingItem,
-  shouldPlay?: boolean
-) => {
-  try {
-    if (!nowPlayingItem) return
-
-    // const previousNowPlayingItem = OmniAural.state.player.nowPlayingItem.value()
-    
-    OmniAural.setPlayerItem(nowPlayingItem)
-    
-    playerClearLoadedItems()
-    
-    if (!checkIfVideoFileType(nowPlayingItem)) {
-      // audioAddNowPlayingItemNextInQueue(item, itemToSetNextInQueue)
-    }
-
-    // const skipSetNowPlaying = true
-    // await playerUpdateUserPlaybackPosition(skipSetNowPlaying)
-
-    if (checkIfVideoFileType(nowPlayingItem)) {
-      // await videoLoadNowPlayingItem(
-      //   item,
-      //   shouldPlay,
-      //   forceUpdateOrderDate,
-      //   previousNowPlayingItem
-      // )
-    } else {
-      await audioLoadNowPlayingItem(nowPlayingItem, shouldPlay)
-    }
-  } catch (error) {
-    console.log('playerLoadNowPlayingItem service error', error)
-  }
-}
-
 export const playerPlay = () => {
   if (audioIsLoaded()) {
     audioPlay()
@@ -125,11 +93,13 @@ export const playerJumpForward = () => {
 }
 
 export const playerGetDuration = () => {
+  let duration = 0
   if (audioIsLoaded()) {
-    return audioGetDuration()
+    duration = audioGetDuration()
   } else if (videoIsLoaded()) {
-    // return videoGetPosition()
+    // duration = videoGetPosition()
   }
+  return duration
 }
 
 export const playerGetPosition = () => {
@@ -212,4 +182,100 @@ export const playerUnmute = () => {
   } else if (videoIsLoaded()) {
     //
   }
+}
+
+export const playerLoadNowPlayingItem = async (
+  nowPlayingItem: NowPlayingItem,
+  shouldPlay?: boolean
+) => {
+  try {
+    if (!nowPlayingItem) return
+
+    // clearClipEndTimeListenerInterval()
+
+    // const previousNowPlayingItem = OmniAural.state.player.nowPlayingItem.value()
+
+    OmniAural.setPlayerItem(nowPlayingItem)
+
+    playerClearLoadedItems()
+
+    if (!checkIfVideoFileType(nowPlayingItem)) {
+      // audioAddNowPlayingItemNextInQueue(item, itemToSetNextInQueue)
+    }
+
+    // const skipSetNowPlaying = true
+    // await playerUpdateUserPlaybackPosition(skipSetNowPlaying)
+
+    if (checkIfVideoFileType(nowPlayingItem)) {
+      // await videoLoadNowPlayingItem(
+      //   item,
+      //   shouldPlay,
+      //   forceUpdateOrderDate,
+      //   previousNowPlayingItem
+      // )
+    } else {
+      await audioLoadNowPlayingItem(nowPlayingItem, shouldPlay)
+    }
+
+    if (nowPlayingItem.clipStartTime && !nowPlayingItem.clipIsOfficialChapter) {
+      handleSetupClip(nowPlayingItem)
+    }
+
+  } catch (error) {
+    console.log('playerLoadNowPlayingItem service error', error)
+  }
+}
+
+const handleSetupClip = (nowPlayingItem: NowPlayingItem) => {
+  clipEndTimeListenerInterval = setInterval(() => {
+    checkIfEndTimeReached(nowPlayingItem)
+  }, 333)
+}
+
+const checkIfEndTimeReached = (nowPlayingItem: NowPlayingItem) => {
+  const currentPosition = playerGetPosition()
+  if (nowPlayingItem.clipEndTime && currentPosition > nowPlayingItem.clipEndTime) {
+    clearClipEndTimeListenerInterval()
+    playerPause()
+  }
+}
+
+const clearClipEndTimeListenerInterval = () => {
+  if (clipEndTimeListenerInterval) {
+    clearInterval(clipEndTimeListenerInterval)
+  }
+}
+
+export const generateFlagPositions = (
+  flagTimes: number[],
+  duration: number
+) => {
+  const flagPositions: number[] = []
+  for (const flagTime of flagTimes) {
+    const flagPosition = flagTime / duration
+    if (flagPosition >= 0 || flagPosition <= 1) {
+      flagPositions.push(flagPosition)
+    }
+  }
+  return flagPositions
+}
+
+export const generateChapterFlagPositions = (
+  chapters: any[],
+  duration: number
+) => {
+  console.log('generateChapterFlagPositions')
+}
+
+export const generateClipFlagPositions = (
+  nowPlayingItem: NowPlayingItem,
+  duration: number
+) => {
+  const flagTimes: number[] = [nowPlayingItem.clipStartTime]
+
+  if (nowPlayingItem.clipEndTime) {
+    flagTimes.push(nowPlayingItem.clipEndTime)
+  }
+
+  return generateFlagPositions(flagTimes, duration)
 }

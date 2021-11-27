@@ -35,6 +35,8 @@
   "player": {
     "currentNowPlayingItem": null,
     "duration": 0,
+    "flagPositions": [],
+    "highlightedPositions": [],
     "muted": false,
     "paused": true,
     "playbackPosition": 0,

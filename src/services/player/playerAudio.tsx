@@ -24,7 +24,8 @@ export const audioCheckIfCurrentlyPlaying = () => {
 }
 
 export const audioGetDuration = () => {
-  return PVPlayerAudio.duration
+  // Sometimes PVPlayerAudio.duration returns NaN, so default to 0.
+  return PVPlayerAudio.duration || 0
 }
 
 export const audioGetPosition = () => {
