@@ -8,13 +8,18 @@ type Props = {}
 
 export const ProgressBar = (props: Props) => {
   const [player] = useOmniAural('player')
-  const { duration, flagPositions, highlightedPositions, playbackPosition } = player
+  const { chapterFlagPositions, clipFlagPositions, duration, highlightedPositions,
+    playbackPosition } = player
   const currentTimeLabel = convertSecToHHMMSS(playbackPosition)
   const endTimeLabel = convertSecToHHMMSS(duration)
 
   const barContainer = classNames("player-bar-container")
   const bar = classNames("player-bar")
   const barLabel = classNames("player-bar-label")
+
+  const flagPositions = clipFlagPositions.length > 0
+    ? clipFlagPositions
+    : chapterFlagPositions
 
   return (
     <div className={barContainer}>

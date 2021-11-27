@@ -1,11 +1,10 @@
 import OmniAural, { useOmniAural } from 'omniaural'
 import type { NowPlayingItem } from 'podverse-shared'
-import { convertNowPlayingItemClipToNowPlayingItemEpisode } from 'podverse-shared'
 import { PV } from '~/resources'
 import { audioCheckIfCurrentlyPlaying, audioClearNowPlayingItem, audioGetDuration, audioGetPosition, audioIsLoaded, audioLoadNowPlayingItem, audioMute, audioPause, audioPlay, audioSeekTo, audioSetPlaybackSpeed, audioSetVolume, audioTogglePlay, audioUnmute } from './playerAudio'
+import { clearChapterUpdateInterval } from './playerChapters'
+import { clearClipEndTimeListenerInterval, handlePlayAfterClipEndTimeReached, handleSetupClip } from './playerClip'
 import { checkIfVideoFileType, videoIsLoaded } from './playerVideo'
-
-let clipEndTimeListenerInterval = null
 
 export const playerCheckIfCurrentlyPlayingItem = (paused: boolean, nowPlayingItem?: NowPlayingItem) => {
   const [currentNowPlayingItem] = useOmniAural('player.currentNowPlayingItem')
@@ -193,11 +192,15 @@ export const playerUnmute = () => {
   }
 }
 
-const playerLoadNowPlayingItemIntoState = (nowPlayingItem: NowPlayingItem) => {
-  OmniAural.setPlayerItem(nowPlayingItem)
+const playerClearPreviousItem = (nowPlayingItem: NowPlayingItem) => {
+  OmniAural.setClipHasReachedEnd(false)
+  OmniAural.setPlayerPlaybackPosition(0)
   /* The positions get set in the onLoadedMetaData handler in the PlayerAPIs */
-  OmniAural.setFlagPositions([])
   OmniAural.setHighlightedPositions([])
+  OmniAural.setClipFlagPositions([])
+  playerClearLoadedItems(nowPlayingItem)
+  clearClipEndTimeListenerInterval()
+  clearChapterUpdateInterval()
 }
 
 export const playerLoadNowPlayingItem = async (
@@ -207,14 +210,10 @@ export const playerLoadNowPlayingItem = async (
   try {
     if (!nowPlayingItem) return
 
-    // clearClipEndTimeListenerInterval()
-    // OmniAural.setClipHasReachedEnd(false)
-
     const previousNowPlayingItem = OmniAural.state.player.currentNowPlayingItem.value()
-
-    playerLoadNowPlayingItemIntoState(nowPlayingItem)
-    playerClearLoadedItems(nowPlayingItem)
-    clearClipEndTimeListenerInterval()
+    
+    OmniAural.setPlayerItem(nowPlayingItem)
+    playerClearPreviousItem(nowPlayingItem)
 
     if (!checkIfVideoFileType(nowPlayingItem)) {
       // audioAddNowPlayingItemNextInQueue(item, itemToSetNextInQueue)
@@ -241,78 +240,4 @@ export const playerLoadNowPlayingItem = async (
   } catch (error) {
     console.log('playerLoadNowPlayingItem service error', error)
   }
-}
-
-const handleSetupClip = (nowPlayingItem: NowPlayingItem) => {
-  if (nowPlayingItem.clipEndTime) {
-    clipEndTimeListenerInterval = setInterval(() => {
-      checkIfClipEndTimeReached(nowPlayingItem)
-    }, 333)
-  }
-}
-
-const checkIfClipEndTimeReached = (nowPlayingItem: NowPlayingItem) => {
-  const currentPosition = playerGetPosition()
-  if (nowPlayingItem.clipEndTime && currentPosition > nowPlayingItem.clipEndTime) {
-    clearClipEndTimeListenerInterval()
-    OmniAural.setClipHasReachedEnd(true)
-    playerPause()
-  }
-}
-
-const handlePlayAfterClipEndTimeReached = () => {
-  const clipHasReachedEnd = OmniAural.state.player.clipHasReachedEnd.value()
-  if (clipHasReachedEnd) {
-    const currentNowPlayingItem = OmniAural.state.player.currentNowPlayingItem.value()
-    OmniAural.setClipHasReachedEnd(false)
-    const currentPosition = playerGetPosition()
-    if (currentPosition > currentNowPlayingItem.clipEndTime) {
-      const episodeNowPlayingItem =
-        convertNowPlayingItemClipToNowPlayingItemEpisode(currentNowPlayingItem) as NowPlayingItem
-      const shouldPlay = true
-      playerLoadNowPlayingItem(episodeNowPlayingItem, shouldPlay)
-    } else {
-      handleSetupClip(currentNowPlayingItem)
-    }
-  }
-}
-
-const clearClipEndTimeListenerInterval = () => {
-  if (clipEndTimeListenerInterval) {
-    clearInterval(clipEndTimeListenerInterval)
-  }
-}
-
-export const generateFlagPositions = (
-  flagTimes: number[],
-  duration: number
-) => {
-  const flagPositions: number[] = []
-  for (const flagTime of flagTimes) {
-    const flagPosition = flagTime / duration
-    if (flagPosition >= 0 || flagPosition <= 1) {
-      flagPositions.push(flagPosition)
-    }
-  }
-  return flagPositions
-}
-
-export const generateChapterFlagPositions = (
-  chapters: any[],
-  duration: number
-) => {
-  console.log('generateChapterFlagPositions')
-}
-
-export const generateClipFlagPositions = (
-  nowPlayingItem: NowPlayingItem,
-  duration: number
-) => {
-  const flagTimes: number[] = [nowPlayingItem.clipStartTime]
-
-  if (nowPlayingItem.clipEndTime) {
-    flagTimes.push(nowPlayingItem.clipEndTime)
-  }
-
-  return generateFlagPositions(flagTimes, duration)
 }

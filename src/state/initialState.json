@@ -33,10 +33,12 @@
     "isLoading": false
   },
   "player": {
+    "chapterFlagPositions": [],
+    "chapters": [],
+    "clipFlagPositions": [],
     "clipHasReachedEnd": false,
     "currentNowPlayingItem": null,
     "duration": 0,
-    "flagPositions": [],
     "highlightedPositions": [],
     "muted": false,
     "paused": true,

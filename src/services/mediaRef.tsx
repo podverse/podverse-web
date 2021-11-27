@@ -53,3 +53,11 @@ export const getUserMediaRefs = async (userId: string, query: any = {}) => {
 
   return response && response.data
 }
+
+export const retrieveLatestChaptersForEpisodeId = async (id: string) => {
+  const response = await request({
+    endpoint: `/episode/${id}/retrieve-latest-chapters`
+  })
+
+  return response && response.data
+}

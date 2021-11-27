@@ -1,5 +1,5 @@
 import OmniAural from "omniaural"
-import type { NowPlayingItem } from "podverse-shared"
+import type { MediaRef, NowPlayingItem } from "podverse-shared"
 
 const togglePlayer = (show: boolean) => {
   OmniAural.state.player.show.set(show)
@@ -42,12 +42,20 @@ const unmutePlayer = () => {
   OmniAural.state.player.muted.set(false)
 }
 
+const setChapterFlagPositions = (chapterFlagPositions: number[]) => {
+  OmniAural.state.player.chapterFlagPositions.set(chapterFlagPositions)
+}
+
+const setChapters = (chapters: MediaRef[]) => {
+  OmniAural.state.player.chapters.set(chapters)
+}
+
 const setClipHasReachedEnd = (hasReachedEnd: boolean) => {
   OmniAural.state.player.clipHasReachedEnd.set(hasReachedEnd)
 }
 
-const setFlagPositions = (flagPositions: number[]) => {
-  OmniAural.state.player.flagPositions.set(flagPositions)
+const setClipFlagPositions = (clipFlagPositions: number[]) => {
+  OmniAural.state.player.clipFlagPositions.set(clipFlagPositions)
 }
 
 const setHighlightedPositions = (highlightedPositions: number[]) => {
@@ -55,5 +63,6 @@ const setHighlightedPositions = (highlightedPositions: number[]) => {
 }
 
 OmniAural.addActions({ mutePlayer, pausePlayer, playerSetVolume, playPlayer,
-  setClipHasReachedEnd, setFlagPositions, setHighlightedPositions, setPlayerDuration,
-  setPlayerItem, setPlayerPlaybackPosition, setPlaySpeed, togglePlayer, unmutePlayer })
+  setChapterFlagPositions, setChapters, setClipHasReachedEnd, setClipFlagPositions,
+  setHighlightedPositions, setPlayerDuration, setPlayerItem, setPlayerPlaybackPosition,
+  setPlaySpeed, togglePlayer, unmutePlayer })

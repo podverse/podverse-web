@@ -18,13 +18,12 @@ export const Player = ({}: Props) => {
     return null
   }
 
+  console.log('Player render')
+
   return (
     <div className={mainPlayerStyle}>
       <PlayerItemInfo nowPlayingItem={player.currentNowPlayingItem} />
-      <PlayerItemProgress
-        isPaused={false}
-        nowPlayingItem={player.currentNowPlayingItem}
-      />
+      <PlayerItemProgress />
       <PlayerItemButtons />
     </div>
   )

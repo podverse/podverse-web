@@ -1,14 +1,10 @@
 import classnames from "classnames"
-import type { NowPlayingItem } from "podverse-shared"
 import { PlayerProgressButtons } from "./controls/PlayerProgressButtons"
 import { ProgressBar } from "./controls/ProgressBar"
 
-type Props = {
-  nowPlayingItem: NowPlayingItem
-  isPaused?: boolean
-}
+type Props = {}
 
-export const PlayerItemProgress = ({ nowPlayingItem, isPaused }: Props) => {
+export const PlayerItemProgress = (props: Props) => {
   const container = classnames("player-progress-container")
 
   return (

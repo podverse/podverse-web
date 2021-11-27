@@ -1,8 +1,11 @@
 import OmniAural, { useOmniAural } from 'omniaural'
 import { createRef, useEffect } from 'react'
 import PlayerAudio from 'react-h5-audio-player'
-import { generateClipFlagPositions, generateFlagPositions, playerGetDuration, playerUpdateDuration, playerUpdatePlaybackPosition } from '~/services/player/player'
+import { retrieveLatestChaptersForEpisodeId } from '~/services/mediaRef'
+import { playerGetDuration, playerUpdateDuration, playerUpdatePlaybackPosition } from '~/services/player/player'
 import { audioInitialize, audioSeekTo } from '~/services/player/playerAudio'
+import { enrichChapterDataForPlayer, handleChapterUpdateInterval, setChapterUpdateInterval } from '~/services/player/playerChapters'
+import { generateChapterFlagPositions, generateClipFlagPositions } from '~/services/player/playerFlags'
 
 type Props = {}
 
@@ -25,7 +28,7 @@ export const PlayerAPIAudio = (props: Props) => {
     audioInitialize()
   }, [])
 
-  const _onLoadedMetaData = () => {
+  const _onLoadedMetaData = async () => {
     console.log('PlayerAPIAudio _onLoadedMetaData')
     if (currentNowPlayingItem.clipStartTime) {
       audioSeekTo(currentNowPlayingItem.clipStartTime)
@@ -34,23 +37,33 @@ export const PlayerAPIAudio = (props: Props) => {
     const duration = playerGetDuration()
 
     if (Number.isInteger(currentNowPlayingItem.clipStartTime)) {
-      const flagPositions = generateClipFlagPositions(currentNowPlayingItem, duration)
-      OmniAural.setFlagPositions(flagPositions)
-      OmniAural.setHighlightedPositions(flagPositions)
-    } else if (false) {
-      // handle has chapters
+      const clipFlagPositions = generateClipFlagPositions(currentNowPlayingItem, duration)
+      OmniAural.setClipFlagPositions(clipFlagPositions)
+      OmniAural.setHighlightedPositions(clipFlagPositions)
+    }
+    
+    if (currentNowPlayingItem.episodeChaptersUrl) {
+      const data = await retrieveLatestChaptersForEpisodeId(currentNowPlayingItem.episodeId)
+      const [chapters, chaptersCount] = data
+      const enrichedChapters = enrichChapterDataForPlayer(chapters, duration)
+      const chapterFlagPositions = generateChapterFlagPositions(enrichedChapters, duration)
+      OmniAural.setChapterFlagPositions(chapterFlagPositions)
+      OmniAural.setChapters(enrichedChapters)
+      // setChapterUpdateInterval()
     }
   }
 
   const _onListen = () => {
     playerUpdatePlaybackPosition()
     playerUpdateDuration()
+    handleChapterUpdateInterval()
   }
 
   window.playerAudio = createRef()
 
   return (
     <PlayerAudio
+      // listenInterval={4000}
       onLoadedMetaData={_onLoadedMetaData}
       onListen={_onListen}
       ref={window.playerAudio} />
