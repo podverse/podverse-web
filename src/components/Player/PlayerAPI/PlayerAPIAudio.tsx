@@ -1,5 +1,6 @@
 import { createRef, useEffect } from 'react'
 import PlayerAudio from 'react-h5-audio-player'
+import { playerUpdateDuration, playerUpdatePlaybackPosition } from '~/services/player/player'
 import { audioInitialize } from '~/services/player/playerAudio'
 
 type Props = {}
@@ -19,9 +20,16 @@ export const PlayerAPIAudio = (props: Props) => {
     audioInitialize()
   }, [])
 
+  const _onListen = () => {
+    playerUpdatePlaybackPosition()
+    playerUpdateDuration()
+  }
+
   window.playerAudio = createRef()
 
   return (
-    <PlayerAudio ref={window.playerAudio} />
+    <PlayerAudio
+      onListen={_onListen}
+      ref={window.playerAudio} />
   )
 }

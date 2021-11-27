@@ -17,17 +17,6 @@ export const ProgressBar = (props: Props) => {
   const bar = classNames("player-bar")
   const barLabel = classNames("player-bar-label")
 
-  useEffect(() => {
-    const progressInterval = setInterval(() => {
-      playerUpdatePlaybackPosition()
-      playerUpdateDuration()
-    }, 1000)
-
-    return () => {
-      clearInterval(progressInterval)
-    }
-  }, [])
-
   return (
     <div className={barContainer}>
       <div className={barLabel}>{currentTimeLabel}</div>

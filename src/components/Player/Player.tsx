@@ -25,9 +25,7 @@ export const Player = ({}: Props) => {
         isPaused={false}
         nowPlayingItem={player.currentNowPlayingItem}
       />
-      <PlayerItemButtons
-        muted={player.muted}
-        playSpeed={player.playSpeed} />
+      <PlayerItemButtons />
     </div>
   )
 }
