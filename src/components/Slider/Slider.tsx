@@ -26,10 +26,8 @@ export const Slider = ({
       <input
         min={startVal}
         max={endVal}
-        onChange={(event) => {
-          const { valueAsNumber } = event.target
-          playerSeekTo(valueAsNumber)
-          onValueChange && onValueChange(valueAsNumber)
+        onChange={(event) => {          
+          onValueChange && onValueChange(event.target.valueAsNumber)
         }}
         step={step}
         type="range"

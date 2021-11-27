@@ -3,7 +3,7 @@ import { useOmniAural } from 'omniaural'
 import { useEffect } from "react"
 import { Slider } from "~/components/Slider/Slider"
 import { convertSecToHHMMSS } from "~/lib/utility/time"
-import { playerUpdateDuration, playerUpdatePlaybackPosition } from "~/services/player/player"
+import { playerSeekTo, playerUpdateDuration, playerUpdatePlaybackPosition } from "~/services/player/player"
 
 type Props = {}
 
@@ -35,6 +35,7 @@ export const ProgressBar = (props: Props) => {
         className={bar}
         currentValue={playbackPosition}
         endVal={duration}
+        onValueChange={playerSeekTo}
         startVal={0} />
       <div className={barLabel}>{endTimeLabel}</div>
     </div>

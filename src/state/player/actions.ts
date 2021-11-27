@@ -30,6 +30,10 @@ const playPlayer = () => {
   OmniAural.state.player.paused.set(false)
 }
 
+const playerSetVolume = (newVolume: number) => {
+  OmniAural.state.player.volume.set(newVolume)
+}
+
 const mutePlayer = () => {
   OmniAural.state.player.muted.set(true)
 }
@@ -38,5 +42,6 @@ const unmutePlayer = () => {
   OmniAural.state.player.muted.set(false)
 }
 
-OmniAural.addActions({ mutePlayer, pausePlayer, playPlayer, setPlayerDuration,
-  setPlayerItem, setPlayerPlaybackPosition, setPlaySpeed, togglePlayer, unmutePlayer })
+OmniAural.addActions({ mutePlayer, pausePlayer, playerSetVolume, playPlayer,
+  setPlayerDuration, setPlayerItem, setPlayerPlaybackPosition, setPlaySpeed,
+  togglePlayer, unmutePlayer })

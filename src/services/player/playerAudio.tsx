@@ -82,3 +82,15 @@ export const audioLoadNowPlayingItem = async (
 
   return item
 }
+
+export const audioSetVolume = (newVolume: number) => {
+  PVPlayerAudio.volume = newVolume / 100
+}
+
+export const audioMute = () => {
+  PVPlayerAudio.muted = true
+}
+
+export const audioUnmute = () => {
+  PVPlayerAudio.muted = false
+}

@@ -1,7 +1,7 @@
 import OmniAural, { useOmniAural } from 'omniaural'
 import type { NowPlayingItem } from 'podverse-shared'
 import { PV } from '~/resources'
-import { audioCheckIfCurrentlyPlaying, audioClearNowPlayingItem, audioGetDuration, audioGetPosition, audioIsLoaded, audioLoadNowPlayingItem, audioPause, audioPlay, audioSeekTo, audioSetPlaybackSpeed, audioTogglePlay } from './playerAudio'
+import { audioCheckIfCurrentlyPlaying, audioClearNowPlayingItem, audioGetDuration, audioGetPosition, audioIsLoaded, audioLoadNowPlayingItem, audioMute, audioPause, audioPlay, audioSeekTo, audioSetPlaybackSpeed, audioSetVolume, audioTogglePlay, audioUnmute } from './playerAudio'
 import { checkIfVideoFileType, videoIsLoaded } from './playerVideo'
 
 export const playerCheckIfCurrentlyPlayingItem = (paused: boolean, nowPlayingItem?: NowPlayingItem) => {
@@ -150,7 +150,7 @@ export const playerUpdateDuration = () => {
   OmniAural.setPlayerDuration(newDuration)
 }
 
-export const playerSeekTo = async (position: number) => {
+export const playerSeekTo = (position: number) => {
   OmniAural.setPlayerPlaybackPosition(position)
   if (audioIsLoaded()) {
     audioSeekTo(position)
@@ -179,5 +179,37 @@ export const playerSetPlaybackSpeed = (newSpeed: number) => {
     audioSetPlaybackSpeed(newSpeed)
   } else if (videoIsLoaded()) {
     // videoSetPlaybackSpeed(newSpeed)
+  }
+}
+
+export const playerSetVolume = (newVolume: number) => {
+  OmniAural.playerSetVolume(newVolume)
+
+  if (newVolume >= 1) {
+    playerUnmute()
+  }
+
+  if (audioIsLoaded()) {
+    audioSetVolume(newVolume)
+  } else if (videoIsLoaded()) {
+    // videoSetVolume(newSpeed)
+  }
+}
+
+export const playerMute = () => {
+  OmniAural.mutePlayer()
+  if (audioIsLoaded()) {
+    audioMute()
+  } else if (videoIsLoaded()) {
+    //
+  }
+}
+
+export const playerUnmute = () => {
+  OmniAural.unmutePlayer()
+  if (audioIsLoaded()) {
+    audioUnmute()
+  } else if (videoIsLoaded()) {
+    //
   }
 }

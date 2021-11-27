@@ -39,7 +39,8 @@
     "paused": true,
     "playbackPosition": 0,
     "playSpeed": 1,
-    "show": false
+    "show": false,
+    "volume": 100
   },
   "session": {
     "userInfo": null

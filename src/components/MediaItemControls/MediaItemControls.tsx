@@ -7,6 +7,7 @@ import { readableDate } from "~/lib/utility/date"
 import { convertSecToHhoursMMinutes, readableClipTime } from "~/lib/utility/time"
 import { playerCheckIfCurrentlyPlayingItem, playerTogglePlayOrLoadNowPlayingItem } from "~/services/player/player"
 import { addQueueItemLastOnServer, addQueueItemNextOnServer } from "~/services/userQueueItem"
+import { modalsAddToPlaylistShowOrAlert } from "~/state/modals/addToPlaylist/actions"
 import { ButtonCircle, Dropdown } from ".."
 
 type Props = {
@@ -63,7 +64,7 @@ export const MediaItemControls = ({ buttonSize, episode, hidePubDate,
       } else if (item.key === _queueLastKey) {
         await _handleQueueLast()
       } else if (item.key === _addToPlaylistKey) {
-        await _handleAddToPlaylist()
+        await modalsAddToPlaylistShowOrAlert(userInfo, nowPlayingItem)
       } else if (item.key === _markAsPlayedKey) {
         console.log('mark as played')
       }
@@ -89,14 +90,6 @@ export const MediaItemControls = ({ buttonSize, episode, hidePubDate,
       OmniAural.setUserQueueItems(newUserQueueItems)
     } else {
       OmniAural.modalsLoginToAlertShow('add item to queue')
-    }
-  }
-
-  const _handleAddToPlaylist = () => {
-    if (userInfo) {
-      OmniAural.modalsAddToPlaylistShow(nowPlayingItem)
-    } else {
-      OmniAural.modalsLoginToAlertShow('add item to playlist')
     }
   }
 
