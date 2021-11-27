@@ -64,7 +64,7 @@ export const MediaItemControls = ({ buttonSize, episode, hidePubDate,
       } else if (item.key === _queueLastKey) {
         await _handleQueueLast()
       } else if (item.key === _addToPlaylistKey) {
-        await modalsAddToPlaylistShowOrAlert(userInfo, nowPlayingItem)
+        await modalsAddToPlaylistShowOrAlert(nowPlayingItem)
       } else if (item.key === _markAsPlayedKey) {
         console.log('mark as played')
       }
