@@ -1,28 +1,41 @@
 import classNames from "classnames"
+import { useOmniAural } from 'omniaural'
+import { useEffect } from "react"
 import { Slider } from "~/components/Slider/Slider"
 import { convertSecToHHMMSS } from "~/lib/utility/time"
+import { playerUpdateDuration, playerUpdatePlaybackPosition } from "~/services/player/player"
 
-type Props = {
-  currentTime: number
-  totalTime: number
-}
+type Props = {}
 
-export const ProgressBar = ({ currentTime, totalTime }: Props) => {
+export const ProgressBar = (props: Props) => {
+  const [player] = useOmniAural('player')
+  const { duration, playbackPosition } = player
+  const currentTimeLabel = convertSecToHHMMSS(playbackPosition)
+  const endTimeLabel = convertSecToHHMMSS(duration)
+
   const barContainer = classNames("player-bar-container")
   const bar = classNames("player-bar")
   const barLabel = classNames("player-bar-label")
-  const currentTimeLabel = convertSecToHHMMSS(currentTime)
-  const endTimeLabel = convertSecToHHMMSS(totalTime)
+
+  useEffect(() => {
+    const progressInterval = setInterval(() => {
+      playerUpdatePlaybackPosition()
+      playerUpdateDuration()
+    }, 1000)
+
+    return () => {
+      clearInterval(progressInterval)
+    }
+  }, [])
 
   return (
     <div className={barContainer}>
       <div className={barLabel}>{currentTimeLabel}</div>
       <Slider
         className={bar}
-        currentVal={currentTime}
-        startVal={0}
-        endVal={totalTime}
-      />
+        currentValue={playbackPosition}
+        endVal={duration}
+        startVal={0} />
       <div className={barLabel}>{endTimeLabel}</div>
     </div>
   )

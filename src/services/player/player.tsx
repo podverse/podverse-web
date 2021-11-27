@@ -1,7 +1,7 @@
 import OmniAural, { useOmniAural } from 'omniaural'
 import type { NowPlayingItem } from 'podverse-shared'
 import { PV } from '~/resources'
-import { audioCheckIfCurrentlyPlaying, audioClearNowPlayingItem, audioGetPosition, audioIsLoaded, audioLoadNowPlayingItem, audioPause, audioPlay, audioSeekTo, audioTogglePlay } from './playerAudio'
+import { audioCheckIfCurrentlyPlaying, audioClearNowPlayingItem, audioGetDuration, audioGetPosition, audioIsLoaded, audioLoadNowPlayingItem, audioPause, audioPlay, audioSeekTo, audioTogglePlay } from './playerAudio'
 import { checkIfVideoFileType, videoIsLoaded } from './playerVideo'
 
 export const playerCheckIfCurrentlyPlayingItem = (paused: boolean, nowPlayingItem?: NowPlayingItem) => {
@@ -124,6 +124,14 @@ export const playerJumpForward = () => {
   return newPosition
 }
 
+export const playerGetDuration = () => {
+  if (audioIsLoaded()) {
+    return audioGetDuration()
+  } else if (videoIsLoaded()) {
+    // return videoGetPosition()
+  }
+}
+
 export const playerGetPosition = () => {
   if (audioIsLoaded()) {
     return audioGetPosition()
@@ -132,7 +140,18 @@ export const playerGetPosition = () => {
   }
 }
 
+export const playerUpdatePlaybackPosition = () => {
+  const newPosition = playerGetPosition()
+  OmniAural.setPlayerPlaybackPosition(newPosition)
+}
+
+export const playerUpdateDuration = () => {
+  const newDuration = playerGetDuration()
+  OmniAural.setPlayerDuration(newDuration)
+}
+
 export const playerSeekTo = async (position: number) => {
+  OmniAural.setPlayerPlaybackPosition(position)
   if (audioIsLoaded()) {
     audioSeekTo(position)
   } else if (videoIsLoaded()) {

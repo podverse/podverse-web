@@ -8,13 +8,13 @@ type Props = {
   isPaused?: boolean
 }
 
-export const PlayerItemProgess = ({ nowPlayingItem, isPaused }: Props) => {
+export const PlayerItemProgress = ({ nowPlayingItem, isPaused }: Props) => {
   const container = classnames("player-progress-container")
 
   return (
     <div className={container}>
       <PlayerProgressButtons />
-      <ProgressBar currentTime={325} totalTime={624} />
+      <ProgressBar />
     </div>
   )
 }

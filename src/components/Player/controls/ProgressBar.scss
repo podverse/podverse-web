@@ -2,7 +2,7 @@
   align-items: center;
   display: flex;
   justify-content: center;
-  margin-top: 14px;
+  margin-top: 12px;
   width: 520px;
 }
 
@@ -12,7 +12,17 @@
 
 .player-bar-label {
   font-size: 12px;
+  min-width: 40px;
+
   @include themeGen() {
     color: getThemeVal("textTertiary");
+  }
+
+  &:first-child {
+    text-align: right;
+  }
+
+  &:last-child {
+    text-align: left;
   }
 }

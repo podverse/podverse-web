@@ -1,38 +1,39 @@
-import { useState } from "react"
 import classNames from "classnames"
+import OmniAural from 'omniaural'
+import { playerSeekTo } from "~/services/player/player"
 
 type Props = {
-  startVal: number
-  endVal: number
-  currentVal?: number
-  step?: number
+  currentValue?: number
   className?: string
+  endVal: number
   onValueChange?: (val: number) => void
+  startVal: number
+  step?: number
 }
 
 export const Slider = ({
-  startVal,
-  endVal,
-  step = 1,
-  currentVal = 0,
   className,
+  currentValue = 0,
+  endVal,
   onValueChange,
+  startVal,
+  step = 1
 }: Props) => {
-  const [currentValue, setCurrentValue] = useState(currentVal)
   const slider = classNames("progress-slider", className)
 
   return (
     <div className={slider}>
       <input
-        type="range"
         min={startVal}
         max={endVal}
-        step={step}
-        value={currentValue}
         onChange={(event) => {
-          setCurrentValue(event.target.valueAsNumber)
-          onValueChange && onValueChange(event.target.valueAsNumber)
+          const { valueAsNumber } = event.target
+          playerSeekTo(valueAsNumber)
+          onValueChange && onValueChange(valueAsNumber)
         }}
+        step={step}
+        type="range"
+        value={currentValue}
       />
     </div>
   )

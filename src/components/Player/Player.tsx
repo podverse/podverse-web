@@ -1,7 +1,7 @@
 import { useOmniAural } from "omniaural"
 import classnames from "classnames"
 import { PlayerItemInfo } from "./PlayerItemInfo"
-import { PlayerItemProgess } from "./PlayerItemProgress"
+import { PlayerItemProgress } from "./PlayerItemProgress"
 import { PlayerItemButtons } from "./PlayerItemOptions"
 
 type Props = {}
@@ -21,7 +21,7 @@ export const Player = ({}: Props) => {
   return (
     <div className={mainPlayerStyle}>
       <PlayerItemInfo nowPlayingItem={player.currentNowPlayingItem} />
-      <PlayerItemProgess
+      <PlayerItemProgress
         isPaused={false}
         nowPlayingItem={player.currentNowPlayingItem}
       />

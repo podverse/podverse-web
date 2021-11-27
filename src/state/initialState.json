@@ -37,7 +37,9 @@
     "show": false,
     "muted": false,
     "paused": true,
-    "playSpeed": 1
+    "playSpeed": 1,
+    "playbackPosition": 0,
+    "duration": 0
   },
   "session": {
     "userInfo": null

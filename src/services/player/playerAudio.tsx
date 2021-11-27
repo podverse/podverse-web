@@ -23,6 +23,28 @@ export const audioCheckIfCurrentlyPlaying = () => {
   )
 }
 
+export const audioGetDuration = () => {
+  return PVPlayerAudio.duration
+}
+
+export const audioGetPosition = () => {
+  return PVPlayerAudio.currentTime
+}
+
+export const audioPause = () => {
+  OmniAural.pausePlayer()
+  PVPlayerAudio.pause()
+}
+
+export const audioPlay = () => {
+  OmniAural.playPlayer()
+  PVPlayerAudio.play()
+}
+
+export const audioSeekTo = (position: number) => {
+  PVPlayerAudio.currentTime = position
+}
+
 export const audioClearNowPlayingItem = () => {
   PVPlayerAudio.src = ''
 }
@@ -55,22 +77,4 @@ export const audioLoadNowPlayingItem = async (
   // }
 
   return item
-}
-
-export const audioPlay = () => {
-  OmniAural.playPlayer()
-  PVPlayerAudio.play()
-}
-
-export const audioPause = () => {
-  OmniAural.pausePlayer()
-  PVPlayerAudio.pause()
-}
-
-export const audioGetPosition = () => {
-  return PVPlayerAudio.currentTime
-}
-
-export const audioSeekTo = (position: number) => {
-  PVPlayerAudio.currentTime = position
 }
