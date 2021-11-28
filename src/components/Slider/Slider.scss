@@ -5,9 +5,9 @@
   position: relative;
 
   .flag {
-    height: 26px;
+    height: 34px;
     position: absolute;
-    top: -8px;
+    top: 0px;
     width: 1px;
 
     @include themeGen() {
@@ -16,10 +16,10 @@
   }
 
   .highlighted-section {
-    height: 20px;
+    height: 25px;
     pointer-events: none;
     position: absolute;
-    top: -5px;
+    top: 4px;
 
     @include themeGen() {
       background-color: getThemeVal('sliderHighlightSection');

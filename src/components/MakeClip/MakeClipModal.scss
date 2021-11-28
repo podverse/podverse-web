@@ -7,7 +7,7 @@
       padding: 59px 100px 32px 100px;
       width: 789px;
       height: 100%;
-      max-height: 665px;
+      max-height: 636px;
       
       @include themeGen() {
         background-color: getThemeVal('backgroundTertiary') !important;

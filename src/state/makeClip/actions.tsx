@@ -2,6 +2,14 @@ import OmniAural from "omniaural"
 
 /* Time parameters should be in hh:mm:ss string format */
 
+const makeClipSetClipFlagPositions = (clipFlagPositions: number[]) => {
+  OmniAural.state.makeClip.clipFlagPositions.set(clipFlagPositions)
+}
+
+const makeClipSetHighlightedPositions = (highlightedPositions: number[]) => {
+  OmniAural.state.makeClip.highlightedPositions.set(highlightedPositions)
+}
+
 const makeClipHide = () => {
   OmniAural.state.makeClip.show.set(false)
 }
@@ -27,4 +35,5 @@ const makeClipShow = () => {
 }
 
 OmniAural.addActions({ makeClipHide, makeClipSetEndTime, makeClipSetIsPublic,
-  makeClipSetStartTime, makeClipSetTitle, makeClipShow })
+  makeClipSetStartTime, makeClipSetTitle, makeClipShow,
+  makeClipSetClipFlagPositions, makeClipSetHighlightedPositions })

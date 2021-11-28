@@ -48,4 +48,39 @@
       }
     }
   }
+
+  .player-bar-container {
+    width: 100%;
+
+    .player-bar-label {
+      // min-width: unset;
+      &:first-child {
+        text-align: left;
+      }
+
+      &:last-child {
+        text-align: right;
+      }
+    }
+  }
+
+  .make-clip-speed-button {
+    display: flex;
+    font-size: $text-sm;
+    justify-content: center;
+
+    @include themeGen() {
+      color: getThemeVal('textSecondary');
+    }
+  }
+
+  .make-clip-submit-buttons {
+    display: flex;
+    justify-content: flex-end;
+    margin: 32px 0 0 0;
+
+    button {
+      margin-left: 12px;
+    }
+  }
 }

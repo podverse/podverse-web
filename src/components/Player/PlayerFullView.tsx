@@ -1,4 +1,4 @@
-import OmniAural from 'omniaural'
+import OmniAural, { useOmniAural } from 'omniaural'
 import type { NowPlayingItem } from 'podverse-shared'
 import { useTranslation } from "react-i18next"
 import { ButtonClose, PVImage, PVLink } from "~/components"
@@ -13,6 +13,8 @@ type Props = {
 
 export const PlayerFullView = ({ nowPlayingItem }: Props) => {
   const { t } = useTranslation()
+  const [player] = useOmniAural('player')
+  const { chapterFlagPositions, clipFlagPositions, highlightedPositions } = player
   const podcastPageUrl = `${PV.RoutePaths.web.podcast}/${nowPlayingItem.podcastId}`
   const episodePageUrl = `${PV.RoutePaths.web.episode}/${nowPlayingItem.episodeId}`
 
@@ -48,7 +50,10 @@ export const PlayerFullView = ({ nowPlayingItem }: Props) => {
         </div>
       </div>
       <div className='player-buttons-wrapper'>
-        <ProgressBar />
+        <ProgressBar
+          chapterFlagPositions={chapterFlagPositions}
+          clipFlagPositions={clipFlagPositions}
+          highlightedPositions={highlightedPositions} />
         <div className='player-progress-container'>
           <div className='player-item-info-container'/>
           <PlayerProgressButtons />

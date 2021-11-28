@@ -25,7 +25,7 @@ export const MakeClipModal = (props: Props) => {
       onRequestClose={_onRequestClose}
       style={customStyles}>
       <ButtonClose onClick={_onRequestClose} />
-      <MakeClipForm />
+      <MakeClipForm handleCancel={_onRequestClose} />
     </Modal>
   )
 }
