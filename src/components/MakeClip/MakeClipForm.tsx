@@ -1,6 +1,7 @@
+import { faPlay } from '@fortawesome/free-solid-svg-icons'
 import OmniAural, { useOmniAural } from 'omniaural'
 import { useTranslation } from "react-i18next"
-import { Dropdown, PVImage } from "~/components"
+import { Dropdown, PVImage, TextInput } from "~/components"
 import { PV } from '~/resources'
 
 type Props = {}
@@ -16,6 +17,10 @@ export const MakeClipForm = (props: Props) => {
     : PV.MakeClip.privacyKeys.onlyWithLink
 
   /* Function Helpers */
+
+  const _handleSaveClip = () => {
+    console.log('_handleSaveClip')
+  }
 
   const _privacyOnChange = (selectedOptions: any[]) => {
     const selectedOption = selectedOptions[0]
@@ -51,6 +56,38 @@ export const MakeClipForm = (props: Props) => {
           options={privacyDropdownItems}
           outlineStyle
           selectedKey={privacySelected} />
+      </div>
+      <TextInput
+        defaultValue={title}
+        label={t('Clip title')}
+        onChange={(value) => {
+          OmniAural.makeClipSetTitle(value)
+        }}
+        onSubmit={_handleSaveClip}
+        placeholder={t('Clip title')}
+        type='text' />
+      <h3>{t('Clip times')}</h3>
+      <div className='make-clip-time-inputs'>
+        <TextInput
+          defaultValue={title}
+          faIconEnd={faPlay}
+          label={t('Start time')}
+          onChange={(value) => {
+            OmniAural.makeClipSetTitle(value)
+          }}
+          onSubmit={_handleSaveClip}
+          placeholder={'00:00'}
+          type='text' />
+        <TextInput
+          defaultValue={title}
+          faIconEnd={faPlay}
+          label={t('End')}
+          onChange={(value) => {
+            OmniAural.makeClipSetTitle(value)
+          }}
+          onSubmit={_handleSaveClip}
+          placeholder={t('optional')}
+          type='text' />
       </div>
     </div>
   )

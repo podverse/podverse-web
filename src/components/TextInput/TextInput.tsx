@@ -6,6 +6,8 @@ import { useState } from "react"
 type Props = {
   defaultValue?: string
   faIcon?: IconProp
+  faIconEnd?: IconProp
+  handleIconEndClick?: any
   helperText?: string
   isDanger?: boolean
   label: string
@@ -18,9 +20,9 @@ type Props = {
   value?: string
 }
 
-export const TextInput = ({ defaultValue, faIcon, helperText, isDanger,
-  label, noMarginOrPadding, onBlur, onChange, onSubmit, placeholder,
-  type = 'text', value }: Props) => {
+export const TextInput = ({ defaultValue, faIcon, faIconEnd, handleIconEndClick,
+  helperText, isDanger, label, noMarginOrPadding, onBlur, onChange, onSubmit,
+  placeholder, type = 'text', value }: Props) => {
   const [tempValue, setTempValue] = useState<string>(value || defaultValue || '')
   const textInputClass = classNames(
     'text-input',
@@ -58,6 +60,16 @@ export const TextInput = ({ defaultValue, faIcon, helperText, isDanger,
             type={type}
             value={value} />
         </div>
+        {
+          !!faIconEnd && (
+            <div
+              className='icon-wrapper'
+              onClick={handleIconEndClick}
+              tabIndex={0}>
+              <FontAwesomeIcon icon={faIconEnd} />
+            </div>
+          )
+        }
       </div>
       {helperText && <div className='helper-text'>{helperText}</div>}
     </div>

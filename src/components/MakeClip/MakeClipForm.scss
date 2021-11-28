@@ -20,9 +20,32 @@
       display: flex;
       justify-content: center;
     }
+
+    .pv-image {
+      margin-right: 14px;
+    }
   }
 
-  .pv-image {
-    margin-right: 14px;
+  h3 {
+    font-size: $text-xl;
+    font-weight: $font-weight-bold;
+    margin-bottom: 8px;
+  }
+
+  .make-clip-time-inputs {
+    display: flex;
+    flex-direction: row;
+
+    .text-input {
+      flex: 1;
+
+      &:first-child {
+        margin-right: 12px;
+      }
+
+      &:last-child {
+        margin-left: 12px;
+      }
+    }
   }
 }
