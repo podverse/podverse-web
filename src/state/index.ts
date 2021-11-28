@@ -1,3 +1,4 @@
+import "./makeClip/actions"
 import "./modals/actions"
 import "./page/actions"
 import "./player/actions"

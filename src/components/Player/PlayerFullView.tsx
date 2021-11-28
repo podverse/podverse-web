@@ -29,8 +29,7 @@ export const PlayerFullView = ({ nowPlayingItem }: Props) => {
           alt={t('Podcast artwork')}
           height={PV.Images.sizes.fullViewAudio}
           src={nowPlayingItem.episodeImageUrl || nowPlayingItem.podcastImageUrl}
-          width={PV.Images.sizes.fullViewAudio}
-        />
+          width={PV.Images.sizes.fullViewAudio} />
       </div>
       <div className='title-wrapper'>
         <h1>

@@ -1,4 +1,11 @@
 {
+  "makeClip": {
+    "endTime": "",
+    "isPublic": true,
+    "startTime": "",
+    "title": "",
+    "show": false
+  },
   "modals": {
     "addToPlaylist": {
       "item": null

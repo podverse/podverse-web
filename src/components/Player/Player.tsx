@@ -19,8 +19,6 @@ export const Player = ({}: Props) => {
     return null
   }
 
-  console.log('Player render')
-
   return (
     <>
       <div className={mainPlayerStyle}>

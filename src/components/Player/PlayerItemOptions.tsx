@@ -25,7 +25,10 @@ export const PlayerItemButtons = (props: Props) => {
         size="small"
         type="add"
         />
-      <PlayerOptionButton type="clip" size="small" />
+      <PlayerOptionButton
+        onClick={() => OmniAural.makeClipShow()}
+        size="small"
+        type="make-clip" />
       {/* <PlayerOptionButton type="share" size="small" /> */}
       <div style={{ marginLeft: 20, display: "flex", alignItems: "center" }}>
         <PlayerOptionButton

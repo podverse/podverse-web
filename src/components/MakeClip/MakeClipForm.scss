@@ -1,0 +1,28 @@
+.make-clip-form {
+  display: flex;
+  flex-direction: column;
+
+  .make-clip-header-wrapper {
+    display: flex;
+    flex-direction: row;
+    margin: 0 0 16px 0;
+
+    h1 {
+      align-items: center;
+      display: flex;
+      justify-content: center;
+      margin: 0 auto 0 0;
+    }
+
+    // wrapper for the dropdown select element
+    > div {
+      align-items: center;
+      display: flex;
+      justify-content: center;
+    }
+  }
+
+  .pv-image {
+    margin-right: 14px;
+  }
+}

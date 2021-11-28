@@ -14,8 +14,8 @@ type Props = {
   className?: string
   onClick?: any
   size: "small" | "medium" | "large"
-  type: "speed" | "add" | "clip" | "share" | "fullscreen-hide" | "fullscreen-show"
-    | "mute" | "unmute"
+  type: "speed" | "add" | "make-clip" | "share"
+    | "fullscreen-hide" | "fullscreen-show" | "mute" | "unmute"
   children?: any
 }
 
@@ -35,7 +35,7 @@ export const PlayerOptionButton = ({
     case "add":
       icon = faPlus
       break
-    case "clip":
+    case "make-clip":
       icon = faCut
       break
     case "share":

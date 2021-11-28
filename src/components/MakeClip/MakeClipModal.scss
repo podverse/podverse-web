@@ -1,0 +1,17 @@
+.ReactModalPortal {
+  .ReactModal__Overlay.make-clip-modal-overlay  {
+    backdrop-filter: blur($background-blur);
+    -webkit-backdrop-filter: blur($background-blur);
+
+    .ReactModal__Content.make-clip-modal {
+      padding: 59px 100px 32px 100px;
+      width: 789px;
+      height: 100%;
+      max-height: 665px;
+      
+      @include themeGen() {
+        background-color: getThemeVal('backgroundTertiary') !important;
+      }
+    }
+  }
+}
