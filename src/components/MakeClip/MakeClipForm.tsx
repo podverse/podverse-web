@@ -1,5 +1,6 @@
 import { faPlay } from '@fortawesome/free-solid-svg-icons'
 import OmniAural, { useOmniAural } from 'omniaural'
+import { useRouter } from 'next/router'
 import { useTranslation } from "react-i18next"
 import { ButtonRectangle, Dropdown, PVImage, TextInput } from "~/components"
 import { ProgressBar } from '~/components/Player/controls/ProgressBar'
@@ -9,7 +10,7 @@ import { playerNextSpeed, playerPlay, playerSeekTo } from '~/services/player/pla
 import { generateFlagPositions } from '~/services/player/playerFlags'
 import { PV } from '~/resources'
 import { PlayerOptionButton } from '../Player/options/PlayerOptionButton'
-import { createMediaRef } from '~/services/mediaRef'
+import { createMediaRef, updateMediaRef } from '~/services/mediaRef'
 import { handleSetupClipListener } from '~/services/player/playerClip'
 import { useState } from 'react'
 
@@ -18,11 +19,12 @@ type Props = {
 }
 
 export const MakeClipForm = ({ handleCancel }: Props) => {
+  const router = useRouter()
   const { t } = useTranslation()
   const [makeClip] = useOmniAural('makeClip')
   const [player] = useOmniAural('player')
   const [isSaving, setIsSaving] = useState<boolean>(false)
-  const { clipFlagPositions, endTime, highlightedPositions, isPublic,
+  const { clipFlagPositions, endTime, highlightedPositions, isEditing, isPublic,
     startTime, title } = makeClip
   const { currentNowPlayingItem, duration, playSpeed } = player
   const privacySelected = isPublic
@@ -99,21 +101,42 @@ export const MakeClipForm = ({ handleCancel }: Props) => {
   const _handleSaveClip = async () => {
     try {
       setIsSaving(true)
-      const startTimeSeconds = convertHHMMSSToSeconds(startTime)
-      const endTimeSeconds = convertHHMMSSToSeconds(endTime)
-      
-      const newMediaRef = await createMediaRef({
-        episodeId: currentNowPlayingItem.episodeId,
-        endTime: endTimeSeconds,
-        isPublic,
-        startTime: startTimeSeconds,
-        title
-      })
 
-      const linkUrl = `${PV.Config.WEB_BASE_URL}${PV.RoutePaths.web.clip}/${newMediaRef.id}`
-      OmniAural.makeClipSuccessModalSetLinkUrl(linkUrl)
-      OmniAural.makeClipHide()
-      OmniAural.makeClipSuccessModalShow()
+      if (isEditing) {
+        const startTimeSeconds = convertHHMMSSToSeconds(startTime)
+        const endTimeSeconds = convertHHMMSSToSeconds(endTime)
+
+        const updatedMediaRef = await updateMediaRef({
+          episodeId: currentNowPlayingItem.episodeId,
+          endTime: endTimeSeconds,
+          id: currentNowPlayingItem.clipId,
+          isPublic,
+          startTime: startTimeSeconds,
+          title
+        })
+
+        // Navigate to the clips page to refresh the state
+        router.push(`${PV.RoutePaths.web.clip}/${updatedMediaRef.id}`)
+        OmniAural.makeClipClearState()
+      } else {
+        const startTimeSeconds = convertHHMMSSToSeconds(startTime)
+        const endTimeSeconds = convertHHMMSSToSeconds(endTime)
+
+        const newMediaRef = await createMediaRef({
+          episodeId: currentNowPlayingItem.episodeId,
+          endTime: endTimeSeconds,
+          isPublic,
+          startTime: startTimeSeconds,
+          title
+        })
+
+        const linkUrl = `${PV.Config.WEB_BASE_URL}${PV.RoutePaths.web.clip}/${newMediaRef.id}`
+        OmniAural.makeClipClearState()
+        OmniAural.makeClipSuccessModalSetLinkUrl(linkUrl)
+        OmniAural.makeClipSuccessModalShow()
+      }
+
+      
     } catch (error) {
       alert(t('Something went wrong'))
       console.log('_handleSaveClip error:', error)
@@ -126,14 +149,15 @@ export const MakeClipForm = ({ handleCancel }: Props) => {
 
   const generatePrivacyDropdownItems = () => {
     const items = [
-      { label: 'Public', key: PV.Users.privacyKeys.public },
-      { label: 'Only with link', key: PV.Users.privacyKeys.onlyWithLink }
+      { label: 'Public', key: PV.MakeClip.privacyKeys.public },
+      { label: 'Only with link', key: PV.MakeClip.privacyKeys.onlyWithLink }
     ]
 
     return items
   }
 
   const privacyDropdownItems = generatePrivacyDropdownItems()
+  const headerText = isEditing ? t('Edit Clip') : t('Make Clip')
 
   return (
     <div className='make-clip-form'>
@@ -143,7 +167,7 @@ export const MakeClipForm = ({ handleCancel }: Props) => {
           height={PV.Images.sizes.medium}
           src={currentNowPlayingItem.episodeImageUrl || currentNowPlayingItem.podcastImageUrl}
           width={PV.Images.sizes.medium} />
-        <h1>{t('Make Clip')}</h1>
+        <h1>{headerText}</h1>
         <Dropdown
           dropdownWidthClass='width-medium'
           onChange={_privacyOnChange}

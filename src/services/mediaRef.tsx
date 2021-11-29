@@ -81,3 +81,33 @@ export const createMediaRef = async (body: MediaRefCreateBody) => {
 
   return response && response.data
 }
+
+export const deleteMediaRef = async (id: string) => {
+  const response = await request({
+    endpoint: `/mediaRef/${id}`,
+    method: 'DELETE',
+    ...(getAuthCredentialsHeaders())
+  })
+
+  return response && response.data
+}
+
+type MediaRefUpdateBody = {
+  endTime?: number
+  episodeId: string
+  id: string
+  isPublic: boolean
+  startTime: number
+  title?: string
+}
+
+export const updateMediaRef = async (body: MediaRefUpdateBody) => {
+  const response = await request({
+    endpoint: '/mediaRef',
+    method: 'PATCH',
+    ...(getAuthCredentialsHeaders()),
+    body
+  })
+
+  return response && response.data
+}

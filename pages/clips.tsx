@@ -113,6 +113,7 @@ export default function Clips({ serverFilterFrom, serverFilterPage,
     return listItems.map((listItem, index) =>
       <ClipListItem
         episode={listItem.episode}
+        isLoggedInUserMediaRef={userInfo && userInfo.id === listItem.owner.id}
         key={`${keyPrefix}-${index}`}
         mediaRef={listItem}
         podcast={listItem.episode.podcast}

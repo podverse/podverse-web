@@ -116,4 +116,21 @@ body {
       width: $dropdown-menu-width-large;
     }
   }
+
+  .has-clip-edit-buttons {
+    .react-dropdown-select-dropdown {
+      .react-dropdown-select-item {
+        &:nth-last-child(2) {
+          @include themeGen() {
+            color: getThemeVal('textWarning');
+          }
+        }
+        &:last-child {
+          @include themeGen() {
+            color: getThemeVal('textDanger');
+          }
+        }
+      }
+    }
+  }
 }

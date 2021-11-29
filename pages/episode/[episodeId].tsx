@@ -1,8 +1,8 @@
 import { GetServerSideProps } from 'next'
-import Head from 'next/head'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import type { Episode, MediaRef } from 'podverse-shared'
+import { useOmniAural } from 'omniaural'
+import type { Episode, MediaRef, User } from 'podverse-shared'
 import { useEffect, useRef, useState } from 'react'
 import { ClipListItem, ColumnsWrapper, EpisodeInfo, List, Meta, PageHeader, PageScrollableContent,
   Pagination, PodcastPageHeader, SideContent } from '~/components'
@@ -51,6 +51,7 @@ export default function Episode({ serverClips, serverClipsPageCount, serverEpiso
     clipsFilterPage: serverClipsFilterPage,
     clipsFilterSort: serverClipsFilterSort
   } as FilterState)
+  const [userInfo] = useOmniAural('session.userInfo')
   const { clipsFilterPage, clipsFilterSort } = filterState
   const [clipsListData, setClipsListData] = useState<MediaRef[]>(serverClips)
   const [clipsPageCount, setClipsPageCount] = useState<number>(serverClipsPageCount)
@@ -129,7 +130,7 @@ export default function Episode({ serverClips, serverClipsPageCount, serverEpiso
                 sortSelected={clipsFilterSort}
                 text={t('Clips')} />
               <List>
-                {generateClipListElements(clipsListData, serverEpisode)}
+                {generateClipListElements(clipsListData, serverEpisode, userInfo)}
               </List>
               <Pagination
                 currentPageIndex={clipsFilterPage}
@@ -180,11 +181,12 @@ const clientQueryClips = async (
 
 /* Render Helpers */
 
-const generateClipListElements = (listItems: MediaRef[], episode: Episode) => {
+const generateClipListElements = (listItems: MediaRef[], episode: Episode, userInfo?: User) => {
   return listItems.map((listItem, index) => {
     listItem.episode = episode
     return (
       <ClipListItem
+        isLoggedInUserMediaRef={userInfo && userInfo.id === listItem.owner.id}
         mediaRef={listItem}
         podcast={episode.podcast}
         key={`${keyPrefix}-${index}`} />

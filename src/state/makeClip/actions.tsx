@@ -1,4 +1,6 @@
 import OmniAural from "omniaural"
+import { NowPlayingItem } from "podverse-shared"
+import { convertSecToHHMMSS } from "~/lib/utility/time"
 
 /* Time parameters should be in hh:mm:ss string format */
 
@@ -10,7 +12,19 @@ const makeClipSetHighlightedPositions = (highlightedPositions: number[]) => {
   OmniAural.state.makeClip.highlightedPositions.set(highlightedPositions)
 }
 
+const makeClipClearState = () => {
+  OmniAural.state.makeClip.clipFlagPositions.set([])
+  OmniAural.state.makeClip.endTime.set('')
+  OmniAural.state.makeClip.highlightedPositions.set([])
+  OmniAural.state.makeClip.isEditing.set(false)
+  OmniAural.state.makeClip.show.set(false)
+  OmniAural.state.makeClip.startTime.set('')
+  OmniAural.state.makeClip.successModalLinkUrl.set('')
+  OmniAural.state.makeClip.title.set('')
+}
+
 const makeClipHide = () => {
+  OmniAural.state.makeClip.isEditing.set(false)
   OmniAural.state.makeClip.show.set(false)
 }
 
@@ -34,6 +48,17 @@ const makeClipShow = () => {
   OmniAural.state.makeClip.show.set(true)
 }
 
+const makeClipShowEditing = (nowPlayingItem: NowPlayingItem) => {
+  const endTimeHHMMSS = convertSecToHHMMSS(nowPlayingItem.clipEndTime)
+  const startTimeHHMMSS = convertSecToHHMMSS(nowPlayingItem.clipStartTime)
+  OmniAural.state.makeClip.endTime.set(endTimeHHMMSS)
+  OmniAural.state.makeClip.isPublic.set(nowPlayingItem.isPublic)
+  OmniAural.state.makeClip.startTime.set(startTimeHHMMSS)
+  OmniAural.state.makeClip.title.set(nowPlayingItem.clipTitle)
+  OmniAural.state.makeClip.isEditing.set(true)
+  OmniAural.state.makeClip.show.set(true)
+}
+
 const makeClipSuccessModalHide = () => {
   OmniAural.state.makeClip.successModalShow.set(false)
 }
@@ -46,7 +71,8 @@ const makeClipSuccessModalSetLinkUrl = (url: string) => {
   OmniAural.state.makeClip.successModalLinkUrl.set(url)
 }
 
-OmniAural.addActions({ makeClipHide, makeClipSetEndTime, makeClipSetIsPublic,
-  makeClipSetStartTime, makeClipSetTitle, makeClipShow,
+OmniAural.addActions({ makeClipClearState, makeClipHide, makeClipSetEndTime,
+  makeClipSetIsPublic, makeClipSetStartTime, makeClipSetTitle, makeClipShow,
   makeClipSetClipFlagPositions, makeClipSetHighlightedPositions,
-  makeClipSuccessModalHide, makeClipSuccessModalShow, makeClipSuccessModalSetLinkUrl })
+  makeClipSuccessModalHide, makeClipSuccessModalShow, makeClipSuccessModalSetLinkUrl,
+  makeClipShowEditing })

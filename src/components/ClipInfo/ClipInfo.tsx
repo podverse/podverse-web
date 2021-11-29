@@ -1,3 +1,4 @@
+import { useOmniAural } from 'omniaural'
 import { Episode, MediaRef } from 'podverse-shared'
 import { useTranslation } from 'react-i18next'
 import { MediaItemControls, TruncatedText } from '~/components'
@@ -12,6 +13,7 @@ type Props = {
 
 export const ClipInfo = ({ clip, episode }: Props) => {
   const { t } = useTranslation()
+  const [userInfo] = useOmniAural('session.userInfo')
   const episodeTitle = getEpisodeTitle(t, episode)
   const episodePubDate = readableDate(episode.pubDate)
   const title = getClipTitle(t, clip, episode.title)
@@ -31,6 +33,7 @@ export const ClipInfo = ({ clip, episode }: Props) => {
         buttonSize='large'
         episode={episode}
         hidePubDate
+        isLoggedInUserMediaRef={userInfo && userInfo.id === clip.owner.id}
         mediaRef={clip} />
       <hr />
     </div>

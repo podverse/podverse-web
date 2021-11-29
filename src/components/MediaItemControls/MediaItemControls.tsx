@@ -3,9 +3,11 @@ import classNames from "classnames"
 import OmniAural, { useOmniAural } from "omniaural"
 import type { Episode, MediaRef, NowPlayingItem, Podcast } from 'podverse-shared'
 import { convertToNowPlayingItem } from 'podverse-shared'
+import { useTranslation } from "react-i18next"
 import { readableDate } from "~/lib/utility/date"
 import { convertSecToHhoursMMinutes, readableClipTime } from "~/lib/utility/time"
-import { playerCheckIfCurrentlyPlayingItem, playerTogglePlayOrLoadNowPlayingItem } from "~/services/player/player"
+import { deleteMediaRef } from "~/services/mediaRef"
+import { playerCheckIfCurrentlyPlayingItem, playerLoadNowPlayingItem, playerTogglePlayOrLoadNowPlayingItem } from "~/services/player/player"
 import { addQueueItemLastOnServer, addQueueItemNextOnServer } from "~/services/userQueueItem"
 import { modalsAddToPlaylistShowOrAlert } from "~/state/modals/addToPlaylist/actions"
 import { ButtonCircle, Dropdown } from ".."
@@ -14,6 +16,7 @@ type Props = {
   buttonSize: 'medium' | 'large'
   episode?: Episode
   hidePubDate?: boolean
+  isLoggedInUserMediaRef?: boolean
   mediaRef?: MediaRef
   stretchMiddleContent?: boolean
   podcast?: Podcast
@@ -24,11 +27,14 @@ const _queueNextKey = '_queueNext'
 const _queueLastKey = '_queueLast'
 const _addToPlaylistKey = '_addToPlaylist'
 const _markAsPlayedKey = '_markAsPlayedKey'
+const _editClip = '_editClip'
+const _deleteClip = '_deleteClip'
 
-export const MediaItemControls = ({ buttonSize, episode, hidePubDate,
+export const MediaItemControls = ({ buttonSize, episode, hidePubDate, isLoggedInUserMediaRef,
   mediaRef, stretchMiddleContent, podcast }: Props) => {
   const [userInfo] = useOmniAural('session.userInfo')
   const [player] = useOmniAural('player')
+  const { t } = useTranslation()
   let pubDate = null
   let timeInfo = null
   let timeRemaining = null
@@ -67,6 +73,14 @@ export const MediaItemControls = ({ buttonSize, episode, hidePubDate,
         await modalsAddToPlaylistShowOrAlert(nowPlayingItem)
       } else if (item.key === _markAsPlayedKey) {
         console.log('mark as played')
+      } else if (item.key === _editClip) {
+        playerLoadNowPlayingItem(nowPlayingItem)
+        OmniAural.makeClipShowEditing(nowPlayingItem)
+      } else if (item.key === _deleteClip) {
+        const shouldDelete = window.confirm(t('Are you sure you want to delete this clip'))
+        if (shouldDelete) {
+          deleteMediaRef(nowPlayingItem.clipId)
+        }
       }
     }
   }
@@ -104,6 +118,11 @@ export const MediaItemControls = ({ buttonSize, episode, hidePubDate,
       // { label: 'Mark as Played', key: _markAsPlayedKey }
     ]
 
+    if (isLoggedInUserMediaRef) {
+      items.push({ label: 'Edit Clip', key: _editClip })
+      items.push({ label: 'Delete Clip', key: _deleteClip })
+    }
+
     return items
   }
 
@@ -138,6 +157,7 @@ export const MediaItemControls = ({ buttonSize, episode, hidePubDate,
       <Dropdown
         dropdownWidthClass='width-medium'
         faIcon={faEllipsisH}
+        hasClipEditButtons={dropdownItems.length > 5}
         hideCaret
         onChange={onChange}
         options={dropdownItems} />

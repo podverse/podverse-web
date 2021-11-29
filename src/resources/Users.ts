@@ -1,6 +1,6 @@
 export const Users = {
   privacyKeys: {
-    public: '_public',
-    onlyWithLink: '_onlyWithLink'
+    private: '_private',
+    public: '_public'
   }
 }

@@ -1,11 +1,9 @@
 import { faGlobe, faLink } from '@fortawesome/free-solid-svg-icons'
-import { useRouter } from 'next/router'
 import OmniAural, { useOmniAural } from 'omniaural'
 import type { User } from 'podverse-shared'
 import { useTranslation } from 'react-i18next'
 import { ButtonRectangle, Dropdown, TextInput } from '~/components'
 import { PV } from '~/resources'
-import { toggleSubscribeToUserOnServer } from '~/services/user'
 import { toggleSubscribeToUser } from '~/state/loggedInUserActions'
 
 type Props = {
@@ -20,7 +18,6 @@ type Props = {
 
 export const ProfilePageHeader = ({ handleChangeIsPublic, handleEditCancel,
   handleEditSave, handleEditStart, handleUserNameOnChange, isEditing, user }: Props) => {
-  const router = useRouter()
   const { t } = useTranslation()
   const [userInfo] = useOmniAural('session.userInfo')
   const name = user?.name || t('Anonymous')
@@ -33,7 +30,7 @@ export const ProfilePageHeader = ({ handleChangeIsPublic, handleEditCancel,
   const generatePrivacyDropdownItems = () => {
     const items = [
       { label: 'Public', key: PV.Users.privacyKeys.public },
-      { label: 'Only with link', key: PV.Users.privacyKeys.onlyWithLink }
+      { label: 'Private', key: PV.Users.privacyKeys.private }
     ]
 
     return items
@@ -110,7 +107,7 @@ export const ProfilePageHeader = ({ handleChangeIsPublic, handleEditCancel,
                 {
                   isLoggedInUserProfile && !isEditing && (
                     <Dropdown
-                      dropdownWidthClass='width-medium'
+                      dropdownWidthClass='width-small'
                       faIcon={user.isPublic ? faGlobe : faLink}
                       onChange={handleChangeIsPublic}
                       options={privacyDropdownItems}

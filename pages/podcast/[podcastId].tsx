@@ -1,9 +1,9 @@
 import linkifyHtml from 'linkify-html'
 import { GetServerSideProps } from 'next'
-import Head from 'next/head'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import type { Episode, MediaRef, Podcast } from 'podverse-shared'
+import { useOmniAural } from 'omniaural'
+import type { Episode, MediaRef, Podcast, User } from 'podverse-shared'
 import { useEffect, useRef, useState } from 'react'
 import { ClipListItem, ColumnsWrapper, EpisodeListItem, List, Meta, PageHeader, PageScrollableContent,
   Pagination, PodcastPageHeader, SideContent } from '~/components'
@@ -66,6 +66,7 @@ export default function Podcast({ serverClips, serverClipsPageCount,
   const [clipsListData, setClipsListData] = useState<MediaRef[]>(serverClips)
   const [clipsPageCount, setClipsPageCount] = useState<number>(serverClipsPageCount)
   const initialRender = useRef(true)
+  const [userInfo] = useOmniAural('session.userInfo')
   const pageCount = filterType === PV.Filters.type._episodes
     ? episodesPageCount : clipsPageCount
 
@@ -152,7 +153,7 @@ export default function Podcast({ serverClips, serverClipsPageCount,
                 }
                 {
                   filterType === PV.Filters.type._clips && (
-                    generateClipListElements(clipsListData, serverPodcast)
+                    generateClipListElements(clipsListData, serverPodcast, userInfo)
                   )
                 }
               </List>
@@ -245,9 +246,10 @@ const generateEpisodeListElements = (listItems: Episode[], podcast: Podcast) => 
   )
 }
 
-const generateClipListElements = (listItems: MediaRef[], podcast: Podcast) => {
+const generateClipListElements = (listItems: MediaRef[], podcast: Podcast, userInfo?: User) => {
   return listItems.map((listItem, index) =>
     <ClipListItem
+      isLoggedInUserMediaRef={userInfo && userInfo.id === listItem.owner.id}
       mediaRef={listItem}
       podcast={podcast}
       key={`${keyPrefix}-${index}`} />

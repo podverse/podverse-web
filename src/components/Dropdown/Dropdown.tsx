@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next'
 type Props = {
   dropdownWidthClass?: 'width-small' | 'width-medium' | 'width-large'
   faIcon?: IconProp
+  hasClipEditButtons?: boolean
   hideCaret?: boolean
   onChange: any
   options: any[]
@@ -54,11 +55,13 @@ const dropdownHandleRenderer = (hideCaret?: boolean) => {
 }
 
 export const Dropdown = (props: Props) => {
-  const { dropdownWidthClass = 'width-small', onChange, options, outlineStyle } = props
+  const { dropdownWidthClass = 'width-small', hasClipEditButtons, onChange,
+  options, outlineStyle } = props
   const { t } = useTranslation()
   const wrapperClass = classnames(
     outlineStyle ? 'outline-style' : '',
-    dropdownWidthClass ? dropdownWidthClass : ''
+    dropdownWidthClass ? dropdownWidthClass : '',
+    hasClipEditButtons ? 'has-clip-edit-buttons' : ''
   )
 
   return (
