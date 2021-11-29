@@ -102,6 +102,7 @@ export default function History({ serverFilterPage, serverUserHistoryItems,
             /* *TODO* Remove the "as any" below without throwing a Typescript error */
             episode={mediaRef.episode as any}
             handleRemove={() => _removeHistoryItemMediaRef(mediaRef.id)}
+            isLoggedInUserMediaRef={userInfo && userInfo.id === mediaRef.owner.id}
             key={`${keyPrefix}-clip-${index}`}
             mediaRef={mediaRef as any}
             podcast={mediaRef.episode.podcast as any}

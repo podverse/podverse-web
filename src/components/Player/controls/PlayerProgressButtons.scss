@@ -6,6 +6,10 @@
   width: 380px;
 
   .player-progress-button {
+    @include themeGen() {
+      color: getThemeVal("textSecondary");
+    }
+
     &:first-child, &:last-child {
       margin: 0px;
     }

@@ -1,8 +1,7 @@
 import { GetServerSideProps } from 'next'
-import Head from 'next/head'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import OmniAural from 'omniaural'
+import OmniAural, { useOmniAural } from 'omniaural'
 import type { Episode, MediaRef, Playlist } from 'podverse-shared'
 import { useState } from 'react'
 import { ClipListItem, ColumnsWrapper, EpisodeListItem, List, Meta, PageScrollableContent,
@@ -33,6 +32,7 @@ export default function Playlist({ serverPlaylist, serverPlaylistSortedItems }: 
   const [editingPlaylistTitle, setEditingPlaylistTitle] = useState<string>(serverPlaylist.title)
   const [editingPlaylistIsPublic, setEditingPlaylistIsPublic] =
     useState<boolean>(serverPlaylist.isPublic)
+  const [userInfo] = useOmniAural('session.userInfo')
 
   /* Function Helpers */
 
@@ -114,6 +114,7 @@ export default function Playlist({ serverPlaylist, serverPlaylistSortedItems }: 
           <ClipListItem
             episode={mediaRef.episode}
             handleRemove={() => _handleRemoveMediaRef(mediaRef.id)}
+            isLoggedInUserMediaRef={userInfo && userInfo.id === mediaRef.owner.id}
             key={`${keyPrefix}-clip-${index}`}
             mediaRef={mediaRef}
             podcast={mediaRef.episode.podcast}

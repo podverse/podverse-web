@@ -1,6 +1,6 @@
 import OmniAural from "omniaural"
 
-type AlertTypes = 'add item to playlist' | 'create clip' |
+type AlertTypes = 'add item to playlist' | 'make clip' |
   'subscribe to playlist' | 'subscribe to podcast' | 'subscribe to profile'
 
 const modalsLoginToAlertHide = () => {

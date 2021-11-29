@@ -1,8 +1,7 @@
 import { GetServerSideProps } from 'next'
-import Head from 'next/head'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import OmniAural from 'omniaural'
+import OmniAural, { useOmniAural } from 'omniaural'
 import type { MediaRef, Playlist, Podcast, User } from 'podverse-shared'
 import { useEffect, useRef, useState } from 'react'
 import { ClipListItem, ColumnsWrapper, List, Meta, PageHeader, PageScrollableContent, Pagination,
@@ -52,6 +51,8 @@ export default function Profile({ serverFilterType, serverFilterPage, serverFilt
         ? t('Podcasts')
         : t('Playlists')
   const pageCount = Math.ceil(listDataCount / PV.Config.QUERY_RESULTS_LIMIT_DEFAULT)
+  const [userInfo] = useOmniAural('session.userInfo')
+  const isLoggedInUserProfile = userInfo?.id && userInfo.id === user?.id
 
   /* useEffects */
 
@@ -188,6 +189,7 @@ export default function Profile({ serverFilterType, serverFilterPage, serverFilt
         return (
           <ClipListItem
             episode={listItem.episode}
+            isLoggedInUserMediaRef={isLoggedInUserProfile}
             key={`${keyPrefix}-${index}`}
             mediaRef={listItem}
             podcast={listItem.episode.podcast}

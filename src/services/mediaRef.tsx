@@ -1,3 +1,4 @@
+import { getAuthCredentialsHeaders } from "~/lib/utility/auth"
 import { PV } from "~/resources"
 import { request } from '~/services/request'
 
@@ -49,6 +50,63 @@ export const getUserMediaRefs = async (userId: string, query: any = {}) => {
   const response = await request({
     endpoint: `/user/${userId}/mediaRefs`,
     query
+  })
+
+  return response && response.data
+}
+
+export const retrieveLatestChaptersForEpisodeId = async (id: string) => {
+  const response = await request({
+    endpoint: `/episode/${id}/retrieve-latest-chapters`
+  })
+
+  return response && response.data
+}
+
+type MediaRefCreateBody = {
+  endTime?: number
+  episodeId: string
+  isPublic: boolean
+  startTime: number
+  title?: string
+}
+
+export const createMediaRef = async (body: MediaRefCreateBody) => {
+  const response = await request({
+    endpoint: '/mediaRef',
+    method: 'POST',
+    ...(getAuthCredentialsHeaders()),
+    body
+  })
+
+  return response && response.data
+}
+
+export const deleteMediaRef = async (id: string) => {
+  const response = await request({
+    endpoint: `/mediaRef/${id}`,
+    method: 'DELETE',
+    ...(getAuthCredentialsHeaders())
+  })
+
+  return response && response.data
+}
+
+type MediaRefUpdateBody = {
+  endTime?: number
+  episodeId: string
+  id: string
+  isPublic: boolean
+  startTime: number
+  title?: string
+}
+
+export const updateMediaRef = async (body: MediaRefUpdateBody) => {
+  const response = await request({
+    endpoint: '/mediaRef',
+    method: 'PATCH',
+    ...(getAuthCredentialsHeaders()),
+    body
   })
 
   return response && response.data

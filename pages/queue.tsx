@@ -49,6 +49,7 @@ export default function Queue(props: ServerProps) {
           <ClipListItem
             episode={mediaRef.episode}
             handleRemove={() => OmniAural.removeQueueItemMediaRef(mediaRef.id)}
+            isLoggedInUserMediaRef={userInfo && userInfo.id === mediaRef.owner.id}
             key={`${keyPrefix}-clip-${index}`}
             mediaRef={mediaRef}
             podcast={mediaRef.episode.podcast}

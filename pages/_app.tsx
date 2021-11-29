@@ -7,7 +7,7 @@ import OmniAural from "omniaural"
 import React, { useEffect } from 'react'
 import { CookiesProvider } from 'react-cookie'
 import Modal from 'react-modal'
-import { Modals, NavBar, HorizontalNavBar, Player, PageLoadingOverlay } from '~/components'
+import { Modals, NavBar, HorizontalNavBar, Player, PageLoadingOverlay, PlayerAPI } from '~/components'
 import "~/state"
 import initialState from "~/state/initialState.json"
 
@@ -44,6 +44,7 @@ function MyApp({ Component, pageProps }) {
             </main>
           </div>
         </div>
+        <PlayerAPI />
         <Player />
         <Modals />
         <PageLoadingOverlay />
