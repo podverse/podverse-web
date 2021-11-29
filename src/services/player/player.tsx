@@ -1,7 +1,10 @@
 import OmniAural, { useOmniAural } from 'omniaural'
 import type { NowPlayingItem } from 'podverse-shared'
 import { PV } from '~/resources'
-import { audioCheckIfCurrentlyPlaying, audioClearNowPlayingItem, audioGetDuration, audioGetPosition, audioIsLoaded, audioLoadNowPlayingItem, audioMute, audioPause, audioPlay, audioSeekTo, audioSetPlaybackSpeed, audioSetVolume, audioTogglePlay, audioUnmute } from './playerAudio'
+import { audioCheckIfCurrentlyPlaying, audioClearNowPlayingItem, audioGetDuration,
+  audioGetPosition, audioIsLoaded, audioLoadNowPlayingItem, audioMute, audioPause,
+  audioPlay, audioSeekTo, audioSetPlaybackSpeed, audioSetVolume,
+  audioUnmute } from './playerAudio'
 import { clearChapterUpdateInterval } from './playerChapters'
 import { clearClipEndTimeListenerInterval, handlePlayAfterClipEndTimeReached, handleSetupClipListener } from './playerClip'
 import { setClipFlagPositions } from './playerFlags'

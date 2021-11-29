@@ -11,6 +11,17 @@ import { Modals, NavBar, HorizontalNavBar, Player, PageLoadingOverlay, PlayerAPI
 import "~/state"
 import initialState from "~/state/initialState.json"
 
+declare global {
+  /* *TODO* add proper types for global interfaces */
+  interface Window {
+    paypal: any
+    playerAudio: any
+  }
+  interface Date {
+    addDays: any
+  }
+}
+
 OmniAural.initGlobalState(initialState)
 
 fontAwesomeConfig.autoAddCss = false

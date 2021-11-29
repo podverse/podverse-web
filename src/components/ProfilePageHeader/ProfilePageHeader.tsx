@@ -113,7 +113,7 @@ export const ProfilePageHeader = ({ handleChangeIsPublic, handleEditCancel,
                       options={privacyDropdownItems}
                       selectedKey={user.isPublic
                         ? PV.Users.privacyKeys.public
-                        : PV.Users.privacyKeys.onlyWithLink
+                        : PV.Users.privacyKeys.private
                       } />
                   )
                 }
