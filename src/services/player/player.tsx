@@ -4,6 +4,7 @@ import { PV } from '~/resources'
 import { audioCheckIfCurrentlyPlaying, audioClearNowPlayingItem, audioGetDuration, audioGetPosition, audioIsLoaded, audioLoadNowPlayingItem, audioMute, audioPause, audioPlay, audioSeekTo, audioSetPlaybackSpeed, audioSetVolume, audioTogglePlay, audioUnmute } from './playerAudio'
 import { clearChapterUpdateInterval } from './playerChapters'
 import { clearClipEndTimeListenerInterval, handlePlayAfterClipEndTimeReached, handleSetupClipListener } from './playerClip'
+import { setClipFlagPositions } from './playerFlags'
 import { checkIfVideoFileType, videoIsLoaded } from './playerVideo'
 
 export const playerCheckIfCurrentlyPlayingItem = (paused: boolean, nowPlayingItem?: NowPlayingItem) => {
@@ -43,6 +44,16 @@ export const playerTogglePlayOrLoadNowPlayingItem = async (
 ) => {
   const previousNowPlayingItem = OmniAural.state.player.currentNowPlayingItem.value()
   if (
+    previousNowPlayingItem
+    && previousNowPlayingItem.episodeMediaUrl === nowPlayingItem.episodeMediaUrl
+    && nowPlayingItem.clipId && previousNowPlayingItem.clipId !== nowPlayingItem.clipId
+  ) {
+    playerSeekTo(nowPlayingItem.clipStartTime)
+    const shouldPlay = true
+    await playerLoadNowPlayingItem(nowPlayingItem, shouldPlay)
+    const duration = playerGetDuration()
+    setClipFlagPositions(nowPlayingItem, duration)
+  } else if (
     previousNowPlayingItem
     && previousNowPlayingItem.episodeMediaUrl === nowPlayingItem.episodeMediaUrl
   ) {

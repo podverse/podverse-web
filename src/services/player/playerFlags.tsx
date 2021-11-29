@@ -1,4 +1,5 @@
 import type { NowPlayingItem } from 'podverse-shared'
+import OmniAural from 'omniaural'
 
 export const generateFlagPositions = (
   flagTimes: number[],
@@ -39,4 +40,10 @@ export const generateClipFlagPositions = (
   }
 
   return generateFlagPositions(flagTimes, duration)
+}
+
+export const setClipFlagPositions = (currentNowPlayingItem: NowPlayingItem, duration: number) => {
+  const clipFlagPositions = generateClipFlagPositions(currentNowPlayingItem, duration)
+  OmniAural.setClipFlagPositions(clipFlagPositions)
+  OmniAural.setHighlightedPositions(clipFlagPositions)
 }

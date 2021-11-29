@@ -24,7 +24,47 @@
   }
 
   .image-wrapper {
-    margin: 30px 0 100px 0;
+    align-self: stretch;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 30px 0 90px 0;
+    position: relative;
+
+    img {
+      border-radius: $item-border-radius;
+    }
+
+    &.has-clip-info {
+      margin-bottom: 0;
+    }
+
+    .clip-info-wrapper {
+      align-items: center;
+      display: flex;
+      flex-direction: column;
+      height: 72px;
+      max-width: 740px;
+      margin-top: 16px;
+
+      .clip-title {
+        font-size: $text-lg;
+        font-weight: $font-weight-light;
+        line-height: 23px;
+        margin-bottom: 6px;
+        text-align: center;
+
+        @include line-clamp(2);
+      }
+      .clip-time {
+        font-size: $text-sm;
+
+        @include themeGen() {
+          color: getThemeVal("textTertiary");
+        }
+      }
+    }
   }
 
   .title-wrapper {
