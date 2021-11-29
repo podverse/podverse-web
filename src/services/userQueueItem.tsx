@@ -1,4 +1,4 @@
-import { NowPlayingItem } from "~/../../podverse-shared/dist"
+import { NowPlayingItem } from "podverse-shared"
 import { getAuthCredentialsHeaders } from "~/lib/utility/auth"
 import { PV } from "~/resources"
 import { request } from './request'

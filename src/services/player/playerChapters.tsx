@@ -1,5 +1,5 @@
 import OmniAural from 'omniaural'
-import { convertNowPlayingItemToEpisode, convertToNowPlayingItem } from '~/../../podverse-shared/dist'
+import { convertNowPlayingItemToEpisode, convertToNowPlayingItem } from 'podverse-shared'
 import { playerGetDuration, playerGetPosition, playerLoadNowPlayingItem } from "./player"
 
 let chapterUpdateInterval = null
