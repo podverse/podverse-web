@@ -17,7 +17,7 @@ export const handlePlayAfterClipEndTimeReached = () => {
       const shouldPlay = true
       playerLoadNowPlayingItem(episodeNowPlayingItem, shouldPlay)
     } else {
-      handleSetupClip(currentNowPlayingItem)
+      handleSetupClipListener(currentNowPlayingItem.clipEndTime)
     }
   }
 }
@@ -28,19 +28,19 @@ export const clearClipEndTimeListenerInterval = () => {
   }
 }
 
-export const checkIfClipEndTimeReached = (nowPlayingItem: NowPlayingItem) => {
+const checkIfClipEndTimeReached = (clipEndTime: number) => {
   const currentPosition = playerGetPosition()
-  if (nowPlayingItem.clipEndTime && currentPosition > nowPlayingItem.clipEndTime) {
+  if (currentPosition > clipEndTime) {
     clearClipEndTimeListenerInterval()
     OmniAural.setClipHasReachedEnd(true)
     playerPause()
   }
 }
 
-export const handleSetupClip = (nowPlayingItem: NowPlayingItem) => {
-  if (nowPlayingItem.clipEndTime) {
+export const handleSetupClipListener = (clipEndTime?: number) => {
+  if (clipEndTime) {
     clipEndTimeListenerInterval = setInterval(() => {
-      checkIfClipEndTimeReached(nowPlayingItem)
+      checkIfClipEndTimeReached(clipEndTime)
     }, 333)
   }
 }

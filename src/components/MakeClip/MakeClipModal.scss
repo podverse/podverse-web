@@ -1,7 +1,6 @@
 .ReactModalPortal {
   .ReactModal__Overlay.make-clip-modal-overlay  {
-    backdrop-filter: blur($background-blur);
-    -webkit-backdrop-filter: blur($background-blur);
+    @include blurredBackground();
 
     .ReactModal__Content.make-clip-modal {
       padding: 59px 100px 32px 100px;

@@ -1,12 +1,14 @@
 {
   "makeClip": {
     "clipFlagPositions": [],
-    "highlightedPositions": [],
     "endTime": "",
+    "highlightedPositions": [],
     "isPublic": true,
+    "show": false,
     "startTime": "",
-    "title": "",
-    "show": false
+    "successModalLinkUrl": "",
+    "successModalShow": false,
+    "title": ""
   },
   "modals": {
     "addToPlaylist": {

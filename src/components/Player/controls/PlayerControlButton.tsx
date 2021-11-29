@@ -22,6 +22,7 @@ export const PlayerControlButton = ({
   size,
 }: Props) => {
   let jumpTime = 0
+  const miniJumpTime = 1
   let icon = null
   if (type === "skip") {
     if (direction === "backwards") {
@@ -40,10 +41,8 @@ export const PlayerControlButton = ({
   } else if (type == "mini-jump") {
     if (direction === "backwards") {
       icon = faUndoAlt
-      jumpTime = 1
     } else if (direction === "forwards") {
       icon = faRedoAlt
-      jumpTime = 1
     }
   }
 
@@ -56,7 +55,7 @@ export const PlayerControlButton = ({
       <FontAwesomeIcon icon={icon} />
       <div className={buttonContainerClass}>
         {type === "jump" && <div className={buttonTextClass}>{jumpTime}</div>}
-        {type === "mini-jump" && <div className={buttonTextClass}>{1}</div>}
+        {type === "mini-jump" && <div className={buttonTextClass}>{miniJumpTime}</div>}
       </div>
     </button>
   )

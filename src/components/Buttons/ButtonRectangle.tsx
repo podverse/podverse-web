@@ -3,6 +3,7 @@ import classnames from 'classnames'
 import { Icon } from '~/components'
 
 type Props = {
+  className?: string
   disabled?: boolean
   isDanger?: boolean
   isLoading?: boolean
@@ -11,10 +12,11 @@ type Props = {
   type: 'primary' | 'secondary' | 'tertiary'
 }
 
-export const ButtonRectangle = ({ disabled, isDanger, isLoading, label, onClick,
-  type }: Props) => {
+export const ButtonRectangle = ({ className, disabled, isDanger, isLoading,
+  label, onClick, type }: Props) => {
   const buttonClass = classnames(
     'button-rectangle',
+    className ? className : '',
     type === 'primary' ? 'primary' : '',
     type === 'secondary' ? 'secondary' : '',
     type === 'tertiary' ? 'tertiary' : '',

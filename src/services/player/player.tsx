@@ -3,7 +3,7 @@ import type { NowPlayingItem } from 'podverse-shared'
 import { PV } from '~/resources'
 import { audioCheckIfCurrentlyPlaying, audioClearNowPlayingItem, audioGetDuration, audioGetPosition, audioIsLoaded, audioLoadNowPlayingItem, audioMute, audioPause, audioPlay, audioSeekTo, audioSetPlaybackSpeed, audioSetVolume, audioTogglePlay, audioUnmute } from './playerAudio'
 import { clearChapterUpdateInterval } from './playerChapters'
-import { clearClipEndTimeListenerInterval, handlePlayAfterClipEndTimeReached, handleSetupClip } from './playerClip'
+import { clearClipEndTimeListenerInterval, handlePlayAfterClipEndTimeReached, handleSetupClipListener } from './playerClip'
 import { checkIfVideoFileType, videoIsLoaded } from './playerVideo'
 
 export const playerCheckIfCurrentlyPlayingItem = (paused: boolean, nowPlayingItem?: NowPlayingItem) => {
@@ -94,6 +94,22 @@ export const playerJumpBackward = () => {
 
 export const playerJumpForward = () => {
   const seconds = 30
+  const position = playerGetPosition()
+  const newPosition = position + seconds
+  playerSeekTo(newPosition)
+  return newPosition
+}
+
+export const playerJumpMiniBackwards = () => {
+  const seconds = 1
+  const position = playerGetPosition()
+  const newPosition = position - seconds
+  playerSeekTo(newPosition)
+  return newPosition
+}
+
+export const playerJumpMiniForwards = () => {
+  const seconds = 1
   const position = playerGetPosition()
   const newPosition = position + seconds
   playerSeekTo(newPosition)
@@ -233,8 +249,11 @@ export const playerLoadNowPlayingItem = async (
       await audioLoadNowPlayingItem(nowPlayingItem, previousNowPlayingItem, shouldPlay)
     }
 
-    if (nowPlayingItem.clipStartTime && !nowPlayingItem.clipIsOfficialChapter) {
-      handleSetupClip(nowPlayingItem)
+    if (
+      nowPlayingItem.clipStartTime
+      && nowPlayingItem.clipEndTime
+      && !nowPlayingItem.clipIsOfficialChapter) {
+      handleSetupClipListener(nowPlayingItem.clipEndTime)
     }
 
   } catch (error) {

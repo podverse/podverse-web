@@ -26,7 +26,10 @@ export const PlayerItemButtons = (props: Props) => {
         type="add"
         />
       <PlayerOptionButton
-        onClick={() => OmniAural.makeClipShow()}
+        onClick={() => {
+          const userInfo = OmniAural.state.session.userInfo.value()
+          userInfo ? OmniAural.makeClipShow() : OmniAural.modalsLoginToAlertShow('make clip')
+        }}
         size="small"
         type="make-clip" />
       {/* <PlayerOptionButton type="share" size="small" /> */}

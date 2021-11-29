@@ -11,19 +11,12 @@ export const MakeClipModal = (props: Props) => {
 
   const _onRequestClose = OmniAural.makeClipHide
 
-  const customStyles = {
-    overlay: {
-      // backgroundColor: 'red'
-    }
-  }
-
   return (
     <Modal
       className='make-clip-modal centered'
       isOpen={makeClip.show}
       overlayClassName='make-clip-modal-overlay'
-      onRequestClose={_onRequestClose}
-      style={customStyles}>
+      onRequestClose={_onRequestClose}>
       <ButtonClose onClick={_onRequestClose} />
       <MakeClipForm handleCancel={_onRequestClose} />
     </Modal>

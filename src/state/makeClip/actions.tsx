@@ -34,6 +34,19 @@ const makeClipShow = () => {
   OmniAural.state.makeClip.show.set(true)
 }
 
+const makeClipSuccessModalHide = () => {
+  OmniAural.state.makeClip.successModalShow.set(false)
+}
+
+const makeClipSuccessModalShow = () => {
+  OmniAural.state.makeClip.successModalShow.set(true)
+}
+
+const makeClipSuccessModalSetLinkUrl = (url: string) => {
+  OmniAural.state.makeClip.successModalLinkUrl.set(url)
+}
+
 OmniAural.addActions({ makeClipHide, makeClipSetEndTime, makeClipSetIsPublic,
   makeClipSetStartTime, makeClipSetTitle, makeClipShow,
-  makeClipSetClipFlagPositions, makeClipSetHighlightedPositions })
+  makeClipSetClipFlagPositions, makeClipSetHighlightedPositions,
+  makeClipSuccessModalHide, makeClipSuccessModalShow, makeClipSuccessModalSetLinkUrl })

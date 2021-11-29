@@ -9,6 +9,7 @@
   }
 
   .text-input-outer-wrapper {
+    align-items: center;
     border-color: transparent;
     border-radius: $item-border-radius !important;
     border-style: solid;
@@ -28,6 +29,7 @@
     }
 
     .icon-wrapper {
+      align-self: stretch;
       align-items: center;
       display: flex;
       margin-right: 24px;
@@ -36,6 +38,14 @@
         margin-right: -16px;
         padding: 0 16px;
       }
+
+      &.has-handler {
+        cursor: pointer;
+      }
+    }
+
+    .end-button {
+      margin: 0 0 0 12px;
     }
   
     .text-input-inner-wrapper {
