@@ -32,7 +32,7 @@
         }
       
         .episode-podcast-titles {
-          font-size: $text-sm;
+          font-size: $text-md;
   
           @include themeGen() {
             color: getThemeVal('textSecondary');

@@ -7,9 +7,20 @@ import OmniAural from "omniaural"
 import React, { useEffect } from 'react'
 import { CookiesProvider } from 'react-cookie'
 import Modal from 'react-modal'
-import { Modals, NavBar, HorizontalNavBar, Player, PageLoadingOverlay } from '~/components'
+import { Modals, NavBar, HorizontalNavBar, Player, PageLoadingOverlay, PlayerAPI } from '~/components'
 import "~/state"
 import initialState from "~/state/initialState.json"
+
+declare global {
+  /* *TODO* add proper types for global interfaces */
+  interface Window {
+    paypal: any
+    playerAudio: any
+  }
+  interface Date {
+    addDays: any
+  }
+}
 
 OmniAural.initGlobalState(initialState)
 
@@ -44,6 +55,7 @@ function MyApp({ Component, pageProps }) {
             </main>
           </div>
         </div>
+        <PlayerAPI />
         <Player />
         <Modals />
         <PageLoadingOverlay />

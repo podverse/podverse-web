@@ -1,4 +1,5 @@
 @import './AddToPlaylistModal/AddToPlaylistModal.scss';
+@import './CheckoutModal/CheckoutModal.scss';
 @import './Auth/ForgotPasswordModal.scss';
 @import './Auth/LoginModal.scss';
 @import './Auth/LoginToAlertModal.scss';
@@ -6,6 +7,12 @@
 @import './Auth/VerifyEmailModal.scss';
 
 .ReactModal__Overlay {
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+
   @include themeGen() {
     background-color: getThemeVal('modalTransparentBackground') !important;
   }
@@ -29,7 +36,7 @@
 
     .button-close {
       position: absolute;
-      top: 24px;
+      top: 16px;
       right: 16px;
     }
 

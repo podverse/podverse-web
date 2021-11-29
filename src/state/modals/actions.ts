@@ -1,4 +1,5 @@
 import "./addToPlaylist/actions"
+import "./checkout/actions"
 import "./forgotPassword/actions"
 import "./login/actions"
 import "./loginToAlert/actions"
@@ -9,6 +10,7 @@ import OmniAural from "omniaural"
 
 const modalsHideAll = () => {
   OmniAural.modalsAddToPlaylistHide()
+  OmniAural.modalsCheckoutHide()
   OmniAural.modalsForgotPasswordHide()
   OmniAural.modalsLoginHide()
   OmniAural.modalsLoginToAlertHide()

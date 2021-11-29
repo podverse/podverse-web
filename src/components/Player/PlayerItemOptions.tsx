@@ -1,36 +1,57 @@
 import classnames from "classnames"
+import OmniAural, { useOmniAural } from 'omniaural'
 import { PlayerOptionButton } from "./options/PlayerOptionButton"
-import OmniAural from "omniaural"
 import { Slider } from "../Slider/Slider"
+import { playerMute, playerNextSpeed, playerSetVolume, playerUnmute } from "~/services/player/player"
+import { modalsAddToPlaylistShowOrAlert } from "~/state/modals/addToPlaylist/actions"
 
-type Props = {
-  muted: boolean
-  playSpeed: string
-}
+type Props = {}
 
-export const PlayerItemButtons = ({ muted, playSpeed }: Props) => {
+export const PlayerItemButtons = (props: Props) => {
+  const [player] = useOmniAural('player')
+  const { currentNowPlayingItem, muted, playSpeed, showFullView, volume } = player
   const container = classnames("player-buttons-container")
 
   return (
     <div className={container}>
-      <PlayerOptionButton type="speed" size="small">
+      <PlayerOptionButton
+        onClick={playerNextSpeed}
+        size="small"
+        type="speed">
         {playSpeed}x
       </PlayerOptionButton>
-      <PlayerOptionButton type="add" size="small" />
-      <PlayerOptionButton type="clip" size="small" />
-      <PlayerOptionButton type="share" size="small" />
-      <div style={{ marginLeft: 15, display: "flex", alignItems: "center" }}>
-        <PlayerOptionButton
-          type={muted ? "mute" : "unmute"}
-          size="small"
-          onClick={() => {
-            console.log("Attempting mute: ", muted)
-            muted ? OmniAural.unmutePlayer() : OmniAural.mutePlayer()
-          }}
+      <PlayerOptionButton
+        onClick={() => modalsAddToPlaylistShowOrAlert(currentNowPlayingItem)}
+        size="small"
+        type="add"
         />
-        <Slider currentVal={20} startVal={0} endVal={100} />
+      <PlayerOptionButton
+        onClick={() => {
+          const userInfo = OmniAural.state.session.userInfo.value()
+          userInfo ? OmniAural.makeClipShow() : OmniAural.modalsLoginToAlertShow('make clip')
+        }}
+        size="small"
+        type="make-clip" />
+      {/* <PlayerOptionButton type="share" size="small" /> */}
+      <div style={{ marginLeft: 20, display: "flex", alignItems: "center" }}>
+        <PlayerOptionButton
+          onClick={() => {
+            muted ? playerUnmute() : playerMute()
+          }}
+          size="small"
+          type={muted ? "mute" : "unmute"}
+        />
+        <Slider
+          className='volume'
+          currentValue={muted ? 0 : volume}
+          endVal={100}
+          onValueChange={playerSetVolume}
+          startVal={0} />
       </div>
-      <PlayerOptionButton type="fullscreen" size="small" />
+      <PlayerOptionButton
+        onClick={showFullView ? OmniAural.playerFullViewHide : OmniAural.playerFullViewShow}
+        size="small"
+        type={showFullView ? 'fullscreen-hide' : 'fullscreen-show'} />
     </div>
   )
 }

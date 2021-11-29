@@ -10,7 +10,7 @@ export const LoginToAlertModal = (props: Props) => {
   const { t } = useTranslation()
   const { alertType } = loginToAlert
 
-  /* Event Handlers */
+  /* Function Helpers */
 
   const _onRequestClose = () => {
     OmniAural.modalsHideAll()
@@ -24,7 +24,7 @@ export const LoginToAlertModal = (props: Props) => {
         return t('LoginToAddItemsToPlaylists')
       case 'add item to queue':
         return t('LoginToAddItemToQueue')
-      case 'create clip':
+      case 'make clip':
         return t('LoginToCreateAndShareClips')
       case 'subscribe to playlist':
         return t('LoginToSubscribeToPlaylists')

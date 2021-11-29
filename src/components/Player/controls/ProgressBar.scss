@@ -1,19 +1,43 @@
 .player-bar-container {
+  align-items: center;
   display: flex;
   justify-content: center;
-  align-items: center;
-  width: 80%;
-  margin-top: 10px;
-}
+  margin-top: 4px;
+  width: 520px;
 
-.player-bar {
-  margin: 0 20px;
-  width: 100%;
-}
+  &.has-labels-below {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .player-bar {
+    margin: 0 20px;
+    padding: 12px 0;
+    width: 100%;
+  }
 
-.player-bar-label {
-  font-size: 12px;
-  @include themeGen() {
-    color: getThemeVal("textTertiary");
+  .player-bar-labels-below {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 3px;
+    width: 100%;
+  }
+  
+  .player-bar-label {
+    font-size: 12px;
+    min-width: 40px;
+  
+    @include themeGen() {
+      color: getThemeVal("textTertiary");
+    }
+  
+    &:first-child {
+      text-align: right;
+    }
+  
+    &:last-child {
+      text-align: left;
+    }
   }
 }
+

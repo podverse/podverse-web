@@ -1,21 +1,23 @@
 import classnames from 'classnames'
 import Link from 'next/link'
-import { scrollToTopOfPageScrollableContent } from '~/components/PageScrollableContent/PageScrollableContent'
 
 type Props = {
   children: any
   className?: string
   href: string
+  onClick?: any
 }
 
-export const PVLink = ({ children, className, href }: Props) => {
+export const PVLink = ({ children, className, href, onClick }: Props) => {
   const linkClassName = classnames(
     className ? className : ''
   )
   return (
     <Link
       href={href}>
-      <a className={linkClassName}>
+      <a
+        className={linkClassName}
+        onClick={onClick}>
         {children}
       </a>
     </Link>

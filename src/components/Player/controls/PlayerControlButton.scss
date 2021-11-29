@@ -1,7 +1,8 @@
 .player-progress-button {
-  display: flex;
   align-items: center;
+  display: flex;
   justify-content: center;
+
   svg {
     vertical-align: 0;
   }
@@ -48,7 +49,7 @@
 }
 
 .jump-time-text {
-  font-size: 7pt;
+  font-size: $text-tiniest;
   color: white;
 
   &.backwards {

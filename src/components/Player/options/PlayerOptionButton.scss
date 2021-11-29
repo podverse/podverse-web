@@ -1,8 +1,9 @@
 .player-option-button {
-  display: flex;
   align-items: center;
+  display: flex;
   justify-content: center;
-  margin: 5px;
+  margin: 5px 0;
+
   svg {
     vertical-align: 0;
   }
@@ -10,7 +11,7 @@
   &.small {
     height: 36px;
     line-height: 36px;
-    width: 36px;
+    width: 50px;
 
     svg {
       width: 18px;

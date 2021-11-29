@@ -57,6 +57,9 @@ $themes: (
     'paginationInactiveBorder': $grayLight,
     'paginationInactiveText': $grayLight,
 
+    'premiumIsActive': $blueBright,
+    'premiumIsExpired': $redLighter,
+
     'sliderClipIndicator': $blueDarkText,
     'sliderHighlightSection': $blueDarkTextTransparent,
     'sliderListened': $white,
@@ -73,7 +76,8 @@ $themes: (
     'textParagraph': $grayLight,
     'textHover': $grayLight2,
     'textLink': $perrywinkle,
-    'textDanger': $redLighter,
+    'textWarning': $orange,
+    'textDanger': $red,
     'textSuccess': $green,
 
     'textInputBackground': $blueDarkBlueGrey,

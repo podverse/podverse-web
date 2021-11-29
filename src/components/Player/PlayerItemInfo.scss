@@ -1,38 +1,35 @@
 .player-item-info-container {
   display: flex;
-  flex: 1;
   flex-direction: row;
-  align-items: center;
-}
+  margin-right: 16px;
+  width: 360px;
+  
+  .player-item-contents {
+    align-items: center;
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
 
-.player-item-info-text-container {
-  display: flex;
-  flex-direction: column;
-  margin-left: 16px;
-}
-
-.item-info-title {
-  margin: 0 0 3px 0;
-  font-family: Roboto;
-  font-size: 16px;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  color: #fff;
-}
-
-.item-info-subtitle {
-  font-family: Roboto;
-  font-size: 14px;
-  font-weight: bold;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
-
-  @include themeGen() {
-    color: getThemeVal("textTertiary");
+    .player-item-info-text-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      margin-left: 16px;
+      
+      .item-info-title {
+        font-weight: $font-weight-light;
+        margin: 0 0 10px 0;
+        @include line-clamp(2);
+      }
+      
+      .item-info-subtitle {
+        font-size: 14px;
+        font-weight: $font-weight-bold;
+      
+        @include themeGen() {
+          color: getThemeVal("textQuaternary");
+        }
+      }
+    }
   }
 }

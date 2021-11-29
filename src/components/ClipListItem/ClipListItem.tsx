@@ -11,14 +11,15 @@ type Props = {
   episode?: Episode
   handleRemove?: any
   imageUrl?: string
+  isLoggedInUserMediaRef?: boolean
   mediaRef: MediaRef
   podcast: Podcast
   showImage?: boolean
   showRemoveButton?: boolean
 }
 
-export const ClipListItem = ({ episode, handleRemove, mediaRef, podcast,
-  showImage, showRemoveButton }: Props) => {
+export const ClipListItem = ({ episode, handleRemove, isLoggedInUserMediaRef, mediaRef,
+  podcast, showImage, showRemoveButton }: Props) => {
   const { t } = useTranslation()
   const { id, imageUrl } = mediaRef
   const title = getClipTitle(t, mediaRef, episode?.title)
@@ -69,6 +70,7 @@ export const ClipListItem = ({ episode, handleRemove, mediaRef, podcast,
           </PVLink>
           <MediaItemControls
             buttonSize='medium'
+            isLoggedInUserMediaRef={isLoggedInUserMediaRef}
             mediaRef={mediaRef}
             stretchMiddleContent />
         </div>
