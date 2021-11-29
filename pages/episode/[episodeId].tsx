@@ -87,8 +87,7 @@ export default function Episode({ serverClips, serverClipsPageCount, serverEpiso
       description: serverEpisode.description,
       imageAlt: podcastTitle,
       imageUrl:
-        serverEpisode.shrunkImageUrl
-        || serverEpisode.imageUrl
+        serverEpisode.imageUrl
         || (podcast && podcast.shrunkImageUrl)
         || (podcast && podcast.imageUrl),
       title: `${serverEpisode.title} - ${podcastTitle}`

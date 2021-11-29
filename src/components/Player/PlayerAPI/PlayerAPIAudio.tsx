@@ -5,28 +5,24 @@ import { retrieveLatestChaptersForEpisodeId } from '~/services/mediaRef'
 import { playerGetDuration, playerUpdateDuration, playerUpdatePlaybackPosition } from '~/services/player/player'
 import { audioInitialize, audioSeekTo } from '~/services/player/playerAudio'
 import { enrichChapterDataForPlayer, handleChapterUpdateInterval, setChapterUpdateInterval } from '~/services/player/playerChapters'
-import { generateChapterFlagPositions, generateClipFlagPositions } from '~/services/player/playerFlags'
+import { generateChapterFlagPositions, generateClipFlagPositions, setClipFlagPositions } from '~/services/player/playerFlags'
 
 type Props = {}
 
-declare global {
-  /* *TODO* add playerAudio type */
-  interface Window { playerAudio: any }
-}
-
 export const PlayerAPIAudio = (props: Props) => {
-  /* Never initialize PlayerAPIs on the server-side. */
-  if (typeof window === 'undefined') {
-    return null
-  }
-
   const [player] = useOmniAural('player')
+  
   const { currentNowPlayingItem } = player
 
   useEffect(() => {
     console.log('useEffect')
     audioInitialize()
   }, [])
+
+  /* Never initialize PlayerAPIs on the server-side. */
+  if (typeof window === 'undefined') {
+    return null
+  }
 
   const _onLoadedMetaData = async () => {
     console.log('PlayerAPIAudio _onLoadedMetaData')
@@ -37,9 +33,7 @@ export const PlayerAPIAudio = (props: Props) => {
     const duration = playerGetDuration()
 
     if (Number.isInteger(currentNowPlayingItem.clipStartTime)) {
-      const clipFlagPositions = generateClipFlagPositions(currentNowPlayingItem, duration)
-      OmniAural.setClipFlagPositions(clipFlagPositions)
-      OmniAural.setHighlightedPositions(clipFlagPositions)
+      setClipFlagPositions(currentNowPlayingItem, duration)
     }
     
     if (currentNowPlayingItem.episodeChaptersUrl) {

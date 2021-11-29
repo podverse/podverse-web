@@ -97,8 +97,7 @@ export default function Clip({ serverClip, serverClips, serverClipsPageCount,
       description: `${serverClip.episode.title} - ${podcastTitle}`,
       imageAlt: podcastTitle,
       imageUrl:
-        (episode && episode.shrunkImageUrl)
-        || (episode && episode.imageUrl)
+        (episode && episode.imageUrl)
         || (episode.podcast && episode.podcast.shrunkImageUrl)
         || (episode.podcast && episode.podcast.imageUrl),
       title: serverClip.title || (prefixClipLabel(t, episode && episode.title))
