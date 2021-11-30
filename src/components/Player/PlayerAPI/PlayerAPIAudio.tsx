@@ -6,6 +6,7 @@ import { playerGetDuration, playerUpdateDuration, playerUpdatePlaybackPosition }
 import { audioInitialize, audioSeekTo } from '~/services/player/playerAudio'
 import { enrichChapterDataForPlayer, handleChapterUpdateInterval, setChapterUpdateInterval } from '~/services/player/playerChapters'
 import { generateChapterFlagPositions, generateClipFlagPositions, setClipFlagPositions } from '~/services/player/playerFlags'
+import { addOrUpdateHistoryItemOnServer } from '~/services/userHistoryItem'
 
 type Props = {}
 
@@ -22,6 +23,20 @@ export const PlayerAPIAudio = (props: Props) => {
   /* Never initialize PlayerAPIs on the server-side. */
   if (typeof window === 'undefined') {
     return null
+  }
+
+  const _onEnded = async () => {
+    const playbackPosition = 0
+    const mediaFileDuration = playerGetDuration()
+    const forceUpdateOrderDate = false
+    const completed = true
+    await addOrUpdateHistoryItemOnServer(
+      currentNowPlayingItem,
+      playbackPosition,
+      mediaFileDuration,
+      forceUpdateOrderDate,
+      completed
+    )
   }
 
   const _onLoadedMetaData = async () => {
@@ -45,6 +60,16 @@ export const PlayerAPIAudio = (props: Props) => {
       // OmniAural.setChapters(enrichedChapters)
       // setChapterUpdateInterval()
     }
+
+    const playbackPosition = currentNowPlayingItem.clipStartTime
+      || currentNowPlayingItem.userPlaybackPosition || 0
+    const forceUpdateOrderDate = true
+    addOrUpdateHistoryItemOnServer(
+      currentNowPlayingItem,
+      playbackPosition,
+      duration,
+      forceUpdateOrderDate
+    )
   }
 
   const _onListen = () => {
@@ -57,6 +82,7 @@ export const PlayerAPIAudio = (props: Props) => {
   return (
     <PlayerAudio
       // listenInterval={4000}
+      onEnded={_onEnded}
       onLoadedMetaData={_onLoadedMetaData}
       onListen={_onListen}
       ref={window.playerAudio} />

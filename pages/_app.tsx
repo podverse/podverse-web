@@ -10,6 +10,7 @@ import Modal from 'react-modal'
 import { Modals, NavBar, HorizontalNavBar, Player, PageLoadingOverlay, PlayerAPI } from '~/components'
 import "~/state"
 import initialState from "~/state/initialState.json"
+import { saveCurrentPlaybackPositionToHistory } from '~/services/player/player'
 
 declare global {
   /* *TODO* add proper types for global interfaces */
@@ -27,6 +28,12 @@ OmniAural.initGlobalState(initialState)
 fontAwesomeConfig.autoAddCss = false
 
 Modal.setAppElement('.app')
+
+if (typeof window !== 'undefined') {
+  window.onbeforeunload = async () => {
+    saveCurrentPlaybackPositionToHistory()
+  }
+}
 
 function MyApp({ Component, pageProps }) {
   const { serverUserInfo, serverUserQueueItems } = pageProps

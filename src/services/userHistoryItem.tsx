@@ -68,3 +68,29 @@ export const removeHistoryItemMediaRefOnServer = async (
 
   return newUserHistoryItems
 }
+
+export const addOrUpdateHistoryItemOnServer = async (
+  nowPlayingItem: NowPlayingItem,
+  playbackPosition: number,
+  mediaFileDuration?: number | null,
+  forceUpdateOrderDate?: boolean,
+  completed?: boolean
+) => {
+  playbackPosition = Math.floor(playbackPosition) || 0
+
+  const { clipId, episodeId } = nowPlayingItem
+
+  await request({
+    endpoint: '/user-history-item',
+    method: 'PATCH',
+    ...(getAuthCredentialsHeaders()),
+    body: {
+      episodeId: clipId ? null : episodeId,
+      mediaRefId: clipId,
+      forceUpdateOrderDate: forceUpdateOrderDate === false ? false : true,
+      ...(mediaFileDuration || mediaFileDuration === 0 ? { mediaFileDuration: Math.floor(mediaFileDuration) } : {}),
+      userPlaybackPosition: playbackPosition,
+      ...(completed ? { completed } : {})
+    }
+  })
+}

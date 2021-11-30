@@ -1,6 +1,7 @@
 import OmniAural, { useOmniAural } from 'omniaural'
 import type { NowPlayingItem } from 'podverse-shared'
 import { PV } from '~/resources'
+import { addOrUpdateHistoryItemOnServer } from '../userHistoryItem'
 import { audioCheckIfCurrentlyPlaying, audioClearNowPlayingItem, audioGetDuration,
   audioGetPosition, audioIsLoaded, audioLoadNowPlayingItem, audioMute, audioPause,
   audioPlay, audioSeekTo, audioSetPlaybackSpeed, audioSetVolume,
@@ -67,18 +68,6 @@ export const playerTogglePlayOrLoadNowPlayingItem = async (
   }
 }
 
-export const playerClearLoadedItems = (nowPlayingItem: NowPlayingItem) => {
-  /* 
-    If video should play, then clear the src for the audio player, and vice versa.
-    Also, clear the previous currentPlayingItem
-  */
-  if (checkIfVideoFileType(nowPlayingItem)) {
-    audioClearNowPlayingItem()
-  } else {
-    // clear video
-  }
-}
-
 export const playerPlay = () => {
   handlePlayAfterClipEndTimeReached()
 
@@ -96,6 +85,7 @@ export const playerPause = () => {
   } else if (videoIsLoaded()) {
     // videoTogglePlay()
   }
+  saveCurrentPlaybackPositionToHistory() // run in the background without await
 }
 
 export const playerJumpBackward = () => {
@@ -222,29 +212,25 @@ export const playerUnmute = () => {
   }
 }
 
-const playerClearPreviousItem = (nowPlayingItem: NowPlayingItem) => {
-  OmniAural.setClipHasReachedEnd(false)
-  OmniAural.setPlayerPlaybackPosition(0)
-  /* The positions get set in the onLoadedMetaData handler in the PlayerAPIs */
-  OmniAural.setHighlightedPositions([])
-  OmniAural.setClipFlagPositions([])
-  playerClearLoadedItems(nowPlayingItem)
-  clearClipEndTimeListenerInterval()
-  clearChapterUpdateInterval()
-}
-
 export const playerLoadNowPlayingItem = async (
   nowPlayingItem: NowPlayingItem,
-  shouldPlay?: boolean
+  shouldPlay: boolean
 ) => {
   try {
     if (!nowPlayingItem) return
+    // Save the previous item's playback position to history.
+    saveCurrentPlaybackPositionToHistory()
 
+    // Create a variable for the previous item for later.
     const previousNowPlayingItem = OmniAural.state.player.currentNowPlayingItem.value()
-    
-    OmniAural.setPlayerItem(nowPlayingItem)
-    playerClearPreviousItem(nowPlayingItem)
 
+    // Set the NEW nowPlayingItem on the player state.
+    OmniAural.setPlayerItem(nowPlayingItem)
+
+    // Clear all remnants of the previous item from state and the player.
+    // Do this after the setPlayerItem so there isn't a flash of no content.
+    playerClearPreviousItem(nowPlayingItem)
+  
     if (!checkIfVideoFileType(nowPlayingItem)) {
       // audioAddNowPlayingItemNextInQueue(item, itemToSetNextInQueue)
     }
@@ -263,14 +249,58 @@ export const playerLoadNowPlayingItem = async (
       await audioLoadNowPlayingItem(nowPlayingItem, previousNowPlayingItem, shouldPlay)
     }
 
-    if (
-      nowPlayingItem.clipStartTime
-      && nowPlayingItem.clipEndTime
-      && !nowPlayingItem.clipIsOfficialChapter) {
+    if (checkIfNowPlayingItemIsAClip(nowPlayingItem)) {
       handleSetupClipListener(nowPlayingItem.clipEndTime)
     }
-
   } catch (error) {
     console.log('playerLoadNowPlayingItem service error', error)
   }
+}
+
+/* Reset the state, intervals, and  related to the nowPlayingItem in state  */
+const playerClearPreviousItem = (nextNowPlayingItem: NowPlayingItem) => {
+  playerClearPreviousItemState()
+  playerClearTimeIntervals()
+  playerClearItemFromPlayerAPI(nextNowPlayingItem)
+}
+
+const playerClearPreviousItemState = () => {
+  OmniAural.setClipFlagPositions([])
+  OmniAural.setClipHasReachedEnd(false)
+  /* The positions get set in the onLoadedMetaData handler in the PlayerAPIs */
+  OmniAural.setHighlightedPositions([])
+  OmniAural.setPlayerPlaybackPosition(0)
+}
+
+const playerClearTimeIntervals = () => {
+  clearClipEndTimeListenerInterval()
+  clearChapterUpdateInterval()
+}
+
+/*
+  If video should play, then clear the src for the audio player, and vice versa.
+  Also, clear the previous currentPlayingItem
+*/
+const playerClearItemFromPlayerAPI = (nextNowPlayingItem: NowPlayingItem) => {
+  if (checkIfVideoFileType(nextNowPlayingItem)) {
+    audioClearNowPlayingItem()
+  } else {
+    // clear video
+  }
+}
+
+const checkIfNowPlayingItemIsAClip = (nowPlayingItem: NowPlayingItem) =>
+  nowPlayingItem.clipStartTime
+    && nowPlayingItem.clipEndTime
+    && !nowPlayingItem.clipIsOfficialChapter
+
+export const saveCurrentPlaybackPositionToHistory = async () => {
+  const position = playerGetPosition()
+  const duration = playerGetDuration()
+  const currentNowPlayingItem = OmniAural.state.player.currentNowPlayingItem.value()
+  await addOrUpdateHistoryItemOnServer(
+    currentNowPlayingItem,
+    position,
+    duration
+  )
 }
