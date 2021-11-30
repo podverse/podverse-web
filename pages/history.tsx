@@ -1,6 +1,5 @@
 import { GetServerSideProps } from 'next'
 import { useTranslation } from 'next-i18next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import OmniAural, { useOmniAural } from 'omniaural'
 import { useEffect, useRef, useState } from 'react'
 import { convertNowPlayingItemToEpisode, convertNowPlayingItemToMediaRef,
@@ -10,10 +9,9 @@ import {
   Pagination, scrollToTopOfPageScrollableContent, SideContent } from '~/components'
 import { Page } from '~/lib/utility/page'
 import { PV } from '~/resources'
-import { getServerSideAuthenticatedUserInfo } from '~/services/auth'
-import { getServerSideUserQueueItems } from '~/services/userQueueItem'
 import { getHistoryItemsFromServer, getServerSideHistoryItems, removeHistoryItemEpisodeOnServer, removeHistoryItemMediaRefOnServer, removeHistoryItemsAllOnServer } from '~/services/userHistoryItem'
 import { isNowPlayingItemMediaRef } from '~/lib/utility/typeHelpers'
+import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 
 interface ServerProps extends Page {
   serverFilterPage: number
@@ -190,17 +188,14 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { req, locale } = ctx
   const { cookies } = req
 
-  const userInfo = await getServerSideAuthenticatedUserInfo(cookies)
-  const userQueueItems = await getServerSideUserQueueItems(cookies)
+  const defaultServerProps = await getDefaultServerSideProps(ctx, locale)
+
   const serverFilterPage = 1
   const historyItemsData = await getServerSideHistoryItems(serverFilterPage, cookies)
   const { userHistoryItems, userHistoryItemsCount } = historyItemsData
 
   const serverProps: ServerProps = {
-    serverUserInfo: userInfo,
-    serverUserQueueItems: userQueueItems,
-    ...(await serverSideTranslations(locale, PV.i18n.fileNames.all)),
-    serverCookies: cookies,
+    ...defaultServerProps,
     serverFilterPage,
     serverUserHistoryItems: userHistoryItems,
     serverUserHistoryItemsCount: userHistoryItemsCount

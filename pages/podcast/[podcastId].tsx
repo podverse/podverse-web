@@ -1,7 +1,6 @@
 import linkifyHtml from 'linkify-html'
 import { GetServerSideProps } from 'next'
 import { useTranslation } from 'next-i18next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useOmniAural } from 'omniaural'
 import type { Episode, MediaRef, Podcast, User } from 'podverse-shared'
 import { useEffect, useRef, useState } from 'react'
@@ -13,10 +12,9 @@ import { PV } from '~/resources'
 import { getPodcastById } from '~/services/podcast'
 import { getEpisodesByQuery } from '~/services/episode'
 import { getMediaRefsByQuery } from '~/services/mediaRef'
-import { getServerSideAuthenticatedUserInfo } from '~/services/auth'
 import { Page } from '~/lib/utility/page'
 import { sanitizeTextHtml } from '~/lib/utility/sanitize'
-import { getServerSideUserQueueItems } from '~/services/userQueueItem'
+import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 
 interface ServerProps extends Page {
   serverClips: MediaRef[]
@@ -259,12 +257,10 @@ const generateClipListElements = (listItems: MediaRef[], podcast: Podcast, userI
 /* Server-Side Logic */
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const { locale, params, req } = ctx
-  const { cookies } = req
+  const { locale, params } = ctx
   const { podcastId } = params
 
-  const userInfo = await getServerSideAuthenticatedUserInfo(cookies)
-  const userQueueItems = await getServerSideUserQueueItems(cookies)
+  const defaultServerProps = await getDefaultServerSideProps(ctx, locale)
   
   const serverFilterType = PV.Filters.type._episodes
   const serverFilterSort = PV.Filters.sort._mostRecent
@@ -290,10 +286,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   }
   
   const serverProps: ServerProps = {
-    serverUserInfo: userInfo,
-    serverUserQueueItems: userQueueItems,
-    ...(await serverSideTranslations(locale, PV.i18n.fileNames.all)),
-    serverCookies: cookies,
+    ...defaultServerProps,
     serverClips,
     serverClipsPageCount,
     serverEpisodes,

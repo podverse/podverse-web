@@ -1,16 +1,14 @@
 import { GetServerSideProps } from 'next'
 import { useTranslation } from 'next-i18next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import type { Podcast } from 'podverse-shared'
 import { useEffect, useState } from 'react'
 import { List, Meta, PageHeaderWithTabs, PageScrollableContent, Pagination,
   PodcastListItem, SearchPageInput } from '~/components'
 import { Page } from '~/lib/utility/page'
 import { PV } from '~/resources'
-import { getServerSideAuthenticatedUserInfo } from '~/services/auth'
 import { getPodcastsByQuery } from '~/services/podcast'
 import { scrollToTopOfPageScrollableContent } from '~/components/PageScrollableContent/PageScrollableContent'
-import { getServerSideUserQueueItems } from '~/services/userQueueItem'
+import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 
 interface ServerProps extends Page {}
 
@@ -138,14 +136,10 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { req, locale } = ctx
   const { cookies } = req
 
-  const userInfo = await getServerSideAuthenticatedUserInfo(cookies)
-  const userQueueItems = await getServerSideUserQueueItems(cookies)
+  const defaultServerProps = await getDefaultServerSideProps(ctx, locale)
   
   const serverProps: ServerProps = {
-    serverUserInfo: userInfo,
-    serverUserQueueItems: userQueueItems,
-    ...(await serverSideTranslations(locale, PV.i18n.fileNames.all)),
-    serverCookies: cookies
+    ...defaultServerProps
   }
 
   return { props: serverProps }

@@ -94,3 +94,62 @@ export const addOrUpdateHistoryItemOnServer = async (
     }
   })
 }
+
+export const getServerSideHistoryItemsIndex = async (cookies: any) => {
+  let historyItemsIndex = { episodes: [], mediaRefs: [] } as any
+  if (cookies.Authorization) {
+    historyItemsIndex = await getHistoryItemsIndexFromServer(cookies.Authorization)
+  }
+  return historyItemsIndex
+}
+
+export const getHistoryItemsIndexFromServer = async (bearerToken?: string) => {
+  /* If user membership is expired, we don't want the 401 error to crash the app,
+     so return an empty response body instead. */
+  let response = {
+    data: {
+      userHistoryItems: []
+    }
+  }
+
+  try {
+    response = (await request({
+      endpoint: '/user-history-item/metadata',
+      method: 'GET',
+      ...(getAuthCredentialsHeaders(bearerToken))
+    })) as any
+  } catch (error) {
+    console.log('getHistoryItemsIndexFromServer error', error)
+  }
+
+  const { userHistoryItems } = response.data
+  return generateHistoryItemsIndexDictionary(userHistoryItems)
+}
+
+const generateHistoryItemsIndexDictionary = (historyItems: any[]) => {
+  const historyItemsIndex = {
+    episodes: {},
+    mediaRefs: {}
+  }
+
+  if (!historyItems) {
+    historyItems = []
+  }
+  for (const historyItem of historyItems) {
+
+    if (historyItem.mediaRefId) {
+      historyItemsIndex.mediaRefs[historyItem.mediaRefId] = {
+        mediaFileDuration: historyItem.mediaFileDuration || historyItem.episodeDuration,
+        userPlaybackPosition: historyItem.userPlaybackPosition
+      }
+    } else if (historyItem.episodeId) {
+      historyItemsIndex.episodes[historyItem.episodeId] = {
+        mediaFileDuration: historyItem.mediaFileDuration || historyItem.episodeDuration,
+        userPlaybackPosition: historyItem.userPlaybackPosition,
+        ...(historyItem.completed ? { completed: historyItem.completed } : {})
+      }
+    }
+  }
+
+  return historyItemsIndex
+}

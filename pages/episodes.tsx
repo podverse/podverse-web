@@ -1,7 +1,5 @@
 import { GetServerSideProps } from 'next'
-import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import OmniAural, { useOmniAural } from 'omniaural'
 import type { Episode } from 'podverse-shared'
 import { useEffect, useRef, useState } from 'react'
@@ -10,9 +8,8 @@ import { EpisodeListItem, List, MessageWithAction, Meta, PageHeader, PageScrolla
 } from '~/components'
 import { Page } from '~/lib/utility/page'
 import { PV } from '~/resources'
-import { getServerSideAuthenticatedUserInfo } from '~/services/auth'
 import { getEpisodesByQuery } from '~/services/episode'
-import { getServerSideUserQueueItems } from '~/services/userQueueItem'
+import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 
 interface ServerProps extends Page {
   serverFilterFrom: string
@@ -183,20 +180,20 @@ export default function Episodes({ serverFilterFrom, serverFilterPage,
 /* Server-Side Logic */
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const { req, locale } = ctx
-  const { cookies } = req
+  const { locale } = ctx
 
-  const userInfo = await getServerSideAuthenticatedUserInfo(cookies)
-  const userQueueItems = await getServerSideUserQueueItems(cookies)
-  const serverFilterFrom = userInfo ? PV.Filters.from._subscribed : PV.Filters.from._all
-  const serverFilterSort = userInfo ? PV.Filters.sort._mostRecent : PV.Filters.sort._topPastDay
+  const defaultServerProps = await getDefaultServerSideProps(ctx, locale)
+  const { serverUserInfo } = defaultServerProps
+
+  const serverFilterFrom = serverUserInfo ? PV.Filters.from._subscribed : PV.Filters.from._all
+  const serverFilterSort = serverUserInfo ? PV.Filters.sort._mostRecent : PV.Filters.sort._topPastDay
   
   const serverFilterPage = 1
   let response = null
-  if (userInfo) {
+  if (serverUserInfo) {
     response = await getEpisodesByQuery({
       includePodcast: true,
-      podcastIds: userInfo.subscribedPodcastIds,
+      podcastIds: serverUserInfo.subscribedPodcastIds,
       sort: serverFilterSort
     })
   } else {
@@ -209,15 +206,12 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const [episodesListData, episodesListDataCount] = response.data
   
   const serverProps: ServerProps = {
-    serverUserInfo: userInfo,
-    serverUserQueueItems: userQueueItems,
-    ...(await serverSideTranslations(locale, PV.i18n.fileNames.all)),
+    ...defaultServerProps,
     serverFilterFrom,
     serverFilterPage,
     serverFilterSort,
     serverEpisodesListData: episodesListData,
-    serverEpisodesListDataCount: episodesListDataCount,
-    serverCookies: cookies
+    serverEpisodesListDataCount: episodesListDataCount
   }
 
   return { props: serverProps }

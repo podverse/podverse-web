@@ -1,8 +1,8 @@
 import { GetServerSideProps } from 'next'
 import { useTranslation } from 'next-i18next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { Meta } from '~/components'
 import { PV } from '~/resources'
+import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 
 export default function Settings() {
 
@@ -36,13 +36,13 @@ export default function Settings() {
 }
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const { req, locale } = ctx
-  const { cookies } = req
+  const { locale } = ctx
+
+  const defaultServerProps = await getDefaultServerSideProps(ctx, locale)
 
   return {
     props: {
-      ...(await serverSideTranslations(locale, PV.i18n.fileNames.all)),
-      serverCookies: cookies
+      ...defaultServerProps
     }
   }
 }

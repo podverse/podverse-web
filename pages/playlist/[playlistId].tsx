@@ -1,17 +1,15 @@
 import { GetServerSideProps } from 'next'
 import { useTranslation } from 'next-i18next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import OmniAural, { useOmniAural } from 'omniaural'
 import type { Episode, MediaRef, Playlist } from 'podverse-shared'
 import { useState } from 'react'
 import { ClipListItem, ColumnsWrapper, EpisodeListItem, List, Meta, PageScrollableContent,
   PlaylistPageHeader } from '~/components'
 import { PV } from '~/resources'
-import { getServerSideAuthenticatedUserInfo } from '~/services/auth'
 import { Page } from '~/lib/utility/page'
 import { isEpisode } from '~/lib/utility/typeHelpers'
-import { getServerSideUserQueueItems } from '~/services/userQueueItem'
 import { addOrRemovePlaylistItemEpisode, addOrRemovePlaylistItemMediaRef, combineAndSortPlaylistItems, getPlaylist, updatePlaylist } from '~/services/playlist'
+import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 
 interface ServerProps extends Page {
   serverPlaylist: Playlist
@@ -174,12 +172,10 @@ export default function Playlist({ serverPlaylist, serverPlaylistSortedItems }: 
 /* Server-Side Logic */
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const { locale, params, req } = ctx
-  const { cookies } = req
+  const { locale, params } = ctx
   const { playlistId } = params
 
-  const userInfo = await getServerSideAuthenticatedUserInfo(cookies)
-  const userQueueItems = await getServerSideUserQueueItems(cookies)
+  const defaultServerProps = await getDefaultServerSideProps(ctx, locale)
 
   const playlist = await getPlaylist(playlistId as string)
 
@@ -187,10 +183,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     playlist.mediaRefs, playlist.itemsOrder) as any
 
   const serverProps: ServerProps = {
-    serverUserInfo: userInfo,
-    serverUserQueueItems: userQueueItems,
-    ...(await serverSideTranslations(locale, PV.i18n.fileNames.all)),
-    serverCookies: cookies,
+    ...defaultServerProps,
     serverPlaylist: playlist,
     serverPlaylistSortedItems: sortedPlaylistItems
   }
