@@ -21,6 +21,13 @@
 @import '../../src/components/MembershipStatus/MembershipStatus.scss';
 @import '../../src/components/MessageWithAction/MessageWithAction.scss';
 @import '../../src/components/Modals/Modals.scss';
+@import '../../src/components/Modals/AddToPlaylistModal/AddToPlaylistModal.scss';
+@import '../../src/components/Modals/CheckoutModal/CheckoutModal.scss';
+@import '../../src/components/Modals/Auth/ForgotPasswordModal.scss';
+@import '../../src/components/Modals/Auth/LoginModal.scss';
+@import '../../src/components/Modals/Auth/LoginToAlertModal.scss';
+@import '../../src/components/Modals/Auth/SignUpModal.scss';
+@import '../../src/components/Modals/Auth/VerifyEmailModal.scss';
 @import '../../src/components/NavBar/NavBarBrand.scss';
 @import '../../src/components/NavBar/NavBarLink.scss';
 @import '../../src/components/NavBar/NavBarSectionHeader.scss';
@@ -31,7 +38,7 @@
 @import '../../src/components/PasswordInputs/PasswordInputs.scss';
 @import '../../src/components/PasswordInputs/PasswordValidationInfo.scss';
 @import '../../src/components/PageScrollableContent/PageScrollableContent.scss';
-@import '../../src//components/Pagination/Pagination.scss';
+@import '../../src/components/Pagination/Pagination.scss';
 @import '../../src/components/Player/Player.scss';
 @import '../../src/components/Player/PlayerAPI/PlayerAPIAudio.scss';
 @import '../../src/components/Player/PlayerFullView.scss';
@@ -44,7 +51,6 @@
 @import '../../src/components/Player/controls/PlayerControlButton.scss';
 @import '../../src/components/PlaylistListItem/PlaylistListItem.scss';
 @import '../../src/components/PlaylistPageHeader/PlaylistPageHeader.scss';
-@import '../../src/components/Slider/Slider.scss';
 @import '../../src/components/PodcastListItem/PodcastListItem.scss';
 @import '../../src/components/PodcastPageHeader/PodcastPageHeader.scss';
 @import '../../src/components/ProfileListItem/ProfileListItem.scss';
@@ -52,6 +58,7 @@
 @import '../../src/components/PVImage/PVImage.scss';
 @import '../../src/components/SearchPageInput/SearchPageInput.scss';
 @import '../../src/components/SideContent/SideContent.scss';
+@import '../../src/components/Slider/Slider.scss';
 @import '../../src/components/Switch/Switch.scss';
 @import '../../src/components/TextInput/TextInput.scss';
 @import '../../src/components/TruncatedText/TruncatedText.scss';
