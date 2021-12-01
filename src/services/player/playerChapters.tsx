@@ -26,7 +26,7 @@ export const handleChapterUpdateInterval = () => {
     const episode = convertNowPlayingItemToEpisode(currentNowPlayingItem)
     const nowPlayingItem = convertToNowPlayingItem(currentChapter, episode, episode.podcast)
     if (currentNowPlayingItem.clipId !== nowPlayingItem.clipId) {
-      // OmniAural.setPlayerItem(nowPlayingItem)
+      OmniAural.setPlayerItem(nowPlayingItem)
     }
   }
 }

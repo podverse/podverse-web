@@ -1,5 +1,6 @@
 import OmniAural, { useOmniAural } from 'omniaural'
 import { createRef, useEffect } from 'react'
+import {unstable_batchedUpdates} from "react-dom";
 import PlayerAudio from 'react-h5-audio-player'
 import { retrieveLatestChaptersForEpisodeId } from '~/services/mediaRef'
 import { playerGetDuration, playerUpdateDuration, playerUpdatePlaybackPosition } from '~/services/player/player'
@@ -73,8 +74,11 @@ export const PlayerAPIAudio = (props: Props) => {
   }
 
   const _onListen = () => {
-    playerUpdatePlaybackPosition()
-    playerUpdateDuration()
+    unstable_batchedUpdates(() => {
+      playerUpdatePlaybackPosition()
+      playerUpdateDuration()
+      handleChapterUpdateInterval()
+    })
   }
 
   window.playerAudio = createRef()
