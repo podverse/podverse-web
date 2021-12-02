@@ -78,3 +78,26 @@ export const enrichChapterDataForPlayer = (chapters: any[], duration: number) =>
 
   return enrichedChapters
 }
+
+export const getChapterNext = () => {
+  const player = OmniAural.state.player.value()
+  const { currentNowPlayingItem, chapters } = player
+
+  if (currentNowPlayingItem && chapters?.length && chapters.length > 1) {
+    const currentIndex = chapters.findIndex((x: any) => x.id === currentNowPlayingItem.clipId)
+    const nextIndex = currentIndex + 1
+    const nextChapter = chapters[nextIndex]
+    return nextChapter
+  }
+}
+
+export const getChapterPrevious = () => {
+  const player = OmniAural.state.player.value()
+  const { currentNowPlayingItem, chapters } = player
+  if (currentNowPlayingItem && chapters?.length && chapters.length > 1) {
+    const currentIndex = chapters.findIndex((x: any) => x.id === currentNowPlayingItem.clipId)
+    const previousIndex = currentIndex - 1
+    const previousChapter = chapters[previousIndex]
+    return previousChapter
+  }
+}

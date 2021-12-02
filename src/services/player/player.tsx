@@ -2,11 +2,12 @@ import OmniAural, { useOmniAural } from 'omniaural'
 import type { NowPlayingItem } from 'podverse-shared'
 import { PV } from '~/resources'
 import { addOrUpdateHistoryItemOnServer } from '../userHistoryItem'
+import { getNextFromQueue } from '../userQueueItem'
 import { audioCheckIfCurrentlyPlaying, audioClearNowPlayingItem, audioGetDuration,
   audioGetPosition, audioIsLoaded, audioLoadNowPlayingItem, audioMute, audioPause,
   audioPlay, audioSeekTo, audioSetPlaybackSpeed, audioSetVolume,
   audioUnmute } from './playerAudio'
-import { clearChapterUpdateInterval } from './playerChapters'
+import { clearChapterUpdateInterval, getChapterNext, getChapterPrevious } from './playerChapters'
 import { clearClipEndTimeListenerInterval, handlePlayAfterClipEndTimeReached, handleSetupClipListener } from './playerClip'
 import { setClipFlagPositions } from './playerFlags'
 import { checkIfVideoFileType, videoIsLoaded } from './playerVideo'
@@ -307,4 +308,40 @@ export const saveCurrentPlaybackPositionToHistory = async () => {
     forceUpdateOrderDate,
     skipSetNowPlaying
   )
+}
+
+export const playerPlayPreviousChapterOrReturnToBeginningOfTrack = async () => {
+  const chapters = OmniAural.state.player.chapters.value()
+
+  if (chapters && chapters.length > 1) {
+    const previousChapter = await getChapterPrevious()
+    if (previousChapter) {
+      await playerSeekTo(previousChapter.startTime)
+      return
+    }
+  }
+
+  await playerSeekTo(0)
+}
+
+export const playerPlayNextChapterOrQueueItem = async () => {
+  const chapters = OmniAural.state.player.chapters.value()
+
+  if (chapters && chapters.length > 1) {
+    const nextChapter = await getChapterNext()
+    if (nextChapter) {
+      await playerSeekTo(nextChapter.startTime)
+      return
+    }
+  }
+
+  await playerPlayNextFromQueue()
+}
+
+export const playerPlayNextFromQueue = async () => {
+  const nextNowPlayingItem = await getNextFromQueue()
+  if (!!nextNowPlayingItem) {
+    const shouldPlay = true
+    playerLoadNowPlayingItem(nextNowPlayingItem, shouldPlay)
+  }
 }
