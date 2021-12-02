@@ -37,12 +37,11 @@ export const HorizontalNavBar = ({ serverCookies }: Props) => {
   /* Function Helpers */
 
   const navigateBack = () => {
-    window.history.back()
+    router.back()
   }
 
   const navigateForward = () => {
     window.history.forward()
-    OmniAural.togglePlayer(!OmniAural.state.player.show.value())
   }
 
   const lightModeOnChange = () => {
