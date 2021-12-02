@@ -109,7 +109,7 @@ export const addOrUpdateHistoryItemOnServer = async (
       episodeId: clipId && !clipIsOfficialChapter ? null : episodeId,
       mediaRefId: clipId && !clipIsOfficialChapter ? clipId : null,
       forceUpdateOrderDate: forceUpdateOrderDate === false ? false : true,
-      ...(duration ? { mediaFileDuration: duration } : {}),
+      mediaFileDuration: duration,
       userPlaybackPosition: playbackPosition,
       ...(completed ? { completed } : {})
     }
@@ -164,12 +164,12 @@ const generateHistoryItemsIndexDictionary = (historyItems: any[]) => {
 
     if (historyItem.mediaRefId) {
       historyItemsIndex.mediaRefs[historyItem.mediaRefId] = {
-        mediaFileDuration: historyItem.mediaFileDuration || historyItem.episodeDuration,
+        mediaFileDuration: historyItem.mediaFileDuration || historyItem.episodeDuration || null,
         userPlaybackPosition: historyItem.userPlaybackPosition
       }
     } else if (historyItem.episodeId) {
       historyItemsIndex.episodes[historyItem.episodeId] = {
-        mediaFileDuration: historyItem.mediaFileDuration || historyItem.episodeDuration,
+        mediaFileDuration: historyItem.mediaFileDuration || historyItem.episodeDuration || null,
         userPlaybackPosition: historyItem.userPlaybackPosition,
         ...(historyItem.completed ? { completed: historyItem.completed } : {})
       }
