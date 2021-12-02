@@ -25,7 +25,9 @@
     "lint:eslint": "eslint --ext .js,.ts,.tsx src/ pages/",
     "test": "exit 0;",
     "prettier:base": "prettier --parser typescript",
-    "prettier:check": "npm run prettier:base -- --list-different \"src/**/*.{ts,tsx}\" \"pages/**/*.{ts,tsx}\"",
+    "prettier:list": "npm run prettier:base -- --list-different \"src/**/*.{ts,tsx}\" \"pages/**/*.{ts,tsx}\"",
+    "prettier:check": "npm run prettier:base -- --check \"src/**/*.{ts,tsx}\" \"pages/**/*.{ts,tsx}\"",
+    "prettier:fix": "npm run prettier:base -- --write \"src/**/*.{ts,tsx}\" \"pages/**/*.{ts,tsx}\"",
     "test:e2e:local": "BROWSERSTACK_LOCAL_IDENTIFER=$(date) node __tests__/e2e/scripts/local.runner.js -c __tests__/e2e/conf/local.conf.js",
     "test:e2e:parallel": "./node_modules/.bin/nightwatch -c __tests__/e2e/conf/parallel.conf.js -e chrome,firefox,ie",
     "test:e2e:parallel_local": "BROWSERSTACK_LOCAL_IDENTIFER=$(date) node __tests__/e2e/scripts/local.runner.js -c __tests__/e2e/conf/parallel_local.conf.js -e chrome,firefox",
@@ -40,10 +42,6 @@
     ],
     "src/**/*.{ts,tsx}": [
       "eslint .",
-      "git add"
-    ],
-    "src/**/*.scss": [
-      "stylelint",
       "git add"
     ]
   },
