@@ -2,7 +2,7 @@ import OmniAural, { useOmniAural } from 'omniaural'
 import type { NowPlayingItem } from 'podverse-shared'
 import { PV } from '~/resources'
 import { addOrUpdateHistoryItemOnServer } from '../userHistoryItem'
-import { getNextFromQueue } from '../userQueueItem'
+import { getNextFromQueue, getQueueItemsFromServer } from '../userQueueItem'
 import { audioCheckIfCurrentlyPlaying, audioClearNowPlayingItem, audioGetDuration,
   audioGetPosition, audioIsLoaded, audioLoadNowPlayingItem, audioMute, audioPause,
   audioPlay, audioSeekTo, audioSetPlaybackSpeed, audioSetVolume,
@@ -256,6 +256,9 @@ export const playerLoadNowPlayingItem = async (
   } catch (error) {
     console.log('playerLoadNowPlayingItem service error', error)
   }
+
+  const newUserQueueItems = await getQueueItemsFromServer()
+  OmniAural.setUserQueueItems(newUserQueueItems)
 }
 
 /* Reset the state, intervals, and  related to the nowPlayingItem in state  */
@@ -266,6 +269,8 @@ const playerClearPreviousItem = (nextNowPlayingItem: NowPlayingItem) => {
 }
 
 const playerClearPreviousItemState = () => {
+  OmniAural.setChapterFlagPositions([])
+  OmniAural.setChapters([])
   OmniAural.setClipFlagPositions([])
   OmniAural.setClipHasReachedEnd(false)
   /* The positions get set in the onLoadedMetaData handler in the PlayerAPIs */

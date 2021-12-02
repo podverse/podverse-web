@@ -58,7 +58,7 @@ export const PlayerAPIAudio = (props: Props) => {
     }
 
     const playbackPosition = currentNowPlayingItem.clipStartTime
-      || currentNowPlayingItem.userPlaybackPosition || 0
+      || historyItem?.userPlaybackPosition || 0
     const forceUpdateOrderDate = true
     const skipSetNowPlaying = false
     addOrUpdateHistoryItemOnServer(

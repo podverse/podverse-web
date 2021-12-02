@@ -30,11 +30,13 @@ fontAwesomeConfig.autoAddCss = false
 
 Modal.setAppElement('.app')
 
-// if (typeof window !== 'undefined') {
-//   window.onbeforeunload = async () => {
-//     saveCurrentPlaybackPositionToHistory()
-//   }
-// }
+if (typeof window !== 'undefined') {
+  window.onbeforeunload = () => {
+    saveCurrentPlaybackPositionToHistory()
+    // prevent dialog alert by returning undefined
+    return undefined
+  }
+}
 
 function MyApp({ Component, pageProps }) {
   const { serverHistoryItemsIndex, serverUserInfo, serverUserQueueItems } = pageProps
