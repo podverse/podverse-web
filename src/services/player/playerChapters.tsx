@@ -1,6 +1,7 @@
 import OmniAural from 'omniaural'
 import { convertNowPlayingItemToEpisode, convertToNowPlayingItem } from 'podverse-shared'
-import { playerGetDuration, playerGetPosition, playerLoadNowPlayingItem } from "./player"
+import { playerGetDuration, playerGetPosition } from "./player"
+import { setHighlightedFlagPositionsForChapter } from './playerFlags'
 
 let chapterUpdateInterval = null
 
@@ -23,6 +24,9 @@ export const handleChapterUpdateInterval = () => {
     if (currentNowPlayingItem.clipId !== nowPlayingItem.clipId) {
       OmniAural.setPlayerItem(nowPlayingItem)
     }
+
+    const duration = playerGetDuration()
+    setHighlightedFlagPositionsForChapter(currentChapter, duration)
   }
 }
 
