@@ -1,4 +1,4 @@
-name: develop-branch
+name: stage-branch
 
 on:
   push:
