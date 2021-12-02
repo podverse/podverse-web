@@ -132,8 +132,10 @@ export default function Podcast({
     title: podcastTitle,
   };
 
-  const fundingLinks = serverPodcast.funding.map((link) => {
-    return <FundingLink link={link.url} value={link.value}></FundingLink>;
+  const fundingLinks = serverPodcast.funding.map((link, index) => {
+    return (
+      <FundingLink key={index} link={link.url} value={link.value}></FundingLink>
+    );
   });
 
   return (
@@ -235,6 +237,7 @@ export default function Podcast({
                   ),
                 }}
               />
+              <h2>{t("Support")}</h2>
               {fundingLinks && fundingLinks}
             </SideContent>
           }
