@@ -33,10 +33,10 @@ export const setNowPlayingItemOnServer = async (item: NowPlayingItem | null, pla
 
   playbackPosition = (playbackPosition && Math.floor(playbackPosition)) || 0
 
-  const { clipId, episodeId } = item
+  const { clipId, clipIsOfficialChapter, episodeId } = item
   const body = {
-    ...(clipId ? { clipId } : { clipId: null }),
-    ...(!clipId ? { episodeId } : { episodeId: null }),
+    ...(clipId && !clipIsOfficialChapter ? { clipId } : { clipId: null }),
+    ...(clipId && !clipIsOfficialChapter ? { episodeId: null } : { episodeId }),
     userPlaybackPosition: playbackPosition
   }
 

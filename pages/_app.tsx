@@ -10,7 +10,8 @@ import Modal from 'react-modal'
 import { Modals, NavBar, HorizontalNavBar, Player, PageLoadingOverlay, PlayerAPI } from '~/components'
 import "~/state"
 import initialState from "~/state/initialState.json"
-import { saveCurrentPlaybackPositionToHistory } from '~/services/player/player'
+import { playerLoadNowPlayingItem, saveCurrentPlaybackPositionToHistory } from '~/services/player/player'
+import { getNowPlayingItemOnServer } from '~/services/userNowPlayingItem'
 
 declare global {
   /* *TODO* add proper types for global interfaces */
@@ -50,6 +51,16 @@ function MyApp({ Component, pageProps }) {
       router.events.off('routeChangeComplete', OmniAural.pageIsLoadingHide)
     }
   }, [router.events])
+
+  useEffect(() => {
+    (async () => {
+      const nowPlayingItem = await getNowPlayingItemOnServer()
+      if (nowPlayingItem) {
+        const shouldPlay = false
+        playerLoadNowPlayingItem(nowPlayingItem, shouldPlay)
+      }
+    })()
+  }, [])
 
   return (
     <CookiesProvider>
