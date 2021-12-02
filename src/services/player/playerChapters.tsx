@@ -1,16 +1,9 @@
 import OmniAural from 'omniaural'
 import { convertNowPlayingItemToEpisode, convertToNowPlayingItem } from 'podverse-shared'
-import { playerGetDuration, playerGetPosition, playerLoadNowPlayingItem } from "./player"
+import { playerGetDuration, playerGetPosition } from "./player"
+import { setHighlightedFlagPositionsForChapter } from './playerFlags'
 
 let chapterUpdateInterval = null
-
-export const setChapterUpdateInterval = () => {
-  // console.log('setChapterUpdateInterval')
-  // chapterUpdateInterval = setInterval(() => {
-  //   handleChapterUpdateInterval()
-  // }, 1000)
-}
-
 
 export const clearChapterUpdateInterval = () => {
   if (chapterUpdateInterval) {
@@ -19,15 +12,21 @@ export const clearChapterUpdateInterval = () => {
 }
 
 export const handleChapterUpdateInterval = () => {
+  const currentNowPlayingItem = OmniAural.state.player.currentNowPlayingItem.value()
   const currentChapter = getChapterForTime()
-
-  if (currentChapter) {
+  if (
+    currentChapter
+    && !(currentNowPlayingItem.clipId && !currentNowPlayingItem.clipIsOfficialChapter)
+  ) {
     const currentNowPlayingItem = OmniAural.state.player.currentNowPlayingItem.value()
     const episode = convertNowPlayingItemToEpisode(currentNowPlayingItem)
     const nowPlayingItem = convertToNowPlayingItem(currentChapter, episode, episode.podcast)
     if (currentNowPlayingItem.clipId !== nowPlayingItem.clipId) {
-      // OmniAural.setPlayerItem(nowPlayingItem)
+      OmniAural.setPlayerItem(nowPlayingItem)
     }
+
+    const duration = playerGetDuration()
+    setHighlightedFlagPositionsForChapter(currentChapter, duration)
   }
 }
 
@@ -78,4 +77,23 @@ export const enrichChapterDataForPlayer = (chapters: any[], duration: number) =>
   }
 
   return enrichedChapters
+}
+
+export const getChapterNext = () => {
+  return getChapter(1)
+}
+
+export const getChapterPrevious = () => {
+  return getChapter(-1)
+}
+
+export const getChapter = (offset = 0) => {
+  const player = OmniAural.state.player.value()
+  const { currentNowPlayingItem, chapters } = player
+  if (currentNowPlayingItem && chapters?.length && chapters.length > 1) {
+    const currentIndex = chapters.findIndex((x: any) => x.id === currentNowPlayingItem.clipId)
+    const offsetIndex = currentIndex + offset
+    const newChapter = chapters[offsetIndex]
+    return newChapter
+  }
 }

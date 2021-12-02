@@ -1,13 +1,10 @@
 import { GetServerSideProps } from 'next'
 import { useTranslation } from 'next-i18next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import OmniAural, { useOmniAural } from 'omniaural'
 import { Page } from '~/lib/utility/page'
 import { PV } from '~/resources'
-import { getServerSideAuthenticatedUserInfo } from '~/services/auth'
-import { getServerSideUserQueueItems } from '~/services/userQueueItem'
 import { ButtonLink, ColumnsWrapper, ComparisonTable, MembershipStatus, Meta, PageHeader, PageScrollableContent, SideContent } from '~/components'
-import { isBeforeDate } from '~/lib/utility/date'
+import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 
 interface ServerProps extends Page { }
 
@@ -144,17 +141,12 @@ const featuresData = (t) => [
 /* Server-Side Logic */
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const { req, locale } = ctx
-  const { cookies } = req
+  const { locale } = ctx
 
-  const userInfo = await getServerSideAuthenticatedUserInfo(cookies)
-  const userQueueItems = await getServerSideUserQueueItems(cookies)
+  const defaultServerProps = await getDefaultServerSideProps(ctx, locale)
 
   const serverProps: ServerProps = {
-    serverUserInfo: userInfo,
-    serverUserQueueItems: userQueueItems,
-    ...(await serverSideTranslations(locale, PV.i18n.fileNames.all)),
-    serverCookies: cookies
+    ...defaultServerProps
   }
 
   return { props: serverProps }

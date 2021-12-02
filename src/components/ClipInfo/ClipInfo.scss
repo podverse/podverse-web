@@ -4,6 +4,14 @@
   .episode-title {
     font-size: $text-xxl;
     margin: 0 0 9px 0;
+
+    [href] {
+      &:hover {
+        @include themeGen() {
+          color: getThemeVal('textSecondary');
+        }
+      }
+    }
   }
 
   .episode-pub-date {

@@ -1,4 +1,5 @@
-import type { NowPlayingItem } from 'podverse-shared'
+import { convertToNowPlayingItem } from 'podverse-shared'
+import type { MediaRef, NowPlayingItem } from 'podverse-shared'
 import OmniAural from 'omniaural'
 
 export const generateFlagPositions = (
@@ -28,6 +29,14 @@ export const generateChapterFlagPositions = (
   return generateFlagPositions(flagTimes, duration)
 }
 
+export const setChapterFlagPositions = (
+  chapters: any[],
+  duration: number
+) => {
+  const chapterFlagPositions = generateChapterFlagPositions(chapters, duration)
+  OmniAural.setClipFlagPositions(clipFlagPositions)
+  OmniAural.setHighlightedPositions(clipFlagPositions)
+}
 
 export const generateClipFlagPositions = (
   nowPlayingItem: NowPlayingItem,
@@ -46,4 +55,13 @@ export const setClipFlagPositions = (currentNowPlayingItem: NowPlayingItem, dura
   const clipFlagPositions = generateClipFlagPositions(currentNowPlayingItem, duration)
   OmniAural.setClipFlagPositions(clipFlagPositions)
   OmniAural.setHighlightedPositions(clipFlagPositions)
+}
+
+export const setHighlightedFlagPositionsForChapter = (
+  chapter: MediaRef,
+  duration: number
+) => {
+  const nowPlayingItem = convertToNowPlayingItem(chapter)
+  const highlightedFlagPositions = generateClipFlagPositions(nowPlayingItem, duration)
+  OmniAural.setHighlightedPositions(highlightedFlagPositions)
 }

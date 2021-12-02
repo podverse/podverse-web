@@ -1,3 +1,4 @@
+import OmniAural from 'omniaural'
 import { NowPlayingItem } from "podverse-shared"
 import { getAuthCredentialsHeaders } from "~/lib/utility/auth"
 import { PV } from "~/resources"
@@ -89,4 +90,29 @@ export const addQueueItemToServer = async (item: NowPlayingItem, newPosition: nu
   const { userQueueItems } = response.data
 
   return userQueueItems
+}
+
+export const getNextFromQueue = async () => {
+  const userInfo = OmniAural.state.session.userInfo.value()
+  let item = null
+
+  if (!!userInfo) {
+    const data = await getNextFromQueueFromServer()
+    if (data) {
+      const { nextItem } = data
+      item = nextItem
+    }
+  }
+
+  return item
+}
+
+const getNextFromQueueFromServer = async () => {
+  const response = await request({
+    endpoint: '/user-queue-item/pop-next',
+    method: 'GET',
+    ...(getAuthCredentialsHeaders()),
+  })
+
+  return response && response.data
 }

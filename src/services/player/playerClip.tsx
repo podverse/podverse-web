@@ -1,7 +1,8 @@
 import OmniAural from 'omniaural'
 import type { NowPlayingItem } from 'podverse-shared'
 import { convertNowPlayingItemClipToNowPlayingItemEpisode } from 'podverse-shared'
-import { playerGetPosition, playerLoadNowPlayingItem, playerPause } from './player'
+import { addOrUpdateHistoryItemOnServer } from '../userHistoryItem'
+import { playerGetDuration, playerGetPosition, playerLoadNowPlayingItem, playerPause } from './player'
 
 let clipEndTimeListenerInterval = null
 
@@ -16,10 +17,30 @@ export const handlePlayAfterClipEndTimeReached = () => {
         convertNowPlayingItemClipToNowPlayingItemEpisode(currentNowPlayingItem) as NowPlayingItem
       const shouldPlay = true
       playerLoadNowPlayingItem(episodeNowPlayingItem, shouldPlay)
+
+      /*
+        We have to call addOrUpdateHistory here because the onLoadedMetadata event
+        will not trigger on resume after the clip's end time reached.
+        Also because we need to add the converted episode version
+        of the nowPlayingItem to userHistoryItems.
+      */
+      const playbackPosition = playerGetPosition()
+      const duration = playerGetDuration()
+      const forceUpdateOrderDate = true
+      const skipSetNowPlaying = false
+      addOrUpdateHistoryItemOnServer(
+        currentNowPlayingItem,
+        playbackPosition,
+        duration,
+        forceUpdateOrderDate,
+        skipSetNowPlaying
+      )
     } else {
       handleSetupClipListener(currentNowPlayingItem.clipEndTime)
     }
   }
+
+
 }
 
 export const clearClipEndTimeListenerInterval = () => {

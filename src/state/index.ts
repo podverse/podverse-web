@@ -1,3 +1,4 @@
+import "./historyItemsIndex/actions"
 import "./makeClip/actions"
 import "./modals/actions"
 import "./page/actions"

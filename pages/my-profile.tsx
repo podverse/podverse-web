@@ -1,12 +1,10 @@
 import { GetServerSideProps } from 'next'
 import { useTranslation } from 'next-i18next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import OmniAural from 'omniaural'
 import { Page } from '~/lib/utility/page'
 import { PV } from '~/resources'
-import { getServerSideAuthenticatedUserInfo } from '~/services/auth'
-import { getServerSideUserQueueItems } from '~/services/userQueueItem'
 import { MessageWithAction, Meta, PageHeader, PageScrollableContent } from '~/components'
+import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 
 interface ServerProps extends Page { }
 
@@ -52,27 +50,22 @@ export default function MyProfile(props: ServerProps) {
 /* Server-Side Logic */
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const { req, locale } = ctx
-  const { cookies } = req
+  const { locale } = ctx
 
-  const userInfo = await getServerSideAuthenticatedUserInfo(cookies)
+  const defaultServerProps = await getDefaultServerSideProps(ctx, locale)
+  const { serverUserInfo } = defaultServerProps
 
-  if (userInfo) {
+  if (serverUserInfo) {
     return {
       redirect: {
-        destination: `${PV.RoutePaths.web.profile}/${userInfo.id}`,
+        destination: `${PV.RoutePaths.web.profile}/${serverUserInfo.id}`,
         permanent: false
       }
     }
   }
 
-  const userQueueItems = await getServerSideUserQueueItems(cookies)
-
   const serverProps: ServerProps = {
-    serverUserInfo: userInfo,
-    serverUserQueueItems: userQueueItems,
-    ...(await serverSideTranslations(locale, PV.i18n.fileNames.all)),
-    serverCookies: cookies
+    ...defaultServerProps
   }
 
   return { props: serverProps }

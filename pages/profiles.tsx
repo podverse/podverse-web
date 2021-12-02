@@ -1,16 +1,14 @@
 import { GetServerSideProps } from 'next'
 import { useTranslation } from 'next-i18next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import OmniAural, { useOmniAural } from 'omniaural'
 import type { User } from 'podverse-shared'
 import { List, MessageWithAction, Meta, PageHeader, PageScrollableContent, Pagination, PlaylistListItem, scrollToTopOfPageScrollableContent } from '~/components'
 import { Page } from '~/lib/utility/page'
 import { PV } from '~/resources'
-import { getServerSideAuthenticatedUserInfo } from '~/services/auth'
 import { getPublicUsersByQuery } from '~/services/user'
-import { getServerSideUserQueueItems } from '~/services/userQueueItem'
 import { ProfileListItem } from '~/components/ProfileListItem/ProfileListItem'
 import { useEffect, useRef, useState } from 'react'
+import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 
 interface ServerProps extends Page {
   serverFilterPage: number
@@ -123,25 +121,21 @@ export default function Profiles({ serverFilterPage, serverUsers,
 /* Server-Side Logic */
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const { req, locale } = ctx
-  const { cookies } = req
+  const { locale } = ctx
 
-  const userInfo = await getServerSideAuthenticatedUserInfo(cookies)
-  const userQueueItems = await getServerSideUserQueueItems(cookies)
+  const defaultServerProps = await getDefaultServerSideProps(ctx, locale)
+  const { serverUserInfo } = defaultServerProps
 
   let response: any = [[], 0]
   const page = 1
-  if (userInfo?.subscribedUserIds) {
-    response = await getPublicUsersByQuery(page, userInfo.subscribedUserIds)
+  if (serverUserInfo?.subscribedUserIds) {
+    response = await getPublicUsersByQuery(page, serverUserInfo.subscribedUserIds)
   }
 
   const [users, usersCount] = response
 
   const serverProps: ServerProps = {
-    serverUserInfo: userInfo,
-    serverUserQueueItems: userQueueItems,
-    ...(await serverSideTranslations(locale, PV.i18n.fileNames.all)),
-    serverCookies: cookies,
+    ...defaultServerProps,
     serverFilterPage: page,
     serverUsers: users,
     serverUsersCount: usersCount

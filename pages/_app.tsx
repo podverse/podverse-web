@@ -10,6 +10,8 @@ import Modal from 'react-modal'
 import { Modals, NavBar, HorizontalNavBar, Player, PageLoadingOverlay, PlayerAPI } from '~/components'
 import "~/state"
 import initialState from "~/state/initialState.json"
+import { playerLoadNowPlayingItem, saveCurrentPlaybackPositionToHistory } from '~/services/player/player'
+import { getNowPlayingItemOnServer } from '~/services/userNowPlayingItem'
 
 declare global {
   /* *TODO* add proper types for global interfaces */
@@ -28,10 +30,19 @@ fontAwesomeConfig.autoAddCss = false
 
 Modal.setAppElement('.app')
 
+if (typeof window !== 'undefined') {
+  window.onbeforeunload = () => {
+    saveCurrentPlaybackPositionToHistory()
+    // prevent dialog alert by returning undefined
+    return undefined
+  }
+}
+
 function MyApp({ Component, pageProps }) {
-  const { serverUserInfo, serverUserQueueItems } = pageProps
+  const { serverHistoryItemsIndex, serverUserInfo, serverUserQueueItems } = pageProps
   OmniAural.setUserInfo(serverUserInfo)
   OmniAural.setUserQueueItems(serverUserQueueItems)
+  OmniAural.setHistoryItemsIndex(serverHistoryItemsIndex)
   const router = useRouter()
 
   useEffect(() => {
@@ -42,6 +53,16 @@ function MyApp({ Component, pageProps }) {
       router.events.off('routeChangeComplete', OmniAural.pageIsLoadingHide)
     }
   }, [router.events])
+
+  useEffect(() => {
+    (async () => {
+      const nowPlayingItem = await getNowPlayingItemOnServer()
+      if (nowPlayingItem) {
+        const shouldPlay = false
+        playerLoadNowPlayingItem(nowPlayingItem, shouldPlay)
+      }
+    })()
+  }, [])
 
   return (
     <CookiesProvider>

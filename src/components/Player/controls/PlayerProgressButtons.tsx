@@ -3,7 +3,7 @@ import { useOmniAural } from 'omniaural'
 import { ButtonCircle } from "../.."
 import { faPause, faPlay } from "@fortawesome/free-solid-svg-icons"
 import { PlayerControlButton } from "./PlayerControlButton"
-import { playerJumpBackward, playerJumpForward, playerJumpMiniBackwards, playerJumpMiniForwards, playerPause, playerPlay } from "~/services/player/player"
+import { playerJumpBackward, playerJumpForward, playerJumpMiniBackwards, playerJumpMiniForwards, playerPause, playerPlay, playerPlayNextChapterOrQueueItem, playerPlayPreviousChapterOrReturnToBeginningOfTrack } from "~/services/player/player"
 
 type Props = {
   hasMiniJump?: boolean
@@ -16,7 +16,7 @@ export const PlayerProgressButtons = ({ hasMiniJump }: Props) => {
   const playpause = classnames(paused ? "play" : "pause")
 
   const _handleTrackPrevious = () => {
-    console.log('_handleTrackPrevious')
+    playerPlayPreviousChapterOrReturnToBeginningOfTrack()
   }
 
   const _handleTimeJumpBackwards = () => {
@@ -40,7 +40,7 @@ export const PlayerProgressButtons = ({ hasMiniJump }: Props) => {
   }
 
   const _handleTrackNext = () => {
-    console.log('_handleTrackNext')
+    playerPlayNextChapterOrQueueItem()
   }
 
   return (

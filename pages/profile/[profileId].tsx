@@ -1,6 +1,5 @@
 import { GetServerSideProps } from 'next'
 import { useTranslation } from 'next-i18next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import OmniAural, { useOmniAural } from 'omniaural'
 import type { MediaRef, Playlist, Podcast, User } from 'podverse-shared'
 import { useEffect, useRef, useState } from 'react'
@@ -9,13 +8,12 @@ import { ClipListItem, ColumnsWrapper, List, Meta, PageHeader, PageScrollableCon
   PodcastListItem, ProfilePageHeader, scrollToTopOfPageScrollableContent } from '~/components'
 import { Page } from '~/lib/utility/page'
 import { PV } from '~/resources'
-import { getServerSideAuthenticatedUserInfo } from '~/services/auth'
-import { getServerSideUserQueueItems } from '~/services/userQueueItem'
 import { getPublicUser, updateLoggedInUser } from '~/services/user'
 import { getPodcastsByQuery } from '~/services/podcast'
 import { isNotClipsSortOption, isNotPodcastsSubscribedSortOption } from '~/resources/Filters'
 import { getUserMediaRefs } from '~/services/mediaRef'
 import { getUserPlaylists } from '~/services/playlist'
+import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 
 interface ServerProps extends Page {
   serverFilterType: string
@@ -273,21 +271,20 @@ export default function Profile({ serverFilterType, serverFilterPage, serverFilt
 /* Server-Side Logic */
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const { locale, params, req } = ctx
-  const { cookies } = req
+  const { locale, params } = ctx
   const { profileId } = params
 
-  const userInfo = await getServerSideAuthenticatedUserInfo(cookies)
-  const userQueueItems = await getServerSideUserQueueItems(cookies)
+  const defaultServerProps = await getDefaultServerSideProps(ctx, locale)
+  const { serverUserInfo } = defaultServerProps
 
   const serverFilterType = PV.Filters.type._podcasts
   const serverFilterSort = PV.Filters.sort._alphabetical
   const serverFilterPage = 1
 
-  let serverUser = userInfo
+  let serverUser = serverUserInfo
   let serverUserListData = []
   let serverUserListDataCount = 0
-  if (!userInfo || userInfo.id !== profileId) {
+  if (!serverUserInfo || serverUserInfo.id !== profileId) {
     serverUser = await getPublicUser(profileId as string)
   }
 
@@ -304,10 +301,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   }
 
   const serverProps: ServerProps = {
-    serverUserInfo: userInfo,
-    serverUserQueueItems: userQueueItems,
-    ...(await serverSideTranslations(locale, PV.i18n.fileNames.all)),
-    serverCookies: cookies,
+    ...defaultServerProps,
     serverFilterType,
     serverFilterPage,
     serverFilterSort,

@@ -1,3 +1,5 @@
+import { useTranslation } from "react-i18next"
+
 export function validateHHMMSSString(hhmmss: string) {
   const regex = new RegExp(
     // eslint-disable-next-line max-len
@@ -124,4 +126,26 @@ export const convertSecToHhoursMMinutes = (sec: number) => {
   }
 
   return result
+}
+
+export const getTimeLabelText = (t: any, mediaFileDuration?: number, episodeDuration?: number,
+  userPlaybackPosition?: number, completed?: boolean, clipTime?: string) => {
+  const hasStartedItem = !!mediaFileDuration
+  const totalTime = mediaFileDuration || episodeDuration || 0
+  const playedTime = userPlaybackPosition || 0
+
+  let timeLabel = ''
+  const remainingText = t('left')
+  if (totalTime) {
+    timeLabel = convertSecToHhoursMMinutes(totalTime)
+    if (hasStartedItem && playedTime > 0) {
+      timeLabel = `${convertSecToHhoursMMinutes(totalTime - playedTime)} ${remainingText}`
+    }
+  }
+
+  if (clipTime) {
+    timeLabel = clipTime
+  }
+
+  return timeLabel
 }

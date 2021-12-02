@@ -1,16 +1,13 @@
 import { GetServerSideProps } from 'next'
-import Head from 'next/head'
 import { useRouter } from 'next/router'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useEffect, useRef, useState } from 'react'
 import { Page } from '~/lib/utility/page'
 import { PV } from '~/resources'
 import { getPayPalOrderById } from '~/services/paypal'
-import { getServerSideAuthenticatedUserInfo } from '~/services/auth'
-import { getServerSideUserQueueItems } from '~/services/userQueueItem'
 import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { Icon, Meta, PageHeader, PageScrollableContent } from '~/components'
 import { useTranslation } from 'react-i18next'
+import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 
 interface ServerProps extends Page { }
 
@@ -126,17 +123,12 @@ export default function PaymentPayPalConfirming(props: ServerProps) {
 /* Server-Side Logic */
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const { req, locale } = ctx
-  const { cookies } = req
+  const { locale } = ctx
 
-  const userInfo = await getServerSideAuthenticatedUserInfo(cookies)
-  const userQueueItems = await getServerSideUserQueueItems(cookies)
+  const defaultServerProps = await getDefaultServerSideProps(ctx, locale)
 
   const serverProps: ServerProps = {
-    serverUserInfo: userInfo,
-    serverUserQueueItems: userQueueItems,
-    ...(await serverSideTranslations(locale, PV.i18n.fileNames.all)),
-    serverCookies: cookies
+    ...defaultServerProps
   }
 
   return { props: serverProps }

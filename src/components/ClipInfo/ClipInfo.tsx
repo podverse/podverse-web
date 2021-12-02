@@ -1,9 +1,10 @@
 import { useOmniAural } from 'omniaural'
 import { Episode, MediaRef } from 'podverse-shared'
 import { useTranslation } from 'react-i18next'
-import { MediaItemControls, TruncatedText } from '~/components'
+import { MediaItemControls, PVLink, TruncatedText } from '~/components'
 import { readableDate } from '~/lib/utility/date'
 import { getClipTitle, getEpisodeTitle } from '~/lib/utility/misc'
+import { PV } from '~/resources'
 
 type Props = {
   clip: MediaRef
@@ -18,10 +19,17 @@ export const ClipInfo = ({ clip, episode }: Props) => {
   const episodePubDate = readableDate(episode.pubDate)
   const title = getClipTitle(t, clip, episode.title)
 
+  const episodeLinkUrl = episode
+    ? `${PV.RoutePaths.web.episode}/${episode.id}`
+    : ''
+
   return (
     <div className='clip-info'>
       <div className='episode-title'>
-        {episodeTitle}
+        <PVLink
+          href={episodeLinkUrl}>
+          {episodeTitle}
+        </PVLink>
       </div>
       <div className='episode-pub-date'>
         {episodePubDate}

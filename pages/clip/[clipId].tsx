@@ -1,6 +1,5 @@
 import { GetServerSideProps } from 'next'
 import { useTranslation } from 'next-i18next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useOmniAural } from 'omniaural'
 import type { Episode, MediaRef, User } from 'podverse-shared'
 import { useEffect, useRef, useState } from 'react'
@@ -12,8 +11,7 @@ import { calcListPageCount, prefixClipLabel } from '~/lib/utility/misc'
 import { Page } from '~/lib/utility/page'
 import { PV } from '~/resources'
 import { getMediaRefById, getMediaRefsByQuery } from '~/services/mediaRef'
-import { getServerSideAuthenticatedUserInfo } from '~/services/auth'
-import { getServerSideUserQueueItems } from '~/services/userQueueItem'
+import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 
 interface ServerProps extends Page {
   serverClip: MediaRef
@@ -202,12 +200,10 @@ const generateClipListElements = (listItems: MediaRef[], episode: Episode, userI
 /* Server-Side Logic */
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const { locale, params, req } = ctx
-  const { cookies } = req
+  const { locale, params } = ctx
   const { clipId } = params
 
-  const userInfo = await getServerSideAuthenticatedUserInfo(cookies)
-  const userQueueItems = await getServerSideUserQueueItems(cookies)
+  const defaultServerProps = await getDefaultServerSideProps(ctx, locale)
   
   const clipResponse = await getMediaRefById(clipId as string)
   const serverClip = clipResponse.data
@@ -225,10 +221,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const serverClipsPageCount = calcListPageCount(clipsListDataCount)
   
   const props: ServerProps = {
-    serverUserInfo: userInfo,
-    serverUserQueueItems: userQueueItems,
-    ...(await serverSideTranslations(locale, PV.i18n.fileNames.all)),
-    serverCookies: cookies,
+    ...defaultServerProps,
     serverClip,
     serverClips,
     serverClipsFilterPage,
