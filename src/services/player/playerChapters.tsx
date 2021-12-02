@@ -4,14 +4,6 @@ import { playerGetDuration, playerGetPosition, playerLoadNowPlayingItem } from "
 
 let chapterUpdateInterval = null
 
-export const setChapterUpdateInterval = () => {
-  // console.log('setChapterUpdateInterval')
-  // chapterUpdateInterval = setInterval(() => {
-  //   handleChapterUpdateInterval()
-  // }, 1000)
-}
-
-
 export const clearChapterUpdateInterval = () => {
   if (chapterUpdateInterval) {
     clearInterval(chapterUpdateInterval)

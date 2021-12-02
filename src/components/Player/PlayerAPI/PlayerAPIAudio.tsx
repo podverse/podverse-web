@@ -5,8 +5,8 @@ import PlayerAudio from 'react-h5-audio-player'
 import { retrieveLatestChaptersForEpisodeId } from '~/services/mediaRef'
 import { playerGetDuration, playerUpdateDuration, playerUpdatePlaybackPosition } from '~/services/player/player'
 import { audioInitialize, audioSeekTo } from '~/services/player/playerAudio'
-import { enrichChapterDataForPlayer, handleChapterUpdateInterval, setChapterUpdateInterval } from '~/services/player/playerChapters'
-import { generateChapterFlagPositions, generateClipFlagPositions, setClipFlagPositions } from '~/services/player/playerFlags'
+import { enrichChapterDataForPlayer, handleChapterUpdateInterval } from '~/services/player/playerChapters'
+import { generateChapterFlagPositions, setClipFlagPositions } from '~/services/player/playerFlags'
 import { addOrUpdateHistoryItemOnServer } from '~/services/userHistoryItem'
 
 type Props = {}
@@ -59,7 +59,6 @@ export const PlayerAPIAudio = (props: Props) => {
       const chapterFlagPositions = generateChapterFlagPositions(enrichedChapters, duration)
       OmniAural.setChapterFlagPositions(chapterFlagPositions)
       OmniAural.setChapters(enrichedChapters)
-      setChapterUpdateInterval()
     }
 
 
