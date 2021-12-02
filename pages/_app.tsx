@@ -29,16 +29,17 @@ fontAwesomeConfig.autoAddCss = false
 
 Modal.setAppElement('.app')
 
-if (typeof window !== 'undefined') {
-  window.onbeforeunload = async () => {
-    saveCurrentPlaybackPositionToHistory()
-  }
-}
+// if (typeof window !== 'undefined') {
+//   window.onbeforeunload = async () => {
+//     saveCurrentPlaybackPositionToHistory()
+//   }
+// }
 
 function MyApp({ Component, pageProps }) {
-  const { serverUserInfo, serverUserQueueItems } = pageProps
+  const { serverHistoryItemsIndex, serverUserInfo, serverUserQueueItems } = pageProps
   OmniAural.setUserInfo(serverUserInfo)
   OmniAural.setUserQueueItems(serverUserQueueItems)
+  OmniAural.setHistoryItemsIndex(serverHistoryItemsIndex)
   const router = useRouter()
 
   useEffect(() => {

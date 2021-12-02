@@ -5,9 +5,10 @@ import type { Episode, MediaRef, NowPlayingItem, Podcast } from 'podverse-shared
 import { convertToNowPlayingItem } from 'podverse-shared'
 import { useTranslation } from "react-i18next"
 import { readableDate } from "~/lib/utility/date"
-import { convertSecToHhoursMMinutes, readableClipTime } from "~/lib/utility/time"
+import { convertSecToHhoursMMinutes, getTimeLabelText, readableClipTime } from "~/lib/utility/time"
 import { deleteMediaRef } from "~/services/mediaRef"
 import { playerCheckIfCurrentlyPlayingItem, playerLoadNowPlayingItem, playerTogglePlayOrLoadNowPlayingItem } from "~/services/player/player"
+import { addOrUpdateHistoryItemOnServer } from "~/services/userHistoryItem"
 import { addQueueItemLastOnServer, addQueueItemNextOnServer } from "~/services/userQueueItem"
 import { modalsAddToPlaylistShowOrAlert } from "~/state/modals/addToPlaylist/actions"
 import { ButtonCircle, Dropdown } from ".."
@@ -34,6 +35,7 @@ export const MediaItemControls = ({ buttonSize, episode, hidePubDate, isLoggedIn
   mediaRef, stretchMiddleContent, podcast }: Props) => {
   const [userInfo] = useOmniAural('session.userInfo')
   const [player] = useOmniAural('player')
+  const [historyItemsIndex] = useOmniAural('historyItemsIndex')
   const { t } = useTranslation()
   let pubDate = null
   let timeInfo = null
@@ -43,7 +45,16 @@ export const MediaItemControls = ({ buttonSize, episode, hidePubDate, isLoggedIn
     timeInfo = readableClipTime(mediaRef.startTime, mediaRef.endTime)
   } else if (episode) {
     pubDate = readableDate(episode.pubDate)
-    if (episode.duration > 0) {
+
+    const historyItem = historyItemsIndex.episodes[episode.id]
+    if (historyItem) {
+      timeInfo = getTimeLabelText(
+        t,
+        historyItem.mediaFileDuration,
+        episode.duration,
+        historyItem.userPlaybackPosition
+      )
+    } else if (episode.duration > 0) {
       timeInfo = convertSecToHhoursMMinutes(episode.duration)
     }
     // timeRemaining
@@ -72,9 +83,21 @@ export const MediaItemControls = ({ buttonSize, episode, hidePubDate, isLoggedIn
       } else if (item.key === _addToPlaylistKey) {
         await modalsAddToPlaylistShowOrAlert(nowPlayingItem)
       } else if (item.key === _markAsPlayedKey) {
-        console.log('mark as played')
+        const { episodeDuration, userPlaybackPosition } = nowPlayingItem
+        const forceUpdateOrderDate = false
+        const skipSetNowPlaying = true
+        const completed = true
+        addOrUpdateHistoryItemOnServer(
+          nowPlayingItem,
+          userPlaybackPosition,
+          episodeDuration,
+          forceUpdateOrderDate,
+          skipSetNowPlaying,
+          completed
+        )
       } else if (item.key === _editClip) {
-        playerLoadNowPlayingItem(nowPlayingItem)
+        const shouldPlay = false
+        playerLoadNowPlayingItem(nowPlayingItem, shouldPlay)
         OmniAural.makeClipShowEditing(nowPlayingItem)
       } else if (item.key === _deleteClip) {
         const shouldDelete = window.confirm(t('Are you sure you want to delete this clip'))
@@ -114,9 +137,12 @@ export const MediaItemControls = ({ buttonSize, episode, hidePubDate, isLoggedIn
       { label: 'Play', key: _playKey },
       { label: 'Queue Next', key: _queueNextKey },
       { label: 'Queue Last', key: _queueLastKey },
-      { label: 'Add to Playlist', key: _addToPlaylistKey },
-      // { label: 'Mark as Played', key: _markAsPlayedKey }
+      { label: 'Add to Playlist', key: _addToPlaylistKey }
     ]
+    
+    if (!mediaRef) {
+      items.push({ label: 'Mark as Played', key: _markAsPlayedKey })
+    }
 
     if (isLoggedInUserMediaRef) {
       items.push({ label: 'Edit Clip', key: _editClip })

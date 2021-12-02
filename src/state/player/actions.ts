@@ -6,6 +6,7 @@ const togglePlayer = (show: boolean) => {
 }
 
 const setPlayerItem = (currentNowPlayingItem: NowPlayingItem) => {
+  OmniAural.state.player.currentNowPlayingItem.set(null)
   OmniAural.state.player.currentNowPlayingItem.set(currentNowPlayingItem)
   OmniAural.state.player.show.set(true)
 }

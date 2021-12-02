@@ -295,12 +295,16 @@ const checkIfNowPlayingItemIsAClip = (nowPlayingItem: NowPlayingItem) =>
     && !nowPlayingItem.clipIsOfficialChapter
 
 export const saveCurrentPlaybackPositionToHistory = async () => {
+  const currentNowPlayingItem = OmniAural.state.player.currentNowPlayingItem.value()
   const position = playerGetPosition()
   const duration = playerGetDuration()
-  const currentNowPlayingItem = OmniAural.state.player.currentNowPlayingItem.value()
+  const forceUpdateOrderDate = false
+  const skipSetNowPlaying = false
   await addOrUpdateHistoryItemOnServer(
     currentNowPlayingItem,
     position,
-    duration
+    duration,
+    forceUpdateOrderDate,
+    skipSetNowPlaying
   )
 }

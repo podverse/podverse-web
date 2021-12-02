@@ -3,6 +3,7 @@ import { NowPlayingItem } from "podverse-shared"
 import { getAuthCredentialsHeaders } from "~/lib/utility/auth"
 import { PV } from "~/resources"
 import { request } from './request'
+import { setNowPlayingItemOnServer } from './userNowPlayingItem'
 
 export const getServerSideHistoryItems = async (page: number, cookies: any) => {
   let data = {} as any
@@ -75,6 +76,7 @@ export const addOrUpdateHistoryItemOnServer = async (
   playbackPosition: number,
   mediaFileDuration?: number | null,
   forceUpdateOrderDate?: boolean,
+  skipSetNowPlaying?: boolean,
   completed?: boolean
 ) => {
   if (!nowPlayingItem) return
@@ -82,27 +84,44 @@ export const addOrUpdateHistoryItemOnServer = async (
   const userInfo = OmniAural.state.session.userInfo.value()
   if (!userInfo) return
 
+  if (!skipSetNowPlaying) {
+    await setNowPlayingItemOnServer(nowPlayingItem, playbackPosition)
+  }
+
   playbackPosition = Math.floor(playbackPosition) || 0
 
-  const { clipId, episodeId } = nowPlayingItem
+  const { clipId, clipIsOfficialChapter, episodeId } = nowPlayingItem
+
+  /* If duration is found in historyItemsIndex, pass that as a parameter. */
+  const historyItemsIndex = OmniAural.state.historyItemsIndex.value()
+  const historyItem = historyItemsIndex.episodes[episodeId]
+  const duration = historyItem?.mediaFileDuration
+    ? historyItem.mediaFileDuration
+    : (mediaFileDuration || mediaFileDuration === 0)
+      ? Math.floor(mediaFileDuration)
+      : 0
 
   await request({
     endpoint: '/user-history-item',
     method: 'PATCH',
     ...(getAuthCredentialsHeaders()),
     body: {
-      episodeId: clipId ? null : episodeId,
-      mediaRefId: clipId,
+      episodeId: clipId && !clipIsOfficialChapter ? null : episodeId,
+      mediaRefId: clipId && !clipIsOfficialChapter ? clipId : null,
       forceUpdateOrderDate: forceUpdateOrderDate === false ? false : true,
-      ...(mediaFileDuration || mediaFileDuration === 0 ? { mediaFileDuration: Math.floor(mediaFileDuration) } : {}),
+      ...(duration ? { mediaFileDuration: duration } : {}),
       userPlaybackPosition: playbackPosition,
       ...(completed ? { completed } : {})
     }
   })
+
+  /* Always regenerate the historyItemsIndex and set on global state after addOrUpdate */
+  const newHistoryItemsIndex = await getHistoryItemsIndexFromServer()
+  OmniAural.setHistoryItemsIndex(newHistoryItemsIndex)
 }
 
 export const getServerSideHistoryItemsIndex = async (cookies: any) => {
-  let historyItemsIndex = { episodes: [], mediaRefs: [] } as any
+  let historyItemsIndex = { episodes: {}, mediaRefs: {} } as any
   if (cookies.Authorization) {
     historyItemsIndex = await getHistoryItemsIndexFromServer(cookies.Authorization)
   }

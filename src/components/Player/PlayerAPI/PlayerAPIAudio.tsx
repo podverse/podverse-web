@@ -13,7 +13,7 @@ type Props = {}
 
 export const PlayerAPIAudio = (props: Props) => {
   const [player] = useOmniAural('player')
-  
+  const [historyItemsIndex] = useOmniAural('historyItemsIndex')
   const { currentNowPlayingItem } = player
 
   useEffect(() => {
@@ -30,12 +30,14 @@ export const PlayerAPIAudio = (props: Props) => {
     const playbackPosition = 0
     const mediaFileDuration = playerGetDuration()
     const forceUpdateOrderDate = false
+    const skipSetNowPlaying = true
     const completed = true
     await addOrUpdateHistoryItemOnServer(
       currentNowPlayingItem,
       playbackPosition,
       mediaFileDuration,
       forceUpdateOrderDate,
+      skipSetNowPlaying,
       completed
     )
   }
@@ -45,12 +47,27 @@ export const PlayerAPIAudio = (props: Props) => {
     if (currentNowPlayingItem.clipStartTime) {
       audioSeekTo(currentNowPlayingItem.clipStartTime)
     }
-
     const duration = playerGetDuration()
+
+    const historyItem = historyItemsIndex.episodes[currentNowPlayingItem.episodeId]
 
     if (Number.isInteger(currentNowPlayingItem.clipStartTime)) {
       setClipFlagPositions(currentNowPlayingItem, duration)
+    } else if (historyItem) {
+      audioSeekTo(historyItem.userPlaybackPosition)
     }
+
+    const playbackPosition = currentNowPlayingItem.clipStartTime
+      || currentNowPlayingItem.userPlaybackPosition || 0
+    const forceUpdateOrderDate = true
+    const skipSetNowPlaying = false
+    addOrUpdateHistoryItemOnServer(
+      currentNowPlayingItem,
+      playbackPosition,
+      duration,
+      forceUpdateOrderDate,
+      skipSetNowPlaying
+    )
     
     if (currentNowPlayingItem.episodeChaptersUrl) {
       const data = await retrieveLatestChaptersForEpisodeId(currentNowPlayingItem.episodeId)
@@ -60,17 +77,6 @@ export const PlayerAPIAudio = (props: Props) => {
       OmniAural.setChapterFlagPositions(chapterFlagPositions)
       OmniAural.setChapters(enrichedChapters)
     }
-
-
-    const playbackPosition = currentNowPlayingItem.clipStartTime
-      || currentNowPlayingItem.userPlaybackPosition || 0
-    const forceUpdateOrderDate = true
-    addOrUpdateHistoryItemOnServer(
-      currentNowPlayingItem,
-      playbackPosition,
-      duration,
-      forceUpdateOrderDate
-    )
   }
 
   const _onListen = () => {
