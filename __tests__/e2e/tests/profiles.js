@@ -15,6 +15,8 @@ module.exports = {
       .waitForElementWithText('.page-scrollable-content .profile-list-item:nth-child(3) div.name', 'Free Trial Valid - Test User')
       .waitForElementWithText('.page-scrollable-content .profile-list-item:nth-child(5) div.name', 'Premium Expired - Test User')
 
+      .logOutUsingModal()
+
 
   },
   after: function (browser) {

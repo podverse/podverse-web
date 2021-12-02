@@ -30,8 +30,7 @@ module.exports = {
       .waitForElementWithText('button.button-link:nth-child(2) ', 'Sign Up')
       .click('button.button-link:nth-child(2)')
       .waitForElementWithText('.ReactModal__Content h2', 'Sign Up')
-      .click('.button-close')
-      
+      .click('.button-close')     
 
 
   },

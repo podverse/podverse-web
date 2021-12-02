@@ -13,6 +13,7 @@ module.exports = {
 
       .loginUsingModal('premium@stage.podverse.fm')
       .waitForElementWithText('.page-scrollable-content .episode-list-item div.text-wrapper', '#1428 - Brian Greene')
+      .logOutUsingModal()
 
 
 

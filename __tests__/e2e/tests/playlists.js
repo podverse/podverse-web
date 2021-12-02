@@ -17,6 +17,8 @@ module.exports = {
       .waitForElementWithText('.page-scrollable-content .playlist-list-item:nth-child(5) div.title', 'Free Trial - Test Playlist 1')
       .waitForElementWithText('.page-scrollable-content .playlist-list-item:nth-child(7) div.title', 'Free Trial - Test Playlist 2')
 
+      .logOutUsingModal()
+
 
 
   },

@@ -15,6 +15,9 @@ module.exports = {
       .waitForElementWithText('.page-scrollable-content ul.list li:nth-child(1) div', '99% Invisible')
       .waitForElementWithText('.page-scrollable-content ul.list li:nth-child(3) div div:nth-child(2)', 'All JavaScript Podcasts by Devchat.tv')
 
+      .logOutUsingModal()
+
+
 
   },
   after: function (browser) {

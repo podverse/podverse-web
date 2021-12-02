@@ -9,8 +9,10 @@ module.exports = {
       .click('div a[href="/queue"]')
       .waitForElementWithText('.page-header h1', 'Queue')
       .waitForElementWithText('.message-with-action div', 'Log in to view your queue')
-      
+
       .loginUsingModal('premium@stage.podverse.fm')
+
+      .logOutUsingModal()
 
 
   },
