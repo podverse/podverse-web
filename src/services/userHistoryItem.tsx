@@ -1,3 +1,4 @@
+import OmniAural from 'omniaural'
 import { NowPlayingItem } from "podverse-shared"
 import { getAuthCredentialsHeaders } from "~/lib/utility/auth"
 import { PV } from "~/resources"
@@ -76,6 +77,11 @@ export const addOrUpdateHistoryItemOnServer = async (
   forceUpdateOrderDate?: boolean,
   completed?: boolean
 ) => {
+  if (!nowPlayingItem) return
+  
+  const userInfo = OmniAural.state.session.userInfo.value()
+  if (!userInfo) return
+
   playbackPosition = Math.floor(playbackPosition) || 0
 
   const { clipId, episodeId } = nowPlayingItem
