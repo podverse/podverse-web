@@ -13,6 +13,8 @@ import { setClipFlagPositions } from './playerFlags'
 import { checkIfVideoFileType, videoIsLoaded } from './playerVideo'
 
 export const playerCheckIfCurrentlyPlayingItem = (paused: boolean, nowPlayingItem?: NowPlayingItem) => {
+  // TODO: @Mitch Downy this hook usage is against "Rule of Hooks", specificially "Don’t call Hooks inside loops, conditions, or nested functions"
+  // eslint-disable-next-line
   const [currentNowPlayingItem] = useOmniAural('player.currentNowPlayingItem')
   let isCurrentlyPlayingItem = false
 
