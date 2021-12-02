@@ -1,3 +1,4 @@
+import { faCheck } from "@fortawesome/free-solid-svg-icons"
 import { faEllipsisH, faPause, faPlay } from "@fortawesome/free-solid-svg-icons"
 import classNames from "classnames"
 import OmniAural, { useOmniAural } from "omniaural"
@@ -11,7 +12,7 @@ import { playerCheckIfCurrentlyPlayingItem, playerLoadNowPlayingItem, playerTogg
 import { addOrUpdateHistoryItemOnServer } from "~/services/userHistoryItem"
 import { addQueueItemLastOnServer, addQueueItemNextOnServer } from "~/services/userQueueItem"
 import { modalsAddToPlaylistShowOrAlert } from "~/state/modals/addToPlaylist/actions"
-import { ButtonCircle, Dropdown } from ".."
+import { ButtonCircle, Dropdown, Icon } from ".."
 
 type Props = {
   buttonSize: 'medium' | 'large'
@@ -40,6 +41,7 @@ export const MediaItemControls = ({ buttonSize, episode, hidePubDate, isLoggedIn
   let pubDate = null
   let timeInfo = null
   let timeRemaining = null
+  let completed = false
   if (mediaRef) {
     pubDate = readableDate(mediaRef.episode.pubDate)
     timeInfo = readableClipTime(mediaRef.startTime, mediaRef.endTime)
@@ -54,6 +56,7 @@ export const MediaItemControls = ({ buttonSize, episode, hidePubDate, isLoggedIn
         episode.duration,
         historyItem.userPlaybackPosition
       )
+      completed = historyItem.completed
     } else if (episode.duration > 0) {
       timeInfo = convertSecToHhoursMMinutes(episode.duration)
     }
@@ -179,6 +182,13 @@ export const MediaItemControls = ({ buttonSize, episode, hidePubDate, isLoggedIn
             }
           </>
         )}
+        {
+          completed && (
+            <span className='completed'>
+              <Icon faIcon={faCheck} />
+            </span>
+          )
+        }
       </div>
       <Dropdown
         dropdownWidthClass='width-medium'
