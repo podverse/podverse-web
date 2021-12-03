@@ -1,9 +1,9 @@
-import axios from "axios"
-import { getAuthCredentialsHeaders } from "~/lib/utility/auth"
-import { PV } from "~/resources"
+import axios from 'axios'
+import { getAuthCredentialsHeaders } from '~/lib/utility/auth'
+import { PV } from '~/resources'
 import { request } from './request'
-import { getHistoryItemsFromServer } from "./userHistoryItem"
-import { getQueueItemsFromServer } from "./userQueueItem"
+import { getHistoryItemsFromServer } from './userHistoryItem'
+import { getQueueItemsFromServer } from './userQueueItem'
 
 export const getServerSideAuthenticatedUserInfo = async (cookies: any) => {
   let userInfo = null
@@ -18,7 +18,7 @@ export const getAuthenticatedUserInfo = async (bearerToken?: string) => {
     const response = await request({
       endpoint: PV.RoutePaths.api.get_authenticated_user_info,
       method: 'post',
-      ...(getAuthCredentialsHeaders(bearerToken))
+      ...getAuthCredentialsHeaders(bearerToken)
     })
 
     const userInfo = response?.data
@@ -54,7 +54,6 @@ export const logOut = async () => {
   })
   window.location.reload()
 }
-
 
 export const resetPassword = async (password?: string, resetPasswordToken?: string) => {
   return request({

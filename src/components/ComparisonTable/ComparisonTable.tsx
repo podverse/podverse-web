@@ -12,36 +12,31 @@ type Props = {
 
 const keyPrefix = 'comparion_table'
 
-export const ComparisonTable = ({ aboveSectionNodes, featuresData, headerIcon1,
-  headerIcon2, headerText }: Props) => {
-
-  const dataElements = featuresData && featuresData.map((x: any, index: number) => (
-    <div
-      className='comparison-table__row'
-      key={`${keyPrefix}_${index}`}>
-      <div className='comparison-table-row__text'>{x.text}</div>
-      <div className='comparison-table-row__icon'>{x.icon1 && <FontAwesomeIcon icon={x.iconType === 'smile' ? faSmile : faCheck} />}</div>
-      <div className='comparison-table-row__icon'>{x.icon2 && <FontAwesomeIcon icon={x.iconType === 'smile' ? faSmile : faCheck} />}</div>
-    </div>
-  ))
+export const ComparisonTable = ({ aboveSectionNodes, featuresData, headerIcon1, headerIcon2, headerText }: Props) => {
+  const dataElements =
+    featuresData &&
+    featuresData.map((x: any, index: number) => (
+      <div className='comparison-table__row' key={`${keyPrefix}_${index}`}>
+        <div className='comparison-table-row__text'>{x.text}</div>
+        <div className='comparison-table-row__icon'>
+          {x.icon1 && <FontAwesomeIcon icon={x.iconType === 'smile' ? faSmile : faCheck} />}
+        </div>
+        <div className='comparison-table-row__icon'>
+          {x.icon2 && <FontAwesomeIcon icon={x.iconType === 'smile' ? faSmile : faCheck} />}
+        </div>
+      </div>
+    ))
 
   return (
     <div className='comparison-table-wrapper'>
-      {aboveSectionNodes && (
-        <div className='above-section'>
-          {aboveSectionNodes}
-        </div>
-      )}
+      {aboveSectionNodes && <div className='above-section'>{aboveSectionNodes}</div>}
       <div className='comparison-table'>
         <div className='comparison-table__header'>
           <div className='comparison-table-header__text'>{headerText}</div>
           <div className='comparison-table-header__icon'>{headerIcon1}</div>
           <div className='comparison-table-header__icon'>{headerIcon2}</div>
         </div>
-        {
-          dataElements && dataElements.length > 0 &&
-          dataElements
-        }
+        {dataElements && dataElements.length > 0 && dataElements}
       </div>
     </div>
   )

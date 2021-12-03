@@ -13,8 +13,9 @@ export const handlePlayAfterClipEndTimeReached = () => {
     OmniAural.setClipHasReachedEnd(false)
     const currentPosition = playerGetPosition()
     if (currentPosition > currentNowPlayingItem.clipEndTime) {
-      const episodeNowPlayingItem =
-        convertNowPlayingItemClipToNowPlayingItemEpisode(currentNowPlayingItem) as NowPlayingItem
+      const episodeNowPlayingItem = convertNowPlayingItemClipToNowPlayingItemEpisode(
+        currentNowPlayingItem
+      ) as NowPlayingItem
       const shouldPlay = true
       playerLoadNowPlayingItem(episodeNowPlayingItem, shouldPlay)
 
@@ -39,8 +40,6 @@ export const handlePlayAfterClipEndTimeReached = () => {
       handleSetupClipListener(currentNowPlayingItem.clipEndTime)
     }
   }
-
-
 }
 
 export const clearClipEndTimeListenerInterval = () => {

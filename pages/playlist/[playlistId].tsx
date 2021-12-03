@@ -3,12 +3,25 @@ import { useTranslation } from 'next-i18next'
 import OmniAural, { useOmniAural } from 'omniaural'
 import type { Episode, MediaRef, Playlist } from 'podverse-shared'
 import { useState } from 'react'
-import { ClipListItem, ColumnsWrapper, EpisodeListItem, List, Meta, PageScrollableContent,
-  PlaylistPageHeader } from '~/components'
+import {
+  ClipListItem,
+  ColumnsWrapper,
+  EpisodeListItem,
+  List,
+  Meta,
+  PageScrollableContent,
+  PlaylistPageHeader
+} from '~/components'
 import { PV } from '~/resources'
 import { Page } from '~/lib/utility/page'
 import { isEpisode } from '~/lib/utility/typeHelpers'
-import { addOrRemovePlaylistItemEpisode, addOrRemovePlaylistItemMediaRef, combineAndSortPlaylistItems, getPlaylist, updatePlaylist } from '~/services/playlist'
+import {
+  addOrRemovePlaylistItemEpisode,
+  addOrRemovePlaylistItemMediaRef,
+  combineAndSortPlaylistItems,
+  getPlaylist,
+  updatePlaylist
+} from '~/services/playlist'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 
 interface ServerProps extends Page {
@@ -19,17 +32,14 @@ interface ServerProps extends Page {
 const keyPrefix = 'pages_playlist'
 
 export default function Playlist({ serverPlaylist, serverPlaylistSortedItems }: ServerProps) {
-
   /* Initialize */
 
   const { t } = useTranslation()
   const [isEditing, setIsEditing] = useState<boolean>(false)
   const [playlist, setPlaylist] = useState<Playlist>(serverPlaylist)
-  const [playlistSortedItems, setPlaylistSortedItems] =
-    useState<[Episode | MediaRef]>(serverPlaylistSortedItems)
+  const [playlistSortedItems, setPlaylistSortedItems] = useState<[Episode | MediaRef]>(serverPlaylistSortedItems)
   const [editingPlaylistTitle, setEditingPlaylistTitle] = useState<string>(serverPlaylist.title)
-  const [editingPlaylistIsPublic, setEditingPlaylistIsPublic] =
-    useState<boolean>(serverPlaylist.isPublic)
+  const [editingPlaylistIsPublic, setEditingPlaylistIsPublic] = useState<boolean>(serverPlaylist.isPublic)
   const [userInfo] = useOmniAural('session.userInfo')
 
   /* Function Helpers */
@@ -37,8 +47,8 @@ export default function Playlist({ serverPlaylist, serverPlaylistSortedItems }: 
   const _handleRemoveEpisode = async (episodeId: string) => {
     const response = await addOrRemovePlaylistItemEpisode(playlist.id, episodeId)
     if (response.actionTaken === 'removed') {
-      const newPlaylistSortedItems = playlistSortedItems.filter((playlistItem: Episode | MediaRef) =>
-        playlistItem.id !== episodeId
+      const newPlaylistSortedItems = playlistSortedItems.filter(
+        (playlistItem: Episode | MediaRef) => playlistItem.id !== episodeId
       )
       setPlaylistSortedItems(newPlaylistSortedItems as any)
     }
@@ -47,8 +57,8 @@ export default function Playlist({ serverPlaylist, serverPlaylistSortedItems }: 
   const _handleRemoveMediaRef = async (mediaRefId: string) => {
     const response = await addOrRemovePlaylistItemMediaRef(playlist.id, mediaRefId)
     if (response.actionTaken === 'removed') {
-      const newPlaylistSortedItems = playlistSortedItems.filter((playlistItem: Episode | MediaRef) =>
-        playlistItem.id !== mediaRefId
+      const newPlaylistSortedItems = playlistSortedItems.filter(
+        (playlistItem: Episode | MediaRef) => playlistItem.id !== mediaRefId
       )
       setPlaylistSortedItems(newPlaylistSortedItems as any)
     }
@@ -104,7 +114,8 @@ export default function Playlist({ serverPlaylist, serverPlaylistSortedItems }: 
             key={`${keyPrefix}-episode-${index}`}
             podcast={episode.podcast as any}
             showImage
-            showRemoveButton={isEditing} />
+            showRemoveButton={isEditing}
+          />
         )
       } else {
         const mediaRef = playlistItem
@@ -117,7 +128,8 @@ export default function Playlist({ serverPlaylist, serverPlaylistSortedItems }: 
             mediaRef={mediaRef}
             podcast={mediaRef.episode.podcast}
             showImage
-            showRemoveButton={isEditing} />
+            showRemoveButton={isEditing}
+          />
         )
       }
     })
@@ -129,7 +141,9 @@ export default function Playlist({ serverPlaylist, serverPlaylistSortedItems }: 
   if (playlist) {
     meta = {
       currentUrl: `${PV.Config.WEB_BASE_URL}${PV.RoutePaths.web.playlist}/${playlist.id}`,
-      description: `${playlist.title ? playlist.title : t('untitledPlaylist')}${t('playlistOnPodverse')}${playlist.description ? `- ${playlist.description}` : ''}`,
+      description: `${playlist.title ? playlist.title : t('untitledPlaylist')}${t('playlistOnPodverse')}${
+        playlist.description ? `- ${playlist.description}` : ''
+      }`,
       title: `${playlist.title ? playlist.title : t('untitledPlaylist')}`
     }
   }
@@ -145,7 +159,8 @@ export default function Playlist({ serverPlaylist, serverPlaylistSortedItems }: 
         robotsNoIndex={!playlist.isPublic}
         title={meta.title}
         twitterDescription={meta.description}
-        twitterTitle={meta.title} />
+        twitterTitle={meta.title}
+      />
       <PlaylistPageHeader
         // handleChangeIsPublic={_handleChangeIsPublic}
         handleEditCancel={_handleEditCancel}
@@ -153,14 +168,13 @@ export default function Playlist({ serverPlaylist, serverPlaylistSortedItems }: 
         handleEditStart={_handleEditStart}
         handlePlaylistTitleOnChange={setEditingPlaylistTitle}
         isEditing={isEditing}
-        playlist={playlist} />
+        playlist={playlist}
+      />
       <PageScrollableContent>
         <ColumnsWrapper
           mainColumnChildren={
             <>
-              <List>
-                {generatePlaylistItemElements(playlistSortedItems)}
-              </List>
+              <List>{generatePlaylistItemElements(playlistSortedItems)}</List>
             </>
           }
         />
@@ -179,8 +193,11 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
   const playlist = await getPlaylist(playlistId as string)
 
-  const sortedPlaylistItems = combineAndSortPlaylistItems(playlist.episodes,
-    playlist.mediaRefs, playlist.itemsOrder) as any
+  const sortedPlaylistItems = combineAndSortPlaylistItems(
+    playlist.episodes,
+    playlist.mediaRefs,
+    playlist.itemsOrder
+  ) as any
 
   const serverProps: ServerProps = {
     ...defaultServerProps,

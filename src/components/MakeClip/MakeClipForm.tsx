@@ -1,8 +1,8 @@
 import { faPlay } from '@fortawesome/free-solid-svg-icons'
 import OmniAural, { useOmniAural } from 'omniaural'
 import { useRouter } from 'next/router'
-import { useTranslation } from "react-i18next"
-import { ButtonRectangle, Dropdown, PVImage, TextInput } from "~/components"
+import { useTranslation } from 'react-i18next'
+import { ButtonRectangle, Dropdown, PVImage, TextInput } from '~/components'
 import { ProgressBar } from '~/components/Player/controls/ProgressBar'
 import { PlayerProgressButtons } from '~/components/Player/controls/PlayerProgressButtons'
 import { convertHHMMSSToSeconds } from '~/lib/utility/time'
@@ -24,21 +24,18 @@ export const MakeClipForm = ({ handleCancel }: Props) => {
   const [makeClip] = useOmniAural('makeClip')
   const [player] = useOmniAural('player')
   const [isSaving, setIsSaving] = useState<boolean>(false)
-  const { clipFlagPositions, endTime, highlightedPositions, isEditing, isPublic,
-    startTime, title } = makeClip
+  const { clipFlagPositions, endTime, highlightedPositions, isEditing, isPublic, startTime, title } = makeClip
   const { currentNowPlayingItem, duration, playSpeed } = player
-  const privacySelected = isPublic
-    ? PV.MakeClip.privacyKeys.public
-    : PV.MakeClip.privacyKeys.onlyWithLink
+  const privacySelected = isPublic ? PV.MakeClip.privacyKeys.public : PV.MakeClip.privacyKeys.onlyWithLink
 
   /* Function Helpers */
-  
+
   const _privacyOnChange = (selectedOptions: any[]) => {
     const selectedOption = selectedOptions[0]
     const isPublic = selectedOption.key === PV.MakeClip.privacyKeys.public
     OmniAural.makeClipSetIsPublic(isPublic)
   }
-  
+
   const _startTimeOnChange = (value: string) => {
     OmniAural.makeClipSetStartTime(value)
     _handleUpdateFlagPositions(value ? value : null, '')
@@ -50,18 +47,8 @@ export const MakeClipForm = ({ handleCancel }: Props) => {
   }
 
   const _handleUpdateFlagPositions = (startTimeOverride: string | null, endTimeOverride: string | null) => {
-    const flagStartTime =
-      startTimeOverride === null
-        ? -1
-        : startTimeOverride
-          ? startTimeOverride
-          : startTime
-    const flagEndTime =
-      endTimeOverride === null
-        ? -1
-        : endTimeOverride
-          ? endTimeOverride
-          : endTime
+    const flagStartTime = startTimeOverride === null ? -1 : startTimeOverride ? startTimeOverride : startTime
+    const flagEndTime = endTimeOverride === null ? -1 : endTimeOverride ? endTimeOverride : endTime
 
     const flagStartTimeSeconds = convertHHMMSSToSeconds(flagStartTime)
     const flagEndTimeSeconds = convertHHMMSSToSeconds(flagEndTime)
@@ -135,8 +122,6 @@ export const MakeClipForm = ({ handleCancel }: Props) => {
         OmniAural.makeClipSuccessModalSetLinkUrl(linkUrl)
         OmniAural.makeClipSuccessModalShow()
       }
-
-      
     } catch (error) {
       alert(t('Something went wrong'))
       console.log('_handleSaveClip error:', error)
@@ -166,14 +151,16 @@ export const MakeClipForm = ({ handleCancel }: Props) => {
           alt={t('Podcast artwork')}
           height={PV.Images.sizes.medium}
           src={currentNowPlayingItem.episodeImageUrl || currentNowPlayingItem.podcastImageUrl}
-          width={PV.Images.sizes.medium} />
+          width={PV.Images.sizes.medium}
+        />
         <h1>{headerText}</h1>
         <Dropdown
           dropdownWidthClass='width-medium'
           onChange={_privacyOnChange}
           options={privacyDropdownItems}
           outlineStyle
-          selectedKey={privacySelected} />
+          selectedKey={privacySelected}
+        />
       </div>
       <TextInput
         defaultValue={title}
@@ -183,7 +170,8 @@ export const MakeClipForm = ({ handleCancel }: Props) => {
         }}
         onSubmit={_handleSaveClip}
         placeholder={t('Clip title')}
-        type='text' />
+        type='text'
+      />
       <h3>{t('Clip times')}</h3>
       <div className='make-clip-time-inputs'>
         <TextInput
@@ -194,7 +182,8 @@ export const MakeClipForm = ({ handleCancel }: Props) => {
           onChange={_startTimeOnChange}
           onSubmit={_handleSaveClip}
           placeholder={'00:00'}
-          type='text' />
+          type='text'
+        />
         <TextInput
           defaultValue={endTime}
           faIconEnd={faPlay}
@@ -203,31 +192,19 @@ export const MakeClipForm = ({ handleCancel }: Props) => {
           onChange={_endTimeOnChange}
           onSubmit={_handleSaveClip}
           placeholder={t('optional')}
-          type='text' />
+          type='text'
+        />
       </div>
-      <ProgressBar
-        clipFlagPositions={clipFlagPositions}
-        highlightedPositions={highlightedPositions}
-        labelsBelow />
+      <ProgressBar clipFlagPositions={clipFlagPositions} highlightedPositions={highlightedPositions} labelsBelow />
       <PlayerProgressButtons hasMiniJump />
       <div className='make-clip-speed-button'>
-        <PlayerOptionButton
-          onClick={playerNextSpeed}
-          size='small'
-          type='speed'>
+        <PlayerOptionButton onClick={playerNextSpeed} size='small' type='speed'>
           {playSpeed}x
         </PlayerOptionButton>
       </div>
       <div className='make-clip-submit-buttons'>
-        <ButtonRectangle
-          label={t('Cancel')}
-          onClick={handleCancel}
-          type='secondary' />
-        <ButtonRectangle
-          isLoading={isSaving}
-          label={t('Save')}
-          onClick={_handleSaveClip}
-          type='primary' />
+        <ButtonRectangle label={t('Cancel')} onClick={handleCancel} type='secondary' />
+        <ButtonRectangle isLoading={isSaving} label={t('Save')} onClick={_handleSaveClip} type='primary' />
       </div>
     </div>
   )

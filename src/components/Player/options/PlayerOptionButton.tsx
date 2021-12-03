@@ -1,4 +1,4 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faPlus,
   faCut,
@@ -7,50 +7,43 @@ import {
   faVolumeMute,
   faVolumeUp,
   faCompressAlt
-} from "@fortawesome/free-solid-svg-icons"
-import classnames from "classnames"
+} from '@fortawesome/free-solid-svg-icons'
+import classnames from 'classnames'
 
 type Props = {
   className?: string
   onClick?: any
-  size: "small" | "medium" | "large"
-  type: "speed" | "add" | "make-clip" | "share"
-    | "fullscreen-hide" | "fullscreen-show" | "mute" | "unmute"
+  size: 'small' | 'medium' | 'large'
+  type: 'speed' | 'add' | 'make-clip' | 'share' | 'fullscreen-hide' | 'fullscreen-show' | 'mute' | 'unmute'
   children?: any
 }
 
-export const PlayerOptionButton = ({
-  className,
-  onClick,
-  size,
-  type,
-  children,
-}: Props) => {
-  const wrapperClass = classnames(className, "player-option-button", size)
+export const PlayerOptionButton = ({ className, onClick, size, type, children }: Props) => {
+  const wrapperClass = classnames(className, 'player-option-button', size)
   let icon = null
   switch (type) {
-    case "speed":
+    case 'speed':
       icon = null
       break
-    case "add":
+    case 'add':
       icon = faPlus
       break
-    case "make-clip":
+    case 'make-clip':
       icon = faCut
       break
-    case "share":
+    case 'share':
       icon = faShare
       break
-    case "fullscreen-hide":
+    case 'fullscreen-hide':
       icon = faCompressAlt
       break
-    case "fullscreen-show":
+    case 'fullscreen-show':
       icon = faExpandAlt
       break
-    case "mute":
+    case 'mute':
       icon = faVolumeMute
       break
-    case "unmute":
+    case 'unmute':
       icon = faVolumeUp
       break
     default:

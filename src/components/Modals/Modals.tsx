@@ -1,6 +1,14 @@
-import { AddToPlaylistModal, CheckoutModal, ForgotPasswordModal, LoginModal,
-  LoginToAlertModal, MakeClipModal, SignUpModal, VerifyEmailModal } from "~/components"
-import { MakeClipSuccessModal } from "../MakeClip/MakeClipSuccessModal"
+import {
+  AddToPlaylistModal,
+  CheckoutModal,
+  ForgotPasswordModal,
+  LoginModal,
+  LoginToAlertModal,
+  MakeClipModal,
+  SignUpModal,
+  VerifyEmailModal
+} from '~/components'
+import { MakeClipSuccessModal } from '../MakeClip/MakeClipSuccessModal'
 
 type Props = {}
 

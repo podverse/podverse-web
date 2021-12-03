@@ -1,4 +1,4 @@
-import classNames from "classnames"
+import classNames from 'classnames'
 
 type Props = {
   currentValue?: number
@@ -21,7 +21,7 @@ export const Slider = ({
   startVal = 0,
   step = 1
 }: Props) => {
-  const slider = classNames("progress-slider", className)
+  const slider = classNames('progress-slider', className)
 
   const generateFlagElements = () => {
     const flagElements = []
@@ -33,12 +33,7 @@ export const Slider = ({
 
   const flagElement = (flagPosition: number) => {
     const positionLeft = `${flagPosition * 100}%`
-    return (
-      <div
-        className='flag'
-        key={`flag-element-${flagPosition}`}
-        style={{ left: positionLeft }} />
-    )
+    return <div className='flag' key={`flag-element-${flagPosition}`} style={{ left: positionLeft }} />
   }
 
   const generateHighlightedSectionElement = () => {
@@ -52,7 +47,8 @@ export const Slider = ({
           style={{
             left: positionLeft,
             width
-          }} />
+          }}
+        />
       )
     }
     return null
@@ -68,11 +64,11 @@ export const Slider = ({
       <input
         min={startVal}
         max={endVal}
-        onChange={(event) => {          
+        onChange={(event) => {
           onValueChange && onValueChange(event.target.valueAsNumber)
         }}
         step={step}
-        type="range"
+        type='range'
         value={currentValue}
       />
     </div>

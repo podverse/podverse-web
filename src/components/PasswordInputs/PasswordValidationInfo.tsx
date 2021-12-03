@@ -9,8 +9,7 @@ type Props = {
   hasUppercase: boolean
 }
 
-export const PasswordValidationInfo = ({ hasAtLeastXCharacters, hasLowercase,
-  hasNumber, hasUppercase }: Props) => {
+export const PasswordValidationInfo = ({ hasAtLeastXCharacters, hasLowercase, hasNumber, hasUppercase }: Props) => {
   const { t } = useTranslation()
 
   return (

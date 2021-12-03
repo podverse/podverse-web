@@ -1,4 +1,4 @@
-import OmniAural from "omniaural"
+import OmniAural from 'omniaural'
 
 const modalsForgotPasswordHide = () => {
   OmniAural.state.modals.forgotPassword.show.set(false)

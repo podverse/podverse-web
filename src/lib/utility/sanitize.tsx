@@ -4,10 +4,10 @@ export const sanitizeTextHtml = (html: string) => {
   return sanitizeHtml(html, {
     allowedTags: sanitizeHtml.defaults.allowedTags.concat(['img']),
     allowedAttributes: {
-      'a': ['data-start-time', 'href', 'rel', 'target']
+      a: ['data-start-time', 'href', 'rel', 'target']
     },
     transformTags: {
-      'a': sanitizeHtml.simpleTransform('a', {
+      a: sanitizeHtml.simpleTransform('a', {
         target: '_blank',
         rel: 'noopener noreferrer'
       })

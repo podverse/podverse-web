@@ -3,13 +3,13 @@ import '@fortawesome/fontawesome-svg-core/styles.css'
 import { config as fontAwesomeConfig } from '@fortawesome/fontawesome-svg-core'
 import { appWithTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
-import OmniAural from "omniaural"
+import OmniAural from 'omniaural'
 import React, { useEffect } from 'react'
 import { CookiesProvider } from 'react-cookie'
 import Modal from 'react-modal'
 import { Modals, NavBar, HorizontalNavBar, Player, PageLoadingOverlay, PlayerAPI } from '~/components'
-import "~/state"
-import initialState from "~/state/initialState.json"
+import '~/state'
+import initialState from '~/state/initialState.json'
 import { playerLoadNowPlayingItem, saveCurrentPlaybackPositionToHistory } from '~/services/player/player'
 import { getNowPlayingItemOnServer } from '~/services/userNowPlayingItem'
 
@@ -50,12 +50,12 @@ function MyApp({ Component, pageProps }) {
     router.events.on('routeChangeComplete', OmniAural.pageIsLoadingHide)
     return () => {
       router.events.off('routeChangeComplete', OmniAural.pageIsLoadingHide),
-      router.events.off('routeChangeComplete', OmniAural.pageIsLoadingHide)
+        router.events.off('routeChangeComplete', OmniAural.pageIsLoadingHide)
     }
   }, [router.events])
 
   useEffect(() => {
-    (async () => {
+    ;(async () => {
       const nowPlayingItem = await getNowPlayingItemOnServer()
       if (nowPlayingItem) {
         const shouldPlay = false

@@ -5,12 +5,11 @@ import { PV } from '~/resources'
 import { ColumnsWrapper, Meta, PageHeader, PageScrollableContent, SideContent } from '~/components'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 
-interface ServerProps extends Page { }
+interface ServerProps extends Page {}
 
 const keyPrefix = 'pages_terms'
 
 export default function Terms(props: ServerProps) {
-
   /* Initialize */
 
   const { t } = useTranslation()
@@ -34,15 +33,14 @@ export default function Terms(props: ServerProps) {
         robotsNoIndex={false}
         title={meta.title}
         twitterDescription={meta.description}
-        twitterTitle={meta.title} />
+        twitterTitle={meta.title}
+      />
       <PageHeader text={'Terms of Service'} />
       <PageScrollableContent>
         <ColumnsWrapper
           mainColumnChildren={
             <div className='text-page'>
-              <p>
-                {`Podverse will never sell or share private user data.`}
-              </p>
+              <p>{`Podverse will never sell or share private user data.`}</p>
               <p>
                 {`We will never put advertisements next to or within a podcast's content without that podcast's permission.`}
               </p>

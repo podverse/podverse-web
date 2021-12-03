@@ -1,6 +1,5 @@
 import OmniAural from 'omniaural'
-import { toggleSubscribeToPodcast as toggleSubscribeToPodcastService }
-  from '~/services/loggedInUserServices'
+import { toggleSubscribeToPodcast as toggleSubscribeToPodcastService } from '~/services/loggedInUserServices'
 import { toggleSubscribeToPlaylistOnServer } from '~/services/playlist'
 import { toggleSubscribeToUserOnServer } from '~/services/user'
 
