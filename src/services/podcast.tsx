@@ -12,15 +12,21 @@ type PodcastQueryParams = {
   sort?: string
 }
 
-export const getPodcastsByQuery = async ({ categories, maxResults,
-  page, podcastIds, searchBy, searchText, sort }: PodcastQueryParams) => {
-
+export const getPodcastsByQuery = async ({
+  categories,
+  maxResults,
+  page,
+  podcastIds,
+  searchBy,
+  searchText,
+  sort
+}: PodcastQueryParams) => {
   const filteredQuery: PodcastQueryParams = {
     ...(categories ? { categories } : {}),
     ...(podcastIds ? { podcastId: podcastIds } : {}),
     // If no "from", then from defaults to _allKey
     ...(maxResults ? { maxResults: true } : {}),
-    ...(page ? { page } : { page: 1}),
+    ...(page ? { page } : { page: 1 }),
     ...(searchBy === PV.Filters.search.queryParams.podcast ? { searchTitle: encodeURIComponent(searchText) } : {}),
     ...(searchBy === PV.Filters.search.queryParams.host ? { searchAuthor: encodeURIComponent(searchText) } : {}),
     ...(sort ? { sort } : {})
@@ -34,7 +40,7 @@ export const getPodcastsByQuery = async ({ categories, maxResults,
       method: 'get',
       query: filteredQuery
     })
-  
+
     return response
   }
 }

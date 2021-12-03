@@ -3,9 +3,19 @@ import { useTranslation } from 'next-i18next'
 import OmniAural, { useOmniAural } from 'omniaural'
 import type { MediaRef, Playlist, Podcast, User } from 'podverse-shared'
 import { useEffect, useRef, useState } from 'react'
-import { ClipListItem, ColumnsWrapper, List, Meta, PageHeader, PageScrollableContent, Pagination,
+import {
+  ClipListItem,
+  ColumnsWrapper,
+  List,
+  Meta,
+  PageHeader,
+  PageScrollableContent,
+  Pagination,
   PlaylistListItem,
-  PodcastListItem, ProfilePageHeader, scrollToTopOfPageScrollableContent } from '~/components'
+  PodcastListItem,
+  ProfilePageHeader,
+  scrollToTopOfPageScrollableContent
+} from '~/components'
 import { Page } from '~/lib/utility/page'
 import { PV } from '~/resources'
 import { getPublicUser, updateLoggedInUser } from '~/services/user'
@@ -26,9 +36,14 @@ interface ServerProps extends Page {
 
 const keyPrefix = 'pages_profile'
 
-export default function Profile({ serverFilterType, serverFilterPage, serverFilterSort,
-  serverUser, serverUserListData, serverUserListDataCount }: ServerProps) {
-
+export default function Profile({
+  serverFilterType,
+  serverFilterPage,
+  serverFilterSort,
+  serverUser,
+  serverUserListData,
+  serverUserListDataCount
+}: ServerProps) {
   /* Initialize */
 
   const { t } = useTranslation()
@@ -42,12 +57,12 @@ export default function Profile({ serverFilterType, serverFilterPage, serverFilt
   const [editingUserName, setEditingUserName] = useState<string>(serverUser.name)
   const [editingUserIsPublic, setEditingUserIsPublic] = useState<boolean>(serverUser.isPublic)
   const initialRender = useRef(true)
-  const pageSubTitle = 
+  const pageSubTitle =
     filterType === PV.Filters.type._clips
       ? t('Clips')
       : filterType === PV.Filters.type._podcasts
-        ? t('Podcasts')
-        : t('Playlists')
+      ? t('Podcasts')
+      : t('Playlists')
   const pageCount = Math.ceil(listDataCount / PV.Config.QUERY_RESULTS_LIMIT_DEFAULT)
   const [userInfo] = useOmniAural('session.userInfo')
   const isLoggedInUserProfile = userInfo?.id && userInfo.id === user?.id
@@ -55,9 +70,9 @@ export default function Profile({ serverFilterType, serverFilterPage, serverFilt
   /* useEffects */
 
   useEffect(() => {
-    (async () => {
+    ;(async () => {
       if (initialRender.current) {
-        initialRender.current = false;
+        initialRender.current = false
       } else {
         OmniAural.pageIsLoadingShow()
         if (filterType === PV.Filters.type._podcasts) {
@@ -150,15 +165,9 @@ export default function Profile({ serverFilterType, serverFilterPage, serverFilt
     const selectedItem = selectedItems[0]
     if (selectedItem.key !== filterType) setFilterPage(1)
 
-    if (
-      selectedItem.key === PV.Filters.type._clips
-      && isNotClipsSortOption(filterSort)
-    ) {
+    if (selectedItem.key === PV.Filters.type._clips && isNotClipsSortOption(filterSort)) {
       setFilterSort(PV.Filters.sort._mostRecent)
-    } else if (
-      selectedItem.key === PV.Filters.type._podcasts
-      && isNotPodcastsSubscribedSortOption(filterSort)
-    ) {
+    } else if (selectedItem.key === PV.Filters.type._podcasts && isNotPodcastsSubscribedSortOption(filterSort)) {
       setFilterSort(PV.Filters.sort._alphabetical)
     }
 
@@ -178,11 +187,7 @@ export default function Profile({ serverFilterType, serverFilterPage, serverFilt
         and make sure it still builds. */
     return listData.map((listItem: any, index: number) => {
       if (listItem.podcastIndexId) {
-        return (
-          <PodcastListItem
-            key={`${keyPrefix}-${index}`}
-            podcast={listItem} />
-        )
+        return <PodcastListItem key={`${keyPrefix}-${index}`} podcast={listItem} />
       } else if (listItem.startTime) {
         return (
           <ClipListItem
@@ -191,14 +196,11 @@ export default function Profile({ serverFilterType, serverFilterPage, serverFilt
             key={`${keyPrefix}-${index}`}
             mediaRef={listItem}
             podcast={listItem.episode.podcast}
-            showImage />
+            showImage
+          />
         )
       } else {
-        return (
-          <PlaylistListItem
-            key={`${keyPrefix}-${index}`}
-            playlist={listItem} />
-        )
+        return <PlaylistListItem key={`${keyPrefix}-${index}`} playlist={listItem} />
       }
     })
   }
@@ -225,7 +227,8 @@ export default function Profile({ serverFilterType, serverFilterPage, serverFilt
         robotsNoIndex={!serverUser.isPublic}
         title={meta.title}
         twitterDescription={meta.description}
-        twitterTitle={meta.title} />
+        twitterTitle={meta.title}
+      />
       <ProfilePageHeader
         handleChangeIsPublic={_handleChangeIsPublic}
         handleEditCancel={_handleEditCancel}
@@ -233,7 +236,8 @@ export default function Profile({ serverFilterType, serverFilterPage, serverFilt
         handleEditStart={_handleEditStart}
         handleUserNameOnChange={setEditingUserName}
         isEditing={isEditing}
-        user={user} />
+        user={user}
+      />
       <PageScrollableContent>
         <ColumnsWrapper
           mainColumnChildren={
@@ -248,18 +252,24 @@ export default function Profile({ serverFilterType, serverFilterPage, serverFilt
                   filterType === PV.Filters.type._clips
                     ? PV.Filters.dropdownOptions.clips.sort.subscribed
                     : filterType === PV.Filters.type._podcasts
-                      ? PV.Filters.dropdownOptions.podcasts.sort.subscribed
-                      : null
+                    ? PV.Filters.dropdownOptions.podcasts.sort.subscribed
+                    : null
                 }
                 sortSelected={filterSort}
-                text={pageSubTitle} />
+                text={pageSubTitle}
+              />
               <List>{generateListElements()}</List>
               <Pagination
                 currentPageIndex={filterPage}
                 handlePageNavigate={(newPage) => setFilterPage(newPage)}
-                handlePageNext={() => { if (filterPage + 1 <= pageCount) setFilterPage(filterPage + 1) }}
-                handlePagePrevious={() => { if (filterPage - 1 > 0) setFilterPage(filterPage - 1) }}
-                pageCount={pageCount} />
+                handlePageNext={() => {
+                  if (filterPage + 1 <= pageCount) setFilterPage(filterPage + 1)
+                }}
+                handlePagePrevious={() => {
+                  if (filterPage - 1 > 0) setFilterPage(filterPage - 1)
+                }}
+                pageCount={pageCount}
+              />
             </>
           }
         />

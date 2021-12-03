@@ -9,15 +9,14 @@ import { Icon, Meta, PageHeader, PageScrollableContent } from '~/components'
 import { useTranslation } from 'react-i18next'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 
-interface ServerProps extends Page { }
+interface ServerProps extends Page {}
 
 const keyPrefix = 'pages_payment_paypal_confirming'
 let isCheckingInterval = null
 
 export default function PaymentPayPalConfirming(props: ServerProps) {
-
   /* Initialize */
-  
+
   const router = useRouter()
   const { paymentID } = router.query
   const { t } = useTranslation()
@@ -43,7 +42,7 @@ export default function PaymentPayPalConfirming(props: ServerProps) {
   const checkPaymentStatus = async () => {
     try {
       const paypalOrder = await getPayPalOrderById(paymentID as string)
-      
+
       if (paypalOrder?.data?.state === 'completed') {
         clearInterval(isCheckingInterval)
         setWasSuccessful(true)
@@ -82,38 +81,37 @@ export default function PaymentPayPalConfirming(props: ServerProps) {
         robotsNoIndex={true}
         title={meta.title}
         twitterDescription={meta.description}
-        twitterTitle={meta.title} />
+        twitterTitle={meta.title}
+      />
       <PageHeader text={t('Processing Payment')} />
       <PageScrollableContent>
         <div className='flex-centered-content-wrapper'>
-          {
-            isChecking && (
-              <>
-                <p>Confirming PayPal payment...</p>
-                <Icon
-                  faIcon={faSpinner}
-                  spin />
-                <p>This may take a minute...</p>
-              </>
-            )
-          }
-          {
-            didError && (
-              <>
-                <p>Sorry! Something went wrong.</p>
-                <p>Please check your internet connection, or go to the <a href={PV.RoutePaths.web.membership}>Membership</a> page to check if your purchase was successful.</p>
-                <p>If the problem continues, please email <a href={`mailto:${PV.Config.EMAIL.CONTACT}`}>{PV.Config.EMAIL.CONTACT}</a> for help.</p>
-              </>
-            )
-          }
-          {
-            wasSuccessful && (
-              <>
-                <p>Payment confirmed!</p>
-                <p>Redirecting to your Settings page...</p>
-              </>
-            )
-          }
+          {isChecking && (
+            <>
+              <p>Confirming PayPal payment...</p>
+              <Icon faIcon={faSpinner} spin />
+              <p>This may take a minute...</p>
+            </>
+          )}
+          {didError && (
+            <>
+              <p>Sorry! Something went wrong.</p>
+              <p>
+                Please check your internet connection, or go to the{' '}
+                <a href={PV.RoutePaths.web.membership}>Membership</a> page to check if your purchase was successful.
+              </p>
+              <p>
+                If the problem continues, please email{' '}
+                <a href={`mailto:${PV.Config.EMAIL.CONTACT}`}>{PV.Config.EMAIL.CONTACT}</a> for help.
+              </p>
+            </>
+          )}
+          {wasSuccessful && (
+            <>
+              <p>Payment confirmed!</p>
+              <p>Redirecting to your Settings page...</p>
+            </>
+          )}
         </div>
       </PageScrollableContent>
     </>

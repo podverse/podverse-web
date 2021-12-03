@@ -12,29 +12,13 @@ type Props = {
   size: 'small' | 'medium' | 'large'
 }
 
-export const ButtonCircle = ({ className, faIcon, iconOnly, isLoading,
-  onClick, size }: Props) => {
-  const wrapperClass = classnames(
-    'button-circle',
-    size,
-    className,
-    iconOnly ? 'icon-only' : ''
-  )
+export const ButtonCircle = ({ className, faIcon, iconOnly, isLoading, onClick, size }: Props) => {
+  const wrapperClass = classnames('button-circle', size, className, iconOnly ? 'icon-only' : '')
 
   return (
     <button className={wrapperClass} onClick={onClick}>
-      {
-        isLoading && (
-          <FontAwesomeIcon
-            icon={faSpinner}
-            spin />
-        )
-      }
-      {
-        !isLoading && (
-          <FontAwesomeIcon icon={faIcon} />
-        )
-      }
+      {isLoading && <FontAwesomeIcon icon={faSpinner} spin />}
+      {!isLoading && <FontAwesomeIcon icon={faIcon} />}
     </button>
   )
 }

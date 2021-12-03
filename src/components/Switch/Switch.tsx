@@ -5,7 +5,7 @@ type Props = {
   checked?: boolean
   onChange: any
 }
-export const Switch = ({ ariaLabel, checked, onChange } : Props) => {
+export const Switch = ({ ariaLabel, checked, onChange }: Props) => {
   return (
     <div className='switch'>
       <ReactSwitch
@@ -15,7 +15,8 @@ export const Switch = ({ ariaLabel, checked, onChange } : Props) => {
         height={22}
         onChange={onChange}
         uncheckedIcon={false}
-        width={37} />
+        width={37}
+      />
     </div>
   )
 }

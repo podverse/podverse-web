@@ -6,12 +6,11 @@ import { PV } from '~/resources'
 import { MessageWithAction, Meta, PageHeader, PageScrollableContent } from '~/components'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 
-interface ServerProps extends Page { }
+interface ServerProps extends Page {}
 
 const keyPrefix = 'pages_my_profile'
 
 export default function MyProfile(props: ServerProps) {
-
   /* Initialize */
 
   const { t } = useTranslation()
@@ -35,13 +34,15 @@ export default function MyProfile(props: ServerProps) {
         robotsNoIndex={false}
         title={meta.title}
         twitterDescription={meta.description}
-        twitterTitle={meta.title} />
+        twitterTitle={meta.title}
+      />
       <PageHeader text={t('My Profile')} />
       <PageScrollableContent noMarginTop>
         <MessageWithAction
           actionLabel={t('Login')}
           actionOnClick={() => OmniAural.modalsLoginShow()}
-          message={t('LoginToViewYourProfile')} />
+          message={t('LoginToViewYourProfile')}
+        />
       </PageScrollableContent>
     </>
   )

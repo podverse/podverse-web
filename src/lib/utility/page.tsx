@@ -1,6 +1,6 @@
-import { SSRConfig } from "next-i18next"
-import { NowPlayingItem } from "podverse-shared"
-import { ClientSideCookies } from "./cookies"
+import { SSRConfig } from 'next-i18next'
+import { NowPlayingItem } from 'podverse-shared'
+import { ClientSideCookies } from './cookies'
 
 type I18nPage = SSRConfig
 

@@ -1,4 +1,4 @@
-import OmniAural from "omniaural"
+import OmniAural from 'omniaural'
 
 type HistoryItemsIndex = {
   episodes: {}

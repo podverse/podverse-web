@@ -3,9 +3,5 @@ type Props = {
 }
 
 export const List = ({ children }: Props) => {
-  return (
-    <ul className='list'>
-      {children}
-    </ul>
-  )
+  return <ul className='list'>{children}</ul>
 }

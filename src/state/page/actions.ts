@@ -1,4 +1,4 @@
-import OmniAural from "omniaural"
+import OmniAural from 'omniaural'
 
 const pageIsLoadingHide = () => {
   OmniAural.state.page.isLoading.set(false)

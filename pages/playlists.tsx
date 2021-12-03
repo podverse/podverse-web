@@ -2,8 +2,7 @@ import { GetServerSideProps } from 'next'
 import { useTranslation } from 'next-i18next'
 import OmniAural, { useOmniAural } from 'omniaural'
 import type { Playlist } from 'podverse-shared'
-import { List, MessageWithAction, Meta, PageHeader, PageScrollableContent,
-  PlaylistListItem } from '~/components'
+import { List, MessageWithAction, Meta, PageHeader, PageScrollableContent, PlaylistListItem } from '~/components'
 import { Page } from '~/lib/utility/page'
 import { PV } from '~/resources'
 import { getServerSideLoggedInUserPlaylistsCombined } from '~/services/playlist'
@@ -19,7 +18,6 @@ interface ServerProps extends Page {
 const keyPrefix = 'pages_playlists'
 
 export default function Playlists({ serverPlaylistsCombined }: ServerProps) {
-
   /* Initialize */
 
   const { t } = useTranslation()
@@ -30,11 +28,7 @@ export default function Playlists({ serverPlaylistsCombined }: ServerProps) {
   /* Render Helpers */
 
   const generatePlaylistElements = (listItems: Playlist[]) => {
-    return listItems.map((listItem, index) =>
-      <PlaylistListItem
-        key={`${keyPrefix}-${index}`}
-        playlist={listItem} />
-    )
+    return listItems.map((listItem, index) => <PlaylistListItem key={`${keyPrefix}-${index}`} playlist={listItem} />)
   }
 
   /* Meta Tags */
@@ -56,24 +50,18 @@ export default function Playlists({ serverPlaylistsCombined }: ServerProps) {
         robotsNoIndex={false}
         title={meta.title}
         twitterDescription={meta.description}
-        twitterTitle={meta.title} />
+        twitterTitle={meta.title}
+      />
       <PageHeader text={t('Playlists')} />
       <PageScrollableContent noMarginTop>
-        {
-          !userInfo && (
-            <MessageWithAction
-              actionLabel={t('Login')}
-              actionOnClick={() => OmniAural.modalsLoginShow()}
-              message={t('LoginToViewYourPlaylists')} />
-          )
-        }
-        {
-          userInfo && (
-            <List>
-              {generatePlaylistElements(combinedPlaylists)}
-            </List>
-          )
-        }
+        {!userInfo && (
+          <MessageWithAction
+            actionLabel={t('Login')}
+            actionOnClick={() => OmniAural.modalsLoginShow()}
+            message={t('LoginToViewYourPlaylists')}
+          />
+        )}
+        {userInfo && <List>{generatePlaylistElements(combinedPlaylists)}</List>}
       </PageScrollableContent>
     </>
   )

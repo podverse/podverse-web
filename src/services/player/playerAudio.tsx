@@ -16,11 +16,7 @@ export const audioIsLoaded = () => {
 }
 
 export const audioCheckIfCurrentlyPlaying = () => {
-  return (
-    !PVPlayerAudio?.paused
-    && PVPlayerAudio?.currentTime > 0
-    && !PVPlayerAudio.ended
-  )
+  return !PVPlayerAudio?.paused && PVPlayerAudio?.currentTime > 0 && !PVPlayerAudio.ended
 }
 
 export const audioGetDuration = () => {
@@ -59,7 +55,6 @@ export const audioLoadNowPlayingItem = async (
   previousNowPlayingItem: NowPlayingItem,
   shouldPlay: boolean
 ) => {
-
   PVPlayerAudio.pause()
 
   // const lastPlayingItem = await getNowPlayingItemLocally()

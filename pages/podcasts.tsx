@@ -3,8 +3,16 @@ import { useTranslation } from 'next-i18next'
 import OmniAural, { useOmniAural } from 'omniaural'
 import type { Podcast } from 'podverse-shared'
 import { useEffect, useRef, useState } from 'react'
-import { List, MessageWithAction, Meta, PageHeader, PageScrollableContent, Pagination, PodcastListItem,
-  scrollToTopOfPageScrollableContent } from '~/components'
+import {
+  List,
+  MessageWithAction,
+  Meta,
+  PageHeader,
+  PageScrollableContent,
+  Pagination,
+  PodcastListItem,
+  scrollToTopOfPageScrollableContent
+} from '~/components'
 import { Page } from '~/lib/utility/page'
 import { PV } from '~/resources'
 import { getPodcastsByQuery } from '~/services/podcast'
@@ -21,20 +29,21 @@ interface ServerProps extends Page {
 
 const keyPrefix = 'pages_podcasts'
 
-export default function Podcasts({ serverFilterFrom, serverFilterPage,
-  serverFilterSort, serverPodcastsListData, serverPodcastsListDataCount
-  }: ServerProps) {
-
+export default function Podcasts({
+  serverFilterFrom,
+  serverFilterPage,
+  serverFilterSort,
+  serverPodcastsListData,
+  serverPodcastsListDataCount
+}: ServerProps) {
   /* Initialize */
 
   const { t } = useTranslation()
   const [filterFrom, setFilterFrom] = useState<string>(serverFilterFrom)
   const [filterPage, setFilterPage] = useState<number>(serverFilterPage)
   const [filterSort, setFilterSort] = useState<string>(serverFilterSort)
-  const [podcastsListData, setPodcastsListData] =
-    useState<Podcast[]>(serverPodcastsListData)
-  const [podcastsListDataCount, setPodcastsListDataCount] =
-    useState<number>(serverPodcastsListDataCount)
+  const [podcastsListData, setPodcastsListData] = useState<Podcast[]>(serverPodcastsListData)
+  const [podcastsListDataCount, setPodcastsListDataCount] = useState<number>(serverPodcastsListDataCount)
   const [userInfo] = useOmniAural('session.userInfo')
   const initialRender = useRef(true)
   const pageCount = Math.ceil(podcastsListDataCount / PV.Config.QUERY_RESULTS_LIMIT_DEFAULT)
@@ -42,9 +51,9 @@ export default function Podcasts({ serverFilterFrom, serverFilterPage,
   /* useEffects */
 
   useEffect(() => {
-    (async () => {
+    ;(async () => {
       if (initialRender.current) {
-        initialRender.current = false;
+        initialRender.current = false
       } else {
         OmniAural.pageIsLoadingShow()
         const { data } = await clientQueryPodcasts()
@@ -91,10 +100,7 @@ export default function Podcasts({ serverFilterFrom, serverFilterPage,
     const selectedItem = selectedItems[0]
     if (selectedItem.key !== filterFrom) setFilterPage(1)
 
-    if (
-      selectedItem.key !== PV.Filters.from._subscribed
-      && isNotPodcastsAllSortOption(filterSort)
-    ) {
+    if (selectedItem.key !== PV.Filters.from._subscribed && isNotPodcastsAllSortOption(filterSort)) {
       setFilterSort(PV.Filters.sort._topPastDay)
     }
 
@@ -108,13 +114,9 @@ export default function Podcasts({ serverFilterFrom, serverFilterPage,
   }
 
   /* Render Helpers */
-  
+
   const generatePodcastListElements = (listItems: Podcast[]) => {
-    return listItems.map((listItem, index) =>
-      <PodcastListItem
-        key={`${keyPrefix}-${index}`}
-        podcast={listItem} />
-    )
+    return listItems.map((listItem, index) => <PodcastListItem key={`${keyPrefix}-${index}`} podcast={listItem} />)
   }
 
   /* Meta Tags */
@@ -136,7 +138,8 @@ export default function Podcasts({ serverFilterFrom, serverFilterPage,
         robotsNoIndex={false}
         title={meta.title}
         twitterDescription={meta.description}
-        twitterTitle={meta.title} />
+        twitterTitle={meta.title}
+      />
       <PageHeader
         primaryOnChange={_handlePrimaryOnChange}
         primaryOptions={PV.Filters.dropdownOptions.podcasts.from}
@@ -148,31 +151,32 @@ export default function Podcasts({ serverFilterFrom, serverFilterPage,
             : PV.Filters.dropdownOptions.podcasts.sort.all
         }
         sortSelected={filterSort}
-        text={t('Podcasts')} />
+        text={t('Podcasts')}
+      />
       <PageScrollableContent noMarginTop>
-        {
-          !userInfo && filterFrom === PV.Filters.from._subscribed && (
-            <MessageWithAction
-              actionLabel={t('Login')}
-              actionOnClick={() => OmniAural.modalsLoginShow()}
-              message={t('LoginToSubscribeToPodcasts')} />
-          )
-        }
-        {
-          (userInfo || filterFrom !== PV.Filters.from._subscribed) && (
-            <>
-              <List>
-                {generatePodcastListElements(podcastsListData)}
-              </List>
-              <Pagination
-                currentPageIndex={filterPage}
-                handlePageNavigate={(newPage) => setFilterPage(newPage)}
-                handlePageNext={() => { if (filterPage + 1 <= pageCount) setFilterPage(filterPage + 1) }}
-                handlePagePrevious={() => { if (filterPage - 1 > 0) setFilterPage(filterPage - 1) }}
-                pageCount={pageCount} />
-            </>
-          )
-        }
+        {!userInfo && filterFrom === PV.Filters.from._subscribed && (
+          <MessageWithAction
+            actionLabel={t('Login')}
+            actionOnClick={() => OmniAural.modalsLoginShow()}
+            message={t('LoginToSubscribeToPodcasts')}
+          />
+        )}
+        {(userInfo || filterFrom !== PV.Filters.from._subscribed) && (
+          <>
+            <List>{generatePodcastListElements(podcastsListData)}</List>
+            <Pagination
+              currentPageIndex={filterPage}
+              handlePageNavigate={(newPage) => setFilterPage(newPage)}
+              handlePageNext={() => {
+                if (filterPage + 1 <= pageCount) setFilterPage(filterPage + 1)
+              }}
+              handlePagePrevious={() => {
+                if (filterPage - 1 > 0) setFilterPage(filterPage - 1)
+              }}
+              pageCount={pageCount}
+            />
+          </>
+        )}
       </PageScrollableContent>
     </>
   )
@@ -188,7 +192,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
   const serverFilterFrom = serverUserInfo ? PV.Filters.from._subscribed : PV.Filters.from._all
   const serverFilterSort = serverUserInfo ? PV.Filters.sort._alphabetical : PV.Filters.sort._topPastDay
-  
+
   const serverFilterPage = 1
   let response = null
   if (serverUserInfo) {
@@ -201,9 +205,9 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       sort: serverFilterSort
     })
   }
-  
+
   const [podcastsListData, podcastsListDataCount] = response.data
-  
+
   const serverProps: ServerProps = {
     ...defaultServerProps,
     serverFilterFrom,

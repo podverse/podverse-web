@@ -5,7 +5,6 @@ import { PV } from '~/resources'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 
 export default function Settings() {
-
   /* Initialize */
 
   const { t } = useTranslation()
@@ -29,7 +28,8 @@ export default function Settings() {
         robotsNoIndex={false}
         title={meta.title}
         twitterDescription={meta.description}
-        twitterTitle={meta.title} />
+        twitterTitle={meta.title}
+      />
       <p>settings!!!</p>
     </div>
   )

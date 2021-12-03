@@ -1,4 +1,4 @@
-import { ButtonRectangle } from "~/components"
+import { ButtonRectangle } from '~/components'
 
 type Props = {
   actionLabel?: string
@@ -6,22 +6,11 @@ type Props = {
   message: string
 }
 
-export const MessageWithAction = ({ actionLabel, actionOnClick,
-  message }: Props) => {
-
+export const MessageWithAction = ({ actionLabel, actionOnClick, message }: Props) => {
   return (
     <div className='message-with-action'>
-      <div className='message'>
-        {message}
-      </div>
-      {
-        actionLabel && actionOnClick && (
-          <ButtonRectangle
-            label={actionLabel}
-            onClick={actionOnClick}
-            type='primary' />
-        )
-      }
+      <div className='message'>{message}</div>
+      {actionLabel && actionOnClick && <ButtonRectangle label={actionLabel} onClick={actionOnClick} type='primary' />}
     </div>
   )
 }

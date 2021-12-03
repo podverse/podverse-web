@@ -12,7 +12,6 @@ interface ServerProps extends Page {}
 const keyPrefix = 'pages_reset_password'
 
 export default function ResetPassword(props: ServerProps) {
-
   /* Initialize */
 
   const router = useRouter()
@@ -54,13 +53,11 @@ export default function ResetPassword(props: ServerProps) {
         robotsNoIndex={true}
         title={meta.title}
         twitterDescription={meta.description}
-        twitterTitle={meta.title} />
+        twitterTitle={meta.title}
+      />
       <div className='form-wrapper'>
         <h2>{t('Reset Password')}</h2>
-        <PasswordInputs
-          handleClose={_handleClose}
-          handleSubmit={_handleResetPassword}
-          hideEmail />
+        <PasswordInputs handleClose={_handleClose} handleSubmit={_handleResetPassword} hideEmail />
       </div>
     </>
   )
@@ -72,7 +69,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { locale } = ctx
 
   const defaultServerProps = await getDefaultServerSideProps(ctx, locale)
-  
+
   const serverProps: ServerProps = {
     ...defaultServerProps
   }

@@ -1,8 +1,11 @@
-import OmniAural from "omniaural"
+import OmniAural from 'omniaural'
 import { UserQueueItem } from 'podverse-shared'
-import { getQueueItemsFromServer, removeQueueItemEpisodeFromServer,
-  removeQueueItemMediaRefFromServer, removeQueueItemsAllFromServer }
-  from '~/services/userQueueItem'
+import {
+  getQueueItemsFromServer,
+  removeQueueItemEpisodeFromServer,
+  removeQueueItemMediaRefFromServer,
+  removeQueueItemsAllFromServer
+} from '~/services/userQueueItem'
 
 const removeQueueItemEpisode = async (episodeId: string) => {
   const userQueueItems = await removeQueueItemEpisodeFromServer(episodeId)

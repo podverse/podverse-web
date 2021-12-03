@@ -1,5 +1,5 @@
-import { getAuthCredentialsHeaders } from "~/lib/utility/auth"
-import { PV } from "~/resources"
+import { getAuthCredentialsHeaders } from '~/lib/utility/auth'
+import { PV } from '~/resources'
 import { request } from '~/services/request'
 
 export const getMediaRefById = async (id: string) => {
@@ -20,8 +20,16 @@ type MediaRefQueryParams = {
   sort?: string
 }
 
-export const getMediaRefsByQuery = async ({ categories, episodeId, includeEpisode,
-  includePodcast, page, podcastIds, searchAllFieldsText, sort }: MediaRefQueryParams) => {
+export const getMediaRefsByQuery = async ({
+  categories,
+  episodeId,
+  includeEpisode,
+  includePodcast,
+  page,
+  podcastIds,
+  searchAllFieldsText,
+  sort
+}: MediaRefQueryParams) => {
   const filteredQuery: MediaRefQueryParams = {
     ...(categories ? { categories } : {}),
     ...(episodeId ? { episodeId } : {}),
@@ -29,9 +37,11 @@ export const getMediaRefsByQuery = async ({ categories, episodeId, includeEpisod
     ...(includePodcast ? { includePodcast } : {}),
     ...(page ? { page } : { page: 1 }),
     ...(podcastIds ? { podcastId: podcastIds } : {}),
-    ...(searchAllFieldsText ? {
-      searchAllFieldsText: encodeURIComponent(searchAllFieldsText)
-    } : {}),
+    ...(searchAllFieldsText
+      ? {
+          searchAllFieldsText: encodeURIComponent(searchAllFieldsText)
+        }
+      : {}),
     ...(sort ? { sort } : { sort: PV.Filters.sort._mostRecent })
   }
 
@@ -75,7 +85,7 @@ export const createMediaRef = async (body: MediaRefCreateBody) => {
   const response = await request({
     endpoint: '/mediaRef',
     method: 'POST',
-    ...(getAuthCredentialsHeaders()),
+    ...getAuthCredentialsHeaders(),
     body
   })
 
@@ -86,7 +96,7 @@ export const deleteMediaRef = async (id: string) => {
   const response = await request({
     endpoint: `/mediaRef/${id}`,
     method: 'DELETE',
-    ...(getAuthCredentialsHeaders())
+    ...getAuthCredentialsHeaders()
   })
 
   return response && response.data
@@ -105,7 +115,7 @@ export const updateMediaRef = async (body: MediaRefUpdateBody) => {
   const response = await request({
     endpoint: '/mediaRef',
     method: 'PATCH',
-    ...(getAuthCredentialsHeaders()),
+    ...getAuthCredentialsHeaders(),
     body
   })
 

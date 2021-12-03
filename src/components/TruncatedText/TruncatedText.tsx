@@ -18,25 +18,16 @@ export const TruncatedText = ({ dangerouslySetInnerHtml = false, lines, text }: 
       className='truncated-text'
       less={t('Show Less')}
       lines={lines}
-      more={t('Show More')}>
-        {
-          dangerouslySetInnerHtml && (
-            <div
-              
-              dangerouslySetInnerHTML={
-                {
-                  __html: sanitizeTextHtml(text)
-                }
-              } />
-          )
-        }
-        {
-          !dangerouslySetInnerHtml && (
-            <div>
-              {striptags(text)}
-            </div>
-          )
-        }
+      more={t('Show More')}
+    >
+      {dangerouslySetInnerHtml && (
+        <div
+          dangerouslySetInnerHTML={{
+            __html: sanitizeTextHtml(text)
+          }}
+        />
+      )}
+      {!dangerouslySetInnerHtml && <div>{striptags(text)}</div>}
     </ShowMoreText>
   )
 }

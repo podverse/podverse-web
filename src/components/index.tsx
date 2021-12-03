@@ -39,8 +39,10 @@ export { PageHeaderTab } from './PageHeaderTab/PageHeaderTab'
 export { PageHeaderWithTabs } from './PageHeaderWithTabs/PageHeaderWithTabs'
 export { PageLoadingOverlay } from './PageLoadingOverlay/PageLoadingOverlay'
 export { Pagination } from './Pagination/Pagination'
-export { PageScrollableContent, scrollToTopOfPageScrollableContent }
-  from './PageScrollableContent/PageScrollableContent'
+export {
+  PageScrollableContent,
+  scrollToTopOfPageScrollableContent
+} from './PageScrollableContent/PageScrollableContent'
 export { PayPalButton } from './PayPalButton/PayPalButton'
 export { Player } from './Player/Player'
 export { PlayerAPI } from './Player/PlayerAPI/PlayerAPI'

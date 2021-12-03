@@ -2,7 +2,16 @@ import { GetServerSideProps } from 'next'
 import { useTranslation } from 'next-i18next'
 import OmniAural, { useOmniAural } from 'omniaural'
 import type { User } from 'podverse-shared'
-import { List, MessageWithAction, Meta, PageHeader, PageScrollableContent, Pagination, PlaylistListItem, scrollToTopOfPageScrollableContent } from '~/components'
+import {
+  List,
+  MessageWithAction,
+  Meta,
+  PageHeader,
+  PageScrollableContent,
+  Pagination,
+  PlaylistListItem,
+  scrollToTopOfPageScrollableContent
+} from '~/components'
 import { Page } from '~/lib/utility/page'
 import { PV } from '~/resources'
 import { getPublicUsersByQuery } from '~/services/user'
@@ -18,9 +27,7 @@ interface ServerProps extends Page {
 
 const keyPrefix = 'pages_profiles'
 
-export default function Profiles({ serverFilterPage, serverUsers,
-  serverUsersCount }: ServerProps) {
-
+export default function Profiles({ serverFilterPage, serverUsers, serverUsersCount }: ServerProps) {
   /* Initialize */
 
   const { t } = useTranslation()
@@ -29,13 +36,13 @@ export default function Profiles({ serverFilterPage, serverUsers,
   const [userInfo] = useOmniAural('session.userInfo')
   const initialRender = useRef(true)
   const pageCount = Math.ceil(serverUsersCount / PV.Config.QUERY_RESULTS_LIMIT_DEFAULT)
-  
+
   /* useEffects */
 
   useEffect(() => {
-    (async () => {
+    ;(async () => {
       if (initialRender.current) {
-        initialRender.current = false;
+        initialRender.current = false
       } else {
         OmniAural.pageIsLoadingShow()
         const [newListData, newListCount] = await clientQueryUsers()
@@ -61,11 +68,7 @@ export default function Profiles({ serverFilterPage, serverUsers,
   /* Render Helpers */
 
   const generateProfileElements = (listItems: User[]) => {
-    return listItems.map((listItem, index) =>
-      <ProfileListItem
-        key={`${keyPrefix}-${index}`}
-        user={listItem} />
-    )
+    return listItems.map((listItem, index) => <ProfileListItem key={`${keyPrefix}-${index}`} user={listItem} />)
   }
 
   /* Meta Tags */
@@ -87,33 +90,34 @@ export default function Profiles({ serverFilterPage, serverUsers,
         robotsNoIndex={false}
         title={meta.title}
         twitterDescription={meta.description}
-        twitterTitle={meta.title} />
+        twitterTitle={meta.title}
+      />
       <PageHeader text={t('Profiles')} />
       <PageScrollableContent noMarginTop>
-        {
-          !userInfo && (
-            <MessageWithAction
-              actionLabel={t('Login')}
-              actionOnClick={() => OmniAural.modalsLoginShow()}
-              message={t('LoginToViewYourProfiles')} />
-          )
-        }
-        {
-          userInfo && (
-            <>
-              <List>
-                {generateProfileElements(usersListData)}
-              </List>
-              <Pagination
-                currentPageIndex={filterPage}
-                handlePageNavigate={(newPage) => setFilterPage(newPage)}
-                handlePageNext={() => { if (filterPage + 1 <= pageCount) setFilterPage(filterPage + 1) }}
-                handlePagePrevious={() => { if (filterPage - 1 > 0) setFilterPage(filterPage - 1) }}
-                pageCount={pageCount} />
-            </>
-          )
-        }
-        </PageScrollableContent>
+        {!userInfo && (
+          <MessageWithAction
+            actionLabel={t('Login')}
+            actionOnClick={() => OmniAural.modalsLoginShow()}
+            message={t('LoginToViewYourProfiles')}
+          />
+        )}
+        {userInfo && (
+          <>
+            <List>{generateProfileElements(usersListData)}</List>
+            <Pagination
+              currentPageIndex={filterPage}
+              handlePageNavigate={(newPage) => setFilterPage(newPage)}
+              handlePageNext={() => {
+                if (filterPage + 1 <= pageCount) setFilterPage(filterPage + 1)
+              }}
+              handlePagePrevious={() => {
+                if (filterPage - 1 > 0) setFilterPage(filterPage - 1)
+              }}
+              pageCount={pageCount}
+            />
+          </>
+        )}
+      </PageScrollableContent>
     </>
   )
 }

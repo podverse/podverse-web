@@ -7,10 +7,11 @@
 export const getAuthCredentialsHeaders = (bearerToken?: string) => {
   return bearerToken
     ? {
-      headers: {
-        Authorization: bearerToken
+        headers: {
+          Authorization: bearerToken
+        }
       }
-    } : {
-      withCredentials: true
-    }
+    : {
+        withCredentials: true
+      }
 }

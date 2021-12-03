@@ -13,15 +13,8 @@ export const NavBarBrand = ({ height, href, src, width }: Props) => {
   const { t } = useTranslation()
 
   return (
-    <PVLink
-      className='navbar__brand'
-      href={href}>
-      <Image
-        alt={t('Podverse logo')}
-        height={height}
-        src={src}
-        width={width}
-      />
+    <PVLink className='navbar__brand' href={href}>
+      <Image alt={t('Podverse logo')} height={height} src={src} width={width} />
     </PVLink>
   )
 }

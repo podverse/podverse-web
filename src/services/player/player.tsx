@@ -3,30 +3,41 @@ import type { NowPlayingItem } from 'podverse-shared'
 import { PV } from '~/resources'
 import { addOrUpdateHistoryItemOnServer } from '../userHistoryItem'
 import { getNextFromQueue, getQueueItemsFromServer } from '../userQueueItem'
-import { audioCheckIfCurrentlyPlaying, audioClearNowPlayingItem, audioGetDuration,
-  audioGetPosition, audioIsLoaded, audioLoadNowPlayingItem, audioMute, audioPause,
-  audioPlay, audioSeekTo, audioSetPlaybackSpeed, audioSetVolume,
-  audioUnmute } from './playerAudio'
+import {
+  audioCheckIfCurrentlyPlaying,
+  audioClearNowPlayingItem,
+  audioGetDuration,
+  audioGetPosition,
+  audioIsLoaded,
+  audioLoadNowPlayingItem,
+  audioMute,
+  audioPause,
+  audioPlay,
+  audioSeekTo,
+  audioSetPlaybackSpeed,
+  audioSetVolume,
+  audioUnmute
+} from './playerAudio'
 import { clearChapterUpdateInterval, getChapterNext, getChapterPrevious } from './playerChapters'
-import { clearClipEndTimeListenerInterval, handlePlayAfterClipEndTimeReached, handleSetupClipListener } from './playerClip'
+import {
+  clearClipEndTimeListenerInterval,
+  handlePlayAfterClipEndTimeReached,
+  handleSetupClipListener
+} from './playerClip'
 import { setClipFlagPositions } from './playerFlags'
 import { checkIfVideoFileType, videoIsLoaded } from './playerVideo'
 
 export const playerCheckIfCurrentlyPlayingItem = (paused: boolean, nowPlayingItem?: NowPlayingItem) => {
+  // TODO: @Mitch Downy this hook usage is against "Rule of Hooks", specificially "Don’t call Hooks inside loops, conditions, or nested functions"
+  // eslint-disable-next-line
   const [currentNowPlayingItem] = useOmniAural('player.currentNowPlayingItem')
   let isCurrentlyPlayingItem = false
 
   if (paused) {
     // do nothing
-  } else if (
-    nowPlayingItem?.clipId
-    && nowPlayingItem.clipId === currentNowPlayingItem?.clipId
-  ) {
+  } else if (nowPlayingItem?.clipId && nowPlayingItem.clipId === currentNowPlayingItem?.clipId) {
     isCurrentlyPlayingItem = true
-  } else if (
-    !nowPlayingItem?.clipId
-    && nowPlayingItem.episodeId === currentNowPlayingItem?.episodeId
-  ) {
+  } else if (!nowPlayingItem?.clipId && nowPlayingItem.episodeId === currentNowPlayingItem?.episodeId) {
     isCurrentlyPlayingItem = true
   }
 
@@ -44,24 +55,20 @@ export const playerCheckIfCurrentlyPlaying = () => {
   return isCurrentlyPlaying
 }
 
-export const playerTogglePlayOrLoadNowPlayingItem = async (
-  nowPlayingItem: NowPlayingItem
-) => {
+export const playerTogglePlayOrLoadNowPlayingItem = async (nowPlayingItem: NowPlayingItem) => {
   const previousNowPlayingItem = OmniAural.state.player.currentNowPlayingItem.value()
   if (
-    previousNowPlayingItem
-    && previousNowPlayingItem.episodeMediaUrl === nowPlayingItem.episodeMediaUrl
-    && nowPlayingItem.clipId && previousNowPlayingItem.clipId !== nowPlayingItem.clipId
+    previousNowPlayingItem &&
+    previousNowPlayingItem.episodeMediaUrl === nowPlayingItem.episodeMediaUrl &&
+    nowPlayingItem.clipId &&
+    previousNowPlayingItem.clipId !== nowPlayingItem.clipId
   ) {
     playerSeekTo(nowPlayingItem.clipStartTime)
     const shouldPlay = true
     await playerLoadNowPlayingItem(nowPlayingItem, shouldPlay)
     const duration = playerGetDuration()
     setClipFlagPositions(nowPlayingItem, duration)
-  } else if (
-    previousNowPlayingItem
-    && previousNowPlayingItem.episodeMediaUrl === nowPlayingItem.episodeMediaUrl
-  ) {
+  } else if (previousNowPlayingItem && previousNowPlayingItem.episodeMediaUrl === nowPlayingItem.episodeMediaUrl) {
     playerCheckIfCurrentlyPlaying() ? playerPause() : playerPlay()
   } else {
     const shouldPlay = true
@@ -213,10 +220,7 @@ export const playerUnmute = () => {
   }
 }
 
-export const playerLoadNowPlayingItem = async (
-  nowPlayingItem: NowPlayingItem,
-  shouldPlay: boolean
-) => {
+export const playerLoadNowPlayingItem = async (nowPlayingItem: NowPlayingItem, shouldPlay: boolean) => {
   try {
     if (!nowPlayingItem) return
     // Save the previous item's playback position to history.
@@ -231,7 +235,7 @@ export const playerLoadNowPlayingItem = async (
     // Clear all remnants of the previous item from state and the player.
     // Do this after the setPlayerItem so there isn't a flash of no content.
     playerClearPreviousItem(nowPlayingItem)
-  
+
     if (!checkIfVideoFileType(nowPlayingItem)) {
       // audioAddNowPlayingItemNextInQueue(item, itemToSetNextInQueue)
     }
@@ -296,9 +300,7 @@ const playerClearItemFromPlayerAPI = (nextNowPlayingItem: NowPlayingItem) => {
 }
 
 const checkIfNowPlayingItemIsAClip = (nowPlayingItem: NowPlayingItem) =>
-  nowPlayingItem.clipStartTime
-    && nowPlayingItem.clipEndTime
-    && !nowPlayingItem.clipIsOfficialChapter
+  nowPlayingItem.clipStartTime && nowPlayingItem.clipEndTime && !nowPlayingItem.clipIsOfficialChapter
 
 export const saveCurrentPlaybackPositionToHistory = async () => {
   const currentNowPlayingItem = OmniAural.state.player.currentNowPlayingItem.value()

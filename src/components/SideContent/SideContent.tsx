@@ -3,9 +3,5 @@ type Props = {
 }
 
 export const SideContent = ({ children }: Props) => {
-  return (
-    <div className='side-content'>
-      {children}
-    </div>
-  )
+  return <div className='side-content'>{children}</div>
 }

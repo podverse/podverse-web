@@ -1,4 +1,4 @@
-import { useTranslation } from "react-i18next"
+import { useTranslation } from 'react-i18next'
 
 export function validateHHMMSSString(hhmmss: string) {
   const regex = new RegExp(
@@ -128,8 +128,14 @@ export const convertSecToHhoursMMinutes = (sec: number) => {
   return result
 }
 
-export const getTimeLabelText = (t: any, mediaFileDuration?: number, episodeDuration?: number,
-  userPlaybackPosition?: number, completed?: boolean, clipTime?: string) => {
+export const getTimeLabelText = (
+  t: any,
+  mediaFileDuration?: number,
+  episodeDuration?: number,
+  userPlaybackPosition?: number,
+  completed?: boolean,
+  clipTime?: string
+) => {
   const hasStartedItem = !!mediaFileDuration
   const totalTime = mediaFileDuration || episodeDuration || 0
   const playedTime = userPlaybackPosition || 0
