@@ -36,16 +36,6 @@
     "test:e2e:suite": "./node_modules/.bin/nightwatch -c __tests__/e2e/conf/suite.conf.js",
     "test:e2e:suite_parallel": "./node_modules/.bin/nightwatch -c __tests__/e2e/conf/suite_parallel.conf.js -e chrome,firefox,ie"
   },
-  "lint-staged": {
-    "pages/**/*.{ts,tsx}": [
-      "eslint .",
-      "git add"
-    ],
-    "src/**/*.{ts,tsx}": [
-      "eslint .",
-      "git add"
-    ]
-  },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "1.2.36",
     "@fortawesome/free-brands-svg-icons": "5.15.4",
@@ -80,6 +70,8 @@
     "eslint": "7.32.0",
     "eslint-config-next": "12.0.4",
     "eslint-config-prettier": "8.3.0",
+    "husky": "7.0.4",
+    "lint-staged": "12.1.2",
     "npm-run-all": "4.1.5",
     "prettier": "2.5.0",
     "typescript": "4.5.2"
