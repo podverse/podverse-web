@@ -95,9 +95,9 @@ export const MediaItemControls = ({
           nowPlayingItem,
           playbackPosition: userPlaybackPosition,
           mediaFileDuration: episodeDuration,
-          forceUpdateOrderDate:false,
-          skipSetNowPlaying:true,
-          completed:true
+          forceUpdateOrderDate: false,
+          skipSetNowPlaying: true,
+          completed: true
         })
       } else if (item.key === _editClip) {
         const shouldPlay = false

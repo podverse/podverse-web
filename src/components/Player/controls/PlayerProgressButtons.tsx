@@ -1,12 +1,19 @@
-import { faPause, faPlay } from "@fortawesome/free-solid-svg-icons"
+import { faPause, faPlay } from '@fortawesome/free-solid-svg-icons'
 import classnames from 'classnames'
 import { useOmniAural } from 'omniaural'
-import { ButtonCircle } from "~/components"
-import { PlayerItemButtons } from "~/components/Player/PlayerItemOptions"
+import { ButtonCircle } from '~/components'
+import { PlayerItemButtons } from '~/components/Player/PlayerItemOptions'
 import { PlayerControlButton } from '~/components/Player/controls/PlayerControlButton'
-import { playerJumpBackward, playerJumpForward, playerJumpMiniBackwards, playerJumpMiniForwards, playerPause,
-  playerPlay, playerPlayNextChapterOrQueueItem,
-  playerPlayPreviousChapterOrReturnToBeginningOfTrack } from "~/services/player/player"
+import {
+  playerJumpBackward,
+  playerJumpForward,
+  playerJumpMiniBackwards,
+  playerJumpMiniForwards,
+  playerPause,
+  playerPlay,
+  playerPlayNextChapterOrQueueItem,
+  playerPlayPreviousChapterOrReturnToBeginningOfTrack
+} from '~/services/player/player'
 
 type Props = {
   hasMiniJump?: boolean
@@ -49,57 +56,36 @@ export const PlayerProgressButtons = ({ hasMiniJump }: Props) => {
   return (
     <div className={container}>
       <div className='top-row'>
-        {
-          !hasMiniJump && (
-            <PlayerControlButton
-              direction="backwards"
-              onClick={_handleTrackPrevious}
-              size="medium"
-              type="skip" />
-          )
-        }
-        <PlayerControlButton
-          direction="backwards"
-          onClick={_handleTimeJumpBackwards}
-          size="medium"
-          type="jump" />
-        {
-          hasMiniJump && (
-            <PlayerControlButton
-              direction="backwards"
-              onClick={_handleTimeJumpMiniBackwards}
-              size="medium"
-              type="mini-jump" />
-          )
-        }
+        {!hasMiniJump && (
+          <PlayerControlButton direction='backwards' onClick={_handleTrackPrevious} size='medium' type='skip' />
+        )}
+        <PlayerControlButton direction='backwards' onClick={_handleTimeJumpBackwards} size='medium' type='jump' />
+        {hasMiniJump && (
+          <PlayerControlButton
+            direction='backwards'
+            onClick={_handleTimeJumpMiniBackwards}
+            size='medium'
+            type='mini-jump'
+          />
+        )}
         <ButtonCircle
           className={playpause}
           faIcon={paused ? faPlay : faPause}
           onClick={_handleTogglePlay}
-          size={"medium"} />
-        {
-          hasMiniJump && (
-            <PlayerControlButton
-              direction="forwards"
-              onClick={_handleTimeJumpMiniForwards}
-              size="medium"
-              type="mini-jump" />
-          )
-        }
-        <PlayerControlButton
-          direction="forwards"
-          onClick={_handleTimeJumpForwards}
-          size="medium"
-          type="jump" />
-        {
-          !hasMiniJump && (
-            <PlayerControlButton
-              direction="forwards"
-              onClick={_handleTrackNext}
-              size="medium"
-              type="skip" />
-          )
-        }
+          size={'medium'}
+        />
+        {hasMiniJump && (
+          <PlayerControlButton
+            direction='forwards'
+            onClick={_handleTimeJumpMiniForwards}
+            size='medium'
+            type='mini-jump'
+          />
+        )}
+        <PlayerControlButton direction='forwards' onClick={_handleTimeJumpForwards} size='medium' type='jump' />
+        {!hasMiniJump && (
+          <PlayerControlButton direction='forwards' onClick={_handleTrackNext} size='medium' type='skip' />
+        )}
       </div>
       <div className='bottom-row'>
         <PlayerItemButtons />

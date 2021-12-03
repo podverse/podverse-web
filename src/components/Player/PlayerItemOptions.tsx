@@ -15,24 +15,22 @@ export const PlayerItemButtons = (props: Props) => {
   return (
     <div className={container}>
       <div className='player-control-button-row'>
-        <PlayerOptionButton
-          onClick={playerNextSpeed}
-          size="small"
-          type="speed">
+        <PlayerOptionButton onClick={playerNextSpeed} size='small' type='speed'>
           {playSpeed}x
         </PlayerOptionButton>
         <PlayerOptionButton
           onClick={() => modalsAddToPlaylistShowOrAlert(currentNowPlayingItem)}
-          size="small"
-          type="add"
-          />
+          size='small'
+          type='add'
+        />
         <PlayerOptionButton
           onClick={() => {
             const userInfo = OmniAural.state.session.userInfo.value()
             userInfo ? OmniAural.makeClipShow() : OmniAural.modalsLoginToAlertShow('make clip')
           }}
-          size="small"
-          type="make-clip" />
+          size='small'
+          type='make-clip'
+        />
       </div>
       {/* <PlayerOptionButton type="share" size="small" /> */}
       <div className='player-control-volume-wrapper'>
@@ -48,11 +46,13 @@ export const PlayerItemButtons = (props: Props) => {
           currentValue={muted ? 0 : volume}
           endVal={100}
           onValueChange={playerSetVolume}
-          startVal={0} />
+          startVal={0}
+        />
         <PlayerOptionButton
           onClick={showFullView ? OmniAural.playerFullViewHide : OmniAural.playerFullViewShow}
-          size="small"
-          type={showFullView ? 'fullscreen-hide' : 'fullscreen-show'} />
+          size='small'
+          type={showFullView ? 'fullscreen-hide' : 'fullscreen-show'}
+        />
       </div>
     </div>
   )

@@ -27,10 +27,10 @@ export const handlePlayAfterClipEndTimeReached = () => {
       */
       addOrUpdateHistoryItemOnServer({
         nowPlayingItem: currentNowPlayingItem,
-        playbackPosition:playerGetPosition(),
-        mediaFileDuration:playerGetDuration(),
-        forceUpdateOrderDate:true,
-        skipSetNowPlaying:false
+        playbackPosition: playerGetPosition(),
+        mediaFileDuration: playerGetDuration(),
+        forceUpdateOrderDate: true,
+        skipSetNowPlaying: false
       })
     } else {
       handleSetupClipListener(currentNowPlayingItem.clipEndTime)

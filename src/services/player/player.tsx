@@ -307,8 +307,8 @@ export const saveCurrentPlaybackPositionToHistory = () => {
     nowPlayingItem: OmniAural.state.player.currentNowPlayingItem.value(),
     mediaFileDuration: playerGetDuration(),
     playbackPosition: playerGetPosition(),
-    forceUpdateOrderDate:false,
-    skipSetNowPlaying:false
+    forceUpdateOrderDate: false,
+    skipSetNowPlaying: false
   })
 }
 

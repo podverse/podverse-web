@@ -66,11 +66,11 @@ export const removeHistoryItemMediaRefOnServer = async (mediaRefId?: string, use
 }
 
 type AddUpdateParams = {
-  nowPlayingItem: NowPlayingItem,
-  playbackPosition: number,
-  mediaFileDuration?: number | null,
-  forceUpdateOrderDate?: boolean,
-  skipSetNowPlaying?: boolean,
+  nowPlayingItem: NowPlayingItem
+  playbackPosition: number
+  mediaFileDuration?: number | null
+  forceUpdateOrderDate?: boolean
+  skipSetNowPlaying?: boolean
   completed?: boolean
 }
 
@@ -80,7 +80,8 @@ export const addOrUpdateHistoryItemOnServer = async ({
   mediaFileDuration,
   forceUpdateOrderDate,
   skipSetNowPlaying,
-  completed }: AddUpdateParams) => {
+  completed
+}: AddUpdateParams) => {
   if (!nowPlayingItem) return
 
   const userInfo = OmniAural.state.session.userInfo.value()
