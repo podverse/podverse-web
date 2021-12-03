@@ -29,15 +29,6 @@ export const generateChapterFlagPositions = (
   return generateFlagPositions(flagTimes, duration)
 }
 
-export const setChapterFlagPositions = (
-  chapters: any[],
-  duration: number
-) => {
-  const chapterFlagPositions = generateChapterFlagPositions(chapters, duration)
-  OmniAural.setClipFlagPositions(clipFlagPositions)
-  OmniAural.setHighlightedPositions(clipFlagPositions)
-}
-
 export const generateClipFlagPositions = (
   nowPlayingItem: NowPlayingItem,
   duration: number
