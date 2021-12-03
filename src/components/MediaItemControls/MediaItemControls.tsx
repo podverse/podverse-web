@@ -87,17 +87,15 @@ export const MediaItemControls = ({ buttonSize, episode, hidePubDate, isLoggedIn
         await modalsAddToPlaylistShowOrAlert(nowPlayingItem)
       } else if (item.key === _markAsPlayedKey) {
         const { episodeDuration, userPlaybackPosition } = nowPlayingItem
-        const forceUpdateOrderDate = false
-        const skipSetNowPlaying = true
-        const completed = true
-        addOrUpdateHistoryItemOnServer(
+
+        addOrUpdateHistoryItemOnServer({
           nowPlayingItem,
-          userPlaybackPosition,
-          episodeDuration,
-          forceUpdateOrderDate,
-          skipSetNowPlaying,
-          completed
-        )
+          playbackPosition: userPlaybackPosition,
+          mediaFileDuration: episodeDuration,
+          forceUpdateOrderDate:false,
+          skipSetNowPlaying:true,
+          completed:true
+        })
       } else if (item.key === _editClip) {
         const shouldPlay = false
         playerLoadNowPlayingItem(nowPlayingItem, shouldPlay)

@@ -24,17 +24,13 @@ export const handlePlayAfterClipEndTimeReached = () => {
         Also because we need to add the converted episode version
         of the nowPlayingItem to userHistoryItems.
       */
-      const playbackPosition = playerGetPosition()
-      const duration = playerGetDuration()
-      const forceUpdateOrderDate = true
-      const skipSetNowPlaying = false
-      addOrUpdateHistoryItemOnServer(
-        currentNowPlayingItem,
-        playbackPosition,
-        duration,
-        forceUpdateOrderDate,
-        skipSetNowPlaying
-      )
+      addOrUpdateHistoryItemOnServer({
+        nowPlayingItem: currentNowPlayingItem,
+        playbackPosition:playerGetPosition(),
+        mediaFileDuration:playerGetDuration(),
+        forceUpdateOrderDate:true,
+        skipSetNowPlaying:false
+      })
     } else {
       handleSetupClipListener(currentNowPlayingItem.clipEndTime)
     }
