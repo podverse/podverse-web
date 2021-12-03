@@ -1,6 +1,6 @@
 import OmniAural, { useOmniAural } from 'omniaural'
 import { createRef, useEffect } from 'react'
-import {unstable_batchedUpdates} from "react-dom";
+import { unstable_batchedUpdates } from 'react-dom'
 import PlayerAudio from 'react-h5-audio-player'
 import { retrieveLatestChaptersForEpisodeId } from '~/services/mediaRef'
 import { playerGetDuration, playerUpdateDuration, playerUpdatePlaybackPosition } from '~/services/player/player'
@@ -89,6 +89,7 @@ export const PlayerAPIAudio = (props: Props) => {
       onLoadedMetaData={_onLoadedMetaData}
       onListen={_onListen}
       onSeeked={_onListen}
-      ref={window.playerAudio} />
+      ref={window.playerAudio}
+    />
   )
 }

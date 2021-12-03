@@ -1,7 +1,7 @@
 import { faChevronLeft, faChevronRight, faMoon, faSun, faUserCircle } from '@fortawesome/free-solid-svg-icons'
 import { faUserCircle as faUserCircleRegular } from '@fortawesome/free-regular-svg-icons'
 import { useRouter } from 'next/router'
-import OmniAural, { useOmniAural } from "omniaural"
+import OmniAural, { useOmniAural } from 'omniaural'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useCookies } from 'react-cookie'
@@ -24,7 +24,7 @@ export const HorizontalNavBar = ({ serverCookies }: Props) => {
   const [cookies, setCookie, removeCookie] = useCookies([])
   const router = useRouter()
   const { t } = useTranslation()
-  const [userInfo] = useOmniAural("session.userInfo")
+  const [userInfo] = useOmniAural('session.userInfo')
 
   useEffect(() => {
     if (!lightModeChecked) {
@@ -46,7 +46,7 @@ export const HorizontalNavBar = ({ serverCookies }: Props) => {
   }
 
   const lightModeOnChange = () => {
-    setLightModeChecked(prev => {
+    setLightModeChecked((prev) => {
       document.documentElement.className = !prev ? 'theme-light' : 'theme-dark'
       return !prev
     })
@@ -75,7 +75,7 @@ export const HorizontalNavBar = ({ serverCookies }: Props) => {
     const isLoggedIn = !!OmniAural.state.session.userInfo.value()
     const items = [
       { label: t('Membership'), key: _membershipKey },
-      { label: t('Settings'), key: _settingsKey },
+      { label: t('Settings'), key: _settingsKey }
     ]
 
     if (isLoggedIn) {
@@ -94,22 +94,15 @@ export const HorizontalNavBar = ({ serverCookies }: Props) => {
     <div className='horizontal-navbar-wrapper'>
       <nav className='navbar-secondary main-max-width'>
         <div className='navbar-secondary__page-navs'>
-          <ButtonCircle
-            className='backwards'
-            faIcon={faChevronLeft}
-            onClick={navigateBack}
-            size='small' />
-          <ButtonCircle
-            className='forwards'
-            faIcon={faChevronRight}
-            onClick={navigateForward}
-            size='small' />
+          <ButtonCircle className='backwards' faIcon={faChevronLeft} onClick={navigateBack} size='small' />
+          <ButtonCircle className='forwards' faIcon={faChevronRight} onClick={navigateForward} size='small' />
         </div>
         <div className='navbar-secondary__dropdown'>
           <Dropdown
             faIcon={!!userInfo ? faUserCircle : faUserCircleRegular}
             onChange={onChange}
-            options={dropdownItems} />
+            options={dropdownItems}
+          />
         </div>
         <div className='navbar-secondary__theme-toggle'>
           <SwitchWithIcons
@@ -117,11 +110,10 @@ export const HorizontalNavBar = ({ serverCookies }: Props) => {
             checked={!lightModeChecked}
             faIconBeginning={faSun}
             faIconEnding={faMoon}
-            onChange={lightModeOnChange} />
+            onChange={lightModeOnChange}
+          />
         </div>
       </nav>
     </div>
   )
 }
-
-

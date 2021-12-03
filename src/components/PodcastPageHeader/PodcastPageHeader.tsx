@@ -27,18 +27,12 @@ export const PodcastPageHeader = ({ episode, podcast }: Props) => {
       ? episode.title
       : t('untitledEpisode')
     : podcast.title
-      ? podcast.title
-      : t('untitledPodcast')
-
-  const aboveTitle = episode
     ? podcast.title
-      ? podcast.title 
-      : t('untitledPodcast')
-    : null
+    : t('untitledPodcast')
 
-  const aboveTitleLinkUrl = episode
-    ? `${PV.RoutePaths.web.podcast}/${podcast.id}`
-    : ''
+  const aboveTitle = episode ? (podcast.title ? podcast.title : t('untitledPodcast')) : null
+
+  const aboveTitleLinkUrl = episode ? `${PV.RoutePaths.web.podcast}/${podcast.id}` : ''
 
   const mainTitleLinkUrl = episode
     ? `${PV.RoutePaths.web.episode}/${episode.id}`
@@ -49,8 +43,7 @@ export const PodcastPageHeader = ({ episode, podcast }: Props) => {
   const imageUrl = episode?.imageUrl || getPodcastShrunkImageUrl(podcast)
 
   return (
-    <div
-      className='podcast-page-header'>
+    <div className='podcast-page-header'>
       <div className='main-max-width'>
         <PVImage
           alt={t('Podcast artwork')}
@@ -59,34 +52,23 @@ export const PodcastPageHeader = ({ episode, podcast }: Props) => {
           width={PV.Images.sizes.large}
         />
         <div className='text-wrapper'>
-          {
-            aboveTitle && (
-              <PVLink
-                className='above-text'
-                href={aboveTitleLinkUrl}>
-                {aboveTitle}
-              </PVLink>
-            )
-          }
-          <h1>
-            <PVLink href={mainTitleLinkUrl}>
-              {mainTitle}
+          {aboveTitle && (
+            <PVLink className='above-text' href={aboveTitleLinkUrl}>
+              {aboveTitle}
             </PVLink>
+          )}
+          <h1>
+            <PVLink href={mainTitleLinkUrl}>{mainTitle}</PVLink>
           </h1>
-          {
-            hasBelowText && (
-              <div className='below-text'>
-                {authorEls.length > 0 && authorEls}
-                {authorEls.length > 0 && categoryEls.length > 0 && ' • '}
-                {categoryEls.length > 0 && categoryEls}
-              </div>
-            ) 
-          }
+          {hasBelowText && (
+            <div className='below-text'>
+              {authorEls.length > 0 && authorEls}
+              {authorEls.length > 0 && categoryEls.length > 0 && ' • '}
+              {categoryEls.length > 0 && categoryEls}
+            </div>
+          )}
         </div>
-        <ButtonRectangle
-          label={subscribedText}
-          onClick={() => toggleSubscribeToPodcast(id)}
-          type='tertiary' />
+        <ButtonRectangle label={subscribedText} onClick={() => toggleSubscribeToPodcast(id)} type='tertiary' />
       </div>
     </div>
   )

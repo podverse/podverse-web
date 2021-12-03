@@ -1,5 +1,5 @@
 import OmniAural, { useOmniAural } from 'omniaural'
-import { useTranslation } from "react-i18next"
+import { useTranslation } from 'react-i18next'
 import Modal from 'react-modal'
 import { ButtonClose, MakeClipForm } from '~/components'
 
@@ -16,7 +16,8 @@ export const MakeClipModal = (props: Props) => {
       className='make-clip-modal centered'
       isOpen={makeClip.show}
       overlayClassName='make-clip-modal-overlay'
-      onRequestClose={_onRequestClose}>
+      onRequestClose={_onRequestClose}
+    >
       <ButtonClose onClick={_onRequestClose} />
       <MakeClipForm handleCancel={_onRequestClose} />
     </Modal>

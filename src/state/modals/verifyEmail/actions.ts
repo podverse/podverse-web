@@ -1,7 +1,7 @@
-import OmniAural from "omniaural"
+import OmniAural from 'omniaural'
 
 const modalsVerifyEmailEmail = (value: string) => {
-  OmniAural.state.modals.verifyEmail.email.set(value || "")
+  OmniAural.state.modals.verifyEmail.email.set(value || '')
 }
 
 const modalsVerifyEmailHide = () => {
@@ -16,5 +16,5 @@ const modalsVerifyEmailShow = () => {
 OmniAural.addActions({
   modalsVerifyEmailEmail,
   modalsVerifyEmailHide,
-  modalsVerifyEmailShow,
+  modalsVerifyEmailShow
 })

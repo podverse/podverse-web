@@ -1,4 +1,4 @@
-import { PV } from "~/resources"
+import { PV } from '~/resources'
 import { request } from '~/services/request'
 
 export const getEpisodeById = async (id: string) => {
@@ -17,16 +17,24 @@ type EpisodeQueryParams = {
   sort?: string
 }
 
-export const getEpisodesByQuery = async ({ categories, includePodcast, page,
-  podcastIds, searchAllFieldsText, sort }: EpisodeQueryParams) => {
+export const getEpisodesByQuery = async ({
+  categories,
+  includePodcast,
+  page,
+  podcastIds,
+  searchAllFieldsText,
+  sort
+}: EpisodeQueryParams) => {
   const filteredQuery: EpisodeQueryParams = {
     ...(categories ? { categories } : {}),
     ...(includePodcast ? { includePodcast } : {}),
     ...(page ? { page } : { page: 1 }),
     ...(podcastIds ? { podcastId: podcastIds } : {}),
-    ...(searchAllFieldsText ? {
-      searchAllFieldsText: encodeURIComponent(searchAllFieldsText)
-    } : {}),
+    ...(searchAllFieldsText
+      ? {
+          searchAllFieldsText: encodeURIComponent(searchAllFieldsText)
+        }
+      : {}),
     ...(sort ? { sort } : { sort: PV.Filters.sort._mostRecent })
   }
 

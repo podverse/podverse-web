@@ -1,6 +1,6 @@
-import OmniAural from "omniaural"
-import { NowPlayingItem } from "podverse-shared"
-import { convertSecToHHMMSS } from "~/lib/utility/time"
+import OmniAural from 'omniaural'
+import { NowPlayingItem } from 'podverse-shared'
+import { convertSecToHHMMSS } from '~/lib/utility/time'
 
 /* Time parameters should be in hh:mm:ss string format */
 
@@ -71,8 +71,18 @@ const makeClipSuccessModalSetLinkUrl = (url: string) => {
   OmniAural.state.makeClip.successModalLinkUrl.set(url)
 }
 
-OmniAural.addActions({ makeClipClearState, makeClipHide, makeClipSetEndTime,
-  makeClipSetIsPublic, makeClipSetStartTime, makeClipSetTitle, makeClipShow,
-  makeClipSetClipFlagPositions, makeClipSetHighlightedPositions,
-  makeClipSuccessModalHide, makeClipSuccessModalShow, makeClipSuccessModalSetLinkUrl,
-  makeClipShowEditing })
+OmniAural.addActions({
+  makeClipClearState,
+  makeClipHide,
+  makeClipSetEndTime,
+  makeClipSetIsPublic,
+  makeClipSetStartTime,
+  makeClipSetTitle,
+  makeClipShow,
+  makeClipSetClipFlagPositions,
+  makeClipSetHighlightedPositions,
+  makeClipSuccessModalHide,
+  makeClipSuccessModalShow,
+  makeClipSuccessModalSetLinkUrl,
+  makeClipShowEditing
+})

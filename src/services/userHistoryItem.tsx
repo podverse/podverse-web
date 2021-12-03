@@ -1,7 +1,7 @@
 import OmniAural from 'omniaural'
-import { NowPlayingItem } from "podverse-shared"
-import { getAuthCredentialsHeaders } from "~/lib/utility/auth"
-import { PV } from "~/resources"
+import { NowPlayingItem } from 'podverse-shared'
+import { getAuthCredentialsHeaders } from '~/lib/utility/auth'
+import { PV } from '~/resources'
 import { request } from './request'
 import { setNowPlayingItemOnServer } from './userNowPlayingItem'
 
@@ -21,7 +21,7 @@ export const getHistoryItemsFromServer = async (page: number, bearerToken?: stri
     query: {
       page
     },
-    ...(getAuthCredentialsHeaders(bearerToken))
+    ...getAuthCredentialsHeaders(bearerToken)
   })
 
   const { userHistoryItems = [], userHistoryItemsCount = 0 } = response.data
@@ -32,40 +32,34 @@ export const removeHistoryItemsAllOnServer = async () => {
   await request({
     endpoint: '/user-history-item/remove-all',
     method: 'DELETE',
-    ...(getAuthCredentialsHeaders())
+    ...getAuthCredentialsHeaders()
   })
 
   return []
 }
 
-export const removeHistoryItemEpisodeOnServer = async (
-  episodeId?: string,
-  userHistoryItems?: NowPlayingItem[]
-) => {
-  const newUserHistoryItems = userHistoryItems.filter((userHistoryItem: NowPlayingItem) =>
-    userHistoryItem.episodeId != episodeId || userHistoryItem.clipId
+export const removeHistoryItemEpisodeOnServer = async (episodeId?: string, userHistoryItems?: NowPlayingItem[]) => {
+  const newUserHistoryItems = userHistoryItems.filter(
+    (userHistoryItem: NowPlayingItem) => userHistoryItem.episodeId != episodeId || userHistoryItem.clipId
   )
 
   await request({
     endpoint: `/user-history-item/episode/${episodeId}`,
     method: 'DELETE',
-    ...(getAuthCredentialsHeaders())
+    ...getAuthCredentialsHeaders()
   })
 
   return newUserHistoryItems
 }
 
-export const removeHistoryItemMediaRefOnServer = async (
-  mediaRefId?: string,
-  userHistoryItems?: NowPlayingItem[]
-) => {
-  const newUserHistoryItems = userHistoryItems.filter((userHistoryItem: NowPlayingItem) =>
-    userHistoryItem.clipId != mediaRefId
+export const removeHistoryItemMediaRefOnServer = async (mediaRefId?: string, userHistoryItems?: NowPlayingItem[]) => {
+  const newUserHistoryItems = userHistoryItems.filter(
+    (userHistoryItem: NowPlayingItem) => userHistoryItem.clipId != mediaRefId
   )
   await request({
     endpoint: `/user-history-item/mediaRef/${mediaRefId}`,
     method: 'DELETE',
-    ...(getAuthCredentialsHeaders())
+    ...getAuthCredentialsHeaders()
   })
 
   return newUserHistoryItems
@@ -88,7 +82,7 @@ export const addOrUpdateHistoryItemOnServer = async ({
   skipSetNowPlaying,
   completed }: AddUpdateParams) => {
   if (!nowPlayingItem) return
-  
+
   const userInfo = OmniAural.state.session.userInfo.value()
   if (!userInfo) return
 
@@ -105,14 +99,14 @@ export const addOrUpdateHistoryItemOnServer = async ({
   const historyItem = historyItemsIndex.episodes[episodeId]
   const duration = historyItem?.mediaFileDuration
     ? historyItem.mediaFileDuration
-    : (mediaFileDuration || mediaFileDuration === 0)
-      ? Math.floor(mediaFileDuration)
-      : 0
+    : mediaFileDuration || mediaFileDuration === 0
+    ? Math.floor(mediaFileDuration)
+    : 0
 
   await request({
     endpoint: '/user-history-item',
     method: 'PATCH',
-    ...(getAuthCredentialsHeaders()),
+    ...getAuthCredentialsHeaders(),
     body: {
       episodeId: clipId && !clipIsOfficialChapter ? null : episodeId,
       mediaRefId: clipId && !clipIsOfficialChapter ? clipId : null,
@@ -149,7 +143,7 @@ export const getHistoryItemsIndexFromServer = async (bearerToken?: string) => {
     response = (await request({
       endpoint: '/user-history-item/metadata',
       method: 'GET',
-      ...(getAuthCredentialsHeaders(bearerToken))
+      ...getAuthCredentialsHeaders(bearerToken)
     })) as any
   } catch (error) {
     console.log('getHistoryItemsIndexFromServer error', error)
@@ -169,7 +163,6 @@ const generateHistoryItemsIndexDictionary = (historyItems: any[]) => {
     historyItems = []
   }
   for (const historyItem of historyItems) {
-
     if (historyItem.mediaRefId) {
       historyItemsIndex.mediaRefs[historyItem.mediaRefId] = {
         mediaFileDuration: historyItem.mediaFileDuration || historyItem.episodeDuration || null,

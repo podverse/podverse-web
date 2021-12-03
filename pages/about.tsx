@@ -6,12 +6,11 @@ import { ColumnsWrapper, DownloadAppButtons, PageHeader, PageScrollableContent, 
 import { Meta } from '~/components/Meta/Meta'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 
-interface ServerProps extends Page { }
+interface ServerProps extends Page {}
 
 const keyPrefix = 'pages_about'
 
 export default function About(props: ServerProps) {
-
   /* Initialize */
 
   const { t } = useTranslation()
@@ -26,24 +25,23 @@ export default function About(props: ServerProps) {
 
   return (
     <>
-    <Meta
-      description={meta.description}
-      ogDescription={meta.description}
-      ogTitle={meta.title}
-      ogType='website'
-      ogUrl={meta.currentUrl}
-      robotsNoIndex={false}
-      title={meta.title}
-      twitterDescription={meta.description}
-      twitterTitle={meta.title} />
+      <Meta
+        description={meta.description}
+        ogDescription={meta.description}
+        ogTitle={meta.title}
+        ogType='website'
+        ogUrl={meta.currentUrl}
+        robotsNoIndex={false}
+        title={meta.title}
+        twitterDescription={meta.description}
+        twitterTitle={meta.title}
+      />
       <PageHeader text={t('About')} />
       <PageScrollableContent>
         <ColumnsWrapper
           mainColumnChildren={
             <div className='text-page'>
-              <p className='bigger'>
-                Podverse is an open source podcast manager for iOS, Android, and web.
-              </p>
+              <p className='bigger'>Podverse is an open source podcast manager for iOS, Android, and web.</p>
               <label>Free features:</label>
               <ul>
                 <li>Subscribe to podcasts</li>
@@ -62,9 +60,12 @@ export default function About(props: ServerProps) {
                 <li>Subscribe to playlists</li>
               </ul>
               <p>
-                All Podverse software is provided under a free and open source (FOSS) licence.
-                Features that require updating our servers are available only with a Premium membership.
-                Sign up today and get 1 year of Premium for free <span role='img' aria-label='partying face emoji'>🥳</span>
+                All Podverse software is provided under a free and open source (FOSS) licence. Features that require
+                updating our servers are available only with a Premium membership. Sign up today and get 1 year of
+                Premium for free{' '}
+                <span role='img' aria-label='partying face emoji'>
+                  🥳
+                </span>
               </p>
               <DownloadAppButtons />
               <hr />

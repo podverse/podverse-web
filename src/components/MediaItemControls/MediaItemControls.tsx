@@ -1,18 +1,22 @@
-import { faCheck } from "@fortawesome/free-solid-svg-icons"
-import { faEllipsisH, faPause, faPlay } from "@fortawesome/free-solid-svg-icons"
-import classNames from "classnames"
-import OmniAural, { useOmniAural } from "omniaural"
+import { faCheck } from '@fortawesome/free-solid-svg-icons'
+import { faEllipsisH, faPause, faPlay } from '@fortawesome/free-solid-svg-icons'
+import classNames from 'classnames'
+import OmniAural, { useOmniAural } from 'omniaural'
 import type { Episode, MediaRef, NowPlayingItem, Podcast } from 'podverse-shared'
 import { convertToNowPlayingItem } from 'podverse-shared'
-import { useTranslation } from "react-i18next"
-import { readableDate } from "~/lib/utility/date"
-import { convertSecToHhoursMMinutes, getTimeLabelText, readableClipTime } from "~/lib/utility/time"
-import { deleteMediaRef } from "~/services/mediaRef"
-import { playerCheckIfCurrentlyPlayingItem, playerLoadNowPlayingItem, playerTogglePlayOrLoadNowPlayingItem } from "~/services/player/player"
-import { addOrUpdateHistoryItemOnServer } from "~/services/userHistoryItem"
-import { addQueueItemLastOnServer, addQueueItemNextOnServer } from "~/services/userQueueItem"
-import { modalsAddToPlaylistShowOrAlert } from "~/state/modals/addToPlaylist/actions"
-import { ButtonCircle, Dropdown, Icon } from ".."
+import { useTranslation } from 'react-i18next'
+import { readableDate } from '~/lib/utility/date'
+import { convertSecToHhoursMMinutes, getTimeLabelText, readableClipTime } from '~/lib/utility/time'
+import { deleteMediaRef } from '~/services/mediaRef'
+import {
+  playerCheckIfCurrentlyPlayingItem,
+  playerLoadNowPlayingItem,
+  playerTogglePlayOrLoadNowPlayingItem
+} from '~/services/player/player'
+import { addOrUpdateHistoryItemOnServer } from '~/services/userHistoryItem'
+import { addQueueItemLastOnServer, addQueueItemNextOnServer } from '~/services/userQueueItem'
+import { modalsAddToPlaylistShowOrAlert } from '~/state/modals/addToPlaylist/actions'
+import { ButtonCircle, Dropdown, Icon } from '..'
 
 type Props = {
   buttonSize: 'medium' | 'large'
@@ -32,8 +36,15 @@ const _markAsPlayedKey = '_markAsPlayedKey'
 const _editClip = '_editClip'
 const _deleteClip = '_deleteClip'
 
-export const MediaItemControls = ({ buttonSize, episode, hidePubDate, isLoggedInUserMediaRef,
-  mediaRef, stretchMiddleContent, podcast }: Props) => {
+export const MediaItemControls = ({
+  buttonSize,
+  episode,
+  hidePubDate,
+  isLoggedInUserMediaRef,
+  mediaRef,
+  stretchMiddleContent,
+  podcast
+}: Props) => {
   const [userInfo] = useOmniAural('session.userInfo')
   const [player] = useOmniAural('player')
   const [historyItemsIndex] = useOmniAural('historyItemsIndex')
@@ -50,12 +61,7 @@ export const MediaItemControls = ({ buttonSize, episode, hidePubDate, isLoggedIn
 
     const historyItem = historyItemsIndex.episodes[episode.id]
     if (historyItem) {
-      timeInfo = getTimeLabelText(
-        t,
-        historyItem.mediaFileDuration,
-        episode.duration,
-        historyItem.userPlaybackPosition
-      )
+      timeInfo = getTimeLabelText(t, historyItem.mediaFileDuration, episode.duration, historyItem.userPlaybackPosition)
       completed = historyItem.completed
     } else if (episode.duration > 0) {
       timeInfo = convertSecToHhoursMMinutes(episode.duration)
@@ -67,13 +73,10 @@ export const MediaItemControls = ({ buttonSize, episode, hidePubDate, isLoggedIn
     ? convertToNowPlayingItem(mediaRef, episode, podcast)
     : convertToNowPlayingItem(episode, null, podcast)
 
-  const timeWrapperClass = classNames(
-    'time-wrapper',
-    stretchMiddleContent ? 'flex-stretch' : ''
-  )
+  const timeWrapperClass = classNames('time-wrapper', stretchMiddleContent ? 'flex-stretch' : '')
 
   /* Function Helpers */
-  
+
   const onChange = async (selected) => {
     const item = selected[0]
     if (item) {
@@ -140,7 +143,7 @@ export const MediaItemControls = ({ buttonSize, episode, hidePubDate, isLoggedIn
       { label: 'Queue Last', key: _queueLastKey },
       { label: 'Add to Playlist', key: _addToPlaylistKey }
     ]
-    
+
     if (!mediaRef) {
       items.push({ label: 'Mark as Played', key: _markAsPlayedKey })
     }
@@ -154,8 +157,7 @@ export const MediaItemControls = ({ buttonSize, episode, hidePubDate, isLoggedIn
   }
 
   const dropdownItems = generateDropdownItems()
-  const isCurrentlyPlayingItem = playerCheckIfCurrentlyPlayingItem(
-    player.paused, nowPlayingItem)
+  const isCurrentlyPlayingItem = playerCheckIfCurrentlyPlayingItem(player.paused, nowPlayingItem)
   const togglePlayIcon = isCurrentlyPlayingItem ? faPause : faPlay
   const togglePlayClassName = isCurrentlyPlayingItem ? 'pause' : 'play'
 
@@ -165,28 +167,25 @@ export const MediaItemControls = ({ buttonSize, episode, hidePubDate, isLoggedIn
         className={togglePlayClassName}
         faIcon={togglePlayIcon}
         onClick={_handleTogglePlay}
-        size={buttonSize} />
+        size={buttonSize}
+      />
       <div className={timeWrapperClass}>
         {!hidePubDate && <span className='pub-date'>{pubDate}</span>}
         {!!timeInfo && (
           <>
             {!hidePubDate && <span className='time-spacer'> • </span>}
-            {
-              timeRemaining ? (
-                <span className='time-remaining'>{timeRemaining}</span>
-              ) : (
-                <span className='time-info'>{timeInfo}</span>
-              )
-            }
+            {timeRemaining ? (
+              <span className='time-remaining'>{timeRemaining}</span>
+            ) : (
+              <span className='time-info'>{timeInfo}</span>
+            )}
           </>
         )}
-        {
-          completed && (
-            <span className='completed'>
-              <Icon faIcon={faCheck} />
-            </span>
-          )
-        }
+        {completed && (
+          <span className='completed'>
+            <Icon faIcon={faCheck} />
+          </span>
+        )}
       </div>
       <Dropdown
         dropdownWidthClass='width-medium'
@@ -194,7 +193,8 @@ export const MediaItemControls = ({ buttonSize, episode, hidePubDate, isLoggedIn
         hasClipEditButtons={dropdownItems.length > 5}
         hideCaret
         onChange={onChange}
-        options={dropdownItems} />
+        options={dropdownItems}
+      />
     </div>
   )
 }

@@ -10,24 +10,12 @@ type Props = {
   onChange: any
 }
 
-export const SwitchWithIcons = ({ ariaLabel, checked, faIconBeginning, faIconEnding,
-  onChange }: Props) => {
+export const SwitchWithIcons = ({ ariaLabel, checked, faIconBeginning, faIconEnding, onChange }: Props) => {
   return (
     <div className='switch-with-icons-wrapper'>
-      {
-        !!faIconBeginning && (
-          <FontAwesomeIcon className='beginning' icon={faIconBeginning} />
-        )
-      }
-      <Switch
-        ariaLabel={ariaLabel}
-        checked={checked}
-        onChange={onChange} />
-      {
-        !!faIconEnding && (
-          <FontAwesomeIcon className='ending' icon={faIconEnding} />
-        )
-      }
+      {!!faIconBeginning && <FontAwesomeIcon className='beginning' icon={faIconBeginning} />}
+      <Switch ariaLabel={ariaLabel} checked={checked} onChange={onChange} />
+      {!!faIconEnding && <FontAwesomeIcon className='ending' icon={faIconEnding} />}
     </div>
   )
 }

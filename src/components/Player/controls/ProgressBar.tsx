@@ -1,8 +1,8 @@
-import classNames from "classnames"
+import classNames from 'classnames'
 import { useOmniAural } from 'omniaural'
-import { Slider } from "~/components/Slider/Slider"
-import { convertSecToHHMMSS } from "~/lib/utility/time"
-import { playerSeekTo } from "~/services/player/player"
+import { Slider } from '~/components/Slider/Slider'
+import { convertSecToHHMMSS } from '~/lib/utility/time'
+import { playerSeekTo } from '~/services/player/player'
 
 type Props = {
   chapterFlagPositions?: number[]
@@ -11,23 +11,22 @@ type Props = {
   labelsBelow?: boolean
 }
 
-export const ProgressBar = ({ chapterFlagPositions = [], clipFlagPositions = [], 
-  highlightedPositions = [], labelsBelow }: Props) => {
+export const ProgressBar = ({
+  chapterFlagPositions = [],
+  clipFlagPositions = [],
+  highlightedPositions = [],
+  labelsBelow
+}: Props) => {
   const [player] = useOmniAural('player')
   const { duration, playbackPosition } = player
   const currentTimeLabel = convertSecToHHMMSS(playbackPosition)
   const endTimeLabel = convertSecToHHMMSS(duration)
 
-  const barContainer = classNames(
-    "player-bar-container",
-    labelsBelow ? 'has-labels-below' : ''
-  )
-  const bar = classNames("player-bar")
-  const barLabel = classNames("player-bar-label")
+  const barContainer = classNames('player-bar-container', labelsBelow ? 'has-labels-below' : '')
+  const bar = classNames('player-bar')
+  const barLabel = classNames('player-bar-label')
 
-  const flagPositions = clipFlagPositions.length > 0
-    ? clipFlagPositions
-    : chapterFlagPositions
+  const flagPositions = clipFlagPositions.length > 0 ? clipFlagPositions : chapterFlagPositions
 
   const currentTimeElement = <div className={barLabel}>{currentTimeLabel}</div>
   const endTimeElement = <div className={barLabel}>{endTimeLabel}</div>
@@ -42,16 +41,15 @@ export const ProgressBar = ({ chapterFlagPositions = [], clipFlagPositions = [],
         flagPositions={flagPositions}
         highlightedPositions={highlightedPositions}
         onValueChange={playerSeekTo}
-        startVal={0} />
+        startVal={0}
+      />
       {!labelsBelow && endTimeElement}
-      {
-        labelsBelow && (
-          <div className='player-bar-labels-below'>
-            {currentTimeElement}
-            {endTimeElement}
-          </div>
-        )
-      }
+      {labelsBelow && (
+        <div className='player-bar-labels-below'>
+          {currentTimeElement}
+          {endTimeElement}
+        </div>
+      )}
     </div>
   )
 }

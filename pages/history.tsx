@@ -2,14 +2,29 @@ import { GetServerSideProps } from 'next'
 import { useTranslation } from 'next-i18next'
 import OmniAural, { useOmniAural } from 'omniaural'
 import { useEffect, useRef, useState } from 'react'
-import { convertNowPlayingItemToEpisode, convertNowPlayingItemToMediaRef,
-  NowPlayingItem } from 'podverse-shared'
+import { convertNowPlayingItemToEpisode, convertNowPlayingItemToMediaRef, NowPlayingItem } from 'podverse-shared'
 import {
-  ClipListItem, ColumnsWrapper, EpisodeListItem, List, MessageWithAction, Meta, PageHeader, PageScrollableContent,
-  Pagination, scrollToTopOfPageScrollableContent, SideContent } from '~/components'
+  ClipListItem,
+  ColumnsWrapper,
+  EpisodeListItem,
+  List,
+  MessageWithAction,
+  Meta,
+  PageHeader,
+  PageScrollableContent,
+  Pagination,
+  scrollToTopOfPageScrollableContent,
+  SideContent
+} from '~/components'
 import { Page } from '~/lib/utility/page'
 import { PV } from '~/resources'
-import { getHistoryItemsFromServer, getServerSideHistoryItems, removeHistoryItemEpisodeOnServer, removeHistoryItemMediaRefOnServer, removeHistoryItemsAllOnServer } from '~/services/userHistoryItem'
+import {
+  getHistoryItemsFromServer,
+  getServerSideHistoryItems,
+  removeHistoryItemEpisodeOnServer,
+  removeHistoryItemMediaRefOnServer,
+  removeHistoryItemsAllOnServer
+} from '~/services/userHistoryItem'
 import { isNowPlayingItemMediaRef } from '~/lib/utility/typeHelpers'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 
@@ -21,17 +36,17 @@ interface ServerProps extends Page {
 
 const keyPrefix = 'pages_history'
 
-export default function History({ serverFilterPage, serverUserHistoryItems,
-  serverUserHistoryItemsCount}: ServerProps) {
-
+export default function History({
+  serverFilterPage,
+  serverUserHistoryItems,
+  serverUserHistoryItemsCount
+}: ServerProps) {
   /* Initialize */
 
   const { t } = useTranslation()
   const [filterPage, setFilterPage] = useState<number>(serverFilterPage)
-  const [userHistoryItems, setUserHistoryItems] =
-  useState<NowPlayingItem[]>(serverUserHistoryItems)
-  const [userHistoryItemsCount, setUserHistoryItemsCount] =
-  useState<number>(serverUserHistoryItemsCount)
+  const [userHistoryItems, setUserHistoryItems] = useState<NowPlayingItem[]>(serverUserHistoryItems)
+  const [userHistoryItemsCount, setUserHistoryItemsCount] = useState<number>(serverUserHistoryItemsCount)
   const [isEditing, setIsEditing] = useState<boolean>(false)
   const [userInfo] = useOmniAural('session.userInfo')
   const hasEditButton = !!userInfo
@@ -41,13 +56,12 @@ export default function History({ serverFilterPage, serverUserHistoryItems,
   /* useEffects */
 
   useEffect(() => {
-    (async () => {
+    ;(async () => {
       if (initialRender.current) {
-        initialRender.current = false;
+        initialRender.current = false
       } else {
         OmniAural.pageIsLoadingShow()
-        const { userHistoryItems: newUserHistoryItems,
-          userHistoryItemsCount: newUserHistoryItemsCount } =
+        const { userHistoryItems: newUserHistoryItems, userHistoryItemsCount: newUserHistoryItemsCount } =
           await clientQueryUserHistoryItems()
         setUserHistoryItems(newUserHistoryItems)
         setUserHistoryItemsCount(newUserHistoryItemsCount)
@@ -77,14 +91,12 @@ export default function History({ serverFilterPage, serverUserHistoryItems,
   }
 
   const _removeHistoryItemEpisode = async (episodeId: string) => {
-    const newUserHistoryItems =
-      await removeHistoryItemEpisodeOnServer(episodeId, userHistoryItems)
+    const newUserHistoryItems = await removeHistoryItemEpisodeOnServer(episodeId, userHistoryItems)
     setUserHistoryItems(newUserHistoryItems)
   }
 
   const _removeHistoryItemMediaRef = async (mediaRefId: string) => {
-    const newUserHistoryItems =
-      await removeHistoryItemMediaRefOnServer(mediaRefId, userHistoryItems)
+    const newUserHistoryItems = await removeHistoryItemMediaRefOnServer(mediaRefId, userHistoryItems)
     setUserHistoryItems(newUserHistoryItems)
   }
 
@@ -105,7 +117,8 @@ export default function History({ serverFilterPage, serverUserHistoryItems,
             mediaRef={mediaRef as any}
             podcast={mediaRef.episode.podcast as any}
             showImage
-            showRemoveButton={isEditing} />
+            showRemoveButton={isEditing}
+          />
         )
       } else {
         const episode = convertNowPlayingItemToEpisode(historyItem)
@@ -117,7 +130,8 @@ export default function History({ serverFilterPage, serverUserHistoryItems,
             key={`${keyPrefix}-episode-${index}`}
             podcast={episode.podcast as any}
             showImage
-            showRemoveButton={isEditing} />
+            showRemoveButton={isEditing}
+          />
         )
       }
     })
@@ -142,41 +156,42 @@ export default function History({ serverFilterPage, serverUserHistoryItems,
         robotsNoIndex={false}
         title={meta.title}
         twitterDescription={meta.description}
-        twitterTitle={meta.title} />
+        twitterTitle={meta.title}
+      />
       <PageHeader
         isEditing={isEditing}
         handleClearAllButton={_removeHistoryItemsAll}
         handleEditButton={() => setIsEditing(!isEditing)}
         hasEditButton={hasEditButton}
-        text={t('History')} />
+        text={t('History')}
+      />
       <PageScrollableContent noMarginTop>
-        {
-          !userInfo && (
-            <MessageWithAction
+        {!userInfo && (
+          <MessageWithAction
             actionLabel={t('Login')}
             actionOnClick={() => OmniAural.modalsLoginShow()}
-              message={t('LoginToViewYourHistory')}
-             />
-          )
-        }
-        {
-          userInfo && (
-            <>
-              <ColumnsWrapper
-                mainColumnChildren={
-                  <List>{generateHistoryListElements(userHistoryItems)}</List>
-                }
-                sideColumnChildren={<SideContent />}
-              />
-              <Pagination
-                currentPageIndex={filterPage}
-                handlePageNavigate={(newPage) => setFilterPage(newPage)}
-                handlePageNext={() => { if (filterPage + 1 <= pageCount) setFilterPage(filterPage + 1) }}
-                handlePagePrevious={() => { if (filterPage - 1 > 0) setFilterPage(filterPage - 1) }}
-                pageCount={pageCount} />
-            </>
-          )
-        }
+            message={t('LoginToViewYourHistory')}
+          />
+        )}
+        {userInfo && (
+          <>
+            <ColumnsWrapper
+              mainColumnChildren={<List>{generateHistoryListElements(userHistoryItems)}</List>}
+              sideColumnChildren={<SideContent />}
+            />
+            <Pagination
+              currentPageIndex={filterPage}
+              handlePageNavigate={(newPage) => setFilterPage(newPage)}
+              handlePageNext={() => {
+                if (filterPage + 1 <= pageCount) setFilterPage(filterPage + 1)
+              }}
+              handlePagePrevious={() => {
+                if (filterPage - 1 > 0) setFilterPage(filterPage - 1)
+              }}
+              pageCount={pageCount}
+            />
+          </>
+        )}
       </PageScrollableContent>
     </>
   )

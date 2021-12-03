@@ -1,6 +1,6 @@
-import { convertToNowPlayingItem, NowPlayingItem } from "podverse-shared"
-import { getAuthCredentialsHeaders } from "~/lib/utility/auth"
-import { request } from "~/services/request"
+import { convertToNowPlayingItem, NowPlayingItem } from 'podverse-shared'
+import { getAuthCredentialsHeaders } from '~/lib/utility/auth'
+import { request } from '~/services/request'
 
 export const getNowPlayingItemOnServer = async () => {
   let item = null
@@ -8,7 +8,7 @@ export const getNowPlayingItemOnServer = async () => {
     const response = (await request({
       endpoint: '/user-now-playing-item',
       method: 'GET',
-      ...(getAuthCredentialsHeaders())
+      ...getAuthCredentialsHeaders()
     })) as any
 
     const { episode, mediaRef, userPlaybackPosition } = response.data
@@ -43,7 +43,7 @@ export const setNowPlayingItemOnServer = async (item: NowPlayingItem | null, pla
   await request({
     endpoint: '/user-now-playing-item',
     method: 'PATCH',
-    ...(getAuthCredentialsHeaders()),
+    ...getAuthCredentialsHeaders(),
     body
   })
 }
@@ -52,6 +52,6 @@ export const clearNowPlayingItemOnServer = async () => {
   await request({
     endpoint: '/user-now-playing-item',
     method: 'DELETE',
-    ...(getAuthCredentialsHeaders())
+    ...getAuthCredentialsHeaders()
   })
 }

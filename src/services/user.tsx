@@ -1,11 +1,11 @@
-import { getAuthCredentialsHeaders } from "~/lib/utility/auth"
-import { request } from "~/services/request"
+import { getAuthCredentialsHeaders } from '~/lib/utility/auth'
+import { request } from '~/services/request'
 
 export const getPublicUser = async (id: string) => {
   const response = await request({
     endpoint: `/user/${id}`
   })
-  
+
   return response && response.data
 }
 
@@ -27,8 +27,8 @@ export const updateLoggedInUser = async (data: any) => {
   const response = await request({
     endpoint: '/user',
     method: 'PATCH',
-    ...(getAuthCredentialsHeaders()),
-    body: data,
+    ...getAuthCredentialsHeaders(),
+    body: data
   })
 
   const user = response?.data || {}
@@ -38,7 +38,7 @@ export const updateLoggedInUser = async (data: any) => {
 export const toggleSubscribeToUserOnServer = async (id: string) => {
   const response = await request({
     endpoint: `/user/toggle-subscribe/${id}`,
-    ...(getAuthCredentialsHeaders())
+    ...getAuthCredentialsHeaders()
   })
   const subscribedUserIds = (response?.data || []) as string[]
   return subscribedUserIds

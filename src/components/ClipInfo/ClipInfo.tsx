@@ -19,30 +19,22 @@ export const ClipInfo = ({ clip, episode }: Props) => {
   const episodePubDate = readableDate(episode.pubDate)
   const title = getClipTitle(t, clip, episode.title)
 
-  const episodeLinkUrl = episode
-    ? `${PV.RoutePaths.web.episode}/${episode.id}`
-    : ''
+  const episodeLinkUrl = episode ? `${PV.RoutePaths.web.episode}/${episode.id}` : ''
 
   return (
     <div className='clip-info'>
       <div className='episode-title'>
-        <PVLink
-          href={episodeLinkUrl}>
-          {episodeTitle}
-        </PVLink>
+        <PVLink href={episodeLinkUrl}>{episodeTitle}</PVLink>
       </div>
-      <div className='episode-pub-date'>
-        {episodePubDate}
-      </div>
-      <div className='clip-title'>
-        {title}
-      </div>
+      <div className='episode-pub-date'>{episodePubDate}</div>
+      <div className='clip-title'>{title}</div>
       <MediaItemControls
         buttonSize='large'
         episode={episode}
         hidePubDate
         isLoggedInUserMediaRef={userInfo && userInfo.id === clip.owner.id}
-        mediaRef={clip} />
+        mediaRef={clip}
+      />
       <hr />
     </div>
   )

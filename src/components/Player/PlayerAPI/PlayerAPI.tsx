@@ -8,7 +8,5 @@ export const PlayerAPI = (props: Props) => {
     return null
   }
 
-  return (
-    <PlayerAPIAudio />
-  )
+  return <PlayerAPIAudio />
 }

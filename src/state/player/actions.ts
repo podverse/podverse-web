@@ -1,5 +1,5 @@
-import OmniAural from "omniaural"
-import type { MediaRef, NowPlayingItem } from "podverse-shared"
+import OmniAural from 'omniaural'
+import type { MediaRef, NowPlayingItem } from 'podverse-shared'
 
 const togglePlayer = (show: boolean) => {
   OmniAural.state.player.show.set(show)
@@ -71,7 +71,22 @@ const playerFullViewShow = () => {
   OmniAural.state.player.showFullView.set(true)
 }
 
-OmniAural.addActions({ playerFullViewHide, playerFullViewShow, mutePlayer, pausePlayer,
-  playerSetVolume, playPlayer, setChapterFlagPositions, setChapters, setClipHasReachedEnd,
-  setClipFlagPositions, setHighlightedPositions, setPlayerDuration, setPlayerItem,
-  setPlayerPlaybackPosition, setPlaySpeed, togglePlayer, unmutePlayer })
+OmniAural.addActions({
+  playerFullViewHide,
+  playerFullViewShow,
+  mutePlayer,
+  pausePlayer,
+  playerSetVolume,
+  playPlayer,
+  setChapterFlagPositions,
+  setChapters,
+  setClipHasReachedEnd,
+  setClipFlagPositions,
+  setHighlightedPositions,
+  setPlayerDuration,
+  setPlayerItem,
+  setPlayerPlaybackPosition,
+  setPlaySpeed,
+  togglePlayer,
+  unmutePlayer
+})

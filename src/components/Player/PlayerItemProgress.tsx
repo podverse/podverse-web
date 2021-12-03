@@ -1,14 +1,14 @@
-import classnames from "classnames"
+import classnames from 'classnames'
 import { useOmniAural } from 'omniaural'
-import { PlayerProgressButtons } from "./controls/PlayerProgressButtons"
-import { ProgressBar } from "./controls/ProgressBar"
+import { PlayerProgressButtons } from './controls/PlayerProgressButtons'
+import { ProgressBar } from './controls/ProgressBar'
 
 type Props = {}
 
 export const PlayerItemProgress = (props: Props) => {
   const [player] = useOmniAural('player')
   const { chapterFlagPositions, clipFlagPositions, highlightedPositions } = player
-  const container = classnames("player-progress-container")
+  const container = classnames('player-progress-container')
 
   return (
     <div className={container}>
@@ -16,7 +16,8 @@ export const PlayerItemProgress = (props: Props) => {
       <ProgressBar
         chapterFlagPositions={chapterFlagPositions}
         clipFlagPositions={clipFlagPositions}
-        highlightedPositions={highlightedPositions} />
+        highlightedPositions={highlightedPositions}
+      />
     </div>
   )
 }

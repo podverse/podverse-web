@@ -14,17 +14,8 @@ export const EpisodeInfo = ({ episode, includeMediaItemControls = false }: Props
   return (
     <div className='episode-info'>
       <h2>{t('Episode Notes')}</h2>
-      <TruncatedText
-        dangerouslySetInnerHtml
-        lines={3}
-        text={description} />
-      {
-        includeMediaItemControls && (
-          <MediaItemControls
-            buttonSize='large'
-            episode={episode} />
-        )
-      }
+      <TruncatedText dangerouslySetInnerHtml lines={3} text={description} />
+      {includeMediaItemControls && <MediaItemControls buttonSize='large' episode={episode} />}
       <hr />
     </div>
   )

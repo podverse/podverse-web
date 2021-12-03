@@ -3,8 +3,18 @@ import { useTranslation } from 'next-i18next'
 import { useOmniAural } from 'omniaural'
 import type { Episode, MediaRef, User } from 'podverse-shared'
 import { useEffect, useRef, useState } from 'react'
-import { ClipListItem, ColumnsWrapper, EpisodeInfo, List, Meta, PageHeader, PageScrollableContent,
-  Pagination, PodcastPageHeader, SideContent } from '~/components'
+import {
+  ClipListItem,
+  ColumnsWrapper,
+  EpisodeInfo,
+  List,
+  Meta,
+  PageHeader,
+  PageScrollableContent,
+  Pagination,
+  PodcastPageHeader,
+  SideContent
+} from '~/components'
 import { scrollToTopOfPageScrollableContent } from '~/components/PageScrollableContent/PageScrollableContent'
 import { calcListPageCount } from '~/lib/utility/misc'
 import { Page } from '~/lib/utility/page'
@@ -38,9 +48,13 @@ const keyPrefix = 'pages_episode'
     (Initialization, useEffects, Client-Side Queries, Render Helpers).
 */
 
-export default function Episode({ serverClips, serverClipsPageCount, serverEpisode,
-  serverClipsFilterPage, serverClipsFilterSort }: ServerProps) {
-
+export default function Episode({
+  serverClips,
+  serverClipsPageCount,
+  serverEpisode,
+  serverClipsFilterPage,
+  serverClipsFilterSort
+}: ServerProps) {
   /* Initialize */
 
   const { id, podcast } = serverEpisode
@@ -58,9 +72,9 @@ export default function Episode({ serverClips, serverClipsPageCount, serverEpiso
   /* useEffects */
 
   useEffect(() => {
-    (async () => {
+    ;(async () => {
       if (initialRender.current) {
-        initialRender.current = false;
+        initialRender.current = false
       } else {
         const { data } = await clientQueryClips(
           { page: clipsFilterPage, episodeId: id, sort: clipsFilterSort },
@@ -84,10 +98,7 @@ export default function Episode({ serverClips, serverClipsPageCount, serverEpiso
       currentUrl: `${PV.Config.WEB_BASE_URL}${PV.RoutePaths.web.episode}/${serverEpisode.id}`,
       description: serverEpisode.description,
       imageAlt: podcastTitle,
-      imageUrl:
-        serverEpisode.imageUrl
-        || (podcast && podcast.shrunkImageUrl)
-        || (podcast && podcast.imageUrl),
+      imageUrl: serverEpisode.imageUrl || (podcast && podcast.shrunkImageUrl) || (podcast && podcast.imageUrl),
       title: `${serverEpisode.title} - ${podcastTitle}`
     }
   }
@@ -106,17 +117,14 @@ export default function Episode({ serverClips, serverClipsPageCount, serverEpiso
         twitterDescription={meta.description}
         twitterImage={meta.imageUrl}
         twitterImageAlt={meta.imageAlt}
-        twitterTitle={meta.title} />
-      <PodcastPageHeader
-        episode={serverEpisode}
-        podcast={podcast} />
+        twitterTitle={meta.title}
+      />
+      <PodcastPageHeader episode={serverEpisode} podcast={podcast} />
       <PageScrollableContent>
         <ColumnsWrapper
           mainColumnChildren={
             <>
-              <EpisodeInfo
-                episode={serverEpisode}
-                includeMediaItemControls />
+              <EpisodeInfo episode={serverEpisode} includeMediaItemControls />
               <PageHeader
                 isSubHeader
                 sortOnChange={(selectedItems: any[]) => {
@@ -125,10 +133,9 @@ export default function Episode({ serverClips, serverClipsPageCount, serverEpiso
                 }}
                 sortOptions={PV.Filters.dropdownOptions.clip.sort}
                 sortSelected={clipsFilterSort}
-                text={t('Clips')} />
-              <List>
-                {generateClipListElements(clipsListData, serverEpisode, userInfo)}
-              </List>
+                text={t('Clips')}
+              />
+              <List>{generateClipListElements(clipsListData, serverEpisode, userInfo)}</List>
               <Pagination
                 currentPageIndex={clipsFilterPage}
                 handlePageNavigate={(newPage) => {
@@ -146,7 +153,8 @@ export default function Episode({ serverClips, serverClipsPageCount, serverEpiso
                     setFilterState({ clipsFilterPage: newPage, clipsFilterSort })
                   }
                 }}
-                pageCount={clipsPageCount} />
+                pageCount={clipsPageCount}
+              />
             </>
           }
           sideColumnChildren={<SideContent />}
@@ -164,10 +172,7 @@ type ClientQueryClips = {
   sort?: string
 }
 
-const clientQueryClips = async (
-  { episodeId, page, sort }: ClientQueryClips,
-  filterState: FilterState
-) => {
+const clientQueryClips = async ({ episodeId, page, sort }: ClientQueryClips, filterState: FilterState) => {
   const finalQuery = {
     episodeId,
     ...(page ? { page } : { page: filterState.clipsFilterPage }),
@@ -186,7 +191,8 @@ const generateClipListElements = (listItems: MediaRef[], episode: Episode, userI
         isLoggedInUserMediaRef={userInfo && userInfo.id === listItem.owner.id}
         mediaRef={listItem}
         podcast={episode.podcast}
-        key={`${keyPrefix}-${index}`} />
+        key={`${keyPrefix}-${index}`}
+      />
     )
   })
 }
@@ -198,13 +204,13 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { episodeId } = params
 
   const defaultServerProps = await getDefaultServerSideProps(ctx, locale)
-  
+
   const episodeResponse = await getEpisodeById(episodeId as string)
   const serverEpisode = episodeResponse.data
-  
+
   const serverClipsFilterSort = PV.Filters.sort._topPastYear
   const serverClipsFilterPage = 1
-  
+
   const clipsResponse = await getMediaRefsByQuery({
     episodeId,
     sort: serverClipsFilterSort
@@ -212,7 +218,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const [clipsListData, clipsListDataCount] = clipsResponse.data
   const serverClips = clipsListData
   const serverClipsPageCount = calcListPageCount(clipsListDataCount)
-  
+
   const props: ServerProps = {
     ...defaultServerProps,
     serverClips,

@@ -1,5 +1,5 @@
 import { Episode, MediaRef, Podcast } from 'podverse-shared'
-import { PV } from "~/resources"
+import { PV } from '~/resources'
 
 export const calcListPageCount = (itemCount: number) => {
   return Math.ceil(itemCount / PV.Config.QUERY_RESULTS_LIMIT_DEFAULT)

@@ -1,10 +1,12 @@
-import classnames from "classnames"
-import { useOmniAural } from 'omniaural'
-import { ButtonCircle } from "../.."
 import { faPause, faPlay } from "@fortawesome/free-solid-svg-icons"
-import { PlayerControlButton } from "./PlayerControlButton"
-import { playerJumpBackward, playerJumpForward, playerJumpMiniBackwards, playerJumpMiniForwards, playerPause, playerPlay, playerPlayNextChapterOrQueueItem, playerPlayPreviousChapterOrReturnToBeginningOfTrack } from "~/services/player/player"
-import { PlayerItemButtons } from "../PlayerItemOptions"
+import classnames from 'classnames'
+import { useOmniAural } from 'omniaural'
+import { ButtonCircle } from "~/components"
+import { PlayerItemButtons } from "~/components/Player/PlayerItemOptions"
+import { PlayerControlButton } from '~/components/Player/controls/PlayerControlButton'
+import { playerJumpBackward, playerJumpForward, playerJumpMiniBackwards, playerJumpMiniForwards, playerPause,
+  playerPlay, playerPlayNextChapterOrQueueItem,
+  playerPlayPreviousChapterOrReturnToBeginningOfTrack } from "~/services/player/player"
 
 type Props = {
   hasMiniJump?: boolean
@@ -13,8 +15,8 @@ type Props = {
 export const PlayerProgressButtons = ({ hasMiniJump }: Props) => {
   const [player] = useOmniAural('player')
   const { paused } = player
-  const container = classnames("progress-button-container")
-  const playpause = classnames(paused ? "play" : "pause")
+  const container = classnames('progress-button-container')
+  const playpause = classnames(paused ? 'play' : 'pause')
 
   const _handleTrackPrevious = () => {
     playerPlayPreviousChapterOrReturnToBeginningOfTrack()

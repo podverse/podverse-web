@@ -1,16 +1,16 @@
-import classnames from "classnames"
+import classnames from 'classnames'
 import OmniAural, { useOmniAural } from 'omniaural'
-import { PlayerOptionButton } from "./options/PlayerOptionButton"
-import { Slider } from "../Slider/Slider"
-import { playerMute, playerNextSpeed, playerSetVolume, playerUnmute } from "~/services/player/player"
-import { modalsAddToPlaylistShowOrAlert } from "~/state/modals/addToPlaylist/actions"
+import { PlayerOptionButton } from './options/PlayerOptionButton'
+import { Slider } from '../Slider/Slider'
+import { playerMute, playerNextSpeed, playerSetVolume, playerUnmute } from '~/services/player/player'
+import { modalsAddToPlaylistShowOrAlert } from '~/state/modals/addToPlaylist/actions'
 
 type Props = {}
 
 export const PlayerItemButtons = (props: Props) => {
   const [player] = useOmniAural('player')
   const { currentNowPlayingItem, muted, playSpeed, showFullView, volume } = player
-  const container = classnames("player-buttons-container")
+  const container = classnames('player-buttons-container')
 
   return (
     <div className={container}>
@@ -40,8 +40,8 @@ export const PlayerItemButtons = (props: Props) => {
           onClick={() => {
             muted ? playerUnmute() : playerMute()
           }}
-          size="small"
-          type={muted ? "mute" : "unmute"}
+          size='small'
+          type={muted ? 'mute' : 'unmute'}
         />
         <Slider
           className='volume'
