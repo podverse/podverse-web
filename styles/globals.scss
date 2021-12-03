@@ -44,7 +44,6 @@ body {
   .main-max-width {
     max-width: $main-max-width;
     margin: 0 24px;
-    width: 100%;
   }
 
   .no-margin-top {
@@ -237,5 +236,11 @@ body {
     @include themeGen() {
       color: getThemeVal('premiumIsExpired');
     }
+  }
+}
+
+@media (max-width: $media-tablet-xl) {
+  .column {
+    margin-bottom: 44px;
   }
 }

@@ -1,8 +1,7 @@
 .player-item-info-container {
   display: flex;
+  flex: 0 0 28%;
   flex-direction: row;
-  margin-right: 16px;
-  width: 360px;
   
   .player-item-contents {
     align-items: center;
@@ -25,6 +24,7 @@
       .item-info-subtitle {
         font-size: 14px;
         font-weight: $font-weight-bold;
+        @include line-clamp(1);
       
         @include themeGen() {
           color: getThemeVal("textQuaternary");

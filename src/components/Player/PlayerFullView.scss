@@ -70,9 +70,10 @@
     align-self: stretch;
     display: flex;
     flex-direction: column;
-
+    
     a {
       display: inline-block;
+      @include line-clamp(2);
 
       &:hover {
         @include themeGen() {
@@ -85,11 +86,20 @@
       font-size: $text-xl;
       font-weight: $font-weight-bold;
       margin-top: 3px;
+      @include line-clamp(1);
 
       @include themeGen() {
         color: getThemeVal("textQuaternary");
       }
     }
+  }
+
+  .player-item-info-container {
+    flex: 0 0 33%;
+  }
+
+  .player-buttons-container {
+    flex: 0 0 33%;
   }
 
   .player-buttons-wrapper {
@@ -106,6 +116,54 @@
 
     .player-progress-container {
       flex-direction: row;
+      justify-content: center;
+    }
+
+    .progress-button-container {
+      flex: 0 0 34%;
+
+      .bottom-row {
+        display: none;
+      }
     }
   }
+}
+
+@media (max-width: $media-tablet-xl) {
+.player-full-view {
+  padding: 0 32px;
+    .button-close {
+      right: 32px;
+    }
+
+    .player-progress-container {
+      align-items: flex-start;
+
+      > .player-buttons-container {
+        .player-control-button-row {
+          display: none;
+        }
+      }
+    }
+
+    .progress-button-container {
+      display: flex;
+      flex-direction: column;
+
+      .bottom-row {
+        display: flex !important;
+        margin-top: 24px;
+
+        .player-buttons-container {
+          display: flex;
+          justify-content: center;
+          margin-left: 0;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: $media-tablet) {
+
 }

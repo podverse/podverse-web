@@ -64,6 +64,12 @@
     }
   }
 
+  .progress-button-container {
+    .bottom-row {
+      display: none;
+    }
+  }
+
   .make-clip-speed-button {
     display: flex;
     font-size: $text-sm;

@@ -21,3 +21,10 @@
     }
   }
 }
+
+@media (max-width: $media-tablet-xl) {
+  .side-content {
+    margin-left: 32px;
+    width: 220px;
+  }
+}
