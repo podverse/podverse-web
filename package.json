@@ -24,6 +24,7 @@
     "lint": "npm-run-all lint:*",
     "lint:eslint": "eslint --ext .js,.ts,.tsx src/ pages/",
     "lint:ts": "tsc --noEmit",
+    "lint:prettier": "npm run prettier:check",
     "test": "exit 0;",
     "prettier:base": "prettier --parser typescript",
     "prettier:list": "npm run prettier:base -- --list-different \"src/**/*.{ts,tsx}\" \"pages/**/*.{ts,tsx}\"",
