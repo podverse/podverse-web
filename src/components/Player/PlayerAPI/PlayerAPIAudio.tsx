@@ -26,20 +26,15 @@ export const PlayerAPIAudio = (props: Props) => {
     return null
   }
 
-  const _onEnded = async () => {
-    const playbackPosition = 0
-    const mediaFileDuration = playerGetDuration()
-    const forceUpdateOrderDate = false
-    const skipSetNowPlaying = true
-    const completed = true
-    await addOrUpdateHistoryItemOnServer(
-      currentNowPlayingItem,
-      playbackPosition,
-      mediaFileDuration,
-      forceUpdateOrderDate,
-      skipSetNowPlaying,
-      completed
-    )
+  const _onEnded = () => {
+    addOrUpdateHistoryItemOnServer({
+      nowPlayingItem: currentNowPlayingItem,
+      playbackPosition: 0,
+      mediaFileDuration: playerGetDuration(),
+      forceUpdateOrderDate: false,
+      skipSetNowPlaying: true,
+      completed: true
+    })
   }
 
   const _onLoadedMetaData = async () => {
@@ -58,15 +53,14 @@ export const PlayerAPIAudio = (props: Props) => {
     }
 
     const playbackPosition = currentNowPlayingItem.clipStartTime || historyItem?.userPlaybackPosition || 0
-    const forceUpdateOrderDate = true
-    const skipSetNowPlaying = false
-    addOrUpdateHistoryItemOnServer(
-      currentNowPlayingItem,
+
+    addOrUpdateHistoryItemOnServer({
+      nowPlayingItem: currentNowPlayingItem,
       playbackPosition,
-      duration,
-      forceUpdateOrderDate,
-      skipSetNowPlaying
-    )
+      mediaFileDuration: duration,
+      forceUpdateOrderDate: true,
+      skipSetNowPlaying: false
+    })
 
     if (currentNowPlayingItem.episodeChaptersUrl) {
       const data = await retrieveLatestChaptersForEpisodeId(currentNowPlayingItem.episodeId)

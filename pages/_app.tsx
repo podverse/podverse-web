@@ -39,7 +39,14 @@ if (typeof window !== 'undefined') {
 }
 
 function MyApp({ Component, pageProps }) {
-  const { serverHistoryItemsIndex, serverUserInfo, serverUserQueueItems } = pageProps
+  const {
+    serverHistoryItemsIndex = {
+      episodes: {},
+      mediaRefs: {}
+    },
+    serverUserInfo = null,
+    serverUserQueueItems = []
+  } = pageProps
   OmniAural.setUserInfo(serverUserInfo)
   OmniAural.setUserQueueItems(serverUserQueueItems)
   OmniAural.setHistoryItemsIndex(serverHistoryItemsIndex)

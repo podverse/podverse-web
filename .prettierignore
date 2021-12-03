@@ -1,1 +1,3 @@
 *.scss
+
+src/state/initialState.json

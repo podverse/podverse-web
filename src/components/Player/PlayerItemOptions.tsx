@@ -14,24 +14,26 @@ export const PlayerItemButtons = (props: Props) => {
 
   return (
     <div className={container}>
-      <PlayerOptionButton onClick={playerNextSpeed} size='small' type='speed'>
-        {playSpeed}x
-      </PlayerOptionButton>
-      <PlayerOptionButton
-        onClick={() => modalsAddToPlaylistShowOrAlert(currentNowPlayingItem)}
-        size='small'
-        type='add'
-      />
-      <PlayerOptionButton
-        onClick={() => {
-          const userInfo = OmniAural.state.session.userInfo.value()
-          userInfo ? OmniAural.makeClipShow() : OmniAural.modalsLoginToAlertShow('make clip')
-        }}
-        size='small'
-        type='make-clip'
-      />
+      <div className='player-control-button-row'>
+        <PlayerOptionButton onClick={playerNextSpeed} size='small' type='speed'>
+          {playSpeed}x
+        </PlayerOptionButton>
+        <PlayerOptionButton
+          onClick={() => modalsAddToPlaylistShowOrAlert(currentNowPlayingItem)}
+          size='small'
+          type='add'
+        />
+        <PlayerOptionButton
+          onClick={() => {
+            const userInfo = OmniAural.state.session.userInfo.value()
+            userInfo ? OmniAural.makeClipShow() : OmniAural.modalsLoginToAlertShow('make clip')
+          }}
+          size='small'
+          type='make-clip'
+        />
+      </div>
       {/* <PlayerOptionButton type="share" size="small" /> */}
-      <div style={{ marginLeft: 20, display: 'flex', alignItems: 'center' }}>
+      <div className='player-control-volume-wrapper'>
         <PlayerOptionButton
           onClick={() => {
             muted ? playerUnmute() : playerMute()
@@ -46,12 +48,12 @@ export const PlayerItemButtons = (props: Props) => {
           onValueChange={playerSetVolume}
           startVal={0}
         />
+        <PlayerOptionButton
+          onClick={showFullView ? OmniAural.playerFullViewHide : OmniAural.playerFullViewShow}
+          size='small'
+          type={showFullView ? 'fullscreen-hide' : 'fullscreen-show'}
+        />
       </div>
-      <PlayerOptionButton
-        onClick={showFullView ? OmniAural.playerFullViewHide : OmniAural.playerFullViewShow}
-        size='small'
-        type={showFullView ? 'fullscreen-hide' : 'fullscreen-show'}
-      />
     </div>
   )
 }
