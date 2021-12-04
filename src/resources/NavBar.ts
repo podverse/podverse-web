@@ -47,5 +47,3 @@ export const NavBar = {
   generateDropdownItems,
   dropdownOnChange
 }
-
-

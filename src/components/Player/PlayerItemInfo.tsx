@@ -17,11 +17,10 @@ export const PlayerItemInfo = ({ nowPlayingItem }: Props) => {
   const textContainer = classnames('player-item-info-text-container')
   const title = classnames('item-info-title')
   const subtitle = classnames('item-info-subtitle')
-  const titleText =
-    nowPlayingItem.clipId
-      ? getClipTitle(t, nowPlayingItem.clipTitle, nowPlayingItem.episodeTitle)
-      : (nowPlayingItem.episodeTitle || t('untitledEpisode'))
-  const podcastTitleText = nowPlayingItem.podcastTitle || t('untitledPodcast')   
+  const titleText = nowPlayingItem.clipId
+    ? getClipTitle(t, nowPlayingItem.clipTitle, nowPlayingItem.episodeTitle)
+    : nowPlayingItem.episodeTitle || t('untitledEpisode')
+  const podcastTitleText = nowPlayingItem.podcastTitle || t('untitledPodcast')
 
   return (
     <div className={container}>

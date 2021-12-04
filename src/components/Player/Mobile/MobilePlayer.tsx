@@ -12,14 +12,21 @@ type Props = {}
 export const MobilePlayer = (props: Props) => {
   const [player] = useOmniAural('player')
   const { t } = useTranslation()
-  const { chapterFlagPositions, clipFlagPositions, currentNowPlayingItem, duration, highlightedPositions, paused, playbackPosition } = player
+  const {
+    chapterFlagPositions,
+    clipFlagPositions,
+    currentNowPlayingItem,
+    duration,
+    highlightedPositions,
+    paused,
+    playbackPosition
+  } = player
 
   if (!currentNowPlayingItem) return null
 
-  const titleText =
-    currentNowPlayingItem.clipId
-      ? getClipTitle(t, currentNowPlayingItem.clipTitle, currentNowPlayingItem.episodeTitle)
-      : (currentNowPlayingItem.episodeTitle || t('untitledEpisode'))
+  const titleText = currentNowPlayingItem.clipId
+    ? getClipTitle(t, currentNowPlayingItem.clipTitle, currentNowPlayingItem.episodeTitle)
+    : currentNowPlayingItem.episodeTitle || t('untitledEpisode')
   const podcastTitleText = currentNowPlayingItem.podcastTitle || t('untitledPodcast')
 
   const flagPositions = clipFlagPositions.length > 0 ? clipFlagPositions : chapterFlagPositions
@@ -39,12 +46,8 @@ export const MobilePlayer = (props: Props) => {
             src={currentNowPlayingItem.episodeImageUrl || currentNowPlayingItem.podcastImageUrl}
           />
           <div className='text-wrapper'>
-            <div className='title'>
-              {titleText}
-            </div>
-            <div className='podcast-title'>
-              {podcastTitleText}
-            </div>
+            <div className='title'>{titleText}</div>
+            <div className='podcast-title'>{podcastTitleText}</div>
           </div>
         </div>
         <div className='button' onClick={_handleTogglePlay} tabIndex={0}>

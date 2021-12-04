@@ -1,10 +1,10 @@
-import { faBars, faSearch, faUserCircle } from "@fortawesome/free-solid-svg-icons"
+import { faBars, faSearch, faUserCircle } from '@fortawesome/free-solid-svg-icons'
 import { faUserCircle as faUserCircleRegular } from '@fortawesome/free-regular-svg-icons'
-import { useRouter } from "next/router"
+import { useRouter } from 'next/router'
 import { useOmniAural } from 'omniaural'
-import { useTranslation } from "react-i18next"
-import { Dropdown, Icon, NavBarBrand, PVLink } from "~/components"
-import { PV } from "~/resources"
+import { useTranslation } from 'react-i18next'
+import { Dropdown, Icon, NavBarBrand, PVLink } from '~/components'
+import { PV } from '~/resources'
 
 type Props = {}
 

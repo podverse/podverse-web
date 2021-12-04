@@ -7,7 +7,16 @@ import OmniAural from 'omniaural'
 import React, { useEffect } from 'react'
 import { CookiesProvider } from 'react-cookie'
 import Modal from 'react-modal'
-import { MobilePlayer, Modals, NavBar, HorizontalNavBar, Player, PageLoadingOverlay, PlayerAPI, MobileNavBar } from '~/components'
+import {
+  MobilePlayer,
+  Modals,
+  NavBar,
+  HorizontalNavBar,
+  Player,
+  PageLoadingOverlay,
+  PlayerAPI,
+  MobileNavBar
+} from '~/components'
 import '~/state'
 import initialState from '~/state/initialState.json'
 import { playerLoadNowPlayingItem, saveCurrentPlaybackPositionToHistory } from '~/services/player/player'
