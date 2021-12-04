@@ -20,30 +20,39 @@ body {
         display: flex;
         flex-direction: row;
 
-        img {
-          border-radius: $item-border-radius;
-          height: $img-small;
-          margin-right: 9px;
-          width: $img-small;
-        }
-
-        .text-wrapper {
+        .clickable-area {
+          cursor: pointer;
           display: flex;
           flex: 1;
-          flex-direction: column;
-          justify-content: center;
-          
-          .title {
-            font-size: $text-sm;
-            margin-bottom: 1px;
+          flex-direction: row;
+
+          img {
+            border-radius: $item-border-radius;
+            height: $img-small;
+            margin-right: 9px;
+            width: $img-small;
           }
   
-          .podcast-title {
-            font-size: $text-tiny;
-            font-weight: $font-weight-bold;
-
-            @include themeGen() {
-              color: getThemeVal("textQuaternary");
+          .text-wrapper {
+            display: flex;
+            flex: 1;
+            flex-direction: column;
+            justify-content: center;
+            
+            .title {
+              font-size: $text-sm;
+              @include line-clamp(1);
+              margin-bottom: 1px;
+            }
+    
+            .podcast-title {
+              font-size: $text-tiny;
+              font-weight: $font-weight-bold;
+              @include line-clamp(1);
+  
+              @include themeGen() {
+                color: getThemeVal("textQuaternary");
+              }
             }
           }
         }
@@ -53,8 +62,13 @@ body {
           cursor: pointer;
           display: flex;
           justify-content: center;
-          padding: 0 4px;
+          margin-right: -12px;
+          padding: 0 16px;
         }
+      }
+
+      .bottom {
+
       }
     }
   }

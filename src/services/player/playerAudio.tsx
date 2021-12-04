@@ -30,12 +30,12 @@ export const audioGetPosition = () => {
 
 export const audioPause = () => {
   OmniAural.pausePlayer()
-  // PVPlayerAudio.pause()
+  PVPlayerAudio.pause()
 }
 
 export const audioPlay = () => {
   OmniAural.playPlayer()
-  // PVPlayerAudio.play()
+  PVPlayerAudio.play()
 }
 
 export const audioSeekTo = (position: number) => {
