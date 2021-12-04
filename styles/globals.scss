@@ -246,7 +246,7 @@ body {
       margin-bottom: 44px;
     }
   
-    .hide-below-tablet-xl {
+    .hide-below-tablet-xl-max-width {
       display: none;
     }
   }
@@ -258,26 +258,32 @@ body {
       margin: 0 16px;
     }
 
-    .hide-below-tablet {
+    .hide-below-tablet-max-width {
       display: none;
     }
   }
 }
 
 @media (min-width: $media-min-width-laptop) {
-  .hide-above-laptop {
+  .hide-above-laptop-min-width {
     display: none;
   }
 } 
 
 @media (min-width: $media-min-width-tablet-xl) {
-  .hide-above-tablet-xl {
+  .hide-above-tablet-xl-min-width {
     display: none;
   }
 } 
 
 @media (min-width: $media-min-width-tablet) {
-  .hide-above-tablet {
+  .hide-above-tablet-min-width {
     display: none;
   }
 } 
+
+@media (max-width: $media-max-width-tablet) {
+  hr {
+    width: calc(100% + 16px) !important;
+  }
+}

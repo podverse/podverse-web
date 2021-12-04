@@ -1,11 +1,19 @@
 .side-content {
   margin-left: 52px;
   width: 279px;
+
+  hr {
+    display: none;
+  }
 }
 
-@media (max-width: $media-max-width-tablet-xl) {
+@media (max-width: $media-max-width-laptop) {
   .side-content {
     margin-left: 0;
     width: unset;
+
+    hr {
+      display: block;
+    }
   }
 }

@@ -78,7 +78,7 @@ export const PageHeader = ({
           )}
         </div>
       </div>
-      <hr />
+      {!isSubHeader && <hr />}
     </>
   )
 }

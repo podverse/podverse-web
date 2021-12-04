@@ -1,9 +1,7 @@
 @include headerGradientStyle('.episode-page-header');
 
 .episode-page-header {
-  align-items: center;
   display: flex;
-  min-height: 161px;
   padding: 16px 0;
 
   [href] {
@@ -36,7 +34,7 @@
       }
 
       .episode-title {
-        font-size: $text-huge;
+        font-size: $text-xxxl;
         font-weight: $font-weight-light;
         margin-top: 4px;
       }

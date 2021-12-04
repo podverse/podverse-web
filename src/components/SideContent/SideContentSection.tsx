@@ -19,15 +19,17 @@ export const SideContentSection = ({ children, headerText }: Props) => {
   }
 
   return (
-    <div className='side-content-section'>
-      <div className='side-content-header' onClick={_headerOnClick}>
-        <h2>{headerText}</h2>
-        <div className='side-content-header-caret'>
-          <Icon faIcon={caretIcon} />
+    <>
+      <div className='side-content-section'>
+        <div className='side-content-header' onClick={_headerOnClick}>
+          <h2>{headerText}</h2>
+          <div className='side-content-header-caret'>
+            <Icon faIcon={caretIcon} />
+          </div>
         </div>
+        <div className={contentsClass}>{children}</div>
       </div>
-      <div className={contentsClass}>{children}</div>
       <hr />
-    </div>
+    </>
   )
 }

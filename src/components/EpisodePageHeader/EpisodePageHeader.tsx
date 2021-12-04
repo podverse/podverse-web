@@ -50,7 +50,7 @@ export const EpisodePageHeader = ({ episode }: Props) => {
               <PVLink href={episodeTitleLinkUrl}>{episodeTitle}</PVLink>
             </div>
             {hasBelowText && (
-              <div className='sub-labels hide-below-tablet-xl'>
+              <div className='sub-labels hide-below-tablet-xl-max-width'>
                 {authorEls.length > 0 && authorEls}
                 {authorEls.length > 0 && categoryEls.length > 0 && ' • '}
                 {categoryEls.length > 0 && categoryEls}
@@ -64,15 +64,15 @@ export const EpisodePageHeader = ({ episode }: Props) => {
             type='tertiary'
           />
         </div>
-        <div className='bottom-wrapper'>
-          {hasBelowText && (
-            <div className='sub-labels hide-above-laptop'>
+        {hasBelowText && (
+          <div className='bottom-wrapper hide-above-laptop-min-width'>
+            <div className='sub-labels'>
               {authorEls.length > 0 && authorEls}
               {authorEls.length > 0 && categoryEls.length > 0 && ' • '}
               {categoryEls.length > 0 && categoryEls}
             </div>
-          )}
-        </div>
+          </div>
+        )}
       </div>
     </div>
   )

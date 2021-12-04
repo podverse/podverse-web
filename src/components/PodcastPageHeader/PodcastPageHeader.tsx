@@ -26,44 +26,47 @@ export const PodcastPageHeader = ({ podcast }: Props) => {
   const imageUrl = getPodcastShrunkImageUrl(podcast)
 
   return (
-    <div className='podcast-page-header'>
-      <div className='main-max-width'>
-        <div className='top-wrapper'>
-          <PVImage
-            alt={t('Podcast artwork')}
-            height={PV.Images.sizes.xtraLarge}
-            src={imageUrl}
-            width={PV.Images.sizes.xtraLarge}
-          />
-          <div className='text-wrapper'>
-            <div className='podcast-title'>
-              <PVLink href={podcastTitleLinkUrl}>{podcastTitle}</PVLink>
+    <>
+      <div className='podcast-page-header'>
+        <div className='main-max-width'>
+          <div className='top-wrapper'>
+            <PVImage
+              alt={t('Podcast artwork')}
+              height={PV.Images.sizes.xtraLarge}
+              src={imageUrl}
+              width={PV.Images.sizes.xtraLarge}
+            />
+            <div className='text-wrapper'>
+              <div className='podcast-title'>
+                <PVLink href={podcastTitleLinkUrl}>{podcastTitle}</PVLink>
+              </div>
+              {hasBelowText && (
+                <div className='sub-labels hide-below-tablet-xl-max-width'>
+                  {authorEls.length > 0 && authorEls}
+                  {authorEls.length > 0 && categoryEls.length > 0 && ' • '}
+                  {categoryEls.length > 0 && categoryEls}
+                </div>
+              )}
             </div>
-            {hasBelowText && (
-              <div className='sub-labels hide-below-tablet-xl'>
+            <ButtonRectangle
+              className='hide-below-tablet'
+              label={subscribedText}
+              onClick={() => toggleSubscribeToPodcast(id)}
+              type='tertiary'
+            />
+          </div>
+          {hasBelowText && (
+            <div className='bottom-wrapper hide-above-laptop-min-width'>
+              <div className='sub-labels'>
                 {authorEls.length > 0 && authorEls}
                 {authorEls.length > 0 && categoryEls.length > 0 && ' • '}
                 {categoryEls.length > 0 && categoryEls}
               </div>
-            )}
-          </div>
-          <ButtonRectangle
-            className='hide-below-tablet'
-            label={subscribedText}
-            onClick={() => toggleSubscribeToPodcast(id)}
-            type='tertiary'
-          />
-        </div>
-        <div className='bottom-wrapper'>
-          {hasBelowText && (
-            <div className='sub-labels hide-above-laptop'>
-              {authorEls.length > 0 && authorEls}
-              {authorEls.length > 0 && categoryEls.length > 0 && ' • '}
-              {categoryEls.length > 0 && categoryEls}
             </div>
           )}
         </div>
       </div>
-    </div>
+      <hr />
+    </>
   )
 }

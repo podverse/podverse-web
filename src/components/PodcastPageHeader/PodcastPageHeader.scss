@@ -1,9 +1,8 @@
 @include headerGradientStyle('.podcast-page-header');
 
 .podcast-page-header {
-  align-items: center;
   display: flex;
-  min-height: 161px;
+  flex-direction: column;
   padding: 16px 0;
 
   [href] {
