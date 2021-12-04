@@ -2,16 +2,17 @@ import { faPause, faPlay } from '@fortawesome/free-solid-svg-icons'
 import OmniAural, { useOmniAural } from 'omniaural'
 import { useTranslation } from 'react-i18next'
 import { Icon, PVImage } from '~/components'
+import { Slider } from '~/components/Slider/Slider'
 import { getClipTitle } from '~/lib/utility/misc'
 import { PV } from '~/resources'
-import { playerPause, playerPlay } from '~/services/player/player'
+import { playerPause, playerPlay, playerSeekTo } from '~/services/player/player'
 
 type Props = {}
 
 export const MobilePlayer = (props: Props) => {
   const [player] = useOmniAural('player')
   const { t } = useTranslation()
-  const { currentNowPlayingItem, paused } = player
+  const { chapterFlagPositions, clipFlagPositions, currentNowPlayingItem, duration, highlightedPositions, paused, playbackPosition } = player
 
   if (!currentNowPlayingItem) return null
 
@@ -20,6 +21,8 @@ export const MobilePlayer = (props: Props) => {
       ? getClipTitle(t, currentNowPlayingItem.clipTitle, currentNowPlayingItem.episodeTitle)
       : (currentNowPlayingItem.episodeTitle || t('untitledEpisode'))
   const podcastTitleText = currentNowPlayingItem.podcastTitle || t('untitledPodcast')
+
+  const flagPositions = clipFlagPositions.length > 0 ? clipFlagPositions : chapterFlagPositions
 
   const _handleTogglePlay = () => {
     paused ? playerPlay() : playerPause()
@@ -49,7 +52,15 @@ export const MobilePlayer = (props: Props) => {
         </div>
       </div>
       <div className='bottom'>
-        progress
+        <Slider
+          className='mobile-player-bar'
+          currentValue={playbackPosition}
+          endVal={duration}
+          flagPositions={flagPositions}
+          highlightedPositions={highlightedPositions}
+          onValueChange={playerSeekTo}
+          startVal={0}
+        />
       </div>
     </div>
   )

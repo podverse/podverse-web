@@ -9,7 +9,7 @@ body {
       border-top-width: 1px;
       display: block;
       height: 74px;
-      padding: 8px 16px 14px 8px;
+      padding: 0 16px 14px 8px;
   
       @include themeGen() {
         background-color: getThemeVal("backgroundTertiary");
@@ -30,6 +30,7 @@ body {
             border-radius: $item-border-radius;
             height: $img-small;
             margin-right: 9px;
+            padding-top: 8px;
             width: $img-small;
           }
   
@@ -38,11 +39,12 @@ body {
             flex: 1;
             flex-direction: column;
             justify-content: center;
+            padding-top: 8px;
             
             .title {
               font-size: $text-sm;
-              @include line-clamp(1);
               margin-bottom: 1px;
+              @include line-clamp(1);
             }
     
             .podcast-title {
@@ -68,7 +70,7 @@ body {
       }
 
       .bottom {
-
+        margin-top: 10px;
       }
     }
   }

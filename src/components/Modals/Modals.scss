@@ -4,6 +4,7 @@
   position: absolute;
   right: 0;
   top: 0;
+  z-index: 100;
 
   @include themeGen() {
     background-color: getThemeVal('modalTransparentBackground') !important;
