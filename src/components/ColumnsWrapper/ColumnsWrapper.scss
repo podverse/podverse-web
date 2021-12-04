@@ -1,0 +1,17 @@
+.columns-wrapper {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+
+  .columns-wrapper-main {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+  }
+}
+
+@media (max-width: $media-max-width-tablet-xl) {
+  .columns-wrapper {
+    flex-direction: column-reverse;
+  }
+}

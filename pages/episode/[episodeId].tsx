@@ -7,6 +7,7 @@ import {
   ClipListItem,
   ColumnsWrapper,
   EpisodeInfo,
+  EpisodePageHeader,
   List,
   Meta,
   PageHeader,
@@ -119,7 +120,7 @@ export default function Episode({
         twitterImageAlt={meta.imageAlt}
         twitterTitle={meta.title}
       />
-      <PodcastPageHeader episode={serverEpisode} podcast={podcast} />
+      <EpisodePageHeader episode={serverEpisode} />
       <PageScrollableContent>
         <ColumnsWrapper
           mainColumnChildren={

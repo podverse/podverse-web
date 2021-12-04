@@ -129,7 +129,7 @@
   }
 }
 
-@media (max-width: $media-tablet-xl) {
+@media (max-width: $media-max-width-tablet-xl) {
 .player-full-view {
   padding: 0 32px;
     .button-close {
@@ -164,6 +164,6 @@
   }
 }
 
-@media (max-width: $media-tablet) {
+@media (max-width: $media-max-width-tablet) {
 
 }

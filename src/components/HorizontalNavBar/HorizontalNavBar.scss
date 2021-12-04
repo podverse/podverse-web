@@ -43,3 +43,9 @@
     }
   }
 }
+
+@media (max-width: $media-max-width-tablet) {
+  .horizontal-navbar-wrapper {
+    display: none;
+  }
+}

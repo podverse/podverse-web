@@ -9,24 +9,34 @@ import { toggleSubscribeToPodcast } from '~/state/loggedInUserActions'
 import { ButtonRectangle, PVImage, PVLink } from '..'
 
 type Props = {
-  podcast: Podcast
+  episode: Episode
 }
 
-export const PodcastPageHeader = ({ podcast }: Props) => {
+export const EpisodePageHeader = ({ episode }: Props) => {
   const { t } = useTranslation()
   const [userInfo] = useOmniAural('session.userInfo')
+  const { podcast } = episode
   const { authors, categories, id } = podcast
   const authorEls = generateAuthorText(authors)
   const categoryEls = generateCategoryNodes(categories)
   const isSubscribed = userInfo?.subscribedPodcastIds?.includes(id)
   const subscribedText = isSubscribed ? t('Unsubscribe') : t('Subscribe')
+
+  const episodeTitle =
+    episode.title
+      ? episode.title
+      : t('untitledEpisode')
+
   const podcastTitle = podcast.title ? podcast.title : t('untitledPodcast')
   const podcastTitleLinkUrl = `${PV.RoutePaths.web.podcast}/${podcast.id}`
+  const episodeTitleLinkUrl = `${PV.RoutePaths.web.episode}/${episode.id}`
+
   const hasBelowText = authorEls.length || categoryEls.length
-  const imageUrl = getPodcastShrunkImageUrl(podcast)
+
+  const imageUrl = episode?.imageUrl || getPodcastShrunkImageUrl(podcast)
 
   return (
-    <div className='podcast-page-header'>
+    <div className='episode-page-header'>
       <div className='main-max-width'>
         <div className='top-wrapper'>
           <PVImage
@@ -36,8 +46,11 @@ export const PodcastPageHeader = ({ podcast }: Props) => {
             width={PV.Images.sizes.xtraLarge}
           />
           <div className='text-wrapper'>
-            <div className='podcast-title'>
-              <PVLink href={podcastTitleLinkUrl}>{podcastTitle}</PVLink>
+            <PVLink className='podcast-title' href={podcastTitleLinkUrl}>
+              {podcastTitle}
+            </PVLink>
+            <div className='episode-title'>
+              <PVLink href={episodeTitleLinkUrl}>{episodeTitle}</PVLink>
             </div>
             {hasBelowText && (
               <div className='sub-labels hide-below-tablet-xl'>

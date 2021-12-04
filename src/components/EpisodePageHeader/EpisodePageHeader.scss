@@ -1,6 +1,6 @@
-@include headerGradientStyle('.podcast-page-header');
+@include headerGradientStyle('.episode-page-header');
 
-.podcast-page-header {
+.episode-page-header {
   align-items: center;
   display: flex;
   min-height: 161px;
@@ -31,8 +31,14 @@
       padding-right: 16px;
 
       .podcast-title {
+        font-size: $text-xl;
+        font-weight: $font-weight-bold;
+      }
+
+      .episode-title {
         font-size: $text-huge;
         font-weight: $font-weight-light;
+        margin-top: 4px;
       }
 
       .sub-labels {
@@ -53,7 +59,7 @@
 }
 
 @media (max-width: $media-max-width-tablet-xl) {
-  .podcast-page-header {
+  .episode-page-header {
     .top-wrapper {
       .pv-image {
         height: $img-large !important;
@@ -62,7 +68,7 @@
       }
 
       .text-wrapper {
-        .podcast-title {
+        .episode-title {
           font-size: $text-xxxl;
           font-weight: $font-weight-light;
         }

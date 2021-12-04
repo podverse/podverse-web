@@ -14,7 +14,8 @@ import {
   PageScrollableContent,
   Pagination,
   PodcastPageHeader,
-  SideContent
+  SideContent,
+  SideContentSection
 } from '~/components'
 import { scrollToTopOfPageScrollableContent } from '~/components/PageScrollableContent/PageScrollableContent'
 import { calcListPageCount } from '~/lib/utility/misc'
@@ -186,13 +187,13 @@ export default function Podcast({
           }
           sideColumnChildren={
             <SideContent>
-              <h2>{t('About')}</h2>
-              <div
-                className='text'
-                dangerouslySetInnerHTML={{
-                  __html: sanitizeTextHtml(linkifyHtml(serverPodcast.description))
-                }}
-              />
+              <SideContentSection headerText={t('About')}>
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: sanitizeTextHtml(linkifyHtml(serverPodcast.description))
+                  }}
+                />
+              </SideContentSection>
             </SideContent>
           }
         />

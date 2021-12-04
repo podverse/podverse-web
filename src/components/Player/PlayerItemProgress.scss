@@ -16,7 +16,7 @@
   }
 }
 
-@media (max-width: $media-tablet-xl) {
+@media (max-width: $media-max-width-tablet-xl) {
   .progress-button-container {
     display: flex;
     flex-direction: column;

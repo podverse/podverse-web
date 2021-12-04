@@ -20,7 +20,7 @@
   }
 }
 
-@media (max-width: $media-laptop) {
+@media (max-width: $media-max-width-laptop) {
   .player-buttons-container {
     flex-wrap: wrap-reverse;
     justify-content: flex-end;
@@ -31,7 +31,7 @@
   }
 }
 
-@media (max-width: $media-tablet-xl) {
+@media (max-width: $media-max-width-tablet-xl) {
   .player-buttons-container {
     flex-wrap: wrap-reverse;
     justify-content: flex-end;
@@ -42,7 +42,7 @@
   }
 }
 
-@media (max-width: $media-tablet) {
+@media (max-width: $media-max-width-tablet) {
   .player-buttons-container {
     flex-wrap: wrap-reverse;
 

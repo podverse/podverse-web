@@ -1,30 +1,11 @@
 .side-content {
   margin-left: 52px;
   width: 279px;
-
-  h2 {
-    margin-bottom: 8px;
-  }
-
-  .text {
-    font-size: $text-sm;
-    line-height: 19px;
-
-    @include themeGen() {
-      color: getThemeVal('textSecondary');
-    }
-  }
-
-  a {
-    @include themeGen() {
-      color: getThemeVal('textLink');
-    }
-  }
 }
 
-@media (max-width: $media-tablet-xl) {
+@media (max-width: $media-max-width-tablet-xl) {
   .side-content {
-    margin-left: 32px;
-    width: 220px;
+    margin-left: 0;
+    width: unset;
   }
 }
