@@ -1,7 +1,7 @@
-import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons"
-import classNames from "classnames"
-import { useState } from "react"
-import { Icon } from "~/components"
+import { faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons'
+import classNames from 'classnames'
+import { useState } from 'react'
+import { Icon } from '~/components'
 
 type Props = {
   children: any
@@ -12,10 +12,7 @@ export const SideContentSection = ({ children, headerText }: Props) => {
   const [showContent, setShowContent] = useState<boolean>(false)
   const caretIcon = showContent ? faAngleUp : faAngleDown
 
-  const contentsClass = classNames(
-    'side-content-contents',
-    showContent ? '' : 'hide-below-tablet-xl'
-  )
+  const contentsClass = classNames('side-content-contents', showContent ? '' : 'hide-below-tablet-xl')
 
   const _headerOnClick = () => {
     setShowContent(!showContent)
@@ -29,9 +26,7 @@ export const SideContentSection = ({ children, headerText }: Props) => {
           <Icon faIcon={caretIcon} />
         </div>
       </div>
-      <div className={contentsClass}>
-        {children}
-      </div>
+      <div className={contentsClass}>{children}</div>
       <hr />
     </div>
   )

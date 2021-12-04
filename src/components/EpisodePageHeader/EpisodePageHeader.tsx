@@ -22,10 +22,7 @@ export const EpisodePageHeader = ({ episode }: Props) => {
   const isSubscribed = userInfo?.subscribedPodcastIds?.includes(id)
   const subscribedText = isSubscribed ? t('Unsubscribe') : t('Subscribe')
 
-  const episodeTitle =
-    episode.title
-      ? episode.title
-      : t('untitledEpisode')
+  const episodeTitle = episode.title ? episode.title : t('untitledEpisode')
 
   const podcastTitle = podcast.title ? podcast.title : t('untitledPodcast')
   const podcastTitleLinkUrl = `${PV.RoutePaths.web.podcast}/${podcast.id}`
@@ -60,7 +57,12 @@ export const EpisodePageHeader = ({ episode }: Props) => {
               </div>
             )}
           </div>
-          <ButtonRectangle className='hide-below-tablet' label={subscribedText} onClick={() => toggleSubscribeToPodcast(id)} type='tertiary' />
+          <ButtonRectangle
+            className='hide-below-tablet'
+            label={subscribedText}
+            onClick={() => toggleSubscribeToPodcast(id)}
+            type='tertiary'
+          />
         </div>
         <div className='bottom-wrapper'>
           {hasBelowText && (
