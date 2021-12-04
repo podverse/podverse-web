@@ -92,7 +92,7 @@ export default function Profiles({ serverFilterPage, serverUsers, serverUsersCou
         twitterDescription={meta.description}
         twitterTitle={meta.title}
       />
-      <PageHeader text={t('Profiles')} />
+      <PageHeader noMarginBottom text={t('Profiles')} />
       <PageScrollableContent noMarginTop>
         {!userInfo && (
           <MessageWithAction

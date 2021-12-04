@@ -52,87 +52,63 @@ export const PlaylistPageHeader = ({
     }
   }
 
-  /* Render Helpers */
-
-  const generateDropdownItems = () => {
-    const items = [
-      { label: t('Public'), key: PV.Playlists.privacyKeys.public },
-      { label: t('Only with link'), key: PV.Playlists.privacyKeys.onlyWithLink }
-    ]
-
-    return items
-  }
-
-  const dropdownItems = generateDropdownItems()
-
   return (
-    <div className='playlist-page-header'>
-      <div className='main-max-width'>
-        <div className='text-wrapper'>
-          {isEditing ? (
-            <TextInput
-              defaultValue={playlist.title}
-              label={t('Playlist Title')}
-              noMarginOrPadding
-              onChange={handlePlaylistTitleOnChange}
-              onSubmit={handleEditSave}
-              placeholder={t('Playlist Title')}
-              type='text'
-            />
-          ) : (
-            <h1>{title}</h1>
-          )}
-          {!isEditing && <div className='items-count'>{`${t('Items')}: ${itemCount}`}</div>}
-          {!isLoggedInUserPlaylist && <div className='owner-name'>{`${t('Created by')}: ${ownerName}`}</div>}
-        </div>
-        <div className='buttons'>
-          <div className='top-row'>
-            {isLoggedInUserPlaylist && !isEditing && (
-              <ButtonRectangle label={t('Edit')} onClick={handleEditStart} type='tertiary' />
-            )}
-            {!isLoggedInUserPlaylist && (
-              <ButtonRectangle
-                label={subscribedText}
-                onClick={() => {
-                  if (userInfo) {
-                    toggleSubscribeToPlaylistOnServer(playlist.id)
-                  } else {
-                    OmniAural.modalsLoginToAlertShow('subscribe to playlist')
-                  }
-                }}
-                type='tertiary'
+    <>
+      <div className='playlist-page-header'>
+        <div className='main-max-width'>
+          <div className='text-wrapper'>
+            {isEditing ? (
+              <TextInput
+                defaultValue={playlist.title}
+                label={t('Playlist Title')}
+                noMarginOrPadding
+                onChange={handlePlaylistTitleOnChange}
+                onSubmit={handleEditSave}
+                placeholder={t('Playlist Title')}
+                type='text'
               />
+            ) : (
+              <h1>{title}</h1>
             )}
-            {isEditing && (
-              <ButtonRectangle isDanger label={t('Delete')} onClick={handleDeletePlaylistOnServer} type='tertiary' />
+            {!isEditing && <div className='items-count'>{`${t('Items')}: ${itemCount}`}</div>}
+            {!isLoggedInUserPlaylist && <div className='owner-name'>{`${t('Created by')}: ${ownerName}`}</div>}
+          </div>
+          <div className='buttons'>
+            <div className='top-row'>
+              {isLoggedInUserPlaylist && !isEditing && (
+                <ButtonRectangle label={t('Edit')} onClick={handleEditStart} type='tertiary' />
+              )}
+              {!isLoggedInUserPlaylist && (
+                <ButtonRectangle
+                  label={subscribedText}
+                  onClick={() => {
+                    if (userInfo) {
+                      toggleSubscribeToPlaylistOnServer(playlist.id)
+                    } else {
+                      OmniAural.modalsLoginToAlertShow('subscribe to playlist')
+                    }
+                  }}
+                  type='tertiary'
+                />
+              )}
+              {isEditing && (
+                <ButtonRectangle isDanger label={t('Delete')} onClick={handleDeletePlaylistOnServer} type='tertiary' />
+              )}
+            </div>
+            {isLoggedInUserPlaylist && isEditing && (
+              <div className='bottom-row'>
+                {isEditing && (
+                  <>
+                    <ButtonRectangle label={t('Cancel')} onClick={handleEditCancel} type='tertiary' />
+                    <ButtonRectangle label={t('Save')} onClick={handleEditSave} type='tertiary' />
+                  </>
+                )}
+              </div>
             )}
           </div>
-          {isLoggedInUserPlaylist && isEditing && (
-            <div className='bottom-row'>
-              {isEditing && (
-                <>
-                  <ButtonRectangle label={t('Cancel')} onClick={handleEditCancel} type='tertiary' />
-                  <ButtonRectangle label={t('Save')} onClick={handleEditSave} type='tertiary' />
-                </>
-              )}
-              {/* Commenting out since all Playlists are Only with link by default right now.
-                
-                {
-                  isLoggedInUserPlaylist && !isEditing && (
-                    <Dropdown
-                      faIcon={playlist.isPublic ? faGlobe : faLink}
-                      onChange={handleChangeIsPublic}
-                      options={dropdownItems}
-                      selectedKey={playlist.isPublic
-                        ? PV.Playlists.privacyKeys.public
-                        : PV.Playlists.privacyKeys.onlyWithLink
-                      } />
-                  )
-                } */}
-            </div>
-          )}
         </div>
       </div>
-    </div>
+      <hr />
+    </>
   )
 }

@@ -12,7 +12,7 @@ export const SideContentSection = ({ children, headerText }: Props) => {
   const [showContent, setShowContent] = useState<boolean>(false)
   const caretIcon = showContent ? faAngleUp : faAngleDown
 
-  const contentsClass = classNames('side-content-contents', showContent ? '' : 'hide-below-tablet-xl')
+  const contentsClass = classNames('side-content-contents', showContent ? '' : 'hide-below-laptop-max-width')
 
   const _headerOnClick = () => {
     setShowContent(!showContent)

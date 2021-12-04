@@ -158,7 +158,6 @@ export default function Episode({
               />
             </>
           }
-          sideColumnChildren={<SideContent />}
         />
       </PageScrollableContent>
     </>

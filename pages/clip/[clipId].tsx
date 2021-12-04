@@ -140,6 +140,7 @@ export default function Clip({
               <EpisodeInfo episode={episode} />
               <PageHeader
                 isSubHeader
+                noMarginBottom
                 sortOnChange={_handleSortOnChange}
                 sortOptions={PV.Filters.dropdownOptions.clip.sort}
                 sortSelected={clipsFilterSort}
@@ -167,7 +168,6 @@ export default function Clip({
               />
             </>
           }
-          sideColumnChildren={<SideContent />}
         />
       </PageScrollableContent>
     </>

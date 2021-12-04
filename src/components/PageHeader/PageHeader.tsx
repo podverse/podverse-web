@@ -8,6 +8,7 @@ type Props = {
   hasEditButton?: boolean
   isEditing?: boolean
   isSubHeader?: boolean
+  noMarginBottom?: boolean
   primaryOnChange?: any
   primaryOptions?: any[]
   primarySelected?: string
@@ -21,6 +22,7 @@ export const PageHeader = ({
   handleClearAllButton,
   handleEditButton,
   hasEditButton,
+  noMarginBottom,
   isEditing,
   isSubHeader,
   primaryOnChange,
@@ -32,7 +34,15 @@ export const PageHeader = ({
   text
 }: Props) => {
   const { t } = useTranslation()
-  const wrapperClass = classnames('page-header', isSubHeader ? 'sub-header' : '')
+  const wrapperClass = classnames(
+    'page-header',
+    isSubHeader ? 'sub-header' : '',
+    noMarginBottom ? 'no-margin-bottom' : ''
+  )
+  const hrClassName = classnames(
+    'page-header-hr',
+    noMarginBottom ? 'no-margin-bottom' : ''
+  )
   const hasDropdowns = !!(sortOptions?.length || primaryOptions?.length)
   const hasButtons = hasEditButton
 
@@ -78,7 +88,7 @@ export const PageHeader = ({
           )}
         </div>
       </div>
-      {!isSubHeader && <hr />}
+      {!isSubHeader && <hr className={hrClassName} />}
     </>
   )
 }

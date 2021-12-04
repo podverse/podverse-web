@@ -118,7 +118,6 @@ export default function Queue(props: ServerProps) {
         {userInfo && (
           <ColumnsWrapper
             mainColumnChildren={<List>{generateQueueListElements(userQueueItems)}</List>}
-            sideColumnChildren={<SideContent />}
           />
         )}
       </PageScrollableContent>

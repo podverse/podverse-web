@@ -51,6 +51,10 @@ body {
     margin-top: 0 !important;
   }
 
+  .no-margin-bottom {
+    margin-bottom: 0 !important;
+  }
+
   a {
     color: inherit;
     text-decoration: none;
@@ -236,6 +240,22 @@ body {
   .is-expired {
     @include themeGen() {
       color: getThemeVal('premiumIsExpired');
+    }
+  }
+}
+
+@media (max-width: $media-max-width-laptop) {
+  body {
+    .column {
+      margin-bottom: 44px;
+    }
+  
+    .hide-below-laptop-max-width {
+      display: none;
+    }
+
+    .no-margin-top-below-laptop-max-width {
+      margin-top: 0 !important;
     }
   }
 }
