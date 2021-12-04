@@ -46,6 +46,7 @@ export {
 } from './PageScrollableContent/PageScrollableContent'
 export { PayPalButton } from './PayPalButton/PayPalButton'
 export { Player } from './Player/Player'
+export { MobilePlayer } from './Player/Mobile/MobilePlayer'
 export { PlayerAPI } from './Player/PlayerAPI/PlayerAPI'
 export { PlaylistListItem } from './PlaylistListItem/PlaylistListItem'
 export { PlaylistPageHeader } from './PlaylistPageHeader/PlaylistPageHeader'
