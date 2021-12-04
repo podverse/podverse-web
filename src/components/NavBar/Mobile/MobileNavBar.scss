@@ -23,6 +23,11 @@
         cursor: pointer;
         margin: -13px 1px -13px -16px;
         padding: 13px 16px;
+
+        svg {
+          height: 20px;
+          width: unset;
+        }
       }
 
       .navbar__brand {

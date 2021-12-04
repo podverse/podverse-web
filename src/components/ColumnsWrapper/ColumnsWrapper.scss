@@ -10,7 +10,7 @@
   }
 }
 
-@media (max-width: $media-max-width-tablet-xl) {
+@media (max-width: $media-max-width-laptop) {
   .columns-wrapper {
     flex-direction: column-reverse;
   }

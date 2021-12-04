@@ -7,6 +7,7 @@
 
   &.sub-header {
     background-color: transparent;
+    padding: 0;
 
     .main-max-width {
       margin: 0;
@@ -15,14 +16,23 @@
   
   .main-max-width {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
-    margin-bottom: 13px;
+
+    h1 {
+      margin-bottom: 17px;
+    }
+
+    h2 {
+      margin-bottom: 17px;
+    }
 
     .dropdowns {
       display: flex;
+      margin-bottom: 17px;
     }
 
-    .dropdown-primary-wrapper, .dropdown-sort-wrapper {
+    .dropdown-sort-wrapper {
       margin: 0 0 0 8px;
     }
 
@@ -32,6 +42,30 @@
       button {
         margin: 0 0 0 8px;
       }
+    }
+  }
+}
+
+@media (max-width: $media-max-width-tablet) {
+  .page-header {
+    padding: 17px 16px 0 16px;
+
+    .main-max-width {
+      margin: 0;
+      
+      h1 {
+        font-size: $text-xxxl;
+      }
+
+      .dropdowns {
+      align-items: center;
+        .dropdown-primary-wrapper {
+          margin-left: 0;
+        }
+      }
+    }
+
+    hr {
     }
   }
 }
