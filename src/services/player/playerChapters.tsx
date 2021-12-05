@@ -18,6 +18,13 @@ export const handleChapterUpdateInterval = () => {
     const currentNowPlayingItem = OmniAural.state.player.currentNowPlayingItem.value()
     const episode = convertNowPlayingItemToEpisode(currentNowPlayingItem)
     const nowPlayingItem = convertToNowPlayingItem(currentChapter, episode, episode.podcast)
+    
+    /*
+      Set the mediaRef.imageUrl for the chapter as the episodeImageUrl
+      on the nowPlayingItem so that chapter art loads in the Player views.
+    */
+   nowPlayingItem.episodeImageUrl = currentChapter.imageUrl ? currentChapter.imageUrl : nowPlayingItem.episodeImageUrl
+
     if (currentNowPlayingItem.clipId !== nowPlayingItem.clipId) {
       OmniAural.setPlayerItem(nowPlayingItem)
     }
