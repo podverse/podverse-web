@@ -49,21 +49,27 @@ export const PodcastPageHeader = ({ podcast }: Props) => {
               )}
             </div>
             <ButtonRectangle
-              className='hide-below-tablet'
+              className='hide-below-tablet-max-width'
               label={subscribedText}
               onClick={() => toggleSubscribeToPodcast(id)}
               type='tertiary'
             />
           </div>
-          {hasBelowText && (
-            <div className='bottom-wrapper hide-above-laptop-min-width'>
+          <div className='bottom-wrapper hide-above-laptop-min-width'>
+            {hasBelowText && (
               <div className='sub-labels'>
                 {authorEls.length > 0 && authorEls}
                 {authorEls.length > 0 && categoryEls.length > 0 && ' • '}
                 {categoryEls.length > 0 && categoryEls}
               </div>
-            </div>
-          )}
+            )}
+            <ButtonRectangle
+              className='hide-above-tablet-xl-min-width'
+              label={subscribedText}
+              onClick={() => toggleSubscribeToPodcast(id)}
+              type='tertiary'
+            />
+          </div>
         </div>
       </div>
       <hr />

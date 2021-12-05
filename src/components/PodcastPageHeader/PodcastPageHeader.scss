@@ -67,5 +67,20 @@
         }
       }
     }
+    
+    .bottom-wrapper {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+
+      .sub-labels {
+        font-size: $text-sm;
+        line-height: 18px;
+      }
+
+      button {
+        margin-left: 8px;
+      }
+    }
   }
 }

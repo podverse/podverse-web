@@ -47,3 +47,16 @@
     }
   }
 }
+
+@media (max-width: $media-max-width-tablet-xl) {
+  .profile-page-header {
+    h1 {
+      font-size: $text-xxxl;
+      font-weight: $font-weight-light;
+    }
+
+    button {
+      margin-left: 8px;
+    }
+  }
+}

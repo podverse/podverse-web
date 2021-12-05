@@ -29,12 +29,12 @@
       padding-right: 16px;
 
       .podcast-title {
-        font-size: $text-xl;
+        font-size: $text-lg;
         font-weight: $font-weight-bold;
       }
 
       .episode-title {
-        font-size: $text-xxxl;
+        font-size: $text-xxl;
         font-weight: $font-weight-light;
         margin-top: 4px;
       }
@@ -66,10 +66,31 @@
       }
 
       .text-wrapper {
+        padding-right: 0;
+
+        .podcast-title {
+          font-size: $text-lg;
+        }
+
         .episode-title {
-          font-size: $text-xxxl;
+          font-size: $text-xxl;
           font-weight: $font-weight-light;
         }
+      }
+    }
+
+    .bottom-wrapper {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+
+      .sub-labels {
+        font-size: $text-sm;
+        line-height: 18px;
+      }
+
+      button {
+        margin-left: 8px;
       }
     }
   }
