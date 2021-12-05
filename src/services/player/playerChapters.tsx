@@ -1,5 +1,6 @@
 import OmniAural from 'omniaural'
 import { convertNowPlayingItemToEpisode, convertToNowPlayingItem } from 'podverse-shared'
+import { unstable_batchedUpdates } from 'react-dom'
 import { playerGetDuration, playerGetPosition } from './player'
 import { setHighlightedFlagPositionsForChapter } from './playerFlags'
 
@@ -26,7 +27,9 @@ export const handleChapterUpdateInterval = () => {
    nowPlayingItem.episodeImageUrl = currentChapter.imageUrl ? currentChapter.imageUrl : nowPlayingItem.episodeImageUrl
 
     if (currentNowPlayingItem.clipId !== nowPlayingItem.clipId) {
-      OmniAural.setPlayerItem(nowPlayingItem)
+      unstable_batchedUpdates(() => {
+        OmniAural.setPlayerItem(nowPlayingItem)
+      })
     }
 
     const duration = playerGetDuration()

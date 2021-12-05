@@ -1,5 +1,6 @@
 import OmniAural from 'omniaural'
 import { NowPlayingItem } from 'podverse-shared'
+import { unstable_batchedUpdates } from 'react-dom'
 import { getAuthCredentialsHeaders } from '~/lib/utility/auth'
 import { PV } from '~/resources'
 import { request } from './request'
@@ -120,7 +121,9 @@ export const addOrUpdateHistoryItemOnServer = async ({
 
   /* Always regenerate the historyItemsIndex and set on global state after addOrUpdate */
   const newHistoryItemsIndex = await getHistoryItemsIndexFromServer()
-  OmniAural.setHistoryItemsIndex(newHistoryItemsIndex)
+  unstable_batchedUpdates(() => {
+    OmniAural.setHistoryItemsIndex(newHistoryItemsIndex)
+  })
 }
 
 export const getServerSideHistoryItemsIndex = async (cookies: any) => {

@@ -71,6 +71,12 @@ body {
 
       .bottom {
         margin-top: 10px;
+
+        .mobile-player-bar {
+          .flag {
+            top: -8px;
+          }
+        }
       }
     }
   }

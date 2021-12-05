@@ -6,6 +6,7 @@ import { useRouter } from 'next/router'
 import OmniAural from 'omniaural'
 import React, { useEffect } from 'react'
 import { CookiesProvider } from 'react-cookie'
+import { unstable_batchedUpdates } from 'react-dom'
 import Modal from 'react-modal'
 import {
   MobilePlayer,
@@ -75,7 +76,9 @@ function MyApp({ Component, pageProps }) {
       const nowPlayingItem = await getNowPlayingItemOnServer()
       if (nowPlayingItem) {
         const shouldPlay = false
-        playerLoadNowPlayingItem(nowPlayingItem, shouldPlay)
+        unstable_batchedUpdates(() => {
+          playerLoadNowPlayingItem(nowPlayingItem, shouldPlay)
+        })
       }
     })()
   }, [])

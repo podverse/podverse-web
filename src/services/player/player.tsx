@@ -1,5 +1,6 @@
 import OmniAural, { useOmniAural } from 'omniaural'
 import type { NowPlayingItem } from 'podverse-shared'
+import { unstable_batchedUpdates } from 'react-dom'
 import { PV } from '~/resources'
 import { addOrUpdateHistoryItemOnServer } from '../userHistoryItem'
 import { getNextFromQueue, getQueueItemsFromServer } from '../userQueueItem'
@@ -224,13 +225,17 @@ export const playerLoadNowPlayingItem = async (nowPlayingItem: NowPlayingItem, s
   try {
     if (!nowPlayingItem) return
     // Save the previous item's playback position to history.
-    saveCurrentPlaybackPositionToHistory()
+    unstable_batchedUpdates(() => {
+      saveCurrentPlaybackPositionToHistory()
+    })
 
     // Create a variable for the previous item for later.
     const previousNowPlayingItem = OmniAural.state.player.currentNowPlayingItem.value()
 
     // Set the NEW nowPlayingItem on the player state.
-    OmniAural.setPlayerItem(nowPlayingItem)
+    unstable_batchedUpdates(() => {
+      OmniAural.setPlayerItem(nowPlayingItem)
+    })
 
     // Clear all remnants of the previous item from state and the player.
     // Do this after the setPlayerItem so there isn't a flash of no content.
@@ -262,7 +267,9 @@ export const playerLoadNowPlayingItem = async (nowPlayingItem: NowPlayingItem, s
   }
 
   const newUserQueueItems = await getQueueItemsFromServer()
-  OmniAural.setUserQueueItems(newUserQueueItems)
+  unstable_batchedUpdates(() => {
+    OmniAural.setUserQueueItems(newUserQueueItems)
+  })
 }
 
 /* Reset the state, intervals, and  related to the nowPlayingItem in state  */
@@ -273,13 +280,15 @@ const playerClearPreviousItem = (nextNowPlayingItem: NowPlayingItem) => {
 }
 
 const playerClearPreviousItemState = () => {
-  OmniAural.setChapterFlagPositions([])
-  OmniAural.setChapters([])
-  OmniAural.setClipFlagPositions([])
-  OmniAural.setClipHasReachedEnd(false)
-  /* The positions get set in the onLoadedMetaData handler in the PlayerAPIs */
-  OmniAural.setHighlightedPositions([])
-  OmniAural.setPlayerPlaybackPosition(0)
+  unstable_batchedUpdates(() => {
+    OmniAural.setChapterFlagPositions([])
+    OmniAural.setChapters([])
+    OmniAural.setClipFlagPositions([])
+    OmniAural.setClipHasReachedEnd(false)
+    /* The positions get set in the onLoadedMetaData handler in the PlayerAPIs */
+    OmniAural.setHighlightedPositions([])
+    OmniAural.setPlayerPlaybackPosition(0)
+  })
 }
 
 const playerClearTimeIntervals = () => {
