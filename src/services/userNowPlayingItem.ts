@@ -1,9 +1,14 @@
+import OmniAural from 'omniaural'
 import { convertToNowPlayingItem, NowPlayingItem } from 'podverse-shared'
 import { getAuthCredentialsHeaders } from '~/lib/utility/auth'
 import { request } from '~/services/request'
 
 export const getNowPlayingItemOnServer = async () => {
   let item = null
+
+  const userInfo = OmniAural.state.session.userInfo.value()
+  if (!userInfo) return null
+
   try {
     const response = (await request({
       endpoint: '/user-now-playing-item',
