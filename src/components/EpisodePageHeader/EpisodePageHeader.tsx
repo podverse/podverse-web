@@ -82,7 +82,7 @@ export const EpisodePageHeader = ({ episode }: Props) => {
           )}
         </div>
       </div>
-      <hr />
+      {/* <hr /> */}
     </>
   )
 }

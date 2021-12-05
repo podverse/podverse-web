@@ -108,7 +108,7 @@ export const PlaylistPageHeader = ({
           </div>
         </div>
       </div>
-      <hr />
+      {/* <hr /> */}
     </>
   )
 }

@@ -50,6 +50,11 @@
   margin-bottom: 24px;
 }
 
+.page-header-spacer {
+  display: block;
+  height: 24px;
+}
+
 @media (max-width: $media-max-width-tablet) {
   .page-header {
     margin-top: 0;

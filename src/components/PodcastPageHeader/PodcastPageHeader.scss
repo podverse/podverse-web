@@ -74,7 +74,9 @@
       justify-content: space-between;
 
       .sub-labels {
-        font-size: $text-sm;
+        display: flex;
+        align-self: center;
+        font-size: $text-md;
         line-height: 18px;
       }
 

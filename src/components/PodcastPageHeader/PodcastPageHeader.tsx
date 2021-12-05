@@ -49,7 +49,7 @@ export const PodcastPageHeader = ({ podcast }: Props) => {
               )}
             </div>
             <ButtonRectangle
-              className='hide-below-tablet-max-width'
+              className='hide-below-tablet-xl-max-width'
               label={subscribedText}
               onClick={() => toggleSubscribeToPodcast(id)}
               type='tertiary'
@@ -72,7 +72,7 @@ export const PodcastPageHeader = ({ podcast }: Props) => {
           </div>
         </div>
       </div>
-      <hr />
+      {/* <hr /> */}
     </>
   )
 }

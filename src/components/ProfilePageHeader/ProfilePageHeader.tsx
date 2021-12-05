@@ -107,7 +107,7 @@ export const ProfilePageHeader = ({
           </div>
         </div>
       </div>
-      <hr />
+      {/* <hr /> */}
     </>
   )
 }

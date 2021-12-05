@@ -174,6 +174,7 @@ export default function Playlist({ serverPlaylist, serverPlaylistSortedItems }: 
         <ColumnsWrapper
           mainColumnChildren={
             <>
+              <div className='page-header-spacer' />
               <List>{generatePlaylistItemElements(playlistSortedItems)}</List>
             </>
           }
