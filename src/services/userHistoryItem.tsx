@@ -154,7 +154,7 @@ export const getHistoryItemsIndexFromServer = async (bearerToken?: string) => {
   }
 
   const { userHistoryItems } = response.data
-  return userHistoryItems
+  return generateHistoryItemsIndexDictionary(userHistoryItems)
 }
 
 /*
