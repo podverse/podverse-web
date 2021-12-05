@@ -61,12 +61,11 @@ export const MediaItemControls = ({
 
     const historyItem = historyItemsIndex.episodes[episode.id]
     if (historyItem) {
-      timeInfo = getTimeLabelText(t, historyItem.mediaFileDuration, episode.duration, historyItem.userPlaybackPosition)
+      timeInfo = getTimeLabelText(t, historyItem.d, episode.duration, historyItem.p)
       completed = historyItem.completed
     } else if (episode.duration > 0) {
       timeInfo = convertSecToHhoursMMinutes(episode.duration)
     }
-    // timeRemaining
   }
 
   const nowPlayingItem: NowPlayingItem = mediaRef
