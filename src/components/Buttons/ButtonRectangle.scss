@@ -1,15 +1,18 @@
 .button-rectangle {
   align-items: center;
   display: flex;
+  flex: 0 0 auto;
   justify-content: center;
 
   &.primary {
     border-radius: $button-rectangle-radius;
+    font-weight: $font-weight-bold;
     height: 44px;
     min-width: 158px;
     padding: 0 16px;
 
     @include themeGen() {
+      color: getThemeVal('buttonPrimaryText');
       background-color: getThemeVal('buttonPrimaryBackground') !important;
     }
 
@@ -30,6 +33,7 @@
 
   &.secondary {
     border-radius: $button-rectangle-radius;
+    font-weight: $font-weight-bold;
     height: 44px;
     min-width: 158px;
     padding: 0 16px;

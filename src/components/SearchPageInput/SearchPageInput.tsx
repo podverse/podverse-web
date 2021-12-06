@@ -1,8 +1,8 @@
-import { faSearch } from "@fortawesome/free-solid-svg-icons"
+import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import debounce from 'debounce'
-import { useCallback } from "react"
-import { useTranslation } from "react-i18next"
-import { TextInput } from "~/components"
+import { useCallback } from 'react'
+import { useTranslation } from 'react-i18next'
+import { TextInput } from '~/components'
 
 type Props = {
   debounceRate?: number
@@ -11,8 +11,7 @@ type Props = {
   placeholder: string
 }
 
-export const SearchPageInput = ({ debounceRate = 1000, handleAutoSubmit,
-  label, placeholder }: Props) => {
+export const SearchPageInput = ({ debounceRate = 1000, handleAutoSubmit, label, placeholder }: Props) => {
   const { t } = useTranslation()
   const debouncedHandleAutoSubmit = useCallback(
     debounce((val) => handleAutoSubmit(val, 1), debounceRate),
@@ -28,7 +27,8 @@ export const SearchPageInput = ({ debounceRate = 1000, handleAutoSubmit,
           label={label}
           onChange={(value) => debouncedHandleAutoSubmit(value, 1)}
           placeholder={placeholder}
-          type='text' />
+          type='text'
+        />
       </div>
     </div>
   )

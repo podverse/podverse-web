@@ -1,11 +1,4 @@
 .podcast-list-item {
-
-  &:first-child {
-    a {
-      margin-top: -22px;
-    }
-  }
-
   a {
     border-radius: $item-border-radius;
     display: flex;
@@ -44,4 +37,8 @@
       }
     }
   }
+}
+
+.podcast-list-item + hr {
+  margin-bottom: 0;
 }

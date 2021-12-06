@@ -5,18 +5,14 @@ import { Icon } from '~/components'
 type Props = {}
 
 export const PageLoadingOverlay = (props: Props) => {
-  const [isLoading] = useOmniAural("page.isLoading")
+  const [isLoading] = useOmniAural('page.isLoading')
   return (
     <>
-      {
-        isLoading && (
-          <div className='page-loading-overlay'>
-            <Icon
-              faIcon={faSpinner}
-              spin />
-          </div>
-        )
-      }
+      {isLoading && (
+        <div className='page-loading-overlay'>
+          <Icon faIcon={faSpinner} spin />
+        </div>
+      )}
     </>
   )
 }

@@ -14,8 +14,7 @@ type PVRequest = {
 }
 
 export const request = async (req: PVRequest) => {
-  const { body, endpoint = '', headers, method = 'GET', opts = {}, query = {},
-    withCredentials } = req
+  const { body, endpoint = '', headers, method = 'GET', opts = {}, query = {}, withCredentials } = req
 
   const queryString = Object.keys(query)
     .map((key) => {
@@ -37,9 +36,6 @@ export const request = async (req: PVRequest) => {
     const response = await axios(axiosRequest)
     return response
   } catch (error) {
-    console.log('error message:', error.message)
-    console.log('error response:', error.response)
-
     throw error
   }
 }

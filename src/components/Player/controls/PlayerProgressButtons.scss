@@ -1,5 +1,29 @@
 .progress-button-container {
+  align-self: stretch;
   display: flex;
-  width: 50%;
-  justify-content: space-evenly;
+  justify-content: center;
+  margin: -1px auto 0 auto;
+
+  .top-row, .bottom-row {
+    display: flex;
+    justify-content: center;
+  }
+
+  .player-progress-button {
+    @include themeGen() {
+      color: getThemeVal("textSecondary");
+    }
+
+    &:first-child, &:last-child {
+      margin: 0px;
+    }
+
+    &:nth-child(2) {
+      margin: 0 18px 0 6px;
+    }
+
+    &:nth-child(4) {
+      margin: 0 6px 0 18px;
+    }
+  }
 }

@@ -1,5 +1,6 @@
 .page-header-tab {
   align-items: center;
+  border-bottom: 8px solid transparent;
   cursor: pointer;
   display: flex;
   font-size: $text-xl;
@@ -10,5 +11,20 @@
     border-bottom: 8px solid $blueBright;
     font-weight: $font-weight-bold;
     padding-top: 8px;
+  }
+}
+
+@media (max-width: $media-max-width-mobile) {
+  .page-header-tab {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    margin: 0;
+    padding: 16px 16px 8px 16px;
+
+    &.active {
+      border-bottom: 8px solid $blueBright;
+      padding-top: 16px;
+    }
   }
 }

@@ -1,6 +1,6 @@
 import { Episode, MediaRef } from 'podverse-shared'
 import { getAuthCredentialsHeaders } from '~/lib/utility/auth'
-import { request } from "~/services/request"
+import { request } from '~/services/request'
 
 export const getServerSideLoggedInUserPlaylistsCombined = async (cookies: any) => {
   let combinedPlaylists = {
@@ -8,8 +8,7 @@ export const getServerSideLoggedInUserPlaylistsCombined = async (cookies: any) =
     subscribedPlaylists: []
   }
   if (cookies.Authorization) {
-    combinedPlaylists =
-      await getLoggedInUserPlaylistsCombinedFromServer(cookies.Authorization)
+    combinedPlaylists = await getLoggedInUserPlaylistsCombinedFromServer(cookies.Authorization)
   }
   return combinedPlaylists
 }
@@ -17,10 +16,28 @@ export const getServerSideLoggedInUserPlaylistsCombined = async (cookies: any) =
 const getLoggedInUserPlaylistsCombinedFromServer = async (bearerToken?: string) => {
   const response = await request({
     endpoint: '/user/playlists/combined',
-    ...(getAuthCredentialsHeaders(bearerToken))
+    ...getAuthCredentialsHeaders(bearerToken)
   })
   const { createdPlaylists, subscribedPlaylists } = response.data
   return { createdPlaylists, subscribedPlaylists }
+}
+
+export const getLoggedInUserPlaylists = async () => {
+  const response = await request({
+    endpoint: '/user/playlists',
+    ...getAuthCredentialsHeaders()
+  })
+
+  return response && response.data
+}
+
+export const getUserPlaylists = async (userId: string, page = 1) => {
+  const response = await request({
+    endpoint: `/user/${userId}/playlists`,
+    query: { page }
+  })
+
+  return response && response.data
 }
 
 export const getPlaylist = async (playlistId: string) => {
@@ -31,8 +48,7 @@ export const getPlaylist = async (playlistId: string) => {
   return response && response.data
 }
 
-export const combineAndSortPlaylistItems = (
-  episodes: Episode[], mediaRefs: MediaRef[], itemsOrder: string[]) => {
+export const combineAndSortPlaylistItems = (episodes: Episode[], mediaRefs: MediaRef[], itemsOrder: string[]) => {
   const allPlaylistItems = [...episodes, ...mediaRefs]
   const remainingPlaylistItems = []
 
@@ -59,7 +75,7 @@ export const combineAndSortPlaylistItems = (
 export const toggleSubscribeToPlaylistOnServer = async (playlistId: string) => {
   const response = await request({
     endpoint: `/playlist/toggle-subscribe/${playlistId}`,
-    ...(getAuthCredentialsHeaders())
+    ...getAuthCredentialsHeaders()
   })
 
   return response && response.data
@@ -69,7 +85,7 @@ export const updatePlaylist = async (data: any) => {
   const response = await request({
     endpoint: '/playlist',
     method: 'PATCH',
-    ...(getAuthCredentialsHeaders()),
+    ...getAuthCredentialsHeaders(),
     body: data
   })
 
@@ -80,7 +96,7 @@ export const deletePlaylistOnServer = async (id: string) => {
   const response = await request({
     endpoint: `/playlist/${id}`,
     method: 'DELETE',
-    ...(getAuthCredentialsHeaders())
+    ...getAuthCredentialsHeaders()
   })
 
   return response && response.data
@@ -95,7 +111,7 @@ export const addOrRemovePlaylistItemEpisode = async (playlistId: string, episode
   const response = await request({
     endpoint: '/playlist/add-or-remove',
     method: 'PATCH',
-    ...(getAuthCredentialsHeaders()),
+    ...getAuthCredentialsHeaders(),
     body: data
   })
 
@@ -111,7 +127,18 @@ export const addOrRemovePlaylistItemMediaRef = async (playlistId: string, mediaR
   const response = await request({
     endpoint: '/playlist/add-or-remove',
     method: 'PATCH',
-    ...(getAuthCredentialsHeaders()),
+    ...getAuthCredentialsHeaders(),
+    body: data
+  })
+
+  return response && response.data
+}
+
+export const createPlaylist = async (data: any) => {
+  const response = await request({
+    endpoint: '/playlist',
+    method: 'POST',
+    ...getAuthCredentialsHeaders(),
     body: data
   })
 

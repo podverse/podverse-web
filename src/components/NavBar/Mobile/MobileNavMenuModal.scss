@@ -1,0 +1,43 @@
+.ReactModal__Overlay .ReactModal__Content {
+  &.mobile-nav-menu-modal {
+    height: 100vh;
+    max-height: unset;
+    padding-top: 70px;
+    width: 100vw;
+
+    .button-close {
+      left: 16px;
+      right: unset;
+    }
+
+    .scrollable-content {
+      display: flex;
+      flex-direction: column;
+      
+      hr {
+        margin: 16px 0 24px -24px;
+        width: calc(100% + 48px) !important;
+      }
+
+      .mobile-nav-menu-section-header {
+        display: flex;
+        font-size: $text-sm;
+        font-weight: $font-weight-bold;
+        justify-content: center;
+        margin-bottom: 12px;
+
+        @include themeGen() {
+          color: getThemeVal('textTertiary');
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: $media-min-width-tablet) {
+  .ReactModal__Overlay {
+    &.mobile-nav-menu-modal-overlay {
+      display: none;
+    }
+  }
+}

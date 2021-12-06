@@ -47,6 +47,8 @@ $themes: (
 
     'modalTransparentBackground': $modalBackground,
 
+    'navbarMobileBackground': $blueMenu,
+
     'navItemActiveGradientLight': $blueDusky,
     'navItemActiveGradientDark': $blueDarkSlate,
 
@@ -56,6 +58,9 @@ $themes: (
     'paginationInactiveBackground': $blueBrightOpaqueLighter,
     'paginationInactiveBorder': $grayLight,
     'paginationInactiveText': $grayLight,
+
+    'premiumIsActive': $blueBright,
+    'premiumIsExpired': $redLighter,
 
     'sliderClipIndicator': $blueDarkText,
     'sliderHighlightSection': $blueDarkTextTransparent,
@@ -73,7 +78,8 @@ $themes: (
     'textParagraph': $grayLight,
     'textHover': $grayLight2,
     'textLink': $perrywinkle,
-    'textDanger': $redLighter,
+    'textWarning': $orange,
+    'textDanger': $red,
     'textSuccess': $green,
 
     'textInputBackground': $blueDarkBlueGrey,

@@ -1,9 +1,17 @@
 .clip-info {
-  margin-bottom: 24px;
+  margin: 24px 0 0 0;
   
   .episode-title {
     font-size: $text-xxl;
     margin: 0 0 9px 0;
+
+    [href] {
+      &:hover {
+        @include themeGen() {
+          color: getThemeVal('textSecondary');
+        }
+      }
+    }
   }
 
   .episode-pub-date {
@@ -17,10 +25,16 @@
 
   .clip-title {
     font-size: $text-xxl;
-    margin: 41px 0 16px 0;
+    margin: 32px 0 16px 0;
   }
 
   .media-item-controls {
     margin-bottom: 24px;
+  }
+}
+
+@media (max-width: $media-max-width-tablet) {
+  .clip-info {
+    margin-top: 22px;
   }
 }

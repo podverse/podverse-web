@@ -1,0 +1,33 @@
+@mixin headerGradientStyle($parentClass) {
+  .theme-dark {
+    #{$parentClass} {
+      background-image: linear-gradient(
+        to right,
+        $blueLightNavyLight -3%,
+        $blueDarkBlueGrey
+      );
+    }
+  }
+
+  .theme-light {
+    #{$parentClass} {}
+  }
+}
+
+@mixin navBarLinkGradientStyle() {
+  .theme-dark {
+    .navbar {
+      .navbar__link {
+        &.active {
+          background-image: linear-gradient(
+            to right,
+            $blueDusky -3%,
+            $blueDarkSlate
+          );
+        }
+      }
+    }
+  }
+
+  .theme-light {}
+}

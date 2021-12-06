@@ -10,13 +10,14 @@
   right: 0;
   top: 0;
   width: 100vw;
+  z-index: 1000000;
 
   @include themeGen() {
     color: getThemeVal('textSecondary');
   }
 
   .icon {
-    margin-top: 44px;
+    margin: 44px 0 0 0;
 
     svg {
       height: unset;

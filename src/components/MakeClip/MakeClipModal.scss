@@ -1,0 +1,34 @@
+.ReactModalPortal {
+  .ReactModal__Overlay.make-clip-modal-overlay  {
+    @include blurredBackground();
+
+    .ReactModal__Content.make-clip-modal {
+      padding: 59px 100px 32px 100px;
+      width: 789px;
+      height: 100%;
+      max-height: 636px;
+      
+      @include themeGen() {
+        background-color: getThemeVal('backgroundTertiary') !important;
+      }
+    }
+  }
+}
+
+@media (max-width: $media-max-width-tablet) {
+  .ReactModalPortal {
+    .ReactModal__Overlay.make-clip-modal-overlay  {
+      .ReactModal__Content.make-clip-modal {
+        padding: 59px 32px 32px 32px;
+        max-width: 789px;
+        width: 100%;
+        height: 100%;
+        max-height: 636px;
+        
+        @include themeGen() {
+          background-color: getThemeVal('backgroundTertiary') !important;
+        }
+      }
+    }
+  }
+}

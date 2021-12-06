@@ -1,14 +1,27 @@
-import { ForgotPasswordModal, LoginModal, LoginToAlertModal,
-  SignUpModal, VerifyEmailModal } from "~/components"
+import {
+  AddToPlaylistModal,
+  CheckoutModal,
+  ForgotPasswordModal,
+  LoginModal,
+  LoginToAlertModal,
+  MakeClipModal,
+  SignUpModal,
+  VerifyEmailModal
+} from '~/components'
+import { MakeClipSuccessModal } from '../MakeClip/MakeClipSuccessModal'
 
 type Props = {}
 
 export const Modals = (props: Props) => {
   return (
     <>
+      <AddToPlaylistModal />
+      <CheckoutModal />
       <ForgotPasswordModal />
       <LoginModal />
       <LoginToAlertModal />
+      <MakeClipModal />
+      <MakeClipSuccessModal />
       <SignUpModal />
       <VerifyEmailModal />
     </>

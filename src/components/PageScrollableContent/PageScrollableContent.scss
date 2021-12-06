@@ -1,8 +1,21 @@
 .page-scrollable-content {
+  display: flex;
   flex: 1;
   overflow: scroll;
+  position: relative;
 
   .inner-content {
-    margin: 35px 28px;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    margin: 0 24px;
+  }
+}
+
+@media (max-width: $media-max-width-tablet) {
+  .page-scrollable-content {
+    .inner-content {
+      margin: 0 16px;
+    }
   }
 }
