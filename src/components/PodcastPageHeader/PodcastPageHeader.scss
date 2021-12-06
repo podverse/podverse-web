@@ -74,14 +74,9 @@
       justify-content: space-between;
 
       .sub-labels {
-        display: flex;
         align-self: center;
         font-size: $text-md;
         line-height: 18px;
-
-        span {
-          margin-left: 4px;
-        }
       }
 
       button {
