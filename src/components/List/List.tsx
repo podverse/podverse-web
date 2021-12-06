@@ -1,4 +1,4 @@
-import classNames from "classnames"
+import classNames from 'classnames'
 
 type Props = {
   children: any
@@ -6,9 +6,6 @@ type Props = {
 }
 
 export const List = ({ children, noMarginTop }: Props) => {
-  const listClass = classNames(
-    'list',
-    noMarginTop ? 'no-margin-top' : ''
-  )
+  const listClass = classNames('list', noMarginTop ? 'no-margin-top' : '')
   return <ul className={listClass}>{children}</ul>
 }

@@ -15,11 +15,7 @@ export const MobileNavMenuLink = ({ active, handleHideMenu, href, text }: Props)
   return (
     <PVLink className={wrapperClass} href={href} onClick={handleHideMenu}>
       {text}
-      {
-        active && (
-          <Icon faIcon={faCheck} />
-        )
-      }
+      {active && <Icon faIcon={faCheck} />}
     </PVLink>
   )
 }

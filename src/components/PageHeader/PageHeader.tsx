@@ -39,10 +39,7 @@ export const PageHeader = ({
     isSubHeader ? 'sub-header' : '',
     noMarginBottom ? 'no-margin-bottom' : ''
   )
-  const hrClassName = classnames(
-    'page-header-hr',
-    noMarginBottom ? 'no-margin-bottom' : ''
-  )
+  const hrClassName = classnames('page-header-hr', noMarginBottom ? 'no-margin-bottom' : '')
   const hasDropdowns = !!(sortOptions?.length || primaryOptions?.length)
   const hasButtons = hasEditButton
 

@@ -10,8 +10,7 @@ type Props = {
   noMarginTop?: boolean
 }
 
-export const EpisodeInfo = ({ episode, includeMediaItemControls = false, noMarginBottom,
-  noMarginTop }: Props) => {
+export const EpisodeInfo = ({ episode, includeMediaItemControls = false, noMarginBottom, noMarginTop }: Props) => {
   const { t } = useTranslation()
   const description = episode.description || t('No episode notes available')
   const episodeInfoClassName = classNames(

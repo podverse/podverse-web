@@ -45,9 +45,7 @@ export const MobileNavMenuModal = ({ handleHideMenu, show }: Props) => {
           text={t('Clips')}
         />
         <hr />
-        <div className='mobile-nav-menu-section-header'>
-          {t('My Library')}
-        </div>
+        <div className='mobile-nav-menu-section-header'>{t('My Library')}</div>
         <MobileNavMenuLink
           active={router.pathname == PV.RoutePaths.web.queue}
           handleHideMenu={handleHideMenu}

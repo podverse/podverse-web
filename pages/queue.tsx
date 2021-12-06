@@ -115,11 +115,7 @@ export default function Queue(props: ServerProps) {
             message={t('LoginToViewYourQueue')}
           />
         )}
-        {userInfo && (
-          <ColumnsWrapper
-            mainColumnChildren={<List>{generateQueueListElements(userQueueItems)}</List>}
-          />
-        )}
+        {userInfo && <ColumnsWrapper mainColumnChildren={<List>{generateQueueListElements(userQueueItems)}</List>} />}
       </PageScrollableContent>
     </>
   )

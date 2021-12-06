@@ -175,9 +175,7 @@ export default function History({
         )}
         {userInfo && (
           <>
-            <ColumnsWrapper
-              mainColumnChildren={<List>{generateHistoryListElements(userHistoryItems)}</List>}
-            />
+            <ColumnsWrapper mainColumnChildren={<List>{generateHistoryListElements(userHistoryItems)}</List>} />
             <Pagination
               currentPageIndex={filterPage}
               handlePageNavigate={(newPage) => setFilterPage(newPage)}
