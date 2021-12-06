@@ -1,8 +1,11 @@
 .ReactModal__Overlay .ReactModal__Content {
   &.mobile-nav-menu-modal {
-    height: 100vh;
-    max-height: unset;
+    bottom: 0;
+    left: 0;
+    position: fixed;
     padding-top: 70px;
+    right: 0;
+    top: 0;
     width: 100vw;
 
     .button-close {
