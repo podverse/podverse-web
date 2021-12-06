@@ -5,14 +5,6 @@
   flex-direction: column;
   padding: 16px 0;
 
-  [href] {
-    &:hover {
-      @include themeGen() {
-        color: getThemeVal('textSecondary');
-      }
-    }
-  }
-
   .top-wrapper {
     align-items: center;
     display: flex;
@@ -74,18 +66,25 @@
       justify-content: space-between;
 
       .sub-labels {
-        display: flex;
         align-self: center;
         font-size: $text-md;
         line-height: 18px;
-
-        span {
-          margin-left: 4px;
-        }
       }
 
       button {
         margin-left: 8px;
+      }
+    }
+  }
+}
+
+@media (hover: hover) {
+  .podcast-page-header {
+    [href] {
+      &:hover {
+        @include themeGen() {
+          color: getThemeVal('textSecondary');
+        }
       }
     }
   }

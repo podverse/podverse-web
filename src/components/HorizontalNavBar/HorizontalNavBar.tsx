@@ -36,7 +36,6 @@ export const HorizontalNavBar = ({ serverCookies }: Props) => {
 
   const navigateForward = () => {
     window.history.forward()
-    OmniAural.togglePlayer(!OmniAural.state.player.show.value())
   }
 
   const lightModeOnChange = () => {

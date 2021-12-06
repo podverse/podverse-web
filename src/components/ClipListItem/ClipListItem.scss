@@ -12,14 +12,6 @@
       flex-direction: row;
       margin-bottom: 6px;
   
-      &:hover {
-        cursor: pointer;
-  
-        @include themeGen() {
-          color: getThemeVal('textHover');
-        }
-      }
-  
       img {
         border-radius: $item-border-radius;
         margin-right: 16px;
@@ -53,5 +45,21 @@
     display: flex;
     justify-content: center;
     margin-left: 16px;
+  }
+}
+
+@media (hover: hover) {
+  .clip-list-item {
+    .main-wrapper {
+      .content-wrapper {
+        &:hover {
+          cursor: pointer;
+    
+          @include themeGen() {
+            color: getThemeVal('textHover');
+          }
+        }
+      }
+    }
   }
 }

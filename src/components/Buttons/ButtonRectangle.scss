@@ -16,12 +16,6 @@
       background-color: getThemeVal('buttonPrimaryBackground') !important;
     }
 
-    &:hover {
-      @include themeGen() {
-        background-color: getThemeVal('buttonPrimaryRolloverBackground') !important;
-      }
-    }
-
     &:disabled {
       @include themeGen() {
         background-color: getThemeVal('buttonDisabledBackground') !important;
@@ -41,12 +35,6 @@
     @include themeGen() {
       background-color: getThemeVal('buttonSecondaryBackground') !important;
     }
-
-    &:hover {
-      @include themeGen() {
-        background-color: getThemeVal('buttonSecondaryRolloverBackground') !important;
-      }
-    }
   }
 
   &.tertiary {
@@ -64,24 +52,10 @@
       border-color: getThemeVal('buttonTertiaryBorder') !important;
     }
 
-    &:hover {
-      @include themeGen() {
-        background-color: getThemeVal('buttonTertiaryRolloverBackground') !important;
-        color: getThemeVal('buttonTertiaryTextRollover') !important;
-      }
-    }
-
     &.danger {
       @include themeGen() {
         background-color: getThemeVal('buttonTertiaryDangerBackground') !important;
         border-color: getThemeVal('buttonTertiaryDangerBorder') !important;
-      }
-
-      &:hover {
-        @include themeGen() {
-          background-color: getThemeVal('buttonTertiaryDangerRolloverBackground') !important;
-          color: getThemeVal('buttonTertiaryDangerTextRollover') !important;
-        }
       }
     }
   }
@@ -89,5 +63,40 @@
   .icon svg {
     height: unset;
     width: 22px;
+  }
+}
+
+@media (hover: hover) {
+  .button-rectangle {
+    &.primary {
+      &:hover {
+        @include themeGen() {
+          background-color: getThemeVal('buttonPrimaryRolloverBackground') !important;
+        }
+      }
+    }
+
+    &.secondary {
+      &:hover {
+        @include themeGen() {
+          background-color: getThemeVal('buttonSecondaryRolloverBackground') !important;
+        }
+      }
+    }
+
+    &.tertiary {
+      &:hover {
+        @include themeGen() {
+          background-color: getThemeVal('buttonTertiaryRolloverBackground') !important;
+          color: getThemeVal('buttonTertiaryTextRollover') !important;
+        }
+      }
+      &:hover {
+        @include themeGen() {
+          background-color: getThemeVal('buttonTertiaryDangerRolloverBackground') !important;
+          color: getThemeVal('buttonTertiaryDangerTextRollover') !important;
+        }
+      }
+    }
   }
 }
