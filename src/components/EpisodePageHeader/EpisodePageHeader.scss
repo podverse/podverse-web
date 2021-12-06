@@ -4,14 +4,6 @@
   display: flex;
   padding: 16px 0;
 
-  [href] {
-    &:hover {
-      @include themeGen() {
-        color: getThemeVal('textSecondary');
-      }
-    }
-  }
-
   .top-wrapper {
     align-items: center;
     display: flex;
@@ -92,6 +84,18 @@
 
       button {
         margin-left: 8px;
+      }
+    }
+  }
+}
+
+@media (hover: hover) {
+  .episode-page-header {
+    [href] {
+      &:hover {
+        @include themeGen() {
+          color: getThemeVal('textSecondary');
+        }
       }
     }
   }

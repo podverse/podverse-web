@@ -11,23 +11,11 @@
     background-color: getThemeVal("buttonSecondaryBackground");
   }
 
-  &:hover {
-    @include themeGen() {
-      border-color: getThemeVal("buttonTertiaryBorder");
-    }
-  }
-
   &.icon-only {
     border-color: transparent;
     background-color: unset;
     @include themeGen() {
       color: getThemeVal("textSecondary");
-    }
-
-    &:hover {
-      @include themeGen() {
-        border-color: transparent;
-      }
     }
   }
 
@@ -122,6 +110,24 @@
       svg {
         width: 18px;
         height: unset;
+      }
+    }
+  }
+}
+
+@media (hover: hover) {
+  .button-circle {
+    &:hover {
+      @include themeGen() {
+        border-color: getThemeVal("buttonTertiaryBorder");
+      }
+    }
+
+    &.icon-only {
+      &:hover {
+        @include themeGen() {
+          border-color: transparent;
+        }
       }
     }
   }

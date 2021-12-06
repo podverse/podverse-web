@@ -81,12 +81,6 @@
     a {
       display: inline-block;
       @include line-clamp(2);
-
-      &:hover {
-        @include themeGen() {
-          color: getThemeVal("textHover");
-        }
-      }
     }
 
     .subtitle {
@@ -232,6 +226,20 @@
       .progress-button-container {
         .bottom-row {
           margin-top: 16px;
+        }
+      }
+    }
+  }
+}
+
+@media (hover: hover) {
+  .player-full-view {
+    .title-wrapper {
+      a {
+        &:hover {
+          @include themeGen() {
+            color: getThemeVal("textHover");
+          }
         }
       }
     }
