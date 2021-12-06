@@ -34,10 +34,20 @@
   }
 }
 
-@media (min-width: $media-min-width-tablet) {
+@media (min-width: $media-min-width-tablet-xl) {
   .ReactModal__Overlay {
     &.mobile-nav-menu-modal-overlay {
       display: none;
+    }
+  }
+}
+
+/* Avoid Chrome with support check,
+   then use -webkit-fill-available to prevent vh sizing issues on iOS. */
+@supports (-webkit-touch-callout: none) {
+  .ReactModal__Overlay .ReactModal__Content {
+    &.mobile-nav-menu-modal {
+      height: -webkit-fill-available;
     }
   }
 }

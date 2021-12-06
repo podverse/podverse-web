@@ -21,7 +21,6 @@ body {
         width: 22px;
       }
     }
-  
   }
   
   .dropdown__chevron {
@@ -129,6 +128,25 @@ body {
         &:last-child {
           @include themeGen() {
             color: getThemeVal('textDanger');
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (hover: hover) {
+  body {
+    .react-dropdown-select {
+      .react-dropdown-select-dropdown {
+        .react-dropdown-select-item {
+          &:hover {
+            border: none;
+            box-shadow: $box-shadow;
+            
+            @include themeGen() {
+              background-color: getThemeVal('dropdownMenuSelected');
+            }
           }
         }
       }

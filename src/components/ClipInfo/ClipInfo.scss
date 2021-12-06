@@ -4,14 +4,6 @@
   .episode-title {
     font-size: $text-xxl;
     margin: 0 0 9px 0;
-
-    [href] {
-      &:hover {
-        @include themeGen() {
-          color: getThemeVal('textSecondary');
-        }
-      }
-    }
   }
 
   .episode-pub-date {
@@ -36,5 +28,19 @@
 @media (max-width: $media-max-width-tablet) {
   .clip-info {
     margin-top: 22px;
+  }
+}
+
+@media (hover: hover) {
+  .clip-info {
+    .episode-title {
+      [href] {
+        &:hover {
+          @include themeGen() {
+            color: getThemeVal('textSecondary');
+          }
+        }
+      }
+    }
   }
 }
