@@ -23,6 +23,9 @@
     }
   
     .navbar-secondary__theme-toggle {
+      // TODO: hide the toggle until light mode styles are added
+      display: none;
+
       flex: 0;
       margin: 0 0 0 53px;
   
