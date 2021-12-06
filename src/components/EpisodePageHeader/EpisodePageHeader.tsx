@@ -59,7 +59,7 @@ export const EpisodePageHeader = ({ episode }: Props) => {
               )}
             </div>
             <ButtonRectangle
-              className='hide-below-tablet-max-width'
+              className='hide-below-tablet-xl-max-width'
               label={subscribedText}
               onClick={() => toggleSubscribeToPodcast(id)}
               type='tertiary'
