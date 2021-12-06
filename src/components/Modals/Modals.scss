@@ -70,3 +70,13 @@
     }
   }
 }
+
+/* Avoid Chrome with support check,
+   then use -webkit-fill-available to prevent vh sizing issues on iOS. */
+@supports (-webkit-touch-callout: none) {
+  .ReactModal__Overlay {
+    .ReactModal__Content {
+      max-height: -webkit-fill-available;
+    }
+  }
+}
