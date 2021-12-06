@@ -8,7 +8,7 @@ import { PV } from '~/resources'
 import { useState } from 'react'
 import { MobileNavMenuModal } from './MobileNavMenuModal'
 
-type Props = {}
+type Props = unknown
 
 export const MobileNavBar = (props: Props) => {
   const router = useRouter()
