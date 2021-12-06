@@ -1,99 +1,217 @@
-import React, { Component, Fragment } from 'react'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import { MediaListItem } from 'podverse-ui'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import Meta from '~/components/Meta/Meta'
-import config from '~/config'
-import PV from '~/lib/constants'
-import { pageIsLoading, pagesSetQueryState } from '~/redux/actions'
-import { withTranslation } from '~/../i18n'
-const { PUBLIC_BASE_URL } = config()
+import { GetServerSideProps } from 'next'
+import { useTranslation } from 'next-i18next'
+import OmniAural, { useOmniAural } from 'omniaural'
+import { useEffect, useRef, useState } from 'react'
+import { convertNowPlayingItemToEpisode, convertNowPlayingItemToMediaRef, NowPlayingItem } from 'podverse-shared'
+import {
+  ClipListItem,
+  ColumnsWrapper,
+  EpisodeListItem,
+  List,
+  MessageWithAction,
+  Meta,
+  PageHeader,
+  PageScrollableContent,
+  Pagination,
+  scrollToTopOfPageScrollableContent,
+  SideContent
+} from '~/components'
+import { Page } from '~/lib/utility/page'
+import { PV } from '~/resources'
+import {
+  getHistoryItemsFromServer,
+  getServerSideHistoryItems,
+  removeHistoryItemEpisodeOnServer,
+  removeHistoryItemMediaRefOnServer,
+  removeHistoryItemsAllOnServer
+} from '~/services/userHistoryItem'
+import { isNowPlayingItemMediaRef } from '~/lib/utility/typeHelpers'
+import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 
-type Props = {
-  lastScrollPosition?: number
-  pageKey?: string
-  t?: any
-  user: any
+interface ServerProps extends Page {
+  serverFilterPage: number
+  serverUserHistoryItems: NowPlayingItem[]
+  serverUserHistoryItemsCount: number
 }
 
-type State = {}
+const keyPrefix = 'pages_history'
 
-class History extends Component<Props, State> {
+export default function History({
+  serverFilterPage,
+  serverUserHistoryItems,
+  serverUserHistoryItemsCount
+}: ServerProps) {
+  /* Initialize */
 
-  static async getInitialProps({ req, store }) {
-    const state = store.getState()
-    const { pages } = state
+  const { t } = useTranslation()
+  const [filterPage, setFilterPage] = useState<number>(serverFilterPage)
+  const [userHistoryItems, setUserHistoryItems] = useState<NowPlayingItem[]>(serverUserHistoryItems)
+  const [userHistoryItemsCount, setUserHistoryItemsCount] = useState<number>(serverUserHistoryItemsCount)
+  const [isEditing, setIsEditing] = useState<boolean>(false)
+  const [userInfo] = useOmniAural('session.userInfo')
+  const hasEditButton = !!userInfo
+  const initialRender = useRef(true)
+  const pageCount = Math.ceil(userHistoryItemsCount / PV.Config.QUERY_RESULTS_LIMIT_DEFAULT)
 
-    const currentPage = pages[PV.pageKeys.history] || {}
-    const lastScrollPosition = currentPage.lastScrollPosition
+  /* useEffects */
 
-    store.dispatch(pageIsLoading(false))
+  useEffect(() => {
+    ;(async () => {
+      if (initialRender.current) {
+        initialRender.current = false
+      } else {
+        OmniAural.pageIsLoadingShow()
+        const { userHistoryItems: newUserHistoryItems, userHistoryItemsCount: newUserHistoryItemsCount } =
+          await clientQueryUserHistoryItems()
+        setUserHistoryItems(newUserHistoryItems)
+        setUserHistoryItemsCount(newUserHistoryItemsCount)
+        scrollToTopOfPageScrollableContent()
+        OmniAural.pageIsLoadingHide()
+      }
+    })()
+  }, [filterPage])
 
-    const namespacesRequired = PV.nexti18next.namespaces
+  /* Client-Side Queries */
 
-    return { lastScrollPosition, pageKey: PV.pageKeys.history, namespacesRequired }
+  const clientQueryUserHistoryItems = async () => {
+    return getHistoryItemsFromServer(filterPage)
   }
 
-  render() {
-    const { t, user } = this.props
+  /* Function helpers */
 
-    const isLoggedIn = user && user.id
-    const historyItems = user && user.historyItems || []
-
-    const meta = {
-      currentUrl: PUBLIC_BASE_URL + PV.paths.web.history,
-      description: t('pages:history._Description'),
-      title: t('pages:history._Title')
+  const _removeHistoryItemsAll = async () => {
+    const answer = window.confirm(t('Are you sure you want to remove all of your history items'))
+    if (answer) {
+      OmniAural.pageIsLoadingShow()
+      await removeHistoryItemsAllOnServer()
+      OmniAural.pageIsLoadingHide()
+      setUserHistoryItems([])
+      setUserHistoryItemsCount(0)
     }
-
-    const header = (
-      <div className='history-modal__header'>
-        <h3><FontAwesomeIcon icon='history' /> &nbsp;{t('History')}</h3>
-      </div>
-    )
-
-    let historyItemNodes: any = []
-    const historyModalHistoryItemKey = 'historyModalHistoryItemKey'
-    historyItemNodes = Array.isArray(historyItems) ? historyItems.map((x, index) => (
-      <MediaListItem
-        dataNowPlayingItem={x}
-        hasLink
-        hideDescription={true}
-        key={`${historyModalHistoryItemKey}${index}`}
-        itemType='now-playing-item'
-        t={t} />
-    )) : []
-
-    return (
-      <Fragment>
-        <Meta
-          description={meta.description}
-          ogDescription={meta.description}
-          ogTitle={meta.title}
-          ogType='website'
-          ogUrl={meta.currentUrl}
-          robotsNoIndex={false}
-          title={meta.title}
-          twitterDescription={meta.description}
-          twitterTitle={meta.title} />
-        <div className='history-modal'>
-          {header}
-          {
-            isLoggedIn
-              ? historyItemNodes
-              : <div className='no-results-msg'>{t('LoginToViewYourHistory')}</div>
-          }
-        </div>
-      </Fragment>
-    )
   }
+
+  const _removeHistoryItemEpisode = async (episodeId: string) => {
+    const newUserHistoryItems = await removeHistoryItemEpisodeOnServer(episodeId, userHistoryItems)
+    setUserHistoryItems(newUserHistoryItems)
+  }
+
+  const _removeHistoryItemMediaRef = async (mediaRefId: string) => {
+    const newUserHistoryItems = await removeHistoryItemMediaRefOnServer(mediaRefId, userHistoryItems)
+    setUserHistoryItems(newUserHistoryItems)
+  }
+
+  /* Render Helpers */
+
+  const generateHistoryListElements = (historyItems: NowPlayingItem[]) => {
+    return historyItems.map((historyItem, index) => {
+      if (isNowPlayingItemMediaRef(historyItem)) {
+        /* *TODO* remove the "as any" */
+        const mediaRef = convertNowPlayingItemToMediaRef(historyItem) as any
+        return (
+          <ClipListItem
+            /* *TODO* Remove the "as any" below without throwing a Typescript error */
+            episode={mediaRef.episode as any}
+            handleRemove={() => _removeHistoryItemMediaRef(mediaRef.id)}
+            isLoggedInUserMediaRef={userInfo && userInfo.id === mediaRef.owner.id}
+            key={`${keyPrefix}-clip-${index}`}
+            mediaRef={mediaRef as any}
+            podcast={mediaRef.episode.podcast as any}
+            showImage
+            showRemoveButton={isEditing}
+          />
+        )
+      } else {
+        const episode = convertNowPlayingItemToEpisode(historyItem)
+        return (
+          <EpisodeListItem
+            /* *TODO* Remove the "as any" below without throwing a Typescript error */
+            episode={episode as any}
+            handleRemove={() => _removeHistoryItemEpisode(episode.id)}
+            key={`${keyPrefix}-episode-${index}`}
+            podcast={episode.podcast as any}
+            showImage
+            showRemoveButton={isEditing}
+          />
+        )
+      }
+    })
+  }
+
+  /* Meta Tags */
+
+  const meta = {
+    currentUrl: `${PV.Config.WEB_BASE_URL}${PV.RoutePaths.web.history}`,
+    description: t('pages:history._Description'),
+    title: t('pages:history._Title')
+  }
+
+  return (
+    <>
+      <Meta
+        description={meta.description}
+        ogDescription={meta.description}
+        ogTitle={meta.title}
+        ogType='website'
+        ogUrl={meta.currentUrl}
+        robotsNoIndex={false}
+        title={meta.title}
+        twitterDescription={meta.description}
+        twitterTitle={meta.title}
+      />
+      <PageHeader
+        isEditing={isEditing}
+        handleClearAllButton={_removeHistoryItemsAll}
+        handleEditButton={() => setIsEditing(!isEditing)}
+        hasEditButton={hasEditButton}
+        text={t('History')}
+      />
+      <PageScrollableContent noMarginTop>
+        {!userInfo && (
+          <MessageWithAction
+            actionLabel={t('Login')}
+            actionOnClick={() => OmniAural.modalsLoginShow()}
+            message={t('LoginToViewYourHistory')}
+          />
+        )}
+        {userInfo && (
+          <>
+            <ColumnsWrapper mainColumnChildren={<List>{generateHistoryListElements(userHistoryItems)}</List>} />
+            <Pagination
+              currentPageIndex={filterPage}
+              handlePageNavigate={(newPage) => setFilterPage(newPage)}
+              handlePageNext={() => {
+                if (filterPage + 1 <= pageCount) setFilterPage(filterPage + 1)
+              }}
+              handlePagePrevious={() => {
+                if (filterPage - 1 > 0) setFilterPage(filterPage - 1)
+              }}
+              pageCount={pageCount}
+            />
+          </>
+        )}
+      </PageScrollableContent>
+    </>
+  )
 }
 
-const mapStateToProps = state => ({ ...state })
+/* Server-Side Logic */
 
-const mapDispatchToProps = dispatch => ({
-  pagesSetQueryState: bindActionCreators(pagesSetQueryState, dispatch)
-})
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const { req, locale } = ctx
+  const { cookies } = req
 
-export default connect<{}, {}, Props>(mapStateToProps, mapDispatchToProps)(withTranslation(PV.nexti18next.namespaces)(History))
+  const defaultServerProps = await getDefaultServerSideProps(ctx, locale)
+
+  const serverFilterPage = 1
+  const historyItemsData = await getServerSideHistoryItems(serverFilterPage, cookies)
+  const { userHistoryItems, userHistoryItemsCount } = historyItemsData
+
+  const serverProps: ServerProps = {
+    ...defaultServerProps,
+    serverFilterPage,
+    serverUserHistoryItems: userHistoryItems,
+    serverUserHistoryItemsCount: userHistoryItemsCount
+  }
+
+  return { props: serverProps }
+}

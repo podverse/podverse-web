@@ -1,25 +1,6 @@
 {
-    "parser": "@typescript-eslint/parser",
-    "parserOptions": {
-        "jsx": true,
-        "useJSXTextNode": true
-    },
-    "extends": [
-        "plugin:@typescript-eslint/recommended",
-        "react-app"
-    ],
-    "plugins": [
-        "@typescript-eslint",
-        "react"
-    ],
-    "rules": {
-        "@typescript-eslint/explicit-function-return-type": 0,
-        "@typescript-eslint/member-delimiter-style": 0,
-        "@typescript-eslint/no-empty-function": 0,
-        "@typescript-eslint/no-explicit-any": 0,
-        "@typescript-eslint/no-var-requires": 0,
-        "jsx-a11y/anchor-is-valid": 0,
-        "no-mixed-operators": 0,
-        "no-restricted-globals": 0
-    }
+  "extends": [
+    "next/core-web-vitals",
+    "prettier"
+  ]
 }

@@ -1,0 +1,15 @@
+.message-with-action {
+  align-items: center;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  
+  .message {
+    font-size: $text-xl;
+  }
+
+  button {
+    margin-top: 32px;
+  }
+}

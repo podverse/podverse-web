@@ -1,287 +1,152 @@
-import React, { Component, Fragment } from 'react'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import { ButtonGroup, Form, FormGroup, FormText, Input, InputGroup, InputGroupAddon } from 'reactstrap'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { Button, MediaListItem, Pagination } from 'podverse-ui'
-import Meta from '~/components/Meta/Meta'
-import config from '~/config'
-import PV from '~/lib/constants'
-import { enrichPodcastsWithCategoriesString, safeAlert } from '~/lib/utility'
-import { modalsRequestPodcastShow, pageIsLoading, pagesSetQueryState } from '~/redux/actions'
-import { getPodcastsByQuery } from '~/services'
-import { withTranslation } from '~/../i18n'
-import { RequestPodcastModal } from '~/components/RequestPodcastModal/RequestPodcastModal'
-const uuidv4 = require('uuid/v4')
-const { PUBLIC_BASE_URL, QUERY_PODCASTS_LIMIT } = config()
+import { GetServerSideProps } from 'next'
+import { useTranslation } from 'next-i18next'
+import type { Podcast } from 'podverse-shared'
+import { useEffect, useState } from 'react'
+import {
+  List,
+  Meta,
+  PageHeaderWithTabs,
+  PageScrollableContent,
+  Pagination,
+  PodcastListItem,
+  SearchPageInput
+} from '~/components'
+import { Page } from '~/lib/utility/page'
+import { PV } from '~/resources'
+import { getPodcastsByQuery } from '~/services/podcast'
+import { scrollToTopOfPageScrollableContent } from '~/components/PageScrollableContent/PageScrollableContent'
+import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 
-type Props = {
-  lastScrollPosition?: number
-  modals: any
-  modalsRequestPodcastShow?: any
-  pageIsLoading?: any
-  pageKey?: string
-  pages?: any
-  pagesSetQueryState?: any
-  settings?: any
-  t?: any
-}
+interface ServerProps extends Page {}
 
-type State = {
-  currentSearch?: string
-  searchCompleted?: boolean
-}
+const keyPrefix = 'pages_search'
 
-class Search extends Component<Props, State> {
+/* *TODO*
+    On navigate back to this page (both using the web browser back button,
+      and the in-app back button), the screen does not remember the search results,
+      or the search query. I'm not sure how right now, but the previous data
+      should still be there on navigate back.
+*/
 
-  static async getInitialProps({ query, req, store }) {
-    store.dispatch(pageIsLoading(false))
-    const state = store.getState()
-    const { pages } = state
+export default function Search(props: ServerProps) {
+  /* Initialize */
 
-    const currentPage = pages[PV.pageKeys.search] || {}
-    const lastScrollPosition = currentPage.lastScrollPosition
-    const querySearchBy = currentPage.searchBy || query.searchBy || PV.queryParams.podcast
+  const { t } = useTranslation()
+  const [podcastsListData, setPodcastsListData] = useState<Podcast[]>([])
+  const [podcastsListDataCount, setPodcastsListDataCount] = useState<number>(0)
+  const [filterPage, setFilterPage] = useState<number>(1)
+  const [filterSearchByText, setFilterSearchByText] = useState<string>('')
+  const [filterSearchByType, setFilterSearchByType] = useState<string>(PV.Filters.search.queryParams.podcast)
+  const pageCount = Math.ceil(podcastsListDataCount / PV.Config.QUERY_RESULTS_LIMIT_DEFAULT)
 
-    store.dispatch(pagesSetQueryState({ 
-      pageKey: PV.pageKeys.search,
-      searchBy: querySearchBy
-    }))
+  /* useEffects */
 
-    const namespacesRequired = PV.nexti18next.namespaces
+  useEffect(() => {
+    ;(async () => {
+      const { data } = await clientQueryPodcasts()
+      const [newPodcastsListData, newPodcastsListCount] = data
+      setPodcastsListData(newPodcastsListData)
+      setPodcastsListDataCount(newPodcastsListCount)
+      scrollToTopOfPageScrollableContent()
+    })()
+  }, [filterSearchByText, filterSearchByType, filterPage])
 
-    return { lastScrollPosition, namespacesRequired, pageKey: PV.pageKeys.search }
-  }
+  /* Client-Side Queries */
 
-  constructor(props) {
-    super(props)
+  const clientQueryPodcasts = async () => {
+    let response = {
+      data: [[], 0]
+    } as any
 
-    this.state = {
-      currentSearch: '',
-      searchCompleted: false
+    if (filterSearchByText) {
+      const finalQuery = {
+        ...(filterPage ? { page: filterPage } : {}),
+        ...(filterSearchByType ? { searchBy: filterSearchByType } : {}),
+        searchText: filterSearchByText
+      }
+      response = await getPodcastsByQuery(finalQuery)
     }
+    return response
   }
 
-  handleSearchByChange = searchBy => {
-    const { pagesSetQueryState } = this.props
-    pagesSetQueryState({
-      pageKey: PV.pageKeys.search,
-      listItems: [],
-      searchBy
-    })
+  /* Render Helpers */
 
-    this.setState({ searchCompleted: false })
+  const generateTabOptions = (t: any) => [
+    { label: t('Podcasts'), key: PV.Filters.search.queryParams.podcast },
+    { label: t('Hosts'), key: PV.Filters.search.queryParams.host }
+  ]
+
+  const generatePodcastListElements = (listItems: Podcast[]) => {
+    return listItems.map((listItem, index) => <PodcastListItem key={`${keyPrefix}-${index}`} podcast={listItem} />)
   }
 
-  handleSearchInputChange = event => {
-    const { value: currentSearch } = event.target
-    this.setState({
-      currentSearch,
-      searchCompleted: false
-    })
+  const pageHeaderTabs = generateTabOptions(t)
+
+  /* Meta Tags */
+
+  const meta = {
+    currentUrl: `${PV.Config.WEB_BASE_URL}${PV.RoutePaths.web.search}`,
+    description: t('pages:search._Description'),
+    title: t('pages:search._Title')
   }
 
-  queryPodcasts = async (page = 1) => {
-    const { pages, pagesSetQueryState, t } = this.props
-    const { searchBy } = pages[PV.pageKeys.search]
-    const { currentSearch } = this.state
-    
-    if (!currentSearch) { return }
-
-    const query = { 
-      page,
-      searchBy,
-      searchText: currentSearch
-    }
-
-    pagesSetQueryState({
-      pageKey: PV.pageKeys.search,
-      isSearching: page === 1,
-      queryPage: page,
-      searchText: currentSearch
-    })
-
-    try {
-      const response = await getPodcastsByQuery(query)
-      const podcasts = response.data || []
-      const enrichedPodcasts = enrichPodcastsWithCategoriesString(podcasts[0])
-
-      pagesSetQueryState({
-        pageKey: PV.pageKeys.search,
-        isSearching: false,
-        listItems: enrichedPodcasts,
-        listItemsTotal: podcasts[1]        
-      })
-
-      this.setState({ searchCompleted: true })
-
-    } catch (error) {
-      console.log(error)
-      safeAlert(t('SearchError'))
-    }
-  }
-
-  linkClick = () => {
-    const { pageIsLoading } = this.props
-    pageIsLoading(true)
-  }
-
-  handleQueryPage = async page => {
-    const { pageIsLoading } = this.props
-    pageIsLoading(true)
-    await this.queryPodcasts(page)
-    pageIsLoading(false)
-
-    const mediaListSelectsEl = document.querySelector('.search__by')
-    if (mediaListSelectsEl) {
-      mediaListSelectsEl.scrollIntoView()
-    }
-  }
-
-  toggleRequestPodcastModal = () => {
-    const { modals, modalsRequestPodcastShow } = this.props
-    const { isOpen: requestPodcastIsOpen } = modals.requestPodcast
-    modalsRequestPodcastShow({ isOpen: !requestPodcastIsOpen })
-  }
-
-  render() {
-    const { modals, pages, t } = this.props
-    const { isOpen: requestPodcastIsOpen } = modals.requestPodcast
-    const { isSearching, listItems, listItemsTotal, queryPage, searchBy } = pages[PV.pageKeys.search]
-    const { currentSearch, searchCompleted } = this.state
-
-    const meta = {
-      currentUrl: PUBLIC_BASE_URL + PV.paths.web.search,
-      description: t('pages:search._Description'),
-      title: t('pages:search._Title')
-    }
-
-    const placeholder = searchBy === PV.queryParams.host
-      ? t('searchByHost') : t('searchByTitle')
-      
-    const listItemNodes = listItems ? listItems.map(x => {
-      return (
-        <MediaListItem
-          dataPodcast={x}
-          handleLinkClick={this.linkClick}
-          hasLink={true}
-          itemType='podcast-search-result'
-          key={`podcast-list-item-${uuidv4()}`}
-          t={t} />
-      )
-    }) : null
-
-    return (
-      <Fragment>
-        <Meta
-          description={meta.description}
-          ogDescription={meta.description}
-          ogTitle={meta.title}
-          ogType='website'
-          ogUrl={meta.currentUrl}
-          robotsNoIndex={false}
-          title={meta.title}
-          twitterDescription={meta.description}
-          twitterTitle={meta.title} />
-        <h3>{t('Search')}</h3>
-        <Form
-          autoComplete='off'
-          className='search'>
-          <FormGroup>
-            <ButtonGroup
-              className='search__by'>
-              <Button
-                className='search-by__podcast'
-                color='secondary'
-                isActive={searchBy === 'podcast'}
-                onClick={() => this.handleSearchByChange('podcast')}
-                outline>
-                {t('Podcast')}
-              </Button>
-              <Button
-                className='search-by__host'
-                color='secondary'
-                isActive={searchBy === 'host'}
-                onClick={() => this.handleSearchByChange('host')}
-                outline>
-                {t('Host')}
-              </Button>
-            </ButtonGroup>
-            <InputGroup>
-              <Input
-                aria-label='Search input'
-                className='search__input'
-                name='search'
-                onChange={this.handleSearchInputChange}
-                onKeyPress={target => {
-                  if (target.charCode === 13) {
-                    target.nativeEvent.preventDefault()
-                    this.queryPodcasts()
-                  }
-                }}
-                placeholder={placeholder}
-                type='text'
-                value={currentSearch} />
-              <InputGroupAddon addonType='append'>
-                <Button
-                  className='search__input-btn'
-                  color='primary'
-                  isLoading={isSearching}
-                  onClick={() => this.queryPodcasts()}>
-                  <FontAwesomeIcon icon='search' />
-                </Button>
-              </InputGroupAddon>
-            </InputGroup>
-            {
-              searchBy === PV.queryParams.podcast &&
-                <FormText>{t('use double quotes for exact matches')}</FormText>
-            }
-          </FormGroup>
-        </Form>
-        <div className={'search-media-list'}>
-          {
-            listItemNodes && listItemNodes.length > 0 &&
-            <Fragment>
-              {listItemNodes}
-              <Pagination
-                currentPage={queryPage || 1}
-                handleQueryPage={this.handleQueryPage}
-                pageRange={2}
-                t={t}
-                totalPages={Math.ceil(listItemsTotal / QUERY_PODCASTS_LIMIT)} />
-            </Fragment>
-          }
-          {
-            (!isSearching && searchCompleted && listItemNodes && listItemNodes.length === 0) &&
-              <div className='no-results-msg'>
-                {t('No podcasts found')}
-              </div>
-          }
-          {
-            !isSearching &&
-              <a
-                className='request-podcast'
-                onClick={this.toggleRequestPodcastModal}>
-                {t('RequestAPodcast')}
-              </a>
-          }
-        </div>
-        <RequestPodcastModal
-          handleHideModal={this.toggleRequestPodcastModal}
-          isOpen={requestPodcastIsOpen}
-          t={t}
+  return (
+    <>
+      <Meta
+        description={meta.description}
+        ogDescription={meta.description}
+        ogTitle={meta.title}
+        ogType='website'
+        ogUrl={meta.currentUrl}
+        robotsNoIndex={false}
+        title={meta.title}
+        twitterDescription={meta.description}
+        twitterTitle={meta.title}
+      />
+      <PageHeaderWithTabs
+        keyPrefix={keyPrefix}
+        onClick={(selectedKey: string) => setFilterSearchByType(selectedKey)}
+        selectedKey={filterSearchByType}
+        tabOptions={pageHeaderTabs}
+        title={t('Search')}
+      />
+      <SearchPageInput
+        handleAutoSubmit={(value) => {
+          setFilterSearchByText(value)
+          setFilterPage(1)
+        }}
+        label={t('Podcast title')}
+        placeholder={t('searchByPodcastTitle')}
+      />
+      <PageScrollableContent>
+        <List>{generatePodcastListElements(podcastsListData)}</List>
+        <Pagination
+          currentPageIndex={filterPage}
+          handlePageNavigate={(newPage) => setFilterPage(newPage)}
+          handlePageNext={() => {
+            if (filterPage + 1 <= pageCount) setFilterPage(filterPage + 1)
+          }}
+          handlePagePrevious={() => {
+            if (filterPage - 1 > 0) setFilterPage(filterPage - 1)
+          }}
+          pageCount={pageCount}
         />
-      </Fragment>
-    )
-  }
+      </PageScrollableContent>
+    </>
+  )
 }
 
-const mapStateToProps = state => ({ ...state })
+/* Server-Side Logic */
 
-const mapDispatchToProps = dispatch => ({
-  modalsRequestPodcastShow: bindActionCreators(modalsRequestPodcastShow, dispatch),
-  pageIsLoading: bindActionCreators(pageIsLoading, dispatch),
-  pagesSetQueryState: bindActionCreators(pagesSetQueryState, dispatch)
-})
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const { req, locale } = ctx
+  const { cookies } = req
 
-export default connect<{}, {}, Props>(mapStateToProps, mapDispatchToProps)(withTranslation(PV.nexti18next.namespaces)(Search))
+  const defaultServerProps = await getDefaultServerSideProps(ctx, locale)
+
+  const serverProps: ServerProps = {
+    ...defaultServerProps
+  }
+
+  return { props: serverProps }
+}

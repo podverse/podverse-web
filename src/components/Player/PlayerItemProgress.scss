@@ -1,0 +1,33 @@
+.player {
+  .player-progress-container {
+    flex: 0 0 44%;
+  }
+}
+
+.player-progress-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+
+  .progress-button-container {
+    .bottom-row {
+      display: none;
+    }
+  }
+}
+
+@media (max-width: $media-max-width-tablet-xl) {
+  .progress-button-container {
+    display: flex;
+    flex-direction: column;
+    max-width: 320px;
+
+    .player-control-volume-wrapper {
+      display: none;
+    }
+
+    .bottom-row {
+      display: none;
+    }
+  }
+}

@@ -1,0 +1,72 @@
+.ReactModal__Overlay {
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 100;
+
+  @include themeGen() {
+    background-color: getThemeVal('modalTransparentBackground') !important;
+  }
+
+  .ReactModal__Content {
+    display: flex;
+    flex-direction: column;
+    border-radius: $item-border-radius !important;
+    max-height: 100vh;
+    overflow: auto;
+    padding: 32px 24px;
+    width: 400px;
+
+    @include themeGen() {
+      background-color: getThemeVal('backgroundPrimary') !important;
+    }
+
+    h2 {
+      margin: 0 0 28px 0;
+    }
+
+    .button-close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+    }
+
+    .header-wrapper {
+      margin: -8px 0 24px 0;
+      text-align: center;
+
+      div {
+        line-height: 24px;
+      }
+    }
+
+    .submit-buttons {   
+      display: flex;
+      justify-content: space-around;
+    }
+
+    .message-wrapper {
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+      justify-content: center;
+
+      .message {
+        font-size: $text-lg;
+        max-width: 360px;
+        text-align: center;
+    
+        &.with-margin {
+          margin-bottom: 16px;
+        }
+      }
+
+      button {
+        align-self: center;
+        margin-top: 4px
+      }
+    }
+  }
+}

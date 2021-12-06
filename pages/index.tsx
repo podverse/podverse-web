@@ -1,189 +1,55 @@
-import React, { Component, Fragment } from 'react'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import { HeaderNavTabs } from 'podverse-ui'
-import MediaListCtrl from '~/components/MediaListCtrl/MediaListCtrl'
-import Meta from '~/components/Meta/Meta'
-import PodcastListCtrl from '~/components/PodcastListCtrl/PodcastListCtrl'
-import config from '~/config'
-import PV from '~/lib/constants'
-import { cookieGetQuery, getCookieFromRequest } from '~/lib/utility'
-import { pageIsLoading, pagesSetQueryState } from '~/redux/actions'
-import { getCategoriesByQuery, handlePageEpisodesQuery, handlePageMediaRefsQuery,
-  handlePagePodcastsQuery } from '~/services'
-import { withTranslation } from '~/../i18n'
-const { CATEGORY_ID_DEFAULT, PUBLIC_BASE_URL } = config()
+import { GetServerSideProps } from 'next'
+import { Podcast } from 'podverse-shared'
+import { Page } from '~/lib/utility/page'
+import Podcasts from './podcasts'
+import { PV } from '~/resources'
+import { getPodcastsByQuery } from '~/services/podcast'
+import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 
-type Props = {
-  allCategories?: any[]
-  categoryId?: string
-  lastScrollPosition?: number
-  listItems?: any
-  pageKey: string
-  pages?: any
-  pagesSetQueryState?: any
-  playerQueue?: any
-  queryFrom?: any
-  queryPage: number
-  querySort?: any
-  queryType?: any
-  settings?: any
-  t?: any
-  user?: any
-  userSetInfo?: any
+export default Podcasts
+
+interface ServerProps extends Page {
+  serverFilterFrom: string
+  serverFilterPage: number
+  serverFilterSort: string
+  serverPodcastsListData: Podcast[]
+  serverPodcastsListDataCount: number
 }
 
-type State = {}
+/* Server-Side Logic */
+/* NOTE: This logic is identical to the getServerSideProps in /pages/podcasts.tsx */
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const { locale } = ctx
 
-class Home extends Component<Props, State> {
+  const defaultServerProps = await getDefaultServerSideProps(ctx, locale)
+  const { serverUserInfo } = defaultServerProps
 
-  static async getInitialProps({ query, req, store }) {
-    const allCategoriesAndCountResult = await getCategoriesByQuery({})
-    const allCategories = allCategoriesAndCountResult.data[0] || []
+  const serverFilterFrom = serverUserInfo ? PV.Filters.from._subscribed : PV.Filters.from._all
+  const serverFilterSort = serverUserInfo ? PV.Filters.sort._alphabetical : PV.Filters.sort._topPastDay
 
-    const state = store.getState()
-    const { mediaPlayer, pages, settings, user } = state
-    const { nowPlayingItem } = mediaPlayer
-    const { defaultHomepageTab } = settings
-
-    const lastVisitedHomepageTab = getCookieFromRequest(req, PV.cookies.lastVisitedHomepageTab)
-
-    let pageKey = 'clips'
-    const validLastVisitedHomepageTabs = ['podcasts', 'episodes', 'clips']
-    if (defaultHomepageTab === 'episodes') {
-      pageKey = 'episodes'
-    } else if (defaultHomepageTab === 'podcasts') {
-      pageKey = 'podcasts'
-    } else if (
-      defaultHomepageTab === 'last-visited' && validLastVisitedHomepageTabs.includes(lastVisitedHomepageTab)
-    ) {
-      pageKey = lastVisitedHomepageTab
-    }
-
-    const localStorageQuery = cookieGetQuery(req, pageKey)
-    const currentPage = pages[pageKey] || {}
-    const lastScrollPosition = currentPage.lastScrollPosition
-    const queryRefresh = !!query.refresh
-    const categoryId = query.categoryId || currentPage.categoryId || localStorageQuery.categoryId || CATEGORY_ID_DEFAULT
-    const queryFrom = currentPage.queryFrom || query.from || (query.categoryId && PV.queryParams.from_category) || localStorageQuery.from || PV.queryParams.all_podcasts
-    const queryPage = (queryRefresh && 1) || currentPage.queryPage || query.page || 1
-    const querySort = currentPage.querySort || query.sort || localStorageQuery.sort || PV.queryParams.most_recent
-    const queryType = (queryRefresh && query.type) || currentPage.queryType || query.type ||
-      localStorageQuery.type
-    let podcastId = ''
-
-    if (queryFrom === PV.queryParams.subscribed_only) {
-      podcastId = user.subscribedPodcastIds
-    }
-
-    const queryObj = {
-      categoryId,
-      currentPage,
-      nowPlayingItem,
-      pageIsLoading,
-      pagesSetQueryState,
-      podcastId,
-      queryFrom,
-      queryPage,
-      queryRefresh,
-      querySort,
-      queryType,
-      store
-    }
-
-    if (pageKey === 'podcasts') {
-      await handlePagePodcastsQuery(queryObj)
-    } else if (pageKey === 'episodes') {
-      await handlePageEpisodesQuery(queryObj)
-    } else {
-      await handlePageMediaRefsQuery(queryObj)
-    }
-
-    const namespacesRequired = PV.nexti18next.namespaces
-
-    return {
-      allCategories, lastScrollPosition, namespacesRequired, pageKey,
-      queryFrom, queryPage, querySort, queryType
-    }
-  }
-
-  constructor(props) {
-    super(props)
-
-    this.state = {}
-  }
-
-  toggleAdvancedFilter = async () => {
-    const { pageKey, pagesSetQueryState, pages } = this.props
-    const { isAdvancedFilterShowing } = pages[pageKey]
-
-    pagesSetQueryState({
-      pageKey,
-      isAdvancedFilterShowing: !isAdvancedFilterShowing
+  const serverFilterPage = 1
+  let response = null
+  if (serverUserInfo) {
+    response = await getPodcastsByQuery({
+      podcastIds: serverUserInfo.subscribedPodcastIds,
+      sort: serverFilterSort
+    })
+  } else {
+    response = await getPodcastsByQuery({
+      sort: serverFilterSort
     })
   }
 
-  render() {
-    const { allCategories, categoryId, pageKey, pages, pagesSetQueryState, queryFrom,
-      queryPage, querySort, queryType, t } = this.props
-    const { isAdvancedFilterShowing } = pages[pageKey]
+  const [podcastsListData, podcastsListDataCount] = response.data
 
-    const meta = {
-      currentUrl: PUBLIC_BASE_URL,
-      description: t('pages:index._Description'),
-      title: t('pages:index._Title')
-    }
-
-    return (
-      <Fragment>
-        <Meta
-          description={meta.description}
-          ogDescription={meta.description}
-          ogTitle={meta.title}
-          ogType='website'
-          ogUrl={meta.currentUrl}
-          robotsNoIndex={false}
-          title={meta.title}
-          twitterDescription={meta.description}
-          twitterTitle={meta.title} />
-        <HeaderNavTabs
-          handleLinkClick={pageIsLoading}
-          handleToggleAdvancedFilter={this.toggleAdvancedFilter}
-          isAdvancedFilterShowing={isAdvancedFilterShowing}
-          items={PV.homeHeaderButtons(pageKey, t)}
-          t={t} />
-        {
-          (pageKey === 'podcasts') &&
-            <PodcastListCtrl
-              allCategories={allCategories}
-              categoryId={categoryId}
-              pageIsLoading={pageIsLoading}
-              pageKey={pageKey}
-              queryFrom={queryFrom}
-              queryPage={queryPage}
-              querySort={querySort} />
-        }
-        {
-          (pageKey === 'episodes' || pageKey === 'clips') &&
-            <MediaListCtrl
-              allCategories={allCategories}
-              categoryId={categoryId}
-              handleSetPageQueryState={pagesSetQueryState}
-              pageKey={pageKey}
-              queryFrom={queryFrom}
-              queryPage={queryPage}
-              querySort={querySort}
-              queryType={queryType} />
-        }
-      </Fragment>
-    )
+  const serverProps: ServerProps = {
+    ...defaultServerProps,
+    serverFilterFrom,
+    serverFilterPage,
+    serverFilterSort,
+    serverPodcastsListData: podcastsListData,
+    serverPodcastsListDataCount: podcastsListDataCount
   }
+
+  return { props: serverProps }
 }
-
-const mapStateToProps = state => ({ ...state })
-
-const mapDispatchToProps = dispatch => ({
-  pagesSetQueryState: bindActionCreators(pagesSetQueryState, dispatch)
-})
-
-export default connect<{}, {}, Props>(mapStateToProps, mapDispatchToProps)(withTranslation(PV.nexti18next.namespaces)(Home))

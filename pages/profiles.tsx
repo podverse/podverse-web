@@ -1,94 +1,149 @@
-import React, { Component, Fragment } from 'react'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import Meta from '~/components/Meta/Meta'
-import UserListCtrl from '~/components/UserListCtrl/UserListCtrl'
-import config from '~/config'
-import PV from '~/lib/constants'
-import { pageIsLoading, pagesSetQueryState } from '~/redux/actions'
-import { getPublicUsersByQuery } from '~/services'
-import { withTranslation } from '~/../i18n'
-const { PUBLIC_BASE_URL } = config()
+import { GetServerSideProps } from 'next'
+import { useTranslation } from 'next-i18next'
+import OmniAural, { useOmniAural } from 'omniaural'
+import type { User } from 'podverse-shared'
+import {
+  List,
+  MessageWithAction,
+  Meta,
+  PageHeader,
+  PageScrollableContent,
+  Pagination,
+  PlaylistListItem,
+  scrollToTopOfPageScrollableContent
+} from '~/components'
+import { Page } from '~/lib/utility/page'
+import { PV } from '~/resources'
+import { getPublicUsersByQuery } from '~/services/user'
+import { ProfileListItem } from '~/components/ProfileListItem/ProfileListItem'
+import { useEffect, useRef, useState } from 'react'
+import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 
-type Props = {
-  lastScrollPosition?: number
-  listItems?: any
-  pageKey?: string
-  pagesSetQueryState?: any
-  queryPage: number
-  t?: any
-  user?: any
+interface ServerProps extends Page {
+  serverFilterPage: number
+  serverUsers: User[]
+  serverUsersCount: number
 }
 
-type State = {}
+const keyPrefix = 'pages_profiles'
 
-class Profiles extends Component<Props, State> {
+export default function Profiles({ serverFilterPage, serverUsers, serverUsersCount }: ServerProps) {
+  /* Initialize */
 
-  static async getInitialProps({ query, req, store }) {
-    const state = store.getState()
-    const { pages, user } = state
+  const { t } = useTranslation()
+  const [filterPage, setFilterPage] = useState<number>(serverFilterPage)
+  const [usersListData, setUsersListData] = useState<User[]>(serverUsers)
+  const [userInfo] = useOmniAural('session.userInfo')
+  const initialRender = useRef(true)
+  const pageCount = Math.ceil(serverUsersCount / PV.Config.QUERY_RESULTS_LIMIT_DEFAULT)
 
-    const currentPage = pages[PV.pageKeys.profiles] || {}
-    const lastScrollPosition = currentPage.lastScrollPosition
-    const queryPage = currentPage.queryPage || query.page || 1
+  /* useEffects */
 
-    if (Object.keys(currentPage).length === 0) {
-      const response = await getPublicUsersByQuery({ 
-        userIds: user.subscribedUserIds
-      })
-      const users = response.data
+  useEffect(() => {
+    ;(async () => {
+      if (initialRender.current) {
+        initialRender.current = false
+      } else {
+        OmniAural.pageIsLoadingShow()
+        const [newListData, newListCount] = await clientQueryUsers()
+        setUsersListData(newListData)
+        scrollToTopOfPageScrollableContent()
+        OmniAural.pageIsLoadingHide()
+      }
+    })()
+  }, [filterPage])
 
-      store.dispatch(pagesSetQueryState({
-        pageKey: PV.pageKeys.profiles,
-        listItems: users[0],
-        listItemsTotal: users[1],
-        queryPage
-      }))
+  /* Client-Side Queries */
+
+  const clientQueryUsers = async () => {
+    let response: any = [[], 0]
+    if (userInfo?.subscribedUserIds) {
+      const page = filterPage || 1
+      response = await getPublicUsersByQuery(page, userInfo.subscribedUserIds)
     }
 
-    store.dispatch(pageIsLoading(false))
-    const namespacesRequired = PV.nexti18next.namespaces
-
-    return { lastScrollPosition, namespacesRequired, pageKey: PV.pageKeys.profiles, user }
+    return response
   }
 
-  render() {
-    const { pageKey, pagesSetQueryState, queryPage, t, user } = this.props
+  /* Render Helpers */
 
-    const meta = {
-      currentUrl: PUBLIC_BASE_URL + PV.paths.web.profiles,
-      description: t('pages:profiles._Description'),
-      title: t('pages:profiles._Title')
-    }
-
-    return (
-      <Fragment>
-        <Meta
-          description={meta.description}
-          ogDescription={meta.description}
-          ogTitle={meta.title}
-          ogType='website'
-          ogUrl={meta.currentUrl}
-          robotsNoIndex={true}
-          title={meta.title}
-          twitterDescription={meta.description}
-          twitterTitle={meta.title} />
-        <h3>{t('Profiles')}</h3>
-        <UserListCtrl
-          handleSetPageQueryState={pagesSetQueryState}
-          pageKey={pageKey}
-          queryPage={queryPage}
-          user={user} />
-      </Fragment>
-    )
+  const generateProfileElements = (listItems: User[]) => {
+    return listItems.map((listItem, index) => <ProfileListItem key={`${keyPrefix}-${index}`} user={listItem} />)
   }
 
+  /* Meta Tags */
+
+  const meta = {
+    currentUrl: `${PV.Config.WEB_BASE_URL}${PV.RoutePaths.web.profiles}`,
+    description: t('pages:profiles._Description'),
+    title: t('pages:profiles._Title')
+  }
+
+  return (
+    <>
+      <Meta
+        description={meta.description}
+        ogDescription={meta.description}
+        ogTitle={meta.title}
+        ogType='website'
+        ogUrl={meta.currentUrl}
+        robotsNoIndex={false}
+        title={meta.title}
+        twitterDescription={meta.description}
+        twitterTitle={meta.title}
+      />
+      <PageHeader noMarginBottom text={t('Profiles')} />
+      <PageScrollableContent noMarginTop>
+        {!userInfo && (
+          <MessageWithAction
+            actionLabel={t('Login')}
+            actionOnClick={() => OmniAural.modalsLoginShow()}
+            message={t('LoginToViewYourProfiles')}
+          />
+        )}
+        {userInfo && (
+          <>
+            <List>{generateProfileElements(usersListData)}</List>
+            <Pagination
+              currentPageIndex={filterPage}
+              handlePageNavigate={(newPage) => setFilterPage(newPage)}
+              handlePageNext={() => {
+                if (filterPage + 1 <= pageCount) setFilterPage(filterPage + 1)
+              }}
+              handlePagePrevious={() => {
+                if (filterPage - 1 > 0) setFilterPage(filterPage - 1)
+              }}
+              pageCount={pageCount}
+            />
+          </>
+        )}
+      </PageScrollableContent>
+    </>
+  )
 }
 
-const mapStateToProps = state => ({ ...state })
+/* Server-Side Logic */
 
-const mapDispatchToProps = dispatch => ({
-  pagesSetQueryState: bindActionCreators(pagesSetQueryState, dispatch)
-})
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const { locale } = ctx
 
-export default connect<{}, {}, Props>(mapStateToProps, mapDispatchToProps)(withTranslation(PV.nexti18next.namespaces)(Profiles))
+  const defaultServerProps = await getDefaultServerSideProps(ctx, locale)
+  const { serverUserInfo } = defaultServerProps
+
+  let response: any = [[], 0]
+  const page = 1
+  if (serverUserInfo?.subscribedUserIds) {
+    response = await getPublicUsersByQuery(page, serverUserInfo.subscribedUserIds)
+  }
+
+  const [users, usersCount] = response
+
+  const serverProps: ServerProps = {
+    ...defaultServerProps,
+    serverFilterPage: page,
+    serverUsers: users,
+    serverUsersCount: usersCount
+  }
+
+  return { props: serverProps }
+}

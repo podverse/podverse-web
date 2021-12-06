@@ -1,211 +1,97 @@
-/* eslint-disable @typescript-eslint/camelcase */
-
-import * as React from 'react'
-import * as ReactDOM from 'react-dom'
-import scriptLoader from 'react-async-script-loader'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import router from 'next/router'
+import OmniAural from 'omniaural'
+import React, { useEffect, useState } from 'react'
+import ReactDOM from 'react-dom'
+import { useTranslation } from 'react-i18next'
+import { PV } from '~/resources'
 import { createPayPalOrder } from '~/services/paypal'
-import config from '~/config'
-import PV from '~/lib/constants'
-import { alertRateLimitError, safeAlert } from '~/lib/utility'
-const { DOMAIN, PROTOCOL } = config()
 
-type Props = {
-  client?: string
-  commit?: string
-  currency?: string
-  env?: string
-  handlePageIsLoading: any
-  hideCheckoutModal?: Function
-  isScriptLoaded?: boolean
-  isScriptLoadSucceed?: boolean
-  onCancel: Function
-  onError: Function
-  onSuccess: Function
-  subtotal?: string
-  t?: any
-  tax?: number
-  total?: number
-  updateStateAfterScriptLoads?: Function
-}
+type Props = {}
 
-type State = {
-  addButtonToDOM?: any
-  showButton?: any
-}
+let PayPalButtonFromLibrary: any = null
 
-class PaypalButton extends React.Component<Props, State> {
-  constructor (props) {
-    super(props);
+export const PayPalButton = (props: Props) => {
+  const { t } = useTranslation()
+  const [paypalSDKReady, setPayPalSDKReady] = useState<boolean>(false)
 
-    this.state = {
-      addButtonToDOM: false,
-      showButton: false
+  /* useEffects */
+
+  useEffect(() => {
+    const script = document.createElement('script')
+    const paypalClientId =
+      PV.Config.PAYPAL_CLIENT.env === 'production'
+        ? PV.Config.PAYPAL_CLIENT.production
+        : PV.Config.PAYPAL_CLIENT.sandbox
+    script.src = `https://www.paypal.com/sdk/js?disable-funding=paylater&client-id=${paypalClientId}`
+    script.defer = true
+
+    script.onload = () => {
+      PayPalButtonFromLibrary = window.paypal.Buttons.driver('react', { React, ReactDOM })
+      setPayPalSDKReady(true)
     }
 
-    // React and ReactDOM are needed by the paypal.Button.react component
-
-    // eslint-disable-next-line
-    // @ts-ignore
-    window.React = React
-    // eslint-disable-next-line
-    // @ts-ignore
-    window.ReactDOM = ReactDOM
-  }
-
-  componentDidMount () {
-    const { isScriptLoaded, isScriptLoadSucceed, updateStateAfterScriptLoads } = this.props
-
-    // NOTE: There is a delay between when isScriptLoad is finished and when
-    // the click event actually becomes active on the button. The setTimeout
-    // adds the button hidden to the DOM, but waits before letting the user click it.
-    // Hopefully there's a better way to do this...
-    if (isScriptLoaded && isScriptLoadSucceed) {
-      this.setState({ addButtonToDOM: true })
-      setTimeout(() => {
-        this.setState({ showButton: true })
-        if (updateStateAfterScriptLoads) {
-          updateStateAfterScriptLoads()
-        }
-      }, 3000)
+    script.onerror = () => {
+      throw new Error('PayPal integration could not be loaded.')
     }
-  }
 
-  componentWillReceiveProps (nextProps) {
-    const { isScriptLoaded, isScriptLoadSucceed, updateStateAfterScriptLoads } = nextProps
+    document.body.appendChild(script)
 
-    const isLoadedButWasntLoadedBefore = !this.state.showButton &&
-      !this.props.isScriptLoaded && isScriptLoaded
-
-    if (isLoadedButWasntLoadedBefore && isScriptLoadSucceed) {
-      this.setState({ addButtonToDOM: true })
-      setTimeout(() => {
-        this.setState({ showButton: true })
-        if (updateStateAfterScriptLoads) {
-          updateStateAfterScriptLoads()
-        }
-      }, 3000)
+    return () => {
+      document.body.removeChild(script)
     }
+  }, [])
+
+  /* Function Helpers */
+
+  const onApprove = (data, actions) => {
+    OmniAural.pageIsLoadingShow()
+    return actions.order.capture().then(async function (details) {
+      const paymentID = details.purchase_units[0].payments.captures[0].id
+      await createPayPalOrder({ paymentID })
+      router.push(`${PV.Config.WEB_BASE_URL}${PV.RoutePaths.web.payment_paypal_confirming}/${paymentID}`)
+      OmniAural.modalsHideAll()
+    })
   }
 
-  render () {
-    const { client, commit, currency, env, handlePageIsLoading, hideCheckoutModal,
-      subtotal, t, tax, total } = this.props
-    const { addButtonToDOM, showButton } = this.state
+  const onCancel = () => {
+    OmniAural.modalsHideAll()
+  }
 
-    const payment = async (resolve, reject) => {
-      try {
-        // eslint-disable-next-line
-        // @ts-ignore
-        const paymentID = await paypal.rest.payment.create(env, client, {
-          intent: 'sale',
-          payer: {
-            payment_method: 'paypal'
-          },
-          transactions: [
-            {
-              amount: {
-                total,
-                currency,
-                details: {
-                  subtotal,
-                  tax
+  const onError = () => {
+    alert(t('errorMessages:alerts.somethingWentWrong'))
+  }
+
+  return (
+    <div className='paypal-button'>
+      {paypalSDKReady && (
+        <PayPalButtonFromLibrary
+          createOrder={(data, actions) => {
+            return actions.order.create({
+              intent: 'CAPTURE',
+              payer: {
+                payment_method: 'paypal'
+              },
+              purchase_units: [
+                {
+                  amount: {
+                    value: '10.00'
+                  }
                 }
+              ],
+              application_context: {
+                brand_name: 'Podverse',
+                locale: 'en',
+                landing_page: 'LOGIN',
+                shipping_preference: 'NO_SHIPPING'
               }
-            }
-          ],
-          application_context: {
-            brand_name: 'Podverse',
-            locale: 'US',
-            landing_page: 'Login',
-            shipping_preference: 'NO_SHIPPING'
-          },
-          redirect_urls: {
-            cancel_url: `${PROTOCOL}://${DOMAIN}${PV.paths.web.settings}#membership`,
-            return_url: `${PROTOCOL}://${DOMAIN}${PV.paths.web.settings}#membership`
-          }
-        })
-
-        try {
-          createPayPalOrder({ paymentID })
-          resolve(paymentID)
-        } catch (error) {
-          console.log(error)
-          safeAlert(t('errorMessages:alerts.somethingWentWrong'))
-          reject()
-        }
-      } catch (error) {
-        if (error && error.response && error.response.status === 429) {
-          alertRateLimitError(error)
-          return
-        } else {
-          safeAlert(t('errorMessages:alerts.somethingWentWrong'))
-        }
-        console.log(error)
-        reject()
-      }
-    }
-    
-    
-    const onAuthorize = (data, actions) => {
-      handlePageIsLoading(true)
-
-      return actions.payment.execute()
-        .then(() => {
-          location.href = `${PROTOCOL}://${DOMAIN}${PV.paths.web.payment}${PV.paths.web.paypal_confirming}?id=${data.paymentID}`
-        })
-        .catch(() => {
-          safeAlert(t('errorMessages:alerts.somethingWentWrong'))
-          handlePageIsLoading(false)
-        })
-    }
-
-    const onCancel = () => {
-      if (hideCheckoutModal) {
-        hideCheckoutModal()
-      }
-    }
-
-    const onError = (error) => {
-      console.log(error)
-      safeAlert(t('errorMessages:alerts.somethingWentWrong'))
-    }
-
-    return (
-      <React.Fragment>
-        {
-          addButtonToDOM &&
-            <div
-              className='paypal-button'
-              style={{
-                display: showButton ? 'block' : 'none'
-              }}>
-              {
-                addButtonToDOM &&
-                // eslint-disable-next-line
-                // @ts-ignore
-                // eslint-disable-next-line
-                <paypal.Button.react
-                  client={client}
-                  commit={commit}
-                  env={env}
-                  onAuthorize={onAuthorize}
-                  onCancel={onCancel}
-                  onError={onError}
-                  payment={payment}
-                  style={{ size: 'large' }} />
-              }
-            </div>
-        }
-        {
-          !showButton &&
-            <div className='paypal-button-loading'>
-              <FontAwesomeIcon icon='spinner' spin />
-            </div>
-        }
-      </React.Fragment>
-    )
-  }
+            })
+          }}
+          onApprove={onApprove}
+          onCancel={onCancel}
+          onError={onError}
+          style={{ size: 'large' }}
+        />
+      )}
+    </div>
+  )
 }
-
-export default scriptLoader('https://www.paypalobjects.com/api/checkout.js')(PaypalButton)

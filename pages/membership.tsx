@@ -1,84 +1,81 @@
-import { ComparisonTable } from 'podverse-ui'
-import React, { Component, Fragment } from 'react'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import Meta from '~/components/Meta/Meta'
-import config from '~/config'
-import PV from '~/lib/constants'
-import { pageIsLoading, pagesSetQueryState, modalsSignUpShow } from '~/redux/actions'
-import { withTranslation } from '~/../i18n'
-const { PUBLIC_BASE_URL } = config()
+import { GetServerSideProps } from 'next'
+import { useTranslation } from 'next-i18next'
+import OmniAural, { useOmniAural } from 'omniaural'
+import { Page } from '~/lib/utility/page'
+import { PV } from '~/resources'
+import {
+  ButtonLink,
+  ColumnsWrapper,
+  ComparisonTable,
+  MembershipStatus,
+  Meta,
+  PageHeader,
+  PageScrollableContent,
+  SideContent
+} from '~/components'
+import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 
-type Props = {
-  lastScrollPosition?: number
-  modalsSignUpShow?: any
-  pageKey?: string
-  t?: any
-}
+interface ServerProps extends Page {}
 
-type State = {}
+const keyPrefix = 'pages_membership'
 
-class Membership extends Component<Props, State> {
+export default function Membership(props: ServerProps) {
+  /* Initialize */
 
-  static async getInitialProps({ req, store }) {
-    const state = store.getState()
-    const { pages } = state
+  const { t } = useTranslation()
+  const [userInfo] = useOmniAural('session.userInfo')
 
-    const currentPage = pages[PV.pageKeys.membership] || {}
-    const lastScrollPosition = currentPage.lastScrollPosition
+  /* Meta Tags */
 
-    store.dispatch(pageIsLoading(false))
-    const namespacesRequired = PV.nexti18next.namespaces
-
-    return { lastScrollPosition, namespacesRequired, pageKey: PV.pageKeys.membership }
+  const meta = {
+    currentUrl: `${PV.Config.WEB_BASE_URL}${PV.RoutePaths.web.membership}`,
+    description: t('pages:membership._Description'),
+    title: t('pages:membership._Title')
   }
 
-  showSignUp = () => {
-    this.props.modalsSignUpShow(true)
-  }
-
-  render() {
-    const { t } = this.props
-
-    const meta = {
-      currentUrl: PUBLIC_BASE_URL + PV.paths.web.membership,
-      description: t('pages:membership._Description'),
-      title: t('pages:membership._Title')
-    }
-
-    return (
-      <Fragment>
-        <Meta
-          description={meta.description}
-          ogDescription={meta.description}
-          ogTitle={meta.title}
-          ogType='website'
-          ogUrl={meta.currentUrl}
-          robotsNoIndex={false}
-          title={meta.title}
-          twitterDescription={meta.description}
-          twitterTitle={meta.title} />
-        <h3>{t('Premium')}</h3>
-
-        <p className='membership-top-text'>
-          {t('Get 1 year free when you sign up for Podverse premium')}
-        </p>
-        <p className='membership-top-text'>
-          {t('10 per year after that')}
-        </p>
-        <div className='membership-join-list'>
-          <a onClick={this.showSignUp}>
-            {t('Sign Up')}
-          </a>
-        </div>
-        <ComparisonTable
-          featuresData={featuresData(t)}
-          headerIcon1='Free'
-          headerIcon2={t('Premium')}
-          headerText='Features' />
-      </Fragment>
-    )
-  }
+  return (
+    <>
+      <Meta
+        description={meta.description}
+        ogDescription={meta.description}
+        ogTitle={meta.title}
+        ogType='website'
+        ogUrl={meta.currentUrl}
+        robotsNoIndex={false}
+        title={meta.title}
+        twitterDescription={meta.description}
+        twitterTitle={meta.title}
+      />
+      <PageHeader text={t('Membership')} />
+      <PageScrollableContent>
+        <ColumnsWrapper
+          mainColumnChildren={
+            <div className='text-page'>
+              <MembershipStatus />
+              <ComparisonTable
+                aboveSectionNodes={
+                  <>
+                    <p>{t('Get 1 year free when you sign up for Podverse premium')}</p>
+                    <p>{t('10 per year after that')}</p>
+                    <div className='button-column'>
+                      {!userInfo && <ButtonLink label={t('Login')} onClick={() => OmniAural.modalsLoginShow()} />}
+                      {userInfo && (
+                        <ButtonLink label={t('Renew Membership')} onClick={() => OmniAural.modalsCheckoutShow()} />
+                      )}
+                    </div>
+                  </>
+                }
+                featuresData={featuresData(t)}
+                headerIcon1={t('Free')}
+                headerIcon2={t('Premium')}
+                headerText={t('Features')}
+              />
+            </div>
+          }
+        />
+      </PageScrollableContent>
+    </>
+  )
 }
 
 const featuresData = (t) => [
@@ -93,11 +90,6 @@ const featuresData = (t) => [
     icon2: true
   },
   {
-    text: t('features - drag-and-drop queue'),
-    icon1: true,
-    icon2: true
-  },
-  {
     text: t('features - sleep timer'),
     icon1: true,
     icon2: true
@@ -105,6 +97,11 @@ const featuresData = (t) => [
   {
     text: t('features - light / dark mode'),
     icon1: true,
+    icon2: true
+  },
+  {
+    text: t('features - drag-and-drop queue'),
+    icon1: false,
     icon2: true
   },
   {
@@ -140,11 +137,16 @@ const featuresData = (t) => [
   }
 ]
 
-const mapStateToProps = state => ({ ...state })
+/* Server-Side Logic */
 
-const mapDispatchToProps = dispatch => ({
-  modalsSignUpShow: bindActionCreators(modalsSignUpShow, dispatch),
-  pagesSetQueryState: bindActionCreators(pagesSetQueryState, dispatch)
-})
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const { locale } = ctx
 
-export default connect<{}, {}, Props>(mapStateToProps, mapDispatchToProps)(withTranslation(PV.nexti18next.namespaces)(Membership))
+  const defaultServerProps = await getDefaultServerSideProps(ctx, locale)
+
+  const serverProps: ServerProps = {
+    ...defaultServerProps
+  }
+
+  return { props: serverProps }
+}

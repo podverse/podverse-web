@@ -1,0 +1,10 @@
+.ReactModalPortal {
+  .ReactModal__Overlay.make-clip-success-modal-overlay  {
+    @include blurredBackground();
+
+    .make-clip-success-modal {
+      max-width: 530px;
+      width: 100%;
+    }
+  }
+}

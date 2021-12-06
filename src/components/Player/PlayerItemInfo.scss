@@ -1,0 +1,35 @@
+.player-item-info-container {
+  display: flex;
+  flex: 0 0 28%;
+  flex-direction: row;
+  
+  .player-item-contents {
+    align-items: center;
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+
+    .player-item-info-text-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      margin-left: 16px;
+      
+      .item-info-title {
+        font-weight: $font-weight-light;
+        margin: 0 0 10px 0;
+        @include line-clamp(2);
+      }
+      
+      .item-info-subtitle {
+        font-size: 14px;
+        font-weight: $font-weight-bold;
+        @include line-clamp(1);
+      
+        @include themeGen() {
+          color: getThemeVal("textQuaternary");
+        }
+      }
+    }
+  }
+}

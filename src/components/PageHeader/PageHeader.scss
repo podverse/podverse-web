@@ -1,0 +1,85 @@
+.page-header {
+  @include themeGen() {
+    background-color: getThemeVal('backgroundTertiary');
+  }
+
+  &.sub-header {
+    background-color: transparent;
+    margin: 24px 0 0 0;
+
+    .main-max-width {
+      margin: 0;
+    }
+  }
+  
+  .main-max-width {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    h1 {
+      margin-bottom: 20px;
+    }
+
+    h2 {
+      margin-right: 16px;
+      margin-bottom: 20px;
+    }
+
+    .dropdowns {
+      display: flex;
+      margin-bottom: 20px;
+      margin-top: 4px;
+    }
+
+    .dropdown-sort-wrapper {
+      margin: 0 0 0 8px;
+    }
+
+    .buttons {
+      display: flex;
+
+      button {
+        margin: 0 0 0 8px;
+      }
+    }
+  }
+}
+
+.page-header-hr {
+  margin-bottom: 24px;
+}
+
+.page-header-spacer {
+  display: block;
+  height: 24px;
+}
+
+@media (max-width: $media-max-width-tablet) {
+  .page-header {
+    margin-top: 0;
+    padding: 20px 16px 0 16px;
+
+    &.sub-header {
+      background-color: transparent;
+      padding: 0;
+    }
+
+    .main-max-width {
+      margin: 0;
+      
+      h1 {
+        font-size: $text-xxxl;
+      }
+
+      .dropdowns {
+        align-items: center;
+        margin-top: 0;
+
+        .dropdown-primary-wrapper {
+          margin-left: 0;
+        }
+      }
+    }
+  }
+}

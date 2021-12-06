@@ -1,30 +1,18 @@
-import React, { Component } from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { connect } from 'react-redux'
+import { faSpinner } from '@fortawesome/free-solid-svg-icons'
+import { useOmniAural } from 'omniaural'
+import { Icon } from '~/components'
 
-type Props = {
-  page?: any
+type Props = {}
+
+export const PageLoadingOverlay = (props: Props) => {
+  const [isLoading] = useOmniAural('page.isLoading')
+  return (
+    <>
+      {isLoading && (
+        <div className='page-loading-overlay'>
+          <Icon faIcon={faSpinner} spin />
+        </div>
+      )}
+    </>
+  )
 }
-
-type State = {}
-
-class PageLoadingOverlay extends Component<Props, State> {
-  
-  render () {
-    const { page } = this.props
-    const { isLoading } = page
-
-    return (
-      <div className={`page-loading-overlay ${isLoading ? 'show' : ''}`}>
-        <FontAwesomeIcon icon='spinner' spin />
-      </div> 
-    )
-  }
-  
-}
-
-const mapStateToProps = state => ({ ...state })
-
-const mapDispatchToProps = dispatch => ({})
-
-export default connect<{}, {}, Props>(mapStateToProps, mapDispatchToProps)(PageLoadingOverlay)

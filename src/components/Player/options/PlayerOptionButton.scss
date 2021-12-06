@@ -1,0 +1,63 @@
+.player-option-button {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  margin: 5px 0;
+
+  svg {
+    vertical-align: 0;
+  }
+
+  &.small {
+    height: 36px;
+    line-height: 36px;
+    width: 50px;
+
+    svg {
+      width: 18px;
+      height: unset;
+    }
+  }
+
+  &.medium {
+    height: 48px;
+    line-height: 48px;
+    width: 48px;
+
+    svg {
+      width: 24px;
+      height: unset;
+    }
+  }
+
+  &.large {
+    height: 54px;
+    line-height: 54px;
+    width: 54px;
+
+    svg {
+      width: 32px;
+      height: unset;
+    }
+  }
+}
+
+.jump-time-text-container {
+  display: flex;
+  position: absolute;
+  align-items: center;
+  justify-content: center;
+}
+
+.jump-time-text {
+  font-size: 7pt;
+  color: white;
+
+  &.backwards {
+    margin-left: 3px;
+  }
+
+  &.forwards {
+    margin-right: 3px;
+  }
+}

@@ -1,27 +1,20 @@
-import axios from 'axios'
+import OmniAural from 'omniaural'
 import { convertToNowPlayingItem, NowPlayingItem } from 'podverse-shared'
-import { getNowPlayingItemFromStorage, setNowPlayingItemInStorage } from 'podverse-ui'
-import config from '~/config'
-import PV from '~/lib/constants'
-const { API_BASE_URL } = config()
-
-export const getNowPlayingItem = async (user) => 
-  user && user.id
-    ? getNowPlayingItemOnServer()
-    : getNowPlayingItemFromStorage()
-
-export const setNowPlayingItem = async (item: NowPlayingItem | null, playbackPosition: number, user: any) =>
-  user && user.id
-    ? setNowPlayingItemOnServer(item, playbackPosition)
-    : setNowPlayingItemInStorage()
+import { getAuthCredentialsHeaders } from '~/lib/utility/auth'
+import { request } from '~/services/request'
 
 export const getNowPlayingItemOnServer = async () => {
-  let item = null as any
+  let item = null
+
+  const userInfo = OmniAural.state.session.userInfo.value()
+  if (!userInfo) return null
+
   try {
-    const response = await axios(`${API_BASE_URL}${PV.paths.api.user_now_playing_item}`, {
-      method: 'get',
-      withCredentials: true
-    })
+    const response = (await request({
+      endpoint: '/user-now-playing-item',
+      method: 'GET',
+      ...getAuthCredentialsHeaders()
+    })) as any
 
     const { episode, mediaRef, userPlaybackPosition } = response.data
 
@@ -29,8 +22,7 @@ export const getNowPlayingItemOnServer = async () => {
       throw new Error('Response data missing both episode and mediaRef')
     }
 
-    item = convertToNowPlayingItem(mediaRef || episode, {}, {}, userPlaybackPosition) || {}
-
+    item = convertToNowPlayingItem(mediaRef || episode, null, null, userPlaybackPosition || 0) || {}
   } catch (error) {
     console.log('Error in getNowPlayingItemOnServer: ', error)
     item = null
@@ -40,24 +32,31 @@ export const getNowPlayingItemOnServer = async () => {
 }
 
 export const setNowPlayingItemOnServer = async (item: NowPlayingItem | null, playbackPosition: number) => {
-  if (!item || (!item.clipId && !item.episodeId)) {
+  if (!item || (!item.clipId && !item.episodeId) || item.addByRSSPodcastFeedUrl) {
     return
   }
 
   playbackPosition = (playbackPosition && Math.floor(playbackPosition)) || 0
-  item.userPlaybackPosition = playbackPosition
-  await setNowPlayingItemInStorage(item)
 
-  const { clipId, episodeId } = item
-  const data = {
-    ...(clipId ? { clipId } : {}),
-    ...(!clipId ? { episodeId } : {}),
+  const { clipId, clipIsOfficialChapter, episodeId } = item
+  const body = {
+    ...(clipId && !clipIsOfficialChapter ? { clipId } : { clipId: null }),
+    ...(clipId && !clipIsOfficialChapter ? { episodeId: null } : { episodeId }),
     userPlaybackPosition: playbackPosition
   }
 
-  return axios(`${API_BASE_URL}${PV.paths.api.user_now_playing_item}`, {
-    method: 'patch',
-    data,
-    withCredentials: true
+  await request({
+    endpoint: '/user-now-playing-item',
+    method: 'PATCH',
+    ...getAuthCredentialsHeaders(),
+    body
+  })
+}
+
+export const clearNowPlayingItemOnServer = async () => {
+  await request({
+    endpoint: '/user-now-playing-item',
+    method: 'DELETE',
+    ...getAuthCredentialsHeaders()
   })
 }

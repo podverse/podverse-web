@@ -1,0 +1,93 @@
+.button-rectangle {
+  align-items: center;
+  display: flex;
+  flex: 0 0 auto;
+  justify-content: center;
+
+  &.primary {
+    border-radius: $button-rectangle-radius;
+    font-weight: $font-weight-bold;
+    height: 44px;
+    min-width: 158px;
+    padding: 0 16px;
+
+    @include themeGen() {
+      color: getThemeVal('buttonPrimaryText');
+      background-color: getThemeVal('buttonPrimaryBackground') !important;
+    }
+
+    &:hover {
+      @include themeGen() {
+        background-color: getThemeVal('buttonPrimaryRolloverBackground') !important;
+      }
+    }
+
+    &:disabled {
+      @include themeGen() {
+        background-color: getThemeVal('buttonDisabledBackground') !important;
+        color: getThemeVal('buttonDisabledText') !important;
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  &.secondary {
+    border-radius: $button-rectangle-radius;
+    font-weight: $font-weight-bold;
+    height: 44px;
+    min-width: 158px;
+    padding: 0 16px;
+
+    @include themeGen() {
+      background-color: getThemeVal('buttonSecondaryBackground') !important;
+    }
+
+    &:hover {
+      @include themeGen() {
+        background-color: getThemeVal('buttonSecondaryRolloverBackground') !important;
+      }
+    }
+  }
+
+  &.tertiary {
+    border-radius: $button-circle-radius;
+    border-style: solid;
+    border-width: $border-width-default;
+    font-size: $text-sm;
+    font-weight: $font-weight-bold;
+    height: 32px;
+    line-height: 30px;
+    padding: 0 20px;
+
+    @include themeGen() {
+      background-color: getThemeVal('buttonTertiaryBackground') !important;
+      border-color: getThemeVal('buttonTertiaryBorder') !important;
+    }
+
+    &:hover {
+      @include themeGen() {
+        background-color: getThemeVal('buttonTertiaryRolloverBackground') !important;
+        color: getThemeVal('buttonTertiaryTextRollover') !important;
+      }
+    }
+
+    &.danger {
+      @include themeGen() {
+        background-color: getThemeVal('buttonTertiaryDangerBackground') !important;
+        border-color: getThemeVal('buttonTertiaryDangerBorder') !important;
+      }
+
+      &:hover {
+        @include themeGen() {
+          background-color: getThemeVal('buttonTertiaryDangerRolloverBackground') !important;
+          color: getThemeVal('buttonTertiaryDangerTextRollover') !important;
+        }
+      }
+    }
+  }
+
+  .icon svg {
+    height: unset;
+    width: 22px;
+  }
+}

@@ -1,0 +1,45 @@
+.add-to-playlist-modal {
+  height: 480px;
+
+  h2 {
+    margin-bottom: 14px !important;
+  }
+
+  .playlists-wrapper {
+    display: flex;
+    flex-direction: column;
+
+    .button-link {
+      margin-bottom: 4px;
+    }
+
+    .add-to-playlist-list-item {
+      border-radius: $item-border-radius;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      margin: 0 -10px;
+      padding: 22px 10px 18px 10px;
+      
+      &:hover {
+        @include themeGen() {
+          background-color: getThemeVal('highlighted');
+          cursor: pointer;
+        }
+      }
+  
+      .title {
+        font-size: $text-xl;
+      }
+      
+      .items-count {
+        font-size: $text-md;
+        margin-top: 4px;
+    
+        @include themeGen() {
+          color: getThemeVal('textSecondary');
+        }
+      }
+    }
+  }
+}

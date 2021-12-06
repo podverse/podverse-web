@@ -1,0 +1,26 @@
+@include navBarLinkGradientStyle();
+
+.navbar {
+  .navbar__link {
+    font-size: $text-md;
+    margin: 5px 7px;
+    padding: 11px 0 10px 12px;
+    border-radius: $item-border-radius;
+
+    &:hover {
+      @include themeGen() {
+        background-color: getThemeVal('highlighted');
+      }
+    }
+
+    &.active {
+      font-weight: 700;
+    }
+
+    .navbar-link__icon-wrapper svg {
+      height: 16px;
+      margin: 0 7px 0 0;
+      width: 16px;
+    }
+  }
+}

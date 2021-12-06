@@ -1,162 +1,85 @@
+import { GetServerSideProps } from 'next'
+import { useTranslation } from 'next-i18next'
+import OmniAural, { useOmniAural } from 'omniaural'
+import type { Playlist } from 'podverse-shared'
+import { List, MessageWithAction, Meta, PageHeader, PageScrollableContent, PlaylistListItem } from '~/components'
+import { Page } from '~/lib/utility/page'
+import { PV } from '~/resources'
+import { getServerSideLoggedInUserPlaylistsCombined } from '~/services/playlist'
+import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 
-import React, { Component, Fragment } from 'react'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import { MediaListItem } from 'podverse-ui'
-import Meta from '~/components/Meta/Meta'
-import config from '~/config'
-import { getViewContentsElementScrollTop } from '~/lib/utility'
-import { pageIsLoading, pagesSetQueryState } from '~/redux/actions'
-import { getPlaylistsByQuery } from '~/services'
-import PV from '~/lib/constants'
-import { withTranslation } from '~/../i18n'
-const uuidv4 = require('uuid/v4')
-const { PUBLIC_BASE_URL } = config()
-
-type Props = {
-  lastScrollPosition?: number
-  myPlaylists: any[]
-  pageIsLoading?: any
-  pageKey?: string
-  pagesSetQueryState?: any
-  subscribedPlaylists: any[]
-  t?: any
-  user: any
-}
-
-type State = {}
-
-class Playlists extends Component<Props, State> {
-
-  static async getInitialProps({ req, store }) {
-    const state = store.getState()
-    const { pages, user } = state
-
-    const subscribedPlaylistIds = user.subscribedPlaylistIds || []
-
-    const myPlaylists = (user && user.playlists) || []
-
-    const currentPage = pages[PV.pageKeys.playlists] || {}
-    const lastScrollPosition = currentPage.lastScrollPosition
-
-    let subscribedPlaylists = []
-    if (subscribedPlaylistIds && subscribedPlaylistIds.length > 0) {
-      const subscribedPlaylistsData = await getPlaylistsByQuery({
-        from: PV.queryParams.subscribed_only,
-        subscribedPlaylistIds
-      })
-      subscribedPlaylists = subscribedPlaylistsData.data
-    }
-
-    store.dispatch(pageIsLoading(false))
-
-    const namespacesRequired = PV.nexti18next.namespaces
-
-    return { lastScrollPosition, myPlaylists, namespacesRequired, pageKey: PV.pageKeys.playlists, subscribedPlaylists,
-      user }
-  }
-
-  constructor(props) {
-    super(props)
-
-    this.state = {}
-  }
-
-  linkClick = () => {
-    const { pageIsLoading, pageKey, pagesSetQueryState } = this.props
-    pageIsLoading(true)
-
-    const scrollPos = getViewContentsElementScrollTop()
-    pagesSetQueryState({
-      pageKey,
-      lastScrollPosition: scrollPos
-    })
-  }
-
-  render() {
-    const { myPlaylists, subscribedPlaylists, t, user } = this.props
-
-    const meta = {
-      currentUrl: PUBLIC_BASE_URL + PV.paths.web.playlists,
-      description: t('pages:playlists._Description'),
-      title: t('pages:playlists._Title')
-    }
-    
-    const myPlaylistNodes = myPlaylists.map(x => (
-      <MediaListItem
-        dataPlaylist={x}
-        handleLinkClick={this.linkClick}
-        hasLink
-        itemType='playlist'
-        key={`media-list-item-${uuidv4()}`}
-        t={t} />
-    ))
-
-    const subscribedPlaylistNodes = subscribedPlaylists.map(x => (
-      <MediaListItem
-        dataPlaylist={x}
-        handleLinkClick={this.linkClick}
-        hasLink
-        itemType='playlist'
-        key={`media-list-item-${uuidv4()}`}
-        showOwner
-        t={t} />
-    ))
-
-    return (
-      <Fragment>
-        <Meta
-          description={meta.description}
-          ogDescription={meta.description}
-          ogTitle={meta.title}
-          ogType='website'
-          ogUrl={meta.currentUrl}
-          robotsNoIndex={true}
-          title={meta.title}
-          twitterDescription={meta.description}
-          twitterTitle={meta.title} />
-        <h3>{t('Playlists')}</h3>
-        {
-          (!user || !user.id) &&
-            <div className='no-results-msg'>
-              {t('LoginToViewYourPlaylists')}
-            </div>
-        }
-        {
-          (user && user.id) &&
-            <div className='reduced-margin playlists'>
-              <div className='media-list'>
-                {
-                  (myPlaylistNodes && myPlaylistNodes.length > 0) &&
-                    myPlaylistNodes
-                }
-                {
-                  (myPlaylistNodes.length === 0) &&
-                    <div className='no-results-msg'>
-                      {t('No playlists found')}
-                    </div>
-                }
-              </div>
-              {
-                (subscribedPlaylistNodes && subscribedPlaylistNodes.length > 0) &&
-                  <Fragment>
-                    <div className='media-list'>
-                      {subscribedPlaylistNodes}
-                    </div>
-                  </Fragment>
-              }
-            </div>
-        }
-      </Fragment>
-    )
+interface ServerProps extends Page {
+  serverPlaylistsCombined: {
+    createdPlaylists: Playlist[]
+    subscribedPlaylists: Playlist[]
   }
 }
 
-const mapStateToProps = state => ({ ...state })
+const keyPrefix = 'pages_playlists'
 
-const mapDispatchToProps = dispatch => ({
-  pageIsLoading: bindActionCreators(pageIsLoading, dispatch),
-  pagesSetQueryState: bindActionCreators(pagesSetQueryState, dispatch)
-})
+export default function Playlists({ serverPlaylistsCombined }: ServerProps) {
+  /* Initialize */
 
-export default connect<{}, {}, Props>(mapStateToProps, mapDispatchToProps)(withTranslation(PV.nexti18next.namespaces)(Playlists))
+  const { t } = useTranslation()
+  const [userInfo] = useOmniAural('session.userInfo')
+  const { createdPlaylists, subscribedPlaylists } = serverPlaylistsCombined
+  const combinedPlaylists = createdPlaylists.concat(subscribedPlaylists)
+
+  /* Render Helpers */
+
+  const generatePlaylistElements = (listItems: Playlist[]) => {
+    return listItems.map((listItem, index) => <PlaylistListItem key={`${keyPrefix}-${index}`} playlist={listItem} />)
+  }
+
+  /* Meta Tags */
+
+  const meta = {
+    currentUrl: `${PV.Config.WEB_BASE_URL}${PV.RoutePaths.web.playlists}`,
+    description: t('pages:playlists._Description'),
+    title: t('pages:playlists._Title')
+  }
+
+  return (
+    <>
+      <Meta
+        description={meta.description}
+        ogDescription={meta.description}
+        ogTitle={meta.title}
+        ogType='website'
+        ogUrl={meta.currentUrl}
+        robotsNoIndex={false}
+        title={meta.title}
+        twitterDescription={meta.description}
+        twitterTitle={meta.title}
+      />
+      <PageHeader text={t('Playlists')} noMarginBottom />
+      <PageScrollableContent noMarginTop>
+        {!userInfo && (
+          <MessageWithAction
+            actionLabel={t('Login')}
+            actionOnClick={() => OmniAural.modalsLoginShow()}
+            message={t('LoginToViewYourPlaylists')}
+          />
+        )}
+        {userInfo && <List>{generatePlaylistElements(combinedPlaylists)}</List>}
+      </PageScrollableContent>
+    </>
+  )
+}
+
+/* Server-Side Logic */
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const { req, locale } = ctx
+  const { cookies } = req
+
+  const defaultServerProps = await getDefaultServerSideProps(ctx, locale)
+  const combinedPlaylists = await getServerSideLoggedInUserPlaylistsCombined(cookies)
+
+  const serverProps: ServerProps = {
+    ...defaultServerProps,
+    serverPlaylistsCombined: combinedPlaylists
+  }
+
+  return { props: serverProps }
+}

@@ -1,0 +1,137 @@
+body {
+  .dropdown-wrapper {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    font-size: $text-sm;
+    justify-content: center;
+    
+    .dropdown__text {
+      margin-left: 8px;
+    }
+
+    .dropdown__icon {
+      align-items: center;
+      display: flex;
+      height: $button-small-height;
+      line-height: $button-small-height;
+  
+      svg {
+        height: 22px;
+        width: 22px;
+      }
+    }
+  
+  }
+  
+  .dropdown__chevron {
+    align-items: center;
+    display: flex;
+    height: $button-small-height;
+    line-height: $button-small-height;
+    margin-left: 8px;
+    padding-top: 3px;
+  
+    svg {
+      height: 12.25px !important;
+      width: 14px;
+    }
+  }
+
+  .outline-style {
+    .dropdown__chevron {
+      height: $button-small-height - 2px;
+      line-height: $button-small-height - 2px;
+    }
+  }
+  
+  .react-dropdown-select {
+    border-radius: $button-small-radius;
+    min-height: $button-small-height;
+    padding: 0px 5px;
+    user-select: none;
+
+    &.outline-style {
+      border: $border-width-default solid;
+      margin: -1px 0;
+      padding: 0px 14px;
+      @include themeGen() {
+        border-color: getThemeVal('borderPrimary');
+      }
+    }
+
+    .react-dropdown-select-dropdown {
+      border: none;
+      border-radius: $item-border-radius;
+      left: unset !important;
+      margin: 0;
+      max-height: 333px;
+      padding: 6px 0;
+      right: 0 !important;
+    
+      @include themeGen() {
+        background-color: getThemeVal('dropdownMenu');
+      }
+    
+      .react-dropdown-select-item {
+        border: none;
+        border-radius: $item-border-radius;
+        margin: 2px 8px;
+        padding: 8px 32px 8px 12px;
+
+        @include themeGen() {
+          color: getThemeVal('textPrimary');
+        }
+        
+        &.react-dropdown-select-item-selected {
+          background-color: transparent;
+          border: none;
+        }
+        
+        &.react-dropdown-select-item-active, &:hover {
+          border: none;
+          box-shadow: $box-shadow;
+          
+          @include themeGen() {
+            background-color: getThemeVal('dropdownMenuSelected');
+          }
+        }
+      }
+    }
+  }
+
+  .width-small {
+    .react-dropdown-select-dropdown {
+      width: $dropdown-menu-width-small;
+    }
+  }
+
+  .width-medium {
+    .react-dropdown-select-dropdown {
+      width: $dropdown-menu-width-medium;
+    }
+  }
+
+  .width-large {
+    .react-dropdown-select-dropdown {
+      width: $dropdown-menu-width-large;
+    }
+  }
+
+  .has-clip-edit-buttons {
+    .react-dropdown-select-dropdown {
+      .react-dropdown-select-item {
+        &:nth-last-child(2) {
+          @include themeGen() {
+            color: getThemeVal('textWarning');
+          }
+        }
+        &:last-child {
+          @include themeGen() {
+            color: getThemeVal('textDanger');
+          }
+        }
+      }
+    }
+  }
+}

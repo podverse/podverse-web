@@ -1,0 +1,39 @@
+.page-header-tabs {
+  padding: 4px 0 0 0;
+
+  @include themeGen() {
+    background-color: getThemeVal('backgroundTertiary');
+  }
+  
+  .main-max-width {
+    margin-bottom: 13px;
+    display: flex;
+
+    .tab-wrapper {
+      display: flex;
+      margin: 12px 0 -12px 48px;
+    }
+  }
+}
+
+@media (max-width: $media-max-width-mobile) {
+  .page-header-tabs {
+    margin-top: 0;
+    padding: 20px 16px 0 16px;
+    
+    .main-max-width {
+      display: flex;
+      flex-direction: column;
+      margin: 0;
+      
+      h1 {
+        flex: 1;
+        font-size: $text-xxxl;
+      }
+
+      .tab-wrapper {
+        margin: 4px 0 0 0;
+      }
+    }
+  }
+}

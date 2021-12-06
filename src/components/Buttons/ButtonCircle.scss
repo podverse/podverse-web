@@ -1,0 +1,128 @@
+.button-circle {
+  align-items: center;
+  border-width: $border-width-default;
+  border-radius: $button-circle-radius;
+  border-style: solid;
+  display: flex;
+  justify-content: center;
+
+  @include themeGen() {
+    border-color: getThemeVal("buttonTertiaryBorder");
+    background-color: getThemeVal("buttonSecondaryBackground");
+  }
+
+  &:hover {
+    @include themeGen() {
+      border-color: getThemeVal("buttonTertiaryBorder");
+    }
+  }
+
+  &.icon-only {
+    border-color: transparent;
+    background-color: unset;
+    @include themeGen() {
+      color: getThemeVal("textSecondary");
+    }
+
+    &:hover {
+      @include themeGen() {
+        border-color: transparent;
+      }
+    }
+  }
+
+  svg {
+    vertical-align: 0;
+  }
+
+  &.small {
+    height: 32px;
+    line-height: 32px;
+    width: 32px;
+
+    &.backwards {
+      margin-right: 8px;
+      padding-right: 1px;
+      svg {
+        width: 0.4375em;
+        height: unset;
+      }
+    }
+
+    &.forwards {
+      margin-left: 8px;
+      padding-left: 1px;
+      svg {
+        width: 0.4375em;
+        height: unset;
+      }
+    }
+  }
+
+  &.medium {
+    height: 48px;
+    line-height: 48px;
+    width: 48px;
+
+    &.backwards {
+      margin-right: 8px;
+      padding-right: 1px;
+      svg {
+        width: 0.4375em;
+        height: unset;
+      }
+    }
+
+    &.forwards {
+      margin-left: 8px;
+      padding-left: 1px;
+      svg {
+        width: 0.4375em;
+        height: unset;
+      }
+    }
+
+    &.play {
+      padding-left: 1px;
+      svg {
+        width: 12px;
+        height: unset;
+      }
+    }
+
+    &.pause {
+      svg {
+        width: 12px;
+        height: unset;
+      }
+    }
+
+    &.remove {
+      svg {
+        height: unset;
+        width: 20px;
+      }
+    }
+  }
+
+  &.large {
+    height: 64px;
+    line-height: 64px;
+    width: 64px;
+
+    &.play {
+      padding-left: 3px;
+      svg {
+        width: 18px;
+        height: unset;
+      }
+    }
+
+    &.pause {
+      svg {
+        width: 18px;
+        height: unset;
+      }
+    }
+  }
+}

@@ -1,0 +1,62 @@
+@include headerGradientStyle('.profile-page-header');
+
+.profile-page-header {
+  align-items: center;
+  display: flex;
+  min-height: 120px;
+  padding: 16px 0;
+
+  .main-max-width {
+    align-items: center;
+    align-self: stretch;
+    display: flex;
+    flex: 1;
+
+    .text-wrapper {
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+      justify-content: center;
+      padding-right: 16px;
+
+      .text-input {
+        max-width: 500px;
+      }
+    }
+
+    .buttons {
+      align-items: flex-end;
+      align-self: stretch;
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+      justify-content: space-around;
+      margin-left: auto;
+
+      .top-row {
+        display: flex;
+      }
+
+      .bottom-row {
+        display: flex;
+      }
+
+      button {
+        margin-left: 8px;
+      }
+    }
+  }
+}
+
+@media (max-width: $media-max-width-tablet-xl) {
+  .profile-page-header {
+    h1 {
+      font-size: $text-xxxl;
+      font-weight: $font-weight-light;
+    }
+
+    button {
+      margin-left: 8px;
+    }
+  }
+}

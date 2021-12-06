@@ -1,0 +1,44 @@
+.podcast-list-item {
+  a {
+    border-radius: $item-border-radius;
+    display: flex;
+    padding: 22px 10px 18px 10px;
+    margin: 0 -10px;
+
+    &:hover {
+      @include themeGen() {
+        background-color: getThemeVal('highlighted');
+      }
+    }
+
+    .pv-image {
+      border-radius: $item-border-radius;
+      margin: 0 16px 0 0;
+    }
+  
+    .text-wrapper {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+  
+      .last-episode-pub-date {
+        font-size: $text-sm;
+        font-weight: $font-weight-medium;
+  
+        @include themeGen() {
+          color: getThemeVal('textTertiary');
+        }
+      }
+  
+      .title {
+        font-size: $text-xl;
+        font-weight: $font-weight-light;
+        margin: 4px 0 0 0;
+      }
+    }
+  }
+}
+
+.podcast-list-item + hr {
+  margin-bottom: 0;
+}

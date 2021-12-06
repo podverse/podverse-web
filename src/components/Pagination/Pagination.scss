@@ -1,0 +1,18 @@
+.pagination {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  padding: 25px 0;
+
+  .button-circle.backwards {
+    margin-right: 8px;
+  }
+
+  .button-circle.forwards {
+    margin-left: 8px;
+  }
+
+  .button-square {
+    margin: 0 8px;
+  }
+}

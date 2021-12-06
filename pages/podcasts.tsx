@@ -1,136 +1,222 @@
-import { HeaderNavTabs } from 'podverse-ui'
-import React, { Component, Fragment } from 'react'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import Meta from '~/components/Meta/Meta'
-import PodcastListCtrl from '~/components/PodcastListCtrl/PodcastListCtrl'
-import config from '~/config'
-import PV from '~/lib/constants'
-import { cookieGetQuery } from '~/lib/utility'
-import { pageIsLoading, pagesSetQueryState } from '~/redux/actions'
-import { getCategoriesByQuery, handlePagePodcastsQuery } from '~/services'
-import { withTranslation } from '~/../i18n'
-const { CATEGORY_ID_DEFAULT, PUBLIC_BASE_URL } = config()
+import { GetServerSideProps } from 'next'
+import { useTranslation } from 'next-i18next'
+import OmniAural, { useOmniAural } from 'omniaural'
+import type { Podcast } from 'podverse-shared'
+import { useEffect, useRef, useState } from 'react'
+import {
+  List,
+  MessageWithAction,
+  Meta,
+  PageHeader,
+  PageScrollableContent,
+  Pagination,
+  PodcastListItem,
+  scrollToTopOfPageScrollableContent
+} from '~/components'
+import { Page } from '~/lib/utility/page'
+import { PV } from '~/resources'
+import { getPodcastsByQuery } from '~/services/podcast'
+import { isNotPodcastsAllSortOption } from '~/resources/Filters'
+import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 
-type Props = {
-  allCategories?: any[]
-  categoryId?: string
-  lastScrollPosition?: number
-  pageIsLoading?: boolean
-  pageKey: string
-  pages?: any
-  pagesSetQueryState?: any
-  playerQueue?: any
-  queryFrom?: string
-  queryPage: number
-  querySort?: any
-  t?: any
+interface ServerProps extends Page {
+  serverFilterFrom: string
+  serverFilterPage: number
+  serverFilterSort: string
+  serverPodcastsListData: Podcast[]
+  serverPodcastsListDataCount: number
 }
 
-type State = {}
+const keyPrefix = 'pages_podcasts'
 
-class Podcasts extends Component<Props, State> {
+export default function Podcasts({
+  serverFilterFrom,
+  serverFilterPage,
+  serverFilterSort,
+  serverPodcastsListData,
+  serverPodcastsListDataCount
+}: ServerProps) {
+  /* Initialize */
 
-  static async getInitialProps({ query, req, store }) {
-    const state = store.getState()
-    const { pages, user } = state
-    const { subscribedPodcastIds } = user
+  const { t } = useTranslation()
+  const [filterFrom, setFilterFrom] = useState<string>(serverFilterFrom)
+  const [filterPage, setFilterPage] = useState<number>(serverFilterPage)
+  const [filterSort, setFilterSort] = useState<string>(serverFilterSort)
+  const [podcastsListData, setPodcastsListData] = useState<Podcast[]>(serverPodcastsListData)
+  const [podcastsListDataCount, setPodcastsListDataCount] = useState<number>(serverPodcastsListDataCount)
+  const [userInfo] = useOmniAural('session.userInfo')
+  const initialRender = useRef(true)
+  const pageCount = Math.ceil(podcastsListDataCount / PV.Config.QUERY_RESULTS_LIMIT_DEFAULT)
 
-    const allCategoriesAndCountResult = await getCategoriesByQuery({})
-    const allCategories = allCategoriesAndCountResult.data[0] || []
+  /* useEffects */
 
-    const localStorageQuery = cookieGetQuery(req, PV.pageKeys.podcasts)
+  useEffect(() => {
+    ;(async () => {
+      if (initialRender.current) {
+        initialRender.current = false
+      } else {
+        OmniAural.pageIsLoadingShow()
+        const { data } = await clientQueryPodcasts()
+        const [newListData, newListCount] = data
+        setPodcastsListData(newListData)
+        setPodcastsListDataCount(newListCount)
+        scrollToTopOfPageScrollableContent()
+        OmniAural.pageIsLoadingHide()
+      }
+    })()
+  }, [filterFrom, filterSort, filterPage])
 
-    const currentPage = pages[PV.pageKeys.podcasts] || {}
-    const lastScrollPosition = currentPage.lastScrollPosition
-    const queryRefresh = !!query.refresh
-    const categoryId = query.categoryId || currentPage.categoryId || localStorageQuery.categoryId || CATEGORY_ID_DEFAULT
-    const queryPage = (queryRefresh && 1) || query.page || currentPage.queryPage || 1
-    const queryFrom = query.from
-      || (query.categoryId && PV.queryParams.from_category)
-      || currentPage.queryFrom
-      || localStorageQuery.from
-      || PV.queryParams.all_podcasts
-    const querySort = query.sort || currentPage.querySort || localStorageQuery.sort || PV.queryParams.top_past_week
+  /* Client-Side Queries */
 
-    const queryObj = {
-      categoryId,
-      currentPage,
-      pageIsLoading,
-      pagesSetQueryState,
-      podcastId: subscribedPodcastIds,
-      queryFrom,
-      queryPage,
-      queryRefresh,
-      querySort,
-      store
+  const clientQueryPodcasts = async () => {
+    if (filterFrom === PV.Filters.from._all) {
+      return clientQueryPodcastsAll()
+    } else if (filterFrom === PV.Filters.from._subscribed) {
+      return clientQueryPodcastsBySubscribed()
     }
-
-    await handlePagePodcastsQuery(queryObj)
-  
-    const namespacesRequired = PV.nexti18next.namespaces
-
-    return { allCategories, categoryId, lastScrollPosition, namespacesRequired, 
-      pageKey: PV.pageKeys.podcasts, queryFrom, queryPage, querySort, user }
   }
 
-  toggleAdvancedFilter = async () => {
-    const { pageKey, pagesSetQueryState, pages } = this.props
-    const { isAdvancedFilterShowing } = pages[pageKey]
+  const clientQueryPodcastsAll = async () => {
+    const finalQuery = {
+      ...(filterPage ? { page: filterPage } : {}),
+      ...(filterSort ? { sort: filterSort } : {})
+    }
+    return getPodcastsByQuery(finalQuery)
+  }
 
-    pagesSetQueryState({
-      pageKey,
-      isAdvancedFilterShowing: !isAdvancedFilterShowing
+  const clientQueryPodcastsBySubscribed = async () => {
+    const subscribedPodcastIds = userInfo?.subscribedPodcastIds || []
+    const finalQuery = {
+      podcastIds: subscribedPodcastIds,
+      ...(filterPage ? { page: filterPage } : {}),
+      ...(filterSort ? { sort: filterSort } : {})
+    }
+    return getPodcastsByQuery(finalQuery)
+  }
+
+  /* Function Helpers */
+
+  const _handlePrimaryOnChange = (selectedItems: any[]) => {
+    const selectedItem = selectedItems[0]
+    if (selectedItem.key !== filterFrom) setFilterPage(1)
+
+    if (selectedItem.key !== PV.Filters.from._subscribed && isNotPodcastsAllSortOption(filterSort)) {
+      setFilterSort(PV.Filters.sort._topPastDay)
+    }
+
+    setFilterFrom(selectedItem.key)
+  }
+
+  const _handleSortOnChange = (selectedItems: any[]) => {
+    const selectedItem = selectedItems[0]
+    if (selectedItem.key !== filterSort) setFilterPage(1)
+    setFilterSort(selectedItem.key)
+  }
+
+  /* Render Helpers */
+
+  const generatePodcastListElements = (listItems: Podcast[]) => {
+    return listItems.map((listItem, index) => <PodcastListItem key={`${keyPrefix}-${index}`} podcast={listItem} />)
+  }
+
+  /* Meta Tags */
+
+  const meta = {
+    currentUrl: `${PV.Config.WEB_BASE_URL}${PV.RoutePaths.web.podcasts}`,
+    description: t('pages:podcasts._Description'),
+    title: t('pages:podcasts._Title')
+  }
+
+  return (
+    <>
+      <Meta
+        description={meta.description}
+        ogDescription={meta.description}
+        ogTitle={meta.title}
+        ogType='website'
+        ogUrl={meta.currentUrl}
+        robotsNoIndex={false}
+        title={meta.title}
+        twitterDescription={meta.description}
+        twitterTitle={meta.title}
+      />
+      <PageHeader
+        noMarginBottom
+        primaryOnChange={_handlePrimaryOnChange}
+        primaryOptions={PV.Filters.dropdownOptions.podcasts.from}
+        primarySelected={filterFrom}
+        sortOnChange={_handleSortOnChange}
+        sortOptions={
+          filterFrom === PV.Filters.from._subscribed
+            ? PV.Filters.dropdownOptions.podcasts.sort.subscribed
+            : PV.Filters.dropdownOptions.podcasts.sort.all
+        }
+        sortSelected={filterSort}
+        text={t('Podcasts')}
+      />
+      <PageScrollableContent noMarginTop>
+        {!userInfo && filterFrom === PV.Filters.from._subscribed && (
+          <MessageWithAction
+            actionLabel={t('Login')}
+            actionOnClick={() => OmniAural.modalsLoginShow()}
+            message={t('LoginToSubscribeToPodcasts')}
+          />
+        )}
+        {(userInfo || filterFrom !== PV.Filters.from._subscribed) && (
+          <>
+            <List noMarginTop>{generatePodcastListElements(podcastsListData)}</List>
+            <Pagination
+              currentPageIndex={filterPage}
+              handlePageNavigate={(newPage) => setFilterPage(newPage)}
+              handlePageNext={() => {
+                if (filterPage + 1 <= pageCount) setFilterPage(filterPage + 1)
+              }}
+              handlePagePrevious={() => {
+                if (filterPage - 1 > 0) setFilterPage(filterPage - 1)
+              }}
+              pageCount={pageCount}
+            />
+          </>
+        )}
+      </PageScrollableContent>
+    </>
+  )
+}
+
+/* Server-Side Logic */
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const { locale } = ctx
+
+  const defaultServerProps = await getDefaultServerSideProps(ctx, locale)
+  const { serverUserInfo } = defaultServerProps
+
+  const serverFilterFrom = serverUserInfo ? PV.Filters.from._subscribed : PV.Filters.from._all
+  const serverFilterSort = serverUserInfo ? PV.Filters.sort._alphabetical : PV.Filters.sort._topPastDay
+
+  const serverFilterPage = 1
+  let response = null
+  if (serverUserInfo) {
+    response = await getPodcastsByQuery({
+      podcastIds: serverUserInfo.subscribedPodcastIds,
+      sort: serverFilterSort
+    })
+  } else {
+    response = await getPodcastsByQuery({
+      sort: serverFilterSort
     })
   }
 
-  render() {
-    const { allCategories, categoryId, pageKey, pageIsLoading, pages, queryFrom,
-      queryPage, querySort, t } = this.props
-    const { isAdvancedFilterShowing } = pages[pageKey]
+  const [podcastsListData, podcastsListDataCount] = response.data
 
-    const meta = {
-      currentUrl: PUBLIC_BASE_URL + PV.paths.web.podcasts,
-      description: t('pages:podcasts._Description'),
-      title: t('pages:podcasts._Title')
-    }
-    
-    return (
-      <Fragment>
-        <Meta
-          description={meta.description}
-          ogDescription={meta.description}
-          ogTitle={meta.title}
-          ogType='website'
-          ogUrl={meta.currentUrl}
-          robotsNoIndex={true}
-          title={meta.title}
-          twitterDescription={meta.description}
-          twitterTitle={meta.title} />
-        <HeaderNavTabs
-          handleLinkClick={pageIsLoading}
-          handleToggleAdvancedFilter={this.toggleAdvancedFilter}
-          isAdvancedFilterShowing={isAdvancedFilterShowing}
-          items={PV.homeHeaderButtons(pageKey, t)}
-          t={t} />
-        <PodcastListCtrl 
-          allCategories={allCategories}
-          categoryId={categoryId}
-          pageIsLoading={pageIsLoading}
-          pageKey={pageKey}
-          queryFrom={queryFrom}
-          queryPage={queryPage}
-          querySort={querySort} />
-      </Fragment>
-    )
+  const serverProps: ServerProps = {
+    ...defaultServerProps,
+    serverFilterFrom,
+    serverFilterPage,
+    serverFilterSort,
+    serverPodcastsListData: podcastsListData,
+    serverPodcastsListDataCount: podcastsListDataCount
   }
 
+  return { props: serverProps }
 }
-
-const mapStateToProps = state => ({ ...state })
-
-const mapDispatchToProps = dispatch => ({
-  pagesSetQueryState: bindActionCreators(pagesSetQueryState, dispatch)
-})
-
-export default connect<{}, {}, Props>(mapStateToProps, mapDispatchToProps)(withTranslation(PV.nexti18next.namespaces)(Podcasts))

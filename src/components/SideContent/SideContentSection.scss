@@ -1,0 +1,58 @@
+.side-content-section {
+  
+  .side-content-header {
+    display: flex;
+    margin-bottom: 12px;
+
+    .side-content-header-caret {
+      display: none;
+    }
+  }
+  
+  .side-content-contents {
+    font-size: $text-sm;
+    line-height: 19px;
+    margin-bottom: 24px;
+
+    @include themeGen() {
+      color: getThemeVal('textSecondary');
+    }
+  }
+
+  a {
+    @include themeGen() {
+      color: getThemeVal('textLink');
+    }
+  }
+
+  hr {
+    display: none;
+  }
+}
+
+@media (max-width: $media-max-width-laptop) {
+  .side-content-section {
+    
+    .side-content-header {
+      cursor: pointer;
+      margin: 16px 0;
+
+      .side-content-header-caret {
+        align-items: center;
+        display: flex;
+        font-size: $text-xl;
+        margin-left: 14px;
+      }
+    }
+
+    .side-content-contents {
+      font-size: $text-md;
+      margin-bottom: 24px;
+    }
+
+    hr {
+      display: block;
+      margin: 16px 0;
+    }
+  }
+}

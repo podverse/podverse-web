@@ -1,277 +1,136 @@
-import React, { Component, Fragment } from 'react'
-import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import { addItemToPriorityQueueStorage, Button, getPriorityQueueItemsStorage,
-  MediaListItem, removeItemFromPriorityQueueStorage,
-  updatePriorityQueueStorage } from 'podverse-ui'
-import Meta from '~/components/Meta/Meta'
-import config from '~/config'
-import PV from '~/lib/constants'
-import { safeAlert } from '~/lib/utility'
-import { pageIsLoading, pagesSetQueryState, playerQueueLoadItems,
-  playerQueueLoadPriorityItems, userSetInfo } from '~/redux/actions'
-import { withTranslation } from 'i18n'
-import { addQueueItemLastToServer, addQueueItemNextToServer, addQueueItemToServer, getQueueItems, removeQueueItemOnServer } from '~/services/userQueueItem'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-const { PUBLIC_BASE_URL } = config()
+import { GetServerSideProps } from 'next'
+import { useTranslation } from 'next-i18next'
+import OmniAural, { useOmniAural } from 'omniaural'
+import { useState } from 'react'
+import { convertNowPlayingItemToEpisode, convertNowPlayingItemToMediaRef, NowPlayingItem } from 'podverse-shared'
+import {
+  ClipListItem,
+  ColumnsWrapper,
+  EpisodeListItem,
+  List,
+  MessageWithAction,
+  Meta,
+  PageHeader,
+  PageScrollableContent,
+  SideContent
+} from '~/components'
+import { Page } from '~/lib/utility/page'
+import { PV } from '~/resources'
+import { isNowPlayingItemMediaRef } from '~/lib/utility/typeHelpers'
+import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 
-type Props = {
-  lastScrollPosition?: number
-  mediaPlayer: any
-  pageKey?: string
-  playerQueue: any
-  playerQueueLoadItems: any
-  playerQueueLoadPriorityItems: any
-  t?: any
-  user?: any
-  userSetInfo?: any
-}
+interface ServerProps extends Page {}
 
-type State = {
-  isEditing?: boolean
-  isRemoving?: boolean
-}
+const keyPrefix = 'pages_queue'
 
-class Queue extends Component<Props, State> {
+export default function Queue(props: ServerProps) {
+  /* Initialize */
 
-  constructor(props) {
-    super(props)
+  const { t } = useTranslation()
+  const [userInfo] = useOmniAural('session.userInfo')
+  const [userQueueItems] = useOmniAural('userQueueItems')
+  const [isEditing, setIsEditing] = useState<boolean>(false)
+  const hasEditButton = !!userInfo
 
-    this.state = {}
+  /* Function helpers */
+
+  const _removeQueueItemsAll = async () => {
+    const answer = window.confirm(t('Are you sure you want to remove all of your queue items?'))
+    if (answer) {
+      OmniAural.pageIsLoadingShow()
+      await OmniAural.removeQueueItemsAll()
+      OmniAural.pageIsLoadingHide()
+    }
   }
 
-  static async getInitialProps({ req, store }) {
-    const state = store.getState()
-    const { pages, isRemoving } = state
+  /* Render Helpers */
 
-    const currentPage = pages[PV.pageKeys.queue] || {}
-    const lastScrollPosition = currentPage.lastScrollPosition
-
-    store.dispatch(pageIsLoading(false))
-
-    const namespacesRequired = PV.nexti18next.namespaces
-
-    return { lastScrollPosition, pageKey: PV.pageKeys.queue, namespacesRequired, isRemoving }
-  }
-
-  onDragEnd = async data => {
-    const { playerQueue, playerQueueLoadItems, user, userSetInfo } = this.props
-    let { priorityItems } = playerQueue
-    const { destination, source } = data
-
-    const sourceIndex = source && source.index ? source.index : 0
-    let destinationIndex = destination && destination.index ? destination.index : 0
-    const offset = destinationIndex < sourceIndex ? -1 : 0
-    destinationIndex = ((destinationIndex + 1) * 1000) + offset
-
-    if (user && user.id) {
-      priorityItems = await addQueueItemToServer(priorityItems[source.index], destinationIndex)
-    } else {
-      let itemToMove: any = []
-
-      if (destination && source) {
-        if (source.droppableId === 'priority-items') {
-          itemToMove = priorityItems.splice(source.index, 1)
-        }
-
-        if (itemToMove.length > 0) {
-          if (destination.droppableId === 'priority-items') {
-            priorityItems.splice(destination.index, 0, itemToMove[0])
-          }
-        }
+  const generateQueueListElements = (queueItems: NowPlayingItem[]) => {
+    return queueItems.map((queueItem, index) => {
+      if (isNowPlayingItemMediaRef(queueItem)) {
+        /* *TODO* remove the "as any" */
+        const mediaRef = convertNowPlayingItemToMediaRef(queueItem) as any
+        return (
+          <ClipListItem
+            episode={mediaRef.episode}
+            handleRemove={() => OmniAural.removeQueueItemMediaRef(mediaRef.id)}
+            isLoggedInUserMediaRef={userInfo && userInfo.id === mediaRef.owner.id}
+            key={`${keyPrefix}-clip-${index}`}
+            mediaRef={mediaRef}
+            podcast={mediaRef.episode.podcast}
+            showImage
+            showRemoveButton={isEditing}
+          />
+        )
+      } else {
+        /* *TODO* remove the "as any" */
+        const episode = convertNowPlayingItemToEpisode(queueItem) as any
+        return (
+          <EpisodeListItem
+            episode={episode}
+            handleRemove={() => OmniAural.removeQueueItemEpisode(episode.id)}
+            key={`${keyPrefix}-episode-${index}`}
+            podcast={episode.podcast}
+            showImage
+            showRemoveButton={isEditing}
+          />
+        )
       }
-
-      updatePriorityQueueStorage(priorityItems)
-    }
-
-    playerQueueLoadItems({ priorityItems })
-
-    userSetInfo({ queueItems: priorityItems })
+    })
   }
 
-  toggleEditMode = () => {
-    const { isEditing } = this.state
-    this.setState({ isEditing: !isEditing })
+  /* Meta Tags */
+
+  const meta = {
+    currentUrl: `${PV.Config.WEB_BASE_URL}${PV.RoutePaths.web.queue}`,
+    description: t('pages:queue._Description'),
+    title: t('pages:queue._Title')
   }
 
-  addToQueue = async isLast => {
-    const { mediaPlayer, playerQueueLoadPriorityItems, user, userSetInfo } = this.props
-    const { nowPlayingItem } = mediaPlayer
-
-    let priorityItems = []
-    if (user && user.id) {
-      priorityItems = isLast
-        ? await addQueueItemLastToServer(nowPlayingItem)
-        : await addQueueItemNextToServer(nowPlayingItem)
-      priorityItems = priorityItems || []
-    } else {
-      addItemToPriorityQueueStorage(nowPlayingItem, isLast)
-      priorityItems = await getQueueItems(user)
-    }
-
-    playerQueueLoadPriorityItems(priorityItems)
-    userSetInfo({ queueItems: priorityItems })
-  }
-
-  removeQueueItem = async (clipId, episodeId) => {
-    this.setState({ isRemoving: true })
-    const { playerQueueLoadPriorityItems, t, user, userSetInfo } = this.props
-
-    if (user && user.id) {
-      try {
-        const userQueueItems = await removeQueueItemOnServer(clipId, episodeId)
-        userSetInfo({ queueItems: userQueueItems })
-        playerQueueLoadPriorityItems(userQueueItems)
-      } catch (error) {
-        console.log(error)
-        safeAlert(t('errorMessages:alerts.couldNotUpdateQueue'))
-      }
-    } else {
-      removeItemFromPriorityQueueStorage(clipId, episodeId)
-      const priorityItems = getPriorityQueueItemsStorage()
-      userSetInfo({ queueItems: priorityItems })
-      playerQueueLoadPriorityItems(priorityItems)
-    }
-
-    this.setState({ isRemoving: false })
-  }
-
-  render() {
-    const { mediaPlayer, playerQueue, t } = this.props
-    const { nowPlayingItem } = mediaPlayer
-
-    const { priorityItems } = playerQueue
-
-    const { isEditing, isRemoving } = this.state
-
-    const meta = {
-      currentUrl: PUBLIC_BASE_URL + PV.paths.web.queue,
-      description: t('pages:queue._Description'),
-      title: t('pages:queue._Title')
-    }
-
-    const header = (
-      <div className='queue-modal__header'>
-        <h3><FontAwesomeIcon icon='list-ul' /> &nbsp;{t('Queue')}</h3>
-        <div className='queue-modal-header__edit'>
-          <Button
-            onClick={this.toggleEditMode}>
-            {
-              isEditing ?
-                <React.Fragment><FontAwesomeIcon icon='check' /> {t('Done')}</React.Fragment>
-                : <React.Fragment><FontAwesomeIcon icon='edit' /> {t('Edit')}</React.Fragment>
-            }
-          </Button>
-        </div>
-      </div>
-    )
-
-    let priorityItemNodes: any = []
-
-    const queueModalPriorityItemKey = 'queueModalPriorityItemKey'
-    priorityItemNodes = Array.isArray(priorityItems) ? priorityItems.map((x, index) => (
-      <Draggable
-        draggableId={`priority-item-${index}`}
-        index={index}
-        key={`${queueModalPriorityItemKey}${index}`}>
-        {(provided, snapshot) => (
-          <React.Fragment>
-            <div
-              key={`${queueModalPriorityItemKey}b${index}`}
-              ref={provided.innerRef}
-              {...provided.draggableProps}
-              {...provided.dragHandleProps}>
-              <MediaListItem
-                dataNowPlayingItem={x}
-                handleRemoveItem={() => this.removeQueueItem(x.clipId, x.episodeId)}
-                isRemoving={isRemoving}
-                hasLink
-                hideDescription={true}
-                hideDivider={true}
-                itemType='now-playing-item'
-                key={`${queueModalPriorityItemKey}c${index}`}
-                showMove={!isEditing}
-                showRemove={isEditing}
-                t={t}
-                useEpisodeImageUrl={true} />
-            </div>
-            <hr className='pv-divider' />
-          </React.Fragment>
+  return (
+    <>
+      <Meta
+        description={meta.description}
+        ogDescription={meta.description}
+        ogTitle={meta.title}
+        ogType='website'
+        ogUrl={meta.currentUrl}
+        robotsNoIndex={false}
+        title={meta.title}
+        twitterDescription={meta.description}
+        twitterTitle={meta.title}
+      />
+      <PageHeader
+        isEditing={isEditing}
+        handleClearAllButton={_removeQueueItemsAll}
+        handleEditButton={() => setIsEditing(!isEditing)}
+        hasEditButton={hasEditButton}
+        text={t('Queue')}
+      />
+      <PageScrollableContent noMarginTop>
+        {!userInfo && (
+          <MessageWithAction
+            actionLabel={t('Login')}
+            actionOnClick={() => OmniAural.modalsLoginShow()}
+            message={t('LoginToViewYourQueue')}
+          />
         )}
-      </Draggable>
-    )) : []
-    
-    const isClip = nowPlayingItem && nowPlayingItem.clipId
-    const itemType = isClip ? 'now-playing-item-queue-clip' : 'now-playing-item-queue-episode'
-    const noItemsInQueueFoundMsg = priorityItemNodes.length ? '' : t('ThereAreNoItemsInYourQueue')
-
-    return (
-      <Fragment>
-        <Meta
-          description={meta.description}
-          ogDescription={meta.description}
-          ogTitle={meta.title}
-          ogType='website'
-          ogUrl={meta.currentUrl}
-          robotsNoIndex={false}
-          title={meta.title}
-          twitterDescription={meta.description}
-          twitterTitle={meta.title} />
-        <div className='queue'>
-          {header}
-          <React.Fragment>
-            {
-              nowPlayingItem &&
-              <React.Fragment>
-                <h6>{t('Now Playing')}</h6>
-                <div className='media-list__container-now-playing'>
-                  <MediaListItem
-                    dataNowPlayingItem={nowPlayingItem}
-                    hasLink
-                    hideDescription={true}
-                    hideDivider={true}
-                    itemType={itemType}
-                    t={t}
-                    useEpisodeImageUrl={true} />
-                </div>
-              </React.Fragment>
-            }
-            <DragDropContext
-              onDragEnd={this.onDragEnd}>
-              {
-                <React.Fragment>
-                  <h6>{t('Next Up')}</h6>
-                  {noItemsInQueueFoundMsg && (
-                    <p>{noItemsInQueueFoundMsg}</p>
-                  )}
-                  <Droppable droppableId='priority-items'>
-                    {(provided, snapshot) => (
-                      <div
-                        ref={provided.innerRef}
-                        style={{ backgroundColor: snapshot.isDraggingOver ? 'blue' : 'transparent' }}
-                        {...provided.droppableProps}>
-                        {priorityItemNodes}
-                      </div>
-                    )}
-                  </Droppable>
-                </React.Fragment>
-              }
-            </DragDropContext>
-          </React.Fragment>
-        </div>
-      </Fragment>
-    )
-  }
+        {userInfo && <ColumnsWrapper mainColumnChildren={<List>{generateQueueListElements(userQueueItems)}</List>} />}
+      </PageScrollableContent>
+    </>
+  )
 }
 
-const mapStateToProps = state => ({ ...state })
+/* Server-Side Logic */
 
-const mapDispatchToProps = dispatch => ({
-  pagesSetQueryState: bindActionCreators(pagesSetQueryState, dispatch),
-  playerQueueLoadItems: bindActionCreators(playerQueueLoadItems, dispatch),
-  playerQueueLoadPriorityItems: bindActionCreators(playerQueueLoadPriorityItems, dispatch),
-  userSetInfo: bindActionCreators(userSetInfo, dispatch)
-})
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const { locale } = ctx
 
-export default connect<{}, {}, Props>(mapStateToProps, mapDispatchToProps)(withTranslation(PV.nexti18next.namespaces)(Queue))
+  const defaultServerProps = await getDefaultServerSideProps(ctx, locale)
+
+  const serverProps: ServerProps = {
+    ...defaultServerProps
+  }
+
+  return { props: serverProps }
+}
