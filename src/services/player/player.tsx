@@ -49,10 +49,8 @@ export const playerCheckIfCurrentlyPlaying = () => {
   let isCurrentlyPlaying = false
   if (audioCheckIfCurrentlyPlaying()) {
     isCurrentlyPlaying = true
-  } else if (false) {
-    // handle video
-    isCurrentlyPlaying = true
   }
+
   return isCurrentlyPlaying
 }
 

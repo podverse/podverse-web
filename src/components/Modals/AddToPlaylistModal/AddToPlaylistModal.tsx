@@ -11,7 +11,7 @@ import {
   getLoggedInUserPlaylists
 } from '~/services/playlist'
 
-type Props = {}
+type Props = unknown
 
 const keyPrefix = '_addToPlaylist'
 

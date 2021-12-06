@@ -9,7 +9,7 @@ import { enrichChapterDataForPlayer, handleChapterUpdateInterval } from '~/servi
 import { generateChapterFlagPositions, setClipFlagPositions } from '~/services/player/playerFlags'
 import { addOrUpdateHistoryItemOnServer } from '~/services/userHistoryItem'
 
-type Props = {}
+type Props = unknown
 
 export const PlayerAPIAudio = (props: Props) => {
   const [player] = useOmniAural('player')

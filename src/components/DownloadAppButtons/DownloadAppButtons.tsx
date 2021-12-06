@@ -1,6 +1,6 @@
 import { PV } from '~/resources'
 
-type Props = {}
+type Props = unknown
 
 export const DownloadAppButtons = () => {
   return (

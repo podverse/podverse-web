@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import Modal from 'react-modal'
 import { ButtonClose, MakeClipForm } from '~/components'
 
-type Props = {}
+type Props = unknown
 
 export const MakeClipModal = (props: Props) => {
   const { t } = useTranslation()

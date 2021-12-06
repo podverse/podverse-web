@@ -5,7 +5,7 @@ import Modal from 'react-modal'
 import { ButtonClose, PasswordInputs } from '~/components'
 import { signUp as signUpService } from '~/services/auth'
 
-type Props = {}
+type Props = unknown
 
 export const SignUpModal = (props: Props) => {
   const [signUp] = useOmniAural('modals.signUp')

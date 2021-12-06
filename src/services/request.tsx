@@ -9,7 +9,7 @@ type PVRequest = {
   headers?: any
   method?: string
   opts?: any
-  query?: {}
+  query?: Record<string, unknown>
   withCredentials?: boolean
 }
 
@@ -32,10 +32,6 @@ export const request = async (req: PVRequest) => {
     ...(withCredentials ? { withCredentials: true } : {})
   }
 
-  try {
-    const response = await axios(axiosRequest)
-    return response
-  } catch (error) {
-    throw error
-  }
+  const response = await axios(axiosRequest)
+  return response
 }

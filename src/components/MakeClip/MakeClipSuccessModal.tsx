@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import Modal from 'react-modal'
 import { ButtonClose, ButtonRectangle, TextInputCopy } from '~/components'
 
-type Props = {}
+type Props = unknown
 
 export const MakeClipSuccessModal = (props: Props) => {
   const [makeClip] = useOmniAural('makeClip')

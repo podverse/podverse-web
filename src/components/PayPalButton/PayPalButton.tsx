@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next'
 import { PV } from '~/resources'
 import { createPayPalOrder } from '~/services/paypal'
 
-type Props = {}
+type Props = unknown
 
 let PayPalButtonFromLibrary: any = null
 
