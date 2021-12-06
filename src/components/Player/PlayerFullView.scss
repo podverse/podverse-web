@@ -117,7 +117,11 @@
       width: 100%;
 
       .player-bar-label {
-        min-width: unset;
+        min-width: 30px;
+
+        &:first-child {
+          text-align: left;
+        }
       }
     }
 
