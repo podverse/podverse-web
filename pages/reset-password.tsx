@@ -7,7 +7,7 @@ import { PV } from '~/resources'
 import { resetPassword } from '~/services/auth'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 
-interface ServerProps extends Page {}
+type ServerProps = Page
 
 const keyPrefix = 'pages_reset_password'
 

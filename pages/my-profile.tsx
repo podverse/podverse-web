@@ -6,7 +6,7 @@ import { PV } from '~/resources'
 import { MessageWithAction, Meta, PageHeader, PageScrollableContent } from '~/components'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 
-interface ServerProps extends Page {}
+type ServerProps = Page
 
 const keyPrefix = 'pages_my_profile'
 

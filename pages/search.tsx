@@ -17,7 +17,7 @@ import { getPodcastsByQuery } from '~/services/podcast'
 import { scrollToTopOfPageScrollableContent } from '~/components/PageScrollableContent/PageScrollableContent'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 
-interface ServerProps extends Page {}
+type ServerProps = Page
 
 const keyPrefix = 'pages_search'
 

@@ -15,7 +15,7 @@ import {
 } from '~/components'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 
-interface ServerProps extends Page {}
+type ServerProps = Page
 
 const keyPrefix = 'pages_membership'
 

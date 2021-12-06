@@ -32,7 +32,7 @@ export const MobileNavBar = (props: Props) => {
         <div className='right-wrapper'>
           <div className='dropdown'>
             <Dropdown
-              faIcon={!!userInfo ? faUserCircle : faUserCircleRegular}
+              faIcon={userInfo ? faUserCircle : faUserCircleRegular}
               onChange={(selected) => PV.NavBar.dropdownOnChange(selected, router, userInfo)}
               options={dropdownItems}
             />

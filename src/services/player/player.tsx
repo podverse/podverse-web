@@ -351,7 +351,7 @@ export const playerPlayNextChapterOrQueueItem = async () => {
 
 export const playerPlayNextFromQueue = async () => {
   const nextNowPlayingItem = await getNextFromQueue()
-  if (!!nextNowPlayingItem) {
+  if (nextNowPlayingItem) {
     const shouldPlay = true
     playerLoadNowPlayingItem(nextNowPlayingItem, shouldPlay)
   }

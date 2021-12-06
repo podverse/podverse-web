@@ -10,7 +10,7 @@ type Props = {}
 export const Player = ({}: Props) => {
   const [player] = useOmniAural('player')
 
-  const mainPlayerStyle = classnames('player', !!player.show ? '' : 'display-none')
+  const mainPlayerStyle = classnames('player', player.show ? '' : 'display-none')
 
   if (!player?.currentNowPlayingItem) {
     return null

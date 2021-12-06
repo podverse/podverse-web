@@ -9,7 +9,7 @@ import { Icon, Meta, PageHeader, PageScrollableContent } from '~/components'
 import { useTranslation } from 'react-i18next'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 
-interface ServerProps extends Page {}
+type ServerProps = Page
 
 const keyPrefix = 'pages_payment_paypal_confirming'
 let isCheckingInterval = null

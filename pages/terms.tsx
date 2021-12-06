@@ -5,7 +5,7 @@ import { PV } from '~/resources'
 import { ColumnsWrapper, Meta, PageHeader, PageScrollableContent, SideContent } from '~/components'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 
-interface ServerProps extends Page {}
+type ServerProps = Page
 
 const keyPrefix = 'pages_terms'
 

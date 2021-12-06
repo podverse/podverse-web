@@ -6,7 +6,7 @@ import { ColumnsWrapper, DownloadAppButtons, PageHeader, PageScrollableContent, 
 import { Meta } from '~/components/Meta/Meta'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 
-interface ServerProps extends Page {}
+type ServerProps = Page
 
 const keyPrefix = 'pages_about'
 
