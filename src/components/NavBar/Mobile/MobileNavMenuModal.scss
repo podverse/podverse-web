@@ -34,7 +34,7 @@
   }
 }
 
-@media (min-width: $media-min-width-tablet) {
+@media (min-width: $media-min-width-tablet-xl) {
   .ReactModal__Overlay {
     &.mobile-nav-menu-modal-overlay {
       display: none;
