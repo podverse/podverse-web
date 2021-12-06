@@ -17,7 +17,7 @@ export const ClipInfo = ({ clip, episode }: Props) => {
   const [userInfo] = useOmniAural('session.userInfo')
   const episodeTitle = getEpisodeTitle(t, episode)
   const episodePubDate = readableDate(episode.pubDate)
-  const title = getClipTitle(t, clip, episode.title)
+  const title = getClipTitle(t, clip.title, episode.title)
 
   const episodeLinkUrl = episode ? `${PV.RoutePaths.web.episode}/${episode.id}` : ''
 

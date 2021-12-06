@@ -81,7 +81,6 @@ export default function Terms(props: ServerProps) {
               </p>
             </div>
           }
-          sideColumnChildren={<SideContent />}
         />
       </PageScrollableContent>
     </>

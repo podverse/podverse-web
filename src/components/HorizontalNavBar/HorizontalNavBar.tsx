@@ -13,12 +13,6 @@ type Props = {
   serverCookies: any
 }
 
-const _myProfileKey = '_myProfile'
-const _membershipKey = '_membership'
-const _settingsKey = '_settings'
-const _logInKey = '_logIn'
-const _logOutKey = '_logOut'
-
 export const HorizontalNavBar = ({ serverCookies }: Props) => {
   const [lightModeChecked, setLightModeChecked] = useState<boolean>(serverCookies.lightMode)
   const [cookies, setCookie, removeCookie] = useCookies([])
@@ -52,43 +46,9 @@ export const HorizontalNavBar = ({ serverCookies }: Props) => {
     })
   }
 
-  const onChange = async (selected) => {
-    const item = selected[0]
-    if (item) {
-      if (item.key === _myProfileKey) {
-        router.push(`${PV.RoutePaths.web.profile}/${userInfo.id}`)
-      } else if (item.key === _membershipKey) {
-        router.push(PV.RoutePaths.web.membership)
-      } else if (item.key === _settingsKey) {
-        router.push(PV.RoutePaths.web.settings)
-      } else if (item.key === _logInKey) {
-        OmniAural.modalsLoginShow()
-      } else if (item.key === _logOutKey) {
-        await logOut()
-      }
-    }
-  }
-
   /* Render Helpers */
 
-  const generateDropdownItems = () => {
-    const isLoggedIn = !!OmniAural.state.session.userInfo.value()
-    const items = [
-      { label: t('Membership'), key: _membershipKey },
-      { label: t('Settings'), key: _settingsKey }
-    ]
-
-    if (isLoggedIn) {
-      items.unshift({ label: t('MyProfile'), key: _myProfileKey })
-      items.push({ label: t('Logout'), key: _logOutKey })
-    } else {
-      items.push({ label: t('Login'), key: _logInKey })
-    }
-
-    return items
-  }
-
-  const dropdownItems = generateDropdownItems()
+  const dropdownItems = PV.NavBar.generateDropdownItems(t)
 
   return (
     <div className='horizontal-navbar-wrapper'>
@@ -100,7 +60,7 @@ export const HorizontalNavBar = ({ serverCookies }: Props) => {
         <div className='navbar-secondary__dropdown'>
           <Dropdown
             faIcon={!!userInfo ? faUserCircle : faUserCircleRegular}
-            onChange={onChange}
+            onChange={(selected) => PV.NavBar.dropdownOnChange(selected, router, userInfo)}
             options={dropdownItems}
           />
         </div>

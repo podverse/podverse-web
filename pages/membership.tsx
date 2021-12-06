@@ -72,7 +72,6 @@ export default function Membership(props: ServerProps) {
               />
             </div>
           }
-          sideColumnChildren={<SideContent />}
         />
       </PageScrollableContent>
     </>

@@ -1,8 +1,6 @@
 const { i18n } = require('./next-i18next.config')
 
-const envVars = {
-  
-}
+const envVars = {}
 
 module.exports = {
   reactStrictMode: true,

@@ -9,11 +9,10 @@ import { toggleSubscribeToPodcast } from '~/state/loggedInUserActions'
 import { ButtonRectangle, PVImage, PVLink } from '..'
 
 type Props = {
-  episode?: Episode
   podcast: Podcast
 }
 
-export const PodcastPageHeader = ({ episode, podcast }: Props) => {
+export const PodcastPageHeader = ({ podcast }: Props) => {
   const { t } = useTranslation()
   const [userInfo] = useOmniAural('session.userInfo')
   const { authors, categories, id } = podcast
@@ -21,55 +20,59 @@ export const PodcastPageHeader = ({ episode, podcast }: Props) => {
   const categoryEls = generateCategoryNodes(categories)
   const isSubscribed = userInfo?.subscribedPodcastIds?.includes(id)
   const subscribedText = isSubscribed ? t('Unsubscribe') : t('Subscribe')
-
-  const mainTitle = episode
-    ? episode.title
-      ? episode.title
-      : t('untitledEpisode')
-    : podcast.title
-    ? podcast.title
-    : t('untitledPodcast')
-
-  const aboveTitle = episode ? (podcast.title ? podcast.title : t('untitledPodcast')) : null
-
-  const aboveTitleLinkUrl = episode ? `${PV.RoutePaths.web.podcast}/${podcast.id}` : ''
-
-  const mainTitleLinkUrl = episode
-    ? `${PV.RoutePaths.web.episode}/${episode.id}`
-    : `${PV.RoutePaths.web.podcast}/${podcast.id}`
-
+  const podcastTitle = podcast.title ? podcast.title : t('untitledPodcast')
+  const podcastTitleLinkUrl = `${PV.RoutePaths.web.podcast}/${podcast.id}`
   const hasBelowText = authorEls.length || categoryEls.length
-
-  const imageUrl = episode?.imageUrl || getPodcastShrunkImageUrl(podcast)
+  const imageUrl = getPodcastShrunkImageUrl(podcast)
 
   return (
-    <div className='podcast-page-header'>
-      <div className='main-max-width'>
-        <PVImage
-          alt={t('Podcast artwork')}
-          height={PV.Images.sizes.large}
-          src={imageUrl}
-          width={PV.Images.sizes.large}
-        />
-        <div className='text-wrapper'>
-          {aboveTitle && (
-            <PVLink className='above-text' href={aboveTitleLinkUrl}>
-              {aboveTitle}
-            </PVLink>
-          )}
-          <h1>
-            <PVLink href={mainTitleLinkUrl}>{mainTitle}</PVLink>
-          </h1>
-          {hasBelowText && (
-            <div className='below-text'>
-              {authorEls.length > 0 && authorEls}
-              {authorEls.length > 0 && categoryEls.length > 0 && ' • '}
-              {categoryEls.length > 0 && categoryEls}
+    <>
+      <div className='podcast-page-header'>
+        <div className='main-max-width'>
+          <div className='top-wrapper'>
+            <PVImage
+              alt={t('Podcast artwork')}
+              height={PV.Images.sizes.xtraLarge}
+              src={imageUrl}
+              width={PV.Images.sizes.xtraLarge}
+            />
+            <div className='text-wrapper'>
+              <div className='podcast-title'>
+                <PVLink href={podcastTitleLinkUrl}>{podcastTitle}</PVLink>
+              </div>
+              {hasBelowText && (
+                <div className='sub-labels hide-below-tablet-xl-max-width'>
+                  {authorEls.length > 0 && authorEls}
+                  {authorEls.length > 0 && categoryEls.length > 0 && ' • '}
+                  {categoryEls.length > 0 && categoryEls}
+                </div>
+              )}
             </div>
-          )}
+            <ButtonRectangle
+              className='hide-below-tablet-xl-max-width'
+              label={subscribedText}
+              onClick={() => toggleSubscribeToPodcast(id)}
+              type='tertiary'
+            />
+          </div>
+          <div className='bottom-wrapper hide-above-laptop-min-width'>
+            {hasBelowText && (
+              <div className='sub-labels'>
+                {authorEls.length > 0 && authorEls}
+                {authorEls.length > 0 && categoryEls.length > 0 && ' • '}
+                {categoryEls.length > 0 && categoryEls}
+              </div>
+            )}
+            <ButtonRectangle
+              className='hide-above-tablet-xl-min-width'
+              label={subscribedText}
+              onClick={() => toggleSubscribeToPodcast(id)}
+              type='tertiary'
+            />
+          </div>
         </div>
-        <ButtonRectangle label={subscribedText} onClick={() => toggleSubscribeToPodcast(id)} type='tertiary' />
       </div>
-    </div>
+      {/* <hr /> */}
+    </>
   )
 }

@@ -49,10 +49,10 @@ export const PlayerAPIAudio = (props: Props) => {
     if (Number.isInteger(currentNowPlayingItem.clipStartTime)) {
       setClipFlagPositions(currentNowPlayingItem, duration)
     } else if (historyItem) {
-      audioSeekTo(historyItem.userPlaybackPosition)
+      audioSeekTo(historyItem.p)
     }
 
-    const playbackPosition = currentNowPlayingItem.clipStartTime || historyItem?.userPlaybackPosition || 0
+    const playbackPosition = currentNowPlayingItem.clipStartTime || historyItem?.p || 0
 
     addOrUpdateHistoryItemOnServer({
       nowPlayingItem: currentNowPlayingItem,

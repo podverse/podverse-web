@@ -26,9 +26,7 @@ export const PlayerFullView = ({ nowPlayingItem }: Props) => {
     OmniAural.playerFullViewHide()
   }
 
-  /* TODO: update getClipTitle to take clipTitle and episodeTitle as parameters
-           instead of mediaRef and episodeTitle. */
-  const clipTitle = getClipTitle(t, { title: nowPlayingItem.clipTitle } as any, nowPlayingItem.episodeTitle)
+  const clipTitle = getClipTitle(t, nowPlayingItem.clipTitle, nowPlayingItem.episodeTitle)
 
   let clipTimeInfo = readableClipTime(nowPlayingItem.clipStartTime, nowPlayingItem.clipEndTime)
 

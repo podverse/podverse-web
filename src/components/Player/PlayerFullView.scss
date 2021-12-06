@@ -9,6 +9,7 @@
   position: fixed;
   right: 0;
   top: 0;
+  z-index: 1;
 
   backdrop-filter: blur($background-blur);
   -webkit-backdrop-filter: blur($background-blur);
@@ -21,6 +22,7 @@
     position: absolute;
     top: 28px;
     right: 64px;
+    z-index: 1;
   }
 
   .image-wrapper {
@@ -29,7 +31,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin: 30px 0 90px 0;
+    margin: 90px 0 30px 0;
     position: relative;
 
     img {
@@ -38,6 +40,7 @@
 
     &.has-clip-info {
       margin-bottom: 0;
+      margin-top: 16px;
     }
 
     .clip-info-wrapper {
@@ -70,6 +73,10 @@
     align-self: stretch;
     display: flex;
     flex-direction: column;
+
+    h1 {
+      font-size: $text-xxxl;
+    }
     
     a {
       display: inline-block;
@@ -110,7 +117,11 @@
       width: 100%;
 
       .player-bar-label {
-        min-width: unset;
+        min-width: 30px;
+
+        &:first-child {
+          text-align: left;
+        }
       }
     }
 
@@ -129,7 +140,7 @@
   }
 }
 
-@media (max-width: $media-tablet-xl) {
+@media (max-width: $media-max-width-tablet-xl) {
 .player-full-view {
   padding: 0 32px;
     .button-close {
@@ -164,6 +175,65 @@
   }
 }
 
-@media (max-width: $media-tablet) {
+@media (max-width: $media-max-width-mobile) {
+  .player-full-view {
+    padding: 0 16px;
+    
+    .button-close {
+      position: absolute;
+      top: 12px;
+      right: 16px;
+      z-index: 1;
+    }
 
+    .image-wrapper {
+      margin-top: 84px;
+      
+      &.has-clip-info {
+        margin-top: 8px;
+      }
+
+      img {
+        height: 200px !important;
+        width: 200px !important;
+      }
+      .clip-info-wrapper {    
+        height: 90px;
+             
+        .clip-title {
+          font-size: $text-lg;
+        }
+
+        .clip-time {
+          margin-bottom: 16px;
+        }
+      }
+    }
+
+    .title-wrapper {
+      h1 {
+        font-size: $text-xl;
+      }
+
+      .subtitle {
+        font-size: $text-md;
+      }
+    }
+
+    .player-buttons-wrapper {
+      .player-bar-container {
+        margin: 24px 0 28px 0;
+        
+        .player-bar {
+          margin: 0 8px;  
+        }
+      }
+
+      .progress-button-container {
+        .bottom-row {
+          margin-top: 16px;
+        }
+      }
+    }
+  }
 }

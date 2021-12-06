@@ -141,6 +141,7 @@ export default function Podcasts({
         twitterTitle={meta.title}
       />
       <PageHeader
+        noMarginBottom
         primaryOnChange={_handlePrimaryOnChange}
         primaryOptions={PV.Filters.dropdownOptions.podcasts.from}
         primarySelected={filterFrom}
@@ -163,7 +164,7 @@ export default function Podcasts({
         )}
         {(userInfo || filterFrom !== PV.Filters.from._subscribed) && (
           <>
-            <List>{generatePodcastListElements(podcastsListData)}</List>
+            <List noMarginTop>{generatePodcastListElements(podcastsListData)}</List>
             <Pagination
               currentPageIndex={filterPage}
               handlePageNavigate={(newPage) => setFilterPage(newPage)}

@@ -1,0 +1,59 @@
+.mobile-navbar {
+  display: none;
+}
+
+@media (max-width: $media-max-width-tablet) {
+  .mobile-navbar {
+    display: flex;
+    flex-direction: row;
+    height: 50px;
+    padding: 15px 14px 14px 16px;
+
+    @include themeGen() {
+      background-color: getThemeVal("navbarMobileBackground");
+    }
+
+    .left-wrapper {
+      display: flex;
+      flex: 1;
+      flex-direction: row;
+      justify-content: flex-start;
+
+      .nav-menu-button {
+        cursor: pointer;
+        margin: -13px 1px -13px -16px;
+        padding: 13px 16px;
+
+        svg {
+          height: 20px;
+          width: unset;
+        }
+      }
+
+      .navbar__brand {
+        padding: 13px 0;
+        margin: -13px 0;
+      }
+    }
+
+    .right-wrapper {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+
+      .dropdown {
+        flex: 0;
+        margin-top: -5px;
+      }
+
+      .search-button {
+        margin-left: 16px;
+
+        svg {
+          height: 22px;
+          width: unset;
+        }
+      }
+    }
+  }
+}

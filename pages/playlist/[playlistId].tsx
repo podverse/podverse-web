@@ -123,7 +123,7 @@ export default function Playlist({ serverPlaylist, serverPlaylistSortedItems }: 
           <ClipListItem
             episode={mediaRef.episode}
             handleRemove={() => _handleRemoveMediaRef(mediaRef.id)}
-            isLoggedInUserMediaRef={userInfo && userInfo.id === mediaRef.owner.id}
+            isLoggedInUserMediaRef={userInfo && userInfo.id === mediaRef?.owner?.id}
             key={`${keyPrefix}-clip-${index}`}
             mediaRef={mediaRef}
             podcast={mediaRef.episode.podcast}
@@ -174,6 +174,7 @@ export default function Playlist({ serverPlaylist, serverPlaylistSortedItems }: 
         <ColumnsWrapper
           mainColumnChildren={
             <>
+              <div className='page-header-spacer' />
               <List>{generatePlaylistItemElements(playlistSortedItems)}</List>
             </>
           }

@@ -47,7 +47,8 @@ export const MediaItemControls = ({
 }: Props) => {
   const [userInfo] = useOmniAural('session.userInfo')
   const [player] = useOmniAural('player')
-  const [historyItemsIndex] = useOmniAural('historyItemsIndex')
+  // const [historyItemsIndex] = useOmniAural('historyItemsIndex')
+  const historyItemsIndex = OmniAural.state.historyItemsIndex.value()
   const { t } = useTranslation()
   let pubDate = null
   let timeInfo = null
@@ -61,12 +62,11 @@ export const MediaItemControls = ({
 
     const historyItem = historyItemsIndex.episodes[episode.id]
     if (historyItem) {
-      timeInfo = getTimeLabelText(t, historyItem.mediaFileDuration, episode.duration, historyItem.userPlaybackPosition)
+      timeInfo = getTimeLabelText(t, historyItem.d, episode.duration, historyItem.p)
       completed = historyItem.completed
     } else if (episode.duration > 0) {
       timeInfo = convertSecToHhoursMMinutes(episode.duration)
     }
-    // timeRemaining
   }
 
   const nowPlayingItem: NowPlayingItem = mediaRef

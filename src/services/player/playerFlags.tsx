@@ -1,6 +1,7 @@
+import OmniAural from 'omniaural'
 import { convertToNowPlayingItem } from 'podverse-shared'
 import type { MediaRef, NowPlayingItem } from 'podverse-shared'
-import OmniAural from 'omniaural'
+import { unstable_batchedUpdates } from 'react-dom'
 
 export const generateFlagPositions = (flagTimes: number[], duration: number) => {
   const flagPositions: number[] = []
@@ -35,12 +36,16 @@ export const generateClipFlagPositions = (nowPlayingItem: NowPlayingItem, durati
 
 export const setClipFlagPositions = (currentNowPlayingItem: NowPlayingItem, duration: number) => {
   const clipFlagPositions = generateClipFlagPositions(currentNowPlayingItem, duration)
-  OmniAural.setClipFlagPositions(clipFlagPositions)
-  OmniAural.setHighlightedPositions(clipFlagPositions)
+  unstable_batchedUpdates(() => {
+    OmniAural.setClipFlagPositions(clipFlagPositions)
+    OmniAural.setHighlightedPositions(clipFlagPositions)
+  })
 }
 
 export const setHighlightedFlagPositionsForChapter = (chapter: MediaRef, duration: number) => {
   const nowPlayingItem = convertToNowPlayingItem(chapter)
   const highlightedFlagPositions = generateClipFlagPositions(nowPlayingItem, duration)
-  OmniAural.setHighlightedPositions(highlightedFlagPositions)
+  unstable_batchedUpdates(() => {
+    OmniAural.setHighlightedPositions(highlightedFlagPositions)
+  })
 }

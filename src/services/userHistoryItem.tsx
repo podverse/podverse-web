@@ -1,5 +1,6 @@
 import OmniAural from 'omniaural'
 import { NowPlayingItem } from 'podverse-shared'
+import { unstable_batchedUpdates } from 'react-dom'
 import { getAuthCredentialsHeaders } from '~/lib/utility/auth'
 import { PV } from '~/resources'
 import { request } from './request'
@@ -98,8 +99,8 @@ export const addOrUpdateHistoryItemOnServer = async ({
   /* If duration is found in historyItemsIndex, pass that as a parameter. */
   const historyItemsIndex = OmniAural.state.historyItemsIndex.value()
   const historyItem = historyItemsIndex.episodes[episodeId]
-  const duration = historyItem?.mediaFileDuration
-    ? historyItem.mediaFileDuration
+  const duration = historyItem?.d
+    ? historyItem.d
     : mediaFileDuration || mediaFileDuration === 0
     ? Math.floor(mediaFileDuration)
     : 0
@@ -120,7 +121,9 @@ export const addOrUpdateHistoryItemOnServer = async ({
 
   /* Always regenerate the historyItemsIndex and set on global state after addOrUpdate */
   const newHistoryItemsIndex = await getHistoryItemsIndexFromServer()
-  OmniAural.setHistoryItemsIndex(newHistoryItemsIndex)
+  unstable_batchedUpdates(() => {
+    OmniAural.setHistoryItemsIndex(newHistoryItemsIndex)
+  })
 }
 
 export const getServerSideHistoryItemsIndex = async (cookies: any) => {
@@ -142,7 +145,7 @@ export const getHistoryItemsIndexFromServer = async (bearerToken?: string) => {
 
   try {
     response = (await request({
-      endpoint: '/user-history-item/metadata',
+      endpoint: '/user-history-item/metadata-mini',
       method: 'GET',
       ...getAuthCredentialsHeaders(bearerToken)
     })) as any
@@ -154,6 +157,14 @@ export const getHistoryItemsIndexFromServer = async (bearerToken?: string) => {
   return generateHistoryItemsIndexDictionary(userHistoryItems)
 }
 
+/*
+  Mini HistoryItem object:
+  d = mediaFileDuration
+  p = userPlaybackPosition
+  c = completed
+  m = mediaRefId
+  e = episodeId
+*/
 const generateHistoryItemsIndexDictionary = (historyItems: any[]) => {
   const historyItemsIndex = {
     episodes: {},
@@ -163,17 +174,18 @@ const generateHistoryItemsIndexDictionary = (historyItems: any[]) => {
   if (!historyItems) {
     historyItems = []
   }
+
   for (const historyItem of historyItems) {
-    if (historyItem.mediaRefId) {
-      historyItemsIndex.mediaRefs[historyItem.mediaRefId] = {
-        mediaFileDuration: historyItem.mediaFileDuration || historyItem.episodeDuration || null,
-        userPlaybackPosition: historyItem.userPlaybackPosition
+    if (historyItem.m) {
+      historyItemsIndex.mediaRefs[historyItem.m] = {
+        d: historyItem.d || null,
+        p: historyItem.p
       }
-    } else if (historyItem.episodeId) {
-      historyItemsIndex.episodes[historyItem.episodeId] = {
-        mediaFileDuration: historyItem.mediaFileDuration || historyItem.episodeDuration || null,
-        userPlaybackPosition: historyItem.userPlaybackPosition,
-        ...(historyItem.completed ? { completed: historyItem.completed } : {})
+    } else if (historyItem.e) {
+      historyItemsIndex.episodes[historyItem.e] = {
+        d: historyItem.d || null,
+        p: historyItem.p,
+        ...(historyItem.c ? { c: historyItem.c } : {})
       }
     }
   }

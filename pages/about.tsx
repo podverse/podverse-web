@@ -76,7 +76,6 @@ export default function About(props: ServerProps) {
               <p>Kyle Downey</p>
             </div>
           }
-          sideColumnChildren={<SideContent />}
         />
       </PageScrollableContent>
     </>

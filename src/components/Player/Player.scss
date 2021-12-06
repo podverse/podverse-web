@@ -6,3 +6,9 @@
   justify-content: space-between;
   padding: 0 25px;
 }
+
+@media (max-width: $media-max-width-tablet) {
+  .player {
+    display: none;
+  }
+}
