@@ -8,7 +8,7 @@ type Props = {
 
 export const List = ({ children, noMarginTop }: Props) => {
   const { t } = useTranslation()
-  const hasChildren = children && children[0] && children[0].length > 0
+  const hasChildren = children && children.length > 0
   const listClass = classNames('list', noMarginTop && hasChildren ? 'no-margin-top' : '')
 
   return (
