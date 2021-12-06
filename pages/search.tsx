@@ -139,8 +139,7 @@ export default function Search(props: ServerProps) {
 /* Server-Side Logic */
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const { req, locale } = ctx
-  const { cookies } = req
+  const { locale } = ctx
 
   const defaultServerProps = await getDefaultServerSideProps(ctx, locale)
 

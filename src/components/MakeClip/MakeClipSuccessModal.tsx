@@ -1,7 +1,7 @@
 import OmniAural, { useOmniAural } from 'omniaural'
 import { useTranslation } from 'react-i18next'
 import Modal from 'react-modal'
-import { ButtonClose, ButtonRectangle, TextInputCopy } from '~/components'
+import { ButtonClose, TextInputCopy } from '~/components'
 
 type Props = unknown
 

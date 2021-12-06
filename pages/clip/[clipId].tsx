@@ -13,8 +13,7 @@ import {
   PageHeader,
   PageScrollableContent,
   Pagination,
-  PodcastPageHeader,
-  SideContent
+  PodcastPageHeader
 } from '~/components'
 import { scrollToTopOfPageScrollableContent } from '~/components/PageScrollableContent/PageScrollableContent'
 import { calcListPageCount, prefixClipLabel } from '~/lib/utility/misc'

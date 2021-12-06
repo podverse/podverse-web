@@ -1,4 +1,4 @@
-import { Episode, MediaRef, Podcast } from 'podverse-shared'
+import { Episode, Podcast } from 'podverse-shared'
 import { PV } from '~/resources'
 
 export const calcListPageCount = (itemCount: number) => {

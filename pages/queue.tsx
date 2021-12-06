@@ -11,8 +11,7 @@ import {
   MessageWithAction,
   Meta,
   PageHeader,
-  PageScrollableContent,
-  SideContent
+  PageScrollableContent
 } from '~/components'
 import { Page } from '~/lib/utility/page'
 import { PV } from '~/resources'

@@ -11,7 +11,6 @@ import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 
 type ServerProps = Page
 
-const keyPrefix = 'pages_payment_paypal_confirming'
 let isCheckingInterval = null
 
 export default function PaymentPayPalConfirming(props: ServerProps) {

@@ -8,8 +8,6 @@ import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 
 type ServerProps = Page
 
-const keyPrefix = 'pages_my_profile'
-
 export default function MyProfile(props: ServerProps) {
   /* Initialize */
 

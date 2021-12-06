@@ -9,8 +9,6 @@ import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 
 type ServerProps = Page
 
-const keyPrefix = 'pages_reset_password'
-
 export default function ResetPassword(props: ServerProps) {
   /* Initialize */
 

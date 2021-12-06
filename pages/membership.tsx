@@ -10,14 +10,11 @@ import {
   MembershipStatus,
   Meta,
   PageHeader,
-  PageScrollableContent,
-  SideContent
+  PageScrollableContent
 } from '~/components'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 
 type ServerProps = Page
-
-const keyPrefix = 'pages_membership'
 
 export default function Membership(props: ServerProps) {
   /* Initialize */

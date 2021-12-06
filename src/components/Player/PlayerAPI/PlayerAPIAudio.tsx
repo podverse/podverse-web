@@ -64,7 +64,7 @@ export const PlayerAPIAudio = (props: Props) => {
 
     if (currentNowPlayingItem.episodeChaptersUrl) {
       const data = await retrieveLatestChaptersForEpisodeId(currentNowPlayingItem.episodeId)
-      const [chapters, chaptersCount] = data
+      const [chapters] = data
       const enrichedChapters = enrichChapterDataForPlayer(chapters, duration)
       const chapterFlagPositions = generateChapterFlagPositions(enrichedChapters, duration)
       OmniAural.setChapterFlagPositions(chapterFlagPositions)

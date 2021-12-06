@@ -2,7 +2,7 @@ import { PV } from '~/resources'
 
 type Props = unknown
 
-export const DownloadAppButtons = () => {
+export const DownloadAppButtons = (props: Props) => {
   return (
     <div className='download-app-buttons'>
       <a className='download-on-the-app-store no-radius' href={PV.Config.APP_DOWNLOAD_ON_THE_APP_STORE_URL} />
