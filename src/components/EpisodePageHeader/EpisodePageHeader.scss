@@ -87,6 +87,10 @@
       .sub-labels {
         font-size: $text-md;
         line-height: 18px;
+
+        span {
+          margin-left: 4px;
+        }
       }
 
       button {
