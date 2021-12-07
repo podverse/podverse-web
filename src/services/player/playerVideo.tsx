@@ -72,7 +72,7 @@ export const videoLoadNowPlayingItem = async (
   return nowPlayingItem
 }
 
-export const videoSetVolume = (newVolume: number) => {
+export const videoSetVolume = () => {
   // handled on global state
 }
 

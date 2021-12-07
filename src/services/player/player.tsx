@@ -1,4 +1,4 @@
-import OmniAural, { useOmniAural } from 'omniaural'
+import OmniAural from 'omniaural'
 import type { NowPlayingItem } from 'podverse-shared'
 import { unstable_batchedUpdates } from 'react-dom'
 import { PV } from '~/resources'
