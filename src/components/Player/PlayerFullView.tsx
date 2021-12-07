@@ -1,7 +1,6 @@
 import classNames from 'classnames'
 import OmniAural, { useOmniAural } from 'omniaural'
 import type { NowPlayingItem } from 'podverse-shared'
-import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ButtonClose, PVImage, PVLink } from '~/components'
 import { getClipTitle } from '~/lib/utility/misc'
