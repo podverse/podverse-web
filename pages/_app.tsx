@@ -76,7 +76,7 @@ function MyApp({ Component, pageProps }) {
   }
 
   useEffect(() => {
-    router.events.on('routeChangeStart',_routeChangeStart)
+    router.events.on('routeChangeStart', _routeChangeStart)
     router.events.on('routeChangeComplete', _routeChangeComplete)
     return () => {
       router.events.off('routeChangeStart', _routeChangeStart),
