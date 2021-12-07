@@ -39,7 +39,6 @@ import {
   videoPlay,
   videoSeekTo,
   videoSetPlaybackSpeed,
-  videoSetVolume,
   videoUnmute
 } from './playerVideo'
 
