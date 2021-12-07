@@ -28,7 +28,7 @@ export const PlayerFullView = ({ nowPlayingItem }: Props) => {
 
   const clipTitle = getClipTitle(t, nowPlayingItem.clipTitle, nowPlayingItem.episodeTitle)
 
-  let clipTimeInfo = readableClipTime(nowPlayingItem.clipStartTime, nowPlayingItem.clipEndTime)
+  const clipTimeInfo = readableClipTime(nowPlayingItem.clipStartTime, nowPlayingItem.clipEndTime)
 
   return (
     <div className='player-full-view'>

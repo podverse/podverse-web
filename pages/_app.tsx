@@ -22,10 +22,13 @@ import '~/state'
 import initialState from '~/state/initialState.json'
 import { playerLoadNowPlayingItem, saveCurrentPlaybackPositionToHistory } from '~/services/player/player'
 import { getNowPlayingItemOnServer } from '~/services/userNowPlayingItem'
+import { initializeMatomo, matomoTrackPageView } from '~/services/matomo'
 
 declare global {
   /* *TODO* add proper types for global interfaces */
   interface Window {
+    _paq: any
+    Matomo: any
     paypal: any
     playerAudio: any
   }
@@ -62,12 +65,21 @@ function MyApp({ Component, pageProps }) {
   OmniAural.setHistoryItemsIndex(serverHistoryItemsIndex)
   const router = useRouter()
 
+  const _routeChangeStart = () => {
+    OmniAural.pageIsLoadingShow()
+  }
+
+  const _routeChangeComplete = () => {
+    OmniAural.pageIsLoadingHide()
+    matomoTrackPageView()
+  }
+
   useEffect(() => {
-    router.events.on('routeChangeStart', OmniAural.pageIsLoadingShow)
-    router.events.on('routeChangeComplete', OmniAural.pageIsLoadingHide)
+    router.events.on('routeChangeStart',_routeChangeStart)
+    router.events.on('routeChangeComplete', _routeChangeComplete)
     return () => {
-      router.events.off('routeChangeComplete', OmniAural.pageIsLoadingHide),
-        router.events.off('routeChangeComplete', OmniAural.pageIsLoadingHide)
+      router.events.off('routeChangeStart', _routeChangeStart),
+        router.events.off('routeChangeComplete', _routeChangeComplete)
     }
   }, [router.events])
 
@@ -80,12 +92,15 @@ function MyApp({ Component, pageProps }) {
           playerLoadNowPlayingItem(nowPlayingItem, shouldPlay)
         })
       }
+
+      initializeMatomo()
+      matomoTrackPageView()
     })()
   }, [])
 
   return (
     <CookiesProvider>
-      <div className='app'>
+      <div className='app disable-scrollbars'>
         <MobileNavBar />
         <div className='app-wrapper'>
           <NavBar />

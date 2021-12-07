@@ -9,7 +9,6 @@ import {
   PageHeader,
   PageScrollableContent,
   Pagination,
-  PlaylistListItem,
   scrollToTopOfPageScrollableContent
 } from '~/components'
 import { Page } from '~/lib/utility/page'
@@ -45,7 +44,7 @@ export default function Profiles({ serverFilterPage, serverUsers, serverUsersCou
         initialRender.current = false
       } else {
         OmniAural.pageIsLoadingShow()
-        const [newListData, newListCount] = await clientQueryUsers()
+        const [newListData] = await clientQueryUsers()
         setUsersListData(newListData)
         scrollToTopOfPageScrollableContent()
         OmniAural.pageIsLoadingHide()

@@ -5,7 +5,7 @@ import Modal from 'react-modal'
 import { ButtonClose, ButtonRectangle, TextInput } from '~/components'
 import { sendResetPassword } from '~/services/auth'
 
-type Props = {}
+type Props = unknown
 
 export const ForgotPasswordModal = (props: Props) => {
   const [forgotPassword] = useOmniAural('modals.forgotPassword')

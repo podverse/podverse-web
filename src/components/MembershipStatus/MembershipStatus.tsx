@@ -2,7 +2,7 @@ import { useOmniAural } from 'omniaural'
 import { useTranslation } from 'react-i18next'
 import { isBeforeDate } from '~/lib/utility/date'
 
-type Props = {}
+type Props = unknown
 
 export const MembershipStatus = (props: Props) => {
   const { t } = useTranslation()

@@ -18,7 +18,7 @@ type Props = {
 }
 
 const contentRenderer = (props: Props, t: any) => {
-  const { faIcon, hideCaret, options, selectedKey, text } = props
+  const { faIcon, options, selectedKey, text } = props
   const selectedOption = options?.find((option) => option.key === selectedKey)
   const finalText = text || selectedOption?.label
 

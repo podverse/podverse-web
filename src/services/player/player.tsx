@@ -49,10 +49,8 @@ export const playerCheckIfCurrentlyPlaying = () => {
   let isCurrentlyPlaying = false
   if (audioCheckIfCurrentlyPlaying()) {
     isCurrentlyPlaying = true
-  } else if (false) {
-    // handle video
-    isCurrentlyPlaying = true
   }
+
   return isCurrentlyPlaying
 }
 
@@ -351,7 +349,7 @@ export const playerPlayNextChapterOrQueueItem = async () => {
 
 export const playerPlayNextFromQueue = async () => {
   const nextNowPlayingItem = await getNextFromQueue()
-  if (!!nextNowPlayingItem) {
+  if (nextNowPlayingItem) {
     const shouldPlay = true
     playerLoadNowPlayingItem(nextNowPlayingItem, shouldPlay)
   }

@@ -5,9 +5,9 @@ import { useOmniAural } from 'omniaural'
 import { NavBarBrand, NavBarLink, NavBarSectionHeader } from '~/components'
 import { PV } from '~/resources'
 
-type Props = {}
+type Props = unknown
 
-export const NavBar = ({}: Props) => {
+export const NavBar = (props: Props) => {
   const router = useRouter()
   const { t } = useTranslation()
   const [userInfo] = useOmniAural('session.userInfo')
