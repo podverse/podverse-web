@@ -85,7 +85,7 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <CookiesProvider>
-      <div className='app'>
+      <div className='app disable-scrollbars'>
         <MobileNavBar />
         <div className='app-wrapper'>
           <NavBar />
