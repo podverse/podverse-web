@@ -1,5 +1,5 @@
 import OmniAural, { useOmniAural } from 'omniaural'
-import { createRef, useEffect, useState } from 'react'
+import { createRef, useEffect } from 'react'
 import { unstable_batchedUpdates } from 'react-dom'
 import PlayerVideo from 'react-player'
 import { retrieveLatestChaptersForEpisodeId } from '~/services/mediaRef'
@@ -9,7 +9,7 @@ import { enrichChapterDataForPlayer, handleChapterUpdateInterval } from '~/servi
 import { generateChapterFlagPositions, setClipFlagPositions } from '~/services/player/playerFlags'
 import { addOrUpdateHistoryItemOnServer } from '~/services/userHistoryItem'
 
-type Props = {}
+type Props = unknown
 
 export const PlayerAPIVideo = (props: Props) => {
   const [player] = useOmniAural('player')
