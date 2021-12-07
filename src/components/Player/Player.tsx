@@ -5,9 +5,7 @@ import { PlayerItemInfo } from './PlayerItemInfo'
 import { PlayerItemButtons } from './PlayerItemOptions'
 import { PlayerItemProgress } from './PlayerItemProgress'
 
-type Props = {
-
-}
+type Props = unknown
 
 export const Player = (props: Props) => {
   const [player] = useOmniAural('player')
