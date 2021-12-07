@@ -71,6 +71,10 @@ const playerFullViewShow = () => {
   OmniAural.state.player.showFullView.set(true)
 }
 
+const playerSetVideoSrc = (src: string) => {
+  OmniAural.state.player.video.src.set(src || '')
+}
+
 OmniAural.addActions({
   playerFullViewHide,
   playerFullViewShow,
@@ -88,5 +92,6 @@ OmniAural.addActions({
   setPlayerPlaybackPosition,
   setPlaySpeed,
   togglePlayer,
-  unmutePlayer
+  unmutePlayer,
+  playerSetVideoSrc
 })
