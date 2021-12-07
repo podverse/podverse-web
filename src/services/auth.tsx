@@ -99,7 +99,6 @@ export const signUp = async (email: string, password: string) => {
 }
 
 export const verifyEmail = async (token: string) => {
-
   if (!token) {
     throw new Error('No verification token')
   }

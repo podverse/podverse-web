@@ -9,7 +9,7 @@ import { verifyEmail } from '~/services/auth'
 import { useRouter } from 'next/router'
 import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 
-interface ServerProps extends Page { }
+interface ServerProps extends Page {}
 
 const keyPrefix = 'pages_verify_email'
 
@@ -23,13 +23,13 @@ export default function VerifyEmail(props: ServerProps) {
   const [hasError, setHasError] = useState<boolean>(false)
 
   useEffect(() => {
-    ; (async () => {
+    ;(async () => {
       try {
         setIsVerifying(true)
         const { token } = router.query
         await verifyEmail(token as string)
         setIsVerified(true)
-        
+
         setTimeout(() => {
           router.push('/')
         }, 3000)
@@ -67,26 +67,18 @@ export default function VerifyEmail(props: ServerProps) {
         <ColumnsWrapper
           mainColumnChildren={
             <div className='text-page'>
-              {
-                isVerifying && (
-                  <>
-                    <h3>{t('Verifying your email address')}</h3>
-                    <Icon faIcon={faSpinner} spin />
-                  </>
-                )
-              }
-              {
-                isVerified && (
-                  <h3>{t('Email verified redirecting to home page')}</h3>
-                )
-              }
-              {
-                hasError && (
-                  <>
-                    <h3>{t('Something went wrong')}</h3>
-                  </>
-                )
-              }
+              {isVerifying && (
+                <>
+                  <h3>{t('Verifying your email address')}</h3>
+                  <Icon faIcon={faSpinner} spin />
+                </>
+              )}
+              {isVerified && <h3>{t('Email verified redirecting to home page')}</h3>}
+              {hasError && (
+                <>
+                  <h3>{t('Something went wrong')}</h3>
+                </>
+              )}
             </div>
           }
         />
