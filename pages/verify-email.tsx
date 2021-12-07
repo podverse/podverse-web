@@ -9,9 +9,7 @@ import { verifyEmail } from '~/services/auth'
 import { useRouter } from 'next/router'
 import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 
-interface ServerProps extends Page {}
-
-const keyPrefix = 'pages_verify_email'
+type ServerProps = Page
 
 export default function VerifyEmail(props: ServerProps) {
   /* Initialize */
