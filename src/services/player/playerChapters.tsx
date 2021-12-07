@@ -4,7 +4,7 @@ import { unstable_batchedUpdates } from 'react-dom'
 import { playerGetDuration, playerGetPosition } from './player'
 import { setHighlightedFlagPositionsForChapter } from './playerFlags'
 
-let chapterUpdateInterval = null
+const chapterUpdateInterval = null
 
 export const clearChapterUpdateInterval = () => {
   if (chapterUpdateInterval) {

@@ -2,7 +2,7 @@ import { useRouter } from 'next/router'
 import { useOmniAural } from 'omniaural'
 import { useTranslation } from 'react-i18next'
 import Modal from 'react-modal'
-import { ButtonClose, NavBarSectionHeader } from '~/components'
+import { ButtonClose } from '~/components'
 import { PV } from '~/resources'
 import { MobileNavMenuLink } from './MobileNavMenuLink'
 

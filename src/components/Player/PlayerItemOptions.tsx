@@ -5,7 +5,7 @@ import { Slider } from '../Slider/Slider'
 import { playerMute, playerNextSpeed, playerSetVolume, playerUnmute } from '~/services/player/player'
 import { modalsAddToPlaylistShowOrAlert } from '~/state/modals/addToPlaylist/actions'
 
-type Props = {}
+type Props = unknown
 
 export const PlayerItemButtons = (props: Props) => {
   const [player] = useOmniAural('player')

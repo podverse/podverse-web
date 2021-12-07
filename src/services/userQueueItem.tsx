@@ -96,7 +96,7 @@ export const getNextFromQueue = async () => {
   const userInfo = OmniAural.state.session.userInfo.value()
   let item = null
 
-  if (!!userInfo) {
+  if (userInfo) {
     const data = await getNextFromQueueFromServer()
     if (data) {
       const { nextItem } = data

@@ -2,12 +2,10 @@ import { GetServerSideProps } from 'next'
 import { useTranslation } from 'next-i18next'
 import { Page } from '~/lib/utility/page'
 import { PV } from '~/resources'
-import { ColumnsWrapper, Meta, PageHeader, PageScrollableContent, SideContent } from '~/components'
+import { ColumnsWrapper, Meta, PageHeader, PageScrollableContent } from '~/components'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 
-interface ServerProps extends Page {}
-
-const keyPrefix = 'pages_terms'
+type ServerProps = Page
 
 export default function Terms(props: ServerProps) {
   /* Initialize */

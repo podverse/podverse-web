@@ -1,4 +1,3 @@
-import axios from 'axios'
 import { PV } from '~/resources'
 import { request } from '~/services/request'
 

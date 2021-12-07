@@ -12,9 +12,7 @@ import {
   Meta,
   PageHeader,
   PageScrollableContent,
-  Pagination,
-  PodcastPageHeader,
-  SideContent
+  Pagination
 } from '~/components'
 import { scrollToTopOfPageScrollableContent } from '~/components/PageScrollableContent/PageScrollableContent'
 import { calcListPageCount } from '~/lib/utility/misc'
@@ -58,7 +56,7 @@ export default function Episode({
 }: ServerProps) {
   /* Initialize */
 
-  const { id, podcast } = serverEpisode
+  const { id } = serverEpisode
   const { t } = useTranslation()
   const [filterState, setFilterState] = useState({
     clipsFilterPage: serverClipsFilterPage,

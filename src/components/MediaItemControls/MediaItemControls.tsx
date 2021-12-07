@@ -52,7 +52,7 @@ export const MediaItemControls = ({
   const { t } = useTranslation()
   let pubDate = null
   let timeInfo = null
-  let timeRemaining = null
+  const timeRemaining = null
   let completed = false
   if (mediaRef) {
     pubDate = readableDate(mediaRef.episode.pubDate)

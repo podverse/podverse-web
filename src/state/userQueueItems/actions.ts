@@ -23,7 +23,7 @@ const removeQueueItemsAll = async () => {
 }
 
 const setLatestUserQueueItems = async () => {
-  const userQueueItems = await getQueueItemsFromServer()
+  await getQueueItemsFromServer()
 }
 
 const setUserQueueItems = async (userQueueItems: UserQueueItem) => {
