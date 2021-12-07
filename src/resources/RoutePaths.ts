@@ -32,7 +32,7 @@ export const RoutePaths = {
     user_history_item: `/user-history-item`,
     user_now_playing_item: `/user-now-playing-item`,
     user_queue_item: `/user-queue-item`,
-    verify_email: `/verify-email`
+    verify_email: `${api.auth}/verify-email`
   },
   web: {
     _login: `/?login=true`,
