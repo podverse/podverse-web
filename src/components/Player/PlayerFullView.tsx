@@ -34,29 +34,20 @@ export const PlayerFullView = ({ nowPlayingItem }: Props) => {
 
   const clipTimeInfo = readableClipTime(nowPlayingItem.clipStartTime, nowPlayingItem.clipEndTime)
 
-  const viewClass = classNames(
-    'player-full-view',
-    showFullView ? 'is-showing' : ''
-  )
+  const viewClass = classNames('player-full-view', showFullView ? 'is-showing' : '')
 
   return (
     <div className={viewClass}>
       <div className={imageWrapperClass}>
-        {
-          isVideo && (
-            <PlayerAPIVideo />
-          )
-        }
-        {
-          showFullView && !isVideo && (
-            <PVImage
-              alt={t('Podcast artwork')}
-              height={PV.Images.sizes.fullViewAudio}
-              src={nowPlayingItem.episodeImageUrl || nowPlayingItem.podcastImageUrl}
-              width={PV.Images.sizes.fullViewAudio}
-            />
-          )
-        }
+        {isVideo && <PlayerAPIVideo />}
+        {showFullView && !isVideo && (
+          <PVImage
+            alt={t('Podcast artwork')}
+            height={PV.Images.sizes.fullViewAudio}
+            src={nowPlayingItem.episodeImageUrl || nowPlayingItem.podcastImageUrl}
+            width={PV.Images.sizes.fullViewAudio}
+          />
+        )}
         {showFullView && nowPlayingItem.clipId && (
           <div className='clip-info-wrapper'>
             <div className='clip-title'>{clipTitle}</div>
@@ -64,37 +55,35 @@ export const PlayerFullView = ({ nowPlayingItem }: Props) => {
           </div>
         )}
       </div>
-      {
-        showFullView && (
-          <>
-            <ButtonClose onClick={_onRequestClose} />
-            <div className='title-wrapper'>
-              <h1>
-                <PVLink href={episodePageUrl} onClick={_onRequestClose}>
-                  {nowPlayingItem.episodeTitle || t('untitledEpisode')}
-                </PVLink>
-              </h1>
-              <div className='subtitle'>
-                <PVLink href={podcastPageUrl} onClick={_onRequestClose}>
-                  {nowPlayingItem.podcastTitle || t('untitledPodcast')}
-                </PVLink>
-              </div>
+      {showFullView && (
+        <>
+          <ButtonClose onClick={_onRequestClose} />
+          <div className='title-wrapper'>
+            <h1>
+              <PVLink href={episodePageUrl} onClick={_onRequestClose}>
+                {nowPlayingItem.episodeTitle || t('untitledEpisode')}
+              </PVLink>
+            </h1>
+            <div className='subtitle'>
+              <PVLink href={podcastPageUrl} onClick={_onRequestClose}>
+                {nowPlayingItem.podcastTitle || t('untitledPodcast')}
+              </PVLink>
             </div>
-            <div className='player-buttons-wrapper'>
-              <ProgressBar
-                chapterFlagPositions={chapterFlagPositions}
-                clipFlagPositions={clipFlagPositions}
-                highlightedPositions={highlightedPositions}
-              />
-              <div className='player-progress-container'>
-                <div className='player-item-info-container' />
-                <PlayerProgressButtons />
-                <PlayerItemButtons />
-              </div>
+          </div>
+          <div className='player-buttons-wrapper'>
+            <ProgressBar
+              chapterFlagPositions={chapterFlagPositions}
+              clipFlagPositions={clipFlagPositions}
+              highlightedPositions={highlightedPositions}
+            />
+            <div className='player-progress-container'>
+              <div className='player-item-info-container' />
+              <PlayerProgressButtons />
+              <PlayerItemButtons />
             </div>
-          </>
-        )
-      }
+          </div>
+        </>
+      )}
     </div>
   )
 }

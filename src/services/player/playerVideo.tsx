@@ -83,4 +83,3 @@ export const videoMute = () => {
 export const videoUnmute = () => {
   OmniAural.unmutePlayer()
 }
-

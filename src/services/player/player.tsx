@@ -26,7 +26,22 @@ import {
   handleSetupClipListener
 } from './playerClip'
 import { setClipFlagPositions } from './playerFlags'
-import { checkIfVideoFileType, videoCheckIfCurrentlyPlaying, videoClearNowPlayingItem, videoGetDuration, videoGetPosition, videoIsLoaded, videoLoadNowPlayingItem, videoMute, videoPause, videoPlay, videoSeekTo, videoSetPlaybackSpeed, videoSetVolume, videoUnmute } from './playerVideo'
+import {
+  checkIfVideoFileType,
+  videoCheckIfCurrentlyPlaying,
+  videoClearNowPlayingItem,
+  videoGetDuration,
+  videoGetPosition,
+  videoIsLoaded,
+  videoLoadNowPlayingItem,
+  videoMute,
+  videoPause,
+  videoPlay,
+  videoSeekTo,
+  videoSetPlaybackSpeed,
+  videoSetVolume,
+  videoUnmute
+} from './playerVideo'
 
 export const playerCheckIfItemIsCurrentlyPlaying = (paused: boolean, nowPlayingItem?: NowPlayingItem) => {
   const currentNowPlayingItem = OmniAural.state.player.currentNowPlayingItem.value()
