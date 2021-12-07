@@ -1,5 +1,5 @@
 import OmniAural, { useOmniAural } from 'omniaural'
-import { createRef, useEffect } from 'react'
+import { createRef, useEffect, useState } from 'react'
 import { unstable_batchedUpdates } from 'react-dom'
 import PlayerVideo from 'react-player'
 import { retrieveLatestChaptersForEpisodeId } from '~/services/mediaRef'
@@ -9,11 +9,12 @@ import { enrichChapterDataForPlayer, handleChapterUpdateInterval } from '~/servi
 import { generateChapterFlagPositions, setClipFlagPositions } from '~/services/player/playerFlags'
 import { addOrUpdateHistoryItemOnServer } from '~/services/userHistoryItem'
 
-type Props = unknown
+type Props = {}
 
 export const PlayerAPIVideo = (props: Props) => {
   const [player] = useOmniAural('player')
   const [historyItemsIndex] = useOmniAural('historyItemsIndex')
+
   const { currentNowPlayingItem, muted, paused, video, volume } = player
   const { src } = video
 
@@ -82,18 +83,21 @@ export const PlayerAPIVideo = (props: Props) => {
   window.playerVideo = createRef()
 
   return (
-    <PlayerVideo
-      onEnded={_onEnded}
-      onDuration={_onLoadedMetaData}
-      onSeek={_onListen}
-      onProgress={_onListen}
-      muted={muted}
-      playing={!paused}
-      ref={(ref) => {
-        window.playerVideo = ref
-      }}
-      url={src}
-      volume={volume ? volume / 100 : 0}
-    />
+    <div className='video-player-wrapper'>
+      <PlayerVideo
+        controls
+        onEnded={_onEnded}
+        onDuration={_onLoadedMetaData}
+        onSeek={_onListen}
+        onProgress={_onListen}
+        muted={muted}
+        playing={!paused}
+        ref={(ref) => {
+          window.playerVideo = ref
+        }}
+        url={src}
+        volume={volume ? volume / 100 : 0}
+      />
+    </div>
   )
 }

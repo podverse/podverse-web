@@ -27,11 +27,11 @@ export const videoCheckIfCurrentlyPlaying = () => {
 }
 
 export const videoGetDuration = () => {
-  return PVPlayerVideo.getDuration()
+  return PVPlayerVideo?.getDuration() || 0
 }
 
 export const videoGetPosition = () => {
-  return PVPlayerVideo.getCurrentTime()
+  return PVPlayerVideo?.getCurrentTime() || 0
 }
 
 export const videoPause = () => {

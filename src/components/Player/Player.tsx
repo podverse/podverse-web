@@ -5,7 +5,9 @@ import { PlayerItemInfo } from './PlayerItemInfo'
 import { PlayerItemButtons } from './PlayerItemOptions'
 import { PlayerItemProgress } from './PlayerItemProgress'
 
-type Props = unknown
+type Props = {
+
+}
 
 export const Player = (props: Props) => {
   const [player] = useOmniAural('player')
@@ -23,7 +25,7 @@ export const Player = (props: Props) => {
         <PlayerItemProgress />
         <PlayerItemButtons />
       </div>
-      {player?.showFullView && <PlayerFullView nowPlayingItem={player.currentNowPlayingItem} />}
+      <PlayerFullView nowPlayingItem={player.currentNowPlayingItem} />
     </>
   )
 }
