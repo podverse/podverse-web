@@ -1,5 +1,6 @@
 import OmniAural from 'omniaural'
 import type { NowPlayingItem } from 'podverse-shared'
+import { checkIfVideoFileType } from './playerVideo'
 
 let PVPlayerAudio: HTMLAudioElement = null
 
@@ -12,7 +13,8 @@ export const audioInitialize = () => {
 }
 
 export const audioIsLoaded = () => {
-  return !!PVPlayerAudio?.src
+  const currentNowPlayingItem = OmniAural.state.player.currentNowPlayingItem.value()
+  return !checkIfVideoFileType(currentNowPlayingItem)
 }
 
 export const audioCheckIfCurrentlyPlaying = () => {
