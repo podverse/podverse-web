@@ -1,23 +1,24 @@
 import OmniAural, { useOmniAural } from 'omniaural'
 import { createRef, useEffect } from 'react'
 import { unstable_batchedUpdates } from 'react-dom'
-import PlayerAudio from 'react-h5-audio-player'
+import PlayerVideo from 'react-player'
 import { retrieveLatestChaptersForEpisodeId } from '~/services/mediaRef'
 import { playerGetDuration, playerUpdateDuration, playerUpdatePlaybackPosition } from '~/services/player/player'
-import { audioInitialize, audioSeekTo } from '~/services/player/playerAudio'
+import { videoInitialize, videoSeekTo } from '~/services/player/playerVideo'
 import { enrichChapterDataForPlayer, handleChapterUpdateInterval } from '~/services/player/playerChapters'
 import { generateChapterFlagPositions, setClipFlagPositions } from '~/services/player/playerFlags'
 import { addOrUpdateHistoryItemOnServer } from '~/services/userHistoryItem'
 
 type Props = unknown
 
-export const PlayerAPIAudio = (props: Props) => {
+export const PlayerAPIVideo = (props: Props) => {
   const [player] = useOmniAural('player')
   const [historyItemsIndex] = useOmniAural('historyItemsIndex')
-  const { currentNowPlayingItem } = player
+  const { currentNowPlayingItem, muted, paused, video, volume } = player
+  const { src } = video
 
   useEffect(() => {
-    audioInitialize()
+    videoInitialize()
   }, [])
 
   /* Never initialize PlayerAPIs on the server-side. */
@@ -38,7 +39,7 @@ export const PlayerAPIAudio = (props: Props) => {
 
   const _onLoadedMetaData = async () => {
     if (currentNowPlayingItem.clipStartTime) {
-      audioSeekTo(currentNowPlayingItem.clipStartTime)
+      videoSeekTo(currentNowPlayingItem.clipStartTime)
     }
     const duration = playerGetDuration()
 
@@ -47,7 +48,7 @@ export const PlayerAPIAudio = (props: Props) => {
     if (Number.isInteger(currentNowPlayingItem.clipStartTime)) {
       setClipFlagPositions(currentNowPlayingItem, duration)
     } else if (historyItem) {
-      audioSeekTo(historyItem.p)
+      videoSeekTo(historyItem.p)
     }
 
     const playbackPosition = currentNowPlayingItem.clipStartTime || historyItem?.p || 0
@@ -78,15 +79,21 @@ export const PlayerAPIAudio = (props: Props) => {
     })
   }
 
-  window.playerAudio = createRef()
+  window.playerVideo = createRef()
 
   return (
-    <PlayerAudio
+    <PlayerVideo
       onEnded={_onEnded}
-      onLoadedMetaData={_onLoadedMetaData}
-      onListen={_onListen}
-      onSeeked={_onListen}
-      ref={window.playerAudio}
+      onDuration={_onLoadedMetaData}
+      onSeek={_onListen}
+      onProgress={_onListen}
+      muted={muted}
+      playing={!paused}
+      ref={(ref) => {
+        window.playerVideo = ref
+      }}
+      url={src}
+      volume={volume ? volume / 100 : 0}
     />
   )
 }

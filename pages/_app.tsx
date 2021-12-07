@@ -31,6 +31,7 @@ declare global {
     Matomo: any
     paypal: any
     playerAudio: any
+    playerVideo: any
   }
   interface Date {
     addDays: any

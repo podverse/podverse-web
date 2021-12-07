@@ -56,7 +56,7 @@ export const TextInput = ({
 
   const _handleKeyDown = (event) => {
     if (event.key === 'Enter') {
-      onSubmit()
+      onSubmit && onSubmit()
     }
   }
 

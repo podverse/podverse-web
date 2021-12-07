@@ -1,4 +1,5 @@
 import { PlayerAPIAudio } from './PlayerAPIAudio'
+import { PlayerAPIVideo } from './PlayerAPIVideo'
 
 type Props = unknown
 
@@ -8,5 +9,10 @@ export const PlayerAPI = (props: Props) => {
     return null
   }
 
-  return <PlayerAPIAudio />
+  return (
+    <>
+      <PlayerAPIAudio />
+      <PlayerAPIVideo />
+    </>
+  )
 }
