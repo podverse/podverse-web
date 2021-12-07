@@ -97,3 +97,18 @@ export const signUp = async (email: string, password: string) => {
     withCredentials: true
   })
 }
+
+export const verifyEmail = async (token: string) => {
+  if (!token) {
+    throw new Error('No verification token')
+  }
+
+  return request({
+    endpoint: PV.RoutePaths.api.verify_email,
+    method: 'get',
+    query: {
+      token
+    },
+    withCredentials: true
+  })
+}
