@@ -245,7 +245,13 @@ body {
   }
 }
 
-// Source for disable-scrollbars https://stackoverflow.com/a/54410301/2608858
+/*
+  Source for disable-scrollbars https://stackoverflow.com/a/54410301/2608858
+  There is an issue with Windows only web browsers with small viewports showing
+  ugly scrollbars when they're not really necessary. I'm disabling scrollbars
+  for all web browsers with these rules below, but ideally these rules would
+  only target the browsers that show ugly scrollbars.
+*/
 .disable-scrollbars *::-webkit-scrollbar {
   background: transparent; /* Chrome/Safari/Webkit */
   width: 0px;
