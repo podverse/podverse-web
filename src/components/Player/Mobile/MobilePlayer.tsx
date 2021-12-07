@@ -7,7 +7,7 @@ import { getClipTitle } from '~/lib/utility/misc'
 import { PV } from '~/resources'
 import { playerPause, playerPlay, playerSeekTo } from '~/services/player/player'
 
-type Props = {}
+type Props = unknown
 
 export const MobilePlayer = (props: Props) => {
   const [player] = useOmniAural('player')

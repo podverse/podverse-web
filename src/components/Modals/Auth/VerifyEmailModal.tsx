@@ -5,7 +5,7 @@ import Modal from 'react-modal'
 import { ButtonClose, ButtonRectangle } from '~/components'
 import { sendVerification } from '~/services/auth'
 
-type Props = {}
+type Props = unknown
 
 export const VerifyEmailModal = (props: Props) => {
   const [verifyEmail] = useOmniAural('modals.verifyEmail')

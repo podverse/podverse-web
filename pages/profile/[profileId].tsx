@@ -55,7 +55,7 @@ export default function Profile({
   const [listDataCount, setListDataCount] = useState<number>(serverUserListDataCount)
   const [isEditing, setIsEditing] = useState<boolean>(false)
   const [editingUserName, setEditingUserName] = useState<string>(serverUser.name)
-  const [editingUserIsPublic, setEditingUserIsPublic] = useState<boolean>(serverUser.isPublic)
+  const [editingUserIsPublic] = useState<boolean>(serverUser.isPublic)
   const initialRender = useRef(true)
   const pageSubTitle =
     filterType === PV.Filters.type._clips

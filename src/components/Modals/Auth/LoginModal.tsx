@@ -5,7 +5,7 @@ import Modal from 'react-modal'
 import { ButtonClose, ButtonLink, ButtonRectangle, TextInput } from '~/components'
 import { login as loginService } from '~/services/auth'
 
-type Props = {}
+type Props = unknown
 
 export const LoginModal = (props: Props) => {
   const [login] = useOmniAural('modals.login')

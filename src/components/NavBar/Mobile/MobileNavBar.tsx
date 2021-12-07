@@ -8,7 +8,7 @@ import { PV } from '~/resources'
 import { useState } from 'react'
 import { MobileNavMenuModal } from './MobileNavMenuModal'
 
-type Props = {}
+type Props = unknown
 
 export const MobileNavBar = (props: Props) => {
   const router = useRouter()
@@ -32,7 +32,7 @@ export const MobileNavBar = (props: Props) => {
         <div className='right-wrapper'>
           <div className='dropdown'>
             <Dropdown
-              faIcon={!!userInfo ? faUserCircle : faUserCircleRegular}
+              faIcon={userInfo ? faUserCircle : faUserCircleRegular}
               onChange={(selected) => PV.NavBar.dropdownOnChange(selected, router, userInfo)}
               options={dropdownItems}
             />

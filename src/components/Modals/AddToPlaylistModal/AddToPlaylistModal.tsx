@@ -3,7 +3,7 @@ import type { Playlist } from 'podverse-shared'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import Modal from 'react-modal'
-import { ButtonClose, ButtonLink, ButtonRectangle, PlaylistListItem } from '~/components'
+import { ButtonClose, ButtonLink } from '~/components'
 import {
   addOrRemovePlaylistItemEpisode,
   addOrRemovePlaylistItemMediaRef,
@@ -11,7 +11,7 @@ import {
   getLoggedInUserPlaylists
 } from '~/services/playlist'
 
-type Props = {}
+type Props = unknown
 
 const keyPrefix = '_addToPlaylist'
 
@@ -61,7 +61,7 @@ export const AddToPlaylistModal = (props: Props) => {
   const _onAfterOpen = async () => {
     OmniAural.pageIsLoadingShow()
     const response = await getLoggedInUserPlaylists()
-    const [playlists, playlistsCount] = response
+    const [playlists] = response
     setPlaylists(playlists)
     OmniAural.pageIsLoadingHide()
   }

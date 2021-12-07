@@ -1,13 +1,12 @@
 import { faChevronLeft, faChevronRight, faMoon, faSun, faUserCircle } from '@fortawesome/free-solid-svg-icons'
 import { faUserCircle as faUserCircleRegular } from '@fortawesome/free-regular-svg-icons'
 import { useRouter } from 'next/router'
-import OmniAural, { useOmniAural } from 'omniaural'
+import { useOmniAural } from 'omniaural'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useCookies } from 'react-cookie'
 import { ButtonCircle, Dropdown, SwitchWithIcons } from '~/components'
 import { PV } from '~/resources'
-import { logOut } from '~/services/auth'
 
 type Props = {
   serverCookies: any
@@ -15,7 +14,7 @@ type Props = {
 
 export const HorizontalNavBar = ({ serverCookies }: Props) => {
   const [lightModeChecked, setLightModeChecked] = useState<boolean>(serverCookies.lightMode)
-  const [cookies, setCookie, removeCookie] = useCookies([])
+  const [, setCookie, removeCookie] = useCookies([])
   const router = useRouter()
   const { t } = useTranslation()
   const [userInfo] = useOmniAural('session.userInfo')
@@ -58,7 +57,7 @@ export const HorizontalNavBar = ({ serverCookies }: Props) => {
         </div>
         <div className='navbar-secondary__dropdown'>
           <Dropdown
-            faIcon={!!userInfo ? faUserCircle : faUserCircleRegular}
+            faIcon={userInfo ? faUserCircle : faUserCircleRegular}
             onChange={(selected) => PV.NavBar.dropdownOnChange(selected, router, userInfo)}
             options={dropdownItems}
           />

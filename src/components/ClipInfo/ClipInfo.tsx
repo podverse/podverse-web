@@ -1,7 +1,7 @@
 import { useOmniAural } from 'omniaural'
 import { Episode, MediaRef } from 'podverse-shared'
 import { useTranslation } from 'react-i18next'
-import { MediaItemControls, PVLink, TruncatedText } from '~/components'
+import { MediaItemControls, PVLink } from '~/components'
 import { readableDate } from '~/lib/utility/date'
 import { getClipTitle, getEpisodeTitle } from '~/lib/utility/misc'
 import { PV } from '~/resources'
