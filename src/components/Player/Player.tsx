@@ -23,7 +23,7 @@ export const Player = (props: Props) => {
         <PlayerItemProgress />
         <PlayerItemButtons />
       </div>
-      {player?.showFullView && <PlayerFullView nowPlayingItem={player.currentNowPlayingItem} />}
+      <PlayerFullView nowPlayingItem={player.currentNowPlayingItem} />
     </>
   )
 }

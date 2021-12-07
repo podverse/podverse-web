@@ -8,5 +8,10 @@ export const PlayerAPI = (props: Props) => {
     return null
   }
 
-  return <PlayerAPIAudio />
+  return (
+    <>
+      <PlayerAPIAudio />
+      {/* PlayerAPIVideo is rendered in the PlayerFullView component */}
+    </>
+  )
 }

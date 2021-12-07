@@ -62,6 +62,9 @@
     "playSpeed": 1,
     "show": false,
     "showFullView": false,
+    "video": {
+      "src": ""
+    },
     "volume": 100
   },
   "session": {

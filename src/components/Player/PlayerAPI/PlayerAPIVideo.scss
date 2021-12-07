@@ -1,0 +1,29 @@
+.video-player-wrapper {
+  position: fixed;
+  bottom: 111px;
+  right: 0;
+  z-index: 1;
+  pointer-events: all;
+
+  > div {
+    height: 220px !important;
+    width: 390px !important;
+  }
+}
+
+@media (max-width: $media-max-width-tablet-xl) {
+  .video-player-wrapper {
+    > div {
+      max-height: 160px !important;
+      max-width: 284px !important;
+      height: 100% !important;
+      width: 100% !important;
+    }
+  }
+}
+
+@media (max-width: $media-max-width-tablet) {
+  .video-player-wrapper {
+    bottom: 75px;
+  }
+}
