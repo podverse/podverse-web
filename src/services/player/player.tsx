@@ -195,7 +195,7 @@ export const playerSetVolume = (newVolume: number) => {
   if (audioIsLoaded()) {
     audioSetVolume(newVolume)
   } else if (videoIsLoaded()) {
-    videoSetVolume(newVolume)
+    // videoSetVolume(newVolume) // not needed
   }
 }
 
