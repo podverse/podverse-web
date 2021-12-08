@@ -3,7 +3,14 @@ import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { validateEmail } from '~/lib/utility/validation'
 import { ButtonRectangle, PasswordValidationInfo, TextInput } from '~/components'
-import { validateHasAtLeastXCharacters, validateHasLowercase, validateHasMatchingStrings, validateHasNumber, validateHasUppercase, validatePassword } from '~/lib/utility/validation'
+import {
+  validateHasAtLeastXCharacters,
+  validateHasLowercase,
+  validateHasMatchingStrings,
+  validateHasNumber,
+  validateHasUppercase,
+  validatePassword
+} from '~/lib/utility/validation'
 
 type Props = {
   handleClose: any
@@ -75,12 +82,7 @@ export const PasswordInputs = ({ handleClose, handleSubmit, hideEmail, isSignUpP
   }
 
   const handlePassword2Warning = () => {
-    if (
-      !password1WarningText
-      && validatePassword(password1)
-      && password2
-      && password2 !== password1
-    ) {
+    if (!password1WarningText && validatePassword(password1) && password2 && password2 !== password1) {
       setPassword2WarningText(t('errorMessages:message.passwordMatchError'))
     } else {
       setPassword2WarningText('')
@@ -95,13 +97,13 @@ export const PasswordInputs = ({ handleClose, handleSubmit, hideEmail, isSignUpP
     const hasUppercase = validateHasUppercase(password1)
     const hasMatchingPasswords = validateHasMatchingStrings(password1, password2)
     const fieldsAreValid =
-      (hideEmail || hasValidEmail)
-      && hasAtLeastXCharacters
-      && hasLowercase
-      && hasNumber
-      && hasUppercase
-      && hasMatchingPasswords
-  
+      (hideEmail || hasValidEmail) &&
+      hasAtLeastXCharacters &&
+      hasLowercase &&
+      hasNumber &&
+      hasUppercase &&
+      hasMatchingPasswords
+
     setHasAtLeastXCharacters(hasAtLeastXCharacters)
     setHasLowercase(hasLowercase)
     setHasNumber(hasNumber)
@@ -112,23 +114,22 @@ export const PasswordInputs = ({ handleClose, handleSubmit, hideEmail, isSignUpP
 
   return (
     <>
-      {
-        !hideEmail && (
-          <TextInput
-            helperText={emailWarningText}
-            isDanger={!!emailWarningText}
-            label={t('Email')}
-            onBlur={handleEmailOnBlur}
-            onChange={(value: string) => {
-              handleEmailOnChange(value)
-              OmniAural.modalsVerifyEmailEmail(value)
-            }}
-            onSubmit={() => handleSubmit(email, password1)}
-            placeholder={t('Email')}
-            type='email'
-            value={email} />
-        )  
-      }
+      {!hideEmail && (
+        <TextInput
+          helperText={emailWarningText}
+          isDanger={!!emailWarningText}
+          label={t('Email')}
+          onBlur={handleEmailOnBlur}
+          onChange={(value: string) => {
+            handleEmailOnChange(value)
+            OmniAural.modalsVerifyEmailEmail(value)
+          }}
+          onSubmit={() => handleSubmit(email, password1)}
+          placeholder={t('Email')}
+          type='email'
+          value={email}
+        />
+      )}
       <TextInput
         helperText={password1WarningText}
         isDanger={!!password1WarningText}
@@ -138,7 +139,8 @@ export const PasswordInputs = ({ handleClose, handleSubmit, hideEmail, isSignUpP
         onSubmit={() => handleSubmit(email, password1)}
         placeholder={t('Password')}
         type='password'
-        value={password1} />
+        value={password1}
+      />
       <TextInput
         helperText={password2WarningText}
         isDanger={!!password2WarningText}
@@ -148,26 +150,24 @@ export const PasswordInputs = ({ handleClose, handleSubmit, hideEmail, isSignUpP
         onSubmit={() => handleSubmit(email, password1)}
         placeholder={t('Confirm Password')}
         type='password'
-        value={password2} />
+        value={password2}
+      />
       <PasswordValidationInfo
         hasAtLeastXCharacters={hasAtLeastXCharacters}
         hasLowercase={hasLowercase}
         hasNumber={hasNumber}
-        hasUppercase={hasUppercase} />
+        hasUppercase={hasUppercase}
+      />
       <div className='submit-buttons'>
-        <ButtonRectangle
-          label={t('Cancel')}
-          onClick={handleClose}
-          type='secondary' />
+        <ButtonRectangle label={t('Cancel')} onClick={handleClose} type='secondary' />
         <ButtonRectangle
           isLoading={isSignUpPressed}
           disabled={!fieldsAreValid}
           label={t('Submit')}
           onClick={() => handleSubmit(email, password1)}
-          type='primary' />
+          type='primary'
+        />
       </div>
     </>
   )
 }
-
-

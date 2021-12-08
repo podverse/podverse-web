@@ -1,18 +1,15 @@
 import { GetServerSideProps } from 'next'
 import { useTranslation } from 'next-i18next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { Page } from '~/lib/utility/page'
 import { PV } from '~/resources'
-import { getServerSideAuthenticatedUserInfo } from '~/services/auth'
-import { getServerSideUserQueueItems } from '~/services/userQueueItem'
 import { ColumnsWrapper, Meta, PageHeader, PageScrollableContent, SideContent } from '~/components'
+import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 
-interface ServerProps extends Page { }
+interface ServerProps extends Page {}
 
 const keyPrefix = 'pages_terms'
 
 export default function Terms(props: ServerProps) {
-
   /* Initialize */
 
   const { t } = useTranslation()
@@ -36,15 +33,14 @@ export default function Terms(props: ServerProps) {
         robotsNoIndex={false}
         title={meta.title}
         twitterDescription={meta.description}
-        twitterTitle={meta.title} />
+        twitterTitle={meta.title}
+      />
       <PageHeader text={'Terms of Service'} />
       <PageScrollableContent>
         <ColumnsWrapper
           mainColumnChildren={
             <div className='text-page'>
-              <p>
-                {`Podverse will never sell or share private user data.`}
-              </p>
+              <p>{`Podverse will never sell or share private user data.`}</p>
               <p>
                 {`We will never put advertisements next to or within a podcast's content without that podcast's permission.`}
               </p>
@@ -85,7 +81,6 @@ export default function Terms(props: ServerProps) {
               </p>
             </div>
           }
-          sideColumnChildren={<SideContent />}
         />
       </PageScrollableContent>
     </>
@@ -95,17 +90,12 @@ export default function Terms(props: ServerProps) {
 /* Server-Side Logic */
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const { req, locale } = ctx
-  const { cookies } = req
+  const { locale } = ctx
 
-  const userInfo = await getServerSideAuthenticatedUserInfo(cookies)
-  const userQueueItems = await getServerSideUserQueueItems(cookies)
+  const defaultServerProps = await getDefaultServerSideProps(ctx, locale)
 
   const serverProps: ServerProps = {
-    serverUserInfo: userInfo,
-    serverUserQueueItems: userQueueItems,
-    ...(await serverSideTranslations(locale, PV.i18n.fileNames.all)),
-    serverCookies: cookies
+    ...defaultServerProps
   }
 
   return { props: serverProps }

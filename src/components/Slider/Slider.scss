@@ -1,17 +1,43 @@
 .progress-slider {
+  cursor: pointer;
   display: flex;
   flex: 1;
+  position: relative;
+
+  .flag {
+    height: 26px;
+    pointer-events: none;
+    position: absolute;
+    top: 4px;
+    width: 1px;
+
+    @include themeGen() {
+      background-color: getThemeVal('sliderClipIndicator');
+    }
+  }
+
+  .highlighted-section {
+    height: 25px;
+    pointer-events: none;
+    position: absolute;
+    top: 4px;
+
+    @include themeGen() {
+      background-color: getThemeVal('sliderHighlightSection');
+    }
+  }
 
   /*Chrome*/
   @media screen and (-webkit-min-device-pixel-ratio: 0) {
     input[type="range"] {
       overflow: hidden;
-      height: 6px;
+      height: 10px;
       width: 100%;
       border-radius: 12px;
       -webkit-appearance: none;
+
       @include themeGen() {
-        background-color: $blueDarkSlate;
+        background-color: getThemeVal('sliderRemaining');
       }
     }
 
@@ -22,37 +48,38 @@
     }
 
     input[type="range"]::-webkit-slider-thumb {
-      width: 10px;
+      width: 0;
       -webkit-appearance: none;
-      height: 10px;
+      height: 0;
       cursor: pointer;
-      background: $white;
+
       @include themeGen() {
-        box-shadow: -20vw 0 0 20vw $white;
+        background: getThemeVal('sliderListened');
+        box-shadow: -100vw 0 0 100vw getThemeVal('sliderListened');
       }
     }
   }
 
   input[type="range"]::-moz-range-progress {
     @include themeGen() {
-      background-color: $white;
+      background-color: getThemeVal('sliderListened');
     }
   }
   input[type="range"]::-moz-range-track {
     @include themeGen() {
-      background-color: $blueDarkSlate;
+      background-color: getThemeVal('sliderRemaining');
     }
   }
 
   /* IE*/
   input[type="range"]::-ms-fill-lower {
     @include themeGen() {
-      background-color: $white;
+      background-color: getThemeVal('sliderListened');
     }
   }
   input[type="range"]::-ms-fill-upper {
     @include themeGen() {
-      background-color: $blueDarkSlate;
+      background-color: getThemeVal('sliderRemaining');
     }
   }
 }

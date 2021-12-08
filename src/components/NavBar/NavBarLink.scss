@@ -1,3 +1,5 @@
+@include navBarLinkGradientStyle();
+
 .navbar {
   .navbar__link {
     font-size: $text-md;
@@ -5,27 +7,26 @@
     padding: 11px 0 10px 12px;
     border-radius: $item-border-radius;
 
-    &:hover {
-      @include themeGen() {
-        background-color: getThemeVal('highlighted');
-      }
-    }
-
     &.active {
       font-weight: 700;
-      @include themeGen() {
-        background-image: linear-gradient(
-          to right,
-          getThemeVal('navItemActiveGradientLight') -3%,
-          getThemeVal('navItemActiveGradientDark')
-        );
-      }
     }
 
     .navbar-link__icon-wrapper svg {
       height: 16px;
       margin: 0 7px 0 0;
       width: 16px;
+    }
+  }
+}
+
+@media (hover: hover) {
+  .navbar {
+    .navbar__link {
+      &:hover {
+        @include themeGen() {
+          background-color: getThemeVal('highlighted');
+        }
+      }
     }
   }
 }

@@ -23,11 +23,7 @@ export const PlaylistListItem = ({ playlist }: Props) => {
         <PVLink href={playlistPageUrl}>
           <div className='title'>{title}</div>
           <div className='items-count'>{`${t('Items')}: ${itemCount}`}</div>
-          {
-            !isLoggedInUserPlaylist && (
-              <div className='owner-name'>{`${t('Created by')}: ${ownerName}`}</div>
-            )
-          }
+          {!isLoggedInUserPlaylist && <div className='owner-name'>{`${t('Created by')}: ${ownerName}`}</div>}
         </PVLink>
       </li>
       <hr />

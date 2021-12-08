@@ -1,18 +1,22 @@
 import { GetServerSideProps } from 'next'
-import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import OmniAural, { useOmniAural } from 'omniaural'
 import type { Episode } from 'podverse-shared'
 import { useEffect, useRef, useState } from 'react'
-import { EpisodeListItem, List, MessageWithAction, Meta, PageHeader, PageScrollableContent, Pagination,
+import {
+  EpisodeListItem,
+  List,
+  MessageWithAction,
+  Meta,
+  PageHeader,
+  PageScrollableContent,
+  Pagination,
   scrollToTopOfPageScrollableContent
 } from '~/components'
 import { Page } from '~/lib/utility/page'
 import { PV } from '~/resources'
-import { getServerSideAuthenticatedUserInfo } from '~/services/auth'
 import { getEpisodesByQuery } from '~/services/episode'
-import { getServerSideUserQueueItems } from '~/services/userQueueItem'
+import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 
 interface ServerProps extends Page {
   serverFilterFrom: string
@@ -24,9 +28,13 @@ interface ServerProps extends Page {
 
 const keyPrefix = 'pages_episodes'
 
-export default function Episodes({ serverFilterFrom, serverFilterPage,
-  serverFilterSort, serverEpisodesListData, serverEpisodesListDataCount }: ServerProps) {
-
+export default function Episodes({
+  serverFilterFrom,
+  serverFilterPage,
+  serverFilterSort,
+  serverEpisodesListData,
+  serverEpisodesListDataCount
+}: ServerProps) {
   /* Initialize */
 
   const { t } = useTranslation()
@@ -42,9 +50,9 @@ export default function Episodes({ serverFilterFrom, serverFilterPage,
   /* useEffects */
 
   useEffect(() => {
-    (async () => {
+    ;(async () => {
       if (initialRender.current) {
-        initialRender.current = false;
+        initialRender.current = false
       } else {
         OmniAural.pageIsLoadingShow()
         const { data } = await clientQueryEpisodes()
@@ -96,13 +104,9 @@ export default function Episodes({ serverFilterFrom, serverFilterPage,
   /* Render Helpers */
 
   const generateEpisodeListElements = (listItems: Episode[]) => {
-    return listItems.map((listItem, index) =>
-      <EpisodeListItem
-        episode={listItem}
-        key={`${keyPrefix}-${index}`}
-        podcast={listItem.podcast}
-        showImage />
-    )
+    return listItems.map((listItem, index) => (
+      <EpisodeListItem episode={listItem} key={`${keyPrefix}-${index}`} podcast={listItem.podcast} showImage />
+    ))
   }
 
   /* Meta Tags */
@@ -124,15 +128,13 @@ export default function Episodes({ serverFilterFrom, serverFilterPage,
         robotsNoIndex={false}
         title={meta.title}
         twitterDescription={meta.description}
-        twitterTitle={meta.title} />
+        twitterTitle={meta.title}
+      />
       <PageHeader
         primaryOnChange={(selectedItems: any[]) => {
           const selectedItem = selectedItems[0]
           if (selectedItem.key !== filterFrom) setFilterPage(1)
-          if (
-            filterSort === PV.Filters.sort._mostRecent
-            || filterSort === PV.Filters.sort._oldest
-          ) {
+          if (filterSort === PV.Filters.sort._mostRecent || filterSort === PV.Filters.sort._oldest) {
             setFilterSort(PV.Filters.sort._topPastDay)
           }
           setFilterFrom(selectedItem.key)
@@ -150,31 +152,32 @@ export default function Episodes({ serverFilterFrom, serverFilterPage,
             : PV.Filters.dropdownOptions.episodes.sort.all
         }
         sortSelected={filterSort}
-        text={t('Episodes')} />
+        text={t('Episodes')}
+      />
       <PageScrollableContent noMarginTop>
-        {
-          !userInfo && filterFrom === PV.Filters.from._subscribed && (
-            <MessageWithAction
-              actionLabel={t('Login')}
-              actionOnClick={() => OmniAural.modalsLoginShow()}
-              message={t('LoginToSubscribeToPodcasts')} />
-          )
-        }
-        {
-          (userInfo || filterFrom !== PV.Filters.from._subscribed) && (
-            <>
-              <List>
-                {generateEpisodeListElements(episodesListData)}
-              </List>
-              <Pagination
-                currentPageIndex={filterPage}
-                handlePageNavigate={(newPage) => setFilterPage(newPage)}
-                handlePageNext={() => { if (filterPage + 1 <= pageCount) setFilterPage(filterPage + 1) }}
-                handlePagePrevious={() => { if (filterPage - 1 > 0) setFilterPage(filterPage - 1) }}
-                pageCount={pageCount} />
-            </>
-          )
-        }
+        {!userInfo && filterFrom === PV.Filters.from._subscribed && (
+          <MessageWithAction
+            actionLabel={t('Login')}
+            actionOnClick={() => OmniAural.modalsLoginShow()}
+            message={t('LoginToSubscribeToPodcasts')}
+          />
+        )}
+        {(userInfo || filterFrom !== PV.Filters.from._subscribed) && (
+          <>
+            <List>{generateEpisodeListElements(episodesListData)}</List>
+            <Pagination
+              currentPageIndex={filterPage}
+              handlePageNavigate={(newPage) => setFilterPage(newPage)}
+              handlePageNext={() => {
+                if (filterPage + 1 <= pageCount) setFilterPage(filterPage + 1)
+              }}
+              handlePagePrevious={() => {
+                if (filterPage - 1 > 0) setFilterPage(filterPage - 1)
+              }}
+              pageCount={pageCount}
+            />
+          </>
+        )}
       </PageScrollableContent>
     </>
   )
@@ -183,20 +186,20 @@ export default function Episodes({ serverFilterFrom, serverFilterPage,
 /* Server-Side Logic */
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const { req, locale } = ctx
-  const { cookies } = req
+  const { locale } = ctx
 
-  const userInfo = await getServerSideAuthenticatedUserInfo(cookies)
-  const userQueueItems = await getServerSideUserQueueItems(cookies)
-  const serverFilterFrom = userInfo ? PV.Filters.from._subscribed : PV.Filters.from._all
-  const serverFilterSort = userInfo ? PV.Filters.sort._mostRecent : PV.Filters.sort._topPastDay
-  
+  const defaultServerProps = await getDefaultServerSideProps(ctx, locale)
+  const { serverUserInfo } = defaultServerProps
+
+  const serverFilterFrom = serverUserInfo ? PV.Filters.from._subscribed : PV.Filters.from._all
+  const serverFilterSort = serverUserInfo ? PV.Filters.sort._mostRecent : PV.Filters.sort._topPastDay
+
   const serverFilterPage = 1
   let response = null
-  if (userInfo) {
+  if (serverUserInfo) {
     response = await getEpisodesByQuery({
       includePodcast: true,
-      podcastIds: userInfo.subscribedPodcastIds,
+      podcastIds: serverUserInfo.subscribedPodcastIds,
       sort: serverFilterSort
     })
   } else {
@@ -205,19 +208,16 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       sort: serverFilterSort
     })
   }
-  
+
   const [episodesListData, episodesListDataCount] = response.data
-  
+
   const serverProps: ServerProps = {
-    serverUserInfo: userInfo,
-    serverUserQueueItems: userQueueItems,
-    ...(await serverSideTranslations(locale, PV.i18n.fileNames.all)),
+    ...defaultServerProps,
     serverFilterFrom,
     serverFilterPage,
     serverFilterSort,
     serverEpisodesListData: episodesListData,
-    serverEpisodesListDataCount: episodesListDataCount,
-    serverCookies: cookies
+    serverEpisodesListDataCount: episodesListDataCount
   }
 
   return { props: serverProps }

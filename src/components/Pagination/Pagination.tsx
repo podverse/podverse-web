@@ -26,17 +26,7 @@ export const Pagination = ({
     pageCount
   )
 
-  return (
-    <>
-      {
-        pageCount > 1 ? (
-          <div className='pagination'>
-            {pageButtons}
-          </div>
-        ) : null
-      }
-    </>
-  )
+  return <>{pageCount > 1 ? <div className='pagination'>{pageButtons}</div> : null}</>
 }
 
 /* Helpers */
@@ -47,7 +37,8 @@ const prevButton = (handlePagePrev: any) => (
     faIcon={faChevronLeft}
     key={`${keyPrefix}-backwards`}
     onClick={handlePagePrev}
-    size='small' />
+    size='small'
+  />
 )
 
 const nextButton = (handlePageNext: any) => (
@@ -56,7 +47,8 @@ const nextButton = (handlePageNext: any) => (
     faIcon={faChevronRight}
     key={`${keyPrefix}-forwards`}
     onClick={handlePageNext}
-    size='small' />
+    size='small'
+  />
 )
 
 const pageButton = (pageNumber: number, isActive: boolean, handlePageNavigate: any) => (
@@ -64,7 +56,8 @@ const pageButton = (pageNumber: number, isActive: boolean, handlePageNavigate: a
     isActive={isActive}
     key={`${keyPrefix}-${pageNumber}`}
     onClick={() => handlePageNavigate(pageNumber)}
-    text={pageNumber} />
+    text={pageNumber}
+  />
 )
 
 const generatePageButtons = (
@@ -95,15 +88,8 @@ const generatePageButtons = (
     }
   }
 
-  while (
-    maxPageButtons > 0
-    && iterPageNumber <= pageCount
-  ) {
-    components.push(pageButton(
-      iterPageNumber,
-      iterPageNumber === currentPageNumber,
-      handlePageNavigate
-    ))
+  while (maxPageButtons > 0 && iterPageNumber <= pageCount) {
+    components.push(pageButton(iterPageNumber, iterPageNumber === currentPageNumber, handlePageNavigate))
     iterPageNumber++
     maxPageButtons--
   }

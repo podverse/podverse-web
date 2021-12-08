@@ -7,15 +7,10 @@ type Props = {
 }
 
 export const ButtonSquare = ({ isActive, onClick, text }: Props) => {
-  const wrapperClass = classnames(
-    'button-square',
-    { 'active': isActive }
-  )
+  const wrapperClass = classnames('button-square', { active: isActive })
 
   return (
-    <button
-      className={wrapperClass}
-      onClick={onClick}>
+    <button className={wrapperClass} onClick={onClick}>
       {text}
     </button>
   )

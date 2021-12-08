@@ -13,5 +13,12 @@
         color: getThemeVal('textTertiary');
       }
     }
+
+    .completed {
+      margin: 0 0 0 12px;
+      @include themeGen() {
+        color: getThemeVal('textSuccess');
+      }
+    }
   }
 }

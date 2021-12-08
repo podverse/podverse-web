@@ -1,16 +1,21 @@
 import { GetServerSideProps } from 'next'
 import { useTranslation } from 'next-i18next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import type { Podcast } from 'podverse-shared'
 import { useEffect, useState } from 'react'
-import { List, Meta, PageHeaderWithTabs, PageScrollableContent, Pagination,
-  PodcastListItem, SearchPageInput } from '~/components'
+import {
+  List,
+  Meta,
+  PageHeaderWithTabs,
+  PageScrollableContent,
+  Pagination,
+  PodcastListItem,
+  SearchPageInput
+} from '~/components'
 import { Page } from '~/lib/utility/page'
 import { PV } from '~/resources'
-import { getServerSideAuthenticatedUserInfo } from '~/services/auth'
 import { getPodcastsByQuery } from '~/services/podcast'
 import { scrollToTopOfPageScrollableContent } from '~/components/PageScrollableContent/PageScrollableContent'
-import { getServerSideUserQueueItems } from '~/services/userQueueItem'
+import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 
 interface ServerProps extends Page {}
 
@@ -24,7 +29,6 @@ const keyPrefix = 'pages_search'
 */
 
 export default function Search(props: ServerProps) {
-
   /* Initialize */
 
   const { t } = useTranslation()
@@ -32,14 +36,13 @@ export default function Search(props: ServerProps) {
   const [podcastsListDataCount, setPodcastsListDataCount] = useState<number>(0)
   const [filterPage, setFilterPage] = useState<number>(1)
   const [filterSearchByText, setFilterSearchByText] = useState<string>('')
-  const [filterSearchByType, setFilterSearchByType] = useState<string>(
-    PV.Filters.search.queryParams.podcast)
+  const [filterSearchByType, setFilterSearchByType] = useState<string>(PV.Filters.search.queryParams.podcast)
   const pageCount = Math.ceil(podcastsListDataCount / PV.Config.QUERY_RESULTS_LIMIT_DEFAULT)
 
   /* useEffects */
 
   useEffect(() => {
-    (async () => {
+    ;(async () => {
       const { data } = await clientQueryPodcasts()
       const [newPodcastsListData, newPodcastsListCount] = data
       setPodcastsListData(newPodcastsListData)
@@ -70,16 +73,11 @@ export default function Search(props: ServerProps) {
 
   const generateTabOptions = (t: any) => [
     { label: t('Podcasts'), key: PV.Filters.search.queryParams.podcast },
-    { label: t('Hosts'), key: PV.Filters.search.queryParams.host },
+    { label: t('Hosts'), key: PV.Filters.search.queryParams.host }
   ]
 
   const generatePodcastListElements = (listItems: Podcast[]) => {
-    
-    return listItems.map((listItem, index) =>
-      <PodcastListItem
-        key={`${keyPrefix}-${index}`}
-        podcast={listItem} />
-    )
+    return listItems.map((listItem, index) => <PodcastListItem key={`${keyPrefix}-${index}`} podcast={listItem} />)
   }
 
   const pageHeaderTabs = generateTabOptions(t)
@@ -103,30 +101,36 @@ export default function Search(props: ServerProps) {
         robotsNoIndex={false}
         title={meta.title}
         twitterDescription={meta.description}
-        twitterTitle={meta.title} />
+        twitterTitle={meta.title}
+      />
       <PageHeaderWithTabs
         keyPrefix={keyPrefix}
         onClick={(selectedKey: string) => setFilterSearchByType(selectedKey)}
         selectedKey={filterSearchByType}
         tabOptions={pageHeaderTabs}
-        title={t('Search')} />
+        title={t('Search')}
+      />
       <SearchPageInput
         handleAutoSubmit={(value) => {
           setFilterSearchByText(value)
           setFilterPage(1)
         }}
         label={t('Podcast title')}
-        placeholder={t('searchByPodcastTitle')} />
+        placeholder={t('searchByPodcastTitle')}
+      />
       <PageScrollableContent>
-        <List>
-          {generatePodcastListElements(podcastsListData)}
-        </List>
+        <List>{generatePodcastListElements(podcastsListData)}</List>
         <Pagination
           currentPageIndex={filterPage}
           handlePageNavigate={(newPage) => setFilterPage(newPage)}
-          handlePageNext={() => { if (filterPage + 1 <= pageCount) setFilterPage(filterPage + 1)}}
-          handlePagePrevious={() => { if (filterPage - 1 > 0) setFilterPage(filterPage - 1) }}
-          pageCount={pageCount} />
+          handlePageNext={() => {
+            if (filterPage + 1 <= pageCount) setFilterPage(filterPage + 1)
+          }}
+          handlePagePrevious={() => {
+            if (filterPage - 1 > 0) setFilterPage(filterPage - 1)
+          }}
+          pageCount={pageCount}
+        />
       </PageScrollableContent>
     </>
   )
@@ -138,14 +142,10 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { req, locale } = ctx
   const { cookies } = req
 
-  const userInfo = await getServerSideAuthenticatedUserInfo(cookies)
-  const userQueueItems = await getServerSideUserQueueItems(cookies)
-  
+  const defaultServerProps = await getDefaultServerSideProps(ctx, locale)
+
   const serverProps: ServerProps = {
-    serverUserInfo: userInfo,
-    serverUserQueueItems: userQueueItems,
-    ...(await serverSideTranslations(locale, PV.i18n.fileNames.all)),
-    serverCookies: cookies
+    ...defaultServerProps
   }
 
   return { props: serverProps }

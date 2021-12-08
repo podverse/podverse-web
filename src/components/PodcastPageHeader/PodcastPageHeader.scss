@@ -1,19 +1,11 @@
+@include headerGradientStyle('.podcast-page-header');
+
 .podcast-page-header {
-  align-items: center;
   display: flex;
-  // margin-bottom: 30px;
-  min-height: 161px;
+  flex-direction: column;
   padding: 16px 0;
 
-  @include themeGen() {
-    background-image: linear-gradient(
-      to right,
-      getThemeVal('headerGradientLight') -3%,
-      getThemeVal('headerGradientDark')
-    );
-  }
-
-  .main-max-width {
+  .top-wrapper {
     align-items: center;
     display: flex;
     flex: 1;
@@ -29,30 +21,71 @@
       justify-content: center;
       padding-right: 16px;
 
-      .above-text {
-        align-self: flex-start;
-        font-size: $text-xl;
-        font-weight: $font-weight-bold;
-        margin-bottom: 4px;
+      .podcast-title {
+        font-size: $text-huge;
+        font-weight: $font-weight-light;
       }
 
-      .below-text {
+      .sub-labels {
         align-self: flex-start;
         font-size: $text-lg;
         margin-top: 4px;
-      }
-
-      [href] {
-        &:hover {
-          @include themeGen() {
-            color: getThemeVal('textSecondary');
-          }
-        }
       }
     }
 
     button {
       margin-left: auto;
+    }
+  }
+
+  .bottom-wrapper {
+    margin-top: 16px;
+  }
+}
+
+@media (max-width: $media-max-width-tablet-xl) {
+  .podcast-page-header {
+    .top-wrapper {
+      .pv-image {
+        height: $img-large !important;
+        margin-right: 16px;
+        width: $img-large !important;
+      }
+
+      .text-wrapper {
+        .podcast-title {
+          font-size: $text-xxxl;
+          font-weight: $font-weight-light;
+        }
+      }
+    }
+    
+    .bottom-wrapper {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+
+      .sub-labels {
+        align-self: center;
+        font-size: $text-md;
+        line-height: 18px;
+      }
+
+      button {
+        margin-left: 8px;
+      }
+    }
+  }
+}
+
+@media (hover: hover) {
+  .podcast-page-header {
+    [href] {
+      &:hover {
+        @include themeGen() {
+          color: getThemeVal('textSecondary');
+        }
+      }
     }
   }
 }

@@ -2,7 +2,7 @@
   display: flex;
   flex: 0;
   flex-direction: row;
-  margin: 25px 0 18px 0;
+  margin: 0 0 20px 0;
   
   .main-wrapper {
     flex: 1;
@@ -11,14 +11,6 @@
       display: flex;
       flex-direction: row;
       margin-bottom: 6px;
-  
-      &:hover {
-        cursor: pointer;
-  
-        @include themeGen() {
-          color: getThemeVal('textHover');
-        }
-      }
   
       img {
         border-radius: $item-border-radius;
@@ -32,7 +24,7 @@
         }
       
         .episode-podcast-titles {
-          font-size: $text-sm;
+          font-size: $text-md;
   
           @include themeGen() {
             color: getThemeVal('textSecondary');
@@ -53,5 +45,21 @@
     display: flex;
     justify-content: center;
     margin-left: 16px;
+  }
+}
+
+@media (hover: hover) {
+  .clip-list-item {
+    .main-wrapper {
+      .content-wrapper {
+        &:hover {
+          cursor: pointer;
+    
+          @include themeGen() {
+            color: getThemeVal('textHover');
+          }
+        }
+      }
+    }
   }
 }

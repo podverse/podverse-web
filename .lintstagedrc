@@ -1,0 +1,7 @@
+{
+  "{src,pages}/**/*.{ts,tsx}": [
+    "eslint --fix --ext .js,.ts,.tsx",
+    "yarn prettier:write",
+    "bash -c tsc --noEmit",
+  ]
+}

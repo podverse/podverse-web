@@ -1,0 +1,18 @@
+.mobile-nav-menu-link {
+  display: flex;
+  font-size: $text-lg;
+  padding: 16px 0;
+  justify-content: center;
+
+  &.active {
+    font-weight: $font-weight-bold;
+    
+    .icon {
+      margin-left: 16px;
+
+      @include themeGen() {
+        color: getThemeVal('textQuaternary');
+      }
+    }    
+  }
+}

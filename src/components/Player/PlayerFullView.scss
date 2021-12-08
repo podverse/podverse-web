@@ -1,0 +1,247 @@
+.player-full-view {
+  align-items: center;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  left: 0;
+  padding: 0 120px;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 1;
+
+  backdrop-filter: blur($background-blur);
+  -webkit-backdrop-filter: blur($background-blur);
+
+  @include themeGen() {
+    background-color: getThemeVal("backgroundTransparent");
+  }
+
+  .button-close {
+    position: absolute;
+    top: 28px;
+    right: 64px;
+    z-index: 1;
+  }
+
+  .image-wrapper {
+    align-self: stretch;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 90px 0 30px 0;
+    position: relative;
+
+    img {
+      border-radius: $item-border-radius;
+    }
+
+    &.has-clip-info {
+      margin-bottom: 0;
+      margin-top: 16px;
+    }
+
+    .clip-info-wrapper {
+      align-items: center;
+      display: flex;
+      flex-direction: column;
+      height: 72px;
+      max-width: 740px;
+      margin-top: 16px;
+
+      .clip-title {
+        font-size: $text-xl;
+        line-height: 23px;
+        margin-bottom: 6px;
+        text-align: center;
+
+        @include line-clamp(2);
+      }
+      .clip-time {
+        font-size: $text-sm;
+
+        @include themeGen() {
+          color: getThemeVal("textTertiary");
+        }
+      }
+    }
+  }
+
+  .title-wrapper {
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+
+    h1 {
+      font-size: $text-xxxl;
+    }
+    
+    a {
+      display: inline-block;
+      @include line-clamp(2);
+    }
+
+    .subtitle {
+      font-size: $text-xl;
+      font-weight: $font-weight-bold;
+      margin-top: 3px;
+      @include line-clamp(1);
+
+      @include themeGen() {
+        color: getThemeVal("textQuaternary");
+      }
+    }
+  }
+
+  .player-item-info-container {
+    flex: 0 0 33%;
+  }
+
+  .player-buttons-container {
+    flex: 0 0 33%;
+  }
+
+  .player-buttons-wrapper {
+    align-self: stretch;
+
+    .player-bar-container {
+      margin: 43px 0 28px 0;
+      width: 100%;
+
+      .player-bar-label {
+        min-width: 30px;
+
+        &:first-child {
+          text-align: left;
+        }
+      }
+    }
+
+    .player-progress-container {
+      flex-direction: row;
+      justify-content: center;
+    }
+
+    .progress-button-container {
+      flex: 0 0 34%;
+
+      .bottom-row {
+        display: none;
+      }
+    }
+  }
+}
+
+@media (max-width: $media-max-width-tablet-xl) {
+.player-full-view {
+  padding: 0 32px;
+    .button-close {
+      right: 32px;
+    }
+
+    .player-progress-container {
+      align-items: flex-start;
+
+      > .player-buttons-container {
+        .player-control-button-row {
+          display: none;
+        }
+      }
+    }
+
+    .progress-button-container {
+      display: flex;
+      flex-direction: column;
+
+      .bottom-row {
+        display: flex !important;
+        margin-top: 24px;
+
+        .player-buttons-container {
+          display: flex;
+          justify-content: center;
+          margin-left: 0;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: $media-max-width-mobile) {
+  .player-full-view {
+    padding: 0 16px;
+    
+    .button-close {
+      position: absolute;
+      top: 12px;
+      right: 16px;
+      z-index: 1;
+    }
+
+    .image-wrapper {
+      margin-top: 84px;
+      
+      &.has-clip-info {
+        margin-top: 8px;
+      }
+
+      img {
+        height: 200px !important;
+        width: 200px !important;
+      }
+      .clip-info-wrapper {    
+        height: 90px;
+             
+        .clip-title {
+          font-size: $text-lg;
+        }
+
+        .clip-time {
+          margin-bottom: 16px;
+        }
+      }
+    }
+
+    .title-wrapper {
+      h1 {
+        font-size: $text-xl;
+      }
+
+      .subtitle {
+        font-size: $text-md;
+      }
+    }
+
+    .player-buttons-wrapper {
+      .player-bar-container {
+        margin: 24px 0 28px 0;
+        
+        .player-bar {
+          margin: 0 8px;  
+        }
+      }
+
+      .progress-button-container {
+        .bottom-row {
+          margin-top: 16px;
+        }
+      }
+    }
+  }
+}
+
+@media (hover: hover) {
+  .player-full-view {
+    .title-wrapper {
+      a {
+        &:hover {
+          @include themeGen() {
+            color: getThemeVal("textHover");
+          }
+        }
+      }
+    }
+  }
+}

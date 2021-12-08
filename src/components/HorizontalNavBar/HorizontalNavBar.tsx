@@ -1,7 +1,7 @@
 import { faChevronLeft, faChevronRight, faMoon, faSun, faUserCircle } from '@fortawesome/free-solid-svg-icons'
 import { faUserCircle as faUserCircleRegular } from '@fortawesome/free-regular-svg-icons'
 import { useRouter } from 'next/router'
-import OmniAural, { useOmniAural } from "omniaural"
+import OmniAural, { useOmniAural } from 'omniaural'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useCookies } from 'react-cookie'
@@ -13,18 +13,12 @@ type Props = {
   serverCookies: any
 }
 
-const _myProfileKey = '_myProfile'
-const _membershipKey = '_membership'
-const _settingsKey = '_settings'
-const _logInKey = '_logIn'
-const _logOutKey = '_logOut'
-
 export const HorizontalNavBar = ({ serverCookies }: Props) => {
   const [lightModeChecked, setLightModeChecked] = useState<boolean>(serverCookies.lightMode)
   const [cookies, setCookie, removeCookie] = useCookies([])
   const router = useRouter()
   const { t } = useTranslation()
-  const [userInfo] = useOmniAural("session.userInfo")
+  const [userInfo] = useOmniAural('session.userInfo')
 
   useEffect(() => {
     if (!lightModeChecked) {
@@ -42,74 +36,32 @@ export const HorizontalNavBar = ({ serverCookies }: Props) => {
 
   const navigateForward = () => {
     window.history.forward()
-    OmniAural.togglePlayer(!OmniAural.state.player.show.value())
   }
 
   const lightModeOnChange = () => {
-    setLightModeChecked(prev => {
+    setLightModeChecked((prev) => {
       document.documentElement.className = !prev ? 'theme-light' : 'theme-dark'
       return !prev
     })
   }
 
-  const onChange = async (selected) => {
-    const item = selected[0]
-    if (item) {
-      if (item.key === _myProfileKey) {
-        router.push(`${PV.RoutePaths.web.profile}/${userInfo.id}`)
-      } else if (item.key === _membershipKey) {
-        router.push(PV.RoutePaths.web.membership)
-      } else if (item.key === _settingsKey) {
-        router.push(PV.RoutePaths.web.settings)
-      } else if (item.key === _logInKey) {
-        OmniAural.modalsLoginShow()
-      } else if (item.key === _logOutKey) {
-        await logOut()
-      }
-    }
-  }
-
   /* Render Helpers */
 
-  const generateDropdownItems = () => {
-    const isLoggedIn = !!OmniAural.state.session.userInfo.value()
-    const items = [
-      { label: t('Membership'), key: _membershipKey },
-      { label: t('Settings'), key: _settingsKey },
-    ]
-
-    if (isLoggedIn) {
-      items.unshift({ label: t('MyProfile'), key: _myProfileKey })
-      items.push({ label: t('Logout'), key: _logOutKey })
-    } else {
-      items.push({ label: t('Login'), key: _logInKey })
-    }
-
-    return items
-  }
-
-  const dropdownItems = generateDropdownItems()
+  const dropdownItems = PV.NavBar.generateDropdownItems(t)
 
   return (
     <div className='horizontal-navbar-wrapper'>
       <nav className='navbar-secondary main-max-width'>
         <div className='navbar-secondary__page-navs'>
-          <ButtonCircle
-            className='backwards'
-            faIcon={faChevronLeft}
-            onClick={navigateBack}
-            size='small' />
-          <ButtonCircle
-            className='forwards'
-            faIcon={faChevronRight}
-            onClick={navigateForward}
-            size='small' />
+          <ButtonCircle className='backwards' faIcon={faChevronLeft} onClick={navigateBack} size='small' />
+          <ButtonCircle className='forwards' faIcon={faChevronRight} onClick={navigateForward} size='small' />
         </div>
         <div className='navbar-secondary__dropdown'>
           <Dropdown
             faIcon={!!userInfo ? faUserCircle : faUserCircleRegular}
-            onChange={onChange}
-            options={dropdownItems} />
+            onChange={(selected) => PV.NavBar.dropdownOnChange(selected, router, userInfo)}
+            options={dropdownItems}
+          />
         </div>
         <div className='navbar-secondary__theme-toggle'>
           <SwitchWithIcons
@@ -117,11 +69,10 @@ export const HorizontalNavBar = ({ serverCookies }: Props) => {
             checked={!lightModeChecked}
             faIconBeginning={faSun}
             faIconEnding={faMoon}
-            onChange={lightModeOnChange} />
+            onChange={lightModeOnChange}
+          />
         </div>
       </nav>
     </div>
   )
 }
-
-

@@ -21,7 +21,6 @@ body {
         width: 22px;
       }
     }
-  
   }
   
   .dropdown__chevron {
@@ -65,6 +64,7 @@ body {
       border-radius: $item-border-radius;
       left: unset !important;
       margin: 0;
+      max-height: 333px;
       padding: 6px 0;
       right: 0 !important;
     
@@ -114,6 +114,42 @@ body {
   .width-large {
     .react-dropdown-select-dropdown {
       width: $dropdown-menu-width-large;
+    }
+  }
+
+  .has-clip-edit-buttons {
+    .react-dropdown-select-dropdown {
+      .react-dropdown-select-item {
+        &:nth-last-child(2) {
+          @include themeGen() {
+            color: getThemeVal('textWarning');
+          }
+        }
+        &:last-child {
+          @include themeGen() {
+            color: getThemeVal('textDanger');
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (hover: hover) {
+  body {
+    .react-dropdown-select {
+      .react-dropdown-select-dropdown {
+        .react-dropdown-select-item {
+          &:hover {
+            border: none;
+            box-shadow: $box-shadow;
+            
+            @include themeGen() {
+              background-color: getThemeVal('dropdownMenuSelected');
+            }
+          }
+        }
+      }
     }
   }
 }

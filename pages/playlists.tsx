@@ -1,15 +1,12 @@
 import { GetServerSideProps } from 'next'
 import { useTranslation } from 'next-i18next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import OmniAural, { useOmniAural } from 'omniaural'
 import type { Playlist } from 'podverse-shared'
-import { List, MessageWithAction, Meta, PageHeader, PageScrollableContent,
-  PlaylistListItem } from '~/components'
+import { List, MessageWithAction, Meta, PageHeader, PageScrollableContent, PlaylistListItem } from '~/components'
 import { Page } from '~/lib/utility/page'
 import { PV } from '~/resources'
-import { getServerSideAuthenticatedUserInfo } from '~/services/auth'
-import { getServerSideUserQueueItems } from '~/services/userQueueItem'
 import { getServerSideLoggedInUserPlaylistsCombined } from '~/services/playlist'
+import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 
 interface ServerProps extends Page {
   serverPlaylistsCombined: {
@@ -21,7 +18,6 @@ interface ServerProps extends Page {
 const keyPrefix = 'pages_playlists'
 
 export default function Playlists({ serverPlaylistsCombined }: ServerProps) {
-
   /* Initialize */
 
   const { t } = useTranslation()
@@ -32,11 +28,7 @@ export default function Playlists({ serverPlaylistsCombined }: ServerProps) {
   /* Render Helpers */
 
   const generatePlaylistElements = (listItems: Playlist[]) => {
-    return listItems.map((listItem, index) =>
-      <PlaylistListItem
-        key={`${keyPrefix}-${index}`}
-        playlist={listItem} />
-    )
+    return listItems.map((listItem, index) => <PlaylistListItem key={`${keyPrefix}-${index}`} playlist={listItem} />)
   }
 
   /* Meta Tags */
@@ -58,24 +50,18 @@ export default function Playlists({ serverPlaylistsCombined }: ServerProps) {
         robotsNoIndex={false}
         title={meta.title}
         twitterDescription={meta.description}
-        twitterTitle={meta.title} />
-      <PageHeader text={t('Playlists')} />
+        twitterTitle={meta.title}
+      />
+      <PageHeader text={t('Playlists')} noMarginBottom />
       <PageScrollableContent noMarginTop>
-        {
-          !userInfo && (
-            <MessageWithAction
-              actionLabel={t('Login')}
-              actionOnClick={() => OmniAural.modalsLoginShow()}
-              message={t('LoginToViewYourPlaylists')} />
-          )
-        }
-        {
-          userInfo && (
-            <List>
-              {generatePlaylistElements(combinedPlaylists)}
-            </List>
-          )
-        }
+        {!userInfo && (
+          <MessageWithAction
+            actionLabel={t('Login')}
+            actionOnClick={() => OmniAural.modalsLoginShow()}
+            message={t('LoginToViewYourPlaylists')}
+          />
+        )}
+        {userInfo && <List>{generatePlaylistElements(combinedPlaylists)}</List>}
       </PageScrollableContent>
     </>
   )
@@ -87,15 +73,11 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { req, locale } = ctx
   const { cookies } = req
 
-  const userInfo = await getServerSideAuthenticatedUserInfo(cookies)
-  const userQueueItems = await getServerSideUserQueueItems(cookies)
+  const defaultServerProps = await getDefaultServerSideProps(ctx, locale)
   const combinedPlaylists = await getServerSideLoggedInUserPlaylistsCombined(cookies)
 
   const serverProps: ServerProps = {
-    serverUserInfo: userInfo,
-    serverUserQueueItems: userQueueItems,
-    ...(await serverSideTranslations(locale, PV.i18n.fileNames.all)),
-    serverCookies: cookies,
+    ...defaultServerProps,
     serverPlaylistsCombined: combinedPlaylists
   }
 

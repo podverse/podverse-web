@@ -1,3 +1,5 @@
+$background-blur: 14px;
+
 $border-width-default: 1.5px;
 
 $button-small-radius: 16px;
@@ -16,6 +18,12 @@ $font-weight-regular: 400;
 $font-weight-medium: 500;
 $font-weight-bold: 700;
 
+$img-small: 40px;
+$img-medium: 64px;
+$img-large: 80px;
+$img-xtraLarge: 128px;
+$img-fullViewAudio: 300px;
+
 $item-border-radius: 4px;
 
 $main-max-width: 1096px;
@@ -26,6 +34,7 @@ $pagination-button-round-height: 37px;
 $pagination-button-square-height: 40px;
 
 $text-huge: 48px;
+$text-xxxl: 33px;
 $text-xxl: 27px;
 $text-xl: 21px;
 $text-lg: 19px;
@@ -33,3 +42,16 @@ $text-md: 16px;
 $text-sm: 14px;
 $text-tiny: 12px;
 $text-tiniest: 9px;
+
+
+
+/* max-width breakpoints for screen sizes */
+$media-max-width-mobile: 480px;
+$media-max-width-tablet: 768px;
+$media-max-width-tablet-xl: 1024px;
+$media-max-width-laptop: 1240px;
+
+/* min-width breakpoints for screen sizes */
+$media-min-width-tablet: 481px;
+$media-min-width-tablet-xl: 769px;
+$media-min-width-laptop: 1025px;

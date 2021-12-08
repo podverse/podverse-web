@@ -11,17 +11,25 @@ type Props = {
   episode?: Episode
   handleRemove?: any
   imageUrl?: string
+  isLoggedInUserMediaRef?: boolean
   mediaRef: MediaRef
   podcast: Podcast
   showImage?: boolean
   showRemoveButton?: boolean
 }
 
-export const ClipListItem = ({ episode, handleRemove, mediaRef, podcast,
-  showImage, showRemoveButton }: Props) => {
+export const ClipListItem = ({
+  episode,
+  handleRemove,
+  isLoggedInUserMediaRef,
+  mediaRef,
+  podcast,
+  showImage,
+  showRemoveButton
+}: Props) => {
   const { t } = useTranslation()
   const { id, imageUrl } = mediaRef
-  const title = getClipTitle(t, mediaRef, episode?.title)
+  const title = getClipTitle(t, mediaRef.title, episode?.title)
   const episodePodcastTitles = episode ? `${getEpisodeTitle(t, episode)} – ${getPodcastTitle(t, podcast)}` : ''
   const clipPageUrl = `${PV.RoutePaths.web.clip}/${id}`
   const [isRemoving, setIsRemoving] = useState<boolean>(false)
@@ -29,10 +37,10 @@ export const ClipListItem = ({ episode, handleRemove, mediaRef, podcast,
   const finalImageUrl = imageUrl
     ? imageUrl
     : episode?.imageUrl
-      ? episode.imageUrl
-      : podcast
-        ? getPodcastShrunkImageUrl(podcast)
-        : ''
+    ? episode.imageUrl
+    : podcast
+    ? getPodcastShrunkImageUrl(podcast)
+    : ''
 
   const _handleRemove = async () => {
     setIsRemoving(true)
@@ -44,47 +52,39 @@ export const ClipListItem = ({ episode, handleRemove, mediaRef, podcast,
     <>
       <li className='clip-list-item'>
         <div className='main-wrapper'>
-          <PVLink
-            className='content-wrapper'
-            href={clipPageUrl}>
-            {
-              showImage && (
-                <PVImage
-                  alt={t('Podcast artwork')}
-                  height={PV.Images.sizes.medium}
-                  src={finalImageUrl}
-                  width={PV.Images.sizes.medium} />
-              )
-            }
+          <PVLink className='content-wrapper' href={clipPageUrl}>
+            {showImage && (
+              <PVImage
+                alt={t('Podcast artwork')}
+                height={PV.Images.sizes.medium}
+                src={finalImageUrl}
+                width={PV.Images.sizes.medium}
+              />
+            )}
             <div className='text-wrapper'>
               <h3>{title}</h3>
-              {
-                episode && (
-                  <div className='episode-podcast-titles'>
-                    {episodePodcastTitles}
-                  </div>
-                )
-              }
+              {episode && <div className='episode-podcast-titles'>{episodePodcastTitles}</div>}
             </div>
           </PVLink>
           <MediaItemControls
             buttonSize='medium'
+            isLoggedInUserMediaRef={isLoggedInUserMediaRef}
             mediaRef={mediaRef}
-            stretchMiddleContent />
+            stretchMiddleContent
+          />
         </div>
-        {
-          showRemoveButton && (
-            <div className='side-wrapper'>
-              <ButtonCircle
-                className='remove'
-                faIcon={faTimes}
-                iconOnly
-                isLoading={isRemoving}
-                onClick={_handleRemove}
-                size='medium' />
-            </div>
-          )
-        }
+        {showRemoveButton && (
+          <div className='side-wrapper'>
+            <ButtonCircle
+              className='remove'
+              faIcon={faTimes}
+              iconOnly
+              isLoading={isRemoving}
+              onClick={_handleRemove}
+              size='medium'
+            />
+          </div>
+        )}
       </li>
       <hr className='clip-list-item-hr' />
     </>

@@ -1,20 +1,23 @@
-import classnames from "classnames"
-import type { NowPlayingItem } from "podverse-shared"
-import { PlayerProgressButtons } from "./controls/PlayerProgressButtons"
-import { ProgressBar } from "./controls/ProgressBar"
+import classnames from 'classnames'
+import { useOmniAural } from 'omniaural'
+import { PlayerProgressButtons } from './controls/PlayerProgressButtons'
+import { ProgressBar } from './controls/ProgressBar'
 
-type Props = {
-  nowPlayingItem: NowPlayingItem
-  isPaused?: boolean
-}
+type Props = {}
 
-export const PlayerItemProgess = ({ nowPlayingItem, isPaused }: Props) => {
-  const container = classnames("player-progress-container")
+export const PlayerItemProgress = (props: Props) => {
+  const [player] = useOmniAural('player')
+  const { chapterFlagPositions, clipFlagPositions, highlightedPositions } = player
+  const container = classnames('player-progress-container')
 
   return (
     <div className={container}>
-      <PlayerProgressButtons isPaused={isPaused} />
-      <ProgressBar currentTime={325} totalTime={624} />
+      <PlayerProgressButtons />
+      <ProgressBar
+        chapterFlagPositions={chapterFlagPositions}
+        clipFlagPositions={clipFlagPositions}
+        highlightedPositions={highlightedPositions}
+      />
     </div>
   )
 }

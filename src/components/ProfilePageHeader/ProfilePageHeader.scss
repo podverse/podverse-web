@@ -1,17 +1,10 @@
+@include headerGradientStyle('.profile-page-header');
+
 .profile-page-header {
   align-items: center;
   display: flex;
-  // margin-bottom: 30px;
   min-height: 120px;
   padding: 16px 0;
-
-  @include themeGen() {
-    background-image: linear-gradient(
-      to right,
-      getThemeVal('headerGradientLight') -3%,
-      getThemeVal('headerGradientDark')
-    );
-  }
 
   .main-max-width {
     align-items: center;
@@ -51,6 +44,19 @@
       button {
         margin-left: 8px;
       }
+    }
+  }
+}
+
+@media (max-width: $media-max-width-tablet-xl) {
+  .profile-page-header {
+    h1 {
+      font-size: $text-xxxl;
+      font-weight: $font-weight-light;
+    }
+
+    button {
+      margin-left: 8px;
     }
   }
 }

@@ -1,17 +1,22 @@
-import OmniAural, { useOmniAural } from "omniaural"
+import OmniAural, { useOmniAural } from 'omniaural'
 import type { Playlist } from 'podverse-shared'
-import { useState } from "react"
-import { useTranslation } from "react-i18next"
+import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import Modal from 'react-modal'
-import { ButtonClose, ButtonLink, ButtonRectangle, PlaylistListItem } from "~/components"
-import { addOrRemovePlaylistItemEpisode, addOrRemovePlaylistItemMediaRef, createPlaylist, getLoggedInUserPlaylists } from "~/services/playlist"
+import { ButtonClose, ButtonLink, ButtonRectangle, PlaylistListItem } from '~/components'
+import {
+  addOrRemovePlaylistItemEpisode,
+  addOrRemovePlaylistItemMediaRef,
+  createPlaylist,
+  getLoggedInUserPlaylists
+} from '~/services/playlist'
 
 type Props = {}
 
 const keyPrefix = '_addToPlaylist'
 
 export const AddToPlaylistModal = (props: Props) => {
-  const [addToPlaylist] = useOmniAural("modals.addToPlaylist")
+  const [addToPlaylist] = useOmniAural('modals.addToPlaylist')
   const { t } = useTranslation()
   const [playlists, setPlaylists] = useState<Playlist[]>([])
 
@@ -68,12 +73,13 @@ export const AddToPlaylistModal = (props: Props) => {
   /* Render Helpers */
 
   const generatePlaylistElements = (listItems: Playlist[]) => {
-    return listItems.map((listItem, index) =>
+    return listItems.map((listItem, index) => (
       <AddToPlaylistListItem
         key={`${keyPrefix}-${index}`}
         onClick={() => _handlePlaylistPress(listItem)}
-        playlist={listItem} />
-    )
+        playlist={listItem}
+      />
+    ))
   }
 
   return (
@@ -82,13 +88,12 @@ export const AddToPlaylistModal = (props: Props) => {
       contentLabel={t('Add to Playlist')}
       isOpen={!!addToPlaylist.item}
       onAfterOpen={_onAfterOpen}
-      onRequestClose={_onRequestClose}>
+      onRequestClose={_onRequestClose}
+    >
       <h2>{t('Add to Playlist')}</h2>
       <ButtonClose onClick={_onRequestClose} />
       <div className='playlists-wrapper'>
-        <ButtonLink
-          label={t('Create Playlist')}
-          onClick={_handleCreatePlaylist} />
+        <ButtonLink label={t('Create Playlist')} onClick={_handleCreatePlaylist} />
         {generatePlaylistElements(playlists)}
       </div>
     </Modal>
@@ -107,9 +112,7 @@ const AddToPlaylistListItem = ({ onClick, playlist }: ListItemProps) => {
 
   return (
     <>
-      <li
-        className='add-to-playlist-list-item'
-        onClick={onClick}>
+      <li className='add-to-playlist-list-item' onClick={onClick}>
         <div className='title'>{title}</div>
         <div className='items-count'>{`${t('Items')}: ${itemCount}`}</div>
       </li>

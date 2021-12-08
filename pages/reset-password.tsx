@@ -1,19 +1,17 @@
 import { GetServerSideProps } from 'next'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { Meta, PasswordInputs } from '~/components'
 import { Page } from '~/lib/utility/page'
 import { PV } from '~/resources'
-import { getServerSideAuthenticatedUserInfo, resetPassword } from '~/services/auth'
-import { getServerSideUserQueueItems } from '~/services/userQueueItem'
+import { resetPassword } from '~/services/auth'
+import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 
 interface ServerProps extends Page {}
 
 const keyPrefix = 'pages_reset_password'
 
 export default function ResetPassword(props: ServerProps) {
-
   /* Initialize */
 
   const router = useRouter()
@@ -55,13 +53,11 @@ export default function ResetPassword(props: ServerProps) {
         robotsNoIndex={true}
         title={meta.title}
         twitterDescription={meta.description}
-        twitterTitle={meta.title} />
+        twitterTitle={meta.title}
+      />
       <div className='form-wrapper'>
         <h2>{t('Reset Password')}</h2>
-        <PasswordInputs
-          handleClose={_handleClose}
-          handleSubmit={_handleResetPassword}
-          hideEmail />
+        <PasswordInputs handleClose={_handleClose} handleSubmit={_handleResetPassword} hideEmail />
       </div>
     </>
   )
@@ -70,17 +66,12 @@ export default function ResetPassword(props: ServerProps) {
 /* Server-Side Logic */
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const { req, locale } = ctx
-  const { cookies } = req
+  const { locale } = ctx
 
-  const userInfo = await getServerSideAuthenticatedUserInfo(cookies)
-  const userQueueItems = await getServerSideUserQueueItems(cookies)
-  
+  const defaultServerProps = await getDefaultServerSideProps(ctx, locale)
+
   const serverProps: ServerProps = {
-    serverUserInfo: userInfo,
-    serverUserQueueItems: userQueueItems,
-    ...(await serverSideTranslations(locale, PV.i18n.fileNames.all)),
-    serverCookies: cookies
+    ...defaultServerProps
   }
 
   return { props: serverProps }

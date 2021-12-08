@@ -17,7 +17,6 @@ const _topPastMonth = 'top-past-month'
 const _topPastYear = 'top-past-year'
 const _topAllTime = 'top-all-time'
 
-
 const _chapters = 'chapters'
 const _clips = 'clips'
 const _episodes = 'episodes'
@@ -79,7 +78,7 @@ export const Filters = {
     _myClips,
     _myPlaylists,
     _playlists,
-    _podcasts,
+    _podcasts
   },
   dropdownOptions: {
     clip: {
@@ -106,7 +105,7 @@ export const Filters = {
           { label: 'Top - Past Week', key: _topPastWeek },
           { label: 'Top - Past Month', key: _topPastMonth },
           { label: 'Top - Past Year', key: _topPastYear },
-          { label: 'Top - All Time', key: _topAllTime },
+          { label: 'Top - All Time', key: _topAllTime }
         ],
         subscribed: [
           { label: 'Recent', key: _mostRecent },
@@ -193,7 +192,7 @@ export const Filters = {
           { label: 'Top - Past Year', key: _topPastYear },
           { label: 'Top - All Time', key: _topAllTime },
           { label: 'Oldest', key: _oldest }
-        ],
+        ]
       }
     },
     profile: {
@@ -205,4 +204,3 @@ export const Filters = {
     }
   }
 }
-

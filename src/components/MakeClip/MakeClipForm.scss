@@ -1,0 +1,92 @@
+.make-clip-form {
+  display: flex;
+  flex-direction: column;
+
+  .make-clip-header-wrapper {
+    display: flex;
+    flex-direction: row;
+    margin: 0 0 16px 0;
+
+    h1 {
+      align-items: center;
+      display: flex;
+      justify-content: center;
+      margin: 0 auto 0 0;
+    }
+
+    // wrapper for the dropdown select element
+    > div {
+      align-items: center;
+      display: flex;
+      justify-content: center;
+    }
+
+    .pv-image {
+      margin-right: 14px;
+    }
+  }
+
+  h3 {
+    font-size: $text-xl;
+    font-weight: $font-weight-bold;
+    margin-bottom: 8px;
+  }
+
+  .make-clip-time-inputs {
+    display: flex;
+    flex-direction: row;
+
+    .text-input {
+      flex: 1;
+
+      &:first-child {
+        margin-right: 12px;
+      }
+
+      &:last-child {
+        margin-left: 12px;
+      }
+    }
+  }
+
+  .player-bar-container {
+    width: 100%;
+
+    .player-bar-label {
+      // min-width: unset;
+      &:first-child {
+        text-align: left;
+      }
+
+      &:last-child {
+        text-align: right;
+      }
+    }
+  }
+
+  .progress-button-container {
+    .bottom-row {
+      display: none;
+    }
+  }
+
+  .make-clip-speed-button {
+    display: flex;
+    font-size: $text-sm;
+    justify-content: center;
+
+    @include themeGen() {
+      color: getThemeVal('textSecondary');
+    }
+  }
+
+  .make-clip-submit-buttons {
+    display: flex;
+    justify-content: flex-end;
+    margin: 32px 0 0 0;
+
+    button {
+      margin-left: 12px;
+    }
+  }
+}

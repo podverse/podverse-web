@@ -1,17 +1,9 @@
+@include headerGradientStyle('.playlist-page-header');
+
 .playlist-page-header {
   align-items: center;
   display: flex;
-  // margin-bottom: 30px;
-  min-height: 161px;
   padding: 16px 0;
-
-  @include themeGen() {
-    background-image: linear-gradient(
-      to right,
-      getThemeVal('headerGradientLight') -3%,
-      getThemeVal('headerGradientDark')
-    );
-  }
 
   .main-max-width {
     align-items: center;
@@ -69,6 +61,30 @@
       button {
         margin-left: 8px;
       }
+    }
+  }
+}
+
+@media (max-width: $media-max-width-tablet-xl) {
+  .playlist-page-header {
+    .pv-image {
+      height: $img-large !important;
+      margin-right: 16px;
+      width: $img-large !important;
+    }
+
+    h1 {
+      font-size: $text-xxxl;
+      font-weight: $font-weight-light;
+    }
+
+    .items-count {
+      font-size: $text-sm;
+      line-height: 18px;
+    }
+
+    button {
+      margin-left: 8px;
     }
   }
 }

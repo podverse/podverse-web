@@ -1,23 +1,36 @@
 .side-content {
   margin-left: 52px;
+  margin-top: 24px;
   width: 279px;
 
-  h2 {
-    margin-bottom: 8px;
+  hr {
+    display: none;
   }
+}
 
-  .text {
-    font-size: $text-sm;
-    line-height: 19px;
+@media (max-width: $media-max-width-laptop) {
+  .side-content {
+    margin: 30px 0 0 0;
+    width: unset;
 
-    @include themeGen() {
-      color: getThemeVal('textSecondary');
+    hr {
+      display: block;
+      margin: 16px 0;
+
+      &:last-child {
+        margin: 16px 0 0 0;
+      }
+
+      /* If there is only one child, don't change the last-child margin. */
+      // &:nth-child(2) {
+      //   margin: 16px 0;
+      // }
     }
   }
+}
 
-  a {
-    @include themeGen() {
-      color: getThemeVal('textLink');
-    }
+@media (max-width: $media-max-width-tablet) {
+  .side-content {
+    margin: 0;
   }
 }

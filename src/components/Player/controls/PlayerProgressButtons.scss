@@ -3,9 +3,17 @@
   display: flex;
   justify-content: center;
   margin: -1px auto 0 auto;
-  width: 380px;
+
+  .top-row, .bottom-row {
+    display: flex;
+    justify-content: center;
+  }
 
   .player-progress-button {
+    @include themeGen() {
+      color: getThemeVal("textSecondary");
+    }
+
     &:first-child, &:last-child {
       margin: 0px;
     }

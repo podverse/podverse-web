@@ -6,7 +6,16 @@
 
   .inner-content {
     display: flex;
+    flex: 1;
     flex-direction: column;
-    margin: 35px 28px;
+    margin: 0 24px;
+  }
+}
+
+@media (max-width: $media-max-width-tablet) {
+  .page-scrollable-content {
+    .inner-content {
+      margin: 0 16px;
+    }
   }
 }
