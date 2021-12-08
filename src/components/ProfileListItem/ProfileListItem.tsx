@@ -1,4 +1,3 @@
-import { useOmniAural } from 'omniaural'
 import { User } from 'podverse-shared'
 import { useTranslation } from 'react-i18next'
 import { PVLink } from '~/components'

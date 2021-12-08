@@ -1,5 +1,5 @@
 import { useOmniAural } from 'omniaural'
-import type { Episode, Podcast } from 'podverse-shared'
+import type { Podcast } from 'podverse-shared'
 import { useTranslation } from 'react-i18next'
 import { generateAuthorText } from '~/lib/utility/author'
 import { generateCategoryNodes } from '~/lib/utility/category'

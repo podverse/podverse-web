@@ -1,6 +1,6 @@
 import { PlayerAPIAudio } from './PlayerAPIAudio'
 
-type Props = {}
+type Props = unknown
 
 export const PlayerAPI = (props: Props) => {
   /* Never initialize PlayerAPIs on the server-side. */
@@ -8,5 +8,10 @@ export const PlayerAPI = (props: Props) => {
     return null
   }
 
-  return <PlayerAPIAudio />
+  return (
+    <>
+      <PlayerAPIAudio />
+      {/* PlayerAPIVideo is rendered in the PlayerFullView component */}
+    </>
+  )
 }

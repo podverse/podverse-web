@@ -1,11 +1,9 @@
-import { faGlobe, faLink } from '@fortawesome/free-solid-svg-icons'
 import { useRouter } from 'next/router'
 import OmniAural, { useOmniAural } from 'omniaural'
 import type { Playlist } from 'podverse-shared'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { ButtonRectangle, Dropdown, TextInput } from '~/components'
-import { PV } from '~/resources'
+import { ButtonRectangle, TextInput } from '~/components'
 import { deletePlaylistOnServer, toggleSubscribeToPlaylistOnServer } from '~/services/playlist'
 
 type Props = {
@@ -19,7 +17,6 @@ type Props = {
 }
 
 export const PlaylistPageHeader = ({
-  handleChangeIsPublic,
   handleEditCancel,
   handleEditSave,
   handleEditStart,
@@ -30,7 +27,7 @@ export const PlaylistPageHeader = ({
   const router = useRouter()
   const { t } = useTranslation()
   const [userInfo] = useOmniAural('session.userInfo')
-  const [isDeleting, setIsDeleting] = useState<boolean>(false)
+  const [, setIsDeleting] = useState<boolean>(false)
   const title = playlist?.title || t('untitledPlaylist')
   const ownerName = playlist?.owner?.name || t('Anonymous')
   const itemCount = playlist?.itemCount || 0

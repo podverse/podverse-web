@@ -300,8 +300,8 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
   let serverEpisodes = []
   let serverEpisodesPageCount = 0
-  let serverClips = []
-  let serverClipsPageCount = 0
+  const serverClips = []
+  const serverClipsPageCount = 0
   if (serverFilterType === PV.Filters.type._episodes) {
     const response = await getEpisodesByQuery({
       podcastIds: podcastId,

@@ -3,7 +3,7 @@ import { useOmniAural } from 'omniaural'
 import { PlayerProgressButtons } from './controls/PlayerProgressButtons'
 import { ProgressBar } from './controls/ProgressBar'
 
-type Props = {}
+type Props = unknown
 
 export const PlayerItemProgress = (props: Props) => {
   const [player] = useOmniAural('player')

@@ -1,4 +1,4 @@
-import OmniAural, { useOmniAural } from 'omniaural'
+import OmniAural from 'omniaural'
 import type { NowPlayingItem } from 'podverse-shared'
 import { unstable_batchedUpdates } from 'react-dom'
 import { PV } from '~/resources'
@@ -26,12 +26,24 @@ import {
   handleSetupClipListener
 } from './playerClip'
 import { setClipFlagPositions } from './playerFlags'
-import { checkIfVideoFileType, videoIsLoaded } from './playerVideo'
+import {
+  checkIfVideoFileType,
+  videoCheckIfCurrentlyPlaying,
+  videoClearNowPlayingItem,
+  videoGetDuration,
+  videoGetPosition,
+  videoIsLoaded,
+  videoLoadNowPlayingItem,
+  videoMute,
+  videoPause,
+  videoPlay,
+  videoSeekTo,
+  videoSetPlaybackSpeed,
+  videoUnmute
+} from './playerVideo'
 
-export const playerCheckIfCurrentlyPlayingItem = (paused: boolean, nowPlayingItem?: NowPlayingItem) => {
-  // TODO: @Mitch Downy this hook usage is against "Rule of Hooks", specificially "Don’t call Hooks inside loops, conditions, or nested functions"
-  // eslint-disable-next-line
-  const [currentNowPlayingItem] = useOmniAural('player.currentNowPlayingItem')
+export const playerCheckIfItemIsCurrentlyPlaying = (paused: boolean, nowPlayingItem?: NowPlayingItem) => {
+  const currentNowPlayingItem = OmniAural.state.player.currentNowPlayingItem.value()
   let isCurrentlyPlayingItem = false
 
   if (paused) {
@@ -45,14 +57,14 @@ export const playerCheckIfCurrentlyPlayingItem = (paused: boolean, nowPlayingIte
   return isCurrentlyPlayingItem
 }
 
-export const playerCheckIfCurrentlyPlaying = () => {
+export const playerCheckIfPlayerIsCurrentlyPlaying = () => {
   let isCurrentlyPlaying = false
   if (audioCheckIfCurrentlyPlaying()) {
     isCurrentlyPlaying = true
-  } else if (false) {
-    // handle video
+  } else if (videoCheckIfCurrentlyPlaying()) {
     isCurrentlyPlaying = true
   }
+
   return isCurrentlyPlaying
 }
 
@@ -70,7 +82,7 @@ export const playerTogglePlayOrLoadNowPlayingItem = async (nowPlayingItem: NowPl
     const duration = playerGetDuration()
     setClipFlagPositions(nowPlayingItem, duration)
   } else if (previousNowPlayingItem && previousNowPlayingItem.episodeMediaUrl === nowPlayingItem.episodeMediaUrl) {
-    playerCheckIfCurrentlyPlaying() ? playerPause() : playerPlay()
+    playerCheckIfPlayerIsCurrentlyPlaying() ? playerPause() : playerPlay()
   } else {
     const shouldPlay = true
     await playerLoadNowPlayingItem(nowPlayingItem, shouldPlay)
@@ -83,7 +95,7 @@ export const playerPlay = () => {
   if (audioIsLoaded()) {
     audioPlay()
   } else if (videoIsLoaded()) {
-    // videoTogglePlay()
+    videoPlay()
   }
 }
 
@@ -92,49 +104,32 @@ export const playerPause = () => {
   if (audioIsLoaded()) {
     audioPause()
   } else if (videoIsLoaded()) {
-    // videoTogglePlay()
+    videoPause()
   }
   saveCurrentPlaybackPositionToHistory() // run in the background without await
 }
 
-export const playerJumpBackward = () => {
-  const seconds = 10
-  const position = playerGetPosition()
-  const newPosition = position - seconds
-  playerSeekTo(newPosition)
-  return newPosition
-}
-
-export const playerJumpForward = () => {
-  const seconds = 30
+const playerJump = (seconds: number) => {
   const position = playerGetPosition()
   const newPosition = position + seconds
   playerSeekTo(newPosition)
   return newPosition
 }
 
-export const playerJumpMiniBackwards = () => {
-  const seconds = 1
-  const position = playerGetPosition()
-  const newPosition = position - seconds
-  playerSeekTo(newPosition)
-  return newPosition
-}
+export const playerJumpBackward = () => playerJump(-10)
 
-export const playerJumpMiniForwards = () => {
-  const seconds = 1
-  const position = playerGetPosition()
-  const newPosition = position + seconds
-  playerSeekTo(newPosition)
-  return newPosition
-}
+export const playerJumpForward = () => playerJump(30)
+
+export const playerJumpMiniBackwards = () => playerJump(-1)
+
+export const playerJumpMiniForwards = () => playerJump(1)
 
 export const playerGetDuration = () => {
   let duration = 0
   if (audioIsLoaded()) {
     duration = audioGetDuration()
   } else if (videoIsLoaded()) {
-    // duration = videoGetPosition()
+    duration = videoGetDuration()
   }
   return duration
 }
@@ -143,7 +138,7 @@ export const playerGetPosition = () => {
   if (audioIsLoaded()) {
     return audioGetPosition()
   } else if (videoIsLoaded()) {
-    // return videoGetPosition()
+    return videoGetPosition()
   }
 }
 
@@ -162,7 +157,7 @@ export const playerSeekTo = (position: number) => {
   if (audioIsLoaded()) {
     audioSeekTo(position)
   } else if (videoIsLoaded()) {
-    // videoSeekTo(position)
+    videoSeekTo(position)
   }
 }
 
@@ -185,7 +180,7 @@ export const playerSetPlaybackSpeed = (newSpeed: number) => {
   if (audioIsLoaded()) {
     audioSetPlaybackSpeed(newSpeed)
   } else if (videoIsLoaded()) {
-    // videoSetPlaybackSpeed(newSpeed)
+    videoSetPlaybackSpeed(newSpeed)
   }
 }
 
@@ -199,7 +194,7 @@ export const playerSetVolume = (newVolume: number) => {
   if (audioIsLoaded()) {
     audioSetVolume(newVolume)
   } else if (videoIsLoaded()) {
-    // videoSetVolume(newSpeed)
+    // videoSetVolume(newVolume) // not needed
   }
 }
 
@@ -208,7 +203,7 @@ export const playerMute = () => {
   if (audioIsLoaded()) {
     audioMute()
   } else if (videoIsLoaded()) {
-    //
+    videoMute()
   }
 }
 
@@ -217,13 +212,14 @@ export const playerUnmute = () => {
   if (audioIsLoaded()) {
     audioUnmute()
   } else if (videoIsLoaded()) {
-    //
+    videoUnmute()
   }
 }
 
 export const playerLoadNowPlayingItem = async (nowPlayingItem: NowPlayingItem, shouldPlay: boolean) => {
   try {
     if (!nowPlayingItem) return
+
     // Save the previous item's playback position to history.
     unstable_batchedUpdates(() => {
       saveCurrentPlaybackPositionToHistory()
@@ -241,20 +237,18 @@ export const playerLoadNowPlayingItem = async (nowPlayingItem: NowPlayingItem, s
     // Do this after the setPlayerItem so there isn't a flash of no content.
     playerClearPreviousItem(nowPlayingItem)
 
-    if (!checkIfVideoFileType(nowPlayingItem)) {
-      // audioAddNowPlayingItemNextInQueue(item, itemToSetNextInQueue)
-    }
-
-    // const skipSetNowPlaying = true
-    // await playerUpdateUserPlaybackPosition(skipSetNowPlaying)
+    /*
+      TODO: add the currently playing item next in the queue if the user
+      has "on play add current episode to the queue".
+    */
+    // if (checkIfVideoFileType(nowPlayingItem)) {
+    //   videoAddNowPlayingItemNextInQueue(item, itemToSetNextInQueue)
+    // } else {
+    //   audioAddNowPlayingItemNextInQueue(item, itemToSetNextInQueue)
+    // }
 
     if (checkIfVideoFileType(nowPlayingItem)) {
-      // await videoLoadNowPlayingItem(
-      //   item,
-      //   shouldPlay,
-      //   forceUpdateOrderDate,
-      //   previousNowPlayingItem
-      // )
+      await videoLoadNowPlayingItem(nowPlayingItem, previousNowPlayingItem, shouldPlay)
     } else {
       await audioLoadNowPlayingItem(nowPlayingItem, previousNowPlayingItem, shouldPlay)
     }
@@ -304,7 +298,7 @@ const playerClearItemFromPlayerAPI = (nextNowPlayingItem: NowPlayingItem) => {
   if (checkIfVideoFileType(nextNowPlayingItem)) {
     audioClearNowPlayingItem()
   } else {
-    // clear video
+    videoClearNowPlayingItem()
   }
 }
 
@@ -351,7 +345,7 @@ export const playerPlayNextChapterOrQueueItem = async () => {
 
 export const playerPlayNextFromQueue = async () => {
   const nextNowPlayingItem = await getNextFromQueue()
-  if (!!nextNowPlayingItem) {
+  if (nextNowPlayingItem) {
     const shouldPlay = true
     playerLoadNowPlayingItem(nextNowPlayingItem, shouldPlay)
   }

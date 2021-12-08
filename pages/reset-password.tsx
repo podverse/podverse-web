@@ -7,9 +7,7 @@ import { PV } from '~/resources'
 import { resetPassword } from '~/services/auth'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 
-interface ServerProps extends Page {}
-
-const keyPrefix = 'pages_reset_password'
+type ServerProps = Page
 
 export default function ResetPassword(props: ServerProps) {
   /* Initialize */

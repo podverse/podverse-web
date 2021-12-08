@@ -1,5 +1,3 @@
-import { useTranslation } from 'react-i18next'
-
 export function validateHHMMSSString(hhmmss: string) {
   const regex = new RegExp(
     // eslint-disable-next-line max-len

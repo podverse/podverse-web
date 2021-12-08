@@ -7,15 +7,26 @@
   left: 0;
   padding: 0 120px;
   position: fixed;
+  pointer-events: none;
   right: 0;
   top: 0;
   z-index: 1;
+  
+  &.is-showing {
+    backdrop-filter: blur($background-blur);
+    pointer-events: all;
+    -webkit-backdrop-filter: blur($background-blur);
 
-  backdrop-filter: blur($background-blur);
-  -webkit-backdrop-filter: blur($background-blur);
+    @include themeGen() {
+      background-color: getThemeVal("backgroundTransparent");
+    }
 
-  @include themeGen() {
-    background-color: getThemeVal("backgroundTransparent");
+    .video-player-wrapper {
+      position: unset;
+      bottom: unset;
+      right: unset;
+      z-index: unset;
+    }
   }
 
   .button-close {

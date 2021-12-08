@@ -1,8 +1,8 @@
 import OmniAural from 'omniaural'
 
 type HistoryItemsIndex = {
-  episodes: {}
-  mediaRefs: {}
+  episodes: Record<string, unknown>
+  mediaRefs: Record<string, unknown>
 }
 
 const clearHistoryItemsIndex = () => {

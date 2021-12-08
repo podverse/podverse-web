@@ -5,8 +5,8 @@ import { RoutePaths } from './RoutePaths'
 const generateDropdownItems = (t: any) => {
   const isLoggedIn = !!OmniAural.state.session.userInfo.value()
   const items = [
-    { label: t('Membership'), key: NavBar.dropdownKeys._membershipKey },
-    { label: t('Settings'), key: NavBar.dropdownKeys._settingsKey }
+    { label: t('Membership'), key: NavBar.dropdownKeys._membershipKey }
+    // { label: t('Settings'), key: NavBar.dropdownKeys._settingsKey }
   ]
 
   if (isLoggedIn) {
