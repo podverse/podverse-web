@@ -26,6 +26,7 @@ import { getMediaRefsByQuery } from '~/services/mediaRef'
 import { Page } from '~/lib/utility/page'
 import { sanitizeTextHtml } from '~/lib/utility/sanitize'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
+import { FundingLink } from '~/components/FundingLink/FundingLink'
 
 interface ServerProps extends Page {
   serverClips: MediaRef[]
@@ -121,6 +122,13 @@ export default function Podcast({
     title: podcastTitle
   }
 
+  let fundingLinks
+
+  if (serverPodcast.funding.length) {
+    fundingLinks = serverPodcast.funding.map((link) => {
+      return <FundingLink key={link.url} link={link.url} value={link.value}></FundingLink>
+    })
+  }
   return (
     <>
       <Meta
@@ -146,13 +154,21 @@ export default function Podcast({
                 isSubHeader
                 primaryOnChange={(selectedItems: any[]) => {
                   const selectedItem = selectedItems[0]
-                  setFilterState({ filterPage: 1, filterSort, filterType: selectedItem.key })
+                  setFilterState({
+                    filterPage: 1,
+                    filterSort,
+                    filterType: selectedItem.key
+                  })
                 }}
                 primaryOptions={PV.Filters.dropdownOptions.podcast.from}
                 primarySelected={filterType}
                 sortOnChange={(selectedItems: any[]) => {
                   const selectedItem = selectedItems[0]
-                  setFilterState({ filterPage: 1, filterSort: selectedItem.key, filterType })
+                  setFilterState({
+                    filterPage: 1,
+                    filterSort: selectedItem.key,
+                    filterType
+                  })
                 }}
                 sortOptions={PV.Filters.dropdownOptions.podcast.sort}
                 sortSelected={filterSort}
@@ -167,18 +183,30 @@ export default function Podcast({
               <Pagination
                 currentPageIndex={filterPage}
                 handlePageNavigate={(newPage) => {
-                  setFilterState({ filterPage: newPage, filterSort, filterType })
+                  setFilterState({
+                    filterPage: newPage,
+                    filterSort,
+                    filterType
+                  })
                 }}
                 handlePageNext={() => {
                   const newPage = filterPage + 1
                   if (newPage <= pageCount) {
-                    setFilterState({ filterPage: newPage, filterSort, filterType })
+                    setFilterState({
+                      filterPage: newPage,
+                      filterSort,
+                      filterType
+                    })
                   }
                 }}
                 handlePagePrevious={() => {
                   const newPage = filterPage - 1
                   if (newPage > 0) {
-                    setFilterState({ filterPage: newPage, filterSort, filterType })
+                    setFilterState({
+                      filterPage: newPage,
+                      filterSort,
+                      filterType
+                    })
                   }
                 }}
                 pageCount={pageCount}
@@ -194,6 +222,7 @@ export default function Podcast({
                   }}
                 />
               </SideContentSection>
+              {fundingLinks && <SideContentSection headerText={t('Support')}>{fundingLinks}</SideContentSection>}
             </SideContent>
           }
         />
