@@ -1,5 +1,6 @@
 import OmniAural from 'omniaural'
 import type { NowPlayingItem } from 'podverse-shared'
+import { checkIfVideoFileType } from './playerVideo'
 
 let PVPlayerAudio: HTMLAudioElement = null
 
@@ -12,15 +13,12 @@ export const audioInitialize = () => {
 }
 
 export const audioIsLoaded = () => {
-  return !!PVPlayerAudio?.src
+  const currentNowPlayingItem = OmniAural.state.player.currentNowPlayingItem.value()
+  return !checkIfVideoFileType(currentNowPlayingItem)
 }
 
 export const audioCheckIfCurrentlyPlaying = () => {
-  return (
-    !PVPlayerAudio?.paused
-    && PVPlayerAudio?.currentTime > 0
-    && !PVPlayerAudio.ended
-  )
+  return !PVPlayerAudio?.paused && PVPlayerAudio?.currentTime > 0 && !PVPlayerAudio.ended
 }
 
 export const audioGetDuration = () => {
@@ -59,18 +57,7 @@ export const audioLoadNowPlayingItem = async (
   previousNowPlayingItem: NowPlayingItem,
   shouldPlay: boolean
 ) => {
-
   PVPlayerAudio.pause()
-
-  // const lastPlayingItem = await getNowPlayingItemLocally()
-  // const historyItemsIndex = await getHistoryItemsIndexLocally()
-
-  // const { clipId, episodeId } = item
-  // if (!clipId && episodeId) {
-  //   item.episodeDuration = historyItemsIndex?.episodes[episodeId]?.mediaFileDuration || 0
-  // }
-
-  // addOrUpdateHistoryItem(item, item.userPlaybackPosition || 0, item.episodeDuration || 0, forceUpdateOrderDate)
 
   if (nowPlayingItem.episodeMediaUrl != previousNowPlayingItem?.episodeMediaUrl) {
     PVPlayerAudio.src = nowPlayingItem.episodeMediaUrl
@@ -79,10 +66,6 @@ export const audioLoadNowPlayingItem = async (
   if (shouldPlay) {
     audioPlay()
   }
-
-  // if (lastPlayingItem && lastPlayingItem.episodeId && lastPlayingItem.episodeId !== item.episodeId) {
-  //   PVEventEmitter.emit(PV.Events.PLAYER_NEW_EPISODE_LOADED)
-  // }
 
   return nowPlayingItem
 }

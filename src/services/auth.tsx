@@ -1,9 +1,9 @@
-import axios from "axios"
-import { getAuthCredentialsHeaders } from "~/lib/utility/auth"
-import { PV } from "~/resources"
+import axios from 'axios'
+import { getAuthCredentialsHeaders } from '~/lib/utility/auth'
+import { PV } from '~/resources'
 import { request } from './request'
-import { getHistoryItemsFromServer } from "./userHistoryItem"
-import { getQueueItemsFromServer } from "./userQueueItem"
+import { getHistoryItemsFromServer } from './userHistoryItem'
+import { getQueueItemsFromServer } from './userQueueItem'
 
 export const getServerSideAuthenticatedUserInfo = async (cookies: any) => {
   let userInfo = null
@@ -18,7 +18,7 @@ export const getAuthenticatedUserInfo = async (bearerToken?: string) => {
     const response = await request({
       endpoint: PV.RoutePaths.api.get_authenticated_user_info,
       method: 'post',
-      ...(getAuthCredentialsHeaders(bearerToken))
+      ...getAuthCredentialsHeaders(bearerToken)
     })
 
     const userInfo = response?.data
@@ -54,7 +54,6 @@ export const logOut = async () => {
   })
   window.location.reload()
 }
-
 
 export const resetPassword = async (password?: string, resetPasswordToken?: string) => {
   return request({
@@ -94,6 +93,21 @@ export const signUp = async (email: string, password: string) => {
     body: {
       email,
       password
+    },
+    withCredentials: true
+  })
+}
+
+export const verifyEmail = async (token: string) => {
+  if (!token) {
+    throw new Error('No verification token')
+  }
+
+  return request({
+    endpoint: PV.RoutePaths.api.verify_email,
+    method: 'get',
+    query: {
+      token
     },
     withCredentials: true
   })

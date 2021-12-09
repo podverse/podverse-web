@@ -1,22 +1,32 @@
 import linkifyHtml from 'linkify-html'
 import { GetServerSideProps } from 'next'
 import { useTranslation } from 'next-i18next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useOmniAural } from 'omniaural'
 import type { Episode, MediaRef, Podcast, User } from 'podverse-shared'
 import { useEffect, useRef, useState } from 'react'
-import { ClipListItem, ColumnsWrapper, EpisodeListItem, List, Meta, PageHeader, PageScrollableContent,
-  Pagination, PodcastPageHeader, SideContent } from '~/components'
+import {
+  ClipListItem,
+  ColumnsWrapper,
+  EpisodeListItem,
+  List,
+  Meta,
+  PageHeader,
+  PageScrollableContent,
+  Pagination,
+  PodcastPageHeader,
+  SideContent,
+  SideContentSection
+} from '~/components'
 import { scrollToTopOfPageScrollableContent } from '~/components/PageScrollableContent/PageScrollableContent'
 import { calcListPageCount } from '~/lib/utility/misc'
 import { PV } from '~/resources'
 import { getPodcastById } from '~/services/podcast'
 import { getEpisodesByQuery } from '~/services/episode'
 import { getMediaRefsByQuery } from '~/services/mediaRef'
-import { getServerSideAuthenticatedUserInfo } from '~/services/auth'
 import { Page } from '~/lib/utility/page'
 import { sanitizeTextHtml } from '~/lib/utility/sanitize'
-import { getServerSideUserQueueItems } from '~/services/userQueueItem'
+import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
+import { FundingLink } from '~/components/FundingLink/FundingLink'
 
 interface ServerProps extends Page {
   serverClips: MediaRef[]
@@ -47,10 +57,16 @@ const keyPrefix = 'pages_podcast'
     (Initialization, useEffects, Client-Side Queries, Render Helpers).
 */
 
-export default function Podcast({ serverClips, serverClipsPageCount,
-  serverFilterPage, serverFilterSort, serverFilterType, serverEpisodes,
-  serverEpisodesPageCount, serverPodcast }: ServerProps) {
-
+export default function Podcast({
+  serverClips,
+  serverClipsPageCount,
+  serverFilterPage,
+  serverFilterSort,
+  serverFilterType,
+  serverEpisodes,
+  serverEpisodesPageCount,
+  serverPodcast
+}: ServerProps) {
   /* Initialize */
 
   const { id } = serverPodcast
@@ -67,15 +83,14 @@ export default function Podcast({ serverClips, serverClipsPageCount,
   const [clipsPageCount, setClipsPageCount] = useState<number>(serverClipsPageCount)
   const initialRender = useRef(true)
   const [userInfo] = useOmniAural('session.userInfo')
-  const pageCount = filterType === PV.Filters.type._episodes
-    ? episodesPageCount : clipsPageCount
+  const pageCount = filterType === PV.Filters.type._episodes ? episodesPageCount : clipsPageCount
 
   /* useEffects */
 
   useEffect(() => {
-    (async () => {
+    ;(async () => {
       if (initialRender.current) {
-        initialRender.current = false;
+        initialRender.current = false
       } else {
         if (filterType === PV.Filters.type._episodes) {
           const { data } = await clientQueryEpisodes(
@@ -86,10 +101,7 @@ export default function Podcast({ serverClips, serverClipsPageCount,
           setEpisodesListData(newEpisodesListData)
           setEpisodesPageCount(calcListPageCount(newEpisodesListCount))
         } else if (filterType === PV.Filters.type._clips) {
-          const { data } = await clientQueryClips(
-            { page: filterPage, podcastIds: id, sort: filterSort },
-            filterState
-          )
+          const { data } = await clientQueryClips({ page: filterPage, podcastIds: id, sort: filterSort }, filterState)
           const [newClipsListData, newClipsListCount] = data
           setClipsListData(newClipsListData)
           setClipsPageCount(calcListPageCount(newClipsListCount))
@@ -110,6 +122,13 @@ export default function Podcast({ serverClips, serverClipsPageCount,
     title: podcastTitle
   }
 
+  let fundingLinks
+
+  if (serverPodcast.funding.length) {
+    fundingLinks = serverPodcast.funding.map((link) => {
+      return <FundingLink key={link.url} link={link.url} value={link.value}></FundingLink>
+    })
+  }
   return (
     <>
       <Meta
@@ -124,7 +143,8 @@ export default function Podcast({ serverClips, serverClipsPageCount,
         twitterDescription={meta.description}
         twitterImage={meta.imageUrl}
         twitterImageAlt={meta.imageAlt}
-        twitterTitle={meta.title} />
+        twitterTitle={meta.title}
+      />
       <PodcastPageHeader podcast={serverPodcast} />
       <PageScrollableContent>
         <ColumnsWrapper
@@ -134,59 +154,75 @@ export default function Podcast({ serverClips, serverClipsPageCount,
                 isSubHeader
                 primaryOnChange={(selectedItems: any[]) => {
                   const selectedItem = selectedItems[0]
-                  setFilterState({ filterPage: 1, filterSort, filterType: selectedItem.key })
+                  setFilterState({
+                    filterPage: 1,
+                    filterSort,
+                    filterType: selectedItem.key
+                  })
                 }}
                 primaryOptions={PV.Filters.dropdownOptions.podcast.from}
                 primarySelected={filterType}
                 sortOnChange={(selectedItems: any[]) => {
                   const selectedItem = selectedItems[0]
-                  setFilterState({ filterPage: 1, filterSort: selectedItem.key, filterType })
+                  setFilterState({
+                    filterPage: 1,
+                    filterSort: selectedItem.key,
+                    filterType
+                  })
                 }}
                 sortOptions={PV.Filters.dropdownOptions.podcast.sort}
                 sortSelected={filterSort}
-                text={filterType === PV.Filters.type._episodes ? t('Episodes') : t('Clips')} />
+                text={filterType === PV.Filters.type._episodes ? t('Episodes') : t('Clips')}
+              />
               <List>
-                {
-                  filterType === PV.Filters.type._episodes && (
-                    generateEpisodeListElements(episodesListData, serverPodcast)
-                  )
-                }
-                {
-                  filterType === PV.Filters.type._clips && (
-                    generateClipListElements(clipsListData, serverPodcast, userInfo)
-                  )
-                }
+                {filterType === PV.Filters.type._episodes &&
+                  generateEpisodeListElements(episodesListData, serverPodcast)}
+                {filterType === PV.Filters.type._clips &&
+                  generateClipListElements(clipsListData, serverPodcast, userInfo)}
               </List>
               <Pagination
                 currentPageIndex={filterPage}
                 handlePageNavigate={(newPage) => {
-                  setFilterState({ filterPage: newPage, filterSort, filterType })
+                  setFilterState({
+                    filterPage: newPage,
+                    filterSort,
+                    filterType
+                  })
                 }}
                 handlePageNext={() => {
                   const newPage = filterPage + 1
                   if (newPage <= pageCount) {
-                    setFilterState({ filterPage: newPage, filterSort, filterType })
+                    setFilterState({
+                      filterPage: newPage,
+                      filterSort,
+                      filterType
+                    })
                   }
                 }}
                 handlePagePrevious={() => {
                   const newPage = filterPage - 1
                   if (newPage > 0) {
-                    setFilterState({ filterPage: newPage, filterSort, filterType })
+                    setFilterState({
+                      filterPage: newPage,
+                      filterSort,
+                      filterType
+                    })
                   }
                 }}
-                pageCount={pageCount} />
+                pageCount={pageCount}
+              />
             </>
           }
           sideColumnChildren={
             <SideContent>
-              <h2>{t('About')}</h2>
-              <div
-                className='text'
-                dangerouslySetInnerHTML={
-                  {
+              <SideContentSection headerText={t('About')}>
+                <div
+                  dangerouslySetInnerHTML={{
                     __html: sanitizeTextHtml(linkifyHtml(serverPodcast.description))
-                  }
-                } />
+                  }}
+                />
+              </SideContentSection>
+              {fundingLinks && <SideContentSection headerText={t('Support')}>{fundingLinks}</SideContentSection>}
             </SideContent>
           }
         />
@@ -203,10 +239,7 @@ type ClientQueryEpisodes = {
   sort?: string
 }
 
-const clientQueryEpisodes = async (
-  { page, podcastIds, sort }: ClientQueryEpisodes,
-  filterState: FilterState
-) => {
+const clientQueryEpisodes = async ({ page, podcastIds, sort }: ClientQueryEpisodes, filterState: FilterState) => {
   const finalQuery = {
     podcastIds,
     ...(page ? { page } : { page: filterState.filterPage }),
@@ -221,10 +254,7 @@ type ClientQueryClips = {
   sort?: string
 }
 
-const clientQueryClips = async (
-  { page, podcastIds, sort }: ClientQueryClips,
-  filterState: FilterState
-) => {
+const clientQueryClips = async ({ page, podcastIds, sort }: ClientQueryClips, filterState: FilterState) => {
   const finalQuery = {
     podcastIds,
     includeEpisode: true,
@@ -236,47 +266,42 @@ const clientQueryClips = async (
 
 /* Render Helpers */
 
-
 const generateEpisodeListElements = (listItems: Episode[], podcast: Podcast) => {
-  return listItems.map((listItem, index) =>
-    <EpisodeListItem
-      episode={listItem}
-      key={`${keyPrefix}-${index}`}
-      podcast={podcast} />
-  )
+  return listItems.map((listItem, index) => (
+    <EpisodeListItem episode={listItem} key={`${keyPrefix}-${index}`} podcast={podcast} />
+  ))
 }
 
 const generateClipListElements = (listItems: MediaRef[], podcast: Podcast, userInfo?: User) => {
-  return listItems.map((listItem, index) =>
+  return listItems.map((listItem, index) => (
     <ClipListItem
       isLoggedInUserMediaRef={userInfo && userInfo.id === listItem.owner.id}
       mediaRef={listItem}
       podcast={podcast}
-      key={`${keyPrefix}-${index}`} />
-  )
+      key={`${keyPrefix}-${index}`}
+    />
+  ))
 }
 
 /* Server-Side Logic */
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const { locale, params, req } = ctx
-  const { cookies } = req
+  const { locale, params } = ctx
   const { podcastId } = params
 
-  const userInfo = await getServerSideAuthenticatedUserInfo(cookies)
-  const userQueueItems = await getServerSideUserQueueItems(cookies)
-  
+  const defaultServerProps = await getDefaultServerSideProps(ctx, locale)
+
   const serverFilterType = PV.Filters.type._episodes
   const serverFilterSort = PV.Filters.sort._mostRecent
   const serverFilterPage = 1
-  
+
   const response = await getPodcastById(podcastId as string)
   const podcast = response.data
-  
+
   let serverEpisodes = []
   let serverEpisodesPageCount = 0
-  let serverClips = []
-  let serverClipsPageCount = 0
+  const serverClips = []
+  const serverClipsPageCount = 0
   if (serverFilterType === PV.Filters.type._episodes) {
     const response = await getEpisodesByQuery({
       podcastIds: podcastId,
@@ -288,12 +313,9 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   } else {
     // handle mediaRefs query
   }
-  
+
   const serverProps: ServerProps = {
-    serverUserInfo: userInfo,
-    serverUserQueueItems: userQueueItems,
-    ...(await serverSideTranslations(locale, PV.i18n.fileNames.all)),
-    serverCookies: cookies,
+    ...defaultServerProps,
     serverClips,
     serverClipsPageCount,
     serverEpisodes,

@@ -1,16 +1,22 @@
-import { faEllipsisH, faPause, faPlay } from "@fortawesome/free-solid-svg-icons"
-import classNames from "classnames"
-import OmniAural, { useOmniAural } from "omniaural"
+import { faCheck } from '@fortawesome/free-solid-svg-icons'
+import { faEllipsisH, faPause, faPlay } from '@fortawesome/free-solid-svg-icons'
+import classNames from 'classnames'
+import OmniAural, { useOmniAural } from 'omniaural'
 import type { Episode, MediaRef, NowPlayingItem, Podcast } from 'podverse-shared'
 import { convertToNowPlayingItem } from 'podverse-shared'
-import { useTranslation } from "react-i18next"
-import { readableDate } from "~/lib/utility/date"
-import { convertSecToHhoursMMinutes, readableClipTime } from "~/lib/utility/time"
-import { deleteMediaRef } from "~/services/mediaRef"
-import { playerCheckIfCurrentlyPlayingItem, playerLoadNowPlayingItem, playerTogglePlayOrLoadNowPlayingItem } from "~/services/player/player"
-import { addQueueItemLastOnServer, addQueueItemNextOnServer } from "~/services/userQueueItem"
-import { modalsAddToPlaylistShowOrAlert } from "~/state/modals/addToPlaylist/actions"
-import { ButtonCircle, Dropdown } from ".."
+import { useTranslation } from 'react-i18next'
+import { readableDate } from '~/lib/utility/date'
+import { convertSecToHhoursMMinutes, getTimeLabelText, readableClipTime } from '~/lib/utility/time'
+import { deleteMediaRef } from '~/services/mediaRef'
+import {
+  playerCheckIfItemIsCurrentlyPlaying,
+  playerLoadNowPlayingItem,
+  playerTogglePlayOrLoadNowPlayingItem
+} from '~/services/player/player'
+import { addOrUpdateHistoryItemOnServer } from '~/services/userHistoryItem'
+import { addQueueItemLastOnServer, addQueueItemNextOnServer } from '~/services/userQueueItem'
+import { modalsAddToPlaylistShowOrAlert } from '~/state/modals/addToPlaylist/actions'
+import { ButtonCircle, Dropdown, Icon } from '..'
 
 type Props = {
   buttonSize: 'medium' | 'large'
@@ -30,36 +36,47 @@ const _markAsPlayedKey = '_markAsPlayedKey'
 const _editClip = '_editClip'
 const _deleteClip = '_deleteClip'
 
-export const MediaItemControls = ({ buttonSize, episode, hidePubDate, isLoggedInUserMediaRef,
-  mediaRef, stretchMiddleContent, podcast }: Props) => {
+export const MediaItemControls = ({
+  buttonSize,
+  episode,
+  hidePubDate,
+  isLoggedInUserMediaRef,
+  mediaRef,
+  stretchMiddleContent,
+  podcast
+}: Props) => {
   const [userInfo] = useOmniAural('session.userInfo')
   const [player] = useOmniAural('player')
+  // const [historyItemsIndex] = useOmniAural('historyItemsIndex')
+  const historyItemsIndex = OmniAural.state.historyItemsIndex.value()
   const { t } = useTranslation()
   let pubDate = null
   let timeInfo = null
-  let timeRemaining = null
+  const timeRemaining = null
+  let completed = false
   if (mediaRef) {
     pubDate = readableDate(mediaRef.episode.pubDate)
     timeInfo = readableClipTime(mediaRef.startTime, mediaRef.endTime)
   } else if (episode) {
     pubDate = readableDate(episode.pubDate)
-    if (episode.duration > 0) {
+
+    const historyItem = historyItemsIndex.episodes[episode.id]
+    if (historyItem) {
+      timeInfo = getTimeLabelText(t, historyItem.d, episode.duration, historyItem.p)
+      completed = historyItem.completed
+    } else if (episode.duration > 0) {
       timeInfo = convertSecToHhoursMMinutes(episode.duration)
     }
-    // timeRemaining
   }
 
   const nowPlayingItem: NowPlayingItem = mediaRef
     ? convertToNowPlayingItem(mediaRef, episode, podcast)
     : convertToNowPlayingItem(episode, null, podcast)
 
-  const timeWrapperClass = classNames(
-    'time-wrapper',
-    stretchMiddleContent ? 'flex-stretch' : ''
-  )
+  const timeWrapperClass = classNames('time-wrapper', stretchMiddleContent ? 'flex-stretch' : '')
 
   /* Function Helpers */
-  
+
   const onChange = async (selected) => {
     const item = selected[0]
     if (item) {
@@ -72,9 +89,19 @@ export const MediaItemControls = ({ buttonSize, episode, hidePubDate, isLoggedIn
       } else if (item.key === _addToPlaylistKey) {
         await modalsAddToPlaylistShowOrAlert(nowPlayingItem)
       } else if (item.key === _markAsPlayedKey) {
-        console.log('mark as played')
+        const { episodeDuration, userPlaybackPosition } = nowPlayingItem
+
+        addOrUpdateHistoryItemOnServer({
+          nowPlayingItem,
+          playbackPosition: userPlaybackPosition,
+          mediaFileDuration: episodeDuration,
+          forceUpdateOrderDate: false,
+          skipSetNowPlaying: true,
+          completed: true
+        })
       } else if (item.key === _editClip) {
-        playerLoadNowPlayingItem(nowPlayingItem)
+        const shouldPlay = false
+        playerLoadNowPlayingItem(nowPlayingItem, shouldPlay)
         OmniAural.makeClipShowEditing(nowPlayingItem)
       } else if (item.key === _deleteClip) {
         const shouldDelete = window.confirm(t('Are you sure you want to delete this clip'))
@@ -114,9 +141,12 @@ export const MediaItemControls = ({ buttonSize, episode, hidePubDate, isLoggedIn
       { label: 'Play', key: _playKey },
       { label: 'Queue Next', key: _queueNextKey },
       { label: 'Queue Last', key: _queueLastKey },
-      { label: 'Add to Playlist', key: _addToPlaylistKey },
-      // { label: 'Mark as Played', key: _markAsPlayedKey }
+      { label: 'Add to Playlist', key: _addToPlaylistKey }
     ]
+
+    if (!mediaRef) {
+      items.push({ label: 'Mark as Played', key: _markAsPlayedKey })
+    }
 
     if (isLoggedInUserMediaRef) {
       items.push({ label: 'Edit Clip', key: _editClip })
@@ -127,8 +157,7 @@ export const MediaItemControls = ({ buttonSize, episode, hidePubDate, isLoggedIn
   }
 
   const dropdownItems = generateDropdownItems()
-  const isCurrentlyPlayingItem = playerCheckIfCurrentlyPlayingItem(
-    player.paused, nowPlayingItem)
+  const isCurrentlyPlayingItem = playerCheckIfItemIsCurrentlyPlaying(player.paused, nowPlayingItem)
   const togglePlayIcon = isCurrentlyPlayingItem ? faPause : faPlay
   const togglePlayClassName = isCurrentlyPlayingItem ? 'pause' : 'play'
 
@@ -138,20 +167,24 @@ export const MediaItemControls = ({ buttonSize, episode, hidePubDate, isLoggedIn
         className={togglePlayClassName}
         faIcon={togglePlayIcon}
         onClick={_handleTogglePlay}
-        size={buttonSize} />
+        size={buttonSize}
+      />
       <div className={timeWrapperClass}>
         {!hidePubDate && <span className='pub-date'>{pubDate}</span>}
         {!!timeInfo && (
           <>
             {!hidePubDate && <span className='time-spacer'> • </span>}
-            {
-              timeRemaining ? (
-                <span className='time-remaining'>{timeRemaining}</span>
-              ) : (
-                <span className='time-info'>{timeInfo}</span>
-              )
-            }
+            {timeRemaining ? (
+              <span className='time-remaining'>{timeRemaining}</span>
+            ) : (
+              <span className='time-info'>{timeInfo}</span>
+            )}
           </>
+        )}
+        {completed && (
+          <span className='completed'>
+            <Icon faIcon={faCheck} />
+          </span>
         )}
       </div>
       <Dropdown
@@ -160,7 +193,8 @@ export const MediaItemControls = ({ buttonSize, episode, hidePubDate, isLoggedIn
         hasClipEditButtons={dropdownItems.length > 5}
         hideCaret
         onChange={onChange}
-        options={dropdownItems} />
+        options={dropdownItems}
+      />
     </div>
   )
 }

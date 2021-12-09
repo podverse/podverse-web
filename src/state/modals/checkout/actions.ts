@@ -1,4 +1,4 @@
-import OmniAural from "omniaural"
+import OmniAural from 'omniaural'
 
 const modalsCheckoutHide = () => {
   OmniAural.state.modals.checkout.show.set(false)

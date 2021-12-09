@@ -1,8 +1,6 @@
 const { i18n } = require('./next-i18next.config')
 
-const envVars = {
-  
-}
+const envVars = {}
 
 module.exports = {
   reactStrictMode: true,
@@ -20,7 +18,10 @@ module.exports = {
     PAYPAL_ENV: process.env.PAYPAL_ENV,
     PAYPAL_CLIENT_ID_PRODUCTION: process.env.PAYPAL_CLIENT_ID_PRODUCTION,
     PAYPAL_CLIENT_ID_SANDBOX: process.env.PAYPAL_CLIENT_ID_SANDBOX,
-    EMAIL_CONTACT: process.env.EMAIL_CONTACT
+    EMAIL_CONTACT: process.env.EMAIL_CONTACT,
+    MATOMO_BASE_URL: process.env.MATOMO_BASE_URL,
+    MATOMO_ENDPOINT_PATH: process.env.MATOMO_ENDPOINT_PATH,
+    MATOMO_SITE_ID: process.env.MATOMO_SITE_ID
   },
   publicRuntimeConfig: {
     API_PATH: process.env.API_PATH,
@@ -35,6 +36,9 @@ module.exports = {
     PAYPAL_ENV: process.env.PAYPAL_ENV,
     PAYPAL_CLIENT_ID_PRODUCTION: process.env.PAYPAL_CLIENT_ID_PRODUCTION,
     PAYPAL_CLIENT_ID_SANDBOX: process.env.PAYPAL_CLIENT_ID_SANDBOX,
-    EMAIL_CONTACT: process.env.EMAIL_CONTACT
+    EMAIL_CONTACT: process.env.EMAIL_CONTACT,
+    MATOMO_BASE_URL: process.env.MATOMO_BASE_URL,
+    MATOMO_ENDPOINT_PATH: process.env.MATOMO_ENDPOINT_PATH,
+    MATOMO_SITE_ID: process.env.MATOMO_SITE_ID
   }
 }

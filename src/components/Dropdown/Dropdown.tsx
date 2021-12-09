@@ -18,26 +18,18 @@ type Props = {
 }
 
 const contentRenderer = (props: Props, t: any) => {
-  const { faIcon, hideCaret, options, selectedKey, text } = props
-  const selectedOption = options?.find(option => option.key === selectedKey)
+  const { faIcon, options, selectedKey, text } = props
+  const selectedOption = options?.find((option) => option.key === selectedKey)
   const finalText = text || selectedOption?.label
 
   return (
     <div className='dropdown-wrapper'>
-      {
-        !!faIcon && (
-          <div className='dropdown__icon'>
-            <FontAwesomeIcon icon={faIcon} />
-          </div>
-        )
-      }
-      {
-        !!finalText && (
-          <div className='dropdown__text'>
-            {t(`${finalText}`)}
-          </div>
-        )
-      }
+      {!!faIcon && (
+        <div className='dropdown__icon'>
+          <FontAwesomeIcon icon={faIcon} />
+        </div>
+      )}
+      {!!finalText && <div className='dropdown__text'>{t(`${finalText}`)}</div>}
     </div>
   )
 }
@@ -55,8 +47,7 @@ const dropdownHandleRenderer = (hideCaret?: boolean) => {
 }
 
 export const Dropdown = (props: Props) => {
-  const { dropdownWidthClass = 'width-small', hasClipEditButtons, onChange,
-  options, outlineStyle } = props
+  const { dropdownWidthClass = 'width-small', hasClipEditButtons, onChange, options, outlineStyle } = props
   const { t } = useTranslation()
   const wrapperClass = classnames(
     outlineStyle ? 'outline-style' : '',

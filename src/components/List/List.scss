@@ -1,1 +1,16 @@
-.list {}
+.list {
+  position: relative;
+  
+  hr {
+    margin-bottom: 20px;
+  }
+
+  .no-results-found {
+    position: absolute;
+    top: 32px;
+
+    @include themeGen() {
+      color: getThemeVal('textSecondary');
+    }
+  }
+}

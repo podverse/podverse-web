@@ -1,6 +1,7 @@
-import { NowPlayingItem } from "podverse-shared"
-import { getAuthCredentialsHeaders } from "~/lib/utility/auth"
-import { PV } from "~/resources"
+import OmniAural from 'omniaural'
+import { NowPlayingItem } from 'podverse-shared'
+import { getAuthCredentialsHeaders } from '~/lib/utility/auth'
+import { PV } from '~/resources'
 import { request } from './request'
 
 export const getServerSideUserQueueItems = async (cookies: any) => {
@@ -22,7 +23,7 @@ export const getQueueItemsFromServer = async (bearerToken?: string) => {
     response = await request({
       endpoint: PV.RoutePaths.api.user_queue_item,
       method: 'get',
-      ...(getAuthCredentialsHeaders(bearerToken))
+      ...getAuthCredentialsHeaders(bearerToken)
     })
   } catch (error) {
     // console.log('getQueueItemsFromServer', error)
@@ -35,7 +36,7 @@ export const removeQueueItemEpisodeFromServer = async (episodeId: string) => {
   const response = await request({
     endpoint: `/user-queue-item/episode/${episodeId}`,
     method: 'DELETE',
-    ...(getAuthCredentialsHeaders())
+    ...getAuthCredentialsHeaders()
   })
   return response?.data?.userQueueItems || []
 }
@@ -44,7 +45,7 @@ export const removeQueueItemMediaRefFromServer = async (mediaRefId: string) => {
   const response = await request({
     endpoint: `/user-queue-item/mediaRef/${mediaRefId}`,
     method: 'DELETE',
-    ...(getAuthCredentialsHeaders())
+    ...getAuthCredentialsHeaders()
   })
   return response?.data?.userQueueItems || []
 }
@@ -53,7 +54,7 @@ export const removeQueueItemsAllFromServer = async () => {
   await request({
     endpoint: `/user-queue-item/remove-all`,
     method: 'DELETE',
-    ...(getAuthCredentialsHeaders())
+    ...getAuthCredentialsHeaders()
   })
   return []
 }
@@ -82,11 +83,36 @@ export const addQueueItemToServer = async (item: NowPlayingItem, newPosition: nu
   const response = await request({
     endpoint: '/user-queue-item',
     method: 'PATCH',
-    ...(getAuthCredentialsHeaders()),
+    ...getAuthCredentialsHeaders(),
     body
   })
 
   const { userQueueItems } = response.data
 
   return userQueueItems
+}
+
+export const getNextFromQueue = async () => {
+  const userInfo = OmniAural.state.session.userInfo.value()
+  let item = null
+
+  if (userInfo) {
+    const data = await getNextFromQueueFromServer()
+    if (data) {
+      const { nextItem } = data
+      item = nextItem
+    }
+  }
+
+  return item
+}
+
+const getNextFromQueueFromServer = async () => {
+  const response = await request({
+    endpoint: '/user-queue-item/pop-next',
+    method: 'GET',
+    ...getAuthCredentialsHeaders()
+  })
+
+  return response && response.data
 }

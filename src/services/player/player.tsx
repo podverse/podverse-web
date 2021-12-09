@@ -1,81 +1,91 @@
-import OmniAural, { useOmniAural } from 'omniaural'
+import OmniAural from 'omniaural'
 import type { NowPlayingItem } from 'podverse-shared'
+import { unstable_batchedUpdates } from 'react-dom'
 import { PV } from '~/resources'
-import { audioCheckIfCurrentlyPlaying, audioClearNowPlayingItem, audioGetDuration,
-  audioGetPosition, audioIsLoaded, audioLoadNowPlayingItem, audioMute, audioPause,
-  audioPlay, audioSeekTo, audioSetPlaybackSpeed, audioSetVolume,
-  audioUnmute } from './playerAudio'
-import { clearChapterUpdateInterval } from './playerChapters'
-import { clearClipEndTimeListenerInterval, handlePlayAfterClipEndTimeReached, handleSetupClipListener } from './playerClip'
+import { addOrUpdateHistoryItemOnServer } from '../userHistoryItem'
+import { getNextFromQueue, getQueueItemsFromServer } from '../userQueueItem'
+import {
+  audioCheckIfCurrentlyPlaying,
+  audioClearNowPlayingItem,
+  audioGetDuration,
+  audioGetPosition,
+  audioIsLoaded,
+  audioLoadNowPlayingItem,
+  audioMute,
+  audioPause,
+  audioPlay,
+  audioSeekTo,
+  audioSetPlaybackSpeed,
+  audioSetVolume,
+  audioUnmute
+} from './playerAudio'
+import { clearChapterUpdateInterval, getChapterNext, getChapterPrevious } from './playerChapters'
+import {
+  clearClipEndTimeListenerInterval,
+  handlePlayAfterClipEndTimeReached,
+  handleSetupClipListener
+} from './playerClip'
 import { setClipFlagPositions } from './playerFlags'
-import { checkIfVideoFileType, videoIsLoaded } from './playerVideo'
+import {
+  checkIfVideoFileType,
+  videoCheckIfCurrentlyPlaying,
+  videoClearNowPlayingItem,
+  videoGetDuration,
+  videoGetPosition,
+  videoIsLoaded,
+  videoLoadNowPlayingItem,
+  videoMute,
+  videoPause,
+  videoPlay,
+  videoSeekTo,
+  videoSetPlaybackSpeed,
+  videoUnmute
+} from './playerVideo'
 
-export const playerCheckIfCurrentlyPlayingItem = (paused: boolean, nowPlayingItem?: NowPlayingItem) => {
-  const [currentNowPlayingItem] = useOmniAural('player.currentNowPlayingItem')
+export const playerCheckIfItemIsCurrentlyPlaying = (paused: boolean, nowPlayingItem?: NowPlayingItem) => {
+  const currentNowPlayingItem = OmniAural.state.player.currentNowPlayingItem.value()
   let isCurrentlyPlayingItem = false
 
   if (paused) {
     // do nothing
-  } else if (
-    nowPlayingItem?.clipId
-    && nowPlayingItem.clipId === currentNowPlayingItem?.clipId
-  ) {
+  } else if (nowPlayingItem?.clipId && nowPlayingItem.clipId === currentNowPlayingItem?.clipId) {
     isCurrentlyPlayingItem = true
-  } else if (
-    !nowPlayingItem?.clipId
-    && nowPlayingItem.episodeId === currentNowPlayingItem?.episodeId
-  ) {
+  } else if (!nowPlayingItem?.clipId && nowPlayingItem.episodeId === currentNowPlayingItem?.episodeId) {
     isCurrentlyPlayingItem = true
   }
 
   return isCurrentlyPlayingItem
 }
 
-export const playerCheckIfCurrentlyPlaying = () => {
+export const playerCheckIfPlayerIsCurrentlyPlaying = () => {
   let isCurrentlyPlaying = false
   if (audioCheckIfCurrentlyPlaying()) {
     isCurrentlyPlaying = true
-  } else if (false) {
-    // handle video
+  } else if (videoCheckIfCurrentlyPlaying()) {
     isCurrentlyPlaying = true
   }
+
   return isCurrentlyPlaying
 }
 
-export const playerTogglePlayOrLoadNowPlayingItem = async (
-  nowPlayingItem: NowPlayingItem
-) => {
+export const playerTogglePlayOrLoadNowPlayingItem = async (nowPlayingItem: NowPlayingItem) => {
   const previousNowPlayingItem = OmniAural.state.player.currentNowPlayingItem.value()
   if (
-    previousNowPlayingItem
-    && previousNowPlayingItem.episodeMediaUrl === nowPlayingItem.episodeMediaUrl
-    && nowPlayingItem.clipId && previousNowPlayingItem.clipId !== nowPlayingItem.clipId
+    previousNowPlayingItem &&
+    previousNowPlayingItem.episodeMediaUrl === nowPlayingItem.episodeMediaUrl &&
+    nowPlayingItem.clipId &&
+    previousNowPlayingItem.clipId !== nowPlayingItem.clipId
   ) {
     playerSeekTo(nowPlayingItem.clipStartTime)
     const shouldPlay = true
     await playerLoadNowPlayingItem(nowPlayingItem, shouldPlay)
     const duration = playerGetDuration()
     setClipFlagPositions(nowPlayingItem, duration)
-  } else if (
-    previousNowPlayingItem
-    && previousNowPlayingItem.episodeMediaUrl === nowPlayingItem.episodeMediaUrl
-  ) {
-    playerCheckIfCurrentlyPlaying() ? playerPause() : playerPlay()
+  } else if (previousNowPlayingItem && previousNowPlayingItem.episodeMediaUrl === nowPlayingItem.episodeMediaUrl) {
+    playerCheckIfPlayerIsCurrentlyPlaying() ? playerPause() : playerPlay()
   } else {
     const shouldPlay = true
     await playerLoadNowPlayingItem(nowPlayingItem, shouldPlay)
-  }
-}
-
-export const playerClearLoadedItems = (nowPlayingItem: NowPlayingItem) => {
-  /* 
-    If video should play, then clear the src for the audio player, and vice versa.
-    Also, clear the previous currentPlayingItem
-  */
-  if (checkIfVideoFileType(nowPlayingItem)) {
-    audioClearNowPlayingItem()
-  } else {
-    // clear video
   }
 }
 
@@ -85,7 +95,7 @@ export const playerPlay = () => {
   if (audioIsLoaded()) {
     audioPlay()
   } else if (videoIsLoaded()) {
-    // videoTogglePlay()
+    videoPlay()
   }
 }
 
@@ -94,48 +104,32 @@ export const playerPause = () => {
   if (audioIsLoaded()) {
     audioPause()
   } else if (videoIsLoaded()) {
-    // videoTogglePlay()
+    videoPause()
   }
+  saveCurrentPlaybackPositionToHistory() // run in the background without await
 }
 
-export const playerJumpBackward = () => {
-  const seconds = 10
-  const position = playerGetPosition()
-  const newPosition = position - seconds
-  playerSeekTo(newPosition)
-  return newPosition
-}
-
-export const playerJumpForward = () => {
-  const seconds = 30
+const playerJump = (seconds: number) => {
   const position = playerGetPosition()
   const newPosition = position + seconds
   playerSeekTo(newPosition)
   return newPosition
 }
 
-export const playerJumpMiniBackwards = () => {
-  const seconds = 1
-  const position = playerGetPosition()
-  const newPosition = position - seconds
-  playerSeekTo(newPosition)
-  return newPosition
-}
+export const playerJumpBackward = () => playerJump(-10)
 
-export const playerJumpMiniForwards = () => {
-  const seconds = 1
-  const position = playerGetPosition()
-  const newPosition = position + seconds
-  playerSeekTo(newPosition)
-  return newPosition
-}
+export const playerJumpForward = () => playerJump(30)
+
+export const playerJumpMiniBackwards = () => playerJump(-1)
+
+export const playerJumpMiniForwards = () => playerJump(1)
 
 export const playerGetDuration = () => {
   let duration = 0
   if (audioIsLoaded()) {
     duration = audioGetDuration()
   } else if (videoIsLoaded()) {
-    // duration = videoGetPosition()
+    duration = videoGetDuration()
   }
   return duration
 }
@@ -144,7 +138,7 @@ export const playerGetPosition = () => {
   if (audioIsLoaded()) {
     return audioGetPosition()
   } else if (videoIsLoaded()) {
-    // return videoGetPosition()
+    return videoGetPosition()
   }
 }
 
@@ -163,7 +157,7 @@ export const playerSeekTo = (position: number) => {
   if (audioIsLoaded()) {
     audioSeekTo(position)
   } else if (videoIsLoaded()) {
-    // videoSeekTo(position)
+    videoSeekTo(position)
   }
 }
 
@@ -186,7 +180,7 @@ export const playerSetPlaybackSpeed = (newSpeed: number) => {
   if (audioIsLoaded()) {
     audioSetPlaybackSpeed(newSpeed)
   } else if (videoIsLoaded()) {
-    // videoSetPlaybackSpeed(newSpeed)
+    videoSetPlaybackSpeed(newSpeed)
   }
 }
 
@@ -200,7 +194,7 @@ export const playerSetVolume = (newVolume: number) => {
   if (audioIsLoaded()) {
     audioSetVolume(newVolume)
   } else if (videoIsLoaded()) {
-    // videoSetVolume(newSpeed)
+    // videoSetVolume(newVolume) // not needed
   }
 }
 
@@ -209,7 +203,7 @@ export const playerMute = () => {
   if (audioIsLoaded()) {
     audioMute()
   } else if (videoIsLoaded()) {
-    //
+    videoMute()
   }
 }
 
@@ -218,59 +212,141 @@ export const playerUnmute = () => {
   if (audioIsLoaded()) {
     audioUnmute()
   } else if (videoIsLoaded()) {
-    //
+    videoUnmute()
   }
 }
 
-const playerClearPreviousItem = (nowPlayingItem: NowPlayingItem) => {
-  OmniAural.setClipHasReachedEnd(false)
-  OmniAural.setPlayerPlaybackPosition(0)
-  /* The positions get set in the onLoadedMetaData handler in the PlayerAPIs */
-  OmniAural.setHighlightedPositions([])
-  OmniAural.setClipFlagPositions([])
-  playerClearLoadedItems(nowPlayingItem)
-  clearClipEndTimeListenerInterval()
-  clearChapterUpdateInterval()
-}
-
-export const playerLoadNowPlayingItem = async (
-  nowPlayingItem: NowPlayingItem,
-  shouldPlay?: boolean
-) => {
+export const playerLoadNowPlayingItem = async (nowPlayingItem: NowPlayingItem, shouldPlay: boolean) => {
   try {
     if (!nowPlayingItem) return
 
+    // Save the previous item's playback position to history.
+    unstable_batchedUpdates(() => {
+      saveCurrentPlaybackPositionToHistory()
+    })
+
+    // Create a variable for the previous item for later.
     const previousNowPlayingItem = OmniAural.state.player.currentNowPlayingItem.value()
-    
-    OmniAural.setPlayerItem(nowPlayingItem)
+
+    // Set the NEW nowPlayingItem on the player state.
+    unstable_batchedUpdates(() => {
+      OmniAural.setPlayerItem(nowPlayingItem)
+    })
+
+    // Clear all remnants of the previous item from state and the player.
+    // Do this after the setPlayerItem so there isn't a flash of no content.
     playerClearPreviousItem(nowPlayingItem)
 
-    if (!checkIfVideoFileType(nowPlayingItem)) {
-      // audioAddNowPlayingItemNextInQueue(item, itemToSetNextInQueue)
-    }
-
-    // const skipSetNowPlaying = true
-    // await playerUpdateUserPlaybackPosition(skipSetNowPlaying)
+    /*
+      TODO: add the currently playing item next in the queue if the user
+      has "on play add current episode to the queue".
+    */
+    // if (checkIfVideoFileType(nowPlayingItem)) {
+    //   videoAddNowPlayingItemNextInQueue(item, itemToSetNextInQueue)
+    // } else {
+    //   audioAddNowPlayingItemNextInQueue(item, itemToSetNextInQueue)
+    // }
 
     if (checkIfVideoFileType(nowPlayingItem)) {
-      // await videoLoadNowPlayingItem(
-      //   item,
-      //   shouldPlay,
-      //   forceUpdateOrderDate,
-      //   previousNowPlayingItem
-      // )
+      await videoLoadNowPlayingItem(nowPlayingItem, previousNowPlayingItem, shouldPlay)
     } else {
       await audioLoadNowPlayingItem(nowPlayingItem, previousNowPlayingItem, shouldPlay)
     }
 
-    if (
-      nowPlayingItem.clipStartTime
-      && nowPlayingItem.clipEndTime
-      && !nowPlayingItem.clipIsOfficialChapter) {
+    if (checkIfNowPlayingItemIsAClip(nowPlayingItem)) {
       handleSetupClipListener(nowPlayingItem.clipEndTime)
     }
-
   } catch (error) {
     console.log('playerLoadNowPlayingItem service error', error)
+  }
+
+  const newUserQueueItems = await getQueueItemsFromServer()
+  unstable_batchedUpdates(() => {
+    OmniAural.setUserQueueItems(newUserQueueItems)
+  })
+}
+
+/* Reset the state, intervals, and  related to the nowPlayingItem in state  */
+const playerClearPreviousItem = (nextNowPlayingItem: NowPlayingItem) => {
+  playerClearPreviousItemState()
+  playerClearTimeIntervals()
+  playerClearItemFromPlayerAPI(nextNowPlayingItem)
+}
+
+const playerClearPreviousItemState = () => {
+  unstable_batchedUpdates(() => {
+    OmniAural.setChapterFlagPositions([])
+    OmniAural.setChapters([])
+    OmniAural.setClipFlagPositions([])
+    OmniAural.setClipHasReachedEnd(false)
+    /* The positions get set in the onLoadedMetaData handler in the PlayerAPIs */
+    OmniAural.setHighlightedPositions([])
+    OmniAural.setPlayerPlaybackPosition(0)
+  })
+}
+
+const playerClearTimeIntervals = () => {
+  clearClipEndTimeListenerInterval()
+  clearChapterUpdateInterval()
+}
+
+/*
+  If video should play, then clear the src for the audio player, and vice versa.
+  Also, clear the previous currentPlayingItem
+*/
+const playerClearItemFromPlayerAPI = (nextNowPlayingItem: NowPlayingItem) => {
+  if (checkIfVideoFileType(nextNowPlayingItem)) {
+    audioClearNowPlayingItem()
+  } else {
+    videoClearNowPlayingItem()
+  }
+}
+
+const checkIfNowPlayingItemIsAClip = (nowPlayingItem: NowPlayingItem) =>
+  nowPlayingItem.clipStartTime && nowPlayingItem.clipEndTime && !nowPlayingItem.clipIsOfficialChapter
+
+export const saveCurrentPlaybackPositionToHistory = () => {
+  return addOrUpdateHistoryItemOnServer({
+    nowPlayingItem: OmniAural.state.player.currentNowPlayingItem.value(),
+    mediaFileDuration: playerGetDuration(),
+    playbackPosition: playerGetPosition(),
+    forceUpdateOrderDate: false,
+    skipSetNowPlaying: false
+  })
+}
+
+export const playerPlayPreviousChapterOrReturnToBeginningOfTrack = async () => {
+  const chapters = OmniAural.state.player.chapters.value()
+
+  if (chapters && chapters.length > 1) {
+    const previousChapter = await getChapterPrevious()
+    if (previousChapter) {
+      await playerSeekTo(previousChapter.startTime)
+      return
+    }
+  }
+
+  await playerSeekTo(0)
+}
+
+export const playerPlayNextChapterOrQueueItem = async () => {
+  const chapters = OmniAural.state.player.chapters.value()
+
+  if (chapters && chapters.length > 1) {
+    const nextChapter = await getChapterNext()
+    if (nextChapter) {
+      await playerSeekTo(nextChapter.startTime)
+      return
+    }
+  }
+
+  await playerPlayNextFromQueue()
+}
+
+export const playerPlayNextFromQueue = async () => {
+  const nextNowPlayingItem = await getNextFromQueue()
+  if (nextNowPlayingItem) {
+    const shouldPlay = true
+    playerLoadNowPlayingItem(nextNowPlayingItem, shouldPlay)
   }
 }

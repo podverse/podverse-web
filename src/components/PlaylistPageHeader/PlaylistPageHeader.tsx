@@ -1,30 +1,33 @@
-import { faGlobe, faLink } from '@fortawesome/free-solid-svg-icons'
 import { useRouter } from 'next/router'
 import OmniAural, { useOmniAural } from 'omniaural'
 import type { Playlist } from 'podverse-shared'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { ButtonRectangle, Dropdown, TextInput } from '~/components'
-import { PV } from '~/resources'
+import { ButtonRectangle, TextInput } from '~/components'
 import { deletePlaylistOnServer, toggleSubscribeToPlaylistOnServer } from '~/services/playlist'
 
 type Props = {
   handleChangeIsPublic?: any
   handleEditCancel: any
   handleEditSave: any
-  handleEditStart: any  
+  handleEditStart: any
   handlePlaylistTitleOnChange: any
   isEditing?: boolean
   playlist: Playlist
 }
 
-export const PlaylistPageHeader = ({ handleChangeIsPublic, handleEditCancel,
-  handleEditSave, handleEditStart, handlePlaylistTitleOnChange, isEditing,
-  playlist }: Props) => {
+export const PlaylistPageHeader = ({
+  handleEditCancel,
+  handleEditSave,
+  handleEditStart,
+  handlePlaylistTitleOnChange,
+  isEditing,
+  playlist
+}: Props) => {
   const router = useRouter()
   const { t } = useTranslation()
   const [userInfo] = useOmniAural('session.userInfo')
-  const [isDeleting, setIsDeleting] = useState<boolean>(false)
+  const [, setIsDeleting] = useState<boolean>(false)
   const title = playlist?.title || t('untitledPlaylist')
   const ownerName = playlist?.owner?.name || t('Anonymous')
   const itemCount = playlist?.itemCount || 0
@@ -46,26 +49,12 @@ export const PlaylistPageHeader = ({ handleChangeIsPublic, handleEditCancel,
     }
   }
 
-  /* Render Helpers */
-
-  const generateDropdownItems = () => {
-    const items = [
-      { label: t('Public'), key: PV.Playlists.privacyKeys.public },
-      { label: t('Only with link'), key: PV.Playlists.privacyKeys.onlyWithLink }
-    ]
-
-    return items
-  }
-
-  const dropdownItems = generateDropdownItems()
-
   return (
-    <div
-      className='playlist-page-header'>
-      <div className='main-max-width'>
-        <div className='text-wrapper'>
-          {
-            isEditing ? (
+    <>
+      <div className='playlist-page-header'>
+        <div className='main-max-width'>
+          <div className='text-wrapper'>
+            {isEditing ? (
               <TextInput
                 defaultValue={playlist.title}
                 label={t('Playlist Title')}
@@ -73,34 +62,20 @@ export const PlaylistPageHeader = ({ handleChangeIsPublic, handleEditCancel,
                 onChange={handlePlaylistTitleOnChange}
                 onSubmit={handleEditSave}
                 placeholder={t('Playlist Title')}
-                type='text' />
+                type='text'
+              />
             ) : (
               <h1>{title}</h1>
-            )
-          }
-          {
-            !isEditing && (
-              <div className='items-count'>{`${t('Items')}: ${itemCount}`}</div>
-            )
-          }
-          {
-            !isLoggedInUserPlaylist && (
-              <div className='owner-name'>{`${t('Created by')}: ${ownerName}`}</div>
-            )
-          }
-        </div>
-        <div className='buttons'>
-          <div className='top-row'>
-            {
-              isLoggedInUserPlaylist && !isEditing && (
-                <ButtonRectangle
-                  label={t('Edit')}
-                  onClick={handleEditStart}
-                  type='tertiary' />
-              )
-            }
-            {
-              !isLoggedInUserPlaylist && (
+            )}
+            {!isEditing && <div className='items-count'>{`${t('Items')}: ${itemCount}`}</div>}
+            {!isLoggedInUserPlaylist && <div className='owner-name'>{`${t('Created by')}: ${ownerName}`}</div>}
+          </div>
+          <div className='buttons'>
+            <div className='top-row'>
+              {isLoggedInUserPlaylist && !isEditing && (
+                <ButtonRectangle label={t('Edit')} onClick={handleEditStart} type='tertiary' />
+              )}
+              {!isLoggedInUserPlaylist && (
                 <ButtonRectangle
                   label={subscribedText}
                   onClick={() => {
@@ -110,55 +85,27 @@ export const PlaylistPageHeader = ({ handleChangeIsPublic, handleEditCancel,
                       OmniAural.modalsLoginToAlertShow('subscribe to playlist')
                     }
                   }}
-                  type='tertiary' />
-              )
-            }
-            {
-              isEditing && (
-                <ButtonRectangle
-                  isDanger
-                  label={t('Delete')}
-                  onClick={handleDeletePlaylistOnServer}
-                  type='tertiary' />
-              )
-            }
-          </div>
-          {
-            isLoggedInUserPlaylist && isEditing && (
+                  type='tertiary'
+                />
+              )}
+              {isEditing && (
+                <ButtonRectangle isDanger label={t('Delete')} onClick={handleDeletePlaylistOnServer} type='tertiary' />
+              )}
+            </div>
+            {isLoggedInUserPlaylist && isEditing && (
               <div className='bottom-row'>
-                {
-                  isEditing && (
-                    <>
-                      <ButtonRectangle
-                        label={t('Cancel')}
-                        onClick={handleEditCancel}
-                        type='tertiary' />
-                      <ButtonRectangle
-                        label={t('Save')}
-                        onClick={handleEditSave}
-                        type='tertiary' />
-                    </>
-                  )
-                }
-                {/* Commenting out since all Playlists are Only with link by default right now.
-                
-                {
-                  isLoggedInUserPlaylist && !isEditing && (
-                    <Dropdown
-                      faIcon={playlist.isPublic ? faGlobe : faLink}
-                      onChange={handleChangeIsPublic}
-                      options={dropdownItems}
-                      selectedKey={playlist.isPublic
-                        ? PV.Playlists.privacyKeys.public
-                        : PV.Playlists.privacyKeys.onlyWithLink
-                      } />
-                  )
-                } */}
+                {isEditing && (
+                  <>
+                    <ButtonRectangle label={t('Cancel')} onClick={handleEditCancel} type='tertiary' />
+                    <ButtonRectangle label={t('Save')} onClick={handleEditSave} type='tertiary' />
+                  </>
+                )}
               </div>
-            )
-          }
+            )}
+          </div>
         </div>
       </div>
-    </div>
+      {/* <hr /> */}
+    </>
   )
 }

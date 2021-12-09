@@ -17,9 +17,9 @@ export const generateCategoryNodes = (categories) => {
         <span key={`category-${i}`}>
           {/* <Link
             href={categoryHref}> */}
-            <a>{categoryText}</a>
+          <a>{categoryText}</a>
           {/* </Link> */}
-          {i < categories.length - 1 && (<span>, </span>)}
+          {i < categories.length - 1 && <span>, </span>}
         </span>
       )
     }

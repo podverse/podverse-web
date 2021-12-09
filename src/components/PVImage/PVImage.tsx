@@ -6,14 +6,5 @@ type Props = {
 }
 
 export const PVImage = ({ alt, height, src, width }: Props) => {
-  return (
-    <img
-      alt={alt}
-      className='pv-image'
-      height={height}
-      src={src}
-      width={width}
-    />
-  )
+  return <img alt={alt} className='pv-image' height={height} src={src} width={width} />
 }
-

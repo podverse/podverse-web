@@ -1,26 +1,21 @@
 import { GetServerSideProps } from 'next'
-import Head from 'next/head'
 import { useRouter } from 'next/router'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useEffect, useRef, useState } from 'react'
 import { Page } from '~/lib/utility/page'
 import { PV } from '~/resources'
 import { getPayPalOrderById } from '~/services/paypal'
-import { getServerSideAuthenticatedUserInfo } from '~/services/auth'
-import { getServerSideUserQueueItems } from '~/services/userQueueItem'
 import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { Icon, Meta, PageHeader, PageScrollableContent } from '~/components'
 import { useTranslation } from 'react-i18next'
+import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 
-interface ServerProps extends Page { }
+type ServerProps = Page
 
-const keyPrefix = 'pages_payment_paypal_confirming'
 let isCheckingInterval = null
 
 export default function PaymentPayPalConfirming(props: ServerProps) {
-
   /* Initialize */
-  
+
   const router = useRouter()
   const { paymentID } = router.query
   const { t } = useTranslation()
@@ -46,7 +41,7 @@ export default function PaymentPayPalConfirming(props: ServerProps) {
   const checkPaymentStatus = async () => {
     try {
       const paypalOrder = await getPayPalOrderById(paymentID as string)
-      
+
       if (paypalOrder?.data?.state === 'completed') {
         clearInterval(isCheckingInterval)
         setWasSuccessful(true)
@@ -85,38 +80,37 @@ export default function PaymentPayPalConfirming(props: ServerProps) {
         robotsNoIndex={true}
         title={meta.title}
         twitterDescription={meta.description}
-        twitterTitle={meta.title} />
+        twitterTitle={meta.title}
+      />
       <PageHeader text={t('Processing Payment')} />
       <PageScrollableContent>
         <div className='flex-centered-content-wrapper'>
-          {
-            isChecking && (
-              <>
-                <p>Confirming PayPal payment...</p>
-                <Icon
-                  faIcon={faSpinner}
-                  spin />
-                <p>This may take a minute...</p>
-              </>
-            )
-          }
-          {
-            didError && (
-              <>
-                <p>Sorry! Something went wrong.</p>
-                <p>Please check your internet connection, or go to the <a href={PV.RoutePaths.web.membership}>Membership</a> page to check if your purchase was successful.</p>
-                <p>If the problem continues, please email <a href={`mailto:${PV.Config.EMAIL.CONTACT}`}>{PV.Config.EMAIL.CONTACT}</a> for help.</p>
-              </>
-            )
-          }
-          {
-            wasSuccessful && (
-              <>
-                <p>Payment confirmed!</p>
-                <p>Redirecting to your Settings page...</p>
-              </>
-            )
-          }
+          {isChecking && (
+            <>
+              <p>Confirming PayPal payment...</p>
+              <Icon faIcon={faSpinner} spin />
+              <p>This may take a minute...</p>
+            </>
+          )}
+          {didError && (
+            <>
+              <p>Sorry! Something went wrong.</p>
+              <p>
+                Please check your internet connection, or go to the{' '}
+                <a href={PV.RoutePaths.web.membership}>Membership</a> page to check if your purchase was successful.
+              </p>
+              <p>
+                If the problem continues, please email{' '}
+                <a href={`mailto:${PV.Config.EMAIL.CONTACT}`}>{PV.Config.EMAIL.CONTACT}</a> for help.
+              </p>
+            </>
+          )}
+          {wasSuccessful && (
+            <>
+              <p>Payment confirmed!</p>
+              <p>Redirecting to your Settings page...</p>
+            </>
+          )}
         </div>
       </PageScrollableContent>
     </>
@@ -126,17 +120,12 @@ export default function PaymentPayPalConfirming(props: ServerProps) {
 /* Server-Side Logic */
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const { req, locale } = ctx
-  const { cookies } = req
+  const { locale } = ctx
 
-  const userInfo = await getServerSideAuthenticatedUserInfo(cookies)
-  const userQueueItems = await getServerSideUserQueueItems(cookies)
+  const defaultServerProps = await getDefaultServerSideProps(ctx, locale)
 
   const serverProps: ServerProps = {
-    serverUserInfo: userInfo,
-    serverUserQueueItems: userQueueItems,
-    ...(await serverSideTranslations(locale, PV.i18n.fileNames.all)),
-    serverCookies: cookies
+    ...defaultServerProps
   }
 
   return { props: serverProps }

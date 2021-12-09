@@ -1,0 +1,23 @@
+.columns-wrapper {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+
+  .columns-wrapper-main {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+  }
+}
+
+@media (max-width: $media-max-width-laptop) {
+  .columns-wrapper {
+    flex-direction: column-reverse;
+  }
+}
+
+@media (min-width: $media-min-width-tablet-xl) and (max-width: $media-max-width-laptop) {
+  .columns-wrapper-side {
+    margin-top: -12px;
+  }
+}

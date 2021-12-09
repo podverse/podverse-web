@@ -1,4 +1,8 @@
 {
+  "historyItemsIndex": {
+    "episodes": {},
+    "mediaRefs": {}
+  },
   "makeClip": {
     "clipFlagPositions": [],
     "endTime": "",
@@ -58,11 +62,13 @@
     "playSpeed": 1,
     "show": false,
     "showFullView": false,
+    "video": {
+      "src": ""
+    },
     "volume": 100
   },
   "session": {
     "userInfo": null
   },
-  "userHistoryItemsMetaData": {},
   "userQueueItems": []
 }

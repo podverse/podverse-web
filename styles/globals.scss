@@ -20,6 +20,7 @@ body {
     flex-direction: column;
     height: 100vh;
   }
+
   
   .app-wrapper {
     display: flex;
@@ -42,13 +43,17 @@ body {
   }
 
   .main-max-width {
-    max-width: $main-max-width;
+    flex: 1;
     margin: 0 24px;
-    width: 100%;
+    max-width: $main-max-width;
   }
 
   .no-margin-top {
     margin-top: 0 !important;
+  }
+
+  .no-margin-bottom {
+    margin-bottom: 0 !important;
   }
 
   a {
@@ -236,6 +241,97 @@ body {
   .is-expired {
     @include themeGen() {
       color: getThemeVal('premiumIsExpired');
+    }
+  }
+}
+
+/*
+  Source for disable-scrollbars https://stackoverflow.com/a/54410301/2608858
+  There is an issue with Windows only web browsers with small viewports showing
+  ugly scrollbars when they're not really necessary. I'm disabling scrollbars
+  for all web browsers with these rules below, but ideally these rules would
+  only target the browsers that show ugly scrollbars.
+*/
+.disable-scrollbars *::-webkit-scrollbar {
+  background: transparent; /* Chrome/Safari/Webkit */
+  width: 0px;
+}
+    
+.disable-scrollbars * {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;  /* IE 10+ */
+}
+
+@media (max-width: $media-max-width-laptop) {
+  body {
+    .column {
+      margin-bottom: 44px;
+    }
+  
+    .hide-below-laptop-max-width {
+      display: none;
+    }
+
+    .no-margin-top-below-laptop-max-width {
+      margin-top: 0 !important;
+    }
+  }
+}
+
+@media (max-width: $media-max-width-tablet-xl) {
+  body {
+    .column {
+      margin-bottom: 44px;
+    }
+  
+    .hide-below-tablet-xl-max-width {
+      display: none;
+    }
+  }
+}
+
+@media (max-width: $media-max-width-tablet) {
+  body {
+    .main-max-width {
+      margin: 0 16px;
+    }
+
+    .hide-below-tablet-max-width {
+      display: none;
+    }
+  }
+}
+
+@media (min-width: $media-min-width-laptop) {
+  .hide-above-laptop-min-width {
+    display: none;
+  }
+} 
+
+@media (min-width: $media-min-width-tablet-xl) {
+  .hide-above-tablet-xl-min-width {
+    display: none;
+  }
+} 
+
+@media (min-width: $media-min-width-tablet) {
+  .hide-above-tablet-min-width {
+    display: none;
+  }
+} 
+
+@media (max-width: $media-max-width-tablet) {
+  hr {
+    width: calc(100% + 16px) !important;
+  }
+}
+
+/* Avoid Chrome with support check,
+   then use -webkit-fill-available to prevent vh sizing issues on iOS. */
+@supports (-webkit-touch-callout: none) {
+  body {
+    .app {
+      height: -webkit-fill-available;
     }
   }
 }

@@ -19,18 +19,28 @@ type Props = {
   twitterTitle?: string
 }
 
-export const Meta = ({ description = '', iphoneCustomScheme = '', ogDescription = '',
-  ogImage = '', ogImageAlt = '', ogTitle = '', ogType = '', ogUrl = '',
-  robotsNoIndex = false, title = '', twitterDescription = '', twitterImage = '',
-  twitterImageAlt = '', twitterTitle = '' }: Props) => {
-  
+export const Meta = ({
+  description = '',
+  iphoneCustomScheme = '',
+  ogDescription = '',
+  ogImage = '',
+  ogImageAlt = '',
+  ogTitle = '',
+  ogType = '',
+  ogUrl = '',
+  robotsNoIndex = false,
+  title = '',
+  twitterDescription = '',
+  twitterImage = '',
+  twitterImageAlt = '',
+  twitterTitle = ''
+}: Props) => {
   // Twitter images are cached by URL, and do not update. To make sure the latest image is used,
   // we're setting the cacheBustUrlParam as a url parameter in the meta tag.
   const cacheBustUrlParam = '?cacheBust=' + new Date().toISOString().slice(0, 10) + '-' + new Date().getHours()
 
   const ogImg = !ogImage ? PV.Config.metaDefaultImageUrl1200x630 : ogImage
-  const twitterImg = !twitterImage
-    ? PV.Config.metaDefaultImageUrl1200x630 : twitterImage + cacheBustUrlParam
+  const twitterImg = !twitterImage ? PV.Config.metaDefaultImageUrl1200x630 : twitterImage + cacheBustUrlParam
 
   const seoTitle = seoMetaTitle(title)
   const seoOGTitle = seoMetaTitle(ogTitle)
@@ -79,10 +89,7 @@ export const Meta = ({ description = '', iphoneCustomScheme = '', ogDescription 
       <meta name='twitter:creator:id' content='2555941009' />
       <meta name='twitter:app:name:iphone' content='Podverse' />
       <meta name='twitter:app:id:iphone' content='1390888454' />
-      {
-        iphoneCustomScheme &&
-        <meta name='twitter:app:url:iphone' content={iphoneCustomScheme} />
-      }
+      {iphoneCustomScheme && <meta name='twitter:app:url:iphone' content={iphoneCustomScheme} />}
       {/* <meta name='twitter:app:name:ipad' content='Name of your iPad optimized app' /> 
       <meta name='twitter:app:id:ipad' content='Your app ID in the iTunes App Store' /> 
       <meta name='twitter:app:url:ipad' content='Your app’s custom URL scheme' /> 

@@ -9,15 +9,10 @@ type Props = {
 }
 
 export const PVLink = ({ children, className, href, onClick }: Props) => {
-  const linkClassName = classnames(
-    className ? className : ''
-  )
+  const linkClassName = classnames(className ? className : '')
   return (
-    <Link
-      href={href}>
-      <a
-        className={linkClassName}
-        onClick={onClick}>
+    <Link href={href}>
+      <a className={linkClassName} onClick={onClick}>
         {children}
       </a>
     </Link>

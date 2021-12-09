@@ -1,24 +1,28 @@
 import { GetServerSideProps } from 'next'
 import { useTranslation } from 'next-i18next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import OmniAural, { useOmniAural } from 'omniaural'
 import { useState } from 'react'
-import { convertNowPlayingItemToEpisode, convertNowPlayingItemToMediaRef,
-  NowPlayingItem } from 'podverse-shared'
-import { ClipListItem, ColumnsWrapper, EpisodeListItem, List, MessageWithAction, Meta, PageHeader, PageScrollableContent,
-  SideContent } from '~/components'
+import { convertNowPlayingItemToEpisode, convertNowPlayingItemToMediaRef, NowPlayingItem } from 'podverse-shared'
+import {
+  ClipListItem,
+  ColumnsWrapper,
+  EpisodeListItem,
+  List,
+  MessageWithAction,
+  Meta,
+  PageHeader,
+  PageScrollableContent
+} from '~/components'
 import { Page } from '~/lib/utility/page'
 import { PV } from '~/resources'
-import { getServerSideAuthenticatedUserInfo } from '~/services/auth'
-import { getServerSideUserQueueItems } from '~/services/userQueueItem'
 import { isNowPlayingItemMediaRef } from '~/lib/utility/typeHelpers'
+import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 
-interface ServerProps extends Page {}
+type ServerProps = Page
 
 const keyPrefix = 'pages_queue'
 
 export default function Queue(props: ServerProps) {
-
   /* Initialize */
 
   const { t } = useTranslation()
@@ -54,7 +58,8 @@ export default function Queue(props: ServerProps) {
             mediaRef={mediaRef}
             podcast={mediaRef.episode.podcast}
             showImage
-            showRemoveButton={isEditing} />
+            showRemoveButton={isEditing}
+          />
         )
       } else {
         /* *TODO* remove the "as any" */
@@ -66,7 +71,8 @@ export default function Queue(props: ServerProps) {
             key={`${keyPrefix}-episode-${index}`}
             podcast={episode.podcast}
             showImage
-            showRemoveButton={isEditing} />
+            showRemoveButton={isEditing}
+          />
         )
       }
     })
@@ -91,33 +97,24 @@ export default function Queue(props: ServerProps) {
         robotsNoIndex={false}
         title={meta.title}
         twitterDescription={meta.description}
-        twitterTitle={meta.title} />
+        twitterTitle={meta.title}
+      />
       <PageHeader
         isEditing={isEditing}
         handleClearAllButton={_removeQueueItemsAll}
         handleEditButton={() => setIsEditing(!isEditing)}
         hasEditButton={hasEditButton}
-        text={t('Queue')} />
+        text={t('Queue')}
+      />
       <PageScrollableContent noMarginTop>
-        {
-          !userInfo && (
-            <MessageWithAction
-              actionLabel={t('Login')}
-              actionOnClick={() => OmniAural.modalsLoginShow()}
-              message={t('LoginToViewYourQueue')}
-            />
-          )
-        }
-        {
-          userInfo && (
-            <ColumnsWrapper
-              mainColumnChildren={
-                <List>{generateQueueListElements(userQueueItems)}</List>
-              }
-              sideColumnChildren={<SideContent />}
-             />
-          )
-        }
+        {!userInfo && (
+          <MessageWithAction
+            actionLabel={t('Login')}
+            actionOnClick={() => OmniAural.modalsLoginShow()}
+            message={t('LoginToViewYourQueue')}
+          />
+        )}
+        {userInfo && <ColumnsWrapper mainColumnChildren={<List>{generateQueueListElements(userQueueItems)}</List>} />}
       </PageScrollableContent>
     </>
   )
@@ -126,17 +123,12 @@ export default function Queue(props: ServerProps) {
 /* Server-Side Logic */
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const { req, locale } = ctx
-  const { cookies } = req
+  const { locale } = ctx
 
-  const userInfo = await getServerSideAuthenticatedUserInfo(cookies)
-  const userQueueItems = await getServerSideUserQueueItems(cookies)
+  const defaultServerProps = await getDefaultServerSideProps(ctx, locale)
 
   const serverProps: ServerProps = {
-    serverUserInfo: userInfo,
-    serverUserQueueItems: userQueueItems,
-    ...(await serverSideTranslations(locale, PV.i18n.fileNames.all)),
-    serverCookies: cookies
+    ...defaultServerProps
   }
 
   return { props: serverProps }

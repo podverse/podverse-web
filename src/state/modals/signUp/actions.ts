@@ -1,4 +1,4 @@
-import OmniAural from "omniaural"
+import OmniAural from 'omniaural'
 
 const modalsSignUpHide = () => {
   OmniAural.state.modals.signUp.show.set(false)

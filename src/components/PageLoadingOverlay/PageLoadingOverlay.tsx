@@ -2,21 +2,17 @@ import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { useOmniAural } from 'omniaural'
 import { Icon } from '~/components'
 
-type Props = {}
+type Props = unknown
 
 export const PageLoadingOverlay = (props: Props) => {
-  const [isLoading] = useOmniAural("page.isLoading")
+  const [isLoading] = useOmniAural('page.isLoading')
   return (
     <>
-      {
-        isLoading && (
-          <div className='page-loading-overlay'>
-            <Icon
-              faIcon={faSpinner}
-              spin />
-          </div>
-        )
-      }
+      {isLoading && (
+        <div className='page-loading-overlay'>
+          <Icon faIcon={faSpinner} spin />
+        </div>
+      )}
     </>
   )
 }

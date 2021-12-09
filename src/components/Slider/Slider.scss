@@ -5,9 +5,10 @@
   position: relative;
 
   .flag {
-    height: 34px;
+    height: 26px;
+    pointer-events: none;
     position: absolute;
-    top: 0px;
+    top: 4px;
     width: 1px;
 
     @include themeGen() {

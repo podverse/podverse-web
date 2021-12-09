@@ -4,6 +4,7 @@
   position: absolute;
   right: 0;
   top: 0;
+  z-index: 100;
 
   @include themeGen() {
     background-color: getThemeVal('modalTransparentBackground') !important;
@@ -66,6 +67,16 @@
         align-self: center;
         margin-top: 4px
       }
+    }
+  }
+}
+
+/* Avoid Chrome with support check,
+   then use -webkit-fill-available to prevent vh sizing issues on iOS. */
+@supports (-webkit-touch-callout: none) {
+  .ReactModal__Overlay {
+    .ReactModal__Content {
+      max-height: -webkit-fill-available;
     }
   }
 }

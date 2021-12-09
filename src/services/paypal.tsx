@@ -7,7 +7,7 @@ export const createPayPalOrder = async (body: any) => {
     endpoint: PV.RoutePaths.api.paypalOrder,
     method: 'post',
     body,
-    ...(getAuthCredentialsHeaders())
+    ...getAuthCredentialsHeaders()
   })
 }
 
@@ -15,6 +15,6 @@ export const getPayPalOrderById = async (id: string) => {
   return request({
     endpoint: `${PV.RoutePaths.api.paypalOrder}/${id}`,
     method: 'get',
-    ...(getAuthCredentialsHeaders())
+    ...getAuthCredentialsHeaders()
   })
 }

@@ -9,16 +9,11 @@ type Props = {
 }
 
 export const Icon = ({ className, faIcon, spin }: Props) => {
-  const iconWrapperClassName = classNames(
-    'icon',
-    className ? className : ''
-  )
+  const iconWrapperClassName = classNames('icon', className ? className : '')
 
   return (
     <span className={iconWrapperClassName} aria-hidden='true'>
-      <FontAwesomeIcon
-        icon={faIcon}
-        spin={spin} />
+      <FontAwesomeIcon icon={faIcon} spin={spin} />
     </span>
   )
 }

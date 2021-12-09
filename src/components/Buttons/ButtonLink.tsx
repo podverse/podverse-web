@@ -5,9 +5,7 @@ type Props = {
 
 export const ButtonLink = ({ label, onClick }: Props) => {
   return (
-    <button
-      className='button-link'
-      onClick={onClick}>
+    <button className='button-link' onClick={onClick}>
       {label}
     </button>
   )

@@ -1,16 +1,22 @@
 import { GetServerSideProps } from 'next'
 import { useTranslation } from 'next-i18next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import OmniAural, { useOmniAural } from 'omniaural'
 import type { User } from 'podverse-shared'
-import { List, MessageWithAction, Meta, PageHeader, PageScrollableContent, Pagination, PlaylistListItem, scrollToTopOfPageScrollableContent } from '~/components'
+import {
+  List,
+  MessageWithAction,
+  Meta,
+  PageHeader,
+  PageScrollableContent,
+  Pagination,
+  scrollToTopOfPageScrollableContent
+} from '~/components'
 import { Page } from '~/lib/utility/page'
 import { PV } from '~/resources'
-import { getServerSideAuthenticatedUserInfo } from '~/services/auth'
 import { getPublicUsersByQuery } from '~/services/user'
-import { getServerSideUserQueueItems } from '~/services/userQueueItem'
 import { ProfileListItem } from '~/components/ProfileListItem/ProfileListItem'
 import { useEffect, useRef, useState } from 'react'
+import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 
 interface ServerProps extends Page {
   serverFilterPage: number
@@ -20,9 +26,7 @@ interface ServerProps extends Page {
 
 const keyPrefix = 'pages_profiles'
 
-export default function Profiles({ serverFilterPage, serverUsers,
-  serverUsersCount }: ServerProps) {
-
+export default function Profiles({ serverFilterPage, serverUsers, serverUsersCount }: ServerProps) {
   /* Initialize */
 
   const { t } = useTranslation()
@@ -31,16 +35,16 @@ export default function Profiles({ serverFilterPage, serverUsers,
   const [userInfo] = useOmniAural('session.userInfo')
   const initialRender = useRef(true)
   const pageCount = Math.ceil(serverUsersCount / PV.Config.QUERY_RESULTS_LIMIT_DEFAULT)
-  
+
   /* useEffects */
 
   useEffect(() => {
-    (async () => {
+    ;(async () => {
       if (initialRender.current) {
-        initialRender.current = false;
+        initialRender.current = false
       } else {
         OmniAural.pageIsLoadingShow()
-        const [newListData, newListCount] = await clientQueryUsers()
+        const [newListData] = await clientQueryUsers()
         setUsersListData(newListData)
         scrollToTopOfPageScrollableContent()
         OmniAural.pageIsLoadingHide()
@@ -63,11 +67,7 @@ export default function Profiles({ serverFilterPage, serverUsers,
   /* Render Helpers */
 
   const generateProfileElements = (listItems: User[]) => {
-    return listItems.map((listItem, index) =>
-      <ProfileListItem
-        key={`${keyPrefix}-${index}`}
-        user={listItem} />
-    )
+    return listItems.map((listItem, index) => <ProfileListItem key={`${keyPrefix}-${index}`} user={listItem} />)
   }
 
   /* Meta Tags */
@@ -89,33 +89,34 @@ export default function Profiles({ serverFilterPage, serverUsers,
         robotsNoIndex={false}
         title={meta.title}
         twitterDescription={meta.description}
-        twitterTitle={meta.title} />
-      <PageHeader text={t('Profiles')} />
+        twitterTitle={meta.title}
+      />
+      <PageHeader noMarginBottom text={t('Profiles')} />
       <PageScrollableContent noMarginTop>
-        {
-          !userInfo && (
-            <MessageWithAction
-              actionLabel={t('Login')}
-              actionOnClick={() => OmniAural.modalsLoginShow()}
-              message={t('LoginToViewYourProfiles')} />
-          )
-        }
-        {
-          userInfo && (
-            <>
-              <List>
-                {generateProfileElements(usersListData)}
-              </List>
-              <Pagination
-                currentPageIndex={filterPage}
-                handlePageNavigate={(newPage) => setFilterPage(newPage)}
-                handlePageNext={() => { if (filterPage + 1 <= pageCount) setFilterPage(filterPage + 1) }}
-                handlePagePrevious={() => { if (filterPage - 1 > 0) setFilterPage(filterPage - 1) }}
-                pageCount={pageCount} />
-            </>
-          )
-        }
-        </PageScrollableContent>
+        {!userInfo && (
+          <MessageWithAction
+            actionLabel={t('Login')}
+            actionOnClick={() => OmniAural.modalsLoginShow()}
+            message={t('LoginToViewYourProfiles')}
+          />
+        )}
+        {userInfo && (
+          <>
+            <List>{generateProfileElements(usersListData)}</List>
+            <Pagination
+              currentPageIndex={filterPage}
+              handlePageNavigate={(newPage) => setFilterPage(newPage)}
+              handlePageNext={() => {
+                if (filterPage + 1 <= pageCount) setFilterPage(filterPage + 1)
+              }}
+              handlePagePrevious={() => {
+                if (filterPage - 1 > 0) setFilterPage(filterPage - 1)
+              }}
+              pageCount={pageCount}
+            />
+          </>
+        )}
+      </PageScrollableContent>
     </>
   )
 }
@@ -123,25 +124,21 @@ export default function Profiles({ serverFilterPage, serverUsers,
 /* Server-Side Logic */
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const { req, locale } = ctx
-  const { cookies } = req
+  const { locale } = ctx
 
-  const userInfo = await getServerSideAuthenticatedUserInfo(cookies)
-  const userQueueItems = await getServerSideUserQueueItems(cookies)
+  const defaultServerProps = await getDefaultServerSideProps(ctx, locale)
+  const { serverUserInfo } = defaultServerProps
 
   let response: any = [[], 0]
   const page = 1
-  if (userInfo?.subscribedUserIds) {
-    response = await getPublicUsersByQuery(page, userInfo.subscribedUserIds)
+  if (serverUserInfo?.subscribedUserIds) {
+    response = await getPublicUsersByQuery(page, serverUserInfo.subscribedUserIds)
   }
 
   const [users, usersCount] = response
 
   const serverProps: ServerProps = {
-    serverUserInfo: userInfo,
-    serverUserQueueItems: userQueueItems,
-    ...(await serverSideTranslations(locale, PV.i18n.fileNames.all)),
-    serverCookies: cookies,
+    ...defaultServerProps,
     serverFilterPage: page,
     serverUsers: users,
     serverUsersCount: usersCount

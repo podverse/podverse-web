@@ -1,5 +1,5 @@
-import OmniAural from "omniaural"
-import { NowPlayingItem } from "podverse-shared"
+import OmniAural from 'omniaural'
+import { NowPlayingItem } from 'podverse-shared'
 
 const modalsAddToPlaylistHide = () => {
   OmniAural.state.modals.addToPlaylist.item.set(null)

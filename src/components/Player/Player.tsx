@@ -1,19 +1,16 @@
-import { useOmniAural } from "omniaural"
-import classnames from "classnames"
-import { PlayerFullView } from "./PlayerFullView"
-import { PlayerItemInfo } from "./PlayerItemInfo"
-import { PlayerItemButtons } from "./PlayerItemOptions"
-import { PlayerItemProgress } from "./PlayerItemProgress"
+import { useOmniAural } from 'omniaural'
+import classnames from 'classnames'
+import { PlayerFullView } from './PlayerFullView'
+import { PlayerItemInfo } from './PlayerItemInfo'
+import { PlayerItemButtons } from './PlayerItemOptions'
+import { PlayerItemProgress } from './PlayerItemProgress'
 
-type Props = {}
+type Props = unknown
 
-export const Player = ({}: Props) => {
-  const [player] = useOmniAural("player")
+export const Player = (props: Props) => {
+  const [player] = useOmniAural('player')
 
-  const mainPlayerStyle = classnames(
-    "player",
-    !!player.show ? "" : "display-none"
-  )
+  const mainPlayerStyle = classnames('player', player.show ? '' : 'display-none')
 
   if (!player?.currentNowPlayingItem) {
     return null
@@ -26,11 +23,7 @@ export const Player = ({}: Props) => {
         <PlayerItemProgress />
         <PlayerItemButtons />
       </div>
-      {
-        player?.showFullView && (
-          <PlayerFullView nowPlayingItem={player.currentNowPlayingItem} />
-        )
-      }
+      <PlayerFullView nowPlayingItem={player.currentNowPlayingItem} />
     </>
   )
 }

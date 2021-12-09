@@ -4,6 +4,7 @@ import { Filters } from './Filters'
 import { i18n } from './i18n'
 import { Images } from './Images'
 import { MakeClip } from './MakeClip'
+import { NavBar } from './NavBar'
 import { Player } from './Player'
 import { Playlists } from './Playlists'
 import { RoutePaths } from './RoutePaths'
@@ -17,6 +18,7 @@ export const PV = {
   i18n,
   Images,
   MakeClip,
+  NavBar,
   Player,
   Playlists,
   RoutePaths,

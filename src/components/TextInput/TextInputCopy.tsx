@@ -1,7 +1,7 @@
-import { useState } from "react"
-import { useTranslation } from "react-i18next"
-import { copyTextToClipboard } from "~/lib/utility/copyToClipboard"
-import { TextInput } from ".."
+import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import { copyTextToClipboard } from '~/lib/utility/copyToClipboard'
+import { TextInput } from '..'
 
 type Props = {
   label: string
@@ -28,6 +28,7 @@ export const TextInputCopy = ({ label, value }: Props) => {
       placeholder=''
       readOnly
       type='text'
-      value={value} />
+      value={value}
+    />
   )
 }

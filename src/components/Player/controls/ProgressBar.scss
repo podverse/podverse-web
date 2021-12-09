@@ -41,3 +41,14 @@
   }
 }
 
+@media (max-width: $media-max-width-laptop) {
+  .player-bar-container {
+    width: 100%;
+  }
+}
+
+@media (max-width: $media-max-width-tablet-xl) {
+  .player-bar-container {
+    width: 100%;
+  }
+}

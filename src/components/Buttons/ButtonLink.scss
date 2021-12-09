@@ -5,10 +5,14 @@
   @include themeGen() {
     color: getThemeVal('buttonLinkText') !important;
   }
+}
 
-  &:hover {
-    @include themeGen() {
-      color: getThemeVal('buttonLinkTextRollover') !important;
+@media (hover: hover) {
+  .button-link {
+    &:hover {
+      @include themeGen() {
+        color: getThemeVal('buttonLinkTextRollover') !important;
+      }
     }
   }
 }

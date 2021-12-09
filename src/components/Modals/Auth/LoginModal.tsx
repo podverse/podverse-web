@@ -1,28 +1,28 @@
-import OmniAural, { useOmniAural } from "omniaural"
-import { useState } from "react"
-import { useTranslation } from "react-i18next"
+import OmniAural, { useOmniAural } from 'omniaural'
+import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import Modal from 'react-modal'
-import { ButtonClose, ButtonLink, ButtonRectangle, TextInput } from "~/components"
-import { login as loginService } from "~/services/auth"
+import { ButtonClose, ButtonLink, ButtonRectangle, TextInput } from '~/components'
+import { login as loginService } from '~/services/auth'
 
-type Props = {}
+type Props = unknown
 
 export const LoginModal = (props: Props) => {
-  const [login] = useOmniAural("modals.login")
+  const [login] = useOmniAural('modals.login')
   const { t } = useTranslation()
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
-  const [isSubmitPressed, setIsSubmitPressed] = useState<boolean>(false);
+  const [isSubmitPressed, setIsSubmitPressed] = useState<boolean>(false)
 
   /* Event Handlers */
 
   const _handleLogin = async () => {
     try {
-      setIsSubmitPressed(true);
+      setIsSubmitPressed(true)
       await loginService(email, password)
       window.location.reload()
     } catch (error) {
-      setIsSubmitPressed(false);
+      setIsSubmitPressed(false)
       if (error.response?.status === 460) {
         OmniAural.modalsVerifyEmailShow()
       } else if (error.response?.data?.message) {
@@ -31,7 +31,7 @@ export const LoginModal = (props: Props) => {
         alert(t('errorMessages:internetConnectivityErrorMessage'))
       }
     } finally {
-      setIsSubmitPressed(false);
+      setIsSubmitPressed(false)
     }
   }
 
@@ -44,7 +44,8 @@ export const LoginModal = (props: Props) => {
       className='login-modal centered'
       contentLabel={t('Login modal')}
       isOpen={login.show}
-      onRequestClose={_onRequestClose}>
+      onRequestClose={_onRequestClose}
+    >
       <h2>{t('Login')}</h2>
       <ButtonClose onClick={_onRequestClose} />
       <TextInput
@@ -56,32 +57,23 @@ export const LoginModal = (props: Props) => {
         onSubmit={_handleLogin}
         placeholder={t('Email')}
         type='email'
-        value={login.email} />
+        value={login.email}
+      />
       <TextInput
         label={t('Password')}
         onChange={setPassword}
         onSubmit={_handleLogin}
         placeholder={t('Password')}
         type='password'
-        value={login.password} />
+        value={login.password}
+      />
       <div className='submit-buttons'>
-        <ButtonRectangle
-          label={t('Cancel')}
-          onClick={_onRequestClose}
-          type='secondary' />
-        <ButtonRectangle
-          isLoading={isSubmitPressed}
-          label={t('Submit')}
-          onClick={_handleLogin}
-          type='primary' />
+        <ButtonRectangle label={t('Cancel')} onClick={_onRequestClose} type='secondary' />
+        <ButtonRectangle isLoading={isSubmitPressed} label={t('Submit')} onClick={_handleLogin} type='primary' />
       </div>
       <div className='signup-buttons'>
-        <ButtonLink
-          label={t('Reset Password')}
-          onClick={() => OmniAural.modalsForgotPasswordShow()} />
-        <ButtonLink
-          onClick={() => OmniAural.modalsSignUpShow()}
-          label={t('Sign Up')} />
+        <ButtonLink label={t('Reset Password')} onClick={() => OmniAural.modalsForgotPasswordShow()} />
+        <ButtonLink onClick={() => OmniAural.modalsSignUpShow()} label={t('Sign Up')} />
       </div>
     </Modal>
   )

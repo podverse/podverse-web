@@ -5,12 +5,6 @@
     padding: 22px 10px 18px 10px;
     margin: 0 -10px;
 
-    &:hover {
-      @include themeGen() {
-        background-color: getThemeVal('highlighted');
-      }
-    }
-
     .pv-image {
       border-radius: $item-border-radius;
       margin: 0 16px 0 0;
@@ -34,6 +28,22 @@
         font-size: $text-xl;
         font-weight: $font-weight-light;
         margin: 4px 0 0 0;
+      }
+    }
+  }
+}
+
+.podcast-list-item + hr {
+  margin-bottom: 0;
+}
+
+@media (hover: hover) {
+  .podcast-list-item {
+    a {
+      &:hover {
+        @include themeGen() {
+          background-color: getThemeVal('highlighted');
+        }
       }
     }
   }
