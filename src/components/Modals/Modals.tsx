@@ -10,7 +10,7 @@ import {
 } from '~/components'
 import { MakeClipSuccessModal } from '../MakeClip/MakeClipSuccessModal'
 
-type Props = {}
+type Props = unknown
 
 export const Modals = (props: Props) => {
   return (

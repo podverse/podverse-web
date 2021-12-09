@@ -39,7 +39,7 @@ export default function Playlist({ serverPlaylist, serverPlaylistSortedItems }: 
   const [playlist, setPlaylist] = useState<Playlist>(serverPlaylist)
   const [playlistSortedItems, setPlaylistSortedItems] = useState<[Episode | MediaRef]>(serverPlaylistSortedItems)
   const [editingPlaylistTitle, setEditingPlaylistTitle] = useState<string>(serverPlaylist.title)
-  const [editingPlaylistIsPublic, setEditingPlaylistIsPublic] = useState<boolean>(serverPlaylist.isPublic)
+  const [editingPlaylistIsPublic] = useState<boolean>(serverPlaylist.isPublic)
   const [userInfo] = useOmniAural('session.userInfo')
 
   /* Function Helpers */

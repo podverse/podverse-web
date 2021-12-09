@@ -11,15 +11,14 @@ import {
   MessageWithAction,
   Meta,
   PageHeader,
-  PageScrollableContent,
-  SideContent
+  PageScrollableContent
 } from '~/components'
 import { Page } from '~/lib/utility/page'
 import { PV } from '~/resources'
 import { isNowPlayingItemMediaRef } from '~/lib/utility/typeHelpers'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 
-interface ServerProps extends Page {}
+type ServerProps = Page
 
 const keyPrefix = 'pages_queue'
 

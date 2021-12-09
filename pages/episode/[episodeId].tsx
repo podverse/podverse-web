@@ -59,7 +59,7 @@ export default function Episode({
 }: ServerProps) {
   /* Initialize */
 
-  const { id, podcast } = serverEpisode
+  const { id } = serverEpisode
   const { t } = useTranslation()
   const [filterState, setFilterState] = useState({
     clipsFilterPage: serverClipsFilterPage,

@@ -9,7 +9,7 @@ import { readableDate } from '~/lib/utility/date'
 import { convertSecToHhoursMMinutes, getTimeLabelText, readableClipTime } from '~/lib/utility/time'
 import { deleteMediaRef } from '~/services/mediaRef'
 import {
-  playerCheckIfCurrentlyPlayingItem,
+  playerCheckIfItemIsCurrentlyPlaying,
   playerLoadNowPlayingItem,
   playerTogglePlayOrLoadNowPlayingItem
 } from '~/services/player/player'
@@ -52,7 +52,7 @@ export const MediaItemControls = ({
   const { t } = useTranslation()
   let pubDate = null
   let timeInfo = null
-  let timeRemaining = null
+  const timeRemaining = null
   let completed = false
   if (mediaRef) {
     pubDate = readableDate(mediaRef.episode.pubDate)
@@ -157,7 +157,7 @@ export const MediaItemControls = ({
   }
 
   const dropdownItems = generateDropdownItems()
-  const isCurrentlyPlayingItem = playerCheckIfCurrentlyPlayingItem(player.paused, nowPlayingItem)
+  const isCurrentlyPlayingItem = playerCheckIfItemIsCurrentlyPlaying(player.paused, nowPlayingItem)
   const togglePlayIcon = isCurrentlyPlayingItem ? faPause : faPlay
   const togglePlayClassName = isCurrentlyPlayingItem ? 'pause' : 'play'
 

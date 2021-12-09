@@ -1,4 +1,4 @@
-const passwordValidator = require('password-validator')
+import passwordValidator from 'password-validator'
 
 const schema = new passwordValidator()
 

@@ -13,8 +13,7 @@ import {
   PageHeader,
   PageScrollableContent,
   Pagination,
-  scrollToTopOfPageScrollableContent,
-  SideContent
+  scrollToTopOfPageScrollableContent
 } from '~/components'
 import { Page } from '~/lib/utility/page'
 import { PV } from '~/resources'

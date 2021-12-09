@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import Modal from 'react-modal'
 import { ButtonClose, ButtonRectangle } from '~/components'
 
-type Props = {}
+type Props = unknown
 
 export const LoginToAlertModal = (props: Props) => {
   const [loginToAlert] = useOmniAural('modals.loginToAlert')

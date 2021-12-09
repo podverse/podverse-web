@@ -17,7 +17,7 @@ import { getPodcastsByQuery } from '~/services/podcast'
 import { scrollToTopOfPageScrollableContent } from '~/components/PageScrollableContent/PageScrollableContent'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 
-interface ServerProps extends Page {}
+type ServerProps = Page
 
 const keyPrefix = 'pages_search'
 
@@ -139,8 +139,7 @@ export default function Search(props: ServerProps) {
 /* Server-Side Logic */
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const { req, locale } = ctx
-  const { cookies } = req
+  const { locale } = ctx
 
   const defaultServerProps = await getDefaultServerSideProps(ctx, locale)
 
