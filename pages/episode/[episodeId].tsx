@@ -1,11 +1,12 @@
 import { GetServerSideProps } from 'next'
 import { useTranslation } from 'next-i18next'
 import { useOmniAural } from 'omniaural'
-import type { Episode, MediaRef, User } from 'podverse-shared'
+import type { Episode, MediaRef, SocialInteraction, User } from 'podverse-shared'
 import { useEffect, useRef, useState } from 'react'
 import {
   ClipListItem,
   ColumnsWrapper,
+  Comments,
   EpisodeInfo,
   EpisodePageHeader,
   List,
@@ -21,6 +22,7 @@ import { PV } from '~/resources'
 import { getEpisodeById } from '~/services/episode'
 import { getMediaRefsByQuery } from '~/services/mediaRef'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
+import { getSocialInteractionActivityPubData } from '~/services/socialInteraction'
 
 interface ServerProps extends Page {
   serverClips: MediaRef[]
@@ -62,6 +64,7 @@ export default function Episode({
     clipsFilterPage: serverClipsFilterPage,
     clipsFilterSort: serverClipsFilterSort
   } as FilterState)
+  const [comments, setComments] = useState()
   const [userInfo] = useOmniAural('session.userInfo')
   const { clipsFilterPage, clipsFilterSort } = filterState
   const [clipsListData, setClipsListData] = useState<MediaRef[]>(serverClips)
@@ -72,6 +75,13 @@ export default function Episode({
 
   useEffect(() => {
     ;(async () => {
+      if (serverEpisode?.socialInteraction?.length) {
+        const activityPub = serverEpisode.socialInteraction.find((item: SocialInteraction) => item.platform === PV.SocialInteraction.platformKeys.activitypub)
+        if (activityPub?.url) {
+          const data = await getSocialInteractionActivityPubData(activityPub.url)
+        }
+      }
+
       if (initialRender.current) {
         initialRender.current = false
       } else {
@@ -124,6 +134,9 @@ export default function Episode({
           mainColumnChildren={
             <>
               <EpisodeInfo episode={serverEpisode} includeMediaItemControls />
+              {
+                serverEpisode?.socialInteraction && <Comments socialInteraction={serverEpisode.socialInteraction} />
+              }
               <PageHeader
                 isSubHeader
                 sortOnChange={(selectedItems: any[]) => {
