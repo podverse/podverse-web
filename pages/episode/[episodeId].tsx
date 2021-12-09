@@ -12,7 +12,9 @@ import {
   Meta,
   PageHeader,
   PageScrollableContent,
-  Pagination
+  Pagination,
+  SideContentSection,
+  SideContent
 } from '~/components'
 import { scrollToTopOfPageScrollableContent } from '~/components/PageScrollableContent/PageScrollableContent'
 import { calcListPageCount } from '~/lib/utility/misc'
@@ -21,6 +23,7 @@ import { PV } from '~/resources'
 import { getEpisodeById } from '~/services/episode'
 import { getMediaRefsByQuery } from '~/services/mediaRef'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
+import { FundingLink } from '~/components/FundingLink/FundingLink'
 
 interface ServerProps extends Page {
   serverClips: MediaRef[]
@@ -90,6 +93,8 @@ export default function Episode({
   /* Meta Tags */
 
   let meta = {} as any
+  let fundingLinks
+
   if (serverEpisode) {
     const { podcast } = serverEpisode
     const podcastTitle = (podcast && podcast.title) || t('untitledPodcast')
@@ -100,6 +105,13 @@ export default function Episode({
       imageUrl: serverEpisode.imageUrl || (podcast && podcast.shrunkImageUrl) || (podcast && podcast.imageUrl),
       title: `${serverEpisode.title} - ${podcastTitle}`
     }
+  }
+
+  if (serverEpisode.funding && serverEpisode.podcast.funding) {
+    const combinedFundingLinks = serverEpisode.funding.concat(serverEpisode.podcast.funding)
+    fundingLinks = combinedFundingLinks.map((link) => {
+      return <FundingLink key={link.url} link={link.url} value={link.value}></FundingLink>
+    })
   }
 
   return (
@@ -128,7 +140,10 @@ export default function Episode({
                 isSubHeader
                 sortOnChange={(selectedItems: any[]) => {
                   const selectedItem = selectedItems[0]
-                  setFilterState({ clipsFilterPage: 1, clipsFilterSort: selectedItem.key })
+                  setFilterState({
+                    clipsFilterPage: 1,
+                    clipsFilterSort: selectedItem.key
+                  })
                 }}
                 sortOptions={PV.Filters.dropdownOptions.clip.sort}
                 sortSelected={clipsFilterSort}
@@ -143,18 +158,31 @@ export default function Episode({
                 handlePageNext={() => {
                   const newPage = clipsFilterPage + 1
                   if (newPage <= clipsPageCount) {
-                    setFilterState({ clipsFilterPage: newPage, clipsFilterSort })
+                    setFilterState({
+                      clipsFilterPage: newPage,
+                      clipsFilterSort
+                    })
                   }
                 }}
                 handlePagePrevious={() => {
                   const newPage = clipsFilterPage - 1
                   if (newPage > 0) {
-                    setFilterState({ clipsFilterPage: newPage, clipsFilterSort })
+                    setFilterState({
+                      clipsFilterPage: newPage,
+                      clipsFilterSort
+                    })
                   }
                 }}
                 pageCount={clipsPageCount}
               />
             </>
+          }
+          sideColumnChildren={
+            fundingLinks && (
+              <SideContent>
+                <SideContentSection headerText={t('Support')}>{fundingLinks}</SideContentSection>
+              </SideContent>
+            )
           }
         />
       </PageScrollableContent>
