@@ -1,9 +1,30 @@
 import { request } from "./request"
 
-type ActivityPubNoteResponse = {
+type ActivityPubNote = {
+  attachment: {
+    mediaType: string
+    url: string
+  }
+  attributedTo: string
+  content: string
+  inReplyToAtomUri: string | null
+  published: Date
+  replies: {
+    first: {
+
+    }
+  }
+}
+
+type ActivityPubCollectionPage = {
+  
+}
+
+type Comment = {
   author: string
   imageUrl?: string
   likes: number
+  parentId: string
   published: Date
   replies: number
   retweets: number
@@ -26,6 +47,7 @@ export const getActivityPubNoteData = async (url: string) => {
   return response && response.data
 }
 
-const parseActivityPubNoteResponse = (noteResponse: ActivityPubNoteResponse) => {
-
+const parseActivityPubNote = (noteResponse: ActivityPubNote) => {
+  
+  const author = note
 }
