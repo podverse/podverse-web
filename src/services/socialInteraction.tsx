@@ -1,6 +1,16 @@
 import { request } from "./request"
 
-export const getSocialInteractionActivityPubData = async (url: string) => {
+type ActivityPubNoteResponse = {
+  author: string
+  imageUrl?: string
+  likes: number
+  published: Date
+  replies: number
+  retweets: number
+  username: string
+}
+
+export const getActivityPubNoteData = async (url: string) => {
   const response = await request({
     url,
     headers: {
@@ -8,5 +18,14 @@ export const getSocialInteractionActivityPubData = async (url: string) => {
     }
   })
   console.log('response', response)
+
+  const { data } = response
+
+  const note = parseActivityPubNoteResponse(data)
+
   return response && response.data
+}
+
+const parseActivityPubNoteResponse = (noteResponse: ActivityPubNoteResponse) => {
+
 }
