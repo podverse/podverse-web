@@ -125,8 +125,8 @@ export default function Podcast({
   let fundingLinks
 
   if (serverPodcast.funding.length) {
-    fundingLinks = serverPodcast.funding.map((link, index) => {
-      return <FundingLink key={index} link={link.url} value={link.value}></FundingLink>
+    fundingLinks = serverPodcast.funding.map((link) => {
+      return <FundingLink key={link.url} link={link.url} value={link.value}></FundingLink>
     })
   }
   return (
@@ -329,7 +329,4 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   return {
     props: serverProps
   }
-}
-function item(item: any) {
-  throw new Error('Function not implemented.')
 }

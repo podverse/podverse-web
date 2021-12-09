@@ -13,7 +13,6 @@ import {
   PageHeader,
   PageScrollableContent,
   Pagination,
-  PodcastPageHeader,
   SideContentSection,
   SideContent
 } from '~/components'
@@ -110,8 +109,8 @@ export default function Episode({
 
   if (serverEpisode.funding && serverEpisode.podcast.funding) {
     const combinedFundingLinks = serverEpisode.funding.concat(serverEpisode.podcast.funding)
-    fundingLinks = combinedFundingLinks.map((link, index) => {
-      return <FundingLink key={index} link={link.url} value={link.value}></FundingLink>
+    fundingLinks = combinedFundingLinks.map((link) => {
+      return <FundingLink key={link.url} link={link.url} value={link.value}></FundingLink>
     })
   }
 
