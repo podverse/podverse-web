@@ -1,6 +1,6 @@
 import moment from 'moment'
+import type { PVComment } from 'podverse-shared'
 import { useTranslation } from 'react-i18next'
-import type { PVComment } from '~/services/socialInteraction/PVComment'
 import { MainContentSection, PVImage } from '..'
 
 type Props = {
