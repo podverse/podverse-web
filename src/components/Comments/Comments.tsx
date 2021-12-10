@@ -1,15 +1,13 @@
 import moment from 'moment'
 import { useTranslation } from 'react-i18next'
-import { readableDate } from '~/lib/utility/date'
 import type { PVComment } from '~/services/socialInteraction/PVComment'
-import { MainContentSection, PVImage, PVLink } from '..'
+import { MainContentSection, PVImage } from '..'
 
 type Props = {
   comment: PVComment
-  platform: string
 }
 
-export const Comments = ({ comment, platform }: Props) => {
+export const Comments = ({ comment }: Props) => {
   const { t } = useTranslation()
 
   const commentNodes = generateCommentNodes(comment)
@@ -44,7 +42,7 @@ const Comment = ({ children, comment }: CommentProps) => {
 
   return (
     <div className='comment'>
-      <a className='inner-wrapper' href={url} target='_blank'>
+      <a className='inner-wrapper' href={url} rel='noreferrer' target='_blank'>
         <div className='username'>{username}</div>
         <div className='content'>{content}</div>
         <div className='published'>{moment(published).format('MMM Do YYYY, h:mm:ss a')}</div>

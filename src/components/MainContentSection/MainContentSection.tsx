@@ -1,7 +1,6 @@
-import { faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons'
 import classNames from 'classnames'
 import { useState } from 'react'
-import { Icon, PageHeader } from '~/components'
+import { PageHeader } from '~/components'
 
 type Props = {
   children: any
@@ -25,7 +24,6 @@ export const MainContentSection = ({
   sortSelected
 }: Props) => {
   const [showContent, setShowContent] = useState<boolean>(false)
-  const caretIcon = showContent ? faAngleUp : faAngleDown
 
   const contentsClass = classNames('main-content-contents', showContent ? '' : 'hide')
 
