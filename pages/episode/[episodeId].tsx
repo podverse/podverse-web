@@ -1,7 +1,7 @@
 import { GetServerSideProps } from 'next'
 import { useTranslation } from 'next-i18next'
 import { useOmniAural } from 'omniaural'
-import type { Episode, MediaRef, SocialInteraction, User } from 'podverse-shared'
+import type { Episode, MediaRef, PVComment, SocialInteraction, User } from 'podverse-shared'
 import { useEffect, useRef, useState } from 'react'
 import {
   ClipListItem,
@@ -25,8 +25,7 @@ import { PV } from '~/resources'
 import { getEpisodeById } from '~/services/episode'
 import { getMediaRefsByQuery } from '~/services/mediaRef'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
-import { getActivityPubCollection, getActivityPubNote } from '~/services/socialInteraction/activityPub'
-import type { PVComment } from '~/services/socialInteraction/PVComment'
+import { getEpisodeProxyActivityPub } from '~/services/socialInteraction/activityPub'
 
 interface ServerProps extends Page {
   serverClips: MediaRef[]
@@ -84,11 +83,8 @@ export default function Episode({
           (item: SocialInteraction) => item.platform === PV.SocialInteraction.platformKeys.activitypub
         )
         if (activityPub?.url) {
-          const rootComment = await getActivityPubNote(activityPub.url)
-          rootComment.isRoot = true
-          const replyComments = await getActivityPubCollection(rootComment.repliesFirstNext)
-          rootComment.replies = replyComments
-          setComment(rootComment)
+          const comment = await getEpisodeProxyActivityPub(serverEpisode.id)
+          setComment(comment)
         }
       }
 

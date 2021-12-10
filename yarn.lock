@@ -3185,10 +3185,10 @@ platform@1.3.6:
   resolved "https://registry.yarnpkg.com/platform/-/platform-1.3.6.tgz#48b4ce983164b209c2d45a107adb31f473a6e7a7"
   integrity sha512-fnWVljUchTro6RiCFvCXBbNhJc2NijN7oIQxbwsyL0buWJPG85v81ehlHI9fXrJsMNgTofEoWIQeClKpgxFLrg==
 
-podverse-shared@4.0.5:
-  version "4.0.5"
-  resolved "https://registry.yarnpkg.com/podverse-shared/-/podverse-shared-4.0.5.tgz#c48a4662f18c2f268cc98dac033769d31085aba2"
-  integrity sha512-aZ6BAvzcZm2+2pp4K+eDFOdaS7sayXVHF38NtFvV69/YWFWbYfb+EXDY9TIgEsBA6jqehB5QmttDKe+GwXNkqg==
+podverse-shared@^4.1.1:
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/podverse-shared/-/podverse-shared-4.1.1.tgz#edbeb2104e87dfbce1b6f923a3a2d175e4ae5e06"
+  integrity sha512-gWhg+9jwJ1iYgJ6BOPUbKUiwbabr2aNfe8mvpPsUy89W5XZf8ToaQDkq7rWXDh6FLf17m0PeBki1K1CqlvGi+Q==
   dependencies:
     typescript "3.9.7"
 

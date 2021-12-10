@@ -1,64 +1,20 @@
-import type { PVComment } from './PVComment'
-import { request } from '../request'
+import type { ActivityPubAttachment, ActivityPubNote, ActivityPubCollectionPage, PVComment } from 'podverse-shared'
 import striptags from 'striptags'
 import { decodeHtml } from '~/lib/utility/misc'
+import { PV } from '~/resources'
+import { request } from '~/services/request'
 
-type Attachment = {
-  mediaType: string
-  url: string
-}
-
-type ActivityPubNote = {
-  attachment: Attachment[] | null
-  attributedTo: string | null
-  content: string | null
-  id: string
-  inReplyToAtomUri: string | null
-  published: Date | null
-  replies: {
-    first: {
-      next: string | null
-    }
-  }
-  url: string | null
-}
-
-type ActivityPubCollectionPage = {
-  items: ActivityPubNote[]
-}
-
-export const getActivityPubNote = async (url: string) => {
+export const getEpisodeProxyActivityPub = async (episodeId: string) => {
   const response = await request({
-    url,
-    headers: {
-      Accept: 'application/activity+json'
-    }
+    endpoint: `${PV.RoutePaths.api.episode}/${episodeId}/proxy/activity-pub`,
+    method: 'get'
   })
-
-  const { data } = response
-  let comment = null
-  if (data) {
-    comment = convertActivityPubNoteToPVComment(data)
-  }
-
+  const { replies, rootComment } = response.data
+  const comment = convertActivityPubNoteToPVComment(rootComment)
+  comment.isRoot = true
+  const replyComments = convertActivityPubCollectionPageToPVComments(replies)
+  comment.replies = replyComments
   return comment
-}
-
-export const getActivityPubCollection = async (nextUrl: string) => {
-  const response = await request({
-    url: nextUrl,
-    headers: {
-      Accept: 'application/activity+json'
-    }
-  })
-
-  const { data } = response
-  let comments = null
-  if (data) {
-    comments = convertActivityPubCollectionPageToPVComments(data)
-  }
-
-  return comments
 }
 
 const parseUserName = (attributedTo: string) => {
@@ -75,8 +31,8 @@ const parseUserName = (attributedTo: string) => {
   return username
 }
 
-const getAttachmentImage = (attachments: Attachment[]) => {
-  return attachments.find((attachment: Attachment) => attachment?.mediaType?.indexOf('image') === 0)
+const getAttachmentImage = (attachments: ActivityPubAttachment[]) => {
+  return attachments.find((attachment: ActivityPubAttachment) => attachment?.mediaType?.indexOf('image') === 0)
 }
 
 const convertActivityPubNoteToPVComment = (note: ActivityPubNote) => {
