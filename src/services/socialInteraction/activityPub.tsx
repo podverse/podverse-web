@@ -4,7 +4,6 @@ import { decodeHtml } from '~/lib/utility/misc'
 import { PV } from '~/resources'
 import { request } from '~/services/request'
 
-
 export const getEpisodeProxyActivityPub = async (episodeId: string) => {
   const response = await request({
     endpoint: `${PV.RoutePaths.api.episode}/${episodeId}/proxy/activity-pub`,
