@@ -1,8 +1,8 @@
 type Props = {
-  alt: string
-  height: string
+  alt?: string
+  height?: string
   src: string
-  width: string
+  width?: string
 }
 
 export const PVImage = ({ alt, height, src, width }: Props) => {
