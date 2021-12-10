@@ -1,11 +1,14 @@
+import { faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons'
 import classnames from 'classnames'
 import { useTranslation } from 'react-i18next'
-import { ButtonRectangle, Dropdown } from '~/components'
+import { ButtonRectangle, DivClickable, Dropdown, Icon } from '~/components'
 
 type Props = {
   handleClearAllButton?: any
+  handleCollapse?: any
   handleEditButton?: any
   hasEditButton?: boolean
+  isCollapsed?: boolean
   isEditing?: boolean
   isSubHeader?: boolean
   noMarginBottom?: boolean
@@ -20,11 +23,13 @@ type Props = {
 
 export const PageHeader = ({
   handleClearAllButton,
+  handleCollapse,
   handleEditButton,
   hasEditButton,
-  noMarginBottom,
+  isCollapsed,
   isEditing,
   isSubHeader,
+  noMarginBottom,
   primaryOnChange,
   primaryOptions,
   primarySelected,
@@ -42,13 +47,23 @@ export const PageHeader = ({
   const hrClassName = classnames('page-header-hr', noMarginBottom ? 'no-margin-bottom' : '')
   const hasDropdowns = !!(sortOptions?.length || primaryOptions?.length)
   const hasButtons = hasEditButton
+  const caretIcon = (
+    <div className='header-caret'>
+      <Icon faIcon={isCollapsed ? faAngleDown : faAngleUp} />
+    </div>
+  )
 
   return (
     <>
       <div className={wrapperClass}>
         <div className='main-max-width'>
-          {!isSubHeader && <h1>{text}</h1>}
-          {isSubHeader && <h2>{text}</h2>}
+          <DivClickable
+            className='page-header-title-wrapper'
+            onClick={handleCollapse}>
+            {!isSubHeader && <h1>{text}</h1>}
+            {isSubHeader && <h2>{text}</h2>}
+            {handleCollapse && caretIcon}
+          </DivClickable>
           {hasDropdowns && (
             <div className='dropdowns'>
               {primaryOptions?.length && (
