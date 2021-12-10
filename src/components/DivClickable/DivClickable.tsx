@@ -10,16 +10,18 @@ export const DivClickable = ({ children, className, onClick }: Props) => {
   const wrapperClass = classNames(className ? className : '')
 
   const _handleOnKeyPress = (event: any) => {
-    if (event.code === "Enter") {
+    if (event.code === 'Enter') {
       onClick()
     }
   }
 
   return (
-    <div className={wrapperClass}
+    <div
+      className={wrapperClass}
       {...(onClick ? { onKeyPress: _handleOnKeyPress } : {})}
       {...(onClick ? { onClick } : {})}
-      {...(onClick ? { tabIndex: 0 } : {})}>
+      {...(onClick ? { tabIndex: 0 } : {})}
+    >
       {children}
     </div>
   )

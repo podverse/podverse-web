@@ -14,15 +14,20 @@ type Props = {
   sortSelected?: string
 }
 
-export const MainContentSection = ({ children, headerText, primaryOnChange,
-  primaryOptions, primarySelected, sortOnChange, sortOptions, sortSelected }: Props) => {
+export const MainContentSection = ({
+  children,
+  headerText,
+  primaryOnChange,
+  primaryOptions,
+  primarySelected,
+  sortOnChange,
+  sortOptions,
+  sortSelected
+}: Props) => {
   const [showContent, setShowContent] = useState<boolean>(false)
   const caretIcon = showContent ? faAngleUp : faAngleDown
 
-  const contentsClass = classNames(
-    'main-content-contents',
-    showContent ? '' : 'hide'
-  )
+  const contentsClass = classNames('main-content-contents', showContent ? '' : 'hide')
 
   const _headerOnClick = () => {
     setShowContent(!showContent)

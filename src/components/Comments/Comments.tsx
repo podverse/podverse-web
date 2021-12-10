@@ -16,9 +16,7 @@ export const Comments = ({ comment, platform }: Props) => {
 
   return (
     <div className='comments'>
-      <MainContentSection headerText={t('Comments')}>
-        {commentNodes}
-      </MainContentSection>
+      <MainContentSection headerText={t('Comments')}>{commentNodes}</MainContentSection>
       <hr />
     </div>
   )
@@ -33,11 +31,7 @@ const generateCommentNodes = (comment: PVComment) => {
     replyNodes.push(generateCommentNodes(reply))
   }
 
-  return (
-    <Comment comment={comment}>
-      {replyNodes}
-    </Comment>
-  )
+  return <Comment comment={comment}>{replyNodes}</Comment>
 }
 
 type CommentProps = {
@@ -53,18 +47,14 @@ const Comment = ({ children, comment }: CommentProps) => {
       <a className='inner-wrapper' href={url} target='_blank'>
         <div className='username'>{username}</div>
         <div className='content'>{content}</div>
-        <div className='published'>{
-          moment(published).format('MMM Do YYYY, h:mm:ss a')}
-        </div>
-        {
-          isRoot && imageUrl && (
-            <div className='image-wrapper'><PVImage src={imageUrl} width='100%' /></div>
-          )
-        }
+        <div className='published'>{moment(published).format('MMM Do YYYY, h:mm:ss a')}</div>
+        {isRoot && imageUrl && (
+          <div className='image-wrapper'>
+            <PVImage src={imageUrl} width='100%' />
+          </div>
+        )}
       </a>
-      {
-        children.length ? <div className='replies'>{children}</div> : null
-      }
+      {children.length ? <div className='replies'>{children}</div> : null}
     </div>
   )
 }

@@ -80,8 +80,9 @@ export default function Episode({
   useEffect(() => {
     ;(async () => {
       if (serverEpisode?.socialInteraction?.length) {
-        const activityPub =
-          serverEpisode.socialInteraction.find((item: SocialInteraction) => item.platform === PV.SocialInteraction.platformKeys.activitypub)
+        const activityPub = serverEpisode.socialInteraction.find(
+          (item: SocialInteraction) => item.platform === PV.SocialInteraction.platformKeys.activitypub
+        )
         if (activityPub?.url) {
           const rootComment = await getActivityPubNote(activityPub.url)
           rootComment.isRoot = true
@@ -123,9 +124,7 @@ export default function Episode({
     }
   }
 
-  if (
-    serverEpisode.funding?.length
-    || serverEpisode.podcast.funding?.length) {
+  if (serverEpisode.funding?.length || serverEpisode.podcast.funding?.length) {
     if (serverEpisode.funding?.length) {
       fundingLinks = fundingLinks.concat(serverEpisode.funding)
     }
@@ -159,9 +158,7 @@ export default function Episode({
           mainColumnChildren={
             <>
               <EpisodeInfo episode={serverEpisode} includeMediaItemControls />
-              {
-                serverEpisode?.socialInteraction.length ? <Comments comment={comment} /> : null
-              }
+              {serverEpisode?.socialInteraction.length ? <Comments comment={comment} /> : null}
               <PageHeader
                 isSubHeader
                 noMarginBottom

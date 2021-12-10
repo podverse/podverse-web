@@ -57,9 +57,7 @@ export const PageHeader = ({
     <>
       <div className={wrapperClass}>
         <div className='main-max-width'>
-          <DivClickable
-            className='page-header-title-wrapper'
-            onClick={handleCollapse}>
+          <DivClickable className='page-header-title-wrapper' onClick={handleCollapse}>
             {!isSubHeader && <h1>{text}</h1>}
             {isSubHeader && <h2>{text}</h2>}
             {handleCollapse && caretIcon}

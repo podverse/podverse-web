@@ -1,7 +1,7 @@
-import type { PVComment } from "./PVComment"
-import { request } from "../request"
-import striptags from "striptags"
-import { decodeHtml } from "~/lib/utility/misc"
+import type { PVComment } from './PVComment'
+import { request } from '../request'
+import striptags from 'striptags'
+import { decodeHtml } from '~/lib/utility/misc'
 
 type Attachment = {
   mediaType: string
