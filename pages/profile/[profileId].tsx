@@ -244,6 +244,7 @@ export default function Profile({
             <>
               <PageHeader
                 isSubHeader
+                noMarginBottom
                 primaryOnChange={_handlePrimaryOnChange}
                 primaryOptions={PV.Filters.dropdownOptions.profile.types}
                 primarySelected={filterType}

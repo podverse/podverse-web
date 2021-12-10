@@ -2,7 +2,7 @@
   display: flex;
   flex: 0;
   flex-direction: row;
-  margin: 0 0 20px 0;
+  margin: 0 0 24px 0;
   
   .main-wrapper {
     flex: 1;
@@ -10,7 +10,7 @@
     .content-wrapper {
       display: flex;
       flex-direction: row;
-      margin-bottom: 6px;
+      margin-bottom: 12px;
   
       img {
         border-radius: $item-border-radius;
@@ -45,6 +45,12 @@
     display: flex;
     justify-content: center;
     margin-left: 16px;
+  }
+}
+
+.page-header.sub-header.no-margin-bottom + .list {
+  .clip-list-item {
+    margin: 24px 0;
   }
 }
 
