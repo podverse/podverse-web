@@ -158,7 +158,7 @@ export default function Episode({
           mainColumnChildren={
             <>
               <EpisodeInfo episode={serverEpisode} includeMediaItemControls />
-              {serverEpisode?.socialInteraction.length ? <Comments comment={comment} /> : null}
+              {serverEpisode?.socialInteraction?.length ? <Comments comment={comment} /> : null}
               <PageHeader
                 isSubHeader
                 noMarginBottom
@@ -202,11 +202,13 @@ export default function Episode({
             </>
           }
           sideColumnChildren={
-            fundingLinks && (
-              <SideContent>
-                <SideContentSection headerText={t('Support')}>{fundingLinks}</SideContentSection>
-              </SideContent>
-            )
+            <SideContent>
+              {
+                fundingLinks.length ? (
+                  <SideContentSection headerText={t('Support')}>{fundingLinks}</SideContentSection>
+                ) : null
+              }
+            </SideContent>
           }
         />
       </PageScrollableContent>
