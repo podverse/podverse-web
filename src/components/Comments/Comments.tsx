@@ -1,6 +1,8 @@
+import moment from 'moment'
 import { useTranslation } from 'react-i18next'
+import { readableDate } from '~/lib/utility/date'
 import type { PVComment } from '~/services/socialInteraction/PVComment'
-import { MainContentSection } from '..'
+import { MainContentSection, PVImage, PVLink } from '..'
 
 type Props = {
   comment: PVComment
@@ -44,15 +46,25 @@ type CommentProps = {
 }
 
 const Comment = ({ children, comment }: CommentProps) => {
-  const { content, imageUrl, published, url, username } = comment
+  const { content, imageUrl, isRoot, published, url, username } = comment
+
   return (
     <div className='comment'>
-      <div className='content'>{content}</div>
-      <div className='image-wrapper'>{imageUrl}</div>
-      <div className='published'>{published}</div>
-      <div className='url'>{url}</div>
-      <div className='username'>{username}</div>
-      <div className='replies'>{children}</div>
+      <a className='inner-wrapper' href={url} target='_blank'>
+        <div className='username'>{username}</div>
+        <div className='content'>{content}</div>
+        <div className='published'>{
+          moment(published).format('MMM Do YYYY, h:mm:ss a')}
+        </div>
+        {
+          isRoot && imageUrl && (
+            <div className='image-wrapper'><PVImage src={imageUrl} width='100%' /></div>
+          )
+        }
+      </a>
+      {
+        children.length ? <div className='replies'>{children}</div> : null
+      }
     </div>
   )
 }

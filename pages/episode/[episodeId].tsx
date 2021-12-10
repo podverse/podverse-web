@@ -84,6 +84,7 @@ export default function Episode({
           serverEpisode.socialInteraction.find((item: SocialInteraction) => item.platform === PV.SocialInteraction.platformKeys.activitypub)
         if (activityPub?.url) {
           const rootComment = await getActivityPubNote(activityPub.url)
+          rootComment.isRoot = true
           const replyComments = await getActivityPubCollection(rootComment.repliesFirstNext)
           rootComment.replies = replyComments
           setComment(rootComment)
@@ -108,7 +109,7 @@ export default function Episode({
   /* Meta Tags */
 
   let meta = {} as any
-  let fundingLinks
+  let fundingLinks = []
 
   if (serverEpisode) {
     const { podcast } = serverEpisode
@@ -122,9 +123,16 @@ export default function Episode({
     }
   }
 
-  if (serverEpisode.funding && serverEpisode.podcast.funding) {
-    const combinedFundingLinks = serverEpisode.funding.concat(serverEpisode.podcast.funding)
-    fundingLinks = combinedFundingLinks.map((link) => {
+  if (
+    serverEpisode.funding?.length
+    || serverEpisode.podcast.funding?.length) {
+    if (serverEpisode.funding?.length) {
+      fundingLinks = fundingLinks.concat(serverEpisode.funding)
+    }
+    if (serverEpisode.podcast.funding?.length) {
+      fundingLinks = fundingLinks.concat(serverEpisode.podcast.funding)
+    }
+    fundingLinks = fundingLinks.map((link) => {
       return <FundingLink key={link.url} link={link.url} value={link.value}></FundingLink>
     })
   }
@@ -152,10 +160,11 @@ export default function Episode({
             <>
               <EpisodeInfo episode={serverEpisode} includeMediaItemControls />
               {
-                serverEpisode?.socialInteraction && <Comments comment={comment} />
+                serverEpisode?.socialInteraction.length ? <Comments comment={comment} /> : null
               }
               <PageHeader
                 isSubHeader
+                noMarginBottom
                 sortOnChange={(selectedItems: any[]) => {
                   const selectedItem = selectedItems[0]
                   setFilterState({

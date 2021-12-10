@@ -25,6 +25,12 @@
       }
     }
   }
+
+  &.no-margin-bottom {
+    .dropdowns {
+      margin-bottom: 0 !important;
+    }
+  }
   
   .main-max-width {
     display: flex;

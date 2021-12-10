@@ -1,12 +1,54 @@
 .comments {
-  // margin-bottom: 24px;
-  // margin: 22px 0 0 0;
+  .comment {
+    .inner-wrapper {
+      border-bottom: 1px dashed;
+      display: block;
+      padding: 22px 0 24px 0;
   
-  // .truncated-text {
-  //   margin: 20px 0 26px 0;
-  // }
+      @include themeGen() {
+        border-color: getThemeVal("divider");
+      }
+  
+      .username {
+        font-size: $text-sm;
 
-  // .media-item-controls {
-  //   margin-bottom: 27px;
-  // }
+        @include themeGen() {
+          color: getThemeVal("textTertiary");
+        }
+      }
+    
+      .content {
+        font-weight: $font-weight-light;
+        margin-top: 8px;
+      }
+
+      .published {
+        font-size: $text-sm;
+        margin-top: 8px;
+        @include themeGen() {
+          color: getThemeVal("textSecondary");
+        }
+      }
+  
+      .image-wrapper {
+        margin-top: 16px;
+      }
+    }
+
+    .replies {
+      padding-left: 12px;
+    }
+  }
 }
+
+.main-content-contents > .comment {
+  > .inner-wrapper {
+    padding-top: 0;    
+  }
+
+  > .replies .comment:last-child .inner-wrapper {
+    border-color: transparent;
+  }
+}
+
+
