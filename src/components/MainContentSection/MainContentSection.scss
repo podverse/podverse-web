@@ -1,5 +1,10 @@
 .main-content-section {
-  .hide {
-    display: none;
+
+  .main-content-contents {
+    padding-bottom: 24px;
+
+    &.hide {
+      display: none;
+    }
   }
 }

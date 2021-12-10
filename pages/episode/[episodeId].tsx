@@ -25,7 +25,8 @@ import { PV } from '~/resources'
 import { getEpisodeById } from '~/services/episode'
 import { getMediaRefsByQuery } from '~/services/mediaRef'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
-import { getSocialInteractionActivityPubData } from '~/services/socialInteraction'
+import { getActivityPubCollection, getActivityPubNote } from '~/services/socialInteraction/activityPub'
+import type { PVComment } from '~/services/socialInteraction/PVComment'
 
 interface ServerProps extends Page {
   serverClips: MediaRef[]
@@ -67,7 +68,7 @@ export default function Episode({
     clipsFilterPage: serverClipsFilterPage,
     clipsFilterSort: serverClipsFilterSort
   } as FilterState)
-  const [comments, setComments] = useState()
+  const [comment, setComment] = useState<PVComment>(null)
   const [userInfo] = useOmniAural('session.userInfo')
   const { clipsFilterPage, clipsFilterSort } = filterState
   const [clipsListData, setClipsListData] = useState<MediaRef[]>(serverClips)
@@ -79,9 +80,13 @@ export default function Episode({
   useEffect(() => {
     ;(async () => {
       if (serverEpisode?.socialInteraction?.length) {
-        const activityPub = serverEpisode.socialInteraction.find((item: SocialInteraction) => item.platform === PV.SocialInteraction.platformKeys.activitypub)
+        const activityPub =
+          serverEpisode.socialInteraction.find((item: SocialInteraction) => item.platform === PV.SocialInteraction.platformKeys.activitypub)
         if (activityPub?.url) {
-          const data = await getSocialInteractionActivityPubData(activityPub.url)
+          const rootComment = await getActivityPubNote(activityPub.url)
+          const replyComments = await getActivityPubCollection(rootComment.repliesFirstNext)
+          rootComment.replies = replyComments
+          setComment(rootComment)
         }
       }
 
@@ -147,7 +152,7 @@ export default function Episode({
             <>
               <EpisodeInfo episode={serverEpisode} includeMediaItemControls />
               {
-                serverEpisode?.socialInteraction && <Comments socialInteraction={serverEpisode.socialInteraction} />
+                serverEpisode?.socialInteraction && <Comments comment={comment} />
               }
               <PageHeader
                 isSubHeader
