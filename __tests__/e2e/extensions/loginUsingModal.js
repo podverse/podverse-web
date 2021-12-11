@@ -1,18 +1,18 @@
 module.exports.command = function (email) {
-  this.click('.navbar .dropdown.nav-item:nth-child(3)')
-  this.pause(500)
+  this.click('.react-dropdown-select')
+  this.pause(100)
 
-  this.click('.navbar .dropdown.nav-item:nth-child(3) .dropdown-item:nth-child(3)')
-  this.pause(500)
+  this.click('.react-dropdown-select-item:nth-child(3)')
+  this.pause(100)
 
-  this.sendKeys('.form-control[name=login-modal__email]', email)
-  this.pause(500)
+  this.sendKeys('div.login-modal div.text-input:nth-child(3) input', email)
+  this.pause(100)
 
-  this.sendKeys('.form-control[name=login-modal__password]', 'Aa!1asdf')
-  this.pause(500)
+  this.sendKeys('div.login-modal div.text-input:nth-child(4) input', 'Aa!1asdf')
+  this.pause(100)
 
-  this.click('.login-modal-btns-right__login.btn.btn-primary')
-  this.pause(500)
+  this.click('div.login-modal button.button-rectangle.primary')
+  this.pause(100)
   console.log('Logged In')
 
   return this

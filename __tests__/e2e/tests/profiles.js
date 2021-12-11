@@ -4,15 +4,20 @@ module.exports = {
   before: function (browser) {
     browser.url(`${WEB_ORIGIN}/`)
   },
-  'Profiles Page': function (browser) {
+  'Profiles': function (browser) {
     browser
-      .url(`${WEB_ORIGIN}/profiles`)
-      .waitForElementWithText('div', 'Login to view your profiles')
-      .testSharedMetaTags()
-      .testPageMetaTags(
-          `Profiles`,
-          `My subscribed profiles on Podverse`
-      )
+      .click('div a[href="/profiles"]')
+      .waitForElementWithText('.page-header h1', 'Profiles')
+      .waitForElementWithText('.message-with-action div', 'Log in to view your profiles')
+
+      .loginUsingModal('premium@stage.podverse.fm')
+      .waitForElementWithText('.page-scrollable-content .profile-list-item:nth-child(1) div.name', 'Free Trial Expired - Test User')
+      .waitForElementWithText('.page-scrollable-content .profile-list-item:nth-child(3) div.name', 'Free Trial Valid - Test User')
+      .waitForElementWithText('.page-scrollable-content .profile-list-item:nth-child(5) div.name', 'Premium Expired - Test User')
+
+      .logOutUsingModal()
+
+
   },
   after: function (browser) {
     browser.end()
