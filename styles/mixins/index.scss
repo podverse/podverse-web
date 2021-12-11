@@ -10,7 +10,9 @@
 }
 
 @mixin blurredBackground() {
-  background-color: getThemeVal("backgroundOpaque");
+  @include themeGen() {
+    background-color: getThemeVal("backgroundOpaque");
+  }
 
   @supports(backdrop-filter: blur($background-blur)) {
     backdrop-filter: blur($background-blur);
