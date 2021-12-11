@@ -10,6 +10,13 @@
 }
 
 @mixin blurredBackground() {
-  backdrop-filter: blur($background-blur);
-  -webkit-backdrop-filter: blur($background-blur);
+  @include themeGen() {
+    background-color: getThemeVal("backgroundOpaque");
+  }
+
+  @supports(backdrop-filter: blur($background-blur)) {
+    backdrop-filter: blur($background-blur);
+    background-color: transparent;
+    -webkit-backdrop-filter: blur($background-blur);
+  }
 }
