@@ -124,7 +124,7 @@ export default function Podcast({
 
   let fundingLinks
 
-  if (serverPodcast.funding.length) {
+  if (serverPodcast?.funding?.length) {
     fundingLinks = serverPodcast.funding.map((link) => {
       return <FundingLink key={link.url} link={link.url} value={link.value}></FundingLink>
     })
