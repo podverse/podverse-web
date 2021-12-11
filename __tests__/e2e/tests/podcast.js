@@ -1,42 +1,33 @@
 const { WEB_ORIGIN } = require('../constants')
 
-const mediaListSelectsSelector = '.media-list__sub-select.align-right'
-
 module.exports = {
   before: function (browser) {
-    browser.url(`${WEB_ORIGIN}/podcast/Yqft_RG8j`)
+    browser.url(`${WEB_ORIGIN}/`)
   },
   'Podcast': function (browser) {
     browser
-      .waitForXpathPresent(`//span[@class="media-header__title"][contains (text(), "Very Bad Wizards")]`)
-      .checkCurrentMedia(`Episode 185: The Devil's Playground`, `episode`)
-
-      .scrollToSelector(mediaListSelectsSelector)
-      .clickDropdownToggleAndItem(`Episodes`, `Clips`)
-
-      .scrollToSelector(mediaListSelectsSelector)
-      .clickDropdownToggleAndItem(`Clips`, `Episodes`)
       
-      .scrollToSelector(mediaListSelectsSelector)
-      .clickDropdownToggleAndItem(`most recent`, `top - past day`)
+      .click('.podcast-list-item:nth-child(1)')
+      .waitForElementWithText('.podcast-page-header h1', 'The Joe Rogan Experience')
+      .waitForElementWithText('.page-scrollable-content .page-header h2', 'Episodes')
+      .waitForElementWithText('ul.list li.episode-list-item div.text-wrapper h3', '#1452 - Greg Fitzsimmons')
+      .click('.button-circle.small.backwards')
+      .waitForElementWithText('.page-header h1', 'Podcasts')
+      .click('.button-circle.small.forwards')
+      .waitForElementWithText('.podcast-page-header h1', 'The Joe Rogan Experience')
+      .click('div.dropdown-primary-wrapper div')
+      .click('div.dropdown-primary-wrapper span.react-dropdown-select-item:nth-child(2)')
+      .waitForElementWithText('.page-scrollable-content .page-header h2', 'Clips')
+      .waitForElementWithText('ul.list li.clip-list-item div.text-wrapper h3', 'Facilisis sed odio morbi quis commodo odio aenean sed adipiscing.')
 
-      .scrollToSelector(mediaListSelectsSelector)
-      .clickDropdownToggleAndItem(`top - past day`, `top - past week`)
 
-      .scrollToSelector(mediaListSelectsSelector)
-      .clickDropdownToggleAndItem(`top - past week`, `top - past month`)
 
-      .scrollToSelector(mediaListSelectsSelector)
-      .clickDropdownToggleAndItem(`top - past month`, `top - past year`)
 
-      .scrollToSelector(mediaListSelectsSelector)
-      .clickDropdownToggleAndItem(`top - past year`, `most recent`)
 
-      .testSharedMetaTags()
-      .testPageMetaTags(
-          `Very Bad Wizards`,
-          `Very Bad Wizards is a podcast featuring a philosopher Tamler Sommers and a psychologist David Pizarro, who share a love for ethics, pop culture, and cognitive science, and who have a marked inability to distinguish sacred from profane. Each podcast includes discussions of moral philosophy, recent work on moral psychology and neuroscience, and the overlap between the two.`
-      )
+
+
+
+
   },
   after: function (browser) {
     browser.end()
