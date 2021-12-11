@@ -15,18 +15,7 @@
   &.is-showing {
     pointer-events: all;
 
-    @include themeGen() {
-      background-color: getThemeVal("backgroundOpaque");
-    }
-
-    @supports(backdrop-filter: blur($background-blur)) {
-      backdrop-filter: blur($background-blur);
-      -webkit-backdrop-filter: blur($background-blur);
-
-      @include themeGen() {
-        background-color: getThemeVal("backgroundTransparent");
-      }
-    }
+    @include blurredBackground();
 
     .video-player-wrapper {
       position: unset;
