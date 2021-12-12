@@ -23,7 +23,9 @@
   justify-content: center;
   
   .button-skip {
-    color: #3d9dfe;
+    @include themeGen() {
+      color: getThemeVal("textQuaternary");
+    }
     -webkit-box-shadow: none !important;
     box-shadow: none !important;
   }
