@@ -16,3 +16,15 @@
     margin: 0 8px;
   }
 }
+
+.skip {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  
+  .button-skip {
+    color: #3d9dfe;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+  }
+}
