@@ -248,10 +248,12 @@ const generateClipListElements = (listItems: MediaRef[], episode: Episode, userI
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { locale, params } = ctx
   const { episodeId } = params
+  
+  const [defaultServerProps, episodeResponse] = await Promise.all([
+    getDefaultServerSideProps(ctx, locale),
+    getEpisodeById(episodeId as string)
+  ])
 
-  const defaultServerProps = await getDefaultServerSideProps(ctx, locale)
-
-  const episodeResponse = await getEpisodeById(episodeId as string)
   const serverEpisode = episodeResponse.data
 
   const serverClipsFilterSort = PV.Filters.sort._topPastYear

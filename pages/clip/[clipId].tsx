@@ -212,9 +212,11 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { locale, params } = ctx
   const { clipId } = params
 
-  const defaultServerProps = await getDefaultServerSideProps(ctx, locale)
+  const [defaultServerProps, clipResponse] = await Promise.all([
+    getDefaultServerSideProps(ctx, locale),
+    getMediaRefById(clipId as string),
+  ])
 
-  const clipResponse = await getMediaRefById(clipId as string)
   const serverClip = clipResponse.data
   const { episode } = serverClip
 
