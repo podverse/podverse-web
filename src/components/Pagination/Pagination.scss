@@ -16,3 +16,17 @@
     margin: 0 8px;
   }
 }
+
+.skip {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  
+  .button-skip {
+    @include themeGen() {
+      color: getThemeVal("textQuaternary");
+    }
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+  }
+}

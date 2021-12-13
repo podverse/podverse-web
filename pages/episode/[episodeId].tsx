@@ -249,9 +249,11 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { locale, params } = ctx
   const { episodeId } = params
 
-  const defaultServerProps = await getDefaultServerSideProps(ctx, locale)
+  const [defaultServerProps, episodeResponse] = await Promise.all([
+    getDefaultServerSideProps(ctx, locale),
+    getEpisodeById(episodeId as string)
+  ])
 
-  const episodeResponse = await getEpisodeById(episodeId as string)
   const serverEpisode = episodeResponse.data
 
   const serverClipsFilterSort = PV.Filters.sort._topPastYear

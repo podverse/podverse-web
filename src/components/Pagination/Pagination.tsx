@@ -26,7 +26,26 @@ export const Pagination = ({
     pageCount
   )
 
-  return <>{pageCount > 1 ? <div className='pagination'>{pageButtons}</div> : null}</>
+  function handleClick(e: React.MouseEvent<HTMLButtonElement>) {
+    e.preventDefault()
+    const page = window.prompt('type a page number between 1 and ###')
+    handlePageNavigate(parseInt(page))
+  }
+
+  return (
+    <>
+      {pageCount > 1 ? (
+        <div>
+          <div className='pagination'>{pageButtons}</div>
+          <div className='skip'>
+            <button className='button-skip' onClick={handleClick}>
+              Skip to page
+            </button>
+          </div>
+        </div>
+      ) : null}
+    </>
+  )
 }
 
 /* Helpers */
