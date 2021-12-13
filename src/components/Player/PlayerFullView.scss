@@ -141,6 +141,40 @@
   }
 }
 
+@media (min-width: $media-min-width-tablet) {
+  .player-full-view {
+    &.is-showing {
+      .video-player-wrapper {
+        height: 225px !important;
+        margin-top: -40px;
+        width: 400px !important;
+
+        video {
+          height: 225px !important;
+          width: 400px !important;
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: $media-min-width-tablet-xl) {
+  .player-full-view {
+    &.is-showing {
+      .video-player-wrapper {
+        height: 360px !important;
+        margin-top: -60px;
+        width: 640px !important;
+
+        video {
+          height: 360px !important;
+          width: 640px !important;
+        }
+      }
+    }
+  }
+}
+
 @media (max-width: $media-max-width-tablet-xl) {
 .player-full-view {
   padding: 0 32px;

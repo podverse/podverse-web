@@ -6,9 +6,12 @@ import { getServerSideHistoryItemsIndex } from '~/services/userHistoryItem'
 
 export const getDefaultServerSideProps = async (ctx: any, locale: any) => {
   const serverCookies = ctx.req.cookies
-  const serverHistoryItemsIndex = await getServerSideHistoryItemsIndex(serverCookies)
-  const serverUserInfo = await getServerSideAuthenticatedUserInfo(serverCookies)
-  const serverUserQueueItems = await getServerSideUserQueueItems(serverCookies)
+
+  const [serverHistoryItemsIndex, serverUserInfo, serverUserQueueItems] = await Promise.all([
+    getServerSideHistoryItemsIndex(serverCookies),
+    getServerSideAuthenticatedUserInfo(serverCookies),
+    getServerSideUserQueueItems(serverCookies)
+  ])
 
   return {
     serverCookies,
