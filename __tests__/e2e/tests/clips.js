@@ -7,8 +7,8 @@ module.exports = {
   'Clips': function (browser) {
     browser
       .click('div a[href="/clips"]')
-      .waitForElementWithText('.page-header h1', 'Clips')
-      .waitForElementWithText('.text-wrapper h3', 'Lacus sed turpis tincidunt id aliquet risus feugiat in ante.')
+      .waitForElementWithText('.page-header h1', 'Clips') // Page Header
+      .waitForElementWithText('.clip-list-item:nth-child(1)', 'Lacus sed turpis tincidunt id aliquet risus feugiat in ante.') // Clip List Item Title Header (1st)
 
 
   },

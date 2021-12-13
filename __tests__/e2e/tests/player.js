@@ -28,14 +28,14 @@ module.exports = {
 
       .click('div.player div.player-buttons-container button.player-option-button.small:nth-child(5)')  //Go Fullscreen
 
-        // .waitForElementPresent('div.player-full-view div.player-progress-container button.player-progress-button.medium:nth-child(1)')  //Double left
-        .waitForElementPresent('div.player-full-view div.player-progress-container button.player-progress-button.medium:nth-child(2)')  //Rewind 10 seconds
-        //nth-child(3) = Play button but has different hierarchy
-        .waitForElementPresent('div.player-full-view div.player-progress-container button.button-circle.medium.play') //Pause-Play
-        .click('div.player-full-view div.player-progress-container button.button-circle.medium.play')
-        .waitForElementPresent('div.player-full-view div.player-progress-container button.button-circle.medium.pause') //Play-Pause
-        .waitForElementPresent('div.player-full-view div.player-progress-container button.player-progress-button.medium:nth-child(4)')  //Fast-forward 30 seconds
-        .waitForElementPresent('div.player-full-view div.player-progress-container button.player-progress-button.medium:nth-child(5)')  //Double right
+      // .waitForElementPresent('div.player-full-view div.player-progress-container button.player-progress-button.medium:nth-child(1)')  //Double left
+      .waitForElementPresent('div.player-full-view div.player-progress-container button.player-progress-button.medium:nth-child(2)')  //Rewind 10 seconds
+      //nth-child(3) = Play button but has different hierarchy
+      .waitForElementPresent('div.player-full-view div.player-progress-container button.button-circle.medium.play') //Pause-Play
+      .click('div.player-full-view div.player-progress-container button.button-circle.medium.play')
+      .waitForElementPresent('div.player-full-view div.player-progress-container button.button-circle.medium.pause') //Play-Pause
+      .waitForElementPresent('div.player-full-view div.player-progress-container button.player-progress-button.medium:nth-child(4)')  //Fast-forward 30 seconds
+      .waitForElementPresent('div.player-full-view div.player-progress-container button.player-progress-button.medium:nth-child(5)')  //Double right
 
 
 

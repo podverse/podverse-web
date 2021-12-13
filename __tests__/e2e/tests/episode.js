@@ -4,13 +4,12 @@ module.exports = {
   before: function (browser) {
     browser.url(`${WEB_ORIGIN}/`)
   },
-  'Episodes': function (browser) {
+  'Episode': function (browser) {
     browser
       .click('div a[href="/episodes"]')
       .waitForElementWithText('.page-header h1', 'Episodes') // Page Header
-      .waitForElementWithText('.episode-list-item:nth-child(1)', '#1428 - Brian Greene') // Episode List Item Title Header
-
-
+      .click('.episode-list-item:nth-child(1)') // Episode List Item Title Header (1st)
+      .waitForElementWithText('.episode-page-header a.podcast-title', 'The Joe Rogan Experience') // Episode Page Header 
 
 
   },
