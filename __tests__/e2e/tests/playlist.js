@@ -21,7 +21,7 @@ module.exports = {
       .logOutUsingModal()
 
 
-s
+
   },
   after: function (browser) {
     browser.end()
