@@ -88,13 +88,7 @@
       &:hover {
         @include themeGen() {
           background-color: getThemeVal('buttonTertiaryRolloverBackground') !important;
-          color: getThemeVal('buttonTertiaryTextRollover') !important;
-        }
-      }
-      &:hover {
-        @include themeGen() {
-          background-color: getThemeVal('buttonTertiaryDangerRolloverBackground') !important;
-          color: getThemeVal('buttonTertiaryDangerTextRollover') !important;
+          color: getThemeVal('buttonCloseBackground') !important;
         }
       }
     }

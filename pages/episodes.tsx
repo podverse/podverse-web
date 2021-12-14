@@ -7,12 +7,12 @@ import { useEffect, useRef, useState } from 'react'
 import {
   EpisodeListItem,
   List,
-  MessageWithAction,
   Meta,
   PageHeader,
   PageScrollableContent,
   Pagination,
-  scrollToTopOfPageScrollableContent
+  scrollToTopOfPageScrollableContent,
+  SearchBarHome
 } from '~/components'
 import { Page } from '~/lib/utility/page'
 import { PV } from '~/resources'
@@ -150,13 +150,7 @@ export default function Episodes({
         text={t('Episodes')}
       />
       <PageScrollableContent noMarginTop>
-        {!episodesListDataCount && (
-          <MessageWithAction
-            actionLabel={t('Search')}
-            actionOnClick={() => router.push(PV.RoutePaths.web.search)}
-            message={t('Search for a podcast')}
-          />
-        )}
+        {!episodesListDataCount && <SearchBarHome />}
         {(userInfo || filterFrom !== PV.Filters.from._subscribed) && (
           <>
             <List>{generateEpisodeListElements(episodesListData)}</List>

@@ -7,12 +7,12 @@ import { useEffect, useRef, useState } from 'react'
 import {
   ClipListItem,
   List,
-  MessageWithAction,
   Meta,
   PageHeader,
   PageScrollableContent,
   Pagination,
-  scrollToTopOfPageScrollableContent
+  scrollToTopOfPageScrollableContent,
+  SearchBarHome
 } from '~/components'
 import { Page } from '~/lib/utility/page'
 import { PV } from '~/resources'
@@ -157,11 +157,7 @@ export default function Clips({
         text={t('Clips')}
       />
       <PageScrollableContent noMarginTop>
-        <MessageWithAction
-          actionLabel={t('Search')}
-          actionOnClick={() => router.push(PV.RoutePaths.web.search)}
-          message={t('Search for a podcast')}
-        />
+        {!clipsListDataCount && <SearchBarHome />}
         {(userInfo || filterFrom !== PV.Filters.from._subscribed) && (
           <>
             <List>{generateClipListElements(clipsListData)}</List>

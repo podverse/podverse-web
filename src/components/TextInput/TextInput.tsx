@@ -14,7 +14,7 @@ type Props = {
   handleIconEndClick?: any
   helperText?: string
   isDanger?: boolean
-  label: string
+  label?: string
   noMarginOrPadding?: boolean
   onBlur?: any
   onChange?: any

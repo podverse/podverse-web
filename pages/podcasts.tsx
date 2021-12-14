@@ -5,18 +5,17 @@ import type { Podcast } from 'podverse-shared'
 import { useEffect, useRef, useState } from 'react'
 import {
   List,
-  MessageWithAction,
   Meta,
   PageHeader,
   PageScrollableContent,
   Pagination,
   PodcastListItem,
-  scrollToTopOfPageScrollableContent
+  scrollToTopOfPageScrollableContent,
+  SearchBarHome
 } from '~/components'
 import { Page } from '~/lib/utility/page'
 import { PV } from '~/resources'
 import { getPodcastsByQuery } from '~/services/podcast'
-import { isNotPodcastsAllSortOption } from '~/resources/Filters'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 import { useRouter } from 'next/router'
 
@@ -138,7 +137,7 @@ export default function Podcasts({
         twitterTitle={meta.title}
       />
       <PageHeader
-        noMarginBottom
+        noMarginBottom={podcastsListDataCount}
         primaryOnChange={_handlePrimaryOnChange}
         primaryOptions={PV.Filters.dropdownOptions.podcasts.from}
         primarySelected={filterFrom}
@@ -148,13 +147,7 @@ export default function Podcasts({
         text={t('Podcasts')}
       />
       <PageScrollableContent noMarginTop>
-        {!podcastsListDataCount && (
-          <MessageWithAction
-            actionLabel={t('Search')}
-            actionOnClick={() => router.push(PV.RoutePaths.web.search)}
-            message={t('Search for a podcast')}
-          />
-        )}
+        {!podcastsListDataCount && <SearchBarHome />}
         {(userInfo || filterFrom !== PV.Filters.from._subscribed) && (
           <>
             <List noMarginTop>{generatePodcastListElements(podcastsListData)}</List>

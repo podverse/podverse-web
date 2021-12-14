@@ -1,0 +1,41 @@
+.no-margin-top {
+  .search-bar-home {
+    margin-top: 0;
+  }
+}
+
+.search-bar-home {
+  display: flex;
+  flex: 1;
+  margin-top: 24px;
+
+  .text-input {
+    flex: 1;
+
+    .text-input-outer-wrapper {
+      border-bottom: 1px solid;
+      @include themeGen() {
+        background-color: getThemeVal('backgroundTertiary') !important;
+        border-bottom-color: getThemeVal('textHover');
+      }
+
+      .icon-wrapper {
+        font-size: $text-xxl !important;
+        @include themeGen() {
+          color: getThemeVal('textHover');
+        }
+      }
+
+      input {
+        font-size: $text-xxl !important;
+        font-weight: $font-weight-light;
+        height: 44px !important;
+
+        @include themeGen() {
+          color: getThemeVal('textPrimary');
+          @include placeholderColor(getThemeVal('textHover'))
+        }
+      }
+    }
+  }
+}
