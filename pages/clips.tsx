@@ -1,5 +1,6 @@
 import { GetServerSideProps } from 'next'
 import { useTranslation } from 'next-i18next'
+import { useRouter } from 'next/router'
 import OmniAural, { useOmniAural } from 'omniaural'
 import type { MediaRef } from 'podverse-shared'
 import { useEffect, useRef, useState } from 'react'
@@ -37,6 +38,7 @@ export default function Clips({
 }: ServerProps) {
   /* Initialize */
 
+  const router = useRouter()
   const { t } = useTranslation()
   const [filterFrom, setFilterFrom] = useState<string>(serverFilterFrom)
   const [filterPage, setFilterPage] = useState<number>(serverFilterPage)
@@ -100,9 +102,6 @@ export default function Clips({
   const _handlePrimaryOnChange = (selectedItems: any[]) => {
     const selectedItem = selectedItems[0]
     if (selectedItem.key !== filterFrom) setFilterPage(1)
-    if (filterSort === PV.Filters.sort._mostRecent || filterSort === PV.Filters.sort._oldest) {
-      setFilterSort(PV.Filters.sort._topPastDay)
-    }
     setFilterFrom(selectedItem.key)
   }
 
@@ -153,22 +152,16 @@ export default function Clips({
         primaryOptions={PV.Filters.dropdownOptions.clips.from}
         primarySelected={filterFrom}
         sortOnChange={_handleSortOnChange}
-        sortOptions={
-          filterFrom === PV.Filters.from._subscribed
-            ? PV.Filters.dropdownOptions.clips.sort.subscribed
-            : PV.Filters.dropdownOptions.clips.sort.all
-        }
+        sortOptions={PV.Filters.dropdownOptions.clips.sort.subscribed}
         sortSelected={filterSort}
         text={t('Clips')}
       />
       <PageScrollableContent noMarginTop>
-        {!userInfo && filterFrom === PV.Filters.from._subscribed && (
-          <MessageWithAction
-            actionLabel={t('Login')}
-            actionOnClick={() => OmniAural.modalsLoginShow()}
-            message={t('LoginToSubscribeToPodcasts')}
-          />
-        )}
+        <MessageWithAction
+          actionLabel={t('Search')}
+          actionOnClick={() => router.push(PV.RoutePaths.web.search)}
+          message={t('Search for a podcast')}
+        />
         {(userInfo || filterFrom !== PV.Filters.from._subscribed) && (
           <>
             <List>{generateClipListElements(clipsListData)}</List>
@@ -198,25 +191,17 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const defaultServerProps = await getDefaultServerSideProps(ctx, locale)
   const { serverUserInfo } = defaultServerProps
 
-  const serverFilterFrom = serverUserInfo ? PV.Filters.from._subscribed : PV.Filters.from._all
-  const serverFilterSort = serverUserInfo ? PV.Filters.sort._mostRecent : PV.Filters.sort._topPastDay
+  const serverFilterFrom = PV.Filters.from._subscribed
+  const serverFilterSort = PV.Filters.sort._mostRecent
 
   const serverFilterPage = 1
-  let response = null
-  if (serverUserInfo) {
-    response = await getMediaRefsByQuery({
-      includeEpisode: true,
-      includePodcast: true,
-      podcastIds: serverUserInfo.subscribedPodcastIds,
-      sort: serverFilterSort
-    })
-  } else {
-    response = await getMediaRefsByQuery({
-      includeEpisode: true,
-      includePodcast: true,
-      sort: serverFilterSort
-    })
-  }
+
+  const response = await getMediaRefsByQuery({
+    includeEpisode: true,
+    includePodcast: true,
+    podcastIds: serverUserInfo?.subscribedPodcastIds,
+    sort: serverFilterSort
+  })
 
   const [clipsListData, clipsListDataCount] = response.data
 

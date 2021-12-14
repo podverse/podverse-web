@@ -68,6 +68,7 @@ export const PageHeader = ({
                 <div className='dropdown-primary-wrapper'>
                   <Dropdown
                     dropdownWidthClass='width-small'
+                    hideCaret
                     onChange={primaryOnChange}
                     options={primaryOptions}
                     outlineStyle

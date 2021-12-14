@@ -18,6 +18,7 @@ import { PV } from '~/resources'
 import { getPodcastsByQuery } from '~/services/podcast'
 import { isNotPodcastsAllSortOption } from '~/resources/Filters'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
+import { useRouter } from 'next/router'
 
 interface ServerProps extends Page {
   serverFilterFrom: string
@@ -38,6 +39,7 @@ export default function Podcasts({
 }: ServerProps) {
   /* Initialize */
 
+  const router = useRouter()
   const { t } = useTranslation()
   const [filterFrom, setFilterFrom] = useState<string>(serverFilterFrom)
   const [filterPage, setFilterPage] = useState<number>(serverFilterPage)
@@ -99,11 +101,6 @@ export default function Podcasts({
   const _handlePrimaryOnChange = (selectedItems: any[]) => {
     const selectedItem = selectedItems[0]
     if (selectedItem.key !== filterFrom) setFilterPage(1)
-
-    if (selectedItem.key !== PV.Filters.from._subscribed && isNotPodcastsAllSortOption(filterSort)) {
-      setFilterSort(PV.Filters.sort._topPastDay)
-    }
-
     setFilterFrom(selectedItem.key)
   }
 
@@ -146,20 +143,16 @@ export default function Podcasts({
         primaryOptions={PV.Filters.dropdownOptions.podcasts.from}
         primarySelected={filterFrom}
         sortOnChange={_handleSortOnChange}
-        sortOptions={
-          filterFrom === PV.Filters.from._subscribed
-            ? PV.Filters.dropdownOptions.podcasts.sort.subscribed
-            : PV.Filters.dropdownOptions.podcasts.sort.all
-        }
+        sortOptions={PV.Filters.dropdownOptions.podcasts.sort.subscribed}
         sortSelected={filterSort}
         text={t('Podcasts')}
       />
       <PageScrollableContent noMarginTop>
-        {!userInfo && filterFrom === PV.Filters.from._subscribed && (
+        {!podcastsListDataCount && (
           <MessageWithAction
-            actionLabel={t('Login')}
-            actionOnClick={() => OmniAural.modalsLoginShow()}
-            message={t('LoginToSubscribeToPodcasts')}
+            actionLabel={t('Search')}
+            actionOnClick={() => router.push(PV.RoutePaths.web.search)}
+            message={t('Search for a podcast')}
           />
         )}
         {(userInfo || filterFrom !== PV.Filters.from._subscribed) && (
@@ -191,21 +184,15 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const defaultServerProps = await getDefaultServerSideProps(ctx, locale)
   const { serverUserInfo } = defaultServerProps
 
-  const serverFilterFrom = serverUserInfo ? PV.Filters.from._subscribed : PV.Filters.from._all
-  const serverFilterSort = serverUserInfo ? PV.Filters.sort._alphabetical : PV.Filters.sort._topPastDay
+  const serverFilterFrom = PV.Filters.from._subscribed
+  const serverFilterSort = PV.Filters.sort._alphabetical
 
   const serverFilterPage = 1
-  let response = null
-  if (serverUserInfo) {
-    response = await getPodcastsByQuery({
-      podcastIds: serverUserInfo.subscribedPodcastIds,
-      sort: serverFilterSort
-    })
-  } else {
-    response = await getPodcastsByQuery({
-      sort: serverFilterSort
-    })
-  }
+
+  const response = await getPodcastsByQuery({
+    podcastIds: serverUserInfo?.subscribedPodcastIds,
+    sort: serverFilterSort
+  })
 
   const [podcastsListData, podcastsListDataCount] = response.data
 

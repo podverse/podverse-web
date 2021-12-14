@@ -29,7 +29,7 @@ export const getEpisodesByQuery = async ({
     ...(categories ? { categories } : {}),
     ...(includePodcast ? { includePodcast } : {}),
     ...(page ? { page } : { page: 1 }),
-    ...(podcastIds ? { podcastId: podcastIds } : {}),
+    ...(podcastIds && podcastIds.length > 0 ? { podcastId: podcastIds } : { podcastId: [] }),
     ...(searchAllFieldsText
       ? {
           searchAllFieldsText: encodeURIComponent(searchAllFieldsText)
@@ -38,7 +38,7 @@ export const getEpisodesByQuery = async ({
     ...(sort ? { sort } : { sort: PV.Filters.sort._mostRecent })
   }
 
-  if (podcastIds?.length === 0) {
+  if (!podcastIds || podcastIds?.length === 0) {
     return { data: [[], 0] }
   } else {
     return request({

@@ -36,7 +36,7 @@ export const getMediaRefsByQuery = async ({
     ...(includeEpisode ? { includeEpisode } : {}),
     ...(includePodcast ? { includePodcast } : {}),
     ...(page ? { page } : { page: 1 }),
-    ...(podcastIds ? { podcastId: podcastIds } : {}),
+    ...(podcastIds && podcastIds.length > 0 ? { podcastId: podcastIds } : { podcastId: [] }),
     ...(searchAllFieldsText
       ? {
           searchAllFieldsText: encodeURIComponent(searchAllFieldsText)
@@ -45,7 +45,7 @@ export const getMediaRefsByQuery = async ({
     ...(sort ? { sort } : { sort: PV.Filters.sort._mostRecent })
   }
 
-  if (podcastIds?.length === 0) {
+  if (!podcastIds || podcastIds?.length === 0) {
     return { data: [[], 0] }
   } else {
     return request({
