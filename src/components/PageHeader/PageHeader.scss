@@ -5,10 +5,35 @@
 
   &.sub-header {
     background-color: transparent;
-    margin: 24px 0 0 0;
+    margin: 24px 0;
 
     .main-max-width {
       margin: 0;
+
+      .page-header-title-wrapper {
+        cursor: pointer;
+        display: flex;
+
+        h2 {
+          margin-bottom: 0;
+        }
+
+        
+        .header-caret {
+          align-items: center;
+          display: flex;
+        }
+      }
+      
+      .dropdowns {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  &.no-margin-bottom {
+    .dropdowns {
+      margin-bottom: 0 !important;
     }
   }
   

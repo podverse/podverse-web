@@ -8,6 +8,7 @@ import { NavBar } from './NavBar'
 import { Player } from './Player'
 import { Playlists } from './Playlists'
 import { RoutePaths } from './RoutePaths'
+import { SocialInteraction } from './SocialInteraction'
 import { TextInput } from './TextInput'
 import { Users } from './Users'
 
@@ -22,6 +23,7 @@ export const PV = {
   Player,
   Playlists,
   RoutePaths,
+  SocialInteraction,
   TextInput,
   Users
 }

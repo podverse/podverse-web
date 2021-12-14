@@ -124,7 +124,7 @@ export default function Podcast({
 
   let fundingLinks
 
-  if (serverPodcast.funding.length) {
+  if (serverPodcast?.funding?.length) {
     fundingLinks = serverPodcast.funding.map((link) => {
       return <FundingLink key={link.url} link={link.url} value={link.value}></FundingLink>
     })
@@ -289,14 +289,16 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { locale, params } = ctx
   const { podcastId } = params
 
-  const defaultServerProps = await getDefaultServerSideProps(ctx, locale)
+  const [defaultServerProps, podcastResponse] = await Promise.all([
+    getDefaultServerSideProps(ctx, locale),
+    getPodcastById(podcastId as string)
+  ])
+
+  const podcast = podcastResponse.data
 
   const serverFilterType = PV.Filters.type._episodes
   const serverFilterSort = PV.Filters.sort._mostRecent
   const serverFilterPage = 1
-
-  const response = await getPodcastById(podcastId as string)
-  const podcast = response.data
 
   let serverEpisodes = []
   let serverEpisodesPageCount = 0

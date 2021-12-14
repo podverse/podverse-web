@@ -1,13 +1,15 @@
 import { GetServerSideProps } from 'next'
 import { useTranslation } from 'next-i18next'
 import { useOmniAural } from 'omniaural'
-import type { Episode, MediaRef, User } from 'podverse-shared'
+import type { Episode, MediaRef, PVComment, SocialInteraction, User } from 'podverse-shared'
 import { useEffect, useRef, useState } from 'react'
 import {
   ClipListItem,
   ColumnsWrapper,
+  Comments,
   EpisodeInfo,
   EpisodePageHeader,
+  FundingLink,
   List,
   Meta,
   PageHeader,
@@ -23,7 +25,7 @@ import { PV } from '~/resources'
 import { getEpisodeById } from '~/services/episode'
 import { getMediaRefsByQuery } from '~/services/mediaRef'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
-import { FundingLink } from '~/components/FundingLink/FundingLink'
+import { getEpisodeProxyActivityPub } from '~/services/socialInteraction/activityPub'
 
 interface ServerProps extends Page {
   serverClips: MediaRef[]
@@ -65,6 +67,7 @@ export default function Episode({
     clipsFilterPage: serverClipsFilterPage,
     clipsFilterSort: serverClipsFilterSort
   } as FilterState)
+  const [comment, setComment] = useState<PVComment>(null)
   const [userInfo] = useOmniAural('session.userInfo')
   const { clipsFilterPage, clipsFilterSort } = filterState
   const [clipsListData, setClipsListData] = useState<MediaRef[]>(serverClips)
@@ -75,6 +78,16 @@ export default function Episode({
 
   useEffect(() => {
     ;(async () => {
+      if (serverEpisode?.socialInteraction?.length) {
+        const activityPub = serverEpisode.socialInteraction.find(
+          (item: SocialInteraction) => item.platform === PV.SocialInteraction.platformKeys.activitypub
+        )
+        if (activityPub?.url) {
+          const comment = await getEpisodeProxyActivityPub(serverEpisode.id)
+          setComment(comment)
+        }
+      }
+
       if (initialRender.current) {
         initialRender.current = false
       } else {
@@ -93,7 +106,7 @@ export default function Episode({
   /* Meta Tags */
 
   let meta = {} as any
-  let fundingLinks
+  let fundingLinks = []
 
   if (serverEpisode) {
     const { podcast } = serverEpisode
@@ -107,9 +120,14 @@ export default function Episode({
     }
   }
 
-  if (serverEpisode.funding && serverEpisode.podcast.funding) {
-    const combinedFundingLinks = serverEpisode.funding.concat(serverEpisode.podcast.funding)
-    fundingLinks = combinedFundingLinks.map((link) => {
+  if (serverEpisode.funding?.length || serverEpisode.podcast.funding?.length) {
+    if (serverEpisode.funding?.length) {
+      fundingLinks = fundingLinks.concat(serverEpisode.funding)
+    }
+    if (serverEpisode.podcast.funding?.length) {
+      fundingLinks = fundingLinks.concat(serverEpisode.podcast.funding)
+    }
+    fundingLinks = fundingLinks.map((link) => {
       return <FundingLink key={link.url} link={link.url} value={link.value}></FundingLink>
     })
   }
@@ -136,8 +154,10 @@ export default function Episode({
           mainColumnChildren={
             <>
               <EpisodeInfo episode={serverEpisode} includeMediaItemControls />
+              {serverEpisode?.socialInteraction?.length ? <Comments comment={comment} /> : null}
               <PageHeader
                 isSubHeader
+                noMarginBottom
                 sortOnChange={(selectedItems: any[]) => {
                   const selectedItem = selectedItems[0]
                   setFilterState({
@@ -178,11 +198,11 @@ export default function Episode({
             </>
           }
           sideColumnChildren={
-            fundingLinks && (
-              <SideContent>
+            <SideContent>
+              {fundingLinks.length ? (
                 <SideContentSection headerText={t('Support')}>{fundingLinks}</SideContentSection>
-              </SideContent>
-            )
+              ) : null}
+            </SideContent>
           }
         />
       </PageScrollableContent>
@@ -229,9 +249,11 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { locale, params } = ctx
   const { episodeId } = params
 
-  const defaultServerProps = await getDefaultServerSideProps(ctx, locale)
+  const [defaultServerProps, episodeResponse] = await Promise.all([
+    getDefaultServerSideProps(ctx, locale),
+    getEpisodeById(episodeId as string)
+  ])
 
-  const episodeResponse = await getEpisodeById(episodeId as string)
   const serverEpisode = episodeResponse.data
 
   const serverClipsFilterSort = PV.Filters.sort._topPastYear

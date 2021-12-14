@@ -190,9 +190,10 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { locale, params } = ctx
   const { playlistId } = params
 
-  const defaultServerProps = await getDefaultServerSideProps(ctx, locale)
-
-  const playlist = await getPlaylist(playlistId as string)
+  const [defaultServerProps, playlist] = await Promise.all([
+    getDefaultServerSideProps(ctx, locale),
+    getPlaylist(playlistId as string)
+  ])
 
   const sortedPlaylistItems = combineAndSortPlaylistItems(
     playlist.episodes,
