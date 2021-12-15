@@ -183,13 +183,11 @@ export default function Podcasts({
         text={pageHeaderText}
       />
       <PageScrollableContent noMarginTop>
-        {!userInfo && filterFrom === PV.Filters.from._category && !filterCategoryId && (
-          <>
-            <SearchBarHome />
-            <Tiles items={categories} onClick={(id: string) => setFilterCategoryId(id)} />
-          </>
+        {!userInfo && <SearchBarHome />}
+        {filterFrom === PV.Filters.from._category && !filterCategoryId && (  
+          <Tiles items={categories} onClick={(id: string) => setFilterCategoryId(id)} />
         )}
-        {!podcastsListDataCount && filterFrom === PV.Filters.from._subscribed && (
+        {!userInfo && filterFrom === PV.Filters.from._subscribed && (
           <MessageWithAction
             actionLabel={t('Login')}
             actionOnClick={() => OmniAural.modalsLoginShow()}
