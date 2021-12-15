@@ -16,8 +16,11 @@ import { PV } from '~/resources'
 import { getPodcastsByQuery } from '~/services/podcast'
 import { scrollToTopOfPageScrollableContent } from '~/components/PageScrollableContent/PageScrollableContent'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
+import { useRouter } from 'next/router'
 
-type ServerProps = Page
+interface ServerProps extends Page {
+  serverSearchByText?: string
+}
 
 const keyPrefix = 'pages_search'
 
@@ -28,18 +31,29 @@ const keyPrefix = 'pages_search'
       should still be there on navigate back.
 */
 
-export default function Search(props: ServerProps) {
+export default function Search({ serverSearchByText }: ServerProps) {
   /* Initialize */
 
   const { t } = useTranslation()
   const [podcastsListData, setPodcastsListData] = useState<Podcast[]>([])
   const [podcastsListDataCount, setPodcastsListDataCount] = useState<number>(0)
   const [filterPage, setFilterPage] = useState<number>(1)
-  const [filterSearchByText, setFilterSearchByText] = useState<string>('')
+  const [filterSearchByText, setFilterSearchByText] = useState<string>(serverSearchByText || '')
   const [filterSearchByType, setFilterSearchByType] = useState<string>(PV.Filters.search.queryParams.podcast)
   const pageCount = Math.ceil(podcastsListDataCount / PV.Config.QUERY_RESULTS_LIMIT_DEFAULT)
 
   /* useEffects */
+
+  useEffect(() => {
+    ;(async () => {
+      if (filterSearchByText) {
+        const { data } = await clientQueryPodcasts()
+        const [newPodcastsListData, newPodcastsListCount] = data
+        setPodcastsListData(newPodcastsListData)
+        setPodcastsListDataCount(newPodcastsListCount)
+      }
+    })()
+  }, [])
 
   useEffect(() => {
     ;(async () => {
@@ -111,6 +125,7 @@ export default function Search(props: ServerProps) {
         title={t('Search')}
       />
       <SearchPageInput
+        defaultValue={serverSearchByText}
         handleAutoSubmit={(value) => {
           setFilterSearchByText(value)
           setFilterPage(1)
@@ -139,12 +154,13 @@ export default function Search(props: ServerProps) {
 /* Server-Side Logic */
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const { locale } = ctx
-
+  const { locale, query } = ctx
+  const { podcastTitle } = query
   const defaultServerProps = await getDefaultServerSideProps(ctx, locale)
 
   const serverProps: ServerProps = {
-    ...defaultServerProps
+    ...defaultServerProps,
+    serverSearchByText: (podcastTitle as string) || ''
   }
 
   return { props: serverProps }

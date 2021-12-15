@@ -6,12 +6,13 @@ import { TextInput } from '~/components'
 
 type Props = {
   debounceRate?: number
+  defaultValue?: string
   handleAutoSubmit: any
   label: string
   placeholder: string
 }
 
-export const SearchPageInput = ({ debounceRate = 1000, handleAutoSubmit, label, placeholder }: Props) => {
+export const SearchPageInput = ({ debounceRate = 1000, defaultValue, handleAutoSubmit, label, placeholder }: Props) => {
   const { t } = useTranslation()
   const debouncedHandleAutoSubmit = useCallback(
     debounce((val) => handleAutoSubmit(val, 1), debounceRate),
@@ -22,6 +23,7 @@ export const SearchPageInput = ({ debounceRate = 1000, handleAutoSubmit, label, 
     <div className='search-page-input'>
       <div className='main-max-width'>
         <TextInput
+          defaultValue={defaultValue}
           faIcon={faSearch}
           helperText={t('Use double quotes for exact matches')}
           label={label}
