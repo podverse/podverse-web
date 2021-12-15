@@ -9,6 +9,7 @@
   
     .name {
       font-size: $text-xl;
+      @include line-clamp(4);
     }
   }
 }
