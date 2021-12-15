@@ -41,12 +41,19 @@ body {
     .dropdown__chevron {
       height: $button-small-height - 2px;
       line-height: $button-small-height - 2px;
+      width: 14px;
+    }
+    .dropdown__hidden-chevron {
+      height: $button-small-height - 2px;
+      line-height: $button-small-height - 2px;
+      width: 8px;
     }
   }
   
   .react-dropdown-select {
     border-radius: $button-small-radius;
     min-height: $button-small-height;
+    opacity: 1.0;
     padding: 0px 5px;
     user-select: none;
 

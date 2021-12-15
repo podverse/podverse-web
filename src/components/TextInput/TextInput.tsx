@@ -7,6 +7,7 @@ import { ButtonRectangle } from '..'
 type Props = {
   defaultValue?: string
   disabled?: boolean
+  endButtonClass?: string
   endButtonText?: string
   faIcon?: IconProp
   faIconEnd?: IconProp
@@ -14,7 +15,7 @@ type Props = {
   handleIconEndClick?: any
   helperText?: string
   isDanger?: boolean
-  label: string
+  label?: string
   noMarginOrPadding?: boolean
   onBlur?: any
   onChange?: any
@@ -28,6 +29,7 @@ type Props = {
 export const TextInput = ({
   defaultValue,
   disabled,
+  endButtonClass,
   endButtonText,
   faIcon,
   faIconEnd,
@@ -53,6 +55,8 @@ export const TextInput = ({
   )
 
   const faIconEndClass = classNames('icon-wrapper', handleIconEndClick ? 'has-handler' : '')
+
+  const endButtonClassName = classNames('end-button', endButtonClass ? endButtonClass : '')
 
   const _handleKeyDown = (event) => {
     if (event.key === 'Enter') {
@@ -94,7 +98,7 @@ export const TextInput = ({
         )}
         {!!endButtonText && handleEndButtonClick && (
           <ButtonRectangle
-            className='end-button'
+            className={endButtonClassName}
             label={endButtonText}
             onClick={handleEndButtonClick}
             type='tertiary'

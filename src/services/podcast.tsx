@@ -31,7 +31,7 @@ export const getPodcastsByQuery = async ({
     ...(sort ? { sort } : {})
   }
 
-  if (podcastIds?.length === 0) {
+  if (podcastIds?.length === 0 || categories?.length === 0) {
     return { data: [[], 0] }
   } else {
     const response = await request({

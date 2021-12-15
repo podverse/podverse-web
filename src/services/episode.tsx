@@ -38,7 +38,7 @@ export const getEpisodesByQuery = async ({
     ...(sort ? { sort } : { sort: PV.Filters.sort._mostRecent })
   }
 
-  if (podcastIds?.length === 0) {
+  if (podcastIds?.length === 0 || categories?.length === 0) {
     return { data: [[], 0] }
   } else {
     return request({

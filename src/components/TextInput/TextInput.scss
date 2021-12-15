@@ -70,7 +70,7 @@
   
         &::placeholder {
           @include themeGen() {
-            color: getThemeVal('textInputPlaceholder') !important;
+            color: getThemeVal('textInputPlaceholder');
           }
         }
       }
