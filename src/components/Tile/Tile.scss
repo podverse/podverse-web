@@ -1,6 +1,7 @@
 .tile-box {
     width: 15vw;
     height: 15vw;
+    cursor: pointer;
     border-radius: 5%;
     background: linear-gradient(20deg, #20244e,#20244e,#20244e,#74A8DC);
     display: flex;
@@ -21,6 +22,7 @@
   flex-wrap: wrap;
   justify-content: center;
   margin: -10px -10px 0 -10px;
+  padding-bottom: 32px;
 }
 
 @media (max-width: $media-max-width-tablet-xl) {

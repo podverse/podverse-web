@@ -21,8 +21,9 @@ export const getPodcastsByQuery = async ({
   sort
 }: PodcastQueryParams) => {
   const filteredQuery: PodcastQueryParams = {
-    ...(categories ? { categories } : {}),
-    ...(podcastIds && podcastIds.length > 0 ? { podcastId: podcastIds } : { podcastId: [] }),
+    ...(categories  ? { categories } : {}),
+    ...(podcastIds ? { podcastId: podcastIds } : {}),
+    // If no "from", then from defaults to _allKey
     ...(maxResults ? { maxResults: true } : {}),
     ...(page ? { page } : { page: 1 }),
     ...(searchBy === PV.Filters.search.queryParams.podcast ? { searchTitle: encodeURIComponent(searchText) } : {}),
@@ -30,7 +31,7 @@ export const getPodcastsByQuery = async ({
     ...(sort ? { sort } : {})
   }
 
-  if (!searchBy && (!podcastIds || podcastIds?.length === 0)) {
+  if (podcastIds?.length === 0 || categories?.length === 0) {
     return { data: [[], 0] }
   } else {
     const response = await request({

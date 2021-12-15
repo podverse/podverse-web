@@ -96,7 +96,9 @@ export const Filters = {
     },
     clips: {
       from: [
-        { label: 'Subscribed', key: _subscribed }
+        { label: 'All', key: _all },
+        { label: 'Subscribed', key: _subscribed },
+        { label: 'Category', key: _category }
       ],
       sort: {
         all: [
@@ -132,7 +134,9 @@ export const Filters = {
     },
     episodes: {
       from: [
-        { label: 'Subscribed', key: _subscribed }
+        { label: 'All', key: _all },
+        { label: 'Subscribed', key: _subscribed },
+        { label: 'Category', key: _category }
       ],
       sort: {
         all: [
@@ -170,9 +174,18 @@ export const Filters = {
     },
     podcasts: {
       from: [
-        { label: 'Subscribed', key: _subscribed }
+        { label: 'All', key: _all },
+        { label: 'Subscribed', key: _subscribed },
+        { label: 'Category', key: _category }
       ],
       sort: {
+        all: [
+          { label: 'Top - Past Day', key: _topPastDay },
+          { label: 'Top - Past Week', key: _topPastWeek },
+          { label: 'Top - Past Month', key: _topPastMonth },
+          { label: 'Top - Past Year', key: _topPastYear },
+          { label: 'Top - All Time', key: _topAllTime }
+        ],
         subscribed: [
           { label: 'Alphabetical', key: _alphabetical },
           { label: 'Recent', key: _mostRecent },

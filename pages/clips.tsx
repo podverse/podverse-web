@@ -102,6 +102,11 @@ export default function Clips({
   const _handlePrimaryOnChange = (selectedItems: any[]) => {
     const selectedItem = selectedItems[0]
     if (selectedItem.key !== filterFrom) setFilterPage(1)
+
+    if (filterSort === PV.Filters.sort._mostRecent || filterSort === PV.Filters.sort._oldest) {
+      setFilterSort(PV.Filters.sort._topPastDay)
+    }
+
     setFilterFrom(selectedItem.key)
   }
 
@@ -152,7 +157,11 @@ export default function Clips({
         primaryOptions={PV.Filters.dropdownOptions.clips.from}
         primarySelected={filterFrom}
         sortOnChange={_handleSortOnChange}
-        sortOptions={PV.Filters.dropdownOptions.clips.sort.subscribed}
+        sortOptions={
+          filterFrom === PV.Filters.from._subscribed
+            ? PV.Filters.dropdownOptions.clips.sort.subscribed
+            : PV.Filters.dropdownOptions.clips.sort.all
+        }
         sortSelected={filterSort}
         text={t('Clips')}
       />
@@ -187,8 +196,8 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const defaultServerProps = await getDefaultServerSideProps(ctx, locale)
   const { serverUserInfo } = defaultServerProps
 
-  const serverFilterFrom = PV.Filters.from._subscribed
-  const serverFilterSort = PV.Filters.sort._mostRecent
+  const serverFilterFrom = serverUserInfo ? PV.Filters.from._subscribed : PV.Filters.from._category
+  const serverFilterSort = serverUserInfo ? PV.Filters.sort._mostRecent : PV.Filters.sort._topPastDay
 
   const serverFilterPage = 1
 
