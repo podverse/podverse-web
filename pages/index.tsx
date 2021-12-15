@@ -28,13 +28,17 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const serverFilterSort = serverUserInfo ? PV.Filters.sort._alphabetical : PV.Filters.sort._topPastDay
 
   const serverFilterPage = 1
-  let response = null
-  response = await getPodcastsByQuery({
-    podcastIds: serverUserInfo?.subscribedPodcastIds,
-    sort: serverFilterSort
-  })
 
-  const [podcastsListData, podcastsListDataCount] = response.data
+  let podcastsListData = []
+  let podcastsListDataCount = 0
+  if (serverUserInfo) {
+    const response = await getPodcastsByQuery({
+      podcastIds: serverUserInfo?.subscribedPodcastIds,
+      sort: serverFilterSort
+    })
+    podcastsListData = response.data[0]
+    podcastsListDataCount = response.data[1]
+  }
 
   const serverProps: ServerProps = {
     ...defaultServerProps,

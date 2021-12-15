@@ -28,6 +28,8 @@
         font-size: $text-xl;
         font-weight: $font-weight-light;
         margin: 4px 0 0 0;
+
+        @include line-clamp(4);
       }
     }
   }

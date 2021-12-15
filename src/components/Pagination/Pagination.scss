@@ -32,3 +32,21 @@
     }
   }
 }
+
+@media (max-width: $media-max-width-mobile) {
+  .pagination {
+    .button-circle.backwards {
+      margin-right: 5px;
+    }
+
+    .button-circle.forwards {
+      margin-left: 5px;
+    }
+
+    .button-square {
+      height: 32px;
+      margin: 0 5px;
+      width: 32px;
+    }
+  }
+}
