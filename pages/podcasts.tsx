@@ -1,5 +1,6 @@
 import { GetServerSideProps } from 'next'
 import { useTranslation } from 'next-i18next'
+import { useRouter } from 'next/router'
 import OmniAural, { useOmniAural } from 'omniaural'
 import type { Podcast } from 'podverse-shared'
 import { useEffect, useRef, useState } from 'react'
@@ -17,10 +18,9 @@ import {
 } from '~/components'
 import { Page } from '~/lib/utility/page'
 import { PV } from '~/resources'
+import { isNotAllSortOption } from '~/resources/Filters'
 import { getPodcastsByQuery } from '~/services/podcast'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
-import { useRouter } from 'next/router'
-import { isNotPodcastsAllSortOption } from '~/resources/Filters'
 import { getCategoryById } from '~/services/category'
 
 const categories = require('~/resources/Categories/TopLevelCategories.json')[0]
@@ -124,7 +124,7 @@ export default function Podcasts({
     const selectedItem = selectedItems[0]
     if (selectedItem.key !== filterFrom) setFilterPage(1)
 
-    if (selectedItem.key !== PV.Filters.from._subscribed && isNotPodcastsAllSortOption(filterSort)) {
+    if (selectedItem.key !== PV.Filters.from._subscribed && isNotAllSortOption(filterSort)) {
       setFilterSort(PV.Filters.sort._topPastDay)
     }
 

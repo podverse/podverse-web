@@ -30,7 +30,7 @@ type DropdownOption = {
   key: string
 }
 
-export const isNotPodcastsAllSortOption = (selectedKey: string) => {
+export const isNotAllSortOption = (selectedKey: string) => {
   const allowedKeys = Filters.dropdownOptions.podcasts.sort.all
   return !allowedKeys.find((option: DropdownOption) => option.key === selectedKey)
 }

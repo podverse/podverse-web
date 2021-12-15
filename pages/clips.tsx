@@ -7,18 +7,23 @@ import { useEffect, useRef, useState } from 'react'
 import {
   ClipListItem,
   List,
+  MessageWithAction,
   Meta,
   PageHeader,
   PageScrollableContent,
   Pagination,
   scrollToTopOfPageScrollableContent,
-  SearchBarHome
+  SearchBarHome,
+  Tiles
 } from '~/components'
 import { Page } from '~/lib/utility/page'
 import { PV } from '~/resources'
+import { isNotAllSortOption } from '~/resources/Filters'
+import { getCategoryById } from '~/services/category'
 import { getMediaRefsByQuery } from '~/services/mediaRef'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 
+const categories = require('~/resources/Categories/TopLevelCategories.json')[0]
 interface ServerProps extends Page {
   serverFilterFrom: string
   serverFilterPage: number
@@ -36,10 +41,12 @@ export default function Clips({
   serverClipsListData,
   serverClipsListDataCount
 }: ServerProps) {
+
   /* Initialize */
 
   const router = useRouter()
   const { t } = useTranslation()
+  const [filterCategoryId, setFilterCategoryId] = useState<string | null>(null)
   const [filterFrom, setFilterFrom] = useState<string>(serverFilterFrom)
   const [filterPage, setFilterPage] = useState<number>(serverFilterPage)
   const [filterSort, setFilterSort] = useState<string>(serverFilterSort)
@@ -48,6 +55,8 @@ export default function Clips({
   const [userInfo] = useOmniAural('session.userInfo')
   const initialRender = useRef<boolean>(true)
   const pageCount = Math.ceil(clipsListDataCount / PV.Config.QUERY_RESULTS_LIMIT_DEFAULT)
+  const selectedCategory = getCategoryById(filterCategoryId)
+  const pageHeaderText = selectedCategory ? `${t('Clips')} > ${selectedCategory.title}` : t('Clips')
 
   /* useEffects */
 
@@ -65,13 +74,15 @@ export default function Clips({
         OmniAural.pageIsLoadingHide()
       }
     })()
-  }, [filterFrom, filterSort, filterPage])
+  }, [filterCategoryId, filterFrom, filterSort, filterPage])
 
   /* Client-Side Queries */
 
   const clientQueryMediaRefs = async () => {
     if (filterFrom === PV.Filters.from._all) {
       return clientQueryMediaRefsAll()
+    } else if (filterFrom === PV.Filters.from._category) {
+      return clientQueryPodcastsByCategory()
     } else if (filterFrom === PV.Filters.from._subscribed) {
       return clientQueryMediaRefsBySubscribed()
     }
@@ -83,6 +94,17 @@ export default function Clips({
       ...(filterSort ? { sort: filterSort } : {}),
       includePodcast: true
     }
+    return getMediaRefsByQuery(finalQuery)
+  }
+
+  const clientQueryPodcastsByCategory = async () => {
+    const finalQuery = {
+      categories: filterCategoryId ? [filterCategoryId] : [],
+      ...(filterPage ? { page: filterPage } : {}),
+      ...(filterSort ? { sort: filterSort } : {}),
+      includePodcast: true
+    }
+
     return getMediaRefsByQuery(finalQuery)
   }
 
@@ -103,10 +125,11 @@ export default function Clips({
     const selectedItem = selectedItems[0]
     if (selectedItem.key !== filterFrom) setFilterPage(1)
 
-    if (filterSort === PV.Filters.sort._mostRecent || filterSort === PV.Filters.sort._oldest) {
+    if (selectedItem.key !== PV.Filters.from._subscribed && isNotAllSortOption(filterSort)) {
       setFilterSort(PV.Filters.sort._topPastDay)
     }
 
+    setFilterCategoryId(null)
     setFilterFrom(selectedItem.key)
   }
 
@@ -163,13 +186,22 @@ export default function Clips({
             : PV.Filters.dropdownOptions.clips.sort.all
         }
         sortSelected={filterSort}
-        text={t('Clips')}
+        text={pageHeaderText}
       />
       <PageScrollableContent noMarginTop>
-        {!clipsListDataCount && <SearchBarHome />}
+        {filterFrom === PV.Filters.from._category && !filterCategoryId && (
+          <Tiles items={categories} onClick={(id: string) => setFilterCategoryId(id)} />
+        )}
+        {!userInfo && filterFrom === PV.Filters.from._subscribed && (
+          <MessageWithAction
+            actionLabel={t('Login')}
+            actionOnClick={() => OmniAural.modalsLoginShow()}
+            message={t('LoginToSubscribeToPodcasts')}
+          />
+        )}
         {(userInfo || filterFrom !== PV.Filters.from._subscribed) && (
           <>
-            <List>{generateClipListElements(clipsListData)}</List>
+            <List hideNoResultsMessage>{generateClipListElements(clipsListData)}</List>
             <Pagination
               currentPageIndex={filterPage}
               handlePageNavigate={(newPage) => setFilterPage(newPage)}
@@ -201,14 +233,19 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
   const serverFilterPage = 1
 
-  const response = await getMediaRefsByQuery({
-    includeEpisode: true,
-    includePodcast: true,
-    podcastIds: serverUserInfo?.subscribedPodcastIds,
-    sort: serverFilterSort
-  })
-
-  const [clipsListData, clipsListDataCount] = response.data
+  let clipsListData = []
+  let clipsListDataCount = 0
+  if (serverUserInfo) {
+    const response = await getMediaRefsByQuery({
+      includeEpisode: true,
+      includePodcast: true,
+      podcastIds: serverUserInfo?.subscribedPodcastIds,
+      sort: serverFilterSort
+    })
+    
+    clipsListData = response.data[0]
+    clipsListDataCount = response.data[1]
+  }
 
   const serverProps: ServerProps = {
     ...defaultServerProps,

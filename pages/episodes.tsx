@@ -7,6 +7,7 @@ import { useEffect, useRef, useState } from 'react'
 import {
   EpisodeListItem,
   List,
+  MessageWithAction,
   Meta,
   PageHeader,
   PageScrollableContent,
@@ -21,7 +22,7 @@ import { getEpisodesByQuery } from '~/services/episode'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 
 import { getCategoryById } from '~/services/category'
-import { isNotPodcastsAllSortOption } from '~/resources/Filters'
+import { isNotAllSortOption } from '~/resources/Filters'
 
 const categories = require('~/resources/Categories/TopLevelCategories.json')[0]
 
@@ -126,7 +127,7 @@ export default function Episodes({
     const selectedItem = selectedItems[0]
     if (selectedItem.key !== filterFrom) setFilterPage(1)
 
-    if (selectedItem.key !== PV.Filters.from._subscribed && isNotPodcastsAllSortOption(filterSort)) {
+    if (selectedItem.key !== PV.Filters.from._subscribed && isNotAllSortOption(filterSort)) {
       setFilterSort(PV.Filters.sort._topPastDay)
     }
 
@@ -186,6 +187,13 @@ export default function Episodes({
         {filterFrom === PV.Filters.from._category && !filterCategoryId && (
           <Tiles items={categories} onClick={(id: string) => setFilterCategoryId(id)} />
         )}
+        {!userInfo && filterFrom === PV.Filters.from._subscribed && (
+          <MessageWithAction
+            actionLabel={t('Login')}
+            actionOnClick={() => OmniAural.modalsLoginShow()}
+            message={t('LoginToSubscribeToPodcasts')}
+          />
+        )}
         {(userInfo || filterFrom !== PV.Filters.from._subscribed) && (
           <>
             <List hideNoResultsMessage>{generateEpisodeListElements(episodesListData)}</List>
@@ -220,13 +228,17 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
   const serverFilterPage = 1
 
-  const response = await getEpisodesByQuery({
-    includePodcast: true,
-    podcastIds: serverUserInfo?.subscribedPodcastIds,
-    sort: serverFilterSort
-  })
-
-  const [episodesListData, episodesListDataCount] = response.data
+  let episodesListData = []
+  let episodesListDataCount = 0
+  if (serverUserInfo) {
+    const response = await getEpisodesByQuery({
+      includePodcast: true,
+      podcastIds: serverUserInfo?.subscribedPodcastIds,
+      sort: serverFilterSort
+    })
+    episodesListData = response.data[0]
+    episodesListDataCount = response.data[1]
+  }
 
   const serverProps: ServerProps = {
     ...defaultServerProps,
