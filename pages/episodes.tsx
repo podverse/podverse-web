@@ -12,12 +12,18 @@ import {
   PageScrollableContent,
   Pagination,
   scrollToTopOfPageScrollableContent,
-  SearchBarHome
+  SearchBarHome,
+  Tiles
 } from '~/components'
 import { Page } from '~/lib/utility/page'
 import { PV } from '~/resources'
 import { getEpisodesByQuery } from '~/services/episode'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
+
+import { getCategoryById } from '~/services/category'
+import { isNotPodcastsAllSortOption } from '~/resources/Filters'
+
+const categories = require('~/resources/Categories/TopLevelCategories.json')[0]
 
 interface ServerProps extends Page {
   serverFilterFrom: string
@@ -36,10 +42,12 @@ export default function Episodes({
   serverEpisodesListData,
   serverEpisodesListDataCount
 }: ServerProps) {
+
   /* Initialize */
 
   const router = useRouter()
   const { t } = useTranslation()
+  const [filterCategoryId, setFilterCategoryId] = useState<string | null>(null)
   const [filterFrom, setFilterFrom] = useState<string>(serverFilterFrom)
   const [filterPage, setFilterPage] = useState<number>(serverFilterPage)
   const [filterSort, setFilterSort] = useState<string>(serverFilterSort)
@@ -48,6 +56,8 @@ export default function Episodes({
   const [userInfo] = useOmniAural('session.userInfo')
   const initialRender = useRef(true)
   const pageCount = Math.ceil(episodesListDataCount / PV.Config.QUERY_RESULTS_LIMIT_DEFAULT)
+  const selectedCategory = getCategoryById(filterCategoryId)
+  const pageHeaderText = selectedCategory ? `${t('Episodes')} > ${selectedCategory.title}` : t('Episodes')
 
   /* useEffects */
 
@@ -65,17 +75,17 @@ export default function Episodes({
         OmniAural.pageIsLoadingHide()
       }
     })()
-  }, [filterFrom, filterSort, filterPage])
+  }, [filterCategoryId, filterFrom, filterSort, filterPage])
 
   /* Client-Side Queries */
 
   const clientQueryEpisodes = async () => {
     if (filterFrom === PV.Filters.from._all) {
       return clientQueryEpisodesAll()
+    } else if (filterFrom === PV.Filters.from._category) {
+      return clientQueryEpisodesByCategory()
     } else if (filterFrom === PV.Filters.from._subscribed) {
       return clientQueryEpisodesBySubscribed()
-    } else if (filterFrom === PV.Filters.from._category) {
-      //
     }
   }
 
@@ -85,6 +95,17 @@ export default function Episodes({
       ...(filterSort ? { sort: filterSort } : {}),
       includePodcast: true
     }
+    return getEpisodesByQuery(finalQuery)
+  }
+
+  const clientQueryEpisodesByCategory = async () => {
+    const finalQuery = {
+      categories: filterCategoryId ? [filterCategoryId] : [],
+      ...(filterPage ? { page: filterPage } : {}),
+      ...(filterSort ? { sort: filterSort } : {}),
+      includePodcast: true
+    }
+
     return getEpisodesByQuery(finalQuery)
   }
 
@@ -99,9 +120,25 @@ export default function Episodes({
     return getEpisodesByQuery(finalQuery)
   }
 
-  // const clientQueryPodcastsByCategory = async () => {
+  /* Function Helpers */
 
-  // }
+  const _handlePrimaryOnChange = (selectedItems: any[]) => {
+    const selectedItem = selectedItems[0]
+    if (selectedItem.key !== filterFrom) setFilterPage(1)
+
+    if (selectedItem.key !== PV.Filters.from._subscribed && isNotPodcastsAllSortOption(filterSort)) {
+      setFilterSort(PV.Filters.sort._topPastDay)
+    }
+
+    setFilterCategoryId(null)
+    setFilterFrom(selectedItem.key)
+  }
+
+  const _handleSortOnChange = (selectedItems: any[]) => {
+    const selectedItem = selectedItems[0]
+    if (selectedItem.key !== filterSort) setFilterPage(1)
+    setFilterSort(selectedItem.key)
+  }
 
   /* Render Helpers */
 
@@ -133,36 +170,25 @@ export default function Episodes({
         twitterTitle={meta.title}
       />
       <PageHeader
-        primaryOnChange={(selectedItems: any[]) => {
-          const selectedItem = selectedItems[0]
-          if (selectedItem.key !== filterFrom) setFilterPage(1)
-
-          if (filterSort === PV.Filters.sort._mostRecent || filterSort === PV.Filters.sort._oldest) {
-            setFilterSort(PV.Filters.sort._topPastDay)
-          }
-
-          setFilterFrom(selectedItem.key)
-        }}
+        primaryOnChange={_handlePrimaryOnChange}
         primaryOptions={PV.Filters.dropdownOptions.episodes.from}
         primarySelected={filterFrom}
-        sortOnChange={(selectedItems: any[]) => {
-          const selectedItem = selectedItems[0]
-          if (selectedItem.key !== filterSort) setFilterPage(1)
-          setFilterSort(selectedItem.key)
-        }}
+        sortOnChange={_handleSortOnChange}
         sortOptions={
           filterFrom === PV.Filters.from._subscribed
             ? PV.Filters.dropdownOptions.episodes.sort.subscribed
             : PV.Filters.dropdownOptions.episodes.sort.all
         }
         sortSelected={filterSort}
-        text={t('Episodes')}
+        text={pageHeaderText}
       />
       <PageScrollableContent noMarginTop>
-        {!episodesListDataCount && <SearchBarHome />}
+        {filterFrom === PV.Filters.from._category && !filterCategoryId && (
+          <Tiles items={categories} onClick={(id: string) => setFilterCategoryId(id)} />
+        )}
         {(userInfo || filterFrom !== PV.Filters.from._subscribed) && (
           <>
-            <List>{generateEpisodeListElements(episodesListData)}</List>
+            <List hideNoResultsMessage>{generateEpisodeListElements(episodesListData)}</List>
             <Pagination
               currentPageIndex={filterPage}
               handlePageNavigate={(newPage) => setFilterPage(newPage)}
