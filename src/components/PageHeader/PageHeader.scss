@@ -5,7 +5,7 @@
 
   &.sub-header {
     background-color: transparent;
-    margin: 24px 0;
+    margin: 0;
 
     .main-max-width {
       margin: 0;
@@ -15,7 +15,7 @@
         display: flex;
 
         h2 {
-          margin-bottom: 0;
+          margin: 16px 0 0 0;
         }
 
         
@@ -26,14 +26,8 @@
       }
       
       .dropdowns {
-        margin-bottom: 0;
+        margin: 16px 0 24px 0;
       }
-    }
-  }
-
-  &.no-margin-bottom {
-    .dropdowns {
-      margin-bottom: 0 !important;
     }
   }
   
@@ -98,7 +92,7 @@
       }
 
       .dropdowns {
-        align-items: center;
+        align-items: flex-start;
         margin-top: 0;
 
         .dropdown-primary-wrapper {

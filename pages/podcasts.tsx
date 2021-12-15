@@ -180,7 +180,7 @@ export default function Podcasts({
         text={pageHeaderText}
       />
       <PageScrollableContent noMarginTop>
-        {!userInfo && <SearchBarHome />}
+        {!userInfo && filterFrom === PV.Filters.from._category && !filterCategoryId && <SearchBarHome />}
         {filterFrom === PV.Filters.from._category && !filterCategoryId && (
           <Tiles items={categories} onClick={(id: string) => setFilterCategoryId(id)} />
         )}

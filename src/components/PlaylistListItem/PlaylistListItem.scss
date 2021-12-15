@@ -9,11 +9,15 @@
   
     .title {
       font-size: $text-xl;
+
+      @include line-clamp(4);
     }
   
     .owner-name {
       font-size: $text-md;
       margin-top: 4px;
+
+      @include line-clamp(2);
       
       @include themeGen() {
         color: getThemeVal('textSecondary');
