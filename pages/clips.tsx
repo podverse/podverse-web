@@ -40,7 +40,6 @@ export default function Clips({
   serverClipsListData,
   serverClipsListDataCount
 }: ServerProps) {
-
   /* Initialize */
 
   const { t } = useTranslation()

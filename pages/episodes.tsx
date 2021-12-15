@@ -42,7 +42,6 @@ export default function Episodes({
   serverEpisodesListData,
   serverEpisodesListDataCount
 }: ServerProps) {
-
   /* Initialize */
 
   const { t } = useTranslation()

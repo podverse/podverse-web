@@ -42,7 +42,6 @@ export default function Podcasts({
   serverPodcastsListData,
   serverPodcastsListDataCount
 }: ServerProps) {
-
   /* Initialize */
 
   const { t } = useTranslation()
