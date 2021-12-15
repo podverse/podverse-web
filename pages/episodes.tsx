@@ -1,6 +1,5 @@
 import { GetServerSideProps } from 'next'
 import { useTranslation } from 'next-i18next'
-import { useRouter } from 'next/router'
 import OmniAural, { useOmniAural } from 'omniaural'
 import type { Episode } from 'podverse-shared'
 import { useEffect, useRef, useState } from 'react'
@@ -13,7 +12,6 @@ import {
   PageScrollableContent,
   Pagination,
   scrollToTopOfPageScrollableContent,
-  SearchBarHome,
   Tiles
 } from '~/components'
 import { Page } from '~/lib/utility/page'
@@ -24,7 +22,8 @@ import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 import { getCategoryById } from '~/services/category'
 import { isNotAllSortOption } from '~/resources/Filters'
 
-const categories = require('~/resources/Categories/TopLevelCategories.json')[0]
+// eslint-disable-next-line
+const categories = require('~/resources/Categories/TopLevelCategories.json')
 
 interface ServerProps extends Page {
   serverFilterFrom: string
@@ -43,9 +42,9 @@ export default function Episodes({
   serverEpisodesListData,
   serverEpisodesListDataCount
 }: ServerProps) {
+
   /* Initialize */
 
-  const router = useRouter()
   const { t } = useTranslation()
   const [filterCategoryId, setFilterCategoryId] = useState<string | null>(null)
   const [filterFrom, setFilterFrom] = useState<string>(serverFilterFrom)

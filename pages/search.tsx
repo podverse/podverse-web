@@ -16,7 +16,6 @@ import { PV } from '~/resources'
 import { getPodcastsByQuery } from '~/services/podcast'
 import { scrollToTopOfPageScrollableContent } from '~/components/PageScrollableContent/PageScrollableContent'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
-import { useRouter } from 'next/router'
 
 interface ServerProps extends Page {
   serverSearchByText?: string

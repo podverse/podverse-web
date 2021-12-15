@@ -6,9 +6,7 @@ import { useTranslation } from 'react-i18next'
 import { TextInput } from '~/components'
 import { PV } from '~/resources'
 
-type Props = {}
-
-export const SearchBarHome = (props: Props) => {
+export const SearchBarHome = () => {
   const router = useRouter()
   const { t } = useTranslation()
   const [searchValue, setSearchValue] = useState<string>('')
