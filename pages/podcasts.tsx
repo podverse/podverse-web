@@ -11,13 +11,16 @@ import {
   Pagination,
   PodcastListItem,
   scrollToTopOfPageScrollableContent,
-  SearchBarHome
+  SearchBarHome,
+  Tiles
 } from '~/components'
 import { Page } from '~/lib/utility/page'
 import { PV } from '~/resources'
 import { getPodcastsByQuery } from '~/services/podcast'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 import { useRouter } from 'next/router'
+
+const categories = require('~/resources/Categories/TopLevelCategories.json')[0]
 
 interface ServerProps extends Page {
   serverFilterFrom: string
@@ -37,9 +40,9 @@ export default function Podcasts({
   serverPodcastsListDataCount
 }: ServerProps) {
   /* Initialize */
-
   const router = useRouter()
   const { t } = useTranslation()
+  const [filterCategoryId, setFilterCategoryId] = useState<string | null>(null)
   const [filterFrom, setFilterFrom] = useState<string>(serverFilterFrom)
   const [filterPage, setFilterPage] = useState<number>(serverFilterPage)
   const [filterSort, setFilterSort] = useState<string>(serverFilterSort)
@@ -65,13 +68,15 @@ export default function Podcasts({
         OmniAural.pageIsLoadingHide()
       }
     })()
-  }, [filterFrom, filterSort, filterPage])
+  }, [filterCategoryId, filterFrom, filterSort, filterPage])
 
   /* Client-Side Queries */
 
   const clientQueryPodcasts = async () => {
     if (filterFrom === PV.Filters.from._all) {
       return clientQueryPodcastsAll()
+    } else if (filterCategoryId) {
+      return clientQueryPodcastsByCategory()
     } else if (filterFrom === PV.Filters.from._subscribed) {
       return clientQueryPodcastsBySubscribed()
     }
@@ -79,6 +84,15 @@ export default function Podcasts({
 
   const clientQueryPodcastsAll = async () => {
     const finalQuery = {
+      ...(filterPage ? { page: filterPage } : {}),
+      ...(filterSort ? { sort: filterSort } : {})
+    }
+    return getPodcastsByQuery(finalQuery)
+  }
+
+  const clientQueryPodcastsByCategory = async () => {
+    const finalQuery = {
+      categories: [filterCategoryId],
       ...(filterPage ? { page: filterPage } : {}),
       ...(filterSort ? { sort: filterSort } : {})
     }
@@ -147,7 +161,12 @@ export default function Podcasts({
         text={t('Podcasts')}
       />
       <PageScrollableContent noMarginTop>
-        {!podcastsListDataCount && <SearchBarHome />}
+        {!podcastsListDataCount &&
+          <>
+            <SearchBarHome />
+            <Tiles items={categories} onClick={(id: string) => console.log('clicked', id)} />
+          </>
+        }
         {(userInfo || filterFrom !== PV.Filters.from._subscribed) && (
           <>
             <List noMarginTop>{generatePodcastListElements(podcastsListData)}</List>

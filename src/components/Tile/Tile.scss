@@ -14,3 +14,40 @@
     font-size: clamp(2vw, 26px, 18px);
     text-align: right;
 }
+
+.tiles {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: -10px -10px 0 -10px;
+}
+
+@media (max-width: $media-max-width-tablet-xl) {
+  .tile-box {
+    height: 20vw;
+    width: 20vw;
+  }
+}
+
+@media (max-width: $media-max-width-tablet) {
+  .tile-box {
+    height: 30vw;
+    width: 30vw;
+  }
+}
+
+@media (max-width: 719px) {
+  .tile-box {
+    height: 28vw;
+    width: 28vw;
+  }
+}
+
+@media (max-width: $media-max-width-mobile) {
+  .tile-box {
+    height: 40vw;
+    padding: 15px;
+    width: 40vw;
+  }
+}

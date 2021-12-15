@@ -14,6 +14,8 @@
 
     .text-input-outer-wrapper {
       border-bottom: 1px solid;
+      border-radius: 0 !important;
+
       @include themeGen() {
         background-color: getThemeVal('backgroundTertiary') !important;
         border-bottom-color: getThemeVal('textHover');
@@ -34,6 +36,31 @@
         @include themeGen() {
           color: getThemeVal('textPrimary');
           @include placeholderColor(getThemeVal('textHover'))
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: $media-max-width-mobile) {
+  .search-bar-home {
+    .text-input {
+      .text-input-outer-wrapper {
+        padding: 10px 12px;
+
+        .icon-wrapper {
+          font-size: $text-lg !important;    
+          margin-right: 12px;      
+        }
+        input {
+          font-size: $text-lg !important;
+        }
+        .end-button {
+          display: none;
+
+          &.show {
+            display: block;
+          }
         }
       }
     }

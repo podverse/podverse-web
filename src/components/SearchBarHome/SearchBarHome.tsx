@@ -1,4 +1,5 @@
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
+import classNames from 'classnames'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -11,6 +12,7 @@ export const SearchBarHome = (props: Props) => {
   const router = useRouter()
   const { t } = useTranslation()
   const [searchValue, setSearchValue] = useState<string>('')
+  const endButtonClass = classNames(searchValue ? 'show' : '')
 
   const handleSearch = () => {
     if (searchValue) {
@@ -21,6 +23,7 @@ export const SearchBarHome = (props: Props) => {
   return (
     <div className='search-bar-home'>
       <TextInput
+        endButtonClass={endButtonClass}
         endButtonText={t('Search')}
         faIcon={faSearch}
         handleEndButtonClick={handleSearch}
