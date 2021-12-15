@@ -1,6 +1,5 @@
 import { GetServerSideProps } from 'next'
 import { useTranslation } from 'next-i18next'
-import { useRouter } from 'next/router'
 import OmniAural, { useOmniAural } from 'omniaural'
 import type { Podcast } from 'podverse-shared'
 import { useEffect, useRef, useState } from 'react'
@@ -23,7 +22,8 @@ import { getPodcastsByQuery } from '~/services/podcast'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 import { getCategoryById } from '~/services/category'
 
-const categories = require('~/resources/Categories/TopLevelCategories.json')[0]
+// eslint-disable-next-line
+const categories = require('~/resources/Categories/TopLevelCategories.json')
 
 interface ServerProps extends Page {
   serverFilterFrom: string
@@ -42,9 +42,9 @@ export default function Podcasts({
   serverPodcastsListData,
   serverPodcastsListDataCount
 }: ServerProps) {
+
   /* Initialize */
 
-  const router = useRouter()
   const { t } = useTranslation()
   const [filterCategoryId, setFilterCategoryId] = useState<string | null>(null)
   const [filterFrom, setFilterFrom] = useState<string>(serverFilterFrom)
@@ -53,7 +53,6 @@ export default function Podcasts({
   const [podcastsListData, setPodcastsListData] = useState<Podcast[]>(serverPodcastsListData)
   const [podcastsListDataCount, setPodcastsListDataCount] = useState<number>(serverPodcastsListDataCount)
   const [userInfo] = useOmniAural('session.userInfo')
-  const [page] = useOmniAural('page')
   const initialRender = useRef(true)
   const pageCount = Math.ceil(podcastsListDataCount / PV.Config.QUERY_RESULTS_LIMIT_DEFAULT)
   const selectedCategory = getCategoryById(filterCategoryId)
