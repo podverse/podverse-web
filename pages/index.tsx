@@ -28,7 +28,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const serverFilterSort = serverUserInfo ? PV.Filters.sort._alphabetical : PV.Filters.sort._topPastDay
 
   const serverFilterPage = 1
-  
+
   let podcastsListData = []
   let podcastsListDataCount = 0
   if (serverUserInfo) {
