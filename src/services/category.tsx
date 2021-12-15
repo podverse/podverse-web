@@ -1,5 +1,6 @@
 import { Category } from 'podverse-shared'
 
+// eslint-disable-next-line
 const topLevelCategories = require('~/resources/Categories/TopLevelCategories')
 
 export const getCategories = () => {
