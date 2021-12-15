@@ -41,7 +41,6 @@ export default function Clips({
   serverClipsListData,
   serverClipsListDataCount
 }: ServerProps) {
-
   /* Initialize */
 
   const router = useRouter()
@@ -242,7 +241,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       podcastIds: serverUserInfo?.subscribedPodcastIds,
       sort: serverFilterSort
     })
-    
+
     clipsListData = response.data[0]
     clipsListDataCount = response.data[1]
   }

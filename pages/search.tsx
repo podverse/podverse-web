@@ -45,7 +45,7 @@ export default function Search({ serverSearchByText }: ServerProps) {
   /* useEffects */
 
   useEffect(() => {
-    ; (async () => {
+    ;(async () => {
       if (filterSearchByText) {
         const { data } = await clientQueryPodcasts()
         const [newPodcastsListData, newPodcastsListCount] = data
@@ -160,7 +160,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
   const serverProps: ServerProps = {
     ...defaultServerProps,
-    serverSearchByText: podcastTitle as string || ''
+    serverSearchByText: (podcastTitle as string) || ''
   }
 
   return { props: serverProps }

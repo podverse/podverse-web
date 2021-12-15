@@ -34,7 +34,6 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     sort: serverFilterSort
   })
 
-
   const [podcastsListData, podcastsListDataCount] = response.data
 
   const serverProps: ServerProps = {

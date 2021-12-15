@@ -21,7 +21,7 @@ export const getPodcastsByQuery = async ({
   sort
 }: PodcastQueryParams) => {
   const filteredQuery: PodcastQueryParams = {
-    ...(categories  ? { categories } : {}),
+    ...(categories ? { categories } : {}),
     ...(podcastIds ? { podcastId: podcastIds } : {}),
     // If no "from", then from defaults to _allKey
     ...(maxResults ? { maxResults: true } : {}),

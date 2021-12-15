@@ -5,10 +5,7 @@ type TileProps = {
 
 export const Tile = ({ title, onClick }: TileProps) => {
   return (
-    <div
-      className='tile-box'
-      onClick={onClick}
-    >
+    <div className='tile-box' onClick={onClick}>
       <h1 className='tile-box-text'>{title}</h1>
     </div>
   )
@@ -27,11 +24,5 @@ type TilesProps = {
 export const Tiles = ({ items, onClick }: TilesProps) => {
   const tiles = items.map((item: TileItem) => <Tile onClick={() => onClick(item.id)} title={item.title} />)
 
-  return (
-    <div
-      className='tiles'
-    >
-      {tiles}
-    </div>
-  )
+  return <div className='tiles'>{tiles}</div>
 }

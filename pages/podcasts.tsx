@@ -42,7 +42,6 @@ export default function Podcasts({
   serverPodcastsListData,
   serverPodcastsListDataCount
 }: ServerProps) {
-
   /* Initialize */
 
   const router = useRouter()
@@ -59,7 +58,7 @@ export default function Podcasts({
   const pageCount = Math.ceil(podcastsListDataCount / PV.Config.QUERY_RESULTS_LIMIT_DEFAULT)
   const selectedCategory = getCategoryById(filterCategoryId)
   const pageHeaderText = selectedCategory ? `${t('Podcasts')} > ${selectedCategory.title}` : t('Podcasts')
-  
+
   /* useEffects */
 
   useEffect(() => {
@@ -167,8 +166,8 @@ export default function Podcasts({
       />
       <PageHeader
         noMarginBottom={
-          (filterFrom !== PV.Filters.from._category && !!podcastsListDataCount)
-          || (filterCategoryId && filterFrom === PV.Filters.from._category)
+          (filterFrom !== PV.Filters.from._category && !!podcastsListDataCount) ||
+          (filterCategoryId && filterFrom === PV.Filters.from._category)
         }
         primaryOnChange={_handlePrimaryOnChange}
         primaryOptions={PV.Filters.dropdownOptions.podcasts.from}
@@ -184,7 +183,7 @@ export default function Podcasts({
       />
       <PageScrollableContent noMarginTop>
         {!userInfo && <SearchBarHome />}
-        {filterFrom === PV.Filters.from._category && !filterCategoryId && (  
+        {filterFrom === PV.Filters.from._category && !filterCategoryId && (
           <Tiles items={categories} onClick={(id: string) => setFilterCategoryId(id)} />
         )}
         {!userInfo && filterFrom === PV.Filters.from._subscribed && (
@@ -194,11 +193,12 @@ export default function Podcasts({
             message={t('LoginToSubscribeToPodcasts')}
           />
         )}
-        {(
-          filterFrom !== PV.Filters.from._category
-          || (filterFrom === PV.Filters.from._category && filterCategoryId)) && (
+        {(filterFrom !== PV.Filters.from._category ||
+          (filterFrom === PV.Filters.from._category && filterCategoryId)) && (
           <>
-            <List hideNoResultsMessage noMarginTop>{generatePodcastListElements(podcastsListData)}</List>
+            <List hideNoResultsMessage noMarginTop>
+              {generatePodcastListElements(podcastsListData)}
+            </List>
             <Pagination
               currentPageIndex={filterPage}
               handlePageNavigate={(newPage) => setFilterPage(newPage)}

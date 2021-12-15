@@ -1,4 +1,4 @@
-import { Category } from "podverse-shared"
+import { Category } from 'podverse-shared'
 
 const topLevelCategories = require('~/resources/Categories/TopLevelCategories')
 
