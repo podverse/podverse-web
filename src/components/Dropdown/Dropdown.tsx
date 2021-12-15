@@ -36,7 +36,7 @@ const contentRenderer = (props: Props, t: any) => {
 
 const dropdownHandleRenderer = (hideCaret?: boolean) => {
   if (hideCaret) {
-    return <div />
+    return <div className='dropdown__hidden-chevron' />
   } else {
     return (
       <div className='dropdown__chevron'>
@@ -59,9 +59,10 @@ export const Dropdown = (props: Props) => {
     <Select
       className={wrapperClass}
       contentRenderer={() => contentRenderer(props, t)}
+      disabled={options.length <= 1}
       dropdownHandleRenderer={() => dropdownHandleRenderer(props.hideCaret)}
       labelField='label'
-      onChange={onChange}
+      onChange={options.length > 1 ? onChange : null}
       options={options}
       valueField='key'
       values={[]}

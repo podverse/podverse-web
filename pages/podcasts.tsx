@@ -1,5 +1,6 @@
 import { GetServerSideProps } from 'next'
 import { useTranslation } from 'next-i18next'
+import { useRouter } from 'next/router'
 import OmniAural, { useOmniAural } from 'omniaural'
 import type { Podcast } from 'podverse-shared'
 import { useEffect, useRef, useState } from 'react'
@@ -11,13 +12,18 @@ import {
   PageScrollableContent,
   Pagination,
   PodcastListItem,
-  scrollToTopOfPageScrollableContent
+  scrollToTopOfPageScrollableContent,
+  SearchBarHome,
+  Tiles
 } from '~/components'
 import { Page } from '~/lib/utility/page'
 import { PV } from '~/resources'
+import { isNotAllSortOption } from '~/resources/Filters'
 import { getPodcastsByQuery } from '~/services/podcast'
-import { isNotPodcastsAllSortOption } from '~/resources/Filters'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
+import { getCategoryById } from '~/services/category'
+
+const categories = require('~/resources/Categories/TopLevelCategories.json')[0]
 
 interface ServerProps extends Page {
   serverFilterFrom: string
@@ -38,15 +44,20 @@ export default function Podcasts({
 }: ServerProps) {
   /* Initialize */
 
+  const router = useRouter()
   const { t } = useTranslation()
+  const [filterCategoryId, setFilterCategoryId] = useState<string | null>(null)
   const [filterFrom, setFilterFrom] = useState<string>(serverFilterFrom)
   const [filterPage, setFilterPage] = useState<number>(serverFilterPage)
   const [filterSort, setFilterSort] = useState<string>(serverFilterSort)
   const [podcastsListData, setPodcastsListData] = useState<Podcast[]>(serverPodcastsListData)
   const [podcastsListDataCount, setPodcastsListDataCount] = useState<number>(serverPodcastsListDataCount)
   const [userInfo] = useOmniAural('session.userInfo')
+  const [page] = useOmniAural('page')
   const initialRender = useRef(true)
   const pageCount = Math.ceil(podcastsListDataCount / PV.Config.QUERY_RESULTS_LIMIT_DEFAULT)
+  const selectedCategory = getCategoryById(filterCategoryId)
+  const pageHeaderText = selectedCategory ? `${t('Podcasts')} > ${selectedCategory.title}` : t('Podcasts')
 
   /* useEffects */
 
@@ -64,13 +75,15 @@ export default function Podcasts({
         OmniAural.pageIsLoadingHide()
       }
     })()
-  }, [filterFrom, filterSort, filterPage])
+  }, [filterCategoryId, filterFrom, filterSort, filterPage])
 
   /* Client-Side Queries */
 
   const clientQueryPodcasts = async () => {
     if (filterFrom === PV.Filters.from._all) {
       return clientQueryPodcastsAll()
+    } else if (filterFrom === PV.Filters.from._category) {
+      return clientQueryPodcastsByCategory()
     } else if (filterFrom === PV.Filters.from._subscribed) {
       return clientQueryPodcastsBySubscribed()
     }
@@ -81,6 +94,16 @@ export default function Podcasts({
       ...(filterPage ? { page: filterPage } : {}),
       ...(filterSort ? { sort: filterSort } : {})
     }
+    return getPodcastsByQuery(finalQuery)
+  }
+
+  const clientQueryPodcastsByCategory = async () => {
+    const finalQuery = {
+      categories: filterCategoryId ? [filterCategoryId] : [],
+      ...(filterPage ? { page: filterPage } : {}),
+      ...(filterSort ? { sort: filterSort } : {})
+    }
+
     return getPodcastsByQuery(finalQuery)
   }
 
@@ -100,10 +123,11 @@ export default function Podcasts({
     const selectedItem = selectedItems[0]
     if (selectedItem.key !== filterFrom) setFilterPage(1)
 
-    if (selectedItem.key !== PV.Filters.from._subscribed && isNotPodcastsAllSortOption(filterSort)) {
+    if (selectedItem.key !== PV.Filters.from._subscribed && isNotAllSortOption(filterSort)) {
       setFilterSort(PV.Filters.sort._topPastDay)
     }
 
+    setFilterCategoryId(null)
     setFilterFrom(selectedItem.key)
   }
 
@@ -141,7 +165,10 @@ export default function Podcasts({
         twitterTitle={meta.title}
       />
       <PageHeader
-        noMarginBottom
+        noMarginBottom={
+          (filterFrom !== PV.Filters.from._category && !!podcastsListDataCount) ||
+          (filterCategoryId && filterFrom === PV.Filters.from._category)
+        }
         primaryOnChange={_handlePrimaryOnChange}
         primaryOptions={PV.Filters.dropdownOptions.podcasts.from}
         primarySelected={filterFrom}
@@ -152,9 +179,13 @@ export default function Podcasts({
             : PV.Filters.dropdownOptions.podcasts.sort.all
         }
         sortSelected={filterSort}
-        text={t('Podcasts')}
+        text={pageHeaderText}
       />
       <PageScrollableContent noMarginTop>
+        {!userInfo && <SearchBarHome />}
+        {filterFrom === PV.Filters.from._category && !filterCategoryId && (
+          <Tiles items={categories} onClick={(id: string) => setFilterCategoryId(id)} />
+        )}
         {!userInfo && filterFrom === PV.Filters.from._subscribed && (
           <MessageWithAction
             actionLabel={t('Login')}
@@ -162,9 +193,12 @@ export default function Podcasts({
             message={t('LoginToSubscribeToPodcasts')}
           />
         )}
-        {(userInfo || filterFrom !== PV.Filters.from._subscribed) && (
+        {(filterFrom !== PV.Filters.from._category ||
+          (filterFrom === PV.Filters.from._category && filterCategoryId)) && (
           <>
-            <List noMarginTop>{generatePodcastListElements(podcastsListData)}</List>
+            <List hideNoResultsMessage noMarginTop>
+              {generatePodcastListElements(podcastsListData)}
+            </List>
             <Pagination
               currentPageIndex={filterPage}
               handlePageNavigate={(newPage) => setFilterPage(newPage)}
@@ -191,23 +225,21 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const defaultServerProps = await getDefaultServerSideProps(ctx, locale)
   const { serverUserInfo } = defaultServerProps
 
-  const serverFilterFrom = serverUserInfo ? PV.Filters.from._subscribed : PV.Filters.from._all
-  const serverFilterSort = serverUserInfo ? PV.Filters.sort._alphabetical : PV.Filters.sort._topPastDay
+  const serverFilterFrom = serverUserInfo ? PV.Filters.from._subscribed : PV.Filters.from._category
+  const serverFilterSort = serverUserInfo ? PV.Filters.sort._mostRecent : PV.Filters.sort._topPastDay
 
   const serverFilterPage = 1
-  let response = null
-  if (serverUserInfo) {
-    response = await getPodcastsByQuery({
-      podcastIds: serverUserInfo.subscribedPodcastIds,
-      sort: serverFilterSort
-    })
-  } else {
-    response = await getPodcastsByQuery({
-      sort: serverFilterSort
-    })
-  }
 
-  const [podcastsListData, podcastsListDataCount] = response.data
+  let podcastsListData = []
+  let podcastsListDataCount = 0
+  if (serverUserInfo) {
+    const response = await getPodcastsByQuery({
+      podcastIds: serverUserInfo?.subscribedPodcastIds,
+      sort: serverFilterSort
+    })
+    podcastsListData = response.data[0]
+    podcastsListDataCount = response.data[1]
+  }
 
   const serverProps: ServerProps = {
     ...defaultServerProps,
