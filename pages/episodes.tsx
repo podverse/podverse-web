@@ -1,5 +1,6 @@
 import { GetServerSideProps } from 'next'
 import { useTranslation } from 'next-i18next'
+import { useRouter } from 'next/router'
 import OmniAural, { useOmniAural } from 'omniaural'
 import type { Episode } from 'podverse-shared'
 import { useEffect, useRef, useState } from 'react'
@@ -16,16 +17,16 @@ import {
 } from '~/components'
 import { Page } from '~/lib/utility/page'
 import { PV } from '~/resources'
+import { isNotAllSortOption } from '~/resources/Filters'
+import { getCategoryById, getCategoryBySlug } from '~/services/category'
 import { getEpisodesByQuery } from '~/services/episode'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
-
-import { getCategoryById } from '~/services/category'
-import { isNotAllSortOption } from '~/resources/Filters'
 
 // eslint-disable-next-line
 const categories = require('~/resources/Categories/TopLevelCategories.json')
 
 interface ServerProps extends Page {
+  serverCategoryId: string | null
   serverFilterFrom: string
   serverFilterPage: number
   serverFilterSort: string
@@ -36,6 +37,7 @@ interface ServerProps extends Page {
 const keyPrefix = 'pages_episodes'
 
 export default function Episodes({
+  serverCategoryId,
   serverFilterFrom,
   serverFilterPage,
   serverFilterSort,
@@ -43,9 +45,10 @@ export default function Episodes({
   serverEpisodesListDataCount
 }: ServerProps) {
   /* Initialize */
-
+  
+  const router = useRouter()
   const { t } = useTranslation()
-  const [filterCategoryId, setFilterCategoryId] = useState<string | null>(null)
+  const [filterCategoryId, setFilterCategoryId] = useState<string | null>(serverCategoryId || null)
   const [filterFrom, setFilterFrom] = useState<string>(serverFilterFrom)
   const [filterPage, setFilterPage] = useState<number>(serverFilterPage)
   const [filterSort, setFilterSort] = useState<string>(serverFilterSort)
@@ -54,7 +57,8 @@ export default function Episodes({
   const [userInfo] = useOmniAural('session.userInfo')
   const initialRender = useRef(true)
   const pageCount = Math.ceil(episodesListDataCount / PV.Config.QUERY_RESULTS_LIMIT_DEFAULT)
-  const selectedCategory = getCategoryById(filterCategoryId)
+  const isCategoryPage = !!router.query?.category
+  const selectedCategory = isCategoryPage ? getCategoryById(filterCategoryId) : null
   const pageHeaderText = selectedCategory ? `${t('Episodes')} > ${selectedCategory.title}` : t('Episodes')
 
   /* useEffects */
@@ -103,7 +107,6 @@ export default function Episodes({
       ...(filterSort ? { sort: filterSort } : {}),
       includePodcast: true
     }
-
     return getEpisodesByQuery(finalQuery)
   }
 
@@ -121,6 +124,7 @@ export default function Episodes({
   /* Function Helpers */
 
   const _handlePrimaryOnChange = (selectedItems: any[]) => {
+    router.push(`${PV.RoutePaths.web.episodes}`)
     const selectedItem = selectedItems[0]
     if (selectedItem.key !== filterFrom) setFilterPage(1)
 
@@ -181,8 +185,12 @@ export default function Episodes({
         text={pageHeaderText}
       />
       <PageScrollableContent noMarginTop>
-        {filterFrom === PV.Filters.from._category && !filterCategoryId && (
-          <Tiles items={categories} onClick={(id: string) => setFilterCategoryId(id)} />
+        {filterFrom === PV.Filters.from._category && !isCategoryPage && (
+          <Tiles items={categories} onClick={(id: string) => {
+            setFilterCategoryId(id)
+            const selectedCategory = getCategoryById(id)
+            router.push(`${PV.RoutePaths.web.episodes}?category=${selectedCategory.slug}`)
+          }} />
         )}
         {!userInfo && filterFrom === PV.Filters.from._subscribed && (
           <MessageWithAction
@@ -191,7 +199,10 @@ export default function Episodes({
             message={t('LoginToSubscribeToPodcasts')}
           />
         )}
-        {(userInfo || filterFrom !== PV.Filters.from._subscribed) && (
+        {(
+          (userInfo && filterFrom === PV.Filters.from._subscribed)
+          || (filterFrom === PV.Filters.from._all)
+          || (filterFrom === PV.Filters.from._category && isCategoryPage)) && (
           <>
             <List hideNoResultsMessage>{generateEpisodeListElements(episodesListData)}</List>
             <Pagination
@@ -215,7 +226,10 @@ export default function Episodes({
 /* Server-Side Logic */
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const { locale } = ctx
+  const { locale, query } = ctx
+  const { category: categorySlug } = query
+  const selectedCategory = getCategoryBySlug(categorySlug as string)
+  const serverCategoryId = selectedCategory?.id || null
 
   const defaultServerProps = await getDefaultServerSideProps(ctx, locale)
   const { serverUserInfo } = defaultServerProps
@@ -227,7 +241,15 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
   let episodesListData = []
   let episodesListDataCount = 0
-  if (serverUserInfo) {
+  if (selectedCategory) {
+    const response = await getEpisodesByQuery({
+      categories: [serverCategoryId],
+      includePodcast: true,
+      sort: serverFilterSort
+    })
+    episodesListData = response.data[0]
+    episodesListDataCount = response.data[1]
+  } else if (serverUserInfo) {
     const response = await getEpisodesByQuery({
       includePodcast: true,
       podcastIds: serverUserInfo?.subscribedPodcastIds,
@@ -239,6 +261,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
   const serverProps: ServerProps = {
     ...defaultServerProps,
+    serverCategoryId,
     serverFilterFrom,
     serverFilterPage,
     serverFilterSort,

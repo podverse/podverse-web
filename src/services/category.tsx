@@ -12,3 +12,9 @@ export const getCategoryById = (id: string) => {
   const category = categories.find((category: Category) => category.id === id)
   return category
 }
+
+export const getCategoryBySlug = (slug: string) => {
+  const categories = getCategories()
+  const category = categories.find((category: Category) => category.slug === slug)
+  return category
+}

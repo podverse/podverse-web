@@ -1,5 +1,6 @@
 import { GetServerSideProps } from 'next'
 import { useTranslation } from 'next-i18next'
+import { useRouter } from 'next/router'
 import OmniAural, { useOmniAural } from 'omniaural'
 import type { MediaRef } from 'podverse-shared'
 import { useEffect, useRef, useState } from 'react'
@@ -17,13 +18,14 @@ import {
 import { Page } from '~/lib/utility/page'
 import { PV } from '~/resources'
 import { isNotAllSortOption } from '~/resources/Filters'
-import { getCategoryById } from '~/services/category'
+import { getCategoryById, getCategoryBySlug } from '~/services/category'
 import { getMediaRefsByQuery } from '~/services/mediaRef'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 
 // eslint-disable-next-line
 const categories = require('~/resources/Categories/TopLevelCategories.json')
 interface ServerProps extends Page {
+  serverCategoryId: string | null
   serverFilterFrom: string
   serverFilterPage: number
   serverFilterSort: string
@@ -34,6 +36,7 @@ interface ServerProps extends Page {
 const keyPrefix = 'pages_clips'
 
 export default function Clips({
+  serverCategoryId,
   serverFilterFrom,
   serverFilterPage,
   serverFilterSort,
@@ -42,8 +45,9 @@ export default function Clips({
 }: ServerProps) {
   /* Initialize */
 
+  const router = useRouter()
   const { t } = useTranslation()
-  const [filterCategoryId, setFilterCategoryId] = useState<string | null>(null)
+  const [filterCategoryId, setFilterCategoryId] = useState<string | null>(serverCategoryId || null)
   const [filterFrom, setFilterFrom] = useState<string>(serverFilterFrom)
   const [filterPage, setFilterPage] = useState<number>(serverFilterPage)
   const [filterSort, setFilterSort] = useState<string>(serverFilterSort)
@@ -52,7 +56,8 @@ export default function Clips({
   const [userInfo] = useOmniAural('session.userInfo')
   const initialRender = useRef<boolean>(true)
   const pageCount = Math.ceil(clipsListDataCount / PV.Config.QUERY_RESULTS_LIMIT_DEFAULT)
-  const selectedCategory = getCategoryById(filterCategoryId)
+  const isCategoryPage = !!router.query?.category
+  const selectedCategory = isCategoryPage ? getCategoryById(filterCategoryId) : null
   const pageHeaderText = selectedCategory ? `${t('Clips')} > ${selectedCategory.title}` : t('Clips')
 
   /* useEffects */
@@ -119,6 +124,7 @@ export default function Clips({
   /* Function Helpers */
 
   const _handlePrimaryOnChange = (selectedItems: any[]) => {
+    router.push(`${PV.RoutePaths.web.clips}`)
     const selectedItem = selectedItems[0]
     if (selectedItem.key !== filterFrom) setFilterPage(1)
 
@@ -186,8 +192,12 @@ export default function Clips({
         text={pageHeaderText}
       />
       <PageScrollableContent noMarginTop>
-        {filterFrom === PV.Filters.from._category && !filterCategoryId && (
-          <Tiles items={categories} onClick={(id: string) => setFilterCategoryId(id)} />
+        {filterFrom === PV.Filters.from._category && !isCategoryPage && (
+          <Tiles items={categories} onClick={(id: string) => {
+            setFilterCategoryId(id)
+            const selectedCategory = getCategoryById(id)
+            router.push(`${PV.RoutePaths.web.clips}?category=${selectedCategory.slug}`)
+          }} />
         )}
         {!userInfo && filterFrom === PV.Filters.from._subscribed && (
           <MessageWithAction
@@ -196,7 +206,9 @@ export default function Clips({
             message={t('LoginToSubscribeToPodcasts')}
           />
         )}
-        {(userInfo || filterFrom !== PV.Filters.from._subscribed) && (
+        {((userInfo && filterFrom === PV.Filters.from._subscribed)
+          || (filterFrom === PV.Filters.from._all)
+          || (filterFrom === PV.Filters.from._category && isCategoryPage)) && (
           <>
             <List hideNoResultsMessage>{generateClipListElements(clipsListData)}</List>
             <Pagination
@@ -220,7 +232,10 @@ export default function Clips({
 /* Server-Side Logic */
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const { locale } = ctx
+  const { locale, query } = ctx
+  const { category: categorySlug } = query
+  const selectedCategory = getCategoryBySlug(categorySlug as string)
+  const serverCategoryId = selectedCategory?.id || null
 
   const defaultServerProps = await getDefaultServerSideProps(ctx, locale)
   const { serverUserInfo } = defaultServerProps
@@ -232,20 +247,29 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
   let clipsListData = []
   let clipsListDataCount = 0
-  if (serverUserInfo) {
+  if (selectedCategory) {
+    const response = await getMediaRefsByQuery({
+      categories: [serverCategoryId],
+      includeEpisode: true,
+      includePodcast: true,
+      sort: serverFilterSort
+    })
+    clipsListData = response.data[0]
+    clipsListDataCount = response.data[1]
+  } else if (serverUserInfo) {
     const response = await getMediaRefsByQuery({
       includeEpisode: true,
       includePodcast: true,
       podcastIds: serverUserInfo?.subscribedPodcastIds,
       sort: serverFilterSort
     })
-
     clipsListData = response.data[0]
     clipsListDataCount = response.data[1]
   }
 
   const serverProps: ServerProps = {
     ...defaultServerProps,
+    serverCategoryId,
     serverFilterFrom,
     serverFilterPage,
     serverFilterSort,
