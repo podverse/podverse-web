@@ -213,7 +213,9 @@ export default function Clips({
           filterFrom === PV.Filters.from._all ||
           (filterFrom === PV.Filters.from._category && isCategoryPage)) && (
           <>
-            <List hideNoResultsMessage={filterFrom === PV.Filters.from._category && !isCategoryPage}>{generateClipListElements(clipsListData)}</List>
+            <List hideNoResultsMessage={filterFrom === PV.Filters.from._category && !isCategoryPage}>
+              {generateClipListElements(clipsListData)}
+            </List>
             <Pagination
               currentPageIndex={filterPage}
               handlePageNavigate={(newPage) => setFilterPage(newPage)}
