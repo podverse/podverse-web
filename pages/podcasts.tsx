@@ -206,7 +206,7 @@ export default function Podcasts({
         )}
         {(filterFrom !== PV.Filters.from._category || (filterFrom === PV.Filters.from._category && isCategoryPage)) && (
           <>
-            <List hideNoResultsMessage noMarginTop>
+            <List hideNoResultsMessage={filterFrom === PV.Filters.from._category && !isCategoryPage} noMarginTop>
               {generatePodcastListElements(podcastsListData)}
             </List>
             <Pagination

@@ -1,14 +1,14 @@
 .tile-box {
-    width: 15vw;
-    height: 15vw;
-    cursor: pointer;
-    border-radius: 5%;
-    background: linear-gradient(20deg, #20244e,#20244e,#20244e,#74A8DC);
-    display: flex;
-    justify-content: flex-end;
-    align-items: flex-end;
-    padding: 20px;
-    margin: 10px;
+  width: 15vw;
+  height: 15vw;
+  cursor: pointer;
+  border-radius: 5%;
+  background: linear-gradient(20deg, #20244e,#20244e,#20244e,#5d86b0);
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  padding: 20px;
+  margin: 10px;
 }
 
 .tile-box-text {
@@ -25,6 +25,20 @@
   padding-bottom: 32px;
 }
 
+@media (min-width: 1500px) {
+  .tile-box {
+    height: 14vw;
+    width: 14vw;
+  }
+}
+
+@media (min-width: 1300px) and (max-width: 1360px) {
+  .tile-box {
+    height: 17vw;
+    width: 17vw;
+  }
+}
+
 @media (max-width: $media-max-width-tablet-xl) {
   .tile-box {
     height: 20vw;
@@ -34,15 +48,15 @@
 
 @media (max-width: $media-max-width-tablet) {
   .tile-box {
-    height: 30vw;
-    width: 30vw;
+    height: 26vw;
+    width: 26vw;
   }
 }
 
 @media (max-width: 719px) {
   .tile-box {
-    height: 28vw;
-    width: 28vw;
+    height: 26vw;
+    width: 26vw;
   }
 }
 
@@ -51,5 +65,11 @@
     height: 40vw;
     padding: 15px;
     width: 40vw;
+  }
+}
+
+@media (hover: hover) {
+  .tile-box:hover {
+    opacity: 0.825;
   }
 }
