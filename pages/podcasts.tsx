@@ -188,11 +188,14 @@ export default function Podcasts({
       <PageScrollableContent noMarginTop>
         {!userInfo && filterFrom === PV.Filters.from._category && !isCategoryPage && <SearchBarHome />}
         {filterFrom === PV.Filters.from._category && !isCategoryPage && (
-          <Tiles items={categories} onClick={(id: string) => {
-            setFilterCategoryId(id)
-            const selectedCategory = getCategoryById(id)
-            router.push(`${PV.RoutePaths.web.podcasts}?category=${selectedCategory.slug}`)
-          }} />
+          <Tiles
+            items={categories}
+            onClick={(id: string) => {
+              setFilterCategoryId(id)
+              const selectedCategory = getCategoryById(id)
+              router.push(`${PV.RoutePaths.web.podcasts}?category=${selectedCategory.slug}`)
+            }}
+          />
         )}
         {!userInfo && filterFrom === PV.Filters.from._subscribed && (
           <MessageWithAction
@@ -201,8 +204,7 @@ export default function Podcasts({
             message={t('LoginToSubscribeToPodcasts')}
           />
         )}
-        {(filterFrom !== PV.Filters.from._category ||
-          (filterFrom === PV.Filters.from._category && isCategoryPage)) && (
+        {(filterFrom !== PV.Filters.from._category || (filterFrom === PV.Filters.from._category && isCategoryPage)) && (
           <>
             <List hideNoResultsMessage noMarginTop>
               {generatePodcastListElements(podcastsListData)}

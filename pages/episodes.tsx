@@ -45,7 +45,7 @@ export default function Episodes({
   serverEpisodesListDataCount
 }: ServerProps) {
   /* Initialize */
-  
+
   const router = useRouter()
   const { t } = useTranslation()
   const [filterCategoryId, setFilterCategoryId] = useState<string | null>(serverCategoryId || null)
@@ -186,11 +186,14 @@ export default function Episodes({
       />
       <PageScrollableContent noMarginTop>
         {filterFrom === PV.Filters.from._category && !isCategoryPage && (
-          <Tiles items={categories} onClick={(id: string) => {
-            setFilterCategoryId(id)
-            const selectedCategory = getCategoryById(id)
-            router.push(`${PV.RoutePaths.web.episodes}?category=${selectedCategory.slug}`)
-          }} />
+          <Tiles
+            items={categories}
+            onClick={(id: string) => {
+              setFilterCategoryId(id)
+              const selectedCategory = getCategoryById(id)
+              router.push(`${PV.RoutePaths.web.episodes}?category=${selectedCategory.slug}`)
+            }}
+          />
         )}
         {!userInfo && filterFrom === PV.Filters.from._subscribed && (
           <MessageWithAction
@@ -199,10 +202,9 @@ export default function Episodes({
             message={t('LoginToSubscribeToPodcasts')}
           />
         )}
-        {(
-          (userInfo && filterFrom === PV.Filters.from._subscribed)
-          || (filterFrom === PV.Filters.from._all)
-          || (filterFrom === PV.Filters.from._category && isCategoryPage)) && (
+        {((userInfo && filterFrom === PV.Filters.from._subscribed) ||
+          filterFrom === PV.Filters.from._all ||
+          (filterFrom === PV.Filters.from._category && isCategoryPage)) && (
           <>
             <List hideNoResultsMessage>{generateEpisodeListElements(episodesListData)}</List>
             <Pagination

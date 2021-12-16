@@ -193,11 +193,14 @@ export default function Clips({
       />
       <PageScrollableContent noMarginTop>
         {filterFrom === PV.Filters.from._category && !isCategoryPage && (
-          <Tiles items={categories} onClick={(id: string) => {
-            setFilterCategoryId(id)
-            const selectedCategory = getCategoryById(id)
-            router.push(`${PV.RoutePaths.web.clips}?category=${selectedCategory.slug}`)
-          }} />
+          <Tiles
+            items={categories}
+            onClick={(id: string) => {
+              setFilterCategoryId(id)
+              const selectedCategory = getCategoryById(id)
+              router.push(`${PV.RoutePaths.web.clips}?category=${selectedCategory.slug}`)
+            }}
+          />
         )}
         {!userInfo && filterFrom === PV.Filters.from._subscribed && (
           <MessageWithAction
@@ -206,9 +209,9 @@ export default function Clips({
             message={t('LoginToSubscribeToPodcasts')}
           />
         )}
-        {((userInfo && filterFrom === PV.Filters.from._subscribed)
-          || (filterFrom === PV.Filters.from._all)
-          || (filterFrom === PV.Filters.from._category && isCategoryPage)) && (
+        {((userInfo && filterFrom === PV.Filters.from._subscribed) ||
+          filterFrom === PV.Filters.from._all ||
+          (filterFrom === PV.Filters.from._category && isCategoryPage)) && (
           <>
             <List hideNoResultsMessage>{generateClipListElements(clipsListData)}</List>
             <Pagination
