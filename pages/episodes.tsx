@@ -125,7 +125,7 @@ export default function Episodes({
     if (selectedItem.key !== filterFrom) setFilterPage(1)
 
     if (selectedItem.key !== PV.Filters.from._subscribed && isNotAllSortOption(filterSort)) {
-      setFilterSort(PV.Filters.sort._topPastDay)
+      setFilterSort(PV.Filters.sort._topPastWeek)
     }
 
     setFilterCategoryId(null)
@@ -221,7 +221,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { serverUserInfo } = defaultServerProps
 
   const serverFilterFrom = serverUserInfo ? PV.Filters.from._subscribed : PV.Filters.from._category
-  const serverFilterSort = serverUserInfo ? PV.Filters.sort._mostRecent : PV.Filters.sort._topPastDay
+  const serverFilterSort = serverUserInfo ? PV.Filters.sort._mostRecent : PV.Filters.sort._topPastWeek
 
   const serverFilterPage = 1
 
