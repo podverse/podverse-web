@@ -206,7 +206,9 @@ export default function Episodes({
           filterFrom === PV.Filters.from._all ||
           (filterFrom === PV.Filters.from._category && isCategoryPage)) && (
           <>
-            <List hideNoResultsMessage>{generateEpisodeListElements(episodesListData)}</List>
+            <List hideNoResultsMessage={filterFrom === PV.Filters.from._category && !isCategoryPage}>
+              {generateEpisodeListElements(episodesListData)}
+            </List>
             <Pagination
               currentPageIndex={filterPage}
               handlePageNavigate={(newPage) => setFilterPage(newPage)}
