@@ -13,8 +13,8 @@ type Props = unknown
 
 export const PlayerAPIVideo = (props: Props) => {
   const [player] = useOmniAural('player')
-  const [historyItemsIndex] = useOmniAural('historyItemsIndex')
-
+  // const [historyItemsIndex] = useOmniAural('historyItemsIndex')
+  const historyItemsIndex = OmniAural.state.historyItemsIndex.value()
   const { currentNowPlayingItem, muted, paused, video, volume } = player
   const { src } = video
 
