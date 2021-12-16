@@ -14,8 +14,8 @@ export const PVLink = ({ children, className, href, onClick }: Props) => {
   const linkClassName = classnames(className ? className : '')
 
   /* If already on the same page, force the page to reload with onClick + router.replace */
-  let isCurrentPage = href === router.pathname
-  let finalOnClick = isCurrentPage
+  const isCurrentPage = href === router.pathname
+  const finalOnClick = isCurrentPage
     ? () => {
         router.replace(href)
       }
