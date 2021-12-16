@@ -239,7 +239,8 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { serverUserInfo } = defaultServerProps
 
   const serverFilterFrom = serverUserInfo && !selectedCategory ? PV.Filters.from._subscribed : PV.Filters.from._category
-  const serverFilterSort = serverUserInfo && !selectedCategory ? PV.Filters.sort._mostRecent : PV.Filters.sort._topPastWeek
+  const serverFilterSort =
+    serverUserInfo && !selectedCategory ? PV.Filters.sort._mostRecent : PV.Filters.sort._topPastWeek
 
   const serverFilterPage = 1
 
