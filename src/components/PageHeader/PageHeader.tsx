@@ -1,6 +1,5 @@
-import { faAngleDown, faAngleUp, faFilm, faVideo } from '@fortawesome/free-solid-svg-icons'
+import { faAngleDown, faAngleUp, faFilm } from '@fortawesome/free-solid-svg-icons'
 import classnames from 'classnames'
-import OmniAural, { useOmniAural } from 'omniaural'
 import { useTranslation } from 'react-i18next'
 import { ButtonRectangle, DivClickable, Dropdown, Icon, SwitchWithIcons } from '~/components'
 
@@ -21,7 +20,7 @@ type Props = {
   sortOnChange?: any
   sortSelected?: string
   text: string
-  videoOnlyMode: boolean
+  videoOnlyMode?: boolean
 }
 
 export const PageHeader = ({
