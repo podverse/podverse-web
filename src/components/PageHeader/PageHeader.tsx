@@ -1,13 +1,15 @@
-import { faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons'
+import { faAngleDown, faAngleUp, faFilm, faVideo } from '@fortawesome/free-solid-svg-icons'
 import classnames from 'classnames'
+import OmniAural, { useOmniAural } from 'omniaural'
 import { useTranslation } from 'react-i18next'
-import { ButtonRectangle, DivClickable, Dropdown, Icon } from '~/components'
+import { ButtonRectangle, DivClickable, Dropdown, Icon, SwitchWithIcons } from '~/components'
 
 type Props = {
   handleClearAllButton?: any
   handleCollapse?: any
   handleEditButton?: any
   hasEditButton?: boolean
+  handleVideoOnlyModeToggle?: any
   isCollapsed?: boolean
   isEditing?: boolean
   isSubHeader?: boolean
@@ -19,6 +21,7 @@ type Props = {
   sortOnChange?: any
   sortSelected?: string
   text: string
+  videoOnlyMode: boolean
 }
 
 export const PageHeader = ({
@@ -26,6 +29,7 @@ export const PageHeader = ({
   handleCollapse,
   handleEditButton,
   hasEditButton,
+  handleVideoOnlyModeToggle,
   isCollapsed,
   isEditing,
   isSubHeader,
@@ -36,7 +40,8 @@ export const PageHeader = ({
   sortOnChange,
   sortOptions,
   sortSelected,
-  text
+  text,
+  videoOnlyMode
 }: Props) => {
   const { t } = useTranslation()
   const wrapperClass = classnames(
@@ -86,6 +91,16 @@ export const PageHeader = ({
                   />
                 </div>
               )}
+              {
+                handleVideoOnlyModeToggle && (
+                  <SwitchWithIcons
+                    ariaLabel={t('ARIA - Toggle video only mode')}
+                    checked={videoOnlyMode}
+                    faIconEnding={faFilm}
+                    onChange={handleVideoOnlyModeToggle}
+                  />
+                )
+              }
             </div>
           )}
           {hasButtons && (
