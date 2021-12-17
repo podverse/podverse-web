@@ -45,7 +45,7 @@ export default function Podcasts({
   serverPodcastsListData,
   serverPodcastsListDataCount
 }: ServerProps) {
-  /* Initialize */  
+  /* Initialize */
   const router = useRouter()
   const { t } = useTranslation()
   const [filterCategoryId, setFilterCategoryId] = useState<string | null>(serverCategoryId || null)
@@ -82,9 +82,9 @@ export default function Podcasts({
 
   useOmniAuralEffect(() => {
     setVideoOnlyMode(OmniAural.state.globalFilters.videoOnlyMode.value())
-  }, "globalFilters.videoOnlyMode")
+  }, 'globalFilters.videoOnlyMode')
 
-// ON CATEGORY CHANGE, RESET PAGE TO 1
+  // ON CATEGORY CHANGE, RESET PAGE TO 1
   useEffect(() => {
     handleEffect()
   }, [filterCategoryId, filterFrom, filterSort, filterPage, videoOnlyMode])

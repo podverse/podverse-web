@@ -91,16 +91,14 @@ export const PageHeader = ({
                   />
                 </div>
               )}
-              {
-                handleVideoOnlyModeToggle && (
-                  <SwitchWithIcons
-                    ariaLabel={t('ARIA - Toggle video only mode')}
-                    checked={videoOnlyMode}
-                    faIconEnding={faFilm}
-                    onChange={handleVideoOnlyModeToggle}
-                  />
-                )
-              }
+              {handleVideoOnlyModeToggle && (
+                <SwitchWithIcons
+                  ariaLabel={t('ARIA - Toggle video only mode')}
+                  checked={videoOnlyMode}
+                  faIconEnding={faFilm}
+                  onChange={handleVideoOnlyModeToggle}
+                />
+              )}
             </div>
           )}
           {hasButtons && (

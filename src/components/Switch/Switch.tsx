@@ -7,9 +7,7 @@ type Props = {
   onChange: any
 }
 export const Switch = ({ ariaLabel, checked, onChange }: Props) => {
-  const switchClass = classNames(
-    checked ? 'is-on' : 'is-off'
-  )
+  const switchClass = classNames(checked ? 'is-on' : 'is-off')
 
   return (
     <div className='switch'>
