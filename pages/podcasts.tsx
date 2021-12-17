@@ -50,7 +50,7 @@ export default function Podcasts({
   /* Initialize */
   const router = useRouter()
   const { t } = useTranslation()
-  const [cookies, setCookie, removeCookie] = useCookies([])
+  const [cookies, setCookie] = useCookies([])
   const [filterCategoryId, setFilterCategoryId] = useState<string | null>(serverCategoryId || null)
   const [filterFrom, setFilterFrom] = useState<string>(serverFilterFrom)
   const [filterPage, setFilterPage] = useState<number>(serverFilterPage)
