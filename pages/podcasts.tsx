@@ -58,7 +58,9 @@ export default function Podcasts({
   const [podcastsListData, setPodcastsListData] = useState<Podcast[]>(serverPodcastsListData)
   const [podcastsListDataCount, setPodcastsListDataCount] = useState<number>(serverPodcastsListDataCount)
   const [userInfo] = useOmniAural('session.userInfo')
-  const [videoOnlyMode, setVideoOnlyMode] = useState<boolean>(serverGlobalFilters?.videoOnlyMode || OmniAural.state.globalFilters.videoOnlyMode.value())
+  const [videoOnlyMode, setVideoOnlyMode] = useState<boolean>(
+    serverGlobalFilters?.videoOnlyMode || OmniAural.state.globalFilters.videoOnlyMode.value()
+  )
   const initialRender = useRef(true)
   const pageCount = Math.ceil(podcastsListDataCount / PV.Config.QUERY_RESULTS_LIMIT_DEFAULT)
   const isCategoryPage = !!router.query?.category
