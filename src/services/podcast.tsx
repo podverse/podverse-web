@@ -3,6 +3,7 @@ import { request } from '~/services/request'
 
 type PodcastQueryParams = {
   categories?: string[]
+  hasVideo?: boolean
   maxResults?: boolean
   page?: number
   podcastIds?: string[]
@@ -13,6 +14,7 @@ type PodcastQueryParams = {
 
 export const getPodcastsByQuery = async ({
   categories,
+  hasVideo,
   maxResults,
   page,
   podcastIds,
@@ -24,6 +26,7 @@ export const getPodcastsByQuery = async ({
     ...(categories ? { categories } : {}),
     ...(podcastIds ? { podcastId: podcastIds } : {}),
     // If no "from", then from defaults to _allKey
+    ...(hasVideo ? { hasVideo } : {}),
     ...(maxResults ? { maxResults: true } : {}),
     ...(page ? { page } : { page: 1 }),
     ...(searchBy === PV.Filters.search.queryParams.podcast ? { searchTitle: encodeURIComponent(searchText) } : {}),

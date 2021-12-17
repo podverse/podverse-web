@@ -15,8 +15,18 @@
   display: flex;
 }
 
+.is-on {
 .react-switch-bg {
-  @include themeGen() {
-    background-color: getThemeVal('switchBackground') !important;
+    @include themeGen() {
+      background-color: getThemeVal('switchBackgroundOn') !important;
+    }
+  }
+}
+
+.is-off {
+  .react-switch-bg {
+    @include themeGen() {
+      background-color: getThemeVal('switchBackgroundOff') !important;
+    }
   }
 }

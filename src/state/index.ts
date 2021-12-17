@@ -1,3 +1,4 @@
+import './globalFilters/actions'
 import './historyItemsIndex/actions'
 import './makeClip/actions'
 import './modals/actions'

@@ -1,7 +1,7 @@
 import { GetServerSideProps } from 'next'
 import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
-import OmniAural, { useOmniAural } from 'omniaural'
+import OmniAural, { useOmniAural, useOmniAuralEffect } from 'omniaural'
 import type { Podcast } from 'podverse-shared'
 import { useEffect, useRef, useState } from 'react'
 import {
@@ -46,7 +46,6 @@ export default function Podcasts({
   serverPodcastsListDataCount
 }: ServerProps) {
   /* Initialize */
-
   const router = useRouter()
   const { t } = useTranslation()
   const [filterCategoryId, setFilterCategoryId] = useState<string | null>(serverCategoryId || null)
@@ -56,6 +55,7 @@ export default function Podcasts({
   const [podcastsListData, setPodcastsListData] = useState<Podcast[]>(serverPodcastsListData)
   const [podcastsListDataCount, setPodcastsListDataCount] = useState<number>(serverPodcastsListDataCount)
   const [userInfo] = useOmniAural('session.userInfo')
+  const [videoOnlyMode, setVideoOnlyMode] = useState<boolean>(OmniAural.state.globalFilters.videoOnlyMode.value())
   const initialRender = useRef(true)
   const pageCount = Math.ceil(podcastsListDataCount / PV.Config.QUERY_RESULTS_LIMIT_DEFAULT)
   const isCategoryPage = !!router.query?.category
@@ -64,7 +64,7 @@ export default function Podcasts({
 
   /* useEffects */
 
-  useEffect(() => {
+  const handleEffect = () => {
     ;(async () => {
       if (initialRender.current) {
         initialRender.current = false
@@ -78,7 +78,16 @@ export default function Podcasts({
         OmniAural.pageIsLoadingHide()
       }
     })()
-  }, [filterCategoryId, filterFrom, filterSort, filterPage])
+  }
+
+  useOmniAuralEffect(() => {
+    setVideoOnlyMode(OmniAural.state.globalFilters.videoOnlyMode.value())
+  }, 'globalFilters.videoOnlyMode')
+
+  // ON CATEGORY CHANGE, RESET PAGE TO 1
+  useEffect(() => {
+    handleEffect()
+  }, [filterCategoryId, filterFrom, filterSort, filterPage, videoOnlyMode])
 
   /* Client-Side Queries */
 
@@ -95,7 +104,8 @@ export default function Podcasts({
   const clientQueryPodcastsAll = async () => {
     const finalQuery = {
       ...(filterPage ? { page: filterPage } : {}),
-      ...(filterSort ? { sort: filterSort } : {})
+      ...(filterSort ? { sort: filterSort } : {}),
+      ...(videoOnlyMode ? { hasVideo: true } : {})
     }
     return getPodcastsByQuery(finalQuery)
   }
@@ -104,7 +114,8 @@ export default function Podcasts({
     const finalQuery = {
       categories: filterCategoryId ? [filterCategoryId] : [],
       ...(filterPage ? { page: filterPage } : {}),
-      ...(filterSort ? { sort: filterSort } : {})
+      ...(filterSort ? { sort: filterSort } : {}),
+      ...(videoOnlyMode ? { hasVideo: true } : {})
     }
 
     return getPodcastsByQuery(finalQuery)
@@ -112,10 +123,12 @@ export default function Podcasts({
 
   const clientQueryPodcastsBySubscribed = async () => {
     const subscribedPodcastIds = userInfo?.subscribedPodcastIds || []
+
     const finalQuery = {
       podcastIds: subscribedPodcastIds,
       ...(filterPage ? { page: filterPage } : {}),
-      ...(filterSort ? { sort: filterSort } : {})
+      ...(filterSort ? { sort: filterSort } : {}),
+      ...(videoOnlyMode ? { hasVideo: true } : {})
     }
     return getPodcastsByQuery(finalQuery)
   }
@@ -169,6 +182,10 @@ export default function Podcasts({
         twitterTitle={meta.title}
       />
       <PageHeader
+        handleVideoOnlyModeToggle={(val) => {
+          setVideoOnlyMode(val)
+          OmniAural.setGlobalFiltersVideoOnlyMode(val)
+        }}
         noMarginBottom={
           (filterFrom !== PV.Filters.from._category && !!podcastsListDataCount) ||
           (isCategoryPage && filterFrom === PV.Filters.from._category)
@@ -184,6 +201,7 @@ export default function Podcasts({
         }
         sortSelected={filterSort}
         text={pageHeaderText}
+        videoOnlyMode={videoOnlyMode}
       />
       <PageScrollableContent noMarginTop>
         {!userInfo && filterFrom === PV.Filters.from._category && !isCategoryPage && <SearchBarHome />}
@@ -234,7 +252,6 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { category: categorySlug } = query
   const selectedCategory = getCategoryBySlug(categorySlug as string)
   const serverCategoryId = selectedCategory?.id || null
-
   const defaultServerProps = await getDefaultServerSideProps(ctx, locale)
   const { serverUserInfo } = defaultServerProps
 
@@ -249,14 +266,16 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   if (selectedCategory) {
     const response = await getPodcastsByQuery({
       categories: [serverCategoryId],
-      sort: serverFilterSort
+      sort: serverFilterSort,
+      hasVideo: OmniAural.state.globalFilters.videoOnlyMode.value()
     })
     podcastsListData = response.data[0]
     podcastsListDataCount = response.data[1]
   } else if (serverUserInfo) {
     const response = await getPodcastsByQuery({
       podcastIds: serverUserInfo?.subscribedPodcastIds,
-      sort: serverFilterSort
+      sort: serverFilterSort,
+      hasVideo: OmniAural.state.globalFilters.videoOnlyMode.value()
     })
     podcastsListData = response.data[0]
     podcastsListDataCount = response.data[1]
