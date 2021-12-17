@@ -25,9 +25,8 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { category: categorySlug } = query
   const selectedCategory = getCategoryBySlug(categorySlug as string)
   const serverCategoryId = selectedCategory?.id || null
-
   const defaultServerProps = await getDefaultServerSideProps(ctx, locale)
-  const { serverUserInfo } = defaultServerProps
+  const { serverGlobalFilters, serverUserInfo } = defaultServerProps
 
   const serverFilterFrom = serverUserInfo && !selectedCategory ? PV.Filters.from._subscribed : PV.Filters.from._category
   const serverFilterSort =
@@ -40,14 +39,16 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   if (selectedCategory) {
     const response = await getPodcastsByQuery({
       categories: [serverCategoryId],
-      sort: serverFilterSort
+      sort: serverFilterSort,
+      hasVideo: serverGlobalFilters.videoOnlyMode
     })
     podcastsListData = response.data[0]
     podcastsListDataCount = response.data[1]
   } else if (serverUserInfo) {
     const response = await getPodcastsByQuery({
       podcastIds: serverUserInfo?.subscribedPodcastIds,
-      sort: serverFilterSort
+      sort: serverFilterSort,
+      hasVideo: serverGlobalFilters.videoOnlyMode
     })
     podcastsListData = response.data[0]
     podcastsListDataCount = response.data[1]
