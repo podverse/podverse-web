@@ -4,6 +4,7 @@ import { useRouter } from 'next/router'
 import OmniAural, { useOmniAural, useOmniAuralEffect } from 'omniaural'
 import type { Podcast } from 'podverse-shared'
 import { useEffect, useRef, useState } from 'react'
+import { useCookies } from 'react-cookie'
 import {
   List,
   MessageWithAction,
@@ -42,12 +43,14 @@ export default function Podcasts({
   serverFilterFrom,
   serverFilterPage,
   serverFilterSort,
+  serverGlobalFilters,
   serverPodcastsListData,
   serverPodcastsListDataCount
 }: ServerProps) {
   /* Initialize */
   const router = useRouter()
   const { t } = useTranslation()
+  const [cookies, setCookie, removeCookie] = useCookies([])
   const [filterCategoryId, setFilterCategoryId] = useState<string | null>(serverCategoryId || null)
   const [filterFrom, setFilterFrom] = useState<string>(serverFilterFrom)
   const [filterPage, setFilterPage] = useState<number>(serverFilterPage)
@@ -55,7 +58,7 @@ export default function Podcasts({
   const [podcastsListData, setPodcastsListData] = useState<Podcast[]>(serverPodcastsListData)
   const [podcastsListDataCount, setPodcastsListDataCount] = useState<number>(serverPodcastsListDataCount)
   const [userInfo] = useOmniAural('session.userInfo')
-  const [videoOnlyMode, setVideoOnlyMode] = useState<boolean>(OmniAural.state.globalFilters.videoOnlyMode.value())
+  const [videoOnlyMode, setVideoOnlyMode] = useState<boolean>(serverGlobalFilters?.videoOnlyMode || OmniAural.state.globalFilters.videoOnlyMode.value())
   const initialRender = useRef(true)
   const pageCount = Math.ceil(podcastsListDataCount / PV.Config.QUERY_RESULTS_LIMIT_DEFAULT)
   const isCategoryPage = !!router.query?.category
@@ -81,7 +84,13 @@ export default function Podcasts({
   }
 
   useOmniAuralEffect(() => {
-    setVideoOnlyMode(OmniAural.state.globalFilters.videoOnlyMode.value())
+    const newStateVal = OmniAural.state.globalFilters.videoOnlyMode.value()
+    setVideoOnlyMode(newStateVal)
+    const globalFilters = cookies.globalFilters || {}
+    setCookie('globalFilters', {
+      ...globalFilters,
+      videoOnlyMode: newStateVal
+    })
   }, 'globalFilters.videoOnlyMode')
 
   // ON CATEGORY CHANGE, RESET PAGE TO 1
@@ -182,9 +191,14 @@ export default function Podcasts({
         twitterTitle={meta.title}
       />
       <PageHeader
-        handleVideoOnlyModeToggle={(val) => {
-          setVideoOnlyMode(val)
-          OmniAural.setGlobalFiltersVideoOnlyMode(val)
+        handleVideoOnlyModeToggle={(newStateVal) => {
+          OmniAural.setGlobalFiltersVideoOnlyMode(newStateVal)
+          setVideoOnlyMode(newStateVal)
+          const globalFilters = cookies.globalFilters || {}
+          setCookie('globalFilters', {
+            ...globalFilters,
+            videoOnlyMode: newStateVal
+          })
         }}
         noMarginBottom={
           (filterFrom !== PV.Filters.from._category && !!podcastsListDataCount) ||
@@ -253,7 +267,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const selectedCategory = getCategoryBySlug(categorySlug as string)
   const serverCategoryId = selectedCategory?.id || null
   const defaultServerProps = await getDefaultServerSideProps(ctx, locale)
-  const { serverUserInfo } = defaultServerProps
+  const { serverGlobalFilters, serverUserInfo } = defaultServerProps
 
   const serverFilterFrom = serverUserInfo && !selectedCategory ? PV.Filters.from._subscribed : PV.Filters.from._category
   const serverFilterSort =
@@ -267,7 +281,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     const response = await getPodcastsByQuery({
       categories: [serverCategoryId],
       sort: serverFilterSort,
-      hasVideo: OmniAural.state.globalFilters.videoOnlyMode.value()
+      hasVideo: serverGlobalFilters.videoOnlyMode
     })
     podcastsListData = response.data[0]
     podcastsListDataCount = response.data[1]
@@ -275,7 +289,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     const response = await getPodcastsByQuery({
       podcastIds: serverUserInfo?.subscribedPodcastIds,
       sort: serverFilterSort,
-      hasVideo: OmniAural.state.globalFilters.videoOnlyMode.value()
+      hasVideo: serverGlobalFilters.videoOnlyMode
     })
     podcastsListData = response.data[0]
     podcastsListDataCount = response.data[1]

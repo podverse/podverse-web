@@ -8,4 +8,5 @@ export interface Page extends I18nPage {
   serverUserInfo: any
   serverUserQueueItems: NowPlayingItem[]
   serverCookies: ClientSideCookies
+  serverGlobalFilters: any
 }
