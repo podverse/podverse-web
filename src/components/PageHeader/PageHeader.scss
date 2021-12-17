@@ -3,6 +3,21 @@
     background-color: getThemeVal('backgroundTertiary');
   }
 
+  .dropdowns {
+    .switch-with-icons-wrapper {
+      align-items: flex-start;
+      margin: 5px 0 0 16px;
+
+      svg {
+        margin-top: 3px;
+
+        @include themeGen() {
+          color: getThemeVal('textSecondary');
+        }
+      }
+    }
+  }
+
   &.sub-header {
     background-color: transparent;
     margin: 0;
