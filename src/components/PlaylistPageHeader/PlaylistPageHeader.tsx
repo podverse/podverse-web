@@ -34,6 +34,7 @@ export const PlaylistPageHeader = ({
   const isLoggedInUserPlaylist = userInfo?.id && userInfo.id === playlist?.owner?.id
   const isSubscribed = userInfo?.subscribedPodcastIds?.includes(playlist.id)
   const subscribedText = isSubscribed ? t('Unsubscribe') : t('Subscribe')
+  const [isSubscribing, setIsSubscribing] = useState<boolean>(false)
 
   /* Function Helpers */
 
@@ -47,6 +48,12 @@ export const PlaylistPageHeader = ({
       OmniAural.pageIsLoadingHide()
       router.push('/playlists')
     }
+  }
+
+  const _toggleSubscribeToPlaylist = async () => {
+    setIsSubscribing(true)
+    await toggleSubscribeToPlaylistOnServer(playlist.id)
+    setIsSubscribing(false)
   }
 
   return (
@@ -78,9 +85,10 @@ export const PlaylistPageHeader = ({
               {!isLoggedInUserPlaylist && (
                 <ButtonRectangle
                   label={subscribedText}
+                  isLoading={isSubscribing}
                   onClick={() => {
                     if (userInfo) {
-                      toggleSubscribeToPlaylistOnServer(playlist.id)
+                      _toggleSubscribeToPlaylist()
                     } else {
                       OmniAural.modalsLoginToAlertShow('subscribe to playlist')
                     }
