@@ -1,10 +1,10 @@
 import { GetServerSideProps } from 'next'
 import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
-import OmniAural, { useOmniAural, useOmniAuralEffect } from 'omniaural'
+import OmniAural, { useOmniAural, /* useOmniAuralEffect */ } from 'omniaural'
 import type { MediaRef } from 'podverse-shared'
 import { useEffect, useRef, useState } from 'react'
-import { useCookies } from 'react-cookie'
+// import { useCookies } from 'react-cookie'
 import {
   ClipListItem,
   List,
@@ -43,13 +43,13 @@ export default function Clips({
   serverFilterFrom,
   serverFilterPage,
   serverFilterSort,
-  serverGlobalFilters
+  // serverGlobalFilters
 }: ServerProps) {
   /* Initialize */
 
   const router = useRouter()
   const { t } = useTranslation()
-  const [cookies, setCookie, removeCookie] = useCookies([])
+  // const [cookies, setCookie, removeCookie] = useCookies([])
   const [filterCategoryId, setFilterCategoryId] = useState<string | null>(serverCategoryId || null)
   const [filterFrom, setFilterFrom] = useState<string>(serverFilterFrom)
   const [filterPage, setFilterPage] = useState<number>(serverFilterPage)
@@ -270,7 +270,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const serverCategoryId = selectedCategory?.id || null
 
   const defaultServerProps = await getDefaultServerSideProps(ctx, locale)
-  const { serverGlobalFilters, serverUserInfo } = defaultServerProps
+  const { /* serverGlobalFilters, */ serverUserInfo } = defaultServerProps
 
   const serverFilterFrom = serverUserInfo && !selectedCategory ? PV.Filters.from._subscribed : PV.Filters.from._category
   const serverFilterSort =
