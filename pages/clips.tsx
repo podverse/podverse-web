@@ -57,7 +57,7 @@ export default function Clips({
   const [clipsListData, setListData] = useState<MediaRef[]>(serverClipsListData)
   const [clipsListDataCount, setListDataCount] = useState<number>(serverClipsListDataCount)
   const [userInfo] = useOmniAural('session.userInfo')
-  const [videoOnlyMode, setVideoOnlyMode] = useState<boolean>(serverGlobalFilters?.videoOnlyMode || OmniAural.state.globalFilters.videoOnlyMode.value())
+  // const [videoOnlyMode, setVideoOnlyMode] = useState<boolean>(serverGlobalFilters?.videoOnlyMode || OmniAural.state.globalFilters.videoOnlyMode.value())
   const initialRender = useRef<boolean>(true)
   const pageCount = Math.ceil(clipsListDataCount / PV.Config.QUERY_RESULTS_LIMIT_DEFAULT)
   const isCategoryPage = !!router.query?.category
@@ -66,15 +66,15 @@ export default function Clips({
 
   /* useEffects */
 
-  useOmniAuralEffect(() => {
-    const newStateVal = OmniAural.state.globalFilters.videoOnlyMode.value()
-    setVideoOnlyMode(newStateVal)
-    const globalFilters = cookies.globalFilters || {}
-    setCookie('globalFilters', {
-      ...globalFilters,
-      videoOnlyMode: newStateVal
-    })
-  }, 'globalFilters.videoOnlyMode')
+  // useOmniAuralEffect(() => {
+  //   const newStateVal = OmniAural.state.globalFilters.videoOnlyMode.value()
+  //   setVideoOnlyMode(newStateVal)
+  //   const globalFilters = cookies.globalFilters || {}
+  //   setCookie('globalFilters', {
+  //     ...globalFilters,
+  //     videoOnlyMode: newStateVal
+  //   })
+  // }, 'globalFilters.videoOnlyMode')
 
   useEffect(() => {
     ;(async () => {
@@ -90,7 +90,7 @@ export default function Clips({
         OmniAural.pageIsLoadingHide()
       }
     })()
-  }, [filterCategoryId, filterFrom, filterSort, filterPage, videoOnlyMode])
+  }, [filterCategoryId, filterFrom, filterSort, filterPage /*, videoOnlyMode */])
 
   /* Client-Side Queries */
 
@@ -108,7 +108,7 @@ export default function Clips({
     const finalQuery = {
       ...(filterPage ? { page: filterPage } : {}),
       ...(filterSort ? { sort: filterSort } : {}),
-      ...(videoOnlyMode ? { hasVideo: true } : {}),
+      // ...(videoOnlyMode ? { hasVideo: true } : {}),
       includePodcast: true
     }
     return getMediaRefsByQuery(finalQuery)
@@ -119,7 +119,7 @@ export default function Clips({
       categories: filterCategoryId ? [filterCategoryId] : [],
       ...(filterPage ? { page: filterPage } : {}),
       ...(filterSort ? { sort: filterSort } : {}),
-      ...(videoOnlyMode ? { hasVideo: true } : {}),
+      // ...(videoOnlyMode ? { hasVideo: true } : {}),
       includePodcast: true
     }
 
@@ -132,7 +132,7 @@ export default function Clips({
       podcastIds: subscribedPodcastIds,
       ...(filterPage ? { page: filterPage } : {}),
       ...(filterSort ? { sort: filterSort } : {}),
-      ...(videoOnlyMode ? { hasVideo: true } : {}),
+      // ...(videoOnlyMode ? { hasVideo: true } : {}),
       includePodcast: true
     }
     return getMediaRefsByQuery(finalQuery)
@@ -196,15 +196,15 @@ export default function Clips({
         twitterTitle={meta.title}
       />
       <PageHeader
-        handleVideoOnlyModeToggle={(newStateVal) => {
-          OmniAural.setGlobalFiltersVideoOnlyMode(newStateVal)
-          setVideoOnlyMode(newStateVal)
-          const globalFilters = cookies.globalFilters || {}
-          setCookie('globalFilters', {
-            ...globalFilters,
-            videoOnlyMode: newStateVal
-          })
-        }}
+        // handleVideoOnlyModeToggle={(newStateVal) => {
+        //   OmniAural.setGlobalFiltersVideoOnlyMode(newStateVal)
+        //   setVideoOnlyMode(newStateVal)
+        //   const globalFilters = cookies.globalFilters || {}
+        //   setCookie('globalFilters', {
+        //     ...globalFilters,
+        //     videoOnlyMode: newStateVal
+        //   })
+        // }}
         primaryOnChange={_handlePrimaryOnChange}
         primaryOptions={PV.Filters.dropdownOptions.clips.from}
         primarySelected={filterFrom}
@@ -216,7 +216,7 @@ export default function Clips({
         }
         sortSelected={filterSort}
         text={pageHeaderText}
-        videoOnlyMode={videoOnlyMode}
+        // videoOnlyMode={videoOnlyMode}
       />
       <PageScrollableContent noMarginTop>
         {filterFrom === PV.Filters.from._category && !isCategoryPage && (
@@ -286,7 +286,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       includeEpisode: true,
       includePodcast: true,
       sort: serverFilterSort,
-      hasVideo: serverGlobalFilters.videoOnlyMode
+      // hasVideo: serverGlobalFilters.videoOnlyMode
     })
     clipsListData = response.data[0]
     clipsListDataCount = response.data[1]
@@ -296,7 +296,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       includePodcast: true,
       podcastIds: serverUserInfo?.subscribedPodcastIds,
       sort: serverFilterSort,
-      hasVideo: serverGlobalFilters.videoOnlyMode
+      // hasVideo: serverGlobalFilters.videoOnlyMode
     })
     clipsListData = response.data[0]
     clipsListDataCount = response.data[1]
