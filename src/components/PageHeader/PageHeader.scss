@@ -4,6 +4,8 @@
   }
 
   .dropdowns {
+    flex-wrap: wrap;
+
     .switch-with-icons-wrapper {
       align-items: flex-start;
       margin: 5px 0 0 16px;
