@@ -230,8 +230,10 @@
 
       img {
         border-radius: $item-border-radius;
-        height: 200px !important;
-        width: 200px !important;
+        height: 160px !important;
+        width: 160px !important;
+        max-height: 160px !important;
+        max-width: 160px !important;
       }
       .clip-info-wrapper {    
         height: 90px;
