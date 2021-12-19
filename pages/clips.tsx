@@ -285,7 +285,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       categories: [serverCategoryId],
       includeEpisode: true,
       includePodcast: true,
-      sort: serverFilterSort,
+      sort: serverFilterSort
       // hasVideo: serverGlobalFilters.videoOnlyMode
     })
     clipsListData = response.data[0]
@@ -295,7 +295,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       includeEpisode: true,
       includePodcast: true,
       podcastIds: serverUserInfo?.subscribedPodcastIds,
-      sort: serverFilterSort,
+      sort: serverFilterSort
       // hasVideo: serverGlobalFilters.videoOnlyMode
     })
     clipsListData = response.data[0]
