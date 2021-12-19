@@ -1,7 +1,7 @@
 import { GetServerSideProps } from 'next'
 import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
-import OmniAural, { useOmniAural, /* useOmniAuralEffect */ } from 'omniaural'
+import OmniAural, { useOmniAural /* useOmniAuralEffect */ } from 'omniaural'
 import type { MediaRef } from 'podverse-shared'
 import { useEffect, useRef, useState } from 'react'
 // import { useCookies } from 'react-cookie'
@@ -42,9 +42,9 @@ export default function Clips({
   serverClipsListDataCount,
   serverFilterFrom,
   serverFilterPage,
-  serverFilterSort,
-  // serverGlobalFilters
-}: ServerProps) {
+  serverFilterSort
+}: // serverGlobalFilters
+ServerProps) {
   /* Initialize */
 
   const router = useRouter()
