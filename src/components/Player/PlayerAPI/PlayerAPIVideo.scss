@@ -25,5 +25,25 @@
 @media (max-width: $media-max-width-tablet) {
   .video-player-wrapper {
     bottom: 74px;
+
+    > div {
+      max-height: 160px !important;
+      max-width: 284px !important;
+      height: 100% !important;
+      width: 100% !important;
+    }
+  }
+}
+
+@media (max-width: $media-max-width-mobile) {
+  .video-player-wrapper {
+    bottom: 74px;
+
+    > div {
+      max-height: 120px !important;
+      max-width: 213px !important;
+      height: 100% !important;
+      width: 100% !important;
+    }
   }
 }

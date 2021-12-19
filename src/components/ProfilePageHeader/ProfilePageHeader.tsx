@@ -1,6 +1,7 @@
 import { faGlobe, faLink } from '@fortawesome/free-solid-svg-icons'
 import OmniAural, { useOmniAural } from 'omniaural'
 import type { User } from 'podverse-shared'
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ButtonRectangle, Dropdown, TextInput } from '~/components'
 import { PV } from '~/resources'
@@ -31,6 +32,7 @@ export const ProfilePageHeader = ({
   const isLoggedInUserProfile = userInfo?.id && userInfo.id === user?.id
   const isSubscribed = userInfo?.subscribedUserIds?.includes(user.id)
   const subscribedText = isSubscribed ? t('Unsubscribe') : t('Subscribe')
+  const [isSubscribing, setIsSubscribing] = useState<boolean>(false)
 
   /* Render Helpers */
 
@@ -44,6 +46,12 @@ export const ProfilePageHeader = ({
   }
 
   const privacyDropdownItems = generatePrivacyDropdownItems()
+
+  const _toggleSubscribeToUser = async () => {
+    setIsSubscribing(true)
+    await toggleSubscribeToUser(user.id)
+    setIsSubscribing(false)
+  }
 
   return (
     <>
@@ -73,9 +81,10 @@ export const ProfilePageHeader = ({
                 {!isLoggedInUserProfile && (
                   <ButtonRectangle
                     label={subscribedText}
+                    isLoading={isSubscribing}
                     onClick={() => {
                       if (userInfo) {
-                        toggleSubscribeToUser(user.id)
+                        _toggleSubscribeToUser()
                       } else {
                         OmniAural.modalsLoginToAlertShow('subscribe to profile')
                       }
