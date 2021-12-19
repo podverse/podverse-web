@@ -12,6 +12,7 @@ export const getMediaRefById = async (id: string) => {
 type MediaRefQueryParams = {
   categories?: string[]
   episodeId?: string | string[]
+  hasVideo?: boolean
   includeEpisode?: boolean
   includePodcast?: boolean
   page?: number
@@ -23,6 +24,7 @@ type MediaRefQueryParams = {
 export const getMediaRefsByQuery = async ({
   categories,
   episodeId,
+  hasVideo,
   includeEpisode,
   includePodcast,
   page,
@@ -33,6 +35,7 @@ export const getMediaRefsByQuery = async ({
   const filteredQuery: MediaRefQueryParams = {
     ...(categories ? { categories } : {}),
     ...(episodeId ? { episodeId } : {}),
+    ...(hasVideo ? { hasVideo } : {}),
     ...(includeEpisode ? { includeEpisode } : {}),
     ...(includePodcast ? { includePodcast } : {}),
     ...(page ? { page } : { page: 1 }),
