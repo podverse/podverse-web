@@ -223,6 +223,7 @@ ServerProps) {
           <Tiles
             items={categories}
             onClick={(id: string) => {
+              setFilterPage(1)
               setFilterCategoryId(id)
               const selectedCategory = getCategoryById(id)
               router.push(`${PV.RoutePaths.web.clips}?category=${selectedCategory.slug}`)
