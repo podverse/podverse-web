@@ -218,6 +218,7 @@ export default function Episodes({
           <Tiles
             items={categories}
             onClick={(id: string) => {
+              setFilterPage(1)
               setFilterCategoryId(id)
               const selectedCategory = getCategoryById(id)
               router.push(`${PV.RoutePaths.web.episodes}?category=${selectedCategory.slug}`)
