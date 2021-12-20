@@ -12,6 +12,7 @@ export const getMediaRefById = async (id: string) => {
 type MediaRefQueryParams = {
   categories?: string[]
   episodeId?: string | string[]
+  hasVideo?: boolean
   includeEpisode?: boolean
   includePodcast?: boolean
   page?: number
@@ -23,6 +24,7 @@ type MediaRefQueryParams = {
 export const getMediaRefsByQuery = async ({
   categories,
   episodeId,
+  hasVideo,
   includeEpisode,
   includePodcast,
   page,
@@ -33,6 +35,7 @@ export const getMediaRefsByQuery = async ({
   const filteredQuery: MediaRefQueryParams = {
     ...(categories ? { categories } : {}),
     ...(episodeId ? { episodeId } : {}),
+    ...(hasVideo ? { hasVideo } : {}),
     ...(includeEpisode ? { includeEpisode } : {}),
     ...(includePodcast ? { includePodcast } : {}),
     ...(page ? { page } : { page: 1 }),
@@ -45,7 +48,7 @@ export const getMediaRefsByQuery = async ({
     ...(sort ? { sort } : { sort: PV.Filters.sort._mostRecent })
   }
 
-  if (podcastIds?.length === 0) {
+  if (podcastIds?.length === 0 || categories?.length === 0) {
     return { data: [[], 0] }
   } else {
     return request({

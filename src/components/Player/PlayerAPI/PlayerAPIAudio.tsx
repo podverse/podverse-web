@@ -13,7 +13,8 @@ type Props = unknown
 
 export const PlayerAPIAudio = (props: Props) => {
   const [player] = useOmniAural('player')
-  const [historyItemsIndex] = useOmniAural('historyItemsIndex')
+  // const [historyItemsIndex] = useOmniAural('historyItemsIndex')
+  const historyItemsIndex = OmniAural.state.historyItemsIndex.value()
   const { currentNowPlayingItem } = player
 
   useEffect(() => {

@@ -1,4 +1,7 @@
 {
+  "globalFilters": {
+    "videoOnlyMode": false
+  },
   "historyItemsIndex": {
     "episodes": {},
     "mediaRefs": {}

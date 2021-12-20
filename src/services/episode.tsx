@@ -10,6 +10,7 @@ export const getEpisodeById = async (id: string) => {
 
 type EpisodeQueryParams = {
   categories?: string[]
+  hasVideo?: boolean
   includePodcast?: boolean
   page?: number
   podcastIds?: string | string[]
@@ -19,6 +20,7 @@ type EpisodeQueryParams = {
 
 export const getEpisodesByQuery = async ({
   categories,
+  hasVideo,
   includePodcast,
   page,
   podcastIds,
@@ -27,6 +29,7 @@ export const getEpisodesByQuery = async ({
 }: EpisodeQueryParams) => {
   const filteredQuery: EpisodeQueryParams = {
     ...(categories ? { categories } : {}),
+    ...(hasVideo ? { hasVideo } : {}),
     ...(includePodcast ? { includePodcast } : {}),
     ...(page ? { page } : { page: 1 }),
     ...(podcastIds ? { podcastId: podcastIds } : {}),
@@ -38,7 +41,7 @@ export const getEpisodesByQuery = async ({
     ...(sort ? { sort } : { sort: PV.Filters.sort._mostRecent })
   }
 
-  if (podcastIds?.length === 0) {
+  if (podcastIds?.length === 0 || categories?.length === 0) {
     return { data: [[], 0] }
   } else {
     return request({

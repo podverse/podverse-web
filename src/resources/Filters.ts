@@ -30,7 +30,7 @@ type DropdownOption = {
   key: string
 }
 
-export const isNotPodcastsAllSortOption = (selectedKey: string) => {
+export const isNotAllSortOption = (selectedKey: string) => {
   const allowedKeys = Filters.dropdownOptions.podcasts.sort.all
   return !allowedKeys.find((option: DropdownOption) => option.key === selectedKey)
 }
@@ -97,7 +97,8 @@ export const Filters = {
     clips: {
       from: [
         { label: 'All', key: _all },
-        { label: 'Subscribed', key: _subscribed }
+        { label: 'Subscribed', key: _subscribed },
+        { label: 'Category', key: _category }
       ],
       sort: {
         all: [
@@ -134,7 +135,8 @@ export const Filters = {
     episodes: {
       from: [
         { label: 'All', key: _all },
-        { label: 'Subscribed', key: _subscribed }
+        { label: 'Subscribed', key: _subscribed },
+        { label: 'Category', key: _category }
       ],
       sort: {
         all: [
@@ -173,7 +175,8 @@ export const Filters = {
     podcasts: {
       from: [
         { label: 'All', key: _all },
-        { label: 'Subscribed', key: _subscribed }
+        { label: 'Subscribed', key: _subscribed },
+        { label: 'Category', key: _category }
       ],
       sort: {
         all: [

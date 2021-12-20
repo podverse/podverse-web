@@ -23,3 +23,18 @@
     }
   }
 }
+
+@mixin placeholderColor($color) {
+  &::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    color: $color !important;
+  }
+  &::-moz-placeholder { /* Firefox 19+ */
+    color: $color !important;
+  }
+  &:-ms-input-placeholder { /* IE 10+ */
+    color: $color !important;
+  }
+  &:-moz-placeholder { /* Firefox 18- */
+    color: $color !important;
+  }
+}

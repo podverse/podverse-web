@@ -5,8 +5,8 @@ import { Switch } from '..'
 type Props = {
   ariaLabel: string
   checked?: boolean
-  faIconBeginning: IconProp
-  faIconEnding: IconProp
+  faIconBeginning?: IconProp
+  faIconEnding?: IconProp
   onChange: any
 }
 

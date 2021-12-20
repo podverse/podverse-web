@@ -23,10 +23,30 @@
   justify-content: center;
   
   .button-skip {
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+    margin: 0 0 24px 0;
+
     @include themeGen() {
       color: getThemeVal("textQuaternary");
     }
-    -webkit-box-shadow: none !important;
-    box-shadow: none !important;
+  }
+}
+
+@media (max-width: $media-max-width-mobile) {
+  .pagination {
+    .button-circle.backwards {
+      margin-right: 5px;
+    }
+
+    .button-circle.forwards {
+      margin-left: 5px;
+    }
+
+    .button-square {
+      height: 32px;
+      margin: 0 5px;
+      width: 32px;
+    }
   }
 }

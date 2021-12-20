@@ -3,9 +3,26 @@
     background-color: getThemeVal('backgroundTertiary');
   }
 
+  .dropdowns {
+    flex-wrap: wrap;
+
+    .switch-with-icons-wrapper {
+      align-items: flex-start;
+      margin: 5px 0 0 16px;
+
+      svg {
+        margin-top: 3px;
+
+        @include themeGen() {
+          color: getThemeVal('textSecondary');
+        }
+      }
+    }
+  }
+
   &.sub-header {
     background-color: transparent;
-    margin: 24px 0;
+    margin: 0;
 
     .main-max-width {
       margin: 0;
@@ -15,25 +32,20 @@
         display: flex;
 
         h2 {
-          margin-bottom: 0;
+          margin: 16px 0;
         }
 
-        
         .header-caret {
           align-items: center;
           display: flex;
+          font-size: $text-xl;
+          margin-left: 14px;
         }
       }
       
       .dropdowns {
-        margin-bottom: 0;
+        margin: 16px 0 24px 0;
       }
-    }
-  }
-
-  &.no-margin-bottom {
-    .dropdowns {
-      margin-bottom: 0 !important;
     }
   }
   
@@ -98,7 +110,7 @@
       }
 
       .dropdowns {
-        align-items: center;
+        align-items: flex-start;
         margin-top: 0;
 
         .dropdown-primary-wrapper {

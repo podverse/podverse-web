@@ -1,5 +1,6 @@
 import { useOmniAural } from 'omniaural'
 import type { Podcast } from 'podverse-shared'
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { generateAuthorText } from '~/lib/utility/author'
 import { generateCategoryNodes } from '~/lib/utility/category'
@@ -24,6 +25,13 @@ export const PodcastPageHeader = ({ podcast }: Props) => {
   const podcastTitleLinkUrl = `${PV.RoutePaths.web.podcast}/${podcast.id}`
   const hasBelowText = authorEls.length || categoryEls.length
   const imageUrl = getPodcastShrunkImageUrl(podcast)
+  const [isSubscribing, setIsSubscribing] = useState<boolean>(false)
+
+  const _toggleSubscribeToPodcast = async () => {
+    setIsSubscribing(true)
+    await toggleSubscribeToPodcast(id)
+    setIsSubscribing(false)
+  }
 
   return (
     <>
@@ -51,7 +59,8 @@ export const PodcastPageHeader = ({ podcast }: Props) => {
             <ButtonRectangle
               className='hide-below-tablet-xl-max-width'
               label={subscribedText}
-              onClick={() => toggleSubscribeToPodcast(id)}
+              isLoading={isSubscribing}
+              onClick={() => _toggleSubscribeToPodcast()}
               type='tertiary'
             />
           </div>
@@ -66,7 +75,8 @@ export const PodcastPageHeader = ({ podcast }: Props) => {
             <ButtonRectangle
               className='hide-above-tablet-xl-min-width'
               label={subscribedText}
-              onClick={() => toggleSubscribeToPodcast(id)}
+              isLoading={isSubscribing}
+              onClick={() => _toggleSubscribeToPodcast()}
               type='tertiary'
             />
           </div>

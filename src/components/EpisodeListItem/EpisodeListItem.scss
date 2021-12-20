@@ -13,7 +13,8 @@
   
       img {
         border-radius: $item-border-radius;
-        margin-right: 16px;
+        margin: 0 16px 18px 0;
+        
       }
   
       .text-wrapper {
@@ -22,6 +23,8 @@
         h3 {
           margin-bottom: 0;
           padding-bottom: 9px;
+
+          @include line-clamp(4);
         }
       
         .description {
