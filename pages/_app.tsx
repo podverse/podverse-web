@@ -16,7 +16,8 @@ import {
   Player,
   PageLoadingOverlay,
   PlayerAPI,
-  MobileNavBar
+  MobileNavBar,
+  Footer
 } from '~/components'
 import '~/state'
 import initialState from '~/state/initialState.json'
@@ -109,6 +110,7 @@ function MyApp({ Component, pageProps }) {
             <HorizontalNavBar serverCookies={pageProps.serverCookies || {}} />
             <main>
               <Component {...pageProps} />
+              <Footer />
             </main>
           </div>
         </div>
