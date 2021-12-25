@@ -1,4 +1,4 @@
-import { NowPlayingItem } from "podverse-shared"
+import { NowPlayingItem } from 'podverse-shared'
 
 if (typeof window !== 'undefined') {
   window.__v4v = {
