@@ -17,7 +17,8 @@ import {
   Player,
   PageLoadingOverlay,
   PlayerAPI,
-  MobileNavBar
+  MobileNavBar,
+  V4VHiddenElement
 } from '~/components'
 import '~/state'
 import initialState from '~/state/initialState.json'
@@ -127,6 +128,7 @@ function MyApp({ Component, pageProps }) {
         <Player />
         <MobilePlayer />
         <PlayerAPI />
+        <V4VHiddenElement />
       </div>
     </CookiesProvider>
   )
