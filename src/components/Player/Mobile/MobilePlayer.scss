@@ -73,7 +73,11 @@ body {
         margin-top: 10px;
 
         .mobile-player-bar {
-          .flag, .highlighted-section {
+          .flag {
+            top: 3px;
+          }
+
+          .highlighted-section {
             top: -8px;
           }
         }
