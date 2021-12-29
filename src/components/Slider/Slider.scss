@@ -5,11 +5,13 @@
   position: relative;
 
   .flag {
-    height: 26px;
+    height: 4px;
     pointer-events: none;
     position: absolute;
-    top: 4px;
-    width: 1px;
+    top: 15px;
+    width: 4px;
+    z-index: 0;
+    border-radius: 4px;
 
     @include themeGen() {
       background-color: getThemeVal('sliderClipIndicator');
