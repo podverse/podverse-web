@@ -15,6 +15,7 @@ export const V4VHiddenElement = () => {
       data-v4v-current-playback-position={playbackPosition}
       data-v4v-episode-enclosure-url={currentNowPlayingItem.episodeMediaUrl}
       data-v4v-podcast-index-id={currentNowPlayingItem.podcastIndexPodcastId}
+      data-v4v-ui-theme='dark'
     />
   )
 }
