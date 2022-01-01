@@ -11,11 +11,10 @@ export const V4VHiddenElement = () => {
   return (
     <div
       className='v4v-hidden-element'
-      {...(paused ? {} : { 'data-v4v-is-playing': true })}
-      data-v4v-current-playback-position={playbackPosition}
-      data-v4v-episode-enclosure-url={currentNowPlayingItem.episodeMediaUrl}
       data-v4v-podcast-index-id={currentNowPlayingItem.podcastIndexPodcastId}
-      data-v4v-ui-theme='dark'
+      data-v4v-episode-enclosure-url={currentNowPlayingItem.episodeMediaUrl}
+      data-v4v-current-playback-position={playbackPosition}
+      {...(paused ? {} : { 'data-v4v-is-playing': true })}
     />
   )
 }
