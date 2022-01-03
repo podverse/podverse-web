@@ -200,7 +200,7 @@ export default function Episode({
           sideColumnChildren={
             <SideContent>
               {fundingLinks.length ? (
-                <SideContentSection headerText={t('Support')}>{fundingLinks}</SideContentSection>
+                <SideContentSection headerText={t('Funding')}>{fundingLinks}</SideContentSection>
               ) : null}
             </SideContent>
           }

@@ -222,7 +222,7 @@ export default function Podcast({
                   }}
                 />
               </SideContentSection>
-              {fundingLinks && <SideContentSection headerText={t('Support')}>{fundingLinks}</SideContentSection>}
+              {fundingLinks && <SideContentSection headerText={t('Funding')}>{fundingLinks}</SideContentSection>}
             </SideContent>
           }
         />
