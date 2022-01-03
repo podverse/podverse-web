@@ -1,7 +1,7 @@
 import linkifyHtml from 'linkify-html'
 import { GetServerSideProps } from 'next'
 import { useTranslation } from 'next-i18next'
-import { useOmniAural } from 'omniaural'
+import OmniAural, { useOmniAural } from 'omniaural'
 import type { Episode, MediaRef, Podcast, User } from 'podverse-shared'
 import { useEffect, useRef, useState } from 'react'
 import {
@@ -86,6 +86,17 @@ export default function Podcast({
   const pageCount = filterType === PV.Filters.type._episodes ? episodesPageCount : clipsPageCount
 
   /* useEffects */
+
+  useEffect(() => {
+    if (serverPodcast) {
+      setTimeout(() => {
+        OmniAural.v4vElementInfoSet({
+          podcastIndexPodcastId: serverPodcast.podcastIndexId,
+          episodeMediaUrl: null
+        })
+      }, 0)
+    }
+  }, [])
 
   useEffect(() => {
     ;(async () => {

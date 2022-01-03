@@ -1,6 +1,6 @@
 import { GetServerSideProps } from 'next'
 import { useTranslation } from 'next-i18next'
-import { useOmniAural } from 'omniaural'
+import OmniAural, { useOmniAural } from 'omniaural'
 import type { Episode, MediaRef, User } from 'podverse-shared'
 import { useEffect, useRef, useState } from 'react'
 import {
@@ -70,6 +70,17 @@ export default function Clip({
   const initialRender = useRef(true)
 
   /* useEffects */
+
+  useEffect(() => {
+    if (serverClip) {
+      setTimeout(() => {
+        OmniAural.v4vElementInfoSet({
+          podcastIndexPodcastId: serverClip.episode.podcast.podcastIndexId,
+          episodeMediaUrl: serverClip.episode.mediaUrl
+        })
+      }, 0)
+    }
+  }, [])
 
   useEffect(() => {
     ;(async () => {

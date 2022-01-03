@@ -73,5 +73,6 @@
   "session": {
     "userInfo": null
   },
-  "userQueueItems": []
+  "userQueueItems": [],
+  "v4vElementInfo": null
 }

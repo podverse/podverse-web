@@ -123,12 +123,12 @@ function MyApp({ Component, pageProps }) {
             </main>
           </div>
         </div>
+        <V4VHiddenElement />
         <Modals />
         <PageLoadingOverlay />
         <Player />
         <MobilePlayer />
         <PlayerAPI />
-        <V4VHiddenElement />
       </div>
     </CookiesProvider>
   )
