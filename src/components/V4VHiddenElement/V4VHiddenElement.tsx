@@ -8,7 +8,7 @@ export const V4VHiddenElement = () => {
   if (!currentNowPlayingItem && !v4vElementInfo) {
     return null
   }
-  let finalV4VInfo = currentNowPlayingItem || v4vElementInfo
+  const finalV4VInfo = currentNowPlayingItem || v4vElementInfo
 
   return (
     <div
