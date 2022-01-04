@@ -1,5 +1,6 @@
 import OmniAural from 'omniaural'
 import type { MediaRef, NowPlayingItem } from 'podverse-shared'
+import { setV4VPlayerInfoItemToWindow, setV4VPlayerInfoPlaybackPositionToWindow } from '~/services/v4v'
 
 const togglePlayer = (show: boolean) => {
   OmniAural.state.player.show.set(show)
@@ -9,10 +10,15 @@ const setPlayerItem = (currentNowPlayingItem: NowPlayingItem) => {
   OmniAural.state.player.currentNowPlayingItem.set(null)
   OmniAural.state.player.currentNowPlayingItem.set(currentNowPlayingItem)
   OmniAural.state.player.show.set(true)
+
+  setV4VPlayerInfoItemToWindow(currentNowPlayingItem)
 }
 
 const setPlayerPlaybackPosition = (position: number) => {
-  OmniAural.state.player.playbackPosition.set(Math.floor(position))
+  const finalPosition = Math.floor(position)
+  OmniAural.state.player.playbackPosition.set(finalPosition)
+
+  setV4VPlayerInfoPlaybackPositionToWindow(finalPosition)
 }
 
 const setPlayerDuration = (duration: number) => {

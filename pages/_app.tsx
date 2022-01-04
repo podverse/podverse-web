@@ -4,6 +4,7 @@ import { config as fontAwesomeConfig } from '@fortawesome/fontawesome-svg-core'
 import { appWithTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
 import OmniAural from 'omniaural'
+import { NowPlayingItem } from 'podverse-shared'
 import React, { useEffect } from 'react'
 import { CookiesProvider } from 'react-cookie'
 import { unstable_batchedUpdates } from 'react-dom'
@@ -16,7 +17,8 @@ import {
   Player,
   PageLoadingOverlay,
   PlayerAPI,
-  MobileNavBar
+  MobileNavBar,
+  V4VHiddenElement
 } from '~/components'
 import '~/state'
 import initialState from '~/state/initialState.json'
@@ -28,6 +30,15 @@ declare global {
   /* *TODO* add proper types for global interfaces */
   interface Window {
     _paq: any
+    __v4v: {
+      currentPage: {
+        item: NowPlayingItem | null
+      }
+      playerInfo: {
+        item: NowPlayingItem | null
+        playbackPosition: number
+      }
+    }
     Matomo: any
     paypal: any
     playerAudio: any
@@ -112,6 +123,7 @@ function MyApp({ Component, pageProps }) {
             </main>
           </div>
         </div>
+        <V4VHiddenElement />
         <Modals />
         <PageLoadingOverlay />
         <Player />
