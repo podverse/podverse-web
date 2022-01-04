@@ -9,10 +9,7 @@ module.exports = {
       .url(`${WEB_ORIGIN}/profiles`)
       .waitForElementWithText('div', 'Login to view your profiles')
       .testSharedMetaTags()
-      .testPageMetaTags(
-          `Profiles`,
-          `My subscribed profiles on Podverse`
-      )
+      .testPageMetaTags(`Profiles`, `My subscribed profiles on Podverse`)
   },
   after: function (browser) {
     browser.end()

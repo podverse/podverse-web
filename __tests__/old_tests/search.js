@@ -9,10 +9,7 @@ module.exports = {
   'Search Page': function (browser) {
     browser
       .testSharedMetaTags()
-      .testPageMetaTags(
-        'Search',
-        'Search for podcasts by title or host on Podverse.'
-      )
+      .testPageMetaTags('Search', 'Search for podcasts by title or host on Podverse.')
       .waitForXpathPresent(`//h3[contains(text(), "Search")]`)
 
       .sendKeys(searchInput, `The Joe Rogan Experience`)
@@ -28,7 +25,9 @@ module.exports = {
       .waitForXpathPresent(`//div[@class="media-list-item-b__title"][contains (text(), "Very Bad Wizards")]`)
 
       .click(`.media-list__item `)
-      .waitForXpathPresent(`//div[@class="media-header__sub-title"][contains (text(), "Tamler Sommers & David Pizarro")]`)
+      .waitForXpathPresent(
+        `//div[@class="media-header__sub-title"][contains (text(), "Tamler Sommers & David Pizarro")]`
+      )
 
       .url(`${WEB_ORIGIN}/search`)
 
@@ -49,10 +48,6 @@ module.exports = {
       .waitForXpathPresent(`//p[contains (text(), "Can't find the podcast you're looking for?")]`)
       .click(`.close-btn`)
       .waitForXpathNotPresent(`//p[contains (text(), "Can't find the podcast you're looking for?")]`)
-
-
-
-      
   },
   after: function (browser) {
     browser.end()

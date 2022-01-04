@@ -4,19 +4,19 @@ module.exports = {
   before: function (browser) {
     browser.url(`${WEB_ORIGIN}/`)
   },
-  'Login': function (browser) {
+  Login: function (browser) {
     browser
       .click('.react-dropdown-select')
       .click('.react-dropdown-select-item:nth-child(3)')
       .waitForElementWithText('.ReactModal__Content h2', 'Log in')
       .waitForXpathPresent(`//button[@class="button-close"]`)
-      .click('.button-close')      
+      .click('.button-close')
       .waitForXpathNotPresent(`//button[@class="button-close"]`)
 
       .click('.react-dropdown-select')
       .click('.react-dropdown-select-item:nth-child(3)')
       .waitForElementWithText('.ReactModal__Content h2', 'Log in')
-      .click('.button-rectangle.secondary')      
+      .click('.button-rectangle.secondary')
 
       .click('.react-dropdown-select')
       .click('.react-dropdown-select-item:nth-child(3)')
@@ -30,9 +30,7 @@ module.exports = {
       .waitForElementWithText('button.button-link:nth-child(2) ', 'Sign Up')
       .click('button.button-link:nth-child(2)')
       .waitForElementWithText('.ReactModal__Content h2', 'Sign Up')
-      .click('.button-close')     
-
-
+      .click('.button-close')
   },
   after: function (browser) {
     browser.end()

@@ -7,4 +7,3 @@ module.exports.command = function (dropdownToggle, dropdownItem) {
 
   return this
 }
-

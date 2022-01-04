@@ -19,7 +19,7 @@ module.exports = {
       .waitForXpathPresent(`//a[@href="/my-profile?type=clips"]`)
 
       .clearValue(`.form-control[name=make-clip-modal__start-time]`)
-      .sendKeys(`.form-control[name=make-clip-modal__start-time]`, `2:00`)//Start
+      .sendKeys(`.form-control[name=make-clip-modal__start-time]`, `2:00`) //Start
       .sendKeys(`.form-control[name=make-clip-modal__end-time]`, `5:00`) //End
       .sendKeys(`.form-control[name=make-clip-modal__title]`, `Clip Title`) //Title
 
@@ -33,7 +33,10 @@ module.exports = {
       .waitForElementWithText(`.media-list__container:nth-child(4) .media-list-item-a__sub-top-side`, `1/14/2020`)
       .waitForElementWithText(`.media-list__container:nth-child(4) .media-list-item-a__sub-top`, `Very Bad Wizards`)
       .waitForElementWithText(`.media-list__container:nth-child(4) .media-list-item-a__sub-middle-side`, `2:00 to 5:00`)
-      .waitForElementWithText(`.media-list__container:nth-child(4) .media-list-item-a__sub-middle`, `Episode 180: Chekhov's Schrödinger's Dagger (Kurosawa's "Rashomon")`)
+      .waitForElementWithText(
+        `.media-list__container:nth-child(4) .media-list-item-a__sub-middle`,
+        `Episode 180: Chekhov's Schrödinger's Dagger (Kurosawa's "Rashomon")`
+      )
 
       .click(`.media-list__container:nth-child(4)`)
 
@@ -61,7 +64,6 @@ module.exports = {
 
       .waitForElementWithText(`.media-list-item-a__title`, `Clip Title - Edited`)
       .waitForElementWithText(`.media-list-item-a__sub-middle-side`, `8:00 to 10:00`)
-
   },
   after: function (browser) {
     browser.end()
