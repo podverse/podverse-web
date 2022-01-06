@@ -24,7 +24,7 @@ jobs:
         env:
           SENTRY_ORG: podverse
           SENTRY_PROJECT: react
-          SENTRY_AUTH_TOKEN: b1c0a9b4ed374dcdb493f9f0e21bfe456ddc63177ff546ec93f0dac0dc740c9a
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
           SENTRY_LOG_LEVEL: debug
         run: |
           yarn install --frozen-lockfile
