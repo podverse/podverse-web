@@ -23,6 +23,7 @@ jobs:
       - name: Build
         env:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_LOG_LEVEL: debug
         run: |
           yarn install --frozen-lockfile
           yarn lint
