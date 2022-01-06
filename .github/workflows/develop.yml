@@ -21,6 +21,8 @@ jobs:
         uses: actions/setup-node@v2
 
       - name: Build
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
         run: |
           yarn install --frozen-lockfile
           yarn lint
