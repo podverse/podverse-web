@@ -26,6 +26,7 @@ jobs:
           SENTRY_PROJECT: react
           SENTRY_AUTH_TOKEN: 4b0697089ef64bf9922dd4697797627f366751ab589b43efb037a41b916cff36
           SENTRY_LOG_LEVEL: debug
+          NODE_ENV: development
         run: |
           yarn install --frozen-lockfile
           yarn lint

@@ -3,7 +3,10 @@ const { i18n } = require('./next-i18next.config')
 const { withSentryConfig } = require('@sentry/nextjs')
 
 const isDev = process.env.NODE_ENV === 'development' || !process.env.NODE_ENV
-
+console.log({
+  env: process.env.NODE_ENV,
+  isDev
+})
 const envVars = {}
 const sentryWebpackPluginOptions = {
   // Additional config options for the Sentry Webpack plugin. Keep in mind that
