@@ -15,14 +15,14 @@ const sentryWebpackPluginOptions = {
   //   release, url, org, project, authToken, configFile, stripPrefix,
   //   urlPrefix, include, ignore
 
+  disableServerWebpackPlugin: isDev,
+  disableClientWebpackPlugin: isDev,
   silent: true // Suppresses all logs
   // For all available options, see:
   // https://github.com/getsentry/sentry-webpack-plugin#options.
 }
 
 const moduleExports = {
-  disableServerWebpackPlugin: isDev,
-  disableClientWebpackPlugin: isDev,
   reactStrictMode: true,
   i18n,
   serverRuntimeConfig: {
