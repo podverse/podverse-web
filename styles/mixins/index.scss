@@ -1,5 +1,5 @@
-@import './gradientStyles.scss';
-@import './themes.scss';
+@import './gradientStyles';
+@import './themes';
 
 @mixin line-clamp($line-count) {
   display: -webkit-box;

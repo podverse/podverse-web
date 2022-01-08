@@ -96,7 +96,7 @@ $themes: (
 /**
 * Code created by Joshua Tzucker
 * https://joshuatz.com/posts/2019/coding-a-css-theme-switcher-a-multitude-of-web-dev-options/#method-b
-* 
+*
 * Mixin to use to generate blocks for each theme
 * Automatically takes @content
 */
@@ -109,7 +109,7 @@ $scopedTheme: null;
             $scopedTheme: () !global;
             @each $variableName, $variableValue in $themeMap {
                 // Merge each key-value pair into the theme specific map
-                $scopedTheme: map-merge($scopedTheme, ($variableName: $variableValue)) !global;
+                $scopedTheme: map.merge($scopedTheme, ($variableName: $variableValue)) !global;
             }
             // The original content passed
             @content;
