@@ -4,19 +4,19 @@
       border-bottom: 1px dashed;
       display: block;
       padding: 22px 0 24px 0;
-  
+
       @include themeGen() {
-        border-color: getThemeVal("divider");
+        border-color: getThemeVal('divider');
       }
-  
+
       .username {
         font-size: $text-sm;
 
         @include themeGen() {
-          color: getThemeVal("textTertiary");
+          color: getThemeVal('textTertiary');
         }
       }
-    
+
       .content {
         font-weight: $font-weight-light;
         margin-top: 8px;
@@ -26,10 +26,10 @@
         font-size: $text-sm;
         margin-top: 8px;
         @include themeGen() {
-          color: getThemeVal("textSecondary");
+          color: getThemeVal('textSecondary');
         }
       }
-  
+
       .image-wrapper {
         margin-top: 16px;
       }
@@ -43,7 +43,7 @@
 
 .main-content-contents > .comment {
   > .inner-wrapper {
-    padding-top: 0;    
+    padding-top: 0;
   }
 
   > .replies .comment:last-child .inner-wrapper {
@@ -51,5 +51,3 @@
     padding-bottom: 0;
   }
 }
-
-

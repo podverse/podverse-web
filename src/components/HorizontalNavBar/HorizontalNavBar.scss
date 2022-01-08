@@ -16,28 +16,28 @@
       flex-direction: row;
       flex: 0;
     }
-  
+
     .navbar-secondary__dropdown {
       flex: 0;
       margin-left: auto;
     }
-  
+
     .navbar-secondary__theme-toggle {
       // TODO: hide the toggle until light mode styles are added
       display: none;
 
       flex: 0;
       margin: 0 0 0 53px;
-  
+
       .switch-with-icons-wrapper {
         align-items: center;
         display: flex;
-    
+
         .beginning {
           height: 20px !important;
           width: 20px !important;
         }
-    
+
         .ending {
           height: 16px !important;
           width: 16px !important;

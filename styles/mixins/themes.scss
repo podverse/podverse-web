@@ -6,10 +6,8 @@ $themes: (
     'backgroundOpaque': $blueBrightOpaque,
     'backgroundOpaqueDark': $blackOpaque,
     'backgroundTransparent': $blueDarkBlueGreyTransparent,
-
     'borderPrimary': $blueDarkText,
     'borderActive': $blueBright,
-
     'buttonPrimaryBackground': $blueDarkText,
     'buttonPrimaryRolloverBackground': $blueDarkTextLighter,
     'buttonPrimaryText': $black,
@@ -28,51 +26,35 @@ $themes: (
     'buttonTertiaryDangerBorder': $redDarker,
     'buttonDisabledBackground': $gray,
     'buttonDisabledText': $grayLight,
-
     'buttonLinkText': $perrywinkle,
     'buttonLinkTextRollover': $blueDarkTextLighter,
-
     'buttonCloseBackground': $velvet,
-
     'divider': $whiteOpaque,
-
     'dropdownMenu': $blueDarkBlueGrey,
     'dropdownMenuSelected': $whiteOpaque,
-
     'focusGlow': $itemFocusShadow,
-
     'headerGradientLight': $blueLightNavyLight,
     'headerGradientDark': $blueDarkBlueGrey,
-
     'highlighted': $whiteOpaque,
-
     'modalTransparentBackground': $modalBackground,
-
     'navbarMobileBackground': $blueMenu,
-
     'navItemActiveGradientLight': $blueDusky,
     'navItemActiveGradientDark': $blueDarkSlate,
-
     'paginationActiveBackground': $blueBrightOpaqueLighter,
     'paginationActiveBorder': $blueDarkText,
     'paginationActiveText': $white,
     'paginationInactiveBackground': $blueBrightOpaqueLighter,
     'paginationInactiveBorder': $grayLight,
     'paginationInactiveText': $grayLight,
-
     'premiumIsActive': $blueBright,
     'premiumIsExpired': $redLighter,
-
     'sliderClipIndicator': $blueDarkText,
     'sliderHighlightSection': $blueDarkTextTransparent,
     'sliderListened': $white,
     'sliderRemaining': $blueDarkSlate,
-
     'switchBackgroundOn': $blueDarkText,
     'switchBackgroundOff': $gray,
-
     'tabBorderActive': $blueBright,
-
     'textPrimary': $white,
     'textSecondary': $grayLight,
     'textTertiary': $perrywinkle,
@@ -83,7 +65,6 @@ $themes: (
     'textWarning': $orange,
     'textDanger': $red,
     'textSuccess': $green,
-
     'textInputBackground': $blueDarkBlueGrey,
     'textInputPlaceholder': $grayLight,
     'textInputEyebrow': $perrywinkle,
@@ -102,25 +83,30 @@ $themes: (
 */
 $scopedTheme: null;
 @mixin themeGen($allThemesMap: $themes) {
-    @each $themeName, $themeMap in $allThemesMap {
-        .theme-#{$themeName} & {
-            // Creating a map that contains values specific to theme.
-            // Global is necessary since in mixin
-            $scopedTheme: () !global;
-            @each $variableName, $variableValue in $themeMap {
-                // Merge each key-value pair into the theme specific map
-                $scopedTheme: map.merge($scopedTheme, ($variableName: $variableValue)) !global;
-            }
-            // The original content passed
-            @content;
-            // Unset
-            $scopedTheme: null !global;
-        }
+  @each $themeName, $themeMap in $allThemesMap {
+    .theme-#{$themeName} & {
+      // Creating a map that contains values specific to theme.
+      // Global is necessary since in mixin
+      $scopedTheme: () !global;
+      @each $variableName, $variableValue in $themeMap {
+        // Merge each key-value pair into the theme specific map
+        $scopedTheme: map.merge(
+          $scopedTheme,
+          (
+            $variableName: $variableValue
+          )
+        ) !global;
+      }
+      // The original content passed
+      @content;
+      // Unset
+      $scopedTheme: null !global;
     }
+  }
 }
 /**
 * Function to call within themeGen mixin, to get value from the current theme in the iterator
 */
-@function getThemeVal($themeVar){
-    @return map-get($scopedTheme,$themeVar);
+@function getThemeVal($themeVar) {
+  @return map-get($scopedTheme, $themeVar);
 }
