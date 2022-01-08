@@ -15,8 +15,6 @@ const sentryWebpackPluginOptions = {
   //   release, url, org, project, authToken, configFile, stripPrefix,
   //   urlPrefix, include, ignore
 
-  disableServerWebpackPlugin: isDev,
-  disableClientWebpackPlugin: isDev,
   silent: true // Suppresses all logs
   // For all available options, see:
   // https://github.com/getsentry/sentry-webpack-plugin#options.
@@ -25,6 +23,10 @@ const sentryWebpackPluginOptions = {
 const moduleExports = {
   reactStrictMode: true,
   i18n,
+  sentry: {
+    disableServerWebpackPlugin: isDev,
+    disableClientWebpackPlugin: isDev
+  },
   serverRuntimeConfig: {
     API_PATH: process.env.API_PATH,
     API_VERSION: process.env.API_VERSION,
