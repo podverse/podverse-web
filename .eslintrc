@@ -18,5 +18,20 @@
         "ignoreRestSiblings": true
       }
     ]
-  }
+  },
+  "overrides": [
+    {
+      "files": "*.js",
+      "extends": [
+        "eslint:recommended"
+      ],
+      "rules": {
+        "@typescript-eslint/no-var-requires": "off",
+        "no-unused-vars": "off",
+        "@typescript-eslint/no-unused-vars": "off",
+        "@typescript-eslint/naming-convention": "off",
+        "@typescript-eslint/no-empty-function": "off"
+      }
+    }
+  ]
 }

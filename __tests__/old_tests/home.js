@@ -22,7 +22,9 @@ module.exports = {
 
       .scrollToSelector(`.pv-pagination`)
       .clickByXpath(`//button[@class="page-link"][contains (text(), "3")]`)
-      .waitForXpathPresent('//div[@class="media-list-item-a__title"][contains(text(), "Convallis tellus id interdum velit.")]')
+      .waitForXpathPresent(
+        '//div[@class="media-list-item-a__title"][contains(text(), "Convallis tellus id interdum velit.")]'
+      )
 
       .refresh()
 

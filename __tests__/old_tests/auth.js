@@ -14,11 +14,10 @@ module.exports = {
       .loginUsingModal('freetrial@stage.podverse.fm')
       .pause(3000)
       .logOutUsingModal()
-      
+
       .loginUsingModal('premium@stage.podverse.fm')
       .pause(3000)
       .logOutUsingModal()
-      
   },
   after: function (browser) {
     browser.end()

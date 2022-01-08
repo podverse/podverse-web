@@ -2,7 +2,7 @@ const { WEB_ORIGIN } = require('../constants')
 
 module.exports = {
   before: function (browser) {
-      browser.url(`${WEB_ORIGIN}/`)
+    browser.url(`${WEB_ORIGIN}/`)
   },
   'My-Profile': function (browser) {
     browser
@@ -13,12 +13,9 @@ module.exports = {
       .waitForXpathPresent('//div[contains(text(), "Premium Valid - Test User")]')
 
       .testSharedMetaTags()
-      .testPageMetaTags(
-        `My Profile`,
-        `My Podverse Profile. Subscribe to podcasts, playlists, and other profiles`
-      )            
+      .testPageMetaTags(`My Profile`, `My Podverse Profile. Subscribe to podcasts, playlists, and other profiles`)
   },
   after: function (browser) {
-      browser.end()
+    browser.end()
   }
 }

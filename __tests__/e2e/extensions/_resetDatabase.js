@@ -21,7 +21,7 @@ module.exports.command = function () {
             }
             conn.end()
           })
-          .on('data', () => { })
+          .on('data', () => {})
           .stderr.on('data', function (data) {
             console.log(data)
           })
