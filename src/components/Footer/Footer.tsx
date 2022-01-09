@@ -1,6 +1,6 @@
 import { faCopyright as faCopyrightRegular } from '@fortawesome/free-regular-svg-icons'
 import { PV } from '~/resources'
-import { Icon, NavBarBrand } from ".."
+import { Icon, NavBarBrand } from '..'
 
 export const Footer = () => {
   return (
@@ -14,33 +14,33 @@ export const Footer = () => {
           </a>
         </div>
       </div>
-      <div className="footer-middle">
-        <div className="footer-middle-site-links">
-            <ul>
-                <li>
-                    <a href="/contact">Contact</a>
-                </li>
-                <li>
-                    <a href="/about">About</a>
-                </li>
-                <li>
-                  <a href="/terms">Terms</a>
-                </li>
-                <li>
-                  <a href="/membership">Premium</a>
-                </li>
-            </ul>
-        </div>
-        <div className="footer-middle-site-links">
+      <div className='footer-middle'>
+        <div className='footer-middle-site-links'>
           <ul>
             <li>
-              <a href="/mobile-app">Mobile App</a>
+              <a href='/contact'>Contact</a>
             </li>
             <li>
-              <a href="/v4v-wallet">V4V Wallet</a>
+              <a href='/about'>About</a>
             </li>
             <li>
-              <a href="/donate">Donate</a>
+              <a href='/terms'>Terms</a>
+            </li>
+            <li>
+              <a href='/membership'>Premium</a>
+            </li>
+          </ul>
+        </div>
+        <div className='footer-middle-site-links'>
+          <ul>
+            <li>
+              <a href='/mobile-app'>Mobile App</a>
+            </li>
+            <li>
+              <a href='/v4v-wallet'>V4V Wallet</a>
+            </li>
+            <li>
+              <a href='/donate'>Donate</a>
             </li>
           </ul>
         </div>
@@ -48,4 +48,3 @@ export const Footer = () => {
     </footer>
   )
 }
-  
