@@ -30,7 +30,7 @@ jobs:
           yarn install --frozen-lockfile
           yarn lint
           yarn build
-          yarn test
+          yarn test:ci
 
   e2e:
     runs-on: ubuntu-latest

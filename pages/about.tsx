@@ -58,7 +58,7 @@ export default function About(props: ServerProps) {
                 <li>Subscribe to playlists</li>
               </ul>
               <p>
-                All Podverse software is provided under a free and open source (FOSS) licence. Features that require
+                All Podverse software is provided under a free and open source (FOSS) license. Features that require
                 updating our servers are available only with a Premium membership. Sign up today and get 1 year of
                 Premium for free{' '}
                 <span role='img' aria-label='partying face emoji'>
