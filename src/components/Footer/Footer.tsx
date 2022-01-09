@@ -1,8 +1,35 @@
+import { faDiscord, faGithub, faMastodon, faTwitter } from '@fortawesome/free-brands-svg-icons'
 import { faCopyright as faCopyrightRegular } from '@fortawesome/free-regular-svg-icons'
 import { PV } from '~/resources'
-import { Icon, NavBarBrand } from '..'
+import { Icon, NavBarBrand, PVLink } from '..'
 
 export const Footer = () => {
+
+  const socialLinks = (
+    <>
+      <li>
+        <a href='https://github.com/podverse' target='_blank' rel='noreferrer'>
+          <Icon faIcon={faGithub} />
+        </a>
+      </li>
+      <li>
+        <a href='https://twitter.com/podverse' target='_blank' rel='noreferrer'>
+          <Icon faIcon={faTwitter} />
+        </a>
+      </li>
+      <li>
+        <a href='https://discord.gg/6HkyNKR' target='_blank' rel='noreferrer'>
+          <Icon faIcon={faDiscord} />
+        </a>
+      </li>
+      <li>
+        <a href='https://podcastindex.social/web/@mitch' target='_blank' rel='noreferrer'>
+          <Icon faIcon={faMastodon} />
+        </a>
+      </li>
+    </>
+  )
+  
   return (
     <footer className='footer'>
       <hr />
@@ -18,32 +45,48 @@ export const Footer = () => {
         <div className='footer-middle-site-links'>
           <ul>
             <li>
-              <a href='/contact'>Contact</a>
+              <PVLink href='/contact'>Contact</PVLink>
             </li>
             <li>
-              <a href='/about'>About</a>
+              <PVLink href='/about'>About</PVLink>
             </li>
             <li>
-              <a href='/terms'>Terms</a>
+              <PVLink href='/terms'>Terms</PVLink>
             </li>
             <li>
-              <a href='/membership'>Premium</a>
+              <PVLink href='/membership'>Premium</PVLink>
             </li>
+          </ul>
+          <ul className='footer-right-section hide-below-tablet-max-width'>
+            {socialLinks}
           </ul>
         </div>
         <div className='footer-middle-site-links'>
           <ul>
             <li>
-              <a href='/mobile-app'>Mobile App</a>
+              <PVLink href='/about'>Mobile App</PVLink>
             </li>
             <li>
-              <a href='/v4v-wallet'>V4V Wallet</a>
+              <PVLink href='/v4v-wallet'>V4V Wallet</PVLink>
             </li>
             <li>
-              <a href='/donate'>Donate</a>
+              <PVLink href='/support'>Support Podverse</PVLink>
             </li>
           </ul>
+          {/* <ul className='footer-right-section hide-below-tablet-max-width'>
+            <li>
+              <i className="pi pi-podcasting20certified"></i>
+            </li>
+          </ul> */}
         </div>
+        <ul className='footer-mobile-section hide-above-tablet-xl-min-width'>
+          {socialLinks}
+        </ul>
+        {/* <ul className='footer-mobile-section hide-above-tablet-xl-min-width'>
+          <li>
+            <i className="pi pi-podcasting20certified"></i>
+          </li>
+        </ul> */}
       </div>
     </footer>
   )

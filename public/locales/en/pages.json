@@ -11,6 +11,10 @@
     "_Description": "Podcast app for iOS, Android, and web. Create and share podcast highlights and playlists. Sync your queue across all devices. Open source software.",
     "_Title": "Clips"
   },
+  "contact": {
+    "_Description": "Contact Podverse",
+    "_Title": "Contact"
+  },
   "episodes": {
     "_Description": "Podcast app for iOS, Android, and web. Create and share podcast highlights and playlists. Sync your queue across all devices. Open source software.",
     "_Title": "Episodes"
@@ -71,9 +75,17 @@
     "_Description": "Customize your account settings on Podverse.",
     "_Title": "Settings"
   },
+  "support": {
+    "_Description": "Support Podverse",
+    "_Title": "Support Podverse"
+  },
   "terms": {
     "_Description": "Podverse terms of service agreement.",
     "_Title": "Terms of Service"
+  },
+  "v4vWallet": {
+    "_Description": "A browser extension that lets you send Bitcoin to content creators on any V4V-enabled website.",
+    "_Title": "V4V Wallet"
   },
   "verify_email": {
     "_Description": "Verify your email address on Podverse",
