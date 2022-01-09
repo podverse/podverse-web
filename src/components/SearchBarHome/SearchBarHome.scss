@@ -35,7 +35,7 @@
 
         @include themeGen() {
           color: getThemeVal('textPrimary');
-          @include placeholderColor(getThemeVal('textHover'))
+          @include placeholderColor(getThemeVal('textHover'));
         }
       }
     }
@@ -49,8 +49,8 @@
         padding: 10px 12px;
 
         .icon-wrapper {
-          font-size: $text-lg !important;    
-          margin-right: 12px;      
+          font-size: $text-lg !important;
+          margin-right: 12px;
         }
         input {
           font-size: $text-lg !important;

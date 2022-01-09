@@ -6,7 +6,7 @@
     flex: 1;
     margin: 0 -10px;
     padding: 22px 10px 18px 10px;
-  
+
     .name {
       font-size: $text-xl;
       @include line-clamp(4);

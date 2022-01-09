@@ -3,6 +3,6 @@
   margin-bottom: 16px;
 
   @include themeGen() {
-    color: getThemeVal("textLink");
+    color: getThemeVal('textLink');
   }
 }

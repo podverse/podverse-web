@@ -5,8 +5,8 @@
 body {
   padding: 0;
   margin: 0;
-  font-family: Roboto, -apple-system, BlinkMacSystemFont, Segoe UI, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: Roboto, -apple-system, BlinkMacSystemFont, Segoe UI, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans,
+    Helvetica Neue, sans-serif;
   font-weight: 400;
   word-break: break-word;
 
@@ -14,21 +14,20 @@ body {
     background-color: getThemeVal('backgroundPrimary');
     color: getThemeVal('textPrimary');
   }
-  
+
   .app {
     display: flex;
     flex-direction: column;
     height: 100vh;
   }
 
-  
   .app-wrapper {
     display: flex;
     flex-direction: row;
     flex: 1;
     overflow: hidden;
   }
-  
+
   .app-main-wrapper {
     display: flex;
     flex: 1;
@@ -60,12 +59,12 @@ body {
     color: inherit;
     text-decoration: none;
   }
-  
+
   hr {
     border-bottom: 0;
     border-width: 1px;
     width: 100%;
-  
+
     @include themeGen() {
       border-color: getThemeVal('divider');
     }
@@ -115,7 +114,7 @@ body {
         width: 36px;
       }
     }
-  }  
+  }
 
   .centered {
     position: fixed;
@@ -139,7 +138,8 @@ body {
     flex: 1;
   }
 
-  button, div {
+  button,
+  div {
     &:focus {
       @include themeGen() {
         box-shadow: getThemeVal('focusGlow');
@@ -179,7 +179,8 @@ body {
     }
   }
 
-  li, ol {
+  li,
+  ol {
     @include themeGen() {
       color: getThemeVal('textParagraph');
     }
@@ -195,7 +196,7 @@ body {
     p {
       font-size: $text-md;
       line-height: 24px;
-      margin: 0 0 16px 0;  
+      margin: 0 0 16px 0;
 
       &.bigger {
         font-size: $text-lg;
@@ -212,7 +213,7 @@ body {
       font-size: $text-md;
       line-height: 24px;
     }
-    
+
     hr {
       margin: 24px 0;
     }
@@ -225,7 +226,7 @@ body {
     .button-column {
       display: flex;
       flex-direction: column;
-      
+
       button {
         margin-bottom: 16px;
       }
@@ -256,10 +257,10 @@ body {
   background: transparent; /* Chrome/Safari/Webkit */
   width: 0px;
 }
-    
+
 .disable-scrollbars * {
   scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none;  /* IE 10+ */
+  -ms-overflow-style: none; /* IE 10+ */
 }
 
 @media (max-width: $media-max-width-laptop) {
@@ -267,7 +268,7 @@ body {
     .column {
       margin-bottom: 44px;
     }
-  
+
     .hide-below-laptop-max-width {
       display: none;
     }
@@ -283,7 +284,7 @@ body {
     .column {
       margin-bottom: 44px;
     }
-  
+
     .hide-below-tablet-xl-max-width {
       display: none;
     }
@@ -306,19 +307,19 @@ body {
   .hide-above-laptop-min-width {
     display: none;
   }
-} 
+}
 
 @media (min-width: $media-min-width-tablet-xl) {
   .hide-above-tablet-xl-min-width {
     display: none;
   }
-} 
+}
 
 @media (min-width: $media-min-width-tablet) {
   .hide-above-tablet-min-width {
     display: none;
   }
-} 
+}
 
 @media (max-width: $media-max-width-tablet) {
   hr {

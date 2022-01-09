@@ -21,14 +21,14 @@
   align-items: center;
   display: flex;
   justify-content: center;
-  
+
   .button-skip {
     -webkit-box-shadow: none !important;
     box-shadow: none !important;
     margin: 0 0 24px 0;
 
     @include themeGen() {
-      color: getThemeVal("textQuaternary");
+      color: getThemeVal('textQuaternary');
     }
   }
 }

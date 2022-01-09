@@ -1,10 +1,32 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const { i18n } = require('./next-i18next.config')
+const { withSentryConfig } = require('@sentry/nextjs')
 
+const isDev = process.env.NODE_ENV === 'development' || !process.env.NODE_ENV
+console.log({
+  env: process.env.NODE_ENV,
+  isDev
+})
 const envVars = {}
+const sentryWebpackPluginOptions = {
+  // Additional config options for the Sentry Webpack plugin. Keep in mind that
+  // the following options are set automatically, and overriding them is not
+  // recommended:
+  //   release, url, org, project, authToken, configFile, stripPrefix,
+  //   urlPrefix, include, ignore
 
-module.exports = {
+  silent: true // Suppresses all logs
+  // For all available options, see:
+  // https://github.com/getsentry/sentry-webpack-plugin#options.
+}
+
+const moduleExports = {
   reactStrictMode: true,
   i18n,
+  sentry: {
+    disableServerWebpackPlugin: isDev,
+    disableClientWebpackPlugin: isDev
+  },
   serverRuntimeConfig: {
     API_PATH: process.env.API_PATH,
     API_VERSION: process.env.API_VERSION,
@@ -42,3 +64,7 @@ module.exports = {
     MATOMO_SITE_ID: process.env.MATOMO_SITE_ID
   }
 }
+
+// Make sure adding Sentry options is the last code to run before exporting, to
+// ensure that your source maps include changes from all other Webpack plugins
+module.exports = withSentryConfig(moduleExports, sentryWebpackPluginOptions)
