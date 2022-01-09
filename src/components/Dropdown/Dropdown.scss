@@ -5,7 +5,7 @@ body {
     flex-direction: row;
     font-size: $text-sm;
     justify-content: center;
-    
+
     .dropdown__text {
       margin-left: 8px;
     }
@@ -15,14 +15,14 @@ body {
       display: flex;
       height: $button-small-height;
       line-height: $button-small-height;
-  
+
       svg {
         height: 22px;
         width: 22px;
       }
     }
   }
-  
+
   .dropdown__chevron {
     align-items: center;
     display: flex;
@@ -30,7 +30,7 @@ body {
     line-height: $button-small-height;
     margin-left: 8px;
     padding-top: 3px;
-  
+
     svg {
       height: 12.25px !important;
       width: 14px;
@@ -49,11 +49,11 @@ body {
       width: 8px;
     }
   }
-  
+
   .react-dropdown-select {
     border-radius: $button-small-radius;
     min-height: $button-small-height;
-    opacity: 1.0;
+    opacity: 1;
     padding: 0px 5px;
     user-select: none;
 
@@ -74,11 +74,11 @@ body {
       max-height: 333px;
       padding: 6px 0;
       right: 0 !important;
-    
+
       @include themeGen() {
         background-color: getThemeVal('dropdownMenu');
       }
-    
+
       .react-dropdown-select-item {
         border: none;
         border-radius: $item-border-radius;
@@ -88,16 +88,17 @@ body {
         @include themeGen() {
           color: getThemeVal('textPrimary');
         }
-        
+
         &.react-dropdown-select-item-selected {
           background-color: transparent;
           border: none;
         }
-        
-        &.react-dropdown-select-item-active, &:hover {
+
+        &.react-dropdown-select-item-active,
+        &:hover {
           border: none;
           box-shadow: $box-shadow;
-          
+
           @include themeGen() {
             background-color: getThemeVal('dropdownMenuSelected');
           }
@@ -150,7 +151,7 @@ body {
           &:hover {
             border: none;
             box-shadow: $box-shadow;
-            
+
             @include themeGen() {
               background-color: getThemeVal('dropdownMenuSelected');
             }

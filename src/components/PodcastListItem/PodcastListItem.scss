@@ -9,21 +9,21 @@
       border-radius: $item-border-radius;
       margin: 0 16px 0 0;
     }
-  
+
     .text-wrapper {
       display: flex;
       flex-direction: column;
       justify-content: center;
-  
+
       .last-episode-pub-date {
         font-size: $text-sm;
         font-weight: $font-weight-medium;
-  
+
         @include themeGen() {
           color: getThemeVal('textTertiary');
         }
       }
-  
+
       .title {
         font-size: $text-xl;
         font-weight: $font-weight-light;

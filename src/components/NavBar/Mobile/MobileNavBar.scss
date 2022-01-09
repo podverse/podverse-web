@@ -10,7 +10,7 @@
     padding: 15px 14px 14px 16px;
 
     @include themeGen() {
-      background-color: getThemeVal("navbarMobileBackground");
+      background-color: getThemeVal('navbarMobileBackground');
     }
 
     .left-wrapper {

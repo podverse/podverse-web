@@ -6,13 +6,13 @@
 
   &.active {
     font-weight: $font-weight-bold;
-    
+
     .icon {
       margin-left: 16px;
 
       @include themeGen() {
         color: getThemeVal('textQuaternary');
       }
-    }    
+    }
   }
 }
