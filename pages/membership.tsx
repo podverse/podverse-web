@@ -52,7 +52,7 @@ export default function Membership(props: ServerProps) {
               <ComparisonTable
                 aboveSectionNodes={
                   <>
-                    <p>{t('Get 1 year free when you sign up for Podverse premium')}</p>
+                    <p>{t('Get 3 months free when you sign up for Podverse premium')}</p>
                     <p>{t('18 per year after that')}</p>
                     <div className='button-column'>
                       {!userInfo && <ButtonLink label={t('Login')} onClick={() => OmniAural.modalsLoginShow()} />}

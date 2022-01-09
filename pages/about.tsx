@@ -59,7 +59,7 @@ export default function About(props: ServerProps) {
               </ul>
               <p>
                 All Podverse software is provided under a free and open source (FOSS) licence. Features that require
-                updating our servers are available only with a Premium membership. Sign up today and get 1 year of
+                updating our servers are available only with a Premium membership. Sign up today and get 3 months of
                 Premium for free{' '}
                 <span role='img' aria-label='partying face emoji'>
                   🥳

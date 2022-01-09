@@ -47,7 +47,7 @@ export const SignUpModal = (props: Props) => {
       <h2>{t('Sign Up')}</h2>
       <ButtonClose onClick={_onRequestClose} />
       <div className='header-wrapper'>
-        <div>{t('Try premium free for 1 year!')}</div>
+        <div>{t('Try premium free for 3 months!')}</div>
         <div>{t('$18 per year after that')}</div>
       </div>
       <PasswordInputs handleClose={_onRequestClose} handleSubmit={_handleSignUp} isSignUpPressed={isSignUpPressed} />
