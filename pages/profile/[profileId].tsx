@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from 'react'
 import {
   ClipListItem,
   ColumnsWrapper,
+  Footer,
   List,
   Meta,
   PageHeader,
@@ -274,6 +275,7 @@ export default function Profile({
             </>
           }
         />
+        <Footer />
       </PageScrollableContent>
     </>
   )

@@ -8,6 +8,7 @@ import {
   ClipListItem,
   ColumnsWrapper,
   EpisodeInfo,
+  Footer,
   List,
   Meta,
   PageHeader,
@@ -179,6 +180,7 @@ export default function Clip({
             </>
           }
         />
+        <Footer />
       </PageScrollableContent>
     </>
   )

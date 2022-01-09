@@ -7,6 +7,7 @@ import {
   ClipListItem,
   ColumnsWrapper,
   EpisodeListItem,
+  Footer,
   List,
   Meta,
   PageScrollableContent,
@@ -179,6 +180,7 @@ export default function Playlist({ serverPlaylist, serverPlaylistSortedItems }: 
             </>
           }
         />
+        <Footer />
       </PageScrollableContent>
     </>
   )

@@ -7,6 +7,7 @@ import {
   ClipListItem,
   ColumnsWrapper,
   EpisodeListItem,
+  Footer,
   List,
   MessageWithAction,
   Meta,
@@ -115,6 +116,7 @@ export default function Queue(props: ServerProps) {
           />
         )}
         {userInfo && <ColumnsWrapper mainColumnChildren={<List>{generateQueueListElements(userQueueItems)}</List>} />}
+        <Footer />
       </PageScrollableContent>
     </>
   )

@@ -2,7 +2,7 @@ import { GetServerSideProps } from 'next'
 import { useTranslation } from 'next-i18next'
 import OmniAural, { useOmniAural } from 'omniaural'
 import type { Playlist } from 'podverse-shared'
-import { List, MessageWithAction, Meta, PageHeader, PageScrollableContent, PlaylistListItem } from '~/components'
+import { Footer, List, MessageWithAction, Meta, PageHeader, PageScrollableContent, PlaylistListItem } from '~/components'
 import { Page } from '~/lib/utility/page'
 import { PV } from '~/resources'
 import { getServerSideLoggedInUserPlaylistsCombined } from '~/services/playlist'
@@ -62,6 +62,7 @@ export default function Playlists({ serverPlaylistsCombined }: ServerProps) {
           />
         )}
         {userInfo && <List>{generatePlaylistElements(combinedPlaylists)}</List>}
+        <Footer />
       </PageScrollableContent>
     </>
   )

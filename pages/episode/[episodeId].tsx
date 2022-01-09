@@ -16,7 +16,8 @@ import {
   PageScrollableContent,
   Pagination,
   SideContentSection,
-  SideContent
+  SideContent,
+  Footer
 } from '~/components'
 import { scrollToTopOfPageScrollableContent } from '~/components/PageScrollableContent/PageScrollableContent'
 import { calcListPageCount } from '~/lib/utility/misc'
@@ -216,6 +217,7 @@ export default function Episode({
             </SideContent>
           }
         />
+        <Footer />
       </PageScrollableContent>
     </>
   )

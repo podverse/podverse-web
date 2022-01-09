@@ -1,10 +1,40 @@
 .footer {
-    .footer-middle {
+  hr {
+    margin-bottom: 24px;
+  }
 
-       .footer-middle-site-links {
-           ul {
-
-           }
-       }
+  a {
+    @include themeGen() {
+      color: getThemeVal('textPrimary');
     }
+
+    &:hover {
+      @include themeGen() {
+        color: getThemeVal('textSecondary');
+      }
+    }
+  }
+
+  .footer-top {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+  }
+
+  .footer-middle {
+
+    .footer-middle-site-links {
+      ul {
+        display: flex;
+        li {
+          a {
+            display: block;
+            margin: 0 16px 8px 0;
+            padding: 8px 0;
+          }
+        }
+      }
+    }
+  }
 }

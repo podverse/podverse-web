@@ -2,7 +2,7 @@ import { GetServerSideProps } from 'next'
 import { useTranslation } from 'next-i18next'
 import { Page } from '~/lib/utility/page'
 import { PV } from '~/resources'
-import { ColumnsWrapper, DownloadAppButtons, PageHeader, PageScrollableContent } from '~/components'
+import { ColumnsWrapper, DownloadAppButtons, Footer, PageHeader, PageScrollableContent } from '~/components'
 import { Meta } from '~/components/Meta/Meta'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 
@@ -75,6 +75,7 @@ export default function About(props: ServerProps) {
             </div>
           }
         />
+        <Footer />
       </PageScrollableContent>
     </>
   )

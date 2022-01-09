@@ -7,6 +7,7 @@ import {
   ButtonLink,
   ColumnsWrapper,
   ComparisonTable,
+  Footer,
   MembershipStatus,
   Meta,
   PageHeader,
@@ -70,6 +71,7 @@ export default function Membership(props: ServerProps) {
             </div>
           }
         />
+        <Footer />
       </PageScrollableContent>
     </>
   )
