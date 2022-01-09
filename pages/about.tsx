@@ -40,6 +40,7 @@ export default function About(props: ServerProps) {
           mainColumnChildren={
             <div className='text-page'>
               <p className='bigger'>Podverse is an open source podcast manager for iOS, Android, and web.</p>
+              <DownloadAppButtons />
               <label>Free features:</label>
               <ul>
                 <li>Subscribe to podcasts</li>
@@ -65,7 +66,6 @@ export default function About(props: ServerProps) {
                   🥳
                 </span>
               </p>
-              <DownloadAppButtons />
               <hr />
               <h3>Team</h3>
               <p>Mitch Downey</p>
