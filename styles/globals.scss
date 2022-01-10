@@ -195,18 +195,6 @@ body {
       font-size: $text-xl;
       font-weight: $font-weight-bold;
       margin: 0 0 16px 0;
-
-      a {
-        @include themeGen() {
-          color: getThemeVal('textLink');
-        }
-
-        &:hover {
-          @include themeGen() {
-            color: getThemeVal('textLinkHover');
-          } 
-        }
-      }
     }
 
     p {
@@ -228,6 +216,18 @@ body {
     li {
       font-size: $text-md;
       line-height: 24px;
+    }
+
+    a {
+      @include themeGen() {
+        color: getThemeVal('textLink');
+      }
+
+      &:hover {
+        @include themeGen() {
+          color: getThemeVal('textLinkHover');
+        } 
+      }
     }
 
     hr {

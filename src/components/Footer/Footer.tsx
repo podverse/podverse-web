@@ -1,9 +1,11 @@
 import { faDiscord, faGithub, faMastodon, faTwitter } from '@fortawesome/free-brands-svg-icons'
 import { faCopyright as faCopyrightRegular } from '@fortawesome/free-regular-svg-icons'
+import { useTranslation } from 'react-i18next'
 import { PV } from '~/resources'
 import { Icon, NavBarBrand, PVLink } from '..'
 
 export const Footer = () => {
+  const { t } = useTranslation()
 
   const socialLinks = (
     <>
@@ -37,7 +39,7 @@ export const Footer = () => {
         <NavBarBrand height={28} href={PV.RoutePaths.web.home} src={PV.Images.dark.brandLogo} width={150} />
         <div className='open-source-license'>
           <a href='https://www.gnu.org/licenses/agpl-3.0.en.html' target='_blank'>
-            open source <Icon faIcon={faCopyrightRegular} rotation={180} />
+            {t('open source')} <Icon faIcon={faCopyrightRegular} rotation={180} />
           </a>
         </div>
       </div>
@@ -45,16 +47,16 @@ export const Footer = () => {
         <div className='footer-middle-site-links'>
           <ul>
             <li>
-              <PVLink href='/contact'>Contact</PVLink>
+              <PVLink href='/contact'>{t('Contact')}</PVLink>
             </li>
             <li>
-              <PVLink href='/about'>About</PVLink>
+              <PVLink href='/about'>{t('About')}</PVLink>
             </li>
             <li>
-              <PVLink href='/terms'>Terms</PVLink>
+              <PVLink href='/terms'>{t('Terms')}</PVLink>
             </li>
             <li>
-              <PVLink href='/membership'>Premium</PVLink>
+              <PVLink href='/membership'>{t('Premium')}</PVLink>
             </li>
           </ul>
           <ul className='footer-right-section hide-below-tablet-max-width'>
@@ -64,13 +66,13 @@ export const Footer = () => {
         <div className='footer-middle-site-links'>
           <ul>
             <li>
-              <PVLink href='/about'>Mobile App</PVLink>
+              <PVLink href='/about'>{t('Mobile App')}</PVLink>
             </li>
-            <li>
+            {/* <li>
               <PVLink href='/v4v-wallet'>V4V Wallet</PVLink>
-            </li>
+            </li> */}
             <li>
-              <PVLink href='/support'>Support Podverse</PVLink>
+              <PVLink href='/support'>{t('Support')}</PVLink>
             </li>
           </ul>
           {/* <ul className='footer-right-section hide-below-tablet-max-width'>
