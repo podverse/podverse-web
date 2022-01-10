@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const { i18n } = require('./next-i18next.config')
-const { withSentryConfig } = require('@sentry/nextjs')
 
 const isDev = process.env.NODE_ENV === 'development' || !process.env.NODE_ENV
 
@@ -20,10 +19,6 @@ const sentryWebpackPluginOptions = {
 const moduleExports = {
   reactStrictMode: true,
   i18n,
-  sentry: {
-    disableServerWebpackPlugin: isDev,
-    disableClientWebpackPlugin: isDev
-  },
   serverRuntimeConfig: {
     API_PATH: process.env.API_PATH,
     API_VERSION: process.env.API_VERSION,
@@ -62,6 +57,4 @@ const moduleExports = {
   }
 }
 
-// Make sure adding Sentry options is the last code to run before exporting, to
-// ensure that your source maps include changes from all other Webpack plugins
-module.exports = withSentryConfig(moduleExports, sentryWebpackPluginOptions)
+module.exports = moduleExports
