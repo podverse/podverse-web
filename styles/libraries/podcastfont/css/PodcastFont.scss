@@ -1,4 +1,6 @@
-﻿.pi {
+﻿/* stylelint-disable */
+
+.pi {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   display: inline-block;
@@ -6,8 +8,6 @@
   font-variant: normal;
   text-rendering: auto;
   line-height: 1;
-}
-.pi {
   font-family: 'Podcast Font';
   font-weight: 400;
 }
