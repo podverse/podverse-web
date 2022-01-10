@@ -1,10 +1,14 @@
 import { GetServerSideProps } from 'next'
 import { useTranslation } from 'next-i18next'
-import { Meta } from '~/components'
+import OmniAural from 'omniaural'
+import { Page } from '~/lib/utility/page'
 import { PV } from '~/resources'
+import { ButtonRectangle, ColumnsWrapper, Footer, Meta, PageHeader, PageScrollableContent } from '~/components'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 
-export default function Settings() {
+type ServerProps = Page
+
+export default function Settings(props: ServerProps) {
   /* Initialize */
 
   const { t } = useTranslation()
@@ -18,7 +22,7 @@ export default function Settings() {
   }
 
   return (
-    <div>
+    <>
       <Meta
         description={meta.description}
         ogDescription={meta.description}
@@ -30,19 +34,32 @@ export default function Settings() {
         twitterDescription={meta.description}
         twitterTitle={meta.title}
       />
-      <p>settings!!!</p>
-    </div>
+      <PageHeader text={'Settings'} />
+      <PageScrollableContent>
+        <ColumnsWrapper
+          mainColumnChildren={
+            <div className='text-page'>
+              <h3>{t('Account')}</h3>
+              <ButtonRectangle isDanger label={t('Delete My Account')} onClick={OmniAural.modalsConfirmDeleteAccountShow} type='primary' />
+            </div>
+          }
+        />
+        <Footer />
+      </PageScrollableContent>
+    </>
   )
 }
+
+/* Server-Side Logic */
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { locale } = ctx
 
   const defaultServerProps = await getDefaultServerSideProps(ctx, locale)
 
-  return {
-    props: {
-      ...defaultServerProps
-    }
+  const serverProps: ServerProps = {
+    ...defaultServerProps
   }
+
+  return { props: serverProps }
 }
