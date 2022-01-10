@@ -1,16 +1,13 @@
 @mixin headerGradientStyle($parentClass) {
   .theme-dark {
     #{$parentClass} {
-      background-image: linear-gradient(
-        to right,
-        $blueLightNavyLight -3%,
-        $blueDarkBlueGrey
-      );
+      background-image: linear-gradient(to right, $blueLightNavyLight -3%, $blueDarkBlueGrey);
     }
   }
 
   .theme-light {
-    #{$parentClass} {}
+    #{$parentClass} {
+    }
   }
 }
 
@@ -19,15 +16,12 @@
     .navbar {
       .navbar__link {
         &.active {
-          background-image: linear-gradient(
-            to right,
-            $blueDusky -3%,
-            $blueDarkSlate
-          );
+          background-image: linear-gradient(to right, $blueDusky -3%, $blueDarkSlate);
         }
       }
     }
   }
 
-  .theme-light {}
+  .theme-light {
+  }
 }

@@ -9,7 +9,7 @@
     display: flex;
     flex-direction: column;
   }
-  
+
   .player-bar {
     margin: 0 20px;
     padding: 12px 0;
@@ -22,19 +22,19 @@
     padding-top: 3px;
     width: 100%;
   }
-  
+
   .player-bar-label {
     font-size: 12px;
     min-width: 40px;
-  
+
     @include themeGen() {
-      color: getThemeVal("textTertiary");
+      color: getThemeVal('textTertiary');
     }
-  
+
     &:first-child {
       text-align: right;
     }
-  
+
     &:last-child {
       text-align: left;
     }

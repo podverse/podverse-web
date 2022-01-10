@@ -11,19 +11,19 @@
     text-align: center;
   }
 
-  .comparison-table { 
+  .comparison-table {
     .comparison-table__header {
       border-style: solid;
       border-width: 1px;
       display: flex;
       flex-direction: row;
       font-weight: 500;
-  
+
       .comparison-table-header__text {
         flex: 1;
         padding: 8px 12px;
       }
-  
+
       .comparison-table-header__icon {
         border-left-style: solid;
         border-left-width: 1px;
@@ -32,7 +32,7 @@
         text-align: center;
       }
     }
-  
+
     .comparison-table__row {
       border-top: 0;
       border-bottom-width: 1px;
@@ -41,13 +41,13 @@
       border-style: solid;
       display: flex;
       flex-direction: row;
-  
+
       .comparison-table-row__text {
         flex: 1;
         font-weight: 300;
         padding: 8px 12px;
       }
-  
+
       .comparison-table-row__icon {
         border-left-style: solid;
         border-left-width: 1px;
@@ -57,8 +57,11 @@
       }
     }
   }
-  
-  .comparison-table, .comparison-table__header, .comparison-table__row, .comparison-table-header__icon,
+
+  .comparison-table,
+  .comparison-table__header,
+  .comparison-table__row,
+  .comparison-table-header__icon,
   .comparison-table-row__icon {
     @include themeGen() {
       border-color: getThemeVal('divider');

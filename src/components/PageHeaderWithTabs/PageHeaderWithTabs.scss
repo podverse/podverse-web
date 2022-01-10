@@ -4,7 +4,7 @@
   @include themeGen() {
     background-color: getThemeVal('backgroundTertiary');
   }
-  
+
   .main-max-width {
     margin-bottom: 13px;
     display: flex;
@@ -20,12 +20,12 @@
   .page-header-tabs {
     margin-top: 0;
     padding: 20px 16px 0 16px;
-    
+
     .main-max-width {
       display: flex;
       flex-direction: column;
       margin: 0;
-      
+
       h1 {
         flex: 1;
         font-size: $text-xxxl;

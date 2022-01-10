@@ -1,6 +1,7 @@
-@import '/styles/variables/index.scss';
-@import '/styles/mixins/index.scss';
-@import '/styles/fonts.scss';
-@import '/styles/resets.scss';
-@import '/styles/globals.scss';
-@import '/styles/components/index.scss';
+@import '/styles/libraries/index';
+@import '/styles/variables/index';
+@import '/styles/mixins/index';
+@import '/styles/fonts';
+@import '/styles/resets';
+@import '/styles/globals';
+@import '/styles/components/index';

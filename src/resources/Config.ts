@@ -2,7 +2,8 @@ import getConfig from 'next/config'
 const { publicRuntimeConfig, serverRuntimeConfig } = getConfig()
 
 const getServerOrPublicVariable = (envVarKey: string) =>
-  serverRuntimeConfig[envVarKey] || publicRuntimeConfig[envVarKey]
+  // optional chaining helps with the test environment
+  serverRuntimeConfig?.[envVarKey] || publicRuntimeConfig?.[envVarKey]
 
 const API_PROTOCOL = getServerOrPublicVariable('API_PROTOCOL')
 const API_DOMAIN = getServerOrPublicVariable('API_DOMAIN')

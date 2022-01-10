@@ -5,7 +5,7 @@
   flex: 0 0 28%;
 
   @include themeGen() {
-    color: getThemeVal("textSecondary");
+    color: getThemeVal('textSecondary');
   }
 
   .player-control-button-row {
@@ -49,6 +49,5 @@
     .player-control-volume-wrapper {
       display: none;
     }
-
   }
 }

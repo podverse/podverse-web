@@ -8,6 +8,7 @@ import {
   ClipListItem,
   ColumnsWrapper,
   EpisodeListItem,
+  Footer,
   List,
   Meta,
   PageHeader,
@@ -237,6 +238,7 @@ export default function Podcast({
             </SideContent>
           }
         />
+        <Footer />
       </PageScrollableContent>
     </>
   )

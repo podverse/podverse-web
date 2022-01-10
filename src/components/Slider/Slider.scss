@@ -31,7 +31,7 @@
 
   /*Chrome*/
   @media screen and (-webkit-min-device-pixel-ratio: 0) {
-    input[type="range"] {
+    input[type='range'] {
       overflow: hidden;
       height: 10px;
       width: 100%;
@@ -43,13 +43,13 @@
       }
     }
 
-    input[type="range"]::-webkit-slider-runnable-track {
+    input[type='range']::-webkit-slider-runnable-track {
       height: 10px;
       -webkit-appearance: none;
       margin-top: -1px;
     }
 
-    input[type="range"]::-webkit-slider-thumb {
+    input[type='range']::-webkit-slider-thumb {
       width: 0;
       -webkit-appearance: none;
       height: 0;
@@ -62,24 +62,24 @@
     }
   }
 
-  input[type="range"]::-moz-range-progress {
+  input[type='range']::-moz-range-progress {
     @include themeGen() {
       background-color: getThemeVal('sliderListened');
     }
   }
-  input[type="range"]::-moz-range-track {
+  input[type='range']::-moz-range-track {
     @include themeGen() {
       background-color: getThemeVal('sliderRemaining');
     }
   }
 
   /* IE*/
-  input[type="range"]::-ms-fill-lower {
+  input[type='range']::-ms-fill-lower {
     @include themeGen() {
       background-color: getThemeVal('sliderListened');
     }
   }
-  input[type="range"]::-ms-fill-upper {
+  input[type='range']::-ms-fill-upper {
     @include themeGen() {
       background-color: getThemeVal('sliderRemaining');
     }

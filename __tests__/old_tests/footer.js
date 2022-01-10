@@ -4,7 +4,7 @@ module.exports = {
   before: function (browser) {
     browser.url(`${WEB_ORIGIN}/`)
   },
-  'Footer': function (browser) {
+  Footer: function (browser) {
     browser
       .waitForXpathPresent(`//a[contains(text(), 'Podverse')]`)
       .waitForXpathPresent(`//html[@data-theme="dark"]`)
@@ -16,7 +16,7 @@ module.exports = {
       .waitForXpathPresent(`//a[@href="https://reddit.com/r/podverse"]`)
       .waitForXpathPresent(`//a[@href="https://twitter.com/podverse"]`)
       .waitForXpathPresent(`//a[@href="https://facebook.com/podverse"]`)
-      .waitForXpathPresent(`//a[@href="https://github.com/podverse"]`)    
+      .waitForXpathPresent(`//a[@href="https://github.com/podverse"]`)
   },
   after: function (browser) {
     browser.end()

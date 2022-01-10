@@ -7,9 +7,7 @@ module.exports.command = function () {
   this.click('.react-dropdown-select-item:nth-child(4)')
   this.pause(100)
 
-  
   console.log('Logged Out')
 
   return this
 }
-

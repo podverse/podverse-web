@@ -4,17 +4,19 @@
   justify-content: center;
   margin: -1px auto 0 auto;
 
-  .top-row, .bottom-row {
+  .top-row,
+  .bottom-row {
     display: flex;
     justify-content: center;
   }
 
   .player-progress-button {
     @include themeGen() {
-      color: getThemeVal("textSecondary");
+      color: getThemeVal('textSecondary');
     }
 
-    &:first-child, &:last-child {
+    &:first-child,
+    &:last-child {
       margin: 0px;
     }
 

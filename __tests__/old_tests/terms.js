@@ -8,10 +8,7 @@ module.exports = {
     browser
       .waitForElementWithText('h3', 'Terms of Service')
       .testSharedMetaTags()
-      .testPageMetaTags(
-        'Terms of Service',
-        'Podverse terms of service agreement.'
-      )
+      .testPageMetaTags('Terms of Service', 'Podverse terms of service agreement.')
   },
   after: function (browser) {
     browser.end()

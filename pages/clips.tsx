@@ -7,6 +7,7 @@ import { useEffect, useRef, useState } from 'react'
 // import { useCookies } from 'react-cookie'
 import {
   ClipListItem,
+  Footer,
   List,
   MessageWithAction,
   Meta,
@@ -257,6 +258,7 @@ ServerProps) {
             />
           </>
         )}
+        <Footer />
       </PageScrollableContent>
     </>
   )

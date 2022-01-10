@@ -1,7 +1,9 @@
 const { WEB_ORIGIN } = require('../constants')
 
-const dropdownToggleClipsXpath = '//button[@class="transparent dropdown-toggle btn btn-secondary"][contains (text(), "Clips")]'
-const dropdownToggleChaptersXpath = '//button[@class="transparent dropdown-toggle btn btn-secondary"][contains (text(), "Chapters")]'
+const dropdownToggleClipsXpath =
+  '//button[@class="transparent dropdown-toggle btn btn-secondary"][contains (text(), "Clips")]'
+const dropdownToggleChaptersXpath =
+  '//button[@class="transparent dropdown-toggle btn btn-secondary"][contains (text(), "Chapters")]'
 const dropdownItemClipsXpath = '//button[@class="dropdown-item"][contains (text(), "Clips")]'
 const dropdownItemChaptersXpath = '//button[@class="dropdown-item"][contains (text(), "Chapters")]'
 const mediaListSelectsSelector = '.media-list__selects'

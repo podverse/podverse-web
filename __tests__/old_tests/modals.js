@@ -2,9 +2,9 @@ const { WEB_ORIGIN } = require('../constants')
 
 module.exports = {
   before: function (browser) {
-      browser.url(`${WEB_ORIGIN}/`)
+    browser.url(`${WEB_ORIGIN}/`)
   },
-  'Modals': function (browser) {
+  Modals: function (browser) {
     browser
       .waitForXpathPresent(`//div[contains(text(), "Amet aliquam id diam maecenas ultricies mi eget.")]`)
 
@@ -28,6 +28,6 @@ module.exports = {
       .clickModalAndClose(`share`)
   },
   after: function (browser) {
-      browser.end()
+    browser.end()
   }
 }

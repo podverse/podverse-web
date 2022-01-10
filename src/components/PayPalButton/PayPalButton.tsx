@@ -74,7 +74,7 @@ export const PayPalButton = (props: Props) => {
               purchase_units: [
                 {
                   amount: {
-                    value: '10.00'
+                    value: '18.00'
                   }
                 }
               ],

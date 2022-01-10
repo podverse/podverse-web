@@ -1,0 +1,11 @@
+.mail-to {
+  @include themeGen() {
+    color: getThemeVal('textLink');
+  }
+
+  &:hover {
+    @include themeGen() {
+      color: getThemeVal('textLinkHover');
+    }
+  }
+}

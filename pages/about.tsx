@@ -2,7 +2,7 @@ import { GetServerSideProps } from 'next'
 import { useTranslation } from 'next-i18next'
 import { Page } from '~/lib/utility/page'
 import { PV } from '~/resources'
-import { ColumnsWrapper, DownloadAppButtons, PageHeader, PageScrollableContent } from '~/components'
+import { ColumnsWrapper, DownloadAppButtons, Footer, PageHeader, PageScrollableContent } from '~/components'
 import { Meta } from '~/components/Meta/Meta'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 
@@ -40,6 +40,7 @@ export default function About(props: ServerProps) {
           mainColumnChildren={
             <div className='text-page'>
               <p className='bigger'>Podverse is an open source podcast manager for iOS, Android, and web.</p>
+              <DownloadAppButtons />
               <label>Free features:</label>
               <ul>
                 <li>Subscribe to podcasts</li>
@@ -59,13 +60,12 @@ export default function About(props: ServerProps) {
               </ul>
               <p>
                 All Podverse software is provided under a free and open source (FOSS) licence. Features that require
-                updating our servers are available only with a Premium membership. Sign up today and get 1 year of
+                updating our servers are available only with a Premium membership. Sign up today and get 3 months of
                 Premium for free{' '}
                 <span role='img' aria-label='partying face emoji'>
                   🥳
                 </span>
               </p>
-              <DownloadAppButtons />
               <hr />
               <h3>Team</h3>
               <p>Mitch Downey</p>
@@ -75,6 +75,7 @@ export default function About(props: ServerProps) {
             </div>
           }
         />
+        <Footer />
       </PageScrollableContent>
     </>
   )
