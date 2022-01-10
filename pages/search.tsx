@@ -3,6 +3,7 @@ import { useTranslation } from 'next-i18next'
 import type { Podcast } from 'podverse-shared'
 import { useEffect, useState } from 'react'
 import {
+  Footer,
   List,
   Meta,
   PageHeaderWithTabs,
@@ -145,6 +146,7 @@ export default function Search({ serverSearchByText }: ServerProps) {
           }}
           pageCount={pageCount}
         />
+        <Footer />
       </PageScrollableContent>
     </>
   )

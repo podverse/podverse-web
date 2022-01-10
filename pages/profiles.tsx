@@ -3,6 +3,7 @@ import { useTranslation } from 'next-i18next'
 import OmniAural, { useOmniAural } from 'omniaural'
 import type { User } from 'podverse-shared'
 import {
+  Footer,
   List,
   MessageWithAction,
   Meta,
@@ -116,6 +117,7 @@ export default function Profiles({ serverFilterPage, serverUsers, serverUsersCou
             />
           </>
         )}
+        <Footer />
       </PageScrollableContent>
     </>
   )

@@ -25,6 +25,9 @@
     "checkout": {
       "show": false
     },
+    "confirmDeleteAccount": {
+      "show": false
+    },
     "forgotPassword": {
       "show": false
     },

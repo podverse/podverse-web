@@ -3,7 +3,7 @@ import { useTranslation } from 'next-i18next'
 import OmniAural from 'omniaural'
 import { Page } from '~/lib/utility/page'
 import { PV } from '~/resources'
-import { MessageWithAction, Meta, PageHeader, PageScrollableContent } from '~/components'
+import { Footer, MessageWithAction, Meta, PageHeader, PageScrollableContent } from '~/components'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 
 type ServerProps = Page
@@ -41,6 +41,7 @@ export default function MyProfile(props: ServerProps) {
           actionOnClick={() => OmniAural.modalsLoginShow()}
           message={t('LoginToViewYourProfile')}
         />
+        <Footer />
       </PageScrollableContent>
     </>
   )
