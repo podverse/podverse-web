@@ -19,11 +19,18 @@ jobs:
 
       - name: Setup node
         uses: actions/setup-node@v2
+        with:
+          node-version: '16'
 
       - name: Build
+        env:
+          SENTRY_ORG: podverse
+          SENTRY_PROJECT: react
+          SENTRY_LOG_LEVEL: debug
+          NODE_ENV: development
         run: |
           yarn install --frozen-lockfile
           yarn lint
           yarn build
-          yarn test
+          yarn test:ci
 

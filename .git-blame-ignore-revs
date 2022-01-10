@@ -1,0 +1,18 @@
+# This file helps clean up your git blame and other inline git tooling to ignore particular commits
+# this is primarily used for ignoring large commits done via tooling (such as linting or codemod tools)
+# that have a tendency to touch a large portion of the codebase without changing the logic or otherwise
+# function of the code.
+#
+# This should be enabled on each developer machine by running
+#
+# git config blame.ignoreRevsFile .git-blame-ignore-revs
+#
+# while in the root of this repo
+#
+# see https://akrabat.com/ignoring-revisions-with-git-blame/
+# see https://michaelheap.com/git-ignore-rev/
+
+# first prettier run
+358d87c31096e726fd6505e885e03faaf1bef5b4
+# first custom eslint-rule run
+f9e87ec2d03c69f387a3437190afcb6395fdc484

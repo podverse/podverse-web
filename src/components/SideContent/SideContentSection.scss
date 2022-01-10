@@ -1,5 +1,4 @@
 .side-content-section {
-  
   .side-content-header {
     display: flex;
     margin-bottom: 12px;
@@ -8,7 +7,7 @@
       display: none;
     }
   }
-  
+
   .side-content-contents {
     font-size: $text-sm;
     line-height: 19px;
@@ -32,7 +31,6 @@
 
 @media (max-width: $media-max-width-laptop) {
   .side-content-section {
-    
     .side-content-header {
       cursor: pointer;
       margin: 16px 0;

@@ -3,7 +3,7 @@
   height: 15vw;
   cursor: pointer;
   border-radius: 5%;
-  background: linear-gradient(20deg, #20244e,#20244e,#20244e,#5d86b0);
+  background: linear-gradient(20deg, #20244e, #20244e, #20244e, #5d86b0);
   display: flex;
   justify-content: flex-end;
   align-items: flex-end;
@@ -12,8 +12,8 @@
 }
 
 .tile-box-text {
-    font-size: clamp(2vw, 26px, 18px);
-    text-align: right;
+  font-size: clamp(2vw, 26px, 18px);
+  text-align: right;
 }
 
 .tiles {

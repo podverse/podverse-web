@@ -1,5 +1,4 @@
 module.exports.command = function (text) {
-
   this.click(`.header-nav-tabs__advanced-btn `)
   this.sendKeys(`.form-control`, text)
   this.sendKeys(`.form-control`, this.Keys.ENTER)

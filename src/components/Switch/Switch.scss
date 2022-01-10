@@ -16,7 +16,7 @@
 }
 
 .is-on {
-.react-switch-bg {
+  .react-switch-bg {
     @include themeGen() {
       background-color: getThemeVal('switchBackgroundOn') !important;
     }

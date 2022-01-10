@@ -42,7 +42,7 @@
       }
     }
 
-    .submit-buttons {   
+    .submit-buttons {
       display: flex;
       justify-content: space-around;
     }
@@ -57,7 +57,7 @@
         font-size: $text-lg;
         max-width: 360px;
         text-align: center;
-    
+
         &.with-margin {
           margin-bottom: 16px;
         }
@@ -65,7 +65,7 @@
 
       button {
         align-self: center;
-        margin-top: 4px
+        margin-top: 4px;
       }
     }
   }

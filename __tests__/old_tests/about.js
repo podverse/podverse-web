@@ -8,10 +8,7 @@ module.exports = {
     browser
       .waitForElementWithText('h3', 'About')
       .testSharedMetaTags()
-      .testPageMetaTags(
-        'About',
-        'Information about the Podverse open source podcast app.'
-      )
+      .testPageMetaTags('About', 'Information about the Podverse open source podcast app.')
   },
   after: function (browser) {
     browser.end()

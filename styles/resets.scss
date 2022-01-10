@@ -1,5 +1,7 @@
 body {
-  button, input[type="submit"], input[type="reset"] {
+  button,
+  input[type='submit'],
+  input[type='reset'] {
     background: none;
     color: inherit;
     border: none;
@@ -8,16 +10,22 @@ body {
     cursor: pointer;
     outline: inherit;
   }
-  
+
   .react-dropdown-select {
     border-width: 0;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     margin: 0;
   }
 
-  ul, ol {
+  ul,
+  ol {
     list-style: none;
     margin-block-end: 0;
     margin-block-start: 0;
@@ -31,7 +39,6 @@ body {
   }
 
   input {
-    all: unset
+    all: unset;
   }
 }
-

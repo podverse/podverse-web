@@ -14,7 +14,7 @@ jobs:
     - name: Read node from package.json
       uses: culshaw/read-package-node-version-actions@v1
       id: package-node-version
-    
+
     - name: build and push docker image
       uses: docker/build-push-action@v1
       with:
@@ -22,7 +22,7 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
         repository: podverse/podverse_web
         tags: latest,${{ steps.package-node-version.outputs.version }}
-        
+
     - name: log into prod, then deploy latest prod image
       uses: appleboy/ssh-action@master
       with:

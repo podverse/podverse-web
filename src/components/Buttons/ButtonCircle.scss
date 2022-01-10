@@ -7,15 +7,15 @@
   justify-content: center;
 
   @include themeGen() {
-    border-color: getThemeVal("buttonTertiaryBorder");
-    background-color: getThemeVal("buttonSecondaryBackground");
+    border-color: getThemeVal('buttonTertiaryBorder');
+    background-color: getThemeVal('buttonSecondaryBackground');
   }
 
   &.icon-only {
     border-color: transparent;
     background-color: unset;
     @include themeGen() {
-      color: getThemeVal("textSecondary");
+      color: getThemeVal('textSecondary');
     }
   }
 
@@ -119,7 +119,7 @@
   .button-circle {
     &:hover {
       @include themeGen() {
-        border-color: getThemeVal("buttonTertiaryBorder");
+        border-color: getThemeVal('buttonTertiaryBorder');
       }
     }
 

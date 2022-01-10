@@ -7,10 +7,7 @@ module.exports = {
   'Premium Page': function (browser) {
     browser
       .testSharedMetaTags()
-      .testPageMetaTags(
-          'Membership',
-          'Free and premium membership options.'
-      )
+      .testPageMetaTags('Membership', 'Free and premium membership options.')
       .waitForElementWithText('h3', 'Premium')
   },
   after: function (browser) {

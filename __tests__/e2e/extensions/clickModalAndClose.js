@@ -9,4 +9,3 @@ module.exports.command = function (elClass, close = 'button') {
 
   return this
 }
-  
