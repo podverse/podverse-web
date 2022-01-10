@@ -82,7 +82,7 @@ export default function Support(props: ServerProps) {
                 <li>Other ideas?</li>
               </ul>
               <p>
-                If you're interested in helping Podverse in any capacity, please{' '}
+                {`If you're interested in helping Podverse in any capacity, please `}
                 <a href='https://discord.gg/6HkyNKR' target='_blank' rel='noreferrer'>
                   {t('join our Discord server')}
                 </a>{' '}
