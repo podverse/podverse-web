@@ -62,7 +62,14 @@ export const ConfirmDeleteAccountModal = (props: Props) => {
       />
       <div className='buttons-wrapper'>
         <ButtonRectangle label={t('Cancel')} onClick={_onRequestClose} type='secondary' />
-        <ButtonRectangle disabled={confirmText !== 'delete'} isDanger isLoading={isDeleteAccountPressed} label={t('Delete Account')} onClick={_handleDeleteAccount} type='primary' />
+        <ButtonRectangle
+          disabled={confirmText !== 'delete'}
+          isDanger
+          isLoading={isDeleteAccountPressed}
+          label={t('Delete Account')}
+          onClick={_handleDeleteAccount}
+          type='primary'
+        />
       </div>
     </Modal>
   )

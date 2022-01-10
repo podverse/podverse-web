@@ -31,7 +31,7 @@ export const Footer = () => {
       </li>
     </>
   )
-  
+
   return (
     <footer className='footer'>
       <hr />
@@ -59,9 +59,7 @@ export const Footer = () => {
               <PVLink href='/membership'>{t('Premium')}</PVLink>
             </li>
           </ul>
-          <ul className='footer-right-section hide-below-tablet-max-width'>
-            {socialLinks}
-          </ul>
+          <ul className='footer-right-section hide-below-tablet-max-width'>{socialLinks}</ul>
         </div>
         <div className='footer-middle-site-links'>
           <ul>
@@ -81,9 +79,7 @@ export const Footer = () => {
             </li>
           </ul> */}
         </div>
-        <ul className='footer-mobile-section hide-above-tablet-xl-min-width'>
-          {socialLinks}
-        </ul>
+        <ul className='footer-mobile-section hide-above-tablet-xl-min-width'>{socialLinks}</ul>
         {/* <ul className='footer-mobile-section hide-above-tablet-xl-min-width'>
           <li>
             <i className="pi pi-podcasting20certified"></i>

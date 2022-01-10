@@ -49,13 +49,33 @@ export default function Contact(props: ServerProps) {
           mainColumnChildren={
             <div className='text-page'>
               <h2>{t('Email')}</h2>
-              <h3><MailTo body={bugReportBody} email={emailContact} subject={bugReportSubject}>{t('Bug Report')}</MailTo></h3>
-              <h3><MailTo body={featureRequestBody} email={emailContact} subject={featureRequestSubject}>{t('Feature Request')}</MailTo></h3>
-              <h3><MailTo body={podcastRequestBody} email={emailContact} subject={podcastRequestSubject}>{t('Podcast Request')}</MailTo></h3>
-              <h3><MailTo body={generalBody} email={emailContact} subject={generalSubject}>{t('General')}</MailTo></h3>
+              <h3>
+                <MailTo body={bugReportBody} email={emailContact} subject={bugReportSubject}>
+                  {t('Bug Report')}
+                </MailTo>
+              </h3>
+              <h3>
+                <MailTo body={featureRequestBody} email={emailContact} subject={featureRequestSubject}>
+                  {t('Feature Request')}
+                </MailTo>
+              </h3>
+              <h3>
+                <MailTo body={podcastRequestBody} email={emailContact} subject={podcastRequestSubject}>
+                  {t('Podcast Request')}
+                </MailTo>
+              </h3>
+              <h3>
+                <MailTo body={generalBody} email={emailContact} subject={generalSubject}>
+                  {t('General')}
+                </MailTo>
+              </h3>
               <hr />
               <h2>{t('Live Chat')}</h2>
-              <h3><a href='https://discord.gg/6HkyNKR' target='_blank' rel='noreferrer'>{t('Join our Discord')}</a></h3>
+              <h3>
+                <a href='https://discord.gg/6HkyNKR' target='_blank' rel='noreferrer'>
+                  {t('Join our Discord')}
+                </a>
+              </h3>
             </div>
           }
         />

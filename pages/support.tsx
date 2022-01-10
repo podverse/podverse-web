@@ -42,13 +42,31 @@ export default function Support(props: ServerProps) {
               <p>Below are a few ways you can support the project :)</p>
               <br />
               <h3>{t('Memberships')}</h3>
-              <p><PVLink href='/membership'>{t('Buy a Podverse premium membership')}</PVLink></p>
+              <p>
+                <PVLink href='/membership'>{t('Buy a Podverse premium membership')}</PVLink>
+              </p>
               <br />
               <h3>{t('Donate')}</h3>
-              <p>{t('Bitcoin Wallet Address')}<br />bc1q7crmsdwhqks803729v0ewpfhf3ft5vzd6vwxkt</p>
-              <p>{t('Bitcoin Lighning Node Address')}<br />02b92193a4c9d035c81f8076ae4a4aba04b7ea8e04058eb3296f894e6ccd5f2e6e</p>
-              <p><a href='https://www.paypal.com/donate?hosted_button_id=YKMNUDUCRTUPC' target='_blank' rel='noreferrer'>{t('Donate with PayPal')}</a></p>
-              <p><a href='https://www.patreon.com/podverse' target='_blank' rel='noreferrer'>{t('Donate with Patreon')}</a></p>
+              <p>
+                {t('Bitcoin Wallet Address')}
+                <br />
+                bc1q7crmsdwhqks803729v0ewpfhf3ft5vzd6vwxkt
+              </p>
+              <p>
+                {t('Bitcoin Lighning Node Address')}
+                <br />
+                02b92193a4c9d035c81f8076ae4a4aba04b7ea8e04058eb3296f894e6ccd5f2e6e
+              </p>
+              <p>
+                <a href='https://www.paypal.com/donate?hosted_button_id=YKMNUDUCRTUPC' target='_blank' rel='noreferrer'>
+                  {t('Donate with PayPal')}
+                </a>
+              </p>
+              <p>
+                <a href='https://www.patreon.com/podverse' target='_blank' rel='noreferrer'>
+                  {t('Donate with Patreon')}
+                </a>
+              </p>
               <br />
               <h3>{t('Contribute')}</h3>
               <p>Here is a partial list of tasks we could use help with:</p>
@@ -63,7 +81,13 @@ export default function Support(props: ServerProps) {
                 <li>SEO</li>
                 <li>Other ideas?</li>
               </ul>
-              <p>If you're interested in helping Podverse in any capacity, please <a href='https://discord.gg/6HkyNKR' target='_blank' rel='noreferrer'>{t('join our Discord server')}</a> or <MailTo email='contact@podverse.fm'>{t('send us an email')}</MailTo>.</p>
+              <p>
+                If you're interested in helping Podverse in any capacity, please{' '}
+                <a href='https://discord.gg/6HkyNKR' target='_blank' rel='noreferrer'>
+                  {t('join our Discord server')}
+                </a>{' '}
+                or <MailTo email='contact@podverse.fm'>{t('send us an email')}</MailTo>.
+              </p>
               <br />
             </div>
           }

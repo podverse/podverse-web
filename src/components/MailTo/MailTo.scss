@@ -6,6 +6,6 @@
   &:hover {
     @include themeGen() {
       color: getThemeVal('textLinkHover');
-    } 
+    }
   }
 }

@@ -85,7 +85,7 @@
       &.danger:hover {
         @include themeGen() {
           background-color: getThemeVal('buttonPrimaryDangerRolloverBackground') !important;
-        } 
+        }
       }
 
       &:disabled:hover {

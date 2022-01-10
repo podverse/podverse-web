@@ -40,7 +40,12 @@ export default function Settings(props: ServerProps) {
           mainColumnChildren={
             <div className='text-page'>
               <h3>{t('Account')}</h3>
-              <ButtonRectangle isDanger label={t('Delete My Account')} onClick={OmniAural.modalsConfirmDeleteAccountShow} type='primary' />
+              <ButtonRectangle
+                isDanger
+                label={t('Delete My Account')}
+                onClick={OmniAural.modalsConfirmDeleteAccountShow}
+                type='primary'
+              />
             </div>
           }
         />

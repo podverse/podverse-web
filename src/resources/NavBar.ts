@@ -4,9 +4,7 @@ import { RoutePaths } from './RoutePaths'
 
 const generateDropdownItems = (t: any) => {
   const isLoggedIn = !!OmniAural.state.session.userInfo.value()
-  const items = [
-    { label: t('Membership'), key: NavBar.dropdownKeys._membershipKey }
-  ]
+  const items = [{ label: t('Membership'), key: NavBar.dropdownKeys._membershipKey }]
 
   if (isLoggedIn) {
     items.unshift({ label: t('MyProfile'), key: NavBar.dropdownKeys._myProfileKey })
