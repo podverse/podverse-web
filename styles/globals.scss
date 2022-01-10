@@ -226,7 +226,7 @@ body {
       &:hover {
         @include themeGen() {
           color: getThemeVal('textLinkHover');
-        } 
+        }
       }
     }
 
