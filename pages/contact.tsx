@@ -15,7 +15,7 @@ const featureRequestBody = 'Please describe the feature you would like added to 
 const podcastRequestSubject = 'Podcast Request: '
 const podcastRequestBody = 'Please provide the name of the podcast, and the name of the host if you know it.'
 const generalSubject = 'General: '
-const generalBody = 'Hello! How can we help you?'
+const generalBody = ''
 
 export default function Contact(props: ServerProps) {
   /* Initialize */
