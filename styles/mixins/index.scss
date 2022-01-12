@@ -1,5 +1,5 @@
-@import './gradientStyles.scss';
-@import './themes.scss';
+@import './gradientStyles';
+@import './themes';
 
 @mixin line-clamp($line-count) {
   display: -webkit-box;
@@ -11,30 +11,34 @@
 
 @mixin blurredBackground() {
   @include themeGen() {
-    background-color: getThemeVal("backgroundOpaqueDark");
+    background-color: getThemeVal('backgroundOpaqueDark');
   }
 
-  @supports(backdrop-filter: blur($background-blur)) {
+  @supports (backdrop-filter: blur($background-blur)) {
     backdrop-filter: blur($background-blur);
     -webkit-backdrop-filter: blur($background-blur);
 
     @include themeGen() {
-      background-color: getThemeVal("backgroundTransparent");
+      background-color: getThemeVal('backgroundTransparent');
     }
   }
 }
 
 @mixin placeholderColor($color) {
-  &::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  &::-webkit-input-placeholder {
+    /* Chrome/Opera/Safari */
     color: $color !important;
   }
-  &::-moz-placeholder { /* Firefox 19+ */
+  &::-moz-placeholder {
+    /* Firefox 19+ */
     color: $color !important;
   }
-  &:-ms-input-placeholder { /* IE 10+ */
+  &:-ms-input-placeholder {
+    /* IE 10+ */
     color: $color !important;
   }
-  &:-moz-placeholder { /* Firefox 18- */
+  &:-moz-placeholder {
+    /* Firefox 18- */
     color: $color !important;
   }
 }

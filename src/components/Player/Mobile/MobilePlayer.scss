@@ -2,7 +2,7 @@ body {
   .mobile-player {
     display: none;
   }
-  
+
   @media (max-width: $media-max-width-tablet) {
     .mobile-player {
       border-top-style: solid;
@@ -10,10 +10,10 @@ body {
       display: block;
       height: 74px;
       padding: 0 16px 14px 8px;
-  
+
       @include themeGen() {
-        background-color: getThemeVal("backgroundTertiary");
-        border-color: getThemeVal("divider");
+        background-color: getThemeVal('backgroundTertiary');
+        border-color: getThemeVal('divider');
       }
 
       .top {
@@ -33,27 +33,27 @@ body {
             padding-top: 8px;
             width: $img-small;
           }
-  
+
           .text-wrapper {
             display: flex;
             flex: 1;
             flex-direction: column;
             justify-content: center;
             padding-top: 8px;
-            
+
             .title {
               font-size: $text-sm;
               margin-bottom: 1px;
               @include line-clamp(1);
             }
-    
+
             .podcast-title {
               font-size: $text-tiny;
               font-weight: $font-weight-bold;
               @include line-clamp(1);
-  
+
               @include themeGen() {
-                color: getThemeVal("textQuaternary");
+                color: getThemeVal('textQuaternary');
               }
             }
           }

@@ -12,7 +12,9 @@ module.exports = {
   },
   'Episodes Page': function (browser) {
     browser
-      .waitForXpathPresent(`//div[contains(text(), 'Brian Greene is a theoretical physicist, mathematician, and string theorist. He has been a professor at Columbia University since 1996 and chairman of the World Science Festival since co-founding it in 2008. His new book "Until the End of Time" is now available: https://amzn.to/2ug680o')]`)
+      .waitForXpathPresent(
+        `//div[contains(text(), 'Brian Greene is a theoretical physicist, mathematician, and string theorist. He has been a professor at Columbia University since 1996 and chairman of the World Science Festival since co-founding it in 2008. His new book "Until the End of Time" is now available: https://amzn.to/2ug680o')]`
+      )
       .testSharedMetaTags()
       .testPageMetaTags(
         `Episodes`,
@@ -39,7 +41,6 @@ module.exports = {
       .clickDropdownToggleAndItem(`All`, `Categories`)
       .waitForElementWithText(subLeftDropdownSelector, 'Arts')
       .waitForElementWithText(subRightDropdownSelector, 'All')
-
   },
   after: function (browser) {
     browser.end()

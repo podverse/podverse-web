@@ -7,6 +7,7 @@ import {
   ClipListItem,
   ColumnsWrapper,
   EpisodeListItem,
+  Footer,
   List,
   MessageWithAction,
   Meta,
@@ -188,6 +189,7 @@ export default function History({
             />
           </>
         )}
+        <Footer />
       </PageScrollableContent>
     </>
   )

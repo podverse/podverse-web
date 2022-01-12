@@ -17,13 +17,19 @@ jobs:
 
       - name: Setup node
         uses: actions/setup-node@v2
+        with:
+          node-version: '16'
 
       - name: Build
+        env:
+          SENTRY_ORG: podverse
+          SENTRY_PROJECT: react
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
         run: |
           yarn install --frozen-lockfile
           yarn lint
           yarn build
-          yarn test
+          yarn test:ci
 
   e2e:
     runs-on: ubuntu-latest

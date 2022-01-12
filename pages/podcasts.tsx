@@ -6,6 +6,7 @@ import type { Podcast } from 'podverse-shared'
 import { useEffect, useRef, useState } from 'react'
 import { useCookies } from 'react-cookie'
 import {
+  Footer,
   List,
   MessageWithAction,
   Meta,
@@ -257,6 +258,7 @@ export default function Podcasts({
             />
           </>
         )}
+        <Footer />
       </PageScrollableContent>
     </>
   )

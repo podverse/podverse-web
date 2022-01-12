@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
-
 require('dotenv').config()
 
 const moment = require('moment')
@@ -7,19 +5,19 @@ const globalHooks = require('../hooks')
 const timeoutOverride = parseInt(process.env.TEST_TIMEOUT_OVERRIDE) || 15000
 
 const nightwatch_config = {
-  src_folders: ["__tests__/e2e/tests"],
+  src_folders: ['__tests__/e2e/tests'],
 
-  custom_commands_path: "./__tests__/e2e/extensions",
+  custom_commands_path: './__tests__/e2e/extensions',
 
   selenium: {
-    "start_process": false,
-    "host": "hub-cloud.browserstack.com",
-    "port": 443
+    start_process: false,
+    host: 'hub-cloud.browserstack.com',
+    port: 443
   },
 
   common_capabilities: {
-    'build': `Web - Stage - ${moment(new Date()).format('YYYY-MM-DD HH:mm:ss')}`,
-    'project': 'podverse-web',
+    build: `Web - Stage - ${moment(new Date()).format('YYYY-MM-DD HH:mm:ss')}`,
+    project: 'podverse-web',
     'browserstack.user': process.env.BROWSERSTACK_USERNAME || 'BROWSERSTACK_USERNAME',
     'browserstack.key': process.env.BROWSERSTACK_ACCESS_KEY || 'BROWSERSTACK_ACCESS_KEY',
     'browserstack.debug': true
@@ -27,27 +25,27 @@ const nightwatch_config = {
 
   test_settings: {
     default: {
-      "globals": {
-        "waitForConditionTimeout": timeoutOverride,
+      globals: {
+        waitForConditionTimeout: timeoutOverride,
         ...globalHooks
       }
     },
     chrome: {
       desiredCapabilities: {
-        browser: "chrome"
+        browser: 'chrome'
       }
     },
     firefox: {
       desiredCapabilities: {
-        browser: "firefox"
+        browser: 'firefox'
       }
     },
     ie: {
       desiredCapabilities: {
-        browser: "internet explorer"
+        browser: 'internet explorer'
       }
     }
-  },
+  }
 
   // "test_workers": {
   //   "enabled": true,

@@ -32,3 +32,15 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+## Development Flow
+
+### Hey the formatting and lint rules are messing with my git history
+
+Yeah, as we evolve our coding standards and practices that will happen as we keep everything as up to date as possible, sorry :( Luckily, theres a fix! We have a `.git-blame-ignore-revs` file that calls out specific problematic commits that were the result of ONLY doing lint fixes and you're local machine can be configured to use that file as a list of commits that should be ignored while doing blames and showing inline file history. This can be configured by running
+
+```sh
+git config --global blame.ignoreRevsFile .git-blame-ignore-revs
+```
+
+Which was taken from <https://michaelheap.com/git-ignore-rev/>

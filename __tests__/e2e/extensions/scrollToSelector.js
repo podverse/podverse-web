@@ -7,7 +7,7 @@ module.exports.command = function (selector, extraScrollDirection = 'up') {
   } else if (extraScrollDirection === 'down') {
     // Offset the scroll by y: 150 so the mini player is not in the way of clicking the element.
     this.scrollByPixels(0, 150)
-  } 
+  }
 
   return this
 }

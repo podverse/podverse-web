@@ -11,7 +11,7 @@
   right: 0;
   top: 0;
   z-index: 1;
-  
+
   &.is-showing {
     pointer-events: all;
 
@@ -70,7 +70,7 @@
         font-size: $text-sm;
 
         @include themeGen() {
-          color: getThemeVal("textTertiary");
+          color: getThemeVal('textTertiary');
         }
       }
     }
@@ -84,7 +84,7 @@
     h1 {
       font-size: $text-xxxl;
     }
-    
+
     a {
       display: inline-block;
       @include line-clamp(2);
@@ -97,7 +97,7 @@
       @include line-clamp(1);
 
       @include themeGen() {
-        color: getThemeVal("textQuaternary");
+        color: getThemeVal('textQuaternary');
       }
     }
   }
@@ -176,8 +176,8 @@
 }
 
 @media (max-width: $media-max-width-tablet-xl) {
-.player-full-view {
-  padding: 0 32px;
+  .player-full-view {
+    padding: 0 32px;
     .button-close {
       right: 32px;
     }
@@ -213,7 +213,7 @@
 @media (max-width: $media-max-width-mobile) {
   .player-full-view {
     padding: 0 16px;
-    
+
     .button-close {
       position: absolute;
       top: 12px;
@@ -223,7 +223,7 @@
 
     .image-wrapper {
       margin-top: 84px;
-      
+
       &.has-clip-info {
         margin-top: 8px;
       }
@@ -235,9 +235,9 @@
         max-height: 160px !important;
         max-width: 160px !important;
       }
-      .clip-info-wrapper {    
+      .clip-info-wrapper {
         height: 90px;
-             
+
         .clip-title {
           font-size: $text-lg;
         }
@@ -261,9 +261,9 @@
     .player-buttons-wrapper {
       .player-bar-container {
         margin: 24px 0 28px 0;
-        
+
         .player-bar {
-          margin: 0 8px;  
+          margin: 0 8px;
         }
       }
 
@@ -282,7 +282,7 @@
       a {
         &:hover {
           @include themeGen() {
-            color: getThemeVal("textHover");
+            color: getThemeVal('textHover');
           }
         }
       }

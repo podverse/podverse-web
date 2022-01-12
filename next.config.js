@@ -1,8 +1,22 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const { i18n } = require('./next-i18next.config')
 
-const envVars = {}
+const isDev = process.env.NODE_ENV === 'development' || !process.env.NODE_ENV
 
-module.exports = {
+const envVars = {}
+const sentryWebpackPluginOptions = {
+  // Additional config options for the Sentry Webpack plugin. Keep in mind that
+  // the following options are set automatically, and overriding them is not
+  // recommended:
+  //   release, url, org, project, authToken, configFile, stripPrefix,
+  //   urlPrefix, include, ignore
+
+  silent: true // Suppresses all logs
+  // For all available options, see:
+  // https://github.com/getsentry/sentry-webpack-plugin#options.
+}
+
+const moduleExports = {
   reactStrictMode: true,
   i18n,
   serverRuntimeConfig: {
@@ -42,3 +56,5 @@ module.exports = {
     MATOMO_SITE_ID: process.env.MATOMO_SITE_ID
   }
 }
+
+module.exports = moduleExports

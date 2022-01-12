@@ -1,3 +1,5 @@
+@use 'sass:map';
+
 $themes: (
   'dark': (
     'backgroundPrimary': $ink,
@@ -6,12 +8,13 @@ $themes: (
     'backgroundOpaque': $blueBrightOpaque,
     'backgroundOpaqueDark': $blackOpaque,
     'backgroundTransparent': $blueDarkBlueGreyTransparent,
-
     'borderPrimary': $blueDarkText,
     'borderActive': $blueBright,
-
     'buttonPrimaryBackground': $blueDarkText,
     'buttonPrimaryRolloverBackground': $blueDarkTextLighter,
+    'buttonPrimaryDangerBackground': $redDarker,
+    'buttonPrimaryDangerRolloverBackground': $red,
+    'buttonPrimaryDangerTextColor': $white,
     'buttonPrimaryText': $black,
     'buttonSecondaryBackground': $blueDarkSlateTransparent,
     'buttonSecondaryRolloverBackground': $blueDarkSlateLighter,
@@ -28,51 +31,35 @@ $themes: (
     'buttonTertiaryDangerBorder': $redDarker,
     'buttonDisabledBackground': $gray,
     'buttonDisabledText': $grayLight,
-
     'buttonLinkText': $perrywinkle,
     'buttonLinkTextRollover': $blueDarkTextLighter,
-
     'buttonCloseBackground': $velvet,
-
     'divider': $whiteOpaque,
-
     'dropdownMenu': $blueDarkBlueGrey,
     'dropdownMenuSelected': $whiteOpaque,
-
     'focusGlow': $itemFocusShadow,
-
     'headerGradientLight': $blueLightNavyLight,
     'headerGradientDark': $blueDarkBlueGrey,
-
     'highlighted': $whiteOpaque,
-
     'modalTransparentBackground': $modalBackground,
-
     'navbarMobileBackground': $blueMenu,
-
     'navItemActiveGradientLight': $blueDusky,
     'navItemActiveGradientDark': $blueDarkSlate,
-
     'paginationActiveBackground': $blueBrightOpaqueLighter,
     'paginationActiveBorder': $blueDarkText,
     'paginationActiveText': $white,
     'paginationInactiveBackground': $blueBrightOpaqueLighter,
     'paginationInactiveBorder': $grayLight,
     'paginationInactiveText': $grayLight,
-
     'premiumIsActive': $blueBright,
     'premiumIsExpired': $redLighter,
-
     'sliderClipIndicator': $blueDarkText,
     'sliderHighlightSection': $blueDarkTextTransparent,
     'sliderListened': $white,
     'sliderRemaining': $blueDarkSlate,
-
     'switchBackgroundOn': $blueDarkText,
     'switchBackgroundOff': $gray,
-
     'tabBorderActive': $blueBright,
-
     'textPrimary': $white,
     'textSecondary': $grayLight,
     'textTertiary': $perrywinkle,
@@ -80,10 +67,10 @@ $themes: (
     'textParagraph': $grayLight,
     'textHover': $grayLight2,
     'textLink': $perrywinkle,
+    'textLinkHover': $blueDarkTextLighter,
     'textWarning': $orange,
     'textDanger': $red,
     'textSuccess': $green,
-
     'textInputBackground': $blueDarkBlueGrey,
     'textInputPlaceholder': $grayLight,
     'textInputEyebrow': $perrywinkle,
@@ -96,31 +83,36 @@ $themes: (
 /**
 * Code created by Joshua Tzucker
 * https://joshuatz.com/posts/2019/coding-a-css-theme-switcher-a-multitude-of-web-dev-options/#method-b
-* 
+*
 * Mixin to use to generate blocks for each theme
 * Automatically takes @content
 */
 $scopedTheme: null;
 @mixin themeGen($allThemesMap: $themes) {
-    @each $themeName, $themeMap in $allThemesMap {
-        .theme-#{$themeName} & {
-            // Creating a map that contains values specific to theme.
-            // Global is necessary since in mixin
-            $scopedTheme: () !global;
-            @each $variableName, $variableValue in $themeMap {
-                // Merge each key-value pair into the theme specific map
-                $scopedTheme: map-merge($scopedTheme, ($variableName: $variableValue)) !global;
-            }
-            // The original content passed
-            @content;
-            // Unset
-            $scopedTheme: null !global;
-        }
+  @each $themeName, $themeMap in $allThemesMap {
+    .theme-#{$themeName} & {
+      // Creating a map that contains values specific to theme.
+      // Global is necessary since in mixin
+      $scopedTheme: () !global;
+      @each $variableName, $variableValue in $themeMap {
+        // Merge each key-value pair into the theme specific map
+        $scopedTheme: map.merge(
+          $scopedTheme,
+          (
+            $variableName: $variableValue
+          )
+        ) !global;
+      }
+      // The original content passed
+      @content;
+      // Unset
+      $scopedTheme: null !global;
     }
+  }
 }
 /**
 * Function to call within themeGen mixin, to get value from the current theme in the iterator
 */
-@function getThemeVal($themeVar){
-    @return map-get($scopedTheme,$themeVar);
+@function getThemeVal($themeVar) {
+  @return map-get($scopedTheme, $themeVar);
 }

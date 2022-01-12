@@ -8,10 +8,7 @@ module.exports = {
     browser
       .waitForElementWithText('h3', 'FAQ')
       .testSharedMetaTags()
-      .testPageMetaTags(
-        'FAQ',
-        'Frequently asked questions'
-      )
+      .testPageMetaTags('FAQ', 'Frequently asked questions')
   },
   after: function (browser) {
     browser.end()

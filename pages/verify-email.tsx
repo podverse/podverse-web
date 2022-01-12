@@ -2,7 +2,7 @@ import { GetServerSideProps } from 'next'
 import { useTranslation } from 'next-i18next'
 import { Page } from '~/lib/utility/page'
 import { PV } from '~/resources'
-import { ColumnsWrapper, Icon, Meta, PageHeader, PageScrollableContent } from '~/components'
+import { ColumnsWrapper, Footer, Icon, Meta, PageHeader, PageScrollableContent } from '~/components'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 import { useEffect, useState } from 'react'
 import { verifyEmail } from '~/services/auth'
@@ -80,6 +80,7 @@ export default function VerifyEmail(props: ServerProps) {
             </div>
           }
         />
+        <Footer />
       </PageScrollableContent>
     </>
   )
