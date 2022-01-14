@@ -47,10 +47,10 @@ body {
     max-width: $main-max-width;
   }
 
-  .no-margin-top {
-    margin-top: 0 !important;
+  .no-padding-top {
+    padding-top: 0 !important;
   }
-
+  
   .no-margin-bottom {
     margin-bottom: 0 !important;
   }
@@ -287,10 +287,6 @@ body {
 
     .hide-below-laptop-max-width {
       display: none !important;
-    }
-
-    .no-margin-top-below-laptop-max-width {
-      margin-top: 0 !important;
     }
   }
 }

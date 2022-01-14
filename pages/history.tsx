@@ -165,7 +165,7 @@ export default function History({
         hasEditButton={hasEditButton}
         text={t('History')}
       />
-      <PageScrollableContent noMarginTop>
+      <PageScrollableContent>
         {!userInfo && (
           <MessageWithAction
             actionLabel={t('Login')}
@@ -186,6 +186,7 @@ export default function History({
                 if (filterPage - 1 > 0) setFilterPage(filterPage - 1)
               }}
               pageCount={pageCount}
+              show={pageCount > 0}
             />
           </>
         )}

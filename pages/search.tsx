@@ -135,7 +135,7 @@ export default function Search({ serverSearchByText }: ServerProps) {
         label={t('Podcast title')}
         placeholder={t('searchByPodcastTitle')}
       />
-      <PageScrollableContent>
+      <PageScrollableContent noPaddingTop>
         <List>{generatePodcastListElements(podcastsListData)}</List>
         <Pagination
           currentPageIndex={filterPage}
@@ -147,6 +147,7 @@ export default function Search({ serverSearchByText }: ServerProps) {
             if (filterPage - 1 > 0) setFilterPage(filterPage - 1)
           }}
           pageCount={pageCount}
+          show={podcastsListData?.length && pageCount > 0}
         />
         <Footer />
       </PageScrollableContent>

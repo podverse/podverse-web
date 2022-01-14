@@ -63,7 +63,7 @@ export default function Playlists({ serverPlaylistsCombined }: ServerProps) {
         twitterTitle={meta.title}
       />
       <PageHeader text={t('Playlists')} noMarginBottom />
-      <PageScrollableContent noMarginTop>
+      <PageScrollableContent>
         {!userInfo && (
           <MessageWithAction
             actionLabel={t('Login')}

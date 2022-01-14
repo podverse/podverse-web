@@ -107,7 +107,7 @@ export default function Queue(props: ServerProps) {
         hasEditButton={hasEditButton}
         text={t('Queue')}
       />
-      <PageScrollableContent noMarginTop>
+      <PageScrollableContent>
         {!userInfo && (
           <MessageWithAction
             actionLabel={t('Login')}

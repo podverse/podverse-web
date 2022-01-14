@@ -84,7 +84,6 @@ function MyApp({ Component, pageProps }) {
 
   const _routeChangeComplete = () => {
     OmniAural.pageIsLoadingHide()
-    scrollToTopOfPageScrollableContent()
     matomoTrackPageView()
   }
 

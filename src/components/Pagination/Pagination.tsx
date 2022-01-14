@@ -1,6 +1,5 @@
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'
 import { ButtonCircle, ButtonSquare } from '~/components'
-import { scrollToTopOfPageScrollableContent } from '../PageScrollableContent/PageScrollableContent'
 
 type Props = {
   currentPageIndex: number
@@ -8,6 +7,7 @@ type Props = {
   handlePageNext: any
   handlePagePrevious: any
   pageCount: number
+  show: boolean
 }
 
 const keyPrefix = 'pagination'
@@ -17,7 +17,8 @@ export const Pagination = ({
   handlePageNavigate,
   handlePageNext,
   handlePagePrevious,
-  pageCount
+  pageCount,
+  show
 }: Props) => {
   const pageButtons = generatePageButtons(
     currentPageIndex,
@@ -35,7 +36,7 @@ export const Pagination = ({
 
   return (
     <>
-      {pageCount > 1 ? (
+      {show ? (
         <div>
           <div className='pagination'>{pageButtons}</div>
           <div className='skip'>
@@ -58,7 +59,6 @@ const prevButton = (handlePagePrev: any) => (
     key={`${keyPrefix}-backwards`}
     onClick={() => {
       handlePagePrev()
-      scrollToTopOfPageScrollableContent()
     }}
     size='small'
   />
@@ -71,7 +71,6 @@ const nextButton = (handlePageNext: any) => (
     key={`${keyPrefix}-forwards`}
     onClick={() => {
       handlePageNext()
-      scrollToTopOfPageScrollableContent()
     }}
     size='small'
   />
@@ -83,7 +82,6 @@ const pageButton = (pageNumber: number, isActive: boolean, handlePageNavigate: a
     key={`${keyPrefix}-${pageNumber}`}
     onClick={() => {
       handlePageNavigate(pageNumber)
-      scrollToTopOfPageScrollableContent()
     }}
     text={pageNumber}
   />

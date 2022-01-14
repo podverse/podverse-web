@@ -68,6 +68,7 @@ export default function Podcasts({
   const isCategoryPage = !!router.query?.category
   const selectedCategory = isCategoryPage ? getCategoryById(filterCategoryId) : null
   const pageHeaderText = selectedCategory ? `${t('Podcasts')} > ${selectedCategory.title}` : t('Podcasts')
+  const showLoginMessage = !userInfo && filterFrom === PV.Filters.from._subscribed
 
   /* useEffects */
 
@@ -227,7 +228,7 @@ export default function Podcasts({
         text={pageHeaderText}
         videoOnlyMode={videoOnlyMode}
       />
-      <PageScrollableContent noMarginTop>
+      <PageScrollableContent noPaddingTop={isCategoryPage || filterFrom !== PV.Filters.from._category}>
         {!userInfo && filterFrom === PV.Filters.from._category && !isCategoryPage && <SearchBarHome />}
         {filterFrom === PV.Filters.from._category && !isCategoryPage && (
           <Tiles
@@ -240,7 +241,7 @@ export default function Podcasts({
             }}
           />
         )}
-        {!userInfo && filterFrom === PV.Filters.from._subscribed && (
+        {showLoginMessage && (
           <MessageWithAction
             actionLabel={t('Login')}
             actionOnClick={() => OmniAural.modalsLoginShow()}
@@ -250,9 +251,7 @@ export default function Podcasts({
         {(filterFrom !== PV.Filters.from._category || (filterFrom === PV.Filters.from._category && isCategoryPage)) && (
           <>
             <List
-              hideNoResultsMessage={isQuerying || (filterFrom === PV.Filters.from._category && !isCategoryPage)}
-              noMarginTop
-            >
+              hideNoResultsMessage={showLoginMessage || isQuerying || (filterFrom === PV.Filters.from._category && !isCategoryPage)}>
               {generatePodcastListElements(podcastsListData)}
             </List>
             <Pagination
@@ -265,6 +264,7 @@ export default function Podcasts({
                 if (filterPage - 1 > 0) setFilterPage(filterPage - 1)
               }}
               pageCount={pageCount}
+              show={pageCount > 0}
             />
           </>
         )}

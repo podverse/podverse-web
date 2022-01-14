@@ -221,7 +221,7 @@ ServerProps) {
         text={pageHeaderText}
         // videoOnlyMode={videoOnlyMode}
       />
-      <PageScrollableContent noMarginTop>
+      <PageScrollableContent>
         {filterFrom === PV.Filters.from._category && !isCategoryPage && (
           <Tiles
             items={categories}
@@ -257,6 +257,7 @@ ServerProps) {
                 if (filterPage - 1 > 0) setFilterPage(filterPage - 1)
               }}
               pageCount={pageCount}
+              show={pageCount > 0}
             />
           </>
         )}

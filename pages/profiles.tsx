@@ -95,7 +95,7 @@ export default function Profiles({ serverFilterPage, serverUsers, serverUsersCou
         twitterTitle={meta.title}
       />
       <PageHeader noMarginBottom text={t('Profiles')} />
-      <PageScrollableContent noMarginTop>
+      <PageScrollableContent>
         {!userInfo && (
           <MessageWithAction
             actionLabel={t('Login')}
@@ -116,6 +116,7 @@ export default function Profiles({ serverFilterPage, serverUsers, serverUsersCou
                 if (filterPage - 1 > 0) setFilterPage(filterPage - 1)
               }}
               pageCount={pageCount}
+              show={pageCount > 0}
             />
           </>
         )}
