@@ -68,7 +68,7 @@ export default function Profiles({ serverFilterPage, serverUsers, serverUsersCou
   /* Render Helpers */
 
   const generateProfileElements = (listItems: User[]) => {
-    return listItems.map((listItem, index) => <ProfileListItem key={`${keyPrefix}-${index}`} user={listItem} />)
+    return listItems.map((listItem, index) => <ProfileListItem key={`${keyPrefix}-${index}-${listItem?.id}`} user={listItem} />)
   }
 
   /* Meta Tags */

@@ -16,6 +16,8 @@ export const PageScrollableContent = ({ children, noMarginTop }: Props) => {
 }
 
 export const scrollToTopOfPageScrollableContent = () => {
-  const pageEl = document.querySelector('.page-scrollable-content')
-  if (pageEl) pageEl.scrollTop = 0
+  setTimeout(() => {
+    const pageEl = document.querySelector('.page-scrollable-content')
+    if (pageEl) pageEl.scrollTop = 0
+  }, 0)
 }

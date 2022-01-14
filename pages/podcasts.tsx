@@ -58,6 +58,7 @@ export default function Podcasts({
   const [filterSort, setFilterSort] = useState<string>(serverFilterSort)
   const [podcastsListData, setPodcastsListData] = useState<Podcast[]>(serverPodcastsListData)
   const [podcastsListDataCount, setPodcastsListDataCount] = useState<number>(serverPodcastsListDataCount)
+  const [isQuerying, setIsQuerying] = useState<boolean>(false)
   const [userInfo] = useOmniAural('session.userInfo')
   const [videoOnlyMode, setVideoOnlyMode] = useState<boolean>(
     serverGlobalFilters?.videoOnlyMode || OmniAural.state.globalFilters.videoOnlyMode.value()
@@ -76,12 +77,16 @@ export default function Podcasts({
         initialRender.current = false
       } else {
         OmniAural.pageIsLoadingShow()
+        setIsQuerying(true)
+
         const { data } = await clientQueryPodcasts()
         const [newListData, newListCount] = data
         setPodcastsListData(newListData)
         setPodcastsListDataCount(newListCount)
-        scrollToTopOfPageScrollableContent()
+
         OmniAural.pageIsLoadingHide()
+        setIsQuerying(false)
+        scrollToTopOfPageScrollableContent()
       }
     })()
   }
@@ -169,7 +174,7 @@ export default function Podcasts({
   /* Render Helpers */
 
   const generatePodcastListElements = (listItems: Podcast[]) => {
-    return listItems.map((listItem, index) => <PodcastListItem key={`${keyPrefix}-${index}`} podcast={listItem} />)
+    return listItems.map((listItem, index) => <PodcastListItem key={`${keyPrefix}-${index}-${listItem?.id}`} podcast={listItem} />)
   }
 
   /* Meta Tags */
@@ -242,7 +247,7 @@ export default function Podcasts({
         )}
         {(filterFrom !== PV.Filters.from._category || (filterFrom === PV.Filters.from._category && isCategoryPage)) && (
           <>
-            <List hideNoResultsMessage={filterFrom === PV.Filters.from._category && !isCategoryPage} noMarginTop>
+            <List hideNoResultsMessage={isQuerying || (filterFrom === PV.Filters.from._category && !isCategoryPage)} noMarginTop>
               {generatePodcastListElements(podcastsListData)}
             </List>
             <Pagination

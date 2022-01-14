@@ -55,8 +55,9 @@ ServerProps) {
   const [filterFrom, setFilterFrom] = useState<string>(serverFilterFrom)
   const [filterPage, setFilterPage] = useState<number>(serverFilterPage)
   const [filterSort, setFilterSort] = useState<string>(serverFilterSort)
-  const [clipsListData, setListData] = useState<MediaRef[]>(serverClipsListData)
-  const [clipsListDataCount, setListDataCount] = useState<number>(serverClipsListDataCount)
+  const [clipsListData, setClipsListData] = useState<MediaRef[]>(serverClipsListData)
+  const [clipsListDataCount, setClipsListDataCount] = useState<number>(serverClipsListDataCount)
+  const [isQuerying, setIsQuerying] = useState<boolean>(false)
   const [userInfo] = useOmniAural('session.userInfo')
   // const [videoOnlyMode, setVideoOnlyMode] = useState<boolean>(serverGlobalFilters?.videoOnlyMode || OmniAural.state.globalFilters.videoOnlyMode.value())
   const initialRender = useRef<boolean>(true)
@@ -83,12 +84,13 @@ ServerProps) {
         initialRender.current = false
       } else {
         OmniAural.pageIsLoadingShow()
+        setIsQuerying(true)
+
         const { data } = await clientQueryMediaRefs()
         const [newListData, newListCount] = data
-        setListData(newListData)
-        setListDataCount(newListCount)
+        setClipsListData(newListData)
+        setClipsListDataCount(newListCount)
         scrollToTopOfPageScrollableContent()
-        OmniAural.pageIsLoadingHide()
       }
     })()
   }, [filterCategoryId, filterFrom, filterSort, filterPage /*, videoOnlyMode */])
@@ -167,7 +169,7 @@ ServerProps) {
       <ClipListItem
         episode={listItem.episode}
         isLoggedInUserMediaRef={userInfo && userInfo.id === listItem.owner.id}
-        key={`${keyPrefix}-${index}`}
+        key={`${keyPrefix}-${index}-${listItem?.id}`}
         mediaRef={listItem}
         podcast={listItem.episode.podcast}
         showImage
@@ -242,7 +244,7 @@ ServerProps) {
           filterFrom === PV.Filters.from._all ||
           (filterFrom === PV.Filters.from._category && isCategoryPage)) && (
           <>
-            <List hideNoResultsMessage={filterFrom === PV.Filters.from._category && !isCategoryPage}>
+            <List hideNoResultsMessage={isQuerying || (filterFrom === PV.Filters.from._category && !isCategoryPage)}>
               {generateClipListElements(clipsListData)}
             </List>
             <Pagination

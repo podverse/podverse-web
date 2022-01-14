@@ -1,5 +1,6 @@
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'
 import { ButtonCircle, ButtonSquare } from '~/components'
+import { scrollToTopOfPageScrollableContent } from '../PageScrollableContent/PageScrollableContent'
 
 type Props = {
   currentPageIndex: number
@@ -55,7 +56,10 @@ const prevButton = (handlePagePrev: any) => (
     className='backwards'
     faIcon={faChevronLeft}
     key={`${keyPrefix}-backwards`}
-    onClick={handlePagePrev}
+    onClick={() => {
+      handlePagePrev()
+      scrollToTopOfPageScrollableContent()
+    }}
     size='small'
   />
 )
@@ -65,7 +69,10 @@ const nextButton = (handlePageNext: any) => (
     className='forwards'
     faIcon={faChevronRight}
     key={`${keyPrefix}-forwards`}
-    onClick={handlePageNext}
+    onClick={() => {
+      handlePageNext()
+      scrollToTopOfPageScrollableContent()
+    }}
     size='small'
   />
 )
@@ -74,7 +81,10 @@ const pageButton = (pageNumber: number, isActive: boolean, handlePageNavigate: a
   <ButtonSquare
     isActive={isActive}
     key={`${keyPrefix}-${pageNumber}`}
-    onClick={() => handlePageNavigate(pageNumber)}
+    onClick={() => {
+      handlePageNavigate(pageNumber)
+      scrollToTopOfPageScrollableContent()
+    }}
     text={pageNumber}
   />
 )

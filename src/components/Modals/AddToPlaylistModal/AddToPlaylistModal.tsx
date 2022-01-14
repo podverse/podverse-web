@@ -75,7 +75,7 @@ export const AddToPlaylistModal = (props: Props) => {
   const generatePlaylistElements = (listItems: Playlist[]) => {
     return listItems.map((listItem, index) => (
       <AddToPlaylistListItem
-        key={`${keyPrefix}-${index}`}
+        key={`${keyPrefix}-${index}-${listItem?.id}`}
         onClick={() => _handlePlaylistPress(listItem)}
         playlist={listItem}
       />

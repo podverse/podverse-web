@@ -56,8 +56,9 @@ export default function Episodes({
   const [filterFrom, setFilterFrom] = useState<string>(serverFilterFrom)
   const [filterPage, setFilterPage] = useState<number>(serverFilterPage)
   const [filterSort, setFilterSort] = useState<string>(serverFilterSort)
-  const [episodesListData, setListData] = useState<Episode[]>(serverEpisodesListData)
-  const [episodesListDataCount, setListDataCount] = useState<number>(serverEpisodesListDataCount)
+  const [episodesListData, setEpisodesListData] = useState<Episode[]>(serverEpisodesListData)
+  const [episodesListDataCount, setEpisodesListDataCount] = useState<number>(serverEpisodesListDataCount)
+  const [isQuerying, setIsQuerying] = useState<boolean>(false)
   const [userInfo] = useOmniAural('session.userInfo')
   const [videoOnlyMode, setVideoOnlyMode] = useState<boolean>(
     serverGlobalFilters?.videoOnlyMode || OmniAural.state.globalFilters.videoOnlyMode.value()
@@ -86,12 +87,16 @@ export default function Episodes({
         initialRender.current = false
       } else {
         OmniAural.pageIsLoadingShow()
+        setIsQuerying(true)
+
         const { data } = await clientQueryEpisodes()
         const [newListData, newListCount] = data
-        setListData(newListData)
-        setListDataCount(newListCount)
-        scrollToTopOfPageScrollableContent()
+        setEpisodesListData(newListData)
+        setEpisodesListDataCount(newListCount)
+
         OmniAural.pageIsLoadingHide()
+        setIsQuerying(false)
+        scrollToTopOfPageScrollableContent()
       }
     })()
   }, [filterCategoryId, filterFrom, filterSort, filterPage, videoOnlyMode])
@@ -166,7 +171,7 @@ export default function Episodes({
 
   const generateEpisodeListElements = (listItems: Episode[]) => {
     return listItems.map((listItem, index) => (
-      <EpisodeListItem episode={listItem} key={`${keyPrefix}-${index}`} podcast={listItem.podcast} showImage />
+      <EpisodeListItem episode={listItem} key={`${keyPrefix}-${index}-${listItem?.id}`} podcast={listItem.podcast} showImage />
     ))
   }
 
@@ -237,7 +242,7 @@ export default function Episodes({
           filterFrom === PV.Filters.from._all ||
           (filterFrom === PV.Filters.from._category && isCategoryPage)) && (
           <>
-            <List hideNoResultsMessage={filterFrom === PV.Filters.from._category && !isCategoryPage}>
+            <List hideNoResultsMessage={isQuerying}>
               {generateEpisodeListElements(episodesListData)}
             </List>
             <Pagination

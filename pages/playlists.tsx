@@ -36,7 +36,7 @@ export default function Playlists({ serverPlaylistsCombined }: ServerProps) {
   /* Render Helpers */
 
   const generatePlaylistElements = (listItems: Playlist[]) => {
-    return listItems.map((listItem, index) => <PlaylistListItem key={`${keyPrefix}-${index}`} playlist={listItem} />)
+    return listItems.map((listItem, index) => <PlaylistListItem key={`${keyPrefix}-${index}-${listItem.id}`} playlist={listItem} />)
   }
 
   /* Meta Tags */

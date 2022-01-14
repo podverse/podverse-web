@@ -194,14 +194,14 @@ export default function Profile({
           <ClipListItem
             episode={listItem.episode}
             isLoggedInUserMediaRef={isLoggedInUserProfile}
-            key={`${keyPrefix}-${index}`}
+            key={`${keyPrefix}-${index}-${listItem?.id}`}
             mediaRef={listItem}
             podcast={listItem.episode.podcast}
             showImage
           />
         )
       } else {
-        return <PlaylistListItem key={`${keyPrefix}-${index}`} playlist={listItem} />
+        return <PlaylistListItem key={`${keyPrefix}-${index}-${listItem?.id}`} playlist={listItem} />
       }
     })
   }

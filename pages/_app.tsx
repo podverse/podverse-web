@@ -18,7 +18,8 @@ import {
   PageLoadingOverlay,
   PlayerAPI,
   MobileNavBar,
-  V4VHiddenElement
+  V4VHiddenElement,
+  scrollToTopOfPageScrollableContent
 } from '~/components'
 import '~/state'
 import initialState from '~/state/initialState.json'
@@ -83,6 +84,7 @@ function MyApp({ Component, pageProps }) {
 
   const _routeChangeComplete = () => {
     OmniAural.pageIsLoadingHide()
+    scrollToTopOfPageScrollableContent()
     matomoTrackPageView()
   }
 

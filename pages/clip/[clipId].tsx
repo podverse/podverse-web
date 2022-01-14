@@ -213,7 +213,7 @@ const generateClipListElements = (listItems: MediaRef[], episode: Episode, userI
         isLoggedInUserMediaRef={userInfo && userInfo.id === listItem.owner.id}
         mediaRef={listItem}
         podcast={episode.podcast}
-        key={`${keyPrefix}-${index}`}
+        key={`${keyPrefix}-${index}-${listItem?.id}`}
       />
     )
   })
