@@ -18,7 +18,7 @@ export const audioIsLoaded = () => {
 }
 
 export const audioCheckIfCurrentlyPlaying = () => {
-  return !PVPlayerAudio?.paused && PVPlayerAudio?.currentTime > 0 && !PVPlayerAudio.ended
+  return audioIsLoaded() && !PVPlayerAudio?.paused && PVPlayerAudio?.currentTime > 0 && !PVPlayerAudio.ended
 }
 
 export const audioGetDuration = () => {
