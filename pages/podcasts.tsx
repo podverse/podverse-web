@@ -174,7 +174,9 @@ export default function Podcasts({
   /* Render Helpers */
 
   const generatePodcastListElements = (listItems: Podcast[]) => {
-    return listItems.map((listItem, index) => <PodcastListItem key={`${keyPrefix}-${index}-${listItem?.id}`} podcast={listItem} />)
+    return listItems.map((listItem, index) => (
+      <PodcastListItem key={`${keyPrefix}-${index}-${listItem?.id}`} podcast={listItem} />
+    ))
   }
 
   /* Meta Tags */
@@ -247,7 +249,10 @@ export default function Podcasts({
         )}
         {(filterFrom !== PV.Filters.from._category || (filterFrom === PV.Filters.from._category && isCategoryPage)) && (
           <>
-            <List hideNoResultsMessage={isQuerying || (filterFrom === PV.Filters.from._category && !isCategoryPage)} noMarginTop>
+            <List
+              hideNoResultsMessage={isQuerying || (filterFrom === PV.Filters.from._category && !isCategoryPage)}
+              noMarginTop
+            >
               {generatePodcastListElements(podcastsListData)}
             </List>
             <Pagination

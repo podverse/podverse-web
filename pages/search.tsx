@@ -91,7 +91,9 @@ export default function Search({ serverSearchByText }: ServerProps) {
   ]
 
   const generatePodcastListElements = (listItems: Podcast[]) => {
-    return listItems.map((listItem, index) => <PodcastListItem key={`${keyPrefix}-${index}-${listItem?.id}`} podcast={listItem} />)
+    return listItems.map((listItem, index) => (
+      <PodcastListItem key={`${keyPrefix}-${index}-${listItem?.id}`} podcast={listItem} />
+    ))
   }
 
   const pageHeaderTabs = generateTabOptions(t)

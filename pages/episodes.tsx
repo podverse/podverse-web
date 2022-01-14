@@ -171,7 +171,12 @@ export default function Episodes({
 
   const generateEpisodeListElements = (listItems: Episode[]) => {
     return listItems.map((listItem, index) => (
-      <EpisodeListItem episode={listItem} key={`${keyPrefix}-${index}-${listItem?.id}`} podcast={listItem.podcast} showImage />
+      <EpisodeListItem
+        episode={listItem}
+        key={`${keyPrefix}-${index}-${listItem?.id}`}
+        podcast={listItem.podcast}
+        showImage
+      />
     ))
   }
 
@@ -242,9 +247,7 @@ export default function Episodes({
           filterFrom === PV.Filters.from._all ||
           (filterFrom === PV.Filters.from._category && isCategoryPage)) && (
           <>
-            <List hideNoResultsMessage={isQuerying}>
-              {generateEpisodeListElements(episodesListData)}
-            </List>
+            <List hideNoResultsMessage={isQuerying}>{generateEpisodeListElements(episodesListData)}</List>
             <Pagination
               currentPageIndex={filterPage}
               handlePageNavigate={(newPage) => setFilterPage(newPage)}
