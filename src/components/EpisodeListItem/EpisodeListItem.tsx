@@ -69,7 +69,7 @@ export const EpisodeListItem = ({ episode, handleRemove, podcast, showImage, sho
           </div>
         )}
       </li>
-      <hr />
+      <hr className='episode-list-item-hr' />
     </>
   )
 }
