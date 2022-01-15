@@ -258,7 +258,7 @@ export default function Episodes({
                 if (filterPage - 1 > 0) setFilterPage(filterPage - 1)
               }}
               pageCount={pageCount}
-              show={pageCount > 0}
+              show={pageCount > 1}
             />
           </>
         )}

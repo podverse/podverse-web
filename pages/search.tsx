@@ -147,7 +147,7 @@ export default function Search({ serverSearchByText }: ServerProps) {
             if (filterPage - 1 > 0) setFilterPage(filterPage - 1)
           }}
           pageCount={pageCount}
-          show={podcastsListData?.length && pageCount > 0}
+          show={podcastsListData?.length && pageCount > 1}
         />
         <Footer />
       </PageScrollableContent>

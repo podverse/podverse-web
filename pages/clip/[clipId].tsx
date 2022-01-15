@@ -176,7 +176,7 @@ export default function Clip({
                   }
                 }}
                 pageCount={clipsPageCount}
-                show={clipsPageCount > 0}
+                show={clipsPageCount > 1}
               />
             </>
           }

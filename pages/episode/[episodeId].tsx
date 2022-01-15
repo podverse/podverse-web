@@ -206,7 +206,7 @@ export default function Episode({
                   }
                 }}
                 pageCount={clipsPageCount}
-                show={clipsPageCount > 0}
+                show={clipsPageCount > 1}
               />
             </>
           }

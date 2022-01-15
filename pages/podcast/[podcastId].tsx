@@ -222,7 +222,7 @@ export default function Podcast({
                   }
                 }}
                 pageCount={pageCount}
-                show={pageCount > 0}
+                show={pageCount > 1}
               />
             </>
           }
