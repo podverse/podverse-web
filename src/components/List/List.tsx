@@ -5,17 +5,17 @@ type Props = {
   children: any
   hideNoResultsMessage?: boolean
   isLoading?: boolean
-  noMarginTop?: boolean
 }
 
-export const List = ({ children, hideNoResultsMessage, noMarginTop }: Props) => {
+export const List = ({ children, hideNoResultsMessage }: Props) => {
   const { t } = useTranslation()
   const hasChildren = children && children.length > 0
-  const listClass = classNames('list', noMarginTop && hasChildren ? 'no-margin-top' : '')
+  const showNoResultsFound = !hideNoResultsMessage && !hasChildren
+  const listClass = classNames('list', showNoResultsFound ? 'no-results-found' : '')
 
   return (
     <ul className={listClass}>
-      {!hideNoResultsMessage && !hasChildren && <div className='no-results-found'>{t('No results found')}</div>}
+      {showNoResultsFound && <div className='no-results-found-message'>{t('No results found')}</div>}
       {hasChildren && children}
     </ul>
   )

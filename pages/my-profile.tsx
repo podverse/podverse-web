@@ -35,7 +35,7 @@ export default function MyProfile(props: ServerProps) {
         twitterTitle={meta.title}
       />
       <PageHeader text={t('My Profile')} />
-      <PageScrollableContent noMarginTop>
+      <PageScrollableContent>
         <MessageWithAction
           actionLabel={t('Login')}
           actionOnClick={() => OmniAural.modalsLoginShow()}
