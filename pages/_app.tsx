@@ -18,8 +18,7 @@ import {
   PageLoadingOverlay,
   PlayerAPI,
   MobileNavBar,
-  V4VHiddenElement,
-  scrollToTopOfPageScrollableContent
+  V4VHiddenElement
 } from '~/components'
 import '~/state'
 import initialState from '~/state/initialState.json'
