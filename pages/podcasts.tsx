@@ -58,6 +58,7 @@ export default function Podcasts({
   const [filterSort, setFilterSort] = useState<string>(serverFilterSort)
   const [podcastsListData, setPodcastsListData] = useState<Podcast[]>(serverPodcastsListData)
   const [podcastsListDataCount, setPodcastsListDataCount] = useState<number>(serverPodcastsListDataCount)
+  const [isQuerying, setIsQuerying] = useState<boolean>(false)
   const [userInfo] = useOmniAural('session.userInfo')
   const [videoOnlyMode, setVideoOnlyMode] = useState<boolean>(
     serverGlobalFilters?.videoOnlyMode || OmniAural.state.globalFilters.videoOnlyMode.value()
@@ -67,6 +68,7 @@ export default function Podcasts({
   const isCategoryPage = !!router.query?.category
   const selectedCategory = isCategoryPage ? getCategoryById(filterCategoryId) : null
   const pageHeaderText = selectedCategory ? `${t('Podcasts')} > ${selectedCategory.title}` : t('Podcasts')
+  const showLoginMessage = !userInfo && filterFrom === PV.Filters.from._subscribed
 
   /* useEffects */
 
@@ -76,12 +78,16 @@ export default function Podcasts({
         initialRender.current = false
       } else {
         OmniAural.pageIsLoadingShow()
+        setIsQuerying(true)
+
         const { data } = await clientQueryPodcasts()
         const [newListData, newListCount] = data
         setPodcastsListData(newListData)
         setPodcastsListDataCount(newListCount)
-        scrollToTopOfPageScrollableContent()
+
         OmniAural.pageIsLoadingHide()
+        setIsQuerying(false)
+        scrollToTopOfPageScrollableContent()
       }
     })()
   }
@@ -169,7 +175,9 @@ export default function Podcasts({
   /* Render Helpers */
 
   const generatePodcastListElements = (listItems: Podcast[]) => {
-    return listItems.map((listItem, index) => <PodcastListItem key={`${keyPrefix}-${index}`} podcast={listItem} />)
+    return listItems.map((listItem, index) => (
+      <PodcastListItem key={`${keyPrefix}-${index}-${listItem?.id}`} podcast={listItem} />
+    ))
   }
 
   /* Meta Tags */
@@ -220,7 +228,7 @@ export default function Podcasts({
         text={pageHeaderText}
         videoOnlyMode={videoOnlyMode}
       />
-      <PageScrollableContent noMarginTop>
+      <PageScrollableContent noPaddingTop={isCategoryPage || filterFrom !== PV.Filters.from._category}>
         {!userInfo && filterFrom === PV.Filters.from._category && !isCategoryPage && <SearchBarHome />}
         {filterFrom === PV.Filters.from._category && !isCategoryPage && (
           <Tiles
@@ -233,7 +241,7 @@ export default function Podcasts({
             }}
           />
         )}
-        {!userInfo && filterFrom === PV.Filters.from._subscribed && (
+        {showLoginMessage && (
           <MessageWithAction
             actionLabel={t('Login')}
             actionOnClick={() => OmniAural.modalsLoginShow()}
@@ -242,7 +250,11 @@ export default function Podcasts({
         )}
         {(filterFrom !== PV.Filters.from._category || (filterFrom === PV.Filters.from._category && isCategoryPage)) && (
           <>
-            <List hideNoResultsMessage={filterFrom === PV.Filters.from._category && !isCategoryPage} noMarginTop>
+            <List
+              hideNoResultsMessage={
+                showLoginMessage || isQuerying || (filterFrom === PV.Filters.from._category && !isCategoryPage)
+              }
+            >
               {generatePodcastListElements(podcastsListData)}
             </List>
             <Pagination
@@ -255,6 +267,7 @@ export default function Podcasts({
                 if (filterPage - 1 > 0) setFilterPage(filterPage - 1)
               }}
               pageCount={pageCount}
+              show={pageCount > 1}
             />
           </>
         )}

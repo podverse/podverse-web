@@ -222,6 +222,7 @@ export default function Podcast({
                   }
                 }}
                 pageCount={pageCount}
+                show={pageCount > 1}
               />
             </>
           }
@@ -281,7 +282,7 @@ const clientQueryClips = async ({ page, podcastIds, sort }: ClientQueryClips, fi
 
 const generateEpisodeListElements = (listItems: Episode[], podcast: Podcast) => {
   return listItems.map((listItem, index) => (
-    <EpisodeListItem episode={listItem} key={`${keyPrefix}-${index}`} podcast={podcast} />
+    <EpisodeListItem episode={listItem} key={`${keyPrefix}-${index}-${listItem?.id}`} podcast={podcast} />
   ))
 }
 
@@ -291,7 +292,7 @@ const generateClipListElements = (listItems: MediaRef[], podcast: Podcast, userI
       isLoggedInUserMediaRef={userInfo && userInfo.id === listItem.owner.id}
       mediaRef={listItem}
       podcast={podcast}
-      key={`${keyPrefix}-${index}`}
+      key={`${keyPrefix}-${index}-${listItem?.id}`}
     />
   ))
 }

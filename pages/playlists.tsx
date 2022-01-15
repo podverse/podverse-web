@@ -36,7 +36,9 @@ export default function Playlists({ serverPlaylistsCombined }: ServerProps) {
   /* Render Helpers */
 
   const generatePlaylistElements = (listItems: Playlist[]) => {
-    return listItems.map((listItem, index) => <PlaylistListItem key={`${keyPrefix}-${index}`} playlist={listItem} />)
+    return listItems.map((listItem, index) => (
+      <PlaylistListItem key={`${keyPrefix}-${index}-${listItem.id}`} playlist={listItem} />
+    ))
   }
 
   /* Meta Tags */
@@ -61,7 +63,7 @@ export default function Playlists({ serverPlaylistsCombined }: ServerProps) {
         twitterTitle={meta.title}
       />
       <PageHeader text={t('Playlists')} noMarginBottom />
-      <PageScrollableContent noMarginTop>
+      <PageScrollableContent>
         {!userInfo && (
           <MessageWithAction
             actionLabel={t('Login')}

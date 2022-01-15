@@ -39,7 +39,7 @@ export default function Support(props: ServerProps) {
           mainColumnChildren={
             <div className='text-page'>
               <p>Podverse creates free and open source software that expands what is possible in podcasting.</p>
-              <p>Below are a few ways you can support the project :)</p>
+              <p>Below are a few ways you can support the project:</p>
               <br />
               <h3>{t('Memberships')}</h3>
               <p>

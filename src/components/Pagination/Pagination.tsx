@@ -7,6 +7,7 @@ type Props = {
   handlePageNext: any
   handlePagePrevious: any
   pageCount: number
+  show: boolean
 }
 
 const keyPrefix = 'pagination'
@@ -16,7 +17,8 @@ export const Pagination = ({
   handlePageNavigate,
   handlePageNext,
   handlePagePrevious,
-  pageCount
+  pageCount,
+  show
 }: Props) => {
   const pageButtons = generatePageButtons(
     currentPageIndex,
@@ -34,7 +36,7 @@ export const Pagination = ({
 
   return (
     <>
-      {pageCount > 1 ? (
+      {show ? (
         <div>
           <div className='pagination'>{pageButtons}</div>
           <div className='skip'>
@@ -55,7 +57,9 @@ const prevButton = (handlePagePrev: any) => (
     className='backwards'
     faIcon={faChevronLeft}
     key={`${keyPrefix}-backwards`}
-    onClick={handlePagePrev}
+    onClick={() => {
+      handlePagePrev()
+    }}
     size='small'
   />
 )
@@ -65,7 +69,9 @@ const nextButton = (handlePageNext: any) => (
     className='forwards'
     faIcon={faChevronRight}
     key={`${keyPrefix}-forwards`}
-    onClick={handlePageNext}
+    onClick={() => {
+      handlePageNext()
+    }}
     size='small'
   />
 )
@@ -74,7 +80,9 @@ const pageButton = (pageNumber: number, isActive: boolean, handlePageNavigate: a
   <ButtonSquare
     isActive={isActive}
     key={`${keyPrefix}-${pageNumber}`}
-    onClick={() => handlePageNavigate(pageNumber)}
+    onClick={() => {
+      handlePageNavigate(pageNumber)
+    }}
     text={pageNumber}
   />
 )

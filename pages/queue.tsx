@@ -55,7 +55,7 @@ export default function Queue(props: ServerProps) {
             episode={mediaRef.episode}
             handleRemove={() => OmniAural.removeQueueItemMediaRef(mediaRef.id)}
             isLoggedInUserMediaRef={userInfo && userInfo.id === mediaRef.owner.id}
-            key={`${keyPrefix}-clip-${index}`}
+            key={`${keyPrefix}-clip-${index}-${mediaRef.id}`}
             mediaRef={mediaRef}
             podcast={mediaRef.episode.podcast}
             showImage
@@ -69,7 +69,7 @@ export default function Queue(props: ServerProps) {
           <EpisodeListItem
             episode={episode}
             handleRemove={() => OmniAural.removeQueueItemEpisode(episode.id)}
-            key={`${keyPrefix}-episode-${index}`}
+            key={`${keyPrefix}-episode-${index}-${episode.id}`}
             podcast={episode.podcast}
             showImage
             showRemoveButton={isEditing}
@@ -107,7 +107,7 @@ export default function Queue(props: ServerProps) {
         hasEditButton={hasEditButton}
         text={t('Queue')}
       />
-      <PageScrollableContent noMarginTop>
+      <PageScrollableContent>
         {!userInfo && (
           <MessageWithAction
             actionLabel={t('Login')}
