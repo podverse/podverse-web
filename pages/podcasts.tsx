@@ -251,7 +251,10 @@ export default function Podcasts({
         {(filterFrom !== PV.Filters.from._category || (filterFrom === PV.Filters.from._category && isCategoryPage)) && (
           <>
             <List
-              hideNoResultsMessage={showLoginMessage || isQuerying || (filterFrom === PV.Filters.from._category && !isCategoryPage)}>
+              hideNoResultsMessage={
+                showLoginMessage || isQuerying || (filterFrom === PV.Filters.from._category && !isCategoryPage)
+              }
+            >
               {generatePodcastListElements(podcastsListData)}
             </List>
             <Pagination
