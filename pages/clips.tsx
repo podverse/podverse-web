@@ -90,6 +90,9 @@ ServerProps) {
         const [newListData, newListCount] = data
         setClipsListData(newListData)
         setClipsListDataCount(newListCount)
+        
+        OmniAural.pageIsLoadingHide()
+        setIsQuerying(false)
         scrollToTopOfPageScrollableContent()
       }
     })()
