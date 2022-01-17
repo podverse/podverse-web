@@ -38,10 +38,10 @@ export default function Support(props: ServerProps) {
         <ColumnsWrapper
           mainColumnChildren={
             <div className='text-page'>
-              <p>Podverse creates free and open source software that expands what is possible in podcasting.</p>
+              <p>Podverse creates free and open source software to expand what is possible in podcasting.</p>
               <p>Below are a few ways you can support the project:</p>
               <br />
-              <h3>{t('Memberships')}</h3>
+              <h3>{t('Membership')}</h3>
               <p>
                 <PVLink href='/membership'>{t('Buy a Podverse premium membership')}</PVLink>
               </p>
