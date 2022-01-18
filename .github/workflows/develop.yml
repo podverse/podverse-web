@@ -22,7 +22,7 @@ jobs:
         with:
           node-version: '16'
 
-      - name: Build
+      - name: Install
         env:
           SENTRY_ORG: podverse
           SENTRY_PROJECT: react
@@ -30,6 +30,14 @@ jobs:
           NODE_ENV: development
         run: |
           yarn install --frozen-lockfile
+
+      - name: Build
+        env:
+          SENTRY_ORG: podverse
+          SENTRY_PROJECT: react
+          SENTRY_LOG_LEVEL: debug
+          NODE_ENV: development
+        run: |
           yarn lint
           yarn build
           yarn test:ci
