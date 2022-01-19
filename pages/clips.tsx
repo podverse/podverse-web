@@ -7,6 +7,7 @@ import { useEffect, useRef, useState } from 'react'
 // import { useCookies } from 'react-cookie'
 import {
   ClipListItem,
+  Footer,
   List,
   MessageWithAction,
   Meta,
@@ -54,8 +55,9 @@ ServerProps) {
   const [filterFrom, setFilterFrom] = useState<string>(serverFilterFrom)
   const [filterPage, setFilterPage] = useState<number>(serverFilterPage)
   const [filterSort, setFilterSort] = useState<string>(serverFilterSort)
-  const [clipsListData, setListData] = useState<MediaRef[]>(serverClipsListData)
-  const [clipsListDataCount, setListDataCount] = useState<number>(serverClipsListDataCount)
+  const [clipsListData, setClipsListData] = useState<MediaRef[]>(serverClipsListData)
+  const [clipsListDataCount, setClipsListDataCount] = useState<number>(serverClipsListDataCount)
+  const [isQuerying, setIsQuerying] = useState<boolean>(false)
   const [userInfo] = useOmniAural('session.userInfo')
   // const [videoOnlyMode, setVideoOnlyMode] = useState<boolean>(serverGlobalFilters?.videoOnlyMode || OmniAural.state.globalFilters.videoOnlyMode.value())
   const initialRender = useRef<boolean>(true)
@@ -82,12 +84,16 @@ ServerProps) {
         initialRender.current = false
       } else {
         OmniAural.pageIsLoadingShow()
+        setIsQuerying(true)
+
         const { data } = await clientQueryMediaRefs()
         const [newListData, newListCount] = data
-        setListData(newListData)
-        setListDataCount(newListCount)
-        scrollToTopOfPageScrollableContent()
+        setClipsListData(newListData)
+        setClipsListDataCount(newListCount)
+
         OmniAural.pageIsLoadingHide()
+        setIsQuerying(false)
+        scrollToTopOfPageScrollableContent()
       }
     })()
   }, [filterCategoryId, filterFrom, filterSort, filterPage /*, videoOnlyMode */])
@@ -166,7 +172,7 @@ ServerProps) {
       <ClipListItem
         episode={listItem.episode}
         isLoggedInUserMediaRef={userInfo && userInfo.id === listItem.owner.id}
-        key={`${keyPrefix}-${index}`}
+        key={`${keyPrefix}-${index}-${listItem?.id}`}
         mediaRef={listItem}
         podcast={listItem.episode.podcast}
         showImage
@@ -218,7 +224,7 @@ ServerProps) {
         text={pageHeaderText}
         // videoOnlyMode={videoOnlyMode}
       />
-      <PageScrollableContent noMarginTop>
+      <PageScrollableContent>
         {filterFrom === PV.Filters.from._category && !isCategoryPage && (
           <Tiles
             items={categories}
@@ -241,7 +247,7 @@ ServerProps) {
           filterFrom === PV.Filters.from._all ||
           (filterFrom === PV.Filters.from._category && isCategoryPage)) && (
           <>
-            <List hideNoResultsMessage={filterFrom === PV.Filters.from._category && !isCategoryPage}>
+            <List hideNoResultsMessage={isQuerying || (filterFrom === PV.Filters.from._category && !isCategoryPage)}>
               {generateClipListElements(clipsListData)}
             </List>
             <Pagination
@@ -254,9 +260,11 @@ ServerProps) {
                 if (filterPage - 1 > 0) setFilterPage(filterPage - 1)
               }}
               pageCount={pageCount}
+              show={pageCount > 1}
             />
           </>
         )}
+        <Footer />
       </PageScrollableContent>
     </>
   )

@@ -3,6 +3,7 @@ import { useTranslation } from 'next-i18next'
 import OmniAural, { useOmniAural } from 'omniaural'
 import type { User } from 'podverse-shared'
 import {
+  Footer,
   List,
   MessageWithAction,
   Meta,
@@ -67,7 +68,9 @@ export default function Profiles({ serverFilterPage, serverUsers, serverUsersCou
   /* Render Helpers */
 
   const generateProfileElements = (listItems: User[]) => {
-    return listItems.map((listItem, index) => <ProfileListItem key={`${keyPrefix}-${index}`} user={listItem} />)
+    return listItems.map((listItem, index) => (
+      <ProfileListItem key={`${keyPrefix}-${index}-${listItem?.id}`} user={listItem} />
+    ))
   }
 
   /* Meta Tags */
@@ -92,7 +95,7 @@ export default function Profiles({ serverFilterPage, serverUsers, serverUsersCou
         twitterTitle={meta.title}
       />
       <PageHeader noMarginBottom text={t('Profiles')} />
-      <PageScrollableContent noMarginTop>
+      <PageScrollableContent>
         {!userInfo && (
           <MessageWithAction
             actionLabel={t('Login')}
@@ -113,9 +116,11 @@ export default function Profiles({ serverFilterPage, serverUsers, serverUsersCou
                 if (filterPage - 1 > 0) setFilterPage(filterPage - 1)
               }}
               pageCount={pageCount}
+              show={pageCount > 1}
             />
           </>
         )}
+        <Footer />
       </PageScrollableContent>
     </>
   )

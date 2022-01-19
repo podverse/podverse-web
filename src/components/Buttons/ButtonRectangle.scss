@@ -13,7 +13,14 @@
 
     @include themeGen() {
       color: getThemeVal('buttonPrimaryText');
-      background-color: getThemeVal('buttonPrimaryBackground') !important;
+      background-color: getThemeVal('buttonPrimaryBackground');
+    }
+
+    &.danger {
+      @include themeGen() {
+        background-color: getThemeVal('buttonPrimaryDangerBackground');
+        color: getThemeVal('buttonPrimaryDangerTextColor');
+      }
     }
 
     &:disabled {
@@ -72,6 +79,18 @@
       &:hover {
         @include themeGen() {
           background-color: getThemeVal('buttonPrimaryRolloverBackground') !important;
+        }
+      }
+
+      &.danger:hover {
+        @include themeGen() {
+          background-color: getThemeVal('buttonPrimaryDangerRolloverBackground') !important;
+        }
+      }
+
+      &:disabled:hover {
+        @include themeGen() {
+          background-color: getThemeVal('buttonDisabledBackground') !important;
         }
       }
     }

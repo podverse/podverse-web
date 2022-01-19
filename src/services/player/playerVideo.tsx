@@ -23,7 +23,7 @@ export const videoIsLoaded = () => {
 }
 
 export const videoCheckIfCurrentlyPlaying = () => {
-  return !PVPlayerVideo?.paused
+  return videoIsLoaded() && !PVPlayerVideo?.paused
 }
 
 export const videoGetDuration = () => {

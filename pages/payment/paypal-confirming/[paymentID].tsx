@@ -5,7 +5,7 @@ import { Page } from '~/lib/utility/page'
 import { PV } from '~/resources'
 import { getPayPalOrderById } from '~/services/paypal'
 import { faSpinner } from '@fortawesome/free-solid-svg-icons'
-import { Icon, Meta, PageHeader, PageScrollableContent } from '~/components'
+import { Footer, Icon, Meta, PageHeader, PageScrollableContent } from '~/components'
 import { useTranslation } from 'react-i18next'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 
@@ -112,6 +112,7 @@ export default function PaymentPayPalConfirming(props: ServerProps) {
             </>
           )}
         </div>
+        <Footer />
       </PageScrollableContent>
     </>
   )

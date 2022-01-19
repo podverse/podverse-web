@@ -5,12 +5,16 @@
     margin-bottom: 20px;
   }
 
-  .no-results-found {
-    position: absolute;
-    top: 32px;
+  &.no-results-found {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
 
-    @include themeGen() {
-      color: getThemeVal('textSecondary');
+    .no-results-found-message {
+      margin: 24px 0;
+      @include themeGen() {
+        color: getThemeVal('textSecondary');
+      }
     }
   }
 }

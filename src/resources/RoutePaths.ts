@@ -40,7 +40,7 @@ export const RoutePaths = {
     appleAppStore: `https://apps.apple.com/us/app/podverse/id1390888454?mt=8`,
     clip: `/clip`,
     clips: `/clips`,
-    contactUs: `https://goo.gl/forms/VGVJRWlKPIGRqojY2`,
+    contact: '/contact',
     coupon: `/coupon`,
     episode: `/episode`,
     episodes: `/episodes`,
@@ -65,8 +65,10 @@ export const RoutePaths = {
     search: `/search`,
     settings_membership: `/settings#membership`,
     settings: `/settings`,
+    support: `/support`,
     terms: `/terms`,
     unspam: `http://www.unspam.com/noemailcollection/`,
+    v4vWallet: `/v4v-wallet`,
     verify_email: `/verify-email`
   }
 }

@@ -7,6 +7,7 @@ import {
   ClipListItem,
   ColumnsWrapper,
   EpisodeListItem,
+  Footer,
   List,
   Meta,
   PageScrollableContent,
@@ -111,7 +112,7 @@ export default function Playlist({ serverPlaylist, serverPlaylistSortedItems }: 
           <EpisodeListItem
             episode={episode}
             handleRemove={() => _handleRemoveEpisode(episode.id)}
-            key={`${keyPrefix}-episode-${index}`}
+            key={`${keyPrefix}-episode-${index}-${episode.id}`}
             podcast={episode.podcast as any}
             showImage
             showRemoveButton={isEditing}
@@ -179,6 +180,7 @@ export default function Playlist({ serverPlaylist, serverPlaylistSortedItems }: 
             </>
           }
         />
+        <Footer />
       </PageScrollableContent>
     </>
   )

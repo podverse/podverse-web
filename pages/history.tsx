@@ -7,6 +7,7 @@ import {
   ClipListItem,
   ColumnsWrapper,
   EpisodeListItem,
+  Footer,
   List,
   MessageWithAction,
   Meta,
@@ -112,7 +113,7 @@ export default function History({
             episode={mediaRef.episode as any}
             handleRemove={() => _removeHistoryItemMediaRef(mediaRef.id)}
             isLoggedInUserMediaRef={userInfo && userInfo.id === mediaRef.owner.id}
-            key={`${keyPrefix}-clip-${index}`}
+            key={`${keyPrefix}-clip-${index}-${mediaRef.id}`}
             mediaRef={mediaRef as any}
             podcast={mediaRef.episode.podcast as any}
             showImage
@@ -126,7 +127,7 @@ export default function History({
             /* *TODO* Remove the "as any" below without throwing a Typescript error */
             episode={episode as any}
             handleRemove={() => _removeHistoryItemEpisode(episode.id)}
-            key={`${keyPrefix}-episode-${index}`}
+            key={`${keyPrefix}-episode-${index}-${episode.id}`}
             podcast={episode.podcast as any}
             showImage
             showRemoveButton={isEditing}
@@ -164,7 +165,7 @@ export default function History({
         hasEditButton={hasEditButton}
         text={t('History')}
       />
-      <PageScrollableContent noMarginTop>
+      <PageScrollableContent>
         {!userInfo && (
           <MessageWithAction
             actionLabel={t('Login')}
@@ -185,9 +186,11 @@ export default function History({
                 if (filterPage - 1 > 0) setFilterPage(filterPage - 1)
               }}
               pageCount={pageCount}
+              show={pageCount > 1}
             />
           </>
         )}
+        <Footer />
       </PageScrollableContent>
     </>
   )

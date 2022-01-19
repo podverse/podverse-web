@@ -22,7 +22,6 @@ jobs:
 
       - name: Build
         env:
-          NODE_ENV: production
           SENTRY_ORG: podverse
           SENTRY_PROJECT: react
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}

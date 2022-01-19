@@ -42,8 +42,8 @@ export const MediaItemControls = ({
   hidePubDate,
   isLoggedInUserMediaRef,
   mediaRef,
-  stretchMiddleContent,
-  podcast
+  podcast,
+  stretchMiddleContent
 }: Props) => {
   const [userInfo] = useOmniAural('session.userInfo')
   const [player] = useOmniAural('player')

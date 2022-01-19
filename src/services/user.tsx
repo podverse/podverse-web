@@ -43,3 +43,11 @@ export const toggleSubscribeToUserOnServer = async (id: string) => {
   const subscribedUserIds = (response?.data || []) as string[]
   return subscribedUserIds
 }
+
+export const deleteAccount = async () => {
+  return request({
+    endpoint: '/user',
+    method: 'DELETE',
+    ...getAuthCredentialsHeaders()
+  })
+}

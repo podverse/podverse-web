@@ -8,12 +8,16 @@ import {
   ClipListItem,
   ColumnsWrapper,
   EpisodeInfo,
+  Footer,
+  FundingLink,
   List,
   Meta,
   PageHeader,
   PageScrollableContent,
   Pagination,
-  PodcastPageHeader
+  PodcastPageHeader,
+  SideContent,
+  SideContentSection
 } from '~/components'
 import { scrollToTopOfPageScrollableContent } from '~/components/PageScrollableContent/PageScrollableContent'
 import { calcListPageCount, prefixClipLabel } from '~/lib/utility/misc'
@@ -109,6 +113,8 @@ export default function Clip({
   /* Meta Tags */
 
   let meta = {} as any
+  let fundingLinks = []
+
   if (serverClip) {
     const { episode } = serverClip
     const podcastTitle =
@@ -123,6 +129,18 @@ export default function Clip({
         (episode.podcast && episode.podcast.imageUrl),
       title: serverClip.title || prefixClipLabel(t, episode && episode.title)
     }
+  }
+
+  if (serverClip.episode?.funding?.length || serverClip.episode?.podcast.funding?.length) {
+    if (serverClip.episode?.funding?.length) {
+      fundingLinks = fundingLinks.concat(serverClip.episode.funding)
+    }
+    if (serverClip.episode?.podcast?.funding?.length) {
+      fundingLinks = fundingLinks.concat(serverClip.episode?.podcast.funding)
+    }
+    fundingLinks = fundingLinks.map((link) => {
+      return <FundingLink key={link.url} link={link.url} value={link.value}></FundingLink>
+    })
   }
 
   return (
@@ -175,10 +193,19 @@ export default function Clip({
                   }
                 }}
                 pageCount={clipsPageCount}
+                show={clipsPageCount > 1}
               />
             </>
           }
+          sideColumnChildren={
+            <SideContent>
+              {fundingLinks.length ? (
+                <SideContentSection headerText={t('Funding')}>{fundingLinks}</SideContentSection>
+              ) : null}
+            </SideContent>
+          }
         />
+        <Footer />
       </PageScrollableContent>
     </>
   )
@@ -211,7 +238,7 @@ const generateClipListElements = (listItems: MediaRef[], episode: Episode, userI
         isLoggedInUserMediaRef={userInfo && userInfo.id === listItem.owner.id}
         mediaRef={listItem}
         podcast={episode.podcast}
-        key={`${keyPrefix}-${index}`}
+        key={`${keyPrefix}-${index}-${listItem?.id}`}
       />
     )
   })

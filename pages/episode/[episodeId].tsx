@@ -16,7 +16,8 @@ import {
   PageScrollableContent,
   Pagination,
   SideContentSection,
-  SideContent
+  SideContent,
+  Footer
 } from '~/components'
 import { scrollToTopOfPageScrollableContent } from '~/components/PageScrollableContent/PageScrollableContent'
 import { calcListPageCount } from '~/lib/utility/misc'
@@ -205,6 +206,7 @@ export default function Episode({
                   }
                 }}
                 pageCount={clipsPageCount}
+                show={clipsPageCount > 1}
               />
             </>
           }
@@ -216,6 +218,7 @@ export default function Episode({
             </SideContent>
           }
         />
+        <Footer />
       </PageScrollableContent>
     </>
   )
@@ -248,7 +251,7 @@ const generateClipListElements = (listItems: MediaRef[], episode: Episode, userI
         isLoggedInUserMediaRef={userInfo && userInfo.id === listItem.owner.id}
         mediaRef={listItem}
         podcast={episode.podcast}
-        key={`${keyPrefix}-${index}`}
+        key={`${keyPrefix}-${index}-${listItem?.id}`}
       />
     )
   })
