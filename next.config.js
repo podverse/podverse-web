@@ -1,7 +1,9 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const { i18n } = require('./next-i18next.config')
+const { withSentryConfig } = require('@sentry/nextjs')
 
 const isDev = process.env.NODE_ENV === 'development' || !process.env.NODE_ENV
+const isProd = process.env.NODE_ENV === 'production'
 
 const envVars = {}
 const sentryWebpackPluginOptions = {
@@ -19,6 +21,10 @@ const sentryWebpackPluginOptions = {
 const moduleExports = {
   reactStrictMode: true,
   i18n,
+  sentry: {
+    disableServerWebpackPlugin: !isProd,
+    disableClientWebpackPlugin: !isProd
+  },
   serverRuntimeConfig: {
     API_PATH: process.env.API_PATH,
     API_VERSION: process.env.API_VERSION,
@@ -57,4 +63,12 @@ const moduleExports = {
   }
 }
 
-module.exports = moduleExports
+if (process.env.SENTRY_AUTH_TOKEN || process.env.USE_SENTRY) {
+  module.exports = withSentryConfig(moduleExports, sentryWebpackPluginOptions)
+} else {
+  console.log(
+    'SENTRY_AUTH_TOKEN was not found! If this is a production build please look at your environment variable configuration'
+  )
+
+  module.exports = moduleExports
+}
