@@ -6,6 +6,7 @@ import {
   LoginModal,
   LoginToAlertModal,
   MakeClipModal,
+  ShareModal,
   SignUpModal,
   VerifyEmailModal
 } from '~/components'
@@ -24,6 +25,7 @@ export const Modals = (props: Props) => {
       <LoginToAlertModal />
       <MakeClipModal />
       <MakeClipSuccessModal />
+      <ShareModal />
       <SignUpModal />
       <VerifyEmailModal />
     </>

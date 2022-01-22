@@ -4,6 +4,7 @@ import classNames from 'classnames'
 import OmniAural, { useOmniAural } from 'omniaural'
 import type { Episode, MediaRef, NowPlayingItem, Podcast } from 'podverse-shared'
 import { convertToNowPlayingItem } from 'podverse-shared'
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { readableDate } from '~/lib/utility/date'
 import { convertSecToHhoursMMinutes, getTimeLabelText, readableClipTime } from '~/lib/utility/time'
@@ -13,17 +14,17 @@ import {
   playerLoadNowPlayingItem,
   playerTogglePlayOrLoadNowPlayingItem
 } from '~/services/player/player'
-import { addOrUpdateHistoryItemOnServer } from '~/services/userHistoryItem'
+import { addOrUpdateHistoryItemOnServer, getHistoryItemsIndexFromServer } from '~/services/userHistoryItem'
 import { addQueueItemLastOnServer, addQueueItemNextOnServer } from '~/services/userQueueItem'
 import { modalsAddToPlaylistShowOrAlert } from '~/state/modals/addToPlaylist/actions'
 import { ButtonCircle, Dropdown, Icon } from '..'
 
 type Props = {
   buttonSize: 'medium' | 'large'
+  clip?: MediaRef
   episode?: Episode
   hidePubDate?: boolean
   isLoggedInUserMediaRef?: boolean
-  mediaRef?: MediaRef
   stretchMiddleContent?: boolean
   podcast?: Podcast
 }
@@ -32,45 +33,49 @@ const _playKey = '_play'
 const _queueNextKey = '_queueNext'
 const _queueLastKey = '_queueLast'
 const _addToPlaylistKey = '_addToPlaylist'
+const _shareKey = '_share'
 const _markAsPlayedKey = '_markAsPlayedKey'
 const _editClip = '_editClip'
 const _deleteClip = '_deleteClip'
 
 export const MediaItemControls = ({
   buttonSize,
+  clip,
   episode,
   hidePubDate,
   isLoggedInUserMediaRef,
-  mediaRef,
   podcast,
   stretchMiddleContent
 }: Props) => {
   const [userInfo] = useOmniAural('session.userInfo')
   const [player] = useOmniAural('player')
+  /* historyItemsIndex is way too big with useOmniAural */
   // const [historyItemsIndex] = useOmniAural('historyItemsIndex')
   const historyItemsIndex = OmniAural.state.historyItemsIndex.value()
+  /* Since we're not using useOmniAural for historyItemsIndex, call setForceRefresh to re-render */
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [forceRefresh, setForceRefresh] = useState<number>(0)
   const { t } = useTranslation()
   let pubDate = null
   let timeInfo = null
   const timeRemaining = null
   let completed = false
-  if (mediaRef) {
-    pubDate = readableDate(mediaRef.episode.pubDate)
-    timeInfo = readableClipTime(mediaRef.startTime, mediaRef.endTime)
+  if (clip) {
+    pubDate = readableDate(clip.episode.pubDate)
+    timeInfo = readableClipTime(clip.startTime, clip.endTime)
   } else if (episode) {
     pubDate = readableDate(episode.pubDate)
-
     const historyItem = historyItemsIndex.episodes[episode.id]
     if (historyItem) {
       timeInfo = getTimeLabelText(t, historyItem.d, episode.duration, historyItem.p)
-      completed = historyItem.completed
+      completed = historyItem.c
     } else if (episode.duration > 0) {
       timeInfo = convertSecToHhoursMMinutes(episode.duration)
     }
   }
 
-  const nowPlayingItem: NowPlayingItem = mediaRef
-    ? convertToNowPlayingItem(mediaRef, episode, podcast)
+  const nowPlayingItem: NowPlayingItem = clip
+    ? convertToNowPlayingItem(clip, episode, podcast)
     : convertToNowPlayingItem(episode, null, podcast)
 
   const timeWrapperClass = classNames('time-wrapper', stretchMiddleContent ? 'flex-stretch' : '')
@@ -88,10 +93,18 @@ export const MediaItemControls = ({
         await _handleQueueLast()
       } else if (item.key === _addToPlaylistKey) {
         await modalsAddToPlaylistShowOrAlert(nowPlayingItem)
+      } else if (item.key === _shareKey) {
+        if (clip) {
+          OmniAural.modalsShareShowClip(clip.id, episode.id, podcast.id)
+        } else if (episode) {
+          OmniAural.modalsShareShowEpisode(episode.id, podcast.id)
+        } else if (podcast) {
+          OmniAural.modalsShareShowPodcast(podcast.id)
+        }
       } else if (item.key === _markAsPlayedKey) {
         const { episodeDuration, userPlaybackPosition } = nowPlayingItem
 
-        addOrUpdateHistoryItemOnServer({
+        await addOrUpdateHistoryItemOnServer({
           nowPlayingItem,
           playbackPosition: userPlaybackPosition,
           mediaFileDuration: episodeDuration,
@@ -99,6 +112,9 @@ export const MediaItemControls = ({
           skipSetNowPlaying: true,
           completed: true
         })
+        const newHistoryItemsIndex = await getHistoryItemsIndexFromServer()
+        OmniAural.setHistoryItemsIndex(newHistoryItemsIndex)
+        setForceRefresh(Math.random())
       } else if (item.key === _editClip) {
         const shouldPlay = false
         playerLoadNowPlayingItem(nowPlayingItem, shouldPlay)
@@ -141,10 +157,11 @@ export const MediaItemControls = ({
       { label: 'Play', key: _playKey },
       { label: 'Queue Next', key: _queueNextKey },
       { label: 'Queue Last', key: _queueLastKey },
-      { label: 'Add to Playlist', key: _addToPlaylistKey }
+      { label: 'Add to Playlist', key: _addToPlaylistKey },
+      { label: 'Share', key: _shareKey }
     ]
 
-    if (!mediaRef) {
+    if (!clip) {
       items.push({ label: 'Mark as Played', key: _markAsPlayedKey })
     }
 
@@ -190,7 +207,7 @@ export const MediaItemControls = ({
       <Dropdown
         dropdownWidthClass='width-medium'
         faIcon={faEllipsisH}
-        hasClipEditButtons={dropdownItems.length > 5}
+        hasClipEditButtons={dropdownItems.length > 6}
         hideCaret
         onChange={onChange}
         options={dropdownItems}

@@ -34,6 +34,7 @@ export { ConfirmDeleteAccountModal } from './Modals/Auth/ConfirmDeleteAccountMod
 export { ForgotPasswordModal } from './Modals/Auth/ForgotPasswordModal'
 export { LoginModal } from './Modals/Auth/LoginModal'
 export { LoginToAlertModal } from './Modals/Auth/LoginToAlertModal'
+export { ShareModal } from './Modals/Share/Share'
 export { PasswordInputs } from './PasswordInputs/PasswordInputs'
 export { PasswordValidationInfo } from './PasswordInputs/PasswordValidationInfo'
 export { SignUpModal } from './Modals/Auth/SignUpModal'
