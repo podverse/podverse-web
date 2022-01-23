@@ -9,7 +9,7 @@ export const FundingModal = (props: Props) => {
   const [funding] = useOmniAural('modals.funding')
   const { t } = useTranslation()
   const { fundingLinks, show } = funding
-  
+
   /* Function Helpers */
 
   const _onRequestClose = () => {
@@ -20,9 +20,7 @@ export const FundingModal = (props: Props) => {
 
   const generateFundingLinks = () => {
     if (Array.isArray(fundingLinks)) {
-      return fundingLinks.map((x: any) =>
-        <FundingLink key={x.url} link={x.url} value={x.value} />
-      )
+      return fundingLinks.map((x: any) => <FundingLink key={x.url} link={x.url} value={x.value} />)
     }
     return null
   }

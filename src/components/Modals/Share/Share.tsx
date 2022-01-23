@@ -9,7 +9,7 @@ export const ShareModal = (props: Props) => {
   const [items] = useOmniAural('modals.share.items')
   const { t } = useTranslation()
   const isOpen = !!items?.length
-  
+
   /* Function Helpers */
 
   const _onRequestClose = () => {
@@ -20,9 +20,9 @@ export const ShareModal = (props: Props) => {
 
   const generateCopyTextInputs = () => {
     if (items && Array.isArray(items)) {
-      return items.map((x: any, index: number) => 
+      return items.map((x: any, index: number) => (
         <TextInputCopy key={`${x.url}-${index}`} label={x.label} value={x.url} />
-      )
+      ))
     }
     return null
   }

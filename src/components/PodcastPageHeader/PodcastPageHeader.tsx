@@ -20,7 +20,13 @@ type Props = {
   podcast: Podcast
 }
 
-export const PodcastPageHeader = ({ episode, hideAboveMobileWidth, hideBelowMobileWidth, mediaRef, podcast }: Props) => {
+export const PodcastPageHeader = ({
+  episode,
+  hideAboveMobileWidth,
+  hideBelowMobileWidth,
+  mediaRef,
+  podcast
+}: Props) => {
   const { t } = useTranslation()
   const [userInfo] = useOmniAural('session.userInfo')
   const { authors, categories, id } = podcast
@@ -93,19 +99,15 @@ export const PodcastPageHeader = ({ episode, hideAboveMobileWidth, hideBelowMobi
                 </div>
               )}
               <div className='header-sub-buttons hide-below-tablet-xl-max-width'>
-                {
-                  authorityFeedUrl?.url && (
-                    <a href={authorityFeedUrl?.url} rel='noreferrer' target='_blank'>
-                      <ButtonIcon faIcon={faRss} isSecondary />
-                    </a>
-                  )
-                }
+                {authorityFeedUrl?.url && (
+                  <a href={authorityFeedUrl?.url} rel='noreferrer' target='_blank'>
+                    <ButtonIcon faIcon={faRss} isSecondary />
+                  </a>
+                )}
                 <ButtonIcon faIcon={faShare} isSecondary onClick={_handleShowShareModal} />
-                {
-                  !!fundingLinks.length && (
-                    <ButtonIcon faIcon={faDonate} isSecondary onClick={_handleShowFundingModal} />
-                  )
-                }
+                {!!fundingLinks.length && (
+                  <ButtonIcon faIcon={faDonate} isSecondary onClick={_handleShowFundingModal} />
+                )}
               </div>
             </div>
             <ButtonRectangle
@@ -133,19 +135,13 @@ export const PodcastPageHeader = ({ episode, hideAboveMobileWidth, hideBelowMobi
             />
           </div>
           <div className='mobile-header-sub-buttons hide-above-laptop-min-width'>
-            {
-              authorityFeedUrl?.url && (
-                <a href={authorityFeedUrl?.url} rel='noreferrer' target='_blank'>
-                  <ButtonIcon faIcon={faRss} isSecondary />
-                </a>
-              )
-            }
+            {authorityFeedUrl?.url && (
+              <a href={authorityFeedUrl?.url} rel='noreferrer' target='_blank'>
+                <ButtonIcon faIcon={faRss} isSecondary />
+              </a>
+            )}
             <ButtonIcon faIcon={faShare} isSecondary onClick={_handleShowShareModal} />
-            {
-              !!fundingLinks.length && (
-                <ButtonIcon faIcon={faDonate} isSecondary onClick={_handleShowFundingModal} />
-              )
-            }
+            {!!fundingLinks.length && <ButtonIcon faIcon={faDonate} isSecondary onClick={_handleShowFundingModal} />}
           </div>
         </div>
       </div>

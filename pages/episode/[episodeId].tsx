@@ -210,9 +210,7 @@ export default function Episode({
               />
             </>
           }
-          sideColumnChildren={
-            <SideContent />
-          }
+          sideColumnChildren={<SideContent />}
         />
         <Footer />
       </PageScrollableContent>

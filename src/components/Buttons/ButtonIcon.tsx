@@ -10,11 +10,7 @@ type Props = {
 }
 
 export const ButtonIcon = ({ className, faIcon, isSecondary, onClick }: Props) => {
-  const buttonClass = classnames(
-    'button-icon',
-    className ? className : null,
-    isSecondary? 'is-secondary' : null
-  )
+  const buttonClass = classnames('button-icon', className ? className : null, isSecondary ? 'is-secondary' : null)
 
   return (
     <button className={buttonClass} onClick={onClick}>
