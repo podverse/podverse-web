@@ -57,7 +57,8 @@ Modal.setAppElement('.app')
 
 if (typeof window !== 'undefined') {
   window.onbeforeunload = () => {
-    saveCurrentPlaybackPositionToHistory()
+    const skipSetNowPlaying = true
+    saveCurrentPlaybackPositionToHistory(skipSetNowPlaying)
     // prevent dialog alert by returning undefined
     return undefined
   }
