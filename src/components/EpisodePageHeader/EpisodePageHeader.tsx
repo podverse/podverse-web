@@ -45,13 +45,11 @@ export const EpisodePageHeader = ({ episode }: Props) => {
   const authorityFeedUrl = getAuthorityFeedUrlFromArray(podcast.feedUrls)
 
   let fundingLinks = []
-  if (episode?.funding?.length || podcast?.funding?.length) {
-    if (episode?.funding?.length) {
-      fundingLinks = fundingLinks.concat(episode.funding)
-    }
-    if (podcast?.funding?.length) {
-      fundingLinks = fundingLinks.concat(podcast?.funding)
-    }
+  if (episode?.funding?.length) {
+    fundingLinks = fundingLinks.concat(episode.funding)
+  }
+  if (podcast?.funding?.length) {
+    fundingLinks = fundingLinks.concat(podcast?.funding)
   }
 
   return (
