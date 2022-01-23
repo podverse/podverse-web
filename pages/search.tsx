@@ -1,5 +1,6 @@
 import { GetServerSideProps } from 'next'
 import { useTranslation } from 'next-i18next'
+import OmniAural from 'omniaural'
 import type { Podcast } from 'podverse-shared'
 import { useEffect, useState } from 'react'
 import {
@@ -57,11 +58,13 @@ export default function Search({ serverSearchByText }: ServerProps) {
 
   useEffect(() => {
     ;(async () => {
+      OmniAural.pageIsLoadingShow()
       const { data } = await clientQueryPodcasts()
       const [newPodcastsListData, newPodcastsListCount] = data
       setPodcastsListData(newPodcastsListData)
       setPodcastsListDataCount(newPodcastsListCount)
       scrollToTopOfPageScrollableContent()
+      OmniAural.pageIsLoadingHide()
     })()
   }, [filterSearchByText, filterSearchByType, filterPage])
 
