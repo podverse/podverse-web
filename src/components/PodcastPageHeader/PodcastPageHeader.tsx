@@ -142,7 +142,7 @@ export const PodcastPageHeader = ({ episode, hideAboveMobileWidth, hideBelowMobi
             }
             <ButtonIcon faIcon={faShare} isSecondary onClick={_handleShowShareModal} />
             {
-              !!fundingLinks && (
+              !!fundingLinks.length && (
                 <ButtonIcon faIcon={faDonate} isSecondary onClick={_handleShowFundingModal} />
               )
             }

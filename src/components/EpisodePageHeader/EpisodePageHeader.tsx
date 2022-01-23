@@ -89,7 +89,7 @@ export const EpisodePageHeader = ({ episode }: Props) => {
                 }
                 <ButtonIcon faIcon={faShare} isSecondary onClick={_handleShowShareModal} />
                 {
-                  !!fundingLinks && (
+                  !!fundingLinks.length && (
                     <ButtonIcon faIcon={faDonate} isSecondary onClick={_handleShowFundingModal} />
                   )
                 }
@@ -127,7 +127,7 @@ export const EpisodePageHeader = ({ episode }: Props) => {
             }
             <ButtonIcon faIcon={faShare} isSecondary onClick={_handleShowShareModal} />
             {
-              !!fundingLinks && (
+              !!fundingLinks.length && (
                 <ButtonIcon faIcon={faDonate} isSecondary onClick={_handleShowFundingModal} />
               )
             }
