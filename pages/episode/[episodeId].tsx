@@ -161,7 +161,7 @@ export default function Episode({
         twitterTitle={meta.title}
       />
       <EpisodePageHeader episode={serverEpisode} />
-      <PageScrollableContent>
+      <PageScrollableContent noPaddingTop>
         <ColumnsWrapper
           mainColumnChildren={
             <>
@@ -211,11 +211,7 @@ export default function Episode({
             </>
           }
           sideColumnChildren={
-            <SideContent>
-              {fundingLinks.length ? (
-                <SideContentSection headerText={t('Funding')}>{fundingLinks}</SideContentSection>
-              ) : null}
-            </SideContent>
+            <SideContent />
           }
         />
         <Footer />

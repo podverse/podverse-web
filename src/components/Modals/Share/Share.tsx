@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next'
 import OmniAural, { useOmniAural } from 'omniaural'
 import Modal from 'react-modal'
 import { ButtonClose, TextInputCopy } from '~/components'
@@ -6,6 +7,8 @@ type Props = unknown
 
 export const ShareModal = (props: Props) => {
   const [items] = useOmniAural('modals.share.items')
+  const { t } = useTranslation()
+  const isOpen = !!items?.length
   
   /* Function Helpers */
 
@@ -25,8 +28,8 @@ export const ShareModal = (props: Props) => {
   }
 
   return (
-    <Modal className='share-modal centered' isOpen={items} onRequestClose={_onRequestClose}>
-      <h2>Share</h2>
+    <Modal className='share-modal centered' isOpen={isOpen} onRequestClose={_onRequestClose}>
+      <h2>{t('Share')}</h2>
       <ButtonClose onClick={_onRequestClose} />
       {generateCopyTextInputs()}
     </Modal>

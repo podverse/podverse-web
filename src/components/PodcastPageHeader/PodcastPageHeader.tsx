@@ -1,19 +1,26 @@
-import { useOmniAural } from 'omniaural'
-import type { Podcast } from 'podverse-shared'
+import { faDonate, faRss, faShare } from '@fortawesome/free-solid-svg-icons'
+import classNames from 'classnames'
+import OmniAural, { useOmniAural } from 'omniaural'
+import type { Episode, MediaRef, Podcast } from 'podverse-shared'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { generateAuthorText } from '~/lib/utility/author'
 import { generateCategoryNodes } from '~/lib/utility/category'
+import { getAuthorityFeedUrlFromArray } from '~/lib/utility/feedUrls'
 import { getPodcastShrunkImageUrl } from '~/lib/utility/image'
 import { PV } from '~/resources'
 import { toggleSubscribeToPodcast } from '~/state/loggedInUserActions'
-import { ButtonRectangle, PVImage, PVLink } from '..'
+import { ButtonIcon, ButtonRectangle, PVImage, PVLink } from '..'
 
 type Props = {
+  episode?: Episode
+  hideAboveMobileWidth?: boolean
+  hideBelowMobileWidth?: boolean
+  mediaRef?: MediaRef
   podcast: Podcast
 }
 
-export const PodcastPageHeader = ({ podcast }: Props) => {
+export const PodcastPageHeader = ({ episode, hideAboveMobileWidth, hideBelowMobileWidth, mediaRef, podcast }: Props) => {
   const { t } = useTranslation()
   const [userInfo] = useOmniAural('session.userInfo')
   const { authors, categories, id } = podcast
@@ -33,9 +40,39 @@ export const PodcastPageHeader = ({ podcast }: Props) => {
     setIsSubscribing(false)
   }
 
+  const _handleShowShareModal = () => {
+    if (mediaRef) {
+      OmniAural.modalsShareShowClip(mediaRef.id, episode.id, podcast.id)
+    } else {
+      OmniAural.modalsShareShowPodcast(podcast.id)
+    }
+  }
+
+  const _handleShowFundingModal = () => {
+    OmniAural.modalsFundingShow(podcast.funding)
+  }
+
+  const authorityFeedUrl = getAuthorityFeedUrlFromArray(podcast.feedUrls)
+
+  const headerClass = classNames(
+    'podcast-page-header',
+    hideAboveMobileWidth ? 'hide-above-tablet-min-width' : '',
+    hideBelowMobileWidth ? 'hide-below-mobile-max-width' : ''
+  )
+
+  let fundingLinks = []
+  if (episode?.funding?.length || episode?.podcast.funding?.length) {
+    if (episode?.funding?.length) {
+      fundingLinks = fundingLinks.concat(episode.funding)
+    }
+    if (episode?.podcast?.funding?.length) {
+      fundingLinks = fundingLinks.concat(episode?.podcast.funding)
+    }
+  }
+
   return (
     <>
-      <div className='podcast-page-header'>
+      <div className={headerClass}>
         <div className='main-max-width'>
           <div className='top-wrapper'>
             <PVImage
@@ -55,9 +92,24 @@ export const PodcastPageHeader = ({ podcast }: Props) => {
                   {categoryEls.length > 0 && categoryEls}
                 </div>
               )}
+              <div className='header-sub-buttons hide-below-tablet-xl-max-width'>
+                {
+                  authorityFeedUrl?.url && (
+                    <a href={authorityFeedUrl?.url} rel='noreferrer' target='_blank'>
+                      <ButtonIcon faIcon={faRss} isSecondary />
+                    </a>
+                  )
+                }
+                <ButtonIcon faIcon={faShare} isSecondary onClick={_handleShowShareModal} />
+                {
+                  !!fundingLinks.length && (
+                    <ButtonIcon faIcon={faDonate} isSecondary onClick={_handleShowFundingModal} />
+                  )
+                }
+              </div>
             </div>
             <ButtonRectangle
-              className='hide-below-tablet-xl-max-width'
+              className='hide-below-tablet-max-width'
               label={subscribedText}
               isLoading={isSubscribing}
               onClick={() => _toggleSubscribeToPodcast()}
@@ -79,6 +131,21 @@ export const PodcastPageHeader = ({ podcast }: Props) => {
               onClick={() => _toggleSubscribeToPodcast()}
               type='tertiary'
             />
+          </div>
+          <div className='mobile-header-sub-buttons hide-above-laptop-min-width'>
+            {
+              authorityFeedUrl?.url && (
+                <a href={authorityFeedUrl?.url} rel='noreferrer' target='_blank'>
+                  <ButtonIcon faIcon={faRss} isSecondary />
+                </a>
+              )
+            }
+            <ButtonIcon faIcon={faShare} isSecondary onClick={_handleShowShareModal} />
+            {
+              !!fundingLinks && (
+                <ButtonIcon faIcon={faDonate} isSecondary onClick={_handleShowFundingModal} />
+              )
+            }
           </div>
         </div>
       </div>

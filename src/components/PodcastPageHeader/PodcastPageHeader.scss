@@ -5,6 +5,10 @@
   flex-direction: column;
   padding: 16px 0;
 
+  &.hide-above-tablet-min-width {
+    margin: -4px -16px 0 -16px;
+  }
+
   .top-wrapper {
     align-items: center;
     display: flex;
@@ -17,6 +21,7 @@
 
     .text-wrapper {
       display: flex;
+      flex: 1;
       flex-direction: column;
       justify-content: center;
       padding-right: 16px;
@@ -31,15 +36,28 @@
         font-size: $text-lg;
         margin-top: 4px;
       }
+
+      .header-sub-buttons {
+        margin: 14px 0 0 0;
+
+        button {
+          margin: 0 18px 0 0;
+        }
+      }
     }
 
-    button {
-      margin-left: auto;
-    }
   }
 
   .bottom-wrapper {
     margin-top: 16px;
+  }
+
+  .mobile-header-sub-buttons {
+    margin: 12px 0 0 0;
+
+    button {
+      margin: 0 20px 0 0;
+    }
   }
 }
 

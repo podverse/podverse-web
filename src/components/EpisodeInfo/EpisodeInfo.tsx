@@ -5,6 +5,7 @@ import { MediaItemControls, TruncatedText } from '~/components'
 
 type Props = {
   episode: Episode
+  fundingLinks?: any[]
   includeMediaItemControls?: boolean
   noMarginBottom?: boolean
 }
