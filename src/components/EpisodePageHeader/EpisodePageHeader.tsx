@@ -92,27 +92,27 @@ export const EpisodePageHeader = ({ episode }: Props) => {
               </div>
             </div>
             <ButtonRectangle
-              className='hide-below-tablet-xl-max-width'
+              className='hide-below-tablet-max-width'
               label={subscribedText}
               onClick={() => toggleSubscribeToPodcast(id)}
               type='tertiary'
             />
           </div>
-          {hasBelowText && (
-            <div className='bottom-wrapper hide-above-laptop-min-width'>
+          <div className='bottom-wrapper hide-above-laptop-min-width'>
+            {hasBelowText && (
               <div className='sub-labels'>
                 {authorEls.length > 0 && authorEls}
                 {authorEls.length > 0 && categoryEls.length > 0 && ' • '}
                 {categoryEls.length > 0 && categoryEls}
               </div>
-              <ButtonRectangle
-                className='hide-above-tablet-xl-max-width'
-                label={subscribedText}
-                onClick={() => toggleSubscribeToPodcast(id)}
-                type='tertiary'
-              />
-            </div>
-          )}
+            )}
+            <ButtonRectangle
+              className='hide-above-tablet-xl-min-width'
+              label={subscribedText}
+              onClick={() => toggleSubscribeToPodcast(id)}
+              type='tertiary'
+            />
+          </div>
           <div className='mobile-header-sub-buttons hide-above-laptop-min-width'>
             {authorityFeedUrl?.url && (
               <a href={authorityFeedUrl?.url} rel='noreferrer' target='_blank'>
