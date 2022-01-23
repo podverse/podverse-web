@@ -305,13 +305,13 @@ const playerClearItemFromPlayerAPI = (nextNowPlayingItem: NowPlayingItem) => {
 const checkIfNowPlayingItemIsAClip = (nowPlayingItem: NowPlayingItem) =>
   nowPlayingItem.clipStartTime && nowPlayingItem.clipEndTime && !nowPlayingItem.clipIsOfficialChapter
 
-export const saveCurrentPlaybackPositionToHistory = () => {
+export const saveCurrentPlaybackPositionToHistory = (skipSetNowPlaying = false) => {
   return addOrUpdateHistoryItemOnServer({
     nowPlayingItem: OmniAural.state.player.currentNowPlayingItem.value(),
     mediaFileDuration: playerGetDuration(),
     playbackPosition: playerGetPosition(),
     forceUpdateOrderDate: false,
-    skipSetNowPlaying: false
+    skipSetNowPlaying
   })
 }
 
