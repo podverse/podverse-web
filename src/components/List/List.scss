@@ -8,12 +8,10 @@
     margin-bottom: 20px;
   }
 
-
-    .no-results-found-message {
-      margin: 24px 0;
-      @include themeGen() {
-        color: getThemeVal('textSecondary');
-      }
+  .no-results-found-message {
+    margin: 24px 0;
+    @include themeGen() {
+      color: getThemeVal('textSecondary');
     }
-
+  }
 }
