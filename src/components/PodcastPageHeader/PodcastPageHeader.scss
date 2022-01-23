@@ -82,6 +82,10 @@
       flex-direction: row;
       justify-content: space-between;
 
+      &.hide-above-laptop-min-width {
+        margin-top: 14px;
+      }
+
       .sub-labels {
         align-self: center;
         font-size: $text-md;
@@ -91,6 +95,18 @@
       button {
         margin-left: 8px;
       }
+    }
+
+    .mobile-header-sub-buttons {
+      margin: 10px 0 0 0;
+    }
+  }
+}
+
+@media (max-width: $media-max-width-tablet) {
+  .podcast-page-header {
+    .mobile-header-sub-buttons {
+      margin: 6px 0 0 0;
     }
   }
 }
