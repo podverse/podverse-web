@@ -315,6 +315,12 @@ body {
   }
 }
 
+@media (max-width: $media-max-width-mobile) {
+  .hide-below-mobile-max-width {
+    display: none !important;
+  }
+}
+
 @media (min-width: $media-min-width-laptop) {
   .hide-above-laptop-min-width {
     display: none !important;

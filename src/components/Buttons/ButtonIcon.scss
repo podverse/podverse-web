@@ -1,0 +1,7 @@
+.button-icon {
+  &.is-secondary {
+    @include themeGen() {
+      color: getThemeVal('textSecondary');
+    }
+  }
+}
