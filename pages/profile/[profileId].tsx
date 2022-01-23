@@ -239,7 +239,7 @@ export default function Profile({
         isEditing={isEditing}
         user={user}
       />
-      <PageScrollableContent>
+      <PageScrollableContent noPaddingTop>
         <ColumnsWrapper
           mainColumnChildren={
             <>
