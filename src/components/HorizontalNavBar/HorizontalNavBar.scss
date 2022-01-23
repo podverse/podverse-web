@@ -47,6 +47,16 @@
   }
 }
 
+@media (max-width: $media-max-width-tablet-xl) {
+  .horizontal-navbar-wrapper {
+    .navbar-secondary {
+      height: 68px;
+      margin-bottom: 0;
+      margin-top: 0;
+    }
+  }
+}
+
 @media (max-width: $media-max-width-tablet) {
   .horizontal-navbar-wrapper {
     display: none;
