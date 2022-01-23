@@ -1,5 +1,6 @@
 import { GetServerSideProps } from 'next'
 import { useTranslation } from 'next-i18next'
+import OmniAural, { useOmniAural } from 'omniaural'
 import type { Podcast } from 'podverse-shared'
 import { useEffect, useState } from 'react'
 import {
@@ -35,6 +36,7 @@ export default function Search({ serverSearchByText }: ServerProps) {
   /* Initialize */
 
   const { t } = useTranslation()
+  const [page] = useOmniAural('page')
   const [podcastsListData, setPodcastsListData] = useState<Podcast[]>([])
   const [podcastsListDataCount, setPodcastsListDataCount] = useState<number>(0)
   const [filterPage, setFilterPage] = useState<number>(1)
@@ -57,11 +59,13 @@ export default function Search({ serverSearchByText }: ServerProps) {
 
   useEffect(() => {
     ;(async () => {
+      OmniAural.pageIsLoadingShow()
       const { data } = await clientQueryPodcasts()
       const [newPodcastsListData, newPodcastsListCount] = data
       setPodcastsListData(newPodcastsListData)
       setPodcastsListDataCount(newPodcastsListCount)
       scrollToTopOfPageScrollableContent()
+      OmniAural.pageIsLoadingHide()
     })()
   }, [filterSearchByText, filterSearchByType, filterPage])
 
@@ -136,7 +140,7 @@ export default function Search({ serverSearchByText }: ServerProps) {
         placeholder={t('searchByPodcastTitle')}
       />
       <PageScrollableContent noPaddingTop>
-        <List>{generatePodcastListElements(podcastsListData)}</List>
+        <List hideNoResultsMessage={page.isLoading}>{generatePodcastListElements(podcastsListData)}</List>
         <Pagination
           currentPageIndex={filterPage}
           handlePageNavigate={(newPage) => setFilterPage(newPage)}

@@ -11,7 +11,7 @@ export const List = ({ children, hideNoResultsMessage }: Props) => {
   const { t } = useTranslation()
   const hasChildren = children && children.length > 0
   const showNoResultsFound = !hideNoResultsMessage && !hasChildren
-  const listClass = classNames('list', showNoResultsFound ? 'no-results-found' : '')
+  const listClass = classNames('list')
 
   return (
     <ul className={listClass}>

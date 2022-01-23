@@ -67,13 +67,11 @@ export const PodcastPageHeader = ({
   )
 
   let fundingLinks = []
-  if (episode?.funding?.length || episode?.podcast.funding?.length) {
-    if (episode?.funding?.length) {
-      fundingLinks = fundingLinks.concat(episode.funding)
-    }
-    if (episode?.podcast?.funding?.length) {
-      fundingLinks = fundingLinks.concat(episode?.podcast.funding)
-    }
+  if (podcast.funding?.length) {
+    fundingLinks = fundingLinks.concat(podcast.funding)
+  }
+  if (episode?.funding?.length) {
+    fundingLinks = fundingLinks.concat(episode.funding)
   }
 
   return (
