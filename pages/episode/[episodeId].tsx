@@ -9,15 +9,13 @@ import {
   Comments,
   EpisodeInfo,
   EpisodePageHeader,
-  FundingLink,
+  Footer,
   List,
   Meta,
   PageHeader,
   PageScrollableContent,
   Pagination,
-  SideContentSection,
-  SideContent,
-  Footer
+  SideContent
 } from '~/components'
 import { scrollToTopOfPageScrollableContent } from '~/components/PageScrollableContent/PageScrollableContent'
 import { calcListPageCount } from '~/lib/utility/misc'
@@ -118,7 +116,6 @@ export default function Episode({
   /* Meta Tags */
 
   let meta = {} as any
-  let fundingLinks = []
 
   if (serverEpisode) {
     const { podcast } = serverEpisode
@@ -130,18 +127,6 @@ export default function Episode({
       imageUrl: serverEpisode.imageUrl || (podcast && podcast.shrunkImageUrl) || (podcast && podcast.imageUrl),
       title: `${serverEpisode.title} - ${podcastTitle}`
     }
-  }
-
-  if (serverEpisode.funding?.length || serverEpisode.podcast.funding?.length) {
-    if (serverEpisode.funding?.length) {
-      fundingLinks = fundingLinks.concat(serverEpisode.funding)
-    }
-    if (serverEpisode.podcast.funding?.length) {
-      fundingLinks = fundingLinks.concat(serverEpisode.podcast.funding)
-    }
-    fundingLinks = fundingLinks.map((link) => {
-      return <FundingLink key={link.url} link={link.url} value={link.value}></FundingLink>
-    })
   }
 
   return (
@@ -161,7 +146,7 @@ export default function Episode({
         twitterTitle={meta.title}
       />
       <EpisodePageHeader episode={serverEpisode} />
-      <PageScrollableContent>
+      <PageScrollableContent noPaddingTop>
         <ColumnsWrapper
           mainColumnChildren={
             <>
@@ -210,13 +195,7 @@ export default function Episode({
               />
             </>
           }
-          sideColumnChildren={
-            <SideContent>
-              {fundingLinks.length ? (
-                <SideContentSection headerText={t('Funding')}>{fundingLinks}</SideContentSection>
-              ) : null}
-            </SideContent>
-          }
+          sideColumnChildren={<SideContent />}
         />
         <Footer />
       </PageScrollableContent>

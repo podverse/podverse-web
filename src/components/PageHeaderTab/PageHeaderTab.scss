@@ -5,7 +5,7 @@
   display: flex;
   font-size: $text-xl;
   margin: 0 12px;
-  padding: 0 24px;
+  padding: 8px 24px 0 24px;
 
   &.active {
     border-bottom: 8px solid $blueBright;

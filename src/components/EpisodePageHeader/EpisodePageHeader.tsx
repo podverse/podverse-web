@@ -1,12 +1,14 @@
-import { useOmniAural } from 'omniaural'
+import { faDonate, faRss, faShare } from '@fortawesome/free-solid-svg-icons'
+import OmniAural, { useOmniAural } from 'omniaural'
 import type { Episode } from 'podverse-shared'
 import { useTranslation } from 'react-i18next'
 import { generateAuthorText } from '~/lib/utility/author'
 import { generateCategoryNodes } from '~/lib/utility/category'
+import { getAuthorityFeedUrlFromArray } from '~/lib/utility/feedUrls'
 import { getPodcastShrunkImageUrl } from '~/lib/utility/image'
 import { PV } from '~/resources'
 import { toggleSubscribeToPodcast } from '~/state/loggedInUserActions'
-import { ButtonRectangle, PVImage, PVLink } from '..'
+import { ButtonIcon, ButtonRectangle, PVImage, PVLink } from '..'
 
 type Props = {
   episode: Episode
@@ -31,6 +33,26 @@ export const EpisodePageHeader = ({ episode }: Props) => {
   const hasBelowText = authorEls.length || categoryEls.length
 
   const imageUrl = episode?.imageUrl || getPodcastShrunkImageUrl(podcast)
+
+  const _handleShowShareModal = () => {
+    OmniAural.modalsShareShowEpisode(episode.id, podcast.id)
+  }
+
+  const _handleShowFundingModal = () => {
+    OmniAural.modalsFundingShow(podcast.funding)
+  }
+
+  const authorityFeedUrl = getAuthorityFeedUrlFromArray(podcast.feedUrls)
+
+  let fundingLinks = []
+  if (episode?.funding?.length || podcast?.funding?.length) {
+    if (episode?.funding?.length) {
+      fundingLinks = fundingLinks.concat(episode.funding)
+    }
+    if (podcast?.funding?.length) {
+      fundingLinks = fundingLinks.concat(podcast?.funding)
+    }
+  }
 
   return (
     <>
@@ -57,6 +79,17 @@ export const EpisodePageHeader = ({ episode }: Props) => {
                   {categoryEls.length > 0 && categoryEls}
                 </div>
               )}
+              <div className='header-sub-buttons hide-below-tablet-xl-max-width'>
+                {authorityFeedUrl?.url && (
+                  <a href={authorityFeedUrl?.url} rel='noreferrer' target='_blank'>
+                    <ButtonIcon faIcon={faRss} isSecondary />
+                  </a>
+                )}
+                <ButtonIcon faIcon={faShare} isSecondary onClick={_handleShowShareModal} />
+                {!!fundingLinks.length && (
+                  <ButtonIcon faIcon={faDonate} isSecondary onClick={_handleShowFundingModal} />
+                )}
+              </div>
             </div>
             <ButtonRectangle
               className='hide-below-tablet-xl-max-width'
@@ -80,6 +113,15 @@ export const EpisodePageHeader = ({ episode }: Props) => {
               />
             </div>
           )}
+          <div className='mobile-header-sub-buttons hide-above-laptop-min-width'>
+            {authorityFeedUrl?.url && (
+              <a href={authorityFeedUrl?.url} rel='noreferrer' target='_blank'>
+                <ButtonIcon faIcon={faRss} isSecondary />
+              </a>
+            )}
+            <ButtonIcon faIcon={faShare} isSecondary onClick={_handleShowShareModal} />
+            {!!fundingLinks.length && <ButtonIcon faIcon={faDonate} isSecondary onClick={_handleShowFundingModal} />}
+          </div>
         </div>
       </div>
       {/* <hr /> */}

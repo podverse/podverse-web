@@ -68,8 +68,8 @@ export const ClipListItem = ({
           </PVLink>
           <MediaItemControls
             buttonSize='medium'
+            clip={mediaRef}
             isLoggedInUserMediaRef={isLoggedInUserMediaRef}
-            mediaRef={mediaRef}
             stretchMiddleContent
           />
         </div>

@@ -120,3 +120,20 @@
     }
   }
 }
+
+@media (min-width: $media-min-width-laptop) {
+  .page-header {
+    &.sub-header {
+      .main-max-width {
+        .page-header-title-wrapper {
+          h2 {
+            margin: 24px 0 16px 0;
+          }
+        }
+        .dropdowns {
+          margin: 24px 0;
+        }
+      }
+    }
+  }
+}

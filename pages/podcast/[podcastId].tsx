@@ -27,7 +27,6 @@ import { getMediaRefsByQuery } from '~/services/mediaRef'
 import { Page } from '~/lib/utility/page'
 import { sanitizeTextHtml } from '~/lib/utility/sanitize'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
-import { FundingLink } from '~/components/FundingLink/FundingLink'
 
 interface ServerProps extends Page {
   serverClips: MediaRef[]
@@ -134,13 +133,6 @@ export default function Podcast({
     title: podcastTitle
   }
 
-  let fundingLinks
-
-  if (serverPodcast?.funding?.length) {
-    fundingLinks = serverPodcast.funding.map((link) => {
-      return <FundingLink key={link.url} link={link.url} value={link.value}></FundingLink>
-    })
-  }
   return (
     <>
       <Meta
@@ -157,8 +149,8 @@ export default function Podcast({
         twitterImageAlt={meta.imageAlt}
         twitterTitle={meta.title}
       />
-      <PodcastPageHeader podcast={serverPodcast} />
-      <PageScrollableContent>
+      <PodcastPageHeader hideBelowMobileWidth podcast={serverPodcast} />
+      <PageScrollableContent noPaddingTop>
         <ColumnsWrapper
           mainColumnChildren={
             <>
@@ -228,6 +220,7 @@ export default function Podcast({
           }
           sideColumnChildren={
             <SideContent>
+              <PodcastPageHeader hideAboveMobileWidth podcast={serverPodcast} />
               <SideContentSection headerText={t('About')}>
                 <div
                   dangerouslySetInnerHTML={{
@@ -235,7 +228,6 @@ export default function Podcast({
                   }}
                 />
               </SideContentSection>
-              {fundingLinks && <SideContentSection headerText={t('Funding')}>{fundingLinks}</SideContentSection>}
             </SideContent>
           }
         />

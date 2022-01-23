@@ -31,7 +31,11 @@ const moduleExports = {
     API_DOMAIN: process.env.API_DOMAIN,
     API_PROTOCOL: process.env.API_PROTOCOL,
     WEB_PROTOCOL: process.env.WEB_PROTOCOL,
-    WEB_DOMAIN: process.env.WEB_DOMAIN,
+    // Use PUBLIC_WEB_DOMAIN so variable renders properly for iMessage shared URLs,
+    // otherwise "podverse_web" (the docker variable name "podverse_web") will render
+    // in the URL. I'm not totally sure how/why the docker variable is not converting
+    // into the value on the server side...
+    WEB_DOMAIN: process.env.PUBLIC_WEB_DOMAIN,
     APP_DOWNLOAD_ON_THE_APP_STORE_URL: process.env.APP_DOWNLOAD_ON_THE_APP_STORE_URL,
     APP_GET_IT_ON_FDROID_URL: process.env.APP_GET_IT_ON_FDROID_URL,
     APP_GET_IT_ON_GOOGLE_PLAY_URL: process.env.APP_GET_IT_ON_GOOGLE_PLAY_URL,
