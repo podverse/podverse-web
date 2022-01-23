@@ -1,14 +1,13 @@
 .list {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
   position: relative;
 
   hr {
     margin-bottom: 20px;
   }
 
-  &.no-results-found {
-    display: flex;
-    flex: 1;
-    flex-direction: column;
 
     .no-results-found-message {
       margin: 24px 0;
@@ -16,5 +15,5 @@
         color: getThemeVal('textSecondary');
       }
     }
-  }
+
 }
