@@ -224,7 +224,7 @@ ServerProps) {
         text={pageHeaderText}
         // videoOnlyMode={videoOnlyMode}
       />
-      <PageScrollableContent>
+      <PageScrollableContent noPaddingTop={filterFrom === PV.Filters.from._subscribed && clipsListData.length === 0}>
         {filterFrom === PV.Filters.from._category && !isCategoryPage && (
           <Tiles
             items={categories}
@@ -247,7 +247,12 @@ ServerProps) {
           filterFrom === PV.Filters.from._all ||
           (filterFrom === PV.Filters.from._category && isCategoryPage)) && (
           <>
-            <List hideNoResultsMessage={isQuerying || (filterFrom === PV.Filters.from._category && !isCategoryPage)}>
+            <List
+              handleSelectByCategory={() => _handlePrimaryOnChange([PV.Filters.dropdownOptions.clips.from[2]])}
+              handleShowAllPodcasts={() => _handlePrimaryOnChange([PV.Filters.dropdownOptions.clips.from[0]])}
+              hideNoResultsMessage={isQuerying || (filterFrom === PV.Filters.from._category && !isCategoryPage)}
+              isSubscribedFilter={filterFrom === PV.Filters.from._subscribed}
+            >
               {generateClipListElements(clipsListData)}
             </List>
             <Pagination

@@ -9,6 +9,7 @@ type Props = unknown
 
 export const VerifyEmailModal = (props: Props) => {
   const [verifyEmail] = useOmniAural('modals.verifyEmail')
+  const { show, showSendVerificationEmailButton } = verifyEmail
   const { t } = useTranslation()
   const [isVerifyPressed, setIsVerifyPressed] = useState<boolean>(false)
 
@@ -42,18 +43,20 @@ export const VerifyEmailModal = (props: Props) => {
     <Modal
       className='verify-email-modal centered'
       contentLabel={t('Verify email modal')}
-      isOpen={verifyEmail.show}
+      isOpen={show}
       onRequestClose={_onRequestClose}
     >
       <ButtonClose onClick={_onRequestClose} />
       <div className='message-wrapper'>
         <div className='message with-margin'>{t('PleaseVerifyEmail')}</div>
-        <ButtonRectangle
-          isLoading={isVerifyPressed}
-          label={t('Send Verification Email')}
-          onClick={_handleSendVerificationEmail}
-          type='primary'
-        />
+        {showSendVerificationEmailButton && (
+          <ButtonRectangle
+            isLoading={isVerifyPressed}
+            label={t('Send Verification Email')}
+            onClick={_handleSendVerificationEmail}
+            type='primary'
+          />
+        )}
       </div>
       <div className='submit-buttons'>
         <ButtonRectangle label={t('Close')} onClick={_onRequestClose} type='secondary' />

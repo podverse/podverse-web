@@ -57,6 +57,7 @@ export const HorizontalNavBar = ({ serverCookies }: Props) => {
         </div>
         <div className='navbar-secondary__dropdown'>
           <Dropdown
+            dropdownWidthClass='width-small'
             faIcon={userInfo ? faUserCircle : faUserCircleRegular}
             onChange={(selected) => PV.NavBar.dropdownOnChange(selected, router, userInfo)}
             options={dropdownItems}

@@ -24,7 +24,7 @@ export const LoginModal = (props: Props) => {
     } catch (error) {
       setIsSubmitPressed(false)
       if (error.response?.status === 460) {
-        OmniAural.modalsVerifyEmailShow()
+        OmniAural.modalsVerifyEmailShowWithSendVerificationButton()
       } else if (error.response?.data?.message) {
         alert(error.response?.data?.message)
       } else {
