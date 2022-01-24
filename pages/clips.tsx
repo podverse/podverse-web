@@ -251,7 +251,8 @@ ServerProps) {
               handleSelectByCategory={() => _handlePrimaryOnChange([PV.Filters.dropdownOptions.clips.from[2]])}
               handleShowAllPodcasts={() => _handlePrimaryOnChange([PV.Filters.dropdownOptions.clips.from[0]])}
               hideNoResultsMessage={isQuerying || (filterFrom === PV.Filters.from._category && !isCategoryPage)}
-              isSubscribedFilter={filterFrom === PV.Filters.from._subscribed}>
+              isSubscribedFilter={filterFrom === PV.Filters.from._subscribed}
+            >
               {generateClipListElements(clipsListData)}
             </List>
             <Pagination

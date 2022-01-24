@@ -49,16 +49,14 @@ export const VerifyEmailModal = (props: Props) => {
       <ButtonClose onClick={_onRequestClose} />
       <div className='message-wrapper'>
         <div className='message with-margin'>{t('PleaseVerifyEmail')}</div>
-        {
-          showSendVerificationEmailButton && (
-            <ButtonRectangle
-              isLoading={isVerifyPressed}
-              label={t('Send Verification Email')}
-              onClick={_handleSendVerificationEmail}
-              type='primary'
-            />
-          )
-        }
+        {showSendVerificationEmailButton && (
+          <ButtonRectangle
+            isLoading={isVerifyPressed}
+            label={t('Send Verification Email')}
+            onClick={_handleSendVerificationEmail}
+            type='primary'
+          />
+        )}
       </div>
       <div className='submit-buttons'>
         <ButtonRectangle label={t('Close')} onClick={_onRequestClose} type='secondary' />

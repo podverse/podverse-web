@@ -11,7 +11,13 @@ type Props = {
   isSubscribedFilter?: boolean
 }
 
-export const List = ({ children, handleSelectByCategory, handleShowAllPodcasts, hideNoResultsMessage, isSubscribedFilter }: Props) => {
+export const List = ({
+  children,
+  handleSelectByCategory,
+  handleShowAllPodcasts,
+  hideNoResultsMessage,
+  isSubscribedFilter
+}: Props) => {
   const { t } = useTranslation()
   const hasChildren = children && children.length > 0
   const showNoResultsFound = !hideNoResultsMessage && !hasChildren
@@ -20,9 +26,15 @@ export const List = ({ children, handleSelectByCategory, handleShowAllPodcasts, 
   const noResultsTextNode = isSubscribedFilter ? (
     <div className='no-results-found-message'>
       <p>{t('Not subscribed to any podcasts')}</p>
-      <p><PVLink href={PV.RoutePaths.web.search}>{t('Search for a podcast')}</PVLink></p>
-      <p><a onClick={handleSelectByCategory}>{t('Select by category')}</a></p>
-      <p><a onClick={handleShowAllPodcasts}>{t('Show all podcasts')}</a></p>
+      <p>
+        <PVLink href={PV.RoutePaths.web.search}>{t('Search for a podcast')}</PVLink>
+      </p>
+      <p>
+        <a onClick={handleSelectByCategory}>{t('Select by category')}</a>
+      </p>
+      <p>
+        <a onClick={handleShowAllPodcasts}>{t('Show all podcasts')}</a>
+      </p>
     </div>
   ) : (
     <div className='no-results-found-message'>{t('No results found')}</div>
