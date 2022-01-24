@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { alertPremiumRequired, alertRateLimitError, alertSomethingWentWrong } from '~/lib/utility/alerts'
 import { PV } from '~/resources'
 
 axios.defaults.withCredentials = true
@@ -15,24 +16,45 @@ type PVRequest = {
 }
 
 export const request = async (req: PVRequest) => {
-  const { body, endpoint = '', headers, method = 'GET', opts = {}, query = {}, url, withCredentials } = req
+  try {
+    const { body, endpoint = '', headers, method = 'GET', opts = {}, query = {}, url, withCredentials } = req
 
-  const queryString = Object.keys(query)
-    .map((key) => {
-      return `${key}=${query[key]}`
-    })
-    .join('&')
+    const queryString = Object.keys(query)
+      .map((key) => {
+        return `${key}=${query[key]}`
+      })
+      .join('&')
 
-  const axiosRequest = {
-    ...(body ? { data: body } : {}),
-    ...(headers ? { headers } : {}),
-    method,
-    ...opts,
-    timeout: 30000,
-    url: url ? url : `${PV.Config.API_BASE_URL}${endpoint}?${queryString}`,
-    ...(withCredentials ? { withCredentials: true } : {})
+    const axiosRequest = {
+      ...(body ? { data: body } : {}),
+      ...(headers ? { headers } : {}),
+      method,
+      ...opts,
+      timeout: 30000,
+      url: url ? url : `${PV.Config.API_BASE_URL}${endpoint}?${queryString}`,
+      ...(withCredentials ? { withCredentials: true } : {})
+    }
+
+    const response = await axios(axiosRequest)
+    return response
+  } catch (error) {
+    if (error && error.response && error.response.status === 429) {
+      alertRateLimitError(error)
+    } else {
+      throw error
+    }
   }
+}
 
-  const response = await axios(axiosRequest)
-  return response
+export const premiumFeatureRequestErrorHandler = (t: any, error: any) => {
+  if (
+    error &&
+    error.response &&
+    error.response.data &&
+    error.response.data.message === PV.ErrorResponseMessages.premiumRequired
+  ) {
+    alertPremiumRequired(t)
+  } else {
+    alertSomethingWentWrong(t)
+  }
 }

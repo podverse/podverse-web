@@ -1,6 +1,6 @@
 {
   "name": "podverse-web",
-  "version": "4.2.22",
+  "version": "4.2.23",
   "description": "Web app for the Podverse podcast clip sharing ecosystem",
   "repository": {
     "type": "git",
@@ -67,6 +67,7 @@
     "react-player": "2.9.0",
     "react-show-more-text": "1.5.2",
     "react-switch": "6.0.0",
+    "react-toast-notifications": "2.5.1",
     "sanitize-html": "2.6.0",
     "sass": "1.44.0",
     "striptags": "3.2.0"
