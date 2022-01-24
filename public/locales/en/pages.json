@@ -1,6 +1,6 @@
 {
   "about": {
-    "_Description": "Information about the Podverse open source podcast app.",
+    "_Description": "Open source podcast player for iOS, Android, F-Droid and web. Podcasting 2.0 certified. Create and share podcast highlights. Sync your queue and history across all devices. Chapters, clips, foss, funding, mobile app, playlists, podcast index, podping, premium, profiles, transcripts, v4v, value-for-value.",
     "_Title": "About"
   },
   "coupon": {
@@ -8,7 +8,7 @@
     "_Title": "Coupon"
   },
   "clips": {
-    "_Description": "Podcast app for iOS, Android, and web. Create and share podcast highlights and playlists. Sync your queue across all devices. Open source software.",
+    "_Description": "Open source podcast player for iOS, Android, F-Droid and web. Podcasting 2.0 certified. Create and share podcast highlights. Sync your queue and history across all devices. Chapters, clips, foss, funding, mobile app, playlists, podcast index, podping, premium, profiles, transcripts, v4v, value-for-value.",
     "_Title": "Clips"
   },
   "contact": {
@@ -16,31 +16,31 @@
     "_Title": "Contact"
   },
   "episodes": {
-    "_Description": "Podcast app for iOS, Android, and web. Create and share podcast highlights and playlists. Sync your queue across all devices. Open source software.",
+    "_Description": "Open source podcast player for iOS, Android, F-Droid and web. Podcasting 2.0 certified. Create and share podcast highlights. Sync your queue and history across all devices. Chapters, clips, foss, funding, mobile app, playlists, podcast index, podping, premium, profiles, transcripts, v4v, value-for-value.",
     "_Title": "Episodes"
   },
   "faq": {
-    "_Description": "Frequently asked questions",
+    "_Description": "Open source podcast player for iOS, Android, F-Droid and web. Podcasting 2.0 certified. Create and share podcast highlights. Sync your queue and history across all devices. Chapters, clips, foss, funding, mobile app, playlists, podcast index, podping, premium, profiles, transcripts, v4v, value-for-value.",
     "_Title": "FAQ"
   },
   "history": {
-    "_Description": "My history items on Podverse",
+    "_Description": "Open source podcast player for iOS, Android, F-Droid and web. Podcasting 2.0 certified. Create and share podcast highlights. Sync your queue and history across all devices. Chapters, clips, foss, funding, mobile app, playlists, podcast index, podping, premium, profiles, transcripts, v4v, value-for-value.",
     "_Title": "History"
   },
   "index": {
-    "_Description": "Podcast app for iOS, Android, and web. Create and share podcast highlights and playlists. Sync your queue across all devices. Open source software.",
+    "_Description": "Open source podcast player for iOS, Android, F-Droid and web. Podcasting 2.0 certified. Create and share podcast highlights. Sync your queue and history across all devices. Chapters, clips, foss, funding, mobile app, playlists, podcast index, podping, premium, profiles, transcripts, v4v, value-for-value.",
     "_Title": "Podverse"
   },
   "membership": {
-    "_Description": "Free and premium membership options.",
+    "_Description": "Open source podcast player for iOS, Android, F-Droid and web. Podcasting 2.0 certified. Create and share podcast highlights. Sync your queue and history across all devices. Chapters, clips, foss, funding, mobile app, playlists, podcast index, podping, premium, profiles, transcripts, v4v, value-for-value.",
     "_Title": "Membership"
   },
   "my_profile": {
-    "_Description": "My Podverse Profile. Subscribe to podcasts, playlists, and other profiles",
+    "_Description": "Open source podcast player for iOS, Android, F-Droid and web. Podcasting 2.0 certified. Create and share podcast highlights. Sync your queue and history across all devices. Chapters, clips, foss, funding, mobile app, playlists, podcast index, podping, premium, profiles, transcripts, v4v, value-for-value.",
     "_Title": "My Profile"
   },
   "queue": {
-    "_Description": "My queue on Podverse",
+    "_Description": "Open source podcast player for iOS, Android, F-Droid and web. Podcasting 2.0 certified. Create and share podcast highlights. Sync your queue and history across all devices. Chapters, clips, foss, funding, mobile app, playlists, podcast index, podping, premium, profiles, transcripts, v4v, value-for-value.",
     "_Title": "Queue"
   },
   "payment_bitpay_confirming": {
@@ -52,15 +52,15 @@
     "_Title": "Confirming PayPal payment..."
   },
   "playlists": {
-    "_Description": "Create and share playlists of podcast clips and episodes.",
+    "_Description": "Open source podcast player for iOS, Android, F-Droid and web. Podcasting 2.0 certified. Create and share podcast highlights. Sync your queue and history across all devices. Chapters, clips, foss, funding, mobile app, playlists, podcast index, podping, premium, profiles, transcripts, v4v, value-for-value.",
     "_Title": "Playlists"
   },
   "podcasts": {
-    "_Description": "Open source podcast player for iOS, Android, F-Droid, and web. Podcasting 2.0 certified.",
+    "_Description": "Open source podcast player for iOS, Android, F-Droid and web. Podcasting 2.0 certified. Create and share podcast highlights. Sync your queue and history across all devices. Chapters, clips, foss, funding, mobile app, playlists, podcast index, podping, premium, profiles, transcripts, v4v, value-for-value.",
     "_Title": "Podcasts"
   },
   "profiles": {
-    "_Description": "My subscribed profiles on Podverse",
+    "_Description": "Open source podcast player for iOS, Android, F-Droid and web. Podcasting 2.0 certified. Create and share podcast highlights. Sync your queue and history across all devices. Chapters, clips, foss, funding, mobile app, playlists, podcast index, podping, premium, profiles, transcripts, v4v, value-for-value.",
     "_Title": "Profiles"
   },
   "reset_password": {
@@ -68,19 +68,19 @@
     "_Title": "Reset Password"
   },
   "search": {
-    "_Description": "Search for podcasts by title or host on Podverse.",
+    "_Description": "Open source podcast player for iOS, Android, F-Droid and web. Podcasting 2.0 certified. Create and share podcast highlights. Sync your queue and history across all devices. Chapters, clips, foss, funding, mobile app, playlists, podcast index, podping, premium, profiles, transcripts, v4v, value-for-value.",
     "_Title": "Search"
   },
   "settings": {
-    "_Description": "Customize your account settings on Podverse.",
+    "_Description": "Open source podcast player for iOS, Android, F-Droid and web. Podcasting 2.0 certified. Create and share podcast highlights. Sync your queue and history across all devices. Chapters, clips, foss, funding, mobile app, playlists, podcast index, podping, premium, profiles, transcripts, v4v, value-for-value.",
     "_Title": "Settings"
   },
   "support": {
-    "_Description": "Support",
+    "_Description": "How you can support Podverse",
     "_Title": "Support"
   },
   "terms": {
-    "_Description": "Podverse terms of service agreement.",
+    "_Description": "Podverse Terms of Service",
     "_Title": "Terms of Service"
   },
   "v4vWallet": {
