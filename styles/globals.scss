@@ -138,8 +138,23 @@ body {
     flex: 1;
   }
 
+  a {
+    @include themeGen() {
+      color: getThemeVal('buttonLinkText');
+    }
+
+    &:hover {
+      @include themeGen() {
+        color: getThemeVal('buttonLinkTextRollover');
+      }
+    }
+  }
+
+  a,
   button,
   div {
+    border-radius: 4px;
+
     &:focus {
       @include themeGen() {
         box-shadow: getThemeVal('focusGlow');

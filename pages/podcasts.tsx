@@ -253,9 +253,12 @@ export default function Podcasts({
         {(filterFrom !== PV.Filters.from._category || (filterFrom === PV.Filters.from._category && isCategoryPage)) && (
           <>
             <List
+              handleSelectByCategory={() => _handlePrimaryOnChange([PV.Filters.dropdownOptions.podcasts.from[2]])}
+              handleShowAllPodcasts={() => _handlePrimaryOnChange([PV.Filters.dropdownOptions.podcasts.from[0]])}
               hideNoResultsMessage={
                 showLoginMessage || isQuerying || (filterFrom === PV.Filters.from._category && !isCategoryPage)
               }
+              isSubscribedFilter={filterFrom === PV.Filters.from._subscribed}
             >
               {generatePodcastListElements(podcastsListData)}
             </List>
