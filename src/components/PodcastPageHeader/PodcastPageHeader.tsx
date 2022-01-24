@@ -42,7 +42,7 @@ export const PodcastPageHeader = ({
 
   const _toggleSubscribeToPodcast = async () => {
     setIsSubscribing(true)
-    await toggleSubscribeToPodcast(id)
+    await toggleSubscribeToPodcast(id, t)
     setIsSubscribing(false)
   }
 

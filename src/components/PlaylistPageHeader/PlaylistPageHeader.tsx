@@ -5,6 +5,7 @@ import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ButtonRectangle, TextInput } from '~/components'
 import { deletePlaylistOnServer, toggleSubscribeToPlaylistOnServer } from '~/services/playlist'
+import { toggleSubscribeToPlaylist } from '~/state/loggedInUserActions'
 
 type Props = {
   handleChangeIsPublic?: any
@@ -52,7 +53,7 @@ export const PlaylistPageHeader = ({
 
   const _toggleSubscribeToPlaylist = async () => {
     setIsSubscribing(true)
-    await toggleSubscribeToPlaylistOnServer(playlist.id)
+    await toggleSubscribeToPlaylist(playlist.id, t)
     setIsSubscribing(false)
   }
 

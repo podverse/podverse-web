@@ -1,5 +1,6 @@
 import { Config } from './Config'
 import { Cookies } from './Cookies'
+import { ErrorResponseMessages } from './ErrorResponseMessages'
 import { Filters } from './Filters'
 import { i18n } from './i18n'
 import { Images } from './Images'
@@ -16,6 +17,7 @@ import { Users } from './Users'
 export const PV = {
   Config,
   Cookies,
+  ErrorResponseMessages,
   Filters,
   i18n,
   Images,
