@@ -92,7 +92,7 @@ export const EpisodePageHeader = ({ episode }: Props) => {
             <ButtonRectangle
               className='hide-below-tablet-max-width'
               label={subscribedText}
-              onClick={() => toggleSubscribeToPodcast(id)}
+              onClick={() => toggleSubscribeToPodcast(id, t)}
               type='tertiary'
             />
           </div>
@@ -107,7 +107,7 @@ export const EpisodePageHeader = ({ episode }: Props) => {
             <ButtonRectangle
               className='hide-above-tablet-xl-min-width'
               label={subscribedText}
-              onClick={() => toggleSubscribeToPodcast(id)}
+              onClick={() => toggleSubscribeToPodcast(id, t)}
               type='tertiary'
             />
           </div>

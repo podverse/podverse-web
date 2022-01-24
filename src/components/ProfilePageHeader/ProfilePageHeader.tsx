@@ -49,7 +49,7 @@ export const ProfilePageHeader = ({
 
   const _toggleSubscribeToUser = async () => {
     setIsSubscribing(true)
-    await toggleSubscribeToUser(user.id)
+    await toggleSubscribeToUser(user.id, t)
     setIsSubscribing(false)
   }
 

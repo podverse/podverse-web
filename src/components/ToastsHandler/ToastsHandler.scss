@@ -1,0 +1,26 @@
+.react-toast-notifications__toast__icon-wrapper {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.react-toast-notifications__toast__content {
+  align-items: center;
+  display: flex;
+
+  .pv-toast-content {
+    &.clickable {
+      cursor: pointer;
+    }
+
+    .button-link {
+      padding: 4px 0;
+    }
+  }
+}
+
+.react-toast-notifications__toast__dismiss-button {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}

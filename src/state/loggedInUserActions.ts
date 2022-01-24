@@ -1,9 +1,10 @@
 import OmniAural from 'omniaural'
 import { toggleSubscribeToPodcast as toggleSubscribeToPodcastService } from '~/services/loggedInUserServices'
 import { toggleSubscribeToPlaylistOnServer } from '~/services/playlist'
+import { premiumFeatureRequestErrorHandler } from '~/services/request'
 import { toggleSubscribeToUserOnServer } from '~/services/user'
 
-export const toggleSubscribeToPodcast = async (podcastId: string) => {
+export const toggleSubscribeToPodcast = async (podcastId: string, t: any) => {
   const userInfo = OmniAural.state.session.userInfo.value()
 
   if (!userInfo) {
@@ -17,18 +18,12 @@ export const toggleSubscribeToPodcast = async (podcastId: string) => {
       OmniAural.pageIsLoadingHide()
     } catch (error) {
       console.log('toggleSubscribeToPodcast', error)
-      // if (error && error.response && error.response.data && error.response.data.message === t('PremiumMembershipRequired')) {
-      //   alertPremiumRequired(t)
-      // } else if (error && error.response && error.response.status === 429) {
-      //   alertRateLimitError(error)
-      // } else {
-      //   alertSomethingWentWrong(t)
-      // }
+      premiumFeatureRequestErrorHandler(t, error)
     }
   }
 }
 
-export const toggleSubscribeToPlaylist = async (playlistId: string) => {
+export const toggleSubscribeToPlaylist = async (playlistId: string, t: any) => {
   const userInfo = OmniAural.state.session.userInfo.value()
 
   if (!userInfo) {
@@ -42,18 +37,12 @@ export const toggleSubscribeToPlaylist = async (playlistId: string) => {
       OmniAural.pageIsLoadingHide()
     } catch (error) {
       console.log('toggleSubscribeToPlaylist', error)
-      // if (error && error.response && error.response.data && error.response.data.message === t('PremiumMembershipRequired')) {
-      //   alertPremiumRequired(t)
-      // } else if (error && error.response && error.response.status === 429) {
-      //   alertRateLimitError(error)
-      // } else {
-      //   alertSomethingWentWrong(t)
-      // }
+      premiumFeatureRequestErrorHandler(t, error)
     }
   }
 }
 
-export const toggleSubscribeToUser = async (userId: string) => {
+export const toggleSubscribeToUser = async (userId: string, t: any) => {
   const userInfo = OmniAural.state.session.userInfo.value()
 
   if (!userInfo) {
@@ -66,13 +55,7 @@ export const toggleSubscribeToUser = async (userId: string) => {
       OmniAural.pageIsLoadingHide()
     } catch (error) {
       console.log('toggleSubscribeToUser', error)
-      // if (error && error.response && error.response.data && error.response.data.message === t('PremiumMembershipRequired')) {
-      //   alertPremiumRequired(t)
-      // } else if (error && error.response && error.response.status === 429) {
-      //   alertRateLimitError(error)
-      // } else {
-      //   alertSomethingWentWrong(t)
-      // }
+      premiumFeatureRequestErrorHandler(t, error)
     }
   }
 }
