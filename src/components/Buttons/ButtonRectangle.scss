@@ -3,6 +3,7 @@
   display: flex;
   flex: 0 0 auto;
   justify-content: center;
+  position: relative;
 
   &.primary {
     border-radius: $button-rectangle-radius;
@@ -64,6 +65,15 @@
         background-color: getThemeVal('buttonTertiaryDangerBackground') !important;
         border-color: getThemeVal('buttonTertiaryDangerBorder') !important;
       }
+    }
+
+    .icon {
+      position: absolute;
+      top: 3px;
+    }
+
+    &.loading .button__text {
+      visibility: hidden;
     }
   }
 

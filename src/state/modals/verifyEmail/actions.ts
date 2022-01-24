@@ -13,8 +13,15 @@ const modalsVerifyEmailShow = () => {
   OmniAural.state.modals.verifyEmail.show.set(true)
 }
 
+const modalsVerifyEmailShowWithSendVerificationButton = () => {
+  OmniAural.modalsHideAll()
+  OmniAural.state.modals.verifyEmail.show.set(true)
+  OmniAural.state.modals.verifyEmail.showSendVerificationEmailButton.set(true)
+}
+
 OmniAural.addActions({
   modalsVerifyEmailEmail,
   modalsVerifyEmailHide,
-  modalsVerifyEmailShow
+  modalsVerifyEmailShow,
+  modalsVerifyEmailShowWithSendVerificationButton
 })

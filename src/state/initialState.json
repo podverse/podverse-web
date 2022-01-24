@@ -51,8 +51,9 @@
       "show": false
     },
     "verifyEmail": {
+      "email": "",
       "show": false,
-      "email": ""
+      "showSendVerificationEmailButton": false
     }
   },
   "page": {

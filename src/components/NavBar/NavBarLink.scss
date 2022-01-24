@@ -7,6 +7,10 @@
     padding: 11px 0 10px 12px;
     border-radius: $item-border-radius;
 
+    @include themeGen() {
+      color: getThemeVal('textPrimary');
+    }
+
     &.active {
       font-weight: 700;
     }
