@@ -20,14 +20,19 @@ jobs:
         with:
           node-version: '16'
 
+      - name: Install and Check
+        env:
+          NODE_ENV: development
+        run: |
+          yarn install --frozen-lockfile
+          yarn lint
+
       - name: Build
         env:
           SENTRY_ORG: podverse
           SENTRY_PROJECT: react
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
         run: |
-          yarn install --frozen-lockfile
-          yarn lint
           yarn build
           yarn test:ci
 

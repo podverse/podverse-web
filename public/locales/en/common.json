@@ -38,7 +38,7 @@
   "Contact": "Contact",
   "ContactSupport": "If it still doesn't appear, please email <1>contact@podverse.fm</1> for help.",
   "ContentMayBeNSFW": "content may not be safe for your work!",
-  "Copied": "Copied",
+  "Copied": "Copied!",
   "Copy this link to share with anyone": "Copy this link to share with anyone.",
   "Copy": "Copy",
   "CopyLinkToProfile": "Copy link to your profile",
@@ -150,6 +150,7 @@
   "No podcasts found": "No podcasts found",
   "No profiles found": "No profiles found",
   "No results found": "No results found",
+  "Not subscribed to any podcasts": "You haven't subscribed to any podcasts yet.",
   "NoteDynamicAds": "Note: If a podcast uses <1>dynamic ads</1>, the clip start time may not stay accurate.",
   "Now Playing": "Now Playing",
   "NSFW": "NSFW",
@@ -221,6 +222,7 @@
   "searchByPodcastHost": "Search by podcast host",
   "searchByPodcastTitle": "Search by podcast title",
   "SearchError": "Search failed. Please check your internet connection and try again later.",
+  "Select by category": "Select by category",
   "send us an email": "send us an email",
   "SendVerificationEmail": "Send Verification Email",
   "Settings": "Settings",
@@ -228,6 +230,7 @@
   "SharableProfileLink": "Sharable Profile Link",
   "Share Clip": "Share Clip",
   "Share": "Share",
+  "Show all podcasts": "Show all podcasts",
   "Show Notes": "Show Notes",
   "Sign Up": "Sign Up",
   "Sign up modal": "Sign up modal",
@@ -272,8 +275,5 @@
   "years": "years",
   "Your Name": "Your Name",
   "Your profile page is hidden": "Your profile page is hidden. Your Public clips are still accessible by anyone, and your Only with Link clips and playlists are still accessible to anyone with the URL.",
-  "YourFreeTrialHasEnded": "Your free trial has ended. <1>Renew</1> to continue using premium features.",
-  "YourFreeTrialWillEndSoon": "Your free trial will end soon. <1>Renew</1> to continue using premium features.",
-  "YourMembershipHasExpired": "Your membership has expired. <1>Renew</1> to continue using premium features.",
-  "YourMembershipWillExpireSoon": "Your membership will expire soon. <1>Renew</1> to continue using premium features."
+  "YourMembershipHasExpired": "Your premium membership has expired. Renew to continue using premium features."
 }

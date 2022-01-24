@@ -16,6 +16,23 @@
   }
 }
 
+@media (max-width: $media-max-width-tablet) {
+  .page-header-tabs {
+    padding-top: 16px;
+
+    .main-max-width {
+      h1 {
+        font-size: $text-xxxl;
+      }
+
+      .tab-wrapper {
+        display: flex;
+        margin: 0 0 -12px 48px;
+      }
+    }
+  }
+}
+
 @media (max-width: $media-max-width-mobile) {
   .page-header-tabs {
     margin-top: 0;
@@ -28,7 +45,6 @@
 
       h1 {
         flex: 1;
-        font-size: $text-xxxl;
       }
 
       .tab-wrapper {

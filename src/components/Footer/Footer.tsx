@@ -10,22 +10,27 @@ export const Footer = () => {
   const socialLinks = (
     <>
       <li>
-        <a href='https://github.com/podverse' target='_blank' rel='noreferrer'>
+        <a className='footer-social-link-github' href='https://github.com/podverse' target='_blank' rel='noreferrer'>
           <Icon faIcon={faGithub} />
         </a>
       </li>
       <li>
-        <a href='https://twitter.com/podverse' target='_blank' rel='noreferrer'>
+        <a className='footer-social-link-twitter' href='https://twitter.com/podverse' target='_blank' rel='noreferrer'>
           <Icon faIcon={faTwitter} />
         </a>
       </li>
       <li>
-        <a href='https://discord.gg/6HkyNKR' target='_blank' rel='noreferrer'>
+        <a className='footer-social-link-discord' href='https://discord.gg/6HkyNKR' target='_blank' rel='noreferrer'>
           <Icon faIcon={faDiscord} />
         </a>
       </li>
       <li>
-        <a href='https://podcastindex.social/web/@mitch' target='_blank' rel='noreferrer'>
+        <a
+          className='footer-social-link-mastodon'
+          href='https://podcastindex.social/web/@mitch'
+          target='_blank'
+          rel='noreferrer'
+        >
           <Icon faIcon={faMastodon} />
         </a>
       </li>
@@ -47,16 +52,24 @@ export const Footer = () => {
         <div className='footer-middle-site-links'>
           <ul>
             <li>
-              <PVLink href='/contact'>{t('Contact')}</PVLink>
+              <PVLink className='footer-link-contact' href='/contact'>
+                {t('Contact')}
+              </PVLink>
             </li>
             <li>
-              <PVLink href='/about'>{t('About')}</PVLink>
+              <PVLink className='footer-link-about' href='/about'>
+                {t('About')}
+              </PVLink>
             </li>
             <li>
-              <PVLink href='/terms'>{t('Terms')}</PVLink>
+              <PVLink className='footer-link-terms' href='/terms'>
+                {t('Terms')}
+              </PVLink>
             </li>
             <li>
-              <PVLink href='/membership'>{t('Premium')}</PVLink>
+              <PVLink className='footer-link-premium' href='/membership'>
+                {t('Premium')}
+              </PVLink>
             </li>
           </ul>
           <ul className='footer-right-section hide-below-tablet-max-width'>{socialLinks}</ul>
@@ -64,13 +77,17 @@ export const Footer = () => {
         <div className='footer-middle-site-links'>
           <ul>
             <li>
-              <PVLink href='/about'>{t('Mobile App')}</PVLink>
+              <PVLink className='footer-link-mobile-app' href='/about'>
+                {t('Mobile App')}
+              </PVLink>
             </li>
             {/* <li>
               <PVLink href='/v4v-wallet'>V4V Wallet</PVLink>
             </li> */}
             <li>
-              <PVLink href='/support'>{t('Support')}</PVLink>
+              <PVLink className='footer-link-support' href='/support'>
+                {t('Support')}
+              </PVLink>
             </li>
           </ul>
           {/* <ul className='footer-right-section hide-below-tablet-max-width'>

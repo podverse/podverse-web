@@ -3,12 +3,17 @@
     background-color: getThemeVal('backgroundTertiary');
   }
 
+  .page-header-title-wrapper {
+    margin-right: 8px;
+  }
+
   .dropdowns {
+    align-items: center;
     flex-wrap: wrap;
 
     .switch-with-icons-wrapper {
       align-items: flex-start;
-      margin: 5px 0 0 16px;
+      margin: 0 0 0 16px;
 
       svg {
         margin-top: 3px;
@@ -110,11 +115,27 @@
       }
 
       .dropdowns {
-        align-items: flex-start;
         margin-top: 0;
 
         .dropdown-primary-wrapper {
           margin-left: 0;
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: $media-min-width-laptop) {
+  .page-header {
+    &.sub-header {
+      .main-max-width {
+        .page-header-title-wrapper {
+          h2 {
+            margin: 24px 0 16px 0;
+          }
+        }
+        .dropdowns {
+          margin: 24px 0;
         }
       }
     }

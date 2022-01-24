@@ -138,8 +138,11 @@ body {
     flex: 1;
   }
 
+  a,
   button,
   div {
+    border-radius: 4px;
+
     &:focus {
       @include themeGen() {
         box-shadow: getThemeVal('focusGlow');
@@ -154,7 +157,7 @@ body {
 
   h2 {
     font-size: $text-xxl;
-    font-weight: $font-weight-bold;
+    font-weight: $font-weight-medium;
   }
 
   h3 {
@@ -312,6 +315,12 @@ body {
     .hide-below-tablet-max-width {
       display: none !important;
     }
+  }
+}
+
+@media (max-width: $media-max-width-mobile) {
+  .hide-below-mobile-max-width {
+    display: none !important;
   }
 }
 

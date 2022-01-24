@@ -26,7 +26,7 @@ export const ButtonRectangle = ({ className, disabled, isDanger, isLoading, labe
   return (
     <button className={buttonClass} disabled={disabled} onClick={onClick}>
       {isLoading && <Icon faIcon={faSpinner} spin />}
-      {!isLoading && <span className='button__text'>{label}</span>}
+      <span className='button__text'>{label}</span>
     </button>
   )
 }

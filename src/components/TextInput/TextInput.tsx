@@ -20,7 +20,7 @@ type Props = {
   onBlur?: any
   onChange?: any
   onSubmit?: any
-  placeholder: string
+  placeholder?: string
   readOnly?: boolean
   type: 'email' | 'password' | 'text'
   value?: string

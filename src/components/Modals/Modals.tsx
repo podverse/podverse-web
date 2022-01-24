@@ -3,9 +3,11 @@ import {
   CheckoutModal,
   ConfirmDeleteAccountModal,
   ForgotPasswordModal,
+  FundingModal,
   LoginModal,
   LoginToAlertModal,
   MakeClipModal,
+  ShareModal,
   SignUpModal,
   VerifyEmailModal
 } from '~/components'
@@ -20,10 +22,12 @@ export const Modals = (props: Props) => {
       <CheckoutModal />
       <ConfirmDeleteAccountModal />
       <ForgotPasswordModal />
+      <FundingModal />
       <LoginModal />
       <LoginToAlertModal />
       <MakeClipModal />
       <MakeClipSuccessModal />
+      <ShareModal />
       <SignUpModal />
       <VerifyEmailModal />
     </>

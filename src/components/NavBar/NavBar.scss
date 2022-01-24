@@ -15,7 +15,7 @@
   .scrollable-content {
     display: flex;
     flex-direction: column;
-    overflow: scroll;
+    overflow: auto;
 
     hr.bottom {
       margin: 10px 0 18px 0;

@@ -1,5 +1,6 @@
 @import '../../src/components/Buttons/ButtonCircle';
 @import '../../src/components/Buttons/ButtonClose';
+@import '../../src/components/Buttons/ButtonIcon';
 @import '../../src/components/Buttons/ButtonLink';
 @import '../../src/components/Buttons/ButtonRectangle';
 @import '../../src/components/Buttons/ButtonSquare';
@@ -32,13 +33,15 @@
 @import '../../src/components/MessageWithAction/MessageWithAction';
 @import '../../src/components/Modals/Modals';
 @import '../../src/components/Modals/AddToPlaylistModal/AddToPlaylistModal';
-@import '../../src/components/Modals/CheckoutModal/CheckoutModal';
 @import '../../src/components/Modals/Auth/ConfirmDeleteAccountModal';
 @import '../../src/components/Modals/Auth/ForgotPasswordModal';
 @import '../../src/components/Modals/Auth/LoginModal';
 @import '../../src/components/Modals/Auth/LoginToAlertModal';
 @import '../../src/components/Modals/Auth/SignUpModal';
 @import '../../src/components/Modals/Auth/VerifyEmailModal';
+@import '../../src/components/Modals/CheckoutModal/CheckoutModal';
+@import '../../src/components/Modals/Funding/Funding';
+@import '../../src/components/Modals/Share/Share';
 @import '../../src/components/NavBar/NavBarBrand';
 @import '../../src/components/NavBar/NavBarLink';
 @import '../../src/components/NavBar/NavBarSectionHeader';
@@ -76,6 +79,7 @@
 @import '../../src/components/Slider/Slider';
 @import '../../src/components/Switch/Switch';
 @import '../../src/components/TextInput/TextInput';
+@import '../../src/components/ToastsHandler/ToastsHandler';
 @import '../../src/components/TruncatedText/TruncatedText';
 @import '../../src/components/Tile/Tile';
 @import '../../src/components/V4VHiddenElement/V4VHiddenElement';

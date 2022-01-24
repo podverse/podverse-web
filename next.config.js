@@ -1,7 +1,9 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const { i18n } = require('./next-i18next.config')
+const { withSentryConfig } = require('@sentry/nextjs')
 
 const isDev = process.env.NODE_ENV === 'development' || !process.env.NODE_ENV
+const isProd = process.env.NODE_ENV === 'production'
 
 const envVars = {}
 const sentryWebpackPluginOptions = {
@@ -19,13 +21,21 @@ const sentryWebpackPluginOptions = {
 const moduleExports = {
   reactStrictMode: true,
   i18n,
+  sentry: {
+    disableServerWebpackPlugin: !isProd,
+    disableClientWebpackPlugin: !isProd
+  },
   serverRuntimeConfig: {
     API_PATH: process.env.API_PATH,
     API_VERSION: process.env.API_VERSION,
     API_DOMAIN: process.env.API_DOMAIN,
     API_PROTOCOL: process.env.API_PROTOCOL,
     WEB_PROTOCOL: process.env.WEB_PROTOCOL,
-    WEB_DOMAIN: process.env.WEB_DOMAIN,
+    // Use PUBLIC_WEB_DOMAIN so variable renders properly for iMessage shared URLs,
+    // otherwise "podverse_web" (the docker variable name "podverse_web") will render
+    // in the URL. I'm not totally sure how/why the docker variable is not converting
+    // into the value on the server side...
+    WEB_DOMAIN: process.env.PUBLIC_WEB_DOMAIN,
     APP_DOWNLOAD_ON_THE_APP_STORE_URL: process.env.APP_DOWNLOAD_ON_THE_APP_STORE_URL,
     APP_GET_IT_ON_FDROID_URL: process.env.APP_GET_IT_ON_FDROID_URL,
     APP_GET_IT_ON_GOOGLE_PLAY_URL: process.env.APP_GET_IT_ON_GOOGLE_PLAY_URL,
@@ -57,4 +67,12 @@ const moduleExports = {
   }
 }
 
-module.exports = moduleExports
+if (process.env.SENTRY_AUTH_TOKEN || process.env.USE_SENTRY) {
+  module.exports = withSentryConfig(moduleExports, sentryWebpackPluginOptions)
+} else {
+  console.log(
+    'SENTRY_AUTH_TOKEN was not found! If this is a production build please look at your environment variable configuration'
+  )
+
+  module.exports = moduleExports
+}

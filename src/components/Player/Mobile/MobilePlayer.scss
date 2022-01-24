@@ -8,8 +8,8 @@ body {
       border-top-style: solid;
       border-top-width: 1px;
       display: block;
-      height: 74px;
-      padding: 0 16px 14px 8px;
+      height: 78px;
+      padding: 4px 16px 14px 8px;
 
       @include themeGen() {
         background-color: getThemeVal('backgroundTertiary');
@@ -30,7 +30,6 @@ body {
             border-radius: $item-border-radius;
             height: $img-small;
             margin-right: 9px;
-            padding-top: 8px;
             width: $img-small;
           }
 
@@ -39,11 +38,10 @@ body {
             flex: 1;
             flex-direction: column;
             justify-content: center;
-            padding-top: 8px;
 
             .title {
               font-size: $text-sm;
-              margin-bottom: 1px;
+              margin-bottom: 4px;
               @include line-clamp(1);
             }
 

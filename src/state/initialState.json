@@ -31,6 +31,10 @@
     "forgotPassword": {
       "show": false
     },
+    "funding": {
+      "fundingLinks": [],
+      "show": false
+    },
     "login": {
       "show": false
     },
@@ -41,14 +45,15 @@
       "show": false
     },
     "share": {
-      "item": null
+      "items": null
     },
     "signUp": {
       "show": false
     },
     "verifyEmail": {
+      "email": "",
       "show": false,
-      "email": ""
+      "showSendVerificationEmailButton": false
     }
   },
   "page": {

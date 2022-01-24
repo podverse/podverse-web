@@ -30,10 +30,10 @@ export const ClipInfo = ({ clip, episode }: Props) => {
       <div className='clip-title'>{title}</div>
       <MediaItemControls
         buttonSize='large'
+        clip={clip}
         episode={episode}
         hidePubDate
         isLoggedInUserMediaRef={userInfo && userInfo.id === clip.owner.id}
-        mediaRef={clip}
       />
       <hr />
     </div>
