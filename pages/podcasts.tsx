@@ -33,6 +33,7 @@ interface ServerProps extends Page {
   serverFilterFrom: string
   serverFilterPage: number
   serverFilterSort: string
+  serverIsHomePage: boolean
   serverPodcastsListData: Podcast[]
   serverPodcastsListDataCount: number
 }
@@ -45,6 +46,7 @@ export default function Podcasts({
   serverFilterPage,
   serverFilterSort,
   serverGlobalFilters,
+  serverIsHomePage,
   serverPodcastsListData,
   serverPodcastsListDataCount
 }: ServerProps) {
@@ -183,9 +185,9 @@ export default function Podcasts({
   /* Meta Tags */
 
   const meta = {
-    currentUrl: `${PV.Config.WEB_BASE_URL}${PV.RoutePaths.web.podcasts}`,
-    description: t('pages:podcasts._Description'),
-    title: t('pages:podcasts._Title')
+    currentUrl: serverIsHomePage ? PV.Config.WEB_BASE_URL : `${PV.Config.WEB_BASE_URL}${PV.RoutePaths.web.podcasts}`,
+    description: serverIsHomePage ? t('pages:index._Description') : t('pages:podcasts._Description'),
+    title: serverIsHomePage ? t('pages:index._Title') : t('pages:podcasts._Title')
   }
 
   return (
@@ -319,6 +321,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     serverFilterFrom,
     serverFilterPage,
     serverFilterSort,
+    serverIsHomePage: false,
     serverPodcastsListData: podcastsListData,
     serverPodcastsListDataCount: podcastsListDataCount
   }
