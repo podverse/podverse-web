@@ -4,7 +4,7 @@ import type { Playlist } from 'podverse-shared'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ButtonRectangle, TextInput } from '~/components'
-import { deletePlaylistOnServer, toggleSubscribeToPlaylistOnServer } from '~/services/playlist'
+import { deletePlaylistOnServer } from '~/services/playlist'
 import { toggleSubscribeToPlaylist } from '~/state/loggedInUserActions'
 
 type Props = {
