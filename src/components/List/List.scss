@@ -21,7 +21,7 @@
         @include themeGen() {
           color: getThemeVal('buttonLinkText');
         }
-  
+
         &:hover {
           @include themeGen() {
             color: getThemeVal('buttonLinkTextRollover');

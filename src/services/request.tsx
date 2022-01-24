@@ -18,13 +18,13 @@ type PVRequest = {
 export const request = async (req: PVRequest) => {
   try {
     const { body, endpoint = '', headers, method = 'GET', opts = {}, query = {}, url, withCredentials } = req
-  
+
     const queryString = Object.keys(query)
       .map((key) => {
         return `${key}=${query[key]}`
       })
       .join('&')
-  
+
     const axiosRequest = {
       ...(body ? { data: body } : {}),
       ...(headers ? { headers } : {}),
@@ -34,7 +34,7 @@ export const request = async (req: PVRequest) => {
       url: url ? url : `${PV.Config.API_BASE_URL}${endpoint}?${queryString}`,
       ...(withCredentials ? { withCredentials: true } : {})
     }
-  
+
     const response = await axios(axiosRequest)
     return response
   } catch (error) {
@@ -47,7 +47,12 @@ export const request = async (req: PVRequest) => {
 }
 
 export const premiumFeatureRequestErrorHandler = (t: any, error: any) => {
-  if (error && error.response && error.response.data && error.response.data.message === PV.ErrorResponseMessages.premiumRequired) {
+  if (
+    error &&
+    error.response &&
+    error.response.data &&
+    error.response.data.message === PV.ErrorResponseMessages.premiumRequired
+  ) {
     alertPremiumRequired(t)
   } else {
     alertSomethingWentWrong(t)

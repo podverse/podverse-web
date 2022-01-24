@@ -16,10 +16,10 @@ export const ToastsHandler = () => {
   useEffect(() => {
     if (userInfo) {
       const currentMembershipStatus = getMembershipStatus(userInfo)
-  
+
       if (
-        currentMembershipStatus === PV.MembershipStatus.FREE_TRIAL_EXPIRED
-        || currentMembershipStatus === PV.MembershipStatus.PREMIUM_EXPIRED
+        currentMembershipStatus === PV.MembershipStatus.FREE_TRIAL_EXPIRED ||
+        currentMembershipStatus === PV.MembershipStatus.PREMIUM_EXPIRED
       ) {
         const premiumMembershipExpiredNode = (
           <div className='pv-toast-content clickable' onClick={() => router.push(PV.RoutePaths.web.membership)}>
@@ -27,7 +27,7 @@ export const ToastsHandler = () => {
             <ButtonLink label={t('Renew')} />
           </div>
         )
-    
+
         addToast(premiumMembershipExpiredNode, {
           appearance: 'warning',
           autoDismiss: false

@@ -1,4 +1,4 @@
-import { PV } from "~/resources"
+import { PV } from '~/resources'
 
 export const getMembershipStatus = (user: any) => {
   const { freeTrialExpiration, membershipExpiration } = user
