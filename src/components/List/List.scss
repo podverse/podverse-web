@@ -16,6 +16,18 @@
 
     p {
       margin: 0 0 16px 0;
+
+      a {
+        @include themeGen() {
+          color: getThemeVal('buttonLinkText');
+        }
+  
+        &:hover {
+          @include themeGen() {
+            color: getThemeVal('buttonLinkTextRollover');
+          }
+        }
+      }
     }
   }
 }
