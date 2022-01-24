@@ -16,6 +16,7 @@ interface ServerProps extends Page {
   serverFilterSort: string
   serverPodcastsListData: Podcast[]
   serverPodcastsListDataCount: number
+  serverIsHomePage: boolean
 }
 
 /* Server-Side Logic */
@@ -60,6 +61,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     serverFilterFrom,
     serverFilterPage,
     serverFilterSort,
+    serverIsHomePage: true,
     serverPodcastsListData: podcastsListData,
     serverPodcastsListDataCount: podcastsListDataCount
   }
