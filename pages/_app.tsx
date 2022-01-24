@@ -9,6 +9,7 @@ import React, { useEffect } from 'react'
 import { CookiesProvider } from 'react-cookie'
 import { unstable_batchedUpdates } from 'react-dom'
 import Modal from 'react-modal'
+import { ToastProvider } from 'react-toast-notifications'
 import {
   MobilePlayer,
   Modals,
@@ -18,7 +19,8 @@ import {
   PageLoadingOverlay,
   PlayerAPI,
   MobileNavBar,
-  V4VHiddenElement
+  V4VHiddenElement,
+  ToastsHandler
 } from '~/components'
 import '~/state'
 import initialState from '~/state/initialState.json'
@@ -113,24 +115,27 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <CookiesProvider>
-      <div className='app'>
-        <MobileNavBar />
-        <div className='app-wrapper'>
-          <NavBar />
-          <div className='app-main-wrapper'>
-            <HorizontalNavBar serverCookies={pageProps.serverCookies || {}} />
-            <main>
-              <Component {...pageProps} />
-            </main>
+      <ToastProvider>
+        <div className='app'>
+          <MobileNavBar />
+          <div className='app-wrapper'>
+            <NavBar />
+            <div className='app-main-wrapper'>
+              <HorizontalNavBar serverCookies={pageProps.serverCookies || {}} />
+              <main>
+                <Component {...pageProps} />
+              </main>
+            </div>
           </div>
+          <V4VHiddenElement />
+          <Modals />
+          <PageLoadingOverlay />
+          <Player />
+          <MobilePlayer />
+          <PlayerAPI />
+          <ToastsHandler />
         </div>
-        <V4VHiddenElement />
-        <Modals />
-        <PageLoadingOverlay />
-        <Player />
-        <MobilePlayer />
-        <PlayerAPI />
-      </div>
+      </ToastProvider>
     </CookiesProvider>
   )
 }
