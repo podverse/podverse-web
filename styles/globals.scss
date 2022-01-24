@@ -138,18 +138,6 @@ body {
     flex: 1;
   }
 
-  a {
-    @include themeGen() {
-      color: getThemeVal('buttonLinkText');
-    }
-
-    &:hover {
-      @include themeGen() {
-        color: getThemeVal('buttonLinkTextRollover');
-      }
-    }
-  }
-
   a,
   button,
   div {
