@@ -184,6 +184,13 @@ export const playerSetPlaybackSpeed = (newSpeed: number) => {
   }
 }
 
+const playerGetCurrentPlaybackSpeed = () => {
+  const currentSpeed = OmniAural.state.player.playSpeed.value()
+  const currentIndex = PV.Player.speeds.indexOf(currentSpeed)
+  const playSpeed = PV.Player.speeds[currentIndex]
+  return playSpeed
+}
+
 export const playerSetVolume = (newVolume: number) => {
   OmniAural.playerSetVolume(newVolume)
 
@@ -247,11 +254,16 @@ export const playerLoadNowPlayingItem = async (nowPlayingItem: NowPlayingItem, s
     //   audioAddNowPlayingItemNextInQueue(item, itemToSetNextInQueue)
     // }
 
+    
     if (checkIfVideoFileType(nowPlayingItem)) {
       await videoLoadNowPlayingItem(nowPlayingItem, previousNowPlayingItem, shouldPlay)
     } else {
       await audioLoadNowPlayingItem(nowPlayingItem, previousNowPlayingItem, shouldPlay)
     }
+    
+    /* Set playback speed right after the item loads, since loading a new item can clear it. */
+    const playSpeed = playerGetCurrentPlaybackSpeed()
+    playerSetPlaybackSpeed(playSpeed)
 
     if (checkIfNowPlayingItemIsAClip(nowPlayingItem)) {
       handleSetupClipListener(nowPlayingItem.clipEndTime)
