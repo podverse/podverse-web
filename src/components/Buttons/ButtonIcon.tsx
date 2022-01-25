@@ -28,5 +28,4 @@ export const ButtonIcon = ({ className, faIcon, href, isSecondary, onClick, rel,
       </button>
     )
   }
-
 }
