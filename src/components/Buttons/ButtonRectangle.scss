@@ -31,6 +31,10 @@
         cursor: not-allowed;
       }
     }
+
+    &.loading .button__text {
+      display: none;
+    }
   }
 
   &.secondary {
@@ -42,6 +46,10 @@
 
     @include themeGen() {
       background-color: getThemeVal('buttonSecondaryBackground') !important;
+    }
+
+    &.loading .button__text {
+      display: none;
     }
   }
 
