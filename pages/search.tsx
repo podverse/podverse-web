@@ -42,6 +42,7 @@ export default function Search({ serverSearchByText }: ServerProps) {
   const [filterPage, setFilterPage] = useState<number>(1)
   const [filterSearchByText, setFilterSearchByText] = useState<string>(serverSearchByText || '')
   const [filterSearchByType, setFilterSearchByType] = useState<string>(PV.Filters.search.queryParams.podcast)
+  const [isInitialLoad, setIsInitialLoad] = useState<boolean>(true)
   const pageCount = Math.ceil(podcastsListDataCount / PV.Config.QUERY_RESULTS_LIMIT_DEFAULT)
 
   /* useEffects */
@@ -84,6 +85,7 @@ export default function Search({ serverSearchByText }: ServerProps) {
       }
       response = await getPodcastsByQuery(finalQuery)
     }
+
     return response
   }
 
@@ -133,6 +135,7 @@ export default function Search({ serverSearchByText }: ServerProps) {
       <SearchPageInput
         defaultValue={serverSearchByText}
         handleAutoSubmit={(value) => {
+          if (isInitialLoad) setIsInitialLoad(false)
           setFilterSearchByText(value)
           setFilterPage(1)
         }}
@@ -140,7 +143,9 @@ export default function Search({ serverSearchByText }: ServerProps) {
         placeholder={t('searchByPodcastTitle')}
       />
       <PageScrollableContent noPaddingTop>
-        <List hideNoResultsMessage={page.isLoading}>{generatePodcastListElements(podcastsListData)}</List>
+        <List hideNoResultsMessage={isInitialLoad || page.isLoading}>
+          {generatePodcastListElements(podcastsListData)}
+        </List>
         <Pagination
           currentPageIndex={filterPage}
           handlePageNavigate={(newPage) => setFilterPage(newPage)}
