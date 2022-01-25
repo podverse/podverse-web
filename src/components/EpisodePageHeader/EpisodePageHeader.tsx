@@ -79,9 +79,7 @@ export const EpisodePageHeader = ({ episode }: Props) => {
               )}
               <div className='header-sub-buttons hide-below-tablet-xl-max-width'>
                 {authorityFeedUrl?.url && (
-                  <a href={authorityFeedUrl?.url} rel='noreferrer' target='_blank'>
-                    <ButtonIcon faIcon={faRss} isSecondary />
-                  </a>
+                  <ButtonIcon faIcon={faRss} href={authorityFeedUrl.url} isSecondary rel='noreferrer' target='_blank' />
                 )}
                 <ButtonIcon faIcon={faShare} isSecondary onClick={_handleShowShareModal} />
                 {!!fundingLinks.length && (
@@ -113,9 +111,7 @@ export const EpisodePageHeader = ({ episode }: Props) => {
           </div>
           <div className='mobile-header-sub-buttons hide-above-laptop-min-width'>
             {authorityFeedUrl?.url && (
-              <a href={authorityFeedUrl?.url} rel='noreferrer' target='_blank'>
-                <ButtonIcon faIcon={faRss} isSecondary />
-              </a>
+              <ButtonIcon faIcon={faRss} href={authorityFeedUrl.url} isSecondary rel='noreferrer' target='_blank' />
             )}
             <ButtonIcon faIcon={faShare} isSecondary onClick={_handleShowShareModal} />
             {!!fundingLinks.length && <ButtonIcon faIcon={faDonate} isSecondary onClick={_handleShowFundingModal} />}
