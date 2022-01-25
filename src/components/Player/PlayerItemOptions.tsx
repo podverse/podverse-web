@@ -2,8 +2,9 @@ import classnames from 'classnames'
 import OmniAural, { useOmniAural } from 'omniaural'
 import { PlayerOptionButton } from './options/PlayerOptionButton'
 import { Slider } from '../Slider/Slider'
-import { playerMute, playerNextSpeed, playerSetVolume, playerUnmute } from '~/services/player/player'
+import { playerGetPosition, playerMute, playerNextSpeed, playerSetVolume, playerUnmute } from '~/services/player/player'
 import { modalsAddToPlaylistShowOrAlert } from '~/state/modals/addToPlaylist/actions'
+import { convertSecToHHMMSS } from '~/lib/utility/time'
 
 type Props = unknown
 
@@ -25,6 +26,9 @@ export const PlayerItemButtons = (props: Props) => {
         />
         <PlayerOptionButton
           onClick={() => {
+            const currentPlaybackPosition = playerGetPosition() || 0
+            const hhmmssPlaybackPosition = convertSecToHHMMSS(currentPlaybackPosition)
+            OmniAural.makeClipSetStartTime(hhmmssPlaybackPosition)
             const userInfo = OmniAural.state.session.userInfo.value()
             userInfo ? OmniAural.makeClipShow() : OmniAural.modalsLoginToAlertShow('make clip')
           }}
