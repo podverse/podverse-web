@@ -254,13 +254,12 @@ export const playerLoadNowPlayingItem = async (nowPlayingItem: NowPlayingItem, s
     //   audioAddNowPlayingItemNextInQueue(item, itemToSetNextInQueue)
     // }
 
-    
     if (checkIfVideoFileType(nowPlayingItem)) {
       await videoLoadNowPlayingItem(nowPlayingItem, previousNowPlayingItem, shouldPlay)
     } else {
       await audioLoadNowPlayingItem(nowPlayingItem, previousNowPlayingItem, shouldPlay)
     }
-    
+
     /* Set playback speed right after the item loads, since loading a new item can clear it. */
     const playSpeed = playerGetCurrentPlaybackSpeed()
     playerSetPlaybackSpeed(playSpeed)
