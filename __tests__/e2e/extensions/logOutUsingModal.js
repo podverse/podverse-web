@@ -7,9 +7,7 @@ module.exports.command = function () {
   this.click('div.horizontal-navbar-wrapper div.navbar-secondary__dropdown .react-dropdown-select-item:nth-child(3)')
   this.pause(100)
 
-  
   console.log('Logged Out')
 
   return this
 }
-

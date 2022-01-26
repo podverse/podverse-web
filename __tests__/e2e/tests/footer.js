@@ -4,7 +4,7 @@ module.exports = {
   before: function (browser) {
     browser.url(`${WEB_ORIGIN}/`)
   },
-  'Footer': function (browser) {
+  Footer: function (browser) {
     browser
       .scrollToSelector('.footer-middle')
       .waitForElement('.footer-social-link-mastodon')
@@ -12,15 +12,17 @@ module.exports = {
       .waitForElement('.footer-social-link-twitter')
       .waitForElement('.footer-social-link-discord')
 
-
       .waitForElement('.footer-link-contact')
       .click('.footer-link-contact')
       .waitForElementWithText('.text-page h2', 'Email')
-      
+
       .scrollToSelector('.footer-middle')
       .waitForElement('.footer-link-about')
       .click('.footer-link-about')
-      .waitForElementWithText('.text-page p.bigger', 'Podverse is an open source podcast manager for iOS, Android, and web.')
+      .waitForElementWithText(
+        '.text-page p.bigger',
+        'Podverse is an open source podcast manager for iOS, Android, and web.'
+      )
 
       .scrollToSelector('.footer-middle')
       .waitForElement('.footer-link-terms')
@@ -35,18 +37,18 @@ module.exports = {
       .scrollToSelector('.footer-middle')
       .waitForElement('.footer-link-mobile-app')
       .click('.footer-link-mobile-app')
-      .waitForElementWithText('.text-page p.bigger', 'Podverse is an open source podcast manager for iOS, Android, and web.')
+      .waitForElementWithText(
+        '.text-page p.bigger',
+        'Podverse is an open source podcast manager for iOS, Android, and web.'
+      )
 
       .scrollToSelector('.footer-middle')
       .waitForElement('.footer-link-support')
       .click('.footer-link-support')
-      .waitForElementWithText('.text-page p', 'Podverse creates free and open source software to expand what is possible in podcasting.')
-
-
-
-
-      
-
+      .waitForElementWithText(
+        '.text-page p',
+        'Podverse creates free and open source software to expand what is possible in podcasting.'
+      )
   },
   after: function (browser) {
     browser.end()
