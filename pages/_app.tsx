@@ -26,7 +26,7 @@ import '~/state'
 import initialState from '~/state/initialState.json'
 import { playerLoadNowPlayingItem, saveCurrentPlaybackPositionToHistory } from '~/services/player/player'
 import { getNowPlayingItemOnServer } from '~/services/userNowPlayingItem'
-import { initializeMatomo, matomoTrackPageView } from '~/services/tracking'
+import { initializeMatomo, matomoTrackPageView } from '~/services/matomo'
 
 declare global {
   /* *TODO* add proper types for global interfaces */
