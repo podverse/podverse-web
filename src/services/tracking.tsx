@@ -23,7 +23,7 @@ function _hasDoNotTrackFlagOn(options?: any) {
     win['doNotTrack']
   ]
 
-  dntIndicators.forEach(dntValue => {
+  dntIndicators.forEach((dntValue) => {
     if ([true, 1, '1', 'yes'].includes(dntValue)) {
       hasDntOn = true
     }
