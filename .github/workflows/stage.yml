@@ -58,6 +58,8 @@ jobs:
         key: ${{ secrets.STAGE_SSH_PRIVATE_KEY }}
         command_timeout: 60m
         script: |
+          export NVM_DIR=~/.nvm
+          source ~/.nvm/nvm.sh
           nvm use 16.13.1
           docker stop podverse_web_stage
           docker rm podverse_web_stage
