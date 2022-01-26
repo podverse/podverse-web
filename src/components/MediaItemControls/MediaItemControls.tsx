@@ -35,6 +35,7 @@ const _queueLastKey = '_queueLast'
 const _addToPlaylistKey = '_addToPlaylist'
 const _shareKey = '_share'
 const _markAsPlayedKey = '_markAsPlayedKey'
+const _markAsUnplayedKey = '_markAsUnplayedKey'
 const _editClip = '_editClip'
 const _deleteClip = '_deleteClip'
 
@@ -101,7 +102,7 @@ export const MediaItemControls = ({
         } else if (podcast) {
           OmniAural.modalsShareShowPodcast(podcast.id)
         }
-      } else if (item.key === _markAsPlayedKey) {
+      } else if (item.key === _markAsPlayedKey || item.key === _markAsUnplayedKey) {
         const { episodeDuration, userPlaybackPosition } = nowPlayingItem
 
         await addOrUpdateHistoryItemOnServer({
@@ -110,7 +111,7 @@ export const MediaItemControls = ({
           mediaFileDuration: episodeDuration,
           forceUpdateOrderDate: false,
           skipSetNowPlaying: true,
-          completed: true
+          completed: item.key === _markAsPlayedKey
         })
         const newHistoryItemsIndex = await getHistoryItemsIndexFromServer()
         OmniAural.setHistoryItemsIndex(newHistoryItemsIndex)
@@ -162,7 +163,11 @@ export const MediaItemControls = ({
     ]
 
     if (!clip) {
-      items.push({ label: 'Mark as Played', key: _markAsPlayedKey })
+      if (completed) {
+        items.push({ label: 'Mark as Unplayed', key: _markAsUnplayedKey })
+      } else {
+        items.push({ label: 'Mark as Played', key: _markAsPlayedKey })
+      }
     }
 
     if (isLoggedInUserMediaRef) {

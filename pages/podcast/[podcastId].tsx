@@ -2,7 +2,7 @@ import linkifyHtml from 'linkify-html'
 import { GetServerSideProps } from 'next'
 import { useTranslation } from 'next-i18next'
 import OmniAural, { useOmniAural } from 'omniaural'
-import type { Episode, MediaRef, Podcast, User } from 'podverse-shared'
+import type { Episode, MediaRef, Podcast } from 'podverse-shared'
 import { useEffect, useRef, useState } from 'react'
 import {
   ClipListItem,
@@ -104,15 +104,12 @@ export default function Podcast({
         initialRender.current = false
       } else {
         if (filterType === PV.Filters.type._episodes) {
-          const { data } = await clientQueryEpisodes(
-            { page: filterPage, podcastIds: id, sort: filterSort },
-            filterState
-          )
+          const { data } = await clientQueryEpisodes()
           const [newEpisodesListData, newEpisodesListCount] = data
           setEpisodesListData(newEpisodesListData)
           setEpisodesPageCount(calcListPageCount(newEpisodesListCount))
         } else if (filterType === PV.Filters.type._clips) {
-          const { data } = await clientQueryClips({ page: filterPage, podcastIds: id, sort: filterSort }, filterState)
+          const { data } = await clientQueryClips()
           const [newClipsListData, newClipsListCount] = data
           setClipsListData(newClipsListData)
           setClipsPageCount(calcListPageCount(newClipsListCount))
@@ -121,6 +118,46 @@ export default function Podcast({
       }
     })()
   }, [filterPage, filterSort, filterType])
+
+  /* Client-Side Queries */
+
+  const clientQueryEpisodes = async () => {
+    const finalQuery = {
+      podcastIds: id,
+      ...(filterPage ? { page: filterPage } : {}),
+      ...(filterSort ? { sort: filterSort } : {})
+    }
+    return getEpisodesByQuery(finalQuery)
+  }
+
+  const clientQueryClips = async () => {
+    const finalQuery = {
+      podcastIds: id,
+      includeEpisode: true,
+      ...(filterPage ? { page: filterPage } : {}),
+      ...(filterSort ? { sort: filterSort } : {})
+    }
+    return getMediaRefsByQuery(finalQuery)
+  }
+
+  /* Render Helpers */
+
+  const generateEpisodeListElements = () => {
+    return episodesListData.map((listItem, index) => (
+      <EpisodeListItem episode={listItem} key={`${keyPrefix}-${index}-${listItem?.id}`} podcast={serverPodcast} />
+    ))
+  }
+
+  const generateClipListElements = () => {
+    return clipsListData.map((listItem, index) => (
+      <ClipListItem
+        isLoggedInUserMediaRef={userInfo && userInfo.id === listItem.owner.id}
+        mediaRef={listItem}
+        podcast={serverPodcast}
+        key={`${keyPrefix}-${index}-${listItem?.id}`}
+      />
+    ))
+  }
 
   /* Meta Tags */
 
@@ -179,10 +216,8 @@ export default function Podcast({
                 text={filterType === PV.Filters.type._episodes ? t('Episodes') : t('Clips')}
               />
               <List>
-                {filterType === PV.Filters.type._episodes &&
-                  generateEpisodeListElements(episodesListData, serverPodcast)}
-                {filterType === PV.Filters.type._clips &&
-                  generateClipListElements(clipsListData, serverPodcast, userInfo)}
+                {filterType === PV.Filters.type._episodes && generateEpisodeListElements()}
+                {filterType === PV.Filters.type._clips && generateClipListElements()}
               </List>
               <Pagination
                 currentPageIndex={filterPage}
@@ -235,58 +270,6 @@ export default function Podcast({
       </PageScrollableContent>
     </>
   )
-}
-
-/* Client-Side Queries */
-
-type ClientQueryEpisodes = {
-  page?: number
-  podcastIds?: string
-  sort?: string
-}
-
-const clientQueryEpisodes = async ({ page, podcastIds, sort }: ClientQueryEpisodes, filterState: FilterState) => {
-  const finalQuery = {
-    podcastIds,
-    ...(page ? { page } : { page: filterState.filterPage }),
-    ...(sort ? { sort } : { sort: filterState.filterSort })
-  }
-  return getEpisodesByQuery(finalQuery)
-}
-
-type ClientQueryClips = {
-  page?: number
-  podcastIds?: string
-  sort?: string
-}
-
-const clientQueryClips = async ({ page, podcastIds, sort }: ClientQueryClips, filterState: FilterState) => {
-  const finalQuery = {
-    podcastIds,
-    includeEpisode: true,
-    ...(page ? { page } : { page: filterState.filterPage }),
-    ...(sort ? { sort } : { sort: filterState.filterSort })
-  }
-  return getMediaRefsByQuery(finalQuery)
-}
-
-/* Render Helpers */
-
-const generateEpisodeListElements = (listItems: Episode[], podcast: Podcast) => {
-  return listItems.map((listItem, index) => (
-    <EpisodeListItem episode={listItem} key={`${keyPrefix}-${index}-${listItem?.id}`} podcast={podcast} />
-  ))
-}
-
-const generateClipListElements = (listItems: MediaRef[], podcast: Podcast, userInfo?: User) => {
-  return listItems.map((listItem, index) => (
-    <ClipListItem
-      isLoggedInUserMediaRef={userInfo && userInfo.id === listItem.owner.id}
-      mediaRef={listItem}
-      podcast={podcast}
-      key={`${keyPrefix}-${index}-${listItem?.id}`}
-    />
-  ))
 }
 
 /* Server-Side Logic */
