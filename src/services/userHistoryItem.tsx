@@ -115,7 +115,7 @@ export const addOrUpdateHistoryItemOnServer = async ({
       forceUpdateOrderDate: forceUpdateOrderDate === false ? false : true,
       mediaFileDuration: duration,
       userPlaybackPosition: playbackPosition,
-      ...(completed ? { completed } : {})
+      ...(completed === true || completed === false ? { completed } : {})
     }
   })
 
@@ -185,7 +185,7 @@ const generateHistoryItemsIndexDictionary = (historyItems: any[]) => {
       historyItemsIndex.episodes[historyItem.e] = {
         d: historyItem.d || null,
         p: historyItem.p,
-        ...(historyItem.c ? { c: historyItem.c } : {})
+        ...(historyItem.c ? { c: historyItem.c } : { c: false })
       }
     }
   }
