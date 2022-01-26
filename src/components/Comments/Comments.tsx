@@ -1,6 +1,6 @@
-import moment from 'moment'
 import type { PVComment } from 'podverse-shared'
 import { useTranslation } from 'react-i18next'
+import { readableDate } from '~/lib/utility/date'
 import { MainContentSection, PVImage } from '..'
 
 type Props = {
@@ -39,13 +39,14 @@ type CommentProps = {
 
 const Comment = ({ children, comment }: CommentProps) => {
   const { content, imageUrl, isRoot, published, url, username } = comment
+  const withTime = true
 
   return (
     <div className='comment'>
       <a className='inner-wrapper' href={url} rel='noreferrer' target='_blank'>
         <div className='username'>{username}</div>
         <div className='content'>{content}</div>
-        <div className='published'>{moment(published).format('MMM Do YYYY, h:mm:ss a')}</div>
+        <div className='published'>{readableDate(published, withTime)}</div>
         {isRoot && imageUrl && (
           <div className='image-wrapper'>
             <PVImage src={imageUrl} width='100%' />

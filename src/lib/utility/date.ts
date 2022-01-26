@@ -1,14 +1,8 @@
-export const readableDate = (date) => {
-  const dateObj = new Date(date),
-    year = dateObj.getFullYear(),
-    month = dateObj.getMonth() + 1,
-    day = dateObj.getDate()
+import moment from 'moment'
 
-  const today = new Date()
-  const yesterday = new Date(today)
-  yesterday.setDate(today.getDate() - 1)
-
-  return month + '/' + day + '/' + year
+export const readableDate = (date: Date, withTime?: boolean) => {
+  const format = withTime ? 'MMM Do YYYY, h:mm:ss a' : 'MMM Do YYYY'
+  return moment(date).format(format)
 }
 
 Date.prototype.addDays = function (days) {
