@@ -1,6 +1,6 @@
 import moment from 'moment'
 
-export const readableDate = (date: Date, withTime: boolean) => {
+export const readableDate = (date: Date, withTime?: boolean) => {
   const format = withTime ? 'MMM Do YYYY, h:mm:ss a' : 'MMM Do YYYY'
   return moment(date).format(format)
 }

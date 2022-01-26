@@ -1,4 +1,3 @@
-import moment from 'moment'
 import type { PVComment } from 'podverse-shared'
 import { useTranslation } from 'react-i18next'
 import { readableDate } from '~/lib/utility/date'
