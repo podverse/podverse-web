@@ -119,7 +119,6 @@ export default function Podcast({
     })()
   }, [filterPage, filterSort, filterType])
 
-
   /* Client-Side Queries */
 
   const clientQueryEpisodes = async () => {
@@ -217,10 +216,8 @@ export default function Podcast({
                 text={filterType === PV.Filters.type._episodes ? t('Episodes') : t('Clips')}
               />
               <List>
-                {filterType === PV.Filters.type._episodes &&
-                  generateEpisodeListElements()}
-                {filterType === PV.Filters.type._clips &&
-                  generateClipListElements()}
+                {filterType === PV.Filters.type._episodes && generateEpisodeListElements()}
+                {filterType === PV.Filters.type._clips && generateClipListElements()}
               </List>
               <Pagination
                 currentPageIndex={filterPage}
