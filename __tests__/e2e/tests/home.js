@@ -9,7 +9,7 @@ module.exports = {
       .waitForElementWithText('.page-header h1', 'Podcasts') // Page Header
       .click('.dropdowns .dropdown-primary-wrapper .react-dropdown-select')
       .click(
-        '.dropdowns .dropdown-primary-wrapper .react-dropdown-select .react-dropdown-select-dropdown .react-dropdown-select-item:nth-child(1)'
+        '.dropdowns .dropdown-primary-wrapper .react-dropdown-select-item:nth-child(1)'
       )
       .waitForElementWithText('.podcast-list-item:nth-child(3) div div.title', 'Very Bad Wizards') // Podcast List Item Title (1st)
       .click('.dropdown-sort-wrapper div div') // TODO: Needs better target
