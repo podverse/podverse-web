@@ -9,7 +9,7 @@ module.exports = {
 
       .click('.dropdowns .dropdown-primary-wrapper .react-dropdown-select')
       .click(
-        '.dropdowns .dropdown-primary-wrapper .react-dropdown-select .react-dropdown-select-dropdown .react-dropdown-select-item:nth-child(1)'
+        '.dropdowns .dropdown-primary-wrapper .react-dropdown-select-item:nth-child(1)'
       )
       .click('.podcast-list-item:nth-child(5)')
       .waitForElementWithText('.podcast-page-header .podcast-title a', 'The Joe Rogan Experience')
