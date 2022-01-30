@@ -31,6 +31,8 @@ export const EmbedPlayerAPIAudio = () => {
       const duration = playerGetDuration()
       setClipFlagPositions(currentNowPlayingItem, duration)
     }
+
+    playerUpdateDuration()
   }
 
   const _onListen = () => {
