@@ -21,7 +21,7 @@
 
         .podcast-title {
           color: $blueDarkText;
-          font-size: $text-lg;
+          font-size: $text-md;
           margin-top: 8px;
           @include line-clamp(1);
         }
