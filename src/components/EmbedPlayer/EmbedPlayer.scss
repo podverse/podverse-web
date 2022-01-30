@@ -3,12 +3,14 @@
   display: flex;
   flex: 1;
   flex-direction: column;
-  height: 250px;
-  justify-content: center;
   
   .embed-player-episode {
-    max-width: 504px;
-    padding: 8px;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: center;
+    padding: 8px 16px;
+    width: 100%;
 
     .info-wrapper {
       .info-text-wrapper {
@@ -33,15 +35,24 @@
       flex-direction: column;
       justify-content: center;
       margin-bottom: 12px;
-  
-      .player-buttons {
+
+      .embed-progress-bar-wrapper {
         display: flex;
+
+        .player-bar-container {
+          width: calc(100% - 48px);
+
+          .progress-slider {
+            margin: 0 12px;
+          }
+        }
+      }
+      
+      .open-in-app {
+        display: flex;
+        font-size: $text-sm;
         justify-content: center;
         margin-top: 4px;
-
-        .button-circle {
-          margin: 0 12px;
-        }
       }
     }
   }

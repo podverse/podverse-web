@@ -1,6 +1,8 @@
 import { faPause, faPlay } from "@fortawesome/free-solid-svg-icons"
 import classNames from "classnames"
+import { useTranslation } from "next-i18next"
 import { useOmniAural } from 'omniaural'
+import { PV } from "~/resources"
 import { playerJumpBackward, playerJumpForward } from "~/services/player/player"
 import { audioCheckIfCurrentlyPlaying, audioIsLoaded, audioPause, audioPlay } from "~/services/player/playerAudio"
 import { ButtonCircle } from ".."
@@ -9,8 +11,10 @@ import { ProgressBar } from "../Player/controls/ProgressBar"
 
 export const EmbedPlayer = () => {
   const [player] = useOmniAural('player')
-  const { paused } = player
+  const { t } = useTranslation()
+  const { currentNowPlayingItem, paused } = player
   const playpause = classNames(paused ? 'play' : 'pause')
+  const episodePageUrl = `${PV.RoutePaths.web.episode}/${currentNowPlayingItem?.episodeId}`
 
   const _handleTogglePlay = () => {
     if (audioIsLoaded()) {
@@ -18,32 +22,25 @@ export const EmbedPlayer = () => {
     }
   }
 
-  const _handleTimeJumpBackwards = () => {
-    playerJumpBackward()
-  }
-
-  const _handleTimeJumpForwards = () => {
-    playerJumpForward()
-  }
-
   return (
     <div className='embed-player'>
       <div className='embed-progress-bar-wrapper'>
-        <ProgressBar
-          chapterFlagPositions={[]}
-          clipFlagPositions={[]}
-          highlightedPositions={[]}
-        />
-      </div>
-      <div className='player-buttons'>
-        <PlayerControlButton direction='backwards' onClick={_handleTimeJumpBackwards} size='medium' type='jump' />
         <ButtonCircle
           className={playpause}
           faIcon={paused ? faPlay : faPause}
           onClick={_handleTogglePlay}
           size={'medium'}
         />
-        <PlayerControlButton direction='forwards' onClick={_handleTimeJumpForwards} size='medium' type='jump' />
+        <ProgressBar
+          chapterFlagPositions={[]}
+          clipFlagPositions={[]}
+          highlightedPositions={[]}
+        />
+      </div>
+      <div className='open-in-app'>
+        <a href={episodePageUrl} target='_blank' rel='noreferrer'>
+          {t('Open in Podverse')}
+        </a>
       </div>
     </div>
   )
