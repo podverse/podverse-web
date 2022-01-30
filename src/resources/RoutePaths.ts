@@ -51,6 +51,10 @@ export const RoutePaths = {
     home: `/`,
     license: `https://www.gnu.org/licenses/agpl-3.0.en.html`,
     membership: `/membership`,
+    miniplayer: {
+      clip: '/miniplayer/clip',
+      episode: '/miniplayer/episode'
+    },
     my_profile_clips: `/my-profile?type=clips`,
     my_profile: `/my-profile`,
     payment_paypal_confirming: `/payment/paypal-confirming`,

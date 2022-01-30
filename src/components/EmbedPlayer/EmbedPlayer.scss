@@ -1,0 +1,48 @@
+.mini-player-wrapper {
+  align-items: center;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  height: 250px;
+  justify-content: center;
+  
+  .embed-player-episode {
+    max-width: 504px;
+    padding: 8px;
+
+    .info-wrapper {
+      .info-text-wrapper {
+        text-align: center;
+
+        .episode-title {
+          font-size: $text-xl;
+          @include line-clamp(1);
+        }
+
+        .podcast-title {
+          color: $blueDarkText;
+          font-size: $text-lg;
+          margin-top: 8px;
+          @include line-clamp(1);
+        }
+      }
+    }
+  
+    .embed-player {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      margin-bottom: 12px;
+  
+      .player-buttons {
+        display: flex;
+        justify-content: center;
+        margin-top: 4px;
+
+        .button-circle {
+          margin: 0 12px;
+        }
+      }
+    }
+  }
+}

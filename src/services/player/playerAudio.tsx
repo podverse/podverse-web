@@ -54,8 +54,8 @@ export const audioClearNowPlayingItem = () => {
 
 export const audioLoadNowPlayingItem = async (
   nowPlayingItem: NowPlayingItem,
-  previousNowPlayingItem: NowPlayingItem,
-  shouldPlay: boolean
+  previousNowPlayingItem?: NowPlayingItem,
+  shouldPlay?: boolean
 ) => {
   PVPlayerAudio.pause()
 
