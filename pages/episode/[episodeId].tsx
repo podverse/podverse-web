@@ -1,7 +1,7 @@
 import { GetServerSideProps } from 'next'
 import { useTranslation } from 'next-i18next'
 import OmniAural, { useOmniAural } from 'omniaural'
-import type { Episode, MediaRef, PVComment, SocialInteraction, User } from 'podverse-shared'
+import type { Episode, MediaRef, PVComment, SocialInteraction } from 'podverse-shared'
 import { useEffect, useRef, useState } from 'react'
 import {
   ClipListItem,
@@ -101,10 +101,7 @@ export default function Episode({
       if (initialRender.current) {
         initialRender.current = false
       } else {
-        const { data } = await clientQueryClips(
-          { page: clipsFilterPage, episodeId: id, sort: clipsFilterSort },
-          filterState
-        )
+        const { data } = await clientQueryClips()
         const [newClipsListData, newClipsListCount] = data
         setClipsListData(newClipsListData)
         setClipsPageCount(calcListPageCount(newClipsListCount))
@@ -112,6 +109,33 @@ export default function Episode({
       }
     })()
   }, [clipsFilterPage, clipsFilterSort])
+
+  /* Client-Side Queries */
+
+  const clientQueryClips = async () => {
+    const finalQuery = {
+      episodeId: id,
+      ...(clipsFilterPage ? { page: clipsFilterPage } : {}),
+      ...(clipsFilterSort ? { sort: clipsFilterSort } : {})
+    }
+    return getMediaRefsByQuery(finalQuery)
+  }
+
+  /* Render Helpers */
+
+  const generateClipListElements = () => {
+    return clipsListData.map((listItem, index) => {
+      listItem.episode = serverEpisode
+      return (
+        <ClipListItem
+          isLoggedInUserMediaRef={userInfo && userInfo.id === listItem.owner.id}
+          mediaRef={listItem}
+          podcast={serverEpisode.podcast}
+          key={`${keyPrefix}-${index}-${listItem?.id}`}
+        />
+      )
+    })
+  }
 
   /* Meta Tags */
 
@@ -143,6 +167,7 @@ export default function Episode({
         twitterDescription={meta.description}
         twitterImage={meta.imageUrl}
         twitterImageAlt={meta.imageAlt}
+        twitterPlayerUrl={`${PV.Config.WEB_BASE_URL}${PV.RoutePaths.web.miniplayer.episode}/${serverEpisode.id}`}
         twitterTitle={meta.title}
       />
       <EpisodePageHeader episode={serverEpisode} />
@@ -166,7 +191,7 @@ export default function Episode({
                 sortSelected={clipsFilterSort}
                 text={t('Clips')}
               />
-              <List>{generateClipListElements(clipsListData, serverEpisode, userInfo)}</List>
+              <List>{generateClipListElements()}</List>
               <Pagination
                 currentPageIndex={clipsFilterPage}
                 handlePageNavigate={(newPage) => {
@@ -201,39 +226,6 @@ export default function Episode({
       </PageScrollableContent>
     </>
   )
-}
-
-/* Client-Side Queries */
-
-type ClientQueryClips = {
-  episodeId?: string
-  page?: number
-  sort?: string
-}
-
-const clientQueryClips = async ({ episodeId, page, sort }: ClientQueryClips, filterState: FilterState) => {
-  const finalQuery = {
-    episodeId,
-    ...(page ? { page } : { page: filterState.clipsFilterPage }),
-    ...(sort ? { sort } : { sort: filterState.clipsFilterSort })
-  }
-  return getMediaRefsByQuery(finalQuery)
-}
-
-/* Render Helpers */
-
-const generateClipListElements = (listItems: MediaRef[], episode: Episode, userInfo?: User) => {
-  return listItems.map((listItem, index) => {
-    listItem.episode = episode
-    return (
-      <ClipListItem
-        isLoggedInUserMediaRef={userInfo && userInfo.id === listItem.owner.id}
-        mediaRef={listItem}
-        podcast={episode.podcast}
-        key={`${keyPrefix}-${index}-${listItem?.id}`}
-      />
-    )
-  })
 }
 
 /* Server-Side Logic */

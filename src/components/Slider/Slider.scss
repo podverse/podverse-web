@@ -1,5 +1,4 @@
 .progress-slider {
-  cursor: pointer;
   display: flex;
   flex: 1;
   position: relative;
@@ -8,7 +7,7 @@
     height: 4px;
     pointer-events: none;
     position: absolute;
-    top: 15px;
+    top: 16px;
     width: 4px;
     z-index: 0;
     border-radius: 4px;
@@ -19,10 +18,11 @@
   }
 
   .highlighted-section {
-    height: 25px;
+    border-radius: 0;
+    height: 29px;
     pointer-events: none;
     position: absolute;
-    top: 4px;
+    top: 3px;
 
     @include themeGen() {
       background-color: getThemeVal('sliderHighlightSection');
@@ -32,10 +32,10 @@
   /*Chrome*/
   @media screen and (-webkit-min-device-pixel-ratio: 0) {
     input[type='range'] {
-      overflow: hidden;
-      height: 10px;
-      width: 100%;
       border-radius: 12px;
+      height: 12px;
+      overflow: hidden;
+      width: 100%;
       -webkit-appearance: none;
 
       @include themeGen() {
@@ -44,7 +44,7 @@
     }
 
     input[type='range']::-webkit-slider-runnable-track {
-      height: 10px;
+      height: 12px;
       -webkit-appearance: none;
       margin-top: -1px;
     }

@@ -15,7 +15,8 @@ module.exports = {
         '.clip-list-item:nth-child(1) a.content-wrapper',
         'Lacus sed turpis tincidunt id aliquet risus feugiat in ante.'
       )
-    // Clip List Item Title Header (1st)
+      .click('.clip-list-item:nth-child(1) a.content-wrapper') // Clip List Item Title Header (1st)
+      .waitForElementWithText('.podcast-page-header .podcast-title a', 'Very Bad Wizards') // Clip Page Header
   },
   after: function (browser) {
     browser.end()

@@ -2,7 +2,7 @@ const { WEB_ORIGIN } = require('../constants')
 
 module.exports = {
   before: function (browser) {
-    browser._resetDatabase().url(`${WEB_ORIGIN}/`)
+    browser._resetDatabaseExtension().url(`${WEB_ORIGIN}/`)
   },
   'Add to Playlist Modal': function (browser) {
     browser

@@ -8,7 +8,7 @@ const subRightDropdownSelector = `.media-list-selects__inline .media-list__sub-s
 
 module.exports = {
   before: function (browser) {
-    browser._resetDatabase().url(`${WEB_ORIGIN}/clips`)
+    browser._resetDatabaseExtension().url(`${WEB_ORIGIN}/clips`)
   },
   'Clips Page': function (browser) {
     browser

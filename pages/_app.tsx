@@ -67,18 +67,36 @@ if (typeof window !== 'undefined') {
 }
 
 function MyApp({ Component, pageProps }) {
-  const {
-    serverHistoryItemsIndex = {
-      episodes: {},
-      mediaRefs: {}
-    },
-    serverUserInfo = null,
-    serverUserQueueItems = []
-  } = pageProps
-  OmniAural.setUserInfo(serverUserInfo)
-  OmniAural.setUserQueueItems(serverUserQueueItems)
-  OmniAural.setHistoryItemsIndex(serverHistoryItemsIndex)
   const router = useRouter()
+  const doNotInheritAppComponent = router.pathname.startsWith('/miniplayer')
+
+  useEffect(() => {
+    if (!doNotInheritAppComponent) {
+      router.events.on('routeChangeStart', _routeChangeStart)
+      router.events.on('routeChangeComplete', _routeChangeComplete)
+      return () => {
+        router.events.off('routeChangeStart', _routeChangeStart),
+          router.events.off('routeChangeComplete', _routeChangeComplete)
+      }
+    }
+  }, [router.events])
+
+  useEffect(() => {
+    ;(async () => {
+      if (!doNotInheritAppComponent) {
+        const nowPlayingItem = await getNowPlayingItemOnServer()
+        if (nowPlayingItem) {
+          const shouldPlay = false
+          unstable_batchedUpdates(() => {
+            playerLoadNowPlayingItem(nowPlayingItem, shouldPlay)
+          })
+        }
+
+        initializeMatomo()
+        matomoTrackPageView()
+      }
+    })()
+  }, [])
 
   const _routeChangeStart = () => {
     OmniAural.pageIsLoadingShow()
@@ -89,55 +107,51 @@ function MyApp({ Component, pageProps }) {
     matomoTrackPageView()
   }
 
-  useEffect(() => {
-    router.events.on('routeChangeStart', _routeChangeStart)
-    router.events.on('routeChangeComplete', _routeChangeComplete)
-    return () => {
-      router.events.off('routeChangeStart', _routeChangeStart),
-        router.events.off('routeChangeComplete', _routeChangeComplete)
-    }
-  }, [router.events])
+  if (router.pathname.startsWith('/miniplayer')) {
+    return (
+      <div className='app'>
+        <Component {...pageProps} />
+      </div>
+    )
+  } else {
+    const {
+      serverHistoryItemsIndex = {
+        episodes: {},
+        mediaRefs: {}
+      },
+      serverUserInfo = null,
+      serverUserQueueItems = []
+    } = pageProps
+    OmniAural.setUserInfo(serverUserInfo)
+    OmniAural.setUserQueueItems(serverUserQueueItems)
+    OmniAural.setHistoryItemsIndex(serverHistoryItemsIndex)
 
-  useEffect(() => {
-    ;(async () => {
-      const nowPlayingItem = await getNowPlayingItemOnServer()
-      if (nowPlayingItem) {
-        const shouldPlay = false
-        unstable_batchedUpdates(() => {
-          playerLoadNowPlayingItem(nowPlayingItem, shouldPlay)
-        })
-      }
-
-      initializeMatomo()
-      matomoTrackPageView()
-    })()
-  }, [])
-
-  return (
-    <CookiesProvider>
-      <ToastProvider>
-        <div className='app'>
-          <MobileNavBar />
-          <div className='app-wrapper'>
-            <NavBar />
-            <div className='app-main-wrapper'>
-              <HorizontalNavBar serverCookies={pageProps.serverCookies || {}} />
-              <main>
-                <Component {...pageProps} />
-              </main>
+    return (
+      <CookiesProvider>
+        <ToastProvider>
+          <div className='app'>
+            <MobileNavBar />
+            <div className='app-wrapper'>
+              <NavBar />
+              <div className='app-main-wrapper'>
+                <HorizontalNavBar serverCookies={pageProps.serverCookies || {}} />
+                <main>
+                  <Component {...pageProps} />
+                </main>
+              </div>
             </div>
+            <V4VHiddenElement />
+            <Modals />
+            <PageLoadingOverlay />
+            <Player />
+            <MobilePlayer />
+            <PlayerAPI />
+            <ToastsHandler />
           </div>
-          <V4VHiddenElement />
-          <Modals />
-          <PageLoadingOverlay />
-          <Player />
-          <MobilePlayer />
-          <PlayerAPI />
-          <ToastsHandler />
-        </div>
-      </ToastProvider>
-    </CookiesProvider>
-  )
+        </ToastProvider>
+      </CookiesProvider>
+    )
+  }
 }
 
 export default appWithTranslation(MyApp)
