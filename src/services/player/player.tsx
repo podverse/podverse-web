@@ -20,10 +20,7 @@ import {
   audioUnmute
 } from './playerAudio'
 import { clearChapterUpdateInterval, getChapterNext, getChapterPrevious } from './playerChapters'
-import {
-  clearClipEndTimeListenerInterval,
-  handlePlayAfterClipEndTimeReached
-} from './playerClip'
+import { clearClipEndTimeListenerInterval, handlePlayAfterClipEndTimeReached } from './playerClip'
 import { setClipFlagPositions } from './playerFlags'
 import {
   checkIfVideoFileType,
