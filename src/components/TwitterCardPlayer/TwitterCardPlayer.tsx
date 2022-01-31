@@ -8,12 +8,18 @@ import { audioCheckIfCurrentlyPlaying, audioIsLoaded, audioPause, audioPlay } fr
 import { ButtonCircle } from '..'
 import { ProgressBar } from '../Player/controls/ProgressBar'
 
-export const TwitterCardPlayer = () => {
+type Props = {
+  isClip: boolean
+}
+
+export const TwitterCardPlayer = ({ isClip }: Props) => {
   const [player] = useOmniAural('player')
   const { t } = useTranslation()
   const { clipFlagPositions, currentNowPlayingItem, highlightedPositions, paused } = player
   const playpause = classNames(paused ? 'play' : 'pause')
   const episodePageUrl = `${PV.RoutePaths.web.episode}/${currentNowPlayingItem?.episodeId}`
+  const clipPageUrl = `${PV.RoutePaths.web.clip}/${currentNowPlayingItem?.clipId}`
+  const pageUrl = isClip ? clipPageUrl : episodePageUrl
 
   const _handleTogglePlay = () => {
     if (audioIsLoaded()) {
@@ -37,7 +43,7 @@ export const TwitterCardPlayer = () => {
         />
       </div>
       <div className='open-in-app'>
-        <a href={episodePageUrl} onClick={playerPause} target='_blank' rel='noreferrer'>
+        <a href={pageUrl} onClick={playerPause} target='_blank' rel='noreferrer'>
           {t('Open in Podverse')}
         </a>
       </div>
