@@ -69,7 +69,7 @@ export default function MiniPlayerClip({ serverClip }: ServerProps) {
               <div className='podcast-title'>{podcastTitle}</div>
             </div>
           </div>
-          <TwitterCardPlayer />
+          <TwitterCardPlayer isClip />
           <TwitterCardPlayerAPIAudio />
         </div>
       </div>

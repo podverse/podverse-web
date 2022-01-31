@@ -65,7 +65,7 @@ export default function MiniPlayerEpisode({ serverEpisode }: ServerProps) {
               <div className='podcast-title'>{serverEpisode.podcast.title || t('untitledPodcast')}</div>
             </div>
           </div>
-          <TwitterCardPlayer />
+          <TwitterCardPlayer isClip={false} />
           <TwitterCardPlayerAPIAudio />
         </div>
       </div>
