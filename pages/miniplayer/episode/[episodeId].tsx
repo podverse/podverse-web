@@ -54,6 +54,7 @@ export default function MiniPlayerEpisode({ serverEpisode }: ServerProps) {
         robotsNoIndex={true}
         title={meta.title}
         twitterDescription={meta.description}
+        twitterPlayerUrl={`${PV.Config.WEB_BASE_URL}${PV.RoutePaths.web.miniplayer.episode}/${serverEpisode.id}`}
         twitterTitle={meta.title}
       />
       <div className='mini-player-wrapper'>
