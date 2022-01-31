@@ -1,0 +1,70 @@
+.mini-player-wrapper {
+  align-items: center;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+
+  .embed-player-outer-wrapper {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: center;
+    padding: 8px 16px;
+    width: 100%;
+
+    .info-wrapper {
+      .info-text-wrapper {
+        text-align: center;
+
+        .episode-title {
+          font-size: $text-xl;
+          margin-top: 4px;
+          @include line-clamp(1);
+        }
+
+        .podcast-title {
+          color: $blueDarkText;
+          font-size: $text-md;
+          margin-top: 8px;
+          @include line-clamp(1);
+        }
+      }
+    }
+
+    .embed-player {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      margin-bottom: 12px;
+
+      .embed-progress-bar-wrapper {
+        display: flex;
+
+        .player-bar-container {
+          margin: 0 4px;
+          width: calc(100% - 48px);
+
+          .progress-slider {
+            margin: 0 12px;
+
+            .highlighted-section {
+              height: 33px;
+              top: 3px;
+            }
+
+            input {
+              height: 16px;
+            }
+          }
+        }
+      }
+
+      .open-in-app {
+        display: flex;
+        font-size: $text-sm;
+        justify-content: center;
+        margin-top: 4px;
+      }
+    }
+  }
+}

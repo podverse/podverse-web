@@ -62,6 +62,7 @@ export const MobilePlayer = (props: Props) => {
           flagPositions={flagPositions}
           highlightedPositions={highlightedPositions}
           onValueChange={playerSeekTo}
+          showFlags={(!clipFlagPositions || clipFlagPositions.length === 0) && chapterFlagPositions?.length > 1}
           startVal={0}
         />
       </div>
