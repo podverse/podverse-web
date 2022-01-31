@@ -1,6 +1,7 @@
 @include headerGradientStyle('.episode-page-header');
 
 .episode-page-header {
+  border-radius: 0;
   display: flex;
   padding: 16px 0;
 

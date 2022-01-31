@@ -57,7 +57,7 @@ export default function MiniPlayerEpisode({ serverEpisode }: ServerProps) {
         twitterTitle={meta.title}
       />
       <div className='mini-player-wrapper'>
-        <div className='embed-player-episode'>
+        <div className='embed-player-outer-wrapper'>
           <div className='info-wrapper'>
             <div className='info-text-wrapper'>
               <div className='episode-title'>

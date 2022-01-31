@@ -75,6 +75,10 @@ body {
     width: 100%;
   }
 
+  input[type='range'] {
+    cursor: pointer;
+  }
+
   .display-none {
     display: none;
   }

@@ -1,4 +1,6 @@
 .page-header {
+  border-radius: 0;
+  
   @include themeGen() {
     background-color: getThemeVal('backgroundTertiary');
   }

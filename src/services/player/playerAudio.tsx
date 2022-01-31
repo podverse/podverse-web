@@ -1,5 +1,7 @@
 import OmniAural from 'omniaural'
 import type { NowPlayingItem } from 'podverse-shared'
+import { checkIfNowPlayingItemIsAClip } from './player'
+import { handleSetupClipListener } from './playerClip'
 import { checkIfVideoFileType } from './playerVideo'
 
 let PVPlayerAudio: HTMLAudioElement = null
@@ -65,6 +67,10 @@ export const audioLoadNowPlayingItem = async (
 
   if (shouldPlay) {
     audioPlay()
+  }
+
+  if (checkIfNowPlayingItemIsAClip(nowPlayingItem)) {
+    handleSetupClipListener(nowPlayingItem.clipEndTime)
   }
 
   return nowPlayingItem
