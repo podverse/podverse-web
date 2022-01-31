@@ -66,12 +66,8 @@ export default function MiniPlayerClip({ serverClip }: ServerProps) {
         <div className='embed-player-outer-wrapper'>
           <div className='info-wrapper'>
             <div className='info-text-wrapper'>
-              <div className='episode-title'>
-                {serverClip.title || episode.title || t('untitledClip')}
-              </div>
-              <div className='podcast-title'>
-                {podcastTitle}
-              </div>
+              <div className='episode-title'>{serverClip.title || episode.title || t('untitledClip')}</div>
+              <div className='podcast-title'>{podcastTitle}</div>
             </div>
           </div>
           <TwitterCardPlayer />

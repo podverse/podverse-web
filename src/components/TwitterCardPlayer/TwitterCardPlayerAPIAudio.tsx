@@ -26,7 +26,7 @@ export const TwitterCardPlayerAPIAudio = () => {
     if (currentNowPlayingItem.clipStartTime) {
       audioSeekTo(currentNowPlayingItem.clipStartTime)
     }
-    
+
     if (Number.isInteger(currentNowPlayingItem.clipStartTime)) {
       const duration = playerGetDuration()
       setClipFlagPositions(currentNowPlayingItem, duration)

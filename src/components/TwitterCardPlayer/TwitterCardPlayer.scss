@@ -3,7 +3,7 @@
   display: flex;
   flex: 1;
   flex-direction: column;
-  
+
   .embed-player-outer-wrapper {
     display: flex;
     flex: 1;
@@ -30,7 +30,7 @@
         }
       }
     }
-  
+
     .embed-player {
       display: flex;
       flex-direction: column;
@@ -58,7 +58,7 @@
           }
         }
       }
-      
+
       .open-in-app {
         display: flex;
         font-size: $text-sm;

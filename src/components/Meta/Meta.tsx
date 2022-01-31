@@ -85,16 +85,14 @@ export const Meta = ({
       <meta property='fb:app_id' content='300336890140007' />
 
       {/* Twitter global meta tags */}
-      {
-        twitterPlayerUrl && (
-          <>
-            <meta name='twitter:card' content='player' />
-            <meta name='twitter:player' content={twitterPlayerUrl} />
-            <meta name='twitter:player:height' content='166' />
-            <meta name='twitter:player:width' content='500' />
-          </>
-        )
-      }
+      {twitterPlayerUrl && (
+        <>
+          <meta name='twitter:card' content='player' />
+          <meta name='twitter:player' content={twitterPlayerUrl} />
+          <meta name='twitter:player:height' content='166' />
+          <meta name='twitter:player:width' content='500' />
+        </>
+      )}
       <meta name='twitter:site' content='@podverse' />
       <meta name='twitter:site:id' content='2555941009' />
       <meta name='twitter:creator' content='@podverse' />

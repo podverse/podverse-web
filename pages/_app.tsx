@@ -67,7 +67,6 @@ if (typeof window !== 'undefined') {
 }
 
 function MyApp({ Component, pageProps }) {
-
   const router = useRouter()
   const doNotInheritAppComponent = router.pathname.startsWith('/miniplayer')
 
@@ -83,7 +82,7 @@ function MyApp({ Component, pageProps }) {
   }, [router.events])
 
   useEffect(() => {
-    ; (async () => {
+    ;(async () => {
       if (!doNotInheritAppComponent) {
         const nowPlayingItem = await getNowPlayingItemOnServer()
         if (nowPlayingItem) {
@@ -92,7 +91,7 @@ function MyApp({ Component, pageProps }) {
             playerLoadNowPlayingItem(nowPlayingItem, shouldPlay)
           })
         }
-  
+
         initializeMatomo()
         matomoTrackPageView()
       }

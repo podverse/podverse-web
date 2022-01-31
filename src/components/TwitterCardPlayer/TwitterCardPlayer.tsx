@@ -1,12 +1,12 @@
-import { faPause, faPlay } from "@fortawesome/free-solid-svg-icons"
-import classNames from "classnames"
-import { useTranslation } from "next-i18next"
+import { faPause, faPlay } from '@fortawesome/free-solid-svg-icons'
+import classNames from 'classnames'
+import { useTranslation } from 'next-i18next'
 import { useOmniAural } from 'omniaural'
-import { PV } from "~/resources"
-import { playerPause } from "~/services/player/player"
-import { audioCheckIfCurrentlyPlaying, audioIsLoaded, audioPause, audioPlay } from "~/services/player/playerAudio"
-import { ButtonCircle } from ".."
-import { ProgressBar } from "../Player/controls/ProgressBar"
+import { PV } from '~/resources'
+import { playerPause } from '~/services/player/player'
+import { audioCheckIfCurrentlyPlaying, audioIsLoaded, audioPause, audioPlay } from '~/services/player/playerAudio'
+import { ButtonCircle } from '..'
+import { ProgressBar } from '../Player/controls/ProgressBar'
 
 export const TwitterCardPlayer = () => {
   const [player] = useOmniAural('player')

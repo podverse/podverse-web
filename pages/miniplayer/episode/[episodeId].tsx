@@ -61,17 +61,13 @@ export default function MiniPlayerEpisode({ serverEpisode }: ServerProps) {
         <div className='embed-player-outer-wrapper'>
           <div className='info-wrapper'>
             <div className='info-text-wrapper'>
-              <div className='episode-title'>
-                {serverEpisode.title || t('untitledEpisode')}
-              </div>
-              <div className='podcast-title'>
-                {serverEpisode.podcast.title || t('untitledPodcast')}
-              </div>
+              <div className='episode-title'>{serverEpisode.title || t('untitledEpisode')}</div>
+              <div className='podcast-title'>{serverEpisode.podcast.title || t('untitledPodcast')}</div>
             </div>
           </div>
           <TwitterCardPlayer />
           <TwitterCardPlayerAPIAudio />
-      </div>
+        </div>
       </div>
     </>
   )
