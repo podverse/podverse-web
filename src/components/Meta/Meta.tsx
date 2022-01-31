@@ -108,7 +108,7 @@ export const Meta = ({
       <meta name='twitter:app:url:googleplay' content='Your app’s custom URL scheme' />  */}
 
       {/* Twitter page-specific meta tags */}
-      <meta name='twitter:card' content='summary_large_image' />
+      {!twitterPlayerUrl && <meta name='twitter:card' content='summary_large_image' />}
       <meta name='twitter:description' content={seoTwitterDescription} />
       <meta name='twitter:title' content={seoTwitterTitle} />
       <meta name='twitter:image' content={twitterImg} />
