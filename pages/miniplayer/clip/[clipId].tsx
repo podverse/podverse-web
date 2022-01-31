@@ -7,8 +7,8 @@ import { PV } from '~/resources'
 import { Meta } from '~/components/Meta/Meta'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 import { getEpisodeById } from '~/services/episode'
-import { EmbedPlayer } from '~/components/EmbedPlayer/EmbedPlayer'
-import { EmbedPlayerAPIAudio } from '~/components/EmbedPlayer/EmbedPlayerAPIAudio'
+import { TwitterCardPlayer } from '~/components/TwitterCardPlayer/TwitterCardPlayer'
+import { TwitterCardPlayerAPIAudio } from '~/components/TwitterCardPlayer/TwitterCardPlayerAPIAudio'
 import { useEffect } from 'react'
 import { audioIsLoaded, audioLoadNowPlayingItem } from '~/services/player/playerAudio'
 import { prefixClipLabel } from '~/lib/utility/misc'
@@ -74,8 +74,8 @@ export default function MiniPlayerClip({ serverClip }: ServerProps) {
               </div>
             </div>
           </div>
-          <EmbedPlayer />
-          <EmbedPlayerAPIAudio />
+          <TwitterCardPlayer />
+          <TwitterCardPlayerAPIAudio />
         </div>
       </div>
     </>

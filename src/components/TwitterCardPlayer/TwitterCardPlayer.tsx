@@ -8,7 +8,7 @@ import { audioCheckIfCurrentlyPlaying, audioIsLoaded, audioPause, audioPlay } fr
 import { ButtonCircle } from ".."
 import { ProgressBar } from "../Player/controls/ProgressBar"
 
-export const EmbedPlayer = () => {
+export const TwitterCardPlayer = () => {
   const [player] = useOmniAural('player')
   const { t } = useTranslation()
   const { clipFlagPositions, currentNowPlayingItem, highlightedPositions, paused } = player

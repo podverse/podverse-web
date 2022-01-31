@@ -5,7 +5,7 @@ import { playerGetDuration, playerUpdateDuration, playerUpdatePlaybackPosition }
 import { audioInitialize, audioPause, audioSeekTo } from '~/services/player/playerAudio'
 import { setClipFlagPositions } from '~/services/player/playerFlags'
 
-export const EmbedPlayerAPIAudio = () => {
+export const TwitterCardPlayerAPIAudio = () => {
   const [player] = useOmniAural('player')
   const { currentNowPlayingItem } = player
 
