@@ -22,8 +22,7 @@ import {
 import { clearChapterUpdateInterval, getChapterNext, getChapterPrevious } from './playerChapters'
 import {
   clearClipEndTimeListenerInterval,
-  handlePlayAfterClipEndTimeReached,
-  handleSetupClipListener
+  handlePlayAfterClipEndTimeReached
 } from './playerClip'
 import { setClipFlagPositions } from './playerFlags'
 import {
