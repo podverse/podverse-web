@@ -7,6 +7,7 @@ type Props = {
   flagPositions?: number[]
   highlightedPositions?: number[]
   onValueChange?: (val: number) => void
+  showFlags?: boolean
   startVal: number
   step?: number
 }
@@ -18,6 +19,7 @@ export const Slider = ({
   flagPositions = [],
   highlightedPositions = [],
   onValueChange,
+  showFlags = false,
   startVal = 0,
   step = 1
 }: Props) => {
@@ -33,7 +35,8 @@ export const Slider = ({
 
   const flagElement = (flagPosition: number) => {
     const positionLeft = `${flagPosition * 100}%`
-    return <div className='flag' key={`flag-element-${flagPosition}`} style={{ left: positionLeft }} />
+    const flagClassName = `flag${showFlags ? '' : ' display-none'}`
+    return <div className={flagClassName} key={`flag-element-${flagPosition}`} style={{ left: positionLeft }} />
   }
 
   const generateHighlightedSectionElement = () => {

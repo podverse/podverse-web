@@ -1,6 +1,7 @@
 @include headerGradientStyle('.podcast-page-header');
 
 .podcast-page-header {
+  border-radius: 0;
   display: flex;
   flex-direction: column;
   padding: 16px 0;

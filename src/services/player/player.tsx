@@ -263,10 +263,6 @@ export const playerLoadNowPlayingItem = async (nowPlayingItem: NowPlayingItem, s
     /* Set playback speed right after the item loads, since loading a new item can clear it. */
     const playSpeed = playerGetCurrentPlaybackSpeed()
     playerSetPlaybackSpeed(playSpeed)
-
-    if (checkIfNowPlayingItemIsAClip(nowPlayingItem)) {
-      handleSetupClipListener(nowPlayingItem.clipEndTime)
-    }
   } catch (error) {
     console.log('playerLoadNowPlayingItem service error', error)
   }
@@ -313,7 +309,7 @@ const playerClearItemFromPlayerAPI = (nextNowPlayingItem: NowPlayingItem) => {
   }
 }
 
-const checkIfNowPlayingItemIsAClip = (nowPlayingItem: NowPlayingItem) =>
+export const checkIfNowPlayingItemIsAClip = (nowPlayingItem: NowPlayingItem) =>
   nowPlayingItem.clipStartTime && nowPlayingItem.clipEndTime && !nowPlayingItem.clipIsOfficialChapter
 
 export const saveCurrentPlaybackPositionToHistory = (skipSetNowPlaying = false) => {
