@@ -44,6 +44,7 @@ export const TwitterCardPlayerAPIAudio = () => {
 
   return (
     <PlayerAudio
+      preload='metadata'
       onEnded={_onEnded}
       onLoadedMetaData={_onLoadedMetaData}
       onListen={_onListen}
