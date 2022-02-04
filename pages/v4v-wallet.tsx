@@ -16,8 +16,8 @@ export default function V4VWallet(props: ServerProps) {
 
   const meta = {
     currentUrl: `${PV.Config.WEB_BASE_URL}${PV.RoutePaths.web.v4vWallet}`,
-    description: t('pages:v4vWallet._Description'),
-    title: t('pages:v4vWallet._Title')
+    description: t('pages-v4vWallet_Description'),
+    title: t('pages-v4vWallet_Title')
   }
 
   return (

@@ -32,7 +32,7 @@ export const VerifyEmailModal = (props: Props) => {
     } finally {
       setIsVerifyPressed(false)
     }
-    alert(t('errorMessages:internetConnectivityErrorMessage'))
+    alert(t('internetConnectivityErrorMessage'))
   }
 
   const _onRequestClose = () => {

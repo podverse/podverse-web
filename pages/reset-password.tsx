@@ -36,8 +36,8 @@ export default function ResetPassword(props: ServerProps) {
 
   const meta = {
     currentUrl: `${PV.Config.WEB_BASE_URL}${PV.RoutePaths.web.reset_password}`,
-    description: t('pages:reset_password._Description'),
-    title: t('pages:reset_password._Title')
+    description: t('pages-reset_password_Description'),
+    title: t('pages-reset_password_Title')
   }
 
   return (

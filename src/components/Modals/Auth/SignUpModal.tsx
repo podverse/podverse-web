@@ -26,7 +26,7 @@ export const SignUpModal = (props: Props) => {
       } else if (error.response?.data?.message) {
         alert(error.response.data.message)
       } else {
-        alert(t('errorMessages:internetConnectivityErrorMessage'))
+        alert(t('internetConnectivityErrorMessage'))
       }
     } finally {
       setIsSignUpPressed(false)

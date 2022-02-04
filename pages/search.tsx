@@ -108,8 +108,8 @@ export default function Search({ serverSearchByText }: ServerProps) {
 
   const meta = {
     currentUrl: `${PV.Config.WEB_BASE_URL}${PV.RoutePaths.web.search}`,
-    description: t('pages:search._Description'),
-    title: t('pages:search._Title')
+    description: t('pages-search_Description'),
+    title: t('pages-search_Title')
   }
 
   return (

@@ -65,8 +65,8 @@ export default function PaymentPayPalConfirming(props: ServerProps) {
 
   const meta = {
     currentUrl: `${PV.Config.WEB_BASE_URL}${PV.RoutePaths.web.payment_paypal_confirming}`,
-    description: t('pages:payment_paypal_confirming._Description'),
-    title: t('pages:payment_paypal_confirming._Title')
+    description: t('pages-payment_paypal_confirming_Description'),
+    title: t('pages-payment_paypal_confirming_Title')
   }
 
   return (
