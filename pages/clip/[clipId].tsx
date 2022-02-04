@@ -209,7 +209,7 @@ export default function Clip({
           }
           sideColumnChildren={
             <SideContent>
-              <PodcastPageHeader episode={episode} hideAboveMobileWidth podcast={podcast} />
+              <PodcastPageHeader episode={episode} hideAboveMobileWidth mediaRef={serverClip} podcast={podcast} />
             </SideContent>
           }
         />
