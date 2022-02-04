@@ -151,6 +151,7 @@ export default function Podcast({
   const generateClipListElements = () => {
     return clipsListData.map((listItem, index) => (
       <ClipListItem
+        episode={listItem.episode}
         isLoggedInUserMediaRef={userInfo && userInfo.id === listItem.owner.id}
         mediaRef={listItem}
         podcast={serverPodcast}

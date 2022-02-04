@@ -123,6 +123,7 @@ export default function Clip({
       listItem.episode = episode
       return (
         <ClipListItem
+          episode={episode}
           isLoggedInUserMediaRef={userInfo && userInfo.id === listItem.owner.id}
           mediaRef={listItem}
           podcast={episode.podcast}

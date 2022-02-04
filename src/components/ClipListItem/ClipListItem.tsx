@@ -69,7 +69,9 @@ export const ClipListItem = ({
           <MediaItemControls
             buttonSize='medium'
             clip={mediaRef}
+            episode={episode}
             isLoggedInUserMediaRef={isLoggedInUserMediaRef}
+            podcast={podcast}
             stretchMiddleContent
           />
         </div>
