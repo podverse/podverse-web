@@ -98,16 +98,16 @@ export const PodcastPageHeader = ({
               )}
               <div className='header-sub-buttons hide-below-tablet-xl-max-width'>
                 {authorityFeedUrl?.url && (
-                  <ButtonIcon faIcon={faRss} href={authorityFeedUrl.url} isSecondary rel='noreferrer' target='_blank' />
+                  <ButtonIcon className='header-rss-button' faIcon={faRss} href={authorityFeedUrl.url} isSecondary rel='noreferrer' target='_blank' />
                 )}
-                <ButtonIcon faIcon={faShare} isSecondary onClick={_handleShowShareModal} />
+                <ButtonIcon className='header-share-button' faIcon={faShare} isSecondary onClick={_handleShowShareModal} />
                 {!!fundingLinks.length && (
-                  <ButtonIcon faIcon={faDonate} isSecondary onClick={_handleShowFundingModal} />
+                  <ButtonIcon className='header-funding-button' faIcon={faDonate} isSecondary onClick={_handleShowFundingModal} />
                 )}
               </div>
             </div>
             <ButtonRectangle
-              className='hide-below-tablet-max-width'
+              className='hide-below-tablet-max-width header-subscribe-button'
               label={subscribedText}
               isLoading={isSubscribing}
               onClick={() => _toggleSubscribeToPodcast()}
@@ -123,7 +123,7 @@ export const PodcastPageHeader = ({
               </div>
             )}
             <ButtonRectangle
-              className='hide-above-tablet-xl-min-width'
+              className='hide-above-tablet-xl-min-width header-subscribe-button-mobile'
               label={subscribedText}
               isLoading={isSubscribing}
               onClick={() => _toggleSubscribeToPodcast()}
@@ -132,10 +132,10 @@ export const PodcastPageHeader = ({
           </div>
           <div className='mobile-header-sub-buttons hide-above-laptop-min-width'>
             {authorityFeedUrl?.url && (
-              <ButtonIcon faIcon={faRss} href={authorityFeedUrl.url} isSecondary rel='noreferrer' target='_blank' />
+              <ButtonIcon className='header-rss-button-mobile' faIcon={faRss} href={authorityFeedUrl.url} isSecondary rel='noreferrer' target='_blank' />
             )}
-            <ButtonIcon faIcon={faShare} isSecondary onClick={_handleShowShareModal} />
-            {!!fundingLinks.length && <ButtonIcon faIcon={faDonate} isSecondary onClick={_handleShowFundingModal} />}
+            <ButtonIcon className='header-share-button-mobile' faIcon={faShare} isSecondary onClick={_handleShowShareModal} />
+            {!!fundingLinks.length && <ButtonIcon className='header-funding-button-mobile' faIcon={faDonate} isSecondary onClick={_handleShowFundingModal} />}
           </div>
         </div>
       </div>
