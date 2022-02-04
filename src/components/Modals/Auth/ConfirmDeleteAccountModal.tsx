@@ -28,7 +28,7 @@ export const ConfirmDeleteAccountModal = (props: Props) => {
         if (error.response?.data?.message) {
           alert(error.response.data.message)
         } else {
-          alert(t('errorMessages:internetConnectivityErrorMessage'))
+          alert(t('internetConnectivityErrorMessage'))
         }
       }
     }

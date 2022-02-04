@@ -42,7 +42,7 @@ export const PasswordInputs = ({ handleClose, handleSubmit, hideEmail, isSignUpP
 
   const handleEmailOnBlur = () => {
     if (!validateEmail(email)) {
-      setEmailWarningText(t('errorMessages:message.PleaseProvideValidEmail'))
+      setEmailWarningText(t('PleaseProvideValidEmail'))
     } else {
       setEmailWarningText('')
     }
@@ -56,7 +56,7 @@ export const PasswordInputs = ({ handleClose, handleSubmit, hideEmail, isSignUpP
     if (!password1WasShownWarning) {
       // Don't show the password1 warning until after first blur event.
     } else if (password1 && !validatePassword(password1)) {
-      setPassword1WarningText(t('errorMessages:message.passwordError'))
+      setPassword1WarningText(t('Password must contain'))
     } else if (validatePassword(password1)) {
       setPassword1WarningText(t(''))
     }
@@ -83,7 +83,7 @@ export const PasswordInputs = ({ handleClose, handleSubmit, hideEmail, isSignUpP
 
   const handlePassword2Warning = () => {
     if (!password1WarningText && validatePassword(password1) && password2 && password2 !== password1) {
-      setPassword2WarningText(t('errorMessages:message.passwordMatchError'))
+      setPassword2WarningText(t('passwordMatchError'))
     } else {
       setPassword2WarningText('')
     }

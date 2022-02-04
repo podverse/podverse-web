@@ -16,8 +16,8 @@ export default function Support(props: ServerProps) {
 
   const meta = {
     currentUrl: `${PV.Config.WEB_BASE_URL}${PV.RoutePaths.web.support}`,
-    description: t('pages:support._Description'),
-    title: t('pages:support._Title')
+    description: t('pages-support_Description'),
+    title: t('pages-support_Title')
   }
 
   return (
