@@ -311,7 +311,7 @@
   "pages-verify_email_Description": "Verifica tu dirección de correo electrónico en Podverse",
   "pages-verify_email_Title": "Verifique su dirección de correo electrónico",
   "password validation - has lowercase": "- tiene minúsculas",
-  "password validation - has number": "- tiene número",
+  "password validation - has number": "- tiene numero",
   "password validation - has uppercase": "- tiene mayúsculas",
   "password validation - is at least 8 characters": "- tiene al menos 8 caracteres",
   "passwordMatchError": "Las contraseñas no coinciden.",
