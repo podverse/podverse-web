@@ -141,8 +141,8 @@ export default function History({
 
   const meta = {
     currentUrl: `${PV.Config.WEB_BASE_URL}${PV.RoutePaths.web.history}`,
-    description: t('pages:history._Description'),
-    title: t('pages:history._Title')
+    description: t('pages-history_Description'),
+    title: t('pages-history_Title')
   }
 
   return (

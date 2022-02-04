@@ -16,8 +16,8 @@ export default function Terms(props: ServerProps) {
 
   const meta = {
     currentUrl: `${PV.Config.WEB_BASE_URL}${PV.RoutePaths.web.terms}`,
-    description: t('pages:terms._Description'),
-    title: t('pages:terms._Title')
+    description: t('pages-terms_Description'),
+    title: t('pages-terms_Title')
   }
 
   return (

@@ -28,7 +28,7 @@ export const getDefaultServerSideProps = async (ctx: any, locale: any) => {
 
   return {
     serverCookies: serverCookies ?? null,
-    ...(await serverSideTranslations(locale, PV.i18n.fileNames.all)),
+    ...(await serverSideTranslations(locale, PV.i18n.fileNames.common as any)),
     serverGlobalFilters: serverGlobalFilters ?? null,
     serverHistoryItemsIndex: serverHistoryItemsIndex ?? null,
     serverUserInfo: serverUserInfo ?? null,

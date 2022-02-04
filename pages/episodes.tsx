@@ -184,8 +184,8 @@ export default function Episodes({
 
   const meta = {
     currentUrl: `${PV.Config.WEB_BASE_URL}${PV.RoutePaths.web.episodes}`,
-    description: t('pages:episodes._Description'),
-    title: t('pages:episodes._Title')
+    description: t('pages-episodes_Description'),
+    title: t('pages-episodes_Title')
   }
 
   return (

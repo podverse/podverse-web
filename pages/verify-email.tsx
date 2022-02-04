@@ -43,8 +43,8 @@ export default function VerifyEmail(props: ServerProps) {
 
   const meta = {
     currentUrl: `${PV.Config.WEB_BASE_URL}${PV.RoutePaths.web.verify_email}`,
-    description: t('pages:verify_email._Description'),
-    title: t('pages:verify_email._Title')
+    description: t('pages-verify_email_Description'),
+    title: t('pages-verify_email_Title')
   }
 
   return (

@@ -123,6 +123,7 @@ export default function Clip({
       listItem.episode = episode
       return (
         <ClipListItem
+          episode={episode}
           isLoggedInUserMediaRef={userInfo && userInfo.id === listItem.owner.id}
           mediaRef={listItem}
           podcast={episode.podcast}
@@ -209,7 +210,7 @@ export default function Clip({
           }
           sideColumnChildren={
             <SideContent>
-              <PodcastPageHeader episode={episode} hideAboveMobileWidth podcast={podcast} />
+              <PodcastPageHeader episode={episode} hideAboveMobileWidth mediaRef={serverClip} podcast={podcast} />
             </SideContent>
           }
         />

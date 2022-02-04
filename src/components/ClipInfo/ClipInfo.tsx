@@ -34,6 +34,7 @@ export const ClipInfo = ({ clip, episode }: Props) => {
         episode={episode}
         hidePubDate
         isLoggedInUserMediaRef={userInfo && userInfo.id === clip.owner.id}
+        podcast={episode.podcast}
       />
       <hr />
     </div>

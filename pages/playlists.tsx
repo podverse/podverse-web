@@ -45,8 +45,8 @@ export default function Playlists({ serverPlaylistsCombined }: ServerProps) {
 
   const meta = {
     currentUrl: `${PV.Config.WEB_BASE_URL}${PV.RoutePaths.web.playlists}`,
-    description: t('pages:playlists._Description'),
-    title: t('pages:playlists._Title')
+    description: t('pages-playlists_Description'),
+    title: t('pages-playlists_Title')
   }
 
   return (

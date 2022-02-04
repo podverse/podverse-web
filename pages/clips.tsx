@@ -184,8 +184,8 @@ ServerProps) {
 
   const meta = {
     currentUrl: `${PV.Config.WEB_BASE_URL}${PV.RoutePaths.web.clips}`,
-    description: t('pages:clips._Description'),
-    title: t('pages:clips._Title')
+    description: t('pages-clips_Description'),
+    title: t('pages-clips_Title')
   }
 
   return (

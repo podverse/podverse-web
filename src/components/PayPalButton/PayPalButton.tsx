@@ -58,7 +58,7 @@ export const PayPalButton = (props: Props) => {
   }
 
   const onError = () => {
-    alert(t('errorMessages:alerts.somethingWentWrong'))
+    alert(t('Something went wrong'))
   }
 
   return (
