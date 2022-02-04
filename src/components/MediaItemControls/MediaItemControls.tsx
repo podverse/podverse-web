@@ -103,19 +103,7 @@ export const MediaItemControls = ({
           OmniAural.modalsShareShowPodcast(podcast.id)
         }
       } else if (item.key === _markAsPlayedKey || item.key === _markAsUnplayedKey) {
-        const { episodeDuration, userPlaybackPosition } = nowPlayingItem
-
-        await addOrUpdateHistoryItemOnServer({
-          nowPlayingItem,
-          playbackPosition: userPlaybackPosition,
-          mediaFileDuration: episodeDuration,
-          forceUpdateOrderDate: false,
-          skipSetNowPlaying: true,
-          completed: item.key === _markAsPlayedKey
-        })
-        const newHistoryItemsIndex = await getHistoryItemsIndexFromServer()
-        OmniAural.setHistoryItemsIndex(newHistoryItemsIndex)
-        setForceRefresh(Math.random())
+        await _handleToggleMarkAsPlayed(item)
       } else if (item.key === _editClip) {
         const shouldPlay = false
         playerLoadNowPlayingItem(nowPlayingItem, shouldPlay)
@@ -148,6 +136,26 @@ export const MediaItemControls = ({
       OmniAural.setUserQueueItems(newUserQueueItems)
     } else {
       OmniAural.modalsLoginToAlertShow('add item to queue')
+    }
+  }
+
+  const _handleToggleMarkAsPlayed = async (item: any) => {
+    if (userInfo) {
+      const { episodeDuration, userPlaybackPosition } = nowPlayingItem
+
+      await addOrUpdateHistoryItemOnServer({
+        nowPlayingItem,
+        playbackPosition: userPlaybackPosition,
+        mediaFileDuration: episodeDuration,
+        forceUpdateOrderDate: false,
+        skipSetNowPlaying: true,
+        completed: item.key === _markAsPlayedKey
+      })
+      const newHistoryItemsIndex = await getHistoryItemsIndexFromServer()
+      OmniAural.setHistoryItemsIndex(newHistoryItemsIndex)
+      setForceRefresh(Math.random())
+    } else {
+      OmniAural.modalsLoginToAlertShow('mark as played')
     }
   }
 

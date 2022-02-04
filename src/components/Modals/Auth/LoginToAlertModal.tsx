@@ -32,6 +32,8 @@ export const LoginToAlertModal = (props: Props) => {
         return t('LoginToSubscribeToPodcasts')
       case 'subscribe to profile':
         return t('LoginToSubscribeToProfiles')
+      case 'mark as played':
+        return t('LoginToMarkAsPlayed')
       default:
         break
     }
