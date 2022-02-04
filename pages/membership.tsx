@@ -27,8 +27,8 @@ export default function Membership(props: ServerProps) {
 
   const meta = {
     currentUrl: `${PV.Config.WEB_BASE_URL}${PV.RoutePaths.web.membership}`,
-    description: t('pages:membership._Description'),
-    title: t('pages:membership._Title')
+    description: t('pages-membership_Description'),
+    title: t('pages-membership_Title')
   }
 
   return (

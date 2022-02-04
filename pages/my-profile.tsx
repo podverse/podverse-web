@@ -17,8 +17,8 @@ export default function MyProfile(props: ServerProps) {
 
   const meta = {
     currentUrl: `${PV.Config.WEB_BASE_URL}${PV.RoutePaths.web.my_profile}`,
-    description: t('pages:my_profile._Description'),
-    title: t('pages:my_profile._Title')
+    description: t('pages-my_profile_Description'),
+    title: t('pages-my_profile_Title')
   }
 
   return (

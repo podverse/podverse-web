@@ -26,8 +26,8 @@ export default function Contact(props: ServerProps) {
 
   const meta = {
     currentUrl: `${PV.Config.WEB_BASE_URL}${PV.RoutePaths.web.contact}`,
-    description: t('pages:contact._Description'),
-    title: t('pages:contact._Title')
+    description: t('pages-contact_Description'),
+    title: t('pages-contact_Title')
   }
 
   return (

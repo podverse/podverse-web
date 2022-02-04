@@ -17,8 +17,8 @@ export default function Settings(props: ServerProps) {
 
   const meta = {
     currentUrl: `${PV.Config.WEB_BASE_URL}${PV.RoutePaths.web.settings}`,
-    description: t('pages:settings._Description'),
-    title: t('pages:settings._Title')
+    description: t('pages-settings_Description'),
+    title: t('pages-settings_Title')
   }
 
   return (
