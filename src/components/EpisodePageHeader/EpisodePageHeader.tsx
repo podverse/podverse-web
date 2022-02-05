@@ -79,11 +79,28 @@ export const EpisodePageHeader = ({ episode }: Props) => {
               )}
               <div className='header-sub-buttons hide-below-tablet-xl-max-width'>
                 {authorityFeedUrl?.url && (
-                  <ButtonIcon className='header-rss-button' faIcon={faRss} href={authorityFeedUrl.url} isSecondary rel='noreferrer' target='_blank' />
+                  <ButtonIcon
+                    className='header-rss-button'
+                    faIcon={faRss}
+                    href={authorityFeedUrl.url}
+                    isSecondary
+                    rel='noreferrer'
+                    target='_blank'
+                  />
                 )}
-                <ButtonIcon className='header-share-button' faIcon={faShare} isSecondary onClick={_handleShowShareModal} />
+                <ButtonIcon
+                  className='header-share-button'
+                  faIcon={faShare}
+                  isSecondary
+                  onClick={_handleShowShareModal}
+                />
                 {!!fundingLinks.length && (
-                  <ButtonIcon className='header-funding-button' faIcon={faDonate} isSecondary onClick={_handleShowFundingModal} />
+                  <ButtonIcon
+                    className='header-funding-button'
+                    faIcon={faDonate}
+                    isSecondary
+                    onClick={_handleShowFundingModal}
+                  />
                 )}
               </div>
             </div>
@@ -111,10 +128,29 @@ export const EpisodePageHeader = ({ episode }: Props) => {
           </div>
           <div className='mobile-header-sub-buttons hide-above-laptop-min-width'>
             {authorityFeedUrl?.url && (
-              <ButtonIcon className='header-rss-button-mobile' faIcon={faRss} href={authorityFeedUrl.url} isSecondary rel='noreferrer' target='_blank' />
+              <ButtonIcon
+                className='header-rss-button-mobile'
+                faIcon={faRss}
+                href={authorityFeedUrl.url}
+                isSecondary
+                rel='noreferrer'
+                target='_blank'
+              />
             )}
-            <ButtonIcon className='header-share-button-mobile' faIcon={faShare} isSecondary onClick={_handleShowShareModal} />
-            {!!fundingLinks.length && <ButtonIcon className='header-funding-button-mobile' faIcon={faDonate} isSecondary onClick={_handleShowFundingModal} />}
+            <ButtonIcon
+              className='header-share-button-mobile'
+              faIcon={faShare}
+              isSecondary
+              onClick={_handleShowShareModal}
+            />
+            {!!fundingLinks.length && (
+              <ButtonIcon
+                className='header-funding-button-mobile'
+                faIcon={faDonate}
+                isSecondary
+                onClick={_handleShowFundingModal}
+              />
+            )}
           </div>
         </div>
       </div>

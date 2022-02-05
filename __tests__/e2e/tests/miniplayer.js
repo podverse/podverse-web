@@ -15,8 +15,6 @@ module.exports = {
       .waitForElementWithText('div.episode-title', 'Magna fringilla urna porttitor rhoncus dolor.') // Episode Title
       .waitForElementWithText('div.podcast-title', 'Very Bad Wizards') // Podcast Title
       .waitForElementWithText('div.player-bar-label', '13:55') // Player Bar Time
-
-
   },
   after: function (browser) {
     browser.end()
