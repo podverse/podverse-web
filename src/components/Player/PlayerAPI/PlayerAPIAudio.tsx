@@ -83,6 +83,12 @@ export const PlayerAPIAudio = (props: Props) => {
 
   return (
     <PlayerAudio
+      /*
+        NOTE: I had to set preload to metadata to avoid bugs with WebViews
+        refusing to handle changes to the <audio> currentTime properly.
+        Apparently using preload auto in <audio> causes bugs in WebViews.
+      */
+      preload='metadata'
       onEnded={_onEnded}
       onLoadedMetaData={_onLoadedMetaData}
       onListen={_onListen}
