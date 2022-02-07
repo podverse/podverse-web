@@ -27,7 +27,7 @@ export const Footer = () => {
       <li>
         <a
           className='footer-social-link-mastodon'
-          href='https://podcastindex.social/web/@mitch'
+          href='https://podcastindex.social/web/@podverse'
           target='_blank'
           rel='noreferrer'
         >
