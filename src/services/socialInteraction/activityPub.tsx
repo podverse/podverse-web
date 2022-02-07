@@ -1,4 +1,4 @@
-import type { ActivityPubAttachment, ActivityPubNote, ActivityPubCollectionPage, PVComment } from 'podverse-shared'
+import type { ActivityPubThreadcapAttachment, ActivityPubThreadcapNode, ActivityPubThreadcapResponse, PVComment } from 'podverse-shared'
 import striptags from 'striptags'
 import { decodeHtml } from '~/lib/utility/misc'
 import { PV } from '~/resources'
@@ -7,13 +7,12 @@ import { request } from '~/services/request'
 export const getEpisodeProxyActivityPub = async (episodeId: string) => {
   const response = await request({
     endpoint: `${PV.RoutePaths.api.episode}/${episodeId}/proxy/activity-pub`,
-    method: 'get'
+    method: 'get',
+    opts: { timeout: 60000 }
   })
-  const { replies, rootComment } = response.data
-  const comment = convertActivityPubNoteToPVComment(rootComment)
+
+  const comment = convertThreadcapToPVComment(response.data)
   comment.isRoot = true
-  const replyComments = convertActivityPubCollectionPageToPVComments(replies)
-  comment.replies = replyComments
   return comment
 }
 
@@ -31,33 +30,43 @@ const parseUserName = (attributedTo: string) => {
   return username
 }
 
-const getAttachmentImage = (attachments: ActivityPubAttachment[]) => {
-  return attachments.find((attachment: ActivityPubAttachment) => attachment?.mediaType?.indexOf('image') === 0)
+const getAttachmentImage = (attachments: ActivityPubThreadcapAttachment[]) => {
+  return attachments.find((attachment: ActivityPubThreadcapAttachment) => attachment?.mediaType?.indexOf('image') === 0)
 }
 
-const convertActivityPubNoteToPVComment = (note: ActivityPubNote) => {
-  const { attachment, attributedTo, content, id, published, replies, url } = note
-  const { next } = replies.first
-  const cleanedContent = decodeHtml(striptags(content))
-  const attachmentImage = getAttachmentImage(attachment)
-  const username = parseUserName(attributedTo)
+const convertThreadcapToPVComment = (response: ActivityPubThreadcapResponse) => {
+  const { /* commenters, */ nodes, root } = response
+  const rootNode = nodes[root]
+  
+  const generatePVComment = (node: ActivityPubThreadcapNode) => {
+    const { comment, replies } = node
+    const { attachments, attributedTo, content, published, url } = comment
 
-  const pvComment: PVComment = {
-    content: cleanedContent,
-    id,
-    imageUrl: attachmentImage?.url || null,
-    published,
-    replies: [], // insert the replies later when available
-    repliesFirstNext: next,
-    url,
-    username
+    const nestedReplies = replies.map((replyUrl: string) => {
+      const nestedNode = nodes[replyUrl]
+      let pvComment = null
+      if (nestedNode) {
+        pvComment = generatePVComment(nestedNode)
+      }
+      return pvComment
+    })
+
+    const cleanedContent = content?.en ? decodeHtml(striptags(content.en)) : ''
+    const attachmentImage = getAttachmentImage(attachments)
+    const username = parseUserName(attributedTo)
+
+    const pvComment: PVComment = {
+      content: cleanedContent,
+      imageUrl: attachmentImage?.url || null,
+      published,
+      replies: nestedReplies,
+      url,
+      username
+    }
+
+    return pvComment
   }
 
-  return pvComment
-}
-
-const convertActivityPubCollectionPageToPVComments = (collectionPage: ActivityPubCollectionPage) => {
-  const notes = collectionPage.items
-  const comments = notes.map((note: ActivityPubNote) => convertActivityPubNoteToPVComment(note))
-  return comments
+  const pvCommentThread = generatePVComment(rootNode)
+  return pvCommentThread
 }
