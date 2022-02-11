@@ -1,7 +1,7 @@
 import { GetServerSideProps } from 'next'
 import { useTranslation } from 'next-i18next'
 import OmniAural, { useOmniAural } from 'omniaural'
-import type { MediaRef } from 'podverse-shared'
+import type { Episode, MediaRef } from 'podverse-shared'
 import { useEffect, useRef, useState } from 'react'
 import {
   ClipInfo,
@@ -48,6 +48,16 @@ const keyPrefix = 'pages_clip'
     Keep the sections in the same order
     (Initialization, useEffects, Client-Side Queries, Render Helpers).
 */
+/* Client-Side Queries */
+
+const clientQueryClips = async (episode: Episode, clipsFilterPage?: number, clipsFilterSort?: string) => {
+  const finalQuery = {
+    episodeId: episode.id,
+    ...(clipsFilterPage ? { page: clipsFilterPage } : {}),
+    ...(clipsFilterSort ? { sort: clipsFilterSort } : {})
+  }
+  return getMediaRefsByQuery(finalQuery)
+}
 
 export default function Clip({
   serverClip,
@@ -82,32 +92,21 @@ export default function Clip({
         })
       }, 0)
     }
-  }, [])
+  }, [serverClip])
 
   useEffect(() => {
     ;(async () => {
       if (initialRender.current) {
         initialRender.current = false
       } else {
-        const { data } = await clientQueryClips()
+        const { data } = await clientQueryClips(episode, clipsFilterPage, clipsFilterSort)
         const [newClipsListData, newClipsListCount] = data
         setClipsListData(newClipsListData)
         setClipsPageCount(calcListPageCount(newClipsListCount))
         scrollToTopOfPageScrollableContent()
       }
     })()
-  }, [clipsFilterPage, clipsFilterSort])
-
-  /* Client-Side Queries */
-
-  const clientQueryClips = async () => {
-    const finalQuery = {
-      episodeId: episode.id,
-      ...(clipsFilterPage ? { page: clipsFilterPage } : {}),
-      ...(clipsFilterSort ? { sort: clipsFilterSort } : {})
-    }
-    return getMediaRefsByQuery(finalQuery)
-  }
+  }, [clipsFilterPage, clipsFilterSort, episode])
 
   /* Function Helpers */
 
