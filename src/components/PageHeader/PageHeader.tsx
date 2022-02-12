@@ -1,4 +1,4 @@
-import { faAngleDown, faAngleUp, faFilm } from '@fortawesome/free-solid-svg-icons'
+import { faAngleDown, faAngleUp, faFilm, faSpinner } from '@fortawesome/free-solid-svg-icons'
 import classnames from 'classnames'
 import { useTranslation } from 'react-i18next'
 import { ButtonRectangle, DivClickable, Dropdown, Icon, SwitchWithIcons } from '~/components'
@@ -11,6 +11,7 @@ type Props = {
   handleVideoOnlyModeToggle?: any
   isCollapsed?: boolean
   isEditing?: boolean
+  isLoading?: boolean
   isSubHeader?: boolean
   noMarginBottom?: boolean
   primaryOnChange?: any
@@ -31,6 +32,7 @@ export const PageHeader = ({
   handleVideoOnlyModeToggle,
   isCollapsed,
   isEditing,
+  isLoading,
   isSubHeader,
   noMarginBottom,
   primaryOnChange,
@@ -65,6 +67,11 @@ export const PageHeader = ({
             {!isSubHeader && <h1>{text}</h1>}
             {isSubHeader && <h2>{text}</h2>}
             {handleCollapse && caretIcon}
+            {isLoading && (
+              <div className='loader-wrapper'>
+                <Icon faIcon={faSpinner} spin />
+              </div>
+            )}
           </DivClickable>
           {hasDropdowns && (
             <div className='dropdowns'>

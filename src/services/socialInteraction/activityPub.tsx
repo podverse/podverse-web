@@ -1,4 +1,9 @@
-import type { ActivityPubThreadcapAttachment, ActivityPubThreadcapNode, ActivityPubThreadcapResponse, PVComment } from 'podverse-shared'
+import type {
+  ActivityPubThreadcapAttachment,
+  ActivityPubThreadcapNode,
+  ActivityPubThreadcapResponse,
+  PVComment
+} from 'podverse-shared'
 import striptags from 'striptags'
 import { decodeHtml } from '~/lib/utility/misc'
 import { PV } from '~/resources'
@@ -37,7 +42,7 @@ const getAttachmentImage = (attachments: ActivityPubThreadcapAttachment[]) => {
 const convertThreadcapToPVComment = (response: ActivityPubThreadcapResponse) => {
   const { /* commenters, */ nodes, root } = response
   const rootNode = nodes[root]
-  
+
   const generatePVComment = (node: ActivityPubThreadcapNode) => {
     const { comment, replies } = node
     const { attachments, attributedTo, content, published, url } = comment
@@ -51,7 +56,10 @@ const convertThreadcapToPVComment = (response: ActivityPubThreadcapResponse) => 
       return pvComment
     })
 
-    const cleanedContent = content?.en ? decodeHtml(striptags(content.en)) : ''
+    const contentKeys = content && typeof content === 'object' ? Object.keys(content) : []
+    const contentLangKey = contentKeys[0]
+
+    const cleanedContent = contentLangKey ? decodeHtml(striptags(content[contentLangKey])) : ''
     const attachmentImage = getAttachmentImage(attachments)
     const username = parseUserName(attributedTo)
 
