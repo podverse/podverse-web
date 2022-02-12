@@ -67,6 +67,7 @@ export default function Episode({
     clipsFilterSort: serverClipsFilterSort
   } as FilterState)
   const [comment, setComment] = useState<PVComment>(null)
+  const [commentsLoading, setCommentsLoading] = useState<boolean>(false)
   const [userInfo] = useOmniAural('session.userInfo')
   const { clipsFilterPage, clipsFilterSort } = filterState
   const [clipsListData, setClipsListData] = useState<MediaRef[]>(serverClips)
@@ -93,8 +94,10 @@ export default function Episode({
           (item: SocialInteraction) => item.platform === PV.SocialInteraction.platformKeys.activitypub
         )
         if (activityPub?.url) {
+          setCommentsLoading(true)
           const comment = await getEpisodeProxyActivityPub(serverEpisode.id)
           setComment(comment)
+          setCommentsLoading(false)
         }
       }
 
@@ -177,7 +180,9 @@ export default function Episode({
           mainColumnChildren={
             <>
               <EpisodeInfo episode={serverEpisode} includeMediaItemControls />
-              {serverEpisode?.socialInteraction?.length ? <Comments comment={comment} /> : null}
+              {serverEpisode?.socialInteraction?.length ? (
+                <Comments comment={comment} isLoading={commentsLoading} />
+              ) : null}
               <PageHeader
                 isSubHeader
                 noMarginBottom
