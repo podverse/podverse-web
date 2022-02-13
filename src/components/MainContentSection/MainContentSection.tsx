@@ -5,6 +5,7 @@ import { PageHeader } from '~/components'
 type Props = {
   children: any
   headerText: string
+  isLoading?: boolean
   primaryOnChange?: any
   primaryOptions?: any[]
   primarySelected?: string
@@ -16,6 +17,7 @@ type Props = {
 export const MainContentSection = ({
   children,
   headerText,
+  isLoading,
   primaryOnChange,
   primaryOptions,
   primarySelected,
@@ -38,6 +40,7 @@ export const MainContentSection = ({
           <PageHeader
             handleCollapse={_headerOnClick}
             isCollapsed={!showContent}
+            isLoading={isLoading}
             isSubHeader
             primaryOnChange={primaryOnChange}
             primaryOptions={primaryOptions}

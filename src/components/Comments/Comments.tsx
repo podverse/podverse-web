@@ -5,16 +5,19 @@ import { MainContentSection, PVImage } from '..'
 
 type Props = {
   comment: PVComment
+  isLoading?: boolean
 }
 
-export const Comments = ({ comment }: Props) => {
+export const Comments = ({ comment, isLoading }: Props) => {
   const { t } = useTranslation()
 
   const commentNodes = generateCommentNodes(comment)
 
   return (
     <div className='comments'>
-      <MainContentSection headerText={t('Comments')}>{commentNodes}</MainContentSection>
+      <MainContentSection headerText={t('Comments')} isLoading={isLoading}>
+        {commentNodes}
+      </MainContentSection>
       <hr />
     </div>
   )
@@ -29,7 +32,11 @@ const generateCommentNodes = (comment: PVComment) => {
     replyNodes.push(generateCommentNodes(reply))
   }
 
-  return <Comment comment={comment}>{replyNodes}</Comment>
+  return (
+    <Comment comment={comment} key={comment.url}>
+      {replyNodes}
+    </Comment>
+  )
 }
 
 type CommentProps = {

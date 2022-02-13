@@ -26,11 +26,11 @@ export const request = async (req: PVRequest) => {
       .join('&')
 
     const axiosRequest = {
+      timeout: 30000,
       ...(body ? { data: body } : {}),
       ...(headers ? { headers } : {}),
       method,
       ...opts,
-      timeout: 30000,
       url: url ? url : `${PV.Config.API_BASE_URL}${endpoint}?${queryString}`,
       ...(withCredentials ? { withCredentials: true } : {})
     }

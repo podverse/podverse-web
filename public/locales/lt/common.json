@@ -295,7 +295,7 @@
   "pages-profiles_Description": "Mano prenumeruojami profiliai Podverse",
   "pages-profiles_Title": "Profiliai",
   "pages-queues_Description": "Atvirojo kodo podcast grotuvas, skirtas iOS, Android, F-Droid ir žiniatinkliui. Podcasting 2.0 sertifikuota. Kurkite ir bendrinkite svarbiausius tinklalaidės elementus. Sinchronizuokite eilę ir istoriją visuose įrenginiuose. Skyriai, klipai, foss, finansavimas, programa mobiliesiems, grojaraščiai, internetinių transliacijų indeksas, podpingas, priemoka, profiliai, nuorašai, v4v, vertės ir vertės santykis.",
-  "pages-queues_Title": "Eilė",
+  "pages-queue_Title": "Eilė",
   "pages-reset_password_Description": "Paskyros Podverse slaptažodžio atkūrimas",
   "pages-reset_password_Title": "Iš naujo nustatyti slaptažodį",
   "pages-search_Description": "Podkastų paieška pagal pavadinimą arba vedėją Podverse.",
