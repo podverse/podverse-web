@@ -25,6 +25,26 @@ interface ServerProps extends Page {
 
 const keyPrefix = 'pages_search'
 
+/* Client-Side Queries */
+
+const clientQueryPodcasts = async (filterSearchByText: string, filterPage: number, filterSearchByType: string) => {
+  let response = {
+    data: [[], 0]
+  } as any
+
+  // search endpoint requires at least 2 characters to search, otherwise it will 400
+  if (filterSearchByText && filterSearchByText.length > 1) {
+    const finalQuery = {
+      ...(filterPage ? { page: filterPage } : {}),
+      ...(filterSearchByType ? { searchBy: filterSearchByType } : {}),
+      searchText: filterSearchByText
+    }
+    response = await getPodcastsByQuery(finalQuery)
+  }
+
+  return response
+}
+
 /* *TODO*
     On navigate back to this page (both using the web browser back button,
       and the in-app back button), the screen does not remember the search results,
@@ -50,7 +70,7 @@ export default function Search({ serverSearchByText }: ServerProps) {
   useEffect(() => {
     ;(async () => {
       if (filterSearchByText) {
-        const { data } = await clientQueryPodcasts()
+        const { data } = await clientQueryPodcasts(filterSearchByText, filterPage, filterSearchByType)
         const [newPodcastsListData, newPodcastsListCount] = data
         setPodcastsListData(newPodcastsListData)
         setPodcastsListDataCount(newPodcastsListCount)
@@ -58,10 +78,12 @@ export default function Search({ serverSearchByText }: ServerProps) {
     })()
   }, [])
 
+  // Automatically search as the user types
+  // TODO: Need to handle aborting any pending requests if we get updated search params
   useEffect(() => {
     ;(async () => {
       OmniAural.pageIsLoadingShow()
-      const { data } = await clientQueryPodcasts()
+      const { data } = await clientQueryPodcasts(filterSearchByText, filterPage, filterSearchByType)
       const [newPodcastsListData, newPodcastsListCount] = data
       setPodcastsListData(newPodcastsListData)
       setPodcastsListDataCount(newPodcastsListCount)
@@ -69,25 +91,6 @@ export default function Search({ serverSearchByText }: ServerProps) {
       OmniAural.pageIsLoadingHide()
     })()
   }, [filterSearchByText, filterSearchByType, filterPage])
-
-  /* Client-Side Queries */
-
-  const clientQueryPodcasts = async () => {
-    let response = {
-      data: [[], 0]
-    } as any
-
-    if (filterSearchByText) {
-      const finalQuery = {
-        ...(filterPage ? { page: filterPage } : {}),
-        ...(filterSearchByType ? { searchBy: filterSearchByType } : {}),
-        searchText: filterSearchByText
-      }
-      response = await getPodcastsByQuery(finalQuery)
-    }
-
-    return response
-  }
 
   /* Render Helpers */
 

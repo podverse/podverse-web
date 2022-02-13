@@ -1,20 +1,20 @@
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import debounce from 'debounce'
-import { useCallback } from 'react'
+import { useMemo } from 'react'
 import { TextInput } from '~/components'
 
 type Props = {
   debounceRate?: number
   defaultValue?: string
-  handleAutoSubmit: any
+  handleAutoSubmit: (val: string) => void
   label: string
   placeholder: string
 }
 
 export const SearchPageInput = ({ debounceRate = 1000, defaultValue, handleAutoSubmit, label, placeholder }: Props) => {
-  const debouncedHandleAutoSubmit = useCallback(
-    debounce((val) => handleAutoSubmit(val, 1), debounceRate),
-    []
+  const debouncedHandleAutoSubmit = useMemo(
+    () => debounce((val) => handleAutoSubmit(val), debounceRate),
+    [debounceRate, handleAutoSubmit]
   )
 
   return (
@@ -24,7 +24,7 @@ export const SearchPageInput = ({ debounceRate = 1000, defaultValue, handleAutoS
           defaultValue={defaultValue}
           faIcon={faSearch}
           label={label}
-          onChange={(value) => debouncedHandleAutoSubmit(value, 1)}
+          onChange={(value) => debouncedHandleAutoSubmit(value)}
           placeholder={placeholder}
           type='text'
         />
