@@ -66,7 +66,9 @@ jobs:
           docker image rm podverse/podverse_web:stage
           docker-compose -f /home/mitch/podverse-ops/docker-compose.stage.yml up -d podverse_web
           sleep 60
-          cd podverse-web
+          cd podverse-ops
+          git pull
+          cd ../podverse-web
           git pull
           npm install
           npm run test:e2e:suite
