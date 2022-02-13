@@ -21,14 +21,16 @@ module.exports = {
       .waitForElement('.header-share-button')
       .click('.header-share-button')
       .waitForElement('div.share-modal')
-      .waitForElement('.ReactModal__Content .text-input:nth-child(3) input[value="https://stage.podverse.fm/clip/uqBhM4ml"]') // Clip
-      .waitForElement('.ReactModal__Content .text-input:nth-child(4) input[value="https://stage.podverse.fm/episode/rggkv66fR"]') // Episode
-      .waitForElement('.ReactModal__Content .text-input:nth-child(5) input[value="https://stage.podverse.fm/podcast/Yqft_RG8j"]') // Podcast
+      .waitForElement(
+        '.ReactModal__Content .text-input:nth-child(3) input[value="https://stage.podverse.fm/clip/uqBhM4ml"]'
+      ) // Clip
+      .waitForElement(
+        '.ReactModal__Content .text-input:nth-child(4) input[value="https://stage.podverse.fm/episode/rggkv66fR"]'
+      ) // Episode
+      .waitForElement(
+        '.ReactModal__Content .text-input:nth-child(5) input[value="https://stage.podverse.fm/podcast/Yqft_RG8j"]'
+      ) // Podcast
       .click('button.button-close')
-
-
-
-      
   },
   after: function (browser) {
     browser.end()

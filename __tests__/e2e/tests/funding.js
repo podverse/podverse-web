@@ -12,9 +12,6 @@ module.exports = {
 
       .url(`https://stage.podverse.fm/podcast/Yqft_RG8j`) // Very Bad Wizards
       .waitForElementNotPresent('button.header-funding-button') // Funding NOT Present
-
-
-      
   },
   after: function (browser) {
     browser.end()

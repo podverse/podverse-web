@@ -18,10 +18,13 @@ module.exports = {
       .waitForElement('.header-share-button')
       .click('.header-share-button')
       .waitForElement('div.share-modal')
-      .waitForElement('.ReactModal__Content .text-input:nth-child(3) input[value="https://stage.podverse.fm/episode/z3kazYivU"]') // Episode
-      .waitForElement('.ReactModal__Content .text-input:nth-child(4) input[value="https://stage.podverse.fm/podcast/yKyjZDxsB"]') // Podcast
+      .waitForElement(
+        '.ReactModal__Content .text-input:nth-child(3) input[value="https://stage.podverse.fm/episode/z3kazYivU"]'
+      ) // Episode
+      .waitForElement(
+        '.ReactModal__Content .text-input:nth-child(4) input[value="https://stage.podverse.fm/podcast/yKyjZDxsB"]'
+      ) // Podcast
       .click('button.button-close')
-
   },
   after: function (browser) {
     browser.end()
