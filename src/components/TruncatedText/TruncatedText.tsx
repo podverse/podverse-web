@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import ShowMoreText from 'react-show-more-text'
 import striptags from 'striptags'
@@ -11,6 +12,7 @@ type Props = {
 
 export const TruncatedText = ({ dangerouslySetInnerHtml = false, lines, text }: Props) => {
   const { t } = useTranslation()
+  const [isExpanded, setIsExpanded] = useState<boolean>(false)
 
   return (
     <ShowMoreText
@@ -19,11 +21,12 @@ export const TruncatedText = ({ dangerouslySetInnerHtml = false, lines, text }: 
       less={t('Show Less')}
       lines={lines}
       more={t('Show More')}
+      onClick={() => setIsExpanded(!isExpanded)}
     >
       {dangerouslySetInnerHtml && (
         <div
           dangerouslySetInnerHTML={{
-            __html: sanitizeTextHtml(text)
+            __html: isExpanded ? sanitizeTextHtml(text) : sanitizeTextHtml(striptags(text))
           }}
         />
       )}
