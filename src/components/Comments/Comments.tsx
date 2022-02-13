@@ -32,7 +32,7 @@ const generateCommentNodes = (comment: PVComment) => {
     replyNodes.push(generateCommentNodes(reply))
   }
 
-  return <Comment comment={comment}>{replyNodes}</Comment>
+  return <Comment comment={comment} key={comment.url}>{replyNodes}</Comment>
 }
 
 type CommentProps = {
