@@ -8,7 +8,7 @@ module.exports = {
     browser
       .click('div a[href="/history"]')
       .waitForElementWithText('.page-header h1', 'History') // Page Header
-      .waitForElementWithText('.message-with-action div', 'Log in to view your history') // Message with Action
+      .waitForElementWithText('.message-with-action div', 'Log in to view history') // Message with Action
 
       .loginUsingModal('premium@stage.podverse.fm')
 
