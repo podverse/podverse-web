@@ -14,6 +14,7 @@ import {
   PageScrollableContent
 } from '~/components'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
+import { OmniAuralState } from '~/state/omniauralState'
 
 type ServerProps = Page
 
@@ -21,7 +22,7 @@ export default function Membership(props: ServerProps) {
   /* Initialize */
 
   const { t } = useTranslation()
-  const [userInfo] = useOmniAural('session.userInfo')
+  const [userInfo] = useOmniAural('session.userInfo') as [OmniAuralState['session']['userInfo']]
 
   /* Meta Tags */
 

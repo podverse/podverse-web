@@ -4,11 +4,12 @@ import { useTranslation } from 'react-i18next'
 import Modal from 'react-modal'
 import { ButtonClose, ButtonRectangle, TextInput } from '~/components'
 import { sendResetPassword } from '~/services/auth'
+import { OmniAuralState } from '~/state/omniauralState'
 
 type Props = unknown
 
 export const ForgotPasswordModal = (props: Props) => {
-  const [forgotPassword] = useOmniAural('modals.forgotPassword')
+  const [forgotPassword] = useOmniAural('modals.forgotPassword') as [OmniAuralState['modals']['forgotPassword']]
   const { t } = useTranslation()
   const [email, setEmail] = useState<string>('')
   const [resetPasswordSent, setResetPasswordSent] = useState<boolean>(false)

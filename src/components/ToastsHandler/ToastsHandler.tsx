@@ -5,13 +5,14 @@ import { useEffect } from 'react'
 import { useToasts } from 'react-toast-notifications'
 import { getMembershipStatus } from '~/lib/utility/membership'
 import { PV } from '~/resources'
+import { OmniAuralState } from '~/state/omniauralState'
 import { ButtonLink } from '..'
 
 export const ToastsHandler = () => {
   const { addToast } = useToasts()
   const { t } = useTranslation()
   const router = useRouter()
-  const [userInfo] = useOmniAural('session.userInfo')
+  const [userInfo] = useOmniAural('session.userInfo') as [OmniAuralState['session']['userInfo']]
 
   useEffect(() => {
     if (userInfo) {

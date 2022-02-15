@@ -1,12 +1,13 @@
 import { useOmniAural } from 'omniaural'
 import { useTranslation } from 'react-i18next'
 import { isBeforeDate } from '~/lib/utility/date'
+import { OmniAuralState } from '~/state/omniauralState'
 
 type Props = unknown
 
 export const MembershipStatus = (props: Props) => {
   const { t } = useTranslation()
-  const [userInfo] = useOmniAural('session.userInfo')
+  const [userInfo] = useOmniAural('session.userInfo') as [OmniAuralState['session']['userInfo']]
 
   return (
     <>

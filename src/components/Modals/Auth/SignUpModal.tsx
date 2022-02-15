@@ -4,11 +4,12 @@ import { useTranslation } from 'react-i18next'
 import Modal from 'react-modal'
 import { ButtonClose, PasswordInputs } from '~/components'
 import { signUp as signUpService } from '~/services/auth'
+import { OmniAuralState } from '~/state/omniauralState'
 
 type Props = unknown
 
 export const SignUpModal = (props: Props) => {
-  const [signUp] = useOmniAural('modals.signUp')
+  const [signUp] = useOmniAural('modals.signUp') as [OmniAuralState['modals']['signUp']]
   const { t } = useTranslation()
   const [isSignUpPressed, setIsSignUpPressed] = useState<boolean>(false)
 

@@ -10,6 +10,7 @@ import { getAuthorityFeedUrlFromArray } from '~/lib/utility/feedUrls'
 import { getPodcastShrunkImageUrl } from '~/lib/utility/image'
 import { PV } from '~/resources'
 import { toggleSubscribeToPodcast } from '~/state/loggedInUserActions'
+import { OmniAuralState } from '~/state/omniauralState'
 import { ButtonIcon, ButtonRectangle, PVImage, PVLink } from '..'
 
 type Props = {
@@ -28,7 +29,7 @@ export const PodcastPageHeader = ({
   podcast
 }: Props) => {
   const { t } = useTranslation()
-  const [userInfo] = useOmniAural('session.userInfo')
+  const [userInfo] = useOmniAural('session.userInfo') as [OmniAuralState['session']['userInfo']]
   const { authors, categories, id } = podcast
   const authorEls = generateAuthorText(authors)
   const categoryEls = generateCategoryNodes(categories)

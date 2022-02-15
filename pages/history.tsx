@@ -27,6 +27,7 @@ import {
 } from '~/services/userHistoryItem'
 import { isNowPlayingItemMediaRef } from '~/lib/utility/typeHelpers'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
+import { OmniAuralState } from '~/state/omniauralState'
 
 interface ServerProps extends Page {
   serverFilterPage: number
@@ -48,7 +49,7 @@ export default function History({
   const [userHistoryItems, setUserHistoryItems] = useState<NowPlayingItem[]>(serverUserHistoryItems)
   const [userHistoryItemsCount, setUserHistoryItemsCount] = useState<number>(serverUserHistoryItemsCount)
   const [isEditing, setIsEditing] = useState<boolean>(false)
-  const [userInfo] = useOmniAural('session.userInfo')
+  const [userInfo] = useOmniAural('session.userInfo') as [OmniAuralState['session']['userInfo']]
   const hasEditButton = !!userInfo
   const initialRender = useRef(true)
   const pageCount = Math.ceil(userHistoryItemsCount / PV.Config.QUERY_RESULTS_LIMIT_DEFAULT)

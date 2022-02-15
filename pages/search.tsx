@@ -18,6 +18,7 @@ import { PV } from '~/resources'
 import { getPodcastsByQuery } from '~/services/podcast'
 import { scrollToTopOfPageScrollableContent } from '~/components/PageScrollableContent/PageScrollableContent'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
+import { OmniAuralState } from '~/state/omniauralState'
 
 interface ServerProps extends Page {
   serverSearchByText?: string
@@ -56,7 +57,7 @@ export default function Search({ serverSearchByText }: ServerProps) {
   /* Initialize */
 
   const { t } = useTranslation()
-  const [page] = useOmniAural('page')
+  const [page] = useOmniAural('page') as [OmniAuralState['page']]
   const [podcastsListData, setPodcastsListData] = useState<Podcast[]>([])
   const [podcastsListDataCount, setPodcastsListDataCount] = useState<number>(0)
   const [filterPage, setFilterPage] = useState<number>(1)

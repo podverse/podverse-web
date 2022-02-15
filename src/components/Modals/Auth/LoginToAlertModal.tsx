@@ -2,11 +2,12 @@ import OmniAural, { useOmniAural } from 'omniaural'
 import { useTranslation } from 'react-i18next'
 import Modal from 'react-modal'
 import { ButtonClose, ButtonRectangle } from '~/components'
+import { OmniAuralState } from '~/state/omniauralState'
 
 type Props = unknown
 
 export const LoginToAlertModal = (props: Props) => {
-  const [loginToAlert] = useOmniAural('modals.loginToAlert')
+  const [loginToAlert] = useOmniAural('modals.loginToAlert') as [OmniAuralState['modals']['loginToAlert']]
   const { t } = useTranslation()
   const { alertType } = loginToAlert
 

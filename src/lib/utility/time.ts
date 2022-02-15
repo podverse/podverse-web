@@ -6,8 +6,8 @@ export function validateHHMMSSString(hhmmss: string) {
   return regex.test(hhmmss)
 }
 
-export function convertHHMMSSToSeconds(hhmmssString: string) {
-  if (hhmmssString) {
+export function convertHHMMSSToSeconds(hhmmssString: string | number) {
+  if (typeof hhmmssString === 'string' && hhmmssString) {
     if (!validateHHMMSSString(hhmmssString)) {
       return -1
     }

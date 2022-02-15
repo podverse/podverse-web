@@ -3,6 +3,7 @@ import { useOmniAural } from 'omniaural'
 import { useTranslation } from 'react-i18next'
 import { PVLink } from '..'
 import { PV } from '~/resources'
+import { OmniAuralState } from '~/state/omniauralState'
 
 type Props = {
   playlist: Playlist
@@ -10,7 +11,7 @@ type Props = {
 
 export const PlaylistListItem = ({ playlist }: Props) => {
   const { t } = useTranslation()
-  const [userInfo] = useOmniAural('session.userInfo')
+  const [userInfo] = useOmniAural('session.userInfo') as [OmniAuralState['session']['userInfo']]
   const isLoggedInUserPlaylist = userInfo?.id && userInfo.id === playlist?.owner?.id
   const title = playlist?.title ? playlist.title : t('untitledPlaylist')
   const ownerName = playlist?.owner?.name || t('Anonymous')

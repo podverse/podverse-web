@@ -2,11 +2,12 @@ import { useTranslation } from 'next-i18next'
 import OmniAural, { useOmniAural } from 'omniaural'
 import Modal from 'react-modal'
 import { ButtonClose, TextInputCopy } from '~/components'
+import { OmniAuralState } from '~/state/omniauralState'
 
 type Props = unknown
 
 export const ShareModal = (props: Props) => {
-  const [items] = useOmniAural('modals.share.items')
+  const [items] = useOmniAural('modals.share.items') as [OmniAuralState['modals']['share']['items']]
   const { t } = useTranslation()
   const isOpen = !!items?.length
 

@@ -8,11 +8,12 @@ import { videoInitialize, videoSeekTo } from '~/services/player/playerVideo'
 import { enrichChapterDataForPlayer, handleChapterUpdateInterval } from '~/services/player/playerChapters'
 import { generateChapterFlagPositions, setClipFlagPositions } from '~/services/player/playerFlags'
 import { addOrUpdateHistoryItemOnServer } from '~/services/userHistoryItem'
+import { OmniAuralState } from '~/state/omniauralState'
 
 type Props = unknown
 
 export const PlayerAPIVideo = (props: Props) => {
-  const [player] = useOmniAural('player')
+  const [player] = useOmniAural('player') as [OmniAuralState['player']]
   // const [historyItemsIndex] = useOmniAural('historyItemsIndex')
   const historyItemsIndex = OmniAural.state.historyItemsIndex.value()
   const { currentNowPlayingItem, muted, paused, video, volume } = player

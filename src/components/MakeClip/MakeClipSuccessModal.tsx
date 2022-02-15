@@ -2,11 +2,12 @@ import OmniAural, { useOmniAural } from 'omniaural'
 import { useTranslation } from 'react-i18next'
 import Modal from 'react-modal'
 import { ButtonClose, TextInputCopy } from '~/components'
+import { OmniAuralState } from '~/state/omniauralState'
 
 type Props = unknown
 
 export const MakeClipSuccessModal = (props: Props) => {
-  const [makeClip] = useOmniAural('makeClip')
+  const [makeClip] = useOmniAural('makeClip') as [OmniAuralState['makeClip']]
   const { t } = useTranslation()
   const { successModalLinkUrl, successModalShow } = makeClip
 

@@ -24,6 +24,7 @@ import {
   updatePlaylist
 } from '~/services/playlist'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
+import { OmniAuralState } from '~/state/omniauralState'
 
 interface ServerProps extends Page {
   serverPlaylist: Playlist
@@ -41,7 +42,7 @@ export default function Playlist({ serverPlaylist, serverPlaylistSortedItems }: 
   const [playlistSortedItems, setPlaylistSortedItems] = useState<[Episode | MediaRef]>(serverPlaylistSortedItems)
   const [editingPlaylistTitle, setEditingPlaylistTitle] = useState<string>(serverPlaylist.title)
   const [editingPlaylistIsPublic] = useState<boolean>(serverPlaylist.isPublic)
-  const [userInfo] = useOmniAural('session.userInfo')
+  const [userInfo] = useOmniAural('session.userInfo') as [OmniAuralState['session']['userInfo']]
 
   /* Function Helpers */
 

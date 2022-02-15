@@ -75,6 +75,7 @@ export const enrichChapterDataForPlayer = (chapters: any[], duration: number) =>
     }
   }
 
+  // TODO: Delete this block?
   const enrichedChaptersFinal = []
   for (const enrichedChapter of enrichedChapters) {
     if (hasCustomImage) {

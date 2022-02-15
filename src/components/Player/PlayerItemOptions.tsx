@@ -5,11 +5,12 @@ import { Slider } from '../Slider/Slider'
 import { playerGetPosition, playerMute, playerNextSpeed, playerSetVolume, playerUnmute } from '~/services/player/player'
 import { modalsAddToPlaylistShowOrAlert } from '~/state/modals/addToPlaylist/actions'
 import { convertSecToHHMMSS } from '~/lib/utility/time'
+import { OmniAuralState } from '~/state/omniauralState'
 
 type Props = unknown
 
 export const PlayerItemButtons = (props: Props) => {
-  const [player] = useOmniAural('player')
+  const [player] = useOmniAural('player') as [OmniAuralState['player']]
   const { currentNowPlayingItem, muted, playSpeed, showFullView, volume } = player
   const container = classnames('player-buttons-container')
 
