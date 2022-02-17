@@ -205,14 +205,21 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const defaultServerProps = await getDefaultServerSideProps(ctx, locale)
 
   const serverFilterPage = 1
-  const historyItemsData = await getServerSideHistoryItems(serverFilterPage, cookies)
-  const { userHistoryItems, userHistoryItemsCount } = historyItemsData
+
+  let historyItemsData: any = {}
+  try {
+    const responseData = await getServerSideHistoryItems(serverFilterPage, cookies)
+    const { userHistoryItems, userHistoryItemsCount } = responseData
+    historyItemsData = { userHistoryItems, userHistoryItemsCount }
+  } catch (err) {
+    /* In case user's membership has expired, catch the error silently here. */
+  }
 
   const serverProps: ServerProps = {
     ...defaultServerProps,
     serverFilterPage,
-    serverUserHistoryItems: userHistoryItems,
-    serverUserHistoryItemsCount: userHistoryItemsCount
+    serverUserHistoryItems: historyItemsData.userHistoryItems,
+    serverUserHistoryItemsCount: historyItemsData.userHistoryItemsCount
   }
 
   return { props: serverProps }

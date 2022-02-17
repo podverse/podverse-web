@@ -23,11 +23,17 @@ export const getAuthenticatedUserInfo = async (bearerToken?: string) => {
 
     const userInfo = response?.data
 
-    const { userHistoryItems } = await getHistoryItemsFromServer(1, bearerToken)
-    userInfo.historyItems = userHistoryItems || []
+    try {
+      const { userHistoryItems } = await getHistoryItemsFromServer(1, bearerToken)
+      userInfo.historyItems = userHistoryItems || []
 
-    const queueItemsResponse = await getQueueItemsFromServer(bearerToken)
-    userInfo.queueItems = queueItemsResponse || []
+      const queueItemsResponse = await getQueueItemsFromServer(bearerToken)
+      userInfo.queueItems = queueItemsResponse || []
+    } catch (err) {
+      // If either functions in the try fail, assume the user's membership has expired and fail silently.
+      // We let it fail silently here so it doesn't crash the back-end. The UI handles rendering
+      // "Renew Membership" messages elsewhere.
+    }
 
     return userInfo
   } catch (error) {
