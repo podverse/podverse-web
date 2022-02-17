@@ -26,7 +26,7 @@ export const getAuthenticatedUserInfo = async (bearerToken?: string) => {
     try {
       const { userHistoryItems } = await getHistoryItemsFromServer(1, bearerToken)
       userInfo.historyItems = userHistoryItems || []
-  
+
       const queueItemsResponse = await getQueueItemsFromServer(bearerToken)
       userInfo.queueItems = queueItemsResponse || []
     } catch (err) {

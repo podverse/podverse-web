@@ -205,7 +205,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const defaultServerProps = await getDefaultServerSideProps(ctx, locale)
 
   const serverFilterPage = 1
-  
+
   let historyItemsData: any = {}
   try {
     const responseData = await getServerSideHistoryItems(serverFilterPage, cookies)
