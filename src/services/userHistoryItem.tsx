@@ -150,7 +150,7 @@ export const getHistoryItemsIndexFromServer = async (bearerToken?: string) => {
       ...getAuthCredentialsHeaders(bearerToken)
     })) as any
   } catch (error) {
-    console.log('getHistoryItemsIndexFromServer error', error)
+    // console.log('getHistoryItemsIndexFromServer error', error)
   }
 
   const { userHistoryItems } = response.data
