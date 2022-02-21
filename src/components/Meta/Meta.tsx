@@ -67,7 +67,7 @@ export const Meta = ({
       <link rel='manifest' href='/site.webmanifest' />
       <link rel='mask-icon' href='/images/safari-pinned-tab.svg' color='#5bbad5' />
       <meta name='msapplication-TileColor' content='#da532c' />
-      <meta name='theme-color' content='#ffffff' />
+      <meta name='theme-color' content='#0f1235' />
 
       <meta name='description' content={seoDescription} />
 
