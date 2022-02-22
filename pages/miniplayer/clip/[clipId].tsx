@@ -27,7 +27,7 @@ export default function MiniPlayerClip({ serverClip }: ServerProps) {
   const { t } = useTranslation()
 
   useEffect(() => {
-    const shouldPlay = false
+    const shouldPlay = true
     const nowPlayingItem = convertToNowPlayingItem(serverClip)
     OmniAural.setPlayerItem(nowPlayingItem)
     if (audioIsLoaded()) {
