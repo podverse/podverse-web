@@ -25,7 +25,10 @@ const nightwatch_config = {
         'browserstack.debug': true,
         os: 'Windows',
         os_version: '10',
-        browser: 'chrome'
+        browser: 'chrome',
+        chromeOptions: {
+          args: ['start-maximized']
+        }
       },
       globals: {
         waitForConditionTimeout: timeoutOverride,

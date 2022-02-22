@@ -22,7 +22,7 @@ module.exports = {
       .click('.navbar-secondary__dropdown .react-dropdown-select-item:nth-child(2)') // Primary Dropdown - Log in
       .waitForElementWithText('button.button-link:nth-child(1) ', 'Reset Password')
       .click('button.button-link:nth-child(1)')
-      .waitForElementWithText('.ReactModal__Content h2', 'Forgot Password')
+      .waitForElementWithText('.ReactModal__Content h2', 'Forgotten Password')
       .click('.button-close')
 
       .click('.navbar-secondary__dropdown .react-dropdown-select') // Primary Dropdown

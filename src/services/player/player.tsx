@@ -5,7 +5,6 @@ import { PV } from '~/resources'
 import { addOrUpdateHistoryItemOnServer } from '../userHistoryItem'
 import { getNextFromQueue, getQueueItemsFromServer } from '../userQueueItem'
 import {
-  audioCheckIfCurrentlyPlaying,
   audioClearNowPlayingItem,
   audioGetDuration,
   audioGetPosition,
@@ -24,7 +23,6 @@ import { clearClipEndTimeListenerInterval, handlePlayAfterClipEndTimeReached } f
 import { setClipFlagPositions } from './playerFlags'
 import {
   checkIfVideoFileType,
-  videoCheckIfCurrentlyPlaying,
   videoClearNowPlayingItem,
   videoGetDuration,
   videoGetPosition,
@@ -53,19 +51,10 @@ export const playerCheckIfItemIsCurrentlyPlaying = (paused: boolean, nowPlayingI
   return isCurrentlyPlayingItem
 }
 
-export const playerCheckIfPlayerIsCurrentlyPlaying = () => {
-  let isCurrentlyPlaying = false
-  if (audioCheckIfCurrentlyPlaying()) {
-    isCurrentlyPlaying = true
-  } else if (videoCheckIfCurrentlyPlaying()) {
-    isCurrentlyPlaying = true
-  }
-
-  return isCurrentlyPlaying
-}
-
 export const playerTogglePlayOrLoadNowPlayingItem = async (nowPlayingItem: NowPlayingItem) => {
   const previousNowPlayingItem = OmniAural.state.player.currentNowPlayingItem.value()
+  const paused = OmniAural.state.player.paused.value()
+
   if (
     previousNowPlayingItem &&
     previousNowPlayingItem.episodeMediaUrl === nowPlayingItem.episodeMediaUrl &&
@@ -78,7 +67,7 @@ export const playerTogglePlayOrLoadNowPlayingItem = async (nowPlayingItem: NowPl
     const duration = playerGetDuration()
     setClipFlagPositions(nowPlayingItem, duration)
   } else if (previousNowPlayingItem && previousNowPlayingItem.episodeMediaUrl === nowPlayingItem.episodeMediaUrl) {
-    playerCheckIfPlayerIsCurrentlyPlaying() ? playerPause() : playerPlay()
+    paused ? playerPlay() : playerPause()
   } else {
     const shouldPlay = true
     await playerLoadNowPlayingItem(nowPlayingItem, shouldPlay)
