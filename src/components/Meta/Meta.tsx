@@ -5,6 +5,7 @@ import { seoMetaDescription, seoMetaTitle } from '~/lib/utility/metaTags'
 type Props = {
   description?: string
   iphoneCustomScheme?: string
+  isVideo?: boolean
   ogDescription?: string
   ogImage?: string
   ogImageAlt?: string
@@ -23,6 +24,7 @@ type Props = {
 export const Meta = ({
   description = '',
   iphoneCustomScheme = '',
+  isVideo = false,
   ogDescription = '',
   ogImage = '',
   ogImageAlt = '',
@@ -89,8 +91,8 @@ export const Meta = ({
         <>
           <meta name='twitter:card' content='player' />
           <meta name='twitter:player' content={twitterPlayerUrl} />
-          <meta name='twitter:player:height' content='166' />
-          <meta name='twitter:player:width' content='500' />
+          <meta name='twitter:player:height' content={isVideo ? '1000' : '166'} />
+          <meta name='twitter:player:width' content='1000' />
         </>
       )}
       <meta name='twitter:site' content='@podverse' />
