@@ -6,6 +6,7 @@
         "appID": "DF9KG8H54B.com.podverse.fm",
         "paths": [
           "NOT /miniplayer/*",
+          "NOT /videoplayer/*",
           "NOT /verify-email*",
           "*"
         ]

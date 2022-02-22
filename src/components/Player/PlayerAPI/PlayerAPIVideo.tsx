@@ -4,7 +4,7 @@ import { unstable_batchedUpdates } from 'react-dom'
 import PlayerVideo from 'react-player'
 import { retrieveLatestChaptersForEpisodeId } from '~/services/mediaRef'
 import { playerGetDuration, playerUpdateDuration, playerUpdatePlaybackPosition } from '~/services/player/player'
-import { videoInitialize, videoSeekTo } from '~/services/player/playerVideo'
+import { videoInitialize, videoPause, videoPlay, videoSeekTo } from '~/services/player/playerVideo'
 import { enrichChapterDataForPlayer, handleChapterUpdateInterval } from '~/services/player/playerChapters'
 import { generateChapterFlagPositions, setClipFlagPositions } from '~/services/player/playerFlags'
 import { addOrUpdateHistoryItemOnServer } from '~/services/userHistoryItem'
@@ -86,8 +86,10 @@ export const PlayerAPIVideo = (props: Props) => {
     <div className='video-player-wrapper'>
       <PlayerVideo
         controls
-        onEnded={_onEnded}
         onDuration={_onLoadedMetaData}
+        onEnded={_onEnded}
+        onPause={videoPause}
+        onPlay={videoPlay}
         onSeek={_onListen}
         onProgress={_onListen}
         muted={muted}

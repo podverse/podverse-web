@@ -68,7 +68,7 @@ if (typeof window !== 'undefined') {
 
 function MyApp({ Component, pageProps }) {
   const router = useRouter()
-  const doNotInheritAppComponent = router.pathname.startsWith('/miniplayer')
+  const doNotInheritAppComponent = router.pathname.startsWith('/miniplayer') || router.pathname.startsWith('/videoplayer')
 
   useEffect(() => {
     if (!doNotInheritAppComponent) {
@@ -107,7 +107,7 @@ function MyApp({ Component, pageProps }) {
     matomoTrackPageView()
   }
 
-  if (router.pathname.startsWith('/miniplayer')) {
+  if (doNotInheritAppComponent) {
     return (
       <div className='app'>
         <Component {...pageProps} />
