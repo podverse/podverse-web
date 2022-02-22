@@ -146,6 +146,7 @@ export default function Episode({
 
   let meta = {} as any
   let twitterPlayerUrl = ''
+  let isVideo = false
 
   if (serverEpisode) {
     const { podcast } = serverEpisode
@@ -157,7 +158,8 @@ export default function Episode({
       imageUrl: serverEpisode.imageUrl || (podcast && podcast.shrunkImageUrl) || (podcast && podcast.imageUrl),
       title: `${serverEpisode.title} - ${podcastTitle}`
     }
-    twitterPlayerUrl = checkIfVideoFileType({ episodeMediaType: serverEpisode.mediaType })
+    isVideo = checkIfVideoFileType({ episodeMediaType: serverEpisode.mediaType })
+    twitterPlayerUrl = isVideo
       ? `${PV.Config.WEB_BASE_URL}${PV.RoutePaths.web.videoplayer.episode}/${serverEpisode.id}`
       : `${PV.Config.WEB_BASE_URL}${PV.RoutePaths.web.miniplayer.episode}/${serverEpisode.id}`
   }
@@ -166,6 +168,7 @@ export default function Episode({
     <>
       <Meta
         description={meta.description}
+        isVideo={isVideo}
         ogDescription={meta.description}
         ogImage={meta.imageUrl}
         ogTitle={meta.title}
