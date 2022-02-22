@@ -5,7 +5,6 @@ import { PV } from '~/resources'
 import { addOrUpdateHistoryItemOnServer } from '../userHistoryItem'
 import { getNextFromQueue, getQueueItemsFromServer } from '../userQueueItem'
 import {
-  audioCheckIfCurrentlyPlaying,
   audioClearNowPlayingItem,
   audioGetDuration,
   audioGetPosition,
@@ -24,7 +23,6 @@ import { clearClipEndTimeListenerInterval, handlePlayAfterClipEndTimeReached } f
 import { setClipFlagPositions } from './playerFlags'
 import {
   checkIfVideoFileType,
-  videoCheckIfCurrentlyPlaying,
   videoClearNowPlayingItem,
   videoGetDuration,
   videoGetPosition,
