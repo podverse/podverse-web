@@ -23,6 +23,7 @@ import { Page } from '~/lib/utility/page'
 import { PV } from '~/resources'
 import { getEpisodeById } from '~/services/episode'
 import { getMediaRefsByQuery } from '~/services/mediaRef'
+import { checkIfVideoFileType } from '~/services/player/playerVideo'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 import { getEpisodeProxyActivityPub } from '~/services/socialInteraction/activityPub'
 
@@ -144,6 +145,7 @@ export default function Episode({
   /* Meta Tags */
 
   let meta = {} as any
+  let twitterPlayerUrl = ''
 
   if (serverEpisode) {
     const { podcast } = serverEpisode
@@ -155,6 +157,9 @@ export default function Episode({
       imageUrl: serverEpisode.imageUrl || (podcast && podcast.shrunkImageUrl) || (podcast && podcast.imageUrl),
       title: `${serverEpisode.title} - ${podcastTitle}`
     }
+    twitterPlayerUrl = checkIfVideoFileType({ episodeMediaType: serverEpisode.mediaType })
+      ? `${PV.Config.WEB_BASE_URL}${PV.RoutePaths.web.videoplayer.episode}/${serverEpisode.id}`
+      : `${PV.Config.WEB_BASE_URL}${PV.RoutePaths.web.miniplayer.episode}/${serverEpisode.id}`
   }
 
   return (
@@ -171,7 +176,7 @@ export default function Episode({
         twitterDescription={meta.description}
         twitterImage={meta.imageUrl}
         twitterImageAlt={meta.imageAlt}
-        twitterPlayerUrl={`${PV.Config.WEB_BASE_URL}${PV.RoutePaths.web.miniplayer.episode}/${serverEpisode.id}`}
+        twitterPlayerUrl={twitterPlayerUrl}
         twitterTitle={meta.title}
       />
       <EpisodePageHeader episode={serverEpisode} />

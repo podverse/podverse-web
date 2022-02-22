@@ -22,6 +22,7 @@ import { calcListPageCount, prefixClipLabel } from '~/lib/utility/misc'
 import { Page } from '~/lib/utility/page'
 import { PV } from '~/resources'
 import { getMediaRefById, getMediaRefsByQuery } from '~/services/mediaRef'
+import { checkIfVideoFileType } from '~/services/player/playerVideo'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 
 interface ServerProps extends Page {
@@ -135,6 +136,7 @@ export default function Clip({
   /* Meta Tags */
 
   let meta = {} as any
+  let twitterPlayerUrl = ''
 
   if (serverClip) {
     const { episode } = serverClip
@@ -150,6 +152,9 @@ export default function Clip({
         (episode.podcast && episode.podcast.imageUrl),
       title: serverClip.title || prefixClipLabel(t, episode && episode.title)
     }
+    twitterPlayerUrl = checkIfVideoFileType({ episodeMediaType: episode?.mediaType || '' })
+      ? `${PV.Config.WEB_BASE_URL}${PV.RoutePaths.web.videoplayer.clip}/${serverClip.id}`
+      : `${PV.Config.WEB_BASE_URL}${PV.RoutePaths.web.miniplayer.clip}/${serverClip.id}`
   }
 
   return (
@@ -166,7 +171,7 @@ export default function Clip({
         twitterDescription={meta.description}
         twitterImage={meta.imageUrl}
         twitterImageAlt={meta.imageAlt}
-        twitterPlayerUrl={`${PV.Config.WEB_BASE_URL}${PV.RoutePaths.web.miniplayer.clip}/${serverClip.id}`}
+        twitterPlayerUrl={twitterPlayerUrl}
         twitterTitle={meta.title}
       />
       <PodcastPageHeader episode={episode} hideBelowMobileWidth mediaRef={serverClip} podcast={podcast} />
