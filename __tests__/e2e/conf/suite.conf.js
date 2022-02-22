@@ -27,11 +27,8 @@ const nightwatch_config = {
         os_version: '10',
         browser: 'chrome',
         chromeOptions: {
-          args: [
-              "start-maximized"
-          ]
-      }
-  
+          args: ['start-maximized']
+        }
       },
       globals: {
         waitForConditionTimeout: timeoutOverride,
