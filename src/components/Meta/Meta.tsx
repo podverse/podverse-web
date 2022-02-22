@@ -91,8 +91,8 @@ export const Meta = ({
         <>
           <meta name='twitter:card' content='player' />
           <meta name='twitter:player' content={twitterPlayerUrl} />
-          <meta name='twitter:player:height' content={isVideo ? '1000' : '166'} />
-          <meta name='twitter:player:width' content='1000' />
+          <meta name='twitter:player:height' content={isVideo ? '675' : '166'} />
+          <meta name='twitter:player:width' content={isVideo ? '1200' : '500'} />
         </>
       )}
       <meta name='twitter:site' content='@podverse' />
