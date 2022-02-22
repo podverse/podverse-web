@@ -22,7 +22,7 @@ export default function VideoPlayerEpisode({ serverEpisode }: ServerProps) {
   /* Initialize */
 
   useEffect(() => {
-    const shouldPlay = false
+    const shouldPlay = true
     const nowPlayingItem = convertToNowPlayingItem(serverEpisode)
     OmniAural.setPlayerItem(nowPlayingItem)
     const previousNowPlayingItem = null
