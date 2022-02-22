@@ -14,7 +14,7 @@ module.exports = {
 
       .waitForElement('.footer-link-contact')
       .click('.footer-link-contact')
-      .waitForElementWithText('.text-page h2', 'Email')
+      .waitForElementWithText('.text-page h2', 'E-mail')
 
       .scrollToSelector('.footer-middle')
       .waitForElement('.footer-link-about')
@@ -32,7 +32,7 @@ module.exports = {
       .scrollToSelector('.footer-middle')
       .waitForElement('.footer-link-premium')
       .click('.footer-link-premium')
-      .waitForElementWithText('.text-page p', 'Get 3 months free when you sign up for Podverse premium')
+      .waitForElementWithText('.text-page p', 'Enjoy Podverse Premium for three months at no cost')
 
       .scrollToSelector('.footer-middle')
       .waitForElement('.footer-link-mobile-app')
