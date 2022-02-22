@@ -15,7 +15,7 @@ export const PlayerAPIVideo = (props: Props) => {
   const [player] = useOmniAural('player')
   // const [historyItemsIndex] = useOmniAural('historyItemsIndex')
   const historyItemsIndex = OmniAural.state.historyItemsIndex.value()
-  const { currentNowPlayingItem, muted, paused, video, volume } = player
+  const { currentNowPlayingItem, muted, paused, playSpeed, video, volume } = player
   const { src } = video
 
   useEffect(() => {
@@ -93,6 +93,7 @@ export const PlayerAPIVideo = (props: Props) => {
         onSeek={_onListen}
         onProgress={_onListen}
         muted={muted}
+        playbackRate={playSpeed}
         playing={!paused}
         ref={(ref) => {
           window.playerVideo = ref

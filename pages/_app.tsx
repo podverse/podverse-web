@@ -4,7 +4,7 @@ import { config as fontAwesomeConfig } from '@fortawesome/fontawesome-svg-core'
 import { appWithTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
 import OmniAural from 'omniaural'
-import { NowPlayingItem } from 'podverse-shared'
+import { convertToNowPlayingItem, NowPlayingItem } from 'podverse-shared'
 import React, { useEffect } from 'react'
 import { CookiesProvider } from 'react-cookie'
 import { unstable_batchedUpdates } from 'react-dom'
@@ -86,10 +86,25 @@ function MyApp({ Component, pageProps }) {
     ;(async () => {
       if (!doNotInheritAppComponent) {
         const nowPlayingItem = await getNowPlayingItemOnServer()
-        if (nowPlayingItem) {
-          const shouldPlay = false
+        const currentNowPlayingItem = OmniAural.state.player.currentNowPlayingItem.value()
+        const { serverClip, serverEpisode } = pageProps
+        const shouldPlay = false
+
+        if (currentNowPlayingItem) {
+          // do nothing
+        } else if (nowPlayingItem) {
           unstable_batchedUpdates(() => {
             playerLoadNowPlayingItem(nowPlayingItem, shouldPlay)
+          })
+        } else if (serverClip) {
+          const npi = convertToNowPlayingItem(serverClip)
+          unstable_batchedUpdates(() => {
+            playerLoadNowPlayingItem(npi, shouldPlay)
+          })
+        } else if (serverEpisode) {
+          const npi = convertToNowPlayingItem(serverEpisode)
+          unstable_batchedUpdates(() => {
+            playerLoadNowPlayingItem(npi, shouldPlay)
           })
         }
 

@@ -7,7 +7,7 @@ import { setClipFlagPositions } from '~/services/player/playerFlags'
 
 export const TwitterCardPlayerAPIVideo = () => {
   const [player] = useOmniAural('player')
-  const { currentNowPlayingItem, paused, video } = player
+  const { currentNowPlayingItem, paused, playSpeed, video } = player
   const { src } = video
 
   useEffect(() => {
@@ -53,6 +53,7 @@ export const TwitterCardPlayerAPIVideo = () => {
         onPlay={videoPlay}
         onSeek={_onListen}
         onProgress={_onListen}
+        playbackRate={playSpeed}
         playing={!paused}
         ref={(ref) => {
           window.playerVideo = ref
