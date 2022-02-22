@@ -48,6 +48,7 @@ export default function VideoPlayerClip({ serverClip }: ServerProps) {
     <>
       <Meta
         description={meta.description}
+        isVideo
         ogDescription={meta.description}
         ogTitle={meta.title}
         ogType='website'

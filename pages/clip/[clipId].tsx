@@ -137,6 +137,7 @@ export default function Clip({
 
   let meta = {} as any
   let twitterPlayerUrl = ''
+  let isVideo = false
 
   if (serverClip) {
     const { episode } = serverClip
@@ -152,7 +153,8 @@ export default function Clip({
         (episode.podcast && episode.podcast.imageUrl),
       title: serverClip.title || prefixClipLabel(t, episode && episode.title)
     }
-    twitterPlayerUrl = checkIfVideoFileType({ episodeMediaType: episode?.mediaType || '' })
+    isVideo = checkIfVideoFileType({ episodeMediaType: episode?.mediaType || '' })
+    twitterPlayerUrl = isVideo
       ? `${PV.Config.WEB_BASE_URL}${PV.RoutePaths.web.videoplayer.clip}/${serverClip.id}`
       : `${PV.Config.WEB_BASE_URL}${PV.RoutePaths.web.miniplayer.clip}/${serverClip.id}`
   }
@@ -161,6 +163,7 @@ export default function Clip({
     <>
       <Meta
         description={meta.description}
+        isVideo={isVideo}
         ogDescription={meta.description}
         ogImage={meta.imageUrl}
         ogTitle={meta.title}

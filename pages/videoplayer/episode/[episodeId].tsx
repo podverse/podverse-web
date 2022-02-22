@@ -41,6 +41,7 @@ export default function VideoPlayerEpisode({ serverEpisode }: ServerProps) {
     <>
       <Meta
         description={meta.description}
+        isVideo
         ogDescription={meta.description}
         ogTitle={meta.title}
         ogType='website'
