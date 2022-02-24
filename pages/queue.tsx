@@ -18,6 +18,7 @@ import { Page } from '~/lib/utility/page'
 import { PV } from '~/resources'
 import { isNowPlayingItemMediaRef } from '~/lib/utility/typeHelpers'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
+import { OmniAuralState } from '~/state/omniauralState'
 
 type ServerProps = Page
 
@@ -27,8 +28,8 @@ export default function Queue(props: ServerProps) {
   /* Initialize */
 
   const { t } = useTranslation()
-  const [userInfo] = useOmniAural('session.userInfo')
-  const [userQueueItems] = useOmniAural('userQueueItems')
+  const [userInfo] = useOmniAural('session.userInfo') as [OmniAuralState['session']['userInfo']]
+  const [userQueueItems] = useOmniAural('userQueueItems') as [OmniAuralState['userQueueItems']]
   const [isEditing, setIsEditing] = useState<boolean>(false)
   const hasEditButton = !!userInfo
 

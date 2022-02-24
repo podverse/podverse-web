@@ -14,13 +14,14 @@ import {
   playerPlayNextChapterOrQueueItem,
   playerPlayPreviousChapterOrReturnToBeginningOfTrack
 } from '~/services/player/player'
+import { OmniAuralState } from '~/state/omniauralState'
 
 type Props = {
   hasMiniJump?: boolean
 }
 
 export const PlayerProgressButtons = ({ hasMiniJump }: Props) => {
-  const [player] = useOmniAural('player')
+  const [player] = useOmniAural('player') as [OmniAuralState['player']]
   const { paused } = player
   const container = classnames('progress-button-container')
   const playpause = classnames(paused ? 'play' : 'pause')

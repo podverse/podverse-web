@@ -4,11 +4,12 @@ import { useTranslation } from 'react-i18next'
 import Modal from 'react-modal'
 import { ButtonClose, ButtonRectangle } from '~/components'
 import { sendVerification } from '~/services/auth'
+import { OmniAuralState } from '~/state/omniauralState'
 
 type Props = unknown
 
 export const VerifyEmailModal = (props: Props) => {
-  const [verifyEmail] = useOmniAural('modals.verifyEmail')
+  const [verifyEmail] = useOmniAural('modals.verifyEmail') as [OmniAuralState['modals']['verifyEmail']]
   const { show, showSendVerificationEmailButton } = verifyEmail
   const { t } = useTranslation()
   const [isVerifyPressed, setIsVerifyPressed] = useState<boolean>(false)

@@ -4,11 +4,12 @@ import { useTranslation } from 'react-i18next'
 import Modal from 'react-modal'
 import { ButtonClose, ButtonLink, ButtonRectangle, TextInput } from '~/components'
 import { login as loginService } from '~/services/auth'
+import { OmniAuralState } from '~/state/omniauralState'
 
 type Props = unknown
 
 export const LoginModal = (props: Props) => {
-  const [login] = useOmniAural('modals.login')
+  const [login] = useOmniAural('modals.login') as [OmniAuralState['modals']['login']]
   const { t } = useTranslation()
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')

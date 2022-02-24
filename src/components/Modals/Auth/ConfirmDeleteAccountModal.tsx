@@ -5,11 +5,14 @@ import Modal from 'react-modal'
 import { ButtonClose, ButtonRectangle, TextInput } from '~/components'
 import { logOut } from '~/services/auth'
 import { deleteAccount } from '~/services/user'
+import { OmniAuralState } from '~/state/omniauralState'
 
 type Props = unknown
 
 export const ConfirmDeleteAccountModal = (props: Props) => {
-  const [confirmDeleteAccount] = useOmniAural('modals.confirmDeleteAccount')
+  const [confirmDeleteAccount] = useOmniAural('modals.confirmDeleteAccount') as [
+    OmniAuralState['modals']['confirmDeleteAccount']
+  ]
   const { t } = useTranslation()
   const [isDeleteAccountPressed, setIsDeleteAccountPressed] = useState<boolean>(false)
   const [confirmText, setConfirmText] = useState<string>('')

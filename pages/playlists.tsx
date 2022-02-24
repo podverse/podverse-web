@@ -15,6 +15,7 @@ import { Page } from '~/lib/utility/page'
 import { PV } from '~/resources'
 import { getServerSideLoggedInUserPlaylistsCombined } from '~/services/playlist'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
+import { OmniAuralState } from '~/state/omniauralState'
 
 interface ServerProps extends Page {
   serverPlaylistsCombined: {
@@ -29,7 +30,7 @@ export default function Playlists({ serverPlaylistsCombined }: ServerProps) {
   /* Initialize */
 
   const { t } = useTranslation()
-  const [userInfo] = useOmniAural('session.userInfo')
+  const [userInfo] = useOmniAural('session.userInfo') as [OmniAuralState['session']['userInfo']]
   const { createdPlaylists, subscribedPlaylists } = serverPlaylistsCombined
   const combinedPlaylists = createdPlaylists.concat(subscribedPlaylists)
 
