@@ -5,6 +5,7 @@ import { useOmniAural } from 'omniaural'
 import { PV } from '~/resources'
 import { playerPause } from '~/services/player/player'
 import { audioCheckIfCurrentlyPlaying, audioIsLoaded, audioPause, audioPlay } from '~/services/player/playerAudio'
+import { OmniAuralState } from '~/state/omniauralState'
 import { ButtonCircle } from '..'
 import { ProgressBar } from '../Player/controls/ProgressBar'
 
@@ -13,7 +14,7 @@ type Props = {
 }
 
 export const TwitterCardPlayer = ({ isClip }: Props) => {
-  const [player] = useOmniAural('player')
+  const [player] = useOmniAural('player') as [OmniAuralState['player']]
   const { t } = useTranslation()
   const { clipFlagPositions, currentNowPlayingItem, highlightedPositions, paused } = player
   const playpause = classNames(paused ? 'play' : 'pause')

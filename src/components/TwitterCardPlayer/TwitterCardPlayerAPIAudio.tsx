@@ -4,9 +4,10 @@ import PlayerAudio from 'react-h5-audio-player'
 import { playerGetDuration, playerUpdateDuration, playerUpdatePlaybackPosition } from '~/services/player/player'
 import { audioInitialize, audioPause, audioSeekTo } from '~/services/player/playerAudio'
 import { setClipFlagPositions } from '~/services/player/playerFlags'
+import { OmniAuralState } from '~/state/omniauralState'
 
 export const TwitterCardPlayerAPIAudio = () => {
-  const [player] = useOmniAural('player')
+  const [player] = useOmniAural('player') as [OmniAuralState['player']]
   const { currentNowPlayingItem } = player
 
   useEffect(() => {

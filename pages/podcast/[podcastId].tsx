@@ -27,6 +27,7 @@ import { getMediaRefsByQuery } from '~/services/mediaRef'
 import { Page } from '~/lib/utility/page'
 import { sanitizeTextHtml } from '~/lib/utility/sanitize'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
+import { OmniAuralState } from '~/state/omniauralState'
 
 interface ServerProps extends Page {
   serverClips: MediaRef[]
@@ -47,7 +48,7 @@ type FilterState = {
 
 const keyPrefix = 'pages_podcast'
 
-/* *TODO* 
+/* *TODO*
     Rewrite this file to follow the patterns in pages/podcasts and pages/search.
     Move all functions inside the render function,
     get rid of the filterState,
@@ -82,7 +83,7 @@ export default function Podcast({
   const [clipsListData, setClipsListData] = useState<MediaRef[]>(serverClips)
   const [clipsPageCount, setClipsPageCount] = useState<number>(serverClipsPageCount)
   const initialRender = useRef(true)
-  const [userInfo] = useOmniAural('session.userInfo')
+  const [userInfo] = useOmniAural('session.userInfo') as [OmniAuralState['session']['userInfo']]
   const pageCount = filterType === PV.Filters.type._episodes ? episodesPageCount : clipsPageCount
 
   /* useEffects */

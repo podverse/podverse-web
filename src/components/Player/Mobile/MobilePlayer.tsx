@@ -6,11 +6,12 @@ import { Slider } from '~/components/Slider/Slider'
 import { getClipTitle } from '~/lib/utility/misc'
 import { PV } from '~/resources'
 import { playerPause, playerPlay, playerSeekTo } from '~/services/player/player'
+import { OmniAuralState } from '~/state/omniauralState'
 
 type Props = unknown
 
 export const MobilePlayer = (props: Props) => {
-  const [player] = useOmniAural('player')
+  const [player] = useOmniAural('player') as [OmniAuralState['player']]
   const { t } = useTranslation()
   const {
     chapterFlagPositions,

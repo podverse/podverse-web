@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next'
 import { ButtonRectangle, Dropdown, TextInput } from '~/components'
 import { PV } from '~/resources'
 import { toggleSubscribeToUser } from '~/state/loggedInUserActions'
+import { OmniAuralState } from '~/state/omniauralState'
 
 type Props = {
   handleChangeIsPublic?: any
@@ -27,7 +28,7 @@ export const ProfilePageHeader = ({
   user
 }: Props) => {
   const { t } = useTranslation()
-  const [userInfo] = useOmniAural('session.userInfo')
+  const [userInfo] = useOmniAural('session.userInfo') as [OmniAuralState['session']['userInfo']]
   const name = user?.name || t('Anonymous')
   const isLoggedInUserProfile = userInfo?.id && userInfo.id === user?.id
   const isSubscribed = userInfo?.subscribedUserIds?.includes(user.id)

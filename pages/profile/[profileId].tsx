@@ -25,6 +25,7 @@ import { isNotClipsSortOption, isNotPodcastsSubscribedSortOption } from '~/resou
 import { getUserMediaRefs } from '~/services/mediaRef'
 import { getUserPlaylists } from '~/services/playlist'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
+import { OmniAuralState } from '~/state/omniauralState'
 
 interface ServerProps extends Page {
   serverFilterType: string
@@ -65,7 +66,7 @@ export default function Profile({
       ? t('Podcasts')
       : t('Playlists')
   const pageCount = Math.ceil(listDataCount / PV.Config.QUERY_RESULTS_LIMIT_DEFAULT)
-  const [userInfo] = useOmniAural('session.userInfo')
+  const [userInfo] = useOmniAural('session.userInfo') as [OmniAuralState['session']['userInfo']]
   const isLoggedInUserProfile = userInfo?.id && userInfo.id === user?.id
 
   /* useEffects */
