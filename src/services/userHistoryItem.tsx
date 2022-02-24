@@ -157,16 +157,34 @@ export const getHistoryItemsIndexFromServer = async (bearerToken?: string) => {
   return generateHistoryItemsIndexDictionary(userHistoryItems)
 }
 
-/*
-  Mini HistoryItem object:
-  d = mediaFileDuration
-  p = userPlaybackPosition
-  c = completed
-  m = mediaRefId
-  e = episodeId
-*/
-const generateHistoryItemsIndexDictionary = (historyItems: any[]) => {
-  const historyItemsIndex = {
+type baseHistoryItem = {
+  /** mediaFileDuration */
+  d: number | null
+  /** userPlaybackPosition */
+  p: number
+}
+type MediaRefHistoryItem = baseHistoryItem & {
+  /** mediaRefId */
+  m: number
+}
+
+type EpisodeHistoryItem = baseHistoryItem & {
+  /** episodeId */
+  e: number
+  /** complete */
+  c: boolean
+}
+
+type HistoryItem = MediaRefHistoryItem | EpisodeHistoryItem
+
+const isMediaRefHistoryItem = (item: HistoryItem): item is MediaRefHistoryItem => 'm' in item
+const isEpisodeHistoryItem = (item: HistoryItem): item is EpisodeHistoryItem => 'e' in item
+
+const generateHistoryItemsIndexDictionary = (historyItems: HistoryItem[]) => {
+  const historyItemsIndex: {
+    episodes: Record<number, Omit<EpisodeHistoryItem, 'e'>>
+    mediaRefs: Record<number, Omit<MediaRefHistoryItem, 'm'>>
+  } = {
     episodes: {},
     mediaRefs: {}
   }
@@ -176,12 +194,12 @@ const generateHistoryItemsIndexDictionary = (historyItems: any[]) => {
   }
 
   for (const historyItem of historyItems) {
-    if (historyItem.m) {
+    if (isMediaRefHistoryItem(historyItem)) {
       historyItemsIndex.mediaRefs[historyItem.m] = {
         d: historyItem.d || null,
         p: historyItem.p
       }
-    } else if (historyItem.e) {
+    } else if (isEpisodeHistoryItem(historyItem)) {
       historyItemsIndex.episodes[historyItem.e] = {
         d: historyItem.d || null,
         p: historyItem.p,

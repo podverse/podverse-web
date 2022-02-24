@@ -17,6 +17,7 @@ import {
 import { addOrUpdateHistoryItemOnServer, getHistoryItemsIndexFromServer } from '~/services/userHistoryItem'
 import { addQueueItemLastOnServer, addQueueItemNextOnServer } from '~/services/userQueueItem'
 import { modalsAddToPlaylistShowOrAlert } from '~/state/modals/addToPlaylist/actions'
+import { OmniAuralState } from '~/state/omniauralState'
 import { ButtonCircle, Dropdown, Icon } from '..'
 
 type Props = {
@@ -48,8 +49,8 @@ export const MediaItemControls = ({
   podcast,
   stretchMiddleContent
 }: Props) => {
-  const [userInfo] = useOmniAural('session.userInfo')
-  const [player] = useOmniAural('player')
+  const [userInfo] = useOmniAural('session.userInfo') as [OmniAuralState['session']['userInfo']]
+  const [player] = useOmniAural('player') as [OmniAuralState['player']]
   /* historyItemsIndex is way too big with useOmniAural */
   // const [historyItemsIndex] = useOmniAural('historyItemsIndex')
   const historyItemsIndex = OmniAural.state.historyItemsIndex.value()

@@ -23,6 +23,7 @@ import { isNotAllSortOption } from '~/resources/Filters'
 import { getCategoryById, getCategoryBySlug } from '~/services/category'
 import { getMediaRefsByQuery } from '~/services/mediaRef'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
+import { OmniAuralState } from '~/state/omniauralState'
 
 // eslint-disable-next-line
 const categories = require('~/resources/Categories/TopLevelCategories.json')
@@ -58,7 +59,7 @@ ServerProps) {
   const [clipsListData, setClipsListData] = useState<MediaRef[]>(serverClipsListData)
   const [clipsListDataCount, setClipsListDataCount] = useState<number>(serverClipsListDataCount)
   const [isQuerying, setIsQuerying] = useState<boolean>(false)
-  const [userInfo] = useOmniAural('session.userInfo')
+  const [userInfo] = useOmniAural('session.userInfo') as [OmniAuralState['session']['userInfo']]
   // const [videoOnlyMode, setVideoOnlyMode] = useState<boolean>(serverGlobalFilters?.videoOnlyMode || OmniAural.state.globalFilters.videoOnlyMode.value())
   const initialRender = useRef<boolean>(true)
   const pageCount = Math.ceil(clipsListDataCount / PV.Config.QUERY_RESULTS_LIMIT_DEFAULT)

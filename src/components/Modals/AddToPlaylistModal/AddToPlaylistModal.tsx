@@ -10,13 +10,13 @@ import {
   createPlaylist,
   getLoggedInUserPlaylists
 } from '~/services/playlist'
+import type { OmniAuralState } from '~/state/omniauralState'
 
 type Props = unknown
-
 const keyPrefix = '_addToPlaylist'
 
 export const AddToPlaylistModal = (props: Props) => {
-  const [addToPlaylist] = useOmniAural('modals.addToPlaylist')
+  const [addToPlaylist] = useOmniAural('modals.addToPlaylist') as [OmniAuralState['modals']['addToPlaylist']]
   const { t } = useTranslation()
   const [playlists, setPlaylists] = useState<Playlist[]>([])
 
@@ -48,11 +48,11 @@ export const AddToPlaylistModal = (props: Props) => {
   const _handlePlaylistPress = async (playlist: Playlist) => {
     const { item } = addToPlaylist
     OmniAural.pageIsLoadingShow()
-    if (item.clipId) {
-      const response = await addOrRemovePlaylistItemMediaRef(playlist.id, item.clipId)
+    if ('clipId' in item) {
+      const response = await addOrRemovePlaylistItemMediaRef(playlist.id, item.clipId.toString())
       await _handlePlaylistResponse(response)
-    } else if (item.episodeId) {
-      const response = await addOrRemovePlaylistItemEpisode(playlist.id, item.episodeId)
+    } else if ('episodeId' in item) {
+      const response = await addOrRemovePlaylistItemEpisode(playlist.id, item.episodeId.toString())
       await _handlePlaylistResponse(response)
     }
     OmniAural.pageIsLoadingHide()

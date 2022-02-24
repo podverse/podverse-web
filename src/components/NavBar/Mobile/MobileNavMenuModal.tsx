@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import Modal from 'react-modal'
 import { ButtonClose } from '~/components'
 import { PV } from '~/resources'
+import { OmniAuralState } from '~/state/omniauralState'
 import { MobileNavMenuLink } from './MobileNavMenuLink'
 
 type Props = {
@@ -14,7 +15,7 @@ type Props = {
 export const MobileNavMenuModal = ({ handleHideMenu, show }: Props) => {
   const router = useRouter()
   const { t } = useTranslation()
-  const [userInfo] = useOmniAural('session.userInfo')
+  const [userInfo] = useOmniAural('session.userInfo') as [OmniAuralState['session']['userInfo']]
 
   return (
     <Modal

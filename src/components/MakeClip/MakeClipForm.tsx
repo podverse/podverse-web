@@ -13,6 +13,7 @@ import { PlayerOptionButton } from '../Player/options/PlayerOptionButton'
 import { createMediaRef, updateMediaRef } from '~/services/mediaRef'
 import { handleSetupClipListener } from '~/services/player/playerClip'
 import { useState } from 'react'
+import { OmniAuralState } from '~/state/omniauralState'
 
 type Props = {
   handleCancel: any
@@ -21,8 +22,8 @@ type Props = {
 export const MakeClipForm = ({ handleCancel }: Props) => {
   const router = useRouter()
   const { t } = useTranslation()
-  const [makeClip] = useOmniAural('makeClip')
-  const [player] = useOmniAural('player')
+  const [makeClip] = useOmniAural('makeClip') as [OmniAuralState['makeClip']]
+  const [player] = useOmniAural('player') as [OmniAuralState['player']]
   const [isSaving, setIsSaving] = useState<boolean>(false)
   const { clipFlagPositions, endTime, highlightedPositions, isEditing, isPublic, startTime, title } = makeClip
   const { currentNowPlayingItem, duration, playSpeed } = player

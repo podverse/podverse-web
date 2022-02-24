@@ -23,6 +23,7 @@ import { isNotAllSortOption } from '~/resources/Filters'
 import { getCategoryById, getCategoryBySlug } from '~/services/category'
 import { getEpisodesByQuery } from '~/services/episode'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
+import { OmniAuralState } from '~/state/omniauralState'
 
 // eslint-disable-next-line
 const categories = require('~/resources/Categories/TopLevelCategories.json')
@@ -59,7 +60,7 @@ export default function Episodes({
   const [episodesListData, setEpisodesListData] = useState<Episode[]>(serverEpisodesListData)
   const [episodesListDataCount, setEpisodesListDataCount] = useState<number>(serverEpisodesListDataCount)
   const [isQuerying, setIsQuerying] = useState<boolean>(false)
-  const [userInfo] = useOmniAural('session.userInfo')
+  const [userInfo] = useOmniAural('session.userInfo') as [OmniAuralState['session']['userInfo']]
   const [videoOnlyMode, setVideoOnlyMode] = useState<boolean>(
     serverGlobalFilters?.videoOnlyMode || OmniAural.state.globalFilters.videoOnlyMode.value()
   )

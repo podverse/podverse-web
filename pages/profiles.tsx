@@ -18,6 +18,7 @@ import { getPublicUsersByQuery } from '~/services/user'
 import { ProfileListItem } from '~/components/ProfileListItem/ProfileListItem'
 import { useEffect, useRef, useState } from 'react'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
+import { OmniAuralState } from '~/state/omniauralState'
 
 interface ServerProps extends Page {
   serverFilterPage: number
@@ -33,7 +34,7 @@ export default function Profiles({ serverFilterPage, serverUsers, serverUsersCou
   const { t } = useTranslation()
   const [filterPage, setFilterPage] = useState<number>(serverFilterPage)
   const [usersListData, setUsersListData] = useState<User[]>(serverUsers)
-  const [userInfo] = useOmniAural('session.userInfo')
+  const [userInfo] = useOmniAural('session.userInfo') as [OmniAuralState['session']['userInfo']]
   const initialRender = useRef(true)
   const pageCount = Math.ceil(serverUsersCount / PV.Config.QUERY_RESULTS_LIMIT_DEFAULT)
 

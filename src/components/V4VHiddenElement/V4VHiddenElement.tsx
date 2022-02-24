@@ -1,8 +1,9 @@
 import { useOmniAural } from 'omniaural'
+import { OmniAuralState } from '~/state/omniauralState'
 
 export const V4VHiddenElement = () => {
-  const [player] = useOmniAural('player')
-  const [v4vElementInfo] = useOmniAural('v4vElementInfo')
+  const [player] = useOmniAural('player') as [OmniAuralState['player']]
+  const [v4vElementInfo] = useOmniAural('v4vElementInfo') as [OmniAuralState['v4vElementInfo']]
   const { currentNowPlayingItem, playbackPosition } = player
 
   if (!currentNowPlayingItem && !v4vElementInfo) {
