@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next'
 import { useCookies } from 'react-cookie'
 import { ButtonCircle, Dropdown, SwitchWithIcons } from '~/components'
 import { PV } from '~/resources'
+import { OmniAuralState } from '~/state/omniauralState'
 
 type Props = {
   serverCookies: any
@@ -17,7 +18,7 @@ export const HorizontalNavBar = ({ serverCookies }: Props) => {
   const [, setCookie, removeCookie] = useCookies([])
   const router = useRouter()
   const { t } = useTranslation()
-  const [userInfo] = useOmniAural('session.userInfo')
+  const [userInfo] = useOmniAural('session.userInfo') as [OmniAuralState['session']['userInfo']]
 
   useEffect(() => {
     if (!lightModeChecked) {

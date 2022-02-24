@@ -5,6 +5,7 @@ import { MediaItemControls, PVLink } from '~/components'
 import { readableDate } from '~/lib/utility/date'
 import { getClipTitle, getEpisodeTitle } from '~/lib/utility/misc'
 import { PV } from '~/resources'
+import { OmniAuralState } from '~/state/omniauralState'
 
 type Props = {
   clip: MediaRef
@@ -14,7 +15,7 @@ type Props = {
 
 export const ClipInfo = ({ clip, episode }: Props) => {
   const { t } = useTranslation()
-  const [userInfo] = useOmniAural('session.userInfo')
+  const [userInfo] = useOmniAural('session.userInfo') as [OmniAuralState['session']['userInfo']]
   const episodeTitle = getEpisodeTitle(t, episode)
   const episodePubDate = readableDate(episode.pubDate)
   const title = getClipTitle(t, clip.title, episode.title)

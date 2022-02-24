@@ -7,6 +7,7 @@ import { getClipTitle } from '~/lib/utility/misc'
 import { readableClipTime } from '~/lib/utility/time'
 import { PV } from '~/resources'
 import { checkIfVideoFileType } from '~/services/player/playerVideo'
+import { OmniAuralState } from '~/state/omniauralState'
 import { PlayerProgressButtons } from './controls/PlayerProgressButtons'
 import { ProgressBar } from './controls/ProgressBar'
 import { PlayerAPIVideo } from './PlayerAPI/PlayerAPIVideo'
@@ -18,7 +19,7 @@ type Props = {
 
 export const PlayerFullView = ({ nowPlayingItem }: Props) => {
   const { t } = useTranslation()
-  const [player] = useOmniAural('player')
+  const [player] = useOmniAural('player') as [OmniAuralState['player']]
   const { chapterFlagPositions, clipFlagPositions, highlightedPositions, showFullView } = player
   const podcastPageUrl = `${PV.RoutePaths.web.podcast}/${nowPlayingItem.podcastId}`
   const episodePageUrl = `${PV.RoutePaths.web.episode}/${nowPlayingItem.episodeId}`

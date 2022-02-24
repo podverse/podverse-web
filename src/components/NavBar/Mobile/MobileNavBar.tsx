@@ -7,12 +7,13 @@ import { Dropdown, Icon, NavBarBrand, PVLink } from '~/components'
 import { PV } from '~/resources'
 import { useState } from 'react'
 import { MobileNavMenuModal } from './MobileNavMenuModal'
+import { OmniAuralState } from '~/state/omniauralState'
 
 type Props = unknown
 
 export const MobileNavBar = (props: Props) => {
   const router = useRouter()
-  const [userInfo] = useOmniAural('session.userInfo')
+  const [userInfo] = useOmniAural('session.userInfo') as [OmniAuralState['session']['userInfo']]
   const { t } = useTranslation()
   const [showMobileNavMenu, setShowMobileNavMenu] = useState<boolean>(false)
 

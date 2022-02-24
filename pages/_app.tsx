@@ -23,7 +23,7 @@ import {
   ToastsHandler
 } from '~/components'
 import '~/state'
-import initialState from '~/state/initialState.json'
+import { initialState } from '~/state/omniauralState'
 import { playerLoadNowPlayingItem, saveCurrentPlaybackPositionToHistory } from '~/services/player/player'
 import { getNowPlayingItemOnServer } from '~/services/userNowPlayingItem'
 import { initializeMatomo, matomoTrackPageView } from '~/services/tracking'

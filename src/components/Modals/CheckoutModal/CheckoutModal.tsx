@@ -1,11 +1,12 @@
 import OmniAural, { useOmniAural } from 'omniaural'
 import Modal from 'react-modal'
 import { ButtonClose, PayPalButton } from '~/components'
+import { OmniAuralState } from '~/state/omniauralState'
 
 type Props = unknown
 
 export const CheckoutModal = (props: Props) => {
-  const [checkout] = useOmniAural('modals.checkout')
+  const [checkout] = useOmniAural('modals.checkout') as [OmniAuralState['modals']['checkout']]
 
   /* Function Helpers */
 

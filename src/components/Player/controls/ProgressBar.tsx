@@ -3,6 +3,7 @@ import { useOmniAural } from 'omniaural'
 import { Slider } from '~/components/Slider/Slider'
 import { convertSecToHHMMSS } from '~/lib/utility/time'
 import { playerSeekTo } from '~/services/player/player'
+import { OmniAuralState } from '~/state/omniauralState'
 
 type Props = {
   chapterFlagPositions?: number[]
@@ -17,7 +18,7 @@ export const ProgressBar = ({
   highlightedPositions = [],
   labelsBelow
 }: Props) => {
-  const [player] = useOmniAural('player')
+  const [player] = useOmniAural('player') as [OmniAuralState['player']]
   const { duration, playbackPosition } = player
   const currentTimeLabel = convertSecToHHMMSS(playbackPosition)
   const endTimeLabel = convertSecToHHMMSS(duration)

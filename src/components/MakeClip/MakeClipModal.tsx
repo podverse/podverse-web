@@ -1,11 +1,12 @@
 import OmniAural, { useOmniAural } from 'omniaural'
 import Modal from 'react-modal'
 import { ButtonClose, MakeClipForm } from '~/components'
+import { OmniAuralState } from '~/state/omniauralState'
 
 type Props = unknown
 
 export const MakeClipModal = (props: Props) => {
-  const [makeClip] = useOmniAural('makeClip')
+  const [makeClip] = useOmniAural('makeClip') as [OmniAuralState['makeClip']]
 
   const _onRequestClose = OmniAural.makeClipHide
 

@@ -4,13 +4,14 @@ import { useTranslation } from 'next-i18next'
 import { useOmniAural } from 'omniaural'
 import { NavBarBrand, NavBarLink, NavBarSectionHeader } from '~/components'
 import { PV } from '~/resources'
+import { OmniAuralState } from '~/state/omniauralState'
 
 type Props = unknown
 
 export const NavBar = (props: Props) => {
   const router = useRouter()
   const { t } = useTranslation()
-  const [userInfo] = useOmniAural('session.userInfo')
+  const [userInfo] = useOmniAural('session.userInfo') as [OmniAuralState['session']['userInfo']]
 
   return (
     <nav className='navbar'>

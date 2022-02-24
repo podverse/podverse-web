@@ -2,11 +2,12 @@ import { useTranslation } from 'next-i18next'
 import OmniAural, { useOmniAural } from 'omniaural'
 import Modal from 'react-modal'
 import { ButtonClose, FundingLink } from '~/components'
+import { OmniAuralState } from '~/state/omniauralState'
 
 type Props = unknown
 
 export const FundingModal = (props: Props) => {
-  const [funding] = useOmniAural('modals.funding')
+  const [funding] = useOmniAural('modals.funding') as [OmniAuralState['modals']['funding']]
   const { t } = useTranslation()
   const { fundingLinks, show } = funding
 
