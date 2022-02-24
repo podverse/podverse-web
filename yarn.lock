@@ -4795,10 +4795,10 @@ netmask@^2.0.1:
   resolved "https://registry.yarnpkg.com/netmask/-/netmask-2.0.2.tgz#8b01a07644065d536383835823bc52004ebac5e7"
   integrity sha512-dBpDMdxv9Irdq66304OLfEmQ9tbNRFnFTuZiLo+bD+r332bBmMJ8GBLXklIXXgxd3+v9+KUnZaUR5PJMa75Gsg==
 
-next-i18next@9.2.0:
-  version "9.2.0"
-  resolved "https://registry.yarnpkg.com/next-i18next/-/next-i18next-9.2.0.tgz#00d9c1f817648b492e017e0b956cd2b818f0c0d2"
-  integrity sha512-cWhrgxYz9IZZQ81Vc4NgogaKSANN827qHRkyVuoscOerJBHNMr7t3vO1szj/M1qnyE7yIV0NHczCS4VyqWbQAg==
+next-i18next@10.4.0:
+  version "10.4.0"
+  resolved "https://registry.yarnpkg.com/next-i18next/-/next-i18next-10.4.0.tgz#02849352aab4421ffa79d59c4c1ab2a29d3c85fc"
+  integrity sha512-3ShASQiQjEmfpCrghOXnUpq6f3tvp/DWyvL/TOoMiH30ERfpbdv7279m4f08tqwGaWlOukanutvs1s1vrQI3Pw==
   dependencies:
     "@babel/runtime" "^7.13.17"
     "@types/hoist-non-react-statics" "^3.3.1"
