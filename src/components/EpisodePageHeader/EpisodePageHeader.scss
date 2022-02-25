@@ -24,12 +24,14 @@
       .podcast-title {
         font-size: $text-lg;
         font-weight: $font-weight-medium;
+        @include line-clamp(1);
       }
 
       .episode-title {
         font-size: $text-xxl;
         font-weight: $font-weight-light;
         margin-top: 4px;
+        @include line-clamp(3);
       }
 
       .sub-labels {
