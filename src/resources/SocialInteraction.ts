@@ -5,6 +5,6 @@ export const SocialInteraction = {
     peertube: 'peertube'
   },
   protocolKeys: {
-    activitypub: 'activitypub',
+    activitypub: 'activitypub'
   }
 }
