@@ -94,8 +94,10 @@ export default function Episode({
       if (serverEpisode?.socialInteraction?.length) {
         const activityPub = serverEpisode.socialInteraction.find(
           (item: SocialInteraction) =>
-            item.platform === PV.SocialInteraction.platformKeys.activitypub ||
-            item.platform === PV.SocialInteraction.platformKeys.mastodon
+            item.protocol === PV.SocialInteraction.protocolKeys.activitypub ||
+            item.platform === PV.SocialInteraction.platformKeys.castopod ||
+            item.platform === PV.SocialInteraction.platformKeys.mastodon ||
+            item.platform === PV.SocialInteraction.platformKeys.peertube
         )
         if (activityPub?.url) {
           setCommentsLoading(true)
