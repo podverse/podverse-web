@@ -121,7 +121,7 @@ export const EpisodePageHeader = ({ episode }: Props) => {
               </div>
             )}
             <ButtonRectangle
-              className='hide-below-tablet-max-width header-subscribe-button-mobile'
+              className='hide-above-tablet-xl-min-width header-subscribe-button-mobile'
               label={subscribedText}
               onClick={() => toggleSubscribeToPodcast(id, t)}
               type='tertiary'
