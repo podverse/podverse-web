@@ -1,6 +1,10 @@
 export const SocialInteraction = {
   platformKeys: {
-    activitypub: 'activitypub',
-    mastodon: 'mastodon'
+    castopod: 'castopod',
+    mastodon: 'mastodon',
+    peertube: 'peertube'
+  },
+  protocolKeys: {
+    activitypub: 'activitypub'
   }
 }
