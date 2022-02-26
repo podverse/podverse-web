@@ -1,5 +1,6 @@
 export const SocialInteraction = {
   platformKeys: {
-    activitypub: 'activitypub'
+    activitypub: 'activitypub',
+    mastodon: 'mastodon'
   }
 }
