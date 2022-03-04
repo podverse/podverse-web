@@ -17,7 +17,7 @@ export const ButtonIcon = ({ className, faIcon, href, isSecondary, onClick, rel,
 
   if (href) {
     return (
-      <a href={href} rel={rel} target={target}>
+      <a className={buttonClass} href={href} rel={rel} target={target}>
         <FontAwesomeIcon icon={faIcon} />
       </a>
     )

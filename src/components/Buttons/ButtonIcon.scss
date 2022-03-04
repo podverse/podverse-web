@@ -1,7 +1,11 @@
 .button-icon {
-  &.is-secondary {
+  @include themeGen() {
+    color: getThemeVal('textPrimary') !important;
+  }
+
+  &:hover {
     @include themeGen() {
-      color: getThemeVal('textSecondary');
+      color: getThemeVal('textSecondary') !important;
     }
   }
 }
