@@ -17,7 +17,7 @@ type MediaRefQueryParams = {
   includePodcast?: boolean
   page?: number
   podcastIds?: string | string[]
-  searchAllFieldsText?: string
+  searchTitle?: string
   sort?: string
 }
 
@@ -29,7 +29,7 @@ export const getMediaRefsByQuery = async ({
   includePodcast,
   page,
   podcastIds,
-  searchAllFieldsText,
+  searchTitle,
   sort
 }: MediaRefQueryParams) => {
   const filteredQuery: MediaRefQueryParams = {
@@ -40,9 +40,9 @@ export const getMediaRefsByQuery = async ({
     ...(includePodcast ? { includePodcast } : {}),
     ...(page ? { page } : { page: 1 }),
     ...(podcastIds ? { podcastId: podcastIds } : {}),
-    ...(searchAllFieldsText
+    ...(searchTitle
       ? {
-          searchAllFieldsText: encodeURIComponent(searchAllFieldsText)
+          searchTitle: encodeURIComponent(searchTitle)
         }
       : {}),
     ...(sort ? { sort } : { sort: PV.Filters.sort._mostRecent })

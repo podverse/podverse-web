@@ -14,7 +14,7 @@ type EpisodeQueryParams = {
   includePodcast?: boolean
   page?: number
   podcastIds?: string | string[]
-  searchAllFieldsText?: string
+  searchTitle?: string
   sort?: string
 }
 
@@ -24,7 +24,7 @@ export const getEpisodesByQuery = async ({
   includePodcast,
   page,
   podcastIds,
-  searchAllFieldsText,
+  searchTitle,
   sort
 }: EpisodeQueryParams) => {
   const filteredQuery: EpisodeQueryParams = {
@@ -33,9 +33,9 @@ export const getEpisodesByQuery = async ({
     ...(includePodcast ? { includePodcast } : {}),
     ...(page ? { page } : { page: 1 }),
     ...(podcastIds ? { podcastId: podcastIds } : {}),
-    ...(searchAllFieldsText
+    ...(searchTitle
       ? {
-          searchAllFieldsText: encodeURIComponent(searchAllFieldsText)
+          searchTitle: encodeURIComponent(searchTitle)
         }
       : {}),
     ...(sort ? { sort } : { sort: PV.Filters.sort._mostRecent })
