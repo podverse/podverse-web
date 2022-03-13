@@ -78,7 +78,7 @@ export const TextInput = ({
           </div>
         )}
         <div className='text-input-inner-wrapper'>
-          {!!tempValue && <div className='eyebrow'>{label}</div>}
+          {!!tempValue && label && <div className='eyebrow'>{label}</div>}
           <input
             defaultValue={defaultValue}
             disabled={disabled}

@@ -183,10 +183,12 @@ export default function Episodes({
       setFilterFrom(PV.Filters.from._all)
       setFilterSort(PV.Filters.sort._topPastMonth)
     }
+    setFilterPage(1)
     setFilterSearchText(val)
   }
 
   const _handleSearchClear = async () => {
+    setFilterPage(1)
     setFilterSearchText('')
   }
 

@@ -44,6 +44,37 @@
       }
     }
   }
+
+  &.smaller {
+    .text-input {
+      .text-input-outer-wrapper {
+        padding: 8px 16px;
+        
+        .icon-wrapper {
+          font-size: $text-xl !important;
+        }
+
+        .text-input-inner-wrapper {
+          height: 34px !important;
+
+          input {
+            font-size: $text-xl !important;
+            height: 34px !important;
+          }
+        }
+
+        .clear {
+          height: 34px !important;
+          line-height: 34px !important;
+          width: 34px !important;
+
+          svg {
+            width: 16px !important;
+          }
+        }
+      }
+    }
+  }
 }
 
 @media (max-width: $media-max-width-mobile) {

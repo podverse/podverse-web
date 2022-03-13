@@ -1,7 +1,7 @@
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import classNames from 'classnames'
 import debounce from 'debounce'
-import { useMemo, useRef, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { TextInput } from '~/components'
 
@@ -10,14 +10,16 @@ type Props = {
   handleClear?: any
   handleSubmit?: any
   includeBottomPadding?: boolean
+  smaller?: boolean
 }
 
-export const SearchBarFilter = ({ debounceRate = 1000, handleClear, handleSubmit, includeBottomPadding }: Props) => {
+export const SearchBarFilter = ({ debounceRate = 1000, handleClear, handleSubmit, includeBottomPadding, smaller }: Props) => {
   const { t } = useTranslation()
   const [searchText, setSearchText] = useState<string>('')
   const wrapperClass = classNames(
     'search-bar-filter',
-    includeBottomPadding ? 'bottom-padding' : ''
+    includeBottomPadding ? 'bottom-padding' : '',
+    smaller ? 'smaller' : ''
   )
 
   const debouncedHandleSubmit = useMemo(

@@ -190,11 +190,13 @@ export default function Podcasts({
     if (isCategoriesPage) {
       router.push(`${PV.RoutePaths.web.search}?podcastTitle=${val}`)
     } else {
+      setFilterPage(1)
       setFilterSearchText(val)
     }
   }
 
   const _handleSearchClear = async () => {
+    setFilterPage(1)
     setFilterSearchText('')
   }
 
