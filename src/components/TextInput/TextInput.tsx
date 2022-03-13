@@ -8,6 +8,7 @@ type Props = {
   defaultValue?: string
   disabled?: boolean
   endButtonClass?: string
+  endButtonIsLoading?: boolean
   endButtonText?: string
   faIcon?: IconProp
   faIconEnd?: IconProp
@@ -30,6 +31,7 @@ export const TextInput = ({
   defaultValue,
   disabled,
   endButtonClass,
+  endButtonIsLoading,
   endButtonText,
   faIcon,
   faIconEnd,
@@ -99,6 +101,7 @@ export const TextInput = ({
         {!!endButtonText && handleEndButtonClick && (
           <ButtonRectangle
             className={endButtonClassName}
+            isLoading={endButtonIsLoading}
             label={endButtonText}
             onClick={handleEndButtonClick}
             type='tertiary'
