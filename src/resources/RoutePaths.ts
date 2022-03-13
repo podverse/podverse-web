@@ -37,6 +37,7 @@ export const RoutePaths = {
   web: {
     _login: `/?login=true`,
     about: `/about`,
+    admin: `/admin`,
     appleAppStore: `https://apps.apple.com/us/app/podverse/id1390888454?mt=8`,
     clip: `/clip`,
     clips: `/clips`,
