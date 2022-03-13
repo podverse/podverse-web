@@ -86,11 +86,11 @@ export default function Podcasts({
         } else {
           OmniAural.pageIsLoadingShow()
           setIsQuerying(true)
-  
+
           const { data } = await clientQueryPodcasts()
           const [newListData, newListCount] = data
           setPodcastsListData(newListData)
-          setPodcastsListDataCount(newListCount)  
+          setPodcastsListDataCount(newListCount)
         }
       } catch (err) {
         console.log(err)
@@ -257,13 +257,9 @@ export default function Podcasts({
         videoOnlyMode={videoOnlyMode}
       />
       <PageScrollableContent noPaddingTop={showLoginMessage || isCategoryPage}>
-        {
-          !showLoginMessage && !isCategoryPage && (
-            <SearchBarFilter
-              handleClear={_handleSearchClear}
-              handleSubmit={_handleSearchSubmit} />
-          )
-        }
+        {!showLoginMessage && !isCategoryPage && (
+          <SearchBarFilter handleClear={_handleSearchClear} handleSubmit={_handleSearchSubmit} />
+        )}
         {isCategoriesPage && (
           <Tiles
             items={categories}
@@ -282,9 +278,7 @@ export default function Podcasts({
             message={t('LoginToSubscribeToPodcasts')}
           />
         )}
-        {(isLoggedInSubscribedPage ||
-          filterFrom === PV.Filters.from._all ||
-          isCategoryPage) && (
+        {(isLoggedInSubscribedPage || filterFrom === PV.Filters.from._all || isCategoryPage) && (
           <>
             <List
               handleSelectByCategory={() => _handlePrimaryOnChange([PV.Filters.dropdownOptions.podcasts.from[2]])}

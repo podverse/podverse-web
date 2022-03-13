@@ -240,7 +240,8 @@ export default function Podcast({
                 handleClear={_handleSearchClear}
                 handleSubmit={_handleSearchSubmit}
                 includeBottomPadding
-                smaller />
+                smaller
+              />
               <List>
                 {filterType === PV.Filters.type._episodes && generateEpisodeListElements()}
                 {filterType === PV.Filters.type._clips && generateClipListElements()}

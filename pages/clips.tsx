@@ -92,7 +92,7 @@ ServerProps) {
         } else {
           OmniAural.pageIsLoadingShow()
           setIsQuerying(true)
-  
+
           const { data } = await clientQueryMediaRefs()
           const [newListData, newListCount] = data
           setClipsListData(newListData)
@@ -250,14 +250,13 @@ ServerProps) {
         // videoOnlyMode={videoOnlyMode}
       />
       <PageScrollableContent noPaddingTop={showLoginMessage || isCategoryPage}>
-        {
-          !showLoginMessage && !isCategoryPage && (
-            <SearchBarFilter
-              handleClear={_handleSearchClear}
-              handleSubmit={_handleSearchSubmit}
-              includeBottomPadding={!isCategoriesPage} />
-          )
-        }
+        {!showLoginMessage && !isCategoryPage && (
+          <SearchBarFilter
+            handleClear={_handleSearchClear}
+            handleSubmit={_handleSearchSubmit}
+            includeBottomPadding={!isCategoriesPage}
+          />
+        )}
         {isCategoriesPage && (
           <Tiles
             items={categories}
@@ -276,9 +275,7 @@ ServerProps) {
             message={t('LoginToSubscribeToPodcasts')}
           />
         )}
-        {(isLoggedInSubscribedPage ||
-          filterFrom === PV.Filters.from._all ||
-          isCategoryPage) && (
+        {(isLoggedInSubscribedPage || filterFrom === PV.Filters.from._all || isCategoryPage) && (
           <>
             <List
               handleSelectByCategory={() => _handlePrimaryOnChange([PV.Filters.dropdownOptions.clips.from[2]])}

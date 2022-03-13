@@ -13,7 +13,13 @@ type Props = {
   smaller?: boolean
 }
 
-export const SearchBarFilter = ({ debounceRate = 1000, handleClear, handleSubmit, includeBottomPadding, smaller }: Props) => {
+export const SearchBarFilter = ({
+  debounceRate = 1000,
+  handleClear,
+  handleSubmit,
+  includeBottomPadding,
+  smaller
+}: Props) => {
   const { t } = useTranslation()
   const [searchText, setSearchText] = useState<string>('')
   const wrapperClass = classNames(
