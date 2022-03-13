@@ -15,6 +15,7 @@ import {
   PageScrollableContent,
   Pagination,
   scrollToTopOfPageScrollableContent,
+  SearchBarFilter,
   Tiles
 } from '~/components'
 import { Page } from '~/lib/utility/page'
@@ -55,6 +56,7 @@ ServerProps) {
   const [filterCategoryId, setFilterCategoryId] = useState<string | null>(serverCategoryId || null)
   const [filterFrom, setFilterFrom] = useState<string>(serverFilterFrom)
   const [filterPage, setFilterPage] = useState<number>(serverFilterPage)
+  const [filterSearchText, setFilterSearchText] = useState<string>('')
   const [filterSort, setFilterSort] = useState<string>(serverFilterSort)
   const [clipsListData, setClipsListData] = useState<MediaRef[]>(serverClipsListData)
   const [clipsListDataCount, setClipsListDataCount] = useState<number>(serverClipsListDataCount)
@@ -64,8 +66,11 @@ ServerProps) {
   const initialRender = useRef<boolean>(true)
   const pageCount = Math.ceil(clipsListDataCount / PV.Config.QUERY_RESULTS_LIMIT_DEFAULT)
   const isCategoryPage = !!router.query?.category
+  const isCategoriesPage = filterFrom === PV.Filters.from._category && !isCategoryPage
+  const isLoggedInSubscribedPage = userInfo && filterFrom === PV.Filters.from._subscribed
   const selectedCategory = isCategoryPage ? getCategoryById(filterCategoryId) : null
   const pageHeaderText = selectedCategory ? `${t('Clips')} > ${selectedCategory.title}` : t('Clips')
+  const showLoginMessage = !userInfo && filterFrom === PV.Filters.from._subscribed
 
   /* useEffects */
 
@@ -81,23 +86,26 @@ ServerProps) {
 
   useEffect(() => {
     ;(async () => {
-      if (initialRender.current) {
-        initialRender.current = false
-      } else {
-        OmniAural.pageIsLoadingShow()
-        setIsQuerying(true)
+      try {
+        if (initialRender.current) {
+          initialRender.current = false
+        } else {
+          OmniAural.pageIsLoadingShow()
+          setIsQuerying(true)
 
-        const { data } = await clientQueryMediaRefs()
-        const [newListData, newListCount] = data
-        setClipsListData(newListData)
-        setClipsListDataCount(newListCount)
-
-        OmniAural.pageIsLoadingHide()
-        setIsQuerying(false)
-        scrollToTopOfPageScrollableContent()
+          const { data } = await clientQueryMediaRefs()
+          const [newListData, newListCount] = data
+          setClipsListData(newListData)
+          setClipsListDataCount(newListCount)
+        }
+      } catch (err) {
+        console.log(err)
       }
+      OmniAural.pageIsLoadingHide()
+      setIsQuerying(false)
+      scrollToTopOfPageScrollableContent()
     })()
-  }, [filterCategoryId, filterFrom, filterSort, filterPage /*, videoOnlyMode */])
+  }, [filterCategoryId, filterFrom, filterSearchText, filterSort, filterPage /*, videoOnlyMode */])
 
   /* Client-Side Queries */
 
@@ -114,6 +122,7 @@ ServerProps) {
   const clientQueryMediaRefsAll = async () => {
     const finalQuery = {
       ...(filterPage ? { page: filterPage } : {}),
+      ...(filterSearchText ? { searchTitle: filterSearchText } : {}),
       ...(filterSort ? { sort: filterSort } : {}),
       // ...(videoOnlyMode ? { hasVideo: true } : {}),
       includePodcast: true
@@ -138,6 +147,7 @@ ServerProps) {
     const finalQuery = {
       podcastIds: subscribedPodcastIds,
       ...(filterPage ? { page: filterPage } : {}),
+      ...(filterSearchText ? { searchTitle: filterSearchText } : {}),
       ...(filterSort ? { sort: filterSort } : {}),
       // ...(videoOnlyMode ? { hasVideo: true } : {}),
       includePodcast: true
@@ -164,6 +174,20 @@ ServerProps) {
     const selectedItem = selectedItems[0]
     if (selectedItem.key !== filterSort) setFilterPage(1)
     setFilterSort(selectedItem.key)
+  }
+
+  const _handleSearchSubmit = async (val: string) => {
+    if (isCategoriesPage) {
+      setFilterFrom(PV.Filters.from._all)
+      setFilterSort(PV.Filters.sort._topPastMonth)
+    }
+    setFilterPage(1)
+    setFilterSearchText(val)
+  }
+
+  const _handleSearchClear = async () => {
+    setFilterPage(1)
+    setFilterSearchText('')
   }
 
   /* Render Helpers */
@@ -225,8 +249,15 @@ ServerProps) {
         text={pageHeaderText}
         // videoOnlyMode={videoOnlyMode}
       />
-      <PageScrollableContent noPaddingTop={filterFrom === PV.Filters.from._subscribed && clipsListData.length === 0}>
-        {filterFrom === PV.Filters.from._category && !isCategoryPage && (
+      <PageScrollableContent noPaddingTop={showLoginMessage || isCategoryPage}>
+        {!showLoginMessage && !isCategoryPage && (
+          <SearchBarFilter
+            handleClear={_handleSearchClear}
+            handleSubmit={_handleSearchSubmit}
+            includeBottomPadding={!isCategoriesPage}
+          />
+        )}
+        {isCategoriesPage && (
           <Tiles
             items={categories}
             onClick={(id: string) => {
@@ -237,16 +268,14 @@ ServerProps) {
             }}
           />
         )}
-        {!userInfo && filterFrom === PV.Filters.from._subscribed && (
+        {showLoginMessage && (
           <MessageWithAction
             actionLabel={t('Login')}
             actionOnClick={() => OmniAural.modalsLoginShow()}
             message={t('LoginToSubscribeToPodcasts')}
           />
         )}
-        {((userInfo && filterFrom === PV.Filters.from._subscribed) ||
-          filterFrom === PV.Filters.from._all ||
-          (filterFrom === PV.Filters.from._category && isCategoryPage)) && (
+        {(isLoggedInSubscribedPage || filterFrom === PV.Filters.from._all || isCategoryPage) && (
           <>
             <List
               handleSelectByCategory={() => _handlePrimaryOnChange([PV.Filters.dropdownOptions.clips.from[2]])}

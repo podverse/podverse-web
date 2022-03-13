@@ -15,6 +15,7 @@ import {
   PageScrollableContent,
   Pagination,
   PodcastPageHeader,
+  SearchBarFilter,
   SideContent,
   SideContentSection
 } from '~/components'
@@ -38,12 +39,6 @@ interface ServerProps extends Page {
   serverFilterSort: string
   serverFilterType: string
   serverPodcast: Podcast
-}
-
-type FilterState = {
-  filterPage?: number
-  filterSort?: string
-  filterType?: string
 }
 
 const keyPrefix = 'pages_podcast'
@@ -72,12 +67,10 @@ export default function Podcast({
 
   const { id } = serverPodcast
   const { t } = useTranslation()
-  const [filterState, setFilterState] = useState({
-    filterPage: serverFilterPage,
-    filterSort: serverFilterSort,
-    filterType: serverFilterType
-  } as FilterState)
-  const { filterPage, filterSort, filterType } = filterState
+  const [filterPage, setFilterPage] = useState<number>(serverFilterPage)
+  const [filterSearchText, setFilterSearchText] = useState<string>('')
+  const [filterSort, setFilterSort] = useState<string>(serverFilterSort)
+  const [filterType, setFilterType] = useState<string>(serverFilterType)
   const [episodesListData, setEpisodesListData] = useState<Episode[]>(serverEpisodes)
   const [episodesPageCount, setEpisodesPageCount] = useState<number>(serverEpisodesPageCount)
   const [clipsListData, setClipsListData] = useState<MediaRef[]>(serverClips)
@@ -101,24 +94,30 @@ export default function Podcast({
 
   useEffect(() => {
     ;(async () => {
-      if (initialRender.current) {
-        initialRender.current = false
-      } else {
-        if (filterType === PV.Filters.type._episodes) {
-          const { data } = await clientQueryEpisodes()
-          const [newEpisodesListData, newEpisodesListCount] = data
-          setEpisodesListData(newEpisodesListData)
-          setEpisodesPageCount(calcListPageCount(newEpisodesListCount))
-        } else if (filterType === PV.Filters.type._clips) {
-          const { data } = await clientQueryClips()
-          const [newClipsListData, newClipsListCount] = data
-          setClipsListData(newClipsListData)
-          setClipsPageCount(calcListPageCount(newClipsListCount))
+      try {
+        if (initialRender.current) {
+          initialRender.current = false
+        } else {
+          OmniAural.pageIsLoadingShow()
+          if (filterType === PV.Filters.type._episodes) {
+            const { data } = await clientQueryEpisodes()
+            const [newEpisodesListData, newEpisodesListCount] = data
+            setEpisodesListData(newEpisodesListData)
+            setEpisodesPageCount(calcListPageCount(newEpisodesListCount))
+          } else if (filterType === PV.Filters.type._clips) {
+            const { data } = await clientQueryClips()
+            const [newClipsListData, newClipsListCount] = data
+            setClipsListData(newClipsListData)
+            setClipsPageCount(calcListPageCount(newClipsListCount))
+          }
         }
-        scrollToTopOfPageScrollableContent()
+      } catch (err) {
+        console.log(err)
       }
+      OmniAural.pageIsLoadingHide()
+      scrollToTopOfPageScrollableContent()
     })()
-  }, [filterPage, filterSort, filterType])
+  }, [filterPage, filterSearchText, filterSort, filterType])
 
   /* Client-Side Queries */
 
@@ -126,6 +125,7 @@ export default function Podcast({
     const finalQuery = {
       podcastIds: id,
       ...(filterPage ? { page: filterPage } : {}),
+      ...(filterSearchText ? { searchTitle: filterSearchText } : {}),
       ...(filterSort ? { sort: filterSort } : {})
     }
     return getEpisodesByQuery(finalQuery)
@@ -136,9 +136,36 @@ export default function Podcast({
       podcastIds: id,
       includeEpisode: true,
       ...(filterPage ? { page: filterPage } : {}),
+      ...(filterSearchText ? { searchTitle: filterSearchText } : {}),
       ...(filterSort ? { sort: filterSort } : {})
     }
     return getMediaRefsByQuery(finalQuery)
+  }
+
+  /* Function Helpers */
+
+  const _handlePrimaryOnChange = (selectedItems: any[]) => {
+    const selectedItem = selectedItems[0]
+    setFilterPage(1)
+    setFilterSort(filterSort)
+    setFilterType(selectedItem.key)
+  }
+
+  const _handleSortOnChange = (selectedItems: any[]) => {
+    const selectedItem = selectedItems[0]
+    setFilterPage(1)
+    setFilterSort(selectedItem.key)
+    setFilterType(filterType)
+  }
+
+  const _handleSearchSubmit = async (val: string) => {
+    setFilterPage(1)
+    setFilterSearchText(val)
+  }
+
+  const _handleSearchClear = async () => {
+    setFilterPage(1)
+    setFilterSearchText('')
   }
 
   /* Render Helpers */
@@ -195,27 +222,19 @@ export default function Podcast({
             <>
               <PageHeader
                 isSubHeader
-                primaryOnChange={(selectedItems: any[]) => {
-                  const selectedItem = selectedItems[0]
-                  setFilterState({
-                    filterPage: 1,
-                    filterSort,
-                    filterType: selectedItem.key
-                  })
-                }}
+                primaryOnChange={(selectedItems: any[]) => _handlePrimaryOnChange(selectedItems)}
                 primaryOptions={PV.Filters.dropdownOptions.podcast.from}
                 primarySelected={filterType}
-                sortOnChange={(selectedItems: any[]) => {
-                  const selectedItem = selectedItems[0]
-                  setFilterState({
-                    filterPage: 1,
-                    filterSort: selectedItem.key,
-                    filterType
-                  })
-                }}
+                sortOnChange={(selectedItems: any[]) => _handleSortOnChange(selectedItems)}
                 sortOptions={PV.Filters.dropdownOptions.podcast.sort}
                 sortSelected={filterSort}
                 text={filterType === PV.Filters.type._episodes ? t('Episodes') : t('Clips')}
+              />
+              <SearchBarFilter
+                handleClear={_handleSearchClear}
+                handleSubmit={_handleSearchSubmit}
+                includeBottomPadding
+                smaller
               />
               <List>
                 {filterType === PV.Filters.type._episodes && generateEpisodeListElements()}
@@ -223,32 +242,12 @@ export default function Podcast({
               </List>
               <Pagination
                 currentPageIndex={filterPage}
-                handlePageNavigate={(newPage) => {
-                  setFilterState({
-                    filterPage: newPage,
-                    filterSort,
-                    filterType
-                  })
-                }}
+                handlePageNavigate={(newPage) => setFilterPage(newPage)}
                 handlePageNext={() => {
-                  const newPage = filterPage + 1
-                  if (newPage <= pageCount) {
-                    setFilterState({
-                      filterPage: newPage,
-                      filterSort,
-                      filterType
-                    })
-                  }
+                  if (filterPage + 1 <= pageCount) setFilterPage(filterPage + 1)
                 }}
                 handlePagePrevious={() => {
-                  const newPage = filterPage - 1
-                  if (newPage > 0) {
-                    setFilterState({
-                      filterPage: newPage,
-                      filterSort,
-                      filterType
-                    })
-                  }
+                  if (filterPage - 1 > 0) setFilterPage(filterPage - 1)
                 }}
                 pageCount={pageCount}
                 show={pageCount > 1}

@@ -91,6 +91,15 @@
         width: 20px;
       }
     }
+
+    &.clear {
+      margin: -8px 0;
+
+      svg {
+        height: unset;
+        width: 20px;
+      }
+    }
   }
 
   &.large {

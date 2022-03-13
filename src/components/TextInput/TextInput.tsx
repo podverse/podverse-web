@@ -1,8 +1,9 @@
+import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import { IconProp } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import classNames from 'classnames'
 import { useState } from 'react'
-import { ButtonRectangle } from '..'
+import { ButtonCircle, ButtonRectangle } from '..'
 
 type Props = {
   defaultValue?: string
@@ -12,6 +13,7 @@ type Props = {
   endButtonText?: string
   faIcon?: IconProp
   faIconEnd?: IconProp
+  handleEndButtonClearButtonClick?: any
   handleEndButtonClick?: any
   handleIconEndClick?: any
   helperText?: string
@@ -35,6 +37,7 @@ export const TextInput = ({
   endButtonText,
   faIcon,
   faIconEnd,
+  handleEndButtonClearButtonClick,
   handleEndButtonClick,
   handleIconEndClick,
   helperText,
@@ -75,7 +78,7 @@ export const TextInput = ({
           </div>
         )}
         <div className='text-input-inner-wrapper'>
-          {!!tempValue && <div className='eyebrow'>{label}</div>}
+          {!!tempValue && label && <div className='eyebrow'>{label}</div>}
           <input
             defaultValue={defaultValue}
             disabled={disabled}
@@ -105,6 +108,15 @@ export const TextInput = ({
             label={endButtonText}
             onClick={handleEndButtonClick}
             type='tertiary'
+          />
+        )}
+        {handleEndButtonClearButtonClick && (
+          <ButtonCircle
+            className='clear'
+            faIcon={faTimes}
+            iconOnly
+            onClick={handleEndButtonClearButtonClick}
+            size='medium'
           />
         )}
       </div>
