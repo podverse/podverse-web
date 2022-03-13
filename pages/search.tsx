@@ -138,7 +138,7 @@ export default function Search({ serverSearchByText }: ServerProps) {
       />
       <SearchPageInput
         defaultValue={serverSearchByText}
-        handleAutoSubmit={(value) => {
+        handleSubmit={(value) => {
           if (isInitialLoad) setIsInitialLoad(false)
           setFilterSearchByText(value)
           setFilterPage(1)

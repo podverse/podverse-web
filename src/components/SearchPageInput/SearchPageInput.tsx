@@ -6,15 +6,15 @@ import { TextInput } from '~/components'
 type Props = {
   debounceRate?: number
   defaultValue?: string
-  handleAutoSubmit: (val: string) => void
+  handleSubmit: (val: string) => void
   label: string
   placeholder: string
 }
 
-export const SearchPageInput = ({ debounceRate = 1000, defaultValue, handleAutoSubmit, label, placeholder }: Props) => {
-  const debouncedHandleAutoSubmit = useMemo(
-    () => debounce((val) => handleAutoSubmit(val), debounceRate),
-    [debounceRate, handleAutoSubmit]
+export const SearchPageInput = ({ debounceRate = 1000, defaultValue, handleSubmit, label, placeholder }: Props) => {
+  const debouncedHandleSubmit = useMemo(
+    () => debounce((val) => handleSubmit(val), debounceRate),
+    [debounceRate, handleSubmit]
   )
 
   return (
@@ -24,7 +24,7 @@ export const SearchPageInput = ({ debounceRate = 1000, defaultValue, handleAutoS
           defaultValue={defaultValue}
           faIcon={faSearch}
           label={label}
-          onChange={(value) => debouncedHandleAutoSubmit(value)}
+          onChange={(value) => debouncedHandleSubmit(value)}
           placeholder={placeholder}
           type='text'
         />
