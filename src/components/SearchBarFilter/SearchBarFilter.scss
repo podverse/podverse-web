@@ -1,15 +1,20 @@
 .no-margin-top {
-  .search-bar-home {
+  .search-bar-filter {
     margin-top: 0;
   }
 }
 
-.search-bar-home {
+.search-bar-filter {
   display: flex;
-  flex: 1;
+  flex: 0;
+
+  &.bottom-padding {
+    padding-bottom: 16px;
+  }
 
   .text-input {
     flex: 1;
+    padding: 0;
 
     .text-input-outer-wrapper {
       border-bottom: 1px solid;
@@ -42,7 +47,7 @@
 }
 
 @media (max-width: $media-max-width-mobile) {
-  .search-bar-home {
+  .search-bar-filter {
     .text-input {
       .text-input-outer-wrapper {
         padding: 10px 12px;
