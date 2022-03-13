@@ -41,12 +41,6 @@ interface ServerProps extends Page {
   serverPodcast: Podcast
 }
 
-type FilterState = {
-  filterPage?: number
-  filterSort?: string
-  filterType?: string
-}
-
 const keyPrefix = 'pages_podcast'
 
 /* *TODO*
