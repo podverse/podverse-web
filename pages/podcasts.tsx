@@ -15,7 +15,7 @@ import {
   Pagination,
   PodcastListItem,
   scrollToTopOfPageScrollableContent,
-  SearchBarHome,
+  SearchBarFilter,
   Tiles
 } from '~/components'
 import { Page } from '~/lib/utility/page'
@@ -58,6 +58,7 @@ export default function Podcasts({
   const [filterCategoryId, setFilterCategoryId] = useState<string | null>(serverCategoryId || null)
   const [filterFrom, setFilterFrom] = useState<string>(serverFilterFrom)
   const [filterPage, setFilterPage] = useState<number>(serverFilterPage)
+  const [filterSearchText, setFilterSearchText] = useState<string>('')
   const [filterSort, setFilterSort] = useState<string>(serverFilterSort)
   const [podcastsListData, setPodcastsListData] = useState<Podcast[]>(serverPodcastsListData)
   const [podcastsListDataCount, setPodcastsListDataCount] = useState<number>(serverPodcastsListDataCount)
@@ -69,6 +70,8 @@ export default function Podcasts({
   const initialRender = useRef(true)
   const pageCount = Math.ceil(podcastsListDataCount / PV.Config.QUERY_RESULTS_LIMIT_DEFAULT)
   const isCategoryPage = !!router.query?.category
+  const isCategoriesPage = filterFrom === PV.Filters.from._category && !isCategoryPage
+  const isLoggedInSubscribedPage = userInfo && filterFrom === PV.Filters.from._subscribed
   const selectedCategory = isCategoryPage ? getCategoryById(filterCategoryId) : null
   const pageHeaderText = selectedCategory ? `${t('Podcasts')} > ${selectedCategory.title}` : t('Podcasts')
   const showLoginMessage = !userInfo && filterFrom === PV.Filters.from._subscribed
@@ -77,21 +80,25 @@ export default function Podcasts({
 
   const handleEffect = () => {
     ;(async () => {
-      if (initialRender.current) {
-        initialRender.current = false
-      } else {
-        OmniAural.pageIsLoadingShow()
-        setIsQuerying(true)
+      try {
+        if (initialRender.current) {
+          initialRender.current = false
+        } else {
+          OmniAural.pageIsLoadingShow()
+          setIsQuerying(true)
 
-        const { data } = await clientQueryPodcasts()
-        const [newListData, newListCount] = data
-        setPodcastsListData(newListData)
-        setPodcastsListDataCount(newListCount)
-
-        OmniAural.pageIsLoadingHide()
-        setIsQuerying(false)
-        scrollToTopOfPageScrollableContent()
+          const { data } = await clientQueryPodcasts()
+          const [newListData, newListCount] = data
+          setPodcastsListData(newListData)
+          setPodcastsListDataCount(newListCount)
+        }
+      } catch (err) {
+        console.log(err)
       }
+
+      OmniAural.pageIsLoadingHide()
+      setIsQuerying(false)
+      scrollToTopOfPageScrollableContent()
     })()
   }
 
@@ -108,7 +115,7 @@ export default function Podcasts({
   // ON CATEGORY CHANGE, RESET PAGE TO 1
   useEffect(() => {
     handleEffect()
-  }, [filterCategoryId, filterFrom, filterSort, filterPage, videoOnlyMode])
+  }, [filterCategoryId, filterFrom, filterSearchText, filterSort, filterPage, videoOnlyMode])
 
   /* Client-Side Queries */
 
@@ -125,9 +132,12 @@ export default function Podcasts({
   const clientQueryPodcastsAll = async () => {
     const finalQuery = {
       ...(filterPage ? { page: filterPage } : {}),
+      ...(filterSearchText ? { searchText: filterSearchText } : {}),
+      ...(filterSearchText ? { searchBy: PV.Filters.search.queryParams.podcast } : {}),
       ...(filterSort ? { sort: filterSort } : {}),
       ...(videoOnlyMode ? { hasVideo: true } : {})
     }
+
     return getPodcastsByQuery(finalQuery)
   }
 
@@ -135,6 +145,7 @@ export default function Podcasts({
     const finalQuery = {
       categories: filterCategoryId ? [filterCategoryId] : [],
       ...(filterPage ? { page: filterPage } : {}),
+      ...(filterSearchText ? { searchText: filterSearchText } : {}),
       ...(filterSort ? { sort: filterSort } : {}),
       ...(videoOnlyMode ? { hasVideo: true } : {})
     }
@@ -143,11 +154,11 @@ export default function Podcasts({
   }
 
   const clientQueryPodcastsBySubscribed = async () => {
-    const subscribedPodcastIds = userInfo?.subscribedPodcastIds || []
-
     const finalQuery = {
-      podcastIds: subscribedPodcastIds,
+      subscribed: true,
       ...(filterPage ? { page: filterPage } : {}),
+      ...(filterSearchText ? { searchText: filterSearchText } : {}),
+      ...(filterSearchText ? { searchBy: PV.Filters.search.queryParams.podcast } : {}),
       ...(filterSort ? { sort: filterSort } : {}),
       ...(videoOnlyMode ? { hasVideo: true } : {})
     }
@@ -173,6 +184,20 @@ export default function Podcasts({
     const selectedItem = selectedItems[0]
     if (selectedItem.key !== filterSort) setFilterPage(1)
     setFilterSort(selectedItem.key)
+  }
+
+  const _handleSearchSubmit = async (val: string) => {
+    if (isCategoriesPage) {
+      router.push(`${PV.RoutePaths.web.search}?podcastTitle=${val}`)
+    } else {
+      setFilterPage(1)
+      setFilterSearchText(val)
+    }
+  }
+
+  const _handleSearchClear = async () => {
+    setFilterPage(1)
+    setFilterSearchText('')
   }
 
   /* Render Helpers */
@@ -231,9 +256,11 @@ export default function Podcasts({
         text={pageHeaderText}
         videoOnlyMode={videoOnlyMode}
       />
-      <PageScrollableContent noPaddingTop={isCategoryPage || filterFrom !== PV.Filters.from._category}>
-        {!userInfo && filterFrom === PV.Filters.from._category && !isCategoryPage && <SearchBarHome />}
-        {filterFrom === PV.Filters.from._category && !isCategoryPage && (
+      <PageScrollableContent noPaddingTop={showLoginMessage || isCategoryPage}>
+        {!showLoginMessage && !isCategoryPage && (
+          <SearchBarFilter handleClear={_handleSearchClear} handleSubmit={_handleSearchSubmit} />
+        )}
+        {isCategoriesPage && (
           <Tiles
             items={categories}
             onClick={(id: string) => {
@@ -251,14 +278,12 @@ export default function Podcasts({
             message={t('LoginToSubscribeToPodcasts')}
           />
         )}
-        {(filterFrom !== PV.Filters.from._category || (filterFrom === PV.Filters.from._category && isCategoryPage)) && (
+        {(isLoggedInSubscribedPage || filterFrom === PV.Filters.from._all || isCategoryPage) && (
           <>
             <List
               handleSelectByCategory={() => _handlePrimaryOnChange([PV.Filters.dropdownOptions.podcasts.from[2]])}
               handleShowAllPodcasts={() => _handlePrimaryOnChange([PV.Filters.dropdownOptions.podcasts.from[0]])}
-              hideNoResultsMessage={
-                showLoginMessage || isQuerying || (filterFrom === PV.Filters.from._category && !isCategoryPage)
-              }
+              hideNoResultsMessage={isQuerying}
               isSubscribedFilter={filterFrom === PV.Filters.from._subscribed}
             >
               {generatePodcastListElements(podcastsListData)}
