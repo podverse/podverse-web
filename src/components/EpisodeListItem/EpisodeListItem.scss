@@ -25,7 +25,6 @@
 
         .podcast-title {
           font-size: $text-sm;
-          font-weight: $font-weight-medium;
           margin-bottom: 6px;
 
           @include themeGen() {
@@ -35,6 +34,7 @@
 
         h3 {
           margin-bottom: 9px;
+          font-weight: $font-weight-medium;
           padding-bottom: 0;
 
           @include line-clamp(4);
