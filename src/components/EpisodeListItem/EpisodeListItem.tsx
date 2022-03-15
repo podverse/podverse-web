@@ -12,11 +12,11 @@ type Props = {
   handleRemove?: any
   imageUrl?: string
   podcast?: Podcast
-  showImage?: boolean
+  showPodcastInfo?: boolean
   showRemoveButton?: boolean
 }
 
-export const EpisodeListItem = ({ episode, handleRemove, podcast, showImage, showRemoveButton }: Props) => {
+export const EpisodeListItem = ({ episode, handleRemove, podcast, showPodcastInfo, showRemoveButton }: Props) => {
   const { t } = useTranslation()
   const { description, id, imageUrl } = episode
   const title = episode.title || t('untitledEpisode')
@@ -36,7 +36,7 @@ export const EpisodeListItem = ({ episode, handleRemove, podcast, showImage, sho
       <li className='episode-list-item'>
         <div className='main-wrapper'>
           <PVLink className='content-wrapper' href={episodePageUrl}>
-            {showImage && (
+            {showPodcastInfo && (
               <PVImage
                 alt={t('Podcast artwork')}
                 height={PV.Images.sizes.medium}
@@ -45,6 +45,7 @@ export const EpisodeListItem = ({ episode, handleRemove, podcast, showImage, sho
               />
             )}
             <div className='text-wrapper'>
+              {showPodcastInfo && <div className='podcast-title'>{podcast.title}</div>}
               <h3>{title}</h3>
               <div
                 className='description'

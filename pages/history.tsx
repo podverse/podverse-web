@@ -130,7 +130,7 @@ export default function History({
             handleRemove={() => _removeHistoryItemEpisode(episode.id)}
             key={`${keyPrefix}-episode-${index}-${episode.id}`}
             podcast={episode.podcast as any}
-            showImage
+            showPodcastInfo
             showRemoveButton={isEditing}
           />
         )
