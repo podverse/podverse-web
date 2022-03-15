@@ -72,7 +72,7 @@ export default function Queue(props: ServerProps) {
             handleRemove={() => OmniAural.removeQueueItemEpisode(episode.id)}
             key={`${keyPrefix}-episode-${index}-${episode.id}`}
             podcast={episode.podcast}
-            showImage
+            showPodcastInfo
             showRemoveButton={isEditing}
           />
         )

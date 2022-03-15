@@ -6,7 +6,7 @@ import { PV } from '~/resources'
 import { ColumnsWrapper, Footer, PageHeader, PageScrollableContent, SideContent, TextInput } from '~/components'
 import { Meta } from '~/components/Meta/Meta'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
-import { parseFeedByPodcastId } from '~/services/admin'
+import { addOrUpdateFeedFromPodcastIndex, parseFeedByPodcastId } from '~/services/admin'
 
 type ServerProps = Page
 
@@ -16,6 +16,9 @@ export default function Admin(props: ServerProps) {
   const { t } = useTranslation()
   const [parseFeedByPodcastIdValue, setParseFeedByPodcastIdValue] = useState<string>('')
   const [parseFeedByPodcastIdIsLoading, setParseFeedByPodcastIdIsLoading] = useState<boolean>(false)
+  const [addOrUpdateFeedFromPodcastIndexValue, setAddOrUpdateFeedFromPodcastIndexValue] = useState<string>('')
+  const [addOrUpdateFeedFromPodcastIndexIsLoading, setAddOrUpdateFeedFromPodcastIndexIsLoading] =
+    useState<boolean>(false)
 
   /* Meta Tags */
 
@@ -32,7 +35,24 @@ export default function Admin(props: ServerProps) {
   const handleParseFeedByPodcastIdSubmit = async () => {
     setParseFeedByPodcastIdIsLoading(true)
     try {
-      await parseFeedByPodcastId(parseFeedByPodcastIdValue)
+      const response = await parseFeedByPodcastId(parseFeedByPodcastIdValue)
+      alert(response.message)
+    } catch (error) {
+      alert(error.message)
+    }
+    setParseFeedByPodcastIdIsLoading(false)
+  }
+
+  const handleAddOrUpdateFeedFromPodcastIndexOnChange = (value) => {
+    setAddOrUpdateFeedFromPodcastIndexValue(value)
+  }
+
+  const handleAddOrUpdateFeedFromPodcastIndexSubmit = async () => {
+    setAddOrUpdateFeedFromPodcastIndexIsLoading(true)
+    try {
+      const response = await addOrUpdateFeedFromPodcastIndex(addOrUpdateFeedFromPodcastIndexValue)
+      const alertMessage = `${response.message} - ${response.podcastId}`
+      alert(alertMessage)
     } catch (error) {
       alert(error.message)
     }
@@ -70,6 +90,20 @@ export default function Admin(props: ServerProps) {
                 placeholder='podcast id'
                 type='text'
                 value={parseFeedByPodcastIdValue}
+              />
+              <h3>{t('Add or update feed from Podcast Index')}</h3>
+              <TextInput
+                endButtonIsLoading={addOrUpdateFeedFromPodcastIndexIsLoading}
+                endButtonText={t('Submit')}
+                handleEndButtonClick={handleAddOrUpdateFeedFromPodcastIndexSubmit}
+                label='podcast index id'
+                onChange={(value: string) => {
+                  handleAddOrUpdateFeedFromPodcastIndexOnChange(value)
+                }}
+                onSubmit={handleAddOrUpdateFeedFromPodcastIndexSubmit}
+                placeholder='podcast index id'
+                type='text'
+                value={addOrUpdateFeedFromPodcastIndexValue}
               />
             </div>
           }

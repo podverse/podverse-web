@@ -200,7 +200,7 @@ export default function Episodes({
         episode={listItem}
         key={`${keyPrefix}-${index}-${listItem?.id}`}
         podcast={listItem.podcast}
-        showImage
+        showPodcastInfo
       />
     ))
   }
