@@ -17,7 +17,8 @@ export default function Admin(props: ServerProps) {
   const [parseFeedByPodcastIdValue, setParseFeedByPodcastIdValue] = useState<string>('')
   const [parseFeedByPodcastIdIsLoading, setParseFeedByPodcastIdIsLoading] = useState<boolean>(false)
   const [addOrUpdateFeedFromPodcastIndexValue, setAddOrUpdateFeedFromPodcastIndexValue] = useState<string>('')
-  const [addOrUpdateFeedFromPodcastIndexIsLoading, setAddOrUpdateFeedFromPodcastIndexIsLoading] = useState<boolean>(false)
+  const [addOrUpdateFeedFromPodcastIndexIsLoading, setAddOrUpdateFeedFromPodcastIndexIsLoading] =
+    useState<boolean>(false)
 
   /* Meta Tags */
 
