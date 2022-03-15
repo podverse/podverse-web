@@ -9,3 +9,12 @@ export const parseFeedByPodcastId = async (podcastId: string) => {
 
   return response && response.data
 }
+
+export const addOrUpdateFeedFromPodcastIndex = async (podcastIndexId: string) => {
+  const response = await request({
+    endpoint: `/dev-admin/add-or-update-feed-from-podcast-index/${podcastIndexId}`,
+    ...getAuthCredentialsHeaders()
+  })
+
+  return response && response.data
+}

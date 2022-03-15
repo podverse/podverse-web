@@ -23,6 +23,16 @@
       .text-wrapper {
         flex: 1;
 
+        .podcast-title {
+          font-size: $text-sm;
+          font-weight: $font-weight-medium;
+          margin-bottom: 6px;
+
+          @include themeGen() {
+            color: getThemeVal('textSecondary');
+          }
+        }
+
         h3 {
           margin-bottom: 9px;
           padding-bottom: 0;
