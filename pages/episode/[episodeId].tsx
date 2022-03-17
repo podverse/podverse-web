@@ -25,7 +25,7 @@ import { getEpisodeById } from '~/services/episode'
 import { getMediaRefsByQuery } from '~/services/mediaRef'
 import { checkIfVideoFileType } from '~/services/player/playerVideo'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
-import { getEpisodeProxyActivityPub } from '~/services/socialInteraction/activityPub'
+import { getEpisodeProxyActivityPub, getEpisodeProxyTwitter } from '~/services/socialInteraction/threadcap'
 import { OmniAuralState } from '~/state/omniauralState'
 
 interface ServerProps extends Page {
@@ -95,13 +95,26 @@ export default function Episode({
         const activityPub = serverEpisode.socialInteraction.find(
           (item: SocialInteraction) =>
             item.protocol === PV.SocialInteraction.protocolKeys.activitypub ||
+            item.platform === PV.SocialInteraction.platformKeys.activitypub ||
             item.platform === PV.SocialInteraction.platformKeys.castopod ||
             item.platform === PV.SocialInteraction.platformKeys.mastodon ||
             item.platform === PV.SocialInteraction.platformKeys.peertube
         )
+
+        const twitter = serverEpisode.socialInteraction.find(
+          (item: SocialInteraction) =>
+            item.protocol === PV.SocialInteraction.protocolKeys.twitter ||
+            item.platform === PV.SocialInteraction.platformKeys.twitter
+        )
+
         if (activityPub?.url) {
           setCommentsLoading(true)
           const comment = await getEpisodeProxyActivityPub(serverEpisode.id)
+          setComment(comment)
+          setCommentsLoading(false)
+        } else if (twitter?.url) {
+          setCommentsLoading(true)
+          const comment = await getEpisodeProxyTwitter(serverEpisode.id)
           setComment(comment)
           setCommentsLoading(false)
         }
