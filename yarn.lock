@@ -5304,7 +5304,7 @@ pkg-dir@^4.2.0:
   dependencies:
     find-up "^4.0.0"
 
-podverse-shared@4.2.10:
+podverse-shared@^4.2.10:
   version "4.2.10"
   resolved "https://registry.yarnpkg.com/podverse-shared/-/podverse-shared-4.2.10.tgz#ffd1f47cbac9c75ece593ae84e1bd69babb266e0"
   integrity sha512-22tW2DCCw0FHzKEXQG9GQtB5hNxRM26gPiRbs515L6iEPf4CBsIEZscI3uD5VftFfGddcyGRlrrAzOe+hXIxGQ==
