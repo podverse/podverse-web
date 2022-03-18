@@ -42,7 +42,6 @@ const generateCommentNodes = (comment: PVComment) => {
 type CommentProps = {
   children: any
   comment: PVComment
-  showIcon: boolean
 }
 
 const Comment = ({ children, comment }: CommentProps) => {
