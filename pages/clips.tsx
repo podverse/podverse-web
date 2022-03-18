@@ -62,7 +62,7 @@ ServerProps) {
     filterSort: serverFilterSort
     // videoOnlyMode: serverGlobalFilters?.videoOnlyMode || OmniAural.state.globalFilters.videoOnlyMode.value()
   })
-  const { filterCategoryId, filterFrom, filterPage, filterSearchText, filterSort, /* videoOnlyMode */ } = filterQuery
+  const { filterCategoryId, filterFrom, filterPage, filterSearchText, filterSort /* videoOnlyMode */ } = filterQuery
   const [tempFilterQuery, setTempFilterQuery] = useState<any>({
     tempFilterEnabled: false,
     tempFilterFrom: serverFilterFrom,
@@ -229,7 +229,7 @@ ServerProps) {
       setFilterQuery({
         ...filterQuery,
         filterCategoryId,
-        filterSearchText: val,
+        filterSearchText: val
       })
     }
   }
@@ -338,21 +338,25 @@ ServerProps) {
             </List>
             <Pagination
               currentPageIndex={filterPage}
-              handlePageNavigate={(newPage) => setFilterQuery({
-                ...filterQuery,
-                filterPage: newPage
-              })}
-              handlePageNext={() => {
-                if (filterPage + 1 <= pageCount) setFilterQuery({
+              handlePageNavigate={(newPage) =>
+                setFilterQuery({
                   ...filterQuery,
-                  filterPage: filterPage + 1
+                  filterPage: newPage
                 })
+              }
+              handlePageNext={() => {
+                if (filterPage + 1 <= pageCount)
+                  setFilterQuery({
+                    ...filterQuery,
+                    filterPage: filterPage + 1
+                  })
               }}
               handlePagePrevious={() => {
-                if (filterPage - 1 > 0) setFilterQuery({
-                  ...filterQuery,
-                  filterPage: filterPage - 1
-                })
+                if (filterPage - 1 > 0)
+                  setFilterQuery({
+                    ...filterQuery,
+                    filterPage: filterPage - 1
+                  })
               }}
               pageCount={pageCount}
               show={pageCount > 1}

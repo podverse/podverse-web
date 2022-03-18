@@ -68,21 +68,23 @@ const convertThreadcapResponseToPVComment = (response: ThreadcapResponse) => {
     const { comment, replies } = node
     const { attachments, content, published, url } = comment
 
-    const nestedReplies = Array.isArray(replies) ? replies.map((replyUrl: string) => {
-      const nestedNode = nodes[replyUrl]
-      let pvComment = null
-      if (nestedNode) {
-        pvComment = generatePVComment(nestedNode, protocol)
-      }
-      return pvComment
-    }) : []
+    const nestedReplies = Array.isArray(replies)
+      ? replies.map((replyUrl: string) => {
+          const nestedNode = nodes[replyUrl]
+          let pvComment = null
+          if (nestedNode) {
+            pvComment = generatePVComment(nestedNode, protocol)
+          }
+          return pvComment
+        })
+      : []
 
     const contentKeys = content && typeof content === 'object' ? Object.keys(content) : []
     const contentLangKey = contentKeys[0]
 
     const cleanedContent = contentLangKey ? decodeHtml(striptags(content[contentLangKey])) : ''
     const attachmentImage = getAttachmentImage(attachments)
-    const { profileIcon, username} = parseUserInfo(comment, protocol, commenters)
+    const { profileIcon, username } = parseUserInfo(comment, protocol, commenters)
 
     const pvComment: PVComment = {
       content: cleanedContent,

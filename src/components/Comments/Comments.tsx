@@ -52,13 +52,11 @@ const Comment = ({ children, comment }: CommentProps) => {
   return (
     <div className='comment'>
       <div className='inner-comment-wrapper'>
-        {
-          profileIcon ?
-            <div className='profile-icon'>
-              <PVImage src={profileIcon} width='36' />
-            </div>
-          : null
-        }
+        {profileIcon ? (
+          <div className='profile-icon'>
+            <PVImage src={profileIcon} width='36' />
+          </div>
+        ) : null}
         <a className='inner-wrapper' href={url} rel='noreferrer' target='_blank'>
           <div className='username'>{username}</div>
           <div className='content'>{content}</div>

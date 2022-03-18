@@ -186,7 +186,7 @@ export default function Podcasts({
     let newSort = filterSort
     if (selectedItem.key !== filterFrom) newPage = 1
 
-    if (selectedItem.key !== PV.Filters.from._subscribed && isNotAllSortOption(filterSort)) {      
+    if (selectedItem.key !== PV.Filters.from._subscribed && isNotAllSortOption(filterSort)) {
       newSort = PV.Filters.sort._topPastWeek
     }
 
@@ -240,7 +240,7 @@ export default function Podcasts({
       setFilterQuery({
         ...filterQuery,
         filterCategoryId,
-        filterSearchText: val,
+        filterSearchText: val
       })
     }
   }
@@ -345,21 +345,25 @@ export default function Podcasts({
             </List>
             <Pagination
               currentPageIndex={filterPage}
-              handlePageNavigate={(newPage) => setFilterQuery({
-                ...filterQuery,
-                filterPage: newPage
-              }) }
-              handlePageNext={() => {
-                if (filterPage + 1 <= pageCount) setFilterQuery({
+              handlePageNavigate={(newPage) =>
+                setFilterQuery({
                   ...filterQuery,
-                  filterPage: filterPage + 1
+                  filterPage: newPage
                 })
+              }
+              handlePageNext={() => {
+                if (filterPage + 1 <= pageCount)
+                  setFilterQuery({
+                    ...filterQuery,
+                    filterPage: filterPage + 1
+                  })
               }}
               handlePagePrevious={() => {
-                if (filterPage - 1 > 0) setFilterQuery({
-                  ...filterQuery,
-                  filterPage: filterPage - 1
-                })
+                if (filterPage - 1 > 0)
+                  setFilterQuery({
+                    ...filterQuery,
+                    filterPage: filterPage - 1
+                  })
               }}
               pageCount={pageCount}
               show={pageCount > 1}

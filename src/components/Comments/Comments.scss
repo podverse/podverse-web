@@ -8,27 +8,27 @@
       .profile-icon {
         margin-right: 12px;
       }
-  
+
       .inner-wrapper {
         display: block;
-  
+
         @include themeGen() {
           border-color: getThemeVal('divider');
         }
-  
+
         .username {
           font-size: $text-sm;
-  
+
           @include themeGen() {
             color: getThemeVal('textTertiary');
           }
         }
-  
+
         .content {
           font-weight: $font-weight-light;
           margin-top: 8px;
         }
-  
+
         .published {
           font-size: $text-sm;
           margin-top: 8px;
@@ -36,13 +36,12 @@
             color: getThemeVal('textSecondary');
           }
         }
-  
+
         .image-wrapper {
           margin-top: 16px;
         }
       }
     }
-
 
     .replies {
       padding-left: 16px;
