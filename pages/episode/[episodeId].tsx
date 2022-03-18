@@ -76,6 +76,17 @@ export default function Episode({
   const [clipsPageCount, setClipsPageCount] = useState<number>(serverClipsPageCount)
   const initialRender = useRef(true)
 
+  const hasValidCommentTag =
+    serverEpisode.socialInteraction &&
+    serverEpisode.socialInteraction.some(
+      (si) =>
+        si.platform === 'activitypub' ||
+        si.protocol === 'activitypub' ||
+        si.platform === 'mastodon' ||
+        si.platform === 'twitter' ||
+        si.protocol === 'twitter'
+    )
+
   /* useEffects */
 
   useEffect(() => {
@@ -206,9 +217,7 @@ export default function Episode({
           mainColumnChildren={
             <>
               <EpisodeInfo episode={serverEpisode} includeMediaItemControls />
-              {serverEpisode?.socialInteraction?.length ? (
-                <Comments comment={comment} isLoading={commentsLoading} />
-              ) : null}
+              {hasValidCommentTag ? <Comments comment={comment} isLoading={commentsLoading} /> : null}
               <PageHeader
                 isSubHeader
                 noMarginBottom

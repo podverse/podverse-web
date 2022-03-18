@@ -1,42 +1,50 @@
 .comments {
   .comment {
-    .inner-wrapper {
-      border-bottom: 1px dashed;
-      display: block;
-      padding: 22px 0 24px 0;
+    .inner-comment-wrapper {
+      display: flex;
+      flex-direction: row;
+      padding: 12px 0;
 
-      @include themeGen() {
-        border-color: getThemeVal('divider');
+      .profile-icon {
+        margin-right: 12px;
       }
 
-      .username {
-        font-size: $text-sm;
+      .inner-wrapper {
+        display: block;
 
         @include themeGen() {
-          color: getThemeVal('textTertiary');
+          border-color: getThemeVal('divider');
         }
-      }
 
-      .content {
-        font-weight: $font-weight-light;
-        margin-top: 8px;
-      }
+        .username {
+          font-size: $text-sm;
 
-      .published {
-        font-size: $text-sm;
-        margin-top: 8px;
-        @include themeGen() {
-          color: getThemeVal('textSecondary');
+          @include themeGen() {
+            color: getThemeVal('textTertiary');
+          }
         }
-      }
 
-      .image-wrapper {
-        margin-top: 16px;
+        .content {
+          font-weight: $font-weight-light;
+          margin-top: 8px;
+        }
+
+        .published {
+          font-size: $text-sm;
+          margin-top: 8px;
+          @include themeGen() {
+            color: getThemeVal('textSecondary');
+          }
+        }
+
+        .image-wrapper {
+          margin-top: 16px;
+        }
       }
     }
 
     .replies {
-      padding-left: 12px;
+      padding-left: 16px;
     }
   }
 }
