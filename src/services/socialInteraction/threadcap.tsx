@@ -34,10 +34,11 @@ export const getEpisodeProxyTwitter = async (episodeId: string) => {
   return comment
 }
 
-const parseUserName = (comment: any, protocol: string, commenters: { [key: string]: ThreadcapCommenter }) => {
+const parseUserInfo = (comment: any, protocol: string, commenters: { [key: string]: ThreadcapCommenter }) => {
   let username = ''
+  let profileIcon = ''
 
-  if (protocol === 'activitypub') {
+  if (protocol === 'activitypub' || protocol === 'mastodon') {
     const url = new URL(comment.attributedTo)
     const hostname = url.hostname
     const segments = url.pathname.split('/')
@@ -48,9 +49,10 @@ const parseUserName = (comment: any, protocol: string, commenters: { [key: strin
   } else if (protocol === 'twitter') {
     const commenter = commenters[comment.attributedTo]
     username = commenter.fqUsername
+    profileIcon = commenter.icon?.url || ''
   }
 
-  return username
+  return { profileIcon, username }
 }
 
 const getAttachmentImage = (attachments: ThreadcapAttachment[]) => {
@@ -66,25 +68,26 @@ const convertThreadcapResponseToPVComment = (response: ThreadcapResponse) => {
     const { comment, replies } = node
     const { attachments, content, published, url } = comment
 
-    const nestedReplies = replies.map((replyUrl: string) => {
+    const nestedReplies = Array.isArray(replies) ? replies.map((replyUrl: string) => {
       const nestedNode = nodes[replyUrl]
       let pvComment = null
       if (nestedNode) {
         pvComment = generatePVComment(nestedNode, protocol)
       }
       return pvComment
-    })
+    }) : []
 
     const contentKeys = content && typeof content === 'object' ? Object.keys(content) : []
     const contentLangKey = contentKeys[0]
 
     const cleanedContent = contentLangKey ? decodeHtml(striptags(content[contentLangKey])) : ''
     const attachmentImage = getAttachmentImage(attachments)
-    const username = parseUserName(comment, protocol, commenters)
+    const { profileIcon, username} = parseUserInfo(comment, protocol, commenters)
 
     const pvComment: PVComment = {
       content: cleanedContent,
       imageUrl: attachmentImage?.url || null,
+      profileIcon,
       published,
       replies: nestedReplies,
       url,

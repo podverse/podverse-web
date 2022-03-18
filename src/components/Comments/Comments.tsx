@@ -42,24 +42,34 @@ const generateCommentNodes = (comment: PVComment) => {
 type CommentProps = {
   children: any
   comment: PVComment
+  showIcon: boolean
 }
 
 const Comment = ({ children, comment }: CommentProps) => {
-  const { content, imageUrl, isRoot, published, url, username } = comment
+  const { content, imageUrl, isRoot, profileIcon, published, url, username } = comment
   const withTime = true
 
   return (
     <div className='comment'>
-      <a className='inner-wrapper' href={url} rel='noreferrer' target='_blank'>
-        <div className='username'>{username}</div>
-        <div className='content'>{content}</div>
-        <div className='published'>{readableDate(published, withTime)}</div>
-        {isRoot && imageUrl && (
-          <div className='image-wrapper'>
-            <PVImage src={imageUrl} width='100%' />
-          </div>
-        )}
-      </a>
+      <div className='inner-comment-wrapper'>
+        {
+          profileIcon ?
+            <div className='profile-icon'>
+              <PVImage src={profileIcon} width='36' />
+            </div>
+          : null
+        }
+        <a className='inner-wrapper' href={url} rel='noreferrer' target='_blank'>
+          <div className='username'>{username}</div>
+          <div className='content'>{content}</div>
+          <div className='published'>{readableDate(published, withTime)}</div>
+          {isRoot && imageUrl && (
+            <div className='image-wrapper'>
+              <PVImage src={imageUrl} width='100%' />
+            </div>
+          )}
+        </a>
+      </div>
       {children.length ? <div className='replies'>{children}</div> : null}
     </div>
   )

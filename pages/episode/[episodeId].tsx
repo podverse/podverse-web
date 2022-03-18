@@ -79,6 +79,7 @@ export default function Episode({
   const hasValidCommentTag = serverEpisode.socialInteraction && serverEpisode.socialInteraction.some((si) =>
     si.platform === 'activitypub'
     || si.protocol === 'activitypub'
+    || si.platform === 'mastodon'
     || si.platform === 'twitter'
     || si.protocol === 'twitter'
   )
