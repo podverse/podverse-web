@@ -55,18 +55,27 @@ export default function Podcasts({
   const router = useRouter()
   const { t } = useTranslation()
   const [cookies, setCookie] = useCookies([])
-  const [filterCategoryId, setFilterCategoryId] = useState<string | null>(serverCategoryId || null)
-  const [filterFrom, setFilterFrom] = useState<string>(serverFilterFrom)
-  const [filterPage, setFilterPage] = useState<number>(serverFilterPage)
-  const [filterSearchText, setFilterSearchText] = useState<string>('')
-  const [filterSort, setFilterSort] = useState<string>(serverFilterSort)
+
+  const [filterQuery, setFilterQuery] = useState<any>({
+    filterCategoryId: serverCategoryId || null,
+    filterFrom: serverFilterFrom,
+    filterPage: serverFilterPage,
+    filterSearchText: '',
+    filterSort: serverFilterSort,
+    videoOnlyMode: serverGlobalFilters?.videoOnlyMode || OmniAural.state.globalFilters.videoOnlyMode.value()
+  })
+  const { filterCategoryId, filterFrom, filterPage, filterSearchText, filterSort, videoOnlyMode } = filterQuery
+  const [tempFilterQuery, setTempFilterQuery] = useState<any>({
+    tempFilterEnabled: false,
+    tempFilterFrom: serverFilterFrom,
+    tempFilterSort: serverFilterSort
+  })
+  const { tempFilterEnabled, tempFilterFrom, tempFilterSort } = tempFilterQuery
+
   const [podcastsListData, setPodcastsListData] = useState<Podcast[]>(serverPodcastsListData)
   const [podcastsListDataCount, setPodcastsListDataCount] = useState<number>(serverPodcastsListDataCount)
   const [isQuerying, setIsQuerying] = useState<boolean>(false)
   const [userInfo] = useOmniAural('session.userInfo') as [OmniAuralState['session']['userInfo']]
-  const [videoOnlyMode, setVideoOnlyMode] = useState<boolean>(
-    serverGlobalFilters?.videoOnlyMode || OmniAural.state.globalFilters.videoOnlyMode.value()
-  )
   const initialRender = useRef(true)
   const pageCount = Math.ceil(podcastsListDataCount / PV.Config.QUERY_RESULTS_LIMIT_DEFAULT)
   const isCategoryPage = !!router.query?.category
@@ -104,7 +113,11 @@ export default function Podcasts({
 
   useOmniAuralEffect(() => {
     const newStateVal = OmniAural.state.globalFilters.videoOnlyMode.value()
-    setVideoOnlyMode(newStateVal)
+    setFilterQuery({
+      ...filterQuery,
+      videoOnlyMode: newStateVal
+    })
+
     const globalFilters = cookies.globalFilters || {}
     setCookie('globalFilters', {
       ...globalFilters,
@@ -112,10 +125,9 @@ export default function Podcasts({
     })
   }, 'globalFilters.videoOnlyMode')
 
-  // ON CATEGORY CHANGE, RESET PAGE TO 1
   useEffect(() => {
     handleEffect()
-  }, [filterCategoryId, filterFrom, filterSearchText, filterSort, filterPage, videoOnlyMode])
+  }, [filterQuery])
 
   /* Client-Side Queries */
 
@@ -170,34 +182,71 @@ export default function Podcasts({
   const _handlePrimaryOnChange = (selectedItems: any[]) => {
     router.push(`${PV.RoutePaths.web.podcasts}`)
     const selectedItem = selectedItems[0]
-    if (selectedItem.key !== filterFrom) setFilterPage(1)
+    let newPage = filterPage
+    let newSort = filterSort
+    if (selectedItem.key !== filterFrom) newPage = 1
 
     if (selectedItem.key !== PV.Filters.from._subscribed && isNotAllSortOption(filterSort)) {
-      setFilterSort(PV.Filters.sort._topPastWeek)
+      newSort = PV.Filters.sort._topPastWeek
     }
 
-    setFilterCategoryId(null)
-    setFilterFrom(selectedItem.key)
+    setFilterQuery({
+      ...filterQuery,
+      filterCategoryId: null,
+      filterFrom: selectedItem.key,
+      filterPage: newPage,
+      filterSort: newSort
+    })
   }
 
   const _handleSortOnChange = (selectedItems: any[]) => {
     const selectedItem = selectedItems[0]
-    if (selectedItem.key !== filterSort) setFilterPage(1)
-    setFilterSort(selectedItem.key)
+    let newPage = filterPage
+    if (selectedItem.key !== filterSort) newPage = 1
+    setFilterQuery({
+      ...filterQuery,
+      filterPage: newPage
+    })
   }
 
   const _handleSearchSubmit = async (val: string) => {
-    if (isCategoriesPage) {
-      router.push(`${PV.RoutePaths.web.search}?podcastTitle=${val}`)
+    if (!tempFilterEnabled && val) {
+      setTempFilterQuery({
+        tempFilterEnabled: true,
+        tempFilterFrom: filterFrom,
+        tempFilterSort: filterSort
+      })
+      setFilterQuery({
+        ...filterQuery,
+        filterCategoryId: null,
+        filterFrom: PV.Filters.from._all,
+        filterPage: 1,
+        filterSearchText: val,
+        filterSort: PV.Filters.sort._topPastWeek
+      })
+    } else if (tempFilterEnabled && !val) {
+      setTempFilterQuery({
+        ...tempFilterQuery,
+        tempFilterEnabled: false
+      })
+      setFilterQuery({
+        ...filterQuery,
+        filterFrom: tempFilterFrom,
+        filterPage: 1,
+        filterSearchText: val,
+        filterSort: tempFilterSort
+      })
     } else {
-      setFilterPage(1)
-      setFilterSearchText(val)
+      setFilterQuery({
+        ...filterQuery,
+        filterCategoryId,
+        filterSearchText: val
+      })
     }
   }
 
   const _handleSearchClear = async () => {
-    setFilterPage(1)
-    setFilterSearchText('')
+    _handleSearchSubmit('')
   }
 
   /* Render Helpers */
@@ -232,7 +281,10 @@ export default function Podcasts({
       <PageHeader
         handleVideoOnlyModeToggle={(newStateVal) => {
           OmniAural.setGlobalFiltersVideoOnlyMode(newStateVal)
-          setVideoOnlyMode(newStateVal)
+          setFilterQuery({
+            ...filterQuery,
+            videoOnlyMode: newStateVal
+          })
           const globalFilters = cookies.globalFilters || {}
           setCookie('globalFilters', {
             ...globalFilters,
@@ -264,8 +316,11 @@ export default function Podcasts({
           <Tiles
             items={categories}
             onClick={(id: string) => {
-              setFilterPage(1)
-              setFilterCategoryId(id)
+              setFilterQuery({
+                ...filterQuery,
+                filterCategoryId: id,
+                filterPage: 1
+              })
               const selectedCategory = getCategoryById(id)
               router.push(`${PV.RoutePaths.web.podcasts}?category=${selectedCategory.slug}`)
             }}
@@ -290,12 +345,25 @@ export default function Podcasts({
             </List>
             <Pagination
               currentPageIndex={filterPage}
-              handlePageNavigate={(newPage) => setFilterPage(newPage)}
+              handlePageNavigate={(newPage) =>
+                setFilterQuery({
+                  ...filterQuery,
+                  filterPage: newPage
+                })
+              }
               handlePageNext={() => {
-                if (filterPage + 1 <= pageCount) setFilterPage(filterPage + 1)
+                if (filterPage + 1 <= pageCount)
+                  setFilterQuery({
+                    ...filterQuery,
+                    filterPage: filterPage + 1
+                  })
               }}
               handlePagePrevious={() => {
-                if (filterPage - 1 > 0) setFilterPage(filterPage - 1)
+                if (filterPage - 1 > 0)
+                  setFilterQuery({
+                    ...filterQuery,
+                    filterPage: filterPage - 1
+                  })
               }}
               pageCount={pageCount}
               show={pageCount > 1}
