@@ -76,15 +76,13 @@ export default function Episode({
   const [clipsPageCount, setClipsPageCount] = useState<number>(serverClipsPageCount)
   const initialRender = useRef(true)
 
-  const hasValidCommentTag =
-    serverEpisode.socialInteraction &&
-    serverEpisode.socialInteraction.some(
-      (si) =>
-        si.platform === 'activitypub' ||
-        si.protocol === 'activitypub' ||
-        si.platform === 'twitter' ||
-        si.protocol === 'twitter'
-    )
+  const hasValidCommentTag = serverEpisode.socialInteraction && serverEpisode.socialInteraction.some((si) =>
+    si.platform === 'activitypub'
+    || si.protocol === 'activitypub'
+    || si.platform === 'mastodon'
+    || si.platform === 'twitter'
+    || si.protocol === 'twitter'
+  )
 
   /* useEffects */
 
