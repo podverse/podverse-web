@@ -53,7 +53,6 @@ const parseUserInfo = (comment: any, protocol: string, commenters: { [key: strin
     if (isAllowedImageOrigin) {
       profileIcon = commenter.icon?.url || ''
     }
-
   } else if (protocol === 'twitter') {
     username = commenter.fqUsername
     profileIcon = commenter.icon?.url || ''
