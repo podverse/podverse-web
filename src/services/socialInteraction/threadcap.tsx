@@ -6,6 +6,7 @@ import {
   ThreadcapCommenter,
   checkIfAllowedImageOrigin
 } from 'podverse-shared'
+import { removeUsernamesFromBeginningOfString } from 'podverse-shared/dist/socialInteraction/ActivityPub'
 import striptags from 'striptags'
 import { decodeHtml } from '~/lib/utility/misc'
 import { PV } from '~/resources'
@@ -88,7 +89,8 @@ const convertThreadcapResponseToPVComment = (response: ThreadcapResponse) => {
     const contentKeys = content && typeof content === 'object' ? Object.keys(content) : []
     const contentLangKey = contentKeys[0]
 
-    const cleanedContent = contentLangKey ? decodeHtml(striptags(content[contentLangKey])) : ''
+    let cleanedContent = contentLangKey ? decodeHtml(striptags(content[contentLangKey])) : ''
+    cleanedContent = removeUsernamesFromBeginningOfString(cleanedContent)
     const attachmentImage = getAttachmentImage(attachments)
     const { profileIcon, username } = parseUserInfo(comment, protocol, commenters)
 
