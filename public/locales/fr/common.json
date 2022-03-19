@@ -129,9 +129,9 @@
     "Reset Password": "Réinitialiser le mot de passe",
     "Reset password successful": "Vous pouvez désormais utiliser votre nouveau mot de passe",
     "Save": "Enregistrer",
-    "searchByPodcastHost": "Nom…",
-    "Search for a podcast": "Rechercher un podcast",
-    "searchByPodcastTitle": "Nom…",
+    "searchByPodcastHost": "Rechercher",
+    "Search for a podcast": "Rechercher",
+    "searchByPodcastTitle": "Rechercher",
     "SearchError": "Veuillez vous connecter à Internet et réessayer.",
     "Select by category": "Sélectionner par catégorie",
     "send us an email": "Envoyez-nous un e-mail",
@@ -179,7 +179,7 @@
     "Cancel": "Annuler",
     "Clip": "Extrait",
     "clips": "extraits",
-    "Host": "Hôte",
+    "Host": "Diffuseur",
     "internetConnectivityErrorMessage": "Veuillez vous connecter à Internet et réessayer.",
     "Are you sure you want to delete this playlist": "Supprimer cette liste de lecture ?",
     "Clips from this episode": "Extraits de cet épisode",
@@ -326,5 +326,10 @@
     "pages-profiles_Description": "Lecteur certifié Podcasting 2.0 pour Android, F-Droid, iOS et le Web. Partagez des extraits, des temps forts, des listes de lecture et des chapitres. Synchronisez votre file d'attente et votre historique sur tous les appareils, et créez des sauvegardes avec Podverse Premium. Financement de type « valeur pour valeur » (V4V). Ce n'est pas seulement un logiciel libre, mais aussi un logiciel libre protégé par un copyleft. Explorez le répertoire des podcasts avec leur indice popularité, les profils et les transcriptions.",
     "pages-search_Description": "Lecteur certifié Podcasting 2.0 pour Android, F-Droid, iOS et le Web. Partagez des extraits, des temps forts, des listes de lecture et des chapitres. Synchronisez votre file d'attente et votre historique sur tous les appareils, et créez des sauvegardes avec Podverse Premium. Financement de type « valeur pour valeur » (V4V). Ce n'est pas seulement un logiciel libre, mais aussi un logiciel libre protégé par un copyleft. Explorez le répertoire des podcasts avec leur indice popularité, les profils et les transcriptions.",
     "pages-queues_Description": "Lecteur certifié Podcasting 2.0 pour Android, F-Droid, iOS et le Web. Partagez des extraits, des temps forts, des listes de lecture et des chapitres. Synchronisez votre file d'attente et votre historique sur tous les appareils, et créez des sauvegardes avec Podverse Premium. Financement de type « valeur pour valeur » (V4V). Ce n'est pas seulement un logiciel libre, mais aussi un logiciel libre protégé par un copyleft. Explorez le répertoire des podcasts avec leur indice popularité, les profils et les transcriptions.",
-    "pages-queue_Title": "File d'attente"
+    "pages-queue_Title": "File d'attente",
+    "pages-admin_Title": "Administrateur",
+    "Parse feed": "Analyser le flux",
+    "Admin Tools": "Outils d'administration",
+    "pages-admin_Description": "Lecteur certifié Podcasting 2.0 pour Android, F-Droid, iOS et le Web. Partagez des extraits, des temps forts, des listes de lecture et des chapitres. Synchronisez votre file d'attente et votre historique sur tous les appareils, et créez des sauvegardes avec Podverse Premium. Financement de type « valeur pour valeur » (V4V). Ce n'est pas seulement un logiciel libre, mais aussi un logiciel libre protégé par un copyleft. Explorez le répertoire des podcasts avec leur indice popularité, les profils et les transcriptions.",
+    "Add or update feed from Podcast Index": "Ajouter ou mettre à jour le flux depuis Podcast Index"
 }

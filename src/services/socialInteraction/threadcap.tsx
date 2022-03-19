@@ -1,9 +1,10 @@
-import type {
+import {
   ThreadcapAttachment,
   ThreadcapNode,
   ThreadcapResponse,
   PVComment,
-  ThreadcapCommenter
+  ThreadcapCommenter,
+  checkIfAllowedImageOrigin
 } from 'podverse-shared'
 import striptags from 'striptags'
 import { decodeHtml } from '~/lib/utility/misc'
@@ -37,6 +38,7 @@ export const getEpisodeProxyTwitter = async (episodeId: string) => {
 const parseUserInfo = (comment: any, protocol: string, commenters: { [key: string]: ThreadcapCommenter }) => {
   let username = ''
   let profileIcon = ''
+  const commenter = commenters[comment.attributedTo]
 
   if (protocol === 'activitypub' || protocol === 'mastodon') {
     const url = new URL(comment.attributedTo)
@@ -46,8 +48,12 @@ const parseUserInfo = (comment: any, protocol: string, commenters: { [key: strin
     if (hostname && last) {
       username = `${last}@${hostname}`
     }
+
+    const isAllowedImageOrigin = checkIfAllowedImageOrigin(commenter)
+    if (isAllowedImageOrigin) {
+      profileIcon = commenter.icon?.url || ''
+    }
   } else if (protocol === 'twitter') {
-    const commenter = commenters[comment.attributedTo]
     username = commenter.fqUsername
     profileIcon = commenter.icon?.url || ''
   }
@@ -72,7 +78,7 @@ const convertThreadcapResponseToPVComment = (response: ThreadcapResponse) => {
       ? replies.map((replyUrl: string) => {
           const nestedNode = nodes[replyUrl]
           let pvComment = null
-          if (nestedNode) {
+          if (nestedNode && !nestedNode.commentError) {
             pvComment = generatePVComment(nestedNode, protocol)
           }
           return pvComment
