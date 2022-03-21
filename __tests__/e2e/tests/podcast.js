@@ -37,7 +37,7 @@ module.exports = {
       .click('.header-subscribe-button') // Unsubscribe
       .pause(3000)
       .waitForElementWithText('.header-subscribe-button span', 'Subscribe')
-
+ 
       .click('div.dropdown-primary-wrapper div')
       .click('div.dropdown-primary-wrapper span.react-dropdown-select-item:nth-child(2)')
       .waitForElementWithText('.page-scrollable-content .page-header h2', 'Clips')
