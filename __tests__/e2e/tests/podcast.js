@@ -10,40 +10,40 @@ module.exports = {
       .click('.dropdowns .dropdown-primary-wrapper .react-dropdown-select')
       .click('.dropdowns .dropdown-primary-wrapper .react-dropdown-select-item:nth-child(1)')
       .click('.podcast-list-item:nth-child(5)')
-      .waitForElementWithText('.podcast-page-header .podcast-title a', 'The Joe Rogan Experience')
+      .waitForElementWithText('.podcast-page-header .podcast-title a', 'Song Exploder')
       .waitForElementWithText('.page-scrollable-content .page-header h2', 'Episodes')
-      .waitForElementWithText('ul.list li.episode-list-item div.text-wrapper h3', '#1452 - Greg Fitzsimmons')
+      .waitForElementWithText('ul.list li.episode-list-item div.text-wrapper h3', `Nathaniel Rateliff - And It's Still Alright`)
 
-      .waitForElement('a[href="http://joeroganexp.joerogan.libsynpro.com/rss"]')
+      .waitForElement('a[href="http://feed.songexploder.net/SongExploder"]')
       .waitForElement('.header-share-button')
       .click('.header-share-button')
       .waitForElement('div.share-modal')
       .waitForElement(
-        '.ReactModal__Content .text-input:nth-child(3) input[value="https://stage.podverse.fm/podcast/yKyjZDxsB"]'
+        '.ReactModal__Content .text-input:nth-child(3) input[value="https://stage.podverse.fm/podcast/xSTqnMUb57K"]'
       ) // Podcast
       .click('button.button-close')
 
       .click('.button-circle.small.backwards')
       .waitForElementWithText('.page-header h1', 'Podcasts')
       .click('.button-circle.small.forwards')
-      .waitForElementWithText('.podcast-page-header .podcast-title a', 'The Joe Rogan Experience')
+      .waitForElementWithText('.podcast-page-header .podcast-title a', 'Song Exploder')
 
       .loginUsingModal('premium@stage.podverse.fm')
 
-      .waitForElementWithText('.header-subscribe-button span', 'Unsubscribe')
-      .click('.header-subscribe-button') // Unsubscribe
-      .pause(3000)
       .waitForElementWithText('.header-subscribe-button span', 'Subscribe')
       .click('.header-subscribe-button') // Subscribe
       .pause(3000)
       .waitForElementWithText('.header-subscribe-button span', 'Unsubscribe')
+      .click('.header-subscribe-button') // Unsubscribe
+      .pause(3000)
+      .waitForElementWithText('.header-subscribe-button span', 'Subscribe')
 
       .click('div.dropdown-primary-wrapper div')
       .click('div.dropdown-primary-wrapper span.react-dropdown-select-item:nth-child(2)')
       .waitForElementWithText('.page-scrollable-content .page-header h2', 'Clips')
       .waitForElementWithText(
         'ul.list li.clip-list-item div.text-wrapper h3',
-        'Facilisis sed odio morbi quis commodo odio aenean sed adipiscing.'
+        'Dignissim diam quis enim lobortis scelerisque fermentum dui faucibus in.'
       )
 
       .logOutUsingModal()

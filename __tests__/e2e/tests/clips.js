@@ -15,6 +15,9 @@ module.exports = {
         '.clip-list-item:nth-child(1) a.content-wrapper',
         'Lacus sed turpis tincidunt id aliquet risus feugiat in ante.'
       )
+      .sendKeys('.search-bar-filter .text-input input', 'Non')
+      .pause(5000)
+      .waitForElementWithText('.episode-podcast-titles', '#1428 - Brian Greene – The Joe Rogan Experience')
     // Clip List Item Title Header (1st)
   },
   after: function (browser) {
