@@ -5304,11 +5304,12 @@ pkg-dir@^4.2.0:
   dependencies:
     find-up "^4.0.0"
 
-podverse-shared@^4.2.16:
-  version "4.2.16"
-  resolved "https://registry.yarnpkg.com/podverse-shared/-/podverse-shared-4.2.16.tgz#07a51fb28fa9fac48e2b6892e88424f001903e94"
-  integrity sha512-P7dMIKNAG/dWHHEA4+aLP9Ai9qWWS40lyk/QdoiDbamW3wPO0xmoNCBsXK/iePxKtUwcabYJFMpHelzst475eQ==
+podverse-shared@4.2.17:
+  version "4.2.17"
+  resolved "https://registry.yarnpkg.com/podverse-shared/-/podverse-shared-4.2.17.tgz#ae6e0546f98a499d7b5c5010be5fea6184b39725"
+  integrity sha512-uFufZCyhwj4COgp6VGndbbyV5KwRYOwH30aTakl9H39XJjrfzJT4jUzjCMo+saITKRlw1EDpuZmEm5/X5NanOw==
   dependencies:
+    striptags "^3.2.0"
     typescript "3.9.7"
 
 postcss-media-query-parser@^0.2.3:
@@ -6286,7 +6287,7 @@ strip-json-comments@^3.1.0, strip-json-comments@^3.1.1:
   resolved "https://registry.yarnpkg.com/strip-json-comments/-/strip-json-comments-3.1.1.tgz#31f1281b3832630434831c310c01cccda8cbe006"
   integrity sha512-6fPc+R4ihwqP6N/aIv2f1gMH8lOVtWQHoqC4yK6oSDVVocumAsfCqjkXnqiYMhmMwS/mEHLp7Vehlt3ql6lEig==
 
-striptags@3.2.0:
+striptags@3.2.0, striptags@^3.2.0:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/striptags/-/striptags-3.2.0.tgz#cc74a137db2de8b0b9a370006334161f7dd67052"
   integrity sha512-g45ZOGzHDMe2bdYMdIvdAfCQkCTDMGBazSw1ypMowwGIee7ZQ5dU0rBJ8Jqgl+jAKIv4dbeE1jscZq9wid1Tkw==
