@@ -24,7 +24,11 @@ export default function Chat() {
           window.converse.initialize({
             bosh_service_url: 'https://chat.podverse.fm/http-bind/',
             view_mode: 'fullscreen',
-            auto_list_rooms: true
+            auto_join_rooms: [
+              { 'jid': 'dev@groups.chat.podverse.fm', 'name': 'dev', 'minimized': true },
+              { 'jid': 'general_public@groups.chat.podverse.fm', 'name': 'general', 'minimized': true },
+              { 'jid': 'translations@groups.chat.podverse.fm', 'name': 'translations', 'minimized': true },
+            ]
           })
           clearInterval(initConverseInterval)
         }
