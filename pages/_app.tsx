@@ -45,6 +45,7 @@ declare global {
     paypal: any
     playerAudio: any
     playerVideo: any
+    converse: any
   }
   interface Date {
     addDays: any
@@ -69,7 +70,9 @@ if (typeof window !== 'undefined') {
 function MyApp({ Component, pageProps }) {
   const router = useRouter()
   const doNotInheritAppComponent =
-    router.pathname.startsWith('/miniplayer') || router.pathname.startsWith('/videoplayer')
+    router.pathname.startsWith('/miniplayer') ||
+    router.pathname.startsWith('/videoplayer') ||
+    router.pathname.startsWith('/chat')
 
   useEffect(() => {
     if (!doNotInheritAppComponent) {
