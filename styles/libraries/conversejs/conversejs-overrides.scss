@@ -1,6 +1,11 @@
-#conversejs-bg, .conversejs, .conversejs-bg, body.converse-fullscreen {
-
-  p, ul, ol, li { 
+#conversejs-bg,
+.conversejs,
+.conversejs-bg,
+body.converse-fullscreen {
+  p,
+  ul,
+  ol,
+  li {
     @include themeGen() {
       color: getThemeVal('textPrimary');
     }
@@ -32,7 +37,9 @@
     }
   }
 
-  .badge-secondary, .conversejs .btn-secondary, .conversejs .button-cancel {
+  .badge-secondary,
+  .conversejs .btn-secondary,
+  .conversejs .button-cancel {
     @include themeGen() {
       background-color: getThemeVal('buttonSecondaryBackground');
       color: getThemeVal('buttonSecondaryText');
@@ -85,7 +92,7 @@
       }
     }
   }
-  
+
   .chatbox {
     .chat-body {
       border-radius: 0;
@@ -95,7 +102,7 @@
       @include themeGen() {
         background-color: getThemeVal('backgroundSecondary');
       }
-  
+
       .toolbar-buttons button {
         margin-left: 8px;
         margin-right: 8px;
@@ -129,7 +136,8 @@
     }
   }
 
-  .chatroom converse-emoji-picker, .chatroom converse-emoji-picker .emoji-picker {
+  .chatroom converse-emoji-picker,
+  .chatroom converse-emoji-picker .emoji-picker {
     @include themeGen() {
       background-color: getThemeVal('backgroundPrimary');
     }
@@ -137,7 +145,7 @@
     .emoji-category.picked {
       @include themeGen() {
         background-color: getThemeVal('backgroundSecondary');
-      } 
+      }
     }
 
     .emoji-picker__header ul .emoji-category {
@@ -158,7 +166,7 @@
       width: 32px;
     }
   }
-  
+
   .suggestion-box {
     border-radius: 0 !important;
 
@@ -176,7 +184,7 @@
       background-color: getThemeVal('backgroundPrimary');
       border: 1px solid getThemeVal('divider');
     }
-    
+
     .dropdown-item {
       border-radius: 0;
       @include themeGen() {
@@ -209,27 +217,27 @@
     --subdued-color: #{$grayLight2};
     --green: #{$green};
     --redder-orange: #{$orange};
-    --orange: #{$orange};;
+    --orange: #{$orange};
     --light-blue: #{getThemeVal('buttonPrimaryBackground')};
-    --lighter-blue: #85B47B;
+    --lighter-blue: #85b47b;
     --chat-status-online: #{getThemeVal('textSuccess')};
     --chat-status-busy: #{getThemeVal('textDanger')};
     --chat-status-away: #{getThemeVal('textWarning')};
     --brand-heading-color: #387592;
-    --completion-light-color: #FFB9A7;
+    --completion-light-color: #ffb9a7;
     --completion-normal-color: var(--redder-orange);
-    --completion-dark-color: #D24E2B;
+    --completion-dark-color: #d24e2b;
     --link-color: #{getThemeVal('textLink')};
     --link-hover-color: #{getThemeVal('textLinkHover')};
     --link-color-lighten-10-percent: #79a5ba;
     --dark-link-color: #{getThemeVal('textLink')};
     --global-background-color: #{getThemeVal('backgroundPrimary')};
     --inverse-link-color: white;
-    --text-shadow-color: #FAFAFA;
+    --text-shadow-color: #fafafa;
     --text-color: #{getThemeVal('textPrimary')};
     --controlbox-text-color: #{getThemeVal('textSecondary')};
     --text-color-lighten-15-percent: #8c8c8c;
-    --message-text-color: #{getThemeVal('textPrimary')};;
+    --message-text-color: #{getThemeVal('textPrimary')};
     --message-receipt-color: var(--green);
     --save-button-color: var(--green);
     --button-text-color: #{getThemeVal('buttonPrimaryText')};
@@ -244,8 +252,8 @@
     --inline-action-margin: 0.75em;
     --roster-height: 194px;
     --chat-correcting-color: var(--chat-head-color-lighten-50-percent);
-    --chat-head-color-dark: #1E9652;
-    --chat-head-color-darker: #0E763B;
+    --chat-head-color-dark: #1e9652;
+    --chat-head-color-darker: #0e763b;
     --chat-head-color-lighten-50-percent: #e7f7ee;
     --chat-head-color: var(--green);
     --chat-head-text-color: white;
@@ -254,19 +262,19 @@
     --toolbar-btn-text-color: white;
     --chat-content-background-color: #{getThemeVal('backgroundPrimary')};
     --chat-info-color: var(--chatroom-head-bg-color);
-    --highlight-color: #DCF9F6;
-    --highlight-color-darker: #B0E8E2;
+    --highlight-color: #dcf9f6;
+    --highlight-color-darker: #b0e8e2;
     --primary-color: var(--light-blue);
     --primary-color-dark: #{getThemeVal('buttonPrimaryRolloverBackground')};
     --secondary-color: #818479;
-    --secondary-color-dark: #585B51;
+    --secondary-color-dark: #585b51;
     --warning-color: var(--orange);
-    --warning-color-dark: #D2842B;
-    --danger-color: #D24E2B;
-    --danger-color-dark: #A93415;
-    --light-background-color: #FCFDFD;
-    --error-color: #D24E2B;
-    --info-color: #1E9652;
+    --warning-color-dark: #d2842b;
+    --danger-color: #d24e2b;
+    --danger-color-dark: #a93415;
+    --light-background-color: #fcfdfd;
+    --error-color: #d24e2b;
+    --info-color: #1e9652;
     --button-border-radius: 5px;
     --chatbox-border-radius: 4px;
     --groupchats-header-color: var(--chatroom-head-bg-color);
@@ -283,9 +291,9 @@
     --minimized-chats-width: 130px;
     --mobile-chat-width: 100%;
     --mobile-chat-height: 400px;
-    --normal-font: "Helvetica","Arial",sans-serif;
-    --heading-font: "Muli",normal;
-    --branding-font: "Baumans",cursive;
+    --normal-font: 'Helvetica', 'Arial', sans-serif;
+    --heading-font: 'Muli', normal;
+    --branding-font: 'Baumans', cursive;
     --heading-display: block;
     --heading-color: #{getThemeVal('backgroundPrimary')};
     --chatroom-color: var(--redder-orange);
@@ -305,7 +313,7 @@
     --muc-toolbar-btn-color: var(--redder-orange);
     --muc-toolbar-btn-disabled-color: gray;
     --headline-head-color: var(--orange);
-    --headline-message-color: #D2842B;
+    --headline-message-color: #d2842b;
     --chatbox-button-size: 14px;
     --fullpage-chatbox-button-size: 16px;
     --font-size-tiny: $text-sm;
@@ -341,7 +349,7 @@
     --overlayed-max-chat-textarea-height: 200px;
     --overlayed-badge-color: #818479;
     --list-toggle-color: #818479;
-    --list-toggle-hover-color: #585B51;
+    --list-toggle-hover-color: #585b51;
     --list-toggle-font-weight: normal;
     --list-item-hover-color: rgba(0, 0, 0, 0.035);
     --list-item-action-color: #e3eef3;

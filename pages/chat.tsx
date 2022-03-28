@@ -43,7 +43,12 @@ export default function Chat() {
   return (
     <>
       <Head>
-        <link rel='stylesheet' type='text/css' media='screen' href='https://cdn.conversejs.org/9.0.0/dist/converse.min.css' />
+        <link
+          rel='stylesheet'
+          type='text/css'
+          media='screen'
+          href='https://cdn.conversejs.org/9.0.0/dist/converse.min.css'
+        />
         {/* eslint-disable-next-line @next/next/no-sync-scripts */}
         <script src='https://cdn.conversejs.org/9.0.0/dist/converse.min.js' charSet='utf-8'></script>
       </Head>
