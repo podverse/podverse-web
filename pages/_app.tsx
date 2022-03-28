@@ -45,6 +45,7 @@ declare global {
     paypal: any
     playerAudio: any
     playerVideo: any
+    converse: any
   }
   interface Date {
     addDays: any
