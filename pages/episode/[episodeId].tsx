@@ -2,6 +2,7 @@ import { GetServerSideProps } from 'next'
 import { useTranslation } from 'next-i18next'
 import OmniAural, { useOmniAural } from 'omniaural'
 import type { Episode, MediaRef, PVComment, SocialInteraction } from 'podverse-shared'
+import { checkIfHasSupportedCommentTag } from 'podverse-shared'
 import { useEffect, useRef, useState } from 'react'
 import {
   ClipListItem,
@@ -76,16 +77,7 @@ export default function Episode({
   const [clipsPageCount, setClipsPageCount] = useState<number>(serverClipsPageCount)
   const initialRender = useRef(true)
 
-  const hasValidCommentTag =
-    serverEpisode.socialInteraction &&
-    serverEpisode.socialInteraction.some(
-      (si) =>
-        si.platform === 'activitypub' ||
-        si.protocol === 'activitypub' ||
-        si.platform === 'mastodon' ||
-        si.platform === 'twitter' ||
-        si.protocol === 'twitter'
-    )
+  const hasValidCommentTag = checkIfHasSupportedCommentTag(serverEpisode)
 
   /* useEffects */
 
