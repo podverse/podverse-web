@@ -69,7 +69,9 @@ if (typeof window !== 'undefined') {
 function MyApp({ Component, pageProps }) {
   const router = useRouter()
   const doNotInheritAppComponent =
-    router.pathname.startsWith('/miniplayer') || router.pathname.startsWith('/videoplayer')
+    router.pathname.startsWith('/miniplayer')
+    || router.pathname.startsWith('/videoplayer')
+    || router.pathname.startsWith('/chat')
 
   useEffect(() => {
     if (!doNotInheritAppComponent) {

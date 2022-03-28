@@ -5304,10 +5304,10 @@ pkg-dir@^4.2.0:
   dependencies:
     find-up "^4.0.0"
 
-podverse-shared@4.2.17:
-  version "4.2.17"
-  resolved "https://registry.yarnpkg.com/podverse-shared/-/podverse-shared-4.2.17.tgz#ae6e0546f98a499d7b5c5010be5fea6184b39725"
-  integrity sha512-uFufZCyhwj4COgp6VGndbbyV5KwRYOwH30aTakl9H39XJjrfzJT4jUzjCMo+saITKRlw1EDpuZmEm5/X5NanOw==
+podverse-shared@4.2.19:
+  version "4.2.19"
+  resolved "https://registry.yarnpkg.com/podverse-shared/-/podverse-shared-4.2.19.tgz#acd1b9d6347fc43eb961ed0145c84fac6346a138"
+  integrity sha512-rXU9gPg/TCVFo06tPiSgOesIk4TBpgAHckJ5dI6Ov0/WFtKByW4H4wdQacIiT5du0vWgEPKseQ3Pe4/9QUqOXg==
   dependencies:
     striptags "^3.2.0"
     typescript "3.9.7"
