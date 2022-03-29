@@ -19,7 +19,6 @@ export default function Chat() {
   useEffect(() => {
     ;(async () => {
       const initConverseInterval = setInterval(() => {
-        // console.log('interval', converse)
         if (window.converse?.initialize) {
           window.converse.initialize({
             bosh_service_url: 'https://chat.podverse.fm/http-bind/',
