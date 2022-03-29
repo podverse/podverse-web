@@ -11,6 +11,12 @@ body.converse-fullscreen {
     }
   }
 
+  ul.list-group {
+    @include themeGen() {
+      color: getThemeVal('textHover');
+    }
+  }
+
   .conversejs .row {
     flex: auto;
   }
