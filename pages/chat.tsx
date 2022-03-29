@@ -25,9 +25,9 @@ export default function Chat() {
             bosh_service_url: 'https://chat.podverse.fm/http-bind/',
             view_mode: 'fullscreen',
             auto_join_rooms: [
-              'translations@groups.chat.podverse.fm',
+              'general@groups.chat.podverse.fm',
               'dev@groups.chat.podverse.fm',
-              'general@groups.chat.podverse.fm'
+              'translations@groups.chat.podverse.fm'
             ]
           })
           clearInterval(initConverseInterval)
