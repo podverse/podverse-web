@@ -231,6 +231,12 @@ body.converse-fullscreen {
     }
   }
 
+  a.list-item-action {
+    align-items: center;
+    display: flex !important;
+    padding: 0 !important;
+  }
+
   @include themeGen() {
     --subdued-color: #{$grayLight2};
     --green: #{$green};
@@ -279,7 +285,7 @@ body.converse-fullscreen {
     --chat-toolbar-btn-disabled-color: gray;
     --toolbar-btn-text-color: white;
     --chat-content-background-color: #{getThemeVal('backgroundPrimary')};
-    --chat-info-color: var(--chatroom-head-bg-color);
+    --chat-info-color: #{getThemeVal('navItemActiveGradientLight')};
     --highlight-color: #dcf9f6;
     --highlight-color-darker: #b0e8e2;
     --primary-color: var(--light-blue);
