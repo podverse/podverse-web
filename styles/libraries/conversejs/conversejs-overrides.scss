@@ -93,6 +93,12 @@ body.converse-fullscreen {
     }
   }
 
+  .message.separator .separator-text {
+    @include themeGen() {
+      background-color: getThemeVal('backgroundPrimary');
+    }
+  }
+
   .chatbox {
     .chat-body {
       border-radius: 0;
