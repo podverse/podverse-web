@@ -11,9 +11,15 @@ body.converse-fullscreen {
     }
   }
 
-  ul.list-group {
+  ul.list-group li {
     @include themeGen() {
       color: getThemeVal('textHover');
+    }
+
+    &.active {
+      @include themeGen() {
+        color: getThemeVal('textPrimary');
+      } 
     }
   }
 
