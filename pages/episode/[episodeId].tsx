@@ -110,12 +110,12 @@ export default function Episode({
             item.platform === PV.SocialInteraction.platformKeys.twitter
         )
 
-        if (activityPub?.url) {
+        if (activityPub?.uri || activityPub?.url) {
           setCommentsLoading(true)
           const comment = await getEpisodeProxyActivityPub(serverEpisode.id)
           setComment(comment)
           setCommentsLoading(false)
-        } else if (twitter?.url) {
+        } else if (twitter?.uri || twitter?.url) {
           setCommentsLoading(true)
           const comment = await getEpisodeProxyTwitter(serverEpisode.id)
           setComment(comment)
