@@ -3306,6 +3306,11 @@ html-encoding-sniffer@^2.0.1:
   dependencies:
     whatwg-encoding "^1.0.5"
 
+html-entities@^2.3.2:
+  version "2.3.3"
+  resolved "https://registry.yarnpkg.com/html-entities/-/html-entities-2.3.3.tgz#117d7626bece327fc8baace8868fa6f5ef856e46"
+  integrity sha512-DV5Ln36z34NNTDgnz0EWGBLZENelNAtkiFA4kyNOG2tDI6Mz1uSWiq1wAKdyjnJwyDiDO7Fa2SO1CTxPXL8VxA==
+
 html-escaper@^2.0.0, html-escaper@^2.0.2:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/html-escaper/-/html-escaper-2.0.2.tgz#dfd60027da36a36dfcbe236262c00a5822681453"
@@ -5304,11 +5309,12 @@ pkg-dir@^4.2.0:
   dependencies:
     find-up "^4.0.0"
 
-podverse-shared@4.2.19:
-  version "4.2.19"
-  resolved "https://registry.yarnpkg.com/podverse-shared/-/podverse-shared-4.2.19.tgz#acd1b9d6347fc43eb961ed0145c84fac6346a138"
-  integrity sha512-rXU9gPg/TCVFo06tPiSgOesIk4TBpgAHckJ5dI6Ov0/WFtKByW4H4wdQacIiT5du0vWgEPKseQ3Pe4/9QUqOXg==
+podverse-shared@4.3.3:
+  version "4.3.3"
+  resolved "https://registry.yarnpkg.com/podverse-shared/-/podverse-shared-4.3.3.tgz#4ee66e5981bd3e643be6fa8aefc57fdde1945772"
+  integrity sha512-WhIhYvnLPRzR5aIZkf+u1N8EauW6Cfg7IRWflp/IPCqveWS16RJ5GrDuDZNG4hI+ruaPKBrLokkzmUWS70m95Q==
   dependencies:
+    html-entities "^2.3.2"
     striptags "^3.2.0"
     typescript "3.9.7"
 
