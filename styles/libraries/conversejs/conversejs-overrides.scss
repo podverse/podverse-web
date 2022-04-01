@@ -19,7 +19,7 @@ body.converse-fullscreen {
     &.active {
       @include themeGen() {
         color: getThemeVal('textPrimary');
-      } 
+      }
     }
   }
 
