@@ -186,7 +186,7 @@
     "Search": "Søk",
     "searchByPodcastHost": "Navn …",
     "Reset password email sent2": "Hvis du ikke finner den i innboksen kan du sjekke søppelposten.",
-    "RSS Feed Link": "Lenke til RSS-strøm",
+    "RSS Feed Link": "Lenke til RSS-informasjonskanal",
     "Select by category": "Velg etter kategori",
     "Settings": "Innstillinger",
     "Share Clip": "Del klipp",
@@ -301,7 +301,7 @@
     "Verify Email": "Bekreft e-postadresse",
     "Email verified redirecting to home page": "E-postadresse bekreftet. Videresender til hjemmesiden …",
     "EmailVerificationFailed": "Kunne ikke bekrefte e-postadressen din",
-    "RequestAPodcastLine3": "Kun forespør RSS-strømmer som er offentlig tilgjengelige. Ingen private/betalte/premiums-strømmer.",
+    "RequestAPodcastLine3": "Kun forespør RSS-informasjonskanaler som er offentlig tilgjengelige. Ingenting privat/betalt/premium.",
     "Export OPML Description": "Eksporter abonnementene din som en OPML-fil for å importere dem i andre programmer.",
     "Something went wrong": "Koble til Internett og prøv igjen.",
     "MayAppearNextToContentYouCreate": "Kan vises ved siden av innhold du lager",
@@ -329,6 +329,9 @@
     "pages-queue_Title": "Kø",
     "Admin Tools": "Administratorverktøy",
     "pages-admin_Title": "Administrator",
-    "Parse feed": "Fortolk strøm",
-    "pages-admin_Description": "Fri nettradioopptaksspiller for Android, F-Droid, iOS, og veven. Podcasting 2.0-sertifisert. Lag og del klipp fra nettradioopptak. Synkroniser køen din til alle enhetene dine. Kapitler, klipp, frihetslig, mobilprogram, spillelister, nettradioopptaksindeks, podping, premium, profiler, transkribering, v4v, verdi-for-verdi."
+    "Parse feed": "Fortolk informasjonskanal",
+    "pages-admin_Description": "Fri nettradioopptaksspiller for Android, F-Droid, iOS, og veven. Podcasting 2.0-sertifisert. Lag og del klipp fra nettradioopptak. Synkroniser køen din til alle enhetene dine. Kapitler, klipp, frihetslig, mobilprogram, spillelister, nettradioopptaksindeks, podping, premium, profiler, transkribering, v4v, verdi-for-verdi.",
+    "pages-chat_Title": "Podverse-sludring",
+    "pages-chat_Description": "Sludre med Podverse-gemenskapen.",
+    "Add or update feed from Podcast Index": "Legg til eller oppdater informasjonskanal fra Podkastindeksen"
 }
