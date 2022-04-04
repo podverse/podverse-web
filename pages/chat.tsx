@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-sync-scripts */
 import { GetServerSideProps } from 'next'
 import { useTranslation } from 'next-i18next'
 import { Meta } from '~/components/Meta/Meta'
@@ -52,8 +53,8 @@ export default function Chat() {
           media='screen'
           href='https://cdn.conversejs.org/9.0.0/dist/converse.min.css'
         />
-        {/* eslint-disable-next-line @next/next/no-sync-scripts */}
         <script src='https://cdn.conversejs.org/9.0.0/dist/converse.min.js' charSet='utf-8'></script>
+        <script src='https://cdn.conversejs.org/3rdparty/libsignal-protocol.min.js' />
       </Head>
       <Meta
         description={meta.description}
