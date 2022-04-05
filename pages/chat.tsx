@@ -1,12 +1,13 @@
 /* eslint-disable @next/next/no-sync-scripts */
 import { GetServerSideProps } from 'next'
+import Head from 'next/head'
+import Script from 'next/script'
 import { useTranslation } from 'next-i18next'
+import { useEffect } from 'react'
 import { Meta } from '~/components/Meta/Meta'
 import { Page } from '~/lib/utility/page'
 import { PV } from '~/resources'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
-import { useEffect } from 'react'
-import Head from 'next/head'
 
 type ServerProps = Page
 
@@ -22,13 +23,23 @@ export default function Chat() {
       const initConverseInterval = setInterval(() => {
         if (window.converse?.initialize) {
           window.converse.initialize({
-            bosh_service_url: 'https://chat.podverse.fm/http-bind/',
-            view_mode: 'fullscreen',
+            allow_registration: false,
+            archived_messages_page_size: 100,
+            auto_away: 600,
+            auto_list_rooms: true,
+            auto_login: true,
             auto_join_rooms: [
               'general@groups.chat.podverse.fm',
               'dev@groups.chat.podverse.fm',
               'translations@groups.chat.podverse.fm'
-            ]
+            ],
+            auto_reconnect: true,
+            bosh_service_url: 'https://chat.podverse.fm/http-bind/',
+            notify_all_room_messages: true,
+            notification_delay: 20000,
+            notification_icon: 'https://podverse.fm/images/android-chrome-192x192.png',
+            play_sounds: true,
+            view_mode: 'fullscreen'
           })
           clearInterval(initConverseInterval)
         }
@@ -46,16 +57,8 @@ export default function Chat() {
 
   return (
     <>
-      <Head>
-        <link
-          rel='stylesheet'
-          type='text/css'
-          media='screen'
-          href='https://cdn.conversejs.org/9.0.0/dist/converse.min.css'
-        />
-        <script src='https://cdn.conversejs.org/9.0.0/dist/converse.min.js' charSet='utf-8'></script>
-        <script src='https://cdn.conversejs.org/3rdparty/libsignal-protocol.min.js' />
-      </Head>
+      <Script id='converse.min.js' src='https://cdn.conversejs.org/dist/converse.min.js' />
+      <Script id='libsignal-protocol.min.js' src='https://cdn.conversejs.org/3rdparty/libsignal-protocol.min.js' />
       <Meta
         description={meta.description}
         isVideo

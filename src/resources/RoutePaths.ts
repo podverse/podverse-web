@@ -79,6 +79,7 @@ export const RoutePaths = {
     videoplayer: {
       clip: '/videoplayer/clip',
       episode: '/videoplayer/episode'
-    }
+    },
+    xmpp: `/xmpp`
   }
 }
