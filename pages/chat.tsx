@@ -61,9 +61,9 @@ export default function Chat() {
           rel='stylesheet'
           type='text/css'
           media='screen'
-          href='https://cdn.conversejs.org/9.0.0/dist/converse.min.css'
+          href='https://cdn.conversejs.org/dist/converse.min.css'
         />
-        <script src='https://cdn.conversejs.org/9.0.0/dist/converse.min.js' charSet='utf-8'></script>
+        <script src='https://cdn.conversejs.org/dist/converse.min.js' charSet='utf-8'></script>
         <script src='https://cdn.conversejs.org/3rdparty/libsignal-protocol.min.js' />
       </Head>
       <Meta
