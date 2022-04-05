@@ -1,6 +1,5 @@
 /* eslint-disable @next/next/no-sync-scripts */
 import { GetServerSideProps } from 'next'
-import Head from 'next/head'
 import Script from 'next/script'
 import { useTranslation } from 'next-i18next'
 import { useEffect } from 'react'
