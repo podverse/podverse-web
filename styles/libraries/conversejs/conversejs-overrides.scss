@@ -27,8 +27,10 @@ body.converse-fullscreen {
     flex: auto;
   }
 
-  .bottom-panel, .sendXMPPMessage {
-    textarea.chat-textarea:focus-visible, textarea.chat-textarea:focus {
+  .bottom-panel,
+  .sendXMPPMessage {
+    textarea.chat-textarea:focus-visible,
+    textarea.chat-textarea:focus {
       @include themeGen() {
         outline: getThemeVal('borderActive') solid 1px !important;
       }
