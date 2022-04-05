@@ -40,7 +40,8 @@ export default function XMPP(props: ServerProps) {
             <div className='text-page'>
               <p>{t('ContactXMPPText1')}</p>
               <p>
-                {t('ContactXMPPText2')}<br />
+                {t('ContactXMPPText2')}
+                <br />
                 <PVLink href={PV.RoutePaths.web.chat}>{t('Open web chat')}</PVLink>
               </p>
               <p>
