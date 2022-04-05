@@ -1,12 +1,13 @@
 /* eslint-disable @next/next/no-sync-scripts */
 import { GetServerSideProps } from 'next'
+import Head from 'next/head'
+import Script from 'next/script'
 import { useTranslation } from 'next-i18next'
+import { useEffect } from 'react'
 import { Meta } from '~/components/Meta/Meta'
 import { Page } from '~/lib/utility/page'
 import { PV } from '~/resources'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
-import { useEffect } from 'react'
-import Head from 'next/head'
 
 type ServerProps = Page
 
@@ -56,16 +57,8 @@ export default function Chat() {
 
   return (
     <>
-      <Head>
-        <link
-          rel='stylesheet'
-          type='text/css'
-          media='screen'
-          href='https://cdn.conversejs.org/dist/converse.min.css'
-        />
-        <script src='https://cdn.conversejs.org/dist/converse.min.js' charSet='utf-8'></script>
-        <script src='https://cdn.conversejs.org/3rdparty/libsignal-protocol.min.js' />
-      </Head>
+      <Script id='converse.min.js' src='https://cdn.conversejs.org/dist/converse.min.js' />
+      <Script id='libsignal-protocol.min.js' src='https://cdn.conversejs.org/3rdparty/libsignal-protocol.min.js' />
       <Meta
         description={meta.description}
         isVideo
