@@ -2,7 +2,7 @@ import { GetServerSideProps } from 'next'
 import { useTranslation } from 'next-i18next'
 import { Page } from '~/lib/utility/page'
 import { PV } from '~/resources'
-import { ColumnsWrapper, Footer, MailTo, Meta, PageHeader, PageScrollableContent } from '~/components'
+import { ColumnsWrapper, Footer, MailTo, Meta, PageHeader, PageScrollableContent, PVLink } from '~/components'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 
 type ServerProps = Page
@@ -71,6 +71,9 @@ export default function Contact(props: ServerProps) {
               </h3>
               <hr />
               <h2>{t('Live Chat')}</h2>
+              <h3>
+                <PVLink href='/xmpp'>{t('Join our XMPP server')}</PVLink>
+              </h3>
               <h3>
                 <a href='https://discord.gg/6HkyNKR' target='_blank' rel='noreferrer'>
                   {t('Join our Discord')}

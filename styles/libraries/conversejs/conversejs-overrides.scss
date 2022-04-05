@@ -27,6 +27,20 @@ body.converse-fullscreen {
     flex: auto;
   }
 
+  .bottom-panel, .sendXMPPMessage {
+    textarea.chat-textarea:focus-visible, textarea.chat-textarea:focus {
+      @include themeGen() {
+        outline: getThemeVal('borderActive') solid 1px !important;
+      }
+    }
+
+    textarea:disabled {
+      @include themeGen() {
+        background-color: getThemeVal('navbarMobileBackground') !important;
+      }
+    }
+  }
+
   .modal-content {
     @include themeGen() {
       background-color: getThemeVal('backgroundPrimary');
@@ -101,7 +115,32 @@ body.converse-fullscreen {
     &.chat-msg .chat-msg__heading .chat-msg__time {
       @include themeGen() {
         color: getThemeVal('textTertiary');
+        font-size: $text-tiny;
       }
+    }
+
+    &.chat-msg:hover {
+      @include themeGen() {
+        background-color: getThemeVal('highlighted') !important;
+      }
+    }
+
+    &.chat-msg.correcting {
+      @include themeGen() {
+        background-color: getThemeVal('textAreaEditingBackground') !important;
+      }
+    }
+
+    &.chat-msg .chat-msg__edit-modal svg {
+      @include themeGen() {
+        fill: getThemeVal('textSecondary') !important;
+      }
+    }
+  }
+
+  .chat-textarea.correcting {
+    @include themeGen() {
+      background-color: getThemeVal('textAreaEditingBackground') !important;
     }
   }
 
@@ -238,7 +277,7 @@ body.converse-fullscreen {
   }
 
   @include themeGen() {
-    --subdued-color: #{$grayLight2};
+    --subdued-color: #{$grayLight};
     --green: #{$green};
     --redder-orange: #{$orange};
     --orange: #{$orange};
@@ -260,9 +299,10 @@ body.converse-fullscreen {
     --text-shadow-color: #fafafa;
     --text-color: #{getThemeVal('textPrimary')};
     --controlbox-text-color: #{getThemeVal('textSecondary')};
-    --text-color-lighten-15-percent: #8c8c8c;
+    --text-color-lighten-15-percent: #{getThemeVal('textSecondary')};
     --message-text-color: #{getThemeVal('textPrimary')};
     --message-receipt-color: var(--green);
+    --message-author-color: #{getThemeVal('textLink')};
     --save-button-color: var(--green);
     --button-text-color: #{getThemeVal('buttonPrimaryText')};
     --message-avatar-width: 36px;
@@ -299,6 +339,7 @@ body.converse-fullscreen {
     --light-background-color: #fcfdfd;
     --error-color: #d24e2b;
     --info-color: #1e9652;
+    --badge-color: #{getThemeVal('textPrimary')};
     --button-border-radius: 5px;
     --chatbox-border-radius: 4px;
     --groupchats-header-color: var(--chatroom-head-bg-color);
