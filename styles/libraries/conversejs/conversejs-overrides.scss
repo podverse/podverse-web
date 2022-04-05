@@ -279,6 +279,7 @@ body.converse-fullscreen {
   }
 
   @include themeGen() {
+    --background: #{getThemeVal('backgroundTertiary')};
     --subdued-color: #{$grayLight};
     --green: #{$green};
     --redder-orange: #{$orange};
