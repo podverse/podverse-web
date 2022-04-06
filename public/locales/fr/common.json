@@ -333,5 +333,13 @@
     "pages-admin_Description": "Lecteur certifié Podcasting 2.0 pour Android, F-Droid, iOS et le Web. Partagez des extraits, des temps forts, des listes de lecture et des chapitres. Synchronisez votre file d'attente et votre historique sur tous les appareils, et créez des sauvegardes avec Podverse Premium. Financement de type « valeur pour valeur » (V4V). Ce n'est pas seulement un logiciel libre, mais aussi un logiciel libre protégé par un copyleft. Explorez le répertoire des podcasts avec leur indice popularité, les profils et les transcriptions.",
     "Add or update feed from Podcast Index": "Ajouter ou mettre à jour le flux depuis Podcast Index",
     "pages-chat_Description": "Discuter avec la communauté de Podverse.",
-    "pages-chat_Title": "Discussion de Podverse"
+    "pages-chat_Title": "Discussion de Podverse",
+    "ContactXMPPText1": "XMPP est une technologie gratuite et ouverte qui permet à quiconque de créer et d'héberger sa propre plateforme de discussion universelle.",
+    "ContactXMPPServerDomain": "Domaine du serveur XMPP",
+    "ContactXMPPServerGroups": "Domaine des groupes XMPP",
+    "Join our XMPP server": "Rejoindre notre serveur XMPP",
+    "Open web chat": "Ouvrir la discussion en ligne",
+    "pages-xmpp_Title": "XMPP Podverse",
+    "ContactXMPPText2": "Si vous avez un compte XMPP, vous pouvez vous connecter à notre client officiel de discussion en ligne :",
+    "pages-xmpp_Description": "À propos du serveur XMPP de Podverse"
 }
