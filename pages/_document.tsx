@@ -24,7 +24,7 @@ class MyDocument extends Document {
             rel='stylesheet'
             type='text/css'
             media='screen'
-            href='https://cdn.conversejs.org/dist/converse.min.css'
+            href='https://cdn.conversejs.org/dist/converse.css'
           />
         </Head>
         <body>
