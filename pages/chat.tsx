@@ -26,13 +26,11 @@ export default function Chat() {
             archived_messages_page_size: 100,
             auto_away: 600,
             auto_list_rooms: true,
-            auto_login: true,
             auto_join_rooms: [
               'general@groups.chat.podverse.fm',
               'dev@groups.chat.podverse.fm',
               'translations@groups.chat.podverse.fm'
             ],
-            auto_reconnect: true,
             bosh_service_url: 'https://chat.podverse.fm/http-bind/',
             notify_all_room_messages: true,
             notification_delay: 20000,
