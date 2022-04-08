@@ -54,9 +54,8 @@ export default function Chat() {
 
   return (
     <>
-      <Script id='converse.min.js' src='https://cdn.conversejs.org/dist/converse.js' />
+      <Script id='converse.min.js' src='https://cdn.conversejs.org/9.0.0/dist/converse.js' />
       <Script id='libsignal-protocol.min.js' src='https://cdn.conversejs.org/3rdparty/libsignal-protocol.js' />
-      <Script id='converse-emojis.js' src='https://cdn.conversejs.org/dist/emojis.js' />
       <Meta
         description={meta.description}
         isVideo
