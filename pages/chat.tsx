@@ -34,8 +34,9 @@ export default function Chat() {
             bosh_service_url: 'https://chat.podverse.fm/http-bind/',
             notify_all_room_messages: true,
             notification_delay: 20000,
-            notification_icon: 'https://podverse.fm/images/android-chrome-192x192.png',
+            notification_icon: '/images/android-chrome-192x192.png',
             play_sounds: true,
+            sounds_path: '/3rd-party/converse/',
             view_mode: 'fullscreen'
           })
           clearInterval(initConverseInterval)
