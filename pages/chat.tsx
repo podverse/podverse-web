@@ -36,7 +36,7 @@ export default function Chat() {
             notification_delay: 20000,
             notification_icon: '/images/android-chrome-192x192.png',
             play_sounds: true,
-            sounds_path: '/3rd-party/converse/',
+            sounds_path: '/3rd-party/converse/sounds/',
             view_mode: 'fullscreen'
           })
           clearInterval(initConverseInterval)
