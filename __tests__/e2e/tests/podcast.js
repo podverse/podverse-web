@@ -12,7 +12,10 @@ module.exports = {
       .click('.podcast-list-item:nth-child(5)')
       .waitForElementWithText('.podcast-page-header .podcast-title a', 'Song Exploder')
       .waitForElementWithText('.page-scrollable-content .page-header h2', 'Episodes')
-      .waitForElementWithText('ul.list li.episode-list-item div.text-wrapper h3', `Nathaniel Rateliff - And It's Still Alright`)
+      .waitForElementWithText(
+        'ul.list li.episode-list-item div.text-wrapper h3',
+        `Nathaniel Rateliff - And It's Still Alright`
+      )
 
       .waitForElement('a[href="http://feed.songexploder.net/SongExploder"]')
       .waitForElement('.header-share-button')
@@ -37,7 +40,7 @@ module.exports = {
       .click('.header-subscribe-button') // Unsubscribe
       .pause(3000)
       .waitForElementWithText('.header-subscribe-button span', 'Subscribe')
- 
+
       .click('div.dropdown-primary-wrapper div')
       .click('div.dropdown-primary-wrapper span.react-dropdown-select-item:nth-child(2)')
       .waitForElementWithText('.page-scrollable-content .page-header h2', 'Clips')
