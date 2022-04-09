@@ -26,3 +26,12 @@ export const prefixClipLabel = (t: any, episodeTitle?: string) => {
   }
   return title
 }
+
+export const appendRemoteScript = (url: string) => {
+  const po = document.createElement('script')
+  po.type = 'text/javascript'
+  po.async = false
+  po.src = url
+  const s = document.getElementsByTagName('script')[0]
+  s.parentNode.insertBefore(po, s)
+}

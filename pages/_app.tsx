@@ -46,6 +46,7 @@ declare global {
     playerAudio: any
     playerVideo: any
     converse: any
+    mermaid: any
   }
   interface Date {
     addDays: any

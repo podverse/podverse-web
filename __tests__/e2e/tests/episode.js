@@ -16,7 +16,7 @@ module.exports = {
       .waitForElementWithText('a.podcast-title', 'Song Exploder') // Episode Page Header
       .waitForElement('a[href="http://feed.songexploder.net/SongExploder"]')
       .waitForElement('.header-share-button')
-      .click('.header-share-button') 
+      .click('.header-share-button')
       .waitForElement('div.share-modal')
       .waitForElement(
         '.ReactModal__Content .text-input:nth-child(3) input[value="https://stage.podverse.fm/episode/18z7yrPvI"]'
