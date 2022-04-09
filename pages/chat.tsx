@@ -98,7 +98,11 @@ export default function Chat() {
   return (
     <>
       <Script async={false} id='mermaid.js' src='https://cdnjs.cloudflare.com/ajax/libs/mermaid/9.0.0/mermaid.min.js' />
-      <Script async={false} id='libsignal-protocol.min.js' src='https://cdn.conversejs.org/3rdparty/libsignal-protocol.js' />
+      <Script
+        async={false}
+        id='libsignal-protocol.min.js'
+        src='https://cdn.conversejs.org/3rdparty/libsignal-protocol.js'
+      />
       <Script async={false} id='converse.min.js' src='/3rd-party/converse/dist/converse.js' />
 
       <Meta
