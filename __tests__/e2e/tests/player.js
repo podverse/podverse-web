@@ -54,7 +54,7 @@ module.exports = {
       ) //Fast-forward 30 seconds
       .waitForElementPresent(
         'div.player-full-view div.player-progress-container button.player-progress-button.medium:nth-child(5)'
-      ) //Double right 
+      ) //Double right
   },
   after: function (browser) {
     browser.end()
