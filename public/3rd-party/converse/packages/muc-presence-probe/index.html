@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Converse.js Plugin Demo</title>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="shortcut icon" type="image/ico" href="https://cdn.conversejs.org/3.2.1/css/images/favicon.ico"/>
+    <![if gte IE 11]>
+    <link type="text/css" rel="stylesheet" media="screen" href="https://cdn.conversejs.org/3.2.1/css/converse.min.css" />
+	<script src="https://cdn.conversejs.org/3.2.1/dist/converse.min.js"></script>
+	<script src="src/muc-presence-probe.js"></script>
+    <![endif]>
+
+    <!-- A bit of custom CSS -->
+	<style>
+		body {
+			font-family: Helvetica, Arial, Sans-Serif;
+            color: #595959;
+            padding: 5%;
+		}
+        h1 {
+            text-align: center;
+        }
+	</style>
+</head>
+
+<body>
+	<h1>
+		Demo page for the <strong>muc-presence-probe</strong> plugin of <a href="https://conversejs.org" target="_blank" rel="noopener">Converse.js</a>.
+	</h1>
+</body>
+
+<script>
+    converse.initialize({
+        initialize_message: "Hooray! muc-presence-probe is being initialized.", // Custom config setting for the plugin
+        bosh_service_url: 'https://conversejs.org/http-bind/', // Please use this connection manager only for testing purposes
+        whitelisted_plugins: ['muc-presence-probe'],  // You need to whitelist your custom plugins, otherwise they won't get loaded.
+        debug: true // Set to `false` in production
+    });
+</script>
+</html>
