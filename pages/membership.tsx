@@ -55,8 +55,10 @@ export default function Membership(props: ServerProps) {
                 aboveSectionNodes={
                   <>
                     <p>
-                      {t('Enjoy Podverse Premium')}<br/>
-                      {t('3 months free')}<br/>
+                      {t('Enjoy Podverse Premium')}
+                      <br />
+                      {t('3 months free')}
+                      <br />
                       {t('18 per year after that')}
                     </p>
                     <div className='button-column'>
@@ -64,14 +66,16 @@ export default function Membership(props: ServerProps) {
                         <ButtonRectangle
                           label={t('Login')}
                           onClick={() => OmniAural.modalsLoginShow()}
-                          type='primary' />
+                          type='primary'
+                        />
                       )}
                       {userInfo && (
                         <ButtonRectangle
                           isSuccess
                           label={t('Renew Membership')}
                           onClick={() => OmniAural.modalsCheckoutShow()}
-                          type='primary' />
+                          type='primary'
+                        />
                       )}
                     </div>
                   </>
