@@ -49,7 +49,7 @@ export default function Membership(props: ServerProps) {
       <PageScrollableContent>
         <ColumnsWrapper
           mainColumnChildren={
-            <div className='text-page'>
+            <div className='text-page top-margin-below-tablet-max-width'>
               <MembershipStatus />
               <ComparisonTable
                 aboveSectionNodes={
