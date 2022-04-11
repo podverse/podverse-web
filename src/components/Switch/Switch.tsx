@@ -3,7 +3,7 @@ import classNames from 'classnames'
 // TODO: temporarily using require instead of require to work around a build error happening
 // in the Github action pipeline: "'PlayerAudio' cannot be used as a JSX component."
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const ReactSwitch = require('react-switch')
+const ReactSwitch = require('react-switch').default
 
 type Props = {
   ariaLabel: string
