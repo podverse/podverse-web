@@ -4015,9 +4015,9 @@ i18next-fs-backend@^1.0.7:
   integrity sha512-/MfAGMP0jHonV966uFf9PkWWuDjPYLIcsipnSO3NxpNtAgRUKLTwvm85fEmsF6hGeu0zbZiCQ3W74jwO6K9uXA==
 
 i18next@^21.5.3:
-  version "21.6.14"
-  resolved "https://registry.yarnpkg.com/i18next/-/i18next-21.6.14.tgz#2bc199fba7f4da44b5952d7df0a3814a6e5c3943"
-  integrity sha512-XL6WyD+xlwQwbieXRlXhKWoLb/rkch50/rA+vl6untHnJ+aYnkQ0YDZciTWE78PPhOpbi2gR0LTJCJpiAhA+uQ==
+  version "21.6.15"
+  resolved "https://registry.yarnpkg.com/i18next/-/i18next-21.6.15.tgz#077e5798dbbd53d3aaa8ad66193758bd19836dbe"
+  integrity sha512-uMFyw5HGK9KSJ7ok/WUJfeNQj53VOR4NoITtErffWen2v2SjJfpCls7tKTLF1nTCdKRePY4lCoZMLKhRSj/1GA==
   dependencies:
     "@babel/runtime" "^7.17.2"
 
@@ -6272,9 +6272,9 @@ react-h5-audio-player@3.8.1:
     "@iconify/react" "^1.1.3"
 
 react-i18next@^11.8.13:
-  version "11.16.2"
-  resolved "https://registry.yarnpkg.com/react-i18next/-/react-i18next-11.16.2.tgz#650b18c12a624057ee2651ba4b4a989b526be554"
-  integrity sha512-1iuZduvARUelL5ux663FvIoDZExwFO+9QtRAAt4uvs1/aun4cUZt8XBrVg7iiDgNls9cOSORAhE7Ri5KA9RMvg==
+  version "11.16.5"
+  resolved "https://registry.yarnpkg.com/react-i18next/-/react-i18next-11.16.5.tgz#5258784b9b617c443811307072a434ec7447c70a"
+  integrity sha512-dkDN9suVU/jaD9A0xM4qNU9++LwgueWZn5XGTDEKTZeBgsd3q17ssTQXlSbEb0Gl0iLDdUKU7MrdjQjDc33ztA==
   dependencies:
     "@babel/runtime" "^7.14.5"
     html-escaper "^2.0.2"
