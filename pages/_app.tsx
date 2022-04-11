@@ -9,7 +9,6 @@ import React, { useEffect } from 'react'
 import { CookiesProvider } from 'react-cookie'
 import { unstable_batchedUpdates } from 'react-dom'
 import Modal from 'react-modal'
-import { ToastProvider } from 'react-toast-notifications'
 import {
   MobilePlayer,
   Modals,
@@ -27,6 +26,11 @@ import { initialState } from '~/state/omniauralState'
 import { playerLoadNowPlayingItem, saveCurrentPlaybackPositionToHistory } from '~/services/player/player'
 import { getNowPlayingItemOnServer } from '~/services/userNowPlayingItem'
 import { initializeMatomo, matomoTrackPageView } from '~/services/tracking'
+
+// TODO: temporarily using require instead of require to work around a build error happening
+// in the Github action pipeline: "'PlayerAudio' cannot be used as a JSX component."
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const { ToastProvider } = require('react-toast-notifications')
 
 declare global {
   /* *TODO* add proper types for global interfaces */

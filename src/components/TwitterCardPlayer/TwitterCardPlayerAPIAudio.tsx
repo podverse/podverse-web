@@ -1,10 +1,14 @@
 import { useOmniAural } from 'omniaural'
 import { createRef, useEffect } from 'react'
-import PlayerAudio from 'react-h5-audio-player'
 import { playerGetDuration, playerUpdateDuration, playerUpdatePlaybackPosition } from '~/services/player/player'
 import { audioInitialize, audioPause, audioSeekTo } from '~/services/player/playerAudio'
 import { setClipFlagPositions } from '~/services/player/playerFlags'
 import { OmniAuralState } from '~/state/omniauralState'
+
+// TODO: temporarily using require instead of require to work around a build error happening
+// in the Github action pipeline: "'PlayerAudio' cannot be used as a JSX component."
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const PlayerAudio = require('react-h5-audio-player')
 
 export const TwitterCardPlayerAPIAudio = () => {
   const [player] = useOmniAural('player') as [OmniAuralState['player']]

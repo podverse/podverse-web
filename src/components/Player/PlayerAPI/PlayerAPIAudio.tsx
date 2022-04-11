@@ -1,7 +1,6 @@
 import OmniAural, { useOmniAural } from 'omniaural'
 import { createRef, useEffect } from 'react'
 import { unstable_batchedUpdates } from 'react-dom'
-import PlayerAudio from 'react-h5-audio-player'
 import { retrieveLatestChaptersForEpisodeId } from '~/services/mediaRef'
 import { playerGetDuration, playerUpdateDuration, playerUpdatePlaybackPosition } from '~/services/player/player'
 import { audioInitialize, audioSeekTo } from '~/services/player/playerAudio'
@@ -9,6 +8,11 @@ import { enrichChapterDataForPlayer, handleChapterUpdateInterval } from '~/servi
 import { generateChapterFlagPositions, setClipFlagPositions } from '~/services/player/playerFlags'
 import { addOrUpdateHistoryItemOnServer } from '~/services/userHistoryItem'
 import { OmniAuralState } from '~/state/omniauralState'
+
+// TODO: temporarily using require instead of require to work around a build error happening
+// in the Github action pipeline: "'PlayerAudio' cannot be used as a JSX component."
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const PlayerAudio = require('react-h5-audio-player')
 
 type Props = unknown
 
@@ -85,10 +89,10 @@ export const PlayerAPIAudio = (props: Props) => {
   return (
     <PlayerAudio
       /*
-        NOTE: I had to set preload to metadata to avoid bugs with WebViews
-        refusing to handle changes to the <audio> currentTime properly.
-        Apparently using preload auto in <audio> causes bugs in WebViews.
-      */
+      NOTE: I had to set preload to metadata to avoid bugs with WebViews
+      refusing to handle changes to the <audio> currentTime properly.
+      Apparently using preload auto in <audio> causes bugs in WebViews.
+    */
       preload='metadata'
       onEnded={_onEnded}
       onLoadedMetaData={_onLoadedMetaData}

@@ -53,7 +53,7 @@ export default function XMPP(props: ServerProps) {
                 <a href='xmpp:translations@chat.podverse.fm'>translations@chat.podverse.fm</a>
               </p>
               <p>
-                {t('brandName chat is built with')}:<br />
+                {t('brandName chat is powered by')}:<br />
                 <a href='https://prosody.im/'>Prosody</a>
                 <br />
                 <a href='https://snikket.org'>Snikket</a>

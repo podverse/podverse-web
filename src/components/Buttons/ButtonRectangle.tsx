@@ -7,12 +7,22 @@ type Props = {
   disabled?: boolean
   isDanger?: boolean
   isLoading?: boolean
+  isSuccess?: boolean
   label: string
   onClick?: any
   type: 'primary' | 'secondary' | 'tertiary'
 }
 
-export const ButtonRectangle = ({ className, disabled, isDanger, isLoading, label, onClick, type }: Props) => {
+export const ButtonRectangle = ({
+  className,
+  disabled,
+  isDanger,
+  isLoading,
+  isSuccess,
+  label,
+  onClick,
+  type
+}: Props) => {
   const buttonClass = classnames(
     'button-rectangle',
     className ? className : '',
@@ -20,7 +30,8 @@ export const ButtonRectangle = ({ className, disabled, isDanger, isLoading, labe
     type === 'secondary' ? 'secondary' : '',
     type === 'tertiary' ? 'tertiary' : '',
     isLoading ? 'loading' : '',
-    isDanger ? 'danger' : ''
+    isDanger ? 'danger' : '',
+    isSuccess ? 'success' : ''
   )
 
   return (

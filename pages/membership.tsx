@@ -4,7 +4,7 @@ import OmniAural, { useOmniAural } from 'omniaural'
 import { Page } from '~/lib/utility/page'
 import { PV } from '~/resources'
 import {
-  ButtonLink,
+  ButtonRectangle,
   ColumnsWrapper,
   ComparisonTable,
   Footer,
@@ -49,17 +49,33 @@ export default function Membership(props: ServerProps) {
       <PageScrollableContent>
         <ColumnsWrapper
           mainColumnChildren={
-            <div className='text-page'>
+            <div className='text-page top-margin-below-tablet-max-width'>
               <MembershipStatus />
               <ComparisonTable
                 aboveSectionNodes={
                   <>
-                    <p>{t('Get 3 months free when you sign up for Podverse premium')}</p>
-                    <p>{t('18 per year after that')}</p>
+                    <p>
+                      {t('Enjoy Podverse Premium')}
+                      <br />
+                      {t('3 months free')}
+                      <br />
+                      {t('18 per year after that')}
+                    </p>
                     <div className='button-column'>
-                      {!userInfo && <ButtonLink label={t('Login')} onClick={() => OmniAural.modalsLoginShow()} />}
+                      {!userInfo && (
+                        <ButtonRectangle
+                          label={t('Login')}
+                          onClick={() => OmniAural.modalsLoginShow()}
+                          type='primary'
+                        />
+                      )}
                       {userInfo && (
-                        <ButtonLink label={t('Renew Membership')} onClick={() => OmniAural.modalsCheckoutShow()} />
+                        <ButtonRectangle
+                          isSuccess
+                          label={t('Renew Membership')}
+                          onClick={() => OmniAural.modalsCheckoutShow()}
+                          type='primary'
+                        />
                       )}
                     </div>
                   </>
@@ -90,47 +106,69 @@ const featuresData = (t) => [
     icon2: true
   },
   {
+    text: t('features - video playback'),
+    icon1: true,
+    icon2: true
+  },
+  {
     text: t('features - sleep timer'),
     icon1: true,
     icon2: true
   },
   {
-    text: t('features - light / dark mode'),
+    text: t('features - podcasting 2.0 chapters'),
     icon1: true,
     icon2: true
   },
   {
-    text: t('features - drag-and-drop queue'),
+    text: t('features - podcasting 2.0 cross-app comments'),
+    icon1: true,
+    icon2: true
+  },
+  {
+    text: t('features - podcasting 2.0 transcripts'),
+    icon1: true,
+    icon2: true
+  },
+  {
+    text: t('features - opml import and export'),
+    icon1: true,
+    icon2: true
+  },
+  // TODO: the web app hasn't been audited and updated for
+  // screen-reader accessibility, but the mobile app has.
+  // {
+  //   text: t('features - screen-reader accessibility'),
+  //   icon1: true,
+  //   icon2: true
+  // },
+  {
+    text: t('features - sync your subscriptions and queue across all your devices'),
     icon1: false,
     icon2: true
   },
   {
-    text: t('features - create and share clips'),
+    text: t('features - create and share podcast clips'),
     icon1: false,
     icon2: true
   },
   {
-    text: t('features - sync your subscriptions on all devices'),
+    text: t('features - create and share playlists'),
     icon1: false,
     icon2: true
   },
   {
-    text: t('features - sync your queue on all devices'),
+    text: t('features - mark episodes as played'),
     icon1: false,
     icon2: true
   },
   {
-    text: t('features - create playlists'),
+    text: t('features - subscribe to listener profiles'),
     icon1: false,
     icon2: true
   },
   {
-    text: t('features - download a backup of your data'),
-    icon1: false,
-    icon2: true
-  },
-  {
-    text: t('features - support free and open source software'),
+    text: t('features - support open source software'),
     icon1: true,
     icon2: true,
     iconType: 'smile'

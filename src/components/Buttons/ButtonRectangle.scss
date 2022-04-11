@@ -24,6 +24,13 @@
       }
     }
 
+    &.success {
+      @include themeGen() {
+        background-color: getThemeVal('buttonPrimarySuccessBackground');
+        color: getThemeVal('buttonPrimarySuccessTextColor');
+      }
+    }
+
     &:disabled {
       @include themeGen() {
         background-color: getThemeVal('buttonDisabledBackground') !important;
@@ -103,6 +110,12 @@
       &.danger:hover {
         @include themeGen() {
           background-color: getThemeVal('buttonPrimaryDangerRolloverBackground') !important;
+        }
+      }
+
+      &.success:hover {
+        @include themeGen() {
+          background-color: getThemeVal('buttonPrimarySuccessRolloverBackground') !important;
         }
       }
 
