@@ -18,10 +18,11 @@ type Props = {
 
 export const EpisodeListItem = ({ episode, handleRemove, podcast, showPodcastInfo, showRemoveButton }: Props) => {
   const { t } = useTranslation()
-  const { description, id, imageUrl } = episode
+  const { description, id, imageUrl, subtitle } = episode
   const title = episode.title || t('untitledEpisode')
   const episodePageUrl = `${PV.RoutePaths.web.episode}/${id}`
   const [isRemoving, setIsRemoving] = useState<boolean>(false)
+  const summaryText = subtitle || description
 
   const finalImageUrl = imageUrl ? imageUrl : podcast ? getPodcastShrunkImageUrl(podcast) : ''
 
@@ -50,7 +51,7 @@ export const EpisodeListItem = ({ episode, handleRemove, podcast, showPodcastInf
               <div
                 className='description'
                 dangerouslySetInnerHTML={{
-                  __html: striptags(description)
+                  __html: striptags(summaryText)
                 }}
               />
             </div>
