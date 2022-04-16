@@ -143,7 +143,7 @@ const featuresData = (t) => [
   //   icon2: true
   // },
   {
-    text: t('features - sync your subscriptions and queue across all your devices'),
+    text: t('features - Sync your subscriptions, queue, and history across all your devices'),
     icon1: false,
     icon2: true
   },

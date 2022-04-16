@@ -12,13 +12,13 @@ type Props = {
 
 export const EpisodeInfo = ({ episode, includeMediaItemControls = false, noMarginBottom }: Props) => {
   const { t } = useTranslation()
-  const description = episode.description || t('No episode notes available')
+  const summaryText = episode.description || episode.subtitle || t('No episode notes available')
   const episodeInfoClassName = classNames('episode-info', noMarginBottom ? 'no-margin-bottom' : '')
 
   return (
     <div className={episodeInfoClassName}>
       <h2>{t('Episode Notes')}</h2>
-      <TruncatedText dangerouslySetInnerHtml lines={3} text={description} />
+      <TruncatedText dangerouslySetInnerHtml lines={3} text={summaryText} />
       {includeMediaItemControls && <MediaItemControls buttonSize='large' episode={episode} />}
       <hr />
     </div>
