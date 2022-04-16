@@ -324,5 +324,14 @@
     "Subscribe": "Подписаться",
     "Support Podverse": "Поддержать Podverse",
     "Verify email modal": "Подтверждение адреса электронной почты",
-    "Verify Email": "Подтвердите адрес электронной почты"
+    "Verify Email": "Подтвердите адрес электронной почты",
+    "ContactXMPPText2": "Если у вас есть учетная запись XMPP, вы можете войти в наш официальный клиент чата:",
+    "ContactXMPPChatRooms": "XMPP комнаты",
+    "3 months free": "3 месяца бесплатно",
+    "brandName chat is powered by": "Живой чат Podverse работает на основе этих библиотек с открытым исходным кодом",
+    "features - podcasting 2.0 cross-app comments": "Podcasting 2.0 комментарии между приложениями",
+    "features - subscribe to listener profiles": "Подписаться на профили слушателей",
+    "Enjoy Podverse Premium": "Наслаждайтесь Podverse Premium",
+    "ContactXMPPText1": "XMPP - это бесплатная и открытая технология, которая позволяет любому желающему создать и разместить свою собственную универсальную платформу для чата.",
+    "features - Sync your subscriptions, queue, and history across all your devices": "Синхронизация подписок, очереди и истории на всех ваших устройствах"
 }
