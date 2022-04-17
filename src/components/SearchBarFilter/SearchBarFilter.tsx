@@ -10,6 +10,7 @@ type Props = {
   handleClear?: any
   handleSubmit?: any
   includeBottomPadding?: boolean
+  placeholder: string
   smaller?: boolean
 }
 
@@ -18,6 +19,7 @@ export const SearchBarFilter = ({
   handleClear,
   handleSubmit,
   includeBottomPadding,
+  placeholder,
   smaller
 }: Props) => {
   const { t } = useTranslation()
@@ -54,7 +56,7 @@ export const SearchBarFilter = ({
         handleEndButtonClearButtonClick={searchText && handleEndButtonClearButtonClick}
         onChange={handleOnChange}
         onSubmit={handleOnSubmit}
-        placeholder={t('Search for a podcast')}
+        placeholder={placeholder}
         type='text'
         value={searchText}
       />

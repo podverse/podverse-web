@@ -303,10 +303,12 @@ ServerProps) {
             handleClear={_handleSearchClear}
             handleSubmit={_handleSearchSubmit}
             includeBottomPadding={!isCategoriesPage}
+            placeholder={t('Search clips')}
           />
         )}
         {isCategoriesPage && (
           <Tiles
+            groupAriaLabel={t('Categories')}
             items={categories}
             onClick={(id: string) => {
               setFilterQuery({

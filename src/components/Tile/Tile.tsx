@@ -5,9 +5,9 @@ type TileProps = {
 
 export const Tile = ({ title, onClick }: TileProps) => {
   return (
-    <div className='tile-box' onClick={onClick}>
+    <li aria-label={title} className='tile-box' onClick={onClick} tabIndex={0}>
       <h1 className='tile-box-text'>{title}</h1>
-    </div>
+    </li>
   )
 }
 
@@ -17,14 +17,19 @@ type TileItem = {
 }
 
 type TilesProps = {
+  groupAriaLabel?: string
   items: TileItem[]
   onClick: (id: string) => void
 }
 
-export const Tiles = ({ items, onClick }: TilesProps) => {
+export const Tiles = ({ groupAriaLabel, items, onClick }: TilesProps) => {
   const tiles = items.map((item: TileItem) => (
     <Tile key={item.id} onClick={() => onClick(item.id)} title={item.title} />
   ))
 
-  return <div className='tiles'>{tiles}</div>
+  return (
+    <ul aria-label={groupAriaLabel} className='tiles'>
+      {tiles}
+    </ul>
+  )
 }

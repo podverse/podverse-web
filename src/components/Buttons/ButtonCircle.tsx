@@ -4,6 +4,7 @@ import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 import classnames from 'classnames'
 
 type Props = {
+  ariaLabel?: string
   className?: string
   faIcon: IconProp
   iconOnly?: boolean
@@ -12,11 +13,11 @@ type Props = {
   size: 'small' | 'medium' | 'large'
 }
 
-export const ButtonCircle = ({ className, faIcon, iconOnly, isLoading, onClick, size }: Props) => {
+export const ButtonCircle = ({ ariaLabel, className, faIcon, iconOnly, isLoading, onClick, size }: Props) => {
   const wrapperClass = classnames('button-circle', size, className, iconOnly ? 'icon-only' : '')
 
   return (
-    <button className={wrapperClass} onClick={onClick}>
+    <button aria-label={ariaLabel} className={wrapperClass} onClick={onClick}>
       {isLoading && <FontAwesomeIcon icon={faSpinner} spin />}
       {!isLoading && <FontAwesomeIcon icon={faIcon} />}
     </button>

@@ -1,5 +1,5 @@
 import { faDiscord, faGithub, faMastodon, faTwitter } from '@fortawesome/free-brands-svg-icons'
-import { faCopyright as faCopyrightRegular } from '@fortawesome/free-regular-svg-icons'
+import { faCopyright as faCopyrightRegular, faLightbulb } from '@fortawesome/free-regular-svg-icons'
 import { useTranslation } from 'react-i18next'
 import { PV } from '~/resources'
 import { Icon, NavBarBrand, PVLink } from '..'
@@ -10,28 +10,52 @@ export const Footer = () => {
   const socialLinks = (
     <>
       <li>
-        <a className='footer-social-link-github' href='https://github.com/podverse' target='_blank' rel='noreferrer'>
-          <Icon faIcon={faGithub} />
-        </a>
-      </li>
-      <li>
-        <a className='footer-social-link-twitter' href='https://twitter.com/podverse' target='_blank' rel='noreferrer'>
-          <Icon faIcon={faTwitter} />
-        </a>
-      </li>
-      <li>
-        <a className='footer-social-link-discord' href='https://discord.gg/6HkyNKR' target='_blank' rel='noreferrer'>
-          <Icon faIcon={faDiscord} />
-        </a>
-      </li>
-      <li>
         <a
+          aria-label={t('Social Media - Mastodon')}
           className='footer-social-link-mastodon'
           href='https://podcastindex.social/web/@podverse'
           target='_blank'
           rel='noreferrer'
         >
           <Icon faIcon={faMastodon} />
+        </a>
+      </li>
+      <li>
+        <a
+          aria-label={t('Social Media - Discord')}
+          className='footer-social-link-discord'
+          href='https://discord.gg/6HkyNKR'
+          target='_blank'
+          rel='noreferrer'
+        >
+          <Icon faIcon={faDiscord} />
+        </a>
+      </li>
+      <li>
+        <a
+          aria-label={t('Social Media - Twitter')}
+          className='footer-social-link-twitter'
+          href='https://twitter.com/podverse'
+          target='_blank'
+          rel='noreferrer'
+        >
+          <Icon faIcon={faTwitter} />
+        </a>
+      </li>
+      <li>
+        <PVLink ariaLabel={t('Social Media - XMPP')} className='footer-social-link-xmpp' href='/xmpp'>
+          <Icon faIcon={faLightbulb} />
+        </PVLink>
+      </li>
+      <li>
+        <a
+          aria-label={t('Social Media - GitHub')}
+          className='footer-social-link-github'
+          href='https://github.com/podverse'
+          target='_blank'
+          rel='noreferrer'
+        >
+          <Icon faIcon={faGithub} />
         </a>
       </li>
     </>

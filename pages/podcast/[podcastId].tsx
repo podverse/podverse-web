@@ -234,6 +234,7 @@ export default function Podcast({
                 handleClear={_handleSearchClear}
                 handleSubmit={_handleSearchSubmit}
                 includeBottomPadding
+                placeholder={filterType === PV.Filters.type._episodes ? t('Search episodes') : t('Search clips')}
                 smaller
               />
               <List>

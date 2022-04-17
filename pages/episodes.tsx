@@ -307,10 +307,12 @@ export default function Episodes({
             handleClear={_handleSearchClear}
             handleSubmit={_handleSearchSubmit}
             includeBottomPadding={!isCategoriesPage}
+            placeholder={t('Search episodes')}
           />
         )}
         {isCategoriesPage && (
           <Tiles
+            groupAriaLabel={t('Categories')}
             items={categories}
             onClick={(id: string) => {
               setFilterQuery({

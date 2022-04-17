@@ -6249,10 +6249,10 @@ react-dom@17.0.2:
     object-assign "^4.1.1"
     scheduler "^0.20.2"
 
-react-dropdown-select@4.8.0:
-  version "4.8.0"
-  resolved "https://registry.yarnpkg.com/react-dropdown-select/-/react-dropdown-select-4.8.0.tgz#0db97abbcd81e66ed91767c84398aae85915af15"
-  integrity sha512-4QwsPHfodUYkdjF81/9jEvfichbhvAtkLBF1xwucKQI62tcSJQuBAnU3LUNxYGzFGImdsj9meXPOo3hTMWnKqg==
+react-dropdown-select@4.8.4:
+  version "4.8.4"
+  resolved "https://registry.yarnpkg.com/react-dropdown-select/-/react-dropdown-select-4.8.4.tgz#beb67afe6800602bc0122239b5080f4c869a7ceb"
+  integrity sha512-pJ/btPXfYzJKqra9uay7sxcgGY2ju+3UKsgouw7qVuraI/5nhIHBqk19AGcackNnfC/t2l8+JCD6gjMEH7j99A==
   dependencies:
     "@emotion/core" "^10.0.27"
     "@emotion/styled" "^10.0.27"

@@ -53,11 +53,24 @@ export const HorizontalNavBar = ({ serverCookies }: Props) => {
     <div className='horizontal-navbar-wrapper'>
       <nav className='navbar-secondary main-max-width'>
         <div className='navbar-secondary__page-navs'>
-          <ButtonCircle className='backwards' faIcon={faChevronLeft} onClick={navigateBack} size='small' />
-          <ButtonCircle className='forwards' faIcon={faChevronRight} onClick={navigateForward} size='small' />
+          <ButtonCircle
+            ariaLabel={t('Go to previous page')}
+            className='backwards'
+            faIcon={faChevronLeft}
+            onClick={navigateBack}
+            size='small'
+          />
+          <ButtonCircle
+            ariaLabel={t('Go to next page')}
+            className='forwards'
+            faIcon={faChevronRight}
+            onClick={navigateForward}
+            size='small'
+          />
         </div>
         <div className='navbar-secondary__dropdown'>
           <Dropdown
+            dropdownAriaLabel={t('My account')}
             dropdownWidthClass='width-small'
             faIcon={userInfo ? faUserCircle : faUserCircleRegular}
             onChange={(selected) => PV.NavBar.dropdownOnChange(selected, router, userInfo)}

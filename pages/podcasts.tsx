@@ -310,10 +310,15 @@ export default function Podcasts({
       />
       <PageScrollableContent noPaddingTop={showLoginMessage || isCategoryPage}>
         {!showLoginMessage && !isCategoryPage && (
-          <SearchBarFilter handleClear={_handleSearchClear} handleSubmit={_handleSearchSubmit} />
+          <SearchBarFilter
+            handleClear={_handleSearchClear}
+            handleSubmit={_handleSearchSubmit}
+            placeholder={t('Search podcasts')}
+          />
         )}
         {isCategoriesPage && (
           <Tiles
+            groupAriaLabel={t('Categories')}
             items={categories}
             onClick={(id: string) => {
               setFilterQuery({

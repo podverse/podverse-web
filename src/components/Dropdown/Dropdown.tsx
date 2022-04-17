@@ -6,6 +6,7 @@ import Select from 'react-dropdown-select'
 import { useTranslation } from 'react-i18next'
 
 type Props = {
+  dropdownAriaLabel?: string
   dropdownWidthClass?: 'width-small' | 'width-medium' | 'width-large'
   faIcon?: IconProp
   hasClipEditButtons?: boolean
@@ -47,7 +48,14 @@ const dropdownHandleRenderer = (hideCaret?: boolean) => {
 }
 
 export const Dropdown = (props: Props) => {
-  const { dropdownWidthClass = 'width-small', hasClipEditButtons, onChange, options, outlineStyle } = props
+  const {
+    dropdownAriaLabel,
+    dropdownWidthClass = 'width-small',
+    hasClipEditButtons,
+    onChange,
+    options,
+    outlineStyle
+  } = props
   const { t } = useTranslation()
   const wrapperClass = classnames(
     outlineStyle ? 'outline-style' : '',
@@ -57,11 +65,13 @@ export const Dropdown = (props: Props) => {
 
   return (
     <Select
+      additionalProps={{ 'aria-label': dropdownAriaLabel }}
       className={wrapperClass}
       contentRenderer={() => contentRenderer(props, t)}
       disabled={options.length <= 1}
       dropdownHandleRenderer={() => dropdownHandleRenderer(props.hideCaret)}
       labelField='label'
+      name='what is this'
       onChange={options.length > 1 ? onChange : null}
       options={options}
       valueField='key'

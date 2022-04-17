@@ -3,13 +3,14 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 
 type Props = {
+  ariaLabel: string
   children: any
   className?: string
   href: string
   onClick?: any
 }
 
-export const PVLink = ({ children, className, href, onClick }: Props) => {
+export const PVLink = ({ ariaLabel, children, className, href, onClick }: Props) => {
   const router = useRouter()
   const linkClassName = classnames(className ? className : '')
 
@@ -23,7 +24,7 @@ export const PVLink = ({ children, className, href, onClick }: Props) => {
 
   return (
     <Link href={href}>
-      <a className={linkClassName} onClick={finalOnClick}>
+      <a className={linkClassName} aria-label={ariaLabel} onClick={finalOnClick}>
         {children}
       </a>
     </Link>
