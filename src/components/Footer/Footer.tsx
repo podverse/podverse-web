@@ -74,7 +74,7 @@ export const Footer = () => {
       </div>
       <div className='footer-middle'>
         <div className='footer-middle-site-links'>
-          <ul>
+          <ul aria-label={t('Footer links')}>
             <li>
               <PVLink className='footer-link-contact' href='/contact'>
                 {t('Contact')}
@@ -96,10 +96,12 @@ export const Footer = () => {
               </PVLink>
             </li>
           </ul>
-          <ul className='footer-right-section hide-below-tablet-max-width'>{socialLinks}</ul>
+          <ul aria-label={t('Social media links')} className='footer-right-section hide-below-tablet-max-width'>
+            {socialLinks}
+          </ul>
         </div>
         <div className='footer-middle-site-links'>
-          <ul>
+          <ul aria-label={t('Footer links continued')}>
             <li>
               <PVLink className='footer-link-mobile-app' href='/about'>
                 {t('Mobile App')}

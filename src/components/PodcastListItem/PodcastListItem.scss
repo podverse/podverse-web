@@ -1,4 +1,9 @@
 .podcast-list-item {
+  border-bottom: 1px solid;
+  @include themeGen() {
+    border-color: getThemeVal('divider');
+  }
+
   a {
     border-radius: $item-border-radius;
     display: flex;
@@ -33,10 +38,6 @@
       }
     }
   }
-}
-
-.podcast-list-item + hr {
-  margin-bottom: 0;
 }
 
 @media (hover: hover) {
