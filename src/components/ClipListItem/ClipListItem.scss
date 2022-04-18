@@ -77,12 +77,8 @@
 }
 
 .page-header.sub-header.no-margin-bottom + .list {
-  .clip-list-item {
-    margin: 24px 0;
-  }
-
   .clip-list-item:first-child {
-    margin: 0 0 24px 0;
+    margin: 0;
   }
 }
 

@@ -81,7 +81,7 @@ export const PodcastPageHeader = ({
         <div className='main-max-width'>
           <div className='top-wrapper'>
             <PVImage
-              alt={t('Podcast artwork')}
+              alt=''
               height={PV.Images.sizes.xtraLarge}
               src={imageUrl}
               width={PV.Images.sizes.xtraLarge}
@@ -100,6 +100,7 @@ export const PodcastPageHeader = ({
               <div className='header-sub-buttons hide-below-tablet-xl-max-width'>
                 {authorityFeedUrl?.url && (
                   <ButtonIcon
+                    ariaLabel={t('RSS Feed')}
                     className='header-rss-button'
                     faIcon={faRss}
                     href={authorityFeedUrl.url}
@@ -109,6 +110,7 @@ export const PodcastPageHeader = ({
                   />
                 )}
                 <ButtonIcon
+                  ariaLabel={t('Share')}
                   className='header-share-button'
                   faIcon={faShare}
                   isSecondary
@@ -116,6 +118,7 @@ export const PodcastPageHeader = ({
                 />
                 {!!fundingLinks.length && (
                   <ButtonIcon
+                    ariaLabel={t('Funding')}
                     className='header-funding-button'
                     faIcon={faDonate}
                     isSecondary

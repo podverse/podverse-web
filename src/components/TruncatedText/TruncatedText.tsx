@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import ShowMoreText from 'react-show-more-text'
 import striptags from 'striptags'
@@ -13,6 +13,28 @@ type Props = {
 export const TruncatedText = ({ dangerouslySetInnerHtml = false, lines, text }: Props) => {
   const { t } = useTranslation()
   const [isExpanded, setIsExpanded] = useState<boolean>(false)
+
+  useEffect(() => {
+    ariaToggleReadLineBreak(isExpanded)
+  }, [isExpanded])
+
+  /*
+    The react-show-more-text library renders <br> tags between each truncated line,
+    and this causes screen readers to focus on and read each truncated line twice.
+    To avoid this issue, we're adding aria-hidden to each <br> when the truncated text
+    is not expanded.
+  */
+  const ariaToggleReadLineBreak = (isExpanded: boolean) => {
+    setTimeout(() => {
+      if (!isExpanded) {
+        document.querySelectorAll('.truncated-text br')
+          .forEach((br) => br.setAttribute('aria-hidden', 'true'))
+      } else {
+        document.querySelectorAll('.truncated-text br')
+          .forEach((br) => br.setAttribute('aria-hidden', 'false'))
+      }
+    }, 1000)
+  }
 
   return (
     <ShowMoreText

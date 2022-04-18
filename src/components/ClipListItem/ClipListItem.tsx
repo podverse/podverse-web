@@ -14,7 +14,7 @@ type Props = {
   imageUrl?: string
   isLoggedInUserMediaRef?: boolean
   mediaRef: MediaRef
-  podcast: Podcast
+  podcast?: Podcast
   showImage?: boolean
   showRemoveButton?: boolean
 }
@@ -31,7 +31,7 @@ export const ClipListItem = ({
   const { t } = useTranslation()
   const { id, imageUrl } = mediaRef
   const title = getClipTitle(t, mediaRef.title, episode?.title)
-  const podcastTitle = getPodcastTitle(t, podcast)
+  const podcastTitle = podcast ? getPodcastTitle(t, podcast) : ''
   const episodeTitle = episode ? `${getEpisodeTitle(t, episode)}` : ''
   const clipPageUrl = `${PV.RoutePaths.web.clip}/${id}`
   const [isRemoving, setIsRemoving] = useState<boolean>(false)

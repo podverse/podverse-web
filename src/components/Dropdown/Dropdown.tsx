@@ -1,8 +1,8 @@
 import { IconProp } from '@fortawesome/fontawesome-svg-core'
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import Select from '@podverse/react-dropdown-select'
 import classnames from 'classnames'
-import Select from 'react-dropdown-select'
 import { useTranslation } from 'react-i18next'
 
 type Props = {
@@ -71,6 +71,7 @@ export const Dropdown = (props: Props) => {
   return (
     <Select
       additionalProps={{ 'aria-label': finalDropdownAriaLabel }}
+      dropdownAriaDescription={t('ARIA – Dropdown helper description')}
       className={wrapperClass}
       contentRenderer={() => contentRenderer(props, t)}
       disabled={options.length <= 1}
