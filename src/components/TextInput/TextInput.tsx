@@ -120,7 +120,7 @@ export const TextInput = ({
           />
         )}
       </div>
-      {helperText && <div className='helper-text'>{helperText}</div>}
+      {helperText && <div aria-live="assertive" className='helper-text'>{helperText}</div>}
     </div>
   )
 }

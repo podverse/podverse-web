@@ -22,7 +22,7 @@ export const NavBar = (props: Props) => {
         href={PV.RoutePaths.web.search}
         text={t('Search')}
       />
-      <hr className='top' />
+      <hr aria-hidden="true" className='top' />
       <div className='scrollable-content'>
         <NavBarLink
           active={router.pathname == PV.RoutePaths.web.podcasts || router.pathname == PV.RoutePaths.web.home}

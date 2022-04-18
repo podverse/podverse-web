@@ -63,7 +63,7 @@ export const Footer = () => {
 
   return (
     <footer className='footer'>
-      <hr />
+      <hr aria-hidden="true" />
       <div className='footer-top'>
         <NavBarBrand height={28} href={PV.RoutePaths.web.home} src={PV.Images.dark.brandLogo} width={150} />
         <div className='open-source-license'>
@@ -96,9 +96,7 @@ export const Footer = () => {
               </PVLink>
             </li>
           </ul>
-          <ul aria-label={t('Social media links')} className='footer-right-section hide-below-tablet-max-width'>
-            {socialLinks}
-          </ul>
+          <ul aria-label={t('Social media links')} className='footer-right-section hide-below-tablet-max-width'>{socialLinks}</ul>
         </div>
         <div className='footer-middle-site-links'>
           <ul aria-label={t('Footer links continued')}>

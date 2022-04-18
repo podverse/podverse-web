@@ -42,16 +42,19 @@ export const ForgotPasswordModal = (props: Props) => {
       isOpen={forgotPassword.show}
       onRequestClose={_onRequestClose}
     >
-      <ButtonClose onClick={_onRequestClose} />
       {resetPasswordSent && (
-        <div className='message-wrapper'>
-          <div className='message with-margin'>{t('Reset password email sent1')}</div>
-          <div className='message bottom'>{t('Reset password email sent2')}</div>
-        </div>
+        <>
+          <ButtonClose onClick={_onRequestClose} />
+          <div className='message-wrapper'>
+            <div className='message with-margin'>{t('Reset password email sent1')}</div>
+            <div className='message bottom'>{t('Reset password email sent2')}</div>
+          </div>
+        </>
       )}
       {!resetPasswordSent && (
         <>
           <h2>{t('Forgot Password')}</h2>
+          <ButtonClose onClick={_onRequestClose} />
           <TextInput
             label={t('Email')}
             onChange={setEmail}

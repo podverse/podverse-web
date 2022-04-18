@@ -1,12 +1,14 @@
-.episode-list-item-hr:last-child {
-  border: none;
-}
-
 .episode-list-item {
   display: flex;
   flex: 0;
   flex-direction: row;
-  margin: 0 0 20px 0;
+  margin: 20px 0 0 0;
+  padding: 0 0 20px 0;
+  border-bottom: 1px solid;
+  
+  @include themeGen() {
+    border-color: getThemeVal('divider');
+  }
 
   .main-wrapper {
     flex: 1;
@@ -32,7 +34,7 @@
           }
         }
 
-        h3 {
+        .title {
           margin-bottom: 9px;
           font-weight: $font-weight-medium;
           padding-bottom: 0;

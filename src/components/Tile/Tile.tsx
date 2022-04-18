@@ -6,7 +6,7 @@ type TileProps = {
 export const Tile = ({ title, onClick }: TileProps) => {
   return (
     <li aria-label={title} className='tile-box' onClick={onClick} tabIndex={0}>
-      <h1 className='tile-box-text'>{title}</h1>
+      <h1 aria-hidden="true" className='tile-box-text'>{title}</h1>
     </li>
   )
 }

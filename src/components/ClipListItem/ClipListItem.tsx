@@ -3,6 +3,7 @@ import { Episode, MediaRef, Podcast } from 'podverse-shared'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ButtonCircle, MediaItemControls, PVImage, PVLink } from '~/components'
+import { generateItemTimeInfo } from '~/lib/utility/date'
 import { getPodcastShrunkImageUrl } from '~/lib/utility/image'
 import { getClipTitle, getEpisodeTitle, getPodcastTitle } from '~/lib/utility/misc'
 import { PV } from '~/resources'
@@ -30,7 +31,8 @@ export const ClipListItem = ({
   const { t } = useTranslation()
   const { id, imageUrl } = mediaRef
   const title = getClipTitle(t, mediaRef.title, episode?.title)
-  const episodePodcastTitles = episode ? `${getEpisodeTitle(t, episode)} – ${getPodcastTitle(t, podcast)}` : ''
+  const podcastTitle = getPodcastTitle(t, podcast)
+  const episodeTitle = episode ? `${getEpisodeTitle(t, episode)}` : ''
   const clipPageUrl = `${PV.RoutePaths.web.clip}/${id}`
   const [isRemoving, setIsRemoving] = useState<boolean>(false)
 
@@ -42,6 +44,10 @@ export const ClipListItem = ({
     ? getPodcastShrunkImageUrl(podcast)
     : ''
 
+  const { pubDate, timeInfo } = generateItemTimeInfo(t, episode, mediaRef)
+
+  const linkAriaLabel = `${podcastTitle ? `${podcastTitle}, ` : ''} ${title}, ${episode ? `${episodeTitle}, ${pubDate}, ` : ''} ${timeInfo}`
+  
   const _handleRemove = async () => {
     setIsRemoving(true)
     await handleRemove()
@@ -52,25 +58,26 @@ export const ClipListItem = ({
     <>
       <li className='clip-list-item'>
         <div className='main-wrapper'>
-          <PVLink className='content-wrapper' href={clipPageUrl}>
+          <PVLink ariaLabel={linkAriaLabel} className='content-wrapper' href={clipPageUrl}>
             {showImage && (
               <PVImage
-                alt={t('Podcast artwork')}
+                alt=''
                 height={PV.Images.sizes.medium}
                 src={finalImageUrl}
                 width={PV.Images.sizes.medium}
               />
             )}
             <div className='text-wrapper'>
-              <h3>{title}</h3>
-              {episode && <div className='episode-podcast-titles'>{episodePodcastTitles}</div>}
+              {podcast && <div className='podcast-title'>{podcastTitle}</div>}
+              <div className='title'>{title}</div>
+              {episode && <div className='episode-title'>{episodeTitle}</div>}
             </div>
           </PVLink>
           <MediaItemControls
             buttonSize='medium'
-            clip={mediaRef}
             episode={episode}
             isLoggedInUserMediaRef={isLoggedInUserMediaRef}
+            mediaRef={mediaRef}
             podcast={podcast}
             stretchMiddleContent
           />
@@ -88,7 +95,6 @@ export const ClipListItem = ({
           </div>
         )}
       </li>
-      <hr className='clip-list-item-hr' />
     </>
   )
 }

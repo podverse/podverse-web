@@ -26,11 +26,11 @@ const contentRenderer = (props: Props, t: any) => {
   return (
     <div className='dropdown-wrapper'>
       {!!faIcon && (
-        <div className='dropdown__icon'>
+        <div aria-hidden="true" className='dropdown__icon'>
           <FontAwesomeIcon icon={faIcon} />
         </div>
       )}
-      {!!finalText && <div className='dropdown__text'>{t(`${finalText}`)}</div>}
+      {!!finalText && <div aria-hidden="true" className='dropdown__text'>{t(`${finalText}`)}</div>}
     </div>
   )
 }
@@ -54,7 +54,9 @@ export const Dropdown = (props: Props) => {
     hasClipEditButtons,
     onChange,
     options,
-    outlineStyle
+    outlineStyle,
+    selectedKey,
+    text
   } = props
   const { t } = useTranslation()
   const wrapperClass = classnames(
@@ -63,15 +65,17 @@ export const Dropdown = (props: Props) => {
     hasClipEditButtons ? 'has-clip-edit-buttons' : ''
   )
 
+  const selectedOption = options?.find((option) => option.key === selectedKey)
+  const finalDropdownAriaLabel = dropdownAriaLabel || text || selectedOption?.label
+
   return (
     <Select
-      additionalProps={{ 'aria-label': dropdownAriaLabel }}
+      additionalProps={{ 'aria-label': finalDropdownAriaLabel }}
       className={wrapperClass}
       contentRenderer={() => contentRenderer(props, t)}
       disabled={options.length <= 1}
       dropdownHandleRenderer={() => dropdownHandleRenderer(props.hideCaret)}
       labelField='label'
-      name='what is this'
       onChange={options.length > 1 ? onChange : null}
       options={options}
       valueField='key'

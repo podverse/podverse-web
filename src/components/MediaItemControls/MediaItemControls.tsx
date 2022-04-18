@@ -6,8 +6,7 @@ import type { Episode, MediaRef, NowPlayingItem, Podcast } from 'podverse-shared
 import { convertToNowPlayingItem } from 'podverse-shared'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { readableDate } from '~/lib/utility/date'
-import { convertSecToHhoursMMinutes, getTimeLabelText, readableClipTime } from '~/lib/utility/time'
+import { generateItemTimeInfo } from '~/lib/utility/date'
 import { deleteMediaRef } from '~/services/mediaRef'
 import {
   playerCheckIfItemIsCurrentlyPlaying,
@@ -22,7 +21,7 @@ import { ButtonCircle, Dropdown, Icon } from '..'
 
 type Props = {
   buttonSize: 'medium' | 'large'
-  clip?: MediaRef
+  mediaRef?: MediaRef
   episode?: Episode
   hidePubDate?: boolean
   isLoggedInUserMediaRef?: boolean
@@ -42,7 +41,7 @@ const _deleteClip = '_deleteClip'
 
 export const MediaItemControls = ({
   buttonSize,
-  clip,
+  mediaRef,
   episode,
   hidePubDate,
   isLoggedInUserMediaRef,
@@ -51,33 +50,14 @@ export const MediaItemControls = ({
 }: Props) => {
   const [userInfo] = useOmniAural('session.userInfo') as [OmniAuralState['session']['userInfo']]
   const [player] = useOmniAural('player') as [OmniAuralState['player']]
-  /* historyItemsIndex is way too big with useOmniAural */
-  // const [historyItemsIndex] = useOmniAural('historyItemsIndex')
-  const historyItemsIndex = OmniAural.state.historyItemsIndex.value()
+
   /* Since we're not using useOmniAural for historyItemsIndex, call setForceRefresh to re-render */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [forceRefresh, setForceRefresh] = useState<number>(0)
   const { t } = useTranslation()
-  let pubDate = null
-  let timeInfo = null
-  const timeRemaining = null
-  let completed = false
-  if (clip) {
-    pubDate = readableDate(clip.episode.pubDate)
-    timeInfo = readableClipTime(clip.startTime, clip.endTime)
-  } else if (episode) {
-    pubDate = readableDate(episode.pubDate)
-    const historyItem = historyItemsIndex.episodes[episode.id]
-    if (historyItem) {
-      timeInfo = getTimeLabelText(t, historyItem.d, episode.duration, historyItem.p)
-      completed = historyItem.c
-    } else if (episode.duration > 0) {
-      timeInfo = convertSecToHhoursMMinutes(episode.duration)
-    }
-  }
 
-  const nowPlayingItem: NowPlayingItem = clip
-    ? convertToNowPlayingItem(clip, episode, podcast)
+  const nowPlayingItem: NowPlayingItem = mediaRef
+    ? convertToNowPlayingItem(mediaRef, episode, podcast)
     : convertToNowPlayingItem(episode, null, podcast)
 
   const timeWrapperClass = classNames('time-wrapper', stretchMiddleContent ? 'flex-stretch' : '')
@@ -96,8 +76,8 @@ export const MediaItemControls = ({
       } else if (item.key === _addToPlaylistKey) {
         await modalsAddToPlaylistShowOrAlert(nowPlayingItem)
       } else if (item.key === _shareKey) {
-        if (clip) {
-          OmniAural.modalsShareShowClip(clip.id, episode.id, podcast.id)
+        if (mediaRef) {
+          OmniAural.modalsShareShowClip(mediaRef.id, episode.id, podcast.id)
         } else if (episode) {
           OmniAural.modalsShareShowEpisode(episode.id, podcast.id)
         } else if (podcast) {
@@ -171,7 +151,7 @@ export const MediaItemControls = ({
       { label: 'Share', key: _shareKey }
     ]
 
-    if (!clip) {
+    if (!mediaRef) {
       if (completed) {
         items.push({ label: 'Mark as Unplayed', key: _markAsUnplayedKey })
       } else {
@@ -191,16 +171,27 @@ export const MediaItemControls = ({
   const isCurrentlyPlayingItem = playerCheckIfItemIsCurrentlyPlaying(player.paused, nowPlayingItem)
   const togglePlayIcon = isCurrentlyPlayingItem ? faPause : faPlay
   const togglePlayClassName = isCurrentlyPlayingItem ? 'pause' : 'play'
+  const togglePlayAriaLabel = mediaRef
+    ? isCurrentlyPlayingItem
+      ? t('Pause this mediaRef')
+      : t('Play this clip')
+    : isCurrentlyPlayingItem
+      ? t('Pause this episode')
+      : t('Play this episode')
+
+  const { completed, pubDate, timeInfo, timeRemaining } = generateItemTimeInfo(t, episode, mediaRef)
 
   return (
     <div className='media-item-controls'>
       <ButtonCircle
+        ariaLabel={togglePlayAriaLabel}
+        ariaPressed
         className={togglePlayClassName}
         faIcon={togglePlayIcon}
         onClick={_handleTogglePlay}
         size={buttonSize}
       />
-      <div className={timeWrapperClass}>
+      <div aria-hidden="true" className={timeWrapperClass}>
         {!hidePubDate && <span className='pub-date'>{pubDate}</span>}
         {!!timeInfo && (
           <>
@@ -219,6 +210,7 @@ export const MediaItemControls = ({
         )}
       </div>
       <Dropdown
+        dropdownAriaLabel={t('More')}
         dropdownWidthClass='width-medium'
         faIcon={faEllipsisH}
         hasClipEditButtons={dropdownItems.length > 6}

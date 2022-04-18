@@ -6,7 +6,13 @@
   display: flex;
   flex: 0;
   flex-direction: row;
-  margin: 0 0 24px 0;
+  margin: 20px 0 0 0;
+  padding: 0 0 20px 0;
+  border-bottom: 1px solid;
+  
+  @include themeGen() {
+    border-color: getThemeVal('divider');
+  }
 
   .main-wrapper {
     flex: 1;
@@ -22,15 +28,27 @@
       }
 
       .text-wrapper {
-        h3 {
+        .podcast-title {
+          font-size: $text-sm;
+          font-weight: $font-weight-bold;
+          margin-bottom: 6px;
+        
+          @include themeGen() {
+            color: getThemeVal('textSecondary');
+          }
+        }
+
+        .title {
+          font-size: $text-xl;
+          font-weight: $font-weight-light;
           margin-bottom: 9px;
           padding-bottom: 0;
 
           @include line-clamp(4);
         }
 
-        .episode-podcast-titles {
-          font-size: $text-md;
+        .episode-title {
+          font-size: $text-sm;
 
           @include line-clamp(2);
 

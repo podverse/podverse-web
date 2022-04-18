@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 
 type Props = {
-  ariaLabel: string
+  ariaLabel?: string
   children: any
   className?: string
   href: string
