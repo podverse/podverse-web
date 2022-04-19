@@ -1,4 +1,5 @@
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'
+import { useTranslation } from 'next-i18next'
 import { ButtonCircle, ButtonSquare } from '~/components'
 
 type Props = {
@@ -20,6 +21,7 @@ export const Pagination = ({
   pageCount,
   show
 }: Props) => {
+  const { t } = useTranslation()
   const pageButtons = generatePageButtons(
     currentPageIndex,
     handlePagePrevious,
@@ -41,7 +43,7 @@ export const Pagination = ({
           <div className='pagination'>{pageButtons}</div>
           <div className='skip'>
             <button className='button-skip' onClick={handleClick}>
-              Skip to page
+              {t('Skip to page')}
             </button>
           </div>
         </div>

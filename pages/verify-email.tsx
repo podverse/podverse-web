@@ -60,7 +60,7 @@ export default function VerifyEmail(props: ServerProps) {
         twitterDescription={meta.description}
         twitterTitle={meta.title}
       />
-      <PageHeader text={'Verify Email'} />
+      <PageHeader text={t('Verify Email')} />
       <PageScrollableContent>
         <ColumnsWrapper
           mainColumnChildren={
