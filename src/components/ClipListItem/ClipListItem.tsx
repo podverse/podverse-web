@@ -82,6 +82,7 @@ export const ClipListItem = ({
         {showRemoveButton && (
           <div className='side-wrapper'>
             <ButtonCircle
+              ariaLabel={t('Remove')}
               className='remove'
               faIcon={faTimes}
               iconOnly
