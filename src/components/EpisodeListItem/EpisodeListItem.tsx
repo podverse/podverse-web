@@ -42,12 +42,7 @@ export const EpisodeListItem = ({ episode, handleRemove, podcast, showPodcastInf
         <div className='main-wrapper'>
           <PVLink ariaLabel={linkAriaLabel} className='content-wrapper' href={episodePageUrl}>
             {showPodcastInfo && (
-              <PVImage
-                alt=''
-                height={PV.Images.sizes.medium}
-                src={finalImageUrl}
-                width={PV.Images.sizes.medium}
-              />
+              <PVImage alt='' height={PV.Images.sizes.medium} src={finalImageUrl} width={PV.Images.sizes.medium} />
             )}
             <div className='text-wrapper'>
               {showPodcastInfo && <div className='podcast-title'>{podcast.title}</div>}

@@ -52,7 +52,7 @@ export const HorizontalNavBar = ({ serverCookies }: Props) => {
   return (
     <div className='horizontal-navbar-wrapper'>
       <nav className='navbar-secondary main-max-width'>
-        <div aria-label={t('Navigation history')} className='navbar-secondary__page-navs'>
+        <div className='navbar-secondary__page-navs'>
           <ButtonCircle
             ariaLabel={t('Page previous')}
             className='backwards'

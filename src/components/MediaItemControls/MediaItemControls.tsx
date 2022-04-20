@@ -59,6 +59,7 @@ export const MediaItemControls = ({
   const nowPlayingItem: NowPlayingItem = mediaRef
     ? convertToNowPlayingItem(mediaRef, episode, podcast)
     : convertToNowPlayingItem(episode, null, podcast)
+  const { completed, pubDate, timeInfo, timeRemaining } = generateItemTimeInfo(t, episode, mediaRef)
 
   const timeWrapperClass = classNames('time-wrapper', stretchMiddleContent ? 'flex-stretch' : '')
 
@@ -176,10 +177,8 @@ export const MediaItemControls = ({
       ? t('Pause this mediaRef')
       : t('Play this clip')
     : isCurrentlyPlayingItem
-      ? t('Pause this episode')
-      : t('Play this episode')
-
-  const { completed, pubDate, timeInfo, timeRemaining } = generateItemTimeInfo(t, episode, mediaRef)
+    ? t('Pause this episode')
+    : t('Play this episode')
 
   return (
     <div className='media-item-controls'>
@@ -191,7 +190,7 @@ export const MediaItemControls = ({
         onClick={_handleTogglePlay}
         size={buttonSize}
       />
-      <div aria-hidden="true" className={timeWrapperClass}>
+      <div aria-hidden='true' className={timeWrapperClass}>
         {!hidePubDate && <span className='pub-date'>{pubDate}</span>}
         {!!timeInfo && (
           <>

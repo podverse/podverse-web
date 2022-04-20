@@ -1,6 +1,6 @@
+import ShowMoreText from '@podverse/react-show-more-text'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import ShowMoreText from 'react-show-more-text'
 import striptags from 'striptags'
 import { sanitizeTextHtml } from '~/lib/utility/sanitize'
 
@@ -27,11 +27,9 @@ export const TruncatedText = ({ dangerouslySetInnerHtml = false, lines, text }: 
   const ariaToggleReadLineBreak = (isExpanded: boolean) => {
     setTimeout(() => {
       if (!isExpanded) {
-        document.querySelectorAll('.truncated-text br')
-          .forEach((br) => br.setAttribute('aria-hidden', 'true'))
+        document.querySelectorAll('.truncated-text br').forEach((br) => br.setAttribute('aria-hidden', 'true'))
       } else {
-        document.querySelectorAll('.truncated-text br')
-          .forEach((br) => br.setAttribute('aria-hidden', 'false'))
+        document.querySelectorAll('.truncated-text br').forEach((br) => br.setAttribute('aria-hidden', 'false'))
       }
     }, 1000)
   }
@@ -44,6 +42,7 @@ export const TruncatedText = ({ dangerouslySetInnerHtml = false, lines, text }: 
       lines={lines}
       more={t('Show More')}
       onClick={() => setIsExpanded(!isExpanded)}
+      showMoreLessRole='button'
     >
       {dangerouslySetInnerHtml && (
         <div

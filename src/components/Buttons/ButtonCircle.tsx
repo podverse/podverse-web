@@ -15,7 +15,16 @@ type Props = {
   size: 'small' | 'medium' | 'large'
 }
 
-export const ButtonCircle = ({ ariaLabel, ariaPressed, className, faIcon, iconOnly, isLoading, onClick, size }: Props) => {
+export const ButtonCircle = ({
+  ariaLabel,
+  ariaPressed,
+  className,
+  faIcon,
+  iconOnly,
+  isLoading,
+  onClick,
+  size
+}: Props) => {
   const wrapperClass = classnames('button-circle', size, className, iconOnly ? 'icon-only' : '')
 
   return (

@@ -46,8 +46,10 @@ export const ClipListItem = ({
 
   const { pubDate, timeInfo } = generateItemTimeInfo(t, episode, mediaRef)
 
-  const linkAriaLabel = `${podcastTitle ? `${podcastTitle}, ` : ''} ${title}, ${episode ? `${episodeTitle}, ${pubDate}, ` : ''} ${timeInfo}`
-  
+  const linkAriaLabel = `${podcastTitle ? `${podcastTitle}, ` : ''} ${title}, ${
+    episode ? `${episodeTitle}, ${pubDate}, ` : ''
+  } ${timeInfo}`
+
   const _handleRemove = async () => {
     setIsRemoving(true)
     await handleRemove()
@@ -60,12 +62,7 @@ export const ClipListItem = ({
         <div className='main-wrapper'>
           <PVLink ariaLabel={linkAriaLabel} className='content-wrapper' href={clipPageUrl}>
             {showImage && (
-              <PVImage
-                alt=''
-                height={PV.Images.sizes.medium}
-                src={finalImageUrl}
-                width={PV.Images.sizes.medium}
-              />
+              <PVImage alt='' height={PV.Images.sizes.medium} src={finalImageUrl} width={PV.Images.sizes.medium} />
             )}
             <div className='text-wrapper'>
               {podcast && <div className='podcast-title'>{podcastTitle}</div>}

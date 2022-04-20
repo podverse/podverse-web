@@ -1,6 +1,8 @@
 import classNames from 'classnames'
 
 type Props = {
+  ariaHidden?: boolean
+  ariaLabel?: string
   currentValue?: number
   className?: string
   endVal: number
@@ -13,6 +15,8 @@ type Props = {
 }
 
 export const Slider = ({
+  ariaHidden,
+  ariaLabel,
   className,
   currentValue = 0,
   endVal = 0,
@@ -59,9 +63,10 @@ export const Slider = ({
 
   const flagElements = generateFlagElements()
   const highlightedSectionElement = generateHighlightedSectionElement()
+  const tabIndex = ariaHidden ? -1 : 0
 
   return (
-    <div className={slider}>
+    <div aria-label={ariaLabel} className={slider}>
       {flagElements}
       {highlightedSectionElement}
       <input
@@ -71,6 +76,7 @@ export const Slider = ({
           onValueChange && onValueChange(event.target.valueAsNumber)
         }}
         step={step}
+        tabIndex={tabIndex}
         type='range'
         value={currentValue}
       />

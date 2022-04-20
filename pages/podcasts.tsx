@@ -205,6 +205,7 @@ export default function Podcasts({
     if (selectedItem.key !== filterSort) newPage = 1
     setFilterQuery({
       ...filterQuery,
+      filterSort: selectedItem.key,
       filterPage: newPage
     })
   }

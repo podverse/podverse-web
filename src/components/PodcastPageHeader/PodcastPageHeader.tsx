@@ -80,18 +80,13 @@ export const PodcastPageHeader = ({
       <div className={headerClass}>
         <div className='main-max-width'>
           <div className='top-wrapper'>
-            <PVImage
-              alt=''
-              height={PV.Images.sizes.xtraLarge}
-              src={imageUrl}
-              width={PV.Images.sizes.xtraLarge}
-            />
+            <PVImage alt='' height={PV.Images.sizes.xtraLarge} src={imageUrl} width={PV.Images.sizes.xtraLarge} />
             <div className='text-wrapper'>
               <div className='podcast-title'>
                 <PVLink href={podcastTitleLinkUrl}>{podcastTitle}</PVLink>
               </div>
               {hasBelowText && (
-                <div className='sub-labels hide-below-tablet-xl-max-width'>
+                <div className='sub-labels hide-below-tablet-xl-max-width' tabIndex={0}>
                   {authorEls.length > 0 && authorEls}
                   {authorEls.length > 0 && categoryEls.length > 0 && ' • '}
                   {categoryEls.length > 0 && categoryEls}
@@ -137,7 +132,7 @@ export const PodcastPageHeader = ({
           </div>
           <div className='bottom-wrapper hide-above-laptop-min-width'>
             {hasBelowText && (
-              <div className='sub-labels'>
+              <div className='sub-labels' tabIndex={0}>
                 {authorEls.length > 0 && authorEls}
                 {authorEls.length > 0 && categoryEls.length > 0 && ' • '}
                 {categoryEls.length > 0 && categoryEls}

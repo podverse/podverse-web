@@ -48,6 +48,7 @@
     "@fortawesome/free-solid-svg-icons": "5.15.4",
     "@fortawesome/react-fontawesome": "0.1.16",
     "@podverse/react-dropdown-select": "4.8.4-beta.2",
+    "@podverse/react-show-more-text": "1.5.1-beta.2",
     "axios": "0.24.0",
     "classnames": "2.3.1",
     "debounce": "1.2.1",

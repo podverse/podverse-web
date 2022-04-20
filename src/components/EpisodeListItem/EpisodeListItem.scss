@@ -5,7 +5,7 @@
   margin: 20px 0 0 0;
   padding: 0 0 20px 0;
   border-bottom: 1px solid;
-  
+
   @include themeGen() {
     border-color: getThemeVal('divider');
   }
@@ -36,6 +36,7 @@
 
         .title {
           margin-bottom: 9px;
+          font-size: $text-xl;
           font-weight: $font-weight-medium;
           padding-bottom: 0;
 

@@ -26,11 +26,15 @@ const contentRenderer = (props: Props, t: any) => {
   return (
     <div className='dropdown-wrapper'>
       {!!faIcon && (
-        <div aria-hidden="true" className='dropdown__icon'>
+        <div aria-hidden='true' className='dropdown__icon'>
           <FontAwesomeIcon icon={faIcon} />
         </div>
       )}
-      {!!finalText && <div aria-hidden="true" className='dropdown__text'>{t(`${finalText}`)}</div>}
+      {!!finalText && (
+        <div aria-hidden='true' className='dropdown__text'>
+          {t(`${finalText}`)}
+        </div>
+      )}
     </div>
   )
 }
@@ -70,7 +74,7 @@ export const Dropdown = (props: Props) => {
 
   return (
     <Select
-      additionalProps={{ 'aria-label': finalDropdownAriaLabel }}
+      additionalProps={{ 'aria-label': finalDropdownAriaLabel, role: 'button' }}
       dropdownAriaDescription={t('ARIA – Dropdown helper description')}
       className={wrapperClass}
       contentRenderer={() => contentRenderer(props, t)}

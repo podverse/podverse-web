@@ -15,12 +15,14 @@ import {
   playerPlayPreviousChapterOrReturnToBeginningOfTrack
 } from '~/services/player/player'
 import { OmniAuralState } from '~/state/omniauralState'
+import { useTranslation } from 'next-i18next'
 
 type Props = {
   hasMiniJump?: boolean
 }
 
 export const PlayerProgressButtons = ({ hasMiniJump }: Props) => {
+  const { t } = useTranslation()
   const [player] = useOmniAural('player') as [OmniAuralState['player']]
   const { paused } = player
   const container = classnames('progress-button-container')
@@ -58,11 +60,24 @@ export const PlayerProgressButtons = ({ hasMiniJump }: Props) => {
     <div className={container}>
       <div className='top-row'>
         {!hasMiniJump && (
-          <PlayerControlButton direction='backwards' onClick={_handleTrackPrevious} size='medium' type='skip' />
+          <PlayerControlButton
+            ariaLabel={t('Previous track')}
+            direction='backwards'
+            onClick={_handleTrackPrevious}
+            size='medium'
+            type='skip'
+          />
         )}
-        <PlayerControlButton direction='backwards' onClick={_handleTimeJumpBackwards} size='medium' type='jump' />
+        <PlayerControlButton
+          ariaLabel={t('Jump back 10 seconds')}
+          direction='backwards'
+          onClick={_handleTimeJumpBackwards}
+          size='medium'
+          type='jump'
+        />
         {hasMiniJump && (
           <PlayerControlButton
+            ariaLabel={t('Jump back 1 second')}
             direction='backwards'
             onClick={_handleTimeJumpMiniBackwards}
             size='medium'
@@ -70,6 +85,8 @@ export const PlayerProgressButtons = ({ hasMiniJump }: Props) => {
           />
         )}
         <ButtonCircle
+          ariaLabel={paused ? t('Play') : t('Pause')}
+          ariaPressed
           className={playpause}
           faIcon={paused ? faPlay : faPause}
           onClick={_handleTogglePlay}
@@ -77,15 +94,28 @@ export const PlayerProgressButtons = ({ hasMiniJump }: Props) => {
         />
         {hasMiniJump && (
           <PlayerControlButton
+            ariaLabel={t('Jump forward 1 second')}
             direction='forwards'
             onClick={_handleTimeJumpMiniForwards}
             size='medium'
             type='mini-jump'
           />
         )}
-        <PlayerControlButton direction='forwards' onClick={_handleTimeJumpForwards} size='medium' type='jump' />
+        <PlayerControlButton
+          ariaLabel={t('Jump forward 30 seconds')}
+          direction='forwards'
+          onClick={_handleTimeJumpForwards}
+          size='medium'
+          type='jump'
+        />
         {!hasMiniJump && (
-          <PlayerControlButton direction='forwards' onClick={_handleTrackNext} size='medium' type='skip' />
+          <PlayerControlButton
+            ariaLabel={t('Next track')}
+            direction='forwards'
+            onClick={_handleTrackNext}
+            size='medium'
+            type='skip'
+          />
         )}
       </div>
       <div className='bottom-row'>

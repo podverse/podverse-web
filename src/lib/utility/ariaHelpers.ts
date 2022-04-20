@@ -1,5 +1,5 @@
-import { Episode, MediaRef } from "podverse-shared"
-import { generateItemTimeInfo } from "./date"
+import { Episode, MediaRef } from 'podverse-shared'
+import { generateItemTimeInfo } from './date'
 
 export const generateAriaItemTimeInfo = (t: any, episode: Episode, clip?: MediaRef) => {
   const { completed, pubDate, timeInfo /*, timeRemaining */ } = generateItemTimeInfo(t, episode, clip)

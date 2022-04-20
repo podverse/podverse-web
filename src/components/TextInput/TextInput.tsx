@@ -66,6 +66,8 @@ export const TextInput = ({
   const _handleKeyDown = (event) => {
     if (event.key === 'Enter') {
       onSubmit && onSubmit()
+    } else if (onBlur && event.key === 'Tab') {
+      onBlur()
     }
   }
 
@@ -120,7 +122,11 @@ export const TextInput = ({
           />
         )}
       </div>
-      {helperText && <div aria-live="assertive" className='helper-text'>{helperText}</div>}
+      {helperText && (
+        <div aria-live='assertive' className='helper-text'>
+          {helperText}
+        </div>
+      )}
     </div>
   )
 }

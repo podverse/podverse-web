@@ -233,7 +233,6 @@ export default function Podcast({
               <SearchBarFilter
                 handleClear={_handleSearchClear}
                 handleSubmit={_handleSearchSubmit}
-                includeBottomPadding
                 placeholder={filterType === PV.Filters.type._episodes ? t('Search episodes') : t('Search clips')}
                 smaller
               />

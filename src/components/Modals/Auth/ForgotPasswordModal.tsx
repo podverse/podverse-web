@@ -1,5 +1,5 @@
 import OmniAural, { useOmniAural } from 'omniaural'
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import Modal from 'react-modal'
 import { ButtonClose, ButtonRectangle, TextInput } from '~/components'
@@ -14,6 +14,13 @@ export const ForgotPasswordModal = (props: Props) => {
   const [email, setEmail] = useState<string>('')
   const [resetPasswordSent, setResetPasswordSent] = useState<boolean>(false)
   const [isSubmitPressed, setIsSubmitPressed] = useState<boolean>(false)
+  const autoFocusSentElement = useRef()
+
+  useEffect(() => {
+    if (resetPasswordSent) {
+      autoFocusSentElement?.current?.focus()
+    }
+  }, [resetPasswordSent])
 
   /* Event Handlers */
 
@@ -45,7 +52,7 @@ export const ForgotPasswordModal = (props: Props) => {
       {resetPasswordSent && (
         <>
           <ButtonClose onClick={_onRequestClose} />
-          <div className='message-wrapper'>
+          <div className='message-wrapper' ref={autoFocusSentElement} tabIndex={0}>
             <div className='message with-margin'>{t('Reset password email sent1')}</div>
             <div className='message bottom'>{t('Reset password email sent2')}</div>
           </div>

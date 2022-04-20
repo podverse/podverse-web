@@ -130,7 +130,9 @@ export const PasswordInputs = ({ handleClose, handleSubmit, hideEmail, isSignUpP
           value={email}
         />
       )}
-      <div className='aria-invisible'>{t('Password requirements explanation')}</div>
+      <div className='aria-invisible' tabIndex={0}>
+        {t('Password requirements explanation')}
+      </div>
       <TextInput
         helperText={password1WarningText}
         isDanger={!!password1WarningText}

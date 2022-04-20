@@ -47,15 +47,14 @@ type CommentProps = {
 const Comment = ({ children, comment }: CommentProps) => {
   const { content, imageUrl, isRoot, profileIcon, published, url, username } = comment
   const withTime = true
+  const finalProfileIcon = profileIcon ? profileIcon : '/images/Profile_avatar_placeholder_large.png'
 
   return (
     <div className='comment'>
       <div className='inner-comment-wrapper'>
-        {profileIcon ? (
-          <div className='profile-icon'>
-            <PVImage src={profileIcon} width='36' />
-          </div>
-        ) : null}
+        <div aria-hidden='true' className='profile-icon'>
+          <PVImage src={finalProfileIcon} width='36' />
+        </div>
         <a className='inner-wrapper' href={url} rel='noreferrer' target='_blank'>
           <div className='username'>{username}</div>
           <div className='content'>{content}</div>

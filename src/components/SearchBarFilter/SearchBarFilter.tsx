@@ -2,7 +2,6 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import classNames from 'classnames'
 import debounce from 'debounce'
 import { useMemo, useState } from 'react'
-import { useTranslation } from 'react-i18next'
 import { TextInput } from '~/components'
 
 type Props = {
@@ -22,7 +21,6 @@ export const SearchBarFilter = ({
   placeholder,
   smaller
 }: Props) => {
-  const { t } = useTranslation()
   const [searchText, setSearchText] = useState<string>('')
   const wrapperClass = classNames(
     'search-bar-filter',
