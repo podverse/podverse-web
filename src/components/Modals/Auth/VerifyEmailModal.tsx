@@ -1,5 +1,5 @@
 import OmniAural, { useOmniAural } from 'omniaural'
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import Modal from 'react-modal'
 import { ButtonClose, ButtonRectangle } from '~/components'
@@ -13,7 +13,7 @@ export const VerifyEmailModal = (props: Props) => {
   const { show, showSendVerificationEmailButton } = verifyEmail
   const { t } = useTranslation()
   const [isVerifyPressed, setIsVerifyPressed] = useState<boolean>(false)
-  const autoFocusElement = useRef()
+  const autoFocusElement = useRef<any>()
 
   /* Event Handlers */
 

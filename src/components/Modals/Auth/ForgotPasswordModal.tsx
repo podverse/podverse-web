@@ -14,7 +14,7 @@ export const ForgotPasswordModal = (props: Props) => {
   const [email, setEmail] = useState<string>('')
   const [resetPasswordSent, setResetPasswordSent] = useState<boolean>(false)
   const [isSubmitPressed, setIsSubmitPressed] = useState<boolean>(false)
-  const autoFocusSentElement = useRef()
+  const autoFocusSentElement = useRef<any>()
 
   useEffect(() => {
     if (resetPasswordSent) {

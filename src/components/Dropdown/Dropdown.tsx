@@ -1,9 +1,11 @@
 import { IconProp } from '@fortawesome/fontawesome-svg-core'
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import Select from '@podverse/react-dropdown-select'
 import classnames from 'classnames'
 import { useTranslation } from 'react-i18next'
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const Select = require('@podverse/react-dropdown-select')
 
 type Props = {
   dropdownAriaLabel?: string

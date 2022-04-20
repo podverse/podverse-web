@@ -14,7 +14,7 @@ export const LoginModal = (props: Props) => {
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
   const [isSubmitPressed, setIsSubmitPressed] = useState<boolean>(false)
-  const autoFocusHeaderRef = useRef()
+  const autoFocusHeaderRef = useRef<any>()
 
   /* Event Handlers */
 

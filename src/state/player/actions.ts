@@ -77,7 +77,7 @@ const playerFullViewShow = () => {
   OmniAural.state.player.showFullView.set(true)
 
   setTimeout(() => {
-    const playerFullViewAriaHeader = document.querySelector('.player-full-view .aria-header')
+    const playerFullViewAriaHeader = document.querySelector('.player-full-view .aria-header') as HTMLElement
     playerFullViewAriaHeader?.focus()
   }, 0)
 }
