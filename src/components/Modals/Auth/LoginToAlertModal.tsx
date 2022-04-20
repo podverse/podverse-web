@@ -49,7 +49,9 @@ export const LoginToAlertModal = (props: Props) => {
     >
       <ButtonClose onClick={_onRequestClose} />
       <div className='message-wrapper'>
-        <div className='message with-margin'>{getMessageText()}</div>
+        <div className='message with-margin' tabIndex={0}>
+          {getMessageText()}
+        </div>
       </div>
       <div className='submit-buttons'>
         <ButtonRectangle label={t('Close')} onClick={_onRequestClose} type='secondary' />

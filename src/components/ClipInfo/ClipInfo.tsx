@@ -8,17 +8,17 @@ import { PV } from '~/resources'
 import { OmniAuralState } from '~/state/omniauralState'
 
 type Props = {
-  clip: MediaRef
   episode: Episode
   includeMediaItemControls?: boolean
+  mediaRef: MediaRef
 }
 
-export const ClipInfo = ({ clip, episode }: Props) => {
+export const ClipInfo = ({ episode, mediaRef }: Props) => {
   const { t } = useTranslation()
   const [userInfo] = useOmniAural('session.userInfo') as [OmniAuralState['session']['userInfo']]
   const episodeTitle = getEpisodeTitle(t, episode)
   const episodePubDate = readableDate(episode.pubDate)
-  const title = getClipTitle(t, clip.title, episode.title)
+  const title = getClipTitle(t, mediaRef.title, episode.title)
 
   const episodeLinkUrl = episode ? `${PV.RoutePaths.web.episode}/${episode.id}` : ''
 
@@ -31,10 +31,10 @@ export const ClipInfo = ({ clip, episode }: Props) => {
       <div className='clip-title'>{title}</div>
       <MediaItemControls
         buttonSize='large'
-        clip={clip}
         episode={episode}
         hidePubDate
-        isLoggedInUserMediaRef={userInfo && userInfo.id === clip.owner.id}
+        isLoggedInUserMediaRef={userInfo && userInfo.id === mediaRef.owner.id}
+        mediaRef={mediaRef}
         podcast={episode.podcast}
       />
       <hr />

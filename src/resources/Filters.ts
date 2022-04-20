@@ -96,9 +96,9 @@ export const Filters = {
     },
     clips: {
       from: [
-        { label: 'All', key: _all },
-        { label: 'Subscribed', key: _subscribed },
-        { label: 'Category', key: _category }
+        { ariaLabel: 'Filtering by all podcasts', label: 'All', key: _all },
+        { ariaLabel: 'Filtering by subscribed', label: 'Subscribed', key: _subscribed },
+        { ariaLabel: 'Filtering by category', label: 'Category', key: _category }
       ],
       sort: {
         all: [

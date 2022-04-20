@@ -11,6 +11,9 @@ import {
 import classnames from 'classnames'
 
 type Props = {
+  ariaDescription?: string
+  ariaLabel?: string
+  ariaPressed?: boolean
   className?: string
   onClick?: any
   size: 'small' | 'medium' | 'large'
@@ -18,7 +21,16 @@ type Props = {
   children?: any
 }
 
-export const PlayerOptionButton = ({ className, onClick, size, type, children }: Props) => {
+export const PlayerOptionButton = ({
+  ariaDescription,
+  ariaLabel,
+  ariaPressed,
+  className,
+  onClick,
+  size,
+  type,
+  children
+}: Props) => {
   const wrapperClass = classnames(className, 'player-option-button', size)
   let icon = null
   switch (type) {
@@ -51,7 +63,13 @@ export const PlayerOptionButton = ({ className, onClick, size, type, children }:
   }
 
   return (
-    <button className={wrapperClass} onClick={onClick}>
+    <button
+      aria-description={ariaDescription}
+      aria-label={ariaLabel}
+      aria-pressed={ariaPressed}
+      className={wrapperClass}
+      onClick={onClick}
+    >
       {icon && <FontAwesomeIcon icon={icon} />}
       {children}
     </button>

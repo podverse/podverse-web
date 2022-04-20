@@ -27,7 +27,8 @@ export const Pagination = ({
     handlePagePrevious,
     handlePageNavigate,
     handlePageNext,
-    pageCount
+    pageCount,
+    t
   )
 
   function handleClick(e: React.MouseEvent<HTMLButtonElement>) {
@@ -39,7 +40,7 @@ export const Pagination = ({
   return (
     <>
       {show ? (
-        <div>
+        <div aria-label={t('Page numbers')} role='group'>
           <div className='pagination'>{pageButtons}</div>
           <div className='skip'>
             <button className='button-skip' onClick={handleClick}>
@@ -54,8 +55,9 @@ export const Pagination = ({
 
 /* Helpers */
 
-const prevButton = (handlePagePrev: any) => (
+const prevButton = (handlePagePrev: any, t: any) => (
   <ButtonCircle
+    ariaLabel={t('Page previous')}
     className='backwards'
     faIcon={faChevronLeft}
     key={`${keyPrefix}-backwards`}
@@ -66,8 +68,9 @@ const prevButton = (handlePagePrev: any) => (
   />
 )
 
-const nextButton = (handlePageNext: any) => (
+const nextButton = (handlePageNext: any, t: any) => (
   <ButtonCircle
+    ariaLabel={t('Page next')}
     className='forwards'
     faIcon={faChevronRight}
     key={`${keyPrefix}-forwards`}
@@ -94,11 +97,12 @@ const generatePageButtons = (
   handlePagePrev: any,
   handlePageNavigate: any,
   handlePageNext: any,
-  pageCount: number
+  pageCount: number,
+  t: any
 ) => {
   const components = []
   if (pageCount >= 5) {
-    components.push(prevButton(handlePagePrev))
+    components.push(prevButton(handlePagePrev, t))
   }
 
   let maxPageButtons = 5
@@ -124,7 +128,7 @@ const generatePageButtons = (
   }
 
   if (pageCount >= 5) {
-    components.push(nextButton(handlePageNext))
+    components.push(nextButton(handlePageNext, t))
   }
 
   return components

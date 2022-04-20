@@ -48,9 +48,9 @@ export const ConfirmDeleteAccountModal = (props: Props) => {
       isOpen={confirmDeleteAccount.show}
       onRequestClose={_onRequestClose}
     >
-      <h2>{t('Delete Account')}</h2>
+      <h2 tabIndex={0}>{t('Delete Account')}</h2>
       <ButtonClose onClick={_onRequestClose} />
-      <div className='header-wrapper'>
+      <div className='header-wrapper' tabIndex={0}>
         <p>{t('ConfirmDeleteModalLine1')}</p>
         <p>{t('ConfirmDeleteModalLine2')}</p>
       </div>
@@ -66,7 +66,7 @@ export const ConfirmDeleteAccountModal = (props: Props) => {
       <div className='buttons-wrapper'>
         <ButtonRectangle label={t('Cancel')} onClick={_onRequestClose} type='secondary' />
         <ButtonRectangle
-          disabled={confirmText !== 'delete'}
+          disabled={confirmText !== t('delete')}
           isDanger
           isLoading={isDeleteAccountPressed}
           label={t('Delete Account')}

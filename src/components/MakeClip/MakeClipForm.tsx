@@ -149,12 +149,12 @@ export const MakeClipForm = ({ handleCancel }: Props) => {
     <div className='make-clip-form'>
       <div className='make-clip-header-wrapper'>
         <PVImage
-          alt={t('Podcast artwork')}
+          alt=''
           height={PV.Images.sizes.medium}
           src={currentNowPlayingItem.episodeImageUrl || currentNowPlayingItem.podcastImageUrl}
           width={PV.Images.sizes.medium}
         />
-        <h1>{headerText}</h1>
+        <h1 tabIndex={0}>{headerText}</h1>
         <Dropdown
           dropdownWidthClass='width-medium'
           onChange={_privacyOnChange}
@@ -179,6 +179,7 @@ export const MakeClipForm = ({ handleCancel }: Props) => {
           defaultValue={startTime}
           faIconEnd={faPlay}
           handleIconEndClick={_handlePreviewStartTime}
+          iconEndAriaLabel={t('Preview clip from start time')}
           label={t('Start time')}
           onChange={_startTimeOnChange}
           onSubmit={_handleSaveClip}
@@ -189,6 +190,7 @@ export const MakeClipForm = ({ handleCancel }: Props) => {
           defaultValue={endTime}
           faIconEnd={faPlay}
           handleIconEndClick={_handlePreviewEndTime}
+          iconEndAriaLabel={t('Preview clip before end time')}
           label={t('End')}
           onChange={_endTimeOnChange}
           onSubmit={_handleSaveClip}
@@ -199,7 +201,7 @@ export const MakeClipForm = ({ handleCancel }: Props) => {
       <ProgressBar clipFlagPositions={clipFlagPositions} highlightedPositions={highlightedPositions} labelsBelow />
       <PlayerProgressButtons hasMiniJump />
       <div className='make-clip-speed-button'>
-        <PlayerOptionButton onClick={playerNextSpeed} size='small' type='speed'>
+        <PlayerOptionButton ariaDescription={t('Playback speed')} onClick={playerNextSpeed} size='small' type='speed'>
           {playSpeed}x
         </PlayerOptionButton>
       </div>

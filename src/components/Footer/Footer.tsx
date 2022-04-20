@@ -1,5 +1,5 @@
 import { faDiscord, faGithub, faMastodon, faTwitter } from '@fortawesome/free-brands-svg-icons'
-import { faCopyright as faCopyrightRegular } from '@fortawesome/free-regular-svg-icons'
+import { faCopyright as faCopyrightRegular, faLightbulb } from '@fortawesome/free-regular-svg-icons'
 import { useTranslation } from 'react-i18next'
 import { PV } from '~/resources'
 import { Icon, NavBarBrand, PVLink } from '..'
@@ -10,22 +10,8 @@ export const Footer = () => {
   const socialLinks = (
     <>
       <li>
-        <a className='footer-social-link-github' href='https://github.com/podverse' target='_blank' rel='noreferrer'>
-          <Icon faIcon={faGithub} />
-        </a>
-      </li>
-      <li>
-        <a className='footer-social-link-twitter' href='https://twitter.com/podverse' target='_blank' rel='noreferrer'>
-          <Icon faIcon={faTwitter} />
-        </a>
-      </li>
-      <li>
-        <a className='footer-social-link-discord' href='https://discord.gg/6HkyNKR' target='_blank' rel='noreferrer'>
-          <Icon faIcon={faDiscord} />
-        </a>
-      </li>
-      <li>
         <a
+          aria-label={t('Social Media - Mastodon')}
           className='footer-social-link-mastodon'
           href='https://podcastindex.social/web/@podverse'
           target='_blank'
@@ -34,12 +20,50 @@ export const Footer = () => {
           <Icon faIcon={faMastodon} />
         </a>
       </li>
+      <li>
+        <a
+          aria-label={t('Social Media - Discord')}
+          className='footer-social-link-discord'
+          href='https://discord.gg/6HkyNKR'
+          target='_blank'
+          rel='noreferrer'
+        >
+          <Icon faIcon={faDiscord} />
+        </a>
+      </li>
+      <li>
+        <a
+          aria-label={t('Social Media - Twitter')}
+          className='footer-social-link-twitter'
+          href='https://twitter.com/podverse'
+          target='_blank'
+          rel='noreferrer'
+        >
+          <Icon faIcon={faTwitter} />
+        </a>
+      </li>
+      <li>
+        <PVLink ariaLabel={t('Social Media - XMPP')} className='footer-social-link-xmpp' href='/xmpp'>
+          <Icon faIcon={faLightbulb} />
+        </PVLink>
+      </li>
+      <li>
+        <a
+          aria-label={t('Social Media - GitHub')}
+          className='footer-social-link-github'
+          href='https://github.com/podverse'
+          target='_blank'
+          rel='noreferrer'
+        >
+          <Icon faIcon={faGithub} />
+        </a>
+      </li>
     </>
   )
 
   return (
     <footer className='footer'>
-      <hr />
+      <hr aria-hidden='true' />
       <div className='footer-top'>
         <NavBarBrand height={28} href={PV.RoutePaths.web.home} src={PV.Images.dark.brandLogo} width={150} />
         <div className='open-source-license'>
@@ -50,7 +74,7 @@ export const Footer = () => {
       </div>
       <div className='footer-middle'>
         <div className='footer-middle-site-links'>
-          <ul>
+          <ul aria-label={t('Footer links')}>
             <li>
               <PVLink className='footer-link-contact' href='/contact'>
                 {t('Contact')}
@@ -72,10 +96,12 @@ export const Footer = () => {
               </PVLink>
             </li>
           </ul>
-          <ul className='footer-right-section hide-below-tablet-max-width'>{socialLinks}</ul>
+          <ul aria-label={t('Social media links')} className='footer-right-section hide-below-tablet-max-width'>
+            {socialLinks}
+          </ul>
         </div>
         <div className='footer-middle-site-links'>
-          <ul>
+          <ul aria-label={t('Footer links continued')}>
             <li>
               <PVLink className='footer-link-mobile-app' href='/about'>
                 {t('Mobile App')}

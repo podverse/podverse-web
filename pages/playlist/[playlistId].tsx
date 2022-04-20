@@ -172,7 +172,7 @@ export default function Playlist({ serverPlaylist, serverPlaylistSortedItems }: 
         isEditing={isEditing}
         playlist={playlist}
       />
-      <PageScrollableContent>
+      <PageScrollableContent noPaddingTop>
         <ColumnsWrapper
           mainColumnChildren={
             <>
