@@ -1,3 +1,4 @@
+import OmniAural from 'omniaural'
 import { faPause, faPlay } from '@fortawesome/free-solid-svg-icons'
 import classnames from 'classnames'
 import { useOmniAural } from 'omniaural'
@@ -27,6 +28,9 @@ export const PlayerProgressButtons = ({ hasMiniJump }: Props) => {
   const { paused } = player
   const container = classnames('progress-button-container')
   const playpause = classnames(paused ? 'play' : 'pause')
+
+  const chapters = OmniAural.state.player.chapters.value()
+  const hasChapters = chapters && chapters.length > 1
 
   const _handleTrackPrevious = () => {
     playerPlayPreviousChapterOrReturnToBeginningOfTrack()
@@ -61,7 +65,7 @@ export const PlayerProgressButtons = ({ hasMiniJump }: Props) => {
       <div className='top-row'>
         {!hasMiniJump && (
           <PlayerControlButton
-            ariaLabel={t('Previous track')}
+            ariaLabel={hasChapters ? t('Previous chapter') : t('Previous track')}
             direction='backwards'
             onClick={_handleTrackPrevious}
             size='medium'
@@ -110,7 +114,7 @@ export const PlayerProgressButtons = ({ hasMiniJump }: Props) => {
         />
         {!hasMiniJump && (
           <PlayerControlButton
-            ariaLabel={t('Next track')}
+            ariaLabel={hasChapters ? t('Next chapter') : t('Next track')}
             direction='forwards'
             onClick={_handleTrackNext}
             size='medium'

@@ -66,7 +66,7 @@ export const Slider = ({
   const tabIndex = ariaHidden ? -1 : 0
 
   return (
-    <div aria-label={ariaLabel} className={slider}>
+    <div aria-hidden={ariaHidden} aria-label={ariaLabel} className={slider}>
       {flagElements}
       {highlightedSectionElement}
       <input

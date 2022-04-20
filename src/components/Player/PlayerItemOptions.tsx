@@ -8,9 +8,12 @@ import { convertSecToHHMMSS } from '~/lib/utility/time'
 import { OmniAuralState } from '~/state/omniauralState'
 import { useTranslation } from 'next-i18next'
 
-type Props = unknown
+type Props = {
+  isFullScreen?: boolean
+}
 
 export const PlayerItemButtons = (props: Props) => {
+  const { isFullScreen } = props
   const { t } = useTranslation()
   const [player] = useOmniAural('player') as [OmniAuralState['player']]
   const { currentNowPlayingItem, muted, playSpeed, showFullView, volume } = player
@@ -61,7 +64,8 @@ export const PlayerItemButtons = (props: Props) => {
           startVal={0}
         />
         <PlayerOptionButton
-          ariaLabel={t('Show full screen player')}
+          ariaLabel={isFullScreen ? t('Hide full screen player') : t('Show full screen player')}
+          ariaPressed
           onClick={showFullView ? OmniAural.playerFullViewHide : OmniAural.playerFullViewShow}
           size='small'
           type={showFullView ? 'fullscreen-hide' : 'fullscreen-show'}

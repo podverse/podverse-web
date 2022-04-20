@@ -37,12 +37,20 @@ export const PlayerFullView = ({ nowPlayingItem }: Props) => {
   const viewClass = classNames('player-full-view', showFullView ? 'is-showing' : '')
 
   return (
-    <div className={viewClass}>
+    <div className={viewClass} role='dialog'>
+      {
+        showFullView && (
+          <>
+            <h1 className='aria-header aria-invisible' tabIndex={showFullView ? 0 : -1}>{t('Full screen player')}</h1>
+            <ButtonClose onClick={_onRequestClose} />
+          </>
+        )
+      }
       <div className={imageWrapperClass}>
         {isVideo && <PlayerAPIVideo />}
         {showFullView && !isVideo && (
           <PVImage
-            alt={t('Podcast artwork')}
+            alt=''
             height={PV.Images.sizes.fullViewAudio}
             src={nowPlayingItem.episodeImageUrl || nowPlayingItem.podcastImageUrl}
             width={PV.Images.sizes.fullViewAudio}
@@ -50,16 +58,17 @@ export const PlayerFullView = ({ nowPlayingItem }: Props) => {
         )}
         {showFullView && nowPlayingItem.clipId && (
           <div className='clip-info-wrapper'>
-            <div className='clip-title'>{clipTitle}</div>
-            <div className='clip-time'>{clipTimeInfo}</div>
+            <div aria-live="assertive">
+              <div className='clip-title' tabIndex={0}>{clipTitle}</div>
+            </div>
+            <div className='clip-time' tabIndex={0}>{clipTimeInfo}</div>
           </div>
         )}
       </div>
       {showFullView && (
         <>
-          <ButtonClose onClick={_onRequestClose} />
           <div className='title-wrapper'>
-            <h1>
+            <h1 role="none">
               <PVLink href={episodePageUrl} onClick={_onRequestClose}>
                 {nowPlayingItem.episodeTitle || t('untitledEpisode')}
               </PVLink>
@@ -79,7 +88,7 @@ export const PlayerFullView = ({ nowPlayingItem }: Props) => {
             <div className='player-progress-container'>
               <div className='player-item-info-container' />
               <PlayerProgressButtons />
-              <PlayerItemButtons />
+              <PlayerItemButtons isFullScreen />
             </div>
           </div>
         </>
