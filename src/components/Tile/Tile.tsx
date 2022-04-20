@@ -30,7 +30,7 @@ export const Tiles = ({ groupAriaLabel, items, onClick }: TilesProps) => {
   ))
 
   return (
-    <ul aria-label={groupAriaLabel} className='tiles'>
+    <ul aria-label={groupAriaLabel} className='tiles' tabIndex={0}>
       {tiles}
     </ul>
   )
