@@ -17,6 +17,7 @@ type Props = {
   handleEndButtonClick?: any
   handleIconEndClick?: any
   helperText?: string
+  iconEndAriaLabel?: string
   isDanger?: boolean
   label?: string
   noMarginOrPadding?: boolean
@@ -41,6 +42,7 @@ export const TextInput = ({
   handleEndButtonClick,
   handleIconEndClick,
   helperText,
+  iconEndAriaLabel,
   isDanger,
   label,
   noMarginOrPadding,
@@ -66,6 +68,8 @@ export const TextInput = ({
   const _handleKeyDown = (event) => {
     if (event.key === 'Enter') {
       onSubmit && onSubmit()
+    } else if (onBlur && event.key === 'Tab') {
+      onBlur()
     }
   }
 
@@ -80,6 +84,7 @@ export const TextInput = ({
         <div className='text-input-inner-wrapper'>
           {!!tempValue && label && <div className='eyebrow'>{label}</div>}
           <input
+            aria-label={label}
             defaultValue={defaultValue}
             disabled={disabled}
             onBlur={onBlur}
@@ -97,9 +102,9 @@ export const TextInput = ({
           />
         </div>
         {!!faIconEnd && (
-          <div className={faIconEndClass} onClick={handleIconEndClick} tabIndex={0}>
+          <button aria-label={iconEndAriaLabel} className={faIconEndClass} onClick={handleIconEndClick} tabIndex={0}>
             <FontAwesomeIcon icon={faIconEnd} />
-          </div>
+          </button>
         )}
         {!!endButtonText && handleEndButtonClick && (
           <ButtonRectangle
@@ -120,7 +125,11 @@ export const TextInput = ({
           />
         )}
       </div>
-      {helperText && <div className='helper-text'>{helperText}</div>}
+      {helperText && (
+        <div aria-live='assertive' className='helper-text'>
+          {helperText}
+        </div>
+      )}
     </div>
   )
 }

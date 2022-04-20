@@ -14,11 +14,11 @@ export const PageHeaderWithTabs = ({ keyPrefix, onClick, selectedKey, tabOptions
     <>
       <div className='page-header-tabs'>
         <div className='main-max-width'>
-          <h1>{title}</h1>
+          <h1 tabIndex={0}>{title}</h1>
           <div className='tab-wrapper'>{tabs}</div>
         </div>
       </div>
-      <hr />
+      <hr aria-hidden='true' />
     </>
   )
 }

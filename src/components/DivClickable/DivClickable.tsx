@@ -4,9 +4,10 @@ type Props = {
   children: any
   className?: string
   onClick?: any
+  role?: 'button' | ''
 }
 
-export const DivClickable = ({ children, className, onClick }: Props) => {
+export const DivClickable = ({ children, className, onClick, role }: Props) => {
   const wrapperClass = classNames(className ? className : '')
 
   const _handleOnKeyPress = (event: any) => {
@@ -21,6 +22,7 @@ export const DivClickable = ({ children, className, onClick }: Props) => {
       {...(onClick ? { onKeyPress: _handleOnKeyPress } : {})}
       {...(onClick ? { onClick } : {})}
       {...(onClick ? { tabIndex: 0 } : {})}
+      {...(role ? { role } : {})}
     >
       {children}
     </div>

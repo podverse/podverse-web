@@ -1,5 +1,5 @@
 import OmniAural, { useOmniAural } from 'omniaural'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import Modal from 'react-modal'
 import { ButtonClose, ButtonLink, ButtonRectangle, TextInput } from '~/components'
@@ -14,6 +14,7 @@ export const LoginModal = (props: Props) => {
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
   const [isSubmitPressed, setIsSubmitPressed] = useState<boolean>(false)
+  const autoFocusHeaderRef = useRef<any>()
 
   /* Event Handlers */
 
@@ -47,7 +48,9 @@ export const LoginModal = (props: Props) => {
       isOpen={login.show}
       onRequestClose={_onRequestClose}
     >
-      <h2>{t('Login')}</h2>
+      <h2 className='modal-header-autofocus' ref={autoFocusHeaderRef} tabIndex={-1}>
+        {t('Login')}
+      </h2>
       <ButtonClose onClick={_onRequestClose} />
       <TextInput
         label={t('Email')}

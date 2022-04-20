@@ -1,6 +1,6 @@
 {
   "name": "podverse-web",
-  "version": "4.3.20",
+  "version": "4.4.0",
   "description": "Web app for the Podverse podcast clip sharing ecosystem",
   "repository": {
     "type": "git",
@@ -47,6 +47,8 @@
     "@fortawesome/free-regular-svg-icons": "5.15.4",
     "@fortawesome/free-solid-svg-icons": "5.15.4",
     "@fortawesome/react-fontawesome": "0.1.16",
+    "@podverse/react-dropdown-select": "4.8.4-beta.2",
+    "@podverse/react-show-more-text": "1.5.1-beta.2",
     "axios": "0.24.0",
     "classnames": "2.3.1",
     "debounce": "1.2.1",
@@ -63,7 +65,6 @@
     "react": "17.0.2",
     "react-cookie": "4.1.1",
     "react-dom": "17.0.2",
-    "react-dropdown-select": "4.8.0",
     "react-h5-audio-player": "3.8.1",
     "react-modal": "3.14.4",
     "react-player": "2.9.0",

@@ -74,10 +74,12 @@ export const PlaylistPageHeader = ({
                 type='text'
               />
             ) : (
-              <h1>{title}</h1>
+              <h1 tabIndex={0}>{title}</h1>
             )}
-            {!isEditing && <div className='items-count'>{`${t('Items')}: ${itemCount}`}</div>}
-            {!isLoggedInUserPlaylist && <div className='owner-name'>{`${t('Created by')}: ${ownerName}`}</div>}
+            {!isEditing && <div className='items-count' tabIndex={0}>{`${t('Items')}: ${itemCount}`}</div>}
+            {!isLoggedInUserPlaylist && (
+              <div className='owner-name' tabIndex={0}>{`${t('Created by')}: ${ownerName}`}</div>
+            )}
           </div>
           <div className='buttons'>
             <div className='top-row'>

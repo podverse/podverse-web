@@ -141,6 +141,13 @@
           color: getThemeVal('buttonCloseBackground') !important;
         }
       }
+
+      &.danger:hover {
+        @include themeGen() {
+          background-color: getThemeVal('buttonTertiaryDangerRolloverBackground') !important;
+          color: getThemeVal('buttonTertiaryDangerTextRollover') !important;
+        }
+      }
     }
   }
 }

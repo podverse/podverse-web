@@ -1,5 +1,5 @@
 import OmniAural, { useOmniAural } from 'omniaural'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import Modal from 'react-modal'
 import { ButtonClose, ButtonRectangle } from '~/components'
@@ -13,6 +13,7 @@ export const VerifyEmailModal = (props: Props) => {
   const { show, showSendVerificationEmailButton } = verifyEmail
   const { t } = useTranslation()
   const [isVerifyPressed, setIsVerifyPressed] = useState<boolean>(false)
+  const autoFocusElement = useRef<any>()
 
   /* Event Handlers */
 
@@ -40,16 +41,23 @@ export const VerifyEmailModal = (props: Props) => {
     OmniAural.modalsHideAll()
   }
 
+  const _onAfterOpen = () => {
+    autoFocusElement?.current?.focus()
+  }
+
   return (
     <Modal
       className='verify-email-modal centered'
       contentLabel={t('Verify email modal')}
       isOpen={show}
+      onAfterOpen={_onAfterOpen}
       onRequestClose={_onRequestClose}
     >
       <ButtonClose onClick={_onRequestClose} />
       <div className='message-wrapper'>
-        <div className='message with-margin'>{t('PleaseVerifyEmail')}</div>
+        <div className='message with-margin' ref={autoFocusElement} tabIndex={0}>
+          {t('PleaseVerifyEmail')}
+        </div>
         {showSendVerificationEmailButton && (
           <ButtonRectangle
             isLoading={isVerifyPressed}
