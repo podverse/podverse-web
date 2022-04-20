@@ -2,8 +2,8 @@
   display: flex;
   margin: 16px 0;
 
-  .download-on-the-app-store {
-    background: url(https://linkmaker.itunes.apple.com/en-us/badge-lrg.svg?releaseDate=2018-07-28&kind=iossoftware&bubble=ios_apps)
+  .download-badge-download-on-the-app-store {
+    background: url('/images/download-badge-download-on-the-app-store.svg')
       no-repeat;
     flex: 0 0 auto;
     height: 40px;
@@ -12,7 +12,7 @@
     width: 135px;
   }
 
-  .get-it-on-google-play {
+  .download-badge-get-it-on-google-play {
     flex: 0 0 auto;
     margin: 8px 22px 8px 22px;
     position: relative;
@@ -26,8 +26,8 @@
     }
   }
 
-  .get-it-on-fdroid {
-    background-image: url('/images/get-it-on-fdroid.png');
+  .download-badge-get-it-on-fdroid {
+    background-image: url('/images/download-badge-get-it-on-fdroid.png');
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
