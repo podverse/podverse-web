@@ -166,7 +166,7 @@ export default function History({
         hasEditButton={hasEditButton}
         text={t('History')}
       />
-      <PageScrollableContent>
+      <PageScrollableContent noPaddingTop>
         {!userInfo && (
           <MessageWithAction
             actionLabel={t('Login')}
