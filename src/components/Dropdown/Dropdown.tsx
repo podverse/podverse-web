@@ -5,7 +5,7 @@ import classnames from 'classnames'
 import { useTranslation } from 'react-i18next'
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const Select = require('@podverse/react-dropdown-select')
+const Select = require('@podverse/react-dropdown-select').default
 
 type Props = {
   dropdownAriaLabel?: string
