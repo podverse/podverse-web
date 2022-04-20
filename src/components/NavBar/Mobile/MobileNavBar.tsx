@@ -25,14 +25,15 @@ export const MobileNavBar = (props: Props) => {
     <>
       <div className='mobile-navbar'>
         <div className='left-wrapper'>
-          <div className='nav-menu-button' onClick={() => setShowMobileNavMenu(true)} tabIndex={0}>
+          <button aria-label={t('Show navigation menu')} className='nav-menu-button' onClick={() => setShowMobileNavMenu(true)} tabIndex={0}>
             <Icon faIcon={faBars} />
-          </div>
+          </button>
           <NavBarBrand height={21} href={PV.RoutePaths.web.home} src={PV.Images.dark.brandLogo} width={113} />
         </div>
         <div className='right-wrapper'>
           <div className='dropdown'>
             <Dropdown
+              dropdownAriaLabel={t('My account')}
               faIcon={userInfo ? faUserCircle : faUserCircleRegular}
               onChange={(selected) => PV.NavBar.dropdownOnChange(selected, router, userInfo)}
               options={dropdownItems}
