@@ -32,6 +32,8 @@ export default function Membership(props: ServerProps) {
     title: t('pages-membership_Title')
   }
 
+  const ariaTopText = `${t('Enjoy Podverse Premium')} ${t('3 months free')}, ${t('18 per year after that')}`
+  
   return (
     <>
       <Meta
@@ -54,7 +56,7 @@ export default function Membership(props: ServerProps) {
               <ComparisonTable
                 aboveSectionNodes={
                   <>
-                    <p>
+                    <p aria-label={ariaTopText} tabIndex={0}>
                       {t('Enjoy Podverse Premium')}
                       <br />
                       {t('3 months free')}
@@ -81,8 +83,8 @@ export default function Membership(props: ServerProps) {
                   </>
                 }
                 featuresData={featuresData(t)}
-                headerIcon1={t('Free')}
-                headerIcon2={t('Premium')}
+                headerText1={t('Free')}
+                headerText2={t('Premium')}
                 headerText={t('Features')}
               />
             </div>

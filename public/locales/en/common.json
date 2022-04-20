@@ -18,6 +18,7 @@
   "ARIA - Toggle video only mode": "Video only",
   "ARIA – Dropdown helper description": "Press the enter key or down arrow to show the dropdown menu. Then use the tab key, or up and down arrows to focus on the dropdown items.",
   "Auto Queue": "Auto-queue",
+  "Below is a table comparing free and premium features": "Below is a table comparing free and premium features.",
   "brandName chat is powered by": "Podverse live chat is powered by these open source libraries",
   "Bug Report": "Report a Bug",
   "Buy a Podverse premium membership": "Purchase Podverse Premium",
@@ -181,6 +182,7 @@
   "Next track": "Next track",
   "New Password": "New Password",
   "Next Up": "Next Up",
+  "No": "No",
   "No chapters found": "Could not find any chapters",
   "No clips found": "Could not find any clips",
   "No episode notes available": "Could not find any episode notes",
@@ -392,6 +394,7 @@
   "Volume": "Volume",
   "year": "year",
   "years": "years",
+  "Yes": "Yes",
   "Your Name": "Your Name",
   "Your profile page is hidden": "Your profile is hidden. Your clip and playlist links are still accessible to anyone with the links.",
   "YourMembershipHasExpired": "Please renew Podverse Premium to use all features."

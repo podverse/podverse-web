@@ -41,7 +41,7 @@ export const PlayerFullView = ({ nowPlayingItem }: Props) => {
       {
         showFullView && (
           <>
-            <h1 className='aria-header aria-invisible' tabIndex={showFullView ? 0 : -1}>{t('Full screen player')}</h1>
+            <h1 className='aria-header aria-only-visible-to-screen-readers' tabIndex={showFullView ? 0 : -1}>{t('Full screen player')}</h1>
             <ButtonClose onClick={_onRequestClose} />
           </>
         )
