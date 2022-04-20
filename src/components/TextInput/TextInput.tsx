@@ -6,6 +6,7 @@ import { useState } from 'react'
 import { ButtonCircle, ButtonRectangle } from '..'
 
 type Props = {
+  ariaLabel?: string
   defaultValue?: string
   disabled?: boolean
   endButtonClass?: string
@@ -30,6 +31,7 @@ type Props = {
 }
 
 export const TextInput = ({
+  ariaLabel,
   defaultValue,
   disabled,
   endButtonClass,
@@ -82,6 +84,7 @@ export const TextInput = ({
         <div className='text-input-inner-wrapper'>
           {!!tempValue && label && <div className='eyebrow'>{label}</div>}
           <input
+            aria-label={ariaLabel}
             defaultValue={defaultValue}
             disabled={disabled}
             onBlur={onBlur}

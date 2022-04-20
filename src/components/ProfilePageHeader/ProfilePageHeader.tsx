@@ -61,6 +61,7 @@ export const ProfilePageHeader = ({
           <div className='text-wrapper'>
             {isEditing ? (
               <TextInput
+                ariaLabel={t('Your Name')}
                 defaultValue={user.name}
                 label={t('Your Name')}
                 noMarginOrPadding
@@ -70,7 +71,7 @@ export const ProfilePageHeader = ({
                 type='text'
               />
             ) : (
-              <h1>{name}</h1>
+              <h1 tabIndex={0}>{name}</h1>
             )}
           </div>
           <div className='buttons'>
