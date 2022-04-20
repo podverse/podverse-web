@@ -61,7 +61,6 @@ export const ProfilePageHeader = ({
           <div className='text-wrapper'>
             {isEditing ? (
               <TextInput
-                ariaLabel={t('Your Name')}
                 defaultValue={user.name}
                 label={t('Your Name')}
                 noMarginOrPadding

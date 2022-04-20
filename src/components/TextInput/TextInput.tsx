@@ -6,7 +6,6 @@ import { useState } from 'react'
 import { ButtonCircle, ButtonRectangle } from '..'
 
 type Props = {
-  ariaLabel?: string
   defaultValue?: string
   disabled?: boolean
   endButtonClass?: string
@@ -18,6 +17,7 @@ type Props = {
   handleEndButtonClick?: any
   handleIconEndClick?: any
   helperText?: string
+  iconEndAriaLabel?: string
   isDanger?: boolean
   label?: string
   noMarginOrPadding?: boolean
@@ -31,7 +31,6 @@ type Props = {
 }
 
 export const TextInput = ({
-  ariaLabel,
   defaultValue,
   disabled,
   endButtonClass,
@@ -43,6 +42,7 @@ export const TextInput = ({
   handleEndButtonClick,
   handleIconEndClick,
   helperText,
+  iconEndAriaLabel,
   isDanger,
   label,
   noMarginOrPadding,
@@ -84,7 +84,7 @@ export const TextInput = ({
         <div className='text-input-inner-wrapper'>
           {!!tempValue && label && <div className='eyebrow'>{label}</div>}
           <input
-            aria-label={ariaLabel}
+            aria-label={label}
             defaultValue={defaultValue}
             disabled={disabled}
             onBlur={onBlur}
@@ -102,9 +102,9 @@ export const TextInput = ({
           />
         </div>
         {!!faIconEnd && (
-          <div className={faIconEndClass} onClick={handleIconEndClick} tabIndex={0}>
+          <button aria-label={iconEndAriaLabel} className={faIconEndClass} onClick={handleIconEndClick} tabIndex={0}>
             <FontAwesomeIcon icon={faIconEnd} />
-          </div>
+          </button>
         )}
         {!!endButtonText && handleEndButtonClick && (
           <ButtonRectangle
