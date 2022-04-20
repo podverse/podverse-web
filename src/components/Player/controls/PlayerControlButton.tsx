@@ -3,6 +3,7 @@ import { faAngleDoubleLeft, faAngleDoubleRight, faRedoAlt, faUndoAlt } from '@fo
 import classnames from 'classnames'
 
 type Props = {
+  ariaLabel?: string
   className?: string
   direction: 'forwards' | 'backwards'
   onClick?: any
@@ -10,7 +11,7 @@ type Props = {
   type: 'jump' | 'mini-jump' | 'skip'
 }
 
-export const PlayerControlButton = ({ type, direction, onClick, size }: Props) => {
+export const PlayerControlButton = ({ ariaLabel, type, direction, onClick, size }: Props) => {
   let jumpTime = 0
   const miniJumpTime = 1
   let icon = null
@@ -41,7 +42,7 @@ export const PlayerControlButton = ({ type, direction, onClick, size }: Props) =
   const buttonTextClass = classnames('jump-time-text', direction)
 
   return (
-    <button className={wrapperClass} onClick={onClick}>
+    <button aria-label={ariaLabel} className={wrapperClass} onClick={onClick}>
       <FontAwesomeIcon icon={icon} />
       <div className={buttonContainerClass}>
         {type === 'jump' && <div className={buttonTextClass}>{jumpTime}</div>}

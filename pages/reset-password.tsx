@@ -54,7 +54,7 @@ export default function ResetPassword(props: ServerProps) {
         twitterTitle={meta.title}
       />
       <div className='form-wrapper'>
-        <h2>{t('Reset Password')}</h2>
+        <h2 tabIndex={0}>{t('Reset Password')}</h2>
         <PasswordInputs handleClose={_handleClose} handleSubmit={_handleResetPassword} hideEmail />
       </div>
     </>

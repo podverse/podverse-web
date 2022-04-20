@@ -5,10 +5,12 @@ import { PlayerItemInfo } from './PlayerItemInfo'
 import { PlayerItemButtons } from './PlayerItemOptions'
 import { PlayerItemProgress } from './PlayerItemProgress'
 import { OmniAuralState } from '~/state/omniauralState'
+import { useTranslation } from 'next-i18next'
 
 type Props = unknown
 
 export const Player = (props: Props) => {
+  const { t } = useTranslation()
   const [player] = useOmniAural('player') as [OmniAuralState['player']]
 
   const mainPlayerStyle = classnames('player', player.show ? '' : 'display-none')
@@ -19,11 +21,11 @@ export const Player = (props: Props) => {
 
   return (
     <>
-      <div className={mainPlayerStyle}>
+      <aside aria-label={t('Media player controls')} className={mainPlayerStyle}>
         <PlayerItemInfo nowPlayingItem={player.currentNowPlayingItem} />
         <PlayerItemProgress />
         <PlayerItemButtons />
-      </div>
+      </aside>
       <PlayerFullView nowPlayingItem={player.currentNowPlayingItem} />
     </>
   )

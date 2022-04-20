@@ -2,10 +2,13 @@ import { IconProp } from '@fortawesome/fontawesome-svg-core'
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import classnames from 'classnames'
-import Select from 'react-dropdown-select'
 import { useTranslation } from 'react-i18next'
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const Select = require('@podverse/react-dropdown-select')
+
 type Props = {
+  dropdownAriaLabel?: string
   dropdownWidthClass?: 'width-small' | 'width-medium' | 'width-large'
   faIcon?: IconProp
   hasClipEditButtons?: boolean
@@ -25,11 +28,15 @@ const contentRenderer = (props: Props, t: any) => {
   return (
     <div className='dropdown-wrapper'>
       {!!faIcon && (
-        <div className='dropdown__icon'>
+        <div aria-hidden='true' className='dropdown__icon'>
           <FontAwesomeIcon icon={faIcon} />
         </div>
       )}
-      {!!finalText && <div className='dropdown__text'>{t(`${finalText}`)}</div>}
+      {!!finalText && (
+        <div aria-hidden='true' className='dropdown__text'>
+          {t(`${finalText}`)}
+        </div>
+      )}
     </div>
   )
 }
@@ -47,7 +54,16 @@ const dropdownHandleRenderer = (hideCaret?: boolean) => {
 }
 
 export const Dropdown = (props: Props) => {
-  const { dropdownWidthClass = 'width-small', hasClipEditButtons, onChange, options, outlineStyle } = props
+  const {
+    dropdownAriaLabel,
+    dropdownWidthClass = 'width-small',
+    hasClipEditButtons,
+    onChange,
+    options,
+    outlineStyle,
+    selectedKey,
+    text
+  } = props
   const { t } = useTranslation()
   const wrapperClass = classnames(
     outlineStyle ? 'outline-style' : '',
@@ -55,8 +71,13 @@ export const Dropdown = (props: Props) => {
     hasClipEditButtons ? 'has-clip-edit-buttons' : ''
   )
 
+  const selectedOption = options?.find((option) => option.key === selectedKey)
+  const finalDropdownAriaLabel = dropdownAriaLabel || text || selectedOption?.label
+
   return (
     <Select
+      additionalProps={{ 'aria-label': finalDropdownAriaLabel, role: 'button' }}
+      dropdownAriaDescription={t('ARIA – Dropdown helper description')}
       className={wrapperClass}
       contentRenderer={() => contentRenderer(props, t)}
       disabled={options.length <= 1}

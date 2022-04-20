@@ -22,7 +22,7 @@ export const SideContentSection = ({ children, headerText }: Props) => {
     <>
       <div className='side-content-section'>
         <div className='side-content-header' onClick={_headerOnClick}>
-          <h2>{headerText}</h2>
+          <h2 tabIndex={0}>{headerText}</h2>
           <div className='side-content-header-caret'>
             <Icon faIcon={caretIcon} />
           </div>

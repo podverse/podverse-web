@@ -14,6 +14,10 @@
 .tile-box-text {
   font-size: clamp(2vw, 26px, 18px);
   text-align: right;
+
+  @include themeGen() {
+    color: getThemeVal('textPrimary');
+  }
 }
 
 .tiles {

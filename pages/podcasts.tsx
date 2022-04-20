@@ -205,6 +205,7 @@ export default function Podcasts({
     if (selectedItem.key !== filterSort) newPage = 1
     setFilterQuery({
       ...filterQuery,
+      filterSort: selectedItem.key,
       filterPage: newPage
     })
   }
@@ -310,10 +311,16 @@ export default function Podcasts({
       />
       <PageScrollableContent noPaddingTop={showLoginMessage || isCategoryPage}>
         {!showLoginMessage && !isCategoryPage && (
-          <SearchBarFilter handleClear={_handleSearchClear} handleSubmit={_handleSearchSubmit} />
+          <SearchBarFilter
+            handleClear={_handleSearchClear}
+            handleSubmit={_handleSearchSubmit}
+            includeBottomPadding={isCategoriesPage}
+            placeholder={t('Search podcasts')}
+          />
         )}
         {isCategoriesPage && (
           <Tiles
+            groupAriaLabel={t('Categories')}
             items={categories}
             onClick={(id: string) => {
               setFilterQuery({

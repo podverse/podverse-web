@@ -27,7 +27,7 @@ export const List = ({
     <div className='no-results-found-message'>
       <p>{t('Not subscribed to any podcasts')}</p>
       <p>
-        <PVLink href={PV.RoutePaths.web.search}>{t('Search for a podcast')}</PVLink>
+        <PVLink href={PV.RoutePaths.web.search}>{t('Search')}</PVLink>
       </p>
       <p>
         <a onClick={handleSelectByCategory}>{t('Select by category')}</a>
@@ -37,7 +37,9 @@ export const List = ({
       </p>
     </div>
   ) : (
-    <div className='no-results-found-message'>{t('No results found')}</div>
+    <div className='no-results-found-message' tabIndex={0}>
+      {t('No results found')}
+    </div>
   )
 
   return (

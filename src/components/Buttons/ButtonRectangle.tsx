@@ -3,6 +3,8 @@ import classnames from 'classnames'
 import { Icon } from '~/components'
 
 type Props = {
+  ariaDescription?: string
+  ariaPressed?: boolean
   className?: string
   disabled?: boolean
   isDanger?: boolean
@@ -14,6 +16,8 @@ type Props = {
 }
 
 export const ButtonRectangle = ({
+  ariaDescription,
+  ariaPressed,
   className,
   disabled,
   isDanger,
@@ -35,7 +39,13 @@ export const ButtonRectangle = ({
   )
 
   return (
-    <button className={buttonClass} disabled={disabled} onClick={onClick}>
+    <button
+      aria-description={ariaDescription}
+      aria-pressed={ariaPressed}
+      className={buttonClass}
+      disabled={disabled}
+      onClick={onClick}
+    >
       {isLoading && <Icon faIcon={faSpinner} spin />}
       <span className='button__text'>{label}</span>
     </button>

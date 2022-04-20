@@ -197,6 +197,7 @@ export default function Episodes({
     if (selectedItem.key !== filterSort) newPage = 1
     setFilterQuery({
       ...filterQuery,
+      filterSort: selectedItem.key,
       filterPage: newPage
     })
   }
@@ -306,11 +307,13 @@ export default function Episodes({
           <SearchBarFilter
             handleClear={_handleSearchClear}
             handleSubmit={_handleSearchSubmit}
-            includeBottomPadding={!isCategoriesPage}
+            includeBottomPadding={isCategoriesPage}
+            placeholder={t('Search episodes')}
           />
         )}
         {isCategoriesPage && (
           <Tiles
+            groupAriaLabel={t('Categories')}
             items={categories}
             onClick={(id: string) => {
               setFilterQuery({

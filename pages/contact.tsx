@@ -48,7 +48,7 @@ export default function Contact(props: ServerProps) {
         <ColumnsWrapper
           mainColumnChildren={
             <div className='text-page'>
-              <h2>{t('Email')}</h2>
+              <h2 tabIndex={0}>{t('Email')}</h2>
               <h3>
                 <MailTo body={bugReportBody} email={emailContact} subject={bugReportSubject}>
                   {t('Bug Report')}
@@ -70,7 +70,7 @@ export default function Contact(props: ServerProps) {
                 </MailTo>
               </h3>
               <hr />
-              <h2>{t('Live Chat')}</h2>
+              <h2 tabIndex={0}>{t('Live Chat')}</h2>
               <h3>
                 <PVLink href='/xmpp'>{t('Join our XMPP server')}</PVLink>
               </h3>

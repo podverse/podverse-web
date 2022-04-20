@@ -153,10 +153,8 @@ export default function Episode({
       listItem.episode = serverEpisode
       return (
         <ClipListItem
-          episode={serverEpisode}
           isLoggedInUserMediaRef={userInfo && userInfo.id === listItem.owner.id}
           mediaRef={listItem}
-          podcast={serverEpisode.podcast}
           key={`${keyPrefix}-${index}-${listItem?.id}`}
         />
       )

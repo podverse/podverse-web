@@ -59,13 +59,22 @@ export const PageHeader = ({
     </div>
   )
 
+  const splitText = text.split(' > ')
+  const h1AriaLabel = splitText.length > 1 ? splitText.join(', ') : text
+  const divClickableRole = handleCollapse ? 'button' : ''
+  const h1TabIndex = handleCollapse ? -1 : 0
+
   return (
     <>
       <div className={wrapperClass}>
         <div className='main-max-width'>
-          <DivClickable className='page-header-title-wrapper' onClick={handleCollapse}>
-            {!isSubHeader && <h1>{text}</h1>}
-            {isSubHeader && <h2>{text}</h2>}
+          <DivClickable className='page-header-title-wrapper' onClick={handleCollapse} role={divClickableRole}>
+            {!isSubHeader && (
+              <h1 aria-label={h1AriaLabel} tabIndex={h1TabIndex}>
+                {text}
+              </h1>
+            )}
+            {isSubHeader && <h2 tabIndex={h1TabIndex}>{text}</h2>}
             {handleCollapse && caretIcon}
             {isLoading && (
               <div className='loader-wrapper'>
@@ -109,15 +118,23 @@ export const PageHeader = ({
           )}
           {hasButtons && (
             <div className='buttons'>
-              {isEditing && <ButtonRectangle label={t('Remove All')} onClick={handleClearAllButton} type='tertiary' />}
+              {isEditing && (
+                <ButtonRectangle label={t('Remove All')} onClick={handleClearAllButton} isDanger type='tertiary' />
+              )}
               {hasEditButton && (
-                <ButtonRectangle label={isEditing ? t('Done') : t('Edit')} onClick={handleEditButton} type='tertiary' />
+                <ButtonRectangle
+                  ariaDescription={t('Edit activation description - remove')}
+                  ariaPressed
+                  label={isEditing ? t('Done') : t('Edit')}
+                  onClick={handleEditButton}
+                  type='tertiary'
+                />
               )}
             </div>
           )}
         </div>
       </div>
-      {!isSubHeader && <hr className={hrClassName} />}
+      {!isSubHeader && <hr aria-hidden='true' className={hrClassName} />}
     </>
   )
 }
