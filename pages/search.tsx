@@ -144,7 +144,7 @@ export default function Search({ serverSearchByText }: ServerProps) {
           setFilterPage(1)
         }}
         label={t('Podcast title')}
-        placeholder={t('searchByPodcastTitle')}
+        placeholder={t('Search')}
       />
       <PageScrollableContent noPaddingTop>
         <List hideNoResultsMessage={isInitialLoad || page.isLoading}>

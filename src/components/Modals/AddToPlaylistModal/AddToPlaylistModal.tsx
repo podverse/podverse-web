@@ -90,7 +90,7 @@ export const AddToPlaylistModal = (props: Props) => {
       onAfterOpen={_onAfterOpen}
       onRequestClose={_onRequestClose}
     >
-      <h2>{t('Add to Playlist')}</h2>
+      <h2 tabIndex={0}>{t('Add to Playlist')}</h2>
       <ButtonClose onClick={_onRequestClose} />
       <div className='playlists-wrapper'>
         <ButtonLink label={t('Create Playlist')} onClick={_handleCreatePlaylist} />
@@ -112,10 +112,10 @@ const AddToPlaylistListItem = ({ onClick, playlist }: ListItemProps) => {
 
   return (
     <>
-      <li className='add-to-playlist-list-item' onClick={onClick}>
+      <button className='add-to-playlist-list-item' onClick={onClick} tabIndex={0}>
         <div className='title'>{title}</div>
         <div className='items-count'>{`${t('Items')}: ${itemCount}`}</div>
-      </li>
+      </button>
       <hr />
     </>
   )

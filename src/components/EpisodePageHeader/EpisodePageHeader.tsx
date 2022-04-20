@@ -72,7 +72,7 @@ export const EpisodePageHeader = ({ episode }: Props) => {
                 <PVLink href={episodeTitleLinkUrl}>{episodeTitle}</PVLink>
               </div>
               {hasBelowText && (
-                <div className='sub-labels hide-below-tablet-xl-max-width'>
+                <div className='sub-labels hide-below-tablet-xl-max-width' tabIndex={0}>
                   {authorEls.length > 0 && authorEls}
                   {authorEls.length > 0 && categoryEls.length > 0 && ' • '}
                   {categoryEls.length > 0 && categoryEls}
@@ -81,6 +81,7 @@ export const EpisodePageHeader = ({ episode }: Props) => {
               <div className='header-sub-buttons hide-below-tablet-xl-max-width'>
                 {authorityFeedUrl?.url && (
                   <ButtonIcon
+                    ariaLabel={t('RSS Feed')}
                     className='header-rss-button'
                     faIcon={faRss}
                     href={authorityFeedUrl.url}
@@ -90,6 +91,7 @@ export const EpisodePageHeader = ({ episode }: Props) => {
                   />
                 )}
                 <ButtonIcon
+                  ariaLabel={t('Share')}
                   className='header-share-button'
                   faIcon={faShare}
                   isSecondary
@@ -97,6 +99,7 @@ export const EpisodePageHeader = ({ episode }: Props) => {
                 />
                 {!!fundingLinks.length && (
                   <ButtonIcon
+                    ariaLabel={t('Funding')}
                     className='header-funding-button'
                     faIcon={faDonate}
                     isSecondary
@@ -114,7 +117,7 @@ export const EpisodePageHeader = ({ episode }: Props) => {
           </div>
           <div className='bottom-wrapper hide-above-laptop-min-width'>
             {hasBelowText && (
-              <div className='sub-labels'>
+              <div className='sub-labels' tabIndex={0}>
                 {authorEls.length > 0 && authorEls}
                 {authorEls.length > 0 && categoryEls.length > 0 && ' • '}
                 {categoryEls.length > 0 && categoryEls}
@@ -130,6 +133,7 @@ export const EpisodePageHeader = ({ episode }: Props) => {
           <div className='mobile-header-sub-buttons hide-above-laptop-min-width'>
             {authorityFeedUrl?.url && (
               <ButtonIcon
+                ariaLabel={t('RSS Feed')}
                 className='header-rss-button-mobile'
                 faIcon={faRss}
                 href={authorityFeedUrl.url}
@@ -139,6 +143,7 @@ export const EpisodePageHeader = ({ episode }: Props) => {
               />
             )}
             <ButtonIcon
+              ariaLabel={t('Share')}
               className='header-share-button-mobile'
               faIcon={faShare}
               isSecondary
@@ -146,6 +151,7 @@ export const EpisodePageHeader = ({ episode }: Props) => {
             />
             {!!fundingLinks.length && (
               <ButtonIcon
+                ariaLabel={t('Funding')}
                 className='header-funding-button-mobile'
                 faIcon={faDonate}
                 isSecondary
@@ -155,7 +161,6 @@ export const EpisodePageHeader = ({ episode }: Props) => {
           </div>
         </div>
       </div>
-      {/* <hr /> */}
     </>
   )
 }

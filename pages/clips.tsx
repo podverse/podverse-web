@@ -194,6 +194,7 @@ ServerProps) {
     if (selectedItem.key !== filterSort) newPage = 1
     setFilterQuery({
       ...filterQuery,
+      filterSort: selectedItem.key,
       filterPage: newPage
     })
   }
@@ -302,11 +303,13 @@ ServerProps) {
           <SearchBarFilter
             handleClear={_handleSearchClear}
             handleSubmit={_handleSearchSubmit}
-            includeBottomPadding={!isCategoriesPage}
+            includeBottomPadding={isCategoriesPage}
+            placeholder={t('Search clips')}
           />
         )}
         {isCategoriesPage && (
           <Tiles
+            groupAriaLabel={t('Categories')}
             items={categories}
             onClick={(id: string) => {
               setFilterQuery({

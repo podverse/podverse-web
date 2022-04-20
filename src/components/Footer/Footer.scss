@@ -1,5 +1,6 @@
 .footer {
   margin-bottom: 16px;
+  padding-bottom: 20px;
 
   hr {
     margin-bottom: 20px;
@@ -42,7 +43,7 @@
       }
       ul.footer-right-section {
         display: flex;
-        flex-direction: row-reverse;
+        flex-direction: row;
 
         li {
           a {

@@ -1,4 +1,5 @@
 import classNames from 'classnames'
+import { useTranslation } from 'next-i18next'
 import { useOmniAural } from 'omniaural'
 import { Slider } from '~/components/Slider/Slider'
 import { convertSecToHHMMSS } from '~/lib/utility/time'
@@ -18,6 +19,7 @@ export const ProgressBar = ({
   highlightedPositions = [],
   labelsBelow
 }: Props) => {
+  const { t } = useTranslation()
   const [player] = useOmniAural('player') as [OmniAuralState['player']]
   const { duration, playbackPosition } = player
   const currentTimeLabel = convertSecToHHMMSS(playbackPosition)
@@ -29,13 +31,23 @@ export const ProgressBar = ({
 
   const flagPositions = clipFlagPositions.length > 0 ? clipFlagPositions : chapterFlagPositions
 
-  const currentTimeElement = <div className={barLabel}>{currentTimeLabel}</div>
-  const endTimeElement = <div className={barLabel}>{endTimeLabel}</div>
+  const currentTimeElement = (
+    <div aria-description={t('Current time')} className={barLabel} tabIndex={0}>
+      {currentTimeLabel}
+    </div>
+  )
+  const endTimeElement = (
+    <div aria-description={t('Duration')} className={barLabel} tabIndex={0}>
+      {endTimeLabel}
+    </div>
+  )
 
   return (
     <div className={barContainer}>
       {!labelsBelow && currentTimeElement}
       <Slider
+        ariaHidden
+        ariaLabel={t('Player progress bar')}
         className={bar}
         currentValue={playbackPosition}
         endVal={duration}

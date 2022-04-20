@@ -70,7 +70,7 @@ export const ProfilePageHeader = ({
                 type='text'
               />
             ) : (
-              <h1>{name}</h1>
+              <h1 tabIndex={0}>{name}</h1>
             )}
           </div>
           <div className='buttons'>

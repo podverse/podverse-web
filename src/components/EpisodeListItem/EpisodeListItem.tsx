@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import striptags from 'striptags'
 import { ButtonCircle, MediaItemControls, PVImage, PVLink } from '~/components'
+import { generateAriaItemTimeInfo } from '~/lib/utility/ariaHelpers'
 import { getPodcastShrunkImageUrl } from '~/lib/utility/image'
 import { PV } from '~/resources'
 
@@ -22,9 +23,12 @@ export const EpisodeListItem = ({ episode, handleRemove, podcast, showPodcastInf
   const title = episode.title || t('untitledEpisode')
   const episodePageUrl = `${PV.RoutePaths.web.episode}/${id}`
   const [isRemoving, setIsRemoving] = useState<boolean>(false)
-  const summaryText = subtitle || description
+  let summaryText = subtitle && subtitle !== title ? subtitle : description
+  summaryText = striptags(summaryText)
 
   const finalImageUrl = imageUrl ? imageUrl : podcast ? getPodcastShrunkImageUrl(podcast) : ''
+  const linkAriaTimeInfo = generateAriaItemTimeInfo(t, episode)
+  const linkAriaLabel = `${showPodcastInfo ? `${podcast.title}, ` : ''} ${title}, ${linkAriaTimeInfo}, ${summaryText}`
 
   const _handleRemove = async () => {
     setIsRemoving(true)
@@ -36,22 +40,17 @@ export const EpisodeListItem = ({ episode, handleRemove, podcast, showPodcastInf
     <>
       <li className='episode-list-item'>
         <div className='main-wrapper'>
-          <PVLink className='content-wrapper' href={episodePageUrl}>
+          <PVLink ariaLabel={linkAriaLabel} className='content-wrapper' href={episodePageUrl}>
             {showPodcastInfo && (
-              <PVImage
-                alt={t('Podcast artwork')}
-                height={PV.Images.sizes.medium}
-                src={finalImageUrl}
-                width={PV.Images.sizes.medium}
-              />
+              <PVImage alt='' height={PV.Images.sizes.medium} src={finalImageUrl} width={PV.Images.sizes.medium} />
             )}
             <div className='text-wrapper'>
               {showPodcastInfo && <div className='podcast-title'>{podcast.title}</div>}
-              <h3>{title}</h3>
+              <div className='title'>{title}</div>
               <div
                 className='description'
                 dangerouslySetInnerHTML={{
-                  __html: striptags(summaryText)
+                  __html: summaryText
                 }}
               />
             </div>
@@ -61,6 +60,7 @@ export const EpisodeListItem = ({ episode, handleRemove, podcast, showPodcastInf
         {showRemoveButton && (
           <div className='side-wrapper'>
             <ButtonCircle
+              ariaLabel={t('Remove')}
               className='remove'
               faIcon={faTimes}
               iconOnly
@@ -71,7 +71,6 @@ export const EpisodeListItem = ({ episode, handleRemove, podcast, showPodcastInf
           </div>
         )}
       </li>
-      <hr className='episode-list-item-hr' />
     </>
   )
 }

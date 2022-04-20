@@ -48,7 +48,7 @@ export const RoutePaths = {
     episodes: `/episodes`,
     faq: `/faq`,
     googlePlayStore: `https://play.google.com/store/apps/details?id=com.podverse&hl=en_US&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1`,
-    googlePlayStoreBadge: `https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png`,
+    googlePlayStoreBadge: `/images/download-badge-get-it-on-google-play.png`,
     history: '/history',
     home: `/`,
     license: `https://www.gnu.org/licenses/agpl-3.0.en.html`,

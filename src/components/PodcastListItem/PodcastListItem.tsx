@@ -15,11 +15,12 @@ export const PodcastListItem = ({ podcast }: Props) => {
   const podcastImageUrl = getPodcastShrunkImageUrl(podcast)
   const pubDateText = `${t('Latest Episode')}: ${readableDate(lastEpisodePubDate)}`
   const podcastPageUrl = `${PV.RoutePaths.web.podcast}/${id}`
+  const ariaLabel = `${title}, ${pubDateText}`
 
   return (
     <>
       <li className='podcast-list-item'>
-        <PVLink href={podcastPageUrl}>
+        <PVLink ariaLabel={ariaLabel} href={podcastPageUrl}>
           <PVImage
             alt={t('Podcast artwork')}
             height={PV.Images.sizes.medium}
@@ -32,7 +33,6 @@ export const PodcastListItem = ({ podcast }: Props) => {
           </div>
         </PVLink>
       </li>
-      <hr />
     </>
   )
 }

@@ -24,9 +24,14 @@ export const PlayerItemInfo = ({ nowPlayingItem }: Props) => {
 
   return (
     <div className={container}>
-      <div className={contentsContainer} onClick={OmniAural.playerFullViewShow} tabIndex={0}>
+      <button
+        aria-description={t('Display the full screen media player')}
+        className={contentsContainer}
+        onClick={OmniAural.playerFullViewShow}
+        tabIndex={0}
+      >
         <PVImage
-          alt={t('Podcast artwork')}
+          alt=''
           height={PV.Images.sizes.medium}
           width={PV.Images.sizes.medium}
           src={nowPlayingItem.episodeImageUrl || nowPlayingItem.podcastImageUrl}
@@ -35,7 +40,7 @@ export const PlayerItemInfo = ({ nowPlayingItem }: Props) => {
           <div className={title}>{titleText}</div>
           <div className={subtitle}>{podcastTitleText}</div>
         </div>
-      </div>
+      </button>
     </div>
   )
 }

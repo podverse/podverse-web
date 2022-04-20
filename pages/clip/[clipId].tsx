@@ -124,10 +124,8 @@ export default function Clip({
       listItem.episode = episode
       return (
         <ClipListItem
-          episode={episode}
           isLoggedInUserMediaRef={userInfo && userInfo.id === listItem.owner.id}
           mediaRef={listItem}
-          podcast={episode.podcast}
           key={`${keyPrefix}-${index}-${listItem?.id}`}
         />
       )
@@ -183,7 +181,7 @@ export default function Clip({
         <ColumnsWrapper
           mainColumnChildren={
             <>
-              <ClipInfo clip={serverClip} episode={episode} />
+              <ClipInfo episode={episode} mediaRef={serverClip} />
               <EpisodeInfo episode={episode} />
               <PageHeader
                 isSubHeader
