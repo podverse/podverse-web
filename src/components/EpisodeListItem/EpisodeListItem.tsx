@@ -60,6 +60,7 @@ export const EpisodeListItem = ({ episode, handleRemove, podcast, showPodcastInf
         {showRemoveButton && (
           <div className='side-wrapper'>
             <ButtonCircle
+              ariaLabel={t('Remove')}
               className='remove'
               faIcon={faTimes}
               iconOnly

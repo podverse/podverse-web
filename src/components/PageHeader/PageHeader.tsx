@@ -118,9 +118,9 @@ export const PageHeader = ({
           )}
           {hasButtons && (
             <div className='buttons'>
-              {isEditing && <ButtonRectangle label={t('Remove All')} onClick={handleClearAllButton} type='tertiary' />}
+              {isEditing && <ButtonRectangle label={t('Remove All')} onClick={handleClearAllButton} isDanger type='tertiary' />}
               {hasEditButton && (
-                <ButtonRectangle label={isEditing ? t('Done') : t('Edit')} onClick={handleEditButton} type='tertiary' />
+                <ButtonRectangle ariaDescription={t('Edit activation description - remove')} ariaPressed label={isEditing ? t('Done') : t('Edit')} onClick={handleEditButton} type='tertiary' />
               )}
             </div>
           )}
