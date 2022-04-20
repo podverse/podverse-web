@@ -37,7 +37,9 @@ export const List = ({
       </p>
     </div>
   ) : (
-    <div className='no-results-found-message' tabIndex={0}>{t('No results found')}</div>
+    <div className='no-results-found-message' tabIndex={0}>
+      {t('No results found')}
+    </div>
   )
 
   return (

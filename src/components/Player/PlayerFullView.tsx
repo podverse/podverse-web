@@ -38,14 +38,14 @@ export const PlayerFullView = ({ nowPlayingItem }: Props) => {
 
   return (
     <div className={viewClass} role='dialog'>
-      {
-        showFullView && (
-          <>
-            <h1 className='aria-header aria-only-visible-to-screen-readers' tabIndex={showFullView ? 0 : -1}>{t('Full screen player')}</h1>
-            <ButtonClose onClick={_onRequestClose} />
-          </>
-        )
-      }
+      {showFullView && (
+        <>
+          <h1 className='aria-header aria-only-visible-to-screen-readers' tabIndex={showFullView ? 0 : -1}>
+            {t('Full screen player')}
+          </h1>
+          <ButtonClose onClick={_onRequestClose} />
+        </>
+      )}
       <div className={imageWrapperClass}>
         {isVideo && <PlayerAPIVideo />}
         {showFullView && !isVideo && (
@@ -58,17 +58,21 @@ export const PlayerFullView = ({ nowPlayingItem }: Props) => {
         )}
         {showFullView && nowPlayingItem.clipId && (
           <div className='clip-info-wrapper'>
-            <div aria-live="assertive">
-              <div className='clip-title' tabIndex={0}>{clipTitle}</div>
+            <div aria-live='assertive'>
+              <div className='clip-title' tabIndex={0}>
+                {clipTitle}
+              </div>
             </div>
-            <div className='clip-time' tabIndex={0}>{clipTimeInfo}</div>
+            <div className='clip-time' tabIndex={0}>
+              {clipTimeInfo}
+            </div>
           </div>
         )}
       </div>
       {showFullView && (
         <>
           <div className='title-wrapper'>
-            <h1 role="none">
+            <h1 role='none'>
               <PVLink href={episodePageUrl} onClick={_onRequestClose}>
                 {nowPlayingItem.episodeTitle || t('untitledEpisode')}
               </PVLink>

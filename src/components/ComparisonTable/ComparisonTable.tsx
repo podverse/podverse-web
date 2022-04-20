@@ -19,16 +19,22 @@ export const ComparisonTable = ({ aboveSectionNodes, featuresData, headerText1, 
   const dataElements =
     featuresData &&
     featuresData.map((x: any, index: number) => (
-      <div key={`${keyPrefix}_${index}`} role="rowgroup">
-        <div className='comparison-table__row' role="row">
-          <div className='comparison-table-row__text' role="cell">{x.text}</div>
-          <div className='comparison-table-row__icon' role="cell">
-            {x.icon1 && <FontAwesomeIcon icon={x.iconType === 'smile' ? faSmile : faCheck} />}
-            <div className='aria-only-visible-to-screen-readers'>{x.icon1 ? t('Yes') : t('No')} {x.iconType === 'smile' ? ':)' : ''}</div>
+      <div key={`${keyPrefix}_${index}`} role='rowgroup'>
+        <div className='comparison-table__row' role='row'>
+          <div className='comparison-table-row__text' role='cell'>
+            {x.text}
           </div>
-          <div className='comparison-table-row__icon' role="cell">
+          <div className='comparison-table-row__icon' role='cell'>
+            {x.icon1 && <FontAwesomeIcon icon={x.iconType === 'smile' ? faSmile : faCheck} />}
+            <div className='aria-only-visible-to-screen-readers'>
+              {x.icon1 ? t('Yes') : t('No')} {x.iconType === 'smile' ? ':)' : ''}
+            </div>
+          </div>
+          <div className='comparison-table-row__icon' role='cell'>
             {x.icon2 && <FontAwesomeIcon icon={x.iconType === 'smile' ? faSmile : faCheck} />}
-            <div className='aria-only-visible-to-screen-readers'>{x.icon2 ? t('Yes') : t('No')} {x.iconType === 'smile' ? ':)' : ''}</div>
+            <div className='aria-only-visible-to-screen-readers'>
+              {x.icon2 ? t('Yes') : t('No')} {x.iconType === 'smile' ? ':)' : ''}
+            </div>
           </div>
         </div>
       </div>
@@ -38,13 +44,23 @@ export const ComparisonTable = ({ aboveSectionNodes, featuresData, headerText1, 
     <>
       <div className='comparison-table-wrapper'>
         {aboveSectionNodes && <div className='above-section'>{aboveSectionNodes}</div>}
-        <div aria-label={t('Below is a comparison of free and premium features')} className='aria-only-visible-to-screen-readers' tabIndex={0} />
+        <div
+          aria-label={t('Below is a comparison of free and premium features')}
+          className='aria-only-visible-to-screen-readers'
+          tabIndex={0}
+        />
         <div className='comparison-table' role='table'>
           <div role='rowgroup'>
             <div className='comparison-table__header' role='row'>
-              <div className='comparison-table-header__text' role='columnheader'>{headerText}</div>
-              <div className='comparison-table-header__icon' role='columnheader'>{headerText1}</div>
-              <div className='comparison-table-header__icon' role='columnheader'>{headerText2}</div>
+              <div className='comparison-table-header__text' role='columnheader'>
+                {headerText}
+              </div>
+              <div className='comparison-table-header__icon' role='columnheader'>
+                {headerText1}
+              </div>
+              <div className='comparison-table-header__icon' role='columnheader'>
+                {headerText2}
+              </div>
             </div>
           </div>
           {dataElements && dataElements.length > 0 && dataElements}

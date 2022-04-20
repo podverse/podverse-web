@@ -236,16 +236,8 @@ export default function Podcast({
                 placeholder={filterType === PV.Filters.type._episodes ? t('Search episodes') : t('Search clips')}
                 smaller
               />
-              {filterType === PV.Filters.type._episodes && (
-                <List>
-                  {generateEpisodeListElements()}
-                </List>
-              )}
-              {filterType === PV.Filters.type._clips && (
-                <List>
-                  {generateClipListElements()}
-                </List>
-              )}
+              {filterType === PV.Filters.type._episodes && <List>{generateEpisodeListElements()}</List>}
+              {filterType === PV.Filters.type._clips && <List>{generateClipListElements()}</List>}
               <Pagination
                 currentPageIndex={filterPage}
                 handlePageNavigate={(newPage) => setFilterPage(newPage)}

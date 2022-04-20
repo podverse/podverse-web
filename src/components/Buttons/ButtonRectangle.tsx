@@ -39,7 +39,13 @@ export const ButtonRectangle = ({
   )
 
   return (
-    <button aria-description={ariaDescription} aria-pressed={ariaPressed} className={buttonClass} disabled={disabled} onClick={onClick}>
+    <button
+      aria-description={ariaDescription}
+      aria-pressed={ariaPressed}
+      className={buttonClass}
+      disabled={disabled}
+      onClick={onClick}
+    >
       {isLoading && <Icon faIcon={faSpinner} spin />}
       <span className='button__text'>{label}</span>
     </button>

@@ -33,7 +33,7 @@ export default function Membership(props: ServerProps) {
   }
 
   const ariaTopText = `${t('Enjoy Podverse Premium')} ${t('3 months free')}, ${t('18 per year after that')}`
-  
+
   return (
     <>
       <Meta

@@ -25,7 +25,12 @@ export const MobileNavBar = (props: Props) => {
     <>
       <div className='mobile-navbar'>
         <div className='left-wrapper'>
-          <button aria-label={t('Show navigation menu')} className='nav-menu-button' onClick={() => setShowMobileNavMenu(true)} tabIndex={0}>
+          <button
+            aria-label={t('Show navigation menu')}
+            className='nav-menu-button'
+            onClick={() => setShowMobileNavMenu(true)}
+            tabIndex={0}
+          >
             <Icon faIcon={faBars} />
           </button>
           <NavBarBrand height={21} href={PV.RoutePaths.web.home} src={PV.Images.dark.brandLogo} width={113} />
