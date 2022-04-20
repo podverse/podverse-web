@@ -50,12 +50,10 @@ export default function Support(props: ServerProps) {
               <p>
                 {t('Bitcoin Wallet Address')}
                 <br />
-                bc1q7crmsdwhqks803729v0ewpfhf3ft5vzd6vwxkt
               </p>
               <p>
                 {t('Bitcoin Lighning Node Address')}
                 <br />
-                02b92193a4c9d035c81f8076ae4a4aba04b7ea8e04058eb3296f894e6ccd5f2e6e
               </p>
               <p>
                 <a href='https://www.paypal.com/donate?hosted_button_id=YKMNUDUCRTUPC' target='_blank' rel='noreferrer'>
