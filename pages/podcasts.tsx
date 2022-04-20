@@ -314,6 +314,7 @@ export default function Podcasts({
           <SearchBarFilter
             handleClear={_handleSearchClear}
             handleSubmit={_handleSearchSubmit}
+            includeBottomPadding={isCategoriesPage}
             placeholder={t('Search podcasts')}
           />
         )}
