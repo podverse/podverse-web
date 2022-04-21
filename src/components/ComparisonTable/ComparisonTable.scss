@@ -74,4 +74,9 @@
       border-color: getThemeVal('divider');
     }
   }
+
+  .legend-row {
+    font-size: $text-sm;
+    margin: 12px 8px;
+  }
 }
