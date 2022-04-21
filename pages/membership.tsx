@@ -137,13 +137,11 @@ const featuresData = (t) => [
     icon1: true,
     icon2: true
   },
-  // TODO: the web app hasn't been audited and updated for
-  // screen-reader accessibility, but the mobile app has.
-  // {
-  //   text: t('features - screen-reader accessibility'),
-  //   icon1: true,
-  //   icon2: true
-  // },
+  {
+    text: t('features - screen-reader accessibility'),
+    icon1: true,
+    icon2: true
+  },
   {
     text: t('features - Sync your subscriptions, queue, and history across all your devices'),
     icon1: false,
