@@ -86,6 +86,7 @@ export default function Membership(props: ServerProps) {
                 headerText1={t('Free')}
                 headerText2={t('Premium')}
                 headerText={t('Features')}
+                legendAsterisk={t('Feature is only available in the mobile app')}
               />
             </div>
           }
@@ -100,12 +101,15 @@ const featuresData = (t) => [
   {
     text: t('features - subscribe to podcasts'),
     icon1: true,
+    icon1Asterisk: true,
     icon2: true
   },
   {
     text: t('features - download episodes'),
     icon1: true,
-    icon2: true
+    icon1Asterisk: true,
+    icon2: true,
+    icon2Asterisk: true,
   },
   {
     text: t('features - video playback'),
@@ -115,7 +119,9 @@ const featuresData = (t) => [
   {
     text: t('features - sleep timer'),
     icon1: true,
-    icon2: true
+    icon1Asterisk: true,
+    icon2: true,
+    icon2Asterisk: true
   },
   {
     text: t('features - podcasting 2.0 chapters'),
