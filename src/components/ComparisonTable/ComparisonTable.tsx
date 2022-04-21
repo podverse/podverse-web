@@ -14,7 +14,14 @@ type Props = {
 
 const keyPrefix = 'comparion_table'
 
-export const ComparisonTable = ({ aboveSectionNodes, featuresData, headerText1, headerText2, headerText, legendAsterisk }: Props) => {
+export const ComparisonTable = ({
+  aboveSectionNodes,
+  featuresData,
+  headerText1,
+  headerText2,
+  headerText,
+  legendAsterisk
+}: Props) => {
   const { t } = useTranslation()
 
   const dataElements =

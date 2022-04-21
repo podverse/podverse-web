@@ -109,7 +109,7 @@ const featuresData = (t) => [
     icon1: true,
     icon1Asterisk: true,
     icon2: true,
-    icon2Asterisk: true,
+    icon2Asterisk: true
   },
   {
     text: t('features - video playback'),
