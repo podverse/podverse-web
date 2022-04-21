@@ -9,11 +9,19 @@ type Props = {
   headerText1: string
   headerText2: string
   headerText: string
+  legendAsterisk?: string
 }
 
 const keyPrefix = 'comparion_table'
 
-export const ComparisonTable = ({ aboveSectionNodes, featuresData, headerText1, headerText2, headerText }: Props) => {
+export const ComparisonTable = ({
+  aboveSectionNodes,
+  featuresData,
+  headerText1,
+  headerText2,
+  headerText,
+  legendAsterisk
+}: Props) => {
   const { t } = useTranslation()
 
   const dataElements =
@@ -26,12 +34,16 @@ export const ComparisonTable = ({ aboveSectionNodes, featuresData, headerText1, 
           </div>
           <div className='comparison-table-row__icon' role='cell'>
             {x.icon1 && <FontAwesomeIcon icon={x.iconType === 'smile' ? faSmile : faCheck} />}
+            {x.icon1Asterisk ? <>&nbsp;</> : ''}
+            {x.icon1Asterisk ? '*' : ''}
             <div className='aria-only-visible-to-screen-readers'>
               {x.icon1 ? t('Yes') : t('No')} {x.iconType === 'smile' ? ':)' : ''}
             </div>
           </div>
           <div className='comparison-table-row__icon' role='cell'>
             {x.icon2 && <FontAwesomeIcon icon={x.iconType === 'smile' ? faSmile : faCheck} />}
+            {x.icon2Asterisk ? <>&nbsp;</> : ''}
+            {x.icon2Asterisk ? '*' : ''}
             <div className='aria-only-visible-to-screen-readers'>
               {x.icon2 ? t('Yes') : t('No')} {x.iconType === 'smile' ? ':)' : ''}
             </div>
@@ -65,6 +77,7 @@ export const ComparisonTable = ({ aboveSectionNodes, featuresData, headerText1, 
           </div>
           {dataElements && dataElements.length > 0 && dataElements}
         </div>
+        {legendAsterisk ? <div className='legend-row'>* {legendAsterisk}</div> : null}
       </div>
     </>
   )
