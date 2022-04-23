@@ -37,7 +37,7 @@ jobs:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
         run: |
           yarn build
-          yarn test:ci
+          # yarn test:ci
 
   e2e:
     runs-on: ubuntu-latest
