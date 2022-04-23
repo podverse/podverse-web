@@ -1,10 +1,10 @@
 import { GetServerSideProps } from 'next'
 import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
-import OmniAural, { useOmniAural /* useOmniAuralEffect */ } from 'omniaural'
+import OmniAural, { useOmniAural, useOmniAuralEffect } from 'omniaural'
 import type { MediaRef } from 'podverse-shared'
 import { useEffect, useRef, useState } from 'react'
-// import { useCookies } from 'react-cookie'
+import { useCookies } from 'react-cookie'
 import {
   ClipListItem,
   Footer,
@@ -45,24 +45,24 @@ export default function Clips({
   serverClipsListDataCount,
   serverFilterFrom,
   serverFilterPage,
-  serverFilterSort
-}: // serverGlobalFilters
-ServerProps) {
+  serverFilterSort,
+  serverGlobalFilters
+}: ServerProps) {
   /* Initialize */
 
   const router = useRouter()
   const { t } = useTranslation()
-  // const [cookies, setCookie, removeCookie] = useCookies([])
+  const [cookies, setCookie] = useCookies([])
 
   const [filterQuery, setFilterQuery] = useState<any>({
     filterCategoryId: serverCategoryId || null,
     filterFrom: serverFilterFrom,
     filterPage: serverFilterPage,
     filterSearchText: '',
-    filterSort: serverFilterSort
-    // videoOnlyMode: serverGlobalFilters?.videoOnlyMode || OmniAural.state.globalFilters.videoOnlyMode.value()
+    filterSort: serverFilterSort,
+    videoOnlyMode: serverGlobalFilters?.videoOnlyMode || OmniAural.state.globalFilters.videoOnlyMode.value()
   })
-  const { filterCategoryId, filterFrom, filterPage, filterSearchText, filterSort /* videoOnlyMode */ } = filterQuery
+  const { filterCategoryId, filterFrom, filterPage, filterSearchText, filterSort, videoOnlyMode } = filterQuery
   const [tempFilterQuery, setTempFilterQuery] = useState<any>({
     tempFilterEnabled: false,
     tempFilterFrom: serverFilterFrom,
@@ -85,15 +85,18 @@ ServerProps) {
 
   /* useEffects */
 
-  // useOmniAuralEffect(() => {
-  //   const newStateVal = OmniAural.state.globalFilters.videoOnlyMode.value()
-  //   setVideoOnlyMode(newStateVal)
-  //   const globalFilters = cookies.globalFilters || {}
-  //   setCookie('globalFilters', {
-  //     ...globalFilters,
-  //     videoOnlyMode: newStateVal
-  //   })
-  // }, 'globalFilters.videoOnlyMode')
+  useOmniAuralEffect(() => {
+    const newStateVal = OmniAural.state.globalFilters.videoOnlyMode.value()
+    setFilterQuery({
+      ...filterQuery,
+      videoOnlyMode: newStateVal
+    })
+    const globalFilters = cookies.globalFilters || {}
+    setCookie('globalFilters', {
+      ...globalFilters,
+      videoOnlyMode: newStateVal
+    })
+  }, 'globalFilters.videoOnlyMode')
 
   useEffect(() => {
     ;(async () => {
@@ -135,7 +138,7 @@ ServerProps) {
       ...(filterPage ? { page: filterPage } : {}),
       ...(filterSearchText ? { searchTitle: filterSearchText } : {}),
       ...(filterSort ? { sort: filterSort } : {}),
-      // ...(videoOnlyMode ? { hasVideo: true } : {}),
+      ...(videoOnlyMode ? { hasVideo: true } : {}),
       includePodcast: true
     }
     return getMediaRefsByQuery(finalQuery)
@@ -146,7 +149,7 @@ ServerProps) {
       categories: filterCategoryId ? [filterCategoryId] : [],
       ...(filterPage ? { page: filterPage } : {}),
       ...(filterSort ? { sort: filterSort } : {}),
-      // ...(videoOnlyMode ? { hasVideo: true } : {}),
+      ...(videoOnlyMode ? { hasVideo: true } : {}),
       includePodcast: true
     }
 
@@ -160,7 +163,7 @@ ServerProps) {
       ...(filterPage ? { page: filterPage } : {}),
       ...(filterSearchText ? { searchTitle: filterSearchText } : {}),
       ...(filterSort ? { sort: filterSort } : {}),
-      // ...(videoOnlyMode ? { hasVideo: true } : {}),
+      ...(videoOnlyMode ? { hasVideo: true } : {}),
       includePodcast: true
     }
     return getMediaRefsByQuery(finalQuery)
@@ -276,15 +279,18 @@ ServerProps) {
         twitterTitle={meta.title}
       />
       <PageHeader
-        // handleVideoOnlyModeToggle={(newStateVal) => {
-        //   OmniAural.setGlobalFiltersVideoOnlyMode(newStateVal)
-        //   setVideoOnlyMode(newStateVal)
-        //   const globalFilters = cookies.globalFilters || {}
-        //   setCookie('globalFilters', {
-        //     ...globalFilters,
-        //     videoOnlyMode: newStateVal
-        //   })
-        // }}
+        handleVideoOnlyModeToggle={(newStateVal) => {
+          OmniAural.setGlobalFiltersVideoOnlyMode(newStateVal)
+          setFilterQuery({
+            ...filterQuery,
+            videoOnlyMode: newStateVal
+          })
+          const globalFilters = cookies.globalFilters || {}
+          setCookie('globalFilters', {
+            ...globalFilters,
+            videoOnlyMode: newStateVal
+          })
+        }}
         primaryOnChange={_handlePrimaryOnChange}
         primaryOptions={PV.Filters.dropdownOptions.clips.from}
         primarySelected={filterFrom}
@@ -296,7 +302,7 @@ ServerProps) {
         }
         sortSelected={filterSort}
         text={pageHeaderText}
-        // videoOnlyMode={videoOnlyMode}
+        videoOnlyMode={videoOnlyMode}
       />
       <PageScrollableContent noPaddingTop={showLoginMessage || isCategoryPage}>
         {!showLoginMessage && !isCategoryPage && (
@@ -381,7 +387,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const serverCategoryId = selectedCategory?.id || null
 
   const defaultServerProps = await getDefaultServerSideProps(ctx, locale)
-  const { /* serverGlobalFilters, */ serverUserInfo } = defaultServerProps
+  const { serverGlobalFilters, serverUserInfo } = defaultServerProps
 
   const serverFilterFrom = serverUserInfo && !selectedCategory ? PV.Filters.from._subscribed : PV.Filters.from._category
   const serverFilterSort =
@@ -396,8 +402,8 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       categories: [serverCategoryId],
       includeEpisode: true,
       includePodcast: true,
-      sort: serverFilterSort
-      // hasVideo: serverGlobalFilters.videoOnlyMode
+      sort: serverFilterSort,
+      hasVideo: serverGlobalFilters.videoOnlyMode
     })
     clipsListData = response.data[0]
     clipsListDataCount = response.data[1]
@@ -406,8 +412,8 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       includeEpisode: true,
       includePodcast: true,
       podcastIds: serverUserInfo?.subscribedPodcastIds,
-      sort: serverFilterSort
-      // hasVideo: serverGlobalFilters.videoOnlyMode
+      sort: serverFilterSort,
+      hasVideo: serverGlobalFilters.videoOnlyMode
     })
     clipsListData = response.data[0]
     clipsListDataCount = response.data[1]
