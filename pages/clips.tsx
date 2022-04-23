@@ -52,7 +52,7 @@ export default function Clips({
 
   const router = useRouter()
   const { t } = useTranslation()
-  const [cookies, setCookie, removeCookie] = useCookies([])
+  const [cookies, setCookie] = useCookies([])
 
   const [filterQuery, setFilterQuery] = useState<any>({
     filterCategoryId: serverCategoryId || null,
