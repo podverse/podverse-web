@@ -24,6 +24,9 @@ jobs:
         env:
           NODE_ENV: development
         run: |
+          # TODO: frozen-lockfile was constantly causing actions to fail...
+          # maybe it's a good practice but I need to learn how to work with it.
+          # yarn install --frozen-lockfile
           yarn install --frozen-lockfile
           yarn lint
 
