@@ -1,6 +1,7 @@
 import { faSmile } from '@fortawesome/free-regular-svg-icons'
 import { faCheck } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import classNames from 'classnames'
 import { useTranslation } from 'next-i18next'
 
 type Props = {
@@ -9,6 +10,7 @@ type Props = {
   headerText1: string
   headerText2: string
   headerText: string
+  leftAlignedStyle: boolean
   legendAsterisk?: string
 }
 
@@ -20,9 +22,15 @@ export const ComparisonTable = ({
   headerText1,
   headerText2,
   headerText,
+  leftAlignedStyle,
   legendAsterisk
 }: Props) => {
   const { t } = useTranslation()
+
+  const comparisonTableWrapperStyle = classNames(
+    'comparison-table-wrapper',
+    leftAlignedStyle ? 'left-aligned-style' : ''
+  )
 
   const dataElements =
     featuresData &&
@@ -54,7 +62,7 @@ export const ComparisonTable = ({
 
   return (
     <>
-      <div className='comparison-table-wrapper'>
+      <div className={comparisonTableWrapperStyle}>
         {aboveSectionNodes && <div className='above-section'>{aboveSectionNodes}</div>}
         <div
           aria-label={t('Below is a comparison of free and premium features')}
