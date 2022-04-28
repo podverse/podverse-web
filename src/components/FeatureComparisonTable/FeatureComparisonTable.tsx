@@ -37,6 +37,13 @@ const featuresData = (t) => [
     icon2Asterisk: true
   },
   {
+    text: t('features - add custom rss feeds'),
+    icon1: true,
+    icon1Asterisk: true,
+    icon2: true,
+    icon2Asterisk: true
+  },
+  {
     text: t('features - video playback'),
     icon1: true,
     icon2: true
