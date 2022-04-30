@@ -4,6 +4,10 @@
     border-color: getThemeVal('divider');
   }
 
+  &:last-child {
+    border-bottom: 0;
+  }
+
   a {
     border-radius: $item-border-radius;
     display: flex;
