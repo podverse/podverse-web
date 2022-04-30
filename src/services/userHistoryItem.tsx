@@ -99,9 +99,10 @@ export const addOrUpdateHistoryItemOnServer = async ({
   /* If duration is found in historyItemsIndex, pass that as a parameter. */
   const historyItemsIndex = OmniAural.state.historyItemsIndex.value()
   const historyItem = historyItemsIndex.episodes[episodeId]
-  const duration = historyItem?.d
+  // Infinity happens in the case of live streams.
+  const duration = historyItem?.d && historyItem?.d !== Infinity
     ? historyItem.d
-    : mediaFileDuration || mediaFileDuration === 0
+    : mediaFileDuration && mediaFileDuration !== Infinity
     ? Math.floor(mediaFileDuration)
     : 0
 
