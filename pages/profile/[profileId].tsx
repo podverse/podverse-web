@@ -22,8 +22,8 @@ import { PV } from '~/resources'
 import { getPublicUser, updateLoggedInUser } from '~/services/user'
 import { getPodcastsByQuery } from '~/services/podcast'
 import { isNotClipsSortOption, isNotPodcastsSubscribedSortOption } from '~/resources/Filters'
-import { getUserMediaRefs } from '~/services/mediaRef'
-import { getUserPlaylists } from '~/services/playlist'
+import { getLoggedInUserMediaRefs, getUserMediaRefs } from '~/services/mediaRef'
+import { getLoggedInUserPlaylists, getUserPlaylists } from '~/services/playlist'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 import { OmniAuralState } from '~/state/omniauralState'
 import { useRouter } from 'next/router'
@@ -131,15 +131,24 @@ export default function Profile({
   }
 
   const clientQueryUserClips = async () => {
-    const finalQuery = {
-      ...(filterPage ? { page: filterPage } : {}),
-      ...(filterSort ? { sort: filterSort } : {})
+    if (isLoggedInUserProfile) {
+      return getLoggedInUserMediaRefs()
+    } else {
+      const finalQuery = {
+        ...(filterPage ? { page: filterPage } : {}),
+        ...(filterSort ? { sort: filterSort } : {})
+      }
+      
+      return getUserMediaRefs(user.id, finalQuery)
     }
-    return getUserMediaRefs(user.id, finalQuery)
   }
 
   const clientQueryUserPlaylists = async () => {
-    return getUserPlaylists(user.id, filterPage)
+    if (isLoggedInUserProfile) {
+      return getLoggedInUserPlaylists()
+    } else {
+      return getUserPlaylists(user.id, filterPage)
+    }
   }
 
   /* Function Helpers */
