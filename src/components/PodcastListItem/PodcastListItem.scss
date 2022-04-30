@@ -41,6 +41,13 @@
         @include line-clamp(4);
       }
     }
+
+    .live-status-wrapper {
+      align-items: center;
+      display: flex;
+      justify-content: center;
+      margin-left: 16px;
+    }
   }
 }
 

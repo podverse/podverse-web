@@ -92,6 +92,39 @@
     }
   }
 
+  &.status-badge {
+    border-radius: $button-circle-radius;
+    border-style: solid;
+    border-width: $border-width-default;
+    font-size: $text-md;
+    // font-weight: $font-weight-bold;
+    height: 32px;
+    letter-spacing: 0.75px;
+    padding: 0 20px;
+    box-shadow: none !important;
+  
+    @include themeGen() {
+      background-color: getThemeVal('buttonTertiaryBackground') !important;
+      border-color: getThemeVal('buttonTertiaryBorder') !important;
+    }
+  
+    &.danger {
+      @include themeGen() {
+        background-color: getThemeVal('buttonTertiaryDangerBackground') !important;
+        border-color: getThemeVal('buttonTertiaryDangerBorder') !important;
+      }
+    }
+  
+    .icon {
+      position: absolute;
+      top: 3px;
+    }
+  
+    &.loading .button__text {
+      visibility: hidden;
+    }
+  }
+
   .icon svg {
     height: unset;
     width: 22px;

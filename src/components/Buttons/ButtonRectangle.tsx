@@ -7,12 +7,14 @@ type Props = {
   ariaPressed?: boolean
   className?: string
   disabled?: boolean
+  disableHover?: boolean
   isDanger?: boolean
   isLoading?: boolean
+  isStatusBadge?: boolean
   isSuccess?: boolean
   label: string
   onClick?: any
-  type: 'primary' | 'secondary' | 'tertiary'
+  type: 'primary' | 'secondary' | 'tertiary' | 'status-badge'
 }
 
 export const ButtonRectangle = ({
@@ -33,6 +35,7 @@ export const ButtonRectangle = ({
     type === 'primary' ? 'primary' : '',
     type === 'secondary' ? 'secondary' : '',
     type === 'tertiary' ? 'tertiary' : '',
+    type === 'status-badge' ? 'status-badge' : '',
     isLoading ? 'loading' : '',
     isDanger ? 'danger' : '',
     isSuccess ? 'success' : ''
