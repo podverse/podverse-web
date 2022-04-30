@@ -26,6 +26,7 @@ import { getUserMediaRefs } from '~/services/mediaRef'
 import { getUserPlaylists } from '~/services/playlist'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 import { OmniAuralState } from '~/state/omniauralState'
+import { useRouter } from 'next/router'
 
 interface ServerProps extends Page {
   serverFilterType: string
@@ -48,6 +49,7 @@ export default function Profile({
 }: ServerProps) {
   /* Initialize */
 
+  const router = useRouter()
   const { t } = useTranslation()
   const [filterType, setFilterType] = useState<string>(serverFilterType)
   const [filterSort, setFilterSort] = useState<string>(serverFilterSort)
@@ -70,6 +72,10 @@ export default function Profile({
   const isLoggedInUserProfile = userInfo?.id && userInfo.id === user?.id
 
   /* useEffects */
+
+  useEffect(() => {
+    handleMyProfilePageRefresh()
+  }, [router.asPath])
 
   useEffect(() => {
     ;(async () => {
@@ -96,6 +102,17 @@ export default function Profile({
       }
     })()
   }, [filterType, filterSort, filterPage])
+
+  const handleMyProfilePageRefresh = () => {
+    setFilterPage(serverFilterPage)
+    setFilterSort(serverFilterSort)
+    setFilterType(serverFilterType)
+    setUser(serverUser)
+    setListData(serverUserListData)
+    setListDataCount(serverUserListDataCount)
+    setIsEditing(false)
+    setEditingUserName(serverUser.name)
+  }
 
   /* Client-Side Queries */
 
