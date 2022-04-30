@@ -48,13 +48,13 @@ export default function Support(props: ServerProps) {
               <br />
               <h3>{t('Donate')}</h3>
               <p>
-                {t('Bitcoin Wallet Address')}
+                {t('Bitcoin Wallet Address')}<br />{'bc1qqme0tj5gutgujsz62xqcfc6emfgm5wky27zc30'}
                 <br />
               </p>
-              <p>
+              {/* <p>
                 {t('Bitcoin Lighning Node Address')}
                 <br />
-              </p>
+              </p> */}
               <p>
                 <a href='https://www.paypal.com/donate?hosted_button_id=YKMNUDUCRTUPC' target='_blank' rel='noreferrer'>
                   {t('Donate with PayPal')}
