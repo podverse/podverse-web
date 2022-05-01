@@ -68,7 +68,9 @@ const featuresData = (t) => [
   {
     text: t('features - podcasting 2.0 transcripts'),
     icon1: true,
-    icon2: true
+    icon1Asterisk: true,
+    icon2: true,
+    icon2Asterisk: true
   },
   {
     text: t('features - opml import and export'),
