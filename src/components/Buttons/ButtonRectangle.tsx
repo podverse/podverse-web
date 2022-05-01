@@ -7,7 +7,6 @@ type Props = {
   ariaPressed?: boolean
   className?: string
   disabled?: boolean
-  disableHover?: boolean
   isDanger?: boolean
   isLoading?: boolean
   isStatusBadge?: boolean
@@ -41,6 +40,8 @@ export const ButtonRectangle = ({
     isSuccess ? 'success' : ''
   )
 
+  const tabIndex = type === 'status-badge' ? -1 : 0
+
   return (
     <button
       aria-description={ariaDescription}
@@ -48,6 +49,7 @@ export const ButtonRectangle = ({
       className={buttonClass}
       disabled={disabled}
       onClick={onClick}
+      tabIndex={tabIndex}
     >
       {isLoading && <Icon faIcon={faSpinner} spin />}
       <span className='button__text'>{label}</span>

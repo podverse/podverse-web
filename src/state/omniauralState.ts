@@ -90,6 +90,8 @@ export type OmniAuralState = {
     currentNowPlayingItem: null | NowPlayingItem
     duration: number
     highlightedPositions: []
+    isAtCurrentLiveStreamTime?: boolean
+    isInitialLoad: boolean
     muted: boolean
     paused: boolean
     playbackPosition: number
@@ -177,6 +179,8 @@ export const initialState: OmniAuralState = {
     currentNowPlayingItem: null,
     duration: 0,
     highlightedPositions: [],
+    isAtCurrentLiveStreamTime: false,
+    isInitialLoad: true,
     muted: false,
     paused: true,
     playbackPosition: 0,

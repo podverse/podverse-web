@@ -1,6 +1,6 @@
 import moment from 'moment'
 import OmniAural from 'omniaural'
-import { Episode, MediaRef } from 'podverse-shared'
+import { Episode, LiveItem, MediaRef } from 'podverse-shared'
 import { convertSecToHhoursMMinutes, getTimeLabelText, readableClipTime } from './time'
 
 export const readableDate = (date: Date, withTime?: boolean) => {
@@ -26,12 +26,16 @@ export const generateItemTimeInfo = (t: any, episode: Episode, clip?: MediaRef) 
   // TODO: add timeRemaining support
   const timeRemaining = null
   let completed = false
+  const { liveItem } = episode
 
   /* historyItemsIndex is way too big with useOmniAural */
   // const [historyItemsIndex] = useOmniAural('historyItemsIndex')
   const historyItemsIndex = OmniAural.state.historyItemsIndex.value()
 
-  if (clip) {
+  if (liveItem) {
+    const withTime = true
+    pubDate = readableDate(liveItem.start, withTime)
+  } else if (clip) {
     pubDate = readableDate(clip.episode.pubDate)
     timeInfo = readableClipTime(clip.startTime, clip.endTime)
   } else if (episode) {

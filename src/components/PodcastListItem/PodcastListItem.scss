@@ -24,6 +24,11 @@
       flex-direction: column;
       justify-content: center;
 
+      .status-badge.hide-above-tablet-min-width {
+        align-self: flex-start;
+        margin-bottom: 8px;
+      }
+
       .last-episode-pub-date {
         font-size: $text-sm;
         font-weight: $font-weight-medium;

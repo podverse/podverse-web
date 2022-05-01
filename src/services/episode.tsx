@@ -1,5 +1,6 @@
 import { PV } from '~/resources'
 import { request } from '~/services/request'
+import { getPublicLiveItemsByPodcastId } from './liveItem'
 
 export const getEpisodeById = async (id: string) => {
   return request({
@@ -44,10 +45,21 @@ export const getEpisodesByQuery = async ({
   if (podcastIds?.length === 0 || categories?.length === 0) {
     return { data: [[], 0] }
   } else {
-    return request({
+    const episodeResponse = await request({
       endpoint: PV.RoutePaths.api.episode,
       method: 'get',
       query: filteredQuery
     })
+
+    const [episodesData, episodesDataCount] = episodeResponse.data
+    let combinedData = []
+
+    if (typeof podcastIds === 'string') {
+      const liveItems = await getPublicLiveItemsByPodcastId(podcastIds)
+      combinedData = liveItems.concat(episodesData)
+    }
+
+    return { data: [combinedData, episodesDataCount]}
+
   }
 }

@@ -94,7 +94,7 @@ export const addOrUpdateHistoryItemOnServer = async ({
 
   playbackPosition = Math.floor(playbackPosition) || 0
 
-  const { clipId, clipIsOfficialChapter, episodeId } = nowPlayingItem
+  const { clipId, clipIsOfficialChapter, episodeId, liveItem } = nowPlayingItem
 
   /* If duration is found in historyItemsIndex, pass that as a parameter. */
   const historyItemsIndex = OmniAural.state.historyItemsIndex.value()
@@ -114,6 +114,7 @@ export const addOrUpdateHistoryItemOnServer = async ({
       episodeId: clipId && !clipIsOfficialChapter ? null : episodeId,
       mediaRefId: clipId && !clipIsOfficialChapter ? clipId : null,
       forceUpdateOrderDate: forceUpdateOrderDate === false ? false : true,
+      liveItem,
       mediaFileDuration: duration,
       userPlaybackPosition: playbackPosition,
       ...(completed === true || completed === false ? { completed } : {})

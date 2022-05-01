@@ -1,5 +1,5 @@
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
-import { Episode, Podcast } from 'podverse-shared'
+import { Episode, LiveItem, Podcast } from 'podverse-shared'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import striptags from 'striptags'
@@ -9,25 +9,29 @@ import { getPodcastShrunkImageUrl } from '~/lib/utility/image'
 import { PV } from '~/resources'
 
 type Props = {
-  episode: Episode
+  episode?: Episode
   handleRemove?: any
   imageUrl?: string
+  liveItem?: LiveItem
   podcast?: Podcast
   showPodcastInfo?: boolean
   showRemoveButton?: boolean
 }
 
-export const EpisodeListItem = ({ episode, handleRemove, podcast, showPodcastInfo, showRemoveButton }: Props) => {
+export const EpisodeListItem = ({ episode, handleRemove, liveItem, podcast, showPodcastInfo,
+  showRemoveButton }: Props) => {
   const { t } = useTranslation()
-  const { description, id, imageUrl, subtitle } = episode
-  const title = episode.title || t('untitledEpisode')
+  const ep = liveItem?.episode || episode
+  const { description, id, imageUrl, subtitle } = ep
+  const title = ep.title || t('untitledEpisode')
   const episodePageUrl = `${PV.RoutePaths.web.episode}/${id}`
   const [isRemoving, setIsRemoving] = useState<boolean>(false)
   let summaryText = subtitle && subtitle !== title ? subtitle : description
   summaryText = striptags(summaryText)
 
   const finalImageUrl = imageUrl ? imageUrl : podcast ? getPodcastShrunkImageUrl(podcast) : ''
-  const linkAriaTimeInfo = generateAriaItemTimeInfo(t, episode)
+  const clip = null
+  const linkAriaTimeInfo = generateAriaItemTimeInfo(t, ep, clip)
   const linkAriaLabel = `${showPodcastInfo ? `${podcast.title}, ` : ''} ${title}, ${linkAriaTimeInfo}, ${summaryText}`
 
   const _handleRemove = async () => {
@@ -55,7 +59,12 @@ export const EpisodeListItem = ({ episode, handleRemove, podcast, showPodcastInf
               />
             </div>
           </PVLink>
-          <MediaItemControls buttonSize='medium' episode={episode} podcast={podcast} stretchMiddleContent />
+          <MediaItemControls
+            buttonSize='medium'
+            episode={episode}
+            liveItem={liveItem}
+            podcast={podcast}
+            stretchMiddleContent />
         </div>
         {showRemoveButton && (
           <div className='side-wrapper'>

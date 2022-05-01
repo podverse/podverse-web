@@ -6100,10 +6100,10 @@ pngjs@^4.0.1:
   resolved "https://registry.yarnpkg.com/pngjs/-/pngjs-4.0.1.tgz#f803869bb2fc1bfe1bf99aa4ec21c108117cfdbe"
   integrity sha512-rf5+2/ioHeQxR6IxuYNYGFytUyG3lma/WW1nsmjeHlWwtb2aByla6dkVc8pmJ9nplzkTA0q2xx7mMWrOTqT4Gg==
 
-podverse-shared@4.4.3:
-  version "4.4.3"
-  resolved "https://registry.yarnpkg.com/podverse-shared/-/podverse-shared-4.4.3.tgz#d20c766e795d91ea437cfd9ebf199847d5dcd7ba"
-  integrity sha512-//3OI3CwOeuJbS6MhXyY9Ah4DkeQdS3ZUi4XOTcIv8KIOyY/DnPxes2hiQr/UR7xSlFRkgBOoXeyHiYQjgnc4Q==
+podverse-shared@4.4.4:
+  version "4.4.4"
+  resolved "https://registry.yarnpkg.com/podverse-shared/-/podverse-shared-4.4.4.tgz#7c92e1909eaf84a5d031e1103f08a672ce630554"
+  integrity sha512-SUCbyJ7vMIu0Kn33JX7Vg+GX39+H0X0+IhAUCcuqB3CV9Dutf3yEDNcHuog4l7DYbK2lgP6Lxm9guNNmQ8qgQA==
   dependencies:
     html-entities "^2.3.2"
     striptags "^3.2.0"

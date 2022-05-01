@@ -31,6 +31,16 @@
       color: getThemeVal('textTertiary');
     }
 
+    &.is-live-item {
+      margin-left: -2px;
+    }
+
+    &.is-at-current-live-position {
+      @include themeGen() {
+        color: getThemeVal('textDanger');
+      }
+    }
+
     &:first-child {
       text-align: right;
     }
