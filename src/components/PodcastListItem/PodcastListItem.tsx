@@ -5,7 +5,6 @@ import { readableDate } from '~/lib/utility/date'
 import { getPodcastShrunkImageUrl } from '~/lib/utility/image'
 import { PV } from '~/resources'
 import { ariaLiveItemStatusLabel } from '~/services/liveItem'
-import { ButtonRectangle } from '../Buttons/ButtonRectangle'
 import { LiveStatusBadge } from '../LiveStatusBadge/LiveStatusBadge'
 
 type Props = {

@@ -1,6 +1,6 @@
 import moment from 'moment'
 import OmniAural from 'omniaural'
-import { Episode, LiveItem, MediaRef } from 'podverse-shared'
+import { Episode, MediaRef } from 'podverse-shared'
 import { convertSecToHhoursMMinutes, getTimeLabelText, readableClipTime } from './time'
 
 export const readableDate = (date: Date, withTime?: boolean) => {
