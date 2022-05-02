@@ -31,11 +31,7 @@ export const getPublicLiveItemsByPodcastId = async (podcastId: string) => {
   }
 }
 
-export const getEpisodesAndLiveItems = async (
-  query: EpisodeQueryParams,
-  podcast: Podcast,
-  page = 1
-) => {
+export const getEpisodesAndLiveItems = async (query: EpisodeQueryParams, podcast: Podcast, page = 1) => {
   // If a show is currently live, it will appear at the top of the episodes list.
   // Scheduled live shows appear under the About section.
   const episodesResponse = await getEpisodesByQuery(query)

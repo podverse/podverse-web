@@ -275,13 +275,11 @@ export default function Podcast({
                   }}
                 />
               </SideContentSection>
-              {
-                serverLiveItemScheduleData.length > 0 && (
-                  <SideContentSection headerText={t('Live Schedule')}>
-                    {generateLiveScheduleItemListElements()}
-                  </SideContentSection>
-                )
-              }
+              {serverLiveItemScheduleData.length > 0 && (
+                <SideContentSection headerText={t('Live Schedule')}>
+                  {generateLiveScheduleItemListElements()}
+                </SideContentSection>
+              )}
             </SideContent>
           }
         />
@@ -314,10 +312,14 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const serverClipsPageCount = 0
   let serverLiveItemScheduleData = []
   if (serverFilterType === PV.Filters.type._episodes) {
-    const data = await getEpisodesAndLiveItems({
-      podcastIds: podcastId,
-      sort: serverFilterSort
-    }, podcast, serverFilterPage)
+    const data = await getEpisodesAndLiveItems(
+      {
+        podcastIds: podcastId,
+        sort: serverFilterSort
+      },
+      podcast,
+      serverFilterPage
+    )
     const [combinedEpisodesData, episodesDataCount] = data.combinedEpisodes
     serverLiveItemScheduleData = data.scheduledLiveItems
     serverEpisodes = combinedEpisodesData

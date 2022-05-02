@@ -53,7 +53,8 @@ export const ProgressBar = ({
       aria-role={endTimeAriaRole}
       className={endTimeBarLabel}
       onClick={endTimeOnClick}
-      tabIndex={0}>
+      tabIndex={0}
+    >
       {endTimeLabel}
     </button>
   )

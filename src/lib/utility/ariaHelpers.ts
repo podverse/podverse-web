@@ -6,7 +6,9 @@ export const generateAriaItemTimeInfo = (t: any, episode: Episode, clip?: MediaR
   const { completed, pubDate, timeInfo /*, timeRemaining */ } = generateItemTimeInfo(t, episode, clip)
   const { liveItem } = episode
   /* TODO: add time remaining info */
-  const ariaLabel = `${liveItem?.status ? `${ariaLiveItemStatusLabel(liveItem?.status, t)},` : ''} ${pubDate} ${!liveItem && completed ? `, ${t('Finished episode')}` : ''} ${timeInfo ? `, ${timeInfo}` : ''}`
+  const ariaLabel = `${liveItem?.status ? `${ariaLiveItemStatusLabel(liveItem?.status, t)},` : ''} ${pubDate} ${
+    !liveItem && completed ? `, ${t('Finished episode')}` : ''
+  } ${timeInfo ? `, ${timeInfo}` : ''}`
 
   return ariaLabel
 }

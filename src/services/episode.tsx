@@ -50,6 +50,6 @@ export const getEpisodesByQuery = async ({
       query: filteredQuery
     })
     const [episodesData, episodesDataCount] = episodeResponse.data
-    return { data: [episodesData, episodesDataCount]}
+    return { data: [episodesData, episodesDataCount] }
   }
 }

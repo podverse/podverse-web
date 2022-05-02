@@ -70,11 +70,11 @@ export const convertSecToHHMMSS = (sec: number, isLiveItem?: boolean, t?: any) =
     const minutes = Math.floor(totalSec / 60)
     const seconds = Math.floor(totalSec % 60)
     let result = ''
-  
+
     if (hours >= 1) {
       result += hours + ':'
     }
-  
+
     if (minutes >= 10) {
       result += minutes + ':'
     } else if (minutes >= 1 && hours >= 1) {
@@ -84,7 +84,7 @@ export const convertSecToHHMMSS = (sec: number, isLiveItem?: boolean, t?: any) =
     } else if (minutes === 0 && hours >= 1) {
       result += '00:'
     }
-  
+
     if (seconds >= 10) {
       result += seconds
     } else if (seconds >= 1 && minutes >= 1) {
@@ -94,19 +94,17 @@ export const convertSecToHHMMSS = (sec: number, isLiveItem?: boolean, t?: any) =
     } else {
       result += '00'
     }
-  
+
     if (result.length === 2) {
       result = '0:' + result
     }
-  
+
     if (result.length === 1) {
       result = '0:0' + result
     }
-  
+
     return result
   }
-
-
 }
 
 export const readableClipTime = (startTime: number, endTime?: number) => {

@@ -100,11 +100,12 @@ export const addOrUpdateHistoryItemOnServer = async ({
   const historyItemsIndex = OmniAural.state.historyItemsIndex.value()
   const historyItem = historyItemsIndex.episodes[episodeId]
   // Infinity happens in the case of live streams.
-  const duration = historyItem?.d && historyItem?.d !== Infinity
-    ? historyItem.d
-    : mediaFileDuration && mediaFileDuration !== Infinity
-    ? Math.floor(mediaFileDuration)
-    : 0
+  const duration =
+    historyItem?.d && historyItem?.d !== Infinity
+      ? historyItem.d
+      : mediaFileDuration && mediaFileDuration !== Infinity
+      ? Math.floor(mediaFileDuration)
+      : 0
 
   await request({
     endpoint: '/user-history-item',

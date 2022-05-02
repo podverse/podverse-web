@@ -194,9 +194,7 @@ export const MediaItemControls = ({
   return (
     <>
       <div className='mobile-media-item-controls-above-wrapper'>
-        {liveItem && (
-          <LiveStatusBadge hideAboveMobileWidth liveItemStatus={liveItem.status} />
-        )}
+        {liveItem && <LiveStatusBadge hideAboveMobileWidth liveItemStatus={liveItem.status} />}
       </div>
       <div className='media-item-controls'>
         <ButtonCircle
@@ -208,9 +206,7 @@ export const MediaItemControls = ({
           size={buttonSize}
         />
         <div aria-hidden='true' className={timeWrapperClass}>
-          {liveItem && (
-            <LiveStatusBadge hideBelowMobileWidth liveItemStatus={liveItem.status} />
-          )}
+          {liveItem && <LiveStatusBadge hideBelowMobileWidth liveItemStatus={liveItem.status} />}
           {!hidePubDate && <span className='pub-date'>{pubDate}</span>}
           {!!timeInfo && (
             <>

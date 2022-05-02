@@ -106,7 +106,7 @@
     span.button__text {
       margin-top: -1px;
     }
-  
+
     @include themeGen() {
       background-color: getThemeVal('buttonTertiaryBackground') !important;
       border-color: getThemeVal('buttonTertiaryBorder') !important;
@@ -118,7 +118,7 @@
         color: getThemeVal('buttonPrimarySuccessTextColor');
       }
     }
-  
+
     &.danger {
       @include themeGen() {
         background-color: getThemeVal('buttonTertiaryDangerBackground') !important;
@@ -134,12 +134,12 @@
         color: getThemeVal('buttonDisabledText') !important;
       }
     }
-  
+
     .icon {
       position: absolute;
       top: 3px;
     }
-  
+
     &.loading .button__text {
       visibility: hidden;
     }

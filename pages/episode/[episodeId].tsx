@@ -209,27 +209,25 @@ export default function Episode({
             <>
               <EpisodeInfo episode={serverEpisode} includeMediaItemControls />
               {hasValidCommentTag ? <Comments comment={comment} isLoading={commentsLoading} /> : null}
-              {
-                !isLiveItem && (
-                  <>
-                    <PageHeader
-                      isSubHeader
-                      noMarginBottom
-                      sortOnChange={(selectedItems: any[]) => {
-                        const selectedItem = selectedItems[0]
-                        setFilterState({
-                          clipsFilterPage: 1,
-                          clipsFilterSort: selectedItem.key
-                        })
-                      }}
-                      sortOptions={PV.Filters.dropdownOptions.clip.sort}
-                      sortSelected={clipsFilterSort}
-                      text={t('Clips')}
-                    />
-                    <List>{generateClipListElements()}</List>
-                  </>
-                )
-              }
+              {!isLiveItem && (
+                <>
+                  <PageHeader
+                    isSubHeader
+                    noMarginBottom
+                    sortOnChange={(selectedItems: any[]) => {
+                      const selectedItem = selectedItems[0]
+                      setFilterState({
+                        clipsFilterPage: 1,
+                        clipsFilterSort: selectedItem.key
+                      })
+                    }}
+                    sortOptions={PV.Filters.dropdownOptions.clip.sort}
+                    sortSelected={clipsFilterSort}
+                    text={t('Clips')}
+                  />
+                  <List>{generateClipListElements()}</List>
+                </>
+              )}
               <Pagination
                 currentPageIndex={clipsFilterPage}
                 handlePageNavigate={(newPage) => {

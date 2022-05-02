@@ -121,5 +121,4 @@ export const audioResetLiveItemAndResumePlayback = (liveStreamSrc: string) => {
       OmniAural.playerIsAtCurrentLiveStreamTime()
     }, 500)
   }, 100)
-
 }

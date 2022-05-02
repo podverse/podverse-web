@@ -1,5 +1,5 @@
-import { useTranslation } from "next-i18next"
-import { ComparisonTable } from "../ComparisonTable/ComparisonTable"
+import { useTranslation } from 'next-i18next'
+import { ComparisonTable } from '../ComparisonTable/ComparisonTable'
 
 type Props = {
   aboveSectionNodes?: any

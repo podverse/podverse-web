@@ -48,7 +48,9 @@ export default function Support(props: ServerProps) {
               <br />
               <h3>{t('Donate')}</h3>
               <p>
-                {t('Bitcoin Wallet Address')}<br />{'bc1qqme0tj5gutgujsz62xqcfc6emfgm5wky27zc30'}
+                {t('Bitcoin Wallet Address')}
+                <br />
+                {'bc1qqme0tj5gutgujsz62xqcfc6emfgm5wky27zc30'}
                 <br />
               </p>
               {/* <p>

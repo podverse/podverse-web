@@ -18,8 +18,14 @@ type Props = {
   showRemoveButton?: boolean
 }
 
-export const EpisodeListItem = ({ episode, handleRemove, liveItem, podcast, showPodcastInfo,
-  showRemoveButton }: Props) => {
+export const EpisodeListItem = ({
+  episode,
+  handleRemove,
+  liveItem,
+  podcast,
+  showPodcastInfo,
+  showRemoveButton
+}: Props) => {
   const { t } = useTranslation()
   const ep = liveItem?.episode || episode
   const { description, id, imageUrl, subtitle } = ep
@@ -59,11 +65,7 @@ export const EpisodeListItem = ({ episode, handleRemove, liveItem, podcast, show
               />
             </div>
           </PVLink>
-          <MediaItemControls
-            buttonSize='medium'
-            episode={episode}
-            podcast={podcast}
-            stretchMiddleContent />
+          <MediaItemControls buttonSize='medium' episode={episode} podcast={podcast} stretchMiddleContent />
         </div>
         {showRemoveButton && (
           <div className='side-wrapper'>

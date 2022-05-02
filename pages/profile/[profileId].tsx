@@ -138,7 +138,7 @@ export default function Profile({
         ...(filterPage ? { page: filterPage } : {}),
         ...(filterSort ? { sort: filterSort } : {})
       }
-      
+
       return getUserMediaRefs(user.id, finalQuery)
     }
   }
