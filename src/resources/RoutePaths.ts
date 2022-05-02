@@ -13,6 +13,7 @@ export const RoutePaths = {
     episode: `/episode`,
     get_authenticated_user_info: `${api.auth}/get-authenticated-user-info`,
     invoice: `/invoice`,
+    live_item: `/liveItem`,
     login: `${api.auth}/login`,
     logout: `${api.auth}/logout`,
     mediaRef: `/mediaRef`,

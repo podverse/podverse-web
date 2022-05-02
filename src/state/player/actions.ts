@@ -82,6 +82,18 @@ const playerFullViewShow = () => {
   }, 0)
 }
 
+const playerIsAtCurrentLiveStreamTime = () => {
+  OmniAural.state.player.isAtCurrentLiveStreamTime.set(true)
+}
+
+const playerIsNotAtCurrentLiveStreamTime = () => {
+  OmniAural.state.player.isAtCurrentLiveStreamTime.set(false)
+}
+
+const playerIsNotInitialLoad = () => {
+  OmniAural.state.player.isInitialLoad.set(false)
+}
+
 const playerSetVideoSrc = (src: string) => {
   OmniAural.state.player.video.src.set(src || '')
 }
@@ -104,5 +116,8 @@ OmniAural.addActions({
   setPlaySpeed,
   togglePlayer,
   unmutePlayer,
+  playerIsAtCurrentLiveStreamTime,
+  playerIsNotAtCurrentLiveStreamTime,
+  playerIsNotInitialLoad,
   playerSetVideoSrc
 })

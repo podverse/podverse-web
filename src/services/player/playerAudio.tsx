@@ -35,15 +35,25 @@ export const audioGetPosition = () => {
 export const audioPause = () => {
   OmniAural.pausePlayer()
   PVPlayerAudio.pause()
+  OmniAural.playerIsNotAtCurrentLiveStreamTime()
 }
 
 export const audioPlay = () => {
-  OmniAural.playPlayer()
-  PVPlayerAudio.play()
+  const isInitialLoad = OmniAural.state.player.isInitialLoad.value()
+  const currentNowPlayingItem = OmniAural.state.player.currentNowPlayingItem.value()
+  const isLiveItem = !!currentNowPlayingItem?.liveItem
+  if (isLiveItem && isInitialLoad) {
+    audioResetLiveItemAndResumePlayback(currentNowPlayingItem.episodeMediaUrl)
+  } else {
+    OmniAural.playPlayer()
+    PVPlayerAudio.play()
+  }
+  OmniAural.playerIsNotInitialLoad()
 }
 
 export const audioSeekTo = (position: number) => {
   PVPlayerAudio.currentTime = position
+  OmniAural.playerIsNotAtCurrentLiveStreamTime()
 }
 
 export const audioSetPlaybackSpeed = (newSpeed: number) => {
@@ -73,6 +83,11 @@ export const audioLoadNowPlayingItem = async (
     handleSetupClipListener(nowPlayingItem.clipEndTime)
   }
 
+  const isLiveItem = !!nowPlayingItem.liveItem
+  if (isLiveItem && shouldPlay) {
+    OmniAural.playerIsAtCurrentLiveStreamTime()
+  }
+
   return nowPlayingItem
 }
 
@@ -86,4 +101,24 @@ export const audioMute = () => {
 
 export const audioUnmute = () => {
   PVPlayerAudio.muted = false
+}
+
+/*
+  Apparently the only way to force a live stream to play from the latest time
+  is to remove and reload the live stream in the player.
+  https://stackoverflow.com/questions/27258169/how-can-i-stop-and-resume-a-live-audio-stream-in-html5-instead-of-just-pausing-i
+*/
+export const audioResetLiveItemAndResumePlayback = (liveStreamSrc: string) => {
+  const audioElement = window?.playerAudio?.current?.audio?.current
+  audioElement?.setAttribute('src', '')
+  audioElement?.pause()
+  setTimeout(() => {
+    audioElement?.load()
+    setTimeout(() => {
+      audioElement?.setAttribute('src', liveStreamSrc)
+      audioElement?.load()
+      audioPlay()
+      OmniAural.playerIsAtCurrentLiveStreamTime()
+    }, 500)
+  }, 100)
 }

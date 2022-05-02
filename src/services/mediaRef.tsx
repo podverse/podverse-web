@@ -68,6 +68,15 @@ export const getUserMediaRefs = async (userId: string, query: any = {}) => {
   return response && response.data
 }
 
+export const getLoggedInUserMediaRefs = async () => {
+  const response = await request({
+    endpoint: '/user/mediaRefs',
+    ...getAuthCredentialsHeaders()
+  })
+
+  return response && response.data
+}
+
 export const retrieveLatestChaptersForEpisodeId = async (id: string) => {
   const response = await request({
     endpoint: `/episode/${id}/retrieve-latest-chapters`

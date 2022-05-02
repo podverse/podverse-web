@@ -92,6 +92,59 @@
     }
   }
 
+  &.status-badge {
+    border-radius: $button-circle-radius;
+    border-style: solid;
+    border-width: $border-width-default;
+    font-size: $text-md;
+    // font-weight: $font-weight-bold;
+    height: 32px;
+    letter-spacing: 0.7px;
+    padding: 0 20px;
+    box-shadow: none !important;
+
+    span.button__text {
+      margin-top: -1px;
+    }
+
+    @include themeGen() {
+      background-color: getThemeVal('buttonTertiaryBackground') !important;
+      border-color: getThemeVal('buttonTertiaryBorder') !important;
+    }
+
+    &.success {
+      @include themeGen() {
+        background-color: getThemeVal('buttonPrimarySuccessBackground');
+        color: getThemeVal('buttonPrimarySuccessTextColor');
+      }
+    }
+
+    &.danger {
+      @include themeGen() {
+        background-color: getThemeVal('buttonTertiaryDangerBackground') !important;
+        border-color: getThemeVal('buttonTertiaryDangerBorder') !important;
+        color: getThemeVal('buttonTertiaryDangerTextColor') !important;
+      }
+    }
+
+    &:disabled {
+      @include themeGen() {
+        background-color: getThemeVal('highlighted') !important;
+        border-color: getThemeVal('highlightedBorder') !important;
+        color: getThemeVal('buttonDisabledText') !important;
+      }
+    }
+
+    .icon {
+      position: absolute;
+      top: 3px;
+    }
+
+    &.loading .button__text {
+      visibility: hidden;
+    }
+  }
+
   .icon svg {
     height: unset;
     width: 22px;

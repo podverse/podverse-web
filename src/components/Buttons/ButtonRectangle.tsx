@@ -9,10 +9,11 @@ type Props = {
   disabled?: boolean
   isDanger?: boolean
   isLoading?: boolean
+  isStatusBadge?: boolean
   isSuccess?: boolean
   label: string
   onClick?: any
-  type: 'primary' | 'secondary' | 'tertiary'
+  type: 'primary' | 'secondary' | 'tertiary' | 'status-badge'
 }
 
 export const ButtonRectangle = ({
@@ -33,10 +34,13 @@ export const ButtonRectangle = ({
     type === 'primary' ? 'primary' : '',
     type === 'secondary' ? 'secondary' : '',
     type === 'tertiary' ? 'tertiary' : '',
+    type === 'status-badge' ? 'status-badge' : '',
     isLoading ? 'loading' : '',
     isDanger ? 'danger' : '',
     isSuccess ? 'success' : ''
   )
+
+  const tabIndex = type === 'status-badge' ? -1 : 0
 
   return (
     <button
@@ -45,6 +49,7 @@ export const ButtonRectangle = ({
       className={buttonClass}
       disabled={disabled}
       onClick={onClick}
+      tabIndex={tabIndex}
     >
       {isLoading && <Icon faIcon={faSpinner} spin />}
       <span className='button__text'>{label}</span>

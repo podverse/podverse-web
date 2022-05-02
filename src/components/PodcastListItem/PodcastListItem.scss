@@ -4,6 +4,10 @@
     border-color: getThemeVal('divider');
   }
 
+  &:last-child {
+    border-bottom: 0;
+  }
+
   a {
     border-radius: $item-border-radius;
     display: flex;
@@ -19,6 +23,11 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
+
+      .status-badge.hide-above-tablet-min-width {
+        align-self: flex-start;
+        margin-bottom: 8px;
+      }
 
       .last-episode-pub-date {
         font-size: $text-sm;
@@ -36,6 +45,13 @@
 
         @include line-clamp(4);
       }
+    }
+
+    .live-status-wrapper {
+      align-items: center;
+      display: flex;
+      justify-content: center;
+      margin-left: 16px;
     }
   }
 }
