@@ -21,6 +21,7 @@ export const isBeforeDate = (expirationDate, dayOffset = 0) => {
 }
 
 export const generateItemTimeInfo = (t: any, episode: Episode, clip?: MediaRef) => {
+  let endDate = null
   let pubDate = null
   let timeInfo = null
   // TODO: add timeRemaining support
@@ -35,6 +36,7 @@ export const generateItemTimeInfo = (t: any, episode: Episode, clip?: MediaRef) 
   if (liveItem) {
     const withTime = true
     pubDate = readableDate(liveItem.start, withTime)
+    endDate = readableDate(liveItem.end, withTime)
   } else if (clip) {
     pubDate = readableDate(clip.episode.pubDate)
     timeInfo = readableClipTime(clip.startTime, clip.endTime)
@@ -51,6 +53,7 @@ export const generateItemTimeInfo = (t: any, episode: Episode, clip?: MediaRef) 
 
   return {
     completed,
+    endDate,
     pubDate,
     timeInfo,
     timeRemaining

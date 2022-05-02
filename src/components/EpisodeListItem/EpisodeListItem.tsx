@@ -62,7 +62,6 @@ export const EpisodeListItem = ({ episode, handleRemove, liveItem, podcast, show
           <MediaItemControls
             buttonSize='medium'
             episode={episode}
-            liveItem={liveItem}
             podcast={podcast}
             stretchMiddleContent />
         </div>

@@ -61,7 +61,7 @@ export const MediaItemControls = ({
   const nowPlayingItem: NowPlayingItem = mediaRef
     ? convertToNowPlayingItem(mediaRef, episode, podcast)
     : convertToNowPlayingItem(episode, null, podcast)
-  const { completed, pubDate, timeInfo, timeRemaining } = generateItemTimeInfo(t, episode, mediaRef, liveItem)
+  const { completed, pubDate, timeInfo, timeRemaining } = generateItemTimeInfo(t, episode, mediaRef)
 
   const timeWrapperClass = classNames('time-wrapper', stretchMiddleContent ? 'flex-stretch' : '')
 

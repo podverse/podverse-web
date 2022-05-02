@@ -1,6 +1,5 @@
 import { PV } from '~/resources'
 import { request } from '~/services/request'
-import { getPublicLiveItemsByPodcastId } from './liveItem'
 
 export const getEpisodeById = async (id: string) => {
   return request({
@@ -9,7 +8,7 @@ export const getEpisodeById = async (id: string) => {
   })
 }
 
-type EpisodeQueryParams = {
+export type EpisodeQueryParams = {
   categories?: string[]
   hasVideo?: boolean
   includePodcast?: boolean
@@ -50,16 +49,7 @@ export const getEpisodesByQuery = async ({
       method: 'get',
       query: filteredQuery
     })
-
     const [episodesData, episodesDataCount] = episodeResponse.data
-    let combinedData = []
-
-    if (typeof podcastIds === 'string') {
-      const liveItems = await getPublicLiveItemsByPodcastId(podcastIds)
-      combinedData = liveItems.concat(episodesData)
-    }
-
-    return { data: [combinedData, episodesDataCount]}
-
+    return { data: [episodesData, episodesDataCount]}
   }
 }

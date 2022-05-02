@@ -1,0 +1,19 @@
+.live-schedule-item {
+  line-height: initial;
+  margin-bottom: 18px;
+
+  .title {
+    margin-bottom: 4px;
+  }
+  .time {
+    @include themeGen() {
+      color: getThemeVal('textTertiary');
+    }
+  }
+  .live-now {
+    font-weight: $font-weight-bold;
+    @include themeGen() {
+      color: getThemeVal('textDanger');
+    }
+  }
+}
