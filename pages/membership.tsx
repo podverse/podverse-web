@@ -44,13 +44,7 @@ export default function Membership(props: ServerProps) {
         {t('18 per year after that')}
       </p>
       <div className='button-column'>
-        {!userInfo && (
-          <ButtonRectangle
-            label={t('Login')}
-            onClick={() => OmniAural.modalsLoginShow()}
-            type='primary'
-          />
-        )}
+        {!userInfo && <ButtonRectangle label={t('Login')} onClick={() => OmniAural.modalsLoginShow()} type='primary' />}
         {userInfo && (
           <ButtonRectangle
             isSuccess

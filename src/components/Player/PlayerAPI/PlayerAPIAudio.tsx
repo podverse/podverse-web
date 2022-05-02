@@ -49,10 +49,9 @@ export const PlayerAPIAudio = (props: Props) => {
     const duration = playerGetDuration()
 
     const historyItem = historyItemsIndex.episodes[currentNowPlayingItem.episodeId]
-
     if (Number.isInteger(currentNowPlayingItem.clipStartTime)) {
       setClipFlagPositions(currentNowPlayingItem, duration)
-    } else if (historyItem) {
+    } else if (historyItem && !currentNowPlayingItem.liveItem) {
       audioSeekTo(historyItem.p)
     }
 

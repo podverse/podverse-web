@@ -2,7 +2,7 @@ import { faCheck } from '@fortawesome/free-solid-svg-icons'
 import { faEllipsisH, faPause, faPlay } from '@fortawesome/free-solid-svg-icons'
 import classNames from 'classnames'
 import OmniAural, { useOmniAural } from 'omniaural'
-import type { Episode, MediaRef, NowPlayingItem, Podcast } from 'podverse-shared'
+import type { Episode, LiveItem, MediaRef, NowPlayingItem, Podcast } from 'podverse-shared'
 import { convertToNowPlayingItem } from 'podverse-shared'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -18,6 +18,7 @@ import { addQueueItemLastOnServer, addQueueItemNextOnServer } from '~/services/u
 import { modalsAddToPlaylistShowOrAlert } from '~/state/modals/addToPlaylist/actions'
 import { OmniAuralState } from '~/state/omniauralState'
 import { ButtonCircle, Dropdown, Icon } from '..'
+import { LiveStatusBadge } from '../LiveStatusBadge/LiveStatusBadge'
 
 type Props = {
   buttonSize: 'medium' | 'large'
@@ -56,6 +57,7 @@ export const MediaItemControls = ({
   const [forceRefresh, setForceRefresh] = useState<number>(0)
   const { t } = useTranslation()
 
+  const { liveItem } = episode
   const nowPlayingItem: NowPlayingItem = mediaRef
     ? convertToNowPlayingItem(mediaRef, episode, podcast)
     : convertToNowPlayingItem(episode, null, podcast)
@@ -144,15 +146,24 @@ export const MediaItemControls = ({
   /* Render Helpers */
 
   const generateDropdownItems = () => {
-    const items = [
-      { label: 'Play', key: _playKey },
-      { label: 'Queue Next', key: _queueNextKey },
-      { label: 'Queue Last', key: _queueLastKey },
-      { label: 'Add to Playlist', key: _addToPlaylistKey },
-      { label: 'Share', key: _shareKey }
-    ]
+    let items = []
 
-    if (!mediaRef) {
+    if (liveItem) {
+      items = [
+        { label: 'Play', key: _playKey },
+        { label: 'Share', key: _shareKey }
+      ]
+    } else {
+      items = [
+        { label: 'Play', key: _playKey },
+        { label: 'Queue Next', key: _queueNextKey },
+        { label: 'Queue Last', key: _queueLastKey },
+        { label: 'Add to Playlist', key: _addToPlaylistKey },
+        { label: 'Share', key: _shareKey }
+      ]
+    }
+
+    if (!mediaRef && !liveItem) {
       if (completed) {
         items.push({ label: 'Mark as Unplayed', key: _markAsUnplayedKey })
       } else {
@@ -181,42 +192,48 @@ export const MediaItemControls = ({
     : t('Play this episode')
 
   return (
-    <div className='media-item-controls'>
-      <ButtonCircle
-        ariaLabel={togglePlayAriaLabel}
-        ariaPressed
-        className={togglePlayClassName}
-        faIcon={togglePlayIcon}
-        onClick={_handleTogglePlay}
-        size={buttonSize}
-      />
-      <div aria-hidden='true' className={timeWrapperClass}>
-        {!hidePubDate && <span className='pub-date'>{pubDate}</span>}
-        {!!timeInfo && (
-          <>
-            {!hidePubDate && <span className='time-spacer'> • </span>}
-            {timeRemaining ? (
-              <span className='time-remaining'>{timeRemaining}</span>
-            ) : (
-              <span className='time-info'>{timeInfo}</span>
-            )}
-          </>
-        )}
-        {completed && (
-          <span className='completed'>
-            <Icon faIcon={faCheck} />
-          </span>
-        )}
+    <>
+      <div className='mobile-media-item-controls-above-wrapper'>
+        {liveItem && <LiveStatusBadge hideAboveMobileWidth liveItemStatus={liveItem.status} />}
       </div>
-      <Dropdown
-        dropdownAriaLabel={t('More')}
-        dropdownWidthClass='width-medium'
-        faIcon={faEllipsisH}
-        hasClipEditButtons={dropdownItems.length > 6}
-        hideCaret
-        onChange={onChange}
-        options={dropdownItems}
-      />
-    </div>
+      <div className='media-item-controls'>
+        <ButtonCircle
+          ariaLabel={togglePlayAriaLabel}
+          ariaPressed
+          className={togglePlayClassName}
+          faIcon={togglePlayIcon}
+          onClick={_handleTogglePlay}
+          size={buttonSize}
+        />
+        <div aria-hidden='true' className={timeWrapperClass}>
+          {liveItem && <LiveStatusBadge hideBelowMobileWidth liveItemStatus={liveItem.status} />}
+          {!hidePubDate && <span className='pub-date'>{pubDate}</span>}
+          {!!timeInfo && (
+            <>
+              {!hidePubDate && <span className='time-spacer'> • </span>}
+              {timeRemaining ? (
+                <span className='time-remaining'>{timeRemaining}</span>
+              ) : (
+                <span className='time-info'>{timeInfo}</span>
+              )}
+            </>
+          )}
+          {completed && (
+            <span className='completed'>
+              <Icon faIcon={faCheck} />
+            </span>
+          )}
+        </div>
+        <Dropdown
+          dropdownAriaLabel={t('More')}
+          dropdownWidthClass='width-medium'
+          faIcon={faEllipsisH}
+          hasClipEditButtons={dropdownItems.length > 6}
+          hideCaret
+          onChange={onChange}
+          options={dropdownItems}
+        />
+      </div>
+    </>
   )
 }

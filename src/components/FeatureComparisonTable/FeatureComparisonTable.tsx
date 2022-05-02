@@ -1,5 +1,5 @@
-import { useTranslation } from "next-i18next"
-import { ComparisonTable } from "../ComparisonTable/ComparisonTable"
+import { useTranslation } from 'next-i18next'
+import { ComparisonTable } from '../ComparisonTable/ComparisonTable'
 
 type Props = {
   aboveSectionNodes?: any
@@ -68,12 +68,16 @@ const featuresData = (t) => [
   {
     text: t('features - podcasting 2.0 transcripts'),
     icon1: true,
-    icon2: true
+    icon1Asterisk: true,
+    icon2: true,
+    icon2Asterisk: true
   },
   {
     text: t('features - opml import and export'),
     icon1: true,
-    icon2: true
+    icon1Asterisk: true,
+    icon2: true,
+    icon2Asterisk: true
   },
   {
     text: t('features - screen-reader accessibility'),
