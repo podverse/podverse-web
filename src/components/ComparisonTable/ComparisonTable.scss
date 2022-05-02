@@ -6,6 +6,10 @@
     color: getThemeVal('textSecondary');
   }
 
+  &.left-aligned-style {
+    margin: 0;
+  }
+
   .above-section {
     margin-bottom: 12px;
     text-align: center;

@@ -16,6 +16,10 @@
 
 .profile-list-item + hr {
   margin-bottom: 0;
+
+  &:last-child {
+    display: none;
+  }
 }
 
 @media (hover: hover) {

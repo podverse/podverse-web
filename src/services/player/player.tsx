@@ -13,6 +13,7 @@ import {
   audioMute,
   audioPause,
   audioPlay,
+  audioResetLiveItemAndResumePlayback,
   audioSeekTo,
   audioSetPlaybackSpeed,
   audioSetVolume,
@@ -205,6 +206,19 @@ export const playerUnmute = () => {
     audioUnmute()
   } else if (videoIsLoaded()) {
     videoUnmute()
+  }
+}
+
+/*
+  Apparently the only way to force a live stream to play from the latest time
+  is to remove and reload the live stream in the player.
+  https://stackoverflow.com/questions/27258169/how-can-i-stop-and-resume-a-live-audio-stream-in-html5-instead-of-just-pausing-i
+*/
+export const playerResetLiveItemAndResumePlayback = () => {
+  const isAudio = true
+  if (isAudio) {
+    const liveStreamSrc = window?.playerAudio?.current?.audio?.current?.currentSrc
+    audioResetLiveItemAndResumePlayback(liveStreamSrc)
   }
 }
 

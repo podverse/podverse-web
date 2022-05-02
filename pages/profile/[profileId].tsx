@@ -22,10 +22,11 @@ import { PV } from '~/resources'
 import { getPublicUser, updateLoggedInUser } from '~/services/user'
 import { getPodcastsByQuery } from '~/services/podcast'
 import { isNotClipsSortOption, isNotPodcastsSubscribedSortOption } from '~/resources/Filters'
-import { getUserMediaRefs } from '~/services/mediaRef'
-import { getUserPlaylists } from '~/services/playlist'
+import { getLoggedInUserMediaRefs, getUserMediaRefs } from '~/services/mediaRef'
+import { getLoggedInUserPlaylists, getUserPlaylists } from '~/services/playlist'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 import { OmniAuralState } from '~/state/omniauralState'
+import { useRouter } from 'next/router'
 
 interface ServerProps extends Page {
   serverFilterType: string
@@ -48,6 +49,7 @@ export default function Profile({
 }: ServerProps) {
   /* Initialize */
 
+  const router = useRouter()
   const { t } = useTranslation()
   const [filterType, setFilterType] = useState<string>(serverFilterType)
   const [filterSort, setFilterSort] = useState<string>(serverFilterSort)
@@ -70,6 +72,10 @@ export default function Profile({
   const isLoggedInUserProfile = userInfo?.id && userInfo.id === user?.id
 
   /* useEffects */
+
+  useEffect(() => {
+    handleMyProfilePageRefresh()
+  }, [router.asPath])
 
   useEffect(() => {
     ;(async () => {
@@ -97,6 +103,17 @@ export default function Profile({
     })()
   }, [filterType, filterSort, filterPage])
 
+  const handleMyProfilePageRefresh = () => {
+    setFilterPage(serverFilterPage)
+    setFilterSort(serverFilterSort)
+    setFilterType(serverFilterType)
+    setUser(serverUser)
+    setListData(serverUserListData)
+    setListDataCount(serverUserListDataCount)
+    setIsEditing(false)
+    setEditingUserName(serverUser.name)
+  }
+
   /* Client-Side Queries */
 
   const clientQueryUserPodcasts = async () => {
@@ -114,15 +131,24 @@ export default function Profile({
   }
 
   const clientQueryUserClips = async () => {
-    const finalQuery = {
-      ...(filterPage ? { page: filterPage } : {}),
-      ...(filterSort ? { sort: filterSort } : {})
+    if (isLoggedInUserProfile) {
+      return getLoggedInUserMediaRefs()
+    } else {
+      const finalQuery = {
+        ...(filterPage ? { page: filterPage } : {}),
+        ...(filterSort ? { sort: filterSort } : {})
+      }
+
+      return getUserMediaRefs(user.id, finalQuery)
     }
-    return getUserMediaRefs(user.id, finalQuery)
   }
 
   const clientQueryUserPlaylists = async () => {
-    return getUserPlaylists(user.id, filterPage)
+    if (isLoggedInUserProfile) {
+      return getLoggedInUserPlaylists()
+    } else {
+      return getUserPlaylists(user.id, filterPage)
+    }
   }
 
   /* Function Helpers */
