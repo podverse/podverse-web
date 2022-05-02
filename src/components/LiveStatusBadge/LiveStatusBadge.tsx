@@ -17,7 +17,7 @@ export const LiveStatusBadge = ({ hideAboveMobileWidth, hideBelowMobileWidth, li
   )
 
   if (liveItemStatus === 'live') {
-    return <ButtonRectangle className={className} isDanger label={t('Live Now')} type='status-badge' />
+    return <ButtonRectangle className={className} isDanger label={t('Live')} type='status-badge' />
   } else if (liveItemStatus === 'ended') {
     return <ButtonRectangle className={className} disabled label={t('Live Ended')} type='status-badge' />
   } else if (liveItemStatus === 'pending') {
