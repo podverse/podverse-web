@@ -54,7 +54,7 @@ export const getEpisodesAndLiveItems = async (query: EpisodeQueryParams, podcast
 export const ariaLiveItemStatusLabel = (liveItemStatus: LiveItemStatus, t: any) => {
   let ariaLiveItemStatus = ''
   if (liveItemStatus === 'live') {
-    ariaLiveItemStatus = t('Live Now')
+    ariaLiveItemStatus = t('Live')
   } else if (liveItemStatus === 'pending') {
     ariaLiveItemStatus = t('Live Time')
   } else if (liveItemStatus === 'ended') {

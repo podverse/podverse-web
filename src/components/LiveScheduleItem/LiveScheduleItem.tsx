@@ -21,7 +21,7 @@ export const LiveScheduleItem = ({ episode }: Props) => {
       {status === 'live' && (
         <PVLink className='live-now' href={episodePageUrl}>
           {' '}
-          ● {t('Live Now')}
+          ● {t('Live')}
         </PVLink>
       )}
       {status === 'pending' && (
