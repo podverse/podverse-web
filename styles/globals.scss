@@ -302,6 +302,15 @@ body {
   width: 1px;
 }
 
+.button-row-below-text-input {
+  display: flex;
+  margin: -12px 0 20px 0;
+
+  button {
+    margin: 0 24px 12px 0;
+  }
+}
+
 @media (max-width: $media-max-width-laptop) {
   body {
     .column {
