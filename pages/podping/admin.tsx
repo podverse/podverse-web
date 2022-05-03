@@ -3,7 +3,7 @@ import { useTranslation } from 'next-i18next'
 import { useState } from 'react'
 import { Page } from '~/lib/utility/page'
 import { PV } from '~/resources'
-import { ColumnsWrapper, Footer, PageHeader, PageScrollableContent, SideContent, TextInput } from '~/components'
+import { ButtonRectangle, ColumnsWrapper, Footer, PageHeader, PageScrollableContent, SideContent, TextInput } from '~/components'
 import { Meta } from '~/components/Meta/Meta'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 import { sendPodpingLiveStatusUpdate } from '~/services/podpingAdmin'
@@ -15,7 +15,8 @@ export default function PodpingAdmin(props: ServerProps) {
 
   const { t } = useTranslation()
   const [sendPodpingLiveStatusUpdateFeedUrl, setSendPodpingLiveStatusUpdateFeedUrl] = useState<string>('')
-  const [sendPodpingLiveStatusUpdateFeedUrlIsLoading, setSendPodpingLiveStatusUpdateFeedUrlIsLoading] = useState<boolean>(false)
+  const [startLiveStatusUpdateIsLoading, setStartLiveStatusUpdateIsLoading] = useState<boolean>(false)
+  const [endLiveStatusUpdateIsLoading, setEndLiveStatusUpdateIsLoading] = useState<boolean>(false)
 
   /* Meta Tags */
 
@@ -29,15 +30,20 @@ export default function PodpingAdmin(props: ServerProps) {
     setSendPodpingLiveStatusUpdateFeedUrl(value)
   }
 
-  const handleSendPodpingLiveStatusUpdateSubmit = async () => {
-    setSendPodpingLiveStatusUpdateFeedUrlIsLoading(true)
+  const handleSendPodpingLiveStatusUpdateSubmit = async (status: 'live' | 'liveEnd') => {    
     try {
-      const response = await sendPodpingLiveStatusUpdate(sendPodpingLiveStatusUpdateFeedUrl)
+      if (status === 'live') {
+        setStartLiveStatusUpdateIsLoading(true)
+      } else if (status === 'liveEnd') {
+        setEndLiveStatusUpdateIsLoading(true)
+      }
+      const response = await sendPodpingLiveStatusUpdate(sendPodpingLiveStatusUpdateFeedUrl, status)
       alert(response.message)
     } catch (error) {
       alert(error.message)
     }
-    setSendPodpingLiveStatusUpdateFeedUrlIsLoading(false)
+    setStartLiveStatusUpdateIsLoading(false)
+    setEndLiveStatusUpdateIsLoading(false)
   }
 
   return (
@@ -58,20 +64,38 @@ export default function PodpingAdmin(props: ServerProps) {
         <ColumnsWrapper
           mainColumnChildren={
             <div className='text-page'>
-              <h3>{t('Send Podping livestream updated notification')}</h3>
+              <h3>{t('Send Podping live status notification')}</h3>
               <TextInput
-                endButtonIsLoading={sendPodpingLiveStatusUpdateFeedUrlIsLoading}
-                endButtonText={t('Submit')}
                 handleEndButtonClick={handleSendPodpingLiveStatusUpdateSubmit}
                 label={t('RSS Feed URL')}
                 onChange={(value: string) => {
                   handleSendPodpingLiveStatusUpdateOnChange(value)
                 }}
-                onSubmit={handleSendPodpingLiveStatusUpdateSubmit}
                 placeholder={t('RSS Feed URL')}
                 type='text'
                 value={sendPodpingLiveStatusUpdateFeedUrl}
               />
+              <div className='button-row-below-text-input'>
+                <ButtonRectangle
+                  isSuccess
+                  isLoading={endLiveStatusUpdateIsLoading}
+                  label={t('Start livestream')}
+                  onClick={() => handleSendPodpingLiveStatusUpdateSubmit('live')}
+                  type='primary'
+                />
+                <ButtonRectangle
+                  isDanger
+                  isLoading={endLiveStatusUpdateIsLoading}
+                  label={t('End livestream')}
+                  onClick={() => handleSendPodpingLiveStatusUpdateSubmit('liveEnd')}
+                  
+                  type='primary'
+                />
+              </div>
+              <p>{`Step 1: Update and publish your RSS feed with your new liveItem status.`}</p>
+              <p>{`Step 2: Copy and paste your RSS feed URL into the input above.`}</p>
+              <p>{`Step 3: Press either "Start livestream" or "End livestream"`}</p>
+              <p>{`It takes ~15 seconds for the Podping notification to send, and then it may take 1-2 minutes before Podverse updates with the latest live status.`}</p>
             </div>
           }
           sideColumnChildren={<SideContent />}
