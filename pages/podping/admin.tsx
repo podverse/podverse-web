@@ -86,7 +86,7 @@ export default function PodpingAdmin(props: ServerProps) {
               <div className='button-row-below-text-input'>
                 <ButtonRectangle
                   isSuccess
-                  isLoading={endLiveStatusUpdateIsLoading}
+                  isLoading={startLiveStatusUpdateIsLoading}
                   label={t('Start livestream')}
                   onClick={() => handleSendPodpingLiveStatusUpdateSubmit('live')}
                   type='primary'
