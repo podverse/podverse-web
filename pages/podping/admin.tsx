@@ -3,7 +3,15 @@ import { useTranslation } from 'next-i18next'
 import { useState } from 'react'
 import { Page } from '~/lib/utility/page'
 import { PV } from '~/resources'
-import { ButtonRectangle, ColumnsWrapper, Footer, PageHeader, PageScrollableContent, SideContent, TextInput } from '~/components'
+import {
+  ButtonRectangle,
+  ColumnsWrapper,
+  Footer,
+  PageHeader,
+  PageScrollableContent,
+  SideContent,
+  TextInput
+} from '~/components'
 import { Meta } from '~/components/Meta/Meta'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 import { sendPodpingLiveStatusUpdate } from '~/services/podpingAdmin'
@@ -30,7 +38,7 @@ export default function PodpingAdmin(props: ServerProps) {
     setSendPodpingLiveStatusUpdateFeedUrl(value)
   }
 
-  const handleSendPodpingLiveStatusUpdateSubmit = async (status: 'live' | 'liveEnd') => {    
+  const handleSendPodpingLiveStatusUpdateSubmit = async (status: 'live' | 'liveEnd') => {
     try {
       if (status === 'live') {
         setStartLiveStatusUpdateIsLoading(true)
@@ -88,7 +96,6 @@ export default function PodpingAdmin(props: ServerProps) {
                   isLoading={endLiveStatusUpdateIsLoading}
                   label={t('End livestream')}
                   onClick={() => handleSendPodpingLiveStatusUpdateSubmit('liveEnd')}
-                  
                   type='primary'
                 />
               </div>
