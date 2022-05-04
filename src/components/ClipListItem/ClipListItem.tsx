@@ -11,7 +11,9 @@ import { PV } from '~/resources'
 type Props = {
   episode?: Episode
   handleRemove?: any
+  hidePubDate?: boolean
   imageUrl?: string
+  isChapter?: boolean
   isLoggedInUserMediaRef?: boolean
   mediaRef: MediaRef
   podcast?: Podcast
@@ -22,6 +24,7 @@ type Props = {
 export const ClipListItem = ({
   episode,
   handleRemove,
+  isChapter,
   isLoggedInUserMediaRef,
   mediaRef,
   podcast,
@@ -44,7 +47,7 @@ export const ClipListItem = ({
     ? getPodcastShrunkImageUrl(podcast)
     : ''
 
-  const { pubDate, timeInfo } = generateItemTimeInfo(t, episode, mediaRef)
+  const { pubDate, timeInfo } = generateItemTimeInfo(t, episode, mediaRef, isChapter)
 
   const linkAriaLabel = `${podcastTitle ? `${podcastTitle}, ` : ''} ${title}, ${
     episode ? `${episodeTitle}, ${pubDate}, ` : ''
@@ -73,6 +76,8 @@ export const ClipListItem = ({
           <MediaItemControls
             buttonSize='medium'
             episode={episode}
+            hidePubDate={!episode}
+            isChapter={isChapter}
             isLoggedInUserMediaRef={isLoggedInUserMediaRef}
             mediaRef={mediaRef}
             podcast={podcast}

@@ -20,7 +20,7 @@ export const isBeforeDate = (expirationDate, dayOffset = 0) => {
   return new Date(expirationDate) > offsetDate
 }
 
-export const generateItemTimeInfo = (t: any, episode?: Episode, clip?: MediaRef) => {
+export const generateItemTimeInfo = (t: any, episode?: Episode, clip?: MediaRef, isChapter?: boolean) => {
   let endDate = null
   let pubDate = null
   let timeInfo = null
@@ -39,7 +39,7 @@ export const generateItemTimeInfo = (t: any, episode?: Episode, clip?: MediaRef)
     endDate = readableDate(liveItem.end, withTime)
   } else if (clip) {
     pubDate = readableDate(clip.episode.pubDate)
-    timeInfo = readableClipTime(clip.startTime, clip.endTime)
+    timeInfo = readableClipTime(clip.startTime, clip.endTime, isChapter)
   } else if (episode) {
     pubDate = readableDate(episode.pubDate)
     const historyItem = historyItemsIndex.episodes[episode.id]
