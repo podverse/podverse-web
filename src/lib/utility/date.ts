@@ -20,14 +20,14 @@ export const isBeforeDate = (expirationDate, dayOffset = 0) => {
   return new Date(expirationDate) > offsetDate
 }
 
-export const generateItemTimeInfo = (t: any, episode: Episode, clip?: MediaRef) => {
+export const generateItemTimeInfo = (t: any, episode?: Episode, clip?: MediaRef) => {
   let endDate = null
   let pubDate = null
   let timeInfo = null
   // TODO: add timeRemaining support
   const timeRemaining = null
   let completed = false
-  const { liveItem } = episode
+  const liveItem = episode?.liveItem
 
   /* historyItemsIndex is way too big with useOmniAural */
   // const [historyItemsIndex] = useOmniAural('historyItemsIndex')

@@ -57,7 +57,7 @@ export const MediaItemControls = ({
   const [forceRefresh, setForceRefresh] = useState<number>(0)
   const { t } = useTranslation()
 
-  const { liveItem } = episode
+  const liveItem = episode?.liveItem
   const nowPlayingItem: NowPlayingItem = mediaRef
     ? convertToNowPlayingItem(mediaRef, episode, podcast)
     : convertToNowPlayingItem(episode, null, podcast)
