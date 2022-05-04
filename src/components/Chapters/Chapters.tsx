@@ -19,13 +19,7 @@ export const Chapters = ({ chapters, episode, isLoading }: Props) => {
   const generateChaptersListElements = () => {
     return chapters.map((listItem, index) => {
       listItem.episode = episode
-      return (
-        <ClipListItem
-          isChapter={true}
-          key={`${keyPrefix}-${index}-${listItem?.id}`}
-          mediaRef={listItem}
-        />
-      )
+      return <ClipListItem isChapter={true} key={`${keyPrefix}-${index}-${listItem?.id}`} mediaRef={listItem} />
     })
   }
 

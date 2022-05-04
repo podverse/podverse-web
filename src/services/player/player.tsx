@@ -223,7 +223,11 @@ export const playerResetLiveItemAndResumePlayback = () => {
   }
 }
 
-export const playerLoadNowPlayingItem = async (nowPlayingItem: NowPlayingItem, shouldPlay: boolean, preventClearPlayerState?: boolean) => {
+export const playerLoadNowPlayingItem = async (
+  nowPlayingItem: NowPlayingItem,
+  shouldPlay: boolean,
+  preventClearPlayerState?: boolean
+) => {
   try {
     if (!nowPlayingItem) return
 

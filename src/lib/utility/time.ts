@@ -113,7 +113,7 @@ export const readableClipTime = (startTime: number, endTime?: number, isChapter?
     const e = convertSecToHHMMSS(endTime)
     return `${s} to ${e}`
   } else {
-    return `${!isChapter ? 'Start: ' :  ''}${s}`
+    return `${!isChapter ? 'Start: ' : ''}${s}`
   }
 }
 
