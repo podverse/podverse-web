@@ -39,11 +39,11 @@ export default function XMPP(props: ServerProps) {
           mainColumnChildren={
             <div className='text-page'>
               <p>{t('ContactXMPPText1')}</p>
-              <p>
+              {/* <p>
                 {t('ContactXMPPText2')}
                 <br />
                 <PVLink href={PV.RoutePaths.web.chat}>{t('Open web chat')}</PVLink>
-              </p>
+              </p> */}
               <p>
                 {t('ContactXMPPChatRooms')}:<br />
                 <a href='xmpp:general@chat.podverse.fm'>general@chat.podverse.fm</a>
