@@ -18,8 +18,8 @@ export const handlePlayAfterClipEndTimeReached = () => {
         currentNowPlayingItem
       ) as NowPlayingItem
       const shouldPlay = true
-      const preventClearPlayerState = true
-      playerLoadNowPlayingItem(episodeNowPlayingItem, shouldPlay, preventClearPlayerState)
+      const isChapter = true
+      playerLoadNowPlayingItem(episodeNowPlayingItem, shouldPlay, isChapter)
 
       /*
         We have to call addOrUpdateHistory here because the onLoadedMetadata event
