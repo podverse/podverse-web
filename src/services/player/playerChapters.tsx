@@ -26,7 +26,7 @@ export const handleChapterUpdateInterval = () => {
     */
     nowPlayingItem.episodeImageUrl = currentChapter.imageUrl ? currentChapter.imageUrl : nowPlayingItem.episodeImageUrl
 
-    if (currentNowPlayingItem.clipId !== nowPlayingItem.clipId) {
+    if (currentNowPlayingItem.clipId !== nowPlayingItem.clipId || currentChapter) {
       unstable_batchedUpdates(() => {
         OmniAural.setPlayerItem(nowPlayingItem)
       })
