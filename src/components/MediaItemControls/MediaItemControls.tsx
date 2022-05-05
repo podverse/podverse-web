@@ -21,7 +21,7 @@ import { ButtonCircle, Dropdown, Icon } from '..'
 import { LiveStatusBadge } from '../LiveStatusBadge/LiveStatusBadge'
 
 type Props = {
-  buttonSize: 'medium' | 'large'
+  buttonSize: 'small' | 'medium' | 'large'
   episode?: Episode
   hidePubDate?: boolean
   isChapter?: boolean
@@ -43,11 +43,11 @@ const _deleteClip = '_deleteClip'
 
 export const MediaItemControls = ({
   buttonSize,
-  mediaRef,
   episode,
   hidePubDate,
   isChapter,
   isLoggedInUserMediaRef,
+  mediaRef,
   podcast,
   stretchMiddleContent
 }: Props) => {
@@ -66,6 +66,8 @@ export const MediaItemControls = ({
   const { completed, pubDate, timeInfo, timeRemaining } = generateItemTimeInfo(t, episode, mediaRef, isChapter)
 
   const timeWrapperClass = classNames('time-wrapper', stretchMiddleContent ? 'flex-stretch' : '')
+
+  nowPlayingItem.episodeImageUrl = mediaRef?.imageUrl ? mediaRef.imageUrl : nowPlayingItem.episodeImageUrl
 
   /* Function Helpers */
 
@@ -185,13 +187,10 @@ export const MediaItemControls = ({
   const isCurrentlyPlayingItem = playerCheckIfItemIsCurrentlyPlaying(player.paused, nowPlayingItem)
   const togglePlayIcon = isCurrentlyPlayingItem ? faPause : faPlay
   const togglePlayClassName = isCurrentlyPlayingItem ? 'pause' : 'play'
-  const togglePlayAriaLabel = mediaRef
-    ? isCurrentlyPlayingItem
-      ? t('Pause this mediaRef')
-      : t('Play this clip')
-    : isCurrentlyPlayingItem
-    ? t('Pause this episode')
-    : t('Play this episode')
+  let togglePlayAriaLabel = isCurrentlyPlayingItem ? t('Pause this clip') : t('Play this clip')
+  if (isChapter) {
+    togglePlayAriaLabel = isCurrentlyPlayingItem ? t('Pause this chapter') : t('Play this chapter')
+  }
 
   return (
     <>
@@ -205,7 +204,7 @@ export const MediaItemControls = ({
           className={togglePlayClassName}
           faIcon={togglePlayIcon}
           onClick={_handleTogglePlay}
-          size={buttonSize}
+          size={isChapter ? 'small' : buttonSize}
         />
         <div aria-hidden='true' className={timeWrapperClass}>
           {liveItem && <LiveStatusBadge hideBelowMobileWidth liveItemStatus={liveItem.status} />}

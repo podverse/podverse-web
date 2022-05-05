@@ -64,8 +64,8 @@ export const playerTogglePlayOrLoadNowPlayingItem = async (nowPlayingItem: NowPl
   ) {
     playerSeekTo(nowPlayingItem.clipStartTime)
     const shouldPlay = true
-    const preventClearPlayerState = true
-    await playerLoadNowPlayingItem(nowPlayingItem, shouldPlay, preventClearPlayerState)
+    const isChapter = true
+    await playerLoadNowPlayingItem(nowPlayingItem, shouldPlay, isChapter)
     const duration = playerGetDuration()
     setClipFlagPositions(nowPlayingItem, duration)
   } else if (previousNowPlayingItem && previousNowPlayingItem.episodeMediaUrl === nowPlayingItem.episodeMediaUrl) {
@@ -226,7 +226,7 @@ export const playerResetLiveItemAndResumePlayback = () => {
 export const playerLoadNowPlayingItem = async (
   nowPlayingItem: NowPlayingItem,
   shouldPlay: boolean,
-  preventClearPlayerState?: boolean
+  isChapter?: boolean
 ) => {
   try {
     if (!nowPlayingItem) return
@@ -246,7 +246,7 @@ export const playerLoadNowPlayingItem = async (
 
     // Clear all remnants of the previous item from state and the player.
     // Do this after the setPlayerItem so there isn't a flash of no content.
-    if (!preventClearPlayerState) {
+    if (!isChapter) {
       playerClearPreviousItem(nowPlayingItem)
     }
 

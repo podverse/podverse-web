@@ -20,7 +20,7 @@
     .content-wrapper {
       display: flex;
       flex-direction: row;
-      margin-bottom: 12px;
+      margin-bottom: 8px;
 
       img {
         border-radius: $item-border-radius;
@@ -73,6 +73,26 @@
     display: flex;
     justify-content: center;
     margin-left: 16px;
+  }
+}
+
+.main-wrapper.chapter-main-wrapper {
+  display: flex;
+
+  .content-wrapper.chapter-content-wrapper {
+    .text-wrapper {
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+      margin-left: 16px;
+      a {
+        flex: 1;
+      }
+
+      .title {
+        margin-bottom: 8px;
+      }
+    }
   }
 }
 

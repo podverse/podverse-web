@@ -1,7 +1,7 @@
 import { useOmniAural } from 'omniaural'
 import { Episode, MediaRef } from 'podverse-shared'
 import { useTranslation } from 'react-i18next'
-import { MediaItemControls, PVLink } from '~/components'
+import { MediaItemControls, PVImage, PVLink } from '~/components'
 import { readableDate } from '~/lib/utility/date'
 import { getClipTitle, getEpisodeTitle } from '~/lib/utility/misc'
 import { PV } from '~/resources'
@@ -28,15 +28,28 @@ export const ClipInfo = ({ episode, mediaRef }: Props) => {
         <PVLink href={episodeLinkUrl}>{episodeTitle}</PVLink>
       </div>
       <div className='episode-pub-date'>{episodePubDate}</div>
-      <div className='clip-title'>{title}</div>
-      <MediaItemControls
-        buttonSize='large'
-        episode={episode}
-        hidePubDate
-        isLoggedInUserMediaRef={userInfo && userInfo.id === mediaRef.owner.id}
-        mediaRef={mediaRef}
-        podcast={episode.podcast}
-      />
+      <div className='clip-inner-wrapper'>
+        {mediaRef.imageUrl && (
+          <PVImage
+            alt=''
+            height={PV.Images.sizes.fullViewAudio}
+            src={mediaRef.imageUrl}
+            width={PV.Images.sizes.fullViewAudio}
+          />
+        )}
+        <div className='clip-text-wrapper'>
+          <div className='clip-title'>{title}</div>
+          <MediaItemControls
+            buttonSize='large'
+            episode={episode}
+            hidePubDate
+            isLoggedInUserMediaRef={userInfo && userInfo.id === mediaRef.owner.id}
+            mediaRef={mediaRef}
+            podcast={episode.podcast}
+          />
+        </div>
+      </div>
+
       <hr />
     </div>
   )
