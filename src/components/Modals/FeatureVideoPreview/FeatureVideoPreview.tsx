@@ -21,7 +21,7 @@ export const FeatureVideoPreviewModal = (props: Props) => {
 
   return (
     <Modal className='feature-video-preview-modal centered' isOpen={!!videoEmbedData} onRequestClose={_onRequestClose}>
-      <h2>{t('Feature Preview')}</h2>
+      <h2>{t('Feature Demo')}</h2>
       <ButtonClose onClick={_onRequestClose} />
       {!!videoEmbedData && (
         <iframe
