@@ -8,14 +8,13 @@ import {
   ClipListItem,
   ColumnsWrapper,
   EpisodeInfo,
+  EpisodePageHeader,
   Footer,
   List,
   Meta,
   PageHeader,
   PageScrollableContent,
-  Pagination,
-  PodcastPageHeader,
-  SideContent
+  Pagination
 } from '~/components'
 import { scrollToTopOfPageScrollableContent } from '~/components/PageScrollableContent/PageScrollableContent'
 import { calcListPageCount, prefixClipLabel } from '~/lib/utility/misc'
@@ -71,7 +70,6 @@ export default function Clip({
   /* Initialize */
 
   const { episode } = serverClip
-  const { podcast } = episode
   const { t } = useTranslation()
   const [filterState, setFilterState] = useState({
     clipsFilterPage: serverClipsFilterPage,
@@ -176,7 +174,7 @@ export default function Clip({
         twitterPlayerUrl={twitterPlayerUrl}
         twitterTitle={meta.title}
       />
-      <PodcastPageHeader episode={episode} hideBelowMobileWidth mediaRef={serverClip} podcast={podcast} />
+      <EpisodePageHeader episode={episode} />
       <PageScrollableContent noPaddingTop>
         <ColumnsWrapper
           mainColumnChildren={
@@ -213,11 +211,6 @@ export default function Clip({
                 show={clipsPageCount > 1}
               />
             </>
-          }
-          sideColumnChildren={
-            <SideContent>
-              <PodcastPageHeader episode={episode} hideAboveMobileWidth mediaRef={serverClip} podcast={podcast} />
-            </SideContent>
           }
         />
         <Footer />
