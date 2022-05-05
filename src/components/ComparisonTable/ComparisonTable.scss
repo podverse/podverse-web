@@ -1,3 +1,8 @@
+.comparison-table-preview-legend {
+  text-align: center;
+  margin: -4px 0 24px 0;
+}
+
 .comparison-table-wrapper {
   margin: auto auto 48px auto;
   max-width: 540px;
@@ -51,9 +56,17 @@
       flex-direction: row;
 
       .comparison-table-row__text {
+        display: flex;
         flex: 1;
         font-weight: 300;
         padding: 8px 12px;
+
+        .play-preview {
+          align-items: center;
+          display: flex;
+          font-size: 18px;
+          margin-left: 8px;
+        }
       }
 
       .comparison-table-row__icon {
