@@ -5,6 +5,7 @@ import type { Episode, MediaRef, PVComment, SocialInteraction } from 'podverse-s
 import { checkIfHasSupportedCommentTag } from 'podverse-shared'
 import { useEffect, useRef, useState } from 'react'
 import {
+  Chapters,
   ClipListItem,
   ColumnsWrapper,
   Comments,
@@ -23,13 +24,14 @@ import { calcListPageCount } from '~/lib/utility/misc'
 import { Page } from '~/lib/utility/page'
 import { PV } from '~/resources'
 import { getEpisodeById } from '~/services/episode'
-import { getMediaRefsByQuery } from '~/services/mediaRef'
+import { getMediaRefsByQuery, retrieveLatestChaptersForEpisodeId } from '~/services/mediaRef'
 import { checkIfVideoFileType } from '~/services/player/playerVideo'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 import { getEpisodeProxyActivityPub, getEpisodeProxyTwitter } from '~/services/socialInteraction/threadcap'
 import { OmniAuralState } from '~/state/omniauralState'
 
 interface ServerProps extends Page {
+  serverChapters: MediaRef[]
   serverClips: MediaRef[]
   serverClipsFilterPage: number
   serverClipsFilterSort: string
@@ -55,6 +57,7 @@ const keyPrefix = 'pages_episode'
 */
 
 export default function Episode({
+  serverChapters,
   serverClips,
   serverClipsPageCount,
   serverEpisode,
@@ -79,6 +82,7 @@ export default function Episode({
   const initialRender = useRef(true)
 
   const hasValidCommentTag = checkIfHasSupportedCommentTag(serverEpisode)
+  const hasChapters = serverChapters.length >= 1
 
   /* useEffects */
 
@@ -209,6 +213,7 @@ export default function Episode({
             <>
               <EpisodeInfo episode={serverEpisode} includeMediaItemControls />
               {hasValidCommentTag ? <Comments comment={comment} isLoading={commentsLoading} /> : null}
+              {hasChapters ? <Chapters chapters={serverChapters} episode={serverEpisode} /> : null}
               {!isLiveItem && (
                 <>
                   <PageHeader
@@ -288,8 +293,16 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const serverClips = clipsListData
   const serverClipsPageCount = calcListPageCount(clipsListDataCount)
 
+  let serverChapters = []
+  if (serverEpisode.chaptersUrl) {
+    const data = await retrieveLatestChaptersForEpisodeId(serverEpisode.id)
+    const [chapters] = data
+    serverChapters = chapters
+  }
+
   const props: ServerProps = {
     ...defaultServerProps,
+    serverChapters,
     serverClips,
     serverClipsFilterPage,
     serverClipsFilterSort,

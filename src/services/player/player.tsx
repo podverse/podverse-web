@@ -64,7 +64,8 @@ export const playerTogglePlayOrLoadNowPlayingItem = async (nowPlayingItem: NowPl
   ) {
     playerSeekTo(nowPlayingItem.clipStartTime)
     const shouldPlay = true
-    await playerLoadNowPlayingItem(nowPlayingItem, shouldPlay)
+    const preventClearPlayerState = true
+    await playerLoadNowPlayingItem(nowPlayingItem, shouldPlay, preventClearPlayerState)
     const duration = playerGetDuration()
     setClipFlagPositions(nowPlayingItem, duration)
   } else if (previousNowPlayingItem && previousNowPlayingItem.episodeMediaUrl === nowPlayingItem.episodeMediaUrl) {
@@ -222,7 +223,11 @@ export const playerResetLiveItemAndResumePlayback = () => {
   }
 }
 
-export const playerLoadNowPlayingItem = async (nowPlayingItem: NowPlayingItem, shouldPlay: boolean) => {
+export const playerLoadNowPlayingItem = async (
+  nowPlayingItem: NowPlayingItem,
+  shouldPlay: boolean,
+  preventClearPlayerState?: boolean
+) => {
   try {
     if (!nowPlayingItem) return
 
@@ -241,7 +246,9 @@ export const playerLoadNowPlayingItem = async (nowPlayingItem: NowPlayingItem, s
 
     // Clear all remnants of the previous item from state and the player.
     // Do this after the setPlayerItem so there isn't a flash of no content.
-    playerClearPreviousItem(nowPlayingItem)
+    if (!preventClearPlayerState) {
+      playerClearPreviousItem(nowPlayingItem)
+    }
 
     /*
       TODO: add the currently playing item next in the queue if the user

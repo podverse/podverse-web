@@ -8,4 +8,16 @@
       color: getThemeVal('textSecondary') !important;
     }
   }
+
+  &.is-link {
+    @include themeGen() {
+      color: getThemeVal('textLink') !important;
+    }
+  }
+
+  &.is-link:hover {
+    @include themeGen() {
+      color: getThemeVal('textLinkHover') !important;
+    }
+  }
 }

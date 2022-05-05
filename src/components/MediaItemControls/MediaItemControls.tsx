@@ -22,12 +22,13 @@ import { LiveStatusBadge } from '../LiveStatusBadge/LiveStatusBadge'
 
 type Props = {
   buttonSize: 'medium' | 'large'
-  mediaRef?: MediaRef
   episode?: Episode
   hidePubDate?: boolean
+  isChapter?: boolean
   isLoggedInUserMediaRef?: boolean
-  stretchMiddleContent?: boolean
+  mediaRef?: MediaRef
   podcast?: Podcast
+  stretchMiddleContent?: boolean
 }
 
 const _playKey = '_play'
@@ -45,6 +46,7 @@ export const MediaItemControls = ({
   mediaRef,
   episode,
   hidePubDate,
+  isChapter,
   isLoggedInUserMediaRef,
   podcast,
   stretchMiddleContent
@@ -57,11 +59,11 @@ export const MediaItemControls = ({
   const [forceRefresh, setForceRefresh] = useState<number>(0)
   const { t } = useTranslation()
 
-  const { liveItem } = episode
+  const liveItem = episode?.liveItem
   const nowPlayingItem: NowPlayingItem = mediaRef
     ? convertToNowPlayingItem(mediaRef, episode, podcast)
     : convertToNowPlayingItem(episode, null, podcast)
-  const { completed, pubDate, timeInfo, timeRemaining } = generateItemTimeInfo(t, episode, mediaRef)
+  const { completed, pubDate, timeInfo, timeRemaining } = generateItemTimeInfo(t, episode, mediaRef, isChapter)
 
   const timeWrapperClass = classNames('time-wrapper', stretchMiddleContent ? 'flex-stretch' : '')
 

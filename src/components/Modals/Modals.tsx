@@ -2,6 +2,7 @@ import {
   AddToPlaylistModal,
   CheckoutModal,
   ConfirmDeleteAccountModal,
+  FeatureVideoPreviewModal,
   ForgotPasswordModal,
   FundingModal,
   LoginModal,
@@ -21,6 +22,7 @@ export const Modals = (props: Props) => {
       <AddToPlaylistModal />
       <CheckoutModal />
       <ConfirmDeleteAccountModal />
+      <FeatureVideoPreviewModal />
       <ForgotPasswordModal />
       <FundingModal />
       <LoginModal />
