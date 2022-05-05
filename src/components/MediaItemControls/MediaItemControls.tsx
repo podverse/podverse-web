@@ -226,15 +226,17 @@ export const MediaItemControls = ({
             </span>
           )}
         </div>
-        <Dropdown
-          dropdownAriaLabel={t('More')}
-          dropdownWidthClass='width-medium'
-          faIcon={faEllipsisH}
-          hasClipEditButtons={dropdownItems.length > 6}
-          hideCaret
-          onChange={onChange}
-          options={dropdownItems}
-        />
+        {!isChapter && (
+          <Dropdown
+            dropdownAriaLabel={t('More')}
+            dropdownWidthClass='width-medium'
+            faIcon={faEllipsisH}
+            hasClipEditButtons={dropdownItems.length > 6}
+            hideCaret
+            onChange={onChange}
+            options={dropdownItems}
+          />
+        )}
       </div>
     </>
   )
