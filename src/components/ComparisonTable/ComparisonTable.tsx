@@ -42,7 +42,6 @@ export const ComparisonTable = ({
           </div>
           <div className='comparison-table-row__icon' role='cell'>
             {x.icon1 && <FontAwesomeIcon icon={x.iconType === 'smile' ? faSmile : faCheck} />}
-            {x.icon1Asterisk ? <>&nbsp;</> : ''}
             {x.icon1Asterisk ? '*' : ''}
             <div className='aria-only-visible-to-screen-readers'>
               {x.icon1 ? t('Yes') : t('No')} {x.iconType === 'smile' ? ':)' : ''}
@@ -50,7 +49,6 @@ export const ComparisonTable = ({
           </div>
           <div className='comparison-table-row__icon' role='cell'>
             {x.icon2 && <FontAwesomeIcon icon={x.iconType === 'smile' ? faSmile : faCheck} />}
-            {x.icon2Asterisk ? <>&nbsp;</> : ''}
             {x.icon2Asterisk ? '*' : ''}
             <div className='aria-only-visible-to-screen-readers'>
               {x.icon2 ? t('Yes') : t('No')} {x.iconType === 'smile' ? ':)' : ''}
