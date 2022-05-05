@@ -107,13 +107,13 @@ export const convertSecToHHMMSS = (sec: number, isLiveItem?: boolean, t?: any) =
   }
 }
 
-export const readableClipTime = (startTime: number, endTime?: number) => {
+export const readableClipTime = (startTime: number, endTime?: number, isChapter?: boolean) => {
   const s = convertSecToHHMMSS(startTime)
   if ((startTime || startTime === 0) && endTime) {
     const e = convertSecToHHMMSS(endTime)
     return `${s} to ${e}`
   } else {
-    return `Start: ${s}`
+    return `${!isChapter ? 'Start: ' : ''}${s}`
   }
 }
 

@@ -48,6 +48,9 @@ export type OmniAuralState = {
     confirmDeleteAccount: {
       show: boolean
     }
+    featureVideoPreview: {
+      videoEmbedData: any
+    }
     forgotPassword: {
       show: boolean
       email?: string
@@ -139,6 +142,9 @@ export const initialState: OmniAuralState = {
     },
     confirmDeleteAccount: {
       show: false
+    },
+    featureVideoPreview: {
+      videoEmbedData: null
     },
     forgotPassword: {
       show: false
