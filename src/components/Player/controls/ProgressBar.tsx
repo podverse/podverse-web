@@ -22,7 +22,7 @@ export const ProgressBar = ({
   const { t } = useTranslation()
   const [player] = useOmniAural('player') as [OmniAuralState['player']]
   const { currentNowPlayingItem, duration, isAtCurrentLiveStreamTime, playbackPosition } = player
-  const isLiveItem = !!currentNowPlayingItem.liveItem
+  const isLiveItem = !!currentNowPlayingItem?.liveItem
 
   const currentTimeLabel = convertSecToHHMMSS(playbackPosition)
   const endTimeTextLabel = convertSecToHHMMSS(duration, isLiveItem, t)
