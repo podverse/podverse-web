@@ -8,13 +8,13 @@ import {
   ClipListItem,
   ColumnsWrapper,
   EpisodeInfo,
+  EpisodePageHeader,
   Footer,
   List,
   Meta,
   PageHeader,
   PageScrollableContent,
   Pagination,
-  PodcastPageHeader,
   SideContent
 } from '~/components'
 import { scrollToTopOfPageScrollableContent } from '~/components/PageScrollableContent/PageScrollableContent'
@@ -176,7 +176,7 @@ export default function Clip({
         twitterPlayerUrl={twitterPlayerUrl}
         twitterTitle={meta.title}
       />
-      <PodcastPageHeader episode={episode} hideBelowMobileWidth mediaRef={serverClip} podcast={podcast} />
+      <EpisodePageHeader episode={episode} />
       <PageScrollableContent noPaddingTop>
         <ColumnsWrapper
           mainColumnChildren={
@@ -213,11 +213,6 @@ export default function Clip({
                 show={clipsPageCount > 1}
               />
             </>
-          }
-          sideColumnChildren={
-            <SideContent>
-              <PodcastPageHeader episode={episode} hideAboveMobileWidth mediaRef={serverClip} podcast={podcast} />
-            </SideContent>
           }
         />
         <Footer />

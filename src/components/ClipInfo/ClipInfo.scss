@@ -1,5 +1,5 @@
 .clip-info {
-  margin: 24px 0 0 0;
+  margin: 0 0 0 0;
 
   .episode-title {
     font-size: $text-xxl;
@@ -32,12 +32,6 @@
         margin-bottom: 24px;
       }
     }
-  }
-}
-
-@media (max-width: $media-max-width-tablet) {
-  .clip-info {
-    margin-top: 22px;
   }
 }
 

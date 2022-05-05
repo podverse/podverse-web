@@ -16,18 +16,10 @@ type Props = {
 export const ClipInfo = ({ episode, mediaRef }: Props) => {
   const { t } = useTranslation()
   const [userInfo] = useOmniAural('session.userInfo') as [OmniAuralState['session']['userInfo']]
-  const episodeTitle = getEpisodeTitle(t, episode)
-  const episodePubDate = readableDate(episode.pubDate)
   const title = getClipTitle(t, mediaRef.title, episode.title)
-
-  const episodeLinkUrl = episode ? `${PV.RoutePaths.web.episode}/${episode.id}` : ''
 
   return (
     <div className='clip-info'>
-      <div className='episode-title'>
-        <PVLink href={episodeLinkUrl}>{episodeTitle}</PVLink>
-      </div>
-      <div className='episode-pub-date'>{episodePubDate}</div>
       <div className='clip-inner-wrapper'>
         {mediaRef.imageUrl && (
           <PVImage
@@ -49,7 +41,6 @@ export const ClipInfo = ({ episode, mediaRef }: Props) => {
           />
         </div>
       </div>
-
       <hr />
     </div>
   )
