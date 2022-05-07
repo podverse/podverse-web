@@ -56,7 +56,7 @@ export default function Admin(props: ServerProps) {
     } catch (error) {
       alert(error.message)
     }
-    setParseFeedByPodcastIdIsLoading(false)
+    setAddOrUpdateFeedFromPodcastIndexIsLoading(false)
   }
 
   return (
