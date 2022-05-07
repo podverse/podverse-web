@@ -8,6 +8,8 @@
           "NOT /miniplayer/*",
           "NOT /videoplayer/*",
           "NOT /verify-email*",
+          "NOT /admin*",
+          "NOT /podping*",
           "*"
         ]
       }
