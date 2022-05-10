@@ -333,5 +333,18 @@
     "delete": "supprimer",
     "Download on the App Store": "Télécharger sur l'App Store",
     "Forgot?": "Oublié ?",
-    "Footer links continued": "Suite des liens du pied de page"
+    "Footer links continued": "Suite des liens du pied de page",
+    "features - add custom rss feeds": "Ajouter des flux RSS personnalisés",
+    "Live Schedule": "Diffusion en direct planifiée",
+    "When": "Quand",
+    "Live": "Diffusion en direct",
+    "RSS Feed URL": "URL du flux RSS",
+    "Chapters": "Chapitres",
+    "End livestream": "Arrêter la diffusion en direct",
+    "Live Ended": "Diffusion en direct terminée",
+    "Live Time": "Heure de la diffusion en direct",
+    "Membership preview text legend": "Appuyez sur l'icône de lecture pour avoir un aperçu de la fonctionnalité.",
+    "Feature Demo": "Démo de la fonctionnalité",
+    "Play this chapter": "Lire ce chapitre",
+    "Start livestream": "Démarrer la diffusion en direct"
 }
