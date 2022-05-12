@@ -43,11 +43,9 @@ const featuresData = (t) => [
     icon2Asterisk: true
   },
   {
-    text: t('features - add custom rss feeds'),
+    text: t('features - audio livestreams'),
     icon1: true,
-    icon1Asterisk: true,
-    icon2: true,
-    icon2Asterisk: true
+    icon2: true
   },
   {
     text: t('features - video playback'),
@@ -55,11 +53,23 @@ const featuresData = (t) => [
     icon2: true
   },
   {
+    text: t('features - add custom rss feeds'),
+    icon1: true,
+    icon1Asterisk: true,
+    icon2: true,
+    icon2Asterisk: true
+  },
+  {
     text: t('features - sleep timer'),
     icon1: true,
     icon1Asterisk: true,
     icon2: true,
     icon2Asterisk: true
+  },
+  {
+    text: t('features - screen-reader accessibility'),
+    icon1: true,
+    icon2: true
   },
   {
     text: t('features - podcasting 2.0 chapters'),
@@ -86,14 +96,16 @@ const featuresData = (t) => [
     icon2Asterisk: true
   },
   {
-    text: t('features - screen-reader accessibility'),
-    icon1: true,
-    icon2: true
-  },
-  {
     text: t('features - Sync your subscriptions, queue, and history across all your devices'),
     icon1: false,
     icon2: true
+  },
+  {
+    text: t('features - new episodes and livestream notifications'),
+    icon1: true,
+    icon1Asterisk: true,
+    icon2: true,
+    icon2Asterisk: true
   },
   {
     text: t('features - create and share podcast clips'),
