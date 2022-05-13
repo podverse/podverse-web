@@ -46,11 +46,11 @@ export default function XMPP(props: ServerProps) {
               </p> */}
               <p>
                 {t('ContactXMPPChatRooms')}:<br />
-                <a href='xmpp:general@chat.podverse.fm'>general@chat.podverse.fm</a>
+                <a href='xmpp:general@groups.chat.podverse.fm'>general@groups.chat.podverse.fm</a>
                 <br />
-                <a href='xmpp:dev@chat.podverse.fm'>dev@chat.podverse.fm</a>
+                <a href='xmpp:dev@groups.chat.podverse.fm'>dev@groups.chat.podverse.fm</a>
                 <br />
-                <a href='xmpp:translations@chat.podverse.fm'>translations@chat.podverse.fm</a>
+                <a href='xmpp:translations@groups.chat.podverse.fm'>translations@groups.chat.podverse.fm</a>
               </p>
               <p>
                 {t('brandName chat is powered by')}:<br />
