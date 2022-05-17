@@ -11,6 +11,7 @@ import {
   Footer,
   List,
   LiveScheduleItem,
+  LNURLWidget,
   Meta,
   PageHeader,
   PageScrollableContent,
@@ -34,6 +35,7 @@ import { getEpisodesAndLiveItems } from '~/services/liveItem'
 interface ServerProps extends Page {
   serverClips: MediaRef[]
   serverClipsPageCount: number
+  serverCookies: any
   serverEpisodes: Episode[]
   serverEpisodesPageCount: number
   serverFilterPage: number
@@ -58,6 +60,7 @@ const keyPrefix = 'pages_podcast'
 export default function Podcast({
   serverClips,
   serverClipsPageCount,
+  serverCookies,
   serverFilterPage,
   serverFilterSort,
   serverFilterType,
@@ -279,6 +282,9 @@ export default function Podcast({
                   {generateLiveScheduleItemListElements()}
                 </SideContentSection>
               )}
+              <SideContentSection headerText={t('Value-4-Value')}>
+                <LNURLWidget serverCookies={serverCookies} />
+              </SideContentSection>
             </SideContent>
           }
         />
