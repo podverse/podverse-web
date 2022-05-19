@@ -119,10 +119,14 @@ export default function Podcasts({
     })
 
     const globalFilters = cookies.globalFilters || {}
-    setCookie('globalFilters', {
-      ...globalFilters,
-      videoOnlyMode: newStateVal
-    })
+    setCookie(
+      'globalFilters',
+      {
+        ...globalFilters,
+        videoOnlyMode: newStateVal
+      },
+      { path: PV.Cookies.path }
+    )
   }, 'globalFilters.videoOnlyMode')
 
   useEffect(() => {
@@ -287,10 +291,14 @@ export default function Podcasts({
             videoOnlyMode: newStateVal
           })
           const globalFilters = cookies.globalFilters || {}
-          setCookie('globalFilters', {
-            ...globalFilters,
-            videoOnlyMode: newStateVal
-          })
+          setCookie(
+            'globalFilters',
+            {
+              ...globalFilters,
+              videoOnlyMode: newStateVal
+            },
+            { path: PV.Cookies.path }
+          )
         }}
         noMarginBottom={
           (filterFrom !== PV.Filters.from._category && !!podcastsListDataCount) ||

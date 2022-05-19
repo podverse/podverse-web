@@ -3,6 +3,7 @@ import { GetServerSideProps } from 'next'
 import { useTranslation } from 'next-i18next'
 import OmniAural, { useOmniAural } from 'omniaural'
 import type { Episode, MediaRef, Podcast } from 'podverse-shared'
+import { getLightningKeysendValueItem } from 'podverse-shared'
 import { useEffect, useRef, useState } from 'react'
 import {
   ClipListItem,
@@ -11,6 +12,7 @@ import {
   Footer,
   List,
   LiveScheduleItem,
+  WebLNV4VForm,
   Meta,
   PageHeader,
   PageScrollableContent,
@@ -34,6 +36,7 @@ import { getEpisodesAndLiveItems } from '~/services/liveItem'
 interface ServerProps extends Page {
   serverClips: MediaRef[]
   serverClipsPageCount: number
+  serverCookies: any
   serverEpisodes: Episode[]
   serverEpisodesPageCount: number
   serverFilterPage: number
@@ -58,6 +61,7 @@ const keyPrefix = 'pages_podcast'
 export default function Podcast({
   serverClips,
   serverClipsPageCount,
+  serverCookies,
   serverFilterPage,
   serverFilterSort,
   serverFilterType,
@@ -68,7 +72,7 @@ export default function Podcast({
 }: ServerProps) {
   /* Initialize */
 
-  const { id } = serverPodcast
+  const { id, value } = serverPodcast
   const { t } = useTranslation()
   const [filterPage, setFilterPage] = useState<number>(serverFilterPage)
   const [filterSearchText, setFilterSearchText] = useState<string>('')
@@ -81,6 +85,7 @@ export default function Podcast({
   const initialRender = useRef(true)
   const [userInfo] = useOmniAural('session.userInfo') as [OmniAuralState['session']['userInfo']]
   const pageCount = filterType === PV.Filters.type._episodes ? episodesPageCount : clipsPageCount
+  const valueTag = getLightningKeysendValueItem(value)
 
   /* useEffects */
 
@@ -277,6 +282,11 @@ export default function Podcast({
               {serverLiveItemScheduleData.length > 0 && (
                 <SideContentSection headerText={t('Live Schedule')}>
                   {generateLiveScheduleItemListElements()}
+                </SideContentSection>
+              )}
+              {valueTag && (
+                <SideContentSection headerText={t('Value-4-Value')}>
+                  <WebLNV4VForm podcast={serverPodcast} serverCookies={serverCookies} valueTag={valueTag} />
                 </SideContentSection>
               )}
             </SideContent>
