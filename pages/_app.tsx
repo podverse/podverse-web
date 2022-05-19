@@ -3,6 +3,7 @@ import '@fortawesome/fontawesome-svg-core/styles.css'
 import { config as fontAwesomeConfig } from '@fortawesome/fontawesome-svg-core'
 import { appWithTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
+import Script from 'next/script'
 import OmniAural from 'omniaural'
 import { convertToNowPlayingItem, NowPlayingItem } from 'podverse-shared'
 import React, { useEffect } from 'react'
@@ -151,29 +152,32 @@ function MyApp({ Component, pageProps }) {
     OmniAural.setHistoryItemsIndex(serverHistoryItemsIndex)
 
     return (
-      <CookiesProvider>
-        <ToastProvider>
-          <div className='app'>
-            <MobileNavBar />
-            <div className='app-wrapper'>
-              <NavBar />
-              <div className='app-main-wrapper'>
-                <HorizontalNavBar serverCookies={pageProps.serverCookies || {}} />
-                <main>
-                  <Component {...pageProps} />
-                </main>
+      <>
+        <Script async id='webln-v4v' src='https://cdn.jsdelivr.net/npm/webln-v4v@1.0.0-beta.19/dist/webcomponent.js' />
+        <CookiesProvider>
+          <ToastProvider>
+            <div className='app'>
+              <MobileNavBar />
+              <div className='app-wrapper'>
+                <NavBar />
+                <div className='app-main-wrapper'>
+                  <HorizontalNavBar serverCookies={pageProps.serverCookies || {}} />
+                  <main>
+                    <Component {...pageProps} />
+                  </main>
+                </div>
               </div>
+              <V4VHiddenElement />
+              <Modals />
+              <PageLoadingOverlay />
+              <Player />
+              <MobilePlayer />
+              <PlayerAPI />
+              <ToastsHandler />
             </div>
-            <V4VHiddenElement />
-            <Modals />
-            <PageLoadingOverlay />
-            <Player />
-            <MobilePlayer />
-            <PlayerAPI />
-            <ToastsHandler />
-          </div>
-        </ToastProvider>
-      </CookiesProvider>
+          </ToastProvider>
+        </CookiesProvider>
+      </>
     )
   }
 }

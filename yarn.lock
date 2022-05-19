@@ -6100,10 +6100,10 @@ pngjs@^4.0.1:
   resolved "https://registry.yarnpkg.com/pngjs/-/pngjs-4.0.1.tgz#f803869bb2fc1bfe1bf99aa4ec21c108117cfdbe"
   integrity sha512-rf5+2/ioHeQxR6IxuYNYGFytUyG3lma/WW1nsmjeHlWwtb2aByla6dkVc8pmJ9nplzkTA0q2xx7mMWrOTqT4Gg==
 
-podverse-shared@4.4.5:
-  version "4.4.5"
-  resolved "https://registry.yarnpkg.com/podverse-shared/-/podverse-shared-4.4.5.tgz#ea04e964b8fab4bdba786c92a7ee834a83a7b8bb"
-  integrity sha512-7TVvQVHkGOVYC0AQtHSPSfhF5cWeZBo4bQgz34l2xAU9haG+9s+TYV4ELmZfBH2N26t1fKDV9fA+BXmeAFpFHA==
+podverse-shared@4.5.1:
+  version "4.5.1"
+  resolved "https://registry.yarnpkg.com/podverse-shared/-/podverse-shared-4.5.1.tgz#17a88983a19086fbcbb61c8de80f072e0294dcb7"
+  integrity sha512-67AJ7JG6eioCiR+56ztcrKxsht+I7IoD65bdBoZBBc664nGJIfs4GL7Zl8cp2cMxmNydTqlHF4xSySZ+/910Tw==
   dependencies:
     html-entities "^2.3.2"
     striptags "^3.2.0"
@@ -7522,6 +7522,11 @@ uuid@^3.3.2:
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.4.0.tgz#b23e4358afa8a202fe7a100af1f5f883f02007ee"
   integrity sha512-HjSDRw6gZE5JMggctHBcjVak08+KEVhSIiDzFnT9S9aegmp85S/bReBVTb4QTFaRNptJ9kuYaNhnbNEOkbKb/A==
 
+uuid@^8.3.2:
+  version "8.3.2"
+  resolved "https://registry.yarnpkg.com/uuid/-/uuid-8.3.2.tgz#80d5b5ced271bb9af6c445f21a1a04c606cefbe2"
+  integrity sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==
+
 v8-compile-cache@^2.0.3, v8-compile-cache@^2.3.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/v8-compile-cache/-/v8-compile-cache-2.3.0.tgz#2de19618c66dc247dcfb6f99338035d8245a2cee"
@@ -7615,6 +7620,13 @@ webidl-conversions@^6.1.0:
   version "6.1.0"
   resolved "https://registry.yarnpkg.com/webidl-conversions/-/webidl-conversions-6.1.0.tgz#9111b4d7ea80acd40f5270d666621afa78b69514"
   integrity sha512-qBIvFLGiBpLjfwmYAaHPXsn+ho5xZnGvyGvsarywGNc8VyQJUMHJ8OBKGGrPER0okBeMDaan4mNBlgBROxuI8w==
+
+webln-v4v@1.0.0-beta.5:
+  version "1.0.0-beta.5"
+  resolved "https://registry.yarnpkg.com/webln-v4v/-/webln-v4v-1.0.0-beta.5.tgz#a30a7ebf9981eeb9b9dfe6106f61f38a1a89a27e"
+  integrity sha512-M39q6t4LU0k0xm0SysDnz2LX2yV2stnINm59s82yTcPjKxEAevma+ZYewdt3SOV2HEFX3VJCyy3Y6A6qK0wP4w==
+  dependencies:
+    uuid "^8.3.2"
 
 whatwg-encoding@^1.0.5:
   version "1.0.5"
