@@ -74,7 +74,10 @@ const featuresData = (t) => [
   {
     text: t('features - podcasting 2.0 chapters'),
     icon1: true,
-    icon2: true
+    icon2: true,
+    width: 560,
+    height: 315,
+    src: 'https://peertube.podverse.fm/videos/embed/b34c5f55-bce7-43de-bd63-5ceb2800dbd1'
   },
   {
     text: t('features - podcasting 2.0 cross-app comments'),
@@ -110,7 +113,10 @@ const featuresData = (t) => [
   {
     text: t('features - create and share podcast clips'),
     icon1: false,
-    icon2: true
+    icon2: true,
+    width: 560,
+    height: 315,
+    src: 'https://peertube.podverse.fm/videos/embed/a7865ef0-83bd-4ba1-ab6a-2e54fd738d11'
   },
   {
     text: t('features - create and share playlists'),
