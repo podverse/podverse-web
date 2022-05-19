@@ -56,6 +56,13 @@ declare global {
   interface Date {
     addDays: any
   }
+
+  // eslint-disable-next-line @typescript-eslint/no-namespace
+  namespace JSX {
+    interface IntrinsicElements {
+      "webln-v4v": any;
+    }
+  }
 }
 
 OmniAural.initGlobalState(initialState)

@@ -111,6 +111,6 @@ const WebLNV4VFormNoSSR = ({ episode, podcast, serverCookies, valueTag }: Props)
   )
 }
 
-export const WebLNV4VForm = dynamic(() => Promise.resolve(WebLNV4VFormNoSSR), {
+export const WebLNV4VForm: any = dynamic(() => Promise.resolve(WebLNV4VFormNoSSR), {
   ssr: false
 })
