@@ -284,13 +284,11 @@ export default function Podcast({
                   {generateLiveScheduleItemListElements()}
                 </SideContentSection>
               )}
-              {
-                valueTag && (
-                  <SideContentSection headerText={t('Value-4-Value')}>
-                    <WebLNV4VForm podcast={serverPodcast} serverCookies={serverCookies} valueTag={valueTag} />
-                  </SideContentSection>
-                )
-              }
+              {valueTag && (
+                <SideContentSection headerText={t('Value-4-Value')}>
+                  <WebLNV4VForm podcast={serverPodcast} serverCookies={serverCookies} valueTag={valueTag} />
+                </SideContentSection>
+              )}
             </SideContent>
           }
         />

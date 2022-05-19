@@ -92,10 +92,14 @@ export default function Clips({
       videoOnlyMode: newStateVal
     })
     const globalFilters = cookies.globalFilters || {}
-    setCookie('globalFilters', {
-      ...globalFilters,
-      videoOnlyMode: newStateVal
-    }, { path: PV.Cookies.path })
+    setCookie(
+      'globalFilters',
+      {
+        ...globalFilters,
+        videoOnlyMode: newStateVal
+      },
+      { path: PV.Cookies.path }
+    )
   }, 'globalFilters.videoOnlyMode')
 
   useEffect(() => {
@@ -286,10 +290,14 @@ export default function Clips({
             videoOnlyMode: newStateVal
           })
           const globalFilters = cookies.globalFilters || {}
-          setCookie('globalFilters', {
-            ...globalFilters,
-            videoOnlyMode: newStateVal
-          }, { path: PV.Cookies.path })
+          setCookie(
+            'globalFilters',
+            {
+              ...globalFilters,
+              videoOnlyMode: newStateVal
+            },
+            { path: PV.Cookies.path }
+          )
         }}
         primaryOnChange={_handlePrimaryOnChange}
         primaryOptions={PV.Filters.dropdownOptions.clips.from}

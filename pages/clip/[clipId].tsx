@@ -220,15 +220,20 @@ export default function Clip({
               />
             </>
           }
-          sideColumnChildren={<SideContent>
-              {
-                valueTag && (
-                  <SideContentSection headerText={t('Value-4-Value')}>
-                    <WebLNV4VForm episode={episode} podcast={episode.podcast} serverCookies={serverCookies} valueTag={valueTag} />
-                  </SideContentSection>
-                )
-              }
-          </SideContent>}
+          sideColumnChildren={
+            <SideContent>
+              {valueTag && (
+                <SideContentSection headerText={t('Value-4-Value')}>
+                  <WebLNV4VForm
+                    episode={episode}
+                    podcast={episode.podcast}
+                    serverCookies={serverCookies}
+                    valueTag={valueTag}
+                  />
+                </SideContentSection>
+              )}
+            </SideContent>
+          }
         />
         <Footer />
       </PageScrollableContent>

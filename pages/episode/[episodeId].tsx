@@ -267,15 +267,20 @@ export default function Episode({
               />
             </>
           }
-          sideColumnChildren={<SideContent>
-              {
-                valueTag && (
-                  <SideContentSection headerText={t('Value-4-Value')}>
-                    <WebLNV4VForm episode={serverEpisode} podcast={serverEpisode.podcast} serverCookies={serverCookies} valueTag={valueTag} />
-                  </SideContentSection>
-                )
-              }
-          </SideContent>}
+          sideColumnChildren={
+            <SideContent>
+              {valueTag && (
+                <SideContentSection headerText={t('Value-4-Value')}>
+                  <WebLNV4VForm
+                    episode={serverEpisode}
+                    podcast={serverEpisode.podcast}
+                    serverCookies={serverCookies}
+                    valueTag={valueTag}
+                  />
+                </SideContentSection>
+              )}
+            </SideContent>
+          }
         />
         <Footer />
       </PageScrollableContent>

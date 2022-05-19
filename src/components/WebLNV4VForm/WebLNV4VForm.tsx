@@ -3,12 +3,14 @@ import type { Episode, Podcast, ValueTag } from 'podverse-shared'
 import { useEffect } from 'react'
 import { useCookies } from 'react-cookie'
 import { PV } from '~/resources'
-const { V4V_APP_NAME,
-V4V_APP_RECIPIENT_CUSTOM_KEY,
-V4V_APP_RECIPIENT_CUSTOM_VALUE,
-V4V_APP_RECIPIENT_LN_ADDRESS,
-V4V_APP_RECIPIENT_VALUE_DEFAULT,
-V4V_RECIPIENT_VALUE_DEFAULT } = PV.Config
+const {
+  V4V_APP_NAME,
+  V4V_APP_RECIPIENT_CUSTOM_KEY,
+  V4V_APP_RECIPIENT_CUSTOM_VALUE,
+  V4V_APP_RECIPIENT_LN_ADDRESS,
+  V4V_APP_RECIPIENT_VALUE_DEFAULT,
+  V4V_RECIPIENT_VALUE_DEFAULT
+} = PV.Config
 
 type Props = {
   episode?: Episode
@@ -19,7 +21,7 @@ type Props = {
 
 const WebLNV4VFormNoSSR = ({ episode, podcast, serverCookies, valueTag }: Props) => {
   const [cookies, setCookie] = useCookies([])
-    
+
   /*
     For the server-side render, we have to parse the object out of the string.
     For the client-side render, the cookie will already be parsed as an object.  
@@ -33,47 +35,60 @@ const WebLNV4VFormNoSSR = ({ episode, podcast, serverCookies, valueTag }: Props)
       console.log('parsedWebLNV4VFormSettings parse error:', error)
     }
   }
-  const { acceptedTerms, defaultAppAmount, defaultContentCreatorAmount, defaultSenderName, rejectedTerms } = parsedWebLNV4VFormSettings || {}
+  const { acceptedTerms, defaultAppAmount, defaultContentCreatorAmount, defaultSenderName, rejectedTerms } =
+    parsedWebLNV4VFormSettings || {}
 
   useEffect(() => {
-    window.addEventListener("WebLN-V4V-Terms-Accepted", handleAcceptedTermsEvent);
-    window.addEventListener("WebLN-V4V-Terms-Rejected", handleRejectTermsEvent);
-    window.addEventListener("WebLN-V4V-New-Default-Values", handleDefaultValueChangedEvent);
+    window.addEventListener('WebLN-V4V-Terms-Accepted', handleAcceptedTermsEvent)
+    window.addEventListener('WebLN-V4V-Terms-Rejected', handleRejectTermsEvent)
+    window.addEventListener('WebLN-V4V-New-Default-Values', handleDefaultValueChangedEvent)
 
     return () => {
-      window.removeEventListener("WebLN-V4V-Terms-Accepted", handleAcceptedTermsEvent),
-      window.removeEventListener("WebLN-V4V-Terms-Rejected", handleRejectTermsEvent),
-      window.removeEventListener("WebLN-V4V-New-Default-Values", handleDefaultValueChangedEvent)
-    };
+      window.removeEventListener('WebLN-V4V-Terms-Accepted', handleAcceptedTermsEvent),
+        window.removeEventListener('WebLN-V4V-Terms-Rejected', handleRejectTermsEvent),
+        window.removeEventListener('WebLN-V4V-New-Default-Values', handleDefaultValueChangedEvent)
+    }
   }, [])
 
   const handleAcceptedTermsEvent = () => {
     const { weblnV4VSettings } = cookies
-    setCookie('weblnV4VSettings', {
-      ...weblnV4VSettings,
-      acceptedTerms: 'true',
-      rejectedTerms: 'false'
-    }, { path: PV.Cookies.path })
+    setCookie(
+      'weblnV4VSettings',
+      {
+        ...weblnV4VSettings,
+        acceptedTerms: 'true',
+        rejectedTerms: 'false'
+      },
+      { path: PV.Cookies.path }
+    )
   }
 
   const handleRejectTermsEvent = () => {
     const { weblnV4VSettings } = cookies
-    setCookie('weblnV4VSettings', {
-      ...weblnV4VSettings,
-      acceptedTerms: 'false',
-      rejectedTerms: 'true'
-    }, { path: PV.Cookies.path })
+    setCookie(
+      'weblnV4VSettings',
+      {
+        ...weblnV4VSettings,
+        acceptedTerms: 'false',
+        rejectedTerms: 'true'
+      },
+      { path: PV.Cookies.path }
+    )
   }
 
   const handleDefaultValueChangedEvent = (event) => {
     const { weblnV4VSettings } = cookies
     const { defaultAppAmount, defaultContentCreatorAmount, defaultSenderName } = event.detail
-    setCookie('weblnV4VSettings', {
-      ...weblnV4VSettings,
-      defaultAppAmount,
-      defaultContentCreatorAmount,
-      defaultSenderName
-    }, { path: PV.Cookies.path })
+    setCookie(
+      'weblnV4VSettings',
+      {
+        ...weblnV4VSettings,
+        defaultAppAmount,
+        defaultContentCreatorAmount,
+        defaultSenderName
+      },
+      { path: PV.Cookies.path }
+    )
   }
 
   return (
@@ -91,7 +106,8 @@ const WebLNV4VFormNoSSR = ({ episode, podcast, serverCookies, valueTag }: Props)
       podcast_title={podcast.title}
       recipient_value_default={defaultContentCreatorAmount || V4V_RECIPIENT_VALUE_DEFAULT}
       sender_name={defaultSenderName || ''}
-      v4v_tag={JSON.stringify(valueTag)} />
+      v4v_tag={JSON.stringify(valueTag)}
+    />
   )
 }
 
