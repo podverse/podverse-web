@@ -95,7 +95,7 @@ export default function Clips({
     setCookie('globalFilters', {
       ...globalFilters,
       videoOnlyMode: newStateVal
-    })
+    }, { path: PV.Cookies.path })
   }, 'globalFilters.videoOnlyMode')
 
   useEffect(() => {
@@ -289,7 +289,7 @@ export default function Clips({
           setCookie('globalFilters', {
             ...globalFilters,
             videoOnlyMode: newStateVal
-          })
+          }, { path: PV.Cookies.path })
         }}
         primaryOnChange={_handlePrimaryOnChange}
         primaryOptions={PV.Filters.dropdownOptions.clips.from}

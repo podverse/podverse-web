@@ -96,7 +96,7 @@ export default function Episodes({
     setCookie('globalFilters', {
       ...globalFilters,
       videoOnlyMode: newStateVal
-    })
+    }, { path: PV.Cookies.path })
   }, 'globalFilters.videoOnlyMode')
 
   useEffect(() => {
@@ -287,7 +287,7 @@ export default function Episodes({
           setCookie('globalFilters', {
             ...globalFilters,
             videoOnlyMode: newStateVal
-          })
+          }, { path: PV.Cookies.path })
         }}
         primaryOnChange={_handlePrimaryOnChange}
         primaryOptions={PV.Filters.dropdownOptions.episodes.from}

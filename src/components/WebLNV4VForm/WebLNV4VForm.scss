@@ -1,0 +1,36 @@
+/* These are the styles applied to podverse.fm */
+
+:root {
+  --webln-background-color: #030626;
+  --webln-text: #fff;
+  --webln-font-family: Roboto, -apple-system, BlinkMacSystemFont, Segoe UI, Oxygen, Ubuntu, Cantarell, Fira Sans,
+    Droid Sans, Helvetica Neue, sans-serif;
+  --webln-max-width: 500px;
+  --webln-loader-border-color: #ccc;
+  --webln-loader-border-color-2: #333;
+  --webln-link-color: #74a8dc;
+  --webln-link-color-active: #74a8dc;
+  --webln-link-color-visited: #74a8dc;
+  --webln-link-color-hover: #49a4ff;
+  --webln-text-input-background-color: #0f1235;
+  --webln-input-border: #444;
+  --webln-input-placeholder: #ccc;
+  --webln-button-border-radius: 36px;
+  --webln-button-font-size: 14px;
+  --webln-button-height: 36px;
+  --webln-button-min-width: 120px;
+  --webln-button-margin-left: 16px;
+  --webln-button-padding-v: 4px;
+  --webln-button-padding-h: 8px;
+  --webln-button-primary-background-color: #3d9dfe;
+  --webln-button-primary-text-color: #000;
+  --webln-button-primary-background-color-hover: #49a4ff;
+  --webln-button-secondary-background-color: #252a64;
+  --webln-button-secondary-text-color: #fff;
+  --webln-button-secondary-background-color-hover: #34397b;
+  --webln-button-focus-box-shadow: 0 0 0 4px rgb(0 116 217 / 40%);
+  --webln-button-focus-ouline-color: rgb(0 116 217 / 40%);
+  --webln-button-disabled-background-color: #777;
+  --webln-button-disabled-color: #eee;
+  --webln-table-border-color: #444;
+}

@@ -2,7 +2,7 @@ import { GetServerSideProps } from 'next'
 import { useTranslation } from 'next-i18next'
 import OmniAural, { useOmniAural } from 'omniaural'
 import type { Episode, MediaRef, PVComment, SocialInteraction } from 'podverse-shared'
-import { checkIfHasSupportedCommentTag } from 'podverse-shared'
+import { checkIfHasSupportedCommentTag, getLightningKeysendValueItem } from 'podverse-shared'
 import { useEffect, useRef, useState } from 'react'
 import {
   Chapters,
@@ -17,7 +17,9 @@ import {
   PageHeader,
   PageScrollableContent,
   Pagination,
-  SideContent
+  SideContent,
+  SideContentSection,
+  WebLNV4VForm
 } from '~/components'
 import { scrollToTopOfPageScrollableContent } from '~/components/PageScrollableContent/PageScrollableContent'
 import { calcListPageCount } from '~/lib/utility/misc'
@@ -36,6 +38,7 @@ interface ServerProps extends Page {
   serverClipsFilterPage: number
   serverClipsFilterSort: string
   serverClipsPageCount: number
+  serverCookies: any
   serverEpisode: Episode
 }
 
@@ -59,10 +62,11 @@ const keyPrefix = 'pages_episode'
 export default function Episode({
   serverChapters,
   serverClips,
-  serverClipsPageCount,
-  serverEpisode,
   serverClipsFilterPage,
-  serverClipsFilterSort
+  serverClipsFilterSort,
+  serverClipsPageCount,
+  serverCookies,
+  serverEpisode
 }: ServerProps) {
   /* Initialize */
 
@@ -83,6 +87,8 @@ export default function Episode({
 
   const hasValidCommentTag = checkIfHasSupportedCommentTag(serverEpisode)
   const hasChapters = serverChapters.length >= 1
+  const value = serverEpisode.value || serverEpisode.podcast.value
+  const valueTag = getLightningKeysendValueItem(value)
 
   /* useEffects */
 
@@ -261,7 +267,15 @@ export default function Episode({
               />
             </>
           }
-          sideColumnChildren={<SideContent />}
+          sideColumnChildren={<SideContent>
+              {
+                valueTag && (
+                  <SideContentSection headerText={t('Value-4-Value')}>
+                    <WebLNV4VForm episode={serverEpisode} podcast={serverEpisode.podcast} serverCookies={serverCookies} valueTag={valueTag} />
+                  </SideContentSection>
+                )
+              }
+          </SideContent>}
         />
         <Footer />
       </PageScrollableContent>

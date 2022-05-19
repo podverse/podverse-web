@@ -122,7 +122,7 @@ export default function Podcasts({
     setCookie('globalFilters', {
       ...globalFilters,
       videoOnlyMode: newStateVal
-    })
+    }, { path: PV.Cookies.path })
   }, 'globalFilters.videoOnlyMode')
 
   useEffect(() => {
@@ -290,7 +290,7 @@ export default function Podcasts({
           setCookie('globalFilters', {
             ...globalFilters,
             videoOnlyMode: newStateVal
-          })
+          }, { path: PV.Cookies.path })
         }}
         noMarginBottom={
           (filterFrom !== PV.Filters.from._category && !!podcastsListDataCount) ||
