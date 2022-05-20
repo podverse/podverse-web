@@ -347,5 +347,6 @@
     "Start livestream": "Démarrer la diffusion en direct",
     "Go to current live time": "Revenir au direct",
     "features - new episodes and livestream notifications": "Notifications des nouveaux épisodes et des diffusions en direct",
-    "features - audio livestreams": "Diffusions audio en direct"
+    "features - audio livestreams": "Diffusions audio en direct",
+    "_translatorsField": "Nathan Bonnemains <https://github.com/NathanBnm>"
 }
