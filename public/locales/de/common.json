@@ -334,5 +334,7 @@
     "pages-coupon_Description": "Ihr Angebot einlösen",
     "pages-search_Title": "Suchen",
     "Select by category": "Nach Kategorie auswählen",
-    "send us an email": "Schicken Sie uns eine E-Mail"
+    "send us an email": "Schicken Sie uns eine E-Mail",
+    "_translatorsField": "Übersetzer*in",
+    "_translatorsFieldExample": "Jane Doe<https://jane.doe.homepage>, Joe Bloggs, Juan Perez<https://some.socialmedia/juan>"
 }
