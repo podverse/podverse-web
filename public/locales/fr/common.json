@@ -318,8 +318,6 @@
     "Previous chapter": "Chapitre précédent",
     "Previous track": "Piste précédente",
     "RatingsProvidedByPodcasters": "Les notes sont fournies par les auditeurs,",
-    "RefreshToHideNSFW": "Actualisez votre page Web pour masquer le contenu explicite",
-    "RefreshToIncludeNSFW": "Actualisez votre page Web pour voir tout le contenu",
     "Remove": "Supprimer",
     "Show full screen player": "Afficher le lecteur en plein écran",
     "Show navigation menu": "Afficher le menu de navigation",
@@ -346,5 +344,8 @@
     "Membership preview text legend": "Appuyez sur l'icône de lecture pour avoir un aperçu de la fonctionnalité.",
     "Feature Demo": "Démo de la fonctionnalité",
     "Play this chapter": "Lire ce chapitre",
-    "Start livestream": "Démarrer la diffusion en direct"
+    "Start livestream": "Démarrer la diffusion en direct",
+    "Go to current live time": "Revenir au direct",
+    "features - new episodes and livestream notifications": "Notifications des nouveaux épisodes et des diffusions en direct",
+    "features - audio livestreams": "Diffusions audio en direct"
 }
