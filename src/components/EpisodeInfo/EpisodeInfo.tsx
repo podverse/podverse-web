@@ -20,7 +20,7 @@ export const EpisodeInfo = ({ episode, includeMediaItemControls = false, noMargi
 
   return (
     <div className={episodeInfoClassName}>
-      <h2 tabIndex={0}>{t('Episode Notes')}</h2>
+      <h2 tabIndex={0}>{t('Episode Summary')}</h2>
       <TruncatedText dangerouslySetInnerHtml lines={3} text={summaryText} />
       {includeMediaItemControls && <MediaItemControls buttonSize='large' episode={episode} />}
       <hr className={hrClassName} />

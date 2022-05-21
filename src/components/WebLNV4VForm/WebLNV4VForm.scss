@@ -34,3 +34,18 @@
   --webln-button-disabled-color: #eee;
   --webln-table-border-color: #444;
 }
+
+.webln-v4v-wrapper {
+  .loading-wrapper {
+    margin: 24px 0 0 0;
+    text-align: center;
+
+    .icon {
+    
+      svg {
+        height: unset;
+        width: 28px;
+      }
+    }
+  }
+}
