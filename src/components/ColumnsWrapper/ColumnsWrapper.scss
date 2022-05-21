@@ -1,7 +1,7 @@
 .columns-wrapper {
   display: flex;
   flex: 1;
-  flex-direction: row;
+  flex-direction: row-reverse;
 
   .columns-wrapper-main {
     display: flex;
@@ -12,7 +12,7 @@
 
 @media (max-width: $media-max-width-laptop) {
   .columns-wrapper {
-    flex-direction: column-reverse;
+    flex-direction: column;
   }
 }
 

@@ -2,7 +2,7 @@ import { GetServerSideProps } from 'next'
 import { useTranslation } from 'next-i18next'
 import { Page } from '~/lib/utility/page'
 import { PV } from '~/resources'
-import { ColumnsWrapper, Footer, Meta, PageHeader, PageScrollableContent, PVLink } from '~/components'
+import { ColumnsWrapper, Footer, Meta, PageHeader, PageScrollableContent } from '~/components'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 
 type ServerProps = Page
@@ -39,18 +39,18 @@ export default function XMPP(props: ServerProps) {
           mainColumnChildren={
             <div className='text-page'>
               <p>{t('ContactXMPPText1')}</p>
-              <p>
+              {/* <p>
                 {t('ContactXMPPText2')}
                 <br />
                 <PVLink href={PV.RoutePaths.web.chat}>{t('Open web chat')}</PVLink>
-              </p>
+              </p> */}
               <p>
                 {t('ContactXMPPChatRooms')}:<br />
-                <a href='xmpp:general@chat.podverse.fm'>general@chat.podverse.fm</a>
+                <a href='xmpp:general@groups.chat.podverse.fm'>general@groups.chat.podverse.fm</a>
                 <br />
-                <a href='xmpp:dev@chat.podverse.fm'>dev@chat.podverse.fm</a>
+                <a href='xmpp:dev@groups.chat.podverse.fm'>dev@groups.chat.podverse.fm</a>
                 <br />
-                <a href='xmpp:translations@chat.podverse.fm'>translations@chat.podverse.fm</a>
+                <a href='xmpp:translations@groups.chat.podverse.fm'>translations@groups.chat.podverse.fm</a>
               </p>
               <p>
                 {t('brandName chat is powered by')}:<br />

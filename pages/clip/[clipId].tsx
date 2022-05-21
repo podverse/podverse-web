@@ -2,20 +2,23 @@ import { GetServerSideProps } from 'next'
 import { useTranslation } from 'next-i18next'
 import OmniAural, { useOmniAural } from 'omniaural'
 import type { Episode, MediaRef } from 'podverse-shared'
+import { getLightningKeysendValueItem } from 'podverse-shared'
 import { useEffect, useRef, useState } from 'react'
 import {
   ClipInfo,
   ClipListItem,
   ColumnsWrapper,
   EpisodeInfo,
+  EpisodePageHeader,
   Footer,
   List,
   Meta,
   PageHeader,
   PageScrollableContent,
   Pagination,
-  PodcastPageHeader,
-  SideContent
+  SideContent,
+  SideContentSection,
+  WebLNV4VForm
 } from '~/components'
 import { scrollToTopOfPageScrollableContent } from '~/components/PageScrollableContent/PageScrollableContent'
 import { calcListPageCount, prefixClipLabel } from '~/lib/utility/misc'
@@ -32,6 +35,7 @@ interface ServerProps extends Page {
   serverClipsFilterPage: number
   serverClipsFilterSort: string
   serverClipsPageCount: number
+  serverCookies: any
 }
 
 type FilterState = {
@@ -66,12 +70,12 @@ export default function Clip({
   serverClips,
   serverClipsPageCount,
   serverClipsFilterPage,
-  serverClipsFilterSort
+  serverClipsFilterSort,
+  serverCookies
 }: ServerProps) {
   /* Initialize */
 
   const { episode } = serverClip
-  const { podcast } = episode
   const { t } = useTranslation()
   const [filterState, setFilterState] = useState({
     clipsFilterPage: serverClipsFilterPage,
@@ -82,6 +86,8 @@ export default function Clip({
   const [clipsListData, setClipsListData] = useState<MediaRef[]>(serverClips)
   const [clipsPageCount, setClipsPageCount] = useState<number>(serverClipsPageCount)
   const initialRender = useRef(true)
+  const value = episode.value || episode.podcast.value
+  const valueTag = getLightningKeysendValueItem(value)
 
   /* useEffects */
 
@@ -176,7 +182,7 @@ export default function Clip({
         twitterPlayerUrl={twitterPlayerUrl}
         twitterTitle={meta.title}
       />
-      <PodcastPageHeader episode={episode} hideBelowMobileWidth mediaRef={serverClip} podcast={podcast} />
+      <EpisodePageHeader episode={episode} />
       <PageScrollableContent noPaddingTop>
         <ColumnsWrapper
           mainColumnChildren={
@@ -216,7 +222,16 @@ export default function Clip({
           }
           sideColumnChildren={
             <SideContent>
-              <PodcastPageHeader episode={episode} hideAboveMobileWidth mediaRef={serverClip} podcast={podcast} />
+              {valueTag && (
+                <SideContentSection headerText={t('Value-4-Value')}>
+                  <WebLNV4VForm
+                    episode={episode}
+                    podcast={episode.podcast}
+                    serverCookies={serverCookies}
+                    valueTag={valueTag}
+                  />
+                </SideContentSection>
+              )}
             </SideContent>
           }
         />

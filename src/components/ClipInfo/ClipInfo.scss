@@ -1,5 +1,5 @@
 .clip-info {
-  margin: 24px 0 0 0;
+  margin: 0 0 0 0;
 
   .episode-title {
     font-size: $text-xxl;
@@ -15,19 +15,23 @@
     }
   }
 
-  .clip-title {
-    font-size: $text-xxl;
-    margin: 32px 0 16px 0;
-  }
+  .clip-inner-wrapper {
+    margin-top: 24px;
 
-  .media-item-controls {
-    margin-bottom: 24px;
-  }
-}
+    img {
+      margin: 0 24px 20px 0;
+    }
 
-@media (max-width: $media-max-width-tablet) {
-  .clip-info {
-    margin-top: 22px;
+    .clip-text-wrapper {
+      .clip-title {
+        font-size: $text-xxl;
+        margin: 0 0 16px 0;
+      }
+
+      .media-item-controls {
+        margin-bottom: 24px;
+      }
+    }
   }
 }
 

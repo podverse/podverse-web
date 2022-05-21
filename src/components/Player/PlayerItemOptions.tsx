@@ -17,32 +17,43 @@ export const PlayerItemButtons = (props: Props) => {
   const { t } = useTranslation()
   const [player] = useOmniAural('player') as [OmniAuralState['player']]
   const { currentNowPlayingItem, muted, playSpeed, showFullView, volume } = player
+  const { liveItem } = currentNowPlayingItem
+  const isLiveItem = !!liveItem
   const container = classnames('player-buttons-container')
 
   return (
     <div className={container}>
       <div className='player-control-button-row'>
-        <PlayerOptionButton ariaDescription={t('Playback speed')} onClick={playerNextSpeed} size='small' type='speed'>
-          {playSpeed}x
-        </PlayerOptionButton>
-        <PlayerOptionButton
-          ariaLabel={t('Add to Playlist')}
-          onClick={() => modalsAddToPlaylistShowOrAlert(currentNowPlayingItem)}
-          size='small'
-          type='add'
-        />
-        <PlayerOptionButton
-          ariaLabel={t('Make Clip')}
-          onClick={() => {
-            const currentPlaybackPosition = playerGetPosition() || 0
-            const hhmmssPlaybackPosition = convertSecToHHMMSS(currentPlaybackPosition)
-            OmniAural.makeClipSetStartTime(hhmmssPlaybackPosition)
-            const userInfo = OmniAural.state.session.userInfo.value()
-            userInfo ? OmniAural.makeClipShow() : OmniAural.modalsLoginToAlertShow('make clip')
-          }}
-          size='small'
-          type='make-clip'
-        />
+        {!isLiveItem && (
+          <>
+            <PlayerOptionButton
+              ariaDescription={t('Playback speed')}
+              onClick={playerNextSpeed}
+              size='small'
+              type='speed'
+            >
+              {playSpeed}x
+            </PlayerOptionButton>
+            <PlayerOptionButton
+              ariaLabel={t('Add to Playlist')}
+              onClick={() => modalsAddToPlaylistShowOrAlert(currentNowPlayingItem)}
+              size='small'
+              type='add'
+            />
+            <PlayerOptionButton
+              ariaLabel={t('Make Clip')}
+              onClick={() => {
+                const currentPlaybackPosition = playerGetPosition() || 0
+                const hhmmssPlaybackPosition = convertSecToHHMMSS(currentPlaybackPosition)
+                OmniAural.makeClipSetStartTime(hhmmssPlaybackPosition)
+                const userInfo = OmniAural.state.session.userInfo.value()
+                userInfo ? OmniAural.makeClipShow() : OmniAural.modalsLoginToAlertShow('make clip')
+              }}
+              size='small'
+              type='make-clip'
+            />
+          </>
+        )}
       </div>
       {/* <PlayerOptionButton type="share" size="small" /> */}
       <div className='player-control-volume-wrapper'>

@@ -7,14 +7,30 @@ type Props = {
   className?: string
   faIcon: IconProp
   href?: string
+  isLink?: boolean
   isSecondary?: boolean
   onClick?: any
   rel?: 'noreferrer'
   target?: '_blank'
 }
 
-export const ButtonIcon = ({ ariaLabel, className, faIcon, href, isSecondary, onClick, rel, target }: Props) => {
-  const buttonClass = classnames('button-icon', className ? className : null, isSecondary ? 'is-secondary' : null)
+export const ButtonIcon = ({
+  ariaLabel,
+  className,
+  faIcon,
+  href,
+  isLink,
+  isSecondary,
+  onClick,
+  rel,
+  target
+}: Props) => {
+  const buttonClass = classnames(
+    'button-icon',
+    className ? className : null,
+    isSecondary ? 'is-secondary' : null,
+    isLink ? 'is-link' : null
+  )
 
   if (href) {
     return (

@@ -1,6 +1,7 @@
 import './addToPlaylist/actions'
 import './checkout/actions'
 import './confirmDeleteAccount/actions'
+import './featureVideoPreview/actions'
 import './forgotPassword/actions'
 import './funding/actions'
 import './login/actions'
@@ -15,6 +16,7 @@ const modalsHideAll = () => {
   OmniAural.modalsAddToPlaylistHide()
   OmniAural.modalsCheckoutHide()
   OmniAural.modalsConfirmDeleteAccountHide()
+  OmniAural.modalsFeatureVideoPreviewHide()
   OmniAural.modalsForgotPasswordHide()
   OmniAural.modalsFundingHide()
   OmniAural.modalsLoginHide()

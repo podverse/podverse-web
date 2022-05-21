@@ -35,11 +35,13 @@ export const generateClipFlagPositions = (nowPlayingItem: NowPlayingItem, durati
 }
 
 export const setClipFlagPositions = (currentNowPlayingItem: NowPlayingItem, duration: number) => {
-  const clipFlagPositions = generateClipFlagPositions(currentNowPlayingItem, duration)
-  unstable_batchedUpdates(() => {
-    OmniAural.setClipFlagPositions(clipFlagPositions)
-    OmniAural.setHighlightedPositions(clipFlagPositions)
-  })
+  if (!currentNowPlayingItem.clipIsOfficialChapter) {
+    const clipFlagPositions = generateClipFlagPositions(currentNowPlayingItem, duration)
+    unstable_batchedUpdates(() => {
+      OmniAural.setClipFlagPositions(clipFlagPositions)
+      OmniAural.setHighlightedPositions(clipFlagPositions)
+    })
+  }
 }
 
 export const setHighlightedFlagPositionsForChapter = (chapter: MediaRef, duration: number) => {

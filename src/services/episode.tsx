@@ -8,7 +8,7 @@ export const getEpisodeById = async (id: string) => {
   })
 }
 
-type EpisodeQueryParams = {
+export type EpisodeQueryParams = {
   categories?: string[]
   hasVideo?: boolean
   includePodcast?: boolean
@@ -44,10 +44,12 @@ export const getEpisodesByQuery = async ({
   if (podcastIds?.length === 0 || categories?.length === 0) {
     return { data: [[], 0] }
   } else {
-    return request({
+    const episodeResponse = await request({
       endpoint: PV.RoutePaths.api.episode,
       method: 'get',
       query: filteredQuery
     })
+    const [episodesData, episodesDataCount] = episodeResponse.data
+    return { data: [episodesData, episodesDataCount] }
   }
 }

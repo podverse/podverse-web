@@ -18,15 +18,17 @@ import { addQueueItemLastOnServer, addQueueItemNextOnServer } from '~/services/u
 import { modalsAddToPlaylistShowOrAlert } from '~/state/modals/addToPlaylist/actions'
 import { OmniAuralState } from '~/state/omniauralState'
 import { ButtonCircle, Dropdown, Icon } from '..'
+import { LiveStatusBadge } from '../LiveStatusBadge/LiveStatusBadge'
 
 type Props = {
-  buttonSize: 'medium' | 'large'
-  mediaRef?: MediaRef
+  buttonSize: 'small' | 'medium' | 'large'
   episode?: Episode
   hidePubDate?: boolean
+  isChapter?: boolean
   isLoggedInUserMediaRef?: boolean
-  stretchMiddleContent?: boolean
+  mediaRef?: MediaRef
   podcast?: Podcast
+  stretchMiddleContent?: boolean
 }
 
 const _playKey = '_play'
@@ -41,10 +43,11 @@ const _deleteClip = '_deleteClip'
 
 export const MediaItemControls = ({
   buttonSize,
-  mediaRef,
   episode,
   hidePubDate,
+  isChapter,
   isLoggedInUserMediaRef,
+  mediaRef,
   podcast,
   stretchMiddleContent
 }: Props) => {
@@ -56,12 +59,15 @@ export const MediaItemControls = ({
   const [forceRefresh, setForceRefresh] = useState<number>(0)
   const { t } = useTranslation()
 
+  const liveItem = episode?.liveItem
   const nowPlayingItem: NowPlayingItem = mediaRef
     ? convertToNowPlayingItem(mediaRef, episode, podcast)
     : convertToNowPlayingItem(episode, null, podcast)
-  const { completed, pubDate, timeInfo, timeRemaining } = generateItemTimeInfo(t, episode, mediaRef)
+  const { completed, pubDate, timeInfo, timeRemaining } = generateItemTimeInfo(t, episode, mediaRef, isChapter)
 
   const timeWrapperClass = classNames('time-wrapper', stretchMiddleContent ? 'flex-stretch' : '')
+
+  nowPlayingItem.episodeImageUrl = mediaRef?.imageUrl ? mediaRef.imageUrl : nowPlayingItem.episodeImageUrl
 
   /* Function Helpers */
 
@@ -144,15 +150,24 @@ export const MediaItemControls = ({
   /* Render Helpers */
 
   const generateDropdownItems = () => {
-    const items = [
-      { label: 'Play', key: _playKey },
-      { label: 'Queue Next', key: _queueNextKey },
-      { label: 'Queue Last', key: _queueLastKey },
-      { label: 'Add to Playlist', key: _addToPlaylistKey },
-      { label: 'Share', key: _shareKey }
-    ]
+    let items = []
 
-    if (!mediaRef) {
+    if (liveItem) {
+      items = [
+        { label: 'Play', key: _playKey },
+        { label: 'Share', key: _shareKey }
+      ]
+    } else {
+      items = [
+        { label: 'Play', key: _playKey },
+        { label: 'Queue Next', key: _queueNextKey },
+        { label: 'Queue Last', key: _queueLastKey },
+        { label: 'Add to Playlist', key: _addToPlaylistKey },
+        { label: 'Share', key: _shareKey }
+      ]
+    }
+
+    if (!mediaRef && !liveItem) {
       if (completed) {
         items.push({ label: 'Mark as Unplayed', key: _markAsUnplayedKey })
       } else {
@@ -172,51 +187,56 @@ export const MediaItemControls = ({
   const isCurrentlyPlayingItem = playerCheckIfItemIsCurrentlyPlaying(player.paused, nowPlayingItem)
   const togglePlayIcon = isCurrentlyPlayingItem ? faPause : faPlay
   const togglePlayClassName = isCurrentlyPlayingItem ? 'pause' : 'play'
-  const togglePlayAriaLabel = mediaRef
-    ? isCurrentlyPlayingItem
-      ? t('Pause this mediaRef')
-      : t('Play this clip')
-    : isCurrentlyPlayingItem
-    ? t('Pause this episode')
-    : t('Play this episode')
+  let togglePlayAriaLabel = isCurrentlyPlayingItem ? t('Pause this clip') : t('Play this clip')
+  if (isChapter) {
+    togglePlayAriaLabel = isCurrentlyPlayingItem ? t('Pause this chapter') : t('Play this chapter')
+  }
 
   return (
-    <div className='media-item-controls'>
-      <ButtonCircle
-        ariaLabel={togglePlayAriaLabel}
-        ariaPressed
-        className={togglePlayClassName}
-        faIcon={togglePlayIcon}
-        onClick={_handleTogglePlay}
-        size={buttonSize}
-      />
-      <div aria-hidden='true' className={timeWrapperClass}>
-        {!hidePubDate && <span className='pub-date'>{pubDate}</span>}
-        {!!timeInfo && (
-          <>
-            {!hidePubDate && <span className='time-spacer'> • </span>}
-            {timeRemaining ? (
-              <span className='time-remaining'>{timeRemaining}</span>
-            ) : (
-              <span className='time-info'>{timeInfo}</span>
-            )}
-          </>
-        )}
-        {completed && (
-          <span className='completed'>
-            <Icon faIcon={faCheck} />
-          </span>
+    <>
+      <div className='mobile-media-item-controls-above-wrapper'>
+        {liveItem && <LiveStatusBadge hideAboveMobileWidth liveItemStatus={liveItem.status} />}
+      </div>
+      <div className='media-item-controls'>
+        <ButtonCircle
+          ariaLabel={togglePlayAriaLabel}
+          ariaPressed
+          className={togglePlayClassName}
+          faIcon={togglePlayIcon}
+          onClick={_handleTogglePlay}
+          size={isChapter ? 'small' : buttonSize}
+        />
+        <div aria-hidden='true' className={timeWrapperClass}>
+          {liveItem && <LiveStatusBadge hideBelowMobileWidth liveItemStatus={liveItem.status} />}
+          {!hidePubDate && <span className='pub-date'>{pubDate}</span>}
+          {!!timeInfo && (
+            <>
+              {!hidePubDate && <span className='time-spacer'> • </span>}
+              {timeRemaining ? (
+                <span className='time-remaining'>{timeRemaining}</span>
+              ) : (
+                <span className='time-info'>{timeInfo}</span>
+              )}
+            </>
+          )}
+          {completed && (
+            <span className='completed'>
+              <Icon faIcon={faCheck} />
+            </span>
+          )}
+        </div>
+        {!isChapter && (
+          <Dropdown
+            dropdownAriaLabel={t('More')}
+            dropdownWidthClass='width-medium'
+            faIcon={faEllipsisH}
+            hasClipEditButtons={dropdownItems.length > 6}
+            hideCaret
+            onChange={onChange}
+            options={dropdownItems}
+          />
         )}
       </div>
-      <Dropdown
-        dropdownAriaLabel={t('More')}
-        dropdownWidthClass='width-medium'
-        faIcon={faEllipsisH}
-        hasClipEditButtons={dropdownItems.length > 6}
-        hideCaret
-        onChange={onChange}
-        options={dropdownItems}
-      />
-    </div>
+    </>
   )
 }

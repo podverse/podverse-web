@@ -11,7 +11,9 @@ import { PV } from '~/resources'
 type Props = {
   episode?: Episode
   handleRemove?: any
+  hidePubDate?: boolean
   imageUrl?: string
+  isChapter?: boolean
   isLoggedInUserMediaRef?: boolean
   mediaRef: MediaRef
   podcast?: Podcast
@@ -22,6 +24,7 @@ type Props = {
 export const ClipListItem = ({
   episode,
   handleRemove,
+  isChapter,
   isLoggedInUserMediaRef,
   mediaRef,
   podcast,
@@ -44,7 +47,7 @@ export const ClipListItem = ({
     ? getPodcastShrunkImageUrl(podcast)
     : ''
 
-  const { pubDate, timeInfo } = generateItemTimeInfo(t, episode, mediaRef)
+  const { pubDate, timeInfo } = generateItemTimeInfo(t, episode, mediaRef, isChapter)
 
   const linkAriaLabel = `${podcastTitle ? `${podcastTitle}, ` : ''} ${title}, ${
     episode ? `${episodeTitle}, ${pubDate}, ` : ''
@@ -56,28 +59,63 @@ export const ClipListItem = ({
     setIsRemoving(false)
   }
 
+  const mediaItemControls = (
+    <MediaItemControls
+      buttonSize='medium'
+      episode={episode}
+      hidePubDate={!episode}
+      isChapter={isChapter}
+      isLoggedInUserMediaRef={isLoggedInUserMediaRef}
+      mediaRef={mediaRef}
+      podcast={podcast}
+      stretchMiddleContent
+    />
+  )
+
+  let itemMainSection = (
+    <>
+      <PVLink ariaLabel={linkAriaLabel} className='content-wrapper' href={clipPageUrl}>
+        {!isChapter && showImage && (
+          <PVImage alt='' height={PV.Images.sizes.medium} src={finalImageUrl} width={PV.Images.sizes.medium} />
+        )}
+        <div className='text-wrapper'>
+          {podcast && <div className='podcast-title'>{podcastTitle}</div>}
+          <div className='title'>{title}</div>
+          {episode && <div className='episode-title'>{episodeTitle}</div>}
+        </div>
+      </PVLink>
+      {mediaItemControls}
+    </>
+  )
+
+  if (isChapter) {
+    itemMainSection = (
+      <div className='content-wrapper chapter-content-wrapper'>
+        {!isChapter && showImage && (
+          <PVLink tabIndex={-1} href={clipPageUrl}>
+            <PVImage alt='' height={PV.Images.sizes.medium} src={finalImageUrl} width={PV.Images.sizes.medium} />
+          </PVLink>
+        )}
+        <div className='text-wrapper'>
+          {podcast && <div className='podcast-title'>{podcastTitle}</div>}
+          <PVLink ariaLabel={linkAriaLabel} href={clipPageUrl}>
+            <div className='title'>{title}</div>
+          </PVLink>
+          {episode && <div className='episode-title'>{episodeTitle}</div>}
+          {mediaItemControls}
+        </div>
+      </div>
+    )
+  }
+
   return (
     <>
       <li className='clip-list-item'>
-        <div className='main-wrapper'>
-          <PVLink ariaLabel={linkAriaLabel} className='content-wrapper' href={clipPageUrl}>
-            {showImage && (
-              <PVImage alt='' height={PV.Images.sizes.medium} src={finalImageUrl} width={PV.Images.sizes.medium} />
-            )}
-            <div className='text-wrapper'>
-              {podcast && <div className='podcast-title'>{podcastTitle}</div>}
-              <div className='title'>{title}</div>
-              {episode && <div className='episode-title'>{episodeTitle}</div>}
-            </div>
-          </PVLink>
-          <MediaItemControls
-            buttonSize='medium'
-            episode={episode}
-            isLoggedInUserMediaRef={isLoggedInUserMediaRef}
-            mediaRef={mediaRef}
-            podcast={podcast}
-            stretchMiddleContent
-          />
+        <div className={isChapter ? 'main-wrapper chapter-main-wrapper' : 'main-wrapper'}>
+          {isChapter && showImage && (
+            <PVImage alt='' height={PV.Images.sizes.medium} src={finalImageUrl} width={PV.Images.sizes.medium} />
+          )}
+          {itemMainSection}
         </div>
         {showRemoveButton && (
           <div className='side-wrapper'>

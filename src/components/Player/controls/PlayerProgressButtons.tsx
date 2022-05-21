@@ -13,7 +13,8 @@ import {
   playerPause,
   playerPlay,
   playerPlayNextChapterOrQueueItem,
-  playerPlayPreviousChapterOrReturnToBeginningOfTrack
+  playerPlayPreviousChapterOrReturnToBeginningOfTrack,
+  playerResetLiveItemAndResumePlayback
 } from '~/services/player/player'
 import { OmniAuralState } from '~/state/omniauralState'
 import { useTranslation } from 'next-i18next'
@@ -25,7 +26,9 @@ type Props = {
 export const PlayerProgressButtons = ({ hasMiniJump }: Props) => {
   const { t } = useTranslation()
   const [player] = useOmniAural('player') as [OmniAuralState['player']]
-  const { paused } = player
+  const { currentNowPlayingItem, paused } = player
+  const { liveItem } = currentNowPlayingItem
+  const isLiveItem = !!liveItem
   const container = classnames('progress-button-container')
   const playpause = classnames(paused ? 'play' : 'pause')
 
@@ -57,7 +60,11 @@ export const PlayerProgressButtons = ({ hasMiniJump }: Props) => {
   }
 
   const _handleTrackNext = () => {
-    playerPlayNextChapterOrQueueItem()
+    if (isLiveItem) {
+      playerResetLiveItemAndResumePlayback()
+    } else {
+      playerPlayNextChapterOrQueueItem()
+    }
   }
 
   return (

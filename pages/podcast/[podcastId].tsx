@@ -3,6 +3,7 @@ import { GetServerSideProps } from 'next'
 import { useTranslation } from 'next-i18next'
 import OmniAural, { useOmniAural } from 'omniaural'
 import type { Episode, MediaRef, Podcast } from 'podverse-shared'
+import { getLightningKeysendValueItem } from 'podverse-shared'
 import { useEffect, useRef, useState } from 'react'
 import {
   ClipListItem,
@@ -10,6 +11,8 @@ import {
   EpisodeListItem,
   Footer,
   List,
+  LiveScheduleItem,
+  WebLNV4VForm,
   Meta,
   PageHeader,
   PageScrollableContent,
@@ -23,21 +26,23 @@ import { scrollToTopOfPageScrollableContent } from '~/components/PageScrollableC
 import { calcListPageCount } from '~/lib/utility/misc'
 import { PV } from '~/resources'
 import { getPodcastById } from '~/services/podcast'
-import { getEpisodesByQuery } from '~/services/episode'
 import { getMediaRefsByQuery } from '~/services/mediaRef'
 import { Page } from '~/lib/utility/page'
 import { sanitizeTextHtml } from '~/lib/utility/sanitize'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 import { OmniAuralState } from '~/state/omniauralState'
+import { getEpisodesAndLiveItems } from '~/services/liveItem'
 
 interface ServerProps extends Page {
   serverClips: MediaRef[]
   serverClipsPageCount: number
+  serverCookies: any
   serverEpisodes: Episode[]
   serverEpisodesPageCount: number
   serverFilterPage: number
   serverFilterSort: string
   serverFilterType: string
+  serverLiveItemScheduleData: Episode[]
   serverPodcast: Podcast
 }
 
@@ -56,16 +61,18 @@ const keyPrefix = 'pages_podcast'
 export default function Podcast({
   serverClips,
   serverClipsPageCount,
+  serverCookies,
   serverFilterPage,
   serverFilterSort,
   serverFilterType,
   serverEpisodes,
   serverEpisodesPageCount,
+  serverLiveItemScheduleData,
   serverPodcast
 }: ServerProps) {
   /* Initialize */
 
-  const { id } = serverPodcast
+  const { id, value } = serverPodcast
   const { t } = useTranslation()
   const [filterPage, setFilterPage] = useState<number>(serverFilterPage)
   const [filterSearchText, setFilterSearchText] = useState<string>('')
@@ -78,6 +85,7 @@ export default function Podcast({
   const initialRender = useRef(true)
   const [userInfo] = useOmniAural('session.userInfo') as [OmniAuralState['session']['userInfo']]
   const pageCount = filterType === PV.Filters.type._episodes ? episodesPageCount : clipsPageCount
+  const valueTag = getLightningKeysendValueItem(value)
 
   /* useEffects */
 
@@ -128,7 +136,10 @@ export default function Podcast({
       ...(filterSearchText ? { searchTitle: filterSearchText } : {}),
       ...(filterSort ? { sort: filterSort } : {})
     }
-    return getEpisodesByQuery(finalQuery)
+
+    const data = await getEpisodesAndLiveItems(finalQuery, serverPodcast, serverFilterPage)
+    const [combinedEpisodesData, episodesDataCount] = data.combinedEpisodes
+    return { data: [combinedEpisodesData, episodesDataCount] }
   }
 
   const clientQueryClips = async () => {
@@ -185,6 +196,12 @@ export default function Podcast({
         podcast={serverPodcast}
         key={`${keyPrefix}-${index}-${listItem?.id}`}
       />
+    ))
+  }
+
+  const generateLiveScheduleItemListElements = () => {
+    return serverLiveItemScheduleData.map((listItem, index) => (
+      <LiveScheduleItem episode={listItem} key={`${keyPrefix}-${index}-${listItem?.id}`} />
     ))
   }
 
@@ -262,6 +279,16 @@ export default function Podcast({
                   }}
                 />
               </SideContentSection>
+              {serverLiveItemScheduleData.length > 0 && (
+                <SideContentSection headerText={t('Live Schedule')}>
+                  {generateLiveScheduleItemListElements()}
+                </SideContentSection>
+              )}
+              {valueTag && (
+                <SideContentSection headerText={t('Value-4-Value')}>
+                  <WebLNV4VForm podcast={serverPodcast} serverCookies={serverCookies} valueTag={valueTag} />
+                </SideContentSection>
+              )}
             </SideContent>
           }
         />
@@ -292,14 +319,20 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   let serverEpisodesPageCount = 0
   const serverClips = []
   const serverClipsPageCount = 0
+  let serverLiveItemScheduleData = []
   if (serverFilterType === PV.Filters.type._episodes) {
-    const response = await getEpisodesByQuery({
-      podcastIds: podcastId,
-      sort: serverFilterSort
-    })
-    const [episodesListData, episodesListDataCount] = response.data
-    serverEpisodes = episodesListData
-    serverEpisodesPageCount = calcListPageCount(episodesListDataCount)
+    const data = await getEpisodesAndLiveItems(
+      {
+        podcastIds: podcastId,
+        sort: serverFilterSort
+      },
+      podcast,
+      serverFilterPage
+    )
+    const [combinedEpisodesData, episodesDataCount] = data.combinedEpisodes
+    serverLiveItemScheduleData = data.scheduledLiveItems
+    serverEpisodes = combinedEpisodesData
+    serverEpisodesPageCount = calcListPageCount(episodesDataCount)
   } else {
     // handle mediaRefs query
   }
@@ -313,6 +346,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     serverFilterPage,
     serverFilterSort,
     serverFilterType,
+    serverLiveItemScheduleData,
     serverPodcast: podcast
   }
 

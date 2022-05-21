@@ -28,6 +28,15 @@
     line-height: 32px;
     width: 32px;
 
+    &.play,
+    &.pause {
+      svg {
+        height: unset;
+        margin-left: 1px;
+        width: 9px;
+      }
+    }
+
     &.backwards {
       margin-right: 8px;
       padding-right: 1px;

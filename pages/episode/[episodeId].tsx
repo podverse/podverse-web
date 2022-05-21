@@ -2,9 +2,10 @@ import { GetServerSideProps } from 'next'
 import { useTranslation } from 'next-i18next'
 import OmniAural, { useOmniAural } from 'omniaural'
 import type { Episode, MediaRef, PVComment, SocialInteraction } from 'podverse-shared'
-import { checkIfHasSupportedCommentTag } from 'podverse-shared'
+import { checkIfHasSupportedCommentTag, getLightningKeysendValueItem } from 'podverse-shared'
 import { useEffect, useRef, useState } from 'react'
 import {
+  Chapters,
   ClipListItem,
   ColumnsWrapper,
   Comments,
@@ -16,24 +17,28 @@ import {
   PageHeader,
   PageScrollableContent,
   Pagination,
-  SideContent
+  SideContent,
+  SideContentSection,
+  WebLNV4VForm
 } from '~/components'
 import { scrollToTopOfPageScrollableContent } from '~/components/PageScrollableContent/PageScrollableContent'
 import { calcListPageCount } from '~/lib/utility/misc'
 import { Page } from '~/lib/utility/page'
 import { PV } from '~/resources'
 import { getEpisodeById } from '~/services/episode'
-import { getMediaRefsByQuery } from '~/services/mediaRef'
+import { getMediaRefsByQuery, retrieveLatestChaptersForEpisodeId } from '~/services/mediaRef'
 import { checkIfVideoFileType } from '~/services/player/playerVideo'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 import { getEpisodeProxyActivityPub, getEpisodeProxyTwitter } from '~/services/socialInteraction/threadcap'
 import { OmniAuralState } from '~/state/omniauralState'
 
 interface ServerProps extends Page {
+  serverChapters: MediaRef[]
   serverClips: MediaRef[]
   serverClipsFilterPage: number
   serverClipsFilterSort: string
   serverClipsPageCount: number
+  serverCookies: any
   serverEpisode: Episode
 }
 
@@ -55,15 +60,18 @@ const keyPrefix = 'pages_episode'
 */
 
 export default function Episode({
+  serverChapters,
   serverClips,
-  serverClipsPageCount,
-  serverEpisode,
   serverClipsFilterPage,
-  serverClipsFilterSort
+  serverClipsFilterSort,
+  serverClipsPageCount,
+  serverCookies,
+  serverEpisode
 }: ServerProps) {
   /* Initialize */
 
-  const { id } = serverEpisode
+  const { id, liveItem } = serverEpisode
+  const isLiveItem = !!liveItem
   const { t } = useTranslation()
   const [filterState, setFilterState] = useState({
     clipsFilterPage: serverClipsFilterPage,
@@ -78,6 +86,9 @@ export default function Episode({
   const initialRender = useRef(true)
 
   const hasValidCommentTag = checkIfHasSupportedCommentTag(serverEpisode)
+  const hasChapters = serverChapters.length >= 1
+  const value = serverEpisode.value || serverEpisode.podcast.value
+  const valueTag = getLightningKeysendValueItem(value)
 
   /* useEffects */
 
@@ -208,21 +219,26 @@ export default function Episode({
             <>
               <EpisodeInfo episode={serverEpisode} includeMediaItemControls />
               {hasValidCommentTag ? <Comments comment={comment} isLoading={commentsLoading} /> : null}
-              <PageHeader
-                isSubHeader
-                noMarginBottom
-                sortOnChange={(selectedItems: any[]) => {
-                  const selectedItem = selectedItems[0]
-                  setFilterState({
-                    clipsFilterPage: 1,
-                    clipsFilterSort: selectedItem.key
-                  })
-                }}
-                sortOptions={PV.Filters.dropdownOptions.clip.sort}
-                sortSelected={clipsFilterSort}
-                text={t('Clips')}
-              />
-              <List>{generateClipListElements()}</List>
+              {hasChapters ? <Chapters chapters={serverChapters} episode={serverEpisode} /> : null}
+              {!isLiveItem && (
+                <>
+                  <PageHeader
+                    isSubHeader
+                    noMarginBottom
+                    sortOnChange={(selectedItems: any[]) => {
+                      const selectedItem = selectedItems[0]
+                      setFilterState({
+                        clipsFilterPage: 1,
+                        clipsFilterSort: selectedItem.key
+                      })
+                    }}
+                    sortOptions={PV.Filters.dropdownOptions.clip.sort}
+                    sortSelected={clipsFilterSort}
+                    text={t('Clips')}
+                  />
+                  <List>{generateClipListElements()}</List>
+                </>
+              )}
               <Pagination
                 currentPageIndex={clipsFilterPage}
                 handlePageNavigate={(newPage) => {
@@ -251,7 +267,20 @@ export default function Episode({
               />
             </>
           }
-          sideColumnChildren={<SideContent />}
+          sideColumnChildren={
+            <SideContent>
+              {valueTag && (
+                <SideContentSection headerText={t('Value-4-Value')}>
+                  <WebLNV4VForm
+                    episode={serverEpisode}
+                    podcast={serverEpisode.podcast}
+                    serverCookies={serverCookies}
+                    valueTag={valueTag}
+                  />
+                </SideContentSection>
+              )}
+            </SideContent>
+          }
         />
         <Footer />
       </PageScrollableContent>
@@ -283,8 +312,16 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const serverClips = clipsListData
   const serverClipsPageCount = calcListPageCount(clipsListDataCount)
 
+  let serverChapters = []
+  if (serverEpisode.chaptersUrl) {
+    const data = await retrieveLatestChaptersForEpisodeId(serverEpisode.id)
+    const [chapters] = data
+    serverChapters = chapters
+  }
+
   const props: ServerProps = {
     ...defaultServerProps,
+    serverChapters,
     serverClips,
     serverClipsFilterPage,
     serverClipsFilterSort,

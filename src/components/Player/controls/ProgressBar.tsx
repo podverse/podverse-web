@@ -3,7 +3,7 @@ import { useTranslation } from 'next-i18next'
 import { useOmniAural } from 'omniaural'
 import { Slider } from '~/components/Slider/Slider'
 import { convertSecToHHMMSS } from '~/lib/utility/time'
-import { playerSeekTo } from '~/services/player/player'
+import { playerResetLiveItemAndResumePlayback, playerSeekTo } from '~/services/player/player'
 import { OmniAuralState } from '~/state/omniauralState'
 
 type Props = {
@@ -21,25 +21,42 @@ export const ProgressBar = ({
 }: Props) => {
   const { t } = useTranslation()
   const [player] = useOmniAural('player') as [OmniAuralState['player']]
-  const { duration, playbackPosition } = player
+  const { currentNowPlayingItem, duration, isAtCurrentLiveStreamTime, playbackPosition } = player
+  const isLiveItem = !!currentNowPlayingItem?.liveItem
+
   const currentTimeLabel = convertSecToHHMMSS(playbackPosition)
-  const endTimeLabel = convertSecToHHMMSS(duration)
+  const endTimeTextLabel = convertSecToHHMMSS(duration, isLiveItem, t)
+  const endTimeLabel = isAtCurrentLiveStreamTime ? `${endTimeTextLabel} ●` : endTimeTextLabel
 
   const barContainer = classNames('player-bar-container', labelsBelow ? 'has-labels-below' : '')
   const bar = classNames('player-bar')
-  const barLabel = classNames('player-bar-label')
+  const currentTimeBarLabel = classNames('player-bar-label current-time')
+  const endTimeBarLabel = classNames(
+    'player-bar-label end-time',
+    isLiveItem ? 'is-live-item' : '',
+    isAtCurrentLiveStreamTime ? 'is-at-current-live-position' : ''
+  )
 
   const flagPositions = clipFlagPositions.length > 0 ? clipFlagPositions : chapterFlagPositions
 
   const currentTimeElement = (
-    <div aria-description={t('Current time')} className={barLabel} tabIndex={0}>
+    <div aria-description={t('Current time')} className={currentTimeBarLabel} tabIndex={0}>
       {currentTimeLabel}
     </div>
   )
+  const endTimeAriaDescription = isLiveItem ? t('Go to current live time') : t('Duration')
+  const endTimeAriaRole = isLiveItem ? 'button' : 'none'
+  const endTimeOnClick = isLiveItem ? playerResetLiveItemAndResumePlayback : null
   const endTimeElement = (
-    <div aria-description={t('Duration')} className={barLabel} tabIndex={0}>
+    <button
+      aria-description={endTimeAriaDescription}
+      aria-role={endTimeAriaRole}
+      className={endTimeBarLabel}
+      onClick={endTimeOnClick}
+      tabIndex={0}
+    >
       {endTimeLabel}
-    </div>
+    </button>
   )
 
   return (
@@ -49,11 +66,11 @@ export const ProgressBar = ({
         ariaHidden
         ariaLabel={t('Player progress bar')}
         className={bar}
-        currentValue={playbackPosition}
+        currentValue={isLiveItem ? 0 : playbackPosition}
         endVal={duration}
         flagPositions={flagPositions}
         highlightedPositions={highlightedPositions}
-        onValueChange={playerSeekTo}
+        onValueChange={isLiveItem ? null : playerSeekTo}
         showFlags={(!clipFlagPositions || clipFlagPositions.length === 0) && chapterFlagPositions?.length > 1}
         startVal={0}
       />

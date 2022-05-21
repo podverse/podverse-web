@@ -11,13 +11,15 @@ export const handlePlayAfterClipEndTimeReached = () => {
   if (clipHasReachedEnd) {
     const currentNowPlayingItem = OmniAural.state.player.currentNowPlayingItem.value()
     OmniAural.setClipHasReachedEnd(false)
+    OmniAural.setClipFlagPositions([])
     const currentPosition = playerGetPosition()
     if (currentPosition > currentNowPlayingItem.clipEndTime) {
       const episodeNowPlayingItem = convertNowPlayingItemClipToNowPlayingItemEpisode(
         currentNowPlayingItem
       ) as NowPlayingItem
       const shouldPlay = true
-      playerLoadNowPlayingItem(episodeNowPlayingItem, shouldPlay)
+      const isChapter = true
+      playerLoadNowPlayingItem(episodeNowPlayingItem, shouldPlay, isChapter)
 
       /*
         We have to call addOrUpdateHistory here because the onLoadedMetadata event
@@ -32,7 +34,7 @@ export const handlePlayAfterClipEndTimeReached = () => {
         forceUpdateOrderDate: true,
         skipSetNowPlaying: false
       })
-    } else {
+    } else if (!currentNowPlayingItem.clipIsOfficialChapter) {
       handleSetupClipListener(currentNowPlayingItem.clipEndTime)
     }
   }

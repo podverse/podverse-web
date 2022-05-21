@@ -10,6 +10,10 @@
     border-color: getThemeVal('divider');
   }
 
+  &:last-child {
+    border-bottom: 0;
+  }
+
   .main-wrapper {
     flex: 1;
 

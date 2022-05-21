@@ -8,9 +8,10 @@ type Props = {
   className?: string
   href: string
   onClick?: any
+  tabIndex?: number
 }
 
-export const PVLink = ({ ariaLabel, children, className, href, onClick }: Props) => {
+export const PVLink = ({ ariaLabel, children, className, href, onClick, tabIndex }: Props) => {
   const router = useRouter()
   const linkClassName = classnames(className ? className : '')
 
@@ -24,7 +25,7 @@ export const PVLink = ({ ariaLabel, children, className, href, onClick }: Props)
 
   return (
     <Link href={href}>
-      <a className={linkClassName} aria-label={ariaLabel} onClick={finalOnClick}>
+      <a className={linkClassName} aria-label={ariaLabel} onClick={finalOnClick} tabIndex={tabIndex}>
         {children}
       </a>
     </Link>

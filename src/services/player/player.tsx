@@ -13,6 +13,7 @@ import {
   audioMute,
   audioPause,
   audioPlay,
+  audioResetLiveItemAndResumePlayback,
   audioSeekTo,
   audioSetPlaybackSpeed,
   audioSetVolume,
@@ -63,7 +64,8 @@ export const playerTogglePlayOrLoadNowPlayingItem = async (nowPlayingItem: NowPl
   ) {
     playerSeekTo(nowPlayingItem.clipStartTime)
     const shouldPlay = true
-    await playerLoadNowPlayingItem(nowPlayingItem, shouldPlay)
+    const isChapter = true
+    await playerLoadNowPlayingItem(nowPlayingItem, shouldPlay, isChapter)
     const duration = playerGetDuration()
     setClipFlagPositions(nowPlayingItem, duration)
   } else if (previousNowPlayingItem && previousNowPlayingItem.episodeMediaUrl === nowPlayingItem.episodeMediaUrl) {
@@ -208,7 +210,24 @@ export const playerUnmute = () => {
   }
 }
 
-export const playerLoadNowPlayingItem = async (nowPlayingItem: NowPlayingItem, shouldPlay: boolean) => {
+/*
+  Apparently the only way to force a live stream to play from the latest time
+  is to remove and reload the live stream in the player.
+  https://stackoverflow.com/questions/27258169/how-can-i-stop-and-resume-a-live-audio-stream-in-html5-instead-of-just-pausing-i
+*/
+export const playerResetLiveItemAndResumePlayback = () => {
+  const isAudio = true
+  if (isAudio) {
+    const liveStreamSrc = window?.playerAudio?.current?.audio?.current?.currentSrc
+    audioResetLiveItemAndResumePlayback(liveStreamSrc)
+  }
+}
+
+export const playerLoadNowPlayingItem = async (
+  nowPlayingItem: NowPlayingItem,
+  shouldPlay: boolean,
+  isChapter?: boolean
+) => {
   try {
     if (!nowPlayingItem) return
 
@@ -227,7 +246,9 @@ export const playerLoadNowPlayingItem = async (nowPlayingItem: NowPlayingItem, s
 
     // Clear all remnants of the previous item from state and the player.
     // Do this after the setPlayerItem so there isn't a flash of no content.
-    playerClearPreviousItem(nowPlayingItem)
+    if (!isChapter) {
+      playerClearPreviousItem(nowPlayingItem)
+    }
 
     /*
       TODO: add the currently playing item next in the queue if the user

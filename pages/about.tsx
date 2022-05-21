@@ -2,7 +2,14 @@ import { GetServerSideProps } from 'next'
 import { useTranslation } from 'next-i18next'
 import { Page } from '~/lib/utility/page'
 import { PV } from '~/resources'
-import { ColumnsWrapper, DownloadAppButtons, Footer, PageHeader, PageScrollableContent } from '~/components'
+import {
+  ColumnsWrapper,
+  DownloadAppButtons,
+  FeatureComparisonTable,
+  Footer,
+  PageHeader,
+  PageScrollableContent
+} from '~/components'
 import { Meta } from '~/components/Meta/Meta'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 
@@ -41,23 +48,6 @@ export default function About(props: ServerProps) {
             <div className='text-page'>
               <p className='bigger'>Podverse is an open source podcast manager for iOS, Android, and web.</p>
               <DownloadAppButtons />
-              <label>Free features:</label>
-              <ul>
-                <li>Subscribe to podcasts</li>
-                <li>Auto-download episodes</li>
-                <li>Drag-and-drop queue</li>
-                <li>Sleep timer</li>
-                <li>Light / Dark mode</li>
-              </ul>
-              <label>Premium features:</label>
-              <ul>
-                <li>Create and share podcast clips</li>
-                <li>Switch devices and play from where you left off</li>
-                <li>Sync your subscriptions across devices</li>
-                <li>Sync your queue across devices</li>
-                <li>Create and share playlists</li>
-                <li>Subscribe to playlists</li>
-              </ul>
               <p>
                 All Podverse software is provided under a free and open source (FOSS) licence. Features that require
                 updating our servers are available only with a Premium membership. Sign up today and get 3 months of
@@ -66,6 +56,7 @@ export default function About(props: ServerProps) {
                   🥳
                 </span>
               </p>
+              <FeatureComparisonTable leftAlignedStyle />
               <hr />
               <h3>Team</h3>
               <p>Mitch Downey</p>
