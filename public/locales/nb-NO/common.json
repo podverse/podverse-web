@@ -193,7 +193,7 @@
     "untitledPodcast": "Nettradioopptak uten navn",
     "Verify Email": "Bekreft e-postadresse",
     "Email verified redirecting to home page": "E-postadresse bekreftet. Videresender til landingssiden …",
-    "Export OPML Description": "Eksporter abonnementene din som en OPML-fil for å importere dem i andre programmer.",
+    "Export OPML Description": "Eksporter abonnementene dine som en OPML-fil for å importere dem i andre programmer.",
     "Something went wrong": "Koble til Internett og prøv igjen.",
     "Reset password successful": "Du kan nå bruke det nye passordet ditt",
     "pages-episodes_Description": "Fri nettradioopptaksspiller for Android, F-Droid, iOS, og veven. Podcasting 2.0-sertifisert. Lag og del klipp fra nettradioopptak. Synkroniser køen din til alle enhetene dine. Kapitler, klipp, frihetslig, mobilprogram, spillelister, nettradioopptaksindeks, podping, premium, profiler, transkribering, v4v, verdi-for-verdi.",
@@ -354,5 +354,6 @@
     "_translatorsFieldExample": "Allan Nordhøy",
     "_translatorsField": "Oversettere",
     "features - new episodes and livestream notifications": "Merknader om nye episoder og direktestrømmer",
-    "Value-4-Value": "Verdi-for-verdi"
+    "Value-4-Value": "Verdi-for-verdi",
+    "Episode Summary": "Episodesammendrag"
 }
