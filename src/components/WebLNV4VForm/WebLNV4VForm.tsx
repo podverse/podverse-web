@@ -49,7 +49,7 @@ const WebLNV4VFormNoSSR = ({ episode, podcast, serverCookies, valueTag }: Props)
 
     return () => {
       window.removeEventListener('WebLN-V4V-Has-Loaded', handleHasLoaded),
-      window.removeEventListener('WebLN-V4V-Terms-Accepted', handleAcceptedTermsEvent),
+        window.removeEventListener('WebLN-V4V-Terms-Accepted', handleAcceptedTermsEvent),
         window.removeEventListener('WebLN-V4V-Terms-Rejected', handleRejectTermsEvent),
         window.removeEventListener('WebLN-V4V-New-Default-Values', handleDefaultValueChangedEvent)
     }
@@ -102,13 +102,11 @@ const WebLNV4VFormNoSSR = ({ episode, podcast, serverCookies, valueTag }: Props)
 
   return (
     <div className='webln-v4v-wrapper'>
-      {
-        isLoading && (
-          <div className='loading-wrapper'>
-            <Icon faIcon={faSpinner} spin />
-          </div>
-        )
-      }
+      {isLoading && (
+        <div className='loading-wrapper'>
+          <Icon faIcon={faSpinner} spin />
+        </div>
+      )}
       <div className={`${isLoading ? 'display-none' : ''}`}>
         <webln-v4v
           app_name={V4V_APP_NAME}
