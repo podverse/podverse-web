@@ -33,7 +33,6 @@ export const ClipInfo = ({ episode, mediaRef }: Props) => {
           <MediaItemControls
             buttonSize='large'
             episode={episode}
-            hidePubDate
             isLoggedInUserMediaRef={userInfo && userInfo.id === mediaRef.owner.id}
             mediaRef={mediaRef}
             podcast={episode.podcast}
