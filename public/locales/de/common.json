@@ -73,7 +73,6 @@
     "pages-podcasts_Title": "Podcasts",
     "Processing Payment": "Zahlungsabwicklung…",
     "RSS Feed Link": "RSS-Feed-Link",
-    "Episode Notes": "Anmerkungen zur Episode",
     "Inactive": "Inaktiv",
     "LoginToSubscribeToPodcasts": "Anmelden, um Podcasts zu abonnieren",
     "pages-faq_Title": "FAQ",
@@ -100,7 +99,7 @@
     "Clip times": "Clip-Zeiten",
     "Clips from this episode": "Clips dieser Folge",
     "Close": "Schließen",
-    "ConfirmDeleteModalLine2": "Geben Sie das Wort \"löschen\" ein, um Ihr Konto zu löschen, und drücken Sie dann \"Konto löschen\".",
+    "ConfirmDeleteModalLine2": "Geben Sie das Wort \"delete\" ein, um Ihr Konto zu löschen, und drücken Sie dann \"Konto löschen\".",
     "confirmed": "bestätigt",
     "ContactXMPPChatRooms": "XMPP-Chaträume",
     "ContactXMPPText1": "XMPP ist eine kostenlose und offene Technologie, die es jedem ermöglicht, seine eigene universelle Chat-Plattform zu erstellen und zu hosten.",
@@ -176,7 +175,6 @@
     "RatingsProvidedByPodcasters": "Die Bewertungen werden von den Podcastern abgegeben,",
     "Reset password successful": "Sie können nun Ihr neues Passwort verwenden",
     "Search clips": "Clips suchen",
-    "Show Notes": "Notizen anzeigen",
     "Social Media - reddit": "Schließen Sie sich uns auf Reddit an",
     "Social Media - Twitter": "Folge uns auf Twitter",
     "Type a title for your playlist": "Geben Sie einen Titel für Ihre Wiedergabeliste ein",
@@ -268,7 +266,7 @@
     "Social Media - Mastodon": "Folgen Sie uns auf Mastodon",
     "Social media links": "Social-Media-Links",
     "TrialEnded": "Bitte verlängern Sie Podverse Premium, um alle Funktionen nutzen zu können.",
-    "Type delete": "Tippen Sie \"löschen\"",
+    "Type delete": "Tippen Sie \"delete\"",
     "Email verified redirecting to home page": "E-Mail verifiziert. Weiterleitung auf die Landing Page…",
     "Done": "Erledigt",
     "Submit": "Absenden",
@@ -334,5 +332,6 @@
     "pages-coupon_Description": "Ihr Angebot einlösen",
     "pages-search_Title": "Suchen",
     "Select by category": "Nach Kategorie auswählen",
-    "send us an email": "Schicken Sie uns eine E-Mail"
+    "send us an email": "Schicken Sie uns eine E-Mail",
+    "_translatorsField": "Übersetzer"
 }
