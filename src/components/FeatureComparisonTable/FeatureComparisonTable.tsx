@@ -45,7 +45,13 @@ const featuresData = (t) => [
   {
     text: t('features - audio livestreams'),
     icon1: true,
-    icon2: true
+    icon2: true,
+    previewVideoEmbed: {
+      text: t('features - audio livestreams'),
+      width: 560,
+      height: 315,
+      src: 'https://peertube.podverse.fm/videos/embed/bbf6eb1c-46a0-407d-b1ef-682590885882'
+    }
   },
   {
     text: t('features - video playback'),
@@ -64,7 +70,26 @@ const featuresData = (t) => [
     icon1: true,
     icon1Asterisk: true,
     icon2: true,
-    icon2Asterisk: true
+    icon2Asterisk: true,
+    previewVideoEmbed: {
+      text: t('features - sleep timer'),
+      width: 560,
+      height: 315,
+      src: 'https://peertube.podverse.fm/videos/embed/9bd98b86-7e9a-4c70-b52d-b6e2f5909749'
+    }
+  },
+  {
+    text: t('Send Bitcoin donations and boostagrams to podcasters'),
+    icon1: true,
+    icon1Asterisk: true,
+    icon2: true,
+    icon2Asterisk: true,
+    previewVideoEmbed: {
+      text: t('Send Bitcoin donations and boostagrams to podcasters'),
+      width: 560,
+      height: 315,
+      src: 'https://peertube.podverse.fm/videos/embed/a1dbaedf-560c-40df-93c5-79a3a3be8f81'
+    }
   },
   {
     text: t('features - screen-reader accessibility'),
@@ -92,7 +117,13 @@ const featuresData = (t) => [
     icon1: true,
     icon1Asterisk: true,
     icon2: true,
-    icon2Asterisk: true
+    icon2Asterisk: true,
+    previewVideoEmbed: {
+      text: t('features - podcasting 2.0 transcripts'),
+      width: 560,
+      height: 315,
+      src: 'https://peertube.podverse.fm/videos/embed/e02afb1e-5426-4377-88bf-86ebbb9edd9c'
+    }
   },
   {
     text: t('features - opml import and export'),
@@ -104,14 +135,26 @@ const featuresData = (t) => [
   {
     text: t('features - Sync your subscriptions, queue, and history across all your devices'),
     icon1: false,
-    icon2: true
+    icon2: true,
+    previewVideoEmbed: {
+      text: t('features - Sync your subscriptions, queue, and history across all your devices'),
+      width: 560,
+      height: 315,
+      src: 'https://peertube.podverse.fm/videos/embed/b5a0ca7e-76c0-4b5e-9aa8-31f14505dcee'
+    }
   },
   {
     text: t('features - new episodes and livestream notifications'),
     icon1: true,
     icon1Asterisk: true,
     icon2: true,
-    icon2Asterisk: true
+    icon2Asterisk: true,
+    previewVideoEmbed: {
+      text: t('features - new episodes and livestream notifications'),
+      width: 560,
+      height: 315,
+      src: 'https://peertube.podverse.fm/videos/embed/bbf6eb1c-46a0-407d-b1ef-682590885882'
+    }
   },
   {
     text: t('features - create and share podcast clips'),
