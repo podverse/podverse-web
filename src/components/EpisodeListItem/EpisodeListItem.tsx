@@ -1,11 +1,12 @@
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
-import { Episode, LiveItem, Podcast } from 'podverse-shared'
+import { Episode, getLightningKeysendValueItem, LiveItem, Podcast } from 'podverse-shared'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import striptags from 'striptags'
 import { ButtonCircle, MediaItemControls, PVImage, PVLink } from '~/components'
 import { generateAriaItemTimeInfo } from '~/lib/utility/ariaHelpers'
 import { getPodcastShrunkImageUrl } from '~/lib/utility/image'
+import { webAddLightningBoltToString } from '~/lib/utility/valueTag'
 import { PV } from '~/resources'
 
 type Props = {
@@ -14,6 +15,7 @@ type Props = {
   imageUrl?: string
   liveItem?: LiveItem
   podcast?: Podcast
+  serverCookies?: any
   showPodcastInfo?: boolean
   showRemoveButton?: boolean
 }
@@ -23,6 +25,7 @@ export const EpisodeListItem = ({
   handleRemove,
   liveItem,
   podcast,
+  serverCookies,
   showPodcastInfo,
   showRemoveButton
 }: Props) => {
@@ -40,6 +43,14 @@ export const EpisodeListItem = ({
   const linkAriaTimeInfo = generateAriaItemTimeInfo(t, ep, clip)
   const linkAriaLabel = `${showPodcastInfo ? `${podcast.title}, ` : ''} ${title}, ${linkAriaTimeInfo}, ${summaryText}`
 
+  const isLightningEnabled =
+    getLightningKeysendValueItem(episode?.value) ||
+    getLightningKeysendValueItem(podcast?.value) ||
+    podcast?.hasPodcastIndexValueTag
+  const finalPodcastTitle = isLightningEnabled
+    ? webAddLightningBoltToString(serverCookies, podcast.title)
+    : podcast.title
+
   const _handleRemove = async () => {
     setIsRemoving(true)
     await handleRemove()
@@ -55,7 +66,7 @@ export const EpisodeListItem = ({
               <PVImage alt='' height={PV.Images.sizes.medium} src={finalImageUrl} width={PV.Images.sizes.medium} />
             )}
             <div className='text-wrapper'>
-              {showPodcastInfo && <div className='podcast-title'>{podcast.title}</div>}
+              {showPodcastInfo && <div className='podcast-title'>{finalPodcastTitle}</div>}
               <div className='title'>{title}</div>
               <div
                 className='description'

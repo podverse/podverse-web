@@ -1,7 +1,7 @@
 import { GetServerSideProps } from 'next'
 import { useTranslation } from 'next-i18next'
 import OmniAural, { useOmniAural } from 'omniaural'
-import type { Episode, MediaRef } from 'podverse-shared'
+import { addLightningBoltToString, Episode, MediaRef } from 'podverse-shared'
 import { getLightningKeysendValueItem } from 'podverse-shared'
 import { useEffect, useRef, useState } from 'react'
 import {
@@ -86,7 +86,10 @@ export default function Clip({
   const [clipsListData, setClipsListData] = useState<MediaRef[]>(serverClips)
   const [clipsPageCount, setClipsPageCount] = useState<number>(serverClipsPageCount)
   const initialRender = useRef(true)
-  const value = episode.value || episode.podcast.value
+
+  const valueEpisode = episode.value?.length > 0 ? episode.value : null
+  const valuePodcast = episode.podcast.value?.length > 0 ? episode.podcast.value : null
+  const value = valueEpisode || valuePodcast
   const valueTag = getLightningKeysendValueItem(value)
 
   /* useEffects */
@@ -223,7 +226,7 @@ export default function Clip({
           sideColumnChildren={
             <SideContent>
               {valueTag && (
-                <SideContentSection headerText={t('Value-4-Value')}>
+                <SideContentSection headerText={addLightningBoltToString(t('Value-4-Value'))}>
                   <WebLNV4VForm
                     episode={episode}
                     podcast={episode.podcast}
