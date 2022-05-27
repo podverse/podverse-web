@@ -1,11 +1,12 @@
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
-import { Episode, MediaRef, Podcast } from 'podverse-shared'
+import { Episode, getLightningKeysendValueItem, MediaRef, Podcast } from 'podverse-shared'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ButtonCircle, MediaItemControls, PVImage, PVLink } from '~/components'
 import { generateItemTimeInfo } from '~/lib/utility/date'
 import { getPodcastShrunkImageUrl } from '~/lib/utility/image'
 import { getClipTitle, getEpisodeTitle, getPodcastTitle } from '~/lib/utility/misc'
+import { webAddLightningBoltToString } from '~/lib/utility/valueTag'
 import { PV } from '~/resources'
 
 type Props = {
@@ -17,6 +18,7 @@ type Props = {
   isLoggedInUserMediaRef?: boolean
   mediaRef: MediaRef
   podcast?: Podcast
+  serverCookies?: any
   showImage?: boolean
   showRemoveButton?: boolean
 }
@@ -28,6 +30,7 @@ export const ClipListItem = ({
   isLoggedInUserMediaRef,
   mediaRef,
   podcast,
+  serverCookies,
   showImage,
   showRemoveButton
 }: Props) => {
@@ -52,6 +55,12 @@ export const ClipListItem = ({
   const linkAriaLabel = `${podcastTitle ? `${podcastTitle}, ` : ''} ${title}, ${
     episode ? `${episodeTitle}, ${pubDate}, ` : ''
   } ${timeInfo}`
+
+  const isLightningEnabled =
+    getLightningKeysendValueItem(episode?.value) ||
+    getLightningKeysendValueItem(podcast?.value) ||
+    podcast?.hasPodcastIndexValueTag
+  const finalPodcastTitle = isLightningEnabled ? webAddLightningBoltToString(serverCookies, podcastTitle) : podcastTitle
 
   const _handleRemove = async () => {
     setIsRemoving(true)
@@ -79,7 +88,7 @@ export const ClipListItem = ({
           <PVImage alt='' height={PV.Images.sizes.medium} src={finalImageUrl} width={PV.Images.sizes.medium} />
         )}
         <div className='text-wrapper'>
-          {podcast && <div className='podcast-title'>{podcastTitle}</div>}
+          {podcast && <div className='podcast-title'>{finalPodcastTitle}</div>}
           <div className='title'>{title}</div>
           {episode && <div className='episode-title'>{episodeTitle}</div>}
         </div>

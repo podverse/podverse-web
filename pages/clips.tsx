@@ -30,6 +30,7 @@ import { OmniAuralState } from '~/state/omniauralState'
 const categories = require('~/resources/Categories/TopLevelCategories.json')
 interface ServerProps extends Page {
   serverCategoryId: string | null
+  serverCookies: any
   serverClipsListData: MediaRef[]
   serverClipsListDataCount: number
   serverFilterFrom: string
@@ -43,6 +44,7 @@ export default function Clips({
   serverCategoryId,
   serverClipsListData,
   serverClipsListDataCount,
+  serverCookies,
   serverFilterFrom,
   serverFilterPage,
   serverFilterSort,
@@ -256,6 +258,7 @@ export default function Clips({
         key={`${keyPrefix}-${index}-${listItem?.id}`}
         mediaRef={listItem}
         podcast={listItem.episode.podcast}
+        serverCookies={serverCookies}
         showImage
       />
     ))

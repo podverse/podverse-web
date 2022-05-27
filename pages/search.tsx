@@ -21,6 +21,7 @@ import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 import { OmniAuralState } from '~/state/omniauralState'
 
 interface ServerProps extends Page {
+  serverCookies: any
   serverSearchByText?: string
 }
 
@@ -53,7 +54,7 @@ const clientQueryPodcasts = async (filterSearchByText: string, filterPage: numbe
       should still be there on navigate back.
 */
 
-export default function Search({ serverSearchByText }: ServerProps) {
+export default function Search({ serverCookies, serverSearchByText }: ServerProps) {
   /* Initialize */
 
   const { t } = useTranslation()
@@ -102,7 +103,7 @@ export default function Search({ serverSearchByText }: ServerProps) {
 
   const generatePodcastListElements = (listItems: Podcast[]) => {
     return listItems.map((listItem, index) => (
-      <PodcastListItem key={`${keyPrefix}-${index}-${listItem?.id}`} podcast={listItem} />
+      <PodcastListItem key={`${keyPrefix}-${index}-${listItem?.id}`} podcast={listItem} serverCookies={serverCookies} />
     ))
   }
 
