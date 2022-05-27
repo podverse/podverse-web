@@ -3,7 +3,7 @@ import { GetServerSideProps } from 'next'
 import { useTranslation } from 'next-i18next'
 import OmniAural, { useOmniAural } from 'omniaural'
 import type { Episode, MediaRef, Podcast } from 'podverse-shared'
-import { getLightningKeysendValueItem } from 'podverse-shared'
+import { addLightningBoltToString, getLightningKeysendValueItem } from 'podverse-shared'
 import { useEffect, useRef, useState } from 'react'
 import {
   ClipListItem,
@@ -191,10 +191,11 @@ export default function Podcast({
     return clipsListData.map((listItem, index) => (
       <ClipListItem
         episode={listItem.episode}
+        key={`${keyPrefix}-${index}-${listItem?.id}`}
         isLoggedInUserMediaRef={userInfo && userInfo.id === listItem.owner.id}
         mediaRef={listItem}
         podcast={serverPodcast}
-        key={`${keyPrefix}-${index}-${listItem?.id}`}
+        serverCookies={serverCookies}
       />
     ))
   }
@@ -285,7 +286,7 @@ export default function Podcast({
                 </SideContentSection>
               )}
               {valueTag && (
-                <SideContentSection headerText={t('Value-4-Value')}>
+                <SideContentSection headerText={addLightningBoltToString(t('Value-4-Value'))}>
                   <WebLNV4VForm podcast={serverPodcast} serverCookies={serverCookies} valueTag={valueTag} />
                 </SideContentSection>
               )}
