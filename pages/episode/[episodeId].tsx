@@ -2,7 +2,7 @@ import { GetServerSideProps } from 'next'
 import { useTranslation } from 'next-i18next'
 import OmniAural, { useOmniAural } from 'omniaural'
 import type { Episode, MediaRef, PVComment, SocialInteraction } from 'podverse-shared'
-import { checkIfHasSupportedCommentTag, getLightningKeysendValueItem } from 'podverse-shared'
+import { addLightningBoltToString, checkIfHasSupportedCommentTag, getLightningKeysendValueItem } from 'podverse-shared'
 import { useEffect, useRef, useState } from 'react'
 import {
   Chapters,
@@ -87,7 +87,9 @@ export default function Episode({
 
   const hasValidCommentTag = checkIfHasSupportedCommentTag(serverEpisode)
   const hasChapters = serverChapters.length >= 1
-  const value = serverEpisode.value || serverEpisode.podcast.value
+  const valueEpisode = serverEpisode.value?.length > 0 ? serverEpisode.value : null
+  const valuePodcast = serverEpisode.podcast.value?.length > 0 ? serverEpisode.podcast.value : null
+  const value = valueEpisode || valuePodcast
   const valueTag = getLightningKeysendValueItem(value)
 
   /* useEffects */
@@ -270,7 +272,7 @@ export default function Episode({
           sideColumnChildren={
             <SideContent>
               {valueTag && (
-                <SideContentSection headerText={t('Value-4-Value')}>
+                <SideContentSection headerText={addLightningBoltToString(t('Value-4-Value'))}>
                   <WebLNV4VForm
                     episode={serverEpisode}
                     podcast={serverEpisode.podcast}

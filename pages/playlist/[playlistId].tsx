@@ -27,13 +27,14 @@ import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 import { OmniAuralState } from '~/state/omniauralState'
 
 interface ServerProps extends Page {
+  serverCookies: any
   serverPlaylist: Playlist
   serverPlaylistSortedItems: [Episode | MediaRef]
 }
 
 const keyPrefix = 'pages_playlist'
 
-export default function Playlist({ serverPlaylist, serverPlaylistSortedItems }: ServerProps) {
+export default function Playlist({ serverCookies, serverPlaylist, serverPlaylistSortedItems }: ServerProps) {
   /* Initialize */
 
   const { t } = useTranslation()
@@ -115,6 +116,7 @@ export default function Playlist({ serverPlaylist, serverPlaylistSortedItems }: 
             handleRemove={() => _handleRemoveEpisode(episode.id)}
             key={`${keyPrefix}-episode-${index}-${episode.id}`}
             podcast={episode.podcast as any}
+            serverCookies={serverCookies}
             showPodcastInfo
             showRemoveButton={isEditing}
           />
@@ -129,6 +131,7 @@ export default function Playlist({ serverPlaylist, serverPlaylistSortedItems }: 
             key={`${keyPrefix}-clip-${index}`}
             mediaRef={mediaRef}
             podcast={mediaRef.episode.podcast}
+            serverCookies={serverCookies}
             showImage
             showRemoveButton={isEditing}
           />

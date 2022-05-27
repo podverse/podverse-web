@@ -29,6 +29,7 @@ import { OmniAuralState } from '~/state/omniauralState'
 import { useRouter } from 'next/router'
 
 interface ServerProps extends Page {
+  serverCookies: any
   serverFilterType: string
   serverFilterPage: number
   serverFilterSort: string
@@ -40,6 +41,7 @@ interface ServerProps extends Page {
 const keyPrefix = 'pages_profile'
 
 export default function Profile({
+  serverCookies,
   serverFilterType,
   serverFilterPage,
   serverFilterSort,
@@ -215,7 +217,7 @@ export default function Profile({
         and make sure it still builds. */
     return listData.map((listItem: any, index: number) => {
       if (listItem.podcastIndexId) {
-        return <PodcastListItem key={`${keyPrefix}-${index}`} podcast={listItem} />
+        return <PodcastListItem key={`${keyPrefix}-${index}`} podcast={listItem} serverCookies={serverCookies} />
       } else if (listItem.startTime) {
         return (
           <ClipListItem
@@ -224,6 +226,7 @@ export default function Profile({
             key={`${keyPrefix}-${index}-${listItem?.id}`}
             mediaRef={listItem}
             podcast={listItem.episode.podcast}
+            serverCookies={serverCookies}
             showImage
           />
         )

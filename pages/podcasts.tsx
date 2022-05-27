@@ -31,6 +31,7 @@ const categories = require('~/resources/Categories/TopLevelCategories.json')
 
 interface ServerProps extends Page {
   serverCategoryId: string | null
+  serverCookies: any
   serverFilterFrom: string
   serverFilterPage: number
   serverFilterSort: string
@@ -43,6 +44,7 @@ const keyPrefix = 'pages_podcasts'
 
 export default function Podcasts({
   serverCategoryId,
+  serverCookies,
   serverFilterFrom,
   serverFilterPage,
   serverFilterSort,
@@ -258,7 +260,7 @@ export default function Podcasts({
 
   const generatePodcastListElements = (listItems: Podcast[]) => {
     return listItems.map((listItem, index) => (
-      <PodcastListItem key={`${keyPrefix}-${index}-${listItem?.id}`} podcast={listItem} />
+      <PodcastListItem key={`${keyPrefix}-${index}-${listItem?.id}`} podcast={listItem} serverCookies={serverCookies} />
     ))
   }
 
