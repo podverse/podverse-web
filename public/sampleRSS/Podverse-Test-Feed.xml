@@ -20,7 +20,7 @@
     </itunes:owner>
     <pubDate>Sun, 29 May 2022 03:04:59 +0000</pubDate>
     <lastBuildDate>Sun, 29 May 2022 03:04:59 +0000</lastBuildDate>
-    <podcast:liveItem status="pending" start="2022-05-29T03:00:00.000Z" end="2022-05-29T04:30:00.000Z">
+    <podcast:liveItem status="live" start="2022-05-29T03:00:00.000Z" end="2022-05-29T04:30:00.000Z">
       <title>New Live Episode</title>
       <description/>
       <duration/>
