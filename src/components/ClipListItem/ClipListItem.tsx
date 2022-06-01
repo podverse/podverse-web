@@ -13,7 +13,6 @@ type Props = {
   episode?: Episode
   handleRemove?: any
   hidePubDate?: boolean
-  imageUrl?: string
   isChapter?: boolean
   isLoggedInUserMediaRef?: boolean
   mediaRef: MediaRef
@@ -84,7 +83,7 @@ export const ClipListItem = ({
   let itemMainSection = (
     <>
       <PVLink ariaLabel={linkAriaLabel} className='content-wrapper' href={clipPageUrl}>
-        {!isChapter && showImage && (
+        {!isChapter && showImage && finalImageUrl && (
           <PVImage alt='' height={PV.Images.sizes.medium} src={finalImageUrl} width={PV.Images.sizes.medium} />
         )}
         <div className='text-wrapper'>
@@ -100,7 +99,7 @@ export const ClipListItem = ({
   if (isChapter) {
     itemMainSection = (
       <div className='content-wrapper chapter-content-wrapper'>
-        {!isChapter && showImage && (
+        {!isChapter && showImage && finalImageUrl && (
           <PVLink tabIndex={-1} href={clipPageUrl}>
             <PVImage alt='' height={PV.Images.sizes.medium} src={finalImageUrl} width={PV.Images.sizes.medium} />
           </PVLink>
@@ -121,7 +120,7 @@ export const ClipListItem = ({
     <>
       <li className='clip-list-item'>
         <div className={isChapter ? 'main-wrapper chapter-main-wrapper' : 'main-wrapper'}>
-          {isChapter && showImage && (
+          {isChapter && showImage && finalImageUrl && (
             <PVImage alt='' height={PV.Images.sizes.medium} src={finalImageUrl} width={PV.Images.sizes.medium} />
           )}
           {itemMainSection}

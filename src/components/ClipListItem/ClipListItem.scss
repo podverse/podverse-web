@@ -17,15 +17,15 @@
   .main-wrapper {
     flex: 1;
 
+    img {
+      border-radius: $item-border-radius;
+      margin-right: 16px;
+    }
+
     .content-wrapper {
       display: flex;
       flex-direction: row;
       margin-bottom: 8px;
-
-      img {
-        border-radius: $item-border-radius;
-        margin-right: 16px;
-      }
 
       .text-wrapper {
         .podcast-title {
@@ -84,7 +84,7 @@
       display: flex;
       flex: 1;
       flex-direction: column;
-      margin-left: 16px;
+
       a {
         flex: 1;
       }
