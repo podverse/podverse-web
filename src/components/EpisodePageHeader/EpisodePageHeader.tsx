@@ -31,7 +31,7 @@ export const EpisodePageHeader = ({ episode }: Props) => {
   const podcastTitleLinkUrl = `${PV.RoutePaths.web.podcast}/${podcast.id}`
   const episodeTitleLinkUrl = `${PV.RoutePaths.web.episode}/${episode.id}`
 
-  const hasBelowText = authorEls.length || categoryEls.length
+  const hasBelowText = authorEls.length > 0 || categoryEls.length > 0
 
   const imageUrl = episode?.imageUrl || getPodcastShrunkImageUrl(podcast)
 
