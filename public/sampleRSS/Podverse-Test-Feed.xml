@@ -64,9 +64,63 @@
       </podcast:alternateEnclosure>
     </podcast:liveItem>
     <item>
+      <title><![CDATA[Podcasting 2.0 Dev Meeting for May 28 2022]]></title>
+      <link>https://noagendatube.com/videos/watch/0f6507ea-8d5f-4264-b2ac-9b839f720d9b</link>
+      <guid>https://noagendatube.com/videos/watch/0f6507ea-8d5f-4264-b2ac-9b839f720d9b</guid>
+      <pubDate>Sun, 29 May 2022 05:30:25 GMT</pubDate>
+      <description><![CDATA[Just a quick marker... Three of us had a chat but this is just the end of that.]]></description>
+      <content:encoded><![CDATA[Just a quick marker... Three of us had a chat but this is just the end of that.]]></content:encoded>
+      <dc:creator>Brian of London</dc:creator>
+      <podcast:person href="https://noagendatube.com/accounts/brianoflondon" img="https://noagendatube.com/lazy-static/avatars/fc392650-1817-4a10-8968-4c8cdd476dc2.png">Brian of London</podcast:person>
+      <enclosure type="video/mp4" length="55298678" url="https://noagendatube.com/static/webseed/0f6507ea-8d5f-4264-b2ac-9b839f720d9b-1080.mp4">
+      </enclosure>
+      <podcast:alternateEnclosure type="video/mp4" length="55298678" bitrate="2764933.9" height="1080" language="en" default="true">
+        <podcast:source uri="https://noagendatube.com/static/webseed/0f6507ea-8d5f-4264-b2ac-9b839f720d9b-1080.mp4">
+        </podcast:source>
+        <podcast:source uri="https://noagendatube.com/lazy-static/torrents/0f6507ea-8d5f-4264-b2ac-9b839f720d9b-1080.torrent" contentType="application/x-bittorrent">
+        </podcast:source>
+      </podcast:alternateEnclosure>
+      <podcast:alternateEnclosure type="video/mp4" length="17385511" bitrate="869275.55" height="720" language="en">
+        <podcast:source uri="https://noagendatube.com/static/webseed/0f6507ea-8d5f-4264-b2ac-9b839f720d9b-720.mp4">
+        </podcast:source>
+        <podcast:source uri="https://noagendatube.com/lazy-static/torrents/0f6507ea-8d5f-4264-b2ac-9b839f720d9b-720.torrent" contentType="application/x-bittorrent">
+        </podcast:source>
+      </podcast:alternateEnclosure>
+      <podcast:alternateEnclosure type="video/mp4" length="10224533" bitrate="511226.65" height="480" language="en">
+        <podcast:source uri="https://noagendatube.com/static/webseed/0f6507ea-8d5f-4264-b2ac-9b839f720d9b-480.mp4">
+        </podcast:source>
+        <podcast:source uri="https://noagendatube.com/lazy-static/torrents/0f6507ea-8d5f-4264-b2ac-9b839f720d9b-480.torrent" contentType="application/x-bittorrent">
+        </podcast:source>
+      </podcast:alternateEnclosure>
+      <podcast:alternateEnclosure type="video/mp4" length="7587376" bitrate="379368.8" height="360" language="en">
+        <podcast:source uri="https://noagendatube.com/static/webseed/0f6507ea-8d5f-4264-b2ac-9b839f720d9b-360.mp4">
+        </podcast:source>
+        <podcast:source uri="https://noagendatube.com/lazy-static/torrents/0f6507ea-8d5f-4264-b2ac-9b839f720d9b-360.torrent" contentType="application/x-bittorrent">
+        </podcast:source>
+      </podcast:alternateEnclosure>
+      <podcast:alternateEnclosure type="video/mp4" length="5338657" bitrate="266932.85" height="240" language="en">
+        <podcast:source uri="https://noagendatube.com/static/webseed/0f6507ea-8d5f-4264-b2ac-9b839f720d9b-240.mp4">
+        </podcast:source>
+        <podcast:source uri="https://noagendatube.com/lazy-static/torrents/0f6507ea-8d5f-4264-b2ac-9b839f720d9b-240.torrent" contentType="application/x-bittorrent">
+        </podcast:source>
+      </podcast:alternateEnclosure>
+      <podcast:alternateEnclosure type="audio/mp4" length="2614831" bitrate="130741.55" language="en">
+        <podcast:source uri="https://noagendatube.com/static/webseed/0f6507ea-8d5f-4264-b2ac-9b839f720d9b-0.mp4">
+        </podcast:source>
+        <podcast:source uri="https://noagendatube.com/lazy-static/torrents/0f6507ea-8d5f-4264-b2ac-9b839f720d9b-0.torrent" contentType="application/x-bittorrent">
+        </podcast:source>
+      </podcast:alternateEnclosure>
+      <podcast:alternateEnclosure type="application/x-mpegURL" language="en">
+        <podcast:source uri="https://noagendatube.com/static/streaming-playlists/hls/0f6507ea-8d5f-4264-b2ac-9b839f720d9b/master.m3u8">
+        </podcast:source>
+      </podcast:alternateEnclosure>
+      <itunes:image href="https://noagendatube.com/static/thumbnails/7cf31c37-e739-4e71-bcdd-48d24b8784bc.jpg">
+      </itunes:image>
+      <itunes:explicit>no</itunes:explicit>
+    </item>
+    <item>
       <title>Test Episode 4</title>
       <description><![CDATA[<p>Vivamus sed rutrum elit, eu porttitor eros. In viverra dui at nibh convallis, vitae tincidunt enim lobortis. Maecenas vel finibus dui. Donec et iaculis lectus, sit amet efficitur neque. Mauris sagittis in dolor id ultrices. Proin in tempor dui, ut auctor sapien.</p>]]></description>
-      <enclosure url="https://podverse.fm/sampleAudio/2B-F3-50-63-terkel-a0a0i2-a.mp3" length="0" type="audio/mpeg"/>
       <guid isPermaLink="false">be3007a0-3433-497d-b3b0-a7814a5b7ee6</guid>
       <podcast:value type="lightning" method="keysend" suggested="0.00000005000">
         <podcast:valueRecipient name="Podverse" address="033868c219bdb51a33560d854d500fe7d3898a1ad9e05dd89d0007e11313588500" type="node" customKey="112111100" customValue="wal_1IdSsnirIIbdV4" split="100"/>
@@ -75,6 +129,10 @@
       <pubDate>Sun, 28 May 2022 02:56:32 +0000</pubDate>
       <itunes:summary><![CDATA[<p>Vivamus sed rutrum elit, eu porttitor eros. In viverra dui at nibh convallis, vitae tincidunt enim lobortis. Maecenas vel finibus dui. Donec et iaculis lectus, sit amet efficitur neque. Mauris sagittis in dolor id ultrices. Proin in tempor dui, ut auctor sapien.</p>]]></itunes:summary>
       <itunes:duration>1014.708375</itunes:duration>
+      <enclosure url="https://podverse.fm/sampleAudio/2B-F3-50-63-terkel-a0a0i2-a.mp3" length="0" type="audio/mpeg"/>
+      <podcast:alternateEnclosure type="application/x-mpegURL">
+        <podcast:source uri="https://noagendatube.com/static/streaming-playlists/hls/bcfb54d4-8bff-49a7-baf6-26fed85ce360/master.m3u8"> </podcast:source>
+      </podcast:alternateEnclosure>
     </item>
     <item>
       <title>Test Episode 3</title>
