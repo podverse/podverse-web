@@ -21,13 +21,47 @@
     <pubDate>Sun, 29 May 2022 03:04:59 +0000</pubDate>
     <lastBuildDate>Sun, 29 May 2022 03:04:59 +0000</lastBuildDate>
     <podcast:liveItem status="live" start="2022-05-29T03:00:00.000Z" end="2022-05-29T04:30:00.000Z">
-      <title>New Live Episode</title>
+      <title>Live Audio</title>
       <description/>
       <duration/>
-      <enclosure length="" type="audio/mpeg" url="http://listen.noagendastream.com/noagenda"/>
       <guid isPermaLink="false">ee36e4f1-eb54-4787-b2b0-0d855e7e9ba8</guid>
       <itunes:subtitle/>
       <itunes:summary/>
+      <enclosure length="" type="audio/mpeg" url="http://listen.noagendastream.com/noagenda"/>
+    </podcast:liveItem>
+    <podcast:liveItem status="live" start="2022-05-29T03:00:00.000Z" end="2022-05-29T04:30:00.000Z">
+      <title>Live Video</title>
+      <description/>
+      <duration/>
+      <guid isPermaLink="false">e2836af8-e4a0-4e25-ab39-f94491f9ac69</guid>
+      <itunes:subtitle/>
+      <itunes:summary/>
+      <enclosure length="" type="application/x-mpegURL" url="https://noagendatube.com/static/streaming-playlists/hls/bcfb54d4-8bff-49a7-baf6-26fed85ce360/master.m3u8"/>
+    </podcast:liveItem>
+    <podcast:liveItem status="live" start="2022-05-29T03:00:00.000Z" end="2022-05-29T04:30:00.000Z">
+      <title>Live Video + Audio</title>
+      <description/>
+      <duration/>
+      <guid isPermaLink="false">4a4023ca-0232-460a-8339-b165bf8d093d</guid>
+      <itunes:subtitle/>
+      <itunes:summary/>      
+      <enclosure length="" type="application/x-mpegURL" url="https://noagendatube.com/static/streaming-playlists/hls/bcfb54d4-8bff-49a7-baf6-26fed85ce360/master.m3u8"/>
+      <podcast:alternateEnclosure type="audio/mpeg">
+        <podcast:source uri="https://noagendatube.com/static/webseed/bcfb54d4-8bff-49a7-baf6-26fed85ce360-0.mp4"> </podcast:source>
+        <podcast:source uri="https://noagendatube.com/lazy-static/torrents/bcfb54d4-8bff-49a7-baf6-26fed85ce360-0.torrent" contentType="application/x-bittorrent"> </podcast:source>
+      </podcast:alternateEnclosure>
+    </podcast:liveItem>
+    <podcast:liveItem status="live" start="2022-05-29T03:00:00.000Z" end="2022-05-29T04:30:00.000Z">
+      <title>Live Audio + Video</title>
+      <description/>
+      <duration/>
+      <guid isPermaLink="false">114a4032-ad96-436b-b5cf-e27463d0bed9</guid>
+      <itunes:subtitle/>
+      <itunes:summary/>
+      <enclosure length="" type="audio/mpeg" url="http://listen.noagendastream.com/noagenda"/>
+      <podcast:alternateEnclosure type="application/x-mpegURL">
+        <podcast:source uri="https://noagendatube.com/static/streaming-playlists/hls/bcfb54d4-8bff-49a7-baf6-26fed85ce360/master.m3u8"> </podcast:source>
+      </podcast:alternateEnclosure>
     </podcast:liveItem>
     <item>
       <title>Test Episode 4</title>
