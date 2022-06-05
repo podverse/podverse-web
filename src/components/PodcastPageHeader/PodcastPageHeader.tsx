@@ -37,7 +37,7 @@ export const PodcastPageHeader = ({
   const subscribedText = isSubscribed ? t('Unsubscribe') : t('Subscribe')
   const podcastTitle = podcast.title ? podcast.title : t('untitledPodcast')
   const podcastTitleLinkUrl = `${PV.RoutePaths.web.podcast}/${podcast.id}`
-  const hasBelowText = authorEls.length || categoryEls.length
+  const hasBelowText = authorEls.length > 0 || categoryEls.length > 0
   const imageUrl = getPodcastShrunkImageUrl(podcast)
   const [isSubscribing, setIsSubscribing] = useState<boolean>(false)
 
