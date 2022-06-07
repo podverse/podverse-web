@@ -2,7 +2,12 @@ import { GetServerSideProps } from 'next'
 import { useTranslation } from 'next-i18next'
 import OmniAural, { useOmniAural } from 'omniaural'
 import type { Episode, MediaRef, PVComment, SocialInteraction } from 'podverse-shared'
-import { addLightningBoltToString, checkIfHasSupportedCommentTag, getLightningKeysendValueItem } from 'podverse-shared'
+import {
+  addLightningBoltToString,
+  checkIfHasSupportedCommentTag,
+  checkIfVideoFileOrVideoLiveType,
+  getLightningKeysendValueItem
+} from 'podverse-shared'
 import { useEffect, useRef, useState } from 'react'
 import {
   Chapters,
@@ -27,7 +32,6 @@ import { Page } from '~/lib/utility/page'
 import { PV } from '~/resources'
 import { getEpisodeById } from '~/services/episode'
 import { getMediaRefsByQuery, retrieveLatestChaptersForEpisodeId } from '~/services/mediaRef'
-import { checkIfVideoFileType } from '~/services/player/playerVideo'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 import { getEpisodeProxyActivityPub, getEpisodeProxyTwitter } from '~/services/socialInteraction/threadcap'
 import { OmniAuralState } from '~/state/omniauralState'
@@ -59,7 +63,7 @@ const keyPrefix = 'pages_episode'
     (Initialization, useEffects, Client-Side Queries, Render Helpers).
 */
 
-export default function Episode({
+export default function EpisodePage({
   serverChapters,
   serverClips,
   serverClipsFilterPage,
@@ -190,7 +194,7 @@ export default function Episode({
       imageUrl: serverEpisode.imageUrl || (podcast && podcast.shrunkImageUrl) || (podcast && podcast.imageUrl),
       title: `${serverEpisode.title} - ${podcastTitle}`
     }
-    isVideo = checkIfVideoFileType({ episodeMediaType: serverEpisode.mediaType })
+    isVideo = checkIfVideoFileOrVideoLiveType(serverEpisode.mediaType)
     twitterPlayerUrl = isVideo
       ? `${PV.Config.WEB_BASE_URL}${PV.RoutePaths.web.videoplayer.episode}/${serverEpisode.id}`
       : `${PV.Config.WEB_BASE_URL}${PV.RoutePaths.web.miniplayer.episode}/${serverEpisode.id}`

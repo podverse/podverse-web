@@ -9,19 +9,23 @@ const Select = require('@podverse/react-dropdown-select').default
 
 type Props = {
   dropdownAriaLabel?: string
-  dropdownWidthClass?: 'width-small' | 'width-medium' | 'width-large'
+  dropdownPosition?: 'auto' | 'top' | 'bottom'
+  dropdownWidthClass?: 'width-small' | 'width-medium' | 'width-large' | 'width-full'
   faIcon?: IconProp
   hasClipEditButtons?: boolean
   hideCaret?: boolean
+  inlineElementStyle?: boolean
+  isLabelUrl?: boolean
   onChange: any
   options: any[]
   outlineStyle?: boolean
-  selectedKey?: string
+  selectedKey?: string | number
   text?: string
+  textLabel?: string
 }
 
 const contentRenderer = (props: Props, t: any) => {
-  const { faIcon, options, selectedKey, text } = props
+  const { faIcon, isLabelUrl, options, selectedKey, text, textLabel } = props
   const selectedOption = options?.find((option) => option.key === selectedKey)
   const finalText = text || selectedOption?.label
 
@@ -34,7 +38,8 @@ const contentRenderer = (props: Props, t: any) => {
       )}
       {!!finalText && (
         <div aria-hidden='true' className='dropdown__text'>
-          {t(`${finalText}`)}
+          {textLabel ? `${textLabel}: ` : ''}
+          {isLabelUrl ? finalText : t(`${finalText}`)}
         </div>
       )}
     </div>
@@ -56,8 +61,10 @@ const dropdownHandleRenderer = (hideCaret?: boolean) => {
 export const Dropdown = (props: Props) => {
   const {
     dropdownAriaLabel,
+    dropdownPosition = 'auto',
     dropdownWidthClass = 'width-small',
     hasClipEditButtons,
+    inlineElementStyle,
     onChange,
     options,
     outlineStyle,
@@ -68,7 +75,8 @@ export const Dropdown = (props: Props) => {
   const wrapperClass = classnames(
     outlineStyle ? 'outline-style' : '',
     dropdownWidthClass ? dropdownWidthClass : '',
-    hasClipEditButtons ? 'has-clip-edit-buttons' : ''
+    hasClipEditButtons ? 'has-clip-edit-buttons' : '',
+    inlineElementStyle ? 'inline-style' : ''
   )
 
   const selectedOption = options?.find((option) => option.key === selectedKey)
@@ -78,6 +86,7 @@ export const Dropdown = (props: Props) => {
     <Select
       additionalProps={{ 'aria-label': finalDropdownAriaLabel, role: 'button' }}
       dropdownAriaDescription={t('ARIA – Dropdown helper description')}
+      dropdownPosition={dropdownPosition}
       className={wrapperClass}
       contentRenderer={() => contentRenderer(props, t)}
       disabled={options.length <= 1}

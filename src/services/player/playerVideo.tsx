@@ -1,5 +1,9 @@
 import OmniAural from 'omniaural'
-import type { NowPlayingItem } from 'podverse-shared'
+import {
+  checkIfVideoFileOrVideoLiveType,
+  extractSelectedEnclosureSourceAndContentType,
+  NowPlayingItem
+} from 'podverse-shared'
 import { checkIfNowPlayingItemIsAClip } from './player'
 import { handleSetupClipListener } from './playerClip'
 
@@ -14,14 +18,17 @@ export const videoInitialize = () => {
   PVPlayerVideo = window?.playerVideo
 }
 
-export const checkIfVideoFileType = (nowPlayingItem?: NowPlayingItem) => {
-  return nowPlayingItem?.episodeMediaType && nowPlayingItem.episodeMediaType.indexOf('video') >= 0
-}
-
 export const videoIsLoaded = () => {
   const videoSrc = OmniAural.state.player.video.src.value()
   const currentNowPlayingItem = OmniAural.state.player.currentNowPlayingItem.value()
-  return checkIfVideoFileType(currentNowPlayingItem) && videoSrc
+  const alternateEnclosureSelectedIndex = OmniAural.state.player.alternateEnclosureSelectedIndex.value()
+  const alternateEnclosureSourceSelectedIndex = OmniAural.state.player.alternateEnclosureSourceSelectedIndex.value()
+  const result = extractSelectedEnclosureSourceAndContentType(
+    currentNowPlayingItem,
+    alternateEnclosureSelectedIndex,
+    alternateEnclosureSourceSelectedIndex
+  )
+  return checkIfVideoFileOrVideoLiveType(result.contentType) && videoSrc
 }
 
 export const videoCheckIfCurrentlyPlaying = () => {
@@ -59,12 +66,22 @@ export const videoClearNowPlayingItem = () => {
 export const videoLoadNowPlayingItem = async (
   nowPlayingItem: NowPlayingItem,
   previousNowPlayingItem: NowPlayingItem,
-  shouldPlay: boolean
+  shouldPlay: boolean,
+  alternateEnclosureSelectedIndex?: number,
+  alternateEnclosureSourceSelectedIndex?: number
 ) => {
   videoPause()
 
-  if (nowPlayingItem.episodeMediaUrl != previousNowPlayingItem?.episodeMediaUrl) {
-    OmniAural.playerSetVideoSrc(nowPlayingItem.episodeMediaUrl)
+  if (
+    nowPlayingItem.episodeMediaUrl != previousNowPlayingItem?.episodeMediaUrl ||
+    typeof alternateEnclosureSelectedIndex === 'number'
+  ) {
+    const result = extractSelectedEnclosureSourceAndContentType(
+      nowPlayingItem,
+      alternateEnclosureSelectedIndex,
+      alternateEnclosureSourceSelectedIndex
+    )
+    OmniAural.playerSetVideoSrc(result.src)
   }
 
   if (shouldPlay) {
