@@ -61,7 +61,7 @@ const dropdownHandleRenderer = (hideCaret?: boolean) => {
 export const Dropdown = (props: Props) => {
   const {
     dropdownAriaLabel,
-    dropdownPosition,
+    dropdownPosition = 'auto',
     dropdownWidthClass = 'width-small',
     hasClipEditButtons,
     inlineElementStyle,
