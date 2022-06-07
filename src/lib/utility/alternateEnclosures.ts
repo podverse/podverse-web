@@ -24,3 +24,9 @@ export const generateAlternateEnclosureSourceOptions = (sources: EpisodeAlternat
 
   return dropdownOptions
 }
+
+export const alertForUnsupportedFileTypes = (src: string, t: any) => {
+  if (src && src.endsWith('torrent')) {
+    window.alert(t('Unsupported file type alert'))
+  }
+}

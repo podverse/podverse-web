@@ -236,13 +236,6 @@ export const playerLoadNowPlayingItem = async (
   try {
     if (!nowPlayingItem) return
 
-    if (
-      typeof alternateEnclosureSelectedIndex !== 'number' ||
-      typeof alternateEnclosureSourceSelectedIndex !== 'number'
-    ) {
-      OmniAural.clearAlternateEnclosureSelectedIndex()
-    }
-
     // Save the previous item's playback position to history.
     unstable_batchedUpdates(() => {
       saveCurrentPlaybackPositionToHistory()
@@ -258,6 +251,13 @@ export const playerLoadNowPlayingItem = async (
 
     // Clear all remnants of the previous item from state and the player.
     // Do this after the setPlayerItem so there isn't a flash of no content.
+    if (
+      typeof alternateEnclosureSelectedIndex !== 'number' ||
+      typeof alternateEnclosureSourceSelectedIndex !== 'number'
+    ) {
+      OmniAural.clearAlternateEnclosureSelectedIndex()
+    }
+
     if (!isChapter) {
       playerClearPreviousItem(nowPlayingItem)
     }
@@ -267,6 +267,7 @@ export const playerLoadNowPlayingItem = async (
       alternateEnclosureSelectedIndex,
       alternateEnclosureSourceSelectedIndex
     )
+
     if (checkIfVideoFileOrVideoLiveType(result.contentType)) {
       await videoLoadNowPlayingItem(
         nowPlayingItem,
@@ -307,7 +308,6 @@ const playerClearPreviousItem = (nextNowPlayingItem: NowPlayingItem) => {
 
 const playerClearPreviousItemState = () => {
   unstable_batchedUpdates(() => {
-    OmniAural.clearAlternateEnclosureSelectedIndex()
     OmniAural.setChapterFlagPositions([])
     OmniAural.setChapters([])
     OmniAural.setClipFlagPositions([])

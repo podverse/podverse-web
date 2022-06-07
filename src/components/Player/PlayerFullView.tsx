@@ -5,6 +5,7 @@ import { checkIfVideoFileOrVideoLiveType } from 'podverse-shared'
 import { useTranslation } from 'react-i18next'
 import { ButtonClose, Dropdown, PVImage, PVLink } from '~/components'
 import {
+  alertForUnsupportedFileTypes,
   generateAlternateEnclosureDropdownOptions,
   generateAlternateEnclosureSourceOptions
 } from '~/lib/utility/alternateEnclosures'
@@ -55,7 +56,7 @@ export const PlayerFullView = ({ nowPlayingItem }: Props) => {
       const shouldPlay = false
       const isChapter = false
       const alternateEnclosureSourceIndex = 0
-      playerLoadNowPlayingItem(nowPlayingItem, shouldPlay, isChapter, selectedItem.key, alternateEnclosureSourceIndex)
+      playerLoadNowPlayingItem(nowPlayingItem, shouldPlay, isChapter, selectedItem.key, alternateEnclosureSourceIndex || 0)
     }
   }
 
@@ -65,7 +66,8 @@ export const PlayerFullView = ({ nowPlayingItem }: Props) => {
       OmniAural.setAlternateEnclosureSourceSelectedIndex(selectedItem.key)
       const shouldPlay = false
       const isChapter = false
-      playerLoadNowPlayingItem(nowPlayingItem, shouldPlay, isChapter, alternateEnclosureSelectedIndex, selectedItem.key)
+      playerLoadNowPlayingItem(nowPlayingItem, shouldPlay, isChapter, alternateEnclosureSelectedIndex || 0, selectedItem.key)
+      alertForUnsupportedFileTypes(selectedItem.label, t)
     }
   }
 
@@ -133,7 +135,7 @@ export const PlayerFullView = ({ nowPlayingItem }: Props) => {
                 {nowPlayingItem.podcastTitle || t('untitledPodcast')}
               </PVLink>
             </div>
-            {alternateEnclosureDropdownOptions?.length > 0 && (
+            {alternateEnclosureDropdownOptions?.length > 1 && (
               <Dropdown
                 dropdownPosition='auto'
                 dropdownWidthClass='width-large'
@@ -144,7 +146,7 @@ export const PlayerFullView = ({ nowPlayingItem }: Props) => {
                 textLabel={t('Type')}
               />
             )}
-            {alternateEnclosureSourceDropdownOptions?.length > 0 && (
+            {alternateEnclosureSourceDropdownOptions?.length > 1 && (
               <Dropdown
                 dropdownPosition='auto'
                 dropdownWidthClass='width-full'
