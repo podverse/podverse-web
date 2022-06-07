@@ -1,7 +1,7 @@
 import { GetServerSideProps } from 'next'
 import { useTranslation } from 'next-i18next'
 import OmniAural, { useOmniAural } from 'omniaural'
-import { addLightningBoltToString, Episode, MediaRef } from 'podverse-shared'
+import { addLightningBoltToString, checkIfVideoFileOrVideoLiveType, Episode, MediaRef } from 'podverse-shared'
 import { getLightningKeysendValueItem } from 'podverse-shared'
 import { useEffect, useRef, useState } from 'react'
 import {
@@ -25,7 +25,6 @@ import { calcListPageCount, prefixClipLabel } from '~/lib/utility/misc'
 import { Page } from '~/lib/utility/page'
 import { PV } from '~/resources'
 import { getMediaRefById, getMediaRefsByQuery } from '~/services/mediaRef'
-import { checkIfVideoFileType } from '~/services/player/playerVideo'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 import { OmniAuralState } from '~/state/omniauralState'
 
@@ -161,7 +160,7 @@ export default function Clip({
         (episode.podcast && episode.podcast.imageUrl),
       title: serverClip.title || prefixClipLabel(t, episode && episode.title)
     }
-    isVideo = checkIfVideoFileType({ episodeMediaType: episode?.mediaType || '' })
+    isVideo = checkIfVideoFileOrVideoLiveType(episode?.mediaType)
     twitterPlayerUrl = isVideo
       ? `${PV.Config.WEB_BASE_URL}${PV.RoutePaths.web.videoplayer.clip}/${serverClip.id}`
       : `${PV.Config.WEB_BASE_URL}${PV.RoutePaths.web.miniplayer.clip}/${serverClip.id}`
