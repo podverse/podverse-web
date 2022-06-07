@@ -39,8 +39,8 @@ const setAlternateEnclosureSourceSelectedIndex = (index: number) => {
 }
 
 const clearAlternateEnclosureSelectedIndex = () => {
-  OmniAural.state.player.alternateEnclosureSelectedIndex.set(0)
-  OmniAural.state.player.alternateEnclosureSourceSelectedIndex.set(0)
+  OmniAural.state.player.alternateEnclosureSelectedIndex.set(null)
+  OmniAural.state.player.alternateEnclosureSourceSelectedIndex.set(null)
 }
 
 const pausePlayer = () => {

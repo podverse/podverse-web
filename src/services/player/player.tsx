@@ -1,5 +1,5 @@
 import OmniAural from 'omniaural'
-import type { EpisodeAlternateEnclosure, NowPlayingItem } from 'podverse-shared'
+import { checkIfVideoFileOrVideoLiveType, extractSelectedEnclosureSourceAndContentType, NowPlayingItem } from 'podverse-shared'
 import { unstable_batchedUpdates } from 'react-dom'
 import { PV } from '~/resources'
 import { addOrUpdateHistoryItemOnServer } from '../userHistoryItem'
@@ -23,7 +23,6 @@ import { clearChapterUpdateInterval, getChapterNext, getChapterPrevious } from '
 import { clearClipEndTimeListenerInterval, handlePlayAfterClipEndTimeReached } from './playerClip'
 import { setClipFlagPositions } from './playerFlags'
 import {
-  checkIfVideoFileType,
   videoClearNowPlayingItem,
   videoGetDuration,
   videoGetPosition,
@@ -226,10 +225,19 @@ export const playerResetLiveItemAndResumePlayback = () => {
 export const playerLoadNowPlayingItem = async (
   nowPlayingItem: NowPlayingItem,
   shouldPlay: boolean,
-  isChapter?: boolean
+  isChapter?: boolean,
+  alternateEnclosureSelectedIndex?: number,
+  alternateEnclosureSourceSelectedIndex?: number
 ) => {
   try {
     if (!nowPlayingItem) return
+
+    if (
+      typeof alternateEnclosureSelectedIndex !== 'number'
+      || typeof alternateEnclosureSourceSelectedIndex !== 'number'
+    ) {
+      OmniAural.clearAlternateEnclosureSelectedIndex()
+    }
 
     // Save the previous item's playback position to history.
     unstable_batchedUpdates(() => {
@@ -250,20 +258,11 @@ export const playerLoadNowPlayingItem = async (
       playerClearPreviousItem(nowPlayingItem)
     }
 
-    /*
-      TODO: add the currently playing item next in the queue if the user
-      has "on play add current episode to the queue".
-    */
-    // if (checkIfVideoFileType(nowPlayingItem)) {
-    //   videoAddNowPlayingItemNextInQueue(item, itemToSetNextInQueue)
-    // } else {
-    //   audioAddNowPlayingItemNextInQueue(item, itemToSetNextInQueue)
-    // }
-
-    if (checkIfVideoFileType(nowPlayingItem)) {
-      await videoLoadNowPlayingItem(nowPlayingItem, previousNowPlayingItem, shouldPlay)
+    const result = extractSelectedEnclosureSourceAndContentType(nowPlayingItem, alternateEnclosureSelectedIndex, alternateEnclosureSourceSelectedIndex)
+    if (checkIfVideoFileOrVideoLiveType(result.contentType)) {
+      await videoLoadNowPlayingItem(nowPlayingItem, previousNowPlayingItem, shouldPlay, alternateEnclosureSelectedIndex, alternateEnclosureSourceSelectedIndex)
     } else {
-      await audioLoadNowPlayingItem(nowPlayingItem, previousNowPlayingItem, shouldPlay)
+      await audioLoadNowPlayingItem(nowPlayingItem, previousNowPlayingItem, shouldPlay, alternateEnclosureSelectedIndex, alternateEnclosureSourceSelectedIndex)
     }
 
     /* Set playback speed right after the item loads, since loading a new item can clear it. */
@@ -288,6 +287,7 @@ const playerClearPreviousItem = (nextNowPlayingItem: NowPlayingItem) => {
 
 const playerClearPreviousItemState = () => {
   unstable_batchedUpdates(() => {
+    OmniAural.clearAlternateEnclosureSelectedIndex()
     OmniAural.setChapterFlagPositions([])
     OmniAural.setChapters([])
     OmniAural.setClipFlagPositions([])
@@ -308,7 +308,8 @@ const playerClearTimeIntervals = () => {
   Also, clear the previous currentPlayingItem
 */
 const playerClearItemFromPlayerAPI = (nextNowPlayingItem: NowPlayingItem) => {
-  if (checkIfVideoFileType(nextNowPlayingItem)) {
+  const result = extractSelectedEnclosureSourceAndContentType(nextNowPlayingItem)
+  if (checkIfVideoFileOrVideoLiveType(result.contentType)) {
     audioClearNowPlayingItem()
   } else {
     videoClearNowPlayingItem()

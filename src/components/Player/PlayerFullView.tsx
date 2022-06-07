@@ -1,7 +1,7 @@
-import { faAngleDown } from '@fortawesome/free-solid-svg-icons'
 import classNames from 'classnames'
 import OmniAural, { useOmniAural } from 'omniaural'
-import type { NowPlayingItem } from 'podverse-shared'
+import { extractSelectedEnclosureSourceAndContentType, NowPlayingItem } from 'podverse-shared'
+import { checkIfVideoFileOrVideoLiveType } from 'podverse-shared'
 import { useTranslation } from 'react-i18next'
 import { ButtonClose, Dropdown, PVImage, PVLink } from '~/components'
 import {
@@ -11,7 +11,7 @@ import {
 import { getClipTitle } from '~/lib/utility/misc'
 import { readableClipTime } from '~/lib/utility/time'
 import { PV } from '~/resources'
-import { checkIfVideoFileType } from '~/services/player/playerVideo'
+import { playerLoadNowPlayingItem } from '~/services/player/player'
 import { OmniAuralState } from '~/state/omniauralState'
 import { PlayerProgressButtons } from './controls/PlayerProgressButtons'
 import { ProgressBar } from './controls/ProgressBar'
@@ -36,7 +36,9 @@ export const PlayerFullView = ({ nowPlayingItem }: Props) => {
   const podcastPageUrl = `${PV.RoutePaths.web.podcast}/${nowPlayingItem.podcastId}`
   const episodePageUrl = `${PV.RoutePaths.web.episode}/${nowPlayingItem.episodeId}`
   const imageWrapperClass = classNames('image-wrapper', nowPlayingItem.clipId ? 'has-clip-info' : '')
-  const isVideo = checkIfVideoFileType(nowPlayingItem)
+
+  const result = extractSelectedEnclosureSourceAndContentType(nowPlayingItem, alternateEnclosureSelectedIndex, alternateEnclosureSourceSelectedIndex)
+  const isVideo = checkIfVideoFileOrVideoLiveType(result.contentType)
 
   const _onRequestClose = () => {
     OmniAural.playerFullViewHide()
@@ -46,6 +48,10 @@ export const PlayerFullView = ({ nowPlayingItem }: Props) => {
     const selectedItem = selectedItems[0]
     if (selectedItem?.key || selectedItem?.key === 0) {
       OmniAural.setAlternateEnclosureSelectedIndex(selectedItem.key)
+      const shouldPlay = false
+      const isChapter = false
+      const alternateEnclosureSourceIndex = 0
+      playerLoadNowPlayingItem(nowPlayingItem, shouldPlay, isChapter, selectedItem.key, alternateEnclosureSourceIndex)
     }
   }
 
@@ -53,6 +59,9 @@ export const PlayerFullView = ({ nowPlayingItem }: Props) => {
     const selectedItem = selectedItems[0]
     if (selectedItem?.key || selectedItem?.key === 0) {
       OmniAural.setAlternateEnclosureSourceSelectedIndex(selectedItem.key)
+      const shouldPlay = false
+      const isChapter = false
+      playerLoadNowPlayingItem(nowPlayingItem, shouldPlay, isChapter, alternateEnclosureSelectedIndex, selectedItem.key)
     }
   }
 
@@ -65,7 +74,7 @@ export const PlayerFullView = ({ nowPlayingItem }: Props) => {
   const alternateEnclosureDropdownOptions = generateAlternateEnclosureDropdownOptions(
     nowPlayingItem.episodeAlternateEnclosures
   )
-  const selectedAlternateEnclosure = nowPlayingItem.episodeAlternateEnclosures[alternateEnclosureSelectedIndex]
+  const selectedAlternateEnclosure = nowPlayingItem.episodeAlternateEnclosures[alternateEnclosureSelectedIndex || 0]
   const selectedAlternateEnclosureSources = selectedAlternateEnclosure?.source || []
   let alternateEnclosureSourceDropdownOptions = []
   if (selectedAlternateEnclosureSources.length > 0) {
@@ -127,7 +136,7 @@ export const PlayerFullView = ({ nowPlayingItem }: Props) => {
                 inlineElementStyle
                 onChange={_handleChangeAlternateEnclosureSelected}
                 options={alternateEnclosureDropdownOptions}
-                selectedKey={alternateEnclosureSelectedIndex}
+                selectedKey={alternateEnclosureSelectedIndex || 0}
                 textLabel={t('Type')}
               />
             )}
@@ -139,7 +148,7 @@ export const PlayerFullView = ({ nowPlayingItem }: Props) => {
                 isLabelUrl
                 onChange={_handleChangeAlternateEnclosureSourceSelected}
                 options={alternateEnclosureSourceDropdownOptions}
-                selectedKey={alternateEnclosureSourceSelectedIndex}
+                selectedKey={alternateEnclosureSourceSelectedIndex || 0}
                 textLabel={t('Source')}
               />
             )}
