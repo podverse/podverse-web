@@ -1,4 +1,4 @@
-import { EpisodeAlternateEnclosure, EpisodeAlternateEnclosureSource, NowPlayingItem } from 'podverse-shared'
+import { EpisodeAlternateEnclosure, EpisodeAlternateEnclosureSource } from 'podverse-shared'
 
 export const generateAlternateEnclosureDropdownOptions = (alternateEnclosures: EpisodeAlternateEnclosure[]) => {
   const dropdownOptions = []
