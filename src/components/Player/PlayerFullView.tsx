@@ -56,7 +56,13 @@ export const PlayerFullView = ({ nowPlayingItem }: Props) => {
       const shouldPlay = false
       const isChapter = false
       const alternateEnclosureSourceIndex = 0
-      playerLoadNowPlayingItem(nowPlayingItem, shouldPlay, isChapter, selectedItem.key, alternateEnclosureSourceIndex || 0)
+      playerLoadNowPlayingItem(
+        nowPlayingItem,
+        shouldPlay,
+        isChapter,
+        selectedItem.key,
+        alternateEnclosureSourceIndex || 0
+      )
     }
   }
 
@@ -66,7 +72,13 @@ export const PlayerFullView = ({ nowPlayingItem }: Props) => {
       OmniAural.setAlternateEnclosureSourceSelectedIndex(selectedItem.key)
       const shouldPlay = false
       const isChapter = false
-      playerLoadNowPlayingItem(nowPlayingItem, shouldPlay, isChapter, alternateEnclosureSelectedIndex || 0, selectedItem.key)
+      playerLoadNowPlayingItem(
+        nowPlayingItem,
+        shouldPlay,
+        isChapter,
+        alternateEnclosureSelectedIndex || 0,
+        selectedItem.key
+      )
       alertForUnsupportedFileTypes(selectedItem.label, t)
     }
   }
