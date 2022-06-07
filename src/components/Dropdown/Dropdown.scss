@@ -183,7 +183,10 @@ body {
 
     .react-dropdown-select-dropdown {
       right: unset !important;
-      top: 22px;
+
+      &.react-dropdown-select-dropdown-position-bottom {
+        top: 22px;
+      }
     }
   }
 }
