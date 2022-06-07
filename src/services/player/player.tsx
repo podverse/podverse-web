@@ -1,5 +1,9 @@
 import OmniAural from 'omniaural'
-import { checkIfVideoFileOrVideoLiveType, extractSelectedEnclosureSourceAndContentType, NowPlayingItem } from 'podverse-shared'
+import {
+  checkIfVideoFileOrVideoLiveType,
+  extractSelectedEnclosureSourceAndContentType,
+  NowPlayingItem
+} from 'podverse-shared'
 import { unstable_batchedUpdates } from 'react-dom'
 import { PV } from '~/resources'
 import { addOrUpdateHistoryItemOnServer } from '../userHistoryItem'
@@ -233,8 +237,8 @@ export const playerLoadNowPlayingItem = async (
     if (!nowPlayingItem) return
 
     if (
-      typeof alternateEnclosureSelectedIndex !== 'number'
-      || typeof alternateEnclosureSourceSelectedIndex !== 'number'
+      typeof alternateEnclosureSelectedIndex !== 'number' ||
+      typeof alternateEnclosureSourceSelectedIndex !== 'number'
     ) {
       OmniAural.clearAlternateEnclosureSelectedIndex()
     }
@@ -258,11 +262,27 @@ export const playerLoadNowPlayingItem = async (
       playerClearPreviousItem(nowPlayingItem)
     }
 
-    const result = extractSelectedEnclosureSourceAndContentType(nowPlayingItem, alternateEnclosureSelectedIndex, alternateEnclosureSourceSelectedIndex)
+    const result = extractSelectedEnclosureSourceAndContentType(
+      nowPlayingItem,
+      alternateEnclosureSelectedIndex,
+      alternateEnclosureSourceSelectedIndex
+    )
     if (checkIfVideoFileOrVideoLiveType(result.contentType)) {
-      await videoLoadNowPlayingItem(nowPlayingItem, previousNowPlayingItem, shouldPlay, alternateEnclosureSelectedIndex, alternateEnclosureSourceSelectedIndex)
+      await videoLoadNowPlayingItem(
+        nowPlayingItem,
+        previousNowPlayingItem,
+        shouldPlay,
+        alternateEnclosureSelectedIndex,
+        alternateEnclosureSourceSelectedIndex
+      )
     } else {
-      await audioLoadNowPlayingItem(nowPlayingItem, previousNowPlayingItem, shouldPlay, alternateEnclosureSelectedIndex, alternateEnclosureSourceSelectedIndex)
+      await audioLoadNowPlayingItem(
+        nowPlayingItem,
+        previousNowPlayingItem,
+        shouldPlay,
+        alternateEnclosureSelectedIndex,
+        alternateEnclosureSourceSelectedIndex
+      )
     }
 
     /* Set playback speed right after the item loads, since loading a new item can clear it. */

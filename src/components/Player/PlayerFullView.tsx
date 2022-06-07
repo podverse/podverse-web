@@ -37,7 +37,11 @@ export const PlayerFullView = ({ nowPlayingItem }: Props) => {
   const episodePageUrl = `${PV.RoutePaths.web.episode}/${nowPlayingItem.episodeId}`
   const imageWrapperClass = classNames('image-wrapper', nowPlayingItem.clipId ? 'has-clip-info' : '')
 
-  const result = extractSelectedEnclosureSourceAndContentType(nowPlayingItem, alternateEnclosureSelectedIndex, alternateEnclosureSourceSelectedIndex)
+  const result = extractSelectedEnclosureSourceAndContentType(
+    nowPlayingItem,
+    alternateEnclosureSelectedIndex,
+    alternateEnclosureSourceSelectedIndex
+  )
   const isVideo = checkIfVideoFileOrVideoLiveType(result.contentType)
 
   const _onRequestClose = () => {

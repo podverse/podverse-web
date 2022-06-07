@@ -1,5 +1,9 @@
 import OmniAural from 'omniaural'
-import { checkIfVideoFileOrVideoLiveType, extractSelectedEnclosureSourceAndContentType, NowPlayingItem } from 'podverse-shared'
+import {
+  checkIfVideoFileOrVideoLiveType,
+  extractSelectedEnclosureSourceAndContentType,
+  NowPlayingItem
+} from 'podverse-shared'
 import { checkIfNowPlayingItemIsAClip } from './player'
 import { handleSetupClipListener } from './playerClip'
 
@@ -19,7 +23,11 @@ export const videoIsLoaded = () => {
   const currentNowPlayingItem = OmniAural.state.player.currentNowPlayingItem.value()
   const alternateEnclosureSelectedIndex = OmniAural.state.player.alternateEnclosureSelectedIndex.value()
   const alternateEnclosureSourceSelectedIndex = OmniAural.state.player.alternateEnclosureSourceSelectedIndex.value()
-  const result = extractSelectedEnclosureSourceAndContentType(currentNowPlayingItem, alternateEnclosureSelectedIndex, alternateEnclosureSourceSelectedIndex)
+  const result = extractSelectedEnclosureSourceAndContentType(
+    currentNowPlayingItem,
+    alternateEnclosureSelectedIndex,
+    alternateEnclosureSourceSelectedIndex
+  )
   return checkIfVideoFileOrVideoLiveType(result.contentType) && videoSrc
 }
 
@@ -65,10 +73,14 @@ export const videoLoadNowPlayingItem = async (
   videoPause()
 
   if (
-    nowPlayingItem.episodeMediaUrl != previousNowPlayingItem?.episodeMediaUrl
-    || typeof alternateEnclosureSelectedIndex === 'number'
-    ) {
-    const result = extractSelectedEnclosureSourceAndContentType(nowPlayingItem, alternateEnclosureSelectedIndex, alternateEnclosureSourceSelectedIndex)
+    nowPlayingItem.episodeMediaUrl != previousNowPlayingItem?.episodeMediaUrl ||
+    typeof alternateEnclosureSelectedIndex === 'number'
+  ) {
+    const result = extractSelectedEnclosureSourceAndContentType(
+      nowPlayingItem,
+      alternateEnclosureSelectedIndex,
+      alternateEnclosureSourceSelectedIndex
+    )
     OmniAural.playerSetVideoSrc(result.src)
   }
 

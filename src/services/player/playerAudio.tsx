@@ -18,7 +18,11 @@ export const audioIsLoaded = () => {
   const currentNowPlayingItem = OmniAural.state.player.currentNowPlayingItem.value()
   const alternateEnclosureSelectedIndex = OmniAural.state.player.alternateEnclosureSelectedIndex.value()
   const alternateEnclosureSourceSelectedIndex = OmniAural.state.player.alternateEnclosureSourceSelectedIndex.value()
-  const result = extractSelectedEnclosureSourceAndContentType(currentNowPlayingItem, alternateEnclosureSelectedIndex, alternateEnclosureSourceSelectedIndex)
+  const result = extractSelectedEnclosureSourceAndContentType(
+    currentNowPlayingItem,
+    alternateEnclosureSelectedIndex,
+    alternateEnclosureSourceSelectedIndex
+  )
   return !checkIfVideoFileOrVideoLiveType(result.contentType)
 }
 
@@ -77,10 +81,14 @@ export const audioLoadNowPlayingItem = async (
   PVPlayerAudio.pause()
 
   if (
-    nowPlayingItem.episodeMediaUrl != previousNowPlayingItem?.episodeMediaUrl
-    || typeof alternateEnclosureSelectedIndex === 'number'
-    ) {
-    const result = extractSelectedEnclosureSourceAndContentType(nowPlayingItem, alternateEnclosureSelectedIndex, alternateEnclosureSourceSelectedIndex)
+    nowPlayingItem.episodeMediaUrl != previousNowPlayingItem?.episodeMediaUrl ||
+    typeof alternateEnclosureSelectedIndex === 'number'
+  ) {
+    const result = extractSelectedEnclosureSourceAndContentType(
+      nowPlayingItem,
+      alternateEnclosureSelectedIndex,
+      alternateEnclosureSourceSelectedIndex
+    )
     PVPlayerAudio.src = result.src
   }
 
