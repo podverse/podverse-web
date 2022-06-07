@@ -1,5 +1,5 @@
 import OmniAural from 'omniaural'
-import type { MediaRef, NowPlayingItem } from 'podverse-shared'
+import type { EpisodeAlternateEnclosure, MediaRef, NowPlayingItem } from 'podverse-shared'
 import { setV4VPlayerInfoItemToWindow, setV4VPlayerInfoPlaybackPositionToWindow } from '~/services/v4v'
 
 const togglePlayer = (show: boolean) => {
@@ -27,6 +27,20 @@ const setPlayerDuration = (duration: number) => {
 
 const setPlaySpeed = (newSpeed: number) => {
   OmniAural.state.player.playSpeed.set(newSpeed)
+}
+
+const setAlternateEnclosureSelectedIndex = (index: number) => {
+  OmniAural.state.player.alternateEnclosureSelectedIndex.set(index)
+  OmniAural.state.player.alternateEnclosureSourceSelectedIndex.set(0)
+}
+
+const setAlternateEnclosureSourceSelectedIndex = (index: number) => {
+  OmniAural.state.player.alternateEnclosureSourceSelectedIndex.set(index)
+}
+
+const clearAlternateEnclosureSelectedIndex = () => {
+  OmniAural.state.player.alternateEnclosureSelectedIndex.set(null)
+  OmniAural.state.player.alternateEnclosureSourceSelectedIndex.set(null)
 }
 
 const pausePlayer = () => {
@@ -105,6 +119,9 @@ OmniAural.addActions({
   pausePlayer,
   playerSetVolume,
   playPlayer,
+  setAlternateEnclosureSelectedIndex,
+  setAlternateEnclosureSourceSelectedIndex,
+  clearAlternateEnclosureSelectedIndex,
   setChapterFlagPositions,
   setChapters,
   setClipHasReachedEnd,

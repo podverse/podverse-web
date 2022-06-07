@@ -125,6 +125,12 @@ body {
     }
   }
 
+  .width-full {
+    .react-dropdown-select-dropdown {
+      width: initial;
+    }
+  }
+
   .has-clip-edit-buttons {
     .react-dropdown-select-dropdown {
       .react-dropdown-select-item {
@@ -138,6 +144,48 @@ body {
             color: getThemeVal('textDanger');
           }
         }
+      }
+    }
+  }
+
+  .inline-style {
+    display: inline;
+    padding: 0;
+
+    .react-dropdown-select-content {
+      display: inline-block;
+      flex: 0 1;
+      max-width: calc(100% - 22px);
+      margin-top: -2px;
+      vertical-align: middle;
+
+      .dropdown-wrapper {
+        display: inline-block;
+        max-width: 100%;
+
+        .dropdown__text {
+          margin: 0;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+      }
+    }
+
+    .react-dropdown-select-dropdown-handle {
+      display: inline-block;
+
+      .dropdown__chevron {
+        height: unset;
+        line-height: unset;
+      }
+    }
+
+    .react-dropdown-select-dropdown {
+      right: unset !important;
+
+      &.react-dropdown-select-dropdown-position-bottom {
+        top: 22px;
       }
     }
   }

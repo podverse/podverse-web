@@ -16,6 +16,16 @@
     @include themeGen() {
       color: getThemeVal('textSecondary');
     }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    p {
+      font-size: $text-sm !important;
+    }
   }
 
   a {

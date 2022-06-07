@@ -1,8 +1,8 @@
 import OmniAural from 'omniaural'
 import type { NowPlayingItem } from 'podverse-shared'
+import { checkIfVideoFileOrVideoLiveType, extractSelectedEnclosureSourceAndContentType } from 'podverse-shared'
 import { checkIfNowPlayingItemIsAClip } from './player'
 import { handleSetupClipListener } from './playerClip'
-import { checkIfVideoFileType } from './playerVideo'
 
 let PVPlayerAudio: HTMLAudioElement = null
 
@@ -16,7 +16,14 @@ export const audioInitialize = () => {
 
 export const audioIsLoaded = () => {
   const currentNowPlayingItem = OmniAural.state.player.currentNowPlayingItem.value()
-  return !checkIfVideoFileType(currentNowPlayingItem)
+  const alternateEnclosureSelectedIndex = OmniAural.state.player.alternateEnclosureSelectedIndex.value()
+  const alternateEnclosureSourceSelectedIndex = OmniAural.state.player.alternateEnclosureSourceSelectedIndex.value()
+  const result = extractSelectedEnclosureSourceAndContentType(
+    currentNowPlayingItem,
+    alternateEnclosureSelectedIndex,
+    alternateEnclosureSourceSelectedIndex
+  )
+  return !checkIfVideoFileOrVideoLiveType(result.contentType)
 }
 
 export const audioCheckIfCurrentlyPlaying = () => {
@@ -67,12 +74,22 @@ export const audioClearNowPlayingItem = () => {
 export const audioLoadNowPlayingItem = async (
   nowPlayingItem: NowPlayingItem,
   previousNowPlayingItem?: NowPlayingItem,
-  shouldPlay?: boolean
+  shouldPlay?: boolean,
+  alternateEnclosureSelectedIndex?: number,
+  alternateEnclosureSourceSelectedIndex?: number
 ) => {
   PVPlayerAudio.pause()
 
-  if (nowPlayingItem.episodeMediaUrl != previousNowPlayingItem?.episodeMediaUrl) {
-    PVPlayerAudio.src = nowPlayingItem.episodeMediaUrl
+  if (
+    nowPlayingItem.episodeMediaUrl != previousNowPlayingItem?.episodeMediaUrl ||
+    typeof alternateEnclosureSelectedIndex === 'number'
+  ) {
+    const result = extractSelectedEnclosureSourceAndContentType(
+      nowPlayingItem,
+      alternateEnclosureSelectedIndex,
+      alternateEnclosureSourceSelectedIndex
+    )
+    PVPlayerAudio.src = result.src
   }
 
   if (shouldPlay) {
