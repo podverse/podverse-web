@@ -86,6 +86,8 @@ export type OmniAuralState = {
     isLoading: boolean
   }
   player: {
+    alternateEnclosureSelectedIndex: number
+    alternateEnclosureSourceSelectedIndex: number
     chapterFlagPositions: []
     chapters: []
     clipFlagPositions: []
@@ -178,6 +180,8 @@ export const initialState: OmniAuralState = {
     isLoading: false
   },
   player: {
+    alternateEnclosureSelectedIndex: 0,
+    alternateEnclosureSourceSelectedIndex: 0,
     chapterFlagPositions: [],
     chapters: [],
     clipFlagPositions: [],

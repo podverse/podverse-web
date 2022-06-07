@@ -1,8 +1,13 @@
+import { faAngleDown } from '@fortawesome/free-solid-svg-icons'
 import classNames from 'classnames'
 import OmniAural, { useOmniAural } from 'omniaural'
 import type { NowPlayingItem } from 'podverse-shared'
 import { useTranslation } from 'react-i18next'
-import { ButtonClose, PVImage, PVLink } from '~/components'
+import { ButtonClose, Dropdown, PVImage, PVLink } from '~/components'
+import {
+  generateAlternateEnclosureDropdownOptions,
+  generateAlternateEnclosureSourceOptions
+} from '~/lib/utility/alternateEnclosures'
 import { getClipTitle } from '~/lib/utility/misc'
 import { readableClipTime } from '~/lib/utility/time'
 import { PV } from '~/resources'
@@ -20,7 +25,14 @@ type Props = {
 export const PlayerFullView = ({ nowPlayingItem }: Props) => {
   const { t } = useTranslation()
   const [player] = useOmniAural('player') as [OmniAuralState['player']]
-  const { chapterFlagPositions, clipFlagPositions, highlightedPositions, showFullView } = player
+  const {
+    alternateEnclosureSelectedIndex,
+    alternateEnclosureSourceSelectedIndex,
+    chapterFlagPositions,
+    clipFlagPositions,
+    highlightedPositions,
+    showFullView
+  } = player
   const podcastPageUrl = `${PV.RoutePaths.web.podcast}/${nowPlayingItem.podcastId}`
   const episodePageUrl = `${PV.RoutePaths.web.episode}/${nowPlayingItem.episodeId}`
   const imageWrapperClass = classNames('image-wrapper', nowPlayingItem.clipId ? 'has-clip-info' : '')
@@ -30,11 +42,35 @@ export const PlayerFullView = ({ nowPlayingItem }: Props) => {
     OmniAural.playerFullViewHide()
   }
 
+  const _handleChangeAlternateEnclosureSelected = (selectedItems: any[]) => {
+    const selectedItem = selectedItems[0]
+    if (selectedItem?.key || selectedItem?.key === 0) {
+      OmniAural.setAlternateEnclosureSelectedIndex(selectedItem.key)
+    }
+  }
+
+  const _handleChangeAlternateEnclosureSourceSelected = (selectedItems: any[]) => {
+    const selectedItem = selectedItems[0]
+    if (selectedItem?.key || selectedItem?.key === 0) {
+      OmniAural.setAlternateEnclosureSourceSelectedIndex(selectedItem.key)
+    }
+  }
+
   const clipTitle = getClipTitle(t, nowPlayingItem.clipTitle, nowPlayingItem.episodeTitle)
 
   const clipTimeInfo = readableClipTime(nowPlayingItem.clipStartTime, nowPlayingItem.clipEndTime)
 
   const viewClass = classNames('player-full-view', showFullView ? 'is-showing' : '')
+
+  const alternateEnclosureDropdownOptions = generateAlternateEnclosureDropdownOptions(
+    nowPlayingItem.episodeAlternateEnclosures
+  )
+  const selectedAlternateEnclosure = nowPlayingItem.episodeAlternateEnclosures[alternateEnclosureSelectedIndex]
+  const selectedAlternateEnclosureSources = selectedAlternateEnclosure?.source || []
+  let alternateEnclosureSourceDropdownOptions = []
+  if (selectedAlternateEnclosureSources.length > 0) {
+    alternateEnclosureSourceDropdownOptions = generateAlternateEnclosureSourceOptions(selectedAlternateEnclosureSources)
+  }
 
   return (
     <div className={viewClass} role='dialog'>
@@ -72,16 +108,41 @@ export const PlayerFullView = ({ nowPlayingItem }: Props) => {
       {showFullView && (
         <>
           <div className='title-wrapper'>
-            <h1 role='none'>
-              <PVLink href={episodePageUrl} onClick={_onRequestClose}>
-                {nowPlayingItem.episodeTitle || t('untitledEpisode')}
-              </PVLink>
-            </h1>
+            <div className='title-wrapper-top'>
+              <h1 role='none'>
+                <PVLink href={episodePageUrl} onClick={_onRequestClose}>
+                  {nowPlayingItem.episodeTitle || t('untitledEpisode')}
+                </PVLink>
+              </h1>
+            </div>
             <div className='subtitle'>
               <PVLink href={podcastPageUrl} onClick={_onRequestClose}>
                 {nowPlayingItem.podcastTitle || t('untitledPodcast')}
               </PVLink>
             </div>
+            {alternateEnclosureDropdownOptions?.length > 0 && (
+              <Dropdown
+                dropdownPosition='auto'
+                dropdownWidthClass='width-large'
+                inlineElementStyle
+                onChange={_handleChangeAlternateEnclosureSelected}
+                options={alternateEnclosureDropdownOptions}
+                selectedKey={alternateEnclosureSelectedIndex}
+                textLabel={t('Type')}
+              />
+            )}
+            {alternateEnclosureSourceDropdownOptions?.length > 0 && (
+              <Dropdown
+                dropdownPosition='auto'
+                dropdownWidthClass='width-full'
+                inlineElementStyle
+                isLabelUrl
+                onChange={_handleChangeAlternateEnclosureSourceSelected}
+                options={alternateEnclosureSourceDropdownOptions}
+                selectedKey={alternateEnclosureSourceSelectedIndex}
+                textLabel={t('Source')}
+              />
+            )}
           </div>
           <div className='player-buttons-wrapper'>
             <ProgressBar

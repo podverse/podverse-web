@@ -1,5 +1,5 @@
 import OmniAural from 'omniaural'
-import type { NowPlayingItem } from 'podverse-shared'
+import type { EpisodeAlternateEnclosure, NowPlayingItem } from 'podverse-shared'
 import { unstable_batchedUpdates } from 'react-dom'
 import { PV } from '~/resources'
 import { addOrUpdateHistoryItemOnServer } from '../userHistoryItem'

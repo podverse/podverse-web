@@ -100,6 +100,17 @@
         color: getThemeVal('textQuaternary');
       }
     }
+
+    // Target the first dropdown wrapper
+    > div:nth-child(3) {
+      padding: 4px 0;
+      margin: 4px 0 0 0;
+    }
+
+    // Target the second dropdown wrapper
+    > div:nth-child(4) {
+      padding: 4px 0;
+    }
   }
 
   .player-item-info-container {
@@ -250,7 +261,11 @@
 
     .title-wrapper {
       h1 {
+        display: flex;
         font-size: $text-xl;
+
+        .alternate-enclosure-selector {
+        }
       }
 
       .subtitle {
