@@ -347,5 +347,7 @@
     "features - new episodes and livestream notifications": "Notifications des nouveaux épisodes et des diffusions en direct",
     "features - audio livestreams": "Diffusions audio en direct",
     "_translatorsField": "Nathan Bonnemains <https://github.com/NathanBnm>",
-    "Episode Summary": "Résumé de l'épisode"
+    "Episode Summary": "Résumé de l'épisode",
+    "Preview clip before end time": "Aperçu de la fin de l'extrait",
+    "Preview clip before start time": "Aperçu du début de l'extrait"
 }

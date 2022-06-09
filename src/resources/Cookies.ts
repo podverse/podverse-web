@@ -1,6 +1,7 @@
 export const Cookies = {
   keys: {
-    lightMode: 'lightMode'
+    lightMode: 'lightMode',
+    playerSettings: 'playerSettings'
   },
   path: '/'
 }

@@ -24,7 +24,11 @@ import {
 } from '~/components'
 import '~/state'
 import { initialState } from '~/state/omniauralState'
-import { playerLoadNowPlayingItem, saveCurrentPlaybackPositionToHistory } from '~/services/player/player'
+import {
+  playerInitializeSettings,
+  playerLoadNowPlayingItem,
+  saveCurrentPlaybackPositionToHistory
+} from '~/services/player/player'
 import { getNowPlayingItemOnServer } from '~/services/userNowPlayingItem'
 import { initializeMatomo, matomoTrackPageView } from '~/services/tracking'
 
@@ -101,6 +105,7 @@ function MyApp({ Component, pageProps }) {
   useEffect(() => {
     ;(async () => {
       if (!doNotInheritAppComponent) {
+        playerInitializeSettings(pageProps.serverCookies)
         const nowPlayingItem = await getNowPlayingItemOnServer()
         const currentNowPlayingItem = OmniAural.state.player.currentNowPlayingItem.value()
         const { serverClip, serverEpisode } = pageProps
