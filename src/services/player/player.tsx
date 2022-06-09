@@ -40,6 +40,30 @@ import {
   videoUnmute
 } from './playerVideo'
 
+const parsePlayerSettingsCookie = (playerSettingsString: string) => {
+  let playerSettings = null
+  if (playerSettingsString) {
+    try {
+      playerSettings = JSON.parse(playerSettingsString)
+    } catch (error) {
+      console.log('parsePlayerSettingsCookie error:', error)
+    }
+  }
+
+  return playerSettings
+}
+
+export const playerInitializeSettings = (serverCookies: any) => {
+  const playerSettingsString = serverCookies?.playerSettings
+  const playerSettings = parsePlayerSettingsCookie(playerSettingsString)
+  if (playerSettings) {
+    const { playSpeed } = playerSettings
+    if (playSpeed) {
+      playerSetPlaybackSpeed(playSpeed)
+    }
+  }
+}
+
 export const playerCheckIfItemIsCurrentlyPlaying = (paused: boolean, nowPlayingItem?: NowPlayingItem) => {
   const currentNowPlayingItem = OmniAural.state.player.currentNowPlayingItem.value()
   let isCurrentlyPlayingItem = false
@@ -151,7 +175,7 @@ export const playerSeekTo = (position: number) => {
   }
 }
 
-export const playerNextSpeed = () => {
+export const playerNextSpeed = (cookies: any, setCookie: any) => {
   const currentSpeed = OmniAural.state.player.playSpeed.value()
   const currentIndex = PV.Player.speeds.indexOf(currentSpeed)
 
@@ -163,6 +187,16 @@ export const playerNextSpeed = () => {
   }
 
   playerSetPlaybackSpeed(newSpeed)
+  const cookiePlayerSettings = cookies?.playerSettings || {}
+
+  setCookie(
+    'playerSettings',
+    {
+      ...cookiePlayerSettings,
+      playSpeed: newSpeed
+    },
+    { path: PV.Cookies.path }
+  )
 }
 
 export const playerSetPlaybackSpeed = (newSpeed: number) => {
