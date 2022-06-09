@@ -14,6 +14,7 @@ import { createMediaRef, updateMediaRef } from '~/services/mediaRef'
 import { handleSetupClipListener } from '~/services/player/playerClip'
 import { useState } from 'react'
 import { OmniAuralState } from '~/state/omniauralState'
+import { useCookies } from 'react-cookie'
 
 type Props = {
   handleCancel: any
@@ -22,6 +23,7 @@ type Props = {
 export const MakeClipForm = ({ handleCancel }: Props) => {
   const router = useRouter()
   const { t } = useTranslation()
+  const [cookies, setCookie] = useCookies([])
   const [makeClip] = useOmniAural('makeClip') as [OmniAuralState['makeClip']]
   const [player] = useOmniAural('player') as [OmniAuralState['player']]
   const [isSaving, setIsSaving] = useState<boolean>(false)
@@ -201,7 +203,12 @@ export const MakeClipForm = ({ handleCancel }: Props) => {
       <ProgressBar clipFlagPositions={clipFlagPositions} highlightedPositions={highlightedPositions} labelsBelow />
       <PlayerProgressButtons hasMiniJump />
       <div className='make-clip-speed-button'>
-        <PlayerOptionButton ariaDescription={t('Playback speed')} onClick={playerNextSpeed} size='small' type='speed'>
+        <PlayerOptionButton
+          ariaDescription={t('Playback speed')}
+          onClick={() => playerNextSpeed(cookies, setCookie)}
+          size='small'
+          type='speed'
+        >
           {playSpeed}x
         </PlayerOptionButton>
       </div>
