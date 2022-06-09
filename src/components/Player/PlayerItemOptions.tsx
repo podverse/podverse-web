@@ -7,6 +7,7 @@ import { modalsAddToPlaylistShowOrAlert } from '~/state/modals/addToPlaylist/act
 import { convertSecToHHMMSS } from '~/lib/utility/time'
 import { OmniAuralState } from '~/state/omniauralState'
 import { useTranslation } from 'next-i18next'
+import { useCookies } from 'react-cookie'
 
 type Props = {
   isFullScreen?: boolean
@@ -15,6 +16,7 @@ type Props = {
 export const PlayerItemButtons = (props: Props) => {
   const { isFullScreen } = props
   const { t } = useTranslation()
+  const [cookies, setCookie] = useCookies([])
   const [player] = useOmniAural('player') as [OmniAuralState['player']]
   const { currentNowPlayingItem, muted, playSpeed, showFullView, volume } = player
   const { liveItem } = currentNowPlayingItem
@@ -28,7 +30,7 @@ export const PlayerItemButtons = (props: Props) => {
           <>
             <PlayerOptionButton
               ariaDescription={t('Playback speed')}
-              onClick={playerNextSpeed}
+              onClick={() => playerNextSpeed(cookies, setCookie)}
               size='small'
               type='speed'
             >
