@@ -87,9 +87,28 @@ export const PlayerAPIVideo = (props: Props) => {
 
   window.playerVideo = createRef()
 
+  // https://github.com/CookPete/react-player#config-prop
+  const playerVideoConfig = () => {
+    let config = {}
+
+    if (src?.indexOf('.m3u8') >= 0) {
+      config = {
+        file: {
+          forceHLS: true,
+          hlsOptions: {
+            liveDurationInfinity: true
+          }
+        }
+      }
+    }
+
+    return config
+  }
+
   return (
     <div className='video-player-wrapper'>
       <PlayerVideo
+        config={playerVideoConfig()}
         controls
         onDuration={_onLoadedMetaData}
         onEnded={_onEnded}
