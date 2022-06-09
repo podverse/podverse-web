@@ -356,5 +356,8 @@
     "features - new episodes and livestream notifications": "Merknader om nye episoder og direktestrømmer",
     "Value-4-Value": "Verdi-for-verdi",
     "Episode Summary": "Episodesammendrag",
-    "Send Bitcoin donations and boostagrams to podcasters": "Send bitcoin-donasjoner og boostagrammer til skapere"
+    "Send Bitcoin donations and boostagrams to podcasters": "Send bitcoin-donasjoner og boostagrammer til skapere",
+    "Type": "Type",
+    "Source": "Kilde",
+    "Unsupported file type alert": "Beklager. Denne filtypen støttes ikke enda."
 }
