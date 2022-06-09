@@ -36,7 +36,7 @@
       <guid isPermaLink="false">e2836af8-e4a0-4e25-ab39-f94491f9ac69</guid>
       <itunes:subtitle/>
       <itunes:summary/>
-      <enclosure length="" type="application/x-mpegURL" url="https://noagendatube.com/static/streaming-playlists/hls/bcfb54d4-8bff-49a7-baf6-26fed85ce360/master.m3u8"/>
+      <enclosure length="" type="application/x-mpegURL" url="https://peertube.podverse.fm/static/streaming-playlists/hls/79daacb2-d83e-4725-bbdc-26c8add1826b/master.m3u8"/>
     </podcast:liveItem>
     <podcast:liveItem status="live" start="2022-05-29T03:00:00.000Z" end="2022-05-29T04:30:00.000Z">
       <title>Live Video + Audio</title>
@@ -45,9 +45,9 @@
       <guid isPermaLink="false">4a4023ca-0232-460a-8339-b165bf8d093d</guid>
       <itunes:subtitle/>
       <itunes:summary/>      
-      <enclosure length="" type="application/x-mpegURL" url="https://noagendatube.com/static/streaming-playlists/hls/bcfb54d4-8bff-49a7-baf6-26fed85ce360/master.m3u8"/>
+      <enclosure length="" type="application/x-mpegURL" url="https://peertube.podverse.fm/static/streaming-playlists/hls/79daacb2-d83e-4725-bbdc-26c8add1826b/master.m3u8"/>
       <podcast:alternateEnclosure type="audio/mpeg">
-        <podcast:source uri="https://noagendatube.com/static/webseed/bcfb54d4-8bff-49a7-baf6-26fed85ce360-0.mp4"> </podcast:source>
+        <podcast:source uri="http://listen.noagendastream.com/noagenda"> </podcast:source>
         <podcast:source uri="https://noagendatube.com/lazy-static/torrents/bcfb54d4-8bff-49a7-baf6-26fed85ce360-0.torrent" contentType="application/x-bittorrent"> </podcast:source>
       </podcast:alternateEnclosure>
     </podcast:liveItem>
@@ -60,7 +60,7 @@
       <itunes:summary/>
       <enclosure length="" type="audio/mpeg" url="http://listen.noagendastream.com/noagenda"/>
       <podcast:alternateEnclosure type="application/x-mpegURL">
-        <podcast:source uri="https://noagendatube.com/static/streaming-playlists/hls/bcfb54d4-8bff-49a7-baf6-26fed85ce360/master.m3u8"> </podcast:source>
+        <podcast:source uri="https://peertube.podverse.fm/static/streaming-playlists/hls/79daacb2-d83e-4725-bbdc-26c8add1826b/master.m3u8"> </podcast:source>
       </podcast:alternateEnclosure>
     </podcast:liveItem>
     <item>
