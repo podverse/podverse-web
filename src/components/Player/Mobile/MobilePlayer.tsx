@@ -1,11 +1,11 @@
-import { faPause, faPlay } from '@fortawesome/free-solid-svg-icons'
+import { faPause, faPlay, faRedoAlt, faUndoAlt } from '@fortawesome/free-solid-svg-icons'
 import OmniAural, { useOmniAural } from 'omniaural'
 import { useTranslation } from 'react-i18next'
 import { Icon, PVImage } from '~/components'
 import { Slider } from '~/components/Slider/Slider'
 import { getClipTitle } from '~/lib/utility/misc'
 import { PV } from '~/resources'
-import { playerPause, playerPlay, playerSeekTo } from '~/services/player/player'
+import { playerJumpBackward, playerJumpForward, playerPause, playerPlay, playerSeekTo } from '~/services/player/player'
 import { OmniAuralState } from '~/state/omniauralState'
 
 type Props = unknown
@@ -36,6 +36,14 @@ export const MobilePlayer = (props: Props) => {
     paused ? playerPlay() : playerPause()
   }
 
+  const _handleJumpBack = () => {
+    playerJumpBackward()
+  }
+
+  const _handleJumpForward = () => {
+    playerJumpForward()
+  }
+
   return (
     <div className='mobile-player'>
       <div className='top'>
@@ -50,6 +58,12 @@ export const MobilePlayer = (props: Props) => {
             <div className='title'>{titleText}</div>
             <div className='podcast-title'>{podcastTitleText}</div>
           </div>
+        </div>
+        <div className='button' onClick={_handleJumpBack} tabIndex={0}>
+          <Icon faIcon={faUndoAlt} />
+        </div>
+        <div className='button' onClick={_handleJumpForward} tabIndex={0}>
+          <Icon faIcon={faRedoAlt} />
         </div>
         <div className='button' onClick={_handleTogglePlay} tabIndex={0}>
           <Icon faIcon={paused ? faPlay : faPause} />
