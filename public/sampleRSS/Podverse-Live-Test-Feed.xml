@@ -1,0 +1,67 @@
+<rss xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:podcast="https://github.com/Podcastindex-org/podcast-namespace/blob/main/docs/1.0.md" version="2.0">
+  <channel>
+    <title>Podverse - Test Feed</title>
+    <description>This RSS feed exists just for testing Podcasting 2.0 namespaces in Podverse.</description>
+    <language>en</language>
+    <itunes:image href="https://podverse.fm/images/android-chrome-512x512.png"/>
+    <link/>
+    <generator>Sovereign Feeds</generator>
+    <image url="https://podverse.fm/images/android-chrome-512x512.png" title="Podverse - Test Feed" description="This RSS feed exists just for testing Podcasting 2.0 namespaces in Podverse." width="144" height="144"/>
+    <itunes:category text=""/>
+    <itunes:category text=""/>
+    <podcast:medium>podcast</podcast:medium>
+    <podcast:images srcset="https://podverse.fm/images/android-chrome-512x512.png 512w"/>
+    <podcast:value type="lightning" method="keysend" suggested="0.00000005000">
+      <podcast:valueRecipient name="Podverse" address="033868c219bdb51a33560d854d500fe7d3898a1ad9e05dd89d0007e11313588500" type="node" customKey="112111100" customValue="wal_1IdSsnirIIbdV4" split="100"/>
+    </podcast:value>
+    <itunes:owner>
+      <itunes:email/>
+      <itunes:name/>
+    </itunes:owner>
+    <pubDate>Sun, 29 May 2022 03:04:59 +0000</pubDate>
+    <lastBuildDate>Sun, 29 May 2022 03:04:59 +0000</lastBuildDate>
+    <podcast:liveItem status="live" start="2022-05-29T03:00:00.000Z" end="2022-05-29T04:30:00.000Z">
+      <title>Live Audio</title>
+      <description/>
+      <duration/>
+      <guid isPermaLink="false">ee36e4f1-eb54-4787-b2b0-0d855e7e9ba8</guid>
+      <itunes:subtitle/>
+      <itunes:summary/>
+      <enclosure length="" type="audio/mpeg" url="http://listen.noagendastream.com/noagenda"/>
+    </podcast:liveItem>
+    <podcast:liveItem status="live" start="2022-05-29T03:00:00.000Z" end="2022-05-29T04:30:00.000Z">
+      <title>Live Video</title>
+      <description/>
+      <duration/>
+      <guid isPermaLink="false">e2836af8-e4a0-4e25-ab39-f94491f9ac69</guid>
+      <itunes:subtitle/>
+      <itunes:summary/>
+      <enclosure length="" type="application/x-mpegURL" url="https://peertube.podverse.fm/static/streaming-playlists/hls/79daacb2-d83e-4725-bbdc-26c8add1826b/master.m3u8"/>
+    </podcast:liveItem>
+    <podcast:liveItem status="live" start="2022-05-29T03:00:00.000Z" end="2022-05-29T04:30:00.000Z">
+      <title>Live Video + Audio</title>
+      <description/>
+      <duration/>
+      <guid isPermaLink="false">4a4023ca-0232-460a-8339-b165bf8d093d</guid>
+      <itunes:subtitle/>
+      <itunes:summary/>      
+      <enclosure length="" type="application/x-mpegURL" url="https://peertube.podverse.fm/static/streaming-playlists/hls/79daacb2-d83e-4725-bbdc-26c8add1826b/master.m3u8"/>
+      <podcast:alternateEnclosure type="audio/mpeg">
+        <podcast:source uri="http://listen.noagendastream.com/noagenda"> </podcast:source>
+        <podcast:source uri="https://noagendatube.com/lazy-static/torrents/bcfb54d4-8bff-49a7-baf6-26fed85ce360-0.torrent" contentType="application/x-bittorrent"> </podcast:source>
+      </podcast:alternateEnclosure>
+    </podcast:liveItem>
+    <podcast:liveItem status="live" start="2022-05-29T03:00:00.000Z" end="2022-05-29T04:30:00.000Z">
+      <title>Live Audio + Video</title>
+      <description/>
+      <duration/>
+      <guid isPermaLink="false">114a4032-ad96-436b-b5cf-e27463d0bed9</guid>
+      <itunes:subtitle/>
+      <itunes:summary/>
+      <enclosure length="" type="audio/mpeg" url="http://listen.noagendastream.com/noagenda"/>
+      <podcast:alternateEnclosure type="application/x-mpegURL">
+        <podcast:source uri="https://peertube.podverse.fm/static/streaming-playlists/hls/79daacb2-d83e-4725-bbdc-26c8add1826b/master.m3u8"> </podcast:source>
+      </podcast:alternateEnclosure>
+    </podcast:liveItem>
+  </channel>
+</rss>
