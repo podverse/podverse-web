@@ -17,7 +17,8 @@ export const PodcastListItem = ({ podcast, serverCookies }: Props) => {
   const { t } = useTranslation()
   const { id, lastEpisodePubDate, latestLiveItemStatus, title } = podcast
   const podcastImageUrl = getPodcastShrunkImageUrl(podcast)
-  const pubDateText = `${t('Latest Episode')}: ${readableDate(lastEpisodePubDate)}`
+  const date = readableDate(lastEpisodePubDate)
+  const pubDateText = date === 'Invalid date' ? '' : `${t('Latest Episode')}: ${date}`
   const podcastPageUrl = `${PV.RoutePaths.web.podcast}/${id}`
   const liveItemStatusAriaLabel = ariaLiveItemStatusLabel(latestLiveItemStatus, t)
   const ariaLabel = `${title}, ${pubDateText} ${liveItemStatusAriaLabel ? `, ${liveItemStatusAriaLabel}` : ''}`
@@ -39,7 +40,11 @@ export const PodcastListItem = ({ podcast, serverCookies }: Props) => {
             {latestLiveItemStatus === 'live' && (
               <LiveStatusBadge hideAboveMobileWidth liveItemStatus={latestLiveItemStatus} />
             )}
-            <div className='last-episode-pub-date'>{pubDateText}</div>
+            {
+              pubDateText && (
+                <div className='last-episode-pub-date'>{pubDateText}</div>
+              )
+            }
             <div className='title'>{finalTitle}</div>
           </div>
           <div className='live-status-wrapper'>
