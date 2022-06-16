@@ -4,9 +4,11 @@ export const generateAlternateEnclosureDropdownOptions = (alternateEnclosures: E
   const dropdownOptions = []
   for (let i = 0; i < alternateEnclosures.length; i++) {
     const alternateEnclosure = alternateEnclosures[i]
-    let label = alternateEnclosure.type
+    let label = alternateEnclosure.title
     if (alternateEnclosure.height > 0) {
       label += ` - ${alternateEnclosure.height}p`
+    } else if (!label) {
+      label = alternateEnclosure.type
     }
     dropdownOptions.push({ label, key: i })
   }

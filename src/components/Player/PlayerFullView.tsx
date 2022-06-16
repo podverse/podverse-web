@@ -150,7 +150,7 @@ export const PlayerFullView = ({ nowPlayingItem }: Props) => {
             {alternateEnclosureDropdownOptions?.length > 1 && (
               <Dropdown
                 dropdownPosition='auto'
-                dropdownWidthClass='width-large'
+                dropdownWidthClass='width-medium'
                 inlineElementStyle
                 onChange={_handleChangeAlternateEnclosureSelected}
                 options={alternateEnclosureDropdownOptions}
