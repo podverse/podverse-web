@@ -89,7 +89,7 @@ export const PlayerAPIVideo = (props: Props) => {
 
   // https://github.com/CookPete/react-player#config-prop
   const playerVideoConfig = () => {
-    let config = {}
+    let config: any = {}
 
     if (src?.indexOf('.m3u8') >= 0) {
       config = {
@@ -101,6 +101,21 @@ export const PlayerAPIVideo = (props: Props) => {
         }
       }
     }
+
+    // if (currentNowPlayingItem?.episodeTranscript?.length > 0) {
+    //   const transcripts = currentNowPlayingItem.episodeTranscript
+
+    //   const defaultTranscript = getTranscriptForLocale(transcripts, navigator.language)
+    //   const tracks = generateReactVideoTranscriptTracks(transcripts, defaultTranscript)
+
+    //   config = {
+    //     ...config,
+    //     file: {
+    //       ...config.file,
+    //       tracks
+    //     }
+    //   }
+    // }
 
     return config
   }
