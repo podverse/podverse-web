@@ -1,0 +1,49 @@
+
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:podcast="https://github.com/Podcastindex-org/podcast-namespace/blob/main/docs/1.0.md">
+    <channel>
+        <title>podversetv</title>
+        <link>https://noagendatube.com/video-channels/podversetv</link>
+        <description>podverse.fm/about</description>
+        <lastBuildDate>Thu, 16 Jun 2022 00:30:47 GMT</lastBuildDate>
+        <docs>http://blogs.law.harvard.edu/tech/rss</docs>
+        <generator>Toraifōsu</generator>
+        <podcast:medium>video</podcast:medium>
+        <podcast:person img="https://noagendatube.com/lazy-static/avatars/f87f231c-a7b2-410e-915e-817ec1f9baa0.png">Podverse</podcast:person>
+        <itunes:author>Podverse</itunes:author>
+        <itunes:owner>
+            <itunes:email>admin@noagendatube.com</itunes:email>
+            <itunes:name>Podverse</itunes:name>
+        </itunes:owner>
+        <podcast:locked owner="admin@noagendatube.com">yes</podcast:locked>
+        <itunes:explicit>no</itunes:explicit>
+        <image>
+            <title>podversetv</title>
+            <url>https://noagendatube.com/lazy-static/avatars/29e6fd3b-2c8a-48e6-946a-34fafc133801.png</url>
+            <link>https://noagendatube.com/video-channels/podversetv</link>
+        </image>
+        <itunes:image href="https://noagendatube.com/lazy-static/avatars/29e6fd3b-2c8a-48e6-946a-34fafc133801.png">
+        </itunes:image>
+        <copyright>All rights reserved, unless otherwise specified in the terms specified at https://noagendatube.com/about and potential licenses granted by each content&apos;s rightholder.</copyright>
+        <podcast:liveItem status="live" start="2022-06-16T00:29:02.116Z">
+            <title><![CDATA[Podverse - Livestream Test]]></title>
+            <link>https://noagendatube.com/w/p4RCHiPcdYX17cVXLYPUCU</link>
+            <guid>https://noagendatube.com/w/p4RCHiPcdYX17cVXLYPUCU</guid>
+            <dc:creator>Podverse</dc:creator>
+            <podcast:person href="https://noagendatube.com/accounts/podverse" img="https://noagendatube.com/lazy-static/avatars/f87f231c-a7b2-410e-915e-817ec1f9baa0.png">Podverse</podcast:person>
+            <podcast:tracker>https://noagendatube.com/tracker/announce</podcast:tracker>
+            <podcast:tracker>wss://noagendatube.com:443/tracker/socket</podcast:tracker>
+            <podcast:socialInteract uri="https://noagendatube.com/videos/watch/bacc0205-5052-4f65-8adc-2382cbc4d744" protocol="activitypub">
+            </podcast:socialInteract>
+            <enclosure type="application/x-mpegURL" url="https://noagendatube.com/static/streaming-playlists/hls/bacc0205-5052-4f65-8adc-2382cbc4d744/master.m3u8">
+            </enclosure>
+            <podcast:alternateEnclosure type="application/x-mpegURL" title="Live Stream 1" default="true">
+                <podcast:source uri="https://noagendatube.com/static/streaming-playlists/hls/bacc0205-5052-4f65-8adc-2382cbc4d744/master.m3u8">
+                </podcast:source>
+            </podcast:alternateEnclosure>
+            <itunes:image href="https://noagendatube.com/lazy-static/previews/7e7f41be-f385-483c-b058-562fdba704ee.jpg">
+            </itunes:image>
+            <itunes:explicit>no</itunes:explicit>
+        </podcast:liveItem>
+    </channel>
+</rss>
