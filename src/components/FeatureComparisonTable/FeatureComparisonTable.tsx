@@ -110,7 +110,13 @@ const featuresData = (t) => [
   {
     text: t('features - podcasting 2.0 cross-app comments'),
     icon1: true,
-    icon2: true
+    icon2: true,
+    previewVideoEmbed: {
+      text: t('features - podcasting 2.0 cross-app comments'),
+      width: 560,
+      height: 315,
+      src: 'https://peertube.podverse.fm/videos/embed/ed6771e1-2b64-4180-9235-b59ff3308b49'
+    }
   },
   {
     text: t('features - podcasting 2.0 transcripts'),
@@ -170,7 +176,13 @@ const featuresData = (t) => [
   {
     text: t('features - create and share playlists'),
     icon1: false,
-    icon2: true
+    icon2: true,
+    previewVideoEmbed: {
+      text: t('features - create and share playlists'),
+      width: 560,
+      height: 315,
+      src: 'https://peertube.podverse.fm/videos/embed/7944971b-9f5b-4d17-9192-9bed76d4face
+    }
   },
   {
     text: t('features - mark episodes as played'),
@@ -180,7 +192,13 @@ const featuresData = (t) => [
   {
     text: t('features - subscribe to listener profiles'),
     icon1: false,
-    icon2: true
+    icon2: true,
+    previewVideoEmbed: {
+      text: t('features - subscribe to listener profiles'),
+      width: 560,
+      height: 315,
+      src: 'https://peertube.podverse.fm/videos/embed/115fe6f5-f182-4c3b-86ab-5c245adef77e'
+    }
   },
   {
     text: t('features - support open source software'),

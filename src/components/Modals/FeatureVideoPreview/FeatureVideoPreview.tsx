@@ -24,15 +24,17 @@ export const FeatureVideoPreviewModal = (props: Props) => {
       <h2>{t('Feature Demo')}</h2>
       <ButtonClose onClick={_onRequestClose} />
       {!!videoEmbedData && (
-        <iframe
-          title={videoEmbedData.title}
-          width={videoEmbedData.width}
-          height={videoEmbedData.height}
-          src={`${videoEmbedData.src}?autoplay=1`}
-          frameBorder='0'
-          allowFullScreen
-          sandbox='allow-same-origin allow-scripts allow-popups'
-        />
+        <div className='iframe-wrapper'>
+          <iframe
+            title={videoEmbedData.title}
+            width={videoEmbedData.width}
+            height={videoEmbedData.height}
+            src={`${videoEmbedData.src}?autoplay=1`}
+            frameBorder='0'
+            allowFullScreen
+            sandbox='allow-same-origin allow-scripts allow-popups'
+          />
+        </div>
       )}
     </Modal>
   )
