@@ -181,7 +181,7 @@ const featuresData = (t) => [
       text: t('features - create and share playlists'),
       width: 560,
       height: 315,
-      src: 'https://peertube.podverse.fm/videos/embed/7944971b-9f5b-4d17-9192-9bed76d4face
+      src: 'https://peertube.podverse.fm/videos/embed/7944971b-9f5b-4d17-9192-9bed76d4face'
     }
   },
   {
