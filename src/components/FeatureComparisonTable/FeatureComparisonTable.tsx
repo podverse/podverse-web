@@ -40,7 +40,13 @@ const featuresData = (t) => [
     icon1: true,
     icon1Asterisk: true,
     icon2: true,
-    icon2Asterisk: true
+    icon2Asterisk: true,
+    previewVideoEmbed: {
+      text: t('features - download episodes'),
+      width: 560,
+      height: 315,
+      src: 'https://peertube.podverse.fm/videos/embed/04138079-cc99-41ae-8080-8a5ed34be417'
+    }
   },
   {
     text: t('features - audio livestreams'),
