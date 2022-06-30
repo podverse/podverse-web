@@ -4,6 +4,7 @@ import { convertToNowPlayingItem, Episode } from "podverse-shared"
 import { ButtonCircle } from "~/components/Buttons/ButtonCircle"
 import { generateItemTimeInfo } from "~/lib/utility/date"
 import { audioLoadNowPlayingItem } from "~/services/player/playerAudio"
+import { LiveStatusBadge } from "../LiveStatusBadge/LiveStatusBadge"
 
 type Props = {
   episode: Episode
@@ -11,6 +12,7 @@ type Props = {
 
 export const EmbedPlayerListItemEpisode = ({ episode }: Props) => {
   const { t } = useTranslation()
+  const { liveItem } = episode
   const episodeTitle = episode.title || t('untitledEpisode')
   const { pubDate, timeInfo } = generateItemTimeInfo(t, episode)
 
@@ -39,6 +41,11 @@ export const EmbedPlayerListItemEpisode = ({ episode }: Props) => {
           )}
         </div>
       </div>
+      {
+        !!liveItem && (
+          <LiveStatusBadge liveItemStatus={liveItem.status} />
+        )
+      }
       <ButtonCircle
         ariaLabel={t('Play')}
         ariaPressed

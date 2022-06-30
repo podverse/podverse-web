@@ -1,5 +1,26 @@
 .embed-player-footer {
+  align-items: center;
   border-radius: 0;
   border-top: 1px solid var(--pv-embed-border-color, #aaaaaa);
-  padding: 8px 16px;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 16px;
+
+  .navbar__brand > span {
+    display: block !important;
+  }
+
+  .embed-player-footer-links {
+    display: flex;
+    flex: 1;
+    justify-content: space-between;
+    
+    .embed-player-footer-link {
+      font-size: var(--pv-embed-font-size-sm, 14px);
+
+      &:first-child {
+        margin: 0 0 0 24px;
+      }
+    }
+  }
 }
