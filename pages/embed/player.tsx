@@ -49,7 +49,7 @@ export default function EmbedPlayerPage({ serverEpisode, serverEpisodes, serverP
         <EmbedPlayerList episodes={serverEpisodes} keyPrefix={keyPrefix}  />
       </EmbedPlayerWrapper>
       {/* <PlayerFullView /> */}
-      <TwitterCardPlayerAPIAudio />
+      <TwitterCardPlayerAPIAudio shouldLoadChapters />
     </>
   )
 }
