@@ -9,7 +9,7 @@ type Props = {
   href: string
   onClick?: any
   tabIndex?: number
-  target?: '_blank'
+  target?: '_blank' | ''
 }
 
 export const PVLink = ({ ariaLabel, children, className, href, onClick, tabIndex, target }: Props) => {

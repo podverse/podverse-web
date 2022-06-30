@@ -1,22 +1,19 @@
 import { GetServerSideProps } from 'next'
-import { useTranslation } from 'next-i18next'
-import OmniAural from 'omniaural'
-import { convertToNowPlayingItem, Episode, MediaRef, NowPlayingItem, Podcast } from 'podverse-shared'
+import { useOmniAural } from 'omniaural'
+import { convertToNowPlayingItem, Episode, Podcast } from 'podverse-shared'
 import { I18nPage } from '~/lib/utility/page'
 import { PV } from '~/resources'
 import { Meta } from '~/components/Meta/Meta'
 import { getDefaultEmbedServerSideProps } from '~/services/serverSideHelpers'
-import { TwitterCardPlayer } from '~/components/TwitterCardPlayer/TwitterCardPlayer'
 import { TwitterCardPlayerAPIAudio } from '~/components/TwitterCardPlayer/TwitterCardPlayerAPIAudio'
 import { useEffect } from 'react'
-import { audioIsLoaded, audioLoadNowPlayingItem } from '~/services/player/playerAudio'
-import { prefixClipLabel } from '~/lib/utility/misc'
-import { getMediaRefById } from '~/services/mediaRef'
-import { EmbedPlayerFooter, EmbedPlayerHeader, EmbedPlayerList, EmbedPlayerWrapper } from '~/components'
+import { EmbedPlayerHeader, EmbedPlayerList, EmbedPlayerWrapper } from '~/components'
 import { PlayerFullView } from '~/components/Player/PlayerFullView'
 import { getPodcastById } from '~/services/podcast'
 import { getEpisodesAndLiveItems } from '~/services/liveItem'
 import { playerLoadNowPlayingItem } from '~/services/player/player'
+import { OmniAuralState } from '~/state/omniauralState'
+import { getEpisodeById } from '~/services/episode'
 
 interface ServerProps extends I18nPage {
   serverEpisode?: Episode
@@ -29,6 +26,10 @@ const keyPrefix = 'embed_player'
 /* Embeddable Player intended for iFrame use */
 
 export default function EmbedPlayerPage({ serverEpisode, serverEpisodes, serverPodcast }: ServerProps) {
+  /* Initialize */
+  const [player] = useOmniAural('player') as [OmniAuralState['player']]
+  const { currentNowPlayingItem } = player
+
   /* useEffects */
 
   useEffect(() => {
@@ -46,7 +47,11 @@ export default function EmbedPlayerPage({ serverEpisode, serverEpisodes, serverP
         <EmbedPlayerHeader />
         <EmbedPlayerList episodes={serverEpisodes} keyPrefix={keyPrefix}  />
       </EmbedPlayerWrapper>
-      {/* <PlayerFullView /> */}
+      {
+        currentNowPlayingItem && (
+          <PlayerFullView isEmbed nowPlayingItem={currentNowPlayingItem}  />
+        )
+      }
       <TwitterCardPlayerAPIAudio shouldLoadChapters />
     </>
   )
@@ -56,7 +61,7 @@ export default function EmbedPlayerPage({ serverEpisode, serverEpisodes, serverP
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { locale, query } = ctx
-  const { podcastId } = query
+  const { episodeId, podcastId } = query
   
   const [defaultServerProps, podcastResponse] = await Promise.all([
     getDefaultEmbedServerSideProps(ctx, locale),
@@ -85,7 +90,12 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
     const [combinedEpisodesData] = data.combinedEpisodes
     serverEpisodes = combinedEpisodesData
-    serverEpisode = serverEpisodes[0]
+    
+    if (episodeId) {
+      serverEpisode = (await getEpisodeById(episodeId as string)).data
+    } else {
+      serverEpisode = serverEpisodes[0]
+    }
   }
 
   const props: ServerProps = {
