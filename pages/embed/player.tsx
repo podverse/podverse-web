@@ -16,6 +16,7 @@ import { EmbedPlayerFooter, EmbedPlayerHeader, EmbedPlayerList, EmbedPlayerWrapp
 import { PlayerFullView } from '~/components/Player/PlayerFullView'
 import { getPodcastById } from '~/services/podcast'
 import { getEpisodesAndLiveItems } from '~/services/liveItem'
+import { playerLoadNowPlayingItem } from '~/services/player/player'
 
 interface ServerProps extends I18nPage {
   serverEpisode?: Episode
@@ -34,11 +35,8 @@ export default function EmbedPlayerPage({ serverEpisode, serverEpisodes, serverP
     const shouldPlay = true
     const inheritedEpisode = null
     const nowPlayingItem = convertToNowPlayingItem(serverEpisode, inheritedEpisode, serverPodcast)
-    OmniAural.setPlayerItem(nowPlayingItem)
-    if (audioIsLoaded()) {
-      const previousNowPlayingItem = null
-      audioLoadNowPlayingItem(nowPlayingItem, previousNowPlayingItem, shouldPlay)
-    }
+    const previousNowPlayingItem = null
+    playerLoadNowPlayingItem(nowPlayingItem, previousNowPlayingItem, shouldPlay)
   }, [])
 
   return (

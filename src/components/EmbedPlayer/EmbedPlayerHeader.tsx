@@ -1,7 +1,7 @@
 import { faPause, faPlay } from '@fortawesome/free-solid-svg-icons'
 import classNames from 'classnames'
 import { useTranslation } from 'next-i18next'
-import { useOmniAural } from 'omniaural'
+import OmniAural, { useOmniAural } from 'omniaural'
 import { ButtonCircle, PVImage } from '~/components'
 import { readableDate } from '~/lib/utility/date'
 import { readableClipTime } from '~/lib/utility/time'
@@ -9,13 +9,14 @@ import { PV } from '~/resources'
 import { playerPause, playerPlay } from '~/services/player/player'
 import { OmniAuralState } from '~/state/omniauralState'
 import { ProgressBar } from '../Player/controls/ProgressBar'
+import { PlayerOptionButton } from '../Player/options/PlayerOptionButton'
 
 export const EmbedPlayerHeader = () => {
   /* Initialize */
 
   const { t } = useTranslation()
   const [player] = useOmniAural('player') as [OmniAuralState['player']]
-  const { chapterFlagPositions, clipFlagPositions, currentNowPlayingItem, highlightedPositions, paused } = player
+  const { chapterFlagPositions, clipFlagPositions, currentNowPlayingItem, highlightedPositions, paused, showFullView } = player
   const playpause = classNames(paused ? 'play' : 'pause')
 
   const isClip = !!currentNowPlayingItem?.clipId
@@ -59,14 +60,25 @@ export const EmbedPlayerHeader = () => {
       </div>
       <div className='embed-player-header-inner'>
         <div className='embed-player-header-top'>
-          <div className='embed-player-header-top-text'>
-            {topText}
+          <div className='embed-player-header-text-wrapper'>
+            <div className='embed-player-header-top-text'>
+              {topText}
+            </div>
+            <div className='embed-player-header-middle-text'>
+              {middleText}
+            </div>
+            <div className='embed-player-header-bottom-text'>
+              {bottomText}
+            </div>
           </div>
-          <div className='embed-player-header-middle-text'>
-            {middleText}
-          </div>
-          <div className='embed-player-header-bottom-text'>
-            {bottomText}
+          <div className='embed-player-header-top-side'>
+            <PlayerOptionButton
+              ariaLabel={showFullView ? t('Hide full screen player') : t('Show full screen player')}
+              ariaPressed
+              onClick={showFullView ? OmniAural.playerFullViewHide : OmniAural.playerFullViewShow}
+              size='small'
+              type={showFullView ? 'fullscreen-hide' : 'fullscreen-show'}
+            />
           </div>
         </div>
         <div className='embed-player-header-bottom'>

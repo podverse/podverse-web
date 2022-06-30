@@ -18,22 +18,35 @@
     margin-left: 12px;
 
     .embed-player-header-top {
-      .embed-player-header-top-text {
-        @include line-clamp(1);
-        color: var(--pv-embed-text-color-secondary, #cccccc);
-        font-size: var(--pv-embed-font-size-sm, 14px);
+      display: flex;
+
+      .embed-player-header-text-wrapper {
+        flex: 1;
+
+        .embed-player-header-top-text {
+          @include line-clamp(1);
+          color: var(--pv-embed-text-color-secondary, #cccccc);
+          font-size: var(--pv-embed-font-size-sm, 14px);
+        }
+        .embed-player-header-middle-text {
+          @include line-clamp(1);
+          font-size: var(--pv-embed-font-size-lg, 19px);
+          margin-top: 3px;
+        }
+        .embed-player-header-bottom-text {
+          @include line-clamp(1);
+          color: var(--pv-embed-text-color-tertiary, #74a8dc);
+          font-size: var(--pv-embed-font-size-tiny, 12px);
+          font-weight: bold;
+          margin-top: 4px;
+        }
       }
-      .embed-player-header-middle-text {
-        @include line-clamp(1);
-        font-size: var(--pv-embed-font-size-lg, 19px);
-        margin-top: 3px;
-      }
-      .embed-player-header-bottom-text {
-        @include line-clamp(1);
-        color: var(--pv-embed-text-color-tertiary, #74a8dc);
-        font-size: var(--pv-embed-font-size-tiny, 12px);
-        font-weight: bold;
-        margin-top: 4px;
+
+      .embed-player-header-top-side {
+        .player-option-button.small {
+          height: auto;
+          width: auto;
+        }
       }
     }
 

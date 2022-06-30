@@ -3,7 +3,7 @@ import { useTranslation } from "next-i18next"
 import { convertToNowPlayingItem, Episode } from "podverse-shared"
 import { ButtonCircle } from "~/components/Buttons/ButtonCircle"
 import { generateItemTimeInfo } from "~/lib/utility/date"
-import { audioLoadNowPlayingItem } from "~/services/player/playerAudio"
+import { playerLoadNowPlayingItem, playerTogglePlayOrLoadNowPlayingItem } from "~/services/player/player"
 import { LiveStatusBadge } from "../LiveStatusBadge/LiveStatusBadge"
 
 type Props = {
@@ -16,11 +16,9 @@ export const EmbedPlayerListItemEpisode = ({ episode }: Props) => {
   const episodeTitle = episode.title || t('untitledEpisode')
   const { pubDate, timeInfo } = generateItemTimeInfo(t, episode)
 
-  const _handlePlay = () => {
+  const _handleTogglePlayOrLoad = () => {
     const nowPlayingItem = convertToNowPlayingItem(episode)
-    const previousNowPlayingItem = null
-    const shouldPlay = true
-    audioLoadNowPlayingItem(nowPlayingItem, previousNowPlayingItem, shouldPlay)
+    playerTogglePlayOrLoadNowPlayingItem(nowPlayingItem)
   }
 
   return (
@@ -51,7 +49,7 @@ export const EmbedPlayerListItemEpisode = ({ episode }: Props) => {
         ariaPressed
         className='embed-player-play'
         faIcon={faPlay}
-        onClick={_handlePlay}
+        onClick={_handleTogglePlayOrLoad}
         size={'small'}
       />
     </div>
