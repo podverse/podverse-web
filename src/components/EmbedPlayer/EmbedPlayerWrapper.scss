@@ -1,0 +1,8 @@
+.embed-player {
+  background-color: var(--pv-embed-background-color, #030626);
+  border: 1px solid var(--pv-embed-border-color, #aaaaaa);
+  border-radius: 0;
+  max-width: var(--pv-embed-max-width, 500px);
+
+  .embed-player-wrapper {}
+}

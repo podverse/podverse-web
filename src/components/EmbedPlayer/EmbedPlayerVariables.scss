@@ -1,0 +1,43 @@
+:root {
+  --pv-embed-max-width: 500px;
+  --pv-embed-list-max-height: 500px;
+
+  --pv-embed-background-color: #030626;
+  
+  --pv-embed-border-color: rgba(255, 255, 255, .15);
+  --pv-embed-divider-color: rgba(255, 255, 255, .15);
+
+  --pv-embed-font-family: Roboto, -apple-system, BlinkMacSystemFont, Segoe UI, Oxygen, Ubuntu, Cantarell, Fira Sans,
+  Droid Sans, Helvetica Neue, sans-serif;
+  
+  --pv-embed-font-size-huge: 48px;
+  --pv-embed-font-size-xxxl: 33px;
+  --pv-embed-font-size-xxl: 27px;
+  --pv-embed-font-size-xl: 21px;
+  --pv-embed-font-size-lg: 19px;
+  --pv-embed-font-size-md: 16px;
+  --pv-embed-font-size-sm: 14px;
+  --pv-embed-font-size-tiny: 12px;
+  --pv-embed-font-size-tiniest: 9px;
+
+  --pv-embed-text-color-primary: #ffffff;
+  --pv-embed-text-color-secondary: #cccccc;
+  --pv-embed-text-color-tertiary: #74a8dc;
+  --pv-embed-text-color-quaternary: #3d9dfe;
+
+  --pv-embed-icon-color: #cccccc;
+
+  --pv-embed-play-button-background-color: #252a6499;
+  --pv-embed-play-button-border-color: #3d9dfe;
+  --pv-embed-play-button-icon-color: #ffffff;
+
+  --pv-embed-slider-background-color: #252a64;
+  --pv-embed-slider-fill-color: #ffffff;
+  --pv-embed-slider-marker-color: #3d9dfe;
+  --pv-embed-slider-highlight-color: rgba(61, 157, 254, .5);
+
+  --pv-embed-close-button-background-color: #0f1235;
+  --pv-embed-close-button-icon-color: #ffffff;
+
+  --pv-embed-full-screen-background-color: rgba(15, 18, 53, .4);
+}

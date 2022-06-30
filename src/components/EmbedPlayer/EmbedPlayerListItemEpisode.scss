@@ -1,0 +1,40 @@
+
+
+.embed-player-list-item-episode {
+  align-items: center;
+  border-bottom: 1px solid var(--pv-embed-divider-color, rgba(255, 255, 255, .15));
+  border-radius: 0;
+  display: flex;
+  padding: 8px 16px;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  .embed-player-text-wrapper {
+    flex: 1;
+
+    .embed-player-list-item-episode-title {
+      color: var(--pv-embed-text-color-secondary, #cccccc);
+      font-size: var(--pv-embed-font-size-md, 16px);
+      margin: 0 0 4px 0;
+    }
+  
+    .embed-player-list-item-time-wrapper {
+      color: var(--pv-embed-text-color-tertiary, #74a8dc);
+      font-size: var(--pv-embed-font-size-sm, 14px);
+      font-weight: 500;
+  
+      .embed-player-list-item-time-spacer {
+        margin: 0 4px;
+      }
+    }
+  }
+
+  .embed-player-play {
+    svg {
+      margin-left: 2px;
+      width: 0.6em;
+    }
+  }
+}

@@ -1,0 +1,5 @@
+.embed-player-list {
+  max-height: var(--pv-embed-list-max-height, 500px);
+  max-width: var(--pv-embed-max-width, 500px);
+  overflow: auto;
+}
