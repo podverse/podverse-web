@@ -16,7 +16,8 @@ export const EmbedPlayerHeader = () => {
 
   const { t } = useTranslation()
   const [player] = useOmniAural('player') as [OmniAuralState['player']]
-  const { chapterFlagPositions, clipFlagPositions, currentNowPlayingItem, highlightedPositions, paused, showFullView } = player
+  const { chapterFlagPositions, clipFlagPositions, currentNowPlayingItem, highlightedPositions, paused, showFullView } =
+    player
   const playpause = classNames(paused ? 'play' : 'pause')
 
   const isClip = !!currentNowPlayingItem?.clipId
@@ -58,7 +59,7 @@ export const EmbedPlayerHeader = () => {
 
   return (
     <div className='embed-player-header'>
-      <div className='embed-player-header-image'>
+      <div className='embed-player-header-image hide-below-mobile-max-width'>
         <PVImage
           alt=''
           height={PV.Images.sizes.embed}
@@ -68,6 +69,14 @@ export const EmbedPlayerHeader = () => {
       </div>
       <div className='embed-player-header-inner'>
         <div className='embed-player-header-top'>
+          <div className='embed-player-header-image-mini hide-above-tablet-min-width'>
+            <PVImage
+              alt=''
+              height={PV.Images.sizes.medium}
+              src={currentNowPlayingItem?.episodeImageUrl || currentNowPlayingItem?.podcastImageUrl}
+              width={PV.Images.sizes.medium}
+            />
+          </div>
           <div className='embed-player-header-text-wrapper'>
             <div className='embed-player-header-top-text'>
               <PVLink href={topLink} target='_blank'>
@@ -79,9 +88,7 @@ export const EmbedPlayerHeader = () => {
                 {middleText}
               </PVLink>
             </div>
-            <div className='embed-player-header-bottom-text'>
-              {bottomText}
-            </div>
+            <div className='embed-player-header-bottom-text'>{bottomText}</div>
           </div>
           <div className='embed-player-header-top-side'>
             <PlayerOptionButton

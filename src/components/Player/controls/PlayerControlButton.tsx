@@ -37,12 +37,7 @@ export const PlayerControlButton = ({ ariaLabel, type, direction, onClick, size 
     }
   }
 
-  const wrapperClass = classnames(
-    'player-progress-button',
-    size,
-    type,
-    direction
-  )
+  const wrapperClass = classnames('player-progress-button', size, type, direction)
   const buttonContainerClass = classnames('jump-time-text-container', direction)
   const buttonTextClass = classnames('jump-time-text', direction)
 

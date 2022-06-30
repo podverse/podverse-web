@@ -45,6 +45,10 @@ export const RoutePaths = {
     clips: `/clips`,
     contact: '/contact',
     coupon: `/coupon`,
+    embed: {
+      player: `/embed/player`,
+      player_demo: `/embed/player-demo`
+    },
     episode: `/episode`,
     episodes: `/episodes`,
     faq: `/faq`,

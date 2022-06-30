@@ -1,14 +1,14 @@
-import { faPause, faPlay } from "@fortawesome/free-solid-svg-icons"
-import { useTranslation } from "next-i18next"
+import { faPause, faPlay } from '@fortawesome/free-solid-svg-icons'
+import { useTranslation } from 'next-i18next'
 import { useOmniAural } from 'omniaural'
-import { convertToNowPlayingItem, Episode } from "podverse-shared"
-import { ButtonCircle } from "~/components/Buttons/ButtonCircle"
-import { generateItemTimeInfo } from "~/lib/utility/date"
-import { playerCheckIfItemIsCurrentlyPlaying, playerTogglePlayOrLoadNowPlayingItem } from "~/services/player/player"
-import { LiveStatusBadge } from "../LiveStatusBadge/LiveStatusBadge"
+import { convertToNowPlayingItem, Episode } from 'podverse-shared'
+import { ButtonCircle } from '~/components/Buttons/ButtonCircle'
+import { generateItemTimeInfo } from '~/lib/utility/date'
+import { playerCheckIfItemIsCurrentlyPlaying, playerTogglePlayOrLoadNowPlayingItem } from '~/services/player/player'
+import { LiveStatusBadge } from '../LiveStatusBadge/LiveStatusBadge'
 import { PV } from '~/resources'
 import { OmniAuralState } from '~/state/omniauralState'
-import { PVLink } from "../PVLink/PVLink"
+import { PVLink } from '../PVLink/PVLink'
 
 type Props = {
   episode: Episode
@@ -16,7 +16,7 @@ type Props = {
 
 export const EmbedPlayerListItemEpisode = ({ episode }: Props) => {
   const { t } = useTranslation()
-    const [player] = useOmniAural('player') as [OmniAuralState['player']]
+  const [player] = useOmniAural('player') as [OmniAuralState['player']]
   const { paused } = player
   const nowPlayingItem = convertToNowPlayingItem(episode)
   const { liveItem } = episode
@@ -41,9 +41,7 @@ export const EmbedPlayerListItemEpisode = ({ episode }: Props) => {
           </PVLink>
         </div>
         <div className='embed-player-list-item-time-wrapper'>
-          <span className='embed-player-list-item-episode-pub-date'>
-            {pubDate}
-          </span>
+          <span className='embed-player-list-item-episode-pub-date'>{pubDate}</span>
           {!!timeInfo && (
             <>
               <span className='embed-player-list-item-time-spacer'> • </span>
@@ -52,11 +50,7 @@ export const EmbedPlayerListItemEpisode = ({ episode }: Props) => {
           )}
         </div>
       </div>
-      {
-        !!liveItem && (
-          <LiveStatusBadge liveItemStatus={liveItem.status} />
-        )
-      }
+      {!!liveItem && <LiveStatusBadge liveItemStatus={liveItem.status} />}
       <ButtonCircle
         ariaLabel={togglePlayAriaLabel}
         ariaPressed

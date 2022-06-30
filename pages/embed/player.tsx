@@ -45,13 +45,9 @@ export default function EmbedPlayerPage({ serverEpisode, serverEpisodes, serverP
       <Meta robotsNoIndex={true} />
       <EmbedPlayerWrapper>
         <EmbedPlayerHeader />
-        <EmbedPlayerList episodes={serverEpisodes} keyPrefix={keyPrefix}  />
+        <EmbedPlayerList episodes={serverEpisodes} keyPrefix={keyPrefix} />
       </EmbedPlayerWrapper>
-      {
-        currentNowPlayingItem && (
-          <PlayerFullView isEmbed nowPlayingItem={currentNowPlayingItem}  />
-        )
-      }
+      {currentNowPlayingItem && <PlayerFullView isEmbed nowPlayingItem={currentNowPlayingItem} />}
       <TwitterCardPlayerAPIAudio shouldLoadChapters />
     </>
   )
@@ -62,18 +58,18 @@ export default function EmbedPlayerPage({ serverEpisode, serverEpisodes, serverP
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { locale, query } = ctx
   const { episodeId, podcastId } = query
-  
+
   const [defaultServerProps, podcastResponse] = await Promise.all([
     getDefaultEmbedServerSideProps(ctx, locale),
     getPodcastById(podcastId as string)
   ])
 
   const serverPodcast = podcastResponse.data
-  
+
   const serverFilterType = PV.Filters.type._episodes
   const serverFilterSort = PV.Filters.sort._mostRecent
   const serverFilterPage = 1
-  
+
   let serverEpisodes = []
   let serverEpisode = null
 
@@ -90,7 +86,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
     const [combinedEpisodesData] = data.combinedEpisodes
     serverEpisodes = combinedEpisodesData
-    
+
     if (episodeId) {
       serverEpisode = (await getEpisodeById(episodeId as string)).data
     } else {

@@ -3,9 +3,9 @@
   border-radius: 0;
   border-top: 1px solid var(--pv-embed-border-color, #aaaaaa);
   display: flex;
-  height: 39px;
+  height: 43px;
   justify-content: space-between;
-  padding: 10px 16px;
+  padding: 12px 16px;
 
   .navbar__brand > span {
     display: block !important;
@@ -15,7 +15,7 @@
     display: flex;
     flex: 1;
     justify-content: space-between;
-    
+
     .embed-player-footer-link {
       font-size: var(--pv-embed-font-size-sm, 14px);
 

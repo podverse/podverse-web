@@ -90,7 +90,8 @@ function MyApp({ Component, pageProps }) {
     router.pathname.startsWith('/miniplayer') ||
     router.pathname.startsWith('/videoplayer') ||
     router.pathname.startsWith('/chat') ||
-    router.pathname.startsWith('/embed')
+    router.pathname.startsWith('/embed') &&
+    !router.pathname.startsWith('/embed/player-demo')
 
   useEffect(() => {
     if (!doNotInheritAppComponent) {

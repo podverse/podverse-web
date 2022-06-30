@@ -1,5 +1,5 @@
 .embed-player-header {
-  border-bottom: 1px solid var(--pv-embed-border-color, rgba(255, 255, 255, .15));
+  border-bottom: 1px solid var(--pv-embed-border-color, rgba(255, 255, 255, 0.15));
   border-radius: 0;
   display: flex;
   height: 133px;
@@ -67,15 +67,33 @@
             text-align: left;
           }
         }
-        
 
         .player-bar {
           margin: 0 10px;
         }
       }
 
-      .play, .pause {
+      .play,
+      .pause {
         margin: 0 0 0 12px;
+      }
+    }
+  }
+}
+
+@media (max-width: $media-max-width-mobile) {
+  .embed-player-header {
+    .embed-player-header-inner {
+      margin: 0;
+
+      .embed-player-header-top {
+        .embed-player-header-image-mini {
+          margin: 0 12px 0 0;
+          
+          img {
+            display: block;
+          }
+        }
       }
     }
   }
