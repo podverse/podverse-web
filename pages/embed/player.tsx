@@ -1,7 +1,7 @@
 import { GetServerSideProps } from 'next'
 import { useTranslation } from 'next-i18next'
 import OmniAural from 'omniaural'
-import { convertToNowPlayingItem, Episode, MediaRef, NowPlayingItem } from 'podverse-shared'
+import { convertToNowPlayingItem, Episode, MediaRef, NowPlayingItem, Podcast } from 'podverse-shared'
 import { I18nPage } from '~/lib/utility/page'
 import { PV } from '~/resources'
 import { Meta } from '~/components/Meta/Meta'
@@ -20,18 +20,20 @@ import { getEpisodesAndLiveItems } from '~/services/liveItem'
 interface ServerProps extends I18nPage {
   serverEpisode?: Episode
   serverEpisodes: Episode[]
+  serverPodcast: Podcast
 }
 
 const keyPrefix = 'embed_player'
 
 /* Embeddable Player intended for iFrame use */
 
-export default function EmbedPlayerPage({ serverEpisode, serverEpisodes }: ServerProps) {
+export default function EmbedPlayerPage({ serverEpisode, serverEpisodes, serverPodcast }: ServerProps) {
   /* useEffects */
 
   useEffect(() => {
     const shouldPlay = true
-    const nowPlayingItem = convertToNowPlayingItem(serverEpisode)
+    const inheritedEpisode = null
+    const nowPlayingItem = convertToNowPlayingItem(serverEpisode, inheritedEpisode, serverPodcast)
     OmniAural.setPlayerItem(nowPlayingItem)
     if (audioIsLoaded()) {
       const previousNowPlayingItem = null
@@ -90,7 +92,8 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const props: ServerProps = {
     ...defaultServerProps,
     serverEpisode,
-    serverEpisodes
+    serverEpisodes,
+    serverPodcast
   }
 
   return { props }

@@ -1,5 +1,33 @@
 .embed-player-header {
   border-bottom: 1px solid var(--pv-embed-divider-color, rgba(255, 255, 255, .15));
   border-radius: 0;
-  padding: 8px 16px;
+  display: flex;
+  padding: 10px 16px;
+
+  .embed-player-header-image {
+    img {
+      display: block;
+    }
+  }
+
+  .embed-player-header-inner {
+    margin-left: 8px;
+
+    .embed-player-header-top {
+      .embed-player-header-top-text {
+        color: var(--pv-embed-text-color-tertiary, #74a8dc);
+        font-size: var(--pv-embed-font-size-sm, 14px);
+        font-weight: bold;
+      }
+      .embed-player-header-middle-text {
+        font-size: var(--pv-embed-font-size-lg, 19px);
+        margin-top: 4px;
+      }
+      .embed-player-header-bottom-text {
+        color: var(--pv-embed-text-color-secondary, #cccccc);
+        font-size: var(--pv-embed-font-size-tiny, 12px);
+        margin-top: 4px;
+      }
+    }
+  }
 }
