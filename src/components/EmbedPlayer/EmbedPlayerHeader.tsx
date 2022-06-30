@@ -2,7 +2,7 @@ import { faPause, faPlay } from '@fortawesome/free-solid-svg-icons'
 import classNames from 'classnames'
 import { useTranslation } from 'next-i18next'
 import OmniAural, { useOmniAural } from 'omniaural'
-import { ButtonCircle, PVImage } from '~/components'
+import { ButtonCircle, PVImage, PVLink } from '~/components'
 import { readableDate } from '~/lib/utility/date'
 import { readableClipTime } from '~/lib/utility/time'
 import { PV } from '~/resources'
@@ -23,22 +23,30 @@ export const EmbedPlayerHeader = () => {
   const isChapter = !!currentNowPlayingItem?.clipIsOfficialChapter
 
   let topText = ''
+  let topLink = ''
   let middleText = ''
+  let middleLink = ''
   let bottomText = ''
 
   if (isChapter) {
     topText = currentNowPlayingItem?.episodeTitle || t('untitledEpisode')
+    topLink = `${PV.Config.WEB_BASE_URL}${PV.RoutePaths.web.episode}/${currentNowPlayingItem?.episodeId}`
     middleText = currentNowPlayingItem?.clipTitle || t('untitledChapter')
+    middleLink = `${PV.Config.WEB_BASE_URL}${PV.RoutePaths.web.clip}/${currentNowPlayingItem?.clipId}`
     const clipTimeInfo = readableClipTime(currentNowPlayingItem?.clipStartTime, currentNowPlayingItem?.clipEndTime)
     bottomText = clipTimeInfo
   } else if (isClip) {
     topText = currentNowPlayingItem?.episodeTitle || t('untitledEpisode')
+    topLink = `${PV.Config.WEB_BASE_URL}${PV.RoutePaths.web.episode}/${currentNowPlayingItem?.episodeId}`
     middleText = currentNowPlayingItem?.clipTitle || t('untitledClip')
+    middleLink = `${PV.Config.WEB_BASE_URL}${PV.RoutePaths.web.clip}/${currentNowPlayingItem?.clipId}`
     const clipTimeInfo = readableClipTime(currentNowPlayingItem?.clipStartTime, currentNowPlayingItem?.clipEndTime)
     bottomText = clipTimeInfo
   } else {
     topText = currentNowPlayingItem?.podcastTitle || t('untitledPodcast')
+    topLink = `${PV.Config.WEB_BASE_URL}${PV.RoutePaths.web.podcast}/${currentNowPlayingItem?.podcastId}`
     middleText = currentNowPlayingItem?.episodeTitle || t('untitledEpisode')
+    middleLink = `${PV.Config.WEB_BASE_URL}${PV.RoutePaths.web.episode}/${currentNowPlayingItem?.episodeId}`
     bottomText = currentNowPlayingItem?.episodePubDate && readableDate(new Date(currentNowPlayingItem.episodePubDate))
   }
 
@@ -62,10 +70,14 @@ export const EmbedPlayerHeader = () => {
         <div className='embed-player-header-top'>
           <div className='embed-player-header-text-wrapper'>
             <div className='embed-player-header-top-text'>
-              {topText}
+              <PVLink href={topLink} target='_blank'>
+                {topText}
+              </PVLink>
             </div>
             <div className='embed-player-header-middle-text'>
-              {middleText}
+              <PVLink href={middleLink} target='_blank'>
+                {middleText}
+              </PVLink>
             </div>
             <div className='embed-player-header-bottom-text'>
               {bottomText}

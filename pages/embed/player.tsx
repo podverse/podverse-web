@@ -76,7 +76,8 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     const data = await getEpisodesAndLiveItems(
       {
         podcastIds: podcastId,
-        sort: serverFilterSort
+        sort: serverFilterSort,
+        maxResults: true
       },
       serverPodcast,
       serverFilterPage

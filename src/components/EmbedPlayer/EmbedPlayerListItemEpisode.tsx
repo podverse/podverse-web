@@ -6,7 +6,9 @@ import { ButtonCircle } from "~/components/Buttons/ButtonCircle"
 import { generateItemTimeInfo } from "~/lib/utility/date"
 import { playerCheckIfItemIsCurrentlyPlaying, playerTogglePlayOrLoadNowPlayingItem } from "~/services/player/player"
 import { LiveStatusBadge } from "../LiveStatusBadge/LiveStatusBadge"
+import { PV } from '~/resources'
 import { OmniAuralState } from '~/state/omniauralState'
+import { PVLink } from "../PVLink/PVLink"
 
 type Props = {
   episode: Episode
@@ -34,7 +36,9 @@ export const EmbedPlayerListItemEpisode = ({ episode }: Props) => {
     <div className='embed-player-list-item-episode'>
       <div className='embed-player-text-wrapper'>
         <div className='embed-player-list-item-episode-title'>
-          {episodeTitle}
+          <PVLink href={`${PV.Config.WEB_BASE_URL}${PV.RoutePaths.web.episode}/${episode.id}`} target='_blank'>
+            {episodeTitle}
+          </PVLink>
         </div>
         <div className='embed-player-list-item-time-wrapper'>
           <span className='embed-player-list-item-episode-pub-date'>
