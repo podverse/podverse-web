@@ -1,10 +1,12 @@
-import { faPlay } from "@fortawesome/free-solid-svg-icons"
+import { faPause, faPlay } from "@fortawesome/free-solid-svg-icons"
 import { useTranslation } from "next-i18next"
+import { useOmniAural } from 'omniaural'
 import { convertToNowPlayingItem, Episode } from "podverse-shared"
 import { ButtonCircle } from "~/components/Buttons/ButtonCircle"
 import { generateItemTimeInfo } from "~/lib/utility/date"
-import { playerLoadNowPlayingItem, playerTogglePlayOrLoadNowPlayingItem } from "~/services/player/player"
+import { playerCheckIfItemIsCurrentlyPlaying, playerTogglePlayOrLoadNowPlayingItem } from "~/services/player/player"
 import { LiveStatusBadge } from "../LiveStatusBadge/LiveStatusBadge"
+import { OmniAuralState } from '~/state/omniauralState'
 
 type Props = {
   episode: Episode
@@ -12,9 +14,16 @@ type Props = {
 
 export const EmbedPlayerListItemEpisode = ({ episode }: Props) => {
   const { t } = useTranslation()
+    const [player] = useOmniAural('player') as [OmniAuralState['player']]
+  const { paused } = player
+  const nowPlayingItem = convertToNowPlayingItem(episode)
   const { liveItem } = episode
   const episodeTitle = episode.title || t('untitledEpisode')
   const { pubDate, timeInfo } = generateItemTimeInfo(t, episode)
+  const isCurrentlyPlayingItem = playerCheckIfItemIsCurrentlyPlaying(paused, nowPlayingItem)
+  const togglePlayIcon = isCurrentlyPlayingItem ? faPause : faPlay
+  const togglePlayClassName = isCurrentlyPlayingItem ? 'pause' : 'play'
+  const togglePlayAriaLabel = isCurrentlyPlayingItem ? t('Pause this episode') : t('Play this episode')
 
   const _handleTogglePlayOrLoad = () => {
     const nowPlayingItem = convertToNowPlayingItem(episode)
@@ -45,10 +54,10 @@ export const EmbedPlayerListItemEpisode = ({ episode }: Props) => {
         )
       }
       <ButtonCircle
-        ariaLabel={t('Play')}
+        ariaLabel={togglePlayAriaLabel}
         ariaPressed
-        className='embed-player-play'
-        faIcon={faPlay}
+        className={togglePlayClassName}
+        faIcon={togglePlayIcon}
         onClick={_handleTogglePlayOrLoad}
         size={'small'}
       />
