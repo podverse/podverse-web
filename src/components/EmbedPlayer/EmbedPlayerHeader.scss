@@ -34,6 +34,7 @@
           @include line-clamp(1);
           font-size: var(--pv-embed-font-size-lg, 19px);
           margin-top: 3px;
+          color: var(--pv-embed-text-color-primary, #ffffff);
         }
         .embed-player-header-bottom-text {
           @include line-clamp(1);
@@ -89,7 +90,7 @@
       .embed-player-header-top {
         .embed-player-header-image-mini {
           margin: 0 12px 0 0;
-          
+
           img {
             display: block;
           }

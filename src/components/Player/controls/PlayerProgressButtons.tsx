@@ -130,11 +130,11 @@ export const PlayerProgressButtons = ({ hasMiniJump, isEmbed }: Props) => {
           />
         )}
       </div>
-      {
-        !isEmbed && (
-          <div className='bottom-row'><PlayerItemButtons /></div>
-        )
-      }
+      {!isEmbed && (
+        <div className='bottom-row'>
+          <PlayerItemButtons />
+        </div>
+      )}
     </div>
   )
 }
