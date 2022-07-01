@@ -66,7 +66,7 @@
       }
 
       .subtitle {
-        color: var(--pv-embed-text-color-quaternary, #3d9dfe);
+        color: var(--pv-embed-text-color-quaternary, #3d9dfe) !important;
         font-size: var(--pv-embed-font-size-xl, 21px);
       }
 
