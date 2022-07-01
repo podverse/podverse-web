@@ -34,6 +34,14 @@ export const EmbedPlayerListItemEpisode = ({ episode }: Props) => {
 
   return (
     <div className='embed-player-list-item-episode'>
+      <ButtonCircle
+        ariaLabel={togglePlayAriaLabel}
+        ariaPressed
+        className={togglePlayClassName}
+        faIcon={togglePlayIcon}
+        onClick={_handleTogglePlayOrLoad}
+        size={'small'}
+      />
       <div className='embed-player-text-wrapper'>
         <div className='embed-player-list-item-episode-title'>
           <PVLink href={`${PV.Config.WEB_BASE_URL}${PV.RoutePaths.web.episode}/${episode.id}`} target='_blank'>
@@ -51,14 +59,6 @@ export const EmbedPlayerListItemEpisode = ({ episode }: Props) => {
         </div>
       </div>
       {!!liveItem && <LiveStatusBadge liveItemStatus={liveItem.status} />}
-      <ButtonCircle
-        ariaLabel={togglePlayAriaLabel}
-        ariaPressed
-        className={togglePlayClassName}
-        faIcon={togglePlayIcon}
-        onClick={_handleTogglePlayOrLoad}
-        size={'small'}
-      />
     </div>
   )
 }

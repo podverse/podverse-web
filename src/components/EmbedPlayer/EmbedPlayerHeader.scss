@@ -28,7 +28,7 @@
         .embed-player-header-top-text {
           @include line-clamp(1);
           color: var(--pv-embed-text-color-secondary, #cccccc);
-          font-size: var(--pv-embed-font-size-sm, 14px);
+          font-size: var(--pv-embed-font-size-xs, 13px);
         }
         .embed-player-header-middle-text {
           @include line-clamp(1);
@@ -74,11 +74,26 @@
         }
       }
 
+      .playback-speed {
+        font-size: var(--pv-embed-font-size-sm, 14px);
+        margin-left: 8px;
+        width: 38px;
+      }
+
       .play,
       .pause {
-        margin: 0 0 0 12px;
+        margin-left: 10px;
       }
     }
+  }
+}
+
+.episode-only {
+  .embed-player-header {
+    border-bottom: none;
+    box-shadow: none;
+    height: 125px;
+    padding-bottom: 4px;
   }
 }
 

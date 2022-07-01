@@ -9,6 +9,11 @@
     border-bottom: none;
   }
 
+  button.play,
+  button.pause {
+    margin: 0 12px 0 0;
+  }
+
   .embed-player-text-wrapper {
     flex: 1;
 
@@ -26,13 +31,6 @@
       .embed-player-list-item-time-spacer {
         margin: 0 4px;
       }
-    }
-  }
-
-  .embed-player-play {
-    svg {
-      margin-left: 2px;
-      width: 0.6em;
     }
   }
 

@@ -17,11 +17,19 @@
     justify-content: space-between;
 
     .embed-player-footer-link {
-      font-size: var(--pv-embed-font-size-sm, 14px);
+      font-size: var(--pv-embed-font-size-xs, 13px);
 
       &:first-child {
         margin: 0 0 0 24px;
       }
     }
+  }
+}
+
+.episode-only {
+  .embed-player-footer {
+    border-top: none;
+    height: 39px;
+    padding: 0 16px 0 16px;
   }
 }

@@ -29,6 +29,7 @@ export default function EmbedPlayerPage({ serverEpisode, serverEpisodes, serverP
   /* Initialize */
   const [player] = useOmniAural('player') as [OmniAuralState['player']]
   const { currentNowPlayingItem } = player
+  const episodeOnly = serverEpisodes.length === 0
 
   /* useEffects */
 
@@ -43,9 +44,9 @@ export default function EmbedPlayerPage({ serverEpisode, serverEpisodes, serverP
   return (
     <>
       <Meta robotsNoIndex={true} />
-      <EmbedPlayerWrapper>
-        <EmbedPlayerHeader />
-        <EmbedPlayerList episodes={serverEpisodes} keyPrefix={keyPrefix} />
+      <EmbedPlayerWrapper episodeOnly={episodeOnly}>
+        <EmbedPlayerHeader hideFullView={episodeOnly} />
+        {!episodeOnly && <EmbedPlayerList episodes={serverEpisodes} keyPrefix={keyPrefix} />}
       </EmbedPlayerWrapper>
       {currentNowPlayingItem && <PlayerFullView isEmbed nowPlayingItem={currentNowPlayingItem} />}
       <TwitterCardPlayerAPIAudio shouldLoadChapters />
@@ -59,39 +60,35 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { locale, query } = ctx
   const { episodeId, podcastId } = query
 
-  const [defaultServerProps, podcastResponse] = await Promise.all([
-    getDefaultEmbedServerSideProps(ctx, locale),
-    getPodcastById(podcastId as string)
-  ])
+  const serverEpisodesFilterSort = PV.Filters.sort._mostRecent
+  const serverEpisodesFilterPage = 1
 
-  const serverPodcast = podcastResponse.data
-
-  const serverFilterType = PV.Filters.type._episodes
-  const serverFilterSort = PV.Filters.sort._mostRecent
-  const serverFilterPage = 1
-
+  let serverPodcast = null
   let serverEpisodes = []
   let serverEpisode = null
 
-  if (serverFilterType === PV.Filters.type._episodes) {
+  const defaultServerProps = await getDefaultEmbedServerSideProps(ctx, locale)
+
+  if (podcastId) {
+    serverPodcast = (await getPodcastById(podcastId as string)).data
     const data = await getEpisodesAndLiveItems(
       {
         podcastIds: podcastId,
-        sort: serverFilterSort,
+        sort: serverEpisodesFilterSort,
         maxResults: true
       },
       serverPodcast,
-      serverFilterPage
+      serverEpisodesFilterPage
     )
 
     const [combinedEpisodesData] = data.combinedEpisodes
     serverEpisodes = combinedEpisodesData
+  }
 
-    if (episodeId) {
-      serverEpisode = (await getEpisodeById(episodeId as string)).data
-    } else {
-      serverEpisode = serverEpisodes[0]
-    }
+  if (episodeId) {
+    serverEpisode = (await getEpisodeById(episodeId as string)).data
+  } else if (serverEpisodes.length > 0) {
+    serverEpisode = serverEpisodes[0]
   }
 
   const props: ServerProps = {

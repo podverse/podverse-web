@@ -10,11 +10,12 @@ import { useTranslation } from 'next-i18next'
 import { useCookies } from 'react-cookie'
 
 type Props = {
+  isEmbed?: boolean
   isFullScreen?: boolean
 }
 
 export const PlayerItemButtons = (props: Props) => {
-  const { isFullScreen } = props
+  const { isEmbed, isFullScreen } = props
   const { t } = useTranslation()
   const [cookies, setCookie] = useCookies([])
   const [player] = useOmniAural('player') as [OmniAuralState['player']]
@@ -28,6 +29,14 @@ export const PlayerItemButtons = (props: Props) => {
       <div className='player-control-button-row'>
         {!isLiveItem && (
           <>
+            {!isEmbed && (
+              <PlayerOptionButton
+                ariaLabel={t('Add to Playlist')}
+                onClick={() => modalsAddToPlaylistShowOrAlert(currentNowPlayingItem)}
+                size='small'
+                type='add'
+              />
+            )}
             <PlayerOptionButton
               ariaDescription={t('Playback speed')}
               onClick={() => playerNextSpeed(cookies, setCookie)}
@@ -36,24 +45,20 @@ export const PlayerItemButtons = (props: Props) => {
             >
               {playSpeed}x
             </PlayerOptionButton>
-            <PlayerOptionButton
-              ariaLabel={t('Add to Playlist')}
-              onClick={() => modalsAddToPlaylistShowOrAlert(currentNowPlayingItem)}
-              size='small'
-              type='add'
-            />
-            <PlayerOptionButton
-              ariaLabel={t('Make Clip')}
-              onClick={() => {
-                const currentPlaybackPosition = playerGetPosition() || 0
-                const hhmmssPlaybackPosition = convertSecToHHMMSS(currentPlaybackPosition)
-                OmniAural.makeClipSetStartTime(hhmmssPlaybackPosition)
-                const userInfo = OmniAural.state.session.userInfo.value()
-                userInfo ? OmniAural.makeClipShow() : OmniAural.modalsLoginToAlertShow('make clip')
-              }}
-              size='small'
-              type='make-clip'
-            />
+            {!isEmbed && (
+              <PlayerOptionButton
+                ariaLabel={t('Make Clip')}
+                onClick={() => {
+                  const currentPlaybackPosition = playerGetPosition() || 0
+                  const hhmmssPlaybackPosition = convertSecToHHMMSS(currentPlaybackPosition)
+                  OmniAural.makeClipSetStartTime(hhmmssPlaybackPosition)
+                  const userInfo = OmniAural.state.session.userInfo.value()
+                  userInfo ? OmniAural.makeClipShow() : OmniAural.modalsLoginToAlertShow('make clip')
+                }}
+                size='small'
+                type='make-clip'
+              />
+            )}
           </>
         )}
       </div>
