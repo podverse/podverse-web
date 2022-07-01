@@ -10,6 +10,10 @@ body {
   font-weight: 400;
   word-break: break-word;
 
+  @include themeGen() {
+    color: getThemeVal('textPrimary');
+  }
+
   .app {
     display: flex;
     flex-direction: column;
@@ -17,7 +21,6 @@ body {
 
     @include themeGen() {
       background-color: getThemeVal('backgroundPrimary');
-      color: getThemeVal('textPrimary');
     }
 
     &.is-embed {
