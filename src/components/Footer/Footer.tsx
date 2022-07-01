@@ -107,6 +107,11 @@ export const Footer = () => {
                 {t('Mobile App')}
               </PVLink>
             </li>
+            <li>
+              <PVLink className='footer-link-mobile-app' href={PV.RoutePaths.web.embed.player_demo}>
+                {t('Embed')}
+              </PVLink>
+            </li>
             {/* <li>
               <PVLink href='/v4v-wallet'>V4V Wallet</PVLink>
             </li> */}

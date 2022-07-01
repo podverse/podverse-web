@@ -351,17 +351,3 @@
     }
   }
 }
-
-@media (hover: hover) {
-  .player-full-view {
-    .title-wrapper {
-      a {
-        &:hover {
-          @include themeGen() {
-            color: getThemeVal('textHover');
-          }
-        }
-      }
-    }
-  }
-}

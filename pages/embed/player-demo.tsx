@@ -1,23 +1,24 @@
 import { GetServerSideProps } from 'next'
 import { Page } from '~/lib/utility/page'
 import { PV } from '~/resources'
-import { ColumnsWrapper, PageHeader, PageScrollableContent } from '~/components'
+import { ColumnsWrapper, Footer, PageHeader, PageScrollableContent } from '~/components'
 import { Meta } from '~/components/Meta/Meta'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
-import Head from 'next/head'
 import Script from 'next/script'
+import { useTranslation } from 'next-i18next'
 
 type ServerProps = Page
 
 export default function About(props: ServerProps) {
   /* Initialize */
+  const { t } = useTranslation()
 
   /* Meta Tags */
 
   const meta = {
     currentUrl: `${PV.Config.WEB_BASE_URL}${PV.RoutePaths.web.embed.player_demo}`,
-    description: 'A demo of the embeddable Podverse player.',
-    title: 'Podverse Embed Demo'
+    description: t('pages-embed-player-demo_Description'),
+    title: t('pages-embed-player-demo_Title')
   }
 
   return (
@@ -119,6 +120,7 @@ export default function About(props: ServerProps) {
             </div>
           }
         />
+        <Footer />
       </PageScrollableContent>
     </>
   )

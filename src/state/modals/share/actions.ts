@@ -1,5 +1,6 @@
 import OmniAural from 'omniaural'
 import { PV } from '~/resources'
+import { generateEmbedPlayerIframeHTML } from '~/services/embed'
 
 const modalsShareHide = () => {
   OmniAural.state.modals.share.items.set(null)
@@ -60,6 +61,10 @@ const modalsShareShowEpisode = (episodeId: string, podcastId: string) => {
     {
       label: 'Podcast',
       url: generateShareUrl(podcastId, PV.RoutePaths.web.podcast)
+    },
+    {
+      label: 'Embed',
+      url: generateEmbedPlayerIframeHTML(null, episodeId)
     }
   ]
 
@@ -86,6 +91,10 @@ const modalsShareShowPodcast = (podcastId: string) => {
     {
       label: 'Podcast',
       url: generateShareUrl(podcastId, PV.RoutePaths.web.podcast)
+    },
+    {
+      label: 'Embed',
+      url: generateEmbedPlayerIframeHTML(podcastId)
     }
   ]
 

@@ -47,8 +47,8 @@ export default function EmbedPlayerPage({ serverEpisode, serverEpisodes, serverP
       <EmbedPlayerWrapper episodeOnly={episodeOnly}>
         <EmbedPlayerHeader hideFullView={episodeOnly} />
         {!episodeOnly && <EmbedPlayerList episodes={serverEpisodes} keyPrefix={keyPrefix} />}
+        {currentNowPlayingItem && <PlayerFullView isEmbed nowPlayingItem={currentNowPlayingItem} />}
       </EmbedPlayerWrapper>
-      {currentNowPlayingItem && <PlayerFullView isEmbed nowPlayingItem={currentNowPlayingItem} />}
       <TwitterCardPlayerAPIAudio shouldLoadChapters />
     </>
   )

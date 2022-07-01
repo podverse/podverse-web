@@ -17,6 +17,7 @@
     justify-content: space-between;
 
     .embed-player-footer-link {
+      color: var(--pv-embed-text-color-primary, #ffffff);
       font-size: var(--pv-embed-font-size-xs, 13px);
 
       &:first-child {

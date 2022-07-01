@@ -47,6 +47,7 @@
 
       .embed-player-header-top-side {
         .player-option-button.small {
+          color: var(--pv-embed-text-color-primary, #ffffff);
           height: auto;
           width: auto;
         }
@@ -75,6 +76,7 @@
       }
 
       .playback-speed {
+        color: var(--pv-embed-text-color-primary, #ffffff);
         font-size: var(--pv-embed-font-size-sm, 14px);
         margin-left: 8px;
         width: 38px;

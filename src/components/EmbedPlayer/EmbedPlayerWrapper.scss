@@ -2,5 +2,67 @@
   background-color: var(--pv-embed-background-color, #030626);
   border: 1px solid var(--pv-embed-border-color, #aaaaaa);
   border-radius: 4px;
+  font-family:  var(--pv-embed-font-family, Roboto, -apple-system, BlinkMacSystemFont, Segoe UI, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif);
   max-width: var(--pv-embed-max-width, 500px);
+
+  .embed-player-wrapper {
+    .button-close {
+      background-color: var(--pv-embed-close-button-background-color, #0f1235);
+  
+      svg {
+        color: var(--pv-embed-close-button-icon-color, #ffffff);
+      }
+    }
+  
+    .player-bar-container {
+      .player-bar-label {
+        color: var(--pv-embed-text-color-tertiary, #74a8dc);
+        font-size: var(--pv-embed-font-size-tiny, 12px);
+      }
+    }
+  
+    .player-progress-container {
+      .player-progress-button {
+        color: var(--pv-embed-icon-color, #cccccc);
+  
+        .jump-time-text {
+          color: var(--pv-embed-icon-color, #cccccc);
+        }
+      }
+  
+      .player-buttons-container {
+        .player-option-button {
+          color: var(--pv-embed-icon-color, #cccccc);
+          font-size: var(--pv-embed-font-size-md, 16px);
+        }
+      }
+    }
+  
+    .play, .pause {
+      background-color: var(--pv-embed-play-button-background-color, #252a6499);
+      border-color: var(--pv-embed-play-button-border-color, #3d9dfe);
+      
+      svg {
+        color: var(--pv-embed-play-button-icon-color, #ffffff);
+      }
+    }
+
+    .player-full-view {
+      .title-wrapper-top {
+        h1 {
+          color: var(--pv-embed-text-color-primary, #ffffff);
+          font-size: var(--pv-embed-font-size-xxxl, 33px);
+        }
+      }
+
+      .subtitle {
+        color: var(--pv-embed-text-color-quaternary, #3d9dfe);
+        font-size: var(--pv-embed-font-size-xl, 21px);
+      }
+    }
+  }
+
 }
+
+
+
