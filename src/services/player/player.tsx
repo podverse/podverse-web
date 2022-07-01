@@ -187,16 +187,18 @@ export const playerNextSpeed = (cookies: any, setCookie: any) => {
   }
 
   playerSetPlaybackSpeed(newSpeed)
-  const cookiePlayerSettings = cookies?.playerSettings || {}
 
-  setCookie(
-    'playerSettings',
-    {
-      ...cookiePlayerSettings,
-      playSpeed: newSpeed
-    },
-    { path: PV.Cookies.path }
-  )
+  if (setCookie) {
+    const cookiePlayerSettings = cookies?.playerSettings || {}
+    setCookie(
+      'playerSettings',
+      {
+        ...cookiePlayerSettings,
+        playSpeed: newSpeed
+      },
+      { path: PV.Cookies.path }
+    )
+  }
 }
 
 export const playerSetPlaybackSpeed = (newSpeed: number) => {

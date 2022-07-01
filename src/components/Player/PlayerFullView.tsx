@@ -20,10 +20,11 @@ import { PlayerAPIVideo } from './PlayerAPI/PlayerAPIVideo'
 import { PlayerItemButtons } from './PlayerItemOptions'
 
 type Props = {
+  isEmbed?: boolean
   nowPlayingItem: NowPlayingItem
 }
 
-export const PlayerFullView = ({ nowPlayingItem }: Props) => {
+export const PlayerFullView = ({ isEmbed, nowPlayingItem }: Props) => {
   const { t } = useTranslation()
   const [player] = useOmniAural('player') as [OmniAuralState['player']]
   const {
@@ -34,8 +35,14 @@ export const PlayerFullView = ({ nowPlayingItem }: Props) => {
     highlightedPositions,
     showFullView
   } = player
-  const podcastPageUrl = `${PV.RoutePaths.web.podcast}/${nowPlayingItem.podcastId}`
-  const episodePageUrl = `${PV.RoutePaths.web.episode}/${nowPlayingItem.episodeId}`
+  const podcastPageUrl = isEmbed
+    ? `${PV.Config.WEB_BASE_URL}/${PV.RoutePaths.web.podcast}/${nowPlayingItem.podcastId}`
+    : `${PV.RoutePaths.web.podcast}/${nowPlayingItem.podcastId}`
+  const podcastLinkTarget = isEmbed ? '_blank' : ''
+  const episodePageUrl = isEmbed
+    ? `${PV.Config.WEB_BASE_URL}/${PV.RoutePaths.web.episode}/${nowPlayingItem.episodeId}`
+    : `${PV.RoutePaths.web.episode}/${nowPlayingItem.episodeId}`
+  const episodeLinkTarget = isEmbed ? '_blank' : ''
   const imageWrapperClass = classNames('image-wrapper', nowPlayingItem.clipId ? 'has-clip-info' : '')
 
   const result = extractSelectedEnclosureSourceAndContentType(
@@ -137,13 +144,13 @@ export const PlayerFullView = ({ nowPlayingItem }: Props) => {
           <div className='title-wrapper'>
             <div className='title-wrapper-top'>
               <h1 role='none'>
-                <PVLink href={episodePageUrl} onClick={_onRequestClose}>
+                <PVLink href={episodePageUrl} onClick={_onRequestClose} target={episodeLinkTarget}>
                   {nowPlayingItem.episodeTitle || t('untitledEpisode')}
                 </PVLink>
               </h1>
             </div>
             <div className='subtitle'>
-              <PVLink href={podcastPageUrl} onClick={_onRequestClose}>
+              <PVLink href={podcastPageUrl} onClick={_onRequestClose} target={podcastLinkTarget}>
                 {nowPlayingItem.podcastTitle || t('untitledPodcast')}
               </PVLink>
             </div>
@@ -179,7 +186,7 @@ export const PlayerFullView = ({ nowPlayingItem }: Props) => {
             />
             <div className='player-progress-container'>
               <div className='player-item-info-container' />
-              <PlayerProgressButtons />
+              <PlayerProgressButtons isEmbed={isEmbed} />
               <PlayerItemButtons isFullScreen />
             </div>
           </div>

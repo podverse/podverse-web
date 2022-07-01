@@ -24,6 +24,16 @@
   }
 }
 
+@mixin blurredBackgroundEmbed() {
+  background-color: rgba(0, 0, 0, 0.875) !important;
+
+  @supports (backdrop-filter: blur($background-blur)) {
+    backdrop-filter: blur($background-blur) !important;
+    -webkit-backdrop-filter: blur($background-blur) !important;
+    background-color: var(--pv-embed-full-screen-background-color, rgba(15, 18, 53, 0.4)) !important;
+  }
+}
+
 @mixin placeholderColor($color) {
   &::-webkit-input-placeholder {
     /* Chrome/Opera/Safari */

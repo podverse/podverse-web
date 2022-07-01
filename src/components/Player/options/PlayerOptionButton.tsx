@@ -9,15 +9,26 @@ import {
   faCompressAlt
 } from '@fortawesome/free-solid-svg-icons'
 import classnames from 'classnames'
+import { PVLink } from '~/components'
 
 type Props = {
   ariaDescription?: string
   ariaLabel?: string
   ariaPressed?: boolean
   className?: string
+  linkUrl?: string
   onClick?: any
   size: 'small' | 'medium' | 'large'
-  type: 'speed' | 'add' | 'make-clip' | 'share' | 'fullscreen-hide' | 'fullscreen-show' | 'mute' | 'unmute'
+  type:
+    | 'speed'
+    | 'add'
+    | 'make-clip'
+    | 'share'
+    | 'fullscreen-hide'
+    | 'fullscreen-show'
+    | 'mute'
+    | 'unmute'
+    | 'value-enabled'
   children?: any
 }
 
@@ -26,6 +37,7 @@ export const PlayerOptionButton = ({
   ariaLabel,
   ariaPressed,
   className,
+  linkUrl,
   onClick,
   size,
   type,
@@ -69,8 +81,14 @@ export const PlayerOptionButton = ({
       aria-pressed={ariaPressed}
       className={wrapperClass}
       onClick={onClick}
+      {...(type === 'value-enabled' ? { tabIndex: -1 } : {})}
     >
       {icon && <FontAwesomeIcon icon={icon} />}
+      {type === 'value-enabled' && (
+        <PVLink href={linkUrl} target='_blank'>
+          ⚡️
+        </PVLink>
+      )}
       {children}
     </button>
   )

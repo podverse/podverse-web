@@ -1,0 +1,8 @@
+.embed-player-list {
+  // 133px = EmbedPlayerHeader
+  // 43px = EmbedPlayerFooter
+  // 2px = borders
+  max-height: calc(var(--pv-embed-list-max-height, 500px) - 133px - 43px - 2px);
+  max-width: var(--pv-embed-max-width, 500px);
+  overflow: auto;
+}
