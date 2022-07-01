@@ -10,7 +10,7 @@ export const EmbedPlayerFooter = () => {
 
   return (
     <div className='embed-player-footer'>
-      <NavBarBrand height={17} href={`${PV.Config.WEB_BASE_URL}`} src={PV.Images.dark.brandLogo} width={90} />
+      <NavBarBrand height={17} href={`${PV.Config.WEB_BASE_URL}`} src={PV.Images.dark.brandLogo} target='_blank' width={90} />
       <div className='embed-player-footer-links'>
         <PVLink className='embed-player-footer-link' href={`${PV.Config.WEB_BASE_URL}/about`}>
           {t('About')}
