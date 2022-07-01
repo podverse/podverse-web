@@ -106,7 +106,7 @@ export const EmbedPlayerHeader = ({ hideFullView }: Props) => {
             </div>
             <div className='embed-player-header-bottom-text'>{bottomText}</div>
           </div>
-          {!hideFullView && (
+          {(!hideFullView || isLightningEnabled) && (
             <div className='embed-player-header-top-side'>
               {
                 isLightningEnabled && (
@@ -120,13 +120,17 @@ export const EmbedPlayerHeader = ({ hideFullView }: Props) => {
                   />
                 )
               }
-              <PlayerOptionButton
-                ariaLabel={showFullView ? t('Hide full screen player') : t('Show full screen player')}
-                ariaPressed
-                onClick={showFullView ? OmniAural.playerFullViewHide : OmniAural.playerFullViewShow}
-                size='small'
-                type={showFullView ? 'fullscreen-hide' : 'fullscreen-show'}
-              />
+              {
+                !hideFullView && (
+                  <PlayerOptionButton
+                    ariaLabel={showFullView ? t('Hide full screen player') : t('Show full screen player')}
+                    ariaPressed
+                    onClick={showFullView ? OmniAural.playerFullViewHide : OmniAural.playerFullViewShow}
+                    size='small'
+                    type={showFullView ? 'fullscreen-hide' : 'fullscreen-show'}
+                  />
+                )
+              }
             </div>
           )}
         </div>

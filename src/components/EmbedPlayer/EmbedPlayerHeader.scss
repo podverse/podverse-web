@@ -29,6 +29,7 @@
           @include line-clamp(1);
           color: var(--pv-embed-text-color-secondary, #cccccc);
           font-size: var(--pv-embed-font-size-xs, 13px);
+          margin: 2px 0 0 0;
         }
         .embed-player-header-middle-text {
           @include line-clamp(1);
@@ -55,7 +56,7 @@
           display: block;
           height: auto;
           line-height: unset;
-          margin: 0;
+          margin: 0 0 0 12px;
           width: auto;
         }
       }

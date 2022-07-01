@@ -49,7 +49,6 @@ export default function About(props: ServerProps) {
 
         pvSetCSSVariable('--pv-embed-font-family', 'Roboto, -apple-system, BlinkMacSystemFont, Segoe UI, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif');
 
-        pvSetCSSVariable('--pv-embed-font-size-huge', '48px');
         pvSetCSSVariable('--pv-embed-font-size-xxxl', '33px');
         pvSetCSSVariable('--pv-embed-font-size-xxl: 27px');
         pvSetCSSVariable('--pv-embed-font-size-xl', '21px');
@@ -86,37 +85,34 @@ export default function About(props: ServerProps) {
         <ColumnsWrapper
           mainColumnChildren={
             <div className='text-page'>
-              <br />
-              <p>
-                <b>Sample iframe code:</b>
-              </p>
-              <p>
-                &lt;iframe style="height: 580px; max-width: 600px; width: 100%; border: 0;"
-                src="https://podverse.fm/embed/player?podcastId=peLVTHMwlg&episodeId=j6hSyWX93" title="Podcasting 2.0"
-                class="pv-embed-player"&gt;&lt;/iframe&gt;
-              </p>
-              <br />
+              <h2>{t('Episode only')}</h2>
+              <p>{t('Embed episode only instructions')}</p>
               <iframe
                 id='pv-embed-player'
-                style={{ border: 0, height: '580px', maxWidth: '600px', width: '100%' }}
-                src={`${PV.Config.WEB_BASE_URL}${PV.RoutePaths.web.embed.player}?podcastId=peLVTHMwlg&episodeId=j6hSyWX93`}
+                style={{ border: 0, height: '170px', maxWidth: '600px', width: '100%' }}
+                src={`${PV.Config.WEB_BASE_URL}${PV.RoutePaths.web.embed.player}?episodeId=kilYJsW3A`}
                 title='Podcasting 2.0'
               ></iframe>
               <br />
               <br />
               <br />
-              <p>
-                <b>More info:</b>
-              </p>
-              <p>podcastId is required.</p>
-              <p>To preload a specific episode, set the episodeId.</p>
-              <p>Adjust the height and max-width as needed for your site.</p>
+              <h2>{t('Podcast with all episodes')}</h2>
+              <p>{t('Embed podcast with episodes instructions')}</p>
+              <iframe
+                id='pv-embed-player'
+                style={{ border: 0, height: '580px', maxWidth: '600px', width: '100%' }}
+                src={`${PV.Config.WEB_BASE_URL}${PV.RoutePaths.web.embed.player}?podcastId=g40Um-HP1`}
+                title='Podcasting 2.0'
+              ></iframe>
               <br />
               <br />
-              <p>
-                <b>Advanced:</b>
-              </p>
-              <p>How to override CSS styles (coming soon)</p>
+              <br />
+              <h2>{t('Custom CSS styles')}</h2>
+              <p>{t('Embed custom CSS intro instructions')}</p>
+              <p>{t('Demo')}:</p>
+              <br />
+              <br />
+              <br />
             </div>
           }
         />
