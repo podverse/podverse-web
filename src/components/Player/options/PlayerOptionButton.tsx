@@ -19,7 +19,16 @@ type Props = {
   linkUrl?: string
   onClick?: any
   size: 'small' | 'medium' | 'large'
-  type: 'speed' | 'add' | 'make-clip' | 'share' | 'fullscreen-hide' | 'fullscreen-show' | 'mute' | 'unmute' | 'value-enabled'
+  type:
+    | 'speed'
+    | 'add'
+    | 'make-clip'
+    | 'share'
+    | 'fullscreen-hide'
+    | 'fullscreen-show'
+    | 'mute'
+    | 'unmute'
+    | 'value-enabled'
   children?: any
 }
 
@@ -72,10 +81,14 @@ export const PlayerOptionButton = ({
       aria-pressed={ariaPressed}
       className={wrapperClass}
       onClick={onClick}
-      {...(type === 'value-enabled') ? { tabIndex: '-1' } : {}}
+      {...(type === 'value-enabled' ? { tabIndex: '-1' } : {})}
     >
       {icon && <FontAwesomeIcon icon={icon} />}
-      {type === 'value-enabled' && <PVLink href={linkUrl} target='_blank'>⚡️</PVLink>}
+      {type === 'value-enabled' && (
+        <PVLink href={linkUrl} target='_blank'>
+          ⚡️
+        </PVLink>
+      )}
       {children}
     </button>
   )

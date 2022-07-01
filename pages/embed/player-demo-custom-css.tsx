@@ -35,49 +35,64 @@ export default function About(props: ServerProps) {
         twitterTitle={meta.title}
       />
 
-      <Script id='pv-override-iframe-variables'>{`
-        const pvFrame = document.querySelector('#pv-embed-player').contentWindow;
-        const pvSetCSSVariable = (key, value) => pvFrame.document.documentElement.style.setProperty(key, value);
+      <Script defer id='pv-override-iframe-variables'>{`
+        const eventMethod = window.addEventListener ? "addEventListener" : "attachEvent";
+        const eventer = window[eventMethod];
+        const messageEvent = eventMethod == "attachEvent" ? "onmessage" : "message";
 
-        pvSetCSSVariable('--pv-embed-max-width', 'auto');
-        pvSetCSSVariable('--pv-embed-list-max-height', '100vh');
+        eventer(messageEvent, function(e) {
+          const key = e.message ? "message" : "data";
+          const data = e[key];
 
-        pvSetCSSVariable('--pv-embed-background-color', '#030626');
-
-        pvSetCSSVariable('--pv-embed-border-color', 'rgba(255, 255, 255, 0.15)');
-        pvSetCSSVariable('--pv-embed-divider-color', 'rgba(255, 255, 255, 0.1)');
-
-        pvSetCSSVariable('--pv-embed-font-family', 'Roboto, -apple-system, BlinkMacSystemFont, Segoe UI, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif');
-
-        pvSetCSSVariable('--pv-embed-font-size-xxxl', '33px');
-        pvSetCSSVariable('--pv-embed-font-size-xxl: 27px');
-        pvSetCSSVariable('--pv-embed-font-size-xl', '21px');
-        pvSetCSSVariable('--pv-embed-font-size-lg', '19px');
-        pvSetCSSVariable('--pv-embed-font-size-md', '16px');
-        pvSetCSSVariable('--pv-embed-font-size-sm', '14px');
-        pvSetCSSVariable('--pv-embed-font-size-tiny', '12px');
-        pvSetCSSVariable('--pv-embed-font-size-tiniest', '9px');
-
-        pvSetCSSVariable('--pv-embed-text-color-primary', '#ffffff');
-        pvSetCSSVariable('--pv-embed-text-color-secondary', '#cccccc');
-        pvSetCSSVariable('--pv-embed-text-color-tertiary', '#74a8dc');
-        pvSetCSSVariable('--pv-embed-text-color-quaternary', '#3d9dfe');
-
-        pvSetCSSVariable('--pv-embed-icon-color', '#cccccc');
-
-        pvSetCSSVariable('--pv-embed-play-button-background-color', '#252a6499');
-        pvSetCSSVariable('--pv-embed-play-button-border-color', '#3d9dfe');
-        pvSetCSSVariable('--pv-embed-play-button-icon-color', '#ffffff');
-
-        pvSetCSSVariable('--pv-embed-slider-background-color', '#252a64');
-        pvSetCSSVariable('--pv-embed-slider-fill-color', '#ffffff');
-        pvSetCSSVariable('--pv-embed-slider-marker-color', '#3d9dfe');
-        pvSetCSSVariable('--pv-embed-slider-highlight-color', 'rgba(61, 157, 254, 0.5)');
-
-        pvSetCSSVariable('--pv-embed-close-button-background-color', '#0f1235');
-        pvSetCSSVariable('--pv-embed-close-button-icon-color', '#ffffff');
-
-        pvSetCSSVariable('--pv-embed-full-screen-background-color', 'rgba(15, 18, 53, 0.4)');
+          if (data == 'pv-embed-has-loaded') {
+            const pvFrame = document.querySelector('#pv-embed-player').contentWindow;
+            const pvFrame2 = document.querySelector('#pv-embed-player-2').contentWindow;
+            const pvSetCSSVariable = (key, value) => {
+              pvFrame.document.documentElement.style.setProperty(key, value);
+              pvFrame2.document.documentElement.style.setProperty(key, value);
+            };
+    
+            pvSetCSSVariable('--pv-embed-max-width', 'auto');
+            pvSetCSSVariable('--pv-embed-list-max-height', '100vh');
+    
+            pvSetCSSVariable('--pv-embed-background-color', '#ffffff');
+    
+            pvSetCSSVariable('--pv-embed-border-color', 'rgba(0, 0, 0, 0.1)');
+            pvSetCSSVariable('--pv-embed-divider-color', 'rgba(255, 255, 255, 0.2)');
+    
+            pvSetCSSVariable('--pv-embed-font-family', 'Roboto, -apple-system, BlinkMacSystemFont, Segoe UI, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif');
+    
+            pvSetCSSVariable('--pv-embed-font-size-xxxl', '33px');
+            pvSetCSSVariable('--pv-embed-font-size-xxl: 27px');
+            pvSetCSSVariable('--pv-embed-font-size-xl', '21px');
+            pvSetCSSVariable('--pv-embed-font-size-lg', '19px');
+            pvSetCSSVariable('--pv-embed-font-size-md', '16px');
+            pvSetCSSVariable('--pv-embed-font-size-sm', '14px');
+            pvSetCSSVariable('--pv-embed-font-size-tiny', '12px');
+            pvSetCSSVariable('--pv-embed-font-size-tiniest', '9px');
+    
+            pvSetCSSVariable('--pv-embed-text-color-primary', '#2d2d2d');
+            pvSetCSSVariable('--pv-embed-text-color-secondary', '#333333');
+            pvSetCSSVariable('--pv-embed-text-color-tertiary', '#868686');
+            pvSetCSSVariable('--pv-embed-text-color-quaternary', '#e90000');
+    
+            pvSetCSSVariable('--pv-embed-icon-color', '#676767');
+    
+            pvSetCSSVariable('--pv-embed-play-button-background-color', '#f7f7f799');
+            pvSetCSSVariable('--pv-embed-play-button-border-color', '#676767');
+            pvSetCSSVariable('--pv-embed-play-button-icon-color', '#676767');
+    
+            pvSetCSSVariable('--pv-embed-slider-background-color', 'rgba(221,221,221,.5)');
+            pvSetCSSVariable('--pv-embed-slider-fill-color', '#aaaaaa');
+            pvSetCSSVariable('--pv-embed-slider-marker-color', '#e90000');
+            pvSetCSSVariable('--pv-embed-slider-highlight-color', 'rgba(233, 0, 0, 0.5)');
+    
+            pvSetCSSVariable('--pv-embed-close-button-background-color', '#cccccc');
+            pvSetCSSVariable('--pv-embed-close-button-icon-color', '#333333');
+    
+            pvSetCSSVariable('--pv-embed-full-screen-background-color', 'rgba(255, 255, 255, 0.2)');
+          }
+        })
       `}</Script>
 
       <PageHeader text={meta.title} />
@@ -91,7 +106,7 @@ export default function About(props: ServerProps) {
                 id='pv-embed-player'
                 style={{ border: 0, height: '170px', maxWidth: '600px', width: '100%' }}
                 src={`${PV.Config.WEB_BASE_URL}${PV.RoutePaths.web.embed.player}?episodeId=j6hSyWX93`}
-                title='Podcasting 2.0'
+                title='Podverse Embed Player'
               ></iframe>
               <br />
               <br />
@@ -99,62 +114,75 @@ export default function About(props: ServerProps) {
               <h2>{t('Podcast with all episodes')}</h2>
               <p>{t('Embed podcast with episodes instructions')}</p>
               <iframe
-                id='pv-embed-player'
+                id='pv-embed-player-2'
                 style={{ border: 0, height: '580px', maxWidth: '600px', width: '100%' }}
                 src={`${PV.Config.WEB_BASE_URL}${PV.RoutePaths.web.embed.player}?podcastId=peLVTHMwlg`}
-                title='Podcasting 2.0'
+                title='Poverse Embed Player'
               ></iframe>
               <br />
               <br />
               <br />
               <h2>{t('How To')}</h2>
               <p>{t('Embed custom CSS instructions')}</p>
-              <code>{`
-<script>
-  const pvFrame = document.querySelector('#pv-embed-player').contentWindow;
-  const pvSetCSSVariable = (key, value) => pvFrame.document.documentElement.style.setProperty(key, value);
+              <code>{`<script>
+  const eventMethod = window.addEventListener ? "addEventListener" : "attachEvent";
+  const eventer = window[eventMethod];
+  const messageEvent = eventMethod == "attachEvent" ? "onmessage" : "message";
 
-  pvSetCSSVariable('--pv-embed-max-width', 'auto');
-  pvSetCSSVariable('--pv-embed-list-max-height', '100vh');
+  eventer(messageEvent, function(e) {
+    const key = e.message ? "message" : "data";
+    const data = e[key];
 
-  pvSetCSSVariable('--pv-embed-background-color', '#030626');
+    if (data == 'pv-embed-has-loaded') {
+      const pvFrame = document.querySelector('#pv-embed-player').contentWindow;
+      const pvFrame2 = document.querySelector('#pv-embed-player-2').contentWindow;
+      const pvSetCSSVariable = (key, value) => {
+        pvFrame.document.documentElement.style.setProperty(key, value);
+        pvFrame2.document.documentElement.style.setProperty(key, value);
+      };
 
-  pvSetCSSVariable('--pv-embed-border-color', 'rgba(255, 255, 255, 0.15)');
-  pvSetCSSVariable('--pv-embed-divider-color', 'rgba(255, 255, 255, 0.1)');
+      pvSetCSSVariable('--pv-embed-max-width', 'auto');
+      pvSetCSSVariable('--pv-embed-list-max-height', '100vh');
 
-  pvSetCSSVariable('--pv-embed-font-family', 'Roboto, -apple-system, BlinkMacSystemFont, Segoe UI, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif');
+      pvSetCSSVariable('--pv-embed-background-color', '#ffffff');
 
-  pvSetCSSVariable('--pv-embed-font-size-xxxl', '33px');
-  pvSetCSSVariable('--pv-embed-font-size-xxl: 27px');
-  pvSetCSSVariable('--pv-embed-font-size-xl', '21px');
-  pvSetCSSVariable('--pv-embed-font-size-lg', '19px');
-  pvSetCSSVariable('--pv-embed-font-size-md', '16px');
-  pvSetCSSVariable('--pv-embed-font-size-sm', '14px');
-  pvSetCSSVariable('--pv-embed-font-size-tiny', '12px');
-  pvSetCSSVariable('--pv-embed-font-size-tiniest', '9px');
+      pvSetCSSVariable('--pv-embed-border-color', 'rgba(0, 0, 0, 0.1)');
+      pvSetCSSVariable('--pv-embed-divider-color', 'rgba(255, 255, 255, 0.2)');
 
-  pvSetCSSVariable('--pv-embed-text-color-primary', '#ffffff');
-  pvSetCSSVariable('--pv-embed-text-color-secondary', '#cccccc');
-  pvSetCSSVariable('--pv-embed-text-color-tertiary', '#74a8dc');
-  pvSetCSSVariable('--pv-embed-text-color-quaternary', '#3d9dfe');
+      pvSetCSSVariable('--pv-embed-font-family', 'Roboto, -apple-system, BlinkMacSystemFont, Segoe UI, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif');
 
-  pvSetCSSVariable('--pv-embed-icon-color', '#cccccc');
+      pvSetCSSVariable('--pv-embed-font-size-xxxl', '33px');
+      pvSetCSSVariable('--pv-embed-font-size-xxl: 27px');
+      pvSetCSSVariable('--pv-embed-font-size-xl', '21px');
+      pvSetCSSVariable('--pv-embed-font-size-lg', '19px');
+      pvSetCSSVariable('--pv-embed-font-size-md', '16px');
+      pvSetCSSVariable('--pv-embed-font-size-sm', '14px');
+      pvSetCSSVariable('--pv-embed-font-size-tiny', '12px');
+      pvSetCSSVariable('--pv-embed-font-size-tiniest', '9px');
 
-  pvSetCSSVariable('--pv-embed-play-button-background-color', '#252a6499');
-  pvSetCSSVariable('--pv-embed-play-button-border-color', '#3d9dfe');
-  pvSetCSSVariable('--pv-embed-play-button-icon-color', '#ffffff');
+      pvSetCSSVariable('--pv-embed-text-color-primary', '#2d2d2d');
+      pvSetCSSVariable('--pv-embed-text-color-secondary', '#333333');
+      pvSetCSSVariable('--pv-embed-text-color-tertiary', '#868686');
+      pvSetCSSVariable('--pv-embed-text-color-quaternary', '#e90000');
 
-  pvSetCSSVariable('--pv-embed-slider-background-color', '#252a64');
-  pvSetCSSVariable('--pv-embed-slider-fill-color', '#ffffff');
-  pvSetCSSVariable('--pv-embed-slider-marker-color', '#3d9dfe');
-  pvSetCSSVariable('--pv-embed-slider-highlight-color', 'rgba(61, 157, 254, 0.5)');
+      pvSetCSSVariable('--pv-embed-icon-color', '#676767');
 
-  pvSetCSSVariable('--pv-embed-close-button-background-color', '#0f1235');
-  pvSetCSSVariable('--pv-embed-close-button-icon-color', '#ffffff');
+      pvSetCSSVariable('--pv-embed-play-button-background-color', '#f7f7f799');
+      pvSetCSSVariable('--pv-embed-play-button-border-color', '#676767');
+      pvSetCSSVariable('--pv-embed-play-button-icon-color', '#676767');
 
-  pvSetCSSVariable('--pv-embed-full-screen-background-color', 'rgba(15, 18, 53, 0.4)');
-</script>
-              `}</code>
+      pvSetCSSVariable('--pv-embed-slider-background-color', 'rgba(221,221,221,.5)');
+      pvSetCSSVariable('--pv-embed-slider-fill-color', '#aaaaaa');
+      pvSetCSSVariable('--pv-embed-slider-marker-color', '#e90000');
+      pvSetCSSVariable('--pv-embed-slider-highlight-color', 'rgba(233, 0, 0, 0.5)');
+
+      pvSetCSSVariable('--pv-embed-close-button-background-color', '#cccccc');
+      pvSetCSSVariable('--pv-embed-close-button-icon-color', '#333333');
+
+      pvSetCSSVariable('--pv-embed-full-screen-background-color', 'rgba(255, 255, 255, 0.2)');
+    }
+  })
+</script>`}</code>
               <br />
               <br />
               <br />

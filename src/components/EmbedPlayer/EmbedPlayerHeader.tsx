@@ -108,29 +108,25 @@ export const EmbedPlayerHeader = ({ hideFullView }: Props) => {
           </div>
           {(!hideFullView || isLightningEnabled) && (
             <div className='embed-player-header-top-side'>
-              {
-                isLightningEnabled && (
-                  <PlayerOptionButton
-                    ariaLabel={showFullView ? t('Hide full screen player') : t('Show full screen player')}
-                    ariaPressed
-                    className='player-option-button-value-enabled'
-                    linkUrl={middleLink}
-                    size='small'
-                    type='value-enabled'
-                  />
-                )
-              }
-              {
-                !hideFullView && (
-                  <PlayerOptionButton
-                    ariaLabel={showFullView ? t('Hide full screen player') : t('Show full screen player')}
-                    ariaPressed
-                    onClick={showFullView ? OmniAural.playerFullViewHide : OmniAural.playerFullViewShow}
-                    size='small'
-                    type={showFullView ? 'fullscreen-hide' : 'fullscreen-show'}
-                  />
-                )
-              }
+              {isLightningEnabled && (
+                <PlayerOptionButton
+                  ariaLabel={showFullView ? t('Hide full screen player') : t('Show full screen player')}
+                  ariaPressed
+                  className='player-option-button-value-enabled'
+                  linkUrl={middleLink}
+                  size='small'
+                  type='value-enabled'
+                />
+              )}
+              {!hideFullView && (
+                <PlayerOptionButton
+                  ariaLabel={showFullView ? t('Hide full screen player') : t('Show full screen player')}
+                  ariaPressed
+                  onClick={showFullView ? OmniAural.playerFullViewHide : OmniAural.playerFullViewShow}
+                  size='small'
+                  type={showFullView ? 'fullscreen-hide' : 'fullscreen-show'}
+                />
+              )}
             </div>
           )}
         </div>

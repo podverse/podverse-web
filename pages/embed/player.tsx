@@ -6,7 +6,7 @@ import { PV } from '~/resources'
 import { Meta } from '~/components/Meta/Meta'
 import { getDefaultEmbedServerSideProps } from '~/services/serverSideHelpers'
 import { TwitterCardPlayerAPIAudio } from '~/components/TwitterCardPlayer/TwitterCardPlayerAPIAudio'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { EmbedPlayerHeader, EmbedPlayerList, EmbedPlayerWrapper } from '~/components'
 import { PlayerFullView } from '~/components/Player/PlayerFullView'
 import { getPodcastById } from '~/services/podcast'
@@ -27,6 +27,7 @@ const keyPrefix = 'embed_player'
 
 export default function EmbedPlayerPage({ serverEpisode, serverEpisodes, serverPodcast }: ServerProps) {
   /* Initialize */
+  const [hasInitialized, setHasInitialized] = useState<boolean>(false)
   const [player] = useOmniAural('player') as [OmniAuralState['player']]
   const { currentNowPlayingItem } = player
   const episodeOnly = serverEpisodes.length === 0
@@ -39,12 +40,16 @@ export default function EmbedPlayerPage({ serverEpisode, serverEpisodes, serverP
     const nowPlayingItem = convertToNowPlayingItem(serverEpisode, inheritedEpisode, serverPodcast)
     const previousNowPlayingItem = null
     playerLoadNowPlayingItem(nowPlayingItem, previousNowPlayingItem, shouldPlay)
+    parent.postMessage('pv-embed-has-loaded', '*')
+    setTimeout(() => {
+      setHasInitialized(true)
+    }, 100)
   }, [])
 
   return (
     <>
       <Meta robotsNoIndex={true} />
-      <EmbedPlayerWrapper episodeOnly={episodeOnly}>
+      <EmbedPlayerWrapper episodeOnly={episodeOnly} hasInitialized={hasInitialized}>
         <EmbedPlayerHeader hideFullView={episodeOnly} />
         {!episodeOnly && <EmbedPlayerList episodes={serverEpisodes} keyPrefix={keyPrefix} />}
         {currentNowPlayingItem && <PlayerFullView isEmbed nowPlayingItem={currentNowPlayingItem} />}

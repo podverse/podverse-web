@@ -4,10 +4,15 @@ import { EmbedPlayerFooter } from './EmbedPlayerFooter'
 type Props = {
   children: any
   episodeOnly?: boolean
+  hasInitialized?: boolean
 }
 
-export const EmbedPlayerWrapper = ({ children, episodeOnly }: Props) => {
-  const rootClassName = classNames('embed-player', episodeOnly ? 'episode-only' : '')
+export const EmbedPlayerWrapper = ({ children, episodeOnly, hasInitialized }: Props) => {
+  const rootClassName = classNames(
+    'embed-player',
+    episodeOnly ? 'episode-only' : '',
+    hasInitialized ? '' : 'has-not-initialized'
+  )
 
   return (
     <div className={rootClassName}>

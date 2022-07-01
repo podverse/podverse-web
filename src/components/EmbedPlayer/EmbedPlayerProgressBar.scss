@@ -20,26 +20,26 @@
           input[type='range'] {
             background-color: var(--pv-embed-slider-background-color, #252a64);
           }
-      
-          input[type='range']::-webkit-slider-thumb {      
+
+          input[type='range']::-webkit-slider-thumb {
             background: var(--pv-embed-slider-fill-color, #ffffff);
             box-shadow: -100vw 0 0 100vw var(--pv-embed-slider-fill-color, #ffffff);
           }
         }
-      
+
         input[type='range']::-moz-range-progress {
           background-color: var(--pv-embed-slider-fill-color, #ffffff);
         }
-      
+
         input[type='range']::-moz-range-track {
           background-color: var(--pv-embed-slider-background-color, #252a64);
         }
-      
+
         /* IE*/
         input[type='range']::-ms-fill-lower {
           background-color: var(--pv-embed-slider-fill-color, #ffffff);
         }
-      
+
         input[type='range']::-ms-fill-upper {
           background-color: var(--pv-embed-slider-background-color, #252a64);
         }

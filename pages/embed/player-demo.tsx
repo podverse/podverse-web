@@ -63,7 +63,12 @@ export default function EmbedPlayerDemo(props: ServerProps) {
               <br />
               <h2>{t('Custom CSS styles')}</h2>
               <p>{t('Embed custom CSS intro instructions')}</p>
-              <p>{t('Demo')}: <PVLink href={PV.RoutePaths.web.embed.player_demo_custom_css}>{`${PV.Config.WEB_BASE_URL}${PV.RoutePaths.web.embed.player_demo_custom_css}`}</PVLink></p>
+              <p>
+                {t('Demo')}:{' '}
+                <PVLink
+                  href={PV.RoutePaths.web.embed.player_demo_custom_css}
+                >{`${PV.Config.WEB_BASE_URL}${PV.RoutePaths.web.embed.player_demo_custom_css}`}</PVLink>
+              </p>
               <br />
               <br />
               <br />
