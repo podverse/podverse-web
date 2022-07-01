@@ -2,6 +2,7 @@ import { faPause, faPlay } from '@fortawesome/free-solid-svg-icons'
 import classNames from 'classnames'
 import { useTranslation } from 'next-i18next'
 import OmniAural, { useOmniAural } from 'omniaural'
+import { getLightningKeysendValueItem } from 'podverse-shared'
 import { ButtonCircle, PVImage, PVLink } from '~/components'
 import { readableDate } from '~/lib/utility/date'
 import { readableClipTime } from '~/lib/utility/time'
@@ -62,6 +63,10 @@ export const EmbedPlayerHeader = ({ hideFullView }: Props) => {
     bottomText = currentNowPlayingItem?.episodePubDate && readableDate(new Date(currentNowPlayingItem.episodePubDate))
   }
 
+  const isLightningEnabled =
+    getLightningKeysendValueItem(currentNowPlayingItem?.episodeValue) ||
+    getLightningKeysendValueItem(currentNowPlayingItem?.podcastValue)
+
   /* Functions */
 
   const _handleTogglePlay = () => {
@@ -103,6 +108,18 @@ export const EmbedPlayerHeader = ({ hideFullView }: Props) => {
           </div>
           {!hideFullView && (
             <div className='embed-player-header-top-side'>
+              {
+                isLightningEnabled && (
+                  <PlayerOptionButton
+                    ariaLabel={showFullView ? t('Hide full screen player') : t('Show full screen player')}
+                    ariaPressed
+                    className='player-option-button-value-enabled'
+                    linkUrl={middleLink}
+                    size='small'
+                    type='value-enabled'
+                  />
+                )
+              }
               <PlayerOptionButton
                 ariaLabel={showFullView ? t('Hide full screen player') : t('Show full screen player')}
                 ariaPressed

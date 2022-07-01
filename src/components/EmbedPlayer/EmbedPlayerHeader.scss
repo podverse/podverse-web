@@ -46,9 +46,16 @@
       }
 
       .embed-player-header-top-side {
+        align-items: flex-start;
+        display: flex;
+
+
         .player-option-button.small {
           color: var(--pv-embed-text-color-primary, #ffffff);
+          display: block;
           height: auto;
+          line-height: unset;
+          margin: 0;
           width: auto;
         }
       }

@@ -19,6 +19,12 @@
         color: var(--pv-embed-text-color-tertiary, #74a8dc);
         font-size: var(--pv-embed-font-size-tiny, 12px);
       }
+
+      .progress-slider.player-bar {
+        .flag {
+          background-color: var(--pv-embed-slider-marker-color, #3d9dfe);
+        }
+      }
     }
   
     .player-progress-container {
