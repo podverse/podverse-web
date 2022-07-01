@@ -47,7 +47,8 @@ export const RoutePaths = {
     coupon: `/coupon`,
     embed: {
       player: `/embed/player`,
-      player_demo: `/embed/player-demo`
+      player_demo: `/embed/player-demo`,
+      player_demo_custom_css: `/embed/player-demo-custom-css`
     },
     episode: `/episode`,
     episodes: `/episodes`,

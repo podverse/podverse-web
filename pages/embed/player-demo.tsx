@@ -1,7 +1,7 @@
 import { GetServerSideProps } from 'next'
 import { Page } from '~/lib/utility/page'
 import { PV } from '~/resources'
-import { ColumnsWrapper, Footer, PageHeader, PageScrollableContent } from '~/components'
+import { ColumnsWrapper, Footer, PageHeader, PageScrollableContent, PVLink } from '~/components'
 import { Meta } from '~/components/Meta/Meta'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 import Script from 'next/script'
@@ -9,7 +9,7 @@ import { useTranslation } from 'next-i18next'
 
 type ServerProps = Page
 
-export default function About(props: ServerProps) {
+export default function EmbedPlayerDemo(props: ServerProps) {
   /* Initialize */
   const { t } = useTranslation()
 
@@ -34,64 +34,20 @@ export default function About(props: ServerProps) {
         twitterDescription={meta.description}
         twitterTitle={meta.title}
       />
-
-      <Script id='pv-override-iframe-variables'>{`
-        const pvFrame = document.querySelector('#pv-embed-player').contentWindow;
-        const pvSetCSSVariable = (key, value) => pvFrame.document.documentElement.style.setProperty(key, value);
-
-        pvSetCSSVariable('--pv-embed-max-width', 'auto');
-        pvSetCSSVariable('--pv-embed-list-max-height', '100vh');
-
-        pvSetCSSVariable('--pv-embed-background-color', '#030626');
-
-        pvSetCSSVariable('--pv-embed-border-color', 'rgba(255, 255, 255, 0.15)');
-        pvSetCSSVariable('--pv-embed-divider-color', 'rgba(255, 255, 255, 0.1)');
-
-        pvSetCSSVariable('--pv-embed-font-family', 'Roboto, -apple-system, BlinkMacSystemFont, Segoe UI, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif');
-
-        pvSetCSSVariable('--pv-embed-font-size-xxxl', '33px');
-        pvSetCSSVariable('--pv-embed-font-size-xxl: 27px');
-        pvSetCSSVariable('--pv-embed-font-size-xl', '21px');
-        pvSetCSSVariable('--pv-embed-font-size-lg', '19px');
-        pvSetCSSVariable('--pv-embed-font-size-md', '16px');
-        pvSetCSSVariable('--pv-embed-font-size-sm', '14px');
-        pvSetCSSVariable('--pv-embed-font-size-tiny', '12px');
-        pvSetCSSVariable('--pv-embed-font-size-tiniest', '9px');
-
-        pvSetCSSVariable('--pv-embed-text-color-primary', '#ffffff');
-        pvSetCSSVariable('--pv-embed-text-color-secondary', '#cccccc');
-        pvSetCSSVariable('--pv-embed-text-color-tertiary', '#74a8dc');
-        pvSetCSSVariable('--pv-embed-text-color-quaternary', '#3d9dfe');
-
-        pvSetCSSVariable('--pv-embed-icon-color', '#cccccc');
-
-        pvSetCSSVariable('--pv-embed-play-button-background-color', '#252a6499');
-        pvSetCSSVariable('--pv-embed-play-button-border-color', '#3d9dfe');
-        pvSetCSSVariable('--pv-embed-play-button-icon-color', '#ffffff');
-
-        pvSetCSSVariable('--pv-embed-slider-background-color', '#252a64');
-        pvSetCSSVariable('--pv-embed-slider-fill-color', '#ffffff');
-        pvSetCSSVariable('--pv-embed-slider-marker-color', '#3d9dfe');
-        pvSetCSSVariable('--pv-embed-slider-highlight-color', 'rgba(61, 157, 254, 0.5)');
-
-        pvSetCSSVariable('--pv-embed-close-button-background-color', '#0f1235');
-        pvSetCSSVariable('--pv-embed-close-button-icon-color', '#ffffff');
-
-        pvSetCSSVariable('--pv-embed-full-screen-background-color', 'rgba(15, 18, 53, 0.4)');
-      `}</Script>
-
       <PageHeader text={meta.title} />
       <PageScrollableContent>
         <ColumnsWrapper
           mainColumnChildren={
             <div className='text-page'>
+              <h2>{t('How To')}</h2>
+              <p>{t('Embed custom CSS instructions')}</p>
               <h2>{t('Episode only')}</h2>
               <p>{t('Embed episode only instructions')}</p>
               <iframe
                 id='pv-embed-player'
                 style={{ border: 0, height: '170px', maxWidth: '600px', width: '100%' }}
                 src={`${PV.Config.WEB_BASE_URL}${PV.RoutePaths.web.embed.player}?episodeId=kilYJsW3A`}
-                title='Podcasting 2.0'
+                title='Podverse Embed Player'
               ></iframe>
               <br />
               <br />
@@ -102,14 +58,14 @@ export default function About(props: ServerProps) {
                 id='pv-embed-player'
                 style={{ border: 0, height: '580px', maxWidth: '600px', width: '100%' }}
                 src={`${PV.Config.WEB_BASE_URL}${PV.RoutePaths.web.embed.player}?podcastId=g40Um-HP1`}
-                title='Podcasting 2.0'
+                title='Podverse Embed Player'
               ></iframe>
               <br />
               <br />
               <br />
               <h2>{t('Custom CSS styles')}</h2>
               <p>{t('Embed custom CSS intro instructions')}</p>
-              <p>{t('Demo')}:</p>
+              <p>{t('Demo')}: <PVLink href={PV.RoutePaths.web.embed.player_demo_custom_css}>{`${PV.Config.WEB_BASE_URL}${PV.RoutePaths.web.embed.player_demo_custom_css}`}</PVLink></p>
               <br />
               <br />
               <br />
