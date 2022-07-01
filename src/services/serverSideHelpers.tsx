@@ -35,3 +35,9 @@ export const getDefaultServerSideProps = async (ctx: any, locale: any) => {
     serverUserQueueItems: serverUserQueueItems ?? null
   }
 }
+
+export const getDefaultEmbedServerSideProps = async (ctx: any, locale: any) => {
+  return {
+    ...(await serverSideTranslations(locale, PV.i18n.fileNames.common as any))
+  }
+}

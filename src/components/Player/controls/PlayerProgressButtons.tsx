@@ -21,9 +21,10 @@ import { useTranslation } from 'next-i18next'
 
 type Props = {
   hasMiniJump?: boolean
+  isEmbed?: boolean
 }
 
-export const PlayerProgressButtons = ({ hasMiniJump }: Props) => {
+export const PlayerProgressButtons = ({ hasMiniJump, isEmbed }: Props) => {
   const { t } = useTranslation()
   const [player] = useOmniAural('player') as [OmniAuralState['player']]
   const { currentNowPlayingItem, paused } = player
@@ -70,7 +71,7 @@ export const PlayerProgressButtons = ({ hasMiniJump }: Props) => {
   return (
     <div className={container}>
       <div className='top-row'>
-        {!hasMiniJump && (
+        {((!isEmbed && !hasMiniJump) || (isEmbed && hasChapters)) && (
           <PlayerControlButton
             ariaLabel={hasChapters ? t('Previous chapter') : t('Previous track')}
             direction='backwards'
@@ -119,7 +120,7 @@ export const PlayerProgressButtons = ({ hasMiniJump }: Props) => {
           size='medium'
           type='jump'
         />
-        {!hasMiniJump && (
+        {((!isEmbed && !hasMiniJump) || (isEmbed && hasChapters)) && (
           <PlayerControlButton
             ariaLabel={hasChapters ? t('Next chapter') : t('Next track')}
             direction='forwards'
@@ -130,7 +131,7 @@ export const PlayerProgressButtons = ({ hasMiniJump }: Props) => {
         )}
       </div>
       <div className='bottom-row'>
-        <PlayerItemButtons />
+        <PlayerItemButtons isEmbed />
       </div>
     </div>
   )

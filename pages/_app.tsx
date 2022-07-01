@@ -86,10 +86,12 @@ if (typeof window !== 'undefined') {
 
 function MyApp({ Component, pageProps }) {
   const router = useRouter()
+  const isEmbedPage = router.pathname.startsWith('/embed') && !router.pathname.startsWith('/embed/player-demo')
   const doNotInheritAppComponent =
     router.pathname.startsWith('/miniplayer') ||
     router.pathname.startsWith('/videoplayer') ||
-    router.pathname.startsWith('/chat')
+    router.pathname.startsWith('/chat') ||
+    isEmbedPage
 
   useEffect(() => {
     if (!doNotInheritAppComponent) {
@@ -146,7 +148,7 @@ function MyApp({ Component, pageProps }) {
 
   if (doNotInheritAppComponent) {
     return (
-      <div className='app'>
+      <div className={`app ${isEmbedPage ? 'is-embed' : ''}`}>
         <Component {...pageProps} />
       </div>
     )

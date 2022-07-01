@@ -1,0 +1,125 @@
+.embed-player-header {
+  border-bottom: 1px solid var(--pv-embed-border-color, rgba(255, 255, 255, 0.15));
+  border-radius: 0;
+  display: flex;
+  height: 133px;
+  padding: 12px 16px;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+
+  .embed-player-header-image {
+    img {
+      display: block;
+    }
+  }
+
+  .embed-player-header-inner {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-left: 12px;
+
+    .embed-player-header-top {
+      display: flex;
+
+      .embed-player-header-text-wrapper {
+        flex: 1;
+
+        .embed-player-header-top-text {
+          @include line-clamp(1);
+          color: var(--pv-embed-text-color-secondary, #cccccc);
+          font-size: var(--pv-embed-font-size-xs, 13px);
+          margin: 2px 0 0 0;
+        }
+        .embed-player-header-middle-text {
+          @include line-clamp(1);
+          font-size: var(--pv-embed-font-size-lg, 19px);
+          margin-top: 3px;
+          color: var(--pv-embed-text-color-primary, #ffffff);
+        }
+        .embed-player-header-bottom-text {
+          @include line-clamp(1);
+          color: var(--pv-embed-text-color-tertiary, #74a8dc);
+          font-size: var(--pv-embed-font-size-tiny, 12px);
+          font-weight: bold;
+          margin-top: 4px;
+        }
+      }
+
+      .embed-player-header-top-side {
+        align-items: flex-start;
+        display: flex;
+
+        .player-option-button.small {
+          color: var(--pv-embed-text-color-secondary, #ffffff);
+          display: block;
+          height: auto;
+          line-height: unset;
+          margin: 0 0 0 12px;
+          width: auto;
+        }
+      }
+    }
+
+    .embed-player-header-bottom {
+      display: flex;
+
+      .player-bar-container {
+        flex: 1;
+        margin: 0;
+        width: 100%;
+
+        .player-bar-label {
+          min-width: auto;
+
+          &:first-child {
+            text-align: left;
+          }
+        }
+
+        .player-bar {
+          margin: 0 10px;
+        }
+      }
+
+      .playback-speed {
+        color: var(--pv-embed-text-color-primary, #ffffff);
+        font-size: var(--pv-embed-font-size-sm, 14px);
+        margin-left: 8px;
+        width: 38px;
+      }
+
+      .play,
+      .pause {
+        margin-left: 10px;
+      }
+    }
+  }
+}
+
+.episode-only {
+  .embed-player-header {
+    border-bottom: none;
+    box-shadow: none;
+    height: 125px;
+    padding-bottom: 4px;
+  }
+}
+
+@media (max-width: $media-max-width-mobile) {
+  .embed-player-header {
+    .embed-player-header-inner {
+      margin: 0;
+
+      .embed-player-header-top {
+        .embed-player-header-image-mini {
+          margin: 0 12px 0 0;
+
+          img {
+            display: block;
+          }
+        }
+      }
+    }
+  }
+}

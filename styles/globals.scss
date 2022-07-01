@@ -11,7 +11,6 @@ body {
   word-break: break-word;
 
   @include themeGen() {
-    background-color: getThemeVal('backgroundPrimary');
     color: getThemeVal('textPrimary');
   }
 
@@ -19,6 +18,15 @@ body {
     display: flex;
     flex-direction: column;
     height: 100vh;
+
+    @include themeGen() {
+      background-color: getThemeVal('backgroundPrimary');
+    }
+
+    &.is-embed {
+      background-color: transparent;
+      color: transparent;
+    }
   }
 
   .app-wrapper {
@@ -77,6 +85,10 @@ body {
 
   input[type='range'] {
     cursor: pointer;
+  }
+
+  code {
+    white-space: pre-wrap;
   }
 
   .display-none {
