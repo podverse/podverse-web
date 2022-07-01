@@ -81,7 +81,7 @@ export const PlayerOptionButton = ({
       aria-pressed={ariaPressed}
       className={wrapperClass}
       onClick={onClick}
-      {...(type === 'value-enabled' ? { tabIndex: '-1' } : {})}
+      {...(type === 'value-enabled' ? { tabIndex: -1 } : {})}
     >
       {icon && <FontAwesomeIcon icon={icon} />}
       {type === 'value-enabled' && (

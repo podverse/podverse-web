@@ -4,7 +4,6 @@ import { PV } from '~/resources'
 import { ColumnsWrapper, Footer, PageHeader, PageScrollableContent, PVLink } from '~/components'
 import { Meta } from '~/components/Meta/Meta'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
-import Script from 'next/script'
 import { useTranslation } from 'next-i18next'
 
 type ServerProps = Page
