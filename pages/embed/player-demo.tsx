@@ -39,8 +39,6 @@ export default function EmbedPlayerDemo(props: ServerProps) {
         <ColumnsWrapper
           mainColumnChildren={
             <div className='text-page'>
-              <h2>{t('How To')}</h2>
-              <p>{t('Embed custom CSS instructions')}</p>
               <h2>{t('Episode only')}</h2>
               <p>{t('Embed episode only instructions')}</p>
               <iframe
