@@ -54,6 +54,8 @@
     }
 
     .player-full-view {
+      @include blurredBackgroundEmbed();
+
       .title-wrapper-top {
         h1 {
           color: var(--pv-embed-text-color-primary, #ffffff);
@@ -64,6 +66,16 @@
       .subtitle {
         color: var(--pv-embed-text-color-quaternary, #3d9dfe);
         font-size: var(--pv-embed-font-size-xl, 21px);
+      }
+
+      .clip-title {
+        color: var(--pv-embed-text-color-primary, #ffffff);
+        font-size: var(--pv-embed-font-size-xl, 21px) !important;
+      }
+
+      .clip-time {
+        color: var(--pv-embed-text-color-tertiary, #74a8dc) !important;
+        font-size: var(--pv-embed-font-size-sm, 14px) !important;
       }
     }
   }
