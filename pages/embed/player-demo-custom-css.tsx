@@ -90,7 +90,7 @@ export default function About(props: ServerProps) {
               <iframe
                 id='pv-embed-player'
                 style={{ border: 0, height: '170px', maxWidth: '600px', width: '100%' }}
-                src={`${PV.Config.WEB_BASE_URL}${PV.RoutePaths.web.embed.player}?episodeId=kilYJsW3A`}
+                src={`${PV.Config.WEB_BASE_URL}${PV.RoutePaths.web.embed.player}?episodeId=j6hSyWX93`}
                 title='Podcasting 2.0'
               ></iframe>
               <br />
@@ -101,7 +101,7 @@ export default function About(props: ServerProps) {
               <iframe
                 id='pv-embed-player'
                 style={{ border: 0, height: '580px', maxWidth: '600px', width: '100%' }}
-                src={`${PV.Config.WEB_BASE_URL}${PV.RoutePaths.web.embed.player}?podcastId=g40Um-HP1`}
+                src={`${PV.Config.WEB_BASE_URL}${PV.RoutePaths.web.embed.player}?podcastId=peLVTHMwlg`}
                 title='Podcasting 2.0'
               ></iframe>
               <br />
