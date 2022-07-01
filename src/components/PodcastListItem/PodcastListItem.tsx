@@ -40,11 +40,7 @@ export const PodcastListItem = ({ podcast, serverCookies }: Props) => {
             {latestLiveItemStatus === 'live' && (
               <LiveStatusBadge hideAboveMobileWidth liveItemStatus={latestLiveItemStatus} />
             )}
-            {
-              pubDateText && (
-                <div className='last-episode-pub-date'>{pubDateText}</div>
-              )
-            }
+            {pubDateText && <div className='last-episode-pub-date'>{pubDateText}</div>}
             <div className='title'>{finalTitle}</div>
           </div>
           <div className='live-status-wrapper'>

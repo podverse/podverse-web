@@ -11,6 +11,7 @@ export const getEpisodeById = async (id: string) => {
 export type EpisodeQueryParams = {
   categories?: string[]
   hasVideo?: boolean
+  maxResults?: boolean
   includePodcast?: boolean
   page?: number
   podcastIds?: string | string[]
@@ -22,6 +23,7 @@ export const getEpisodesByQuery = async ({
   categories,
   hasVideo,
   includePodcast,
+  maxResults,
   page,
   podcastIds,
   searchTitle,
@@ -31,6 +33,7 @@ export const getEpisodesByQuery = async ({
     ...(categories ? { categories } : {}),
     ...(hasVideo ? { hasVideo } : {}),
     ...(includePodcast ? { includePodcast } : {}),
+    ...(maxResults ? { maxResults } : {}),
     ...(page ? { page } : { page: 1 }),
     ...(podcastIds ? { podcastId: podcastIds } : {}),
     ...(searchTitle

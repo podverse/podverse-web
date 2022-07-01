@@ -4,9 +4,14 @@
   justify-content: center;
   margin: -1px auto 0 auto;
 
-  .top-row,
+  .top-row {
+    display: flex;
+    justify-content: center;
+  }
+
   .bottom-row {
     display: flex;
+    height: 46px;
     justify-content: center;
   }
 
@@ -15,17 +20,18 @@
       color: getThemeVal('textSecondary');
     }
 
-    &:first-child,
-    &:last-child {
+    &.skip {
       margin: 0px;
     }
 
-    &:nth-child(2) {
-      margin: 0 18px 0 6px;
-    }
-
-    &:nth-child(4) {
-      margin: 0 6px 0 18px;
+    &.jump,
+    .mini-jump {
+      &.backwards {
+        margin: 0 18px 0 6px;
+      }
+      &.forwards {
+        margin: 0 6px 0 18px;
+      }
     }
   }
 }

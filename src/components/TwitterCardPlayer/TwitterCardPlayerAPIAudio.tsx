@@ -1,8 +1,11 @@
-import { useOmniAural } from 'omniaural'
+import OmniAural, { useOmniAural } from 'omniaural'
 import { createRef, useEffect } from 'react'
+import { unstable_batchedUpdates } from 'react-dom'
+import { retrieveLatestChaptersForEpisodeId } from '~/services/mediaRef'
 import { playerGetDuration, playerUpdateDuration, playerUpdatePlaybackPosition } from '~/services/player/player'
 import { audioInitialize, audioPause, audioSeekTo } from '~/services/player/playerAudio'
-import { setClipFlagPositions } from '~/services/player/playerFlags'
+import { enrichChapterDataForPlayer, handleChapterUpdateInterval } from '~/services/player/playerChapters'
+import { generateChapterFlagPositions, setClipFlagPositions } from '~/services/player/playerFlags'
 import { OmniAuralState } from '~/state/omniauralState'
 
 // TODO: temporarily using require instead of require to work around a build error happening
@@ -10,7 +13,11 @@ import { OmniAuralState } from '~/state/omniauralState'
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const PlayerAudio = require('react-h5-audio-player').default
 
-export const TwitterCardPlayerAPIAudio = () => {
+type Props = {
+  shouldLoadChapters?: boolean
+}
+
+export const TwitterCardPlayerAPIAudio = ({ shouldLoadChapters }: Props) => {
   const [player] = useOmniAural('player') as [OmniAuralState['player']]
   const { currentNowPlayingItem } = player
 
@@ -38,11 +45,27 @@ export const TwitterCardPlayerAPIAudio = () => {
     }
 
     playerUpdateDuration()
+
+    if (shouldLoadChapters && currentNowPlayingItem.episodeChaptersUrl) {
+      const duration = playerGetDuration()
+      const data = await retrieveLatestChaptersForEpisodeId(currentNowPlayingItem.episodeId)
+      const [chapters] = data
+      const enrichedChapters = enrichChapterDataForPlayer(chapters, duration)
+      const chapterFlagPositions = generateChapterFlagPositions(enrichedChapters, duration)
+      OmniAural.setChapterFlagPositions(chapterFlagPositions)
+      OmniAural.setChapters(enrichedChapters)
+    }
   }
 
   const _onListen = () => {
-    playerUpdatePlaybackPosition()
-    playerUpdateDuration()
+    unstable_batchedUpdates(() => {
+      playerUpdatePlaybackPosition()
+      playerUpdateDuration()
+
+      if (shouldLoadChapters && currentNowPlayingItem.episodeChaptersUrl) {
+        handleChapterUpdateInterval()
+      }
+    })
   }
 
   window.playerAudio = createRef()

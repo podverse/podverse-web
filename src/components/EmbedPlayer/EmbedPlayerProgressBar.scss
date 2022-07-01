@@ -1,0 +1,49 @@
+.embed-player {
+  .embed-player-wrapper {
+    .player-bar-container {
+      .player-bar-label {
+        color: var(--pv-embed-text-color-tertiary, #74a8dc);
+        font-size: var(--pv-embed-font-size-tiny, 12px);
+      }
+
+      .progress-slider {
+        .flag {
+          background-color: var(--pv-embed-slider-marker-color, #3d9dfe);
+        }
+
+        .highlighted-section {
+          background-color: var(--pv-embed-slider-highlight-color, rgba(61, 157, 254, 0.5));
+        }
+
+        /*Chrome*/
+        @media screen and (-webkit-min-device-pixel-ratio: 0) {
+          input[type='range'] {
+            background-color: var(--pv-embed-slider-background-color, #252a64);
+          }
+
+          input[type='range']::-webkit-slider-thumb {
+            background: var(--pv-embed-slider-fill-color, #ffffff);
+            box-shadow: -100vw 0 0 100vw var(--pv-embed-slider-fill-color, #ffffff);
+          }
+        }
+
+        input[type='range']::-moz-range-progress {
+          background-color: var(--pv-embed-slider-fill-color, #ffffff);
+        }
+
+        input[type='range']::-moz-range-track {
+          background-color: var(--pv-embed-slider-background-color, #252a64);
+        }
+
+        /* IE*/
+        input[type='range']::-ms-fill-lower {
+          background-color: var(--pv-embed-slider-fill-color, #ffffff);
+        }
+
+        input[type='range']::-ms-fill-upper {
+          background-color: var(--pv-embed-slider-background-color, #252a64);
+        }
+      }
+    }
+  }
+}
