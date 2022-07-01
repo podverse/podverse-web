@@ -54,7 +54,9 @@
     }
 
     .player-full-view {
-      @include blurredBackgroundEmbed();
+      &.is-showing {
+        @include blurredBackgroundEmbed();
+      }
 
       .title-wrapper-top {
         h1 {
@@ -79,8 +81,4 @@
       }
     }
   }
-
 }
-
-
-
