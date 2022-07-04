@@ -17,7 +17,6 @@ export const EmbedPlayerFooter = ({ hasInitialized }: Props) => {
       <NavBarBrand
         height={17}
         href={`${PV.Config.WEB_BASE_URL}`}
-        src={PV.Images.dark.brandLogo}
         target='_blank'
         width={90}
       />

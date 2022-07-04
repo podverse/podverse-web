@@ -7,8 +7,12 @@
   justify-content: space-between;
   padding: 12px 16px;
 
-  .navbar__brand > span {
-    display: block !important;
+  .navbar__brand {
+    display: flex;
+
+    svg {
+      display: inline;
+    }
   }
 
   .embed-player-footer-links {

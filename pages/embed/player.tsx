@@ -31,6 +31,7 @@ export default function EmbedPlayerPage({ episodeId, podcastId }: ServerProps) {
   const [hasInitialized, setHasInitialized] = useState<boolean>(false)
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const [episodes, setEpisodes] = useState<Episode[]>([])
+  const [podcast, setPodcast] = useState<Podcast>(null)
   const [player] = useOmniAural('player') as [OmniAuralState['player']]
   const { currentNowPlayingItem } = player
   const episodeOnly = !!episodeId && !podcastId
@@ -57,6 +58,7 @@ export default function EmbedPlayerPage({ episodeId, podcastId }: ServerProps) {
 
       if (podcastId) {
         podcast = (await getPodcastById(podcastId as string)).data
+        setPodcast(podcast)
         const data = await getEpisodesAndLiveItems(
           {
             podcastIds: podcastId,
@@ -92,7 +94,7 @@ export default function EmbedPlayerPage({ episodeId, podcastId }: ServerProps) {
       <Meta robotsNoIndex={true} />
       <EmbedPlayerWrapper episodeOnly={episodeOnly} hasInitialized={hasInitialized} isLoading={isLoading}>
         <EmbedPlayerHeader hideFullView={episodeOnly} />
-        {!episodeOnly && <EmbedPlayerList episodes={episodes} keyPrefix={keyPrefix} />}
+        {!episodeOnly && <EmbedPlayerList episodes={episodes} keyPrefix={keyPrefix} podcast={podcast} />}
         {currentNowPlayingItem && <PlayerFullView isEmbed nowPlayingItem={currentNowPlayingItem} />}
       </EmbedPlayerWrapper>
       <TwitterCardPlayerAPIAudio shouldLoadChapters />
