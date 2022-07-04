@@ -29,7 +29,7 @@ export const TwitterCardPlayer = ({ isClip }: Props) => {
   }
 
   return (
-    <div className='embed-player'>
+    <div className='embed-player no-border'>
       <div className='embed-progress-bar-wrapper'>
         <ButtonCircle
           className={playpause}

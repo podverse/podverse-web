@@ -1,8 +1,4 @@
 .embed-player {
-  &.has-not-initialized {
-    opacity: 0;
-  }
-
   background-color: var(--pv-embed-background-color, #030626);
   border: 1px solid var(--pv-embed-border-color, #aaaaaa);
   border-radius: 4px;
@@ -20,9 +16,18 @@
     Helvetica Neue,
     sans-serif
   );
+  height: 100%;
   max-width: var(--pv-embed-max-width, 500px);
 
+  &.no-border {
+    border: none;
+  }
+
   .embed-player-wrapper {
+    &.has-not-initialized {
+      opacity: 0;
+    }
+
     .button-close {
       background-color: var(--pv-embed-close-button-background-color, #0f1235);
 

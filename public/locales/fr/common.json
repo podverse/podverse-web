@@ -349,5 +349,6 @@
     "_translatorsField": "Nathan Bonnemains <https://github.com/NathanBnm>",
     "Episode Summary": "Résumé de l'épisode",
     "Preview clip before end time": "Aperçu de la fin de l'extrait",
-    "Preview clip before start time": "Aperçu du début de l'extrait"
+    "Preview clip before start time": "Aperçu du début de l'extrait",
+    "_translatorsFieldExample": "Jeanne Dupont<https://jane.doe.homepage>,Jean Blogue,Juan Pérez<https://some.socialmedia/juan>"
 }

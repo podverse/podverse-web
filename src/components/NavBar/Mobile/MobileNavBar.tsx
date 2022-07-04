@@ -33,7 +33,7 @@ export const MobileNavBar = (props: Props) => {
           >
             <Icon faIcon={faBars} />
           </button>
-          <NavBarBrand height={21} href={PV.RoutePaths.web.home} src={PV.Images.dark.brandLogo} width={113} />
+          <NavBarBrand height={21} href={PV.RoutePaths.web.home} width={113} />
         </div>
         <div className='right-wrapper'>
           <div className='dropdown'>
