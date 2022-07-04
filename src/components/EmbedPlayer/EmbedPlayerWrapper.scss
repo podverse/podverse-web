@@ -22,6 +22,10 @@
   );
   max-width: var(--pv-embed-max-width, 500px);
 
+  &.no-border {
+    border: none;
+  }
+
   .embed-player-wrapper {
     .button-close {
       background-color: var(--pv-embed-close-button-background-color, #0f1235);
