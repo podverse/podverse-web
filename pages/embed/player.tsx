@@ -3,55 +3,96 @@ import { useOmniAural } from 'omniaural'
 import { convertToNowPlayingItem, Episode, Podcast } from 'podverse-shared'
 import { I18nPage } from '~/lib/utility/page'
 import { PV } from '~/resources'
+import { Icon } from '~/components'
 import { Meta } from '~/components/Meta/Meta'
 import { getDefaultEmbedServerSideProps } from '~/services/serverSideHelpers'
 import { TwitterCardPlayerAPIAudio } from '~/components/TwitterCardPlayer/TwitterCardPlayerAPIAudio'
 import { useEffect, useState } from 'react'
-import { EmbedPlayerHeader, EmbedPlayerList, EmbedPlayerWrapper } from '~/components'
+import { EmbedPlayerHeader, EmbedPlayerList, EmbedPlayerWrapper, PageLoadingOverlay } from '~/components'
 import { PlayerFullView } from '~/components/Player/PlayerFullView'
 import { getPodcastById } from '~/services/podcast'
 import { getEpisodesAndLiveItems } from '~/services/liveItem'
 import { playerLoadNowPlayingItem } from '~/services/player/player'
 import { OmniAuralState } from '~/state/omniauralState'
 import { getEpisodeById } from '~/services/episode'
+import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 
 interface ServerProps extends I18nPage {
-  serverEpisode?: Episode
-  serverEpisodes: Episode[]
-  serverPodcast: Podcast
+  episodeId?: string | string[]
+  podcastId?: string | string[]
 }
 
 const keyPrefix = 'embed_player'
 
 /* Embeddable Player intended for iFrame use */
 
-export default function EmbedPlayerPage({ serverEpisode, serverEpisodes, serverPodcast }: ServerProps) {
+export default function EmbedPlayerPage({ episodeId, podcastId }: ServerProps) {
   /* Initialize */
   const [hasInitialized, setHasInitialized] = useState<boolean>(false)
+  const [isLoading, setIsLoading] = useState<boolean>(true)
+  const [episodes, setEpisodes] = useState<Episode[]>([])
   const [player] = useOmniAural('player') as [OmniAuralState['player']]
   const { currentNowPlayingItem } = player
-  const episodeOnly = serverEpisodes.length === 0
+  const episodeOnly = !!episodeId && !podcastId
 
   /* useEffects */
 
   useEffect(() => {
-    const shouldPlay = true
-    const inheritedEpisode = null
-    const nowPlayingItem = convertToNowPlayingItem(serverEpisode, inheritedEpisode, serverPodcast)
-    const previousNowPlayingItem = null
-    playerLoadNowPlayingItem(nowPlayingItem, previousNowPlayingItem, shouldPlay)
-    parent.postMessage('pv-embed-has-loaded', '*')
-    setTimeout(() => {
-      setHasInitialized(true)
-    }, 100)
+    initializeData()
   }, [])
+
+  /* Helpers */
+
+  const initializeData = async () => {
+    parent.postMessage('pv-embed-has-loaded', '*')
+    setTimeout(async () => {
+      setHasInitialized(true)
+
+      const serverEpisodesFilterSort = PV.Filters.sort._mostRecent
+      const serverEpisodesFilterPage = 1
+
+      let podcast = null
+      let episodes = []
+      let episode = null
+
+      if (podcastId) {
+        podcast = (await getPodcastById(podcastId as string)).data
+        const data = await getEpisodesAndLiveItems(
+          {
+            podcastIds: podcastId,
+            sort: serverEpisodesFilterSort,
+            maxResults: true
+          },
+          podcast,
+          serverEpisodesFilterPage
+        )
+
+        const [combinedEpisodesData] = data.combinedEpisodes
+        episodes = combinedEpisodesData
+      }
+
+      if (episodeId) {
+        episode = (await getEpisodeById(episodeId as string)).data
+      } else if (episodes.length > 0) {
+        episode = episodes[0]
+      }
+
+      const shouldPlay = true
+      const inheritedEpisode = null
+      const nowPlayingItem = convertToNowPlayingItem(episode, inheritedEpisode, podcast)
+      const previousNowPlayingItem = null
+      await playerLoadNowPlayingItem(nowPlayingItem, previousNowPlayingItem, shouldPlay)
+      setEpisodes(episodes)
+      setIsLoading(false)
+    }, 100)
+  }
 
   return (
     <>
       <Meta robotsNoIndex={true} />
-      <EmbedPlayerWrapper episodeOnly={episodeOnly} hasInitialized={hasInitialized}>
+      <EmbedPlayerWrapper episodeOnly={episodeOnly} hasInitialized={hasInitialized} isLoading={isLoading}>
         <EmbedPlayerHeader hideFullView={episodeOnly} />
-        {!episodeOnly && <EmbedPlayerList episodes={serverEpisodes} keyPrefix={keyPrefix} />}
+        {!episodeOnly && <EmbedPlayerList episodes={episodes} keyPrefix={keyPrefix} />}
         {currentNowPlayingItem && <PlayerFullView isEmbed nowPlayingItem={currentNowPlayingItem} />}
       </EmbedPlayerWrapper>
       <TwitterCardPlayerAPIAudio shouldLoadChapters />
@@ -65,42 +106,12 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { locale, query } = ctx
   const { episodeId, podcastId } = query
 
-  const serverEpisodesFilterSort = PV.Filters.sort._mostRecent
-  const serverEpisodesFilterPage = 1
-
-  let serverPodcast = null
-  let serverEpisodes = []
-  let serverEpisode = null
-
   const defaultServerProps = await getDefaultEmbedServerSideProps(ctx, locale)
-
-  if (podcastId) {
-    serverPodcast = (await getPodcastById(podcastId as string)).data
-    const data = await getEpisodesAndLiveItems(
-      {
-        podcastIds: podcastId,
-        sort: serverEpisodesFilterSort,
-        maxResults: true
-      },
-      serverPodcast,
-      serverEpisodesFilterPage
-    )
-
-    const [combinedEpisodesData] = data.combinedEpisodes
-    serverEpisodes = combinedEpisodesData
-  }
-
-  if (episodeId) {
-    serverEpisode = (await getEpisodeById(episodeId as string)).data
-  } else if (serverEpisodes.length > 0) {
-    serverEpisode = serverEpisodes[0]
-  }
 
   const props: ServerProps = {
     ...defaultServerProps,
-    serverEpisode,
-    serverEpisodes,
-    serverPodcast
+    ...(podcastId ? { podcastId } : {}),
+    ...(episodeId ? { episodeId } : {})
   }
 
   return { props }
