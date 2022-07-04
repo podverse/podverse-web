@@ -26,6 +26,19 @@ body {
     &.is-embed {
       background-color: transparent;
       color: transparent;
+
+      .embed-loading-spinner {
+        align-items: center;
+        color: var(--pv-embed-icon-color, #cccccc);
+        display: flex;
+        font-size: 24px;
+        justify-content: center;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        top: 0px;
+        right: 0;
+      }
     }
   }
 
@@ -155,8 +168,7 @@ body {
   }
 
   a,
-  button,
-  div {
+  button {
     border-radius: 4px;
 
     &:focus {

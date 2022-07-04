@@ -15,7 +15,7 @@ export const NavBar = (props: Props) => {
 
   return (
     <nav className='navbar'>
-      <NavBarBrand height={28} href={PV.RoutePaths.web.home} src={PV.Images.dark.brandLogo} width={150} />
+      <NavBarBrand height={28} href={PV.RoutePaths.web.home} width={150} />
       <NavBarLink
         active={router.pathname == PV.RoutePaths.web.search}
         faIconBeginning={faSearch}

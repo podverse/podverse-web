@@ -143,7 +143,9 @@ function MyApp({ Component, pageProps }) {
 
   const _routeChangeComplete = () => {
     OmniAural.pageIsLoadingHide()
-    matomoTrackPageView()
+    if (!doNotInheritAppComponent) {
+      matomoTrackPageView()
+    }
   }
 
   if (doNotInheritAppComponent) {
