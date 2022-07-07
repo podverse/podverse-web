@@ -359,5 +359,19 @@
     "Send Bitcoin donations and boostagrams to podcasters": "Send bitcoin-donasjoner og boostagrammer til skapere",
     "Type": "Type",
     "Source": "Kilde",
-    "Unsupported file type alert": "Beklager. Denne filtypen støttes ikke enda."
+    "Unsupported file type alert": "Beklager. Denne filtypen støttes ikke enda.",
+    "pages-embed-player-demo-custom-css_Title": "Bygg inn med egendefinert CSS",
+    "pages-embed-player-demo-custom-css_Description": "En demo av den innbyggbare Podverse-spilleren som gjør bruk av egendefinerte CSS-overstyringer.",
+    "Embed custom CSS instructions": "Du må kunne sette inn et enkelt JavaScript-skript på nettsiden din for å overstyre CSS-stilene for den innbyggbare avspilleren. Kopier skriptet nedenfor, endre stilene, og lim det deretter inn (på bunnen av) nettsiden din).",
+    "Custom CSS styles": "Egendefinerte CSS-stiler",
+    "Demo": "Demo",
+    "Embed": "Bygg inn",
+    "Embed custom CSS intro instructions": "Du kan overstyre den innebygde CSS-spillerstilen med JavaScript.",
+    "Embed podcast with episodes instructions": "For å inkludere en episodeliste med den innebygde spilleren kan du gå til nettradioopptaket på Podverse, trykke «Del», kopiere innbyggingskoden og lime den inn på nettsiden din.",
+    "Embed episode only instructions": "For å bygge inn kun én episode på nettsiden din kan du gå til episoden på Podverse, trykke «Del», kopiere innbyggingskoden og lime den inn på nettsiden din.",
+    "How To": "Instruks",
+    "pages-embed-player-demo_Description": "En demo av den innbyggbare Podverse-spilleren.",
+    "pages-embed-player-demo_Title": "Innebyggingsdemo",
+    "Podcast with all episodes": "Nettradioopptak med alle episodene",
+    "untitledChapter": "Kapittel uten navn"
 }
