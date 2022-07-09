@@ -1,5 +1,5 @@
 import OmniAural from 'omniaural'
-import type { EpisodeAlternateEnclosure, MediaRef, NowPlayingItem } from 'podverse-shared'
+import type { MediaRef, NowPlayingItem } from 'podverse-shared'
 import { setV4VPlayerInfoItemToWindow, setV4VPlayerInfoPlaybackPositionToWindow } from '~/services/v4v'
 
 const togglePlayer = (show: boolean) => {
