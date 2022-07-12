@@ -58,7 +58,7 @@ export const PreviewVideoEmbeds = (t: any) => {
         height: 315,
         src: 'https://peertube.podverse.fm/videos/embed/bbf6eb1c-46a0-407d-b1ef-682590885882'
       },
-      web: null
+      web: false
     },
     playlists: {
       create: {
@@ -115,11 +115,11 @@ export const PreviewVideoEmbeds = (t: any) => {
         height: 315,
         src: 'https://peertube.podverse.fm/videos/embed/e02afb1e-5426-4377-88bf-86ebbb9edd9c'
       },
-      web: null
+      web: false
     },
     value4Value: {
       bitcoin: {
-        mobile: null,
+        mobile: false,
         web: {
           text: t('Send Bitcoin donations and boostagrams to podcasters'),
           width: 560,
