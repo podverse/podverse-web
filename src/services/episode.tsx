@@ -8,6 +8,32 @@ export const getEpisodeById = async (id: string) => {
   })
 }
 
+export const getEpisodeByPodcastIdAndGuid = async (podcastId: string, episodeGuid: string) => {
+  const body = {
+    episodeGuid,
+    podcastId
+  }
+
+  return request({
+    endpoint: `${PV.RoutePaths.api.episode_get_by_guid}`,
+    method: 'POST',
+    body
+  })
+}
+
+export const getEpisodeByPodcastIdAndMediaUrl = async (podcastId: string, episodeMediaUrl: string) => {
+  const body = {
+    episodeMediaUrl,
+    podcastId
+  }
+
+  return request({
+    endpoint: `${PV.RoutePaths.api.episode_get_by_media_url}`,
+    method: 'POST',
+    body
+  })
+}
+
 export type EpisodeQueryParams = {
   categories?: string[]
   hasVideo?: boolean

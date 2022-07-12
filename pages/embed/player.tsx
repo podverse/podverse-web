@@ -13,18 +13,31 @@ import { getPodcastById } from '~/services/podcast'
 import { getEpisodesAndLiveItems } from '~/services/liveItem'
 import { playerLoadNowPlayingItem } from '~/services/player/player'
 import { OmniAuralState } from '~/state/omniauralState'
-import { getEpisodeById } from '~/services/episode'
+import { getEpisodeById, getEpisodeByPodcastIdAndGuid, getEpisodeByPodcastIdAndMediaUrl } from '~/services/episode'
 
 interface ServerProps extends I18nPage {
-  episodeId?: string | string[]
-  podcastId?: string | string[]
+  episodeGuid?: string
+  episodeId?: string
+  episodeMediaUrl?: string
+  episodePubDate?: Date
+  episodeTitle?: string
+  podcastId?: string
+  showAllEpisodes?: boolean
 }
 
 const keyPrefix = 'embed_player'
 
 /* Embeddable Player intended for iFrame use */
 
-export default function EmbedPlayerPage({ episodeId, podcastId }: ServerProps) {
+export default function EmbedPlayerPage({
+  episodeGuid,
+  episodeId,
+  episodeMediaUrl,
+  episodePubDate,
+  episodeTitle,
+  podcastId,
+  showAllEpisodes
+}: ServerProps) {
   /* Initialize */
   const [hasInitialized, setHasInitialized] = useState<boolean>(false)
   const [isLoading, setIsLoading] = useState<boolean>(true)
@@ -55,7 +68,7 @@ export default function EmbedPlayerPage({ episodeId, podcastId }: ServerProps) {
       let episode = null
 
       if (podcastId) {
-        podcast = (await getPodcastById(podcastId as string)).data
+        podcast = (await getPodcastById(podcastId)).data
         setPodcast(podcast)
         const data = await getEpisodesAndLiveItems(
           {
@@ -72,8 +85,49 @@ export default function EmbedPlayerPage({ episodeId, podcastId }: ServerProps) {
       }
 
       if (episodeId) {
-        episode = (await getEpisodeById(episodeId as string)).data
-      } else if (episodes.length > 0) {
+        episode = (await getEpisodeById(episodeId)).data
+      }
+
+      if (!episode && podcast?.embedApprovedMediaUrlPaths && episodeMediaUrl) {
+        const isApprovedMediaUrl = podcast.embedApprovedMediaUrlPaths
+          .split(',')
+          .some((x) => episodeMediaUrl.startsWith(x))
+        if (!isApprovedMediaUrl) {
+          console.error('Episode media url path not found in approved media urls paths.')
+        } else {
+          if (!episode && episodeGuid && podcastId) {
+            try {
+              episode = (await getEpisodeByPodcastIdAndGuid(podcastId, episodeGuid)).data
+            } catch (error) {
+              console.log('Episode not found by GUID.')
+            }
+          }
+
+          if (!episode && episodeMediaUrl && podcastId) {
+            try {
+              episode = (await getEpisodeByPodcastIdAndMediaUrl(podcastId, episodeMediaUrl)).data
+            } catch (error) {
+              console.log('Episode not found by media url.')
+            }
+          }
+
+          if (!episode && (episodeGuid || episodeMediaUrl)) {
+            episode = {
+              guid: episodeGuid,
+              id: episodeId,
+              mediaUrl: episodeMediaUrl,
+              pubDate: (episodePubDate && new Date(Number(episodePubDate) * 1000)) || new Date(),
+              title: episodeTitle
+            } as Episode
+
+            if (showAllEpisodes) {
+              episodes.unshift(episode)
+            }
+          }
+        }
+      }
+
+      if (!episode && showAllEpisodes && episodes.length > 0) {
         episode = episodes[0]
       }
 
@@ -104,14 +158,29 @@ export default function EmbedPlayerPage({ episodeId, podcastId }: ServerProps) {
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { locale, query } = ctx
-  const { episodeId, podcastId } = query
+  const {
+    episodeGuid,
+    episodeId,
+    episodeMediaUrl,
+    episodePubDate,
+    episodeTitle,
+    podcastId,
+    podcastTitle,
+    showAllEpisodes
+  } = query as any
 
   const defaultServerProps = await getDefaultEmbedServerSideProps(ctx, locale)
 
   const props: ServerProps = {
     ...defaultServerProps,
+    ...(episodeGuid ? { episodeGuid } : {}),
+    ...(episodeId ? { episodeId } : {}),
+    ...(episodeMediaUrl ? { episodeMediaUrl } : {}),
+    ...(episodePubDate ? { episodePubDate } : {}),
+    ...(episodeTitle ? { episodeTitle } : {}),
     ...(podcastId ? { podcastId } : {}),
-    ...(episodeId ? { episodeId } : {})
+    ...(podcastTitle ? { podcastTitle } : {}),
+    showAllEpisodes: showAllEpisodes ? showAllEpisodes.toLowerCase() === 'true' : false
   }
 
   return { props }
