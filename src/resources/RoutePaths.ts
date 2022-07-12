@@ -79,6 +79,7 @@ export const RoutePaths = {
     settings: `/settings`,
     support: `/support`,
     terms: `/terms`,
+    tutorials: `/tutorials`,
     unspam: `http://www.unspam.com/noemailcollection/`,
     v4vWallet: `/v4v-wallet`,
     verify_email: `/verify-email`,

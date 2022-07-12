@@ -8,7 +8,8 @@ import {
   FeatureComparisonTable,
   Footer,
   PageHeader,
-  PageScrollableContent
+  PageScrollableContent,
+  SideContent
 } from '~/components'
 import { Meta } from '~/components/Meta/Meta'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
@@ -65,6 +66,7 @@ export default function About(props: ServerProps) {
               <p>Kyle Downey</p>
             </div>
           }
+          sideColumnChildren={<SideContent />}
         />
         <Footer />
       </PageScrollableContent>

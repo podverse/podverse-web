@@ -112,6 +112,11 @@ export const Footer = () => {
                 {t('Embed')}
               </PVLink>
             </li>
+            <li>
+              <PVLink className='footer-link-support' href='/tutorials'>
+                {t('Tutorials')}
+              </PVLink>
+            </li>
             {/* <li>
               <PVLink href='/v4v-wallet'>V4V Wallet</PVLink>
             </li> */}
