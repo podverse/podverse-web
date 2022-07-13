@@ -1,6 +1,6 @@
 import { PV } from '~/resources'
 
-export const generateEmbedPlayerIframeHTML = (podcastId?: string, episodeId?: string) => {
+export const generateEmbedPlayerIframeHTML = (podcastId?: string, episodeId?: string, showAllEpisodes?: boolean) => {
   const isEpisodeOnlyPlayer = !!episodeId && !podcastId
   const height = isEpisodeOnlyPlayer ? '170px' : '580px'
 
@@ -8,5 +8,5 @@ export const generateEmbedPlayerIframeHTML = (podcastId?: string, episodeId?: st
     PV.Config.WEB_BASE_URL
   }/embed/player?${podcastId ? `podcastId=${podcastId}` : ''}${podcastId && episodeId ? '&' : ''}${
     episodeId ? `episodeId=${episodeId}` : ''
-  }" title="Podverse Embed Player" class="pv-embed-player"></iframe>`
+  }${showAllEpisodes ? `&showAllEpisodes=true` : ''}" title="Podverse Embed Player" class="pv-embed-player"></iframe>`
 }
