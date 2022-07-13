@@ -54,7 +54,7 @@ export default function EmbedPlayerDemo(props: ServerProps) {
               <iframe
                 id='pv-embed-player'
                 style={{ border: 0, height: '580px', maxWidth: '600px', width: '100%' }}
-                src={`${PV.Config.WEB_BASE_URL}${PV.RoutePaths.web.embed.player}?podcastId=g40Um-HP1`}
+                src={`${PV.Config.WEB_BASE_URL}${PV.RoutePaths.web.embed.player}?podcastId=g40Um-HP1&showAllEpisodes=true`}
                 title='Podverse Embed Player'
               ></iframe>
               <br />

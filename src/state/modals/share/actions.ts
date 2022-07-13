@@ -86,6 +86,8 @@ const modalsShareShowPlaylist = (playlistId: string) => {
 
 const modalsShareShowPodcast = (podcastId: string) => {
   OmniAural.modalsHideAll()
+  const episodeId = null
+  const showAllEpisodes = true
 
   const items = [
     {
@@ -94,7 +96,7 @@ const modalsShareShowPodcast = (podcastId: string) => {
     },
     {
       label: 'Embed',
-      url: generateEmbedPlayerIframeHTML(podcastId)
+      url: generateEmbedPlayerIframeHTML(podcastId, episodeId, showAllEpisodes)
     }
   ]
 
