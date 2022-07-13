@@ -117,7 +117,7 @@ export default function About(props: ServerProps) {
               <iframe
                 id='pv-embed-player-2'
                 style={{ border: 0, height: '580px', maxWidth: '600px', width: '100%' }}
-                src={`${PV.Config.WEB_BASE_URL}${PV.RoutePaths.web.embed.player}?podcastId=peLVTHMwlg`}
+                src={`${PV.Config.WEB_BASE_URL}${PV.RoutePaths.web.embed.player}?podcastId=peLVTHMwlg&showAllEpisodes=true`}
                 title='Poverse Embed Player'
               ></iframe>
               <br />
