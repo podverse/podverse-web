@@ -11,7 +11,12 @@ export const PreviewVideoEmbeds = (t: any) => {
     },
     clips: {
       create: {
-        mobile: null,
+        mobile: {
+          text: t('features - create and share podcast clips'),
+          width: 560,
+          height: 315,
+          src: 'https://peertube.podverse.fm/videos/embed/4f26b27a-aab7-456c-98d4-a10b46a500e0'
+        },
         web: {
           text: t('features - create and share podcast clips'),
           width: 560,
@@ -21,7 +26,12 @@ export const PreviewVideoEmbeds = (t: any) => {
       }
     },
     crossAppComments: {
-      mobile: null,
+      mobile: {
+        text: t('features - podcasting 2.0 cross-app comments'),
+        width: 560,
+        height: 315,
+        src: 'https://peertube.podverse.fm/videos/embed/e214c3a9-9c2e-4d70-9f88-c3820a7189df'
+      },
       web: {
         text: t('features - podcasting 2.0 cross-app comments'),
         width: 560,
@@ -62,7 +72,12 @@ export const PreviewVideoEmbeds = (t: any) => {
     },
     playlists: {
       create: {
-        mobile: null,
+        mobile: {
+          text: t('features - create and share playlists'),
+          width: 560,
+          height: 315,
+          src: 'https://peertube.podverse.fm/videos/embed/2a1d5f03-7415-4462-9758-738f7c93f68c'
+        },
         web: {
           text: t('features - create and share playlists'),
           width: 560,
@@ -73,7 +88,12 @@ export const PreviewVideoEmbeds = (t: any) => {
     },
     podcasts: {
       subscribe: {
-        mobile: null,
+        mobile: {
+          text: t('features - subscribe to podcasts'),
+          width: 560,
+          height: 315,
+          src: 'https://peertube.podverse.fm/videos/embed/0e58425b-c6b4-4c4e-8490-ffd771edd3bb'
+        },
         web: {
           text: t('features - subscribe to podcasts'),
           width: 560,
@@ -129,7 +149,12 @@ export const PreviewVideoEmbeds = (t: any) => {
       }
     },
     videos: {
-      mobile: null,
+      mobile: {
+        text: t('features - video playback'),
+        width: 560,
+        height: 315,
+        src: 'https://peertube.podverse.fm/videos/embed/5dcdf4b0-c154-44ca-9ee4-4ee39af63671'
+      },
       web: {
         text: t('features - video playback'),
         width: 560,
