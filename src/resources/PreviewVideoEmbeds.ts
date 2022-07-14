@@ -15,13 +15,13 @@ export const PreviewVideoEmbeds = (t: any) => {
           text: t('features - create and share podcast clips'),
           width: 560,
           height: 315,
-          src: 'https://peertube.podverse.fm/videos/embed/a7865ef0-83bd-4ba1-ab6a-2e54fd738d11'
+          src: 'https://peertube.podverse.fm/videos/embed/4f26b27a-aab7-456c-98d4-a10b46a500e0'
         },
         web: {
           text: t('features - create and share podcast clips'),
           width: 560,
           height: 315,
-          src: 'https://peertube.podverse.fm/videos/embed/67764a9d-12e0-4c25-9ae8-746efe484fa2'
+          src: 'https://peertube.podverse.fm/videos/embed/a7865ef0-83bd-4ba1-ab6a-2e54fd738d11'
         }
       }
     },
