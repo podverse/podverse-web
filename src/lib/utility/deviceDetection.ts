@@ -1,3 +1,5 @@
+/* eslint-disable no-useless-escape */
+
 // Thanks to detectmobilebrowsers.com and
 // Michael Zaporozhets for this answer on Stack Overflow
 // https://stackoverflow.com/questions/11381673/detecting-a-mobile-browser
