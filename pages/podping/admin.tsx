@@ -30,7 +30,7 @@ export default function PodpingAdmin(props: ServerProps) {
 
   const meta = {
     currentUrl: `${PV.Config.WEB_BASE_URL}${PV.RoutePaths.web.admin}`,
-    description: t('pages-podping-admin_Description'),
+    description: t('pages-about_Description'),
     title: t('pages-podping-admin_Title')
   }
 
