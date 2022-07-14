@@ -78,7 +78,7 @@ export default function Profiles({ serverFilterPage, serverUsers, serverUsersCou
 
   const meta = {
     currentUrl: `${PV.Config.WEB_BASE_URL}${PV.RoutePaths.web.profiles}`,
-    description: t('pages-profiles_Description'),
+    description: t('pages-about_Description'),
     title: t('pages-profiles_Title')
   }
 
