@@ -268,7 +268,7 @@ export default function Clips({
 
   const meta = {
     currentUrl: `${PV.Config.WEB_BASE_URL}${PV.RoutePaths.web.clips}`,
-    description: t('pages-clips_Description'),
+    description: t('pages-about_Description'),
     title: t('pages-clips_Title')
   }
 
