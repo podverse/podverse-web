@@ -9,6 +9,7 @@ import { MembershipStatus } from './MembershipStatus'
 import { NavBar } from './NavBar'
 import { Player } from './Player'
 import { Playlists } from './Playlists'
+import { PreviewVideoEmbeds } from './PreviewVideoEmbeds'
 import { RoutePaths } from './RoutePaths'
 import { SocialInteraction } from './SocialInteraction'
 import { TextInput } from './TextInput'
@@ -26,6 +27,7 @@ export const PV = {
   NavBar,
   Player,
   Playlists,
+  PreviewVideoEmbeds,
   RoutePaths,
   SocialInteraction,
   TextInput,

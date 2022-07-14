@@ -1,0 +1,43 @@
+.tutorial-sections {
+  .tutorial-section {
+    &:last-child {
+      padding-bottom: 32px;
+
+      hr {
+        display: none;
+      }
+    }
+
+    .tutorial-section-description {
+      margin: 0 0 16px 0;
+    }
+
+    .tutorial-section-tabs {
+      display: flex;
+      margin: 0 0 16px 0;
+
+      .tutorial-tab {
+        align-items: center;
+        border-bottom: 4px solid transparent;
+        border-radius: 0;
+        cursor: pointer;
+        display: flex;
+        font-size: $text-md;
+        justify-content: center;
+        margin: 0 12px 0 0;
+        min-width: 72px;
+        padding: 4px 12px 3px 12px;
+
+        &.active {
+          border-bottom: 3px solid #007fff;
+          font-weight: 700;
+          padding-top: 4px;
+        }
+      }
+    }
+
+    .tutorial-section-explanation {
+      margin: 12px 0 0 0;
+    }
+  }
+}
