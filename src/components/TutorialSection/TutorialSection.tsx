@@ -1,31 +1,34 @@
 import { faPlayCircle } from '@fortawesome/free-regular-svg-icons'
 import classNames from 'classnames'
 import OmniAural from 'omniaural'
+import { useState } from 'react'
 import { ButtonIcon } from '../Buttons/ButtonIcon'
 
 export type TutorialSectionProps = {
-  title: string
-  id: string
+  defaultTypeSelected: 'mobile' | 'web'
   description: string
+  id: string
   mobileExplanation: string
   mobilePreviewVideoEmbed: any
+  title: string
   webExplanation: string
   webPreviewVideoEmbed: any
-  typeSelected: 'mobile' | 'web'
 }
 
 export const TutorialSection = ({
+  defaultTypeSelected,
   description,
   id,
   mobileExplanation,
   mobilePreviewVideoEmbed,
   title,
-  typeSelected,
   webExplanation,
   webPreviewVideoEmbed
 }: TutorialSectionProps) => {
+  const [typeSelected, setTypeSelected] = useState<'mobile' | 'web'>(defaultTypeSelected)
+
   const tabOnClick = (typeSelected: 'mobile' | 'web') => {
-    console.log('onClick', typeSelected)
+    setTypeSelected(typeSelected)
   }
 
   const playVideoInModal = (previewVideoEmbed: Node) => {
@@ -37,13 +40,13 @@ export const TutorialSection = ({
       <h3 className='tutorial-section-title' id={id}>
         {title}
       </h3>
-      <TutorialTabs onClick={tabOnClick} typeSelected={typeSelected} />
       <div className='tutorial-section-description'>{description}</div>
+      <TutorialTabs onClick={tabOnClick} typeSelected={typeSelected} />
       {typeSelected === 'web' && (
         <>
           {!!webPreviewVideoEmbed && (
             <div className='tutorial-video-button'>
-              <span className='tutorial-video-button-label'>Web Demo: </span>
+              <span className='tutorial-video-button-label'>Web Demo </span>
               <ButtonIcon
                 className='play-preview'
                 faIcon={faPlayCircle}
@@ -59,7 +62,7 @@ export const TutorialSection = ({
         <>
           {!!mobilePreviewVideoEmbed && (
             <div className='tutorial-video-button'>
-              <span className='tutorial-video-button-label'>Mobile Demo: </span>
+              <span className='tutorial-video-button-label'>Mobile Demo </span>
               <ButtonIcon
                 className='play-preview'
                 faIcon={faPlayCircle}
@@ -71,6 +74,7 @@ export const TutorialSection = ({
           <div className='tutorial-section-explanation'>{mobileExplanation}</div>
         </>
       )}
+      <hr />
     </div>
   )
 }
