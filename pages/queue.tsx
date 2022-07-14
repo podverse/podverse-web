@@ -84,7 +84,7 @@ export default function Queue(props: ServerProps) {
 
   const meta = {
     currentUrl: `${PV.Config.WEB_BASE_URL}${PV.RoutePaths.web.queue}`,
-    description: t('pages-queues_Description'),
+    description: t('pages-about_Description'),
     title: t('pages-queue_Title')
   }
 
