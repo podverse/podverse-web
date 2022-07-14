@@ -11,7 +11,8 @@ import {
   MembershipStatus,
   Meta,
   PageHeader,
-  PageScrollableContent
+  PageScrollableContent,
+  SideContent
 } from '~/components'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 import { OmniAuralState } from '~/state/omniauralState'
@@ -79,6 +80,7 @@ export default function Membership(props: ServerProps) {
               <FeatureComparisonTable aboveSectionNodes={aboveSectionNodes} />
             </div>
           }
+          sideColumnChildren={<SideContent />}
         />
         <Footer />
       </PageScrollableContent>
