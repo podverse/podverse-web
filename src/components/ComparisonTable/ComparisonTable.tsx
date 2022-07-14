@@ -14,6 +14,7 @@ type Props = {
   headerText: string
   leftAlignedStyle: boolean
   legendAsterisk?: string
+  legendAsterisk2?: string
 }
 
 const keyPrefix = 'comparion_table'
@@ -25,7 +26,8 @@ export const ComparisonTable = ({
   headerText2,
   headerText,
   leftAlignedStyle,
-  legendAsterisk
+  legendAsterisk,
+  legendAsterisk2
 }: Props) => {
   const { t } = useTranslation()
 
@@ -57,6 +59,7 @@ export const ComparisonTable = ({
           <div className='comparison-table-row__icon' role='cell'>
             {x.icon1 && <FontAwesomeIcon icon={x.iconType === 'smile' ? faSmile : faCheck} />}
             {x.icon1Asterisk ? '*' : ''}
+            {x.icon1Asterisk2 ? '**' : ''}
             <div className='aria-only-visible-to-screen-readers'>
               {x.icon1 ? t('Yes') : t('No')} {x.iconType === 'smile' ? ':)' : ''}
             </div>
@@ -64,6 +67,7 @@ export const ComparisonTable = ({
           <div className='comparison-table-row__icon' role='cell'>
             {x.icon2 && <FontAwesomeIcon icon={x.iconType === 'smile' ? faSmile : faCheck} />}
             {x.icon2Asterisk ? '*' : ''}
+            {x.icon2Asterisk2 ? '**' : ''}
             <div className='aria-only-visible-to-screen-readers'>
               {x.icon2 ? t('Yes') : t('No')} {x.iconType === 'smile' ? ':)' : ''}
             </div>
@@ -99,6 +103,7 @@ export const ComparisonTable = ({
           {dataElements && dataElements.length > 0 && dataElements}
         </div>
         {legendAsterisk ? <div className='legend-row'>* {legendAsterisk}</div> : null}
+        {legendAsterisk2 ? <div className='legend-row'>** {legendAsterisk2}</div> : null}
       </div>
     </>
   )
