@@ -45,7 +45,7 @@ export default function EmbedPlayerPage({
   const [podcast, setPodcast] = useState<Podcast>(null)
   const [player] = useOmniAural('player') as [OmniAuralState['player']]
   const { currentNowPlayingItem } = player
-  const episodeOnly = !!episodeId && !podcastId
+  const episodeOnly = !showAllEpisodes
 
   /* useEffects */
 
