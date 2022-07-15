@@ -38,6 +38,8 @@
 }
 
 .webln-v4v-wrapper {
+  padding-bottom: 24px;
+
   .loading-wrapper {
     margin: 24px 0 0 0;
     text-align: center;
@@ -48,5 +50,11 @@
         width: 28px;
       }
     }
+  }
+}
+
+@media (max-width: $media-max-width-laptop) {
+  .webln-v4v-wrapper {
+    padding-bottom: 0;
   }
 }
