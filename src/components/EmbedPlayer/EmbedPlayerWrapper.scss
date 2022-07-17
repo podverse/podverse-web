@@ -28,6 +28,20 @@
       opacity: 0;
     }
 
+    .embed-error-message {
+      color: var(--pv-embed-text-color-primary, #ffffff);
+      font-size: var(--pv-embed-font-size-md, 16px);
+      margin: 12px 12px 6px 12px;
+      text-align: center;
+    }
+
+    .embed-error-contact {
+      color: var(--pv-embed-text-color-tertiary, #74a8dc);
+      font-size: var(--pv-embed-font-size-md, 16px);
+      margin: 0 12px 12px 12px;
+      text-align: center;
+    }
+
     .button-close {
       background-color: var(--pv-embed-close-button-background-color, #0f1235);
 
