@@ -153,27 +153,27 @@ export default function EmbedPlayerPage({
     <>
       <Meta robotsNoIndex={true} />
       <EmbedPlayerWrapper episodeOnly={episodeOnly} hasInitialized={hasInitialized} isLoading={isLoading}>
-        {
-          errorMessage && (
-            <>
-              <div className='embed-error-message'>{errorMessage}</div>
-              <div className='embed-error-contact'>
-                <MailTo body={t('Embed player overrides error email body')} email='contact@podverse.fm' subject={t('Embed player overrides email subject')}>
-                  {t('Contact')}
-                </MailTo>
-              </div>
-            </>
-          )
-        }
-        {
-          !errorMessage && (
-            <>
-              <EmbedPlayerHeader hideFullView={episodeOnly} />
-              {!episodeOnly && <EmbedPlayerList episodes={episodes} keyPrefix={keyPrefix} podcast={podcast} />}
-              {currentNowPlayingItem && <PlayerFullView isEmbed nowPlayingItem={currentNowPlayingItem} />}
-            </>    
-          )
-        }
+        {errorMessage && (
+          <>
+            <div className='embed-error-message'>{errorMessage}</div>
+            <div className='embed-error-contact'>
+              <MailTo
+                body={t('Embed player overrides error email body')}
+                email='contact@podverse.fm'
+                subject={t('Embed player overrides email subject')}
+              >
+                {t('Contact')}
+              </MailTo>
+            </div>
+          </>
+        )}
+        {!errorMessage && (
+          <>
+            <EmbedPlayerHeader hideFullView={episodeOnly} />
+            {!episodeOnly && <EmbedPlayerList episodes={episodes} keyPrefix={keyPrefix} podcast={podcast} />}
+            {currentNowPlayingItem && <PlayerFullView isEmbed nowPlayingItem={currentNowPlayingItem} />}
+          </>
+        )}
       </EmbedPlayerWrapper>
       <TwitterCardPlayerAPIAudio shouldLoadChapters />
     </>
