@@ -2,7 +2,7 @@ import { GetServerSideProps } from 'next'
 import { useTranslation } from 'next-i18next'
 import { Page } from '~/lib/utility/page'
 import { PV } from '~/resources'
-import { ColumnsWrapper, Footer, MailTo, Meta, PageHeader, PageScrollableContent, PVLink } from '~/components'
+import { ColumnsWrapper, Footer, Meta, PageHeader, PageScrollableContent, PVLink } from '~/components'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 
 type ServerProps = Page
