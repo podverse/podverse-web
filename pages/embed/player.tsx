@@ -7,13 +7,14 @@ import { Meta } from '~/components/Meta/Meta'
 import { getDefaultEmbedServerSideProps } from '~/services/serverSideHelpers'
 import { TwitterCardPlayerAPIAudio } from '~/components/TwitterCardPlayer/TwitterCardPlayerAPIAudio'
 import { useEffect, useState } from 'react'
-import { EmbedPlayerHeader, EmbedPlayerList, EmbedPlayerWrapper } from '~/components'
+import { EmbedPlayerHeader, EmbedPlayerList, EmbedPlayerWrapper, MailTo } from '~/components'
 import { PlayerFullView } from '~/components/Player/PlayerFullView'
 import { getPodcastById } from '~/services/podcast'
 import { getEpisodesAndLiveItems } from '~/services/liveItem'
 import { playerLoadNowPlayingItem } from '~/services/player/player'
 import { OmniAuralState } from '~/state/omniauralState'
 import { getEpisodeById, getEpisodeByPodcastIdAndGuid, getEpisodeByPodcastIdAndMediaUrl } from '~/services/episode'
+import { useTranslation } from 'next-i18next'
 
 interface ServerProps extends I18nPage {
   episodeGuid?: string
@@ -39,9 +40,11 @@ export default function EmbedPlayerPage({
   showAllEpisodes
 }: ServerProps) {
   /* Initialize */
+  const { t } = useTranslation()
   const [hasInitialized, setHasInitialized] = useState<boolean>(false)
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const [episodes, setEpisodes] = useState<Episode[]>([])
+  const [errorMessage, setErrorMessage] = useState<string>('')
   const [podcast, setPodcast] = useState<Podcast>(null)
   const [player] = useOmniAural('player') as [OmniAuralState['player']]
   const { currentNowPlayingItem } = player
@@ -88,12 +91,14 @@ export default function EmbedPlayerPage({
         episode = (await getEpisodeById(episodeId)).data
       }
 
-      if (!episode && podcast?.embedApprovedMediaUrlPaths && episodeMediaUrl) {
+      if (!episode && episodeMediaUrl && !podcast?.embedApprovedMediaUrlPaths) {
+        setErrorMessage(t('Embed player overrides error info'))
+      } else if (!episode && podcast?.embedApprovedMediaUrlPaths && episodeMediaUrl) {
         const isApprovedMediaUrl = podcast.embedApprovedMediaUrlPaths
           .split(',')
           .some((x) => episodeMediaUrl.startsWith(x))
         if (!isApprovedMediaUrl) {
-          console.error('Episode media url path not found in approved media urls paths.')
+          setErrorMessage(t('Embed player overrides error info'))
         } else {
           if (!episode && episodeGuid && podcastId) {
             try {
@@ -131,12 +136,15 @@ export default function EmbedPlayerPage({
         episode = episodes[0]
       }
 
-      const shouldPlay = true
-      const inheritedEpisode = null
-      const nowPlayingItem = convertToNowPlayingItem(episode, inheritedEpisode, podcast)
-      const previousNowPlayingItem = null
-      await playerLoadNowPlayingItem(nowPlayingItem, previousNowPlayingItem, shouldPlay)
-      setEpisodes(episodes)
+      if (episode && podcast) {
+        const shouldPlay = true
+        const inheritedEpisode = null
+        const nowPlayingItem = convertToNowPlayingItem(episode, inheritedEpisode, podcast)
+        const previousNowPlayingItem = null
+        await playerLoadNowPlayingItem(nowPlayingItem, previousNowPlayingItem, shouldPlay)
+        setEpisodes(episodes)
+      }
+
       setIsLoading(false)
     }, 100)
   }
@@ -145,9 +153,27 @@ export default function EmbedPlayerPage({
     <>
       <Meta robotsNoIndex={true} />
       <EmbedPlayerWrapper episodeOnly={episodeOnly} hasInitialized={hasInitialized} isLoading={isLoading}>
-        <EmbedPlayerHeader hideFullView={episodeOnly} />
-        {!episodeOnly && <EmbedPlayerList episodes={episodes} keyPrefix={keyPrefix} podcast={podcast} />}
-        {currentNowPlayingItem && <PlayerFullView isEmbed nowPlayingItem={currentNowPlayingItem} />}
+        {errorMessage && (
+          <>
+            <div className='embed-error-message'>{errorMessage}</div>
+            <div className='embed-error-contact'>
+              <MailTo
+                body={t('Embed player overrides error email body')}
+                email='contact@podverse.fm'
+                subject={t('Embed player overrides email subject')}
+              >
+                {t('Contact')}
+              </MailTo>
+            </div>
+          </>
+        )}
+        {!errorMessage && (
+          <>
+            <EmbedPlayerHeader hideFullView={episodeOnly} />
+            {!episodeOnly && <EmbedPlayerList episodes={episodes} keyPrefix={keyPrefix} podcast={podcast} />}
+            {currentNowPlayingItem && <PlayerFullView isEmbed nowPlayingItem={currentNowPlayingItem} />}
+          </>
+        )}
       </EmbedPlayerWrapper>
       <TwitterCardPlayerAPIAudio shouldLoadChapters />
     </>

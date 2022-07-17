@@ -18,7 +18,7 @@ export const PodcastListItem = ({ podcast, serverCookies }: Props) => {
   const { id, lastEpisodePubDate, latestLiveItemStatus, title } = podcast
   const podcastImageUrl = getPodcastShrunkImageUrl(podcast)
   const date = readableDate(lastEpisodePubDate)
-  const pubDateText = date === 'Invalid date' ? '' : `${t('Latest Episode')}: ${date}`
+  const pubDateText = date === 'Invalid date' ? '' : `${t('Latest episode')}: ${date}`
   const podcastPageUrl = `${PV.RoutePaths.web.podcast}/${id}`
   const liveItemStatusAriaLabel = ariaLiveItemStatusLabel(latestLiveItemStatus, t)
   const ariaLabel = `${title}, ${pubDateText} ${liveItemStatusAriaLabel ? `, ${liveItemStatusAriaLabel}` : ''}`
