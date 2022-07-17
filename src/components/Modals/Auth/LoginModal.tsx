@@ -44,7 +44,7 @@ export const LoginModal = (props: Props) => {
   return (
     <Modal
       className='login-modal centered'
-      contentLabel={t('Login modal')}
+      contentLabel={t('Login')}
       isOpen={login.show}
       onRequestClose={_onRequestClose}
     >
