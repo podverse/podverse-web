@@ -22,7 +22,6 @@ const moduleExports = {
   async headers() {
     return [
       {
-        // matching all API routes
         source: "/embed/player",
         headers: [
           { key: "Access-Control-Allow-Credentials", value: "true" },

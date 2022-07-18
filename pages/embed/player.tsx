@@ -59,7 +59,23 @@ export default function EmbedPlayerPage({
   /* Helpers */
 
   const initializeData = async () => {
+    window.addEventListener('message', (e) => {
+      const data = e['message'] || e['data']
+      const eventName = data?.eventName
+      const styleRules = data?.styleRules
+      if (eventName == 'pv-embed-load-custom-css') {
+        const keys = Object.keys(styleRules)
+        for (const key of keys) {
+          const value = styleRules[key]
+          if (key && value) {
+            window.document.documentElement.style.setProperty(key, value)
+          }
+        }
+      }
+    })
+
     parent.postMessage('pv-embed-has-loaded', '*')
+
     setTimeout(async () => {
       setHasInitialized(true)
 
@@ -136,7 +152,7 @@ export default function EmbedPlayerPage({
         episode = episodes[0]
       }
 
-      if (episode && podcast) {
+      if (episode) {
         const shouldPlay = true
         const inheritedEpisode = null
         const nowPlayingItem = convertToNowPlayingItem(episode, inheritedEpisode, podcast)
