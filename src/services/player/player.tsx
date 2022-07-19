@@ -95,7 +95,11 @@ export const playerTogglePlayOrLoadNowPlayingItem = async (nowPlayingItem: NowPl
     await playerLoadNowPlayingItem(nowPlayingItem, shouldPlay, isChapter)
     const duration = playerGetDuration()
     setClipFlagPositions(nowPlayingItem, duration)
-  } else if (previousNowPlayingItem && previousNowPlayingItem.episodeMediaUrl === nowPlayingItem.episodeMediaUrl) {
+  } else if (
+    previousNowPlayingItem &&
+    previousNowPlayingItem.episodeMediaUrl === nowPlayingItem.episodeMediaUrl &&
+    (!previousNowPlayingItem.clipId || nowPlayingItem.clipId && nowPlayingItem.clipId === previousNowPlayingItem.clipId)
+    ) {
     paused ? playerPlay() : playerPause()
   } else {
     const shouldPlay = true
