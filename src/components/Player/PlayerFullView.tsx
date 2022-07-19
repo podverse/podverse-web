@@ -130,13 +130,9 @@ export const PlayerFullView = ({ isEmbed, nowPlayingItem }: Props) => {
           <PVLink href={`${PV.Config.WEB_BASE_URL}${PV.RoutePaths.web.clip}/${nowPlayingItem.clipId}`}>
             <div className='clip-info-wrapper'>
               <div aria-live='assertive'>
-                <div className='clip-title'>
-                  {clipTitle}
-                </div>
+                <div className='clip-title'>{clipTitle}</div>
               </div>
-              <div className='clip-time'>
-                {clipTimeInfo}
-              </div>
+              <div className='clip-time'>{clipTimeInfo}</div>
             </div>
           </PVLink>
         )}
