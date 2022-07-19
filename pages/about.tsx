@@ -47,12 +47,10 @@ export default function About(props: ServerProps) {
         <ColumnsWrapper
           mainColumnChildren={
             <div className='text-page'>
-              <p className='bigger'>Podverse is an open source podcast manager for iOS, Android, and web.</p>
+              <p className='bigger'>{t('Podverse is a FOSS podcast manager')}</p>
               <DownloadAppButtons />
               <p>
-                All Podverse software is provided under a free and open source (FOSS) licence. Features that require
-                updating our servers are available only with a Premium membership. Sign up today and get 3 months of
-                Premium for free{' '}
+                {t('License and free trial info')}{' '}
                 <span role='img' aria-label='partying face emoji'>
                   🥳
                 </span>

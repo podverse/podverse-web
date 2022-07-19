@@ -55,7 +55,7 @@ export const LoginToAlertModal = (props: Props) => {
       </div>
       <div className='submit-buttons'>
         <ButtonRectangle label={t('Close')} onClick={_onRequestClose} type='secondary' />
-        <ButtonRectangle label={t('Log in')} onClick={OmniAural.modalsLoginShow} type='primary' />
+        <ButtonRectangle label={t('Login')} onClick={OmniAural.modalsLoginShow} type='primary' />
       </div>
     </Modal>
   )

@@ -84,6 +84,8 @@ export const MediaItemControls = ({
         await modalsAddToPlaylistShowOrAlert(nowPlayingItem)
       } else if (item.key === _shareKey) {
         if (mediaRef) {
+          const { episode } = mediaRef
+          const { podcast } = episode
           OmniAural.modalsShareShowClip(mediaRef.id, episode.id, podcast.id)
         } else if (episode) {
           OmniAural.modalsShareShowEpisode(episode.id, podcast.id)

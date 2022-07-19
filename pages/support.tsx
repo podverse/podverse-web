@@ -2,7 +2,7 @@ import { GetServerSideProps } from 'next'
 import { useTranslation } from 'next-i18next'
 import { Page } from '~/lib/utility/page'
 import { PV } from '~/resources'
-import { ColumnsWrapper, Footer, MailTo, Meta, PageHeader, PageScrollableContent, PVLink } from '~/components'
+import { ColumnsWrapper, Footer, Meta, PageHeader, PageScrollableContent, PVLink } from '~/components'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 
 type ServerProps = Page
@@ -38,8 +38,8 @@ export default function Support(props: ServerProps) {
         <ColumnsWrapper
           mainColumnChildren={
             <div className='text-page'>
-              <p>Podverse creates free and open source software to expand what is possible in podcasting.</p>
-              <p>Below are a few ways you can support the project:</p>
+              <p>{t('Mission statement')}</p>
+              <p>{t('Below are a few ways you can support the project')}</p>
               <br />
               <h3>{t('Membership')}</h3>
               <p>
@@ -69,24 +69,11 @@ export default function Support(props: ServerProps) {
               </p>
               <br />
               <h3>{t('Contribute')}</h3>
-              <p>Here is a partial list of tasks we could use help with:</p>
-              <ul>
-                <li>Share with friends and family!</li>
-                <li>Translations</li>
-                <li>Creating Memes</li>
-                <li>QA Testing</li>
-                <li>Graphic Design</li>
-                <li>Social Media Marketing</li>
-                <li>Programming</li>
-                <li>SEO</li>
-                <li>Other ideas?</li>
-              </ul>
               <p>
-                {`If you're interested in helping Podverse in any capacity, please `}
-                <a href='https://discord.gg/6HkyNKR' target='_blank' rel='noreferrer'>
-                  {t('join our Discord server')}
-                </a>{' '}
-                or <MailTo email='contact@podverse.fm'>{t('send us an email')}</MailTo>.
+                {t(`Contribute info`)}
+                <p>
+                  <PVLink href='/contact'>{t('Contact')}</PVLink>
+                </p>
               </p>
               <br />
             </div>

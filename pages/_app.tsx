@@ -106,6 +106,14 @@ function MyApp({ Component, pageProps }) {
 
   useEffect(() => {
     ;(async () => {
+      // resetHeight is needed to account for the height: 100vh css rule
+      // rendering incorrectly on at least some Android mobile browsers.
+      function resetHeight() {
+        document.body.style.height = window.innerHeight + 'px'
+      }
+      window.addEventListener('resize', resetHeight)
+      resetHeight()
+
       if (!doNotInheritAppComponent) {
         playerInitializeSettings(pageProps.serverCookies)
         const nowPlayingItem = await getNowPlayingItemOnServer()
@@ -143,6 +151,7 @@ function MyApp({ Component, pageProps }) {
 
   const _routeChangeComplete = () => {
     OmniAural.pageIsLoadingHide()
+    OmniAural.playerFullViewHide()
     if (!doNotInheritAppComponent) {
       matomoTrackPageView()
     }

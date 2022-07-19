@@ -1,10 +1,22 @@
 import moment from 'moment'
+import 'moment/locale/de'
+import 'moment/locale/el'
+import 'moment/locale/es'
+import 'moment/locale/fr'
+import 'moment/locale/lt'
+import 'moment/locale/nb'
+import 'moment/locale/pt'
+import 'moment/locale/ru'
+import 'moment/locale/sv'
+import 'moment/locale/tr'
 import OmniAural from 'omniaural'
 import { Episode, MediaRef } from 'podverse-shared'
+import { getLang } from './locales'
 import { convertSecToHhoursMMinutes, getTimeLabelText, readableClipTime } from './time'
 
 export const readableDate = (date: Date, withTime?: boolean) => {
-  const format = withTime ? 'MMM Do YYYY, h:mm:ss a' : 'MMM Do YYYY'
+  moment.locale(getLang())
+  const format = withTime ? 'MMMM Do YYYY, h:mm:ss a' : 'MMM Do YYYY'
   return moment(date).format(format)
 }
 

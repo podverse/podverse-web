@@ -1,6 +1,6 @@
 {
   "name": "podverse-web",
-  "version": "4.5.34",
+  "version": "4.5.40",
   "description": "Web app for the Podverse podcast clip sharing ecosystem",
   "repository": {
     "type": "git",
@@ -54,8 +54,8 @@
     "debounce": "1.2.1",
     "linkify-html": "3.0.4",
     "linkifyjs": "3.0.4",
-    "mermaid": "9.0.0",
-    "moment": "2.29.2",
+    "mermaid": "9.1.2",
+    "moment": "2.29.4",
     "next": "12.1.0",
     "next-i18next": "10.4.0",
     "nightwatch": "1.7.13",
