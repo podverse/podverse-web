@@ -80,8 +80,12 @@ export default function EmbedPlayerCustomCSSDemo(props: ServerProps) {
                 }
               }
 
-              pvFrameNode.contentWindow.postMessage(messageBody, '*')
-              pvFrameNode2.contentWindow.postMessage(messageBody, '*')
+              pvFrameNode.contentWindow.postMessage(messageBody, ${
+                PV.Config.IS_DEV ? '"http://localhost:3000"' : '"https://podverse.fm"'
+              })
+              pvFrameNode2.contentWindow.postMessage(messageBody, ${
+                PV.Config.IS_DEV ? '"http://localhost:3000"' : '"https://podverse.fm"'
+              })
             }            
           }
         }
@@ -163,7 +167,7 @@ export default function EmbedPlayerCustomCSSDemo(props: ServerProps) {
           }
         }
 
-        pvFrameNode.contentWindow.postMessage(messageBody, '*')
+        pvFrameNode.contentWindow.postMessage(messageBody, 'https://podverse.fm')
       }            
     }
   }
