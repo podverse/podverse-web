@@ -5,6 +5,8 @@ const getServerOrPublicVariable = (envVarKey: string) =>
   // optional chaining helps with the test environment
   serverRuntimeConfig?.[envVarKey] || publicRuntimeConfig?.[envVarKey]
 
+const IS_DEV = getServerOrPublicVariable('IS_DEV')
+
 const API_PROTOCOL = getServerOrPublicVariable('API_PROTOCOL')
 const API_DOMAIN = getServerOrPublicVariable('API_DOMAIN')
 const API_PATH = getServerOrPublicVariable('API_PATH')
@@ -41,6 +43,7 @@ const V4V_APP_RECIPIENT_VALUE_DEFAULT = getServerOrPublicVariable('V4V_APP_RECIP
 const V4V_RECIPIENT_VALUE_DEFAULT = getServerOrPublicVariable('V4V_RECIPIENT_VALUE_DEFAULT')
 
 export const Config = {
+  IS_DEV,
   API_BASE_URL,
   WEB_BASE_URL,
   APP_DOWNLOAD_ON_THE_APP_STORE_URL,
