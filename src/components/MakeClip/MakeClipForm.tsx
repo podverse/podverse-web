@@ -137,8 +137,8 @@ export const MakeClipForm = ({ handleCancel }: Props) => {
 
   const generatePrivacyDropdownItems = () => {
     const items = [
-      { label: 'Public', key: PV.MakeClip.privacyKeys.public },
-      { label: 'Only with link', key: PV.MakeClip.privacyKeys.onlyWithLink }
+      { i18nKey: 'Public', key: PV.MakeClip.privacyKeys.public },
+      { i18nKey: 'Only with link', key: PV.MakeClip.privacyKeys.onlyWithLink }
     ]
 
     return items

@@ -83,126 +83,126 @@ export const Filters = {
   dropdownOptions: {
     clip: {
       sort: [
-        { label: 'Chronological', key: _chronological },
-        { label: 'Recent', key: _mostRecent },
-        { label: 'Top - Past Day', key: _topPastDay },
-        { label: 'Top - Past Week', key: _topPastWeek },
-        { label: 'Top - Past Month', key: _topPastMonth },
-        { label: 'Top - Past Year', key: _topPastYear },
-        { label: 'Top - All Time', key: _topAllTime },
-        { label: 'Oldest', key: _oldest },
-        { label: 'Random', key: _random }
+        { i18nKey: 'filter sorting - chronological', key: _chronological },
+        { i18nKey: 'filter sorting - most-recent', key: _mostRecent },
+        { i18nKey: 'filter sorting - top-past-day', key: _topPastDay },
+        { i18nKey: 'filter sorting - top-past-week', key: _topPastWeek },
+        { i18nKey: 'filter sorting - top-past-month', key: _topPastMonth },
+        { i18nKey: 'filter sorting - top-past-year', key: _topPastYear },
+        { i18nKey: 'filter sorting - top-all-time', key: _topAllTime },
+        { i18nKey: 'filter sorting - oldest', key: _oldest },
+        { i18nKey: 'filter sorting - random', key: _random }
       ]
     },
     clips: {
       from: [
-        { ariaLabel: 'Filtering by all podcasts', label: 'All', key: _all },
-        { ariaLabel: 'Filtering by subscribed', label: 'Subscribed', key: _subscribed },
-        { ariaLabel: 'Filtering by category', label: 'Category', key: _category }
+        { i18nKey: 'filter from - all', i18nAriaLabelKey: 'filter from - all - aria', key: _all },
+        { i18nKey: 'filter from - subscribed', i18nAriaLabelKey: 'filter from - subscribed - aria', key: _subscribed },
+        { i18nKey: 'filter from - category', i18nAriaLabelKey: 'filter from - category - aria', key: _category }
       ],
       sort: {
         all: [
-          { label: 'Top - Past Day', key: _topPastDay },
-          { label: 'Top - Past Week', key: _topPastWeek },
-          { label: 'Top - Past Month', key: _topPastMonth },
-          { label: 'Top - Past Year', key: _topPastYear },
-          { label: 'Top - All Time', key: _topAllTime }
+          { i18nKey: 'filter sorting - top-past-day', key: _topPastDay },
+          { i18nKey: 'filter sorting - top-past-week', key: _topPastWeek },
+          { i18nKey: 'filter sorting - top-past-month', key: _topPastMonth },
+          { i18nKey: 'filter sorting - top-past-year', key: _topPastYear },
+          { i18nKey: 'filter sorting - top-all-time', key: _topAllTime }
         ],
         subscribed: [
-          { label: 'Recent', key: _mostRecent },
-          { label: 'Top - Past Day', key: _topPastDay },
-          { label: 'Top - Past Week', key: _topPastWeek },
-          { label: 'Top - Past Month', key: _topPastMonth },
-          { label: 'Top - Past Year', key: _topPastYear },
-          { label: 'Top - All Time', key: _topAllTime },
-          { label: 'Oldest', key: _oldest }
+          { i18nKey: 'filter sorting - most-recent', key: _mostRecent },
+          { i18nKey: 'filter sorting - top-past-day', key: _topPastDay },
+          { i18nKey: 'filter sorting - top-past-week', key: _topPastWeek },
+          { i18nKey: 'filter sorting - top-past-month', key: _topPastMonth },
+          { i18nKey: 'filter sorting - top-past-year', key: _topPastYear },
+          { i18nKey: 'filter sorting - top-all-time', key: _topAllTime },
+          { i18nKey: 'filter sorting - oldest', key: _oldest }
         ]
       }
     },
     episode: {
       sort: [
-        { label: 'Chronological', key: _chronological },
-        { label: 'Recent', key: _mostRecent },
-        { label: 'Top - Past Day', key: _topPastDay },
-        { label: 'Top - Past Week', key: _topPastWeek },
-        { label: 'Top - Past Month', key: _topPastMonth },
-        { label: 'Top - Past Year', key: _topPastYear },
-        { label: 'Top - All Time', key: _topAllTime },
-        { label: 'Oldest', key: _oldest },
-        { label: 'Random', key: _random }
+        { i18nKey: 'filter sorting - chronological', key: _chronological },
+        { i18nKey: 'filter sorting - most-recent', key: _mostRecent },
+        { i18nKey: 'filter sorting - top-past-day', key: _topPastDay },
+        { i18nKey: 'filter sorting - top-past-week', key: _topPastWeek },
+        { i18nKey: 'filter sorting - top-past-month', key: _topPastMonth },
+        { i18nKey: 'filter sorting - top-past-year', key: _topPastYear },
+        { i18nKey: 'filter sorting - top-all-time', key: _topAllTime },
+        { i18nKey: 'filter sorting - oldest', key: _oldest },
+        { i18nKey: 'filter sorting - random', key: _random }
       ]
     },
     episodes: {
       from: [
-        { label: 'All', key: _all },
-        { label: 'Subscribed', key: _subscribed },
-        { label: 'Category', key: _category }
+        { i18nKey: 'filter from - all', key: _all },
+        { i18nKey: 'filter from - subscribed', key: _subscribed },
+        { i18nKey: 'filter from - category', key: _category }
       ],
       sort: {
         all: [
-          { label: 'Top - Past Day', key: _topPastDay },
-          { label: 'Top - Past Week', key: _topPastWeek },
-          { label: 'Top - Past Month', key: _topPastMonth },
-          { label: 'Top - Past Year', key: _topPastYear },
-          { label: 'Top - All Time', key: _topAllTime }
+          { i18nKey: 'filter sorting - top-past-day', key: _topPastDay },
+          { i18nKey: 'filter sorting - top-past-week', key: _topPastWeek },
+          { i18nKey: 'filter sorting - top-past-month', key: _topPastMonth },
+          { i18nKey: 'filter sorting - top-past-year', key: _topPastYear },
+          { i18nKey: 'filter sorting - top-all-time', key: _topAllTime }
         ],
         subscribed: [
-          { label: 'Recent', key: _mostRecent },
-          { label: 'Top - Past Day', key: _topPastDay },
-          { label: 'Top - Past Week', key: _topPastWeek },
-          { label: 'Top - Past Month', key: _topPastMonth },
-          { label: 'Top - Past Year', key: _topPastYear },
-          { label: 'Top - All Time', key: _topAllTime }
+          { i18nKey: 'filter sorting - most-recent', key: _mostRecent },
+          { i18nKey: 'filter sorting - top-past-day', key: _topPastDay },
+          { i18nKey: 'filter sorting - top-past-week', key: _topPastWeek },
+          { i18nKey: 'filter sorting - top-past-month', key: _topPastMonth },
+          { i18nKey: 'filter sorting - top-past-year', key: _topPastYear },
+          { i18nKey: 'filter sorting - top-all-time', key: _topAllTime }
         ]
       }
     },
     podcast: {
       from: [
-        { label: 'Episodes', key: _episodes },
-        { label: 'Clips', key: _clips }
+        { i18nKey: 'filter from - episodes', key: _episodes },
+        { i18nKey: 'filter from - clips', key: _clips }
       ],
       sort: [
-        { label: 'Recent', key: _mostRecent },
-        { label: 'Top - Past Day', key: _topPastDay },
-        { label: 'Top - Past Week', key: _topPastWeek },
-        { label: 'Top - Past Month', key: _topPastMonth },
-        { label: 'Top - Past Year', key: _topPastYear },
-        { label: 'Top - All Time', key: _topAllTime },
-        { label: 'Oldest', key: _oldest },
-        { label: 'Random', key: _random }
+        { i18nKey: 'filter sorting - most-recent', key: _mostRecent },
+        { i18nKey: 'filter sorting - top-past-day', key: _topPastDay },
+        { i18nKey: 'filter sorting - top-past-week', key: _topPastWeek },
+        { i18nKey: 'filter sorting - top-past-month', key: _topPastMonth },
+        { i18nKey: 'filter sorting - top-past-year', key: _topPastYear },
+        { i18nKey: 'filter sorting - top-all-time', key: _topAllTime },
+        { i18nKey: 'filter sorting - oldest', key: _oldest },
+        { i18nKey: 'filter sorting - random', key: _random }
       ]
     },
     podcasts: {
       from: [
-        { label: 'All', key: _all },
-        { label: 'Subscribed', key: _subscribed },
-        { label: 'Category', key: _category }
+        { i18nKey: 'filter from - all', key: _all },
+        { i18nKey: 'filter from - subscribed', key: _subscribed },
+        { i18nKey: 'filter from - category', key: _category }
       ],
       sort: {
         all: [
-          { label: 'Top - Past Day', key: _topPastDay },
-          { label: 'Top - Past Week', key: _topPastWeek },
-          { label: 'Top - Past Month', key: _topPastMonth },
-          { label: 'Top - Past Year', key: _topPastYear },
-          { label: 'Top - All Time', key: _topAllTime }
+          { i18nKey: 'filter sorting - top-past-day', key: _topPastDay },
+          { i18nKey: 'filter sorting - top-past-week', key: _topPastWeek },
+          { i18nKey: 'filter sorting - top-past-month', key: _topPastMonth },
+          { i18nKey: 'filter sorting - top-past-year', key: _topPastYear },
+          { i18nKey: 'filter sorting - top-all-time', key: _topAllTime }
         ],
         subscribed: [
-          { label: 'Alphabetical', key: _alphabetical },
-          { label: 'Recent', key: _mostRecent },
-          { label: 'Top - Past Day', key: _topPastDay },
-          { label: 'Top - Past Week', key: _topPastWeek },
-          { label: 'Top - Past Month', key: _topPastMonth },
-          { label: 'Top - Past Year', key: _topPastYear },
-          { label: 'Top - All Time', key: _topAllTime },
-          { label: 'Oldest', key: _oldest }
+          { i18nKey: 'filter sorting - alphabetical', key: _alphabetical },
+          { i18nKey: 'filter sorting - most-recent', key: _mostRecent },
+          { i18nKey: 'filter sorting - top-past-day', key: _topPastDay },
+          { i18nKey: 'filter sorting - top-past-week', key: _topPastWeek },
+          { i18nKey: 'filter sorting - top-past-month', key: _topPastMonth },
+          { i18nKey: 'filter sorting - top-past-year', key: _topPastYear },
+          { i18nKey: 'filter sorting - top-all-time', key: _topAllTime },
+          { i18nKey: 'filter sorting - oldest', key: _oldest }
         ]
       }
     },
     profile: {
       types: [
-        { label: 'Podcasts', key: _podcasts },
-        { label: 'Clips', key: _clips },
-        { label: 'Playlists', key: _playlists }
+        { i18nKey: 'filter type - podcasts', key: _podcasts },
+        { i18nKey: 'filter type - clips', key: _clips },
+        { i18nKey: 'filter type - playlists', key: _playlists }
       ]
     }
   }
