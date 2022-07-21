@@ -39,8 +39,8 @@ export const ProfilePageHeader = ({
 
   const generatePrivacyDropdownItems = () => {
     const items = [
-      { label: 'Public', key: PV.Users.privacyKeys.public },
-      { label: 'Private', key: PV.Users.privacyKeys.private }
+      { i18nKey: 'Public', key: PV.Users.privacyKeys.public },
+      { i18nKey: 'Private', key: PV.Users.privacyKeys.private }
     ]
 
     return items

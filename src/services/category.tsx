@@ -7,6 +7,19 @@ export const getCategories = () => {
   return topLevelCategories
 }
 
+export const getTranslatedCategories = (t: any) => {
+  const translatedCategories = []
+  for (const category of topLevelCategories) {
+    const translatedCategory = {
+      id: category.id,
+      slug: category.slug,
+      title: t(`category - ${category.slug}`)
+    }
+    translatedCategories.push(translatedCategory)
+  }
+  return translatedCategories
+}
+
 export const getCategoryById = (id: string) => {
   const categories = getCategories()
   const category = categories.find((category: Category) => category.id === id)

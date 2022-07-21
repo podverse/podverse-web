@@ -27,7 +27,7 @@ type Props = {
 const contentRenderer = (props: Props, t: any) => {
   const { faIcon, isLabelUrl, options, selectedKey, text, textLabel } = props
   const selectedOption = options?.find((option) => option.key === selectedKey)
-  const finalText = text || selectedOption?.label
+  const finalText = text || (selectedOption?.i18nKey && t(selectedOption.i18nKey)) || selectedOption?.label || ''
 
   return (
     <div className='dropdown-wrapper'>
@@ -58,6 +58,14 @@ const dropdownHandleRenderer = (hideCaret?: boolean) => {
   }
 }
 
+const customItemRenderer = ({ item, methods }, t) => {
+  return (
+    <span className='react-dropdown-select-item' onClick={() => methods.addItem(item)}>
+      {(item.i18nKey && t(item.i18nKey)) || item.label || ''}
+    </span>
+  )
+}
+
 export const Dropdown = (props: Props) => {
   const {
     dropdownAriaLabel,
@@ -80,7 +88,8 @@ export const Dropdown = (props: Props) => {
   )
 
   const selectedOption = options?.find((option) => option.key === selectedKey)
-  const finalDropdownAriaLabel = dropdownAriaLabel || text || selectedOption?.label
+  const finalDropdownAriaLabel =
+    dropdownAriaLabel || text || (selectedOption?.i18nKey && t(selectedOption.i18nKey)) || selectedOption?.label || ''
 
   return (
     <Select
@@ -91,6 +100,7 @@ export const Dropdown = (props: Props) => {
       contentRenderer={() => contentRenderer(props, t)}
       disabled={options.length <= 1}
       dropdownHandleRenderer={() => dropdownHandleRenderer(props.hideCaret)}
+      itemRenderer={(obj: any) => customItemRenderer(obj, t)}
       labelField='label'
       onChange={options.length > 1 ? onChange : null}
       options={options}

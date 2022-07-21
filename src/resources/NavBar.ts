@@ -2,16 +2,16 @@ import OmniAural from 'omniaural'
 import { logOut } from '~/services/auth'
 import { RoutePaths } from './RoutePaths'
 
-const generateDropdownItems = (t: any) => {
+const generateDropdownItems = () => {
   const isLoggedIn = !!OmniAural.state.session.userInfo.value()
-  const items = [{ label: t('Membership'), key: NavBar.dropdownKeys._membershipKey }]
+  const items = [{ i18nKey: 'Membership', key: NavBar.dropdownKeys._membershipKey }]
 
   if (isLoggedIn) {
-    items.unshift({ label: t('MyProfile'), key: NavBar.dropdownKeys._myProfileKey })
-    items.push({ label: t('Settings'), key: NavBar.dropdownKeys._settingsKey })
-    items.push({ label: t('Logout'), key: NavBar.dropdownKeys._logOutKey })
+    items.unshift({ i18nKey: 'MyProfile', key: NavBar.dropdownKeys._myProfileKey })
+    items.push({ i18nKey: 'Settings', key: NavBar.dropdownKeys._settingsKey })
+    items.push({ i18nKey: 'Logout', key: NavBar.dropdownKeys._logOutKey })
   } else {
-    items.push({ label: t('Login'), key: NavBar.dropdownKeys._logInKey })
+    items.push({ i18nKey: 'Login', key: NavBar.dropdownKeys._logInKey })
   }
 
   return items

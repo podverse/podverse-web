@@ -47,7 +47,7 @@ export const HorizontalNavBar = ({ serverCookies }: Props) => {
 
   /* Render Helpers */
 
-  const dropdownItems = PV.NavBar.generateDropdownItems(t)
+  const dropdownItems = PV.NavBar.generateDropdownItems()
 
   return (
     <div className='horizontal-navbar-wrapper'>

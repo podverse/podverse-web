@@ -21,13 +21,10 @@ import {
 import { Page } from '~/lib/utility/page'
 import { PV } from '~/resources'
 import { isNotAllSortOption } from '~/resources/Filters'
-import { getCategoryById, getCategoryBySlug } from '~/services/category'
+import { getCategoryById, getCategoryBySlug, getTranslatedCategories } from '~/services/category'
 import { getPodcastsByQuery } from '~/services/podcast'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 import { OmniAuralState } from '~/state/omniauralState'
-
-// eslint-disable-next-line
-const categories = require('~/resources/Categories/TopLevelCategories.json')
 
 interface ServerProps extends Page {
   serverCategoryId: string | null
@@ -86,6 +83,8 @@ export default function Podcasts({
   const selectedCategory = isCategoryPage ? getCategoryById(filterCategoryId) : null
   const pageHeaderText = selectedCategory ? `${t('Podcasts')} > ${selectedCategory.title}` : t('Podcasts')
   const showLoginMessage = !userInfo && filterFrom === PV.Filters.from._subscribed
+
+  const categories = getTranslatedCategories(t)
 
   /* useEffects */
 

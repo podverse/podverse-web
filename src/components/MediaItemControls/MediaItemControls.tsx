@@ -156,30 +156,30 @@ export const MediaItemControls = ({
 
     if (liveItem) {
       items = [
-        { label: 'Play', key: _playKey },
-        { label: 'Share', key: _shareKey }
+        { i18nKey: 'Play', key: _playKey },
+        { i18nKey: 'Share', key: _shareKey }
       ]
     } else {
       items = [
-        { label: 'Play', key: _playKey },
-        { label: 'Queue Next', key: _queueNextKey },
-        { label: 'Queue Last', key: _queueLastKey },
-        { label: 'Add to Playlist', key: _addToPlaylistKey },
-        { label: 'Share', key: _shareKey }
+        { i18nKey: 'Play', key: _playKey },
+        { i18nKey: 'Queue Next', key: _queueNextKey },
+        { i18nKey: 'Queue Last', key: _queueLastKey },
+        { i18nKey: 'Add to Playlist', key: _addToPlaylistKey },
+        { i18nKey: 'Share', key: _shareKey }
       ]
     }
 
     if (!mediaRef && !liveItem) {
       if (completed) {
-        items.push({ label: 'Mark as Unplayed', key: _markAsUnplayedKey })
+        items.push({ i18nKey: 'Mark as Unplayed', key: _markAsUnplayedKey })
       } else {
-        items.push({ label: 'Mark as Played', key: _markAsPlayedKey })
+        items.push({ i18nKey: 'Mark as Played', key: _markAsPlayedKey })
       }
     }
 
     if (isLoggedInUserMediaRef) {
-      items.push({ label: 'Edit Clip', key: _editClip })
-      items.push({ label: 'Delete Clip', key: _deleteClip })
+      items.push({ i18nKey: 'Edit Clip', key: _editClip })
+      items.push({ i18nKey: 'Delete Clip', key: _deleteClip })
     }
 
     return items
