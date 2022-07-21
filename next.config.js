@@ -39,6 +39,7 @@ const moduleExports = {
     disableClientWebpackPlugin: !isProd
   },
   serverRuntimeConfig: {
+    IS_DEV: isDev,
     API_PATH: process.env.API_PATH,
     API_VERSION: process.env.API_VERSION,
     API_DOMAIN: process.env.API_DOMAIN,
@@ -67,6 +68,7 @@ const moduleExports = {
     V4V_RECIPIENT_VALUE_DEFAULT: process.env.V4V_RECIPIENT_VALUE_DEFAULT
   },
   publicRuntimeConfig: {
+    IS_DEV: isDev,
     API_PATH: process.env.API_PATH,
     API_VERSION: process.env.API_VERSION,
     API_DOMAIN: process.env.PUBLIC_API_DOMAIN,
