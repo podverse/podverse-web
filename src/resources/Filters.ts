@@ -26,8 +26,10 @@ const _playlists = 'playlists'
 const _podcasts = 'podcasts'
 
 type DropdownOption = {
-  label: string
+  i18nKey?: string
+  i18nAriaLabelKey?: string
   key: string
+  label?: string
 }
 
 export const isNotAllSortOption = (selectedKey: string) => {
