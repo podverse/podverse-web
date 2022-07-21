@@ -19,7 +19,7 @@ export const MobileNavBar = (props: Props) => {
 
   /* Render Helpers */
 
-  const dropdownItems = PV.NavBar.generateDropdownItems(t)
+  const dropdownItems = PV.NavBar.generateDropdownItems()
 
   return (
     <>
