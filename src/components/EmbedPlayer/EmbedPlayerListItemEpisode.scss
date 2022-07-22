@@ -1,41 +1,48 @@
-.embed-player-list-item-episode {
-  align-items: center;
-  border-bottom: 1px solid var(--pv-embed-divider-color, rgba(255, 255, 255, 0.15));
-  border-radius: 0;
-  display: flex;
-  padding: 10px 16px;
+.embed-player {
+  .embed-player-list {
+    .embed-player-list-item-episode {
+      align-items: center;
+      border-bottom: 1px solid var(--pv-embed-divider-color, rgba(255, 255, 255, 0.15));
+      border-radius: 0;
+      display: flex;
+      padding: 10px 16px;
 
-  &:last-child {
-    border-bottom: none;
-  }
+      &:last-child {
+        border-bottom: none;
+      }
 
-  button.play,
-  button.pause {
-    margin: 0 12px 0 0;
-  }
+      button.play,
+      button.pause {
+        margin: 0 12px 0 0;
+      }
 
-  .embed-player-text-wrapper {
-    flex: 1;
+      .embed-player-text-wrapper {
+        flex: 1;
 
-    .embed-player-list-item-episode-title {
-      color: var(--pv-embed-text-color-secondary, #cccccc);
-      font-size: var(--pv-embed-font-size-md, 16px);
-      margin: 0 0 4px 0;
-    }
+        .embed-player-list-item-episode-title {
+          color: var(--pv-embed-text-color-secondary, #cccccc);
+          font-size: var(--pv-embed-font-size-md, 16px);
+          margin: 0 0 4px 0;
+        }
 
-    .embed-player-list-item-time-wrapper {
-      color: var(--pv-embed-text-color-tertiary, #74a8dc);
-      font-size: var(--pv-embed-font-size-sm, 14px);
-      font-weight: 500;
+        .embed-player-list-item-time-wrapper {
+          color: var(--pv-embed-text-color-tertiary, #74a8dc);
+          font-size: var(--pv-embed-font-size-sm, 14px);
+          font-weight: 500;
 
-      .embed-player-list-item-time-spacer {
-        margin: 0 4px;
+          .embed-player-list-item-time-spacer {
+            margin: 0 4px;
+          }
+        }
+      }
+
+      .status-badge {
+        background-color: var(--pv-embed-live-badge-background-color, rgba(196, 55, 69, 0.16)) !important;
+        border-color: var(--pv-embed-live-badge-border-color, #aa1e2b) !important;
+        color: var(--pv-embed-live-badge-text-color, #ffffff) !important;
+        margin-right: 12px;
+        padding: 0 16px;
       }
     }
-  }
-
-  .status-badge {
-    padding: 0 16px;
-    margin-right: 12px;
   }
 }
