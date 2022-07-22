@@ -47,7 +47,7 @@ export const ProgressBar = ({
   const endTimeAriaDescription = isLiveItem ? t('Go to current live time') : t('Duration')
   const endTimeAriaRole = isLiveItem ? 'button' : 'none'
   const endTimeOnClick = isLiveItem ? playerResetLiveItemAndResumePlayback : null
-  const endTimeElement = (
+  const endTimeElement = isLiveItem ? (
     <button
       aria-description={endTimeAriaDescription}
       aria-role={endTimeAriaRole}
@@ -57,6 +57,10 @@ export const ProgressBar = ({
     >
       {endTimeLabel}
     </button>
+  ) : (
+    <div aria-description={endTimeAriaDescription} aria-role={endTimeAriaRole} className={endTimeBarLabel} tabIndex={0}>
+      {endTimeLabel}
+    </div>
   )
 
   return (
