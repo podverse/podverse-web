@@ -74,6 +74,9 @@ export default function EmbedPlayerCustomCSSDemo(props: ServerProps) {
                   '--pv-embed-slider-fill-color': '#aaaaaa',
                   '--pv-embed-slider-marker-color': '#e90000',
                   '--pv-embed-slider-highlight-color': 'rgba(233, 0, 0, 0.5)',
+                  '--pv-embed-live-badge-background-color': 'rgba(196, 55, 69, 0.16)',
+                  '--pv-embed-live-badge-border-color': '#aa1e2b',
+                  '--pv-embed-live-badge-text-color': '#2d2d2d',
                   '--pv-embed-close-button-background-color': '#cccccc',
                   '--pv-embed-close-button-icon-color': '#333333',
                   '--pv-embed-full-screen-background-color': 'rgba(255, 255, 255, 0.2)'
@@ -161,6 +164,9 @@ export default function EmbedPlayerCustomCSSDemo(props: ServerProps) {
             '--pv-embed-slider-fill-color': '#aaaaaa',
             '--pv-embed-slider-marker-color': '#e90000',
             '--pv-embed-slider-highlight-color': 'rgba(233, 0, 0, 0.5)',
+            '--pv-embed-live-badge-background-color': 'rgba(196, 55, 69, 0.16)',
+            '--pv-embed-live-badge-border-color': '#aa1e2b',
+            '--pv-embed-live-badge-text-color': '#2d2d2d',
             '--pv-embed-close-button-background-color': '#cccccc',
             '--pv-embed-close-button-icon-color': '#333333',
             '--pv-embed-full-screen-background-color': 'rgba(255, 255, 255, 0.2)'
