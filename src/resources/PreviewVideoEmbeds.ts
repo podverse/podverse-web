@@ -47,7 +47,7 @@ export const PreviewVideoEmbeds = (t: any) => {
           height: 315,
           src: 'https://peertube.podverse.fm/videos/embed/04138079-cc99-41ae-8080-8a5ed34be417'
         },
-        web: false
+        web: null
       }
     },
     liveStreams: {
@@ -160,6 +160,40 @@ export const PreviewVideoEmbeds = (t: any) => {
         width: 560,
         height: 315,
         src: 'https://peertube.podverse.fm/videos/embed/545525f8-3e2b-40bc-b6e1-9be63f1e4f73'
+      }
+    },
+    rss: {
+      add: {
+        mobile: {
+          text: t('features - add custom RSS feeds'),
+          width: 560,
+          height: 315,
+          src: 'https://peertube.podverse.fm/videos/embed/8c6541ac-9523-42a9-9f6b-b8e1629720ee'
+        },
+        web: null
+      },
+      addWithLogin: {
+        mobile: {
+          text: t('features - add custom RSS feeds (with login)'),
+          width: 560,
+          height: 315,
+          src: 'https://peertube.podverse.fm/videos/embed/cdf71062-6a13-4727-b68c-6d5f5358e728'
+        },
+        web: null
+      }
+    },
+    markAsPlayed: {
+      mobile: {
+        text: t('features - Mark episodes as played'),
+        width: 560,
+        height: 315,
+        src: 'https://peertube.podverse.fm/videos/embed/ba616db8-9b46-436a-994f-383ff66576a2'
+      },
+      web: {
+        text: t('features - Mark episodes as played'),
+        width: 560,
+        height: 315,
+        src: 'https://peertube.podverse.fm/videos/embed/3017bd80-e671-4b78-9830-df641a4304d7'
       }
     }
   }
