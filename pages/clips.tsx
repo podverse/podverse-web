@@ -21,13 +21,11 @@ import {
 import { Page } from '~/lib/utility/page'
 import { PV } from '~/resources'
 import { isNotAllSortOption } from '~/resources/Filters'
-import { getCategoryById, getCategoryBySlug } from '~/services/category'
+import { getCategoryById, getCategoryBySlug, getTranslatedCategories } from '~/services/category'
 import { getMediaRefsByQuery } from '~/services/mediaRef'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 import { OmniAuralState } from '~/state/omniauralState'
 
-// eslint-disable-next-line
-const categories = require('~/resources/Categories/TopLevelCategories.json')
 interface ServerProps extends Page {
   serverCategoryId: string | null
   serverCookies: any
@@ -84,6 +82,8 @@ export default function Clips({
   const selectedCategory = isCategoryPage ? getCategoryById(filterCategoryId) : null
   const pageHeaderText = selectedCategory ? `${t('Clips')} > ${selectedCategory.title}` : t('Clips')
   const showLoginMessage = !userInfo && filterFrom === PV.Filters.from._subscribed
+
+  const categories = getTranslatedCategories(t)
 
   /* useEffects */
 
