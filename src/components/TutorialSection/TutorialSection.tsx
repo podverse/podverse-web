@@ -71,7 +71,7 @@ export const TutorialSection = ({
               />
             </div>
           )}
-          <div className='tutorial-section-explanation'>{mobileExplanation}</div>
+          <div className='tutorial-section-explanation' dangerouslySetInnerHTML={{ __html: mobileExplanation }} />
         </>
       )}
       <hr />
