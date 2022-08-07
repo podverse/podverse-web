@@ -68,7 +68,7 @@ export default function AccountClaimToken(props: ServerProps) {
               <br />
               {!serverAccountClaimToken?.claimed && (
                 <ButtonRectangle
-                  disabled={!serverAccountClaimToken}
+                  disabled={!serverAccountClaimToken || !userInfo}
                   isLoading={isLoadingRedeeming}
                   label={t('Claim Token')}
                   onClick={_redeemAccountClaimToken}
