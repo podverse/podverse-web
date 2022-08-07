@@ -1,5 +1,22 @@
 {
     "About": "Hakkında",
-    "Add to Playlist": "Oynatma listesine ekle",
-    "_translatorsField": "metezd"
+    "Add to Playlist": "Çalma listesine ekle",
+    "_translatorsField": "metezd",
+    "Add or update feed from Podcast Index": "Podcast dizininnden yayın ekle veya güncelle",
+    "Admin Tools": "Yönetici Araçları",
+    "Anonymous": "Anonim",
+    "_translatorsFieldExample": "Jane Doe<https://jane.doe.homepage>,Joe Bloggs,Juan Perez<https://some.socialmedia/juan>",
+    "18 per year after that": "Sonrasında yılda 18 dolar.",
+    "3 months free": "3 ay ücretsiz",
+    "Are you sure you want to delete this clip": "Klip silinsin mi?",
+    "Are you sure you want to delete this playlist": "Çalma listesi silinsin mi?",
+    "ARIA - Toggle UI theme change": "Kullanıcı arayüzü tema değişikliği",
+    "ARIA - Toggle video only mode": "Yalnızca video",
+    "ARIA – Dropdown helper description": "Açılır menüyü göstermek için enter tuşuna veya aşağı oka basın. Ardından mevcut öğelere odaklanmak için sekme tuşunu veya yukarı ve aşağı okları kullanın.",
+    "Below is a table comparing free and premium features": "Aşağıda ücretsiz ve premium özellikleri karşılaştıran bir tablo bulunmaktadır.",
+    "Bug Report": "Bir hata bildir",
+    "Buy a Podverse premium membership": "Podverse Premium satın alın",
+    "brandName chat is powered by": "Podverse canlı sohbet, bu açık kaynak kitaplıkları tarafından desteklenmektedir",
+    "Below are a few ways you can support the project": "Aşağıda projeyi destekleyebileceğiniz birkaç farklı metot yer almaktadır.",
+    "Are you sure you want to remove all of your history items": "Tüm geçmiş silinsin mi?"
 }
