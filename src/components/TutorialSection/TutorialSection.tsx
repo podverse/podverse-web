@@ -55,7 +55,7 @@ export const TutorialSection = ({
               />
             </div>
           )}
-          <div className='tutorial-section-explanation' dangerouslySetInnerHTML={{ __html: webExplanation}}/>
+          <div className='tutorial-section-explanation' dangerouslySetInnerHTML={{ __html: webExplanation }} />
         </>
       )}
       {typeSelected === 'mobile' && (

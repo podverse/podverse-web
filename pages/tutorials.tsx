@@ -17,7 +17,7 @@ import { TutorialSection, TutorialSectionProps } from '~/components/TutorialSect
 import { mobileAndTabletCheck } from '~/lib/utility/deviceDetection'
 
 type ServerProps = Page
-const notAvailableTextMobile = `Feature not available on mobile.`
+// const notAvailableTextMobile = `Feature not available on mobile.`
 const notAvailableTextWeb = `Feature not available on web.`
 
 export default function Tutorials(props: ServerProps) {
@@ -110,7 +110,8 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
 const generateItems = (t: any) =>
   [
-    { // Add Custom RSS Feeds
+    {
+      // Add Custom RSS Feeds
 
       title: `Add Custom RSS Feeds`,
       id: `add-rss`,
@@ -121,7 +122,8 @@ const generateItems = (t: any) =>
       mobilePreviewVideoEmbed: PV.PreviewVideoEmbeds(t).rss.add.mobile,
       webExplanation: notAvailableTextWeb
     },
-    { // Add Custom RSS Feeds - with Username and Password
+    {
+      // Add Custom RSS Feeds - with Username and Password
 
       title: `Add Custom RSS Feeds - with Username and Password`,
       id: `add-rss-password`,
@@ -133,7 +135,8 @@ const generateItems = (t: any) =>
       mobilePreviewVideoEmbed: PV.PreviewVideoEmbeds(t).rss.addWithLogin.mobile,
       webExplanation: notAvailableTextWeb
     },
-    { // Chapters
+    {
+      // Chapters
 
       title: `Chapters`,
       id: `episodes-chapters`,
@@ -149,7 +152,8 @@ const generateItems = (t: any) =>
       <li>You can click the play button next to each chapter to jump directly to that portion of the episode.</li>`,
       webPreviewVideoEmbed: PV.PreviewVideoEmbeds(t).chapters.web
     },
-    { // Clips - Create
+    {
+      // Clips - Create
 
       title: `Clips - Create`,
       id: `clips-create`,
@@ -167,7 +171,8 @@ const generateItems = (t: any) =>
       <li>To find your Clips later, click on the My Profile tab on the left, then click the filter and sort by Clips.</li>`,
       webPreviewVideoEmbed: PV.PreviewVideoEmbeds(t).clips.create.web
     },
-    { // Cross-App Comments
+    {
+      // Cross-App Comments
 
       title: `Cross-App Comments`,
       id: `cross-comments`,
@@ -183,7 +188,8 @@ const generateItems = (t: any) =>
       <li>Clicking on a comment will open a separate web page directly to that comment where you can log in to participate in the discussion.</li>`,
       webPreviewVideoEmbed: PV.PreviewVideoEmbeds(t).crossAppComments.web
     },
-    { // Episodes - Download
+    {
+      // Episodes - Download
 
       title: `Episodes - Download`,
       id: `episodes-download`,
@@ -195,7 +201,8 @@ const generateItems = (t: any) =>
       webExplanation: notAvailableTextWeb,
       webPreviewVideoEmbed: PV.PreviewVideoEmbeds(t).episodes.download.web
     },
-    { // Episodes - Mark as Played/Unplayed
+    {
+      // Episodes - Mark as Played/Unplayed
 
       title: `Episodes - Mark as Played/Unplayed`,
       id: `episodes-played`,
@@ -209,7 +216,8 @@ const generateItems = (t: any) =>
       <li>Click "Mark as Played" or "Mark as Unplayed" to toggle whether the episode appears with the green checkmark or not.</li>`,
       webPreviewVideoEmbed: PV.PreviewVideoEmbeds(t).markAsPlayed.web
     },
-    { // Playlists - Create
+    {
+      // Playlists - Create
       title: `Playlists - Create`,
       id: `playlists-create`,
       description: `Create playlists of episodes and clips and share them with anyone.`,
@@ -228,8 +236,9 @@ const generateItems = (t: any) =>
       <li>To find your Playlists later, click on the Playlists tab on the left side of the page.</li>`,
       webPreviewVideoEmbed: PV.PreviewVideoEmbeds(t).playlists.create.web
     },
-    { // Podcasts - Subscribe
-      
+    {
+      // Podcasts - Subscribe
+
       title: `Podcasts - Subscribe`,
       id: `podcasts-subscribe`,
       description: `Subscribe to podcasts to easily access them later.`,
@@ -246,7 +255,8 @@ const generateItems = (t: any) =>
       `,
       webPreviewVideoEmbed: PV.PreviewVideoEmbeds(t).podcasts.subscribe.web
     },
-    { // Sleep Timer
+    {
+      // Sleep Timer
 
       title: `Sleep Timer`,
       id: `sleep-timer`,
@@ -259,7 +269,8 @@ const generateItems = (t: any) =>
       webExplanation: notAvailableTextWeb,
       webPreviewVideoEmbed: PV.PreviewVideoEmbeds(t).sleepTimer.web
     },
-    { // Transcripts
+    {
+      // Transcripts
 
       title: `Transcripts`,
       id: `episodes-transcripts`,
@@ -271,7 +282,8 @@ const generateItems = (t: any) =>
       webExplanation: `TODO:`,
       webPreviewVideoEmbed: PV.PreviewVideoEmbeds(t).transcripts.web
     },
-    { // Videos
+    {
+      // Videos
 
       title: `Videos`,
       id: `videos-playback`,
@@ -286,5 +298,5 @@ const generateItems = (t: any) =>
       <li>The podcast will begin playing and the video will automatically display in a mini window on the bottom right of the browser.</li>
       <li>To view the video in full screen, click the Expand icon on the bottom right of the media player, then the full screen button on the bottom of the video.</li>`,
       webPreviewVideoEmbed: PV.PreviewVideoEmbeds(t).videos.web
-    },
+    }
   ] as TutorialSectionProps[]

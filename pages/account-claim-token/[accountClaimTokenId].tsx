@@ -19,7 +19,6 @@ interface ServerProps extends Page {
 }
 
 export default function AccountClaimToken(props: ServerProps) {
-
   /* Initialize */
 
   const { serverAccountClaimToken } = props
@@ -63,35 +62,19 @@ export default function AccountClaimToken(props: ServerProps) {
         <ColumnsWrapper
           mainColumnChildren={
             <div className='text-page'>
-              <p>
-                {t('Claim free premium membership')}
-              </p>
-              {
-                !!serverAccountClaimToken && (
-                  <p>
-                    {`${t('Years to add')}: ${serverAccountClaimToken.yearsToAdd}`}
-                  </p>
-                )
-              }
-              {
-                !serverAccountClaimToken && (
-                  <p>
-                    {t('This token has been claimed')}
-                  </p>
-                )
-              }
+              <p>{t('Claim free premium membership')}</p>
+              {!!serverAccountClaimToken && <p>{`${t('Years to add')}: ${serverAccountClaimToken.yearsToAdd}`}</p>}
+              {!serverAccountClaimToken && <p>{t('This token has been claimed')}</p>}
               <br />
-              {
-                !serverAccountClaimToken?.claimed && (
-                  <ButtonRectangle
-                    disabled={!serverAccountClaimToken}
-                    isLoading={isLoadingRedeeming}
-                    label={t('Claim Token')}
-                    onClick={_redeemAccountClaimToken}
-                    type='primary'
-                  />
-                )
-              }
+              {!serverAccountClaimToken?.claimed && (
+                <ButtonRectangle
+                  disabled={!serverAccountClaimToken}
+                  isLoading={isLoadingRedeeming}
+                  label={t('Claim Token')}
+                  onClick={_redeemAccountClaimToken}
+                  type='primary'
+                />
+              )}
             </div>
           }
         />
@@ -109,9 +92,9 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
   const defaultServerProps = await getDefaultServerSideProps(ctx, locale)
   let accountClaimToken = null
-  
+
   try {
-    accountClaimToken = await getAccountClaimToken(accountClaimTokenId as string) as any
+    accountClaimToken = (await getAccountClaimToken(accountClaimTokenId as string)) as any
   } catch (error) {
     //
   }

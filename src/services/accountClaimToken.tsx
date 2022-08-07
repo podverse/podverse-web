@@ -1,5 +1,5 @@
-import { PV } from "~/resources"
-import { request } from "./request"
+import { PV } from '~/resources'
+import { request } from './request'
 
 export const getAccountClaimToken = async (id: string) => {
   const endpoint = `${PV.RoutePaths.api.claim_account}/${id}`
