@@ -8,7 +8,7 @@ export const RoutePaths = {
     add_or_update_history_item: `/add-or-update-history-item`,
     bitpay: `/bitpay`,
     category: `/category`,
-    claim_account: `${api.auth}/claim-account`,
+    claim_account: `/claim-account`,
     download: `/download`,
     episode: `/episode`,
     episode_get_by_guid: `/episode/get-by-guid`,
@@ -40,6 +40,7 @@ export const RoutePaths = {
   web: {
     _login: `/?login=true`,
     about: `/about`,
+    accountClaimToken: `/account-claim-token`,
     admin: `/admin`,
     appleAppStore: `https://apps.apple.com/us/app/podverse/id1390888454?mt=8`,
     chat: `/chat`,
