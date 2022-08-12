@@ -356,5 +356,19 @@
     "pages-embed-player-demo_Description": "En demo av den innbyggbare Podverse-spilleren.",
     "pages-embed-player-demo_Title": "Innebyggingsdemo",
     "Podcast with all episodes": "Nettradioopptak med alle episodene",
-    "untitledChapter": "Kapittel uten navn"
+    "untitledChapter": "Kapittel uten navn",
+    "filter sorting - chronological": "Kronologisk",
+    "filter sorting - most-recent": "Nylig",
+    "filter sorting - random": "Tilfeldig",
+    "filter sorting - oldest": "Eldst",
+    "category - business": "Finans",
+    "category - comedy": "Humor",
+    "category - education": "Utdanning",
+    "category - history": "Historie",
+    "category - music": "Musikk",
+    "category - news": "Nyheter",
+    "category - science": "Vitenskap",
+    "category - sports": "Sport",
+    "category - technology": "Teknologi",
+    "category - tvfilm": "TV og film"
 }
