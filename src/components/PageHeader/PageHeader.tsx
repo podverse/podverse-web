@@ -4,11 +4,13 @@ import { useTranslation } from 'react-i18next'
 import { ButtonRectangle, DivClickable, Dropdown, Icon, SwitchWithIcons } from '~/components'
 
 type Props = {
+  handleAutoScrollButton?: any
   handleClearAllButton?: any
   handleCollapse?: any
   handleEditButton?: any
   hasEditButton?: boolean
   handleVideoOnlyModeToggle?: any
+  isAutoScrollOn?: boolean
   isCollapsed?: boolean
   isEditing?: boolean
   isLoading?: boolean
@@ -25,11 +27,13 @@ type Props = {
 }
 
 export const PageHeader = ({
+  handleAutoScrollButton,
   handleClearAllButton,
   handleCollapse,
   handleEditButton,
   hasEditButton,
   handleVideoOnlyModeToggle,
+  isAutoScrollOn,
   isCollapsed,
   isEditing,
   isLoading,
@@ -52,7 +56,7 @@ export const PageHeader = ({
   )
   const hrClassName = classnames('page-header-hr', noMarginBottom ? 'no-margin-bottom' : '')
   const hasDropdowns = !!(sortOptions?.length || primaryOptions?.length)
-  const hasButtons = hasEditButton
+  const hasButtons = !!hasEditButton || !!handleAutoScrollButton
   const caretIcon = (
     <div className='header-caret'>
       <Icon faIcon={isCollapsed ? faAngleDown : faAngleUp} />
@@ -127,6 +131,15 @@ export const PageHeader = ({
                   ariaPressed
                   label={isEditing ? t('Done') : t('Edit')}
                   onClick={handleEditButton}
+                  type='tertiary'
+                />
+              )}
+              {!!handleAutoScrollButton && (
+                <ButtonRectangle
+                  ariaDescription={t('Auto-scroll button - aria description')}
+                  ariaPressed
+                  label={isAutoScrollOn ? t('Auto-scroll button - on') : t('Auto-scroll button - off')}
+                  onClick={handleAutoScrollButton}
                   type='tertiary'
                 />
               )}

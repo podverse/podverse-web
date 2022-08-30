@@ -1,0 +1,24 @@
+.transcripts {
+  .transcripts-wrapper {
+    max-height: 500px;
+    overflow: auto;
+    padding: 8px 0;
+
+    .transcript-row {
+      display: flex;
+      margin-bottom: 16px;
+
+      .transcript-row__text {
+        font-size: $text-lg;
+        flex: 1;
+      }
+
+      .transcript-row__time {
+        align-items: center;
+        display: flex;
+        font-size: $text-md;
+        margin-left: 16px;
+      }
+    }
+  }
+}
