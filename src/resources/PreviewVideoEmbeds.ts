@@ -133,7 +133,7 @@ export const PreviewVideoEmbeds = (t: any) => {
         text: t('features - podcasting 2.0 transcripts'),
         width: 560,
         height: 315,
-        src: 'https://peertube.podverse.fm/videos/embed/e02afb1e-5426-4377-88bf-86ebbb9edd9c'
+        src: 'https://peertube.podverse.fm/videos/embed/67764a9d-12e0-4c25-9ae8-746efe484fa2'
       },
       web: false
     },
