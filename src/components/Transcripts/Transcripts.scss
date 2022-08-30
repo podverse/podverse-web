@@ -2,11 +2,17 @@
   .transcripts-wrapper {
     max-height: 500px;
     overflow: auto;
-    padding: 8px 0;
 
     .transcript-row {
+      cursor: pointer;
       display: flex;
-      margin-bottom: 16px;
+      padding: 8px 0;
+
+      &:hover {
+        @include themeGen() {
+          color: getThemeVal('textSecondary');
+        }
+      }
 
       .transcript-row__text {
         font-size: $text-lg;
