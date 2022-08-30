@@ -1,7 +1,7 @@
 import { GetServerSideProps } from 'next'
 import { useTranslation } from 'next-i18next'
 import OmniAural, { useOmniAural } from 'omniaural'
-import type { Episode, MediaRef, PVComment, SocialInteraction, TranscriptRow } from 'podverse-shared'
+import type { Episode, MediaRef, PVComment, SocialInteraction } from 'podverse-shared'
 import {
   addLightningBoltToString,
   checkIfHasSupportedCommentTag,
@@ -35,7 +35,6 @@ import { getEpisodeById } from '~/services/episode'
 import { getMediaRefsByQuery, retrieveLatestChaptersForEpisodeId } from '~/services/mediaRef'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 import { getEpisodeProxyActivityPub, getEpisodeProxyTwitter } from '~/services/socialInteraction/threadcap'
-import { getEpisodeProxyTranscript } from '~/services/transcript'
 import { OmniAuralState } from '~/state/omniauralState'
 
 interface ServerProps extends Page {
@@ -85,8 +84,6 @@ export default function EpisodePage({
   } as FilterState)
   const [comment, setComment] = useState<PVComment>(null)
   const [commentsLoading, setCommentsLoading] = useState<boolean>(false)
-  const [transcriptRows, setTranscriptRows] = useState<TranscriptRow[]>([])
-  const [transcriptRowsLoading, setTranscriptRowsLoading] = useState<boolean>(false)
   const [userInfo] = useOmniAural('session.userInfo') as [OmniAuralState['session']['userInfo']]
   const { clipsFilterPage, clipsFilterSort } = filterState
   const [clipsListData, setClipsListData] = useState<MediaRef[]>(serverClips)

@@ -58,7 +58,7 @@ export const Transcripts = ({ episode }: Props) => {
       scrollToPositionIntervalId = setInterval(() => {
         const currentlyPlayingRow = document.querySelector(
           '.transcripts .transcripts-wrapper .transcript-row.currently-playing'
-        )
+        ) as any
         if (currentlyPlayingRow) {
           const rowHeight = currentlyPlayingRow.offsetHeight
           const topPos =
@@ -113,8 +113,7 @@ export const Transcripts = ({ episode }: Props) => {
     const rowClassName = classNames('transcript-row', {
       'currently-playing':
         (currentPlaybackPosition < 1 && Math.floor(transcriptRow.endTime) <= 1) ||
-        (currentPlaybackPosition >= transcriptRow.startTime &&
-          currentPlaybackPosition < transcriptRow.endTime)
+        (currentPlaybackPosition >= transcriptRow.startTime && currentPlaybackPosition < transcriptRow.endTime)
     })
 
     return (
@@ -125,10 +124,11 @@ export const Transcripts = ({ episode }: Props) => {
     )
   }
 
-  const transcriptRowNodes = transcriptSearchRows?.length > 0
-    ? (transcriptSearchRows?.map(generateTranscriptRowNode) || [])
-    : (transcriptRows?.map(generateTranscriptRowNode) || [])
-  
+  const transcriptRowNodes =
+    transcriptSearchRows?.length > 0
+      ? transcriptSearchRows?.map(generateTranscriptRowNode) || []
+      : transcriptRows?.map(generateTranscriptRowNode) || []
+
   return (
     <div className='transcripts'>
       <MainContentSection
