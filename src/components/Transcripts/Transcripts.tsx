@@ -11,6 +11,10 @@ type Props = {
   episode?: Episode
 }
 
+let scrollToPositionIntervalId: any = null
+let playbackPositionIntervalId: any = null
+const playbackPositionIntervalTime = 0.5 // seconds
+
 export const Transcripts = ({ episode }: Props) => {
   const { t } = useTranslation()
   const [autoScrollOn, setAutoScrollOn] = useState<boolean>(false)
@@ -19,7 +23,6 @@ export const Transcripts = ({ episode }: Props) => {
   const [transcriptRowsLoading, setTranscriptRowsLoading] = useState<boolean>(false)
 
   useEffect(() => {
-    let playbackPositionIntervalId: any = null
     const transcriptTag = episode?.transcript && episode?.transcript[0]
 
     ;(async () => {
@@ -28,14 +31,6 @@ export const Transcripts = ({ episode }: Props) => {
         const parsedTranscriptRows = await getEpisodeProxyTranscript(episode.id)
         setTranscriptRows(parsedTranscriptRows)
         setTranscriptRowsLoading(false)
-
-        playbackPositionIntervalId = setInterval(() => {
-          const currentNowPlayingItem = OmniAural.state.player.currentNowPlayingItem.value()
-          if (currentNowPlayingItem?.episodeId && currentNowPlayingItem?.episodeId === episode.id) {
-            const playbackPosition = playerGetPosition()
-            setCurrentPlaybackPosition(playbackPosition)
-          }
-        }, 1000)
       }
     })()
 
@@ -43,14 +38,35 @@ export const Transcripts = ({ episode }: Props) => {
       playbackPositionIntervalId = setInterval(() => {
         const playbackPosition = playerGetPosition()
         setCurrentPlaybackPosition(playbackPosition)
-      }, 1000)
+      }, playbackPositionIntervalTime * 1000)
     }
 
-    return () => clearInterval(playbackPositionIntervalId)
+    return () => {
+      clearInterval(playbackPositionIntervalId)
+      clearInterval(scrollToPositionIntervalId)
+    }
   }, [])
 
   const handleAutoScrollButton = () => {
-    setAutoScrollOn(!autoScrollOn)
+    const newAutoScrollOn = !autoScrollOn
+    setAutoScrollOn(newAutoScrollOn)
+    if (newAutoScrollOn) {
+      scrollToPositionIntervalId = setInterval(() => {
+        const currentlyPlayingRow = document.querySelector('.transcripts .transcripts-wrapper .transcript-row.currently-playing')
+        if (currentlyPlayingRow) {
+          const rowHeight = currentlyPlayingRow.offsetHeight
+          const topPos = currentlyPlayingRow.offsetTop >= rowHeight
+            ? currentlyPlayingRow.offsetTop - (rowHeight * 2)
+            : currentlyPlayingRow.offsetTop
+          const transcriptsWrapper = document.querySelector('.transcripts-wrapper')
+          if (transcriptsWrapper) {
+            transcriptsWrapper.scrollTop = topPos
+          }
+        }
+      }, 100)
+    } else {
+      clearInterval(scrollToPositionIntervalId)
+    }
   }
 
   const handleRowClick = (skipToTime: number) => {
@@ -60,12 +76,16 @@ export const Transcripts = ({ episode }: Props) => {
   const generateTranscriptRowNode = (transcriptRow: TranscriptRow) => {
     if (!transcriptRow) return null
 
-    const floorPlaybackPosition = Math.floor(currentPlaybackPosition + 1)
+    const playbackPositionWithIntervalLag = currentPlaybackPosition - playbackPositionIntervalTime
 
     const rowClassName = classNames(
       'transcript-row',
       {
-        'currently-playing': floorPlaybackPosition > Math.floor(transcriptRow.startTime) && floorPlaybackPosition < Math.ceil(transcriptRow.endTime)
+        'currently-playing':
+          currentPlaybackPosition < 1 && Math.floor(transcriptRow.endTime) <= 1
+          || (
+            playbackPositionWithIntervalLag >= transcriptRow.startTime && playbackPositionWithIntervalLag < transcriptRow.endTime
+          )
       }
     )
 
