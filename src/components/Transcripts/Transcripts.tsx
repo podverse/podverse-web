@@ -52,12 +52,15 @@ export const Transcripts = ({ episode }: Props) => {
     setAutoScrollOn(newAutoScrollOn)
     if (newAutoScrollOn) {
       scrollToPositionIntervalId = setInterval(() => {
-        const currentlyPlayingRow = document.querySelector('.transcripts .transcripts-wrapper .transcript-row.currently-playing')
+        const currentlyPlayingRow = document.querySelector(
+          '.transcripts .transcripts-wrapper .transcript-row.currently-playing'
+        )
         if (currentlyPlayingRow) {
           const rowHeight = currentlyPlayingRow.offsetHeight
-          const topPos = currentlyPlayingRow.offsetTop >= rowHeight
-            ? currentlyPlayingRow.offsetTop - (rowHeight * 2)
-            : currentlyPlayingRow.offsetTop
+          const topPos =
+            currentlyPlayingRow.offsetTop >= rowHeight
+              ? currentlyPlayingRow.offsetTop - rowHeight * 2
+              : currentlyPlayingRow.offsetTop
           const transcriptsWrapper = document.querySelector('.transcripts-wrapper')
           if (transcriptsWrapper) {
             transcriptsWrapper.scrollTop = topPos
@@ -78,16 +81,12 @@ export const Transcripts = ({ episode }: Props) => {
 
     const playbackPositionWithIntervalLag = currentPlaybackPosition - playbackPositionIntervalTime
 
-    const rowClassName = classNames(
-      'transcript-row',
-      {
-        'currently-playing':
-          currentPlaybackPosition < 1 && Math.floor(transcriptRow.endTime) <= 1
-          || (
-            playbackPositionWithIntervalLag >= transcriptRow.startTime && playbackPositionWithIntervalLag < transcriptRow.endTime
-          )
-      }
-    )
+    const rowClassName = classNames('transcript-row', {
+      'currently-playing':
+        (currentPlaybackPosition < 1 && Math.floor(transcriptRow.endTime) <= 1) ||
+        (playbackPositionWithIntervalLag >= transcriptRow.startTime &&
+          playbackPositionWithIntervalLag < transcriptRow.endTime)
+    })
 
     return (
       <div className={rowClassName} onClick={() => handleRowClick(transcriptRow.startTime)}>
