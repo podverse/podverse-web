@@ -1,5 +1,4 @@
 import classNames from 'classnames'
-import OmniAural from 'omniaural'
 import type { Episode, TranscriptRow } from 'podverse-shared'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -42,8 +41,12 @@ export const Transcripts = ({ episode }: Props) => {
     }
 
     return () => {
-      clearInterval(playbackPositionIntervalId)
-      clearInterval(scrollToPositionIntervalId)
+      if (playbackPositionIntervalId) {
+        clearInterval(playbackPositionIntervalId)
+      }
+      if (scrollToPositionIntervalId) {
+        clearInterval(scrollToPositionIntervalId)
+      }
     }
   }, [])
 
@@ -67,7 +70,7 @@ export const Transcripts = ({ episode }: Props) => {
           }
         }
       }, 100)
-    } else {
+    } else if (scrollToPositionIntervalId) {
       clearInterval(scrollToPositionIntervalId)
     }
   }
@@ -96,12 +99,7 @@ export const Transcripts = ({ episode }: Props) => {
     )
   }
 
-  const transcriptRowNodes = []
-  if (transcriptRows && transcriptRows.length > 0) {
-    for (const transcriptRow of transcriptRows) {
-      transcriptRowNodes.push(generateTranscriptRowNode(transcriptRow))
-    }
-  }
+  const transcriptRowNodes = transcriptRows?.map(generateTranscriptRowNode) || []
 
   return (
     <div className='transcripts'>
