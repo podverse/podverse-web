@@ -42,7 +42,7 @@ export const MainContentSection = ({
       <div className='main-content-section'>
         <div className='main-content-header'>
           <PageHeader
-            handleAutoScrollButton={handleAutoScrollButton}
+            handleAutoScrollButton={showContent ? handleAutoScrollButton : null}
             handleCollapse={_headerOnClick}
             isAutoScrollOn={isAutoScrollOn}
             isCollapsed={!showContent}

@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { playerGetPosition, playerSeekTo } from '~/services/player/player'
 import { getEpisodeProxyTranscript } from '~/services/transcript'
-import { MainContentSection } from '..'
+import { MainContentSection, SearchBarFilter } from '..'
 
 type Props = {
   episode?: Episode
@@ -20,6 +20,7 @@ export const Transcripts = ({ episode }: Props) => {
   const [currentPlaybackPosition, setCurrentPlaybackPosition] = useState<number>(0)
   const [transcriptRows, setTranscriptRows] = useState<TranscriptRow[]>([])
   const [transcriptRowsLoading, setTranscriptRowsLoading] = useState<boolean>(false)
+  const [transcriptSearchRows, setTranscriptSearchRows] = useState<TranscriptRow[]>([])
 
   useEffect(() => {
     const transcriptTag = episode?.transcript && episode?.transcript[0]
@@ -79,16 +80,41 @@ export const Transcripts = ({ episode }: Props) => {
     playerSeekTo(skipToTime)
   }
 
+  const _handleSearchClear = () => {
+    setTranscriptSearchRows([])
+  }
+
+  const _handleSearchSubmit = (searchText?: string) => {
+    if (!searchText || searchText?.length === 0) {
+      _handleSearchClear()
+    } else {
+      const searchResults = transcriptRows.filter((item: Record<string, any>) => {
+        return item?.text?.toLowerCase().includes(searchText?.toLowerCase())
+      })
+
+      setAutoScrollOn(false)
+      if (scrollToPositionIntervalId) {
+        clearInterval(scrollToPositionIntervalId)
+      }
+
+      if (searchResults.length === 0) {
+        searchResults.push({
+          text: t('No results found')
+        } as any)
+      }
+
+      setTranscriptSearchRows(searchResults)
+    }
+  }
+
   const generateTranscriptRowNode = (transcriptRow: TranscriptRow) => {
     if (!transcriptRow) return null
-
-    const playbackPositionWithIntervalLag = currentPlaybackPosition - playbackPositionIntervalTime
 
     const rowClassName = classNames('transcript-row', {
       'currently-playing':
         (currentPlaybackPosition < 1 && Math.floor(transcriptRow.endTime) <= 1) ||
-        (playbackPositionWithIntervalLag >= transcriptRow.startTime &&
-          playbackPositionWithIntervalLag < transcriptRow.endTime)
+        (currentPlaybackPosition >= transcriptRow.startTime &&
+          currentPlaybackPosition < transcriptRow.endTime)
     })
 
     return (
@@ -99,8 +125,10 @@ export const Transcripts = ({ episode }: Props) => {
     )
   }
 
-  const transcriptRowNodes = transcriptRows?.map(generateTranscriptRowNode) || []
-
+  const transcriptRowNodes = transcriptSearchRows?.length > 0
+    ? (transcriptSearchRows?.map(generateTranscriptRowNode) || [])
+    : (transcriptRows?.map(generateTranscriptRowNode) || [])
+  
   return (
     <div className='transcripts'>
       <MainContentSection
@@ -109,6 +137,12 @@ export const Transcripts = ({ episode }: Props) => {
         isAutoScrollOn={autoScrollOn}
         isLoading={transcriptRowsLoading}
       >
+        <SearchBarFilter
+          handleClear={_handleSearchClear}
+          handleSubmit={_handleSearchSubmit}
+          placeholder={t('Transcript search')}
+          smaller
+        />
         <div className='transcripts-wrapper'>{transcriptRowNodes}</div>
       </MainContentSection>
       <hr />
