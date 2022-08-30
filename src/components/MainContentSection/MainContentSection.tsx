@@ -4,7 +4,9 @@ import { PageHeader } from '~/components'
 
 type Props = {
   children: any
+  handleAutoScrollButton?: any
   headerText: string
+  isAutoScrollOn?: boolean
   isLoading?: boolean
   primaryOnChange?: any
   primaryOptions?: any[]
@@ -16,7 +18,9 @@ type Props = {
 
 export const MainContentSection = ({
   children,
+  handleAutoScrollButton,
   headerText,
+  isAutoScrollOn,
   isLoading,
   primaryOnChange,
   primaryOptions,
@@ -38,7 +42,9 @@ export const MainContentSection = ({
       <div className='main-content-section'>
         <div className='main-content-header'>
           <PageHeader
+            handleAutoScrollButton={handleAutoScrollButton}
             handleCollapse={_headerOnClick}
+            isAutoScrollOn={isAutoScrollOn}
             isCollapsed={!showContent}
             isLoading={isLoading}
             isSubHeader
