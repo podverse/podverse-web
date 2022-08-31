@@ -24,6 +24,7 @@ import {
   Pagination,
   SideContent,
   SideContentSection,
+  Transcripts,
   WebLNV4VForm
 } from '~/components'
 import { scrollToTopOfPageScrollableContent } from '~/components/PageScrollableContent/PageScrollableContent'
@@ -89,6 +90,7 @@ export default function EpisodePage({
   const [clipsPageCount, setClipsPageCount] = useState<number>(serverClipsPageCount)
   const initialRender = useRef(true)
 
+  const hasTranscripts = !!(serverEpisode?.transcript && serverEpisode?.transcript[0])
   const hasValidCommentTag = checkIfHasSupportedCommentTag(serverEpisode)
   const hasChapters = serverChapters.length >= 1
   const valueEpisode = serverEpisode.value?.length > 0 ? serverEpisode.value : null
@@ -127,19 +129,26 @@ export default function EpisodePage({
             item.platform === PV.SocialInteraction.platformKeys.twitter
         )
 
-        if (activityPub?.uri || activityPub?.url) {
-          setCommentsLoading(true)
-          const comment = await getEpisodeProxyActivityPub(serverEpisode.id)
-          setComment(comment)
-          setCommentsLoading(false)
-        } else if (twitter?.uri || twitter?.url) {
-          setCommentsLoading(true)
-          const comment = await getEpisodeProxyTwitter(serverEpisode.id)
-          setComment(comment)
-          setCommentsLoading(false)
+        try {
+          if (activityPub?.uri || activityPub?.url) {
+            setCommentsLoading(true)
+            const comment = await getEpisodeProxyActivityPub(serverEpisode.id)
+            setComment(comment)
+          } else if (twitter?.uri || twitter?.url) {
+            setCommentsLoading(true)
+            const comment = await getEpisodeProxyTwitter(serverEpisode.id)
+            setComment(comment)
+          }
+        } catch (error) {
+          console.log('Comments loading error:', error)
         }
+        setCommentsLoading(false)
       }
+    })()
+  }, [])
 
+  useEffect(() => {
+    ;(async () => {
       if (initialRender.current) {
         initialRender.current = false
       } else {
@@ -224,6 +233,7 @@ export default function EpisodePage({
           mainColumnChildren={
             <>
               <EpisodeInfo episode={serverEpisode} includeMediaItemControls />
+              {hasTranscripts ? <Transcripts episode={serverEpisode} /> : null}
               {hasValidCommentTag ? <Comments comment={comment} isLoading={commentsLoading} /> : null}
               {hasChapters ? <Chapters chapters={serverChapters} episode={serverEpisode} /> : null}
               {!isLiveItem && (
