@@ -277,9 +277,12 @@ const generateItems = (t: any) =>
       description: `View episode transcripts when supported and navigate through them.`,
       mobileExplanation: `<li>Tap on the Miniplayer to expand it.</li>
       <li>Swipe left until you arrive at the Transcript section.</li>
-      <li>Here you can scroll through the provided transcript and tap on sections of text to jump directly to where they were said in the Episode.</li>`,
+      <li>Here you can scroll or search through the provided transcript and tap on sections of text to jump directly to where they were said in the Episode.</li>`,
       mobilePreviewVideoEmbed: PV.PreviewVideoEmbeds(t).transcripts.mobile,
-      webExplanation: `TODO:`,
+      webExplanation: `<li>Click on the Miniplayer to expand it.</li>
+      <li>Click the name of the episode to open directly to that episode's page.</li>
+      <li>Click Transcripts to expand and view the episode's Transcript.</li>
+      <li>Here you can scroll or search through the provided transcript and click on sections of text to jump directly to where they were said in the Episode.</li>`,
       webPreviewVideoEmbed: PV.PreviewVideoEmbeds(t).transcripts.web
     },
     {
@@ -413,5 +416,22 @@ const generateItems = (t: any) =>
       <li>Select Settings.</li>
       <li>Click on the Delete My Account button, then follow the directions on screen.</li>`,
       // webPreviewVideoEmbed: PV.PreviewVideoEmbeds(t).profiles.delete.web
+    },
+    {
+      // V4V
+
+      title: `Enable Value-4-Value`,
+      id: `v4v`,
+      description: `Enable Value-4-Value to send Bitcoin donations and boostagrams to podcasters.`,
+      mobileExplanation: `<li>Tap the More... Button.</li>
+      <li>Tap Value for value (V4V)</li>
+      <li>Optionally, toggle "Show lightning icons..." to make it easier to identify V4V supported podcasts.</li>
+      <li>Tap Alby, then connect wallet.</li>
+      <li>Login to your Alby account, then authorize Podverse.</li>
+      <li>You can now set your Boost amount and Boost podcasts.</li>
+      <li>To Boost a podcast, open the miniplayer while the episode you would like to boost is playing, then select BOOST or BOOSTAGRAM.</li>`,
+      mobilePreviewVideoEmbed: PV.PreviewVideoEmbeds(t).value4Value.bitcoin.mobile,
+      webExplanation: `TODO`,
+      // webPreviewVideoEmbed: PV.PreviewVideoEmbeds(t).value4Value.bitcoin.web
     }
   ] as TutorialSectionProps[]
