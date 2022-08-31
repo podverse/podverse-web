@@ -277,9 +277,12 @@ const generateItems = (t: any) =>
       description: `View episode transcripts when supported and navigate through them.`,
       mobileExplanation: `<li>Tap on the Miniplayer to expand it.</li>
       <li>Swipe left until you arrive at the Transcript section.</li>
-      <li>Here you can scroll through the provided transcript and tap on sections of text to jump directly to where they were said in the Episode.</li>`,
+      <li>Here you can scroll or search through the provided transcript and tap on sections of text to jump directly to where they were said in the Episode.</li>`,
       mobilePreviewVideoEmbed: PV.PreviewVideoEmbeds(t).transcripts.mobile,
-      webExplanation: `TODO:`,
+      webExplanation: `<li>Click on the Miniplayer to expand it.</li>
+      <li>Click the name of the episode to open directly to that episode's page.</li>
+      <li>Click Transcripts to expand and view the episode's Transcript.</li>
+      <li>Here you can scroll or search through the provided transcript and click on sections of text to jump directly to where they were said in the Episode.</li>`,
       webPreviewVideoEmbed: PV.PreviewVideoEmbeds(t).transcripts.web
     },
     {
@@ -298,5 +301,137 @@ const generateItems = (t: any) =>
       <li>The podcast will begin playing and the video will automatically display in a mini window on the bottom right of the browser.</li>
       <li>To view the video in full screen, click the Expand icon on the bottom right of the media player, then the full screen button on the bottom of the video.</li>`,
       webPreviewVideoEmbed: PV.PreviewVideoEmbeds(t).videos.web
+    },
+    {
+      // Delete a Clip
+
+      title: `Delete a Clip`,
+      id: `clip-delete`,
+      description: `Delete a clip you've created.`,
+      mobileExplanation: `<li>Tap the My Library tab, then tap My Clips.</li>
+      <li>Find the clip you want to delete, then tap the more button on the right.</li>
+      <li>Tap Delete Clip to delete your clip.</li>`,
+      // mobilePreviewVideoEmbed: PV.PreviewVideoEmbeds(t).clips.delete.mobile,
+      webExplanation: `<li>To delete a clip, first navigate to My Profile, then sort by Clips.</li>
+      <li>Find the clip you would like to delete, then click the more button to the right of it.</li>
+      <li>Click "Delete Clip" and confirm to delete the clip.</li>`,
+      // webPreviewVideoEmbed: PV.PreviewVideoEmbeds(t).clips.delete.web
+    },
+    {
+      // Delete History Items
+
+      title: `Delete History Items`,
+      id: `history-item-delete`,
+      description: `Remove individual items from your history.`,
+      mobileExplanation: `<li>Tap the My Library tab, then tap History.</li>
+      <li>Tap Remove at the top right of the screen to begin removing history. An X will appear next to each item.</li>
+      <li>Tap the X next to each item you want removed from your history. Tap Done on the top right when you are finished.</li>`,
+      // mobilePreviewVideoEmbed: PV.PreviewVideoEmbeds(t).history.deleteitem.mobile,
+      webExplanation: `<li>Click on the History button on the left navigation page to view your history.</li>
+      <li>To remove individual items from your history, click on the X to the right of the entry.</li>`,
+      // webPreviewVideoEmbed: PV.PreviewVideoEmbeds(t).history.deleteitem.web
+    },
+    {
+      // Delete History
+
+      title: `Delete History`,
+      id: `history-delete`,
+      description: `Clear you entire Podverse history.`,
+      mobileExplanation: `TODO`,
+      // mobilePreviewVideoEmbed: PV.PreviewVideoEmbeds(t).history.deleteall.mobile,
+      webExplanation: `<li>Click on the History button on the left navigation page to view your history.</li>
+      <li>To clear your entire history, click the Edit button at the top right of the window, then click Remove All and confirm.</li>`,
+      // webPreviewVideoEmbed: PV.PreviewVideoEmbeds(t).history.deleteall.web
+    },
+    {
+      // Queue - Add Current Item
+
+      title: `Queue - Add Current Item`,
+      id: `queue-add`,
+      description: `Add an item to your queue.`,
+      mobileExplanation: `<li>To add an item to your queue, click the More button.</li>
+      <li>Tap "Queue: Next" or "Queue: Last" to queue up the episode either next or last.</li>`,
+      // mobilePreviewVideoEmbed: PV.PreviewVideoEmbeds(t).queue.add.mobile,
+      webExplanation: `<li>To add an item to your queue, click the More button.</li>
+      <li>Click "Queue: Next" or "Queue: Last" to queue up the episode either next or last.</li>`,
+      // webPreviewVideoEmbed: PV.PreviewVideoEmbeds(t).queue.add.web
+    },
+    {
+      // Playlists - Add/Remove
+
+      title: `Playlists - Add or Remove Items`,
+      id: `playlists-edit`,
+      description: `Add or remove an item from a playlist.`,
+      mobileExplanation: `<li>To add an item to a playlist, tap the More button.</li>
+      <li>Tap Add to Playlist and select the Playlist you want to add the item to.</li>
+      <li>To remove items, tap the My Library tab, tap Playlists, and select the playlist you want to edit.</li>
+      <li>Tap the pencil icon to begin editing your playlist, then tap Remove.</li>
+      <li>Tap the X next to each item you want to remove from your playlist, then tap Done when you're finished.</li>`,
+      // mobilePreviewVideoEmbed: PV.PreviewVideoEmbeds(t).playlists.edit.mobile,
+      webExplanation: `<li>To add an item to a playlist, click the More button.</li>
+      <li>Click Add to Playlist and select the Playlist you want to add the item to.</li>
+      <li>To remove items, click the Playlist button on the left navigation pane and select the playlist you would like to edit.</li>
+      <li>Click on the Edit button at the top right to enable editing mode.</li>
+      <li>Click on the X next to a playlist entry to remove it.</li>`,
+      // webPreviewVideoEmbed: PV.PreviewVideoEmbeds(t).playlists.edit.web
+    },
+    {
+      // Playlists - Delete
+
+      title: `Playlists - Delete`,
+      id: `playlists-delete`,
+      description: `Delete a created playlist.`,
+      mobileExplanation: `TODO`,
+      // mobilePreviewVideoEmbed: PV.PreviewVideoEmbeds(t).playlists.delete.mobile,
+      webExplanation: `<li>To delete a playlist, click the Playlist button on the left navigation pane and select the playlist you would like to delete.</li>
+      <li>Click on the Edit button at the top right to enable editing mode.</li>
+      <li>Click on the Delete button that appears and confirm to delete the entire playlist.</li>`,
+      // webPreviewVideoEmbed: PV.PreviewVideoEmbeds(t).playlists.delete.web
+    },
+    {
+      // Profiles - Subscribe to Profile
+
+      title: `Subscribe to a Profile`,
+      id: `profiles-subscribe`,
+      description: `Subscribe to another user's profile.`,
+      mobileExplanation: `TODO`,
+      // mobilePreviewVideoEmbed: PV.PreviewVideoEmbeds(t).profiles.subscribe.mobile,
+      webExplanation: `<li>To visit a public profile page, you'll need a direct link to it.</li>
+      <li>You can find your own profile page URL by clicking My Profile on the left navigation pane and copying the URL at the top of the browser. To subscribe to another user's profile, follow the link they provide you.</li>
+      <li>Once you're on the profile page, click Subscribe.</li>
+      <li>You can find profiles you've subscribed to on your Profiles page, located on the left navigation pane.</li>`,
+      webPreviewVideoEmbed: PV.PreviewVideoEmbeds(t).profiles.subscribe.web
+    },
+    {
+      // Profiles - Delete Account
+
+      title: `Delete Podverse Account`,
+      id: `profiles-delete`,
+      description: `Permanently delete your Podverse account.`,
+      mobileExplanation: `<li>To permanently delete your account, tap the More tab.</li>
+      <li>Tap Settings, then Account.</li>
+      <li>Tap the Delete Account button, then follow the directions on screen.</li>`,
+      // mobilePreviewVideoEmbed: PV.PreviewVideoEmbeds(t).profiles.delete.mobile,
+      webExplanation: `<li>To permanently delete your account, click on the profile drop down button.</li>
+      <li>Select Settings.</li>
+      <li>Click on the Delete My Account button, then follow the directions on screen.</li>`,
+      // webPreviewVideoEmbed: PV.PreviewVideoEmbeds(t).profiles.delete.web
+    },
+    {
+      // V4V
+
+      title: `Enable Value-4-Value`,
+      id: `v4v`,
+      description: `Enable Value-4-Value to send Bitcoin donations and boostagrams to podcasters.`,
+      mobileExplanation: `<li>Tap the More... Button.</li>
+      <li>Tap Value for value (V4V)</li>
+      <li>Optionally, toggle "Show lightning icons..." to make it easier to identify V4V supported podcasts.</li>
+      <li>Tap Alby, then connect wallet.</li>
+      <li>Login to your Alby account, then authorize Podverse.</li>
+      <li>You can now set your Boost amount and Boost podcasts.</li>
+      <li>To Boost a podcast, open the miniplayer while the episode you would like to boost is playing, then select BOOST or BOOSTAGRAM.</li>`,
+      mobilePreviewVideoEmbed: PV.PreviewVideoEmbeds(t).value4Value.bitcoin.mobile,
+      webExplanation: `TODO`,
+      // webPreviewVideoEmbed: PV.PreviewVideoEmbeds(t).value4Value.bitcoin.web
     }
   ] as TutorialSectionProps[]
