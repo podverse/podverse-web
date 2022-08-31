@@ -314,7 +314,7 @@ const generateItems = (t: any) =>
       // mobilePreviewVideoEmbed: PV.PreviewVideoEmbeds(t).clips.delete.mobile,
       webExplanation: `<li>To delete a clip, first navigate to My Profile, then sort by Clips.</li>
       <li>Find the clip you would like to delete, then click the more button to the right of it.</li>
-      <li>Click "Delete Clip" and confirm to delete the clip.</li>`,
+      <li>Click "Delete Clip" and confirm to delete the clip.</li>`
       // webPreviewVideoEmbed: PV.PreviewVideoEmbeds(t).clips.delete.web
     },
     {
@@ -328,7 +328,7 @@ const generateItems = (t: any) =>
       <li>Tap the X next to each item you want removed from your history. Tap Done on the top right when you are finished.</li>`,
       // mobilePreviewVideoEmbed: PV.PreviewVideoEmbeds(t).history.deleteitem.mobile,
       webExplanation: `<li>Click on the History button on the left navigation page to view your history.</li>
-      <li>To remove individual items from your history, click on the X to the right of the entry.</li>`,
+      <li>To remove individual items from your history, click on the X to the right of the entry.</li>`
       // webPreviewVideoEmbed: PV.PreviewVideoEmbeds(t).history.deleteitem.web
     },
     {
@@ -340,7 +340,7 @@ const generateItems = (t: any) =>
       mobileExplanation: `TODO`,
       // mobilePreviewVideoEmbed: PV.PreviewVideoEmbeds(t).history.deleteall.mobile,
       webExplanation: `<li>Click on the History button on the left navigation page to view your history.</li>
-      <li>To clear your entire history, click the Edit button at the top right of the window, then click Remove All and confirm.</li>`,
+      <li>To clear your entire history, click the Edit button at the top right of the window, then click Remove All and confirm.</li>`
       // webPreviewVideoEmbed: PV.PreviewVideoEmbeds(t).history.deleteall.web
     },
     {
@@ -353,7 +353,7 @@ const generateItems = (t: any) =>
       <li>Tap "Queue: Next" or "Queue: Last" to queue up the episode either next or last.</li>`,
       // mobilePreviewVideoEmbed: PV.PreviewVideoEmbeds(t).queue.add.mobile,
       webExplanation: `<li>To add an item to your queue, click the More button.</li>
-      <li>Click "Queue: Next" or "Queue: Last" to queue up the episode either next or last.</li>`,
+      <li>Click "Queue: Next" or "Queue: Last" to queue up the episode either next or last.</li>`
       // webPreviewVideoEmbed: PV.PreviewVideoEmbeds(t).queue.add.web
     },
     {
@@ -372,7 +372,7 @@ const generateItems = (t: any) =>
       <li>Click Add to Playlist and select the Playlist you want to add the item to.</li>
       <li>To remove items, click the Playlist button on the left navigation pane and select the playlist you would like to edit.</li>
       <li>Click on the Edit button at the top right to enable editing mode.</li>
-      <li>Click on the X next to a playlist entry to remove it.</li>`,
+      <li>Click on the X next to a playlist entry to remove it.</li>`
       // webPreviewVideoEmbed: PV.PreviewVideoEmbeds(t).playlists.edit.web
     },
     {
@@ -385,7 +385,7 @@ const generateItems = (t: any) =>
       // mobilePreviewVideoEmbed: PV.PreviewVideoEmbeds(t).playlists.delete.mobile,
       webExplanation: `<li>To delete a playlist, click the Playlist button on the left navigation pane and select the playlist you would like to delete.</li>
       <li>Click on the Edit button at the top right to enable editing mode.</li>
-      <li>Click on the Delete button that appears and confirm to delete the entire playlist.</li>`,
+      <li>Click on the Delete button that appears and confirm to delete the entire playlist.</li>`
       // webPreviewVideoEmbed: PV.PreviewVideoEmbeds(t).playlists.delete.web
     },
     {
@@ -414,7 +414,7 @@ const generateItems = (t: any) =>
       // mobilePreviewVideoEmbed: PV.PreviewVideoEmbeds(t).profiles.delete.mobile,
       webExplanation: `<li>To permanently delete your account, click on the profile drop down button.</li>
       <li>Select Settings.</li>
-      <li>Click on the Delete My Account button, then follow the directions on screen.</li>`,
+      <li>Click on the Delete My Account button, then follow the directions on screen.</li>`
       // webPreviewVideoEmbed: PV.PreviewVideoEmbeds(t).profiles.delete.web
     },
     {
@@ -431,7 +431,7 @@ const generateItems = (t: any) =>
       <li>You can now set your Boost amount and Boost podcasts.</li>
       <li>To Boost a podcast, open the miniplayer while the episode you would like to boost is playing, then select BOOST or BOOSTAGRAM.</li>`,
       mobilePreviewVideoEmbed: PV.PreviewVideoEmbeds(t).value4Value.bitcoin.mobile,
-      webExplanation: `TODO`,
+      webExplanation: `TODO`
       // webPreviewVideoEmbed: PV.PreviewVideoEmbeds(t).value4Value.bitcoin.web
     }
   ] as TutorialSectionProps[]
