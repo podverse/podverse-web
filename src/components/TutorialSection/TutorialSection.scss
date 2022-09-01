@@ -12,15 +12,19 @@
       display: flex;
       margin-top: 24px;
       position: relative;
+      height: 37px;
 
       .tutorial-section-tabs-inner {
         display: flex;
+        bottom: 0;
         left: 0;
         position: absolute;
         right: 0;
         top: 0;
 
         .tutorial-tab {
+          -webkit-appearance: none;
+          -webkit-border-radius: 0;
           align-items: center;
           border: 1px solid;
           border-bottom-left-radius: 0;
@@ -33,7 +37,7 @@
           height: 38px;
           justify-content: center;
           margin-bottom: -1px;
-          margin-right: -1px;
+          margin-left: -3px;
           min-width: 72px;
           padding: 0 24px;
 
@@ -52,13 +56,16 @@
             margin-left: 7px;
             width: 0.8em;
           }
+
+          &:first-child {
+            margin-left: 0;
+          }
         }
       }
     }
 
     .tutorial-section-inner-wrapper {
       border: 1px solid;
-      margin-top: 37px;
       padding: 24px 16px;
 
       @include themeGen() {
