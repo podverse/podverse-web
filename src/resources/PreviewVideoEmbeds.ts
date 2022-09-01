@@ -135,11 +135,21 @@ export const PreviewVideoEmbeds = (t: any) => {
         height: 315,
         src: 'https://peertube.podverse.fm/videos/embed/67764a9d-12e0-4c25-9ae8-746efe484fa2'
       },
-      web: false
+      web: {
+        text: t('features - transcripts'),
+        width: 560,
+        height: 315,
+        src: 'https://peertube.podverse.fm/videos/embed/a6cad75c-ba86-431b-be79-83977d6ec255'
+      }
     },
     value4Value: {
       bitcoin: {
-        mobile: false,
+        mobile: {
+          text: t('Send Bitcoin donations and boostagrams to podcasters'),
+          width: 560,
+          height: 315,
+          src: 'https://peertube.podverse.fm/videos/embed/57838506-396d-49ae-80e6-3db49e18f3a7'
+        },
         web: {
           text: t('Send Bitcoin donations and boostagrams to podcasters'),
           width: 560,

@@ -108,21 +108,21 @@ export const Footer = () => {
               </PVLink>
             </li>
             <li>
+              <PVLink className='footer-link-tutorials' href='/tutorials'>
+                {t('Tutorials')}
+              </PVLink>
+            </li>
+            <li>
               <PVLink className='footer-link-mobile-app' href={PV.RoutePaths.web.embed.player_demo}>
                 {t('Embed')}
               </PVLink>
             </li>
             {/* <li>
-              <PVLink className='footer-link-support' href='/tutorials'>
-                {t('Tutorials')}
-              </PVLink>
-            </li> */}
-            {/* <li>
               <PVLink href='/v4v-wallet'>V4V Wallet</PVLink>
             </li> */}
             <li>
-              <PVLink className='footer-link-support' href='/support'>
-                {t('Support')}
+              <PVLink className='footer-link-contribute' href='/contribute'>
+                {t('Contribute')}
               </PVLink>
             </li>
           </ul>
