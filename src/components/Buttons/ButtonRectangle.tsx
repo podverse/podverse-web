@@ -5,13 +5,14 @@ import { Icon } from '~/components'
 type Props = {
   ariaDescription?: string
   ariaPressed?: boolean
+  children?: any
   className?: string
   disabled?: boolean
   isDanger?: boolean
   isLoading?: boolean
   isStatusBadge?: boolean
   isSuccess?: boolean
-  label: string
+  label?: string
   onClick?: any
   type: 'primary' | 'secondary' | 'tertiary' | 'status-badge'
 }
@@ -19,6 +20,7 @@ type Props = {
 export const ButtonRectangle = ({
   ariaDescription,
   ariaPressed,
+  children,
   className,
   disabled,
   isDanger,
@@ -52,7 +54,8 @@ export const ButtonRectangle = ({
       tabIndex={tabIndex}
     >
       {isLoading && <Icon faIcon={faSpinner} spin />}
-      <span className='button__text'>{label}</span>
+      {label && <span className='button__text'>{label}</span>}
+      {children ? children : null}
     </button>
   )
 }

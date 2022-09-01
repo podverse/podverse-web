@@ -47,6 +47,7 @@ export const RoutePaths = {
     clip: `/clip`,
     clips: `/clips`,
     contact: '/contact',
+    contribute: `/contribute`,
     coupon: `/coupon`,
     embed: {
       player: `/embed/player`,
@@ -80,7 +81,6 @@ export const RoutePaths = {
     search: `/search`,
     settings_membership: `/settings#membership`,
     settings: `/settings`,
-    support: `/support`,
     terms: `/terms`,
     tutorials: `/tutorials`,
     unspam: `http://www.unspam.com/noemailcollection/`,

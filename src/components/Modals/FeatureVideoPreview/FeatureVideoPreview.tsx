@@ -27,12 +27,11 @@ export const FeatureVideoPreviewModal = (props: Props) => {
         <div className='iframe-wrapper'>
           <iframe
             title={videoEmbedData.title}
-            width={videoEmbedData.width}
-            height={videoEmbedData.height}
             src={`${videoEmbedData.src}?autoplay=1`}
             frameBorder='0'
             allowFullScreen
             sandbox='allow-same-origin allow-scripts allow-popups'
+            style={{ height: '100%', width: '100%' }}
           />
         </div>
       )}

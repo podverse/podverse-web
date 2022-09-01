@@ -1,2 +1,26 @@
 .table-of-contents {
+  ul {
+    list-style: none !important;
+    margin-bottom: 0 !important;
+
+    li {
+      line-height: normal !important;
+    }
+
+    .section-title {
+      font-size: $text-md;
+      font-weight: 500;
+    }
+
+    ul {
+      padding: 4px 0 4px 16px;
+
+      li {
+        list-style-type: circle !important;
+        margin: 4px 0;
+        margin-left: 12px;
+        font-size: $text-md;
+      }
+    }
+  }
 }
