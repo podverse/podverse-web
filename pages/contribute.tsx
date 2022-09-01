@@ -7,7 +7,7 @@ import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 
 type ServerProps = Page
 
-export default function Support(props: ServerProps) {
+export default function Contribute(props: ServerProps) {
   /* Initialize */
 
   const { t } = useTranslation()
@@ -15,7 +15,7 @@ export default function Support(props: ServerProps) {
   /* Meta Tags */
 
   const meta = {
-    currentUrl: `${PV.Config.WEB_BASE_URL}${PV.RoutePaths.web.support}`,
+    currentUrl: `${PV.Config.WEB_BASE_URL}${PV.RoutePaths.web.contribute}`,
     description: t('pages-support_Description'),
     title: t('pages-support_Title')
   }
@@ -33,7 +33,7 @@ export default function Support(props: ServerProps) {
         twitterDescription={meta.description}
         twitterTitle={meta.title}
       />
-      <PageHeader text={t('Support')} />
+      <PageHeader text={t('Contribute')} />
       <PageScrollableContent>
         <ColumnsWrapper
           mainColumnChildren={

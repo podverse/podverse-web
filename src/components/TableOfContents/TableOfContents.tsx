@@ -1,34 +1,43 @@
 import { useTranslation } from 'next-i18next'
 
 type Props = {
-  items: any[]
+  sections: any[]
 }
 
 type TableOfContentsItemProps = {
-  id: string
-  title: string
+  section: any
 }
 
-const TableOfContentsItem = ({ id, title }: TableOfContentsItemProps) => {
+const TableOfContentsSection = ({ section }: TableOfContentsItemProps) => {
+  const sectionItems = section?.sectionItems?.map((item) => {
+    return (
+      <li key={`#${item.id}`}>
+        <a href={`#${item.id}`}>{item.title}</a>
+      </li>
+    )
+  })
+
   return (
     <li>
-      <a href={`#${id}`}>{title}</a>
+      <div className='section-title'>{section.sectionTitle}</div>
+      <ul>{sectionItems}</ul>
     </li>
   )
 }
 
-export const TableOfContents = ({ items }: Props) => {
+export const TableOfContents = ({ sections }: Props) => {
   const { t } = useTranslation()
-  const generateTOCElements = () => {
-    return items.map((item, index) => (
-      <TableOfContentsItem id={item.id} key={`table-of-contents-item-${index}`} title={item.title} />
-    ))
+
+  const generateTOCSections = () => {
+    return sections.map((section) => {
+      return <TableOfContentsSection key={section.sectionTitle} section={section} />
+    })
   }
 
   return (
     <div className='table-of-contents'>
       <h2>{t('Table of Contents')}</h2>
-      <ul>{generateTOCElements()}</ul>
+      <ul>{generateTOCSections()}</ul>
     </div>
   )
 }
