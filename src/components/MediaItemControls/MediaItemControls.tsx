@@ -189,7 +189,11 @@ export const MediaItemControls = ({
   const isCurrentlyPlayingItem = playerCheckIfItemIsCurrentlyPlaying(player.paused, nowPlayingItem)
   const togglePlayIcon = isCurrentlyPlayingItem ? faPause : faPlay
   const togglePlayClassName = isCurrentlyPlayingItem ? 'pause' : 'play'
-  let togglePlayAriaLabel = isCurrentlyPlayingItem ? t('Pause this clip') : t('Play this clip')
+  let togglePlayAriaLabel = isCurrentlyPlayingItem ? t('Pause this episode') : t('Play this episode')
+  const isClip = !!mediaRef
+  if (isClip) {
+    togglePlayAriaLabel = isCurrentlyPlayingItem ? t('Pause this clip') : t('Play this clip')
+  }
   if (isChapter) {
     togglePlayAriaLabel = isCurrentlyPlayingItem ? t('Pause this chapter') : t('Play this chapter')
   }
