@@ -1,4 +1,4 @@
-import { faDesktop, faMobile, faMobileAlt, faPlay } from '@fortawesome/free-solid-svg-icons'
+import { faPlay } from '@fortawesome/free-solid-svg-icons'
 import classNames from 'classnames'
 import OmniAural from 'omniaural'
 import { useState } from 'react'
