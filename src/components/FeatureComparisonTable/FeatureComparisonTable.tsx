@@ -90,7 +90,7 @@ const featuresData = (t) => [
     icon1Asterisk: true,
     icon2: true,
     icon2Asterisk: true,
-    previewVideoEmbed: PV.PreviewVideoEmbeds(t).transcripts.mobile
+    previewVideoEmbed: PV.PreviewVideoEmbeds(t).transcripts.web
   },
   {
     text: t('features - opml import and export'),
