@@ -20,8 +20,8 @@ export const ChatRoom = ({ chatIRCURL }: Props) => {
           src={chatIRCURL}
           frameBorder='0'
           allowFullScreen
-          sandbox='allow-same-origin allow-scripts allow-popups'
-          style={{ height: '420px', width: '100%' }}
+          sandbox='allow-same-origin allow-scripts allow-popups allow-forms'
+          style={{ height: '600px', width: '100%' }}
         />
       </MainContentSection>
     </div>
