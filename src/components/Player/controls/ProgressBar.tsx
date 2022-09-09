@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/aria-props */
+/* eslint-disable react/no-unknown-property */
 import classNames from 'classnames'
 import { useTranslation } from 'next-i18next'
 import { useOmniAural } from 'omniaural'
@@ -50,7 +52,7 @@ export const ProgressBar = ({
   const endTimeElement = isLiveItem ? (
     <button
       aria-description={endTimeAriaDescription}
-      // aria-role={endTimeAriaRole}
+      aria-role={endTimeAriaRole}
       className={endTimeBarLabel}
       onClick={endTimeOnClick}
       tabIndex={0}
@@ -58,11 +60,7 @@ export const ProgressBar = ({
       {endTimeLabel}
     </button>
   ) : (
-    <div
-      aria-description={endTimeAriaDescription}
-      // aria-role={endTimeAriaRole}
-      className={endTimeBarLabel}
-      tabIndex={0}>
+    <div aria-description={endTimeAriaDescription} aria-role={endTimeAriaRole} className={endTimeBarLabel} tabIndex={0}>
       {endTimeLabel}
     </div>
   )
