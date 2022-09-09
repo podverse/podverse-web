@@ -14,9 +14,10 @@ export const EpisodeInfo = ({ episode, includeMediaItemControls = false, noMargi
   const { t } = useTranslation()
   const { liveItem } = episode
   const isLiveItem = !!liveItem
+  const hasChatRoom = !!liveItem?.chatIRCURL
   const summaryText = episode.description || episode.subtitle || t('No episode notes available')
   const episodeInfoClassName = classNames('episode-info', noMarginBottom ? 'no-margin-bottom' : '')
-  const hrClassName = classNames(isLiveItem ? 'display-none' : '')
+  const hrClassName = classNames(isLiveItem && !hasChatRoom ? 'display-none' : '')
 
   return (
     <div className={episodeInfoClassName}>

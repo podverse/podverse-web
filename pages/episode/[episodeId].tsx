@@ -11,6 +11,7 @@ import {
 import { useEffect, useRef, useState } from 'react'
 import {
   Chapters,
+  ChatRoom,
   ClipListItem,
   ColumnsWrapper,
   Comments,
@@ -93,6 +94,7 @@ export default function EpisodePage({
   const hasTranscripts = !!(serverEpisode?.transcript && serverEpisode?.transcript[0])
   const hasValidCommentTag = checkIfHasSupportedCommentTag(serverEpisode)
   const hasChapters = serverChapters.length >= 1
+  const hasChatRoom = !!liveItem?.chatIRCURL
   const valueEpisode = serverEpisode.value?.length > 0 ? serverEpisode.value : null
   const valuePodcast = serverEpisode.podcast.value?.length > 0 ? serverEpisode.podcast.value : null
   const value = valueEpisode || valuePodcast
@@ -235,6 +237,7 @@ export default function EpisodePage({
               <EpisodeInfo episode={serverEpisode} includeMediaItemControls />
               {hasTranscripts ? <Transcripts episode={serverEpisode} /> : null}
               {hasValidCommentTag ? <Comments comment={comment} isLoading={commentsLoading} /> : null}
+              {hasChatRoom ? <ChatRoom chatIRCURL={liveItem?.chatIRCURL} /> : null}
               {hasChapters ? <Chapters chapters={serverChapters} episode={serverEpisode} /> : null}
               {!isLiveItem && (
                 <>
