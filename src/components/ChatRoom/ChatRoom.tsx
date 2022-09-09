@@ -15,14 +15,14 @@ export const ChatRoom = ({ chatIRCURL }: Props) => {
   return (
     <div className='chat-room'>
       <MainContentSection headerText={t('Chat Room')}>
-          <iframe
-            title={t('Chat Room')}
-            src={chatIRCURL}
-            frameBorder='0'
-            allowFullScreen
-            sandbox='allow-same-origin allow-scripts allow-popups'
-            style={{ height: '420px', width: '100%' }}
-          />
+        <iframe
+          title={t('Chat Room')}
+          src={chatIRCURL}
+          frameBorder='0'
+          allowFullScreen
+          sandbox='allow-same-origin allow-scripts allow-popups'
+          style={{ height: '420px', width: '100%' }}
+        />
       </MainContentSection>
     </div>
   )
