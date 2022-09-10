@@ -407,5 +407,21 @@
     "Auto-scroll button - off": "Automatisk rulling: Av",
     "Auto-scroll button - on": "Automatisk rulling: På",
     "Try premium free for 3 months": "Prøv Podverse premium gratis i tre måneder.",
-    "Podverse is a FOSS podcast manager": "Podverse er et fritt program for håndtering av nettradioopptak for F-Droid, Android, nett, og iOS."
+    "Podverse is a FOSS podcast manager": "Podverse er et fritt program for håndtering av nettradioopptak for F-Droid, Android, nett, og iOS.",
+    "pages-tutorials_Description": "Veiledninger og ofte stilte spørsmål om hvordan Podverse på nett og mobilprogrammene fungerer.",
+    "Account Claim Token": "Hent kontobevis",
+    "Claim free premium membership": "For å benytte gratis Podverse premium må du logge inn på din Podverse konto og så trykke «Hent symbol»-knappen nedenfor.",
+    "filter from - all - aria": "Viser alle nettradioopptak",
+    "filter from - category - aria": "Kategorivisning",
+    "filter from - subscribed - aria": "Viser abonnementer",
+    "Mission statement": "Podverse lager fri programvare for å gjøre mer mulig innen nettradioopptak.",
+    "Contribute info": "Hvis du er interessert i å hjelpe Podverse på noe vis kan du ta kontakt med oss fra «Kontakt»-siden.",
+    "pages-account-claim-token_Title": "Hent kontobevis",
+    "Embed player overrides error email subject": "Hjelp med å sette godkjente media-nettadresse for funksjonen for å overstyre innebygd avspiller",
+    "Transcript": "Transkribert tekst",
+    "This token has been claimed": "Dette symbolet har blitt brukt, eller så finnes det ikke.",
+    "Transcript search": "Søk i transkribert tekst",
+    "Embed player overrides error info": "For å kunne bruke innebygd nett-spiller med egendefinert overstyring må du legge til en liste over «Godkjente media-nettadresser» for dette nettradioopptaket først. Dette kreves slik at folk ikke misrepresenterer nettradioopptak. Kontakt oss så skrur vi på denne funksjonen for deg.",
+    "Embed player overrides error email body": "Angi en lenke til RSS-informasjonskanalen for ditt nettradioopptak slik at vi kan skru på funksjonen med overstyring for innebygd avspiller for deg.",
+    "License and free trial info": "All Podverse-programvare er fri programvare. Funksjoner som krever vertstjening får du med Podverse Premium. Registrer deg nå og få 3 månder gratis."
 }
