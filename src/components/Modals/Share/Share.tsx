@@ -22,7 +22,7 @@ export const ShareModal = (props: Props) => {
   const generateCopyTextInputs = () => {
     if (items && Array.isArray(items)) {
       return items.map((x: any, index: number) => (
-        <TextInputCopy key={`${x.url}-${index}`} label={x.label} value={x.url} />
+        <TextInputCopy key={`${x.url}-${index}`} label={t(x.label)} value={x.url} />
       ))
     }
     return null
