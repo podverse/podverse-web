@@ -46,7 +46,7 @@ export const MobileNavMenuModal = ({ handleHideMenu, show }: Props) => {
           text={t('Clips')}
         />
         <hr />
-        <div className='mobile-nav-menu-section-header'>{t('My Library')}</div>
+        <div className='mobile-nav-menu-section-header'>{t('MyLibrary')}</div>
         <MobileNavMenuLink
           active={router.pathname == PV.RoutePaths.web.queue}
           handleHideMenu={handleHideMenu}
@@ -63,7 +63,7 @@ export const MobileNavMenuModal = ({ handleHideMenu, show }: Props) => {
           active={router.pathname == PV.RoutePaths.web.my_profile}
           handleHideMenu={handleHideMenu}
           href={userInfo ? `${PV.RoutePaths.web.profile}/${userInfo.id}` : `${PV.RoutePaths.web.my_profile}`}
-          text={t('My Profile')}
+          text={t('MyProfile')}
         />
         <MobileNavMenuLink
           active={router.pathname == PV.RoutePaths.web.playlists}
