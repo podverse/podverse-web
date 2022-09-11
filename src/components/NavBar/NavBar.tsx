@@ -40,7 +40,7 @@ export const NavBar = (props: Props) => {
           text={t('Clips')}
         />
         <hr className='bottom' />
-        <NavBarSectionHeader text={t('My Library')} />
+        <NavBarSectionHeader text={t('MyLibrary')} />
         <NavBarLink
           active={router.pathname == PV.RoutePaths.web.queue}
           href={PV.RoutePaths.web.queue}
@@ -54,7 +54,7 @@ export const NavBar = (props: Props) => {
         <NavBarLink
           active={router.pathname == PV.RoutePaths.web.my_profile}
           href={userInfo ? `${PV.RoutePaths.web.profile}/${userInfo.id}` : `${PV.RoutePaths.web.my_profile}`}
-          text={t('My Profile')}
+          text={t('MyProfile')}
         />
         <NavBarLink
           active={router.pathname == PV.RoutePaths.web.playlists}
