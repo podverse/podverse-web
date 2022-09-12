@@ -22,6 +22,7 @@ import { Page } from '~/lib/utility/page'
 import { PV } from '~/resources'
 import { isNotAllSortOption } from '~/resources/Filters'
 import { getCategoryById, getCategoryBySlug, getTranslatedCategories } from '~/services/category'
+import { translateCategoryName } from '~/lib/utility/category'
 import { getEpisodesByQuery } from '~/services/episode'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 import { OmniAuralState } from '~/state/omniauralState'
@@ -80,7 +81,7 @@ export default function Episodes({
   const isCategoriesPage = filterFrom === PV.Filters.from._category && !isCategoryPage
   const isLoggedInSubscribedPage = userInfo && filterFrom === PV.Filters.from._subscribed
   const selectedCategory = isCategoryPage ? getCategoryById(filterCategoryId) : null
-  const pageHeaderText = selectedCategory ? `${t('Episodes')} > ${selectedCategory.title}` : t('Episodes')
+  const pageHeaderText = selectedCategory ? `${t('Episodes')} > ${translateCategoryName(selectedCategory.title)}` : t('Episodes')
   const showLoginMessage = !userInfo && filterFrom === PV.Filters.from._subscribed
 
   const categories = getTranslatedCategories(t)

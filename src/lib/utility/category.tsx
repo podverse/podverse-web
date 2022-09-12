@@ -1,8 +1,16 @@
+import { useTranslation } from 'next-i18next'
 // import Link from 'next/link'
 
 // const getLinkCategoryHref = id => {
 //   return `/podcasts?categoryId=${id}&refresh=true`
 // }
+
+export const translateCategoryName = name => {
+  const { t } = useTranslation()
+  const translatedName = t(`category - ${name.toLowerCase()}`)
+
+  return translatedName.startsWith('category - ') ? name : translatedName
+}
 
 export const generateCategoryNodes = (categories) => {
   const categoryNodes: any[] = []
@@ -10,7 +18,7 @@ export const generateCategoryNodes = (categories) => {
   if (categories && categories.length > 0) {
     for (let i = 0; i < categories.length; i++) {
       const category = categories[i]
-      const categoryText = category.title
+      const categoryText = translateCategoryName(category.title)
       // const categoryHref = getLinkCategoryHref(category.id)
 
       categoryNodes.push(
