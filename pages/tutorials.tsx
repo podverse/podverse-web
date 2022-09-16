@@ -291,14 +291,14 @@ const generateSections = (t: any) =>
         },
         {
           title: `Turn on/off auto download episodes`,
-          id: `delete-all-downloaded`,
-          description: `Delete all downloaded data.`,
+          id: `toggle-auto-download`,
+          description: `Enable or disable automatic downloads for new episodes.`,
           mobileExplanation: `<ol>
           <li>Start by navigating to the podcast you would like to enable or disable auto download for.</li>
           <li>Once you are subscribed, a new toggle switch appears to the right of the subscribe button.</li>
           <li>Click the Auto toggle button to enable or disable automatic downloads for new episodes of the podcast.</li>
           </ol>`,
-          mobilePreviewVideoEmbed: PV.PreviewVideoEmbeds(t).episodes.download.delete.mobile,
+          mobilePreviewVideoEmbed: PV.PreviewVideoEmbeds(t).episodes.download.auto.mobile,
           webExplanation: notAvailableTextWeb,
         },
         {

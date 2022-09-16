@@ -56,6 +56,15 @@ export const PreviewVideoEmbeds = (t: any) => {
             src: 'https://peertube.podverse.fm/videos/embed/357b304d-900f-4c65-a9e5-3891b16f216d'
           },
           web: null
+        },
+        auto: {
+          mobile: {
+            text: t('features - enable or disable auto download'),
+            width: 560,
+            height: 315,
+            src: 'https://peertube.podverse.fm/videos/embed/3fc147ca-59b5-4206-8791-38cb69c6c11d'
+          },
+          web: null
         }
       }
     },
