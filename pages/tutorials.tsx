@@ -280,7 +280,30 @@ const generateSections = (t: any) =>
           </ol>`,
           mobilePreviewVideoEmbed: PV.PreviewVideoEmbeds(t).episodes.download.mobile,
           webExplanation: notAvailableTextWeb,
-          webPreviewVideoEmbed: PV.PreviewVideoEmbeds(t).episodes.download.web
+        },
+        {
+          title: `Delete all downloaded data`,
+          id: `delete-all-downloaded`,
+          description: `Delete all downloaded data.`,
+          mobileExplanation: `<ol>
+          <li>Tap the More tab.</li>
+          <li>Tap "Settings", then "Downloads"</li>
+          <li>Tap "Delete downloaded episodes" to clear up storage space.</li>
+          </ol>`,
+          mobilePreviewVideoEmbed: PV.PreviewVideoEmbeds(t).episodes.download.delete.mobile,
+          webExplanation: notAvailableTextWeb,
+        },
+        {
+          title: `Turn on/off auto download episodes`,
+          id: `toggle-auto-download`,
+          description: `Enable or disable automatic downloads for new episodes.`,
+          mobileExplanation: `<ol>
+          <li>Start by navigating to the podcast you would like to enable or disable auto download for.</li>
+          <li>Once you are subscribed, a new toggle switch appears to the right of the subscribe button.</li>
+          <li>Click the Auto toggle button to enable or disable automatic downloads for new episodes of the podcast.</li>
+          </ol>`,
+          mobilePreviewVideoEmbed: PV.PreviewVideoEmbeds(t).episodes.download.auto.mobile,
+          webExplanation: notAvailableTextWeb,
         },
         {
           title: `Mark an episode as played or unplayed`,
@@ -325,7 +348,9 @@ const generateSections = (t: any) =>
           title: `Delete all history items`,
           id: `history-delete`,
           description: `Clear you entire Podverse history.`,
-          mobileExplanation: `TODO`,
+          mobileExplanation: `
+          <li>Clearing your entire history at once is not available on mobile at this time.</li>
+          `, //TODO
           // mobilePreviewVideoEmbed: PV.PreviewVideoEmbeds(t).history.deleteall.mobile,
           webExplanation: `<ol>
           <li>Click on the History button on the left navigation page to view your history.</li>
@@ -386,7 +411,9 @@ const generateSections = (t: any) =>
           title: `Delete playlist`,
           id: `playlists-delete`,
           description: `Delete a created playlist.`,
-          mobileExplanation: `TODO`,
+          mobileExplanation: `<ol>
+          <li>Deleting an entire playlist is unavailable on Mobile at this time.</li>
+          </ol>`,
           // mobilePreviewVideoEmbed: PV.PreviewVideoEmbeds(t).playlists.delete.mobile,
           webExplanation: `<ol>
           <li>Click the Playlist button on the left navigation pane and select the playlist you would like to delete.</li>
@@ -428,7 +455,9 @@ const generateSections = (t: any) =>
           title: `Subscribe to a profile`,
           id: `profiles-subscribe`,
           description: `Subscribe to another user's profile.`,
-          mobileExplanation: `TODO`,
+          mobileExplanation: `
+          <li>Subscribing to a profile from a link is not available on mobile at this time.</li>
+          `, //TODO
           // mobilePreviewVideoEmbed: PV.PreviewVideoEmbeds(t).profiles.subscribe.mobile,
           webExplanation: `<ol>
           <li>To visit a public profile page, you'll need a direct link to it.</li>
@@ -518,7 +547,11 @@ const generateSections = (t: any) =>
           <li>To Boost a podcast, open the miniplayer while the episode you would like to boost is playing, then select BOOST or BOOSTAGRAM.</li>
           </ol>`,
           mobilePreviewVideoEmbed: PV.PreviewVideoEmbeds(t).value4Value.bitcoin.mobile,
-          webExplanation: `TODO`
+          webExplanation: `<ol>
+          <li>You need a WebLN-compatible browser extension (like Alby) to send boosts.</li>
+          <li>Once you've set up your browser extension, navigate to a V4V enabled podcast page.</li>
+          <li> You'll find the Value for Value widget on the right side of the podcast page.</li>
+          </ol>`
           // webPreviewVideoEmbed: PV.PreviewVideoEmbeds(t).value4Value.bitcoin.web
         }
       ]
