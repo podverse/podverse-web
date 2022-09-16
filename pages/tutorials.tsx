@@ -131,7 +131,7 @@ const generateSections = (t: any) =>
           id: `profiles-delete`,
           description: `Permanently delete your Podverse account.`,
           mobileExplanation: `<ol>
-          <li>To permanently delete your account, tap the More tab.</li>
+          <li>Tap the More tab.</li>
           <li>Tap Settings, then Account.</li>
           <li>Tap the Delete Account button, then follow the directions on screen.</li>
           </ol>`,
@@ -199,13 +199,13 @@ const generateSections = (t: any) =>
           description: `Delete a clip you've created.`,
           mobileExplanation: `<ol>
           <li>Tap the My Library tab, then tap My Clips.</li>
-          <li>Find the clip you want to delete, then tap the more button on the right.</li>
+          <li>Find the clip you want to delete, then tap the three-dot menu button on the right.</li>
           <li>Tap Delete Clip to delete your clip.</li>
           </ol>`,
           // mobilePreviewVideoEmbed: PV.PreviewVideoEmbeds(t).clips.delete.mobile,
           webExplanation: `<ol>
           <li>To delete a clip, first navigate to My Profile, then sort by Clips.</li>
-          <li>Find the clip you would like to delete, then click the more button to the right of it.</li>
+          <li>Find the clip you would like to delete, then click the three-dot menu button to the right of it.</li>
           <li>Click "Delete Clip" and confirm to delete the clip.</li>
           </ol>`
           // webPreviewVideoEmbed: PV.PreviewVideoEmbeds(t).clips.delete.web
@@ -243,9 +243,11 @@ const generateSections = (t: any) =>
           title: `Add custom RSS feed`,
           id: `add-rss`,
           description: `Add RSS feeds directly to listen to your favorite podcasts.`,
-          mobileExplanation: `<ol><li>Tap the More Tab, then tap Add Custom RSS Feed.</li>
+          mobileExplanation: `<ol>
+          <li>Tap the More Tab, then tap Add Custom RSS Feed.</li>
           <li>Paste the RSS link for the podcast you'd like to add in the text box here, then tap Save.</li>
-          <li>You will be redirected to the podcast screen and automatically subscribed to it.</li></ol>`,
+          <li>You will be redirected to the podcast screen and automatically subscribed to it.</li>
+          </ol>`,
           mobilePreviewVideoEmbed: PV.PreviewVideoEmbeds(t).rss.add.mobile,
           webExplanation: notAvailableTextWeb
         },
@@ -253,10 +255,12 @@ const generateSections = (t: any) =>
           title: `Add custom RSS feed with username and password`,
           id: `add-rss-password`,
           description: `Add private RSS feeds directly to listen to your favorite podcasts.`,
-          mobileExplanation: `<ol><li>Tap the More Tab, then tap Add Custom RSS Feed.</li>
+          mobileExplanation: `<ol>
+          <li>Tap the More Tab, then tap Add Custom RSS Feed.</li>
           <li>Paste the RSS link for the podcast you'd like to add in the text box here, then tap the Include username and password button.</li>
           <li>Text fields for Username and Password will appear below the RSS link. Enter your username and password for your premium podcast feed, then tap Save.</li>
-          <li>You will be redirected to the podcast screen and automatically subscribed to it.</li></ol>`,
+          <li>You will be redirected to the podcast screen and automatically subscribed to it.</li>
+          </ol>`,
           mobilePreviewVideoEmbed: PV.PreviewVideoEmbeds(t).rss.addWithLogin.mobile,
           webExplanation: notAvailableTextWeb
         }
@@ -283,14 +287,14 @@ const generateSections = (t: any) =>
           id: `episodes-played`,
           description: `Mark episodes as played or unplayed to keep track of your progress.`,
           mobileExplanation: `<ol>
-          <li>From the Podcast page of your choice, tap the More button next to an episode.</li>
+          <li>From the Podcast page of your choice, tap the three-dot menu button next to an episode.</li>
           <li>Tap Mark as Played.</li>
           <li>A green checkmark will appear next to the episode, indicating you've already played it.</li>
-          <li>To remove the checkmark, tap the More button again and select Mark as Unplayed.</li>
+          <li>To remove the checkmark, tap the three-dot menu button again and select Mark as Unplayed.</li>
           </ol>`,
           mobilePreviewVideoEmbed: PV.PreviewVideoEmbeds(t).markAsPlayed.mobile,
           webExplanation: `<ol>
-          <li>From the Podcast page of your choice, click the More button (three dots) next to the episode you want to mark as Played or Unplayed.</li>
+          <li>From the Podcast page of your choice, click the three-dot menu button next to the episode you want to mark as Played or Unplayed.</li>
           <li>Click "Mark as Played" or "Mark as Unplayed" to toggle whether the episode appears with the green checkmark or not.</li>
           </ol>`,
           webPreviewVideoEmbed: PV.PreviewVideoEmbeds(t).markAsPlayed.web
@@ -340,7 +344,7 @@ const generateSections = (t: any) =>
           description: `Create playlists of episodes and clips and share them with anyone.`,
           mobileExplanation: `<ol>
           <li>Playlists can be made up of both Podcast Episodes and Podcast Clips.</li>
-          <li>From the Podcast page, tap the more button next to an episode or clip.</li>
+          <li>From the Podcast page, tap the three-dot menu button next to an episode or clip.</li>
           <li>Tap the Add to Playlist button.</li>
           <li>Here you can select New to create a new playlist and title it, or select an existing Playlist to add to.</li>
           <li>Repeat this process for as many episodes or clips as you like.</li>
@@ -362,7 +366,7 @@ const generateSections = (t: any) =>
           id: `playlists-edit`,
           description: `Add or remove an item from a playlist.`,
           mobileExplanation: `<ol>
-          <li>To add an item to a playlist, tap the More button.</li>
+          <li>Tap the More tab.</li>
           <li>Tap Add to Playlist and select the Playlist you want to add the item to.</li>
           <li>To remove items, tap the My Library tab, tap Playlists, and select the playlist you want to edit.</li>
           <li>Tap the pencil icon to begin editing your playlist, then tap Remove.</li>
@@ -370,7 +374,7 @@ const generateSections = (t: any) =>
           </ol>`,
           // mobilePreviewVideoEmbed: PV.PreviewVideoEmbeds(t).playlists.edit.mobile,
           webExplanation: `<ol>
-          <li>To add an item to a playlist, click the More button.</li>
+          <li>Click the More tab.</li>
           <li>Click Add to Playlist and select the Playlist you want to add the item to.</li>
           <li>To remove items, click the Playlist button on the left navigation pane and select the playlist you would like to edit.</li>
           <li>Click on the Edit button at the top right to enable editing mode.</li>
@@ -385,7 +389,7 @@ const generateSections = (t: any) =>
           mobileExplanation: `TODO`,
           // mobilePreviewVideoEmbed: PV.PreviewVideoEmbeds(t).playlists.delete.mobile,
           webExplanation: `<ol>
-          <li>To delete a playlist, click the Playlist button on the left navigation pane and select the playlist you would like to delete.</li>
+          <li>Click the Playlist button on the left navigation pane and select the playlist you would like to delete.</li>
           <li>Click on the Edit button at the top right to enable editing mode.</li>
           <li>Click on the Delete button that appears and confirm to delete the entire playlist.</li>
           </ol>`
@@ -444,12 +448,12 @@ const generateSections = (t: any) =>
           id: `queue-add`,
           description: `Add an item to your queue.`,
           mobileExplanation: `<ol>
-          <li>To add an item to your queue, click the More button.</li>
+          <li>From the Clips tab, tap the three-dot menu button next to the clip.</li>
           <li>Tap "Queue: Next" or "Queue: Last" to queue up the episode either next or last.</li>
           </ol>`,
           // mobilePreviewVideoEmbed: PV.PreviewVideoEmbeds(t).queue.add.mobile,
           webExplanation: `<ol>
-          <li>To add an item to your queue, click the More button.</li>
+          <li>From the Clips tab, Click the three-dot menu button next to the clip.</li>
           <li>Click "Queue: Next" or "Queue: Last" to queue up the episode either next or last.</li>
           </ol>`
           // webPreviewVideoEmbed: PV.PreviewVideoEmbeds(t).queue.add.web
@@ -506,8 +510,7 @@ const generateSections = (t: any) =>
           id: `v4v`,
           description: `Enable Value-4-Value to send Bitcoin donations and boostagrams to podcasters.`,
           mobileExplanation: `<ol>
-          <li>Tap the More... Button.</li>
-          <li>Tap Value for value (V4V)</li>
+          <li>From the More tab, tap Value for value (V4V)</li>
           <li>Optionally, toggle "Show lightning icons..." to make it easier to identify V4V supported podcasts.</li>
           <li>Tap Alby, then connect wallet.</li>
           <li>Login to your Alby account, then authorize Podverse.</li>
