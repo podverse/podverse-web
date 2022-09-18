@@ -42,6 +42,13 @@
     margin: 90px 0 30px 0;
     position: relative;
 
+    a.chapter-link {
+      @include themeGen() {
+        -webkit-box-shadow: 0 0 10px 4px getThemeVal('textTertiary');
+        box-shadow: 0 0 10px 4px getThemeVal('textTertiary');
+      }
+    }
+
     img {
       border-radius: $item-border-radius;
     }
