@@ -47,7 +47,25 @@ export const PreviewVideoEmbeds = (t: any) => {
           height: 315,
           src: 'https://peertube.podverse.fm/videos/embed/04138079-cc99-41ae-8080-8a5ed34be417'
         },
-        web: null
+        web: null,
+        delete: {
+          mobile: {
+            text: t('features - delete all downloads'),
+            width: 560,
+            height: 315,
+            src: 'https://peertube.podverse.fm/videos/embed/357b304d-900f-4c65-a9e5-3891b16f216d'
+          },
+          web: null
+        },
+        auto: {
+          mobile: {
+            text: t('features - enable or disable auto download'),
+            width: 560,
+            height: 315,
+            src: 'https://peertube.podverse.fm/videos/embed/3fc147ca-59b5-4206-8791-38cb69c6c11d'
+          },
+          web: null
+        }
       }
     },
     liveStreams: {
