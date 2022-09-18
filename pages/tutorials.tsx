@@ -279,7 +279,7 @@ const generateSections = (t: any) =>
           <li>To view your download progress, tap the My Library tab, then tap Active Downloads.</li>
           </ol>`,
           mobilePreviewVideoEmbed: PV.PreviewVideoEmbeds(t).episodes.download.mobile,
-          webExplanation: notAvailableTextWeb,
+          webExplanation: notAvailableTextWeb
         },
         {
           title: `Delete all downloaded data`,
@@ -291,7 +291,7 @@ const generateSections = (t: any) =>
           <li>Tap "Delete downloaded episodes" to clear up storage space.</li>
           </ol>`,
           mobilePreviewVideoEmbed: PV.PreviewVideoEmbeds(t).episodes.download.delete.mobile,
-          webExplanation: notAvailableTextWeb,
+          webExplanation: notAvailableTextWeb
         },
         {
           title: `Turn on/off auto download episodes`,
@@ -303,7 +303,7 @@ const generateSections = (t: any) =>
           <li>Click the Auto toggle button to enable or disable automatic downloads for new episodes of the podcast.</li>
           </ol>`,
           mobilePreviewVideoEmbed: PV.PreviewVideoEmbeds(t).episodes.download.auto.mobile,
-          webExplanation: notAvailableTextWeb,
+          webExplanation: notAvailableTextWeb
         },
         {
           title: `Mark an episode as played or unplayed`,
