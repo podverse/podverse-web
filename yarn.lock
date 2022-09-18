@@ -6067,10 +6067,10 @@ pkg-dir@^4.2.0:
   dependencies:
     find-up "^4.0.0"
 
-podverse-shared@^4.6.3:
-  version "4.6.3"
-  resolved "https://registry.yarnpkg.com/podverse-shared/-/podverse-shared-4.6.3.tgz#659b953274567f786ac55679ad8a59ad54a41803"
-  integrity sha512-2CGGey3HqrlMbmegWCQvbcfvEBBf09SoPi1smaxRh2pxFnUv9fneOcz9UOS9rZW78iA4nI5is9Mn/o8PQHb0Dw==
+podverse-shared@^4.6.5:
+  version "4.6.5"
+  resolved "https://registry.yarnpkg.com/podverse-shared/-/podverse-shared-4.6.5.tgz#ad1ff6519430b37d321d43d770bb33416983c320"
+  integrity sha512-CSWkZZMS2qBF2Y0k1D3514NAsL4drMRXczGQoaDtdv8TTr2jKDVA74R1ayWsiqGlJSgNxigGXPwrwmV9Yjtztw==
   dependencies:
     he "^1.2.0"
     html-entities "^2.3.2"
