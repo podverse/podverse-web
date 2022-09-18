@@ -1,4 +1,5 @@
 import moment from 'moment'
+import 'moment/locale/da'
 import 'moment/locale/de'
 import 'moment/locale/el'
 import 'moment/locale/es'
