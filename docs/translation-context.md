@@ -20,4 +20,8 @@ The Podverse dev team will regularly update this document with context as we're 
 
 The use of the word "free" here means "3 months at no charge" or "3 months at no cost". It means the user will receive a 3 month free trial period when they sign up for Podverse premium.
 
+`"Free": "Free"`
+
+Previously instead of saying "Free" as in "Free features accessible without a Premium membership", we had changed it to "At no cost". Kingu had recommended that "At no cost" would be clearer for translations, but on Sept 21 2022 Google Play rejected our release saying that the Membership Features page "Your offer does not clearly and accurately describe the terms of your subscription, including the cost, frequency of billing cycle, and whether a subscription is required to use the app." Since "Free vs Premium" is commonly understood as "Free Features vs Paid Features" in US English, we decided to change "At no cost" back to "Free" in the hopes that Google would consider that a more clear description.
+
 ---
