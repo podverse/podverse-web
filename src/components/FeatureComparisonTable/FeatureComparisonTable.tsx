@@ -41,7 +41,7 @@ const featuresData = (t) => [
     previewVideoEmbed: PV.PreviewVideoEmbeds(t).episodes.download.mobile
   },
   {
-    text: t('features - audio livestreams'),
+    text: t('features - livestreams'),
     icon1: true,
     icon2: true,
     previewVideoEmbed: PV.PreviewVideoEmbeds(t).liveStreams.audio.mobile
