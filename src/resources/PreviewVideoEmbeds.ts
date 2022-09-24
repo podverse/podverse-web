@@ -1,7 +1,12 @@
 export const PreviewVideoEmbeds = (t: any) => {
   return {
     chapters: {
-      mobile: null,
+      mobile: {
+        text: t('features - podcasting 2.0 chapters'),
+        width: 560,
+        height: 315,
+        src: 'https://peertube.podverse.fm/videos/embed/2c27da49-6df8-4d86-9d4b-b617af5ef3dc'
+      },
       web: {
         text: t('features - podcasting 2.0 chapters'),
         width: 560,
@@ -101,6 +106,20 @@ export const PreviewVideoEmbeds = (t: any) => {
           width: 560,
           height: 315,
           src: 'https://peertube.podverse.fm/videos/embed/7944971b-9f5b-4d17-9192-9bed76d4face'
+        }
+      },
+      edit: {
+        mobile: {
+          text: t('features - add or remove playlist items'),
+          width: 560,
+          height: 315,
+          src: 'https://peertube.podverse.fm/videos/embed/2a1d5f03-7415-4462-9758-738f7c93f68c'
+        },
+        web: {
+          text: t('features - add or remove playlist items'),
+          width: 560,
+          height: 315,
+          src: null
         }
       }
     },
@@ -222,6 +241,38 @@ export const PreviewVideoEmbeds = (t: any) => {
         width: 560,
         height: 315,
         src: 'https://peertube.podverse.fm/videos/embed/3017bd80-e671-4b78-9830-df641a4304d7'
+      }
+    },
+    history: {
+      deleteItem: {
+        mobile: {
+          text: t('features - Delete history items'),
+          width: 560,
+          height: 315,
+          src: 'https://peertube.podverse.fm/videos/embed/ffb91b8a-30f1-4a46-b0bf-a81d645e6e99'
+        },
+        web: {
+          text: t('features - Delete history items'),
+          width: 560,
+          height: 315,
+          src: null
+        }
+      }
+    },
+    account: {
+      delete: {
+        mobile: {
+          text: t('features - Delete your Podverse account permanently'),
+          width: 560,
+          height: 315,
+          src: 'https://peertube.podverse.fm/videos/embed/b30ec41d-8f08-48c4-8ba8-5587de491e85'
+        },
+        web: {
+          text: t('features - Delete your Podverse account permanently'),
+          width: 560,
+          height: 315,
+          src: null
+        }
       }
     }
   }
