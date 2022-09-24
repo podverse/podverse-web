@@ -336,12 +336,12 @@ const generateSections = (t: any) =>
           <li>Tap Remove at the top right of the screen to begin removing history. An X will appear next to each item.</li>
           <li>Tap the X next to each item you want removed from your history. Tap Done on the top right when you are finished.</li>
           </ol>`,
-          mobilePreviewVideoEmbed: PV.PreviewVideoEmbeds(t).history.deleteitem.mobile,
+          mobilePreviewVideoEmbed: PV.PreviewVideoEmbeds(t).history.deleteItem.mobile,
           webExplanation: `<ol>
           <li>Click on the History button on the left navigation page to view your history.</li>
           <li>To remove individual items from your history, click on the X to the right of the entry.</li>
           </ol>`
-          // webPreviewVideoEmbed: PV.PreviewVideoEmbeds(t).history.deleteitem.web
+          // webPreviewVideoEmbed: PV.PreviewVideoEmbeds(t).history.deleteItem.web
         },
         {
           // Delete History
