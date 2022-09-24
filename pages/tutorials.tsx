@@ -128,20 +128,20 @@ const generateSections = (t: any) =>
       sectionItems: [
         {
           title: `Delete account`,
-          id: `profiles-delete`,
+          id: `account-delete`,
           description: `Permanently delete your Podverse account.`,
           mobileExplanation: `<ol>
           <li>Tap the More tab.</li>
           <li>Tap Settings, then Account.</li>
           <li>Tap the Delete Account button, then follow the directions on screen.</li>
           </ol>`,
-          // mobilePreviewVideoEmbed: PV.PreviewVideoEmbeds(t).profiles.delete.mobile,
+          mobilePreviewVideoEmbed: PV.PreviewVideoEmbeds(t).account.delete.mobile,
           webExplanation: `<ol>
           <li>To permanently delete your account, click on the profile drop down button.</li>
           <li>Select Settings.</li>
           <li>Click on the Delete My Account button, then follow the directions on screen.</li>
           </ol>`
-          // webPreviewVideoEmbed: PV.PreviewVideoEmbeds(t).profiles.delete.web
+          // webPreviewVideoEmbed: PV.PreviewVideoEmbeds(t).account.delete.web
         }
       ]
     },
@@ -336,7 +336,7 @@ const generateSections = (t: any) =>
           <li>Tap Remove at the top right of the screen to begin removing history. An X will appear next to each item.</li>
           <li>Tap the X next to each item you want removed from your history. Tap Done on the top right when you are finished.</li>
           </ol>`,
-          // mobilePreviewVideoEmbed: PV.PreviewVideoEmbeds(t).history.deleteitem.mobile,
+          mobilePreviewVideoEmbed: PV.PreviewVideoEmbeds(t).history.deleteitem.mobile,
           webExplanation: `<ol>
           <li>Click on the History button on the left navigation page to view your history.</li>
           <li>To remove individual items from your history, click on the X to the right of the entry.</li>
@@ -397,7 +397,7 @@ const generateSections = (t: any) =>
           <li>Tap the pencil icon to begin editing your playlist, then tap Remove.</li>
           <li>Tap the X next to each item you want to remove from your playlist, then tap Done when you're finished.</li>
           </ol>`,
-          // mobilePreviewVideoEmbed: PV.PreviewVideoEmbeds(t).playlists.edit.mobile,
+          mobilePreviewVideoEmbed: PV.PreviewVideoEmbeds(t).playlists.edit.mobile,
           webExplanation: `<ol>
           <li>Click the More tab.</li>
           <li>Click Add to Playlist and select the Playlist you want to add the item to.</li>
