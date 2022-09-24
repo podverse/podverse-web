@@ -244,7 +244,7 @@ export const PreviewVideoEmbeds = (t: any) => {
       }
     },
     history: {
-      deleteItem : {
+      deleteItem: {
         mobile: {
           text: t('features - Delete history items'),
           width: 560,
@@ -260,7 +260,7 @@ export const PreviewVideoEmbeds = (t: any) => {
       }
     },
     account: {
-      delete : {
+      delete: {
         mobile: {
           text: t('features - Delete your Podverse account permanently'),
           width: 560,
