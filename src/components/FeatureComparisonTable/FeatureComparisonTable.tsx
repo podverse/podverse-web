@@ -53,20 +53,19 @@ const featuresData = (t) => [
     previewVideoEmbed: PV.PreviewVideoEmbeds(t).videos.web
   },
   {
-    text: t('features - add custom rss feeds'),
+    text: t('Send Bitcoin donations and boostagrams to podcasters'),
     icon1: true,
-    icon1Asterisk: true,
     icon2: true,
-    icon2Asterisk: true
+    previewVideoEmbed: PV.PreviewVideoEmbeds(t).value4Value.bitcoin.web
   },
-  {
-    text: t('features - sleep timer'),
-    icon1: true,
-    icon1Asterisk: true,
-    icon2: true,
-    icon2Asterisk: true,
-    previewVideoEmbed: PV.PreviewVideoEmbeds(t).sleepTimer.mobile
-  },
+  // {
+  //   text: t('features - sleep timer'),
+  //   icon1: true,
+  //   icon1Asterisk: true,
+  //   icon2: true,
+  //   icon2Asterisk: true,
+  //   previewVideoEmbed: PV.PreviewVideoEmbeds(t).sleepTimer.mobile
+  // },
   {
     text: t('features - screen-reader accessibility'),
     icon1: true,
@@ -93,19 +92,18 @@ const featuresData = (t) => [
     previewVideoEmbed: PV.PreviewVideoEmbeds(t).transcripts.web
   },
   {
-    text: t('features - opml import and export'),
+    text: t('features - add custom rss feeds'),
     icon1: true,
     icon1Asterisk: true,
     icon2: true,
     icon2Asterisk: true
   },
   {
-    text: t('Send Bitcoin donations and boostagrams to podcasters'),
+    text: t('features - opml import and export'),
     icon1: true,
-    icon1Asterisk2: true,
+    icon1Asterisk: true,
     icon2: true,
-    icon2Asterisk2: true,
-    previewVideoEmbed: PV.PreviewVideoEmbeds(t).value4Value.bitcoin.web
+    icon2Asterisk: true
   },
   {
     text: t('features - Sync your subscriptions, queue, and history across all your devices'),
