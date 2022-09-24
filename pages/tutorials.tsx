@@ -551,8 +551,8 @@ const generateSections = (t: any) =>
           <li>You need a WebLN-compatible browser extension (like Alby) to send boosts.</li>
           <li>Once you've set up your browser extension, navigate to a V4V enabled podcast page.</li>
           <li> You'll find the Value for Value widget on the right side of the podcast page.</li>
-          </ol>`
-          // webPreviewVideoEmbed: PV.PreviewVideoEmbeds(t).value4Value.bitcoin.web
+          </ol>`,
+          webPreviewVideoEmbed: PV.PreviewVideoEmbeds(t).value4Value.bitcoin.web
         }
       ]
     },
