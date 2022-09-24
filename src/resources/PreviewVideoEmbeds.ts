@@ -76,7 +76,7 @@ export const PreviewVideoEmbeds = (t: any) => {
     liveStreams: {
       audio: {
         mobile: {
-          text: t('features - audio livestreams'),
+          text: t('features - livestreams'),
           width: 560,
           height: 315,
           src: 'https://peertube.podverse.fm/videos/embed/bbf6eb1c-46a0-407d-b1ef-682590885882'

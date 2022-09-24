@@ -332,7 +332,7 @@
     "RSS Feed URL": "Nettadresse for RSS-informasjonskanal",
     "Send Podping live status notification": "Send merknad om status for Podping-direktesending",
     "Play this chapter": "Spill dette kapitlet",
-    "features - audio livestreams": "Direktelydstrømmer",
+    "features - livestreams": "Direktelydstrømmer",
     "_translatorsFieldExample": "Allan Nordhøy",
     "_translatorsField": "Oversettere",
     "features - new episodes and livestream notifications": "Merknader om nye episoder og direktestrømmer",
@@ -423,5 +423,16 @@
     "Transcript search": "Søk i transkribert tekst",
     "Embed player overrides error info": "For å kunne bruke innebygd nett-spiller med egendefinert overstyring må du legge til en liste over «Godkjente media-nettadresser» for dette nettradioopptaket først. Dette kreves slik at folk ikke misrepresenterer nettradioopptak. Kontakt oss så skrur vi på denne funksjonen for deg.",
     "Embed player overrides error email body": "Angi en lenke til RSS-informasjonskanalen for ditt nettradioopptak slik at vi kan skru på funksjonen med overstyring for innebygd avspiller for deg.",
-    "License and free trial info": "All Podverse-programvare er fri programvare. Funksjoner som krever vertstjening får du med Podverse Premium. Registrer deg nå og få 3 månder gratis."
+    "License and free trial info": "All Podverse-programvare er fri programvare. Funksjoner som krever vertstjening får du med Podverse Premium. Registrer deg nå og få 3 månder gratis.",
+    "Features": "Funksjoner",
+    "language - de": "Tysk",
+    "language - el": "Gresk",
+    "language - fr": "Fransk",
+    "language - nb-NO": "Norsk bokmål",
+    "language - ru": "Russisk",
+    "language - pt": "Portugisisk (Portugal)",
+    "language - pt-BR": "Portugisisk (Brasil)",
+    "language - sv": "Svensk",
+    "language - tr": "Tyrkisk",
+    "Membership": "Medlemskap"
 }
