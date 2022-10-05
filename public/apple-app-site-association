@@ -12,6 +12,7 @@
           "NOT /admin*",
           "NOT /podping*",
           "NOT /tutorials*",
+          "NOT /contribute*",
           "*"
         ]
       }
