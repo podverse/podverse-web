@@ -134,7 +134,8 @@ const featuresData = (t) => [
   {
     text: t('features - mark episodes as played'),
     icon1: false,
-    icon2: true
+    icon2: true,
+    PreviewVideoEmbed: PV.PreviewVideoEmbeds(t).markAsPlayed.web
   },
   {
     text: t('features - subscribe to listener profiles'),
