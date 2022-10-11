@@ -41,7 +41,7 @@ const featuresData = (t) => [
     previewVideoEmbed: PV.PreviewVideoEmbeds(t).episodes.download.mobile
   },
   {
-    text: t('features - audio livestreams'),
+    text: t('features - livestreams'),
     icon1: true,
     icon2: true,
     previewVideoEmbed: PV.PreviewVideoEmbeds(t).liveStreams.audio.mobile
@@ -53,20 +53,19 @@ const featuresData = (t) => [
     previewVideoEmbed: PV.PreviewVideoEmbeds(t).videos.web
   },
   {
-    text: t('features - add custom rss feeds'),
+    text: t('Send Bitcoin donations and boostagrams to podcasters'),
     icon1: true,
-    icon1Asterisk: true,
     icon2: true,
-    icon2Asterisk: true
+    previewVideoEmbed: PV.PreviewVideoEmbeds(t).value4Value.bitcoin.web
   },
-  {
-    text: t('features - sleep timer'),
-    icon1: true,
-    icon1Asterisk: true,
-    icon2: true,
-    icon2Asterisk: true,
-    previewVideoEmbed: PV.PreviewVideoEmbeds(t).sleepTimer.mobile
-  },
+  // {
+  //   text: t('features - sleep timer'),
+  //   icon1: true,
+  //   icon1Asterisk: true,
+  //   icon2: true,
+  //   icon2Asterisk: true,
+  //   previewVideoEmbed: PV.PreviewVideoEmbeds(t).sleepTimer.mobile
+  // },
   {
     text: t('features - screen-reader accessibility'),
     icon1: true,
@@ -90,7 +89,14 @@ const featuresData = (t) => [
     icon1Asterisk: true,
     icon2: true,
     icon2Asterisk: true,
-    previewVideoEmbed: PV.PreviewVideoEmbeds(t).transcripts.mobile
+    previewVideoEmbed: PV.PreviewVideoEmbeds(t).transcripts.web
+  },
+  {
+    text: t('features - add custom rss feeds'),
+    icon1: true,
+    icon1Asterisk: true,
+    icon2: true,
+    icon2Asterisk: true
   },
   {
     text: t('features - opml import and export'),
@@ -98,14 +104,6 @@ const featuresData = (t) => [
     icon1Asterisk: true,
     icon2: true,
     icon2Asterisk: true
-  },
-  {
-    text: t('Send Bitcoin donations and boostagrams to podcasters'),
-    icon1: true,
-    icon1Asterisk2: true,
-    icon2: true,
-    icon2Asterisk2: true,
-    previewVideoEmbed: PV.PreviewVideoEmbeds(t).value4Value.bitcoin.web
   },
   {
     text: t('features - Sync your subscriptions, queue, and history across all your devices'),
@@ -136,7 +134,8 @@ const featuresData = (t) => [
   {
     text: t('features - mark episodes as played'),
     icon1: false,
-    icon2: true
+    icon2: true,
+    PreviewVideoEmbed: PV.PreviewVideoEmbeds(t).markAsPlayed.web
   },
   {
     text: t('features - subscribe to listener profiles'),

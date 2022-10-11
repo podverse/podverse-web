@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/aria-props */
+/* eslint-disable react/no-unknown-property */
 import classNames from 'classnames'
 import { useTranslation } from 'next-i18next'
 import { useOmniAural } from 'omniaural'

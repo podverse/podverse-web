@@ -3,7 +3,7 @@ module.exports = {
     defaultLocale: 'en',
     // NOTE: Make sure to update locales in the ./src/lib/utility/date.ts file
     // for moment.js translations.
-    locales: ['de', 'el', 'en', 'es', 'fr', 'lt', 'nb-NO', 'pt', 'ru', 'sv', 'tr']
+    locales: ['da', 'de', 'el', 'en', 'es', 'fr', 'lt', 'nb-NO', 'pt', 'pt-BR', 'ru', 'sv', 'tr']
   },
   react: {
     useSuspense: false

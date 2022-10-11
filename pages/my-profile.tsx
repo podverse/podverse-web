@@ -34,7 +34,7 @@ export default function MyProfile(props: ServerProps) {
         twitterDescription={meta.description}
         twitterTitle={meta.title}
       />
-      <PageHeader text={t('My Profile')} />
+      <PageHeader text={t('MyProfile')} />
       <PageScrollableContent>
         <MessageWithAction
           actionLabel={t('Login')}

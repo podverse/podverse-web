@@ -106,6 +106,15 @@ export const PlayerFullView = ({ isEmbed, nowPlayingItem }: Props) => {
     alternateEnclosureSourceDropdownOptions = generateAlternateEnclosureSourceOptions(selectedAlternateEnclosureSources)
   }
 
+  const imageComponent = (
+    <PVImage
+      alt=''
+      height={PV.Images.sizes.fullViewAudio}
+      src={nowPlayingItem.episodeImageUrl || nowPlayingItem.podcastImageUrl}
+      width={PV.Images.sizes.fullViewAudio}
+    />
+  )
+
   return (
     <div className={viewClass} role='dialog'>
       {showFullView && (
@@ -118,14 +127,15 @@ export const PlayerFullView = ({ isEmbed, nowPlayingItem }: Props) => {
       )}
       <div className={imageWrapperClass}>
         {isVideo && <PlayerAPIVideo />}
-        {showFullView && !isVideo && (
-          <PVImage
-            alt=''
-            height={PV.Images.sizes.fullViewAudio}
-            src={nowPlayingItem.episodeImageUrl || nowPlayingItem.podcastImageUrl}
-            width={PV.Images.sizes.fullViewAudio}
-          />
-        )}
+        {showFullView &&
+          !isVideo &&
+          (nowPlayingItem.clipLinkUrl ? (
+            <a className='chapter-link' href={nowPlayingItem.clipLinkUrl} target='_blank' rel='noreferrer'>
+              {imageComponent}
+            </a>
+          ) : (
+            imageComponent
+          ))}
         {showFullView && nowPlayingItem.clipId && (
           <PVLink href={`${PV.Config.WEB_BASE_URL}${PV.RoutePaths.web.clip}/${nowPlayingItem.clipId}`}>
             <div className='clip-info-wrapper'>

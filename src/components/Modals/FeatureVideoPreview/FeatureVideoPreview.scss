@@ -1,5 +1,11 @@
 .feature-video-preview-modal {
-  width: auto !important;
+  height: 100% !important;
+  width: 100% !important;
+
+  .iframe-wrapper {
+    height: 100% !important;
+    width: 100% !important;
+  }
 }
 
 @media (max-width: $media-max-width-tablet) {

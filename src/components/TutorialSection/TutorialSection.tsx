@@ -1,8 +1,9 @@
-import { faPlayCircle } from '@fortawesome/free-regular-svg-icons'
+import { faPlay } from '@fortawesome/free-solid-svg-icons'
 import classNames from 'classnames'
 import OmniAural from 'omniaural'
 import { useState } from 'react'
-import { ButtonIcon } from '../Buttons/ButtonIcon'
+import { ButtonRectangle } from '../Buttons/ButtonRectangle'
+import { Icon } from '../Icon/Icon'
 
 export type TutorialSectionProps = {
   defaultTypeSelected: 'mobile' | 'web'
@@ -44,35 +45,35 @@ export const TutorialSection = ({
       <TutorialTabs onClick={tabOnClick} typeSelected={typeSelected} />
       {typeSelected === 'web' && (
         <>
-          {!!webPreviewVideoEmbed && (
-            <div className='tutorial-video-button'>
-              <span className='tutorial-video-button-label'>Web Demo </span>
-              <ButtonIcon
-                className='play-preview'
-                faIcon={faPlayCircle}
-                isLink
+          <div className='tutorial-section-inner-wrapper'>
+            {!!webPreviewVideoEmbed && (
+              <ButtonRectangle
+                className='tutorial-video-button'
                 onClick={() => playVideoInModal(webPreviewVideoEmbed)}
-              />
-            </div>
-          )}
-          <div className='tutorial-section-explanation' dangerouslySetInnerHTML={{ __html: webExplanation }} />
+                type='tertiary'
+              >
+                <div className='tutorial-video-button-label'>Video Demo</div>
+                <Icon className='play-preview' faIcon={faPlay} />
+              </ButtonRectangle>
+            )}
+            <div className='tutorial-section-explanation' dangerouslySetInnerHTML={{ __html: webExplanation }} />
+          </div>
         </>
       )}
       {typeSelected === 'mobile' && (
-        <>
+        <div className='tutorial-section-inner-wrapper'>
           {!!mobilePreviewVideoEmbed && (
-            <div className='tutorial-video-button'>
-              <span className='tutorial-video-button-label'>Mobile Demo </span>
-              <ButtonIcon
-                className='play-preview'
-                faIcon={faPlayCircle}
-                isLink
-                onClick={() => playVideoInModal(mobilePreviewVideoEmbed)}
-              />
-            </div>
+            <ButtonRectangle
+              className='tutorial-video-button'
+              onClick={() => playVideoInModal(mobilePreviewVideoEmbed)}
+              type='tertiary'
+            >
+              <div className='tutorial-video-button-label'>Video Demo</div>
+              <Icon className='play-preview' faIcon={faPlay} />
+            </ButtonRectangle>
           )}
           <div className='tutorial-section-explanation' dangerouslySetInnerHTML={{ __html: mobileExplanation }} />
-        </>
+        </div>
       )}
       <hr />
     </div>
@@ -87,8 +88,10 @@ type TutorialTabsProps = {
 const TutorialTabs = ({ onClick, typeSelected }: TutorialTabsProps) => {
   return (
     <div className='tutorial-section-tabs'>
-      <TutorialTab isActive={typeSelected === 'web'} label='Web' onClick={() => onClick('web')} />
-      <TutorialTab isActive={typeSelected === 'mobile'} label='Mobile' onClick={() => onClick('mobile')} />
+      <div className='tutorial-section-tabs-inner'>
+        <TutorialTab isActive={typeSelected === 'web'} label='Web' onClick={() => onClick('web')} />
+        <TutorialTab isActive={typeSelected === 'mobile'} label='Mobile' onClick={() => onClick('mobile')} />
+      </div>
     </div>
   )
 }

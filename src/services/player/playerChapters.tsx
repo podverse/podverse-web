@@ -25,6 +25,7 @@ export const handleChapterUpdateInterval = () => {
       on the nowPlayingItem so that chapter art loads in the Player views.
     */
     nowPlayingItem.episodeImageUrl = currentChapter.imageUrl ? currentChapter.imageUrl : nowPlayingItem.episodeImageUrl
+    nowPlayingItem.clipLinkUrl = currentChapter?.linkUrl
 
     if (currentNowPlayingItem.clipId !== nowPlayingItem.clipId || currentChapter) {
       unstable_batchedUpdates(() => {
