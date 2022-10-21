@@ -7,6 +7,8 @@ export type V4VBoostResult = {
   customValue?: any
   errorMessage?: string
   name?: string
+  // normalizedSplit will equal "app" when it's an app donation
+  normalizedSplit: number | string
 }
 
 export type V4VBoostResults = {

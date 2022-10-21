@@ -2,70 +2,70 @@
   max-width: 600px !important;
   width: 100% !important;
 
-  .boost-sent-info-wrapper {  
+  .boost-sent-info-wrapper {
     .splits-table {
       border-spacing: 0px;
       border-collapse: separate;
       border: 1px solid;
-  
+
       @include themeGen() {
         border-color: getThemeVal('divider');
       }
-  
+
       th {
         border-right: 1px solid;
-        
+
         @include themeGen() {
           border-color: getThemeVal('divider');
         }
-  
+
         padding: 8px 12px;
         white-space: nowrap;
-  
+
         &:last-child {
           border-right: 0;
         }
       }
-  
+
       td {
         border-right: 1px solid;
         border-top: 1px solid;
-  
+
         @include themeGen() {
           border-color: getThemeVal('divider');
         }
-  
+
         padding: 10px 12px;
         overflow-wrap: break-word;
         word-break: break-all;
-  
+
         .address {
           font-size: $text-sm;
           margin-top: 8px;
         }
-  
+
         .custom-key {
           font-size: $text-sm;
         }
-  
+
         .custom-value {
           font-size: $text-sm;
         }
-  
+
         &.center {
           text-align: center;
         }
-  
+
         &:last-child {
           border-right: 0;
         }
       }
-  
+
       .errors {
         @include themeGen() {
           color: getThemeVal('textDangerLighter');
         }
-  
+
         .error-message {
           font-size: $text-sm;
           margin-top: 8px;
@@ -74,7 +74,7 @@
         }
       }
     }
-  
+
     .helper-text {
       font-size: $text-sm;
       margin: 12px 12px 0 12px;
