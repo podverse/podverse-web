@@ -19,7 +19,6 @@ export const ChatRoom = ({ chatIRCURL }: Props) => {
           title={t('Chat Room')}
           src={chatIRCURL}
           frameBorder='0'
-          allowFullScreen
           sandbox='allow-same-origin allow-scripts allow-popups allow-forms'
           style={{ height: '600px', width: '100%' }}
         />

@@ -9,6 +9,8 @@
   display: flex;
 
   .pv-toast-content {
+    width: 100%;
+
     &.clickable {
       cursor: pointer;
     }
