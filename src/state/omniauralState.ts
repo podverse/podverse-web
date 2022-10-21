@@ -1,5 +1,25 @@
 import type { Funding, NowPlayingItem, User } from 'podverse-shared'
 
+export type V4VBoostResult = {
+  address: string
+  amount: number
+  customKey?: string
+  customValue?: any
+  errorMessage?: string
+  name?: string
+}
+
+export type V4VBoostResults = {
+  succeededs: V4VBoostResult[]
+  errors: V4VBoostResult[]
+  allFailed: boolean
+  allSucceeded: boolean
+  someFailed: boolean
+  message?: string
+  totalSent: number
+  totalFailed: number
+}
+
 export type OmniAuralState = {
   globalFilters: {
     videoOnlyMode: boolean
@@ -76,6 +96,9 @@ export type OmniAuralState = {
     signUp: {
       show: boolean
     }
+    v4vBoostSentInfo: {
+      show: boolean
+    }
     verifyEmail: {
       email: string
       show: boolean
@@ -113,6 +136,7 @@ export type OmniAuralState = {
   }
   userQueueItems: []
   v4vElementInfo: null | { podcastIndexPodcastId: number; episodeMediaUrl: string }
+  v4vBoostResults: V4VBoostResults | null
 }
 
 export const initialState: OmniAuralState = {
@@ -170,6 +194,9 @@ export const initialState: OmniAuralState = {
     signUp: {
       show: false
     },
+    v4vBoostSentInfo: {
+      show: false
+    },
     verifyEmail: {
       email: '',
       show: false,
@@ -206,5 +233,6 @@ export const initialState: OmniAuralState = {
     userInfo: null
   },
   userQueueItems: [],
-  v4vElementInfo: null
+  v4vElementInfo: null,
+  v4vBoostResults: null
 }

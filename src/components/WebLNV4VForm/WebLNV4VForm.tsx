@@ -1,10 +1,15 @@
 import { faSpinner } from '@fortawesome/free-solid-svg-icons'
+import { useTranslation } from 'next-i18next'
 import dynamic from 'next/dynamic'
+import OmniAural from 'omniaural'
 import type { Episode, Podcast, ValueTag } from 'podverse-shared'
 import { useEffect, useState } from 'react'
 import { useCookies } from 'react-cookie'
+import { useToasts } from 'react-toast-notifications'
 import { Icon } from '~/components'
 import { PV } from '~/resources'
+import { V4VBoostResults } from '~/state/omniauralState'
+
 const {
   V4V_APP_NAME,
   V4V_APP_RECIPIENT_CUSTOM_KEY,
@@ -23,6 +28,8 @@ type Props = {
 
 const WebLNV4VFormNoSSR = ({ episode, podcast, serverCookies, valueTag }: Props) => {
   const [cookies, setCookie] = useCookies([])
+  const { addToast } = useToasts()
+  const { t } = useTranslation()
   const [isLoading, setIsLoading] = useState<boolean>(true)
 
   /*
@@ -46,12 +53,14 @@ const WebLNV4VFormNoSSR = ({ episode, podcast, serverCookies, valueTag }: Props)
     window.addEventListener('WebLN-V4V-Terms-Accepted', handleAcceptedTermsEvent)
     window.addEventListener('WebLN-V4V-Terms-Rejected', handleRejectTermsEvent)
     window.addEventListener('WebLN-V4V-New-Default-Values', handleDefaultValueChangedEvent)
+    window.addEventListener('WebLN-V4V-Boost-Sent', handleBoostSentEvent)
 
     return () => {
       window.removeEventListener('WebLN-V4V-Has-Loaded', handleHasLoaded),
         window.removeEventListener('WebLN-V4V-Terms-Accepted', handleAcceptedTermsEvent),
         window.removeEventListener('WebLN-V4V-Terms-Rejected', handleRejectTermsEvent),
-        window.removeEventListener('WebLN-V4V-New-Default-Values', handleDefaultValueChangedEvent)
+        window.removeEventListener('WebLN-V4V-New-Default-Values', handleDefaultValueChangedEvent),
+        window.removeEventListener('WebLN-V4V-Boost-Sent', handleBoostSentEvent)
     }
   }, [])
 
@@ -98,6 +107,60 @@ const WebLNV4VFormNoSSR = ({ episode, podcast, serverCookies, valueTag }: Props)
       },
       { path: PV.Cookies.path }
     )
+  }
+
+  const handleBoostSentEvent = (event) => {
+    const boostResults = event?.detail
+    if (boostResults) {
+      OmniAural.v4vSetBoostResults(boostResults)
+      handleShowBoostToast(boostResults)
+    }
+  }
+
+  const handleShowBoostSentModal = () => {
+    OmniAural.modalsV4VBoostSentInfoShow()
+  }
+
+  const handleShowBoostToast = (boostResults: V4VBoostResults) => {
+    const { allFailed, allSucceeded, someFailed } = boostResults
+    const showBoostToast = allFailed || allSucceeded || someFailed
+
+    if (showBoostToast) {
+      if (allSucceeded) {
+        const boostToastNode = (
+          <div className='pv-toast-content clickable' onClick={handleShowBoostSentModal}>
+            <div>{t('Boostagram succeeded')}</div>
+          </div>
+        )
+        addToast(boostToastNode, {
+          appearance: 'success',
+          autoDismiss: true,
+          autoDismissTimeout: 35000
+        })
+      } else if (allFailed) {
+        const boostToastNode = (
+          <div className='pv-toast-content clickable' onClick={handleShowBoostSentModal}>
+            <div>{t('Boostagram all failed')}</div>
+          </div>
+        )
+        addToast(boostToastNode, {
+          appearance: 'error',
+          autoDismiss: true,
+          autoDismissTimeout: 30000
+        })
+      } else if (someFailed) {
+        const boostToastNode = (
+          <div className='pv-toast-content clickable' onClick={handleShowBoostSentModal}>
+            <div>{t('Boostagram some failed')}</div>
+          </div>
+        )
+        addToast(boostToastNode, {
+          appearance: 'warning',
+          autoDismiss: true,
+          autoDismissTimeout: 30000
+        })
+      }
+    }
   }
 
   return (
