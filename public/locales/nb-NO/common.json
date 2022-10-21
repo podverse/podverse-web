@@ -338,7 +338,7 @@
     "features - new episodes and livestream notifications": "Merknader om nye episoder og direktestrømmer",
     "Value-4-Value": "Verdi-for-verdi",
     "Episode Summary": "Episodesammendrag",
-    "Send Bitcoin donations and boostagrams to podcasters": "Send bitcoin-donasjoner og boostagrammer til skapere",
+    "Send Bitcoin donations and boostagrams to podcasters": "Send bitcoin-donasjoner og påskjønnelsesgrammer til skapere",
     "Type": "Type",
     "Source": "Kilde",
     "Unsupported file type alert": "Denne filtypen støttes ikke enda.",
@@ -434,5 +434,9 @@
     "language - pt-BR": "Portugisisk (Brasil)",
     "language - sv": "Svensk",
     "language - tr": "Tyrkisk",
-    "Membership": "Medlemskap"
+    "Membership": "Medlemskap",
+    "Boostagram all failed": "Klarte ikke å sende påskjønnelsesgram. Klikk for mer info.",
+    "Boostagram info": "Info om påskjønnelsesgram",
+    "Boostagram succeeded": "Påskjønnelsesgram sendt.",
+    "Boostagram some failed": "Noen av mottagerne fikk ikke påskjønnelsesgrammet. Klikk for mer info."
 }
