@@ -361,6 +361,37 @@ const generateSections = (t: any) =>
       ]
     },
     {
+      sectionTitle: `OPML`,
+      sectionItems: [
+        {
+          title: `Export OPML`,
+          id: `opml-export`,
+          description: `Export your collection of RSS feeds to an OPML file.`,
+          mobileExplanation: `<ol>
+          <li>Tap the More tab.</li>
+          <li>Tap Export OPML.</li>
+          <li>Select a destination for your OPML file.</li>
+          </ol>`,
+          mobilePreviewVideoEmbed: PV.PreviewVideoEmbeds(t).videos.mobile,
+          webExplanation: notAvailableTextWeb,
+          webPreviewVideoEmbed: PV.PreviewVideoEmbeds(t).videos.web
+        },
+        {
+          title: `Import OPML`,
+          id: `opml-Import`,
+          description: `Import a collection of RSS feeds from an OPML file.`,
+          mobileExplanation: `<ol>
+          <li>Tap the More tab.</li>
+          <li>Tap Import OPML.</li>
+          <li>Find the OPML file you'd like to import on your device.</li>
+          </ol>`,
+          mobilePreviewVideoEmbed: PV.PreviewVideoEmbeds(t).videos.mobile,
+          webExplanation: notAvailableTextWeb,
+          webPreviewVideoEmbed: PV.PreviewVideoEmbeds(t).videos.web
+        }
+      ]
+    },
+    {
       sectionTitle: `Playlists`,
       sectionItems: [
         {
@@ -565,7 +596,8 @@ const generateSections = (t: any) =>
           description: `Watch podcasts that support video playback.`,
           mobileExplanation: `<ol>
           <li>Select a video podcast and play an episode. The video will begin playing in the miniplayer.</li>
-          <li>To see the video in full screen, tap the miniplayer to expand it, then tap the Full Screen button at the top right of the video box.`,
+          <li>To see the video in full screen, tap the miniplayer to expand it, then tap the Full Screen button at the top right of the video box.</li>
+          </ol>`,
           mobilePreviewVideoEmbed: PV.PreviewVideoEmbeds(t).videos.mobile,
           webExplanation: `<ol>
           <li>Start on the Podcasts page by clicking the Podcasts tab on the left navigation panel.</li>

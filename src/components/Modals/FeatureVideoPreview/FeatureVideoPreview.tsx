@@ -29,7 +29,6 @@ export const FeatureVideoPreviewModal = (props: Props) => {
             title={videoEmbedData.title}
             src={`${videoEmbedData.src}?autoplay=1`}
             frameBorder='0'
-            allowFullScreen
             sandbox='allow-same-origin allow-scripts allow-popups'
             style={{ height: '100%', width: '100%' }}
           />
