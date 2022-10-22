@@ -32,8 +32,33 @@ const moduleExports = {
       }
     ]
   },
+  redirects() {
+    return [
+      process.env.MAINTENANCE_MODE
+        ? {
+            source: '/',
+            destination: '/maintenance.html',
+            permanent: false,
+          }
+        : null,
+      process.env.MAINTENANCE_MODE
+        ? {
+            source: '/((?!maintenance|_next|images).*)',
+            destination: '/maintenance.html',
+            permanent: false,
+          }
+        : null,
+      process.env.MAINTENANCE_MODE
+        ? {
+            source: '/(maintenance/.*)',
+            destination: '/maintenance.html',
+            permanent: false,
+          }
+        : null,
+    ].filter(Boolean)
+  },
   reactStrictMode: true,
-  i18n,
+  ...(process.env.MAINTENANCE_MODE ? {} : i18n),
   sentry: {
     disableServerWebpackPlugin: !isProd,
     disableClientWebpackPlugin: !isProd
