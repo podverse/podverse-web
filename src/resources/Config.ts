@@ -31,8 +31,6 @@ const EMAIL_CONTACT = getServerOrPublicVariable('EMAIL_CONTACT')
 
 const metaDefaultImageUrl1200x630 = 'https://podverse.fm/images/podverse-logo-1200x630.png'
 
-const MAINTENANCE_MODE = getServerOrPublicVariable('MAINTENANCE_MODE')
-
 const MATOMO_BASE_URL = getServerOrPublicVariable('MATOMO_BASE_URL')
 const MATOMO_ENDPOINT_PATH = getServerOrPublicVariable('MATOMO_ENDPOINT_PATH')
 const MATOMO_SITE_ID = getServerOrPublicVariable('MATOMO_SITE_ID')
@@ -57,7 +55,6 @@ export const Config = {
     CONTACT: EMAIL_CONTACT
   },
   metaDefaultImageUrl1200x630,
-  MAINTENANCE_MODE,
   MATOMO_BASE_URL,
   MATOMO_ENDPOINT_PATH,
   MATOMO_SITE_ID,
