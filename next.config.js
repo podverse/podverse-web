@@ -32,7 +32,7 @@ const moduleExports = {
       }
     ]
   },
-  redirects() {
+  async redirects() {
     return [
       process.env.MAINTENANCE_MODE
         ? {
