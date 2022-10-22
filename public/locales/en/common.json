@@ -230,6 +230,8 @@
   "Logout": "Log out",
   "Make Clip": "Make Clip",
   "Management": "Management",
+  "Maintenance mode": "The site is down for maintenance.",
+  "Maintenance mode subtext": "It will be back as soon as the update is finished.",
   "Mark as Played": "Mark as Played",
   "Mark as Unplayed": "Mark as Unplayed",
   "MayAppearNextToContentYouCreate": "May appear beside content you create",
