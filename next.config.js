@@ -58,7 +58,7 @@ const moduleExports = {
     ].filter(Boolean)
   },
   reactStrictMode: true,
-  ...(process.env.MAINTENANCE_MODE ? {} : i18n),
+  ...(process.env.MAINTENANCE_MODE ? {} : { i18n }),
   sentry: {
     disableServerWebpackPlugin: !isProd,
     disableClientWebpackPlugin: !isProd
