@@ -58,7 +58,7 @@ const moduleExports = {
     ].filter(Boolean)
   },
   reactStrictMode: true,
-  ...(process.env.MAINTENANCE_MODE ? {} : { i18n }),
+  ...(process.env.MAINTENANCE_MODE ? { } : { i18n }),
   sentry: {
     disableServerWebpackPlugin: !isProd,
     disableClientWebpackPlugin: !isProd
@@ -85,6 +85,7 @@ const moduleExports = {
     MATOMO_BASE_URL: process.env.MATOMO_BASE_URL,
     MATOMO_ENDPOINT_PATH: process.env.MATOMO_ENDPOINT_PATH,
     MATOMO_SITE_ID: process.env.MATOMO_SITE_ID,
+    MAINTENANCE_MODE: process.env.MAINTENANCE_MODE,
     V4V_APP_NAME: process.env.V4V_APP_NAME,
     V4V_APP_RECIPIENT_CUSTOM_KEY: process.env.V4V_APP_RECIPIENT_CUSTOM_KEY,
     V4V_APP_RECIPIENT_CUSTOM_VALUE: process.env.V4V_APP_RECIPIENT_CUSTOM_VALUE,
@@ -107,6 +108,7 @@ const moduleExports = {
     PAYPAL_CLIENT_ID_PRODUCTION: process.env.PAYPAL_CLIENT_ID_PRODUCTION,
     PAYPAL_CLIENT_ID_SANDBOX: process.env.PAYPAL_CLIENT_ID_SANDBOX,
     EMAIL_CONTACT: process.env.EMAIL_CONTACT,
+    MAINTENANCE_MODE: process.env.MAINTENANCE_MODE,
     MATOMO_BASE_URL: process.env.MATOMO_BASE_URL,
     MATOMO_ENDPOINT_PATH: process.env.MATOMO_ENDPOINT_PATH,
     MATOMO_SITE_ID: process.env.MATOMO_SITE_ID,

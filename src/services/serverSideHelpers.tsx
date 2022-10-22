@@ -26,9 +26,14 @@ export const getDefaultServerSideProps = async (ctx: any, locale: any) => {
     }
   }
 
+  let transObj = {}
+  if (!PV.Config.MAINTENANCE_MODE) {
+    transObj = await serverSideTranslations(locale, PV.i18n.fileNames.common as any)
+  }
+
   return {
     serverCookies: serverCookies ?? null,
-    ...(await serverSideTranslations(locale, PV.i18n.fileNames.common as any)),
+    ...transObj,
     serverGlobalFilters: serverGlobalFilters ?? null,
     serverHistoryItemsIndex: serverHistoryItemsIndex ?? null,
     serverUserInfo: serverUserInfo ?? null,
@@ -37,7 +42,12 @@ export const getDefaultServerSideProps = async (ctx: any, locale: any) => {
 }
 
 export const getDefaultEmbedServerSideProps = async (ctx: any, locale: any) => {
+  let transObj = {}
+  if (!PV.Config.MAINTENANCE_MODE) {
+    transObj = await serverSideTranslations(locale, PV.i18n.fileNames.common as any)
+  }
+
   return {
-    ...(await serverSideTranslations(locale, PV.i18n.fileNames.common as any))
+    ...transObj
   }
 }
