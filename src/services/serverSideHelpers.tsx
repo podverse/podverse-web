@@ -26,7 +26,7 @@ export const getDefaultServerSideProps = async (ctx: any, locale: any) => {
     }
   }
 
-  let transObj = {}
+  let transObj = { _nextI18Next: null }
   if (!PV.Config.MAINTENANCE_MODE) {
     transObj = await serverSideTranslations(locale, PV.i18n.fileNames.common as any)
   }
@@ -42,7 +42,7 @@ export const getDefaultServerSideProps = async (ctx: any, locale: any) => {
 }
 
 export const getDefaultEmbedServerSideProps = async (ctx: any, locale: any) => {
-  let transObj = {}
+  let transObj = { _nextI18Next: null }
   if (!PV.Config.MAINTENANCE_MODE) {
     transObj = await serverSideTranslations(locale, PV.i18n.fileNames.common as any)
   }
