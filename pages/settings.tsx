@@ -3,7 +3,15 @@ import { useTranslation } from 'next-i18next'
 import OmniAural from 'omniaural'
 import { Page } from '~/lib/utility/page'
 import { PV } from '~/resources'
-import { ButtonRectangle, ColumnsWrapper, Footer, Meta, PageHeader, PageScrollableContent, SideContent } from '~/components'
+import {
+  ButtonRectangle,
+  ColumnsWrapper,
+  Footer,
+  Meta,
+  PageHeader,
+  PageScrollableContent,
+  SideContent
+} from '~/components'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 import { downloadMyData } from '~/services/user'
 
@@ -42,11 +50,7 @@ export default function Settings(props: ServerProps) {
             <div className='text-page'>
               <h3>{t('Account')}</h3>
               <br />
-              <ButtonRectangle
-                label={t('Download my data')}
-                onClick={downloadMyData}
-                type='primary'
-              />
+              <ButtonRectangle label={t('Download my data')} onClick={downloadMyData} type='primary' />
               <div className='button-explanation'>{t('Download my data explanation')}</div>
               <br />
               <hr />
