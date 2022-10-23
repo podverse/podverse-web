@@ -83,10 +83,6 @@ export default function About(props: ServerProps) {
                   Archie Brentano
                 </a>
               </p>
-              <p></p>
-              <p>Gary Johnson</p>
-              <p>Kyle Downey</p>
-              <p>Archie Brentano</p>
             </div>
           }
           sideColumnChildren={<SideContent />}
