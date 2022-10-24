@@ -59,27 +59,27 @@ export default function About(props: ServerProps) {
               <hr />
               <h3>Team</h3>
               <p>
-                <a href='https://github.com/mitchdowney' target='_blank' rel="noreferrer">
+                <a href='https://github.com/mitchdowney' target='_blank' rel='noreferrer'>
                   Mitch Downey
                 </a>
               </p>
               <p>
-                <a href='https://github.com/kreonjr' target='_blank' rel="noreferrer">
+                <a href='https://github.com/kreonjr' target='_blank' rel='noreferrer'>
                   Creon Creonopoulos
                 </a>
               </p>
               <p>
-                <a href='https://podverse.fm' target='_blank' rel="noreferrer">
+                <a href='https://podverse.fm' target='_blank' rel='noreferrer'>
                   Gary Johnson
                 </a>
               </p>
               <p>
-                <a href='https://github.com/kylefdowney' target='_blank' rel="noreferrer">
+                <a href='https://github.com/kylefdowney' target='_blank' rel='noreferrer'>
                   Kyle Downey
                 </a>
               </p>
               <p>
-                <a href='https://github.com/suorcd' target='_blank' rel="noreferrer">
+                <a href='https://github.com/suorcd' target='_blank' rel='noreferrer'>
                   Archie Brentano
                 </a>
               </p>
