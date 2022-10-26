@@ -440,5 +440,7 @@
     "Boostagram succeeded": "Påskjønnelsesgram sendt.",
     "Boostagram some failed": "Noen av mottagerne fikk ikke påskjønnelsesgrammet. Klikk for mer info.",
     "Maintenance mode subtext": "Den vil være tilbake så snart dette er ferdig.",
-    "Maintenance mode": "Siden er nede for vedlikehold."
+    "Maintenance mode": "Siden er nede for vedlikehold.",
+    "Download my data": "Last ned dataen min",
+    "Download my data explanation": "Last ned full kopi av dataen din fra databasen."
 }
