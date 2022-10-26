@@ -3,8 +3,17 @@ import { useTranslation } from 'next-i18next'
 import OmniAural from 'omniaural'
 import { Page } from '~/lib/utility/page'
 import { PV } from '~/resources'
-import { ButtonRectangle, ColumnsWrapper, Footer, Meta, PageHeader, PageScrollableContent } from '~/components'
+import {
+  ButtonRectangle,
+  ColumnsWrapper,
+  Footer,
+  Meta,
+  PageHeader,
+  PageScrollableContent,
+  SideContent
+} from '~/components'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
+import { downloadMyData } from '~/services/user'
 
 type ServerProps = Page
 
@@ -40,14 +49,21 @@ export default function Settings(props: ServerProps) {
           mainColumnChildren={
             <div className='text-page'>
               <h3>{t('Account')}</h3>
+              <br />
+              <ButtonRectangle label={t('Download my data')} onClick={downloadMyData} type='primary' />
+              <div className='button-explanation'>{t('Download my data explanation')}</div>
+              <br />
+              <hr />
+              <br />
               <ButtonRectangle
                 isDanger
-                label={t('Delete My Account')}
+                label={t('Delete my account')}
                 onClick={OmniAural.modalsConfirmDeleteAccountShow}
                 type='primary'
               />
             </div>
           }
+          sideColumnChildren={<SideContent />}
         />
         <Footer />
       </PageScrollableContent>
