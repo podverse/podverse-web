@@ -438,5 +438,7 @@
     "Boostagram all failed": "Klarte ikke å sende påskjønnelsesgram. Klikk for mer info.",
     "Boostagram info": "Info om påskjønnelsesgram",
     "Boostagram succeeded": "Påskjønnelsesgram sendt.",
-    "Boostagram some failed": "Noen av mottagerne fikk ikke påskjønnelsesgrammet. Klikk for mer info."
+    "Boostagram some failed": "Noen av mottagerne fikk ikke påskjønnelsesgrammet. Klikk for mer info.",
+    "Maintenance mode subtext": "Den vil være tilbake så snart dette er ferdig.",
+    "Maintenance mode": "Siden er nede for vedlikehold."
 }
