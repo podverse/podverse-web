@@ -62,6 +62,7 @@ export const RoutePaths = {
     history: '/history',
     home: `/`,
     license: `https://www.gnu.org/licenses/agpl-3.0.en.html`,
+    livestreams: '/livestreams',
     membership: `/membership`,
     miniplayer: {
       clip: '/miniplayer/clip',

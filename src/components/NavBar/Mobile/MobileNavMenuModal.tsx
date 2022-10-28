@@ -45,6 +45,12 @@ export const MobileNavMenuModal = ({ handleHideMenu, show }: Props) => {
           href={PV.RoutePaths.web.clips}
           text={t('Clips')}
         />
+        <MobileNavMenuLink
+          active={router.pathname == PV.RoutePaths.web.livestreams}
+          handleHideMenu={handleHideMenu}
+          href={PV.RoutePaths.web.livestreams}
+          text={t('Livestreams')}
+        />
         <hr />
         <div className='mobile-nav-menu-section-header'>{t('MyLibrary')}</div>
         <MobileNavMenuLink

@@ -62,3 +62,53 @@ export const ariaLiveItemStatusLabel = (liveItemStatus: LiveItemStatus, t: any) 
   }
   return ariaLiveItemStatus
 }
+
+export type LiveItemsQueryParams = {
+  categories?: string[]
+  hasVideo?: boolean
+  includePodcast?: boolean
+  liveItemStatus: LiveItemStatus
+  maxResults?: boolean
+  page?: number
+  podcastIds?: string | string[]
+  searchTitle?: string
+  sort?: string
+}
+
+export const getLiveItemsByQuery = async ({
+  categories,
+  hasVideo,
+  includePodcast,
+  liveItemStatus,
+  maxResults,
+  page,
+  podcastIds,
+  searchTitle
+}: LiveItemsQueryParams) => {
+  const filteredQuery: LiveItemsQueryParams = {
+    ...(categories ? { categories } : {}),
+    ...(hasVideo ? { hasVideo } : {}),
+    ...(includePodcast ? { includePodcast } : {}),
+    liveItemStatus,
+    ...(maxResults ? { maxResults } : {}),
+    ...(page ? { page } : { page: 1 }),
+    ...(podcastIds ? { podcastId: podcastIds } : {}),
+    ...(searchTitle
+      ? {
+          searchTitle: encodeURIComponent(searchTitle)
+        }
+      : {})
+  }
+
+  if (podcastIds?.length === 0 || categories?.length === 0) {
+    return { data: [[], 0] }
+  } else {
+    const liveItemResponse = await request({
+      endpoint: PV.RoutePaths.api.live_item,
+      method: 'get',
+      query: filteredQuery
+    })
+    const [liveItemsData, liveItemsDataCount] = liveItemResponse.data
+    return { data: [liveItemsData, liveItemsDataCount] }
+  }
+}
