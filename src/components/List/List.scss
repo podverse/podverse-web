@@ -10,6 +10,14 @@
 
   .no-results-found-message {
     margin: 24px 0;
+
+    align-items: center;
+    display: flex;
+    flex: 1 1;
+    flex-direction: column;
+    font-size: $text-xl;
+    justify-content: center;
+
     @include themeGen() {
       color: getThemeVal('textSecondary');
     }

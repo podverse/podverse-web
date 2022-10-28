@@ -39,6 +39,11 @@ export const NavBar = (props: Props) => {
           href={PV.RoutePaths.web.clips}
           text={t('Clips')}
         />
+        <NavBarLink
+          active={router.pathname == PV.RoutePaths.web.livestreams}
+          href={PV.RoutePaths.web.livestreams}
+          text={t('Livestreams')}
+        />
         <hr className='bottom' />
         <NavBarSectionHeader text={t('MyLibrary')} />
         <NavBarLink

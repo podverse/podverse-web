@@ -25,6 +25,7 @@ type Props = {
   episode?: Episode
   hidePubDate?: boolean
   isChapter?: boolean
+  isLiveItemNotLive?: boolean
   isLoggedInUserMediaRef?: boolean
   mediaRef?: MediaRef
   podcast?: Podcast
@@ -46,6 +47,7 @@ export const MediaItemControls = ({
   episode,
   hidePubDate,
   isChapter,
+  isLiveItemNotLive,
   isLoggedInUserMediaRef,
   mediaRef,
   podcast,
@@ -204,16 +206,18 @@ export const MediaItemControls = ({
         {liveItem && <LiveStatusBadge hideAboveMobileWidth liveItemStatus={liveItem.status} />}
       </div>
       <div className='media-item-controls'>
-        <ButtonCircle
-          ariaLabel={togglePlayAriaLabel}
-          ariaPressed
-          className={togglePlayClassName}
-          faIcon={togglePlayIcon}
-          onClick={_handleTogglePlay}
-          size={isChapter ? 'small' : buttonSize}
-        />
+        {!isLiveItemNotLive && (
+          <ButtonCircle
+            ariaLabel={togglePlayAriaLabel}
+            ariaPressed
+            className={togglePlayClassName}
+            faIcon={togglePlayIcon}
+            onClick={_handleTogglePlay}
+            size={isChapter ? 'small' : buttonSize}
+          />
+        )}
         <div aria-hidden='true' className={timeWrapperClass}>
-          {liveItem && <LiveStatusBadge hideBelowMobileWidth liveItemStatus={liveItem.status} />}
+          {liveItem && !isLiveItemNotLive && <LiveStatusBadge hideBelowMobileWidth liveItemStatus={liveItem.status} />}
           {!hidePubDate && <span className='pub-date'>{pubDate}</span>}
           {!!timeInfo && (
             <>
@@ -231,7 +235,7 @@ export const MediaItemControls = ({
             </span>
           )}
         </div>
-        {!isChapter && (
+        {!isChapter && !isLiveItemNotLive && (
           <Dropdown
             dropdownAriaLabel={t('More')}
             dropdownWidthClass='width-medium'
