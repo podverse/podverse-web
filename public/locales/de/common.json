@@ -440,5 +440,8 @@
     "Boostagram succeeded": "Boostagram wurde gesendet!",
     "Maintenance mode": "Die Website ist aufgrund von Wartungsarbeiten leider nicht verfügbar.",
     "Boostagram some failed": "Boostagram konnte an einige Empfänger nicht gesendet werden. Klicken Sie für weitere Informationen.",
-    "Maintenance mode subtext": "Sie wird wieder verfügbar sein, sobald die Aktualisierung abgeschlossen ist."
+    "Maintenance mode subtext": "Sie wird wieder verfügbar sein, sobald die Aktualisierung abgeschlossen ist.",
+    "Delete my account": "Mein Konto löschen",
+    "Download my data explanation": "Herunterladen einer vollständigen Kopie Ihrer Daten aus unserer Datenbank.",
+    "Download my data": "Meine Daten herunterladen"
 }
