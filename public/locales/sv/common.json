@@ -32,7 +32,7 @@
     "Auto Queue": "Auto-köa",
     "brandName chat is powered by": "Podverse chat använder dessa fria bibliotek",
     "Bug Report": "Rapportera en bugg",
-    "Buy a Podverse premium membership": "Köp Podverse Premium åt någon",
+    "Buy a Podverse premium membership": "Köp Podverse Premium",
     "Finished episode": "Avsnitt färdigspelat",
     "Live Chat": "Live-chat",
     "Live": "Live",
@@ -86,5 +86,16 @@
     "Premium": "Premium",
     "Download my data": "Ladda ner min data",
     "Download my data explanation": "Ladda ned en fullständig kopia av din data från vår databas.",
-    "Share Clip": "Dela Klipp"
+    "Share Clip": "Dela Klipp",
+    "Boostagram all failed": "Boostagram misslyckades med att skickas. Klicka för mer info.",
+    "Boostagram info": "Boostagram-information",
+    "Boostagram some failed": "Boostagram misslyckades att skickas till vissa mottagare. Klicka för mer info.",
+    "Boostagram succeeded": "Boostagram skickat!",
+    "Account Claim Token": "Account Claim Token",
+    "Below are a few ways you can support the project": "Nedan finns ett par sätt som du kan stötta projektet.",
+    "ARIA - Toggle UI theme change": "Ändra gränssnittets tema",
+    "ARIA – Dropdown helper description": "Tryck på enter eller nedåt-pil för att visa menyn. Använd sedan tab- eller pil upp/ner-tangenten för att fokusera på tillgängliga alternativ.",
+    "Below is a table comparing free and premium features": "Nedan är en tabell som jämför gratis- och premiumfunktionerna.",
+    "Auto-scroll button - off": "Auto-scroll: Av",
+    "Auto-scroll button - on": "Auto-scroll: På"
 }
