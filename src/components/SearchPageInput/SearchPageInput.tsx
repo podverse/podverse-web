@@ -21,6 +21,7 @@ export const SearchPageInput = ({ debounceRate = 1000, defaultValue, handleSubmi
     <div className='search-page-input'>
       <div className='main-max-width'>
         <TextInput
+          autoFocus
           defaultValue={defaultValue}
           faIcon={faSearch}
           label={label}
