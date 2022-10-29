@@ -40,6 +40,12 @@ export default function Tutorials(props: ServerProps) {
     const isMobileOrTablet = mobileAndTabletCheck()
     setIsMobileOrTablet(isMobileOrTablet)
     setIsLoading(false)
+
+    if (window?.location?.hash) {
+      setTimeout(() => {
+        document.querySelector(window.location.hash)?.scrollIntoView()
+      }, 100)
+    }
   }, [])
 
   /* Meta Tags */
