@@ -24,6 +24,7 @@ export {
 export { EpisodeInfo } from './EpisodeInfo/EpisodeInfo'
 export { EpisodeListItem } from './EpisodeListItem/EpisodeListItem'
 export { FeatureComparisonTable } from './FeatureComparisonTable/FeatureComparisonTable'
+export { FeatureDemoWidget } from './FeatureDemoWidget/FeatureDemoWidget'
 export { FundingLink } from './FundingLink/FundingLink'
 export { Footer } from './Footer/Footer'
 export { EpisodePageHeader } from './EpisodePageHeader/EpisodePageHeader'

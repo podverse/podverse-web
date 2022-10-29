@@ -1,7 +1,7 @@
 import classNames from 'classnames'
 import { useTranslation } from 'react-i18next'
 import { PV } from '~/resources'
-import { PVLink } from '..'
+import { FeatureDemoWidget, PVLink } from '..'
 
 type Props = {
   children: any
@@ -9,6 +9,8 @@ type Props = {
   handleShowAllPodcasts?: any
   hideNoResultsMessage?: boolean
   isSubscribedFilter?: boolean
+  tutorialsLink?: string
+  tutorialsLinkText?: string
 }
 
 export const List = ({
@@ -16,7 +18,9 @@ export const List = ({
   handleSelectByCategory,
   handleShowAllPodcasts,
   hideNoResultsMessage,
-  isSubscribedFilter
+  isSubscribedFilter,
+  tutorialsLink,
+  tutorialsLinkText
 }: Props) => {
   const { t } = useTranslation()
   const hasChildren = children && children.length > 0
@@ -39,6 +43,9 @@ export const List = ({
   ) : (
     <div className='no-results-found-message' tabIndex={0}>
       {t('No results found')}
+      {!!tutorialsLink && !!tutorialsLinkText && (
+        <FeatureDemoWidget tutorialsLink={tutorialsLink} tutorialsLinkText={tutorialsLinkText} />
+      )}
     </div>
   )
 
@@ -46,6 +53,9 @@ export const List = ({
     <ul className={listClass}>
       {showNoResultsFound && noResultsTextNode}
       {hasChildren && children}
+      {!showNoResultsFound && !!tutorialsLink && !!tutorialsLinkText && (
+        <FeatureDemoWidget marginTopExtra tutorialsLink={tutorialsLink} tutorialsLinkText={tutorialsLinkText} />
+      )}
     </ul>
   )
 }

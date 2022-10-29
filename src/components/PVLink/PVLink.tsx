@@ -21,7 +21,6 @@ export const PVLink = ({ ariaLabel, children, className, href, onClick, tabIndex
   const finalOnClick = isCurrentPage
     ? () => {
         router.replace(href)
-        onClick?.()
       }
     : onClick
 

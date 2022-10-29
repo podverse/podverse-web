@@ -7,12 +7,12 @@ import {
   ButtonRectangle,
   ColumnsWrapper,
   FeatureComparisonTable,
+  FeatureDemoWidget,
   Footer,
   MembershipStatus,
   Meta,
   PageHeader,
-  PageScrollableContent,
-  SideContent
+  PageScrollableContent
 } from '~/components'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 import { OmniAuralState } from '~/state/omniauralState'
@@ -78,9 +78,14 @@ export default function Membership(props: ServerProps) {
             <div className='text-page top-margin-below-tablet-max-width'>
               <MembershipStatus />
               <FeatureComparisonTable aboveSectionNodes={aboveSectionNodes} />
+              <FeatureDemoWidget
+                centered
+                marginTopExtra
+                tutorialsLink='/tutorials'
+                tutorialsLinkText={t('tutorials link - tutorials')}
+              />
             </div>
           }
-          sideColumnChildren={<SideContent />}
         />
         <Footer />
       </PageScrollableContent>

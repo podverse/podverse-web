@@ -26,10 +26,21 @@
   }
 }
 
+@media (min-width: $media-min-width-tablet) {
+  .page-loading-overlay {
+    left: calc($nav-width / 2);
+
+    .icon {
+      margin: 0;
+    }
+  }
+}
+
 /* Avoid Chrome with support check,
-   then use -webkit-fill-available to prevent vh sizing issues on iOS. */
+   then use -webkit-fill-available to prevent vh sizing issues on iOS.
 @supports (-webkit-touch-callout: none) {
   .page-loading-overlay {
     height: -webkit-fill-available;
   }
 }
+*/

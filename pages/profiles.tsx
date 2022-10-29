@@ -106,7 +106,9 @@ export default function Profiles({ serverFilterPage, serverUsers, serverUsersCou
         )}
         {userInfo && (
           <>
-            <List>{generateProfileElements(usersListData)}</List>
+            <List tutorialsLink='/tutorials#profiles-subscribe' tutorialsLinkText={t('tutorials link - profiles')}>
+              {generateProfileElements(usersListData)}
+            </List>
             <Pagination
               currentPageIndex={filterPage}
               handlePageNavigate={(newPage) => setFilterPage(newPage)}
