@@ -72,6 +72,12 @@ export const MobileNavMenuModal = ({ handleHideMenu, show }: Props) => {
           text={t('MyProfile')}
         />
         <MobileNavMenuLink
+          active={router.pathname == PV.RoutePaths.web.my_profile_clips}
+          handleHideMenu={handleHideMenu}
+          href={`${PV.RoutePaths.web.profile}/${userInfo.id}?type=clips`}
+          text={t('MyClips')}
+        />
+        <MobileNavMenuLink
           active={router.pathname == PV.RoutePaths.web.playlists}
           handleHideMenu={handleHideMenu}
           href={PV.RoutePaths.web.playlists}

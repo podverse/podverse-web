@@ -315,14 +315,24 @@ export default function Profile({
 /* Server-Side Logic */
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const { locale, params } = ctx
-  const { profileId } = params
+  const { locale, params, query } = ctx
+  const { profileId }: any = params
+  const { type } = query
+  const serverCookies = ctx.req.cookies || {}
 
   const defaultServerProps = await getDefaultServerSideProps(ctx, locale)
   const { serverUserInfo } = defaultServerProps
+  const isLoggedInUserProfile = serverUserInfo?.id && serverUserInfo.id === profileId
 
-  const serverFilterType = PV.Filters.type._podcasts
-  const serverFilterSort = PV.Filters.sort._alphabetical
+  const serverFilterType = type === 'clips'
+    ? PV.Filters.type._clips
+    : type === 'playlists'
+      ? PV.Filters.type._playlists
+      : PV.Filters.type._podcasts
+  
+  const serverFilterSort = type === 'clips'
+    ? PV.Filters.sort._mostRecent
+    : PV.Filters.sort._alphabetical
   const serverFilterPage = 1
 
   let serverUser = serverUserInfo
@@ -332,16 +342,45 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     serverUser = await getPublicUser(profileId as string)
   }
 
-  const subscribedPodcastIds = serverUser?.subscribedPodcastIds || []
-
-  if (subscribedPodcastIds.length > 0) {
-    const response = await getPodcastsByQuery({
-      podcastIds: subscribedPodcastIds,
-      sort: serverFilterSort
-    })
-    const [podcasts, podcastsCount] = response.data
-    serverUserListData = podcasts
-    serverUserListDataCount = podcastsCount
+  if (type === 'clips') {
+    if (isLoggedInUserProfile) {
+      const data = await getLoggedInUserMediaRefs(serverCookies.Authorization)
+      const [mediaRefs, mediaRefsCount] = data
+      serverUserListData = mediaRefs
+      serverUserListDataCount = mediaRefsCount
+    } else {
+      const finalQuery = {
+        page: 1,
+        sort: serverFilterSort
+      }
+      const data = await getUserMediaRefs(profileId, finalQuery)
+      const [mediaRefs, mediaRefsCount] = data
+      serverUserListData = mediaRefs
+      serverUserListDataCount = mediaRefsCount
+    }
+  } else if (type === 'playlists') {
+    if (isLoggedInUserProfile) {
+      const data = await getLoggedInUserPlaylists(serverCookies.Authorization)
+      const [playlists, playlistsCount] = data
+      serverUserListData = playlists
+      serverUserListDataCount = playlistsCount
+    } else {
+      const data = await getUserPlaylists(profileId, serverFilterPage)
+      const [playlists, playlistsCount] = data
+      serverUserListData = playlists
+      serverUserListDataCount = playlistsCount
+    }
+  } else {
+    const subscribedPodcastIds = serverUser?.subscribedPodcastIds || []
+    if (subscribedPodcastIds.length > 0) {
+      const response = await getPodcastsByQuery({
+        podcastIds: subscribedPodcastIds,
+        sort: serverFilterSort
+      })
+      const [podcasts, podcastsCount] = response.data
+      serverUserListData = podcasts
+      serverUserListDataCount = podcastsCount
+    }
   }
 
   const serverProps: ServerProps = {
