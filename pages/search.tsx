@@ -94,13 +94,6 @@ export default function Search({ serverCookies, serverSearchByText }: ServerProp
     })()
   }, [filterSearchByText, filterSearchByType, filterPage])
 
-  /* Function Helpers */
-
-  const _handleSearchClear = () => {
-    setFilterSearchByText('')
-    setIsInitialLoad(true)
-  }
-
   /* Render Helpers */
 
   const generateTabOptions = (t: any) => [
