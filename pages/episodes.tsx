@@ -105,11 +105,6 @@ export default function Episodes({
   }, 'globalFilters.videoOnlyMode')
 
   useEffect(() => {
-    window.addEventListener('navbar-link-clicked-episodes', _handleSearchClear)
-    return () => window.removeEventListener('navbar-link-clicked-episodes', _handleSearchClear)
-  }, [])
-
-  useEffect(() => {
     ;(async () => {
       try {
         if (initialRender.current) {
@@ -250,10 +245,6 @@ export default function Episodes({
 
   const _handleSearchClear = () => {
     _handleSearchSubmit('')
-    setTimeout(() => {
-      const inputRef = document.querySelector('.search-bar-filter input') as any
-      if (inputRef) inputRef.value = ''
-    }, 500)
   }
 
   /* Render Helpers */

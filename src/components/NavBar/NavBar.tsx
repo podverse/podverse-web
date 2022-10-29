@@ -5,7 +5,6 @@ import { useOmniAural } from 'omniaural'
 import { NavBarBrand, NavBarLink, NavBarSectionHeader } from '~/components'
 import { PV } from '~/resources'
 import { OmniAuralState } from '~/state/omniauralState'
-import { eventNavBarLinkClicked } from '~/lib/utility/events'
 
 type Props = unknown
 
@@ -21,7 +20,6 @@ export const NavBar = (props: Props) => {
         active={router.pathname == PV.RoutePaths.web.search}
         faIconBeginning={faSearch}
         href={PV.RoutePaths.web.search}
-        onClick={() => eventNavBarLinkClicked('search')}
         text={t('Search')}
       />
       <hr aria-hidden='true' className='top' />
@@ -29,19 +27,16 @@ export const NavBar = (props: Props) => {
         <NavBarLink
           active={router.pathname == PV.RoutePaths.web.podcasts || router.pathname == PV.RoutePaths.web.home}
           href={PV.RoutePaths.web.podcasts}
-          onClick={() => eventNavBarLinkClicked('podcasts')}
           text={t('Podcasts')}
         />
         <NavBarLink
           active={router.pathname == PV.RoutePaths.web.episodes}
           href={PV.RoutePaths.web.episodes}
-          onClick={() => eventNavBarLinkClicked('episodes')}
           text={t('Episodes')}
         />
         <NavBarLink
           active={router.pathname == PV.RoutePaths.web.clips}
           href={PV.RoutePaths.web.clips}
-          onClick={() => eventNavBarLinkClicked('clips')}
           text={t('Clips')}
         />
         <NavBarLink
