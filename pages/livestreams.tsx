@@ -74,12 +74,14 @@ export default function LiveItems({
   const [isQuerying, setIsQuerying] = useState<boolean>(false)
   const [userInfo] = useOmniAural('session.userInfo') as [OmniAuralState['session']['userInfo']]
   const initialRender = useRef(true)
-  const pageCountLive = filterPageLive > 1 && liveItemsListDataLive.length < 20
-    ? filterPageLive
-    : Math.ceil(liveItemsListDataCountLive / PV.Config.QUERY_RESULTS_LIMIT_DEFAULT)
-  const pageCountPending = filterPagePending > 1 && liveItemsListDataPending.length < 20
-    ? filterPagePending
-    : Math.ceil(liveItemsListDataCountPending / PV.Config.QUERY_RESULTS_LIMIT_DEFAULT)
+  const pageCountLive =
+    filterPageLive > 1 && liveItemsListDataLive.length < 20
+      ? filterPageLive
+      : Math.ceil(liveItemsListDataCountLive / PV.Config.QUERY_RESULTS_LIMIT_DEFAULT)
+  const pageCountPending =
+    filterPagePending > 1 && liveItemsListDataPending.length < 20
+      ? filterPagePending
+      : Math.ceil(liveItemsListDataCountPending / PV.Config.QUERY_RESULTS_LIMIT_DEFAULT)
   const isCategoryPage = !!router.query?.category
   const isCategoriesPage = filterFrom === PV.Filters.from._category && !isCategoryPage
   const isLoggedInSubscribedPage = userInfo && filterFrom === PV.Filters.from._subscribed
@@ -361,7 +363,7 @@ export default function LiveItems({
                   })
               }}
               pageCount={pageCountLive}
-              show={filterPageLive > 1 || filterPageLive === 1 && liveItemsListDataLive.length >= 20}
+              show={filterPageLive > 1 || (filterPageLive === 1 && liveItemsListDataLive.length >= 20)}
             />
             {hasItemsLive && hasItemsPending && <hr />}
             <br />
@@ -402,7 +404,7 @@ export default function LiveItems({
                   })
               }}
               pageCount={pageCountPending}
-              show={filterPagePending > 1 || filterPagePending === 1 && liveItemsListDataPending.length >= 20}
+              show={filterPagePending > 1 || (filterPagePending === 1 && liveItemsListDataPending.length >= 20)}
             />
           </>
         )}

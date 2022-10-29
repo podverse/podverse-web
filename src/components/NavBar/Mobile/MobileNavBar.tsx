@@ -8,6 +8,7 @@ import { PV } from '~/resources'
 import { useState } from 'react'
 import { MobileNavMenuModal } from './MobileNavMenuModal'
 import { OmniAuralState } from '~/state/omniauralState'
+import { eventNavBarLinkClicked } from '~/lib/utility/events'
 
 type Props = unknown
 
@@ -45,7 +46,11 @@ export const MobileNavBar = (props: Props) => {
               text={userInfo?.name}
             />
           </div>
-          <PVLink className='search-button' href={PV.RoutePaths.web.search}>
+          <PVLink
+            className='search-button'
+            href={PV.RoutePaths.web.search}
+            onClick={() => eventNavBarLinkClicked('search')}
+          >
             <Icon faIcon={faSearch} />
           </PVLink>
         </div>

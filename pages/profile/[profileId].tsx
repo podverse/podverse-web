@@ -324,15 +324,14 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { serverUserInfo } = defaultServerProps
   const isLoggedInUserProfile = serverUserInfo?.id && serverUserInfo.id === profileId
 
-  const serverFilterType = type === 'clips'
-    ? PV.Filters.type._clips
-    : type === 'playlists'
+  const serverFilterType =
+    type === 'clips'
+      ? PV.Filters.type._clips
+      : type === 'playlists'
       ? PV.Filters.type._playlists
       : PV.Filters.type._podcasts
-  
-  const serverFilterSort = type === 'clips'
-    ? PV.Filters.sort._mostRecent
-    : PV.Filters.sort._alphabetical
+
+  const serverFilterSort = type === 'clips' ? PV.Filters.sort._mostRecent : PV.Filters.sort._alphabetical
   const serverFilterPage = 1
 
   let serverUser = serverUserInfo
