@@ -42,6 +42,7 @@ export const MobileNavBar = (props: Props) => {
               faIcon={userInfo ? faUserCircle : faUserCircleRegular}
               onChange={(selected) => PV.NavBar.dropdownOnChange(selected, router, userInfo)}
               options={dropdownItems}
+              text={userInfo?.name}
             />
           </div>
           <PVLink className='search-button' href={PV.RoutePaths.web.search}>
