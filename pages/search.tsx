@@ -71,12 +71,14 @@ export default function Search({ serverCookies, serverSearchByText }: ServerProp
 
   useEffect(() => {
     ;(async () => {
+      window.addEventListener('navbar-link-clicked', _handleSearchClear)
       if (filterSearchByText) {
         const { data } = await clientQueryPodcasts(filterSearchByText, filterPage, filterSearchByType)
         const [newPodcastsListData, newPodcastsListCount] = data
         setPodcastsListData(newPodcastsListData)
         setPodcastsListDataCount(newPodcastsListCount)
       }
+      return () => window.removeEventListener('navbar-link-clicked', _handleSearchClear)
     })()
   }, [])
 
@@ -93,6 +95,15 @@ export default function Search({ serverCookies, serverSearchByText }: ServerProp
       OmniAural.pageIsLoadingHide()
     })()
   }, [filterSearchByText, filterSearchByType, filterPage])
+
+  /* Function Helpers */
+
+  const _handleSearchClear = () => {
+    setFilterSearchByText('')
+    setIsInitialLoad(true)
+    const inputRef = document.querySelector('.search-page-input input')
+    if (inputRef) inputRef.value = ''
+  }
 
   /* Render Helpers */
 

@@ -131,6 +131,11 @@ export default function Podcasts({
   }, 'globalFilters.videoOnlyMode')
 
   useEffect(() => {
+    window.addEventListener('navbar-link-clicked', _handleSearchClear)
+    return () => window.removeEventListener('navbar-link-clicked', _handleSearchClear)
+  }, [])
+
+  useEffect(() => {
     handleEffect()
   }, [filterQuery])
 
@@ -251,8 +256,10 @@ export default function Podcasts({
     }
   }
 
-  const _handleSearchClear = async () => {
+  const _handleSearchClear = () => {
     _handleSearchSubmit('')
+    const inputRef = document.querySelector('.search-bar-filter input')
+    if (inputRef) inputRef.value = ''
   }
 
   /* Render Helpers */

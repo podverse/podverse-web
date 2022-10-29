@@ -1,6 +1,7 @@
 import { faCheck } from '@fortawesome/free-solid-svg-icons'
 import classNames from 'classnames'
 import { Icon, PVLink } from '~/components'
+import { eventNavBarLinkClicked } from '~/lib/utility/events'
 
 type Props = {
   active: boolean
@@ -13,7 +14,10 @@ export const MobileNavMenuLink = ({ active, handleHideMenu, href, text }: Props)
   const wrapperClass = classNames('mobile-nav-menu-link', { active })
 
   return (
-    <PVLink className={wrapperClass} href={href} onClick={handleHideMenu}>
+    <PVLink className={wrapperClass} href={href} onClick={() => {
+      handleHideMenu()
+      eventNavBarLinkClicked()
+    }}>
       {text}
       {active && <Icon faIcon={faCheck} />}
     </PVLink>
