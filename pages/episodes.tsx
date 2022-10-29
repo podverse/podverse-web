@@ -105,6 +105,11 @@ export default function Episodes({
   }, 'globalFilters.videoOnlyMode')
 
   useEffect(() => {
+    window.addEventListener('navbar-link-clicked-episodes', _handleSearchClear)
+    return () => window.removeEventListener('navbar-link-clicked-episodes', _handleSearchClear)
+  }, [])
+
+  useEffect(() => {
     ;(async () => {
       try {
         if (initialRender.current) {

@@ -1,6 +1,6 @@
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import debounce from 'debounce'
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { TextInput } from '~/components'
 
 type Props = {
@@ -20,7 +20,18 @@ export const SearchPageInput = ({ debounceRate = 1000, defaultValue, handleClear
     [debounceRate, handleSubmit]
   )
 
-  const handleEndButtonClearButtonClick = () => {
+  /* useEffects */
+
+  useEffect(() => {
+    ;(async () => {
+      window.addEventListener('navbar-link-clicked-search', _handleClear)
+      return () => window.removeEventListener('navbar-link-clicked-search', _handleClear)
+    })()
+  }, [])
+
+  /* Helper Functions */
+
+  const _handleClear = () => {
     handleClear()
     setSearchText('')
   }
@@ -41,7 +52,7 @@ export const SearchPageInput = ({ debounceRate = 1000, defaultValue, handleClear
           autoFocus
           defaultValue={defaultValue}
           faIcon={faSearch}
-          handleEndButtonClearButtonClick={searchText && handleEndButtonClearButtonClick}
+          handleEndButtonClearButtonClick={searchText && _handleClear}
           label={label}
           onChange={handleOnChange}
           onSubmit={handleOnSubmit}

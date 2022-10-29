@@ -71,12 +71,14 @@ export default function Search({ serverCookies, serverSearchByText }: ServerProp
 
   useEffect(() => {
     ;(async () => {
+      window.addEventListener('navbar-link-clicked-search', _handleSearchClear)
       if (filterSearchByText) {
         const { data } = await clientQueryPodcasts(filterSearchByText, filterPage, filterSearchByType)
         const [newPodcastsListData, newPodcastsListCount] = data
         setPodcastsListData(newPodcastsListData)
         setPodcastsListDataCount(newPodcastsListCount)
       }
+      return () => window.removeEventListener('navbar-link-clicked-search', _handleSearchClear)
     })()
   }, [])
 

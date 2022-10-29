@@ -1,7 +1,7 @@
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import classNames from 'classnames'
 import debounce from 'debounce'
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { TextInput } from '~/components'
 
 type Props = {
@@ -28,12 +28,29 @@ export const SearchBarFilter = ({
     smaller ? 'smaller' : ''
   )
 
+  /* useEffects */
+
+  useEffect(() => {
+    ;(async () => {
+      window.addEventListener('navbar-link-clicked-podcasts', _handleClear)
+      window.addEventListener('navbar-link-clicked-episodes', _handleClear)
+      window.addEventListener('navbar-link-clicked-clips', _handleClear)
+      return () => {
+        window.removeEventListener('navbar-link-clicked-podcasts', _handleClear)
+        window.removeEventListener('navbar-link-clicked-episodes', _handleClear)
+        window.removeEventListener('navbar-link-clicked-clips', _handleClear)
+      }
+    })()
+  }, [])
+
+  /* Helper Functions */
+
   const debouncedHandleSubmit = useMemo(
     () => debounce((val) => handleSubmit(val), debounceRate),
     [debounceRate, handleSubmit]
   )
 
-  const handleEndButtonClearButtonClick = () => {
+  const _handleClear = () => {
     handleClear()
     setSearchText('')
   }
@@ -51,7 +68,7 @@ export const SearchBarFilter = ({
     <div className={wrapperClass}>
       <TextInput
         faIcon={faSearch}
-        handleEndButtonClearButtonClick={searchText && handleEndButtonClearButtonClick}
+        handleEndButtonClearButtonClick={searchText && _handleClear}
         onChange={handleOnChange}
         onSubmit={handleOnSubmit}
         placeholder={placeholder}

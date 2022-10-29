@@ -131,6 +131,11 @@ export default function Podcasts({
   }, 'globalFilters.videoOnlyMode')
 
   useEffect(() => {
+    window.addEventListener('navbar-link-clicked-podcasts', _handleSearchClear)
+    return () => window.removeEventListener('navbar-link-clicked-podcasts', _handleSearchClear)
+  }, [])
+
+  useEffect(() => {
     handleEffect()
   }, [filterQuery])
 

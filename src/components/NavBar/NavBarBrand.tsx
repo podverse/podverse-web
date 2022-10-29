@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next'
 import { PVLink } from '~/components'
+import { eventNavBarLinkClicked } from '~/lib/utility/events'
 
 type Props = {
   height: number
@@ -12,7 +13,12 @@ export const NavBarBrand = ({ height, href, target, width }: Props) => {
   const { t } = useTranslation()
 
   return (
-    <PVLink ariaLabel={t('Home page')} className='navbar__brand' href={href} target={target}>
+    <PVLink
+      ariaLabel={t('Home page')}
+      className='navbar__brand'
+      href={href}
+      onClick={() => eventNavBarLinkClicked('podcasts')}
+      target={target}>
       <BrandSVG alt='' aria-hidden height={height} width={width} />
     </PVLink>
   )
