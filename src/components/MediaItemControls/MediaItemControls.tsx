@@ -203,7 +203,7 @@ export const MediaItemControls = ({
   return (
     <>
       <div className='mobile-media-item-controls-above-wrapper'>
-        {liveItem && <LiveStatusBadge hideAboveMobileWidth liveItemStatus={liveItem.status} />}
+        {liveItem && !isLiveItemNotLive && <LiveStatusBadge hideAboveMobileWidth liveItemStatus={liveItem.status} />}
       </div>
       <div className='media-item-controls'>
         {!isLiveItemNotLive && (
