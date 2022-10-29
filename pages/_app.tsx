@@ -142,6 +142,8 @@ function MyApp({ Component, pageProps }) {
         initializeMatomo()
         matomoTrackPageView()
       }
+
+      return () => window.removeEventListener('resize', resetHeight)
     })()
   }, [])
 

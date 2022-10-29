@@ -105,6 +105,11 @@ export default function Clips({
   }, 'globalFilters.videoOnlyMode')
 
   useEffect(() => {
+    window.addEventListener('navbar-link-clicked-clips', _handleSearchClear)
+    return () => window.removeEventListener('navbar-link-clicked-clips', _handleSearchClear)
+  }, [])
+
+  useEffect(() => {
     ;(async () => {
       try {
         if (initialRender.current) {
@@ -244,8 +249,12 @@ export default function Clips({
     }
   }
 
-  const _handleSearchClear = async () => {
+  const _handleSearchClear = () => {
     _handleSearchSubmit('')
+    setTimeout(() => {
+      const inputRef = document.querySelector('.search-bar-filter input') as any
+      if (inputRef) inputRef.value = ''
+    }, 500)
   }
 
   /* Render Helpers */

@@ -7,7 +7,11 @@ body {
     justify-content: center;
 
     .dropdown__text {
-      margin-left: 8px;
+      margin: 0 8px;
+      max-width: 140px;
+      @include line-clamp(1);
+      text-align: right;
+      text-overflow: ellipsis;
     }
 
     .dropdown__icon {
@@ -186,6 +190,16 @@ body {
 
       &.react-dropdown-select-dropdown-position-bottom {
         top: 22px;
+      }
+    }
+  }
+}
+
+@media (max-width: $media-max-width-tablet) {
+  body {
+    .dropdown-wrapper {
+      .dropdown__text {
+        max-width: 120px;
       }
     }
   }

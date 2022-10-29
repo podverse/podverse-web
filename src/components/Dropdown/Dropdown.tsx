@@ -31,15 +31,15 @@ const contentRenderer = (props: Props, t: any) => {
 
   return (
     <div className='dropdown-wrapper'>
-      {!!faIcon && (
-        <div aria-hidden='true' className='dropdown__icon'>
-          <FontAwesomeIcon icon={faIcon} />
-        </div>
-      )}
       {!!finalText && (
         <div aria-hidden='true' className='dropdown__text'>
           {textLabel ? `${textLabel}: ` : ''}
           {isLabelUrl ? finalText : t(`${finalText}`)}
+        </div>
+      )}
+      {!!faIcon && (
+        <div aria-hidden='true' className='dropdown__icon'>
+          <FontAwesomeIcon icon={faIcon} />
         </div>
       )}
     </div>

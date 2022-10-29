@@ -68,10 +68,10 @@ export const getUserMediaRefs = async (userId: string, query: any = {}) => {
   return response && response.data
 }
 
-export const getLoggedInUserMediaRefs = async () => {
+export const getLoggedInUserMediaRefs = async (bearerToken?: string) => {
   const response = await request({
     endpoint: '/user/mediaRefs',
-    ...getAuthCredentialsHeaders()
+    ...getAuthCredentialsHeaders(bearerToken)
   })
 
   return response && response.data

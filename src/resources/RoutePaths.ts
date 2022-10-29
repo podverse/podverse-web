@@ -69,6 +69,7 @@ export const RoutePaths = {
       episode: '/miniplayer/episode'
     },
     my_profile_clips: `/my-profile?type=clips`,
+    my_profile_playlists: `/my-profile?type=playlists`,
     my_profile: `/my-profile`,
     payment_paypal_confirming: `/payment/paypal-confirming`,
     playlist: `/playlist`,
