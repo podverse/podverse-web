@@ -94,6 +94,18 @@ export default function Search({ serverCookies, serverSearchByText }: ServerProp
     })()
   }, [filterSearchByText, filterSearchByType, filterPage])
 
+  /* Helper Functions */
+
+  const _handleSearchClear = () => {
+    _handleSearchSubmit('')
+  }
+
+  const _handleSearchSubmit = (value: string) => {
+    if (isInitialLoad) setIsInitialLoad(false)
+    setFilterSearchByText(value)
+    setFilterPage(1)
+  }
+
   /* Render Helpers */
 
   const generateTabOptions = (t: any) => [
@@ -139,11 +151,8 @@ export default function Search({ serverCookies, serverSearchByText }: ServerProp
       />
       <SearchPageInput
         defaultValue={serverSearchByText}
-        handleSubmit={(value) => {
-          if (isInitialLoad) setIsInitialLoad(false)
-          setFilterSearchByText(value)
-          setFilterPage(1)
-        }}
+        handleClear={_handleSearchClear}
+        handleSubmit={_handleSearchSubmit}
         label={t('Podcast title')}
         placeholder={t('Search')}
       />

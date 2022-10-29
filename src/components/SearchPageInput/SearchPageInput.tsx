@@ -1,21 +1,38 @@
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import debounce from 'debounce'
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import { TextInput } from '~/components'
 
 type Props = {
   debounceRate?: number
   defaultValue?: string
+  handleClear: () => void
   handleSubmit: (val: string) => void
   label: string
   placeholder: string
 }
 
-export const SearchPageInput = ({ debounceRate = 1000, defaultValue, handleSubmit, label, placeholder }: Props) => {
+export const SearchPageInput = ({ debounceRate = 1000, defaultValue, handleClear, handleSubmit, label, placeholder }: Props) => {
+  const [searchText, setSearchText] = useState<string>('')
+
   const debouncedHandleSubmit = useMemo(
     () => debounce((val) => handleSubmit(val), debounceRate),
     [debounceRate, handleSubmit]
   )
+
+  const handleEndButtonClearButtonClick = () => {
+    handleClear()
+    setSearchText('')
+  }
+
+  const handleOnChange = (val: string) => {
+    setSearchText(val)
+    debouncedHandleSubmit(val)
+  }
+
+  const handleOnSubmit = () => {
+    debouncedHandleSubmit.flush()
+  }
 
   return (
     <div className='search-page-input'>
@@ -24,10 +41,13 @@ export const SearchPageInput = ({ debounceRate = 1000, defaultValue, handleSubmi
           autoFocus
           defaultValue={defaultValue}
           faIcon={faSearch}
+          handleEndButtonClearButtonClick={searchText && handleEndButtonClearButtonClick}
           label={label}
-          onChange={(value) => debouncedHandleSubmit(value)}
+          onChange={handleOnChange}
+          onSubmit={handleOnSubmit}
           placeholder={placeholder}
           type='text'
+          value={searchText}
         />
       </div>
     </div>
