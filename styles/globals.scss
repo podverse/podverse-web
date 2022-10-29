@@ -178,6 +178,18 @@ body {
     }
   }
 
+  .link {
+    @include themeGen() {
+      color: getThemeVal('textLink');
+    }
+
+    &:hover {
+      @include themeGen() {
+        color: getThemeVal('textLinkHover');
+      }
+    }
+  }
+
   h1 {
     font-size: $text-huge;
     font-weight: $font-weight-light;

@@ -1,0 +1,12 @@
+.feature-demo-widget {
+  font-size: $text-md;
+  margin: 16px 0;
+
+  &.margin-top-extra {
+    margin: 32px 0;
+  }
+
+  &.align-center {
+    text-align: center;
+  }
+}

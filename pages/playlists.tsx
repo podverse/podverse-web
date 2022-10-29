@@ -2,7 +2,9 @@ import { GetServerSideProps } from 'next'
 import { useTranslation } from 'next-i18next'
 import OmniAural, { useOmniAural } from 'omniaural'
 import type { Playlist } from 'podverse-shared'
+import { useState } from 'react'
 import {
+  ButtonRectangle,
   Footer,
   List,
   MessageWithAction,
@@ -13,7 +15,7 @@ import {
 } from '~/components'
 import { Page } from '~/lib/utility/page'
 import { PV } from '~/resources'
-import { getServerSideLoggedInUserPlaylistsCombined } from '~/services/playlist'
+import { getServerSideLoggedInUserPlaylistsCombined, promptAndCreatePlaylist } from '~/services/playlist'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 import { OmniAuralState } from '~/state/omniauralState'
 
@@ -33,6 +35,17 @@ export default function Playlists({ serverPlaylistsCombined }: ServerProps) {
   const [userInfo] = useOmniAural('session.userInfo') as [OmniAuralState['session']['userInfo']]
   const { createdPlaylists, subscribedPlaylists } = serverPlaylistsCombined
   const combinedPlaylists = createdPlaylists.concat(subscribedPlaylists)
+  const [playlists, setPlaylists] = useState<Playlist[]>(combinedPlaylists)
+
+  /* Helper Functions */
+
+  const _handleCreatePlaylist = async () => {
+    const newPlaylist = await promptAndCreatePlaylist(t)
+    if (newPlaylist) {
+      const newPlaylists = [newPlaylist, ...playlists]
+      setPlaylists(newPlaylists)
+    }
+  }
 
   /* Render Helpers */
 
@@ -41,6 +54,10 @@ export default function Playlists({ serverPlaylistsCombined }: ServerProps) {
       <PlaylistListItem key={`${keyPrefix}-${index}-${listItem.id}`} playlist={listItem} />
     ))
   }
+
+  const customButtons = userInfo ? (
+    <ButtonRectangle label={t('Create Playlist')} onClick={_handleCreatePlaylist} type='tertiary' />
+  ) : null
 
   /* Meta Tags */
 
@@ -63,7 +80,7 @@ export default function Playlists({ serverPlaylistsCombined }: ServerProps) {
         twitterDescription={meta.description}
         twitterTitle={meta.title}
       />
-      <PageHeader text={t('Playlists')} noMarginBottom />
+      <PageHeader customButtons={customButtons} text={t('Playlists')} noMarginBottom />
       <PageScrollableContent noPaddingTop>
         {!userInfo && (
           <MessageWithAction
@@ -72,7 +89,11 @@ export default function Playlists({ serverPlaylistsCombined }: ServerProps) {
             message={t('LoginToViewYourPlaylists')}
           />
         )}
-        {userInfo && <List>{generatePlaylistElements(combinedPlaylists)}</List>}
+        {userInfo && (
+          <List tutorialsLink='/tutorials#create-playlists' tutorialsLinkText={t('tutorials link - playlists')}>
+            {generatePlaylistElements(playlists)}
+          </List>
+        )}
         <Footer />
       </PageScrollableContent>
     </>

@@ -45,10 +45,7 @@ export const MobileNavBar = (props: Props) => {
               text={userInfo?.name}
             />
           </div>
-          <PVLink
-            className='search-button'
-            href={PV.RoutePaths.web.search}
-          >
+          <PVLink className='search-button' href={PV.RoutePaths.web.search}>
             <Icon faIcon={faSearch} />
           </PVLink>
         </div>

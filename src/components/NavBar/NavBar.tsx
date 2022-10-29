@@ -63,7 +63,7 @@ export const NavBar = (props: Props) => {
         />
         <NavBarLink
           active={router.pathname == PV.RoutePaths.web.my_profile_clips}
-          href={`${PV.RoutePaths.web.profile}/${userInfo.id}?type=clips`}
+          href={userInfo ? `${PV.RoutePaths.web.profile}/${userInfo.id}?type=clips` : `${PV.RoutePaths.web.my_profile}`}
           text={t('MyClips')}
         />
         <NavBarLink

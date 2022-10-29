@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { ButtonRectangle, DivClickable, Dropdown, Icon, SwitchWithIcons } from '~/components'
 
 type Props = {
+  customButtons?: any
   handleAutoScrollButton?: any
   handleClearAllButton?: any
   handleCollapse?: any
@@ -27,6 +28,7 @@ type Props = {
 }
 
 export const PageHeader = ({
+  customButtons,
   handleAutoScrollButton,
   handleClearAllButton,
   handleCollapse,
@@ -56,7 +58,7 @@ export const PageHeader = ({
   )
   const hrClassName = classnames('page-header-hr', noMarginBottom ? 'no-margin-bottom' : '')
   const hasDropdowns = !!(sortOptions?.length || primaryOptions?.length)
-  const hasButtons = !!hasEditButton || !!handleAutoScrollButton
+  const hasButtons = !!hasEditButton || !!handleAutoScrollButton || !!customButtons
   const caretIcon = (
     <div className='header-caret'>
       <Icon faIcon={isCollapsed ? faAngleDown : faAngleUp} />
@@ -143,6 +145,7 @@ export const PageHeader = ({
                   type='tertiary'
                 />
               )}
+              {customButtons ? customButtons : null}
             </div>
           )}
         </div>
