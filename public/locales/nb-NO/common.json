@@ -349,7 +349,7 @@
     "Demo": "Demo",
     "Embed": "Bygg inn",
     "Embed custom CSS intro instructions": "Overstyr stilen for den innebygde spilleren med et skript på nettsiden din.",
-    "Embed podcast with episodes instructions": "Inkluder en episodeliste med den innebygde spilleren ved å trykke trykke «Del»-ikonet i Podverse, kopier innbyggingskoden og lim den inn på nettsiden din.",
+    "Embed podcast with episodes instructions": "Inkluder en episodeliste med den innebygde spilleren ved å trykke «Del»-ikonet i Podverse, kopier innbyggingskoden og lim den inn på nettsiden din.",
     "Embed episode only instructions": "Bygg inn én episode ved å trykke «Del»-ikonet på Podverse, kopier innebyggingskoden, og lim den inn på nettsiden din.",
     "How To": "Instruks",
     "pages-embed-player-demo_Description": "Hvordan den innbyggbare Podverse-spilleren ser ut.",
@@ -448,5 +448,12 @@
     "Livestreams": "Direktestrømmer",
     "pages-live-items_Title": "Direktestrømmer",
     "Scheduled": "Planlagt",
-    "Search livestreams": "Søk etter direktestrømmer"
+    "Search livestreams": "Søk etter direktestrømmer",
+    "Join our Matrix space": "Ta del i vårt Matrix-rom",
+    "Learn more": "Lær mer",
+    "tutorials link - playlists": "Lær mer om spillelister",
+    "tutorials link - profiles": "Lær mer om profiler",
+    "tutorials link - queue": "Lær mer om køen",
+    "tutorials link - history": "Lær mer om historikk",
+    "tutorials link - tutorials": "Gå til veiledningssiden"
 }
