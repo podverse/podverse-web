@@ -1,5 +1,5 @@
 import { faDiscord, faGithub, faMastodon, faTwitter } from '@fortawesome/free-brands-svg-icons'
-import { faCopyright as faCopyrightRegular, faLightbulb } from '@fortawesome/free-regular-svg-icons'
+import { faCopyright as faCopyrightRegular } from '@fortawesome/free-regular-svg-icons'
 import { useTranslation } from 'react-i18next'
 import { PV } from '~/resources'
 import { Icon, NavBarBrand, PVLink } from '..'
