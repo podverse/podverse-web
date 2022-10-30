@@ -42,11 +42,15 @@ export const Pagination = ({
       {show ? (
         <div aria-label={t('Page numbers')} role='group'>
           <div className='pagination'>{pageButtons}</div>
-          <div className='skip'>
-            <button className='button-skip' onClick={handleClick}>
-              {t('Skip to page')}
-            </button>
-          </div>
+          {
+            pageCount > 11 && (
+              <div className='skip'>
+                <button className='button-skip' onClick={handleClick}>
+                  {t('Skip to page')}
+                </button>
+              </div>
+            )
+          }
         </div>
       ) : null}
     </>

@@ -6,6 +6,7 @@ import { TextInput } from '~/components'
 
 type Props = {
   debounceRate?: number
+  eventType?: 'podcasts' | 'episodes' | 'clips'
   handleClear?: any
   handleSubmit?: any
   includeBottomPadding?: boolean
@@ -15,6 +16,7 @@ type Props = {
 
 export const SearchBarFilter = ({
   debounceRate = 1000,
+  eventType,
   handleClear,
   handleSubmit,
   includeBottomPadding,
@@ -31,16 +33,14 @@ export const SearchBarFilter = ({
   /* useEffects */
 
   useEffect(() => {
-    ;(async () => {
-      window.addEventListener('navbar-link-clicked-podcasts', _handleClear)
-      window.addEventListener('navbar-link-clicked-episodes', _handleClear)
-      window.addEventListener('navbar-link-clicked-clips', _handleClear)
-      return () => {
-        window.removeEventListener('navbar-link-clicked-podcasts', _handleClear)
-        window.removeEventListener('navbar-link-clicked-episodes', _handleClear)
-        window.removeEventListener('navbar-link-clicked-clips', _handleClear)
-      }
-    })()
+    if (eventType) {
+      ;(async () => {
+        window.addEventListener(`navbar-link-clicked-${eventType}`, _handleClear)
+        return () => {
+          window.removeEventListener(`navbar-link-clicked-${eventType}`, _handleClear)
+        }
+      })()
+    }
   }, [])
 
   /* Helper Functions */

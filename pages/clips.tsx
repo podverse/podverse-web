@@ -19,6 +19,7 @@ import {
   Tiles
 } from '~/components'
 import { Page } from '~/lib/utility/page'
+import { determinePageCount } from '~/lib/utility/pagination'
 import { PV } from '~/resources'
 import { isNotAllSortOption } from '~/resources/Filters'
 import { getCategoryById, getCategoryBySlug, getTranslatedCategories } from '~/services/category'
@@ -75,7 +76,7 @@ export default function Clips({
   const [isQuerying, setIsQuerying] = useState<boolean>(false)
   const [userInfo] = useOmniAural('session.userInfo') as [OmniAuralState['session']['userInfo']]
   const initialRender = useRef<boolean>(true)
-  const pageCount = Math.ceil(clipsListDataCount / PV.Config.QUERY_RESULTS_LIMIT_DEFAULT)
+  const pageCount = determinePageCount(filterPage, clipsListData, clipsListDataCount, !!filterSearchText)
   const isCategoryPage = !!router.query?.category
   const isCategoriesPage = filterFrom === PV.Filters.from._category && !isCategoryPage
   const isLoggedInSubscribedPage = userInfo && filterFrom === PV.Filters.from._subscribed
@@ -244,6 +245,7 @@ export default function Clips({
       setFilterQuery({
         ...filterQuery,
         filterCategoryId,
+        filterPage: 1,
         filterSearchText: val
       })
     }
@@ -251,10 +253,6 @@ export default function Clips({
 
   const _handleSearchClear = () => {
     _handleSearchSubmit('')
-    setTimeout(() => {
-      const inputRef = document.querySelector('.search-bar-filter input') as any
-      if (inputRef) inputRef.value = ''
-    }, 500)
   }
 
   /* Render Helpers */
@@ -327,6 +325,7 @@ export default function Clips({
       <PageScrollableContent noPaddingTop={showLoginMessage || isCategoryPage}>
         {!showLoginMessage && !isCategoryPage && (
           <SearchBarFilter
+            eventType='clips'
             handleClear={_handleSearchClear}
             handleSubmit={_handleSearchSubmit}
             includeBottomPadding={isCategoriesPage}

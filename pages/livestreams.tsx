@@ -18,6 +18,7 @@ import {
   Tiles
 } from '~/components'
 import { Page } from '~/lib/utility/page'
+import { determinePageCount } from '~/lib/utility/pagination'
 import { PV } from '~/resources'
 import { getCategoryById, getCategoryBySlug, getTranslatedCategories } from '~/services/category'
 import { getLiveItemsByQuery, LiveItemsQueryParams } from '~/services/liveItem'
@@ -74,14 +75,8 @@ export default function LiveItems({
   const [isQuerying, setIsQuerying] = useState<boolean>(false)
   const [userInfo] = useOmniAural('session.userInfo') as [OmniAuralState['session']['userInfo']]
   const initialRender = useRef(true)
-  const pageCountLive =
-    filterPageLive > 1 && liveItemsListDataLive.length < 20
-      ? filterPageLive
-      : Math.ceil(liveItemsListDataCountLive / PV.Config.QUERY_RESULTS_LIMIT_DEFAULT)
-  const pageCountPending =
-    filterPagePending > 1 && liveItemsListDataPending.length < 20
-      ? filterPagePending
-      : Math.ceil(liveItemsListDataCountPending / PV.Config.QUERY_RESULTS_LIMIT_DEFAULT)
+  const pageCountLive = determinePageCount(filterPageLive, liveItemsListDataLive, liveItemsListDataCountLive)
+  const pageCountPending = determinePageCount(filterPagePending, liveItemsListDataPending, liveItemsListDataCountPending)
   const isCategoryPage = !!router.query?.category
   const isCategoriesPage = filterFrom === PV.Filters.from._category && !isCategoryPage
   const isLoggedInSubscribedPage = userInfo && filterFrom === PV.Filters.from._subscribed

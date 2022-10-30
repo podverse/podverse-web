@@ -19,6 +19,7 @@ import { ProfileListItem } from '~/components/ProfileListItem/ProfileListItem'
 import { useEffect, useRef, useState } from 'react'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 import { OmniAuralState } from '~/state/omniauralState'
+import { determinePageCount } from '~/lib/utility/pagination'
 
 interface ServerProps extends Page {
   serverFilterPage: number
@@ -36,7 +37,7 @@ export default function Profiles({ serverFilterPage, serverUsers, serverUsersCou
   const [usersListData, setUsersListData] = useState<User[]>(serverUsers)
   const [userInfo] = useOmniAural('session.userInfo') as [OmniAuralState['session']['userInfo']]
   const initialRender = useRef(true)
-  const pageCount = Math.ceil(serverUsersCount / PV.Config.QUERY_RESULTS_LIMIT_DEFAULT)
+  const pageCount = determinePageCount(filterPage, usersListData, serverUsersCount)
 
   /* useEffects */
 

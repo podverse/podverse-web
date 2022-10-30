@@ -19,6 +19,7 @@ import { getPodcastsByQuery } from '~/services/podcast'
 import { scrollToTopOfPageScrollableContent } from '~/components/PageScrollableContent/PageScrollableContent'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 import { OmniAuralState } from '~/state/omniauralState'
+import { determinePageCount } from '~/lib/utility/pagination'
 
 interface ServerProps extends Page {
   serverCookies: any
@@ -65,7 +66,7 @@ export default function Search({ serverCookies, serverSearchByText }: ServerProp
   const [filterSearchByText, setFilterSearchByText] = useState<string>(serverSearchByText || '')
   const [filterSearchByType, setFilterSearchByType] = useState<string>(PV.Filters.search.queryParams.podcast)
   const [isInitialLoad, setIsInitialLoad] = useState<boolean>(true)
-  const pageCount = Math.ceil(podcastsListDataCount / PV.Config.QUERY_RESULTS_LIMIT_DEFAULT)
+  const pageCount = determinePageCount(filterPage, podcastsListData, podcastsListDataCount, !!filterSearchByText)
 
   /* useEffects */
 
@@ -99,6 +100,7 @@ export default function Search({ serverCookies, serverSearchByText }: ServerProp
   /* Helper Functions */
 
   const _handleSearchClear = () => {
+    setIsInitialLoad(true)
     _handleSearchSubmit('')
   }
 

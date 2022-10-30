@@ -19,6 +19,7 @@ import {
   Tiles
 } from '~/components'
 import { Page } from '~/lib/utility/page'
+import { determinePageCount } from '~/lib/utility/pagination'
 import { PV } from '~/resources'
 import { isNotAllSortOption } from '~/resources/Filters'
 import { getCategoryById, getCategoryBySlug, getTranslatedCategories } from '~/services/category'
@@ -75,7 +76,7 @@ export default function Episodes({
   const [isQuerying, setIsQuerying] = useState<boolean>(false)
   const [userInfo] = useOmniAural('session.userInfo') as [OmniAuralState['session']['userInfo']]
   const initialRender = useRef(true)
-  const pageCount = Math.ceil(episodesListDataCount / PV.Config.QUERY_RESULTS_LIMIT_DEFAULT)
+  const pageCount = determinePageCount(filterPage, episodesListData, episodesListDataCount, !!filterSearchText)
   const isCategoryPage = !!router.query?.category
   const isCategoriesPage = filterFrom === PV.Filters.from._category && !isCategoryPage
   const isLoggedInSubscribedPage = userInfo && filterFrom === PV.Filters.from._subscribed
@@ -243,6 +244,7 @@ export default function Episodes({
       setFilterQuery({
         ...filterQuery,
         filterCategoryId,
+        filterPage: 1,
         filterSearchText: val
       })
     }
@@ -320,6 +322,7 @@ export default function Episodes({
       <PageScrollableContent noPaddingTop={showLoginMessage || isCategoryPage}>
         {!showLoginMessage && !isCategoryPage && (
           <SearchBarFilter
+            eventType='episodes'
             handleClear={_handleSearchClear}
             handleSubmit={_handleSearchSubmit}
             includeBottomPadding={isCategoriesPage}
