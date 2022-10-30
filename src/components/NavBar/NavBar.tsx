@@ -62,12 +62,12 @@ export const NavBar = (props: Props) => {
           text={t('History')}
         />
         <NavBarLink
-          active={router.pathname == PV.RoutePaths.web.my_profile}
-          href={userInfo ? `${PV.RoutePaths.web.profile}/${userInfo.id}` : `${PV.RoutePaths.web.my_profile}`}
+          active={userInfo ? router.asPath == `${PV.RoutePaths.web.profile}/${userInfo.id}` : router.pathname == PV.RoutePaths.web.my_profile }
+          href={userInfo ? `${PV.RoutePaths.web.profile}/${userInfo.id}` : PV.RoutePaths.web.my_profile}
           text={t('MyProfile')}
         />
         <NavBarLink
-          active={router.pathname == PV.RoutePaths.web.my_profile_clips}
+          active={userInfo && router.asPath == `${PV.RoutePaths.web.profile}/${userInfo.id}?type=clips`}
           href={userInfo ? `${PV.RoutePaths.web.profile}/${userInfo.id}?type=clips` : `${PV.RoutePaths.web.my_profile}`}
           text={t('MyClips')}
         />
