@@ -363,7 +363,10 @@ export default function Podcasts({
               handleSelectByCategory={() => _handlePrimaryOnChange([PV.Filters.dropdownOptions.podcasts.from[2]])}
               handleShowAllPodcasts={() => _handlePrimaryOnChange([PV.Filters.dropdownOptions.podcasts.from[0]])}
               hideNoResultsMessage={isQuerying}
-              isSubscribedFilter={filterFrom === PV.Filters.from._subscribed}
+              isSubscribedFilter={
+                filterFrom === PV.Filters.from._subscribed
+                && userInfo?.subscribedPodcastIds?.length === 0
+              }
             >
               {generatePodcastListElements(podcastsListData)}
             </List>

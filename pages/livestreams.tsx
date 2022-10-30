@@ -331,7 +331,10 @@ export default function LiveItems({
               handleSelectByCategory={() => _handlePrimaryOnChange([PV.Filters.dropdownOptions.episodes.from[2]])}
               handleShowAllPodcasts={() => _handlePrimaryOnChange([PV.Filters.dropdownOptions.episodes.from[0]])}
               hideNoResultsMessage={isQuerying}
-              isSubscribedFilter={filterFrom === PV.Filters.from._subscribed}
+              isSubscribedFilter={
+                filterFrom === PV.Filters.from._subscribed
+                && userInfo?.subscribedPodcastIds?.length === 0
+              }
             >
               {generateLiveItemsListElements(liveItemsListDataLive, false)}
             </List>
@@ -372,7 +375,10 @@ export default function LiveItems({
               handleSelectByCategory={() => _handlePrimaryOnChange([PV.Filters.dropdownOptions.episodes.from[2]])}
               handleShowAllPodcasts={() => _handlePrimaryOnChange([PV.Filters.dropdownOptions.episodes.from[0]])}
               hideNoResultsMessage={isQuerying}
-              isSubscribedFilter={filterFrom === PV.Filters.from._subscribed}
+              isSubscribedFilter={
+                filterFrom === PV.Filters.from._subscribed
+                && userInfo?.subscribedPodcastIds?.length === 0
+              }
             >
               {generateLiveItemsListElements(liveItemsListDataPending, true)}
             </List>
