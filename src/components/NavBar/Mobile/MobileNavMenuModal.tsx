@@ -3,6 +3,7 @@ import { useOmniAural } from 'omniaural'
 import { useTranslation } from 'react-i18next'
 import Modal from 'react-modal'
 import { ButtonClose } from '~/components'
+import { eventNavBarLinkClicked } from '~/lib/utility/events'
 import { PV } from '~/resources'
 import { OmniAuralState } from '~/state/omniauralState'
 import { MobileNavMenuLink } from './MobileNavMenuLink'
@@ -31,18 +32,21 @@ export const MobileNavMenuModal = ({ handleHideMenu, show }: Props) => {
           active={router.pathname == PV.RoutePaths.web.podcasts || router.pathname == PV.RoutePaths.web.home}
           handleHideMenu={handleHideMenu}
           href={PV.RoutePaths.web.podcasts}
+          onClick={() => eventNavBarLinkClicked('podcasts')}
           text={t('Podcasts')}
         />
         <MobileNavMenuLink
           active={router.pathname == PV.RoutePaths.web.episodes}
           handleHideMenu={handleHideMenu}
           href={PV.RoutePaths.web.episodes}
+          onClick={() => eventNavBarLinkClicked('episodes')}
           text={t('Episodes')}
         />
         <MobileNavMenuLink
           active={router.pathname == PV.RoutePaths.web.clips}
           handleHideMenu={handleHideMenu}
           href={PV.RoutePaths.web.clips}
+          onClick={() => eventNavBarLinkClicked('clips')}
           text={t('Clips')}
         />
         <MobileNavMenuLink
@@ -66,13 +70,17 @@ export const MobileNavMenuModal = ({ handleHideMenu, show }: Props) => {
           text={t('History')}
         />
         <MobileNavMenuLink
-          active={router.pathname == PV.RoutePaths.web.my_profile}
+          active={
+            userInfo
+              ? router.asPath == `${PV.RoutePaths.web.profile}/${userInfo.id}`
+              : router.pathname == PV.RoutePaths.web.my_profile
+          }
           handleHideMenu={handleHideMenu}
-          href={userInfo ? `${PV.RoutePaths.web.profile}/${userInfo.id}` : `${PV.RoutePaths.web.my_profile}`}
+          href={userInfo ? `${PV.RoutePaths.web.profile}/${userInfo.id}` : PV.RoutePaths.web.my_profile}
           text={t('MyProfile')}
         />
         <MobileNavMenuLink
-          active={router.pathname == PV.RoutePaths.web.my_profile_clips}
+          active={userInfo && router.asPath == `${PV.RoutePaths.web.profile}/${userInfo.id}?type=clips`}
           handleHideMenu={handleHideMenu}
           href={userInfo ? `${PV.RoutePaths.web.profile}/${userInfo.id}?type=clips` : `${PV.RoutePaths.web.my_profile}`}
           text={t('MyClips')}
