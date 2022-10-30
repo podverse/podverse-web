@@ -4,17 +4,26 @@ import classNames from 'classnames'
 
 type Props = {
   className?: string
-  faIcon: FAIconProp
+  customIcon?: any
+  faIcon?: FAIconProp
   rotation?: RotateProp
   spin?: boolean
 }
 
-export const Icon = ({ className, faIcon, rotation, spin }: Props) => {
+export const Icon = ({ className, customIcon, faIcon, rotation, spin }: Props) => {
   const iconWrapperClassName = classNames('icon', className ? className : '')
 
-  return (
-    <span className={iconWrapperClassName} aria-hidden='true'>
-      <FontAwesomeIcon icon={faIcon} rotation={rotation} spin={spin} />
-    </span>
-  )
+  if (customIcon) {
+    return (
+      <span className={iconWrapperClassName} aria-hidden='true'>
+        {customIcon}
+      </span>
+    )
+  } else {
+    return (
+      <span className={iconWrapperClassName} aria-hidden='true'>
+        <FontAwesomeIcon icon={faIcon} rotation={rotation} spin={spin} />
+      </span>
+    )
+  }
 }

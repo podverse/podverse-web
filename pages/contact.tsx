@@ -72,10 +72,13 @@ export default function Contact(props: ServerProps) {
               <hr />
               <h2 tabIndex={0}>{t('Live Chat')}</h2>
               <h3>
+                <PVLink href={PV.Contact.matrixInvite}>{t('Join our Matrix space')}</PVLink>
+              </h3>
+              <h3>
                 <PVLink href='/xmpp'>{t('Join our XMPP server')}</PVLink>
               </h3>
               <h3>
-                <a href='https://discord.gg/6HkyNKR' target='_blank' rel='noreferrer'>
+                <a href={PV.Contact.discordInvite} target='_blank' rel='noreferrer'>
                   {t('Join our Discord')}
                 </a>
               </h3>

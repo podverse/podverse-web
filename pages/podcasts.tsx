@@ -19,6 +19,7 @@ import {
   Tiles
 } from '~/components'
 import { Page } from '~/lib/utility/page'
+import { determinePageCount } from '~/lib/utility/pagination'
 import { PV } from '~/resources'
 import { isNotAllSortOption } from '~/resources/Filters'
 import { getCategoryById, getCategoryBySlug, getTranslatedCategories } from '~/services/category'
@@ -76,7 +77,7 @@ export default function Podcasts({
   const [isQuerying, setIsQuerying] = useState<boolean>(false)
   const [userInfo] = useOmniAural('session.userInfo') as [OmniAuralState['session']['userInfo']]
   const initialRender = useRef(true)
-  const pageCount = Math.ceil(podcastsListDataCount / PV.Config.QUERY_RESULTS_LIMIT_DEFAULT)
+  const pageCount = determinePageCount(filterPage, podcastsListData, podcastsListDataCount, !!filterSearchText)
   const isCategoryPage = !!router.query?.category
   const isCategoriesPage = filterFrom === PV.Filters.from._category && !isCategoryPage
   const isLoggedInSubscribedPage = userInfo && filterFrom === PV.Filters.from._subscribed
@@ -129,6 +130,11 @@ export default function Podcasts({
       { path: PV.Cookies.path }
     )
   }, 'globalFilters.videoOnlyMode')
+
+  useEffect(() => {
+    window.addEventListener('navbar-link-clicked-podcasts', _handleSearchClear)
+    return () => window.removeEventListener('navbar-link-clicked-podcasts', _handleSearchClear)
+  }, [])
 
   useEffect(() => {
     handleEffect()
@@ -246,6 +252,7 @@ export default function Podcasts({
       setFilterQuery({
         ...filterQuery,
         filterCategoryId,
+        filterPage: 1,
         filterSearchText: val
       })
     }
@@ -321,6 +328,7 @@ export default function Podcasts({
       <PageScrollableContent noPaddingTop={showLoginMessage || isCategoryPage}>
         {!showLoginMessage && !isCategoryPage && (
           <SearchBarFilter
+            eventType='podcasts'
             handleClear={_handleSearchClear}
             handleSubmit={_handleSearchSubmit}
             includeBottomPadding={isCategoriesPage}
@@ -355,7 +363,9 @@ export default function Podcasts({
               handleSelectByCategory={() => _handlePrimaryOnChange([PV.Filters.dropdownOptions.podcasts.from[2]])}
               handleShowAllPodcasts={() => _handlePrimaryOnChange([PV.Filters.dropdownOptions.podcasts.from[0]])}
               hideNoResultsMessage={isQuerying}
-              isSubscribedFilter={filterFrom === PV.Filters.from._subscribed}
+              isSubscribedFilter={
+                filterFrom === PV.Filters.from._subscribed && userInfo?.subscribedPodcastIds?.length === 0
+              }
             >
               {generatePodcastListElements(podcastsListData)}
             </List>

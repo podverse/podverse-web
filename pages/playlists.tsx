@@ -90,7 +90,7 @@ export default function Playlists({ serverPlaylistsCombined }: ServerProps) {
           />
         )}
         {userInfo && (
-          <List tutorialsLink='/tutorials#create-playlists' tutorialsLinkText={t('tutorials link - playlists')}>
+          <List tutorialsLink='/tutorials#playlists-create' tutorialsLinkText={t('tutorials link - playlists')}>
             {generatePlaylistElements(playlists)}
           </List>
         )}

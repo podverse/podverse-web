@@ -21,6 +21,12 @@ class MyDocument extends Document {
           <link rel='preload' href='/fonts/Roboto/Roboto-Italic.ttf' as='font' crossOrigin='' />
           <link rel='preload' href='/fonts/Roboto/Roboto-Bold.ttf' as='font' crossOrigin='' />
           <link rel='stylesheet' type='text/css' media='screen' href='https://cdn.conversejs.org/dist/converse.css' />
+          <link
+            rel='stylesheet'
+            href='https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css'
+            integrity='sha256-XoaMnoYC5TH6/+ihMEnospgm0J1PM/nioxbOUdnM8HY='
+            crossOrigin='anonymous'
+          />
         </Head>
         <body>
           <Main />
