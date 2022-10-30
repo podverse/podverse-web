@@ -12,7 +12,14 @@ type Props = {
   placeholder: string
 }
 
-export const SearchPageInput = ({ debounceRate = 1000, defaultValue, handleClear, handleSubmit, label, placeholder }: Props) => {
+export const SearchPageInput = ({
+  debounceRate = 1000,
+  defaultValue,
+  handleClear,
+  handleSubmit,
+  label,
+  placeholder
+}: Props) => {
   const [searchText, setSearchText] = useState<string>('')
 
   const debouncedHandleSubmit = useMemo(

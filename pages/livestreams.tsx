@@ -76,7 +76,11 @@ export default function LiveItems({
   const [userInfo] = useOmniAural('session.userInfo') as [OmniAuralState['session']['userInfo']]
   const initialRender = useRef(true)
   const pageCountLive = determinePageCount(filterPageLive, liveItemsListDataLive, liveItemsListDataCountLive)
-  const pageCountPending = determinePageCount(filterPagePending, liveItemsListDataPending, liveItemsListDataCountPending)
+  const pageCountPending = determinePageCount(
+    filterPagePending,
+    liveItemsListDataPending,
+    liveItemsListDataCountPending
+  )
   const isCategoryPage = !!router.query?.category
   const isCategoriesPage = filterFrom === PV.Filters.from._category && !isCategoryPage
   const isLoggedInSubscribedPage = userInfo && filterFrom === PV.Filters.from._subscribed
@@ -332,8 +336,7 @@ export default function LiveItems({
               handleShowAllPodcasts={() => _handlePrimaryOnChange([PV.Filters.dropdownOptions.episodes.from[0]])}
               hideNoResultsMessage={isQuerying}
               isSubscribedFilter={
-                filterFrom === PV.Filters.from._subscribed
-                && userInfo?.subscribedPodcastIds?.length === 0
+                filterFrom === PV.Filters.from._subscribed && userInfo?.subscribedPodcastIds?.length === 0
               }
             >
               {generateLiveItemsListElements(liveItemsListDataLive, false)}
@@ -376,8 +379,7 @@ export default function LiveItems({
               handleShowAllPodcasts={() => _handlePrimaryOnChange([PV.Filters.dropdownOptions.episodes.from[0]])}
               hideNoResultsMessage={isQuerying}
               isSubscribedFilter={
-                filterFrom === PV.Filters.from._subscribed
-                && userInfo?.subscribedPodcastIds?.length === 0
+                filterFrom === PV.Filters.from._subscribed && userInfo?.subscribedPodcastIds?.length === 0
               }
             >
               {generateLiveItemsListElements(liveItemsListDataPending, true)}

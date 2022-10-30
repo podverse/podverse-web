@@ -22,9 +22,25 @@ export const Footer = () => {
       </li>
       <li>
         <a
+          aria-label={t('Social Media - Matrix Org')}
+          className='footer-social-link-matrix-org'
+          href={PV.Contact.matrixInvite}
+          target='_blank'
+          rel='noreferrer'
+        >
+          <Icon customIcon={<i class='fa fa-matrix-org' aria-hidden='true'></i>} />
+        </a>
+      </li>
+      <li>
+        <PVLink ariaLabel={t('Social Media - XMPP')} className='footer-social-link-xmpp' href='/xmpp'>
+          <Icon customIcon={<i class='fa fa-xmpp' aria-hidden='true'></i>} />
+        </PVLink>
+      </li>
+      <li>
+        <a
           aria-label={t('Social Media - Discord')}
           className='footer-social-link-discord'
-          href='https://discord.gg/6HkyNKR'
+          href={PV.Contact.discordInvite}
           target='_blank'
           rel='noreferrer'
         >
@@ -35,17 +51,12 @@ export const Footer = () => {
         <a
           aria-label={t('Social Media - Twitter')}
           className='footer-social-link-twitter'
-          href='https://twitter.com/podverse'
+          href={PV.Contact.twitter}
           target='_blank'
           rel='noreferrer'
         >
           <Icon faIcon={faTwitter} />
         </a>
-      </li>
-      <li>
-        <PVLink ariaLabel={t('Social Media - XMPP')} className='footer-social-link-xmpp' href='/xmpp'>
-          <Icon faIcon={faLightbulb} />
-        </PVLink>
       </li>
       <li>
         <a

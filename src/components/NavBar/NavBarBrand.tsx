@@ -18,7 +18,8 @@ export const NavBarBrand = ({ height, href, target, width }: Props) => {
       className='navbar__brand'
       href={href}
       onClick={() => eventNavBarLinkClicked('podcasts')}
-      target={target}>
+      target={target}
+    >
       <BrandSVG alt='' aria-hidden height={height} width={width} />
     </PVLink>
   )

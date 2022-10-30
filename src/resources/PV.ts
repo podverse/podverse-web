@@ -1,4 +1,5 @@
 import { Config } from './Config'
+import { Contact } from './Contact'
 import { Cookies } from './Cookies'
 import { ErrorResponseMessages } from './ErrorResponseMessages'
 import { Filters } from './Filters'
@@ -17,6 +18,7 @@ import { Users } from './Users'
 
 export const PV = {
   Config,
+  Contact,
   Cookies,
   ErrorResponseMessages,
   Filters,

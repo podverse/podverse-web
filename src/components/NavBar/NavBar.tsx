@@ -62,7 +62,11 @@ export const NavBar = (props: Props) => {
           text={t('History')}
         />
         <NavBarLink
-          active={userInfo ? router.asPath == `${PV.RoutePaths.web.profile}/${userInfo.id}` : router.pathname == PV.RoutePaths.web.my_profile }
+          active={
+            userInfo
+              ? router.asPath == `${PV.RoutePaths.web.profile}/${userInfo.id}`
+              : router.pathname == PV.RoutePaths.web.my_profile
+          }
           href={userInfo ? `${PV.RoutePaths.web.profile}/${userInfo.id}` : PV.RoutePaths.web.my_profile}
           text={t('MyProfile')}
         />
