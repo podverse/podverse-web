@@ -28,12 +28,12 @@ export const Footer = () => {
           target='_blank'
           rel='noreferrer'
         >
-          <Icon customIcon={<i class='fa fa-matrix-org' aria-hidden='true'></i>} />
+          <Icon customIcon={<i className='fa fa-matrix-org' aria-hidden='true'></i>} />
         </a>
       </li>
       <li>
         <PVLink ariaLabel={t('Social Media - XMPP')} className='footer-social-link-xmpp' href='/xmpp'>
-          <Icon customIcon={<i class='fa fa-xmpp' aria-hidden='true'></i>} />
+          <Icon customIcon={<i className='fa fa-xmpp' aria-hidden='true'></i>} />
         </PVLink>
       </li>
       <li>
