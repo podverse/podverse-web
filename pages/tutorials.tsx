@@ -378,9 +378,9 @@ const generateSections = (t: any) =>
           <li>Tap Export OPML.</li>
           <li>Select a destination for your OPML file.</li>
           </ol>`,
-          mobilePreviewVideoEmbed: PV.PreviewVideoEmbeds(t).videos.mobile,
+          // mobilePreviewVideoEmbed: PV.PreviewVideoEmbeds(t).videos.mobile,
           webExplanation: notAvailableTextWeb,
-          webPreviewVideoEmbed: PV.PreviewVideoEmbeds(t).videos.web
+          // webPreviewVideoEmbed: PV.PreviewVideoEmbeds(t).videos.web
         },
         {
           title: `Import OPML`,
@@ -391,9 +391,9 @@ const generateSections = (t: any) =>
           <li>Tap Import OPML.</li>
           <li>Find the OPML file you'd like to import on your device.</li>
           </ol>`,
-          mobilePreviewVideoEmbed: PV.PreviewVideoEmbeds(t).videos.mobile,
+          // mobilePreviewVideoEmbed: PV.PreviewVideoEmbeds(t).videos.mobile,
           webExplanation: notAvailableTextWeb,
-          webPreviewVideoEmbed: PV.PreviewVideoEmbeds(t).videos.web
+          // webPreviewVideoEmbed: PV.PreviewVideoEmbeds(t).videos.web
         }
       ]
     },
