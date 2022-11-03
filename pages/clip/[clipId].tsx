@@ -1,12 +1,7 @@
 import { GetServerSideProps } from 'next'
 import { useTranslation } from 'next-i18next'
 import OmniAural, { useOmniAural } from 'omniaural'
-import {
-  addLightningBoltToString,
-  checkIfVideoFileOrVideoLiveType,
-  Episode,
-  MediaRef
-} from 'podverse-shared'
+import { addLightningBoltToString, checkIfVideoFileOrVideoLiveType, Episode, MediaRef } from 'podverse-shared'
 import { getLightningKeysendValueItem } from 'podverse-shared'
 import { useEffect, useRef, useState } from 'react'
 import {
