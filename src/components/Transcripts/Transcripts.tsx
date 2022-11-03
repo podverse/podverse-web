@@ -157,16 +157,14 @@ export const Transcripts = ({ episode }: Props) => {
         isAutoScrollOn={autoScrollOn}
         isLoading={transcriptRowsLoading}
       >
-        {
-          transcriptRowNodes?.length > 1 && (
-            <SearchBarFilter
-              handleClear={_handleSearchClear}
-              handleSubmit={_handleSearchSubmit}
-              placeholder={t('Transcript search')}
-              smaller
-            />
-          )
-        }
+        {transcriptRowNodes?.length > 1 && (
+          <SearchBarFilter
+            handleClear={_handleSearchClear}
+            handleSubmit={_handleSearchSubmit}
+            placeholder={t('Transcript search')}
+            smaller
+          />
+        )}
         <div className='transcripts-wrapper'>{transcriptRowNodes}</div>
       </MainContentSection>
       <hr />

@@ -29,7 +29,7 @@ export const readableDate = (date: Date, withTime?: boolean) => {
 
 const getCurrentTimeZoneAbbreviation = () => {
   const lang = getLang()
-  const zone = new Date().toLocaleTimeString(lang , { timeZoneName:'short' }).split(' ')[2]
+  const zone = new Date().toLocaleTimeString(lang, { timeZoneName: 'short' }).split(' ')[2]
   return zone
 }
 
