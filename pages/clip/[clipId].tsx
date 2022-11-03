@@ -1,10 +1,11 @@
 import { GetServerSideProps } from 'next'
 import { useTranslation } from 'next-i18next'
 import OmniAural, { useOmniAural } from 'omniaural'
-import { addLightningBoltToString, checkIfVideoFileOrVideoLiveType, Episode, MediaRef } from 'podverse-shared'
+import { addLightningBoltToString, checkIfHasSupportedCommentTag, checkIfVideoFileOrVideoLiveType, Episode, MediaRef } from 'podverse-shared'
 import { getLightningKeysendValueItem } from 'podverse-shared'
 import { useEffect, useRef, useState } from 'react'
 import {
+  Chapters,
   ClipInfo,
   ClipListItem,
   ColumnsWrapper,
@@ -18,17 +19,19 @@ import {
   Pagination,
   SideContent,
   SideContentSection,
+  Transcripts,
   WebLNV4VForm
 } from '~/components'
 import { scrollToTopOfPageScrollableContent } from '~/components/PageScrollableContent/PageScrollableContent'
 import { calcListPageCount, prefixClipLabel } from '~/lib/utility/misc'
 import { Page } from '~/lib/utility/page'
 import { PV } from '~/resources'
-import { getMediaRefById, getMediaRefsByQuery } from '~/services/mediaRef'
+import { getMediaRefById, getMediaRefsByQuery, retrieveLatestChaptersForEpisodeId } from '~/services/mediaRef'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 import { OmniAuralState } from '~/state/omniauralState'
 
 interface ServerProps extends Page {
+  serverChapters: MediaRef[]
   serverClip: MediaRef
   serverClips: MediaRef[]
   serverClipsFilterPage: number
@@ -65,6 +68,7 @@ const clientQueryClips = async (episode: Episode, clipsFilterPage?: number, clip
 }
 
 export default function Clip({
+  serverChapters,
   serverClip,
   serverClips,
   serverClipsPageCount,
@@ -85,6 +89,9 @@ export default function Clip({
   const [clipsListData, setClipsListData] = useState<MediaRef[]>(serverClips)
   const [clipsPageCount, setClipsPageCount] = useState<number>(serverClipsPageCount)
   const initialRender = useRef(true)
+
+  const hasTranscripts = !!(episode?.transcript && episode?.transcript[0])
+  const hasChapters = serverChapters.length >= 1
 
   const valueEpisode = episode.value?.length > 0 ? episode.value : null
   const valuePodcast = episode.podcast.value?.length > 0 ? episode.podcast.value : null
@@ -191,6 +198,8 @@ export default function Clip({
             <>
               <ClipInfo episode={episode} mediaRef={serverClip} />
               <EpisodeInfo episode={episode} />
+              {hasTranscripts ? <Transcripts episode={episode} /> : null}
+              {hasChapters ? <Chapters chapters={serverChapters} episode={episode} /> : null}
               <PageHeader
                 isSubHeader
                 noMarginBottom
@@ -268,8 +277,16 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const serverClips = clipsListData
   const serverClipsPageCount = calcListPageCount(clipsListDataCount)
 
+  let serverChapters = []
+  if (serverClip.episode.chaptersUrl) {
+    const data = await retrieveLatestChaptersForEpisodeId(episode.id)
+    const [chapters] = data
+    serverChapters = chapters
+  }
+
   const props: ServerProps = {
     ...defaultServerProps,
+    serverChapters,
     serverClip,
     serverClips,
     serverClipsFilterPage,
