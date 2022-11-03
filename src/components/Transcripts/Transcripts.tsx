@@ -107,6 +107,14 @@ export const Transcripts = ({ episode }: Props) => {
     }
   }
 
+  const generateSingleLineTranscriptNode = (transcriptRow: TranscriptRow) => {
+    return (
+      <div className='transcript-row'>
+        <div className='transcript-row__text'>{transcriptRow.text}</div>
+      </div>
+    )
+  }
+
   const generateTranscriptRowNode = (transcriptRow: TranscriptRow) => {
     if (!transcriptRow) return null
 
@@ -124,10 +132,22 @@ export const Transcripts = ({ episode }: Props) => {
     )
   }
 
-  const transcriptRowNodes =
-    transcriptSearchRows?.length > 0
-      ? transcriptSearchRows?.map(generateTranscriptRowNode) || []
-      : transcriptRows?.map(generateTranscriptRowNode) || []
+  const generateTranscriptRowNodes = () => {
+    let transcriptRowNodes = []
+    if (transcriptSearchRows?.length > 0) {
+      transcriptRowNodes = transcriptSearchRows?.map(generateTranscriptRowNode) || []
+    } else {
+      if (transcriptRows?.length === 1) {
+        transcriptRowNodes = transcriptRows.map(generateSingleLineTranscriptNode) || []
+      } else {
+        transcriptRowNodes = transcriptRows.map(generateTranscriptRowNode) || []
+      }
+    }
+
+    return transcriptRowNodes
+  }
+
+  const transcriptRowNodes = generateTranscriptRowNodes()
 
   return (
     <div className='transcripts'>
