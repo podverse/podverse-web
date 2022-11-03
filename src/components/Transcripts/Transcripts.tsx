@@ -107,6 +107,14 @@ export const Transcripts = ({ episode }: Props) => {
     }
   }
 
+  const generateSingleLineTranscriptNode = (transcriptRow: TranscriptRow) => {
+    return (
+      <div className='transcript-row'>
+        <div className='transcript-row__text'>{transcriptRow.text}</div>
+      </div>
+    )
+  }
+
   const generateTranscriptRowNode = (transcriptRow: TranscriptRow) => {
     if (!transcriptRow) return null
 
@@ -124,10 +132,22 @@ export const Transcripts = ({ episode }: Props) => {
     )
   }
 
-  const transcriptRowNodes =
-    transcriptSearchRows?.length > 0
-      ? transcriptSearchRows?.map(generateTranscriptRowNode) || []
-      : transcriptRows?.map(generateTranscriptRowNode) || []
+  const generateTranscriptRowNodes = () => {
+    let transcriptRowNodes = []
+    if (transcriptSearchRows?.length > 0) {
+      transcriptRowNodes = transcriptSearchRows?.map(generateTranscriptRowNode) || []
+    } else {
+      if (transcriptRows?.length === 1) {
+        transcriptRowNodes = transcriptRows.map(generateSingleLineTranscriptNode) || []
+      } else {
+        transcriptRowNodes = transcriptRows.map(generateTranscriptRowNode) || []
+      }
+    }
+
+    return transcriptRowNodes
+  }
+
+  const transcriptRowNodes = generateTranscriptRowNodes()
 
   return (
     <div className='transcripts'>
@@ -137,12 +157,14 @@ export const Transcripts = ({ episode }: Props) => {
         isAutoScrollOn={autoScrollOn}
         isLoading={transcriptRowsLoading}
       >
-        <SearchBarFilter
-          handleClear={_handleSearchClear}
-          handleSubmit={_handleSearchSubmit}
-          placeholder={t('Transcript search')}
-          smaller
-        />
+        {transcriptRowNodes?.length > 1 && (
+          <SearchBarFilter
+            handleClear={_handleSearchClear}
+            handleSubmit={_handleSearchSubmit}
+            placeholder={t('Transcript search')}
+            smaller
+          />
+        )}
         <div className='transcripts-wrapper'>{transcriptRowNodes}</div>
       </MainContentSection>
       <hr />
