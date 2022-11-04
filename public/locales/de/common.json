@@ -374,7 +374,7 @@
     "category - science": "Wissenschaft",
     "category - societyculture": "Gesellschaft und Kultur",
     "pages-tutorials_Description": "Anleitungen und häufig gestellte Fragen zur Verwendung der Podverse Web- und Mobilanwendungen.",
-    "Tutorials": "Tutorials",
+    "Tutorials": "Anleitungen",
     "pages-tutorials_Title": "Tutorials",
     "filter sorting - top-past-day": "Gestern besonders beliebt",
     "category - sports": "Sport",
@@ -443,5 +443,6 @@
     "Maintenance mode subtext": "Sie wird wieder verfügbar sein, sobald die Aktualisierung abgeschlossen ist.",
     "Delete my account": "Mein Konto löschen",
     "Download my data explanation": "Herunterladen einer vollständigen Kopie Ihrer Daten aus unserer Datenbank.",
-    "Download my data": "Meine Daten herunterladen"
+    "Download my data": "Meine Daten herunterladen",
+    "Join our Matrix space": "Treten Sie unserem Matrix-Raum bei"
 }
