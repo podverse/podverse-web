@@ -379,7 +379,7 @@ const generateSections = (t: any) =>
           <li>Select a destination for your OPML file.</li>
           </ol>`,
           // mobilePreviewVideoEmbed: PV.PreviewVideoEmbeds(t).videos.mobile,
-          webExplanation: notAvailableTextWeb,
+          webExplanation: notAvailableTextWeb
           // webPreviewVideoEmbed: PV.PreviewVideoEmbeds(t).videos.web
         },
         {
@@ -392,7 +392,7 @@ const generateSections = (t: any) =>
           <li>Find the OPML file you'd like to import on your device.</li>
           </ol>`,
           // mobilePreviewVideoEmbed: PV.PreviewVideoEmbeds(t).videos.mobile,
-          webExplanation: notAvailableTextWeb,
+          webExplanation: notAvailableTextWeb
           // webPreviewVideoEmbed: PV.PreviewVideoEmbeds(t).videos.web
         }
       ]
