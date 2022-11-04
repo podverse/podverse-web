@@ -79,6 +79,9 @@ export const RoutePaths = {
     profile: `/profile`,
     profiles: `/profiles`,
     queue: '/queue',
+    redirects: {
+      matrixSpaceInvite: '/redirects/matrix-space-invite'
+    },
     reset_password: `/reset-password`,
     search: `/search`,
     settings_membership: `/settings#membership`,
