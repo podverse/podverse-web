@@ -145,14 +145,24 @@ export const EmbedPlayerHeader = ({ hideFullView }: Props) => {
           >
             {playSpeed}x
           </PlayerOptionButton>
-          <ButtonCircle
-            ariaLabel={paused ? t('Play') : t('Pause')}
-            ariaPressed
-            className={playpause}
-            faIcon={paused ? faPlay : faPause}
-            onClick={_handleTogglePlay}
-            size={'medium'}
-          />
+          <div className='play-button-wrapper'>
+            <ButtonCircle
+              ariaLabel={paused ? t('Play') : t('Pause')}
+              ariaPressed
+              className={`${playpause} hide-below-mobile-max-width`}
+              faIcon={paused ? faPlay : faPause}
+              onClick={_handleTogglePlay}
+              size={'medium'}
+            />
+            <ButtonCircle
+              ariaLabel={paused ? t('Play') : t('Pause')}
+              ariaPressed
+              className={`${playpause} hide-above-tablet-min-width`}
+              faIcon={paused ? faPlay : faPause}
+              onClick={_handleTogglePlay}
+              size={'small'}
+            />
+          </div>
         </div>
       </div>
     </div>

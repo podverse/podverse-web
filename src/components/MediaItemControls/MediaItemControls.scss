@@ -17,10 +17,15 @@
   display: flex;
   flex-direction: row;
 
+  .button-circle.play,
+  .button-circle.pause {
+    margin-right: 14px;
+  }
+
   .time-wrapper {
     align-items: center;
     display: flex;
-    margin: 0 16px 0 14px;
+    margin: 0 16px 0 0;
 
     .status-badge {
       margin: 0 12px 0 -2px;

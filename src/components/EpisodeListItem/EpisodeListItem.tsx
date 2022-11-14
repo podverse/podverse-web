@@ -13,6 +13,7 @@ type Props = {
   episode?: Episode
   handleRemove?: any
   imageUrl?: string
+  isLiveItemNotLive?: boolean
   liveItem?: LiveItem
   podcast?: Podcast
   serverCookies?: any
@@ -23,6 +24,7 @@ type Props = {
 export const EpisodeListItem = ({
   episode,
   handleRemove,
+  isLiveItemNotLive,
   liveItem,
   podcast,
   serverCookies,
@@ -76,7 +78,13 @@ export const EpisodeListItem = ({
               />
             </div>
           </PVLink>
-          <MediaItemControls buttonSize='medium' episode={episode} podcast={podcast} stretchMiddleContent />
+          <MediaItemControls
+            buttonSize='medium'
+            episode={episode}
+            isLiveItemNotLive={isLiveItemNotLive}
+            podcast={podcast}
+            stretchMiddleContent
+          />
         </div>
         {showRemoveButton && (
           <div className='side-wrapper'>

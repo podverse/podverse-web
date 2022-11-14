@@ -142,6 +142,8 @@ function MyApp({ Component, pageProps }) {
         initializeMatomo()
         matomoTrackPageView()
       }
+
+      return () => window.removeEventListener('resize', resetHeight)
     })()
   }, [])
 
@@ -178,7 +180,7 @@ function MyApp({ Component, pageProps }) {
 
     return (
       <>
-        <Script async id='webln-v4v' src='https://cdn.jsdelivr.net/npm/webln-v4v@1.0.0-beta.25/dist/webcomponent.js' />
+        <Script async id='webln-v4v' src='https://cdn.jsdelivr.net/npm/webln-v4v@1.0.0-beta.33/dist/webcomponent.js' />
         <CookiesProvider>
           <ToastProvider>
             <div className='app'>

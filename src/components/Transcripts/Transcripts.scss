@@ -23,6 +23,7 @@
 
       .transcript-row__text {
         font-size: $text-lg;
+        line-height: 27px;
         flex: 1;
       }
 
@@ -30,6 +31,7 @@
         align-items: center;
         display: flex;
         font-size: $text-md;
+        line-height: 27px;
         margin-left: 16px;
       }
     }

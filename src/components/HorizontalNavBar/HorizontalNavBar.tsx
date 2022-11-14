@@ -75,6 +75,7 @@ export const HorizontalNavBar = ({ serverCookies }: Props) => {
             faIcon={userInfo ? faUserCircle : faUserCircleRegular}
             onChange={(selected) => PV.NavBar.dropdownOnChange(selected, router, userInfo)}
             options={dropdownItems}
+            text={userInfo?.name}
           />
         </div>
         <div className='navbar-secondary__theme-toggle'>

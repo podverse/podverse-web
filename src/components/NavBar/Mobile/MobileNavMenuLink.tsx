@@ -6,14 +6,22 @@ type Props = {
   active: boolean
   handleHideMenu: any
   href: string
+  onClick?: any
   text: string
 }
 
-export const MobileNavMenuLink = ({ active, handleHideMenu, href, text }: Props) => {
+export const MobileNavMenuLink = ({ active, handleHideMenu, href, onClick, text }: Props) => {
   const wrapperClass = classNames('mobile-nav-menu-link', { active })
 
   return (
-    <PVLink className={wrapperClass} href={href} onClick={handleHideMenu}>
+    <PVLink
+      className={wrapperClass}
+      href={href}
+      onClick={() => {
+        handleHideMenu()
+        onClick?.()
+      }}
+    >
       {text}
       {active && <Icon faIcon={faCheck} />}
     </PVLink>

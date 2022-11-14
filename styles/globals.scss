@@ -178,6 +178,18 @@ body {
     }
   }
 
+  .link {
+    @include themeGen() {
+      color: getThemeVal('textLink');
+    }
+
+    &:hover {
+      @include themeGen() {
+        color: getThemeVal('textLinkHover');
+      }
+    }
+  }
+
   h1 {
     font-size: $text-huge;
     font-weight: $font-weight-light;
@@ -299,6 +311,14 @@ body {
 
   .time-spacer {
     margin: 0 4px;
+  }
+
+  .no-wrap {
+    white-space: nowrap;
+  }
+
+  .button-explanation {
+    margin-top: 16px;
   }
 }
 

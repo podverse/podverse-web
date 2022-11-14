@@ -7,8 +7,8 @@ import { ButtonClose, ButtonLink } from '~/components'
 import {
   addOrRemovePlaylistItemEpisode,
   addOrRemovePlaylistItemMediaRef,
-  createPlaylist,
-  getLoggedInUserPlaylists
+  getLoggedInUserPlaylists,
+  promptAndCreatePlaylist
 } from '~/services/playlist'
 import type { OmniAuralState } from '~/state/omniauralState'
 
@@ -23,10 +23,8 @@ export const AddToPlaylistModal = (props: Props) => {
   /* Function Helpers */
 
   const _handleCreatePlaylist = async () => {
-    const title = window.prompt(t('Type a title for your playlist'))
-    // title will be null if user presses Cancel
-    if (title !== null) {
-      const newPlaylist = await createPlaylist({ title })
+    const newPlaylist = await promptAndCreatePlaylist(t)
+    if (newPlaylist) {
       const newPlaylists = [newPlaylist, ...playlists]
       setPlaylists(newPlaylists)
     }

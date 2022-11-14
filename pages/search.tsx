@@ -19,6 +19,7 @@ import { getPodcastsByQuery } from '~/services/podcast'
 import { scrollToTopOfPageScrollableContent } from '~/components/PageScrollableContent/PageScrollableContent'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 import { OmniAuralState } from '~/state/omniauralState'
+import { determinePageCount } from '~/lib/utility/pagination'
 
 interface ServerProps extends Page {
   serverCookies: any
@@ -65,18 +66,20 @@ export default function Search({ serverCookies, serverSearchByText }: ServerProp
   const [filterSearchByText, setFilterSearchByText] = useState<string>(serverSearchByText || '')
   const [filterSearchByType, setFilterSearchByType] = useState<string>(PV.Filters.search.queryParams.podcast)
   const [isInitialLoad, setIsInitialLoad] = useState<boolean>(true)
-  const pageCount = Math.ceil(podcastsListDataCount / PV.Config.QUERY_RESULTS_LIMIT_DEFAULT)
+  const pageCount = determinePageCount(filterPage, podcastsListData, podcastsListDataCount, !!filterSearchByText)
 
   /* useEffects */
 
   useEffect(() => {
     ;(async () => {
+      window.addEventListener('navbar-link-clicked-search', _handleSearchClear)
       if (filterSearchByText) {
         const { data } = await clientQueryPodcasts(filterSearchByText, filterPage, filterSearchByType)
         const [newPodcastsListData, newPodcastsListCount] = data
         setPodcastsListData(newPodcastsListData)
         setPodcastsListDataCount(newPodcastsListCount)
       }
+      return () => window.removeEventListener('navbar-link-clicked-search', _handleSearchClear)
     })()
   }, [])
 
@@ -93,6 +96,19 @@ export default function Search({ serverCookies, serverSearchByText }: ServerProp
       OmniAural.pageIsLoadingHide()
     })()
   }, [filterSearchByText, filterSearchByType, filterPage])
+
+  /* Helper Functions */
+
+  const _handleSearchClear = () => {
+    setIsInitialLoad(true)
+    _handleSearchSubmit('')
+  }
+
+  const _handleSearchSubmit = (value: string) => {
+    if (isInitialLoad) setIsInitialLoad(false)
+    setFilterSearchByText(value)
+    setFilterPage(1)
+  }
 
   /* Render Helpers */
 
@@ -139,11 +155,8 @@ export default function Search({ serverCookies, serverSearchByText }: ServerProp
       />
       <SearchPageInput
         defaultValue={serverSearchByText}
-        handleSubmit={(value) => {
-          if (isInitialLoad) setIsInitialLoad(false)
-          setFilterSearchByText(value)
-          setFilterPage(1)
-        }}
+        handleClear={_handleSearchClear}
+        handleSubmit={_handleSearchSubmit}
         label={t('Podcast title')}
         placeholder={t('Search')}
       />

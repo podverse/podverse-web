@@ -40,6 +40,12 @@ export default function Tutorials(props: ServerProps) {
     const isMobileOrTablet = mobileAndTabletCheck()
     setIsMobileOrTablet(isMobileOrTablet)
     setIsLoading(false)
+
+    if (window?.location?.hash) {
+      setTimeout(() => {
+        document.querySelector(window.location.hash)?.scrollIntoView()
+      }, 100)
+    }
   }, [])
 
   /* Meta Tags */
@@ -372,9 +378,9 @@ const generateSections = (t: any) =>
           <li>Tap Export OPML.</li>
           <li>Select a destination for your OPML file.</li>
           </ol>`,
-          mobilePreviewVideoEmbed: PV.PreviewVideoEmbeds(t).videos.mobile,
-          webExplanation: notAvailableTextWeb,
-          webPreviewVideoEmbed: PV.PreviewVideoEmbeds(t).videos.web
+          // mobilePreviewVideoEmbed: PV.PreviewVideoEmbeds(t).videos.mobile,
+          webExplanation: notAvailableTextWeb
+          // webPreviewVideoEmbed: PV.PreviewVideoEmbeds(t).videos.web
         },
         {
           title: `Import OPML`,
@@ -385,9 +391,9 @@ const generateSections = (t: any) =>
           <li>Tap Import OPML.</li>
           <li>Find the OPML file you'd like to import on your device.</li>
           </ol>`,
-          mobilePreviewVideoEmbed: PV.PreviewVideoEmbeds(t).videos.mobile,
-          webExplanation: notAvailableTextWeb,
-          webPreviewVideoEmbed: PV.PreviewVideoEmbeds(t).videos.web
+          // mobilePreviewVideoEmbed: PV.PreviewVideoEmbeds(t).videos.mobile,
+          webExplanation: notAvailableTextWeb
+          // webPreviewVideoEmbed: PV.PreviewVideoEmbeds(t).videos.web
         }
       ]
     },

@@ -6,6 +6,7 @@ import { useState } from 'react'
 import { ButtonCircle, ButtonRectangle } from '..'
 
 type Props = {
+  autoFocus?: boolean
   defaultValue?: string
   disabled?: boolean
   endButtonClass?: string
@@ -31,6 +32,7 @@ type Props = {
 }
 
 export const TextInput = ({
+  autoFocus,
   defaultValue,
   disabled,
   endButtonClass,
@@ -85,6 +87,7 @@ export const TextInput = ({
           {!!tempValue && label && <div className='eyebrow'>{label}</div>}
           <input
             aria-label={label}
+            autoFocus={autoFocus}
             defaultValue={defaultValue}
             disabled={disabled}
             onBlur={onBlur}

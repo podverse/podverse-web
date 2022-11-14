@@ -10,6 +10,7 @@ import {
   MakeClipModal,
   ShareModal,
   SignUpModal,
+  V4VBoostSentModal,
   VerifyEmailModal
 } from '~/components'
 import { MakeClipSuccessModal } from '../MakeClip/MakeClipSuccessModal'
@@ -31,6 +32,7 @@ export const Modals = (props: Props) => {
       <MakeClipSuccessModal />
       <ShareModal />
       <SignUpModal />
+      <V4VBoostSentModal />
       <VerifyEmailModal />
     </>
   )

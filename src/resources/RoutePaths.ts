@@ -62,12 +62,14 @@ export const RoutePaths = {
     history: '/history',
     home: `/`,
     license: `https://www.gnu.org/licenses/agpl-3.0.en.html`,
+    livestreams: '/livestreams',
     membership: `/membership`,
     miniplayer: {
       clip: '/miniplayer/clip',
       episode: '/miniplayer/episode'
     },
     my_profile_clips: `/my-profile?type=clips`,
+    my_profile_playlists: `/my-profile?type=playlists`,
     my_profile: `/my-profile`,
     payment_paypal_confirming: `/payment/paypal-confirming`,
     playlist: `/playlist`,
@@ -77,6 +79,9 @@ export const RoutePaths = {
     profile: `/profile`,
     profiles: `/profiles`,
     queue: '/queue',
+    redirects: {
+      matrixSpaceInvite: '/redirects/matrix-space-invite'
+    },
     reset_password: `/reset-password`,
     search: `/search`,
     settings_membership: `/settings#membership`,

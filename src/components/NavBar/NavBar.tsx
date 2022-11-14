@@ -5,6 +5,7 @@ import { useOmniAural } from 'omniaural'
 import { NavBarBrand, NavBarLink, NavBarSectionHeader } from '~/components'
 import { PV } from '~/resources'
 import { OmniAuralState } from '~/state/omniauralState'
+import { eventNavBarLinkClicked } from '~/lib/utility/events'
 
 type Props = unknown
 
@@ -20,6 +21,7 @@ export const NavBar = (props: Props) => {
         active={router.pathname == PV.RoutePaths.web.search}
         faIconBeginning={faSearch}
         href={PV.RoutePaths.web.search}
+        onClick={() => eventNavBarLinkClicked('search')}
         text={t('Search')}
       />
       <hr aria-hidden='true' className='top' />
@@ -27,17 +29,25 @@ export const NavBar = (props: Props) => {
         <NavBarLink
           active={router.pathname == PV.RoutePaths.web.podcasts || router.pathname == PV.RoutePaths.web.home}
           href={PV.RoutePaths.web.podcasts}
+          onClick={() => eventNavBarLinkClicked('podcasts')}
           text={t('Podcasts')}
         />
         <NavBarLink
           active={router.pathname == PV.RoutePaths.web.episodes}
           href={PV.RoutePaths.web.episodes}
+          onClick={() => eventNavBarLinkClicked('episodes')}
           text={t('Episodes')}
         />
         <NavBarLink
           active={router.pathname == PV.RoutePaths.web.clips}
           href={PV.RoutePaths.web.clips}
+          onClick={() => eventNavBarLinkClicked('clips')}
           text={t('Clips')}
+        />
+        <NavBarLink
+          active={router.pathname == PV.RoutePaths.web.livestreams}
+          href={PV.RoutePaths.web.livestreams}
+          text={t('Livestreams')}
         />
         <hr className='bottom' />
         <NavBarSectionHeader text={t('MyLibrary')} />
@@ -52,9 +62,18 @@ export const NavBar = (props: Props) => {
           text={t('History')}
         />
         <NavBarLink
-          active={router.pathname == PV.RoutePaths.web.my_profile}
-          href={userInfo ? `${PV.RoutePaths.web.profile}/${userInfo.id}` : `${PV.RoutePaths.web.my_profile}`}
+          active={
+            userInfo
+              ? router.asPath == `${PV.RoutePaths.web.profile}/${userInfo.id}`
+              : router.pathname == PV.RoutePaths.web.my_profile
+          }
+          href={userInfo ? `${PV.RoutePaths.web.profile}/${userInfo.id}` : PV.RoutePaths.web.my_profile}
           text={t('MyProfile')}
+        />
+        <NavBarLink
+          active={userInfo && router.asPath == `${PV.RoutePaths.web.profile}/${userInfo.id}?type=clips`}
+          href={userInfo ? `${PV.RoutePaths.web.profile}/${userInfo.id}?type=clips` : `${PV.RoutePaths.web.my_profile}`}
+          text={t('MyClips')}
         />
         <NavBarLink
           active={router.pathname == PV.RoutePaths.web.playlists}

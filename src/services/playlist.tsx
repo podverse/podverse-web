@@ -22,10 +22,10 @@ const getLoggedInUserPlaylistsCombinedFromServer = async (bearerToken?: string) 
   return { createdPlaylists, subscribedPlaylists }
 }
 
-export const getLoggedInUserPlaylists = async () => {
+export const getLoggedInUserPlaylists = async (bearerToken?: string) => {
   const response = await request({
     endpoint: '/user/playlists',
-    ...getAuthCredentialsHeaders()
+    ...getAuthCredentialsHeaders(bearerToken)
   })
 
   return response && response.data
@@ -143,4 +143,14 @@ export const createPlaylist = async (data: any) => {
   })
 
   return response && response.data
+}
+
+export const promptAndCreatePlaylist = async (t: any) => {
+  const title = window.prompt(t('Type a title for your playlist'))
+  // title will be null if user presses Cancel
+  let newPlaylist = null
+  if (title !== null) {
+    newPlaylist = await createPlaylist({ title })
+  }
+  return newPlaylist
 }

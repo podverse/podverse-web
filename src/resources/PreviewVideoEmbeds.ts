@@ -113,7 +113,7 @@ export const PreviewVideoEmbeds = (t: any) => {
           text: t('features - add or remove playlist items'),
           width: 560,
           height: 315,
-          src: 'https://peertube.podverse.fm/videos/embed/2a1d5f03-7415-4462-9758-738f7c93f68c'
+          src: 'https://peertube.podverse.fm/videos/embed/f38ca228-7785-4b63-8da3-2856c6befdbd'
         },
         web: {
           text: t('features - add or remove playlist items'),

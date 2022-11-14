@@ -1,4 +1,5 @@
 import { getAuthCredentialsHeaders } from '~/lib/utility/auth'
+import { PV } from '~/resources'
 import { request } from '~/services/request'
 
 export const getPublicUser = async (id: string) => {
@@ -50,4 +51,8 @@ export const deleteAccount = async () => {
     method: 'DELETE',
     ...getAuthCredentialsHeaders()
   })
+}
+
+export const downloadMyData = async () => {
+  window.open(`${PV.Config.API_BASE_URL}/user/download`, '_blank')
 }

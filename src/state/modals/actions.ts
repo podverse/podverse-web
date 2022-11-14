@@ -8,6 +8,7 @@ import './login/actions'
 import './loginToAlert/actions'
 import './share/actions'
 import './signUp/actions'
+import './v4vBoostSentInfo/actions'
 import './verifyEmail/actions'
 
 import OmniAural from 'omniaural'
@@ -23,6 +24,7 @@ const modalsHideAll = () => {
   OmniAural.modalsLoginToAlertHide()
   OmniAural.modalsShareHide()
   OmniAural.modalsSignUpHide()
+  OmniAural.modalsV4VBoostSentInfoHide()
   OmniAural.modalsVerifyEmailHide()
 }
 

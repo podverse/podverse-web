@@ -18,8 +18,19 @@ import { convertSecToHhoursMMinutes, getTimeLabelText, readableClipTime } from '
 
 export const readableDate = (date: Date, withTime?: boolean) => {
   moment.locale(getLang())
-  const format = withTime ? 'MMMM Do YYYY, h:mm:ss a' : 'MMM Do YYYY'
-  return moment(date).format(format)
+  const format = withTime ? 'MMMM Do YYYY, h:mm:ss A' : 'MMM Do YYYY'
+  let dateText = moment(date).format(format)
+  if (withTime) {
+    const timeZoneAbbreviation = getCurrentTimeZoneAbbreviation()
+    dateText += ` ${timeZoneAbbreviation}`
+  }
+  return dateText
+}
+
+const getCurrentTimeZoneAbbreviation = () => {
+  const lang = getLang()
+  const zone = new Date().toLocaleTimeString(lang, { timeZoneName: 'short' }).split(' ')[2]
+  return zone
 }
 
 Date.prototype.addDays = function (days) {
