@@ -89,9 +89,14 @@
         width: 38px;
       }
 
-      .play,
-      .pause {
-        margin-left: 10px;
+      .play-button-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        .play,
+        .pause {
+          margin-left: 10px;
+        }
       }
     }
   }
