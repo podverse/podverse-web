@@ -79,7 +79,7 @@
     "send us an email": "Envoyez-nous un e-mail",
     "Settings": "Paramètres",
     "Share": "Partager",
-    "Share Clip": "Partager l'extrait",
+    "Share Clip": "Partager le clip",
     "Show all podcasts": "Afficher tous les podcasts",
     "Sign up modal": "Inscription",
     "Skip to page": "Aller à la page",
@@ -421,5 +421,9 @@
     "pages-account-claim-token_Title": "Jeton de réclamation de compte",
     "This token has been claimed": "Ce jeton a été réclamé ou il n'existe pas.",
     "Transcript": "Transcription",
-    "Value-4-Value": "Valeur pour valeur"
+    "Value-4-Value": "Valeur pour valeur",
+    "Join our Matrix space": "Rejoignez notre espace Matrix",
+    "Download my data": "Télécharger mes données",
+    "Download my data explanation": "Téléchargez une copie complète de vos données à partir de notre base de données.",
+    "Chat Room": "Salle de chat"
 }
