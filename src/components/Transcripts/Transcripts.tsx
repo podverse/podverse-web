@@ -21,6 +21,7 @@ export const Transcripts = ({ episode }: Props) => {
   const [transcriptRows, setTranscriptRows] = useState<TranscriptRow[]>([])
   const [transcriptRowsLoading, setTranscriptRowsLoading] = useState<boolean>(false)
   const [transcriptSearchRows, setTranscriptSearchRows] = useState<TranscriptRow[]>([])
+  const [hasMultilineTranscript, setHasMultilineTranscript] = useState<boolean>(false)
 
   useEffect(() => {
     const transcriptTag = episode?.transcript && episode?.transcript[0]
@@ -30,6 +31,7 @@ export const Transcripts = ({ episode }: Props) => {
         setTranscriptRowsLoading(true)
         const parsedTranscriptRows = await getEpisodeProxyTranscript(episode.id)
         setTranscriptRows(parsedTranscriptRows)
+        setHasMultilineTranscript(parsedTranscriptRows.length > 1)
         setTranscriptRowsLoading(false)
       }
     })()
@@ -157,7 +159,7 @@ export const Transcripts = ({ episode }: Props) => {
         isAutoScrollOn={autoScrollOn}
         isLoading={transcriptRowsLoading}
       >
-        {transcriptRowNodes?.length > 1 && (
+        {hasMultilineTranscript && (
           <SearchBarFilter
             handleClear={_handleSearchClear}
             handleSubmit={_handleSearchSubmit}
