@@ -11,13 +11,14 @@ type PVRequest = {
   method?: string
   opts?: any
   query?: Record<string, unknown>
+  timeout?: number
   url?: string
   withCredentials?: boolean
 }
 
 export const request = async (req: PVRequest) => {
   try {
-    const { body, endpoint = '', headers, method = 'GET', opts = {}, query = {}, url, withCredentials } = req
+    const { body, endpoint = '', headers, method = 'GET', opts = {}, query = {}, timeout, url, withCredentials } = req
 
     const queryString = Object.keys(query)
       .map((key) => {
@@ -26,7 +27,7 @@ export const request = async (req: PVRequest) => {
       .join('&')
 
     const axiosRequest = {
-      timeout: 30000,
+      timeout: timeout || 30000,
       ...(body ? { data: body } : {}),
       ...(headers ? { headers } : {}),
       method,
