@@ -9,6 +9,7 @@ export const sendPodpingLiveStatusUpdate = async (feedUrl: string, status: 'live
       feedUrl,
       status
     },
+    timeout: 90000,
     ...getAuthCredentialsHeaders()
   })
 
