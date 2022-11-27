@@ -73,7 +73,7 @@ export const Footer = () => {
   )
 
   return (
-    <footer className='footer'>
+    <footer className='footer' role='contentinfo'>
       <hr aria-hidden='true' />
       <div className='footer-top'>
         <NavBarBrand height={28} href={PV.RoutePaths.web.home} width={150} />
