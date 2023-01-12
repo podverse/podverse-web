@@ -89,7 +89,7 @@ export const RoutePaths = {
     terms: `/terms`,
     tutorials: `/tutorials`,
     unspam: `http://www.unspam.com/noemailcollection/`,
-    v4vWallet: `/v4v-wallet`,
+    v4v_wallet: `/v4v-wallet`,
     verify_email: `/verify-email`,
     videoplayer: {
       clip: '/videoplayer/clip',
