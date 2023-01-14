@@ -19,7 +19,7 @@ export function FeatureComparisonTable({ aboveSectionNodes, leftAlignedStyle }: 
       headerText={t('Features')}
       leftAlignedStyle={leftAlignedStyle}
       legendAsterisk={t('Feature is only available in the mobile app')}
-      legendAsterisk2={t('Feature is only available on the website')}
+      // legendAsterisk2={t('Feature is only available on the website')}
     />
   )
 }
@@ -41,35 +41,34 @@ const featuresData = (t) => [
     previewVideoEmbed: PV.PreviewVideoEmbeds(t).episodes.download.mobile
   },
   {
-    text: t('features - livestreams'),
-    icon1: true,
-    icon2: true,
-    previewVideoEmbed: PV.PreviewVideoEmbeds(t).liveStreams.audio.mobile
-  },
-  {
     text: t('features - video playback'),
     icon1: true,
     icon2: true,
     previewVideoEmbed: PV.PreviewVideoEmbeds(t).videos.web
   },
   {
-    text: t('Send Bitcoin donations and boostagrams to podcasters'),
+    text: t('features - livestreams'),
+    icon1: true,
+    icon2: true,
+    previewVideoEmbed: PV.PreviewVideoEmbeds(t).liveStreams.audio.mobile
+  },
+  {
+    text: t('features - apple carplay'),
+    icon1: true,
+    icon2: true
+  },
+  {
+    text: t('features - value for value boostagrams'),
     icon1: true,
     icon2: true,
     previewVideoEmbed: PV.PreviewVideoEmbeds(t).value4Value.bitcoin.web
   },
-  // {
-  //   text: t('features - sleep timer'),
-  //   icon1: true,
-  //   icon1Asterisk: true,
-  //   icon2: true,
-  //   icon2Asterisk: true,
-  //   previewVideoEmbed: PV.PreviewVideoEmbeds(t).sleepTimer.mobile
-  // },
   {
-    text: t('features - screen-reader accessibility'),
+    text: t('features - value for value streaming'),
     icon1: true,
-    icon2: true
+    icon1Asterisk: true,
+    icon2: true,
+    icon2Asterisk: true
   },
   {
     text: t('features - podcasting 2.0 chapters'),
@@ -104,6 +103,19 @@ const featuresData = (t) => [
     icon1Asterisk: true,
     icon2: true,
     icon2Asterisk: true
+  },
+  {
+    text: t('features - sleep timer'),
+    icon1: true,
+    icon1Asterisk: true,
+    icon2: true,
+    icon2Asterisk: true,
+    previewVideoEmbed: PV.PreviewVideoEmbeds(t).sleepTimer.mobile
+  },
+  {
+    text: t('features - screen-reader accessibility'),
+    icon1: true,
+    icon2: true
   },
   {
     text: t('features - Sync your subscriptions, queue, and history across all your devices'),
