@@ -19,16 +19,7 @@ type Props = {
   linkUrl?: string
   onClick?: any
   size: 'small' | 'medium' | 'large'
-  type:
-    | 'speed'
-    | 'add'
-    | 'make-clip'
-    | 'share'
-    | 'fullscreen-hide'
-    | 'fullscreen-show'
-    | 'mute'
-    | 'unmute'
-    | 'value-enabled'
+  type: 'add' | 'make-clip' | 'share' | 'fullscreen-hide' | 'fullscreen-show' | 'mute' | 'unmute' | 'value-enabled'
   children?: any
 }
 
@@ -46,9 +37,6 @@ export const PlayerOptionButton = ({
   const wrapperClass = classnames(className, 'player-option-button', size)
   let icon = null
   switch (type) {
-    case 'speed':
-      icon = null
-      break
     case 'add':
       icon = faPlus
       break

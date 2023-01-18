@@ -1,8 +1,15 @@
 import classnames from 'classnames'
 import OmniAural, { useOmniAural } from 'omniaural'
 import { PlayerOptionButton } from './options/PlayerOptionButton'
+import { PlaySpeed } from './options/PlaySpeed'
 import { Slider } from '../Slider/Slider'
-import { playerGetPosition, playerMute, playerNextSpeed, playerSetVolume, playerUnmute } from '~/services/player/player'
+import {
+  playerGetPosition,
+  playerMute,
+  playerSetPlaybackSpeed,
+  playerSetVolume,
+  playerUnmute
+} from '~/services/player/player'
 import { modalsAddToPlaylistShowOrAlert } from '~/state/modals/addToPlaylist/actions'
 import { convertSecToHHMMSS } from '~/lib/utility/time'
 import { OmniAuralState } from '~/state/omniauralState'
@@ -37,14 +44,7 @@ export const PlayerItemButtons = (props: Props) => {
                 type='add'
               />
             )}
-            <PlayerOptionButton
-              ariaDescription={t('Playback speed')}
-              onClick={() => playerNextSpeed(cookies, setCookie)}
-              size='small'
-              type='speed'
-            >
-              {playSpeed}x
-            </PlayerOptionButton>
+            <PlaySpeed ariaDescription={t('Playback speed')} onChange={playerSetPlaybackSpeed} playSpeed={playSpeed} />
             {!isEmbed && (
               <PlayerOptionButton
                 ariaLabel={t('Make Clip')}
