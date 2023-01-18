@@ -23,7 +23,7 @@ export const PlaySpeed = ({ ariaDescription, ariaLabel, ariaPressed, className, 
         aria-pressed={ariaPressed}
         // options={[]}
         options={[
-          { i18nKey: `Custom (${playSpeed})`, value: 3, key: '_custom' },
+          { i18nKey: `Custom (${playSpeed})`, value: -1, key: '_custom' },
           { i18nKey: '0.5', value: 0.5, key: '_playKey' },
           { i18nKey: '0.75', value: 0.75, key: '_queueNextKey' },
           { i18nKey: '1', value: 1, key: '_queueLastKey' },
@@ -47,7 +47,17 @@ export const PlaySpeed = ({ ariaDescription, ariaLabel, ariaPressed, className, 
         inlineElementStyle={false}
         // isLabelUrl?: boolean
         onChange={(a) => {
-          onChange(a[0].value)
+          let newSpeed = null
+
+          if (a[0].value === -1) {
+            const promptInput = prompt('Please enter your play speed', '3.12')
+            // TODO: add validation
+            newSpeed = parseFloat(promptInput)
+            onChange(newSpeed)
+          } else {
+            newSpeed = a[0].value
+            onChange(newSpeed)
+          }
         }}
         // options: any[]
         outlineStyle={false}
