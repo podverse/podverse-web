@@ -1,5 +1,6 @@
 import classnames from 'classnames'
 import { Dropdown } from '~/components'
+import { PV } from '~/resources'
 
 type Props = {
   ariaDescription?: string
@@ -16,22 +17,14 @@ type Props = {
 export const PlaySpeed = ({ ariaDescription, ariaLabel, ariaPressed, className, onChange, playSpeed }: Props) => {
   const wrapperClass = classnames(className, 'player-option-button')
 
+  const DropdownOptions = PV.Player.speedOptions
+
   return (
     <div className={wrapperClass}>
       <Dropdown
         aria-label={ariaLabel}
         aria-pressed={ariaPressed}
-        // options={[]}
-        options={[
-          { i18nKey: `Custom (${playSpeed})`, value: -1, key: '_custom' },
-          { i18nKey: '0.5', value: 0.5, key: '_playKey' },
-          { i18nKey: '0.75', value: 0.75, key: '_queueNextKey' },
-          { i18nKey: '1', value: 1, key: '_queueLastKey' },
-          { i18nKey: '1.25', value: 1.25, key: '_addToPlaylistKey' },
-          { i18nKey: '1.50', value: 1.5, key: '_shareKey' },
-          { i18nKey: '1.75', value: 1.75, key: '_key1' },
-          { i18nKey: '2', value: 2, key: '_key2' }
-        ]}
+        options={DropdownOptions}
         dropdownAriaLabel={ariaDescription}
         dropdownPosition={'top'}
         dropdownWidthClass={

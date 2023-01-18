@@ -180,7 +180,7 @@ export const playerSeekTo = (position: number) => {
   }
 }
 
-// TODO: look reference and change this fucntion
+// TODO:SS look reference and change this fucntion
 export const playerNextSpeed = (cookies: any, setCookie: any) => {
   const currentSpeed = OmniAural.state.player.playSpeed.value()
   const currentIndex = PV.Player.speeds.indexOf(currentSpeed)
@@ -234,6 +234,8 @@ export const playerSetPlaybackSpeed = (newSpeed: number) => {
 
 const playerGetCurrentPlaybackSpeed = () => {
   const currentSpeed = OmniAural.state.player.playSpeed.value()
+  // TODO:SS this 2 lines are unnecessary
+  //  sometime refresh make current speed be undefidned
   const currentIndex = PV.Player.speeds.indexOf(currentSpeed)
   const playSpeed = PV.Player.speeds[currentIndex]
   return playSpeed
