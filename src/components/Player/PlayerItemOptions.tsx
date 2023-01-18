@@ -6,7 +6,7 @@ import { Slider } from '../Slider/Slider'
 import {
   playerGetPosition,
   playerMute,
-  playerSetPlaybackSpeed,
+  playerSetPlaybackSpeedAndCookies,
   playerSetVolume,
   playerUnmute
 } from '~/services/player/player'
@@ -44,7 +44,11 @@ export const PlayerItemButtons = (props: Props) => {
                 type='add'
               />
             )}
-            <PlaySpeed ariaDescription={t('Playback speed')} onChange={playerSetPlaybackSpeed} playSpeed={playSpeed} />
+            <PlaySpeed
+              ariaDescription={t('Playback speed')}
+              onChange={(newSpeed) => playerSetPlaybackSpeedAndCookies(newSpeed, cookies, setCookie)}
+              playSpeed={playSpeed}
+            />
             {!isEmbed && (
               <PlayerOptionButton
                 ariaLabel={t('Make Clip')}
