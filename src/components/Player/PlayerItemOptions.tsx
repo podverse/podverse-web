@@ -47,6 +47,7 @@ export const PlayerItemButtons = (props: Props) => {
             <PlaySpeed
               ariaDescription={t('Playback speed')}
               onChange={(newSpeed) => playerSetPlaybackSpeedAndCookies(newSpeed, cookies, setCookie)}
+              size='small'
               playSpeed={playSpeed}
             />
             {!isEmbed && (

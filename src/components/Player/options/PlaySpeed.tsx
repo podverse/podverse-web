@@ -14,8 +14,8 @@ type Props = {
   children?: any
 }
 
-export const PlaySpeed = ({ ariaDescription, ariaLabel, ariaPressed, className, onChange, playSpeed }: Props) => {
-  const wrapperClass = classnames(className, 'player-option-button')
+export const PlaySpeed = ({ ariaDescription, ariaLabel, ariaPressed, className, onChange, playSpeed, size }: Props) => {
+  const wrapperClass = classnames(className, 'player-option-button', size)
 
   const DropdownOptions = PV.Player.speedOptions
 
