@@ -235,10 +235,8 @@ export const playerSetPlaybackSpeed = (newSpeed: number) => {
 const playerGetCurrentPlaybackSpeed = () => {
   const currentSpeed = OmniAural.state.player.playSpeed.value()
   // TODO:SS this 2 lines are unnecessary
-  //  sometime refresh make current speed be undefidned
-  const currentIndex = PV.Player.speeds.indexOf(currentSpeed)
-  const playSpeed = PV.Player.speeds[currentIndex]
-  return playSpeed
+  //  check this function other referance
+  return currentSpeed
 }
 
 export const playerSetVolume = (newVolume: number) => {
