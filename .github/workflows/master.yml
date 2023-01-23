@@ -40,4 +40,4 @@ jobs:
           docker stop podverse_web_prod
           docker rm podverse_web_prod
           docker image rm podverse/podverse_web:latest
-          docker-compose -f /home/mitch/podverse-ops/docker-compose.prod.yml up -d podverse_web
+          docker-compose -f /opt/podverse-ops/docker-compose/prod/srv/docker-compose.yml up -d podverse_web
