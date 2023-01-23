@@ -15,7 +15,7 @@ export default function V4VWallet(props: ServerProps) {
   /* Meta Tags */
 
   const meta = {
-    currentUrl: `${PV.Config.WEB_BASE_URL}${PV.RoutePaths.web.v4vWallet}`,
+    currentUrl: `${PV.Config.WEB_BASE_URL}${PV.RoutePaths.web.v4v_wallet}`,
     description: t('pages-v4vWallet_Description'),
     title: t('pages-v4vWallet_Title')
   }
