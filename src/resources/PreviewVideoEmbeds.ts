@@ -193,7 +193,25 @@ export const PreviewVideoEmbeds = (t: any) => {
           height: 315,
           src: 'https://peertube.podverse.fm/videos/embed/a1dbaedf-560c-40df-93c5-79a3a3be8f81'
         }
-      }
+      },
+      direct: {
+        mobile: {
+          text: t('Send Boosts directly to a podcast without listening.'),
+          width: 560,
+          height: 315,
+          src: 'https://peertube.podverse.fm/videos/embed/c5f9c317-5128-41a1-a1ae-4f29e8ddbd75'
+      },
+      web: null
+      },
+      shortcut: {
+        mobile: {
+          text: t('Navigate directly to your V4V wallet from the Player screen.'),
+          width: 560,
+          height: 315,
+          src: 'https://peertube.podverse.fm/videos/embed/8a7ac1d5-14e2-4312-9199-3f89da59e932'
+      },
+        web: null,
+    },
     },
     videos: {
       mobile: {

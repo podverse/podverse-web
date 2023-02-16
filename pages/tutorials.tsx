@@ -590,8 +590,35 @@ const generateSections = (t: any) =>
           <li> You'll find the Value for Value widget on the right side of the podcast page.</li>
           </ol>`,
           webPreviewVideoEmbed: PV.PreviewVideoEmbeds(t).value4Value.bitcoin.web
+        },
+        {
+          title: `Send Boost without Listening`,
+          id: `v4v-direct`,
+          description: `Send Bitcoin Boosts to podcasts without actively listening to an episode.`,
+          mobileExplanation: `<ol>
+          <li>Start by navigating to the Podcast page for the Podcast you want to boost.</li>
+          <li>Tap the Funding icon that appears at the top of the screen.</li>
+          <li>Tap Send Boostagram</li>
+          </ol>`,
+          mobilePreviewVideoEmbed: PV.PreviewVideoEmbeds(t).value4Value.direct.mobile,
+          webExplanation: `<ol>
+          <li>Start by navigating to the Podcast page for the Podcast you want to boost.</li>
+          <li>Tap the Funding icon that appears under the Podcast's title.</li>
+          <li>Tap the funding option that appears.</li>
+          </ol>`,
+        },
+        {
+          title: `Shortcut to your Wallet from Player screen`,
+          id: `v4v-shortcut`,
+          description: `Jump straight to your V4V wallet from the player screen.`,
+          mobileExplanation: `<ol>
+          <li>Start by viewing the player screen of a V4V enabled podcast.</li>
+          <li>Press and hold the Stream On/Off button until the screen changes.</li>
+          </ol>`,
+          mobilePreviewVideoEmbed: PV.PreviewVideoEmbeds(t).value4Value.shortcut.mobile,
+          webExplanation: notAvailableTextWeb,
         }
-      ]
+      ],
     },
     {
       sectionTitle: `Videos`,
