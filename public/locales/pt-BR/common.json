@@ -40,7 +40,7 @@
     "category - sports": "Esportes",
     "category - technology": "Tecnologia",
     "category - truecrime": "Crimes",
-    "category - tvfilm": "TV & Filmes",
+    "category - tvfilm": "TV e Filmes",
     "Chapters": "Capítulos",
     "Claim free premium membership": "Para reivindicar sua assinatura premium grátis, entre na sua conta do Podverse e pressione o botão Reivindicar Token abaixo.",
     "Clip": "Clipe",
@@ -287,7 +287,7 @@
     "pages-podping-admin_Title": "Administrador de Podping",
     "pages-profiles_Title": "Perfis",
     "pages-queue_Title": "Fila",
-    "pages-reset_password_Description": "Redefina a senha da sua conta Podverse",
+    "pages-reset_password_Description": "Redefinir a senha da sua conta no Podverse",
     "pages-reset_password_Title": "Redefinir Senha",
     "pages-search_Title": "Buscar",
     "pages-settings_Title": "Preferências",
@@ -430,5 +430,10 @@
     "Years to add": "Anos a serem adicionados",
     "Yes": "Sim",
     "Your Name": "Seu Nome",
-    "YourMembershipHasExpired": "Por favor reative sua assinatura Podverse Premium para usar todos recursos."
+    "YourMembershipHasExpired": "Por favor reative sua assinatura Podverse Premium para usar todos recursos.",
+    "Live Now": "Ao vivo",
+    "Download my data": "Baixar meus dados",
+    "Maintenance mode": "Este site está fechado para manutenção.",
+    "Delete my account": "Apagar minha conta",
+    "Scheduled": "Agendado"
 }
