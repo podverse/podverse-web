@@ -1,4 +1,5 @@
 import { parseTranscriptFile, TranscriptRow } from 'podverse-shared'
+import { convertFile } from 'transcriptator'
 import { request } from './request'
 import { PV } from '../resources'
 
@@ -18,6 +19,10 @@ export const getEpisodeProxyTranscript = async (episodeId: string, language?: st
     const { data } = response
     if (data?.data && data?.type) {
       parsedTranscript = parseTranscriptFile(data.data, data.type)
+      console.log('parsedTranscript', parsedTranscript)
+
+      const parsedTranscript2 = convertFile(data.data)
+      console.log('parsedTranscript2', parsedTranscript2)
     }
   } catch (error) {
     console.log('getParsedTranscript error:', error)
