@@ -61,7 +61,7 @@
     "nightwatch": "1.7.13",
     "omniaural": "1.3.3",
     "password-validator": "5.2.1",
-    "podverse-shared": "4.6.12",
+    "podverse-shared": "4.12.8",
     "react": "17.0.2",
     "react-cookie": "4.1.1",
     "react-dom": "17.0.2",
@@ -75,7 +75,7 @@
     "sass": "1.44.0",
     "ssh2": "1.5.0",
     "striptags": "3.2.0",
-    "transcriptator": "1.0.1",
+    "transcriptator": "1.0.4",
     "webln-v4v": "1.0.0-beta.5"
   },
   "devDependencies": {

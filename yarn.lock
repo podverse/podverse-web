@@ -6203,10 +6203,10 @@ pkg-dir@^4.2.0:
   dependencies:
     find-up "^4.0.0"
 
-podverse-shared@4.6.12:
-  version "4.6.12"
-  resolved "https://registry.yarnpkg.com/podverse-shared/-/podverse-shared-4.6.12.tgz#60739413f23b28c67606435098a53cc8783fc262"
-  integrity sha512-rThXBk+LLyYLoyq7P9AA4qhHMSaHYCcokD9NrDgGHCiww9udMnoxValiy2rTvj9BCcL0qnMeDjeYuOuWB7FqjQ==
+podverse-shared@4.12.8:
+  version "4.12.8"
+  resolved "https://registry.yarnpkg.com/podverse-shared/-/podverse-shared-4.12.8.tgz#21e7ff943170c5bbe5c724a2025bdd3a06b409f7"
+  integrity sha512-lmJF/5tpsL15gB922jfmfAvSokypn5Gx+fM4ZJ73wQkVrX3crfLz9fWOAVftDPUIx+FLKdJS4WqZJFYbqMoxGw==
   dependencies:
     he "^1.2.0"
     html-entities "^2.3.2"
@@ -7437,10 +7437,10 @@ tr46@~0.0.3:
   resolved "https://registry.yarnpkg.com/tr46/-/tr46-0.0.3.tgz#8184fd347dac9cdc185992f3a6622e14b9d9ab6a"
   integrity sha512-N3WMsuqV66lT30CrXNbEjx4GEwlow3v6rr4mCcv6prnfwhS01rkgyFdjPNBYd9br7LpXV1+Emh01fHnq2Gdgrw==
 
-transcriptator@1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/transcriptator/-/transcriptator-1.0.1.tgz#72be6c24dbee83329488f716cd3f4370638769f1"
-  integrity sha512-ve5R+3sYC9lXGn1wvf133UbvyKQKw2hghfN563fjNY6XP1PTxvNQvVvB6Q8PMxpQgZdzspJ2NHsH6WeHgztKXQ==
+transcriptator@1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/transcriptator/-/transcriptator-1.0.4.tgz#bc78234425331cc6b002725fbc803b5cc9c9c35b"
+  integrity sha512-KdiAoqutyO3kfJbiNZ2Gr2F7MI5mLJeejdhGtjuCzR5J6zewL+J0r1AaDuMb3PuOkpabB5daljmL0ONGZJ1zhQ==
   dependencies:
     node-html-parser "^6.1.5"
 

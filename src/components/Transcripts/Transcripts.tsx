@@ -91,7 +91,7 @@ export const Transcripts = ({ episode }: Props) => {
       _handleSearchClear()
     } else {
       const searchResults = transcriptRows.filter((item: Record<string, any>) => {
-        return item?.text?.toLowerCase().includes(searchText?.toLowerCase())
+        return item?.body?.toLowerCase().includes(searchText?.toLowerCase())
       })
 
       setAutoScrollOn(false)
@@ -112,7 +112,7 @@ export const Transcripts = ({ episode }: Props) => {
   const generateSingleLineTranscriptNode = (transcriptRow: TranscriptRow) => {
     return (
       <div className='transcript-row'>
-        <div className='transcript-row__text'>{transcriptRow.text}</div>
+        <div className='transcript-row__text'>{transcriptRow.body}</div>
       </div>
     )
   }
@@ -128,8 +128,8 @@ export const Transcripts = ({ episode }: Props) => {
 
     return (
       <div className={rowClassName} onClick={() => handleRowClick(transcriptRow.startTime)}>
-        <div className='transcript-row__text'>{transcriptRow.text}</div>
-        <div className='transcript-row__time'>{transcriptRow.startTimeHHMMSS}</div>
+        <div className='transcript-row__text'>{transcriptRow.body}</div>
+        <div className='transcript-row__time'>{transcriptRow.startTimeFormatted}</div>
       </div>
     )
   }
