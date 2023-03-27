@@ -98,7 +98,7 @@
     "Podcast title": "título del podcast",
     "Podcasts": "podcasts",
     "Podverse logo": "logotipo de podcast",
-    "Premium": "Prima",
+    "Premium": "Premium",
     "PremiumFreeTrial": "Premium (prueba gratuita)",
     "Private": "Privado",
     "Processing Payment": "Procesando el pago",
@@ -108,7 +108,7 @@
     "Queue": "Cola",
     "Queue Last": "Cola: Última",
     "Queue Next": "Cola: Siguiente",
-    "RSS Feed": "RSS Feed",
+    "RSS Feed": "Feed RSS",
     "RSS Feed Link": "Enlace de fuente RSS",
     "Remove All": "Eliminar todo",
     "Renew": "Renovar",
@@ -193,5 +193,8 @@
     "untitledClip": "Clip sin título",
     "untitledEpisode": "Episodio sin título",
     "untitledPlaylist": "Lista de reproducción sin título",
-    "untitledPodcast": "Podcast sin título"
+    "untitledPodcast": "Podcast sin título",
+    "_translatorsField": "Juan Loaiza<https://www.juanrloaiza.com>,",
+    "Close": "Cerrar",
+    "Enjoy Podverse Premium": "Disfruta Podverse Premium"
 }
