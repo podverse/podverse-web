@@ -117,9 +117,9 @@
     "features - mark episodes as played": "Marcar episódios como reproduzidos",
     "features - new episodes and livestream notifications": "Notificações sobre novos episódios e transmissões ao vivo",
     "features - opml import and export": "Importar e exportar OPML",
-    "features - podcasting 2.0 chapters": "Podcasting 2.0: capítulos",
-    "features - podcasting 2.0 cross-app comments": "Podcasting 2.0: comentários entre aplicativos",
-    "features - podcasting 2.0 transcripts": "Podcasting 2.0: transcrições",
+    "features - podcasting 2.0 chapters": "Capítulos (Podcasting 2.0)",
+    "features - podcasting 2.0 cross-app comments": "Comentários entre aplicativos (Podcasting 2.0)",
+    "features - podcasting 2.0 transcripts": "Transcrições (Podcasting 2.0)",
     "features - screen-reader accessibility": "Acessibilidade para leitores de tela",
     "features - sleep timer": "Temporizador",
     "features - subscribe to listener profiles": "Seguir perfis de ouvintes",
@@ -273,7 +273,7 @@
     "pages-coupon_Title": "Cupom",
     "pages-embed-player-demo_Description": "Uma demonstração do reprodutor Podverse incorporável.",
     "pages-embed-player-demo_Title": "Demonstração do Reprodutor Incorporado",
-    "pages-embed-player-demo-custom-css_Description": "Uma demonstração do reprodutor Podverse incorporável.",
+    "pages-embed-player-demo-custom-css_Description": "Como é o player embutido do Podverse.",
     "pages-embed-player-demo-custom-css_Title": "Incorporar com CSS Customizado",
     "pages-episodes_Title": "Episórios",
     "pages-history_Title": "Histórico",
@@ -445,5 +445,10 @@
     "Join our Matrix space": "Entre no nosso espaço Matrix",
     "Search livestreams": "Procurar livestreams",
     "tutorials link - profiles": "Aprenda mais sobre perfis",
-    "tutorials link - queue": "Aprenda mais sobre fila"
+    "tutorials link - queue": "Aprenda mais sobre fila",
+    "Boostagram info": "Informações do Boostagram",
+    "Boostagram some failed": "Boostagram falhou ao enviar para alguns destinatários. Clique para mais informações.",
+    "Boostagram succeeded": "Boostagram enviado!",
+    "Boostagram all failed": "Boostagram falhou ao enviar. Clique para mais informações.",
+    "Chat Room": "Sala de bate-papo"
 }
