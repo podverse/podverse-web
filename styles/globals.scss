@@ -297,6 +297,12 @@ body {
     }
   }
 
+  .error-page {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+  }
+
   .is-active {
     @include themeGen() {
       color: getThemeVal('premiumIsActive');

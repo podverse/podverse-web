@@ -73,9 +73,13 @@ OmniAural.initGlobalState(initialState)
 
 fontAwesomeConfig.autoAddCss = false
 
-Modal.setAppElement('.app')
-
 if (typeof window !== 'undefined') {
+  const isAppWrapperAvailable = document.querySelector('.app')
+  
+  if (isAppWrapperAvailable) {
+    Modal.setAppElement('.app')
+  }
+
   window.onbeforeunload = () => {
     const skipSetNowPlaying = true
     saveCurrentPlaybackPositionToHistory(skipSetNowPlaying)
