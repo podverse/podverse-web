@@ -5,7 +5,7 @@ import { convertToNowPlayingItem, MediaRef } from 'podverse-shared'
 import { Page } from '~/lib/utility/page'
 import { PV } from '~/resources'
 import { Meta } from '~/components/Meta/Meta'
-import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
+import { getDefaultServerSideProps, getServerSidePropsWrapper } from '~/services/serverSideHelpers'
 import { TwitterCardPlayer } from '~/components/TwitterCardPlayer/TwitterCardPlayer'
 import { TwitterCardPlayerAPIAudio } from '~/components/TwitterCardPlayer/TwitterCardPlayerAPIAudio'
 import { useEffect } from 'react'
@@ -80,20 +80,22 @@ export default function MiniPlayerClip({ serverClip }: ServerProps) {
 /* Server-Side Logic */
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const { locale, params } = ctx
-  const { clipId } = params
-
-  const [defaultServerProps, clipResponse] = await Promise.all([
-    getDefaultServerSideProps(ctx, locale),
-    getMediaRefById(clipId as string)
-  ])
-
-  const serverClip = clipResponse.data
-
-  const props: ServerProps = {
-    ...defaultServerProps,
-    serverClip
-  }
-
-  return { props }
+  return await getServerSidePropsWrapper(async () => {
+    const { locale, params } = ctx
+    const { clipId } = params
+  
+    const [defaultServerProps, clipResponse] = await Promise.all([
+      getDefaultServerSideProps(ctx, locale),
+      getMediaRefById(clipId as string)
+    ])
+  
+    const serverClip = clipResponse.data
+  
+    const props: ServerProps = {
+      ...defaultServerProps,
+      serverClip
+    }
+  
+    return { props }
+  })
 }

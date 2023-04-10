@@ -29,7 +29,7 @@ import { getPodcastById } from '~/services/podcast'
 import { getMediaRefsByQuery } from '~/services/mediaRef'
 import { Page } from '~/lib/utility/page'
 import { sanitizeTextHtml } from '~/lib/utility/sanitize'
-import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
+import { getDefaultServerSideProps, getServerSidePropsWrapper } from '~/services/serverSideHelpers'
 import { OmniAuralState } from '~/state/omniauralState'
 import { getEpisodesAndLiveItems } from '~/services/liveItem'
 
@@ -302,56 +302,58 @@ export default function Podcast({
 /* Server-Side Logic */
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const { locale, params } = ctx
-  const { podcastId } = params
-
-  const [defaultServerProps, podcastResponse] = await Promise.all([
-    getDefaultServerSideProps(ctx, locale),
-    getPodcastById(podcastId as string)
-  ])
-
-  const podcast = podcastResponse.data
-
-  const serverFilterType = PV.Filters.type._episodes
-  const serverFilterSort = PV.Filters.sort._mostRecent
-  const serverFilterPage = 1
-
-  let serverEpisodes = []
-  let serverEpisodesPageCount = 0
-  const serverClips = []
-  const serverClipsPageCount = 0
-  let serverLiveItemScheduleData = []
-  if (serverFilterType === PV.Filters.type._episodes) {
-    const data = await getEpisodesAndLiveItems(
-      {
-        podcastIds: podcastId,
-        sort: serverFilterSort
-      },
-      podcast,
-      serverFilterPage
-    )
-    const [combinedEpisodesData, episodesDataCount] = data.combinedEpisodes
-    serverLiveItemScheduleData = data.scheduledLiveItems
-    serverEpisodes = combinedEpisodesData
-    serverEpisodesPageCount = calcListPageCount(episodesDataCount)
-  } else {
-    // handle mediaRefs query
-  }
-
-  const serverProps: ServerProps = {
-    ...defaultServerProps,
-    serverClips,
-    serverClipsPageCount,
-    serverEpisodes,
-    serverEpisodesPageCount,
-    serverFilterPage,
-    serverFilterSort,
-    serverFilterType,
-    serverLiveItemScheduleData,
-    serverPodcast: podcast
-  }
-
-  return {
-    props: serverProps
-  }
+  return await getServerSidePropsWrapper(async () => {
+    const { locale, params } = ctx
+    const { podcastId } = params
+    
+    const [defaultServerProps, podcastResponse] = await Promise.all([
+      getDefaultServerSideProps(ctx, locale),
+      getPodcastById(podcastId as string)
+    ])
+    
+    const podcast = podcastResponse.data
+    
+    const serverFilterType = PV.Filters.type._episodes
+    const serverFilterSort = PV.Filters.sort._mostRecent
+    const serverFilterPage = 1
+    
+    let serverEpisodes = []
+    let serverEpisodesPageCount = 0
+    const serverClips = []
+    const serverClipsPageCount = 0
+    let serverLiveItemScheduleData = []
+    if (serverFilterType === PV.Filters.type._episodes) {
+      const data = await getEpisodesAndLiveItems(
+        {
+          podcastIds: podcastId,
+          sort: serverFilterSort
+        },
+        podcast,
+        serverFilterPage
+      )
+      const [combinedEpisodesData, episodesDataCount] = data.combinedEpisodes
+      serverLiveItemScheduleData = data.scheduledLiveItems
+      serverEpisodes = combinedEpisodesData
+      serverEpisodesPageCount = calcListPageCount(episodesDataCount)
+    } else {
+      // handle mediaRefs query
+    }
+  
+    const serverProps: ServerProps = {
+      ...defaultServerProps,
+      serverClips,
+      serverClipsPageCount,
+      serverEpisodes,
+      serverEpisodesPageCount,
+      serverFilterPage,
+      serverFilterSort,
+      serverFilterType,
+      serverLiveItemScheduleData,
+      serverPodcast: podcast
+    }
+  
+    return {
+      props: serverProps
+    }
+  })
 }
