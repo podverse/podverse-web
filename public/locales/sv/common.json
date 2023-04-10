@@ -110,10 +110,10 @@
     "category - sports": "Sport",
     "category - tvfilm": "TV och film",
     "filter from - category": "Kategori",
-    "language - el": "Grekisk",
+    "language - el": "Grekiska",
     "pages-about_Title": "Om",
     "category - technology": "Teknologi",
-    "language - fr": "Fransk",
+    "language - fr": "Franska",
     "language - es": "Spanska",
     "My account": "Min konto",
     "filter from - clips": "Klipp",
@@ -160,5 +160,8 @@
     "Chat Room": "Chatrum",
     "Contribute": "Bidra",
     "Search clips": "Sök klipp",
-    "Expired": "Utgått"
+    "Expired": "Utgått",
+    "language - de": "Danska",
+    "language - lt": "Litauiska",
+    "language - sv": "Svenska"
 }

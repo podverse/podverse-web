@@ -27,7 +27,7 @@ import { calcListPageCount, prefixClipLabel } from '~/lib/utility/misc'
 import { Page } from '~/lib/utility/page'
 import { PV } from '~/resources'
 import { getMediaRefById, getMediaRefsByQuery, retrieveLatestChaptersForEpisodeId } from '~/services/mediaRef'
-import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
+import { getDefaultServerSideProps, getServerSidePropsWrapper } from '~/services/serverSideHelpers'
 import { OmniAuralState } from '~/state/omniauralState'
 
 interface ServerProps extends Page {
@@ -255,44 +255,46 @@ export default function Clip({
 /* Server-Side Logic */
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const { locale, params } = ctx
-  const { clipId } = params
-
-  const [defaultServerProps, clipResponse] = await Promise.all([
-    getDefaultServerSideProps(ctx, locale),
-    getMediaRefById(clipId as string)
-  ])
-
-  const serverClip = clipResponse.data
-  const { episode } = serverClip
-
-  const serverClipsFilterSort = PV.Filters.sort._topPastYear
-  const serverClipsFilterPage = 1
-
-  const clipsResponse = await getMediaRefsByQuery({
-    episodeId: episode.id,
-    sort: serverClipsFilterSort
+  return await getServerSidePropsWrapper(async () => {
+    const { locale, params } = ctx
+    const { clipId } = params
+  
+    const [defaultServerProps, clipResponse] = await Promise.all([
+      getDefaultServerSideProps(ctx, locale),
+      getMediaRefById(clipId as string)
+    ])
+  
+    const serverClip = clipResponse.data
+    const { episode } = serverClip
+  
+    const serverClipsFilterSort = PV.Filters.sort._topPastYear
+    const serverClipsFilterPage = 1
+  
+    const clipsResponse = await getMediaRefsByQuery({
+      episodeId: episode.id,
+      sort: serverClipsFilterSort
+    })
+    const [clipsListData, clipsListDataCount] = clipsResponse.data
+    const serverClips = clipsListData
+    const serverClipsPageCount = calcListPageCount(clipsListDataCount)
+  
+    let serverChapters = []
+    if (serverClip.episode.chaptersUrl) {
+      const data = await retrieveLatestChaptersForEpisodeId(episode.id)
+      const [chapters] = data
+      serverChapters = chapters
+    }
+  
+    const props: ServerProps = {
+      ...defaultServerProps,
+      serverChapters,
+      serverClip,
+      serverClips,
+      serverClipsFilterPage,
+      serverClipsFilterSort,
+      serverClipsPageCount
+    }
+  
+    return { props }
   })
-  const [clipsListData, clipsListDataCount] = clipsResponse.data
-  const serverClips = clipsListData
-  const serverClipsPageCount = calcListPageCount(clipsListDataCount)
-
-  let serverChapters = []
-  if (serverClip.episode.chaptersUrl) {
-    const data = await retrieveLatestChaptersForEpisodeId(episode.id)
-    const [chapters] = data
-    serverChapters = chapters
-  }
-
-  const props: ServerProps = {
-    ...defaultServerProps,
-    serverChapters,
-    serverClip,
-    serverClips,
-    serverClipsFilterPage,
-    serverClipsFilterSort,
-    serverClipsPageCount
-  }
-
-  return { props }
 }

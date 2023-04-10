@@ -5,7 +5,7 @@ import { convertToNowPlayingItem, Episode } from 'podverse-shared'
 import { Page } from '~/lib/utility/page'
 import { PV } from '~/resources'
 import { Meta } from '~/components/Meta/Meta'
-import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
+import { getDefaultServerSideProps, getServerSidePropsWrapper } from '~/services/serverSideHelpers'
 import { getEpisodeById } from '~/services/episode'
 import { TwitterCardPlayer } from '~/components/TwitterCardPlayer/TwitterCardPlayer'
 import { TwitterCardPlayerAPIAudio } from '~/components/TwitterCardPlayer/TwitterCardPlayerAPIAudio'
@@ -76,20 +76,22 @@ export default function MiniPlayerEpisode({ serverEpisode }: ServerProps) {
 /* Server-Side Logic */
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const { locale, params } = ctx
-  const { episodeId } = params
-
-  const [defaultServerProps, episodeResponse] = await Promise.all([
-    getDefaultServerSideProps(ctx, locale),
-    getEpisodeById(episodeId as string)
-  ])
-
-  const serverEpisode = episodeResponse.data
-
-  const props: ServerProps = {
-    ...defaultServerProps,
-    serverEpisode
-  }
-
-  return { props }
+  return await getServerSidePropsWrapper(async () => {
+    const { locale, params } = ctx
+    const { episodeId } = params
+  
+    const [defaultServerProps, episodeResponse] = await Promise.all([
+      getDefaultServerSideProps(ctx, locale),
+      getEpisodeById(episodeId as string)
+    ])
+  
+    const serverEpisode = episodeResponse.data
+  
+    const props: ServerProps = {
+      ...defaultServerProps,
+      serverEpisode
+    }
+  
+    return { props }
+  })
 }
