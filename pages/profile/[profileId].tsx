@@ -133,21 +133,20 @@ export default function Profile({
   }
 
   const clientQueryUserClips = async () => {
+    const finalQuery = {
+      ...(filterPage ? { page: filterPage } : {}),
+      ...(filterSort ? { sort: filterSort } : {})
+    }
     if (isLoggedInUserProfile) {
-      return getLoggedInUserMediaRefs()
+      return getLoggedInUserMediaRefs('', finalQuery)
     } else {
-      const finalQuery = {
-        ...(filterPage ? { page: filterPage } : {}),
-        ...(filterSort ? { sort: filterSort } : {})
-      }
-
       return getUserMediaRefs(user.id, finalQuery)
     }
   }
 
   const clientQueryUserPlaylists = async () => {
     if (isLoggedInUserProfile) {
-      return getLoggedInUserPlaylists()
+      return getLoggedInUserPlaylists('', filterPage)
     } else {
       return getUserPlaylists(user.id, filterPage)
     }

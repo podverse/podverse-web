@@ -1,4 +1,5 @@
 import moment from 'moment'
+// Remember to update src/lib/utility/locales.ts as well
 import 'moment/locale/da'
 import 'moment/locale/de'
 import 'moment/locale/el'
@@ -13,11 +14,11 @@ import 'moment/locale/sv'
 import 'moment/locale/tr'
 import OmniAural from 'omniaural'
 import { Episode, MediaRef } from 'podverse-shared'
-import { getLang } from './locales'
+import { currentLocale } from './locales'
 import { convertSecToHhoursMMinutes, getTimeLabelText, readableClipTime } from './time'
 
 export const readableDate = (date: Date, withTime?: boolean) => {
-  moment.locale(getLang())
+  moment.locale(currentLocale)
   const format = withTime ? 'MMMM Do YYYY, h:mm:ss A' : 'MMM Do YYYY'
   let dateText = moment(date).format(format)
   if (withTime) {
@@ -28,7 +29,7 @@ export const readableDate = (date: Date, withTime?: boolean) => {
 }
 
 const getCurrentTimeZoneAbbreviation = () => {
-  const lang = getLang()
+  const lang = currentLocale
   const zone = new Date().toLocaleTimeString(lang, { timeZoneName: 'short' }).split(' ')[2]
   return zone
 }
