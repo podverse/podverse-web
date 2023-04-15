@@ -2,17 +2,7 @@
   display: flex;
   flex: 0;
   flex-direction: row;
-  margin: 20px 0 0 0;
-  padding: 0 0 20px 0;
-  border-bottom: 1px solid;
-
-  @include themeGen() {
-    border-color: getThemeVal('divider');
-  }
-
-  &:last-child {
-    border-bottom: 0;
-  }
+  margin: 20px 0;
 
   .main-wrapper {
     flex: 1;
@@ -25,12 +15,11 @@
     .content-wrapper {
       display: flex;
       flex-direction: row;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
 
       .text-wrapper {
         .podcast-title {
           font-size: $text-sm;
-          font-weight: $font-weight-bold;
           margin-bottom: 6px;
 
           @include themeGen() {
@@ -40,7 +29,7 @@
 
         .title {
           font-size: $text-xl;
-          font-weight: $font-weight-light;
+          font-weight: $font-weight-medium;
           margin-bottom: 9px;
           padding-bottom: 0;
 
