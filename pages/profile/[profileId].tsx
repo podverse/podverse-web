@@ -341,17 +341,17 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       serverUser = await getPublicUser(profileId as string)
     }
   
+    const finalQuery = {
+      page: 1,
+      sort: serverFilterSort
+    }
     if (type === 'clips') {
       if (isLoggedInUserProfile) {
-        const data = await getLoggedInUserMediaRefs(serverCookies.Authorization)
+        const data = await getLoggedInUserMediaRefs(serverCookies.Authorization, finalQuery)
         const [mediaRefs, mediaRefsCount] = data
         serverUserListData = mediaRefs
         serverUserListDataCount = mediaRefsCount
       } else {
-        const finalQuery = {
-          page: 1,
-          sort: serverFilterSort
-        }
         const data = await getUserMediaRefs(profileId, finalQuery)
         const [mediaRefs, mediaRefsCount] = data
         serverUserListData = mediaRefs
@@ -359,7 +359,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       }
     } else if (type === 'playlists') {
       if (isLoggedInUserProfile) {
-        const data = await getLoggedInUserPlaylists(serverCookies.Authorization)
+        const data = await getLoggedInUserPlaylists(serverCookies.Authorization, serverFilterPage)
         const [playlists, playlistsCount] = data
         serverUserListData = playlists
         serverUserListDataCount = playlistsCount
