@@ -32,7 +32,7 @@ export const getAuthenticatedUserInfo = async (bearerToken?: string) => {
     } catch (err) {
       // If either functions in the try fail, assume the user's membership has expired and fail silently.
       // We let it fail silently here so it doesn't crash the back-end. The UI handles rendering
-      // "Renew Membership" messages elsewhere.
+      // "Extend Membership" messages elsewhere.
     }
 
     return userInfo

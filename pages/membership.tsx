@@ -49,7 +49,7 @@ export default function Membership(props: ServerProps) {
         {userInfo && (
           <ButtonRectangle
             isSuccess
-            label={t('Renew Membership')}
+            label={t('Extend Membership')}
             onClick={() => OmniAural.modalsCheckoutShow()}
             type='primary'
           />
