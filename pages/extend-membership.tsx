@@ -5,7 +5,6 @@ import { PV } from '~/resources'
 import {
   ColumnsWrapper,
   DownloadAppButtons,
-  FeatureComparisonTable,
   Footer,
   PVLink,
   PageHeader,
