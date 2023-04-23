@@ -1,4 +1,4 @@
-import { faDonate, faRss, faShare } from '@fortawesome/free-solid-svg-icons'
+import { faDonate, faHome, faRss, faShare } from '@fortawesome/free-solid-svg-icons'
 import OmniAural, { useOmniAural } from 'omniaural'
 import type { Episode } from 'podverse-shared'
 import { useTranslation } from 'react-i18next'
@@ -32,6 +32,7 @@ export const EpisodePageHeader = ({ episode }: Props) => {
   const episodeTitleLinkUrl = `${PV.RoutePaths.web.episode}/${episode.id}`
 
   const hasBelowText = authorEls.length > 0 || categoryEls.length > 0
+  const hasHomeLink = !!episode?.linkUrl
 
   const imageUrl = episode?.imageUrl || getPodcastShrunkImageUrl(podcast)
 
@@ -85,6 +86,17 @@ export const EpisodePageHeader = ({ episode }: Props) => {
                     className='header-rss-button'
                     faIcon={faRss}
                     href={authorityFeedUrl.url}
+                    isSecondary
+                    rel='noreferrer'
+                    target='_blank'
+                  />
+                )}
+                {hasHomeLink && (
+                  <ButtonIcon
+                    ariaLabel={t('Home page')}
+                    className='header-home-button'
+                    faIcon={faHome}
+                    href={episode.linkUrl}
                     isSecondary
                     rel='noreferrer'
                     target='_blank'

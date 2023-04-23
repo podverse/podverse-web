@@ -1,4 +1,4 @@
-import { faDonate, faRss, faShare } from '@fortawesome/free-solid-svg-icons'
+import { faDonate, faHome, faRss, faShare } from '@fortawesome/free-solid-svg-icons'
 import classNames from 'classnames'
 import OmniAural, { useOmniAural } from 'omniaural'
 import type { Episode, MediaRef, Podcast } from 'podverse-shared'
@@ -38,6 +38,7 @@ export const PodcastPageHeader = ({
   const podcastTitle = podcast.title ? podcast.title : t('untitledPodcast')
   const podcastTitleLinkUrl = `${PV.RoutePaths.web.podcast}/${podcast.id}`
   const hasBelowText = authorEls.length > 0 || categoryEls.length > 0
+  const hasHomeLink = !!podcast?.linkUrl
   const imageUrl = getPodcastShrunkImageUrl(podcast)
   const [isSubscribing, setIsSubscribing] = useState<boolean>(false)
 
@@ -99,6 +100,17 @@ export const PodcastPageHeader = ({
                     className='header-rss-button'
                     faIcon={faRss}
                     href={authorityFeedUrl.url}
+                    isSecondary
+                    rel='noreferrer'
+                    target='_blank'
+                  />
+                )}
+                {hasHomeLink && (
+                  <ButtonIcon
+                    ariaLabel={t('Home page')}
+                    className='header-home-button'
+                    faIcon={faHome}
+                    href={podcast.linkUrl}
                     isSecondary
                     rel='noreferrer'
                     target='_blank'
