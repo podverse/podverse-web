@@ -127,9 +127,16 @@ export const Transcripts = ({ episode }: Props) => {
     })
 
     return (
-      <div className={rowClassName} onClick={() => handleRowClick(transcriptRow.startTime)}>
-        <div className='transcript-row__text'>{transcriptRow.body}</div>
-        <div className='transcript-row__time'>{transcriptRow.startTimeFormatted}</div>
+      <div className='transcript-row-wrapper'>
+        {
+          transcriptRow.speaker && (
+            <div className='transcript-row__speaker'>{transcriptRow.speaker}</div>
+          )
+        }
+        <div className={rowClassName} onClick={() => handleRowClick(transcriptRow.startTime)}>
+          <div className='transcript-row__text'>{transcriptRow.body}</div>
+          <div className='transcript-row__time'>{transcriptRow.startTimeFormatted}</div>
+        </div>
       </div>
     )
   }

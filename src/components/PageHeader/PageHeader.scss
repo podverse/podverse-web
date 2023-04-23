@@ -77,8 +77,11 @@
 
     .dropdowns {
       display: flex;
-      margin-bottom: 20px;
       margin-top: 4px;
+    }
+
+    .dropdowns > div {
+      margin-bottom: 20px;
     }
 
     .dropdown-sort-wrapper {

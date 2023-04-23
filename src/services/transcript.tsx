@@ -21,6 +21,15 @@ export const getEpisodeProxyTranscript = async (episodeId: string, language?: st
     if (data?.data && data?.type) {
       timestampFormatter.registerCustomFormatter(convertSecToHHMMSS)
       parsedTranscript = convertFile(data.data)
+
+      let previousSpeaker = ''
+      for (const row of parsedTranscript) {
+        if (row?.speaker && previousSpeaker === row.speaker) {
+          row.speaker = ''
+        } else if (row?.speaker) {
+          previousSpeaker = row.speaker
+        }
+      }
     }
   } catch (error) {
     console.log('getParsedTranscript error:', error)
