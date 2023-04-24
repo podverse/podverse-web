@@ -1,4 +1,4 @@
-import { faDonate, faHome, faRss, faShare } from '@fortawesome/free-solid-svg-icons'
+import { faDonate, faGlobe, faRss, faShare } from '@fortawesome/free-solid-svg-icons'
 import classNames from 'classnames'
 import OmniAural, { useOmniAural } from 'omniaural'
 import type { Episode, MediaRef, Podcast } from 'podverse-shared'
@@ -109,7 +109,7 @@ export const PodcastPageHeader = ({
                   <ButtonIcon
                     ariaLabel={t('Home page')}
                     className='header-home-button'
-                    faIcon={faHome}
+                    faIcon={faGlobe}
                     href={podcast.linkUrl}
                     isSecondary
                     rel='noreferrer'
