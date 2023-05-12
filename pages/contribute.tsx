@@ -53,6 +53,11 @@ export default function Contribute(props: ServerProps) {
                 {'bc1qqme0tj5gutgujsz62xqcfc6emfgm5wky27zc30'}
                 <br />
               </p>
+              <p>
+                {t('Bitcoin Lightning Alby address')}
+                <br />
+                {'podverse@getalby.com'}
+              </p>
               {/* <p>
                 {t('Bitcoin Lighning Node Address')}
                 <br />
