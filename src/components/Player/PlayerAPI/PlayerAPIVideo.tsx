@@ -94,7 +94,10 @@ export const PlayerAPIVideo = (props: Props) => {
     if (src?.indexOf('.m3u8') >= 0) {
       config = {
         file: {
-          forceHLS: true,
+          // NOTE: I don't remember why I set this forceHLS property originally,
+          // but when set to true, m3u8 files failed to play in iOS Safari.
+          // Commenting it out for now.
+          // forceHLS: true,
           hlsOptions: {
             liveDurationInfinity: true
           }
@@ -127,6 +130,7 @@ export const PlayerAPIVideo = (props: Props) => {
         controls
         onDuration={_onLoadedMetaData}
         onEnded={_onEnded}
+        onError={(error) => console.log('video playback error:', error)}
         onPause={videoPause}
         onPlay={videoPlay}
         onSeek={_onListen}
