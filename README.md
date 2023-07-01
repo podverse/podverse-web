@@ -1,5 +1,15 @@
 # Podverse Web
 
+- [Languages](#languages)
+- [About](#about)
+- [Getting started](#getting-started)
+- [How to run the app locally](#how-to-run-the-app-locally)
+- [Git History](#git-history)
+  * [Ignore linter-only commits rules in Git history](#ignore-linter-only-commits-rules-in-git-history)
+- [Contact](#contact)
+
+<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>generated with markdown-toc</a></i></small>
+
 ## Languages
 
 Translations are greatly appreciated! If you would like to help translate Podverse, please visit our [Weblate page](https://hosted.weblate.org/projects/podverse/podverse-web/).
