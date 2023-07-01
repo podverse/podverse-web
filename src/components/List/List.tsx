@@ -11,6 +11,7 @@ type Props = {
   isSubscribedFilter?: boolean
   tutorialsLink?: string
   tutorialsLinkText?: string
+  listRef?: React.RefObject<HTMLUListElement>
 }
 
 export const List = ({
@@ -20,12 +21,13 @@ export const List = ({
   hideNoResultsMessage,
   isSubscribedFilter,
   tutorialsLink,
-  tutorialsLinkText
+  tutorialsLinkText,
+  listRef
 }: Props) => {
   const { t } = useTranslation()
   const hasChildren = children && children.length > 0
   const showNoResultsFound = !hideNoResultsMessage && !hasChildren
-  const listClass = classNames('list')
+  const listClass = classNames('list')  
 
   const noResultsTextNode = isSubscribedFilter ? (
     <div className='no-results-found-message'>
@@ -50,7 +52,7 @@ export const List = ({
   )
 
   return (
-    <ul className={listClass}>
+    <ul className={listClass} ref={listRef}>
       {showNoResultsFound && noResultsTextNode}
       {hasChildren && children}
       {!showNoResultsFound && !!tutorialsLink && !!tutorialsLinkText && (
