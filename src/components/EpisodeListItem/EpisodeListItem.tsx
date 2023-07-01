@@ -1,4 +1,4 @@
-import { faTimes } from '@fortawesome/free-solid-svg-icons'
+import { faTimes, faArrowsAltV } from '@fortawesome/free-solid-svg-icons'
 import { Episode, getLightningKeysendValueItem, LiveItem, Podcast } from 'podverse-shared'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -19,6 +19,8 @@ type Props = {
   serverCookies?: any
   showPodcastInfo?: boolean
   showRemoveButton?: boolean
+  showMoveButton?: boolean
+  dragHandleProps?: {}
 }
 
 export const EpisodeListItem = ({
@@ -29,7 +31,9 @@ export const EpisodeListItem = ({
   podcast,
   serverCookies,
   showPodcastInfo,
-  showRemoveButton
+  showRemoveButton,
+  showMoveButton,
+  dragHandleProps
 }: Props) => {
   const { t } = useTranslation()
   const ep = liveItem?.episode || episode
@@ -62,6 +66,18 @@ export const EpisodeListItem = ({
   return (
     <>
       <li className='episode-list-item'>
+        {showMoveButton && (
+          <div className='side-wrapper'>
+            <ButtonCircle
+              ariaLabel={t('Move')}
+              className='move'
+              faIcon={faArrowsAltV}
+              iconOnly
+              size='medium'
+              {...dragHandleProps}
+            />
+          </div>
+        )}
         <div className='main-wrapper'>
           <PVLink ariaLabel={linkAriaLabel} className='content-wrapper' href={episodePageUrl}>
             {showPodcastInfo && (
