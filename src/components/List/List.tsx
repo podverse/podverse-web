@@ -25,9 +25,9 @@ export const List = ({
   listRef
 }: Props) => {
   const { t } = useTranslation()
-  const hasChildren = children && children.length > 0
+  const hasChildren = children?.length > 0 || (children?.type?.name === 'DraggableList' && children?.props?.list?.length > 0)
   const showNoResultsFound = !hideNoResultsMessage && !hasChildren
-  const listClass = classNames('list')  
+  const listClass = classNames('list')
 
   const noResultsTextNode = isSubscribedFilter ? (
     <div className='no-results-found-message'>

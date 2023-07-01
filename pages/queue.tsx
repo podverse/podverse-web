@@ -112,25 +112,23 @@ export default function Queue(props: ServerProps) {
         {userInfo && (
           <ColumnsWrapper
             mainColumnChildren={
-              <DraggableList<NowPlayingItem, QueueListItemCommonProps, QueueListItem>
-                itemKey={generateItemKey}
-                template={QueueListItem}
-                list={userQueueItems}
-                onMoveEnd={_onMoveEnd}
-                container={() => listRef.current}
-                commonProps={{ userInfo, isEditing }}
-                // Padding 20 is equal to the margin of `.clip-list-item` & `.episode-list-item` css classes.
-                // This prevents a glitch after dragging is ended, as the margin of the items is removed during dragging.
-                padding={20}
+              <List
+                tutorialsLink='/tutorials#queue-add'
+                tutorialsLinkText={t('tutorials link - queue')}
+                listRef={listRef}
               >
-                <List
-                  tutorialsLink='/tutorials#queue-add'
-                  tutorialsLinkText={t('tutorials link - queue')}
-                  listRef={listRef}
-                >
-                  {/* children are inserted by DraggableList via the `listRef` */}
-                </List>
-              </DraggableList>
+                <DraggableList<NowPlayingItem, QueueListItemCommonProps, QueueListItem>
+                  itemKey={generateItemKey}
+                  template={QueueListItem}
+                  list={userQueueItems}
+                  onMoveEnd={_onMoveEnd}
+                  container={() => listRef.current}
+                  commonProps={{ userInfo, isEditing }}
+                  // Padding 20 is equal to the margin of `.clip-list-item` & `.episode-list-item` css classes.
+                  // This prevents a glitch after dragging is ended, as the margin of the items is removed during dragging.
+                  padding={20}
+                />
+              </List>
             }
           />
         )}
