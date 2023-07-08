@@ -113,6 +113,7 @@ export default function Queue(props: ServerProps) {
           <ColumnsWrapper
             mainColumnChildren={
               <List
+                isDraggable
                 tutorialsLink='/tutorials#queue-add'
                 tutorialsLinkText={t('tutorials link - queue')}
                 listRef={listRef}
