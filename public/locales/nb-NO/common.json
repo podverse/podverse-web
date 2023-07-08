@@ -464,5 +464,8 @@
     "Contribute page": "Bidragsside",
     "Extend Membership Text": "Logg inn på nettsiden og velg «Medlemskap» fra øvre rullegardinsmeny til høyre for å utvide det. Trykk deretter «Utvid medlemskap» for å betale med PayPal.",
     "Extend Membership Text 4": "Hvis du vil støtte Podverse på andre vis kan du besøke <0>{{contributePage}}</0>.",
-    "Extend Membership Text 3": "Podverse er et verdi-for-verdi -selskap, så hvis fornyelseskostnaden er for tung å spise kan du sende en e-post til contact@podverse.fm og få ditt medlemskap utvidet gratis."
+    "Extend Membership Text 3": "Podverse er et verdi-for-verdi -selskap, så hvis fornyelseskostnaden er for tung å spise kan du sende en e-post til contact@podverse.fm og få ditt medlemskap utvidet gratis.",
+    "Bitcoin wallet address": "Bitcoin-lommeboksadresse",
+    "Bitcoin Lightning Alby address": "Bitcoin-Lightning Alby-adresse",
+    "Move": "Flytt"
 }
