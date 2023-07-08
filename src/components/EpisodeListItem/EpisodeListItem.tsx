@@ -20,7 +20,7 @@ type Props = {
   showPodcastInfo?: boolean
   showRemoveButton?: boolean
   showMoveButton?: boolean
-  dragHandleProps?: {}
+  dragHandleProps?: any // TODO: add proper type
 }
 
 export const EpisodeListItem = ({
