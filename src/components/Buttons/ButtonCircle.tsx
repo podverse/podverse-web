@@ -23,12 +23,13 @@ export const ButtonCircle = ({
   iconOnly,
   isLoading,
   onClick,
-  size
+  size,
+  ...rest
 }: Props) => {
   const wrapperClass = classnames('button-circle', size, className, iconOnly ? 'icon-only' : '')
 
   return (
-    <button aria-label={ariaLabel} aria-pressed={ariaPressed} className={wrapperClass} onClick={onClick}>
+    <button aria-label={ariaLabel} aria-pressed={ariaPressed} className={wrapperClass} onClick={onClick} {...rest}>
       {isLoading && <FontAwesomeIcon icon={faSpinner} spin />}
       {!isLoading && <FontAwesomeIcon icon={faIcon} />}
     </button>

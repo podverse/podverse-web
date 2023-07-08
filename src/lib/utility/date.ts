@@ -1,10 +1,12 @@
 import moment from 'moment'
-// Remember to update src/lib/utility/locales.ts as well
+// Remember to update src/lib/utility/locales.ts
+// and next-i18next.config.js as well
 import 'moment/locale/da'
 import 'moment/locale/de'
 import 'moment/locale/el'
 import 'moment/locale/es'
 import 'moment/locale/fr'
+import 'moment/locale/it'
 import 'moment/locale/lt'
 import 'moment/locale/nb'
 import 'moment/locale/pt'

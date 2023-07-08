@@ -1,4 +1,4 @@
-import { faTimes } from '@fortawesome/free-solid-svg-icons'
+import { faTimes, faArrowsAltV } from '@fortawesome/free-solid-svg-icons'
 import { Episode, getLightningKeysendValueItem, MediaRef, Podcast } from 'podverse-shared'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -20,6 +20,8 @@ type Props = {
   serverCookies?: any
   showImage?: boolean
   showRemoveButton?: boolean
+  showMoveButton?: boolean
+  dragHandleProps?: {}
 }
 
 export const ClipListItem = ({
@@ -31,7 +33,9 @@ export const ClipListItem = ({
   podcast,
   serverCookies,
   showImage,
-  showRemoveButton
+  showRemoveButton,
+  showMoveButton,
+  dragHandleProps
 }: Props) => {
   const { t } = useTranslation()
   const { id, imageUrl } = mediaRef
@@ -44,16 +48,15 @@ export const ClipListItem = ({
   const finalImageUrl = imageUrl
     ? imageUrl
     : episode?.imageUrl
-    ? episode.imageUrl
-    : podcast
-    ? getPodcastShrunkImageUrl(podcast)
-    : ''
+      ? episode.imageUrl
+      : podcast
+        ? getPodcastShrunkImageUrl(podcast)
+        : ''
 
   const { pubDate, timeInfo } = generateItemTimeInfo(t, episode, mediaRef, isChapter)
 
-  const linkAriaLabel = `${podcastTitle ? `${podcastTitle}, ` : ''} ${title}, ${
-    episode ? `${episodeTitle}, ${pubDate}, ` : ''
-  } ${timeInfo}`
+  const linkAriaLabel = `${podcastTitle ? `${podcastTitle}, ` : ''} ${title}, ${episode ? `${episodeTitle}, ${pubDate}, ` : ''
+    } ${timeInfo}`
 
   const isLightningEnabled =
     getLightningKeysendValueItem(episode?.value) ||
@@ -119,15 +122,27 @@ export const ClipListItem = ({
   return (
     <>
       <li className='clip-list-item'>
+        {showMoveButton &&
+          <div className='side-wrapper'>
+            <ButtonCircle
+              ariaLabel={t('Move')}
+              className='move'
+              faIcon={faArrowsAltV}
+              iconOnly
+              size='medium'
+              {...dragHandleProps}
+            />
+          </div>
+        }
         <div className={isChapter ? 'main-wrapper chapter-main-wrapper' : 'main-wrapper'}>
           {isChapter && showImage && finalImageUrl && (
             <PVImage alt='' height={PV.Images.sizes.medium} src={finalImageUrl} width={PV.Images.sizes.medium} />
           )}
           {itemMainSection}
         </div>
-        {showRemoveButton && (
+        {(showRemoveButton) && (
           <div className='side-wrapper'>
-            <ButtonCircle
+            {showRemoveButton && <ButtonCircle
               ariaLabel={t('Remove')}
               className='remove'
               faIcon={faTimes}
@@ -135,7 +150,7 @@ export const ClipListItem = ({
               isLoading={isRemoving}
               onClick={_handleRemove}
               size='medium'
-            />
+            />}
           </div>
         )}
       </li>

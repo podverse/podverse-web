@@ -61,7 +61,12 @@
     align-items: center;
     display: flex;
     justify-content: center;
-    margin-left: 16px;
+    &:first-child {
+      margin-right: 16px;
+    }
+    &:last-child {
+      margin-left: 16px;
+    }
   }
 }
 
