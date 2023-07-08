@@ -8,6 +8,7 @@ type Props = {
   handleSelectByCategory?: any
   handleShowAllPodcasts?: any
   hideNoResultsMessage?: boolean
+  isDraggable?: boolean
   isSubscribedFilter?: boolean
   tutorialsLink?: string
   tutorialsLinkText?: string
@@ -19,13 +20,14 @@ export const List = ({
   handleSelectByCategory,
   handleShowAllPodcasts,
   hideNoResultsMessage,
+  isDraggable,
   isSubscribedFilter,
   tutorialsLink,
   tutorialsLinkText,
   listRef
 }: Props) => {
   const { t } = useTranslation()
-  const hasChildren = children?.length > 0 || (children?.type?.name === 'DraggableList' && children?.props?.list?.length > 0)
+  const hasChildren = children?.length > 0 || (isDraggable && children?.props?.list?.length > 0)
   const showNoResultsFound = !hideNoResultsMessage && !hasChildren
   const listClass = classNames('list')
 
