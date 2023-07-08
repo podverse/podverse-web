@@ -1,12 +1,11 @@
 import { GetServerSideProps } from 'next'
 import { useTranslation } from 'next-i18next'
 import OmniAural, { useOmniAural } from 'omniaural'
-import { useState } from 'react'
-import { convertNowPlayingItemToEpisode, convertNowPlayingItemToMediaRef, NowPlayingItem } from 'podverse-shared'
+import { NowPlayingItem } from 'podverse-shared'
+import { useRef, useState } from 'react'
+import DraggableList from 'react-draggable-list'
 import {
-  ClipListItem,
   ColumnsWrapper,
-  EpisodeListItem,
   Footer,
   List,
   MessageWithAction,
@@ -14,10 +13,11 @@ import {
   PageHeader,
   PageScrollableContent
 } from '~/components'
+import { QueueListItem, CommonProps as QueueListItemCommonProps } from '~/components/QueueListItem/QueueListItem'
 import { Page } from '~/lib/utility/page'
 import { PV } from '~/resources'
-import { isNowPlayingItemMediaRef } from '~/lib/utility/typeHelpers'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
+import { addQueueItemToServer } from '~/services/userQueueItem'
 import { OmniAuralState } from '~/state/omniauralState'
 
 type ServerProps = Page
@@ -31,6 +31,7 @@ export default function Queue(props: ServerProps) {
   const [userInfo] = useOmniAural('session.userInfo') as [OmniAuralState['session']['userInfo']]
   const [userQueueItems] = useOmniAural('userQueueItems') as [OmniAuralState['userQueueItems']]
   const [isEditing, setIsEditing] = useState<boolean>(false)
+  const listRef = useRef(null);
   const hasEditButton = !!userInfo
 
   /* Function helpers */
@@ -44,40 +45,32 @@ export default function Queue(props: ServerProps) {
     }
   }
 
-  /* Render Helpers */
+  const _onMoveEnd = async (newList: NowPlayingItem[], item: NowPlayingItem, from: number, to: number) => {
+    try {
+      // First update local state
+      // Then, update queue on server
 
-  const generateQueueListElements = (queueItems: NowPlayingItem[]) => {
-    return queueItems.map((queueItem, index) => {
-      if (isNowPlayingItemMediaRef(queueItem)) {
-        /* *TODO* remove the "as any" */
-        const mediaRef = convertNowPlayingItemToMediaRef(queueItem) as any
-        return (
-          <ClipListItem
-            episode={mediaRef.episode}
-            handleRemove={() => OmniAural.removeQueueItemMediaRef(mediaRef.id)}
-            isLoggedInUserMediaRef={userInfo && userInfo.id === mediaRef.owner.id}
-            key={`${keyPrefix}-clip-${index}-${mediaRef.id}`}
-            mediaRef={mediaRef}
-            podcast={mediaRef.episode.podcast}
-            showImage
-            showRemoveButton={isEditing}
-          />
-        )
-      } else {
-        /* *TODO* remove the "as any" */
-        const episode = convertNowPlayingItemToEpisode(queueItem) as any
-        return (
-          <EpisodeListItem
-            episode={episode}
-            handleRemove={() => OmniAural.removeQueueItemEpisode(episode.id)}
-            key={`${keyPrefix}-episode-${index}-${episode.id}`}
-            podcast={episode.podcast}
-            showPodcastInfo
-            showRemoveButton={isEditing}
-          />
-        )
+      await OmniAural.setUserQueueItems(newList)
+
+      // offset calculations copied from podverse-rn: `QueueScreen._onDragEnd()`
+      const offset = to < from ? -1 : 0
+      to = (to + 1) * 1000 + offset
+
+      if (to > -1) {
+        addQueueItemToServer(item, to)
       }
-    })
+
+    } catch (error) {
+      console.log('_onMoveEnd error:', error);
+    }
+  }
+
+  const generateItemKey = (queueItem: NowPlayingItem) => {
+    if (queueItem.clipId) {
+      return `${keyPrefix}-clip-${queueItem.clipId}`
+    } else {
+      return `${keyPrefix}-episode-${queueItem.episodeId}`
+    }
   }
 
   /* Meta Tags */
@@ -119,8 +112,22 @@ export default function Queue(props: ServerProps) {
         {userInfo && (
           <ColumnsWrapper
             mainColumnChildren={
-              <List tutorialsLink='/tutorials#queue-add' tutorialsLinkText={t('tutorials link - queue')}>
-                {generateQueueListElements(userQueueItems)}
+              <List
+                tutorialsLink='/tutorials#queue-add'
+                tutorialsLinkText={t('tutorials link - queue')}
+                listRef={listRef}
+              >
+                <DraggableList<NowPlayingItem, QueueListItemCommonProps, QueueListItem>
+                  itemKey={generateItemKey}
+                  template={QueueListItem}
+                  list={userQueueItems}
+                  onMoveEnd={_onMoveEnd}
+                  container={() => listRef.current}
+                  commonProps={{ userInfo, isEditing }}
+                  // Padding 20 is equal to the margin of `.clip-list-item` & `.episode-list-item` css classes.
+                  // This prevents a glitch after dragging is ended, as the margin of the items is removed during dragging.
+                  padding={20}
+                />
               </List>
             }
           />
