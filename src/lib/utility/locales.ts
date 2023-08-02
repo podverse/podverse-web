@@ -2,7 +2,7 @@
 // and next-i18next.config.js as well
 const defaultLang = 'en'
 const enabledLangs = [
-  'da', 'de', 'el', 'es', 'fr', 'it', 'lt', 'nb',
+  'da', 'de', 'el', 'es', 'fr', 'it', 'lt', 'nb', 'nl',
   'pt', 'pt-br', 'ru', 'sv', 'tr'
 ]
 let enabledLang = defaultLang
