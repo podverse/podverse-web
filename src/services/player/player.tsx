@@ -104,6 +104,7 @@ export const playerTogglePlayOrLoadNowPlayingItem = async (nowPlayingItem: NowPl
     paused ? playerPlay() : playerPause()
   } else if (
     !nowPlayingItem.clipId &&
+    previousNowPlayingItem &&
     previousNowPlayingItem.episodeId === nowPlayingItem.episodeId
   ) {
     paused ? playerPlay() : playerPause()
