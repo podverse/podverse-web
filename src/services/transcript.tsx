@@ -1,6 +1,6 @@
 import { convertSecToHHMMSS, TranscriptRow } from 'podverse-shared'
 import { convertFile } from 'transcriptator'
-import { timestampFormatter } from 'transcriptator/timestamp'
+import { TimestampFormatter } from 'transcriptator/timestamp'
 import { request } from './request'
 import { PV } from '../resources'
 
@@ -19,7 +19,7 @@ export const getEpisodeProxyTranscript = async (episodeId: string, language?: st
     })
     const { data } = response
     if (data?.data && data?.type) {
-      timestampFormatter.registerCustomFormatter(convertSecToHHMMSS)
+      TimestampFormatter.registerCustomFormatter(convertSecToHHMMSS)
       parsedTranscript = convertFile(data.data)
 
       let previousSpeaker = ''
