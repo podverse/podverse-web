@@ -7611,10 +7611,10 @@ tr46@~0.0.3:
   resolved "https://registry.yarnpkg.com/tr46/-/tr46-0.0.3.tgz#8184fd347dac9cdc185992f3a6622e14b9d9ab6a"
   integrity sha512-N3WMsuqV66lT30CrXNbEjx4GEwlow3v6rr4mCcv6prnfwhS01rkgyFdjPNBYd9br7LpXV1+Emh01fHnq2Gdgrw==
 
-transcriptator@1.0.4:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/transcriptator/-/transcriptator-1.0.4.tgz#bc78234425331cc6b002725fbc803b5cc9c9c35b"
-  integrity sha512-KdiAoqutyO3kfJbiNZ2Gr2F7MI5mLJeejdhGtjuCzR5J6zewL+J0r1AaDuMb3PuOkpabB5daljmL0ONGZJ1zhQ==
+transcriptator@^1.1.0:
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/transcriptator/-/transcriptator-1.1.3.tgz#9e02042ac069f86f0189e62ed78f02ab44face76"
+  integrity sha512-65CufQCYd8Z+UWVtQl78kKov6w5l/sNRFZ36O98N4Dv3D38uSaC5rRWKxsCYpVdw4ZaXWePzTxzmIjGXnzQalQ==
   dependencies:
     node-html-parser "^6.1.5"
 
