@@ -298,7 +298,7 @@
     "tutorials link - queue": "Узнайте больше об очередях",
     "filter sorting - chronological": "Хронология",
     "Download my data": "Скачать мои данные",
-    "Download my data explanation": "Загрузите полную копию ваших данных из нашей базы.",
+    "Download my data explanation": "Скачайте все ваши данные с наших серверов.",
     "Episode Summary": "Краткое описание эпизода",
     "filter from - all - aria": "Фильтрация по всем подкастам",
     "tutorials link - history": "Узнайте больше об истории",
@@ -309,7 +309,7 @@
     "filter type - playlists": "Плейлисты",
     "My account": "Мой профиль",
     "features - mark episodes as played": "Отмечайте эпизоды как проигранные",
-    "_translatorsField": "Onelex<mailto:onelex@disroot.org>",
+    "_translatorsField": "Pazen<mailto:pazengaz@porcod.io>",
     "Mark as Unplayed": "Отметить как не проигранный",
     "features - add custom rss feeds": "Добавление пользовательских RSS-каналов",
     "features - create and share playlists": "Создавайте плейлисты и делитесь ими",
@@ -324,5 +324,8 @@
     "language - sv": "Шведский",
     "language - de": "Немецкий",
     "language - ru": "Русский",
-    "Embed episode only instructions": "Для того чтобы встроить один эпизод на свой сайт, нажмите на значок \"Поделиться\" в Podverse, скопируйте \"код для встраивания\" и вставьте его на свою веб-страницу."
+    "Embed episode only instructions": "Для того чтобы встроить один эпизод на свой сайт, нажмите на значок \"Поделиться\" в Podverse, скопируйте \"код для встраивания\" и вставьте его на свою веб-страницу.",
+    "Report a content issue": "Сообщить о проблеме с контентом",
+    "Embed custom CSS intro instructions": "Вы можете изменить стиль встроенного проигрывателя Podverse с помощью скрипта на вашем веб-сайте.",
+    "Embed custom CSS instructions": "Используйте JavaScript, чтобы переопределить стиль встраиваемого проигрывателя. Скопируйте приведенный ниже скрипт, измените его на ваше усмотрение, затем вставьте в (нижнюю часть) вашего веб-сайта."
 }
