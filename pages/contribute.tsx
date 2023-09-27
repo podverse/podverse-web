@@ -72,6 +72,11 @@ export default function Contribute(props: ServerProps) {
                   {t('Donate with Patreon')}
                 </a>
               </p>
+              <p>
+                <a href='https://github.com/sponsors/podverse' target='_blank' rel='noreferrer'>
+                  {t('Donate with Github')}
+                </a>
+              </p>
               <br />
               <h3>{t('Contribute')}</h3>
               <p>
