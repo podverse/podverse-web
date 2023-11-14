@@ -434,6 +434,6 @@
     "category - truecrime": "Crime",
     "Contribute page": "Page de contribution",
     "category - leisure": "Loisirs",
-    "Embed player overrides error info": "Afin d'utiliser le lecteur Web embarqué de Podverse avec des remplacements personnalisés, nous devons d'abord ajouter une liste d'\"urls de médias approuvés\" pour ce podcast. Nous avons besoin de cette liste pour empêcher les gens d'utiliser notre lecteur embarqué pour pirater ou déformer les podcasts. Veuillez nous contacter et nous activerons cette fonctionnalité pour vous !",
+    "Embed player overrides error info": "Afin d'utiliser le lecteur Web intégré de Podverse avec des configurations personnalisées, nous devons d'abord ajouter une liste d'« URL de média approuvés » pour ce podcast. Nous avons besoin de cette liste pour empêcher les gens d'utiliser notre lecteur intégré pour pirater ou déformer les podcasts. Veuillez nous contacter et nous activerons cette fonctionnalité pour vous !",
     "Account Claim Token": "Jeton de réclamation de compte"
 }
