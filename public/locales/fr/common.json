@@ -96,7 +96,7 @@
     "Verifying your email address": "Vérification de l'adresse e-mail…",
     "YourMembershipHasExpired": "Veuillez renouveler votre abonnement à Podverse Premium pour utiliser toutes les fonctionnalités.",
     "No episode notes available": "Aucune note d'épisode disponible",
-    "open source": "Libre",
+    "open source": "Open Source",
     "Are you sure you want to remove all of your history items": "Effacer tout l'historique ?",
     "ARIA - Toggle UI theme change": "Modifier le thème de l'interface",
     "Bug Report": "Signaler un problème",
@@ -425,5 +425,12 @@
     "Join our Matrix space": "Rejoignez notre espace Matrix",
     "Download my data": "Télécharger mes données",
     "Download my data explanation": "Téléchargez une copie complète de vos données à partir de notre base de données.",
-    "Chat Room": "Salle de chat"
+    "Chat Room": "Salle de chat",
+    "Donate with Patreon": "Faire un don via Patreon",
+    "Donate with PayPal": "Faire un don via PayPal",
+    "Delete my account": "Supprimer mon compte",
+    "Donate with Github": "Faire un don via GitHub",
+    "Bitcoin wallet address": "Adresse du portefeuille Bitcoin",
+    "category - truecrime": "Crime",
+    "Contribute page": "Page de contribution"
 }
