@@ -437,5 +437,5 @@
     "Embed player overrides error info": "Afin d'utiliser le lecteur Web intégré de Podverse avec des configurations personnalisées, nous devons d'abord ajouter une liste d'« URL de média approuvés » pour ce podcast. Nous avons besoin de cette liste pour empêcher les gens d'utiliser notre lecteur intégré pour pirater ou déformer les podcasts. Veuillez nous contacter et nous activerons cette fonctionnalité pour vous !",
     "Account Claim Token": "Jeton de réclamation de compte",
     "Embed player overrides error email body": "Veuillez nous fournir un lien vers le flux RSS de votre podcast afin que nous puissions activer la fonction de configuration du lecteur intégré pour vous.",
-    "Embed player overrides error email subject": "Aide à la définition d'urls de médias approuvés pour la fonction de remplacement du lecteur embarqué"
+    "Embed player overrides error email subject": "Aide à la définition d'URL de média approuvées pour la fonction de configuration du lecteur intégré"
 }
