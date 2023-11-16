@@ -48,7 +48,7 @@ jobs:
           docker stop podverse_web_prod
           docker rm podverse_web_prod
           docker image rm podverse/podverse_web:latest
-          docker-compose -f /opt/podverse-ops/docker-compose/prod/srv/docker-compose.yml up -d podverse_web
+          docker compose -f /opt/podverse-ops/docker-compose/prod/srv/docker-compose.yml up -d podverse_web
 
     - name: send deploy finished message to Matrix Alerts room
       uses: s3krit/matrix-message-action@v0.0.3
