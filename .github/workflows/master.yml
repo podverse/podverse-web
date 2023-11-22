@@ -41,7 +41,6 @@ jobs:
       with:
         host: ${{ secrets.PROD_SSH_HOST }}
         username: ${{ secrets.PROD_SSH_USERNAME }}
-        passphrase: ${{ secrets.PROD_SSH_PASSPHRASE }}
         key: ${{ secrets.PROD_SSH_PRIVATE_KEY }}
         command_timeout: 60m
         script: |
