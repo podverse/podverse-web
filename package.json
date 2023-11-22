@@ -1,6 +1,6 @@
 {
   "name": "podverse-web",
-  "version": "4.14.0",
+  "version": "4.15.0",
   "description": "Web app for the Podverse podcast clip sharing ecosystem",
   "repository": {
     "type": "git",
@@ -49,7 +49,7 @@
     "@fortawesome/react-fontawesome": "0.1.16",
     "@podverse/react-dropdown-select": "4.8.4-beta.2",
     "@podverse/react-show-more-text": "1.5.1-beta.2",
-    "axios": "0.24.0",
+    "axios": "1.6.0",
     "classnames": "2.3.1",
     "debounce": "1.2.1",
     "linkify-html": "3.0.4",
@@ -95,7 +95,7 @@
     "jest": "27.4.7",
     "lint-staged": "12.1.2",
     "npm-run-all": "4.1.5",
-    "postcss": "8.4.5",
+    "postcss": "8.4.31",
     "postcss-scss": "4.0.2",
     "prettier": "2.5.0",
     "stylelint": "^15.10.1",
