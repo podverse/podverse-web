@@ -54,15 +54,6 @@ export const initializeMatomo = () => {
 
 export const matomoTrackPageView = () => {
   let intervalCount = 0
-  const waitForMotomoToLoad = setInterval(() => {
-    intervalCount++
-    if (_hasDoNotTrackFlagOn() || intervalCount > 30) {
-      clearInterval(waitForMotomoToLoad)
-    } else if (window.Matomo) {
-      clearInterval(waitForMotomoToLoad)
-      trackPageView()
-    }
-  }, 333)
 
   const trackPageView = () => {
     if (window.Matomo) {
@@ -72,4 +63,14 @@ export const matomoTrackPageView = () => {
       }
     }
   }
+
+  const waitForMotomoToLoad = setInterval(() => {
+    intervalCount++
+    if (_hasDoNotTrackFlagOn() || intervalCount > 30) {
+      clearInterval(waitForMotomoToLoad)
+    } else if (window.Matomo) {
+      clearInterval(waitForMotomoToLoad)
+      trackPageView()
+    }
+  }, 333)
 }
