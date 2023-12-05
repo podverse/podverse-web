@@ -145,7 +145,9 @@ function MyApp({ Component, pageProps }) {
         }
 
         initializeMatomo()
-        matomoTrackPageView()
+        if (!isEmbedPage) {
+          matomoTrackPageView()
+        }
       }
 
       return () => window.removeEventListener('resize', resetHeight)
