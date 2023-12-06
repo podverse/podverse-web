@@ -64,12 +64,12 @@ export const matomoTrackPageView = () => {
     }
   }
 
-  const waitForMotomoToLoad = setInterval(() => {
+  const waitForMatomoToLoad = setInterval(() => {
     intervalCount++
     if (_hasDoNotTrackFlagOn() || intervalCount > 30) {
-      clearInterval(waitForMotomoToLoad)
+      clearInterval(waitForMatomoToLoad)
     } else if (window.Matomo) {
-      clearInterval(waitForMotomoToLoad)
+      clearInterval(waitForMatomoToLoad)
       trackPageView()
     }
   }, 333)
