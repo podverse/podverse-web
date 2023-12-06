@@ -25,16 +25,16 @@ import { getLiveItemsByQuery, LiveItemsQueryParams } from '~/services/liveItem'
 import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
 import { OmniAuralState } from '~/state/omniauralState'
 
+type LiveItemStatus = 'live' | 'pending'
+
 interface ServerProps extends Page {
   serverCategoryId: string | null
   serverCookies: any
   serverFilterFrom: string
-  serverFilterPageLive: number
-  serverFilterPagePending: number
-  serverLiveItemsListDataLive: Episode[]
-  serverLiveItemsListDataCountLive: number
-  serverLiveItemsListDataPending: Episode[]
-  serverLiveItemsListDataCountPending: number
+  serverFilterLiveItemStatus: LiveItemStatus
+  serverFilterPage: number
+  serverLiveItemsListData: Episode[]
+  serverLiveItemsListDataCount: number
 }
 
 const keyPrefix = 'pages_livestreams'
@@ -43,13 +43,11 @@ export default function LiveItems({
   serverCategoryId,
   serverCookies,
   serverFilterFrom,
-  serverFilterPageLive,
-  serverFilterPagePending,
+  serverFilterLiveItemStatus,
+  serverFilterPage,
   serverGlobalFilters,
-  serverLiveItemsListDataLive,
-  serverLiveItemsListDataCountLive,
-  serverLiveItemsListDataPending,
-  serverLiveItemsListDataCountPending
+  serverLiveItemsListData,
+  serverLiveItemsListDataCount
 }: ServerProps) {
   /* Initialize */
 
@@ -60,35 +58,27 @@ export default function LiveItems({
   const [filterQuery, setFilterQuery] = useState<any>({
     filterCategoryId: serverCategoryId || null,
     filterFrom: serverFilterFrom,
-    filterPageLive: serverFilterPageLive,
-    filterPagePending: serverFilterPagePending,
+    filterLiveItemStatus: serverFilterLiveItemStatus,
+    filterPage: serverFilterPage,
     videoOnlyMode: serverGlobalFilters?.videoOnlyMode || OmniAural.state.globalFilters.videoOnlyMode.value()
   })
-  const { filterCategoryId, filterFrom, filterPageLive, filterPagePending, videoOnlyMode } = filterQuery
+  const { filterCategoryId, filterFrom, filterLiveItemStatus, filterPage, videoOnlyMode } = filterQuery
 
-  const [liveItemsListDataLive, setLiveItemsListDataLive] = useState<Episode[]>(serverLiveItemsListDataLive)
-  const [liveItemsListDataCountLive, setLiveItemsListDataCountLive] = useState<number>(serverLiveItemsListDataCountLive)
-  const [liveItemsListDataPending, setLiveItemsListDataPending] = useState<Episode[]>(serverLiveItemsListDataPending)
-  const [liveItemsListDataCountPending, setLiveItemsListDataCountPending] = useState<number>(
-    serverLiveItemsListDataCountPending
-  )
+  const [liveItemsListData, setLiveItemsListData] = useState<Episode[]>(serverLiveItemsListData)
+  const [liveItemsListDataCount, setLiveItemsListDataCount] = useState<number>(serverLiveItemsListDataCount)
+
   const [isQuerying, setIsQuerying] = useState<boolean>(false)
   const [userInfo] = useOmniAural('session.userInfo') as [OmniAuralState['session']['userInfo']]
   const initialRender = useRef(true)
-  const pageCountLive = determinePageCount(filterPageLive, liveItemsListDataLive, liveItemsListDataCountLive)
-  const pageCountPending = determinePageCount(
-    filterPagePending,
-    liveItemsListDataPending,
-    liveItemsListDataCountPending
-  )
+  const pageCount = determinePageCount(filterPage, liveItemsListData, liveItemsListDataCount)
+
   const isCategoryPage = !!router.query?.category
   const isCategoriesPage = filterFrom === PV.Filters.from._category && !isCategoryPage
   const isLoggedInSubscribedPage = userInfo && filterFrom === PV.Filters.from._subscribed
   const selectedCategory = isCategoryPage ? getCategoryById(filterCategoryId) : null
   const pageHeaderText = selectedCategory ? `${t('Livestreams')} > ${selectedCategory.title}` : t('Livestreams')
   const showLoginMessage = !userInfo && filterFrom === PV.Filters.from._subscribed
-  const hasItemsLive = liveItemsListDataLive && liveItemsListDataLive.length > 0
-  const hasItemsPending = liveItemsListDataPending && liveItemsListDataPending.length > 0
+  const hasItems = liveItemsListData && liveItemsListData.length > 0
 
   const categories = getTranslatedCategories(t)
 
@@ -120,15 +110,10 @@ export default function LiveItems({
           OmniAural.pageIsLoadingShow()
           setIsQuerying(true)
 
-          const { data: dataLive } = await clientQueryLiveItemsLive()
-          const [newListDataLive, newListCountLive] = dataLive
-          setLiveItemsListDataLive(newListDataLive)
-          setLiveItemsListDataCountLive(newListCountLive)
-
-          const { data: dataPending } = await clientQueryLiveItemsPending()
-          const [newListDataPending, newListCountPending] = dataPending
-          setLiveItemsListDataPending(newListDataPending)
-          setLiveItemsListDataCountPending(newListCountPending)
+          const { data } = await clientQueryLiveItems(filterLiveItemStatus)
+          const [newListData, newListCount] = data
+          setLiveItemsListData(newListData)
+          setLiveItemsListDataCount(newListCount)
         }
       } catch (err) {
         console.log(err)
@@ -143,88 +128,43 @@ export default function LiveItems({
 
   // "live" status queries
 
-  const clientQueryLiveItemsLive = async () => {
+  const clientQueryLiveItems = async (liveItemStatus: LiveItemStatus) => {
     if (filterFrom === PV.Filters.from._all) {
-      return clientQueryLiveItemsAllLive()
+      return clientQueryLiveItemsAll(liveItemStatus)
     } else if (filterFrom === PV.Filters.from._category) {
-      return clientQueryLiveItemsByCategoryLive()
+      return clientQueryLiveItemsByCategory(liveItemStatus)
     } else if (filterFrom === PV.Filters.from._subscribed) {
-      return clientQueryLiveItemsBySubscribedLive()
+      return clientQueryLiveItemsBySubscribed(liveItemStatus)
     }
   }
 
-  const clientQueryLiveItemsAllLive = async () => {
+  const clientQueryLiveItemsAll = async (liveItemStatus: LiveItemStatus) => {
     const finalQuery: LiveItemsQueryParams = {
-      liveItemStatus: 'live',
-      ...(filterPageLive ? { page: filterPageLive } : {}),
+      liveItemStatus,
+      ...(filterPage ? { page: filterPage } : {}),
       ...(videoOnlyMode ? { hasVideo: true } : {}),
       includePodcast: true
     }
     return getLiveItemsByQuery(finalQuery)
   }
 
-  const clientQueryLiveItemsByCategoryLive = async () => {
+  const clientQueryLiveItemsByCategory = async (liveItemStatus: LiveItemStatus) => {
     const finalQuery: LiveItemsQueryParams = {
-      liveItemStatus: 'live',
+      liveItemStatus,
       categories: filterCategoryId ? [filterCategoryId] : [],
-      ...(filterPageLive ? { page: filterPageLive } : {}),
+      ...(filterPage ? { page: filterPage } : {}),
       ...(videoOnlyMode ? { hasVideo: true } : {}),
       includePodcast: true
     }
     return getLiveItemsByQuery(finalQuery)
   }
 
-  const clientQueryLiveItemsBySubscribedLive = async () => {
+  const clientQueryLiveItemsBySubscribed = async (liveItemStatus: LiveItemStatus) => {
     const subscribedPodcastIds = userInfo?.subscribedPodcastIds || []
     const finalQuery: LiveItemsQueryParams = {
-      liveItemStatus: 'live',
+      liveItemStatus,
       podcastIds: subscribedPodcastIds,
-      ...(filterPageLive ? { page: filterPageLive } : {}),
-      ...(videoOnlyMode ? { hasVideo: true } : {}),
-      includePodcast: true
-    }
-    return getLiveItemsByQuery(finalQuery)
-  }
-
-  // "pending" status queries
-
-  const clientQueryLiveItemsPending = async () => {
-    if (filterFrom === PV.Filters.from._all) {
-      return clientQueryLiveItemsAllPending()
-    } else if (filterFrom === PV.Filters.from._category) {
-      return clientQueryLiveItemsByCategoryPending()
-    } else if (filterFrom === PV.Filters.from._subscribed) {
-      return clientQueryLiveItemsBySubscribedPending()
-    }
-  }
-
-  const clientQueryLiveItemsAllPending = async () => {
-    const finalQuery: LiveItemsQueryParams = {
-      liveItemStatus: 'pending',
-      ...(filterPagePending ? { page: filterPagePending } : {}),
-      ...(videoOnlyMode ? { hasVideo: true } : {}),
-      includePodcast: true
-    }
-    return getLiveItemsByQuery(finalQuery)
-  }
-
-  const clientQueryLiveItemsByCategoryPending = async () => {
-    const finalQuery: LiveItemsQueryParams = {
-      liveItemStatus: 'pending',
-      categories: filterCategoryId ? [filterCategoryId] : [],
-      ...(filterPagePending ? { page: filterPagePending } : {}),
-      ...(videoOnlyMode ? { hasVideo: true } : {}),
-      includePodcast: true
-    }
-    return getLiveItemsByQuery(finalQuery)
-  }
-
-  const clientQueryLiveItemsBySubscribedPending = async () => {
-    const subscribedPodcastIds = userInfo?.subscribedPodcastIds || []
-    const finalQuery: LiveItemsQueryParams = {
-      liveItemStatus: 'pending',
-      podcastIds: subscribedPodcastIds,
-      ...(filterPagePending ? { page: filterPagePending } : {}),
+      ...(filterPage ? { page: filterPage } : {}),
       ...(videoOnlyMode ? { hasVideo: true } : {}),
       includePodcast: true
     }
@@ -237,12 +177,25 @@ export default function LiveItems({
     router.push(`${PV.RoutePaths.web.livestreams}`)
     const selectedItem = selectedItems[0]
 
+    console.log('selectedItem', selectedItem)
+
+    setFilterQuery({
+      ...filterQuery,
+      filterCategoryId: null,
+      filterLiveItemStatus: selectedItem.key,
+      filterPage: 1,
+    })
+  }
+
+  const _handleSecondaryOnChange = (selectedItems: any[]) => {
+    router.push(`${PV.RoutePaths.web.livestreams}`)
+    const selectedItem = selectedItems[0]
+
     setFilterQuery({
       ...filterQuery,
       filterCategoryId: null,
       filterFrom: selectedItem.key,
-      filterPageLive: 1,
-      filterPagePending: 1
+      filterPage: 1,
     })
   }
 
@@ -300,8 +253,11 @@ export default function LiveItems({
           )
         }}
         primaryOnChange={_handlePrimaryOnChange}
-        primaryOptions={PV.Filters.dropdownOptions.episodes.from}
-        primarySelected={filterFrom}
+        primaryOptions={PV.Filters.dropdownOptions.livestreams.status}
+        primarySelected={filterLiveItemStatus}
+        secondaryOnChange={_handleSecondaryOnChange}
+        secondaryOptions={PV.Filters.dropdownOptions.livestreams.from}
+        secondarySelected={filterFrom}
         text={pageHeaderText}
         videoOnlyMode={videoOnlyMode}
       />
@@ -314,8 +270,7 @@ export default function LiveItems({
               setFilterQuery({
                 ...filterQuery,
                 filterCategoryId: id,
-                filterPageLive: 1,
-                filterPagePending: 1
+                filterPage: 1,
               })
               const selectedCategory = getCategoryById(id)
               router.push(`${PV.RoutePaths.web.livestreams}?category=${selectedCategory.slug}`)
@@ -329,93 +284,51 @@ export default function LiveItems({
             message={t('LoginToSubscribeToPodcasts')}
           />
         )}
-        {(isLoggedInSubscribedPage || filterFrom === PV.Filters.from._all || isCategoryPage) && hasItemsLive && (
+        {(isLoggedInSubscribedPage || filterFrom === PV.Filters.from._all || isCategoryPage) && hasItems && (
           <>
             <List
-              handleSelectByCategory={() => _handlePrimaryOnChange([PV.Filters.dropdownOptions.episodes.from[2]])}
-              handleShowAllPodcasts={() => _handlePrimaryOnChange([PV.Filters.dropdownOptions.episodes.from[0]])}
+              handleSelectByCategory={() => _handleSecondaryOnChange([PV.Filters.dropdownOptions.episodes.from[2]])}
+              handleShowAllPodcasts={() => _handleSecondaryOnChange([PV.Filters.dropdownOptions.episodes.from[0]])}
               hideNoResultsMessage={isQuerying}
               isSubscribedFilter={
                 filterFrom === PV.Filters.from._subscribed && userInfo?.subscribedPodcastIds?.length === 0
               }
             >
-              {generateLiveItemsListElements(liveItemsListDataLive, false)}
+              {generateLiveItemsListElements(liveItemsListData, false)}
             </List>
             <Pagination
-              currentPageIndex={filterPageLive}
+              currentPageIndex={filterPage}
               handlePageNavigate={(newPage) =>
                 setFilterQuery({
                   ...filterQuery,
-                  filterPageLive: newPage
+                  filterPage: newPage
                 })
               }
               handlePageNext={() => {
-                if (filterPageLive + 1 <= pageCountLive)
+                if (filterPage + 1 <= pageCount)
                   setFilterQuery({
                     ...filterQuery,
-                    filterPageLive: filterPageLive + 1
+                    filterPage: filterPage + 1
                   })
               }}
               handlePagePrevious={() => {
-                if (filterPageLive - 1 > 0)
+                if (filterPage - 1 > 0)
                   setFilterQuery({
                     ...filterQuery,
-                    filterPageLive: filterPageLive - 1
+                    filterPage: filterPage - 1
                   })
               }}
-              pageCount={pageCountLive}
-              show={filterPageLive > 1 || (filterPageLive === 1 && liveItemsListDataLive.length >= 20)}
+              pageCount={pageCount}
+              show={filterPage > 1 || (filterPage === 1 && liveItemsListData.length >= 20)}
             />
-            {hasItemsLive && hasItemsPending && <hr />}
+            {hasItems && <hr />}
             <br />
             <br />
-          </>
-        )}
-        {(isLoggedInSubscribedPage || filterFrom === PV.Filters.from._all || isCategoryPage) && hasItemsPending && (
-          <>
-            <h2>{t('Scheduled')}</h2>
-            <List
-              handleSelectByCategory={() => _handlePrimaryOnChange([PV.Filters.dropdownOptions.episodes.from[2]])}
-              handleShowAllPodcasts={() => _handlePrimaryOnChange([PV.Filters.dropdownOptions.episodes.from[0]])}
-              hideNoResultsMessage={isQuerying}
-              isSubscribedFilter={
-                filterFrom === PV.Filters.from._subscribed && userInfo?.subscribedPodcastIds?.length === 0
-              }
-            >
-              {generateLiveItemsListElements(liveItemsListDataPending, true)}
-            </List>
-            <Pagination
-              currentPageIndex={filterPagePending}
-              handlePageNavigate={(newPage) =>
-                setFilterQuery({
-                  ...filterQuery,
-                  filterPagePending: newPage
-                })
-              }
-              handlePageNext={() => {
-                if (filterPagePending + 1 <= pageCountPending)
-                  setFilterQuery({
-                    ...filterQuery,
-                    filterPagePending: filterPagePending + 1
-                  })
-              }}
-              handlePagePrevious={() => {
-                if (filterPagePending - 1 > 0)
-                  setFilterQuery({
-                    ...filterQuery,
-                    filterPagePending: filterPagePending - 1
-                  })
-              }}
-              pageCount={pageCountPending}
-              show={filterPagePending > 1 || (filterPagePending === 1 && liveItemsListDataPending.length >= 20)}
-            />
           </>
         )}
         {(filterFrom === PV.Filters.from._all || isLoggedInSubscribedPage || isCategoryPage) &&
-          liveItemsListDataLive &&
-          liveItemsListDataLive.length === 0 &&
-          liveItemsListDataPending &&
-          liveItemsListDataPending.length === 0 && (
+          liveItemsListData &&
+          liveItemsListData.length === 0 && (
             <div className='list'>
               <div className='no-results-found-message' tabIndex={0}>
                 {t('No results found')}
@@ -441,14 +354,13 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
   // const serverFilterFrom = serverUserInfo && !selectedCategory ? PV.Filters.from._subscribed : PV.Filters.from._all
   const serverFilterFrom = PV.Filters.from._all
+  const serverFilterLiveItemStatus = 'live'
 
-  const serverFilterPageLive = 1
-  const serverFilterPagePending = 1
+  const serverFilterPage = 1
 
-  let liveItemsListDataLive = []
-  let liveItemsListDataCountLive = 0
-  let liveItemsListDataPending = []
-  let liveItemsListDataCountPending = 0
+  let liveItemsListData = []
+  let liveItemsListDataCount = 0
+
   if (selectedCategory) {
     const responseLive = await getLiveItemsByQuery({
       liveItemStatus: 'live',
@@ -456,45 +368,26 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       includePodcast: true,
       hasVideo: serverGlobalFilters.videoOnlyMode
     })
-    liveItemsListDataLive = responseLive.data[0]
-    liveItemsListDataCountLive = responseLive.data[1]
-
-    const responsePending = await getLiveItemsByQuery({
-      liveItemStatus: 'pending',
-      categories: [serverCategoryId],
-      includePodcast: true,
-      hasVideo: serverGlobalFilters.videoOnlyMode
-    })
-    liveItemsListDataPending = responsePending.data[0]
-    liveItemsListDataCountPending = responsePending.data[1]
+    liveItemsListData = responseLive.data[0]
+    liveItemsListDataCount = responseLive.data[1]
   } else {
     const responseLive = await getLiveItemsByQuery({
       liveItemStatus: 'live',
       includePodcast: true,
       hasVideo: serverGlobalFilters.videoOnlyMode
     })
-    liveItemsListDataLive = responseLive.data[0]
-    liveItemsListDataCountLive = responseLive.data[1]
-
-    const responsePending = await getLiveItemsByQuery({
-      liveItemStatus: 'pending',
-      includePodcast: true,
-      hasVideo: serverGlobalFilters.videoOnlyMode
-    })
-    liveItemsListDataPending = responsePending.data[0]
-    liveItemsListDataCountPending = responsePending.data[1]
+    liveItemsListData = responseLive.data[0]
+    liveItemsListDataCount = responseLive.data[1]
   }
 
   const serverProps: ServerProps = {
     ...defaultServerProps,
     serverCategoryId,
     serverFilterFrom,
-    serverFilterPageLive,
-    serverFilterPagePending,
-    serverLiveItemsListDataLive: liveItemsListDataLive,
-    serverLiveItemsListDataCountLive: liveItemsListDataCountLive,
-    serverLiveItemsListDataPending: liveItemsListDataPending,
-    serverLiveItemsListDataCountPending: liveItemsListDataCountPending
+    serverFilterLiveItemStatus,
+    serverFilterPage,
+    serverLiveItemsListData: liveItemsListData,
+    serverLiveItemsListDataCount: liveItemsListDataCount
   }
 
   return { props: serverProps }
