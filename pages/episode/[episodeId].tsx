@@ -244,15 +244,15 @@ export default function EpisodePage({
                   <PageHeader
                     isSubHeader
                     noMarginBottom
-                    sortOnChange={(selectedItems: any[]) => {
+                    secondaryOnChange={(selectedItems: any[]) => {
                       const selectedItem = selectedItems[0]
                       setFilterState({
                         clipsFilterPage: 1,
                         clipsFilterSort: selectedItem.key
                       })
                     }}
-                    sortOptions={PV.Filters.dropdownOptions.clip.sort}
-                    sortSelected={clipsFilterSort}
+                    secondaryOptions={PV.Filters.dropdownOptions.clip.sort}
+                    secondarySelected={clipsFilterSort}
                     text={t('Clips')}
                   />
                   <List>{generateClipListElements()}</List>

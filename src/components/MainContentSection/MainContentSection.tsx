@@ -11,9 +11,9 @@ type Props = {
   primaryOnChange?: any
   primaryOptions?: any[]
   primarySelected?: string
-  sortOptions?: any[]
-  sortOnChange?: any
-  sortSelected?: string
+  secondaryOptions?: any[]
+  secondaryOnChange?: any
+  secondarySelected?: string
 }
 
 export const MainContentSection = ({
@@ -25,9 +25,9 @@ export const MainContentSection = ({
   primaryOnChange,
   primaryOptions,
   primarySelected,
-  sortOnChange,
-  sortOptions,
-  sortSelected
+  secondaryOnChange,
+  secondaryOptions,
+  secondarySelected
 }: Props) => {
   const [showContent, setShowContent] = useState<boolean>(false)
 
@@ -51,9 +51,9 @@ export const MainContentSection = ({
             primaryOnChange={primaryOnChange}
             primaryOptions={primaryOptions}
             primarySelected={primarySelected}
-            sortOnChange={sortOnChange}
-            sortOptions={sortOptions}
-            sortSelected={sortSelected}
+            secondaryOnChange={secondaryOnChange}
+            secondaryOptions={secondaryOptions}
+            secondarySelected={secondarySelected}
             text={headerText}
           />
         </div>

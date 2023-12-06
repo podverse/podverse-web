@@ -315,13 +315,13 @@ export default function Podcasts({
         primaryOnChange={_handlePrimaryOnChange}
         primaryOptions={PV.Filters.dropdownOptions.podcasts.from}
         primarySelected={filterFrom}
-        sortOnChange={_handleSortOnChange}
-        sortOptions={
+        secondaryOnChange={_handleSortOnChange}
+        secondaryOptions={
           filterFrom === PV.Filters.from._subscribed
             ? PV.Filters.dropdownOptions.podcasts.sort.subscribed
             : PV.Filters.dropdownOptions.podcasts.sort.all
         }
-        sortSelected={filterSort}
+        secondarySelected={filterSort}
         text={pageHeaderText}
         videoOnlyMode={videoOnlyMode}
       />

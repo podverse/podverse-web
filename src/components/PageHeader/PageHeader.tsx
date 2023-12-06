@@ -20,9 +20,9 @@ type Props = {
   primaryOnChange?: any
   primaryOptions?: any[]
   primarySelected?: string
-  sortOptions?: any[]
-  sortOnChange?: any
-  sortSelected?: string
+  secondaryOptions?: any[]
+  secondaryOnChange?: any
+  secondarySelected?: string
   text: string
   videoOnlyMode?: boolean
 }
@@ -44,9 +44,9 @@ export const PageHeader = ({
   primaryOnChange,
   primaryOptions,
   primarySelected,
-  sortOnChange,
-  sortOptions,
-  sortSelected,
+  secondaryOnChange,
+  secondaryOptions,
+  secondarySelected,
   text,
   videoOnlyMode
 }: Props) => {
@@ -57,7 +57,7 @@ export const PageHeader = ({
     noMarginBottom ? 'no-margin-bottom' : ''
   )
   const hrClassName = classnames('page-header-hr', noMarginBottom ? 'no-margin-bottom' : '')
-  const hasDropdowns = !!(sortOptions?.length || primaryOptions?.length)
+  const hasDropdowns = !!(secondaryOptions?.length || primaryOptions?.length)
   const hasButtons = !!hasEditButton || !!handleAutoScrollButton || !!customButtons
   const caretIcon = (
     <div className='header-caret'>
@@ -101,14 +101,14 @@ export const PageHeader = ({
                   />
                 </div>
               )}
-              {sortOptions?.length && (
-                <div className='dropdown-sort-wrapper'>
+              {secondaryOptions?.length && (
+                <div className='dropdown-secondary-wrapper'>
                   <Dropdown
                     dropdownWidthClass='width-medium'
-                    onChange={sortOnChange}
-                    options={sortOptions}
+                    onChange={secondaryOnChange}
+                    options={secondaryOptions}
                     outlineStyle
-                    selectedKey={sortSelected}
+                    selectedKey={secondarySelected}
                   />
                 </div>
               )}

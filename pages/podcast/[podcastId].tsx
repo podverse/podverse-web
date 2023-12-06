@@ -243,9 +243,9 @@ export default function Podcast({
                 primaryOnChange={(selectedItems: any[]) => _handlePrimaryOnChange(selectedItems)}
                 primaryOptions={PV.Filters.dropdownOptions.podcast.from}
                 primarySelected={filterType}
-                sortOnChange={(selectedItems: any[]) => _handleSortOnChange(selectedItems)}
-                sortOptions={PV.Filters.dropdownOptions.podcast.sort}
-                sortSelected={filterSort}
+                secondaryOnChange={(selectedItems: any[]) => _handleSortOnChange(selectedItems)}
+                secondaryOptions={PV.Filters.dropdownOptions.podcast.sort}
+                secondarySelected={filterSort}
                 text={filterType === PV.Filters.type._episodes ? t('Episodes') : t('Clips')}
               />
               <SearchBarFilter

@@ -278,15 +278,15 @@ export default function Profile({
                 primaryOnChange={_handlePrimaryOnChange}
                 primaryOptions={PV.Filters.dropdownOptions.profile.types}
                 primarySelected={filterType}
-                sortOnChange={_handleSortOnChange}
-                sortOptions={
+                secondaryOnChange={_handleSortOnChange}
+                secondaryOptions={
                   filterType === PV.Filters.type._clips
                     ? PV.Filters.dropdownOptions.clips.sort.subscribed
                     : filterType === PV.Filters.type._podcasts
                     ? PV.Filters.dropdownOptions.podcasts.sort.subscribed
                     : null
                 }
-                sortSelected={filterSort}
+                secondarySelected={filterSort}
                 text={pageSubTitle}
               />
               <List>{generateListElements()}</List>

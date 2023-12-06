@@ -203,9 +203,9 @@ export default function Clip({
               <PageHeader
                 isSubHeader
                 noMarginBottom
-                sortOnChange={_handleSortOnChange}
-                sortOptions={PV.Filters.dropdownOptions.clip.sort}
-                sortSelected={clipsFilterSort}
+                secondaryOnChange={_handleSortOnChange}
+                secondaryOptions={PV.Filters.dropdownOptions.clip.sort}
+                secondarySelected={clipsFilterSort}
                 text={t('Clips')}
               />
               <List>{generateClipListElements()}</List>
