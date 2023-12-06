@@ -171,6 +171,8 @@
   "filter sorting - top-past-month": "Top - Past Month",
   "filter sorting - top-past-year": "Top - Past Year",
   "filter sorting - top-all-time": "Top - All Time",
+  "filter status - live now": "Live",
+  "filter status - scheduled": "Scheduled",
   "filter type - clips": "Clips",
   "filter type - playlists": "Playlists",
   "filter type - podcasts": "Podcasts",

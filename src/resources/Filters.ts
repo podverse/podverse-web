@@ -25,6 +25,9 @@ const _myPlaylists = 'my-playlists'
 const _playlists = 'playlists'
 const _podcasts = 'podcasts'
 
+const _liveNow = 'live'
+const _liveScheduled = 'pending'
+
 type DropdownOption = {
   i18nKey?: string
   i18nAriaLabelKey?: string
@@ -157,6 +160,17 @@ export const Filters = {
           { i18nKey: 'filter sorting - top-all-time', key: _topAllTime }
         ]
       }
+    },
+    livestreams: {
+      from: [
+        { i18nKey: 'filter from - all', key: _all },
+        { i18nKey: 'filter from - subscribed', key: _subscribed },
+        { i18nKey: 'filter from - category', key: _category }
+      ],
+      status: [
+        { i18nKey: 'filter status - live now', key: _liveNow },
+        { i18nKey: 'filter status - scheduled', key: _liveScheduled }
+      ]
     },
     podcast: {
       from: [
