@@ -321,9 +321,6 @@ export default function LiveItems({
               pageCount={pageCount}
               show={filterPage > 1 || (filterPage === 1 && liveItemsListData.length >= 20)}
             />
-            {hasItems && <hr />}
-            <br />
-            <br />
           </>
         )}
         {(filterFrom === PV.Filters.from._all || isLoggedInSubscribedPage || isCategoryPage) &&
