@@ -29,6 +29,7 @@ jobs:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
         repository: podverse/podverse_web
+        push: true
         tags: latest,${{ steps.package-node-version.outputs.version }}
 
     - name: Tailscale
