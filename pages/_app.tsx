@@ -144,8 +144,8 @@ function MyApp({ Component, pageProps }) {
           })
         }
 
-        initializeMatomo()
         if (!isEmbedPage) {
+          initializeMatomo()
           matomoTrackPageView()
         }
       }
