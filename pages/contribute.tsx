@@ -53,6 +53,11 @@ export default function Contribute(props: ServerProps) {
                 {'bc1qqme0tj5gutgujsz62xqcfc6emfgm5wky27zc30'}
                 <br />
               </p>
+              <p>
+                {t('Bitcoin Lightning Alby address')}
+                <br />
+                {'podverse@getalby.com'}
+              </p>
               {/* <p>
                 {t('Bitcoin Lighning Node Address')}
                 <br />
@@ -65,6 +70,11 @@ export default function Contribute(props: ServerProps) {
               <p>
                 <a href='https://www.patreon.com/podverse' target='_blank' rel='noreferrer'>
                   {t('Donate with Patreon')}
+                </a>
+              </p>
+              <p>
+                <a href='https://github.com/sponsors/podverse' target='_blank' rel='noreferrer'>
+                  {t('Donate with Github')}
                 </a>
               </p>
               <br />

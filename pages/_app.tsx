@@ -31,6 +31,7 @@ import {
 } from '~/services/player/player'
 import { getNowPlayingItemOnServer } from '~/services/userNowPlayingItem'
 import { initializeMatomo, matomoTrackPageView } from '~/services/tracking'
+import '../public/3rd-party/Fork-Awesome-1.2.0/css/fork-awesome.min.css'
 
 // TODO: temporarily using require instead of require to work around a build error happening
 // in the Github action pipeline: "'PlayerAudio' cannot be used as a JSX component."
@@ -73,9 +74,13 @@ OmniAural.initGlobalState(initialState)
 
 fontAwesomeConfig.autoAddCss = false
 
-Modal.setAppElement('.app')
-
 if (typeof window !== 'undefined') {
+  const isAppWrapperAvailable = document.querySelector('.app')
+  
+  if (isAppWrapperAvailable) {
+    Modal.setAppElement('.app')
+  }
+
   window.onbeforeunload = () => {
     const skipSetNowPlaying = true
     saveCurrentPlaybackPositionToHistory(skipSetNowPlaying)
@@ -139,8 +144,10 @@ function MyApp({ Component, pageProps }) {
           })
         }
 
-        initializeMatomo()
-        matomoTrackPageView()
+        if (!isEmbedPage) {
+          initializeMatomo()
+          matomoTrackPageView()
+        }
       }
 
       return () => window.removeEventListener('resize', resetHeight)

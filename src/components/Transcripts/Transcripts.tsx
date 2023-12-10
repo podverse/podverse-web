@@ -21,6 +21,7 @@ export const Transcripts = ({ episode }: Props) => {
   const [transcriptRows, setTranscriptRows] = useState<TranscriptRow[]>([])
   const [transcriptRowsLoading, setTranscriptRowsLoading] = useState<boolean>(false)
   const [transcriptSearchRows, setTranscriptSearchRows] = useState<TranscriptRow[]>([])
+  const [hasMultilineTranscript, setHasMultilineTranscript] = useState<boolean>(false)
 
   useEffect(() => {
     const transcriptTag = episode?.transcript && episode?.transcript[0]
@@ -30,6 +31,7 @@ export const Transcripts = ({ episode }: Props) => {
         setTranscriptRowsLoading(true)
         const parsedTranscriptRows = await getEpisodeProxyTranscript(episode.id)
         setTranscriptRows(parsedTranscriptRows)
+        setHasMultilineTranscript(parsedTranscriptRows.length > 1)
         setTranscriptRowsLoading(false)
       }
     })()
@@ -89,7 +91,7 @@ export const Transcripts = ({ episode }: Props) => {
       _handleSearchClear()
     } else {
       const searchResults = transcriptRows.filter((item: Record<string, any>) => {
-        return item?.text?.toLowerCase().includes(searchText?.toLowerCase())
+        return item?.body?.toLowerCase().includes(searchText?.toLowerCase())
       })
 
       setAutoScrollOn(false)
@@ -110,7 +112,7 @@ export const Transcripts = ({ episode }: Props) => {
   const generateSingleLineTranscriptNode = (transcriptRow: TranscriptRow) => {
     return (
       <div className='transcript-row'>
-        <div className='transcript-row__text'>{transcriptRow.text}</div>
+        <div className='transcript-row__text'>{transcriptRow.body}</div>
       </div>
     )
   }
@@ -125,9 +127,16 @@ export const Transcripts = ({ episode }: Props) => {
     })
 
     return (
-      <div className={rowClassName} onClick={() => handleRowClick(transcriptRow.startTime)}>
-        <div className='transcript-row__text'>{transcriptRow.text}</div>
-        <div className='transcript-row__time'>{transcriptRow.startTimeHHMMSS}</div>
+      <div className='transcript-row-wrapper'>
+        {
+          transcriptRow.speaker && (
+            <div className='transcript-row__speaker'>{transcriptRow.speaker}</div>
+          )
+        }
+        <div className={rowClassName} onClick={() => handleRowClick(transcriptRow.startTime)}>
+          <div className='transcript-row__text'>{transcriptRow.body}</div>
+          <div className='transcript-row__time'>{transcriptRow.startTimeFormatted}</div>
+        </div>
       </div>
     )
   }
@@ -157,7 +166,7 @@ export const Transcripts = ({ episode }: Props) => {
         isAutoScrollOn={autoScrollOn}
         isLoading={transcriptRowsLoading}
       >
-        {transcriptRowNodes?.length > 1 && (
+        {hasMultilineTranscript && (
           <SearchBarFilter
             handleClear={_handleSearchClear}
             handleSubmit={_handleSearchSubmit}

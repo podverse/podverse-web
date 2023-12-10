@@ -43,7 +43,7 @@ export default function Settings(props: ServerProps) {
         twitterDescription={meta.description}
         twitterTitle={meta.title}
       />
-      <PageHeader text={'Settings'} />
+      <PageHeader text={t('Settings')} />
       <PageScrollableContent>
         <ColumnsWrapper
           mainColumnChildren={

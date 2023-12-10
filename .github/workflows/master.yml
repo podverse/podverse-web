@@ -15,6 +15,14 @@ jobs:
       uses: culshaw/read-package-node-version-actions@v1
       id: package-node-version
 
+    - name: send deploying message to Matrix Alerts room
+      uses: s3krit/matrix-message-action@v0.0.3
+      with:
+        room_id: ${{ secrets.MATRIX_ALERTS_ROOM_ID }}
+        access_token: ${{ secrets.MATRIX_ACCESS_TOKEN }}
+        message: "Deploying podverse-web ${{ steps.package-node-version.outputs.version }} to prod..."
+        server: ${{ secrets.MATRIX_SERVER }}
+
     - name: build and push docker image
       uses: docker/build-push-action@v1
       with:
@@ -23,16 +31,28 @@ jobs:
         repository: podverse/podverse_web
         tags: latest,${{ steps.package-node-version.outputs.version }}
 
+    - name: Tailscale
+      uses: tailscale/github-action@main
+      with:
+        authkey: ${{ secrets.TAILSCALE_AUTHKEY }}
+
     - name: log into prod, then deploy latest prod image
       uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.PROD_SSH_HOST }}
         username: ${{ secrets.PROD_SSH_USERNAME }}
-        passphrase: ${{ secrets.PROD_SSH_PASSPHRASE }}
         key: ${{ secrets.PROD_SSH_PRIVATE_KEY }}
         command_timeout: 60m
         script: |
           docker stop podverse_web_prod
           docker rm podverse_web_prod
           docker image rm podverse/podverse_web:latest
-          docker-compose -f /home/mitch/podverse-ops/docker-compose.prod.yml up -d podverse_web
+          docker compose -f /opt/podverse-ops/docker-compose/prod/srv/docker-compose.yml up --quiet-pull -d podverse_web
+
+    - name: send deploy finished message to Matrix Alerts room
+      uses: s3krit/matrix-message-action@v0.0.3
+      with:
+        room_id: ${{ secrets.MATRIX_ALERTS_ROOM_ID }}
+        access_token: ${{ secrets.MATRIX_ACCESS_TOKEN }}
+        message: "podverse-web ${{ steps.package-node-version.outputs.version }} has finished deploying to prod 🎉"
+        server: ${{ secrets.MATRIX_SERVER }}

@@ -91,6 +91,16 @@ const moduleExports = {
     V4V_APP_RECIPIENT_LN_ADDRESS: process.env.V4V_APP_RECIPIENT_LN_ADDRESS,
     V4V_APP_RECIPIENT_VALUE_DEFAULT: process.env.V4V_APP_RECIPIENT_VALUE_DEFAULT,
     V4V_RECIPIENT_VALUE_DEFAULT: process.env.V4V_RECIPIENT_VALUE_DEFAULT
+  },
+  webpack(c) {
+    c.module.rules.push({
+      test: [
+        /src\/components\/index.tsx/i,
+      ],
+      sideEffects: false,
+    });
+
+    return c;
   }
 }
 

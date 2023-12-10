@@ -94,7 +94,6 @@ export const Dropdown = (props: Props) => {
   return (
     <Select
       additionalProps={{ 'aria-label': finalDropdownAriaLabel, role: 'button' }}
-      dropdownAriaDescription={t('ARIA – Dropdown helper description')}
       dropdownPosition={dropdownPosition}
       className={wrapperClass}
       contentRenderer={() => contentRenderer(props, t)}

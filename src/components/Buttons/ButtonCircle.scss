@@ -94,7 +94,8 @@
       }
     }
 
-    &.remove {
+    &.remove,
+    &.move {
       svg {
         height: unset;
         width: 20px;

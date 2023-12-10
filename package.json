@@ -1,6 +1,6 @@
 {
   "name": "podverse-web",
-  "version": "4.6.28",
+  "version": "4.15.5",
   "description": "Web app for the Podverse podcast clip sharing ecosystem",
   "repository": {
     "type": "git",
@@ -49,22 +49,23 @@
     "@fortawesome/react-fontawesome": "0.1.16",
     "@podverse/react-dropdown-select": "4.8.4-beta.2",
     "@podverse/react-show-more-text": "1.5.1-beta.2",
-    "axios": "0.24.0",
+    "axios": "1.6.0",
     "classnames": "2.3.1",
     "debounce": "1.2.1",
     "linkify-html": "3.0.4",
     "linkifyjs": "3.0.4",
     "mermaid": "9.1.2",
     "moment": "2.29.4",
-    "next": "12.1.0",
+    "next": "12.3.4",
     "next-i18next": "10.4.0",
     "nightwatch": "1.7.13",
     "omniaural": "1.3.3",
     "password-validator": "5.2.1",
-    "podverse-shared": "4.6.12",
+    "podverse-shared": "4.12.8",
     "react": "17.0.2",
     "react-cookie": "4.1.1",
     "react-dom": "17.0.2",
+    "react-draggable-list": "^4.1.0",
     "react-h5-audio-player": "3.8.1",
     "react-modal": "3.14.4",
     "react-player": "2.10.1",
@@ -75,6 +76,7 @@
     "sass": "1.44.0",
     "ssh2": "1.5.0",
     "striptags": "3.2.0",
+    "transcriptator": "^1.1.0",
     "webln-v4v": "1.0.0-beta.5"
   },
   "devDependencies": {
@@ -93,11 +95,11 @@
     "jest": "27.4.7",
     "lint-staged": "12.1.2",
     "npm-run-all": "4.1.5",
-    "postcss": "8.4.5",
+    "postcss": "8.4.31",
     "postcss-scss": "4.0.2",
     "prettier": "2.5.0",
-    "stylelint": "14.2.0",
-    "stylelint-config-recommended-scss": "5.0.2",
+    "stylelint": "^15.10.1",
+    "stylelint-config-recommended-scss": "^12.0.0",
     "typescript": "4.5.2"
   }
 }

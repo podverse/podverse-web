@@ -8,4 +8,14 @@
   .media-item-controls {
     margin-bottom: 27px;
   }
+
+  ul {
+    padding: 4px 0 4px 16px;
+
+    li {
+      list-style-type: circle;
+      margin: 4px 0;
+      margin-left: 12px;
+    }
+  }
 }

@@ -14,6 +14,8 @@ const featureRequestSubject = 'Feature Request: '
 const featureRequestBody = 'Please describe the feature you would like added to Podverse.'
 const podcastRequestSubject = 'Podcast Request: '
 const podcastRequestBody = 'Please provide the name of the podcast, and the name of the host if you know it.'
+const reportAContentIssueSubject = 'Content Issue Report: '
+const reportAContentIssueBody = 'To help expedite our response, please provide a link on Podverse to the content that you are reporting.'
 const generalSubject = 'General: '
 const generalBody = ''
 
@@ -62,6 +64,11 @@ export default function Contact(props: ServerProps) {
               <h3>
                 <MailTo body={podcastRequestBody} email={emailContact} subject={podcastRequestSubject}>
                   {t('Podcast Request')}
+                </MailTo>
+              </h3>
+              <h3>
+                <MailTo body={reportAContentIssueBody} email={emailContact} subject={reportAContentIssueSubject}>
+                  {t('Report a content issue')}
                 </MailTo>
               </h3>
               <h3>

@@ -1,7 +1,9 @@
 import { useTranslation } from 'next-i18next'
 import { PV } from '~/resources'
 
-type Props = unknown
+type Props = {
+  hideFDroid?: boolean
+}
 
 export const DownloadAppButtons = (props: Props) => {
   const { t } = useTranslation()
@@ -19,13 +21,17 @@ export const DownloadAppButtons = (props: Props) => {
       >
         <img alt='' src={PV.RoutePaths.web.googlePlayStoreBadge} />
       </a>
-      <a
-        aria-label={t('Download on the F-Droid Store')}
-        className='download-badge-get-it-on-fdroid no-radius'
-        href={PV.Config.APP_GET_IT_ON_FDROID_URL}
-        rel='noopener noreferrer'
-        target='_blank'
-      />
+      {
+        !props.hideFDroid && (
+          <a
+            aria-label={t('Download on the F-Droid Store')}
+            className='download-badge-get-it-on-fdroid no-radius'
+            href={PV.Config.APP_GET_IT_ON_FDROID_URL}
+            rel='noopener noreferrer'
+            target='_blank'
+          />
+        )
+      }
     </div>
   )
 }

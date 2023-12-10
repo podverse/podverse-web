@@ -345,7 +345,7 @@ const generateSections = (t: any) =>
           mobilePreviewVideoEmbed: PV.PreviewVideoEmbeds(t).history.deleteItem.mobile,
           webExplanation: `<ol>
           <li>Click on the History button on the left navigation page to view your history.</li>
-          <li>To remove individual items from your history, click on the X to the right of the entry.</li>
+          <li>To remove individual items from your history, click the Edit button at the top right of the window, then click on the X to the right of the entry.</li>
           </ol>`
           // webPreviewVideoEmbed: PV.PreviewVideoEmbeds(t).history.deleteItem.web
         },

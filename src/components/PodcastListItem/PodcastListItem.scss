@@ -1,13 +1,4 @@
 .podcast-list-item {
-  border-bottom: 1px solid;
-  @include themeGen() {
-    border-color: getThemeVal('divider');
-  }
-
-  &:last-child {
-    border-bottom: 0;
-  }
-
   a {
     border-radius: $item-border-radius;
     display: flex;

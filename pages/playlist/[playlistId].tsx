@@ -23,7 +23,7 @@ import {
   getPlaylist,
   updatePlaylist
 } from '~/services/playlist'
-import { getDefaultServerSideProps } from '~/services/serverSideHelpers'
+import { getDefaultServerSideProps, getServerSidePropsWrapper } from '~/services/serverSideHelpers'
 import { OmniAuralState } from '~/state/omniauralState'
 
 interface ServerProps extends Page {
@@ -193,27 +193,29 @@ export default function Playlist({ serverCookies, serverPlaylist, serverPlaylist
 /* Server-Side Logic */
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const { locale, params } = ctx
-  const { playlistId } = params
-
-  const [defaultServerProps, playlist] = await Promise.all([
-    getDefaultServerSideProps(ctx, locale),
-    getPlaylist(playlistId as string)
-  ])
-
-  const sortedPlaylistItems = combineAndSortPlaylistItems(
-    playlist.episodes,
-    playlist.mediaRefs,
-    playlist.itemsOrder
-  ) as any
-
-  const serverProps: ServerProps = {
-    ...defaultServerProps,
-    serverPlaylist: playlist,
-    serverPlaylistSortedItems: sortedPlaylistItems
-  }
-
-  return {
-    props: serverProps
-  }
+  return await getServerSidePropsWrapper(async () => {
+    const { locale, params } = ctx
+    const { playlistId } = params
+  
+    const [defaultServerProps, playlist] = await Promise.all([
+      getDefaultServerSideProps(ctx, locale),
+      getPlaylist(playlistId as string)
+    ])
+  
+    const sortedPlaylistItems = combineAndSortPlaylistItems(
+      playlist.episodes,
+      playlist.mediaRefs,
+      playlist.itemsOrder
+    ) as any
+  
+    const serverProps: ServerProps = {
+      ...defaultServerProps,
+      serverPlaylist: playlist,
+      serverPlaylistSortedItems: sortedPlaylistItems
+    }
+  
+    return {
+      props: serverProps
+    }
+  })
 }

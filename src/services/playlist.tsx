@@ -22,10 +22,11 @@ const getLoggedInUserPlaylistsCombinedFromServer = async (bearerToken?: string) 
   return { createdPlaylists, subscribedPlaylists }
 }
 
-export const getLoggedInUserPlaylists = async (bearerToken?: string) => {
+export const getLoggedInUserPlaylists = async (bearerToken?: string, page = 1) => {
   const response = await request({
     endpoint: '/user/playlists',
-    ...getAuthCredentialsHeaders(bearerToken)
+    ...getAuthCredentialsHeaders(bearerToken),
+    query: { page }
   })
 
   return response && response.data

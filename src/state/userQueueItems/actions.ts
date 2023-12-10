@@ -26,7 +26,7 @@ const setLatestUserQueueItems = async () => {
   await getQueueItemsFromServer()
 }
 
-const setUserQueueItems = async (userQueueItems: UserQueueItem) => {
+const setUserQueueItems = async (userQueueItems: UserQueueItem[]) => {
   OmniAural.state.userQueueItems.set(userQueueItems)
 }
 
