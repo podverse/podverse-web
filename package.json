@@ -100,6 +100,6 @@
     "prettier": "2.5.0",
     "stylelint": "^15.10.1",
     "stylelint-config-recommended-scss": "^12.0.0",
-    "typescript": "4.5.2"
+    "typescript": "^5.3.3"
   }
 }
