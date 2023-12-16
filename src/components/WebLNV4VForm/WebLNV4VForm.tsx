@@ -2,7 +2,7 @@ import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { useTranslation } from 'next-i18next'
 import dynamic from 'next/dynamic'
 import OmniAural from 'omniaural'
-import type { Episode, Podcast, ValueTag } from 'podverse-shared'
+import type { Episode, Podcast, ValueTagOriginal } from 'podverse-shared'
 import { useEffect, useState } from 'react'
 import { useCookies } from 'react-cookie'
 import { useToasts } from 'react-toast-notifications'
@@ -23,7 +23,7 @@ type Props = {
   episode?: Episode
   podcast: Podcast
   serverCookies: any
-  valueTag: ValueTag
+  valueTag: ValueTagOriginal
 }
 
 const WebLNV4VFormNoSSR = ({ episode, podcast, serverCookies, valueTag }: Props) => {
