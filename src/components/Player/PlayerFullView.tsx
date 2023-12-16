@@ -126,7 +126,7 @@ export const PlayerFullView = ({ isEmbed, nowPlayingItem }: Props) => {
         </>
       )}
       <div className={imageWrapperClass}>
-        {isVideo && <PlayerAPIVideo />}
+        {isVideo && <PlayerAPIVideo isFullView={showFullView} />}
         {showFullView &&
           !isVideo &&
           (nowPlayingItem.clipLinkUrl ? (

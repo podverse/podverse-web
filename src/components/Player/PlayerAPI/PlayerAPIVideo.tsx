@@ -16,9 +16,12 @@ import { OmniAuralState } from '~/state/omniauralState'
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const PlayerVideo = require('react-player').default
 
-type Props = unknown
+type Props = {
+  isFullView: boolean
+}
 
 export const PlayerAPIVideo = (props: Props) => {
+  const { isFullView } = props
   const [player] = useOmniAural('player') as [OmniAuralState['player']]
   const [isResizing, setIsResizing] = useState(false)
   const [isDragging, setIsDragging] = useState(false)
@@ -144,15 +147,16 @@ export const PlayerAPIVideo = (props: Props) => {
   }
 
   const preventPlayPauseOnDragEnd = isDragging ? { pointerEvents: 'none' } : {}
-console.log('preventPlayPauseOnDragEnd', preventPlayPauseOnDragEnd)
+
   return (
-    <Draggable disabled={isResizing} onDrag={onDragStart} onStop={onDragStop}>
+    <Draggable disabled={isFullView || isResizing} onDrag={onDragStart} onStop={onDragStop}>
       <Resizable
         className='video-player-wrapper'
         defaultSize={{
           width: 390,
           height: 220
         }}
+        {...(isFullView ? { enable: false } : {})}
         lockAspectRatio
         minHeight={220}
         minWidth={390}

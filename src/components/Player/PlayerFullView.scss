@@ -19,7 +19,8 @@
     @include blurredBackground();
 
     .video-player-wrapper {
-      position: unset;
+      transform: translate(0px, 0px) !important;
+      position: unset !important;
       bottom: unset;
       right: unset;
       z-index: unset;
