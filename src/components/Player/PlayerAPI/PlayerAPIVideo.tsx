@@ -1,6 +1,8 @@
 import OmniAural, { useOmniAural } from 'omniaural'
-import { createRef, useEffect } from 'react'
+import { createRef, useEffect, useState } from 'react'
 import { unstable_batchedUpdates } from 'react-dom'
+import Draggable from 'react-draggable'
+import { Resizable } from 're-resizable'
 import { retrieveLatestChaptersForEpisodeId } from '~/services/mediaRef'
 import { playerGetDuration, playerUpdateDuration, playerUpdatePlaybackPosition } from '~/services/player/player'
 import { videoInitialize, videoPause, videoPlay, videoSeekTo } from '~/services/player/playerVideo'
@@ -18,6 +20,8 @@ type Props = unknown
 
 export const PlayerAPIVideo = (props: Props) => {
   const [player] = useOmniAural('player') as [OmniAuralState['player']]
+  const [isResizing, setIsResizing] = useState(false)
+  const [isDragging, setIsDragging] = useState(false)
   // const [historyItemsIndex] = useOmniAural('historyItemsIndex')
   const historyItemsIndex = OmniAural.state.historyItemsIndex.value()
   const { currentNowPlayingItem, muted, paused, playSpeed, video, volume } = player
@@ -123,27 +127,61 @@ export const PlayerAPIVideo = (props: Props) => {
     return config
   }
 
+  const onDragStart = () => {
+    setIsDragging(true)
+  }
+
+  const onDragStop = () => {
+    setIsDragging(false)
+  }
+
+  const onResizeStart = () => {
+    setIsResizing(true)
+  }
+
+  const onResizeStop = () => {
+    setIsResizing(false)
+  }
+
+  const preventPlayPauseOnDragEnd = isDragging ? { pointerEvents: 'none' } : {}
+console.log('preventPlayPauseOnDragEnd', preventPlayPauseOnDragEnd)
   return (
-    <div className='video-player-wrapper'>
-      <PlayerVideo
-        config={playerVideoConfig()}
-        controls
-        onDuration={_onLoadedMetaData}
-        onEnded={_onEnded}
-        onError={(error) => console.log('video playback error:', error)}
-        onPause={videoPause}
-        onPlay={videoPlay}
-        onSeek={_onListen}
-        onProgress={_onListen}
-        muted={muted}
-        playbackRate={playSpeed}
-        playing={!paused}
-        ref={(ref) => {
-          window.playerVideo = ref
+    <Draggable disabled={isResizing} onDrag={onDragStart} onStop={onDragStop}>
+      <Resizable
+        className='video-player-wrapper'
+        defaultSize={{
+          width: 390,
+          height: 220
         }}
-        url={src}
-        volume={volume ? volume / 100 : 0}
-      />
-    </div>
+        lockAspectRatio
+        minHeight={220}
+        minWidth={390}
+        onResizeStart={onResizeStart}
+        onResizeStop={onResizeStop}
+        >
+        <PlayerVideo
+          config={playerVideoConfig()}
+          controls
+          onDuration={_onLoadedMetaData}
+          onEnded={_onEnded}
+          onError={(error) => console.log('video playback error:', error)}
+          onPause={videoPause}
+          onPlay={videoPlay}
+          onSeek={_onListen}
+          onProgress={_onListen}
+          muted={muted}
+          playbackRate={playSpeed}
+          playing={!paused}
+          ref={(ref) => {
+            window.playerVideo = ref
+          }}
+          style={preventPlayPauseOnDragEnd}
+          url={src}
+          volume={volume ? volume / 100 : 0}
+          height='100%'
+          width='100%'
+        />
+      </Resizable>
+    </Draggable>
   )
 }
