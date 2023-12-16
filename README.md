@@ -57,13 +57,13 @@ To create a .env file, copy the `.env.local-prod-data.example` file in this dire
 To install the node modules, run:
 
 ```bash
-npm install
+yarn
 ```
 
 Then, to run the app:
 
 ```bash
-npm run dev
+yarn dev
 ```
 
 Then open a web browser and go to <http://localhost:3000>.
