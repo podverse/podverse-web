@@ -58,9 +58,6 @@ declare global {
     converse: any
     mermaid: any
   }
-  interface Date {
-    addDays: any
-  }
 
   // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace JSX {

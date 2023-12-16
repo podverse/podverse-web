@@ -6,7 +6,6 @@ export const RoutePaths = {
   api: {
     add_or_remove: `/add-or-remove`,
     add_or_update_history_item: `/add-or-update-history-item`,
-    bitpay: `/bitpay`,
     category: `/category`,
     claim_account: `/claim-account`,
     download: `/download`,

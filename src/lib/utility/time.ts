@@ -57,6 +57,7 @@ export function convertHHMMSSToSeconds(hhmmssString: string | number) {
   }
 }
 
+// TODO: Merge with convertSecToHHMMSS in podverse-shared somehow
 export const convertSecToHHMMSS = (sec: number, isLiveItem?: boolean, t?: any) => {
   const placeholder = '--:--'
   if (isLiveItem) {

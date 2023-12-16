@@ -1,6 +1,6 @@
 import { useOmniAural } from 'omniaural'
+import { isBeforeDate } from 'podverse-shared'
 import { useTranslation } from 'react-i18next'
-import { isBeforeDate } from '~/lib/utility/date'
 import { OmniAuralState } from '~/state/omniauralState'
 
 type Props = unknown
