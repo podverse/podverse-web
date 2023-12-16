@@ -55,7 +55,6 @@ declare global {
     paypal: any
     playerAudio: any
     playerVideo: any
-    converse: any
     mermaid: any
   }
   interface Date {

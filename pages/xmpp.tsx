@@ -57,8 +57,6 @@ export default function XMPP(props: ServerProps) {
                 <a href='https://prosody.im/'>Prosody</a>
                 <br />
                 <a href='https://snikket.org'>Snikket</a>
-                <br />
-                <a href='https://conversejs.org/'>Converse</a>
               </p>
             </div>
           }
