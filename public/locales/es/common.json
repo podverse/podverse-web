@@ -21,7 +21,7 @@
     "Comments": "Comentarios",
     "Confirm Password": "Confirmar contraseña",
     "ConfirmDeleteModalLine1": "¿Eliminar su cuenta definitivamente?",
-    "ConfirmDeleteModalLine2": "Escriba la palabra \"delete\" para eliminar su cuenta, luego presione \"Eliminar cuenta\".",
+    "ConfirmDeleteModalLine2": "Escriba la palabra \"eliminar\" para borrar su cuenta y, a continuación, haga clic en \"Eliminar cuenta\".",
     "Contact": "Contacto",
     "ContactSupport": "Si aún no aparece, envíe un correo electrónico a <1>contact@podverse.fm</1>.",
     "Copied": "Copiado",
@@ -470,5 +470,11 @@
     "Livestreams": "Directos",
     "Live Time": "En tiempo real",
     "filter status - scheduled": "Programado",
-    "Send Podping live status notification": "Notificar Podping al emitir en directo"
+    "Send Podping live status notification": "Notificar Podping al emitir en directo",
+    "Footer links": "Enlaces a pie de página",
+    "Forgot?": "¿Lo has olvidado?",
+    "Footer links continued": "Enlaces a pie de página (continuación)",
+    "Account Claim Token": "Token de reclamación de cuenta",
+    "pages-admin_Title": "Administración",
+    "pages-account-claim-token_Title": "Token de reclamación de cuenta"
 }
