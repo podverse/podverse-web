@@ -27,5 +27,6 @@
     "YourMembershipHasExpired": "Forny venligst Podverse Premium for at bruge alle funktioner.",
     "When": "Hvornår",
     "Your Name": "Dit navn",
-    "Years to add": "Antal år at tilføje"
+    "Years to add": "Antal år at tilføje",
+    "_translatorsFieldExample": "Jane Doe<https://jane.doe.homepage>,Joe Bloggs,Juan Perez<https://some.socialmedia/juan>"
 }
