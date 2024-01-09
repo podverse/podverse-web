@@ -41,10 +41,11 @@ export const Meta = ({
 }: Props) => {
   // Twitter images are cached by URL, and do not update. To make sure the latest image is used,
   // we're setting the cacheBustUrlParam as a url parameter in the meta tag.
-  const cacheBustUrlParam = '?cacheBust=' + new Date().toISOString().slice(0, 10) + '-' + new Date().getHours()
+  // const cacheBustUrlParam = '?cacheBust=' + new Date().toISOString().slice(0, 10) + '-' + new Date().getHours()
+  // NOTE: disabling cacheBust as it appears to have been breaking twitter image previews
 
   const ogImg = !ogImage ? PV.Config.metaDefaultImageUrl1200x630 : ogImage
-  const twitterImg = !twitterImage ? PV.Config.metaDefaultImageUrl1200x630 : twitterImage + cacheBustUrlParam
+  const twitterImg = !twitterImage ? PV.Config.metaDefaultImageUrl1200x630 : twitterImage // + cacheBustUrlParam
 
   const seoTitle = seoMetaTitle(title)
   const seoOGTitle = seoMetaTitle(ogTitle)
