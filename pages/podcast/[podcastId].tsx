@@ -213,7 +213,7 @@ export default function Podcast({
     currentUrl: `${PV.Config.WEB_BASE_URL}${PV.RoutePaths.web.podcast}/${serverPodcast.id}`,
     description: serverPodcast.description,
     imageAlt: podcastTitle,
-    imageUrl: serverPodcast.imageUrl,
+    imageUrl: serverPodcast.shrunkImageUrl,
     title: podcastTitle
   }
 
