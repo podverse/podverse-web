@@ -7,13 +7,19 @@ import { ButtonCircle, PVImage, PVLink } from '~/components'
 import { readableDate } from '~/lib/utility/date'
 import { readableClipTime } from '~/lib/utility/time'
 import { PV } from '~/resources'
-import { playerNextSpeed, playerPause, playerPlay } from '~/services/player/player'
+import { playerNextSpeed, playerPause, playerPlay, playerSeekTo } from '~/services/player/player'
 import { OmniAuralState } from '~/state/omniauralState'
 import { ProgressBar } from '../Player/controls/ProgressBar'
 import { PlayerOptionButton } from '../Player/options/PlayerOptionButton'
+import { useEffect } from 'react';
 
 type Props = {
   hideFullView?: boolean
+}
+
+type MessageData = {
+  command: string;
+  parameter?: any;
 }
 
 export const EmbedPlayerHeader = ({ hideFullView }: Props) => {
@@ -72,6 +78,36 @@ export const EmbedPlayerHeader = ({ hideFullView }: Props) => {
   const _handleTogglePlay = () => {
     paused ? playerPlay() : playerPause()
   }
+
+  // Allow sending control messages to the embedded player to play/pause/seek
+  useEffect(() => {
+    const callback = (e: MessageEvent<MessageData>) => {
+      switch (e.data.command) {
+        case 'seek':
+          let offset = e.data.parameter as number
+          if (!Number.isInteger(offset))
+          {
+            console.log(`Invalid parameter for seek command! '${e.data.parameter}' is not an integer!`);
+            return
+          }
+
+          playerSeekTo(offset)
+          break;
+        case 'play':
+          playerPlay()
+          break;
+        case 'pause':
+          playerPause()
+          break;
+      
+        default:
+          console.log(`Invalid command '${e.data.command}'`);
+      }
+    };
+    window.addEventListener('message', callback);
+ 
+    return () => window.removeEventListener('message', callback);
+  }, []);
 
   return (
     <div className='embed-player-header'>
