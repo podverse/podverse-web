@@ -85,9 +85,9 @@ export const EmbedPlayerHeader = ({ hideFullView }: Props) => {
       switch (e.data.command) {
         case 'seek':
           let offset = e.data.parameter as number
-          if (!Number.isInteger(offset))
+          if (!Number.isFinite(offset))
           {
-            console.log(`Invalid parameter for seek command! '${e.data.parameter}' is not an integer!`);
+            console.log(`Invalid parameter for seek command! '${e.data.parameter}' is not a number!`);
             return
           }
 
