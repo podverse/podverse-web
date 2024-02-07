@@ -41,6 +41,7 @@ const _markAsPlayedKey = '_markAsPlayedKey'
 const _markAsUnplayedKey = '_markAsUnplayedKey'
 const _editClip = '_editClip'
 const _deleteClip = '_deleteClip'
+const _downloadEpisodeKey = '_downloadEpisode'
 
 export const MediaItemControls = ({
   buttonSize,
@@ -105,12 +106,32 @@ export const MediaItemControls = ({
         if (shouldDelete) {
           deleteMediaRef(nowPlayingItem.clipId)
         }
+      } else if (item.key === _downloadEpisodeKey) {
+        await _handleDownload()
       }
     }
   }
 
   const _handleTogglePlay = async () => {
     await playerTogglePlayOrLoadNowPlayingItem(nowPlayingItem)
+  }
+
+  const _handleDownload = async () => {
+    fetch(nowPlayingItem.episodeMediaUrl, {
+      method: 'GET',
+    })
+      .then(response => response.blob())
+      .then(blob => {
+        const url = window.URL.createObjectURL(new Blob([blob]))
+
+        const link = document.createElement('a')
+        link.href = url
+        link.download = nowPlayingItem.episodeTitle?.endsWith(".mp3") ? nowPlayingItem.episodeTitle : nowPlayingItem.episodeTitle + ".mp3"
+
+        document.body.appendChild(link)
+        link.click()
+        link.parentNode.removeChild(link)
+      })
   }
 
   const _handleQueueNext = async () => {
@@ -177,6 +198,7 @@ export const MediaItemControls = ({
       } else {
         items.push({ i18nKey: 'Mark as Played', key: _markAsPlayedKey })
       }
+      items.push({ i18nKey: 'Download Episode', key: _downloadEpisodeKey })
     }
 
     if (isLoggedInUserMediaRef) {
