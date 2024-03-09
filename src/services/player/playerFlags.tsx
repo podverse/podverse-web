@@ -4,6 +4,14 @@ import type { MediaRef, NowPlayingItem } from 'podverse-shared'
 import { unstable_batchedUpdates } from 'react-dom'
 
 export const generateFlagPositions = (flagTimes: number[], duration: number) => {
+  // if duration is 0, fake the locations until the data is loaded
+  if (duration === 0) {
+    const maxFlagTimes = Math.max(...flagTimes)
+    if (maxFlagTimes > 0) {
+      // add some time past the end of the last flag in case it is towards the end of the data
+      duration = maxFlagTimes + Math.floor(maxFlagTimes * 0.02)
+    }
+  }
   const flagPositions: number[] = []
   for (const flagTime of flagTimes) {
     const flagPosition = flagTime / duration

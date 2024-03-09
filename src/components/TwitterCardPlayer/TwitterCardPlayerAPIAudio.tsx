@@ -76,9 +76,14 @@ export const TwitterCardPlayerAPIAudio = ({ shouldLoadChapters }: Props) => {
         NOTE: I had to set preload to metadata to avoid bugs with WebViews
         refusing to handle changes to the <audio> currentTime properly.
         Apparently using preload auto in <audio> causes bugs in WebViews.
+
+        NOTE2: preload changed to 'none' so that only real plays are shown
+        in download numbers
       */
-      preload='metadata'
+      preload='none'
       onEnded={_onEnded}
+      // load placeholder markers until real metadata is available
+      onLoadStart={_onLoadedMetaData}
       onLoadedMetaData={_onLoadedMetaData}
       onListen={_onListen}
       onSeeked={_onListen}
