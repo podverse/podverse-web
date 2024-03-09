@@ -82,6 +82,8 @@ export const TwitterCardPlayerAPIAudio = ({ shouldLoadChapters }: Props) => {
       */
       preload='none'
       onEnded={_onEnded}
+      // load placeholder markers until real metadata is available
+      onLoadStart={_onLoadedMetaData}
       onLoadedMetaData={_onLoadedMetaData}
       onListen={_onListen}
       onSeeked={_onListen}
