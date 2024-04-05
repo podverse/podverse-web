@@ -47,6 +47,7 @@
       @include themeGen() {
         -webkit-box-shadow: 0 0 10px 4px getThemeVal('textTertiary');
         box-shadow: 0 0 10px 4px getThemeVal('textTertiary');
+        border-radius: 10px !important;
       }
     }
 
