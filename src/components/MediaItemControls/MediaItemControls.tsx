@@ -19,6 +19,7 @@ import { modalsAddToPlaylistShowOrAlert } from '~/state/modals/addToPlaylist/act
 import { OmniAuralState } from '~/state/omniauralState'
 import { ButtonCircle, Dropdown, Icon } from '..'
 import { LiveStatusBadge } from '../LiveStatusBadge/LiveStatusBadge'
+import { AppearanceTypes, useToasts } from 'react-toast-notifications'
 
 type Props = {
   buttonSize: 'small' | 'medium' | 'large'
@@ -57,6 +58,8 @@ export const MediaItemControls = ({
   const [userInfo] = useOmniAural('session.userInfo') as [OmniAuralState['session']['userInfo']]
   const [player] = useOmniAural('player') as [OmniAuralState['player']]
 
+  const { addToast } = useToasts()
+
   /* Since we're not using useOmniAural for historyItemsIndex, call setForceRefresh to re-render */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [forceRefresh, setForceRefresh] = useState<number>(0)
@@ -73,6 +76,16 @@ export const MediaItemControls = ({
   nowPlayingItem.episodeImageUrl = mediaRef?.imageUrl ? mediaRef.imageUrl : nowPlayingItem.episodeImageUrl
 
   /* Function Helpers */
+
+  // helper to show a toast with the given appearance and message
+  // when downloading a file
+  const downloadToast = (type: AppearanceTypes, msg: string) => {
+    addToast(msg, {
+      appearance: type,
+      autoDismiss: true,
+      autoDismissTimeout: 35000,
+    })
+  }
 
   const onChange = async (selected) => {
     const item = selected[0]
@@ -117,20 +130,32 @@ export const MediaItemControls = ({
   }
 
   const _handleDownload = async () => {
+    downloadToast('info', `Downloading ${nowPlayingItem.episodeTitle}`)
     fetch(nowPlayingItem.episodeMediaUrl, {
-      method: 'GET',
+      method: 'GET'
     })
-      .then(response => response.blob())
-      .then(blob => {
+      .then((response) => {
+        if (!response.ok) {
+          throw response.status
+        }
+        return response.blob()
+      })
+      .then((blob) => {
         const url = window.URL.createObjectURL(new Blob([blob]))
 
         const link = document.createElement('a')
         link.href = url
-        link.download = nowPlayingItem.episodeTitle?.endsWith(".mp3") ? nowPlayingItem.episodeTitle : nowPlayingItem.episodeTitle + ".mp3"
+        link.download = nowPlayingItem.episodeTitle?.endsWith('.mp3')
+          ? nowPlayingItem.episodeTitle
+          : nowPlayingItem.episodeTitle + '.mp3'
 
         document.body.appendChild(link)
         link.click()
         link.parentNode.removeChild(link)
+        downloadToast('success', `${nowPlayingItem.episodeTitle} downloaded`)
+      })
+      .catch((err) => {
+        downloadToast('error', `Error downloading ${nowPlayingItem.episodeTitle}: ${err}`)
       })
   }
 
