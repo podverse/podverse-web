@@ -83,7 +83,7 @@ export const MediaItemControls = ({
     addToast(msg, {
       appearance: type,
       autoDismiss: true,
-      autoDismissTimeout: 35000,
+      autoDismissTimeout: 35000
     })
   }
 
