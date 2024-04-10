@@ -19,6 +19,7 @@ import { modalsAddToPlaylistShowOrAlert } from '~/state/modals/addToPlaylist/act
 import { OmniAuralState } from '~/state/omniauralState'
 import { ButtonCircle, Dropdown, Icon } from '..'
 import { LiveStatusBadge } from '../LiveStatusBadge/LiveStatusBadge'
+import { AppearanceTypes, useToasts } from 'react-toast-notifications'
 
 type Props = {
   buttonSize: 'small' | 'medium' | 'large'
@@ -41,6 +42,7 @@ const _markAsPlayedKey = '_markAsPlayedKey'
 const _markAsUnplayedKey = '_markAsUnplayedKey'
 const _editClip = '_editClip'
 const _deleteClip = '_deleteClip'
+const _downloadEpisodeKey = '_downloadEpisode'
 
 export const MediaItemControls = ({
   buttonSize,
@@ -55,6 +57,8 @@ export const MediaItemControls = ({
 }: Props) => {
   const [userInfo] = useOmniAural('session.userInfo') as [OmniAuralState['session']['userInfo']]
   const [player] = useOmniAural('player') as [OmniAuralState['player']]
+
+  const { addToast } = useToasts()
 
   /* Since we're not using useOmniAural for historyItemsIndex, call setForceRefresh to re-render */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -72,6 +76,16 @@ export const MediaItemControls = ({
   nowPlayingItem.episodeImageUrl = mediaRef?.imageUrl ? mediaRef.imageUrl : nowPlayingItem.episodeImageUrl
 
   /* Function Helpers */
+
+  // helper to show a toast with the given appearance and message
+  // when downloading a file
+  const downloadToast = (type: AppearanceTypes, msg: string) => {
+    addToast(msg, {
+      appearance: type,
+      autoDismiss: true,
+      autoDismissTimeout: 35000
+    })
+  }
 
   const onChange = async (selected) => {
     const item = selected[0]
@@ -105,12 +119,44 @@ export const MediaItemControls = ({
         if (shouldDelete) {
           deleteMediaRef(nowPlayingItem.clipId)
         }
+      } else if (item.key === _downloadEpisodeKey) {
+        await _handleDownload()
       }
     }
   }
 
   const _handleTogglePlay = async () => {
     await playerTogglePlayOrLoadNowPlayingItem(nowPlayingItem)
+  }
+
+  const _handleDownload = async () => {
+    downloadToast('info', `Downloading ${nowPlayingItem.episodeTitle}`)
+    fetch(nowPlayingItem.episodeMediaUrl, {
+      method: 'GET'
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw response.status
+        }
+        return response.blob()
+      })
+      .then((blob) => {
+        const url = window.URL.createObjectURL(new Blob([blob]))
+
+        const link = document.createElement('a')
+        link.href = url
+        link.download = nowPlayingItem.episodeTitle?.endsWith('.mp3')
+          ? nowPlayingItem.episodeTitle
+          : nowPlayingItem.episodeTitle + '.mp3'
+
+        document.body.appendChild(link)
+        link.click()
+        link.parentNode.removeChild(link)
+        downloadToast('success', `${nowPlayingItem.episodeTitle} downloaded`)
+      })
+      .catch((err) => {
+        downloadToast('error', `Error downloading ${nowPlayingItem.episodeTitle}: ${err}`)
+      })
   }
 
   const _handleQueueNext = async () => {
@@ -177,6 +223,7 @@ export const MediaItemControls = ({
       } else {
         items.push({ i18nKey: 'Mark as Played', key: _markAsPlayedKey })
       }
+      items.push({ i18nKey: 'Download Episode', key: _downloadEpisodeKey })
     }
 
     if (isLoggedInUserMediaRef) {
