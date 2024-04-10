@@ -84,7 +84,8 @@ export const EmbedPlayerHeader = ({ hideFullView }: Props) => {
     const callback = (e: MessageEvent<MessageData>) => {
       switch (e.data.command) {
         case 'seek':
-          let offset = e.data.parameter as number
+          // eslint-disable-next-line no-case-declarations
+          const offset = e.data.parameter as number
           if (!Number.isFinite(offset))
           {
             console.log(`Invalid parameter for seek command! '${e.data.parameter}' is not a number!`);
