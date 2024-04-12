@@ -1,5 +1,5 @@
 {
-    "18 per year after that": "18$ por año después.",
+    "18 per year after that": "A partir de entonces, 18 $/año.",
     "ARIA - Toggle UI theme change": "Cambiar el tema de la interfaz de usuario",
     "ARIA - Toggle video only mode": "Alternar modo de solo video",
     "About": "Acerca de",
@@ -11,7 +11,7 @@
     "Are you sure you want to remove all of your queue items": "¿Eliminar todos los elementos de la cola?",
     "Auto Queue": "Cola automática",
     "Bug Report": "Informar de un fallo",
-    "Buy a Podverse premium membership": "Compre Podverse Premium",
+    "Buy a Podverse premium membership": "Comprar Podverse Premium",
     "Cancel": "Cancelar",
     "Clip": "Acortar",
     "Clip times": "Tiempos de clip",
@@ -346,7 +346,7 @@
     "brandName chat is powered by": "El chat en directo de Podverse funciona con estas bibliotecas de código abierto",
     "language - nb-NO": "Noruego",
     "untitledChapter": "Capítulo sin título",
-    "Try premium free for 3 months": "¡Pruebe Premium gratis durante 3 meses!",
+    "Try premium free for 3 months": "¡Pruebe gratis la versión Premium durante 3 meses!",
     "Embed episode only instructions": "Inserta un solo episodio pulsando el icono \"Compartir\" en Podverse, copia el código \"Embed\" y pegarlo en tu página web.",
     "Extend Membership Text 3": "Podverse es una empresa V4V, por lo que si el coste de renovación se sale de su presupuesto, envíenos un correo electrónico a contact@podverse.fm y su membresía será extendida.",
     "Remove": "Eliminar",
@@ -476,5 +476,6 @@
     "Footer links continued": "Enlaces a pie de página (continuación)",
     "Account Claim Token": "Token de reclamación de cuenta",
     "pages-admin_Title": "Administración",
-    "pages-account-claim-token_Title": "Token de reclamación de cuenta"
+    "pages-account-claim-token_Title": "Token de reclamación de cuenta",
+    "Download Episode": "Descargar el episodio"
 }
