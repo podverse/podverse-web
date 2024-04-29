@@ -21,19 +21,6 @@ export const getEpisodeByPodcastIdAndGuid = async (podcastId: string, episodeGui
   })
 }
 
-export const getEpisodeByPodcastIdAndMediaUrl = async (podcastId: string, episodeMediaUrl: string) => {
-  const body = {
-    episodeMediaUrl,
-    podcastId
-  }
-
-  return request({
-    endpoint: `${PV.RoutePaths.api.episode_get_by_media_url}`,
-    method: 'POST',
-    body
-  })
-}
-
 export type EpisodeQueryParams = {
   categories?: string[]
   hasVideo?: boolean
