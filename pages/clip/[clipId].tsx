@@ -267,7 +267,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     const serverClip = clipResponse.data
     const { episode } = serverClip
   
-    const serverClipsFilterSort = PV.Filters.sort._topPastYear
+    const serverClipsFilterSort = PV.Filters.sort._mostRecent
     const serverClipsFilterPage = 1
   
     const clipsResponse = await getMediaRefsByQuery({
