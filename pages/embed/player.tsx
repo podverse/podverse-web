@@ -13,7 +13,7 @@ import { getPodcastById } from '~/services/podcast'
 import { getEpisodesAndLiveItems } from '~/services/liveItem'
 import { playerLoadNowPlayingItem } from '~/services/player/player'
 import { OmniAuralState } from '~/state/omniauralState'
-import { getEpisodeById, getEpisodeByPodcastIdAndGuid, getEpisodeByPodcastIdAndMediaUrl } from '~/services/episode'
+import { getEpisodeById, getEpisodeByPodcastIdAndGuid } from '~/services/episode'
 import { useTranslation } from 'next-i18next'
 
 interface ServerProps extends I18nPage {
@@ -121,14 +121,6 @@ export default function EmbedPlayerPage({
               episode = (await getEpisodeByPodcastIdAndGuid(podcastId, episodeGuid)).data
             } catch (error) {
               console.log('Episode not found by GUID.')
-            }
-          }
-
-          if (!episode && episodeMediaUrl && podcastId) {
-            try {
-              episode = (await getEpisodeByPodcastIdAndMediaUrl(podcastId, episodeMediaUrl)).data
-            } catch (error) {
-              console.log('Episode not found by media url.')
             }
           }
 
