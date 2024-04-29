@@ -12,7 +12,6 @@ export const RoutePaths = {
     download: `/download`,
     episode: `/episode`,
     episode_get_by_guid: `/episode/get-by-guid`,
-    episode_get_by_media_url: `/episode/get-by-media-url`,
     get_authenticated_user_info: `${api.auth}/get-authenticated-user-info`,
     invoice: `/invoice`,
     live_item: `/liveItem`,
