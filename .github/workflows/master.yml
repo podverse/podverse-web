@@ -4,22 +4,23 @@ on:
   push:
     branches: [ master ]
 
-env:
-  REGISTRY: podverse
-  IMAGE_NAME: podverse_web
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
+    -
+      name: Checkout
+      uses: actions/checkout@v4
 
-    - name: Read node from package.json
+    -
+      name: Read node from package.json
       uses: culshaw/read-package-node-version-actions@v1
       id: package-node-version
 
-    - name: send deploying message to Matrix Alerts room
+    -
+      name: send deploying message to Matrix Alerts room
       uses: s3krit/matrix-message-action@v0.0.3
       with:
         room_id: ${{ secrets.MATRIX_ALERTS_ROOM_ID }}
@@ -27,16 +28,22 @@ jobs:
         message: "Deploying podverse-web ${{ steps.package-node-version.outputs.version }} to prod..."
         server: ${{ secrets.MATRIX_SERVER }}
 
-    - name: Log in to the Container registry
+    -
+      name: Login to Docker Hub
       uses: docker/login-action@v3
       with:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
 
-    - name: build and push docker image
-      id: push
-      uses: docker/build-push-action@v5
-      with:
-        context: .
-        push: true
-        tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest,${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.package-node-version.outputs.version }}
+    -
+      name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+
+      -
+        name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
