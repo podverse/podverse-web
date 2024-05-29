@@ -24,7 +24,7 @@ jobs:
         server: ${{ secrets.MATRIX_SERVER }}
 
     - name: build and push docker image
-      uses: docker/build-push-action@v1
+      uses: docker/build-push-action@v4
       with:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
