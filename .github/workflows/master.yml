@@ -39,5 +39,4 @@ jobs:
       with:
         context: .
         push: true
-        images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-        tags: latest,${{ steps.package-node-version.outputs.version }}
+        tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest,${{ steps.package-node-version.outputs.version }}
