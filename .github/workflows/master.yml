@@ -47,12 +47,14 @@ jobs:
         push: true
         tags: podverse/podverse_web:latest,podverse/podverse_web:${{ steps.package-node-version.outputs.version }}
 
-    - name: Tailscale
+    - 
+      name: Tailscale
       uses: tailscale/github-action@main
       with:
         authkey: ${{ secrets.TAILSCALE_AUTHKEY }}
 
-    - name: log into prod, then deploy latest prod image
+    - 
+      name: log into prod, then deploy latest prod image
       uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.PROD_SSH_HOST }}
@@ -65,7 +67,8 @@ jobs:
           docker image rm podverse/podverse_web:latest
           docker compose -f /opt/podverse-ops/docker-compose/prod/srv/docker-compose.yml up --quiet-pull -d podverse_web
 
-    - name: send deploy finished message to Matrix Alerts room
+    - 
+      name: send deploy finished message to Matrix Alerts room
       uses: s3krit/matrix-message-action@v0.0.3
       with:
         room_id: ${{ secrets.MATRIX_ALERTS_ROOM_ID }}
