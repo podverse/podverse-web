@@ -46,4 +46,4 @@ jobs:
         context: .
         file: ./Dockerfile
         push: true
-        tags: podverse/podverse_web:latest
+        tags: podverse/podverse_web:latest,podverse/podverse_web:${{ steps.package-node-version.outputs.version }}
