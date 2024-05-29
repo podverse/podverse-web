@@ -4,12 +4,16 @@ on:
   push:
     branches: [ master ]
 
+env:
+  REGISTRY: podverse
+  IMAGE_NAME: podverse_web
+
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
 
     - name: Read node from package.json
       uses: culshaw/read-package-node-version-actions@v1
@@ -23,36 +27,17 @@ jobs:
         message: "Deploying podverse-web ${{ steps.package-node-version.outputs.version }} to prod..."
         server: ${{ secrets.MATRIX_SERVER }}
 
-    - name: build and push docker image
-      uses: docker/build-push-action@v4
+    - name: Log in to the Container registry
+      uses: docker/login-action@v3
       with:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
-        repository: podverse/podverse_web
+
+    - name: build and push docker image
+      id: push
+      uses: docker/build-push-action@v5
+      with:
+        context: .
+        push: true
+        images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
         tags: latest,${{ steps.package-node-version.outputs.version }}
-
-    - name: Tailscale
-      uses: tailscale/github-action@main
-      with:
-        authkey: ${{ secrets.TAILSCALE_AUTHKEY }}
-
-    - name: log into prod, then deploy latest prod image
-      uses: appleboy/ssh-action@master
-      with:
-        host: ${{ secrets.PROD_SSH_HOST }}
-        username: ${{ secrets.PROD_SSH_USERNAME }}
-        key: ${{ secrets.PROD_SSH_PRIVATE_KEY }}
-        command_timeout: 60m
-        script: |
-          docker stop podverse_web_prod
-          docker rm podverse_web_prod
-          docker image rm podverse/podverse_web:latest
-          docker compose -f /opt/podverse-ops/docker-compose/prod/srv/docker-compose.yml up --quiet-pull -d podverse_web
-
-    - name: send deploy finished message to Matrix Alerts room
-      uses: s3krit/matrix-message-action@v0.0.3
-      with:
-        room_id: ${{ secrets.MATRIX_ALERTS_ROOM_ID }}
-        access_token: ${{ secrets.MATRIX_ACCESS_TOKEN }}
-        message: "podverse-web ${{ steps.package-node-version.outputs.version }} has finished deploying to prod 🎉"
-        server: ${{ secrets.MATRIX_SERVER }}
