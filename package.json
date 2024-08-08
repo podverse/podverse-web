@@ -79,7 +79,7 @@
     "ssh2": "1.5.0",
     "striptags": "3.2.0",
     "transcriptator": "^1.1.0",
-    "webln-v4v": "1.0.0-beta.5"
+    "webln-v4v": "1.0.0-beta.34"
   },
   "devDependencies": {
     "@sentry/nextjs": "6.16.1",
