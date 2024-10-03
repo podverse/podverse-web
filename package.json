@@ -82,7 +82,7 @@
     "webln-v4v": "1.0.0-beta.34"
   },
   "devDependencies": {
-    "@sentry/nextjs": "6.16.1",
+    "@sentry/nextjs": "8.33.1",
     "@testing-library/jest-dom": "5.16.1",
     "@testing-library/react": "12.1.2",
     "@testing-library/user-event": "13.5.0",
