@@ -3086,10 +3086,10 @@ domhandler@^5.0.2, domhandler@^5.0.3:
   dependencies:
     domelementtype "^2.3.0"
 
-dompurify@^3.0.5:
-  version "3.0.11"
-  resolved "https://registry.npmjs.org/dompurify/-/dompurify-3.0.11.tgz"
-  integrity sha512-Fan4uMuyB26gFV3ovPoEoQbxRRPfTu3CvImyZnhGq5fsIEO+gEFLp45ISFt+kQBWsK5ulDdT0oV28jS1UrwQLg==
+"dompurify@^3.0.5 <3.1.7":
+  version "3.1.6"
+  resolved "https://registry.yarnpkg.com/dompurify/-/dompurify-3.1.6.tgz#43c714a94c6a7b8801850f82e756685300a027e2"
+  integrity sha512-cTOAhc36AalkjtBpfG6O8JimdTMWNXjiePT2xQH/ppBGi/4uIpmj8eKyIkMJErXWARyINV/sB38yf8JCLF5pbQ==
 
 domutils@^3.0.1:
   version "3.1.0"
@@ -5466,10 +5466,10 @@ merge2@^1.3.0, merge2@^1.4.1:
   resolved "https://registry.npmjs.org/merge2/-/merge2-1.4.1.tgz"
   integrity sha512-8q7VEgMJW4J8tcfVPy8g09NcQwZdbwFEqhe/WZkoIzjn/3TGDwtOCYtXGxA3O8tPzpczCCDgv+P2P5y00ZJOOg==
 
-mermaid@10.9.0:
-  version "10.9.0"
-  resolved "https://registry.npmjs.org/mermaid/-/mermaid-10.9.0.tgz"
-  integrity sha512-swZju0hFox/B/qoLKK0rOxxgh8Cf7rJSfAUc1u8fezVihYMvrJAS45GzAxTVf4Q+xn9uMgitBcmWk7nWGXOs/g==
+mermaid@10.9.3:
+  version "10.9.3"
+  resolved "https://registry.yarnpkg.com/mermaid/-/mermaid-10.9.3.tgz#90bc6f15c33dbe5d9507fed31592cc0d88fee9f7"
+  integrity sha512-V80X1isSEvAewIL3xhmz/rVmc27CVljcsbWxkxlWJWY/1kQa4XOABqpDl2qQLGKzpKm6WbTfUEKImBlUfFYArw==
   dependencies:
     "@braintree/sanitize-url" "^6.0.1"
     "@types/d3-scale" "^4.0.3"
@@ -5480,7 +5480,7 @@ mermaid@10.9.0:
     d3-sankey "^0.12.3"
     dagre-d3-es "7.0.10"
     dayjs "^1.11.7"
-    dompurify "^3.0.5"
+    dompurify "^3.0.5 <3.1.7"
     elkjs "^0.9.0"
     katex "^0.16.9"
     khroma "^2.0.0"
@@ -7889,10 +7889,10 @@ webidl-conversions@^7.0.0:
   resolved "https://registry.npmjs.org/webidl-conversions/-/webidl-conversions-7.0.0.tgz"
   integrity sha512-VwddBukDzu71offAQR975unBIGqfKZpM+8ZX6ySk8nYhVoo5CYaZyzt3YBvYtRtO+aoGlqxPg/B87NGVZ/fu6g==
 
-webln-v4v@1.0.0-beta.5:
-  version "1.0.0-beta.5"
-  resolved "https://registry.npmjs.org/webln-v4v/-/webln-v4v-1.0.0-beta.5.tgz"
-  integrity sha512-M39q6t4LU0k0xm0SysDnz2LX2yV2stnINm59s82yTcPjKxEAevma+ZYewdt3SOV2HEFX3VJCyy3Y6A6qK0wP4w==
+webln-v4v@1.0.0-beta.34:
+  version "1.0.0-beta.34"
+  resolved "https://registry.yarnpkg.com/webln-v4v/-/webln-v4v-1.0.0-beta.34.tgz#fff726713bdee8c45e8687da6e08d4ac9250ea6e"
+  integrity sha512-g/3/8OYYM00SCUADaZf2yaJdDFj57Q7hhpU7ax0Ggc2Oj/OMUuiKMWXvfLxtYhnvm+++Z/Q/KIugu0PdnyBD3w==
   dependencies:
     uuid "^8.3.2"
 
