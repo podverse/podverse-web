@@ -122,6 +122,7 @@ export default function Queue(props: ServerProps) {
                   itemKey={generateItemKey}
                   template={QueueListItem}
                   list={userQueueItems}
+                  unsetZIndex={true}
                   onMoveEnd={_onMoveEnd}
                   container={() => listRef.current}
                   commonProps={{ userInfo, isEditing }}
