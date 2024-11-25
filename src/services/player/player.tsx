@@ -186,6 +186,7 @@ export const playerSeekTo = (position: number) => {
   }
 }
 
+// TODO:SS look reference and change this fucntion
 export const playerNextSpeed = (cookies: any, setCookie: any) => {
   const currentSpeed = OmniAural.state.player.playSpeed.value()
   const currentIndex = PV.Player.speeds.indexOf(currentSpeed)
@@ -212,6 +213,22 @@ export const playerNextSpeed = (cookies: any, setCookie: any) => {
   }
 }
 
+export const playerSetPlaybackSpeedAndCookies = (newSpeed: number, cookies: any, setCookie: any) => {
+  playerSetPlaybackSpeed(newSpeed)
+
+  if (setCookie) {
+    const cookiePlayerSettings = cookies?.playerSettings || {}
+    setCookie(
+      'playerSettings',
+      {
+        ...cookiePlayerSettings,
+        playSpeed: newSpeed
+      },
+      { path: PV.Cookies.path }
+    )
+  }
+}
+
 export const playerSetPlaybackSpeed = (newSpeed: number) => {
   OmniAural.setPlaySpeed(newSpeed)
   if (audioIsLoaded()) {
@@ -223,9 +240,9 @@ export const playerSetPlaybackSpeed = (newSpeed: number) => {
 
 const playerGetCurrentPlaybackSpeed = () => {
   const currentSpeed = OmniAural.state.player.playSpeed.value()
-  const currentIndex = PV.Player.speeds.indexOf(currentSpeed)
-  const playSpeed = PV.Player.speeds[currentIndex]
-  return playSpeed
+  // TODO:SS this 2 lines are unnecessary
+  //  check this function other referance
+  return currentSpeed
 }
 
 export const playerSetVolume = (newVolume: number) => {
