@@ -1770,11 +1770,6 @@
   dependencies:
     "@types/jest" "*"
 
-"@types/trusted-types@^2.0.7":
-  "integrity" "sha512-ScaPdn1dQczgbl0QFTeTOmVHFULt394XJgOQNoyVhZ6r2vLnMLJfBPd53SB52T/3G36VI1/g2MZaX0cwDuXsfw=="
-  "resolved" "https://registry.npmjs.org/@types/trusted-types/-/trusted-types-2.0.7.tgz"
-  "version" "2.0.7"
-
 "@types/unist@^2", "@types/unist@^2.0.0":
   "integrity" "sha512-IfYcSBWE3hLpBg8+X2SEa8LVkJdJEkT2Ese2aaLs3ptGdVtABxndrMaxuFlQ1qdFf9Q5rDvDpxI3WwgvKFAsQA=="
   "resolved" "https://registry.npmjs.org/@types/unist/-/unist-2.0.10.tgz"
@@ -2470,12 +2465,12 @@
   "resolved" "https://registry.npmjs.org/axe-core/-/axe-core-4.9.0.tgz"
   "version" "4.9.0"
 
-"axios@1.6.0":
-  "integrity" "sha512-EZ1DYihju9pwVB+jg67ogm+Tmqc6JmhamRN6I4Zt8DfZu5lbcQGw3ozH9lFejSJgs/ibaef3A9PMXPLeefFGJg=="
-  "resolved" "https://registry.npmjs.org/axios/-/axios-1.6.0.tgz"
-  "version" "1.6.0"
+"axios@1.7.4":
+  "integrity" "sha512-DukmaFRnY6AzAALSH4J2M3k6PkaC+MfaAGdEERRWcC9q3/TWQwLpHR8ZRLKTdQ3aBDL64EdluRDjJqKw+BPZEw=="
+  "resolved" "https://registry.npmjs.org/axios/-/axios-1.7.4.tgz"
+  "version" "1.7.4"
   dependencies:
-    "follow-redirects" "^1.15.0"
+    "follow-redirects" "^1.15.6"
     "form-data" "^4.0.0"
     "proxy-from-env" "^1.1.0"
 
@@ -3761,12 +3756,10 @@
   dependencies:
     "domelementtype" "^2.3.0"
 
-"dompurify@^3.0.5":
-  "integrity" "sha512-NBHEsc0/kzRYQd+AY6HR6B/IgsqzBABrqJbpCDQII/OK6h7B7LXzweZTDsqSW2LkTRpoxf18YUP+YjGySk6B3w=="
-  "resolved" "https://registry.npmjs.org/dompurify/-/dompurify-3.2.1.tgz"
-  "version" "3.2.1"
-  optionalDependencies:
-    "@types/trusted-types" "^2.0.7"
+"dompurify@^3.0.5 <3.1.7":
+  "integrity" "sha512-cTOAhc36AalkjtBpfG6O8JimdTMWNXjiePT2xQH/ppBGi/4uIpmj8eKyIkMJErXWARyINV/sB38yf8JCLF5pbQ=="
+  "resolved" "https://registry.npmjs.org/dompurify/-/dompurify-3.1.6.tgz"
+  "version" "3.1.6"
 
 "domutils@^3.0.1":
   "integrity" "sha512-H78uMmQtI2AhgDJjWeQmHwJJ2bLPD3GMmO7Zja/ZZh84wkm+4ut+IUnUdRa8uCGX88DiVx1j6FRe1XfxEgjEZA=="
@@ -4411,7 +4404,7 @@
   "resolved" "https://registry.npmjs.org/flatted/-/flatted-3.2.7.tgz"
   "version" "3.2.7"
 
-"follow-redirects@^1.15.0":
+"follow-redirects@^1.15.6":
   "integrity" "sha512-wWN62YITEaOpSK584EZXJafH1AGpO8RVgElfkuXbTOrPX4fIfOyEpW/CsiNd8JdYrAoOvafRTOEnvsO++qCqFA=="
   "resolved" "https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.15.6.tgz"
   "version" "1.15.6"
@@ -6281,10 +6274,10 @@
   "resolved" "https://registry.npmjs.org/merge2/-/merge2-1.4.1.tgz"
   "version" "1.4.1"
 
-"mermaid@10.9.0":
-  "integrity" "sha512-swZju0hFox/B/qoLKK0rOxxgh8Cf7rJSfAUc1u8fezVihYMvrJAS45GzAxTVf4Q+xn9uMgitBcmWk7nWGXOs/g=="
-  "resolved" "https://registry.npmjs.org/mermaid/-/mermaid-10.9.0.tgz"
-  "version" "10.9.0"
+"mermaid@10.9.3":
+  "integrity" "sha512-V80X1isSEvAewIL3xhmz/rVmc27CVljcsbWxkxlWJWY/1kQa4XOABqpDl2qQLGKzpKm6WbTfUEKImBlUfFYArw=="
+  "resolved" "https://registry.npmjs.org/mermaid/-/mermaid-10.9.3.tgz"
+  "version" "10.9.3"
   dependencies:
     "@braintree/sanitize-url" "^6.0.1"
     "@types/d3-scale" "^4.0.3"
@@ -6295,7 +6288,7 @@
     "d3-sankey" "^0.12.3"
     "dagre-d3-es" "7.0.10"
     "dayjs" "^1.11.7"
-    "dompurify" "^3.0.5"
+    "dompurify" "^3.0.5 <3.1.7"
     "elkjs" "^0.9.0"
     "katex" "^0.16.9"
     "khroma" "^2.0.0"
