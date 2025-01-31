@@ -64,6 +64,7 @@ tsconfig.tsbuildinfo
 
 # dotenv environment variables file
 .env
+.env-restore.example
 
 # next.js build output
 .next

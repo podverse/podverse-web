@@ -335,7 +335,7 @@
     "Custom CSS styles": "Benutzerdefinierte CSS-Stile",
     "Embed": "Einbinden",
     "Feature Demo": "Feature-Demo",
-    "features - livestreams": "Livestreams",
+    "features - livestreams": "Livestream-Wiedergabe",
     "features - new episodes and livestream notifications": "Benachrichtigungen über neue Episoden und Livestreams",
     "How To": "So wird es gemacht",
     "Membership preview text legend": "Klicken Sie auf das Wiedergabesymbol, um eine Vorschau des Beitrags zu sehen.",
@@ -413,7 +413,7 @@
     "Mission statement": "Podverse entwickelt kostenlose und quelloffene Software, um die Möglichkeiten des Podcasting zu erweitern.",
     "License and free trial info": "Die gesamte Podverse-Software wird unter einer freien und quelloffenen (FOSS) Lizenz bereitgestellt. Funktionen, die eine Aktualisierung unserer Server erfordern, sind nur mit einer Premium-Mitgliedschaft verfügbar. Melden Sie sich noch heute an und erhalten Sie eine 3-monatige kostenlose Testversion.",
     "Embed player overrides error info": "Um den Podverse Embed-Webplayer mit benutzerdefinierten Überschreibungen verwenden zu können, müssen wir Sie der Liste \"genehmigten Medien-URLs\" für diesen Podcast hinzufügen. (Dies ist erforderlich, um erstellung von Raubkopien oder falsche Darstellungen von Podcasts durch den Embed-Player auszuschließen . Bitte kontaktieren Sie uns um diese Funktion zu aktivieren!",
-    "Embed player overrides error email body": "Bitte geben Sie uns einen Link zum RSS-Feed Ihres Podcasts, damit wir die Funktion zum Einbetten von Player-Overrides für Sie aktivieren können.",
+    "Embed player overrides error email body": "Bitte senden Sie uns den Link zum RSS-Feed Ihres Podcasts, damit wir die Einbettungsfunktion für Player-Overrides für Sie aktivieren können.",
     "Embed player overrides error email subject": "Hilfe beim Festlegen von genehmigten Medien URLs für die Einbettungsplayer-Überschreibungsfunktion",
     "Podverse is a FOSS podcast manager": "Podverse ist ein FOSS-Podcast-Manager für iOS, Android, F-Droid und das Web.",
     "Try premium free for 3 months": "Testen Sie Premium 3 Monate lang kostenlos!",
@@ -439,7 +439,7 @@
     "Boostagram info": "Boostagram-Informationen",
     "Boostagram succeeded": "Boostagram wurde gesendet!",
     "Maintenance mode": "Die Website ist aufgrund von Wartungsarbeiten leider nicht verfügbar.",
-    "Boostagram some failed": "Boostagram konnte an einige Empfänger nicht gesendet werden. Klicken Sie für weitere Informationen.",
+    "Boostagram some failed": "Der Boostagram-Versand an einige Empfänger war nicht erfolgreich. Klicken Sie hier, um mehr Informationen zu erhalten.",
     "Maintenance mode subtext": "Sie wird wieder verfügbar sein, sobald die Aktualisierung abgeschlossen ist.",
     "Delete my account": "Mein Konto löschen",
     "Download my data explanation": "Herunterladen einer vollständigen Kopie Ihrer Daten.",
@@ -475,5 +475,7 @@
     "Extend Membership Text": "Melden sie sich auf der Webseite an, wählen Sie \"Mitgliedschaft\" aus dem Dropdown Oben-Rechts, dann wählen Sie \"Mitgliedschaft verlängern\" um mit PayPal zu bezahlen.",
     "Extend Membership Text 2": "Apple-Pay und Google-Pay werden ebenfalls akzeptiert.",
     "Contribute page": "Mitarbeiten",
-    "Donate with Github": "Spenden auf Github"
+    "Donate with Github": "Spenden auf Github",
+    "Bitcoin Lightning Alby address": "Bitcoin Lightning Alby Adresse",
+    "Extend Membership Text 4": "Bitte besuchen Sie <0>{{contributePage}}</0>, um Podverse auf andere Weise zu unterstützen."
 }
