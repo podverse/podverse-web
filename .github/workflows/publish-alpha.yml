@@ -1,0 +1,89 @@
+name: Publish Alpha podverse-web Docker image
+
+on:
+  push:
+    branches:
+      - v5-alpha
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '22'
+
+      - name: Install podverse-helpers latest alpha version
+        run: npm i podverse-helpers@alpha --save
+
+      - name: Install podverse-external-services latest alpha version
+        run: npm i podverse-external-services@alpha --save
+
+      - name: Install podverse-orm latest alpha version
+        run: npm i podverse-orm@alpha --save
+
+      - name: Install podverse-parser latest alpha version
+        run: npm i podverse-parser@alpha --save
+
+      - name: Clean install dependencies
+        run: npm clean-install
+
+      - name: Determine next alpha version
+        id: version
+        run: |
+          BASE_VERSION=$(node -p "require('./package.json').version")
+          BASE_VERSION=$(echo "$BASE_VERSION" | sed 's/-.*//')
+          IMAGE_NAME=ghcr.io/${{ github.repository }}/podverse-web
+
+          # Use a PAT with read:packages scope
+          TOKEN="${{ secrets.GHCR_REGISTRY_TOKEN }}"
+          TAGS_JSON=$(curl -s -H "Authorization: Bearer $TOKEN" \
+            "https://ghcr.io/v2/${{ github.repository }}/podverse-web/tags/list")
+          echo "Raw tags JSON: $TAGS_JSON"
+          TAGS=$(echo "$TAGS_JSON" | jq -r '.tags[]' | grep "alpha" || true)
+          echo "Filtered alpha tags: $TAGS"
+
+          # Try to get the current alpha version (e.g., 5.1.1-alpha.3)
+          ALPHA_VERSION=$(echo "$TAGS" | grep "^${BASE_VERSION}-alpha\." | sort -V | tail -n1)
+          echo "Latest alpha version for base $BASE_VERSION: $ALPHA_VERSION"
+
+          if [[ -z "$ALPHA_VERSION" ]]; then
+            echo "No alpha version found. Starting with: $BASE_VERSION-alpha.0"
+            NEXT_VERSION="$BASE_VERSION-alpha.0"
+          else
+            CURRENT_BASE=$(echo "$ALPHA_VERSION" | cut -d '-' -f 1)
+            CURRENT_ALPHA_NUM=$(echo "$ALPHA_VERSION" | sed -En 's/.*alpha\.([0-9]+)$/\1/p')
+
+            if [[ -z "$CURRENT_ALPHA_NUM" ]]; then
+              NEXT_VERSION="$BASE_VERSION-alpha.0"
+            elif [[ "$CURRENT_BASE" == "$BASE_VERSION" ]]; then
+              NEXT_INDEX=$((CURRENT_ALPHA_NUM + 1))
+              NEXT_VERSION="$BASE_VERSION-alpha.$NEXT_INDEX"
+              echo "Same base version detected. Incrementing alpha to: $NEXT_VERSION"
+            else
+              NEXT_VERSION="$BASE_VERSION-alpha.0"
+              echo "New base version detected. Resetting alpha to: $NEXT_VERSION"
+            fi
+          fi
+
+          echo "NEXT_VERSION=$NEXT_VERSION" >> $GITHUB_OUTPUT
+
+      - name: Build Docker image
+        run: |
+          docker build . -t ghcr.io/${{ github.repository }}/podverse-web:${{ steps.version.outputs.NEXT_VERSION }}
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Push Docker image
+        run: |
+          docker push ghcr.io/${{ github.repository }}/podverse-web:${{ steps.version.outputs.NEXT_VERSION }}
