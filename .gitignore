@@ -4,6 +4,8 @@
 
 .next
 
+i18n/compiled
+
 # API keys and secrets
 **/.env*
 !**/.env.example

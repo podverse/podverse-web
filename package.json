@@ -11,10 +11,12 @@
     "Mitch Downey"
   ],
   "scripts": {
-    "dev": "next dev",
+    "prebuild": "npm run compile-i18n",
     "build": "next build",
+    "dev": "next dev",
+    "lint": "next lint",
     "start": "next start",
-    "lint": "next lint"
+    "compile-i18n": "ts-node --project tsconfig.scripts.json scripts/compile-i18n.ts"
   },
   "license": "AGPLv3",
   "keywords": [
@@ -43,6 +45,7 @@
   "devDependencies": {
     "@types/node": "^22.0.0",
     "@types/react": "^19.1.8",
+    "ts-node": "^10.9.2",
     "typescript": "^5.8.3"
   }
 }
