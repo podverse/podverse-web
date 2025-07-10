@@ -11,12 +11,13 @@
     "Mitch Downey"
   ],
   "scripts": {
-    "prebuild": "npm run compile-i18n",
+    "prebuild": "npm run i18n-compile",
     "build": "next build",
     "dev": "next dev",
     "lint": "next lint",
     "start": "next start",
-    "compile-i18n": "ts-node --project tsconfig.scripts.json scripts/compile-i18n.ts"
+    "i18n-ai-translations": "ts-node --project tsconfig.scripts.json scripts/i18n/i18n-ai-translations.ts",
+    "i18n-compile": "ts-node --project tsconfig.scripts.json scripts/i18n/i18n-compile.ts"
   },
   "license": "AGPLv3",
   "keywords": [
@@ -45,6 +46,9 @@
   "devDependencies": {
     "@types/node": "^22.0.0",
     "@types/react": "^19.1.8",
+    "axios": "^1.10.0",
+    "dotenv": "^17.2.0",
+    "openai": "^5.9.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3"
   }
