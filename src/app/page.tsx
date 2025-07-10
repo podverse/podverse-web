@@ -1,19 +1,14 @@
 import React from "react";
 import TestComponent from "../components/TestComponent/TestComponent";
-
-// Sample server-side function
-async function getServerMessage() {
-  // This code runs on the server
-  return "Hello from the server!";
-}
+import { getTranslations } from "next-intl/server";
 
 export default async function Home() {
-  const serverMessage = await getServerMessage();
+  const t = await getTranslations('HomePage');
 
   return (
     <div>
-      <h1>Welcome to Podverse Web</h1>
-      <p>{serverMessage}</p>
+      <h1>{(await t)("title")}</h1>
+      <p>helloooo</p>
       <TestComponent />
     </div>
   );
