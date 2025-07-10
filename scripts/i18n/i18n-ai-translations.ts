@@ -118,7 +118,7 @@ async function translateObject(
 }
 
 async function run() {
-  const inputPath = path.resolve('./i18n/messages/en.json');
+  const inputPath = path.resolve('./i18n/originals/en.json');
   const enData = JSON.parse(fs.readFileSync(inputPath, 'utf-8'));
 
   const targets = [
@@ -127,7 +127,7 @@ async function run() {
   ];
 
   for (const target of targets) {
-    const outputPath = path.resolve(`./i18n/messages/${target.code}.json`);
+    const outputPath = path.resolve(`./i18n/originals/${target.code}.json`);
     const existingTranslated = loadExistingTranslations(outputPath);
 
     console.log(`\n🌍 Translating to ${target.name}...`);

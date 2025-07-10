@@ -22,17 +22,17 @@ async function detectLocale() {
 export default getRequestConfig(async () => {
   const locale = await detectLocale();
 
-  let messages;
+  let originals;
   try {
-    const localeMessages = (await import(`../../i18n/messages/${locale}.json`)).default;
-    const enMessages = (await import(`../../i18n/messages/en.json`)).default;
-    messages = { ...enMessages, ...localeMessages };
+    const localeOriginals = (await import(`../../i18n/originals/${locale}.json`)).default;
+    const enOriginals = (await import(`../../i18n/originals/en.json`)).default;
+    originals = { ...enOriginals, ...localeOriginals };
   } catch (e) {
-    messages = (await import(`../../i18n/messages/en.json`)).default;
+    originals = (await import(`../../i18n/originals/en.json`)).default;
   }
 
   return {
     locale,
-    messages
+    originals
   };
 });
