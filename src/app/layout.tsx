@@ -1,8 +1,11 @@
 import { cookies } from 'next/headers';
-import ThemeToggle from '../components/ThemeToggle/ThemeToggle';
-import '../styles/globals.css';
+// import ThemeToggle from '../components/ThemeToggle/ThemeToggle';
+import '../styles/globals.scss';
 import { NextIntlClientProvider } from 'next-intl';
 import { getLocale } from 'next-intl/server';
+import WindowWrapper from '../components/Window/WindowWrapper';
+import SideBar from '../components/SideBar/SideBar';
+import MainWrapper from '../components/Main/MainWrapper';
 
 export const metadata = {
   title: 'Podverse Web',
@@ -19,9 +22,14 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html lang={locale} className={theme === 'dark' ? 'dark' : ''}>
       <body>
-        <ThemeToggle initialTheme={theme} />
+        {/* <ThemeToggle initialTheme={theme} /> */}
         <NextIntlClientProvider>
-          {children}
+          <WindowWrapper>
+            <SideBar />
+            <MainWrapper>
+              {children}
+            </MainWrapper>
+          </WindowWrapper>
         </NextIntlClientProvider>
       </body>
     </html>

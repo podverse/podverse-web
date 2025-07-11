@@ -1,0 +1,9 @@
+.sidebar {
+  width: 12rem;
+  height: 100vh;
+  background: var(--background-color-tertiary);
+  color: var(--text-color-primary);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
