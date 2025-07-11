@@ -30,9 +30,9 @@ export default getRequestConfig(async () => {
   } catch (e) {
     originals = (await import(`../../i18n/originals/en.json`)).default;
   }
-
+  
   return {
     locale,
-    originals
+    messages: originals
   };
 });
