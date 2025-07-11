@@ -1,15 +1,17 @@
 import React from "react";
-import styles from "../../styles/components/SideBar/SideBar.module.scss";
+import { FaSearch } from "react-icons/fa";
 import { ROUTES } from "../../constants/routes";
+import styles from "../../styles/components/SideBar/SideBar.module.scss";
 import SideBarBrand from "./SideBarBrand";
 import SideBarLink from "./SideBarLink";
 import ThemeToggle from "../ThemeToggle/ThemeToggle";
 import SideBarDivider from "./SideBarDivider";
 
+
 const SideBar: React.FC = () => (
   <nav className={styles.sidebar}>
     <SideBarBrand />
-    <SideBarLink href={ROUTES.SEARCH}>Search</SideBarLink>
+    <SideBarLink href={ROUTES.SEARCH}><FaSearch style={{ marginRight: "0.5rem" }} />Search</SideBarLink>
     <SideBarDivider />
     <SideBarLink href={ROUTES.PODCASTS}>Podcasts</SideBarLink>
     <SideBarLink href={ROUTES.EPISODES}>Episodes</SideBarLink>

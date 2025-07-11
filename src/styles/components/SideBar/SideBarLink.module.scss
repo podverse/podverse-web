@@ -1,9 +1,10 @@
 .link {
   color: var(--text-color-primary);
   text-decoration: none;
-  padding: 0.75rem 1rem;
+  padding: 0.75rem;
   margin: 0.25rem 0.5rem;
-  display: block;
+  display: flex;
+  align-items: center;
   font-size: var(--font-size-base);
   border-radius: var(--border-radius-md);
 }
