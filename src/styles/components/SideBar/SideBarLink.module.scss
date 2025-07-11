@@ -2,10 +2,11 @@
   color: var(--text-color-primary);
   text-decoration: none;
   padding: 0.75rem 1rem;
-  margin: 0.25rem 0;
+  margin: 0.25rem 0.5rem;
   display: block;
   font-size: var(--font-size-base);
   transition: background 0.2s;
+  border-radius: var(--border-radius-md);
 }
 
 .link:hover,

@@ -1,24 +1,23 @@
-'use client'
+'use client';
 
-import { useEffect, useState } from 'react'
+import { useTheme } from '../../contexts/Theme'
+import { UITheme } from '../../utils/theme'
 
-type Props = {
-  initialTheme: 'light' | 'dark'
-}
+const THEMES: UITheme[] = ['dark', 'light'];
 
-export default function ThemeToggle({ initialTheme }: Props) {
-  const [theme, setTheme] = useState<'light' | 'dark'>(initialTheme)
+export default function ThemeToggle() {
+  const { theme, setTheme } = useTheme();
 
-  useEffect(() => {
-    document.documentElement.classList.toggle('dark', theme === 'dark')
-    document.cookie = `theme=${theme}; path=/; max-age=31536000`
-  }, [theme])
+  const nextTheme = () => {
+    const idx = THEMES.indexOf(theme)
+    return THEMES[(idx + 1) % THEMES.length] || 'dark'
+  }
 
-  const toggleTheme = () => setTheme(theme === 'dark' ? 'light' : 'dark')
+  const toggleTheme = () => setTheme(nextTheme())
 
   return (
     <button onClick={toggleTheme} aria-label="Toggle theme">
-      {theme === 'dark' ? '🌙 Dark' : '☀️ Light'}
+      {theme === 'dark' ? '🌙 Dark' : theme === 'light' ? '☀️ Light' : theme}
     </button>
   )
 }

@@ -1,11 +1,8 @@
 :root,
-html.light {
-  --background-color-tertiary: #999;
-}
-
-html.dark {
+[data-theme="dark"] {
   --background-color-primary: #030626;
   --background-color-secondary: #000000;
   --background-color-tertiary: #0f1235;
   --text-color-primary: #ffffff;
+  --border-color-opaque: rgba(255, 255, 255, 0.15);
 }

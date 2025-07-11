@@ -1,8 +1,8 @@
 export const ROUTES = {
-  HOME: '/home',
-  PODCASTS: '/podcasts',
+  ABOUT: '/about',
   EPISODES: '/episodes',
   PLAYLISTS: '/playlists',
-  SETTINGS: '/settings',
-  ABOUT: '/about',
+  PODCASTS: '/podcasts',
+  SEARCH: '/search',
+  SETTINGS: '/settings'
 };
