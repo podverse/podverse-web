@@ -5,11 +5,9 @@
   margin: 0.25rem 0.5rem;
   display: block;
   font-size: var(--font-size-base);
-  transition: background 0.2s;
   border-radius: var(--border-radius-md);
 }
 
-.link:hover,
-.link:focus {
-  background: #333;
+.link:hover {
+  background: var(--background-color-opaque);
 }

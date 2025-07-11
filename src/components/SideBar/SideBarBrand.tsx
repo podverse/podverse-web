@@ -1,12 +1,13 @@
 "use client";
 
+import Link from "next/link";
 import React from "react";
 import styles from "../../styles/components/SideBar/SideBarBrand.module.scss";
 import { ASSETS } from "../../constants/assets";
-import { UITheme } from "../../utils/theme";
 import { useTheme } from "../../contexts/Theme";
+import Image from "next/image";
 
-const SideBarBrand: React.FC<SideBarBrandProps> = () => {
+const SideBarBrand: React.FC = () => {
   const { theme } = useTheme();
 
   const brandSrc = (() => {
@@ -21,9 +22,16 @@ const SideBarBrand: React.FC<SideBarBrandProps> = () => {
   })();
 
   return (
-    <a href="/" className={styles.brand}>
-      <img src={brandSrc} alt="Podverse" className={styles.brandImage} />
-    </a>
+    <Link href="/" className={styles.brand}>
+      <Image
+        src={brandSrc}
+        alt="Podverse"
+        className={styles.brandImage}
+        width={144}
+        height={24.74}
+        priority
+      />
+    </Link>
   );
 };
 

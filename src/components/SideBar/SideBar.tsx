@@ -5,15 +5,10 @@ import SideBarBrand from "./SideBarBrand";
 import SideBarLink from "./SideBarLink";
 import ThemeToggle from "../ThemeToggle/ThemeToggle";
 import SideBarDivider from "./SideBarDivider";
-import { UITheme } from "../../utils/theme";
 
-type SideBarProps = {
-  theme: UITheme;
-};
-
-const SideBar: React.FC<SideBarProps> = ({ theme }) => (
+const SideBar: React.FC = () => (
   <nav className={styles.sidebar}>
-    <SideBarBrand theme={theme} />
+    <SideBarBrand />
     <SideBarLink href={ROUTES.SEARCH}>Search</SideBarLink>
     <SideBarDivider />
     <SideBarLink href={ROUTES.PODCASTS}>Podcasts</SideBarLink>
@@ -21,7 +16,7 @@ const SideBar: React.FC<SideBarProps> = ({ theme }) => (
     <SideBarLink href={ROUTES.PLAYLISTS}>Playlists</SideBarLink>
     <SideBarLink href={ROUTES.SETTINGS}>Settings</SideBarLink>
     <SideBarLink href={ROUTES.ABOUT}>About</SideBarLink>
-    <ThemeToggle theme={theme} />
+    <ThemeToggle />
   </nav>
 );
 

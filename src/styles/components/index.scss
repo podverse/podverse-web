@@ -1,5 +1,5 @@
-@import 'Main/MainWrapper.module.scss';
-@import 'NavBar/NavBarDesktop.module.scss';
-@import 'SideBar/SideBar.module.scss';
-@import 'SideBar/SideBarBrand.module.scss';
-@import 'Window/WindowWrapper.module.scss';
+@use 'Main/MainWrapper.module.scss';
+@use 'NavBar/NavBarDesktop.module.scss';
+@use 'SideBar/SideBar.module.scss';
+@use 'SideBar/SideBarBrand.module.scss';
+@use 'Window/WindowWrapper.module.scss';

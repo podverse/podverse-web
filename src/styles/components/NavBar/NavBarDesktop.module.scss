@@ -1,17 +1,36 @@
 .navbar {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: space-between;
   padding: 0.75rem 1.5rem;
-  background: var(--background-color-secondary);
+  background: var(--background-color-primary);
+  border-bottom: 1px solid var(--border-color-opaque);
+}
+
+.leftButtons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.navButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--border-radius-round);
+  height: 32px;
+  width: 32px;
+  line-height: 1;
+}
+
+.navButton:hover,
+.navButton:focus {
+  background: var(--background-color-tertiary);
 }
 
 .dropdownButton {
   background: none;
   border: none;
   color: var(--text-color-primary);
-  font-weight: bold;
   cursor: pointer;
-  font-size: 1rem;
   padding: 0.5rem 1rem;
 }

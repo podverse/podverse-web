@@ -1,6 +1,6 @@
 export type UITheme = "dark" | "light";
 
-export function toUITheme(value: string | null): UITheme {
+export function toUITheme(value?: string | null): UITheme {
   const validThemes: UITheme[] = ["dark", "light"];
   return validThemes.includes(value as UITheme) ? (value as UITheme) : "dark";
 }

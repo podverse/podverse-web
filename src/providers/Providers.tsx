@@ -3,6 +3,7 @@
 import { NextIntlClientProvider } from 'next-intl';
 import { AccountProvider } from '../contexts/Account';
 import { ThemeProvider } from '../contexts/Theme';
+import { UITheme } from '../utils/theme';
 
 export default function Providers({
   children,
@@ -10,7 +11,7 @@ export default function Providers({
   locale
 }: {
   children: React.ReactNode;
-  theme: string;
+  theme: UITheme;
   locale: string;
 }) {
   return (

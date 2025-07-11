@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 import styles from "../../styles/components/SideBar/SideBarLink.module.scss";
 
@@ -7,9 +8,9 @@ type SideBarLinkProps = {
 };
 
 const SideBarLink: React.FC<SideBarLinkProps> = ({ href, children }) => (
-  <a href={href} className={styles.link}>
+  <Link href={href} className={styles.link}>
     {children}
-  </a>
+  </Link>
 );
 
 export default SideBarLink;

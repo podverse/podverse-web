@@ -1,3 +1,29 @@
+html {
+  color: var(--text-color-primary);
+  font-size: var(--font-size-base) !important;
+}
+
 body {
   margin: 0;
+}
+
+button {
+  background: none;
+  border: none;
+  color: inherit;
+  font-size: inherit;
+  font-family: inherit;
+  padding: 0;
+}
+
+button:focus {
+  box-shadow: var(--box-shadow-focus);
+  background: none;
+  outline: none;
+}
+
+a:focus {
+  box-shadow: var(--box-shadow-focus);
+  outline: none;
+  background: none;
 }
