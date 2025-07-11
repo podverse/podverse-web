@@ -1,0 +1,17 @@
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0.75rem 1.5rem;
+  background: var(--background-color-secondary);
+}
+
+.dropdownButton {
+  background: none;
+  border: none;
+  color: var(--text-color-primary);
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+}
