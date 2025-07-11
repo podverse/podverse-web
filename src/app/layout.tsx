@@ -1,16 +1,15 @@
 import { cookies } from 'next/headers';
-// import ThemeToggle from '../components/ThemeToggle/ThemeToggle';
-import '../styles/index.scss';
-import { NextIntlClientProvider } from 'next-intl';
 import { getLocale } from 'next-intl/server';
-import WindowWrapper from '../components/Window/WindowWrapper';
-import SideBar from '../components/SideBar/SideBar';
 import MainWrapper from '../components/Main/MainWrapper';
-import { ThemeProvider } from '../contexts/Theme';
+import NavBarDesktop from '../components/NavBar/NavBarDesktop';;
+import SideBar from '../components/SideBar/SideBar';
+import WindowWrapper from '../components/Window/WindowWrapper';
+import Providers from '../providers/Providers';
+import '../styles/index.scss';
 
 export const metadata = {
-  title: 'Podverse Web',
-  description: 'A Next.js + TypeScript site',
+  title: 'Podverse',
+  description: 'Add meta description here',
 };
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
@@ -22,16 +21,15 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html lang={locale} data-theme={theme}>
       <body>
-        <NextIntlClientProvider>
-          <ThemeProvider initialTheme={theme}>
-            <WindowWrapper>
-              <SideBar />
-              <MainWrapper>
-                {children}
-              </MainWrapper>
-            </WindowWrapper>
-          </ThemeProvider>
-        </NextIntlClientProvider>
+        <Providers locale={locale} theme={theme}>
+          <WindowWrapper>
+            <SideBar />
+            <MainWrapper>
+              <NavBarDesktop />
+              {children}
+            </MainWrapper>
+          </WindowWrapper>
+        </Providers>
       </body>
     </html>
   );
