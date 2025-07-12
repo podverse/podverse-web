@@ -8,6 +8,7 @@ import WindowWrapper from '../components/Window/WindowWrapper';
 import Providers from '../providers/Providers';
 import '../styles/index.scss';
 import { toUITheme } from '../utils/theme';
+import { reqAccountGetManyPublic } from "podverse-helpers";
 
 export const metadata = {
   title: 'Podverse',
@@ -15,15 +16,22 @@ export const metadata = {
 };
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const locale = await getLocale();
-  const cookieStore = await cookies();
+  const [locale, cookieStore] = await Promise.all([getLocale(), cookies()]);
   const cookieTheme = cookieStore.get('theme')?.value;
   const theme = toUITheme(cookieTheme);
+  
+  const hello = await reqAccountGetManyPublic();
+  console.log(hello);
 
   return (
     <html lang={locale} data-theme={theme}>
       <head>
         <FontPreloads />
+        <link rel="icon" type="image/png" sizes="96x96" href="/favicon/favicon-96x96.png" />
+        <link rel="icon" type="image/x-icon" href="/favicon/favicon.ico" />
+        <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+        <link rel="manifest" href="/favicon/site.webmanifest" />
       </head>
       <body>
         <Providers locale={locale} theme={theme}>
