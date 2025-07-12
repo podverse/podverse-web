@@ -4,7 +4,11 @@
   --background-color-secondary: #000000;
   --background-color-tertiary: #0f1235;
   --background-color-opaque: rgba(255, 255, 255, 0.15);
+  --background-color-glow: rgba(37, 42, 100, 0.6);
+  --border-color-primary: #3d9dfe;
   --border-color-opaque: rgba(255, 255, 255, 0.15);
-  --box-shadow-focus: 0 0 0 4px rgba(0, 116, 217, .4);
+  --box-shadow-focus: 0 0 0 4px rgba(0, 116, 217, 0.4);
   --text-color-primary: #ffffff;
+  --text-color-secondary: #cccccc;
+  --text-color-link: #74a8dc;
 }

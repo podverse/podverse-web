@@ -1,9 +1,10 @@
 "use client";
 
-import React, { useContext } from "react";
-import styles from "../../styles/components/NavBar/NavBarDesktop.module.scss";
-import { AccountContext } from "../../contexts/Account";
 import { useRouter } from "next/navigation";
+import React, { useContext } from "react";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { AccountContext } from "../../contexts/Account";
+import styles from "../../styles/components/NavBar/NavBarDesktop.module.scss";
 
 const NavBarDesktop: React.FC = () => {
   const { isLoggedIn } = useContext(AccountContext);
@@ -24,11 +25,11 @@ const NavBarDesktop: React.FC = () => {
   return (
     <nav className={styles.navbar}>
       <div className={styles.leftButtons}>
-        <button className={styles.navButton} onClick={handleBack} aria-label="Back">
-          {"<"}
+        <button className={`${styles.navButton} ${styles.navButtonLeft}`} onClick={handleBack} aria-label="Back">
+          <FaChevronLeft />
         </button>
-        <button className={styles.navButton} onClick={handleForward} aria-label="Forward">
-          {">"}
+        <button className={`${styles.navButton} ${styles.navButtonRight}`} onClick={handleForward} aria-label="Forward">
+          <FaChevronRight />
         </button>
       </div>
       <button className={styles.dropdownButton} onClick={handleDropdownClick}>

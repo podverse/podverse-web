@@ -6,6 +6,7 @@ import SideBarBrand from "./SideBarBrand";
 import SideBarLink from "./SideBarLink";
 import ThemeToggle from "../ThemeToggle/ThemeToggle";
 import SideBarDivider from "./SideBarDivider";
+import SideBarHeader from "./SideBarHeader";
 
 
 const SideBar: React.FC = () => (
@@ -15,9 +16,17 @@ const SideBar: React.FC = () => (
     <SideBarDivider />
     <SideBarLink href={ROUTES.PODCASTS}>Podcasts</SideBarLink>
     <SideBarLink href={ROUTES.EPISODES}>Episodes</SideBarLink>
+    <SideBarLink href={ROUTES.CLIPS}>Clips</SideBarLink>
+    <SideBarLink href={ROUTES.MUSIC}>Music</SideBarLink>
+    <SideBarLink href={ROUTES.TRACKS}>Tracks</SideBarLink>
+    <SideBarDivider />
+    <SideBarHeader>My Library</SideBarHeader>
+    <SideBarLink href={ROUTES.QUEUE}>Queue</SideBarLink>
+    <SideBarLink href={ROUTES.HISTORY}>History</SideBarLink>
     <SideBarLink href={ROUTES.PLAYLISTS}>Playlists</SideBarLink>
-    <SideBarLink href={ROUTES.SETTINGS}>Settings</SideBarLink>
-    <SideBarLink href={ROUTES.ABOUT}>About</SideBarLink>
+    <SideBarLink href={ROUTES.MY_CLIPS}>My Clips</SideBarLink>
+    <SideBarLink href={ROUTES.PROFILES}>Profiles</SideBarLink>
+    <SideBarDivider />
     <ThemeToggle />
   </nav>
 );

@@ -3,7 +3,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 0.75rem 1.5rem;
-  background: var(--background-color-primary);
+  background: var(--background-color-secondary);
   border-bottom: 1px solid var(--border-color-opaque);
 }
 
@@ -20,6 +20,17 @@
   height: 32px;
   width: 32px;
   line-height: 1;
+  font-size: var(--font-size-xs);
+  background-color: var(--background-color-glow);
+  border: 1px solid var(--border-color-primary);
+}
+
+.navButtonLeft {
+  padding-right: 1px;
+}
+
+.navButtonRight {
+  padding-left: 1px;
 }
 
 .navButton:hover,
