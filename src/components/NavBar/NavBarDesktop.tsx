@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import React, { useContext } from "react";
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { FaChevronDown, FaChevronLeft, FaChevronRight, FaRegUserCircle, FaUserCircle } from "react-icons/fa";
 import { AccountContext } from "../../contexts/Account";
 import styles from "../../styles/components/NavBar/NavBarDesktop.module.scss";
 
@@ -33,7 +33,8 @@ const NavBarDesktop: React.FC = () => {
         </button>
       </div>
       <button className={styles.dropdownButton} onClick={handleDropdownClick}>
-        {isLoggedIn ? "Logged in" : "Logged out"}
+        {isLoggedIn ? <FaRegUserCircle className={styles.profileIcon} /> : <FaUserCircle className={styles.profileIcon} />}
+        <FaChevronDown />
       </button>
     </nav>
   );

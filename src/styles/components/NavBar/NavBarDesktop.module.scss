@@ -44,4 +44,16 @@
   color: var(--text-color-primary);
   cursor: pointer;
   padding: 0.5rem 1rem;
+  display: flex;
+  align-items: center;
+  border-radius: var(--border-radius);
+}
+
+.downCaretIcon {
+  font-size: 1.125rem;
+}
+
+.profileIcon {
+  font-size: 1.375rem;
+  margin-right: 0.5rem;
 }
