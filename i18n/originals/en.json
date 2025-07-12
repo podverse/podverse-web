@@ -1,5 +1,48 @@
 {
-  "HomePage": {
-    "title": "Hello world!"
+  "_sample": {
+    "hello_world": "Hello, World!!!"
+  },
+  "media": {
+    "podcast": {
+      "podcasting": "Podcasting",
+      "podcast": "Podcast",
+      "podcasts": "Podcasts",
+      "episode": "Episode",
+      "episodes": "Episodes"
+    },
+    "music": {
+      "music": "Music",
+      "artist": "Artist",
+      "artists": "Artists",
+      "albums": "Albums",
+      "track": "Track",
+      "tracks": "Tracks"
+    },
+    "video": {
+      "channel": "Channel",
+      "channels": "Channels",
+      "video": "Video",
+      "videos": "Videos"
+    },
+    "clips": "Clips",
+    "livestreams": "Livestreams"
+  },
+  "features": {
+    "search": "Search",
+    "my_library": "My Library",
+    "queue": "Queue",
+    "history": "History",
+    "playlist": "Playlist",
+    "playlists": "Playlists",
+    "my_clips": "My Clips",
+    "my_profile": "My Profile",
+    "profile": "Profile",
+    "profiles": "Profiles"
+  },
+  "settings": {
+    "ui_theme": {
+      "light": "☀️ Light",
+      "dark": "🌙 Dark"
+    }
   }
 }

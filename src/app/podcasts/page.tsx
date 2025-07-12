@@ -1,7 +1,7 @@
 import React from "react";
 import { getTranslations } from "next-intl/server";
 
-export default async function Home() {
+export default async function Podcasts() {
   const t = await getTranslations('_sample');
 
   return (
