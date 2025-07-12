@@ -1,6 +1,9 @@
 import { cookies } from 'next/headers';
 import { getLocale } from 'next-intl/server';
+import { reqAccountGetManyPublic } from "podverse-helpers";
+import FavIcons from '../components/Head/FavIcons';
 import FontPreloads from '../components/Head/FontPreloads';
+import Manifest from '../components/Head/Manifest';
 import MainWrapper from '../components/Main/MainWrapper';
 import NavBarDesktop from '../components/NavBar/NavBarDesktop';;
 import SideBar from '../components/SideBar/SideBar';
@@ -8,7 +11,6 @@ import WindowWrapper from '../components/Window/WindowWrapper';
 import Providers from '../providers/Providers';
 import '../styles/index.scss';
 import { toUITheme } from '../utils/theme';
-import { reqAccountGetManyPublic } from "podverse-helpers";
 
 export const metadata = {
   title: 'Podverse',
@@ -27,11 +29,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     <html lang={locale} data-theme={theme}>
       <head>
         <FontPreloads />
-        <link rel="icon" type="image/png" sizes="96x96" href="/favicon/favicon-96x96.png" />
-        <link rel="icon" type="image/x-icon" href="/favicon/favicon.ico" />
-        <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
-        <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
-        <link rel="manifest" href="/favicon/site.webmanifest" />
+        <FavIcons />
+        <Manifest />
       </head>
       <body>
         <Providers locale={locale} theme={theme}>
