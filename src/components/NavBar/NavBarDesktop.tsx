@@ -22,7 +22,7 @@ function NavBarLeftButtons({ onBack, onForward }: { onBack: () => void; onForwar
 function NavBarProfileDropdown({ isLoggedIn, onClick }: { isLoggedIn: boolean; onClick: () => void }) {
   return (
     <button className={styles.dropdownButton} onClick={onClick}>
-      {isLoggedIn ? <FaRegUserCircle className={styles.profileIcon} /> : <FaUserCircle className={styles.profileIcon} />}
+      {isLoggedIn ? <FaUserCircle className={styles.profileIcon} /> : <FaRegUserCircle className={styles.profileIcon} />}
       <FaChevronDown />
     </button>
   );
