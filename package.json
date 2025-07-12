@@ -14,6 +14,7 @@
     "prebuild": "npm run i18n-compile",
     "build": "next build",
     "dev": "next dev",
+    "dev:watch": "nodemon --watch $(realpath node_modules/podverse-helpers) --exec \"next dev\"",
     "lint": "next lint",
     "start": "next start",
     "i18n-ai-translations": "ts-node --project tsconfig.scripts.json scripts/i18n/i18n-ai-translations.ts",
@@ -50,6 +51,7 @@
     "@types/react": "^19.1.8",
     "axios": "^1.10.0",
     "dotenv": "^17.2.0",
+    "nodemon": "^3.1.4",
     "openai": "^5.9.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3"
