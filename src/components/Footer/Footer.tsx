@@ -12,14 +12,21 @@ const Footer: React.FC = () => (
       <FooterBrand />
       <FooterCopyright />
     </div>
-    <div className={styles.footerMiddle}>
-      <div className={styles.footerMiddleLinks}>
-        <Link href={ROUTES.CONTACT}>Contact</Link>
-        <Link href={ROUTES.ABOUT}>About</Link>
-        <Link href={ROUTES.TERMS}>Terms</Link>
-        <Link href={ROUTES.PREMIUM}>Premium</Link>
+    <div className={styles.footerBottom}>
+      <div className={styles.footerLinks}>
+        <div className={styles.footerLinksTop}>
+          <Link href={ROUTES.CONTACT}>Contact</Link>
+          <Link href={ROUTES.ABOUT}>About</Link>
+          <Link href={ROUTES.TERMS}>Terms</Link>
+          <Link href={ROUTES.PREMIUM}>Premium</Link>
+        </div>
+        <div className={styles.footerLinksBottom}>
+          <Link href={ROUTES.MOBILE_APP}>Mobile App</Link>
+          <Link href={ROUTES.EMBED}>Embed</Link>
+          <Link href={ROUTES.DONATE}>Donate</Link>
+        </div>
       </div>
-      <div className={styles.footerMiddleSocialLinks}>
+      <div className={styles.footerSocialLinks}>
         <Link href={ROUTES.SOCIALS.DISCORD} target="_blank" rel="noopener noreferrer" aria-label="Discord">
           <FaDiscord />
         </Link>
@@ -35,13 +42,6 @@ const Footer: React.FC = () => (
         <Link href={ROUTES.SOCIALS.GITHUB} target="_blank" rel="noopener noreferrer" aria-label="GitHub">
           <FaGithub />
         </Link>
-      </div>
-    </div>
-    <div className={styles.footerBottom}>
-      <div className={styles.footerBottomLinks}>
-        <Link href={ROUTES.MOBILE_APP}>Mobile App</Link>
-        <Link href={ROUTES.EMBED}>Embed</Link>
-        <Link href={ROUTES.CONTRIBUTE}>Contribute</Link>
       </div>
     </div>
   </footer>

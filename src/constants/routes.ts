@@ -4,7 +4,7 @@ export const ROUTES = {
   CHANNELS: '/channels',
   CLIPS: '/clips',
   CONTACT: '/contact',
-  CONTRIBUTE: '/contribute',
+  DONATE: '/donate',
   EMBED: '/embed',
   EPISODES: '/episodes',
   HISTORY: '/history',
