@@ -2,12 +2,12 @@
 
 import Link from "next/link";
 import React from "react";
-import styles from "../../styles/components/SideBar/SideBarBrand.module.scss";
+import styles from "../../styles/components/Footer/FooterBrand.module.scss";
 import { useTheme } from "../../contexts/Theme";
 import Image from "next/image";
 import { getBrandLogoSrc } from "../../utils/brandLogo";
 
-const SideBarBrand: React.FC = () => {
+const FooterBrand: React.FC = () => {
   const { theme } = useTheme();
 
   return (
@@ -23,4 +23,4 @@ const SideBarBrand: React.FC = () => {
   );
 };
 
-export default SideBarBrand;
+export default FooterBrand;

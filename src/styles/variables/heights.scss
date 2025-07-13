@@ -1,0 +1,5 @@
+:root {
+  --navbar-desktop-height: 62px;
+  --header-desktop-height: 80px;
+  --main-wrapper-desktop-height: calc(100vh - var(--navbar-desktop-height) - var(--header-desktop-height));
+}

@@ -3,17 +3,30 @@ export const ROUTES = {
   ALBUMS: '/albums',
   CHANNELS: '/channels',
   CLIPS: '/clips',
+  CONTACT: '/contact',
+  CONTRIBUTE: '/contribute',
+  EMBED: '/embed',
   EPISODES: '/episodes',
   HISTORY: '/history',
+  MOBILE_APP: '/mobile-app',
   MUSIC: '/music',
   MY_CLIPS: '/my-clips', // should be profile id with ?type=clips
   LIVESTREAMS: '/livestreams',
   PLAYLISTS: '/playlists',
   PODCASTS: '/podcasts',
+  PREMIUM: '/premium',
   PROFILES: '/profiles',
   QUEUE: '/queue',
   SEARCH: '/search',
   SETTINGS: '/settings',
+  TERMS: '/terms',
   TRACKS: '/tracks',
-  VIDEOS: '/videos'
+  VIDEOS: '/videos',
+  SOCIALS: {
+    ACTIVITY_PUB: 'https://podcastindex.social/web/@podverse',
+    DISCORD: 'https://discord.gg/6HkyNKR',
+    GITHUB: 'https://github.com/podverse',
+    MATRIX: 'https://matrix.to/#/#podverse-space:matrix.org',
+    X: 'https://x.com/podverse'
+  }
 };

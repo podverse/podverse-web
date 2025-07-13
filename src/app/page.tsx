@@ -6,7 +6,7 @@ export default async function Home() {
 
   return (
     <div>
-      <h1>{(await t)("hello_world")}</h1>
+      hello home
     </div>
   );
 }

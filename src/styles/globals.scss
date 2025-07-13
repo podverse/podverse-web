@@ -7,6 +7,10 @@ body {
   margin: 0;
 }
 
+hr {
+  margin: 0;
+}
+
 button {
   background: none;
   border: none;
@@ -14,6 +18,8 @@ button {
   font-size: inherit;
   font-family: inherit;
   padding: 0;
+  cursor: pointer;
+  border-radius: var(--border-radius);
 }
 
 button:focus {
@@ -22,8 +28,24 @@ button:focus {
   outline: none;
 }
 
+a {
+  color: var(--text-color-primary);
+  text-decoration: none;
+  font-size: 1rem;
+  border-radius: var(--border-radius);
+}
+
 a:focus {
   box-shadow: var(--box-shadow-focus);
   outline: none;
   background: none;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+  margin: 0;
+}
+
+h1 {
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-light);
 }

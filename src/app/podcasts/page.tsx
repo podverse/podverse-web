@@ -1,12 +1,52 @@
-import React from "react";
 import { getTranslations } from "next-intl/server";
+import React from "react";
+import Header from "../../components/Header/Header";
+import MainWrapper from "../../components/MainWrapper/MainWrapper";
 
 export default async function Podcasts() {
-  const t = await getTranslations('_sample');
+  const tMedia = await getTranslations('media');
 
   return (
-    <div>
-      <h1>{(await t)("hello_world")}</h1>
-    </div>
+    <>
+      <Header title={tMedia("podcast.podcasts")} />
+      <MainWrapper>
+        <h2>hello</h2>
+        <h2>hello</h2>
+        <h2>hello</h2>
+        <h2>hello</h2>
+        <h2>hello</h2>
+        <h2>hello</h2>
+        <h2>hello</h2>
+        <h2>hello</h2>
+        <h2>hello</h2>
+        <h2>hello</h2>
+        <h2>hello</h2>
+        <h2>hello</h2>
+        <h2>hello</h2>
+        <h2>hello</h2>
+        <h2>hello</h2>
+        <h2>hello</h2>
+        <h2>hello</h2>
+        <h2>hello</h2>
+        <h2>hello</h2>
+        <h2>hello</h2>
+        <h2>hello</h2>
+        <h2>hello</h2>
+        <h2>hello</h2>
+        <h2>hello</h2>
+        <h2>hello</h2>
+        <h2>hello</h2>
+        <h2>hello</h2>
+        <h2>hello</h2>
+        <h2>hello</h2>
+        <h2>hello</h2>
+        <h2>hello</h2>
+        <h2>hello</h2>
+        <h2>hello</h2>
+        <h2>hello</h2>
+        <h2>hello</h2>
+        <h2>hello</h2>
+      </MainWrapper>
+    </>
   );
 }

@@ -4,8 +4,8 @@ import { reqAccountGetManyPublic } from "podverse-helpers";
 import FavIcons from '../components/Head/FavIcons';
 import FontPreloads from '../components/Head/FontPreloads';
 import Manifest from '../components/Head/Manifest';
-import MainWrapper from '../components/Main/MainWrapper';
 import NavBarDesktop from '../components/NavBar/NavBarDesktop';;
+import PageWrapper from '../components/PageWrapper/PageWrapper';
 import SideBar from '../components/SideBar/SideBar';
 import WindowWrapper from '../components/Window/WindowWrapper';
 import Providers from '../providers/Providers';
@@ -36,10 +36,10 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <Providers locale={locale} theme={theme}>
           <WindowWrapper>
             <SideBar />
-            <MainWrapper>
+            <PageWrapper>
               <NavBarDesktop />
               {children}
-            </MainWrapper>
+            </PageWrapper>
           </WindowWrapper>
         </Providers>
       </body>

@@ -1,0 +1,18 @@
+.mainOuterWrapper {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  overflow-y: auto;
+  padding: 0 1.5rem;
+  background-color: var(--background-color-primary);
+  min-height: var(--main-wrapper-desktop-height);
+  height: var(--main-wrapper-desktop-height);
+  box-sizing: border-box;
+}
+
+.main {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem 0;
+}
