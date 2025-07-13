@@ -1,3 +1,5 @@
+@use 'breakpoints';
+
 .link {
   color: var(--text-color-primary);
   text-decoration: none;
@@ -10,4 +12,10 @@
 
 .link:hover {
   background: var(--background-color-opaque);
+}
+
+@media (max-width: breakpoints.$breakpoint-md) {
+  .link {
+    justify-content: center;
+  }
 }

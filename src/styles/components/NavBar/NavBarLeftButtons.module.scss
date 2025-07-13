@@ -1,11 +1,4 @@
-.navbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.75rem 1.5rem;
-  background: var(--background-color-secondary);
-  height: var(--navbar-desktop-height);
-}
+@use 'breakpoints';
 
 .leftButtons {
   display: flex;
@@ -38,21 +31,8 @@
   background: var(--background-color-tertiary);
 }
 
-.dropdownButton {
-  background: none;
-  border: none;
-  color: var(--text-color-primary);
-  cursor: pointer;
-  padding: 0.5rem 1rem;
-  display: flex;
-  align-items: center;
-}
-
-.downCaretIcon {
-  font-size: 1.125rem;
-}
-
-.profileIcon {
-  font-size: 1.375rem;
-  margin-right: 0.5rem;
+@media (max-width: breakpoints.$breakpoint-md) {
+  .leftButtons {
+    display: none;
+  }
 }

@@ -1,3 +1,5 @@
+@use 'breakpoints';
+
 .sidebar {
   width: 12rem;
   height: 100vh;
@@ -15,11 +17,32 @@
   background: inherit;
 }
 
+.icon {
+  margin-right: 0.5rem;
+}
+
 .scrollable {
   flex: 1 1 auto;
   overflow-y: auto;
   min-height: 0;
   display: flex;
   flex-direction: column;
-  padding-bottom: 2rem;
+  padding-bottom: 1rem;
+}
+
+@media (max-width: breakpoints.$breakpoint-md) {
+  .sidebar, .stickyTop {
+    display: none;   
+  }
+  .sidebar {
+    position: fixed;
+    top: var(--navbar-mobile-height);
+    right: 0;
+    bottom: 0;
+    background-color: var(--background-color-primary);
+    z-index: 1;
+    border-left: 1px solid var(--border-color-opaque);
+    height: calc(100vh - var(--navbar-mobile-height));
+    padding-bottom: 1rem;
+  }
 }

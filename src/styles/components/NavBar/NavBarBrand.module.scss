@@ -1,0 +1,16 @@
+@use 'breakpoints';
+
+.brand {
+  display: none;
+  align-items: center;
+  height: 48px;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+@media (max-width: breakpoints.$breakpoint-md) {
+  .brand {
+    display: flex;
+    padding: 0 1rem;
+  }
+}

@@ -1,0 +1,16 @@
+@use 'breakpoints';
+
+.button {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.25rem;
+  padding: 0.5rem 1rem;
+  align-items: center;
+}
+
+@media (max-width: breakpoints.$breakpoint-md) {
+  .button {
+    display: flex;
+  }
+}

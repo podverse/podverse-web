@@ -14,11 +14,11 @@ const SideBar: React.FC = () => {
   const tFeatures = useTranslations("features");
 
   return (
-    <nav className={styles.sidebar}>
-      <div className={styles.stickyTop}>
+    <nav className={styles.sidebar} data-mobile-nav="menu">
+      <div className={styles.stickyTop} data-mobile-nav="branding">
         <SideBarBrand />
         <SideBarLink href={ROUTES.SEARCH}>
-          <FaSearch style={{ marginRight: "0.5rem" }} />
+          <FaSearch className={styles.icon} />
           {tFeatures("search")}
         </SideBarLink>
         <SideBarDivider />

@@ -1,0 +1,21 @@
+@use 'breakpoints';
+
+.button {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.375rem;
+  padding: 0.5rem 1rem;
+  align-items: center;
+}
+
+.icon {
+  display: flex;
+}
+
+@media (max-width: breakpoints.$breakpoint-md) {
+  .button {
+    display: flex;
+    font-size: 1.125rem;
+  }
+}
