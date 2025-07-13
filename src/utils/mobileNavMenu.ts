@@ -1,7 +1,3 @@
-/**
- * Toggles the "open" class on the sidebar element,
- * and updates related toggle button states.
- */
 export function toggleMobileSidebar() {
   const sidebar = document.querySelector('[data-mobile-nav="menu"]');
   const toggle = document.querySelector('[data-mobile-nav="toggle"]');
