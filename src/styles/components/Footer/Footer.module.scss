@@ -15,6 +15,10 @@
   padding: 0.75rem 0;
 }
 
+.footerBottom a {
+  color: var(--text-color-secondary);
+}
+
 .footerLinks {
   display: flex;
   flex-direction: column;
@@ -23,7 +27,6 @@
 }
 
 .footerLinks a {
-  font-size: var(--font-size-sm);
   padding: 0.75rem 0;
 }
 
