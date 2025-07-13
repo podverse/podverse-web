@@ -39,6 +39,7 @@
     "podcasting 2.0"
   ],
   "dependencies": {
+    "classnames": "^2.5.1",
     "next": "^15.3.5",
     "next-intl": "^4.3.4",
     "podverse-helpers": "^5.1.0",
