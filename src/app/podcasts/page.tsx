@@ -10,42 +10,6 @@ export default async function Podcasts() {
     <>
       <Header title={tMedia("podcast.podcasts")} />
       <MainWrapper>
-        <h2>hello</h2>
-        <h2>hello</h2>
-        <h2>hello</h2>
-        <h2>hello</h2>
-        <h2>hello</h2>
-        <h2>hello</h2>
-        <h2>hello</h2>
-        <h2>hello</h2>
-        <h2>hello</h2>
-        <h2>hello</h2>
-        <h2>hello</h2>
-        <h2>hello</h2>
-        <h2>hello</h2>
-        <h2>hello</h2>
-        <h2>hello</h2>
-        <h2>hello</h2>
-        <h2>hello</h2>
-        <h2>hello</h2>
-        <h2>hello</h2>
-        <h2>hello</h2>
-        <h2>hello</h2>
-        <h2>hello</h2>
-        <h2>hello</h2>
-        <h2>hello</h2>
-        <h2>hello</h2>
-        <h2>hello</h2>
-        <h2>hello</h2>
-        <h2>hello</h2>
-        <h2>hello</h2>
-        <h2>hello</h2>
-        <h2>hello</h2>
-        <h2>hello</h2>
-        <h2>hello</h2>
-        <h2>hello</h2>
-        <h2>hello</h2>
-        <h2>hello</h2>
       </MainWrapper>
     </>
   );
