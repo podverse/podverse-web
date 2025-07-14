@@ -15,5 +15,6 @@
     background-color: var(--background-color-quaternary);
     padding: 0;
     height: var(--navbar-mobile-height);
+    min-height: var(--navbar-mobile-height);
   }
 }
