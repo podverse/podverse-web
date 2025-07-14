@@ -8,9 +8,11 @@ import { AccountContext } from "../../contexts/Account";
 import DropdownMenu from "../DropdownMenu/DropdownMenu";
 import { useDropdownKeyboardNavigation } from "../../hooks/useDropdownKeyboardNavigation";
 import { ROUTES } from "../../constants/routes";
+import { useModals } from '../../contexts/Modals'
 
 const NavBarDropdownButton: React.FC = () => {
   const { isLoggedIn } = useContext(AccountContext);
+  const { openModal } = useModals();
   const router = useRouter();
   const buttonRef = useRef<HTMLButtonElement>(null);
   const menuRef = useRef<HTMLUListElement>(null);
@@ -19,7 +21,7 @@ const NavBarDropdownButton: React.FC = () => {
     { label: "My Profile", onClick: () => router.push(ROUTES.MY_PROFILE) },
     { label: "Membership", onClick: () => router.push(ROUTES.MEMBERSHIP) },
     { label: "Settings", onClick: () => router.push(ROUTES.SETTINGS) },
-    { label: "Logout", onClick: () => {/* ... */} }
+    { label: "Login", onClick: () => openModal('LoginModal') }
   ];
 
   const {

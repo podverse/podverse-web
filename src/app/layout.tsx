@@ -11,6 +11,7 @@ import WindowWrapper from '../components/Window/WindowWrapper';
 import Providers from '../providers/Providers';
 import '../styles/index.scss';
 import { toUITheme } from '../utils/theme';
+import { Modals } from '../components/Modals/Modals';
 
 export const metadata = {
   title: 'Podverse',
@@ -40,6 +41,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
               <NavBar />
               {children}
             </PageWrapper>
+            <Modals />
           </WindowWrapper>
         </Providers>
       </body>

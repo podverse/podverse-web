@@ -4,6 +4,7 @@ import { NextIntlClientProvider } from 'next-intl';
 import { AccountProvider } from '../contexts/Account';
 import { ThemeProvider } from '../contexts/Theme';
 import { UITheme } from '../utils/theme';
+import { ModalsProvider } from '../contexts/Modals';
 
 export default function Providers({
   children,
@@ -18,7 +19,9 @@ export default function Providers({
     <NextIntlClientProvider locale={locale}>
       <ThemeProvider initialTheme={theme}>
         <AccountProvider>
-          {children}
+          <ModalsProvider>
+            {children}
+          </ModalsProvider>
         </AccountProvider>
       </ThemeProvider>
     </NextIntlClientProvider>

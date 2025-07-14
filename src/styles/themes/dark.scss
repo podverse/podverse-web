@@ -11,5 +11,23 @@
   --box-shadow-focus: 0 0 0 4px rgba(0, 116, 217, 0.4);
   --text-color-primary: #ffffff;
   --text-color-secondary: #cccccc;
+  --text-color-tertiary: #000000;
   --text-color-link: #74a8dc;
+}
+
+:root,
+[data-theme="dark"] {
+  --button-primary-bg: #3d9dfe;
+  --button-primary-color: var(--text-color-tertiary);
+  --button-primary-bg-hover: #49a4ff;
+  --button-secondary-bg: var(--background-color-glow);
+  --button-secondary-color: var(--text-color-primary);
+  --button-secondary-bg-hover: #34397b;
+  --button-success-bg: #15803d;
+  --button-success-color: var(--text-color-primary);
+  --button-warning-bg: #f4a24f;
+  --button-warning-color: var(--text-color-primary);
+  --button-danger-bg: #bd2130;
+  --button-danger-color: var(--text-color-primary);
+  --button-outline-color: var(--border-color-primary);
 }

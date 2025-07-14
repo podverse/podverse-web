@@ -1,0 +1,61 @@
+.modalRoot {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modalBackdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.modalHeader {
+  display: flex;
+  align-items: center;
+  min-height: 2.5rem;
+  position: relative;
+}
+
+.modalHeaderText {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-medium);
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.modalCloseButton {
+  margin-left: 1rem;
+  background: var(--background-color-tertiary);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  height: 2.5rem;
+  width: 2.5rem;
+  border-radius: var(--border-radius-round);
+  align-items: center;
+  justify-content: center;
+}
+
+.modalChildren {
+  margin-top: 2rem;
+}
+
+.modalContent {
+  position: relative;
+  background: var(--background-color-primary);
+  border-radius: var(--border-radius);
+  z-index: 1;
+  padding: 1.5rem 1.5rem 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  min-width: 320px;
+}

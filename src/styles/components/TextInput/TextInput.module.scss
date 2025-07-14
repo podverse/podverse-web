@@ -1,0 +1,40 @@
+.textInput {
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.textInputWrapper {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  border-radius: var(--border-radius);
+  border: 1.5px solid transparent;
+  padding: 0.5rem 1rem;
+  background-color: var(--background-color-tertiary);
+}
+
+.textInnerInputWrapper {
+  display: flex;
+  flex: 1 1;
+  flex-direction: column;
+  height: 2.75rem;
+}
+
+.input {
+  all: unset;
+  font-size: var(--font-size-md);
+  height: 2.75rem;
+}
+
+.eyebrow {
+  color: var(--text-color-link);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  margin: 0 0 2px;
+}
+
+.textInputInfo {
+  margin-top: 0.25em;
+  font-size: 0.95em;
+  color: #666;
+}
