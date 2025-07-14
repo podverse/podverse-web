@@ -2,7 +2,7 @@ import React from 'react'
 import classNames from 'classnames'
 import styles from '../../styles/components/Button/Button.module.scss'
 
-type ButtonVariant = 'primary' | 'secondary' | 'warning' | 'success' | 'danger' | 'outline'
+type ButtonVariant = 'primary' | 'secondary' | 'warning' | 'success' | 'danger' | 'outline' | 'link'
 
 type ButtonProps = {
   children: React.ReactNode

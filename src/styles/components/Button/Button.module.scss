@@ -62,3 +62,16 @@
   opacity: 0.6;
   cursor: not-allowed;
 }
+
+.link {
+  color: var(--text-color-link);
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: var(--font-weight-normal);
+  min-width: auto;
+}
+
+.link:hover,
+.link:focus {
+  color: var(--text-color-link-hover);
+}

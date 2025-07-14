@@ -1,8 +1,7 @@
 .header {
   background-color: var(--background-color-secondary);
-  padding: 1rem 1.5rem;
+  padding: 0 1.5rem;
   display: flex;
   align-items: center;
-  border-bottom: 1px solid var(--border-color-opaque);
   height: var(--header-desktop-height);
 }

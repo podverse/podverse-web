@@ -49,6 +49,14 @@ export const LoginModal: React.FC = () => {
             Submit
           </Button>
         </div>
+        <div className={styles.links}>
+          <Button type='button' variant='link' onClick={() => console.log('Forgot password clicked')}>
+            Forgot password?
+          </Button>
+          <Button type='button' variant='link' onClick={() => console.log('Sign up clicked')}>
+            Sign up
+          </Button>
+        </div>
       </form>
     </Modal>
   )

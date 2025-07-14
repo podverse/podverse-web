@@ -13,13 +13,14 @@
   --text-color-secondary: #cccccc;
   --text-color-tertiary: #000000;
   --text-color-link: #74a8dc;
+  --text-color-link-hover: #49a4ff;;
 }
 
 :root,
 [data-theme="dark"] {
-  --button-primary-bg: #3d9dfe;
+  --button-primary-bg: var(--border-color-primary);
   --button-primary-color: var(--text-color-tertiary);
-  --button-primary-bg-hover: #49a4ff;
+  --button-primary-bg-hover: var(--text-color-link-hover);
   --button-secondary-bg: var(--background-color-glow);
   --button-secondary-color: var(--text-color-primary);
   --button-secondary-bg-hover: #34397b;
