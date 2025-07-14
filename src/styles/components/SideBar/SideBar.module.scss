@@ -37,7 +37,7 @@
     display: none;   
   }
   .sidebar {
-    position: fixed;
+    position: absolute;
     top: var(--navbar-mobile-height);
     right: 0;
     bottom: 0;
@@ -45,6 +45,5 @@
     z-index: 1;
     border-left: 1px solid var(--border-color-opaque);
     height: calc(100vh - var(--navbar-mobile-height));
-    padding-bottom: 1rem;
   }
 }
