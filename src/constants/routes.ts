@@ -1,6 +1,7 @@
 export const ROUTES = {
   ABOUT: '/about',
   ALBUMS: '/albums',
+  ARTISTS: '/artists',
   CHANNELS: '/channels',
   CLIPS: '/clips',
   CONTACT: '/contact',
@@ -9,7 +10,6 @@ export const ROUTES = {
   EPISODES: '/episodes',
   HISTORY: '/history',
   MOBILE_APP: '/mobile-app',
-  MUSIC: '/music',
   MY_CLIPS: '/my-clips',
   MY_PROFILE: '/my-profile',
   LIVESTREAMS: '/livestreams',
@@ -22,12 +22,5 @@ export const ROUTES = {
   SETTINGS: '/settings',
   TERMS: '/terms',
   TRACKS: '/tracks',
-  VIDEOS: '/videos',
-  SOCIALS: {
-    ACTIVITY_PUB: 'https://podcastindex.social/web/@podverse',
-    DISCORD: 'https://discord.gg/6HkyNKR',
-    GITHUB: 'https://github.com/podverse',
-    MATRIX: 'https://matrix.to/#/#podverse-space:matrix.org',
-    X: 'https://x.com/podverse'
-  }
+  VIDEOS: '/videos'
 };
