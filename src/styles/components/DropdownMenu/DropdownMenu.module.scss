@@ -1,0 +1,31 @@
+.dropdownMenu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  min-width: 160px;
+  background: var(--background-color-primary);
+  border: 1px solid var(--border-color-opaque);
+  border-radius: var(--border-radius);
+  margin-top: 0.25rem;
+  padding: 0.25rem 0;
+  z-index: 3;
+  list-style: none;
+  width: max-content;
+}
+
+.menuItem {
+  padding: 0.5rem 1.25rem;
+  margin: 0.5rem;
+  cursor: pointer;
+  background: none;
+  border: none;
+  text-align: left;
+  border-radius: var(--border-radius);
+
+  &:hover,
+  &[aria-selected="true"],
+  &:focus {
+    background: var(--background-color-opaque);
+    outline: none;
+  }
+}

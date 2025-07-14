@@ -18,7 +18,7 @@ const Footer: React.FC = () => (
           <Link href={ROUTES.CONTACT}>Contact</Link>
           <Link href={ROUTES.ABOUT}>About</Link>
           <Link href={ROUTES.TERMS}>Terms</Link>
-          <Link href={ROUTES.PREMIUM}>Premium</Link>
+          <Link href={ROUTES.MEMBERSHIP}>Premium</Link>
         </div>
         <div className={styles.footerLinksBottom}>
           <Link href={ROUTES.MOBILE_APP}>Mobile</Link>
