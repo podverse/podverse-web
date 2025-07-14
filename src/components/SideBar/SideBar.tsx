@@ -30,7 +30,7 @@ const SideBar: React.FC = () => {
         <SideBarLink href={ROUTES.LIVESTREAMS}>{tMedia("livestreams")}</SideBarLink>
         <SideBarDivider />
         <SideBarHeader>{tMedia("music.music")}</SideBarHeader>
-        <SideBarLink href={ROUTES.MUSIC}>{tMedia("music.artists")}</SideBarLink>
+        <SideBarLink href={ROUTES.ARTISTS}>{tMedia("music.artists")}</SideBarLink>
         <SideBarLink href={ROUTES.ALBUMS}>{tMedia("music.albums")}</SideBarLink>
         <SideBarLink href={ROUTES.TRACKS}>{tMedia("music.tracks")}</SideBarLink>
         <SideBarDivider />
