@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
 import styles from "../../styles/components/NavBar/NavBarMoreButton.module.scss";

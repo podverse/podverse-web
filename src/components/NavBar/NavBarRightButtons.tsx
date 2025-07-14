@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import NavBarSearchButton from "./NavBarSearchButton";
 import NavBarDropdownButton from "./NavBarDropdownButton";

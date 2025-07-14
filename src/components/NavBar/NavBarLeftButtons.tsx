@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import styles from "../../styles/components/NavBar/NavBarLeftButtons.module.scss";

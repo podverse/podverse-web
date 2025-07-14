@@ -6,8 +6,6 @@ import NavBarBrand from "./NavBarBrand";
 import NavBarLeftButtons from "./NavBarLeftButtons";
 import NavBarRightButtons from "./NavBarRightButtons";
 
-
-
 const NavBar: React.FC = () => {
   return (
     <nav className={styles.navbar}>
