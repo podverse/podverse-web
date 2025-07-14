@@ -5,6 +5,7 @@ import FooterCopyright from "./FooterCopyright";
 import { ROUTES } from "../../constants/routes";
 import { FaDiscord, FaGithub, FaMastodon, FaXTwitter } from "react-icons/fa6";
 import { SiMatrix } from "react-icons/si";
+import { SOCIALS } from "../../constants/socials";
 
 const Footer: React.FC = () => (
   <footer className={styles.footer}>
@@ -27,19 +28,19 @@ const Footer: React.FC = () => (
         </div>
       </div>
       <div className={styles.footerSocialLinks}>
-        <Link href={ROUTES.SOCIALS.DISCORD} target="_blank" rel="noopener noreferrer" aria-label="Discord">
+        <Link href={SOCIALS.DISCORD} target="_blank" rel="noopener noreferrer" aria-label="Discord">
           <FaDiscord />
         </Link>
-        <Link href={ROUTES.SOCIALS.ACTIVITY_PUB} target="_blank" rel="noopener noreferrer" aria-label="Mastodon">
+        <Link href={SOCIALS.ACTIVITY_PUB} target="_blank" rel="noopener noreferrer" aria-label="Mastodon">
           <FaMastodon />
         </Link>
-        <Link href={ROUTES.SOCIALS.X} target="_blank" rel="noopener noreferrer" aria-label="X">
+        <Link href={SOCIALS.X} target="_blank" rel="noopener noreferrer" aria-label="X">
           <FaXTwitter />
         </Link>
-        <Link href={ROUTES.SOCIALS.MATRIX} target="_blank" rel="noopener noreferrer" aria-label="Matrix">
+        <Link href={SOCIALS.MATRIX} target="_blank" rel="noopener noreferrer" aria-label="Matrix">
           <SiMatrix />
         </Link>
-        <Link href={ROUTES.SOCIALS.GITHUB} target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+        <Link href={SOCIALS.GITHUB} target="_blank" rel="noopener noreferrer" aria-label="GitHub">
           <FaGithub />
         </Link>
       </div>
