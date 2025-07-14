@@ -2,12 +2,12 @@ import React from "react";
 import Header from "../../components/Header/Header";
 import MainWrapper from "../../components/MainWrapper/MainWrapper";
 
-export default function Episodes() {
+export default function Donate() {
   return (
     <>
-      <Header title="Episodes" />
+      <Header title="Donate" />
       <MainWrapper>
-        <p>Episodes</p>
+        <p>Donate</p>
       </MainWrapper>
     </>
   );

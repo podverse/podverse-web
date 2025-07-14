@@ -2,12 +2,12 @@ import React from "react";
 import Header from "../../components/Header/Header";
 import MainWrapper from "../../components/MainWrapper/MainWrapper";
 
-export default function Episodes() {
+export default function Channels() {
   return (
     <>
-      <Header title="Episodes" />
+      <Header title="Channels" />
       <MainWrapper>
-        <p>Episodes</p>
+        <p>Channels</p>
       </MainWrapper>
     </>
   );
