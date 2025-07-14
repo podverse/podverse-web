@@ -1,5 +1,3 @@
-"use client";
-
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { UITheme, toUITheme, setThemeOnDocument } from "../utils/theme";
 
