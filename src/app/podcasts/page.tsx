@@ -10,6 +10,7 @@ export default async function Podcasts() {
     <>
       <Header title={tMedia("podcast.podcasts")} />
       <MainWrapper>
+        <p>{tMedia("podcast.podcasts")}</p>
       </MainWrapper>
     </>
   );
