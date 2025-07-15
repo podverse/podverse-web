@@ -9,19 +9,27 @@ import DropdownMenu from "../DropdownMenu/DropdownMenu";
 import { useDropdownKeyboardNavigation } from "../../hooks/useDropdownKeyboardNavigation";
 import { ROUTES } from "../../constants/routes";
 import { useModals } from '../../contexts/Modals'
+import { apiRequestService } from "../../factories/apiRequestService";
 
 const NavBarDropdownButton: React.FC = () => {
-  const { isLoggedIn } = useContext(AccountContext);
+  const { loggedInAccount } = useContext(AccountContext);
   const { openModal } = useModals();
   const router = useRouter();
   const buttonRef = useRef<HTMLButtonElement>(null);
   const menuRef = useRef<HTMLUListElement>(null);
 
+  async function handleLogout() {
+    await apiRequestService.reqAuthLogout();
+    window.location.reload();
+  }
+
   const menuItems = [
     { label: "My Profile", onClick: () => router.push(ROUTES.MY_PROFILE) },
     { label: "Membership", onClick: () => router.push(ROUTES.MEMBERSHIP) },
     { label: "Settings", onClick: () => router.push(ROUTES.SETTINGS) },
-    { label: "Login", onClick: () => openModal('LoginModal') }
+    !!loggedInAccount
+      ? { label: "Logout", onClick: handleLogout }
+      : { label: "Login", onClick: () => openModal('LoginModal') }
   ];
 
   const {
@@ -49,7 +57,7 @@ const NavBarDropdownButton: React.FC = () => {
         onClick={() => setOpen((v) => !v)}
         onKeyDown={handleButtonKeyDown}
       >
-        {isLoggedIn ? (
+        {!!loggedInAccount ? (
           <FaUserCircle className={styles.profileIcon} />
         ) : (
           <FaRegUserCircle className={styles.profileIcon} />

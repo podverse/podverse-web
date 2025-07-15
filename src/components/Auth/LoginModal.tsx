@@ -6,16 +6,21 @@ import { Modal } from '../Modal/Modal'
 import { TextInput } from '../TextInput/TextInput'
 import { useModals } from '../../contexts/Modals'
 import styles from '../../styles/components/Auth/LoginModal.module.scss'
+import { apiRequestService } from '../../factories/apiRequestService';
 
 export const LoginModal: React.FC = () => {
   const { modals, closeModal } = useModals()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // handle login logic here
-    closeModal('LoginModal')
+    try {
+      await apiRequestService.reqAuthLogin({ email, password })
+      window.location.reload();
+    } catch (err) {
+      console.error('Login failed:', err)
+    }
   }
 
   return (

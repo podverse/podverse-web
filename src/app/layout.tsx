@@ -1,6 +1,6 @@
+import '../styles/index.scss';
 import { cookies } from 'next/headers';
 import { getLocale } from 'next-intl/server';
-import { reqAccountGetManyPublic } from "podverse-helpers";
 import FavIcons from '../components/Head/FavIcons';
 import FontPreloads from '../components/Head/FontPreloads';
 import Manifest from '../components/Head/Manifest';
@@ -9,9 +9,10 @@ import PageWrapper from '../components/PageWrapper/PageWrapper';
 import SideBar from '../components/SideBar/SideBar';
 import WindowWrapper from '../components/Window/WindowWrapper';
 import Providers from '../providers/Providers';
-import '../styles/index.scss';
 import { toUITheme } from '../utils/theme';
 import { Modals } from '../components/Modals/Modals';
+import { getSSRApiRequestService } from '../factories/apiRequestService';
+import { DTOAccount } from 'podverse-helpers';
 
 export const metadata = {
   title: 'Podverse',
@@ -22,9 +23,23 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const [locale, cookieStore] = await Promise.all([getLocale(), cookies()]);
   const cookieTheme = cookieStore.get('theme')?.value;
   const theme = toUITheme(cookieTheme);
-  
-  const hello = await reqAccountGetManyPublic();
+
+  let jwt;
+  if (typeof window === "undefined") {
+    const cookieStore = await cookies();
+    jwt = cookieStore.get("jwt")?.value;
+  }
+  const ssrApiRequestService = getSSRApiRequestService(jwt);
+
+  const hello = await ssrApiRequestService.reqAccountGetManyPublic();
   console.log(hello);
+
+  let ssrLoggedInAccount: DTOAccount | null = null;
+  try {
+    ssrLoggedInAccount = await ssrApiRequestService.reqAuthMe();
+  } catch (error) {
+    // do nothing
+  }
 
   return (
     <html lang={locale} data-theme={theme}>
@@ -34,7 +49,10 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <Manifest />
       </head>
       <body>
-        <Providers locale={locale} theme={theme}>
+        <Providers
+          locale={locale}
+          ssrLoggedInAccount={ssrLoggedInAccount}
+          theme={theme}>
           <WindowWrapper>
             <SideBar />
             <PageWrapper>

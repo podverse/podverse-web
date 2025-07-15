@@ -1,20 +1,29 @@
+import { DTOAccount } from "podverse-helpers";
 import React, { createContext, useState, ReactNode } from "react";
 
 type AccountContextType = {
-  isLoggedIn: boolean;
-  setIsLoggedIn: (val: boolean) => void;
+  loggedInAccount: DTOAccount | null;
+  setLoggedInAccount: (val: DTOAccount | null) => void;
 };
 
 export const AccountContext = createContext<AccountContextType>({
-  isLoggedIn: false,
-  setIsLoggedIn: () => {},
+  loggedInAccount: null,
+  setLoggedInAccount: () => {},
 });
 
-export const AccountProvider = ({ children }: { children: ReactNode }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+type AccountProviderProps = {
+  children: ReactNode;
+  ssrLoggedInAccount?: DTOAccount | null;
+};
+
+export const AccountProvider = ({
+  children,
+  ssrLoggedInAccount = null,
+}: AccountProviderProps) => {
+  const [loggedInAccount, setLoggedInAccount] = useState<DTOAccount | null>(ssrLoggedInAccount);
 
   return (
-    <AccountContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
+    <AccountContext.Provider value={{ loggedInAccount, setLoggedInAccount }}>
       {children}
     </AccountContext.Provider>
   );
