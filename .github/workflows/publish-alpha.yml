@@ -20,16 +20,7 @@ jobs:
 
       - name: Install podverse-helpers latest alpha version
         run: npm i podverse-helpers@alpha --save
-
-      - name: Install podverse-external-services latest alpha version
-        run: npm i podverse-external-services@alpha --save
-
-      - name: Install podverse-orm latest alpha version
-        run: npm i podverse-orm@alpha --save
-
-      - name: Install podverse-parser latest alpha version
-        run: npm i podverse-parser@alpha --save
-
+      
       - name: Clean install dependencies
         run: npm clean-install
 
