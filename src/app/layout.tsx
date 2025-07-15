@@ -11,8 +11,7 @@ import WindowWrapper from '../components/Window/WindowWrapper';
 import Providers from '../providers/Providers';
 import { toUITheme } from '../utils/theme';
 import { Modals } from '../components/Modals/Modals';
-import { getSSRApiRequestService } from '../factories/apiRequestService';
-import { DTOAccount } from 'podverse-helpers';
+import { getSSRLoggedInAccount } from '../utils/auth/getSSRLoggedInAccount';
 
 export const metadata = {
   title: 'Podverse',
@@ -23,23 +22,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const [locale, cookieStore] = await Promise.all([getLocale(), cookies()]);
   const cookieTheme = cookieStore.get('theme')?.value;
   const theme = toUITheme(cookieTheme);
-
-  let jwt;
-  if (typeof window === "undefined") {
-    const cookieStore = await cookies();
-    jwt = cookieStore.get("jwt")?.value;
-  }
-  const ssrApiRequestService = getSSRApiRequestService(jwt);
-
-  const hello = await ssrApiRequestService.reqAccountGetManyPublic();
-  console.log(hello);
-
-  let ssrLoggedInAccount: DTOAccount | null = null;
-  try {
-    ssrLoggedInAccount = await ssrApiRequestService.reqAuthMe();
-  } catch (error) {
-    // do nothing
-  }
+  const ssrLoggedInAccount = await getSSRLoggedInAccount();
 
   return (
     <html lang={locale} data-theme={theme}>
