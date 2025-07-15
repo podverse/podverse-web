@@ -47,6 +47,9 @@ const NavBarDropdownButton: React.FC = () => {
     menuRef,
   });
 
+  const displayName = loggedInAccount?.account_profile?.display_name
+    || loggedInAccount?.account_credentials?.email || "";
+
   return (
     <div className={styles.dropdownWrapper}>
       <button
@@ -58,7 +61,10 @@ const NavBarDropdownButton: React.FC = () => {
         onKeyDown={handleButtonKeyDown}
       >
         {!!loggedInAccount ? (
-          <FaUserCircle className={styles.profileIcon} />
+          <div className={styles.profileInfo}>
+            <div className={styles.profileName}>{displayName}</div>
+            <FaUserCircle className={styles.profileIcon} />
+          </div>
         ) : (
           <FaRegUserCircle className={styles.profileIcon} />
         )}

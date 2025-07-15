@@ -1,3 +1,5 @@
+@use 'breakpoints';
+
 .dropdownWrapper {
   position: relative;
   display: inline-block;
@@ -12,7 +14,27 @@
   cursor: pointer;
 }
 
+.profileInfo {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+}
+
+.profileName {
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-right: 0.5rem;
+}
+
 .profileIcon {
   font-size: 1.25rem;
   margin-right: 0.5rem;
+}
+
+@media (max-width: breakpoints.$breakpoint-sm) {
+  .profileName {
+    display: none;
+  }
 }
