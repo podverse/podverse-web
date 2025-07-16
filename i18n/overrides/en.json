@@ -25,7 +25,8 @@
       "videos": "Videos"
     },
     "clips": "Clips",
-    "livestreams": "Livestreams"
+    "livestreams": "Livestreams",
+    "last_updated": "Last updated: {date}"
   },
   "features": {
     "search": "Search",

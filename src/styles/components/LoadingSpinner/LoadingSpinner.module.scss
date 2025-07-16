@@ -1,0 +1,10 @@
+.spinner {
+  animation: spinner-rotate 1s linear infinite;
+  display: inline-block;
+}
+
+@keyframes spinner-rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}

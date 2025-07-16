@@ -3,4 +3,5 @@
   --header-desktop-height: 80px;
   --main-wrapper-desktop-height: calc(100vh - var(--navbar-desktop-height) - var(--header-desktop-height));
   --navbar-mobile-height: 48px;
+  --sidebar-desktop-width: 12rem; // 192px
 }

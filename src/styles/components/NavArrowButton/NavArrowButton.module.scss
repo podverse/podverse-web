@@ -1,0 +1,25 @@
+.navButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--border-radius-round);
+  height: 2rem;
+  width: 2rem;
+  line-height: 1;
+  font-size: var(--font-size-xs);
+  background-color: var(--background-color-glow);
+  border: 1px solid var(--border-color-primary);
+}
+
+.navButtonLeft {
+  padding-right: 1px;
+}
+
+.navButtonRight {
+  padding-left: 1px;
+}
+
+.navButton:hover,
+.navButton:focus {
+  background: var(--background-color-tertiary);
+}

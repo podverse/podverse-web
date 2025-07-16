@@ -14,6 +14,7 @@ export const ROUTES = {
   MY_PROFILE: '/my-profile',
   LIVESTREAMS: '/livestreams',
   PLAYLISTS: '/playlists',
+  PODCAST: '/podcast',
   PODCASTS: '/podcasts',
   MEMBERSHIP: '/membership',
   PROFILES: '/profiles',

@@ -1,7 +1,7 @@
 @use 'breakpoints';
 
 .sidebar {
-  width: 12rem;
+  width: var(--sidebar-desktop-width);
   height: 100vh;
   background: var(--background-color-tertiary);
   color: var(--text-color-primary);

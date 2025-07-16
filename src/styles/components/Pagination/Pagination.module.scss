@@ -1,0 +1,26 @@
+.paginationControls {
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.pageButton {
+  border: 1.5px solid var(--border-color-secondary);
+  font-weight: normal;
+  height: var(--image-size-sm);
+  width: var(--image-size-sm);
+}
+
+.pageButton.active {
+  border: 1.5px solid var(--border-color-primary);
+  font-weight: bold;
+}
+
+.arrowPlaceholder {
+  display: inline-block;
+  width: 2rem;
+  height: 2rem;
+  vertical-align: middle;
+}

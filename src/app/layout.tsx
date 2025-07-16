@@ -23,6 +23,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const cookieTheme = cookieStore.get('theme')?.value;
   const theme = toUITheme(cookieTheme);
   const ssrLoggedInAccount = await getSSRLoggedInAccount();
+  const messages = (await import(`../../i18n/originals/${locale}.json`)).default;
 
   return (
     <html lang={locale} data-theme={theme}>
@@ -35,7 +36,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <Providers
           locale={locale}
           ssrLoggedInAccount={ssrLoggedInAccount}
-          theme={theme}>
+          theme={theme}
+          messages={messages}>
           <WindowWrapper>
             <SideBar />
             <PageWrapper>

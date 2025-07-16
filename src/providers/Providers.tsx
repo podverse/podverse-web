@@ -11,15 +11,17 @@ export default function Providers({
   children,
   theme,
   locale,
-  ssrLoggedInAccount
+  ssrLoggedInAccount,
+  messages
 }: {
   children: React.ReactNode;
   theme: UITheme;
   locale: string;
   ssrLoggedInAccount: DTOAccount | null;
+  messages: Record<string, any>;
 }) {
   return (
-    <NextIntlClientProvider locale={locale}>
+    <NextIntlClientProvider locale={locale} messages={messages} timeZone="America/Chicago">
       <ThemeProvider initialTheme={theme}>
         <AccountProvider ssrLoggedInAccount={ssrLoggedInAccount}>
           <ModalsProvider>
