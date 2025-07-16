@@ -14,7 +14,6 @@ export default async function Podcasts({ searchParams }: { searchParams?: Promis
   const tMedia = await getTranslations('media');
   const params = searchParams ? await searchParams : {};
   const { page } = await parseSearchParams(params);
-  console.log('page', page)
   const apiRequestService = getSSRApiRequestService();
   const response = await apiRequestService.reqChannelGetMany({ page });
 
