@@ -5,3 +5,22 @@
   align-items: center;
   height: var(--header-desktop-height);
 }
+
+.headerContent {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex: 1;
+}
+
+.filterDropdowns {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-left: 24px;
+}
+
+.filterDropdownWrapper {
+  display: flex;
+  align-items: center;
+}

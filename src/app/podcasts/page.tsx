@@ -1,5 +1,6 @@
 import { getTranslations } from "next-intl/server";
 import React from "react";
+import FilterDropdown from "../../components/FilterDropdown/FilterDropdown";
 import Header from "../../components/Header/Header";
 import MainWrapper from "../../components/MainWrapper/MainWrapper";
 import PodcastList from "../../components/Podcast/PodcastList";
@@ -8,18 +9,29 @@ import { z } from "zod";
 
 const searchParamsSchema = z.object({
   page: z.string().transform((v) => parseInt(v, 10)).optional(),
+  sort: z.enum(["recent", "oldest"]).optional()
 });
+
+const filterDropdownMenuItems = [
+  { label: "Recent", param: "sort", value: "recent" },
+  { label: "Oldest", param: "sort", value: "oldest" }
+];
 
 export default async function Podcasts({ searchParams }: { searchParams?: Promise<Record<string, string>> }) {
   const tMedia = await getTranslations('media');
   const params = searchParams ? await searchParams : {};
-  const { page } = await parseSearchParams(params);
+  const { page, sort } = await parseSearchParams(params);
   const apiRequestService = getSSRApiRequestService();
-  const response = await apiRequestService.reqChannelGetMany({ page });
+  const response = await apiRequestService.reqChannelGetMany({ page, sort });
 
   return (
     <>
-      <Header title={tMedia("podcast.podcasts")} />
+      <Header
+        title={tMedia("podcast.podcasts")}
+        filterDropdowns={[
+          <FilterDropdown key="sort" menuItems={filterDropdownMenuItems} />
+        ]}
+      />
       <MainWrapper>
         <PodcastList
           ssrChannels={response?.data ?? []}
@@ -35,6 +47,7 @@ async function parseSearchParams(params: Record<string, string>) {
   return {
     page: parsed.success && typeof parsed.data.page === "number" && !isNaN(parsed.data.page)
       ? parsed.data.page
-      : 1
+      : 1,
+    sort: parsed.success && parsed.data.sort ? parsed.data.sort : "recent"
   };
 }

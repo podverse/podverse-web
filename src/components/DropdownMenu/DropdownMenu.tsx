@@ -1,13 +1,13 @@
 import React, { RefObject } from "react";
 import styles from "../../styles/components/DropdownMenu/DropdownMenu.module.scss";
 
-interface MenuItem {
+export interface DropdownMenuItem {
   label: string;
   onClick: () => void;
 }
 
 interface DropdownMenuProps {
-  menuItems: MenuItem[];
+  menuItems: DropdownMenuItem[];
   open: boolean;
   menuRef: RefObject<HTMLUListElement | null>;
   focusedIndex: number;

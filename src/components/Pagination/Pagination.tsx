@@ -62,7 +62,7 @@ const Pagination: React.FC<PaginationProps> = ({
   const pageNumbers = getPageRange(currentPage, totalPages, maxButtons);
 
   return (
-    <div>
+    <div className={styles.pagination}>
       {children}
       <div className={styles.paginationControls}>
         {currentPage <= 1 ? (

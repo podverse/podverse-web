@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import styles from "../../styles/components/Podcast/PodcastListItem.module.scss";
 import { ROUTES } from "../../constants/routes";
 import { DTOChannel, formatDateAbbrev } from "podverse-helpers";
@@ -16,18 +16,22 @@ const PodcastListItem: React.FC<Props> = ({ channel }) => {
   const url = `${ROUTES.PODCAST}/${channel.id_text}`;
   const imageUrl = channel.channel_images?.[0]?.url;
   const tMedia = useTranslations("media");
-
+  const [imageError, setImageError] = useState(false);
+  
   return (
     <Link href={url} className={styles.link}>
       <div className={styles.podcastListItem}>
-        {imageUrl && (
+        {(imageUrl && !imageError) ? (
           <Image
             src={imageUrl}
             alt={channel.title || "Podcast Image"}
             width={80}
             height={80}
             className={styles.podcastImage}
+            onError={() => setImageError(true)}
           />
+        ) : (
+          <div className={styles.imagePlaceholder} />
         )}
         <div className={styles.content}>
           {
