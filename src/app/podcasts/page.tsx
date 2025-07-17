@@ -12,9 +12,16 @@ const searchParamsSchema = z.object({
   sort: z.enum(["recent", "oldest"]).optional()
 });
 
-const filterDropdownMenuItems = [
+const typeDropdownMenuItems = [
+  { label: "All", param: "type", value: "all" },
+  { label: "Subscribed", param: "type", value: "subscribed" },
+  { label: "Category", param: "type", value: "category" }
+];
+
+const sortDropdownMenuItems = [
   { label: "Recent", param: "sort", value: "recent" },
-  { label: "Oldest", param: "sort", value: "oldest" }
+  { label: "Oldest", param: "sort", value: "oldest" },
+  { label: "A - Z", param: "sort", value: "alphabetical" }
 ];
 
 export default async function Podcasts({ searchParams }: { searchParams?: Promise<Record<string, string>> }) {
@@ -29,7 +36,8 @@ export default async function Podcasts({ searchParams }: { searchParams?: Promis
       <Header
         title={tMedia("podcast.podcasts")}
         filterDropdowns={[
-          <FilterDropdown key="sort" menuItems={filterDropdownMenuItems} />
+          <FilterDropdown key="type" menuItems={typeDropdownMenuItems} />,
+          <FilterDropdown key="sort" menuItems={sortDropdownMenuItems} />
         ]}
       />
       <MainWrapper>
@@ -44,10 +52,11 @@ export default async function Podcasts({ searchParams }: { searchParams?: Promis
 
 async function parseSearchParams(params: Record<string, string>) {
   const parsed = searchParamsSchema.safeParse(params);
-  return {
-    page: parsed.success && typeof parsed.data.page === "number" && !isNaN(parsed.data.page)
-      ? parsed.data.page
-      : 1,
-    sort: parsed.success && parsed.data.sort ? parsed.data.sort : "recent"
-  };
+
+  if (!parsed.success) {
+    console.warn("Invalid search parameters:", parsed.error);
+    return {};
+  }
+
+  return parsed.data;
 }
