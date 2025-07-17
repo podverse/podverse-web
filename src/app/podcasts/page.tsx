@@ -9,7 +9,7 @@ import { z } from "zod";
 
 const searchParamsSchema = z.object({
   page: z.string().transform((v) => parseInt(v, 10)).optional(),
-  sort: z.enum(["recent", "oldest"]).optional()
+  sort: z.enum(["recent", "oldest", "alphabetical", "top"]).optional()
 });
 
 const typeDropdownMenuItems = [
@@ -21,24 +21,68 @@ const typeDropdownMenuItems = [
 const sortDropdownMenuItems = [
   { label: "Recent", param: "sort", value: "recent" },
   { label: "Oldest", param: "sort", value: "oldest" },
-  { label: "A - Z", param: "sort", value: "alphabetical" }
+  { label: "A - Z", param: "sort", value: "alphabetical" },
+  { label: "Top", param: "sort", value: "top" },
+];
+
+const rangeDropdownMenuItems = [
+  { label: "Day", param: "range", value: "day" },
+  { label: "Week", param: "range", value: "week" },
+  { label: "Month", param: "range", value: "month" },
+  { label: "All Time", param: "range", value: "all-time" },
 ];
 
 export default async function Podcasts({ searchParams }: { searchParams?: Promise<Record<string, string>> }) {
   const tMedia = await getTranslations('media');
   const params = searchParams ? await searchParams : {};
-  const { page, sort } = await parseSearchParams(params);
+  const { page, sort, type = "all", range } = await parseSearchParams(params);
+  let currentSort = sort;
+  let currentRange = range;
+
+  // Conditional logic for dropdowns and defaults
+  let typeMenuItems = typeDropdownMenuItems;
+  let sortMenuItems = sortDropdownMenuItems;
+  let showRangeDropdown = false;
+  let rangeMenuItems = rangeDropdownMenuItems;
+
+  if (type === "all") {
+    sortMenuItems = [{ label: "Top", param: "sort", value: "top" }];
+    currentSort = "top";
+    showRangeDropdown = true;
+    rangeMenuItems = rangeDropdownMenuItems;
+    currentRange = currentRange || "day";
+  } else if (type === "subscribed") {
+    sortMenuItems = sortDropdownMenuItems;
+    currentSort = currentSort || "alphabetical";
+    showRangeDropdown = false;
+    rangeMenuItems = [];
+  } else if (type === "category") {
+    sortMenuItems = [{ label: "Top", param: "sort", value: "top" }];
+    currentSort = "top";
+    showRangeDropdown = true;
+    rangeMenuItems = rangeDropdownMenuItems;
+    currentRange = currentRange || "day";
+  }
+
+  // Only show range dropdown when sort is "top"
+  if (currentSort !== "top") {
+    showRangeDropdown = false;
+    rangeMenuItems = [];
+  }
+
   const apiRequestService = getSSRApiRequestService();
-  const response = await apiRequestService.reqChannelGetMany({ page, sort });
+  // Pass all params to API
+  const response = await apiRequestService.reqChannelGetMany({ page, sort: currentSort, type, range: currentRange });
 
   return (
     <>
       <Header
         title={tMedia("podcast.podcasts")}
         filterDropdowns={[
-          <FilterDropdown key="type" menuItems={typeDropdownMenuItems} />,
-          <FilterDropdown key="sort" menuItems={sortDropdownMenuItems} />
-        ]}
+          <FilterDropdown key="type" menuItems={typeMenuItems} />, 
+          <FilterDropdown key="sort" menuItems={sortMenuItems} />, 
+          showRangeDropdown && <FilterDropdown key="range" menuItems={rangeMenuItems} />
+        ].filter(Boolean)}
       />
       <MainWrapper>
         <PodcastList
@@ -51,12 +95,15 @@ export default async function Podcasts({ searchParams }: { searchParams?: Promis
 }
 
 async function parseSearchParams(params: Record<string, string>) {
-  const parsed = searchParamsSchema.safeParse(params);
-
+  // Accept type and range in addition to page/sort
+  const extendedSchema = searchParamsSchema.extend({
+    type: z.string().optional(),
+    range: z.string().optional(),
+  });
+  const parsed = extendedSchema.safeParse(params);
   if (!parsed.success) {
     console.warn("Invalid search parameters:", parsed.error);
     return {};
   }
-
   return parsed.data;
 }
