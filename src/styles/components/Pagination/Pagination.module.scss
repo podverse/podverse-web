@@ -11,14 +11,14 @@
 }
 
 .pageButton {
-  border: 1.5px solid var(--border-color-secondary);
+  border: var(--button-border-size) solid var(--border-color-secondary);
   font-weight: normal;
   height: var(--image-size-sm);
   width: var(--image-size-sm);
 }
 
 .pageButton.active {
-  border: 1.5px solid var(--border-color-primary);
+  border: var(--button-border-size) solid var(--border-color-primary);
   font-weight: bold;
 }
 

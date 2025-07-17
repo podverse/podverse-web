@@ -8,7 +8,7 @@
   align-items: center;
   flex-direction: row;
   border-radius: var(--border-radius);
-  border: 1.5px solid transparent;
+  border: var(--button-border-size) solid transparent;
   padding: 0.5rem 1rem;
   background-color: var(--background-color-tertiary);
 }

@@ -1,5 +1,4 @@
 .dropdownWrapper {
-  display: inline-flex;
   position: relative;
 }
 
@@ -7,25 +6,20 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 24px;
-  background: var(--button-secondary-bg, #f5f5f5);
-  color: var(--button-secondary-color, #222);
-  border: 1px solid var(--border-color-primary, #ccc);
-  font-weight: 600;
-  height: 40px;
-  min-width: 100px;
-  padding: 0 16px;
-  cursor: pointer;
-  transition: background 0.15s;
-  gap: 8px;
-}
-
-.button:hover,
-.button:focus {
-  background: var(--button-secondary-bg-hover, #eaeaea);
+  border-radius: var(--border-radius-round);
+  color: var(--button-secondary-color);
+  border: var(--button-border-size) solid var(--border-color-primary);
+  height: 2rem;
+  min-width: 5rem;
+  font-size: var(--font-size-sm);
+  padding: 0 1rem;
 }
 
 .buttonLabel {
-  margin-right: 8px;
-  font-size: 1rem;
+  margin-right: 0.5rem;
+  font-size: var(--font-size-sm);
+}
+
+.chevronIcon {
+  padding-top: 1px;
 }

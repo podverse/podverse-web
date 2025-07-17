@@ -74,7 +74,7 @@ const FilterDropdown: React.FC<FilterDropdownProps> = ({
         type="button"
       >
         <span className={styles.buttonLabel}>{currentSelectedItem?.label}</span>
-        <FaChevronDown />
+        <FaChevronDown className={styles.chevronIcon} />
       </button>
       <DropdownMenu
         menuItems={menuItemsWithHandlers}
