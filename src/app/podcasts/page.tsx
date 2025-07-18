@@ -7,7 +7,7 @@ import PodcastList from "../../components/Podcast/PodcastList";
 import { getSSRApiRequestService } from "../../factories/apiRequestService";
 import { z } from "zod";
 import { CATEGORY_MAPPING_KEYS, QUERY_PARAMS_STATS_RANGE_VALUES, QUERY_PARAMS_CHANNELS_SORT_VALUES, QUERY_PARAMS_CHANNELS_TYPE_VALUES, QueryParamsChannelsSort, QueryParamsChannelsType, QueryParamsStatsRange } from "podverse-helpers";
-import { getSSRJwtFromCookies } from "../../utils/auth/ssrAuth";
+import { getSSRAuthService, getSSRJWTIfValidAuthSession } from "../../utils/auth/ssrAuth";
 
 const searchParamsSchema = z.object({
   page: z.string().transform((v) => parseInt(v, 10)).optional(),
@@ -21,10 +21,9 @@ export default async function Podcasts({ searchParams }: { searchParams?: Promis
   const tMedia = await getTranslations('media');
   const params = searchParams ? await searchParams : {};
 
-  const jwt = await getSSRJwtFromCookies();
-  const isAuthenticated = !!jwt;
+  const { isValidAuthSession, apiRequestService } = await getSSRAuthService();
 
-  const { page, sort, type, range } = await parseSearchParams(params, isAuthenticated);
+  const { page, sort, type, range } = await parseSearchParams(params, isValidAuthSession);
 
   const {
     typeMenuItems,
@@ -35,12 +34,11 @@ export default async function Podcasts({ searchParams }: { searchParams?: Promis
     showRangeDropdown
   } = getDropdownConfig(type, sort, range);
 
-  const apiRequestService = getSSRApiRequestService(jwt);
   const response = await apiRequestService.reqChannelGetMany({ page, sort: currentSort, type, range: currentRange });
   const ssrChannels = response.data;
-  
-  const defaultValueType = isAuthenticated ? "subscribed" : "all";
-  const defaultValueSort = isAuthenticated ? "alphabetical" : "top";
+
+  const defaultValueType = isValidAuthSession ? "subscribed" : "all";
+  const defaultValueSort = isValidAuthSession ? "alphabetical" : "top";
   const defaultValueRange = "day";
   
   return (

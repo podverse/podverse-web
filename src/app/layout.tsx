@@ -11,7 +11,8 @@ import WindowWrapper from '../components/Window/WindowWrapper';
 import Providers from '../providers/Providers';
 import { toUITheme } from '../utils/theme';
 import { Modals } from '../components/Modals/Modals';
-import { getSSRLoggedInAccount } from '../utils/auth/ssrAuth';
+import { getSSRJwtFromCookies, getSSRLoggedInAccount } from '../utils/auth/ssrAuth';
+import AuthSessionChecker from '../components/Auth/AuthSessionChecker';
 
 export const metadata = {
   title: 'Podverse',
@@ -22,7 +23,11 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const [locale, cookieStore] = await Promise.all([getLocale(), cookies()]);
   const cookieTheme = cookieStore.get('theme')?.value;
   const theme = toUITheme(cookieTheme);
+
+  const jwt = await getSSRJwtFromCookies();
   const ssrLoggedInAccount = await getSSRLoggedInAccount();
+  const ssrShouldLogout = !!(jwt && !ssrLoggedInAccount);
+
   const messages = (await import(`../../i18n/originals/${locale}.json`)).default;
 
   return (
@@ -33,6 +38,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <Manifest />
       </head>
       <body>
+        <AuthSessionChecker ssrShouldLogout={ssrShouldLogout} />
         <Providers
           locale={locale}
           ssrLoggedInAccount={ssrLoggedInAccount}
