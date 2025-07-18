@@ -10,16 +10,23 @@
   color: var(--button-secondary-color);
   border: var(--button-border-size) solid var(--border-color-primary);
   height: 2rem;
-  min-width: 5rem;
   font-size: var(--font-size-sm);
   padding: 0 1rem;
 }
 
+.buttonSecondary {
+  border: transparent;
+}
+
+.buttonOnlyOneOption {
+  cursor: none;
+}
+
 .buttonLabel {
-  margin-right: 0.5rem;
   font-size: var(--font-size-sm);
 }
 
 .chevronIcon {
+  margin-left: 0.5rem;
   padding-top: 1px;
 }

@@ -1,68 +1,84 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
+import {
+  DTOChannel,
+  QUERY_PARAMS_CHANNELS_TYPE_VALUES,
+  QUERY_PARAMS_CHANNELS_SORT_VALUES,
+  QUERY_PARAMS_STATS_RANGE_VALUES,
+  QueryParamChannels
+} from "podverse-helpers";
+import React, { useRef } from "react";
 import PodcastListItem from "./PodcastListItem";
-import Pagination from "../Pagination/Pagination";
-import { apiRequestService } from "../../factories/apiRequestService";
 import LoadingSpinnerOverlay from "../LoadingSpinner/LoadingSpinnerOverlay";
-import { DTOChannel } from "podverse-helpers";
+import Pagination from "../Pagination/Pagination";
+import { useLoadingSpinnerGlobal } from "../../contexts/LoadingGlobal";
 import { useSkipInitialEffect } from "../../hooks/useSkipInitialEffect";
-import { useSearchParams } from "next/navigation";
+
+function getValidatedChannelParams(searchParams: ReturnType<typeof useSearchParams>): QueryParamChannels {
+  const rawSort = searchParams.get("sort")?.toString();
+  const sort = QUERY_PARAMS_CHANNELS_SORT_VALUES.includes(rawSort as typeof QUERY_PARAMS_CHANNELS_SORT_VALUES[number])
+    ? (rawSort as typeof QUERY_PARAMS_CHANNELS_SORT_VALUES[number])
+    : undefined;
+  const page = parseInt(searchParams.get("page") ?? "1", 10);
+  const rawType = searchParams.get("type")?.toString();
+  const type = QUERY_PARAMS_CHANNELS_TYPE_VALUES.includes(rawType as typeof QUERY_PARAMS_CHANNELS_TYPE_VALUES[number])
+    ? (rawType as typeof QUERY_PARAMS_CHANNELS_TYPE_VALUES[number])
+    : undefined;
+  const rawRange = searchParams.get("range")?.toString();
+  const range = QUERY_PARAMS_STATS_RANGE_VALUES.includes(rawRange as typeof QUERY_PARAMS_STATS_RANGE_VALUES[number])
+    ? (rawRange as typeof QUERY_PARAMS_STATS_RANGE_VALUES[number])
+    : undefined;
+  const category = searchParams.get("category")?.toString();
+  return {
+    ...(page ? { page } : {}),
+    ...(sort ? { sort } : {}),
+    ...(type ? { type } : {}),
+    ...(range ? { range } : {}),
+    ...(category ? { category } : {})
+  };
+}
 
 interface PodcastListProps {
   ssrChannels: DTOChannel[];
-  ssrPage?: number;
 }
 
-const PodcastList: React.FC<PodcastListProps> = ({ ssrChannels, ssrPage }) => {
-  const [channels, setChannels] = useState<DTOChannel[]>(ssrChannels);
-  const [totalPages, setTotalPages] = useState(6);
-  const [isLoading, setIsLoading] = useState(false);
-
+const PodcastList: React.FC<PodcastListProps> = ({ ssrChannels }) => {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const sort = searchParams.get("sort")?.toString() ?? "recent";
-  const currentPage = parseInt(searchParams.get("page") ?? "1", 10);
+  const validatedParams = getValidatedChannelParams(searchParams);
+  const currentPage = validatedParams.page ?? 1;
+
+  const { isLoadingGlobal, setIsLoadingGlobal } = useLoadingSpinnerGlobal();
 
   const topRef = useRef<HTMLDivElement>(null);
 
   useSkipInitialEffect(() => {
-    const fetchChannels = async () => {
-      setIsLoading(true);
-      const response = await apiRequestService.reqChannelGetMany({
-        page: currentPage,
-        sort
-      });
-      setChannels(response?.data ?? []);
-      // setTotalPages(totalPages);
-      setIsLoading(false);
-    };
-    fetchChannels();
-  }, [currentPage, sort]);
-
-  useEffect(() => {
-    if (!isLoading && topRef.current) {
-      topRef.current.scrollIntoView();
-    }
-  }, [isLoading]);
+    topRef?.current?.scrollIntoView();
+    setIsLoadingGlobal(false);
+  }, [ssrChannels]);
 
   const handlePageChange = (page: number) => {
+    setIsLoadingGlobal(true);
     const params = new URLSearchParams(searchParams.toString());
-    params.set("page", page.toString());
+    if (page === 1) {
+      params.delete("page");
+    } else {
+      params.set("page", page.toString());
+    }
     router.push(`${window.location.pathname}?${params.toString()}`);
   };
 
   return (
     <>
       <div ref={topRef} />
-      {isLoading && <LoadingSpinnerOverlay />}
+      {isLoadingGlobal && <LoadingSpinnerOverlay />}
       <Pagination
         currentPage={currentPage}
         maxButtons={5}
-        totalPages={totalPages}
+        totalPages={20}
         onPageChange={handlePageChange}>
-        {channels.map((channel) => (
+        {ssrChannels.map((channel) => (
           <PodcastListItem key={channel.id} channel={channel} />
         ))}
       </Pagination>

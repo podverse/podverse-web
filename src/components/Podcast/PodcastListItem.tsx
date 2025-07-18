@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import React, { useState } from "react";
+import React from "react";
 import Image from "../Image/Image";
 import styles from "../../styles/components/Podcast/PodcastListItem.module.scss";
 import { ROUTES } from "../../constants/routes";
@@ -16,7 +16,6 @@ const PodcastListItem: React.FC<Props> = ({ channel }) => {
   const url = `${ROUTES.PODCAST}/${channel.id_text}`;
   const imageUrl = channel.channel_images?.[0]?.url;
   const tMedia = useTranslations("media");
-  const [imageError, setImageError] = useState(false);
   
   return (
     <Link href={url} className={styles.link}>

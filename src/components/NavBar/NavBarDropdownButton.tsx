@@ -1,10 +1,10 @@
 "use client";
 
-import React, { useContext, useRef } from "react";
+import React, { useRef } from "react";
 import { useRouter } from "next/navigation";
 import { FaChevronDown, FaRegUserCircle, FaUserCircle } from "react-icons/fa";
 import styles from "../../styles/components/NavBar/NavBarDropdownButton.module.scss";
-import { AccountContext } from "../../contexts/Account";
+import { useAccount } from "../../contexts/Account";
 import DropdownMenu from "../DropdownMenu/DropdownMenu";
 import { useDropdownKeyboardNavigation } from "../../hooks/useDropdownKeyboardNavigation";
 import { ROUTES } from "../../constants/routes";
@@ -12,7 +12,7 @@ import { useModals } from '../../contexts/Modals'
 import { apiRequestService } from "../../factories/apiRequestService";
 
 const NavBarDropdownButton: React.FC = () => {
-  const { loggedInAccount } = useContext(AccountContext);
+  const { loggedInAccount } = useAccount();
   const { openModal } = useModals();
   const router = useRouter();
   const buttonRef = useRef<HTMLButtonElement>(null);

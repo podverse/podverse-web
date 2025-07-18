@@ -1,5 +1,6 @@
 "use client";
 
+import classNames from "classnames";
 import React, { useRef, useMemo } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { FaChevronDown } from "react-icons/fa";
@@ -15,36 +16,57 @@ interface MenuItem {
 
 interface FilterDropdownProps {
   menuItems: MenuItem[];
-  selectedKey?: string;
+  defaultValue: string;
+  type?: 'primary' | 'secondary';
+  clearOtherParams?: boolean;
 }
 
 const FilterDropdown: React.FC<FilterDropdownProps> = ({
-  menuItems
+  menuItems,
+  defaultValue,
+  type = 'primary',
+  clearOtherParams = false,
 }) => {
-  const buttonRef = useRef<HTMLButtonElement>(null);
-  const menuRef = useRef<HTMLUListElement>(null);
   const router = useRouter();
   const searchParams = useSearchParams();
 
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const menuRef = useRef<HTMLUListElement>(null);
+
   const currentSelectedItem = useMemo(() => {
     for (const item of menuItems) {
-      if (searchParams.get(item.param) === item.value) {
+      const paramValue = searchParams.get(item.param);
+      if (paramValue === item.value) {
         return item;
       }
     }
-    
-    return menuItems[0];
-  }, [menuItems, searchParams]);
+    const defaultItem = menuItems.find(item => item.value === defaultValue) || menuItems[0];
+    return defaultItem;
+  }, [menuItems, searchParams, defaultValue]);
 
   const menuItemsWithHandlers = menuItems.map((item) => ({
-    label: item.label,
-    onClick: () => {
-      const params = new URLSearchParams(searchParams.toString());
+  label: item.label,
+  onClick: () => {
+    let params: URLSearchParams;
+    if (clearOtherParams) {
+      params = new URLSearchParams();
+      if (item.value !== defaultValue) {
+        params.set(item.param, item.value);
+      }
+    } else {
+      params = new URLSearchParams(searchParams.toString());
       menuItems.forEach(mi => params.delete(mi.param));
       params.delete("page");
-      params.set(item.param, item.value);
-      router.push(`${window.location.pathname}?${params.toString()}`);
-    },
+      if (item.value !== defaultValue) {
+        params.set(item.param, item.value);
+      } else {
+        params.delete(item.param);
+      }
+    }
+    const queryString = params.toString();
+    const url = queryString ? `${window.location.pathname}?${queryString}` : window.location.pathname;
+    router.push(url);
+  },
   }));
 
   const {
@@ -62,19 +84,25 @@ const FilterDropdown: React.FC<FilterDropdownProps> = ({
     menuRef,
   });
 
+  const hasMoreThanOneOption = menuItemsWithHandlers.length > 1;
+
   return (
     <div className={styles.dropdownWrapper}>
       <button
         ref={buttonRef}
-        className={styles.button}
+        className={classNames(styles.button, {
+          [styles.buttonSecondary]: type === 'secondary',
+        })}
         aria-haspopup="menu"
         aria-expanded={open}
-        onClick={() => setOpen((v) => !v)}
-        onKeyDown={handleButtonKeyDown}
+        onClick={() => hasMoreThanOneOption && setOpen((v) => !v)}
+        onKeyDown={e => hasMoreThanOneOption && handleButtonKeyDown(e)}
         type="button"
       >
         <span className={styles.buttonLabel}>{currentSelectedItem?.label}</span>
-        <FaChevronDown className={styles.chevronIcon} />
+        {hasMoreThanOneOption && (
+          <FaChevronDown className={styles.chevronIcon} />
+        )}
       </button>
       <DropdownMenu
         menuItems={menuItemsWithHandlers}

@@ -11,7 +11,7 @@ import WindowWrapper from '../components/Window/WindowWrapper';
 import Providers from '../providers/Providers';
 import { toUITheme } from '../utils/theme';
 import { Modals } from '../components/Modals/Modals';
-import { getSSRLoggedInAccount } from '../utils/auth/getSSRLoggedInAccount';
+import { getSSRLoggedInAccount } from '../utils/auth/ssrAuth';
 
 export const metadata = {
   title: 'Podverse',

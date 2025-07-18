@@ -1,5 +1,6 @@
 import { DTOAccount } from "podverse-helpers";
 import React, { createContext, useState, ReactNode } from "react";
+import { useContext } from "react";
 
 type AccountContextType = {
   loggedInAccount: DTOAccount | null;
@@ -28,3 +29,9 @@ export const AccountProvider = ({
     </AccountContext.Provider>
   );
 };
+
+export function useAccount() {
+  const ctx = useContext(AccountContext);
+  if (!ctx) throw new Error("useAccount must be used within an AccountProvider");
+  return ctx;
+}
