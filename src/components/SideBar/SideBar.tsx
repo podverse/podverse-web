@@ -24,6 +24,7 @@ const SideBar: React.FC = () => {
         <SideBarDivider />
       </div>
       <div className={styles.scrollable}>
+        <SideBarHeader>{tMedia("podcast.audio")}</SideBarHeader>
         <SideBarLink href={ROUTES.PODCASTS}>{tMedia("podcast.podcasts")}</SideBarLink>
         <SideBarLink href={ROUTES.EPISODES}>{tMedia("podcast.episodes")}</SideBarLink>
         <SideBarLink href={ROUTES.CLIPS}>{tMedia("clips")}</SideBarLink>
@@ -37,6 +38,8 @@ const SideBar: React.FC = () => {
         <SideBarHeader>{tMedia("video.video")}</SideBarHeader>
         <SideBarLink href={ROUTES.CHANNELS}>{tMedia("video.channels")}</SideBarLink>
         <SideBarLink href={ROUTES.VIDEOS}>{tMedia("video.videos")}</SideBarLink>
+        <SideBarLink href={ROUTES.CLIPS}>{tMedia("clips")}</SideBarLink>
+        <SideBarLink href={ROUTES.LIVESTREAMS}>{tMedia("livestreams")}</SideBarLink>
         <SideBarDivider />
         <SideBarHeader>{tFeatures("my_library")}</SideBarHeader>
         <SideBarLink href={ROUTES.QUEUE}>{tFeatures("queue")}</SideBarLink>
