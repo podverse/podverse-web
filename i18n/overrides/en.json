@@ -4,6 +4,7 @@
   },
   "media": {
     "podcast": {
+      "audio": "Audio",
       "podcasting": "Podcasting",
       "podcast": "Podcast",
       "podcasts": "Podcasts",
