@@ -22,9 +22,9 @@ const SideBar: React.FC = () => {
           <FaSearch className={styles.icon} />
           {tFeatures("search")}
         </SideBarLink>
-        <SideBarDivider />
       </div>
       <div className={styles.scrollable}>
+        <SideBarDivider />
         <Accordion
           header={<SideBarHeader>{tMedia("podcast.audio")}</SideBarHeader>}
           items={
