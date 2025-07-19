@@ -1,13 +1,14 @@
 import { getTranslations } from "next-intl/server";
 import React from "react";
+import { z } from "zod";
 import FilterDropdown from "../../components/FilterDropdown/FilterDropdown";
 import Header from "../../components/Header/Header";
 import MainWrapper from "../../components/MainWrapper/MainWrapper";
 import PodcastList from "../../components/Podcast/PodcastList";
-import { getSSRApiRequestService } from "../../factories/apiRequestService";
-import { z } from "zod";
-import { CATEGORY_MAPPING_KEYS, QUERY_PARAMS_STATS_RANGE_VALUES, QUERY_PARAMS_CHANNELS_SORT_VALUES, QUERY_PARAMS_CHANNELS_TYPE_VALUES, QueryParamsChannelsSort, QueryParamsChannelsType, QueryParamsStatsRange } from "podverse-helpers";
-import { getSSRAuthService, getSSRJWTIfValidAuthSession } from "../../utils/auth/ssrAuth";
+import { CATEGORY_MAPPING_KEYS, QUERY_PARAMS_STATS_RANGE_VALUES, QUERY_PARAMS_CHANNELS_SORT_VALUES,
+  QUERY_PARAMS_CHANNELS_TYPE_VALUES, QueryParamsChannelsSort, QueryParamsChannelsType,
+  QueryParamsStatsRange, getTotalPages} from "podverse-helpers";
+import { getSSRAuthService } from "../../utils/auth/ssrAuth";
 
 const searchParamsSchema = z.object({
   page: z.string().transform((v) => parseInt(v, 10)).optional(),
@@ -36,6 +37,7 @@ export default async function Podcasts({ searchParams }: { searchParams?: Promis
 
   const response = await apiRequestService.reqChannelGetMany({ page, sort: currentSort, type, range: currentRange });
   const ssrChannels = response.data;
+  const ssrTotalPages = getTotalPages(response.meta.count, response.meta.limit);
 
   const defaultValueType = isValidAuthSession ? "subscribed" : "all";
   const defaultValueSort = isValidAuthSession ? "alphabetical" : "top";
@@ -52,7 +54,7 @@ export default async function Podcasts({ searchParams }: { searchParams?: Promis
         ].filter(Boolean)}
       />
       <MainWrapper>
-        <PodcastList ssrChannels={ssrChannels} />
+        <PodcastList ssrChannels={ssrChannels} ssrTotalPages={ssrTotalPages} />
       </MainWrapper>
     </>
   );

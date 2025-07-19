@@ -41,9 +41,10 @@ function getValidatedChannelParams(searchParams: ReturnType<typeof useSearchPara
 
 interface PodcastListProps {
   ssrChannels: DTOChannel[];
+  ssrTotalPages: number;
 }
 
-const PodcastList: React.FC<PodcastListProps> = ({ ssrChannels }) => {
+const PodcastList: React.FC<PodcastListProps> = ({ ssrChannels, ssrTotalPages }) => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const validatedParams = getValidatedChannelParams(searchParams);
@@ -76,7 +77,7 @@ const PodcastList: React.FC<PodcastListProps> = ({ ssrChannels }) => {
       <Pagination
         currentPage={currentPage}
         maxButtons={5}
-        totalPages={20}
+        totalPages={ssrTotalPages}
         onPageChange={handlePageChange}>
         {ssrChannels.map((channel) => (
           <PodcastListItem key={channel.id} channel={channel} />
