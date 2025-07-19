@@ -1,16 +1,16 @@
 [data-theme="light"] {
-  --background-color-primary: #f7f9fc;
-  --background-color-secondary: #ffffff;
-  --background-color-tertiary: #e3e8f0;
-  --background-color-quaternary: #cfd8e3;
-  --background-color-opaque: rgba(0, 0, 0, 0.04);
-  --background-color-glow: rgba(61, 157, 254, 0.08);
-  --border-color-primary: #3d9dfe;
-  --border-color-opaque: rgba(0, 0, 0, 0.08);
-  --box-shadow-focus: 0 0 0 4px rgba(61, 157, 254, 0.2);
-  --text-color-primary: #222222;
-  --text-color-secondary: #555555;
-  --text-color-tertiary: #ffffff;
+  --background-color-primary: #f3f4f6;         // softer off-white
+  --background-color-secondary: #e9ecef;       // light gray
+  --background-color-tertiary: #dbe2ea;        // muted blue-gray
+  --background-color-quaternary: #c2cad6;      // softer gray-blue
+  --background-color-opaque: rgba(0, 0, 0, 0.03);
+  --background-color-glow: rgba(61, 157, 254, 0.05);
+  --border-color-primary: #7bb6f9;             // lighter blue
+  --border-color-opaque: rgba(0, 0, 0, 0.06);
+  --box-shadow-focus: 0 0 0 4px rgba(61, 157, 254, 0.12);
+  --text-color-primary: #2d3748;               // softer dark gray
+  --text-color-secondary: #6b7280;             // muted gray
+  --text-color-tertiary: #f8fafc;              // very light gray
   --text-color-link: #3d9dfe;
   --text-color-link-hover: #1583ff;
 
@@ -19,7 +19,7 @@
   --button-primary-bg-hover: var(--text-color-link-hover);
   --button-secondary-bg: var(--background-color-glow);
   --button-secondary-color: var(--text-color-primary);
-  --button-secondary-bg-hover: #e3e8f0;
+  --button-secondary-bg-hover: #dbe2ea;
   --button-success-bg: #22c55e;
   --button-success-color: var(--text-color-tertiary);
   --button-warning-bg: #fbbf24;
