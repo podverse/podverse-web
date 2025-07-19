@@ -3,13 +3,6 @@
 .header {
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-bold);
-  padding: 0 0.75rem;
   margin: 0.5rem;
   color: var(--text-color-link);
-}
-
-@media (max-width: breakpoints.$breakpoint-md) {
-  .header {
-    text-align: center;
-  }
 }

@@ -1,0 +1,41 @@
+.accordionHeader {
+  display: flex;
+  cursor: pointer;
+}
+
+.headerText {
+  flex: 1;
+}
+
+.headerIcon {
+  display: flex;
+  align-items: center;
+  margin: 0 0 0 1.25rem;
+  transition: transform 0.3s;
+  font-size: var(--font-size-xs);
+}
+
+.primary {
+  color: var(--text-color-primary);
+}
+
+.secondary {
+  color: var(--text-color-secondary);
+}
+
+.link {
+  color: var(--text-color-link);
+}
+
+.accordionContent {
+  display: flex;
+  flex-direction: column;
+}
+
+details .headerIcon {
+  transform: rotate(0deg);
+}
+
+details[open] .headerIcon {
+  transform: rotate(90deg);
+}

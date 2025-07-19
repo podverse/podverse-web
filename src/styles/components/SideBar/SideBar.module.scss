@@ -46,4 +46,7 @@
     border-left: 1px solid var(--border-color-opaque);
     height: calc(100vh - var(--navbar-mobile-height));
   }
+  .scrollable {
+    padding: 0.5rem 0;
+  }
 }

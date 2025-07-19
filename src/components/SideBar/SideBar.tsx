@@ -8,6 +8,7 @@ import SideBarBrand from "./SideBarBrand";
 import SideBarLink from "./SideBarLink";
 import SideBarHeader from "./SideBarHeader";
 import ThemeToggle from "../ThemeToggle/ThemeToggle";
+import Accordion from "../Accordian/Accordian";
 
 const SideBar: React.FC = () => {
   const tMedia = useTranslations("media");
@@ -24,29 +25,65 @@ const SideBar: React.FC = () => {
         <SideBarDivider />
       </div>
       <div className={styles.scrollable}>
-        <SideBarHeader>{tMedia("podcast.audio")}</SideBarHeader>
-        <SideBarLink href={ROUTES.PODCASTS}>{tMedia("podcast.podcasts")}</SideBarLink>
-        <SideBarLink href={ROUTES.EPISODES}>{tMedia("podcast.episodes")}</SideBarLink>
-        <SideBarLink href={ROUTES.CLIPS}>{tMedia("clips")}</SideBarLink>
-        <SideBarLink href={ROUTES.LIVESTREAMS}>{tMedia("livestreams")}</SideBarLink>
+        <Accordion
+          header={<SideBarHeader>{tMedia("podcast.audio")}</SideBarHeader>}
+          items={
+            <>
+              <SideBarLink href={ROUTES.PODCASTS}>{tMedia("podcast.podcasts")}</SideBarLink>
+              <SideBarLink href={ROUTES.EPISODES}>{tMedia("podcast.episodes")}</SideBarLink>
+              <SideBarLink href={ROUTES.CLIPS}>{tMedia("clips")}</SideBarLink>
+              <SideBarLink href={ROUTES.LIVESTREAMS}>{tMedia("livestreams")}</SideBarLink>
+            </>
+          }
+          color="link"
+          size="small"
+          open
+        />
         <SideBarDivider />
-        <SideBarHeader>{tMedia("music.music")}</SideBarHeader>
-        <SideBarLink href={ROUTES.ARTISTS}>{tMedia("music.artists")}</SideBarLink>
-        <SideBarLink href={ROUTES.ALBUMS}>{tMedia("music.albums")}</SideBarLink>
-        <SideBarLink href={ROUTES.TRACKS}>{tMedia("music.tracks")}</SideBarLink>
+        <Accordion
+          header={<SideBarHeader>{tMedia("video.video")}</SideBarHeader>}
+          items={
+            <>
+              <SideBarLink href={ROUTES.CHANNELS}>{tMedia("video.channels")}</SideBarLink>
+              <SideBarLink href={ROUTES.VIDEOS}>{tMedia("video.videos")}</SideBarLink>
+              <SideBarLink href={ROUTES.CLIPS}>{tMedia("clips")}</SideBarLink>
+              <SideBarLink href={ROUTES.LIVESTREAMS}>{tMedia("livestreams")}</SideBarLink>
+            </>
+          }
+          color="link"
+          size="small"
+          open
+        />
         <SideBarDivider />
-        <SideBarHeader>{tMedia("video.video")}</SideBarHeader>
-        <SideBarLink href={ROUTES.CHANNELS}>{tMedia("video.channels")}</SideBarLink>
-        <SideBarLink href={ROUTES.VIDEOS}>{tMedia("video.videos")}</SideBarLink>
-        <SideBarLink href={ROUTES.CLIPS}>{tMedia("clips")}</SideBarLink>
-        <SideBarLink href={ROUTES.LIVESTREAMS}>{tMedia("livestreams")}</SideBarLink>
+        <Accordion
+          header={<SideBarHeader>{tMedia("music.music")}</SideBarHeader>}
+          items={
+            <>
+              <SideBarLink href={ROUTES.ARTISTS}>{tMedia("music.artists")}</SideBarLink>
+              <SideBarLink href={ROUTES.ALBUMS}>{tMedia("music.albums")}</SideBarLink>
+              <SideBarLink href={ROUTES.TRACKS}>{tMedia("music.tracks")}</SideBarLink>
+            </>
+          }
+          color="link"
+          size="small"
+          open
+        />
         <SideBarDivider />
-        <SideBarHeader>{tFeatures("my_library")}</SideBarHeader>
-        <SideBarLink href={ROUTES.QUEUE}>{tFeatures("queue")}</SideBarLink>
-        <SideBarLink href={ROUTES.HISTORY}>{tFeatures("history")}</SideBarLink>
-        <SideBarLink href={ROUTES.PLAYLISTS}>{tFeatures("playlists")}</SideBarLink>
-        <SideBarLink href={ROUTES.MY_CLIPS}>{tFeatures("my_clips")}</SideBarLink>
-        <SideBarLink href={ROUTES.PROFILES}>{tFeatures("profiles")}</SideBarLink>
+        <Accordion
+          header={<SideBarHeader>{tFeatures("my_library")}</SideBarHeader>}
+          items={
+            <>
+              <SideBarLink href={ROUTES.QUEUE}>{tFeatures("queue")}</SideBarLink>
+              <SideBarLink href={ROUTES.HISTORY}>{tFeatures("history")}</SideBarLink>
+              <SideBarLink href={ROUTES.PLAYLISTS}>{tFeatures("playlists")}</SideBarLink>
+              <SideBarLink href={ROUTES.MY_CLIPS}>{tFeatures("my_clips")}</SideBarLink>
+              <SideBarLink href={ROUTES.PROFILES}>{tFeatures("profiles")}</SideBarLink>
+            </>
+          }
+          color="link"
+          size="small"
+          open
+        />
         <SideBarDivider />
         <ThemeToggle />
       </div>
