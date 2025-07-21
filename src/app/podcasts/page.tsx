@@ -1,9 +1,8 @@
 import { CATEGORY_MAPPING_KEYS, QUERY_PARAMS_STATS_RANGE_VALUES, QUERY_PARAMS_CHANNELS_SORT_VALUES,
-  QUERY_PARAMS_CHANNELS_TYPE_VALUES, getTotalPages, 
-  QueryParamsChannelsType,
-  QueryParamsChannelsSort,
-  QueryParamsStatsRange} from "podverse-helpers";
+  QUERY_PARAMS_CHANNELS_TYPE_VALUES, getTotalPages, QueryParamsChannelsType,
+  QueryParamsChannelsSort, QueryParamsStatsRange } from "podverse-helpers";
 import { z } from "zod";
+import { getDropdownConfig } from "./PodcastsDropdownConfig";
 import PodcastsClient from "./PodcastsClient";
 import { getSSRAuthService } from "../../utils/auth/ssrAuth";
 
@@ -53,7 +52,6 @@ export default async function Podcasts({ searchParams }: { searchParams?: Promis
 async function parseSearchParams(params: PodcastPageProps, isAuthenticated: boolean) {
   const parsed = searchParamsSchema.safeParse(params);
   if (!parsed.success) {
-    console.warn("Invalid search parameters:", parsed.error);
     return {};
   }
   const data = parsed.data;
@@ -61,52 +59,4 @@ async function parseSearchParams(params: PodcastPageProps, isAuthenticated: bool
     data.type = isAuthenticated ? "subscribed" : "all";
   }
   return data;
-}
-
-const typeDropdownMenuItems = [
-  { label: "All", param: "type", value: "all" },
-  { label: "Subscribed", param: "type", value: "subscribed" },
-  { label: "Category", param: "type", value: "category" }
-];
-
-const sortDropdownMenuItems = [
-  { label: "Recent", param: "sort", value: "recent" },
-  { label: "Oldest", param: "sort", value: "oldest" },
-  { label: "A - Z", param: "sort", value: "alphabetical" },
-  { label: "Top", param: "sort", value: "top" },
-];
-
-const rangeDropdownMenuItems = [
-  { label: "Day", param: "range", value: "day" },
-  { label: "Week", param: "range", value: "week" },
-  { label: "Month", param: "range", value: "month" },
-  { label: "All Time", param: "range", value: "all-time" },
-];
-
-function getDropdownConfig(type?: QueryParamsChannelsType, sort?: QueryParamsChannelsSort, range?: QueryParamsStatsRange) {
-  let currentSort = sort;
-  let currentRange = range;
-  let showRangeDropdown = false;
-
-  let typeMenuItems = typeDropdownMenuItems;
-  let sortMenuItems = sortDropdownMenuItems;
-  let rangeMenuItems = rangeDropdownMenuItems;
-
-  if (type === "all" || type === "category") {
-    sortMenuItems = [{ label: "Top", param: "sort", value: "top" }];
-    currentSort = "top";
-    currentRange = currentRange || "day";
-  } else if (type === "subscribed") {
-    sortMenuItems = sortDropdownMenuItems;
-    currentSort = currentSort || "alphabetical";
-  }
-
-  if (currentSort !== "top") {
-    showRangeDropdown = false;
-    rangeMenuItems = [];
-  } else {
-    showRangeDropdown = true;
-  }
-
-  return { typeMenuItems, sortMenuItems, rangeMenuItems, currentSort, currentRange, showRangeDropdown };
 }

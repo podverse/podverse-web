@@ -5,7 +5,6 @@ import { DTOAccount } from 'podverse-helpers';
 import { AccountProvider } from '../contexts/Account';
 import { ThemeProvider } from '../contexts/Theme';
 import { ModalsProvider } from '../contexts/Modals';
-import { LoadingSpinnerGlobalProvider } from '../contexts/LoadingGlobal';
 import { UITheme } from '../utils/theme';
 
 export default function Providers({
@@ -26,9 +25,7 @@ export default function Providers({
       <ThemeProvider initialTheme={theme}>
         <AccountProvider ssrLoggedInAccount={ssrLoggedInAccount}>
           <ModalsProvider>
-            <LoadingSpinnerGlobalProvider>
-              {children}
-            </LoadingSpinnerGlobalProvider>
+            {children}
           </ModalsProvider>
         </AccountProvider>
       </ThemeProvider>
