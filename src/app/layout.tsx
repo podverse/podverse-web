@@ -13,6 +13,7 @@ import { toUITheme } from '../utils/theme';
 import { Modals } from '../components/Modals/Modals';
 import { getSSRJwtFromCookies, getSSRLoggedInAccount } from '../utils/auth/ssrAuth';
 import AuthSessionChecker from '../components/Auth/AuthSessionChecker';
+import { apiRequestService } from '../factories/apiRequestService';
 
 export const metadata = {
   title: 'Podverse',
@@ -28,8 +29,11 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const ssrLoggedInAccount = await getSSRLoggedInAccount();
   const ssrShouldLogout = !!(jwt && !ssrLoggedInAccount);
 
-  const messages = (await import(`../../i18n/originals/${locale}.json`)).default;
+  const categoriesResponse = await apiRequestService.reqCategoryGetAll();
+  const categories = categoriesResponse.data;
 
+  const messages = (await import(`../../i18n/originals/${locale}.json`)).default;
+  
   return (
     <html lang={locale} data-theme={theme}>
       <head>
@@ -43,7 +47,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           locale={locale}
           ssrLoggedInAccount={ssrLoggedInAccount}
           theme={theme}
-          messages={messages}>
+          messages={messages}
+          categories={categories}>
           <WindowWrapper>
             <SideBar />
             <PageWrapper>

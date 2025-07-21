@@ -1,0 +1,15 @@
+.link {
+  color: var(--text-color-link);
+
+  &:hover,
+  &:focus {
+    color: var(--text-color-link-hover);
+    text-decoration: underline;
+  }
+
+  &:disabled {
+    color: var(--text-color-secondary);
+    cursor: not-allowed;
+    text-decoration: none;
+  }
+}

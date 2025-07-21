@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { DTOChannel } from "podverse-helpers";
+import { CategoryMappingKeys, DTOChannel, QueryParamsChannelsType } from "podverse-helpers";
 import React, { useRef } from "react";
 import ChannelListItem from "./ChannelsListItem";
 import CallToActionMessage from "../CallToActionMessage/CallToActionMessage";
@@ -15,9 +15,11 @@ type Props = {
   channels: DTOChannel[];
   totalPages: number;
   showSubscribeMessage: boolean;
+  type?: QueryParamsChannelsType;
+  category?: CategoryMappingKeys | null;
 };
 
-const ChannelList: React.FC<Props> = ({ page = 1, setPage, channels, totalPages, showSubscribeMessage }) => {
+const ChannelList: React.FC<Props> = ({ page = 1, setPage, channels, totalPages, showSubscribeMessage, type, category }) => {
   const topRef = useRef<HTMLDivElement>(null);
   const tInstructions = useTranslations("instructions");
   const tAuthentication = useTranslations("authentication");
@@ -26,11 +28,14 @@ const ChannelList: React.FC<Props> = ({ page = 1, setPage, channels, totalPages,
   useSkipInitialEffect(() => {
     topRef?.current?.scrollIntoView();
   }, [channels]);
+  
+  const showCallToAction = showSubscribeMessage;
+  const showPagination = !showSubscribeMessage;
 
   return (
     <>
       <div ref={topRef} />
-      {showSubscribeMessage && (
+      {showCallToAction && (
         <CallToActionMessage
           message={tInstructions("login_for_subscriptions")}
           buttonLabel={tAuthentication("login")}
@@ -38,7 +43,7 @@ const ChannelList: React.FC<Props> = ({ page = 1, setPage, channels, totalPages,
         />
       )}
       {
-        !showSubscribeMessage && (
+        showPagination && (
           <Pagination
             currentPage={page}
             maxButtons={5}

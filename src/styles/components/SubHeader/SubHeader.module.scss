@@ -1,0 +1,24 @@
+.subheader {
+  display: flex;
+  align-items: center;
+  padding: 1rem 0;
+}
+
+.subheaderContent {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex: 1;
+}
+
+.filterDropdowns {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-left: 2rem;
+}
+
+.filterDropdownWrapper {
+  display: flex;
+  align-items: center;
+}
