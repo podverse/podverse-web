@@ -52,7 +52,8 @@ export const PodcastsContextProvider = ({ children, initialQueryParams, ssrChann
           return;
         }
       }
-
+      
+      setShowSubscribeMessage(false);
       setIsLoading(true);
       const { currentSort, currentRange } = getCurrentSortAndRange({ type, sort, range });
       const channels = await apiRequestService.reqChannelGetMany({ page, type, sort: currentSort, range: currentRange, category });

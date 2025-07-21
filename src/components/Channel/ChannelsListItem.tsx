@@ -1,12 +1,12 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import Link from "next/link";
+import { DTOChannel, formatDateAbbrev } from "podverse-helpers";
 import React from "react";
 import Image from "../Image/Image";
-import styles from "../../styles/components/Channel/ChannelListItem.module.scss";
 import { ROUTES } from "../../constants/routes";
-import { DTOChannel, formatDateAbbrev } from "podverse-helpers";
-import { useTranslations } from "next-intl";
+import styles from "../../styles/components/Channel/ChannelsListItem.module.scss";
 
 interface Props {
   channel: DTOChannel;

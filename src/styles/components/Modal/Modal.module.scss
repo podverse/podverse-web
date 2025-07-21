@@ -1,3 +1,5 @@
+@use "breakpoints";
+
 .modalRoot {
   position: fixed;
   inset: 0;
@@ -57,5 +59,11 @@
   padding: 1.5rem 1.5rem 2rem 1.5rem;
   display: flex;
   flex-direction: column;
-  min-width: 320px;
+  min-width: 360px;
+}
+
+@media (max-width: breakpoints.$breakpoint-md) {
+  .modalContent {
+    min-width: 320px;
+  }
 }
