@@ -1,19 +1,15 @@
 "use client";
 
-import { CategoryMappingKeys, DTOChannel, QueryParamChannels, QueryParamsChannelsSort,
-  QueryParamsChannelsType, QueryParamsStatsRange } from "podverse-helpers";
+import { DTOChannel, QueryParamChannels } from "podverse-helpers";
 import React, { createContext, useContext, useState, ReactNode } from "react";
 import { apiRequestService } from "../../factories/apiRequestService";
 import { useAccount } from "../../contexts/Account";
 import { useSkipInitialEffect } from "../../hooks/useSkipInitialEffect";
 import { getCurrentSortAndRange } from "./PodcastsDropdownConfig";
 
-interface PodcastsContextType extends QueryParamChannels {
-  setPage: (page: number) => void;
-  setType: (type: QueryParamsChannelsType) => void;
-  setSort: (sort: QueryParamsChannelsSort) => void;
-  setRange: (range: QueryParamsStatsRange) => void;
-  setCategory: (category: CategoryMappingKeys | undefined) => void;
+interface PodcastsContextType {
+  queryParams: QueryParamChannels;
+  setQueryParams: (params: QueryParamChannels) => void;
   channels: DTOChannel[];
   setChannels: (channels: DTOChannel[]) => void;
   totalPages: number;
@@ -32,11 +28,7 @@ export const PodcastsContextProvider = ({ children, initialQueryParams, ssrChann
   ssrChannels: DTOChannel[],
   ssrTotalPages: number
 }) => {
-  const [page, setPage] = useState(initialQueryParams.page);
-  const [type, setType] = useState(initialQueryParams.type);
-  const [sort, setSort] = useState(initialQueryParams.sort);
-  const [range, setRange] = useState(initialQueryParams.range);
-  const [category, setCategory] = useState<string | undefined>(initialQueryParams.category);
+  const [queryParams, setQueryParams] = useState<QueryParamChannels>(initialQueryParams);
   const [channels, setChannels] = useState<DTOChannel[]>(ssrChannels || []);
   const [totalPages, setTotalPages] = useState<number>(ssrTotalPages || 1);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -45,31 +37,28 @@ export const PodcastsContextProvider = ({ children, initialQueryParams, ssrChann
 
   useSkipInitialEffect(() => {
     async function fetchChannels() {
-      if (type === "subscribed") {
+      if (queryParams.type === "subscribed") {
         if (!loggedInAccount) {
           setChannels([]);
           setShowSubscribeMessage(true);
           return;
         }
       }
-      
+
       setShowSubscribeMessage(false);
       setIsLoading(true);
-      const { currentSort, currentRange } = getCurrentSortAndRange({ type, sort, range });
-      const channels = await apiRequestService.reqChannelGetMany({ page, type, sort: currentSort, range: currentRange, category });
+      const { currentSort, currentRange } = getCurrentSortAndRange({ type: queryParams.type, sort: queryParams.sort, range: queryParams.range });
+      const channels = await apiRequestService.reqChannelGetMany({ ...queryParams, sort: currentSort, range: currentRange });
       setChannels(channels.data);
       setIsLoading(false);
     }
     fetchChannels();
-  }, [page, type, sort, range, category])
+  }, [queryParams, loggedInAccount]);
 
   return (
     <PodcastsContext.Provider value={{
-      page, setPage,
-      type, setType,
-      sort, setSort,
-      range, setRange,
-      category, setCategory,
+      queryParams,
+      setQueryParams,
       channels, setChannels,
       totalPages, setTotalPages,
       isLoading, setIsLoading,

@@ -16,7 +16,8 @@ import { usePodcastsContext } from "./PodcastsContext";
 import { getDropdownConfig } from "./PodcastsDropdownConfig";
 
 const PodcastsHeader: React.FC = () => {
-  const { type, setType, sort, setSort, range, setRange } = usePodcastsContext();
+  const { queryParams, setQueryParams } = usePodcastsContext();
+  const { type, sort, range } = queryParams;
   const tMedia = useTranslations('media');
   const tFilters = useTranslations('filters');
   const { typeMenuItems, sortMenuItems, rangeMenuItems, showRangeDropdown
@@ -40,9 +41,13 @@ const PodcastsHeader: React.FC = () => {
           key="type"
           value={type ?? ""}
           menuItems={typeMenuItems}
-          onChange={v => {
-            if (isChannelType(v)) {
-              setType(v);
+          onChange={value => {
+            if (isChannelType(value)) {
+              if (value === "all" || value === "category") {
+                setQueryParams({ ...queryParams, type: value, sort: "top" });
+              } else {
+                setQueryParams({ ...queryParams, type: value });
+              }
             }
           }}
         />,
@@ -50,9 +55,9 @@ const PodcastsHeader: React.FC = () => {
           key="sort"
           value={sort ?? ""}
           menuItems={sortMenuItems}
-          onChange={v => {
-            if (isChannelSort(v)) {
-              setSort(v);
+          onChange={value => {
+            if (isChannelSort(value)) {
+              setQueryParams({ ...queryParams, sort: value });
             }
           }}
         />,
@@ -61,9 +66,9 @@ const PodcastsHeader: React.FC = () => {
             key="range"
             value={range ?? ""}
             menuItems={rangeMenuItems}
-            onChange={v => {
-              if (isStatsRange(v)) {
-                setRange(v);
+            onChange={value => {
+              if (isStatsRange(value)) {
+                setQueryParams({ ...queryParams, range: value });
               }
             }}
           />
