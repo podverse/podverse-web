@@ -1,49 +1,65 @@
 import { QueryParamsChannelsType, QueryParamsChannelsSort, QueryParamsStatsRange } from "podverse-helpers";
 
-export const typeDropdownMenuItems = [
-  { label: "All", param: "type", value: "all" },
-  { label: "Subscribed", param: "type", value: "subscribed" },
-  { label: "Category", param: "type", value: "category" }
-];
+export function getDropdownConfig({ type, sort, tFilters }: {
+  sort?: QueryParamsChannelsSort,
+  type?: QueryParamsChannelsType,
+  tFilters: (key: string) => string
+}) {
+  const sortTop = { label: tFilters("sort.top"), param: "sort", value: "top" };
 
-export const sortDropdownMenuItems = [
-  { label: "Recent", param: "sort", value: "recent" },
-  { label: "Oldest", param: "sort", value: "oldest" },
-  { label: "A - Z", param: "sort", value: "alphabetical" },
-  { label: "Top", param: "sort", value: "top" },
-];
+  let typeDropdownMenuItems = [
+    { label: tFilters("type.all"), param: "type", value: "all" },
+    { label: tFilters("type.subscribed"), param: "type", value: "subscribed" },
+    { label: tFilters("type.category"), param: "type", value: "category" }
+  ];
 
-export const rangeDropdownMenuItems = [
-  { label: "Day", param: "range", value: "day" },
-  { label: "Week", param: "range", value: "week" },
-  { label: "Month", param: "range", value: "month" },
-  { label: "All Time", param: "range", value: "all-time" },
-];
+  let sortDropdownMenuItems = [
+    { label: tFilters("sort.recent"), param: "sort", value: "recent" },
+    { label: tFilters("sort.oldest"), param: "sort", value: "oldest" },
+    { label: tFilters("sort.a_z"), param: "sort", value: "alphabetical" },
+    sortTop
+  ];
 
-export function getDropdownConfig(type?: QueryParamsChannelsType, sort?: QueryParamsChannelsSort, range?: QueryParamsStatsRange) {
-  let currentSort = sort;
-  let currentRange = range;
-  let showRangeDropdown = false;
-
-  let typeMenuItems = typeDropdownMenuItems;
-  let sortMenuItems = sortDropdownMenuItems;
-  let rangeMenuItems = rangeDropdownMenuItems;
+  let rangeDropdownMenuItems = [
+    { label: tFilters("range.day"), param: "range", value: "day" },
+    { label: tFilters("range.week"), param: "range", value: "week" },
+    { label: tFilters("range.month"), param: "range", value: "month" },
+    { label: tFilters("range.all_time"), param: "range", value: "all-time" },
+  ];
 
   if (type === "all" || type === "category") {
-    sortMenuItems = [{ label: "Top", param: "sort", value: "top" }];
-    currentSort = "top";
-    currentRange = currentRange || "day";
-  } else if (type === "subscribed") {
-    sortMenuItems = sortDropdownMenuItems;
-    currentSort = currentSort || "alphabetical";
+    sortDropdownMenuItems = [sortTop];
   }
-
-  if (currentSort !== "top") {
-    showRangeDropdown = false;
-    rangeMenuItems = [];
-  } else {
+  
+  let showRangeDropdown = false;
+  if (sort === "top") {
     showRangeDropdown = true;
   }
 
-  return { typeMenuItems, sortMenuItems, rangeMenuItems, currentSort, currentRange, showRangeDropdown };
+  return {
+    typeMenuItems: typeDropdownMenuItems,
+    sortMenuItems: sortDropdownMenuItems,
+    rangeMenuItems: rangeDropdownMenuItems,
+    showRangeDropdown,
+  };
+}
+
+type QueryParamConfig = {
+  type?: QueryParamsChannelsType;
+  sort?: QueryParamsChannelsSort;
+  range?: QueryParamsStatsRange;
+}
+
+export function getCurrentSortAndRange({ type, sort, range }: QueryParamConfig) {
+  let currentSort = sort;
+  let currentRange = range;
+
+  if (type === "all" || type === "category") {
+    currentSort = "top";
+    currentRange = currentRange || "day";
+  } else if (type === "subscribed") {
+    currentSort = currentSort || "alphabetical";
+  }
+
+  return { currentSort, currentRange };
 }

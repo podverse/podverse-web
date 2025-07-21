@@ -6,6 +6,7 @@ import React, { createContext, useContext, useState, ReactNode } from "react";
 import { apiRequestService } from "../../factories/apiRequestService";
 import { useAccount } from "../../contexts/Account";
 import { useSkipInitialEffect } from "../../hooks/useSkipInitialEffect";
+import { getCurrentSortAndRange } from "./PodcastsDropdownConfig";
 
 interface PodcastsContextType extends QueryParamChannels {
   setPage: (page: number) => void;
@@ -53,7 +54,8 @@ export const PodcastsContextProvider = ({ children, initialQueryParams, ssrChann
       }
 
       setIsLoading(true);
-      const channels = await apiRequestService.reqChannelGetMany({ page, type, sort, range, category });
+      const { currentSort, currentRange } = getCurrentSortAndRange({ type, sort, range });
+      const channels = await apiRequestService.reqChannelGetMany({ page, type, sort: currentSort, range: currentRange, category });
       setChannels(channels.data);
       setIsLoading(false);
     }

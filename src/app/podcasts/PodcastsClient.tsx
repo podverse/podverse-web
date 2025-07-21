@@ -1,30 +1,21 @@
 
 "use client";
 
+import { DTOChannel, QueryParamChannels } from "podverse-helpers";
 import React from "react";
 import { PodcastsContextProvider } from "./PodcastsContext";
 import MainWrapper from "../../components/MainWrapper/MainWrapper";
-import { DTOChannel, QueryParamChannels } from "podverse-helpers";
-import type { MenuItem } from "../../components/FilterDropdown/FilterDropdown";
 import PodcastsHeader from "./PodcastsHeader";
 import PodcastsList from "./PodcastsList";
-
-interface DropdownConfig {
-  typeMenuItems: MenuItem[];
-  sortMenuItems: MenuItem[];
-  rangeMenuItems: MenuItem[];
-  showRangeDropdown: boolean;
-}
 
 interface PodcastsClientProps {
   initialQueryParams: QueryParamChannels;
   ssrChannels: DTOChannel[];
   ssrTotalPages: number;
-  dropdownConfig: DropdownConfig;
 }
 
 export default function PodcastsClient(props: PodcastsClientProps) {
-  const { initialQueryParams, ssrChannels, ssrTotalPages, dropdownConfig } = props;
+  const { initialQueryParams, ssrChannels, ssrTotalPages } = props;
   
   return (
     <PodcastsContextProvider
@@ -32,7 +23,7 @@ export default function PodcastsClient(props: PodcastsClientProps) {
       ssrChannels={ssrChannels}
       ssrTotalPages={ssrTotalPages}
     >
-      <PodcastsHeader dropdownConfig={dropdownConfig} />
+      <PodcastsHeader />
       <MainWrapper>
         <PodcastsList />
       </MainWrapper>

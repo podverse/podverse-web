@@ -2,7 +2,7 @@ import { CATEGORY_MAPPING_KEYS, QUERY_PARAMS_STATS_RANGE_VALUES, QUERY_PARAMS_CH
   QUERY_PARAMS_CHANNELS_TYPE_VALUES, getTotalPages, QueryParamsChannelsType,
   QueryParamsChannelsSort, QueryParamsStatsRange } from "podverse-helpers";
 import { z } from "zod";
-import { getDropdownConfig } from "./PodcastsDropdownConfig";
+import { getCurrentSortAndRange, getDropdownConfig } from "./PodcastsDropdownConfig";
 import PodcastsClient from "./PodcastsClient";
 import { getSSRAuthService } from "../../utils/auth/ssrAuth";
 
@@ -26,9 +26,8 @@ export default async function Podcasts({ searchParams }: { searchParams?: Promis
   const params = searchParams ? await searchParams : {};
   const { page = 1, sort = defaultValueSort, type = defaultValueType, range = defaultValueRange,
     category } = await parseSearchParams(params, isValidAuthSession);
-
-  const { typeMenuItems, sortMenuItems, rangeMenuItems, currentSort, currentRange,
-    showRangeDropdown } = getDropdownConfig(type, sort, range);
+  
+  const { currentSort, currentRange } = getCurrentSortAndRange({ type, sort, range });
 
   const response = await apiRequestService.reqChannelGetMany({
     page,
@@ -36,6 +35,7 @@ export default async function Podcasts({ searchParams }: { searchParams?: Promis
     type,
     range: currentRange
   });
+  
   const ssrChannels = response.data;
   const ssrTotalPages = getTotalPages(response.meta.count, response.meta.limit);
 
@@ -44,7 +44,6 @@ export default async function Podcasts({ searchParams }: { searchParams?: Promis
       initialQueryParams={{ page, type, sort, range, category }}
       ssrChannels={ssrChannels}
       ssrTotalPages={ssrTotalPages}
-      dropdownConfig={{ typeMenuItems, sortMenuItems, rangeMenuItems, showRangeDropdown }}
     />
   );
 }

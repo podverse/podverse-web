@@ -13,23 +13,14 @@ import React from "react";
 import FilterDropdown from "../../components/FilterDropdown/FilterDropdown";
 import Header from "../../components/Header/Header";
 import { usePodcastsContext } from "./PodcastsContext";
-import type { MenuItem } from "../../components/FilterDropdown/FilterDropdown";
+import { getDropdownConfig } from "./PodcastsDropdownConfig";
 
-interface DropdownConfig {
-  typeMenuItems: MenuItem[];
-  sortMenuItems: MenuItem[];
-  rangeMenuItems: MenuItem[];
-  showRangeDropdown: boolean;
-}
-
-interface PodcastsHeaderProps {
-  dropdownConfig: DropdownConfig;
-}
-
-const PodcastsHeader: React.FC<PodcastsHeaderProps> = ({ dropdownConfig }) => {
+const PodcastsHeader: React.FC = () => {
   const { type, setType, sort, setSort, range, setRange } = usePodcastsContext();
   const tMedia = useTranslations('media');
-  const { typeMenuItems, sortMenuItems, rangeMenuItems, showRangeDropdown } = dropdownConfig;
+  const tFilters = useTranslations('filters');
+  const { typeMenuItems, sortMenuItems, rangeMenuItems, showRangeDropdown
+    } = getDropdownConfig({ type, sort, tFilters });
 
   function isChannelType(val: string): val is QueryParamsChannelsType {
     return QUERY_PARAMS_CHANNELS_TYPE_VALUES.includes(val as QueryParamsChannelsType);
