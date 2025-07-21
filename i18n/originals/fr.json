@@ -1,5 +1,69 @@
 {
-  "HomePage": {
-    "title": "Bonjour le monde !"
+  "_sample": {
+    "hello_world": "Bonjour, le Monde!!!"
+  },
+  "media": {
+    "podcast": {
+      "audio": "Audio",
+      "podcasting": "Podcasting",
+      "podcast": "Podcast",
+      "podcasts": "Podcasts",
+      "episode": "Épisode",
+      "episodes": "Épisodes"
+    },
+    "music": {
+      "music": "Musique",
+      "artist": "Artiste",
+      "artists": "Artistes",
+      "albums": "Albums",
+      "track": "Suivre",
+      "tracks": "Pistes"
+    },
+    "video": {
+      "channel": "Chaîne",
+      "channels": "Canaux",
+      "video": "Vidéo",
+      "videos": "Vidéos"
+    },
+    "clips": "Clips",
+    "livestreams": "Diffusions en direct",
+    "last_updated": "Dernière mise à jour : {date}"
+  },
+  "features": {
+    "search": "Rechercher",
+    "my_library": "Ma bibliothèque",
+    "queue": "File d'attente",
+    "history": "Histoire",
+    "playlist": "Liste de lecture",
+    "playlists": "Listes de lecture",
+    "my_clips": "Mes Clips",
+    "my_profile": "Mon Profil",
+    "profile": "Profil",
+    "profiles": "Profils"
+  },
+  "filters": {
+    "type": {
+      "all": "Tous",
+      "subscribed": "Abonné",
+      "category": "Catégorie"
+    },
+    "sort": {
+      "recent": "Récent",
+      "oldest": "Le plus ancien",
+      "a_z": "A-Z",
+      "top": "Haut"
+    },
+    "range": {
+      "day": "Jour",
+      "week": "Semaine",
+      "month": "Mois",
+      "all_time": "Tout le temps"
+    }
+  },
+  "settings": {
+    "ui_theme": {
+      "light": "☀️ Lumière",
+      "dark": "🌙 Sombre"
+    }
   }
 }

@@ -41,6 +41,25 @@
     "profile": "Profile",
     "profiles": "Profiles"
   },
+  "filters": {
+    "type": {
+      "all": "All",
+      "subscribed": "Subscribed",
+      "category": "Category"
+    },
+    "sort": {
+      "recent": "Recent",
+      "oldest": "Oldest",
+      "a_z": "A-Z",
+      "top": "Top"
+    },
+    "range": {
+      "day": "Day",
+      "week": "Week",
+      "month": "Month",
+      "all_time": "All Time"
+    }
+  },
   "settings": {
     "ui_theme": {
       "light": "☀️ Light",
