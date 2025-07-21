@@ -2,7 +2,7 @@ import { CATEGORY_MAPPING_KEYS, QUERY_PARAMS_STATS_RANGE_VALUES, QUERY_PARAMS_CH
   QUERY_PARAMS_CHANNELS_TYPE_VALUES, getTotalPages, QueryParamsChannelsType,
   QueryParamsChannelsSort, QueryParamsStatsRange } from "podverse-helpers";
 import { z } from "zod";
-import { getCurrentSortAndRange, getDropdownConfig } from "./PodcastsDropdownConfig";
+import { getCurrentSortAndRange } from "./PodcastsDropdownConfig";
 import PodcastsClient from "./PodcastsClient";
 import { getSSRAuthService } from "../../utils/auth/ssrAuth";
 
