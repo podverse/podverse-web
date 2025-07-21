@@ -5,7 +5,7 @@ import LoadingSpinnerOverlay from "../../components/LoadingSpinner/LoadingSpinne
 
 const PodcastsList: React.FC = () => {
   const { queryParams, setQueryParams, channels, totalPages, isLoading, showSubscribeMessage } = usePodcastsContext();
-  const { page = 1 } = queryParams;
+  const { page = 1, type, category } = queryParams;
 
   return (
     <>
@@ -15,6 +15,8 @@ const PodcastsList: React.FC = () => {
         channels={channels}
         totalPages={totalPages}
         showSubscribeMessage={showSubscribeMessage}
+        type={type}
+        category={category}
       />
       <LoadingSpinnerOverlay isLoading={isLoading} />
     </>

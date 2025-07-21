@@ -14,14 +14,17 @@ import FilterDropdown from "../../components/FilterDropdown/FilterDropdown";
 import Header from "../../components/Header/Header";
 import { usePodcastsContext } from "./PodcastsContext";
 import { getDropdownConfig } from "./PodcastsDropdownConfig";
+import { useRouter } from "next/navigation";
 
 const PodcastsHeader: React.FC = () => {
   const { queryParams, setQueryParams } = usePodcastsContext();
-  const { type, sort, range } = queryParams;
+  const { type, sort, range, category } = queryParams;
   const tMedia = useTranslations('media');
   const tFilters = useTranslations('filters');
   const { typeMenuItems, sortMenuItems, rangeMenuItems, showRangeDropdown
-    } = getDropdownConfig({ type, sort, tFilters });
+    } = getDropdownConfig({ type, sort, category, tFilters });
+
+  const router = useRouter();
 
   function isChannelType(val: string): val is QueryParamsChannelsType {
     return QUERY_PARAMS_CHANNELS_TYPE_VALUES.includes(val as QueryParamsChannelsType);
@@ -43,10 +46,12 @@ const PodcastsHeader: React.FC = () => {
           menuItems={typeMenuItems}
           onChange={value => {
             if (isChannelType(value)) {
-              if (value === "all" || value === "category") {
-                setQueryParams({ ...queryParams, type: value, sort: "top", page: 1 });
+              if (value === "all") {
+                setQueryParams({ ...queryParams, type: value, sort: "top", page: 1, category: undefined });
+              } else if (value === "category") {
+                router.push("/podcasts/categories");
               } else {
-                setQueryParams({ ...queryParams, type: value, sort: "alphabetical", page: 1 });
+                setQueryParams({ ...queryParams, type: value, sort: "alphabetical", page: 1, category: undefined });
               }
             }
           }}

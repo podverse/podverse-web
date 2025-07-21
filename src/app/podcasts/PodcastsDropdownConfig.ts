@@ -1,8 +1,10 @@
-import { QueryParamsChannelsType, QueryParamsChannelsSort, QueryParamsStatsRange } from "podverse-helpers";
+import { QueryParamsChannelsType, QueryParamsChannelsSort, QueryParamsStatsRange,
+  CategoryMappingKeys } from "podverse-helpers";
 
-export function getDropdownConfig({ type, sort, tFilters }: {
+export function getDropdownConfig({ type, sort, category, tFilters }: {
   sort?: QueryParamsChannelsSort,
   type?: QueryParamsChannelsType,
+  category?: CategoryMappingKeys | null,
   tFilters: (key: string) => string
 }) {
   const sortTop = { label: tFilters("sort.top"), param: "sort", value: "top" };
@@ -27,11 +29,12 @@ export function getDropdownConfig({ type, sort, tFilters }: {
     { label: tFilters("range.all_time"), param: "range", value: "all-time" },
   ];
 
-  if (type === "all" || type === "category") {
+  let showRangeDropdown = false;
+  if (type === "all" || category) {
     sortDropdownMenuItems = [sortTop];
+    showRangeDropdown = true;
   }
   
-  let showRangeDropdown = false;
   if (sort === "top") {
     showRangeDropdown = true;
   }
@@ -40,7 +43,7 @@ export function getDropdownConfig({ type, sort, tFilters }: {
     typeMenuItems: typeDropdownMenuItems,
     sortMenuItems: sortDropdownMenuItems,
     rangeMenuItems: rangeDropdownMenuItems,
-    showRangeDropdown,
+    showRangeDropdown
   };
 }
 
@@ -48,18 +51,24 @@ type QueryParamConfig = {
   type?: QueryParamsChannelsType;
   sort?: QueryParamsChannelsSort;
   range?: QueryParamsStatsRange;
+  category?: CategoryMappingKeys | null;
 }
 
-export function getCurrentSortAndRange({ type, sort, range }: QueryParamConfig) {
+export function getChannelQueryParams({ type, sort, range, category }: QueryParamConfig) {
   let currentSort = sort;
   let currentRange = range;
+  let currentType = type;
 
-  if (type === "all" || type === "category") {
+  if (category) {
+    currentType = "category";
+    currentSort = currentSort || "top";
+    currentRange = currentRange || "day";
+  } else if (type === "all") {
     currentSort = "top";
     currentRange = currentRange || "day";
   } else if (type === "subscribed") {
     currentSort = currentSort || "alphabetical";
   }
 
-  return { currentSort, currentRange };
+  return { currentSort, currentRange, currentType };
 }

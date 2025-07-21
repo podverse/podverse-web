@@ -1,11 +1,12 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { DTOChannel, getTotalPages, QueryParamChannels } from "podverse-helpers";
 import React, { createContext, useContext, useState, ReactNode } from "react";
 import { apiRequestService } from "../../factories/apiRequestService";
 import { useAccount } from "../../contexts/Account";
 import { useSkipInitialEffect } from "../../hooks/useSkipInitialEffect";
-import { getCurrentSortAndRange } from "./PodcastsDropdownConfig";
+import { getChannelQueryParams } from "./PodcastsDropdownConfig";
 
 interface PodcastsContextType {
   queryParams: QueryParamChannels;
@@ -28,6 +29,7 @@ export const PodcastsContextProvider = ({ children, initialQueryParams, ssrChann
   ssrChannels: DTOChannel[],
   ssrTotalPages: number
 }) => {
+  const router = useRouter();
   const [queryParams, setQueryParams] = useState<QueryParamChannels>(initialQueryParams);
   const [channels, setChannels] = useState<DTOChannel[]>(ssrChannels || []);
   const [totalPages, setTotalPages] = useState<number>(ssrTotalPages || 1);
@@ -45,13 +47,30 @@ export const PodcastsContextProvider = ({ children, initialQueryParams, ssrChann
         }
       }
 
-      setShowSubscribeMessage(false);
       setIsLoading(true);
-      const { currentSort, currentRange } = getCurrentSortAndRange({ type: queryParams.type, sort: queryParams.sort, range: queryParams.range });
-      const response = await apiRequestService.reqChannelGetMany({ ...queryParams, sort: currentSort, range: currentRange });
+
+      const { currentSort, currentRange, currentType } = getChannelQueryParams({
+        type: queryParams.type,
+        sort: queryParams.sort,
+        range: queryParams.range,
+        category: queryParams.category
+      });
+
+      const response = await apiRequestService.reqChannelGetMany({
+        ...queryParams,
+        type: currentType,
+        sort: currentSort,
+        range: currentRange
+      });
+
+      if (!queryParams.category) {
+        router.replace("/podcasts");
+      }
+
       const totalPages = getTotalPages(response.meta.count, response.meta.limit);
       setTotalPages(totalPages);
       setChannels(response.data);
+      setShowSubscribeMessage(false);
       setIsLoading(false);
     }
     fetchChannels();
