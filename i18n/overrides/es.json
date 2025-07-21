@@ -60,6 +60,19 @@
       "all_time": "Todo el tiempo"
     }
   },
+  "instructions": {
+    "login_for_subscriptions": "Por favor, inicie sesión para ver sus suscripciones."
+  },
+  "authentication": {
+    "login": "Iniciar sesión",
+    "logout": "Cerrar sesión",
+    "sign_up": "Registrarse",
+    "forgot_password": "¿Olvidaste tu contraseña?",
+    "reset_password": "Restablecer contraseña",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "confirm_password": "Confirmar contraseña"
+  },
   "settings": {
     "ui_theme": {
       "light": "☀️ Luz",

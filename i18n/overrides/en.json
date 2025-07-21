@@ -60,6 +60,19 @@
       "all_time": "All Time"
     }
   },
+  "instructions": {
+    "login_for_subscriptions": "Please login to view your subscriptions."
+  },
+  "authentication": {
+    "login": "Login",
+    "logout": "Logout",
+    "sign_up": "Sign Up",
+    "forgot_password": "Forgot Password?",
+    "reset_password": "Reset Password",
+    "email": "Email",
+    "password": "Password",
+    "confirm_password": "Confirm Password"
+  },
   "settings": {
     "ui_theme": {
       "light": "☀️ Light",

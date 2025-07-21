@@ -60,6 +60,19 @@
       "all_time": "Tout le temps"
     }
   },
+  "instructions": {
+    "login_for_subscriptions": "Veuillez vous connecter pour voir vos abonnements."
+  },
+  "authentication": {
+    "login": "Connexion",
+    "logout": "Déconnexion",
+    "sign_up": "S'inscrire",
+    "forgot_password": "Mot de passe oublié ?",
+    "reset_password": "Réinitialiser le mot de passe",
+    "email": "Email",
+    "password": "Mot de passe",
+    "confirm_password": "Confirmer le mot de passe"
+  },
   "settings": {
     "ui_theme": {
       "light": "☀️ Lumière",
