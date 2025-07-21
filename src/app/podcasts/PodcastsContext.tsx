@@ -1,6 +1,6 @@
 "use client";
 
-import { DTOChannel, QueryParamChannels } from "podverse-helpers";
+import { DTOChannel, getTotalPages, QueryParamChannels } from "podverse-helpers";
 import React, { createContext, useContext, useState, ReactNode } from "react";
 import { apiRequestService } from "../../factories/apiRequestService";
 import { useAccount } from "../../contexts/Account";
@@ -48,8 +48,10 @@ export const PodcastsContextProvider = ({ children, initialQueryParams, ssrChann
       setShowSubscribeMessage(false);
       setIsLoading(true);
       const { currentSort, currentRange } = getCurrentSortAndRange({ type: queryParams.type, sort: queryParams.sort, range: queryParams.range });
-      const channels = await apiRequestService.reqChannelGetMany({ ...queryParams, sort: currentSort, range: currentRange });
-      setChannels(channels.data);
+      const response = await apiRequestService.reqChannelGetMany({ ...queryParams, sort: currentSort, range: currentRange });
+      const totalPages = getTotalPages(response.meta.count, response.meta.limit);
+      setTotalPages(totalPages);
+      setChannels(response.data);
       setIsLoading(false);
     }
     fetchChannels();
