@@ -46,7 +46,7 @@ const PodcastsHeader: React.FC = () => {
               if (value === "all" || value === "category") {
                 setQueryParams({ ...queryParams, type: value, sort: "top" });
               } else {
-                setQueryParams({ ...queryParams, type: value });
+                setQueryParams({ ...queryParams, type: value, sort: "alphabetical" });
               }
             }
           }}
