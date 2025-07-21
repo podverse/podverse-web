@@ -1,13 +1,10 @@
-import { getTranslations } from "next-intl/server";
-import React from "react";
-import { z } from "zod";
-import FilterDropdown from "../../components/FilterDropdown/FilterDropdown";
-import Header from "../../components/Header/Header";
-import MainWrapper from "../../components/MainWrapper/MainWrapper";
-import PodcastList from "../../components/Podcast/PodcastList";
 import { CATEGORY_MAPPING_KEYS, QUERY_PARAMS_STATS_RANGE_VALUES, QUERY_PARAMS_CHANNELS_SORT_VALUES,
-  QUERY_PARAMS_CHANNELS_TYPE_VALUES, QueryParamsChannelsSort, QueryParamsChannelsType,
-  QueryParamsStatsRange, getTotalPages} from "podverse-helpers";
+  QUERY_PARAMS_CHANNELS_TYPE_VALUES, getTotalPages, 
+  QueryParamsChannelsType,
+  QueryParamsChannelsSort,
+  QueryParamsStatsRange} from "podverse-helpers";
+import { z } from "zod";
+import PodcastsClient from "./PodcastsClient";
 import { getSSRAuthService } from "../../utils/auth/ssrAuth";
 
 const searchParamsSchema = z.object({
@@ -18,7 +15,40 @@ const searchParamsSchema = z.object({
   category: z.enum(CATEGORY_MAPPING_KEYS as [string, ...string[]]).optional(),
 });
 
-type PodcastPageProps = z.infer<typeof searchParamsSchema>;
+export type PodcastPageProps = z.infer<typeof searchParamsSchema>;
+
+export default async function Podcasts({ searchParams }: { searchParams?: Promise<PodcastPageProps> }) {
+  const { isValidAuthSession, apiRequestService } = await getSSRAuthService();
+  
+  const defaultValueType: QueryParamsChannelsType = isValidAuthSession ? "subscribed" : "all";
+  const defaultValueSort: QueryParamsChannelsSort = isValidAuthSession ? "alphabetical" : "top";
+  const defaultValueRange: QueryParamsStatsRange = "day";
+  
+  const params = searchParams ? await searchParams : {};
+  const { page = 1, sort = defaultValueSort, type = defaultValueType, range = defaultValueRange,
+    category } = await parseSearchParams(params, isValidAuthSession);
+
+  const { typeMenuItems, sortMenuItems, rangeMenuItems, currentSort, currentRange,
+    showRangeDropdown } = getDropdownConfig(type, sort, range);
+
+  const response = await apiRequestService.reqChannelGetMany({
+    page,
+    sort: currentSort,
+    type,
+    range: currentRange
+  });
+  const ssrChannels = response.data;
+  const ssrTotalPages = getTotalPages(response.meta.count, response.meta.limit);
+
+  return (
+    <PodcastsClient
+      initialQueryParams={{ page, type, sort, range, category }}
+      ssrChannels={ssrChannels}
+      ssrTotalPages={ssrTotalPages}
+      dropdownConfig={{ typeMenuItems, sortMenuItems, rangeMenuItems, showRangeDropdown }}
+    />
+  );
+}
 
 async function parseSearchParams(params: PodcastPageProps, isAuthenticated: boolean) {
   const parsed = searchParamsSchema.safeParse(params);
@@ -31,48 +61,6 @@ async function parseSearchParams(params: PodcastPageProps, isAuthenticated: bool
     data.type = isAuthenticated ? "subscribed" : "all";
   }
   return data;
-}
-
-export default async function Podcasts({ searchParams }: { searchParams?: Promise<PodcastPageProps> }) {
-  const tMedia = await getTranslations('media');
-  const params = searchParams ? await searchParams : {};
-
-  const { isValidAuthSession, apiRequestService } = await getSSRAuthService();
-
-  const { page, sort, type, range } = await parseSearchParams(params, isValidAuthSession);
-
-  const {
-    typeMenuItems,
-    sortMenuItems,
-    rangeMenuItems,
-    currentSort,
-    currentRange,
-    showRangeDropdown
-  } = getDropdownConfig(type, sort, range);
-
-  const response = await apiRequestService.reqChannelGetMany({ page, sort: currentSort, type, range: currentRange });
-  const ssrChannels = response.data;
-  const ssrTotalPages = getTotalPages(response.meta.count, response.meta.limit);
-
-  const defaultValueType = isValidAuthSession ? "subscribed" : "all";
-  const defaultValueSort = isValidAuthSession ? "alphabetical" : "top";
-  const defaultValueRange = "day";
-  
-  return (
-    <>
-      <Header
-        title={tMedia("podcast.podcasts")}
-        filterDropdowns={[
-          <FilterDropdown key="type" defaultValue={defaultValueType} menuItems={typeMenuItems} clearOtherParams />,
-          <FilterDropdown key="sort" defaultValue={defaultValueSort} menuItems={sortMenuItems} />,
-          showRangeDropdown && <FilterDropdown key="range" defaultValue={defaultValueRange} menuItems={rangeMenuItems} />
-        ].filter(Boolean)}
-      />
-      <MainWrapper>
-        <PodcastList ssrChannels={ssrChannels} ssrTotalPages={ssrTotalPages} />
-      </MainWrapper>
-    </>
-  );
 }
 
 const typeDropdownMenuItems = [

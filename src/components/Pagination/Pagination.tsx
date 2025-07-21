@@ -1,5 +1,6 @@
+"use client";
+
 import React from "react";
-import { useRouter, useSearchParams } from "next/navigation";
 import styles from "../../styles/components/Pagination/Pagination.module.scss";
 import NavArrowButton from "../NavArrowButton/NavArrowButton";
 
@@ -44,22 +45,11 @@ const Pagination: React.FC<PaginationProps> = ({
   children,
   maxButtons = 5,
 }) => {
-  const router = useRouter();
-  const searchParams = useSearchParams();
+  const pageNumbers = getPageRange(currentPage, totalPages, maxButtons);
 
   const handlePageChange = (page: number) => {
-    const params = new URLSearchParams(searchParams.toString());
-    if (page === 1) {
-      params.delete("page");
-    } else {
-      params.set("page", page.toString());
-    }
-    const url = `?${params.toString()}`;
     onPageChange(page);
-    router.push(url);
   };
-
-  const pageNumbers = getPageRange(currentPage, totalPages, maxButtons);
 
   return (
     <div className={styles.pagination}>

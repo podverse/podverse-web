@@ -2,72 +2,46 @@
 
 import classNames from "classnames";
 import React, { useRef, useMemo } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
 import { FaChevronDown } from "react-icons/fa";
 import styles from "../../styles/components/FilterDropdown/FilterDropdown.module.scss";
 import DropdownMenu from "../DropdownMenu/DropdownMenu";
 import { useDropdownKeyboardNavigation } from "../../hooks/useDropdownKeyboardNavigation";
 
-interface MenuItem {
+export interface MenuItem {
   label: string;
   param: string;
   value: string;
 }
 
-interface FilterDropdownProps {
+export interface FilterDropdownProps {
   menuItems: MenuItem[];
-  defaultValue: string;
+  value: string;
+  onChange: (value: string) => void;
   type?: 'primary' | 'secondary';
-  clearOtherParams?: boolean;
-}
+};
 
 const FilterDropdown: React.FC<FilterDropdownProps> = ({
   menuItems,
-  defaultValue,
+  value,
+  onChange,
   type = 'primary',
-  clearOtherParams = false,
 }) => {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-
   const buttonRef = useRef<HTMLButtonElement>(null);
   const menuRef = useRef<HTMLUListElement>(null);
 
   const currentSelectedItem = useMemo(() => {
-    for (const item of menuItems) {
-      const paramValue = searchParams.get(item.param);
-      if (paramValue === item.value) {
-        return item;
-      }
-    }
-    const defaultItem = menuItems.find(item => item.value === defaultValue) || menuItems[0];
-    return defaultItem;
-  }, [menuItems, searchParams, defaultValue]);
+    return menuItems.find(item => item.value === value) || menuItems[0];
+  }, [menuItems, value]);
 
   const menuItemsWithHandlers = menuItems.map((item) => ({
-  label: item.label,
-  onClick: () => {
-    let params: URLSearchParams;
-    if (clearOtherParams) {
-      params = new URLSearchParams();
-      if (item.value !== defaultValue) {
-        params.set(item.param, item.value);
+    label: item.label,
+    onClick: () => {
+      if (item.value !== value) {
+        onChange(item.value);
       }
-    } else {
-      params = new URLSearchParams(searchParams.toString());
-      menuItems.forEach(mi => params.delete(mi.param));
-      params.delete("page");
-      if (item.value !== defaultValue) {
-        params.set(item.param, item.value);
-      } else {
-        params.delete(item.param);
-      }
-    }
-    const queryString = params.toString();
-    const url = queryString ? `${window.location.pathname}?${queryString}` : window.location.pathname;
-    router.push(url);
-  },
+    },
   }));
+
 
   const {
     open,

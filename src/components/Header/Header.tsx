@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import styles from "../../styles/components/Header/Header.module.scss";
 
