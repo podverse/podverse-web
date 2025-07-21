@@ -18,7 +18,22 @@ const searchParamsSchema = z.object({
   category: z.enum(CATEGORY_MAPPING_KEYS as [string, ...string[]]).optional(),
 });
 
-export default async function Podcasts({ searchParams }: { searchParams?: Promise<Record<string, string>> }) {
+type PodcastPageProps = z.infer<typeof searchParamsSchema>;
+
+async function parseSearchParams(params: PodcastPageProps, isAuthenticated: boolean) {
+  const parsed = searchParamsSchema.safeParse(params);
+  if (!parsed.success) {
+    console.warn("Invalid search parameters:", parsed.error);
+    return {};
+  }
+  const data = parsed.data;
+  if (!data.type) {
+    data.type = isAuthenticated ? "subscribed" : "all";
+  }
+  return data;
+}
+
+export default async function Podcasts({ searchParams }: { searchParams?: Promise<PodcastPageProps> }) {
   const tMedia = await getTranslations('media');
   const params = searchParams ? await searchParams : {};
 
@@ -58,19 +73,6 @@ export default async function Podcasts({ searchParams }: { searchParams?: Promis
       </MainWrapper>
     </>
   );
-}
-
-async function parseSearchParams(params: Record<string, string>, isAuthenticated: boolean) {
-  const parsed = searchParamsSchema.safeParse(params);
-  if (!parsed.success) {
-    console.warn("Invalid search parameters:", parsed.error);
-    return {};
-  }
-  const data = parsed.data;
-  if (!data.type) {
-    data.type = isAuthenticated ? "subscribed" : "all";
-  }
-  return data;
 }
 
 const typeDropdownMenuItems = [
