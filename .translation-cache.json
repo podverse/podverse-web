@@ -42,7 +42,16 @@
     "filters.range.month": "Mes",
     "filters.range.all_time": "Todo el tiempo",
     "settings.ui_theme.light": "☀️ Luz",
-    "settings.ui_theme.dark": "🌙 Oscuro"
+    "settings.ui_theme.dark": "🌙 Oscuro",
+    "instructions.login_for_subscriptions": "Por favor, inicie sesión para ver sus suscripciones.",
+    "authentication.login": "Iniciar sesión",
+    "authentication.logout": "Cerrar sesión",
+    "authentication.sign_up": "Registrarse",
+    "authentication.forgot_password": "¿Olvidaste tu contraseña?",
+    "authentication.reset_password": "Restablecer contraseña",
+    "authentication.email": "Correo electrónico",
+    "authentication.password": "Contraseña",
+    "authentication.confirm_password": "Confirmar contraseña"
   },
   "French": {
     "_sample.hello_world": "Bonjour, le Monde!!!",
@@ -87,6 +96,15 @@
     "filters.range.month": "Mois",
     "filters.range.all_time": "Tout le temps",
     "settings.ui_theme.light": "☀️ Lumière",
-    "settings.ui_theme.dark": "🌙 Sombre"
+    "settings.ui_theme.dark": "🌙 Sombre",
+    "instructions.login_for_subscriptions": "Veuillez vous connecter pour voir vos abonnements.",
+    "authentication.login": "Connexion",
+    "authentication.logout": "Déconnexion",
+    "authentication.sign_up": "S'inscrire",
+    "authentication.forgot_password": "Mot de passe oublié ?",
+    "authentication.reset_password": "Réinitialiser le mot de passe",
+    "authentication.email": "Email",
+    "authentication.password": "Mot de passe",
+    "authentication.confirm_password": "Confirmer le mot de passe"
   }
 }
