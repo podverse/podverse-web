@@ -6,18 +6,19 @@ type Props = {
   size?: "small" | "medium" | "large";
   className?: string;
   style?: React.CSSProperties;
+  isLoading?: boolean;
 };
 
-const LoadingSpinnerOverlay: React.FC<Props> = ({
-  size = "large",
-  className = "",
-  style = {},
-}) => (
-  <div className={`${styles.overlay} ${className}`} style={style}>
-    <div className={styles.spinnerWrapper}>
-      <LoadingSpinner size={size} />
+const LoadingSpinnerOverlay: React.FC<Props> = ({ size = "large", className = "", style = {}, isLoading = false }) => {
+  if (!isLoading) return null;
+
+  return (
+    <div className={`${styles.overlay} ${className}`} style={style}>
+      <div className={styles.spinnerWrapper}>
+        <LoadingSpinner size={size} />
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 export default LoadingSpinnerOverlay;

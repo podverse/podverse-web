@@ -1,3 +1,5 @@
+@use 'breakpoints';
+
 .mainOuterWrapper {
   display: flex;
   flex: 1 1 auto;
@@ -14,4 +16,19 @@
   flex: 1 1 auto;
   display: flex;
   flex-direction: column;
+}
+
+.emptyStateWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  min-height: 300px;
+  width: 100%;
+}
+
+@media (max-width: breakpoints.$breakpoint-md) {
+  .mainOuterWrapper {
+    padding: 0 1rem;
+  }
 }

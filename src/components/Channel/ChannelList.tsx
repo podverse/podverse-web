@@ -1,13 +1,19 @@
 "use client";
 
 import React, { useRef } from "react";
-import PodcastListItem from "./PodcastListItem";
+import ChannelListItem from "./ChannelListItem";
 import Pagination from "../Pagination/Pagination";
 import { useSkipInitialEffect } from "../../hooks/useSkipInitialEffect";
-import { usePodcastsContext } from "../../app/podcasts/PodcastsContext";
+import { DTOChannel } from "podverse-helpers";
 
-const PodcastList: React.FC = () => {
-  const { page = 1, setPage, channels, totalPages } = usePodcastsContext();
+type Props = {
+  page: number;
+  setPage: (page: number) => void;
+  channels: DTOChannel[];
+  totalPages: number;
+};
+
+const ChannelList: React.FC<Props> = ({ page = 1, setPage, channels, totalPages }) => {
   const topRef = useRef<HTMLDivElement>(null);
 
   useSkipInitialEffect(() => {
@@ -23,11 +29,11 @@ const PodcastList: React.FC = () => {
         totalPages={totalPages}
         onPageChange={setPage}>
         {channels.map((channel) => (
-          <PodcastListItem key={channel.id} channel={channel} />
+          <ChannelListItem key={channel.id} channel={channel} />
         ))}
       </Pagination>
     </>
   );
 };
 
-export default PodcastList;
+export default ChannelList;

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import React from "react";
 import Image from "../Image/Image";
-import styles from "../../styles/components/Podcast/PodcastListItem.module.scss";
+import styles from "../../styles/components/Channel/ChannelListItem.module.scss";
 import { ROUTES } from "../../constants/routes";
 import { DTOChannel, formatDateAbbrev } from "podverse-helpers";
 import { useTranslations } from "next-intl";
@@ -12,7 +12,7 @@ interface Props {
   channel: DTOChannel;
 }
 
-const PodcastListItem: React.FC<Props> = ({ channel }) => {
+const ChannelListItem: React.FC<Props> = ({ channel }) => {
   const url = `${ROUTES.PODCAST}/${channel.id_text}`;
   const imageUrl = channel.channel_images?.[0]?.url;
   const tMedia = useTranslations("media");
@@ -22,7 +22,7 @@ const PodcastListItem: React.FC<Props> = ({ channel }) => {
       <div className={styles.podcastListItem}>
         <Image
           src={imageUrl}
-          alt={channel.title || "Podcast Image"}
+          alt={channel.title || "Channel Image"}
           width={80}
           height={80}
           className={styles.podcastImage}
@@ -44,4 +44,4 @@ const PodcastListItem: React.FC<Props> = ({ channel }) => {
   );
 };
 
-export default PodcastListItem;
+export default ChannelListItem;
