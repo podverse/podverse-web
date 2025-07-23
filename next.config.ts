@@ -17,6 +17,13 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  env: {
+    NEXT_PUBLIC_API_PROTOCOL: process.env.NEXT_PUBLIC_API_PROTOCOL,
+    NEXT_PUBLIC_API_HOST: process.env.NEXT_PUBLIC_API_HOST,
+    NEXT_PUBLIC_API_PORT: process.env.NEXT_PUBLIC_API_PORT,
+    NEXT_PUBLIC_API_PREFIX: process.env.NEXT_PUBLIC_API_PREFIX,
+    NEXT_PUBLIC_API_VERSION: process.env.NEXT_PUBLIC_API_VERSION
+  },
 };
 
 const withNextIntl = createNextIntlPlugin();
