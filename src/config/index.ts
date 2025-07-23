@@ -24,3 +24,5 @@ export const config = {
     }
   }
 };
+
+console.log("API Configuration:", JSON.stringify(config, null, 2));
