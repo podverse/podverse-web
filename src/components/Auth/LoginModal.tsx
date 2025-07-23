@@ -33,6 +33,7 @@ export const LoginModal: React.FC = () => {
       <form onSubmit={handleSubmit}>
         <TextInput
           type="email"
+          name="email"
           value={email}
           onChange={e => setEmail(e.target.value)}
           autoFocus
@@ -41,6 +42,7 @@ export const LoginModal: React.FC = () => {
         />
         <TextInput
           type="password"
+          name="password"
           value={password}
           onChange={e => setPassword(e.target.value)}
           placeholder="Password"
