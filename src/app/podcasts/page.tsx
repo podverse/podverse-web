@@ -22,7 +22,6 @@ export default async function Podcasts({ searchParams }: { searchParams?: Promis
   const { page = 1, sort, type, range, category } = await parseSearchParams(params, isValidAuthSession);
   
   const { currentType, currentSort, currentRange } = getChannelQueryParams({ type, sort, range, category });
-
   
   const response = await apiRequestService.reqChannelGetMany({
     page,
