@@ -13,13 +13,17 @@ const searchParamsSchema = z.object({
   category: z.enum(CATEGORY_MAPPING_KEYS as [string, ...string[]]).optional(),
 });
 
-export type PodcastPageProps = z.infer<typeof searchParamsSchema>;
+type SearchParams = z.infer<typeof searchParamsSchema>
 
-export default async function Podcasts({ searchParams }: { searchParams?: Promise<PodcastPageProps> }) {
+export type PodcastsPageProps = {
+  searchParams: Promise<SearchParams>;
+};
+
+export default async function PodcastsPage({ searchParams }: PodcastsPageProps) {
   const { isValidAuthSession, apiRequestService } = await getSSRAuthService();
     
-  const params = searchParams ? await searchParams : {};
-  const { page = 1, sort, type, range, category } = await parseSearchParams(params, isValidAuthSession);
+  const queryParams = searchParams ? await searchParams : {};
+  const { page = 1, sort, type, range, category } = await parseSearchParams(queryParams, isValidAuthSession);
   
   const { currentType, currentSort, currentRange } = getChannelQueryParams({ type, sort, range, category });
   
@@ -43,8 +47,8 @@ export default async function Podcasts({ searchParams }: { searchParams?: Promis
   );
 }
 
-async function parseSearchParams(params: PodcastPageProps, isAuthenticated: boolean) {
-  const parsed = searchParamsSchema.safeParse(params);
+async function parseSearchParams(queryParams: SearchParams, isAuthenticated: boolean) {
+  const parsed = searchParamsSchema.safeParse(queryParams);
   if (!parsed.success) {
     return {};
   }
