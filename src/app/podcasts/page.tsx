@@ -2,7 +2,7 @@ import { CATEGORY_MAPPING_KEYS, QUERY_PARAMS_STATS_RANGE_VALUES, QUERY_PARAMS_CH
   QUERY_PARAMS_CHANNELS_TYPE_VALUES, getTotalPages } from "podverse-helpers";
 import { z } from "zod";
 import PodcastsClient from "./PodcastsClient";
-import { getChannelsQueryParams } from "./PodcastsDropdownConfig";
+import { getPodcastsQueryParams } from "./PodcastsDropdownConfig";
 import { getSSRAuthService } from "../../utils/auth/ssrAuth";
 
 const searchParamsSchema = z.object({
@@ -25,7 +25,7 @@ export default async function PodcastsPage({ searchParams }: PodcastsPageProps) 
   const queryParams = searchParams ? await searchParams : {};
   const { page = 1, sort, type, range, category } = await parseSearchParams(queryParams, isValidAuthSession);
   
-  const { currentType, currentSort, currentRange } = getChannelsQueryParams({ type, sort, range, category });
+  const { currentType, currentSort, currentRange } = getPodcastsQueryParams({ type, sort, range, category });
   
   const response = await apiRequestService.reqChannelGetMany({
     page,
