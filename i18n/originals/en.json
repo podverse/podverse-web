@@ -51,7 +51,8 @@
       "recent": "Recent",
       "oldest": "Oldest",
       "a_z": "A-Z",
-      "top": "Top"
+      "top": "Top",
+      "random": "Random"
     },
     "range": {
       "day": "Day",
