@@ -13,7 +13,7 @@ import React from "react";
 import FilterDropdown from "../../components/FilterDropdown/FilterDropdown";
 import Header from "../../components/Header/Header";
 import { usePodcastsContext } from "./PodcastsContext";
-import { getDropdownConfig } from "./PodcastsDropdownConfig";
+import { getPodcastsDropdownConfig } from "./PodcastsDropdownConfig";
 import { useRouter } from "next/navigation";
 
 const PodcastsHeader: React.FC = () => {
@@ -22,7 +22,7 @@ const PodcastsHeader: React.FC = () => {
   const tMedia = useTranslations('media');
   const tFilters = useTranslations('filters');
   const { typeMenuItems, sortMenuItems, rangeMenuItems, showRangeDropdown
-    } = getDropdownConfig({ type, sort, category, tFilters });
+    } = getPodcastsDropdownConfig({ type, sort, category, tFilters });
 
   const router = useRouter();
 

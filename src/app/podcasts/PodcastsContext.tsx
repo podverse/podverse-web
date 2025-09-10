@@ -1,16 +1,16 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { DTOChannel, getTotalPages, QueryParamChannels } from "podverse-helpers";
+import { DTOChannel, getTotalPages, QueryParamsChannels } from "podverse-helpers";
 import React, { createContext, useContext, useState, ReactNode } from "react";
 import { apiRequestService } from "../../factories/apiRequestService";
 import { useAccount } from "../../contexts/Account";
 import { useSkipInitialEffect } from "../../hooks/useSkipInitialEffect";
-import { getChannelQueryParams } from "./PodcastsDropdownConfig";
+import { getPodcastsQueryParams } from "./PodcastsDropdownConfig";
 
 interface PodcastsContextType {
-  queryParams: QueryParamChannels;
-  setQueryParams: (params: QueryParamChannels) => void;
+  queryParams: QueryParamsChannels;
+  setQueryParams: (params: QueryParamsChannels) => void;
   channels: DTOChannel[];
   setChannels: (channels: DTOChannel[]) => void;
   totalPages: number;
@@ -23,14 +23,21 @@ interface PodcastsContextType {
 
 const PodcastsContext = createContext<PodcastsContextType | undefined>(undefined);
 
-export const PodcastsContextProvider = ({ children, initialQueryParams, ssrChannels, ssrTotalPages }: {
+interface PodcastsContextProviderProps {
   children: ReactNode,
-  initialQueryParams: QueryParamChannels,
+  initialQueryParams: QueryParamsChannels,
   ssrChannels: DTOChannel[],
   ssrTotalPages: number
-}) => {
+}
+
+export const PodcastsContextProvider = ({
+  children,
+  initialQueryParams,
+  ssrChannels,
+  ssrTotalPages
+}: PodcastsContextProviderProps) => {
   const router = useRouter();
-  const [queryParams, setQueryParams] = useState<QueryParamChannels>(initialQueryParams);
+  const [queryParams, setQueryParams] = useState<QueryParamsChannels>(initialQueryParams);
   const [channels, setChannels] = useState<DTOChannel[]>(ssrChannels || []);
   const [totalPages, setTotalPages] = useState<number>(ssrTotalPages || 1);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -49,7 +56,7 @@ export const PodcastsContextProvider = ({ children, initialQueryParams, ssrChann
 
       setIsLoading(true);
 
-      const { currentSort, currentRange, currentType } = getChannelQueryParams({
+      const { currentSort, currentRange, currentType } = getPodcastsQueryParams({
         type: queryParams.type,
         sort: queryParams.sort,
         range: queryParams.range,

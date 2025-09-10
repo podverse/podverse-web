@@ -1,7 +1,8 @@
 import { QueryParamsChannelsType, QueryParamsChannelsSort, QueryParamsStatsRange,
   CategoryMappingKeys } from "podverse-helpers";
+import { getRangeDropdownItems } from "../../utils/dropdownMenuItems";
 
-export function getDropdownConfig({ type, sort, category, tFilters }: {
+export function getPodcastsDropdownConfig({ type, sort, category, tFilters }: {
   sort?: QueryParamsChannelsSort,
   type?: QueryParamsChannelsType,
   category?: CategoryMappingKeys | null,
@@ -22,13 +23,8 @@ export function getDropdownConfig({ type, sort, category, tFilters }: {
     sortTop
   ];
 
-  let rangeDropdownMenuItems = [
-    { label: tFilters("range.day"), param: "range", value: "day" },
-    { label: tFilters("range.week"), param: "range", value: "week" },
-    { label: tFilters("range.month"), param: "range", value: "month" },
-    { label: tFilters("range.all_time"), param: "range", value: "all-time" },
-  ];
-
+  let rangeDropdownMenuItems = getRangeDropdownItems(tFilters);
+  
   let showRangeDropdown = false;
   if (type === "all" || category) {
     sortDropdownMenuItems = [sortTop];
@@ -54,7 +50,7 @@ type QueryParamConfig = {
   category?: CategoryMappingKeys | null;
 }
 
-export function getChannelQueryParams({ type, sort, range, category }: QueryParamConfig) {
+export function getPodcastsQueryParams({ type, sort, range, category }: QueryParamConfig) {
   let currentSort = sort;
   let currentRange = range;
   let currentType = type;
