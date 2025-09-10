@@ -124,6 +124,7 @@ async function run() {
   const targets = [
     { code: 'es', name: 'Spanish' },
     { code: 'fr', name: 'French' },
+    { code: 'el-GR', name: 'Greek' },
   ];
 
   for (const target of targets) {
