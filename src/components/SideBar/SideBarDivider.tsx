@@ -1,8 +1,15 @@
 import React from "react";
 import styles from "../../styles/components/SideBar/SideBarDivider.module.scss";
 
-const SideBarDivider: React.FC = () => (
-  <hr className={styles.divider} />
+type SideBarDividerProps = {
+  noMarginTop?: boolean;
+};
+
+const SideBarDivider: React.FC<SideBarDividerProps> = ({ noMarginTop }) => (
+  <hr
+    className={styles.divider}
+    style={noMarginTop ? { marginTop: 0 } : undefined}
+  />
 );
 
 export default SideBarDivider;

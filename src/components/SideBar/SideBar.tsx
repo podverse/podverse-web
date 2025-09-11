@@ -23,8 +23,8 @@ const SideBar: React.FC = () => {
           {tFeatures("search")}
         </SideBarLink>
       </div>
-      <div className={styles.scrollable}>
-        <SideBarDivider />
+      <div className={styles.scrollable} tabIndex={-1}>
+        <SideBarDivider noMarginTop />
         <Accordion
           header={<SideBarHeader>{tMedia("podcast.audio")}</SideBarHeader>}
           items={
