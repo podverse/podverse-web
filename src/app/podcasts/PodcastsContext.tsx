@@ -6,6 +6,7 @@ import { apiRequestService } from "../../factories/apiRequestService";
 import { useAccount } from "../../contexts/Account";
 import { useSkipInitialEffect } from "../../hooks/useSkipInitialEffect";
 import { getPodcastsQueryParams } from "./PodcastsDropdownConfig";
+import { useRouter } from "next/navigation";
 
 interface PodcastsContextType {
   queryParams: QueryParamsChannels;
@@ -35,6 +36,7 @@ export const PodcastsContextProvider = ({
   ssrChannels,
   ssrTotalPages
 }: PodcastsContextProviderProps) => {
+  const router = useRouter();
   const [queryParams, setQueryParams] = useState<QueryParamsChannels>(initialQueryParams);
   const [channels, setChannels] = useState<DTOChannel[]>(ssrChannels || []);
   const [totalPages, setTotalPages] = useState<number>(ssrTotalPages || 1);
