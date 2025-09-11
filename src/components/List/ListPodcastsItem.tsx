@@ -2,11 +2,12 @@
 
 import { useTranslations } from "next-intl";
 import Link from "next/link";
-import { DTOChannel, formatDateAbbrev } from "podverse-helpers";
+import { DTOChannel, findDTOChannelImageBySize, formatDateAbbrev } from "podverse-helpers";
 import React from "react";
 import Image from "../Image/Image";
 import { ROUTES } from "../../constants/routes";
 import styles from "../../styles/components/List/ListPodcastsItem.module.scss";
+import { IMAGE_LIST_PODCASTS_SIZE } from "../../constants/images";
 
 interface Props {
   channel: DTOChannel;
@@ -14,17 +15,17 @@ interface Props {
 
 const ListPodcastsItem: React.FC<Props> = ({ channel }) => {
   const url = `${ROUTES.PODCAST}/${channel.id_text}`;
-  const imageUrl = channel.channel_images?.[0]?.url;
+  const channel_image = findDTOChannelImageBySize(channel.channel_images, IMAGE_LIST_PODCASTS_SIZE, 'lesser');
   const tMedia = useTranslations("media");
   
   return (
     <Link href={url} className={styles.link}>
       <div className={styles.podcastListItem}>
         <Image
-          src={imageUrl}
+          src={channel_image?.url}
           alt={channel.title || "Podcast Image"}
-          width={80}
-          height={80}
+          width={IMAGE_LIST_PODCASTS_SIZE}
+          height={IMAGE_LIST_PODCASTS_SIZE}
           className={styles.podcastImage}
         />
         <div className={styles.content}>
