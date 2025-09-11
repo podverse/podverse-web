@@ -33,7 +33,7 @@ button:focus {
 a {
   color: var(--text-color-primary);
   text-decoration: none;
-  font-size: 1rem;
+  font-size: var(--font-size-base);
   border-radius: var(--border-radius);
 }
 

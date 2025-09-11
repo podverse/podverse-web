@@ -1,5 +1,6 @@
 .header {
-  background-color: var(--background-color-secondary);
+  background-color: var(--background-color-primary);
+  background-image: var(--background-gradient-primary);
   padding: 0 1.5rem;
   display: flex;
   align-items: center;
@@ -16,7 +17,7 @@
 }
 
 .title {
-  font-size: 1.5rem;
-  font-weight: bold;
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-light);
   color: var(--text-color-primary);
 }

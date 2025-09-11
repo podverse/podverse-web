@@ -6,10 +6,13 @@
   --background-color-quaternary: #20244e;
   --background-color-opaque: rgba(255, 255, 255, 0.15);
   --background-color-glow: rgba(37, 42, 100, 0.6);
+
   --border-color-primary: #3d9dfe;
   --border-color-secondary: #ffffff;
   --border-color-opaque: rgba(255, 255, 255, 0.15);
+
   --box-shadow-focus: 0 0 0 4px rgba(0, 116, 217, 0.4);
+
   --text-color-primary: #ffffff;
   --text-color-secondary: #cccccc;
   --text-color-tertiary: #000000;
@@ -19,6 +22,8 @@
 
 :root,
 [data-theme="dark"] {
+  --background-gradient-primary: linear-gradient(90deg, rgba(23,59,140,.81) -3%, var(--background-color-tertiary));
+  
   --button-primary-bg: var(--border-color-primary);
   --button-primary-color: var(--text-color-tertiary);
   --button-primary-bg-hover: var(--text-color-link-hover);

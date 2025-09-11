@@ -16,6 +16,6 @@
 @media (max-width: breakpoints.$breakpoint-md) {
   .button {
     display: flex;
-    font-size: 1.125rem;
+    font-size: var(--font-size-md);
   }
 }

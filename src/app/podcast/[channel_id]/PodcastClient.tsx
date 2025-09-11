@@ -3,9 +3,10 @@
 
 import { DTOChannel, DTOClip, DTOItem, DTOLiveItem, QueryParamsChannel } from "podverse-helpers";
 import React from "react";
-import { PodcastContextProvider } from "./PodcastContext";
 import MainWrapper from "../../../components/Main/MainWrapper";
+import { PodcastContextProvider } from "./PodcastContext";
 import PodcastListHeader from "./PodcastListHeader";
+import HeaderPodcast from "../../../components/Header/HeaderPodcast";
 // import PodcastList from "./PodcastList";
 
 interface PodcastClientProps {
@@ -29,6 +30,7 @@ export default function PodcastClient(props: PodcastClientProps) {
       ssrClips={ssrClips}
       ssrTotalPages={ssrTotalPages}
     >
+      <HeaderPodcast channel={ssrChannel} />
       <MainWrapper>
         <PodcastListHeader />
         <div>hello</div>

@@ -12,14 +12,14 @@
 
 .pageButton {
   border: var(--button-border-size) solid var(--border-color-secondary);
-  font-weight: normal;
+  font-weight: var(--font-weight-normal);
   height: var(--image-size-sm);
   width: var(--image-size-sm);
 }
 
 .pageButton.active {
   border: var(--button-border-size) solid var(--border-color-primary);
-  font-weight: bold;
+  font-weight: var(--font-weight-bold);
 }
 
 .arrowPlaceholder {
