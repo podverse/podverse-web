@@ -1,0 +1,1 @@
+export const IMAGE_HEADER_SQUARE_SIZE = 128;

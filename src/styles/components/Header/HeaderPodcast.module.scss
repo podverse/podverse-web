@@ -1,10 +1,10 @@
 .header {
   background-color: var(--background-color-primary);
   background-image: var(--background-gradient-primary);
-  padding: 0 1.5rem;
+  padding: var(--header-padding);
+  margin: var(--header-margin);
   display: flex;
   align-items: center;
-  height: var(--header-desktop-height);
 }
 
 .headerContent {
@@ -20,4 +20,8 @@
   font-size: var(--font-size-3xl);
   font-weight: var(--font-weight-light);
   color: var(--text-color-primary);
+}
+
+.image {
+  border-radius: var(--border-radius);
 }

@@ -28,8 +28,8 @@ export default function PodcastClient(props: PodcastClientProps) {
       ssrClips={ssrClips}
       ssrTotalPages={ssrTotalPages}
     >
-      <PodcastHeader ssrChannel={ssrChannel} />
       <MainWrapper>
+        <PodcastHeader ssrChannel={ssrChannel} />
         <PodcastListHeader />
         <div>hello</div>
         {/* <PodcastList /> */}
