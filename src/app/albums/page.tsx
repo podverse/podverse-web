@@ -1,11 +1,11 @@
 import React from "react";
-import Header from "../../components/Main/MainHeader";
+import MainHeader from "../../components/Main/MainHeader";
 import MainWrapper from "../../components/Main/MainWrapper";
 
 export default function Albums() {
   return (
     <>
-      <Header title="Albums" />
+      <MainHeader title="Albums" />
       <MainWrapper>
         <p>Albums</p>
       </MainWrapper>

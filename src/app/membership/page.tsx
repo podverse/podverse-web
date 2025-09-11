@@ -1,11 +1,11 @@
 import React from "react";
-import Header from "../../components/Main/MainHeader";
+import MainHeader from "../../components/Main/MainHeader";
 import MainWrapper from "../../components/Main/MainWrapper";
 
 export default function Membership() {
   return (
     <>
-      <Header title="Membership" />
+      <MainHeader title="Membership" />
       <MainWrapper>
         <p>Membership</p>
       </MainWrapper>

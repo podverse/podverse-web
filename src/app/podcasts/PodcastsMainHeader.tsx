@@ -11,7 +11,7 @@ import {
 } from "podverse-helpers";
 import React from "react";
 import FilterDropdown from "../../components/FilterDropdown/FilterDropdown";
-import Header from "../../components/Main/MainHeader";
+import MainHeader from "../../components/Main/MainHeader";
 import { usePodcastsContext } from "./PodcastsContext";
 import { getPodcastsDropdownConfig } from "./PodcastsDropdownConfig";
 import { useRouter } from "next/navigation";
@@ -37,7 +37,7 @@ const PodcastsMainHeader: React.FC = () => {
   }
 
   return (
-    <Header
+    <MainHeader
       title={tMedia("podcast.podcasts")}
       filterDropdowns={[
         <FilterDropdown
