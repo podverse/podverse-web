@@ -1,7 +1,6 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { useRouter } from "next/navigation";
 import {
   QueryParamsStatsRange,
   QUERY_PARAMS_STATS_RANGE_VALUES,
@@ -12,9 +11,9 @@ import {
 } from "podverse-helpers";
 import React from "react";
 import FilterDropdown from "../../../components/FilterDropdown/FilterDropdown";
+import SubHeader from "../../../components/List/ListHeader";
 import { usePodcastContext } from "./PodcastContext";
 import { getPodcastDropdownConfig } from "./PodcastDropdownConfig";
-import SubHeader from "../../../components/List/ListHeader";
 
 const PodcastListHeader: React.FC = () => {
   const { queryParams, setQueryParams } = usePodcastContext();
@@ -23,8 +22,6 @@ const PodcastListHeader: React.FC = () => {
   const tMedia = useTranslations('media');
   const { typeMenuItems, sortMenuItems, rangeMenuItems, showRangeDropdown
     } = getPodcastDropdownConfig({ type, sort, tFilters, tMedia });
-
-  const router = useRouter();
 
   function isChannelType(val: string): val is QueryParamsChannelType {
     return QUERY_PARAMS_CHANNEL_TYPE_VALUES.includes(val as QueryParamsChannelType);
@@ -38,7 +35,7 @@ const PodcastListHeader: React.FC = () => {
 
   return (
     <SubHeader
-      title={tMedia("podcast.podcasts")}
+      title={type === "clips" ? tMedia("clips") : tMedia("podcast.episodes")}
       filterDropdowns={[
         <FilterDropdown
           key="type"

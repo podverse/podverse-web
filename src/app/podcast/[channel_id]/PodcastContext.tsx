@@ -1,6 +1,6 @@
 "use client";
 
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 import { DTOChannel, DTOClip, DTOItem, DTOLiveItem, getTotalPages, QueryParamsChannel } from "podverse-helpers";
 import React, { createContext, useContext, useState, ReactNode } from "react";
 import { apiRequestService } from "../../../factories/apiRequestService";
@@ -48,7 +48,6 @@ export const PodcastContextProvider = ({
   ssrClips,
   ssrTotalPages
 }: PodcastContextProviderProps) => {
-  const router = useRouter();
   const params = useParams();
   const [queryParams, setQueryParams] = useState<QueryParamsChannel>(initialQueryParams);
   const [channel, setChannel] = useState<DTOChannel>(ssrChannel);

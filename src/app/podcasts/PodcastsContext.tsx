@@ -1,6 +1,5 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { DTOChannel, getTotalPages, QueryParamsChannels } from "podverse-helpers";
 import React, { createContext, useContext, useState, ReactNode } from "react";
 import { apiRequestService } from "../../factories/apiRequestService";
@@ -36,7 +35,6 @@ export const PodcastsContextProvider = ({
   ssrChannels,
   ssrTotalPages
 }: PodcastsContextProviderProps) => {
-  const router = useRouter();
   const [queryParams, setQueryParams] = useState<QueryParamsChannels>(initialQueryParams);
   const [channels, setChannels] = useState<DTOChannel[]>(ssrChannels || []);
   const [totalPages, setTotalPages] = useState<number>(ssrTotalPages || 1);
