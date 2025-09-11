@@ -2,7 +2,7 @@ import { useTranslations } from "next-intl";
 import { DTOCategory } from "podverse-helpers";
 import React from "react";
 import Link from "../Link/Link";
-import SubHeader from "../SubHeader/SubHeader";
+import SubHeader from "../List/ListHeader";
 import { useCategories } from "../../contexts/Categories";
 import styles from "../../styles/components/Category/CategoriesList.module.scss";
 

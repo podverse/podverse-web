@@ -1,0 +1,22 @@
+.header {
+  background-color: var(--background-color-secondary);
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  height: var(--header-desktop-height);
+}
+
+.headerContent {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: var(--max-content-width);
+  margin: 0 auto;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--text-color-primary);
+}

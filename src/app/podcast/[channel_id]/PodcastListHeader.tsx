@@ -14,7 +14,7 @@ import React from "react";
 import FilterDropdown from "../../../components/FilterDropdown/FilterDropdown";
 import { usePodcastContext } from "./PodcastContext";
 import { getPodcastDropdownConfig } from "./PodcastDropdownConfig";
-import SubHeader from "../../../components/SubHeader/SubHeader";
+import SubHeader from "../../../components/List/ListHeader";
 
 const PodcastListHeader: React.FC = () => {
   const { queryParams, setQueryParams } = usePodcastContext();

@@ -3,11 +3,11 @@
 import React from "react";
 import styles from "../../styles/components/Main/MainHeader.module.scss";
 
-type MainHeaderTextOnlyProps = {
+type HeaderPodcastProps = {
   title: string;
 };
 
-const MainHeaderTextOnly: React.FC<MainHeaderTextOnlyProps> = ({ title }) => (
+const HeaderPodcast: React.FC<HeaderPodcastProps> = ({ title }) => (
   <header className={styles.header}>
     <div className={styles.headerContent}>
       <h1 className={styles.title}>{title}</h1>
@@ -15,4 +15,4 @@ const MainHeaderTextOnly: React.FC<MainHeaderTextOnlyProps> = ({ title }) => (
   </header>
 );
 
-export default MainHeaderTextOnly;
+export default HeaderPodcast;
