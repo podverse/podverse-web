@@ -3,7 +3,7 @@
 import { useTranslations } from "next-intl";
 import { CategoryMappingKeys, DTOChannel, QueryParamsChannelsType } from "podverse-helpers";
 import React, { useRef } from "react";
-import ChannelListItem from "./ChannelsListItem";
+import ListPodcastsItem from "./ListPodcastsItem";
 import CallToActionMessage from "../CallToActionMessage/CallToActionMessage";
 import Pagination from "../Pagination/Pagination";
 import { useModals } from "../../contexts/Modals";
@@ -19,7 +19,7 @@ type Props = {
   category?: CategoryMappingKeys | null;
 };
 
-const ChannelList: React.FC<Props> = ({ page = 1, setPage, channels, totalPages, showSubscribeMessage, type, category }) => {
+const ListPodcasts: React.FC<Props> = ({ page = 1, setPage, channels, totalPages, showSubscribeMessage, type, category }) => {
   const topRef = useRef<HTMLDivElement>(null);
   const tInstructions = useTranslations("instructions");
   const tAuthentication = useTranslations("authentication");
@@ -50,7 +50,7 @@ const ChannelList: React.FC<Props> = ({ page = 1, setPage, channels, totalPages,
             totalPages={totalPages}
             onPageChange={setPage}>
             {channels.map((channel) => (
-              <ChannelListItem key={channel.id} channel={channel} />
+              <ListPodcastsItem key={channel.id} channel={channel} />
             ))}
           </Pagination>
         )
@@ -59,4 +59,4 @@ const ChannelList: React.FC<Props> = ({ page = 1, setPage, channels, totalPages,
   );
 };
 
-export default ChannelList;
+export default ListPodcasts;

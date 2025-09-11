@@ -1,5 +1,5 @@
 import React from "react";
-import ChannelList from "../../components/Channel/ChannelsList";
+import ListPodcasts from "../../components/List/ListPodcasts";
 import { usePodcastsContext } from "./PodcastsContext";
 import LoadingSpinnerOverlay from "../../components/LoadingSpinner/LoadingSpinnerOverlay";
 
@@ -9,7 +9,7 @@ const PodcastsList: React.FC = () => {
 
   return (
     <>
-      <ChannelList
+      <ListPodcasts
         page={page}
         setPage={(page) => setQueryParams({ ...queryParams, page })}
         channels={channels}

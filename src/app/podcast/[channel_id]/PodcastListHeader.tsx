@@ -1,43 +1,43 @@
 "use client";
 
 import { useTranslations } from "next-intl";
+import { useRouter } from "next/navigation";
 import {
-  QUERY_PARAMS_CHANNELS_TYPE_VALUES,
-  QUERY_PARAMS_CHANNELS_SORT_VALUES,
-  QUERY_PARAMS_STATS_RANGE_VALUES,
-  QueryParamsChannelsType,
-  QueryParamsChannelsSort,
   QueryParamsStatsRange,
+  QUERY_PARAMS_STATS_RANGE_VALUES,
+  QueryParamsChannelType,
+  QUERY_PARAMS_CHANNEL_TYPE_VALUES,
+  QueryParamsChannelSort,
+  QUERY_PARAMS_CHANNEL_SORT_VALUES,
 } from "podverse-helpers";
 import React from "react";
-import FilterDropdown from "../../components/FilterDropdown/FilterDropdown";
-import Header from "../../components/Header/Header";
-import { usePodcastsContext } from "./PodcastsContext";
-import { getPodcastsDropdownConfig } from "./PodcastsDropdownConfig";
-import { useRouter } from "next/navigation";
+import FilterDropdown from "../../../components/FilterDropdown/FilterDropdown";
+import { usePodcastContext } from "./PodcastContext";
+import { getPodcastDropdownConfig } from "./PodcastDropdownConfig";
+import SubHeader from "../../../components/SubHeader/SubHeader";
 
-const PodcastsHeader: React.FC = () => {
-  const { queryParams, setQueryParams } = usePodcastsContext();
-  const { type, sort, range, category } = queryParams;
-  const tMedia = useTranslations('media');
+const PodcastListHeader: React.FC = () => {
+  const { queryParams, setQueryParams } = usePodcastContext();
+  const { type, sort, range } = queryParams;
   const tFilters = useTranslations('filters');
+  const tMedia = useTranslations('media');
   const { typeMenuItems, sortMenuItems, rangeMenuItems, showRangeDropdown
-    } = getPodcastsDropdownConfig({ type, sort, category, tFilters });
+    } = getPodcastDropdownConfig({ type, sort, tFilters, tMedia });
 
   const router = useRouter();
 
-  function isChannelType(val: string): val is QueryParamsChannelsType {
-    return QUERY_PARAMS_CHANNELS_TYPE_VALUES.includes(val as QueryParamsChannelsType);
+  function isChannelType(val: string): val is QueryParamsChannelType {
+    return QUERY_PARAMS_CHANNEL_TYPE_VALUES.includes(val as QueryParamsChannelType);
   }
-  function isChannelSort(val: string): val is QueryParamsChannelsSort {
-    return QUERY_PARAMS_CHANNELS_SORT_VALUES.includes(val as QueryParamsChannelsSort);
+  function isChannelSort(val: string): val is QueryParamsChannelSort {
+    return QUERY_PARAMS_CHANNEL_SORT_VALUES.includes(val as QueryParamsChannelSort);
   }
   function isStatsRange(val: string): val is QueryParamsStatsRange {
     return QUERY_PARAMS_STATS_RANGE_VALUES.includes(val as QueryParamsStatsRange);
   }
 
   return (
-    <Header
+    <SubHeader
       title={tMedia("podcast.podcasts")}
       filterDropdowns={[
         <FilterDropdown
@@ -46,12 +46,10 @@ const PodcastsHeader: React.FC = () => {
           menuItems={typeMenuItems}
           onChange={value => {
             if (isChannelType(value)) {
-              if (value === "all") {
-                setQueryParams({ ...queryParams, type: value, sort: "top", page: 1, category: undefined });
-              } else if (value === "category") {
-                router.push("/podcasts/categories");
+              if (value === "clips") {
+                setQueryParams({ ...queryParams, type: value, sort: "top", page: 1 });
               } else {
-                setQueryParams({ ...queryParams, type: value, sort: "alphabetical", page: 1, category: undefined });
+                setQueryParams({ ...queryParams, type: value, sort: "recent", page: 1 });
               }
             }
           }}
@@ -83,4 +81,4 @@ const PodcastsHeader: React.FC = () => {
   );
 };
 
-export default PodcastsHeader;
+export default PodcastListHeader;

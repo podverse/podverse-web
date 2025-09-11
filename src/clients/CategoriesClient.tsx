@@ -4,8 +4,8 @@ import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import React from "react";
 import CategoriesList from "../components/Category/CategoriesList";
-import HeaderTextOnly from "../components/Header/HeaderTextOnly";
-import MainWrapper from "../components/MainWrapper/MainWrapper";
+import HeaderTextOnly from "../components/Main/MainHeaderTextOnly";
+import MainWrapper from "../components/Main/MainWrapper";
 import { DTOCategory } from "podverse-helpers";
 
 interface CategoriesClientProps {

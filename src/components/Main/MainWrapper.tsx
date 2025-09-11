@@ -1,7 +1,7 @@
 import React from "react";
-import Footer from "../Footer/Footer";
-import styles from "../../styles/components/MainWrapper/MainWrapper.module.scss";
 import Divider from "../Divider/Divider";
+import Footer from "../Footer/Footer";
+import styles from "../../styles/components/Main/MainWrapper.module.scss";
 
 type MainWrapperProps = {
   children: React.ReactNode;

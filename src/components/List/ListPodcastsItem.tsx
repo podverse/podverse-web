@@ -6,13 +6,13 @@ import { DTOChannel, formatDateAbbrev } from "podverse-helpers";
 import React from "react";
 import Image from "../Image/Image";
 import { ROUTES } from "../../constants/routes";
-import styles from "../../styles/components/Channel/ChannelsListItem.module.scss";
+import styles from "../../styles/components/List/ListPodcastsItem.module.scss";
 
 interface Props {
   channel: DTOChannel;
 }
 
-const ChannelListItem: React.FC<Props> = ({ channel }) => {
+const ListPodcastsItem: React.FC<Props> = ({ channel }) => {
   const url = `${ROUTES.PODCAST}/${channel.id_text}`;
   const imageUrl = channel.channel_images?.[0]?.url;
   const tMedia = useTranslations("media");
@@ -22,7 +22,7 @@ const ChannelListItem: React.FC<Props> = ({ channel }) => {
       <div className={styles.podcastListItem}>
         <Image
           src={imageUrl}
-          alt={channel.title || "Channel Image"}
+          alt={channel.title || "Podcast Image"}
           width={80}
           height={80}
           className={styles.podcastImage}
@@ -44,4 +44,4 @@ const ChannelListItem: React.FC<Props> = ({ channel }) => {
   );
 };
 
-export default ChannelListItem;
+export default ListPodcastsItem;

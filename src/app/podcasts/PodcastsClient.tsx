@@ -4,8 +4,8 @@
 import { DTOChannel, QueryParamsChannels } from "podverse-helpers";
 import React from "react";
 import { PodcastsContextProvider } from "./PodcastsContext";
-import MainWrapper from "../../components/MainWrapper/MainWrapper";
-import PodcastsHeader from "./PodcastsHeader";
+import MainWrapper from "../../components/Main/MainWrapper";
+import PodcastsMainHeader from "./PodcastsMainHeader";
 import PodcastsList from "./PodcastsList";
 
 interface PodcastsClientProps {
@@ -23,7 +23,7 @@ export default function PodcastsClient(props: PodcastsClientProps) {
       ssrChannels={ssrChannels}
       ssrTotalPages={ssrTotalPages}
     >
-      <PodcastsHeader />
+      <PodcastsMainHeader />
       <MainWrapper>
         <PodcastsList />
       </MainWrapper>
