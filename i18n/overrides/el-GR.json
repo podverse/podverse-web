@@ -33,7 +33,7 @@
     "livestreams": "Ζωντανές μεταδόσεις",
     "last_updated": "Τελευταία ενημέρωση: {date}"
   },
-  "features": {
+  "pages": {
     "search": "Αναζήτηση",
     "my_library": "Η Βιβλιοθήκη μου",
     "queue": "Ουρά",

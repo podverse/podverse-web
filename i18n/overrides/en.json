@@ -33,7 +33,7 @@
     "livestreams": "Livestreams",
     "last_updated": "Last updated: {date}"
   },
-  "features": {
+  "pages": {
     "search": "Search",
     "my_library": "My Library",
     "queue": "Queue",

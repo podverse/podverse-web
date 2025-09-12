@@ -33,7 +33,7 @@
     "livestreams": "Livestreams",
     "last_updated": "Last updated: {date}"
   },
-  "features": {
+  "pages": {
     "search": "Search",
     "my_library": "My Library",
     "queue": "Queue",
@@ -44,6 +44,12 @@
     "my_profile": "My Profile",
     "profile": "Profile",
     "profiles": "Profiles"
+  },
+  "info": {
+    "funding": "Funding",
+    "home_page": "Home Page",
+    "rss_feed": "RSS Feed",
+    "share": "Share"
   },
   "filters": {
     "type": {
