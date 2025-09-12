@@ -14,6 +14,9 @@ type CustomLinkProps = {
   disabled?: boolean;
   style?: React.CSSProperties;
   color?: 'primary' | 'secondary';
+  target?: '_blank';
+  rel: string;
+  title?: string;
 };
 
 const Link: React.FC<CustomLinkProps> = ({
@@ -27,7 +30,9 @@ const Link: React.FC<CustomLinkProps> = ({
   disabled = false,
   style,
   color = 'primary',
-  ...rest
+  target,
+  rel,
+  title
 }) => {
   const linkClassName = color === 'primary' ? styles.link : styles.linkSecondary;
 
@@ -38,8 +43,10 @@ const Link: React.FC<CustomLinkProps> = ({
         className={classNames(linkClassName, className)}
         tabIndex={tabIndex}
         aria-label={ariaLabel}
+        title={title}
         style={style}
-        {...rest}
+        target={target}
+        rel={rel}
       >
         {children}
       </NextLink>
@@ -52,9 +59,9 @@ const Link: React.FC<CustomLinkProps> = ({
       className={classNames(linkClassName, className)}
       tabIndex={tabIndex}
       aria-label={ariaLabel}
+      title={title}
       disabled={disabled}
       style={style}
-      {...rest}
     >
       {children}
     </button>

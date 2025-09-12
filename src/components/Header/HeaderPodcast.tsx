@@ -3,7 +3,8 @@ import React from "react";
 import styles from "../../styles/components/Header/HeaderPodcast.module.scss";
 import Image from "../Image/Image";
 import { IMAGES } from "../../constants/images";
-import HeaderSubtitle from "./HeaderPodcastSubtitle";
+import HeaderPodcastSubtitle from "./HeaderPodcastSubtitle";
+import HeaderPodcastButtons from "./HeaderPodcastButtons";
 import { useTranslations } from "next-intl";
 
 type HeaderPodcastProps = {
@@ -26,7 +27,8 @@ const HeaderPodcast: React.FC<HeaderPodcastProps> = ({ channel }) => {
         />
         <div className={styles.textSection}>
           <h1 className={styles.title}>{channel.title}</h1>
-          <HeaderSubtitle channel={channel} categoryPath="podcasts" />
+          <HeaderPodcastSubtitle channel={channel} categoryPath="podcasts" />
+          <HeaderPodcastButtons channel={channel} />
         </div>
         <div className={styles.buttonSection}>
           Unsubscribe
