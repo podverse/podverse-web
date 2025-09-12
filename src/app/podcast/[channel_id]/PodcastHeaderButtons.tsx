@@ -13,7 +13,7 @@ type PodcastHeaderButtonsProps = {
   shareOnClick: () => void;
 };
 
-const PodcastHeaderButtons: React.FC<PodcastHeaderButtonsProps> = ({ channel, shareOnClick }) => {
+const PodcastHeaderButtons: React.FC<PodcastHeaderButtonsProps> = ({ channel }) => {
   const tInfo = useTranslations("info");
   const { setPodcastModalShareIsOpen } = usePodcastContext();
 

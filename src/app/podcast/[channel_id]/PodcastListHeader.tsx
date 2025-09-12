@@ -33,6 +33,28 @@ const PodcastListHeader: React.FC = () => {
     return QUERY_PARAMS_STATS_RANGE_VALUES.includes(val as QueryParamsStatsRange);
   }
 
+  const handleTypeChange = (value: string) => {
+    if (isChannelType(value)) {
+      if (value === "clips") {
+        setQueryParams({ ...queryParams, type: value, sort: "top", page: 1 });
+      } else {
+        setQueryParams({ ...queryParams, type: value, sort: "recent", page: 1 });
+      }
+    }
+  };
+
+  const handleSortChange = (value: string) => {
+    if (isChannelSort(value)) {
+      setQueryParams({ ...queryParams, sort: value });
+    }
+  };
+
+  const handleRangeChange = (value: string) => {
+    if (isStatsRange(value)) {
+      setQueryParams({ ...queryParams, range: value });
+    }
+  };
+
   return (
     <SubHeader
       title={type === "clips" ? tMedia("clips") : tMedia("podcast.episodes")}
@@ -41,36 +63,20 @@ const PodcastListHeader: React.FC = () => {
           key="type"
           value={type ?? ""}
           menuItems={typeMenuItems}
-          onChange={value => {
-            if (isChannelType(value)) {
-              if (value === "clips") {
-                setQueryParams({ ...queryParams, type: value, sort: "top", page: 1 });
-              } else {
-                setQueryParams({ ...queryParams, type: value, sort: "recent", page: 1 });
-              }
-            }
-          }}
+          onChange={handleTypeChange}
         />,
         <FilterDropdown
           key="sort"
           value={sort ?? ""}
           menuItems={sortMenuItems}
-          onChange={value => {
-            if (isChannelSort(value)) {
-              setQueryParams({ ...queryParams, sort: value });
-            }
-          }}
+          onChange={handleSortChange}
         />,
         showRangeDropdown && (
           <FilterDropdown
             key="range"
             value={range ?? ""}
             menuItems={rangeMenuItems}
-            onChange={value => {
-              if (isStatsRange(value)) {
-                setQueryParams({ ...queryParams, range: value });
-              }
-            }}
+            onChange={handleRangeChange}
           />
         )
       ].filter(Boolean)}
