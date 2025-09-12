@@ -16,15 +16,19 @@ const HeaderPodcastButtons: React.FC<HeaderPodcastButtonsProps> = ({ channel }) 
 
   return (
     <div className={styles.buttons}>
-      <Link
-        href={'https://google.com'}
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label={tInfo("rss_feed")}
-        title={tInfo("rss_feed")}
-        color="secondary">
-        <FaRss />
-      </Link>
+      {
+        channel?.feed?.url && (
+          <Link
+            href={channel.feed.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={tInfo("rss_feed")}
+            title={tInfo("rss_feed")}
+            color="secondary">
+            <FaRss />
+          </Link>
+        )
+      }
     </div>
   )
 };
