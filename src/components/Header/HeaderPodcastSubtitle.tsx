@@ -16,13 +16,11 @@ const HeaderPodcastSubtitle: React.FC<HeaderPodcastSubtitleProps> = ({ channel, 
 
   const channel_about = channel.channel_about;
   const author = channel_about?.author;
-
-  const channel_categories = channel.channel_categories;
-
   const authorNode = (
     <span>{author}</span>
   )
-
+  
+  const channel_categories = channel.channel_categories;
   const categoryNodes = channel_categories?.map((category, index) => (
     <span key={index}>
       <Link
