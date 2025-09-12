@@ -1,5 +1,14 @@
-export const IMAGE_HEADER_SQUARE_SIZE = 128;
-export const IMAGE_HEADER_SQUARE_SIZE_FIND_TARGET = 256;
-
-export const IMAGE_LIST_PODCASTS_SIZE = 80;
-export const IMAGE_LIST_PODCASTS_SIZE_FIND_TARGET = 160;
+export const IMAGES = {
+  HEADER: {
+    SQUARE: {
+      SIZE: 128,
+      SIZE_FIND_TARGET: 256
+    }
+  },
+  LIST: {
+    PODCASTS: {
+      SIZE: 80,
+      SIZE_FIND_TARGET: 160
+    }
+  }
+};

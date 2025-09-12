@@ -7,7 +7,7 @@
   align-items: center;
 }
 
-.headerContent {
+.content {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -16,12 +16,20 @@
   margin: 0 auto;
 }
 
+.image {
+  border-radius: var(--border-radius);
+}
+
+.textSection {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  margin: 0 1.5rem;
+}
+
 .title {
   font-size: var(--font-size-3xl);
   font-weight: var(--font-weight-light);
-  color: var(--text-color-primary);
-}
-
-.image {
-  border-radius: var(--border-radius);
 }

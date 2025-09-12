@@ -7,7 +7,7 @@ import React from "react";
 import Image from "../Image/Image";
 import { ROUTES } from "../../constants/routes";
 import styles from "../../styles/components/List/ListPodcastsItem.module.scss";
-import { IMAGE_LIST_PODCASTS_SIZE } from "../../constants/images";
+import { IMAGES } from "../../constants/images";
 
 interface Props {
   channel: DTOChannel;
@@ -15,7 +15,7 @@ interface Props {
 
 const ListPodcastsItem: React.FC<Props> = ({ channel }) => {
   const url = `${ROUTES.PODCAST}/${channel.id_text}`;
-  const channel_image = findDTOChannelImageBySize(channel.channel_images, IMAGE_LIST_PODCASTS_SIZE, 'lesser');
+  const channel_image = findDTOChannelImageBySize(channel.channel_images, IMAGES.LIST.PODCASTS.SIZE, 'lesser');
   const tMedia = useTranslations("media");
   
   return (
@@ -23,9 +23,9 @@ const ListPodcastsItem: React.FC<Props> = ({ channel }) => {
       <div className={styles.podcastListItem}>
         <Image
           src={channel_image?.url}
-          alt={channel.title || "Podcast Image"}
-          width={IMAGE_LIST_PODCASTS_SIZE}
-          height={IMAGE_LIST_PODCASTS_SIZE}
+          alt={channel.title || tMedia("podcast.podcast_image")}
+          width={IMAGES.LIST.PODCASTS.SIZE}
+          height={IMAGES.LIST.PODCASTS.SIZE}
           className={styles.podcastImage}
         />
         <div className={styles.content}>

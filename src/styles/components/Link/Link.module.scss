@@ -13,3 +13,19 @@
     text-decoration: none;
   }
 }
+
+.linkSecondary {
+  color: var(--text-color-primary);
+
+  &:hover,
+  &:focus {
+    color: var(--text-color-link-hover);
+    text-decoration: underline;
+  }
+
+  &:disabled {
+    color: var(--text-color-secondary);
+    cursor: not-allowed;
+    text-decoration: none;
+  }
+}

@@ -13,6 +13,7 @@ type CustomLinkProps = {
   "aria-label"?: string;
   disabled?: boolean;
   style?: React.CSSProperties;
+  color?: 'primary' | 'secondary';
 };
 
 const Link: React.FC<CustomLinkProps> = ({
@@ -25,13 +26,16 @@ const Link: React.FC<CustomLinkProps> = ({
   "aria-label": ariaLabel,
   disabled = false,
   style,
+  color = 'primary',
   ...rest
 }) => {
+  const linkClassName = color === 'primary' ? styles.link : styles.linkSecondary;
+
   if (href) {
     return (
       <NextLink
         href={href}
-        className={classNames(styles.link, className)}
+        className={classNames(linkClassName, className)}
         tabIndex={tabIndex}
         aria-label={ariaLabel}
         style={style}
@@ -45,7 +49,7 @@ const Link: React.FC<CustomLinkProps> = ({
     <button
       type={type}
       onClick={onClick}
-      className={classNames(styles.link, className)}
+      className={classNames(linkClassName, className)}
       tabIndex={tabIndex}
       aria-label={ariaLabel}
       disabled={disabled}
