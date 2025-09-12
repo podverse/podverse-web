@@ -2,6 +2,9 @@
   "_sample": {
     "hello_world": "Γειά σου, Κόσμε!!!"
   },
+  "brand": {
+    "name": "Podverse"
+  },
   "media": {
     "podcast": {
       "audio": "Ήχος",
@@ -9,7 +12,8 @@
       "podcast": "Podcast",
       "podcasts": "Ποντκαστς",
       "episode": "Επεισόδιο",
-      "episodes": "Επεισόδια"
+      "episodes": "Επεισόδια",
+      "podcast_image": "Εικόνα Podcast"
     },
     "music": {
       "music": "Μουσική",

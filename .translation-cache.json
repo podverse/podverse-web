@@ -163,7 +163,9 @@
     "categories.filmhistory": "Historia del cine",
     "categories.filminterviews": "Entrevistas de películas",
     "categories.filmreviews": "Reseñas de películas",
-    "categories.tvreviews": "Reseñas de TV"
+    "categories.tvreviews": "Reseñas de TV",
+    "brand.name": "Podverse",
+    "media.podcast.podcast_image": "Imagen del podcast"
   },
   "French": {
     "_sample.hello_world": "Bonjour, le Monde!!!",
@@ -329,7 +331,9 @@
     "categories.filmhistory": "Histoire du film",
     "categories.filminterviews": "Interviews de films",
     "categories.filmreviews": "Critiques de films",
-    "categories.tvreviews": "Critiques TV"
+    "categories.tvreviews": "Critiques TV",
+    "brand.name": "Podverse",
+    "media.podcast.podcast_image": "Image du podcast"
   },
   "Greek": {
     "_sample.hello_world": "Γειά σου, Κόσμε!!!",
@@ -495,6 +499,8 @@
     "categories.filmhistory": "Ιστορία Κινηματογράφου",
     "categories.filminterviews": "Συνεντεύξεις Ταινιών",
     "categories.filmreviews": "Κριτικές Ταινιών",
-    "categories.tvreviews": "Κριτικές Τηλεόρασης"
+    "categories.tvreviews": "Κριτικές Τηλεόρασης",
+    "brand.name": "Podverse",
+    "media.podcast.podcast_image": "Εικόνα Podcast"
   }
 }

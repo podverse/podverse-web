@@ -2,6 +2,9 @@
   "_sample": {
     "hello_world": "Bonjour, le Monde!!!"
   },
+  "brand": {
+    "name": "Podverse"
+  },
   "media": {
     "podcast": {
       "audio": "Audio",
@@ -9,7 +12,8 @@
       "podcast": "Podcast",
       "podcasts": "Podcasts",
       "episode": "Épisode",
-      "episodes": "Épisodes"
+      "episodes": "Épisodes",
+      "podcast_image": "Image du podcast"
     },
     "music": {
       "music": "Musique",
