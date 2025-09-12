@@ -1,18 +1,21 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { DTOChannel } from "podverse-helpers";
 import React from "react";
-import { FaGlobe, FaRss } from "react-icons/fa";
-import styles from "../../styles/components/Header/HeaderPodcastButtons.module.scss";
-import Link from "../Link/Link";
-import { useTranslations } from "next-intl";
+import { FaGlobe, FaRss, FaShare } from "react-icons/fa";
+import Link from "../../../components/Link/Link";
+import styles from "../../../styles/app/podcast/PodcastHeaderButtons.module.scss";
+import { usePodcastContext } from "./PodcastContext";
 
-type HeaderPodcastButtonsProps = {
+type PodcastHeaderButtonsProps = {
   channel: DTOChannel;
+  shareOnClick: () => void;
 };
 
-const HeaderPodcastButtons: React.FC<HeaderPodcastButtonsProps> = ({ channel }) => {
+const PodcastHeaderButtons: React.FC<PodcastHeaderButtonsProps> = ({ channel, shareOnClick }) => {
   const tInfo = useTranslations("info");
+  const { setPodcastModalShareIsOpen } = usePodcastContext();
 
   return (
     <div className={styles.buttons}>
@@ -44,8 +47,17 @@ const HeaderPodcastButtons: React.FC<HeaderPodcastButtonsProps> = ({ channel }) 
           </Link>
         )
       }
+      <Link
+        type="button"
+        onClick={() => setPodcastModalShareIsOpen(true)}
+        className={styles.button}
+        aria-label={tInfo("share")}
+        title={tInfo("share")}
+        color="secondary">
+        <FaShare />
+      </Link>
     </div>
   )
 };
 
-export default HeaderPodcastButtons;
+export default PodcastHeaderButtons;

@@ -45,6 +45,12 @@
     "profile": "Profile",
     "profiles": "Profiles"
   },
+  "info": {
+    "funding": "Funding",
+    "website": "Website",
+    "rss_feed": "RSS Feed",
+    "share": "Share"
+  },
   "filters": {
     "type": {
       "all": "All",

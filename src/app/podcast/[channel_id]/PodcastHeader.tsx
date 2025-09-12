@@ -1,15 +1,33 @@
 import { DTOChannel } from "podverse-helpers";
 import React from "react";
-import HeaderPodcast from "../../../components/Header/HeaderPodcast";
+import styles from "../../../styles/app/podcast/PodcastHeader.module.scss";
+import PodcastHeaderSubtitle from "./PodcastHeaderSubtitle";
+import PodcastHeaderButtons from "./PodcastHeaderButtons";
+import { PodcastHeaderImage } from "./PodcastHeaderImage";
 
 type PodcastHeaderProps = {
-  ssrChannel: DTOChannel;
+  channel: DTOChannel;
+  shareOnClick: () => void;
 };
 
-const PodcastHeader: React.FC<PodcastHeaderProps> = ({ ssrChannel }) => {
+const PodcastHeader: React.FC<PodcastHeaderProps> = ({ channel, shareOnClick }) => {
   return (
-    <HeaderPodcast channel={ssrChannel} />
-  );
+    <header className={styles.header}>
+      <div className={styles.content}>
+        <PodcastHeaderImage channel={channel} />
+        <div className={styles.textSection}>
+          <h1 className={styles.title}>{channel.title}</h1>
+          <PodcastHeaderSubtitle channel={channel} />
+          <PodcastHeaderButtons
+            channel={channel}
+            shareOnClick={shareOnClick} />
+        </div>
+        <div className={styles.buttonSection}>
+          Unsubscribe
+        </div>
+      </div>
+    </header>
+  )
 };
 
 export default PodcastHeader;

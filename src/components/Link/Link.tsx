@@ -15,7 +15,7 @@ type CustomLinkProps = {
   style?: React.CSSProperties;
   color?: 'primary' | 'secondary';
   target?: '_blank';
-  rel: string;
+  rel?: string;
   title?: string;
 };
 

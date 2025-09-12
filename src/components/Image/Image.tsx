@@ -11,6 +11,7 @@ interface ImageProps {
   width: number;
   height: number;
   className?: string;
+  noBorderRadius?: boolean;
 }
 
 const Image: React.FC<ImageProps> = ({
@@ -19,6 +20,7 @@ const Image: React.FC<ImageProps> = ({
   width,
   height,
   className,
+  noBorderRadius = false
 }) => {
   const [imageError, setImageError] = useState(false);
 
@@ -32,6 +34,8 @@ const Image: React.FC<ImageProps> = ({
     );
   }
 
+  const borderRadius = noBorderRadius ? 0 : 'var(--border-radius)';
+
   return (
     <NextImage
       src={src}
@@ -40,6 +44,7 @@ const Image: React.FC<ImageProps> = ({
       height={height}
       className={className}
       onError={() => setImageError(true)}
+      style={{ borderRadius }}
     />
   );
 };
