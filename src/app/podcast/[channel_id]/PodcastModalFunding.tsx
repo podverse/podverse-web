@@ -12,13 +12,11 @@ type PodcastModalFundingProps = {
 export const PodcastModalFunding: React.FC<PodcastModalFundingProps> = ({ channel }) => {
   const { podcastModalFundingIsOpen, setPodcastModalFundingIsOpen } = usePodcastContext();
 
-  const fundingLinks = channel.channel_fundings || [];
-
   return (
     <ModalFunding
       isOpen={podcastModalFundingIsOpen}
       onClose={() => setPodcastModalFundingIsOpen(false)}
-      links={fundingLinks}
+      channel_fundings={channel.channel_fundings}
     />
   )
 }

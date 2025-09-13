@@ -7,20 +7,18 @@ import { Modal } from "./Modal";
 import Link from "../Link/Link";
 import styles from "../../styles/components/Modal/ModalFunding.module.scss";
 
-type ModalFundingLink = DTOChannelFunding | DTOItemFunding
-
 type ModalFundingProps = {
   isOpen: boolean;
   onClose: () => void;
-  links: ModalFundingLink[];
-  header?: string;
-  ariaLabel?: string;
+  channel_fundings?: DTOChannelFunding[];
+  item_fundings?: DTOItemFunding[];
 };
 
 export const ModalFunding: React.FC<ModalFundingProps> = ({
   isOpen,
   onClose,
-  links
+  channel_fundings,
+  item_fundings
 }) => {
   if (!isOpen) return null;
   const tInfo = useTranslations("info");
@@ -29,15 +27,27 @@ export const ModalFunding: React.FC<ModalFundingProps> = ({
   return (
     <Modal isOpen={isOpen} onClose={onClose} header={header} ariaLabel={header}>
       <ul className={styles.fundingLinksList}>
-        {links.map((link, idx) => (
+        {channel_fundings?.map((channel_funding, idx) => (
           <li key={idx} className={styles.fundingLinkItem}>
             <Link
-              href={link.url}
+              href={channel_funding.url}
               target="_blank"
               rel="noopener noreferrer"
               className={styles.fundingLink}
             >
-              {link.title}
+              {channel_funding.title}
+            </Link>
+          </li>
+        ))}
+        {item_fundings?.map((item_funding, idx) => (
+          <li key={idx} className={styles.fundingLinkItem}>
+            <Link
+              href={item_funding.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.fundingLink}
+            >
+              {item_funding.title}
             </Link>
           </li>
         ))}
