@@ -8,10 +8,22 @@ type ModalProps = {
   ariaLabel: string
   children: ReactNode
   header?: string
+  modalContentMaxWidth?: number
 }
 
-export const Modal = ({ isOpen, onClose, ariaLabel, children, header }: ModalProps) => {
+export const Modal = ({
+  isOpen,
+  onClose,
+  ariaLabel,
+  children,
+  header,
+  modalContentMaxWidth
+}: ModalProps) => {
   if (!isOpen) return null
+
+  const modalContentStyle = modalContentMaxWidth
+    ? { maxWidth: modalContentMaxWidth }
+    : undefined
 
   return (
     <div
@@ -26,7 +38,10 @@ export const Modal = ({ isOpen, onClose, ariaLabel, children, header }: ModalPro
         aria-hidden="true"
         onClick={onClose}
       />
-      <div className={styles.modalContent}>
+      <div
+        className={styles.modalContent}
+        style={modalContentStyle}
+      >
         {(header || header === '') && (
           <div className={styles.modalHeader}>
             <span

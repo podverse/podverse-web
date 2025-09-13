@@ -24,7 +24,12 @@ export const ModalBoost: React.FC<ModalBoostProps> = ({
   const header = tInfo("boost");
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} header={header} ariaLabel={header}>
+    <Modal
+      isOpen={isOpen}
+      onClose={onClose}
+      header={header}
+      ariaLabel={header}
+      modalContentMaxWidth={400}>
       <MediaHeaderMini channel={channel} item={item} />
     </Modal>
   );
