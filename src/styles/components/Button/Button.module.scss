@@ -11,6 +11,11 @@
   padding: 0 16px;
 }
 
+.chevronIcon {
+  margin-left: 0.5rem;
+  padding-top: 1px;
+}
+
 .primary {
   background: var(--button-primary-bg);
   color: var(--button-primary-color);
@@ -35,6 +40,16 @@
 
 .secondary:focus {
   background: var(--button-secondary-bg-hover);
+}
+
+.tertiary {
+  color: var(--button-secondary-color);
+  border: var(--button-border-size) solid var(--border-color-primary);
+  height: 2rem;
+  font-size: var(--font-size-sm);
+  padding: 0 1rem;
+  min-width: auto;
+  font-weight: var(--font-weight-normal);
 }
 
 .success {

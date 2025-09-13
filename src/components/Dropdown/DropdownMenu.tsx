@@ -1,5 +1,5 @@
 import React, { RefObject } from "react";
-import styles from "../../styles/components/DropdownMenu/DropdownMenu.module.scss";
+import styles from "../../styles/components/Dropdown/DropdownMenu.module.scss";
 
 export interface DropdownMenuItem {
   label: string;

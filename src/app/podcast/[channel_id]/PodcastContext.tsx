@@ -27,6 +27,8 @@ interface PodcastContextType {
   setShowSubscribeMessage: (show: boolean) => void;
   podcastModalShareIsOpen: boolean;
   setPodcastModalShareIsOpen: (show: boolean) => void;
+  isCopied: string;
+  setIsCopied: (isCopied: string) => void;
 };
 
 const PodcastContext = createContext<PodcastContextType | undefined>(undefined);
@@ -60,6 +62,7 @@ export const PodcastContextProvider = ({
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [showSubscribeMessage, setShowSubscribeMessage] = useState<boolean>(false);
   const [podcastModalShareIsOpen, setPodcastModalShareIsOpen] = useState<boolean>(false);
+  const [isCopied, setIsCopied] = useState<string>("");
   const { loggedInAccount } = useAccount();
   
   if (!params.channel_id) return;
@@ -112,7 +115,8 @@ export const PodcastContextProvider = ({
       totalPages, setTotalPages,
       isLoading, setIsLoading,
       showSubscribeMessage, setShowSubscribeMessage,
-      podcastModalShareIsOpen, setPodcastModalShareIsOpen
+      podcastModalShareIsOpen, setPodcastModalShareIsOpen,
+      isCopied, setIsCopied
     }}>
       {children}
     </PodcastContext.Provider>

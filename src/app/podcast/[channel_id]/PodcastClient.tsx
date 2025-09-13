@@ -32,7 +32,7 @@ export default function PodcastClient(props: PodcastClientProps) {
         <PodcastHeader channel={ssrChannel} />
         <PodcastListHeader />
       </MainWrapper>
-      <PodcastModalShare />
+      <PodcastModalShare channel={ssrChannel} />
     </PodcastContextProvider>
   );
 }

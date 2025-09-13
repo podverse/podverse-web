@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { FaChevronDown, FaRegUserCircle, FaUserCircle } from "react-icons/fa";
 import styles from "../../styles/components/NavBar/NavBarDropdownButton.module.scss";
 import { useAccount } from "../../contexts/Account";
-import DropdownMenu from "../DropdownMenu/DropdownMenu";
+import DropdownMenu from "../Dropdown/DropdownMenu";
 import { useDropdownKeyboardNavigation } from "../../hooks/useDropdownKeyboardNavigation";
 import { ROUTES } from "../../constants/routes";
 import { useModals } from '../../contexts/Modals'

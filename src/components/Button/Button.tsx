@@ -1,12 +1,14 @@
-import React from 'react'
 import classNames from 'classnames'
+import React, { AriaAttributes } from 'react'
+import { FaChevronDown } from 'react-icons/fa'
 import styles from '../../styles/components/Button/Button.module.scss'
 
-type ButtonVariant = 'primary' | 'secondary' | 'warning' | 'success' | 'danger' | 'outline' | 'link'
+type ButtonVariant = 'primary' | 'secondary' | 'tertiary' | 'warning' | 'success' | 'danger' | 'outline' | 'link'
 
 type ButtonProps = {
   children: React.ReactNode
   onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
+  onKeyDown?: (event: React.KeyboardEvent<HTMLButtonElement>) => void
   type?: 'button' | 'submit' | 'reset'
   disabled?: boolean
   className?: string
@@ -14,56 +16,73 @@ type ButtonProps = {
   variant?: ButtonVariant
   'aria-label'?: string
   'aria-describedby'?: string
-  'aria-pressed'?: boolean
+  'aria-pressed'?: AriaAttributes['aria-pressed']
+  'aria-haspopup'?: AriaAttributes['aria-haspopup']
+  'aria-expanded'?: AriaAttributes['aria-expanded']
   tabIndex?: number
   autoFocus?: boolean
   id?: string
   name?: string
   title?: string
   role?: string
+  isDropdownButton?: boolean
 }
 
-export const Button: React.FC<ButtonProps> = ({
-  children,
-  onClick,
-  type = 'button',
-  disabled = false,
-  className,
-  style,
-  variant = 'primary',
-  'aria-label': ariaLabel,
-  'aria-describedby': ariaDescribedBy,
-  'aria-pressed': ariaPressed,
-  tabIndex,
-  autoFocus,
-  id,
-  name,
-  title,
-  role = 'button',
-  ...rest
-}) => (
-  <button
-    type={type}
-    onClick={onClick}
-    disabled={disabled}
-    className={classNames(
-      styles.button,
-      styles[variant],
-      { [styles.disabled]: disabled },
-      className
-    )}
-    style={style}
-    aria-label={ariaLabel}
-    aria-describedby={ariaDescribedBy}
-    aria-pressed={ariaPressed}
-    tabIndex={tabIndex}
-    autoFocus={autoFocus}
-    id={id}
-    name={name}
-    title={title}
-    role={role}
-    {...rest}
-  >
-    {children}
-  </button>
+export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+  (
+    {
+      children,
+      onClick,
+      onKeyDown,
+      type = 'button',
+      disabled = false,
+      className,
+      style,
+      variant = 'primary',
+      'aria-label': ariaLabel,
+      'aria-describedby': ariaDescribedBy,
+      'aria-pressed': ariaPressed,
+      'aria-haspopup': ariaHasPopup,
+      'aria-expanded': ariaExpanded,
+      tabIndex,
+      autoFocus,
+      id,
+      name,
+      title,
+      role = 'button',
+      isDropdownButton = false,
+      ...rest
+    },
+    ref
+  ) => (
+    <button
+      ref={ref}
+      type={type}
+      onClick={onClick}
+      onKeyDown={onKeyDown}
+      disabled={disabled}
+      className={classNames(
+        styles.button,
+        styles[variant],
+        { [styles.disabled]: disabled },
+        className
+      )}
+      style={style}
+      aria-label={ariaLabel}
+      aria-describedby={ariaDescribedBy}
+      aria-pressed={ariaPressed}
+      aria-haspopup={ariaHasPopup}
+      aria-expanded={ariaExpanded}
+      tabIndex={tabIndex}
+      autoFocus={autoFocus}
+      id={id}
+      name={name}
+      title={title}
+      role={role}
+      {...rest}
+    >
+      {children}
+      {isDropdownButton && <FaChevronDown className={styles.chevronIcon} />}
+    </button>
+  )
 )

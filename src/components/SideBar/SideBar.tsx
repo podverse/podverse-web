@@ -12,7 +12,7 @@ import Accordion from "../Accordian/Accordian";
 
 const SideBar: React.FC = () => {
   const tMedia = useTranslations("media");
-  const tPages = useTranslations("pages");
+  const tFeatures = useTranslations("features");
 
   return (
     <nav className={styles.sidebar} data-mobile-nav="menu">
@@ -20,7 +20,7 @@ const SideBar: React.FC = () => {
         <SideBarBrand />
         <SideBarLink href={ROUTES.SEARCH}>
           <FaSearch className={styles.icon} />
-          {tPages("search")}
+          {tFeatures("search")}
         </SideBarLink>
       </div>
       <div className={styles.scrollable} tabIndex={-1}>
@@ -70,14 +70,14 @@ const SideBar: React.FC = () => {
         />
         <SideBarDivider />
         <Accordion
-          header={<SideBarHeader>{tPages("my_library")}</SideBarHeader>}
+          header={<SideBarHeader>{tFeatures("my_library")}</SideBarHeader>}
           items={
             <>
-              <SideBarLink href={ROUTES.QUEUE}>{tPages("queue")}</SideBarLink>
-              <SideBarLink href={ROUTES.HISTORY}>{tPages("history")}</SideBarLink>
-              <SideBarLink href={ROUTES.PLAYLISTS}>{tPages("playlists")}</SideBarLink>
-              <SideBarLink href={ROUTES.MY_CLIPS}>{tPages("my_clips")}</SideBarLink>
-              <SideBarLink href={ROUTES.PROFILES}>{tPages("profiles")}</SideBarLink>
+              <SideBarLink href={ROUTES.QUEUE}>{tFeatures("queue")}</SideBarLink>
+              <SideBarLink href={ROUTES.HISTORY}>{tFeatures("history")}</SideBarLink>
+              <SideBarLink href={ROUTES.PLAYLISTS}>{tFeatures("playlists")}</SideBarLink>
+              <SideBarLink href={ROUTES.MY_CLIPS}>{tFeatures("my_clips")}</SideBarLink>
+              <SideBarLink href={ROUTES.PROFILES}>{tFeatures("profiles")}</SideBarLink>
             </>
           }
           color="link"

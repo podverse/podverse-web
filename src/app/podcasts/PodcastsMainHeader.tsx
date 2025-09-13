@@ -11,7 +11,7 @@ import {
   QueryParamsStatsRange,
 } from "podverse-helpers";
 import React from "react";
-import FilterDropdown from "../../components/FilterDropdown/FilterDropdown";
+import Dropdown from "../../components/Dropdown/Dropdown";
 import MainHeader from "../../components/Main/MainHeader";
 import { usePodcastsContext } from "./PodcastsContext";
 import { getPodcastsDropdownConfig } from "./PodcastsDropdownConfig";
@@ -64,20 +64,20 @@ const PodcastsMainHeader: React.FC = () => {
     <MainHeader
       title={tMedia("podcast.podcasts")}
       filterDropdowns={[
-        <FilterDropdown
+        <Dropdown
           key="type"
           value={type ?? ""}
           menuItems={typeMenuItems}
           onChange={handleTypeChange}
         />,
-        <FilterDropdown
+        <Dropdown
           key="sort"
           value={sort ?? ""}
           menuItems={sortMenuItems}
           onChange={handleSortChange}
         />,
         showRangeDropdown && (
-          <FilterDropdown
+          <Dropdown
             key="range"
             value={range ?? ""}
             menuItems={rangeMenuItems}

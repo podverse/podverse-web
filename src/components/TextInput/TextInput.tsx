@@ -1,14 +1,16 @@
 import React from 'react'
 import styles from '../../styles/components/TextInput/TextInput.module.scss'
+import { Button } from '../Button/Button'
 
 type TextInputProps = {
   value: string
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
   eyebrow?: string
   info?: string
   placeholder?: string
   type?: string
   disabled?: boolean
+  readOnly?: boolean
   className?: string
   style?: React.CSSProperties
   id?: string
@@ -19,6 +21,12 @@ type TextInputProps = {
   'aria-describedby'?: string
   'aria-required'?: boolean
   'aria-invalid'?: boolean
+  button?: TextInputButton
+}
+
+export type TextInputButton = {
+  label: string
+  onClick: () => void
 }
 
 export const TextInput: React.FC<TextInputProps> = ({
@@ -29,6 +37,7 @@ export const TextInput: React.FC<TextInputProps> = ({
   placeholder,
   type = 'text',
   disabled = false,
+  readOnly = false,
   className,
   style,
   id,
@@ -39,6 +48,7 @@ export const TextInput: React.FC<TextInputProps> = ({
   'aria-describedby': ariaDescribedBy,
   'aria-required': ariaRequired,
   'aria-invalid': ariaInvalid,
+  button,
   ...rest
 }) => {
   const inputId = id || name || undefined
@@ -61,6 +71,7 @@ export const TextInput: React.FC<TextInputProps> = ({
             onChange={onChange}
             placeholder={placeholder}
             disabled={disabled}
+            readOnly={readOnly}
             autoFocus={autoFocus}
             tabIndex={tabIndex}
             aria-label={ariaLabel}
@@ -76,6 +87,15 @@ export const TextInput: React.FC<TextInputProps> = ({
             </div>
           )}
         </div>
+        {button && (
+          <Button
+            className={styles.button}
+            onClick={button.onClick}
+            variant='tertiary'
+            >
+            {button.label}
+          </Button>
+        )}
       </div>
     </div>
   )

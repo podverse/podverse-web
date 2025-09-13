@@ -17,13 +17,13 @@
   display: flex;
   flex: 1 1;
   flex-direction: column;
-  height: 2.75rem;
+  justify-content: center;
 }
 
-.input {
-  all: unset;
-  font-size: var(--font-size-md);
-  height: 2.75rem;
+.inputWrapper {
+  display: flex;
+  flex: 1 1;
+  flex-direction: row;
 }
 
 .eyebrow {
@@ -33,8 +33,19 @@
   margin: 0 0 2px;
 }
 
+.input {
+  all: unset;
+  font-size: var(--font-size-md);
+  width: 100%;
+  padding: 0.25rem 0 0.25rem 0;
+}
+
 .textInputInfo {
   margin-top: 0.25em;
   font-size: 0.95em;
   color: #666;
+}
+
+.button {
+  margin-left: 1rem;
 }
