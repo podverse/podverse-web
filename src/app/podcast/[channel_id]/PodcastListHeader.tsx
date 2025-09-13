@@ -11,7 +11,7 @@ import {
 } from "podverse-helpers";
 import React from "react";
 import Dropdown from "../../../components/Dropdown/Dropdown";
-import SubHeader from "../../../components/List/ListHeader";
+import ListHeader from "../../../components/List/ListHeader";
 import { usePodcastContext } from "./PodcastContext";
 import { getPodcastDropdownConfig } from "./PodcastDropdownConfig";
 
@@ -56,7 +56,7 @@ const PodcastListHeader: React.FC = () => {
   };
 
   return (
-    <SubHeader
+    <ListHeader
       title={type === "clips" ? tMedia("clips") : tMedia("podcast.episodes")}
       filterDropdowns={[
         <Dropdown
@@ -64,12 +64,14 @@ const PodcastListHeader: React.FC = () => {
           value={type ?? ""}
           menuItems={typeMenuItems}
           onChange={handleTypeChange}
+          position="left"
         />,
         <Dropdown
           key="sort"
           value={sort ?? ""}
           menuItems={sortMenuItems}
           onChange={handleSortChange}
+          position="left"
         />,
         showRangeDropdown && (
           <Dropdown
@@ -77,6 +79,7 @@ const PodcastListHeader: React.FC = () => {
             value={range ?? ""}
             menuItems={rangeMenuItems}
             onChange={handleRangeChange}
+            position="left"
           />
         )
       ].filter(Boolean)}

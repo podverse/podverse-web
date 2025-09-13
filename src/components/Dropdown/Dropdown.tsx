@@ -16,12 +16,14 @@ export interface DropdownProps {
   menuItems: MenuItem[];
   value: string;
   onChange: (value: string) => void;
+  position?: "left" | "right";
 };
 
 const Dropdown: React.FC<DropdownProps> = ({
   menuItems,
   value,
-  onChange
+  onChange,
+  position
 }) => {
   const buttonRef = useRef<HTMLButtonElement>(null);
   const menuRef = useRef<HTMLUListElement>(null);
@@ -79,6 +81,7 @@ const Dropdown: React.FC<DropdownProps> = ({
         setFocusedIndex={setFocusedIndex}
         handleMenuKeyDown={handleMenuKeyDown}
         setOpen={setOpen}
+        position={position}
       />
     </div>
   );

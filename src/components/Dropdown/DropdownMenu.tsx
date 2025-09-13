@@ -14,6 +14,7 @@ interface DropdownMenuProps {
   setFocusedIndex: (idx: number) => void;
   handleMenuKeyDown: (e: React.KeyboardEvent) => void;
   setOpen: (open: boolean) => void;
+  position?: "left" | "right";
 }
 
 const DropdownMenu: React.FC<DropdownMenuProps> = ({
@@ -24,8 +25,16 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({
   setFocusedIndex,
   handleMenuKeyDown,
   setOpen,
+  position,
 }) => {
   if (!open) return null;
+
+  const positionStyle =
+    position === "left"
+      ? { left: 0 }
+      : position === "right"
+      ? { right: 0 }
+      : { right: 0 };
 
   return (
     <ul
@@ -34,6 +43,7 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({
       tabIndex={-1}
       ref={menuRef}
       onKeyDown={handleMenuKeyDown}
+      style={positionStyle}
     >
       {menuItems.map((item, idx) => (
         <li

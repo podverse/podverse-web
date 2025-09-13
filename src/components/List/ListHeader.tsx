@@ -11,7 +11,6 @@ type ListHeaderProps = {
 export const ListHeader: React.FC<ListHeaderProps> = ({ title, filterDropdowns }) => (
   <header className={styles.listHeader}>
     <div className={styles.listHeaderContent}>
-      <h2 className={styles.title}>{title}</h2>
       <div className={styles.filterDropdowns}>
         {filterDropdowns}
       </div>
