@@ -33,7 +33,7 @@
     "livestreams": "Diffusions en direct",
     "last_updated": "Dernière mise à jour : {date}"
   },
-  "pages": {
+  "features": {
     "search": "Rechercher",
     "my_library": "Ma bibliothèque",
     "queue": "File d'attente",

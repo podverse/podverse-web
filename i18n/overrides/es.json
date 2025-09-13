@@ -33,7 +33,7 @@
     "livestreams": "Transmisiones en vivo",
     "last_updated": "Última actualización: {date}"
   },
-  "pages": {
+  "features": {
     "search": "Buscar",
     "my_library": "Mi Biblioteca",
     "queue": "Cola",

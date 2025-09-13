@@ -33,7 +33,7 @@
     "livestreams": "Livestreams",
     "last_updated": "Last updated: {date}"
   },
-  "pages": {
+  "features": {
     "search": "Search",
     "my_library": "My Library",
     "queue": "Queue",
@@ -43,7 +43,10 @@
     "my_clips": "My Clips",
     "my_profile": "My Profile",
     "profile": "Profile",
-    "profiles": "Profiles"
+    "profiles": "Profiles",
+    "embed": "Embed",
+    "copy": "Copy",
+    "copied": "Copied"
   },
   "info": {
     "funding": "Funding",
