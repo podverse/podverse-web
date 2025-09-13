@@ -5,3 +5,12 @@
 .button {
   margin-right: 1rem;
 }
+
+.buttonGold {
+  margin-right: 1rem;
+  color: var(--button-highlight-bg);
+}
+
+.buttonGold:hover {
+  color: var(--button-highlight-bg-hover);
+}

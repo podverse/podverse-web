@@ -6,6 +6,7 @@ import PodcastListHeader from "./PodcastListHeader";
 import PodcastHeader from "./PodcastHeader";
 import { PodcastModalShare } from "./PodcastModalShare";
 import { PodcastModalFunding } from "./PodcastModalFunding";
+import { PodcastModalBoost } from "./PodcastModalBoost";
 // import PodcastList from "./PodcastList";
 
 interface PodcastClientProps {
@@ -35,6 +36,7 @@ export default function PodcastClient(props: PodcastClientProps) {
       </MainWrapper>
       <PodcastModalShare channel={ssrChannel} />
       <PodcastModalFunding channel={ssrChannel} />
+      <PodcastModalBoost channel={ssrChannel} />
     </PodcastContextProvider>
   );
 }

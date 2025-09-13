@@ -1,0 +1,23 @@
+.header {
+  display: flex;
+  flex-direction: row;
+}
+
+.image {
+  margin-right: 1rem;
+}
+
+.textSection {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.channelTitle {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+}
+
+.itemTitle {
+  margin-top: 0.5rem;
+}

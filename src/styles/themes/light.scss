@@ -19,12 +19,17 @@
   --button-primary-bg-hover: var(--text-color-link-hover);
   --button-secondary-bg: var(--background-color-glow);
   --button-secondary-color: var(--text-color-primary);
-  --button-secondary-bg-hover: #dbe2ea;
-  --button-success-bg: #22c55e;
-  --button-success-color: var(--text-color-tertiary);
-  --button-warning-bg: #fbbf24;
+  --button-secondary-bg-hover: #34397b;
+  --button-success-bg: #15803d;
+  --button-success-color: var(--text-color-primary);
+  --button-success-bg-hover: #1e9c53;
+  --button-warning-bg: #f4a24f;
   --button-warning-color: var(--text-color-primary);
-  --button-danger-bg: #ef4444;
-  --button-danger-color: var(--text-color-tertiary);
+  --button-warning-bg-hover: #ffb84d;
+  --button-highlight-bg: #ffd600;
+  --button-highlight-bg-hover: #ffe066;
+  --button-danger-bg: #bd2130;
+  --button-danger-color: var(--text-color-primary);
+  --button-danger-bg-hover: #e3342f;
   --button-outline-color: var(--border-color-primary);
 }

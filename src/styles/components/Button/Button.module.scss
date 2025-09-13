@@ -57,14 +57,29 @@
   color: var(--button-success-color);
 }
 
+.success:hover,
+.success:focus {
+  background: var(--button-success-bg-hover);
+}
+
 .warning {
   background: var(--button-warning-bg);
   color: var(--button-warning-color);
 }
 
+.warning:hover,
+.warning:focus {
+  background: var(--button-warning-bg-hover);
+}
+
 .danger {
   background: var(--button-danger-bg);
   color: var(--button-danger-color);
+}
+
+.danger:hover,
+.danger:focus {
+  background: var(--button-danger-bg-hover);
 }
 
 .outline {
@@ -89,4 +104,14 @@
 .link:hover,
 .link:focus {
   color: var(--text-color-link-hover);
+}
+
+.highlight {
+  background: var(--button-highlight-bg);
+  color: var(--button-primary-color);
+}
+
+.highlight:hover,
+.highlight:focus {
+  background: var(--button-highlight-bg-hover);
 }

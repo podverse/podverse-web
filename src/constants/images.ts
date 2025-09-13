@@ -10,5 +10,11 @@ export const IMAGES = {
       SIZE: 80,
       SIZE_FIND_TARGET: 160
     }
+  },
+  MEDIA_HEADER_MINI: {
+    SQUARE: {
+      SIZE: 64,
+      SIZE_FIND_TARGET: 128
+    }
   }
 };

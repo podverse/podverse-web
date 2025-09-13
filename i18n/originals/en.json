@@ -52,7 +52,8 @@
     "funding": "Funding",
     "website": "Website",
     "rss_feed": "RSS Feed",
-    "share": "Share"
+    "share": "Share",
+    "boost": "Boost"
   },
   "filters": {
     "type": {

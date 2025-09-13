@@ -3,7 +3,7 @@
 import { useTranslations } from "next-intl";
 import { DTOChannel } from "podverse-helpers";
 import React from "react";
-import { FaGlobe, FaRss, FaShare } from "react-icons/fa";
+import { FaCommentDollar, FaGlobe, FaRss, FaShare } from "react-icons/fa";
 import Link from "../../../components/Link/Link";
 import styles from "../../../styles/app/podcast/PodcastHeaderButtons.module.scss";
 import { usePodcastContext } from "./PodcastContext";
@@ -16,9 +16,11 @@ type PodcastHeaderButtonsProps = {
 
 const PodcastHeaderButtons: React.FC<PodcastHeaderButtonsProps> = ({ channel }) => {
   const tInfo = useTranslations("info");
-  const { setPodcastModalShareIsOpen, setPodcastModalFundingIsOpen } = usePodcastContext();
-
-  const fundingLinks = channel.channel_fundings || [];
+  const {
+    setPodcastModalShareIsOpen,
+    setPodcastModalFundingIsOpen,
+    setPodcastModalBoostIsOpen
+  } = usePodcastContext();
 
   return (
     <div className={styles.buttons}>
@@ -60,7 +62,7 @@ const PodcastHeaderButtons: React.FC<PodcastHeaderButtonsProps> = ({ channel }) 
         <FaShare />
       </Link>
       {
-        fundingLinks.length > 0 && (
+        channel.channel_fundings?.length > 0 && (
           <Link
             type="button"
             onClick={() => setPodcastModalFundingIsOpen(true)}
@@ -69,6 +71,19 @@ const PodcastHeaderButtons: React.FC<PodcastHeaderButtonsProps> = ({ channel }) 
             title={tInfo("funding")}
             color="secondary">
             <FaCircleDollarToSlot />
+          </Link>
+        )
+      }
+      {
+        channel.channel_values?.length > 0 && (
+          <Link
+            type="button"
+            onClick={() => setPodcastModalBoostIsOpen(true)}
+            className={styles.buttonGold}
+            aria-label={tInfo("boost")}
+            title={tInfo("boost")}
+            color="secondary">
+            <FaCommentDollar />
           </Link>
         )
       }
