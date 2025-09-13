@@ -1,4 +1,4 @@
-@import '../../mixins/ellipsis';
+@use '../../mixins/ellipsis' as *;
 
 .header {
   display: flex;
