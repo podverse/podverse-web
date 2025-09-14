@@ -68,7 +68,7 @@ const Dropdown: React.FC<DropdownProps> = ({
         onClick={() => hasMoreThanOneOption && setOpen((v) => !v)}
         onKeyDown={e => hasMoreThanOneOption && handleButtonKeyDown(e)}
         type="button"
-        variant="tertiary"
+        variant="miniPrimary"
         isDropdownButton={hasMoreThanOneOption}
       >
         {currentSelectedItem?.label}

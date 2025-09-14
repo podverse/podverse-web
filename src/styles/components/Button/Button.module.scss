@@ -42,16 +42,6 @@
   background: var(--button-secondary-bg-hover);
 }
 
-.tertiary {
-  color: var(--button-secondary-color);
-  border: var(--button-border-size) solid var(--border-color-primary);
-  height: 2rem;
-  font-size: var(--font-size-sm);
-  padding: 0 1rem;
-  min-width: auto;
-  font-weight: var(--font-weight-normal);
-}
-
 .success {
   background: var(--button-success-bg);
   color: var(--button-success-color);
@@ -114,4 +104,25 @@
 .highlight:hover,
 .highlight:focus {
   background: var(--button-highlight-bg-hover);
+}
+
+.miniPrimary {
+  color: var(--button-secondary-color);
+  border: var(--button-border-size) solid var(--border-color-primary);
+  height: 2rem;
+  font-size: var(--font-size-sm);
+  padding: 0 1rem;
+  min-width: auto;
+  font-weight: var(--font-weight-normal);
+}
+
+.miniPrimarySelected {
+  background: var(--border-color-primary);
+  color: var(--background-color-tertiary);
+  border: none;
+  height: 2rem;
+  font-size: var(--font-size-sm);
+  padding: 0 1rem;
+  min-width: auto;
+  font-weight: var(--font-weight-normal);
 }

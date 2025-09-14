@@ -57,7 +57,30 @@
   "value": {
     "boost": "Boost",
     "recipient": "Recipient",
-    "total": "Total"
+    "total": "Total",
+    "types": {
+      "lightning_keysend": {
+        "label": "Bitcoin Lightning Keysend",
+        "denomination": "satoshis"
+      },
+      "paypal_send": {
+        "label": "PayPal",
+        "denomination": "USD"
+      },
+      "patreon_send": {
+        "label": "Patreon",
+        "denomination": "USD"
+      },
+      "buymeacoffee_send": {
+        "label": "Buy Me A Coffee",
+        "denomination": "USD"
+      }
+    },
+    "send_to": {
+      "creator": "Send to Creator",
+      "app": "Send to {brand_name}"
+    },
+    "your_name": "Your Name"
   },
   "filters": {
     "type": {
@@ -80,7 +103,10 @@
     }
   },
   "misc": {
-    "more_info": "More Info"
+    "more_info": "More Info",
+    "increment": "Increment",
+    "decrement": "Decrement",
+    "anonymous": "Anonymous"
   },
   "instructions": {
     "login_for_subscriptions": "Please login to view your subscriptions."

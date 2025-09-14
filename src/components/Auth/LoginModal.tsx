@@ -7,6 +7,7 @@ import { TextInput } from '../Form/TextInput'
 import { useModals } from '../../contexts/Modals'
 import styles from '../../styles/components/Auth/LoginModal.module.scss'
 import { apiRequestService } from '../../factories/apiRequestService';
+import Form from '../Form/Form';
 
 export const LoginModal: React.FC = () => {
   const { modals, closeModal } = useModals()
@@ -30,7 +31,7 @@ export const LoginModal: React.FC = () => {
       onClose={() => closeModal('LoginModal')}
       ariaLabel="Log in"
     >
-      <form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit}>
         <TextInput
           type="email"
           name="email"
@@ -64,7 +65,7 @@ export const LoginModal: React.FC = () => {
             Sign up
           </Button>
         </div>
-      </form>
+      </Form>
     </Modal>
   )
 }

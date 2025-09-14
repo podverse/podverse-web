@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { AriaAttributes } from 'react'
 import styles from '../../styles/components/Form/TextInput.module.scss'
 import { Button } from '../Button/Button'
+import { TextInputNumberIncrement } from './TextInputNumberIncrements'
 
 type TextInputProps = {
   value: string
@@ -19,9 +20,13 @@ type TextInputProps = {
   tabIndex?: number
   'aria-label'?: string
   'aria-describedby'?: string
-  'aria-required'?: boolean
-  'aria-invalid'?: boolean
+  'aria-required'?: AriaAttributes['aria-required']
+  'aria-invalid'?: AriaAttributes['aria-invalid']
   button?: TextInputButton
+  onWheel?: (event: React.WheelEvent<HTMLInputElement>) => void
+  min?: number
+  max?: number
+  step?: number
 }
 
 export type TextInputButton = {
@@ -49,6 +54,10 @@ export const TextInput: React.FC<TextInputProps> = ({
   'aria-required': ariaRequired,
   'aria-invalid': ariaInvalid,
   button,
+  onWheel,
+  min,
+  max,
+  step,
   ...rest
 }) => {
   const inputId = id || name || undefined
@@ -58,7 +67,7 @@ export const TextInput: React.FC<TextInputProps> = ({
     <div className={`${styles.textInput} ${className || ''}`} style={style}>
       <div className={styles.textInputWrapper}>
         <div className={styles.textInnerInputWrapper}>
-          {eyebrow && value && (
+          {eyebrow && (
             <label htmlFor={inputId} className={styles.eyebrow}>
               {eyebrow}
             </label>
@@ -79,6 +88,11 @@ export const TextInput: React.FC<TextInputProps> = ({
             aria-required={ariaRequired}
             aria-invalid={ariaInvalid}
             className={styles.input}
+            onWheel={onWheel}
+            min={min}
+            max={max}
+            step={step}
+            style={type === 'number' ? { MozAppearance: 'textfield' } : undefined}
             {...rest}
           />
           {info && (
@@ -87,12 +101,22 @@ export const TextInput: React.FC<TextInputProps> = ({
             </div>
           )}
         </div>
-        {button && (
+        {type === 'number' ? (
+          <TextInputNumberIncrement
+            value={value}
+            onChange={onChange}
+            min={min}
+            max={max}
+            step={step}
+            disabled={disabled}
+            readOnly={readOnly}
+          />
+        ) : button && (
           <Button
             className={styles.button}
             onClick={button.onClick}
-            variant='tertiary'
-            >
+            variant='miniPrimary'
+          >
             {button.label}
           </Button>
         )}
