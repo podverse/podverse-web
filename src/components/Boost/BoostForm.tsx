@@ -181,6 +181,8 @@ export const BoostForm: React.FC<BoostFormProps> = ({ className, channel, item }
     onClick: () => setSelectedKey(`${cv.type}_${cv.method}`)
   }));
 
+  const selectedValueKey = selectedChannelValue ? `${selectedChannelValue.type}_${selectedChannelValue.method}` : null;
+
   return (
     <div>
       <MediaHeaderMini channel={channel} item={item} />
@@ -189,31 +191,27 @@ export const BoostForm: React.FC<BoostFormProps> = ({ className, channel, item }
         selectedKey={selectedKey}
       />
       <Form className={styles.form} onSubmit={(e) => { e.preventDefault(); }}>
-        <div className={styles.textInputNumbers}>
+        <div className={styles.boostAmountInputs}>
           <TextInputNumber
             eyebrow={tValue("send_to.creator")}
             value={totalAmountToCreator}
             min={0}
-            onChange={e => {
-              setTotalAmountToCreator(Number(e.target.value));
-            }}
+            onChange={e => setTotalAmountToCreator(Number(e.target.value))}
+            sideText={tValue(`types.${selectedValueKey}.denomination`)}
           />
           <TextInputNumber
             eyebrow={tValue("send_to.app", { brand_name: config.public.brand.name })}
             value={totalAmountToApp}
             min={0}
-            onChange={e => {
-              setTotalAmountToApp(Number(e.target.value));
-            }}
+            onChange={e => setTotalAmountToApp(Number(e.target.value))}
+            sideText={tValue(`types.${selectedValueKey}.denomination`)}
           />
         </div>
         <TextInput
           eyebrow={tValue("your_name")}
           value={yourName}
           placeholder={tMisc("anonymous")}
-          onChange={e => {
-            setYourName(e.target.value);
-          }}
+          onChange={e => setYourName(e.target.value)}
         />
       </Form>
       <div className={styles.moreInfo}>
@@ -224,6 +222,7 @@ export const BoostForm: React.FC<BoostFormProps> = ({ className, channel, item }
               channel_value_recipients={channel_value_recipients}
               item_value_recipients={item_value_recipients}
               totalAmountToCreator={totalAmountToCreator}
+              totalAmountToApp={totalAmountToApp}
             />
           }
         />

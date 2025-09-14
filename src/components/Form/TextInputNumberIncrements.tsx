@@ -42,27 +42,29 @@ export const TextInputNumberIncrement: React.FC<NumberStepperProps> = ({
   }
 
   return (
-    <div className={styles.incrementWrapper}>
-      <button
-        type="button"
-        aria-label={tMisc('increment')}
-        onClick={() => handleStep(1)}
-        tabIndex={-1}
-        disabled={disabled || readOnly}
-        className={styles.incrementButton}
-      >
-        <FaChevronUp />
-      </button>
-      <button
-        type="button"
-        aria-label={tMisc('decrement')}
-        onClick={() => handleStep(-1)}
-        tabIndex={-1}
-        disabled={disabled || readOnly}
-        className={styles.decrementButton}
-      >
-        <FaChevronDown />
-      </button>
-    </div>
+    <>
+      <div className={styles.wrapper}>
+        <button
+          type="button"
+          aria-label={tMisc('increment')}
+          onClick={() => handleStep(1)}
+          tabIndex={-1}
+          disabled={disabled || readOnly}
+          className={styles.incrementButton}
+        >
+          <FaChevronUp />
+        </button>
+        <button
+          type="button"
+          aria-label={tMisc('decrement')}
+          onClick={() => handleStep(-1)}
+          tabIndex={-1}
+          disabled={disabled || readOnly}
+          className={styles.decrementButton}
+        >
+          <FaChevronDown />
+        </button>
+      </div>
+    </>
   )
 }

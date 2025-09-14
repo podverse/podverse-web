@@ -9,6 +9,7 @@ type BoostRecipientInfoProps = {
   channel_value_recipients?: DTOChannelValueRecipient[];
   item_value_recipients?: DTOItemValueRecipient[];
   totalAmountToCreator: number;
+  totalAmountToApp: number;
 };
 
 export const BoostRecipientInfo = ({

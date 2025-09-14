@@ -1,10 +1,13 @@
 .textInput {
   margin-bottom: 1.5rem;
   position: relative;
+  display: flex;
+  flex: 1;
 }
 
 .textInputWrapper {
   display: flex;
+  flex: 1;
   align-items: center;
   flex-direction: row;
   border-radius: var(--border-radius);

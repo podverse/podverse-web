@@ -1,5 +1,6 @@
 import React from 'react';
 import { TextInput } from './TextInput';
+import styles from '../../styles/components/Form/TextInputNumber.module.scss';
 
 type TextInputNumberProps = React.InputHTMLAttributes<HTMLInputElement> & {
   value: number | string;
@@ -8,6 +9,7 @@ type TextInputNumberProps = React.InputHTMLAttributes<HTMLInputElement> & {
   max?: number;
   step?: number;
   eyebrow?: string;
+  sideText?: string;
 };
 
 const TextInputNumber: React.FC<TextInputNumberProps> = ({
@@ -17,6 +19,7 @@ const TextInputNumber: React.FC<TextInputNumberProps> = ({
   max,
   step = 1,
   eyebrow,
+  sideText,
   ...rest
 }) => {
   // Only allow numbers and empty string
@@ -28,18 +31,21 @@ const TextInputNumber: React.FC<TextInputNumberProps> = ({
   };
 
   return (
-    <TextInput
-      type="number"
-      value={value.toString()}
-      onChange={handleChange}
-      min={min}
-      max={max}
-      step={step}
-      eyebrow={eyebrow}
-      {...rest}
-      style={{ MozAppearance: 'textfield' }}
-      onWheel={e => (e.target as HTMLInputElement).blur()} // Prevent scroll changing value
-    />
+    <div className={styles.wrapper}>
+      <TextInput
+        type="number"
+        value={value.toString()}
+        onChange={handleChange}
+        min={min}
+        max={max}
+        step={step}
+        eyebrow={eyebrow}
+        style={{ MozAppearance: 'textfield' }}
+        onWheel={e => (e.target as HTMLInputElement).blur()} // Prevent scroll changing value
+        {...rest}
+      />
+      <div className={styles.sideText}>{sideText}</div>
+    </div>
   );
 };
 
