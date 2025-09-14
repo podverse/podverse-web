@@ -1,11 +1,12 @@
-.textInput {
+.wrapper {
   margin-bottom: 1.5rem;
   position: relative;
   display: flex;
+  flex-direction: column;
   flex: 1;
 }
 
-.textInputWrapper {
+.textAreaWrapper {
   display: flex;
   flex: 1;
   align-items: center;
@@ -16,7 +17,7 @@
   background-color: var(--background-color-tertiary);
 }
 
-.textInnerInputWrapper {
+.textInnerAreaWrapper {
   display: flex;
   flex: 1 1;
   flex-direction: column;
@@ -30,19 +31,18 @@
   margin: 0 0 2px;
 }
 
-.input {
+.textArea {
   all: unset;
   font-size: var(--font-size-md);
   width: 100%;
-  padding: 0.25rem 0 0.25rem 0;
+  padding: 0.5rem 0rem;
+  box-sizing: border-box;
+  resize: vertical;
 }
 
-.textInputInfo {
-  margin-top: 0.25em;
-  font-size: 0.95em;
-  color: #666;
-}
-
-.button {
-  margin-left: 1rem;
+.textAreaCounter {
+  display: flex;
+  justify-content: flex-end;
+  margin: 0.625rem 1rem 0 1rem;
+  font-size: var(--font-size-sm);
 }

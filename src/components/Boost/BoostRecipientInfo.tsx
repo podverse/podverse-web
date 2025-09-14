@@ -1,13 +1,14 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { DTOChannelValueRecipient, DTOItemValueRecipient, normalizeChannelValueRecipients, normalizeItemValueRecipients } from "podverse-helpers";
+import { AppValueRecipient, DTOChannelValueRecipient, DTOItemValueRecipient, normalizeChannelValueRecipients, normalizeItemValueRecipients } from "podverse-helpers";
 import styles from "../../styles/components/Boost/BoostRecipientInfo.module.scss";
 import { BoostRecipientInfoRow } from "./BoostRecipientInfoRow";
 
 type BoostRecipientInfoProps = {
   channel_value_recipients?: DTOChannelValueRecipient[];
   item_value_recipients?: DTOItemValueRecipient[];
+  app_value_recipient?: AppValueRecipient | null;
   totalAmountToCreator: number;
   totalAmountToApp: number;
 };
@@ -15,7 +16,9 @@ type BoostRecipientInfoProps = {
 export const BoostRecipientInfo = ({
   channel_value_recipients,
   item_value_recipients,
-  totalAmountToCreator
+  app_value_recipient,
+  totalAmountToCreator,
+  totalAmountToApp
 }: BoostRecipientInfoProps) => {
   const tValue = useTranslations("value");
 
@@ -60,6 +63,22 @@ export const BoostRecipientInfo = ({
           {rows}
         </tbody>
       </table>
+      {
+        app_value_recipient && totalAmountToApp > 0 && (
+          <table className={styles.table}>
+            <thead>
+              <tr className={styles.headerRow}>
+                <th>{tValue("recipient.app_recipient")}</th>
+                <th>%</th>
+                <th>{tValue("total")}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <BoostRecipientInfoRow app_value_recipient={app_value_recipient} />
+            </tbody>
+          </table>
+        )
+      }
     </>
   );
 };

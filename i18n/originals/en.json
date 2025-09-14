@@ -59,6 +59,7 @@
       "app_recipient": "App Recipient"
     },
     "total": "Total",
+    "message": "Message",
     "types": {
       "lightning_keysend": {
         "label": "Bitcoin Lightning Keysend",
@@ -107,7 +108,9 @@
     "more_info": "More Info",
     "increment": "Increment",
     "decrement": "Decrement",
-    "anonymous": "Anonymous"
+    "anonymous": "Anonymous",
+    "optional": "Optional",
+    "submit": "Submit"
   },
   "instructions": {
     "login_for_subscriptions": "Please login to view your subscriptions."

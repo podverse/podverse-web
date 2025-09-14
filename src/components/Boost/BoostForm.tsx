@@ -12,6 +12,9 @@ import styles from "../../styles/components/Boost/BoostForm.module.scss";
 import Accordion from "../Accordian/Accordian";
 import { BoostRecipientInfo } from "./BoostRecipientInfo";
 import { config } from "../../config";
+import { getAppValueRecipient } from "../../utils/value/appValue";
+import { TextArea } from "../Form/TextArea";
+import { Button } from "../Button/Button";
 
 // Reusable mock recipients
 const MOCK_RECIPIENTS = [
@@ -152,6 +155,7 @@ export const BoostForm: React.FC<BoostFormProps> = ({ className, channel, item }
   const [totalAmountToCreator, setTotalAmountToCreator] = useState<number>(1);
   const [totalAmountToApp, setTotalAmountToApp] = useState<number>(0);
   const [yourName, setYourName] = useState<string>("");
+  const [message, setMessage] = useState<string>("");
 
   // Use mock data only if channel.channel_values is missing or empty
   const channelValues = channel.channel_values && channel.channel_values.length > 0
@@ -183,6 +187,12 @@ export const BoostForm: React.FC<BoostFormProps> = ({ className, channel, item }
 
   const selectedValueKey = selectedChannelValue ? `${selectedChannelValue.type}_${selectedChannelValue.method}` : null;
 
+  const appValueRecipient = selectedChannelValue ? getAppValueRecipient({
+    type: selectedChannelValue.type,
+    method: selectedChannelValue.method,
+    final_amount: totalAmountToApp
+  }) : null;
+
   return (
     <div>
       <MediaHeaderMini channel={channel} item={item} />
@@ -213,7 +223,19 @@ export const BoostForm: React.FC<BoostFormProps> = ({ className, channel, item }
           placeholder={tMisc("anonymous")}
           onChange={e => setYourName(e.target.value)}
         />
+        <TextArea
+          eyebrow={tValue("message")}
+          value={message}
+          placeholder={tMisc("optional")}
+          onChange={e => setMessage(e.target.value)}
+          maxLength={500}
+        />
       </Form>
+      <div className={styles.buttons}>
+        <Button onClick={() => alert("Handle boost submit")}>
+          {tMisc("submit")}
+        </Button>
+      </div>
       <div className={styles.moreInfo}>
         <Accordion
           header={tMisc("more_info")}
@@ -221,6 +243,7 @@ export const BoostForm: React.FC<BoostFormProps> = ({ className, channel, item }
             <BoostRecipientInfo
               channel_value_recipients={channel_value_recipients}
               item_value_recipients={item_value_recipients}
+              app_value_recipient={appValueRecipient}
               totalAmountToCreator={totalAmountToCreator}
               totalAmountToApp={totalAmountToApp}
             />

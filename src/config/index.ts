@@ -29,6 +29,15 @@ export const config = {
     web: {
       protocol: process.env.NEXT_PUBLIC_WEB_PROTOCOL,
       host: process.env.NEXT_PUBLIC_WEB_DOMAIN
+    },
+    app_value: {
+      lightning_keysend: {
+        name: process.env.NEXT_PUBLIC_APP_VALUE_LIGHTNING_KEYSEND_NAME || "",
+        type: process.env.NEXT_PUBLIC_APP_VALUE_LIGHTNING_KEYSEND_TYPE || "",
+        address: process.env.NEXT_PUBLIC_APP_VALUE_LIGHTNING_KEYSEND_ADDRESS || "",
+        custom_key: process.env.NEXT_PUBLIC_APP_VALUE_LIGHTNING_KEYSEND_CUSTOM_KEY || "",
+        custom_value: process.env.NEXT_PUBLIC_APP_VALUE_LIGHTNING_KEYSEND_CUSTOM_VALUE || ""
+      }
     }
   }
 };

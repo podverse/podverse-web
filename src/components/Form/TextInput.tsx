@@ -86,8 +86,8 @@ export const TextInput: React.FC<TextInputProps> = ({
             aria-label={ariaLabel}
             aria-describedby={info ? infoId : ariaDescribedBy}
             aria-required={ariaRequired}
-            aria-invalid={ariaInvalid}
             className={styles.input}
+            aria-invalid={ariaInvalid}
             onWheel={onWheel}
             min={min}
             max={max}
@@ -101,7 +101,7 @@ export const TextInput: React.FC<TextInputProps> = ({
             </div>
           )}
         </div>
-        {type === 'number' ? (
+        {type === 'number' && (
           <TextInputNumberIncrement
             value={value}
             onChange={onChange}
@@ -111,7 +111,8 @@ export const TextInput: React.FC<TextInputProps> = ({
             disabled={disabled}
             readOnly={readOnly}
           />
-        ) : button && (
+        )}
+        {button && (
           <Button
             className={styles.button}
             onClick={button.onClick}
