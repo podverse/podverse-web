@@ -5,6 +5,7 @@ import { DTOChannel, DTOItem } from "podverse-helpers";
 import React from "react";
 import { Modal } from "./Modal";
 import { MediaHeaderMini } from "../MediaHeaderMini/MediaHeaderMini";
+import { BoostRecipientInfo } from "../Boost/BoostRecipientInfo";
 
 type ModalBoostProps = {
   isOpen: boolean;
@@ -20,8 +21,16 @@ export const ModalBoost: React.FC<ModalBoostProps> = ({
   item
 }) => {
   if (!isOpen) return null;
-  const tInfo = useTranslations("info");
-  const header = tInfo("boost");
+  const tValue = useTranslations("value");
+  const header = tValue("boost");
+
+  /* TODO: support selecting channel_value and item_value */
+  const channel_value_recipients = channel?.channel_values?.[0]?.channel_value_recipients;
+  const item_value_recipients = item?.item_values?.[0]?.item_value_recipients;
+
+  if (!channel_value_recipients && !item_value_recipients) {
+    return null;
+  }
 
   return (
     <Modal
@@ -29,8 +38,12 @@ export const ModalBoost: React.FC<ModalBoostProps> = ({
       onClose={onClose}
       header={header}
       ariaLabel={header}
-      modalContentMaxWidth={400}>
+      modalContentMaxWidth={500}>
       <MediaHeaderMini channel={channel} item={item} />
+      <BoostRecipientInfo
+        channel_value_recipients={channel_value_recipients}
+        item_value_recipients={item_value_recipients}
+      />
     </Modal>
   );
 };

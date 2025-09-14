@@ -52,8 +52,12 @@
     "funding": "Funding",
     "website": "Website",
     "rss_feed": "RSS Feed",
-    "share": "Share",
-    "boost": "Boost"
+    "share": "Share"
+  },
+  "value": {
+    "boost": "Boost",
+    "recipient": "Recipient",
+    "total": "Total"
   },
   "filters": {
     "type": {

@@ -16,6 +16,8 @@ type PodcastHeaderButtonsProps = {
 
 const PodcastHeaderButtons: React.FC<PodcastHeaderButtonsProps> = ({ channel }) => {
   const tInfo = useTranslations("info");
+  const tValue = useTranslations("value");
+
   const {
     setPodcastModalShareIsOpen,
     setPodcastModalFundingIsOpen,
@@ -62,7 +64,7 @@ const PodcastHeaderButtons: React.FC<PodcastHeaderButtonsProps> = ({ channel }) 
         <FaShare />
       </Link>
       {
-        channel.channel_fundings?.length > 0 && (
+        channel?.channel_fundings?.length > 0 && (
           <Link
             type="button"
             onClick={() => setPodcastModalFundingIsOpen(true)}
@@ -75,13 +77,13 @@ const PodcastHeaderButtons: React.FC<PodcastHeaderButtonsProps> = ({ channel }) 
         )
       }
       {
-        channel.channel_values?.length > 0 && (
+        channel?.channel_values?.length > 0 && (
           <Link
             type="button"
             onClick={() => setPodcastModalBoostIsOpen(true)}
             className={styles.buttonGold}
-            aria-label={tInfo("boost")}
-            title={tInfo("boost")}
+            aria-label={tValue("boost")}
+            title={tValue("boost")}
             color="secondary">
             <FaCommentDollar />
           </Link>
