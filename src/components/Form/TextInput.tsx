@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from '../../styles/components/TextInput/TextInput.module.scss'
+import styles from '../../styles/components/Form/TextInput.module.scss'
 import { Button } from '../Button/Button'
 
 type TextInputProps = {

@@ -3,7 +3,7 @@
 import React, { useState } from 'react'
 import { Button } from '../Button/Button'
 import { Modal } from '../Modal/Modal'
-import { TextInput } from '../TextInput/TextInput'
+import { TextInput } from '../Form/TextInput'
 import { useModals } from '../../contexts/Modals'
 import styles from '../../styles/components/Auth/LoginModal.module.scss'
 import { apiRequestService } from '../../factories/apiRequestService';

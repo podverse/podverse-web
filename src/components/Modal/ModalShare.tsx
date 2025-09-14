@@ -3,7 +3,7 @@
 import { useTranslations } from 'next-intl';
 import React, { useRef, useState } from 'react'
 import { Modal } from './Modal'
-import { TextInput } from '../TextInput/TextInput';
+import { TextInput } from '../Form/TextInput';
 import { copyToClipboard } from 'podverse-helpers';
 
 type ModalShareProps = {
