@@ -1,5 +1,5 @@
 .table {
-  margin-top: 1.5rem;
+  margin-top: 1rem;
   border-spacing: 0px;
   border-collapse: separate;
   border: 1px solid var(--border-color-tertiary);
@@ -9,6 +9,7 @@
   border-right: 1px solid var(--border-color-tertiary);
   padding: 0.5rem 0.75rem;
   white-space: nowrap;
+  font-weight: var(--font-weight-bold);
 }
 
 .headerRow th:first-child {

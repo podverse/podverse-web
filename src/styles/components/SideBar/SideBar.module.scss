@@ -32,6 +32,11 @@
   flex-direction: column;
 }
 
+.accordianHeader {
+  padding: 0 0.75rem;
+  margin: 0 0.5rem;
+}
+
 @media (max-width: breakpoints.$breakpoint-md) {
   .sidebar, .stickyTop {
     display: none;   

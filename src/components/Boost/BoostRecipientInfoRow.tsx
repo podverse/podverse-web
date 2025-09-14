@@ -1,14 +1,14 @@
-import { DTOChannelValueRecipient, DTOItemValueRecipient } from "podverse-helpers"
+import { NormalizedChannelValueRecipient, NormalizedItemValueRecipient } from "podverse-helpers"
 import styles from "../../styles/components/Boost/BoostRecipientInfoRow.module.scss";
 
 type BoostRecipientInfoRowProps = {
-  channel_value_recipient?: DTOChannelValueRecipient;
-  item_value_recipient?: DTOItemValueRecipient;
+  normalized_channel_value_recipient?: NormalizedChannelValueRecipient;
+  normalized_item_value_recipient?: NormalizedItemValueRecipient;
 }
 
-export const BoostRecipientInfoRow = ({ channel_value_recipient, item_value_recipient }: BoostRecipientInfoRowProps) => {
+export const BoostRecipientInfoRow = ({ normalized_channel_value_recipient, normalized_item_value_recipient }: BoostRecipientInfoRowProps) => {
 
-  const recipient = item_value_recipient ? item_value_recipient : channel_value_recipient;
+  const recipient = normalized_item_value_recipient ? normalized_item_value_recipient : normalized_channel_value_recipient;
 
   if (!recipient) {
     return null;
@@ -20,8 +20,8 @@ export const BoostRecipientInfoRow = ({ channel_value_recipient, item_value_reci
         <div>{recipient.name}</div>
         <div className={styles.address}>{recipient.address}</div>
       </td>
-      <td className={styles.percent}>25</td>
-      <td className={styles.amount}>333</td>
+      <td className={styles.percent}>{recipient.normalized_split}</td>
+      <td className={styles.amount}>{recipient.final_amount}</td>
     </tr>
   )
 }

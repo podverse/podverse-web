@@ -27,6 +27,7 @@ const SideBar: React.FC = () => {
         <SideBarDivider noMarginTop />
         <Accordion
           header={<SideBarHeader>{tMedia("podcast.audio")}</SideBarHeader>}
+          headerClass={styles.accordianHeader}
           items={
             <>
               <SideBarLink href={ROUTES.PODCASTS}>{tMedia("podcast.podcasts")}</SideBarLink>
@@ -42,6 +43,7 @@ const SideBar: React.FC = () => {
         <SideBarDivider />
         <Accordion
           header={<SideBarHeader>{tMedia("video.video")}</SideBarHeader>}
+          headerClass={styles.accordianHeader}
           items={
             <>
               <SideBarLink href={ROUTES.CHANNELS}>{tMedia("video.channels")}</SideBarLink>
@@ -57,6 +59,7 @@ const SideBar: React.FC = () => {
         <SideBarDivider />
         <Accordion
           header={<SideBarHeader>{tMedia("music.music")}</SideBarHeader>}
+          headerClass={styles.accordianHeader}
           items={
             <>
               <SideBarLink href={ROUTES.ARTISTS}>{tMedia("music.artists")}</SideBarLink>
@@ -71,6 +74,7 @@ const SideBar: React.FC = () => {
         <SideBarDivider />
         <Accordion
           header={<SideBarHeader>{tFeatures("my_library")}</SideBarHeader>}
+          headerClass={styles.accordianHeader}
           items={
             <>
               <SideBarLink href={ROUTES.QUEUE}>{tFeatures("queue")}</SideBarLink>

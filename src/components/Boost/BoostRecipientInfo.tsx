@@ -1,35 +1,40 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { DTOChannelValueRecipient, DTOItemValueRecipient } from "podverse-helpers";
+import { DTOChannelValueRecipient, DTOItemValueRecipient, normalizeChannelValueRecipients, normalizeItemValueRecipients } from "podverse-helpers";
 import styles from "../../styles/components/Boost/BoostRecipientInfo.module.scss";
 import { BoostRecipientInfoRow } from "./BoostRecipientInfoRow";
 
 type BoostRecipientInfoProps = {
   channel_value_recipients?: DTOChannelValueRecipient[];
   item_value_recipients?: DTOItemValueRecipient[];
+  amount: number;
 };
 
 export const BoostRecipientInfo = ({
   channel_value_recipients,
   item_value_recipients,
+  amount
 }: BoostRecipientInfoProps) => {
   const tValue = useTranslations("value");
 
   let rows: React.ReactNode[] = [];
 
-  if (item_value_recipients && item_value_recipients.length > 0) {
-    rows = item_value_recipients.map((recipient, index) => (
+  const normalized_channel_value_recipients = channel_value_recipients ? normalizeChannelValueRecipients(channel_value_recipients, amount) : [];
+  const normalized_item_value_recipients = item_value_recipients ? normalizeItemValueRecipients(item_value_recipients, amount) : [];
+
+  if (normalized_channel_value_recipients && normalized_item_value_recipients.length > 0) {
+    rows = normalized_item_value_recipients.map((recipient, index) => (
       <BoostRecipientInfoRow
         key={index}
-        item_value_recipient={recipient}
+        normalized_item_value_recipient={recipient}
       />
     ));
-  } else if (channel_value_recipients && channel_value_recipients.length > 0) {
-    rows = channel_value_recipients.map((recipient, index) => (
+  } else if (normalized_channel_value_recipients && normalized_channel_value_recipients.length > 0) {
+    rows = normalized_channel_value_recipients.map((recipient, index) => (
       <BoostRecipientInfoRow
         key={index}
-        channel_value_recipient={recipient}
+        normalized_channel_value_recipient={recipient}
       />
     ));
   }

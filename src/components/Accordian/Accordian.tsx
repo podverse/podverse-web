@@ -5,6 +5,7 @@ import styles from "../../styles/components/Accordian/Accordian.module.scss";
 
 type AccordionProps = {
   header: React.ReactNode;
+  headerClass?: string;
   items: React.ReactNode;
   color?: "primary" | "secondary" | "link";
   size?: "small" | "large";
@@ -13,6 +14,7 @@ type AccordionProps = {
 
 const Accordion: React.FC<AccordionProps> = ({
   header,
+  headerClass,
   items,
   color = "primary",
   size = "large",
@@ -26,7 +28,7 @@ const Accordion: React.FC<AccordionProps> = ({
     )}
     open={open}
   >
-    <summary className={styles.accordionHeader}>
+    <summary className={classNames(styles.accordionHeader, headerClass)}>
       <span
         className={classNames(
           styles.headerIcon,

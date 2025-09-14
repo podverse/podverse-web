@@ -6,6 +6,8 @@ import React from "react";
 import { Modal } from "./Modal";
 import { MediaHeaderMini } from "../MediaHeaderMini/MediaHeaderMini";
 import { BoostRecipientInfo } from "../Boost/BoostRecipientInfo";
+import Accordion from "../Accordian/Accordian";
+import styles from "../../styles/components/Modal/ModalBoost.module.scss";
 
 type ModalBoostProps = {
   isOpen: boolean;
@@ -22,6 +24,7 @@ export const ModalBoost: React.FC<ModalBoostProps> = ({
 }) => {
   if (!isOpen) return null;
   const tValue = useTranslations("value");
+  const tMisc = useTranslations("misc");
   const header = tValue("boost");
 
   /* TODO: support selecting channel_value and item_value */
@@ -40,10 +43,19 @@ export const ModalBoost: React.FC<ModalBoostProps> = ({
       ariaLabel={header}
       modalContentMaxWidth={500}>
       <MediaHeaderMini channel={channel} item={item} />
-      <BoostRecipientInfo
-        channel_value_recipients={channel_value_recipients}
-        item_value_recipients={item_value_recipients}
-      />
+      <div className={styles.moreInfo}>
+        <Accordion
+          header={tMisc("more_info")}
+          items={
+            <BoostRecipientInfo
+              channel_value_recipients={channel_value_recipients}
+              item_value_recipients={item_value_recipients}
+              amount={10000}
+            />
+          }
+          size="small"
+        />
+      </div>
     </Modal>
   );
 };

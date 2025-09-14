@@ -1,13 +1,12 @@
 .accordionHeader {
   display: flex;
   cursor: pointer;
-  padding: 0 0.75rem;
-  margin: 0 0.5rem;
   border-radius: var(--border-radius);
 }
 
 .headerText {
   flex: 1;
+  margin: 0.5rem;
 }
 
 .headerIcon {

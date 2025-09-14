@@ -79,6 +79,9 @@
       "all_time": "All Time"
     }
   },
+  "misc": {
+    "more_info": "More Info"
+  },
   "instructions": {
     "login_for_subscriptions": "Please login to view your subscriptions."
   },
