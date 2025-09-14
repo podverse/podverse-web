@@ -1,3 +1,5 @@
+"use client";
+
 import { useTranslations } from "next-intl";
 import React, { useState } from "react";
 import Form from "../Form/Form";
@@ -9,6 +11,7 @@ import Tabs from "../Tabs/Tabs";
 import styles from "../../styles/components/Boost/BoostForm.module.scss";
 import Accordion from "../Accordian/Accordian";
 import { BoostRecipientInfo } from "./BoostRecipientInfo";
+import { config } from "../../config";
 
 // Reusable mock recipients
 const MOCK_RECIPIENTS = [
@@ -144,14 +147,11 @@ type BoostFormProps = {
 
 export const BoostForm: React.FC<BoostFormProps> = ({ className, channel, item }) => {
   const tValue = useTranslations("value");
-  const tBrand = useTranslations("brand");
   const tMisc = useTranslations("misc");
   const [selectedKey, setSelectedKey] = useState("");
   const [totalAmountToCreator, setTotalAmountToCreator] = useState<number>(1);
   const [totalAmountToApp, setTotalAmountToApp] = useState<number>(0);
   const [yourName, setYourName] = useState<string>("");
-
-  const totalAmount = totalAmountToCreator + totalAmountToApp;
 
   // Use mock data only if channel.channel_values is missing or empty
   const channelValues = channel.channel_values && channel.channel_values.length > 0
@@ -189,22 +189,24 @@ export const BoostForm: React.FC<BoostFormProps> = ({ className, channel, item }
         selectedKey={selectedKey}
       />
       <Form className={styles.form} onSubmit={(e) => { e.preventDefault(); }}>
-        <TextInputNumber
-          eyebrow={tValue("send_to.creator")}
-          value={totalAmountToCreator}
-          min={0}
-          onChange={e => {
-            setTotalAmountToCreator(Number(e.target.value));
-          }}
-        />
-        <TextInputNumber
-          eyebrow={tValue("send_to.app", { brand_name: tBrand("name") })}
-          value={totalAmountToApp}
-          min={0}
-          onChange={e => {
-            setTotalAmountToApp(Number(e.target.value));
-          }}
-        />
+        <div className={styles.textInputNumbers}>
+          <TextInputNumber
+            eyebrow={tValue("send_to.creator")}
+            value={totalAmountToCreator}
+            min={0}
+            onChange={e => {
+              setTotalAmountToCreator(Number(e.target.value));
+            }}
+          />
+          <TextInputNumber
+            eyebrow={tValue("send_to.app", { brand_name: config.public.brand.name })}
+            value={totalAmountToApp}
+            min={0}
+            onChange={e => {
+              setTotalAmountToApp(Number(e.target.value));
+            }}
+          />
+        </div>
         <TextInput
           eyebrow={tValue("your_name")}
           value={yourName}
@@ -221,7 +223,7 @@ export const BoostForm: React.FC<BoostFormProps> = ({ className, channel, item }
             <BoostRecipientInfo
               channel_value_recipients={channel_value_recipients}
               item_value_recipients={item_value_recipients}
-              amount={totalAmount}
+              totalAmountToCreator={totalAmountToCreator}
             />
           }
         />

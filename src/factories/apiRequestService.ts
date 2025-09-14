@@ -3,19 +3,19 @@ import { config } from "../config";
 
 export function getSSRApiRequestService(jwt?: string | null): ApiRequestService {
   return new ApiRequestService({
-    protocol: config.api.private.api.protocol || '',
-    host: config.api.private.api.host || '',
-    port: config.api.private.api.port || '',
-    prefix: config.api.private.api.prefix || '',
-    version: config.api.private.api.version || '',
+    protocol: config.private.api.protocol || '',
+    host: config.private.api.host || '',
+    port: config.private.api.port || '',
+    prefix: config.private.api.prefix || '',
+    version: config.private.api.version || '',
     ...(jwt ? { jwt } : {})
   });
 }
 
 export const apiRequestService = new ApiRequestService({
-  protocol: config.api.public.api.protocol || '',
-  host: config.api.public.api.host || '',
-  port: config.api.public.api.port || '',
-  prefix: config.api.public.api.prefix || '',
-  version: config.api.public.api.version || ''
+  protocol: config.public.api.protocol || '',
+  host: config.public.api.host || '',
+  port: config.public.api.port || '',
+  prefix: config.public.api.prefix || '',
+  version: config.public.api.version || ''
 });

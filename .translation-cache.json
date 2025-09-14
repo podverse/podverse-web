@@ -164,7 +164,6 @@
     "categories.filminterviews": "Entrevistas de películas",
     "categories.filmreviews": "Reseñas de películas",
     "categories.tvreviews": "Reseñas de TV",
-    "brand.name": "Podverse",
     "media.podcast.podcast_image": "Imagen del podcast"
   },
   "French": {
@@ -332,7 +331,6 @@
     "categories.filminterviews": "Interviews de films",
     "categories.filmreviews": "Critiques de films",
     "categories.tvreviews": "Critiques TV",
-    "brand.name": "Podverse",
     "media.podcast.podcast_image": "Image du podcast"
   },
   "Greek": {
@@ -500,7 +498,6 @@
     "categories.filminterviews": "Συνεντεύξεις Ταινιών",
     "categories.filmreviews": "Κριτικές Ταινιών",
     "categories.tvreviews": "Κριτικές Τηλεόρασης",
-    "brand.name": "Podverse",
     "media.podcast.podcast_image": "Εικόνα Podcast"
   }
 }

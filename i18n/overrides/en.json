@@ -2,9 +2,6 @@
   "_sample": {
     "hello_world": "Hello, World!!!"
   },
-  "brand": {
-    "name": "Podverse"
-  },
   "media": {
     "podcast": {
       "audio": "Audio",
@@ -56,7 +53,11 @@
   },
   "value": {
     "boost": "Boost",
-    "recipient": "Recipient",
+    "recipient": {
+      "creator_recipient": "Recipient",
+      "creator_recipients": "Recipients",
+      "app_recipient": "App Recipient"
+    },
     "total": "Total",
     "types": {
       "lightning_keysend": {

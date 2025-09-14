@@ -8,20 +8,20 @@ import { BoostRecipientInfoRow } from "./BoostRecipientInfoRow";
 type BoostRecipientInfoProps = {
   channel_value_recipients?: DTOChannelValueRecipient[];
   item_value_recipients?: DTOItemValueRecipient[];
-  amount: number;
+  totalAmountToCreator: number;
 };
 
 export const BoostRecipientInfo = ({
   channel_value_recipients,
   item_value_recipients,
-  amount
+  totalAmountToCreator
 }: BoostRecipientInfoProps) => {
   const tValue = useTranslations("value");
 
   let rows: React.ReactNode[] = [];
 
-  const normalized_channel_value_recipients = channel_value_recipients ? normalizeChannelValueRecipients(channel_value_recipients, amount) : [];
-  const normalized_item_value_recipients = item_value_recipients ? normalizeItemValueRecipients(item_value_recipients, amount) : [];
+  const normalized_channel_value_recipients = channel_value_recipients ? normalizeChannelValueRecipients(channel_value_recipients, totalAmountToCreator) : [];
+  const normalized_item_value_recipients = item_value_recipients ? normalizeItemValueRecipients(item_value_recipients, totalAmountToCreator) : [];
 
   if (normalized_channel_value_recipients && normalized_item_value_recipients.length > 0) {
     rows = normalized_item_value_recipients.map((recipient, index) => (
@@ -43,18 +43,22 @@ export const BoostRecipientInfo = ({
     return null;
   }
 
+  const creatorHeaderLabel = rows.length > 1 ? tValue("recipient.creator_recipients") : tValue("recipient.creator_recipient");
+
   return (
-    <table className={styles.table}>
-      <thead>
-        <tr className={styles.headerRow}>
-          <th>{tValue("recipient")}</th>
-          <th>%</th>
-          <th>{tValue("total")}</th>
-        </tr>
-      </thead>
-      <tbody>
-        {rows}
-      </tbody>
-    </table>
+    <>
+      <table className={styles.table}>
+        <thead>
+          <tr className={styles.headerRow}>
+            <th>{creatorHeaderLabel}</th>
+            <th>%</th>
+            <th>{tValue("total")}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows}
+        </tbody>
+      </table>
+    </>
   );
 };

@@ -14,9 +14,10 @@ import { Modals } from '../components/Modals/Modals';
 import { getSSRJwtFromCookies, getSSRLoggedInAccount } from '../utils/auth/ssrAuth';
 import AuthSessionChecker from '../components/Auth/AuthSessionChecker';
 import { apiRequestService } from '../factories/apiRequestService';
+import { config } from '../config';
 
 export const metadata = {
-  title: 'Podverse',
+  title: `${config.private.brand.name || config.public.brand.name}`,
   description: 'Add meta description here',
 };
 
