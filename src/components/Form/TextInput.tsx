@@ -116,7 +116,7 @@ export const TextInput: React.FC<TextInputProps> = ({
           <Button
             className={styles.button}
             onClick={button.onClick}
-            variant='miniPrimary'
+            variant='mini'
           >
             {button.label}
           </Button>

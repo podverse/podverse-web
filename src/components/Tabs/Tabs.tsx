@@ -20,7 +20,7 @@ const Tabs: React.FC<TabsProps> = ({ tabs, selectedKey, className = "" }) => (
     {tabs.map((tab) => (
       <Button
         key={tab.key}
-        variant={tab.key === selectedKey ? "miniPrimarySelected" : "miniPrimary"}
+        variant={tab.key === selectedKey ? "miniSelected" : "mini"}
         onClick={tab.onClick}
         className={styles.tabButton}
       >

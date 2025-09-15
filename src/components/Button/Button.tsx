@@ -3,7 +3,7 @@ import React, { AriaAttributes } from 'react'
 import { FaChevronDown } from 'react-icons/fa'
 import styles from '../../styles/components/Button/Button.module.scss'
 
-type ButtonVariant = 'primary' | 'secondary' | 'warning' | 'success' | 'danger' | 'outline' | 'link' | 'miniPrimary' | 'miniPrimarySelected'
+type ButtonVariant = 'primary' | 'secondary' | 'warning' | 'success' | 'danger' | 'outline' | 'link' | 'mini' | 'miniSelected' | 'miniGlow'
 
 type ButtonProps = {
   children: React.ReactNode

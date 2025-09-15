@@ -106,7 +106,7 @@
   background: var(--button-highlight-bg-hover);
 }
 
-.miniPrimary {
+.mini {
   color: var(--button-secondary-color);
   border: var(--button-border-size) solid var(--border-color-primary);
   height: 2rem;
@@ -116,7 +116,7 @@
   font-weight: var(--font-weight-normal);
 }
 
-.miniPrimarySelected {
+.miniSelected {
   background: var(--border-color-primary);
   color: var(--background-color-tertiary);
   border: none;
@@ -125,4 +125,15 @@
   padding: 0 1rem;
   min-width: auto;
   font-weight: var(--font-weight-normal);
+}
+
+.miniGlow {
+  background: var(--button-opaque-bg);
+  color: var(--button-primary-secondary);
+  border: var(--button-border-size) solid var(--border-color-primary);
+  height: 2rem;
+  font-size: var(--font-size-sm);
+  padding: 0 1rem;
+  min-width: auto;
+  font-weight: var(--font-weight-bold);
 }
