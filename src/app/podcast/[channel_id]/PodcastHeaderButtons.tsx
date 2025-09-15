@@ -11,7 +11,6 @@ import { FaCircleDollarToSlot } from "react-icons/fa6";
 
 type PodcastHeaderButtonsProps = {
   channel: DTOChannel;
-  shareOnClick: () => void;
 };
 
 const PodcastHeaderButtons: React.FC<PodcastHeaderButtonsProps> = ({ channel }) => {

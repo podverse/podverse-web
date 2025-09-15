@@ -50,7 +50,7 @@ export const ModalShare: React.FC<ModalShareProps> = ({ isOpen, onClose, shareIn
       isOpen={isOpen}
       onClose={onClose}
       ariaLabel={tInfo("share")}
-    >
+      modalContentMaxWidth={500}>
       {shareInputs.map((input, idx) => (
         <TextInput
           key={input.name}

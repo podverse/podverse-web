@@ -25,7 +25,12 @@ export const ModalFunding: React.FC<ModalFundingProps> = ({
   const header = tInfo("funding");
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} header={header} ariaLabel={header}>
+    <Modal
+      isOpen={isOpen}
+      onClose={onClose}
+      header={header}
+      ariaLabel={header}
+      modalContentMaxWidth={420}>
       <ul className={styles.fundingLinksList}>
         {channel_fundings?.map((channel_funding, idx) => (
           <li key={idx} className={styles.fundingLinkItem}>

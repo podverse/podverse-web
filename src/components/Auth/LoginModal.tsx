@@ -30,6 +30,7 @@ export const LoginModal: React.FC = () => {
       isOpen={modals.LoginModal.isOpen}
       onClose={() => closeModal('LoginModal')}
       ariaLabel="Log in"
+      modalContentMaxWidth={500}
     >
       <Form onSubmit={handleSubmit}>
         <TextInput
