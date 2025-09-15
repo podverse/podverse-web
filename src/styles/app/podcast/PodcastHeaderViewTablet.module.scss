@@ -34,3 +34,8 @@
   }
 }
 
+@media (max-width: breakpoints.$breakpoint-sm-max) {
+  .title {
+    font-size: var(--font-size-2xl);
+  }
+}
