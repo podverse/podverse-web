@@ -40,23 +40,23 @@
   ],
   "dependencies": {
     "classnames": "^2.5.1",
-    "next": "^15.3.5",
-    "next-intl": "^4.3.4",
+    "next": "^15.5.3",
+    "next-intl": "^4.3.9",
     "podverse-helpers": "^5.1.0",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
     "react-icons": "^5.5.0",
-    "sass": "^1.89.2",
+    "sass": "^1.92.1",
     "zod": "^3.25.76"
   },
   "devDependencies": {
-    "@types/node": "^22.0.0",
-    "@types/react": "^19.1.8",
-    "axios": "^1.10.0",
-    "dotenv": "^17.2.0",
-    "nodemon": "^3.1.4",
-    "openai": "^5.9.0",
+    "@types/node": "^24.5.0",
+    "@types/react": "^19.1.13",
+    "axios": "^1.12.2",
+    "dotenv": "^17.2.2",
+    "nodemon": "^3.1.10",
+    "openai": "^5.20.3",
     "ts-node": "^10.9.2",
-    "typescript": "^5.8.3"
+    "typescript": "^5.9.2"
   }
 }
