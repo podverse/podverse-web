@@ -1,5 +1,5 @@
 .footer {
-  margin: 0.75rem 0 1.5rem 0;
+  margin: var(--header-padding);
 }
 
 .footerTop {
@@ -12,7 +12,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  padding: 0.75rem 0;
+  padding: 0 0 0.75rem 0;
 }
 
 .footerBottom a {
