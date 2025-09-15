@@ -9,7 +9,7 @@
   align-items: center;
 }
 
-@media (max-width: breakpoints.$breakpoint-md) {
+@media (max-width: breakpoints.$breakpoint-sm-max) {
   .button {
     display: flex;
   }

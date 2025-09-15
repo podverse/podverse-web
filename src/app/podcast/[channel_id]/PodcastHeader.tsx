@@ -2,7 +2,8 @@ import { DTOChannel } from "podverse-helpers";
 import React from "react";
 
 import styles from "../../../styles/app/podcast/PodcastHeader.module.scss";
-import { PodcastHeaderDesktop } from "./PodcastHeaderDesktop";
+import { PodcastHeaderViewDesktop } from "./PodcastHeaderViewDesktop";
+import { PodcastHeaderViewTablet } from "./PodcastHeaderViewTablet";
 
 type PodcastHeaderProps = {
   channel: DTOChannel;
@@ -11,7 +12,8 @@ type PodcastHeaderProps = {
 const PodcastHeader: React.FC<PodcastHeaderProps> = ({ channel }) => {
   return (
     <header className={styles.header}>
-      <PodcastHeaderDesktop channel={channel} />
+      <PodcastHeaderViewDesktop channel={channel} />
+      <PodcastHeaderViewTablet channel={channel} />
     </header>
   )
 };

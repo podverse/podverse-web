@@ -1,9 +1,7 @@
 @use "breakpoints";
 
-.contentXL {
+.contentDesktop {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
   width: 100%;
   max-width: var(--max-content-width);
   margin: 0 auto;
@@ -14,8 +12,8 @@
   flex: 1;
   flex-direction: column;
   align-items: flex-start;
-  justify-content: flex-start;
-  margin: 0 1.5rem;
+  justify-content: space-between;
+  margin: 0.125rem 1.5rem 0.25rem 1.5rem;
 }
 
 .title {
@@ -23,8 +21,8 @@
   font-weight: var(--font-weight-light);
 }
 
-@media (max-width: breakpoints.$breakpoint-lg) {
-  .contentXL {
+@media (max-width: breakpoints.$breakpoint-md-max) {
+  .contentDesktop {
     display: none;
   }
 }

@@ -8,7 +8,7 @@
   cursor: pointer;
 }
 
-@media (max-width: breakpoints.$breakpoint-md) {
+@media (max-width: breakpoints.$breakpoint-sm-max) {
   .brand {
     display: flex;
     padding: 0 1rem;

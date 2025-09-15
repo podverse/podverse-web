@@ -1,6 +1,5 @@
 import { DTOChannel } from "podverse-helpers";
 import React from "react";
-import styles from "../../../styles/app/podcast/PodcastHeaderSubtitle.module.scss";
 import { PodcastHeaderCategories } from "./PodcastHeaderCategories";
 
 type PodcastHeaderSubtitleProps = {
@@ -14,7 +13,7 @@ const PodcastHeaderSubtitle: React.FC<PodcastHeaderSubtitleProps> = ({ channel }
   const hasChannelCategories = channel_categories && channel_categories.length > 0;
   
   return (
-    <div className={styles.subtitle}>
+    <div>
       <span>{author}</span>
       {author && hasChannelCategories && ' • '}
       <PodcastHeaderCategories channel_categories={channel_categories} />

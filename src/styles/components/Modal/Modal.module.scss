@@ -67,7 +67,7 @@
   overflow-y: auto;
 }
 
-@media (max-width: breakpoints.$breakpoint-md) {
+@media (max-width: breakpoints.$breakpoint-md-max) {
   .modalContent {
     min-width: 320px;
   }

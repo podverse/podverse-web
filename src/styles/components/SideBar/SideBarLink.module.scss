@@ -12,7 +12,7 @@
   background: var(--background-color-opaque);
 }
 
-@media (max-width: breakpoints.$breakpoint-md) {
+@media (max-width: breakpoints.$breakpoint-md-max) {
   .link {
     justify-content: center;
   }

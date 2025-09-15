@@ -5,6 +5,7 @@ import { DTOChannel } from "podverse-helpers";
 import { Button } from "../../../components/Button/Button"
 import { useAccount } from "../../../contexts/Account";
 import { apiRequestService } from "../../../factories/apiRequestService";
+import styles from "../../../styles/app/podcast/PodcastHeaderSubscribeSection.module.scss";
 
 type PodcastHeaderSubscribeSectionProps = {
   channel: DTOChannel;
@@ -30,6 +31,7 @@ export const PodcastHeaderSubscribeSection: React.FC<PodcastHeaderSubscribeSecti
 
   return (
     <Button
+      className={styles.button}
       variant="miniGlow"
       onClick={toggleSubscribe}>
       {isSubscribed ? tFeatures("unsubscribe") : tFeatures("subscribe")}

@@ -1,8 +1,22 @@
 export const IMAGES = {
   HEADER: {
-    SQUARE: {
-      SIZE: 128,
-      SIZE_FIND_TARGET: 256
+    DESKTOP: {
+      SQUARE: {
+        SIZE: 128,
+        SIZE_FIND_TARGET: 256
+      }
+    },
+    TABLET: {
+      SQUARE: {
+        SIZE: 100,
+        SIZE_FIND_TARGET: 200
+      }
+    },
+    MOBILE: {
+      SQUARE: {
+        SIZE: 80,
+        SIZE_FIND_TARGET: 160
+      }
     }
   },
   LIST: {

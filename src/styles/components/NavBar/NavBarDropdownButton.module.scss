@@ -33,7 +33,7 @@
   margin-right: 0.5rem;
 }
 
-@media (max-width: breakpoints.$breakpoint-sm) {
+@media (max-width: breakpoints.$breakpoint-sm-max) {
   .profileName {
     display: none;
   }

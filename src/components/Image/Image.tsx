@@ -34,8 +34,6 @@ const Image: React.FC<ImageProps> = ({
     );
   }
 
-  const borderRadius = noBorderRadius ? 0 : 'var(--border-radius)';
-
   return (
     <NextImage
       src={src}
@@ -44,7 +42,6 @@ const Image: React.FC<ImageProps> = ({
       height={height}
       className={className}
       onError={() => setImageError(true)}
-      style={{ borderRadius }}
     />
   );
 };

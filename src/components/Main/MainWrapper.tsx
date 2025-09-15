@@ -19,8 +19,8 @@ const MainWrapper: React.FC<MainWrapperProps> = ({ children, emptyStateComponent
         </div>
       ) : null}
     </main>
-    <Divider />
-    <Footer />
+    {/* <Divider />
+    <Footer /> */}
   </div>
 );
 

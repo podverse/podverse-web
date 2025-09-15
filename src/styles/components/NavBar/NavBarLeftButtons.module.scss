@@ -5,7 +5,7 @@
   gap: 0.75rem;
 }
 
-@media (max-width: breakpoints.$breakpoint-md) {
+@media (max-width: breakpoints.$breakpoint-sm-max) {
   .leftButtons {
     display: none;
   }

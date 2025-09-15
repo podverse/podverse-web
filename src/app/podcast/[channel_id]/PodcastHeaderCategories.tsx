@@ -16,8 +16,7 @@ export const PodcastHeaderCategories: React.FC<PodcastHeaderCategoriesProps> = (
       <Link
         key={channel_category.id}
         href={`/podcasts?category=${channel_category.category.mapping_key}`}
-        color="secondary"
-        style={{ fontSize: 'var(--font-size-md)' }}>
+        color="secondary">
         {tCategories(channel_category.category.mapping_key)}
       </Link>
       {index < (channel_categories.length - 1) && ', '}

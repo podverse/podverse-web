@@ -13,7 +13,7 @@
   display: flex;
 }
 
-@media (max-width: breakpoints.$breakpoint-md) {
+@media (max-width: breakpoints.$breakpoint-sm-max) {
   .button {
     display: flex;
     font-size: var(--font-size-md);

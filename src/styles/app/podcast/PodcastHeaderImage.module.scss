@@ -1,0 +1,31 @@
+@use "../../variables/breakpoints" as *;
+
+.headerImageWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.mobile,
+.tablet,
+.desktop {
+  display: none;
+}
+
+@media (max-width: $breakpoint-sm-max) {
+  .mobile {
+    display: block;
+  }
+}
+
+@media (min-width: $breakpoint-md-min) and (max-width: $breakpoint-md-max) {
+  .tablet {
+    display: block;
+  }
+}
+
+@media (min-width: $breakpoint-lg-min) {
+  .desktop {
+    display: block;
+  }
+}
