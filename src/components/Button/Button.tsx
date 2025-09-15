@@ -1,6 +1,6 @@
 import classNames from 'classnames'
 import React, { AriaAttributes } from 'react'
-import { FaChevronDown } from 'react-icons/fa'
+import { FaChevronDown, FaSpinner } from 'react-icons/fa'
 import styles from '../../styles/components/Button/Button.module.scss'
 
 type ButtonVariant = 'primary' | 'secondary' | 'warning' | 'success' | 'danger' | 'outline' | 'link' | 'mini' | 'miniSelected' | 'miniGlow'
@@ -26,6 +26,7 @@ type ButtonProps = {
   title?: string
   role?: string
   isDropdownButton?: boolean
+  isLoading?: boolean
 }
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
@@ -51,6 +52,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       title,
       role = 'button',
       isDropdownButton = false,
+      isLoading = false,
       ...rest
     },
     ref
@@ -60,11 +62,11 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       type={type}
       onClick={onClick}
       onKeyDown={onKeyDown}
-      disabled={disabled}
+      disabled={disabled || isLoading}
       className={classNames(
         styles.button,
         styles[variant],
-        { [styles.disabled]: disabled },
+        { [styles.disabled]: disabled || isLoading },
         className
       )}
       style={style}
@@ -81,8 +83,15 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       role={role}
       {...rest}
     >
-      {children}
-      {isDropdownButton && <FaChevronDown className={styles.chevronIcon} />}
+      <span className={classNames(styles.buttonContent, { [styles.invisible]: isLoading })}>
+        {children}
+        {isDropdownButton && <FaChevronDown className={styles.chevronIcon} />}
+      </span>
+      {isLoading && (
+        <span className={styles.spinnerWrapper}>
+          <FaSpinner className={styles.spinner} />
+        </span>
+      )}
     </button>
   )
 )

@@ -3,8 +3,8 @@ import React from "react";
 import PodcastHeaderButtons from "./PodcastHeaderButtons";
 import { PodcastHeaderImage } from "./PodcastHeaderImage";
 import PodcastHeaderSubtitle from "./PodcastHeaderSubtitle";
+import { PodcastHeaderSubscribeSection } from "./PodcastHeaderSubscribeSection";
 import styles from "../../../styles/app/podcast/PodcastHeader.module.scss";
-import { Button } from "../../../components/Button/Button";
 
 type PodcastHeaderProps = {
   channel: DTOChannel;
@@ -23,11 +23,7 @@ const PodcastHeader: React.FC<PodcastHeaderProps> = ({ channel, shareOnClick }) 
             channel={channel}
             shareOnClick={shareOnClick} />
         </div>
-        <Button
-          className={styles.buttonSection}
-          variant="miniGlow">
-          Unsubscribe
-        </Button>
+        <PodcastHeaderSubscribeSection channel={channel} />
       </div>
     </header>
   )

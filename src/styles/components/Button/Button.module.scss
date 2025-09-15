@@ -1,3 +1,5 @@
+@use '../../keyframes/' as *;
+
 .button {
   align-items: center;
   display: flex;
@@ -9,6 +11,35 @@
   height: 44px;
   min-width: 9rem;
   padding: 0 16px;
+  overflow: hidden;
+}
+
+.buttonContent {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.invisible {
+  color: transparent !important;
+}
+
+.spinnerWrapper {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.spinner {
+  font-size: var(--font-size-lg);
+  color: inherit;
+  animation: spin 1s linear infinite;
 }
 
 .chevronIcon {

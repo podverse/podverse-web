@@ -1,4 +1,4 @@
-import { DTOChannel, DTOClip, DTOItem, DTOLiveItem, QueryParamsChannel } from "podverse-helpers";
+import { DTOAccount, DTOChannel, DTOClip, DTOItem, DTOLiveItem, QueryParamsChannel } from "podverse-helpers";
 import React from "react";
 import MainWrapper from "../../../components/Main/MainWrapper";
 import { PodcastContextProvider } from "./PodcastContext";
