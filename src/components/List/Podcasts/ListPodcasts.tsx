@@ -4,10 +4,10 @@ import { useTranslations } from "next-intl";
 import { CategoryMappingKeys, DTOChannel, QueryParamsChannelsType } from "podverse-helpers";
 import React, { useRef } from "react";
 import ListPodcastRow from "./ListPodcastRow";
-import CallToActionMessage from "../CallToActionMessage/CallToActionMessage";
-import Pagination from "../Pagination/Pagination";
-import { useModals } from "../../contexts/Modals";
-import { useSkipInitialEffect } from "../../hooks/useSkipInitialEffect";
+import CallToActionMessage from "../../CallToActionMessage/CallToActionMessage";
+import Pagination from "../../Pagination/Pagination";
+import { useModals } from "../../../contexts/Modals";
+import { useSkipInitialEffect } from "../../../hooks/useSkipInitialEffect";
 
 type Props = {
   page: number;
