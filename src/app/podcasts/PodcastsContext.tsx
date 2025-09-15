@@ -5,12 +5,12 @@ import React, { createContext, useContext, useState, ReactNode } from "react";
 import { apiRequestService } from "../../factories/apiRequestService";
 import { useAccount } from "../../contexts/Account";
 import { useSkipInitialEffect } from "../../hooks/useSkipInitialEffect";
-import { getPodcastsQueryParams } from "./PodcastsDropdownConfig";
+import { getPodcastsFilterParams } from "./PodcastsDropdownConfig";
 import { useRouter } from "next/navigation";
 
 interface PodcastsContextType {
-  queryParams: QueryParamsChannels;
-  setQueryParams: (params: QueryParamsChannels) => void;
+  filterParams: QueryParamsChannels;
+  setFilterParams: (params: QueryParamsChannels) => void;
   channels: DTOChannel[];
   setChannels: (channels: DTOChannel[]) => void;
   totalPages: number;
@@ -37,7 +37,7 @@ export const PodcastsContextProvider = ({
   ssrTotalPages
 }: PodcastsContextProviderProps) => {
   const router = useRouter();
-  const [queryParams, setQueryParams] = useState<QueryParamsChannels>(initialQueryParams);
+  const [filterParams, setFilterParams] = useState<QueryParamsChannels>(initialQueryParams);
   const [channels, setChannels] = useState<DTOChannel[]>(ssrChannels || []);
   const [totalPages, setTotalPages] = useState<number>(ssrTotalPages || 1);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -46,7 +46,7 @@ export const PodcastsContextProvider = ({
 
   useSkipInitialEffect(() => {
     async function fetchChannels() {
-      if (queryParams.type === "subscribed") {
+      if (filterParams.type === "subscribed") {
         if (!loggedInAccount) {
           setChannels([]);
           setShowSubscribeMessage(true);
@@ -56,21 +56,21 @@ export const PodcastsContextProvider = ({
 
       setIsLoading(true);
 
-      const { currentSort, currentRange, currentType } = getPodcastsQueryParams({
-        type: queryParams.type,
-        sort: queryParams.sort,
-        range: queryParams.range,
-        category: queryParams.category
+      const { currentSort, currentRange, currentType } = getPodcastsFilterParams({
+        type: filterParams.type,
+        sort: filterParams.sort,
+        range: filterParams.range,
+        category: filterParams.category
       });
 
       const response = await apiRequestService.reqChannelGetMany({
-        ...queryParams,
+        ...filterParams,
         type: currentType,
         sort: currentSort,
         range: currentRange
       });
 
-      if (!queryParams.category) {
+      if (!filterParams.category) {
         router.replace("/podcasts");
       }
 
@@ -81,12 +81,12 @@ export const PodcastsContextProvider = ({
       setIsLoading(false);
     }
     fetchChannels();
-  }, [queryParams, loggedInAccount]);
+  }, [filterParams, loggedInAccount]);
 
   return (
     <PodcastsContext.Provider value={{
-      queryParams,
-      setQueryParams,
+      filterParams,
+      setFilterParams,
       channels, setChannels,
       totalPages, setTotalPages,
       isLoading, setIsLoading,

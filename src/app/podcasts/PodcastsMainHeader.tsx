@@ -17,8 +17,8 @@ import { usePodcastsContext } from "./PodcastsContext";
 import { getPodcastsDropdownConfig } from "./PodcastsDropdownConfig";
 
 const PodcastsMainHeader: React.FC = () => {
-  const { queryParams, setQueryParams } = usePodcastsContext();
-  const { type, sort, range, category } = queryParams;
+  const { filterParams, setFilterParams } = usePodcastsContext();
+  const { type, sort, range, category } = filterParams;
   const tMedia = useTranslations('media');
   const tFilters = useTranslations('filters');
   const { typeMenuItems, sortMenuItems, rangeMenuItems, showRangeDropdown
@@ -39,24 +39,24 @@ const PodcastsMainHeader: React.FC = () => {
   const handleTypeChange = (value: string) => {
     if (isChannelType(value)) {
       if (value === "all") {
-        setQueryParams({ ...queryParams, type: value, sort: "top", page: 1, category: undefined });
+        setFilterParams({ ...filterParams, type: value, sort: "top", page: 1, category: undefined });
       } else if (value === "category") {
         router.push("/podcasts/categories");
       } else {
-        setQueryParams({ ...queryParams, type: value, sort: "alphabetical", page: 1, category: undefined });
+        setFilterParams({ ...filterParams, type: value, sort: "alphabetical", page: 1, category: undefined });
       }
     }
   };
 
   const handleSortChange = (value: string) => {
     if (isChannelSort(value)) {
-      setQueryParams({ ...queryParams, sort: value });
+      setFilterParams({ ...filterParams, sort: value });
     }
   };
 
   const handleRangeChange = (value: string) => {
     if (isStatsRange(value)) {
-      setQueryParams({ ...queryParams, range: value });
+      setFilterParams({ ...filterParams, range: value });
     }
   };
 

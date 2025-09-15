@@ -1,10 +1,15 @@
-import { /* getTotalPages, */ QUERY_PARAMS_STATS_RANGE_VALUES, QUERY_PARAMS_CHANNEL_TYPE_VALUES,
+import { 
+  QUERY_PARAMS_STATS_RANGE_VALUES,
+  QUERY_PARAMS_CHANNEL_TYPE_VALUES,
   QUERY_PARAMS_CHANNEL_SORT_VALUES,
   DTOItem,
   DTOClip,
-  DTOLiveItem} from "podverse-helpers";
+  DTOLiveItem,
+  ApiListResponse,
+  getTotalPages
+} from "podverse-helpers";
 import { z } from "zod";
-// import { getPodcastQueryParams } from "./PodcastDropdownConfig";
+import { getPodcastFilterParams } from "./PodcastDropdownConfig";
 import PodcastClient from "./PodcastClient";
 import { getSSRAuthService } from "../../../utils/auth/ssrAuth";
 
@@ -29,15 +34,21 @@ export default async function Podcast({ params, searchParams }: PodcastPageProps
   const { apiRequestService } = await getSSRAuthService();
     
   const { page = 1, sort, type, range } = await parseSearchParams(queryParams);
+  const { currentType, currentSort, currentRange } = getPodcastFilterParams({ type, sort, range });
 
   const ssrChannel = await apiRequestService.reqChannelGetByIdOrIdText(channel_id);
   
-  // const { currentType, currentSort, currentRange } = getPodcastQueryParams({ type, sort, range });
-
+  const responseItems = await apiRequestService.reqItemGetManyWithoutLiveItemByChannel(ssrChannel.id_text, {
+    page,
+    sort: currentSort,
+    range: currentRange
+  });
+  const ssrItems = responseItems.data;
+ 
   const ssrLiveItems: DTOLiveItem[] = [];
-  const ssrItems: DTOItem[] = [];
-  const ssrClips: DTOClip[] = [];
-  const ssrTotalPages = 5;
+  const ssrClips: any = {};
+
+  const ssrTotalPages = getCurrentTotalPages({ currentType, responseItems });
 
   return (
     <PodcastClient
@@ -51,6 +62,19 @@ export default async function Podcast({ params, searchParams }: PodcastPageProps
   );
 }
 
+type GetPodcastCurrentTotalPages = {
+  currentType?: string;
+  responseItems: ApiListResponse<DTOItem>;
+  responseClips?: ApiListResponse<DTOClip>;
+};
+
+const getCurrentTotalPages = ({ currentType, responseItems, responseClips }: GetPodcastCurrentTotalPages) => {
+  if (currentType === "clips" && responseClips) {
+    return getTotalPages(responseClips.meta.count, responseClips.meta.limit);
+  }
+  return getTotalPages(responseItems.meta.count, responseItems.meta.limit);
+}
+
 async function parseSearchParams(searchParams: SearchParams) {
   const parsed = searchParamsSchema.safeParse(searchParams);
   if (!parsed.success) {
@@ -59,9 +83,9 @@ async function parseSearchParams(searchParams: SearchParams) {
   const data = parsed.data;
 
   if (!data.type) {
-    // data.type = isAuthenticated ? "subscribed" : "all";
-    // data.sort = isAuthenticated ? "alphabetical" : "top";
-    // data.range = "day";
+    data.type = "episodes";
+    data.sort = "recent";
+    data.range = undefined;
   }
   return data;
 }

@@ -16,8 +16,8 @@ import { usePodcastContext } from "./PodcastContext";
 import { getPodcastDropdownConfig } from "./PodcastDropdownConfig";
 
 const PodcastListHeader: React.FC = () => {
-  const { queryParams, setQueryParams } = usePodcastContext();
-  const { type, sort, range } = queryParams;
+  const { filterParams, setFilterParams } = usePodcastContext();
+  const { type, sort, range } = filterParams;
   const tFilters = useTranslations('filters');
   const tMedia = useTranslations('media');
   const { typeMenuItems, sortMenuItems, rangeMenuItems, showRangeDropdown
@@ -36,22 +36,22 @@ const PodcastListHeader: React.FC = () => {
   const handleTypeChange = (value: string) => {
     if (isChannelType(value)) {
       if (value === "clips") {
-        setQueryParams({ ...queryParams, type: value, sort: "top", page: 1 });
+        setFilterParams({ ...filterParams, type: value, sort: "top", page: 1 });
       } else {
-        setQueryParams({ ...queryParams, type: value, sort: "recent", page: 1 });
+        setFilterParams({ ...filterParams, type: value, sort: "recent", page: 1 });
       }
     }
   };
 
   const handleSortChange = (value: string) => {
     if (isChannelSort(value)) {
-      setQueryParams({ ...queryParams, sort: value });
+      setFilterParams({ ...filterParams, sort: value });
     }
   };
 
   const handleRangeChange = (value: string) => {
     if (isStatsRange(value)) {
-      setQueryParams({ ...queryParams, range: value });
+      setFilterParams({ ...filterParams, range: value });
     }
   };
 

@@ -7,7 +7,7 @@ import PodcastHeader from "./PodcastHeader";
 import { PodcastModalShare } from "./PodcastModalShare";
 import { PodcastModalFunding } from "./PodcastModalFunding";
 import { PodcastModalBoost } from "./PodcastModalBoost";
-// import PodcastList from "./PodcastList";
+import PodcastList from "./PodcastList";
 
 interface PodcastClientProps {
   initialQueryParams: QueryParamsChannel;
@@ -33,6 +33,7 @@ export default function PodcastClient(props: PodcastClientProps) {
       <MainWrapper>
         <PodcastHeader channel={ssrChannel} />
         <PodcastListHeader />
+        <PodcastList />
       </MainWrapper>
       <PodcastModalShare channel={ssrChannel} />
       <PodcastModalFunding channel={ssrChannel} />

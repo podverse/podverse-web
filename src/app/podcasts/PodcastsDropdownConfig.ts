@@ -50,7 +50,7 @@ type QueryParamConfig = {
   category?: CategoryMappingKeys | null;
 }
 
-export function getPodcastsQueryParams({ type, sort, range, category }: QueryParamConfig) {
+export function getPodcastsFilterParams({ type, sort, range, category }: QueryParamConfig) {
   let currentSort = sort;
   let currentRange = range;
   let currentType = type;

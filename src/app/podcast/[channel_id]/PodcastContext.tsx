@@ -6,11 +6,11 @@ import React, { createContext, useContext, useState, ReactNode } from "react";
 import { apiRequestService } from "../../../factories/apiRequestService";
 import { useAccount } from "../../../contexts/Account";
 import { useSkipInitialEffect } from "../../../hooks/useSkipInitialEffect";
-// import { getPodcastQueryParams } from "./PodcastDropdownConfig";
+import { getPodcastFilterParams } from "./PodcastDropdownConfig";
 
 interface PodcastContextType {
-  queryParams: QueryParamsChannel;
-  setQueryParams: (params: QueryParamsChannel) => void;
+  filterParams: QueryParamsChannel;
+  setFilterParams: (params: QueryParamsChannel) => void;
   channel: DTOChannel;
   setChannel: (channel: DTOChannel) => void;
   liveItems: DTOLiveItem[];
@@ -57,7 +57,7 @@ export const PodcastContextProvider = ({
   ssrTotalPages
 }: PodcastContextProviderProps) => {
   const params = useParams();
-  const [queryParams, setQueryParams] = useState<QueryParamsChannel>(initialQueryParams);
+  const [filterParams, setFilterParams] = useState<QueryParamsChannel>(initialQueryParams);
   const [channel, setChannel] = useState<DTOChannel>(ssrChannel);
   const [liveItems, setLiveItems] = useState<DTOLiveItem[]>(ssrLiveItems || []);
   const [items, setItems] = useState<DTOItem[]>(ssrItems || []);
@@ -81,23 +81,24 @@ export const PodcastContextProvider = ({
     }
 
     async function fetchItems() {
-      // const { currentSort, currentRange, currentType } = getPodcastQueryParams({
-      //   type: queryParams.type,
-      //   sort: queryParams.sort,
-      //   range: queryParams.range
-      // });
+      const { currentSort, currentRange } = getPodcastFilterParams({
+        type: filterParams.type,
+        sort: filterParams.sort,
+        range: filterParams.range
+      });
 
-      // const response = await apiRequestService.reqChannelGetByIdOrIdText({
-      //   ...queryParams,
-      //   type: currentType,
-      //   sort: currentSort,
-      //   range: currentRange
-      // });
-
-      const response = await apiRequestService.reqItemGetManyWithoutLiveItemByChannel(channel_id);
+      const response = await apiRequestService.reqItemGetManyWithoutLiveItemByChannel(
+        channel_id,
+        {
+          page: filterParams.page,
+          sort: currentSort,
+          range: currentRange
+        }
+      );
 
       const totalPages = getTotalPages(response.meta.count, response.meta.limit);
       setTotalPages(totalPages);
+      setItems(response.data);
     }
     
     async function fetchData() {
@@ -108,12 +109,12 @@ export const PodcastContextProvider = ({
     }
     
     fetchData();
-  }, [queryParams, loggedInAccount]);
+  }, [filterParams, loggedInAccount]);
 
   return (
     <PodcastContext.Provider value={{
-      queryParams,
-      setQueryParams,
+      filterParams,
+      setFilterParams,
       channel, setChannel,
       liveItems, setLiveItems,
       items, setItems,

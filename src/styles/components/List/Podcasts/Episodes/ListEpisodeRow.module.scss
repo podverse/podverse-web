@@ -1,0 +1,41 @@
+.link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.podcastListItem {
+  display: flex;
+  align-items: center;
+  padding: 1rem 0.5rem;
+  border-radius: var(--border-radius);
+
+  &:hover,
+  &:focus {
+    background: var(--background-color-opaque);
+  }
+}
+
+.podcastImage {
+  object-fit: cover;
+  border-radius: var(--border-radius);
+  margin-right: 1rem;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+}
+
+.lastPubDate {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--text-color-link);
+  margin-bottom: 0.5rem;
+}
+
+.title {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-light);
+  color: var(--text-color-secondary);
+}

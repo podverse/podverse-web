@@ -4,14 +4,14 @@ import { usePodcastsContext } from "./PodcastsContext";
 import LoadingSpinnerOverlay from "../../components/LoadingSpinner/LoadingSpinnerOverlay";
 
 const PodcastsList: React.FC = () => {
-  const { queryParams, setQueryParams, channels, totalPages, isLoading, showSubscribeMessage } = usePodcastsContext();
-  const { page = 1, type, category } = queryParams;
+  const { filterParams, setFilterParams, channels, totalPages, isLoading, showSubscribeMessage } = usePodcastsContext();
+  const { page = 1, type, category } = filterParams;
 
   return (
     <>
       <ListPodcasts
         page={page}
-        setPage={(page) => setQueryParams({ ...queryParams, page })}
+        setPage={(page) => setFilterParams({ ...filterParams, page })}
         channels={channels}
         totalPages={totalPages}
         showSubscribeMessage={showSubscribeMessage}

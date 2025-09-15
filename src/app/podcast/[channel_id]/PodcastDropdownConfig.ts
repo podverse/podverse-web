@@ -42,7 +42,7 @@ type QueryParamConfig = {
   range?: QueryParamsStatsRange;
 }
 
-export function getPodcastQueryParams({ type, sort, range }: QueryParamConfig) {
+export function getPodcastFilterParams({ type, sort, range }: QueryParamConfig) {
   let currentSort = sort;
   let currentRange = range;
   let currentType = type;

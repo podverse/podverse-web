@@ -7,6 +7,7 @@ export const ROUTES = {
   CONTACT: '/contact',
   DONATE: '/donate',
   EMBED: '/embed',
+  EPISODE: '/episode',
   EPISODES: '/episodes',
   HISTORY: '/history',
   MOBILE_APP: '/mobile-app',

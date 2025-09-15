@@ -20,6 +20,10 @@ export const IMAGES = {
     }
   },
   LIST: {
+    EPISODES: {
+      SIZE: 80,
+      SIZE_FIND_TARGET: 160
+    },
     PODCASTS: {
       SIZE: 80,
       SIZE_FIND_TARGET: 160
