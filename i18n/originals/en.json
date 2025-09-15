@@ -43,7 +43,9 @@
     "profiles": "Profiles",
     "embed": "Embed",
     "copy": "Copy",
-    "copied": "Copied"
+    "copied": "Copied",
+    "subscribe": "Subscribe",
+    "unsubscribe": "Unsubscribe"
   },
   "info": {
     "funding": "Funding",
