@@ -1,7 +1,15 @@
+@use 'breakpoints';
+
 .divider {
   border-bottom: 0;
   border-width: 1px;
   width: 100%;
   border-color: var(--border-color-opaque);
   margin: 0.5rem 0;
+}
+
+@media (max-width: breakpoints.$breakpoint-sm-max) {
+  .divider:first-child {
+    display: none;
+  }
 }
