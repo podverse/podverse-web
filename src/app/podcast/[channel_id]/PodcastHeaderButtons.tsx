@@ -63,7 +63,7 @@ const PodcastHeaderButtons: React.FC<PodcastHeaderButtonsProps> = ({ channel }) 
         <FaShare />
       </Link>
       {
-        channel?.channel_fundings?.length > 0 && (
+        (channel?.channel_fundings?.length ?? 0) > 0 && (
           <Link
             type="button"
             onClick={() => setPodcastModalFundingIsOpen(true)}
@@ -76,7 +76,7 @@ const PodcastHeaderButtons: React.FC<PodcastHeaderButtonsProps> = ({ channel }) 
         )
       }
       {
-        channel?.channel_values?.length > 0 && (
+        (channel?.channel_values?.length ?? 0) > 0 && (
           <Link
             type="button"
             onClick={() => setPodcastModalBoostIsOpen(true)}
