@@ -6,14 +6,14 @@ import { DTOChannel, findDTOChannelImageBySize, formatDateAbbrev } from "podvers
 import React from "react";
 import Image from "../Image/Image";
 import { ROUTES } from "../../constants/routes";
-import styles from "../../styles/components/List/ListPodcastsRow.module.scss";
+import styles from "../../styles/components/List/ListPodcastRow.module.scss";
 import { IMAGES } from "../../constants/images";
 
 interface Props {
   channel: DTOChannel;
 }
 
-const ListPodcastsRow: React.FC<Props> = ({ channel }) => {
+const ListPodcastRow: React.FC<Props> = ({ channel }) => {
   const url = `${ROUTES.PODCAST}/${channel.id_text}`;
   const channel_image = findDTOChannelImageBySize(channel.channel_images, IMAGES.LIST.PODCASTS.SIZE, 'lesser');
   const tMedia = useTranslations("media");
@@ -45,4 +45,4 @@ const ListPodcastsRow: React.FC<Props> = ({ channel }) => {
   );
 };
 
-export default ListPodcastsRow;
+export default ListPodcastRow;

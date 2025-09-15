@@ -3,7 +3,7 @@
 import { useTranslations } from "next-intl";
 import { CategoryMappingKeys, DTOChannel, QueryParamsChannelsType } from "podverse-helpers";
 import React, { useRef } from "react";
-import ListPodcastsRow from "./ListPodcastsRow";
+import ListPodcastRow from "./ListPodcastRow";
 import CallToActionMessage from "../CallToActionMessage/CallToActionMessage";
 import Pagination from "../Pagination/Pagination";
 import { useModals } from "../../contexts/Modals";
@@ -50,7 +50,7 @@ const ListPodcasts: React.FC<Props> = ({ page = 1, setPage, channels, totalPages
             totalPages={totalPages}
             onPageChange={setPage}>
             {channels.map((channel) => (
-              <ListPodcastsRow key={channel.id} channel={channel} />
+              <ListPodcastRow key={channel.id} channel={channel} />
             ))}
           </Pagination>
         )
