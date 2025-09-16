@@ -35,9 +35,12 @@
   // margin-top: 1rem;
 }
 
-.playButtonContainer {
+.bottomSectionStart {
   display: flex;
-  justify-content: center;
+  flex: 1;
   align-items: center;
 }
 
+.bottomSectionEnd {
+  display: flex;
+}
