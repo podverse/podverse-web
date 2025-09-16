@@ -1,0 +1,13 @@
+.playButtonMini {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--button-primary-secondary);
+  background: var(--button-opaque-bg);
+  border: var(--button-border-size) solid var(--border-color-primary);
+  border-radius: var(--border-radius-round);
+  height: 2.375rem;
+  width: 2.375rem;
+  padding-left: 3px;
+  font-size: var(--font-size-xs);
+}

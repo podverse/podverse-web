@@ -2,12 +2,13 @@
 
 import { useTranslations } from "next-intl";
 import Link from "next/link";
-import { DTOItem, findDTOItemImageBySize } from "podverse-helpers";
+import { DTOItem, findDTOItemImageBySize, stripAndDecodeHtml } from "podverse-helpers";
 import React from "react";
 import Image from "../../../Image/Image";
 import { ROUTES } from "../../../../constants/routes";
 import styles from "../../../../styles/components/List/Podcasts/Episodes/ListEpisodeRow.module.scss";
 import { IMAGES } from "../../../../constants/images";
+import { PlayButtonMini } from "../../../MediaPlayer/Buttons/PlayButtonMini";
 
 interface Props {
   item: DTOItem;
@@ -19,20 +20,28 @@ const ListEpisodeRow: React.FC<Props> = ({ item }) => {
   const tMedia = useTranslations("media");
   
   return (
-    <Link href={url} className={styles.link}>
-      <div className={styles.podcastListItem}>
-        <Image
+    <div className={styles.row}>
+      <Link href={url} tabIndex={-1}>
+        <Image 
           src={item_image?.url}
           alt={item.title || tMedia("podcast.episode_image")}
           width={IMAGES.LIST.EPISODES.SIZE}
           height={IMAGES.LIST.EPISODES.SIZE}
-          className={styles.podcastImage}
+          className={styles.image}
         />
-        <div className={styles.content}>
-          <h3 className={styles.title}>{item.title}</h3>
+      </Link>
+      <div className={styles.content}>
+        <Link href={url}>
+          <div className={styles.topSection}>
+            <h3>{item.title}</h3>
+            <p className={styles.description}>{stripAndDecodeHtml(item.item_description.value)}</p>
+          </div>
+        </Link>
+        <div className={styles.bottomSection}>
+          <PlayButtonMini />
         </div>
       </div>
-    </Link>
+    </div>
   );
 };
 

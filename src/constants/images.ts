@@ -14,19 +14,19 @@ export const IMAGES = {
     },
     MOBILE: {
       SQUARE: {
-        SIZE: 80,
-        SIZE_FIND_TARGET: 160
+        SIZE: 84,
+        SIZE_FIND_TARGET: 168
       }
     }
   },
   LIST: {
     EPISODES: {
-      SIZE: 80,
-      SIZE_FIND_TARGET: 160
+      SIZE: 112,
+      SIZE_FIND_TARGET: 224
     },
     PODCASTS: {
-      SIZE: 80,
-      SIZE_FIND_TARGET: 160
+      SIZE: 84,
+      SIZE_FIND_TARGET: 168
     }
   },
   MEDIA_HEADER_MINI: {

@@ -11,6 +11,6 @@
   color: var(--button-highlight-bg);
 }
 
-.buttonGold:hover {
-  color: var(--button-highlight-bg-hover);
+.buttonGold:hover, .buttonGold:focus {
+  color: var(--button-highlight-bg);
 }

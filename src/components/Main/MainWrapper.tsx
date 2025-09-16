@@ -9,7 +9,7 @@ type MainWrapperProps = {
 };
 
 const MainWrapper: React.FC<MainWrapperProps> = ({ children, emptyStateComponent }) => (
-  <div className={styles.mainOuterWrapper}>
+  <div id="mainOuterWrapper" className={styles.mainOuterWrapper}>
     <main className={styles.main}>
       {React.Children.count(children) > 0 ? (
         children

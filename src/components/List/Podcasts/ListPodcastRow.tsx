@@ -38,7 +38,7 @@ const ListPodcastRow: React.FC<Props> = ({ channel }) => {
               </span>
             )
           }
-          <h3 className={styles.title}>{channel.title}</h3>
+          <h3>{channel.title}</h3>
         </div>
       </div>
     </Link>

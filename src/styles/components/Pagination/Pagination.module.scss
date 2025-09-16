@@ -1,5 +1,7 @@
 .pagination {
-  margin: 0.75rem 1rem 2.25rem 1rem;
+  margin: 0.75rem 1.25rem;
+  display: flex;
+  flex-direction: column;
 }
 
 .paginationControls {

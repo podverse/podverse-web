@@ -2,12 +2,13 @@
 
 import { useTranslations } from "next-intl";
 import { CategoryMappingKeys, DTOItem, QueryParamsItemsType } from "podverse-helpers";
-import React, { useRef } from "react";
+import React from "react";
 import ListEpisodeRow from "./ListEpisodeRow";
 import CallToActionMessage from "../../../CallToActionMessage/CallToActionMessage";
 import Pagination from "../../../Pagination/Pagination";
 import { useModals } from "../../../../contexts/Modals";
 import { useSkipInitialEffect } from "../../../../hooks/useSkipInitialEffect";
+import { scrollMainToTop } from "../../../../utils/scroll";
 
 type Props = {
   page: number;
@@ -20,13 +21,12 @@ type Props = {
 };
 
 const ListEpisodes: React.FC<Props> = ({ page = 1, setPage, items, totalPages, showSubscribeMessage }) => {
-  const topRef = useRef<HTMLDivElement>(null);
   const tInstructions = useTranslations("instructions");
   const tAuthentication = useTranslations("authentication");
   const { openModal } = useModals();
 
   useSkipInitialEffect(() => {
-    topRef?.current?.scrollIntoView();
+    scrollMainToTop();
   }, [items]);
   
   const showCallToAction = showSubscribeMessage;
@@ -34,7 +34,6 @@ const ListEpisodes: React.FC<Props> = ({ page = 1, setPage, items, totalPages, s
 
   return (
     <>
-      <div ref={topRef} />
       {showCallToAction && (
         <CallToActionMessage
           message={tInstructions("login_for_subscriptions")}

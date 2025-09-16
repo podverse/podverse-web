@@ -21,6 +21,7 @@ button {
   font-family: inherit;
   padding: 0;
   cursor: pointer;
+  outline: none;
   border-radius: var(--border-radius);
 }
 
@@ -58,6 +59,12 @@ h1 {
 h2 {
   font-size: var(--font-size-xl);
   font-weight: var(--font-weight-light);
+}
+
+h3 {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-color-secondary);
 }
 
 img {

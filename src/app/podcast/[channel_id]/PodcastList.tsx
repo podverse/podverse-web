@@ -4,6 +4,7 @@ import React from "react";
 import { usePodcastContext } from "./PodcastContext";
 import LoadingSpinnerOverlay from "../../../components/LoadingSpinner/LoadingSpinnerOverlay";
 import ListEpisodes from "../../../components/List/Podcasts/Episodes/ListEpisodes";
+import styles from "../../../styles/app/podcast/PodcastList.module.scss";
 
 const PodcastList: React.FC = () => {
   const { filterParams, setFilterParams, items, totalPages, isLoading, showSubscribeMessage } = usePodcastContext();
@@ -12,7 +13,7 @@ const PodcastList: React.FC = () => {
   console.log("type", type, totalPages);
 
   return (
-    <>
+    <div className={styles.list}>
       <ListEpisodes
         page={page}
         setPage={(page) => setFilterParams({ ...filterParams, page })}
@@ -21,7 +22,7 @@ const PodcastList: React.FC = () => {
         showSubscribeMessage={showSubscribeMessage}
       />
       <LoadingSpinnerOverlay isLoading={isLoading} />
-    </>
+    </div>
   );
 };
 
