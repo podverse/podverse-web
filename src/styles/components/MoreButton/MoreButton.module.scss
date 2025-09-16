@@ -1,13 +1,13 @@
-.playButtonMini {
+.dropdown {
+  position: relative;
+}
+
+.button {
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--button-primary-secondary);
-  background: var(--button-opaque-bg);
-  border: var(--button-border-size) solid var(--border-color-primary);
   border-radius: var(--border-radius-round);
   height: var(--list-item-button-size);
   width: var(--list-item-button-size);
-  padding-left: 3px;
-  font-size: var(--font-size-xs);
 }

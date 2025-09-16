@@ -1,10 +1,9 @@
 "use client";
 
 import React, { useRef } from "react";
-import styles from "../../styles/components/Dropdown/Dropdown.module.scss";
+import styles from "../../styles/components/MoreButton/MoreButton.module.scss";
 import DropdownMenu from "../Dropdown/DropdownMenu";
 import { useDropdownKeyboardNavigation } from "../../hooks/useDropdownKeyboardNavigation";
-import { Button } from "../Button/Button";
 import { FaEllipsisH } from "react-icons/fa";
 
 export interface MoreButtonMenuItem {
@@ -39,17 +38,17 @@ const MoreButton: React.FC<MoreButtonProps> = ({
 
   return (
     <div className={styles.dropdown}>
-      <Button
+      <button
         ref={buttonRef}
+        className={styles.button}
         aria-haspopup="menu"
         aria-expanded={open}
         onClick={() => setOpen((v) => !v)}
         onKeyDown={e => handleButtonKeyDown(e)}
         type="button"
-        variant="mini"
       >
         <FaEllipsisH />
-      </Button>
+      </button>
       <DropdownMenu
         menuItems={moreButtonMenuItems}
         open={open}

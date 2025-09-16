@@ -1,4 +1,5 @@
 @use '../../../../mixins/lineClamp' as *;
+@use 'breakpoints';
 
 .row {
   display: flex;
@@ -6,6 +7,12 @@
 }
 
 .image {
+  object-fit: cover;
+  margin-right: 1.25rem;
+}
+
+.imageMobile {
+  display: none;
   object-fit: cover;
   margin-right: 1.25rem;
 }
@@ -32,15 +39,31 @@
 
 .bottomSection {
   display: flex;
-  // margin-top: 1rem;
+  flex: 1;
+  margin-top: 0.5rem;
 }
 
 .bottomSectionStart {
   display: flex;
-  flex: 1;
   align-items: center;
+  gap: 0.75rem;
+  flex: 1;
 }
 
 .bottomSectionEnd {
   display: flex;
+  align-items: center;
+}
+
+@media (max-width: breakpoints.$breakpoint-sm-max) {
+  .image {
+    display: none;
+  }
+  .imageMobile {
+    display: block;
+  }
+
+  .description {
+    @include line-clamp(1);
+  }
 }

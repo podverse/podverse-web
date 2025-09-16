@@ -8,25 +8,31 @@ export const IMAGES = {
     },
     TABLET: {
       SQUARE: {
-        SIZE: 100,
-        SIZE_FIND_TARGET: 200
+        SIZE: 128,
+        SIZE_FIND_TARGET: 256
       }
     },
     MOBILE: {
       SQUARE: {
-        SIZE: 84,
-        SIZE_FIND_TARGET: 168
+        SIZE: 112,
+        SIZE_FIND_TARGET: 224
       }
     }
   },
   LIST: {
     EPISODES: {
-      SIZE: 112,
-      SIZE_FIND_TARGET: 224
+      DESKTOP: {
+        SIZE: 112,
+        SIZE_FIND_TARGET: 224
+      },
+      MOBILE: {
+        SIZE: 92,
+        SIZE_FIND_TARGET: 184
+      }
     },
     PODCASTS: {
-      SIZE: 84,
-      SIZE_FIND_TARGET: 168
+      SIZE: 92,
+      SIZE_FIND_TARGET: 184
     }
   },
   MEDIA_HEADER_MINI: {

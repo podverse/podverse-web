@@ -34,9 +34,16 @@ const ListEpisodeRow: React.FC<Props> = ({ item }) => {
         <Image 
           src={item_image?.url}
           alt={item.title || tMedia("podcast.episode_image")}
-          width={IMAGES.LIST.EPISODES.SIZE}
-          height={IMAGES.LIST.EPISODES.SIZE}
+          width={IMAGES.LIST.EPISODES.DESKTOP.SIZE}
+          height={IMAGES.LIST.EPISODES.DESKTOP.SIZE}
           className={styles.image}
+        />
+        <Image 
+          src={item_image?.url}
+          alt={item.title || tMedia("podcast.episode_image")}
+          width={IMAGES.LIST.EPISODES.MOBILE.SIZE}
+          height={IMAGES.LIST.EPISODES.MOBILE.SIZE}
+          className={styles.imageMobile}
         />
       </Link>
       <div className={styles.content}>
