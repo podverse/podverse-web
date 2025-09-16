@@ -1,6 +1,6 @@
 import { formatSecondsToReadableDuration } from "podverse-helpers";
 import React from "react";
-import styles from "../../styles/components/ReadableDuration/ReadableDuration.module.scss";
+import styles from "../../styles/components/Time/ReadableDuration.module.scss";
 
 type ReadableDurationProps = {
   durationInSeconds: string;

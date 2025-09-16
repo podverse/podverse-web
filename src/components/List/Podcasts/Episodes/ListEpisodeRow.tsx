@@ -2,14 +2,14 @@
 
 import { useTranslations } from "next-intl";
 import Link from "next/link";
-import { DTOItem, findDTOItemImageBySize, formatSecondsToReadableDuration, stripAndDecodeHtml } from "podverse-helpers";
+import { DTOItem, findDTOItemImageBySize, stripAndDecodeHtml } from "podverse-helpers";
 import React from "react";
 import Image from "../../../Image/Image";
 import { ROUTES } from "../../../../constants/routes";
 import styles from "../../../../styles/components/List/Podcasts/Episodes/ListEpisodeRow.module.scss";
 import { IMAGES } from "../../../../constants/images";
 import { PlayButtonMini } from "../../../MediaPlayer/Buttons/PlayButtonMini";
-import { ReadableDuration } from "../../../ReadableDuration/ReadableDuration";
+import { ReadableDuration } from "../../../Time/ReadableDuration";
 import MoreButton from "../../../MoreButton/MoreButton";
 
 interface Props {
