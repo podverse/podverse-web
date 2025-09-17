@@ -78,7 +78,7 @@ const SideBar: React.FC = () => {
           items={
             <>
               <SideBarLink href={ROUTES.QUEUE}>{tFeatures("queue.queue")}</SideBarLink>
-              <SideBarLink href={ROUTES.HISTORY}>{tFeatures("history")}</SideBarLink>
+              <SideBarLink href={ROUTES.HISTORY}>{tFeatures("history.history")}</SideBarLink>
               <SideBarLink href={ROUTES.PLAYLISTS}>{tFeatures("playlists")}</SideBarLink>
               <SideBarLink href={ROUTES.MY_CLIPS}>{tFeatures("my_clips")}</SideBarLink>
               <SideBarLink href={ROUTES.PROFILES}>{tFeatures("profiles")}</SideBarLink>

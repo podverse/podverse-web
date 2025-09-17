@@ -46,10 +46,10 @@ export const ModalShare: React.FC<ModalShareProps> = ({ isOpen, onClose, shareIn
 
   return (
     <Modal
-      header={tInfo("share")}
+      header={tFeatures("share")}
       isOpen={isOpen}
       onClose={onClose}
-      ariaLabel={tInfo("share")}
+      ariaLabel={tFeatures("share")}
       modalContentMaxWidth={500}>
       {shareInputs.map((input, idx) => (
         <TextInput
