@@ -2,6 +2,9 @@
 
 .mobileAccordions {
   margin-bottom: 1.375rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 @media (min-width: breakpoints.$breakpoint-xl-min) {
