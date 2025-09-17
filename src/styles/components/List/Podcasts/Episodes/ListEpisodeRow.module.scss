@@ -8,13 +8,11 @@
 
 .image {
   object-fit: cover;
-  margin-right: 1.25rem;
 }
 
 .imageMobile {
   display: none;
   object-fit: cover;
-  margin-right: 1.25rem;
 }
 
 .content {
@@ -22,6 +20,7 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: space-between;
+  padding: 0 0 0 1.25rem;
 }
 
 .topSection {
