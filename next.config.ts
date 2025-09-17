@@ -16,6 +16,11 @@ const nextConfig: NextConfig = {
         hostname: '**',
       },
     ],
+    localPatterns: [
+      {
+        pathname: '/api/proxy'
+      }
+    ]
   },
   env: {
     NEXT_PUBLIC_API_PROTOCOL: process.env.NEXT_PUBLIC_API_PROTOCOL,
