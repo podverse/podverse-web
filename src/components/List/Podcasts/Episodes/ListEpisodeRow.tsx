@@ -19,12 +19,38 @@ interface Props {
 const ListEpisodeRow: React.FC<Props> = ({ item }) => {
   const url = `${ROUTES.EPISODE}/${item.id_text}`;
   const item_image = findDTOItemImageBySize(item.item_images, IMAGES.LIST.EPISODES.SIZE_FIND_TARGET, 'lesser');
+  const tFeatures = useTranslations("features");
   const tMedia = useTranslations("media");
+  const tMediaPlayer = useTranslations("media_player");
 
   const moreButtonMenuItems = [
     {
-      label: "Hello",
-      onClick: () => alert("Hello world!")
+      label: tMediaPlayer("play"),
+      onClick: () => alert(tMediaPlayer("play"))
+    },
+    {
+      label: tFeatures("queue.queue_next"),
+      onClick: () => alert(tFeatures("queue.queue_next"))
+    },
+    {
+      label: tFeatures("queue.queue_last"),
+      onClick: () => alert(tFeatures("queue.queue_last"))
+    },
+    {
+      label: tFeatures("playlist.add_to_playlist"),
+      onClick: () => alert(tFeatures("playlist.add_to_playlist"))
+    },
+    {
+      label: tFeatures("share"),
+      onClick: () => alert(tFeatures("share"))
+    },
+    {
+      label: tFeatures("history.mark_as_played"),
+      onClick: () => alert(tFeatures("history.mark_as_played"))
+    },
+    {
+      label: tFeatures("download.download_episode"),
+      onClick: () => alert(tFeatures("download.download_episode"))
     }
   ]
 

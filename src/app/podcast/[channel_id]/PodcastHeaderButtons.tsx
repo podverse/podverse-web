@@ -14,6 +14,7 @@ type PodcastHeaderButtonsProps = {
 };
 
 const PodcastHeaderButtons: React.FC<PodcastHeaderButtonsProps> = ({ channel }) => {
+  const tFeatures = useTranslations("features");
   const tInfo = useTranslations("info");
   const tValue = useTranslations("value");
 
@@ -57,8 +58,8 @@ const PodcastHeaderButtons: React.FC<PodcastHeaderButtonsProps> = ({ channel }) 
         type="button"
         onClick={() => setPodcastModalShareIsOpen(true)}
         className={styles.button}
-        aria-label={tInfo("share")}
-        title={tInfo("share")}
+        aria-label={tFeatures("share")}
+        title={tFeatures("share")}
         color="secondary">
         <FaShare />
       </Link>

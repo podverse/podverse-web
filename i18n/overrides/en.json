@@ -34,9 +34,24 @@
   "features": {
     "search": "Search",
     "my_library": "My Library",
-    "queue": "Queue",
-    "history": "History",
-    "playlist": "Playlist",
+    "queue": {
+      "queue": "Queue",
+      "queue_next": "Queue: Next",
+      "queue_last": "Queue: Last"
+    },
+    "history": {
+      "history": "History",
+      "delete_history": "Delete History",
+      "mark_as_played": "Mark as Played"
+    },
+    "playlist": {
+      "playlist": "Playlist",
+      "create_playlist": "Create Playlist",
+      "edit_playlist": "Edit Playlist",
+      "delete_playlist": "Delete Playlist",
+      "add_to_playlist": "Add to Playlist",
+      "remove_from_playlist": "Remove from Playlist"
+    },
     "playlists": "Playlists",
     "my_clips": "My Clips",
     "my_profile": "My Profile",
@@ -46,13 +61,20 @@
     "copy": "Copy",
     "copied": "Copied",
     "subscribe": "Subscribe",
-    "unsubscribe": "Unsubscribe"
+    "unsubscribe": "Unsubscribe",
+    "share": "Share",
+    "download": {
+      "download_episode": "Download Episode"
+    }
   },
   "info": {
     "funding": "Funding",
     "website": "Website",
-    "rss_feed": "RSS Feed",
-    "share": "Share"
+    "rss_feed": "RSS Feed"
+  },
+  "media_player": {
+    "play": "Play",
+    "pause": "Pause"
   },
   "value": {
     "boost": "Boost",
