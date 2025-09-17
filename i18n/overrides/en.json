@@ -71,7 +71,12 @@
     "funding": "Funding",
     "website": "Website",
     "rss_feed": "RSS Feed",
-    "about": "About"
+    "about": "About",
+    "people": {
+      "people": "People",
+      "person_image": "Person Image",
+      "link_to_persons_webpage": "Link to Person's Webpage"
+    }
   },
   "media_player": {
     "play": "Play",

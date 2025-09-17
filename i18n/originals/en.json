@@ -72,7 +72,11 @@
     "website": "Website",
     "rss_feed": "RSS Feed",
     "about": "About",
-    "people": "People"
+    "people": {
+      "people": "People",
+      "person_image": "Person Image",
+      "link_to_persons_webpage": "Link to Person's Webpage"
+    }
   },
   "media_player": {
     "play": "Play",
