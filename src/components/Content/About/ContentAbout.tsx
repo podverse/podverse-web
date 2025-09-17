@@ -1,7 +1,7 @@
 import { stripAndDecodeHtml } from "podverse-helpers";
 import { ContentAboutHeader } from "./ContentAboutHeader";
-import Accordion from "../Accordian/Accordian";
-import styles from "../../styles/components/Content/ContentAbout.module.scss";
+import Accordion from "../../Accordian/Accordian";
+import styles from "../../../styles/components/Content/About/ContentAbout.module.scss";
 
 type ContentAbout = {
   defaultOpen: boolean;
