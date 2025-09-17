@@ -1,0 +1,11 @@
+.mainInnerWrapper {
+  display: flex;
+}
+
+.mainInnerWrapper > :first-child {
+  flex: 3;
+}
+
+.mainInnerWrapper > :nth-child(2) {
+  flex: 1;
+}

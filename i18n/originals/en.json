@@ -70,7 +70,8 @@
   "info": {
     "funding": "Funding",
     "website": "Website",
-    "rss_feed": "RSS Feed"
+    "rss_feed": "RSS Feed",
+    "about": "About"
   },
   "media_player": {
     "play": "Play",

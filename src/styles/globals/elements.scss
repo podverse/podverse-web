@@ -59,12 +59,20 @@ h1 {
 h2 {
   font-size: var(--font-size-xl);
   font-weight: var(--font-weight-light);
+  margin-bottom: 0.75rem;
 }
 
 h3 {
   font-size: var(--font-size-lg);
   font-weight: var(--font-weight-light);
   color: var(--text-color-primary);
+}
+
+p {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-light);
+  line-height: 1.5;
+  color: var(--text-color-secondary);
 }
 
 img {

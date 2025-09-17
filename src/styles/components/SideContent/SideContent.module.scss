@@ -1,0 +1,11 @@
+@use 'breakpoints';
+
+.sideContent {
+  margin: 0.25rem 1.25rem 0.25rem 0.625rem;
+}
+
+@media (max-width: breakpoints.$breakpoint-lg-max) {
+  .sideContent {
+    display: none;
+  }
+}
