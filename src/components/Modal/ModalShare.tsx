@@ -20,7 +20,6 @@ export type ModalShareInput = {
 
 export const ModalShare: React.FC<ModalShareProps> = ({ isOpen, onClose, shareInputs }) => {
   const tFeatures = useTranslations("features");
-  const tInfo = useTranslations("info");
 
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);

@@ -18,7 +18,7 @@ interface Props {
 
 const ListEpisodeRow: React.FC<Props> = ({ item }) => {
   const url = `${ROUTES.EPISODE}/${item.id_text}`;
-  const item_image = findDTOItemImageBySize(item.item_images, IMAGES.LIST.EPISODES.SIZE_FIND_TARGET, 'lesser');
+  const item_image = findDTOItemImageBySize(item.item_images, IMAGES.LIST.EPISODES.DESKTOP.SIZE_FIND_TARGET, 'lesser');
   const tFeatures = useTranslations("features");
   const tMedia = useTranslations("media");
   const tMediaPlayer = useTranslations("media_player");

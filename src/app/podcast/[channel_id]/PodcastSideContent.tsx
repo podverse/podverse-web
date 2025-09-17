@@ -1,6 +1,6 @@
 import { DTOChannel } from "podverse-helpers";
 import { SideContent } from "../../../components/SideContent/SideContent";
-import { SideContentAbout } from "../../../components/SideContent/SideContentAbout";
+import { ContentAbout } from "../../../components/Content/ContentAbout";
 
 type PodcastSideContentProps = {
   channel: DTOChannel;
@@ -9,8 +9,9 @@ type PodcastSideContentProps = {
 export const PodcastSideContent = ({ channel }: PodcastSideContentProps) => {
   return (
     <SideContent>
-      <SideContentAbout description={channel.channel_description?.value} />
+      <ContentAbout
+        defaultOpen={true}
+        description={channel.channel_description?.value} />
     </SideContent>
   )
 }
-

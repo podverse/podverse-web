@@ -8,9 +8,7 @@ import styles from "../../../styles/app/podcast/PodcastList.module.scss";
 
 const PodcastList: React.FC = () => {
   const { filterParams, setFilterParams, items, totalPages, isLoading, showSubscribeMessage } = usePodcastContext();
-  const { page = 1, type } = filterParams;
-
-  console.log("type", type, totalPages);
+  const { page = 1 } = filterParams;
 
   return (
     <div className={styles.list}>

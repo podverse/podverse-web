@@ -1,0 +1,11 @@
+@use "breakpoints";
+
+.mobileAccordions {
+  margin-bottom: 1.375rem;
+}
+
+@media (min-width: breakpoints.$breakpoint-xl-min) {
+  .mobileAccordions {
+    display: none;
+  }
+}

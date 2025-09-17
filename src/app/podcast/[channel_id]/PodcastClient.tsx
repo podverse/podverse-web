@@ -1,7 +1,6 @@
 import { DTOChannel, DTOClip, DTOItem, DTOLiveItem, QueryParamsChannel } from "podverse-helpers";
 import React from "react";
 import MainWrapper from "../../../components/Main/MainWrapper";
-import { SideContent } from "../../../components/SideContent/SideContent";
 import { PodcastContextProvider } from "./PodcastContext";
 import PodcastListHeader from "./PodcastListHeader";
 import PodcastHeader from "./PodcastHeader";
@@ -12,6 +11,7 @@ import PodcastList from "./PodcastList";
 import { MainInnerWrapper } from "../../../components/Main/MainInnerWrapper";
 import { MainInnerContentWrapper } from "../../../components/Main/MainInnerContentWrapper";
 import { PodcastSideContent } from "./PodcastSideContent";
+import { PodcastMobileAccordions } from "./PodcastMobileAccordions";
 
 interface PodcastClientProps {
   initialQueryParams: QueryParamsChannel;
@@ -37,11 +37,12 @@ export default function PodcastClient(props: PodcastClientProps) {
       <MainWrapper>
         <PodcastHeader channel={ssrChannel} />
         <MainInnerWrapper>
+          <PodcastSideContent channel={ssrChannel} />
           <MainInnerContentWrapper>
+            <PodcastMobileAccordions channel={ssrChannel} />
             <PodcastListHeader />
             <PodcastList />
           </MainInnerContentWrapper>
-          <PodcastSideContent channel={ssrChannel} />
         </MainInnerWrapper>
       </MainWrapper>
       <PodcastModalShare channel={ssrChannel} />

@@ -37,7 +37,7 @@ const Accordion: React.FC<AccordionProps> = ({
       >
         <FaChevronRight />
       </span>
-      <span className={styles.headerText}>{header}</span>
+      {header}
     </summary>
     <div className={styles.accordionContent}>{items}</div>
   </details>

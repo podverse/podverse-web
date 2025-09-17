@@ -1,11 +1,13 @@
 .mainInnerWrapper {
   display: flex;
+  flex-direction: row-reverse;
+  margin: 1.25rem 1.25rem 2.5rem 1.25rem;
 }
 
 .mainInnerWrapper > :first-child {
-  flex: 3;
+  flex: 1;
 }
 
 .mainInnerWrapper > :nth-child(2) {
-  flex: 1;
+  flex: 3;
 }
