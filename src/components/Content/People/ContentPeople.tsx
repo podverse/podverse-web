@@ -11,6 +11,15 @@ type ContentPeople = {
 }
 
 export const ContentPeople = ({ defaultOpen, channel_persons, item_persons }: ContentPeople) => {
+  if (!item_persons && !channel_persons) {
+    return null;
+  }
+
+  if ((!item_persons || item_persons?.length === 0)
+    && (!channel_persons || channel_persons?.length === 0)) {
+    return null;
+  }
+
   let content = [];
   if (item_persons && item_persons.length > 0) {
     for (const item_person of item_persons) {
