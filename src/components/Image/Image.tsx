@@ -4,9 +4,10 @@ import classNames from 'classnames';
 import React, { useState } from "react";
 import NextImage from "next/image";
 import styles from "../../styles/components/Image/Image.module.scss";
+import { PROXY } from '../../constants/proxy';
 
 interface ImageProps {
-  src?: string;
+  src?: string | null;
   alt: string;
   width: number;
   height: number;
@@ -34,9 +35,11 @@ const Image: React.FC<ImageProps> = ({
     );
   }
 
+  const proxySrc = PROXY.PATH + src;
+
   return (
     <NextImage
-      src={src}
+      src={proxySrc}
       alt={alt}
       width={width}
       height={height}

@@ -7,6 +7,6 @@ export const ContentPeopleHeader = () => {
   const tInfo = useTranslations("info");
 
   return (
-    <h2 className={styles.header}>{tInfo("people")}</h2>
+    <h2 className={styles.header}>{tInfo("people.people")}</h2>
   )
 }

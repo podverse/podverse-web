@@ -239,7 +239,7 @@ export const BoostForm: React.FC<BoostFormProps> = ({ className, channel, item }
       <div className={styles.moreInfo}>
         <Accordion
           header={tMisc("more_info")}
-          items={
+          content={
             <BoostRecipientInfo
               channel_value_recipients={channel_value_recipients}
               item_value_recipients={item_value_recipients}

@@ -12,14 +12,15 @@ export const ContentAbout = ({ defaultOpen, description }: ContentAbout) => {
   const cleanedDescription = description ? stripAndDecodeHtml(description) : "";
 
   const contentNode = (
-    <p className={styles.description}>{cleanedDescription}</p>
+    <p>{cleanedDescription}</p>
   )
 
   return (
     <Accordion
       header={<ContentAboutHeader />}
-      items={contentNode}
+      content={contentNode}
       open={defaultOpen}
+      contentClass={styles.content}
     />
   )
 }

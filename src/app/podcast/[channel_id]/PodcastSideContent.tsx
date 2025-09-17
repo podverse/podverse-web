@@ -14,7 +14,7 @@ export const PodcastSideContent = ({ channel }: PodcastSideContentProps) => {
         defaultOpen={true}
         description={channel.channel_description?.value} />
       <ContentPeople
-        defaultOpen={false}
+        defaultOpen={true}
         channel_persons={channel?.channel_persons}
       />
     </SideContent>

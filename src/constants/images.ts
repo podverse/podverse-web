@@ -40,5 +40,11 @@ export const IMAGES = {
       SIZE: 64,
       SIZE_FIND_TARGET: 128
     }
+  },
+  PEOPLE: {
+    SQUARE: {
+      SIZE: 64,
+      SIZE_FIND_TARGET: 128
+    }
   }
 };

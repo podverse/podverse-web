@@ -1,0 +1,33 @@
+.row {
+  display: flex;
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  text-decoration: none;
+  text-decoration: none !important;
+}
+
+.personImage {
+  max-width: 64px;
+  width: 100%;
+  margin-right: 1.25rem;
+}
+
+.textWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.name {
+  font-weight: var(--font-weight-light);
+  font-size: var(--font-size-md);
+}
+
+.role {
+  font-weight: var(--font-weight-light);
+  color: var(--text-color-secondary);
+}
