@@ -1,7 +1,6 @@
 import { DTOChannel, DTOPodroll } from "podverse-helpers";
 import { SideContent } from "../../../components/SideContent/SideContent";
 import { ContentAbout } from "../../../components/Content/About/ContentAbout";
-import { ContentPeople } from "../../../components/Content/People/ContentPeople";
 import { ContentPodroll } from "../../../components/Content/Podroll/ContentPodroll";
 
 type PodcastSideContentProps = {
@@ -13,15 +12,15 @@ export const PodcastSideContent = ({ channel, podroll }: PodcastSideContentProps
   return (
     <SideContent>
       <ContentAbout
-        defaultOpen={true}
-        description={channel.channel_description?.value} />
-      <ContentPodroll
-        podroll={podroll}
+        description={channel.channel_description?.value}
+        channel_persons={channel.channel_persons}
+        isAccordion={true}
         defaultOpen={true}
       />
-      <ContentPeople
+      <ContentPodroll
+        podroll={podroll}
+        isAccordion={true}
         defaultOpen={true}
-        channel_persons={channel?.channel_persons}
       />
     </SideContent>
   )

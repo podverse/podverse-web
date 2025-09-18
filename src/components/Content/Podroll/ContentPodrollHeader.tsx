@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import styles from '../../../styles/components/Content/People/ContentPeopleHeader.module.scss';
+import styles from '../../../styles/components/Content/Podroll/ContentPodrollHeader.module.scss';
 
 export const ContentPodrollHeader = () => {
   const tInfo = useTranslations("info");

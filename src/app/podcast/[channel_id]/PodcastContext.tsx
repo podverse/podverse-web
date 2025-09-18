@@ -75,6 +75,10 @@ export const PodcastContextProvider = ({
   const channel_id = params.channel_id as string;
 
   useSkipInitialEffect(() => {
+    if (filterParams.type === "about" || filterParams.type === "podroll") {
+      return;
+    }
+
     async function fetchChannel() {
       const channel = await apiRequestService.reqChannelGetByIdOrIdText(channel_id);
       setChannel(channel);

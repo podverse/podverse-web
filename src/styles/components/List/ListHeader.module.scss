@@ -1,6 +1,8 @@
 .listHeader {
   display: flex;
   align-items: center;
+  // padding: 0 1rem;
+  margin: 0;
 }
 
 .listHeaderContent {
@@ -8,6 +10,8 @@
   align-items: center;
   justify-content: space-between;
   flex: 1;
+  flex-wrap: wrap;
+  gap: 1.25rem;
 }
 
 .filterDropdowns {

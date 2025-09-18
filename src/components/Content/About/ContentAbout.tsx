@@ -1,26 +1,36 @@
-import { stripAndDecodeHtml } from "podverse-helpers";
-import { ContentAboutHeader } from "./ContentAboutHeader";
-import Accordion from "../../Accordian/Accordian";
+import { DTOChannelPerson, DTOItemPerson } from "podverse-helpers";
+import { ContentAboutAccordion } from "./ContentAboutAccordion";
+import { ContentAboutDescription } from "./ContentAboutDescription";
+import { ContentPeopleRows } from "./ContentPeopleRows";
 import styles from "../../../styles/components/Content/About/ContentAbout.module.scss";
 
 type ContentAbout = {
-  defaultOpen: boolean;
   description?: string;
+  channel_persons?: DTOChannelPerson[];
+  item_persons?: DTOItemPerson[];
+  defaultOpen?: boolean;
+  isAccordion?: boolean;
 }
 
-export const ContentAbout = ({ defaultOpen, description }: ContentAbout) => {
-  const cleanedDescription = description ? stripAndDecodeHtml(description) : "";
-
-  const contentNode = (
-    <p>{cleanedDescription}</p>
-  )
-
-  return (
-    <Accordion
-      header={<ContentAboutHeader />}
-      content={contentNode}
-      open={defaultOpen}
-      contentClass={styles.content}
-    />
-  )
+export const ContentAbout = ({ description, channel_persons, item_persons, defaultOpen, isAccordion }: ContentAbout) => {
+  if (isAccordion) {
+    return (
+      <ContentAboutAccordion
+        description={description}
+        channel_persons={channel_persons}
+        item_persons={item_persons}
+        defaultOpen={defaultOpen}
+      />
+    )
+  } else {
+    return (
+      <div className={styles.listView}>
+        <ContentAboutDescription description={description} />
+        <ContentPeopleRows
+          channel_persons={channel_persons}
+          item_persons={item_persons}
+        />
+      </div>
+    )
+  }
 }

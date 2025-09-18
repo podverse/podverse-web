@@ -14,13 +14,15 @@ import Dropdown from "../../../components/Dropdown/Dropdown";
 import ListHeader from "../../../components/List/ListHeader";
 import { usePodcastContext } from "./PodcastContext";
 import { getPodcastDropdownConfig } from "./PodcastDropdownConfig";
+import { Tabs } from "../../../components/Tabs/Tabs";
 
 const PodcastListHeader: React.FC = () => {
   const { filterParams, setFilterParams } = usePodcastContext();
   const { type, sort, range } = filterParams;
   const tFilters = useTranslations('filters');
   const tMedia = useTranslations('media');
-  const { typeMenuItems, sortMenuItems, rangeMenuItems, showRangeDropdown
+  const tInfo = useTranslations('info');
+  const { sortMenuItems, rangeMenuItems, showRangeDropdown
     } = getPodcastDropdownConfig({ type, sort, tFilters, tMedia });
 
   function isChannelType(val: string): val is QueryParamsChannelType {
@@ -55,34 +57,67 @@ const PodcastListHeader: React.FC = () => {
     }
   };
 
+  const tabData = [
+    {
+      key: "episodes",
+      label: tMedia("podcast.episodes"),
+      onClick: () => handleTypeChange("episodes"),
+      zIndex: 4
+    },
+    {
+      key: "clips",
+      label: tMedia("clips"),
+      onClick: () => handleTypeChange("clips"),
+      zIndex: 3
+    },
+    {
+      key: "about",
+      label: tInfo("about"),
+      onClick: () => handleTypeChange("about"),
+      hideDesktop: true,
+      zIndex: 2
+    },
+    {
+      key: "podroll",
+      label: tInfo("podroll"),
+      onClick: () => handleTypeChange("podroll"),
+      hideDesktop: true,
+      zIndex: 1
+    }
+  ]
+
+  let filterDropdowns: React.ReactNode[] = [];
+  if (type === "episodes" || type === "clips") {
+    filterDropdowns = [
+      <Dropdown
+        key="sort"
+        value={sort ?? ""}
+        menuItems={sortMenuItems}
+        onChange={handleSortChange}
+        position="left"
+      />,
+      showRangeDropdown && (
+        <Dropdown
+          key="range"
+          value={range ?? ""}
+          menuItems={rangeMenuItems}
+          onChange={handleRangeChange}
+          position="left"
+        />
+      )
+    ]
+  }
+
   return (
     <ListHeader
       title={type === "clips" ? tMedia("clips") : tMedia("podcast.episodes")}
-      filterDropdowns={[
-        <Dropdown
-          key="type"
-          value={type ?? ""}
-          menuItems={typeMenuItems}
-          onChange={handleTypeChange}
-          position="left"
-        />,
-        <Dropdown
-          key="sort"
-          value={sort ?? ""}
-          menuItems={sortMenuItems}
-          onChange={handleSortChange}
-          position="left"
-        />,
-        showRangeDropdown && (
-          <Dropdown
-            key="range"
-            value={range ?? ""}
-            menuItems={rangeMenuItems}
-            onChange={handleRangeChange}
-            position="left"
-          />
-        )
-      ].filter(Boolean)}
+      tabs={
+        <Tabs
+          tabData={tabData}
+          selectedKey={type ?? ""}
+        />
+      }
+      filterDropdowns={filterDropdowns}
     />
   );
 };

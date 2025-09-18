@@ -1,33 +1,37 @@
 import React from "react";
-import { Button } from "../Button/Button";
-import styles from "../../styles/components/Tabs/Tabs.module.scss";
+import { Tab } from "./Tab";
+import styles from '../../styles/components/Tabs/Tabs.module.scss';
 
-type Tab = {
+type TabData = {
   key: string;
   label: string;
   onClick: () => void;
+  zIndex: number;
+  hideDesktop?: boolean
 };
 
 type TabsProps = {
-  tabs: Tab[];
+  tabData: TabData[];
   selectedKey: string;
-  className?: string;
-  style?: React.CSSProperties;
 };
 
-const Tabs: React.FC<TabsProps> = ({ tabs, selectedKey, className = "" }) => (
-  <div className={`${styles.tabs} ${className}`}>
-    {tabs.map((tab) => (
-      <Button
+export const Tabs: React.FC<TabsProps> = ({ tabData, selectedKey }) => {
+  const tabNodes = tabData.map((tab) => {
+    return (
+      <Tab
         key={tab.key}
-        variant={tab.key === selectedKey ? "miniSelected" : "mini"}
+        label={tab.label}
         onClick={tab.onClick}
-        className={styles.tabButton}
-      >
-        {tab.label}
-      </Button>
-    ))}
-  </div>
-);
+        selected={tab.key === selectedKey}
+        hideDesktop={tab.hideDesktop}
+        zIndex={tab.zIndex}
+      />
+    )
+  })
 
-export default Tabs;
+  return (
+    <div className={styles.tabs}>
+      {tabNodes}
+    </div>
+  )
+}

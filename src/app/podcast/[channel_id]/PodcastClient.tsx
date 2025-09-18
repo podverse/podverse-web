@@ -11,7 +11,6 @@ import PodcastList from "./PodcastList";
 import { MainInnerWrapper } from "../../../components/Main/MainInnerWrapper";
 import { MainInnerContentWrapper } from "../../../components/Main/MainInnerContentWrapper";
 import { PodcastSideContent } from "./PodcastSideContent";
-import { PodcastMobileAccordions } from "./PodcastMobileAccordions";
 
 interface PodcastClientProps {
   initialQueryParams: QueryParamsChannel;
@@ -43,12 +42,8 @@ export default function PodcastClient(props: PodcastClientProps) {
             podroll={ssrPodroll}
           />
           <MainInnerContentWrapper>
-            <PodcastMobileAccordions
-              channel={ssrChannel}
-              podroll={ssrPodroll}
-            />
             <PodcastListHeader />
-            <PodcastList />
+            <PodcastList podroll={ssrPodroll} />
           </MainInnerContentWrapper>
         </MainInnerWrapper>
       </MainWrapper>
