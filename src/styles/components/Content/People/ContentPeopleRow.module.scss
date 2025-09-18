@@ -1,5 +1,10 @@
 .row {
   display: flex;
+  margin-bottom: 1.5rem;
+}
+
+.row:last-child {
+  margin-bottom: 0.625rem;
 }
 
 .link {
