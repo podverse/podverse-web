@@ -17,9 +17,7 @@ export const ContentPodrollChannelRow = ({ channel }: ContentPodrollChannelRowPr
 
   const tMedia = useTranslations("media");
   const channel_image = findDTOChannelImageBySize(channel.channel_images, IMAGES.PODROLL.SQUARE.SIZE_FIND_TARGET, 'greater');
-
-  console.log('channel_image', channel_image);
-
+  
   return (
     <div className={styles.row}>
       <Link
