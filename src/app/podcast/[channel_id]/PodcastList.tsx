@@ -10,15 +10,21 @@ const PodcastList: React.FC = () => {
   const { filterParams, setFilterParams, items, totalPages, isLoading, showSubscribeMessage } = usePodcastContext();
   const { page = 1 } = filterParams;
 
+  const { type } = filterParams;
+
   return (
     <div className={styles.list}>
-      <ListEpisodes
-        page={page}
-        setPage={(page) => setFilterParams({ ...filterParams, page })}
-        items={items}
-        totalPages={totalPages}
-        showSubscribeMessage={showSubscribeMessage}
-      />
+      {
+        type === "episodes" && (
+          <ListEpisodes
+            page={page}
+            setPage={(page) => setFilterParams({ ...filterParams, page })}
+            items={items}
+            totalPages={totalPages}
+            showSubscribeMessage={showSubscribeMessage}
+          />
+        )
+      }
       <LoadingSpinnerOverlay isLoading={isLoading} />
     </div>
   );

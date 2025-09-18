@@ -7,7 +7,7 @@ import TextInputNumber from "../Form/TextInputNumber";
 import { TextInput } from "../Form/TextInput";
 import { MediaHeaderMini } from "../MediaHeaderMini/MediaHeaderMini";
 import { DTOChannel, DTOItem } from "podverse-helpers";
-import Tabs from "../Tabs/Tabs";
+import { ButtonTabs } from "../Tabs/ButtonTabs";
 import styles from "../../styles/components/Boost/BoostForm.module.scss";
 import Accordion from "../Accordian/Accordian";
 import { BoostRecipientInfo } from "./BoostRecipientInfo";
@@ -179,7 +179,7 @@ export const BoostForm: React.FC<BoostFormProps> = ({ className, channel, item }
     return null;
   }
 
-  const tabs = channelValues.map((cv) => ({
+  const buttonTabs = channelValues.map((cv) => ({
     key: `${cv.type}_${cv.method}`,
     label: tValue(`types.${cv.type}_${cv.method}.label`),
     onClick: () => setSelectedKey(`${cv.type}_${cv.method}`)
@@ -196,8 +196,8 @@ export const BoostForm: React.FC<BoostFormProps> = ({ className, channel, item }
   return (
     <div>
       <MediaHeaderMini channel={channel} item={item} />
-      <Tabs
-        tabs={tabs}
+      <ButtonTabs
+        buttonTabs={buttonTabs}
         selectedKey={selectedKey}
       />
       <Form className={styles.form} onSubmit={(e) => { e.preventDefault(); }}>
