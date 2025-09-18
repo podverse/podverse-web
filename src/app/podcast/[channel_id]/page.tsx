@@ -50,6 +50,11 @@ export default async function Podcast({ params, searchParams }: PodcastPageProps
 
   const ssrTotalPages = getCurrentTotalPages({ currentType, responseItems });
 
+  let ssrPodroll = null;
+  if ((ssrChannel?.channel_podroll?.channel_podroll_remote_items?.length ?? 0) > 0) {
+    ssrPodroll = await apiRequestService.reqPodrollGetForChannel(ssrChannel.id_text);
+  }
+
   return (
     <PodcastClient
       initialQueryParams={{ page, type, sort, range }}
@@ -58,6 +63,7 @@ export default async function Podcast({ params, searchParams }: PodcastPageProps
       ssrItems={ssrItems}
       ssrClips={ssrClips}
       ssrTotalPages={ssrTotalPages}
+      ssrPodroll={ssrPodroll}
     />
   );
 }

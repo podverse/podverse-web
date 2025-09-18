@@ -46,5 +46,11 @@ export const IMAGES = {
       SIZE: 64,
       SIZE_FIND_TARGET: 128
     }
+  },
+  PODROLL: {
+    SQUARE: {
+      SIZE: 64,
+      SIZE_FIND_TARGET: 128
+    }
   }
 };

@@ -1,25 +1,28 @@
-import { DTOChannel } from "podverse-helpers";
+import { DTOChannel, DTOPodroll } from "podverse-helpers";
 import { SideContent } from "../../../components/SideContent/SideContent";
 import { ContentAbout } from "../../../components/Content/About/ContentAbout";
 import { ContentPeople } from "../../../components/Content/People/ContentPeople";
-import Divider from "../../../components/Divider/Divider";
+import { ContentPodroll } from "../../../components/Content/Podroll/ContentPodroll";
 
 type PodcastSideContentProps = {
   channel: DTOChannel;
+  podroll?: DTOPodroll;
 }
 
-export const PodcastSideContent = ({ channel }: PodcastSideContentProps) => {
+export const PodcastSideContent = ({ channel, podroll }: PodcastSideContentProps) => {
   return (
     <SideContent>
       <ContentAbout
         defaultOpen={true}
         description={channel.channel_description?.value} />
-      <Divider />
+      <ContentPodroll
+        podroll={podroll}
+        defaultOpen={true}
+      />
       <ContentPeople
         defaultOpen={true}
         channel_persons={channel?.channel_persons}
       />
-      <Divider />
     </SideContent>
   )
 }
