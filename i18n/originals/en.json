@@ -76,7 +76,8 @@
       "people": "People",
       "person_image": "Person Image",
       "link_to_persons_webpage": "Link to Person's Webpage"
-    }
+    },
+    "podroll": "Podroll"
   },
   "media_player": {
     "play": "Play",
