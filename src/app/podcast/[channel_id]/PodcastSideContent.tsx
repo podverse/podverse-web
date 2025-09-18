@@ -6,7 +6,7 @@ import { ContentPodroll } from "../../../components/Content/Podroll/ContentPodro
 
 type PodcastSideContentProps = {
   channel: DTOChannel;
-  podroll?: DTOPodroll;
+  podroll?: DTOPodroll | null;
 }
 
 export const PodcastSideContent = ({ channel, podroll }: PodcastSideContentProps) => {

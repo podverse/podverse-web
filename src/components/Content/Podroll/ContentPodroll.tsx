@@ -6,8 +6,8 @@ import { ContentPodrollChannelRow } from "./ContentPodrollChannelRow";
 import { ContentPodrollItemRow } from "./ContentPodrollItemRow";
 
 type ContentPodrollProps = {
-  podroll?: DTOPodroll;
   defaultOpen: boolean;
+  podroll?: DTOPodroll | null;
 }
 
 export const ContentPodroll = ({ podroll, defaultOpen }: ContentPodrollProps) => {

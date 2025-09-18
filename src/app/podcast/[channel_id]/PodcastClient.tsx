@@ -20,7 +20,7 @@ interface PodcastClientProps {
   ssrItems: DTOItem[];
   ssrClips: DTOClip[];
   ssrTotalPages: number;
-  ssrPodroll?: DTOPodroll;
+  ssrPodroll?: DTOPodroll | null;
 }
 
 export default function PodcastClient(props: PodcastClientProps) {

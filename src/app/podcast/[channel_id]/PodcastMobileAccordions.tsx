@@ -7,7 +7,7 @@ import { ContentPodroll } from "../../../components/Content/Podroll/ContentPodro
 
 type PodcastMobileAccordionsProps = {
   channel: DTOChannel;
-  podroll?: DTOPodroll;
+  podroll?: DTOPodroll | null;
 }
 
 export const PodcastMobileAccordions = ({ channel, podroll }: PodcastMobileAccordionsProps) => {
