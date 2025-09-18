@@ -47,7 +47,7 @@ const ListPodcasts: React.FC<Props> = ({ page = 1, setPage, channels, totalPages
             currentPage={page}
             maxButtons={5}
             totalPages={totalPages}
-            onPageChange={setPage}>
+            setPage={setPage}>
             {channels.map((channel) => (
               <ListPodcastRow key={channel.id} channel={channel} />
             ))}

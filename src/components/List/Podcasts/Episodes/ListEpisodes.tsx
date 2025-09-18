@@ -47,7 +47,7 @@ const ListEpisodes: React.FC<Props> = ({ page = 1, setPage, items, totalPages, s
             currentPage={page}
             maxButtons={5}
             totalPages={totalPages}
-            onPageChange={setPage}>
+            setPage={setPage}>
             {items.map((item) => (
               <ListEpisodeRow key={item.id} item={item} />
             ))}

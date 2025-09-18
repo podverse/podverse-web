@@ -7,6 +7,8 @@ import { PodcastsContextProvider } from "./PodcastsContext";
 import MainWrapper from "../../components/Main/MainWrapper";
 import PodcastsMainHeader from "./PodcastsMainHeader";
 import PodcastsList from "./PodcastsList";
+import { MainInnerWrapper } from "../../components/Main/MainInnerWrapper";
+import { MainInnerContentWrapper } from "../../components/Main/MainInnerContentWrapper";
 
 interface PodcastsClientProps {
   initialQueryParams: QueryParamsChannels;
@@ -25,7 +27,11 @@ export default function PodcastsClient(props: PodcastsClientProps) {
     >
       <PodcastsMainHeader />
       <MainWrapper>
-        <PodcastsList />
+        <MainInnerWrapper>
+          <MainInnerContentWrapper>
+            <PodcastsList />
+          </MainInnerContentWrapper>
+        </MainInnerWrapper>
       </MainWrapper>
     </PodcastsContextProvider>
   );

@@ -7,7 +7,7 @@ import NavArrowButton from "../NavArrowButton/NavArrowButton";
 interface PaginationProps {
   currentPage: number;
   totalPages: number;
-  onPageChange: (page: number) => void;
+  setPage: (page: number) => void;
   children: React.ReactNode;
   maxButtons?: number;
 }
@@ -41,14 +41,14 @@ function getPageRange(currentPage: number, totalPages: number, maxButtons: numbe
 const Pagination: React.FC<PaginationProps> = ({
   currentPage,
   totalPages,
-  onPageChange,
+  setPage,
   children,
   maxButtons = 5,
 }) => {
   const pageNumbers = getPageRange(currentPage, totalPages, maxButtons);
 
   const handlePageChange = (page: number) => {
-    onPageChange(page);
+    setPage(page);
   };
 
   return (
