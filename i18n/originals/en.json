@@ -83,7 +83,23 @@
     "play": "Play",
     "pause": "Pause",
     "show_fullscreen_media_player": "Show the fullscreen media player",
-    "media_player_image": "Media player image"
+    "media_player_image": "Media player image",
+    "playback_speed": {
+      "playback_speed": "Playback Speed",
+      "speeds": {
+        "0-5": "0.5x",
+        "0-75": "0.75x",
+        "0-87": "0.87x",
+        "1-0": "1x",
+        "1-12": "1.12x",
+        "1-25": "1.25x",
+        "1-5": "1.5x",
+        "1-75": "1.75x",
+        "2-0": "2x",
+        "2-5": "2.5x",
+        "3-0": "3x"
+      }
+    }
   },
   "value": {
     "boost": "Boost",
