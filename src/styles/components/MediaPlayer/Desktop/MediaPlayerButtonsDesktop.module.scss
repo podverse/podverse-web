@@ -35,7 +35,7 @@
   font-size: var(--font-size-md);
 }
 
-@media (min-width: $breakpoint-xl-min) and (max-width: $breakpoint-xl-max) {
+@media (min-width: $breakpoint-lg-min) and (max-width: $breakpoint-xl-max) {
   .buttons {
     flex-direction: column;
     height: 100%;

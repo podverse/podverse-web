@@ -1,3 +1,5 @@
+@use "../../../variables/breakpoints" as *;
+
 .controls {
   display: flex;
   flex-direction: column;
@@ -23,4 +25,16 @@
   display: flex;
   width: 100%;
   justify-content: center;
+}
+
+@media (min-width: $breakpoint-lg-min) and (max-width: $breakpoint-xl-max) {
+  .topSection {
+    max-width: 304px;
+    width: 100%;
+  }
+
+  .bottomSection {
+    max-width: 400px;
+    width: 100%;
+  }
 }
