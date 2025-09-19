@@ -6,7 +6,7 @@ type PageWrapperProps = {
 };
 
 const PageWrapper: React.FC<PageWrapperProps> = ({ children }) => (
-  <div className={styles.pageWrapper}>
+  <div id="page-wrapper" className={styles.pageWrapper}>
     {children}
   </div>
 );

@@ -3,6 +3,7 @@
 import React from "react";
 import styles from "../../styles/components/Pagination/Pagination.module.scss";
 import NavArrowButton from "../NavArrowButton/NavArrowButton";
+import classNames from "classnames";
 
 interface PaginationProps {
   currentPage: number;
@@ -10,6 +11,7 @@ interface PaginationProps {
   setPage: (page: number) => void;
   children: React.ReactNode;
   maxButtons?: number;
+  paginationControlsClassName?: string;
 }
 
 function getPageRange(currentPage: number, totalPages: number, maxButtons: number): number[] {
@@ -44,6 +46,7 @@ const Pagination: React.FC<PaginationProps> = ({
   setPage,
   children,
   maxButtons = 5,
+  paginationControlsClassName = "",
 }) => {
   const pageNumbers = getPageRange(currentPage, totalPages, maxButtons);
 
@@ -54,7 +57,7 @@ const Pagination: React.FC<PaginationProps> = ({
   return (
     <div className={styles.pagination}>
       {children}
-      <div className={styles.paginationControls}>
+      <div className={classNames(styles.paginationControls, paginationControlsClassName)}>
         {currentPage <= 1 ? (
           <span className={styles.arrowPlaceholder} />
         ) : (

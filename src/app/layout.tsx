@@ -4,6 +4,8 @@ import { getLocale } from 'next-intl/server';
 import FavIcons from '../components/Head/FavIcons';
 import FontPreloads from '../components/Head/FontPreloads';
 import Manifest from '../components/Head/Manifest';
+import { AppWrapper } from '../components/App/AppWrapper';
+import { MediaPlayer } from '../components/MediaPlayer/MediaPlayer';
 import NavBar from '../components/NavBar/NavBar';;
 import PageWrapper from '../components/PageWrapper/PageWrapper';
 import SideBar from '../components/SideBar/SideBar';
@@ -34,7 +36,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const categories = categoriesResponse.data;
 
   const messages = (await import(`../../i18n/originals/${locale}.json`)).default;
-  
+
   return (
     <html lang={locale} data-theme={theme}>
       <head>
@@ -51,11 +53,14 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           messages={messages}
           categories={categories}>
           <WindowWrapper>
-            <SideBar />
-            <PageWrapper>
-              <NavBar />
-              {children}
-            </PageWrapper>
+            <AppWrapper>
+              <SideBar />
+              <PageWrapper>
+                <NavBar />
+                {children}
+              </PageWrapper>
+            </AppWrapper>
+            <MediaPlayer />
             <Modals />
           </WindowWrapper>
         </Providers>

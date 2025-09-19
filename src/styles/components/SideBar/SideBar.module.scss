@@ -2,6 +2,7 @@
 
 .sidebar {
   width: var(--sidebar-desktop-width);
+  min-height: 100vh;
   height: 100vh;
   background: var(--background-color-tertiary);
   color: var(--text-color-primary);
