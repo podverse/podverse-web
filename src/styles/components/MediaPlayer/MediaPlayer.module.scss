@@ -1,8 +1,4 @@
 .player {
-  display: fixed;
-  height: 110px;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  height: var(--media-player-height);
   background-color: black;
 }
