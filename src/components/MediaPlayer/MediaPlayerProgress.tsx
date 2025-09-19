@@ -33,7 +33,7 @@ export const MediaPlayerProgress: React.FC<MediaPlayerProgressProps> = ({
         step={1}
         className={styles.mediaPlayerProgressSlider}
         style={{
-          background: `linear-gradient(to right, #fff ${progress * 100}%, #2196f3 ${progress * 100}%)`
+          background: `linear-gradient(to right, #ff0000 ${progress * 100}%, #00c853 ${progress * 100}%)`
         }}
         onChange={e => onSeek && onSeek(Number(e.target.value))}
       />

@@ -21,7 +21,7 @@ export const MediaPlayerControls = () => {
       <div className={styles.bottomSection}>
         <MediaPlayerProgress
           currentTime={90}
-          duration={6000}
+          duration={600}
           onSeek={() => alert('seek called')}
         />
       </div>
