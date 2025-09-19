@@ -6,8 +6,8 @@
   padding: 0.5rem 1.5rem;
   color: var(--button-secondary-color);
   font-weight: var(--font-weight-light);
-  border: 1px solid var(--border-color-primary);
   background-color: var(--background-color-primary);
+  border: 1px solid var(--border-color-primary);
   border-bottom: none;
   border-radius: 1rem 1rem 0 0;
   z-index: 1;
@@ -20,8 +20,10 @@
 }
 
 .tab.selected {
-  z-index: 2;
+  z-index: 100 !important;
   font-weight: var(--font-weight-bold);
+  border: 2px solid var(--border-color-primary);
+  border-bottom: none;
 }
 
 @media (min-width: breakpoints.$breakpoint-xl-min) {
