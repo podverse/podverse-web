@@ -1,5 +1,5 @@
 import React from "react";
-import { FaSpinner } from "react-icons/fa";
+import { FaSpinner } from "react-icons/fa6";
 import styles from "../../styles/components/LoadingSpinner/LoadingSpinner.module.scss";
 
 type SpinnerSize = "small" | "medium" | "large";

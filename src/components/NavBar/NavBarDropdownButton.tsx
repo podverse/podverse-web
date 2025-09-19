@@ -2,14 +2,15 @@
 
 import React, { useRef } from "react";
 import { useRouter } from "next/navigation";
-import { FaChevronDown, FaRegUserCircle, FaUserCircle } from "react-icons/fa";
-import styles from "../../styles/components/NavBar/NavBarDropdownButton.module.scss";
+import { FaUserCircle } from "react-icons/fa";
+import { FaChevronDown, FaRegCircleUser } from "react-icons/fa6";
 import { useAccount } from "../../contexts/Account";
 import DropdownMenu from "../Dropdown/DropdownMenu";
 import { useDropdownKeyboardNavigation } from "../../hooks/useDropdownKeyboardNavigation";
 import { ROUTES } from "../../constants/routes";
 import { useModals } from '../../contexts/Modals'
 import { apiRequestService } from "../../factories/apiRequestService";
+import styles from "../../styles/components/NavBar/NavBarDropdownButton.module.scss";
 
 const NavBarDropdownButton: React.FC = () => {
   const { loggedInAccount } = useAccount();
@@ -66,7 +67,7 @@ const NavBarDropdownButton: React.FC = () => {
             <FaUserCircle className={styles.profileIcon} />
           </div>
         ) : (
-          <FaRegUserCircle className={styles.profileIcon} />
+          <FaRegCircleUser className={styles.profileIcon} />
         )}
         <FaChevronDown />
       </button>

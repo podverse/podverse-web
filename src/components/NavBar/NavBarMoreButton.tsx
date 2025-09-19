@@ -1,10 +1,10 @@
 "use client";
 
+import classNames from "classnames";
 import React from "react";
-import { FaBars, FaTimes } from "react-icons/fa";
+import { FaBars, FaXmark } from "react-icons/fa6";
 import styles from "../../styles/components/NavBar/NavBarMoreButton.module.scss";
 import { toggleMobileSidebar } from "../../utils/mobileNavMenu";
-import classNames from "classnames";
 
 const NavBarMoreButton: React.FC = () => {
   return (
@@ -19,7 +19,7 @@ const NavBarMoreButton: React.FC = () => {
         <FaBars />
       </div>
       <div className={classNames(styles.icon, "hidden")} data-mobile-nav="toggle-x">
-        <FaTimes />
+        <FaXmark />
       </div>
     </button>
   );

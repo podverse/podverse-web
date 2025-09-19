@@ -3,11 +3,10 @@
 import { useTranslations } from "next-intl";
 import { DTOChannel } from "podverse-helpers";
 import React from "react";
-import { FaCommentDollar, FaGlobe, FaRss, FaShare } from "react-icons/fa";
+import { FaCircleDollarToSlot, FaCommentDollar, FaGlobe, FaRss, FaShare } from "react-icons/fa6";
 import Link from "../../../components/Link/Link";
 import styles from "../../../styles/app/podcast/PodcastHeaderButtons.module.scss";
 import { usePodcastContext } from "./PodcastContext";
-import { FaCircleDollarToSlot } from "react-icons/fa6";
 
 type PodcastHeaderButtonsProps = {
   channel: DTOChannel;

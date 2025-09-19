@@ -41,6 +41,14 @@ export const IMAGES = {
       SIZE_FIND_TARGET: 128
     }
   },
+  MEDIA_PLAYER: {
+    DESKTOP: {
+      MINI: {
+        SIZE: 80,
+        SIZE_FIND_TARGET: 160
+      }
+    }
+  },
   PEOPLE: {
     SQUARE: {
       SIZE: 64,

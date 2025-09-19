@@ -1,5 +1,5 @@
 import React from "react";
-import { FaSearch } from "react-icons/fa";
+import { FaMagnifyingGlass } from "react-icons/fa6";
 import { useTranslations } from "next-intl";
 import { ROUTES } from "../../constants/routes";
 import styles from "../../styles/components/SideBar/SideBar.module.scss";
@@ -19,7 +19,7 @@ const SideBar: React.FC = () => {
       <div className={styles.stickyTop} data-mobile-nav="branding">
         <SideBarBrand />
         <SideBarLink href={ROUTES.SEARCH}>
-          <FaSearch className={styles.icon} />
+          <FaMagnifyingGlass className={styles.icon} />
           {tFeatures("search")}
         </SideBarLink>
       </div>

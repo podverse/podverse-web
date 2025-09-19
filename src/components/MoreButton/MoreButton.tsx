@@ -1,10 +1,10 @@
 "use client";
 
 import React, { useRef } from "react";
-import styles from "../../styles/components/MoreButton/MoreButton.module.scss";
+import { FaEllipsis } from "react-icons/fa6";
 import DropdownMenu from "../Dropdown/DropdownMenu";
 import { useDropdownKeyboardNavigation } from "../../hooks/useDropdownKeyboardNavigation";
-import { FaEllipsisH } from "react-icons/fa";
+import styles from "../../styles/components/MoreButton/MoreButton.module.scss";
 
 export interface MoreButtonMenuItem {
   label: string;
@@ -47,7 +47,7 @@ const MoreButton: React.FC<MoreButtonProps> = ({
         onKeyDown={e => handleButtonKeyDown(e)}
         type="button"
       >
-        <FaEllipsisH />
+        <FaEllipsis />
       </button>
       <DropdownMenu
         menuItems={moreButtonMenuItems}
