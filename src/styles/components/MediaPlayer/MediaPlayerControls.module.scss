@@ -1,6 +1,19 @@
 .controls {
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%; // Fill parent height
+}
+
+.topSection {
+  display: flex;
+  font-size: 24px;
   gap: 2rem;
   align-items: center;
-  font-size: 24px;
+}
+
+.bottomSection {
+  display: flex;
+  width: 100%;
 }

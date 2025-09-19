@@ -1,0 +1,53 @@
+.mediaPlayerProgress {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 12px;
+}
+
+.mediaPlayerProgressTime,
+.mediaPlayerProgressDuration {
+  color: #fff;
+  font-size: 14px;
+  min-width: 40px;
+  text-align: center;
+}
+
+.mediaPlayerProgressSlider {
+  flex: 1;
+  height: 4px;
+  appearance: none;
+  background: #2196f3;
+  border-radius: 2px;
+  outline: none;
+  margin: 0 8px;
+}
+
+.mediaPlayerProgressSlider::-webkit-slider-thumb {
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #fff;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 0 2px rgba(0,0,0,0.2);
+}
+
+.mediaPlayerProgressSlider::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #fff;
+  cursor: pointer;
+  border: none;
+}
+
+.mediaPlayerProgressSlider::-ms-thumb {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #fff;
+  cursor: pointer;
+  border: none;
+}
