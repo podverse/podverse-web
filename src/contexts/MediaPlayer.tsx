@@ -13,6 +13,10 @@ type MediaPlayerContextType = {
   setMPIsPlaying: (val: boolean) => void;
   mpPlaybackSpeed: PlaybackSpeed;
   setMPPlaybackSpeed: (val: PlaybackSpeed) => void;
+  mpIsMuted: boolean;
+  setMPIsMuted: (val: boolean) => void;
+  mpVolume: number;
+  setMPVolume: (val: number) => void;
 };
 
 export const MediaPlayerContext = createContext<MediaPlayerContextType | undefined>(undefined);
@@ -27,6 +31,8 @@ export const MediaPlayerProvider = ({ children }: MediaPlayerProviderProps) => {
   const [mpClip, setMPClip] = useState<DTOClip | null>(null);
   const [mpIsPlaying, setMPIsPlaying] = useState<boolean>(false);
   const [mpPlaybackSpeed, setMPPlaybackSpeed] = useState<PlaybackSpeed>(1.0);
+  const [mpIsMuted, setMPIsMuted] = useState<boolean>(false);
+  const [mpVolume, setMPVolume] = useState<number>(1.0);
 
   useEffect(() => {
     updateLayoutForMediaPlayer(!!mpChannel);
@@ -38,7 +44,9 @@ export const MediaPlayerProvider = ({ children }: MediaPlayerProviderProps) => {
       mpItem, setMPItem,
       mpClip, setMPClip,
       mpIsPlaying, setMPIsPlaying,
-      mpPlaybackSpeed, setMPPlaybackSpeed
+      mpPlaybackSpeed, setMPPlaybackSpeed,
+      mpIsMuted, setMPIsMuted,
+      mpVolume, setMPVolume
     }}>
       {children}
     </MediaPlayerContext.Provider>

@@ -1,0 +1,31 @@
+.volumeSliderWrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  max-width: 120px;
+  width: 100%;
+}
+
+.customVolumeBar {
+  flex: 1;
+  height: 0.625rem;
+  background: transparent;
+  border-radius: var(--border-radius-round);
+  margin: 0 4px;
+  display: flex;
+  overflow: hidden;
+  cursor: pointer;
+  position: relative;
+}
+
+.volumeLevel {
+  background: var(--progress-bar-before);
+  height: 100%;
+  border-radius: 2rem 0 0 2rem;
+}
+
+.volumeRemaining {
+  background: var(--progress-bar-after);
+  height: 100%;
+  border-radius: 0 2rem 2rem 0;
+}
