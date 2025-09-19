@@ -4,4 +4,13 @@
   flex-direction: row;
   align-items: center;
   justify-content: flex-end;
+  gap: 1rem;
+}
+
+.buttons > button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 2rem;
+  width: 2rem;
 }

@@ -1,7 +1,7 @@
 import { useTranslations } from "next-intl";
-import { useMediaPlayer } from "../../../contexts/MediaPlayer";
-import styles from "../../../styles/components/MediaPlayer/Buttons/JumpBackButton.module.scss"
 import { getNextPlaybackSpeed, getPlaybackTranslationKey } from "podverse-helpers";
+import { useMediaPlayer } from "../../../contexts/MediaPlayer";
+import styles from "../../../styles/components/MediaPlayer/Buttons/PlaybackSpeedButton.module.scss"
 
 export const PlaybackSpeedButton = () => {
   const tMediaPlayer = useTranslations("media_player");

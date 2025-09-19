@@ -1,4 +1,5 @@
 @use '../../../mixins/buttons.scss' as *;
-.trackNextButton {
+
+.clipButton {
   @include mediaPlayerButton;
 }

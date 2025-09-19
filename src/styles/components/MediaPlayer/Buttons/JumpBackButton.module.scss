@@ -1,5 +1,5 @@
+@use '../../../mixins/buttons.scss' as *;
+
 .jumpBackButton {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  @include mediaPlayerButton;
 }
