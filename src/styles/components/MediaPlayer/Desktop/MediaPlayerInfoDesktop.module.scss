@@ -1,5 +1,33 @@
+@use '../../../mixins/lineClamp' as *;
+
 .info {
   display: flex;
   flex: 0 0 28%;
-  flex-direction: row;
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.textSection {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-left: 1rem;
+  text-align: left;
+  gap: 0.5rem;
+}
+
+.title {
+  @include line-clamp(2);
+  font-weight: var(--font-weight-light);
+}
+
+.subtitle {
+  @include line-clamp(2);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  color: var(--text-color-accent);
 }

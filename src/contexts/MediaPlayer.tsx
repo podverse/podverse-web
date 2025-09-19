@@ -1,30 +1,41 @@
+import { DTOChannel, DTOClip, DTOItem } from "podverse-helpers";
 import React, { createContext, useContext, useState, ReactNode, useEffect } from "react";
+import { updateLayoutForMediaPlayer } from "../utils/mediaPlayer/mediaPlayerLayout";
 
 type MediaPlayerContextType = {
-  nowPlayingItem: any;
-  setNowPlayingItem: (val: any) => void;
+  mpChannel: DTOChannel | null;
+  setMPChannel: (val: DTOChannel | null) => void;
+  mpItem: DTOItem | null;
+  setMPItem: (val: DTOItem | null) => void;
+  mpClip: DTOClip | null;
+  setMPClip: (val: DTOClip | null) => void;
+  mpIsPlaying: boolean;
+  setMPIsPlaying: (val: boolean) => void;
 };
 
-export const MediaPlayerContext = createContext<MediaPlayerContextType>({
-  nowPlayingItem: null,
-  setNowPlayingItem: () => {},
-});
+export const MediaPlayerContext = createContext<MediaPlayerContextType | undefined>(undefined);
 
 type MediaPlayerProviderProps = {
   children: ReactNode;
 };
 
-export const MediaPlayerProvider = ({
-  children
-}: MediaPlayerProviderProps) => {
-  const [nowPlayingItem, setNowPlayingItem] = useState<any>(true);
+export const MediaPlayerProvider = ({ children }: MediaPlayerProviderProps) => {
+  const [mpChannel, setMPChannel] = useState<DTOChannel | null>(null);
+  const [mpItem, setMPItem] = useState<DTOItem | null>(null);
+  const [mpClip, setMPClip] = useState<DTOClip | null>(null);
+  const [mpIsPlaying, setMPIsPlaying] = useState<boolean>(false);
 
   useEffect(() => {
-    updateLayoutForMediaPlayer(nowPlayingItem);
-  }, [nowPlayingItem]);
+    updateLayoutForMediaPlayer(!!mpChannel);
+  }, [mpChannel, mpItem, mpClip]);
 
   return (
-    <MediaPlayerContext.Provider value={{ nowPlayingItem, setNowPlayingItem }}>
+    <MediaPlayerContext.Provider value={{
+      mpChannel, setMPChannel,
+      mpItem, setMPItem,
+      mpClip, setMPClip,
+      mpIsPlaying, setMPIsPlaying
+    }}>
       {children}
     </MediaPlayerContext.Provider>
   );
@@ -34,30 +45,4 @@ export function useMediaPlayer() {
   const ctx = useContext(MediaPlayerContext);
   if (!ctx) throw new Error("useMediaPlayer must be used within a MediaPlayerProvider");
   return ctx;
-}
-
-function updateLayoutForMediaPlayer(nowPlayingItem: any) {
-  const sidebar = document.getElementById("sidebar");
-  const pageWrapper = document.getElementById("page-wrapper");
-  const styleValue = "calc(100vh - var(--media-player-height))";
-
-  if (nowPlayingItem) {
-    if (sidebar) {
-      sidebar.style.minHeight = styleValue;
-      sidebar.style.height = styleValue;
-    }
-    if (pageWrapper) {
-      pageWrapper.style.minHeight = styleValue;
-      pageWrapper.style.height = styleValue;
-    }
-  } else {
-    if (sidebar) {
-      sidebar.style.minHeight = "";
-      sidebar.style.height = "";
-    }
-    if (pageWrapper) {
-      pageWrapper.style.minHeight = "";
-      pageWrapper.style.height = "";
-    }
-  }
 }

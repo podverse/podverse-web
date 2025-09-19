@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import Link from "next/link";
-import { DTOItem, findDTOItemImageBySize, stripAndDecodeHtml } from "podverse-helpers";
+import { DTOChannel, DTOItem, findDTOItemImageBySize, stripAndDecodeHtml } from "podverse-helpers";
 import React from "react";
 import Image from "../../../Image/Image";
 import { ROUTES } from "../../../../constants/routes";
@@ -11,17 +11,20 @@ import { IMAGES } from "../../../../constants/images";
 import { PlayButtonMini } from "../../../MediaPlayer/Buttons/PlayButtonMini";
 import { ReadableDuration } from "../../../Time/ReadableDuration";
 import MoreButton from "../../../MoreButton/MoreButton";
+import { useMediaPlayer } from "../../../../contexts/MediaPlayer";
 
 interface Props {
+  channel: DTOChannel;
   item: DTOItem;
 }
 
-const ListEpisodeRow: React.FC<Props> = ({ item }) => {
+const ListEpisodeRow: React.FC<Props> = ({ channel, item }) => {
   const url = `${ROUTES.EPISODE}/${item.id_text}`;
   const item_image = findDTOItemImageBySize(item.item_images, IMAGES.LIST.EPISODES.DESKTOP.SIZE_FIND_TARGET, 'lesser');
   const tFeatures = useTranslations("features");
   const tMedia = useTranslations("media");
   const tMediaPlayer = useTranslations("media_player");
+  const { setMPChannel, setMPItem, setMPClip } = useMediaPlayer();
 
   const moreButtonMenuItems = [
     {
@@ -54,6 +57,12 @@ const ListEpisodeRow: React.FC<Props> = ({ item }) => {
     }
   ]
 
+  const playButtonOnClick = () => {
+    setMPChannel(channel);
+    setMPItem(item);
+    setMPClip(null);
+  };
+
   return (
     <div className={styles.row}>
       <Link href={url} tabIndex={-1}>
@@ -81,7 +90,7 @@ const ListEpisodeRow: React.FC<Props> = ({ item }) => {
         </Link>
         <div className={styles.bottomSection}>
           <div className={styles.bottomSectionStart}>
-            <PlayButtonMini />
+            <PlayButtonMini onClick={playButtonOnClick} />
             <ReadableDuration durationInSeconds={item.item_about.duration || '0'} />
           </div>
           <div className={styles.bottomSectionEnd}>

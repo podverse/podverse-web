@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { CategoryMappingKeys, DTOItem, QueryParamsItemsType } from "podverse-helpers";
+import { CategoryMappingKeys, DTOChannel, DTOItem, QueryParamsItemsType } from "podverse-helpers";
 import React from "react";
 import ListEpisodeRow from "./ListEpisodeRow";
 import CallToActionMessage from "../../../CallToActionMessage/CallToActionMessage";
@@ -13,6 +13,7 @@ import { scrollMainToTop } from "../../../../utils/scroll";
 type Props = {
   page: number;
   setPage: (page: number) => void;
+  channel: DTOChannel;
   items: DTOItem[];
   totalPages: number;
   showSubscribeMessage: boolean;
@@ -20,7 +21,7 @@ type Props = {
   category?: CategoryMappingKeys | null;
 };
 
-const ListEpisodes: React.FC<Props> = ({ page = 1, setPage, items, totalPages, showSubscribeMessage }) => {
+const ListEpisodes: React.FC<Props> = ({ page = 1, setPage, channel, items, totalPages, showSubscribeMessage }) => {
   const tInstructions = useTranslations("instructions");
   const tAuthentication = useTranslations("authentication");
   const { openModal } = useModals();
@@ -49,7 +50,7 @@ const ListEpisodes: React.FC<Props> = ({ page = 1, setPage, items, totalPages, s
             totalPages={totalPages}
             setPage={setPage}>
             {items.map((item) => (
-              <ListEpisodeRow key={item.id} item={item} />
+              <ListEpisodeRow key={item.id} channel={channel} item={item} />
             ))}
           </Pagination>
         )
