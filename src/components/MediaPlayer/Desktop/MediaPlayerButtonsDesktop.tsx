@@ -1,9 +1,12 @@
 import styles from "../../../styles/components/MediaPlayer/Desktop/MediaPlayerButtonsDesktop.module.scss";
+import { PlaybackSpeedButton } from "../Buttons/PlaybackSpeedButton";
+import { PlaylistAddToButton } from "../Buttons/PlaylistAddToButton";
 
 export const MediaPlayerButtonsDesktop = () => {
   return (
-    <aside className={styles.buttons}>
-      hello
-    </aside>
+    <div className={styles.buttons}>
+      <PlaylistAddToButton />
+      <PlaybackSpeedButton />
+    </div>
   )
 }

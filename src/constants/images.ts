@@ -44,8 +44,8 @@ export const IMAGES = {
   MEDIA_PLAYER: {
     DESKTOP: {
       MINI: {
-        SIZE: 80,
-        SIZE_FIND_TARGET: 160
+        SIZE: 76,
+        SIZE_FIND_TARGET: 152
       }
     }
   },

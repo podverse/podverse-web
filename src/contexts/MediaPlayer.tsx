@@ -1,4 +1,4 @@
-import { DTOChannel, DTOClip, DTOItem } from "podverse-helpers";
+import { DTOChannel, DTOClip, DTOItem, PlaybackSpeed } from "podverse-helpers";
 import React, { createContext, useContext, useState, ReactNode, useEffect } from "react";
 import { updateLayoutForMediaPlayer } from "../utils/mediaPlayer/mediaPlayerLayout";
 
@@ -11,6 +11,8 @@ type MediaPlayerContextType = {
   setMPClip: (val: DTOClip | null) => void;
   mpIsPlaying: boolean;
   setMPIsPlaying: (val: boolean) => void;
+  mpPlaybackSpeed: PlaybackSpeed;
+  setMPPlaybackSpeed: (val: PlaybackSpeed) => void;
 };
 
 export const MediaPlayerContext = createContext<MediaPlayerContextType | undefined>(undefined);
@@ -24,6 +26,7 @@ export const MediaPlayerProvider = ({ children }: MediaPlayerProviderProps) => {
   const [mpItem, setMPItem] = useState<DTOItem | null>(null);
   const [mpClip, setMPClip] = useState<DTOClip | null>(null);
   const [mpIsPlaying, setMPIsPlaying] = useState<boolean>(false);
+  const [mpPlaybackSpeed, setMPPlaybackSpeed] = useState<PlaybackSpeed>(1.0);
 
   useEffect(() => {
     updateLayoutForMediaPlayer(!!mpChannel);
@@ -34,7 +37,8 @@ export const MediaPlayerProvider = ({ children }: MediaPlayerProviderProps) => {
       mpChannel, setMPChannel,
       mpItem, setMPItem,
       mpClip, setMPClip,
-      mpIsPlaying, setMPIsPlaying
+      mpIsPlaying, setMPIsPlaying,
+      mpPlaybackSpeed, setMPPlaybackSpeed
     }}>
       {children}
     </MediaPlayerContext.Provider>
