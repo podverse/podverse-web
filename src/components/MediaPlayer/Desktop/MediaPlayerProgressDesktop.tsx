@@ -1,11 +1,11 @@
 "use client";
 
 import React from "react";
-import styles from "../../styles/components/MediaPlayer/MediaPlayerProgress.module.scss";
+import styles from "../../../styles/components/MediaPlayer/Desktop/MediaPlayerProgressDesktop.module.scss";
 
-type MediaPlayerProgressProps = {
-  currentTime: number; // seconds
-  duration: number;    // seconds
+type MediaPlayerProgressDesktopProps = {
+  currentTime: number;
+  duration: number;
   onSeek?: (value: number) => void;
 };
 
@@ -15,7 +15,7 @@ function formatTime(sec: number) {
   return `${minutes}:${seconds.toString().padStart(2, "0")}`;
 }
 
-export const MediaPlayerProgress: React.FC<MediaPlayerProgressProps> = ({
+export const MediaPlayerProgressDesktop: React.FC<MediaPlayerProgressDesktopProps> = ({
   currentTime,
   duration,
   onSeek

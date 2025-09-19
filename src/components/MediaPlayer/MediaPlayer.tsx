@@ -1,5 +1,5 @@
 import styles from "../../styles/components/MediaPlayer/MediaPlayer.module.scss";
-import { MediaPlayerDesktop } from "./MediaPlayerDesktop";
+import { MediaPlayerDesktop } from "./Desktop/MediaPlayerDesktop";
 
 export const MediaPlayer = () => {
   return (

@@ -3,7 +3,8 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  height: 100%; // Fill parent height
+  height: 100%;
+  flex: 0 0 44%;
 }
 
 .topSection {
@@ -16,4 +17,5 @@
 .bottomSection {
   display: flex;
   width: 100%;
+  justify-content: center;
 }
