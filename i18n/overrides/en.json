@@ -81,7 +81,9 @@
   },
   "media_player": {
     "play": "Play",
-    "pause": "Pause"
+    "pause": "Pause",
+    "show_fullscreen_media_player": "Show the fullscreen media player",
+    "media_player_image": "Media player image"
   },
   "value": {
     "boost": "Boost",
@@ -141,6 +143,7 @@
     "increment": "Increment",
     "decrement": "Decrement",
     "anonymous": "Anonymous",
+    "untitled": "Untitled",
     "optional": "Optional",
     "submit": "Submit"
   },
