@@ -94,7 +94,7 @@ const PodcastListHeader: React.FC = () => {
         value={sort ?? ""}
         menuItems={sortMenuItems}
         onChange={handleSortChange}
-        position="left"
+        position="right"
       />,
       showRangeDropdown && (
         <Dropdown
@@ -102,7 +102,7 @@ const PodcastListHeader: React.FC = () => {
           value={range ?? ""}
           menuItems={rangeMenuItems}
           onChange={handleRangeChange}
-          position="left"
+          position="right"
         />
       )
     ]
