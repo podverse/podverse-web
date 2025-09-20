@@ -3,6 +3,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import { useMediaPlayer } from "../../../contexts/MediaPlayer";
 import { getEnclosure, getEnclosureSource } from "podverse-helpers";
+import { EVENTS } from "../../../constants/events";
 
 export const MediaPlayerControllerAudio: React.FC = () => {
   const audioRef = useRef<HTMLAudioElement>(null);
@@ -25,6 +26,17 @@ export const MediaPlayerControllerAudio: React.FC = () => {
       setHasLoadedOnce(true);
     }
   }, [selectedItemEnclosureUrl, hasLoadedOnce]);
+
+  useEffect(() => {
+    const handleSeek = (e: Event) => {
+      const customEvent = e as CustomEvent<{ time: number }>;
+      if (audioRef.current && typeof customEvent.detail.time === "number") {
+        audioRef.current.currentTime = customEvent.detail.time;
+      }
+    };
+    window.addEventListener(EVENTS.MEDIA_PLAYER.AUDIO.SEEK, handleSeek);
+    return () => window.removeEventListener(EVENTS.MEDIA_PLAYER.AUDIO.SEEK, handleSeek);
+  }, []);
 
   useMediaPlayerAudioEffects({
     audioRef,
@@ -68,13 +80,8 @@ function useMediaPlayerAudioEffects({
     const audio = audioRef?.current;
     if (!audio) return;
 
-    let lastUpdate = 0;
     const handleTimeUpdate = () => {
-      const now = Date.now();
-      if (now - lastUpdate > 500) {
-        setMPCurrentTime(audio.currentTime);
-        lastUpdate = now;
-      }
+      setMPCurrentTime(audio.currentTime);
     };
 
     const handleLoadedMetadata = () => setMPDuration(audio.duration);
@@ -86,7 +93,7 @@ function useMediaPlayerAudioEffects({
       audio.removeEventListener("timeupdate", handleTimeUpdate);
       audio.removeEventListener("loadedmetadata", handleLoadedMetadata);
     };
-  }, [audioRef, setMPCurrentTime, setMPDuration]);
+  }, [audioRef]);
 
   // Play/Pause
   useEffect(() => {
@@ -97,19 +104,19 @@ function useMediaPlayerAudioEffects({
     } else {
       audio.pause();
     }
-  }, [mpIsPlaying, audioRef]);
+  }, [mpIsPlaying]);
 
   // Volume
   useEffect(() => {
     const audio = audioRef?.current;
     if (!audio) return;
     audio.volume = mpVolume;
-  }, [mpVolume, audioRef]);
+  }, [mpVolume]);
 
   // Playback speed
   useEffect(() => {
     const audio = audioRef?.current;
     if (!audio) return;
     audio.playbackRate = mpPlaybackSpeed;
-  }, [mpPlaybackSpeed, audioRef]);
+  }, [mpPlaybackSpeed]);
 }

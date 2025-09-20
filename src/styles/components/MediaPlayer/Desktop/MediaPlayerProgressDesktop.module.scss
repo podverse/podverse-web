@@ -20,35 +20,30 @@
   text-align: left;
 }
 
-.mediaPlayerProgressSlider {
+.customProgressBar {
   flex: 1;
   height: 0.75rem;
-  appearance: none;
+  background: transparent;
   border-radius: var(--border-radius-round);
-  outline: none;
   margin: 0 8px;
+  display: flex;
+  overflow: hidden;
+  cursor: pointer;
+  position: relative;
+  outline: none;
   border: none;
 }
 
-// Hide the thumb for all browsers
-.mediaPlayerProgressSlider::-webkit-slider-thumb {
-  appearance: none;
-  width: 0;
-  height: 0;
-  background: transparent;
-  border: none;
+.progressLevel {
+  background: var(--progress-bar-before);
+  height: 100%;
+  border-radius: 2rem 0 0 2rem;
+  transition: width 0.1s linear;
 }
 
-.mediaPlayerProgressSlider::-moz-range-thumb {
-  width: 0;
-  height: 0;
-  background: transparent;
-  border: none;
-}
-
-.mediaPlayerProgressSlider::-ms-thumb {
-  width: 0;
-  height: 0;
-  background: transparent;
-  border: none;
+.progressRemaining {
+  background: var(--progress-bar-after);
+  height: 100%;
+  border-radius: 0 2rem 2rem 0;
+  transition: width 0.1s linear;
 }

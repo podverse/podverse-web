@@ -19,11 +19,7 @@ export const MediaPlayerControlsDesktop = () => {
         <TrackNextButton />
       </div>
       <div className={styles.bottomSection}>
-        <MediaPlayerProgressDesktop
-          currentTime={90}
-          duration={600}
-          onSeek={() => alert('seek called')}
-        />
+        <MediaPlayerProgressDesktop />
       </div>
     </div>
   )
