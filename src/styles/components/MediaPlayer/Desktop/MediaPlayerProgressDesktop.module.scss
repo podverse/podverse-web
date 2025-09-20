@@ -37,13 +37,9 @@
 .progressLevel {
   background: var(--progress-bar-before);
   height: 100%;
-  border-radius: 2rem 0 0 2rem;
-  transition: width 0.1s linear;
 }
 
 .progressRemaining {
   background: var(--progress-bar-after);
   height: 100%;
-  border-radius: 0 2rem 2rem 0;
-  transition: width 0.1s linear;
 }

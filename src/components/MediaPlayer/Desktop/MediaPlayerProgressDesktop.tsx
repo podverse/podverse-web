@@ -3,12 +3,8 @@
 import React, { useRef } from "react";
 import styles from "../../../styles/components/MediaPlayer/Desktop/MediaPlayerProgressDesktop.module.scss";
 import { useMediaPlayer } from "../../../contexts/MediaPlayer";
-
-function formatTime(sec: number) {
-  const minutes = Math.floor(sec / 60);
-  const seconds = Math.floor(sec % 60);
-  return `${minutes}:${seconds.toString().padStart(2, "0")}`;
-}
+import { EVENTS } from "../../../constants/events";
+import { formatHHMMSS } from "podverse-helpers";
 
 export const MediaPlayerProgressDesktop: React.FC = () => {
   const { mpCurrentTime, mpDuration } = useMediaPlayer();
@@ -20,7 +16,8 @@ export const MediaPlayerProgressDesktop: React.FC = () => {
     const rect = barRef.current.getBoundingClientRect();
     const x = (e instanceof MouseEvent ? e.clientX : e.nativeEvent.clientX) - rect.left;
     const percent = Math.min(Math.max(x / rect.width, 0), 1);
-    // handle seek Math.round(percent * mpDuration);
+    const newTime = Math.round(percent * mpDuration);
+    window.dispatchEvent(new CustomEvent(EVENTS.MEDIA_PLAYER.AUDIO.SEEK, { detail: { time: newTime } }));
   };
 
   const handleBarClick = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -45,7 +42,7 @@ export const MediaPlayerProgressDesktop: React.FC = () => {
 
   return (
     <div className={styles.mediaPlayerProgress}>
-      <span className={styles.mediaPlayerProgressTime}>{formatTime(mpCurrentTime)}</span>
+      <span className={styles.mediaPlayerProgressTime}>{formatHHMMSS(mpCurrentTime)}</span>
       <div
         className={styles.customProgressBar}
         ref={barRef}
@@ -55,7 +52,7 @@ export const MediaPlayerProgressDesktop: React.FC = () => {
         aria-valuenow={mpCurrentTime}
         aria-valuemin={0}
         aria-valuemax={mpDuration}
-        aria-valuetext={`${formatTime(mpCurrentTime)} of ${formatTime(mpDuration)}`}
+        aria-valuetext={`${formatHHMMSS(mpCurrentTime)} of ${formatHHMMSS(mpDuration)}`}
         tabIndex={0}
       >
         <div
@@ -67,7 +64,7 @@ export const MediaPlayerProgressDesktop: React.FC = () => {
           style={{ width: `${(1 - progress) * 100}%` }}
         />
       </div>
-      <span className={styles.mediaPlayerProgressDuration}>{formatTime(mpDuration)}</span>
+      <span className={styles.mediaPlayerProgressDuration}>{formatHHMMSS(mpDuration)}</span>
     </div>
   );
 };
