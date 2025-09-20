@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from 'next-intl';
 import React, { useState } from 'react'
 import { Button } from '../Button/Button'
 import { Modal } from '../Modal/Modal'
@@ -13,6 +14,8 @@ export const LoginModal: React.FC = () => {
   const { modals, closeModal } = useModals()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const tAuthentication = useTranslations("authentication");
+  const tMisc = useTranslations("misc");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -26,10 +29,10 @@ export const LoginModal: React.FC = () => {
 
   return (
     <Modal
-      header="Log in"
+      header={tAuthentication("login")}
       isOpen={modals.LoginModal.isOpen}
       onClose={() => closeModal('LoginModal')}
-      ariaLabel="Log in"
+      ariaLabel={tAuthentication("login")}
       modalContentMaxWidth={500}
     >
       <Form onSubmit={handleSubmit}>
@@ -39,31 +42,31 @@ export const LoginModal: React.FC = () => {
           value={email}
           onChange={e => setEmail(e.target.value)}
           autoFocus
-          placeholder="Email"
-          eyebrow="Email"
+          placeholder={tAuthentication("email")}
+          eyebrow={tAuthentication("email")}
         />
         <TextInput
           type="password"
           name="password"
           value={password}
           onChange={e => setPassword(e.target.value)}
-          placeholder="Password"
-          eyebrow="Password"
+          placeholder={tAuthentication("password")}
+          eyebrow={tAuthentication("password")}
         />
         <div className={styles.buttons}>
           <Button type="button" onClick={() => closeModal('LoginModal')} variant="secondary">
-            Cancel
+            {tMisc("cancel")}
           </Button>
           <Button type="submit" variant="primary">
-            Submit
+            {tMisc("submit")}
           </Button>
         </div>
         <div className={styles.links}>
           <Button type='button' variant='link' onClick={() => console.log('Forgot password clicked')}>
-            Forgot password?
+            {tAuthentication("forgot_password")}
           </Button>
           <Button type='button' variant='link' onClick={() => console.log('Sign up clicked')}>
-            Sign up
+            {tAuthentication("sign_up")}
           </Button>
         </div>
       </Form>

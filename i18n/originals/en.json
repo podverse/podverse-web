@@ -161,7 +161,8 @@
     "anonymous": "Anonymous",
     "untitled": "Untitled",
     "optional": "Optional",
-    "submit": "Submit"
+    "submit": "Submit",
+    "cancel": "Cancel"
   },
   "instructions": {
     "login_for_subscriptions": "Please login to view your subscriptions."
