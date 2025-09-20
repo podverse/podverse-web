@@ -13,6 +13,7 @@ export const MediaPlayerControllerAudio: React.FC = () => {
     mpIsPlaying,
     mpPlaybackSpeed,
     mpVolume,
+    mpIsMuted,
     setMPCurrentTime,
     setMPDuration
   } = useMediaPlayer();
@@ -43,6 +44,7 @@ export const MediaPlayerControllerAudio: React.FC = () => {
     mpIsPlaying,
     mpPlaybackSpeed,
     mpVolume,
+    mpIsMuted,
     setMPCurrentTime,
     setMPDuration
   });
@@ -63,6 +65,7 @@ interface MediaPlayerAudioEffectsProps {
   mpIsPlaying: boolean;
   mpPlaybackSpeed: number;
   mpVolume: number;
+  mpIsMuted: boolean;
   setMPCurrentTime: (time: number) => void;
   setMPDuration: (duration: number) => void;
 }
@@ -72,6 +75,7 @@ function useMediaPlayerAudioEffects({
   mpIsPlaying,
   mpPlaybackSpeed,
   mpVolume,
+  mpIsMuted,
   setMPCurrentTime,
   setMPDuration
 }: MediaPlayerAudioEffectsProps): void {
@@ -112,6 +116,13 @@ function useMediaPlayerAudioEffects({
     if (!audio) return;
     audio.volume = mpVolume;
   }, [mpVolume]);
+
+  // Mute / Unmute
+  useEffect(() => {
+    const audio = audioRef?.current;
+    if (!audio) return;
+    audio.muted = mpIsMuted;
+  }, [mpIsMuted]);
 
   // Playback speed
   useEffect(() => {

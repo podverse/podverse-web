@@ -51,20 +51,6 @@ export const VolumeSlider: React.FC = () => {
       setMPVolume(Math.min(1, Number((mpVolume + 0.05).toFixed(2))));
       e.preventDefault();
     }
-    if (e.key === "Home") {
-      setMPIsMuted(false);
-      setMPVolume(0);
-      e.preventDefault();
-    }
-    if (e.key === "End") {
-      setMPIsMuted(false);
-      setMPVolume(1);
-      e.preventDefault();
-    }
-    if (e.key === "m" || e.key === "M") {
-      setMPIsMuted(!mpIsMuted);
-      e.preventDefault();
-    }
   };
 
   return (

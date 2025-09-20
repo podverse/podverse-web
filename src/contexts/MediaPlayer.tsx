@@ -1,4 +1,4 @@
-import { DTOChannel, DTOClip, DTOItem, PlaybackSpeed } from "podverse-helpers";
+import { DTOChannel, DTOClip, DTOItem, PlaybackSpeedValue } from "podverse-helpers";
 import React, { createContext, useContext, useState, ReactNode, useEffect } from "react";
 import { updateLayoutForMediaPlayer } from "../utils/mediaPlayer/mediaPlayerLayout";
 
@@ -11,8 +11,8 @@ type MediaPlayerContextType = {
   setMPClip: (val: DTOClip | null) => void;
   mpIsPlaying: boolean;
   setMPIsPlaying: (val: boolean) => void;
-  mpPlaybackSpeed: PlaybackSpeed;
-  setMPPlaybackSpeed: (val: PlaybackSpeed) => void;
+  mpPlaybackSpeed: PlaybackSpeedValue;
+  setMPPlaybackSpeed: (val: PlaybackSpeedValue) => void;
   mpIsMuted: boolean;
   setMPIsMuted: (val: boolean) => void;
   mpVolume: number;
@@ -34,7 +34,7 @@ export const MediaPlayerProvider = ({ children }: MediaPlayerProviderProps) => {
   const [mpItem, setMPItem] = useState<DTOItem | null>(null);
   const [mpClip, setMPClip] = useState<DTOClip | null>(null);
   const [mpIsPlaying, setMPIsPlaying] = useState<boolean>(false);
-  const [mpPlaybackSpeed, setMPPlaybackSpeed] = useState<PlaybackSpeed>(1.0);
+  const [mpPlaybackSpeed, setMPPlaybackSpeed] = useState<PlaybackSpeedValue>(1.0);
   const [mpIsMuted, setMPIsMuted] = useState<boolean>(false);
   const [mpVolume, setMPVolume] = useState<number>(1.0);
   const [mpCurrentTime, setMPCurrentTime] = useState<number>(0);
