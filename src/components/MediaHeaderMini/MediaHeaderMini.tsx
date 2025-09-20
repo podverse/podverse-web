@@ -1,18 +1,36 @@
 import React from "react";
 import styles from "../../styles/components/MediaHeaderMini/MediaHeaderMini.module.scss";
-import { DTOChannel, DTOItem, findDTOChannelImageBySize, findDTOItemImageBySize } from "podverse-helpers";
+import { DTOChannel, DTOItem, DTOItemChapter, DTOItemSoundbite, findDTOChannelImageBySize, findDTOItemImageBySize } from "podverse-helpers";
 import Image from "../Image/Image";
 import { IMAGES } from "../../constants/images";
+import { useTranslations } from "next-intl";
 
 type MediaHeaderMiniProps = {
   channel: DTOChannel;
-  item?: DTOItem;
+  item?: DTOItem | null;
+  chapter?: DTOItemChapter | null;
+  soundbite?: DTOItemSoundbite | null;
 }
 
-export const MediaHeaderMini: React.FC<MediaHeaderMiniProps> = ({ channel, item }) => {
+export const MediaHeaderMini: React.FC<MediaHeaderMiniProps> = ({ channel, item, chapter, soundbite }) => {
+  const tMisc = useTranslations("misc");
   const channel_image = findDTOChannelImageBySize(channel.channel_images, IMAGES.MEDIA_HEADER_MINI.SQUARE.SIZE_FIND_TARGET, 'greater');
   const item_image = findDTOItemImageBySize(item?.item_images, IMAGES.MEDIA_HEADER_MINI.SQUARE.SIZE_FIND_TARGET, 'greater');
   const image_url = item_image?.url || channel_image?.url;
+
+  let title = "";
+  let subtitle = "";
+  
+  if (soundbite?.title) {
+    title = soundbite.title || tMisc('untitled');
+    subtitle = item?.title || tMisc('untitled');
+  } else if (chapter?.title) {
+    title = chapter.title || tMisc('untitled');
+    subtitle = item?.title || tMisc('untitled');
+  } else if (item?.title) {
+    title = item.title || tMisc('untitled');
+    subtitle = channel.title || tMisc('untitled');
+  }
 
   return (
     <header className={styles.header}>
@@ -24,8 +42,8 @@ export const MediaHeaderMini: React.FC<MediaHeaderMiniProps> = ({ channel, item 
         height={IMAGES.MEDIA_HEADER_MINI.SQUARE.SIZE}
       />
       <div className={styles.textSection}>
-        <div className={styles.channelTitle}>{channel.title}</div>
-        {item && <div className={styles.itemTitle}>{item.title}</div>}
+        <div className={styles.title}>{channel.title}</div>
+        {item && <div className={styles.subtitle}>{item.title}</div>}
       </div>
     </header>
   )

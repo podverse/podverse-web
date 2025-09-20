@@ -14,16 +14,21 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  padding-bottom: 0.25rem;
   @include ellipsisSingleLineParent;
 }
 
-.channelTitle {
-  font-size: var(--font-size-md);
-  font-weight: var(--font-weight-semibold);
+.title {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-light);
   @include ellipsisSingleLineChild;
 }
 
-.itemTitle {
+.subtitle {
   margin-top: 0.5rem;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  color: var(--text-color-accent);
   @include ellipsisSingleLineChild;
+
 }

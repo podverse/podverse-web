@@ -14,8 +14,8 @@ export const MediaPlayerButtonsDesktop = () => {
         <ClipButton />
       </div>
       <div className={styles.endSection}>
-        <MuteButton />
         <VolumeSlider />
+        <MuteButton />
       </div>
     </div>
   )
