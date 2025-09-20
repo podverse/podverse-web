@@ -11,7 +11,7 @@ import { apiRequestService } from '../../factories/apiRequestService';
 import Form from '../Form/Form';
 
 export const LoginModal: React.FC = () => {
-  const { modals, closeModal } = useModals()
+  const { modalLogin, setModalLogin } = useModals()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const tAuthentication = useTranslations("authentication");
@@ -30,8 +30,8 @@ export const LoginModal: React.FC = () => {
   return (
     <Modal
       header={tAuthentication("login")}
-      isOpen={modals.LoginModal.isOpen}
-      onClose={() => closeModal('LoginModal')}
+      isOpen={modalLogin.isOpen}
+      onClose={() => setModalLogin({ isOpen: false })}
       ariaLabel={tAuthentication("login")}
       modalContentMaxWidth={500}
     >
@@ -54,7 +54,7 @@ export const LoginModal: React.FC = () => {
           eyebrow={tAuthentication("password")}
         />
         <div className={styles.buttons}>
-          <Button type="button" onClick={() => closeModal('LoginModal')} variant="secondary">
+          <Button type="button" onClick={() => setModalLogin({ isOpen: false })} variant="secondary">
             {tMisc("cancel")}
           </Button>
           <Button type="submit" variant="primary">

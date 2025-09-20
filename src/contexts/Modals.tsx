@@ -1,42 +1,48 @@
+import { DTOChannel, DTOClip, DTOItem, DTOItemChapter, DTOItemSoundbite } from 'podverse-helpers'
 import React, { createContext, useContext, useState, ReactNode } from 'react'
 
-type ModalsState = {
-  LoginModal: { isOpen: boolean }
-  SignUpModal: { isOpen: boolean }
+type ModalBasic = {
+  isOpen: boolean;
+}
+
+type ModalPlaylistAddTo = {
+  channel: DTOChannel | null;
+  item: DTOItem | null;
+  clip: DTOClip | null;
+  chapter: DTOItemChapter | null;
+  soundbite: DTOItemSoundbite | null;
 }
 
 type ModalsContextType = {
-  modals: ModalsState
-  openModal: (modal: keyof ModalsState) => void
-  closeModal: (modal: keyof ModalsState) => void
-}
-
-const defaultState: ModalsState = {
-  LoginModal: { isOpen: false },
-  SignUpModal: { isOpen: false },
+  modalLogin: ModalBasic;
+  setModalLogin: (val: ModalBasic) => void;
+  modalSignUp: ModalBasic;
+  setModalSignUp: (val: ModalBasic) => void;
+  modalPlaylistAddTo: ModalPlaylistAddTo;
+  setModalPlaylistAddTo: (val: ModalPlaylistAddTo) => void;
 }
 
 const ModalsContext = createContext<ModalsContextType | undefined>(undefined)
 
+const defaultModalPlaylistAddTo = {
+  channel: null,
+  item: null,
+  clip: null,
+  chapter: null,
+  soundbite: null
+}
+
 export const ModalsProvider = ({ children }: { children: ReactNode }) => {
-  const [modals, setModals] = useState<ModalsState>(defaultState)
-
-  const openModal = (modal: keyof ModalsState) => {
-    setModals(prev => ({
-      ...prev,
-      [modal]: { isOpen: true }
-    }))
-  }
-
-  const closeModal = (modal: keyof ModalsState) => {
-    setModals(prev => ({
-      ...prev,
-      [modal]: { isOpen: false }
-    }))
-  }
+  const [modalLogin, setModalLogin] = useState<ModalBasic>({ isOpen: false })
+  const [modalSignUp, setModalSignUp] = useState<ModalBasic>({ isOpen: false })
+  const [modalPlaylistAddTo, setModalPlaylistAddTo] = useState<ModalPlaylistAddTo>(defaultModalPlaylistAddTo)
 
   return (
-    <ModalsContext.Provider value={{ modals, openModal, closeModal }}>
+    <ModalsContext.Provider value={{
+      modalLogin, setModalLogin,
+      modalSignUp, setModalSignUp,
+      modalPlaylistAddTo, setModalPlaylistAddTo
+    }}>
       {children}
     </ModalsContext.Provider>
   )

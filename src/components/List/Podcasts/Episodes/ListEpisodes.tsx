@@ -24,7 +24,7 @@ type Props = {
 const ListEpisodes: React.FC<Props> = ({ page = 1, setPage, channel, items, totalPages, showSubscribeMessage }) => {
   const tInstructions = useTranslations("instructions");
   const tAuthentication = useTranslations("authentication");
-  const { openModal } = useModals();
+  const { setModalLogin } = useModals();
 
   useSkipInitialEffect(() => {
     scrollMainToTop();
@@ -39,7 +39,7 @@ const ListEpisodes: React.FC<Props> = ({ page = 1, setPage, channel, items, tota
         <CallToActionMessage
           message={tInstructions("login_for_subscriptions")}
           buttonLabel={tAuthentication("login")}
-          onButtonClick={() => openModal("LoginModal")}
+          onButtonClick={() => setModalLogin({ isOpen: true })}
         />
       )}
       {

@@ -14,7 +14,7 @@ import styles from "../../styles/components/NavBar/NavBarDropdownButton.module.s
 
 const NavBarDropdownButton: React.FC = () => {
   const { loggedInAccount } = useAccount();
-  const { openModal } = useModals();
+  const { setModalLogin } = useModals();
   const router = useRouter();
   const buttonRef = useRef<HTMLButtonElement>(null);
   const menuRef = useRef<HTMLUListElement>(null);
@@ -30,7 +30,7 @@ const NavBarDropdownButton: React.FC = () => {
     { label: "Settings", onClick: () => router.push(ROUTES.SETTINGS) },
     !!loggedInAccount
       ? { label: "Logout", onClick: handleLogout }
-      : { label: "Login", onClick: () => openModal('LoginModal') }
+      : { label: "Login", onClick: () => setModalLogin({ isOpen: true }) }
   ];
 
   const {
