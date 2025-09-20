@@ -24,7 +24,7 @@ const ListEpisodeRow: React.FC<Props> = ({ channel, item }) => {
   const tFeatures = useTranslations("features");
   const tMedia = useTranslations("media");
   const tMediaPlayer = useTranslations("media_player");
-  const { setMPChannel, setMPItem, setMPClip } = useMediaPlayer();
+  const { setMPChannel, mpItem, setMPItem, setMPClip, mpIsPlaying, setMPIsPlaying } = useMediaPlayer();
 
   const moreButtonMenuItems = [
     {
@@ -58,9 +58,14 @@ const ListEpisodeRow: React.FC<Props> = ({ channel, item }) => {
   ]
 
   const playButtonOnClick = () => {
-    setMPChannel(channel);
-    setMPItem(item);
-    setMPClip(null);
+    if (item.id === mpItem?.id) {
+      setMPIsPlaying(!mpIsPlaying);
+    } else {
+      setMPChannel(channel);
+      setMPItem(item);
+      setMPClip(null);
+      setMPIsPlaying(true);
+    }
   };
 
   return (
@@ -85,12 +90,17 @@ const ListEpisodeRow: React.FC<Props> = ({ channel, item }) => {
         <Link href={url}>
           <div className={styles.topSection}>
             <h3>{item.title}</h3>
-            <p className={styles.description}>{stripAndDecodeHtml(item.item_description.value)}</p>
+            <p className={styles.description}>
+              {stripAndDecodeHtml(item.item_description.value)}
+            </p>
           </div>
         </Link>
         <div className={styles.bottomSection}>
           <div className={styles.bottomSectionStart}>
-            <PlayButtonMini onClick={playButtonOnClick} />
+            <PlayButtonMini
+              item={item}
+              onClick={playButtonOnClick}
+            />
             <ReadableDuration durationInSeconds={item.item_about.duration || '0'} />
           </div>
           <div className={styles.bottomSectionEnd}>

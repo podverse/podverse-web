@@ -17,6 +17,7 @@ import { getSSRJwtFromCookies, getSSRLoggedInAccount } from '../utils/auth/ssrAu
 import AuthSessionChecker from '../components/Auth/AuthSessionChecker';
 import { apiRequestService } from '../factories/apiRequestService';
 import { config } from '../config';
+import { MediaPlayerController } from '../components/MediaPlayer/Controller/MediaPlayerController';
 
 export const metadata = {
   title: `${config.private.brand.name || config.public.brand.name}`,
@@ -63,6 +64,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             <MediaPlayer />
             <Modals />
           </WindowWrapper>
+          <MediaPlayerController />
         </Providers>
       </body>
     </html>
