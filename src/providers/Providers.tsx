@@ -8,6 +8,7 @@ import { ModalsProvider } from '../contexts/Modals';
 import { UITheme } from '../utils/theme';
 import { CategoriesProvider } from '../contexts/Categories';
 import { MediaPlayerProvider } from '../contexts/MediaPlayer';
+import { PlaylistsFavoritesProvider } from '../contexts/PlaylistsFavorites';
 
 export default function Providers({
   children,
@@ -28,13 +29,15 @@ export default function Providers({
     <NextIntlClientProvider locale={locale} messages={messages} timeZone="America/Chicago">
       <ThemeProvider initialTheme={theme}>
         <AccountProvider ssrLoggedInAccount={ssrLoggedInAccount}>
-          <MediaPlayerProvider>
-            <ModalsProvider>
-              <CategoriesProvider ssrCategories={categories}>
-                {children}
-              </CategoriesProvider>
-            </ModalsProvider>
-          </MediaPlayerProvider>
+          <PlaylistsFavoritesProvider>
+            <MediaPlayerProvider>
+              <ModalsProvider>
+                <CategoriesProvider ssrCategories={categories}>
+                  {children}
+                </CategoriesProvider>
+              </ModalsProvider>
+            </MediaPlayerProvider>
+          </PlaylistsFavoritesProvider>
         </AccountProvider>
       </ThemeProvider>
     </NextIntlClientProvider>
