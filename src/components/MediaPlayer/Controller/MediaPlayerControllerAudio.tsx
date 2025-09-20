@@ -35,8 +35,37 @@ export const MediaPlayerControllerAudio: React.FC = () => {
         audioRef.current.currentTime = customEvent.detail.time;
       }
     };
+
+    const handleJumpBack = (e: Event) => {
+      const customEvent = e as CustomEvent<{ seconds: number }>;
+      if (audioRef.current && typeof customEvent.detail.seconds === "number") {
+        audioRef.current.currentTime = Math.max(audioRef.current.currentTime - customEvent.detail.seconds, 0);
+      }
+    };
+
+    const handleJumpForward = (e: Event) => {
+      const customEvent = e as CustomEvent<{ seconds: number }>;
+      if (
+        audioRef.current &&
+        typeof customEvent.detail.seconds === "number" &&
+        typeof audioRef.current.duration === "number"
+      ) {
+        audioRef.current.currentTime = Math.min(
+          audioRef.current.currentTime + customEvent.detail.seconds,
+          audioRef.current.duration
+        );
+      }
+    };
+
     window.addEventListener(EVENTS.MEDIA_PLAYER.AUDIO.SEEK, handleSeek);
-    return () => window.removeEventListener(EVENTS.MEDIA_PLAYER.AUDIO.SEEK, handleSeek);
+    window.addEventListener(EVENTS.MEDIA_PLAYER.AUDIO.JUMP_BACK, handleJumpBack);
+    window.addEventListener(EVENTS.MEDIA_PLAYER.AUDIO.JUMP_FORWARD, handleJumpForward);
+
+    return () => {
+      window.removeEventListener(EVENTS.MEDIA_PLAYER.AUDIO.SEEK, handleSeek);
+      window.removeEventListener(EVENTS.MEDIA_PLAYER.AUDIO.JUMP_BACK, handleJumpBack);
+      window.removeEventListener(EVENTS.MEDIA_PLAYER.AUDIO.JUMP_FORWARD, handleJumpForward);
+    };
   }, []);
 
   useMediaPlayerAudioEffects({
