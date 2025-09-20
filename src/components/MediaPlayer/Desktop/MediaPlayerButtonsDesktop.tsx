@@ -1,5 +1,4 @@
 import { ClipButton } from "../Buttons/ClipButton";
-import { FullViewButton } from "../Buttons/FullViewButton";
 import { MuteButton } from "../Buttons/MuteButton";
 import { PlaybackSpeedButton } from "../Buttons/PlaybackSpeedButton";
 import { PlaylistAddToButton } from "../Buttons/PlaylistAddToButton";
@@ -17,7 +16,6 @@ export const MediaPlayerButtonsDesktop = () => {
       <div className={styles.endSection}>
         <MuteButton />
         <VolumeSlider />
-        <FullViewButton />
       </div>
     </div>
   )
