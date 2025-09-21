@@ -1,7 +1,7 @@
 import { CATEGORY_MAPPING_KEYS, QUERY_PARAMS_STATS_RANGE_VALUES, QUERY_PARAMS_CHANNELS_SORT_VALUES,
   QUERY_PARAMS_CHANNELS_TYPE_VALUES, getTotalPages } from "podverse-helpers";
 import { z } from "zod";
-import PodcastsClient from "./PodcastsClient";
+import { PodcastsClient } from "./PodcastsClient";
 import { getPodcastsFilterParams } from "./PodcastsDropdownConfig";
 import { getSSRAuthService } from "../../utils/auth/ssrAuth";
 
@@ -58,8 +58,8 @@ async function parseSearchParams(queryParams: SearchParams, isAuthenticated: boo
     data.sort = "top";
     data.range = "day";
   } else if (!data.type) {
-    data.type = isAuthenticated ? "subscribed" : "all";
-    data.sort = isAuthenticated ? "alphabetical" : "top";
+    data.type = isAuthenticated ? "subscribed" : "global";
+    data.sort = isAuthenticated ? "a_z" : "top";
     data.range = "day";
   }
   return data;

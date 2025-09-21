@@ -16,7 +16,7 @@ import MainHeader from "../../components/Main/MainHeader";
 import { usePodcastsContext } from "./PodcastsContext";
 import { getPodcastsDropdownConfig } from "./PodcastsDropdownConfig";
 
-const PodcastsMainHeader: React.FC = () => {
+export const PodcastsHeader: React.FC = () => {
   const { filterParams, setFilterParams } = usePodcastsContext();
   const { type, sort, range, category } = filterParams;
   const tMedia = useTranslations('media');
@@ -38,12 +38,12 @@ const PodcastsMainHeader: React.FC = () => {
 
   const handleTypeChange = (value: string) => {
     if (isChannelType(value)) {
-      if (value === "all") {
+      if (value === "global") {
         setFilterParams({ ...filterParams, type: value, sort: "top", page: 1, category: undefined });
       } else if (value === "category") {
         router.push("/podcasts/categories");
       } else {
-        setFilterParams({ ...filterParams, type: value, sort: "alphabetical", page: 1, category: undefined });
+        setFilterParams({ ...filterParams, type: value, sort: "a_z", page: 1, category: undefined });
       }
     }
   };
@@ -88,5 +88,3 @@ const PodcastsMainHeader: React.FC = () => {
     />
   );
 };
-
-export default PodcastsMainHeader;

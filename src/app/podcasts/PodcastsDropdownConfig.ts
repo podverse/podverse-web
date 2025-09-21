@@ -11,7 +11,7 @@ export function getPodcastsDropdownConfig({ type, sort, category, tFilters }: {
   const sortTop = { label: tFilters("sort.top"), param: "sort", value: "top" };
 
   let typeDropdownMenuItems = [
-    { label: tFilters("type.all"), param: "type", value: "all" },
+    { label: tFilters("type.global"), param: "type", value: "global" },
     { label: tFilters("type.subscribed"), param: "type", value: "subscribed" },
     { label: tFilters("type.category"), param: "type", value: "category" }
   ];
@@ -19,14 +19,14 @@ export function getPodcastsDropdownConfig({ type, sort, category, tFilters }: {
   let sortDropdownMenuItems = [
     { label: tFilters("sort.recent"), param: "sort", value: "recent" },
     { label: tFilters("sort.oldest"), param: "sort", value: "oldest" },
-    { label: tFilters("sort.a_z"), param: "sort", value: "alphabetical" },
+    { label: tFilters("sort.a_z"), param: "sort", value: "a_z" },
     sortTop
   ];
 
   let rangeDropdownMenuItems = getRangeDropdownItems(tFilters);
   
   let showRangeDropdown = false;
-  if (type === "all" || category) {
+  if (type === "global" || category) {
     sortDropdownMenuItems = [sortTop];
     showRangeDropdown = true;
   }
@@ -59,11 +59,11 @@ export function getPodcastsFilterParams({ type, sort, range, category }: QueryPa
     currentType = "category";
     currentSort = currentSort || "top";
     currentRange = currentRange || "day";
-  } else if (type === "all") {
+  } else if (type === "global") {
     currentSort = "top";
     currentRange = currentRange || "day";
   } else if (type === "subscribed") {
-    currentSort = currentSort || "alphabetical";
+    currentSort = currentSort || "a_z";
   }
 
   return { currentSort, currentRange, currentType };

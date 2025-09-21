@@ -21,7 +21,7 @@ type Props = {
   category?: CategoryMappingKeys | null;
 };
 
-const ListPodcasts: React.FC<Props> = ({ page = 1, setPage, channels, totalPages, showSubscribeMessage }) => {
+export const ListPodcasts: React.FC<Props> = ({ page = 1, setPage, channels, totalPages, showSubscribeMessage }) => {
   const tInstructions = useTranslations("instructions");
   const tAuthentication = useTranslations("authentication");
   const { setModalLogin } = useModals();
@@ -59,5 +59,3 @@ const ListPodcasts: React.FC<Props> = ({ page = 1, setPage, channels, totalPages
     </>
   );
 };
-
-export default ListPodcasts;

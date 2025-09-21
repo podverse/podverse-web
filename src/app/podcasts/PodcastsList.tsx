@@ -1,9 +1,9 @@
 import React from "react";
-import ListPodcasts from "../../components/List/Podcasts/ListPodcasts";
+import { ListPodcasts } from "../../components/List/Podcasts/ListPodcasts";
 import { usePodcastsContext } from "./PodcastsContext";
 import LoadingSpinnerOverlay from "../../components/LoadingSpinner/LoadingSpinnerOverlay";
 
-const PodcastsList: React.FC = () => {
+export const PodcastsList: React.FC = () => {
   const { filterParams, setFilterParams, channels, totalPages, isLoading, showSubscribeMessage } = usePodcastsContext();
   const { page = 1, type, category } = filterParams;
 
@@ -22,5 +22,3 @@ const PodcastsList: React.FC = () => {
     </>
   );
 };
-
-export default PodcastsList;

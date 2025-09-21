@@ -5,8 +5,8 @@ import { DTOChannel, QueryParamsChannels } from "podverse-helpers";
 import React from "react";
 import { PodcastsContextProvider } from "./PodcastsContext";
 import MainWrapper from "../../components/Main/MainWrapper";
-import PodcastsMainHeader from "./PodcastsMainHeader";
-import PodcastsList from "./PodcastsList";
+import { PodcastsHeader } from "./PodcastsHeader";
+import { PodcastsList } from "./PodcastsList";
 import { MainInnerWrapper } from "../../components/Main/MainInnerWrapper";
 import { MainInnerContentWrapper } from "../../components/Main/MainInnerContentWrapper";
 
@@ -16,7 +16,7 @@ interface PodcastsClientProps {
   ssrTotalPages: number;
 }
 
-export default function PodcastsClient(props: PodcastsClientProps) {
+export function PodcastsClient(props: PodcastsClientProps) {
   const { initialQueryParams, ssrChannels, ssrTotalPages } = props;
   
   return (
@@ -25,7 +25,7 @@ export default function PodcastsClient(props: PodcastsClientProps) {
       ssrChannels={ssrChannels}
       ssrTotalPages={ssrTotalPages}
     >
-      <PodcastsMainHeader />
+      <PodcastsHeader />
       <MainWrapper>
         <MainInnerWrapper>
           <MainInnerContentWrapper>

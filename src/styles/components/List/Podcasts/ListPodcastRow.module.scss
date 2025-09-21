@@ -4,7 +4,7 @@
   display: block;
 }
 
-.podcastListItem {
+.listItem {
   display: flex;
   align-items: center;
   padding: 1rem 0.5rem;
@@ -16,7 +16,7 @@
   }
 }
 
-.podcastImage {
+.image {
   object-fit: cover;
   border-radius: var(--border-radius);
   margin-right: 1rem;

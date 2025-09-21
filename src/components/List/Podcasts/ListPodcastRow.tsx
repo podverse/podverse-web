@@ -20,13 +20,13 @@ const ListPodcastRow: React.FC<Props> = ({ channel }) => {
   
   return (
     <Link href={url} className={styles.link}>
-      <div className={styles.podcastListItem}>
+      <div className={styles.listItem}>
         <Image
           src={channel_image?.url}
           alt={channel.title || tMedia("podcast.podcast_image")}
           width={IMAGES.LIST.PODCASTS.SIZE}
           height={IMAGES.LIST.PODCASTS.SIZE}
-          className={styles.podcastImage}
+          className={styles.image}
         />
         <div className={styles.content}>
           {
