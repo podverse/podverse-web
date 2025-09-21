@@ -50,7 +50,8 @@
       "edit_playlist": "Edit Playlist",
       "delete_playlist": "Delete Playlist",
       "add_to_playlist": "Add to Playlist",
-      "remove_from_playlist": "Remove from Playlist"
+      "remove_from_playlist": "Remove from Playlist",
+      "item_count": "Items: {count}"
     },
     "playlists": "Playlists",
     "my_clips": "My Clips",
@@ -136,6 +137,7 @@
   },
   "filters": {
     "type": {
+      "global": "Global",
       "all": "All",
       "subscribed": "Subscribed",
       "category": "Category"
@@ -165,7 +167,8 @@
     "cancel": "Cancel"
   },
   "instructions": {
-    "login_for_subscriptions": "Please login to view your subscriptions."
+    "login_for_subscriptions": "Please login to view your subscriptions.",
+    "login_for_playlists": "Please login to create playlists."
   },
   "authentication": {
     "login": "Login",
