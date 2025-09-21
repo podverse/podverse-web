@@ -4,7 +4,6 @@ import React from "react";
 import styles from "../../styles/components/List/ListHeader.module.scss";
 
 type ListHeaderProps = {
-  title: string;
   filterDropdowns?: React.ReactNode[];
   tabs?: React.ReactNode;
 };
