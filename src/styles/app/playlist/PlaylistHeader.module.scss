@@ -1,3 +1,4 @@
+@use "breakpoints";
 @use '../../mixins/headers.scss' as *;
 
 .header {
@@ -22,4 +23,10 @@
 .title {
   font-size: var(--font-size-3xl);
   font-weight: var(--font-weight-light);
+}
+
+@media (max-width: breakpoints.$breakpoint-md-max) {
+  .title {
+    font-size: var(--font-size-2xl);
+  }
 }

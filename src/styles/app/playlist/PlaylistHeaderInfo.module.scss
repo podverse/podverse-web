@@ -1,3 +1,5 @@
+@use "breakpoints";
+
 .creator {
   font-size: var(--font-size-lg);
   font-weight: var(--font-weight-light);
@@ -7,4 +9,15 @@
 .info {
   color: var(--text-color-secondary);
   margin-top: 0.5rem;
+}
+
+@media (max-width: breakpoints.$breakpoint-md-max) {
+  .creator {
+    font-size: var(--font-size-md);
+  }
+
+  .info {
+    font-size: var(--font-size-sm);
+    margin-top: 0.375rem;
+  }
 }
