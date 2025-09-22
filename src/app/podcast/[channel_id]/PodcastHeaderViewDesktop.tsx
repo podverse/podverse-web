@@ -1,9 +1,9 @@
+import { DTOChannel } from "podverse-helpers";
 import PodcastHeaderButtons from "./PodcastHeaderButtons"
 import { PodcastHeaderImage } from "./PodcastHeaderImage"
 import { PodcastHeaderSubscribeSection } from "./PodcastHeaderSubscribeSection"
 import PodcastHeaderSubtitle from "./PodcastHeaderSubtitle"
 import styles from "../../../styles/app/podcast/PodcastHeaderViewDesktop.module.scss";
-import { DTOChannel } from "podverse-helpers";
 
 type PodcastHeaderViewDesktopProps = {
   channel: DTOChannel;

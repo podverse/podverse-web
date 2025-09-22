@@ -1,0 +1,25 @@
+@use '../../mixins/headers.scss' as *;
+
+.header {
+  @include headerStyles;
+}
+
+.content {
+  display: flex;
+  width: 100%;
+  max-width: var(--max-content-width);
+  margin: 0 auto;
+}
+
+.textSection {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.title {
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-light);
+}
