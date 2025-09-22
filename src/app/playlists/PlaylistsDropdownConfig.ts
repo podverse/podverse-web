@@ -10,9 +10,6 @@ export function getPlaylistsDropdownConfig({ type, sort, tFilters, tMedia }: {
   const sortTop = { label: tFilters("sort.top"), param: "sort", value: "top" };
 
   let sortDropdownMenuItems = [
-    { label: tFilters("sort.recent"), param: "sort", value: "recent" },
-    { label: tFilters("sort.oldest"), param: "sort", value: "oldest" },
-    { label: tFilters("sort.a_z"), param: "sort", value: "a_z" },
     sortTop,
   ];
 
