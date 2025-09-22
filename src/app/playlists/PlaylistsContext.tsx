@@ -68,7 +68,8 @@ export const PlaylistsContextProvider = ({
         const response = await apiRequestService.reqPlaylistGetManyPublic({
           sort: currentSort,
           range: currentRange,
-          medium_id: currentMediumId
+          medium_id: currentMediumId,
+          page: filterParams.page
         });
         playlists = response.data;
         totalPages = getUndeterminedTotalPages();
