@@ -1,6 +1,5 @@
 {
   "Spanish": {
-    "_sample.hello_world": "¡Hola, Mundo!!!",
     "media.podcast.audio": "Audio",
     "media.podcast.podcasting": "Podcasting",
     "media.podcast.podcast": "Podcast",
@@ -167,7 +166,6 @@
     "media.podcast.podcast_image": "Imagen del podcast"
   },
   "French": {
-    "_sample.hello_world": "Bonjour, le Monde!!!",
     "media.podcast.audio": "Audio",
     "media.podcast.podcasting": "Podcasting",
     "media.podcast.podcast": "Podcast",
@@ -334,7 +332,6 @@
     "media.podcast.podcast_image": "Image du podcast"
   },
   "Greek": {
-    "_sample.hello_world": "Γειά σου, Κόσμε!!!",
     "media.podcast.audio": "Ήχος",
     "media.podcast.podcasting": "Δημιουργία podcast",
     "media.podcast.podcast": "Podcast",

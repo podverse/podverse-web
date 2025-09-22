@@ -1,7 +1,4 @@
 {
-  "_sample": {
-    "hello_world": "Hello, World!!!"
-  },
   "media": {
     "podcast": {
       "audio": "Audio",
@@ -29,7 +26,8 @@
     },
     "clips": "Clips",
     "livestreams": "Livestreams",
-    "last_updated": "Last updated: {date}"
+    "last_updated": "Last updated: {date}",
+    "mixed": "Mixed"
   },
   "features": {
     "search": "Search",
