@@ -69,9 +69,7 @@ export const PlaylistsContextProvider = ({
       let totalPages = 0;
       if (currentType === "global") {
         const response = await apiRequestService.reqPlaylistGetManyPublic({
-          ...filterParams,
           sort: currentSort,
-          type: currentType,
           range: currentRange
         });
         playlists = response.data;

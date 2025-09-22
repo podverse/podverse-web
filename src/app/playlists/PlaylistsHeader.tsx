@@ -8,6 +8,6 @@ export const PlaylistsHeader: React.FC = () => {
   const tFeatures = useTranslations("features");
 
   return (
-    <MainHeaderTextOnly title={tFeatures("playlists")} />
+    <MainHeaderTextOnly title={tFeatures("playlist.playlists")} />
   );
 };

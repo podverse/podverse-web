@@ -9,6 +9,7 @@ import { PlaylistsHeader } from "./PlaylistsHeader";
 import { PlaylistsList } from "./PlaylistsList";
 import { MainInnerWrapper } from "../../components/Main/MainInnerWrapper";
 import { MainInnerContentWrapper } from "../../components/Main/MainInnerContentWrapper";
+import { PlaylistsListHeader } from "./PlaylistsListHeader";
 
 interface PlaylistsClientProps {
   initialQueryParams: QueryParamsPlaylists;
@@ -29,6 +30,7 @@ export function PlaylistsClient(props: PlaylistsClientProps) {
       <MainWrapper>
         <MainInnerWrapper>
           <MainInnerContentWrapper>
+            <PlaylistsListHeader />
             <PlaylistsList />
           </MainInnerContentWrapper>
         </MainInnerWrapper>

@@ -44,16 +44,18 @@ export const ListPlaylists: React.FC<Props> = ({ page = 1, setPage, playlists, t
       )}
       {
         showPagination && (
-          <Pagination
-            currentPage={page}
-            maxButtons={5}
-            totalPages={totalPages}
-            setPage={setPage}
-            paginationControlsClassName={styles.paginationControls}>
-            {playlists.map((playlist) => (
-              <ListPlaylistRow key={playlist.id} playlist={playlist} showCreator={showCreator} />
-            ))}
-          </Pagination>
+          <div className={styles.listWrapper}>
+            <Pagination
+              currentPage={page}
+              maxButtons={5}
+              totalPages={totalPages}
+              setPage={setPage}
+              paginationControlsClassName={styles.paginationControls}>
+              {playlists.map((playlist) => (
+                <ListPlaylistRow key={playlist.id} playlist={playlist} showCreator={showCreator} />
+              ))}
+            </Pagination>
+          </div>
         )
       }
     </>
