@@ -25,7 +25,7 @@ export const PlaylistsListHeader: React.FC = () => {
   const tMedia = useTranslations('media');
   const tFeatures = useTranslations('features');
   const { sortMenuItems, rangeMenuItems, showRangeDropdown
-    } = getPlaylistsDropdownConfig({ type, sort, tFilters, tMedia });
+    } = getPlaylistsDropdownConfig({ type, sort, tFilters });
 
   function isPlaylistType(val: string): val is QueryParamsPlaylistsType {
     return QUERY_PARAMS_PLAYLISTS_TYPE_VALUES.includes(val as QueryParamsPlaylistsType);
@@ -43,7 +43,9 @@ export const PlaylistsListHeader: React.FC = () => {
     if (isPlaylistType(value)) {
       if (value === "global") {
         setFilterParams({ ...filterParams, type: value, sort: "top", page: 1 });
-      } else {
+      } else if (value === "my_playlists") {
+        setFilterParams({ ...filterParams, type: value, sort: "a_z", page: 1 });
+      } else if (value === "subscribed") {
         setFilterParams({ ...filterParams, type: value, sort: "a_z", page: 1 });
       }
     }
@@ -82,27 +84,24 @@ export const PlaylistsListHeader: React.FC = () => {
     }
   ]
 
-  let filterDropdowns: React.ReactNode[] = [];
-  if (type === "global") {
-    filterDropdowns = [
+  const filterDropdowns = [
+    <Dropdown
+      key="sort"
+      value={sort ?? ""}
+      menuItems={sortMenuItems}
+      onChange={handleSortChange}
+      position="right"
+    />,
+    showRangeDropdown && (
       <Dropdown
-        key="sort"
-        value={sort ?? ""}
-        menuItems={sortMenuItems}
-        onChange={handleSortChange}
+        key="range"
+        value={range ?? ""}
+        menuItems={rangeMenuItems}
+        onChange={handleRangeChange}
         position="right"
-      />,
-      showRangeDropdown && (
-        <Dropdown
-          key="range"
-          value={range ?? ""}
-          menuItems={rangeMenuItems}
-          onChange={handleRangeChange}
-          position="right"
-        />
-      )
-    ]
-  }
+      />
+    )
+  ]
 
   const buttonTabs = [
     {

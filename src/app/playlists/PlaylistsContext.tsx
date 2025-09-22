@@ -1,6 +1,6 @@
 "use client";
 
-import { DTOPlaylist, getUndeterminedTotalPages, QueryParamsPlaylists } from "podverse-helpers";
+import { DTOPlaylist, getTotalPages, getUndeterminedTotalPages, QueryParamsPlaylists } from "podverse-helpers";
 import React, { createContext, useContext, useState, ReactNode } from "react";
 import { apiRequestService } from "../../factories/apiRequestService";
 import { useAccount } from "../../contexts/Account";
@@ -66,13 +66,22 @@ export const PlaylistsContextProvider = ({
       
       if (currentType === "global") {
         const response = await apiRequestService.reqPlaylistGetManyPublic({
+          page: filterParams.page,
           sort: currentSort,
           range: currentRange,
-          medium_id: currentMediumId,
-          page: filterParams.page
+          medium_id: currentMediumId
         });
         playlists = response.data;
         totalPages = getUndeterminedTotalPages();
+      } else if (currentType === "my_playlists") {
+        const response = await apiRequestService.reqPlaylistGetManyPrivate({
+          page: filterParams.page,
+          sort: currentSort,
+          range: currentRange,
+          medium_id: currentMediumId
+        });
+        playlists = response.data;
+        totalPages = getTotalPages(response.meta?.count, response.meta?.limit);
       }
 
       setTotalPages(totalPages);

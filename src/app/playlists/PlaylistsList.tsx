@@ -7,7 +7,8 @@ export const PlaylistsList: React.FC = () => {
   const { filterParams, setFilterParams, playlists, totalPages, isLoading, showLoginMessage } = usePlaylistsContext();
   const { page = 1, type } = filterParams;
 
-  const showCreator = filterParams.type === "global";
+  const showCreator = filterParams.type === "global"
+    || filterParams.type === "subscribed";
 
   return (
     <>

@@ -7,12 +7,25 @@ type GetPlaylistsDropdownConfig = {
   tFilters: (key: string) => string
 }
 
-export function getPlaylistsDropdownConfig({ sort, tFilters }: GetPlaylistsDropdownConfig) {
+export function getPlaylistsDropdownConfig({ sort, type, tFilters }: GetPlaylistsDropdownConfig) {
   const sortTop = { label: tFilters("sort.top"), param: "sort", value: "top" };
 
   let sortDropdownMenuItems = [
     sortTop,
   ];
+
+  if (type === "global") {
+    sortDropdownMenuItems = [
+      sortTop
+    ]
+  } else if (type === "my_playlists" || type === "subscribed") {
+    sortDropdownMenuItems = [
+      sortTop,
+      { label: tFilters("sort.a_z"), param: "sort", value: "a_z" },
+      { label: tFilters("sort.recent"), param: "sort", value: "recent" },
+      { label: tFilters("sort.oldest"), param: "sort", value: "oldest" }
+    ]
+  }
 
   const rangeDropdownMenuItems = getRangeDropdownItems(tFilters);
   

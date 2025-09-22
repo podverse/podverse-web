@@ -1,7 +1,7 @@
 import { QUERY_PARAMS_STATS_RANGE_VALUES, QUERY_PARAMS_PLAYLISTS_TYPE_VALUES,
   QUERY_PARAMS_PLAYLISTS_SORT_VALUES, getTotalPages, 
   DTOPlaylist,
-  getUndeterminedTotalPages} from "podverse-helpers";
+  getUndeterminedTotalPages } from "podverse-helpers";
 import { z } from "zod";
 import { PlaylistsClient } from "./PlaylistsClient";
 import { getPlaylistsFilterParams } from "./PlaylistsDropdownConfig";
@@ -11,7 +11,11 @@ const searchParamsSchema = z.object({
   page: z.string().transform((v) => parseInt(v, 10)).optional(),
   type: z.enum(QUERY_PARAMS_PLAYLISTS_TYPE_VALUES).optional(),
   sort: z.enum(QUERY_PARAMS_PLAYLISTS_SORT_VALUES).optional(),
-  range: z.enum(QUERY_PARAMS_STATS_RANGE_VALUES).optional()
+  range: z.enum(QUERY_PARAMS_STATS_RANGE_VALUES).optional(),
+  medium_id: z.string()
+    .transform((v) => parseInt(v, 10))
+    .refine((v) => !isNaN(v), { message: "medium_id must be a number" })
+    .optional(),
 });
 
 type SearchParams = z.infer<typeof searchParamsSchema>
@@ -24,8 +28,8 @@ export default async function PlaylistsPage({ searchParams }: PlaylistsPageProps
   const { isValidAuthSession, apiRequestService } = await getSSRAuthService();
     
   const queryParams = searchParams ? await searchParams : {};
-  const { page = 1, sort, type, range } = await parseSearchParams(queryParams, isValidAuthSession);
-  const { currentType, currentSort, currentRange } = getPlaylistsFilterParams({ type, sort, range });
+  const { page = 1, sort, type, range, medium_id } = await parseSearchParams(queryParams, isValidAuthSession);
+  const { currentType, currentSort, currentRange, currentMediumId } = getPlaylistsFilterParams({ type, sort, range, medium_id });
 
   let ssrPlaylists: DTOPlaylist[] = [];
   let ssrTotalPages = 0;
@@ -33,10 +37,25 @@ export default async function PlaylistsPage({ searchParams }: PlaylistsPageProps
     const response = await apiRequestService.reqPlaylistGetManyPublic({
       page,
       sort: currentSort,
-      range: currentRange
+      range: currentRange,
+      medium_id: currentMediumId
     });
     ssrPlaylists = response.data;
     ssrTotalPages = getUndeterminedTotalPages();
+  } else if (currentType === "my_playlists") {
+    if (isValidAuthSession) {
+      const response = await apiRequestService.reqPlaylistGetManyPrivate({
+        page,
+        sort: currentSort,
+        range: currentRange,
+        medium_id: currentMediumId
+      });
+      ssrPlaylists = response.data;
+      ssrTotalPages = getTotalPages(response.meta?.count, response.meta?.limit);
+    } else {
+      ssrPlaylists = [];
+      ssrTotalPages = 1;
+    }
   }
 
   return (
