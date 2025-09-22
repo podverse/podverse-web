@@ -150,7 +150,7 @@
 .miniSelected {
   background: var(--border-color-primary);
   color: var(--background-color-tertiary);
-  border: none;
+  border: 1px solid var(--border-color-primary);
   height: 2rem;
   font-size: var(--font-size-sm);
   padding: 0 1rem;
