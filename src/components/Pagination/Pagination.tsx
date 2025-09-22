@@ -48,11 +48,9 @@ const Pagination: React.FC<PaginationProps> = ({
   maxButtons = 5,
   paginationControlsClassName = "",
 }) => {
-  if (totalPages <= 1) {
-    return null;
-  }
-
   const pageNumbers = getPageRange(currentPage, totalPages, maxButtons);
+
+  const showPaginationControls = totalPages > 1;
 
   const handlePageChange = (page: number) => {
     setPage(page);
@@ -61,38 +59,40 @@ const Pagination: React.FC<PaginationProps> = ({
   return (
     <div className={styles.pagination}>
       {children}
-      <div className={classNames(styles.paginationControls, paginationControlsClassName)}>
-        {currentPage <= 1 ? (
-          <span className={styles.arrowPlaceholder} />
-        ) : (
-          <NavArrowButton
-            direction="left"
-            onClick={() => handlePageChange(currentPage - 1)}
-            disabled={false}
-            ariaLabel="Previous page"
-          />
-        )}
-        {pageNumbers.map((i) => (
-          <button
-            key={i}
-            onClick={() => handlePageChange(i)}
-            disabled={i === currentPage}
-            className={`${styles.pageButton} ${i === currentPage ? styles.active : ""}`}
-          >
-            {i}
-          </button>
-        ))}
-        {currentPage >= totalPages ? (
-          <span className={styles.arrowPlaceholder} />
-        ) : (
-          <NavArrowButton
-            direction="right"
-            onClick={() => handlePageChange(currentPage + 1)}
-            disabled={false}
-            ariaLabel="Next page"
-          />
-        )}
-      </div>
+      {showPaginationControls && (
+        <div className={classNames(styles.paginationControls, paginationControlsClassName)}>
+          {currentPage <= 1 ? (
+            <span className={styles.arrowPlaceholder} />
+          ) : (
+            <NavArrowButton
+              direction="left"
+              onClick={() => handlePageChange(currentPage - 1)}
+              disabled={false}
+              ariaLabel="Previous page"
+            />
+          )}
+          {pageNumbers.map((i) => (
+            <button
+              key={i}
+              onClick={() => handlePageChange(i)}
+              disabled={i === currentPage}
+              className={`${styles.pageButton} ${i === currentPage ? styles.active : ""}`}
+            >
+              {i}
+            </button>
+          ))}
+          {currentPage >= totalPages ? (
+            <span className={styles.arrowPlaceholder} />
+          ) : (
+            <NavArrowButton
+              direction="right"
+              onClick={() => handlePageChange(currentPage + 1)}
+              disabled={false}
+              ariaLabel="Next page"
+            />
+          )}
+        </div>
+      )}
     </div>
   );
 };
