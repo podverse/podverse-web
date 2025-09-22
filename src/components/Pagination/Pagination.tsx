@@ -48,6 +48,10 @@ const Pagination: React.FC<PaginationProps> = ({
   maxButtons = 5,
   paginationControlsClassName = "",
 }) => {
+  if (totalPages <= 1) {
+    return null;
+  }
+
   const pageNumbers = getPageRange(currentPage, totalPages, maxButtons);
 
   const handlePageChange = (page: number) => {
