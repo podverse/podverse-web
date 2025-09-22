@@ -56,7 +56,7 @@ async function parseSearchParams(queryParams: SearchParams, isAuthenticated: boo
   const data = parsed.data;
 
   if (!data.type) {
-    data.type = isAuthenticated ? "global" : "global";
+    data.type = isAuthenticated ? "my_playlists" : "global";
     data.sort = isAuthenticated ? "top" : "top";
     data.range = "week";
   }
