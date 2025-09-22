@@ -169,6 +169,7 @@
     "description": "Description",
     "required": "Required",
     "sharable_status": {
+      "sharable_status": "Sharable Status",
       "public": "Public",
       "unlisted": "Unlisted",
       "private": "Private"
