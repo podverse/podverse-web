@@ -12,8 +12,8 @@ interface PlaylistCreateContextType {
   setTitle: (title: string) => void;
   description: string;
   setDescription: (description: string) => void;
-  isCreating: boolean;
-  setIsCreating: (isCreating: boolean) => void;
+  isUpdating: boolean;
+  setIsUpdating: (isUpdating: boolean) => void;
 };
 
 const PlaylistCreateContext = createContext<PlaylistCreateContextType | undefined>(undefined);
@@ -28,7 +28,7 @@ export const PlaylistCreateContextProvider = (
   const [title, setTitle] = useState<string>("");
   const [description, setDescription] = useState<string>("");
   const [sharableStatus, setSharableStatus] = useState<string>(`${SharableStatusEnum.Private}`);
-  const [isCreating, setIsCreating] = useState<boolean>(false);
+  const [isUpdating, setIsUpdating] = useState<boolean>(false);
 
   return (
     <PlaylistCreateContext.Provider value={{
@@ -36,7 +36,7 @@ export const PlaylistCreateContextProvider = (
       title, setTitle,
       description, setDescription,
       sharableStatus, setSharableStatus,
-      isCreating, setIsCreating
+      isUpdating, setIsUpdating
     }}>
       {children}
     </PlaylistCreateContext.Provider>

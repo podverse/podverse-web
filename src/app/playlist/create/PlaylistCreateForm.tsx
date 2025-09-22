@@ -1,6 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
+import { useRouter } from "next/navigation";
 import { MediumEnum, SharableStatusEnum } from "podverse-helpers";
 import React from "react";
 import Form from "../../../components/Form/Form";
@@ -10,22 +11,16 @@ import styles from "../../../styles/app/playlist/create/PlaylistCreateForm.modul
 import { TextArea } from "../../../components/Form/TextArea";
 import { Button } from "../../../components/Button/Button";
 import { FormDropdown } from "../../../components/Form/FormDropdown";
+import { apiRequestService } from "../../../factories/apiRequestService";
 
 export const PlaylistCreateForm: React.FC = () => {
   const tMedia = useTranslations("media");
   const tFeatures = useTranslations("features");
   const tMisc = useTranslations("misc");
+  const router = useRouter();
   const { medium, setMedium, title, setTitle, description, setDescription,
-    sharableStatus, setSharableStatus
+    sharableStatus, setSharableStatus, isUpdating, setIsUpdating
    } = usePlaylistCreateContext();
-
-  const onSubmit = () => {
-    console.log("submit");
-  }
-
-  const isValidSubmit = () => {
-    return title.trim().length > 0;
-  }
 
   const mediumDropdownMenuItems = [
     { label: tMedia("podcast.podcast"), param: "medium", value: `${MediumEnum.Podcast}` },
@@ -39,6 +34,25 @@ export const PlaylistCreateForm: React.FC = () => {
     { label: tMisc("sharable_status.unlisted"), param: "sharable_status", value: `${SharableStatusEnum.Unlisted}` },
     { label: tMisc("sharable_status.private"), param: "sharable_status", value: `${SharableStatusEnum.Private}` },
   ];
+
+  const onSubmit = async () => {
+    setIsUpdating(true);
+
+    const playlist = await apiRequestService.reqPlaylistCreate({
+      title,
+      description,
+      medium_id: medium,
+      sharable_status_id: sharableStatus
+    })
+
+    setIsUpdating(false);
+
+    router.push(`/playlist/${playlist.id_text}`);
+  }
+
+  const isValidSubmit = () => {
+    return !isUpdating && title.trim().length > 0;
+  }
 
   return (
     <Form className={styles.form} onSubmit={onSubmit}>
@@ -67,6 +81,7 @@ export const PlaylistCreateForm: React.FC = () => {
       />
       <TextArea
         eyebrow={tMisc("description")}
+        name="description"
         value={description}
         onChange={e => setDescription(e.target.value)}
         placeholder={tMisc("optional")}
@@ -82,7 +97,8 @@ export const PlaylistCreateForm: React.FC = () => {
           variant="primary"
           type="button"
           disabled={!isValidSubmit()}
-          onClick={onSubmit}>
+          onClick={onSubmit}
+          isLoading={isUpdating}>
           {tMisc("submit")}
         </Button>
       </div>
