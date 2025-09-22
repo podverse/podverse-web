@@ -51,7 +51,8 @@
       "delete_playlist": "Delete Playlist",
       "add_to_playlist": "Add to Playlist",
       "remove_from_playlist": "Remove from Playlist",
-      "item_count": "Items: {count}"
+      "item_count": "Items: {count}",
+      "playlist_type": "Playlist Type"
     },
     "my_clips": "My Clips",
     "my_profile": "My Profile",
@@ -163,7 +164,15 @@
     "untitled": "Untitled",
     "optional": "Optional",
     "submit": "Submit",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "title": "Title",
+    "description": "Description",
+    "required": "Required",
+    "sharable_status": {
+      "public": "Public",
+      "unlisted": "Unlisted",
+      "private": "Private"
+    }
   },
   "instructions": {
     "login_for_subscriptions": "Please login to view your subscriptions.",
