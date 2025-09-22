@@ -111,11 +111,6 @@ export const PlaylistsListHeader: React.FC = () => {
       onClick: () => setFilterParams({ ...filterParams, medium_id: null })
     },
     {
-      key: MediumEnum.Mixed,
-      label: tMedia("mixed"),
-      onClick: () => setFilterParams({ ...filterParams, medium_id: MediumEnum.Mixed })
-    },
-    {
       key: MediumEnum.Podcast,
       label: tMedia("podcast.podcasts"),
       onClick: () => setFilterParams({ ...filterParams, medium_id: MediumEnum.Podcast })
@@ -129,6 +124,11 @@ export const PlaylistsListHeader: React.FC = () => {
       key: MediumEnum.Music,
       label: tMedia("music.music"),
       onClick: () => setFilterParams({ ...filterParams, medium_id: MediumEnum.Music })
+    },
+    {
+      key: MediumEnum.Mixed,
+      label: tMedia("mixed"),
+      onClick: () => setFilterParams({ ...filterParams, medium_id: MediumEnum.Mixed })
     }
   ]
 

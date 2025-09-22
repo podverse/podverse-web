@@ -1,6 +1,6 @@
 "use client";
 
-import { DTOPlaylist, getTotalPages, QueryParamsPlaylists } from "podverse-helpers";
+import { DTOPlaylist, getUndeterminedTotalPages, QueryParamsPlaylists } from "podverse-helpers";
 import React, { createContext, useContext, useState, ReactNode } from "react";
 import { apiRequestService } from "../../factories/apiRequestService";
 import { useAccount } from "../../contexts/Account";
@@ -71,7 +71,7 @@ export const PlaylistsContextProvider = ({
           medium_id: currentMediumId
         });
         playlists = response.data;
-        totalPages = getTotalPages(response.meta.count, response.meta.limit);
+        totalPages = getUndeterminedTotalPages();
       }
 
       setTotalPages(totalPages);

@@ -1,6 +1,7 @@
 import { QUERY_PARAMS_STATS_RANGE_VALUES, QUERY_PARAMS_PLAYLISTS_TYPE_VALUES,
   QUERY_PARAMS_PLAYLISTS_SORT_VALUES, getTotalPages, 
-  DTOPlaylist} from "podverse-helpers";
+  DTOPlaylist,
+  getUndeterminedTotalPages} from "podverse-helpers";
 import { z } from "zod";
 import { PlaylistsClient } from "./PlaylistsClient";
 import { getPlaylistsFilterParams } from "./PlaylistsDropdownConfig";
@@ -35,7 +36,7 @@ export default async function PlaylistsPage({ searchParams }: PlaylistsPageProps
       range: currentRange
     });
     ssrPlaylists = response.data;
-    ssrTotalPages = getTotalPages(response.meta.count, response.meta.limit);
+    ssrTotalPages = getUndeterminedTotalPages();
   }
 
   return (
