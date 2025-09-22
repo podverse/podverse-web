@@ -52,9 +52,17 @@ export default async function PlaylistsPage({ searchParams }: PlaylistsPageProps
       });
       ssrPlaylists = response.data;
       ssrTotalPages = getTotalPages(response.meta?.count, response.meta?.limit);
-    } else {
-      ssrPlaylists = [];
-      ssrTotalPages = 1;
+    }
+  } else if (currentType === "subscribed") {
+    if (isValidAuthSession) {
+      const response = await apiRequestService.reqPlaylistGetManyPrivateFollowed({
+        page,
+        sort: currentSort,
+        range: currentRange,
+        medium_id: currentMediumId
+      });
+      ssrPlaylists = response.data;
+      ssrTotalPages = getTotalPages(response.meta?.count, response.meta?.limit);
     }
   }
 
@@ -76,7 +84,7 @@ async function parseSearchParams(queryParams: SearchParams, isAuthenticated: boo
 
   if (!data.type) {
     data.type = isAuthenticated ? "my_playlists" : "global";
-    data.sort = isAuthenticated ? "top" : "top";
+    data.sort = isAuthenticated ? "a_z" : "top";
     data.range = "week";
   }
   return data;

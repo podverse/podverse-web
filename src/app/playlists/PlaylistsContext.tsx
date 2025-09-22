@@ -82,6 +82,15 @@ export const PlaylistsContextProvider = ({
         });
         playlists = response.data;
         totalPages = getTotalPages(response.meta?.count, response.meta?.limit);
+      } else if (currentType === "subscribed") {
+        const response = await apiRequestService.reqPlaylistGetManyPrivateFollowed({
+          page: filterParams.page,
+          sort: currentSort,
+          range: currentRange,
+          medium_id: currentMediumId
+        });
+        playlists = response.data;
+        totalPages = getTotalPages(response.meta?.count, response.meta?.limit);
       }
 
       setTotalPages(totalPages);
