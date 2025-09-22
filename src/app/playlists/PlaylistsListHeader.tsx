@@ -8,6 +8,7 @@ import {
   QueryParamsPlaylistsType,
   QueryParamsPlaylistsSort,
   QUERY_PARAMS_PLAYLISTS_SORT_VALUES,
+  MediumEnum,
 } from "podverse-helpers";
 import React from "react";
 import Dropdown from "../../components/Dropdown/Dropdown";
@@ -15,6 +16,7 @@ import ListHeader from "../../components/List/ListHeader";
 import { getPlaylistsDropdownConfig } from "./PlaylistsDropdownConfig";
 import { Tabs } from "../../components/Tabs/Tabs";
 import { usePlaylistsContext } from "./PlaylistsContext";
+import { ButtonTabs } from "../../components/Tabs/ButtonTabs";
 
 export const PlaylistsListHeader: React.FC = () => {
   const { filterParams, setFilterParams } = usePlaylistsContext();
@@ -102,6 +104,34 @@ export const PlaylistsListHeader: React.FC = () => {
     ]
   }
 
+  const buttonTabs = [
+    {
+      key: "all",
+      label: tFilters("type.all"),
+      onClick: () => setFilterParams({ ...filterParams, medium_id: null })
+    },
+    {
+      key: MediumEnum.Mixed,
+      label: tMedia("mixed"),
+      onClick: () => setFilterParams({ ...filterParams, medium_id: MediumEnum.Mixed })
+    },
+    {
+      key: MediumEnum.Podcast,
+      label: tMedia("podcast.podcasts"),
+      onClick: () => setFilterParams({ ...filterParams, medium_id: MediumEnum.Podcast })
+    },
+    {
+      key: MediumEnum.Video,
+      label: tMedia("video.videos"),
+      onClick: () => setFilterParams({ ...filterParams, medium_id: MediumEnum.Video })
+    },
+    {
+      key: MediumEnum.Music,
+      label: tMedia("music.music"),
+      onClick: () => setFilterParams({ ...filterParams, medium_id: MediumEnum.Music })
+    }
+  ]
+
   return (
     <ListHeader
       tabs={
@@ -111,6 +141,12 @@ export const PlaylistsListHeader: React.FC = () => {
         />
       }
       filterDropdowns={filterDropdowns}
+      buttonTabs={(
+        <ButtonTabs
+          buttonTabs={buttonTabs}
+          selectedKey={filterParams.medium_id ?? "all"}
+        />
+      )}
     />
   );
 };

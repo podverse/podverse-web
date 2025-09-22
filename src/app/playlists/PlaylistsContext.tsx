@@ -44,12 +44,7 @@ export const PlaylistsContextProvider = ({
 
   useSkipInitialEffect(() => {
     async function fetchPlaylists() {
-      if (
-        filterParams.type === "all"
-        || filterParams.type === "audio"
-        || filterParams.type === "video"
-        || filterParams.type === "music"
-      ) {
+      if (filterParams.type === "my_playlists" || filterParams.type === "subscribed") {
         if (!loggedInAccount) {
           setPlaylists([]);
           setShowLoginMessage(true);
@@ -59,18 +54,21 @@ export const PlaylistsContextProvider = ({
 
       setIsLoading(true);
 
-      const { currentSort, currentRange, currentType } = getPlaylistsFilterParams({
+      const { currentSort, currentRange, currentType, currentMediumId } = getPlaylistsFilterParams({
         type: filterParams.type,
         sort: filterParams.sort,
-        range: filterParams.range
+        range: filterParams.range,
+        medium_id: filterParams.medium_id
       });
 
       let playlists: DTOPlaylist[] = [];
       let totalPages = 0;
+      
       if (currentType === "global") {
         const response = await apiRequestService.reqPlaylistGetManyPublic({
           sort: currentSort,
-          range: currentRange
+          range: currentRange,
+          medium_id: currentMediumId
         });
         playlists = response.data;
         totalPages = getTotalPages(response.meta.count, response.meta.limit);

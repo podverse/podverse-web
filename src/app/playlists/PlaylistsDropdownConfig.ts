@@ -1,12 +1,13 @@
-import { QueryParamsStatsRange, QueryParamsPlaylistsType, QueryParamsPlaylistsSort } from "podverse-helpers";
+import { QueryParamsStatsRange, QueryParamsPlaylistsType, QueryParamsPlaylistsSort, MediumEnum } from "podverse-helpers";
 import { getRangeDropdownItems } from "../../utils/dropdownMenuItems";
 
-export function getPlaylistsDropdownConfig({ type, sort, tFilters, tMedia }: {
+type GetPlaylistsDropdownConfig = {
   sort?: QueryParamsPlaylistsSort,
   type?: QueryParamsPlaylistsType,
-  tFilters: (key: string) => string,
-  tMedia: (key: string) => string
-}) {
+  tFilters: (key: string) => string
+}
+
+export function getPlaylistsDropdownConfig({ sort, tFilters }: GetPlaylistsDropdownConfig) {
   const sortTop = { label: tFilters("sort.top"), param: "sort", value: "top" };
 
   let sortDropdownMenuItems = [
@@ -31,12 +32,14 @@ type QueryParamConfig = {
   type?: QueryParamsPlaylistsType;
   sort?: QueryParamsPlaylistsSort;
   range?: QueryParamsStatsRange;
+  medium_id?: MediumEnum | null;
 }
 
-export function getPlaylistsFilterParams({ type, sort, range }: QueryParamConfig) {
-  let currentSort = sort;
-  let currentRange = range;
-  let currentType = type;
+export function getPlaylistsFilterParams({ type, sort, range, medium_id }: QueryParamConfig) {
+  const currentSort = sort;
+  const currentRange = range;
+  const currentType = type;
+  const currentMediumId = medium_id;
 
-  return { currentSort, currentRange, currentType };
+  return { currentSort, currentRange, currentType, currentMediumId };
 }
