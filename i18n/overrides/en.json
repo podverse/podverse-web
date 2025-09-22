@@ -46,14 +46,15 @@
     },
     "playlist": {
       "playlist": "Playlist",
+      "playlists": "Playlists",
+      "my_playlists": "My Playlists",
       "create_playlist": "Create Playlist",
       "edit_playlist": "Edit Playlist",
       "delete_playlist": "Delete Playlist",
       "add_to_playlist": "Add to Playlist",
       "remove_from_playlist": "Remove from Playlist",
-      "item_count": "Item Count: {count}"
+      "item_count": "Items: {count}"
     },
-    "playlists": "Playlists",
     "my_clips": "My Clips",
     "my_profile": "My Profile",
     "profile": "Profile",
