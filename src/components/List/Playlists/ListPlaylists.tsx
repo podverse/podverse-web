@@ -52,7 +52,7 @@ export const ListPlaylists: React.FC<Props> = ({ page = 1, setPage, playlists, t
               setPage={setPage}
               paginationControlsClassName={styles.paginationControls}>
               {playlists.map((playlist) => (
-                <ListPlaylistRow key={playlist.id} playlist={playlist} showCreator={showCreator} />
+                <ListPlaylistRow key={playlist.id_text} playlist={playlist} showCreator={showCreator} />
               ))}
             </Pagination>
           </div>
