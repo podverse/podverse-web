@@ -15,6 +15,7 @@ interface DropdownMenuProps {
   handleMenuKeyDown: (e: React.KeyboardEvent) => void;
   setOpen: (open: boolean) => void;
   position?: "left" | "right";
+  fullWidth?: boolean;
 }
 
 const DropdownMenu: React.FC<DropdownMenuProps> = ({
@@ -26,6 +27,7 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({
   handleMenuKeyDown,
   setOpen,
   position,
+  fullWidth
 }) => {
   if (!open) return null;
 
@@ -36,6 +38,10 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({
       ? { right: 0 }
       : { right: 0 };
 
+  const fullWidthStyle = fullWidth ? { width: '100%' } : {};
+
+  const style = { ...positionStyle, ...fullWidthStyle };
+
   return (
     <ul
       className={styles.dropdownMenu}
@@ -43,7 +49,7 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({
       tabIndex={-1}
       ref={menuRef}
       onKeyDown={handleMenuKeyDown}
-      style={positionStyle}
+      style={style}
     >
       {menuItems.map((item, idx) => (
         <li

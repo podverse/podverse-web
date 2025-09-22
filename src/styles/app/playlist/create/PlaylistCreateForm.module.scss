@@ -1,0 +1,9 @@
+.form {
+  max-width: var(--form-max-width);
+}
+
+.buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}

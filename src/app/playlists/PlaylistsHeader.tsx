@@ -2,12 +2,32 @@
 
 import { useTranslations } from "next-intl";
 import React from "react";
-import MainHeaderTextOnly from "../../components/Main/MainHeaderTextOnly";
+import { FaPlus } from "react-icons/fa6";
+import MainHeader from "../../components/Main/MainHeader";
+import { Button } from "../../components/Button/Button";
+import styles from "../../styles/app/playlists/PlaylistsHeader.module.scss";
+import { useRouter } from "next/navigation";
 
 export const PlaylistsHeader: React.FC = () => {
   const tFeatures = useTranslations("features");
+  const router = useRouter();
+
+  const buttonsNode = (
+    <>
+      <Button
+        variant="mini"
+        onClick={() => router.push("/playlists/new")}
+      >
+        {tFeatures("playlist.create_playlist")}
+        <FaPlus className={styles.icon} />
+      </Button>
+    </>
+  );
 
   return (
-    <MainHeaderTextOnly title={tFeatures("playlist.playlists")} />
+    <MainHeader
+      title={tFeatures("playlist.playlists")}
+      buttonsNode={buttonsNode}
+    />
   );
 };

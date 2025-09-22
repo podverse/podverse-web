@@ -1,31 +1,24 @@
 "use client";
 
 import React, { useRef, useMemo } from "react";
-import styles from "../../styles/components/Dropdown/Dropdown.module.scss";
-import DropdownMenu from "./DropdownMenu";
+import DropdownMenu from "../Dropdown/DropdownMenu";
 import { useDropdownKeyboardNavigation } from "../../hooks/useDropdownKeyboardNavigation";
-import { Button } from "../Button/Button";
+import { MenuItem } from "../Dropdown/Dropdown";
+import styles from "../../styles/components/Form/FormDropdown.module.scss";
+import { FaChevronDown } from "react-icons/fa6";
 
-export interface MenuItem {
-  label: string;
-  param: string;
-  value: string;
-}
-
-export interface DropdownProps {
+export interface FormDropdownProps {
+  eyebrow: string;
   menuItems: MenuItem[];
   value: string;
   onChange: (value: string) => void;
-  position?: "left" | "right";
-  fullWidth?: boolean;
 };
 
-const Dropdown: React.FC<DropdownProps> = ({
+export const FormDropdown: React.FC<FormDropdownProps> = ({
+  eyebrow,
   menuItems,
   value,
-  onChange,
-  position,
-  fullWidth
+  onChange
 }) => {
   const buttonRef = useRef<HTMLButtonElement>(null);
   const menuRef = useRef<HTMLUListElement>(null);
@@ -58,22 +51,29 @@ const Dropdown: React.FC<DropdownProps> = ({
     menuRef,
   });
 
-  const hasMoreThanOneOption = menuItemsWithHandlers.length > 1;
-
   return (
-    <div className={styles.dropdown}>
-      <Button
-        ref={buttonRef}
-        aria-haspopup="menu"
-        aria-expanded={open}
-        onClick={() => hasMoreThanOneOption && setOpen((v) => !v)}
-        onKeyDown={e => hasMoreThanOneOption && handleButtonKeyDown(e)}
-        type="button"
-        variant="mini"
-        isDropdownButton={hasMoreThanOneOption}
-      >
-        {currentSelectedItem?.label}
-      </Button>
+    <div className={styles.wrapper}>
+      <div className={styles.dropdownWrapper}>
+        <div className={styles.dropdownInnerWrapper}>
+          <label className={styles.eyebrow}>
+            {eyebrow}
+          </label>
+          <button
+            ref={buttonRef}
+            className={styles.dropdownButton}
+            aria-haspopup="menu"
+            aria-expanded={open}
+            onClick={() => setOpen(v => !v)}
+            onKeyDown={e => handleButtonKeyDown(e)}
+            type="button"
+            >
+            <div className={styles.dropdown}>
+              <span className={styles.dropdownSelectedItemText}>{currentSelectedItem?.label}</span>
+              <FaChevronDown />
+            </div>
+          </button>
+        </div>
+      </div>
       <DropdownMenu
         menuItems={menuItemsWithHandlers}
         open={open}
@@ -82,11 +82,9 @@ const Dropdown: React.FC<DropdownProps> = ({
         setFocusedIndex={setFocusedIndex}
         handleMenuKeyDown={handleMenuKeyDown}
         setOpen={setOpen}
-        position={position}
-        fullWidth={fullWidth}
+        position="left"
+        fullWidth
       />
     </div>
   );
 };
-
-export default Dropdown;

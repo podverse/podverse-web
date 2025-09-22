@@ -5,16 +5,20 @@ import styles from "../../styles/components/Main/MainHeader.module.scss";
 
 type MainHeaderProps = {
   title: string;
-  filterDropdowns?: React.ReactNode[];
+  buttonsNode?: React.ReactNode;
 };
 
-const MainHeader: React.FC<MainHeaderProps> = ({ title, filterDropdowns }) => (
+const MainHeader: React.FC<MainHeaderProps> = ({ title, buttonsNode }) => (
   <header className={styles.header}>
     <div className={styles.headerContent}>
       <h1 className={styles.title}>{title}</h1>
-      <div className={styles.filterDropdowns}>
-        {filterDropdowns}
-      </div>
+      {
+        buttonsNode && (
+          <div className={styles.buttons}>
+            {buttonsNode}
+          </div>
+        )
+      }
     </div>
   </header>
 );

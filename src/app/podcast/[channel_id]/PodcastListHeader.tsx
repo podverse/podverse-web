@@ -110,7 +110,6 @@ const PodcastListHeader: React.FC = () => {
 
   return (
     <ListHeader
-      title={type === "clips" ? tMedia("clips") : tMedia("podcast.episodes")}
       tabs={
         <Tabs
           tabData={tabData}

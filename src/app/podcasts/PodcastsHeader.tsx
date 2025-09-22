@@ -60,31 +60,35 @@ export const PodcastsHeader: React.FC = () => {
     }
   };
 
+  const buttonsNode = (
+    <>
+      <Dropdown
+        key="type"
+        value={type ?? ""}
+        menuItems={typeMenuItems}
+        onChange={handleTypeChange}
+      />
+      <Dropdown
+        key="sort"
+        value={sort ?? ""}
+        menuItems={sortMenuItems}
+        onChange={handleSortChange}
+      />
+      {showRangeDropdown && (
+        <Dropdown
+          key="range"
+          value={range ?? ""}
+          menuItems={rangeMenuItems}
+          onChange={handleRangeChange}
+        />
+      )}
+    </>
+  );
+
   return (
     <MainHeader
       title={tMedia("podcast.podcasts")}
-      filterDropdowns={[
-        <Dropdown
-          key="type"
-          value={type ?? ""}
-          menuItems={typeMenuItems}
-          onChange={handleTypeChange}
-        />,
-        <Dropdown
-          key="sort"
-          value={sort ?? ""}
-          menuItems={sortMenuItems}
-          onChange={handleSortChange}
-        />,
-        showRangeDropdown && (
-          <Dropdown
-            key="range"
-            value={range ?? ""}
-            menuItems={rangeMenuItems}
-            onChange={handleRangeChange}
-          />
-        )
-      ].filter(Boolean)}
+      buttonsNode={buttonsNode}
     />
   );
 };
