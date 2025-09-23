@@ -37,17 +37,21 @@ export const ModalPlaylistAddTo: React.FC = () => {
 
   useEffect(() => {
     (async () => {
-      const { playlists, totalPages } = await fetchPlaylists(1, mediumId);
-      setPlaylists(playlists);
-      setTotalPages(totalPages);
+      if (loggedInAccount) {
+        const { playlists, totalPages } = await fetchPlaylists(1, mediumId);
+        setPlaylists(playlists);
+        setTotalPages(totalPages);
+      }
     })();
   }, [mediumId]);
 
   useEffect(() => {
     (async () => {
-      const { playlists, totalPages } = await fetchPlaylists(page, mediumId);
-      setPlaylists(playlists);
-      setTotalPages(totalPages);
+      if (loggedInAccount) {
+        const { playlists, totalPages } = await fetchPlaylists(page, mediumId);
+        setPlaylists(playlists);
+        setTotalPages(totalPages);
+      }
     })();
   }, [page]);
 
@@ -116,7 +120,10 @@ export const ModalPlaylistAddTo: React.FC = () => {
         setPage={setPage}
         playlists={playlists}
         totalPages={totalPages}
-        showLoginMessage={!!loggedInAccount}
+        showLoginMessage={!loggedInAccount}
+        onClick={() => {
+          alert("HELLO");
+        }}
       />
     </Modal>
   );

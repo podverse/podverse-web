@@ -19,9 +19,10 @@ type Props = {
   showLoginMessage: boolean;
   type?: QueryParamsPlaylistsType;
   showCreator?: boolean;
+  onClick?: (playlist: DTOPlaylist) => void;
 };
 
-export const ListPlaylists: React.FC<Props> = ({ page = 1, setPage, playlists, totalPages, showLoginMessage, showCreator }) => {
+export const ListPlaylists: React.FC<Props> = ({ page = 1, setPage, playlists, totalPages, showLoginMessage, showCreator, onClick }) => {
   const tInstructions = useTranslations("instructions");
   const tAuthentication = useTranslations("authentication");
   const { setModalLogin } = useModals();
@@ -52,7 +53,12 @@ export const ListPlaylists: React.FC<Props> = ({ page = 1, setPage, playlists, t
               setPage={setPage}
               paginationControlsClassName={styles.paginationControls}>
               {playlists.map((playlist) => (
-                <ListPlaylistRow key={playlist.id_text} playlist={playlist} showCreator={showCreator} />
+                <ListPlaylistRow
+                  key={playlist.id_text}
+                  playlist={playlist}
+                  showCreator={showCreator}
+                  onClick={onClick ? () => onClick(playlist) : undefined}
+                />
               ))}
             </Pagination>
           </div>

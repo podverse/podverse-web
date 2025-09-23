@@ -1,7 +1,7 @@
 @use '../../../mixins/lineClamp' as *;
 
 .link {
-  text-decoration: none;
+  text-decoration: none !important;
   color: inherit;
   display: block;
 }
@@ -21,6 +21,7 @@
 .content {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
 }
 
 .subtitleWrapper {
