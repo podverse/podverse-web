@@ -10,10 +10,11 @@ import { TextInput } from "../Form/TextInput";
 
 export const ModalClipCreated: React.FC = () => {
   const tFeatures = useTranslations("features");
-  const header = tFeatures("clip.create_clip");
   const [isCopied, setIsCopied] = useState<boolean>(false);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const { modalClipCreated, setModalClipCreated } = useModals();
+  
+  const header = tFeatures("clip.clip_created");
   
   if (!modalClipCreated.clip) {
     return null;
