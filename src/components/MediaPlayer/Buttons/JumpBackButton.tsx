@@ -11,7 +11,8 @@ export const JumpBackButton = () => {
   return (
     <button
       className={styles.jumpBackButton}
-      onClick={handleClick}>
+      onClick={handleClick}
+      type="button">
       <FaRotateLeft />
     </button>
   )

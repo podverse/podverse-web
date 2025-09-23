@@ -10,7 +10,8 @@ export const JumpForwardButton = () => {
   return (
     <button
       className={styles.jumpForwardButton}
-      onClick={handleClick}>
+      onClick={handleClick}
+      type="button">
       <FaRotateRight />
     </button>
   )

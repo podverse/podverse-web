@@ -22,7 +22,8 @@ export const PlayButtonMini: React.FC<PlayButtonMiniProps> = ({ item, onClick })
     <button
       className={styles.playButtonMini}
       aria-label={label}
-      onClick={onClick}>
+      onClick={onClick}
+      type="button">
       {icon}
     </button>
   )

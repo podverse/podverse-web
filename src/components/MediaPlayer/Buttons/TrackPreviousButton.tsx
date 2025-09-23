@@ -9,7 +9,8 @@ export const TrackPreviousButton = () => {
   return (
     <button
       className={styles.trackPreviousButton}
-      onClick={onClick}>
+      onClick={onClick}
+      type="button">
       <FaAnglesLeft />
     </button>
   )

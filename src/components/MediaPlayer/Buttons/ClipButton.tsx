@@ -17,7 +17,8 @@ export const ClipButton = () => {
   return (
     <button
       className={styles.playlistAddToButton}
-      onClick={onClick}>
+      onClick={onClick}
+      type="button">
       <FaScissors />
     </button>
   )

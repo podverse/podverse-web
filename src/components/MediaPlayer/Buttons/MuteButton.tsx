@@ -9,7 +9,9 @@ export const MuteButton = () => {
   return (
     <button
       className={styles.muteButton}
-      onClick={() => setMPIsMuted(!mpIsMuted)}>
+      onClick={() => setMPIsMuted(!mpIsMuted)}
+      type="button"
+    >
       {button}
     </button>
   )

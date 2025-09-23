@@ -13,7 +13,8 @@ export const PlayButton = () => {
   return (
     <button
       className={styles.playButton}
-      onClick={handleClick}>
+      onClick={handleClick}
+      type="button">
       {icon}
     </button>
   )

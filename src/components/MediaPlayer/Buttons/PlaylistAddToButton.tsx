@@ -20,7 +20,8 @@ export const PlaylistAddToButton = () => {
   return (
     <button
       className={styles.playlistAddToButton}
-      onClick={onClick}>
+      onClick={onClick}
+      type="button">
       <FaPlus />
     </button>
   )
