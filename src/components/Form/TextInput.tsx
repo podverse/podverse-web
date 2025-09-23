@@ -23,6 +23,7 @@ type TextInputProps = {
   'aria-required'?: AriaAttributes['aria-required']
   'aria-invalid'?: AriaAttributes['aria-invalid']
   button?: TextInputButton
+  buttonIcon?: TextInputButtonIcon
   onWheel?: (event: React.WheelEvent<HTMLInputElement>) => void
   min?: number
   max?: number
@@ -31,6 +32,12 @@ type TextInputProps = {
 
 export type TextInputButton = {
   label: string
+  onClick: () => void
+}
+
+export type TextInputButtonIcon = {
+  icon: React.ReactNode
+  className?: string
   onClick: () => void
 }
 

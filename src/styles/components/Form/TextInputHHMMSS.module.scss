@@ -1,22 +1,23 @@
-.wrapper {
-  position: relative;
+.hhmmss {
   margin-bottom: 1.5rem;
+  position: relative;
   display: flex;
   flex: 1;
 }
 
-.dropdownWrapper {
+.hhmmssInputWrapper {
   display: flex;
   flex: 1;
   align-items: center;
   flex-direction: row;
+  justify-content: space-between;
   border-radius: var(--border-radius);
   border: var(--button-border-size) solid transparent;
   padding: 0.5rem 1rem;
   background-color: var(--background-color-tertiary);
 }
 
-.dropdownInnerWrapper {
+.hhmmssInnerInputWrapper {
   display: flex;
   flex: 1 1;
   flex-direction: column;
@@ -30,18 +31,25 @@
   margin: 0 0 2px;
 }
 
-.dropdownButton {
+.input {
   all: unset;
   font-size: var(--font-size-md);
   width: 100%;
   padding: 0.25rem 0 0.25rem 0;
-  cursor: pointer;
 }
 
-.dropdown {
+.buttonWrapper {
   display: flex;
+  height: 2rem;
+  width: 2rem;
+  justify-content: center;
+  align-items: center;
+  border-radius: var(--border-radius-round);
 }
 
-.dropdownSelectedItemText {
-  flex: 1;
+.playIcon {
+  font-size: var(--font-size-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

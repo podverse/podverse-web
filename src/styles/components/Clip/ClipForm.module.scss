@@ -1,0 +1,15 @@
+.form {
+  max-width: var(--form-max-width);
+}
+
+.timeInputs {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 2.25rem;
+}

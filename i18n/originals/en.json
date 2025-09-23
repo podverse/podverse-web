@@ -59,7 +59,13 @@
       "create_clip": "Create Clip",
       "edit_clip": "Edit Clip",
       "delete_clip": "Delete Clip",
-      "my_clips": "My Clips"
+      "my_clips": "My Clips",
+      "start_time": "Start Time",
+      "start_time_aria": "Start time in hours, minutes, and seconds (hh:mm:ss)",
+      "start_time_play_aria": "Play from clip start time",
+      "end_time": "End Time",
+      "end_time_aria": "End time in hours, minutes, and seconds (hh:mm:ss)",
+      "end_time_play_aria": "Play from clip end time"
     },
     "my_clips": "My Clips",
     "my_profile": "My Profile",
