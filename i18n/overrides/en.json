@@ -168,6 +168,8 @@
     "title": "Title",
     "description": "Description",
     "required": "Required",
+    "edit": "Edit",
+    "id": "ID",
     "sharable_status": {
       "sharable_status": "Sharable Status",
       "public": "Public",
