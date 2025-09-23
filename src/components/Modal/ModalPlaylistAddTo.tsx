@@ -1,20 +1,55 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import React from "react";
+import React, { useEffect } from "react";
 import { Modal } from "./Modal";
 import { useModals } from "../../contexts/Modals";
 import { MediaHeaderMini } from "../MediaHeaderMini/MediaHeaderMini";
 import { MediumEnum } from "podverse-helpers/dist/lib/medium";
 import { ButtonTabs } from "../Tabs/ButtonTabs";
+import { apiRequestService } from "../../factories/apiRequestService";
+import { DTOPlaylist, getTotalPages } from "podverse-helpers";
+import { ListPlaylists } from "../List/Playlists/ListPlaylists";
+import { useAccount } from "../../contexts/Account";
 
 export const ModalPlaylistAddTo: React.FC = () => {
   const tFeatures = useTranslations("features");
-  const tFilters = useTranslations("filters");
   const tMedia = useTranslations("media");
   const header = tFeatures("playlist.add_to_playlist");
   const { modalPlaylistAddTo, setModalPlaylistAddTo } = useModals();
   const [mediumId, setMediumId] = React.useState<number | null>(null);
+  const [playlists, setPlaylists] = React.useState<DTOPlaylist[]>([]);
+  const [page, setPage] = React.useState(1);
+  const [totalPages, setTotalPages] = React.useState(0);
+  const { loggedInAccount } = useAccount();
+
+  const fetchPlaylists = async (page: number, mediumId: number | null) => {
+    const response = await apiRequestService.reqPlaylistGetManyPrivate({
+      page,
+      sort: "a_z",
+      medium_id: mediumId || MediumEnum.Podcast
+    });
+    return {
+      playlists: response.data,
+      totalPages: getTotalPages(response.meta?.count, response.meta?.limit)
+    };
+  };
+
+  useEffect(() => {
+    (async () => {
+      const { playlists, totalPages } = await fetchPlaylists(1, mediumId);
+      setPlaylists(playlists);
+      setTotalPages(totalPages);
+    })();
+  }, [mediumId]);
+
+  useEffect(() => {
+    (async () => {
+      const { playlists, totalPages } = await fetchPlaylists(page, mediumId);
+      setPlaylists(playlists);
+      setTotalPages(totalPages);
+    })();
+  }, [page]);
 
   if (!modalPlaylistAddTo.channel || !modalPlaylistAddTo.item) {
     return null;
@@ -75,6 +110,13 @@ export const ModalPlaylistAddTo: React.FC = () => {
       <ButtonTabs
         buttonTabs={buttonTabs}
         selectedKey={selectedMediumId ?? MediumEnum.Podcast}
+      />
+      <ListPlaylists
+        page={page}
+        setPage={setPage}
+        playlists={playlists}
+        totalPages={totalPages}
+        showLoginMessage={!!loggedInAccount}
       />
     </Modal>
   );
