@@ -24,7 +24,6 @@
       "video": "Video",
       "videos": "Videos"
     },
-    "clips": "Clips",
     "livestreams": "Livestreams",
     "last_updated": "Last updated: {date}",
     "mixed": "Mixed"
@@ -53,6 +52,14 @@
       "remove_from_playlist": "Remove from Playlist",
       "item_count": "Items: {count}",
       "playlist_type": "Playlist Type"
+    },
+    "clip": {
+      "clip": "Clip",
+      "clips": "Clips",
+      "create_clip": "Create Clip",
+      "edit_clip": "Edit Clip",
+      "delete_clip": "Delete Clip",
+      "my_clips": "My Clips"
     },
     "my_clips": "My Clips",
     "my_profile": "My Profile",

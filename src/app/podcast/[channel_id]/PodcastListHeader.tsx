@@ -22,6 +22,8 @@ const PodcastListHeader: React.FC = () => {
   const tFilters = useTranslations('filters');
   const tMedia = useTranslations('media');
   const tInfo = useTranslations('info');
+  const tFeatures = useTranslations('features');
+
   const { sortMenuItems, rangeMenuItems, showRangeDropdown
     } = getPodcastDropdownConfig({ type, sort, tFilters, tMedia });
 
@@ -66,7 +68,7 @@ const PodcastListHeader: React.FC = () => {
     },
     {
       key: "clips",
-      label: tMedia("clips"),
+      label: tFeatures("clip.clips"),
       onClick: () => handleTypeChange("clips"),
       zIndex: 3
     },

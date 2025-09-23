@@ -12,8 +12,8 @@ export const PlaylistAddToButton = () => {
       channel: mpChannel,
       item: mpItem,
       clip: mpClip,
-      chapter: mpChapter,
-      soundbite: mpSoundbite
+      item_chapter: mpChapter,
+      item_soundbite: mpSoundbite
     });
   };
 

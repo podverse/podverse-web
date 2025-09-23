@@ -13,6 +13,11 @@ type ModalPlaylistAddTo = {
   item_soundbite: DTOItemSoundbite | null;
 }
 
+type ModalClip = {
+  channel: DTOChannel | null;
+  item: DTOItem | null;
+}
+
 type ModalsContextType = {
   modalLogin: ModalBasic;
   setModalLogin: (val: ModalBasic) => void;
@@ -20,6 +25,8 @@ type ModalsContextType = {
   setModalSignUp: (val: ModalBasic) => void;
   modalPlaylistAddTo: ModalPlaylistAddTo;
   setModalPlaylistAddTo: (val: ModalPlaylistAddTo) => void;
+  modalClip: ModalClip;
+  setModalClip: (val: ModalClip) => void;
 }
 
 const ModalsContext = createContext<ModalsContextType | undefined>(undefined)
@@ -32,16 +39,23 @@ const defaultModalPlaylistAddTo = {
   item_soundbite: null
 }
 
+const defaultModalClip = {
+  channel: null,
+  item: null
+}
+
 export const ModalsProvider = ({ children }: { children: ReactNode }) => {
   const [modalLogin, setModalLogin] = useState<ModalBasic>({ isOpen: false })
   const [modalSignUp, setModalSignUp] = useState<ModalBasic>({ isOpen: false })
   const [modalPlaylistAddTo, setModalPlaylistAddTo] = useState<ModalPlaylistAddTo>(defaultModalPlaylistAddTo)
+  const [modalClip, setModalClip] = useState<ModalClip>(defaultModalClip)
 
   return (
     <ModalsContext.Provider value={{
       modalLogin, setModalLogin,
       modalSignUp, setModalSignUp,
-      modalPlaylistAddTo, setModalPlaylistAddTo
+      modalPlaylistAddTo, setModalPlaylistAddTo,
+      modalClip, setModalClip
     }}>
       {children}
     </ModalsContext.Provider>
