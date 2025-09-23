@@ -8,9 +8,9 @@
 
 .buttonGold {
   margin-right: 1.125rem;
-  color: var(--button-highlight-bg);
+  color: var(--button-highlight-bg) !important;
 }
 
 .buttonGold:hover, .buttonGold:focus {
-  color: var(--button-highlight-bg);
+  color: var(--button-highlight-bg) !important;
 }
