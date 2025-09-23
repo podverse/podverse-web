@@ -160,8 +160,19 @@
 
 .miniGlow {
   background: var(--button-opaque-bg);
-  color: var(--button-primary-secondary);
+  color: var(--button-secondary-color);
   border: var(--button-border-size) solid var(--border-color-primary);
+  height: 2rem;
+  font-size: var(--font-size-sm);
+  padding: 0 1rem;
+  min-width: auto;
+  font-weight: var(--font-weight-bold);
+}
+
+.miniGlowWarning {
+  background: var(--button-opaque-warning-bg);
+  color: var(--button-warning-color);
+  border: var(--button-border-size) solid var(--border-color-warning);
   height: 2rem;
   font-size: var(--font-size-sm);
   padding: 0 1rem;

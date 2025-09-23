@@ -10,6 +10,7 @@
   --border-color-primary: #3d9dfe;
   --border-color-secondary: #ffffff;
   --border-color-tertiary: #444444;
+  --border-color-warning: #f4a24f;
   --border-color-opaque: rgba(255, 255, 255, 0.15);
 
   --box-shadow-focus: 0 0 0 4px rgba(0, 116, 217, 0.4);
@@ -48,4 +49,5 @@
   --button-danger-bg-hover: #e3342f;
   --button-outline-color: var(--border-color-primary);
   --button-opaque-bg: rgba(30,128,227,.16);
+  --button-opaque-warning-bg: rgba(244,162,79,.16);
 }

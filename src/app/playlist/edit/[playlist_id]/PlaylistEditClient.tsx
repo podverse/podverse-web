@@ -1,0 +1,30 @@
+
+"use client";
+
+import { DTOPlaylist } from "podverse-helpers";
+import React from "react";
+import { PlaylistEditContextProvider } from "./PlaylistEditContext";
+import { PlaylistEditForm } from "./PlaylistEditForm";
+import { PlaylistEditHeader } from "./PlaylistEditHeader";
+import MainWrapper from "../../../../components/Main/MainWrapper";
+import { MainInnerWrapper } from "../../../../components/Main/MainInnerWrapper";
+import { MainInnerContentWrapper } from "../../../../components/Main/MainInnerContentWrapper";
+
+type PlaylistEditClientProps = {
+  ssrPlaylist: DTOPlaylist;
+}
+
+export function PlaylistEditClient({ ssrPlaylist }: PlaylistEditClientProps) {
+  return (
+    <PlaylistEditContextProvider ssrPlaylist={ssrPlaylist}>
+      <PlaylistEditHeader />
+      <MainWrapper>
+        <MainInnerWrapper>
+          <MainInnerContentWrapper>
+            <PlaylistEditForm ssrPlaylist={ssrPlaylist} />
+          </MainInnerContentWrapper>
+        </MainInnerWrapper>
+      </MainWrapper>
+    </PlaylistEditContextProvider>
+  );
+}

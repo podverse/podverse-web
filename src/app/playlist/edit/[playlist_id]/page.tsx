@@ -1,12 +1,12 @@
 import { notFound } from "next/navigation";
-import { getSSRAuthService } from "../../../utils/auth/ssrAuth";
-import { PlaylistClient } from "./PlaylistClient";
+import { getSSRAuthService } from "../../../../utils/auth/ssrAuth";
+import { PlaylistEditClient } from "./PlaylistEditClient";
 
-export type PlaylistPageProps = {
+type PlaylistEditPageProps = {
   params: Promise<{ playlist_id: string }>;
-};
+}
 
-export default async function PlaylistPage({ params }: PlaylistPageProps) {
+export default async function PlaylistEditPage({ params }: PlaylistEditPageProps) {
   const { playlist_id } = await params;
   const { apiRequestService } = await getSSRAuthService();
   
@@ -21,6 +21,6 @@ export default async function PlaylistPage({ params }: PlaylistPageProps) {
   }
 
   return (
-    <PlaylistClient ssrPlaylist={ssrPlaylist} />
+    <PlaylistEditClient ssrPlaylist={ssrPlaylist} />
   );
 }

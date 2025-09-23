@@ -17,6 +17,7 @@ export const PlaylistHeaderInfo = ({ playlist }: PlaylistHeaderInfoProps) => {
   const itemCount = tFeatures("playlist.item_count", { count: playlist.item_count });
   const displayName = playlist.account?.account_profile?.display_name || tMisc("anonymous");
   const info = `${itemCount} • ${lastUpdated}`;
+  const description = playlist.description;
 
   return (
     <>
@@ -26,6 +27,11 @@ export const PlaylistHeaderInfo = ({ playlist }: PlaylistHeaderInfoProps) => {
       <div className={styles.info}>
         {info}
       </div>
+      {
+        description && (
+          <div className={styles.description}>{description}</div>
+        )
+      }
     </>
   );
 }

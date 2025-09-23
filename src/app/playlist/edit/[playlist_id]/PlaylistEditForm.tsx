@@ -2,25 +2,29 @@
 
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
-import { MediumEnum, SharableStatusEnum } from "podverse-helpers";
+import { DTOPlaylist, MediumEnum, SharableStatusEnum } from "podverse-helpers";
 import React from "react";
-import Form from "../../../components/Form/Form";
-import { TextInput } from "../../../components/Form/TextInput";
-import { usePlaylistCreateContext } from "./PlaylistCreateContext";
-import styles from "../../../styles/app/playlist/create/PlaylistCreateForm.module.scss";
-import { TextArea } from "../../../components/Form/TextArea";
-import { Button } from "../../../components/Button/Button";
-import { FormDropdown } from "../../../components/Form/FormDropdown";
-import { apiRequestService } from "../../../factories/apiRequestService";
+import Form from "../../../../components/Form/Form";
+import { TextInput } from "../../../../components/Form/TextInput";
+import { usePlaylistEditContext } from "./PlaylistEditContext";
+import { TextArea } from "../../../../components/Form/TextArea";
+import { Button } from "../../../../components/Button/Button";
+import { FormDropdown } from "../../../../components/Form/FormDropdown";
+import { apiRequestService } from "../../../../factories/apiRequestService";
+import styles from "../../../../styles/app/playlist/edit/PlaylistEditForm.module.scss";
 
-export const PlaylistCreateForm: React.FC = () => {
+type PlaylistEditFormProps = {
+  ssrPlaylist: DTOPlaylist;
+}
+
+export const PlaylistEditForm: React.FC<PlaylistEditFormProps> = ({ ssrPlaylist }) => {
   const tMedia = useTranslations("media");
   const tFeatures = useTranslations("features");
   const tMisc = useTranslations("misc");
   const router = useRouter();
   const { medium, setMedium, title, setTitle, description, setDescription,
     sharableStatus, setSharableStatus, isUpdating, setIsUpdating
-   } = usePlaylistCreateContext();
+   } = usePlaylistEditContext();
 
   const mediumDropdownMenuItems = [
     { label: tMedia("podcast.podcast"), param: "medium", value: `${MediumEnum.Podcast}` },
@@ -38,11 +42,12 @@ export const PlaylistCreateForm: React.FC = () => {
   const onCancel = () => {
     router.push("/");
   }
-
+  
   const onSubmit = async () => {
     setIsUpdating(true);
 
-    const playlist = await apiRequestService.reqPlaylistCreate({
+    const playlist = await apiRequestService.reqPlaylistEdit({
+      id_text: ssrPlaylist.id_text,
       title,
       description,
       medium_id: Number(medium),
@@ -60,6 +65,13 @@ export const PlaylistCreateForm: React.FC = () => {
 
   return (
     <Form className={styles.form} onSubmit={onSubmit}>
+      <TextInput
+        type="text"
+        name="id_text"
+        value={ssrPlaylist.id_text}
+        disabled
+        eyebrow={tMisc("id")}
+      />
       <FormDropdown
         key="medium"
         eyebrow={tFeatures("playlist.playlist_type")}
