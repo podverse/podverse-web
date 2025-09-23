@@ -28,6 +28,10 @@ export const ModalClip: React.FC = () => {
       channel: null,
       item: null
     });
+    setTitle("");
+    setStartTimeString("");
+    setEndTimeString("");
+    setIsUpdating(false);
   }
 
   const onSubmit = async () => {
