@@ -1,5 +1,7 @@
+"use client";
+
 import { useTranslations } from "next-intl"
-import { DTOChannel, DTOItem } from "podverse-helpers"
+import { DTOChannel, DTOItem, hhmmssToSecondsNumber } from "podverse-helpers"
 import Form from "../Form/Form"
 import styles from "../../styles/components/Clip/ClipForm.module.scss"
 import { MediaHeaderMini } from "../MediaHeaderMini/MediaHeaderMini"
@@ -9,6 +11,8 @@ import { TextInput } from "../Form/TextInput"
 import { TextInputHHMMSS } from "../Form/TextInputHHMMSS"
 import { ClipEditorPlayer } from "./ClipEditorPlayer"
 import { Button } from "../Button/Button"
+import { EVENTS } from "../../constants/events"
+import { useMediaPlayer } from "../../contexts/MediaPlayer"
 
 type ClipFormProps = {
   channel: DTOChannel;
@@ -28,6 +32,7 @@ type ClipFormProps = {
 
 export const ClipForm: React.FC<ClipFormProps> = ({ channel, item, onSubmit, sharableStatus,
   setSharableStatus, title, setTitle, startTimeString, setStartTimeString, endTimeString, setEndTimeString, onCancel, isUpdating }) => {
+  const { setMPIsPlaying } = useMediaPlayer();
   const tFeatures = useTranslations("features")
   const tMisc = useTranslations("misc");
 
@@ -35,6 +40,27 @@ export const ClipForm: React.FC<ClipFormProps> = ({ channel, item, onSubmit, sha
 
   const isValidSubmit = () => {
     return startTimeString?.length > 0;
+  }
+
+  const startTimeOnButtonClick = () => {
+    window.dispatchEvent(new CustomEvent(EVENTS.MEDIA_PLAYER.AUDIO.SEEK, {
+      detail: { time: hhmmssToSecondsNumber(startTimeString) }
+    }));
+    setMPIsPlaying(true);
+  }
+
+  const endTimeOnButtonClick = () => {
+    if (endTimeString) {
+      const endTimeInSeconds = hhmmssToSecondsNumber(endTimeString)
+      const seekTime = endTimeInSeconds > 3 ? endTimeInSeconds - 3 : 0;
+      window.dispatchEvent(new CustomEvent(EVENTS.MEDIA_PLAYER.AUDIO.SEEK, {
+        detail: { time: seekTime }
+      }));
+      window.dispatchEvent(new CustomEvent(EVENTS.MEDIA_PLAYER.AUDIO.PAUSE_AT, {
+        detail: { stopAt: endTimeInSeconds }
+      }));
+      setMPIsPlaying(true);
+    }
   }
 
   return (
@@ -69,7 +95,7 @@ export const ClipForm: React.FC<ClipFormProps> = ({ channel, item, onSubmit, sha
           name="start_time"
           placeholder="00:00"
           aria-label={tFeatures("clip.start_time_aria")}
-          onButtonClick={() => alert("Start time button clicked")}
+          onButtonClick={startTimeOnButtonClick}
           buttonAriaLabel={tFeatures("clip.start_time_play_aria")}
         />
         <TextInputHHMMSS
@@ -79,7 +105,7 @@ export const ClipForm: React.FC<ClipFormProps> = ({ channel, item, onSubmit, sha
           name="end_time"
           placeholder={tMisc("optional")}
           aria-label={tFeatures("clip.end_time_aria")}
-          onButtonClick={() => alert("End time button clicked")}
+          onButtonClick={endTimeOnButtonClick}
           buttonAriaLabel={tFeatures("clip.end_time_play_aria")}
         />
       </div>

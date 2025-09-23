@@ -5,6 +5,9 @@ import { useMediaPlayer } from "../../../contexts/MediaPlayer";
 import { getEnclosure, getEnclosureSource } from "podverse-helpers";
 import { EVENTS } from "../../../constants/events";
 
+// Track the stopAt time for conditional pausing
+let globalPauseAtTime: number | null = null;
+
 export const MediaPlayerControllerAudio: React.FC = () => {
   const audioRef = useRef<HTMLAudioElement>(null);
   const [hasLoadedOnce, setHasLoadedOnce] = useState<boolean>(false);
@@ -15,6 +18,7 @@ export const MediaPlayerControllerAudio: React.FC = () => {
     mpVolume,
     mpIsMuted,
     setMPCurrentTime,
+    setMPIsPlaying,
     setMPDuration
   } = useMediaPlayer();
 
@@ -57,14 +61,23 @@ export const MediaPlayerControllerAudio: React.FC = () => {
       }
     };
 
+    const handlePauseAt = (e: Event) => {
+      const customEvent = e as CustomEvent<{ stopAt: number }>;
+      if (typeof customEvent.detail.stopAt === "number") {
+        globalPauseAtTime = customEvent.detail.stopAt;
+      }
+    };
+
     window.addEventListener(EVENTS.MEDIA_PLAYER.AUDIO.SEEK, handleSeek);
     window.addEventListener(EVENTS.MEDIA_PLAYER.AUDIO.JUMP_BACK, handleJumpBack);
     window.addEventListener(EVENTS.MEDIA_PLAYER.AUDIO.JUMP_FORWARD, handleJumpForward);
+    window.addEventListener(EVENTS.MEDIA_PLAYER.AUDIO.PAUSE_AT, handlePauseAt);
 
     return () => {
       window.removeEventListener(EVENTS.MEDIA_PLAYER.AUDIO.SEEK, handleSeek);
       window.removeEventListener(EVENTS.MEDIA_PLAYER.AUDIO.JUMP_BACK, handleJumpBack);
       window.removeEventListener(EVENTS.MEDIA_PLAYER.AUDIO.JUMP_FORWARD, handleJumpForward);
+      window.removeEventListener(EVENTS.MEDIA_PLAYER.AUDIO.PAUSE_AT, handlePauseAt);
     };
   }, []);
 
@@ -75,6 +88,7 @@ export const MediaPlayerControllerAudio: React.FC = () => {
     mpVolume,
     mpIsMuted,
     setMPCurrentTime,
+    setMPIsPlaying,
     setMPDuration
   });
 
@@ -96,6 +110,7 @@ interface MediaPlayerAudioEffectsProps {
   mpVolume: number;
   mpIsMuted: boolean;
   setMPCurrentTime: (time: number) => void;
+  setMPIsPlaying: (isPlaying: boolean) => void;
   setMPDuration: (duration: number) => void;
 }
 
@@ -106,6 +121,7 @@ function useMediaPlayerAudioEffects({
   mpVolume,
   mpIsMuted,
   setMPCurrentTime,
+  setMPIsPlaying,
   setMPDuration
 }: MediaPlayerAudioEffectsProps): void {
   // Time update and metadata loaded
@@ -115,6 +131,10 @@ function useMediaPlayerAudioEffects({
 
     const handleTimeUpdate = () => {
       setMPCurrentTime(audio.currentTime);
+      if (globalPauseAtTime !== null && audio.currentTime >= globalPauseAtTime) {
+        setMPIsPlaying(false);
+        globalPauseAtTime = null;
+      }
     };
 
     const handleLoadedMetadata = () => setMPDuration(audio.duration);
