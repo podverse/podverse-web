@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import Link from "next/link";
-import { DTOChannel, DTOItem, findDTOItemImageBySize, stripAndDecodeHtml } from "podverse-helpers";
+import { DTOChannel, DTOItem, findDTOChannelImageBySize, findDTOItemImageBySize, stripAndDecodeHtml } from "podverse-helpers";
 import React from "react";
 import Image from "../../../Image/Image";
 import { ROUTES } from "../../../../constants/routes";
@@ -20,6 +20,7 @@ interface Props {
 
 const ListEpisodeRow: React.FC<Props> = ({ channel, item }) => {
   const url = `${ROUTES.EPISODE}/${item.id_text}`;
+  const channel_image = findDTOChannelImageBySize(channel.channel_images, IMAGES.LIST.EPISODES.DESKTOP.SIZE_FIND_TARGET, 'lesser');
   const item_image = findDTOItemImageBySize(item.item_images, IMAGES.LIST.EPISODES.DESKTOP.SIZE_FIND_TARGET, 'lesser');
   const tFeatures = useTranslations("features");
   const tMedia = useTranslations("media");
@@ -72,14 +73,14 @@ const ListEpisodeRow: React.FC<Props> = ({ channel, item }) => {
     <div className={styles.row}>
       <Link href={url} tabIndex={-1}>
         <Image 
-          src={item_image?.url}
+          src={item_image?.url || channel_image?.url}
           alt={item.title || tMedia("podcast.episode_image")}
           width={IMAGES.LIST.EPISODES.DESKTOP.SIZE}
           height={IMAGES.LIST.EPISODES.DESKTOP.SIZE}
           className={styles.image}
         />
         <Image 
-          src={item_image?.url}
+          src={item_image?.url || channel_image?.url}
           alt={item.title || tMedia("podcast.episode_image")}
           width={IMAGES.LIST.EPISODES.MOBILE.SIZE}
           height={IMAGES.LIST.EPISODES.MOBILE.SIZE}
@@ -91,7 +92,7 @@ const ListEpisodeRow: React.FC<Props> = ({ channel, item }) => {
           <div className={styles.topSection}>
             <h3>{item.title}</h3>
             <p className={styles.description}>
-              {stripAndDecodeHtml(item.item_description.value)}
+              {stripAndDecodeHtml(item.item_description?.value)}
             </p>
           </div>
         </Link>
