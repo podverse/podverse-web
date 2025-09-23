@@ -4,14 +4,9 @@ import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { MediumEnum, SharableStatusEnum } from "podverse-helpers";
 import React from "react";
-import Form from "../../../components/Form/Form";
-import { TextInput } from "../../../components/Form/TextInput";
 import { usePlaylistCreateContext } from "./PlaylistCreateContext";
-import styles from "../../../styles/app/playlist/create/PlaylistCreateForm.module.scss";
-import { TextArea } from "../../../components/Form/TextArea";
-import { Button } from "../../../components/Button/Button";
-import { FormDropdown } from "../../../components/Form/FormDropdown";
 import { apiRequestService } from "../../../factories/apiRequestService";
+import { PlaylistForm } from "../../../components/Playlist/PlaylistForm";
 
 export const PlaylistCreateForm: React.FC = () => {
   const tMedia = useTranslations("media");
@@ -59,55 +54,23 @@ export const PlaylistCreateForm: React.FC = () => {
   }
 
   return (
-    <Form className={styles.form} onSubmit={onSubmit}>
-      <FormDropdown
-        key="medium"
-        eyebrow={tFeatures("playlist.playlist_type")}
-        value={`${medium}`}
-        menuItems={mediumDropdownMenuItems}
-        onChange={(val) => setMedium(val)}
-      />
-      <FormDropdown
-        key="sharable_status"
-        eyebrow={tMisc("sharable_status.sharable_status")}
-        value={`${sharableStatus}`}
-        menuItems={sharableStatusDropdownMenuItems}
-        onChange={(val) => setSharableStatus(val)}
-      />
-      <TextInput
-        type="text"
-        name="title"
-        value={title}
-        onChange={e => setTitle(e.target.value)}
-        autoFocus
-        placeholder={tMisc("required")}
-        eyebrow={tMisc("title")}
-      />
-      <TextArea
-        eyebrow={tMisc("description")}
-        name="description"
-        value={description}
-        onChange={e => setDescription(e.target.value)}
-        placeholder={tMisc("optional")}
-        rows={3}
-      />
-      <div className={styles.buttons}>
-        <Button
-          variant="secondary"
-          type="button"
-          onClick={onCancel}
-        >
-          {tMisc("cancel")}
-        </Button>
-        <Button
-          variant="primary"
-          type="button"
-          disabled={!isValidSubmit()}
-          onClick={onSubmit}
-          isLoading={isUpdating}>
-          {tMisc("submit")}
-        </Button>
-      </div>
-    </Form>
+    <PlaylistForm
+      medium={medium}
+      setMedium={setMedium}
+      mediumDropdownMenuItems={mediumDropdownMenuItems}
+      sharableStatus={sharableStatus}
+      setSharableStatus={setSharableStatus}
+      sharableStatusDropdownMenuItems={sharableStatusDropdownMenuItems}
+      title={title}
+      setTitle={setTitle}
+      description={description}
+      setDescription={setDescription}
+      isUpdating={isUpdating}
+      onCancel={onCancel}
+      onSubmit={onSubmit}
+      isValidSubmit={isValidSubmit}
+      tFeatures={tFeatures}
+      tMisc={tMisc}
+    />
   );
 };

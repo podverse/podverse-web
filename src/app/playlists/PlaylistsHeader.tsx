@@ -16,7 +16,7 @@ export const PlaylistsHeader: React.FC = () => {
     <>
       <Button
         variant="mini"
-        onClick={() => router.push("/playlists/new")}
+        onClick={() => router.push("/playlist/create")}
       >
         {tFeatures("playlist.create_playlist")}
         <FaPlus className={styles.icon} />
