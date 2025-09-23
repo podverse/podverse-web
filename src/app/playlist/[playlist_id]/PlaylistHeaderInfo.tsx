@@ -1,6 +1,6 @@
 "use client";
 
-import { DTOPlaylist, formatDateAbbrev } from "podverse-helpers";
+import { DTOPlaylist, formatDateAbbrev, MediumEnum } from "podverse-helpers";
 import styles from "../../../styles/app/playlist/PlaylistHeaderInfo.module.scss";
 import { useTranslations } from "next-intl";
 
@@ -17,7 +17,19 @@ export const PlaylistHeaderInfo = ({ playlist }: PlaylistHeaderInfoProps) => {
   const itemCount = tFeatures("playlist.item_count", { count: playlist.item_count });
   const displayName = playlist.account?.account_profile?.display_name || tMisc("anonymous");
   const info = `${itemCount} • ${lastUpdated}`;
-  const description = playlist.description;
+  
+  let medium = "";
+  if (playlist.medium_id === MediumEnum.Podcast) {
+    medium = tMedia("podcast.podcasts");
+  } else if (playlist.medium_id === MediumEnum.Video) {
+    medium = tMedia("video.videos");
+  } else if (playlist.medium_id === MediumEnum.Music) {
+    medium = tMedia("music.music");
+  } else if (playlist.medium_id === MediumEnum.Mixed) {
+    medium = tMedia("mixed");
+  }
+
+  const description = `${medium} ${playlist.description ? `• ${playlist.description}` : ""}`;
 
   return (
     <>
@@ -27,11 +39,7 @@ export const PlaylistHeaderInfo = ({ playlist }: PlaylistHeaderInfoProps) => {
       <div className={styles.info}>
         {info}
       </div>
-      {
-        description && (
-          <div className={styles.description}>{description}</div>
-        )
-      }
+      <div className={styles.description}>{description}</div>
     </>
   );
 }
