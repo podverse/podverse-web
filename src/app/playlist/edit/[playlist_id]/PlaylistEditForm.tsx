@@ -2,11 +2,13 @@
 
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
-import { DTOPlaylist, MediumEnum, SharableStatusEnum } from "podverse-helpers";
+import { DTOPlaylist } from "podverse-helpers";
 import React from "react";
 import { usePlaylistEditContext } from "./PlaylistEditContext";
 import { apiRequestService } from "../../../../factories/apiRequestService";
 import { PlaylistForm } from "../../../../components/Playlist/PlaylistForm";
+import { SHARABLE_STATUS } from "../../../../constants/sharableStatus";
+import { MEDIUM } from "../../../../constants/medium";
 
 type PlaylistEditFormProps = {
   ssrPlaylist: DTOPlaylist;
@@ -21,18 +23,8 @@ export const PlaylistEditForm: React.FC<PlaylistEditFormProps> = ({ ssrPlaylist 
     sharableStatus, setSharableStatus, isUpdating, setIsUpdating
    } = usePlaylistEditContext();
 
-  const mediumDropdownMenuItems = [
-    { label: tMedia("podcast.podcast"), param: "medium", value: `${MediumEnum.Podcast}` },
-    { label: tMedia("video.video"), param: "medium", value: `${MediumEnum.Video}` },
-    { label: tMedia("music.music"), param: "medium", value: `${MediumEnum.Music}` },
-    { label: tMedia("mixed"), param: "medium", value: `${MediumEnum.Mixed}` },
-  ];
-
-  const sharableStatusDropdownMenuItems = [
-    { label: tMisc("sharable_status.public"), param: "sharable_status", value: `${SharableStatusEnum.Public}` },
-    { label: tMisc("sharable_status.unlisted"), param: "sharable_status", value: `${SharableStatusEnum.Unlisted}` },
-    { label: tMisc("sharable_status.private"), param: "sharable_status", value: `${SharableStatusEnum.Private}` },
-  ];
+  const mediumDropdownMenuItems = MEDIUM.menuItems(tMedia);
+  const sharableStatusDropdownMenuItems = SHARABLE_STATUS.menuItems(tMisc);
 
   const onCancel = () => {
     router.push("/");

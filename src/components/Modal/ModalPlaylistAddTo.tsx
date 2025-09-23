@@ -1,11 +1,12 @@
 "use client";
 
 import { useTranslations } from "next-intl";
+import { MediumEnum } from "podverse-helpers";
 import React, { useEffect } from "react";
 import { Modal } from "./Modal";
+import { MEDIUM } from "../../constants/medium";
 import { useModals } from "../../contexts/Modals";
 import { MediaHeaderMini } from "../MediaHeaderMini/MediaHeaderMini";
-import { MediumEnum } from "podverse-helpers/dist/lib/medium";
 import { ButtonTabs } from "../Tabs/ButtonTabs";
 import { apiRequestService } from "../../factories/apiRequestService";
 import { DTOPlaylist, getTotalPages } from "podverse-helpers";
@@ -69,47 +70,11 @@ export const ModalPlaylistAddTo: React.FC = () => {
     });
   }
 
-  let buttonTabs = [];
-  if (modalPlaylistAddTo?.channel?.medium_id === MediumEnum.Video) {
-    buttonTabs = [
-      {
-        key: MediumEnum.Video,
-        label: tMedia("video.videos"),
-        onClick: () => setMediumId(MediumEnum.Video)
-      },
-      {
-        key: MediumEnum.Mixed,
-        label: tMedia("mixed"),
-        onClick: () => setMediumId(MediumEnum.Mixed)
-      },
-    ];
-  } else if (modalPlaylistAddTo?.channel?.medium_id === MediumEnum.Music) {
-    buttonTabs = [
-      {
-        key: MediumEnum.Music,
-        label: tMedia("music.music"),
-        onClick: () => setMediumId(MediumEnum.Music)
-      },
-      {
-        key: MediumEnum.Mixed,
-        label: tMedia("mixed"),
-        onClick: () => setMediumId(MediumEnum.Mixed)
-      },
-    ];
-  } else {
-    buttonTabs = [
-    {
-      key: MediumEnum.Podcast,
-      label: tMedia("podcast.podcasts"),
-      onClick: () => setMediumId(MediumEnum.Podcast)
-    },
-    {
-      key: MediumEnum.Mixed,
-      label: tMedia("mixed"),
-      onClick: () => setMediumId(MediumEnum.Mixed)
-    }
-    ]
-  }
+  const buttonTabs = MEDIUM.buttonTabs(
+    modalPlaylistAddTo?.channel?.medium_id ?? MediumEnum.Podcast,
+    tMedia,
+    setMediumId
+  );
 
   let selectedMediumId = mediumId;
   if (!mediumId) {
