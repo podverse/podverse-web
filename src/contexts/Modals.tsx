@@ -18,6 +18,10 @@ type ModalClip = {
   item: DTOItem | null;
 }
 
+type ModalClipCreated = {
+  clip: DTOClip | null;
+}
+
 type ModalsContextType = {
   modalLogin: ModalBasic;
   setModalLogin: (val: ModalBasic) => void;
@@ -27,6 +31,8 @@ type ModalsContextType = {
   setModalPlaylistAddTo: (val: ModalPlaylistAddTo) => void;
   modalClip: ModalClip;
   setModalClip: (val: ModalClip) => void;
+  modalClipCreated: ModalClipCreated;
+  setModalClipCreated: (val: ModalClipCreated) => void;
 }
 
 const ModalsContext = createContext<ModalsContextType | undefined>(undefined)
@@ -44,18 +50,24 @@ const defaultModalClip = {
   item: null
 }
 
+const defaultModalClipCreated = {
+  clip: null
+}
+
 export const ModalsProvider = ({ children }: { children: ReactNode }) => {
   const [modalLogin, setModalLogin] = useState<ModalBasic>({ isOpen: false })
   const [modalSignUp, setModalSignUp] = useState<ModalBasic>({ isOpen: false })
   const [modalPlaylistAddTo, setModalPlaylistAddTo] = useState<ModalPlaylistAddTo>(defaultModalPlaylistAddTo)
   const [modalClip, setModalClip] = useState<ModalClip>(defaultModalClip)
+  const [modalClipCreated, setModalClipCreated] = useState<ModalClipCreated>(defaultModalClipCreated)
 
   return (
     <ModalsContext.Provider value={{
       modalLogin, setModalLogin,
       modalSignUp, setModalSignUp,
       modalPlaylistAddTo, setModalPlaylistAddTo,
-      modalClip, setModalClip
+      modalClip, setModalClip,
+      modalClipCreated, setModalClipCreated
     }}>
       {children}
     </ModalsContext.Provider>

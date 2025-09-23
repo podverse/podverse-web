@@ -8,7 +8,12 @@ import { PlayButton } from "../MediaPlayer/Buttons/PlayButton";
 import { MediaPlayerProgressDesktop } from "../MediaPlayer/Desktop/MediaPlayerProgressDesktop";
 import styles from "../../styles/components/Clip/ClipEditorPlayer.module.scss";
 
-export const ClipEditorPlayer = () => {
+type ClipEditorPlayerProps = {
+  startTime?: number | null;
+  endTime?: number | null;
+};
+
+export const ClipEditorPlayer = ({ startTime, endTime }: ClipEditorPlayerProps) => {
   return (
     <div className={styles.controls}>
       <div className={styles.topSection}>
@@ -19,7 +24,11 @@ export const ClipEditorPlayer = () => {
         <JumpForwardButton />
       </div>
       <div className={styles.bottomSection}>
-        <MediaPlayerProgressDesktop />
+        <MediaPlayerProgressDesktop
+          isClipForm
+          overrideHighlightStartTime={startTime}
+          overrideHighlightEndTime={endTime}
+        />
       </div>
     </div>
   )

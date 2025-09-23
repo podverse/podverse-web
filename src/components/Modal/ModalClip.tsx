@@ -5,12 +5,13 @@ import React from "react";
 import { Modal } from "./Modal";
 import { useModals } from "../../contexts/Modals";
 import { ClipForm } from "../Clip/ClipForm";
-import { SharableStatusEnum } from "podverse-helpers";
+import { hhmmssToSecondsNumeric, SharableStatusEnum } from "podverse-helpers";
+import { apiRequestService } from "../../factories/apiRequestService";
 
 export const ModalClip: React.FC = () => {
   const tFeatures = useTranslations("features");
   const header = tFeatures("clip.create_clip");
-  const { modalClip, setModalClip } = useModals();
+  const { modalClip, setModalClip, setModalClipCreated } = useModals();
 
   const [sharableStatus, setSharableStatus] = React.useState<string>(`${SharableStatusEnum.Private}`);
   const [title, setTitle] = React.useState<string>("");
@@ -30,11 +31,26 @@ export const ModalClip: React.FC = () => {
   }
 
   const onSubmit = async () => {
-    setIsUpdating(true);
-    alert("Hello");
-    setTimeout(() => {
+    if (modalClip.item?.id_text) {
+      setIsUpdating(true);
+      
+      const finalTitle = title?.trim();
+      const finalSharableStatusId = parseInt(sharableStatus, 10);
+      const finalStartTime = hhmmssToSecondsNumeric(startTimeString);
+      const finalEndTime = endTimeString ? hhmmssToSecondsNumeric(endTimeString) : null;
+
+      const clip = await apiRequestService.reqClipCreate({
+        item_id_text: modalClip.item.id_text,
+        sharable_status_id: finalSharableStatusId,
+        title: finalTitle.length > 0 ? finalTitle : null,
+        start_time: finalStartTime,
+        end_time: finalEndTime
+      });
+  
       setIsUpdating(false);
-    }, 3000)
+      clearModalClip();
+      setModalClipCreated({ clip });
+    }
   }
 
   return (

@@ -4,12 +4,27 @@ import React, { useRef } from "react";
 import styles from "../../../styles/components/MediaPlayer/Desktop/MediaPlayerProgressDesktop.module.scss";
 import { useMediaPlayer } from "../../../contexts/MediaPlayer";
 import { EVENTS } from "../../../constants/events";
-import { formatHHMMSS } from "podverse-helpers";
+import { DTOClip, formatHHMMSS } from "podverse-helpers";
 
-export const MediaPlayerProgressDesktop: React.FC = () => {
-  const { mpCurrentTime, mpDuration } = useMediaPlayer();
+type MediaPlayerProgressDesktopProps = {
+  isClipForm?: boolean;
+  overrideHighlightStartTime?: number | null;
+  overrideHighlightEndTime?: number | null;
+};
+
+export const MediaPlayerProgressDesktop: React.FC<MediaPlayerProgressDesktopProps> = ({
+  isClipForm, overrideHighlightStartTime, overrideHighlightEndTime }) => {
+  const { mpClip, mpCurrentTime, mpDuration } = useMediaPlayer();
   const barRef = useRef<HTMLDivElement>(null);
   const progress = mpDuration > 0 ? mpCurrentTime / mpDuration : 0;
+  
+  const { highlightStartPosition, highlightEndPosition } = getHighlightPositions({
+    mpDuration,
+    isClipForm,
+    overrideHighlightStartTime,
+    overrideHighlightEndTime,
+    mpClip
+  });
 
   const setProgressFromEvent = (e: MouseEvent | React.MouseEvent<HTMLDivElement>) => {
     if (!barRef.current || mpDuration === 0) return;
@@ -55,16 +70,66 @@ export const MediaPlayerProgressDesktop: React.FC = () => {
         aria-valuetext={`${formatHHMMSS(mpCurrentTime)} of ${formatHHMMSS(mpDuration)}`}
         tabIndex={0}
       >
-        <div
-          className={styles.progressLevel}
-          style={{ width: `${progress * 100}%` }}
-        />
-        <div
-          className={styles.progressRemaining}
-          style={{ width: `${(1 - progress) * 100}%` }}
-        />
+        <div className={styles.customProgressBarInner}>
+          <div
+            className={styles.progressLevel}
+            style={{ width: `${progress * 100}%` }}
+          />
+          <div
+            className={styles.progressRemaining}
+            style={{ width: `${(1 - progress) * 100}%` }}
+          />
+        </div>
+        {
+          (highlightStartPosition !== null && highlightEndPosition !== null) && (
+            <div
+              className={styles.highlightedSection}
+              style={{
+                left: `${highlightStartPosition * 100}%`,
+                width: `${(highlightEndPosition - highlightStartPosition) * 100}%`
+              }}
+            />
+          )
+        }
       </div>
       <span className={styles.mediaPlayerProgressDuration}>{formatHHMMSS(mpDuration)}</span>
     </div>
   );
 };
+
+function getHighlightPositions({
+  mpDuration,
+  isClipForm,
+  overrideHighlightStartTime,
+  overrideHighlightEndTime,
+  mpClip
+}: {
+  mpDuration?: number,
+  isClipForm?: boolean,
+  overrideHighlightStartTime?: number | null,
+  overrideHighlightEndTime?: number | null,
+  mpClip?: DTOClip | null
+}) {
+  let highlightStartPosition = null;
+  let highlightEndPosition = null;
+  if (mpDuration) {
+    if (isClipForm) {
+      if (overrideHighlightStartTime || overrideHighlightStartTime === 0) {
+        highlightStartPosition = overrideHighlightStartTime / mpDuration;
+      }
+      if (overrideHighlightEndTime) {
+        highlightEndPosition = overrideHighlightEndTime / mpDuration;
+      }
+    } else {
+      const clipStartTime = Number(mpClip?.start_time);
+      const clipEndTime = Number(mpClip?.end_time);
+      if (clipStartTime || clipStartTime === 0) {
+        highlightStartPosition = clipStartTime / mpDuration;
+      }
+      if (clipEndTime) {
+        highlightEndPosition = clipEndTime / mpDuration;
+      }
+    }
+  }
+  return { highlightStartPosition, highlightEndPosition };
+}

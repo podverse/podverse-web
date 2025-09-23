@@ -4,6 +4,7 @@ import React from 'react'
 import { LoginModal } from '../Auth/LoginModal'
 import { ModalPlaylistAddTo } from '../Modal/ModalPlaylistAddTo';
 import { ModalClip } from '../Modal/ModalClip';
+import { ModalClipCreated } from '../Modal/ModalClipCreated';
 
 export const Modals: React.FC = () => {
   return (
@@ -11,6 +12,7 @@ export const Modals: React.FC = () => {
       <LoginModal />
       <ModalPlaylistAddTo />
       <ModalClip />
+      <ModalClipCreated />
     </>
   )
 }

@@ -109,7 +109,10 @@ export const ClipForm: React.FC<ClipFormProps> = ({ channel, item, onSubmit, sha
           buttonAriaLabel={tFeatures("clip.end_time_play_aria")}
         />
       </div>
-      <ClipEditorPlayer />
+      <ClipEditorPlayer
+        startTime={startTimeString ? hhmmssToSecondsNumber(startTimeString) : null}
+        endTime={endTimeString ? hhmmssToSecondsNumber(endTimeString) : null}
+      />
       <div className={styles.buttons}>
         <Button
           variant="secondary"
