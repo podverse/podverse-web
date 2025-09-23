@@ -9,8 +9,8 @@ type ModalPlaylistAddTo = {
   channel: DTOChannel | null;
   item: DTOItem | null;
   clip: DTOClip | null;
-  chapter: DTOItemChapter | null;
-  soundbite: DTOItemSoundbite | null;
+  item_chapter: DTOItemChapter | null;
+  item_soundbite: DTOItemSoundbite | null;
 }
 
 type ModalsContextType = {
@@ -28,8 +28,8 @@ const defaultModalPlaylistAddTo = {
   channel: null,
   item: null,
   clip: null,
-  chapter: null,
-  soundbite: null
+  item_chapter: null,
+  item_soundbite: null
 }
 
 export const ModalsProvider = ({ children }: { children: ReactNode }) => {

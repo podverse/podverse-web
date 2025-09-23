@@ -8,11 +8,11 @@ import { useTranslations } from "next-intl";
 type MediaHeaderMiniProps = {
   channel: DTOChannel;
   item?: DTOItem | null;
-  chapter?: DTOItemChapter | null;
-  soundbite?: DTOItemSoundbite | null;
+  item_chapter?: DTOItemChapter | null;
+  item_soundbite?: DTOItemSoundbite | null;
 }
 
-export const MediaHeaderMini: React.FC<MediaHeaderMiniProps> = ({ channel, item, chapter, soundbite }) => {
+export const MediaHeaderMini: React.FC<MediaHeaderMiniProps> = ({ channel, item, item_chapter, item_soundbite }) => {
   const tMisc = useTranslations("misc");
   const channel_image = findDTOChannelImageBySize(channel.channel_images, IMAGES.MEDIA_HEADER_MINI.SQUARE.SIZE_FIND_TARGET, 'greater');
   const item_image = findDTOItemImageBySize(item?.item_images, IMAGES.MEDIA_HEADER_MINI.SQUARE.SIZE_FIND_TARGET, 'greater');
@@ -20,12 +20,12 @@ export const MediaHeaderMini: React.FC<MediaHeaderMiniProps> = ({ channel, item,
 
   let title = "";
   let subtitle = "";
-  
-  if (soundbite?.title) {
-    title = soundbite.title || tMisc('untitled');
+
+  if (item_soundbite?.title) {
+    title = item_soundbite.title || tMisc('untitled');
     subtitle = item?.title || tMisc('untitled');
-  } else if (chapter?.title) {
-    title = chapter.title || tMisc('untitled');
+  } else if (item_chapter?.title) {
+    title = item_chapter.title || tMisc('untitled');
     subtitle = item?.title || tMisc('untitled');
   } else if (item?.title) {
     title = item.title || tMisc('untitled');

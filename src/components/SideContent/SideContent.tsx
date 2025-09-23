@@ -1,7 +1,7 @@
 import styles from "../../styles/components/SideContent/SideContent.module.scss";
 
 type SideContentProps = {
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 
 export const SideContent = ({ children }: SideContentProps) => {
