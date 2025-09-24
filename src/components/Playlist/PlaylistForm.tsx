@@ -7,6 +7,9 @@ import { TextArea } from "../../components/Form/TextArea";
 import { Button } from "../../components/Button/Button";
 import Form from "../../components/Form/Form";
 import styles from "../../styles/components/Playlist/PlaylistForm.module.scss";
+import Divider from "../Divider/Divider";
+import { apiRequestService } from "../../factories/apiRequestService";
+import { useRouter } from "next/navigation";
 
 export type PlaylistFormProps = {
   medium: string;
@@ -25,7 +28,7 @@ export type PlaylistFormProps = {
   isValidSubmit: () => boolean;
   tFeatures: any;
   tMisc: any;
-  showIdText?: boolean;
+  isEditMode?: boolean;
   idText?: string;
   className?: string;
 };
@@ -47,13 +50,24 @@ export const PlaylistForm: React.FC<PlaylistFormProps> = ({
   isValidSubmit,
   tFeatures,
   tMisc,
-  showIdText = false,
-  idText = "",
-  className = ""
+  isEditMode = false,
+  idText = ""
 }) => {
+  const router = useRouter();
+
+  const handleDelete = async () => {
+    if (
+      isEditMode &&
+      window.confirm(tFeatures("playlist.delete_playlist_confirm"))
+    ) {
+      await apiRequestService.reqPlaylistDelete(idText);
+      router.push("/playlists");
+    }
+  }
+
   return (
     <Form className={styles.form} onSubmit={onSubmit}>
-      {showIdText && (
+      {isEditMode && (
         <TextInput
           type="text"
           name="id_text"
@@ -111,6 +125,22 @@ export const PlaylistForm: React.FC<PlaylistFormProps> = ({
           {tMisc("submit")}
         </Button>
       </div>
+      {
+        isEditMode && (
+          <div className={styles.bottomSection}>
+            <Divider />
+            <div className={styles.bottomSectionButtons}>
+              <Button
+                variant="danger"
+                type="button"
+                onClick={handleDelete}
+              >
+                {tFeatures("playlist.delete_playlist")}
+              </Button>
+            </div>
+          </div>
+        )
+      }
     </Form>
   );
 };
