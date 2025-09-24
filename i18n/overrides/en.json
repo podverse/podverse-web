@@ -68,7 +68,8 @@
       "start_time_play_aria": "Play from clip start time",
       "end_time": "End Time",
       "end_time_aria": "End time in hours, minutes, and seconds (hh:mm:ss)",
-      "end_time_play_aria": "Play from clip end time"
+      "end_time_play_aria": "Play from clip end time",
+      "clip_time_range": "{hhmmssStart} to {hhmmssEnd}"
     },
     "my_clips": "My Clips",
     "my_profile": "My Profile",

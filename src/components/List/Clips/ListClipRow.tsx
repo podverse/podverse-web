@@ -9,9 +9,11 @@ import { ROUTES } from "../../../constants/routes";
 import styles from "../../../styles/components/List/Clips/ListClipRow.module.scss";
 import { IMAGES } from "../../../constants/images";
 import { PlayButtonMini } from "../../MediaPlayer/Buttons/PlayButtonMini";
-import { ReadableDuration } from "../../Time/ReadableDuration";
 import MoreButton from "../../MoreButton/MoreButton";
 import { useMediaPlayer } from "../../../contexts/MediaPlayer";
+import { ReadableDate } from "../../Time/ReadableDate";
+import { TimeSeparator } from "../../Time/TimeSeparator";
+import { ReadableTimeRange } from "../../Time/ReadableTimeRange";
 
 interface Props {
   channel?: DTOChannel;
@@ -19,7 +21,7 @@ interface Props {
   clip: DTOClip;
 }
 
-const ListClipRow: React.FC<Props> = ({ channel, item, clip }) => {
+export const ListClipRow: React.FC<Props> = ({ channel, item, clip }) => {
   const url = `${ROUTES.CLIP}/${clip.id_text}`;
 
   const channel_images = channel?.channel_images || clip?.item?.channel?.channel_images;
@@ -35,6 +37,7 @@ const ListClipRow: React.FC<Props> = ({ channel, item, clip }) => {
 
   const clipTitle = clip.title || tMisc("untitled");
   const itemTitle = item?.title || clip?.item?.title || tMisc("untitled");
+  const itemPubDate = item?.pub_date || clip?.item?.pub_date;
 
   const moreButtonMenuItems = [
     {
@@ -102,7 +105,13 @@ const ListClipRow: React.FC<Props> = ({ channel, item, clip }) => {
               item={item || clip.item}
               onClick={playButtonOnClick}
             />
-            <ReadableDuration durationInSeconds='1234' />
+            <div className={styles.timeSection}>
+              <ReadableDate date={itemPubDate} />
+              <TimeSeparator />
+              <ReadableTimeRange
+                startTime={clip.start_time}
+                endTime={clip.end_time} />
+            </div>
           </div>
           <div className={styles.bottomSectionEnd}>
             <MoreButton moreButtonMenuItems={moreButtonMenuItems} />
@@ -112,5 +121,3 @@ const ListClipRow: React.FC<Props> = ({ channel, item, clip }) => {
     </div>
   );
 };
-
-export default ListClipRow;

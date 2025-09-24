@@ -36,15 +36,13 @@
 
 .itemTitle {
   @include line-clamp(1);
-  font-size: var(--font-size-base);
-  // font-weight: 500;
   color: var(--text-color-secondary);
   margin: 0.25rem 0 0 0;
 }
 
 .bottomSection {
   display: flex;
-  flex: 1;
+  margin-top: 0.75rem;
 }
 
 .bottomSectionStart {
@@ -52,6 +50,10 @@
   align-items: center;
   gap: 0.75rem;
   flex: 1;
+}
+
+.timeSection {
+  display: flex;
 }
 
 .bottomSectionEnd {

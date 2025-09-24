@@ -13,6 +13,7 @@ import { ReadableDuration } from "../../../Time/ReadableDuration";
 import MoreButton from "../../../MoreButton/MoreButton";
 import { useMediaPlayer } from "../../../../contexts/MediaPlayer";
 import { ReadableDate } from "../../../Time/ReadableDate";
+import { TimeSeparator } from "../../../Time/TimeSeparator";
 
 interface Props {
   channel: DTOChannel;
@@ -105,7 +106,7 @@ const ListEpisodeRow: React.FC<Props> = ({ channel, item }) => {
             />
             <div className={styles.timeSection}>
               <ReadableDate date={item.pub_date} />
-              <span className={styles.timeSeparator}>•</span>
+              <TimeSeparator />
               <ReadableDuration durationInSeconds={item.item_about.duration || null} />
             </div>
           </div>

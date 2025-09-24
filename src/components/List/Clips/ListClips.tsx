@@ -3,12 +3,12 @@
 import { useTranslations } from "next-intl";
 import { CategoryMappingKeys, DTOChannel, DTOClip, DTOItem, QueryParamsItemsType } from "podverse-helpers";
 import React from "react";
+import { ListClipRow } from "./ListClipRow";
 import CallToActionMessage from "../../CallToActionMessage/CallToActionMessage";
 import Pagination from "../../Pagination/Pagination";
 import { useModals } from "../../../contexts/Modals";
 import { useSkipInitialEffect } from "../../../hooks/useSkipInitialEffect";
 import { scrollMainToTop } from "../../../utils/scroll";
-import ListClipRow from "./ListClipRow";
 
 type Props = {
   page: number;
