@@ -50,6 +50,8 @@
       "delete_playlist": "Delete Playlist",
       "delete_playlist_confirm": "Are you sure you want to delete this playlist?",
       "add_to_playlist": "Add to Playlist",
+      "added_to_playlist": "Added to Playlist",
+      "add_error": "Error adding to Playlist",
       "remove_from_playlist": "Remove from Playlist",
       "item_count": "Items: {count}",
       "playlist_type": "Playlist Type"
