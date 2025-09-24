@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect } from "react";
 import { useMediaPlayer } from "../../../contexts/MediaPlayer";
 import { getEnclosure, getEnclosureSource } from "podverse-helpers";
 import { EVENTS } from "../../../constants/events";
@@ -10,7 +10,6 @@ let globalPauseAtTime: number | null = null;
 
 export const MediaPlayerControllerAudio: React.FC = () => {
   const audioRef = useRef<HTMLAudioElement>(null);
-  const [hasLoadedOnce, setHasLoadedOnce] = useState<boolean>(false);
   const {
     mpItem,
     mpIsPlaying,
@@ -27,10 +26,12 @@ export const MediaPlayerControllerAudio: React.FC = () => {
   const selectedItemEnclosureUrl = selectedItemEnclosureSource?.uri;
 
   useEffect(() => {
-    if (selectedItemEnclosureUrl && !hasLoadedOnce) {
-      setHasLoadedOnce(true);
+    const audio = audioRef.current;
+    if (audio && selectedItemEnclosureUrl) {
+      audio.load();
+      audio.play().catch(() => {});
     }
-  }, [selectedItemEnclosureUrl, hasLoadedOnce]);
+  }, [selectedItemEnclosureUrl]);
 
   useEffect(() => {
     const handleSeek = (e: Event) => {
@@ -98,7 +99,6 @@ export const MediaPlayerControllerAudio: React.FC = () => {
       src={selectedItemEnclosureUrl}
       preload="auto"
       style={{ display: "none" }}
-      autoPlay={hasLoadedOnce}
     />
   );
 };

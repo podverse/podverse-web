@@ -14,6 +14,7 @@ import { useMediaPlayer } from "../../../contexts/MediaPlayer";
 import { ReadableDate } from "../../Time/ReadableDate";
 import { TimeSeparator } from "../../Time/TimeSeparator";
 import { ReadableTimeRange } from "../../Time/ReadableTimeRange";
+import { useAccount } from "../../../contexts/Account";
 
 interface Props {
   channel?: DTOChannel;
@@ -34,6 +35,7 @@ export const ListClipRow: React.FC<Props> = ({ channel, item, clip }) => {
   const tMediaPlayer = useTranslations("media_player");
   const tMisc = useTranslations("misc");
   const { setMPChannel, mpClip, setMPItem, setMPClip, mpIsPlaying, setMPIsPlaying } = useMediaPlayer();
+  const { loggedInAccount } = useAccount();
 
   const clipTitle = clip.title || tMisc("untitled");
   const itemTitle = item?.title || clip?.item?.title || tMisc("untitled");
@@ -61,6 +63,15 @@ export const ListClipRow: React.FC<Props> = ({ channel, item, clip }) => {
       onClick: () => alert(tFeatures("share"))
     }
   ]
+
+  if (loggedInAccount?.id_text === clip.account?.id_text) {
+    moreButtonMenuItems.push({
+      label: tFeatures("clip.edit_clip"),
+      onClick: () => {
+        window.location.href = `${ROUTES.CLIP}/edit/${clip.id_text}`;
+      }
+    });
+  }
 
   const playButtonOnClick = () => {
     if (clip.id === mpClip?.id) {
