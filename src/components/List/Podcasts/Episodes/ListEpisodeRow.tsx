@@ -14,6 +14,7 @@ import MoreButton from "../../../MoreButton/MoreButton";
 import { useMediaPlayer } from "../../../../contexts/MediaPlayer";
 import { ReadableDate } from "../../../Time/ReadableDate";
 import { TimeSeparator } from "../../../Time/TimeSeparator";
+import { useModals } from "../../../../contexts/Modals";
 
 interface Props {
   channel: DTOChannel;
@@ -28,6 +29,7 @@ const ListEpisodeRow: React.FC<Props> = ({ channel, item }) => {
   const tMedia = useTranslations("media");
   const tMediaPlayer = useTranslations("media_player");
   const { setMPChannel, mpItem, setMPItem, setMPClip, mpIsPlaying, setMPIsPlaying } = useMediaPlayer();
+  const { setModalPlaylistAddTo } = useModals();
 
   const playButtonOnClick = () => {
     if (item.id === mpItem?.id) {
@@ -39,6 +41,16 @@ const ListEpisodeRow: React.FC<Props> = ({ channel, item }) => {
       setMPIsPlaying(true);
     }
   };
+
+  const addToPlaylistOnClick = () => {
+    setModalPlaylistAddTo({
+      channel: channel,
+      item: item,
+      clip: null,
+      item_chapter: null,
+      item_soundbite: null
+    });
+  }
 
   const moreButtonMenuItems = [
     {
@@ -55,11 +67,7 @@ const ListEpisodeRow: React.FC<Props> = ({ channel, item }) => {
     },
     {
       label: tFeatures("playlist.add_to_playlist"),
-      onClick: () => alert(tFeatures("playlist.add_to_playlist"))
-    },
-    {
-      label: tFeatures("share"),
-      onClick: () => alert(tFeatures("share"))
+      onClick: addToPlaylistOnClick
     },
     {
       label: tFeatures("history.mark_as_played"),

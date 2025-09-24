@@ -94,6 +94,11 @@ export const ModalPlaylistAddTo: React.FC = () => {
       await apiRequestService
         .reqPlaylistResourceItemAddFirst(playlist.id_text, item.id_text)
     }
+
+    clearModalPlaylistAddTo();
+    const { playlists, totalPages } = await fetchPlaylists(1, mediumId);
+    setPlaylists(playlists);
+    setTotalPages(totalPages);
   }
 
   return (

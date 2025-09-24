@@ -57,10 +57,6 @@ export const ListClipRow: React.FC<Props> = ({ channel, item, clip }) => {
     {
       label: tFeatures("playlist.add_to_playlist"),
       onClick: () => alert(tFeatures("playlist.add_to_playlist"))
-    },
-    {
-      label: tFeatures("share"),
-      onClick: () => alert(tFeatures("share"))
     }
   ]
 
