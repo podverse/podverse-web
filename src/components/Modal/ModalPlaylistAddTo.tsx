@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { MediumEnum } from "podverse-helpers";
-import React, { useEffect } from "react";
+import React from "react";
 import { Modal } from "./Modal";
 import { MEDIUM } from "../../constants/medium";
 import { useModals } from "../../contexts/Modals";
@@ -12,6 +12,7 @@ import { apiRequestService } from "../../factories/apiRequestService";
 import { DTOPlaylist, getTotalPages } from "podverse-helpers";
 import { ListPlaylists } from "../List/Playlists/ListPlaylists";
 import { useAccount } from "../../contexts/Account";
+import { useSkipInitialEffect } from "../../hooks/useSkipInitialEffect";
 
 export const ModalPlaylistAddTo: React.FC = () => {
   const tFeatures = useTranslations("features");
@@ -36,24 +37,32 @@ export const ModalPlaylistAddTo: React.FC = () => {
     };
   };
 
-  useEffect(() => {
-    (async () => {
-      if (loggedInAccount) {
-        const { playlists, totalPages } = await fetchPlaylists(1, mediumId);
-        setPlaylists(playlists);
-        setTotalPages(totalPages);
-      }
-    })();
+  useSkipInitialEffect(() => {
+    setMediumId(modalPlaylistAddTo.channel?.medium_id ?? MediumEnum.Podcast);
+  }, [modalPlaylistAddTo.channel]);
+
+  useSkipInitialEffect(() => {
+    const handleFetch = async () => {
+      const { playlists, totalPages } = await fetchPlaylists(1, mediumId);
+      setPlaylists(playlists);
+      setTotalPages(totalPages);
+    }
+
+    if (loggedInAccount && modalPlaylistAddTo.channel && mediumId) {
+      handleFetch();
+    }
   }, [mediumId]);
 
-  useEffect(() => {
-    (async () => {
-      if (loggedInAccount) {
-        const { playlists, totalPages } = await fetchPlaylists(page, mediumId);
-        setPlaylists(playlists);
-        setTotalPages(totalPages);
-      }
-    })();
+  useSkipInitialEffect(() => {
+    const handleFetch = async () => {
+      const { playlists, totalPages } = await fetchPlaylists(page, mediumId);
+      setPlaylists(playlists);
+      setTotalPages(totalPages);
+    }
+
+    if (loggedInAccount && modalPlaylistAddTo.channel && mediumId) {
+      handleFetch();
+    }
   }, [page]);
 
   if (!modalPlaylistAddTo.channel || !modalPlaylistAddTo.item) {
@@ -76,12 +85,6 @@ export const ModalPlaylistAddTo: React.FC = () => {
     setMediumId
   );
 
-  let selectedMediumId = mediumId;
-  if (!mediumId) {
-    selectedMediumId =
-      modalPlaylistAddTo.channel?.medium_id || MediumEnum.Podcast;
-  }
-
   const onClick = async (playlist: DTOPlaylist) => {
     const { item, clip, item_chapter, item_soundbite } = modalPlaylistAddTo;
     if (clip) {
@@ -96,9 +99,6 @@ export const ModalPlaylistAddTo: React.FC = () => {
     }
 
     clearModalPlaylistAddTo();
-    const { playlists, totalPages } = await fetchPlaylists(1, mediumId);
-    setPlaylists(playlists);
-    setTotalPages(totalPages);
   }
 
   return (
@@ -114,10 +114,14 @@ export const ModalPlaylistAddTo: React.FC = () => {
         item_chapter={modalPlaylistAddTo.item_chapter}
         item_soundbite={modalPlaylistAddTo.item_soundbite}
       />
-      <ButtonTabs
-        buttonTabs={buttonTabs}
-        selectedKey={selectedMediumId ?? MediumEnum.Podcast}
-      />
+      {
+        mediumId && (
+          <ButtonTabs
+            buttonTabs={buttonTabs}
+            selectedKey={mediumId}
+          />
+        )
+      }
       <ListPlaylists
         page={page}
         setPage={setPage}
