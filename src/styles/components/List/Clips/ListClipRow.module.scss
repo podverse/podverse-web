@@ -1,4 +1,4 @@
-@use '../../../../mixins/lineClamp' as *;
+@use '../../../mixins/lineClamp' as *;
 @use 'breakpoints';
 
 .row {
@@ -21,6 +21,7 @@
   justify-content: space-between;
   align-items: space-between;
   padding: 0 0 0 1.25rem;
+  flex: 1;
 }
 
 .topSection {
@@ -29,10 +30,21 @@
   color: var(--text-color-secondary);
 }
 
+.clipTitle {
+  @include line-clamp(3);
+}
+
+.itemTitle {
+  @include line-clamp(1);
+  font-size: var(--font-size-base);
+  // font-weight: 500;
+  color: var(--text-color-secondary);
+  margin: 0.25rem 0 0 0;
+}
+
 .bottomSection {
   display: flex;
   flex: 1;
-  margin-top: 0.5rem;
 }
 
 .bottomSectionStart {
@@ -53,9 +65,5 @@
   }
   .imageMobile {
     display: block;
-  }
-
-  .description {
-    @include line-clamp(1);
   }
 }

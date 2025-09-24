@@ -2,11 +2,11 @@
 
 import { useTranslations } from "next-intl";
 import Link from "next/link";
-import { DTOChannel, DTOClip, DTOItem, findDTOChannelImageBySize, findDTOItemImageBySize, stripAndDecodeHtml } from "podverse-helpers";
+import { DTOChannel, DTOClip, DTOItem, findDTOChannelImageBySize, findDTOItemImageBySize } from "podverse-helpers";
 import React from "react";
 import Image from "../../Image/Image";
 import { ROUTES } from "../../../constants/routes";
-import styles from "../../../styles/components/List/Podcasts/Episodes/ListEpisodeRow.module.scss";
+import styles from "../../../styles/components/List/Clips/ListClipRow.module.scss";
 import { IMAGES } from "../../../constants/images";
 import { PlayButtonMini } from "../../MediaPlayer/Buttons/PlayButtonMini";
 import { ReadableDuration } from "../../Time/ReadableDuration";
@@ -27,12 +27,14 @@ const ListClipRow: React.FC<Props> = ({ channel, item, clip }) => {
   const channel_image = findDTOChannelImageBySize(channel_images, IMAGES.LIST.CLIPS.SIZE_FIND_TARGET, 'lesser');
   const item_image = findDTOItemImageBySize(item_images, IMAGES.LIST.CLIPS.SIZE_FIND_TARGET, 'lesser');
 
-  const item_title = item?.title || clip?.item?.title;
-
   const tFeatures = useTranslations("features");
   const tMedia = useTranslations("media");
   const tMediaPlayer = useTranslations("media_player");
+  const tMisc = useTranslations("misc");
   const { setMPChannel, mpClip, setMPItem, setMPClip, mpIsPlaying, setMPIsPlaying } = useMediaPlayer();
+
+  const clipTitle = clip.title || tMisc("untitled");
+  const itemTitle = item?.title || clip?.item?.title || tMisc("untitled");
 
   const moreButtonMenuItems = [
     {
@@ -73,14 +75,14 @@ const ListClipRow: React.FC<Props> = ({ channel, item, clip }) => {
       <Link href={url} tabIndex={-1}>
         <Image 
           src={item_image?.url || channel_image?.url}
-          alt={item_title || tMedia("podcast.episode_image")}
+          alt={itemTitle || tMedia("podcast.episode_image")}
           width={IMAGES.LIST.CLIPS.SIZE}
           height={IMAGES.LIST.CLIPS.SIZE}
           className={styles.image}
         />
         <Image 
           src={item_image?.url || channel_image?.url}
-          alt={item_title || tMedia("podcast.episode_image")}
+          alt={itemTitle || tMedia("podcast.episode_image")}
           width={IMAGES.LIST.CLIPS.SIZE}
           height={IMAGES.LIST.CLIPS.SIZE}
           className={styles.imageMobile}
@@ -89,7 +91,8 @@ const ListClipRow: React.FC<Props> = ({ channel, item, clip }) => {
       <div className={styles.content}>
         <Link href={url}>
           <div className={styles.topSection}>
-            <h3>{item_title}</h3>
+            <h3 className={styles.clipTitle}>{clipTitle}</h3>
+            <p className={styles.itemTitle}>{itemTitle}</p>
           </div>
         </Link>
         <div className={styles.bottomSection}>
@@ -99,7 +102,7 @@ const ListClipRow: React.FC<Props> = ({ channel, item, clip }) => {
               item={item || clip.item}
               onClick={playButtonOnClick}
             />
-            <ReadableDuration durationInSeconds='0' />
+            <ReadableDuration durationInSeconds='1234' />
           </div>
           <div className={styles.bottomSectionEnd}>
             <MoreButton moreButtonMenuItems={moreButtonMenuItems} />

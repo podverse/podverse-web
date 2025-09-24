@@ -17,7 +17,7 @@ import { getPodcastDropdownConfig } from "./PodcastDropdownConfig";
 import { Tabs } from "../../../components/Tabs/Tabs";
 
 const PodcastListHeader: React.FC = () => {
-  const { filterParams, setFilterParams } = usePodcastContext();
+  const { filterParams, setFilterParams, setTotalPages } = usePodcastContext();
   const { type, sort, range } = filterParams;
   const tFilters = useTranslations('filters');
   const tMedia = useTranslations('media');
@@ -41,8 +41,10 @@ const PodcastListHeader: React.FC = () => {
     if (isChannelType(value)) {
       if (value === "clips") {
         setFilterParams({ ...filterParams, type: value, page: 1 });
+        setTotalPages(1);
       } else {
         setFilterParams({ ...filterParams, type: value, page: 1 });
+        setTotalPages(1);
       }
     }
   };
