@@ -15,44 +15,72 @@ export function showToast(
 	}
 }
 
-export function showToastPromise<T>(
-	promise: Promise<T> | (() => Promise<T>),
-	msgs: {
-		loading: string;
-		success: string;
-		error: string;
-	},
-	options?: ToastOptions
-	) {
-		// Always show loading toast until promise resolves/rejects
-		let toastId: string | number | undefined;
-		const p = typeof promise === "function" ? promise() : promise;
-		toastId = toast.loading(msgs.loading, {
-			...options,
-			className: styles.toast,
-			duration: Infinity // keep loading toast until promise settles
-		});
+export function showToastPromiseWithLoading<T>(
+  promise: Promise<T> | (() => Promise<T>),
+  msgs: {
+    loading: string;
+    success: string;
+    error: string;
+  },
+  options?: ToastOptions
+) {
+  const p = typeof promise === "function" ? promise() : promise;
 
-		p.then(
-			() => {
-				toast.dismiss(toastId);
-				toast.success(msgs.success, {
-					...options,
-					className: styles.toast,
-					duration
-				});
-			},
-			() => {
-				toast.dismiss(toastId);
-				toast.error(msgs.error, {
-					...options,
-					className: styles.toast,
-					duration
-				});
-			}
-		);
-		return p;
-	}
+  const toastId = toast.loading(msgs.loading, {
+    ...options,
+    className: styles.toast,
+    duration: Infinity
+  });
+
+  p.then(
+    () => {
+      toast.dismiss(toastId as string);
+      toast.success(msgs.success, {
+        ...options,
+        className: styles.toast,
+        duration
+      });
+    },
+    () => {
+      toast.dismiss(toastId as string);
+      toast.error(msgs.error, {
+        ...options,
+        className: styles.toast,
+        duration
+      });
+    }
+  );
+  return p;
+}
+
+export function showToastPromise<T>(
+  promise: Promise<T> | (() => Promise<T>),
+  msgs: {
+    success: string;
+    error: string;
+  },
+  options?: ToastOptions
+) {
+  const p = typeof promise === "function" ? promise() : promise;
+
+  p.then(
+    () => {
+      toast.success(msgs.success, {
+        ...options,
+        className: styles.toast,
+        duration
+      });
+    },
+    () => {
+      toast.error(msgs.error, {
+        ...options,
+        className: styles.toast,
+        duration
+      });
+    }
+  );
+  return p;
+}
 
 export const Toast: React.FC = () => (
 	<Toaster
