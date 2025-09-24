@@ -3,6 +3,7 @@ export const ROUTES = {
   ALBUMS: '/albums',
   ARTISTS: '/artists',
   CHANNELS: '/channels',
+  CLIP: "/clip",
   CLIPS: '/clips',
   CONTACT: '/contact',
   DONATE: '/donate',

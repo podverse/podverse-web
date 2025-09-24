@@ -46,7 +46,7 @@ export default async function Podcast({ params, searchParams }: PodcastPageProps
   const ssrItems = responseItems.data;
  
   const ssrLiveItems: DTOLiveItem[] = [];
-  const ssrClips: any = {};
+  const ssrClips: DTOClip[] = [];
 
   const ssrTotalPages = getCurrentTotalPages({ currentType, responseItems });
 

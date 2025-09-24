@@ -7,21 +7,15 @@ export function getPodcastDropdownConfig({ type, sort, tFilters, tMedia }: {
   tFilters: (key: string) => string,
   tMedia: (key: string) => string
 }) {
-  const sortTop = { label: tFilters("sort.top"), param: "sort", value: "top" };
-
-  let sortDropdownMenuItems = [
+  const sortDropdownMenuItems = [
     { label: tFilters("sort.recent"), param: "sort", value: "recent" },
     { label: tFilters("sort.oldest"), param: "sort", value: "oldest" },
-    sortTop,
-    { label: tFilters("sort.random"), param: "sort", value: "random" },
+    { label: tFilters("sort.top"), param: "sort", value: "top" },
   ];
 
   const rangeDropdownMenuItems = getRangeDropdownItems(tFilters);
   
-  let showRangeDropdown = false;  
-  if (sort === "top") {
-    showRangeDropdown = true;
-  }
+  const showRangeDropdown = sort === "top";  
 
   return {
     sortMenuItems: sortDropdownMenuItems,

@@ -8,13 +8,15 @@ import ListEpisodes from "../../../components/List/Podcasts/Episodes/ListEpisode
 import { ContentAbout } from "../../../components/Content/About/ContentAbout";
 import { ContentPodroll } from "../../../components/Content/Podroll/ContentPodroll";
 import styles from "../../../styles/app/podcast/PodcastList.module.scss";
+import { ListClips } from "../../../components/List/Clips/ListClips";
 
 type PodcastListProps = {
   podroll?: DTOPodroll | null;
 }
 
 const PodcastList: React.FC<PodcastListProps> = ({ podroll }) => {
-  const { filterParams, setFilterParams, channel, items, totalPages, isLoading, showSubscribeMessage } = usePodcastContext();
+  const { filterParams, setFilterParams, channel, items, clips, totalPages,
+    isLoading, showSubscribeMessage } = usePodcastContext();
   const { page = 1 } = filterParams;
 
   const { type } = filterParams;
@@ -28,6 +30,17 @@ const PodcastList: React.FC<PodcastListProps> = ({ podroll }) => {
             setPage={(page) => setFilterParams({ ...filterParams, page })}
             channel={channel}
             items={items}
+            totalPages={totalPages}
+            showSubscribeMessage={showSubscribeMessage}
+          />
+        )
+      }
+      {
+        type === "clips" && (
+          <ListClips
+            page={page}
+            setPage={(page) => setFilterParams({ ...filterParams, page })}
+            clips={clips}
             totalPages={totalPages}
             showSubscribeMessage={showSubscribeMessage}
           />

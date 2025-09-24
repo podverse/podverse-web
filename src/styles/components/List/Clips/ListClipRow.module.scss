@@ -1,0 +1,61 @@
+@use '../../../../mixins/lineClamp' as *;
+@use 'breakpoints';
+
+.row {
+  display: flex;
+  margin-bottom: 2rem;
+}
+
+.image {
+  object-fit: cover;
+}
+
+.imageMobile {
+  display: none;
+  object-fit: cover;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: space-between;
+  padding: 0 0 0 1.25rem;
+}
+
+.topSection {
+  display: flex;
+  flex-direction: column;
+  color: var(--text-color-secondary);
+}
+
+.bottomSection {
+  display: flex;
+  flex: 1;
+  margin-top: 0.5rem;
+}
+
+.bottomSectionStart {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex: 1;
+}
+
+.bottomSectionEnd {
+  display: flex;
+  align-items: center;
+}
+
+@media (max-width: breakpoints.$breakpoint-sm-max) {
+  .image {
+    display: none;
+  }
+  .imageMobile {
+    display: block;
+  }
+
+  .description {
+    @include line-clamp(1);
+  }
+}

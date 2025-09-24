@@ -33,6 +33,10 @@ export const IMAGES = {
     PODCASTS: {
       SIZE: 92,
       SIZE_FIND_TARGET: 184
+    },
+    CLIPS: {
+      SIZE: 92,
+      SIZE_FIND_TARGET: 184
     }
   },
   MEDIA_HEADER_MINI: {

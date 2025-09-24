@@ -40,9 +40,9 @@ const PodcastListHeader: React.FC = () => {
   const handleTypeChange = (value: string) => {
     if (isChannelType(value)) {
       if (value === "clips") {
-        setFilterParams({ ...filterParams, type: value, sort: "top", page: 1 });
+        setFilterParams({ ...filterParams, type: value, page: 1 });
       } else {
-        setFilterParams({ ...filterParams, type: value, sort: "recent", page: 1 });
+        setFilterParams({ ...filterParams, type: value, page: 1 });
       }
     }
   };

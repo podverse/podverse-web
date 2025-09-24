@@ -79,11 +79,6 @@ export const PodcastContextProvider = ({
       return;
     }
 
-    async function fetchChannel() {
-      const channel = await apiRequestService.reqChannelGetByIdOrIdText(channel_id);
-      setChannel(channel);
-    }
-
     async function fetchItems() {
       const { currentSort, currentRange } = getPodcastFilterParams({
         type: filterParams.type,
@@ -104,11 +99,37 @@ export const PodcastContextProvider = ({
       setTotalPages(totalPages);
       setItems(response.data);
     }
+
+    async function fetchClips() {
+      const { currentSort, currentRange } = getPodcastFilterParams({
+        type: filterParams.type,
+        sort: filterParams.sort,
+        range: filterParams.range
+      });
+
+      const response = await apiRequestService.reqClipGetManyByChannelIdTextPublic(
+        channel_id,
+        {
+          page: filterParams.page,
+          sort: currentSort,
+          range: currentRange
+        }
+      );
+
+      const totalPages = getTotalPages(response.meta.count, response.meta.limit);
+      setTotalPages(totalPages);
+      setClips(response.data);
+    }
     
     async function fetchData() {
       setIsLoading(true);
-      await fetchChannel();
-      await fetchItems();
+
+      if (filterParams.type === "episodes") {
+        await fetchItems();
+      } else if (filterParams.type === "clips") {
+        await fetchClips();
+      }
+
       setIsLoading(false);
     }
     
