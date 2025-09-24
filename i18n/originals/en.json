@@ -187,6 +187,7 @@
     "required": "Required",
     "edit": "Edit",
     "id": "ID",
+    "unknown_date": "Unknown Date",
     "sharable_status": {
       "sharable_status": "Sharable Status",
       "public": "Public",
