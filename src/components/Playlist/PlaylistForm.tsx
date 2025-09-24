@@ -28,8 +28,7 @@ export type PlaylistFormProps = {
   isValidSubmit: () => boolean;
   tFeatures: any;
   tMisc: any;
-  isEditMode?: boolean;
-  idText?: string;
+  edit_playlist_id_text?: string;
   className?: string;
 };
 
@@ -50,28 +49,27 @@ export const PlaylistForm: React.FC<PlaylistFormProps> = ({
   isValidSubmit,
   tFeatures,
   tMisc,
-  isEditMode = false,
-  idText = ""
+  edit_playlist_id_text = ""
 }) => {
   const router = useRouter();
 
   const handleDelete = async () => {
     if (
-      isEditMode &&
+      edit_playlist_id_text &&
       window.confirm(tFeatures("playlist.delete_playlist_confirm"))
     ) {
-      await apiRequestService.reqPlaylistDelete(idText);
+      await apiRequestService.reqPlaylistDelete(edit_playlist_id_text);
       router.push("/playlists");
     }
   }
 
   return (
     <Form className={styles.form} onSubmit={onSubmit}>
-      {isEditMode && (
+      {edit_playlist_id_text && (
         <TextInput
           type="text"
           name="id_text"
-          value={idText}
+          value={edit_playlist_id_text}
           disabled
           eyebrow={tMisc("id")}
         />
@@ -126,7 +124,7 @@ export const PlaylistForm: React.FC<PlaylistFormProps> = ({
         </Button>
       </div>
       {
-        isEditMode && (
+        edit_playlist_id_text && (
           <div className={styles.bottomSection}>
             <Divider />
             <div className={styles.bottomSectionButtons}>

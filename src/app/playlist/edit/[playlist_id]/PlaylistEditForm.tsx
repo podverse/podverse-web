@@ -68,8 +68,7 @@ export const PlaylistEditForm: React.FC<PlaylistEditFormProps> = ({ ssrPlaylist 
       isValidSubmit={isValidSubmit}
       tFeatures={tFeatures}
       tMisc={tMisc}
-      isEditMode
-      idText={ssrPlaylist.id_text}
+      edit_playlist_id_text={ssrPlaylist.id_text}
     />
   );
 };

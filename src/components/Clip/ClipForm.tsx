@@ -1,6 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl"
+import { useRouter } from "next/navigation";
 import { DTOChannel, DTOItem, hhmmssToSecondsNumber } from "podverse-helpers"
 import Form from "../Form/Form"
 import styles from "../../styles/components/Clip/ClipForm.module.scss"
@@ -13,6 +14,8 @@ import { ClipEditorPlayer } from "./ClipEditorPlayer"
 import { Button } from "../Button/Button"
 import { EVENTS } from "../../constants/events"
 import { useMediaPlayer } from "../../contexts/MediaPlayer"
+import Divider from "../Divider/Divider";
+import { apiRequestService } from "../../factories/apiRequestService";
 
 type ClipFormProps = {
   channel: DTOChannel;
@@ -28,13 +31,16 @@ type ClipFormProps = {
   onSubmit: () => void;
   onCancel: () => void;
   isUpdating?: boolean;
+  edit_clip_id_text?: string;
 }
 
 export const ClipForm: React.FC<ClipFormProps> = ({ channel, item, onSubmit, sharableStatus,
-  setSharableStatus, title, setTitle, startTimeString, setStartTimeString, endTimeString, setEndTimeString, onCancel, isUpdating }) => {
+  setSharableStatus, title, setTitle, startTimeString, setStartTimeString, endTimeString,
+  setEndTimeString, onCancel, isUpdating, edit_clip_id_text }) => {
   const { setMPIsPlaying } = useMediaPlayer();
   const tFeatures = useTranslations("features")
   const tMisc = useTranslations("misc");
+  const router = useRouter();
 
   const sharableStatusDropdownMenuItems = SHARABLE_STATUS.menuItems(tMisc);
 
@@ -60,6 +66,16 @@ export const ClipForm: React.FC<ClipFormProps> = ({ channel, item, onSubmit, sha
         detail: { stopAt: endTimeInSeconds }
       }));
       setMPIsPlaying(true);
+    }
+  }
+
+  const handleDelete = async () => {
+    if (
+      edit_clip_id_text &&
+      window.confirm(tFeatures("clip.delete_clip_confirm"))
+    ) {
+      await apiRequestService.reqClipDelete(edit_clip_id_text);
+      router.push("/clips");
     }
   }
 
@@ -131,6 +147,22 @@ export const ClipForm: React.FC<ClipFormProps> = ({ channel, item, onSubmit, sha
           {tMisc("submit")}
         </Button>
       </div>
+      {
+        edit_clip_id_text && (
+          <div className={styles.bottomSection}>
+            <Divider />
+            <div className={styles.bottomSectionButtons}>
+              <Button
+                variant="danger"
+                type="button"
+                onClick={handleDelete}
+              >
+                {tFeatures("clip.delete_clip")}
+              </Button>
+            </div>
+          </div>
+        )
+      }
     </Form>
   )
 

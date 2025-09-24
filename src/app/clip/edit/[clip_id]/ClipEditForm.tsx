@@ -62,6 +62,7 @@ export const ClipEditForm: React.FC<ClipEditFormProps> = ({ ssrClip }) => {
       onSubmit={onSubmit}
       onCancel={onCancel}
       isUpdating={isUpdating}
+      edit_clip_id_text={ssrClip.id_text}
     />
   );
 };

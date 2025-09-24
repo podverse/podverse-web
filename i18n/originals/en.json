@@ -60,6 +60,7 @@
       "create_clip": "Create Clip",
       "edit_clip": "Edit Clip",
       "delete_clip": "Delete Clip",
+      "delete_clip_confirm": "Are you sure you want to delete this clip?",
       "my_clips": "My Clips",
       "clip_created": "Clip Created",
       "clip_updated": "Clip Updated",
