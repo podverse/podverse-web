@@ -18,6 +18,7 @@ import AuthSessionChecker from '../components/Auth/AuthSessionChecker';
 import { apiRequestService } from '../factories/apiRequestService';
 import { config } from '../config';
 import { MediaPlayerController } from '../components/MediaPlayer/Controller/MediaPlayerController';
+import { Toast } from '../components/Toast/Toast';
 
 export const metadata = {
   title: `${config.private.brand.name || config.public.brand.name}`,
@@ -65,6 +66,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             <Modals />
           </WindowWrapper>
           <MediaPlayerController />
+          <Toast />
         </Providers>
       </body>
     </html>
