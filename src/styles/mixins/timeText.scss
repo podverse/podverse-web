@@ -1,0 +1,5 @@
+@mixin time-text-row() {
+  font-weight: var(--font-weight-light);
+  font-size: var(--font-size-sm);
+  color: var(--text-color-link);
+}

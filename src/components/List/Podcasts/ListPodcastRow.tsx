@@ -1,6 +1,6 @@
 "use client";
 
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import Link from "next/link";
 import { DTOChannel, findDTOChannelImageBySize, formatDateAbbrev } from "podverse-helpers";
 import React from "react";
@@ -17,6 +17,7 @@ const ListPodcastRow: React.FC<Props> = ({ channel }) => {
   const url = `${ROUTES.PODCAST}/${channel.id_text}`;
   const channel_image = findDTOChannelImageBySize(channel.channel_images, IMAGES.LIST.PODCASTS.SIZE_FIND_TARGET, 'lesser');
   const tMedia = useTranslations("media");
+  const locale = useLocale();
   
   return (
     <Link href={url} className={styles.link}>
@@ -33,7 +34,7 @@ const ListPodcastRow: React.FC<Props> = ({ channel }) => {
             channel.channel_about?.last_pub_date && (
               <span className={styles.lastPubDate}>
                 {tMedia("last_updated", {
-                  date: formatDateAbbrev(channel.channel_about.last_pub_date)
+                  date: formatDateAbbrev(channel.channel_about.last_pub_date, locale)
                 })}
               </span>
             )

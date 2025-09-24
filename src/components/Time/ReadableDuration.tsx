@@ -3,13 +3,16 @@ import React from "react";
 import styles from "../../styles/components/Time/ReadableDuration.module.scss";
 
 type ReadableDurationProps = {
-  durationInSeconds: string;
+  durationInSeconds: string | null;
 };
 
 export const ReadableDuration: React.FC<ReadableDurationProps> = ({ durationInSeconds }) => {
-  const readableTime = formatSecondsToReadableDuration(durationInSeconds || '0');
+  if (!durationInSeconds) return null;
+
+  const readableTime = formatSecondsToReadableDuration(durationInSeconds);
+  
   return (
-    <div className={styles.readableTime}>
+    <div className={styles.readableDuration}>
       {readableTime}
     </div>
   )

@@ -12,6 +12,7 @@ import { PlayButtonMini } from "../../../MediaPlayer/Buttons/PlayButtonMini";
 import { ReadableDuration } from "../../../Time/ReadableDuration";
 import MoreButton from "../../../MoreButton/MoreButton";
 import { useMediaPlayer } from "../../../../contexts/MediaPlayer";
+import { ReadableDate } from "../../../Time/ReadableDate";
 
 interface Props {
   channel: DTOChannel;
@@ -102,7 +103,11 @@ const ListEpisodeRow: React.FC<Props> = ({ channel, item }) => {
               item={item}
               onClick={playButtonOnClick}
             />
-            <ReadableDuration durationInSeconds={item.item_about.duration || '0'} />
+            <div className={styles.timeSection}>
+              <ReadableDate date={item.pub_date} />
+              <span className={styles.timeSeparator}>•</span>
+              <ReadableDuration durationInSeconds={item.item_about.duration || null} />
+            </div>
           </div>
           <div className={styles.bottomSectionEnd}>
             <MoreButton moreButtonMenuItems={moreButtonMenuItems} />
