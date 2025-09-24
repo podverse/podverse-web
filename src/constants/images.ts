@@ -35,8 +35,8 @@ export const IMAGES = {
       SIZE_FIND_TARGET: 184
     },
     CLIPS: {
-      SIZE: 100,
-      SIZE_FIND_TARGET: 200
+      SIZE: 92,
+      SIZE_FIND_TARGET: 184
     }
   },
   MEDIA_HEADER_MINI: {
