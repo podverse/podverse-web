@@ -29,10 +29,21 @@ const ListEpisodeRow: React.FC<Props> = ({ channel, item }) => {
   const tMediaPlayer = useTranslations("media_player");
   const { setMPChannel, mpItem, setMPItem, setMPClip, mpIsPlaying, setMPIsPlaying } = useMediaPlayer();
 
+  const playButtonOnClick = () => {
+    if (item.id === mpItem?.id) {
+      setMPIsPlaying(!mpIsPlaying);
+    } else {
+      setMPChannel(channel);
+      setMPItem(item);
+      setMPClip(null);
+      setMPIsPlaying(true);
+    }
+  };
+
   const moreButtonMenuItems = [
     {
       label: tMediaPlayer("play"),
-      onClick: () => alert(tMediaPlayer("play"))
+      onClick: playButtonOnClick
     },
     {
       label: tFeatures("queue.queue_next"),
@@ -59,17 +70,6 @@ const ListEpisodeRow: React.FC<Props> = ({ channel, item }) => {
       onClick: () => alert(tFeatures("download.download_episode"))
     }
   ]
-
-  const playButtonOnClick = () => {
-    if (item.id === mpItem?.id) {
-      setMPIsPlaying(!mpIsPlaying);
-    } else {
-      setMPChannel(channel);
-      setMPItem(item);
-      setMPClip(null);
-      setMPIsPlaying(true);
-    }
-  };
 
   return (
     <div className={styles.row}>
