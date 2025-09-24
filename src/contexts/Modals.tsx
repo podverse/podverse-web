@@ -5,7 +5,7 @@ type ModalBasic = {
   isOpen: boolean;
 }
 
-type ModalPlaylistAddTo = {
+export type ModalPlaylistAddToState = {
   channel: DTOChannel | null;
   item: DTOItem | null;
   clip: DTOClip | null;
@@ -27,8 +27,8 @@ type ModalsContextType = {
   setModalLogin: (val: ModalBasic) => void;
   modalSignUp: ModalBasic;
   setModalSignUp: (val: ModalBasic) => void;
-  modalPlaylistAddTo: ModalPlaylistAddTo;
-  setModalPlaylistAddTo: (val: ModalPlaylistAddTo) => void;
+  modalPlaylistAddTo: ModalPlaylistAddToState;
+  setModalPlaylistAddTo: (val: ModalPlaylistAddToState) => void;
   modalClip: ModalClip;
   setModalClip: (val: ModalClip) => void;
   modalClipCreated: ModalClipCreated;
@@ -57,7 +57,7 @@ const defaultModalClipCreated = {
 export const ModalsProvider = ({ children }: { children: ReactNode }) => {
   const [modalLogin, setModalLogin] = useState<ModalBasic>({ isOpen: false })
   const [modalSignUp, setModalSignUp] = useState<ModalBasic>({ isOpen: false })
-  const [modalPlaylistAddTo, setModalPlaylistAddTo] = useState<ModalPlaylistAddTo>(defaultModalPlaylistAddTo)
+  const [modalPlaylistAddTo, setModalPlaylistAddTo] = useState<ModalPlaylistAddToState>(defaultModalPlaylistAddTo)
   const [modalClip, setModalClip] = useState<ModalClip>(defaultModalClip)
   const [modalClipCreated, setModalClipCreated] = useState<ModalClipCreated>(defaultModalClipCreated)
 

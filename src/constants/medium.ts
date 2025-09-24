@@ -7,18 +7,18 @@ export const MEDIUM = {
     { label: tMedia("music.music"), param: "medium", value: `${MediumEnum.Music}` },
     { label: tMedia("mixed"), param: "medium", value: `${MediumEnum.Mixed}` },
   ],
-  buttonTabs: (mediumId: number, tMedia: any, setMediumId: (id: number) => void) => {
+  buttonTabs: (mediumId: number, tMedia: any, onClick: (id: number) => void) => {
     if (mediumId === MediumEnum.Video) {
       return [
         {
           key: MediumEnum.Video,
           label: tMedia("video.videos"),
-          onClick: () => setMediumId(MediumEnum.Video)
+          onClick: () => onClick(MediumEnum.Video)
         },
         {
           key: MediumEnum.Mixed,
           label: tMedia("mixed"),
-          onClick: () => setMediumId(MediumEnum.Mixed)
+          onClick: () => onClick(MediumEnum.Mixed)
         },
       ];
     } else if (mediumId === MediumEnum.Music) {
@@ -26,12 +26,12 @@ export const MEDIUM = {
         {
           key: MediumEnum.Music,
           label: tMedia("music.music"),
-          onClick: () => setMediumId(MediumEnum.Music)
+          onClick: () => onClick(MediumEnum.Music)
         },
         {
           key: MediumEnum.Mixed,
           label: tMedia("mixed"),
-          onClick: () => setMediumId(MediumEnum.Mixed)
+          onClick: () => onClick(MediumEnum.Mixed)
         },
       ];
     } else {
@@ -39,12 +39,12 @@ export const MEDIUM = {
         {
           key: MediumEnum.Podcast,
           label: tMedia("podcast.podcasts"),
-          onClick: () => setMediumId(MediumEnum.Podcast)
+          onClick: () => onClick(MediumEnum.Podcast)
         },
         {
           key: MediumEnum.Mixed,
           label: tMedia("mixed"),
-          onClick: () => setMediumId(MediumEnum.Mixed)
+          onClick: () => onClick(MediumEnum.Mixed)
         }
       ];
     }
