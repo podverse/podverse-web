@@ -89,7 +89,10 @@
     "unsubscribe": "Unsubscribe",
     "share": "Share",
     "download": {
-      "download_episode": "Download Episode"
+      "download_episode": "Download Episode",
+      "downloading_episode": "Downloading Episode",
+      "episode_downloaded": "Episode Downloaded",
+      "download_error": "Error Downloading Episode"
     }
   },
   "info": {

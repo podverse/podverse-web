@@ -2,7 +2,8 @@
 
 import { useTranslations } from "next-intl";
 import Link from "next/link";
-import { DTOChannel, DTOItem, findDTOChannelImageBySize, findDTOItemImageBySize, stripAndDecodeHtml } from "podverse-helpers";
+import { DTOChannel, DTOItem, findDTOChannelImageBySize, findDTOItemImageBySize,
+  getSelectedItemEnclosureUrl, stripAndDecodeHtml } from "podverse-helpers";
 import React from "react";
 import Image from "../../../Image/Image";
 import { ROUTES } from "../../../../constants/routes";
@@ -18,7 +19,8 @@ import { useModals } from "../../../../contexts/Modals";
 import { getQueueForMedium } from "../../../../utils/queue";
 import { useQueues } from "../../../../contexts/Queue";
 import { apiRequestService } from "../../../../factories/apiRequestService";
-import { showToastPromise } from "../../../Toast/Toast";
+import { showToastPromise, showToastPromiseWithLoading } from "../../../Toast/Toast";
+import { downloadAndSaveFile } from "../../../../utils/fileDownloader";
 
 interface Props {
   channel: DTOChannel;
@@ -101,6 +103,20 @@ const ListEpisodeRow: React.FC<Props> = ({ channel, item }) => {
     }
   }
 
+  const downloadEpisode = async () => {
+    const selectedItemEnclosureUrl = getSelectedItemEnclosureUrl(item.item_enclosures);
+    if (selectedItemEnclosureUrl) {
+      showToastPromiseWithLoading(
+        downloadAndSaveFile(selectedItemEnclosureUrl, item.title || 'episode.mp3'),
+        {
+          loading: tFeatures("download.downloading_episode"),
+          success: tFeatures("download.episode_downloaded"),
+          error: tFeatures("download.download_error")
+        }
+      )
+    }
+  }
+
   const moreButtonMenuItems = [
     {
       label: tMediaPlayer("play"),
@@ -124,7 +140,7 @@ const ListEpisodeRow: React.FC<Props> = ({ channel, item }) => {
     },
     {
       label: tFeatures("download.download_episode"),
-      onClick: () => alert(tFeatures("download.download_episode"))
+      onClick: downloadEpisode
     }
   ]
 
