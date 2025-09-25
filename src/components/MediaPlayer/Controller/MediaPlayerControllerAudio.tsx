@@ -11,6 +11,7 @@ let globalPauseAtTime: number | null = null;
 export const MediaPlayerControllerAudio: React.FC = () => {
   const audioRef = useRef<HTMLAudioElement>(null);
   const {
+    mpClip,
     mpItem,
     mpIsPlaying,
     mpPlaybackSpeed,
@@ -18,26 +19,15 @@ export const MediaPlayerControllerAudio: React.FC = () => {
     mpIsMuted,
     setMPCurrentTime,
     setMPIsPlaying,
-    setMPDuration
+    setMPDuration,
+    setMPClip
   } = useMediaPlayer();
-
-  const selectedItemEnclosureUrl = getSelectedItemEnclosureUrl(mpItem?.item_enclosures ?? []);
-
+  // ...existing code...
+  const mpClipRef = useRef<typeof mpClip>(null);
   useEffect(() => {
-    const audio = audioRef.current;
-    if (audio && selectedItemEnclosureUrl) {
-      const isAudioFile = getMediaTypeFromSource(selectedItemEnclosureUrl) === "audio";
-      if (isAudioFile) {
-        audio.load();
-        audio.play().catch(() => {});
-      } else {
-        audio.pause();
-        audio.removeAttribute("src");
-        audio.load();
-      }
-    }
-  }, [selectedItemEnclosureUrl]);
-
+    mpClipRef.current = mpClip;
+  }, [mpClip]);
+  
   useEffect(() => {
     const handleSeek = (e: Event) => {
       const customEvent = e as CustomEvent<{ time: number }>;
@@ -87,48 +77,23 @@ export const MediaPlayerControllerAudio: React.FC = () => {
     };
   }, []);
 
-  useMediaPlayerAudioEffects({
-    audioRef,
-    mpIsPlaying,
-    mpPlaybackSpeed,
-    mpVolume,
-    mpIsMuted,
-    setMPCurrentTime,
-    setMPIsPlaying,
-    setMPDuration
-  });
+  const selectedItemEnclosureUrl = getSelectedItemEnclosureUrl(mpItem?.item_enclosures ?? []);
 
-  return (
-    <audio
-      ref={audioRef}
-      src={selectedItemEnclosureUrl}
-      preload="auto"
-      style={{ display: "none" }}
-    />
-  );
-};
-
-interface MediaPlayerAudioEffectsProps {
-  audioRef: React.RefObject<HTMLAudioElement | null>;
-  mpIsPlaying: boolean;
-  mpPlaybackSpeed: number;
-  mpVolume: number;
-  mpIsMuted: boolean;
-  setMPCurrentTime: (time: number) => void;
-  setMPIsPlaying: (isPlaying: boolean) => void;
-  setMPDuration: (duration: number) => void;
-}
-
-function useMediaPlayerAudioEffects({
-  audioRef,
-  mpIsPlaying,
-  mpPlaybackSpeed,
-  mpVolume,
-  mpIsMuted,
-  setMPCurrentTime,
-  setMPIsPlaying,
-  setMPDuration
-}: MediaPlayerAudioEffectsProps): void {
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (audio && selectedItemEnclosureUrl) {
+      const isAudioFile = getMediaTypeFromSource(selectedItemEnclosureUrl) === "audio";
+      if (isAudioFile) {
+        audio.load();
+        audio.play().catch(() => {});
+      } else {
+        audio.pause();
+        audio.removeAttribute("src");
+        audio.load();
+      }
+    }
+  }, [selectedItemEnclosureUrl]);
+  
   // Time update and metadata loaded
   useEffect(() => {    
     const audio = audioRef?.current;
@@ -136,9 +101,19 @@ function useMediaPlayerAudioEffects({
 
     const handleTimeUpdate = () => {
       setMPCurrentTime(audio.currentTime);
+
       if (globalPauseAtTime !== null && audio.currentTime >= globalPauseAtTime) {
         setMPIsPlaying(false);
         globalPauseAtTime = null;
+      }
+
+      const clip = mpClipRef.current;
+      if (clip && clip.end_time) {
+        const endTimeNum = typeof clip.end_time === "string" ? parseFloat(clip.end_time) : clip.end_time;
+        const endTimeNumAdjusted = endTimeNum + 1;
+        if (!isNaN(endTimeNumAdjusted) && audio.currentTime >= endTimeNumAdjusted) {
+          setMPClip(null);
+        }
       }
     };
 
@@ -184,4 +159,25 @@ function useMediaPlayerAudioEffects({
     if (!audio) return;
     audio.playbackRate = mpPlaybackSpeed;
   }, [mpPlaybackSpeed]);
-}
+
+  useEffect(() => {
+    if (mpClip && audioRef.current) {
+      const audio = audioRef.current;
+      audio.currentTime = Number(mpClip.start_time);
+      audio.play();
+
+      if (mpClip.end_time) {
+        globalPauseAtTime = Number(mpClip.end_time);
+      }
+    }
+  }, [mpClip]);
+
+  return (
+    <audio
+      ref={audioRef}
+      src={selectedItemEnclosureUrl}
+      preload="auto"
+      style={{ display: "none" }}
+    />
+  );
+};
