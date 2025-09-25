@@ -19,6 +19,7 @@ import { getQueueForMedium } from "../../../utils/queue";
 import { useQueues } from "../../../contexts/Queue";
 import { showToastPromise } from "../../Toast/Toast";
 import { apiRequestService } from "../../../factories/apiRequestService";
+import { useModals } from "../../../contexts/Modals";
 
 interface Props {
   channel?: DTOChannel | null;
@@ -43,6 +44,7 @@ export const ListClipRow: React.FC<Props> = ({ channel, item, clip }) => {
   const tMisc = useTranslations("misc");
   const { setMPChannel, mpClip, setMPItem, setMPClip, mpIsPlaying, setMPIsPlaying } = useMediaPlayer();
   const { loggedInAccount } = useAccount();
+  const { setModalPlaylistAddTo } = useModals();
   const { queues } = useQueues();
 
   const clipTitle = clip.title || tMisc("untitled");
@@ -90,6 +92,16 @@ export const ListClipRow: React.FC<Props> = ({ channel, item, clip }) => {
     }
   };
 
+  const addToPlaylistOnClick = () => {
+    setModalPlaylistAddTo({
+      channel: channel || clip.item?.channel || null,
+      item: item || clip.item,
+      clip: clip,
+      item_chapter: null,
+      item_soundbite: null
+    });
+  }
+
   const moreButtonMenuItems = [
     {
       label: tMediaPlayer("play"),
@@ -105,7 +117,7 @@ export const ListClipRow: React.FC<Props> = ({ channel, item, clip }) => {
     },
     {
       label: tFeatures("playlist.add_to_playlist"),
-      onClick: () => alert(tFeatures("playlist.add_to_playlist"))
+      onClick: addToPlaylistOnClick
     }
   ]
 

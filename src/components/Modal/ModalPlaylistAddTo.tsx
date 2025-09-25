@@ -96,7 +96,13 @@ export const ModalPlaylistAddTo: React.FC = () => {
   const onClick = async (playlist: DTOPlaylist) => {
     const { item, clip, item_chapter, item_soundbite } = modalPlaylistAddTo;
     if (clip) {
-      alert("Add clip to playlist");
+      showToastPromise(
+        apiRequestService.reqPlaylistResourceClipAddFirst(playlist.id_text, clip.id_text),
+        {
+          success: tFeatures("playlist.added_to_playlist"),
+          error: tFeatures("playlist.add_error")
+        }
+      );
     } else if (item_chapter) {
       alert("Add item_chapter to playlist");
     } else if (item_soundbite) {
