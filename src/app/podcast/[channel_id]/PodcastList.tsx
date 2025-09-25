@@ -41,6 +41,7 @@ const PodcastList: React.FC<PodcastListProps> = ({ podroll }) => {
             page={page}
             setPage={(page) => setFilterParams({ ...filterParams, page })}
             clips={clips}
+            channel={channel}
             totalPages={totalPages}
             showSubscribeMessage={showSubscribeMessage}
           />
