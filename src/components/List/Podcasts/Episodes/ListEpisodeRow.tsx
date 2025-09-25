@@ -83,6 +83,24 @@ const ListEpisodeRow: React.FC<Props> = ({ channel, item }) => {
     }
   }
 
+  const markAsPlayedOnClick = async () => {
+    const queue = getQueueForMedium(queues, channel.medium_id);
+    if (queue) {
+      showToastPromise(
+        apiRequestService.reqQueueResourceItemAddHistory(
+          queue.id_text,
+          item.id_text, {
+            completed: true
+          }
+        ),
+        {
+          success: tFeatures("history.marked_as_played"),
+          error: tFeatures("history.mark_as_played_error")
+        }
+      );
+    }
+  }
+
   const moreButtonMenuItems = [
     {
       label: tMediaPlayer("play"),
@@ -102,7 +120,7 @@ const ListEpisodeRow: React.FC<Props> = ({ channel, item }) => {
     },
     {
       label: tFeatures("history.mark_as_played"),
-      onClick: () => alert(tFeatures("history.mark_as_played"))
+      onClick: markAsPlayedOnClick
     },
     {
       label: tFeatures("download.download_episode"),

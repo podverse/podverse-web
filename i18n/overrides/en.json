@@ -40,7 +40,9 @@
     "history": {
       "history": "History",
       "delete_history": "Delete History",
-      "mark_as_played": "Mark as Played"
+      "mark_as_played": "Mark as Played",
+      "marked_as_played": "Marked as Played",
+      "mark_as_played_error": "Error marking as played"
     },
     "playlist": {
       "playlist": "Playlist",
