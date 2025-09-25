@@ -49,16 +49,6 @@ const ListEpisodeRow: React.FC<Props> = ({ channel, item }) => {
     }
   };
 
-  const addToPlaylistOnClick = () => {
-    setModalPlaylistAddTo({
-      channel: channel,
-      item: item,
-      clip: null,
-      item_chapter: null,
-      item_soundbite: null
-    });
-  }
-
   const addToQueueNextOnClick = async () => {
     const queue = getQueueForMedium(queues, channel.medium_id);
     if (queue) {
@@ -83,6 +73,16 @@ const ListEpisodeRow: React.FC<Props> = ({ channel, item }) => {
         }
       );
     }
+  }
+
+  const addToPlaylistOnClick = () => {
+    setModalPlaylistAddTo({
+      channel: channel,
+      item: item,
+      clip: null,
+      item_chapter: null,
+      item_soundbite: null
+    });
   }
 
   const markAsPlayedOnClick = async () => {
