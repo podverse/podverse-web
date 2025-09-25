@@ -2,7 +2,7 @@
 
 import React, { useRef, useEffect } from "react";
 import { useMediaPlayer } from "../../../contexts/MediaPlayer";
-import { getSelectedItemEnclosureUrl } from "podverse-helpers";
+import { getMediaTypeFromSource, getSelectedItemEnclosureUrl } from "podverse-helpers";
 import { EVENTS } from "../../../constants/events";
 
 // Track the stopAt time for conditional pausing
@@ -26,8 +26,15 @@ export const MediaPlayerControllerAudio: React.FC = () => {
   useEffect(() => {
     const audio = audioRef.current;
     if (audio && selectedItemEnclosureUrl) {
-      audio.load();
-      audio.play().catch(() => {});
+      const isAudioFile = getMediaTypeFromSource(selectedItemEnclosureUrl) === "audio";
+      if (isAudioFile) {
+        audio.load();
+        audio.play().catch(() => {});
+      } else {
+        audio.pause();
+        audio.removeAttribute("src");
+        audio.load();
+      }
     }
   }, [selectedItemEnclosureUrl]);
 
