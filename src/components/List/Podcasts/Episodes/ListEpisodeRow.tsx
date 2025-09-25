@@ -15,6 +15,10 @@ import { useMediaPlayer } from "../../../../contexts/MediaPlayer";
 import { ReadableDate } from "../../../Time/ReadableDate";
 import { TimeSeparator } from "../../../Time/TimeSeparator";
 import { useModals } from "../../../../contexts/Modals";
+import { getQueueForMedium } from "../../../../utils/queue";
+import { useQueues } from "../../../../contexts/Queue";
+import { apiRequestService } from "../../../../factories/apiRequestService";
+import { showToastPromise } from "../../../Toast/Toast";
 
 interface Props {
   channel: DTOChannel;
@@ -28,6 +32,7 @@ const ListEpisodeRow: React.FC<Props> = ({ channel, item }) => {
   const tFeatures = useTranslations("features");
   const tMedia = useTranslations("media");
   const tMediaPlayer = useTranslations("media_player");
+  const { queues } = useQueues();
   const { setMPChannel, mpItem, setMPItem, setMPClip, mpIsPlaying, setMPIsPlaying } = useMediaPlayer();
   const { setModalPlaylistAddTo } = useModals();
 
@@ -52,6 +57,32 @@ const ListEpisodeRow: React.FC<Props> = ({ channel, item }) => {
     });
   }
 
+  const addToQueueNextOnClick = async () => {
+    const queue = getQueueForMedium(queues, channel.medium_id);
+    if (queue) {
+      showToastPromise(
+        apiRequestService.reqQueueResourceItemAddNext(queue.id_text, item.id_text),
+        {
+          success: tFeatures("queue.added_to_queue"),
+          error: tFeatures("queue.add_error")
+        }
+      );
+    }
+  }
+
+  const addToQueueLastOnClick = async () => {
+    const queue = getQueueForMedium(queues, channel.medium_id);
+    if (queue) {
+      showToastPromise(
+        apiRequestService.reqQueueResourceItemAddLast(queue.id_text, item.id_text),
+        {
+          success: tFeatures("queue.added_to_queue"),
+          error: tFeatures("queue.add_error")
+        }
+      );
+    }
+  }
+
   const moreButtonMenuItems = [
     {
       label: tMediaPlayer("play"),
@@ -59,11 +90,11 @@ const ListEpisodeRow: React.FC<Props> = ({ channel, item }) => {
     },
     {
       label: tFeatures("queue.queue_next"),
-      onClick: () => alert(tFeatures("queue.queue_next"))
+      onClick: addToQueueNextOnClick
     },
     {
       label: tFeatures("queue.queue_last"),
-      onClick: () => alert(tFeatures("queue.queue_last"))
+      onClick: addToQueueLastOnClick
     },
     {
       label: tFeatures("playlist.add_to_playlist"),

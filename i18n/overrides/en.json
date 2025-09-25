@@ -33,7 +33,9 @@
     "queue": {
       "queue": "Queue",
       "queue_next": "Queue: Next",
-      "queue_last": "Queue: Last"
+      "queue_last": "Queue: Last",
+      "added_to_queue": "Added to Queue",
+      "add_error": "Error adding to Queue"
     },
     "history": {
       "history": "History",
