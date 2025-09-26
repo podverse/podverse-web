@@ -51,6 +51,12 @@ export const IMAGES = {
         SIZE: 76,
         SIZE_FIND_TARGET: 152
       }
+    },
+    MOBILE: {
+      MINI: {
+        SIZE: 40,
+        SIZE_FIND_TARGET: 80
+      }
     }
   },
   PEOPLE: {

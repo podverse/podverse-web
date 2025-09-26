@@ -1,0 +1,20 @@
+@use "breakpoints";
+
+.playerMobile {
+  flex: 1;
+  position: relative;
+  height: var(--media-player-height-mobile);
+}
+
+.infoSection {
+  display: flex;
+  padding: 0.75rem;
+  flex: 1;
+  box-sizing: border-box;
+}
+
+@media (min-width: breakpoints.$breakpoint-lg-min) {
+  .playerMobile {
+    display: none;
+  }
+}

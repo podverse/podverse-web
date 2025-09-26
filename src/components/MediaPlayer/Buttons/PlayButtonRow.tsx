@@ -1,16 +1,16 @@
 import { useTranslations } from "next-intl";
 import { FaPause, FaPlay } from "react-icons/fa6";
 import { useMediaPlayer } from "../../../contexts/MediaPlayer";
-import styles from "../../../styles/components/MediaPlayer/Buttons/PlayButtonMini.module.scss"
+import styles from "../../../styles/components/MediaPlayer/Buttons/PlayButtonRow.module.scss"
 import { DTOClip, DTOItem } from "podverse-helpers";
 
-type PlayButtonMiniProps = {
+type PlayButtonRowProps = {
   clip?: DTOClip;
   item: DTOItem;
   onClick: () => void;
 }
 
-export const PlayButtonMini: React.FC<PlayButtonMiniProps> = ({ clip, item, onClick }) => {
+export const PlayButtonRow: React.FC<PlayButtonRowProps> = ({ clip, item, onClick }) => {
   const { mpIsPlaying, mpItem, mpClip } = useMediaPlayer();
   const tMediaPlayer = useTranslations("media_player");
   
@@ -27,7 +27,7 @@ export const PlayButtonMini: React.FC<PlayButtonMiniProps> = ({ clip, item, onCl
 
   return (
     <button
-      className={styles.playButtonMini}
+      className={styles.playButtonRow}
       aria-label={label}
       onClick={onClick}
       type="button">

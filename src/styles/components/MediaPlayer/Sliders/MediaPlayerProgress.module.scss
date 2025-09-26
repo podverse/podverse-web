@@ -1,3 +1,5 @@
+@use "breakpoints";
+
 .mediaPlayerProgress {
   display: flex;
   align-items: center;
@@ -55,4 +57,14 @@
   height: 2rem;
   top: -0.625rem;
   background-color: var(--progress-bar-highlighted);
+}
+
+@media (max-width: breakpoints.$breakpoint-md-max) {
+  .mediaPlayerProgressTime, .mediaPlayerProgressDuration {
+    display: none;
+  }
+
+  .mediaPlayerProgress {
+    width: 100%;
+  }
 }

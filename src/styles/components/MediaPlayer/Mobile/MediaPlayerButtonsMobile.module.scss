@@ -1,0 +1,6 @@
+@use "../../../variables/breakpoints" as *;
+
+.buttons {
+  display: flex;
+  gap: 0.125rem;
+}

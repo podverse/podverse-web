@@ -1,0 +1,20 @@
+@use '../../../mixins/lineClamp' as *;
+
+.marquee {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: var(--media-player-height-top-section-negative);
+  height: var(--media-player-height-top-section);
+  background-color: var(--background-color-special);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-light);
+  padding: 0 2rem;
+}
+
+.marqueeText {
+  @include line-clamp(1);
+}

@@ -1,0 +1,30 @@
+@use "breakpoints";
+
+#sidebar.media-player-active {
+  min-height: calc(100vh - var(--media-player-height-mobile) - var(--navbar-mobile-height));
+  height: calc(100vh - var(--media-player-height-mobile) - var(--navbar-mobile-height));
+}
+
+#page-wrapper.media-player-active {
+  min-height: calc(100vh - var(--media-player-height-mobile));
+  height: calc(100vh - var(--media-player-height-mobile));
+}
+
+@media (min-width: breakpoints.$breakpoint-md-min) {
+  #sidebar.media-player-active {
+    min-height: calc(100vh - var(--media-player-height-mobile));
+    height: calc(100vh - var(--media-player-height-mobile));
+  }
+}
+
+@media (min-width: breakpoints.$breakpoint-lg-min) {
+  #sidebar.media-player-active {
+    min-height: calc(100vh - var(--media-player-height));
+    height: calc(100vh - var(--media-player-height));
+  }
+
+  #page-wrapper.media-player-active {
+    min-height: calc(100vh - var(--media-player-height));
+    height: calc(100vh - var(--media-player-height));
+  }
+}

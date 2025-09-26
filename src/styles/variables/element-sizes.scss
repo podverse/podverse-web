@@ -4,8 +4,10 @@
   --main-wrapper-desktop-height: calc(100vh - var(--navbar-desktop-height) - var(--header-desktop-height));
   --navbar-mobile-height: 48px;
   --sidebar-desktop-width: 12rem; // 192px
+  --sidebar-mobile-width: 16rem; // 256px
   --button-border-size: 1.5px;
   --media-player-height: 100px;
+  --media-player-height-mobile: 90px;
   --media-player-height-top-section: 28px;
   --media-player-height-top-section-negative: -28px;
   --form-max-width: 460px;

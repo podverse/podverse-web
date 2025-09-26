@@ -8,7 +8,7 @@ import Image from "../../Image/Image";
 import { ROUTES } from "../../../constants/routes";
 import styles from "../../../styles/components/List/Clips/ListClipRow.module.scss";
 import { IMAGES } from "../../../constants/images";
-import { PlayButtonMini } from "../../MediaPlayer/Buttons/PlayButtonMini";
+import { PlayButtonRow } from "../../MediaPlayer/Buttons/PlayButtonRow";
 import MoreButton from "../../MoreButton/MoreButton";
 import { useMediaPlayer } from "../../../contexts/MediaPlayer";
 import { ReadableDate } from "../../Time/ReadableDate";
@@ -156,7 +156,7 @@ export const ListClipRow: React.FC<Props> = ({ channel, item, clip }) => {
         </Link>
         <div className={styles.bottomSection}>
           <div className={styles.bottomSectionStart}>
-            <PlayButtonMini
+            <PlayButtonRow
               clip={clip}
               item={item || clip.item}
               onClick={playButtonOnClick}

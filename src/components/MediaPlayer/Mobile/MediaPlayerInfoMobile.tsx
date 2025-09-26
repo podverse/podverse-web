@@ -5,9 +5,9 @@ import { findDTOChannelImageBySize, findDTOItemImageBySize } from "podverse-help
 import Image from "../../Image/Image";
 import { IMAGES } from "../../../constants/images";
 import { useMediaPlayer } from "../../../contexts/MediaPlayer";
-import styles from "../../../styles/components/MediaPlayer/Desktop/MediaPlayerInfoDesktop.module.scss";
+import styles from "../../../styles/components/MediaPlayer/Mobile/MediaPlayerInfoMobile.module.scss";
 
-export const MediaPlayerInfoDesktop: React.FC = () => {
+export const MediaPlayerInfoMobile: React.FC = () => {
   const { mpChannel, mpItem } = useMediaPlayer();
   const tMediaPlayer = useTranslations("media_player");
   const tMisc = useTranslations("misc");
@@ -15,8 +15,8 @@ export const MediaPlayerInfoDesktop: React.FC = () => {
   const title = mpItem?.title || tMisc("untitled");
   const subtitle = mpChannel?.title || tMisc("untitled");
 
-  const channel_image = findDTOChannelImageBySize(mpChannel?.channel_images, IMAGES.MEDIA_PLAYER.DESKTOP.MINI.SIZE_FIND_TARGET, 'greater');
-  const item_image = findDTOItemImageBySize(mpItem?.item_images, IMAGES.MEDIA_PLAYER.DESKTOP.MINI.SIZE_FIND_TARGET, 'greater');
+  const channel_image = findDTOChannelImageBySize(mpChannel?.channel_images, IMAGES.MEDIA_PLAYER.MOBILE.MINI.SIZE_FIND_TARGET, 'greater');
+  const item_image = findDTOItemImageBySize(mpItem?.item_images, IMAGES.MEDIA_PLAYER.MOBILE.MINI.SIZE_FIND_TARGET, 'greater');
   const imageUrl = item_image?.url || channel_image?.url || undefined;
 
   return (
@@ -26,8 +26,8 @@ export const MediaPlayerInfoDesktop: React.FC = () => {
         aria-description={tMediaPlayer("show_fullscreen_media_player")}>
         <Image
           src={imageUrl}
-          height={IMAGES.MEDIA_PLAYER.DESKTOP.MINI.SIZE}
-          width={IMAGES.MEDIA_PLAYER.DESKTOP.MINI.SIZE}
+          height={IMAGES.MEDIA_PLAYER.MOBILE.MINI.SIZE}
+          width={IMAGES.MEDIA_PLAYER.MOBILE.MINI.SIZE}
           alt={tMediaPlayer("media_player_image")}
         />
         <div className={styles.textSection}>

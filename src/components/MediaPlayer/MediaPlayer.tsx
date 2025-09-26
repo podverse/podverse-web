@@ -3,6 +3,7 @@
 import { useMediaPlayer } from "../../contexts/MediaPlayer";
 import styles from "../../styles/components/MediaPlayer/MediaPlayer.module.scss";
 import { MediaPlayerDesktop } from "./Desktop/MediaPlayerDesktop";
+import { MediaPlayerMobile } from "./Mobile/MediaPlayerMobile";
 
 export const MediaPlayer = () => {
   const { mpChannel } = useMediaPlayer();
@@ -15,6 +16,7 @@ export const MediaPlayer = () => {
   return (
     <aside className={styles.player}>
       <MediaPlayerDesktop />
+      <MediaPlayerMobile />
     </aside>
   )
 }

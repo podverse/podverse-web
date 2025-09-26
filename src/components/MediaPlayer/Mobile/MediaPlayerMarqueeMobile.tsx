@@ -2,9 +2,9 @@
 
 import { useTranslations } from "next-intl";
 import { useMediaPlayer } from "../../../contexts/MediaPlayer";
-import styles from "../../../styles/components/MediaPlayer/Desktop/MediaPlayerMarqueeDesktop.module.scss";
+import styles from "../../../styles/components/MediaPlayer/Mobile/MediaPlayerMarqueeMobile.module.scss";
 
-export const MediaPlayerMarqueeDesktop = () => {
+export const MediaPlayerMarqueeMobile = () => {
   const tMisc = useTranslations("misc");
   const { mpClip, mpItemChapter, mpItemSoundbite } = useMediaPlayer();
 

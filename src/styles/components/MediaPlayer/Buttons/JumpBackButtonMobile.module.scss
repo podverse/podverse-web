@@ -1,0 +1,5 @@
+@use '../../../mixins/buttons.scss' as *;
+
+.jumpBackButtonMobile {
+  @include mediaPlayerButtonMobile;
+}

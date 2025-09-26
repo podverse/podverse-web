@@ -9,7 +9,7 @@ import Image from "../../../Image/Image";
 import { ROUTES } from "../../../../constants/routes";
 import styles from "../../../../styles/components/List/Podcasts/Episodes/ListEpisodeRow.module.scss";
 import { IMAGES } from "../../../../constants/images";
-import { PlayButtonMini } from "../../../MediaPlayer/Buttons/PlayButtonMini";
+import { PlayButtonRow } from "../../../MediaPlayer/Buttons/PlayButtonRow";
 import { ReadableDuration } from "../../../Time/ReadableDuration";
 import MoreButton from "../../../MoreButton/MoreButton";
 import { useMediaPlayer } from "../../../../contexts/MediaPlayer";
@@ -172,7 +172,7 @@ const ListEpisodeRow: React.FC<Props> = ({ channel, item }) => {
         </Link>
         <div className={styles.bottomSection}>
           <div className={styles.bottomSectionStart}>
-            <PlayButtonMini
+            <PlayButtonRow
               item={item}
               onClick={playButtonOnClick}
             />
