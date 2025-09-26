@@ -8,26 +8,26 @@
 
 .startSection {
   display: flex;
-  height: 36px;
+  height: 24px;
   align-items: center;
   justify-content: center;
-  gap: 1.25rem;
+  gap: 1.75rem;
 }
 
 .startSection > button {
-  height: 36px;
-  width: 36px;
+  height: 24px;
+  width: 24px;
   font-size: var(--font-size-md);
 }
 
 .endSection {
   display: flex;
-  height: 36px;
+  height: 24px;
   align-items: center;
 }
 
 .endSection > button {
-  height: 36px;
-  width: 36px;
+  height: 24px;
+  width: 24px;
   font-size: var(--font-size-md);
 }

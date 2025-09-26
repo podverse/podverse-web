@@ -8,7 +8,7 @@ import { useMediaPlayer } from "../../../contexts/MediaPlayer";
 import styles from "../../../styles/components/MediaPlayer/Mobile/MediaPlayerInfoMobile.module.scss";
 
 export const MediaPlayerInfoMobile: React.FC = () => {
-  const { mpChannel, mpItem } = useMediaPlayer();
+  const { mpChannel, mpItem, setPlayerModalIsOpen } = useMediaPlayer();
   const tMediaPlayer = useTranslations("media_player");
   const tMisc = useTranslations("misc");
 
@@ -23,7 +23,9 @@ export const MediaPlayerInfoMobile: React.FC = () => {
     <div className={styles.info}>
       <button
         className={styles.button}
-        aria-description={tMediaPlayer("show_fullscreen_media_player")}>
+        aria-description={tMediaPlayer("show_fullscreen_media_player")}
+        type="button"
+        onClick={() => setPlayerModalIsOpen(true)}>
         <Image
           src={imageUrl}
           height={IMAGES.MEDIA_PLAYER.MOBILE.MINI.SIZE}
