@@ -37,13 +37,13 @@ export const MediaHeaderMini: React.FC<MediaHeaderMiniProps> = ({ channel, item,
       <Image
         className={styles.image}
         src={image_url}
-        alt={channel.title || ''}
+        alt={`${title} - ${subtitle}`}
         width={IMAGES.MEDIA_HEADER_MINI.SQUARE.SIZE}
         height={IMAGES.MEDIA_HEADER_MINI.SQUARE.SIZE}
       />
       <div className={styles.textSection}>
-        <div className={styles.title}>{channel.title}</div>
-        {item && <div className={styles.subtitle}>{item.title}</div>}
+        <div className={styles.title}>{title}</div>
+        {item && <div className={styles.subtitle}>{subtitle}</div>}
       </div>
     </header>
   )
