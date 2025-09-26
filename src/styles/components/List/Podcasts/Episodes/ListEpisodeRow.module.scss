@@ -52,6 +52,7 @@
 
 .timeSection {
   display: flex;
+  @include time-text-row();
 }
 
 .bottomSectionEnd {

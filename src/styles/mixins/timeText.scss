@@ -1,4 +1,7 @@
+@use './lineClamp' as *;
+
 @mixin time-text-row() {
+  @include line-clamp(1);
   font-weight: var(--font-weight-light);
   font-size: var(--font-size-sm);
   color: var(--text-color-link);

@@ -1,5 +1,0 @@
-@use '../../mixins/timeText' as *;
-
-.readableDuration {
-  @include time-text-row();
-}

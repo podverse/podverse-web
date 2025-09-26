@@ -14,7 +14,6 @@ import { ReadableDuration } from "../../../Time/ReadableDuration";
 import MoreButton from "../../../MoreButton/MoreButton";
 import { useMediaPlayer } from "../../../../contexts/MediaPlayer";
 import { ReadableDate } from "../../../Time/ReadableDate";
-import { TimeSeparator } from "../../../Time/TimeSeparator";
 import { useModals } from "../../../../contexts/Modals";
 import { getQueueForMedium } from "../../../../utils/queue";
 import { useQueues } from "../../../../contexts/Queue";
@@ -179,7 +178,7 @@ const ListEpisodeRow: React.FC<Props> = ({ channel, item }) => {
             />
             <div className={styles.timeSection}>
               <ReadableDate date={item.pub_date} />
-              <TimeSeparator />
+              {" • "}
               <ReadableDuration durationInSeconds={item.item_about.duration || null} />
             </div>
           </div>

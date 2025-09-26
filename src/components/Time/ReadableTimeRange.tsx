@@ -3,7 +3,6 @@
 import { useTranslations } from "next-intl";
 import { formatHHMMSS } from "podverse-helpers";
 import React from "react";
-import styles from "../../styles/components/Time/ReadableDuration.module.scss";
 
 type ReadableTimeRangeProps = {
   startTime: string;
@@ -18,9 +17,8 @@ export const ReadableTimeRange: React.FC<ReadableTimeRangeProps> = ({ startTime,
   const readableStartTime = formatHHMMSS(Number(startTime));
   const readableEndTime = endTime ? formatHHMMSS(Number(endTime)) : null;
 
-  return (
-    <div className={styles.readableDuration}>
-      {tFeatures("clip.clip_time_range", { hhmmssStart: readableStartTime, hhmmssEnd: readableEndTime ?? "" })}
-    </div>
-  )
+  return tFeatures("clip.clip_time_range", {
+    hhmmssStart: readableStartTime,
+    hhmmssEnd: readableEndTime ?? ""
+  });
 }

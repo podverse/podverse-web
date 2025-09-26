@@ -1,4 +1,5 @@
 @use '../../../mixins/lineClamp' as *;
+@use '../../../mixins/timeText' as *;
 @use 'breakpoints';
 
 .row {
@@ -54,6 +55,7 @@
 
 .timeSection {
   display: flex;
+  @include time-text-row();
 }
 
 .bottomSectionEnd {

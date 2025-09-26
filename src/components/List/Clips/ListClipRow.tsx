@@ -12,7 +12,6 @@ import { PlayButtonMini } from "../../MediaPlayer/Buttons/PlayButtonMini";
 import MoreButton from "../../MoreButton/MoreButton";
 import { useMediaPlayer } from "../../../contexts/MediaPlayer";
 import { ReadableDate } from "../../Time/ReadableDate";
-import { TimeSeparator } from "../../Time/TimeSeparator";
 import { ReadableTimeRange } from "../../Time/ReadableTimeRange";
 import { useAccount } from "../../../contexts/Account";
 import { getQueueForMedium } from "../../../utils/queue";
@@ -164,7 +163,7 @@ export const ListClipRow: React.FC<Props> = ({ channel, item, clip }) => {
             />
             <div className={styles.timeSection}>
               <ReadableDate date={itemPubDate} />
-              <TimeSeparator />
+              {" • "}
               <ReadableTimeRange
                 startTime={clip.start_time}
                 endTime={clip.end_time} />

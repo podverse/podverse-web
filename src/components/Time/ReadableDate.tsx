@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import styles from "../../styles/components/Time/ReadableDate.module.scss";
 import { formatDateAbbrev } from "podverse-helpers";
 import { useLocale, useTranslations } from "next-intl";
 
@@ -14,9 +13,5 @@ export const ReadableDate: React.FC<ReadableDateProps> = ({ date }) => {
   const tMisc = useTranslations("misc");
   const readableDate = date ? formatDateAbbrev(date, locale) : tMisc("unknown_date");
 
-  return (
-    <div className={styles.readableDate}>
-      {readableDate}
-    </div>
-  )
+  return readableDate;
 }
