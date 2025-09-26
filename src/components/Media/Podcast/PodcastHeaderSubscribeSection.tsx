@@ -5,7 +5,7 @@ import { DTOChannel } from "podverse-helpers";
 import { Button } from "../../../components/Button/Button"
 import { useAccount } from "../../../contexts/Account";
 import { apiRequestService } from "../../../factories/apiRequestService";
-import styles from "../../../styles/app/podcast/PodcastHeaderSubscribeSection.module.scss";
+import styles from "../../../styles/components/Media/Podcast/PodcastHeaderSubscribeSection.module.scss";
 
 type PodcastHeaderSubscribeSectionProps = {
   channel: DTOChannel;

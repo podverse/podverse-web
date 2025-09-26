@@ -3,11 +3,11 @@ import React from "react";
 import MainWrapper from "../../../components/Main/MainWrapper";
 import { PodcastContextProvider } from "./PodcastContext";
 import PodcastListHeader from "./PodcastListHeader";
-import PodcastHeader from "./PodcastHeader";
 import PodcastList from "./PodcastList";
 import { MainInnerWrapper } from "../../../components/Main/MainInnerWrapper";
 import { MainInnerContentWrapper } from "../../../components/Main/MainInnerContentWrapper";
 import { PodcastSideContent } from "./PodcastSideContent";
+import { PodcastHeader } from "../../../components/Media/Podcast/PodcastHeader";
 
 interface PodcastClientProps {
   initialQueryParams: QueryParamsChannel;

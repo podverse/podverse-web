@@ -4,7 +4,7 @@ import { useTranslations } from "next-intl";
 import { DTOChannel, findDTOChannelImageBySize } from "podverse-helpers";
 import Image from "../../../components/Image/Image";
 import { IMAGES } from "../../../constants/images";
-import styles from "../../../styles/app/podcast/PodcastHeaderImage.module.scss";
+import styles from "../../../styles/components/Media/Podcast/PodcastHeaderImage.module.scss";
 
 type PodcastHeaderImageProps = {
   channel: DTOChannel;

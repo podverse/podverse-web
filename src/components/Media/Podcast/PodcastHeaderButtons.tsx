@@ -5,8 +5,8 @@ import { DTOChannel, DTOClip, DTOItem, DTOItemChapter, DTOItemSoundbite } from "
 import React from "react";
 import { FaCircleDollarToSlot, FaCommentDollar, FaGlobe, FaRss, FaShare } from "react-icons/fa6";
 import Link from "../../../components/Link/Link";
-import styles from "../../../styles/app/podcast/PodcastHeaderButtons.module.scss";
 import { useModals } from "../../../contexts/Modals";
+import styles from "../../../styles/components/Media/Podcast/PodcastHeaderButtons.module.scss";
 
 type PodcastHeaderButtonsProps = {
   channel: DTOChannel;
