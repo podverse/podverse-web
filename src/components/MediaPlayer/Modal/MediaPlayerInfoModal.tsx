@@ -14,8 +14,6 @@ export const MediaPlayerInfoModal: React.FC = () => {
   const channel_image = findDTOChannelImageBySize(mpChannel?.channel_images, 'largest');
   const item_image = findDTOItemImageBySize(mpItem?.item_images, 'largest');
   const imageUrl = item_image?.url || channel_image?.url || undefined;
-  
-  const subtitle = mpClip?.title || tMisc("untitled");
 
   return (
     <div className={styles.info}>
@@ -26,12 +24,12 @@ export const MediaPlayerInfoModal: React.FC = () => {
           alt={tMediaPlayer("media_player_image")}
         />
       </div>
-      <div className={styles.textSection}>
+      <div className={styles.subtitleSection}>
         {
           mpClip && (
             <>
               <div className={styles.subtitle}>
-                {subtitle}
+                {mpClip?.title || tMisc("untitled")}
               </div>
               <div className={styles.timeRange}>
                 <ReadableTimeRange
@@ -41,6 +39,14 @@ export const MediaPlayerInfoModal: React.FC = () => {
             </>
           )
         }
+      </div>
+      <div className={styles.titleSection}>
+        <div className={styles.itemTitle}>
+          {mpItem?.title || tMisc("untitled")}
+        </div>
+        <div className={styles.channelTitle}>
+          {mpChannel?.title || tMisc("untitled")}
+        </div>
       </div>
     </div>
   )

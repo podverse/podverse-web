@@ -21,7 +21,7 @@
   display: block;
 }
 
-.textSection {
+.subtitleSection {
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
@@ -39,5 +39,23 @@
   font-size: var(--font-size-sm);
   color: var(--text-color-link);
   margin-top: 0.5rem;
+  @include line-clamp(1);
+}
+
+.titleSection {
+  max-width: 700px;
+  margin-top: 2rem;
+}
+
+.itemTitle {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-light);
+  @include line-clamp(1);
+}
+
+.channelTitle {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-light);
+  color: var(--text-color-accent);
   @include line-clamp(1);
 }
