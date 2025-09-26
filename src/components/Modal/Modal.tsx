@@ -28,7 +28,8 @@ export const Modal = ({
     ...(contentTransparent ? {
       background: 'transparent',
       height: '100%',
-      minHeight: '100%'
+      minHeight: '100%',
+      justifyContent: 'center'
     } : {}),
   };
 
