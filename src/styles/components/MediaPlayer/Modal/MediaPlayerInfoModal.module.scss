@@ -7,7 +7,25 @@
   min-height: 0;
 }
 
+.titleSection {
+  text-align: center;
+}
+
+.itemTitle {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-light);
+  @include line-clamp(1);
+}
+
+.channelTitle {
+  font-weight: var(--font-weight-light);
+  color: var(--text-color-accent);
+  @include line-clamp(1);
+  margin-top: 0.25rem;
+}
+
 .imageWrapper {
+  margin-top: 1.25rem;
   flex: 1 1 0;
   position: relative;
   min-height: 0;
@@ -31,6 +49,7 @@
 
 .subtitle {
   font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-light);
   margin-top: 1rem;
   @include line-clamp(1);
 }
@@ -39,23 +58,5 @@
   font-size: var(--font-size-sm);
   color: var(--text-color-link);
   margin-top: 0.5rem;
-  @include line-clamp(1);
-}
-
-.titleSection {
-  max-width: 700px;
-  margin-top: 2rem;
-}
-
-.itemTitle {
-  font-size: var(--font-size-2xl);
-  font-weight: var(--font-weight-light);
-  @include line-clamp(1);
-}
-
-.channelTitle {
-  font-size: var(--font-size-lg);
-  font-weight: var(--font-weight-light);
-  color: var(--text-color-accent);
   @include line-clamp(1);
 }

@@ -1,0 +1,33 @@
+@use "../../../variables/breakpoints" as *;
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1.25rem;
+}
+
+.startSection {
+  display: flex;
+  height: 36px;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+}
+
+.startSection > button {
+  height: 36px;
+  width: 36px;
+  font-size: var(--font-size-md);
+}
+
+.endSection {
+  display: flex;
+  height: 36px;
+  align-items: center;
+}
+
+.endSection > button {
+  height: 36px;
+  width: 36px;
+  font-size: var(--font-size-md);
+}

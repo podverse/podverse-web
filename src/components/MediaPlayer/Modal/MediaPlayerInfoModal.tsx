@@ -17,6 +17,14 @@ export const MediaPlayerInfoModal: React.FC = () => {
 
   return (
     <div className={styles.info}>
+      <div className={styles.titleSection}>
+        <div className={styles.itemTitle}>
+          {mpItem?.title || tMisc("untitled")}
+        </div>
+        <div className={styles.channelTitle}>
+          {mpChannel?.title || tMisc("untitled")}
+        </div>
+      </div>
       <div className={styles.imageWrapper}>
         <img
           className={styles.image}
@@ -39,14 +47,6 @@ export const MediaPlayerInfoModal: React.FC = () => {
             </>
           )
         }
-      </div>
-      <div className={styles.titleSection}>
-        <div className={styles.itemTitle}>
-          {mpItem?.title || tMisc("untitled")}
-        </div>
-        <div className={styles.channelTitle}>
-          {mpChannel?.title || tMisc("untitled")}
-        </div>
       </div>
     </div>
   )

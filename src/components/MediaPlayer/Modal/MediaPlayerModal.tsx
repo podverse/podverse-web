@@ -6,6 +6,8 @@ import { Modal } from "../../Modal/Modal";
 import { useMediaPlayer } from "../../../contexts/MediaPlayer";
 import { MediaPlayerInfoModal } from "./MediaPlayerInfoModal";
 import styles from "../../../styles/components/MediaPlayer/Modal/MediaPlayerModal.module.scss";
+import { MediaPlayerControlsModal } from "./MediaPlayerControlsModal";
+import { MediaPlayerButtonsModal } from "./MediaPlayerButtonsModal";
 
 export const MediaPlayerModal: React.FC = () => {
   const tMediaPlayer = useTranslations("media_player");
@@ -19,7 +21,11 @@ export const MediaPlayerModal: React.FC = () => {
       contentTransparent
     >
       <div className={styles.mediaPlayerModal}>
-        <MediaPlayerInfoModal />
+        <div className={styles.mediaPlayerModalContent}>
+         <MediaPlayerInfoModal />
+         <MediaPlayerControlsModal />
+         <MediaPlayerButtonsModal />
+        </div>
       </div>
     </Modal>
   );
