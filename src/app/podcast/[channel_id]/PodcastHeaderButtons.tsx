@@ -1,15 +1,19 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { DTOChannel } from "podverse-helpers";
+import { DTOChannel, DTOClip, DTOItem, DTOItemChapter, DTOItemSoundbite } from "podverse-helpers";
 import React from "react";
 import { FaCircleDollarToSlot, FaCommentDollar, FaGlobe, FaRss, FaShare } from "react-icons/fa6";
 import Link from "../../../components/Link/Link";
 import styles from "../../../styles/app/podcast/PodcastHeaderButtons.module.scss";
-import { usePodcastContext } from "./PodcastContext";
+import { useModals } from "../../../contexts/Modals";
 
 type PodcastHeaderButtonsProps = {
   channel: DTOChannel;
+  item?: DTOItem;
+  clip?: DTOClip;
+  item_chapter?: DTOItemChapter;
+  item_soundbite?: DTOItemSoundbite;
 };
 
 const PodcastHeaderButtons: React.FC<PodcastHeaderButtonsProps> = ({ channel }) => {
@@ -18,10 +22,10 @@ const PodcastHeaderButtons: React.FC<PodcastHeaderButtonsProps> = ({ channel }) 
   const tValue = useTranslations("value");
 
   const {
-    setPodcastModalShareIsOpen,
-    setPodcastModalFundingIsOpen,
-    setPodcastModalBoostIsOpen
-  } = usePodcastContext();
+    setModalShare,
+    setModalFunding,
+    setModalBoost
+  } = useModals();
 
   return (
     <div className={styles.buttons}>
@@ -55,7 +59,7 @@ const PodcastHeaderButtons: React.FC<PodcastHeaderButtonsProps> = ({ channel }) 
       }
       <Link
         type="button"
-        onClick={() => setPodcastModalShareIsOpen(true)}
+        onClick={() => setModalShare({ channel })}
         className={styles.button}
         aria-label={tFeatures("share")}
         title={tFeatures("share")}
@@ -66,7 +70,7 @@ const PodcastHeaderButtons: React.FC<PodcastHeaderButtonsProps> = ({ channel }) 
         (channel?.channel_fundings?.length ?? 0) > 0 && (
           <Link
             type="button"
-            onClick={() => setPodcastModalFundingIsOpen(true)}
+            onClick={() => setModalFunding({ channel_fundings: channel.channel_fundings || [], item_fundings: [] })}
             className={styles.button}
             aria-label={tInfo("funding")}
             title={tInfo("funding")}
@@ -79,7 +83,7 @@ const PodcastHeaderButtons: React.FC<PodcastHeaderButtonsProps> = ({ channel }) 
         (channel?.channel_values?.length ?? 0) > 0 && (
           <Link
             type="button"
-            onClick={() => setPodcastModalBoostIsOpen(true)}
+            onClick={() => setModalBoost({ channel })}
             className={styles.buttonGold}
             aria-label={tValue("boost")}
             title={tValue("boost")}

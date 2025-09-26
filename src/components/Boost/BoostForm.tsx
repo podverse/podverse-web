@@ -175,7 +175,10 @@ export const BoostForm: React.FC<BoostFormProps> = ({ className, channel, item }
   const channel_value_recipients = selectedChannelValue?.channel_value_recipients;
   const item_value_recipients = item?.item_values?.[0]?.item_value_recipients;
 
-  if (!channel_value_recipients && !item_value_recipients) {
+  if (
+    (!channel_value_recipients || channel_value_recipients.length === 0)
+    && (!item_value_recipients || item_value_recipients.length === 0)
+  ) {
     return null;
   }
 

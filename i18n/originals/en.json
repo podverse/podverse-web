@@ -14,6 +14,7 @@
       "music": "Music",
       "artist": "Artist",
       "artists": "Artists",
+      "album": "Album",
       "albums": "Albums",
       "track": "Track",
       "tracks": "Tracks"
@@ -105,7 +106,13 @@
       "person_image": "Person Image",
       "link_to_persons_webpage": "Link to Person's Webpage"
     },
-    "podroll": "Podroll"
+    "podroll": "Podroll",
+    "chapter": {
+      "chapter": "Chapter"
+    },
+    "soundbite": {
+      "official_clip": "Official Clip"
+    }
   },
   "media_player": {
     "play": "Play",

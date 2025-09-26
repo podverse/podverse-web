@@ -4,9 +4,6 @@ import MainWrapper from "../../../components/Main/MainWrapper";
 import { PodcastContextProvider } from "./PodcastContext";
 import PodcastListHeader from "./PodcastListHeader";
 import PodcastHeader from "./PodcastHeader";
-import { PodcastModalShare } from "./PodcastModalShare";
-import { PodcastModalFunding } from "./PodcastModalFunding";
-import { PodcastModalBoost } from "./PodcastModalBoost";
 import PodcastList from "./PodcastList";
 import { MainInnerWrapper } from "../../../components/Main/MainInnerWrapper";
 import { MainInnerContentWrapper } from "../../../components/Main/MainInnerContentWrapper";
@@ -47,9 +44,6 @@ export default function PodcastClient(props: PodcastClientProps) {
           </MainInnerContentWrapper>
         </MainInnerWrapper>
       </MainWrapper>
-      <PodcastModalShare channel={ssrChannel} />
-      <PodcastModalFunding channel={ssrChannel} />
-      <PodcastModalBoost channel={ssrChannel} />
     </PodcastContextProvider>
   );
 }

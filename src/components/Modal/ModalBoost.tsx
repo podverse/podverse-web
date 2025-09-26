@@ -1,39 +1,29 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { DTOChannel, DTOItem } from "podverse-helpers";
 import React from "react";
 import { Modal } from "./Modal";
 import { BoostForm } from "../Boost/BoostForm";
+import { useModals } from "../../contexts/Modals";
 
-type ModalBoostProps = {
-  isOpen: boolean;
-  onClose: () => void;
-  channel: DTOChannel;
-  item?: DTOItem;
-};
-
-export const ModalBoost: React.FC<ModalBoostProps> = ({
-  isOpen,
-  onClose,
-  channel,
-  item
-}) => {
-  if (!isOpen) return null;
-  
+export const ModalBoost: React.FC = () => {
+  const { modalBoost, setModalBoost } = useModals();
   const tValue = useTranslations("value");
   const header = tValue("boost");
+  
+  if (!modalBoost.channel) return null;
+  const isOpen = !!modalBoost.channel;
 
   return (
     <Modal
       isOpen={isOpen}
-      onClose={onClose}
+      onClose={() => setModalBoost({})}
       header={header}
       ariaLabel={header}
       modalContentMaxWidth={500}>
       <BoostForm
-        channel={channel}
-        item={item}
+        channel={modalBoost.channel}
+        item={modalBoost.item}
       />
     </Modal>
   );

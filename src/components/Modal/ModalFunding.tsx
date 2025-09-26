@@ -1,38 +1,31 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { DTOChannelFunding, DTOItemFunding } from "podverse-helpers";
 import React from "react";
 import { Modal } from "./Modal";
 import Link from "../Link/Link";
 import styles from "../../styles/components/Modal/ModalFunding.module.scss";
+import { useModals } from "../../contexts/Modals";
 
-type ModalFundingProps = {
-  isOpen: boolean;
-  onClose: () => void;
-  channel_fundings?: DTOChannelFunding[];
-  item_fundings?: DTOItemFunding[];
-};
-
-export const ModalFunding: React.FC<ModalFundingProps> = ({
-  isOpen,
-  onClose,
-  channel_fundings,
-  item_fundings
-}) => {
-  if (!isOpen) return null;
+export const ModalFunding: React.FC = () => {
   const tInfo = useTranslations("info");
   const header = tInfo("funding");
+  const { modalFunding, setModalFunding } = useModals();
 
+  const isOpen = (
+    (modalFunding.channel_fundings && modalFunding.channel_fundings.length > 0)
+    || (modalFunding.item_fundings && modalFunding.item_fundings.length > 0)
+  );
+  
   return (
     <Modal
       isOpen={isOpen}
-      onClose={onClose}
+      onClose={() => setModalFunding({ channel_fundings: [], item_fundings: [] })}
       header={header}
       ariaLabel={header}
       modalContentMaxWidth={420}>
       <ul className={styles.fundingLinksList}>
-        {channel_fundings?.map((channel_funding, idx) => (
+        {modalFunding.channel_fundings?.map((channel_funding, idx) => (
           <li key={idx} className={styles.fundingLinkItem}>
             <Link
               href={channel_funding.url}
@@ -44,7 +37,7 @@ export const ModalFunding: React.FC<ModalFundingProps> = ({
             </Link>
           </li>
         ))}
-        {item_fundings?.map((item_funding, idx) => (
+        {modalFunding.item_fundings?.map((item_funding, idx) => (
           <li key={idx} className={styles.fundingLinkItem}>
             <Link
               href={item_funding.url}

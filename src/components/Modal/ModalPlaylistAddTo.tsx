@@ -20,7 +20,10 @@ type FilterParams = {
   page: number;
 }
 
-const getCurrentMediumId = (filterParams: FilterParams, modalPlaylistAddTo: ModalPlaylistAddToState) => {
+const getCurrentMediumId = (
+  filterParams: FilterParams,
+  modalPlaylistAddTo: ModalPlaylistAddToState
+) => {
   return filterParams.mediumId
     || modalPlaylistAddTo?.channel?.medium_id
     || MediumEnum.Podcast;
