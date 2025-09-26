@@ -111,6 +111,7 @@
     "play": "Play",
     "pause": "Pause",
     "show_fullscreen_media_player": "Show the fullscreen media player",
+    "fullscreen_media_player": "Fullscreen media player",
     "media_player_image": "Media player image",
     "playback_speed": {
       "playback_speed": "Playback Speed",
