@@ -25,6 +25,8 @@ type MediaPlayerContextType = {
   setMPCurrentTime: (val: number) => void;
   mpDuration: number;
   setMPDuration: (val: number) => void;
+  playerModalIsOpen: boolean;
+  setPlayerModalIsOpen: (val: boolean) => void;
 };
 
 export const MediaPlayerContext = createContext<MediaPlayerContextType | undefined>(undefined);
@@ -45,6 +47,7 @@ export const MediaPlayerProvider = ({ children }: MediaPlayerProviderProps) => {
   const [mpVolume, setMPVolume] = useState<number>(1.0);
   const [mpCurrentTime, setMPCurrentTime] = useState<number>(0);
   const [mpDuration, setMPDuration] = useState<number>(0);
+  const [playerModalIsOpen, setPlayerModalIsOpen] = useState<boolean>(false);
 
   useEffect(() => {
     updateLayoutForMediaPlayer(!!mpChannel);
@@ -62,7 +65,8 @@ export const MediaPlayerProvider = ({ children }: MediaPlayerProviderProps) => {
       mpIsMuted, setMPIsMuted,
       mpVolume, setMPVolume,
       mpCurrentTime, setMPCurrentTime,
-      mpDuration, setMPDuration
+      mpDuration, setMPDuration,
+      playerModalIsOpen, setPlayerModalIsOpen
     }}>
       {children}
     </MediaPlayerContext.Provider>

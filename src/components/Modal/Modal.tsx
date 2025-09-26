@@ -9,6 +9,7 @@ type ModalProps = {
   children: ReactNode
   header?: string
   modalContentMaxWidth?: number
+  contentTransparent?: boolean
 }
 
 export const Modal = ({
@@ -17,13 +18,23 @@ export const Modal = ({
   ariaLabel,
   children,
   header,
-  modalContentMaxWidth
+  modalContentMaxWidth,
+  contentTransparent,
 }: ModalProps) => {
   if (!isOpen) return null
 
-  const modalContentStyle = modalContentMaxWidth
-    ? { maxWidth: modalContentMaxWidth }
-    : undefined
+  const modalContentStyle: React.CSSProperties = {
+    ...(modalContentMaxWidth ? { maxWidth: modalContentMaxWidth } : {}),
+    ...(contentTransparent ? {
+      background: 'transparent',
+      height: '100%',
+      minHeight: '100%'
+    } : {}),
+  };
+
+  const modalChildrenStyle: React.CSSProperties = {
+    ...(contentTransparent ? { marginTop: 0 } : {})
+  };
 
   return (
     <div
@@ -71,12 +82,12 @@ export const Modal = ({
             onClick={onClose}
             aria-label="Close modal"
             className={styles.modalCloseButton}
-            style={{ position: 'absolute', top: 8, right: 8 }}
+            style={{ position: 'absolute', top: "1rem", right: "1rem" }}
           >
             <FaTimes />
           </button>
         )}
-        <div className={styles.modalChildren}>
+        <div className={styles.modalChildren} style={modalChildrenStyle}>
           {children}
         </div>
       </div>

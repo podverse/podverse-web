@@ -45,6 +45,7 @@
   border-radius: var(--border-radius-round);
   align-items: center;
   justify-content: center;
+  z-index: 1000;
 }
 
 .modalChildren {
@@ -57,11 +58,10 @@
   background: var(--background-color-primary);
   border-radius: var(--border-radius);
   z-index: 1;
-  padding: 1.5rem 1.5rem 2rem 1.5rem;
+  padding: 1.5rem;
   display: flex;
   flex-direction: column;
   min-width: 360px;
-  max-width: 360px;
   width: 100%;
   max-height: calc(100vh - 3rem);
   overflow-y: auto;

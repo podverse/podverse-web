@@ -33,6 +33,8 @@ type ModalsContextType = {
   setModalClip: (val: ModalClip) => void;
   modalClipCreated: ModalClipCreated;
   setModalClipCreated: (val: ModalClipCreated) => void;
+  modalMediaPlayerIsOpen: boolean;
+  setModalMediaPlayerIsOpen: (val: boolean) => void;
 }
 
 const ModalsContext = createContext<ModalsContextType | undefined>(undefined)
@@ -60,6 +62,7 @@ export const ModalsProvider = ({ children }: { children: ReactNode }) => {
   const [modalPlaylistAddTo, setModalPlaylistAddTo] = useState<ModalPlaylistAddToState>(defaultModalPlaylistAddTo)
   const [modalClip, setModalClip] = useState<ModalClip>(defaultModalClip)
   const [modalClipCreated, setModalClipCreated] = useState<ModalClipCreated>(defaultModalClipCreated)
+  const [modalMediaPlayerIsOpen, setModalMediaPlayerIsOpen] = useState<boolean>(false)
 
   return (
     <ModalsContext.Provider value={{
@@ -67,7 +70,8 @@ export const ModalsProvider = ({ children }: { children: ReactNode }) => {
       modalSignUp, setModalSignUp,
       modalPlaylistAddTo, setModalPlaylistAddTo,
       modalClip, setModalClip,
-      modalClipCreated, setModalClipCreated
+      modalClipCreated, setModalClipCreated,
+      modalMediaPlayerIsOpen, setModalMediaPlayerIsOpen
     }}>
       {children}
     </ModalsContext.Provider>
