@@ -5,7 +5,7 @@ import { IncrementForwardButton } from "../MediaPlayer/Buttons/IncrementForwardB
 import { JumpBackButton } from "../MediaPlayer/Buttons/JumpBackButton";
 import { JumpForwardButton } from "../MediaPlayer/Buttons/JumpForwardButton";
 import { PlayButton } from "../MediaPlayer/Buttons/PlayButton";
-import { MediaPlayerProgressDesktop } from "../MediaPlayer/Desktop/MediaPlayerProgressDesktop";
+import { MediaPlayerProgress } from "../MediaPlayer/Sliders/MediaPlayerProgress";
 import styles from "../../styles/components/Clip/ClipEditorPlayer.module.scss";
 
 type ClipEditorPlayerProps = {
@@ -24,7 +24,7 @@ export const ClipEditorPlayer = ({ startTime, endTime }: ClipEditorPlayerProps) 
         <JumpForwardButton />
       </div>
       <div className={styles.bottomSection}>
-        <MediaPlayerProgressDesktop
+        <MediaPlayerProgress
           isClipForm
           overrideHighlightStartTime={startTime}
           overrideHighlightEndTime={endTime}

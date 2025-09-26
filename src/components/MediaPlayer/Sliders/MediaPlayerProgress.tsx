@@ -1,18 +1,18 @@
 "use client";
 
+import { DTOClip, formatHHMMSS } from "podverse-helpers";
 import React, { useRef } from "react";
-import styles from "../../../styles/components/MediaPlayer/Desktop/MediaPlayerProgressDesktop.module.scss";
 import { useMediaPlayer } from "../../../contexts/MediaPlayer";
 import { EVENTS } from "../../../constants/events";
-import { DTOClip, formatHHMMSS } from "podverse-helpers";
+import styles from "../../../styles/components/MediaPlayer/Sliders/MediaPlayerProgress.module.scss";
 
-type MediaPlayerProgressDesktopProps = {
+type MediaPlayerProgressProps = {
   isClipForm?: boolean;
   overrideHighlightStartTime?: number | null;
   overrideHighlightEndTime?: number | null;
 };
 
-export const MediaPlayerProgressDesktop: React.FC<MediaPlayerProgressDesktopProps> = ({
+export const MediaPlayerProgress: React.FC<MediaPlayerProgressProps> = ({
   isClipForm, overrideHighlightStartTime, overrideHighlightEndTime }) => {
   const { mpClip, mpCurrentTime, mpDuration } = useMediaPlayer();
   const barRef = useRef<HTMLDivElement>(null);

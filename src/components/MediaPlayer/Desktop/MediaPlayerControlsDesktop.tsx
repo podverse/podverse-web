@@ -5,7 +5,7 @@ import { JumpBackButton } from "../Buttons/JumpBackButton";
 import { JumpForwardButton } from "../Buttons/JumpForwardButton";
 import { TrackPreviousButton } from "../Buttons/TrackPreviousButton";
 import { TrackNextButton } from "../Buttons/TrackNextButton";
-import { MediaPlayerProgressDesktop } from "./MediaPlayerProgressDesktop";
+import { MediaPlayerProgress } from "../Sliders/MediaPlayerProgress";
 import styles from "../../../styles/components/MediaPlayer/Desktop/MediaPlayerControlsDesktop.module.scss";
 
 export const MediaPlayerControlsDesktop = () => {
@@ -19,7 +19,7 @@ export const MediaPlayerControlsDesktop = () => {
         <TrackNextButton />
       </div>
       <div className={styles.bottomSection}>
-        <MediaPlayerProgressDesktop />
+        <MediaPlayerProgress />
       </div>
     </div>
   )
