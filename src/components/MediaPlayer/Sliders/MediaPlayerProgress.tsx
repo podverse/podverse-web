@@ -10,10 +10,12 @@ type MediaPlayerProgressProps = {
   isClipForm?: boolean;
   overrideHighlightStartTime?: number | null;
   overrideHighlightEndTime?: number | null;
+  includeMobileTime?: boolean;
 };
 
 export const MediaPlayerProgress: React.FC<MediaPlayerProgressProps> = ({
-  isClipForm, overrideHighlightStartTime, overrideHighlightEndTime }) => {
+  isClipForm, overrideHighlightStartTime, overrideHighlightEndTime, includeMobileTime
+}) => {
   const { mpClip, mpCurrentTime, mpDuration } = useMediaPlayer();
   const barRef = useRef<HTMLDivElement>(null);
   const progress = mpDuration > 0 ? mpCurrentTime / mpDuration : 0;
@@ -93,6 +95,14 @@ export const MediaPlayerProgress: React.FC<MediaPlayerProgressProps> = ({
         }
       </div>
       <span className={styles.mediaPlayerProgressDuration}>{formatHHMMSS(mpDuration)}</span>
+      {
+        includeMobileTime && (
+          <div className={styles.mobileTimeWrapper}>
+            <span className={styles.mediaPlayerProgressTimeMobile}>{formatHHMMSS(mpCurrentTime)}</span>
+            <span className={styles.mediaPlayerProgressDurationMobile}>{formatHHMMSS(mpDuration)}</span>
+          </div>
+        )
+      }
     </div>
   );
 };

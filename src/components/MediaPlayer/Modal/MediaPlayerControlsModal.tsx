@@ -12,7 +12,7 @@ export const MediaPlayerControlsModal = () => {
   return (
     <div className={styles.controls}>
       <div className={styles.progressSection}>
-        <MediaPlayerProgress />
+        <MediaPlayerProgress includeMobileTime />
       </div>
       <div className={styles.butttonsSection}>
         <TrackPreviousButton />

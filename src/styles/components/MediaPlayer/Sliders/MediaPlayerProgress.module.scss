@@ -8,16 +8,16 @@
   margin-bottom: 0.125rem;
 }
 
-.mediaPlayerProgressTime {
+.mediaPlayerProgressTime, .mediaPlayerProgressTimeMobile {
   color: var(--text-color-primary);
-  font-size: var(--font-size-xs);
+  font-size: var(--font-size-sm);
   min-width: 40px;
   text-align: right;
 }
 
-.mediaPlayerProgressDuration {
+.mediaPlayerProgressDuration, .mediaPlayerProgressDurationMobile {
   color: var(--text-color-primary);
-  font-size: var(--font-size-xs);
+  font-size: var(--font-size-sm);
   min-width: 40px;
   text-align: left;
 }
@@ -32,6 +32,7 @@
   position: relative;
   outline: none;
   border: none;
+  width: 100%;
 }
 
 .customProgressBarInner {
@@ -60,11 +61,39 @@
 }
 
 @media (max-width: breakpoints.$breakpoint-md-max) {
+  .mediaPlayerProgress {
+    flex: 1;
+    flex-direction: column;
+  }
+
   .mediaPlayerProgressTime, .mediaPlayerProgressDuration {
     display: none;
   }
 
   .mediaPlayerProgress {
     width: 100%;
+  }
+
+  .mobileTimeWrapper {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 0.5rem;
+  }
+
+  .mediaPlayerProgressTimeMobile {
+    display: flex;
+    justify-content: flex-start;
+  }
+  
+  .mediaPlayerProgressDurationMobile {
+    display: flex;
+    justify-content: flex-end;
+  }
+}
+
+@media (min-width: breakpoints.$breakpoint-lg-min) {
+  .mobileTimeWrapper {
+    display: none;
   }
 }

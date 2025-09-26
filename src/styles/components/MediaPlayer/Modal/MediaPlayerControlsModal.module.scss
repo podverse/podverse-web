@@ -1,4 +1,4 @@
-@use "../../../variables/breakpoints" as *;
+@use "breakpoints";
 
 .controls {
   display: flex;
@@ -25,10 +25,16 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  margin-top: 2rem;
+  margin-top: 1rem;
 }
 
 .butttonsSection > button {
   height: 2rem;
   width: 2rem;
+}
+
+@media (min-width: breakpoints.$breakpoint-lg-min) {
+  .butttonsSection {
+    margin-top: 2rem;
+  }
 }
