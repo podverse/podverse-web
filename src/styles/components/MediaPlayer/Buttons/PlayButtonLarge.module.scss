@@ -1,4 +1,4 @@
-.playButtonLarge {
+.playButtonHeader {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -6,7 +6,7 @@
   background: var(--button-opaque-bg);
   border: var(--button-border-size) solid var(--border-color-primary);
   border-radius: var(--border-radius-round);
-  height: 3.375rem !important;
-  width: 3.375rem !important;
+  height: 3rem !important;
+  width: 3rem !important;
   font-size: var(--font-size-lg);
 }

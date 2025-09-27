@@ -30,7 +30,7 @@ export function EpisodeClient(props: EpisodeClientProps) {
         <MainInnerWrapper>
           <SideContent />
           <MainInnerContentWrapper>
-            <EpisodeHeader item={ssrItem} />
+            <EpisodeHeader item={ssrItem} channel={ssrChannel} />
             <EpisodeListHeader />
             <EpisodeList />
           </MainInnerContentWrapper>

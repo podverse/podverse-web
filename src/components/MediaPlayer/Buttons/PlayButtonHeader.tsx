@@ -4,13 +4,13 @@ import { useMediaPlayer } from "../../../contexts/MediaPlayer";
 import styles from "../../../styles/components/MediaPlayer/Buttons/PlayButtonLarge.module.scss"
 import { DTOClip, DTOItem } from "podverse-helpers";
 
-type PlayButtonLargeProps = {
+type PlayButtonHeaderProps = {
   clip?: DTOClip;
   item: DTOItem;
   onClick: () => void;
 }
 
-export const PlayButtonLarge: React.FC<PlayButtonLargeProps> = ({ clip, item, onClick }) => {
+export const PlayButtonHeader: React.FC<PlayButtonHeaderProps> = ({ clip, item, onClick }) => {
   const { mpIsPlaying, mpItem, mpClip } = useMediaPlayer();
   const tMediaPlayer = useTranslations("media_player");
   
@@ -27,7 +27,7 @@ export const PlayButtonLarge: React.FC<PlayButtonLargeProps> = ({ clip, item, on
 
   return (
     <button
-      className={styles.playButtonLarge}
+      className={styles.playButtonHeader}
       aria-label={label}
       onClick={onClick}
       type="button">
