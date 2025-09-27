@@ -101,7 +101,10 @@
     "website": "Website",
     "rss_feed": "RSS Feed",
     "about": "About",
-    "summary": "Summary",
+    "summary": {
+      "summary": "Summary",
+      "no_summary": "No summary available"
+    },
     "podroll": "Podroll",
     "transcript": "Transcript",
     "credits": "Credits",

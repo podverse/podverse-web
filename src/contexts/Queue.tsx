@@ -2,6 +2,7 @@ import { DTOQueue } from "podverse-helpers";
 import React, { createContext, useState, ReactNode, useEffect } from "react";
 import { useContext } from "react";
 import { apiRequestService } from "../factories/apiRequestService";
+import { useAccount } from "./Account";
 
 type QueuesContextType = {
   queues: DTOQueue[];
@@ -21,9 +22,14 @@ export const QueuesProvider = ({
   children
 }: QueuesProviderProps) => {
   const [queues, setQueues] = useState<DTOQueue[]>([]);
+  const { loggedInAccount } = useAccount();
 
   useEffect(() => {
     (async () => {
+      if (!loggedInAccount) {
+        setQueues([]);
+        return;
+      }
       const data = await apiRequestService.reqQueueGetAllForAccountPrivate();
       setQueues(data);
     })();

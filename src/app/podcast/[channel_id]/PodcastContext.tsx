@@ -11,8 +11,6 @@ import { getPodcastFilterParams } from "./PodcastDropdownConfig";
 interface PodcastContextType {
   filterParams: QueryParamsChannel;
   setFilterParams: (params: QueryParamsChannel) => void;
-  channel: DTOChannel;
-  setChannel: (channel: DTOChannel) => void;
   liveItems: DTOLiveItem[];
   setLiveItems: (liveItems: DTOLiveItem[]) => void;
   items: DTOItem[];
@@ -52,7 +50,6 @@ export const PodcastContextProvider = ({
 }: PodcastContextProviderProps) => {
   const params = useParams();
   const [filterParams, setFilterParams] = useState<QueryParamsChannel>(initialQueryParams);
-  const [channel, setChannel] = useState<DTOChannel>(ssrChannel);
   const [liveItems, setLiveItems] = useState<DTOLiveItem[]>(ssrLiveItems || []);
   const [items, setItems] = useState<DTOItem[]>(ssrItems || []);
   const [clips, setClips] = useState<DTOClip[]>(ssrClips || []);
@@ -131,7 +128,6 @@ export const PodcastContextProvider = ({
     <PodcastContext.Provider value={{
       filterParams,
       setFilterParams,
-      channel, setChannel,
       liveItems, setLiveItems,
       items, setItems,
       clips, setClips,

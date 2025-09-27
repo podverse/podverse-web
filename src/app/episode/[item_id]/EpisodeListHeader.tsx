@@ -58,8 +58,8 @@ export const EpisodeListHeader: React.FC = () => {
   const tabData = [
     {
       key: "summary",
-      label: tInfo("summary"),
-      onClick: () => handleTypeChange("summary"),
+      label: tInfo("summary.summary"),
+      onClick: () => handleTypeChange("summary.summary"),
       zIndex: 5
     },
     {

@@ -2,6 +2,7 @@ import { DTOPlaylist, generatePlaylistFavoritesIndex } from "podverse-helpers";
 import React, { createContext, useState, ReactNode, useEffect } from "react";
 import { useContext } from "react";
 import { apiRequestService } from "../factories/apiRequestService";
+import { useAccount } from "./Account";
 
 type PlaylistsFavoritesContextType = {
   playlistsFavorites: DTOPlaylist[];
@@ -21,12 +22,18 @@ export const PlaylistsFavoritesProvider = ({
   children
 }: PlaylistsFavoritesProviderProps) => {
   const [playlistsFavorites, setPlaylistsFavorites] = useState<DTOPlaylist[]>([]);
+  const { loggedInAccount } = useAccount();
 
   useEffect(() => {
     (async () => {
+      if (!loggedInAccount) {
+        setPlaylistsFavorites([]);
+        return;
+      }
+      
       const data = await apiRequestService.reqPlaylistGetAllFavoritesPrivate();
       console.log("Fetched favorite playlists from API:", data);
-
+      
       const index = generatePlaylistFavoritesIndex(data);
       console.log("Generated playlist favorites index:", index);
     })();

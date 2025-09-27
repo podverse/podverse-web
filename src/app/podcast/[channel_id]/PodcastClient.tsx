@@ -40,7 +40,9 @@ export function PodcastClient(props: PodcastClientProps) {
           />
           <MainInnerContentWrapper>
             <PodcastListHeader />
-            <PodcastList podroll={ssrPodroll} />
+            <PodcastList
+              ssrChannel={ssrChannel}
+              podroll={ssrPodroll} />
           </MainInnerContentWrapper>
         </MainInnerWrapper>
       </MainWrapper>

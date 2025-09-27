@@ -1,6 +1,6 @@
 "use client";
 
-import { DTOPodroll } from "podverse-helpers";
+import { DTOChannel, DTOPodroll } from "podverse-helpers";
 import React from "react";
 import { usePodcastContext } from "./PodcastContext";
 import LoadingSpinnerOverlay from "../../../components/LoadingSpinner/LoadingSpinnerOverlay";
@@ -12,10 +12,11 @@ import { ListClips } from "../../../components/List/Clips/ListClips";
 
 type PodcastListProps = {
   podroll?: DTOPodroll | null;
+  ssrChannel: DTOChannel;
 }
 
-export const PodcastList: React.FC<PodcastListProps> = ({ podroll }) => {
-  const { filterParams, setFilterParams, channel, items, clips, totalPages,
+export const PodcastList: React.FC<PodcastListProps> = ({ podroll, ssrChannel }) => {
+  const { filterParams, setFilterParams, items, clips, totalPages,
     isLoading, showSubscribeMessage } = usePodcastContext();
   const { page = 1 } = filterParams;
 
@@ -28,7 +29,7 @@ export const PodcastList: React.FC<PodcastListProps> = ({ podroll }) => {
           <ListEpisodes
             page={page}
             setPage={(page) => setFilterParams({ ...filterParams, page })}
-            channel={channel}
+            channel={ssrChannel}
             items={items}
             totalPages={totalPages}
             showSubscribeMessage={showSubscribeMessage}
