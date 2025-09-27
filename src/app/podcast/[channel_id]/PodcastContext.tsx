@@ -25,12 +25,6 @@ interface PodcastContextType {
   setIsLoading: (isLoading: boolean) => void;
   showSubscribeMessage: boolean;
   setShowSubscribeMessage: (show: boolean) => void;
-  podcastModalShareIsOpen: boolean;
-  setPodcastModalShareIsOpen: (show: boolean) => void;
-  podcastModalFundingIsOpen: boolean;
-  setPodcastModalFundingIsOpen: (show: boolean) => void;
-  podcastModalBoostIsOpen: boolean;
-  setPodcastModalBoostIsOpen: (show: boolean) => void;
   isCopied: string;
   setIsCopied: (isCopied: string) => void;
 };
@@ -65,9 +59,6 @@ export const PodcastContextProvider = ({
   const [totalPages, setTotalPages] = useState<number>(ssrTotalPages || 1);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [showSubscribeMessage, setShowSubscribeMessage] = useState<boolean>(false);
-  const [podcastModalShareIsOpen, setPodcastModalShareIsOpen] = useState<boolean>(false);
-  const [podcastModalFundingIsOpen, setPodcastModalFundingIsOpen] = useState<boolean>(false);
-  const [podcastModalBoostIsOpen, setPodcastModalBoostIsOpen] = useState<boolean>(false);
   const [isCopied, setIsCopied] = useState<string>("");
   const { loggedInAccount } = useAccount();
   
@@ -147,9 +138,6 @@ export const PodcastContextProvider = ({
       totalPages, setTotalPages,
       isLoading, setIsLoading,
       showSubscribeMessage, setShowSubscribeMessage,
-      podcastModalShareIsOpen, setPodcastModalShareIsOpen,
-      podcastModalFundingIsOpen, setPodcastModalFundingIsOpen,
-      podcastModalBoostIsOpen, setPodcastModalBoostIsOpen,
       isCopied, setIsCopied
     }}>
       {children}

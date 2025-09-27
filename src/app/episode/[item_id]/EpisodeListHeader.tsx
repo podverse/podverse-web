@@ -4,48 +4,47 @@ import { useTranslations } from "next-intl";
 import {
   QueryParamsStatsRange,
   QUERY_PARAMS_STATS_RANGE_VALUES,
-  QueryParamsChannelType,
-  QUERY_PARAMS_CHANNEL_TYPE_VALUES,
-  QueryParamsChannelSort,
-  QUERY_PARAMS_CHANNEL_SORT_VALUES,
+  QueryParamsItemType,
+  QUERY_PARAMS_ITEM_TYPE_VALUES,
+  QueryParamsItemSort,
+  QUERY_PARAMS_ITEM_SORT_VALUES,
 } from "podverse-helpers";
 import React from "react";
 import Dropdown from "../../../components/Dropdown/Dropdown";
 import ListHeader from "../../../components/List/ListHeader";
-import { usePodcastContext } from "./PodcastContext";
-import { getPodcastDropdownConfig } from "./PodcastDropdownConfig";
+import { useEpisodeContext } from "./EpisodeContext";
+import { getEpisodeDropdownConfig } from "./EpisodeDropdownConfig";
 import { Tabs } from "../../../components/Tabs/Tabs";
 
-export const PodcastListHeader: React.FC = () => {
-  const { filterParams, setFilterParams, setTotalPages } = usePodcastContext();
+export const EpisodeListHeader: React.FC = () => {
+  const { filterParams, setFilterParams, setTotalPages } = useEpisodeContext();
   const { type, sort, range } = filterParams;
   const tFilters = useTranslations('filters');
-  const tMedia = useTranslations('media');
   const tInfo = useTranslations('info');
   const tFeatures = useTranslations('features');
 
   const { sortMenuItems, rangeMenuItems, showRangeDropdown
-    } = getPodcastDropdownConfig({ type, sort, tFilters, tMedia });
+    } = getEpisodeDropdownConfig({ sort, tFilters });
 
-  function isChannelType(val: string): val is QueryParamsChannelType {
-    return QUERY_PARAMS_CHANNEL_TYPE_VALUES.includes(val as QueryParamsChannelType);
+  function isItemType(val: string): val is QueryParamsItemType {
+    return QUERY_PARAMS_ITEM_TYPE_VALUES.includes(val as QueryParamsItemType);
   }
-  function isChannelSort(val: string): val is QueryParamsChannelSort {
-    return QUERY_PARAMS_CHANNEL_SORT_VALUES.includes(val as QueryParamsChannelSort);
+  function isItemSort(val: string): val is QueryParamsItemSort {
+    return QUERY_PARAMS_ITEM_SORT_VALUES.includes(val as QueryParamsItemSort);
   }
   function isStatsRange(val: string): val is QueryParamsStatsRange {
     return QUERY_PARAMS_STATS_RANGE_VALUES.includes(val as QueryParamsStatsRange);
   }
 
   const handleTypeChange = (value: string) => {
-    if (isChannelType(value)) {
+    if (isItemType(value)) {
       setFilterParams({ ...filterParams, type: value, page: 1 });
       setTotalPages(1);
     }
   };
 
   const handleSortChange = (value: string) => {
-    if (isChannelSort(value)) {
+    if (isItemSort(value)) {
       setFilterParams({ ...filterParams, sort: value });
     }
   };
@@ -58,35 +57,39 @@ export const PodcastListHeader: React.FC = () => {
 
   const tabData = [
     {
-      key: "episodes",
-      label: tMedia("podcast.episodes"),
-      onClick: () => handleTypeChange("episodes"),
+      key: "summary",
+      label: tInfo("summary"),
+      onClick: () => handleTypeChange("summary"),
+      zIndex: 5
+    },
+    {
+      key: "chapters",
+      label: tInfo("chapter.chapters"),
+      onClick: () => handleTypeChange("chapters"),
       zIndex: 4
+    },
+    {
+      key: "soundbites",
+      label: tInfo("soundbite.official_clips"),
+      onClick: () => handleTypeChange("soundbites"),
+      zIndex: 3
     },
     {
       key: "clips",
       label: tFeatures("clip.clips"),
       onClick: () => handleTypeChange("clips"),
-      zIndex: 3
-    },
-    {
-      key: "about",
-      label: tInfo("about"),
-      onClick: () => handleTypeChange("about"),
-      hideDesktop: true,
       zIndex: 2
     },
     {
-      key: "podroll",
-      label: tInfo("podroll"),
-      onClick: () => handleTypeChange("podroll"),
-      hideDesktop: true,
+      key: "transcript",
+      label: tInfo("transcript"),
+      onClick: () => handleTypeChange("transcript"),
       zIndex: 1
     }
   ]
 
   let filterDropdowns: React.ReactNode[] = [];
-  if (type === "episodes" || type === "clips") {
+  if (type === "soundbites" || type === "clips") {
     filterDropdowns = [
       <Dropdown
         key="sort"

@@ -14,7 +14,7 @@ type PodcastListProps = {
   podroll?: DTOPodroll | null;
 }
 
-const PodcastList: React.FC<PodcastListProps> = ({ podroll }) => {
+export const PodcastList: React.FC<PodcastListProps> = ({ podroll }) => {
   const { filterParams, setFilterParams, channel, items, clips, totalPages,
     isLoading, showSubscribeMessage } = usePodcastContext();
   const { page = 1 } = filterParams;
@@ -64,5 +64,3 @@ const PodcastList: React.FC<PodcastListProps> = ({ podroll }) => {
     </div>
   );
 };
-
-export default PodcastList;

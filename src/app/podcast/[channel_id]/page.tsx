@@ -10,7 +10,7 @@ import {
 } from "podverse-helpers";
 import { z } from "zod";
 import { getPodcastFilterParams } from "./PodcastDropdownConfig";
-import PodcastClient from "./PodcastClient";
+import { PodcastClient } from "./PodcastClient";
 import { getSSRAuthService } from "../../../utils/auth/ssrAuth";
 
 const searchParamsSchema = z.object({

@@ -2,8 +2,8 @@ import { DTOChannel, DTOClip, DTOItem, DTOLiveItem, DTOPodroll, QueryParamsChann
 import React from "react";
 import MainWrapper from "../../../components/Main/MainWrapper";
 import { PodcastContextProvider } from "./PodcastContext";
-import PodcastListHeader from "./PodcastListHeader";
-import PodcastList from "./PodcastList";
+import { PodcastListHeader } from "./PodcastListHeader";
+import { PodcastList } from "./PodcastList";
 import { MainInnerWrapper } from "../../../components/Main/MainInnerWrapper";
 import { MainInnerContentWrapper } from "../../../components/Main/MainInnerContentWrapper";
 import { PodcastSideContent } from "./PodcastSideContent";
@@ -19,7 +19,7 @@ interface PodcastClientProps {
   ssrPodroll?: DTOPodroll | null;
 }
 
-export default function PodcastClient(props: PodcastClientProps) {
+export function PodcastClient(props: PodcastClientProps) {
   const { initialQueryParams, ssrChannel, ssrLiveItems, ssrItems, ssrClips, ssrTotalPages, ssrPodroll } = props;
 
   return (
