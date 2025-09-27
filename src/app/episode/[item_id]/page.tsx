@@ -30,10 +30,12 @@ export default async function EpisodePage({ params, searchParams }: EpisodePageP
   const { page = 1, sort, type, range } = await parseSearchParams(queryParams);
 
   const ssrItem = await apiRequestService.reqItemGetByIdOrIdText(item_id);
+  const ssrChannel = await apiRequestService.reqChannelGetByIdOrIdText(ssrItem.channel_id);
 
   return (
     <EpisodeClient
       initialQueryParams={{ page, type, sort, range }}
+      ssrChannel={ssrChannel}
       ssrItem={ssrItem}
     />
   );
