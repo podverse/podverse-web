@@ -1,4 +1,4 @@
-import styles from "../../../styles/components/Media/Episode/EpisodeSummary.module.scss";
+import { DescriptionRenderer } from "../../Description/DescriptionRenderer";
 
 type EpisodeSummaryProps = {
   description?: string;
@@ -6,8 +6,6 @@ type EpisodeSummaryProps = {
 
 export const EpisodeSummary: React.FC<EpisodeSummaryProps> = ({ description }) => {
   return (
-    <div className={styles.summary}>
-      <p>{description}</p>
-    </div>
+    <DescriptionRenderer description={description || ""} />
   );
 };

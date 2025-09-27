@@ -1,12 +1,10 @@
 "use client";
 
 import { useParams } from "next/navigation";
-import { DTOChannel, DTOClip, DTOItem, DTOItemChapter, DTOItemSoundbite, DTOLiveItem, getTotalPages, QueryParamsChannel, QueryParamsItem } from "podverse-helpers";
+import { DTOClip, DTOItem, DTOItemChapter, DTOItemSoundbite, QueryParamsItem } from "podverse-helpers";
 import React, { createContext, useContext, useState, ReactNode } from "react";
-import { apiRequestService } from "../../../factories/apiRequestService";
 import { useAccount } from "../../../contexts/Account";
 import { useSkipInitialEffect } from "../../../hooks/useSkipInitialEffect";
-import { getPodcastFilterParams } from "./PodcastDropdownConfig";
 
 interface EpisodeContextType {
   filterParams: QueryParamsItem;
@@ -58,7 +56,7 @@ export const EpisodeContextProvider = ({
     return null
   }
 
-  const item_id = params.item_id as string;
+  // const item_id = params.item_id as string;
 
   useSkipInitialEffect(() => {
     if (

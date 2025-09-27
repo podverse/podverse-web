@@ -1,0 +1,79 @@
+@mixin safe-block-reset {
+  all: unset;
+  display: block;
+  margin: 0 0 1rem 0;
+  color: var(--text-color-primary);
+}
+
+.safeHtmlDescription h1 {
+  @include safe-block-reset;
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-normal);
+  line-height: var(--text-line-height);
+  color: var(--text-color-primary);
+}
+
+.safeHtmlDescription h2 {
+  @include safe-block-reset;
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-normal);
+  color: var(--text-color-primary);
+  margin: 0 0 1rem 0;
+}
+
+.safeHtmlDescription h3 {
+  @include safe-block-reset;
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-light);
+  color: var(--text-color-primary);
+  margin: 0 0 1rem 0;
+}
+
+.safeHtmlDescription h4 {
+  @include safe-block-reset;
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-light);
+  color: var(--text-color-primary);
+  margin: 0 0 1rem 0;
+}
+
+.safeHtmlDescription h5 {
+  @include safe-block-reset;
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-light);
+  color: var(--text-color-primary);
+  margin: 0 0 1rem 0;
+}
+
+.safeHtmlDescription h6 {
+  @include safe-block-reset;
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-light);
+  color: var(--text-color-primary);
+  margin: 0 0 1rem 0;
+}
+
+.safeHtmlDescription p {
+  @include safe-block-reset;
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-light);
+  color: var(--text-color-primary);
+  margin: 0 0 1rem 0;
+}
+
+.safeHtmlDescription a {
+  color: var(--text-color-link);
+  text-decoration: underline;
+}
+
+.safeHtmlDescription strong, .safeHtmlDescription b {
+  font-weight: var(--font-weight-medium);
+}
+
+.safeHtmlDescription i, .safeHtmlDescription em {
+  font-style: italic;
+}
+
+.safeHtmlDescription u {
+  text-decoration: underline;
+}

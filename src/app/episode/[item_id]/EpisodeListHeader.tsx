@@ -59,7 +59,7 @@ export const EpisodeListHeader: React.FC = () => {
     {
       key: "summary",
       label: tInfo("summary.summary"),
-      onClick: () => handleTypeChange("summary.summary"),
+      onClick: () => handleTypeChange("summary"),
       zIndex: 5
     },
     {

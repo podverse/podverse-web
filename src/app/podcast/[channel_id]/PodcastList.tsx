@@ -42,7 +42,7 @@ export const PodcastList: React.FC<PodcastListProps> = ({ podroll, ssrChannel })
             page={page}
             setPage={(page) => setFilterParams({ ...filterParams, page })}
             clips={clips}
-            channel={channel}
+            channel={ssrChannel}
             totalPages={totalPages}
             showSubscribeMessage={showSubscribeMessage}
           />
@@ -51,8 +51,8 @@ export const PodcastList: React.FC<PodcastListProps> = ({ podroll, ssrChannel })
       {
         type === "about" && (
           <ContentAbout
-            description={channel.channel_description?.value}
-            channel_persons={channel.channel_persons}
+            description={ssrChannel.channel_description?.value}
+            channel_persons={ssrChannel.channel_persons}
           />
         )
       }

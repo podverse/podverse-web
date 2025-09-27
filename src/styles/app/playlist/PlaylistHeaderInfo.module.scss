@@ -14,7 +14,7 @@
 .description {
   margin-top: 0.5rem;
   color: var(--text-color-secondary);
-  line-height: 1.4;
+  line-height: var(--text-line-height);
 }
 
 @media (max-width: breakpoints.$breakpoint-md-max) {

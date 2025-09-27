@@ -70,7 +70,7 @@ h3 {
 p {
   font-size: var(--font-size-base);
   font-weight: var(--font-weight-light);
-  line-height: 1.35;
+  line-height: var(--text-line-height);
   color: var(--text-color-secondary);
 }
 
