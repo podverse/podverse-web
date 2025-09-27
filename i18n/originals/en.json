@@ -101,17 +101,22 @@
     "website": "Website",
     "rss_feed": "RSS Feed",
     "about": "About",
+    "summary": "Summary",
+    "podroll": "Podroll",
+    "transcript": "Transcript",
+    "credits": "Credits",
     "people": {
       "people": "People",
       "person_image": "Person Image",
       "link_to_persons_webpage": "Link to Person's Webpage"
     },
-    "podroll": "Podroll",
     "chapter": {
-      "chapter": "Chapter"
+      "chapter": "Chapter",
+      "chapters": "Chapters"
     },
     "soundbite": {
-      "official_clip": "Official Clip"
+      "official_clip": "Official Clip",
+      "official_clips": "Official Clips"
     }
   },
   "media_player": {
