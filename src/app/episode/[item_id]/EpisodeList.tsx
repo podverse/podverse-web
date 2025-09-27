@@ -4,7 +4,7 @@ import React from "react";
 import { useEpisodeContext } from "./EpisodeContext";
 import LoadingSpinnerOverlay from "../../../components/LoadingSpinner/LoadingSpinnerOverlay";
 import styles from "../../../styles/app/podcast/PodcastList.module.scss";
-import { EpisodeSummary } from "../../../components/Media/Episode/EpisodeSummary";
+import { EpisodeSummary } from "../../../components/Media/Podcast/Episode/EpisodeSummary";
 
 export const EpisodeList: React.FC = () => {
   const { filterParams, isLoading, item } = useEpisodeContext();

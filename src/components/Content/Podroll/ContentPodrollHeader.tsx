@@ -7,6 +7,6 @@ export const ContentPodrollHeader = () => {
   const tInfo = useTranslations("info");
 
   return (
-    <h2 className={styles.header}>{tInfo("podroll")}</h2>
+    <h3 className={styles.header}>{tInfo("podroll")}</h3>
   )
 }

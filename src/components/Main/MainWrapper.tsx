@@ -1,5 +1,5 @@
 import React from "react";
-import Divider from "../Divider/Divider";
+import { Divider } from "../Divider/Divider";
 import Footer from "../Footer/Footer";
 import styles from "../../styles/components/Main/MainWrapper.module.scss";
 

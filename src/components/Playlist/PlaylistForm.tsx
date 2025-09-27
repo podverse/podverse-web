@@ -1,15 +1,15 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import React from "react";
 import { FormDropdown } from "../../components/Form/FormDropdown";
 import { TextInput } from "../../components/Form/TextInput";
 import { TextArea } from "../../components/Form/TextArea";
 import { Button } from "../../components/Button/Button";
 import Form from "../../components/Form/Form";
-import styles from "../../styles/components/Playlist/PlaylistForm.module.scss";
-import Divider from "../Divider/Divider";
+import { Divider } from "../Divider/Divider";
 import { apiRequestService } from "../../factories/apiRequestService";
-import { useRouter } from "next/navigation";
+import styles from "../../styles/components/Playlist/PlaylistForm.module.scss";
 
 export type PlaylistFormProps = {
   medium: string;

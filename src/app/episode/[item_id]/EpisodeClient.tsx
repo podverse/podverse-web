@@ -8,6 +8,7 @@ import { MainInnerWrapper } from "../../../components/Main/MainInnerWrapper";
 import { MainInnerContentWrapper } from "../../../components/Main/MainInnerContentWrapper";
 import { PodcastHeader } from "../../../components/Media/Podcast/PodcastHeader";
 import { SideContent } from "../../../components/SideContent/SideContent";
+import { EpisodeHeader } from "../../../components/Media/Podcast/Episode/EpisodeHeader";
 
 interface EpisodeClientProps {
   initialQueryParams: QueryParamsItem;
@@ -16,7 +17,7 @@ interface EpisodeClientProps {
 
 export function EpisodeClient(props: EpisodeClientProps) {
   const { initialQueryParams, ssrItem } = props;
-  console.log("ssrItem:", ssrItem.channel);
+  
   if (!ssrItem.channel) {
     return null;
   }
@@ -31,6 +32,7 @@ export function EpisodeClient(props: EpisodeClientProps) {
         <MainInnerWrapper>
           <SideContent />
           <MainInnerContentWrapper>
+            <EpisodeHeader item={ssrItem} />
             <EpisodeListHeader />
             <EpisodeList />
           </MainInnerContentWrapper>

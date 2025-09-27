@@ -14,7 +14,7 @@ import { ClipEditorPlayer } from "./ClipEditorPlayer"
 import { Button } from "../Button/Button"
 import { EVENTS } from "../../constants/events"
 import { useMediaPlayer } from "../../contexts/MediaPlayer"
-import Divider from "../Divider/Divider";
+import { Divider } from "../Divider/Divider";
 import { apiRequestService } from "../../factories/apiRequestService";
 
 type ClipFormProps = {

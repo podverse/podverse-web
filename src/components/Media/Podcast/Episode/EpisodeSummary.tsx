@@ -1,4 +1,4 @@
-import { DescriptionRenderer } from "../../Description/DescriptionRenderer";
+import { DescriptionRenderer } from "../../../Description/DescriptionRenderer";
 
 type EpisodeSummaryProps = {
   description?: string;
