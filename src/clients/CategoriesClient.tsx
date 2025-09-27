@@ -5,8 +5,8 @@ import { useRouter } from "next/navigation";
 import { DTOCategory } from "podverse-helpers";
 import React from "react";
 import CategoriesList from "../components/Category/CategoriesList";
-import MainWrapper from "../components/Main/MainWrapper";
-import MainHeader from "../components/Main/MainHeader";
+import { MainHeader } from "../components/Main/MainHeader";
+import { MainWrapper } from "../components/Main/MainWrapper";
 
 interface CategoriesClientProps {
   titleKey: string;

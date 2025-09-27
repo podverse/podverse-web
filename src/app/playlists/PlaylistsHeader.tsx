@@ -3,7 +3,7 @@
 import { useTranslations } from "next-intl";
 import React from "react";
 import { FaPlus } from "react-icons/fa6";
-import MainHeader from "../../components/Main/MainHeader";
+import { MainHeader } from "../../components/Main/MainHeader";
 import { Button } from "../../components/Button/Button";
 import styles from "../../styles/app/playlists/PlaylistsHeader.module.scss";
 import { useRouter } from "next/navigation";

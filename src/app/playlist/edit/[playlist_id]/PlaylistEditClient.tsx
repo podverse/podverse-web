@@ -6,7 +6,7 @@ import React from "react";
 import { PlaylistEditContextProvider } from "./PlaylistEditContext";
 import { PlaylistEditForm } from "./PlaylistEditForm";
 import { PlaylistEditHeader } from "./PlaylistEditHeader";
-import MainWrapper from "../../../../components/Main/MainWrapper";
+import { MainWrapper } from "../../../../components/Main/MainWrapper";
 import { MainInnerWrapper } from "../../../../components/Main/MainInnerWrapper";
 import { MainInnerContentWrapper } from "../../../../components/Main/MainInnerContentWrapper";
 

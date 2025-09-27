@@ -8,7 +8,7 @@ type MainWrapperProps = {
   emptyStateComponent?: React.ReactNode;
 };
 
-const MainWrapper: React.FC<MainWrapperProps> = ({ children, emptyStateComponent }) => (
+export const MainWrapper: React.FC<MainWrapperProps> = ({ children, emptyStateComponent }) => (
   <div id="mainOuterWrapper" className={styles.mainOuterWrapper}>
     <main className={styles.main}>
       {React.Children.count(children) > 0 ? (
@@ -23,5 +23,3 @@ const MainWrapper: React.FC<MainWrapperProps> = ({ children, emptyStateComponent
     <Footer />
   </div>
 );
-
-export default MainWrapper;

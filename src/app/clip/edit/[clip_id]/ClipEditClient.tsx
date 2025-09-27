@@ -6,7 +6,7 @@ import React from "react";
 import { ClipEditContextProvider } from "./ClipEditContext";
 import { ClipEditForm } from "./ClipEditForm";
 import { ClipEditHeader } from "./ClipEditHeader";
-import MainWrapper from "../../../../components/Main/MainWrapper";
+import { MainWrapper } from "../../../../components/Main/MainWrapper";
 import { MainInnerWrapper } from "../../../../components/Main/MainInnerWrapper";
 import { MainInnerContentWrapper } from "../../../../components/Main/MainInnerContentWrapper";
 

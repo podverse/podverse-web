@@ -12,7 +12,7 @@ import {
 } from "podverse-helpers";
 import React from "react";
 import Dropdown from "../../components/Dropdown/Dropdown";
-import MainHeader from "../../components/Main/MainHeader";
+import { MainHeader } from "../../components/Main/MainHeader";
 import { usePodcastsContext } from "./PodcastsContext";
 import { getPodcastsDropdownConfig } from "./PodcastsDropdownConfig";
 

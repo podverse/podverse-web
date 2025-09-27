@@ -1,6 +1,6 @@
 import { DTOItem, QueryParamsItem } from "podverse-helpers";
 import React from "react";
-import MainWrapper from "../../../components/Main/MainWrapper";
+import { MainWrapper } from "../../../components/Main/MainWrapper";
 import { EpisodeContextProvider } from "./EpisodeContext";
 import { EpisodeList } from "./EpisodeList";
 import { EpisodeListHeader } from "./EpisodeListHeader";
@@ -17,7 +17,7 @@ interface EpisodeClientProps {
 
 export function EpisodeClient(props: EpisodeClientProps) {
   const { initialQueryParams, ssrItem } = props;
-  
+
   if (!ssrItem.channel) {
     return null;
   }

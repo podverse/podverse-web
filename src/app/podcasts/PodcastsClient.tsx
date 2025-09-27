@@ -4,7 +4,7 @@
 import { DTOChannel, QueryParamsChannels } from "podverse-helpers";
 import React from "react";
 import { PodcastsContextProvider } from "./PodcastsContext";
-import MainWrapper from "../../components/Main/MainWrapper";
+import { MainWrapper } from "../../components/Main/MainWrapper";
 import { PodcastsHeader } from "./PodcastsHeader";
 import { PodcastsList } from "./PodcastsList";
 import { MainInnerWrapper } from "../../components/Main/MainInnerWrapper";

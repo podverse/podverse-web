@@ -8,7 +8,7 @@ type MainHeaderProps = {
   buttonsNode?: React.ReactNode;
 };
 
-const MainHeader: React.FC<MainHeaderProps> = ({ title, buttonsNode }) => (
+export const MainHeader: React.FC<MainHeaderProps> = ({ title, buttonsNode }) => (
   <header className={styles.header}>
     <div className={styles.headerContent}>
       <h1 className={styles.title}>{title}</h1>
@@ -22,5 +22,3 @@ const MainHeader: React.FC<MainHeaderProps> = ({ title, buttonsNode }) => (
     </div>
   </header>
 );
-
-export default MainHeader;

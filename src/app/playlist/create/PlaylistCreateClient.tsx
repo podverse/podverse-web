@@ -3,7 +3,7 @@
 
 import React from "react";
 import { PlaylistCreateContextProvider } from "./PlaylistCreateContext";
-import MainWrapper from "../../../components/Main/MainWrapper";
+import { MainWrapper } from "../../../components/Main/MainWrapper";
 import { MainInnerWrapper } from "../../../components/Main/MainInnerWrapper";
 import { MainInnerContentWrapper } from "../../../components/Main/MainInnerContentWrapper";
 import { PlaylistCreateHeader } from "./PlaylistCreateHeader";
