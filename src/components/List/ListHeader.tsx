@@ -13,9 +13,13 @@ export const ListHeader: React.FC<ListHeaderProps> = ({ tabs, filterDropdowns, b
   <header className={styles.listHeader}>
     <div className={styles.listHeaderTop}>
       {tabs}
-      <div className={styles.filterDropdowns}>
-        {filterDropdowns}
-      </div>
+      {
+        filterDropdowns && filterDropdowns.length > 0 && (
+          <div className={styles.filterDropdowns}>
+            {filterDropdowns}
+          </div>
+        )
+      }
     </div>
     {
       buttonTabs && (
