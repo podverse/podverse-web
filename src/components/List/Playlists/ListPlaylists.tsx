@@ -3,7 +3,7 @@
 import { useTranslations } from "next-intl";
 import { DTOPlaylist, QueryParamsPlaylistsType } from "podverse-helpers";
 import React from "react";
-import CallToActionMessage from "../../CallToActionMessage/CallToActionMessage";
+import { CallToActionMessage } from "../../CallToActionMessage/CallToActionMessage";
 import Pagination from "../../Pagination/Pagination";
 import { useModals } from "../../../contexts/Modals";
 import { useSkipInitialEffect } from "../../../hooks/useSkipInitialEffect";

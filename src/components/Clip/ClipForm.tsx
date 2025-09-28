@@ -16,6 +16,9 @@ import { EVENTS } from "../../constants/events"
 import { useMediaPlayer } from "../../contexts/MediaPlayer"
 import { Divider } from "../Divider/Divider";
 import { apiRequestService } from "../../factories/apiRequestService";
+import { useAccount } from "../../contexts/Account";
+import { CallToActionMessage } from "../CallToActionMessage/CallToActionMessage";
+import { useModals } from "../../contexts/Modals";
 
 type ClipFormProps = {
   channel: DTOChannel;
@@ -38,7 +41,11 @@ export const ClipForm: React.FC<ClipFormProps> = ({ channel, item, onSubmit, sha
   setSharableStatus, title, setTitle, startTimeString, setStartTimeString, endTimeString,
   setEndTimeString, onCancel, isUpdating, edit_clip_id_text }) => {
   const { setMPIsPlaying } = useMediaPlayer();
-  const tFeatures = useTranslations("features")
+  const { loggedInAccount } = useAccount();
+  const { setModalClip, setModalLogin } = useModals();
+  const tFeatures = useTranslations("features");
+  const tInstructions = useTranslations("instructions");
+  const tAuthentication = useTranslations("authentication");
   const tMisc = useTranslations("misc");
   const router = useRouter();
 
@@ -83,84 +90,102 @@ export const ClipForm: React.FC<ClipFormProps> = ({ channel, item, onSubmit, sha
     <Form
       className={styles.form}
       onSubmit={onSubmit}>
-      <MediaHeaderMini
-        channel={channel}
-        item={item}
-      />
-      <FormDropdown
-        key="sharable_status"
-        eyebrow={tMisc("sharable_status.sharable_status")}
-        value={`${sharableStatus}`}
-        menuItems={sharableStatusDropdownMenuItems}
-        onChange={setSharableStatus}
-      />
-      <TextInput
-        type="text"
-        name="title"
-        value={title}
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setTitle(e.target.value)}
-        autoFocus
-        placeholder={tMisc("optional")}
-        eyebrow={tMisc("title")}
-      />
-      <div className={styles.timeInputs}>
-        <TextInputHHMMSS
-          value={startTimeString}
-          onChange={(val) => setStartTimeString(val)}
-          eyebrow={tFeatures("clip.start_time")}
-          name="start_time"
-          placeholder="00:00"
-          aria-label={tFeatures("clip.start_time_aria")}
-          onButtonClick={startTimeOnButtonClick}
-          buttonAriaLabel={tFeatures("clip.start_time_play_aria")}
-        />
-        <TextInputHHMMSS
-          value={endTimeString || ""}
-          onChange={(val) => setEndTimeString(val)}
-          eyebrow={tFeatures("clip.end_time")}
-          name="end_time"
-          placeholder={tMisc("optional")}
-          aria-label={tFeatures("clip.end_time_aria")}
-          onButtonClick={endTimeOnButtonClick}
-          buttonAriaLabel={tFeatures("clip.end_time_play_aria")}
-        />
-      </div>
-      <ClipEditorPlayer
-        startTime={startTimeString ? hhmmssToSecondsNumber(startTimeString) : null}
-        endTime={endTimeString ? hhmmssToSecondsNumber(endTimeString) : null}
-      />
-      <div className={styles.buttons}>
-        <Button
-          variant="secondary"
-          type="button"
-          onClick={onCancel}
-        >
-          {tMisc("cancel")}
-        </Button>
-        <Button
-          variant="primary"
-          type="button"
-          disabled={!isValidSubmit()}
-          onClick={onSubmit}
-          isLoading={isUpdating}
-        >
-          {tMisc("submit")}
-        </Button>
-      </div>
       {
-        edit_clip_id_text && (
-          <div className={styles.bottomSection}>
-            <Divider />
-            <div className={styles.bottomSectionButtons}>
+        !loggedInAccount && (
+          <CallToActionMessage
+            message={tInstructions("login_to_create_clips")}
+            buttonLabel={tAuthentication("login")}
+            onButtonClick={() => {
+              setModalClip({ channel: null, item: null });
+              setModalLogin({ isOpen: true })
+            }}
+          />
+        )
+      }
+      {
+        loggedInAccount && (
+          <>
+            <MediaHeaderMini
+              channel={channel}
+              item={item}
+            />
+            <FormDropdown
+              key="sharable_status"
+              eyebrow={tMisc("sharable_status.sharable_status")}
+              value={`${sharableStatus}`}
+              menuItems={sharableStatusDropdownMenuItems}
+              onChange={setSharableStatus}
+            />
+            <TextInput
+              type="text"
+              name="title"
+              value={title}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setTitle(e.target.value)}
+              autoFocus
+              placeholder={tMisc("optional")}
+              eyebrow={tMisc("title")}
+            />
+            <div className={styles.timeInputs}>
+              <TextInputHHMMSS
+                value={startTimeString}
+                onChange={(val) => setStartTimeString(val)}
+                eyebrow={tFeatures("clip.start_time")}
+                name="start_time"
+                placeholder="00:00"
+                aria-label={tFeatures("clip.start_time_aria")}
+                onButtonClick={startTimeOnButtonClick}
+                buttonAriaLabel={tFeatures("clip.start_time_play_aria")}
+              />
+              <TextInputHHMMSS
+                value={endTimeString || ""}
+                onChange={(val) => setEndTimeString(val)}
+                eyebrow={tFeatures("clip.end_time")}
+                name="end_time"
+                placeholder={tMisc("optional")}
+                aria-label={tFeatures("clip.end_time_aria")}
+                onButtonClick={endTimeOnButtonClick}
+                buttonAriaLabel={tFeatures("clip.end_time_play_aria")}
+              />
+            </div>
+            <ClipEditorPlayer
+              startTime={startTimeString ? hhmmssToSecondsNumber(startTimeString) : null}
+              endTime={endTimeString ? hhmmssToSecondsNumber(endTimeString) : null}
+            />
+            <div className={styles.buttons}>
               <Button
-                variant="danger"
+                variant="secondary"
                 type="button"
-                onClick={handleDelete}
+                onClick={onCancel}
               >
-                {tFeatures("clip.delete_clip")}
+                {tMisc("cancel")}
+              </Button>
+              <Button
+                variant="primary"
+                type="button"
+                disabled={!isValidSubmit()}
+                onClick={onSubmit}
+                isLoading={isUpdating}
+              >
+                {tMisc("submit")}
               </Button>
             </div>
-          </div>
+            {
+              edit_clip_id_text && (
+                <div className={styles.bottomSection}>
+                  <Divider />
+                  <div className={styles.bottomSectionButtons}>
+                    <Button
+                      variant="danger"
+                      type="button"
+                      onClick={handleDelete}
+                    >
+                      {tFeatures("clip.delete_clip")}
+                    </Button>
+                  </div>
+                </div>
+              )
+            }
+          </>
         )
       }
     </Form>

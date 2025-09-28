@@ -14,6 +14,7 @@ import { ListPlaylists } from "../List/Playlists/ListPlaylists";
 import { useAccount } from "../../contexts/Account";
 import { useSkipInitialEffect } from "../../hooks/useSkipInitialEffect";
 import { showToastPromise } from "../Toast/Toast";
+import { CallToActionMessage } from "../CallToActionMessage/CallToActionMessage";
 
 type FilterParams = {
   mediumId: number | null;
@@ -32,8 +33,10 @@ const getCurrentMediumId = (
 export const ModalPlaylistAddTo: React.FC = () => {
   const tFeatures = useTranslations("features");
   const tMedia = useTranslations("media");
+  const tInstructions = useTranslations("instructions");
+  const tAuthentication = useTranslations("authentication");
   const header = tFeatures("playlist.add_to_playlist");
-  const { modalPlaylistAddTo, setModalPlaylistAddTo } = useModals();
+  const { modalPlaylistAddTo, setModalPlaylistAddTo, setModalLogin } = useModals();
   const [playlists, setPlaylists] = React.useState<DTOPlaylist[]>([]);
   const [totalPages, setTotalPages] = React.useState(0);
   const { loggedInAccount } = useAccount();
@@ -134,24 +137,42 @@ export const ModalPlaylistAddTo: React.FC = () => {
       header={header}
       ariaLabel={header}
       modalContentMaxWidth={500}>
-      <MediaHeaderMini
-        channel={modalPlaylistAddTo.channel}
-        item={modalPlaylistAddTo.item}
-        item_chapter={modalPlaylistAddTo.item_chapter}
-        item_soundbite={modalPlaylistAddTo.item_soundbite}
-      />
-      <ButtonTabs
-        buttonTabs={buttonTabs}
-        selectedKey={getCurrentMediumId(filterParams, modalPlaylistAddTo)}
-      />
-      <ListPlaylists
-        page={filterParams.page}
-        setPage={(page: number) => setFilterParams({ ...filterParams, page })}
-        playlists={playlists}
-        totalPages={totalPages}
-        showLoginMessage={!loggedInAccount}
-        onClick={onClick}
-      />
+      {
+        !loggedInAccount && (
+          <CallToActionMessage
+            message={tInstructions("login_to_create_playlists")}
+            buttonLabel={tAuthentication("login")}
+            onButtonClick={() => {
+              setModalPlaylistAddTo({ channel: null, item: null, clip: null, item_chapter: null, item_soundbite: null });
+              setModalLogin({ isOpen: true })
+            }}
+          />
+        )
+      }
+      {
+        loggedInAccount && (
+          <>
+            <MediaHeaderMini
+              channel={modalPlaylistAddTo.channel}
+              item={modalPlaylistAddTo.item}
+              item_chapter={modalPlaylistAddTo.item_chapter}
+              item_soundbite={modalPlaylistAddTo.item_soundbite}
+            />
+            <ButtonTabs
+              buttonTabs={buttonTabs}
+              selectedKey={getCurrentMediumId(filterParams, modalPlaylistAddTo)}
+            />
+            <ListPlaylists
+              page={filterParams.page}
+              setPage={(page: number) => setFilterParams({ ...filterParams, page })}
+              playlists={playlists}
+              totalPages={totalPages}
+              showLoginMessage={false}
+              onClick={onClick}
+            />
+          </>
+        )
+      }
     </Modal>
   );
 };

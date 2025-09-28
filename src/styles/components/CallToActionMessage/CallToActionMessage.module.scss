@@ -5,10 +5,14 @@
   justify-content: center;
   flex: 1;
   gap: 1rem;
+  margin: 2rem 0;
+}
+
+.message p {
   font-size: var(--font-size-lg);
-  margin: 3rem 0 1.25rem 0;
 }
 
 .message button {
   color: var(--text-color-link);
+  font-size: var(--font-size-lg);
 }

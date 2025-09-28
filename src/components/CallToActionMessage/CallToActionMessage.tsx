@@ -7,15 +7,17 @@ type CallToActionMessageProps = {
   onButtonClick: () => void;
 };
 
-const CallToActionMessage: React.FC<CallToActionMessageProps> = ({
+export const CallToActionMessage: React.FC<CallToActionMessageProps> = ({
   message,
   buttonLabel,
   onButtonClick
 }) => (
   <div className={styles.message}>
     <p>{message}</p>
-    <button onClick={onButtonClick}>{buttonLabel}</button>
+    <button
+      onClick={onButtonClick}
+      type="button">
+      {buttonLabel}
+    </button>
   </div>
 );
-
-export default CallToActionMessage;
