@@ -115,7 +115,8 @@
     },
     "chapter": {
       "chapter": "Chapter",
-      "chapters": "Chapters"
+      "chapters": "Chapters",
+      "chapter_image": "Chapter Image"
     },
     "soundbite": {
       "official_clip": "Official Clip",
