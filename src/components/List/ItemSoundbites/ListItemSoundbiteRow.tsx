@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import Link from "next/link";
-import { DTOChannel, DTOClip, DTOItem, findDTOChannelImageBySize, findDTOItemImageBySize } from "podverse-helpers";
+import { DTOChannel, DTOItem, DTOItemSoundbite, findDTOChannelImageBySize, findDTOItemImageBySize } from "podverse-helpers";
 import React from "react";
 import Image from "../../Image/Image";
 import { ROUTES } from "../../../constants/routes";
@@ -12,26 +12,25 @@ import { MoreButton } from "../../MoreButton/MoreButton";
 import { useMediaPlayer } from "../../../contexts/MediaPlayer";
 import { ReadableDate } from "../../Time/ReadableDate";
 import { ReadableTimeRange } from "../../Time/ReadableTimeRange";
-import { useAccount } from "../../../contexts/Account";
 import { getQueueForMedium } from "../../../utils/queue";
 import { useQueues } from "../../../contexts/Queue";
 import { showToastPromise } from "../../Toast/Toast";
 import { apiRequestService } from "../../../factories/apiRequestService";
 import { useModals } from "../../../contexts/Modals";
-import styles from "../../../styles/components/List/Clips/ListClipRow.module.scss";
+import styles from "../../../styles/components/List/ItemSoundbites/ListItemSoundbiteRow.module.scss";
 
-interface Props {
-  channel?: DTOChannel | null;
-  item?: DTOItem | null;
-  clip: DTOClip;
+interface ListItemSoundbiteProps {
+  channel: DTOChannel | null;
+  item: DTOItem | null;
+  item_soundbite: DTOItemSoundbite;
   showFullInfo?: boolean;
 }
 
-export const ListClipRow: React.FC<Props> = ({ channel, item, clip, showFullInfo }) => {
-  const url = `${ROUTES.CLIP}/${clip.id_text}`;
+export const ListItemSoundbiteRow: React.FC<ListItemSoundbiteProps> = (
+  { channel, item, item_soundbite, showFullInfo }) => {
+  const url = `${ROUTES.OFFICIAL_CLIP}/${item_soundbite.id_text}`;
 
-  channel = clip.item?.channel || item?.channel || channel || null;
-  item = clip.item || item || null;
+  channel = item?.channel || channel || null;
 
   const channel_images = channel?.channel_images;
   const item_images = item?.item_images;
@@ -43,25 +42,25 @@ export const ListClipRow: React.FC<Props> = ({ channel, item, clip, showFullInfo
   const tMedia = useTranslations("media");
   const tMediaPlayer = useTranslations("media_player");
   const tMisc = useTranslations("misc");
-  const { setMPChannel, mpClip, setMPItem, setMPClip, mpIsPlaying, setMPIsPlaying,
-    setMPItemSoundbite
-  } = useMediaPlayer();
-  const { loggedInAccount } = useAccount();
+  const { setMPChannel, mpItemSoundbite, setMPItem, setMPClip, mpIsPlaying, setMPIsPlaying,
+    setMPItemSoundbite } = useMediaPlayer();
   const { setModalPlaylistAddTo } = useModals();
   const { queues } = useQueues();
 
-  const clipTitle = clip.title || tMisc("untitled");
+  const itemSoundbiteTitle = item_soundbite.title || tMisc("untitled");
   const itemTitle = item?.title || tMisc("untitled");
   const itemPubDate = item?.pub_date;
+  const startTime = item_soundbite.start_time;
+  const endTime = Number(item_soundbite.start_time) + Number(item_soundbite.duration);
 
   const playButtonOnClick = () => {
-    if (clip.id === mpClip?.id) {
+    if (item_soundbite.id === mpItemSoundbite?.id) {
       setMPIsPlaying(!mpIsPlaying);
     } else {
       setMPChannel(channel);
       setMPItem(item);
-      setMPClip(clip);
-      setMPItemSoundbite(null);
+      setMPClip(null);
+      setMPItemSoundbite(item_soundbite);
       setMPIsPlaying(true);
     }
   };
@@ -71,7 +70,7 @@ export const ListClipRow: React.FC<Props> = ({ channel, item, clip, showFullInfo
       const queue = getQueueForMedium(queues, channel.medium_id);
       if (queue) {
         showToastPromise(
-          apiRequestService.reqQueueResourceClipAddNext(queue.id_text, clip.id_text),
+          apiRequestService.reqQueueResourceItemSoundbiteAddNext(queue.id_text, item_soundbite.id_text),
           {
             success: tFeatures("queue.added_to_queue"),
             error: tFeatures("queue.add_error")
@@ -86,7 +85,7 @@ export const ListClipRow: React.FC<Props> = ({ channel, item, clip, showFullInfo
       const queue = getQueueForMedium(queues, channel.medium_id);
       if (queue) {
         showToastPromise(
-          apiRequestService.reqQueueResourceClipAddLast(queue.id_text, clip.id_text),
+          apiRequestService.reqQueueResourceItemSoundbiteAddLast(queue.id_text, item_soundbite.id_text),
           {
             success: tFeatures("queue.added_to_queue"),
             error: tFeatures("queue.add_error")
@@ -98,11 +97,11 @@ export const ListClipRow: React.FC<Props> = ({ channel, item, clip, showFullInfo
 
   const addToPlaylistOnClick = () => {
     setModalPlaylistAddTo({
-      channel: channel || clip.item?.channel || null,
-      item: item || clip.item,
-      clip: clip,
+      channel: channel,
+      item: item || item_soundbite.item || null,
+      clip: null,
       item_chapter: null,
-      item_soundbite: null
+      item_soundbite
     });
   }
 
@@ -125,15 +124,6 @@ export const ListClipRow: React.FC<Props> = ({ channel, item, clip, showFullInfo
     }
   ]
 
-  if (loggedInAccount?.id_text === clip.account?.id_text) {
-    moreButtonMenuItems.push({
-      label: tFeatures("clip.edit_clip"),
-      onClick: () => {
-        window.location.href = `${ROUTES.CLIP}/edit/${clip.id_text}`;
-      }
-    });
-  }
-
   return (
     <div className={styles.row}>
       <Link href={url} tabIndex={-1}>
@@ -155,7 +145,7 @@ export const ListClipRow: React.FC<Props> = ({ channel, item, clip, showFullInfo
       <div className={styles.content}>
         <Link href={url}>
           <div className={styles.topSection}>
-            <h3 className={styles.clipTitle}>{clipTitle}</h3>
+            <h3 className={styles.clipTitle}>{itemSoundbiteTitle}</h3>
             {
               showFullInfo && (
                 <p className={styles.itemTitle}>{itemTitle}</p>
@@ -166,8 +156,8 @@ export const ListClipRow: React.FC<Props> = ({ channel, item, clip, showFullInfo
         <div className={styles.bottomSection}>
           <div className={styles.bottomSectionStart}>
             <PlayButtonRow
-              clip={clip}
-              item={item || clip.item}
+              item_soundbite={item_soundbite}
+              item={item || item_soundbite.item || null}
               onClick={playButtonOnClick}
             />
             <div className={styles.timeSection}>
@@ -180,8 +170,8 @@ export const ListClipRow: React.FC<Props> = ({ channel, item, clip, showFullInfo
                 )
               }
               <ReadableTimeRange
-                startTime={clip.start_time}
-                endTime={clip.end_time} />
+                startTime={startTime}
+                endTime={endTime} />
             </div>
           </div>
           <div className={styles.bottomSectionEnd}>

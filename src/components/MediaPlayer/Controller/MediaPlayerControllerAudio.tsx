@@ -22,11 +22,20 @@ export const MediaPlayerControllerAudio: React.FC = () => {
     setMPDuration,
     setMPClip
   } = useMediaPlayer();
-  // ...existing code...
+
   const mpClipRef = useRef<typeof mpClip>(null);
   useEffect(() => {
     mpClipRef.current = mpClip;
   }, [mpClip]);
+  const {
+    mpItemSoundbite,
+    setMPItemSoundbite
+  } = useMediaPlayer();
+  
+  const mpItemSoundbiteRef = useRef<typeof mpItemSoundbite>(null);
+  useEffect(() => {
+    mpItemSoundbiteRef.current = mpItemSoundbite;
+  }, [mpItemSoundbite]);
   
   useEffect(() => {
     const handleSeek = (e: Event) => {
@@ -115,6 +124,17 @@ export const MediaPlayerControllerAudio: React.FC = () => {
           setMPClip(null);
         }
       }
+      
+      const itemSoundbite = mpItemSoundbiteRef.current;
+      if (itemSoundbite && itemSoundbite.duration) {
+        const startNum = typeof itemSoundbite.start_time === "string" ? parseFloat(itemSoundbite.start_time) : itemSoundbite.start_time;
+        const durationNum = typeof itemSoundbite.duration === "string" ? parseFloat(itemSoundbite.duration) : itemSoundbite.duration;
+        const endTimeNum = startNum + durationNum;
+        const endTimeNumAdjusted = endTimeNum + 1;
+        if (!isNaN(endTimeNumAdjusted) && audio.currentTime >= endTimeNumAdjusted) {
+          setMPItemSoundbite(null);
+        }
+      }
     };
 
     const handleLoadedMetadata = () => setMPDuration(audio.duration);
@@ -170,7 +190,17 @@ export const MediaPlayerControllerAudio: React.FC = () => {
         globalPauseAtTime = Number(mpClip.end_time);
       }
     }
-  }, [mpClip]);
+
+    if (mpItemSoundbite && audioRef.current) {
+      const audio = audioRef.current;
+      audio.currentTime = Number(mpItemSoundbite.start_time);
+      audio.play();
+
+      if (mpItemSoundbite.duration) {
+        globalPauseAtTime = Number(mpItemSoundbite.start_time) + Number(mpItemSoundbite.duration);
+      }
+    }
+  }, [mpClip, mpItemSoundbite]);
 
   return (
     <audio

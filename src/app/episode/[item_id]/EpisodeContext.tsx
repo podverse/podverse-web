@@ -13,8 +13,8 @@ interface EpisodeContextType {
   setFilterParams: (params: QueryParamsItem) => void;
   chapters: DTOItemChapter[];
   setChapters: (chapters: DTOItemChapter[]) => void;
-  soundbites: DTOItemSoundbite[];
-  setSoundbites: (soundbites: DTOItemSoundbite[]) => void;
+  itemSoundbites: DTOItemSoundbite[];
+  setItemSoundbites: (itemSoundbites: DTOItemSoundbite[]) => void;
   clips: DTOClip[];
   setClips: (clips: DTOClip[]) => void;
   totalPages: number;
@@ -41,7 +41,7 @@ export const EpisodeContextProvider = ({
   const params = useParams();
   const [filterParams, setFilterParams] = useState<QueryParamsItem>(initialQueryParams);
   const [chapters, setChapters] = useState<DTOItemChapter[]>([]);
-  const [soundbites, setSoundbites] = useState<DTOItemSoundbite[]>([]);
+  const [itemSoundbites, setItemSoundbites] = useState<DTOItemSoundbite[]>([]);
   const [clips, setClips] = useState<DTOClip[]>([]);
   const [totalPages, setTotalPages] = useState<number>(1);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -83,11 +83,33 @@ export const EpisodeContextProvider = ({
       setTotalPages(totalPages);
       setClips(response.data);
     }
+
+    async function fetchSoundbites() {
+      const { currentSort } = getEpisodeFilterParams({
+        type: filterParams.type,
+        sort: filterParams.sort,
+        range: filterParams.range
+      });
+
+      const response = await apiRequestService.reqItemSoundbiteGetManyByItemIdText(
+        item_id,
+        {
+          page: filterParams.page,
+          sort: currentSort === "oldest" ? "oldest" : "recent"
+        }
+      );
+
+      const totalPages = getTotalPages(response.meta.count, response.meta.limit);
+      setTotalPages(totalPages);
+      setItemSoundbites(response.data);
+    }
     
     async function fetchData() {
       setIsLoading(true);
 
-      if (filterParams.type === "clips") {
+      if (filterParams.type === "soundbites") {
+        await fetchSoundbites();
+      } else if (filterParams.type === "clips") {
         await fetchClips();
       }
 
@@ -102,7 +124,7 @@ export const EpisodeContextProvider = ({
       filterParams,
       setFilterParams,
       chapters, setChapters,
-      soundbites, setSoundbites,
+      itemSoundbites, setItemSoundbites,
       clips, setClips,
       totalPages, setTotalPages,
       isLoading, setIsLoading,

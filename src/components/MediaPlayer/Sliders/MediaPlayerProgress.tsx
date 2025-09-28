@@ -14,18 +14,22 @@ type MediaPlayerProgressProps = {
 };
 
 export const MediaPlayerProgress: React.FC<MediaPlayerProgressProps> = ({
-  isClipForm, overrideHighlightStartTime, overrideHighlightEndTime, includeMobileTime
+  isClipForm,
+  overrideHighlightStartTime,
+  overrideHighlightEndTime,
+  includeMobileTime
 }) => {
-  const { mpClip, mpCurrentTime, mpDuration } = useMediaPlayer();
+  const { mpClip, mpItemSoundbite, mpCurrentTime, mpDuration } = useMediaPlayer();
   const barRef = useRef<HTMLDivElement>(null);
   const progress = mpDuration > 0 ? mpCurrentTime / mpDuration : 0;
-  
+
   const { highlightStartPosition, highlightEndPosition } = getHighlightPositions({
     mpDuration,
     isClipForm,
     overrideHighlightStartTime,
     overrideHighlightEndTime,
-    mpClip
+    mpClip,
+    mpItemSoundbite
   });
 
   const setProgressFromEvent = (e: MouseEvent | React.MouseEvent<HTMLDivElement>) => {
@@ -112,13 +116,15 @@ function getHighlightPositions({
   isClipForm,
   overrideHighlightStartTime,
   overrideHighlightEndTime,
-  mpClip
+  mpClip,
+  mpItemSoundbite
 }: {
   mpDuration?: number,
   isClipForm?: boolean,
   overrideHighlightStartTime?: number | null,
   overrideHighlightEndTime?: number | null,
-  mpClip?: DTOClip | null
+  mpClip?: DTOClip | null,
+  mpItemSoundbite?: { start_time: string | number, duration: string | number } | null
 }) {
   let highlightStartPosition = null;
   let highlightEndPosition = null;
@@ -129,6 +135,15 @@ function getHighlightPositions({
       }
       if (overrideHighlightEndTime) {
         highlightEndPosition = overrideHighlightEndTime / mpDuration;
+      }
+    } else if (mpItemSoundbite) {
+      const soundbiteStart = Number(mpItemSoundbite.start_time);
+      const soundbiteDuration = Number(mpItemSoundbite.duration);
+      if (!isNaN(soundbiteStart)) {
+        highlightStartPosition = soundbiteStart / mpDuration;
+      }
+      if (!isNaN(soundbiteStart) && !isNaN(soundbiteDuration)) {
+        highlightEndPosition = (soundbiteStart + soundbiteDuration) / mpDuration;
       }
     } else {
       const clipStartTime = Number(mpClip?.start_time);

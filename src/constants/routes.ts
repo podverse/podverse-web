@@ -15,6 +15,7 @@ export const ROUTES = {
   MY_CLIPS: '/my-clips',
   MY_PROFILE: '/my-profile',
   LIVESTREAMS: '/livestreams',
+  OFFICIAL_CLIP: '/official-clip',
   PLAYLIST: '/playlist',
   PLAYLISTS: '/playlists',
   PODCAST: '/podcast',

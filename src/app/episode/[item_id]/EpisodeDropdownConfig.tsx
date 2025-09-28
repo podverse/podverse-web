@@ -33,5 +33,11 @@ export function getEpisodeFilterParams({ type, sort, range }: QueryParamConfig) 
   let currentRange = range;
   let currentType = type;
 
+  if (type === "soundbites") {
+    if (sort === "top") {
+      currentSort = "recent";
+    }
+  }
+
   return { currentSort, currentRange, currentType };
 }
