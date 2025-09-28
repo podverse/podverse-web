@@ -27,15 +27,17 @@ export const EpisodeHeaderPlaySection: React.FC<EpisodeHeaderPlaySectionProps> =
   const { queues } = useQueues();
   const { setModalPlaylistAddTo } = useModals();
   const { setMPChannel, mpItem, setMPItem, setMPClip, mpIsPlaying,
-    setMPIsPlaying } = useMediaPlayer();
+    setMPItemChapter, setMPItemSoundbite, setMPIsPlaying } = useMediaPlayer();
   
   const playButtonOnClick = () => {
     if (item.id === mpItem?.id) {
       setMPIsPlaying(!mpIsPlaying);
     } else {
       setMPChannel(channel);
-      setMPItem(item);
       setMPClip(null);
+      setMPItem(item);
+      setMPItemChapter(null);
+      setMPItemSoundbite(null);
       setMPIsPlaying(true);
     }
   };

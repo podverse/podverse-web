@@ -34,7 +34,8 @@ const ListEpisodeRow: React.FC<Props> = ({ channel, item }) => {
   const tMedia = useTranslations("media");
   const tMediaPlayer = useTranslations("media_player");
   const { queues } = useQueues();
-  const { setMPChannel, mpItem, setMPItem, setMPClip, mpIsPlaying, setMPIsPlaying } = useMediaPlayer();
+  const { setMPChannel, mpItem, setMPItem, setMPClip, mpIsPlaying,
+    setMPIsPlaying, setMPItemChapter, setMPItemSoundbite } = useMediaPlayer();
   const { setModalPlaylistAddTo } = useModals();
 
   const playButtonOnClick = () => {
@@ -42,8 +43,10 @@ const ListEpisodeRow: React.FC<Props> = ({ channel, item }) => {
       setMPIsPlaying(!mpIsPlaying);
     } else {
       setMPChannel(channel);
-      setMPItem(item);
       setMPClip(null);
+      setMPItem(item);
+      setMPItemChapter(null);
+      setMPItemSoundbite(null);
       setMPIsPlaying(true);
     }
   };

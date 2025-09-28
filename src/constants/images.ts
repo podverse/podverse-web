@@ -37,6 +37,10 @@ export const IMAGES = {
     CLIPS: {
       SIZE: 100,
       SIZE_FIND_TARGET: 200
+    },
+    ITEM_CHAPTERS: {
+      SIZE: 78,
+      SIZE_FIND_TARGET: 156
     }
   },
   MEDIA_HEADER_MINI: {

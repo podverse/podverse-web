@@ -13,6 +13,7 @@ export const MediaPlayerControllerAudio: React.FC = () => {
   const {
     mpClip,
     mpItem,
+    mpItemChapter,
     mpIsPlaying,
     mpPlaybackSpeed,
     mpVolume,
@@ -20,23 +21,30 @@ export const MediaPlayerControllerAudio: React.FC = () => {
     setMPCurrentTime,
     setMPIsPlaying,
     setMPDuration,
-    setMPClip
+    setMPClip,
+    setMPItemChapter
   } = useMediaPlayer();
 
   const mpClipRef = useRef<typeof mpClip>(null);
   useEffect(() => {
     mpClipRef.current = mpClip;
   }, [mpClip]);
+
   const {
     mpItemSoundbite,
     setMPItemSoundbite
   } = useMediaPlayer();
-  
+
   const mpItemSoundbiteRef = useRef<typeof mpItemSoundbite>(null);
   useEffect(() => {
     mpItemSoundbiteRef.current = mpItemSoundbite;
   }, [mpItemSoundbite]);
-  
+
+  const mpItemChapterRef = useRef<typeof mpItemChapter>(null);
+  useEffect(() => {
+    mpItemChapterRef.current = mpItemChapter;
+  }, [mpItemChapter]);
+
   useEffect(() => {
     const handleSeek = (e: Event) => {
       const customEvent = e as CustomEvent<{ time: number }>;
@@ -124,6 +132,15 @@ export const MediaPlayerControllerAudio: React.FC = () => {
           setMPClip(null);
         }
       }
+
+      const itemChapter = mpItemChapterRef.current;
+      if (itemChapter && itemChapter.end_time) {
+        const endTimeNum = typeof itemChapter.end_time === "string" ? parseFloat(itemChapter.end_time) : itemChapter.end_time;
+        const endTimeNumAdjusted = endTimeNum + 1;
+        if (!isNaN(endTimeNumAdjusted) && audio.currentTime >= endTimeNumAdjusted) {
+          setMPItemChapter(null);
+        }
+      }
       
       const itemSoundbite = mpItemSoundbiteRef.current;
       if (itemSoundbite && itemSoundbite.duration) {
@@ -191,6 +208,16 @@ export const MediaPlayerControllerAudio: React.FC = () => {
       }
     }
 
+    if (mpItemChapter && audioRef.current) {
+      const audio = audioRef.current;
+      audio.currentTime = Number(mpItemChapter.start_time);
+      audio.play();
+
+      if (mpItemChapter.end_time) {
+        globalPauseAtTime = null;
+      }
+    }
+
     if (mpItemSoundbite && audioRef.current) {
       const audio = audioRef.current;
       audio.currentTime = Number(mpItemSoundbite.start_time);
@@ -200,7 +227,7 @@ export const MediaPlayerControllerAudio: React.FC = () => {
         globalPauseAtTime = Number(mpItemSoundbite.start_time) + Number(mpItemSoundbite.duration);
       }
     }
-  }, [mpClip, mpItemSoundbite]);
+  }, [mpClip, mpItemChapter, mpItemSoundbite]);
 
   return (
     <audio

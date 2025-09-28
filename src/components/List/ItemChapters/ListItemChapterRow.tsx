@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import Link from "next/link";
-import { DTOChannel, DTOClip, DTOItem, findDTOChannelImageBySize, findDTOItemImageBySize } from "podverse-helpers";
+import { DTOChannel, DTOItem, DTOItemChapter, findDTOChannelImageBySize, findDTOItemImageBySize } from "podverse-helpers";
 import React from "react";
 import Image from "../../Image/Image";
 import { ROUTES } from "../../../constants/routes";
@@ -10,28 +10,25 @@ import { IMAGES } from "../../../constants/images";
 import { PlayButtonRow } from "../../MediaPlayer/Buttons/PlayButtonRow";
 import { MoreButton } from "../../MoreButton/MoreButton";
 import { useMediaPlayer } from "../../../contexts/MediaPlayer";
-import { ReadableDate } from "../../Time/ReadableDate";
 import { ReadableTimeRange } from "../../Time/ReadableTimeRange";
-import { useAccount } from "../../../contexts/Account";
 import { getQueueForMedium } from "../../../utils/queue";
 import { useQueues } from "../../../contexts/Queue";
 import { showToastPromise } from "../../Toast/Toast";
 import { apiRequestService } from "../../../factories/apiRequestService";
 import { useModals } from "../../../contexts/Modals";
-import styles from "../../../styles/components/List/Clips/ListClipRow.module.scss";
+import styles from "../../../styles/components/List/ItemChapters/ListItemChapterRow.module.scss";
 
-interface Props {
-  channel?: DTOChannel | null;
-  item?: DTOItem | null;
-  clip: DTOClip;
-  showFullInfo?: boolean;
+interface ListItemChapterRowProps {
+  channel: DTOChannel | null;
+  item: DTOItem | null;
+  item_chapter: DTOItemChapter;
 }
 
-export const ListClipRow: React.FC<Props> = ({ channel, item, clip, showFullInfo }) => {
-  const url = `${ROUTES.CLIP}/${clip.id_text}`;
+export const ListItemChapterRow: React.FC<ListItemChapterRowProps> = (
+  { channel, item, item_chapter }) => {
+  const url = `${ROUTES.CHAPTER}/${item_chapter.id_text}`;
 
-  channel = clip.item?.channel || item?.channel || channel || null;
-  item = clip.item || item || null;
+  channel = item?.channel || channel || null;
 
   const channel_images = channel?.channel_images;
   const item_images = item?.item_images;
@@ -40,28 +37,26 @@ export const ListClipRow: React.FC<Props> = ({ channel, item, clip, showFullInfo
   const item_image = findDTOItemImageBySize(item_images, IMAGES.LIST.CLIPS.SIZE_FIND_TARGET, 'lesser');
 
   const tFeatures = useTranslations("features");
-  const tMedia = useTranslations("media");
   const tMediaPlayer = useTranslations("media_player");
   const tMisc = useTranslations("misc");
-  const { setMPChannel, mpClip, setMPItem, setMPClip, mpIsPlaying,
-    setMPIsPlaying, setMPItemChapter, setMPItemSoundbite
-  } = useMediaPlayer();
-  const { loggedInAccount } = useAccount();
+  const tInfo = useTranslations("info");
+  const { setMPChannel, mpItemChapter, setMPItem, setMPClip, mpIsPlaying,
+    setMPIsPlaying, setMPItemSoundbite, setMPItemChapter } = useMediaPlayer();
   const { setModalPlaylistAddTo } = useModals();
   const { queues } = useQueues();
 
-  const clipTitle = clip.title || tMisc("untitled");
-  const itemTitle = item?.title || tMisc("untitled");
-  const itemPubDate = item?.pub_date;
+  const itemChapterTitle = item_chapter.title || tMisc("untitled");
+  const startTime = item_chapter.start_time;
+  const endTime = item_chapter.end_time;
 
   const playButtonOnClick = () => {
-    if (clip.id === mpClip?.id) {
+    if (item_chapter.id === mpItemChapter?.id) {
       setMPIsPlaying(!mpIsPlaying);
     } else {
       setMPChannel(channel);
-      setMPClip(clip);
+      setMPClip(null);
       setMPItem(item);
-      setMPItemChapter(null);
+      setMPItemChapter(item_chapter);
       setMPItemSoundbite(null);
       setMPIsPlaying(true);
     }
@@ -72,7 +67,7 @@ export const ListClipRow: React.FC<Props> = ({ channel, item, clip, showFullInfo
       const queue = getQueueForMedium(queues, channel.medium_id);
       if (queue) {
         showToastPromise(
-          apiRequestService.reqQueueResourceClipAddNext(queue.id_text, clip.id_text),
+          apiRequestService.reqQueueResourceItemChapterAddNext(queue.id_text, item_chapter.id_text),
           {
             success: tFeatures("queue.added_to_queue"),
             error: tFeatures("queue.add_error")
@@ -87,7 +82,7 @@ export const ListClipRow: React.FC<Props> = ({ channel, item, clip, showFullInfo
       const queue = getQueueForMedium(queues, channel.medium_id);
       if (queue) {
         showToastPromise(
-          apiRequestService.reqQueueResourceClipAddLast(queue.id_text, clip.id_text),
+          apiRequestService.reqQueueResourceItemChapterAddLast(queue.id_text, item_chapter.id_text),
           {
             success: tFeatures("queue.added_to_queue"),
             error: tFeatures("queue.add_error")
@@ -99,10 +94,10 @@ export const ListClipRow: React.FC<Props> = ({ channel, item, clip, showFullInfo
 
   const addToPlaylistOnClick = () => {
     setModalPlaylistAddTo({
-      channel: channel || clip.item?.channel || null,
-      item: item || clip.item,
-      clip: clip,
-      item_chapter: null,
+      channel: channel,
+      item: item,
+      clip: null,
+      item_chapter,
       item_soundbite: null
     });
   }
@@ -126,63 +121,41 @@ export const ListClipRow: React.FC<Props> = ({ channel, item, clip, showFullInfo
     }
   ]
 
-  if (loggedInAccount?.id_text === clip.account?.id_text) {
-    moreButtonMenuItems.push({
-      label: tFeatures("clip.edit_clip"),
-      onClick: () => {
-        window.location.href = `${ROUTES.CLIP}/edit/${clip.id_text}`;
-      }
-    });
-  }
-
   return (
     <div className={styles.row}>
       <Link href={url} tabIndex={-1}>
         <Image 
-          src={item_image?.url || channel_image?.url}
-          alt={itemTitle || tMedia("podcast.episode_image")}
-          width={IMAGES.LIST.CLIPS.SIZE}
-          height={IMAGES.LIST.CLIPS.SIZE}
+          src={item_chapter?.img || item_image?.url || channel_image?.url}
+          alt={tInfo("chapter.chapter_image")}
+          width={IMAGES.LIST.ITEM_CHAPTERS.SIZE}
+          height={IMAGES.LIST.ITEM_CHAPTERS.SIZE}
           className={styles.image}
         />
         <Image 
-          src={item_image?.url || channel_image?.url}
-          alt={itemTitle || tMedia("podcast.episode_image")}
-          width={IMAGES.LIST.CLIPS.SIZE}
-          height={IMAGES.LIST.CLIPS.SIZE}
+          src={item_chapter?.img || item_image?.url || channel_image?.url}
+          alt={tInfo("chapter.chapter_image")}
+          width={IMAGES.LIST.ITEM_CHAPTERS.SIZE}
+          height={IMAGES.LIST.ITEM_CHAPTERS.SIZE}
           className={styles.imageMobile}
         />
       </Link>
       <div className={styles.content}>
         <Link href={url}>
           <div className={styles.topSection}>
-            <h3 className={styles.clipTitle}>{clipTitle}</h3>
-            {
-              showFullInfo && (
-                <p className={styles.itemTitle}>{itemTitle}</p>
-              )
-            }
+            <h3 className={styles.clipTitle}>{itemChapterTitle}</h3>
           </div>
         </Link>
         <div className={styles.bottomSection}>
           <div className={styles.bottomSectionStart}>
             <PlayButtonRow
-              clip={clip}
-              item={item || clip.item}
+              item_chapter={item_chapter}
+              item={item}
               onClick={playButtonOnClick}
             />
             <div className={styles.timeSection}>
-              {
-                showFullInfo && (
-                  <>
-                    <ReadableDate date={itemPubDate} />
-                    {" • "}
-                  </>
-                )
-              }
               <ReadableTimeRange
-                startTime={clip.start_time}
-                endTime={clip.end_time} />
+                startTime={startTime}
+                endTime={endTime} />
             </div>
           </div>
           <div className={styles.bottomSectionEnd}>

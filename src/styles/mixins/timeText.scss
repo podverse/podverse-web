@@ -3,6 +3,6 @@
 @mixin time-text-row() {
   @include line-clamp(1);
   font-weight: var(--font-weight-light);
-  font-size: var(--font-size-sm);
+  font-size: var(--font-size-base);
   color: var(--text-color-link);
 }

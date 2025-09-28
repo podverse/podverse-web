@@ -2,17 +2,19 @@ import { useTranslations } from "next-intl";
 import { FaPause, FaPlay } from "react-icons/fa6";
 import { useMediaPlayer } from "../../../contexts/MediaPlayer";
 import styles from "../../../styles/components/MediaPlayer/Buttons/PlayButtonRow.module.scss"
-import { DTOClip, DTOItem, DTOItemSoundbite } from "podverse-helpers";
+import { DTOClip, DTOItem, DTOItemChapter, DTOItemSoundbite } from "podverse-helpers";
 
 type PlayButtonRowProps = {
+  clip?: DTOClip;
   item: DTOItem | null;
   item_soundbite?: DTOItemSoundbite;
-  clip?: DTOClip;
+  item_chapter?: DTOItemChapter;
   onClick: () => void;
 }
 
-export const PlayButtonRow: React.FC<PlayButtonRowProps> = ({ clip, item, item_soundbite, onClick }) => {
-  const { mpIsPlaying, mpItem, mpItemSoundbite, mpClip } = useMediaPlayer();
+export const PlayButtonRow: React.FC<PlayButtonRowProps> = ({
+  clip, item, item_chapter, item_soundbite, onClick }) => {
+  const { mpIsPlaying, mpItem, mpItemChapter, mpItemSoundbite, mpClip } = useMediaPlayer();
   const tMediaPlayer = useTranslations("media_player");
 
   if (!item) {
@@ -20,7 +22,9 @@ export const PlayButtonRow: React.FC<PlayButtonRowProps> = ({ clip, item, item_s
   }
   
   let isCurrentlyInPlayer = false;
-  if (item_soundbite) {
+  if (item_chapter) {
+    isCurrentlyInPlayer = mpItemChapter?.id === item_chapter.id;
+  } else if (item_soundbite) {
     isCurrentlyInPlayer = mpItemSoundbite?.id === item_soundbite.id;
   } else if (clip) {
     isCurrentlyInPlayer = mpClip?.id === clip.id;

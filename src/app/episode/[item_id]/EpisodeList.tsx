@@ -8,6 +8,7 @@ import { EpisodeSummary } from "../../../components/Media/Podcast/Episode/Episod
 import { ListClips } from "../../../components/List/Clips/ListClips";
 import { DTOChannel, DTOItem } from "podverse-helpers";
 import { ListItemSoundbites } from "../../../components/List/ItemSoundbites/ListItemSoundbites";
+import { ListItemChapters } from "../../../components/List/ItemChapters/ListItemChapters";
 
 type EpisodeListProps = {
   ssrChannel: DTOChannel;
@@ -15,7 +16,7 @@ type EpisodeListProps = {
 }
 
 export const EpisodeList: React.FC<EpisodeListProps> = ({ ssrChannel, ssrItem }) => {
-  const { filterParams, setFilterParams, isLoading, clips, itemSoundbites, totalPages } = useEpisodeContext();
+  const { filterParams, setFilterParams, isLoading, clips, itemChapters, itemSoundbites, totalPages } = useEpisodeContext();
   const { page = 1, type } = filterParams;
 
   return (
@@ -23,6 +24,18 @@ export const EpisodeList: React.FC<EpisodeListProps> = ({ ssrChannel, ssrItem })
       {
         type === "summary" && (
           <EpisodeSummary description={ssrItem.item_description?.value} />
+        )
+      }
+      {
+        type === "chapters" && (
+          <ListItemChapters
+            page={page}
+            setPage={(page) => setFilterParams({ ...filterParams, page })}
+            item_chapters={itemChapters}
+            channel={ssrChannel}
+            item={ssrItem}
+            totalPages={totalPages}
+          />
         )
       }
       {

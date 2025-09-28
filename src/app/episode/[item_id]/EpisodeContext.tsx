@@ -11,8 +11,8 @@ import { apiRequestService } from "../../../factories/apiRequestService";
 interface EpisodeContextType {
   filterParams: QueryParamsItem;
   setFilterParams: (params: QueryParamsItem) => void;
-  chapters: DTOItemChapter[];
-  setChapters: (chapters: DTOItemChapter[]) => void;
+  itemChapters: DTOItemChapter[];
+  setItemChapters: (itemChapters: DTOItemChapter[]) => void;
   itemSoundbites: DTOItemSoundbite[];
   setItemSoundbites: (itemSoundbites: DTOItemSoundbite[]) => void;
   clips: DTOClip[];
@@ -40,7 +40,7 @@ export const EpisodeContextProvider = ({
 }: EpisodeContextProviderProps) => {
   const params = useParams();
   const [filterParams, setFilterParams] = useState<QueryParamsItem>(initialQueryParams);
-  const [chapters, setChapters] = useState<DTOItemChapter[]>([]);
+  const [itemChapters, setItemChapters] = useState<DTOItemChapter[]>([]);
   const [itemSoundbites, setItemSoundbites] = useState<DTOItemSoundbite[]>([]);
   const [clips, setClips] = useState<DTOClip[]>([]);
   const [totalPages, setTotalPages] = useState<number>(1);
@@ -63,25 +63,14 @@ export const EpisodeContextProvider = ({
       return;
     }
 
-    async function fetchClips() {
-      const { currentSort, currentRange } = getEpisodeFilterParams({
-        type: filterParams.type,
-        sort: filterParams.sort,
-        range: filterParams.range
-      });
-
-      const response = await apiRequestService.reqClipGetManyByItemIdTextPublic(
-        item_id,
-        {
-          page: filterParams.page,
-          sort: currentSort,
-          range: currentRange
-        }
+    async function fetchItemChapters() {
+      const response = await apiRequestService.reqItemParseAndGetChapters(
+        item_id
       );
 
       const totalPages = getTotalPages(response.meta.count, response.meta.limit);
       setTotalPages(totalPages);
-      setClips(response.data);
+      setItemChapters(response.data);
     }
 
     async function fetchSoundbites() {
@@ -103,11 +92,34 @@ export const EpisodeContextProvider = ({
       setTotalPages(totalPages);
       setItemSoundbites(response.data);
     }
+
+    async function fetchClips() {
+      const { currentSort, currentRange } = getEpisodeFilterParams({
+        type: filterParams.type,
+        sort: filterParams.sort,
+        range: filterParams.range
+      });
+
+      const response = await apiRequestService.reqClipGetManyByItemIdTextPublic(
+        item_id,
+        {
+          page: filterParams.page,
+          sort: currentSort,
+          range: currentRange
+        }
+      );
+
+      const totalPages = getTotalPages(response.meta.count, response.meta.limit);
+      setTotalPages(totalPages);
+      setClips(response.data);
+    }
     
     async function fetchData() {
       setIsLoading(true);
 
-      if (filterParams.type === "soundbites") {
+      if (filterParams.type === "chapters") {
+        await fetchItemChapters();
+      } else if (filterParams.type === "soundbites") {
         await fetchSoundbites();
       } else if (filterParams.type === "clips") {
         await fetchClips();
@@ -123,7 +135,7 @@ export const EpisodeContextProvider = ({
     <EpisodeContext.Provider value={{
       filterParams,
       setFilterParams,
-      chapters, setChapters,
+      itemChapters, setItemChapters,
       itemSoundbites, setItemSoundbites,
       clips, setClips,
       totalPages, setTotalPages,

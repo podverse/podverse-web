@@ -17,8 +17,12 @@ export const ReadableTimeRange: React.FC<ReadableTimeRangeProps> = ({ startTime,
   const readableStartTime = formatHHMMSS(Number(startTime));
   const readableEndTime = endTime ? formatHHMMSS(Number(endTime)) : null;
 
-  return tFeatures("clip.clip_time_range", {
-    hhmmssStart: readableStartTime,
-    hhmmssEnd: readableEndTime ?? ""
-  });
+  if (endTime) {
+    return tFeatures("clip.clip_time_range", {
+      hhmmssStart: readableStartTime,
+      hhmmssEnd: readableEndTime ?? ""
+    });
+  } else {
+    return readableStartTime;
+  }
 }
