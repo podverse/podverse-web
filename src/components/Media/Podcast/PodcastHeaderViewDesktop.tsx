@@ -18,7 +18,7 @@ export const PodcastHeaderViewDesktop: React.FC<PodcastHeaderViewDesktopProps> =
         <h1 className={styles.title}>{channel.title}</h1>
         <div className={styles.bottomSection}>
           <PodcastHeaderSubtitle channel={channel} />
-          <PodcastHeaderButtons channel={channel} />
+          <PodcastHeaderButtons channel={channel} item={item} />
         </div>
       </div>
       <PodcastHeaderSubscribeSection channel={channel} />

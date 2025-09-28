@@ -15,11 +15,11 @@ type ModalClipCreated = {
 }
 
 type ModalShare = {
-  channel?: DTOChannel;
-  item?: DTOItem;
-  clip?: DTOClip;
-  item_chapter?: DTOItemChapter;
-  item_soundbite?: DTOItemSoundbite;
+  channel: DTOChannel | null;
+  item: DTOItem | null;
+  clip: DTOClip | null;
+  item_chapter: DTOItemChapter | null;
+  item_soundbite: DTOItemSoundbite | null;
 }
 
 type ModalFunding = {
@@ -28,8 +28,8 @@ type ModalFunding = {
 }
 
 type ModalBoost = {
-  channel?: DTOChannel;
-  item?: DTOItem;
+  channel: DTOChannel | null;
+  item: DTOItem | null;
 }
 
 export type ModalPlaylistAddToState = {
@@ -80,14 +80,23 @@ const defaultModalClipCreated = {
   clip: null
 }
 
-const defaultModalBoost = {}
+const defaultModalBoost = {
+  channel: null,
+  item: null
+}
 
 const defaultModalFunding = {
   channel_fundings: [],
   item_fundings: []
 }
 
-const defaultModalShare = {};
+const defaultModalShare = {
+  channel: null,
+  item: null,
+  clip: null,
+  item_chapter: null,
+  item_soundbite: null
+};
 
 export const ModalsProvider = ({ children }: { children: ReactNode }) => {
   const [modalLogin, setModalLogin] = useState<ModalBasic>({ isOpen: false })

@@ -16,7 +16,8 @@ type PodcastHeaderButtonsProps = {
   item_soundbite?: DTOItemSoundbite;
 };
 
-const PodcastHeaderButtons: React.FC<PodcastHeaderButtonsProps> = ({ channel }) => {
+const PodcastHeaderButtons: React.FC<PodcastHeaderButtonsProps> = ({ channel,
+  item = null, clip = null, item_chapter = null, item_soundbite = null }) => {
   const tFeatures = useTranslations("features");
   const tInfo = useTranslations("info");
   const tValue = useTranslations("value");
@@ -59,7 +60,7 @@ const PodcastHeaderButtons: React.FC<PodcastHeaderButtonsProps> = ({ channel }) 
       }
       <Link
         type="button"
-        onClick={() => setModalShare({ channel })}
+        onClick={() => setModalShare({ channel, item, clip, item_chapter, item_soundbite })}
         className={styles.button}
         aria-label={tFeatures("share")}
         title={tFeatures("share")}
@@ -83,7 +84,7 @@ const PodcastHeaderButtons: React.FC<PodcastHeaderButtonsProps> = ({ channel }) 
         (channel?.channel_values?.length ?? 0) > 0 && (
           <Link
             type="button"
-            onClick={() => setModalBoost({ channel })}
+            onClick={() => setModalBoost({ channel, item })}
             className={styles.buttonGold}
             aria-label={tValue("boost")}
             title={tValue("boost")}
