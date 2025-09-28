@@ -2,9 +2,10 @@
 
 import React, { useRef } from "react";
 import { FaEllipsis } from "react-icons/fa6";
-import DropdownMenu from "../Dropdown/DropdownMenu";
+import { DropdownMenu } from "../Dropdown/DropdownMenu";
 import { useDropdownKeyboardNavigation } from "../../hooks/useDropdownKeyboardNavigation";
 import styles from "../../styles/components/MoreButton/MoreButton.module.scss";
+import classNames from "classnames";
 
 export interface MoreButtonMenuItem {
   label: string;
@@ -13,10 +14,12 @@ export interface MoreButtonMenuItem {
 
 export interface MoreButtonProps {
   moreButtonMenuItems: MoreButtonMenuItem[];
+  isLarge?: boolean;
 };
 
-const MoreButton: React.FC<MoreButtonProps> = ({
-  moreButtonMenuItems
+export const MoreButton: React.FC<MoreButtonProps> = ({
+  moreButtonMenuItems,
+  isLarge = false
 }) => {
   const buttonRef = useRef<HTMLButtonElement>(null);
   const menuRef = useRef<HTMLUListElement>(null);
@@ -40,7 +43,7 @@ const MoreButton: React.FC<MoreButtonProps> = ({
     <div className={styles.dropdown}>
       <button
         ref={buttonRef}
-        className={styles.button}
+        className={classNames(styles.button, { [styles.large]: isLarge })}
         aria-haspopup="menu"
         aria-expanded={open}
         onClick={() => setOpen((v) => !v)}
@@ -62,5 +65,3 @@ const MoreButton: React.FC<MoreButtonProps> = ({
     </div>
   );
 };
-
-export default MoreButton;

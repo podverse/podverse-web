@@ -11,7 +11,7 @@ import styles from "../../../../styles/components/List/Podcasts/Episodes/ListEpi
 import { IMAGES } from "../../../../constants/images";
 import { PlayButtonRow } from "../../../MediaPlayer/Buttons/PlayButtonRow";
 import { ReadableDuration } from "../../../Time/ReadableDuration";
-import MoreButton from "../../../MoreButton/MoreButton";
+import { MoreButton } from "../../../MoreButton/MoreButton";
 import { useMediaPlayer } from "../../../../contexts/MediaPlayer";
 import { ReadableDate } from "../../../Time/ReadableDate";
 import { useModals } from "../../../../contexts/Modals";
@@ -178,7 +178,7 @@ const ListEpisodeRow: React.FC<Props> = ({ channel, item }) => {
             />
             <div className={styles.timeSection}>
               <ReadableDate date={item.pub_date} />
-              {" • "}
+              {item.item_about?.duration ? " • " : null}
               <ReadableDuration durationInSeconds={item.item_about.duration || null} />
             </div>
           </div>

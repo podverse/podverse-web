@@ -1,7 +1,7 @@
 "use client";
 
 import { useParams } from "next/navigation";
-import { DTOChannel, DTOClip, DTOItem, DTOLiveItem, getTotalPages, QueryParamsChannel } from "podverse-helpers";
+import { DTOClip, DTOItem, DTOLiveItem, getTotalPages, QueryParamsChannel } from "podverse-helpers";
 import React, { createContext, useContext, useState, ReactNode } from "react";
 import { apiRequestService } from "../../../factories/apiRequestService";
 import { useAccount } from "../../../contexts/Account";
@@ -21,8 +21,6 @@ interface PodcastContextType {
   setTotalPages: (totalPages: number) => void;
   isLoading: boolean;
   setIsLoading: (isLoading: boolean) => void;
-  showSubscribeMessage: boolean;
-  setShowSubscribeMessage: (show: boolean) => void;
   isCopied: string;
   setIsCopied: (isCopied: string) => void;
 };
@@ -32,7 +30,6 @@ const PodcastContext = createContext<PodcastContextType | undefined>(undefined);
 interface PodcastContextProviderProps {
   children: ReactNode,
   initialQueryParams: QueryParamsChannel,
-  ssrChannel: DTOChannel,
   ssrLiveItems: DTOLiveItem[],
   ssrItems: DTOItem[],
   ssrClips: DTOClip[],
@@ -42,7 +39,6 @@ interface PodcastContextProviderProps {
 export const PodcastContextProvider = ({
   children,
   initialQueryParams,
-  ssrChannel,
   ssrLiveItems,
   ssrItems,
   ssrClips,
@@ -55,7 +51,6 @@ export const PodcastContextProvider = ({
   const [clips, setClips] = useState<DTOClip[]>(ssrClips || []);
   const [totalPages, setTotalPages] = useState<number>(ssrTotalPages || 1);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [showSubscribeMessage, setShowSubscribeMessage] = useState<boolean>(false);
   const [isCopied, setIsCopied] = useState<string>("");
   const { loggedInAccount } = useAccount();
   
@@ -133,7 +128,6 @@ export const PodcastContextProvider = ({
       clips, setClips,
       totalPages, setTotalPages,
       isLoading, setIsLoading,
-      showSubscribeMessage, setShowSubscribeMessage,
       isCopied, setIsCopied
     }}>
       {children}

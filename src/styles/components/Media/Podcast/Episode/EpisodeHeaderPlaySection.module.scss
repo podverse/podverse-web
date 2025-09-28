@@ -1,3 +1,33 @@
-.playSection {
+@use '../../../../mixins/timeText' as *;
 
+.sectionStart {
+  display: flex;
+  flex: 1;
+}
+
+.sectionEnd {
+  display: flex;
+  flex: 0;
+}
+
+.playSection {
+  display: flex;
+  align-items: center;
+}
+
+.sectionStart {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.timeSection {
+  display: flex;
+  @include time-text-row();
+  font-size: var(--font-size-md);
+}
+
+.sectionEnd {
+  display: flex;
+  align-items: center;
 }

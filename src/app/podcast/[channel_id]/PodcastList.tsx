@@ -17,7 +17,7 @@ type PodcastListProps = {
 
 export const PodcastList: React.FC<PodcastListProps> = ({ podroll, ssrChannel }) => {
   const { filterParams, setFilterParams, items, clips, totalPages,
-    isLoading, showSubscribeMessage } = usePodcastContext();
+    isLoading } = usePodcastContext();
   const { page = 1 } = filterParams;
 
   const { type } = filterParams;
@@ -32,7 +32,6 @@ export const PodcastList: React.FC<PodcastListProps> = ({ podroll, ssrChannel })
             channel={ssrChannel}
             items={items}
             totalPages={totalPages}
-            showSubscribeMessage={showSubscribeMessage}
           />
         )
       }
@@ -44,7 +43,7 @@ export const PodcastList: React.FC<PodcastListProps> = ({ podroll, ssrChannel })
             clips={clips}
             channel={ssrChannel}
             totalPages={totalPages}
-            showSubscribeMessage={showSubscribeMessage}
+            showFullInfo={true}
           />
         )
       }

@@ -9,7 +9,7 @@ import { ROUTES } from "../../../constants/routes";
 import styles from "../../../styles/components/List/Clips/ListClipRow.module.scss";
 import { IMAGES } from "../../../constants/images";
 import { PlayButtonRow } from "../../MediaPlayer/Buttons/PlayButtonRow";
-import MoreButton from "../../MoreButton/MoreButton";
+import { MoreButton } from "../../MoreButton/MoreButton";
 import { useMediaPlayer } from "../../../contexts/MediaPlayer";
 import { ReadableDate } from "../../Time/ReadableDate";
 import { ReadableTimeRange } from "../../Time/ReadableTimeRange";
@@ -24,9 +24,10 @@ interface Props {
   channel?: DTOChannel | null;
   item?: DTOItem | null;
   clip: DTOClip;
+  showFullInfo?: boolean;
 }
 
-export const ListClipRow: React.FC<Props> = ({ channel, item, clip }) => {
+export const ListClipRow: React.FC<Props> = ({ channel, item, clip, showFullInfo }) => {
   const url = `${ROUTES.CLIP}/${clip.id_text}`;
 
   channel = clip.item?.channel || item?.channel || channel || null;
@@ -34,6 +35,7 @@ export const ListClipRow: React.FC<Props> = ({ channel, item, clip }) => {
 
   const channel_images = channel?.channel_images;
   const item_images = item?.item_images;
+
   const channel_image = findDTOChannelImageBySize(channel_images, IMAGES.LIST.CLIPS.SIZE_FIND_TARGET, 'lesser');
   const item_image = findDTOItemImageBySize(item_images, IMAGES.LIST.CLIPS.SIZE_FIND_TARGET, 'lesser');
 
@@ -151,7 +153,11 @@ export const ListClipRow: React.FC<Props> = ({ channel, item, clip }) => {
         <Link href={url}>
           <div className={styles.topSection}>
             <h3 className={styles.clipTitle}>{clipTitle}</h3>
-            <p className={styles.itemTitle}>{itemTitle}</p>
+            {
+              showFullInfo && (
+                <p className={styles.itemTitle}>{itemTitle}</p>
+              )
+            }
           </div>
         </Link>
         <div className={styles.bottomSection}>
@@ -162,8 +168,14 @@ export const ListClipRow: React.FC<Props> = ({ channel, item, clip }) => {
               onClick={playButtonOnClick}
             />
             <div className={styles.timeSection}>
-              <ReadableDate date={itemPubDate} />
-              {" • "}
+              {
+                showFullInfo && (
+                  <>
+                    <ReadableDate date={itemPubDate} />
+                    {" • "}
+                  </>
+                )
+              }
               <ReadableTimeRange
                 startTime={clip.start_time}
                 endTime={clip.end_time} />

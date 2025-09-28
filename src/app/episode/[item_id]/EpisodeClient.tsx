@@ -26,13 +26,13 @@ export function EpisodeClient(props: EpisodeClientProps) {
       ssrChannel={ssrChannel}
     >
       <MainWrapper>
-        <PodcastHeader channel={ssrChannel} />
+        <PodcastHeader channel={ssrChannel} item={ssrItem} />
         <MainInnerWrapper>
           <SideContent />
           <MainInnerContentWrapper>
-            <EpisodeHeader item={ssrItem} channel={ssrChannel} />
+            <EpisodeHeader channel={ssrChannel} item={ssrItem}  />
             <EpisodeListHeader />
-            <EpisodeList />
+            <EpisodeList ssrChannel={ssrChannel} ssrItem={ssrItem} />
           </MainInnerContentWrapper>
         </MainInnerWrapper>
       </MainWrapper>

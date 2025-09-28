@@ -11,3 +11,9 @@
   height: var(--list-item-button-size);
   width: var(--list-item-button-size);
 }
+
+.large {
+  height: var(--large-item-size);
+  width: var(--large-item-size);
+  font-size: var(--font-size-lg);
+}

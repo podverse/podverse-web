@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useRef, useMemo } from "react";
-import DropdownMenu from "../Dropdown/DropdownMenu";
+import { DropdownMenu } from "../Dropdown/DropdownMenu";
 import { useDropdownKeyboardNavigation } from "../../hooks/useDropdownKeyboardNavigation";
 import { MenuItem } from "../Dropdown/Dropdown";
 import styles from "../../styles/components/Form/FormDropdown.module.scss";

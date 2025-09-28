@@ -18,7 +18,7 @@ interface DropdownMenuProps {
   fullWidth?: boolean;
 }
 
-const DropdownMenu: React.FC<DropdownMenuProps> = ({
+export const DropdownMenu: React.FC<DropdownMenuProps> = ({
   menuItems,
   open,
   menuRef,
@@ -70,5 +70,3 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({
     </ul>
   );
 };
-
-export default DropdownMenu;

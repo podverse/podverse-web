@@ -16,7 +16,7 @@ type Props = {
   channel: DTOChannel;
   items: DTOItem[];
   totalPages: number;
-  showSubscribeMessage: boolean;
+  showSubscribeMessage?: boolean;
   type?: QueryParamsItemsType;
   category?: CategoryMappingKeys | null;
 };

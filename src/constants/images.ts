@@ -26,17 +26,17 @@ export const IMAGES = {
         SIZE_FIND_TARGET: 224
       },
       MOBILE: {
-        SIZE: 92,
-        SIZE_FIND_TARGET: 184
+        SIZE: 100,
+        SIZE_FIND_TARGET: 200
       }
     },
     PODCASTS: {
-      SIZE: 92,
-      SIZE_FIND_TARGET: 184
+      SIZE: 100,
+      SIZE_FIND_TARGET: 200
     },
     CLIPS: {
-      SIZE: 92,
-      SIZE_FIND_TARGET: 184
+      SIZE: 100,
+      SIZE_FIND_TARGET: 200
     }
   },
   MEDIA_HEADER_MINI: {

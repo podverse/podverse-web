@@ -2,7 +2,7 @@
 
 import React, { useRef, useMemo } from "react";
 import styles from "../../styles/components/Dropdown/Dropdown.module.scss";
-import DropdownMenu from "./DropdownMenu";
+import { DropdownMenu } from "./DropdownMenu";
 import { useDropdownKeyboardNavigation } from "../../hooks/useDropdownKeyboardNavigation";
 import { Button } from "../Button/Button";
 

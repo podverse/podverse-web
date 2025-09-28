@@ -17,13 +17,14 @@ type Props = {
   item?: DTOItem;
   clips: DTOClip[];
   totalPages: number;
-  showSubscribeMessage: boolean;
+  showSubscribeMessage?: boolean;
   type?: QueryParamsItemsType;
   category?: CategoryMappingKeys | null;
+  showFullInfo?: boolean;
 };
 
 export const ListClips: React.FC<Props> = ({ page = 1, setPage,
-  channel, item, clips, totalPages, showSubscribeMessage }) => {
+  channel, item, clips, totalPages, showSubscribeMessage, showFullInfo }) => {
   const tInstructions = useTranslations("instructions");
   const tAuthentication = useTranslations("authentication");
   const { setModalLogin } = useModals();
@@ -56,7 +57,8 @@ export const ListClips: React.FC<Props> = ({ page = 1, setPage,
                 key={clip.id}
                 channel={channel}
                 item={item}
-                clip={clip} />
+                clip={clip}
+                showFullInfo={showFullInfo} />
             ))}
           </Pagination>
         )

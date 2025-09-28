@@ -1,16 +1,16 @@
 "use client";
 
 import { useParams } from "next/navigation";
-import { DTOClip, DTOItem, DTOItemChapter, DTOItemSoundbite, QueryParamsItem } from "podverse-helpers";
+import { DTOClip, DTOItem, DTOItemChapter, DTOItemSoundbite, getTotalPages, QueryParamsItem } from "podverse-helpers";
 import React, { createContext, useContext, useState, ReactNode } from "react";
 import { useAccount } from "../../../contexts/Account";
 import { useSkipInitialEffect } from "../../../hooks/useSkipInitialEffect";
+import { getEpisodeFilterParams } from "./EpisodeDropdownConfig";
+import { apiRequestService } from "../../../factories/apiRequestService";
 
 interface EpisodeContextType {
   filterParams: QueryParamsItem;
   setFilterParams: (params: QueryParamsItem) => void;
-  item: DTOItem;
-  setItem: (item: DTOItem) => void;
   chapters: DTOItemChapter[];
   setChapters: (chapters: DTOItemChapter[]) => void;
   soundbites: DTOItemSoundbite[];
@@ -32,17 +32,14 @@ const EpisodeContext = createContext<EpisodeContextType | undefined>(undefined);
 interface EpisodeContextProviderProps {
   children: ReactNode,
   initialQueryParams: QueryParamsItem,
-  ssrItem: DTOItem
 }
 
 export const EpisodeContextProvider = ({
   children,
-  initialQueryParams,
-  ssrItem
+  initialQueryParams
 }: EpisodeContextProviderProps) => {
   const params = useParams();
   const [filterParams, setFilterParams] = useState<QueryParamsItem>(initialQueryParams);
-  const [item, setItem] = useState<DTOItem>(ssrItem);
   const [chapters, setChapters] = useState<DTOItemChapter[]>([]);
   const [soundbites, setSoundbites] = useState<DTOItemSoundbite[]>([]);
   const [clips, setClips] = useState<DTOClip[]>([]);
@@ -56,7 +53,7 @@ export const EpisodeContextProvider = ({
     return null
   }
 
-  // const item_id = params.item_id as string;
+  const item_id = params.item_id as string;
 
   useSkipInitialEffect(() => {
     if (
@@ -66,35 +63,33 @@ export const EpisodeContextProvider = ({
       return;
     }
 
-    // async function fetchClips() {
-    //   const { currentSort, currentRange } = getPodcastFilterParams({
-    //     type: filterParams.type,
-    //     sort: filterParams.sort,
-    //     range: filterParams.range
-    //   });
+    async function fetchClips() {
+      const { currentSort, currentRange } = getEpisodeFilterParams({
+        type: filterParams.type,
+        sort: filterParams.sort,
+        range: filterParams.range
+      });
 
-    //   const response = await apiRequestService.reqClipGetManyByChannelIdTextPublic(
-    //     channel_id,
-    //     {
-    //       page: filterParams.page,
-    //       sort: currentSort,
-    //       range: currentRange
-    //     }
-    //   );
+      const response = await apiRequestService.reqClipGetManyByItemIdTextPublic(
+        item_id,
+        {
+          page: filterParams.page,
+          sort: currentSort,
+          range: currentRange
+        }
+      );
 
-    //   const totalPages = getTotalPages(response.meta.count, response.meta.limit);
-    //   setTotalPages(totalPages);
-    //   setClips(response.data);
-    // }
+      const totalPages = getTotalPages(response.meta.count, response.meta.limit);
+      setTotalPages(totalPages);
+      setClips(response.data);
+    }
     
     async function fetchData() {
       setIsLoading(true);
 
-      // if (filterParams.type === "episodes") {
-      //   await fetchItems();
-      // } else if (filterParams.type === "clips") {
-      //   await fetchClips();
-      // }
+      if (filterParams.type === "clips") {
+        await fetchClips();
+      }
 
       setIsLoading(false);
     }
@@ -106,7 +101,6 @@ export const EpisodeContextProvider = ({
     <EpisodeContext.Provider value={{
       filterParams,
       setFilterParams,
-      item, setItem,
       chapters, setChapters,
       soundbites, setSoundbites,
       clips, setClips,
