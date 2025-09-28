@@ -11,8 +11,8 @@ type PlayButtonRowProps = {
   onClick: () => void;
 }
 
-export const PlayButtonRow: React.FC<PlayButtonRowProps> = ({ clip, item, onClick }) => {
-  const { mpIsPlaying, mpItem, mpClip } = useMediaPlayer();
+export const PlayButtonRow: React.FC<PlayButtonRowProps> = ({ clip, item, item_soundbite, onClick }) => {
+  const { mpIsPlaying, mpItem, mpItemSoundbite, mpClip } = useMediaPlayer();
   const tMediaPlayer = useTranslations("media_player");
 
   if (!item) {
@@ -20,7 +20,9 @@ export const PlayButtonRow: React.FC<PlayButtonRowProps> = ({ clip, item, onClic
   }
   
   let isCurrentlyInPlayer = false;
-  if (clip) {
+  if (item_soundbite) {
+    isCurrentlyInPlayer = mpItemSoundbite?.id === item_soundbite.id;
+  } else if (clip) {
     isCurrentlyInPlayer = mpClip?.id === clip.id;
   } else if (mpItem) {
     isCurrentlyInPlayer = mpItem.id === item.id;
