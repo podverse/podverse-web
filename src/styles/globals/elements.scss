@@ -74,6 +74,7 @@ p {
   font-weight: var(--font-weight-light);
   line-height: var(--text-line-height);
   color: var(--text-color-secondary);
+  word-wrap: break-word;
 }
 
 img {
