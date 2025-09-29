@@ -64,13 +64,13 @@ export const EpisodeContextProvider = ({
     }
 
     async function fetchItemChapters() {
-      const response = await apiRequestService.reqItemParseAndGetChapters(
-        item_id
-      );
+      const response = await apiRequestService.reqItemParseAndGetChapters(item_id);
 
       const totalPages = getTotalPages(response.meta.count, response.meta.limit);
       setTotalPages(totalPages);
-      setItemChapters(response.data);
+      
+      const tocChapters = response.data.filter((ch: DTOItemChapter) => ch.table_of_contents !== false);
+      setItemChapters(tocChapters);
     }
 
     async function fetchSoundbites() {
