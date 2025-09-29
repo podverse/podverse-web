@@ -24,6 +24,13 @@
   align-items: flex-start;
 }
 
+.title {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-light);
+  color: var(--text-color-primary);
+  text-align: left;
+}
+
 .subtitleWrapper {
   @include line-clamp(1);
   font-size: var(--font-size-sm);

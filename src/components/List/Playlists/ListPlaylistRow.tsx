@@ -27,7 +27,7 @@ export const ListPlaylistRow: React.FC<Props> = ({ playlist, showCreator, onClic
     >
       <div className={styles.listItem}>
         <div className={styles.content}>
-          <h3>{playlist.title}</h3>
+          <div className={styles.title}>{playlist.title}</div>
           <div className={styles.subtitleWrapper}>
             <span>{tFeatures("playlist.item_count", { count: playlist.item_count })}</span>
             {
