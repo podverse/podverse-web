@@ -32,11 +32,21 @@ export default async function EpisodePage({ params, searchParams }: EpisodePageP
   const ssrItem = await apiRequestService.reqItemGetByIdOrIdText(item_id);
   const ssrChannel = await apiRequestService.reqChannelGetByIdOrIdText(ssrItem.channel_id);
 
+  const ssrHasChapters = !!ssrItem.item_chapters_feed
+  const ssrHasSoundbites = !!ssrItem.item_soundbites && ssrItem.item_soundbites.length > 0;
+  const ssrHasTranscripts = ssrItem.item_transcripts
+    && ssrItem.item_transcripts.length > 0;
+
+  console.log('ssrItem.item_soundbites', ssrItem.item_soundbites);
+
   return (
     <EpisodeClient
       initialQueryParams={{ page, type, sort, range }}
       ssrChannel={ssrChannel}
       ssrItem={ssrItem}
+      ssrHasChapters={ssrHasChapters}
+      ssrHasSoundbites={ssrHasSoundbites}
+      ssrHasTranscripts={ssrHasTranscripts}
     />
   );
 }

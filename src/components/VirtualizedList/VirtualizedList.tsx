@@ -22,7 +22,7 @@ export function VirtualizedList<T>({ items, height, renderItem, highlightedIndex
       highlightedIndex !== undefined &&
       highlightedIndex >= 0
     ) {
-      const scrollIndex = Math.max(0, highlightedIndex - 2);
+      const scrollIndex = Math.max(0, highlightedIndex);
       virtuosoRef.current.scrollToIndex({ index: scrollIndex, align: 'start', behavior: 'smooth' });
     }
   }, [highlightedIndex, autoScrollOn]);

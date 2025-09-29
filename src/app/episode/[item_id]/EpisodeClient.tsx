@@ -14,10 +14,14 @@ interface EpisodeClientProps {
   initialQueryParams: QueryParamsItem;
   ssrChannel: DTOChannel;
   ssrItem: DTOItem;
+  ssrHasChapters: boolean;
+  ssrHasSoundbites: boolean;
+  ssrHasTranscripts: boolean;
 }
 
 export function EpisodeClient(props: EpisodeClientProps) {
-  const { initialQueryParams, ssrItem, ssrChannel } = props;
+  const { initialQueryParams, ssrItem, ssrChannel, ssrHasChapters,
+    ssrHasSoundbites, ssrHasTranscripts } = props;
 
   return (
     <EpisodeContextProvider initialQueryParams={initialQueryParams}>
@@ -27,7 +31,11 @@ export function EpisodeClient(props: EpisodeClientProps) {
           <SideContent />
           <MainInnerContentWrapper>
             <EpisodeHeader channel={ssrChannel} item={ssrItem}  />
-            <EpisodeListHeader />
+            <EpisodeListHeader
+              ssrHasChapters={ssrHasChapters}
+              ssrHasTranscripts={ssrHasTranscripts}
+              ssrHasSoundbites={ssrHasSoundbites}
+            />
             <EpisodeList ssrChannel={ssrChannel} ssrItem={ssrItem} />
           </MainInnerContentWrapper>
         </MainInnerWrapper>

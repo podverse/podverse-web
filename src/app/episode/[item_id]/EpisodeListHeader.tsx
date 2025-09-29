@@ -17,7 +17,14 @@ import { getEpisodeDropdownConfig } from "./EpisodeDropdownConfig";
 import { Tabs } from "../../../components/Tabs/Tabs";
 import { Button } from "../../../components/Button/Button";
 
-export const EpisodeListHeader: React.FC = () => {
+type EpisodeListHeaderProps = {
+  ssrHasChapters: boolean;
+  ssrHasSoundbites: boolean;
+  ssrHasTranscripts: boolean;
+};
+
+export const EpisodeListHeader: React.FC<EpisodeListHeaderProps> = ({
+  ssrHasChapters, ssrHasSoundbites, ssrHasTranscripts }) => {
   const { filterParams, setFilterParams, setTotalPages, autoScrollOn,
     setAutoScrollOn } = useEpisodeContext();
   const { type, sort, range } = filterParams;
@@ -58,38 +65,46 @@ export const EpisodeListHeader: React.FC = () => {
     }
   };
 
-  const tabData = [
-    {
-      key: "summary",
-      label: tInfo("summary.summary"),
-      onClick: () => handleTypeChange("summary"),
-      zIndex: 5
-    },
-    {
+  const tabData = [{
+    key: "summary",
+    label: tInfo("summary.summary"),
+    onClick: () => handleTypeChange("summary"),
+    zIndex: 5
+  }];
+
+  if (ssrHasChapters) {
+    tabData.push({
       key: "chapters",
       label: tInfo("chapter.chapters"),
       onClick: () => handleTypeChange("chapters"),
       zIndex: 4
-    },
-    {
+    });
+  }
+  
+  if (ssrHasSoundbites) {
+    tabData.push({
       key: "soundbites",
       label: tInfo("soundbite.official_clips"),
       onClick: () => handleTypeChange("soundbites"),
       zIndex: 3
-    },
-    {
-      key: "clips",
-      label: tFeatures("clip.clips"),
-      onClick: () => handleTypeChange("clips"),
-      zIndex: 2
-    },
-    {
+    });
+  }
+
+  tabData.push({
+    key: "clips",
+    label: tFeatures("clip.clips"),
+    onClick: () => handleTypeChange("clips"),
+    zIndex: 2
+  });
+
+  if (ssrHasTranscripts) {
+    tabData.push({
       key: "transcript",
       label: tInfo("transcript"),
       onClick: () => handleTypeChange("transcript"),
       zIndex: 1
-    }
-  ]
+    });
+  }
 
   let sideButtons: React.ReactNode = null;
   if (type === "soundbites" || type === "clips") {
