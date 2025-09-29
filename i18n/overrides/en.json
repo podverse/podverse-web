@@ -221,6 +221,10 @@
       "public": "Public",
       "unlisted": "Unlisted",
       "private": "Private"
+    },
+    "autoscroll": {
+      "autoscroll_on": "Autoscroll On",
+      "autoscroll_off": "Autoscroll Off"
     }
   },
   "instructions": {
