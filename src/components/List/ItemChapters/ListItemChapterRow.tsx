@@ -144,7 +144,14 @@ export const ListItemChapterRow: React.FC<ListItemChapterRowProps> = (
       <div className={styles.content}>
         <Link href={url}>
           <div className={styles.topSection}>
-            <h3 className={styles.clipTitle}>{itemChapterTitle}</h3>
+            <h3
+              className={
+                styles.clipTitle +
+                (mpItemChapter?.id_text === item_chapter.id_text ? ' ' + "highlighted-text" : '')
+              }
+            >
+              {itemChapterTitle}
+            </h3>
           </div>
         </Link>
         <div className={styles.bottomSection}>
