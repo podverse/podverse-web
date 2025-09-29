@@ -11,12 +11,13 @@ interface VirtualizedListProps<T> {
   autoScrollOn?: boolean;
 }
 
-export function VirtualizedList<T>({ items, height, renderItem, highlightedIndex }: VirtualizedListProps<T>) {
+export function VirtualizedList<T>({ items, height, renderItem, highlightedIndex, autoScrollOn }: VirtualizedListProps<T>) {
 
   const virtuosoRef = useRef<VirtuosoHandle>(null);
 
   useEffect(() => {
     if (
+      autoScrollOn &&
       virtuosoRef.current &&
       highlightedIndex !== undefined &&
       highlightedIndex >= 0
@@ -24,7 +25,7 @@ export function VirtualizedList<T>({ items, height, renderItem, highlightedIndex
       const scrollIndex = Math.max(0, highlightedIndex - 2);
       virtuosoRef.current.scrollToIndex({ index: scrollIndex, align: 'start', behavior: 'smooth' });
     }
-  }, [highlightedIndex]);
+  }, [highlightedIndex, autoScrollOn]);
 
   return (
     <Virtuoso

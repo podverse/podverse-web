@@ -18,7 +18,7 @@ type EpisodeListProps = {
 
 export const EpisodeList: React.FC<EpisodeListProps> = ({ ssrChannel, ssrItem }) => {
   const { filterParams, setFilterParams, isLoading, clips, itemChapters,
-    itemSoundbites, totalPages, transcriptRows } = useEpisodeContext();
+    itemSoundbites, totalPages, transcriptRows, autoScrollOn } = useEpisodeContext();
   const { page = 1, type } = filterParams;
 
   return (
@@ -68,7 +68,9 @@ export const EpisodeList: React.FC<EpisodeListProps> = ({ ssrChannel, ssrItem })
       }
       {
         type === "transcript" && (
-          <ItemTranscript autoScrollOn rows={transcriptRows} />
+          <ItemTranscript
+            autoScrollOn={autoScrollOn}
+            rows={transcriptRows} />
         )
       }
       <LoadingSpinnerOverlay isLoading={isLoading} />
