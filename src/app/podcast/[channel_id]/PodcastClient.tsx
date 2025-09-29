@@ -25,7 +25,6 @@ export function PodcastClient(props: PodcastClientProps) {
   return (
     <PodcastContextProvider
       initialQueryParams={initialQueryParams}
-      ssrChannel={ssrChannel}
       ssrLiveItems={ssrLiveItems}
       ssrItems={ssrItems}
       ssrClips={ssrClips}
