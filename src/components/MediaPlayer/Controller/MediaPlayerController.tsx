@@ -4,9 +4,11 @@ import React, { useEffect } from "react";
 import { MediaPlayerControllerAudio } from "./MediaPlayerControllerAudio";
 import { useMediaPlayer } from "../../../contexts/MediaPlayer";
 import { EVENTS } from "../../../constants/events";
+import { useMediaPlayerCurrentTime } from "../../../contexts/MediaPlayerCurrentTime";
 
 export const MediaPlayerController: React.FC = () => {
-  const { mpCurrentTime, mpDuration } = useMediaPlayer();
+  const { mpDuration } = useMediaPlayer();
+  const { mpCurrentTime } = useMediaPlayerCurrentTime();
 
   const handleKeyDown = (e: KeyboardEvent | React.KeyboardEvent<HTMLDivElement>) => {
     const target = e.target as HTMLElement;

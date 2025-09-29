@@ -8,6 +8,7 @@ import { ModalsProvider } from '../contexts/Modals';
 import { UITheme } from '../utils/theme';
 import { CategoriesProvider } from '../contexts/Categories';
 import { MediaPlayerProvider } from '../contexts/MediaPlayer';
+import { MediaPlayerCurrentTimeProvider } from '../contexts/MediaPlayerCurrentTime';
 import { PlaylistsFavoritesProvider } from '../contexts/PlaylistsFavorites';
 import { QueuesProvider } from '../contexts/Queue';
 
@@ -32,13 +33,15 @@ export default function Providers({
         <AccountProvider ssrLoggedInAccount={ssrLoggedInAccount}>
           <QueuesProvider>
             <PlaylistsFavoritesProvider>
-              <MediaPlayerProvider>
-                <ModalsProvider>
-                  <CategoriesProvider ssrCategories={categories}>
-                    {children}
-                  </CategoriesProvider>
-                </ModalsProvider>
-              </MediaPlayerProvider>
+              <MediaPlayerCurrentTimeProvider>
+                <MediaPlayerProvider>
+                  <ModalsProvider>
+                    <CategoriesProvider ssrCategories={categories}>
+                      {children}
+                    </CategoriesProvider>
+                  </ModalsProvider>
+                </MediaPlayerProvider>
+              </MediaPlayerCurrentTimeProvider>
             </PlaylistsFavoritesProvider>
           </QueuesProvider>
         </AccountProvider>

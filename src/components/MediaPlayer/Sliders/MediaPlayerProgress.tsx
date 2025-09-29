@@ -2,8 +2,9 @@
 
 import { DTOClip, formatHHMMSS } from "podverse-helpers";
 import React, { useRef } from "react";
-import { useMediaPlayer } from "../../../contexts/MediaPlayer";
 import { EVENTS } from "../../../constants/events";
+import { useMediaPlayer } from "../../../contexts/MediaPlayer";
+import { useMediaPlayerCurrentTime } from "../../../contexts/MediaPlayerCurrentTime";
 import styles from "../../../styles/components/MediaPlayer/Sliders/MediaPlayerProgress.module.scss";
 
 type MediaPlayerProgressProps = {
@@ -19,7 +20,8 @@ export const MediaPlayerProgress: React.FC<MediaPlayerProgressProps> = ({
   overrideHighlightEndTime,
   includeMobileTime
 }) => {
-  const { mpClip, mpItemSoundbite, mpItemChapter, mpCurrentTime, mpDuration } = useMediaPlayer();
+  const { mpClip, mpItemSoundbite, mpItemChapter, mpDuration } = useMediaPlayer();
+  const { mpCurrentTime } = useMediaPlayerCurrentTime();
   const barRef = useRef<HTMLDivElement>(null);
   const progress = mpDuration > 0 ? mpCurrentTime / mpDuration : 0;
 

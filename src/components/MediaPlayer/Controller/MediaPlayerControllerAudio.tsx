@@ -4,6 +4,7 @@ import React, { useRef, useEffect } from "react";
 import { useMediaPlayer } from "../../../contexts/MediaPlayer";
 import { getMediaTypeFromSource, getSelectedItemEnclosureUrl } from "podverse-helpers";
 import { EVENTS } from "../../../constants/events";
+import { useMediaPlayerCurrentTime } from "../../../contexts/MediaPlayerCurrentTime";
 
 // Track the stopAt time for conditional pausing
 let globalPauseAtTime: number | null = null;
@@ -16,27 +17,25 @@ export const MediaPlayerControllerAudio: React.FC = () => {
     mpItemChapter,
     mpItemChapters,
     mpItemChapterShouldSeek,
+    mpItemSoundbite,
     mpIsPlaying,
     mpPlaybackSpeed,
     mpVolume,
     mpIsMuted,
-    setMPCurrentTime,
     setMPIsPlaying,
     setMPDuration,
-    setMPClip,
     setMPItemChapter,
-    setMPItemChapterShouldSeek
+    setMPItemChapterShouldSeek,
+    setMPClip,
+    setMPItemSoundbite
   } = useMediaPlayer();
+
+  const { setMPCurrentTime } = useMediaPlayerCurrentTime();
 
   const mpClipRef = useRef<typeof mpClip>(null);
   useEffect(() => {
     mpClipRef.current = mpClip;
   }, [mpClip]);
-
-  const {
-    mpItemSoundbite,
-    setMPItemSoundbite
-  } = useMediaPlayer();
 
   const mpItemSoundbiteRef = useRef<typeof mpItemSoundbite>(null);
   useEffect(() => {
