@@ -9,6 +9,7 @@ import { ListClips } from "../../../components/List/Clips/ListClips";
 import { DTOChannel, DTOItem } from "podverse-helpers";
 import { ListItemSoundbites } from "../../../components/List/ItemSoundbites/ListItemSoundbites";
 import { ListItemChapters } from "../../../components/List/ItemChapters/ListItemChapters";
+import { ItemTranscript } from "../../../components/ItemTranscript/ItemTranscript";
 
 type EpisodeListProps = {
   ssrChannel: DTOChannel;
@@ -16,7 +17,8 @@ type EpisodeListProps = {
 }
 
 export const EpisodeList: React.FC<EpisodeListProps> = ({ ssrChannel, ssrItem }) => {
-  const { filterParams, setFilterParams, isLoading, clips, itemChapters, itemSoundbites, totalPages } = useEpisodeContext();
+  const { filterParams, setFilterParams, isLoading, clips, itemChapters,
+    itemSoundbites, totalPages, transcriptRows } = useEpisodeContext();
   const { page = 1, type } = filterParams;
 
   return (
@@ -62,6 +64,11 @@ export const EpisodeList: React.FC<EpisodeListProps> = ({ ssrChannel, ssrItem })
             totalPages={totalPages}
             showSubscribeMessage={false}
           />
+        )
+      }
+      {
+        type === "transcript" && (
+          <ItemTranscript rows={transcriptRows} />
         )
       }
       <LoadingSpinnerOverlay isLoading={isLoading} />

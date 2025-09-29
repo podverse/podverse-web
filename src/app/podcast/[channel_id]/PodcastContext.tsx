@@ -21,8 +21,6 @@ interface PodcastContextType {
   setTotalPages: (totalPages: number) => void;
   isLoading: boolean;
   setIsLoading: (isLoading: boolean) => void;
-  isCopied: string;
-  setIsCopied: (isCopied: string) => void;
 };
 
 const PodcastContext = createContext<PodcastContextType | undefined>(undefined);
@@ -51,7 +49,6 @@ export const PodcastContextProvider = ({
   const [clips, setClips] = useState<DTOClip[]>(ssrClips || []);
   const [totalPages, setTotalPages] = useState<number>(ssrTotalPages || 1);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [isCopied, setIsCopied] = useState<string>("");
   const { loggedInAccount } = useAccount();
   
   if (!params.channel_id) return;
@@ -127,8 +124,7 @@ export const PodcastContextProvider = ({
       items, setItems,
       clips, setClips,
       totalPages, setTotalPages,
-      isLoading, setIsLoading,
-      isCopied, setIsCopied
+      isLoading, setIsLoading
     }}>
       {children}
     </PodcastContext.Provider>

@@ -1,12 +1,14 @@
 "use client";
 
 import { useParams } from "next/navigation";
-import { DTOClip, DTOItem, DTOItemChapter, DTOItemSoundbite, getTotalPages, QueryParamsItem } from "podverse-helpers";
+import { DTOClip, DTOItemChapter, DTOItemSoundbite, getTotalPages,
+  QueryParamsItem, TranscriptRow } from "podverse-helpers";
 import React, { createContext, useContext, useState, ReactNode } from "react";
 import { useAccount } from "../../../contexts/Account";
 import { useSkipInitialEffect } from "../../../hooks/useSkipInitialEffect";
 import { getEpisodeFilterParams } from "./EpisodeDropdownConfig";
 import { apiRequestService } from "../../../factories/apiRequestService";
+import { getTranscriptRowsFromTranscriptString } from "../../../utils/transcript";
 
 interface EpisodeContextType {
   filterParams: QueryParamsItem;
@@ -19,12 +21,10 @@ interface EpisodeContextType {
   setClips: (clips: DTOClip[]) => void;
   totalPages: number;
   setTotalPages: (totalPages: number) => void;
+  transcriptRows?: TranscriptRow[];
+  setTranscriptRows?: (transcriptRows: TranscriptRow[]) => void;
   isLoading: boolean;
   setIsLoading: (isLoading: boolean) => void;
-  showSubscribeMessage: boolean;
-  setShowSubscribeMessage: (show: boolean) => void;
-  isCopied: string;
-  setIsCopied: (isCopied: string) => void;
 };
 
 const EpisodeContext = createContext<EpisodeContextType | undefined>(undefined);
@@ -45,8 +45,7 @@ export const EpisodeContextProvider = ({
   const [clips, setClips] = useState<DTOClip[]>([]);
   const [totalPages, setTotalPages] = useState<number>(1);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [showSubscribeMessage, setShowSubscribeMessage] = useState<boolean>(false);
-  const [isCopied, setIsCopied] = useState<string>("");
+  const [transcriptRows, setTranscriptRows] = useState<TranscriptRow[]>([]);
   const { loggedInAccount } = useAccount();
   
   if (!params.item_id) {
@@ -56,10 +55,7 @@ export const EpisodeContextProvider = ({
   const item_id = params.item_id as string;
 
   useSkipInitialEffect(() => {
-    if (
-      filterParams.type === "summary"
-      || filterParams.type === "transcript"
-    ) {
+    if (filterParams.type === "summary") {
       return;
     }
 
@@ -113,6 +109,12 @@ export const EpisodeContextProvider = ({
       setTotalPages(totalPages);
       setClips(response.data);
     }
+
+    async function fetchTranscript() {
+      const response = await apiRequestService.reqItemTranscriptGet(item_id);
+      const rows = await getTranscriptRowsFromTranscriptString(response.data);
+      setTranscriptRows(rows);
+    }
     
     async function fetchData() {
       setIsLoading(true);
@@ -123,6 +125,8 @@ export const EpisodeContextProvider = ({
         await fetchSoundbites();
       } else if (filterParams.type === "clips") {
         await fetchClips();
+      } else if (filterParams.type === "transcript") {
+        await fetchTranscript();
       }
 
       setIsLoading(false);
@@ -139,9 +143,8 @@ export const EpisodeContextProvider = ({
       itemSoundbites, setItemSoundbites,
       clips, setClips,
       totalPages, setTotalPages,
-      isLoading, setIsLoading,
-      showSubscribeMessage, setShowSubscribeMessage,
-      isCopied, setIsCopied
+      transcriptRows, setTranscriptRows,
+      isLoading, setIsLoading
     }}>
       {children}
     </EpisodeContext.Provider>

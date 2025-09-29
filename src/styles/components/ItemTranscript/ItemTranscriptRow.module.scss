@@ -1,0 +1,29 @@
+.itemTranscriptRow {
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem 0;
+}
+
+.speaker {
+  display: flex;
+  font-weight: var(--font-weight-medium);
+  color: var(--text-color-link);
+}
+
+.mainSection {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.text {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-light);
+}
+
+.time {
+  font-size: var(--font-size-md);
+  color: var(--text-color-secondary);
+  font-weight: var(--font-weight-light);
+  margin: 0 0.75rem;
+}

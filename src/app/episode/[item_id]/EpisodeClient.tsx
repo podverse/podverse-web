@@ -20,11 +20,7 @@ export function EpisodeClient(props: EpisodeClientProps) {
   const { initialQueryParams, ssrItem, ssrChannel } = props;
 
   return (
-    <EpisodeContextProvider
-      initialQueryParams={initialQueryParams}
-      ssrItem={ssrItem}
-      ssrChannel={ssrChannel}
-    >
+    <EpisodeContextProvider initialQueryParams={initialQueryParams}>
       <MainWrapper>
         <PodcastHeader channel={ssrChannel} item={ssrItem} />
         <MainInnerWrapper>
