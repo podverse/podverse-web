@@ -124,8 +124,8 @@ export const EpisodeListHeader: React.FC = () => {
         variant="mini"
       >
         {autoScrollOn
-          ? tMisc("autoscroll.autoscroll_off")
-          : tMisc("autoscroll.autoscroll_on")}
+          ? tMisc("autoscroll.autoscroll_on")
+          : tMisc("autoscroll.autoscroll_off")}
       </Button>
     );
   }
