@@ -14,6 +14,8 @@ export const MediaPlayerControllerAudio: React.FC = () => {
     mpClip,
     mpItem,
     mpItemChapter,
+    mpItemChapters,
+    mpItemChapterShouldSeek,
     mpIsPlaying,
     mpPlaybackSpeed,
     mpVolume,
@@ -22,7 +24,8 @@ export const MediaPlayerControllerAudio: React.FC = () => {
     setMPIsPlaying,
     setMPDuration,
     setMPClip,
-    setMPItemChapter
+    setMPItemChapter,
+    setMPItemChapterShouldSeek
   } = useMediaPlayer();
 
   const mpClipRef = useRef<typeof mpClip>(null);
@@ -133,15 +136,6 @@ export const MediaPlayerControllerAudio: React.FC = () => {
         }
       }
 
-      const itemChapter = mpItemChapterRef.current;
-      if (itemChapter && itemChapter.end_time) {
-        const endTimeNum = typeof itemChapter.end_time === "string" ? parseFloat(itemChapter.end_time) : itemChapter.end_time;
-        const endTimeNumAdjusted = endTimeNum + 1;
-        if (!isNaN(endTimeNumAdjusted) && audio.currentTime >= endTimeNumAdjusted) {
-          setMPItemChapter(null);
-        }
-      }
-      
       const itemSoundbite = mpItemSoundbiteRef.current;
       if (itemSoundbite && itemSoundbite.duration) {
         const startNum = typeof itemSoundbite.start_time === "string" ? parseFloat(itemSoundbite.start_time) : itemSoundbite.start_time;
@@ -152,6 +146,35 @@ export const MediaPlayerControllerAudio: React.FC = () => {
           setMPItemSoundbite(null);
         }
       }
+
+      // --- Chapter auto-selection logic ---
+      if (
+        !mpItemSoundbiteRef.current
+        && !mpClipRef.current && Array.isArray(mpItemChapters)
+        && mpItemChapters.length > 0
+      ) {
+        const currentTime = audio.currentTime;
+        // Find all chapters that contain the current time
+        const matchingChapters = mpItemChapters.filter(ch => {
+          const start = typeof ch.start_time === "string" ? parseFloat(ch.start_time) : ch.start_time;
+          const end = typeof ch.end_time === "string" ? parseFloat(ch.end_time) : ch.end_time;
+          if (typeof start !== "number" || typeof end !== "number" || start == null || end == null) return false;
+          if (isNaN(start) || isNaN(end)) return false;
+          return currentTime >= start && currentTime < end;
+        });
+        // If any, prefer table_of_contents: false
+        let selectedChapter = null;
+        if (matchingChapters.length > 0) {
+          selectedChapter = matchingChapters.find(ch => ch.table_of_contents === false) || matchingChapters[0];
+        }
+        // If found and not already selected, set as mpItemChapter
+        if (selectedChapter) {
+          if (!mpItemChapterRef.current || mpItemChapterRef.current.id_text !== selectedChapter.id_text) {
+            setMPItemChapter(selectedChapter);
+          }
+        }
+      }
+      // --- End chapter auto-selection logic ---
     };
 
     const handleLoadedMetadata = () => setMPDuration(audio.duration);
@@ -163,7 +186,7 @@ export const MediaPlayerControllerAudio: React.FC = () => {
       audio.removeEventListener("timeupdate", handleTimeUpdate);
       audio.removeEventListener("loadedmetadata", handleLoadedMetadata);
     };
-  }, [audioRef]);
+  }, [audioRef, mpItemChapters, setMPItemChapter]);
 
   // Play/Pause
   useEffect(() => {
@@ -209,9 +232,12 @@ export const MediaPlayerControllerAudio: React.FC = () => {
     }
 
     if (mpItemChapter && audioRef.current) {
-      const audio = audioRef.current;
-      audio.currentTime = Number(mpItemChapter.start_time);
-      audio.play();
+      if (mpItemChapterShouldSeek) {
+        setMPItemChapterShouldSeek(false);
+        const audio = audioRef.current;
+        audio.currentTime = Number(mpItemChapter.start_time);
+        audio.play();
+      }
 
       if (mpItemChapter.end_time) {
         globalPauseAtTime = null;

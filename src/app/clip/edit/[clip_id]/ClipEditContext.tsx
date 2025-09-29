@@ -33,7 +33,9 @@ export const ClipEditContextProvider = (
   const [startTimeString, setStartTimeString] = useState<string>(formatNumericToHHMMSS(ssrClip.start_time));
   const [endTimeString, setEndTimeString] = useState<string | null>(ssrClip.end_time ? formatNumericToHHMMSS(ssrClip.end_time) : null);
   const [isUpdating, setIsUpdating] = useState<boolean>(false);
-  const { setMPChannel, setMPItem, setMPClip, setMPItemSoundbite } = useMediaPlayer();
+  const { setMPChannel, setMPItem, setMPClip, setMPItemSoundbite, 
+    setMPItemChapter, setMPItemChapterShouldSeek, setMPIsPlaying
+   } = useMediaPlayer();
 
   useEffect(() => {
     const item = ssrClip?.item;
@@ -41,9 +43,12 @@ export const ClipEditContextProvider = (
 
     if (item && channel) {
       setMPChannel(channel);
-      setMPItem(item);
       setMPClip(ssrClip);
+      setMPItem(item);
+      setMPItemChapter(null);
+      setMPItemChapterShouldSeek(false);
       setMPItemSoundbite(null);
+      setMPIsPlaying(false);
     }
   }, []);
 

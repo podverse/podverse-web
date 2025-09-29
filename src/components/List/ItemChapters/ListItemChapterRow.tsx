@@ -41,7 +41,8 @@ export const ListItemChapterRow: React.FC<ListItemChapterRowProps> = (
   const tMisc = useTranslations("misc");
   const tInfo = useTranslations("info");
   const { setMPChannel, mpItemChapter, setMPItem, setMPClip, mpIsPlaying,
-    setMPIsPlaying, setMPItemSoundbite, setMPItemChapter } = useMediaPlayer();
+    setMPIsPlaying, setMPItemSoundbite, setMPItemChapter,
+    setMPItemChapterShouldSeek } = useMediaPlayer();
   const { setModalPlaylistAddTo } = useModals();
   const { queues } = useQueues();
 
@@ -57,6 +58,7 @@ export const ListItemChapterRow: React.FC<ListItemChapterRowProps> = (
       setMPClip(null);
       setMPItem(item);
       setMPItemChapter(item_chapter);
+      setMPItemChapterShouldSeek(true);
       setMPItemSoundbite(null);
       setMPIsPlaying(true);
     }

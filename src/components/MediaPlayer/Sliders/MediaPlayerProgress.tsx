@@ -19,7 +19,7 @@ export const MediaPlayerProgress: React.FC<MediaPlayerProgressProps> = ({
   overrideHighlightEndTime,
   includeMobileTime
 }) => {
-  const { mpClip, mpItemSoundbite, mpCurrentTime, mpDuration } = useMediaPlayer();
+  const { mpClip, mpItemSoundbite, mpItemChapter, mpCurrentTime, mpDuration } = useMediaPlayer();
   const barRef = useRef<HTMLDivElement>(null);
   const progress = mpDuration > 0 ? mpCurrentTime / mpDuration : 0;
 
@@ -29,7 +29,8 @@ export const MediaPlayerProgress: React.FC<MediaPlayerProgressProps> = ({
     overrideHighlightStartTime,
     overrideHighlightEndTime,
     mpClip,
-    mpItemSoundbite
+    mpItemSoundbite,
+    mpItemChapter
   });
 
   const setProgressFromEvent = (e: MouseEvent | React.MouseEvent<HTMLDivElement>) => {
@@ -117,14 +118,16 @@ function getHighlightPositions({
   overrideHighlightStartTime,
   overrideHighlightEndTime,
   mpClip,
-  mpItemSoundbite
+  mpItemSoundbite,
+  mpItemChapter
 }: {
   mpDuration?: number,
   isClipForm?: boolean,
   overrideHighlightStartTime?: number | null,
   overrideHighlightEndTime?: number | null,
   mpClip?: DTOClip | null,
-  mpItemSoundbite?: { start_time: string | number, duration: string | number } | null
+  mpItemSoundbite?: { start_time: string | number, duration: string | number } | null,
+  mpItemChapter?: { start_time: string | number, end_time?: string | number | null } | null
 }) {
   let highlightStartPosition = null;
   let highlightEndPosition = null;
@@ -144,6 +147,15 @@ function getHighlightPositions({
       }
       if (!isNaN(soundbiteStart) && !isNaN(soundbiteDuration)) {
         highlightEndPosition = (soundbiteStart + soundbiteDuration) / mpDuration;
+      }
+    } else if (mpItemChapter) {
+      const chapterStart = Number(mpItemChapter.start_time);
+      const chapterEnd = mpItemChapter.end_time != null ? Number(mpItemChapter.end_time) : null;
+      if (!isNaN(chapterStart)) {
+        highlightStartPosition = chapterStart / mpDuration;
+      }
+      if (chapterEnd !== null && !isNaN(chapterEnd)) {
+        highlightEndPosition = chapterEnd / mpDuration;
       }
     } else {
       const clipStartTime = Number(mpClip?.start_time);

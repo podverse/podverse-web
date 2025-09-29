@@ -14,6 +14,8 @@ type MediaPlayerContextType = {
   setMPItemChapter: (val: DTOItemChapter | null) => void;
   mpItemChapters: DTOItemChapter[] | null;
   setMPItemChapters: (val: DTOItemChapter[] | null) => void;
+  mpItemChapterShouldSeek: boolean;
+  setMPItemChapterShouldSeek: (val: boolean) => void;
   mpItemSoundbite: DTOItemSoundbite | null;
   setMPItemSoundbite: (val: DTOItemSoundbite | null) => void;
   mpIsPlaying: boolean;
@@ -44,6 +46,7 @@ export const MediaPlayerProvider = ({ children }: MediaPlayerProviderProps) => {
   const [mpClip, setMPClip] = useState<DTOClip | null>(null);
   const [mpItemChapter, setMPItemChapter] = useState<DTOItemChapter | null>(null);
   const [mpItemChapters, setMPItemChapters] = useState<DTOItemChapter[] | null>(null);
+  const [mpItemChapterShouldSeek, setMPItemChapterShouldSeek] = useState<boolean>(false);
   const [mpItemSoundbite, setMPItemSoundbite] = useState<DTOItemSoundbite | null>(null);
   const [mpIsPlaying, setMPIsPlaying] = useState<boolean>(false);
   const [mpPlaybackSpeed, setMPPlaybackSpeed] = useState<PlaybackSpeedValue>(1.0);
@@ -79,6 +82,7 @@ export const MediaPlayerProvider = ({ children }: MediaPlayerProviderProps) => {
       mpClip, setMPClip,
       mpItemChapter, setMPItemChapter,
       mpItemChapters, setMPItemChapters,
+      mpItemChapterShouldSeek, setMPItemChapterShouldSeek,
       mpItemSoundbite, setMPItemSoundbite,
       mpIsPlaying, setMPIsPlaying,
       mpPlaybackSpeed, setMPPlaybackSpeed,
