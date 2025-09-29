@@ -11,7 +11,7 @@ import {
 } from "podverse-helpers";
 import React from "react";
 import Dropdown from "../../../components/Dropdown/Dropdown";
-import ListHeader from "../../../components/List/ListHeader";
+import { ListHeader } from "../../../components/List/ListHeader";
 import { usePodcastContext } from "./PodcastContext";
 import { getPodcastDropdownConfig } from "./PodcastDropdownConfig";
 import { Tabs } from "../../../components/Tabs/Tabs";
@@ -85,26 +85,30 @@ export const PodcastListHeader: React.FC = () => {
     }
   ]
 
-  let filterDropdowns: React.ReactNode[] = [];
+  let sideButtons: React.ReactNode = null;
   if (type === "episodes" || type === "clips") {
-    filterDropdowns = [
-      <Dropdown
-        key="sort"
-        value={sort ?? ""}
-        menuItems={sortMenuItems}
-        onChange={handleSortChange}
-        position="right"
-      />,
-      showRangeDropdown && (
+    sideButtons = (
+      <>
         <Dropdown
-          key="range"
-          value={range ?? ""}
-          menuItems={rangeMenuItems}
-          onChange={handleRangeChange}
+          key="sort"
+          value={sort ?? ""}
+          menuItems={sortMenuItems}
+          onChange={handleSortChange}
           position="right"
         />
-      )
-    ]
+        {
+          showRangeDropdown && (
+            <Dropdown
+              key="range"
+              value={range ?? ""}
+              menuItems={rangeMenuItems}
+              onChange={handleRangeChange}
+              position="right"
+            />
+          )
+        }
+      </>
+    )
   }
 
   return (
@@ -115,7 +119,7 @@ export const PodcastListHeader: React.FC = () => {
           selectedKey={type ?? ""}
         />
       }
-      filterDropdowns={filterDropdowns}
+      sideButtons={sideButtons}
     />
   );
 };

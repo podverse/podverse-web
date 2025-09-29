@@ -5,30 +5,28 @@ import styles from "../../styles/components/List/ListHeader.module.scss";
 
 type ListHeaderProps = {
   tabs?: React.ReactNode;
-  filterDropdowns?: React.ReactNode[];
-  buttonTabs?: React.ReactNode;
+  sideButtons?: React.ReactNode;
+  belowButtons?: React.ReactNode;
 };
 
-export const ListHeader: React.FC<ListHeaderProps> = ({ tabs, filterDropdowns, buttonTabs }) => (
+export const ListHeader: React.FC<ListHeaderProps> = ({ tabs, sideButtons, belowButtons }) => (
   <header className={styles.listHeader}>
     <div className={styles.listHeaderTop}>
       {tabs}
       {
-        filterDropdowns && filterDropdowns.length > 0 && (
-          <div className={styles.filterDropdowns}>
-            {filterDropdowns}
+        sideButtons && (
+          <div className={styles.sideButtons}>
+            {sideButtons}
           </div>
         )
       }
     </div>
     {
-      buttonTabs && (
+      belowButtons && (
         <div className={styles.listHeaderBottom}>
-          {buttonTabs}
+          {belowButtons}
         </div>
       )
     }
   </header>
 );
-
-export default ListHeader;

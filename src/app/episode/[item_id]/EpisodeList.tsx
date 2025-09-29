@@ -68,7 +68,7 @@ export const EpisodeList: React.FC<EpisodeListProps> = ({ ssrChannel, ssrItem })
       }
       {
         type === "transcript" && (
-          <ItemTranscript rows={transcriptRows} />
+          <ItemTranscript autoScrollOn rows={transcriptRows} />
         )
       }
       <LoadingSpinnerOverlay isLoading={isLoading} />

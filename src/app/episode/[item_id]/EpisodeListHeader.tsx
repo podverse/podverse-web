@@ -11,17 +11,20 @@ import {
 } from "podverse-helpers";
 import React from "react";
 import Dropdown from "../../../components/Dropdown/Dropdown";
-import ListHeader from "../../../components/List/ListHeader";
+import { ListHeader } from "../../../components/List/ListHeader";
 import { useEpisodeContext } from "./EpisodeContext";
 import { getEpisodeDropdownConfig } from "./EpisodeDropdownConfig";
 import { Tabs } from "../../../components/Tabs/Tabs";
+import { Button } from "../../../components/Button/Button";
 
 export const EpisodeListHeader: React.FC = () => {
-  const { filterParams, setFilterParams, setTotalPages } = useEpisodeContext();
+  const { filterParams, setFilterParams, setTotalPages, autoScrollOn,
+    setAutoScrollOn } = useEpisodeContext();
   const { type, sort, range } = filterParams;
   const tFilters = useTranslations('filters');
   const tInfo = useTranslations('info');
   const tFeatures = useTranslations('features');
+  const tMisc = useTranslations('misc');
 
   const { sortMenuItems, rangeMenuItems, showRangeDropdown
     } = getEpisodeDropdownConfig({ sort, tFilters });
@@ -88,26 +91,43 @@ export const EpisodeListHeader: React.FC = () => {
     }
   ]
 
-  let filterDropdowns: React.ReactNode[] = [];
+  let sideButtons: React.ReactNode = null;
   if (type === "soundbites" || type === "clips") {
-    filterDropdowns = [
-      <Dropdown
-        key="sort"
-        value={sort ?? ""}
-        menuItems={sortMenuItems}
-        onChange={handleSortChange}
-        position="right"
-      />,
-      showRangeDropdown && (
+    sideButtons = (
+      <>
         <Dropdown
-          key="range"
-          value={range ?? ""}
-          menuItems={rangeMenuItems}
-          onChange={handleRangeChange}
+          key="sort"
+          value={sort ?? ""}
+          menuItems={sortMenuItems}
+          onChange={handleSortChange}
           position="right"
         />
-      )
-    ]
+        {
+          showRangeDropdown && (
+            <Dropdown
+              key="range"
+              value={range ?? ""}
+              menuItems={rangeMenuItems}
+              onChange={handleRangeChange}
+              position="right"
+            />
+          )
+        }
+      </>
+    );
+  }
+
+  if (type === "transcript") {
+    sideButtons = (
+      <Button
+        onClick={() => setAutoScrollOn(!autoScrollOn)}
+        variant="mini"
+      >
+        {autoScrollOn
+          ? tMisc("autoscroll.autoscroll_off")
+          : tMisc("autoscroll.autoscroll_on")}
+      </Button>
+    );
   }
 
   return (
@@ -118,7 +138,7 @@ export const EpisodeListHeader: React.FC = () => {
           selectedKey={type ?? ""}
         />
       }
-      filterDropdowns={filterDropdowns}
+      sideButtons={sideButtons}
     />
   );
 };

@@ -12,7 +12,7 @@ import {
 } from "podverse-helpers";
 import React from "react";
 import Dropdown from "../../components/Dropdown/Dropdown";
-import ListHeader from "../../components/List/ListHeader";
+import { ListHeader } from "../../components/List/ListHeader";
 import { getPlaylistsDropdownConfig } from "./PlaylistsDropdownConfig";
 import { Tabs } from "../../components/Tabs/Tabs";
 import { usePlaylistsContext } from "./PlaylistsContext";
@@ -84,26 +84,30 @@ export const PlaylistsListHeader: React.FC = () => {
     }
   ]
 
-  const filterDropdowns = [
-    <Dropdown
-      key="sort"
-      value={sort ?? ""}
-      menuItems={sortMenuItems}
-      onChange={handleSortChange}
-      position="right"
-    />,
-    showRangeDropdown && (
+  const sideButtons = (
+    <>
       <Dropdown
-        key="range"
-        value={range ?? ""}
-        menuItems={rangeMenuItems}
-        onChange={handleRangeChange}
+        key="sort"
+        value={sort ?? ""}
+        menuItems={sortMenuItems}
+        onChange={handleSortChange}
         position="right"
       />
-    )
-  ]
+      {
+        showRangeDropdown && (
+          <Dropdown
+            key="range"
+            value={range ?? ""}
+            menuItems={rangeMenuItems}
+            onChange={handleRangeChange}
+            position="right"
+          />
+        )
+      }
+    </>
+  );
 
-  const buttonTabs = [
+  const belowButtons = [
     {
       key: "all",
       label: tFilters("type.all"),
@@ -134,10 +138,10 @@ export const PlaylistsListHeader: React.FC = () => {
           selectedKey={type ?? ""}
         />
       }
-      filterDropdowns={filterDropdowns}
-      buttonTabs={(
+      sideButtons={sideButtons}
+      belowButtons={(
         <ButtonTabs
-          buttonTabs={buttonTabs}
+          buttonTabs={belowButtons}
           selectedKey={filterParams.medium_id ?? "all"}
         />
       )}

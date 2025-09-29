@@ -21,8 +21,10 @@ interface EpisodeContextType {
   setClips: (clips: DTOClip[]) => void;
   totalPages: number;
   setTotalPages: (totalPages: number) => void;
-  transcriptRows?: TranscriptRow[];
-  setTranscriptRows?: (transcriptRows: TranscriptRow[]) => void;
+  transcriptRows: TranscriptRow[];
+  setTranscriptRows: (transcriptRows: TranscriptRow[]) => void;
+  autoScrollOn: boolean;
+  setAutoScrollOn: (autoScrollOn: boolean) => void;
   isLoading: boolean;
   setIsLoading: (isLoading: boolean) => void;
 };
@@ -46,6 +48,7 @@ export const EpisodeContextProvider = ({
   const [totalPages, setTotalPages] = useState<number>(1);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [transcriptRows, setTranscriptRows] = useState<TranscriptRow[]>([]);
+  const [autoScrollOn, setAutoScrollOn] = useState<boolean>(true);
   const { loggedInAccount } = useAccount();
   
   if (!params.item_id) {
@@ -144,6 +147,7 @@ export const EpisodeContextProvider = ({
       clips, setClips,
       totalPages, setTotalPages,
       transcriptRows, setTranscriptRows,
+      autoScrollOn, setAutoScrollOn,
       isLoading, setIsLoading
     }}>
       {children}
