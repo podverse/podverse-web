@@ -9,6 +9,7 @@ import { ContentAbout } from "../../../components/Content/About/ContentAbout";
 import { ContentPodroll } from "../../../components/Content/Podroll/ContentPodroll";
 import styles from "../../../styles/app/podcast/PodcastList.module.scss";
 import { ListClips } from "../../../components/List/Clips/ListClips";
+import { ListItemSoundbites } from "../../../components/List/ItemSoundbites/ListItemSoundbites";
 
 type PodcastListProps = {
   podroll?: DTOPodroll | null;
@@ -16,7 +17,7 @@ type PodcastListProps = {
 }
 
 export const PodcastList: React.FC<PodcastListProps> = ({ podroll, ssrChannel }) => {
-  const { filterParams, setFilterParams, items, clips, totalPages,
+  const { filterParams, setFilterParams, items, itemSoundbites, clips, totalPages,
     isLoading } = usePodcastContext();
   const { page = 1 } = filterParams;
 
@@ -36,6 +37,18 @@ export const PodcastList: React.FC<PodcastListProps> = ({ podroll, ssrChannel })
         )
       }
       {
+        type === "soundbites" && (
+          <ListItemSoundbites
+            page={page}
+            setPage={(page) => setFilterParams({ ...filterParams, page })}
+            channel={ssrChannel}
+            itemSoundbites={itemSoundbites}
+            totalPages={totalPages}
+            showFullInfo
+          />
+        )
+      }
+      {
         type === "clips" && (
           <ListClips
             page={page}
@@ -43,7 +56,7 @@ export const PodcastList: React.FC<PodcastListProps> = ({ podroll, ssrChannel })
             clips={clips}
             channel={ssrChannel}
             totalPages={totalPages}
-            showFullInfo={true}
+            showFullInfo
           />
         )
       }

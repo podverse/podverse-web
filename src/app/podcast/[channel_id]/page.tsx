@@ -6,7 +6,8 @@ import {
   DTOClip,
   DTOLiveItem,
   ApiListResponse,
-  getTotalPages
+  getTotalPages,
+  DTOItemSoundbite
 } from "podverse-helpers";
 import { z } from "zod";
 import { getPodcastFilterParams } from "./PodcastDropdownConfig";
@@ -38,17 +39,34 @@ export default async function Podcast({ params, searchParams }: PodcastPageProps
 
   const ssrChannel = await apiRequestService.reqChannelGetByIdOrIdText(channel_id);
   
-  const responseItems = await apiRequestService.reqItemGetManyWithoutLiveItemByChannel(ssrChannel.id_text, {
-    page,
-    sort: currentSort,
-    range: currentRange
-  });
-  const ssrItems = responseItems.data;
- 
-  const ssrLiveItems: DTOLiveItem[] = [];
-  const ssrClips: DTOClip[] = [];
+  let ssrItems: DTOItem[] = [];
+  let ssrLiveItems: DTOLiveItem[] = [];
+  let ssrClips: DTOClip[] = [];
+  let ssrItemSoundbites: DTOItemSoundbite[] = [];
+  let ssrHasItemSoundbites = false;
+  let ssrTotalPages = 1;
 
-  const ssrTotalPages = getCurrentTotalPages({ currentType, responseItems });
+  const responseItemSoundbites = await apiRequestService.reqItemSoundbiteGetManyByChannelIdText(ssrChannel.id_text, {
+    page,
+    sort: currentSort !== "top" ? currentSort : "recent"
+  });
+  ssrItemSoundbites = responseItemSoundbites.data;
+  ssrHasItemSoundbites = responseItemSoundbites.data.length > 0;
+
+  if (type === "clips") {
+    ssrClips = [];
+  } else if (type === "soundbites" && currentSort !== "top") {
+    ssrTotalPages = getCurrentTotalPages({ currentType, responseItemSoundbites });
+  } else {
+    const responseItems = await apiRequestService.reqItemGetManyWithoutLiveItemByChannel(ssrChannel.id_text, {
+      page,
+      sort: currentSort,
+      range: currentRange
+    });
+
+    ssrItems = responseItems.data;
+    ssrTotalPages = getCurrentTotalPages({ currentType, responseItems });
+  }
 
   let ssrPodroll = null;
   if ((ssrChannel?.channel_podroll?.channel_podroll_remote_items?.length ?? 0) > 0) {
@@ -62,6 +80,8 @@ export default async function Podcast({ params, searchParams }: PodcastPageProps
       ssrLiveItems={ssrLiveItems}
       ssrItems={ssrItems}
       ssrClips={ssrClips}
+      ssrItemSoundbites={ssrItemSoundbites}
+      ssrHasItemSoundbites={ssrHasItemSoundbites}
       ssrTotalPages={ssrTotalPages}
       ssrPodroll={ssrPodroll}
     />
@@ -70,15 +90,31 @@ export default async function Podcast({ params, searchParams }: PodcastPageProps
 
 type GetPodcastCurrentTotalPages = {
   currentType?: string;
-  responseItems: ApiListResponse<DTOItem>;
+  responseItems?: ApiListResponse<DTOItem>;
+  responseItemSoundbites?: ApiListResponse<DTOItemSoundbite>;
   responseClips?: ApiListResponse<DTOClip>;
 };
 
-const getCurrentTotalPages = ({ currentType, responseItems, responseClips }: GetPodcastCurrentTotalPages) => {
-  if (currentType === "clips" && responseClips) {
-    return getTotalPages(responseClips.meta.count, responseClips.meta.limit);
+const getCurrentTotalPages = ({ currentType, responseItems,
+  responseItemSoundbites, responseClips }: GetPodcastCurrentTotalPages) => {
+  if (currentType === "soundbites" && responseItemSoundbites) {
+    return getTotalPages(
+      responseItemSoundbites.meta.count,
+      responseItemSoundbites.meta.limit
+    );
+  } else if (currentType === "clips" && responseClips) {
+    return getTotalPages(
+      responseClips.meta.count,
+      responseClips.meta.limit
+    );
+  } else if (currentType === "episodes" && responseItems) {
+    return getTotalPages(
+      responseItems.meta.count,
+      responseItems.meta.limit
+    );
   }
-  return getTotalPages(responseItems.meta.count, responseItems.meta.limit);
+
+  return 1;
 }
 
 async function parseSearchParams(searchParams: SearchParams) {

@@ -16,7 +16,11 @@ import { usePodcastContext } from "./PodcastContext";
 import { getPodcastDropdownConfig } from "./PodcastDropdownConfig";
 import { Tabs } from "../../../components/Tabs/Tabs";
 
-export const PodcastListHeader: React.FC = () => {
+type PodcastListHeaderProps = {
+  ssrHasItemSoundbites?: boolean;
+};
+
+export const PodcastListHeader: React.FC<PodcastListHeaderProps> = ({ ssrHasItemSoundbites }) => {
   const { filterParams, setFilterParams, setTotalPages } = usePodcastContext();
   const { type, sort, range } = filterParams;
   const tFilters = useTranslations('filters');
@@ -56,34 +60,49 @@ export const PodcastListHeader: React.FC = () => {
     }
   };
 
-  const tabData = [
-    {
-      key: "episodes",
-      label: tMedia("podcast.episodes"),
-      onClick: () => handleTypeChange("episodes"),
+  const tabData = [{
+    key: "episodes",
+    label: tMedia("podcast.episodes"),
+    onClick: () => handleTypeChange("episodes"),
+    hideDesktop: false,
+    zIndex: 5
+  }];
+
+  if (ssrHasItemSoundbites) {
+    tabData.push({
+      key: "soundbites",
+      label: tInfo("soundbite.official_clips"),
+      onClick: () => handleTypeChange("soundbites"),
+      hideDesktop: false,
       zIndex: 4
-    },
+    })
+  }
+
+  tabData.push(
     {
       key: "clips",
       label: tFeatures("clip.clips"),
       onClick: () => handleTypeChange("clips"),
+      hideDesktop: false,
       zIndex: 3
-    },
-    {
-      key: "about",
-      label: tInfo("about"),
-      onClick: () => handleTypeChange("about"),
-      hideDesktop: true,
-      zIndex: 2
-    },
-    {
-      key: "podroll",
-      label: tInfo("podroll"),
-      onClick: () => handleTypeChange("podroll"),
-      hideDesktop: true,
-      zIndex: 1
     }
-  ]
+  )
+
+  tabData.push({
+    key: "about",
+    label: tInfo("about"),
+    onClick: () => handleTypeChange("about"),
+    hideDesktop: true,
+    zIndex: 2
+  })
+
+  tabData.push(    {
+    key: "podroll",
+    label: tInfo("podroll"),
+    onClick: () => handleTypeChange("podroll"),
+    hideDesktop: true,
+    zIndex: 1
+  })
 
   let sideButtons: React.ReactNode = null;
   if (type === "episodes" || type === "clips") {

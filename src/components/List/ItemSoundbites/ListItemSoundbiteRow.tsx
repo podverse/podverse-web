@@ -31,6 +31,7 @@ export const ListItemSoundbiteRow: React.FC<ListItemSoundbiteProps> = (
   const url = `${ROUTES.OFFICIAL_CLIP}/${item_soundbite.id_text}`;
 
   channel = item?.channel || channel || null;
+  item = item_soundbite.item || item || null;
 
   const channel_images = channel?.channel_images;
   const item_images = item?.item_images;
