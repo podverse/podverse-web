@@ -27,16 +27,20 @@
 .imageWrapper {
   margin-top: 1.25rem;
   flex: 1 1 0;
-  position: relative;
   min-height: 0;
+  position: relative;
   display: flex;
+  align-self: stretch;
+  align-items: stretch;
+  width: 100%;
 }
 
 .image {
   width: 100%;
   height: 100%;
+  aspect-ratio: 1 / 1;
+  flex: 1 1 0;
   object-fit: contain;
-  display: block;
 }
 
 .subtitleSection {
