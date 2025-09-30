@@ -2,6 +2,7 @@ import React, { AriaAttributes } from 'react'
 import styles from '../../styles/components/Form/TextInput.module.scss'
 import { Button } from '../Button/Button'
 import { TextInputNumberIncrement } from './TextInputNumberIncrements'
+import classNames from 'classnames'
 
 type TextInputProps = {
   value: string
@@ -61,6 +62,7 @@ export const TextInput: React.FC<TextInputProps> = ({
   'aria-required': ariaRequired,
   'aria-invalid': ariaInvalid,
   button,
+  buttonIcon,
   onWheel,
   min,
   max,
@@ -127,6 +129,13 @@ export const TextInput: React.FC<TextInputProps> = ({
           >
             {button.label}
           </Button>
+        )}
+        {buttonIcon && (
+          <button
+            className={classNames(styles.buttonIcon, buttonIcon.className)}
+            onClick={buttonIcon.onClick}>
+            {buttonIcon.icon}
+          </button>
         )}
       </div>
     </div>
