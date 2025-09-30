@@ -106,7 +106,10 @@
       "no_summary": "No summary available"
     },
     "podroll": "Podroll",
-    "transcript": "Transcript",
+    "transcript": {
+      "transcript": "Transcript",
+      "search_transcript": "Search transcript..."
+    },
     "credits": "Credits",
     "people": {
       "people": "People",
