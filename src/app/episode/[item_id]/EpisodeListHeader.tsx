@@ -100,7 +100,7 @@ export const EpisodeListHeader: React.FC<EpisodeListHeaderProps> = ({
   if (ssrHasTranscripts) {
     tabData.push({
       key: "transcript",
-      label: tInfo("transcript"),
+      label: tInfo("transcript.transcript"),
       onClick: () => handleTypeChange("transcript"),
       zIndex: 1
     });
