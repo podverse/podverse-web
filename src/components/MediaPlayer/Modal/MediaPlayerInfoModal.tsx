@@ -7,7 +7,7 @@ import styles from "../../../styles/components/MediaPlayer/Modal/MediaPlayerInfo
 import { ReadableTimeRange } from "../../Time/ReadableTimeRange";
 
 export const MediaPlayerInfoModal: React.FC = () => {
-  const { mpChannel, mpItem, mpClip } = useMediaPlayer();
+  const { mpChannel, mpItem, mpClip, mpItemChapter, mpItemSoundbite } = useMediaPlayer();
   const tMediaPlayer = useTranslations("media_player");
   const tMisc = useTranslations("misc");
   
@@ -43,6 +43,34 @@ export const MediaPlayerInfoModal: React.FC = () => {
                 <ReadableTimeRange
                   startTime={mpClip?.start_time}
                   endTime={mpClip?.end_time} />
+              </div>
+            </>
+          )
+        }
+        {
+          mpItemChapter && (
+            <>
+              <div className={styles.subtitle}>
+                {mpItemChapter?.title || tMisc("untitled")}
+              </div>
+              <div className={styles.timeRange}>
+                <ReadableTimeRange
+                  startTime={mpItemChapter?.start_time}
+                  endTime={mpItemChapter?.end_time} />
+              </div>
+            </>
+          )
+        }
+        {
+          mpItemSoundbite && (
+            <>
+              <div className={styles.subtitle}>
+                {mpItemSoundbite?.title || tMisc("untitled")}
+              </div>
+              <div className={styles.timeRange}>
+                <ReadableTimeRange
+                  startTime={mpItemSoundbite?.start_time}
+                  endTime={`${Number(mpItemSoundbite.start_time) + Number(mpItemSoundbite.duration)}`} />
               </div>
             </>
           )
