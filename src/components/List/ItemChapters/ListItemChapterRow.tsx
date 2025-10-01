@@ -17,6 +17,7 @@ import { showToastPromise } from "../../Toast/Toast";
 import { apiRequestService } from "../../../factories/apiRequestService";
 import { useModals } from "../../../contexts/Modals";
 import styles from "../../../styles/components/List/ItemChapters/ListItemChapterRow.module.scss";
+import { ReadableDate } from "../../Time/ReadableDate";
 
 interface ListItemChapterRowProps {
   channel?: DTOChannel | null;
@@ -52,6 +53,7 @@ export const ListItemChapterRow: React.FC<ListItemChapterRowProps> = (
   const itemChapterTitle = item_chapter.title || tMisc("untitled");
   const channelTitle = channel?.title || tMisc("untitled");
   const itemTitle = item?.title || tMisc("untitled");
+  const itemPubDate = item?.pub_date;
   const startTime = item_chapter.start_time;
   const endTime = item_chapter.end_time;
 
@@ -155,7 +157,7 @@ export const ListItemChapterRow: React.FC<ListItemChapterRowProps> = (
             <h3
               className={
                 styles.clipTitle +
-                (mpItemChapter?.id_text === item_chapter.id_text ? ' ' + "highlighted-text" : '')
+                (mpItemChapter?.id_text === item_chapter.id_text && !showItemInfo ? ' ' + "highlighted-text" : '')
               }
             >
               {itemChapterTitle}
@@ -177,6 +179,14 @@ export const ListItemChapterRow: React.FC<ListItemChapterRowProps> = (
               onClick={playButtonOnClick}
             />
             <div className={styles.timeSection}>
+              {
+                showItemInfo && (
+                  <>
+                    <ReadableDate date={itemPubDate} />
+                    {" • "}
+                  </>
+                )
+              }
               <ReadableTimeRange
                 startTime={startTime}
                 endTime={endTime} />
