@@ -44,7 +44,7 @@ export const ListClipRow: React.FC<Props> = ({ channel, item, clip, showFullInfo
   const tMediaPlayer = useTranslations("media_player");
   const tMisc = useTranslations("misc");
   const { setMPChannel, mpClip, setMPItem, setMPClip, mpIsPlaying,
-    setMPIsPlaying, setMPItemChapter, setMPItemSoundbite
+    setMPIsPlaying, setMPItemChapter, setMPItemSoundbite, setMPShouldPlay
   } = useMediaPlayer();
   const { loggedInAccount } = useAccount();
   const { setModalPlaylistAddTo } = useModals();
@@ -58,6 +58,7 @@ export const ListClipRow: React.FC<Props> = ({ channel, item, clip, showFullInfo
     if (clip.id === mpClip?.id) {
       setMPIsPlaying(!mpIsPlaying);
     } else {
+      setMPShouldPlay(true);
       setMPChannel(channel);
       setMPClip(clip);
       setMPItem(item);

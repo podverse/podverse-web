@@ -44,7 +44,7 @@ export const ListItemSoundbiteRow: React.FC<ListItemSoundbiteProps> = (
   const tMediaPlayer = useTranslations("media_player");
   const tMisc = useTranslations("misc");
   const { setMPChannel, mpItemSoundbite, setMPItem, setMPClip, mpIsPlaying, setMPIsPlaying,
-    setMPItemSoundbite, setMPItemChapter, setMPItemChapterShouldSeek } = useMediaPlayer();
+    setMPItemSoundbite, setMPItemChapter, setMPItemChapterShouldSeek, setMPShouldPlay } = useMediaPlayer();
   const { setModalPlaylistAddTo } = useModals();
   const { queues } = useQueues();
 
@@ -58,6 +58,7 @@ export const ListItemSoundbiteRow: React.FC<ListItemSoundbiteProps> = (
     if (item_soundbite.id === mpItemSoundbite?.id) {
       setMPIsPlaying(!mpIsPlaying);
     } else {
+      setMPShouldPlay(true);
       setMPChannel(channel);
       setMPClip(null);
       setMPItem(item);
