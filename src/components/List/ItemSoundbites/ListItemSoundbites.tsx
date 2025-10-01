@@ -17,11 +17,11 @@ type Props = {
   showSubscribeMessage?: boolean;
   type?: QueryParamsItemsType;
   category?: CategoryMappingKeys | null;
-  showFullInfo?: boolean;
+  showItemInfo?: boolean;
 };
 
 export const ListItemSoundbites: React.FC<Props> = ({ page = 1, setPage,
-  channel, item, itemSoundbites, totalPages, showSubscribeMessage, showFullInfo }) => {
+  channel, item, itemSoundbites, totalPages, showSubscribeMessage, showItemInfo }) => {
 
   useSkipInitialEffect(() => {
     scrollMainToTop();
@@ -44,7 +44,7 @@ export const ListItemSoundbites: React.FC<Props> = ({ page = 1, setPage,
                 channel={channel}
                 item={item}
                 item_soundbite={item_soundbite}
-                showFullInfo={showFullInfo} />
+                showItemInfo={showItemInfo} />
             ))}
           </Pagination>
         )

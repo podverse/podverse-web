@@ -23,7 +23,7 @@ export const ROUTES = {
   PODCASTS: '/podcasts',
   MEMBERSHIP: '/membership',
   PROFILES: '/profiles',
-  QUEUE: '/queue',
+  QUEUES: '/queues',
   SEARCH: '/search',
   SETTINGS: '/settings',
   TERMS: '/terms',

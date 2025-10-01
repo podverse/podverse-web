@@ -24,9 +24,10 @@ import { downloadAndSaveFile } from "../../../../utils/fileDownloader";
 interface Props {
   channel: DTOChannel;
   item: DTOItem;
+  showChannelInfo?: boolean;
 }
 
-const ListEpisodeRow: React.FC<Props> = ({ channel, item }) => {
+const ListEpisodeRow: React.FC<Props> = ({ channel, item, showChannelInfo }) => {
   const url = `${ROUTES.EPISODE}/${item.id_text}`;
   const channel_image = findDTOChannelImageBySize(channel.channel_images, IMAGES.LIST.EPISODES.DESKTOP.SIZE_FIND_TARGET, 'lesser');
   const item_image = findDTOItemImageBySize(item.item_images, IMAGES.LIST.EPISODES.DESKTOP.SIZE_FIND_TARGET, 'lesser');
@@ -38,6 +39,9 @@ const ListEpisodeRow: React.FC<Props> = ({ channel, item }) => {
     setMPIsPlaying, setMPItemChapter, setMPItemChapterShouldSeek,
     setMPItemSoundbite, setMPShouldPlay } = useMediaPlayer();
   const { setModalPlaylistAddTo } = useModals();
+
+  console.log('channel', channel);
+  console.log('item', item);
 
   const playButtonOnClick = () => {
     if (item.id === mpItem?.id) {
@@ -171,9 +175,14 @@ const ListEpisodeRow: React.FC<Props> = ({ channel, item }) => {
         <Link href={url}>
           <div className={styles.topSection}>
             <h3>{item.title}</h3>
-            <p className={styles.description}>
-              {stripAndDecodeHtml(item.item_description?.value)}
-            </p>
+              <div className={styles.subtitle}>
+                {
+                  !showChannelInfo && stripAndDecodeHtml(item.item_description?.value)
+                }
+                {
+                  showChannelInfo && channel.title
+                }
+              </div>
           </div>
         </Link>
         <div className={styles.bottomSection}>

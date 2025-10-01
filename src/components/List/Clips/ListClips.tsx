@@ -20,11 +20,11 @@ type Props = {
   showSubscribeMessage?: boolean;
   type?: QueryParamsItemsType;
   category?: CategoryMappingKeys | null;
-  showFullInfo?: boolean;
+  showItemInfo?: boolean;
 };
 
 export const ListClips: React.FC<Props> = ({ page = 1, setPage,
-  channel, item, clips, totalPages, showSubscribeMessage, showFullInfo }) => {
+  channel, item, clips, totalPages, showSubscribeMessage, showItemInfo }) => {
   const tInstructions = useTranslations("instructions");
   const tAuthentication = useTranslations("authentication");
   const { setModalLogin } = useModals();
@@ -58,7 +58,7 @@ export const ListClips: React.FC<Props> = ({ page = 1, setPage,
                 channel={channel}
                 item={item}
                 clip={clip}
-                showFullInfo={showFullInfo} />
+                showItemInfo={showItemInfo} />
             ))}
           </Pagination>
         )

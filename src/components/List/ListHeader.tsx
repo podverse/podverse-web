@@ -11,16 +11,20 @@ type ListHeaderProps = {
 
 export const ListHeader: React.FC<ListHeaderProps> = ({ tabs, sideButtons, belowButtons }) => (
   <header className={styles.listHeader}>
-    <div className={styles.listHeaderTop}>
-      {tabs}
-      {
-        sideButtons && (
-          <div className={styles.sideButtons}>
-            {sideButtons}
-          </div>
-        )
-      }
-    </div>
+    {
+      (tabs || sideButtons) && (
+        <div className={styles.listHeaderTop}>
+          {tabs}
+          {
+            sideButtons && (
+              <div className={styles.sideButtons}>
+                {sideButtons}
+              </div>
+            )
+          }
+        </div>
+      )
+    }
     {
       belowButtons && (
         <div className={styles.listHeaderBottom}>

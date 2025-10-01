@@ -24,10 +24,11 @@ interface Props {
   channel?: DTOChannel | null;
   item?: DTOItem | null;
   clip: DTOClip;
-  showFullInfo?: boolean;
+  showChannelInfo?: boolean;
+  showItemInfo?: boolean;
 }
 
-export const ListClipRow: React.FC<Props> = ({ channel, item, clip, showFullInfo }) => {
+export const ListClipRow: React.FC<Props> = ({ channel, item, clip, showChannelInfo, showItemInfo }) => {
   const url = `${ROUTES.CLIP}/${clip.id_text}`;
 
   channel = clip.item?.channel || item?.channel || channel || null;
@@ -53,6 +54,7 @@ export const ListClipRow: React.FC<Props> = ({ channel, item, clip, showFullInfo
   const clipTitle = clip.title || tMisc("untitled");
   const itemTitle = item?.title || tMisc("untitled");
   const itemPubDate = item?.pub_date;
+  const channelTitle = channel?.title || tMisc("untitled");
 
   const playButtonOnClick = () => {
     if (clip.id === mpClip?.id) {
@@ -158,11 +160,13 @@ export const ListClipRow: React.FC<Props> = ({ channel, item, clip, showFullInfo
         <Link href={url}>
           <div className={styles.topSection}>
             <h3 className={styles.clipTitle}>{clipTitle}</h3>
-            {
-              showFullInfo && (
-                <p className={styles.itemTitle}>{itemTitle}</p>
-              )
-            }
+            {(showChannelInfo || showItemInfo) && (
+              <div className={styles.subtitle}>
+                {showChannelInfo && channelTitle}
+                {showChannelInfo && showItemInfo && " • "}
+                {showItemInfo && itemTitle}
+              </div>
+            )}
           </div>
         </Link>
         <div className={styles.bottomSection}>
@@ -174,7 +178,7 @@ export const ListClipRow: React.FC<Props> = ({ channel, item, clip, showFullInfo
             />
             <div className={styles.timeSection}>
               {
-                showFullInfo && (
+                showItemInfo && (
                   <>
                     <ReadableDate date={itemPubDate} />
                     {" • "}

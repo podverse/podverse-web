@@ -14,33 +14,33 @@ export const IMAGES = {
     },
     MOBILE: {
       SQUARE: {
-        SIZE: 112,
-        SIZE_FIND_TARGET: 224
+        SIZE: 106,
+        SIZE_FIND_TARGET: 212
       }
     }
   },
   LIST: {
     EPISODES: {
       DESKTOP: {
-        SIZE: 112,
-        SIZE_FIND_TARGET: 224
+        SIZE: 106,
+        SIZE_FIND_TARGET: 212
       },
       MOBILE: {
-        SIZE: 100,
-        SIZE_FIND_TARGET: 200
+        SIZE: 106,
+        SIZE_FIND_TARGET: 212
       }
     },
     PODCASTS: {
-      SIZE: 100,
-      SIZE_FIND_TARGET: 200
+      SIZE: 106,
+      SIZE_FIND_TARGET: 212
     },
     CLIPS: {
-      SIZE: 100,
-      SIZE_FIND_TARGET: 200
+      SIZE: 106,
+      SIZE_FIND_TARGET: 212
     },
     ITEM_CHAPTERS: {
-      SIZE: 78,
-      SIZE_FIND_TARGET: 156
+      SIZE: 106,
+      SIZE_FIND_TARGET: 212
     }
   },
   MEDIA_HEADER_MINI: {

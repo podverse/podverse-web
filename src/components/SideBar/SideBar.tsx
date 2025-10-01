@@ -77,7 +77,7 @@ const SideBar: React.FC = () => {
           headerClass={styles.accordianHeader}
           content={
             <>
-              <SideBarLink href={ROUTES.QUEUE}>{tFeatures("queue.queue")}</SideBarLink>
+              <SideBarLink href={ROUTES.QUEUES}>{tFeatures("queue.queues")}</SideBarLink>
               <SideBarLink href={ROUTES.HISTORY}>{tFeatures("history.history")}</SideBarLink>
               <SideBarLink href={ROUTES.PLAYLISTS}>{tFeatures("playlist.playlists")}</SideBarLink>
               <SideBarLink href={ROUTES.MY_CLIPS}>{tFeatures("my_clips")}</SideBarLink>

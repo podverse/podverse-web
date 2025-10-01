@@ -44,7 +44,7 @@ export const PodcastList: React.FC<PodcastListProps> = ({ podroll, ssrChannel })
             channel={ssrChannel}
             itemSoundbites={itemSoundbites}
             totalPages={totalPages}
-            showFullInfo
+            showItemInfo
           />
         )
       }
@@ -56,7 +56,7 @@ export const PodcastList: React.FC<PodcastListProps> = ({ podroll, ssrChannel })
             clips={clips}
             channel={ssrChannel}
             totalPages={totalPages}
-            showFullInfo
+            showItemInfo
           />
         )
       }

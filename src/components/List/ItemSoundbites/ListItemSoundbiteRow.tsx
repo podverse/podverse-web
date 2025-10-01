@@ -23,11 +23,11 @@ interface ListItemSoundbiteProps {
   channel: DTOChannel | null;
   item: DTOItem | null;
   item_soundbite: DTOItemSoundbite;
-  showFullInfo?: boolean;
+  showItemInfo?: boolean;
 }
 
 export const ListItemSoundbiteRow: React.FC<ListItemSoundbiteProps> = (
-  { channel, item, item_soundbite, showFullInfo }) => {
+  { channel, item, item_soundbite, showItemInfo }) => {
   const url = `${ROUTES.OFFICIAL_CLIP}/${item_soundbite.id_text}`;
 
   channel = item?.channel || channel || null;
@@ -151,7 +151,7 @@ export const ListItemSoundbiteRow: React.FC<ListItemSoundbiteProps> = (
           <div className={styles.topSection}>
             <h3 className={styles.clipTitle}>{itemSoundbiteTitle}</h3>
             {
-              showFullInfo && (
+              showItemInfo && (
                 <p className={styles.itemTitle}>{itemTitle}</p>
               )
             }
@@ -166,7 +166,7 @@ export const ListItemSoundbiteRow: React.FC<ListItemSoundbiteProps> = (
             />
             <div className={styles.timeSection}>
               {
-                showFullInfo && (
+                showItemInfo && (
                   <>
                     <ReadableDate date={itemPubDate} />
                     {" • "}
