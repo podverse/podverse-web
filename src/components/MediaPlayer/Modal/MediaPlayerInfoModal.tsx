@@ -13,7 +13,14 @@ export const MediaPlayerInfoModal: React.FC = () => {
   
   const channel_image = findDTOChannelImageBySize(mpChannel?.channel_images, 'largest');
   const item_image = findDTOItemImageBySize(mpItem?.item_images, 'largest');
-  const imageUrl = item_image?.url || channel_image?.url || undefined;
+  const defaultImageUrl = item_image?.url || channel_image?.url || undefined;
+  let imageUrl = '';
+  
+  if (mpItemChapter) {
+    imageUrl = mpItemChapter.img || defaultImageUrl || '';
+  } else {
+    imageUrl = defaultImageUrl || '';
+  }
 
   return (
     <div className={styles.info}>

@@ -9,7 +9,7 @@ import { useMediaPlayerCurrentTime } from '../../contexts/MediaPlayerCurrentTime
 import styles from '../../styles/components/ItemTranscript/ItemTranscript.module.scss';
 
 interface ItemTranscriptProps {
-  rows?: TranscriptRow[];
+  rows: TranscriptRow[];
   autoScrollOn?: boolean;
 }
 
@@ -18,10 +18,6 @@ export const ItemTranscript = ({ rows, autoScrollOn }: ItemTranscriptProps) => {
   const { mpCurrentTime } = useMediaPlayerCurrentTime();
 
   const [searchTerm, setSearchTerm] = useState<string>("");
-
-  if (!rows || rows.length === 0) {
-    return null;
-  }
 
   const handleRowClick = (startTime: number) => {
     window.dispatchEvent(new CustomEvent(EVENTS.MEDIA_PLAYER.AUDIO.SEEK, {
