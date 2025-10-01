@@ -2,9 +2,11 @@
 
 import React, { useRef, useEffect } from "react";
 import { useMediaPlayer } from "../../../contexts/MediaPlayer";
-import { getMediaTypeFromSource, getSelectedItemEnclosureUrl } from "podverse-helpers";
+import { DTOQueueResource, getMediaTypeFromSource, getSelectedItemEnclosureUrl, hhmmssToSecondsNumber } from "podverse-helpers";
 import { EVENTS } from "../../../constants/events";
 import { useMediaPlayerCurrentTime } from "../../../contexts/MediaPlayerCurrentTime";
+import { useQueues } from "../../../contexts/Queue";
+import { apiRequestService } from "../../../factories/apiRequestService";
 
 // Track the stopAt time for conditional pausing
 let globalPauseAtTime: number | null = null;
@@ -22,14 +24,19 @@ export const MediaPlayerControllerAudio: React.FC = () => {
     mpPlaybackSpeed,
     mpVolume,
     mpIsMuted,
+    mpShouldPlay,
     setMPIsPlaying,
     setMPDuration,
+    setMPChannel,
+    setMPItem,
     setMPItemChapter,
     setMPItemChapterShouldSeek,
     setMPClip,
-    setMPItemSoundbite
+    setMPItemSoundbite,
+    setMPShouldPlay
   } = useMediaPlayer();
 
+  const { activeQueueUpcomingResources } = useQueues();
   const { setMPCurrentTime } = useMediaPlayerCurrentTime();
 
   const mpClipRef = useRef<typeof mpClip>(null);
@@ -46,6 +53,11 @@ export const MediaPlayerControllerAudio: React.FC = () => {
   useEffect(() => {
     mpItemChapterRef.current = mpItemChapter;
   }, [mpItemChapter]);
+
+  const mpItemChaptersRef = useRef<typeof mpItemChapters>(null);
+  useEffect(() => {
+    mpItemChaptersRef.current = mpItemChapters;
+  }, [mpItemChapters]);
 
   useEffect(() => {
     const handleSeek = (e: Event) => {
@@ -96,6 +108,90 @@ export const MediaPlayerControllerAudio: React.FC = () => {
     };
   }, []);
 
+  useEffect(() => {
+    async function handleLoadQueueItem(firstResource: DTOQueueResource) {
+      if (firstResource?.item && firstResource?.item?.id_text !== mpItem?.id_text) {
+        const fullItem = await apiRequestService.reqItemGetByIdOrIdText(firstResource.item.id_text);
+        if (fullItem) {
+          const fullChannel = await apiRequestService.reqChannelGetByIdOrIdText(fullItem.channel_id);
+          if (fullChannel) {
+            setMPItem(fullItem);
+            setMPChannel(fullChannel);
+          }
+        }
+      }
+    }
+
+    async function handleLoadQueueClip(firstResource: DTOQueueResource) {
+      if (firstResource?.clip && firstResource?.clip?.id_text !== mpClip?.id_text) {
+        const fullClip = await apiRequestService.reqClipGet(firstResource.clip.id_text);
+        if (fullClip) {
+          const fullItem = await apiRequestService.reqItemGetByIdOrIdText(fullClip.item.id_text);
+          if (fullItem) {
+            const fullChannel = await apiRequestService.reqChannelGetByIdOrIdText(fullItem.channel_id);
+            if (fullChannel) {
+              setMPClip(firstResource.clip);
+              setMPItem(fullItem);
+              setMPChannel(fullChannel);
+            }
+          }
+        }
+      }
+    }
+
+    async function handleLoadQueueItemChapter(firstResource: DTOQueueResource) {
+      if (firstResource?.item_chapter && firstResource?.item_chapter?.id_text !== mpItemChapter?.id_text) {
+        const fullItemChapter = await apiRequestService.reqItemChapterGetByIdText(
+          firstResource.item_chapter.id_text
+        );
+        if (fullItemChapter?.item_chapters_feed?.item) {
+          const fullItem = await apiRequestService.reqItemGetByIdOrIdText(fullItemChapter.item_chapters_feed.item.id_text);
+          if (fullItem) {
+            const fullChannel = await apiRequestService.reqChannelGetByIdOrIdText(fullItem.channel_id);
+            if (fullChannel) {
+              window.dispatchEvent(new CustomEvent(EVENTS.MEDIA_PLAYER.AUDIO.SEEK, {
+                detail: { time: hhmmssToSecondsNumber(fullItemChapter.start_time) }
+              }));
+              
+              setMPItem(fullItem);
+              setMPChannel(fullChannel);
+            }
+          }
+        }
+      }
+    }
+
+    async function handleLoadQueueItemSoundbite(firstResource: DTOQueueResource) {
+      if (firstResource?.item_soundbite && firstResource?.item_soundbite?.id_text !== mpItemSoundbite?.id_text) {
+        const fullItemSoundbite = await apiRequestService.reqItemSoundbiteGet(firstResource.item_soundbite.id_text);
+        if (fullItemSoundbite?.item) {
+          const fullItem = await apiRequestService.reqItemGetByIdOrIdText(fullItemSoundbite.item.id_text);
+          if (fullItem) {
+            const fullChannel = await apiRequestService.reqChannelGetByIdOrIdText(fullItem.channel_id);
+            if (fullChannel) {
+              setMPItemSoundbite(fullItemSoundbite);
+              setMPItem(fullItem);
+              setMPChannel(fullChannel);
+            }
+          }
+        }
+      }
+    }
+
+    if (activeQueueUpcomingResources && activeQueueUpcomingResources.length > 0) {
+      const firstResource = activeQueueUpcomingResources[0];
+      if (firstResource?.item) {
+        handleLoadQueueItem(firstResource);
+      } else if (firstResource?.clip) {
+        handleLoadQueueClip(firstResource);
+      } else if (firstResource?.item_chapter) {
+        handleLoadQueueItemChapter(firstResource);
+      } else if (firstResource?.item_soundbite) {
+        handleLoadQueueItemSoundbite(firstResource);
+      }
+    }
+  }, [activeQueueUpcomingResources]);
+
   const selectedItemEnclosureUrl = getSelectedItemEnclosureUrl(mpItem?.item_enclosures ?? []);
 
   useEffect(() => {
@@ -104,7 +200,9 @@ export const MediaPlayerControllerAudio: React.FC = () => {
       const isAudioFile = getMediaTypeFromSource(selectedItemEnclosureUrl) === "audio";
       if (isAudioFile) {
         audio.load();
-        audio.play().catch(() => {});
+        if (mpShouldPlay) {
+          audio.play().catch(() => {});
+        }
       } else {
         audio.pause();
         audio.removeAttribute("src");
@@ -147,14 +245,16 @@ export const MediaPlayerControllerAudio: React.FC = () => {
       }
 
       // --- Chapter auto-selection logic ---
+      const chapters = mpItemChaptersRef.current;
       if (
-        !mpItemSoundbiteRef.current
-        && !mpClipRef.current && Array.isArray(mpItemChapters)
-        && mpItemChapters.length > 0
+        !mpItemSoundbiteRef.current &&
+        !mpClipRef.current &&
+        Array.isArray(chapters) &&
+        chapters.length > 0
       ) {
         const currentTime = audio.currentTime;
         // Find all chapters that contain the current time
-        const matchingChapters = mpItemChapters.filter(ch => {
+        const matchingChapters = chapters.filter(ch => {
           const start = typeof ch.start_time === "string" ? parseFloat(ch.start_time) : ch.start_time;
           const end = typeof ch.end_time === "string" ? parseFloat(ch.end_time) : ch.end_time;
           if (typeof start !== "number" || typeof end !== "number" || start == null || end == null) return false;
@@ -185,7 +285,7 @@ export const MediaPlayerControllerAudio: React.FC = () => {
       audio.removeEventListener("timeupdate", handleTimeUpdate);
       audio.removeEventListener("loadedmetadata", handleLoadedMetadata);
     };
-  }, [audioRef, mpItemChapters, setMPItemChapter]);
+  }, [audioRef]);
 
   // Play/Pause
   useEffect(() => {
@@ -193,6 +293,7 @@ export const MediaPlayerControllerAudio: React.FC = () => {
     if (!audio) return;
     if (mpIsPlaying) {
       audio.play().catch(() => {});
+      setMPShouldPlay(false);
     } else {
       audio.pause();
     }
@@ -223,7 +324,11 @@ export const MediaPlayerControllerAudio: React.FC = () => {
     if (mpClip && audioRef.current) {
       const audio = audioRef.current;
       audio.currentTime = Number(mpClip.start_time);
-      audio.play();
+
+      if (mpShouldPlay) {
+        audio.play();
+        setMPShouldPlay(false);
+      }
 
       if (mpClip.end_time) {
         globalPauseAtTime = Number(mpClip.end_time);
@@ -235,7 +340,11 @@ export const MediaPlayerControllerAudio: React.FC = () => {
         setMPItemChapterShouldSeek(false);
         const audio = audioRef.current;
         audio.currentTime = Number(mpItemChapter.start_time);
-        audio.play();
+
+        if (mpShouldPlay) {
+          audio.play();
+          setMPShouldPlay(false);
+        }
       }
 
       if (mpItemChapter.end_time) {
@@ -246,7 +355,10 @@ export const MediaPlayerControllerAudio: React.FC = () => {
     if (mpItemSoundbite && audioRef.current) {
       const audio = audioRef.current;
       audio.currentTime = Number(mpItemSoundbite.start_time);
-      audio.play();
+      if (mpShouldPlay) {
+        audio.play();
+        setMPShouldPlay(false);
+      }
 
       if (mpItemSoundbite.duration) {
         globalPauseAtTime = Number(mpItemSoundbite.start_time) + Number(mpItemSoundbite.duration);
