@@ -24,10 +24,11 @@ interface ListItemSoundbiteProps {
   item: DTOItem | null;
   item_soundbite: DTOItemSoundbite;
   showItemInfo?: boolean;
+  showChannelInfo?: boolean;
 }
 
 export const ListItemSoundbiteRow: React.FC<ListItemSoundbiteProps> = (
-  { channel, item, item_soundbite, showItemInfo }) => {
+  { channel, item, item_soundbite, showItemInfo, showChannelInfo }) => {
   const url = `${ROUTES.OFFICIAL_CLIP}/${item_soundbite.id_text}`;
 
   channel = item?.channel || channel || null;
@@ -49,6 +50,7 @@ export const ListItemSoundbiteRow: React.FC<ListItemSoundbiteProps> = (
   const { queues } = useQueues();
 
   const itemSoundbiteTitle = item_soundbite.title || tMisc("untitled");
+  const channelTitle = channel?.title || tMisc("untitled");
   const itemTitle = item?.title || tMisc("untitled");
   const itemPubDate = item?.pub_date;
   const startTime = item_soundbite.start_time;
@@ -150,11 +152,13 @@ export const ListItemSoundbiteRow: React.FC<ListItemSoundbiteProps> = (
         <Link href={url}>
           <div className={styles.topSection}>
             <h3 className={styles.clipTitle}>{itemSoundbiteTitle}</h3>
-            {
-              showItemInfo && (
-                <p className={styles.itemTitle}>{itemTitle}</p>
-              )
-            }
+            {(showChannelInfo || showItemInfo) && (
+              <div className={styles.subtitle}>
+                {showChannelInfo && channelTitle}
+                {showChannelInfo && showItemInfo && " • "}
+                {showItemInfo && itemTitle}
+              </div>
+            )}
           </div>
         </Link>
         <div className={styles.bottomSection}>

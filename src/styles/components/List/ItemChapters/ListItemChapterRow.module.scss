@@ -21,6 +21,7 @@
   flex-direction: column;
   padding: 0 0 0 1.25rem;
   flex: 1;
+  justify-content: space-around;
 }
 
 .topSection {
@@ -33,10 +34,10 @@
   @include line-clamp(3);
 }
 
-.itemTitle {
+.subtitle {
   @include line-clamp(1);
   color: var(--text-color-secondary);
-  margin: 0.25rem 0 0 0;
+  font-weight: var(--font-weight-light);
 }
 
 .bottomSection {

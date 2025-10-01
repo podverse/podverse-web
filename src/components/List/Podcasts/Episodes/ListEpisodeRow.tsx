@@ -40,9 +40,6 @@ const ListEpisodeRow: React.FC<Props> = ({ channel, item, showChannelInfo }) => 
     setMPItemSoundbite, setMPShouldPlay } = useMediaPlayer();
   const { setModalPlaylistAddTo } = useModals();
 
-  console.log('channel', channel);
-  console.log('item', item);
-
   const playButtonOnClick = () => {
     if (item.id === mpItem?.id) {
       setMPIsPlaying(!mpIsPlaying);

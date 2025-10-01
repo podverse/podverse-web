@@ -19,16 +19,19 @@ import { useModals } from "../../../contexts/Modals";
 import styles from "../../../styles/components/List/ItemChapters/ListItemChapterRow.module.scss";
 
 interface ListItemChapterRowProps {
-  channel: DTOChannel | null;
-  item: DTOItem | null;
+  channel?: DTOChannel | null;
+  item?: DTOItem | null;
   item_chapter: DTOItemChapter;
+  showChannelInfo?: boolean;
+  showItemInfo?: boolean;
 }
 
 export const ListItemChapterRow: React.FC<ListItemChapterRowProps> = (
-  { channel, item, item_chapter }) => {
+  { channel, item, item_chapter, showChannelInfo, showItemInfo }) => {
   const url = `${ROUTES.CHAPTER}/${item_chapter.id_text}`;
 
-  channel = item?.channel || channel || null;
+  channel = channel || item?.channel || item_chapter.item_chapters_feed?.item?.channel || null;
+  item = item || item_chapter.item_chapters_feed?.item || null;
 
   const channel_images = channel?.channel_images;
   const item_images = item?.item_images;
@@ -47,13 +50,15 @@ export const ListItemChapterRow: React.FC<ListItemChapterRowProps> = (
   const { queues } = useQueues();
 
   const itemChapterTitle = item_chapter.title || tMisc("untitled");
+  const channelTitle = channel?.title || tMisc("untitled");
+  const itemTitle = item?.title || tMisc("untitled");
   const startTime = item_chapter.start_time;
   const endTime = item_chapter.end_time;
 
   const playButtonOnClick = () => {
     if (item_chapter.id === mpItemChapter?.id) {
       setMPIsPlaying(!mpIsPlaying);
-    } else {
+    } else if (channel && item) {
       setMPShouldPlay(true);
       setMPChannel(channel);
       setMPClip(null);
@@ -96,13 +101,15 @@ export const ListItemChapterRow: React.FC<ListItemChapterRowProps> = (
   };
 
   const addToPlaylistOnClick = () => {
-    setModalPlaylistAddTo({
-      channel: channel,
-      item: item,
-      clip: null,
-      item_chapter,
-      item_soundbite: null
-    });
+    if (channel && item) {
+      setModalPlaylistAddTo({
+        channel: channel,
+        item: item,
+        clip: null,
+        item_chapter,
+        item_soundbite: null
+      });
+    }
   }
 
   const moreButtonMenuItems = [
@@ -153,6 +160,13 @@ export const ListItemChapterRow: React.FC<ListItemChapterRowProps> = (
             >
               {itemChapterTitle}
             </h3>
+            {(showChannelInfo || showItemInfo) && (
+              <div className={styles.subtitle}>
+                {showChannelInfo && channelTitle}
+                {showChannelInfo && showItemInfo && " • "}
+                {showItemInfo && itemTitle}
+              </div>
+            )}
           </div>
         </Link>
         <div className={styles.bottomSection}>

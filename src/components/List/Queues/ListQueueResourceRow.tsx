@@ -58,6 +58,8 @@ export const ListQueueResourceRow: React.FC<Props> = ({ queueResource }) => {
           channel={channel}
           item={item}
           item_chapter={item_chapter}
+          showChannelInfo
+          showItemInfo
         />
       )
     }
@@ -71,6 +73,8 @@ export const ListQueueResourceRow: React.FC<Props> = ({ queueResource }) => {
           channel={channel}
           item={item}
           item_soundbite={item_soundbite}
+          showChannelInfo
+          showItemInfo
         />
       )
     }
