@@ -36,7 +36,6 @@ export type ModalPlaylistAddToState = {
   channel: DTOChannel | null;
   item: DTOItem | null;
   clip: DTOClip | null;
-  item_chapter: DTOItemChapter | null;
   item_soundbite: DTOItemSoundbite | null;
 }
 
@@ -67,7 +66,6 @@ const defaultModalPlaylistAddTo = {
   channel: null,
   item: null,
   clip: null,
-  item_chapter: null,
   item_soundbite: null
 }
 

@@ -105,7 +105,6 @@ export const ListClipRow: React.FC<Props> = ({ channel, item, clip, showChannelI
       channel: channel || clip.item?.channel || null,
       item: item || clip.item,
       clip: clip,
-      item_chapter: null,
       item_soundbite: null
     });
   }

@@ -76,7 +76,6 @@ export const EpisodeHeaderPlaySection: React.FC<EpisodeHeaderPlaySectionProps> =
       channel: channel,
       item: item,
       clip: null,
-      item_chapter: null,
       item_soundbite: null
     });
   }

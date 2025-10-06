@@ -2,7 +2,7 @@
 
 import React, { useRef, useEffect } from "react";
 import { useMediaPlayer } from "../../../contexts/MediaPlayer";
-import { DTOQueueResource, getMediaTypeFromSource, getSelectedItemEnclosureUrl, hhmmssToSecondsNumber } from "podverse-helpers";
+import { DTOQueueResource, getMediaTypeFromSource, getSelectedItemEnclosureUrl } from "podverse-helpers";
 import { EVENTS } from "../../../constants/events";
 import { useMediaPlayerCurrentTime } from "../../../contexts/MediaPlayerCurrentTime";
 import { useQueues } from "../../../contexts/Queue";
@@ -139,28 +139,6 @@ export const MediaPlayerControllerAudio: React.FC = () => {
       }
     }
 
-    async function handleLoadQueueItemChapter(firstResource: DTOQueueResource) {
-      if (firstResource?.item_chapter && firstResource?.item_chapter?.id_text !== mpItemChapter?.id_text) {
-        const fullItemChapter = await apiRequestService.reqItemChapterGetByIdText(
-          firstResource.item_chapter.id_text
-        );
-        if (fullItemChapter?.item_chapters_feed?.item) {
-          const fullItem = await apiRequestService.reqItemGetByIdOrIdText(fullItemChapter.item_chapters_feed.item.id_text);
-          if (fullItem) {
-            const fullChannel = await apiRequestService.reqChannelGetByIdOrIdText(fullItem.channel_id);
-            if (fullChannel) {
-              window.dispatchEvent(new CustomEvent(EVENTS.MEDIA_PLAYER.AUDIO.SEEK, {
-                detail: { time: hhmmssToSecondsNumber(fullItemChapter.start_time) }
-              }));
-              
-              setMPItem(fullItem);
-              setMPChannel(fullChannel);
-            }
-          }
-        }
-      }
-    }
-
     async function handleLoadQueueItemSoundbite(firstResource: DTOQueueResource) {
       if (firstResource?.item_soundbite && firstResource?.item_soundbite?.id_text !== mpItemSoundbite?.id_text) {
         const fullItemSoundbite = await apiRequestService.reqItemSoundbiteGet(firstResource.item_soundbite.id_text);
@@ -184,8 +162,6 @@ export const MediaPlayerControllerAudio: React.FC = () => {
         handleLoadQueueItem(firstResource);
       } else if (firstResource?.clip) {
         handleLoadQueueClip(firstResource);
-      } else if (firstResource?.item_chapter) {
-        handleLoadQueueItemChapter(firstResource);
       } else if (firstResource?.item_soundbite) {
         handleLoadQueueItemSoundbite(firstResource);
       }
@@ -229,6 +205,8 @@ export const MediaPlayerControllerAudio: React.FC = () => {
         const endTimeNum = typeof clip.end_time === "string" ? parseFloat(clip.end_time) : clip.end_time;
         const endTimeNumAdjusted = endTimeNum + 1;
         if (!isNaN(endTimeNumAdjusted) && audio.currentTime >= endTimeNumAdjusted) {
+          // if logged in
+            // set item to now playing
           setMPClip(null);
         }
       }
@@ -240,6 +218,8 @@ export const MediaPlayerControllerAudio: React.FC = () => {
         const endTimeNum = startNum + durationNum;
         const endTimeNumAdjusted = endTimeNum + 1;
         if (!isNaN(endTimeNumAdjusted) && audio.currentTime >= endTimeNumAdjusted) {
+          // if logged in
+            // set item to now playing
           setMPItemSoundbite(null);
         }
       }
@@ -274,7 +254,16 @@ export const MediaPlayerControllerAudio: React.FC = () => {
         }
       }
       // --- End chapter auto-selection logic ---
+
+      // If item or item_add_by_rss is playing, and not a clip or item_soundbite,
+      // then update the history with current time and media file duration every 15 seconds.
     };
+
+    const handleEnded = () => {
+      // if logged in
+        // if there is an upcoming resource in the queue, set that as now playing
+          // then load upcoming resource in the media player
+    }
 
     const handleLoadedMetadata = () => setMPDuration(audio.duration);
 
@@ -372,6 +361,9 @@ export const MediaPlayerControllerAudio: React.FC = () => {
       src={selectedItemEnclosureUrl}
       preload="auto"
       style={{ display: "none" }}
+      onEnded={() => {
+        console.log("Audio element reached the end time.");
+      }}
     />
   );
 };

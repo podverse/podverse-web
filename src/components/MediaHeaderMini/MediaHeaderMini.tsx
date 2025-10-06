@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "../../styles/components/MediaHeaderMini/MediaHeaderMini.module.scss";
-import { DTOChannel, DTOItem, DTOItemChapter, DTOItemSoundbite, findDTOChannelImageBySize, findDTOItemImageBySize } from "podverse-helpers";
+import { DTOChannel, DTOItem, DTOItemSoundbite, findDTOChannelImageBySize, findDTOItemImageBySize } from "podverse-helpers";
 import Image from "../Image/Image";
 import { IMAGES } from "../../constants/images";
 import { useTranslations } from "next-intl";
@@ -8,11 +8,10 @@ import { useTranslations } from "next-intl";
 type MediaHeaderMiniProps = {
   channel: DTOChannel;
   item?: DTOItem | null;
-  item_chapter?: DTOItemChapter | null;
   item_soundbite?: DTOItemSoundbite | null;
 }
 
-export const MediaHeaderMini: React.FC<MediaHeaderMiniProps> = ({ channel, item, item_chapter, item_soundbite }) => {
+export const MediaHeaderMini: React.FC<MediaHeaderMiniProps> = ({ channel, item, item_soundbite }) => {
   const tMisc = useTranslations("misc");
   const channel_image = findDTOChannelImageBySize(channel.channel_images, IMAGES.MEDIA_HEADER_MINI.SQUARE.SIZE_FIND_TARGET, 'greater');
   const item_image = findDTOItemImageBySize(item?.item_images, IMAGES.MEDIA_HEADER_MINI.SQUARE.SIZE_FIND_TARGET, 'greater');
@@ -23,9 +22,6 @@ export const MediaHeaderMini: React.FC<MediaHeaderMiniProps> = ({ channel, item,
 
   if (item_soundbite?.title) {
     title = item_soundbite.title || tMisc('untitled');
-    subtitle = item?.title || tMisc('untitled');
-  } else if (item_chapter?.title) {
-    title = item_chapter.title || tMisc('untitled');
     subtitle = item?.title || tMisc('untitled');
   } else if (item?.title) {
     title = item.title || tMisc('untitled');

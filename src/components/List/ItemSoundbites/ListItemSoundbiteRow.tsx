@@ -106,7 +106,6 @@ export const ListItemSoundbiteRow: React.FC<ListItemSoundbiteProps> = (
       channel: channel,
       item: item || item_soundbite.item || null,
       clip: null,
-      item_chapter: null,
       item_soundbite
     });
   }

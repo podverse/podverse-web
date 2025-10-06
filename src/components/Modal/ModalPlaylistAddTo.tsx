@@ -87,7 +87,6 @@ export const ModalPlaylistAddTo: React.FC = () => {
       channel: null,
       item: null,
       clip: null,
-      item_chapter: null,
       item_soundbite: null
     });
     setFilterParams({ mediumId: null, page: 1 });
@@ -100,7 +99,7 @@ export const ModalPlaylistAddTo: React.FC = () => {
   );
 
   const onClick = async (playlist: DTOPlaylist) => {
-    const { item, clip, item_chapter, item_soundbite } = modalPlaylistAddTo;
+    const { item, clip, item_soundbite } = modalPlaylistAddTo;
     if (clip) {
       showToastPromise(
         apiRequestService.reqPlaylistResourceClipAddFirst(playlist.id_text, clip.id_text),
@@ -109,8 +108,6 @@ export const ModalPlaylistAddTo: React.FC = () => {
           error: tFeatures("playlist.add_error")
         }
       );
-    } else if (item_chapter) {
-      alert("Add item_chapter to playlist");
     } else if (item_soundbite) {
       alert("Add item_soundbite to playlist");
     } else if (item) {
@@ -143,7 +140,7 @@ export const ModalPlaylistAddTo: React.FC = () => {
             message={tInstructions("login_to_create_playlists")}
             buttonLabel={tAuthentication("login")}
             onButtonClick={() => {
-              setModalPlaylistAddTo({ channel: null, item: null, clip: null, item_chapter: null, item_soundbite: null });
+              setModalPlaylistAddTo({ channel: null, item: null, clip: null, item_soundbite: null });
               setModalLogin({ isOpen: true })
             }}
           />
@@ -155,7 +152,6 @@ export const ModalPlaylistAddTo: React.FC = () => {
             <MediaHeaderMini
               channel={modalPlaylistAddTo.channel}
               item={modalPlaylistAddTo.item}
-              item_chapter={modalPlaylistAddTo.item_chapter}
               item_soundbite={modalPlaylistAddTo.item_soundbite}
             />
             <ButtonTabs

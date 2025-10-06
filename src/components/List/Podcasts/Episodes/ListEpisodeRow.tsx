@@ -86,7 +86,6 @@ const ListEpisodeRow: React.FC<Props> = ({ channel, item, showChannelInfo }) => 
       channel: channel,
       item: item,
       clip: null,
-      item_chapter: null,
       item_soundbite: null
     });
   }
