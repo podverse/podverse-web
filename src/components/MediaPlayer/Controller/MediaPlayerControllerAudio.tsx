@@ -1,12 +1,10 @@
 "use client";
 
+import { getMediaTypeFromSource, getSelectedItemEnclosureUrl } from "podverse-helpers";
 import React, { useRef, useEffect } from "react";
 import { useMediaPlayer } from "../../../contexts/MediaPlayer";
-import { DTOQueueResource, getMediaTypeFromSource, getSelectedItemEnclosureUrl } from "podverse-helpers";
 import { EVENTS } from "../../../constants/events";
 import { useMediaPlayerCurrentTime } from "../../../contexts/MediaPlayerCurrentTime";
-import { useQueues } from "../../../contexts/Queue";
-import { apiRequestService } from "../../../factories/apiRequestService";
 
 // Track the stopAt time for conditional pausing
 let globalPauseAtTime: number | null = null;
@@ -14,29 +12,20 @@ let globalPauseAtTime: number | null = null;
 export const MediaPlayerControllerAudio: React.FC = () => {
   const audioRef = useRef<HTMLAudioElement>(null);
   const {
-    mpClip,
+    mpClip, setMPClip,
     mpItem,
-    mpItemChapter,
+    mpItemChapter, setMPItemChapter,
     mpItemChapters,
-    mpItemChapterShouldSeek,
-    mpItemSoundbite,
-    mpIsPlaying,
+    mpItemChapterShouldSeek, setMPItemChapterShouldSeek,
+    mpItemSoundbite, setMPItemSoundbite,
+    mpIsPlaying, setMPIsPlaying,
     mpPlaybackSpeed,
     mpVolume,
     mpIsMuted,
-    mpShouldPlay,
-    setMPIsPlaying,
-    setMPDuration,
-    setMPChannel,
-    setMPItem,
-    setMPItemChapter,
-    setMPItemChapterShouldSeek,
-    setMPClip,
-    setMPItemSoundbite,
-    setMPShouldPlay
+    mpShouldPlay, setMPShouldPlay,
+    setMPDuration
   } = useMediaPlayer();
 
-  const { activeQueueUpcomingResources } = useQueues();
   const { setMPCurrentTime } = useMediaPlayerCurrentTime();
 
   const mpClipRef = useRef<typeof mpClip>(null);
@@ -107,66 +96,6 @@ export const MediaPlayerControllerAudio: React.FC = () => {
       window.removeEventListener(EVENTS.MEDIA_PLAYER.AUDIO.PAUSE_AT, handlePauseAt);
     };
   }, []);
-
-  useEffect(() => {
-    async function handleLoadQueueItem(firstResource: DTOQueueResource) {
-      if (firstResource?.item && firstResource?.item?.id_text !== mpItem?.id_text) {
-        const fullItem = await apiRequestService.reqItemGetByIdOrIdText(firstResource.item.id_text);
-        if (fullItem) {
-          const fullChannel = await apiRequestService.reqChannelGetByIdOrIdText(fullItem.channel_id);
-          if (fullChannel) {
-            setMPItem(fullItem);
-            setMPChannel(fullChannel);
-          }
-        }
-      }
-    }
-
-    async function handleLoadQueueClip(firstResource: DTOQueueResource) {
-      if (firstResource?.clip && firstResource?.clip?.id_text !== mpClip?.id_text) {
-        const fullClip = await apiRequestService.reqClipGet(firstResource.clip.id_text);
-        if (fullClip) {
-          const fullItem = await apiRequestService.reqItemGetByIdOrIdText(fullClip.item.id_text);
-          if (fullItem) {
-            const fullChannel = await apiRequestService.reqChannelGetByIdOrIdText(fullItem.channel_id);
-            if (fullChannel) {
-              setMPClip(firstResource.clip);
-              setMPItem(fullItem);
-              setMPChannel(fullChannel);
-            }
-          }
-        }
-      }
-    }
-
-    async function handleLoadQueueItemSoundbite(firstResource: DTOQueueResource) {
-      if (firstResource?.item_soundbite && firstResource?.item_soundbite?.id_text !== mpItemSoundbite?.id_text) {
-        const fullItemSoundbite = await apiRequestService.reqItemSoundbiteGet(firstResource.item_soundbite.id_text);
-        if (fullItemSoundbite?.item) {
-          const fullItem = await apiRequestService.reqItemGetByIdOrIdText(fullItemSoundbite.item.id_text);
-          if (fullItem) {
-            const fullChannel = await apiRequestService.reqChannelGetByIdOrIdText(fullItem.channel_id);
-            if (fullChannel) {
-              setMPItemSoundbite(fullItemSoundbite);
-              setMPItem(fullItem);
-              setMPChannel(fullChannel);
-            }
-          }
-        }
-      }
-    }
-
-    if (activeQueueUpcomingResources && activeQueueUpcomingResources.length > 0) {
-      const firstResource = activeQueueUpcomingResources[0];
-      if (firstResource?.item) {
-        handleLoadQueueItem(firstResource);
-      } else if (firstResource?.clip) {
-        handleLoadQueueClip(firstResource);
-      } else if (firstResource?.item_soundbite) {
-        handleLoadQueueItemSoundbite(firstResource);
-      }
-    }
-  }, [activeQueueUpcomingResources]);
 
   const selectedItemEnclosureUrl = getSelectedItemEnclosureUrl(mpItem?.item_enclosures ?? []);
 
