@@ -35,10 +35,12 @@ export const SearchInput: React.FC<SearchInputProps> = ({
 	'aria-label': ariaLabel,
 	'aria-describedby': ariaDescribedBy,
 }) => {
-	const [inputValue, setInputValue] = useState('');
+	const [inputValue, setInputValue] = useState<string | null>(null);
 	const debounceTimeout = useRef<NodeJS.Timeout | null>(null);
 
-	useSkipInitialEffect(() => {
+	useEffect(() => {
+		if (inputValue === null) return;
+
 		if (debounceTimeout.current) {
 			clearTimeout(debounceTimeout.current);
 		}
@@ -61,12 +63,13 @@ export const SearchInput: React.FC<SearchInputProps> = ({
 		if (debounceTimeout.current) {
 			clearTimeout(debounceTimeout.current);
 		}
+		if (inputValue === null) return;
 		onSearch(inputValue);
 	}, [inputValue]);
 
 	return (
 		<TextInput
-			value={inputValue}
+			value={inputValue || ''}
 			onChange={handleChange}
 			placeholder={placeholder}
 			disabled={disabled}
