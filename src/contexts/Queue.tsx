@@ -42,7 +42,6 @@ export const QueuesProvider = ({
       if (!activeQueue) {
         activeQueue = queueData.find(queue => queue.medium_id === MediumEnum.Podcast)
       }
-      
 
       if (activeQueue) {
         const activeQueueUpcomingResourcesData = await apiRequestService
