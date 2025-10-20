@@ -33,7 +33,7 @@ export const QueuesPageContextProvider = ({
 }: QueuesPageContextProviderProps) => {
   const [filterParams, setFilterParams] = useState<QueryParamsQueues>(initialQueryParams);
   const [queueResources, setQueueResources] = useState<DTOQueueResource[]>(ssrQueueResources || []);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [showLoginMessage, setShowLoginMessage] = useState<boolean>(false);
   const { loggedInAccount } = useAccount();
 
@@ -42,6 +42,7 @@ export const QueuesPageContextProvider = ({
       if (!loggedInAccount) {
         setQueueResources([]);
         setShowLoginMessage(true);
+        setIsLoading(false);
         return;
       }
       
@@ -57,9 +58,13 @@ export const QueuesPageContextProvider = ({
           .reqQueueGetNowPlayingByQueueIdText(currentQueue.id_text);
         
         if (nowPlayingResource) {
+          combinedQueueResources.push(nowPlayingResource);
+        }
+
+        if (nowPlayingResource) {
           const upcomingQueueResources = await apiRequestService
             .reqQueueGetAllUpcomingByQueueIdText(currentQueue.id_text);
-          combinedQueueResources.push(nowPlayingResource, ...upcomingQueueResources);
+          combinedQueueResources.push(...upcomingQueueResources);
         }
 
         setQueueResources(combinedQueueResources);
