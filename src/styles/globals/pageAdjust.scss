@@ -10,6 +10,10 @@
   height: calc(100vh - var(--media-player-height-mobile));
 }
 
+#media-player.media-player-active {
+  display: flex;
+}
+
 @media (min-width: breakpoints.$breakpoint-md-min) {
   #sidebar.media-player-active {
     min-height: calc(100vh - var(--media-player-height-mobile));
