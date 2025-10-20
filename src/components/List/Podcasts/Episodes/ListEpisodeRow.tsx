@@ -20,6 +20,7 @@ import { useQueues } from "../../../../contexts/Queue";
 import { apiRequestService } from "../../../../factories/apiRequestService";
 import { showToastPromise, showToastPromiseWithLoading } from "../../../Toast/Toast";
 import { downloadAndSaveFile } from "../../../../utils/fileDownloader";
+import { useMediaPlayerResourceUpdate } from "../../../../contexts/MediaPlayerResourceUpdate";
 
 interface Props {
   channel: DTOChannel;
@@ -35,23 +36,24 @@ const ListEpisodeRow: React.FC<Props> = ({ channel, item, showChannelInfo }) => 
   const tMedia = useTranslations("media");
   const tMediaPlayer = useTranslations("media_player");
   const { queues } = useQueues();
-  const { setMPChannel, mpItem, setMPItem, setMPClip, mpIsPlaying,
-    setMPIsPlaying, setMPItemChapter, setMPItemChapterShouldSeek,
-    setMPItemSoundbite, setMPShouldPlay } = useMediaPlayer();
+  const { mpItem, mpIsPlaying, setMPIsPlaying } = useMediaPlayer();
+  const mediaPlayerResourceUpdate = useMediaPlayerResourceUpdate();
   const { setModalPlaylistAddTo } = useModals();
 
   const playButtonOnClick = () => {
     if (item.id === mpItem?.id) {
       setMPIsPlaying(!mpIsPlaying);
     } else {
-      setMPShouldPlay(true);
-      setMPChannel(channel);
-      setMPClip(null);
-      setMPItem(item);
-      setMPItemChapter(null);
-      setMPItemChapterShouldSeek(false);
-      setMPItemSoundbite(null);
-      setMPIsPlaying(true);
+      mediaPlayerResourceUpdate({
+        shouldPlay: true,
+        channel: channel,
+        clip: null,
+        item: item,
+        itemChapter: null,
+        itemChapterShouldSeek: false,
+        itemSoundbite: null,
+        isPlaying: true
+      });
     }
   };
 

@@ -4,7 +4,6 @@ import { DTOChannel, DTOItem, getSelectedItemEnclosureUrl } from "podverse-helpe
 import React from "react";
 import { PlayButtonLarge } from "../../../MediaPlayer/Buttons/PlayButtonLarge";
 import { useMediaPlayer } from "../../../../contexts/MediaPlayer";
-import styles from "../../../../styles/components/Media/Podcast/Episode/EpisodeHeaderPlaySection.module.scss";
 import { ReadableDate } from "../../../Time/ReadableDate";
 import { ReadableDuration } from "../../../Time/ReadableDuration";
 import { MoreButton } from "../../../MoreButton/MoreButton";
@@ -15,6 +14,8 @@ import { apiRequestService } from "../../../../factories/apiRequestService";
 import { useQueues } from "../../../../contexts/Queue";
 import { useModals } from "../../../../contexts/Modals";
 import { downloadAndSaveFile } from "../../../../utils/fileDownloader";
+import { useMediaPlayerResourceUpdate } from "../../../../contexts/MediaPlayerResourceUpdate";
+import styles from "../../../../styles/components/Media/Podcast/Episode/EpisodeHeaderPlaySection.module.scss";
 
 type EpisodeHeaderPlaySectionProps = {
   item: DTOItem;
@@ -26,22 +27,23 @@ export const EpisodeHeaderPlaySection: React.FC<EpisodeHeaderPlaySectionProps> =
   const tMediaPlayer = useTranslations("media_player");
   const { queues } = useQueues();
   const { setModalPlaylistAddTo } = useModals();
-  const { setMPChannel, mpItem, setMPItem, setMPClip, mpIsPlaying,
-    setMPItemChapter, setMPItemChapterShouldSeek, setMPItemSoundbite,
-    setMPIsPlaying, setMPShouldPlay } = useMediaPlayer();
+  const { mpItem, mpIsPlaying, setMPIsPlaying } = useMediaPlayer();
+  const mediaPlayerResourceUpdate = useMediaPlayerResourceUpdate();
   
   const playButtonOnClick = () => {
     if (item.id === mpItem?.id) {
       setMPIsPlaying(!mpIsPlaying);
     } else {
-      setMPShouldPlay(true);
-      setMPChannel(channel);
-      setMPClip(null);
-      setMPItem(item);
-      setMPItemChapter(null);
-      setMPItemChapterShouldSeek(false);
-      setMPItemSoundbite(null);
-      setMPIsPlaying(true);
+      mediaPlayerResourceUpdate({
+        shouldPlay: true,
+        channel: channel,
+        clip: null,
+        item: item,
+        itemChapter: null,
+        itemChapterShouldSeek: false,
+        itemSoundbite: null,
+        isPlaying: true
+      });
     }
   };
 

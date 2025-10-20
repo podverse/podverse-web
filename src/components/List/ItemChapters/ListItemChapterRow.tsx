@@ -11,6 +11,7 @@ import { PlayButtonRow } from "../../MediaPlayer/Buttons/PlayButtonRow";
 import { useMediaPlayer } from "../../../contexts/MediaPlayer";
 import { ReadableTimeRange } from "../../Time/ReadableTimeRange";
 import { ReadableDate } from "../../Time/ReadableDate";
+import { useMediaPlayerResourceUpdate } from "../../../contexts/MediaPlayerResourceUpdate";
 import styles from "../../../styles/components/List/ItemChapters/ListItemChapterRow.module.scss";
 
 interface ListItemChapterRowProps {
@@ -36,9 +37,8 @@ export const ListItemChapterRow: React.FC<ListItemChapterRowProps> = (
 
   const tMisc = useTranslations("misc");
   const tInfo = useTranslations("info");
-  const { setMPChannel, mpItemChapter, setMPItem, setMPClip, mpIsPlaying,
-    setMPIsPlaying, setMPItemSoundbite, setMPItemChapter,
-    setMPItemChapterShouldSeek, setMPShouldPlay } = useMediaPlayer();
+  const { mpItemChapter, mpIsPlaying, setMPIsPlaying } = useMediaPlayer();
+  const mediaPlayerResourceUpdate = useMediaPlayerResourceUpdate();
 
   const itemChapterTitle = item_chapter.title || tMisc("untitled");
   const channelTitle = channel?.title || tMisc("untitled");
@@ -51,14 +51,16 @@ export const ListItemChapterRow: React.FC<ListItemChapterRowProps> = (
     if (item_chapter.id === mpItemChapter?.id) {
       setMPIsPlaying(!mpIsPlaying);
     } else if (channel && item) {
-      setMPShouldPlay(true);
-      setMPChannel(channel);
-      setMPClip(null);
-      setMPItem(item);
-      setMPItemChapter(item_chapter);
-      setMPItemChapterShouldSeek(true);
-      setMPItemSoundbite(null);
-      setMPIsPlaying(true);
+      mediaPlayerResourceUpdate({
+        shouldPlay: true,
+        channel: channel,
+        clip: null,
+        item: item,
+        itemChapter: item_chapter,
+        itemChapterShouldSeek: true,
+        itemSoundbite: null,
+        isPlaying: true
+      });
     }
   };
 

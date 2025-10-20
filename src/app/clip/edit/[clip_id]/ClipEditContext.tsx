@@ -2,7 +2,7 @@
 
 import { DTOClip, formatNumericToHHMMSS } from "podverse-helpers";
 import React, { createContext, useContext, useState, ReactNode, useEffect } from "react";
-import { useMediaPlayer } from "../../../../contexts/MediaPlayer";
+import { useMediaPlayerResourceUpdate } from "../../../../contexts/MediaPlayerResourceUpdate";
 
 interface ClipEditContextType {
   sharableStatus: string
@@ -33,22 +33,22 @@ export const ClipEditContextProvider = (
   const [startTimeString, setStartTimeString] = useState<string>(formatNumericToHHMMSS(ssrClip.start_time));
   const [endTimeString, setEndTimeString] = useState<string | null>(ssrClip.end_time ? formatNumericToHHMMSS(ssrClip.end_time) : null);
   const [isUpdating, setIsUpdating] = useState<boolean>(false);
-  const { setMPChannel, setMPItem, setMPClip, setMPItemSoundbite, 
-    setMPItemChapter, setMPItemChapterShouldSeek, setMPIsPlaying
-   } = useMediaPlayer();
+  const mediaPlayerResourceUpdate = useMediaPlayerResourceUpdate();
 
   useEffect(() => {
     const item = ssrClip?.item;
     const channel = ssrClip?.item?.channel;
 
     if (item && channel) {
-      setMPChannel(channel);
-      setMPClip(ssrClip);
-      setMPItem(item);
-      setMPItemChapter(null);
-      setMPItemChapterShouldSeek(false);
-      setMPItemSoundbite(null);
-      setMPIsPlaying(false);
+      mediaPlayerResourceUpdate({
+        channel: channel,
+        clip: ssrClip,
+        item: item,
+        itemChapter: null,
+        itemChapterShouldSeek: false,
+        itemSoundbite: null,
+        isPlaying: false,
+      });
     }
   }, []);
 

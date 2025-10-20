@@ -18,6 +18,7 @@ import { useQueues } from "../../../contexts/Queue";
 import { showToastPromise } from "../../Toast/Toast";
 import { apiRequestService } from "../../../factories/apiRequestService";
 import { useModals } from "../../../contexts/Modals";
+import { useMediaPlayerResourceUpdate } from "../../../contexts/MediaPlayerResourceUpdate";
 import styles from "../../../styles/components/List/Clips/ListClipRow.module.scss";
 
 interface Props {
@@ -44,12 +45,11 @@ export const ListClipRow: React.FC<Props> = ({ channel, item, clip, showChannelI
   const tMedia = useTranslations("media");
   const tMediaPlayer = useTranslations("media_player");
   const tMisc = useTranslations("misc");
-  const { setMPChannel, mpClip, setMPItem, setMPClip, mpIsPlaying,
-    setMPIsPlaying, setMPItemChapter, setMPItemSoundbite, setMPShouldPlay
-  } = useMediaPlayer();
+  const { mpClip, mpIsPlaying, setMPIsPlaying } = useMediaPlayer();
   const { loggedInAccount } = useAccount();
   const { setModalPlaylistAddTo } = useModals();
   const { queues } = useQueues();
+  const mediaPlayerResourceUpdate = useMediaPlayerResourceUpdate();
 
   const clipTitle = clip.title || tMisc("untitled");
   const itemTitle = item?.title || tMisc("untitled");
@@ -60,13 +60,16 @@ export const ListClipRow: React.FC<Props> = ({ channel, item, clip, showChannelI
     if (clip.id === mpClip?.id) {
       setMPIsPlaying(!mpIsPlaying);
     } else {
-      setMPShouldPlay(true);
-      setMPChannel(channel);
-      setMPClip(clip);
-      setMPItem(item);
-      setMPItemChapter(null);
-      setMPItemSoundbite(null);
-      setMPIsPlaying(true);
+      mediaPlayerResourceUpdate({
+        channel: channel,
+        clip: clip,
+        item: item,
+        itemChapter: null,
+        itemChapterShouldSeek: false,
+        itemSoundbite: null,
+        isPlaying: true,
+        shouldPlay: true
+      });
     }
   };
 

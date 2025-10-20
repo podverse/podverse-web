@@ -1,22 +1,18 @@
 "use client";
 
+import { DTOQueueResource } from "podverse-helpers";
 import React, { useEffect } from "react";
 import { MediaPlayerControllerAudio } from "./MediaPlayerControllerAudio";
 import { useMediaPlayer } from "../../../contexts/MediaPlayer";
 import { EVENTS } from "../../../constants/events";
 import { useMediaPlayerCurrentTime } from "../../../contexts/MediaPlayerCurrentTime";
-import { DTOQueueResource } from "podverse-helpers";
 import { apiRequestService } from "../../../factories/apiRequestService";
 import { useQueues } from "../../../contexts/Queue";
+import { useMediaPlayerResourceUpdate } from "../../../contexts/MediaPlayerResourceUpdate";
 
 export const MediaPlayerController: React.FC = () => {
-  const {
-    setMPChannel,
-    mpItem, setMPItem,
-    mpClip, setMPClip,
-    mpItemSoundbite, setMPItemSoundbite,
-    mpDuration
-  } = useMediaPlayer();
+  const { mpItem, mpClip, mpItemSoundbite, mpDuration } = useMediaPlayer();
+  const mediaPlayerResourceUpdate = useMediaPlayerResourceUpdate();
   const { mpCurrentTime } = useMediaPlayerCurrentTime();
   const { activeQueueUpcomingResources } = useQueues();
 
@@ -55,8 +51,14 @@ export const MediaPlayerController: React.FC = () => {
         if (fullItem) {
           const fullChannel = await apiRequestService.reqChannelGetByIdOrIdText(fullItem.channel_id);
           if (fullChannel) {
-            setMPItem(fullItem);
-            setMPChannel(fullChannel);
+            mediaPlayerResourceUpdate({
+              channel: fullChannel,
+              clip: null,
+              item: fullItem,
+              itemChapter: null,
+              itemChapterShouldSeek: false,
+              itemSoundbite: null
+            });
           }
         }
       }
@@ -70,9 +72,14 @@ export const MediaPlayerController: React.FC = () => {
           if (fullItem) {
             const fullChannel = await apiRequestService.reqChannelGetByIdOrIdText(fullItem.channel_id);
             if (fullChannel) {
-              setMPClip(firstResource.clip);
-              setMPItem(fullItem);
-              setMPChannel(fullChannel);
+              mediaPlayerResourceUpdate({
+                channel: fullChannel,
+                clip: fullClip,
+                item: fullItem,
+                itemChapter: null,
+                itemChapterShouldSeek: false,
+                itemSoundbite: null
+              });
             }
           }
         }
@@ -87,9 +94,14 @@ export const MediaPlayerController: React.FC = () => {
           if (fullItem) {
             const fullChannel = await apiRequestService.reqChannelGetByIdOrIdText(fullItem.channel_id);
             if (fullChannel) {
-              setMPItemSoundbite(fullItemSoundbite);
-              setMPItem(fullItem);
-              setMPChannel(fullChannel);
+              mediaPlayerResourceUpdate({
+                channel: fullChannel,
+                clip: null,
+                item: fullItem,
+                itemChapter: null,
+                itemChapterShouldSeek: false,
+                itemSoundbite: fullItemSoundbite
+              });
             }
           }
         }

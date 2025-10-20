@@ -17,6 +17,7 @@ import { useQueues } from "../../../contexts/Queue";
 import { showToastPromise } from "../../Toast/Toast";
 import { apiRequestService } from "../../../factories/apiRequestService";
 import { useModals } from "../../../contexts/Modals";
+import { useMediaPlayerResourceUpdate } from "../../../contexts/MediaPlayerResourceUpdate";
 import styles from "../../../styles/components/List/ItemSoundbites/ListItemSoundbiteRow.module.scss";
 
 interface ListItemSoundbiteProps {
@@ -44,8 +45,8 @@ export const ListItemSoundbiteRow: React.FC<ListItemSoundbiteProps> = (
   const tMedia = useTranslations("media");
   const tMediaPlayer = useTranslations("media_player");
   const tMisc = useTranslations("misc");
-  const { setMPChannel, mpItemSoundbite, setMPItem, setMPClip, mpIsPlaying, setMPIsPlaying,
-    setMPItemSoundbite, setMPItemChapter, setMPItemChapterShouldSeek, setMPShouldPlay } = useMediaPlayer();
+  const { mpItemSoundbite,mpIsPlaying, setMPIsPlaying } = useMediaPlayer();
+  const mediaPlayerResourceUpdate = useMediaPlayerResourceUpdate();
   const { setModalPlaylistAddTo } = useModals();
   const { queues } = useQueues();
 
@@ -60,14 +61,16 @@ export const ListItemSoundbiteRow: React.FC<ListItemSoundbiteProps> = (
     if (item_soundbite.id === mpItemSoundbite?.id) {
       setMPIsPlaying(!mpIsPlaying);
     } else {
-      setMPShouldPlay(true);
-      setMPChannel(channel);
-      setMPClip(null);
-      setMPItem(item);
-      setMPItemChapter(null);
-      setMPItemChapterShouldSeek(false);
-      setMPItemSoundbite(item_soundbite);
-      setMPIsPlaying(true);
+      mediaPlayerResourceUpdate({
+        shouldPlay: true,
+        channel: channel,
+        clip: null,
+        item: item,
+        itemChapter: null,
+        itemChapterShouldSeek: false,
+        itemSoundbite: item_soundbite,
+        isPlaying: true
+      });
     }
   };
 

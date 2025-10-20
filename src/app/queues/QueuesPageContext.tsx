@@ -50,9 +50,21 @@ export const QueuesPageContextProvider = ({
       const currentMediumId = filterParams.medium_id || MediumEnum.Podcast;
       const currentQueue = ssrQueues.find(q => q.medium_id === currentMediumId);
       
-      const queueResources = await apiRequestService
-        .reqQueueGetAllNowPlayingOrUpcomingByQueueIdText(currentQueue?.id_text);
-      setQueueResources(queueResources || []);
+      if (currentQueue) {
+        const combinedQueueResources: DTOQueueResource[] = [];
+
+        const nowPlayingResource = await apiRequestService
+          .reqQueueGetNowPlayingByQueueIdText(currentQueue.id_text);
+        
+        if (nowPlayingResource) {
+          const upcomingQueueResources = await apiRequestService
+            .reqQueueGetAllUpcomingByQueueIdText(currentQueue.id_text);
+          combinedQueueResources.push(nowPlayingResource, ...upcomingQueueResources);
+        }
+
+        setQueueResources(combinedQueueResources);
+      }
+
       setShowLoginMessage(false);
       setIsLoading(false);
     }
