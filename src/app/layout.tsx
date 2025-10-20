@@ -19,6 +19,7 @@ import { apiRequestService } from '../factories/apiRequestService';
 import { config } from '../config';
 import { MediaPlayerController } from '../components/MediaPlayer/Controller/MediaPlayerController';
 import { Toast } from '../components/Toast/Toast';
+import { QueueController } from '../components/Queue/QueueController';
 
 export const metadata = {
   title: `${config.private.brand.name || config.public.brand.name}`,
@@ -66,6 +67,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             <Modals />
           </WindowWrapper>
           <MediaPlayerController />
+          <QueueController />
           <Toast />
         </Providers>
       </body>
