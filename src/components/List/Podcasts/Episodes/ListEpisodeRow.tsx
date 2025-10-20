@@ -20,7 +20,7 @@ import { useQueues } from "../../../../contexts/Queue";
 import { apiRequestService } from "../../../../factories/apiRequestService";
 import { showToastPromise, showToastPromiseWithLoading } from "../../../Toast/Toast";
 import { downloadAndSaveFile } from "../../../../utils/fileDownloader";
-import { useMediaPlayerResourceUpdate } from "../../../../contexts/MediaPlayerResourceUpdate";
+import { useMediaPlayerResourceUpdate } from "../../../../hooks/useMediaPlayerResourceUpdate";
 
 interface Props {
   channel: DTOChannel;

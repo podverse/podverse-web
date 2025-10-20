@@ -2,7 +2,7 @@
 
 import { DTOClip, formatNumericToHHMMSS } from "podverse-helpers";
 import React, { createContext, useContext, useState, ReactNode, useEffect } from "react";
-import { useMediaPlayerResourceUpdate } from "../../../../contexts/MediaPlayerResourceUpdate";
+import { useMediaPlayerResourceUpdate } from "../../../../hooks/useMediaPlayerResourceUpdate";
 
 interface ClipEditContextType {
   sharableStatus: string

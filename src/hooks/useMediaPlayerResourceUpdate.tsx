@@ -1,5 +1,5 @@
 import { DTOChannel, DTOClip, DTOItem, DTOItemChapter, DTOItemSoundbite } from "podverse-helpers";
-import { useMediaPlayer } from "./MediaPlayer";
+import { useMediaPlayer } from "../contexts/MediaPlayer";
 
 export function useMediaPlayerResourceUpdate() {
   const {

@@ -11,7 +11,7 @@ import { PlayButtonRow } from "../../MediaPlayer/Buttons/PlayButtonRow";
 import { useMediaPlayer } from "../../../contexts/MediaPlayer";
 import { ReadableTimeRange } from "../../Time/ReadableTimeRange";
 import { ReadableDate } from "../../Time/ReadableDate";
-import { useMediaPlayerResourceUpdate } from "../../../contexts/MediaPlayerResourceUpdate";
+import { useMediaPlayerResourceUpdate } from "../../../hooks/useMediaPlayerResourceUpdate";
 import styles from "../../../styles/components/List/ItemChapters/ListItemChapterRow.module.scss";
 
 interface ListItemChapterRowProps {

@@ -8,7 +8,7 @@ import { EVENTS } from "../../../constants/events";
 import { useMediaPlayerCurrentTime } from "../../../contexts/MediaPlayerCurrentTime";
 import { apiRequestService } from "../../../factories/apiRequestService";
 import { useQueues } from "../../../contexts/Queue";
-import { useMediaPlayerResourceUpdate } from "../../../contexts/MediaPlayerResourceUpdate";
+import { useMediaPlayerResourceUpdate } from "../../../hooks/useMediaPlayerResourceUpdate";
 
 export const MediaPlayerController: React.FC = () => {
   const { mpItem, mpClip, mpItemSoundbite, mpDuration } = useMediaPlayer();

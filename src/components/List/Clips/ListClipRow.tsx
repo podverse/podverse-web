@@ -18,7 +18,7 @@ import { useQueues } from "../../../contexts/Queue";
 import { showToastPromise } from "../../Toast/Toast";
 import { apiRequestService } from "../../../factories/apiRequestService";
 import { useModals } from "../../../contexts/Modals";
-import { useMediaPlayerResourceUpdate } from "../../../contexts/MediaPlayerResourceUpdate";
+import { useMediaPlayerResourceUpdate } from "../../../hooks/useMediaPlayerResourceUpdate";
 import styles from "../../../styles/components/List/Clips/ListClipRow.module.scss";
 
 interface Props {

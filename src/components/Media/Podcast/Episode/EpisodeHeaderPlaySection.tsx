@@ -14,7 +14,7 @@ import { apiRequestService } from "../../../../factories/apiRequestService";
 import { useQueues } from "../../../../contexts/Queue";
 import { useModals } from "../../../../contexts/Modals";
 import { downloadAndSaveFile } from "../../../../utils/fileDownloader";
-import { useMediaPlayerResourceUpdate } from "../../../../contexts/MediaPlayerResourceUpdate";
+import { useMediaPlayerResourceUpdate } from "../../../../hooks/useMediaPlayerResourceUpdate";
 import styles from "../../../../styles/components/Media/Podcast/Episode/EpisodeHeaderPlaySection.module.scss";
 
 type EpisodeHeaderPlaySectionProps = {
