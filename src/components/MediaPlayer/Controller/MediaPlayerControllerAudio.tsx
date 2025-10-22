@@ -5,6 +5,7 @@ import React, { useRef, useEffect } from "react";
 import { useMediaPlayer } from "../../../contexts/MediaPlayer";
 import { EVENTS } from "../../../constants/events";
 import { useMediaPlayerCurrentTime } from "../../../contexts/MediaPlayerCurrentTime";
+import { useQueueResourcesUpdateNowPlaying } from "../../../hooks/useQueueResourceUpdateNowPlaying";
 
 // Track the stopAt time for conditional pausing
 let globalPauseAtTime: number | null = null;
@@ -27,6 +28,11 @@ export const MediaPlayerControllerAudio: React.FC = () => {
   } = useMediaPlayer();
 
   const { setMPCurrentTime } = useMediaPlayerCurrentTime();
+  const updateNowPlaying = useQueueResourcesUpdateNowPlaying();
+
+  // Track elapsed playback time for updateNowPlaying
+  const playbackElapsedRef = useRef(0);
+  const lastPlaybackTimeRef = useRef<number | null>(null);
 
   const mpClipRef = useRef<typeof mpClip>(null);
   useEffect(() => {
@@ -116,13 +122,44 @@ export const MediaPlayerControllerAudio: React.FC = () => {
     }
   }, [selectedItemEnclosureUrl]);
   
-  // Time update and metadata loaded
+  // Event listeners
   useEffect(() => {    
     const audio = audioRef?.current;
     if (!audio) return;
+    
+    const handleLoadedMetadata = () => setMPDuration(audio.duration);
+    
+    const handlePlay = () => {
+      if (audio.currentTime < audio.duration) {
+        updateNowPlaying(); 
+        playbackElapsedRef.current = 0;
+        lastPlaybackTimeRef.current = audio.currentTime;
+      }
+    };
+    
+    const handlePause = () => {
+      if (audio.currentTime < audio.duration) {
+        updateNowPlaying();
+        playbackElapsedRef.current = 0;
+        lastPlaybackTimeRef.current = null;
+      }
+    };
 
     const handleTimeUpdate = () => {
       setMPCurrentTime(audio.currentTime);
+
+      if (lastPlaybackTimeRef.current !== null) {
+        const delta = audio.currentTime - lastPlaybackTimeRef.current;
+        if (delta > 0) {
+          playbackElapsedRef.current += delta;
+        }
+      }
+      lastPlaybackTimeRef.current = audio.currentTime;
+
+      if (playbackElapsedRef.current >= 15) {
+        updateNowPlaying();
+        playbackElapsedRef.current = 0;
+      }
 
       if (globalPauseAtTime !== null && audio.currentTime >= globalPauseAtTime) {
         setMPIsPlaying(false);
@@ -134,7 +171,7 @@ export const MediaPlayerControllerAudio: React.FC = () => {
         const endTimeNum = typeof clip.end_time === "string" ? parseFloat(clip.end_time) : clip.end_time;
         const endTimeNumAdjusted = endTimeNum + 1;
         if (!isNaN(endTimeNumAdjusted) && audio.currentTime >= endTimeNumAdjusted) {
-          // if logged in
+          // TODO: if logged in
             // set item to now playing
           setMPClip(null);
         }
@@ -147,7 +184,7 @@ export const MediaPlayerControllerAudio: React.FC = () => {
         const endTimeNum = startNum + durationNum;
         const endTimeNumAdjusted = endTimeNum + 1;
         if (!isNaN(endTimeNumAdjusted) && audio.currentTime >= endTimeNumAdjusted) {
-          // if logged in
+          // TODO: if logged in
             // set item to now playing
           setMPItemSoundbite(null);
         }
@@ -183,25 +220,26 @@ export const MediaPlayerControllerAudio: React.FC = () => {
         }
       }
       // --- End chapter auto-selection logic ---
-
-      // If item or item_add_by_rss is playing, and not a clip or item_soundbite,
-      // then update the history with current time and media file duration every 15 seconds.
     };
 
     const handleEnded = () => {
-      // if logged in
-        // if there is an upcoming resource in the queue, set that as now playing
-          // then load upcoming resource in the media player
+      // on ended
+        // move the current resource to history
+        // call the load active resource hook
     }
 
-    const handleLoadedMetadata = () => setMPDuration(audio.duration);
-
-    audio.addEventListener("timeupdate", handleTimeUpdate);
     audio.addEventListener("loadedmetadata", handleLoadedMetadata);
+    audio.addEventListener("play", handlePlay);
+    audio.addEventListener("pause", handlePause);
+    audio.addEventListener("timeupdate", handleTimeUpdate);
+    audio.addEventListener("ended", handleEnded);
 
     return () => {
-      audio.removeEventListener("timeupdate", handleTimeUpdate);
       audio.removeEventListener("loadedmetadata", handleLoadedMetadata);
+      audio.removeEventListener("play", handlePlay);
+      audio.removeEventListener("pause", handlePause);
+      audio.removeEventListener("timeupdate", handleTimeUpdate);
+      audio.removeEventListener("ended", handleEnded);
     };
   }, [audioRef]);
 

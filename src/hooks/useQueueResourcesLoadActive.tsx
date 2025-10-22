@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useRef, useEffect } from "react";
 import { MediumEnum, DTOQueueResource } from "podverse-helpers";
 import { useAccount } from "../contexts/Account";
 import { useQueues } from "../contexts/Queue";
@@ -6,9 +6,16 @@ import { apiRequestService } from "../factories/apiRequestService";
 
 export function useQueueResourcesLoadActive() {
   const { loggedInAccount } = useAccount();
-  const { setQueues, setActiveQueueUpcomingResources } = useQueues();
+  const loggedInAccountRef = useRef(loggedInAccount);
+
+  useEffect(() => {
+    loggedInAccountRef.current = loggedInAccount;
+  }, [loggedInAccount]);
+  
+  const { setQueues, setActiveQueue, setActiveQueueUpcomingResources } = useQueues();
 
   return useCallback(async () => {
+    const loggedInAccount = loggedInAccountRef.current;
     if (!loggedInAccount) {
       setQueues([]);
       return;
@@ -22,6 +29,8 @@ export function useQueueResourcesLoadActive() {
     }
 
     if (activeQueue) {
+      setActiveQueue(activeQueue);
+
       const combinedQueueResources: DTOQueueResource[] = [];
 
       const nowPlayingResource = await apiRequestService
@@ -35,5 +44,5 @@ export function useQueueResourcesLoadActive() {
 
       setActiveQueueUpcomingResources(combinedQueueResources);
     }
-  }, [loggedInAccount, setQueues, setActiveQueueUpcomingResources]);
+  }, []);
 }
