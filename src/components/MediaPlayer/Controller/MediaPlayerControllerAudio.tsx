@@ -180,9 +180,9 @@ export const MediaPlayerControllerAudio: React.FC = () => {
         const endTimeNum = typeof clip.end_time === "string" ? parseFloat(clip.end_time) : clip.end_time;
         const endTimeNumAdjusted = endTimeNum + 1;
         if (!isNaN(endTimeNumAdjusted) && audio.currentTime >= endTimeNumAdjusted) {
-          // TODO: if logged in
-            // set item to now playing
+          moveNowPlayingToHistory();
           setMPClip(null);
+          updateNowPlaying();
         }
       }
 
@@ -193,9 +193,9 @@ export const MediaPlayerControllerAudio: React.FC = () => {
         const endTimeNum = startNum + durationNum;
         const endTimeNumAdjusted = endTimeNum + 1;
         if (!isNaN(endTimeNumAdjusted) && audio.currentTime >= endTimeNumAdjusted) {
-          // TODO: if logged in
-            // set item to now playing
+          moveNowPlayingToHistory();
           setMPItemSoundbite(null);
+          updateNowPlaying();
         }
       }
 
