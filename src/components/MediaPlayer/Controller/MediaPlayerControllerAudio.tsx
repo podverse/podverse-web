@@ -131,7 +131,12 @@ export const MediaPlayerControllerAudio: React.FC = () => {
     const audio = audioRef?.current;
     if (!audio) return;
     
-    const handleLoadedMetadata = () => setMPDuration(audio.duration);
+    const handleLoadedMetadata = () => {
+      setMPDuration(audio.duration)
+      setTimeout(() => {
+        updateNowPlaying();
+      }, 0);
+    };
     
     const handlePlay = () => {
       if (audio.currentTime < audio.duration) {
