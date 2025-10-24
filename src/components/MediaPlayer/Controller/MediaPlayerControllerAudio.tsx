@@ -6,6 +6,8 @@ import { useMediaPlayer } from "../../../contexts/MediaPlayer";
 import { EVENTS } from "../../../constants/events";
 import { useMediaPlayerCurrentTime } from "../../../contexts/MediaPlayerCurrentTime";
 import { useQueueResourcesUpdateNowPlaying } from "../../../hooks/useQueueResourceUpdateNowPlaying";
+import { useQueueResourcesMoveNowPlayingToHistory } from "../../../hooks/useQueueResourceMoveNowPlayingToHistory";
+import { useQueueResourcesLoadActive } from "../../../hooks/useQueueResourcesLoadActive";
 
 // Track the stopAt time for conditional pausing
 let globalPauseAtTime: number | null = null;
@@ -29,8 +31,9 @@ export const MediaPlayerControllerAudio: React.FC = () => {
 
   const { setMPCurrentTime } = useMediaPlayerCurrentTime();
   const updateNowPlaying = useQueueResourcesUpdateNowPlaying();
+  const moveNowPlayingToHistory = useQueueResourcesMoveNowPlayingToHistory();
+  const queueResourcesLoadActive = useQueueResourcesLoadActive();
 
-  // Track elapsed playback time for updateNowPlaying
   const playbackElapsedRef = useRef(0);
   const lastPlaybackTimeRef = useRef<number | null>(null);
 
@@ -113,6 +116,7 @@ export const MediaPlayerControllerAudio: React.FC = () => {
         audio.load();
         if (mpShouldPlay) {
           audio.play().catch(() => {});
+          setMPShouldPlay(false);
         }
       } else {
         audio.pause();
@@ -222,10 +226,10 @@ export const MediaPlayerControllerAudio: React.FC = () => {
       // --- End chapter auto-selection logic ---
     };
 
-    const handleEnded = () => {
-      // on ended
-        // move the current resource to history
-        // call the load active resource hook
+    const handleEnded = async () => {
+      await moveNowPlayingToHistory();
+      setMPShouldPlay(true);
+      await queueResourcesLoadActive();
     }
 
     audio.addEventListener("loadedmetadata", handleLoadedMetadata);
@@ -328,9 +332,6 @@ export const MediaPlayerControllerAudio: React.FC = () => {
       src={selectedItemEnclosureUrl}
       preload="auto"
       style={{ display: "none" }}
-      onEnded={() => {
-        console.log("Audio element reached the end time.");
-      }}
     />
   );
 };
