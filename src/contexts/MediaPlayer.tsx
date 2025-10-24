@@ -1,4 +1,5 @@
-import { DTOChannel, DTOClip, DTOItem, DTOItemChapter, DTOItemSoundbite, PlaybackSpeedValue } from "podverse-helpers";
+import { DTOChannel, DTOClip, DTOItem, DTOItemChapter, DTOItemSoundbite,
+  PlaybackMode, PlaybackSpeedValue } from "podverse-helpers";
 import React, { createContext, useContext, useState, ReactNode, useEffect } from "react";
 import { updateLayoutForMediaPlayer } from "../utils/mediaPlayer/mediaPlayerLayout";
 import { apiRequestService } from "../factories/apiRequestService";
@@ -20,6 +21,8 @@ type MediaPlayerContextType = {
   setMPItemSoundbite: (val: DTOItemSoundbite | null) => void;
   mpIsPlaying: boolean;
   setMPIsPlaying: (val: boolean) => void;
+  mpPlaybackMode: PlaybackMode;
+  setMPPlaybackMode: (val: PlaybackMode) => void;
   mpPlaybackSpeed: PlaybackSpeedValue;
   setMPPlaybackSpeed: (val: PlaybackSpeedValue) => void;
   mpIsMuted: boolean;
@@ -49,6 +52,7 @@ export const MediaPlayerProvider = ({ children }: MediaPlayerProviderProps) => {
   const [mpItemChapterShouldSeek, setMPItemChapterShouldSeek] = useState<boolean>(false);
   const [mpItemSoundbite, setMPItemSoundbite] = useState<DTOItemSoundbite | null>(null);
   const [mpIsPlaying, setMPIsPlaying] = useState<boolean>(false);
+  const [mpPlaybackMode, setMPPlaybackMode] = useState<PlaybackMode>("autoplay-next");
   const [mpPlaybackSpeed, setMPPlaybackSpeed] = useState<PlaybackSpeedValue>(1.0);
   const [mpIsMuted, setMPIsMuted] = useState<boolean>(false);
   const [mpVolume, setMPVolume] = useState<number>(1.0);
@@ -85,6 +89,7 @@ export const MediaPlayerProvider = ({ children }: MediaPlayerProviderProps) => {
       mpItemChapterShouldSeek, setMPItemChapterShouldSeek,
       mpItemSoundbite, setMPItemSoundbite,
       mpIsPlaying, setMPIsPlaying,
+      mpPlaybackMode, setMPPlaybackMode,
       mpPlaybackSpeed, setMPPlaybackSpeed,
       mpIsMuted, setMPIsMuted,
       mpVolume, setMPVolume,
