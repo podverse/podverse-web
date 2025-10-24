@@ -40,6 +40,11 @@ export function useQueueResourcesUpdateNowPlaying() {
       return;
     }
 
+    apiRequestService.reqQueueUpdateIsActiveQueue(
+      activeQueue.id_text,
+      true
+    );
+
     if (mpClip) {
       await apiRequestService.reqQueueResourceClipAddNowPlaying(
         activeQueue.id_text,
