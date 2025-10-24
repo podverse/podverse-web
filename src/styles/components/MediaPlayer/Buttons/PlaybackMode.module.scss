@@ -1,0 +1,9 @@
+@use '../../../mixins/buttons.scss' as *;
+
+.playbackModeButton {
+  @include mediaPlayerButton;
+}
+
+.playbackModeButton.active {
+  color: var(--text-color-accent);
+}
