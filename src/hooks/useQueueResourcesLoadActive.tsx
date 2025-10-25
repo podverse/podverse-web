@@ -34,11 +34,11 @@ export function useQueueResourcesLoadActive() {
       const combinedQueueResources: DTOQueueResource[] = [];
 
       const nowPlayingResource = await apiRequestService
-        .reqQueueGetNowPlayingByQueueIdText(activeQueue.id_text);
+        .reqQueueResourcesGetNowPlayingByQueueIdText(activeQueue.id_text);
 
       if (nowPlayingResource) {
         const upcomingQueueResources = await apiRequestService
-          .reqQueueGetAllUpcomingByQueueIdText(activeQueue.id_text);
+          .reqQueueResourcesGetAllUpcomingByQueueIdText(activeQueue.id_text);
         combinedQueueResources.push(nowPlayingResource, ...upcomingQueueResources);
       }
 

@@ -55,7 +55,7 @@ export const QueuesPageContextProvider = ({
         const combinedQueueResources: DTOQueueResource[] = [];
 
         const nowPlayingResource = await apiRequestService
-          .reqQueueGetNowPlayingByQueueIdText(currentQueue.id_text);
+          .reqQueueResourcesGetNowPlayingByQueueIdText(currentQueue.id_text);
         
         if (nowPlayingResource) {
           combinedQueueResources.push(nowPlayingResource);
@@ -63,7 +63,7 @@ export const QueuesPageContextProvider = ({
 
         if (nowPlayingResource) {
           const upcomingQueueResources = await apiRequestService
-            .reqQueueGetAllUpcomingByQueueIdText(currentQueue.id_text);
+            .reqQueueResourcesGetAllUpcomingByQueueIdText(currentQueue.id_text);
           combinedQueueResources.push(...upcomingQueueResources);
         }
 
@@ -79,8 +79,7 @@ export const QueuesPageContextProvider = ({
 
   return (
     <QueuesPageContext.Provider value={{
-      filterParams,
-      setFilterParams,
+      filterParams, setFilterParams,
       queueResources, setQueueResources,
       isLoading, setIsLoading,
       showLoginMessage, setShowLoginMessage,
