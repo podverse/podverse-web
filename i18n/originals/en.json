@@ -235,7 +235,8 @@
     "login_for_subscriptions": "Please login to view your subscriptions.",
     "login_to_create_playlists": "Please login to create playlists.",
     "login_to_create_clips": "Please login to create clips.",
-    "login_for_queues": "Please login to view your queues."
+    "login_for_queues": "Please login to view your queues.",
+    "login_for_history": "Please login to view your history."
   },
   "authentication": {
     "login": "Login",
