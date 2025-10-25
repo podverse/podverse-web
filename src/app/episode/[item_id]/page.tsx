@@ -37,8 +37,6 @@ export default async function EpisodePage({ params, searchParams }: EpisodePageP
   const ssrHasTranscripts = ssrItem.item_transcripts
     && ssrItem.item_transcripts.length > 0;
 
-  console.log('ssrItem.item_soundbites', ssrItem.item_soundbites);
-
   return (
     <EpisodeClient
       initialQueryParams={{ page, type, sort, range }}
