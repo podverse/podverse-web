@@ -125,6 +125,10 @@
     "soundbite": {
       "official_clip": "Official Clip",
       "official_clips": "Official Clips"
+    },
+    "time": {
+      "left": "{timeRemaining} left",
+      "last": "{timePosition} last"
     }
   },
   "media_player": {
