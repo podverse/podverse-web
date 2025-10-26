@@ -18,18 +18,24 @@ export const QueueResourcesAbridgedIndexContext = createContext<QueueResourcesAb
 
 type QueueResourcesAbridgedIndexProviderProps = {
   children: ReactNode;
+  ssrQueueResourcesAbridgedIndex: QueueResourcesAbridgedIndex | null;
 };
 
 export const QueueResourcesAbridgedIndexProvider = ({
-  children
+  children,
+  ssrQueueResourcesAbridgedIndex
 }: QueueResourcesAbridgedIndexProviderProps) => {
-  const [queueResourcesAbridgedIndex, setQueueResourcesAbridgedIndex] = useState<QueueResourcesAbridgedIndex>({
+  const defaultIndex = {
     items: {},
     clips: {},
     item_soundbites: {},
     add_by_rss_resource_datas: {}
-  });
-    
+  };
+
+  const [queueResourcesAbridgedIndex, setQueueResourcesAbridgedIndex] = useState<QueueResourcesAbridgedIndex>(
+    ssrQueueResourcesAbridgedIndex || defaultIndex
+  );
+
   return (
     <QueueResourcesAbridgedIndexContext.Provider
       value={{

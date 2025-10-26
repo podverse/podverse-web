@@ -3,9 +3,11 @@ import { useRef, useEffect, useCallback } from "react";
 import { useMediaPlayer } from "../contexts/MediaPlayer";
 import { useQueueResourcesAbridgedIndex } from "../contexts/QueueResourcesAbridgedIndex";
 import { useMediaPlayerCurrentTime } from "../contexts/MediaPlayerCurrentTime";
+import { useAccount } from "../contexts/Account";
 
 export function useQueueResourcesAbridgedIndexUpdate() {
   const { mpClip, mpItemSoundbite, mpItem, mpDuration } = useMediaPlayer();
+  const { loggedInAccount } = useAccount();
   const { mpCurrentTime } = useMediaPlayerCurrentTime();
   const { queueResourcesAbridgedIndex, setQueueResourcesAbridgedIndex } = useQueueResourcesAbridgedIndex();
 
@@ -22,6 +24,10 @@ export function useQueueResourcesAbridgedIndexUpdate() {
   useEffect(() => { mpCurrentTimeRef.current = mpCurrentTime; }, [mpCurrentTime]);
 
   return useCallback((completed?: boolean) => {
+    if (!loggedInAccount) {
+      return;
+    }
+
     const clip = mpClipRef.current;
     const itemSoundbite = mpItemSoundbiteRef.current;
     const item = mpItemRef.current;

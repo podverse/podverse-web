@@ -1,7 +1,7 @@
 "use client";
 
 import { NextIntlClientProvider } from 'next-intl';
-import { DTOAccount, DTOCategory } from 'podverse-helpers';
+import { DTOAccount, DTOCategory, QueueResourcesAbridgedIndex } from 'podverse-helpers';
 import { AccountProvider } from '../contexts/Account';
 import { ThemeProvider } from '../contexts/Theme';
 import { ModalsProvider } from '../contexts/Modals';
@@ -18,6 +18,7 @@ export default function Providers({
   theme,
   locale,
   ssrLoggedInAccount,
+  ssrQueueResourcesAbridgedIndex,
   messages,
   categories
 }: {
@@ -25,6 +26,7 @@ export default function Providers({
   theme: UITheme;
   locale: string;
   ssrLoggedInAccount: DTOAccount | null;
+  ssrQueueResourcesAbridgedIndex: QueueResourcesAbridgedIndex | null;
   messages: Record<string, any>;
   categories: DTOCategory[];
 }) {
@@ -33,7 +35,7 @@ export default function Providers({
       <ThemeProvider initialTheme={theme}>
         <AccountProvider ssrLoggedInAccount={ssrLoggedInAccount}>
           <QueuesProvider>
-            <QueueResourcesAbridgedIndexProvider>
+            <QueueResourcesAbridgedIndexProvider ssrQueueResourcesAbridgedIndex={ssrQueueResourcesAbridgedIndex}>
               <PlaylistsFavoritesProvider>
                 <MediaPlayerCurrentTimeProvider>
                   <MediaPlayerProvider>

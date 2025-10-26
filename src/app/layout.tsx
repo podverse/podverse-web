@@ -15,12 +15,13 @@ import { toUITheme } from '../utils/theme';
 import { Modals } from '../components/Modals/Modals';
 import { getSSRJwtFromCookies, getSSRLoggedInAccount } from '../utils/auth/ssrAuth';
 import AuthSessionChecker from '../components/Auth/AuthSessionChecker';
-import { apiRequestService } from '../factories/apiRequestService';
+import { apiRequestService, getSSRApiRequestService } from '../factories/apiRequestService';
 import { config } from '../config';
 import { MediaPlayerController } from '../components/MediaPlayer/Controller/MediaPlayerController';
 import { Toast } from '../components/Toast/Toast';
 import { QueueController } from '../components/Queue/QueueController';
 import { QueueResourcesAbridgedController } from '../components/Queue/QueueResourcesAbridgedController';
+import { generateQueueResourceAbridgedIndex, QueueResourcesAbridgedIndex } from 'podverse-helpers';
 
 export const metadata = {
   title: `${config.private.brand.name || config.public.brand.name}`,
@@ -35,6 +36,17 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const jwt = await getSSRJwtFromCookies();
   const ssrLoggedInAccount = await getSSRLoggedInAccount();
   const ssrShouldLogout = !!(jwt && !ssrLoggedInAccount);
+
+  let ssrQueueResourcesAbridgedIndex: QueueResourcesAbridgedIndex | null = null;
+
+  if (jwt) {
+    const ssrApiRequestService = getSSRApiRequestService(jwt);
+    const ssrQueueResourcesAbridgedIndexResponseData = await ssrApiRequestService
+      .reqQueueResourcesGetAllByAccountAbridged();
+    ssrQueueResourcesAbridgedIndex = generateQueueResourceAbridgedIndex(
+      ssrQueueResourcesAbridgedIndexResponseData
+    );
+  }
 
   const categoriesResponse = await apiRequestService.reqCategoryGetAll();
   const categories = categoriesResponse.data;
@@ -53,6 +65,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <Providers
           locale={locale}
           ssrLoggedInAccount={ssrLoggedInAccount}
+          ssrQueueResourcesAbridgedIndex={ssrQueueResourcesAbridgedIndex}
           theme={theme}
           messages={messages}
           categories={categories}>
