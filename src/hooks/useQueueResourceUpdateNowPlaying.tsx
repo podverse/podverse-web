@@ -30,13 +30,13 @@ export function useQueueResourcesUpdateNowPlaying() {
   useEffect(() => { loggedInAccountRef.current = loggedInAccount; }, [loggedInAccount]);
 
   return useCallback(async () => {
+    const loggedInAccount = loggedInAccountRef.current;
     const activeQueue = activeQueueRef.current;
     const mpClip = mpClipRef.current;
     const mpItem = mpItemRef.current;
     const mpItemSoundbite = mpItemSoundbiteRef.current;
     const mpCurrentTime = mpCurrentTimeRef.current;
     const mpDuration = mpDurationRef.current;
-    const loggedInAccount = loggedInAccountRef.current;
 
     if (!loggedInAccount || !activeQueue) {
       return;

@@ -23,7 +23,7 @@ export function useQueueResourcesMoveNowPlayingToHistory() {
   useEffect(() => { mpItemSoundbiteRef.current = mpItemSoundbite; }, [mpItemSoundbite]);
   useEffect(() => { loggedInAccountRef.current = loggedInAccount; }, [loggedInAccount]);
 
-  return useCallback(async () => {
+  return useCallback(async (completed?: boolean) => {
     const activeQueue = activeQueueRef.current;
     const mpItem = mpItemRef.current;
     const loggedInAccount = loggedInAccountRef.current;
@@ -32,7 +32,6 @@ export function useQueueResourcesMoveNowPlayingToHistory() {
       return;
     }
 
-    const completed = true;
     updateAbridgedIndex(completed);
 
     if (mpClip) {
@@ -41,7 +40,7 @@ export function useQueueResourcesMoveNowPlayingToHistory() {
         mpClip.id_text,
         {
           playback_position: mpClip.start_time,
-          completed: true
+          ...(completed !== undefined ? { completed } : {})
         }
       );
     } else if (mpItemSoundbite) {
@@ -50,7 +49,7 @@ export function useQueueResourcesMoveNowPlayingToHistory() {
         mpItemSoundbite.id_text,
         {
           playback_position: mpItemSoundbite.start_time,
-          completed: true
+          ...(completed !== undefined ? { completed } : {})
         }
       );
     } else if (mpItem) {
@@ -58,8 +57,8 @@ export function useQueueResourcesMoveNowPlayingToHistory() {
         activeQueue.id_text,
         mpItem.id_text,
         {
-          playback_position: '0',
-          completed: true
+          ...(completed ? { playback_position: '0' } : {}),
+          ...(completed !== undefined ? { completed } : {})
         }
       );
     }

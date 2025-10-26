@@ -16,12 +16,14 @@ export function useQueueResourcesAbridgedIndexUpdate() {
   const mpItemRef = useRef(mpItem);
   const mpDurationRef = useRef(mpDuration);
   const mpCurrentTimeRef = useRef(mpCurrentTime);
+  const queueResourcesAbridgedIndexRef = useRef(queueResourcesAbridgedIndex);
 
   useEffect(() => { mpClipRef.current = mpClip; }, [mpClip]);
   useEffect(() => { mpItemSoundbiteRef.current = mpItemSoundbite; }, [mpItemSoundbite]);
   useEffect(() => { mpItemRef.current = mpItem; }, [mpItem]);
   useEffect(() => { mpDurationRef.current = mpDuration; }, [mpDuration]);
   useEffect(() => { mpCurrentTimeRef.current = mpCurrentTime; }, [mpCurrentTime]);
+  useEffect(() => { queueResourcesAbridgedIndexRef.current = queueResourcesAbridgedIndex; }, [queueResourcesAbridgedIndex]);
 
   return useCallback((completed?: boolean) => {
     if (!loggedInAccount) {
@@ -40,7 +42,7 @@ export function useQueueResourcesAbridgedIndexUpdate() {
             i: clip.id,
             p: mpCurrentTime?.toString() ?? "0",
             d: mpDuration?.toString() ?? "0",
-            z: completed !== undefined ? completed : queueResourcesAbridgedIndex.clips[clip.id]?.z === true,
+            z: completed !== undefined ? completed : queueResourcesAbridgedIndexRef.current.clips[clip.id]?.z === true,
           }
         : null,
       item_soundbite: itemSoundbite
@@ -48,7 +50,7 @@ export function useQueueResourcesAbridgedIndexUpdate() {
             i: itemSoundbite.id,
             p: mpCurrentTime?.toString() ?? "0",
             d: mpDuration?.toString() ?? "0",
-            z: completed !== undefined ? completed : queueResourcesAbridgedIndex.item_soundbites[itemSoundbite.id]?.z === true,
+            z: completed !== undefined ? completed : queueResourcesAbridgedIndexRef.current.item_soundbites[itemSoundbite.id]?.z === true,
           }
         : null,
       item: item
@@ -56,13 +58,13 @@ export function useQueueResourcesAbridgedIndexUpdate() {
             i: item.id,
             p: mpCurrentTime?.toString() ?? "0",
             d: mpDuration?.toString() ?? "0",
-            z: completed !== undefined ? completed : queueResourcesAbridgedIndex.items[item.id]?.z === true,
+            z: completed !== undefined ? completed : queueResourcesAbridgedIndexRef.current.items[item.id]?.z === true,
           }
         : null,
       add_by_rss_resource_data: null,
     };
 
-    const updatedIndex = updateQueueResourceAbridgedIndex(queueResourcesAbridgedIndex, updates);
+    const updatedIndex = updateQueueResourceAbridgedIndex(queueResourcesAbridgedIndexRef.current, updates);
     setQueueResourcesAbridgedIndex(updatedIndex);
-  }, [queueResourcesAbridgedIndex, setQueueResourcesAbridgedIndex]);
+  }, []);
 }
