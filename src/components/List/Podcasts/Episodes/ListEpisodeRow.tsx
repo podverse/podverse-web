@@ -21,6 +21,7 @@ import { apiRequestService } from "../../../../factories/apiRequestService";
 import { showToastPromise, showToastPromiseWithLoading } from "../../../Toast/Toast";
 import { downloadAndSaveFile } from "../../../../utils/fileDownloader";
 import { useMediaPlayerResourceUpdate } from "../../../../hooks/useMediaPlayerResourceUpdate";
+import { useQueueResourcesAbridgedIndex } from "../../../../contexts/QueueResourcesAbridgedIndex";
 
 interface Props {
   channel: DTOChannel;
@@ -39,6 +40,19 @@ const ListEpisodeRow: React.FC<Props> = ({ channel, item, showChannelInfo }) => 
   const { mpItem, mpIsPlaying, setMPIsPlaying } = useMediaPlayer();
   const mediaPlayerResourceUpdate = useMediaPlayerResourceUpdate();
   const { setModalPlaylistAddTo } = useModals();
+  const { queueResourcesAbridgedIndex } = useQueueResourcesAbridgedIndex();
+
+  const queueResourceAbridged = queueResourcesAbridgedIndex.items?.[item.id];
+  let durationStr = item.item_about?.duration ? item.item_about.duration.toString() : null;
+  let positionStr = "";
+  if (queueResourceAbridged) {
+    if (queueResourceAbridged.d) {
+      durationStr = queueResourceAbridged.d.toString();
+    }
+    if (queueResourceAbridged.p) {
+      positionStr = queueResourceAbridged.p.toString();
+    }
+  }
 
   const playButtonOnClick = () => {
     if (item.id === mpItem?.id) {
@@ -191,8 +205,11 @@ const ListEpisodeRow: React.FC<Props> = ({ channel, item, showChannelInfo }) => 
             />
             <div className={styles.timeSection}>
               <ReadableDate date={item.pub_date} />
-              {item.item_about?.duration ? " • " : null}
-              <ReadableDuration durationInSeconds={item.item_about.duration || null} />
+              {durationStr ? " • " : null}
+              <ReadableDuration
+                durationStr={durationStr}
+                positionStr={positionStr}
+              />
             </div>
           </div>
           <div className={styles.bottomSectionEnd}>

@@ -11,6 +11,7 @@ import { MediaPlayerProvider } from '../contexts/MediaPlayer';
 import { MediaPlayerCurrentTimeProvider } from '../contexts/MediaPlayerCurrentTime';
 import { PlaylistsFavoritesProvider } from '../contexts/PlaylistsFavorites';
 import { QueuesProvider } from '../contexts/Queue';
+import { QueueResourcesAbridgedIndexProvider } from '../contexts/QueueResourcesAbridgedIndex';
 
 export default function Providers({
   children,
@@ -32,17 +33,19 @@ export default function Providers({
       <ThemeProvider initialTheme={theme}>
         <AccountProvider ssrLoggedInAccount={ssrLoggedInAccount}>
           <QueuesProvider>
-            <PlaylistsFavoritesProvider>
-              <MediaPlayerCurrentTimeProvider>
-                <MediaPlayerProvider>
-                  <ModalsProvider>
-                    <CategoriesProvider ssrCategories={categories}>
-                      {children}
-                    </CategoriesProvider>
-                  </ModalsProvider>
-                </MediaPlayerProvider>
-              </MediaPlayerCurrentTimeProvider>
-            </PlaylistsFavoritesProvider>
+            <QueueResourcesAbridgedIndexProvider>
+              <PlaylistsFavoritesProvider>
+                <MediaPlayerCurrentTimeProvider>
+                  <MediaPlayerProvider>
+                    <ModalsProvider>
+                      <CategoriesProvider ssrCategories={categories}>
+                        {children}
+                      </CategoriesProvider>
+                    </ModalsProvider>
+                  </MediaPlayerProvider>
+                </MediaPlayerCurrentTimeProvider>
+              </PlaylistsFavoritesProvider>
+            </QueueResourcesAbridgedIndexProvider>
           </QueuesProvider>
         </AccountProvider>
       </ThemeProvider>
