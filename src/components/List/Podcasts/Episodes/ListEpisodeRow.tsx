@@ -46,10 +46,10 @@ const ListEpisodeRow: React.FC<Props> = ({ channel, item, showChannelInfo }) => 
   let durationStr = item.item_about?.duration ? item.item_about.duration.toString() : null;
   let positionStr = "";
   if (queueResourceAbridged) {
-    if (queueResourceAbridged.d) {
+    if (Number(queueResourceAbridged.d) > 0) {
       durationStr = queueResourceAbridged.d.toString();
     }
-    if (queueResourceAbridged.p) {
+    if (Number(queueResourceAbridged.p) > 0) {
       positionStr = queueResourceAbridged.p.toString();
     }
   }
