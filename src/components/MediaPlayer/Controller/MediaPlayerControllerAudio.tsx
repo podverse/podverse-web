@@ -8,6 +8,7 @@ import { useMediaPlayerCurrentTime } from "../../../contexts/MediaPlayerCurrentT
 import { useQueueResourcesUpdateNowPlaying } from "../../../hooks/useQueueResourceUpdateNowPlaying";
 import { useQueueResourcesMoveNowPlayingToHistory } from "../../../hooks/useQueueResourceMoveNowPlayingToHistory";
 import { useQueueResourcesLoadActive } from "../../../hooks/useQueueResourcesLoadActive";
+import { useQueues } from "../../../contexts/Queue";
 
 // Track the stopAt time for conditional pausing
 let globalPauseAtTime: number | null = null;
@@ -28,6 +29,7 @@ export const MediaPlayerControllerAudio: React.FC = () => {
     mpShouldPlay, setMPShouldPlay,
     setMPDuration
   } = useMediaPlayer();
+  const { activeQueueUpcomingResources } = useQueues();
 
   const { setMPCurrentTime } = useMediaPlayerCurrentTime();
   const updateNowPlaying = useQueueResourcesUpdateNowPlaying();
@@ -41,6 +43,11 @@ export const MediaPlayerControllerAudio: React.FC = () => {
   useEffect(() => {
     mpClipRef.current = mpClip;
   }, [mpClip]);
+
+  const mpItemRef = useRef<typeof mpItem>(null);
+  useEffect(() => {
+    mpItemRef.current = mpItem;
+  }, [mpItem]);
 
   const mpItemSoundbiteRef = useRef<typeof mpItemSoundbite>(null);
   useEffect(() => {
@@ -56,6 +63,11 @@ export const MediaPlayerControllerAudio: React.FC = () => {
   useEffect(() => {
     mpItemChaptersRef.current = mpItemChapters;
   }, [mpItemChapters]);
+
+  const activeQueueUpcomingResourcesRef = useRef(activeQueueUpcomingResources);
+  useEffect(() => {
+    activeQueueUpcomingResourcesRef.current = activeQueueUpcomingResources;
+  }, [activeQueueUpcomingResources]);
 
   useEffect(() => {
     const handleSeek = (e: Event) => {
@@ -133,9 +145,17 @@ export const MediaPlayerControllerAudio: React.FC = () => {
     
     const handleLoadedMetadata = () => {
       setMPDuration(audio.duration)
-      setTimeout(() => {
-        updateNowPlaying();
-      }, 0);
+      
+      if (mpClipRef.current) {
+        audio.currentTime = Number(mpClipRef.current.start_time);
+      } else if (mpItemSoundbiteRef.current) {
+        audio.currentTime = Number(mpItemSoundbiteRef.current.start_time);
+      } else if (mpItemRef.current) {
+        const firstResource = activeQueueUpcomingResourcesRef.current[0];
+        if (Number(firstResource?.playback_position) > 0) {
+          audio.currentTime = Number(firstResource?.playback_position) || 0;
+        }
+      }
     };
     
     const handlePlay = () => {

@@ -3,11 +3,13 @@ import { useAccount } from "../contexts/Account";
 import { useQueues } from "../contexts/Queue";
 import { apiRequestService } from "../factories/apiRequestService";
 import { useMediaPlayer } from "../contexts/MediaPlayer";
+import { useQueueResourcesAbridgedIndexUpdate } from "./useQueueResourcesAbridgedIndexUpdate";
 
 export function useQueueResourcesMoveNowPlayingToHistory() {
   const { loggedInAccount } = useAccount();
   const { activeQueue } = useQueues();
   const { mpClip, mpItem, mpItemSoundbite } = useMediaPlayer();
+  const updateAbridgedIndex = useQueueResourcesAbridgedIndexUpdate();
 
   const activeQueueRef = useRef(activeQueue);
   const mpClipRef = useRef(mpClip);
@@ -30,11 +32,15 @@ export function useQueueResourcesMoveNowPlayingToHistory() {
       return;
     }
 
+    const completed = true;
+    updateAbridgedIndex(completed);
+
     if (mpClip) {
       await apiRequestService.reqQueueResourceClipAddHistory(
         activeQueue.id_text,
         mpClip.id_text,
         {
+          playback_position: mpClip.start_time,
           completed: true
         }
       );
@@ -43,6 +49,7 @@ export function useQueueResourcesMoveNowPlayingToHistory() {
         activeQueue.id_text,
         mpItemSoundbite.id_text,
         {
+          playback_position: mpItemSoundbite.start_time,
           completed: true
         }
       );
@@ -51,6 +58,7 @@ export function useQueueResourcesMoveNowPlayingToHistory() {
         activeQueue.id_text,
         mpItem.id_text,
         {
+          playback_position: '0',
           completed: true
         }
       );

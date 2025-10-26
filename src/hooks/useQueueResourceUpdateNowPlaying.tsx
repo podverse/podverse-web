@@ -4,12 +4,14 @@ import { useQueues } from "../contexts/Queue";
 import { apiRequestService } from "../factories/apiRequestService";
 import { useMediaPlayer } from "../contexts/MediaPlayer";
 import { useMediaPlayerCurrentTime } from "../contexts/MediaPlayerCurrentTime";
+import { useQueueResourcesAbridgedIndexUpdate } from "./useQueueResourcesAbridgedIndexUpdate";
 
 export function useQueueResourcesUpdateNowPlaying() {
   const { loggedInAccount } = useAccount();
   const { activeQueue } = useQueues();
   const { mpClip, mpItem, mpItemSoundbite, mpDuration } = useMediaPlayer();
   const { mpCurrentTime } = useMediaPlayerCurrentTime();
+  const updateAbridgedIndex = useQueueResourcesAbridgedIndexUpdate();
 
   const activeQueueRef = useRef(activeQueue);
   const mpClipRef = useRef(mpClip);
@@ -39,6 +41,8 @@ export function useQueueResourcesUpdateNowPlaying() {
     if (!loggedInAccount || !activeQueue) {
       return;
     }
+
+    updateAbridgedIndex();
 
     apiRequestService.reqQueueUpdateIsActiveQueue(
       activeQueue.id_text,
