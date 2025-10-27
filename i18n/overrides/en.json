@@ -128,7 +128,7 @@
     },
     "time": {
       "left": "{timeRemaining} left",
-      "last_position": "{timePosition} last position"
+      "last": "{timePosition} last"
     }
   },
   "media_player": {
