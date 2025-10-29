@@ -1,9 +1,11 @@
+import classNames from "classnames";
 import React, { RefObject } from "react";
 import styles from "../../styles/components/Dropdown/DropdownMenu.module.scss";
 
 export interface DropdownMenuItem {
   label: string;
   onClick: () => void;
+  variant?: "primary" | "warning" | "danger";
 }
 
 interface DropdownMenuProps {
@@ -56,7 +58,10 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
           key={item.label}
           role="menuitem"
           tabIndex={-1}
-          className={styles.menuItem}
+          className={classNames(styles.menuItem, {
+            [styles.warning]: item.variant === "warning",
+            [styles.danger]: item.variant === "danger"
+          })}
           onClick={() => {
             item.onClick();
             setOpen(false);

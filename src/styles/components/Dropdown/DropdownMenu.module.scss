@@ -20,6 +20,7 @@
   border: none;
   text-align: left;
   border-radius: var(--border-radius);
+  color: var(--text-color-primary);
 
   &:hover,
   &[aria-selected="true"],
@@ -27,4 +28,12 @@
     background: var(--background-color-opaque);
     outline: none;
   }
+}
+
+.menuItem.warning {
+  color: var(--text-color-highlighted);
+}
+
+.menuItem.danger {
+  color: var(--button-danger-bg-hover);
 }
