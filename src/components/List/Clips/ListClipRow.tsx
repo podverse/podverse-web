@@ -9,7 +9,7 @@ import Image from "../../Image/Image";
 import { ROUTES } from "../../../constants/routes";
 import { IMAGES } from "../../../constants/images";
 import { PlayButtonRow } from "../../MediaPlayer/Buttons/PlayButtonRow";
-import { MoreButton } from "../../MoreButton/MoreButton";
+import { MoreButton, MoreButtonMenuItem } from "../../MoreButton/MoreButton";
 import { useMediaPlayer } from "../../../contexts/MediaPlayer";
 import { ReadableDate } from "../../Time/ReadableDate";
 import { ReadableTimeRange } from "../../Time/ReadableTimeRange";
@@ -24,14 +24,15 @@ import styles from "../../../styles/components/List/Clips/ListClipRow.module.scs
 
 interface Props {
   channel?: DTOChannel | null;
-  isEditing?: boolean;
+  isEditModeQueue?: boolean;
   item?: DTOItem | null;
   clip: DTOClip;
   showChannelInfo?: boolean;
   showItemInfo?: boolean;
+  removeFromQueue?: () => void;
 }
 
-export const ListClipRow: React.FC<Props> = ({ channel, isEditing, item, clip, showChannelInfo, showItemInfo }) => {
+export const ListClipRow: React.FC<Props> = ({ channel, isEditModeQueue, item, clip, showChannelInfo, showItemInfo, removeFromQueue }) => {
   const url = `${ROUTES.CLIP}/${clip.id_text}`;
 
   channel = clip.item?.channel || item?.channel || channel || null;
@@ -114,7 +115,7 @@ export const ListClipRow: React.FC<Props> = ({ channel, isEditing, item, clip, s
     });
   }
 
-  const moreButtonMenuItems = [
+  const moreButtonMenuItems: MoreButtonMenuItem[] = [
     {
       label: tMediaPlayer("play"),
       onClick: () => alert(tMediaPlayer("play"))
@@ -131,7 +132,34 @@ export const ListClipRow: React.FC<Props> = ({ channel, isEditing, item, clip, s
       label: tFeatures("playlist.add_to_playlist"),
       onClick: addToPlaylistOnClick
     }
-  ]
+  ];
+
+  const removeFromQueueOnClick = async () => {
+    if (channel) {
+      const queue = getQueueForMedium(queues, channel.medium_id);
+      async function handler() {
+        if (queue) {
+          await apiRequestService.reqQueueResourceClipDelete(queue.id_text, clip.id_text);
+          removeFromQueue?.();
+        }
+      }
+      showToastPromise(
+        handler,
+        {
+          success: tFeatures("queue.removed_from_queue"),
+          error: tFeatures("queue.remove_error")
+        }
+      );
+    }
+  };
+
+  if (isEditModeQueue) {
+    moreButtonMenuItems.push({
+      label: tFeatures("queue.remove_from_queue"),
+      onClick: removeFromQueueOnClick,
+      variant: "danger"
+    });
+  }
 
   if (loggedInAccount?.id_text === clip.account?.id_text) {
     moreButtonMenuItems.push({
@@ -145,7 +173,7 @@ export const ListClipRow: React.FC<Props> = ({ channel, isEditing, item, clip, s
   return (
     <div className={styles.row}>
       {
-        isEditing && (
+        isEditModeQueue && (
           <div className={styles.editingButtons}>
             <FaGripLines />
           </div>

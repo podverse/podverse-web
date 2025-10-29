@@ -9,7 +9,7 @@ import Image from "../../Image/Image";
 import { ROUTES } from "../../../constants/routes";
 import { IMAGES } from "../../../constants/images";
 import { PlayButtonRow } from "../../MediaPlayer/Buttons/PlayButtonRow";
-import { MoreButton } from "../../MoreButton/MoreButton";
+import { MoreButton, MoreButtonMenuItem } from "../../MoreButton/MoreButton";
 import { useMediaPlayer } from "../../../contexts/MediaPlayer";
 import { ReadableDate } from "../../Time/ReadableDate";
 import { ReadableTimeRange } from "../../Time/ReadableTimeRange";
@@ -23,15 +23,23 @@ import styles from "../../../styles/components/List/ItemSoundbites/ListItemSound
 
 interface ListItemSoundbiteProps {
   channel: DTOChannel | null;
-  isEditing?: boolean;
+  isEditModeQueue?: boolean;
   item: DTOItem | null;
   item_soundbite: DTOItemSoundbite;
   showItemInfo?: boolean;
   showChannelInfo?: boolean;
+  removeFromQueue?: () => void;
 }
 
-export const ListItemSoundbiteRow: React.FC<ListItemSoundbiteProps> = (
-  { channel, isEditing, item, item_soundbite, showItemInfo, showChannelInfo }) => {
+export const ListItemSoundbiteRow: React.FC<ListItemSoundbiteProps> = ({
+  channel,
+  isEditModeQueue,
+  item,
+  item_soundbite,
+  showItemInfo,
+  showChannelInfo,
+  removeFromQueue
+}) => {
   const url = `${ROUTES.OFFICIAL_CLIP}/${item_soundbite.id_text}`;
 
   channel = item?.channel || channel || null;
@@ -115,7 +123,7 @@ export const ListItemSoundbiteRow: React.FC<ListItemSoundbiteProps> = (
     });
   }
 
-  const moreButtonMenuItems = [
+  const moreButtonMenuItems: MoreButtonMenuItem[] = [
     {
       label: tMediaPlayer("play"),
       onClick: () => alert(tMediaPlayer("play"))
@@ -132,12 +140,39 @@ export const ListItemSoundbiteRow: React.FC<ListItemSoundbiteProps> = (
       label: tFeatures("playlist.add_to_playlist"),
       onClick: addToPlaylistOnClick
     }
-  ]
+  ];
+
+  const removeFromQueueOnClick = async () => {
+    if (channel) {
+      const queue = getQueueForMedium(queues, channel.medium_id);
+      async function handler() {
+        if (queue) {
+          await apiRequestService.reqQueueResourceItemSoundbiteDelete(queue.id_text, item_soundbite.id_text);
+          removeFromQueue?.();
+        }
+      }
+      showToastPromise(
+        handler,
+        {
+          success: tFeatures("queue.removed_from_queue"),
+          error: tFeatures("queue.remove_error")
+        }
+      );
+    }
+  };
+
+  if (isEditModeQueue) {
+    moreButtonMenuItems.push({
+      label: tFeatures("queue.remove_from_queue"),
+      onClick: removeFromQueueOnClick,
+      variant: "danger"
+    });
+  }
 
   return (
     <div className={styles.row}>
       {
-        isEditing && (
+        isEditModeQueue && (
           <div className={styles.editingButtons}>
             <FaGripLines />
           </div>

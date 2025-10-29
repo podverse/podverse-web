@@ -12,7 +12,7 @@ import styles from "../../../../styles/components/List/Podcasts/Episodes/ListEpi
 import { IMAGES } from "../../../../constants/images";
 import { PlayButtonRow } from "../../../MediaPlayer/Buttons/PlayButtonRow";
 import { ReadableDuration } from "../../../Time/ReadableDuration";
-import { MoreButton } from "../../../MoreButton/MoreButton";
+import { MoreButton, MoreButtonMenuItem } from "../../../MoreButton/MoreButton";
 import { useMediaPlayer } from "../../../../contexts/MediaPlayer";
 import { ReadableDate } from "../../../Time/ReadableDate";
 import { useModals } from "../../../../contexts/Modals";
@@ -26,12 +26,13 @@ import { useQueueResourcesAbridgedIndex } from "../../../../contexts/QueueResour
 
 interface Props {
   channel: DTOChannel;
-  isEditing?: boolean;
+  isEditModeQueue?: boolean;
   item: DTOItem;
   showChannelInfo?: boolean;
+  removeFromQueue?: () => void;
 }
 
-const ListEpisodeRow: React.FC<Props> = ({ channel, isEditing, item, showChannelInfo }) => {
+const ListEpisodeRow: React.FC<Props> = ({ channel, isEditModeQueue, item, showChannelInfo, removeFromQueue }) => {
   const url = `${ROUTES.EPISODE}/${item.id_text}`;
   const channel_image = findDTOChannelImageBySize(channel.channel_images, IMAGES.LIST.EPISODES.DESKTOP.SIZE_FIND_TARGET, 'lesser');
   const item_image = findDTOItemImageBySize(item.item_images, IMAGES.LIST.EPISODES.DESKTOP.SIZE_FIND_TARGET, 'lesser');
@@ -140,7 +141,26 @@ const ListEpisodeRow: React.FC<Props> = ({ channel, isEditing, item, showChannel
     }
   }
 
-  const moreButtonMenuItems = [
+  const removeFromQueueOnClick = async () => {
+    const queue = getQueueForMedium(queues, channel.medium_id);
+
+    async function handler () {
+      if (queue) {
+        await apiRequestService.reqQueueResourceItemDelete(queue.id_text, item.id_text);
+        removeFromQueue?.();
+      }
+    }
+
+    showToastPromise(
+      handler,
+      {
+        success: tFeatures("queue.removed_from_queue"),
+        error: tFeatures("queue.remove_error")
+      }
+    );
+  }
+
+  const moreButtonMenuItems: MoreButtonMenuItem[] = [
     {
       label: tMediaPlayer("play"),
       onClick: playButtonOnClick
@@ -167,10 +187,18 @@ const ListEpisodeRow: React.FC<Props> = ({ channel, isEditing, item, showChannel
     }
   ]
 
+  if (isEditModeQueue) {
+    moreButtonMenuItems.push({
+      label: tFeatures("queue.remove_from_queue"),
+      onClick: removeFromQueueOnClick,
+      variant: "danger"
+    });
+  }
+
   return (
     <div className={styles.row}>
       {
-        isEditing && (
+        isEditModeQueue && (
           <div className={styles.editingButtons}>
             <FaGripLines />
           </div>

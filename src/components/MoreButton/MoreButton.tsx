@@ -10,6 +10,7 @@ import classNames from "classnames";
 export interface MoreButtonMenuItem {
   label: string;
   onClick: () => void;
+  variant?: "primary" | "warning" | "danger";
 }
 
 export interface MoreButtonProps {

@@ -8,13 +8,14 @@ import { ListItemSoundbiteRow } from "../ItemSoundbites/ListItemSoundbiteRow";
 
 interface Props {
   queueResource: DTOQueueResource;
+  removeFromQueue?: () => void;
 }
 
-export const ListQueueResourceRow: React.FC<Props> = ({ queueResource }) => {
+export const ListQueueResourceRow: React.FC<Props> = ({ queueResource, removeFromQueue }) => {
   const item = queueResource.item;
   const clip = queueResource.clip;
   const item_soundbite = queueResource.item_soundbite;
-  const isEditing = true;
+  const isEditModeQueue = true;
 
   if (item) {
     const channel = item.channel;
@@ -26,7 +27,8 @@ export const ListQueueResourceRow: React.FC<Props> = ({ queueResource }) => {
             channel={channel}
             item={item}
             showChannelInfo
-            isEditing={isEditing}
+            isEditModeQueue={isEditModeQueue}
+            removeFromQueue={removeFromQueue}
           />
         )
       }
@@ -44,6 +46,8 @@ export const ListQueueResourceRow: React.FC<Props> = ({ queueResource }) => {
             clip={clip}
             showChannelInfo
             showItemInfo
+            isEditModeQueue={isEditModeQueue}
+            removeFromQueue={removeFromQueue}
           />
         )
       }
@@ -60,7 +64,8 @@ export const ListQueueResourceRow: React.FC<Props> = ({ queueResource }) => {
           item_soundbite={item_soundbite}
           showChannelInfo
           showItemInfo
-          isEditing={isEditing}
+          isEditModeQueue={isEditModeQueue}
+          removeFromQueue={removeFromQueue}
         />
       )
     }

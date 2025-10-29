@@ -173,6 +173,10 @@ export const ListQueueResources: React.FC<Props> = ({ queueResources, showLoginM
                         >
                           <ListQueueResourceRow
                             queueResource={queueResource}
+                            removeFromQueue={() => {
+                              const updatedResources = resources.filter((res) => res.id !== queueResource.id);
+                              setResources(updatedResources);
+                            }}
                           />
                         </div>
                       )}
