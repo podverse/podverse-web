@@ -51,21 +51,24 @@ export const QueuesPageContextProvider = ({
       const currentMediumId = filterParams.medium_id || MediumEnum.Podcast;
       const currentQueue = ssrQueues.find(q => q.medium_id === currentMediumId);
       
+      const queueData = await apiRequestService.reqQueueGetAllForAccountPrivate();
+      const activeQueue = queueData.find(queue => queue.is_active_queue);
+
       if (currentQueue) {
         const combinedQueueResources: DTOQueueResource[] = [];
 
-        const nowPlayingResource = await apiRequestService
-          .reqQueueResourcesGetNowPlayingByQueueIdText(currentQueue.id_text);
-        
-        if (nowPlayingResource) {
-          combinedQueueResources.push(nowPlayingResource);
+        if (activeQueue?.id_text !== currentQueue.id_text) {
+          const nowPlayingResource = await apiRequestService
+            .reqQueueResourcesGetNowPlayingByQueueIdText(currentQueue.id_text);
+          
+          if (nowPlayingResource) {
+            combinedQueueResources.push(nowPlayingResource);
+          }
         }
 
-        if (nowPlayingResource) {
-          const upcomingQueueResources = await apiRequestService
-            .reqQueueResourcesGetAllUpcomingByQueueIdText(currentQueue.id_text);
-          combinedQueueResources.push(...upcomingQueueResources);
-        }
+        const upcomingQueueResources = await apiRequestService
+          .reqQueueResourcesGetAllUpcomingByQueueIdText(currentQueue.id_text);
+        combinedQueueResources.push(...upcomingQueueResources);
 
         setQueueResources(combinedQueueResources);
       }
