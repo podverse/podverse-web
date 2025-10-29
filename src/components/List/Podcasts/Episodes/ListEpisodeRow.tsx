@@ -5,6 +5,7 @@ import Link from "next/link";
 import { DTOChannel, DTOItem, findDTOChannelImageBySize, findDTOItemImageBySize,
   getSelectedItemEnclosureUrl, stripAndDecodeHtml } from "podverse-helpers";
 import React from "react";
+import { FaGripLines } from "react-icons/fa6";
 import Image from "../../../Image/Image";
 import { ROUTES } from "../../../../constants/routes";
 import styles from "../../../../styles/components/List/Podcasts/Episodes/ListEpisodeRow.module.scss";
@@ -25,11 +26,12 @@ import { useQueueResourcesAbridgedIndex } from "../../../../contexts/QueueResour
 
 interface Props {
   channel: DTOChannel;
+  isEditing?: boolean;
   item: DTOItem;
   showChannelInfo?: boolean;
 }
 
-const ListEpisodeRow: React.FC<Props> = ({ channel, item, showChannelInfo }) => {
+const ListEpisodeRow: React.FC<Props> = ({ channel, isEditing, item, showChannelInfo }) => {
   const url = `${ROUTES.EPISODE}/${item.id_text}`;
   const channel_image = findDTOChannelImageBySize(channel.channel_images, IMAGES.LIST.EPISODES.DESKTOP.SIZE_FIND_TARGET, 'lesser');
   const item_image = findDTOItemImageBySize(item.item_images, IMAGES.LIST.EPISODES.DESKTOP.SIZE_FIND_TARGET, 'lesser');
@@ -167,6 +169,13 @@ const ListEpisodeRow: React.FC<Props> = ({ channel, item, showChannelInfo }) => 
 
   return (
     <div className={styles.row}>
+      {
+        isEditing && (
+          <div className={styles.editingButtons}>
+            <FaGripLines />
+          </div>
+        )
+      }
       <Link href={url} tabIndex={-1}>
         <Image 
           src={item_image?.url || channel_image?.url}

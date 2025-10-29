@@ -4,6 +4,7 @@ import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { DTOChannel, DTOItem, DTOItemSoundbite, findDTOChannelImageBySize, findDTOItemImageBySize } from "podverse-helpers";
 import React from "react";
+import { FaGripLines } from "react-icons/fa6";
 import Image from "../../Image/Image";
 import { ROUTES } from "../../../constants/routes";
 import { IMAGES } from "../../../constants/images";
@@ -22,6 +23,7 @@ import styles from "../../../styles/components/List/ItemSoundbites/ListItemSound
 
 interface ListItemSoundbiteProps {
   channel: DTOChannel | null;
+  isEditing?: boolean;
   item: DTOItem | null;
   item_soundbite: DTOItemSoundbite;
   showItemInfo?: boolean;
@@ -29,7 +31,7 @@ interface ListItemSoundbiteProps {
 }
 
 export const ListItemSoundbiteRow: React.FC<ListItemSoundbiteProps> = (
-  { channel, item, item_soundbite, showItemInfo, showChannelInfo }) => {
+  { channel, isEditing, item, item_soundbite, showItemInfo, showChannelInfo }) => {
   const url = `${ROUTES.OFFICIAL_CLIP}/${item_soundbite.id_text}`;
 
   channel = item?.channel || channel || null;
@@ -134,6 +136,13 @@ export const ListItemSoundbiteRow: React.FC<ListItemSoundbiteProps> = (
 
   return (
     <div className={styles.row}>
+      {
+        isEditing && (
+          <div className={styles.editingButtons}>
+            <FaGripLines />
+          </div>
+        )
+      }
       <Link href={url} tabIndex={-1}>
         <Image 
           src={item_image?.url || channel_image?.url}

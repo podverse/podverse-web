@@ -4,6 +4,7 @@ import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { DTOChannel, DTOClip, DTOItem, findDTOChannelImageBySize, findDTOItemImageBySize } from "podverse-helpers";
 import React from "react";
+import { FaGripLines } from "react-icons/fa6";
 import Image from "../../Image/Image";
 import { ROUTES } from "../../../constants/routes";
 import { IMAGES } from "../../../constants/images";
@@ -23,13 +24,14 @@ import styles from "../../../styles/components/List/Clips/ListClipRow.module.scs
 
 interface Props {
   channel?: DTOChannel | null;
+  isEditing?: boolean;
   item?: DTOItem | null;
   clip: DTOClip;
   showChannelInfo?: boolean;
   showItemInfo?: boolean;
 }
 
-export const ListClipRow: React.FC<Props> = ({ channel, item, clip, showChannelInfo, showItemInfo }) => {
+export const ListClipRow: React.FC<Props> = ({ channel, isEditing, item, clip, showChannelInfo, showItemInfo }) => {
   const url = `${ROUTES.CLIP}/${clip.id_text}`;
 
   channel = clip.item?.channel || item?.channel || channel || null;
@@ -142,6 +144,13 @@ export const ListClipRow: React.FC<Props> = ({ channel, item, clip, showChannelI
 
   return (
     <div className={styles.row}>
+      {
+        isEditing && (
+          <div className={styles.editingButtons}>
+            <FaGripLines />
+          </div>
+        )
+      }
       <Link href={url} tabIndex={-1}>
         <Image 
           src={item_image?.url || channel_image?.url}

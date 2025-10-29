@@ -1,5 +1,6 @@
 @use '../../../mixins/lineClamp' as *;
 @use '../../../mixins/timeText' as *;
+@use '../../../mixins/listRow' as *;
 @use 'breakpoints';
 
 .row {
@@ -62,6 +63,10 @@
 .bottomSectionEnd {
   display: flex;
   align-items: center;
+}
+
+.editingButtons {
+  @include editingButtons();
 }
 
 @media (max-width: breakpoints.$breakpoint-sm-max) {
