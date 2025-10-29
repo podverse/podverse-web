@@ -222,6 +222,7 @@
     "description": "Description",
     "required": "Required",
     "edit": "Edit",
+    "done": "Done",
     "id": "ID",
     "unknown_date": "Unknown Date",
     "sharable_status": {
