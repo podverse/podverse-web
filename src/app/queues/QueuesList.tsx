@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import LoadingSpinnerOverlay from "../../components/LoadingSpinner/LoadingSpinnerOverlay";
 import { ListQueueResources } from "../../components/List/Queues/ListQueueResources";
