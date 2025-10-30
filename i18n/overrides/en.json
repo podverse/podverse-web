@@ -38,6 +38,7 @@
       "queue_last": "Queue: Last",
       "added_to_queue": "Added to Queue",
       "add_error": "Error adding to Queue",
+      "remove_error": "Error removing from Queue",
       "remove_from_queue": "Remove from Queue",
       "removed_from_queue": "Removed from Queue"
     },
