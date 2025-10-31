@@ -1,9 +1,6 @@
-import React from "react";
+import { redirect } from "next/navigation";
 
-export default async function Home() {
-  return (
-    <div>
-      hello home
-    </div>
-  );
+export default function Home() {
+  redirect("/podcasts");
+  return null;
 }
