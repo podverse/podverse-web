@@ -215,6 +215,8 @@
   },
   "misc": {
     "more_info": "More Info",
+    "info": "Info",
+    "items": "Items",
     "increment": "Increment",
     "decrement": "Decrement",
     "anonymous": "Anonymous",
