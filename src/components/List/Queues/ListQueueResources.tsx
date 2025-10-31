@@ -177,6 +177,7 @@ export const ListQueueResources: React.FC<Props> = ({ queueResources, showLoginM
                               const updatedResources = resources.filter((res) => res.id !== queueResource.id);
                               setResources(updatedResources);
                             }}
+                            isEditModeQueue={true}
                           />
                         </div>
                       )}

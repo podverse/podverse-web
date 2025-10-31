@@ -24,15 +24,20 @@ import styles from "../../../styles/components/List/Clips/ListClipRow.module.scs
 
 interface Props {
   channel?: DTOChannel | null;
-  isEditModeQueue?: boolean;
   item?: DTOItem | null;
   clip: DTOClip;
   showChannelInfo?: boolean;
   showItemInfo?: boolean;
+  isEditModeQueue?: boolean;
   removeFromQueue?: () => void;
+  isEditModePlaylist?: boolean;
+  removeFromPlaylist?: () => void;
+  playlist_id_text?: string;
 }
 
-export const ListClipRow: React.FC<Props> = ({ channel, isEditModeQueue, item, clip, showChannelInfo, showItemInfo, removeFromQueue }) => {
+export const ListClipRow: React.FC<Props> = ({ channel, isEditModeQueue,
+  item, clip, showChannelInfo, showItemInfo, removeFromQueue,
+  isEditModePlaylist, removeFromPlaylist, playlist_id_text }) => {
   const url = `${ROUTES.CLIP}/${clip.id_text}`;
 
   channel = clip.item?.channel || item?.channel || channel || null;
@@ -153,10 +158,35 @@ export const ListClipRow: React.FC<Props> = ({ channel, isEditModeQueue, item, c
     }
   };
 
+  const removeFromPlaylistOnClick = async () => {
+    async function handler () {
+      if (playlist_id_text) {
+        await apiRequestService.reqPlaylistResourceClipDelete(playlist_id_text, clip.id_text);
+        removeFromPlaylist?.();
+      }
+    }
+
+    showToastPromise(
+      handler,
+      {
+        success: tFeatures("playlist.removed_from_playlist"),
+        error: tFeatures("playlist.remove_error")
+      }
+    );
+  };
+
   if (isEditModeQueue) {
     moreButtonMenuItems.push({
       label: tFeatures("queue.remove_from_queue"),
       onClick: removeFromQueueOnClick,
+      variant: "danger"
+    });
+  }
+
+  if (isEditModePlaylist) {
+    moreButtonMenuItems.push({
+      label: tFeatures("playlist.remove_from_playlist"),
+      onClick: removeFromPlaylistOnClick,
       variant: "danger"
     });
   }

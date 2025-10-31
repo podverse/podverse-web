@@ -11,7 +11,7 @@ type Props = {
   page: number;
   setPage: (page: number) => void;
   channel: DTOChannel;
-  item: DTOItem;
+  item: DTOItem | null;
   itemSoundbites: DTOItemSoundbite[];
   totalPages: number;
   showSubscribeMessage?: boolean;

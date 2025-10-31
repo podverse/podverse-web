@@ -23,22 +23,28 @@ import styles from "../../../styles/components/List/ItemSoundbites/ListItemSound
 
 interface ListItemSoundbiteProps {
   channel: DTOChannel | null;
-  isEditModeQueue?: boolean;
   item: DTOItem | null;
   item_soundbite: DTOItemSoundbite;
   showItemInfo?: boolean;
   showChannelInfo?: boolean;
+  isEditModeQueue?: boolean;
   removeFromQueue?: () => void;
+  isEditModePlaylist?: boolean;
+  removeFromPlaylist?: () => void;
+  playlist_id_text?: string;
 }
 
 export const ListItemSoundbiteRow: React.FC<ListItemSoundbiteProps> = ({
   channel,
-  isEditModeQueue,
   item,
   item_soundbite,
   showItemInfo,
   showChannelInfo,
-  removeFromQueue
+  isEditModeQueue,
+  removeFromQueue,
+  isEditModePlaylist,
+  removeFromPlaylist,
+  playlist_id_text
 }) => {
   const url = `${ROUTES.OFFICIAL_CLIP}/${item_soundbite.id_text}`;
 
@@ -161,10 +167,35 @@ export const ListItemSoundbiteRow: React.FC<ListItemSoundbiteProps> = ({
     }
   };
 
+  const removeFromPlaylistOnClick = async () => {
+    async function handler () {
+      if (playlist_id_text) {
+        await apiRequestService.reqPlaylistResourceItemSoundbiteDelete(playlist_id_text, item_soundbite.id_text);
+        removeFromPlaylist?.();
+      }
+    }
+
+    showToastPromise(
+      handler,
+      {
+        success: tFeatures("playlist.removed_from_playlist"),
+        error: tFeatures("playlist.remove_error")
+      }
+    );
+  };
+
   if (isEditModeQueue) {
     moreButtonMenuItems.push({
       label: tFeatures("queue.remove_from_queue"),
       onClick: removeFromQueueOnClick,
+      variant: "danger"
+    });
+  }
+
+  if (isEditModePlaylist) {
+    moreButtonMenuItems.push({
+      label: tFeatures("playlist.remove_from_playlist"),
+      onClick: removeFromPlaylistOnClick,
       variant: "danger"
     });
   }

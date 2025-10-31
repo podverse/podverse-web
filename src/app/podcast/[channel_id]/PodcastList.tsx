@@ -42,6 +42,7 @@ export const PodcastList: React.FC<PodcastListProps> = ({ podroll, ssrChannel })
             page={page}
             setPage={(page) => setFilterParams({ ...filterParams, page })}
             channel={ssrChannel}
+            item={null}
             itemSoundbites={itemSoundbites}
             totalPages={totalPages}
             showItemInfo

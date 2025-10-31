@@ -1,13 +1,15 @@
 
 "use client";
 
+import { DTOPlaylist } from "podverse-helpers";
 import React from "react";
 import { MainWrapper } from "../../../components/Main/MainWrapper";
 import { MainInnerWrapper } from "../../../components/Main/MainInnerWrapper";
 import { MainInnerContentWrapper } from "../../../components/Main/MainInnerContentWrapper";
 import { PlaylistHeader } from "./PlaylistHeader";
-import { DTOPlaylist } from "podverse-helpers";
 import { PlaylistContextProvider } from "./PlaylistContext";
+import { PlaylistList } from "./PlaylistList";
+import { SideContent } from "../../../components/SideContent/SideContent";
 
 interface PlaylistClientProps {
   ssrPlaylist: DTOPlaylist
@@ -19,8 +21,9 @@ export function PlaylistClient({ ssrPlaylist }: PlaylistClientProps) {
       <PlaylistHeader playlist={ssrPlaylist} />
       <MainWrapper>
         <MainInnerWrapper>
+          <SideContent />
           <MainInnerContentWrapper>
-            hqwerfadsifadofuadsfsauiu
+            <PlaylistList ssrPlaylist={ssrPlaylist} />
           </MainInnerContentWrapper>
         </MainInnerWrapper>
       </MainWrapper>

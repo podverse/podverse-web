@@ -1,22 +1,24 @@
 "use client";
 
-import { DTOQueueResource, MediumEnum } from "podverse-helpers";
+import { DTOPlaylist, DTOPlaylistResource, MediumEnum } from "podverse-helpers";
 import React from "react";
 import ListEpisodeRow from "../Podcasts/Episodes/ListEpisodeRow";
 import { ListClipRow } from "../Clips/ListClipRow";
 import { ListItemSoundbiteRow } from "../ItemSoundbites/ListItemSoundbiteRow";
 
 interface Props {
-  queueResource: DTOQueueResource;
-  removeFromQueue?: () => void;
-  isEditModeQueue: boolean;
+  playlist: DTOPlaylist;
+  playlistResource: DTOPlaylistResource;
+  removeFromPlaylist?: () => void;
+  isEditModePlaylist: boolean;
 }
 
-export const ListQueueResourceRow: React.FC<Props> = ({ queueResource, removeFromQueue, isEditModeQueue }) => {
-  const item = queueResource.item;
-  const clip = queueResource.clip;
-  const item_soundbite = queueResource.item_soundbite;
-
+export const ListPlaylistResourceRow: React.FC<Props> = ({ playlist,
+  playlistResource, removeFromPlaylist, isEditModePlaylist }) => {
+  const item = playlistResource.item;
+  const clip = playlistResource.clip;
+  const item_soundbite = playlistResource.item_soundbite;
+  
   if (item) {
     const channel = item.channel;
 
@@ -27,8 +29,9 @@ export const ListQueueResourceRow: React.FC<Props> = ({ queueResource, removeFro
             channel={channel}
             item={item}
             showChannelInfo
-            isEditModeQueue={isEditModeQueue}
-            removeFromQueue={removeFromQueue}
+            isEditModePlaylist={isEditModePlaylist}
+            removeFromPlaylist={removeFromPlaylist}
+            playlist_id_text={playlist.id_text}
           />
         )
       }
@@ -46,8 +49,8 @@ export const ListQueueResourceRow: React.FC<Props> = ({ queueResource, removeFro
             clip={clip}
             showChannelInfo
             showItemInfo
-            isEditModeQueue={isEditModeQueue}
-            removeFromQueue={removeFromQueue}
+            isEditModePlaylist={isEditModePlaylist}
+            removeFromPlaylist={removeFromPlaylist}
           />
         )
       }
@@ -64,8 +67,8 @@ export const ListQueueResourceRow: React.FC<Props> = ({ queueResource, removeFro
           item_soundbite={item_soundbite}
           showChannelInfo
           showItemInfo
-          isEditModeQueue={isEditModeQueue}
-          removeFromQueue={removeFromQueue}
+          isEditModePlaylist={isEditModePlaylist}
+          removeFromPlaylist={removeFromPlaylist}
         />
       )
     }

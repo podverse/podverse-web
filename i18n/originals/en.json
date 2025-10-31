@@ -61,6 +61,8 @@
       "added_to_playlist": "Added to Playlist",
       "add_error": "Error adding to Playlist",
       "remove_from_playlist": "Remove from Playlist",
+      "removed_from_playlist": "Removed from Playlist",
+      "remove_error": "Error removing from Playlist",
       "item_count": "Items: {count}",
       "playlist_type": "Playlist Type"
     },

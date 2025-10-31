@@ -1,11 +1,16 @@
 "use client";
 
-import { DTOPlaylist } from "podverse-helpers";
-import React, { createContext, useContext, useState, ReactNode } from "react";
+import { DTOPlaylist, DTOPlaylistResource, getTotalPages, QueryParamsPlaylistResources } from "podverse-helpers";
+import React, { createContext, useContext, useState, ReactNode, useEffect } from "react";
+import { apiRequestService } from "../../../factories/apiRequestService";
 
 interface PlaylistContextType {
-  playlist: DTOPlaylist | null;
-  setPlaylist: (playlist: DTOPlaylist | null) => void;
+  filterParams: QueryParamsPlaylistResources;
+  setFilterParams: (params: QueryParamsPlaylistResources) => void;
+  playlistResources: DTOPlaylistResource[];
+  setPlaylistResources: (playlistResources: DTOPlaylistResource[]) => void;
+  totalPages: number;
+  setTotalPages: (totalPages: number) => void;
 };
 
 const PlaylistContext = createContext<PlaylistContextType | undefined>(undefined);
@@ -17,11 +22,32 @@ interface PlaylistContextProviderProps {
 
 export const PlaylistContextProvider = (
   { children, ssrPlaylist }: PlaylistContextProviderProps) => {
-  const [playlist, setPlaylist] = useState<DTOPlaylist | null>(ssrPlaylist || null);
+  const [filterParams, setFilterParams] = useState<QueryParamsPlaylistResources>({});
+  const [playlistResources, setPlaylistResources] = useState<DTOPlaylistResource[]>([]);
+  const [totalPages, setTotalPages] = useState<number>(1);
+
+  useEffect(() => {
+    async function fetchPlaylistResources() {
+      const response = await apiRequestService.reqPlaylistResourceGetManyByPlaylistIdText(
+        ssrPlaylist.id_text,
+        {
+          page: filterParams.page
+        }
+      );
+      
+      const totalPages = getTotalPages(response.meta.count, response.meta.limit);
+      setTotalPages(totalPages);
+      setPlaylistResources(response.data);
+    }
+
+    fetchPlaylistResources();
+  }, [filterParams]);
 
   return (
     <PlaylistContext.Provider value={{
-      playlist, setPlaylist
+      filterParams, setFilterParams,
+      playlistResources, setPlaylistResources,
+      totalPages, setTotalPages
     }}>
       {children}
     </PlaylistContext.Provider>

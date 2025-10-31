@@ -26,13 +26,18 @@ import { useQueueResourcesAbridgedIndex } from "../../../../contexts/QueueResour
 
 interface Props {
   channel: DTOChannel;
-  isEditModeQueue?: boolean;
   item: DTOItem;
   showChannelInfo?: boolean;
+  isEditModeQueue?: boolean;
   removeFromQueue?: () => void;
+  isEditModePlaylist?: boolean;
+  removeFromPlaylist?: () => void;
+  playlist_id_text?: string;
 }
 
-const ListEpisodeRow: React.FC<Props> = ({ channel, isEditModeQueue, item, showChannelInfo, removeFromQueue }) => {
+const ListEpisodeRow: React.FC<Props> = ({ channel, isEditModeQueue, item,
+  showChannelInfo, removeFromQueue, isEditModePlaylist, removeFromPlaylist,
+  playlist_id_text }) => {
   const url = `${ROUTES.EPISODE}/${item.id_text}`;
   const channel_image = findDTOChannelImageBySize(channel.channel_images, IMAGES.LIST.EPISODES.DESKTOP.SIZE_FIND_TARGET, 'lesser');
   const item_image = findDTOItemImageBySize(item.item_images, IMAGES.LIST.EPISODES.DESKTOP.SIZE_FIND_TARGET, 'lesser');
@@ -160,6 +165,23 @@ const ListEpisodeRow: React.FC<Props> = ({ channel, isEditModeQueue, item, showC
     );
   }
 
+  const removeFromPlaylistOnClick = async () => {
+    async function handler () {
+      if (playlist_id_text) {
+        await apiRequestService.reqPlaylistResourceItemDelete(playlist_id_text, item.id_text);
+        removeFromPlaylist?.();
+      }
+    }
+
+    showToastPromise(
+      handler,
+      {
+        success: tFeatures("playlist.removed_from_playlist"),
+        error: tFeatures("playlist.remove_error")
+      }
+    );
+  }
+
   const moreButtonMenuItems: MoreButtonMenuItem[] = [
     {
       label: tMediaPlayer("play"),
@@ -191,6 +213,14 @@ const ListEpisodeRow: React.FC<Props> = ({ channel, isEditModeQueue, item, showC
     moreButtonMenuItems.push({
       label: tFeatures("queue.remove_from_queue"),
       onClick: removeFromQueueOnClick,
+      variant: "danger"
+    });
+  }
+
+  if (isEditModePlaylist) {
+    moreButtonMenuItems.push({
+      label: tFeatures("playlist.remove_from_playlist"),
+      onClick: removeFromPlaylistOnClick,
       variant: "danger"
     });
   }
