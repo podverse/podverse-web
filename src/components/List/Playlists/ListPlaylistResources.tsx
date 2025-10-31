@@ -193,7 +193,6 @@ export const ListPlaylistResources: React.FC<Props> = ({
       </>
     );
   } else {
-    console.log("page", page, "totalPages", totalPages);
     return (
       <>
       <div className={styles.listWrapper}>

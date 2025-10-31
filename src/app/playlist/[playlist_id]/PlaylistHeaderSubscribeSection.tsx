@@ -18,7 +18,7 @@ export const PlaylistHeaderSubscribeSection: React.FC<PlaylistHeaderSubscribeSec
   const tMisc = useTranslations("misc");
   const { loggedInAccount, setLoggedInAccount } = useAccount();
 
-  const isOwner = loggedInAccount?.id === playlist?.account?.id;
+  const isOwner = loggedInAccount?.id_text === playlist?.account?.id_text;
 
   const isSubscribed = loggedInAccount?.account_following_playlists?.some(
     account_following_playlist => account_following_playlist.playlist_id === playlist.id
