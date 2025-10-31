@@ -196,6 +196,7 @@ export const ListPlaylistResources: React.FC<Props> = ({
     console.log("page", page, "totalPages", totalPages);
     return (
       <>
+      <div className={styles.listWrapper}>
         <Pagination
           currentPage={page}
           maxButtons={5}
@@ -212,6 +213,7 @@ export const ListPlaylistResources: React.FC<Props> = ({
             />
           ))}
         </Pagination>
+      </div>
         <LoadingSpinnerOverlay isLoading={isLoading} />
       </>
     );
