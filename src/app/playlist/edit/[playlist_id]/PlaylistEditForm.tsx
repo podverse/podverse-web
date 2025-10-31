@@ -20,8 +20,13 @@ export const PlaylistEditForm: React.FC<PlaylistEditFormProps> = ({ ssrPlaylist 
   const tMisc = useTranslations("misc");
   const router = useRouter();
   const { medium, setMedium, title, setTitle, description, setDescription,
-    sharableStatus, setSharableStatus, isUpdating, setIsUpdating
+    sharableStatus, setSharableStatus, isUpdating, setIsUpdating,
+    tabSelectedKey
    } = usePlaylistEditContext();
+
+  if (tabSelectedKey !== "info") {
+    return null;
+  }
 
   const mediumDropdownMenuItems = MEDIUM.menuItems(tMedia);
   const sharableStatusDropdownMenuItems = SHARABLE_STATUS.menuItems(tMisc);

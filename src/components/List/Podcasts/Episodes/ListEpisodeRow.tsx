@@ -228,7 +228,7 @@ const ListEpisodeRow: React.FC<Props> = ({ channel, isEditModeQueue, item,
   return (
     <div className={styles.row}>
       {
-        isEditModeQueue && (
+        (isEditModeQueue || isEditModePlaylist) && (
           <div className={styles.editingButtons}>
             <FaGripLines />
           </div>

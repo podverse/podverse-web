@@ -203,7 +203,7 @@ export const ListClipRow: React.FC<Props> = ({ channel, isEditModeQueue,
   return (
     <div className={styles.row}>
       {
-        isEditModeQueue && (
+        (isEditModeQueue || isEditModePlaylist) && (
           <div className={styles.editingButtons}>
             <FaGripLines />
           </div>

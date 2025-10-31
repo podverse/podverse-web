@@ -15,8 +15,8 @@ type Props = {
   playlist: DTOPlaylist;
   playlistResources: DTOPlaylistResource[];
   isEditMode?: boolean;
-  page: number;
-  setPage: (page: number) => void;
+  page?: number;
+  setPage?: (page: number) => void;
   totalPages?: number;
 };
 
@@ -175,7 +175,7 @@ export const ListPlaylistResources: React.FC<Props> = ({
                                 const updatedResources = resources.filter((res) => res.id !== playlistResource.id);
                                 setResources(updatedResources);
                               }}
-                              isEditModePlaylist={true}
+                              isEditModePlaylist
                               playlist={playlist}
                             />
                           </div>
@@ -193,6 +193,10 @@ export const ListPlaylistResources: React.FC<Props> = ({
       </>
     );
   } else {
+    if (setPage === undefined) {
+      return null;
+    }
+    
     return (
       <>
       <div className={styles.listWrapper}>

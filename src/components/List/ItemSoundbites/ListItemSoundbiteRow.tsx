@@ -203,7 +203,7 @@ export const ListItemSoundbiteRow: React.FC<ListItemSoundbiteProps> = ({
   return (
     <div className={styles.row}>
       {
-        isEditModeQueue && (
+        (isEditModeQueue || isEditModePlaylist) && (
           <div className={styles.editingButtons}>
             <FaGripLines />
           </div>

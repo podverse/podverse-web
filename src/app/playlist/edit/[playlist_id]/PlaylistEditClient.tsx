@@ -9,6 +9,9 @@ import { PlaylistEditHeader } from "./PlaylistEditHeader";
 import { MainWrapper } from "../../../../components/Main/MainWrapper";
 import { MainInnerWrapper } from "../../../../components/Main/MainInnerWrapper";
 import { MainInnerContentWrapper } from "../../../../components/Main/MainInnerContentWrapper";
+import { PlaylistEditButtonTabs } from "./PlaylistEditButtonTabs";
+import { PlaylistEditList } from "./PlaylistEditList";
+import { SideContent } from "../../../../components/SideContent/SideContent";
 
 type PlaylistEditClientProps = {
   ssrPlaylist: DTOPlaylist;
@@ -20,8 +23,11 @@ export function PlaylistEditClient({ ssrPlaylist }: PlaylistEditClientProps) {
       <PlaylistEditHeader />
       <MainWrapper>
         <MainInnerWrapper>
+          <SideContent />
           <MainInnerContentWrapper>
+            <PlaylistEditButtonTabs />
             <PlaylistEditForm ssrPlaylist={ssrPlaylist} />
+            <PlaylistEditList ssrPlaylist={ssrPlaylist} />
           </MainInnerContentWrapper>
         </MainInnerWrapper>
       </MainWrapper>

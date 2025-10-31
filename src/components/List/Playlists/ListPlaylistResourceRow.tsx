@@ -51,6 +51,7 @@ export const ListPlaylistResourceRow: React.FC<Props> = ({ playlist,
             showItemInfo
             isEditModePlaylist={isEditModePlaylist}
             removeFromPlaylist={removeFromPlaylist}
+            playlist_id_text={playlist.id_text}
           />
         )
       }
@@ -69,6 +70,7 @@ export const ListPlaylistResourceRow: React.FC<Props> = ({ playlist,
           showItemInfo
           isEditModePlaylist={isEditModePlaylist}
           removeFromPlaylist={removeFromPlaylist}
+          playlist_id_text={playlist.id_text}
         />
       )
     }
