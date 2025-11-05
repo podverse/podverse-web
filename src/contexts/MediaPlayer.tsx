@@ -1,8 +1,6 @@
 import { DTOChannel, DTOClip, DTOItem, DTOItemChapter, DTOItemSoundbite,
   PlaybackMode, PlaybackSpeedValue } from "podverse-helpers";
-import React, { createContext, useContext, useState, ReactNode, useEffect } from "react";
-import { updateLayoutForMediaPlayer } from "../utils/mediaPlayer/mediaPlayerLayout";
-import { apiRequestService } from "../factories/apiRequestService";
+import React, { createContext, useContext, useState, ReactNode } from "react";
 
 type MediaPlayerContextType = {
   mpChannel: DTOChannel | null;
@@ -59,25 +57,6 @@ export const MediaPlayerProvider = ({ children }: MediaPlayerProviderProps) => {
   const [mpDuration, setMPDuration] = useState<number>(0);
   const [playerModalIsOpen, setPlayerModalIsOpen] = useState<boolean>(false);
   const [mpShouldPlay, setMPShouldPlay] = useState<boolean>(false);
-
-  useEffect(() => {
-    updateLayoutForMediaPlayer(!!mpChannel);
-  }, [mpChannel]);
-
-  useEffect(() => {
-    const fetchItemChapters = async () => {
-      if (mpItem?.id_text) {
-        const response = await apiRequestService.reqItemParseAndGetChapters(
-          mpItem.id_text
-        );
-        setMPItemChapters(response.data);
-      }
-    }
-
-    if (mpItem?.id_text) {
-      fetchItemChapters();
-    }
-  }, [mpItem])
 
   return (
     <MediaPlayerContext.Provider value={{

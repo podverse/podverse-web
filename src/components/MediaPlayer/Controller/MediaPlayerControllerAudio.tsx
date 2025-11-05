@@ -145,99 +145,154 @@ export const MediaPlayerControllerAudio: React.FC = () => {
     if (!audio) return;
     
     const handleLoadedMetadata = () => {
-      setMPDuration(audio.duration)
-      
+      const newDuration = audio.duration;
+      const clip = mpClipRef.current;
+      const itemSoundbite = mpItemSoundbiteRef.current;
+      const item = mpItemRef.current;
+      let newCurrentTime: number | null = null;
+
       if (mpClipRef.current) {
-        audio.currentTime = Number(mpClipRef.current.start_time);
+        newCurrentTime = Number(mpClipRef.current.start_time);
       } else if (mpItemSoundbiteRef.current) {
-        audio.currentTime = Number(mpItemSoundbiteRef.current.start_time);
+        newCurrentTime = Number(mpItemSoundbiteRef.current.start_time);
       } else if (mpItemRef.current) {
         const queueResourceAbridged = queueResourcesAbridgedIndexRef.current.items[mpItemRef.current.id];
         if (Number(queueResourceAbridged?.p) > 0) {
-          audio.currentTime = Number(queueResourceAbridged?.p) || 0;
+          newCurrentTime = Number(queueResourceAbridged?.p) || 0;
         } else {
-          audio.currentTime = 0;
+          newCurrentTime = 0;
         }
       }
+
+      if ((clip || itemSoundbite || item) && newCurrentTime !== null) {
+        audio.currentTime = newCurrentTime
+      }
+
+      setMPDuration(newDuration);
+      updateNowPlaying({
+        mpClip: clip,
+        mpItem: item,
+        mpItemSoundbite: itemSoundbite,
+        mpDuration: newDuration,
+        mpCurrentTime: newCurrentTime !== null ? newCurrentTime : 0
+      });
     };
     
     const handlePlay = () => {
-      if (audio.currentTime < audio.duration) {
-        updateNowPlaying(); 
+      const newCurrentTime = audio.currentTime;
+      if (newCurrentTime < audio.duration) {
+        updateNowPlaying({
+          mpClip: mpClipRef.current,
+          mpItem: mpItemRef.current,
+          mpItemSoundbite: mpItemSoundbiteRef.current,
+          mpCurrentTime: newCurrentTime
+        }); 
         playbackElapsedRef.current = 0;
-        lastPlaybackTimeRef.current = audio.currentTime;
+        lastPlaybackTimeRef.current = newCurrentTime;
       }
     };
     
     const handlePause = () => {
-      if (audio.currentTime < audio.duration) {
-        updateNowPlaying();
+      const newCurrentTime = audio.currentTime;
+      if (newCurrentTime < audio.duration) {
+        updateNowPlaying({
+          mpClip: mpClipRef.current,
+          mpItem: mpItemRef.current,
+          mpItemSoundbite: mpItemSoundbiteRef.current,
+          mpCurrentTime: newCurrentTime
+        });
         playbackElapsedRef.current = 0;
         lastPlaybackTimeRef.current = null;
       }
     };
 
     const handleTimeUpdate = () => {
-      setMPCurrentTime(audio.currentTime);
+      const clip = mpClipRef.current;
+      const item = mpItemRef.current;
+      const itemSoundbite = mpItemSoundbiteRef.current;
+      const chapters = mpItemChaptersRef.current;
+      const newCurrentTime = audio.currentTime;
+
+      setMPCurrentTime(newCurrentTime);
 
       if (lastPlaybackTimeRef.current !== null) {
-        const delta = audio.currentTime - lastPlaybackTimeRef.current;
+        const delta = newCurrentTime - lastPlaybackTimeRef.current;
         if (delta > 0) {
           playbackElapsedRef.current += delta;
         }
       }
-      lastPlaybackTimeRef.current = audio.currentTime;
+      lastPlaybackTimeRef.current = newCurrentTime;
 
       if (playbackElapsedRef.current >= 15) {
-        updateNowPlaying();
+        updateNowPlaying({
+          mpClip: clip,
+          mpItem: item,
+          mpItemSoundbite: itemSoundbite,
+          mpCurrentTime: newCurrentTime
+        });
         playbackElapsedRef.current = 0;
       }
 
-      if (globalPauseAtTime !== null && audio.currentTime >= globalPauseAtTime) {
+      if (globalPauseAtTime !== null && newCurrentTime >= globalPauseAtTime) {
         setMPIsPlaying(false);
         globalPauseAtTime = null;
       }
 
-      const clip = mpClipRef.current;
       if (clip && clip.end_time) {
         const endTimeNum = typeof clip.end_time === "string" ? parseFloat(clip.end_time) : clip.end_time;
         const endTimeNumAdjusted = endTimeNum + 1;
-        if (!isNaN(endTimeNumAdjusted) && audio.currentTime >= endTimeNumAdjusted) {
-          moveNowPlayingToHistory();
+        if (!isNaN(endTimeNumAdjusted) && newCurrentTime >= endTimeNumAdjusted) {
+          moveNowPlayingToHistory({
+            completed: true,
+            mpClip: clip,
+            mpItem: null,
+            mpItemSoundbite: null
+          });
           setMPClip(null);
-          updateNowPlaying();
+          updateNowPlaying({
+            mpClip: null,
+            mpItem: item,
+            mpItemSoundbite: null
+          });
         }
       }
 
-      const itemSoundbite = mpItemSoundbiteRef.current;
+
       if (itemSoundbite && itemSoundbite.duration) {
         const startNum = typeof itemSoundbite.start_time === "string" ? parseFloat(itemSoundbite.start_time) : itemSoundbite.start_time;
         const durationNum = typeof itemSoundbite.duration === "string" ? parseFloat(itemSoundbite.duration) : itemSoundbite.duration;
         const endTimeNum = startNum + durationNum;
         const endTimeNumAdjusted = endTimeNum + 1;
-        if (!isNaN(endTimeNumAdjusted) && audio.currentTime >= endTimeNumAdjusted) {
-          moveNowPlayingToHistory();
+        if (!isNaN(endTimeNumAdjusted) && newCurrentTime >= endTimeNumAdjusted) {
+          moveNowPlayingToHistory({
+            completed: true,
+            mpClip: null,
+            mpItem: null,
+            mpItemSoundbite: itemSoundbite
+          });
           setMPItemSoundbite(null);
-          updateNowPlaying();
+          updateNowPlaying({
+            mpClip: null,
+            mpItem: item,
+            mpItemSoundbite: null
+          });
         }
       }
 
       // --- Chapter auto-selection logic ---
-      const chapters = mpItemChaptersRef.current;
       if (
-        !mpItemSoundbiteRef.current &&
-        !mpClipRef.current &&
+        !itemSoundbite &&
+        !clip &&
         Array.isArray(chapters) &&
         chapters.length > 0
       ) {
-        const currentTime = audio.currentTime;
         // Find all chapters that contain the current time
         const matchingChapters = chapters.filter(ch => {
           const start = typeof ch.start_time === "string" ? parseFloat(ch.start_time) : ch.start_time;
           const end = typeof ch.end_time === "string" ? parseFloat(ch.end_time) : ch.end_time;
           if (typeof start !== "number" || typeof end !== "number" || start == null || end == null) return false;
           if (isNaN(start) || isNaN(end)) return false;
-          return currentTime >= start && currentTime < end;
+          return newCurrentTime >= start && newCurrentTime < end;
         });
         // If any, prefer table_of_contents: false
         let selectedChapter = null;
@@ -255,7 +310,12 @@ export const MediaPlayerControllerAudio: React.FC = () => {
     };
 
     const handleEnded = async () => {
-      await moveNowPlayingToHistory();
+      await moveNowPlayingToHistory({
+        completed: true,
+        mpClip: null,
+        mpItem: mpItemRef.current,
+        mpItemSoundbite: null
+      });
       setMPShouldPlay(true);
       await queueResourcesLoadActive();
     }

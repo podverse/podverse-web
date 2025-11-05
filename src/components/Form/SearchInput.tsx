@@ -2,7 +2,6 @@ import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { TextInput } from './TextInput';
 import { FaMagnifyingGlass } from 'react-icons/fa6';
 import styles from '../../styles/components/Form/SearchInput.module.scss';
-import { useSkipInitialEffect } from '../../hooks/useSkipInitialEffect';
 
 type SearchInputProps = {
 	onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;

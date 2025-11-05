@@ -125,7 +125,7 @@ export const ModalShare: React.FC = () => {
     <Modal
       header={tFeatures("share")}
       isOpen={isOpen}
-      onClose={() => setModalShare({})}
+      onClose={() => setModalShare({ channel: null, item: null, clip: null, item_chapter: null, item_soundbite: null })}
       ariaLabel={tFeatures("share")}
       modalContentMaxWidth={500}>
       {shareInputs.map((input, idx) => (

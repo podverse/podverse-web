@@ -144,7 +144,7 @@ const MOCK_CHANNEL_VALUES = [
 
 type BoostFormProps = {
   channel: DTOChannel;
-  item?: DTOItem;
+  item: DTOItem | null;
   className?: string;
 };
 

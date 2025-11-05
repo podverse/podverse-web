@@ -53,6 +53,7 @@ export const ListHistoryResources: React.FC<Props> = ({
                 <ListQueueResourceRow
                   key={queueResource.id}
                   queueResource={queueResource}
+                  isEditModeQueue={false}
                 />
               ))}
             </Pagination>

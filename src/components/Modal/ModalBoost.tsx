@@ -17,7 +17,7 @@ export const ModalBoost: React.FC = () => {
   return (
     <Modal
       isOpen={isOpen}
-      onClose={() => setModalBoost({})}
+      onClose={() => setModalBoost({ channel: null, item: null })}
       header={header}
       ariaLabel={header}
       modalContentMaxWidth={500}>

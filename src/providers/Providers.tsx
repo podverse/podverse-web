@@ -12,6 +12,7 @@ import { MediaPlayerCurrentTimeProvider } from '../contexts/MediaPlayerCurrentTi
 import { PlaylistsFavoritesProvider } from '../contexts/PlaylistsFavorites';
 import { QueuesProvider } from '../contexts/Queue';
 import { QueueResourcesAbridgedIndexProvider } from '../contexts/QueueResourcesAbridgedIndex';
+import { AutoQueueProvider } from '../contexts/AutoQueue';
 
 export default function Providers({
   children,
@@ -39,11 +40,13 @@ export default function Providers({
               <PlaylistsFavoritesProvider>
                 <MediaPlayerCurrentTimeProvider>
                   <MediaPlayerProvider>
-                    <ModalsProvider>
-                      <CategoriesProvider ssrCategories={categories}>
-                        {children}
-                      </CategoriesProvider>
-                    </ModalsProvider>
+                    <AutoQueueProvider>
+                      <ModalsProvider>
+                        <CategoriesProvider ssrCategories={categories}>
+                          {children}
+                        </CategoriesProvider>
+                      </ModalsProvider>
+                    </AutoQueueProvider>
                   </MediaPlayerProvider>
                 </MediaPlayerCurrentTimeProvider>
               </PlaylistsFavoritesProvider>

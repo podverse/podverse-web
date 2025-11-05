@@ -36,11 +36,13 @@ export function useQueueResourcesAbridgedIndexUpdate() {
     const mpDuration = mpDurationRef.current;
     const mpCurrentTime = mpCurrentTimeRef.current;
 
+    const progressValue = completed ? "0" : mpCurrentTime?.toString() ?? "0";
+
     const updates: QueueResourceAbridgedUpdates = {
       clip: clip
         ? {
             i: clip.id,
-            p: mpCurrentTime?.toString() ?? "0",
+            p: progressValue,
             d: mpDuration?.toString() ?? "0",
             z: completed !== undefined ? completed : queueResourcesAbridgedIndexRef.current.clips[clip.id]?.z === true,
           }
@@ -48,7 +50,7 @@ export function useQueueResourcesAbridgedIndexUpdate() {
       item_soundbite: itemSoundbite
         ? {
             i: itemSoundbite.id,
-            p: mpCurrentTime?.toString() ?? "0",
+            p: progressValue,
             d: mpDuration?.toString() ?? "0",
             z: completed !== undefined ? completed : queueResourcesAbridgedIndexRef.current.item_soundbites[itemSoundbite.id]?.z === true,
           }
@@ -56,7 +58,7 @@ export function useQueueResourcesAbridgedIndexUpdate() {
       item: item
         ? {
             i: item.id,
-            p: mpCurrentTime?.toString() ?? "0",
+            p: progressValue,
             d: mpDuration?.toString() ?? "0",
             z: completed !== undefined ? completed : queueResourcesAbridgedIndexRef.current.items[item.id]?.z === true,
           }

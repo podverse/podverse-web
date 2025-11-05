@@ -20,6 +20,7 @@ import { showToastPromise } from "../../Toast/Toast";
 import { apiRequestService } from "../../../factories/apiRequestService";
 import { useModals } from "../../../contexts/Modals";
 import { useMediaPlayerResourceUpdate } from "../../../hooks/useMediaPlayerResourceUpdate";
+import { getAutoQueueChannelMedium } from "../../../contexts/AutoQueue";
 import styles from "../../../styles/components/List/Clips/ListClipRow.module.scss";
 
 interface Props {
@@ -76,7 +77,13 @@ export const ListClipRow: React.FC<Props> = ({ channel, isEditModeQueue,
         itemChapterShouldSeek: false,
         itemSoundbite: null,
         isPlaying: true,
-        shouldPlay: true
+        shouldPlay: true,
+        skipMoveNowPlayingToHistory: false,
+        newAutoQueueConfig: {
+          aqmedium: getAutoQueueChannelMedium(channel, playlist_id_text),
+          playlist_id_text: playlist_id_text || null
+        },
+        autoQueueShouldClear: true
       });
     }
   };

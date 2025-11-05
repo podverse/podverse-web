@@ -5,6 +5,7 @@ import { useQueueResourcesMoveNowPlayingToHistory } from "./useQueueResourceMove
 import { useQueueResourcesUpdateNowPlaying } from "./useQueueResourceUpdateNowPlaying";
 import { useMediaPlayerCurrentTime } from "../contexts/MediaPlayerCurrentTime";
 import { useQueueResourcesAbridgedIndex } from "../contexts/QueueResourcesAbridgedIndex";
+import { AutoQueueConfig, useAutoQueue } from "../contexts/AutoQueue";
 
 export function useMediaPlayerResourceUpdate() {
   const {
@@ -18,7 +19,8 @@ export function useMediaPlayerResourceUpdate() {
     setMPIsPlaying,
     setMPDuration
   } = useMediaPlayer();
-
+  const { autoQueueConfig, setAutoQueueConfig, setAutoQueueResources,
+    setAutoQueueActiveRow } = useAutoQueue();
   const { setMPCurrentTime } = useMediaPlayerCurrentTime();
   const moveNowPlayingToHistory = useQueueResourcesMoveNowPlayingToHistory();
   const updateNowPlaying = useQueueResourcesUpdateNowPlaying();
@@ -29,6 +31,11 @@ export function useMediaPlayerResourceUpdate() {
     queueResourcesAbridgedIndexRef.current = queueResourcesAbridgedIndex;
   }, [queueResourcesAbridgedIndex]);
 
+  const autoQueueConfigRef = useRef(autoQueueConfig);
+  useEffect(() => {
+    autoQueueConfigRef.current = autoQueueConfig;
+  }, [autoQueueConfig]);
+
   return ({
     shouldPlay,
     channel,
@@ -37,7 +44,12 @@ export function useMediaPlayerResourceUpdate() {
     itemChapter,
     itemChapterShouldSeek,
     itemSoundbite,
-    isPlaying
+    mpDuration,
+    mpCurrentTime,
+    isPlaying,
+    skipMoveNowPlayingToHistory,
+    newAutoQueueConfig,
+    autoQueueShouldClear
   }: {
     shouldPlay?: boolean
     channel: DTOChannel | null,
@@ -46,9 +58,33 @@ export function useMediaPlayerResourceUpdate() {
     itemChapter: DTOItemChapter | null,
     itemChapterShouldSeek: boolean,
     itemSoundbite: DTOItemSoundbite | null,
+    mpDuration?: number,
+    mpCurrentTime?: number,
     isPlaying?: boolean,
+    skipMoveNowPlayingToHistory: boolean,
+    newAutoQueueConfig: AutoQueueConfig,
+    autoQueueShouldClear: boolean
   }) => {
-    moveNowPlayingToHistory();
+    if (!skipMoveNowPlayingToHistory) {
+      moveNowPlayingToHistory({
+        mpClip: clip,
+        mpItem: item,
+        mpItemSoundbite: itemSoundbite
+      });
+    }
+
+    if (autoQueueShouldClear) {
+      setAutoQueueResources({});
+      setAutoQueueActiveRow(null);
+    }
+
+    const oldAutoQueueConfig = autoQueueConfigRef.current;
+    if (newAutoQueueConfig != undefined) {
+      setAutoQueueConfig({
+        ...oldAutoQueueConfig,
+        ...newAutoQueueConfig
+      });
+    }
 
     if (shouldPlay !== undefined) {
       setMPShouldPlay(shouldPlay);
@@ -69,24 +105,35 @@ export function useMediaPlayerResourceUpdate() {
     // (because they will be updated shortly after by the media audio/video controllers anyway).
     function getAbridgedAndSet(resource: any, abridgedMap: Record<string, any>) {
       const abridged = resource ? abridgedMap?.[resource.id] : undefined;
-      setMPCurrentTime(Number(abridged?.p) || 0);
-      setMPDuration(Number(abridged?.d) || 0);
+      const currentTime = Number(abridged?.p) || 0;
+      const duration = Number(abridged?.d) || 0;
+      setMPCurrentTime(currentTime);
+      setMPDuration(duration);
+      return { currentTime, duration };
     }
 
+    let timeData = { currentTime: 0, duration: 0 };
+
     if (clip) {
-      getAbridgedAndSet(clip, queueResourcesAbridgedIndexRef.current.clips);
+      timeData = getAbridgedAndSet(clip, queueResourcesAbridgedIndexRef.current.clips);
     } else if (itemSoundbite) {
-      getAbridgedAndSet(itemSoundbite, queueResourcesAbridgedIndexRef.current.item_soundbites);
+      timeData = getAbridgedAndSet(itemSoundbite, queueResourcesAbridgedIndexRef.current.item_soundbites);
     } else if (item) {
-      getAbridgedAndSet(item, queueResourcesAbridgedIndexRef.current.items);
+      timeData = getAbridgedAndSet(item, queueResourcesAbridgedIndexRef.current.items);
     } else {
       setMPCurrentTime(0);
       setMPDuration(0);
     }
 
-    // Wait a cycle to ensure the MP state that was changed above has finished updating
-    setTimeout(() => {
-      updateNowPlaying();
-    }, 0);
+    const finalDuration = mpDuration !== undefined ? mpDuration : timeData.duration;
+    const finalCurrentTime = mpCurrentTime !== undefined ? mpCurrentTime : timeData.currentTime;
+
+    updateNowPlaying({
+      mpClip: clip,
+      mpItem: item,
+      mpItemSoundbite: itemSoundbite,
+      mpDuration: finalDuration,
+      mpCurrentTime: finalCurrentTime
+    });
   };
 }

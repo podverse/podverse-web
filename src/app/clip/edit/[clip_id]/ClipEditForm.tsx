@@ -6,6 +6,7 @@ import React from "react";
 import { useClipEditContext } from "./ClipEditContext";
 import { apiRequestService } from "../../../../factories/apiRequestService";
 import { ClipForm } from "../../../../components/Clip/ClipForm";
+import { useAutoQueue } from "../../../../contexts/AutoQueue";
 
 type ClipEditFormProps = {
   ssrClip: DTOClip;
@@ -20,8 +21,11 @@ export const ClipEditForm: React.FC<ClipEditFormProps> = ({ ssrClip }) => {
     endTimeString, setEndTimeString,
     isUpdating, setIsUpdating
    } = useClipEditContext();
+
+   const { setAutoQueueConfig } = useAutoQueue();
   
   const onCancel = () => {
+    setAutoQueueConfig({ disabled: false });
     router.push("/");
   }
   
@@ -43,6 +47,8 @@ export const ClipEditForm: React.FC<ClipEditFormProps> = ({ ssrClip }) => {
     });
 
     setIsUpdating(false);
+
+    setAutoQueueConfig({ disabled: false });
 
     router.push(`/clip/${clip.id_text}`);
   }

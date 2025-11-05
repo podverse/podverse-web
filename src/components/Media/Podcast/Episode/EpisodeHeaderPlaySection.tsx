@@ -5,7 +5,7 @@ import React from "react";
 import { PlayButtonLarge } from "../../../MediaPlayer/Buttons/PlayButtonLarge";
 import { useMediaPlayer } from "../../../../contexts/MediaPlayer";
 import { ReadableDate } from "../../../Time/ReadableDate";
-import { ReadableDuration } from "../../../Time/ReadableDuration";
+import { getDurationAndPositionStr, ReadableDuration } from "../../../Time/ReadableDuration";
 import { MoreButton } from "../../../MoreButton/MoreButton";
 import { useTranslations } from "next-intl";
 import { showToastPromise, showToastPromiseWithLoading } from "../../../Toast/Toast";
@@ -15,6 +15,8 @@ import { useQueues } from "../../../../contexts/Queue";
 import { useModals } from "../../../../contexts/Modals";
 import { downloadAndSaveFile } from "../../../../utils/fileDownloader";
 import { useMediaPlayerResourceUpdate } from "../../../../hooks/useMediaPlayerResourceUpdate";
+import { getAutoQueueChannelMedium } from "../../../../contexts/AutoQueue";
+import { useQueueResourcesAbridgedIndex } from "../../../../contexts/QueueResourcesAbridgedIndex";
 import styles from "../../../../styles/components/Media/Podcast/Episode/EpisodeHeaderPlaySection.module.scss";
 
 type EpisodeHeaderPlaySectionProps = {
@@ -29,6 +31,8 @@ export const EpisodeHeaderPlaySection: React.FC<EpisodeHeaderPlaySectionProps> =
   const { setModalPlaylistAddTo } = useModals();
   const { mpItem, mpIsPlaying, setMPIsPlaying } = useMediaPlayer();
   const mediaPlayerResourceUpdate = useMediaPlayerResourceUpdate();
+  const { queueResourcesAbridgedIndex } = useQueueResourcesAbridgedIndex();
+  const { durationStr, positionStr } = getDurationAndPositionStr(item, queueResourcesAbridgedIndex);
   
   const playButtonOnClick = () => {
     if (item.id === mpItem?.id) {
@@ -42,7 +46,13 @@ export const EpisodeHeaderPlaySection: React.FC<EpisodeHeaderPlaySectionProps> =
         itemChapter: null,
         itemChapterShouldSeek: false,
         itemSoundbite: null,
-        isPlaying: true
+        isPlaying: true,
+        skipMoveNowPlayingToHistory: false,
+        newAutoQueueConfig: {
+          aqmedium: getAutoQueueChannelMedium(channel),
+          playlist_id_text: null
+        },
+        autoQueueShouldClear: true
       });
     }
   };
@@ -151,7 +161,10 @@ export const EpisodeHeaderPlaySection: React.FC<EpisodeHeaderPlaySectionProps> =
         <div className={styles.timeSection}>
           <ReadableDate date={item.pub_date} />
           {item.item_about?.duration ? " • " : null}
-          <ReadableDuration durationInSeconds={item.item_about.duration || null} />
+          <ReadableDuration
+            durationStr={durationStr}
+            positionStr={positionStr}
+          />
         </div>
       </div>
       <div className={styles.sectionEnd}>

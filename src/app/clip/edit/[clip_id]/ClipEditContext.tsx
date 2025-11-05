@@ -48,6 +48,11 @@ export const ClipEditContextProvider = (
         itemChapterShouldSeek: false,
         itemSoundbite: null,
         isPlaying: false,
+        skipMoveNowPlayingToHistory: false,
+        newAutoQueueConfig: {
+          disabled: true
+        },
+        autoQueueShouldClear: true
       });
     }
   }, []);

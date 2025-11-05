@@ -8,10 +8,9 @@ import React from "react";
 import { FaGripLines } from "react-icons/fa6";
 import Image from "../../../Image/Image";
 import { ROUTES } from "../../../../constants/routes";
-import styles from "../../../../styles/components/List/Podcasts/Episodes/ListEpisodeRow.module.scss";
 import { IMAGES } from "../../../../constants/images";
 import { PlayButtonRow } from "../../../MediaPlayer/Buttons/PlayButtonRow";
-import { ReadableDuration } from "../../../Time/ReadableDuration";
+import { getDurationAndPositionStr, ReadableDuration } from "../../../Time/ReadableDuration";
 import { MoreButton, MoreButtonMenuItem } from "../../../MoreButton/MoreButton";
 import { useMediaPlayer } from "../../../../contexts/MediaPlayer";
 import { ReadableDate } from "../../../Time/ReadableDate";
@@ -23,6 +22,8 @@ import { showToastPromise, showToastPromiseWithLoading } from "../../../Toast/To
 import { downloadAndSaveFile } from "../../../../utils/fileDownloader";
 import { useMediaPlayerResourceUpdate } from "../../../../hooks/useMediaPlayerResourceUpdate";
 import { useQueueResourcesAbridgedIndex } from "../../../../contexts/QueueResourcesAbridgedIndex";
+import { getAutoQueueChannelMedium } from "../../../../contexts/AutoQueue";
+import styles from "../../../../styles/components/List/Podcasts/Episodes/ListEpisodeRow.module.scss";
 
 interface Props {
   channel: DTOChannel;
@@ -49,18 +50,7 @@ const ListEpisodeRow: React.FC<Props> = ({ channel, isEditModeQueue, item,
   const mediaPlayerResourceUpdate = useMediaPlayerResourceUpdate();
   const { setModalPlaylistAddTo } = useModals();
   const { queueResourcesAbridgedIndex } = useQueueResourcesAbridgedIndex();
-
-  const queueResourceAbridged = queueResourcesAbridgedIndex.items?.[item.id];
-  let durationStr = item.item_about?.duration ? item.item_about.duration.toString() : null;
-  let positionStr = "";
-  if (queueResourceAbridged) {
-    if (Number(queueResourceAbridged.d) > 0) {
-      durationStr = queueResourceAbridged.d.toString();
-    }
-    if (Number(queueResourceAbridged.p) > 0) {
-      positionStr = queueResourceAbridged.p.toString();
-    }
-  }
+  const { durationStr, positionStr } = getDurationAndPositionStr(item, queueResourcesAbridgedIndex);
 
   const playButtonOnClick = () => {
     if (item.id === mpItem?.id) {
@@ -74,7 +64,13 @@ const ListEpisodeRow: React.FC<Props> = ({ channel, isEditModeQueue, item,
         itemChapter: null,
         itemChapterShouldSeek: false,
         itemSoundbite: null,
-        isPlaying: true
+        isPlaying: true,
+        skipMoveNowPlayingToHistory: false,
+        newAutoQueueConfig: {
+          aqmedium: getAutoQueueChannelMedium(channel, playlist_id_text),
+          playlist_id_text: playlist_id_text || null
+        },
+        autoQueueShouldClear: true
       });
     }
   };

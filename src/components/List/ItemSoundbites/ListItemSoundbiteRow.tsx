@@ -19,6 +19,7 @@ import { showToastPromise } from "../../Toast/Toast";
 import { apiRequestService } from "../../../factories/apiRequestService";
 import { useModals } from "../../../contexts/Modals";
 import { useMediaPlayerResourceUpdate } from "../../../hooks/useMediaPlayerResourceUpdate";
+import { getAutoQueueChannelMedium } from "../../../contexts/AutoQueue";
 import styles from "../../../styles/components/List/ItemSoundbites/ListItemSoundbiteRow.module.scss";
 
 interface ListItemSoundbiteProps {
@@ -85,7 +86,13 @@ export const ListItemSoundbiteRow: React.FC<ListItemSoundbiteProps> = ({
         itemChapter: null,
         itemChapterShouldSeek: false,
         itemSoundbite: item_soundbite,
-        isPlaying: true
+        isPlaying: true,
+        skipMoveNowPlayingToHistory: false,
+        newAutoQueueConfig: {
+          aqmedium: getAutoQueueChannelMedium(channel, playlist_id_text),
+          playlist_id_text: playlist_id_text || null
+        },
+        autoQueueShouldClear: true
       });
     }
   };

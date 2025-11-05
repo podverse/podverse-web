@@ -2,31 +2,31 @@ import { useRef, useEffect, useCallback } from "react";
 import { useAccount } from "../contexts/Account";
 import { useQueues } from "../contexts/Queue";
 import { apiRequestService } from "../factories/apiRequestService";
-import { useMediaPlayer } from "../contexts/MediaPlayer";
 import { useQueueResourcesAbridgedIndexUpdate } from "./useQueueResourcesAbridgedIndexUpdate";
+import { DTOClip, DTOItem, DTOItemSoundbite } from "podverse-helpers";
+
+type MoveNowPlayingToHistoryCallbackParams = {
+  completed?: boolean;
+  mpClip: DTOClip | null;
+  mpItem: DTOItem | null;
+  mpItemSoundbite: DTOItemSoundbite | null;
+}
 
 export function useQueueResourcesMoveNowPlayingToHistory() {
   const { loggedInAccount } = useAccount();
   const { activeQueue } = useQueues();
-  const { mpClip, mpItem, mpItemSoundbite } = useMediaPlayer();
   const updateAbridgedIndex = useQueueResourcesAbridgedIndexUpdate();
 
   const activeQueueRef = useRef(activeQueue);
-  const mpClipRef = useRef(mpClip);
-  const mpItemRef = useRef(mpItem);
-  const mpItemSoundbiteRef = useRef(mpItemSoundbite);
   const loggedInAccountRef = useRef(loggedInAccount);
 
   useEffect(() => { activeQueueRef.current = activeQueue; }, [activeQueue]);
-  useEffect(() => { mpClipRef.current = mpClip; }, [mpClip]);
-  useEffect(() => { mpItemRef.current = mpItem; }, [mpItem]);
-  useEffect(() => { mpItemSoundbiteRef.current = mpItemSoundbite; }, [mpItemSoundbite]);
   useEffect(() => { loggedInAccountRef.current = loggedInAccount; }, [loggedInAccount]);
 
-  return useCallback(async (completed?: boolean) => {
+  return useCallback(async (params: MoveNowPlayingToHistoryCallbackParams) => {
     const activeQueue = activeQueueRef.current;
-    const mpItem = mpItemRef.current;
     const loggedInAccount = loggedInAccountRef.current;
+    const { completed, mpClip, mpItem, mpItemSoundbite } = params;
 
     if (!loggedInAccount || !activeQueue) {
       return;
