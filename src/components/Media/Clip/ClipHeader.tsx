@@ -16,8 +16,8 @@ export const ClipHeader: React.FC<ClipHeaderProps> = ({ clip, item, channel }) =
     <header>
       <Link href={`${ROUTES.EPISODE}/${item.id_text}`}>
         <h2 className={styles.episodeTitle}>{item.title || "Untitled"}</h2>
-        <h3 className={styles.clipTitle}>{clip.title || "Untitled"}</h3>
       </Link>
+      <h3 className={styles.clipTitle}>{clip.title || "Untitled"}</h3>
       <ClipHeaderPlaySection item={item} channel={channel} clip={clip} />
     </header>
   )

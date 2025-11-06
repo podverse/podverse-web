@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { DTOChannel, DTOClip, DTOItem, getSelectedItemEnclosureUrl } from "podverse-helpers";
+import { DTOChannel, DTOItem, DTOItemSoundbite, getSelectedItemEnclosureUrl } from "podverse-helpers";
 import React from "react";
 import { PlayButtonLarge } from "../../MediaPlayer/Buttons/PlayButtonLarge";
 import { useMediaPlayer } from "../../../contexts/MediaPlayer";
@@ -16,34 +16,37 @@ import { downloadAndSaveFile } from "../../../utils/fileDownloader";
 import { useMediaPlayerResourceUpdate } from "../../../hooks/useMediaPlayerResourceUpdate";
 import { getAutoQueueChannelMedium } from "../../../contexts/AutoQueue";
 import { ReadableTimeRange } from "../../Time/ReadableTimeRange";
-import styles from "../../../styles/components/Media/Clip/ClipHeaderPlaySection.module.scss";
+import styles from "../../../styles/components/Media/ItemSoundbite/ItemSoundbiteHeaderPlaySection.module.scss";
 
-type ClipHeaderPlaySectionProps = {
-  clip: DTOClip;
-  item: DTOItem;
+type ItemSoundbiteHeaderPlaySectionProps = {
   channel: DTOChannel;
+  item: DTOItem;
+  item_soundbite: DTOItemSoundbite;
 };
 
-export const ClipHeaderPlaySection: React.FC<ClipHeaderPlaySectionProps> = ({ clip, item, channel }) => {
+export const ItemSoundbiteHeaderPlaySection: React.FC<ItemSoundbiteHeaderPlaySectionProps> = ({ item_soundbite, item, channel }) => {
   const tFeatures = useTranslations("features");
   const tMediaPlayer = useTranslations("media_player");
   const { queues } = useQueues();
   const { setModalPlaylistAddTo } = useModals();
-  const { mpClip, mpIsPlaying, setMPIsPlaying } = useMediaPlayer();
+  const { mpItemSoundbite, mpIsPlaying, setMPIsPlaying } = useMediaPlayer();
   const mediaPlayerResourceUpdate = useMediaPlayerResourceUpdate();
+
+  const startTime = item_soundbite.start_time;
+  const endTime = `${Number(item_soundbite.start_time) + Number(item_soundbite.duration)}`;
   
   const playButtonOnClick = () => {
-    if (clip.id_text === mpClip?.id_text) {
+    if (item_soundbite.id_text === mpItemSoundbite?.id_text) {
       setMPIsPlaying(!mpIsPlaying);
     } else {
       mediaPlayerResourceUpdate({
         shouldPlay: true,
         channel: channel,
-        clip,
+        clip: null,
         item,
         itemChapter: null,
         itemChapterShouldSeek: false,
-        itemSoundbite: null,
+        itemSoundbite: item_soundbite,
         isPlaying: true,
         skipMoveNowPlayingToHistory: false,
         newAutoQueueConfig: {
@@ -59,7 +62,7 @@ export const ClipHeaderPlaySection: React.FC<ClipHeaderPlaySectionProps> = ({ cl
     const queue = getQueueForMedium(queues, channel.medium_id);
     if (queue) {
       showToastPromise(
-        apiRequestService.reqQueueResourceClipAddNext(queue.id_text, clip.id_text),
+        apiRequestService.reqQueueResourceItemSoundbiteAddNext(queue.id_text, item_soundbite.id_text),
         {
           success: tFeatures("queue.added_to_queue"),
           error: tFeatures("queue.add_error")
@@ -72,7 +75,7 @@ export const ClipHeaderPlaySection: React.FC<ClipHeaderPlaySectionProps> = ({ cl
     const queue = getQueueForMedium(queues, channel.medium_id);
     if (queue) {
       showToastPromise(
-        apiRequestService.reqQueueResourceClipAddLast(queue.id_text, clip.id_text),
+        apiRequestService.reqQueueResourceItemSoundbiteAddLast(queue.id_text, item_soundbite.id_text),
         {
           success: tFeatures("queue.added_to_queue"),
           error: tFeatures("queue.add_error")
@@ -85,8 +88,8 @@ export const ClipHeaderPlaySection: React.FC<ClipHeaderPlaySectionProps> = ({ cl
     setModalPlaylistAddTo({
       channel: channel,
       item: item,
-      clip: clip,
-      item_soundbite: null
+      clip: null,
+      item_soundbite: item_soundbite
     });
   }
 
@@ -94,9 +97,9 @@ export const ClipHeaderPlaySection: React.FC<ClipHeaderPlaySectionProps> = ({ cl
     const queue = getQueueForMedium(queues, channel.medium_id);
     if (queue) {
       showToastPromise(
-        apiRequestService.reqQueueResourceClipAddHistory(
+        apiRequestService.reqQueueResourceItemSoundbiteAddHistory(
           queue.id_text,
-          clip.id_text, {
+          item_soundbite.id_text, {
             completed: true
           }
         ),
@@ -153,15 +156,15 @@ export const ClipHeaderPlaySection: React.FC<ClipHeaderPlaySectionProps> = ({ cl
     <div className={styles.playSection}>
       <div className={styles.sectionStart}>
         <PlayButtonLarge
-          clip={clip}
+          item_soundbite={item_soundbite}
           onClick={playButtonOnClick}
         />
         <div className={styles.timeSection}>
           <ReadableDate date={item.pub_date} />
           {item.item_about?.duration ? " • " : null}
           <ReadableTimeRange
-            startTime={clip.start_time}
-            endTime={clip.end_time}
+            startTime={startTime}
+            endTime={endTime}
           />
         </div>
       </div>
