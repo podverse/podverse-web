@@ -108,7 +108,6 @@ export function useMediaPlayerResourceUpdate() {
       const currentTime = Number(abridged?.p) || 0;
       const duration = Number(abridged?.d) || 0;
       setMPCurrentTime(currentTime);
-      setMPDuration(duration);
       return { currentTime, duration };
     }
 
@@ -122,7 +121,6 @@ export function useMediaPlayerResourceUpdate() {
       timeData = getAbridgedAndSet(item, queueResourcesAbridgedIndexRef.current.items);
     } else {
       setMPCurrentTime(0);
-      setMPDuration(0);
     }
 
     const finalDuration = mpDuration !== undefined ? mpDuration : timeData.duration;

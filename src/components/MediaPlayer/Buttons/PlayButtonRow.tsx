@@ -23,13 +23,13 @@ export const PlayButtonRow: React.FC<PlayButtonRowProps> = ({
   
   let isCurrentlyInPlayer = false;
   if (item_chapter) {
-    isCurrentlyInPlayer = mpItemChapter?.id === item_chapter.id;
+    isCurrentlyInPlayer = mpItemChapter?.id_text === item_chapter.id_text;
   } else if (item_soundbite) {
-    isCurrentlyInPlayer = mpItemSoundbite?.id === item_soundbite.id;
+    isCurrentlyInPlayer = mpItemSoundbite?.id_text === item_soundbite.id_text;
   } else if (clip) {
-    isCurrentlyInPlayer = mpClip?.id === clip.id;
+    isCurrentlyInPlayer = mpClip?.id_text === clip.id_text;
   } else if (mpItem) {
-    isCurrentlyInPlayer = mpItem.id === item.id;
+    isCurrentlyInPlayer = mpItem.id_text === item.id_text;
   }
 
   const isPlaying = isCurrentlyInPlayer && mpIsPlaying;

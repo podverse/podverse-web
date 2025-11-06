@@ -66,7 +66,7 @@ export const ListClipRow: React.FC<Props> = ({ channel, isEditModeQueue,
   const channelTitle = channel?.title || tMisc("untitled");
 
   const playButtonOnClick = () => {
-    if (clip.id === mpClip?.id) {
+    if (clip.id_text === mpClip?.id_text) {
       setMPIsPlaying(!mpIsPlaying);
     } else {
       mediaPlayerResourceUpdate({

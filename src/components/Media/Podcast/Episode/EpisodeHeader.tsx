@@ -15,7 +15,7 @@ export const EpisodeHeader: React.FC<EpisodeHeaderProps> = ({ item, channel }) =
   return (
     <header>
       <Link href={`${ROUTES.EPISODE}/${item.id_text}`}>
-        <h2 className={styles.title}>{item.title || "Untitled"}</h2>
+        <h2 className={styles.episodeTitle}>{item.title || "Untitled"}</h2>
       </Link>
       <EpisodeHeaderPlaySection item={item} channel={channel} />
       <Divider className={styles.divider} />

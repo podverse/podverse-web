@@ -6,19 +6,19 @@ import styles from "../../../styles/components/MediaPlayer/Buttons/PlayButtonLar
 
 type PlayButtonLargeProps = {
   clip?: DTOClip;
-  item: DTOItem;
+  item?: DTOItem;
   onClick: () => void;
 }
 
 export const PlayButtonLarge: React.FC<PlayButtonLargeProps> = ({ clip, item, onClick }) => {
-  const { mpIsPlaying, mpItem, mpClip } = useMediaPlayer();
+  const { mpIsPlaying, mpItem, mpClip, mpItemSoundbite } = useMediaPlayer();
   const tMediaPlayer = useTranslations("media_player");
   
   let isCurrentlyInPlayer = false;
   if (clip) {
-    isCurrentlyInPlayer = mpClip?.id === clip.id;
-  } else if (mpItem) {
-    isCurrentlyInPlayer = mpItem.id === item.id;
+    isCurrentlyInPlayer = mpClip?.id_text === clip.id_text;
+  } else if (item && !mpClip && !mpItemSoundbite) {
+    isCurrentlyInPlayer = mpItem?.id === item.id;
   }
 
   const isPlaying = isCurrentlyInPlayer && mpIsPlaying;

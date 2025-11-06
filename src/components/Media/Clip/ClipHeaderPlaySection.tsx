@@ -1,52 +1,48 @@
 "use client";
 
-import { DTOChannel, DTOItem, getSelectedItemEnclosureUrl } from "podverse-helpers";
-import React from "react";
-import { PlayButtonLarge } from "../../../MediaPlayer/Buttons/PlayButtonLarge";
-import { useMediaPlayer } from "../../../../contexts/MediaPlayer";
-import { ReadableDate } from "../../../Time/ReadableDate";
-import { getDurationAndPositionStr, ReadableDuration } from "../../../Time/ReadableDuration";
-import { MoreButton } from "../../../MoreButton/MoreButton";
 import { useTranslations } from "next-intl";
-import { showToastPromise, showToastPromiseWithLoading } from "../../../Toast/Toast";
-import { getQueueForMedium } from "../../../../utils/queue";
-import { apiRequestService } from "../../../../factories/apiRequestService";
-import { useQueues } from "../../../../contexts/Queue";
-import { useModals } from "../../../../contexts/Modals";
-import { downloadAndSaveFile } from "../../../../utils/fileDownloader";
-import { useMediaPlayerResourceUpdate } from "../../../../hooks/useMediaPlayerResourceUpdate";
-import { getAutoQueueChannelMedium } from "../../../../contexts/AutoQueue";
-import { useQueueResourcesAbridgedIndex } from "../../../../contexts/QueueResourcesAbridgedIndex";
-import styles from "../../../../styles/components/Media/Podcast/Episode/EpisodeHeaderPlaySection.module.scss";
+import { DTOChannel, DTOClip, DTOItem, getSelectedItemEnclosureUrl } from "podverse-helpers";
+import React from "react";
+import { PlayButtonLarge } from "../../MediaPlayer/Buttons/PlayButtonLarge";
+import { useMediaPlayer } from "../../../contexts/MediaPlayer";
+import { ReadableDate } from "../../Time/ReadableDate";
+import { MoreButton } from "../../MoreButton/MoreButton";
+import { showToastPromise, showToastPromiseWithLoading } from "../../Toast/Toast";
+import { getQueueForMedium } from "../../../utils/queue";
+import { apiRequestService } from "../../../factories/apiRequestService";
+import { useQueues } from "../../../contexts/Queue";
+import { useModals } from "../../../contexts/Modals";
+import { downloadAndSaveFile } from "../../../utils/fileDownloader";
+import { useMediaPlayerResourceUpdate } from "../../../hooks/useMediaPlayerResourceUpdate";
+import { getAutoQueueChannelMedium } from "../../../contexts/AutoQueue";
+import { ReadableTimeRange } from "../../Time/ReadableTimeRange";
+import styles from "../../../styles/components/Media/Clip/ClipHeaderPlaySection.module.scss";
 
-type EpisodeHeaderPlaySectionProps = {
+type ClipHeaderPlaySectionProps = {
+  clip: DTOClip;
   item: DTOItem;
   channel: DTOChannel;
 };
 
-export const EpisodeHeaderPlaySection: React.FC<EpisodeHeaderPlaySectionProps> = ({ item, channel }) => {
+export const ClipHeaderPlaySection: React.FC<ClipHeaderPlaySectionProps> = ({ clip, item, channel }) => {
   const tFeatures = useTranslations("features");
   const tMediaPlayer = useTranslations("media_player");
   const { queues } = useQueues();
   const { setModalPlaylistAddTo } = useModals();
-  const { mpItem, mpClip, mpItemSoundbite, mpIsPlaying, setMPIsPlaying } = useMediaPlayer();
+  const { mpClip, mpIsPlaying, setMPIsPlaying } = useMediaPlayer();
   const mediaPlayerResourceUpdate = useMediaPlayerResourceUpdate();
-  const { queueResourcesAbridgedIndex } = useQueueResourcesAbridgedIndex();
-  const { durationStr, positionStr } = getDurationAndPositionStr(item, queueResourcesAbridgedIndex);
   
   const playButtonOnClick = () => {
-    if (
-      item.id === mpItem?.id
-      && !mpClip
-      && !mpItemSoundbite
-    ) {
+    console.log("Play button clicked for clip:", clip);
+    console.log("Current media player clip:", mpClip);
+    if (clip.id_text === mpClip?.id_text) {
       setMPIsPlaying(!mpIsPlaying);
     } else {
       mediaPlayerResourceUpdate({
         shouldPlay: true,
         channel: channel,
-        clip: null,
-        item: item,
+        clip,
+        item,
         itemChapter: null,
         itemChapterShouldSeek: false,
         itemSoundbite: null,
@@ -65,7 +61,7 @@ export const EpisodeHeaderPlaySection: React.FC<EpisodeHeaderPlaySectionProps> =
     const queue = getQueueForMedium(queues, channel.medium_id);
     if (queue) {
       showToastPromise(
-        apiRequestService.reqQueueResourceItemAddNext(queue.id_text, item.id_text),
+        apiRequestService.reqQueueResourceClipAddNext(queue.id_text, clip.id_text),
         {
           success: tFeatures("queue.added_to_queue"),
           error: tFeatures("queue.add_error")
@@ -78,7 +74,7 @@ export const EpisodeHeaderPlaySection: React.FC<EpisodeHeaderPlaySectionProps> =
     const queue = getQueueForMedium(queues, channel.medium_id);
     if (queue) {
       showToastPromise(
-        apiRequestService.reqQueueResourceItemAddLast(queue.id_text, item.id_text),
+        apiRequestService.reqQueueResourceClipAddLast(queue.id_text, clip.id_text),
         {
           success: tFeatures("queue.added_to_queue"),
           error: tFeatures("queue.add_error")
@@ -91,7 +87,7 @@ export const EpisodeHeaderPlaySection: React.FC<EpisodeHeaderPlaySectionProps> =
     setModalPlaylistAddTo({
       channel: channel,
       item: item,
-      clip: null,
+      clip: clip,
       item_soundbite: null
     });
   }
@@ -100,9 +96,9 @@ export const EpisodeHeaderPlaySection: React.FC<EpisodeHeaderPlaySectionProps> =
     const queue = getQueueForMedium(queues, channel.medium_id);
     if (queue) {
       showToastPromise(
-        apiRequestService.reqQueueResourceItemAddHistory(
+        apiRequestService.reqQueueResourceClipAddHistory(
           queue.id_text,
-          item.id_text, {
+          clip.id_text, {
             completed: true
           }
         ),
@@ -159,15 +155,15 @@ export const EpisodeHeaderPlaySection: React.FC<EpisodeHeaderPlaySectionProps> =
     <div className={styles.playSection}>
       <div className={styles.sectionStart}>
         <PlayButtonLarge
-          item={item}
+          clip={clip}
           onClick={playButtonOnClick}
         />
         <div className={styles.timeSection}>
           <ReadableDate date={item.pub_date} />
           {item.item_about?.duration ? " • " : null}
-          <ReadableDuration
-            durationStr={durationStr}
-            positionStr={positionStr}
+          <ReadableTimeRange
+            startTime={clip.start_time}
+            endTime={clip.end_time}
           />
         </div>
       </div>
