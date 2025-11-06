@@ -18,7 +18,7 @@ export function ClipClient(props: ClipClientProps) {
 
   return (
     <MainWrapper>
-      <PodcastHeader channel={ssrChannel} item={ssrItem} />
+      <PodcastHeader channel={ssrChannel} item={ssrItem} clip={ssrClip} />
       <MainInnerWrapper>
         <SideContent />
         <MainInnerContentWrapper>

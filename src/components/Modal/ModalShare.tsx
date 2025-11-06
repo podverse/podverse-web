@@ -95,7 +95,7 @@ export const ModalShare: React.FC = () => {
     shareInputs.push({
       name: "clip.clip",
       value: `${WEB.origin}/clip/${modalShare.clip.id_text}`,
-      eyebrow: tFeatures("clip"),
+      eyebrow: tFeatures("clip.clip"),
     });
   }
 
@@ -103,7 +103,7 @@ export const ModalShare: React.FC = () => {
     shareInputs.push({
       name: "chapter.chapter",
       value: `${WEB.origin}/chapter/${modalShare.item_chapter.id_text}`,
-      eyebrow: tInfo("podcast.episode_chapter"),
+      eyebrow: tInfo("chapter.chapter"),
     });
   }
 
@@ -111,7 +111,7 @@ export const ModalShare: React.FC = () => {
     shareInputs.push({
       name: "soundbite.official_clip",
       value: `${WEB.origin}/soundbite/${modalShare.item_soundbite.id_text}`,
-      eyebrow: tInfo("podcast.episode_soundbite"),
+      eyebrow: tInfo("soundbite.official_clip"),
     });
   }
 

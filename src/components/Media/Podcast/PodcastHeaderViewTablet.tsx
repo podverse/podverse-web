@@ -1,4 +1,4 @@
-import { DTOChannel, DTOItem } from "podverse-helpers";
+import { DTOChannel, DTOClip, DTOItem, DTOItemChapter, DTOItemSoundbite } from "podverse-helpers";
 import PodcastHeaderButtons from "./PodcastHeaderButtons"
 import { PodcastHeaderImage } from "./PodcastHeaderImage"
 import { PodcastHeaderSubscribeSection } from "./PodcastHeaderSubscribeSection"
@@ -10,9 +10,12 @@ import { ROUTES } from "../../../constants/routes";
 type PodcastHeaderViewTabletProps = {
   channel: DTOChannel;
   item?: DTOItem;
+  clip?: DTOClip;
+  item_soundbite?: DTOItemSoundbite;
+  item_chapter?: DTOItemChapter;
 }
 
-export const PodcastHeaderViewTablet: React.FC<PodcastHeaderViewTabletProps> = ({ channel, item }) => {
+export const PodcastHeaderViewTablet: React.FC<PodcastHeaderViewTabletProps> = ({ channel, item, clip, item_soundbite, item_chapter }) => {
   return (
     <div className={styles.contentTablet}>
       <div className={styles.topSection}>
@@ -24,7 +27,7 @@ export const PodcastHeaderViewTablet: React.FC<PodcastHeaderViewTabletProps> = (
       <div className={styles.bottomSection}>
         <div className={styles.textSection}>
           <PodcastHeaderSubtitle channel={channel} />
-          <PodcastHeaderButtons channel={channel} />
+          <PodcastHeaderButtons channel={channel} item={item} clip={clip} item_soundbite={item_soundbite} item_chapter={item_chapter} />
         </div>
         <PodcastHeaderSubscribeSection channel={channel} />
       </div>
