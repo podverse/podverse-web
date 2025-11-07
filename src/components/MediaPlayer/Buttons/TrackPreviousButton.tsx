@@ -1,9 +1,10 @@
 import { FaAnglesLeft } from "react-icons/fa6"
+import { EVENTS } from "../../../constants/events"
 import styles from "../../../styles/components/MediaPlayer/Buttons/TrackPreviousButton.module.scss"
 
 export const TrackPreviousButton = () => {
   const onClick = () => {
-    alert("Previous track functionality to be implemented")
+    window.dispatchEvent(new CustomEvent(EVENTS.MEDIA_PLAYER.AUDIO.SEEK, { detail: { time: 0 } }))
   }
 
   return (
