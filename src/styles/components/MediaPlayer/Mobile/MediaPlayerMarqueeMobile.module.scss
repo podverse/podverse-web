@@ -11,9 +11,32 @@
   height: var(--media-player-height-top-section);
   background-color: var(--background-color-special);
   font-weight: var(--font-weight-light);
-  padding: 0 2rem;
+  padding: 0 1rem;
 }
 
 .marqueeText {
   @include line-clamp(1);
+  padding: 0 1rem;
+}
+
+.prevChapter {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex: 1;
+}
+
+.prevChapterButton {
+  display: flex;
+}
+
+.nextChapter {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  flex: 1;
+}
+
+.nextChapterButton {
+  display: flex;
 }
