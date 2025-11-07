@@ -259,7 +259,6 @@ export const MediaPlayerControllerAudio: React.FC = () => {
         }
       }
 
-
       if (itemSoundbite && itemSoundbite.duration) {
         const startNum = typeof itemSoundbite.start_time === "string" ? parseFloat(itemSoundbite.start_time) : itemSoundbite.start_time;
         const durationNum = typeof itemSoundbite.duration === "string" ? parseFloat(itemSoundbite.duration) : itemSoundbite.duration;
