@@ -11,11 +11,21 @@
   text-align: center;
 }
 
+.itemTitle {
+  display: flex;
+  justify-content: center;
+}
+
 .itemTitle > a {
   font-size: var(--font-size-xl);
   font-weight: var(--font-weight-light);
   color: var(--text-color-primary) !important;
   @include line-clamp(1);
+}
+
+.channelTitle {
+  display: flex;
+  justify-content: center;
 }
 
 .channelTitle > a {
@@ -50,6 +60,12 @@
   flex-shrink: 0;
   justify-content: center;
   align-items: center;
+  flex: 0;
+}
+
+.subtitle {
+  display: flex;
+  justify-content: center;
 }
 
 .subtitle > a {
