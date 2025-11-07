@@ -16,8 +16,7 @@ export function useMediaPlayerResourceUpdate() {
     setMPItemChapter,
     setMPItemChapterShouldSeek,
     setMPItemSoundbite,
-    setMPIsPlaying,
-    setMPDuration
+    setMPIsPlaying
   } = useMediaPlayer();
   const { autoQueueConfig, setAutoQueueConfig, setAutoQueueResources,
     setAutoQueueActiveRow } = useAutoQueue();

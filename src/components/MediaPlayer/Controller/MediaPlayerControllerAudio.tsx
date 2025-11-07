@@ -155,6 +155,8 @@ export const MediaPlayerControllerAudio: React.FC = () => {
         newCurrentTime = Number(mpClipRef.current.start_time);
       } else if (mpItemSoundbiteRef.current) {
         newCurrentTime = Number(mpItemSoundbiteRef.current.start_time);
+      } else if (mpItemChapterRef.current) {
+        newCurrentTime = Number(mpItemChapterRef.current.start_time);
       } else if (mpItemRef.current) {
         const queueResourceAbridged = queueResourcesAbridgedIndexRef.current.items[mpItemRef.current.id];
         if (Number(queueResourceAbridged?.p) > 0) {
