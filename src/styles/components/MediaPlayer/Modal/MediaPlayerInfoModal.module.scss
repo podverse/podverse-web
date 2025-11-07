@@ -11,15 +11,16 @@
   text-align: center;
 }
 
-.itemTitle {
+.itemTitle > a {
   font-size: var(--font-size-xl);
   font-weight: var(--font-weight-light);
+  color: var(--text-color-primary) !important;
   @include line-clamp(1);
 }
 
-.channelTitle {
+.channelTitle > a {
   font-weight: var(--font-weight-light);
-  color: var(--text-color-accent);
+  color: var(--text-color-accent) !important;
   @include line-clamp(1);
   margin-top: 0.25rem;
 }
@@ -51,7 +52,8 @@
   align-items: center;
 }
 
-.subtitle {
+.subtitle > a {
+  color: var(--text-color-primary) !important;
   font-size: var(--font-size-lg);
   font-weight: var(--font-weight-light);
   margin-top: 1rem;
