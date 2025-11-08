@@ -25,7 +25,14 @@
       "video": "Video",
       "videos": "Videos"
     },
-    "livestreams": "Livestreams",
+    "livestream": {
+      "livestream": "Livestream",
+      "livestreams": "Livestreams",
+      "livestream_image": "Livestream Image",
+      "live_now": "Live Now",
+      "scheduled": "Scheduled",
+      "ended": "Ended"
+    },
     "last_updated": "Last updated: {date}"
   },
   "features": {
@@ -133,7 +140,9 @@
     },
     "time": {
       "left": "{timeRemaining} left",
-      "last": "{timePosition} last"
+      "last": "{timePosition} last",
+      "start": "{timeStart} start time",
+      "start_end": "{timeStart} to {timeEnd}"
     }
   },
   "media_player": {
