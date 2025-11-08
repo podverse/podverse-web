@@ -33,7 +33,7 @@ const SideBar: React.FC = () => {
               <SideBarLink href={ROUTES.PODCASTS}>{tMedia("podcast.podcasts")}</SideBarLink>
               <SideBarLink href={ROUTES.EPISODES}>{tMedia("podcast.episodes")}</SideBarLink>
               <SideBarLink href={ROUTES.CLIPS}>{tFeatures("clip.clips")}</SideBarLink>
-              <SideBarLink href={ROUTES.LIVESTREAMS}>{tMedia("livestreams")}</SideBarLink>
+              <SideBarLink href={ROUTES.LIVESTREAMS}>{tMedia("livestream.livestreams")}</SideBarLink>
             </>
           }
           color="link"
@@ -49,7 +49,7 @@ const SideBar: React.FC = () => {
               <SideBarLink href={ROUTES.CHANNELS}>{tMedia("video.channels")}</SideBarLink>
               <SideBarLink href={ROUTES.VIDEOS}>{tMedia("video.videos")}</SideBarLink>
               <SideBarLink href={ROUTES.CLIPS}>{tFeatures("clip.clips")}</SideBarLink>
-              <SideBarLink href={ROUTES.LIVESTREAMS}>{tMedia("livestreams")}</SideBarLink>
+              <SideBarLink href={ROUTES.LIVESTREAMS}>{tMedia("livestream.livestreams")}</SideBarLink>
             </>
           }
           color="link"

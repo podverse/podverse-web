@@ -20,6 +20,16 @@ export const IMAGES = {
     }
   },
   LIST: {
+    LIVESTREAMS: {
+      DESKTOP: {
+        SIZE: 106,
+        SIZE_FIND_TARGET: 212
+      },
+      MOBILE: {
+        SIZE: 106,
+        SIZE_FIND_TARGET: 212
+      }
+    },
     EPISODES: {
       DESKTOP: {
         SIZE: 106,

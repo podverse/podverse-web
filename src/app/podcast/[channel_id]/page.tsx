@@ -40,7 +40,6 @@ export default async function Podcast({ params, searchParams }: PodcastPageProps
   const ssrChannel = await apiRequestService.reqChannelGetByIdOrIdText(channel_id);
   
   let ssrItems: DTOItem[] = [];
-  let ssrLiveItems: DTOLiveItem[] = [];
   let ssrClips: DTOClip[] = [];
   let ssrItemSoundbites: DTOItemSoundbite[] = [];
   let ssrHasItemSoundbites = false;
@@ -53,6 +52,8 @@ export default async function Podcast({ params, searchParams }: PodcastPageProps
   ssrItemSoundbites = responseItemSoundbites.data;
   ssrHasItemSoundbites = responseItemSoundbites.data.length > 0;
 
+  const ssrItemsWithLiveItem = await apiRequestService.reqLiveItemGetManyByChannel(ssrChannel.id_text);
+  
   if (type === "clips") {
     ssrClips = [];
   } else if (type === "soundbites" && currentSort !== "top") {
@@ -64,7 +65,7 @@ export default async function Podcast({ params, searchParams }: PodcastPageProps
       range: currentRange
     });
 
-    ssrItems = responseItems.data;
+    ssrItems = [...ssrItemsWithLiveItem, ...responseItems.data];
     ssrTotalPages = getCurrentTotalPages({ currentType, responseItems });
   }
 
@@ -77,7 +78,7 @@ export default async function Podcast({ params, searchParams }: PodcastPageProps
     <PodcastClient
       initialQueryParams={{ page, type, sort, range }}
       ssrChannel={ssrChannel}
-      ssrLiveItems={ssrLiveItems}
+      ssrItemsWithLiveItem={ssrItemsWithLiveItem}
       ssrItems={ssrItems}
       ssrClips={ssrClips}
       ssrItemSoundbites={ssrItemSoundbites}

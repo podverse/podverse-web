@@ -9,6 +9,7 @@ import Pagination from "../../../Pagination/Pagination";
 import { useModals } from "../../../../contexts/Modals";
 import { useSkipInitialEffect } from "../../../../hooks/useSkipInitialEffect";
 import { scrollMainToTop } from "../../../../utils/scroll";
+import { ListLiveItemRow } from "../../LiveItem/ListLiveItemRow";
 
 type Props = {
   page: number;
@@ -49,9 +50,13 @@ const ListEpisodes: React.FC<Props> = ({ page = 1, setPage, channel, items, tota
             maxButtons={5}
             totalPages={totalPages}
             setPage={setPage}>
-            {items.map((item) => (
-              <ListEpisodeRow key={item.id} channel={channel} item={item} />
-            ))}
+            {items.map((item) => {
+              if (item.live_item) {
+                return <ListLiveItemRow key={item.id} channel={channel} item={item} live_item={item.live_item} />;
+              } else {
+                return <ListEpisodeRow key={item.id} channel={channel} item={item} />
+              }
+            })}
           </Pagination>
         )
       }

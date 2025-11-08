@@ -1,4 +1,4 @@
-import { DTOChannel, DTOClip, DTOItem, DTOItemSoundbite, DTOLiveItem, DTOPodroll, QueryParamsChannel } from "podverse-helpers";
+import { DTOChannel, DTOClip, DTOItem, DTOItemSoundbite, DTOPodroll, QueryParamsChannel } from "podverse-helpers";
 import React from "react";
 import { MainWrapper } from "../../../components/Main/MainWrapper";
 import { PodcastContextProvider } from "./PodcastContext";
@@ -12,7 +12,7 @@ import { PodcastHeader } from "../../../components/Media/Podcast/PodcastHeader";
 interface PodcastClientProps {
   initialQueryParams: QueryParamsChannel;
   ssrChannel: DTOChannel;
-  ssrLiveItems: DTOLiveItem[];
+  ssrItemsWithLiveItem: DTOItem[];
   ssrItems: DTOItem[];
   ssrItemSoundbites: DTOItemSoundbite[];
   ssrHasItemSoundbites: boolean;
@@ -22,13 +22,13 @@ interface PodcastClientProps {
 }
 
 export function PodcastClient(props: PodcastClientProps) {
-  const { initialQueryParams, ssrChannel, ssrLiveItems, ssrItems,
+  const { initialQueryParams, ssrChannel, ssrItemsWithLiveItem, ssrItems,
     ssrClips, ssrItemSoundbites, ssrHasItemSoundbites, ssrTotalPages, ssrPodroll } = props;
 
   return (
     <PodcastContextProvider
       initialQueryParams={initialQueryParams}
-      ssrLiveItems={ssrLiveItems}
+      ssrItemsWithLiveItem={ssrItemsWithLiveItem}
       ssrItems={ssrItems}
       ssrClips={ssrClips}
       ssrItemSoundbites={ssrItemSoundbites}

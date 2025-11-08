@@ -179,3 +179,14 @@
   min-width: auto;
   font-weight: var(--font-weight-bold);
 }
+
+.miniGlowDanger {
+  background: var(--button-opaque-danger-bg);
+  color: var(--button-danger-color);
+  border: var(--button-border-size) solid var(--button-opaque-danger-border);
+  height: 2rem;
+  font-size: var(--font-size-sm);
+  padding: 0 1rem;
+  min-width: auto;
+  font-weight: var(--font-weight-bold);
+}

@@ -1,7 +1,7 @@
 "use client";
 
 import { useParams } from "next/navigation";
-import { DTOClip, DTOItem, DTOItemSoundbite, DTOLiveItem, getTotalPages, QueryParamsChannel } from "podverse-helpers";
+import { DTOClip, DTOItem, DTOItemSoundbite, getTotalPages, QueryParamsChannel } from "podverse-helpers";
 import React, { createContext, useContext, useState, ReactNode } from "react";
 import { apiRequestService } from "../../../factories/apiRequestService";
 import { useAccount } from "../../../contexts/Account";
@@ -11,8 +11,6 @@ import { getPodcastFilterParams } from "./PodcastDropdownConfig";
 interface PodcastContextType {
   filterParams: QueryParamsChannel;
   setFilterParams: (params: QueryParamsChannel) => void;
-  liveItems: DTOLiveItem[];
-  setLiveItems: (liveItems: DTOLiveItem[]) => void;
   items: DTOItem[];
   setItems: (items: DTOItem[]) => void;
   itemSoundbites: DTOItemSoundbite[];
@@ -30,7 +28,7 @@ const PodcastContext = createContext<PodcastContextType | undefined>(undefined);
 interface PodcastContextProviderProps {
   children: ReactNode,
   initialQueryParams: QueryParamsChannel,
-  ssrLiveItems: DTOLiveItem[],
+  ssrItemsWithLiveItem: DTOItem[],
   ssrItemSoundbites?: DTOItemSoundbite[],
   ssrItems: DTOItem[],
   ssrClips: DTOClip[],
@@ -40,7 +38,7 @@ interface PodcastContextProviderProps {
 export const PodcastContextProvider = ({
   children,
   initialQueryParams,
-  ssrLiveItems,
+  ssrItemsWithLiveItem,
   ssrItemSoundbites,
   ssrItems,
   ssrClips,
@@ -48,7 +46,6 @@ export const PodcastContextProvider = ({
 }: PodcastContextProviderProps) => {
   const params = useParams();
   const [filterParams, setFilterParams] = useState<QueryParamsChannel>(initialQueryParams);
-  const [liveItems, setLiveItems] = useState<DTOLiveItem[]>(ssrLiveItems || []);
   const [items, setItems] = useState<DTOItem[]>(ssrItems || []);
   const [itemSoundbites, setItemSoundbites] = useState<DTOItemSoundbite[]>(ssrItemSoundbites || []);
   const [clips, setClips] = useState<DTOClip[]>(ssrClips || []);
@@ -80,9 +77,13 @@ export const PodcastContextProvider = ({
         }
       );
 
+      const items = ssrItemsWithLiveItem.length > 0 && filterParams.page === 1
+        ? [...ssrItemsWithLiveItem, ...response.data]
+        : response.data;
+
       const totalPages = getTotalPages(response.meta.count, response.meta.limit);
       setTotalPages(totalPages);
-      setItems(response.data);
+      setItems(items);
     }
 
     async function fetchItemSoundbites() {
@@ -147,7 +148,6 @@ export const PodcastContextProvider = ({
     <PodcastContext.Provider value={{
       filterParams,
       setFilterParams,
-      liveItems, setLiveItems,
       items, setItems,
       itemSoundbites, setItemSoundbites,
       clips, setClips,
